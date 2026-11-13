@@ -2,82 +2,161 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 052E4606A6E2
-	for <dri-devel@archiver.kernel.org>; Fri, 13 Nov 2026 18:19:24 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 693F3606A8A1
+	for <dri-devel@archiver.kernel.org>; Fri, 13 Nov 2026 18:29:50 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=TzC7cE78
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=FR6BBMeR;
+	dkim=pass (1024-bit key, unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=selector1 header.b=BH5uY89l
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 63776112737;
-	Fri, 13 Nov 2026 18:19:18 +0000 (UTC)
-Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id C4A7D112737
- for <dri-devel@lists.freedesktop.org>; Fri, 13 Nov 2026 18:19:11 +0000 (UTC)
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by tor.source.kernel.org (Postfix) with ESMTP id CDCCA63554
- for <dri-devel@lists.freedesktop.org>; Fri, 13 Nov 2026 18:19:10 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 885FF1F000CB
- for <dri-devel@lists.freedesktop.org>; Fri, 13 Nov 2026 18:19:10 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1794593950;
- bh=/VIh85zZMfzSY6G83+v5V/TjnRLbNiLly0GYfH3nJNs=;
- h=References:In-Reply-To:From:Date:Subject:To:Cc;
- b=TzC7cE78kKFl2rFE1ESKez8K3/v6Pqk/6PLrXGyiq2H8nW8RaKll1mNR/hvrBhoAX
- 9WUKboDxL2p3Jax+koelb066IybY3DAyK95vGOnYrQLEWCd8zr9JB2nkLXwMD48oro
- eBlcvuFHizULDj5hONrf7IDExHONWpvIf77MgXaUD3OXBqfZQ67bfgb2xPq1SoAoJK
- T3NkAz2AcSCaHe3eo20kPD9U/cE84jkgmN3fcFTb3UIgs2jbLigXSsu2MG4WlwRKQd
- lN4tR2+CCuZNMvYNucVewMR1jQy7sxt8uriatRDaKQNHlu1Xb8w/7Uzi3R4wDwiNfg
- QeLT7VoO7hmng==
-Received: by mail-lf1-f47.google.com with SMTP id
- 2adb3069b0e04-5bcdae234ecso2100663e87.3
- for <dri-devel@lists.freedesktop.org>; Fri, 13 Nov 2026 10:19:10 -0800 (PST)
-X-Forwarded-Encrypted: i=1;
- AL+hErGLH6OH4P9zAiRyH0MkeHl8VD8CYciedRCoydMwxSp0pf0hMy0baRxMmGNztU8XzS374fcQFQTONfg=@lists.freedesktop.org
-X-Gm-Message-State: APuU4Z/p1sHFd3wgHLid8NKMF3nvm77A/6s9+JVhB6Lu1403oCAL+IE0
- U2yhk2ewSEsDmMaclWOEQ/kODlLf6ZJta1W8Y+fQV0CzNRAvbBkputTzi0hC52qfzUH1AblNyKE
- 2of0l4RPtpHOxN2A6lksZU5VBpqdGeok=
-X-Received: by 2002:a05:6512:1310:b0:5bf:cf80:dfd8 with SMTP id
- 2adb3069b0e04-5c170a0bb47mr1769832e87.23.1794593948320; Fri, 13 Nov 2026
- 10:19:08 -0800 (PST)
+	by gabe.freedesktop.org (Postfix) with ESMTP id A74D810E122;
+	Fri, 13 Nov 2026 18:29:39 +0000 (UTC)
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.10])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 3A68E10E122;
+ Fri, 13 Nov 2026 18:29:29 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1794594569; x=1826130569;
+ h=date:from:to:cc:subject:message-id:references:
+ in-reply-to:mime-version;
+ bh=K90GhH5BNOCrydl92KMJY9VY8jZuxhCeKheZf8Ls2vY=;
+ b=FR6BBMeRTCMSO/kIihZhhvSjjyvijv/QRlQg2TSZIyfcaKvinFq4iZWz
+ qbgQGuG+vVmRCwhncjuM4ttSEd5JOJEYL/evwqaPy+89/3sAlIM2kW3xD
+ g2Mc5LRLe3crpnhFmHdCIq5BrQwfsyhkWOIix7AsXJUViOmlUFLhIk7nn
+ vSJAsOAsFL/H9RtyKUWjR3fGhqGQWiI1j21sqhc+XeJ3GJVzKPPMpIOzZ
+ NtXsKKoCAz4TwLLpepwyZyB7l6/FmHyy5x9yRWZFhFBpx3CIxZURtlP+l
+ NuOMsDeEsNsRa24NpByKLLCAp/U7s9zGvCCXRKHueCMkMGLzWH6rRhjmE A==;
+X-CSE-ConnectionGUID: a9Amf3JGQkaMzXlTQbW4gQ==
+X-CSE-MsgGUID: 892x1clYT0+wjo2FpcwBgA==
+X-IronPort-AV: E=McAfee;i="6800,10657,11965"; a="3310133"
+X-IronPort-AV: E=Sophos;i="6.27,212,1787036400"; 
+   d="scan'208";a="3310133"
+Received: from fmviesa010.fm.intel.com ([10.60.135.150])
+ by orvoesa102.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 13 Nov 2026 10:29:28 -0800
+X-CSE-ConnectionGUID: MmDl86MZQl2jlJnCKuqZCg==
+X-CSE-MsgGUID: Xk2EQoI9QjmuxEPOZsaYig==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,212,1787036400"; 
+   d="scan'208";a="9518412"
+Received: from orsmsx901.amr.corp.intel.com ([10.22.229.23])
+ by fmviesa010.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 13 Nov 2026 10:29:28 -0800
+Received: from ORSMSX901.amr.corp.intel.com (10.22.229.23) by
+ ORSMSX901.amr.corp.intel.com (10.22.229.23) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.56; Fri, 13 Nov 2026 10:29:27 -0800
+Received: from ORSEDG901.ED.cps.intel.com (10.7.248.11) by
+ ORSMSX901.amr.corp.intel.com (10.22.229.23) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.56 via Frontend Transport; Fri, 13 Nov 2026 10:29:27 -0800
+Received: from SA9PR02CU001.outbound.protection.outlook.com (40.93.196.31) by
+ edgegateway.intel.com (134.134.137.111) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.56; Fri, 13 Nov 2026 10:29:26 -0800
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=N0oeUm1zOd4S796av3FkpWxwoltD2ikM5E9sBMc6wtKWoR0SJYA+T5RG/wNKsW5glK9a3SgjIseJFdmgf/ji2zMDSUASBny31Equ/a2V5xSJlDUVOFxYY2esvb/xkCCKjmzNxWM2pRpPN7hMt51JC0h2K5OT+euHr1nD6H1/JkA013SZg8gCWbfnza9f5T1ULmBhJjXeuNyTRsDkvAGbBO4XF/yPxXu8QyeFrrCAAreaQvhNSPVlW1u4vagaCV5+E9eZVqR6cMJVtHGDl7b7HWv7xtUP1YTLWEBOPo1Naid0DeMtzfPzUue+ShAvqoYzKSrHjXSORblkSE8GRKNDBQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=w3y/KkNC1rXy3J6zmuUonVg+fk6NbuZLNEWrROXUiqQ=;
+ b=Vh9hjoEQWkSdSHjK1HWY/Wu4XGcivopSFoT3bFW38kwomKCsQtVNLa4b1u9yRqyZ/WXd84CSfNAEf2LsQvliCvaxM+twp5jW27yLFmHM3X+FXyT5ZqPacf/mBblHlG6LkucrwC3HWAmPGf9fIp4/t6laGWTrG8xKH9AwzA84wOwAjMNPpqiBlfoVWQp8sEaMXXugh3ki7h9zhgM913dchchZPM+9SdQSNwyTT8wrAaQyhawaPPtpfoRwkZwI68AiTWvsZjQCUHszN4XWNrpGHBw5W3CuWuJN/Ilkwp2YPTPusQVre+g8ubEfBt272xl1G7mH635rjMR8vqI9xrwSug==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=intel.com; dmarc=pass action=none header.from=intel.com;
+ dkim=pass header.d=intel.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=intel.com; s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=w3y/KkNC1rXy3J6zmuUonVg+fk6NbuZLNEWrROXUiqQ=;
+ b=BH5uY89lEtSoryzc47mdZzAoJH6CVoEcG6fAfukDrySSP4meerUuh2IINs+PEDQMEfj0s73KlNpY8+N1SrjtO0Ia7C8mLL7CWz3lBCAhC4lDWRLHn6ipWUqJsX4Yn9hnfD5QXp4JqFlk+4sRzOAn/okhXcGmEQFssnkpEXjsxDk=
+Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=intel.com;
+Received: from IA0PR11MB7187.namprd11.prod.outlook.com (2603:10b6:208:441::12)
+ by CH8PR11MB585767.namprd11.prod.outlook.com (2603:10b6:610:703::11)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.615.10; Fri, 13 Nov
+ 2026 17:58:30 +0000
+Received: from IA0PR11MB7187.namprd11.prod.outlook.com
+ ([fe80::be96:3f58:953d:6565]) by IA0PR11MB7187.namprd11.prod.outlook.com
+ ([fe80::be96:3f58:953d:6565%4]) with mapi id 15.21.0615.009; Fri, 13 Nov 2026
+ 17:58:30 +0000
+Date: Fri, 13 Nov 2026 12:58:21 -0500
+From: Rodrigo Vivi <rodrigo.vivi@intel.com>
+To: Matt Roper <matthew.d.roper@intel.com>
+CC: Arnd Bergmann <arnd@kernel.org>, Matthew Brost <matthew.brost@intel.com>, 
+ Thomas =?iso-8859-1?Q?Hellstr=F6m?= <thomas.hellstrom@linux.intel.com>,
+ "David Airlie" <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, Lucas De
+ Marchi <demarchi@kernel.org>, Riana Tauro <riana.tauro@intel.com>, Arnd
+ Bergmann <arnd@arndb.de>, Matthew Auld <matthew.auld@intel.com>, Shuicheng
+ Lin <shuicheng.lin@intel.com>, Armin Wolf <W_Armin@gmx.de>, Zhanjun Dong
+ <zhanjun.dong@intel.com>, Michal Wajdeczko <michal.wajdeczko@intel.com>,
+ Piotr =?iso-8859-1?Q?Pi=F3rkowski?= <piotr.piorkowski@intel.com>, "Tejas
+ Upadhyay" <tejas.upadhyay@intel.com>, <intel-xe@lists.freedesktop.org>,
+ <dri-devel@lists.freedesktop.org>, <linux-kernel@vger.kernel.org>
+Subject: Re: [PATCH] drm: xe: select configfs
+Message-ID: <avdPvYEu-TBCbKTJ@intel.com>
+References: <20261026102603.2045493-1-arnd@kernel.org>
+ <avS7mZMrS7nQv_RK@intel.com> <20261113162212.GB7214@mdroper-desk1>
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261113162212.GB7214@mdroper-desk1>
+X-ClientProxiedBy: PH1PEPF00013312.namprd07.prod.outlook.com
+ (2603:10b6:518:1::d) To IA0PR11MB7187.namprd11.prod.outlook.com
+ (2603:10b6:208:441::12)
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
-References: <20261029163044.3062958-1-Frank.Li@oss.nxp.com>
-In-Reply-To: <20261029163044.3062958-1-Frank.Li@oss.nxp.com>
-From: "Rafael J. Wysocki (Intel)" <rafael@kernel.org>
-Date: Fri, 13 Nov 2026 19:18:55 +0100
-X-Gmail-Original-Message-ID: <CAJZ5v0jyuMjh4En_r2TYui+sNbGveJ0Rz1Da39LEK9e-HxHgGA@mail.gmail.com>
-X-Gm-Features: AclHuK9_YtJ6aWlSAf9yM8R-lWnFcHYi_anHWoQsLhZYkqzdVHJqxA51shEqA-Y
-Message-ID: <CAJZ5v0jyuMjh4En_r2TYui+sNbGveJ0Rz1Da39LEK9e-HxHgGA@mail.gmail.com>
-Subject: Re: [PATCH 1/1] PM: runtime: change stub pm_runtime_get_if_active()
- return 1 when !CONFIG_PM
-To: Frank.Li@oss.nxp.com
-Cc: Frank Li <Frank.Li@nxp.com>, "Rafael J. Wysocki" <rafael@kernel.org>, 
- Greg Kroah-Hartman <gregkh@linuxfoundation.org>, 
- Andrzej Kacprowski <andrzej.kacprowski@linux.intel.com>, 
- Karol Wachowski <karol.wachowski@linux.intel.com>,
- Oded Gabbay <ogabbay@kernel.org>, 
- Jani Nikula <jani.nikula@linux.intel.com>, 
- Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
- Rodrigo Vivi <rodrigo.vivi@intel.com>, 
- Tvrtko Ursulin <tursulin@ursulin.net>, Matthew Brost <matthew.brost@intel.com>,
- Thomas Hellstrom <thomas.hellstrom@linux.intel.com>,
- David Airlie <airlied@gmail.com>, 
- Simona Vetter <simona@ffwll.ch>, Alex Elder <elder@kernel.org>,
- Will Deacon <will@kernel.org>, 
- Robin Murphy <robin.murphy@arm.com>, Joerg Roedel <joro@8bytes.org>, 
- Rob Clark <robin.clark@oss.qualcomm.com>,
- Sakari Ailus <sakari.ailus@linux.intel.com>, 
- Mauro Carvalho Chehab <mchehab@kernel.org>, Guenter Roeck <linux@roeck-us.net>,
- Guan-Yu Lin <guanyulin@google.com>,
- Mathias Nyman <mathias.nyman@linux.intel.com>, 
- linux-pm@vger.kernel.org, linux-usb@vger.kernel.org, 
- dri-devel@lists.freedesktop.org, intel-gfx@lists.freedesktop.org, 
- intel-xe@lists.freedesktop.org, linux-hwmon@vger.kernel.org, 
- linux-arm-kernel@lists.infradead.org, iommu@lists.linux.dev, 
- linux-arm-msm@vger.kernel.org, linux-media@vger.kernel.org, 
- linux-staging@lists.linux.dev, netdev@vger.kernel.org, imx@lists.linux.dev, 
- Rob Herring <robh@kernel.org>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: IA0PR11MB7187:EE_|CH8PR11MB585767:EE_
+X-MS-Office365-Filtering-Correlation-Id: cf6934aa-4628-4492-4f47-08df41afb99c
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+ ARA:13230040|1800799024|376014|7416014|23010399003|366016|22082099003|6133799003|18002099003|261009223327099003|261009221727099003|261009221227099003|261009223027099003|261009220027099003|4143699003|56012099006|10067099003|11063799006|5023799004|261102123227099003|261026140227099003|261026121527099003|261028144727099003|261022113327099003|261022105027099003|261022075727099003|261021123027099003|261021121427099003;
+X-Microsoft-Antispam-Message-Info: boOWF+fvgWwIHZWt3o802VJahWHxItuBimvtPZtTyoNcTs3MXFwDfa6EcJhhVH5J7PX6HazlapBw9Jk37Xiact9SsAKAMClUuNUoKsXh9z3Qx5isF8TMtSxu4G1Jko6goQksnkDFT7AxdTKmplCi+gqGIjpq5QZLeuhPc7SQLiS7X8nVg5FGxEMWtnpKrae50V6XK0+yxetRwba+Aa++Y87gh2HtsFm1mnmnXBVqGFjvvb1fhfkykAeL0y6iR1bqjh4Xid607Ay33EmtuaXyBhZYW4c4tPWoXBr88c3pNWkRR+9Qi3MYLzZi/9jJE/kETJYRavzxvV6QiA8S5mZmHGBA8fjz/HOoAuovCagLnClqmxZS1Lekd+mudqf4E5Yw3TrAv6nh/Rsry7mM6bA83G/P6UxA3UaQoQl+2LRj3OAgWiw++TByc9wc0kei8FRBlftYEfqO3diVxtycl77kbwCh7Lhfodj+fWGoUnAyJzuh1HwJ/laUIRp7OjuyEjDaDpacQCyAKRVi8fly1JN26eXbFOCb7LBhKhVgPLm62rZIUAt+or4C3jzkVSoz0HbfHE4HFQHN5nSd36rJYQUqnT9DiAB0MUs6Umh169hNIUZEBzFiWN0Hr0BekK0j4+udAtiB6T92njgZQphV9n2ziMXg7GkRDWgTp5gOLGau4nI=
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:IA0PR11MB7187.namprd11.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230040)(1800799024)(376014)(7416014)(23010399003)(366016)(22082099003)(6133799003)(18002099003)(261009223327099003)(261009221727099003)(261009221227099003)(261009223027099003)(261009220027099003)(4143699003)(56012099006)(10067099003)(11063799006)(5023799004)(261102123227099003)(261026140227099003)(261026121527099003)(261028144727099003)(261022113327099003)(261022105027099003)(261022075727099003)(261021123027099003)(261021121427099003);
+ DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: =?us-ascii?Q?7vtI2HLyuV+PbR6XTgs2h5cqyF39lcKUz5NdWKT2NmPciFvmHDyyBI6QSUO1?=
+ =?us-ascii?Q?2vIa9yy4/R/aE429s37r5NWdPMB+q9kxuqw//TKLvVW8r0VYDhuvauWJBLhH?=
+ =?us-ascii?Q?D8jWsEEYdN513vE0mn0wonY2ssD2Km4KM6prrIo5Iln+c+S1IWrBfZ/s56Sm?=
+ =?us-ascii?Q?KJxuIkMAWoEbOzfddS1FFBbVb+64Sxs0/5Jxv72XW+78Ai5yyKyGeqfoyRb/?=
+ =?us-ascii?Q?sEVllJDWxFhvsKaiTz39xPBTxopk7/qRzotMBjajnBnOcFJLpN8COch3gc7g?=
+ =?us-ascii?Q?0a3vjzkrlR824+lXD7RxViXWz+VOdI1OMiSETpKo3llORw4UmVFUxJJhfPtP?=
+ =?us-ascii?Q?gsR8BOhEHdelXW7yrg4CuCBL7UIQ7++5iDZlHrOusKy57qm31X2yw3BsiISQ?=
+ =?us-ascii?Q?1Ull3XwLtC416MtYegjMOeVOfuR5u9kCEBu4lOXoUg9odIsV7cWeDs+ehdPO?=
+ =?us-ascii?Q?EWMj8DlgjUps38cebVqW++GlVJXpgRyaIbNQBVEImgmM3cWIbdPZ4jJ34Hu8?=
+ =?us-ascii?Q?x6FXXFRkdXCRAlCaj3S9MCdDksfGE/cNk7Uq1wh5Q4i8/1EiLNYQdl/38NKf?=
+ =?us-ascii?Q?z6zl1JkN8ULQCUIvg8QoNPvfnVsBzytIvz8P0rJ9vSfIHObYuWW5SmxuYP5l?=
+ =?us-ascii?Q?wCQR+m7EJWGsKZFvD/5VMQx5d5N8Y8uCr6c2PulUsTiaP0L446wyRdosLY6j?=
+ =?us-ascii?Q?EjIdPHIzhUA5WEgo5SAWUbYQ9A2FtUN1x64/AkAO0RuJ8WIwEc1xYPE2m3Tk?=
+ =?us-ascii?Q?sNS86FxcEl85OuB3YcvlXFg2eo5kvaZzr346JVSr0PnOUJfTKJYRkngWZzil?=
+ =?us-ascii?Q?xD1Q+vYjcg9/4PFxowyFm2Bzkkv+gbH7MpJ063bkotin9Mo+RFRPweytULsX?=
+ =?us-ascii?Q?DxZk1N4Ja/JDWK1eZQ14HLvbjOSdS6pl/XZuMNwiHUviKv4oBEiZGJxRB9rQ?=
+ =?us-ascii?Q?vg1A0CDF0uUZFaqlOniJlH8QoNuG5bXIWAEWUFvx77M30ODxMf19umMoaByM?=
+ =?us-ascii?Q?1Tn6ItidY1vCQ/RL/4PjCyyJdi0aBjPXcCLAeXXPaIiitTeCcwQkJP6ZbGqd?=
+ =?us-ascii?Q?yU1gZ4uX5Jbp3i43IXs6voE8Y73nfP9FFhm5UDwpnlAzU4B1bM5G4q3WlYe1?=
+ =?us-ascii?Q?LTC7TJn3LOZcCo4IzY1iOhvfqNBtPG6f2NI9rRLEJ3yxtdg4auYEhfgtxRRg?=
+ =?us-ascii?Q?rll9XmJ05hc1bW7Fj/Xio8gXs3Sk2rEhtn33PjSVkzuFwrnCe97MAjqDwQa7?=
+ =?us-ascii?Q?+q6pclr7N0hRCMW5cJghYUFRHLe/Wt+UEL/9QPZ6FVa7JECmSgvmAhw3JvMH?=
+ =?us-ascii?Q?lnZsencgDq3E9iXaSIeqIYpyXcXXQz7uSZpfi3w8pad997URHGMdosErPA2K?=
+ =?us-ascii?Q?tRF3gzRFi4JKOfNUDNmuaoeg9qqDlgAp0O4bjZD4QUd2p4WeVMXDLhOXcygr?=
+ =?us-ascii?Q?8mSfkAWjiCfBDA2ba43btDAa/K4EtQYb0D1RSQhtUpemth7MwWZ4YDKc/w9T?=
+ =?us-ascii?Q?zbex329wxWy8G8uHXiXPoXuOBhH50fx9CfjKTYNPQ5trQ9kys6tHf+YdCvxs?=
+ =?us-ascii?Q?E2hrJwUhXQXM4bhnOzZhNv1sCKIEdlO3zkYK7c0JBItBAs0tdH7e7U4EadIi?=
+ =?us-ascii?Q?ZNYwchzyrOAROMN6dqB8ll0EW6tr5XpgTi8dR0erpbgLyVUDfI6oHxcZR5di?=
+ =?us-ascii?Q?YNOj9O7t0fOUu6zaxWlU6FtWhjF+49BdWSHqV3okrv6lhNgwhcmR6YBQNUp8?=
+ =?us-ascii?Q?jSFKIOaS0A=3D=3D?=
+X-Exchange-RoutingPolicyChecked: 21j0lqOaXFd701UkuirOsVSo3+ax+M5x3PLLuBfqhTuRLy79yUG04pExeAsbc/oqHMY8EHHhQZVEReYOotPHffinqv5koKG542vVJ3EstDqkogGEvYFt/UOwr7ftIJeRUhFpLSBsr6IbFIEjltbv35EhcI+/rY8Ys0Wqq55df5LlzgUBjxnAg876MC7FVka9glqUP2QhsTLuRn/sRkvrGq1r65tDcHBtDWEN9X+itSSnQZOA0/JXhqvtlh0mDDzk/HuwDES9UN3Zi+lFCOWc10oXU+QMQmROmYOubBIB9AC9KBpuLtkcF+BDECL1q/G+pWRRv/v5D7YKTLAsE1IRzA==
+X-MS-Exchange-CrossTenant-Network-Message-Id: cf6934aa-4628-4492-4f47-08df41afb99c
+X-MS-Exchange-CrossTenant-AuthSource: IA0PR11MB7187.namprd11.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 13 Nov 2026 17:58:30.3386 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 46c98d88-e344-4ed4-8496-4ed7712e255d
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: xYoSaL8NfJReIRUaeByjtQZJJF558KFGKfobEuRGEzPtQL08puXrTkKYsBSryZ2msIyOnuUjk0H/pmePI9QfKQ==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: CH8PR11MB585767
+X-OriginatorOrg: intel.com
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -89,72 +168,178 @@ List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-10.8 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
+X-Spam-Status: No, score=-15.8 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
 	DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
-	INCLUDES_CR_TRAILER,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS
-	autolearn=unavailable autolearn_force=no version=4.0.1
+	INCLUDES_CR_TRAILER,INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,
+	SPF_PASS autolearn=unavailable autolearn_force=no version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-On Thu, Oct 29, 2026 at 5:31=E2=80=AFPM <Frank.Li@oss.nxp.com> wrote:
->
-> From: Frank Li <Frank.Li@nxp.com>
->
-> When CONFIG_PM is not enabled, all devices runtime PM state should be
-> treated as active.
->
-> __pm_runtime_resume() returns 1 (called by pm_runtime_get()).
-> pm_runtime_get_if_active() is the try-and-get version of pm_runtime_get()=
-.
-> stub pm_runtime_active() also returns true. So pm_runtime_get_if_active()
-> should return the same value as the stub pm_runtime_get(), which is 1.
->
-> Analysis of all callers and their behavior with old (-EINVAL) vs new (1):
->
-> Pattern A: if (!pm_runtime_get_if_active(dev)) -- no impact
->   Both -EINVAL and 1 are non-zero, so !ret is false in both cases.
->   Callers: drivers/accel/ethosu/ethosu_perfmon.c,
->            drivers/gpu/drm/msm/adreno/a6xx_gmu.c,
->            drivers/gpu/drm/msm/msm_perfcntr.c,
->            drivers/gpu/drm/v3d/v3d_mmu.c,
->            drivers/gpu/drm/v3d/v3d_perfmon.c (x4),
->            drivers/media/i2c/gc08a3.c gc05a2.c og0ve1b.c ov6211.c,
->            drivers/media/i2c/ccs/ccs-core.c s5kjn1.c lm3560.c (x2),
->            drivers/media/i2c/s5k3m5.c thp7312.c imx283.c ov64a40.c,
->            drivers/media/pci/intel/ipu6/ipu6-buttress.c,
->            sound/hda/core/device.c
->
-> Pattern B: if (!ret) after get -- no impact
->   Both -EINVAL and 1 are non-zero, !ret is false in both cases.
->   drivers/gpu/drm/amd/pm/amdgpu_pm.c (comment says "allow access"
->     in kernels without CONFIG_PM), drivers/pci/pci.c
->
-> Pattern C: ret > 0 / ret <=3D 0 / ret !=3D 1 checks -- FIXED
->   drivers/usb/core/offload.c: checks (!=3D 1), old -EINVAL caused
->     -EBUSY even with !CONFIG_PM. Fixed: now returns 1, proceeds.
->   drivers/accel/ivpu/ivpu_job.c: drm_WARN_ON(<=3D 0), old -EINVAL
->     spuriously triggered WARN. Fixed: 1 > 0, no warn.
->   drivers/gpu/drm/i915/intel_runtime_pm.c: checks (<=3D 0), old
->     -EINVAL triggered error path. Fixed: 1 > 0, correct path.
->   drivers/accel/ivpu/ivpu_sysfs.c: (> 0), old skipped freq read.
->     Fixed: proceeds correctly without CONFIG_PM.
->   drivers/gpu/drm/xe/xe_pm.c: wraps (> 0), all xe callers
->     (xe_bo.c, xe_shrinker.c, xe_vsec.c, xe_ggtt.c, xe_guc_ct.c,
->     xe_pxp.c) now correctly treat !CONFIG_PM as active.
->   drivers/net/ipa/ipa_smp2p.c: power_on =3D (> 0), now correctly true.
->   drivers/iommu/arm/arm-smmu/arm-smmu-qcom.c: (> 0), now correctly
->     executes stall register update.
->   drivers/staging/media/ipu7/ipu7-buttress.c: active (<=3D 0) early
->     return now skipped, correctly proceeds.
->
-> Pattern D: explicit -EINVAL check
->   drivers/hwmon/prom21-xhci.c: checks (> 0) then (=3D=3D -EINVAL).
->     Old: took -EINVAL fallback. New: takes (> 0) fast path.
->     Both succeed when CONFIG_PM is disabled; functionally equivalent.
->   drivers/hwmon/eic7700-pvt.c: call is guarded by IS_ENABLED(CONFIG_PM),
->     stub is never reached. No impact.
->
-> Signed-off-by: Frank Li <Frank.Li@nxp.com>
+On Fri, Nov 13, 2026 at 08:22:12AM -0800, Matt Roper wrote:
+> On Wed, Nov 11, 2026 at 02:01:45PM -0500, Rodrigo Vivi wrote:
+> > On Mon, Oct 26, 2026 at 11:25:50AM +0100, Arnd Bergmann wrote:
+> > > From: Arnd Bergmann <arnd@arndb.de>
+> > > 
+> > > The original addition of configfs to xe missed a compile-time dependency,
+> > > which leads to a link failure when configfs is enabled as a loadable module:
+> > > 
+> > > ld.lld-21: error: undefined symbol: xe_configfs_get_survivability_mode
+> > > >>> referenced by xe_survivability_mode.c:224
+> > > >>>               drivers/gpu/drm/xe/xe_survivability_mode.o:(xe_survivability_mode_is_requested) in archive vmlinux.a
+> > > 
+> > > A recent workaround added a 'IS_REACHABLE()' check around the calls into
+> > > configfs, which makes it link in this configuration, but this is generally
+> > > a bad idea because it makes the actual behavior inconsistent and confusing
+> > > to users that expect configfs to work if both xe and configfs are enabled.
+> > > 
+> > > Use 'select CONFIGFS_FS' instead, like every other configfs user does,
+> > > and remove the unnecessary stub functions. There is little practical
+> > > difference here as anyone using XE graphics is likely to have a complex
+> > > configuration that already selects configfs anyway, and the link error
+> > > or the IS_REACHABLE() would only manifest during randconfig testing.
+> > > 
+> > > Fixes: 30499cbd7961 ("drm/xe: Fix build with DRM_XE=y and CONFIGFS_FS=m")
+> > > Fixes: 16280ded45fb ("drm/xe: Add configfs to enable survivability mode")
+> > > Signed-off-by: Arnd Bergmann <arnd@arndb.de>
+> > > ---
+> > >  drivers/gpu/drm/xe/Kconfig       |  1 +
+> > >  drivers/gpu/drm/xe/xe_configfs.h | 30 ------------------------------
+> > >  2 files changed, 1 insertion(+), 30 deletions(-)
+> > > 
+> > > diff --git a/drivers/gpu/drm/xe/Kconfig b/drivers/gpu/drm/xe/Kconfig
+> > > index 4fc8abdc5cb6..b52a8dc28f97 100644
+> > > --- a/drivers/gpu/drm/xe/Kconfig
+> > > +++ b/drivers/gpu/drm/xe/Kconfig
+> > > @@ -11,6 +11,7 @@ config DRM_XE
+> > >  	# the shmem_readpage() which depends upon tmpfs
+> > >  	select SHMEM
+> > >  	select TMPFS
+> > > +	select CONFIGFS_FS
+> > 
+> > Perhaps another option would be what Jani had suggested:
+> > 
+> > config DRM_XE_CONFIGFS
+> > 	def_bool y
+> > 	depends on DRM_XE && CONFIGFS_FS
+> > 	depends on CONFIGFS_FS=y || DRM_XE=m
+> > 
+> > But anyway, we are depending more and more on the configfs for
+> > production choices. So, let's go with you select and close this
+> > for good.
+> 
+> I really don't think this patch was the way we wanted to go.
+> IS_REACHABLE was giving us exactly the behavior that we wanted,
 
-People sent feedback, so I'm wondering if there's going to be a v2 or
-does someone else need to take care of this going forward?
+But it caused other issues like reported in the commit msg of this patch.
+With the risk of other complications like Jani had pointed out earlier.
+
+> but now
+> we're getting behavior that we did not want.  Xe absolutely does not
+> depend on configfs in any way.  _If_ configfs is there we'll enable some
+> config options in it, but none of those are mandatory for our driver as
+> a whole.  We're perfectly happy to build and run without configfs if
+> it's not selected in the config.  We're also happy to build and run
+> without configfs functionality if the user wanted Xe built directly into
+> the kernel, but configfs was built as an unreachable module solely for
+> other non-Xe purposes.
+> 
+> While this change won't matter to 99% of the cases where someone is
+> running with a typical distro kernel, this is the kind of thing that
+> makes embedded users unhappy since they're very carefully managing their
+> configurations and we've taken away their ability to avoid configfs now.
+
+I believe some other user could be angry as well for ending in a case
+where they need manual survivability mode to flash the firmware, but
+they don't have this option available because in his config this
+option was not reachable.
+
+Soon SRIOV will be another production case that will depend on the configfs.
+I know, one might argue that we should then select only if SRIOV is enabled.
+
+But I don't like the complication this is taking on a very simple thing.
+
+> 
+> Also, as mentioned earlier in the threads, using 'select' on a
+> user-visible config option rather than a hidden option often causes
+> cascading problems down the road because it ignores any dependencies of
+> the option being selected (configfs in this case).  At the moment I
+> don't think configfs has any dependencies of its own, but if it gets
+> some down the road, this can cause problems.
+
+I'm not strongly in favor of any approach, as long that it doesn't cause
+other issues and regressions. So, if someone want to try to bring this
+again, proving it is a good config combination solution that won't
+cause further issue I will be glad to accept.
+
+Thanks,
+Rodrigo.
+
+> 
+> 
+> Matt
+> 
+> > 
+> > I'm pushing this to drm-xe-next.
+> > 
+> > Thanks for the patch.
+> > 
+> > 
+> > >  	select DRM_BUDDY
+> > >  	select DRM_CLIENT_SELECTION
+> > >  	select DRM_KMS_HELPER
+> > > diff --git a/drivers/gpu/drm/xe/xe_configfs.h b/drivers/gpu/drm/xe/xe_configfs.h
+> > > index 327b648944ff..d726800de26a 100644
+> > > --- a/drivers/gpu/drm/xe/xe_configfs.h
+> > > +++ b/drivers/gpu/drm/xe/xe_configfs.h
+> > > @@ -14,7 +14,6 @@
+> > >  
+> > >  struct pci_dev;
+> > >  
+> > > -#if IS_REACHABLE(CONFIG_CONFIGFS_FS)
+> > >  int xe_configfs_init(void);
+> > >  void xe_configfs_exit(void);
+> > >  void xe_configfs_check_device(struct pci_dev *pdev);
+> > > @@ -36,34 +35,5 @@ u32 xe_configfs_get_ctx_restore_post_bb(struct pci_dev *pdev,
+> > >  unsigned int xe_configfs_get_max_vfs(struct pci_dev *pdev);
+> > >  bool xe_configfs_admin_only_pf(struct pci_dev *pdev);
+> > >  #endif
+> > > -#else
+> > > -static inline int xe_configfs_init(void) { return 0; }
+> > > -static inline void xe_configfs_exit(void) { }
+> > > -static inline void xe_configfs_check_device(struct pci_dev *pdev) { }
+> > > -static inline bool xe_configfs_get_survivability_mode(struct pci_dev *pdev) { return false; }
+> > > -static inline bool xe_configfs_primary_gt_allowed(struct pci_dev *pdev) { return true; }
+> > > -static inline bool xe_configfs_media_gt_allowed(struct pci_dev *pdev) { return true; }
+> > > -static inline u64 xe_configfs_get_engines_allowed(struct pci_dev *pdev) { return U64_MAX; }
+> > > -static inline bool xe_configfs_get_psmi_enabled(struct pci_dev *pdev) { return false; }
+> > > -static inline bool xe_configfs_get_enable_multi_queue(struct pci_dev *pdev) { return true; }
+> > > -static inline u32 xe_configfs_get_migrate_ulls_period_ms(struct pci_dev *pdev) { return 5; }
+> > > -static inline bool xe_configfs_get_disable_vram_page_offline(struct pci_dev *pdev) { return false; }
+> > > -static inline u32 xe_configfs_get_ctx_restore_mid_bb(struct pci_dev *pdev,
+> > > -						     enum xe_engine_class class,
+> > > -						     const u32 **cs) { return 0; }
+> > > -static inline u32 xe_configfs_get_ctx_restore_post_bb(struct pci_dev *pdev,
+> > > -						      enum xe_engine_class class,
+> > > -						      const u32 **cs) { return 0; }
+> > > -#ifdef CONFIG_PCI_IOV
+> > > -static inline unsigned int xe_configfs_get_max_vfs(struct pci_dev *pdev)
+> > > -{
+> > > -	return xe_modparam.max_vfs;
+> > > -}
+> > > -static inline bool xe_configfs_admin_only_pf(struct pci_dev *pdev)
+> > > -{
+> > > -	return XE_DEFAULT_ADMIN_ONLY_PF;
+> > > -}
+> > > -#endif
+> > > -#endif
+> > >  
+> > >  #endif
+> > > -- 
+> > > 2.53.0
+> > > 
+> 
+> -- 
+> Matt Roper
+> Graphics Software Engineer
+> Linux GPU Platform Enablement
+> Intel Corporation
