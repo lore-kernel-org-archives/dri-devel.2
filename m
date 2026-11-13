@@ -2,90 +2,102 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5A9DE606A88F
-	for <dri-devel@archiver.kernel.org>; Fri, 13 Nov 2026 19:01:32 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F013A606A330
+	for <dri-devel@archiver.kernel.org>; Fri, 13 Nov 2026 19:04:06 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=FLv71mKf
+	dkim=pass (1024-bit key) header.d=ieee.org header.i=@ieee.org header.a=rsa-sha256 header.s=google header.b=bvlhgWNt
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id AC35011276B;
-	Fri, 13 Nov 2026 19:01:26 +0000 (UTC)
-Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id BBCE811277E
- for <dri-devel@lists.freedesktop.org>; Fri, 13 Nov 2026 19:01:20 +0000 (UTC)
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by tor.source.kernel.org (Postfix) with ESMTP id C62FC6242C;
- Fri, 13 Nov 2026 19:01:19 +0000 (UTC)
-Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
-ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
- t=1794596479;
- b=ozaSJ9Vmhn3mCAixPPQ6swV+IlCK06I9reBl6F3S5hnqChcBturSoxMGtytrkKgrIpUJ
- Yw4cj/BNPYKA/k2RA27Whnh/wlAiIc/Zt1p4M/RB/breNsmJl9l+Gk/d2+QTbMTB+hG2+
- zltJlIz7pUTy9HMObSs+fQTAo9/gmI8Z8pU1F0g322dXSi6K2DXrBviAhJgwwky15VLY3
- jqaKvgJlWO0TsL7y3kgPyyRV46xGdyFEjTcoXF53LmkNpsiYpOL4qAREXn8UDbnmC/8V3
- WJexdhmx2KAckUtTrHDQPJTQRnRBbJpROazXsV3jjTaShv79WZkFQ/LhbppjSt49vvw==
-ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
- c=relaxed/relaxed; t=1794596479;
- h=DKIM-Signature:Received:From:Date:Subject:MIME-Version:Content-Type:
- Message-Id:X-B4-Tracking:X-Change-ID:To:Cc:X-Mailer:
- X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
- X-Original-From:Reply-To:Content-Transfer-Encoding;
- bh=nsSfnDpbQw7dfC3kYEhB0DRn0ChvOh3fdhFKa8KvdXc=;
- b=FRa38nK9iSTcgUTZbq+tYmkuk09WxlBSsy7gBHLekH6L8EBU/fmyABG7VFAjfnVkjMv+
- YC3DXk/G7n+U67kG7PRlQPp0lWCy7Mm0uJiyoqXnnmQ8q42r3q4DPJhIZ/wPrWY66qYzU
- Ly0QwQdWJoKru4CKpOvyAW588t2C6PsoKPhUAwCB9PoJ1b4RMNjb9tpOesDZ55JKFVYhm
- VrW9olw40u0MUQOIbUJmw9hCQJiaALF0LTKHsZyUcUKP2HT0TSa+y/CXMwydl7yQODvDI
- P7p5xXIARhlrO3557L71EfMsHalmgeGqj0W91iVbBInNHPeuWFllle6AQGrKYTpA1xw==
-ARC-Authentication-Results: i=1; smtp.kernel.org; 
- arc=none smtp.remote-ip=100.80.115.77
-Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
- (No client certificate requested)
- by smtp.kernel.org (Postfix) with ESMTPS id F02A41F000C4;
- Fri, 13 Nov 2026 19:01:18 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1794596479;
- bh=nsSfnDpbQw7dfC3kYEhB0DRn0ChvOh3fdhFKa8KvdXc=;
- h=From:Date:Subject:To:Cc:Reply-To;
- b=FLv71mKfDNEjRTdjCX9qWkZtYvZFobGa/9DY27RUnsEGLt+B39QM7GjNZsPogSvQG
- tOoPWwUPxWYwW31zgoat/74gGiktOmB5kgOnLazrcjZJcIjuLGVn323M5mBkghQtEN
- fCFJIOZzB9TZJfTqdWFpXgrtpXaIa8jVEPisoyPeuedMdKjYX4VnJgWgtzFp3VQ3Lh
- MxFDbNwoUtdZVprNUOGfR4gn9/x43Ago/Dq9DUOq6G6vkso6ep+kzkMxMPypnfP4wv
- 0PY2hNkOaNY2ol3a0TgR09ivCCcOrBsi/EJZYmAgMwFET63Zf+dIbYfypCNeh7qHIa
- q0c9aWTl5TtYA==
-Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
- by lkml.kernel.org (Postfix) with ESMTP id 814DE49A75;
- Fri, 13 Nov 2026 19:01:18 +0000 (UTC)
-From: Patrick Fischer via B4 Relay
- <devnull+admin.tsv-stahl-riesa.de@kernel.org>
-Date: Fri, 13 Nov 2026 20:01:08 +0100
-Subject: [PATCH] gpu: host1x: Cancel the fence when a syncpoint wait is
- interrupted
+	by gabe.freedesktop.org (Postfix) with ESMTP id 3254210E54C;
+	Fri, 13 Nov 2026 19:04:01 +0000 (UTC)
+Received: from mail-yx1-f51.google.com (mail-yx1-f51.google.com
+ [74.125.224.51])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 00B9610E54C
+ for <dri-devel@lists.freedesktop.org>; Fri, 13 Nov 2026 19:03:54 +0000 (UTC)
+Received: by mail-yx1-f51.google.com with SMTP id
+ 956f58d0204a3-67c6f1019a3so1720625d50.0
+ for <dri-devel@lists.freedesktop.org>; Fri, 13 Nov 2026 11:03:54 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=ieee.org; s=google; t=1794596634; x=1795201434; darn=lists.freedesktop.org; 
+ h=content-transfer-encoding:content-type:in-reply-to:from
+ :content-language:references:cc:to:subject:user-agent:mime-version
+ :date:message-id:from:to:cc:subject:date:message-id:reply-to
+ :content-type; bh=8DhktJUUGysUbtfb0tmJTo5XW0cehShNaBR9ivWue5A=;
+ b=bvlhgWNtHENHNde8sjNRQeQQi2Q9mFPBuhy5uAL/UUPjQ7UZ+fuGUBj2KdqDgyunvS
+ m+1bbSzKFqOc8ttXqVjj48iqJmrsZq+X4o3nonmEWx6qH+x8y8JA03UpvTdQGJ3+jY68
+ p9qJ/A43SacYDph350QSDyPie7yVRzkS0WX/A=
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20260707; t=1794596634; x=1795201434;
+ h=content-transfer-encoding:content-type:in-reply-to:from
+ :content-language:references:cc:to:subject:user-agent:mime-version
+ :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+ :message-id:reply-to:content-type;
+ bh=8DhktJUUGysUbtfb0tmJTo5XW0cehShNaBR9ivWue5A=;
+ b=26/XQREWIhQcDwzX9cUO3QRqeWEqPFQN6+F8HccPx/BI4mTWrSCEQ4xqGPaykBXl1Q
+ dYfcs670ndmEnsE6WjPFf1Nwzi1msy1OFtReZmDYTFtGyNEGiVTTaTr+1ByHjau7x0Vr
+ HlTFMr9jNn2gk8zF2geReOf/HmI/QJl10huzdDp+hMvPHLP9OMmrdzm/FvzOQqa8pUbo
+ +FTYy6hp2Lnl9/5UzgB5bBAIA9aNxrudf199TS7LgoJBMsLviHwoJ0nzhBPuF082lePZ
+ S3o9C0zDv+q0L4STB1TLUYmac2GK8DKayoikM2fszS0LiofF0RUbb4y4IMDj8YhVfGJt
+ /3LA==
+X-Forwarded-Encrypted: i=1;
+ AL+hErErHXGAr/lkEr6d35/3JKvWwKIODJhpC1u3sS7T8gLt3+UOJnY9yANLzutAXNCHd9HrZlwTBV5Baxg=@lists.freedesktop.org
+X-Gm-Message-State: APuU4Z9fx/nckYo1Ect/0YYmWKV8mUYZ2YaRH/wN+yKw9LlLgz9ropbu
+ Qu7KQsZSs/2RFo+2xzOEmnSk2Sp8uFviXKsRjSyp4pfsCHnxJyWEJr8vQYeyI0lcTA==
+X-Gm-Gg: AYBFou1rxV5k6iRI0r0qmNcOmeA6tWRwjPt7f0gdmT6A7uYbOjk/5KIeEMqCR+bLrQC
+ 6s4Qyf6Ha0kuxfkt6RHOnibo8eBPmhV9upyjHTcMpgWpVYB/xrqrJRbeOyyyOueCg78OGADypuO
+ H/owPgTWBvpqdfrwvXzSwSFUVr1PkPUDfh4e9fye6DXU1s8PL/bp8PQ7MyidMUibbZJ+ELCi1Jf
+ 75gh+i9u+oyW8HdoH8b0SUkOXbrwIbe+hGWZzaQmJVXMr3IkHohh52qwCD/PEYcXJCFbVM/Feeg
+ OEsG+x/dh+m00pLKYFmJ6uR2gGIh8wlyf0rO3MG29LRU6jh/hN7HhvYypev7vxFVGh3MWRfrVln
+ ZxFC/dvsbdQl+WV7DqLdj8fvOTSER3xAPAhMVutVp1EvTKRLkFHJdT76w3brds+ih8dgM11w104
+ qIMugXpwYc12LZRx3ewfiuPDSA0XS4CTdntF6XGBL3q/UFHgrUilKScY9zyKEzyq9z3C6pJGfpF
+ AqiJOBssn4qDWLaD7YDKHKrhPh8jtqTHrr7obo/nWMv1CVRPKZOAYbI4Azh8t8ZV/oBRHxb/BZw
+ ioioeiMlXJ/tOYUioy2kKXzm
+X-Received: by 2002:a05:690e:168d:b0:67b:eda0:b411 with SMTP id
+ 956f58d0204a3-67d895e6290mr1728922d50.48.1794596633744; 
+ Fri, 13 Nov 2026 11:03:53 -0800 (PST)
+Received: from [172.22.22.28] ([73.62.185.64])
+ by smtp.googlemail.com with ESMTPSA id
+ 6a1803df08f44-91f23d780e8sm27000686d6.27.2026.11.13.11.03.50
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Fri, 13 Nov 2026 11:03:52 -0800 (PST)
+Message-ID: <bbadc472-655f-442f-86fd-9d56ff84abfc@ieee.org>
+Date: Fri, 13 Nov 2026 13:03:49 -0600
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Message-Id: <20261113-upstream-host1x-fence-cancel-v1-1-89f453504222@tsv-stahl-riesa.de>
-X-B4-Tracking: v=1; b=H4sIAAAAAAAC/yXMQQqDMBBA0avIrDuQSVChV5EuYhx1So2SiUUQ7
- 9603Xx4m3+CchJWuFcnJH6LyhoL6FZBmH2cGGUoBmtsQ0QO901zYr/gvGqmA0eOgTH40hea3tm
- 2dlSboYGy2BKPcvz23eNv3fsnh/x9wnV9AEi9W5aAAAAA
-X-Change-ID: 20261113-upstream-host1x-fence-cancel-0b32753150d6
-To: Thierry Reding <thierry.reding@kernel.org>, 
- Mikko Perttunen <mperttunen@nvidia.com>, David Airlie <airlied@gmail.com>, 
- Simona Vetter <simona@ffwll.ch>, Jonathan Hunter <jonathanh@nvidia.com>
-Cc: Svyatoslav Ryhel <clamor95@gmail.com>, dri-devel@lists.freedesktop.org, 
- linux-tegra@vger.kernel.org, linux-kernel@vger.kernel.org, 
- stable@vger.kernel.org, Patrick Fischer <admin@tsv-stahl-riesa.de>
-X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1794596477; l=3463;
- i=admin@tsv-stahl-riesa.de; s=20261020; h=from:subject:message-id;
- bh=ma0XREdmMy4ffQO85e1k8ga8QFqtOsd1gUnED0Gj8hE=;
- b=AImcND9Q3ZBs1nzv3pd5kyP7ZjsNI4ynf7JGlkn7e2QDU+r4vkwsg/ERQOsPjn3m9xClaHAtL
- mdSJsZhynNYD/ylWY3E4gANZDqR6pT+R4sgotTBPNapj1yu34n/itpn
-X-Developer-Key: i=admin@tsv-stahl-riesa.de; a=ed25519;
- pk=D+v6EloYcEY9PIUHFyTM5sqcGIU/fIXzLUdkR8vjAtk=
-X-Endpoint-Received: by B4 Relay for admin@tsv-stahl-riesa.de/20261020 with
- auth_id=1251
-X-Original-From: Patrick Fischer <admin@tsv-stahl-riesa.de>
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2 1/9] firmware: qcom: pas: add qcom_pas_context_init()
+ for pre-allocated context
+To: Mukesh Ojha <mukesh.ojha@oss.qualcomm.com>,
+ Sumit Garg <sumit.garg@oss.qualcomm.com>,
+ Bjorn Andersson <andersson@kernel.org>,
+ Konrad Dybcio <konradybcio@kernel.org>,
+ Rob Clark <robin.clark@oss.qualcomm.com>, Dmitry Baryshkov
+ <lumag@kernel.org>, David Airlie <airlied@gmail.com>,
+ Simona Vetter <simona@ffwll.ch>,
+ Vikash Garodia <vikash.garodia@oss.qualcomm.com>,
+ Dikshita Agarwal <dikshita.agarwal@oss.qualcomm.com>,
+ Bryan O'Donoghue <bod@kernel.org>, Mauro Carvalho Chehab
+ <mchehab@kernel.org>, Alex Elder <elder@kernel.org>,
+ Andrew Lunn <andrew+netdev@lunn.ch>, "David S. Miller"
+ <davem@davemloft.net>, Eric Dumazet <edumazet@kernel.org>,
+ Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
+ Jeff Johnson <jjohnson@kernel.org>,
+ Mathieu Poirier <mathieu.poirier@linaro.org>
+Cc: Abel Vesa <abelvesa@kernel.org>, Sean Paul <sean@poorly.run>,
+ Akhil P Oommen <akhilpo@oss.qualcomm.com>,
+ Abhinav Kumar <abhinav.kumar@linux.dev>,
+ Jessica Zhang <jesszhan0024@gmail.com>,
+ Marijn Suijten <marijn.suijten@somainline.org>,
+ linux-arm-msm@vger.kernel.org, linux-kernel@vger.kernel.org,
+ dri-devel@lists.freedesktop.org, freedreno@lists.freedesktop.org,
+ linux-media@vger.kernel.org, netdev@vger.kernel.org,
+ linux-wireless@vger.kernel.org, ath12k@lists.infradead.org,
+ linux-remoteproc@vger.kernel.org
+References: <20261113185009.157893-1-mukesh.ojha@oss.qualcomm.com>
+ <20261113185009.157893-2-mukesh.ojha@oss.qualcomm.com>
+Content-Language: en-US
+From: Alex Elder <elder@ieee.org>
+In-Reply-To: <20261113185009.157893-2-mukesh.ojha@oss.qualcomm.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 7bit
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -97,92 +109,116 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
-Reply-To: admin@tsv-stahl-riesa.de
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-18.8 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
+X-Spam-Status: No, score=-17.3 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
 	DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
 	INCLUDES_CR_TRAILER,INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,
-	SPF_PASS,USER_AGENT_GIT autolearn=ham autolearn_force=no version=4.0.1
+	SPF_PASS,USER_AGENT_SANE_1 autolearn=unavailable autolearn_force=no
+	version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-From: Patrick Fischer <admin@tsv-stahl-riesa.de>
+On 11/13/26 12:50 PM, Mukesh Ojha wrote:
+> devm_qcom_pas_context_alloc() allocates and initializes a struct
+> qcom_pas_context using devres.  Several callers, however, either live
+> entirely on the stack (short-lived helper functions) or embed the
+> context in a larger structure that is already managed by other means.
+> Forcing those callers through the devm allocation path is wasteful and,
+> in the case of functions called on every power cycle, causes a devres
+> entry to accumulate on every invocation.
+> 
+> Add qcom_pas_context_init() that initializes a caller-supplied struct
+> qcom_pas_context in place using memset + field assignment, with no
+> allocation at all.  Rework devm_qcom_pas_context_alloc() to delegate
+> to qcom_pas_context_init() after the kzalloc, so both helpers share
+> the same initialization logic.
+> 
+> Update the kernel-doc for qcom_mdt_pas_load() to reflect that the PAS
+> context may now be initialized by either qcom_pas_context_init() or
+> devm_qcom_pas_context_alloc().
+> 
+> Signed-off-by: Mukesh Ojha <mukesh.ojha@oss.qualcomm.com>
 
-host1x_syncpt_wait() creates its fence without the internal 30 second
-timeout and cancels it only when dma_fence_wait_timeout() returns 0.
-If the wait is interrupted, dma_fence_wait_timeout() returns
--ERESTARTSYS and the fence is left on the syncpoint's fence list,
-holding the reference that host1x_syncpt_fence_enable_signaling() took
-for the interrupt path. It is freed only once the syncpoint reaches the
-threshold, which may never happen.
+This looks good to me.  Thank you for implementing it.
 
-Callers that retry on -ERESTARTSYS allocate a new fence each time.
-tegra20_channel_capture_frame() retries in a loop without delay, and
-while the syncpoint does not move, for example with a camera that
-delivers no frames, every round leaks one fence until the system runs
-out of memory. Svyatoslav Ryhel reported this as an out-of-memory crash
-in the VI capture thread; the allocations in his report come from
-host1x_fence_create(), called by host1x_syncpt_wait() from
-tegra20_chan_capture_kthread_start(). The DRM syncpoint wait IOCTLs end
-up in host1x_syncpt_wait() as well, so a process that is signalled while
-waiting leaks a fence the same way.
+Signed-off-by: Alex Elder <elder@riscstar.com>
 
-Cancel the fence whenever the wait did not succeed. host1x_fence_cancel()
-is safe if the interrupt path has signalled the fence in the meantime,
-as do_fence_timeout() then returns early.
-
-The leak was found with the help of an LLM assistant reading the host1x
-and dma-fence code against the call chain in the report.
-
-Fixes: d5179020f5ce ("gpu: host1x: External timeout/cancellation for fences")
-Cc: stable@vger.kernel.org
-Reported-by: Svyatoslav Ryhel <clamor95@gmail.com>
-Signed-off-by: Patrick Fischer <admin@tsv-stahl-riesa.de>
----
-Svyatoslav reported the out-of-memory crash, and he confirmed off-list
-that this patch stops the leak on his LG P895 (Tegra30). I left out a
-Tested-by so that he can give it here.
-
-I could not test this myself: the Tegra Note 7 I work on has no
-working camera path in mainline yet. Build-tested for arm and arm64.
-The DRM IOCTL case in the changelog comes from reading the code; I have
-not tried it.
-
-The retry loop in tegra20_channel_capture_frame() still spins without
-delay as long as the wait keeps returning -ERESTARTSYS. With this patch
-that costs CPU time instead of memory; how the VI driver should handle
-an interrupted wait is a separate question.
-
-Tool use (see Documentation/process/generated-content.rst): an LLM
-assistant (Claude, in a chat) found the leak by reading
-host1x_syncpt_wait() and the fence code against the call chain in the
-OOM report. Claude Code then checked the finding against the code and
-wrote the change, the changelog and this note from my notes and
-instructions. I reviewed the change.
----
- drivers/gpu/host1x/syncpt.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
-
-diff --git a/drivers/gpu/host1x/syncpt.c b/drivers/gpu/host1x/syncpt.c
-index fe74ff6fc6f2..f9c871f218f3 100644
---- a/drivers/gpu/host1x/syncpt.c
-+++ b/drivers/gpu/host1x/syncpt.c
-@@ -247,7 +247,7 @@ int host1x_syncpt_wait(struct host1x_syncpt *sp, u32 thresh, long timeout,
- 		return PTR_ERR(fence);
- 
- 	wait_err = dma_fence_wait_timeout(fence, true, timeout);
--	if (wait_err == 0)
-+	if (wait_err <= 0)
- 		host1x_fence_cancel(fence);
- 	dma_fence_put(fence);
- 
-
----
-base-commit: 9d66f26fefacebfeed15de31c1123451a17ff119
-change-id: 20261113-upstream-host1x-fence-cancel-0b32753150d6
-
-Best regards,
---  
-Patrick Fischer <admin@tsv-stahl-riesa.de>
-
+> ---
+>   drivers/firmware/qcom/qcom_pas.c       | 26 ++++++++++++++++++++++----
+>   drivers/soc/qcom/mdt_loader.c          |  4 ++--
+>   include/linux/firmware/qcom/qcom_pas.h |  2 ++
+>   3 files changed, 26 insertions(+), 6 deletions(-)
+> 
+> diff --git a/drivers/firmware/qcom/qcom_pas.c b/drivers/firmware/qcom/qcom_pas.c
+> index d74dd7b4f332..fdf62003fbf1 100644
+> --- a/drivers/firmware/qcom/qcom_pas.c
+> +++ b/drivers/firmware/qcom/qcom_pas.c
+> @@ -14,6 +14,27 @@
+>   
+>   static struct qcom_pas_ops *ops_ptr;
+>   
+> +/**
+> + * qcom_pas_context_init() - Initialize a peripheral authentication service
+> + *			     context for a given peripheral
+> + *
+> + * @ctx:	  Caller-provided PAS context to initialize
+> + * @dev:	  PAS firmware device
+> + * @pas_id:	  peripheral authentication service id
+> + * @mem_phys:	  Subsystem reserve memory start address
+> + * @mem_size:	  Subsystem reserve memory size
+> + */
+> +void qcom_pas_context_init(struct qcom_pas_context *ctx, struct device *dev,
+> +			   u32 pas_id, phys_addr_t mem_phys, size_t mem_size)
+> +{
+> +	memset(ctx, 0, sizeof(*ctx));
+> +	ctx->dev = dev;
+> +	ctx->pas_id = pas_id;
+> +	ctx->mem_phys = mem_phys;
+> +	ctx->mem_size = mem_size;
+> +}
+> +EXPORT_SYMBOL_GPL(qcom_pas_context_init);
+> +
+>   /**
+>    * devm_qcom_pas_context_alloc() - Allocate peripheral authentication service
+>    *				   context for a given peripheral
+> @@ -39,10 +60,7 @@ struct qcom_pas_context *devm_qcom_pas_context_alloc(struct device *dev,
+>   	if (!ctx)
+>   		return ERR_PTR(-ENOMEM);
+>   
+> -	ctx->dev = dev;
+> -	ctx->pas_id = pas_id;
+> -	ctx->mem_phys = mem_phys;
+> -	ctx->mem_size = mem_size;
+> +	qcom_pas_context_init(ctx, dev, pas_id, mem_phys, mem_size);
+>   
+>   	return ctx;
+>   }
+> diff --git a/drivers/soc/qcom/mdt_loader.c b/drivers/soc/qcom/mdt_loader.c
+> index 0d55e9e0af3f..c6ec67e1da09 100644
+> --- a/drivers/soc/qcom/mdt_loader.c
+> +++ b/drivers/soc/qcom/mdt_loader.c
+> @@ -476,8 +476,8 @@ EXPORT_SYMBOL_GPL(qcom_mdt_load);
+>    * firmware segments (e.g., .bXX files). Authentication of the segments done
+>    * by a separate call.
+>    *
+> - * The PAS context must be initialized using devm_qcom_pas_context_alloc()
+> - * prior to invoking this function.
+> + * The PAS context must be initialized using qcom_pas_context_init() or
+> + * devm_qcom_pas_context_alloc() prior to invoking this function.
+>    *
+>    * @ctx:        Pointer to the PAS (Peripheral Authentication Service) context
+>    * @fw:         Firmware object representing the .mdt file
+> diff --git a/include/linux/firmware/qcom/qcom_pas.h b/include/linux/firmware/qcom/qcom_pas.h
+> index 1d132e89536e..458075868bf5 100644
+> --- a/include/linux/firmware/qcom/qcom_pas.h
+> +++ b/include/linux/firmware/qcom/qcom_pas.h
+> @@ -36,6 +36,8 @@ static inline void __iomem *qcom_pas_ctx_map(struct qcom_pas_context *ctx)
+>   }
+>   
+>   bool qcom_pas_is_available(void);
+> +void qcom_pas_context_init(struct qcom_pas_context *ctx, struct device *dev,
+> +			   u32 pas_id, phys_addr_t mem_phys, size_t mem_size);
+>   struct qcom_pas_context *devm_qcom_pas_context_alloc(struct device *dev,
+>   						     u32 pas_id,
+>   						     phys_addr_t mem_phys,
 
