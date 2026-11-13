@@ -2,54 +2,55 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3DA95606A321
-	for <dri-devel@archiver.kernel.org>; Fri, 13 Nov 2026 01:18:04 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1DFF7606A337
+	for <dri-devel@archiver.kernel.org>; Fri, 13 Nov 2026 01:21:01 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=fail reason="signature verification failed" (1024-bit key) header.d=collabora.com header.i=@collabora.com header.a=rsa-sha256 header.s=zohomail header.b=ah1EcesW
+	dkim=pass (1024-bit key) header.d=rock-chips.com header.i=@rock-chips.com header.a=rsa-sha256 header.s=default header.b=jzY9LK4/
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id B168610E2F8;
-	Fri, 13 Nov 2026 01:17:58 +0000 (UTC)
-Received: from sender6-op-o11.zoho.com (sender6-op-o11.zoho.com
- [165.173.180.11])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 9EF8A10E2F8
- for <dri-devel@lists.freedesktop.org>; Fri, 13 Nov 2026 01:17:52 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; t=1794532671; cv=none; 
- d=zohomail.com; s=zohoarc; 
- b=LYVDVsKvyVLFCrMhKau9bzPN1E2+4gar0OyQJ/61scIlFJmUPj60BmNs22GYT7twdC9HV1sEUp/MBlsB4RqTZcycaiJmoAjMfDBTFPp2PQoqhO0PHvJB0pGyCet/WA0yR1PybOxR2tjT2NUrhr/iK70e+bHnA9lwvG7Z2vH3Zp0=
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com;
- s=zohoarc; t=1794532671;
- h=Content-Type:Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:Subject:Subject:To:To:Message-Id:Reply-To;
- bh=/j72zvAt1WMfGgTCF0Yh8J98QSKVFNx6xjG61oB4OkM=; 
- b=j4cJUW7SO8NIX3R6sAZ5VqaOsdkiqg7RM8DRFG0rvDhh0qK9fcyu6Wi7qf+511V8tqE4Cfox5B+HLw4W9SVsH33awA1+PXJ+XmKnKnsLynUPyD+xC2QPfx97xm2tWJ6TBDsHn5oJNsJGkY+UiJQizMp+iVGjRvGQ0QndanIFgSE=
-ARC-Authentication-Results: i=1; mx.zohomail.com;
- dkim=pass  header.i=collabora.com;
- spf=pass  smtp.mailfrom=deborah.brouwer@collabora.com;
- dmarc=pass header.from=<deborah.brouwer@collabora.com>
-DKIM-Signature: a=rsa-sha256;
- b=ah1EcesWxMyDmAUOAmDwYXqXQoLc79ZmLJrJ3DGxL50TCiM7ak0p0W9o8F3fNHMXP/SS3lcBoVKr6o4RBd5OOZ+9u0w3tQ0hzmNVcdW5DM9wVbziqnZd9Iy41IXdF8iox/lqWsQyJ6E+b3UMCQl8MPm6WW4BF5MrBR9ssIqreXs=;
- c=relaxed/relaxed; s=zohomail; d=collabora.com; v=1;
- bh=KE1akkFEuJf75Kt6P5uZlGEjaUFqQNlIPt1KnGsOo0k=;
- h=Content-Description:Content-ID:Content-Type:Content-Transfer-Encoding:Cc:Date:From:In-Reply-To:List-Subscribe:List-Post:List-Owner:List-Id:List-Archive:List-Help:List-Unsubscribe:MIME-Version:Message-ID:Resent-Sender:Resent-Cc:Resent-Date:Resent-To:Reply-To:Resent-Message-ID:Resent-From:Sender:Subject:To:Date:From:Message-Id:Reply-To:Subject:To:Cc;
-Received: by smtp.zohomail.com with SMTPS id 17945326710961011.2476114199859; 
- Thu, 12 Nov 2026 17:17:51 -0800 (PST)
-Date: Thu, 12 Nov 2026 18:17:50 -0700
-From: Deborah Brouwer <deborah.brouwer@collabora.com>
-To: sashiko-reviews@lists.linux.dev
-Cc: Ke Sun <sunke@kylinos.cn>, dri-devel@lists.freedesktop.org,
- ojeda@kernel.org, gary@garyguo.net
-Subject: Re: [PATCH v6 04/10] drm/tyr: add per-file VM pool
-Message-ID: <avZlPvHqlxmu2hNO@um790>
-References: <20261109-tyr-ioctls-v6-0-b2896bf2b3c9@kylinos.cn>
- <20261109-tyr-ioctls-v6-4-b2896bf2b3c9@kylinos.cn>
- <sashiko-outbox-204259@kernel.org>
+	by gabe.freedesktop.org (Postfix) with ESMTP id 667BF10E13F;
+	Fri, 13 Nov 2026 01:20:55 +0000 (UTC)
+Received: from mail-m16023653100.xmail.ntesmail.com
+ (mail-m16023653100.xmail.ntesmail.com [160.236.53.100])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 11AF610E13F
+ for <dri-devel@lists.freedesktop.org>; Fri, 13 Nov 2026 01:20:48 +0000 (UTC)
+Received: from [172.16.12.90] (unknown [61.154.14.86])
+ by smtp.qiye.163.com (Hmail) with ESMTP id 548371a1c;
+ Fri, 13 Nov 2026 09:20:45 +0800 (GMT+08:00)
+Message-ID: <fc6344ec-c05c-424c-b625-10db05a971e6@rock-chips.com>
+Date: Fri, 13 Nov 2026 09:20:42 +0800
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=iso-8859-1
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <sashiko-outbox-204259@kernel.org>
-X-Zoho-Virus-Status: 1
-X-Zoho-AV-Stamp: zmail-av-0.2.13.1.5.4/294.520.76
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2 5/9] drm/rockchip: vop2: Balance window fetches across
+ both AXI ports on RK3588
+To: aiyengar1990@gmail.com
+Cc: Piotr Zalewski <pZ010001011111@proton.me>,
+ Sandy Huang <hjc@rock-chips.com>, =?UTF-8?Q?Heiko_St=C3=BCbner?=
+ <heiko@sntech.de>, Andy Yan <andyshrk@163.com>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ Sascha Hauer <s.hauer@pengutronix.de>, dri-devel@lists.freedesktop.org,
+ linux-rockchip@lists.infradead.org, linux-arm-kernel@lists.infradead.org,
+ linux-kernel@vger.kernel.org
+References: <20261112-vop2-fixes-v2-0-8218c1cf8ac8@gmail.com>
+ <20261112-vop2-fixes-v2-5-8218c1cf8ac8@gmail.com>
+Content-Language: en-US
+From: Chaoyi Chen <chaoyi.chen@rock-chips.com>
+In-Reply-To: <20261112-vop2-fixes-v2-5-8218c1cf8ac8@gmail.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+X-HM-Tid: 0aa1d27e280b03a7kunmefdcd92d9fac3
+X-HM-MType: 1
+X-HM-Spam-Status: e1kfGhgUHx5ZQUpXWQgPGg8OCBgUHx5ZQUlOS1dZFg8aDwILHllBWSg2Ly
+ tZV1koWUFITzdXWRgWCB1ZQUpXWS1ZQUlXWQ8JGhUIEh9ZQVlDS05NVh0dGEkaSR0dHkhJTFYVFA
+ kWGhdVEwETFhoSFyQUDg9ZV1kYEgtZQVlNSlVKTk9VSk9VQ01ZV1kWGg8SFR0UWUFZT0tIVUpLSE
+ pKQkxVSktLVUpCS0tZBg++
+DKIM-Signature: a=rsa-sha256;
+ b=jzY9LK4/ON6eY6KhwhGwDVueItq52MIS7fwO64EYIVFJy5Mz06nIqScMNriiPDu/bUJ2koMefOB910yaEfbpxGlF3wIhKIHA1tMwV12yF92OINKB3LKSnkBYoYjykSFjJGwndeIRanbA4czxac+JdPz5ClaIInavT0NQX42zpns=;
+ s=default; c=relaxed/relaxed; d=rock-chips.com; v=1; 
+ bh=WGzrbb9Ex+mxcBU1HN07l5VKAti9MvUiAb5zdaFIefE=;
+ h=date:mime-version:subject:message-id:from;
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -61,99 +62,82 @@ List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-8.6 required=3.0 tests=BAYES_00,DKIM_INVALID,
-	DKIM_SIGNED,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_PATCH,
-	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS autolearn=unavailable
-	autolearn_force=no version=4.0.1
+X-Spam-Status: No, score=-7.3 required=3.0 tests=BAYES_00,DKIM_SIGNED,
+	DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
+	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,USER_AGENT_SANE_1
+	autolearn=no autolearn_force=no version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-On Mon, Nov 09, 2026 at 12:48:15AM +0000, sashiko-bot@kernel.org wrote:
-> Thank you for your contribution! Sashiko AI review found 1 potential
-> issue to consider:
-> - [Medium] drm/tyr: off-by-one IdPool capacity in VmPool::new() on
->   32-bit builds
-> --
-> 
-> commit 6b8d6be457daf3e5e905977c364059ce3d3249e4
-> Author: Alvin Sun <alvin.sun@linux.dev>
-> 
-> drm/tyr: add per-file VM pool
-> 
-> This commit introduces VmPool to manage up to 32 GPU address spaces per open
-> file using an IdPool and an XArray, tearing down remaining VMs when the pool
-> is dropped.
-> 
-> > diff --git a/drivers/gpu/drm/tyr/vm.rs b/drivers/gpu/drm/tyr/vm.rs
-> > index 1dd11b2b12532..6f5518652a03f 100644
-> > --- a/drivers/gpu/drm/tyr/vm.rs
-> > +++ b/drivers/gpu/drm/tyr/vm.rs
-> 
-> [ ... ]
-> 
-> > @@ -947,3 +953,135 @@ fn pt_unmap(dev: &Device, pt: &IoPageTable<'_, ARM64LPAES1>, range: Range<u64>)
-> >  
-> >      Ok(())
-> >  }
-> > +
-> > +/// Maximum number of VMs a single file may hold, matching panthor's
-> > +/// `PANTHOR_MAX_VMS_PER_FILE`.
-> > +const MAX_VMS_PER_FILE: usize = 32;
-> 
-> [ ... ]
-> 
-> > +impl<'drm> VmPool<'drm> {
-> > +    /// Creates a new [`VmPool`].
-> > +    #[expect(dead_code)]
-> > +    pub(crate) fn new(dev: &'drm Device<Bound>) -> impl PinInit<Self> {
-> > +        let ids = IdPool::new();
-> > +        pin_init!(Self {
-> > +            dev,
-> > +            ids <- new_mutex!(ids),
-> > +            vms <- XArray::new(AllocKind::Alloc),
-> > +        })
-> > +    }
-> > +
-> > +    /// Stores the VM and returns the allocated ID.
-> > +    ///
-> > +    /// On failure - ID space exhausted or a store failure - the VM is
-> > +    /// returned in an [`AddError`] so the caller owns the teardown.
-> > +    // TODO: allocate IDs with the XArray directly (once it grows range
-> > +    // allocation, the equivalent of C's `XA_LIMIT`) and drop the IdPool.
-> > +    #[expect(dead_code)]
-> > +    pub(crate) fn add(&self, vm: Arc<Vm<'drm>>) -> Result<u32, AddError<'drm>> {
-> > +        let id = (|| {
-> > +            let mut ids = self.ids.lock();
-> > +            let unused = ids.find_unused_id(1).ok_or(ENOSPC)?;
-> > +            if unused.as_usize() > MAX_VMS_PER_FILE {
-> > +                return Err(ENOSPC);
-> > +            }
-> > +            Ok(unused.acquire())
-> > +        })();
-> 
-> [Severity: Medium]
-> Can VmPool::add() fail with ENOSPC on the 32nd VM on 32-bit builds?
-> 
-> IdPool::new() creates an inline bitmap of length usize::BITS, which is 32 on
-> 32-bit platforms (indices 0..=31).  Because find_unused_id(1) skips bit 0,
-> allocating 32 VMs requires bit index 32, so only 31 VMs (IDs 1..=31) can be
-> allocated before find_unused_id(1) returns None.  Searching from bit 0 and
-> adding 1 to form the 1-based VM ID (subtracting 1 on release_id()) would fit
-> all 32 VMs within indices 0..=31.
+Hi Arun,
 
-Yes, this makes sense, on 32-bit builds the bitmap will stop at bit 31
-and since we won't use bit 0, this gives us only 31 possible vm ids.
-
-Instead of adding an off-by-one offset which seems like it could add
-more confusion, what do you think of using the IdPool::with_capacity()
-function? Something like:
-  let ids = IdPool::with_capacity(MAX_VMS_PER_FILE + 1, GFP_KERNEL)?;
-
-We would need to adjust the error handlings since this
-is fallible but it might be simpler overall.
-
-Deborah
-
+On 11/12/2026 4:33 PM, Arun Iyengar via B4 Relay wrote:
+> From: Arun Iyengar <aiyengar1990@gmail.com>
 > 
-> -- 
-> Sashiko AI review · https://sashiko.dev/#/patchset/20261109-tyr-ioctls-v6-0-b2896bf2b3c9@kylinos.cn?part=4
+> The RK3588 VOP2 fetches through two AXI read ports. Every window has a
+> fixed default port in rk3588_vop_win_data: Cluster0/1 and Esmart0/1 use
+> AXI0, Cluster2/3 and Esmart2/3 use AXI1. The port is chosen by a per
+> window register (CLUSTER_CTRL[13] / ESMART_AXI_CTRL[1]), though, and it
+> is programmed on every plane update.
+> 
+> One port can't sustain two full screen 4K@120Hz layers. With the
+> console on Cluster0 (the primary plane of video port 0) and a video on
+> Esmart0 (its overlay plane), both on AXI0, HDMI 3840x2160@120 reports
+> POST_BUF_EMPTY on about half of all lines (~120000 per second) and the
+> picture is scrambled. The VOP read rate measured with the DDR PMU drops
+> from the expected 6.3 GB/s to 3.2 GB/s: the fetch collapses instead of
+> merely saturating. Measured at 4K@120Hz, XR24 primary plane:
+> 
+>   Cluster0 + Esmart0 (AXI0 + AXI0)	~120k POST_BUF_EMPTY/s
+>   Cluster2 + Esmart2 (AXI1 + AXI1)	~100k/s
+>   Esmart0 + Esmart1  (AXI0 + AXI0)	~90k/s (XR24 both)
+>   Cluster0 + Esmart2 (AXI0 + AXI1)	0, 9.2 GB/s read
+>   Cluster0 + Cluster2 (AXI0 + AXI1)	0, 8.6 GB/s read
+> 
+> Moving Esmart0 to AXI1 at runtime (with no other change) makes the
+> first case clean. Raising ACLK_VOP from 750 to 850 MHz, or changing
+> the NoC QoS priority or mode of the VOP ports, makes no difference,
+> and neither does the buffer placement (both planes scanning out the
+> same buffer fail the same way). So the limit is per port, and the
+> fixed assignment puts both layers of the most common configuration on
+> the same port while the other one sits idle. Lower modes are affected
+> too: the same port also carries Cluster1 for a second display, and
+> under DDR contention from other masters a 4K@60Hz port with the
+> console, an overlay and a second display underflows for short bursts.
+> 
+> Choose the port of a window when it starts fetching instead. The atomic
+> check assigns the ports from the whole new state and keeps the
+> assignment in a private object for the next check. The port of a window
+> is also stored in its plane state, and that is what the plane update
+> programs: commits on different video ports aren't ordered against each
+> other, so the private state of a commit may already be replaced and
+> freed when its planes are updated. A window that keeps fetching keeps
+> its port, so an active layer is never moved. The windows
+> that start fetching, the busiest first, each get the port that leaves
+> the busier port least loaded, preferring the default one on a tie. The
+> load of a window is its estimated fetch rate: source size x bits per
+> pixel of all its planes x refresh rate.
+> 
+> A window must not share an AXI read ID with another window on the same
+> port. The IDs in the table are unique per default port, and mirrored
+> between the two ports (Cluster0/Cluster2, Esmart0/Esmart2, ...), so a
+> window can always use the port its mirror isn't on. A window that is
+> switched off keeps fetching until the next frame start of its video
+> port, so its read IDs stay in use for a window that starts on another
+> video port in the same commit, and until the commit that switched it
+> off is done.
+> 
+> This is only enabled for RK3588, where it was measured.
+
+According to TRM, "In order to maintain synchronization between layers,
+allocationg the layers used by the one port on AXI0 and AXI buses
+respectively is not allowed."
+
+Fortunately, we have another way to accomplish this: use the VP merge
+feature. Please refer to the patch below.
+
+https://lore.kernel.org/all/20261029081429.862-1-kernel@airkyi.com/
+
+-- 
+Best, 
+Chaoyi
