@@ -2,44 +2,55 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EA75F606A333
-	for <dri-devel@archiver.kernel.org>; Fri, 13 Nov 2026 01:30:13 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 97D1A606A886
+	for <dri-devel@archiver.kernel.org>; Fri, 13 Nov 2026 01:31:11 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=T/Z9sSNl
+	dkim=pass (1024-bit key) header.d=rock-chips.com header.i=@rock-chips.com header.a=rsa-sha256 header.s=default header.b=G+FEhYgL
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 5B6D310E6F8;
-	Fri, 13 Nov 2026 01:30:08 +0000 (UTC)
-Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 4199E10E6F8
- for <dri-devel@lists.freedesktop.org>; Fri, 13 Nov 2026 01:30:02 +0000 (UTC)
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id 2B4AB43614;
- Fri, 13 Nov 2026 01:30:02 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id D44341F000C4;
- Fri, 13 Nov 2026 01:30:01 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1794533402;
- bh=ZdTNKOlK94X99BHyLBr2YYN+gi8mOa/+sTQWlAzR57E=;
- h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
- b=T/Z9sSNlmvEYWSDahaLENkexz2Umm9fTs4JEpoldw5n9UJ2B+o97L+P5iKDTklkkr
- gB13gu+QsxsiHNDCSOn9fmxh3ojPwJsGO487fLgZj30s6urNxrPnYxmaozS8ObRGk9
- ydkG+gzS+wDTWCXPyNnVujmWP9zbvkz/xN7oiLuqV9riVOJ4tDqCv2IMOM74myrNWO
- IVfwEYI2JZBCLhD4KzLeKhK708ph/BlIpojdZZLBP/3+mJWFH5EDZRv1HuQbIkSo8l
- 4vkNwCdPZiVvY2oPi4y1FZ2Kkb4fRmZbg7R8zYDWIWlbhhHf8u1PgunZt6KN/F5TMq
- ssE02x9+zaKKQ==
-Message-ID: <sashiko-outbox-212057@kernel.org>
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v4 03/12] arm64: dts: qcom: sm6350-lena: Add
- qcom,rmtfs-mem node
-To: erebion <erebion@erebion.eu>
-Cc: dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org,
- robh@kernel.org, conor+dt@kernel.org
-In-Reply-To: <20261113-pdx213-upstream-3-v4-3-4b01c50a821c@erebion.eu>
-References: <20261113-pdx213-upstream-3-v4-0-4b01c50a821c@erebion.eu>
- <20261113-pdx213-upstream-3-v4-3-4b01c50a821c@erebion.eu>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Fri, 13 Nov 2026 01:30:01 +0000
+	by gabe.freedesktop.org (Postfix) with ESMTP id E071510E706;
+	Fri, 13 Nov 2026 01:31:05 +0000 (UTC)
+Received: from mail-m1602365319.xmail.ntesmail.com
+ (mail-m1602365319.xmail.ntesmail.com [160.236.53.19])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 27E7A10E706
+ for <dri-devel@lists.freedesktop.org>; Fri, 13 Nov 2026 01:30:58 +0000 (UTC)
+Received: from [172.16.12.90] (unknown [61.154.14.86])
+ by smtp.qiye.163.com (Hmail) with ESMTP id 5483bfae5;
+ Fri, 13 Nov 2026 09:30:55 +0800 (GMT+08:00)
+Message-ID: <408c3dde-772b-4ebf-8b3f-4e51eeb43713@rock-chips.com>
+Date: Fri, 13 Nov 2026 09:30:53 +0800
+X-Archived-By: <archiver.kernel.org>
+MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2 7/9] drm/rockchip: vop2: Find the first mixer of a
+ video port with Esmart3 too
+To: aiyengar1990@gmail.com
+Cc: Sandy Huang <hjc@rock-chips.com>, =?UTF-8?Q?Heiko_St=C3=BCbner?=
+ <heiko@sntech.de>, Andy Yan <andyshrk@163.com>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ Sascha Hauer <s.hauer@pengutronix.de>,
+ Piotr Zalewski <pZ010001011111@proton.me>, dri-devel@lists.freedesktop.org,
+ linux-rockchip@lists.infradead.org, linux-arm-kernel@lists.infradead.org,
+ linux-kernel@vger.kernel.org
+References: <20261112-vop2-fixes-v2-0-8218c1cf8ac8@gmail.com>
+ <20261112-vop2-fixes-v2-7-8218c1cf8ac8@gmail.com>
+Content-Language: en-US
+From: Chaoyi Chen <chaoyi.chen@rock-chips.com>
+In-Reply-To: <20261112-vop2-fixes-v2-7-8218c1cf8ac8@gmail.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+X-HM-Tid: 0aa1d287779c03a7kunm15aa9e14a218a
+X-HM-MType: 1
+X-HM-Spam-Status: e1kfGhgUHx5ZQUpXWQgPGg8OCBgUHx5ZQUlOS1dZFg8aDwILHllBWSg2Ly
+ tZV1koWUFITzdXWRgWCB1ZQUpXWS1ZQUlXWQ8JGhUIEh9ZQVkZGkweVklJHxkeGh5OSEpJSFYVFA
+ kWGhdVEwETFhoSFyQUDg9ZV1kYEgtZQVlNSlVKTk9VSk9VQ01ZV1kWGg8SFR0UWUFZT0tIVUpLSU
+ 9PT0hVSktLVUpCS0tZBg++
+DKIM-Signature: a=rsa-sha256;
+ b=G+FEhYgLL0kLZeE1GZkJG/uiFrVftUgs+ypjx24aZRkDhMZQsmsQu1eVffBxH3NphuRT/3580Z7wm2UV4Ptf4qqiithPcG9iLqyAyH6ZUZMK/QTYnB8XDAaWav28mLILAYEWaVpoCXQHWhTg4O4IXyX+6MjmDMN2+rHzLAZ1DSY=;
+ s=default; c=relaxed/relaxed; d=rock-chips.com; v=1; 
+ bh=+jyT50e30BCzbDPlXbs0zLStHSPuFBJFusAtjz5vVgo=;
+ h=date:mime-version:subject:message-id:from;
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -50,39 +61,66 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
-Reply-To: sashiko-reviews@lists.linux.dev
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-10.8 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
-	DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
-	INCLUDES_CR_TRAILER,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS
-	autolearn=ham autolearn_force=no version=4.0.1
+X-Spam-Status: No, score=-17.3 required=3.0 tests=BAYES_00,DKIM_SIGNED,
+	DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
+	INCLUDES_CR_TRAILER,INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,
+	SPF_PASS,USER_AGENT_SANE_1 autolearn=unavailable autolearn_force=no
+	version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
-X-Archived-By: <archiver.kernel.org>
 
-Thank you for your contribution! Sashiko AI review found 1 potential
-issue to consider:
-- [High] arm64: dts: qcom: sm6350-lena: Signed-off-by uses handle
-  instead of real name
---
+On 11/12/2026 4:33 PM, Arun Iyengar via B4 Relay wrote:
+> From: Arun Iyengar <aiyengar1990@gmail.com>
+> 
+> vop2_find_start_mixer_id_for_vp() looks for the first layer that holds a
+> window of the video port, but for_each_set_bit() takes the number of bits
+> to search, and ROCKCHIP_VOP2_ESMART3 is the highest window id, so Esmart3
+> is never found. A video port whose bottom layer shows Esmart3 then starts
+> its alpha setup at the mixer of a higher layer, or, if Esmart3 is its
+> only window, past all layers, and programs mixers of other video ports.
+> 
+> Add ROCKCHIP_VOP2_MAX_LAYER_ID after the last window id and search up to
+> it.
+> 
+> Fixes: d3fe9aa49585 ("drm/rockchip: vop2: Use OVL_LAYER_SEL configuration instead of use win_mask calculate used layers")
+> Signed-off-by: Arun Iyengar <aiyengar1990@gmail.com>
 
-commit a9ddce3144fad1d53145bd8e52ebb61fbdf78099
-Author: erebion <erebion@erebion.eu>
+Reviewed-by: Chaoyi Chen <chaoyi.chen@rock-chips.com>
 
-> arm64: dts: qcom: sm6350-lena: Add qcom,rmtfs-mem node
->
-> Adds the qcom,rmtfs-mem node required for the modem
->
-> Reviewed-by: Luca Weiss <luca.weiss@fairphone.com>
-> Reviewed-by: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
-> Signed-off-by: erebion <erebion@erebion.eu>
+> ---
+>  drivers/gpu/drm/rockchip/rockchip_drm_vop2.h | 1 +
+>  drivers/gpu/drm/rockchip/rockchip_vop2_reg.c | 2 +-
+>  2 files changed, 2 insertions(+), 1 deletion(-)
+> 
+> diff --git a/drivers/gpu/drm/rockchip/rockchip_drm_vop2.h b/drivers/gpu/drm/rockchip/rockchip_drm_vop2.h
+> index ccbfbdb8d246..290990632388 100644
+> --- a/drivers/gpu/drm/rockchip/rockchip_drm_vop2.h
+> +++ b/drivers/gpu/drm/rockchip/rockchip_drm_vop2.h
+> @@ -857,6 +857,7 @@ enum vop2_layer_phy_id {
+>  	ROCKCHIP_VOP2_CLUSTER3,
+>  	ROCKCHIP_VOP2_ESMART2,
+>  	ROCKCHIP_VOP2_ESMART3,
+> +	ROCKCHIP_VOP2_MAX_LAYER_ID,
+>  	ROCKCHIP_VOP2_PHY_ID_INVALID = -1,
+>  };
+>  
+> diff --git a/drivers/gpu/drm/rockchip/rockchip_vop2_reg.c b/drivers/gpu/drm/rockchip/rockchip_vop2_reg.c
+> index 83203d18865b..088c1f3a972f 100644
+> --- a/drivers/gpu/drm/rockchip/rockchip_vop2_reg.c
+> +++ b/drivers/gpu/drm/rockchip/rockchip_vop2_reg.c
+> @@ -1889,7 +1889,7 @@ static int vop2_find_start_mixer_id_for_vp(struct vop2_video_port *vp)
+>  
+>  	for (i = 0; i < 31; i += 4) {
+>  		match = false;
+> -		for_each_set_bit(phys_id, &win_mask, ROCKCHIP_VOP2_ESMART3) {
+> +		for_each_set_bit(phys_id, &win_mask, ROCKCHIP_VOP2_MAX_LAYER_ID) {
+>  			win = vop2_find_win_by_phys_id(vop2, phys_id);
+>  			if (win->data->layer_sel_id[vp->id] == ((layer_sel >> i) & 0xf)) {
+>  				match = true;
+> 
 
-[Severity: High]
-The Author header and Signed-off-by trailer use the handle "erebion"
-instead of a real name.  Under Documentation/process/submitting-patches.rst,
-the Developer's Certificate of Origin requires a known real name rather
-than a pseudonym or handle.
+-- 
+Best, 
+Chaoyi
 
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261113-pdx213-ups=
-tream-3-v4-0-4b01c50a821c@erebion.eu?part=3D3
