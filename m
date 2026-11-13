@@ -2,94 +2,95 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6D519606A334
-	for <dri-devel@archiver.kernel.org>; Fri, 13 Nov 2026 20:37:00 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 08D45606A323
+	for <dri-devel@archiver.kernel.org>; Fri, 13 Nov 2026 20:43:35 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=chromium.org header.i=@chromium.org header.a=rsa-sha256 header.s=google header.b=btTWV09n
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=TkRewpdm
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id D6EAB10E192;
-	Fri, 13 Nov 2026 20:36:54 +0000 (UTC)
-Received: from mail-ej1-f41.google.com (mail-ej1-f41.google.com
- [209.85.218.41])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 4C8FC10E192
- for <dri-devel@lists.freedesktop.org>; Fri, 13 Nov 2026 20:36:48 +0000 (UTC)
-Received: by mail-ej1-f41.google.com with SMTP id
- a640c23a62f3a-c505b2e1cb9so261378466b.2
- for <dri-devel@lists.freedesktop.org>; Fri, 13 Nov 2026 12:36:48 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=chromium.org; s=google; t=1794602206; x=1795207006;
- darn=lists.freedesktop.org; 
- h=content-transfer-encoding:content-type:cc:to:subject:message-id
- :date:from:in-reply-to:references:mime-version:from:to:cc:subject
- :date:message-id:reply-to:content-type;
- bh=1y8NVjB34PyHWKL2vr54yws1Tup4C1XdntOkDoibOvc=;
- b=btTWV09nTOlgwjfzuka0KsfwFTnK1EHq4USOP6D5h59u0F9FFc1MdnvIJ+3mryEMqW
- MMjY5br/8XgicVC7SVjZdWvcCJY29w+1SK9FdYbVA6HSsfMRwPCRh4HzOrSir5/N8r00
- 4222AbwB/9gFSPYZtzZhqobP9BFVlV2JsSld4=
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20260707; t=1794602206; x=1795207006;
- h=content-transfer-encoding:content-type:cc:to:subject:message-id
- :date:from:in-reply-to:references:mime-version:x-gm-gg
- :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
- :content-type;
- bh=1y8NVjB34PyHWKL2vr54yws1Tup4C1XdntOkDoibOvc=;
- b=Ksip37/kky1g45nsGjMbEvq4n4HRzHJsXwOXfIjzmtMbetdLFiI5sK2b17eWcNVqk2
- Slpjyd3/xGBRHdJSsuG4wLeMCXPqbpCaZppUgcmOb/xfTCCoF1XZf4KiDyqQWSIQWCL1
- zWiBe4+asMa4bYo1QRSOfwMvgoVBBHROThpCE8Ap7bZGtNcajvHuKThYF73OvO0+35gZ
- T0DLQLuYc3Uokmflt8Z9Mu1W4HVJHwmOiyVQ/qlIeUa81RxFX1GphEDkmVXNMKqn/YqU
- s+8q/zeux5kVkO+z6W5UbKIU+PL83F27OBeuwJA4g7DRrMGPlITJ7Nm8hI4lDs/HOyoN
- EQEQ==
-X-Forwarded-Encrypted: i=1;
- AL+hErGATFsGy1ke+D1P+a/1k/SAFeEvz6c4uD9uN7Lua3Y45sESrDI6je+wgE9Hmr8XvtMr9CC0xAig9lI=@lists.freedesktop.org
-X-Gm-Message-State: APuU4Z8WoDuNfPFFpH9xP7DElaxfhRtmKZKa76aVq3SP40p2rYVWp5q/
- Vn5jo0pMNdnHCxxIzPKGVA5CMd6EE1U7IOBVc543oO8l0Fs94u4QoWMAd9nb3MgTzUYHLwKWZiG
- LwwFM3xoJ
-X-Gm-Gg: AYBFou27qZlixU5Qc4pJyUKO74PNzesZ3e7nkoGx85hujmbErFChl90mEMBN67ihZd6
- blLjOTOd7XMOC+jsak4pEYwnDZF6GaIdUCObqVSQ3klLf7QYEYuVPwewFflQhRhKACeMmZTR+gi
- dqG+t6Bww3OO+tgRNh89z9IuAe5ySEgXTNaKhEWfe38gaj1yUXIzl+F8dChep9L6FFfZhr4Emg4
- yErT7XsYLFn7/pJECYNXW2RJyz8WtbhLkp4N9VnXNbwO9qDOBaI/KJgAaDAXOnRHLhDTWPo2yK1
- LxdQl8+emeYgpQ0q5BWLp4Sg0nxcNuRPu13MijUPSza6TxC1vIiQP9LmugBmtIaUftAEUyMkeh1
- aWYgKUkMpkFHVPHRDq7T37qjh+ywARNFCSg6WJh2Lg0fJvK6Hn1bw7vBDAI2FNLAXdk5k9yJ/h7
- mQG0m2STuaAjZ3wQCoPzI/aql4+g7OII+18NSLlpCXCACCkl1etR4n7AEluFFf0gtCOBkvlyT7a
- lhPQRqegpg2tp2R7joaMSfODXTh9uLGNFsiWdLR2wdeob6ja+hbhCR7SQbFDxgpRAYSQ1++Afbs
- fVhycmXqGK6axCJGjgqeEGMpDR3UKdN0J0b2zwm5wj6FClhrdMK3DLYFdl899SE6643w
-X-Received: by 2002:a17:906:c154:b0:c4d:18e2:e66c with SMTP id
- a640c23a62f3a-c5096369d85mr305670766b.18.1794602206573; 
- Fri, 13 Nov 2026 12:36:46 -0800 (PST)
-Received: from mail-wm1-f43.google.com (mail-wm1-f43.google.com.
- [209.85.128.43]) by smtp.gmail.com with ESMTPSA id
- a640c23a62f3a-c5095b23b2asm137928166b.22.2026.11.13.12.36.43
- for <dri-devel@lists.freedesktop.org>
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Fri, 13 Nov 2026 12:36:44 -0800 (PST)
-Received: by mail-wm1-f43.google.com with SMTP id
- 5b1f17b1804b1-4a140e7405dso18491495e9.3
- for <dri-devel@lists.freedesktop.org>; Fri, 13 Nov 2026 12:36:43 -0800 (PST)
-X-Forwarded-Encrypted: i=1;
- AL+hErF2Ccp48hVpexPdjeWLmiJY79/0/17nckBsNFwmO+bY3qNbwm5qsOlvr2TgpVsPhORMdrDYyvbhG3c=@lists.freedesktop.org
-X-Received: by 2002:a05:600d:82c6:b0:4a7:9006:b176 with SMTP id
- 5b1f17b1804b1-4bb55c5f5f5mr89863295e9.7.1794602202883; Fri, 13 Nov 2026
- 12:36:42 -0800 (PST)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 5704610E5F9;
+	Fri, 13 Nov 2026 20:43:29 +0000 (UTC)
+Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id D6F1010E551;
+ Fri, 13 Nov 2026 20:43:22 +0000 (UTC)
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+ by sea.source.kernel.org (Postfix) with ESMTP id 5A0B04173A;
+ Fri, 13 Nov 2026 20:43:22 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 09EA11F000C4;
+ Fri, 13 Nov 2026 20:43:19 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+ s=k20260515; t=1794602602;
+ bh=WQVMt8UwvudH8TaHQHEsYhCm9PnCiBATdVeZIT82eUQ=;
+ h=Date:Subject:To:Cc:References:From:In-Reply-To;
+ b=TkRewpdmKQquXBoRiB+TY45EdHLGle0SIIFE7N0XtJ8UJ+njGsrFBuXf7wIV9Wq5O
+ PFWu5Y/6MrdjcwDhZQr+B6T+281YWMlvsxFeU3TukSYVVaubSLlv5Qv0hfMEwvb1nK
+ zRfTN5X2fenTOiNVY/H9HTepeu4jRReizTn9d2TUUFLlr+KsxB3CkO3cUUgy5/SRg4
+ pgsck9UgFYqF7275Hp0SeaEL1vf9wSzeXajGi74JWJfxdmQ9d1k0CQVO0n/7XV77hY
+ xhp/KecGEGf5xEFOM/v47zBD5NjAH/Ns2Lp1mLKiJQzVwtu0SzEyvxu4/x31IuKi2A
+ +fUql5sA5wENg==
+Message-ID: <9ec3e8b9-064a-47a7-8d00-566ff371b846@kernel.org>
+Date: Fri, 13 Nov 2026 21:43:17 +0100
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
-References: <20261113171540.446-1-_@tawheed.cc>
-In-Reply-To: <20261113171540.446-1-_@tawheed.cc>
-From: Doug Anderson <dianders@chromium.org>
-Date: Fri, 13 Nov 2026 12:36:30 -0800
-X-Gmail-Original-Message-ID: <CAD=FV=UXEDzjuBF8QK0MccAkCB35MUXEoAhzCFgViUr2xtpOMw@mail.gmail.com>
-X-Gm-Features: AclHuK9vk6BRndli2ewuhNI9ERAXzJsRsPjpVZzz0vGOWMoLJS_4XyO0TtIZQ8Q
-Message-ID: <CAD=FV=UXEDzjuBF8QK0MccAkCB35MUXEoAhzCFgViUr2xtpOMw@mail.gmail.com>
-Subject: Re: [PATCH v2] drm/panel-edp: Add LGD LP129WT112684 panel
-To: Tawheed Makhdoomi <_@tawheed.cc>
-Cc: Neil Armstrong <neil.armstrong@linaro.org>,
- Jessica Zhang <jesszhan0024@gmail.com>, 
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>, 
- Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>,
- Simona Vetter <simona@ffwll.ch>, 
- dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] mm/hmm: skip NUMA balancing on protnone faults
+To: =?UTF-8?Q?Thomas_Hellstr=C3=B6m?= <thomas.hellstrom@linux.intel.com>,
+ Matthew Auld <matthew.auld@intel.com>, linux-mm@kvack.org
+Cc: dri-devel@lists.freedesktop.org, intel-xe@lists.freedesktop.org,
+ Matthew Brost <matthew.brost@intel.com>, =?UTF-8?Q?Mika_Penttil=C3=A4?=
+ <mpenttil@redhat.com>, Leon Romanovsky <leon@kernel.org>,
+ Jason Gunthorpe <jgg@ziepe.ca>, John Hubbard <jhubbard@nvidia.com>
+References: <20261112-numa-v1-1-ad9cbca8f49a@intel.com>
+ <b32fb02a-68b4-4db9-83dd-254147dbf215@kernel.org>
+ <1993e931e6a4b0cda5c04e72b1a8d5fb924f950a.camel@linux.intel.com>
+From: "David Hildenbrand (Arm)" <david@kernel.org>
+Content-Language: en-US
+Autocrypt: addr=david@kernel.org; keydata=
+ xsFNBFXLn5EBEAC+zYvAFJxCBY9Tr1xZgcESmxVNI/0ffzE/ZQOiHJl6mGkmA1R7/uUpiCjJ
+ dBrn+lhhOYjjNefFQou6478faXE6o2AhmebqT4KiQoUQFV4R7y1KMEKoSyy8hQaK1umALTdL
+ QZLQMzNE74ap+GDK0wnacPQFpcG1AE9RMq3aeErY5tujekBS32jfC/7AnH7I0v1v1TbbK3Gp
+ XNeiN4QroO+5qaSr0ID2sz5jtBLRb15RMre27E1ImpaIv2Jw8NJgW0k/D1RyKCwaTsgRdwuK
+ Kx/Y91XuSBdz0uOyU/S8kM1+ag0wvsGlpBVxRR/xw/E8M7TEwuCZQArqqTCmkG6HGcXFT0V9
+ PXFNNgV5jXMQRwU0O/ztJIQqsE5LsUomE//bLwzj9IVsaQpKDqW6TAPjcdBDPLHvriq7kGjt
+ WhVhdl0qEYB8lkBEU7V2Yb+SYhmhpDrti9Fq1EsmhiHSkxJcGREoMK/63r9WLZYI3+4W2rAc
+ UucZa4OT27U5ZISjNg3Ev0rxU5UH2/pT4wJCfxwocmqaRr6UYmrtZmND89X0KigoFD/XSeVv
+ jwBRNjPAubK9/k5NoRrYqztM9W6sJqrH8+UWZ1Idd/DdmogJh0gNC0+N42Za9yBRURfIdKSb
+ B3JfpUqcWwE7vUaYrHG1nw54pLUoPG6sAA7Mehl3nd4pZUALHwARAQABzS5EYXZpZCBIaWxk
+ ZW5icmFuZCAoQ3VycmVudCkgPGRhdmlkQGtlcm5lbC5vcmc+wsGQBBMBCAA6AhsDBQkmWAik
+ AgsJBBUKCQgCFgICHgUCF4AWIQQb2cqtc1xMOkYN/MpN3hD3AP+DWgUCaYJt/AIZAQAKCRBN
+ 3hD3AP+DWriiD/9BLGEKG+N8L2AXhikJg6YmXom9ytRwPqDgpHpVg2xdhopoWdMRXjzOrIKD
+ g4LSnFaKneQD0hZhoArEeamG5tyo32xoRsPwkbpIzL0OKSZ8G6mVbFGpjmyDLQCAxteXCLXz
+ ZI0VbsuJKelYnKcXWOIndOrNRvE5eoOfTt2XfBnAapxMYY2IsV+qaUXlO63GgfIOg8RBaj7x
+ 3NxkI3rV0SHhI4GU9K6jCvGghxeS1QX6L/XI9mfAYaIwGy5B68kF26piAVYv/QZDEVIpo3t7
+ /fjSpxKT8plJH6rhhR0epy8dWRHk3qT5tk2P85twasdloWtkMZ7FsCJRKWscm1BLpsDn6EQ4
+ jeMHECiY9kGKKi8dQpv3FRyo2QApZ49NNDbwcR0ZndK0XFo15iH708H5Qja/8TuXCwnPWAcJ
+ DQoNIDFyaxe26Rx3ZwUkRALa3iPcVjE0//TrQ4KnFf+lMBSrS33xDDBfevW9+Dk6IISmDH1R
+ HFq2jpkN+FX/PE8eVhV68B2DsAPZ5rUwyCKUXPTJ/irrCCmAAb5Jpv11S7hUSpqtM/6oVESC
+ 3z/7CzrVtRODzLtNgV4r5EI+wAv/3PgJLlMwgJM90Fb3CB2IgbxhjvmB1WNdvXACVydx55V7
+ LPPKodSTF29rlnQAf9HLgCphuuSrrPn5VQDaYZl4N/7zc2wcWM7BTQRVy5+RARAA59fefSDR
+ 9nMGCb9LbMX+TFAoIQo/wgP5XPyzLYakO+94GrgfZjfhdaxPXMsl2+o8jhp/hlIzG56taNdt
+ VZtPp3ih1AgbR8rHgXw1xwOpuAd5lE1qNd54ndHuADO9a9A0vPimIes78Hi1/yy+ZEEvRkHk
+ /kDa6F3AtTc1m4rbbOk2fiKzzsE9YXweFjQvl9p+AMw6qd/iC4lUk9g0+FQXNdRs+o4o6Qvy
+ iOQJfGQ4UcBuOy1IrkJrd8qq5jet1fcM2j4QvsW8CLDWZS1L7kZ5gT5EycMKxUWb8LuRjxzZ
+ 3QY1aQH2kkzn6acigU3HLtgFyV1gBNV44ehjgvJpRY2cC8VhanTx0dZ9mj1YKIky5N+C0f21
+ zvntBqcxV0+3p8MrxRRcgEtDZNav+xAoT3G0W4SahAaUTWXpsZoOecwtxi74CyneQNPTDjNg
+ azHmvpdBVEfj7k3p4dmJp5i0U66Onmf6mMFpArvBRSMOKU9DlAzMi4IvhiNWjKVaIE2Se9BY
+ FdKVAJaZq85P2y20ZBd08ILnKcj7XKZkLU5FkoA0udEBvQ0f9QLNyyy3DZMCQWcwRuj1m73D
+ sq8DEFBdZ5eEkj1dCyx+t/ga6x2rHyc8Sl86oK1tvAkwBNsfKou3v+jP/l14a7DGBvrmlYjO
+ 59o3t6inu6H7pt7OL6u6BQj7DoMAEQEAAcLBfAQYAQgAJgIbDBYhBBvZyq1zXEw6Rg38yk3e
+ EPcA/4NaBQJonNqrBQkmWAihAAoJEE3eEPcA/4NaKtMQALAJ8PzprBEXbXcEXwDKQu+P/vts
+ IfUb1UNMfMV76BicGa5NCZnJNQASDP/+bFg6O3gx5NbhHHPeaWz/VxlOmYHokHodOvtL0WCC
+ 8A5PEP8tOk6029Z+J+xUcMrJClNVFpzVvOpb1lCbhjwAV465Hy+NUSbbUiRxdzNQtLtgZzOV
+ Zw7jxUCs4UUZLQTCuBpFgb15bBxYZ/BL9MbzxPxvfUQIPbnzQMcqtpUs21CMK2PdfCh5c4gS
+ sDci6D5/ZIBw94UQWmGpM/O1ilGXde2ZzzGYl64glmccD8e87OnEgKnH3FbnJnT4iJchtSvx
+ yJNi1+t0+qDti4m88+/9IuPqCKb6Stl+s2dnLtJNrjXBGJtsQG/sRpqsJz5x1/2nPJSRMsx9
+ 5YfqbdrJSOFXDzZ8/r82HgQEtUvlSXNaXCa95ez0UkOG7+bDm2b3s0XahBQeLVCH0mw3RAQg
+ r7xDAYKIrAwfHHmMTnBQDPJwVqxJjVNr7yBic4yfzVWGCGNE4DnOW0vcIeoyhy9vnIa3w1uZ
+ 3iyY2Nsd7JxfKu1PRhCGwXzRw5TlfEsoRI7V9A8isUCoqE2Dzh3FvYHVeX4Us+bRL/oqareJ
+ CIFqgYMyvHj7Q06kTKmauOe4Nf0l0qEkIuIzfoLJ3qr5UyXc2hLtWyT9Ir+lYlX9efqh7mOY
+ qIws/H2t
+In-Reply-To: <1993e931e6a4b0cda5c04e72b1a8d5fb924f950a.camel@linux.intel.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -101,61 +102,97 @@ List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-15.8 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
+X-Spam-Status: No, score=-7.3 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
 	DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
-	INCLUDES_CR_TRAILER,INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,
-	SPF_PASS autolearn=unavailable autolearn_force=no version=4.0.1
+	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,USER_AGENT_SANE_1
+	autolearn=no autolearn_force=no version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-Hi,
+On 11/13/26 21:34, Thomas Hellström wrote:
+> Hi, David
+> 
+> On Fri, 2026-11-13 at 19:27 +0100, David Hildenbrand (Arm) wrote:
+>> On 11/13/26 17:25, Matthew Auld wrote:
+>>> When automatic NUMA balancing marks a PTE or PMD as protnone
+>>> (PAGE_NONE), hmm_pte_need_fault() requests a fault to restore
+>>> access
+>>> permissions, including _PAGE_RW when write access is needed.
+>>>
+>>> Calling handle_mm_fault() from hmm_do_fault() currently triggers
+>>> NUMA
+>>> balancing in do_numa_page() and do_huge_pmd_numa_page(). When
+>>> hmm_range_fault() runs from a device driver or kworker context
+>>> (such as
+>>> a GPU SVM or userptr rebind worker), folios get migrated toward the
+>>> CPU
+>>> node executing the remote fault.
+>>>
+>>> Also, each folio migration invokes try_to_migrate_one() ->
+>>> mmu_notifier_invalidate_range_start(), which invalidates the
+>>> caller's mmu_interval_notifier while holding mmap_lock. That causes
+>>> hmm_range_fault() to abort with -EBUSY after every 2 MiB PMD and
+>>> exhaust
+>>> its retry timeout on large buffers, which has been observed with
+>>> large
+>>> imported Xe userptr buffers.
+>>>
+>>> Add FAULT_FLAG_NO_NUMA and set it in hmm_do_fault() so protnone
+>>> entries
+>>> restore PTE/PMD permissions in-place without performing NUMA
+>>> balancing,
+>>> matching GUP's default !FOLL_HONOR_NUMA_FAULT behaviour.
+>>
+>> Ehm, that's not how it works.
+>>
+>> GUP will not trigger a "special" fault and will try not triggering a
+>> fault and
+>> not restore permissions.
+>>
+>> It will try continuing, leaving the protnone pte as it is.
+>>
+>> See gup_can_follow_protnone().
+>>
+>> For read-only access that should always work.
+>>
+>> For write-access we always trigger an ordinary fault and do NUMA
+>> migration etc.
+>>
+>>
+>> So FAULT_FLAG_NO_NUMA is doing something completely different and I
+>> don't agree
+>> with it.
+>>
+> 
+> There are two major problems with the current behaviour.
+> 
+> 1) The work item executing hmm_range_fault() might have no affinity at
+> all to the GPU about to access the memory.
+> 
+> 2) If migration happens, then hmm_range_fault() will stop and retry
+> leading to excessive execution time.
+> 
+> While perhaps Matt's commit message doesn't correctly describe the GUP
+> behaviour, do you have any alternative suggestion than to avoid
+> migration in this case? I think it's a reasonable idea given the
+> problems with the current code?
 
-On Fri, Nov 13, 2026 at 9:16=E2=80=AFAM Tawheed Makhdoomi <_@tawheed.cc> wr=
-ote:
->
-> Add the LG Display LP129WT112684 12.9" 2880x1920 eDP panel used in the
-> Microsoft Surface Pro X (SQ1). Without this entry the panel is driven
-> with the conservative fallback timings and probe hits the "Unknown
-> panel" WARN.
->
-> I don't have a datasheet for this panel, so the timings are a guess
-> based on similar panels: delay_200_500_e200_d200 is what the other LGD
-> 12.9" panel in the table (0x06b2, LP129WT232166) and most other LGD
-> entries use. With this entry the panel is detected and the display comes
-> up on every one of the 38 boots logged so far on my Surface Pro X (SQ1).
->
-> EDID, read from /sys/class/drm/card1-eDP-1/edid:
->
-> 00 ff ff ff ff ff ff 00 30 e4 55 05 a0 28 09 00
-> 00 1c 01 04 a5 1b 12 78 03 ee 95 a3 54 4c 99 26
-> 0f 50 54 00 00 00 01 01 01 01 01 01 01 01 01 01
-> 01 01 01 01 01 01 de 8a 40 78 b0 80 37 70 30 20
-> 55 04 12 b7 10 00 00 19 00 00 00 fd 00 1e 3c 00
-> 00 24 04 0a 48 14 14 14 14 00 00 00 00 fe 00 4c
-> 47 44 5f 44 56 31 2e 30 5f 0a 20 20 00 00 00 fe
-> 00 4c 50 31 32 39 57 54 31 31 32 36 38 34 00 41
->
->   Manufacturer: LGD
->   Model: 0x0555
->   Made in: 2018
->   Alphanumeric data strings: 'LGD_DV1.0_', 'LP129WT112684'
->   DTD 1: 2880x1920 60.000 Hz 3:2 (274 mm x 183 mm), pixel clock 355.50 MH=
-z
->
-> Signed-off-by: Tawheed Makhdoomi <_@tawheed.cc>
-> ---
-> Changes in v2:
-> - Include the EDID in the commit message.
-> - Say explicitly that the timings are a guess (no datasheet) and how
->   they were picked, as Doug asked.
-> - v1: https://lore.kernel.org/r/20261112154444.417-1-_@tawheed.cc
->
->  drivers/gpu/drm/panel/panel-edp.c | 1 +
->  1 file changed, 1 insertion(+)
+Adding fault reasons that hack around NUMA hinting such that a actual CPU
+accessing it later will not trigger ... NUMA hinting?
 
-Reviewed-by: Douglas Anderson <dianders@chromium.org>
+I might be missing the "reasonable" in here :P
 
-Pushed to drm-misc-next:
+I recall that John (cc) kept saying "GPUs and NUMA balancing is inherently
+incompatible, you have to disable NUMA balancing".
 
-[1/1] drm/panel-edp: Add LGD LP129WT112684 panel
-      commit: fc72cd52fb284f3707fa36a68ea5a22543a51d71
+You could likely implement something similar to GUP, where you would allow for
+bypassing protnone for reading.
+
+That wouldn't give you access to the writing side. There might be ways to sort
+out some of the writing (similar to FOLL_FORCE handling in GUP), but I'd rather
+not go down that path. KVM also doesn't seem to need that.
+
+-- 
+Cheers,
+
+David
