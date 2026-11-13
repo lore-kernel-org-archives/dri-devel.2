@@ -2,68 +2,68 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2C3E1606A885
-	for <dri-devel@archiver.kernel.org>; Fri, 13 Nov 2026 16:39:32 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BB0DE606C800
+	for <dri-devel@archiver.kernel.org>; Fri, 13 Nov 2026 16:39:35 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=liHHypdb
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=BF3P0op7
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 3F7521126BD;
-	Fri, 13 Nov 2026 16:39:26 +0000 (UTC)
-Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id A059B1126BD
- for <dri-devel@lists.freedesktop.org>; Fri, 13 Nov 2026 16:39:19 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id F089E1126C4;
+	Fri, 13 Nov 2026 16:39:29 +0000 (UTC)
+Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id ADC511126C8
+ for <dri-devel@lists.freedesktop.org>; Fri, 13 Nov 2026 16:39:21 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id 8927B40A78;
- Fri, 13 Nov 2026 16:39:19 +0000 (UTC)
+ by tor.source.kernel.org (Postfix) with ESMTP id 27B4862854;
+ Fri, 13 Nov 2026 16:39:21 +0000 (UTC)
 Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
 ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
- t=1794587959;
- b=pxtisLY8NTsy762MMvDnwTI14w3Pa53mGQZFD7Ekk3H27zeE3BCWVAVn404Q9by1+zL1
- pP7XLxOCxZB2nUIeAUoe1uaYhSwAP7BYXKwo3LN3vYEUAeU6qABvjbKnXwVFPcz8e5sDs
- wtTn/KLe3wJ31zsZJ4WK7EmxSDJ7hbdX2gL+ZLwr7RS8TBXVrQ4jRw/bBrjD2A2XithbG
- NqZ41K3V4hOeEd11sYjXwOkrO/fKNriHcKgMNo8wmGbrNHKqzCfrYrTTSDFGYT0Kr3UkK
- +uabgI0zRZXiXUzpxZTRMIQodeGsf828ToecN3Ovd6WW9IKExuBmYawVuAqIxrD5wBQ==
+ t=1794587960;
+ b=KCBwWLIKmGRhnbZ4JIHExnweLunSqpxQitEir4TgC18qMhOGlBDQf4caBV7P9Z8kajSK
+ cMfxNgnoWOiSsSM7U1d04OjhKQgmGjXvbketaDHVNbPbOOf/xc4WgxyGp/Kcto5p+amw8
+ umcbSqUYfLcMbpfhZSbQRhzqj778pF1GtFJc2sG9g0koDfzvg+6WOo570kvWBmziU+SXw
+ fZ5N0xAhZRU+V6ddSp+pqooZ0jcz0jxF9+8y0h1l2zhb+baKrUT7rjhdUfDOKEpmntuoY
+ su4WLeeyINMmEk/lpq6LgdLLP/YbieDVIPBx8Gtj05p+mkVZfos1P/NU+droyrYOQNQ==
 ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
- c=relaxed/relaxed; t=1794587959;
+ c=relaxed/relaxed; t=1794587960;
  h=DKIM-Signature:Received:From:Date:Subject:MIME-Version:Content-Type:
  Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
  X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
  X-Original-From:Reply-To:Content-Transfer-Encoding;
- bh=7zpkorwus004YyxUUcOl7JyvlAtNECWRC9I0Q9NEaTU=;
- b=L5DDuBqwUf1gjAJhzQ9JjcpTiarLCAljJBh2vjfVvkIdQawNZoDMchJKBZwX9TB0GtF/
- jMWchb2ViMHlQuUbrNnVUxND8yeqD7SuLNixQaU0L8s9I1YTa+IdbCaUJtZjnFgXV7n0R
- NrV+7trpbUp0NSAQ/1t9bsN7SbLgw1DU1u1sPiqgIp88x4hXOKsSM1Hacm3RsWOH1xnGQ
- PulSYHp78VSK9R8yLL4OtYukOvyZuv+f3G8K7wW08O0bgc8UlT3+yE/PvbpvamMI/7ETn
- SFJUW2127vB3TzkZZzuzKCUCTbfD2QRLHe5W8DutmrmAmjOeReBq4jo5vNweTMJVdjQ==
+ bh=caHdCdnbVcnoOel/8I7UgJt2cA+i1z3iFohsViZm+c8=;
+ b=QFBwRPmXQz8/ORnGwKzacdzeWOhyfdDgL6nzxi01iKv3hSGi2ikq6gcstaeKKMZC39kr
+ 4vLGn+54d6N7pMWP8+PPcp7SYH233camf0ymW71ZHy8HEPlUWkID2m2X7+yuJePGhd3Ii
+ YHTFaMiKt0Slx5wAbNd5grvlHC1NHQumEh3AZusy6ZgpGJouvuaETlr1czrp+BLnrarY7
+ nmxpPxL4cZ+lw6kBeX1G8RIbO82sy++L8BmfyV5FwpigtGr2iPeIlWK/kHdPFowHjJat7
+ DrQkMGhjI7BiJM639BbO9VEsKB0ZyC+qOUNqgEUyK4vde4NjSzQoC7UbSYuucvjlkpg==
 ARC-Authentication-Results: i=1; smtp.kernel.org; 
  arc=none smtp.remote-ip=100.80.115.77
 Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
  (No client certificate requested)
- by smtp.kernel.org (Postfix) with ESMTPS id E4D5B1F000C7;
- Fri, 13 Nov 2026 16:39:18 +0000 (UTC)
+ by smtp.kernel.org (Postfix) with ESMTPS id 0487F1F000CA;
+ Fri, 13 Nov 2026 16:39:20 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1794587959;
- bh=7zpkorwus004YyxUUcOl7JyvlAtNECWRC9I0Q9NEaTU=;
+ s=k20260515; t=1794587960;
+ bh=caHdCdnbVcnoOel/8I7UgJt2cA+i1z3iFohsViZm+c8=;
  h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To;
- b=liHHypdbqq+1mNlpkUHAmBMwR4jXHGgNoLdOCknNBNSjX82KbNJa0z8IAGsMe1PPO
- pq6F5z0XnrNsTQeq4zIA3GftwSNx5IfzDRi/XSRLLUojmzEvZI25cQYKO58yzEw4e+
- zw7WUtPGMHxWbcza+ib+hVop3MWwdTEMzoWdaMNb72a597mj9kyIJ1q1DgzWoZxORX
- XEI6vaF0DeAm4MmQWw6Xrj6oHFA00MQOse5VKLbdgh29ze/jCxxB574honn7IHmNZI
- 9Aw+awQ2X4B2nECwO/tgG7Fz4Vt4JWLp9RqhynUnR+gbaFOemltFXc+y2ozqxXowFD
- hhfnEnTuZDRFA==
+ b=BF3P0op7c2BWvEgg0RtMnms7ouOFhgltbvdPt9NTMVsXxxw/Q/NA43L5Qdejrbj+4
+ WC4sUZRs6KTu1fT6lrqgJQy95avT3GqwzTZDULgyIoZmQfIIJdT919Wn+iejEIUMPJ
+ cVmK3KGzRjUqTRxvKLvtIugGKnFicdH857BjH7PtbqaU9Nx74h5zl3Jvn6YyRa/zMm
+ W7K+IM+ptt12rz4rkNOgOUrHrMtR/kc0MaY5CTEdPOC6C/eKG94hQOSHp2sOhAtaA+
+ n94Ms0FSBYCBTdDsb8f/8Im7NHK0UKmQ1pYA9MD0hSfc2tbstuELUrSRNbzZ4clG/h
+ gGTTvkWzfdHhQ==
 Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
- by lkml.kernel.org (Postfix) with ESMTP id 77359499AA;
+ by lkml.kernel.org (Postfix) with ESMTP id F15BF499C5;
  Fri, 13 Nov 2026 16:39:18 +0000 (UTC)
 From: Arun Iyengar via B4 Relay <devnull+aiyengar1990.gmail.com@kernel.org>
-Date: Fri, 13 Nov 2026 16:39:18 +0000
-Subject: [PATCH v3 1/8] drm/rockchip: vop2: Take the UV plane address from
- the second GEM object
+Date: Fri, 13 Nov 2026 16:39:23 +0000
+Subject: [PATCH v3 6/8] drm/rockchip: vop2: Find the first mixer of a video
+ port with Esmart3 too
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
-Message-Id: <20261113-vop2-fixes-v3-1-08ae37e83b5c@gmail.com>
+Message-Id: <20261113-vop2-fixes-v3-6-08ae37e83b5c@gmail.com>
 References: <20261113-vop2-fixes-v3-0-08ae37e83b5c@gmail.com>
 In-Reply-To: <20261113-vop2-fixes-v3-0-08ae37e83b5c@gmail.com>
 To: Sandy Huang <hjc@rock-chips.com>, 
@@ -77,14 +77,13 @@ Cc: Piotr Zalewski <pZ010001011111@proton.me>,
  Chaoyi Chen <chaoyi.chen@rock-chips.com>, 
  Damon Ding <damon.ding@rock-chips.com>, dri-devel@lists.freedesktop.org, 
  linux-rockchip@lists.infradead.org, linux-arm-kernel@lists.infradead.org, 
- linux-kernel@vger.kernel.org, Arun Iyengar <aiyengar1990@gmail.com>, 
- stable@vger.kernel.org
+ linux-kernel@vger.kernel.org, Arun Iyengar <aiyengar1990@gmail.com>
 X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1794587957; l=1358;
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1794587957; l=1927;
  i=aiyengar1990@gmail.com; s=20261110; h=from:subject:message-id;
- bh=NyEom6Ygar2g2E7rLCqTeR+IWUlMO87YHp3qaA5pe+8=;
- b=CJPvsRb+FeVzYc8gP6W0cF136DeokOuAD1BCNIGfE8dNt1REZCVnpFJ49KJgBJlBuQBo0FjL6
- Jatlf+XM37dA1SJ3GZlKWla6xcQrmz2pBEgjBC4I6zKcqAZy83iSe60
+ bh=LaWGFuV8U702iZKb4Y58/lyq2u07OMYD+M2uTNx0CjI=;
+ b=J6XMCpRpakdX/82Mh/t68AfoQvfvi3DwZT5Oa8EoTLFXDHbPHxyhrtYJYgsWQTPAJgUeuLN1n
+ kDIMsIddEZCAmZRyeY3ZJfGoQpkNc+CPWbBGtw/9NaZLP88Sz9WYzma
 X-Developer-Key: i=aiyengar1990@gmail.com; a=ed25519;
  pk=zXpRgUTrhaFe6jLyPqbBy3ccfkj04w0g2690Wv3mg+0=
 X-Endpoint-Received: by B4 Relay for aiyengar1990@gmail.com/20261110 with
@@ -113,36 +112,48 @@ X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 
 From: Arun Iyengar <aiyengar1990@gmail.com>
 
-vop2_plane_atomic_update() takes the chroma plane address from
-fb->obj[0]. The planes of a framebuffer can be in different GEM objects
-(ADDFB2 with two handles, e.g. NV12M from a V4L2 decoder), and the
-window then fetches the chroma plane from the luma buffer.
+vop2_find_start_mixer_id_for_vp() passes ROCKCHIP_VOP2_ESMART3, the
+highest window id, as the bit count to for_each_set_bit(), so Esmart3
+is never found and a video port whose bottom layer is Esmart3 programs
+the mixers of other video ports.
 
-Use fb->obj[1] for formats with more than one plane.
+Add ROCKCHIP_VOP2_MAX_LAYER_ID after the last window id and search up to
+it.
 
-Fixes: 604be85547ce ("drm/rockchip: Add VOP2 driver")
-Reported-by: Sashiko <sashiko-bot@kernel.org>
-Closes: https://lore.kernel.org/all/sashiko-outbox-206550@kernel.org/
-Cc: stable@vger.kernel.org
+Fixes: d3fe9aa49585 ("drm/rockchip: vop2: Use OVL_LAYER_SEL configuration instead of use win_mask calculate used layers")
+Reviewed-by: Chaoyi Chen <chaoyi.chen@rock-chips.com>
+Reviewed-by: Damon Ding <damon.ding@rock-chips.com>
 Signed-off-by: Arun Iyengar <aiyengar1990@gmail.com>
 ---
- drivers/gpu/drm/rockchip/rockchip_drm_vop2.c | 3 ++-
- 1 file changed, 2 insertions(+), 1 deletion(-)
+ drivers/gpu/drm/rockchip/rockchip_drm_vop2.h | 1 +
+ drivers/gpu/drm/rockchip/rockchip_vop2_reg.c | 2 +-
+ 2 files changed, 2 insertions(+), 1 deletion(-)
 
-diff --git a/drivers/gpu/drm/rockchip/rockchip_drm_vop2.c b/drivers/gpu/drm/rockchip/rockchip_drm_vop2.c
-index 76d151b8bc52..e8ef83d6924b 100644
---- a/drivers/gpu/drm/rockchip/rockchip_drm_vop2.c
-+++ b/drivers/gpu/drm/rockchip/rockchip_drm_vop2.c
-@@ -1369,7 +1369,8 @@ static void vop2_plane_atomic_update(struct drm_plane *plane,
- 		if ((pstate->rotation & DRM_MODE_REFLECT_Y) && !afbc_en)
- 			offset += fb->pitches[1] * ((pstate->src_h >> 16) - 2) / vsub;
+diff --git a/drivers/gpu/drm/rockchip/rockchip_drm_vop2.h b/drivers/gpu/drm/rockchip/rockchip_drm_vop2.h
+index 1c2d7d97a6c2..87982fba7d45 100644
+--- a/drivers/gpu/drm/rockchip/rockchip_drm_vop2.h
++++ b/drivers/gpu/drm/rockchip/rockchip_drm_vop2.h
+@@ -805,6 +805,7 @@ enum vop2_layer_phy_id {
+ 	ROCKCHIP_VOP2_CLUSTER3,
+ 	ROCKCHIP_VOP2_ESMART2,
+ 	ROCKCHIP_VOP2_ESMART3,
++	ROCKCHIP_VOP2_MAX_LAYER_ID,
+ 	ROCKCHIP_VOP2_PHY_ID_INVALID = -1,
+ };
  
--		rk_obj = to_rockchip_obj(fb->obj[0]);
-+		if (fb->format->num_planes > 1)
-+			rk_obj = to_rockchip_obj(fb->obj[1]);
- 		uv_mst = rk_obj->dma_addr + offset + fb->offsets[1];
- 	}
+diff --git a/drivers/gpu/drm/rockchip/rockchip_vop2_reg.c b/drivers/gpu/drm/rockchip/rockchip_vop2_reg.c
+index 6d08988d7007..55e5dc8b02d8 100644
+--- a/drivers/gpu/drm/rockchip/rockchip_vop2_reg.c
++++ b/drivers/gpu/drm/rockchip/rockchip_vop2_reg.c
+@@ -1882,7 +1882,7 @@ static int vop2_find_start_mixer_id_for_vp(struct vop2_video_port *vp)
  
+ 	for (i = 0; i < 31; i += 4) {
+ 		match = false;
+-		for_each_set_bit(phys_id, &win_mask, ROCKCHIP_VOP2_ESMART3) {
++		for_each_set_bit(phys_id, &win_mask, ROCKCHIP_VOP2_MAX_LAYER_ID) {
+ 			win = vop2_find_win_by_phys_id(vop2, phys_id);
+ 			if (win->data->layer_sel_id[vp->id] == ((layer_sel >> i) & 0xf)) {
+ 				match = true;
 
 -- 
 2.55.0
