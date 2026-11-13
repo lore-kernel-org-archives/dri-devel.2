@@ -2,156 +2,93 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 08049606A327
-	for <dri-devel@archiver.kernel.org>; Fri, 13 Nov 2026 18:33:48 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DFA17606A881
+	for <dri-devel@archiver.kernel.org>; Fri, 13 Nov 2026 18:36:16 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=lK+bSTO9;
-	dkim=fail reason="signature verification failed" (1024-bit key, unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=selector1 header.b=ghsfeD56
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=fdd8SQJS
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 63FDD112570;
-	Fri, 13 Nov 2026 18:33:37 +0000 (UTC)
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.17])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 97726112570;
- Fri, 13 Nov 2026 18:33:26 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1794594807; x=1826130807;
- h=date:from:to:cc:subject:message-id:references:
- content-transfer-encoding:in-reply-to:mime-version;
- bh=EYtFynSogGYn6GW9vZwAfraUxh7hvWvQYqHlUj1jbm4=;
- b=lK+bSTO9eqQlLDjWqQYLPU4/oyRfBCREZnC5Opr0Tj//w33QAnYunLJP
- +W4htV5BHhOieMH8o9AajqQ3ulQXVlV1e6KYT7i0eO5tthkXtAwWVkn0n
- tWOJ7H9QAr6kltiISnL9auti1Xl8TDO19eKpCyjVg+T5k8VOZRbv9wPfS
- /i8IUShQWM0QzRH0fW3Czdm1wASexfnHWUgq9aeL1VKHiJghVkVFFvily
- 9J2z9h6yiCtEnHpLrknx9Dz9aFqBmxnSbCXFTotgpAeyqN3WiEpqXWBAF
- vGZ9YaBB5+bpKB7BsQHWRumh3iScBoZepR/iQSgmp08cHbPhwUdiYNqw/ g==;
-X-CSE-ConnectionGUID: A8oGvtTLRe2IfS4lQKWxrg==
-X-CSE-MsgGUID: ASgXA01TSSyJQMxvWcSCUQ==
-X-IronPort-AV: E=McAfee;i="6800,10657,11965"; a="3421453"
-X-IronPort-AV: E=Sophos;i="6.27,212,1787036400"; 
-   d="scan'208";a="3421453"
-Received: from fmviesa004.fm.intel.com ([10.60.135.144])
- by orvoesa109.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 13 Nov 2026 10:33:00 -0800
-X-CSE-ConnectionGUID: CZndmrQ+S+GXsxzeSXtK+Q==
-X-CSE-MsgGUID: meYJLBF5QSGbP/agsWVAiQ==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,212,1787036400"; 
-   d="scan'208";a="8907306"
-Received: from fmsmsx903.amr.corp.intel.com ([10.18.126.92])
- by fmviesa004.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 13 Nov 2026 10:33:00 -0800
-Received: from FMSMSX901.amr.corp.intel.com (10.18.126.90) by
- fmsmsx903.amr.corp.intel.com (10.18.126.92) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.56; Fri, 13 Nov 2026 10:32:59 -0800
-Received: from fmsedg902.ED.cps.intel.com (10.1.192.144) by
- FMSMSX901.amr.corp.intel.com (10.18.126.90) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.56 via Frontend Transport; Fri, 13 Nov 2026 10:32:59 -0800
-Received: from CO1PR03CU002.outbound.protection.outlook.com (52.101.46.52) by
- edgegateway.intel.com (192.55.55.82) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.56; Fri, 13 Nov 2026 10:32:58 -0800
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=SDOpDt0/rjyjxPlr2j3pjxEB1AsW5xbS2iEWtTUAxQnPsDkS7HaiJFD7jSsRK43x2kR17kxRQjORBPK9VBy8PATOw1revy9slttnPwnenB32K5F7V1nItJUquE7fige/SZ+9XXU0G7YttUoDwr8yPv/sMHevzWIesOUbwloRVpKLLUbcjGM7yCJmbpm2oBhPGcG3hXXST5mHRLlUx4BmGR+bilTqoAuTwEy8GSi/MXJOafgaZe7f5CLnA89+0BVfsW7yse6phZ1kjs6LdiJ/TI0Kdfq/pPslJs6R22kw1DBIi3ZQgENmIb97LPqtVoa9dQus/wPLLA9bJt4G6bCnCg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=sz00V3csZZ+gd8EquNGQSmNQi2ifgzKl5l7Ry5D1c9M=;
- b=NZpHN1JRGHtEUdc4cp8qab0iZj8o/bkokKoEIoSz5ZVN9UesjnXhTzQQVo10aRKuYXiOJYh63CW95VOKzoL5CXErCAiXsjs0x4fQoP/VKmwe/Mp9V8qocSaj0y+Sd7jRkig5jn+IMVY/uv3qi1NlZ2pvA7vx8r9xbMbV+0btKwr/vqp5Ycz2aX81cN/tagm7CVX0RC1CarxD9bW45dNBCZ7EEL7cjfSWxuSt1fsVC/i+eq0M55N4AZjx8LixOJY/pbEaLqTDdvoAAdEh1EAsbvhXVAawy6iXnTEmsd5zO+rF/dm/w0PDKFm3ZBGtgsOnKY5JBgsrp+uGrgmQBGgqqQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=intel.com; dmarc=pass action=none header.from=intel.com;
- dkim=pass header.d=intel.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=intel.com; s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=sz00V3csZZ+gd8EquNGQSmNQi2ifgzKl5l7Ry5D1c9M=;
- b=ghsfeD56vAVRV13+pEp382xl41zzHqfTzK27yXIRZnzk5ZpmhyALOeZm+arr8Pu/dllpytG1NtFo/gM+7v20gTGfzNxBIoChdf07BQWShhdhPUi2OhnMj2Gbz4Phv1GzK54QRDUiwgLwA6NJAvf7E56GSz9NwWgEAfSE/nkD3ts=
-Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=intel.com;
-Received: from CO1PR11MB4787.namprd11.prod.outlook.com (2603:10b6:303:95::23)
- by DM4PR11MB5972.namprd11.prod.outlook.com (2603:10b6:8:5f::6) with
- Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.615.10; Fri, 13 Nov 2026 18:27:37 +0000
-Received: from CO1PR11MB4787.namprd11.prod.outlook.com
- ([fe80::e7eb:a872:53d1:21fd]) by CO1PR11MB4787.namprd11.prod.outlook.com
- ([fe80::e7eb:a872:53d1:21fd%4]) with mapi id 15.21.0615.008; Fri, 13 Nov 2026
- 18:27:36 +0000
-Date: Fri, 13 Nov 2026 10:27:34 -0800
-From: Matthew Brost <matthew.brost@intel.com>
-To: Arvind Yadav <arvind.yadav@intel.com>
-CC: <intel-xe@lists.freedesktop.org>, <dri-devel@lists.freedesktop.org>,
- <himal.prasad.ghimiray@intel.com>, <thomas.hellstrom@linux.intel.com>,
- <rodrigo.vivi@intel.com>, <tejas.upadhyay@intel.com>
-Subject: Re: [PATCH] drm/xe: Account for exec queue cleanup after handle
- allocation fails
-Message-ID: <avdWloP416vGgEgT@gsse-cloud1.jf.intel.com>
-References: <20261113065437.249640-1-arvind.yadav@intel.com>
-Content-Type: text/plain; charset=iso-8859-1
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <20261113065437.249640-1-arvind.yadav@intel.com>
-X-ClientProxiedBy: MW4P220CA0024.NAMP220.PROD.OUTLOOK.COM
- (2603:10b6:303:115::29) To CO1PR11MB4787.namprd11.prod.outlook.com
- (2603:10b6:303:95::23)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 041DC10EC8A;
+	Fri, 13 Nov 2026 18:36:11 +0000 (UTC)
+Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 355F510EC8A;
+ Fri, 13 Nov 2026 18:36:05 +0000 (UTC)
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+ by sea.source.kernel.org (Postfix) with ESMTP id D17EA40B81;
+ Fri, 13 Nov 2026 18:36:04 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0618B1F000C4;
+ Fri, 13 Nov 2026 18:36:01 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+ s=k20260515; t=1794594964;
+ bh=Nr1sabwRiVAnVE1Zz6waN9h+CZcSzSFjuvr4+7jGL1A=;
+ h=Date:Subject:To:Cc:References:From:In-Reply-To;
+ b=fdd8SQJSLXHHGJM+CTe5q0eusqLo4/Yvj6Hy+N/Kdr4TpdX80s8pu9YqSQPtU1RAo
+ F0uIHpulEmevf26g2P+5GP91AAQGtijOfX2d/nR0pLfTIFybtsfyCfdnV9vddJZ6GB
+ cMn/SiRohtSr3ditXEnGa+7K0U5oaJWNnZxfGSRnYEHmTTLDzEasOu+ss9NXQnLLs1
+ 9ke0TAlhkOQ1EeRyY1uWxLihthGWstqA5D+7kFOmW2MwY9m318XGHjKXBcLBRZFU3z
+ +yF0IH376OzpLjOpO3042tb2yP9n9VWCcQo5XB+T8UNEaSQC8v6VqzbdHx50/oXw8a
+ 6/jn9/5CMHqxg==
+Message-ID: <b32fb02a-68b4-4db9-83dd-254147dbf215@kernel.org>
+Date: Fri, 13 Nov 2026 19:27:56 +0100
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: CO1PR11MB4787:EE_|DM4PR11MB5972:EE_
-X-MS-Office365-Filtering-Correlation-Id: 21f6c78b-c3a1-4b4f-a73c-08df41b3cabd
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
- ARA:13230040|366016|23010399003|376014|1800799024|22082099003|18002099003|261009223027099003|11063799006|56012099006|10067099003|261102123227099003|261028144727099003|261026140227099003|261022105027099003|261021123027099003|261021121427099003;
-X-Microsoft-Antispam-Message-Info: TlEgoGPYrCDTa21PoHnrDQFKazQHPw3rU3DKgunbcPsJ0zD2CtnLRxgBzliRoxTp3cB8Zkrn7W/wQaljjkcZ09XJdj9WZFomTjFFoanZnn4iS5IiCdGnTvJCSZ12DQy1/+4N5jr92h1N2jRQ2z4Gn1ZYvJEZBGlmEzF2y5SKAQsbMPx8iw3JsGCCuyX38mFKW02RfP4BVLnUl3rJNtLsLDr7ICX6sj0qTtu/935PFvmpCRW5E1mUc8OlzmH529OkBKu2JwDHLd3BkqVRYMsOx/UW6x5980K0tshkKY9aLmiRkLfOwSVMWNhUplyol3QxhXj/70Cu0Cmqy4ggB610zxRb9xxprBdQe+eIUOb7hx9HovvdT9hSQzQixVZTDa6/iIwCkL05qfdCBydvKITlbvD1rf64uqdcnPdew4ILhdp+6O2hjlYEjoOwj6kjtEbqw9cyTYQPwt+NZNz3wGk3ZONmn4yc5alqjMxCAzO68mHK0cVs9/KUHkceM3CPZIBdgvw6tVN3S5QU64FJ3MYBWT2wLJTG6Cq8nHeNQkSmiVc+HBO4cjGLHRrSiFs+/Uc1qiaKZt0qIBVJN/I632AvDqZOb1hU8YKCBsKZ2zCJYxA=
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:CO1PR11MB4787.namprd11.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(366016)(23010399003)(376014)(1800799024)(22082099003)(18002099003)(261009223027099003)(11063799006)(56012099006)(10067099003)(261102123227099003)(261028144727099003)(261026140227099003)(261022105027099003)(261021123027099003)(261021121427099003);
- DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?iso-8859-1?Q?AR61/3km3uVUOOyrvZueXokgwU6YFL19YmGtb9R+NeV4xaNqUlTOmxJw2n?=
- =?iso-8859-1?Q?JbOewwtw3o1tNH++fGOsQixg+Nbekk5Gu1NaF5aF334U1dizznr6qYlYYF?=
- =?iso-8859-1?Q?fbnUJCL5P1pzShFgbgGbIkfoxViiUzqtkBkODI/7wQPUpJ5SrVPOJITxGF?=
- =?iso-8859-1?Q?gqU05WhYDlyFFXeLdYkdbj0u5fF/RguO+Ok+r573ihpitcW6OM+wcC0RNj?=
- =?iso-8859-1?Q?XaSGQYzXzYYm4gb/fLWxq+vrK1ePotamawip80zgtTHl0ZAsg8no4b1Aub?=
- =?iso-8859-1?Q?WKaddAPL5JwTPwpPqjnvwQPZ16f9ojnBrLL+01DnGalI0wpJ/1umKYb389?=
- =?iso-8859-1?Q?mtQvwzA4LhHZk82MXULzTRgsyRK4sJav9NBCuaF3gIa9EwzpY9JdBRLiXh?=
- =?iso-8859-1?Q?K0As15GGjSqDS+MW9vPNNfVG5YkMyugQ6cnhEoYzD5jugohrCZSeS1TE8l?=
- =?iso-8859-1?Q?mwYNE+Pf2mFbqI03vomCn0ezsVJoD9avEoVij/U/OMver0zcscofFgR7eM?=
- =?iso-8859-1?Q?t2Kf3OiDrQhQvRRMqGO8EfHnfJKu0OVjihUjU9ZMjdFe0jF4nvYdH+0x7Z?=
- =?iso-8859-1?Q?c3v+nLrFgGKmhArZi05mFOmfUJz5478+hVpj+jmzmFEmNTncdwdN4QTGlr?=
- =?iso-8859-1?Q?zGQ4eqbvt2cH6k2DAlJv0rHFUnNzPA/+uydo5cb3vYoDl7hnK0jYZIMb49?=
- =?iso-8859-1?Q?q9KHQiYFDcddE9kJuCZQn5KVqqcLlG/AusCtIXoqxaCsE3O7eZ6Mg/gvnD?=
- =?iso-8859-1?Q?UscTGjQLrpbqYYP/w/+gnRhtFoNBLaM7W0UPrb5jglGS1cq+O2D/5Y+vEl?=
- =?iso-8859-1?Q?sS0MIptHOpM9rHLz7r0joGLzFDn6MhHTCObvdtSs6wQVK7h30g2Ucai+0G?=
- =?iso-8859-1?Q?Xicb+zmrX7YbFw0LtpRRVn27xEs0QvkMsP+Llf73KoyioLEximH4CQfSG9?=
- =?iso-8859-1?Q?ZD7QlEDGFfd5XCZPTYVVbGC/XGnwxoUG3MBoZmZLCiFUUrcY8zsGvpd+U2?=
- =?iso-8859-1?Q?d+Y1AZGvSAjSuFzh8TD0lF0twryOqcYthYQJkk6p8K9YUN9NbKzOoP8N7u?=
- =?iso-8859-1?Q?2ROOibcnMcAD1R88pqfNJtlYi+GBI7uP6xzRi1Y4a/3aaZPxqqTMgDJU/j?=
- =?iso-8859-1?Q?FWCafT9pwmFWrrIAAj8Zb8ddUVNU7cOWkYG8HgD5V8VuJHVEh9L3ZurbnK?=
- =?iso-8859-1?Q?yIyzjyvM+TAkl6iHSi5FXKgACBFgQFw5Xx+PaJY1SbCcwtIJVFPDKWvvgR?=
- =?iso-8859-1?Q?iz+H4sAEXkmn592AI3wCAz3oR/R9cY3vRUWzSxKjWmTb3ctfFq1YJPxWa8?=
- =?iso-8859-1?Q?aJcarLY0vDU0gl3zdr2SMAbBB24L9jJlZ33rxpjSULraD7+OqoJyscaQha?=
- =?iso-8859-1?Q?3arjq5w6ErTivxFFNHe+GBWHA3XbypG4M2L8Gxie/Ngq1n83ajDepuAqy0?=
- =?iso-8859-1?Q?GVSoUUNahw1xOh6Wpe1pvgLWtsuJ8a1jinYQqNWunAM6EaMnRHh9rD7cth?=
- =?iso-8859-1?Q?YfpiYdPEQFUQpTc2+hb2G2eIUAsPQUn4MBGySz89ADo2eUdKVY5Dm2VRPV?=
- =?iso-8859-1?Q?jXfVrtlCBHe8e2OWHaHKubQuGyMZq0iy4TcHPFNBfDDE+m6AmCit3fmXgz?=
- =?iso-8859-1?Q?lGPWTqSOMxYog0GXYSRZZ0mLl+8+jvKokfZtTiB4H3KD0Wn38WvTnzpSzp?=
- =?iso-8859-1?Q?c8aosBFBtvBA28GjOffbyBtzd2e+HhOpxcKh5CJRw1kXDQSfUZdKbYw3YQ?=
- =?iso-8859-1?Q?pl2GuuxMWlRJMzNuLKrcIVqy4WljSlMIZadAqXIFthjhNSwvAyQFzRaW3s?=
- =?iso-8859-1?Q?4jY0bRpBHw=3D=3D?=
-X-Exchange-RoutingPolicyChecked: XHtVV4TLhWGDFVEye5WKuekxewAQNoBHAhH656Rq43nkDgmGv53v8mJU0aU1ElH6b/Btf8Omah7njIxNu26muO3ISjHhY9DPlbq/nEDsn6Wr54J1rLMlkgGLKDj9GC9qYH3VKAIF5wrPIlygxEwhiw1U00fwhb/fFlSkQgHmu66yZm+mfyN1xl1D3PhuETSCghhdH/3q+Yo38bwECewmHEodtMrHNAuG2h+ayyY1I9MG6EZwt4IYbaX5nUifFShcK9IDW1ObVwLSsHo7kjc9C0FVkFk2FaA5kyYhBlyI2Nn2Hi1m52ASsEuNtQh71USpEjUZ63irWnvIcHVsNHoWQA==
-X-MS-Exchange-CrossTenant-Network-Message-Id: 21f6c78b-c3a1-4b4f-a73c-08df41b3cabd
-X-MS-Exchange-CrossTenant-AuthSource: CO1PR11MB4787.namprd11.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 13 Nov 2026 18:27:36.8161 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 46c98d88-e344-4ed4-8496-4ed7712e255d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: J9DlXHmsSGAjycBbs5JFh43K+FUkrauXOq/XwPAZPkBfNlX42Gg0nH/8dSRlz6/E3Kig6wpgm1+Oy+koO7c4Ag==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM4PR11MB5972
-X-OriginatorOrg: intel.com
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] mm/hmm: skip NUMA balancing on protnone faults
+To: Matthew Auld <matthew.auld@intel.com>, linux-mm@kvack.org
+Cc: dri-devel@lists.freedesktop.org, intel-xe@lists.freedesktop.org,
+ =?UTF-8?Q?Thomas_Hellstr=C3=B6m?= <thomas.hellstrom@linux.intel.com>,
+ Matthew Brost <matthew.brost@intel.com>, =?UTF-8?Q?Mika_Penttil=C3=A4?=
+ <mpenttil@redhat.com>, Leon Romanovsky <leon@kernel.org>,
+ Jason Gunthorpe <jgg@ziepe.ca>
+References: <20261112-numa-v1-1-ad9cbca8f49a@intel.com>
+From: "David Hildenbrand (Arm)" <david@kernel.org>
+Content-Language: en-US
+Autocrypt: addr=david@kernel.org; keydata=
+ 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
+ qIws/H2t
+In-Reply-To: <20261112-numa-v1-1-ad9cbca8f49a@intel.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -163,64 +100,54 @@ List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-15.8 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
+X-Spam-Status: No, score=-7.3 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
 	DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
-	INCLUDES_CR_TRAILER,INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,
-	SPF_PASS autolearn=ham autolearn_force=no version=4.0.1
+	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,USER_AGENT_SANE_1
+	autolearn=no autolearn_force=no version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-On Fri, Nov 13, 2026 at 12:24:36PM +0530, Arvind Yadav wrote:
-> xe_exec_queue_create_ioctl() assigns q->xef before allocating the
-> userspace handle. If xa_alloc() fails, queue finalization decrements
-> pending_removal even though the queue was never removed from the
-> xarray and the counter was never incremented.
+On 11/13/26 17:25, Matthew Auld wrote:
+> When automatic NUMA balancing marks a PTE or PMD as protnone
+> (PAGE_NONE), hmm_pte_need_fault() requests a fault to restore access
+> permissions, including _PAGE_RW when write access is needed.
 > 
-> This can leave pending_removal negative and block fdinfo readers
-> waiting for it to reach zero.
+> Calling handle_mm_fault() from hmm_do_fault() currently triggers NUMA
+> balancing in do_numa_page() and do_huge_pmd_numa_page(). When
+> hmm_range_fault() runs from a device driver or kworker context (such as
+> a GPU SVM or userptr rebind worker), folios get migrated toward the CPU
+> node executing the remote fault.
 > 
-> Increment pending_removal before unwinding the failed allocation.
-> The existing finalization path balances the increment.
+> Also, each folio migration invokes try_to_migrate_one() ->
+> mmu_notifier_invalidate_range_start(), which invalidates the
+> caller's mmu_interval_notifier while holding mmap_lock. That causes
+> hmm_range_fault() to abort with -EBUSY after every 2 MiB PMD and exhaust
+> its retry timeout on large buffers, which has been observed with large
+> imported Xe userptr buffers.
 > 
-> Fixes: 0fd4380c050d ("drm/xe: Wait on killed exec queues")
-> Cc: Matthew Brost <matthew.brost@intel.com>
-> Cc: Thomas Hellström <thomas.hellstrom@linux.intel.com>
-> Cc: Himal Prasad Ghimiray <himal.prasad.ghimiray@intel.com>
-> Cc: Rodrigo Vivi <rodrigo.vivi@intel.com>
-> Cc: Tejas Upadhyay <tejas.upadhyay@intel.com>
-> Assisted-by: LLM
-> Closes: https://sashiko.dev/#/bug/linux-0e3ad548-c571-43d0-bf6b-00ed4771bd7a
-> Signed-off-by: Arvind Yadav <arvind.yadav@intel.com>
-> ---
->  drivers/gpu/drm/xe/xe_exec_queue.c | 8 +++++++-
->  1 file changed, 7 insertions(+), 1 deletion(-)
-> 
-> diff --git a/drivers/gpu/drm/xe/xe_exec_queue.c b/drivers/gpu/drm/xe/xe_exec_queue.c
-> index 7ade915c59a8..39d99d6d418c 100644
-> --- a/drivers/gpu/drm/xe/xe_exec_queue.c
-> +++ b/drivers/gpu/drm/xe/xe_exec_queue.c
-> @@ -1471,8 +1471,14 @@ int xe_exec_queue_create_ioctl(struct drm_device *dev, void *data,
->  
->  	/* user id alloc must always be last in ioctl to prevent UAF */
->  	err = xa_alloc(&xef->exec_queue.xa, &id, q, xa_limit_32b, GFP_KERNEL);
+> Add FAULT_FLAG_NO_NUMA and set it in hmm_do_fault() so protnone entries
+> restore PTE/PMD permissions in-place without performing NUMA balancing,
+> matching GUP's default !FOLL_HONOR_NUMA_FAULT behaviour.
 
-What about moving the xa_alloc above setting 'q->xef' and calling
-xe_vm_add_exec_queue?
+Ehm, that's not how it works.
 
-Matt
+GUP will not trigger a "special" fault and will try not triggering a fault and
+not restore permissions.
 
-> -	if (err)
-> +	if (err) {
-> +		/*
-> +		 * q->xef is already set, so xe_exec_queue_fini() will
-> +		 * decrement pending_removal even without an xarray entry.
-> +		 */
-> +		atomic_inc(&xef->exec_queue.pending_removal);
->  		goto del_hw_engine_group;
-> +	}
->  
->  	args->exec_queue_id = id;
->  
-> -- 
-> 2.43.0
-> 
+It will try continuing, leaving the protnone pte as it is.
+
+See gup_can_follow_protnone().
+
+For read-only access that should always work.
+
+For write-access we always trigger an ordinary fault and do NUMA migration etc.
+
+
+So FAULT_FLAG_NO_NUMA is doing something completely different and I don't agree
+with it.
+
+
+-- 
+Cheers,
+
+David
