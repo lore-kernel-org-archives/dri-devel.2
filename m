@@ -2,91 +2,43 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B5AEC606A88A
-	for <dri-devel@archiver.kernel.org>; Fri, 13 Nov 2026 21:28:06 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 281A8606A334
+	for <dri-devel@archiver.kernel.org>; Fri, 13 Nov 2026 21:29:01 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=LPxuuUc5
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=IcEktn9W
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 2431310E1AA;
-	Fri, 13 Nov 2026 21:28:01 +0000 (UTC)
-Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 09F9E10E1AA
- for <dri-devel@lists.freedesktop.org>; Fri, 13 Nov 2026 21:27:55 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 84FE610E6E1;
+	Fri, 13 Nov 2026 21:28:55 +0000 (UTC)
+Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 9DE4710E6E1;
+ Fri, 13 Nov 2026 21:28:49 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id 8EC1641A85;
- Fri, 13 Nov 2026 21:27:54 +0000 (UTC)
-Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
-ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
- t=1794605274;
- b=AP/KzZDfZ8bCMo4cm/5Tl0XIRRXx4HchidV5jwysu2+ofqJSFzxLhYjpvbeeSJbYDBGj
- 5miUorO4pld2vTZQQ4xY1F/3GnRPRWkUET31+LdTfidvNGVdiBqrkHZgChrQWVskzBlhd
- eD2YWJwk9vQ0dbGrr2esMDd4XjdGOIE0tfLEKabmbGPkE2JkM7jkq5a352nGTcaOLeEz6
- 1CfbxD8DmcXiMEotMmOJ/q2cqt7klmB4+WZQrY0Z2okO7HyEtacf1zQjTOGH1wyIKrRnp
- GzriWM12ggJhZfHPe8DJMDJ+JLxohbDJ4k4CtIcZRKUz2M4A9viGeOl5+CNpcImlAcA==
-ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
- c=relaxed/relaxed; t=1794605274;
- h=DKIM-Signature:Received:From:Date:Subject:MIME-Version:Content-Type:
- Message-Id:X-B4-Tracking:X-Change-ID:To:Cc:X-Mailer:
- X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
- X-Original-From:Reply-To:Content-Transfer-Encoding;
- bh=k2xYll9QcnSCQUYhZz7UgDQuNChadFhDR/is56uKZSQ=;
- b=eQmA4zd8RP1ajMgEOIKpvlA9TGpjrWCmuqkiKcSeJuN8ukxiihdzpI1OMGvHWfBCP/uZ
- 1NuyvwHsNC2jE4qlTV3Np9B/xB7pIFvZndrhODFNh+pqTBNv4yuzCMup/yfUpxxe29zHf
- vzmwEWur6N/R6mAnaqe/T0RPlJo3364NDybaNQC+q3yjkzI//vrpsJeBwX3eRLCZxXXNz
- EvOBUbY8P+TZJRYePwO2yDoUZfg2mzKll4ORkLhPQRXQVKVmWiCpEodDhO4rSyPN6bfEF
- Mc+Yr5q0LMbU1gaOMfJ5EW3FewnNgXCjBoCUzlYCdElzEO6NG6xPs0SmFlgCMem/AQg==
-ARC-Authentication-Results: i=1; smtp.kernel.org; 
- arc=none smtp.remote-ip=100.80.115.77
-Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
- (No client certificate requested)
- by smtp.kernel.org (Postfix) with ESMTPS id 06B481F000C4;
- Fri, 13 Nov 2026 21:27:54 +0000 (UTC)
+ by tor.source.kernel.org (Postfix) with ESMTP id F3D9360120;
+ Fri, 13 Nov 2026 21:28:48 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 799F01F000C4;
+ Fri, 13 Nov 2026 21:28:48 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1794605274;
- bh=k2xYll9QcnSCQUYhZz7UgDQuNChadFhDR/is56uKZSQ=;
- h=From:Date:Subject:To:Cc:Reply-To;
- b=LPxuuUc5oehLgqWVojLImACb58EnQ3Za3nnD7SzN5+tdwnxLH+0C9UWUSCvKKlRCR
- K9Bzxa7xpd49KK2hVXqGwWHjj0dylsyN6hmNAYIkYh0M6Bdieqn3MGFJWV5rfHiPIi
- NaPKQZ2awad3Gqz9p+0RpHrEMGe/uCLYd4AA2H4YDVAZcRX5MeUntv2dYqDy/W18mV
- xkaP6Kh1XQ/TDuvHW4haCJeLX59Ar4C0UXnS2Irlf4AOK/K5/64USair5i9RHjD7jG
- SFZZQsBoK59NjHYUjHxuQcj78JDwU06ZuH5VrCoL9+kk/IulujvC9GxzSvLU59s+tH
- 0P38D1g3l1ABQ==
-Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
- by lkml.kernel.org (Postfix) with ESMTP id 8C95149B06;
- Fri, 13 Nov 2026 21:27:53 +0000 (UTC)
-From: Arun Iyengar via B4 Relay <devnull+aiyengar1990.gmail.com@kernel.org>
-Date: Fri, 13 Nov 2026 21:27:54 +0000
-Subject: [PATCH v2] drm/debugfs: Accept "reset" with a trailing newline in
- edid_override
-X-Archived-By: <archiver.kernel.org>
-MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Message-Id: <20261113-drm-debugfs-edid-reset-v2-1-07939ebe7a8b@gmail.com>
-X-B4-Tracking: v=1; b=H4sIAAAAAAAC/3WNQQ6CQAxFr0Jmbc20Iior72FYwLRAjYCZAaIh3
- F3AuHT5kv/fm0wQrxJMGk3Gy6hBu3YB2kXG1XlbCSgvbMhSgogW2DfAUgxVGUBYGbwE6cEebZy
- TdcmJ0Sznp5dSX5v4ln05DMVdXL/a1kWtoe/8eyuPuO5+EfoXGREQYsd44fPBMdG1anJ97F3Xm
- Gye5w8kD9nrzgAAAA==
-X-Change-ID: 20261110-drm-debugfs-edid-reset-0504a20c67d1
-To: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>
-Cc: dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org, 
- Jani Nikula <jani.nikula@linux.intel.com>, 
- Arun Iyengar <aiyengar1990@gmail.com>
-X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1794605273; l=2090;
- i=aiyengar1990@gmail.com; s=20261110; h=from:subject:message-id;
- bh=NYL/q8RW4OVHSqWl5Xmdo7H2RuHmd47GPaMUXnBj3ww=;
- b=GBnVq8NpjUHncNStUoHXfUdva311z6rUwCSQZaIRbwplqMYBmr7bkrz/OHXO8V0ciQtVA1ORm
- R+wmP0AUgD3CMWYf1zSh/XSbO+eEhj211EZT7oZqLXal3aycABZMEW1
-X-Developer-Key: i=aiyengar1990@gmail.com; a=ed25519;
- pk=zXpRgUTrhaFe6jLyPqbBy3ccfkj04w0g2690Wv3mg+0=
-X-Endpoint-Received: by B4 Relay for aiyengar1990@gmail.com/20261110 with
- auth_id=1480
-X-Original-From: Arun Iyengar <aiyengar1990@gmail.com>
-Content-Transfer-Encoding: 7bit
+ s=k20260515; t=1794605328;
+ bh=qr8F0iRte2sKnHwdoKEootlH8v0MVrjBHVzuaOUS/K4=;
+ h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+ b=IcEktn9WNVP1HphCtVRLpbLeAugwOiNPouEOCzUA/rdUp9jJopaJVasDFt1sEb++/
+ 7Qx6Z83+jWaKcndo31FPtXb6/O71rWfmygus00aJ7SaF8GNn4R4rqkpe46dKWjee0+
+ SNsqFdGUHqCZVk4ZmC27SxneUZQVjEFZQXaEE8+8kjDhECjLmKW1hPZErn+X8ItbJE
+ R1p7gTw9DDKsllyepXghtQxS9ZrY+hqHkVPlPEDYsEcvnsOVoMVpNxTZD1Xk76+yAO
+ cCFQHVE7Ngzm80GrPScAg71i/W3LH4LFheyH+3V400CMMIxNzzPYXO6Hosj/O8MwJx
+ IIbk1L14kHd8A==
+Message-ID: <sashiko-outbox-213714@kernel.org>
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v2 4/5] drm/amd/display: Commit panel_power_savings
+ writes from the kernel
+To: "Hugo Sales" <hugo@hsal.es>
+Cc: amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org
+In-Reply-To: <20261113-abm-sysfs-commit-v2-4-5808d17a7e89@hsal.es>
+References: <20261113-abm-sysfs-commit-v2-0-5808d17a7e89@hsal.es>
+ <20261113-abm-sysfs-commit-v2-4-5808d17a7e89@hsal.es>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Fri, 13 Nov 2026 21:28:47 +0000
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -97,75 +49,113 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
-Reply-To: aiyengar1990@gmail.com
+Reply-To: sashiko-reviews@lists.linux.dev
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-16.8 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
-	DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,FREEMAIL_REPLYTO_END_DIGIT,
-	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
-	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,USER_AGENT_GIT autolearn=ham
+X-Spam-Status: No, score=-10.8 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
+	DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
+	INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS autolearn=ham
 	autolearn_force=no version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
+X-Archived-By: <archiver.kernel.org>
 
-From: Arun Iyengar <aiyengar1990@gmail.com>
+Thank you for your contribution! Sashiko AI review found 1 potential
+issue to consider:
+- [High] drm/amd/display: overlay plane loss in
+  panel_power_savings_apply() with VRR
+--
 
-Writing "reset" to edid_override only removes the override when exactly
-those five bytes are written, so "echo reset > edid_override" fails with
--EINVAL and leaves the override in place.
+commit f07b9f0f5284e550d50d58da3cfcd7dcb7eae3b4
+Author: Hugo Sales <hugo@hsal.es>
 
-Compare with sysfs_streq() on a NUL-terminated copy, and reject writes
-larger than the largest possible EDID (256 blocks) before copying,
-so that the size of the copy is bounded.
+drm/amd/display: Commit panel_power_savings writes from the kernel
 
-Suggested-by: Jani Nikula <jani.nikula@linux.intel.com>
-Signed-off-by: Arun Iyengar <aiyengar1990@gmail.com>
----
-Tested on an Orange Pi 5 (RK3588S) with this patch on a 7.3 based
-kernel: "echo reset" and "printf reset" both remove an override, an EDID
-override round trip still works, and garbage or oversized writes fail
-with -EINVAL.
+This commit updates panel_power_savings_store() to apply ABM level changes
+through a non-modeset atomic commit instead of sending a hotplug uevent.
 
-Developed with Claude (Anthropic), which wrote the code and the commit
-message. I reviewed and tested it.
----
-Changes in v2:
-- Use memdup_user_nul() and sysfs_streq() (Jani Nikula)
-- Reject writes larger than 256 EDID blocks before copying
-- Shorter commit message
-- Link to v1: https://patch.msgid.link/20261112-drm-debugfs-edid-reset-v1-1-4cd19d83cd22@gmail.com
----
- drivers/gpu/drm/drm_debugfs.c | 8 ++++++--
- 1 file changed, 6 insertions(+), 2 deletions(-)
+> diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_backlight.c =
+b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_backlight.c
+> index 27546febf90d3..8487ac0661396 100644
+> --- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_backlight.c
+> +++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_backlight.c
 
-diff --git a/drivers/gpu/drm/drm_debugfs.c b/drivers/gpu/drm/drm_debugfs.c
-index a72f9723d3a9..7c39c8ed3984 100644
---- a/drivers/gpu/drm/drm_debugfs.c
-+++ b/drivers/gpu/drm/drm_debugfs.c
-@@ -565,11 +565,15 @@ static ssize_t edid_write(struct file *file, const char __user *ubuf,
- 	char *buf;
- 	int ret;
- 
--	buf = memdup_user(ubuf, len);
-+	/* An EDID has at most 256 blocks */
-+	if (len > 256 * EDID_LENGTH)
-+		return -EINVAL;
-+
-+	buf = memdup_user_nul(ubuf, len);
- 	if (IS_ERR(buf))
- 		return PTR_ERR(buf);
- 
--	if (len == 5 && !strncmp(buf, "reset", 5))
-+	if (sysfs_streq(buf, "reset"))
- 		ret = drm_edid_override_reset(connector);
- 	else
- 		ret = drm_edid_override_set(connector, buf, len);
+[ ... ]
 
----
-base-commit: cb0a63f0c96e8ecb90199eeb99cc2a7fcfa703d4
-change-id: 20261110-drm-debugfs-edid-reset-0504a20c67d1
+> @@ -712,13 +727,100 @@ ssize_t panel_power_savings_show(struct device *de=
+vice,
+>  }
+>  EXPORT_IF_KUNIT(panel_power_savings_show);
+> =20
+> +static int panel_power_savings_apply(struct drm_connector *connector,
+> +				     unsigned int level)
+> +{
+> +	struct drm_connector_state *conn_state;
+> +	struct dm_connector_state *dm_state;
+> +	struct drm_device *dev =3D connector->dev;
+> +	struct drm_modeset_acquire_ctx ctx;
+> +	struct drm_atomic_commit *state;
+> +	bool forbidden, unchanged;
+> +	int ret, idx;
 
-Best regards,
---  
-Arun Iyengar <aiyengar1990@gmail.com>
+[ ... ]
 
+> +retry:
+> +	conn_state =3D drm_atomic_get_connector_state(state, connector);
+> +	if (IS_ERR(conn_state)) {
+> +		ret =3D PTR_ERR(conn_state);
+> +		goto out;
+> +	}
+> +
+> +	dm_state =3D to_dm_connector_state(conn_state);
+> +	if (dm_state->abm_sysfs_forbidden) {
+> +		ret =3D -EBUSY;
+> +		goto out;
+> +	}
+> +
+> +	if (dm_state->abm_level =3D=3D level) {
+> +		ret =3D 0;
+> +		goto out;
+> +	}
+> +
+> +	dm_state->abm_level =3D level;
+> +
+> +	ret =3D drm_atomic_commit(state);
 
+[Severity: High]
+Can this commit drop active overlay planes from DC when VRR is enabled on
+the CRTC?
+
+panel_power_savings_apply() builds a non-modeset commit containing only
+the connector and its CRTC, with no planes.  In amdgpu_dm_atomic_check(),
+the loop that pulls in all primary and overlay planes on a CRTC runs
+before drm_atomic_helper_check_planes(), while state still has no planes,
+so it skips the CRTC.  Later, drm_atomic_helper_check_planes() calls
+amdgpu_dm_crtc_helper_atomic_check():
+
+drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_crtc.c:amdgpu_dm_crtc_helpe=
+r_atomic_check() {
+	...
+	if (!state->legacy_cursor_update && amdgpu_dm_crtc_vrr_active(dm_crtc_stat=
+e)) {
+		struct drm_plane_state *primary_state;
+
+		/* Pull in primary plane for correct VRR handling */
+		primary_state =3D drm_atomic_get_plane_state(state, crtc->primary);
+		if (IS_ERR(primary_state))
+			return PTR_ERR(primary_state);
+	}
+	...
+}
+
+That adds only crtc->primary to state after the plane-gathering loop has
+already run.  In amdgpu_dm_commit_planes(), planes_count is then 1, and
+update_planes_and_stream_state() sees stream_status->plane_count !=3D
+surface_count, elevates the update to UPDATE_TYPE_FULL, and calls
+dc_state_rem_all_planes_for_stream() followed by
+dc_state_add_all_planes_for_stream() with only the primary plane,
+detaching any enabled overlay plane in DC while DRM state still tracks it
+as active.
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261113-abm-sysfs-=
+commit-v2-0-5808d17a7e89@hsal.es?part=3D4
