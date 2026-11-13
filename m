@@ -2,43 +2,47 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D2E58606A33F
-	for <dri-devel@archiver.kernel.org>; Fri, 13 Nov 2026 01:05:52 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 908F1606A31C
+	for <dri-devel@archiver.kernel.org>; Fri, 13 Nov 2026 01:06:01 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=maJrQxHB
+	dkim=fail reason="signature verification failed" (2048-bit key, unprotected) header.d=cwooper.dev header.i=@cwooper.dev header.a=rsa-sha256 header.s=key1 header.b=iCJFF0PH
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id EEDA510E6F1;
-	Fri, 13 Nov 2026 01:05:46 +0000 (UTC)
-Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id E24F710E6E8;
- Fri, 13 Nov 2026 01:05:35 +0000 (UTC)
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id B16D443461;
- Fri, 13 Nov 2026 01:05:35 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 676931F000C5;
- Fri, 13 Nov 2026 01:05:35 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1794531935;
- bh=Xor1D90R6iiLgXTH6Jj6+gZ7TXwLffLx35r4VJvkDic=;
- h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
- b=maJrQxHBYDHvx+LuOe4ZPgDUH44hhKkJioVLZhm5y52tpkyaogIiD9NKUSal3Dc2M
- cfqx7aVkF2BGTP+CtNbDME2ass3KIGdXwWoMZ2GOtXwNdADg1CC6ecv8pj+nm9W45L
- Db1+sT4W8HfgX3MJdDZ9+ZHR3J1wGsjL6nSh5SI+Gf3Xr8T3WaMSCGYuJWVev9cOWc
- nbwBGpB0W3mDeP+MV4ZFwYr0oDSYBH0PFzgJFF+t2S5BwPv+PJ1D0z2wN3zjhKDCWf
- MvKFn/qoYaYT/G2BydKx8o16HfBYPq6JFRJi0yEC76BqslckHOjtVMMfw1GtWr50OL
- 59ciCpY7pZp7A==
-Message-ID: <sashiko-outbox-212033@kernel.org>
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v7 1/3] PCI: Cache bridge firmware secondary bus number
-To: "Mario Limonciello" <mario.limonciello@amd.com>
-Cc: linux-pci@vger.kernel.org, amd-gfx@lists.freedesktop.org,
- dri-devel@lists.freedesktop.org
-In-Reply-To: <20261112-vfct-regression-v7-1-69b1e0cf45c2@amd.com>
-References: <20261112-vfct-regression-v7-0-69b1e0cf45c2@amd.com>
- <20261112-vfct-regression-v7-1-69b1e0cf45c2@amd.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Fri, 13 Nov 2026 01:05:35 +0000
+	by gabe.freedesktop.org (Postfix) with ESMTP id B54E810E72C;
+	Fri, 13 Nov 2026 01:05:55 +0000 (UTC)
+Received: from mta1.migadu.com (out-210.mta1.migadu.com [95.215.58.210])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id BEC6E10E6FA
+ for <dri-devel@lists.freedesktop.org>; Fri, 13 Nov 2026 01:05:48 +0000 (UTC)
+X-Envelope-To: dri-devel@lists.freedesktop.org
+DKIM-Signature: a=rsa-sha256; bh=3iaUfeSJheybFmhRCKtGmAwKW8MrZhj1xyUGO3ic1L4=; 
+ c=simple/simple; d=cwooper.dev;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1794531946; v=1; x=1795136746;
+ b=iCJFF0PH/bBXXqycUQIXn6N8e6Be/ikwGEQvq7Z4Lk29ygCDykpLLz+PKFFnLb8CatY5JvsL
+ eiUG4iRxnpGRDq2HLNtyIHvc9IOGG4aG5bXWMWvjGpQtyBjpe9Kgo4F/K+ZAU5Q4SpIarO96Itt
+ Z6uB1qvFCSD64jb0lZ96HYza6sbRqt8Ag0+tS4Wq3EruF52zPE1TMvUFsSShak1V7D7hLSZH4rY
+ tU8Ry2gqBNxEuiQKFLphEavyBNlhlDl/A4Xbtv3HCiZ4YeNNa8gIDHFjTPsTO8ahWdlhQK0B84y
+ Ql2mnGdwx+e/x6nrAep4g5R8X3FFpiV4l4yVG/4mwvGBQ==
+X-Envelope-To: dri-devel@lists.freedesktop.org
+Received: by smtp.migadu.com with ESMTPS id e4dddcff22dcb560;
+ Fri, 13 Nov 2026 01:05:46 +0000
+X-Mizu-Trace-ID: e4dddcff22dcb560
+X-Migadu-Flow: FLOW_OUT
+From: Cooper Morgan <ext-github@cwooper.dev>
+To: amd-gfx@lists.freedesktop.org
+Cc: Harry Wentland <harry.wentland@amd.com>, Leo Li <sunpeng.li@amd.com>,
+ Rodrigo Siqueira <siqueira@igalia.com>,
+ Alex Deucher <alexander.deucher@amd.com>,
+ =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org
+Subject: [PATCH v2 0/2] drm/amd/display: Fix FreeSync infopacket refresh rates
+ above 255 Hz
+Date: Thu, 12 Nov 2026 17:05:26 -0800
+Message-ID: <20261113010529.11514-1-ext-github@cwooper.dev>
+X-Mailer: git-send-email 2.56.0
+X-Archived-By: <archiver.kernel.org>
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -49,81 +53,69 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
-Reply-To: sashiko-reviews@lists.linux.dev
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-10.8 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
-	DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
-	INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS
+X-Spam-Status: No, score=-11.6 required=3.0 tests=BAYES_00,DKIM_INVALID,
+	DKIM_SIGNED,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_PATCH,
+	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,USER_AGENT_GIT
 	autolearn=unavailable autolearn_force=no version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
-X-Archived-By: <archiver.kernel.org>
 
-Thank you for your contribution! Sashiko AI review found 1 potential
-issue to consider:
-- [Low] PCI: dead fw_sec_bus_sampled in pci_read_bridge_windows() and
-  log mismatch
---
+On my MSI MAG 271QPX32 (320Hz QD-OLED over DP 1.4, RX 9070 XT), 320Hz
+looks like a 720p image stretched to fill the screen whenever
+Adaptive-Sync is on in the monitor's OSD. Custom modes at 305-315Hz put
+it into its self-test pattern instead. Windows is fine on the same
+machine and cable. It's the same bug as
+https://gitlab.freedesktop.org/drm/amd/-/issues/5988, where an LG at
+280Hz shows up as 24Hz.
 
-commit d3720492f32e5a284ef73b3dc9f69d02b13df2c4
-Author: Mario Limonciello <mario.limonciello@amd.com>
+The cause is the v1 FreeSync infopacket, which native DP sinks get
+unless they're a whitelisted PCON or support Replay. It stores the min
+and max refresh in one byte each, so 320 wraps to 64.
 
-PCI: Cache bridge firmware secondary bus number
+Patch 1 caps those bytes at 255 instead of letting them wrap. With
+patch 1 alone, the MSI is correct at 320Hz and the LG shows every frame
+at 280Hz, so I tagged it for stable.
 
-This commit caches the firmware-assigned secondary bus number on a PCI
-bridge's struct pci_dev in pci_read_bridge_windows() before bus renumbering
-can occur.
+Patch 2 sends the v3 packet to sinks that advertise AMD VSDB v3 and go
+above 255Hz, so VRR gets the full range. Sinks at 255Hz and below are
+unchanged.
 
-> diff --git a/drivers/pci/probe.c b/drivers/pci/probe.c
-> index 27008e2ea5afc..f20a4b8f7a23b 100644
-> --- a/drivers/pci/probe.c
-> +++ b/drivers/pci/probe.c
-> @@ -505,14 +505,26 @@ static void pci_read_bridge_mmio_pref(struct pci_de=
-v *dev, struct resource *res,
->  static void pci_read_bridge_windows(struct pci_dev *bridge)
->  {
->  	u32 buses;
-> +	u8 secondary;
-> +	u8 subordinate;
->  	u16 io;
->  	u32 pmem, tmp;
->  	struct resource res;
-> =20
->  	pci_read_config_dword(bridge, PCI_PRIMARY_BUS, &buses);
->  	res.flags =3D IORESOURCE_BUS;
-> -	res.start =3D FIELD_GET(PCI_SECONDARY_BUS_MASK, buses);
-> -	res.end =3D FIELD_GET(PCI_SUBORDINATE_BUS_MASK, buses);
-> +	secondary =3D FIELD_GET(PCI_SECONDARY_BUS_MASK, buses);
-> +	subordinate =3D FIELD_GET(PCI_SUBORDINATE_BUS_MASK, buses);
-> +	res.start =3D secondary;
-> +	res.end =3D subordinate;
-> +
-> +	if (!bridge->fw_sec_bus_sampled) {
-> +		bridge->fw_sec_bus_sampled =3D true;
-> +		if (secondary > 0 && secondary < 0xff) {
-> +			bridge->fw_sec_busnr =3D secondary;
-> +			bridge->fw_sec_bus_valid =3D true;
-> +		}
-> +	}
+This builds on what sunryze and oystersuki worked out in that issue.
+sunryze found that the VSDB version was only saved for Replay sinks on
+DP and tested sending v3 on their LG. oystersuki suggested pairing that
+with a 255 cap for sinks that don't advertise v3. sunryze has no public
+email, so they're credited here instead of with a tag.
 
-[Severity: Low]
-As reported by Lazar, Lijo on v5 [1], is bridge->fw_sec_bus_sampled needed
-here?
+Tested with the series backported to 7.2.13: 320Hz looks right, and
+with VRR on, the monitor's refresh readout follows frame caps at 300,
+270, 240, and 100fps. oystersuki tested both patches on an LG
+27GX700A-B. Since v3 now carries the PQ bit from ebacf0a7ce54
+("drm/amd/display: Signal PQ EOTF in FreeSync infopacket for DP HDR")
+to these sinks in HDR, I also tested with that commit backported: HDR
+looks the same. Both patches add KUnit tests.
 
-pci_read_bridge_windows() is only called from pci_setup_device() when
-pci_scan_device() first allocates and initializes a new struct pci_dev.  On
-later bus rescans, pci_scan_single_device() finds the existing device via
-pci_get_slot() and returns early without calling pci_setup_device() or
-pci_read_bridge_windows().  Because pci_read_bridge_windows() runs at most
-once per bridge instance on a zero-initialized struct pci_dev,
-fw_sec_bus_sampled is always false on entry and is never read elsewhere,
-making the bitfield and the commit message's rescan explanation unnecessary.
-In addition, since bus 0 is the root bus and fw_sec_busnr is only set when
-secondary > 0 && secondary < 0xff, fw_sec_bus_valid is redundant with
-checking whether fw_sec_busnr is non-zero.
+Changes in v2:
+- No functional changes; rebased onto amd-staging-drm-next.
+- Patch 1: dropped the claim that an EDID range capped at 255 sends the
+  bytes this patch sends (no FreeSync packet is sent then), and gave the
+  result of running patch 1 alone instead. Also dropped "once the
+  wrapped value lands inside their range", which the LG contradicts.
+- Added tags from oystersuki and Harry.
 
-[1] https://lore.kernel.org/r/eba45235-a6b1-4a48-9c56-9e069c299478@amd.com
+v1: https://lore.kernel.org/amd-gfx/20261031041827.162730-1-ext-github@cwooper.dev/
 
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261112-vfct-regre=
-ssion-v7-0-69b1e0cf45c2@amd.com?part=3D1
+Cooper Morgan (2):
+  drm/amd/display: Saturate refresh rates in v1/v2 FreeSync infopackets
+  drm/amd/display: Use FreeSync v3 infopacket for sinks above 255 Hz
+
+ .../display/amdgpu_dm/amdgpu_dm_connector.c   |   2 +-
+ .../display/amdgpu_dm/amdgpu_dm_freesync.c    |   7 ++
+ .../tests/amdgpu_dm_connector_test.c          |  25 ++++
+ .../amdgpu_dm/tests/amdgpu_dm_freesync_test.c | 116 ++++++++++++++++++
+ .../amd/display/modules/freesync/freesync.c   |  12 +-
+ 5 files changed, 158 insertions(+), 4 deletions(-)
+
+-- 
+2.56.0
+
