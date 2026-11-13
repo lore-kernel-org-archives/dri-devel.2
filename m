@@ -2,90 +2,90 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D43F4606A32E
-	for <dri-devel@archiver.kernel.org>; Sat, 14 Nov 2026 16:25:53 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CAE89606A32D
+	for <dri-devel@archiver.kernel.org>; Sat, 14 Nov 2026 16:25:54 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=0xBq0VdF
+	dkim=pass (2048-bit key, unprotected) header.d=gourry.net header.i=@gourry.net header.a=rsa-sha256 header.s=google header.b=IK/e+JaP
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id EF66B10F04E;
-	Sat, 14 Nov 2026 16:25:32 +0000 (UTC)
-Received: from mail-dy1-f177.google.com (mail-dy1-f177.google.com
- [74.125.82.177])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 74CFA10E090
- for <dri-devel@lists.freedesktop.org>; Sat, 14 Nov 2026 15:36:37 +0000 (UTC)
-Received: by mail-dy1-f177.google.com with SMTP id
- 5a478bee46e88-36ca32a0faeso217759eec.1
- for <dri-devel@lists.freedesktop.org>; Sat, 14 Nov 2026 07:36:37 -0800 (PST)
+	by gabe.freedesktop.org (Postfix) with ESMTP id C78E310F04B;
+	Sat, 14 Nov 2026 16:25:35 +0000 (UTC)
+Received: from mail-qv1-f54.google.com (mail-qv1-f54.google.com
+ [209.85.219.54])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 7721F1127C4
+ for <dri-devel@lists.freedesktop.org>; Fri, 13 Nov 2026 20:53:20 +0000 (UTC)
+Received: by mail-qv1-f54.google.com with SMTP id
+ 6a1803df08f44-91ebf4cd218so24526106d6.3
+ for <dri-devel@lists.freedesktop.org>; Fri, 13 Nov 2026 12:53:20 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20260707; t=1794670597; x=1795275397; darn=lists.freedesktop.org;
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:date:subject:cc:to:from:from:to:cc:subject:date
- :message-id:reply-to:content-type;
- bh=dcf1VprQ5tReiauPDZRL2T+Bt75/dPprqyKIItbhiW4=;
- b=0xBq0VdFe2edgng+skJNh752B/lbS3WTlPAIPU+aeZl3WqZtHlsW3np+Y9WidHXpco
- phmTTkVxEmmnd/o7Yhzt6LeyPdFjubqwFNBL8wHowVkXWpQk5css1lS97zosAf4fMMQr
- yYJEBYM1HehzwZRZqFTCj64gYBmsxRDRx/NTmPrAeEc5d5es99hTF77xkx90t+7lqEgW
- WvM7Qd1ulqoPWpaUOSxEiGedFSQv+FUMnaPROf1v7khnmpOeXiL1G1Kzn0L4JKfixZTL
- 53nao7ahB9n8prg9KDTxV3gkAWccireCWpYq/jNJUP0i4pvgC3DothzJAPLrjEY8fe3k
- pw4A==
+ d=gourry.net; s=google; t=1794603199; x=1795207999; darn=lists.freedesktop.org;
+ h=message-id:date:references:in-reply-to:cc:to:from:subject
+ :content-transfer-encoding:content-type:mime-version:from:to:cc
+ :subject:date:message-id:reply-to:content-type;
+ bh=MSDd0mIYLOoBidzRJM/vL/FHkNZCGR1RZTFok+0qNYU=;
+ b=IK/e+JaP2/7WMnxx2y5d84Oa3HLNc7m+zjeEykruOfX22tv7ShPVnl07MSugiXw9aK
+ 9w2sWFxI8a77KDRXYTuS9+frpkU1OkpazLnIiNbXaDDVK9tlUb9IBAlC2eKyUt3SLLa4
+ sQrRc+SkAIAtRGyMWJcorbZhA4API8giAIOHD26ksAdfv3MdC/g+sKUIf/GtKePQAJLr
+ xSxvTYQBVQ+j9hk2TRIC1zSEwMn/Sj4n+SfzuPcsEUrRUylK5Uia5a+suZ+DylARPpeG
+ GqpsJCJv38ShLS8KiU7kGmh3L6hNrYpzrhiolHBrnUQjyA+FCdvdvjOH0JDVrAeHgHmY
+ H1Mw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20260707; t=1794670597; x=1795275397;
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
- :to:cc:subject:date:message-id:reply-to:content-type;
- bh=dcf1VprQ5tReiauPDZRL2T+Bt75/dPprqyKIItbhiW4=;
- b=V7+ehpkSSNNsnjoJUQA1qwfkPOxmLjLhv53xZ4FNrjzEOr0/j6BNuAakZ4PiRDFDaS
- Yh7j7MCnKO+9qZbQE0qef/8HB28uR6q+kRKTrfiY1FUN2UAndnhT0aI/t2HzH8VLnL2m
- 3Qr8X0eS6w5I7rO/KnVlXRn9HWjwUnBCtwHRgWAE5BiO8GgqnsLGZOsm09JVZODNM88J
- p6rjVIPjuPVKGye9f0Ge/lFdIOgd70Yp1GNkzphzK96txBCpcW6PoMEnMjDUuAjEmlOp
- gXNHYd4BUQGL0eCykjoZT/8CSV3VTskkljt0XHhfiBA8BTiG6qH143pJ0bEkU7Cj4+Kw
- VsSA==
+ d=1e100.net; s=20260707; t=1794603199; x=1795207999;
+ h=message-id:date:references:in-reply-to:cc:to:from:subject
+ :content-transfer-encoding:content-type:mime-version:x-gm-gg
+ :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+ :content-type;
+ bh=MSDd0mIYLOoBidzRJM/vL/FHkNZCGR1RZTFok+0qNYU=;
+ b=xAKBthGLZHFGundWBBCQt6vvtfnffHk8WdwIjO2GHFlnhmL21+aGTryl8yYuaHOavm
+ aI2zgB2ptZxsXblMIHsbASExn0Vke821NuI065ZvC6MWn6WELV+/nEgR16nKQ3um5TPr
+ p+UjujI7mASSJtmIsc8MKriJPLjziuA6z6TjUtJgi6QCoVTbPnXXQIOMX0CiB9ZOZlo4
+ MkC7q3AfZpTMGCnMKePWxsMy6VQTfjvtTanWNNgWM2gmSxo8//ArIq+TH6XHq8a1qUY1
+ PZILm/bbt//vOeFH6H09CZfHCii2GDOxcFr0M30y9jEZ7o/o7az54E5qxVCQjmWl1ZDp
+ ZTDw==
 X-Forwarded-Encrypted: i=1;
- AL+hErHOwAx1DXqmmryrXdCBUN3MZXN2ZawDrie2OD5S89CLntSLWwvCUAsCOQHzXpYcvSXiO8QiYWsfbGU=@lists.freedesktop.org
-X-Gm-Message-State: APuU4Z/37wcSgiQuSY4fB5ZpxuxwDM2dEXgvjRcqwrGrXeu9NYLkIJQ4
- TJsc7CusNOYjpKKmw5vKj5URkXa2ulpfYKHYIfwe4mRCCY5qR6wfa82o
-X-Gm-Gg: AYBFou241lnSTJrHX9vAXeCEST8BUJJs8e0k0fqVRafcL+dSJ6cv2qZn5C8XBqKIgKk
- QEvrEgIwNB2u4Ukz2JcS8qzH0WC1laz7naftDKtMG7dAp4OIEqpaiNoEDPJfqUQ2OAXm9vhL7Fy
- QuIFwrtYDlEABe0yoAOTwF6GhdspMu8bIJRAPHFkRGwMukSVAF/zotqsRtW9qGGqd8hstFuj0ro
- hKZjc3jDUW3qkKyWyVrvPLsTmjtxQZZnnvsA5DmuBeGVp5NpYzFbRqV8mnSBLCEVagcv6mcZ3qh
- 5x4lZ2BMkhc9IEp9/EiRpYWz3tkIRFr+ZjC5SZiYtWD6R8p/HPY3AT9fhNMpKz4hWOSc9TLcSCv
- tri/Rc7/9LlXOi/yssUo11Bs60rVxvA78nq3YTBGs+zJBNbu4pVPBg3urNdyYR0dYctSswau4Ui
- 5snZOFL99Ine0faj/oVZ0Ee/sZYmCp8GEVeS0xKnr7BCbk+oLrYuOKM4xFSWYpxvPTuSNsX6c9y
- B2kfRlSaBWGBWVOTG9V02hZOcxg05dkHeVGX83pjzBlh8z5NZ0O5RFULWRa/NgWWhEo+UwamoEO
- mG0z1ePu4/LnW2CLjZG9EWCwn0Rk2jOyymtFl5MSKUZEIY3WO7qPdaNLhT3r6CJtic/ICXtzWmU
- 83ns=
-X-Received: by 2002:a05:693c:20cd:10b0:36a:13fd:b5c with SMTP id
- 5a478bee46e88-379652f16f8mr8568423eec.2.1794670596552; 
- Sat, 14 Nov 2026 07:36:36 -0800 (PST)
-Received: from DESKTOP-CJ1L666.localdomain ([211.198.99.62])
- by smtp.gmail.com with ESMTPSA id
- 5a478bee46e88-379508762a5sm17527126eec.0.2026.11.14.07.36.32
+ AL+hErHEyDxZ68Ip2ghzffrPVFAc5SFP80qoCUHt7ZhaJEIxen2C5CqccZmoXgci/PbPEuk/FiI+/mQCgQ8=@lists.freedesktop.org
+X-Gm-Message-State: APuU4Z/55BgMy5VKdA/sThpzTu/x2zu3iAdnQsFUCEMRDxl8MjykrKiQ
+ gHBezAC2TY4Hq0jfr7up0mUvzaGwr13/m0f+xnu6qOSmkggVVh9FvvPJ7Xt08XCq7KU=
+X-Gm-Gg: AYBFou2U+uCngd/KNRuub7BihyUjkAnzhEwIpx4rYJnOIvEzvZZBajwDBe5TLh5zZCm
+ AhAmFecDhtkrlrnAbQ9AWD+s613q+rXPCY3/UECpI/SAnymk+iscNt1uOPUiurtbzFbeBWA1mGX
+ TN+sXAWUiMS3LJfiwFkqnlT910JVwJ0UPoz1eJrza23Cu0w7CNG623X9AcYcltNXC83zdNG8bV3
+ DpbkShWxmkTgImRwkVOZL7YQc9xMmZsiKkdqcfPPoHqkDH7bs+HDXzOzqiJ4+k1K33t2ALG/ekb
+ cSZNc4QKeVbY0qsMeeMqCbByvT/7HRoYsCV8BRVnSpyJrDW9A4E3MYarPY507FQqKRSVIsU935+
+ lERLc6XjhvlG8xPvklPjzJ/d+XabfJgB3Fzn9t9SldY0gJjB09RtaZfhkogNGGibf+fjZXvkCMT
+ +Edfe0b1QjB4U5+0FKWCoC9xvRnUL4tvPgMwEP6lH8jjwPDHn4kYciUCBhHlANzWbjooSq/HKlP
+ QiKo6Xkp9SNQPYBF4AwKd8nu6wLXkgRm8F8FcHVv16Jdhd/znqYcJTQiR3uZvrRR9yQtXO4gc2V
+ n96d0qnWVbrumhYg4wREMmoEZe4LwCBpOggeO6cS2XzX+MDfS7DgDglp7yz90VCcH7G3iEqCyng
+ VgNyIPWU=
+X-Received: by 2002:a05:6214:8583:10b0:91e:a6a7:73a9 with SMTP id
+ 6a1803df08f44-91f24193e70mr44399636d6.15.1794603198962; 
+ Fri, 13 Nov 2026 12:53:18 -0800 (PST)
+Received: from [192.168.50.231] (pool-71-191-145-202.washdc.fios.verizon.net.
+ [71.191.145.202]) by smtp.gmail.com with ESMTPSA id
+ 6a1803df08f44-91f23d453casm28237866d6.10.2026.11.13.12.53.18
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Sat, 14 Nov 2026 07:36:35 -0800 (PST)
-From: Jiwoo Kim <arpe1618@gmail.com>
-To: Rob Clark <rob.clark@oss.qualcomm.com>
-Cc: Dmitry Baryshkov <lumag@kernel.org>,
- Akhil P Oommen <akhilpo@oss.qualcomm.com>,
- Konrad Dybcio <konradybcio@kernel.org>,
- Anna Maniscalco <anna.maniscalco2000@gmail.com>,
- Abhinav Kumar <abhinav.kumar@linux.dev>,
- Jessica Zhang <jesszhan0024@gmail.com>, Sean Paul <sean@poorly.run>,
- Marijn Suijten <marijn.suijten@somainline.org>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org,
- freedreno@lists.freedesktop.org, linux-kernel@vger.kernel.org,
- stable@vger.kernel.org
-Subject: Re: [PATCH v2 0/3] drm/msm: Fix VM_BIND job,
- queue and entity lifetimes
-Date: Sun, 15 Nov 2026 00:36:22 +0900
-Message-ID: <20261114153622.148125-1-arpe1618@gmail.com>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <CACSVV02fCwbFXVjE+XHCo68xMxYUHovJ9ZHRYd98L74N1T14Hw@mail.gmail.com>
-References: <CACSVV02fCwbFXVjE+XHCo68xMxYUHovJ9ZHRYd98L74N1T14Hw@mail.gmail.com>
+ Fri, 13 Nov 2026 12:53:18 -0800 (PST)
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
+Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
-X-Mailman-Approved-At: Sat, 14 Nov 2026 16:24:47 +0000
+Subject: Re: [PATCH] mm/hmm: skip NUMA balancing on protnone faults
+From: "Gregory Price (Meta)" <gourry@gourry.net>
+To: "David Hildenbrand (Arm)" <david@kernel.org>
+Cc: =?utf-8?q?Thomas_Hellstr=C3=B6m?= <thomas.hellstrom@linux.intel.com>, 
+ Matthew Auld <matthew.auld@intel.com>, linux-mm@kvack.org, 
+ dri-devel@lists.freedesktop.org, intel-xe@lists.freedesktop.org, 
+ Matthew Brost <matthew.brost@intel.com>, 
+ =?utf-8?q?Mika_Penttil=C3=A4?= <mpenttil@redhat.com>, 
+ Leon Romanovsky <leon@kernel.org>, Jason Gunthorpe <jgg@ziepe.ca>, 
+ John Hubbard <jhubbard@nvidia.com>
+In-Reply-To: <9ec3e8b9-064a-47a7-8d00-566ff371b846@kernel.org>
+References: <20261112-numa-v1-1-ad9cbca8f49a@intel.com>
+ <b32fb02a-68b4-4db9-83dd-254147dbf215@kernel.org>
+ <1993e931e6a4b0cda5c04e72b1a8d5fb924f950a.camel@linux.intel.com>
+ <9ec3e8b9-064a-47a7-8d00-566ff371b846@kernel.org>
+Date: Fri, 13 Nov 2026 15:53:18 -0500
+Message-Id: <179460319801.482102.15329919214055018110.b4-reply@b4>
+X-Mailer: b4 0.17-dev
+X-Mailman-Approved-At: Sat, 14 Nov 2026 16:25:34 +0000
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -97,77 +97,60 @@ List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-5.8 required=3.0 tests=BAYES_00,DKIM_SIGNED,
-	DKIM_VALID,DKIM_VALID_AU,FREEMAIL_FORGED_FROMDOMAIN,FREEMAIL_FROM,
-	HEADER_FROM_DIFFERENT_DOMAINS,MAILING_LIST_MULTI,SPF_HELO_NONE,
-	SPF_PASS,USER_AGENT_GIT autolearn=no autolearn_force=no version=4.0.1
+X-Spam-Status: No, score=-13.8 required=3.0 tests=BAYES_00,DKIM_SIGNED,
+	DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_PATCH,
+	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,USER_AGENT_GIT autolearn=ham
+	autolearn_force=no version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-On Sat, Nov 14, 2026 at 7:03 AM Rob Clark <rob.clark@oss.qualcomm.com> wrote:
-> msm_gem_vm_close() waits on vm->last_fence which will be signaled
-> after msm_vma_job_run() returns.
+On 2026-11-13 21:43 +0100, David Hildenbrand (Arm) wrote:
+> On 11/13/26 21:34, Thomas Hellström wrote:
+> > 
+> > There are two major problems with the current behaviour.
+> > 
+> > 1) The work item executing hmm_range_fault() might have no affinity at
+> > all to the GPU about to access the memory.
+> > 
+> > 2) If migration happens, then hmm_range_fault() will stop and retry
+> > leading to excessive execution time.
+> > 
+> > While perhaps Matt's commit message doesn't correctly describe the GUP
+> > behaviour, do you have any alternative suggestion than to avoid
+> > migration in this case? I think it's a reasonable idea given the
+> > problems with the current code?
+> 
+> Adding fault reasons that hack around NUMA hinting such that a actual CPU
+> accessing it later will not trigger ... NUMA hinting?
+> 
+> I might be missing the "reasonable" in here :P
+> 
 
-vm->last_fence only collects the fences of GEM_SUBMIT jobs, in
-submit_attach_object_fences(). VM_BIND jobs don't add theirs, so
-msm_gem_vm_close() waits for a VM_BIND job only if a submit depends
-on it.
+Ehhh... I think the hint faulting code is already very tenuous, so yeah,
+lets maybe not try to go down that route.
 
-> My expectation is that if thread A is in midst of a VM_BIND ioctl,
-> perhaps not having created/updated last_fence yet, while thread B is
-> racing it closing the device fd, that file_operations::release will be
-> called after thread A's ioctl call returns.  Is this not the case?
+> I recall that John (cc) kept saying "GPUs and NUMA balancing is inherently
+> incompatible, you have to disable NUMA balancing".
+> 
 
-It is the case. (The vm_bind_closed check in patch 2 is only for
-MSM_SUBMITQUEUE_CLOSE, which can race with a VM_BIND ioctl on the same
-queue in another thread.)
+If this is a NUMA-hotplugged GPU, then this is resolved by a private
+node, because this:
 
-The problem is a job that the ioctl has already pushed and that is
-still waiting for its in-fence, e.g. one from another device or
-drm_file, when the file is released:
+@@ -6404,6 +6404,9 @@ static vm_fault_t do_numa_page(struct vm_fault *vmf)
+        if (!folio || folio_is_zone_device(folio))
 
-- If the queue was closed with MSM_SUBMITQUEUE_CLOSE first,
-  msm_submitqueue_close() no longer sees it, and nothing waits for the
-  job. Otherwise drm_sched_entity_flush() waits at most
-  MAX_WAIT_SCHED_ENTITY_Q_EMPTY for an exiting task, and kills the
-  remaining jobs only on SIGKILL. Either way, the job's reference
-  keeps the queue, and so the entity in it, alive.
-- msm_gem_vm_close() then calls drm_sched_fini() on vm->sched, which
-  frees the run queue that the entity still points to.
-- When the in-fence signals, drm_sched_entity_wakeup(), which the
-  scheduler registered on it, uses entity->rq->sched;
-  drm_sched_entity_kill() leaves that callback in place. A killed job
-  is freed then too, and the final put of the queue calls
-  drm_sched_entity_destroy(), whose flush reads entity->rq->sched
-  again.
 
-Patch 2 destroys a VM_BIND queue's entity when the queue is closed,
-by MSM_SUBMITQUEUE_CLOSE or on file close, so always before
-msm_gem_vm_close() tears the scheduler down.
+changes to
 
-This comes from code review (see the note in the patches), and I have
-not reproduced it.
+        if (!folio || folio_is_common_memory(folio))
 
-v3 is at
-https://lore.kernel.org/r/20261114141851.134290-1-arpe1618@gmail.com
-and its patch 2 is unchanged from v2.
+And all folios on the GPU node are never subject to NUMA Balancing
 
-Separately, Sashiko's review of v3 found an ordering problem that
-predates this series: the VM_BIND queues of a VM update the VM's VMAs
-at ioctl time, but their pgtable updates are not ordered across
-queues, so an unmap can reach the pgtables before the map it undoes.
-That does not need a queue to be closed, but v3 patch 1 adds another
-way to get there: the unmaps it applies when freeing a killed job are
-not ordered against other queues either. (Its other point, that a
-killed job's fence signals before those unmaps are applied, I'll
-address in v4 as well.)
+so balancing can stay enabled while the GPU memory is not subject to
+PROT_NONE spew.
 
-For v4 I would make a job that unmaps a VMA wait for the job that maps
-it. The other way round, a map that overtakes an unmap of the same
-range fails or gets undone, which breaks that VM but doesn't leave
-freed pages mapped. Ordering all VM_BIND jobs of a VM would be
-simpler, but turnip uses one VM_BIND queue per device plus one per
-Vulkan queue. Would that be the right direction?
+~Gregory
 
-Thanks,
-Jiwoo Kim
+-- 
+~Gregory
+
