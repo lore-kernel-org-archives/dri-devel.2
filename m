@@ -2,103 +2,94 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1B9A9606A321
-	for <dri-devel@archiver.kernel.org>; Fri, 13 Nov 2026 09:12:16 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 78FA3606A321
+	for <dri-devel@archiver.kernel.org>; Fri, 13 Nov 2026 09:18:16 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=mimecast20190719 header.b=Bbcq+flr
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=jt3ZGGY7
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 7CA9B10E79E;
-	Fri, 13 Nov 2026 09:12:10 +0000 (UTC)
-Received: from us-smtp-delivery-124.mimecast.com
- (us-smtp-delivery-124.mimecast.com [170.10.129.124])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 3AF6810EC0B
- for <dri-devel@lists.freedesktop.org>; Fri, 13 Nov 2026 09:12:04 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
- s=mimecast20190719; t=1794561123;
- h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
- to:to:cc:cc:mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references;
- bh=l9qjP3EolVZNhFJ6yU6oKwddBCb6NF0vJywntTMZ9kE=;
- b=Bbcq+flrN8v/wCVVGVAvLeQHYqeHKGAKvnYn2qguXzBp3Y11tHYrehbqA7hrqEWLYmYbrs
- Apvgyz+aHNgkFzXQSGg1f8nGbrsPSFLeLE/5lUlURaaFZ4825exN9Zg83Fic8FRjtdHuoo
- 0PepzX+FKVqKyn7WLblblOXgl6J96iQ=
-Received: from mail-lj1-f198.google.com (mail-lj1-f198.google.com
- [209.85.208.198]) by relay.mimecast.com with ESMTP with STARTTLS
- (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-685-vXuiFP_7O2qtzbLkJsSc-A-1; Fri, 13 Nov 2026 04:12:01 -0500
-X-MC-Unique: vXuiFP_7O2qtzbLkJsSc-A-1
-X-Mimecast-MFC-AGG-ID: vXuiFP_7O2qtzbLkJsSc-A_1794561120
-Received: by mail-lj1-f198.google.com with SMTP id
- 38308e7fff4ca-3ad36e654f1so7373751fa.3
- for <dri-devel@lists.freedesktop.org>; Fri, 13 Nov 2026 01:12:01 -0800 (PST)
+	by gabe.freedesktop.org (Postfix) with ESMTP id DC6721121DF;
+	Fri, 13 Nov 2026 09:18:10 +0000 (UTC)
+Received: from mail-ed1-f51.google.com (mail-ed1-f51.google.com
+ [209.85.208.51])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 0E83D1121DF
+ for <dri-devel@lists.freedesktop.org>; Fri, 13 Nov 2026 09:18:05 +0000 (UTC)
+Received: by mail-ed1-f51.google.com with SMTP id
+ 4fb4d7f45d1cf-6b2237b596cso1641132a12.0
+ for <dri-devel@lists.freedesktop.org>; Fri, 13 Nov 2026 01:18:04 -0800 (PST)
+ARC-Seal: i=1; a=rsa-sha256; t=1794561483; cv=none;
+ d=google.com; s=arc-20260327;
+ b=q2NgjesX4+mB4y2yLSA6oQZCHDIuxiSVGKpUvFEJ9FeH3fHf9vMn3Ip3iascZZSNqM
+ 8LoDaVFcY9FDdixnKvEsVg3nfpQ8o5m2/xbz+yAxnc6BL7Lw3dkBHXZI4qtnj1cULTlb
+ H52Hu27ZffuSxzuTtJWyIJR99z7M1BYtb4DSHXyUojGcYTWBmdwy+yvlGxskSRhS47Iq
+ hhYPvbwkSwhW5DW3brrqZ93T0snm0u4Lf+2t5pixYZolHgU+91Pt/SLwv+Lcvmvlut+G
+ SEANRKVrxvW9vxD+E7NN6uHK+uGNw9paGuJ7QeeLoYuL7rMGRBOaHqnYTY5sTfx4DhME
+ f84Q==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com;
+ s=arc-20260327; 
+ h=cc:to:subject:message-id:date:from:in-reply-to:references
+ :mime-version:dkim-signature;
+ bh=IaKttQrS8tdNaJ2/0cYs78c8pa/9CgvmLL91mhIXr+c=;
+ fh=XKZq0ZF1vey/SbldVxIax6fqSzD8H76r/p9opWhETms=;
+ b=BmKRzS4NJ7MlmXZWmN4CBzuc61nHT7w/flDiWg55GH4hja1QqFnw+EQfnq/JHgo5h2
+ CO8uZq+BI5cOlomURDYyuXp+g5kxuKOwGD1yreeLl6IfD12y/6QcPD6Fhqb72BQ2FDjU
+ cYQUAQ9+b9CvQx9rCd9eVXLvRInglMOy/pR0bcX6tl21sYXP/PDBMoX7En+Lxpd1IWX5
+ vpaCPMRz3IeSR0QXGRE44fHFvrao50ifwz4pzcGK1C3Wz2SuQmjaomuPx/x3ujCL/1Wj
+ 5zJB2MGPrsv3GL6CmNMGCbzyw/S9gkoQ9jpkmHxChetesS6DbBdsDMgMzmSqGmdGZPGx
+ pwgQ==; darn=lists.freedesktop.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20260707; t=1794561483; x=1795166283; darn=lists.freedesktop.org;
+ h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+ :references:mime-version:from:to:cc:subject:date:message-id:reply-to
+ :content-type; bh=IaKttQrS8tdNaJ2/0cYs78c8pa/9CgvmLL91mhIXr+c=;
+ b=jt3ZGGY7zXYq/rSS2zjC12RaSlqpIAUNbN8eUhC8Iboa/HO+82aJMuoTQdLPbnNPng
+ UdOZAodAqlLt1lJhRjMuWNohxkKlCfygTw8vKh8NNOAREaZGkNy7qIIltqJDT2Ro7Di7
+ IVEFmILSOq747DZlTSuHjCUe18Gp8Pbzr0NQliYIeFLRp5MnHiY/RG74jCuPetQnG6Kb
+ l2ZFd6oLRHMtCxZU9odTa2BcpsPbblvSU6Y6YYW3mwzaX3+Lh3FhHgAAOMgdMQLiikeC
+ rsPSNItE00VuMfYpWFr60HtMXCUx5mvaDNk+R0RADrDuSTkQ9lu4Bk9f0OmXxaQhiPT9
+ 9nfQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20260707; t=1794561120; x=1795165920;
- h=content-transfer-encoding:content-type:in-reply-to:from
- :content-language:references:cc:to:subject:user-agent:mime-version
- :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
- :message-id:reply-to:content-type;
- bh=l9qjP3EolVZNhFJ6yU6oKwddBCb6NF0vJywntTMZ9kE=;
- b=jhDMgGxp870h7lpzAyLDKImQcmbv2CblwZzflZQiFc+SO3ZBu06XBXBOCvwGffsQXY
- D6x61wt+r5UWmNEGyDfhhBN9f0VDvd6mz+96RZ/elqiI448meSYL8BnEeSjzpRuwyUdE
- D+w3lwuRkGCPiHtrVClbRPkV9bTFoSxmCvFD7Il7ltY/+p2aTNGBzeD43nHmOhMRx7bd
- YQu7T6oPyr5JyV5pyZy/ltXvawOP++AdCgmePI+Z3ClgSGIP7nGXV9U9Dg1wW+8qn1ZU
- 8stlKQO2O3Ayd1ZO01nhYG91O/Q3TGkqJbP40YKg/ro28X9XlsWJjWk34RGjHugGyiDk
- ywRQ==
+ d=1e100.net; s=20260707; t=1794561483; x=1795166283;
+ h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+ :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
+ :subject:date:message-id:reply-to:content-type;
+ bh=IaKttQrS8tdNaJ2/0cYs78c8pa/9CgvmLL91mhIXr+c=;
+ b=RZxI/B6DpUTQUxwPY/q4OUQ3fmEOPqDN/esrM3spGm5sKBIVTTkzX0m4hHmkzrMIA1
+ fnKGMGIh0Ip0XMS3q1HpqS4xqxkXNa+AIAANUEi9hwqFwySVfJDyi6O3kKGrtwWJaVFA
+ Ax5sP4jD405mVIq0pKnMQrjfZ4LA8A36yZOeF1KSsuBhzYryUkknznoYZ2qRMf2ou3TM
+ Hxrl5jbuKSWw2J68g0Na05GHjhl3LPT4fcI62hVW9LeTPjlNWPHphriXeQlkp97Ecqa0
+ 0TWeQWrvJnqahsQ5c5dLCTxT61qd83LQ3D840+2PoK4A6tJkqDqbbelvI1dKKRgB8S6n
+ zjNg==
 X-Forwarded-Encrypted: i=1;
- AL+hErGnJaqlEpnt939haZ4c90gX10Ug0RPej95ZbBQ+zM2FclCFtVQpybID15Pk7QPduhmTNKIaOZQ5OIM=@lists.freedesktop.org
-X-Gm-Message-State: APuU4Z+K/8GBsllV/ScsW20I9Kv26ITmU7WKQgXVB3bLLE4D1HYKq/5e
- YszjByB1vmSRCTldHwZrzN/bRMLfXZFQUVd2Wu1iocr+DQSWBk6HxjzexwD3AcA01eK8xTkW2dc
- v2ReZTDDovoQ/DhxEjE8L0fjIuwD+fcAQRGXIRUQ0BKelcy0HmFwbIQn6Zt/BQSjVNPFF
-X-Gm-Gg: AYBFou0LXaEvOf0YgmiKYATmwkrIwjJuEynq+BdFP1lWRyrCxYGH/ST38SO6WeCKqHb
- 5+2KkHAcxyg1zYtU3oLhK2f4E2Mkts39tlUz5ZOr/La9H1rNsmtNK2CvRUyApN6z51wBDLNWcO8
- vWRlQup1Hw3sFoUDqTEXgqSS1R0H0I5zvODMZOFtPZGhdaFAtQoX7OBIGsK27FneaC3SN1BoCEH
- qXJsyaDNDLx/czN43kPaiWZ766cUrVyZ1fubkFi4IPZrI/R0GOnMTod/O+ARmwyYqLKghoovdUP
- u0Gw6Kmko5iG9lKmp1ivuHMjyzcKBuehekEm7oAKksAK9J+VZ9/2UiPhPTGPrmPWcChmBmKdMxF
- 64uoKpsiPKTDH8qCnVZhZ16VhRWch4fg99GTfZTnwG98w9SDwuNXWjj76wuNE9RN1qNM83vasMD
- VnznrG
-X-Received: by 2002:a05:651c:a347:b0:3ad:f8cc:390 with SMTP id
- 38308e7fff4ca-3ae2b4bc3f1mr7065991fa.11.1794561120259; 
- Fri, 13 Nov 2026 01:12:00 -0800 (PST)
-X-Received: by 2002:a05:651c:a347:b0:3ad:f8cc:390 with SMTP id
- 38308e7fff4ca-3ae2b4bc3f1mr7065831fa.11.1794561119826; 
- Fri, 13 Nov 2026 01:11:59 -0800 (PST)
-Received: from [192.168.1.86] (89-27-86-246.bb.dnainternet.fi. [89.27.86.246])
- by smtp.gmail.com with ESMTPSA id
- 38308e7fff4ca-3ae2b76a91fsm6490801fa.8.2026.11.13.01.11.58
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Fri, 13 Nov 2026 01:11:58 -0800 (PST)
-Message-ID: <2ad4f730-0656-4b2e-8cbb-4aaae44de1cd@redhat.com>
-Date: Fri, 13 Nov 2026 11:11:57 +0200
+ AL+hErHMI++gtfUYzqjgkRTG/elbX3P+eDFGDdyF5OT2JxNECaOv72AtAhopB6VfNPIOhZrl8x+3uq6YdEQ=@lists.freedesktop.org
+X-Gm-Message-State: APuU4Z+MajdUv2JhS5cS/C8ldqBTNqbdhS5pTnyaHsBhF9QAiFfkt3/U
+ GUmaUtlls/LgYeNkie5492dhbSaBrt34ZzPMZHc2zHbkfy4mMWIPB0Y7NWP8qjPY4CpTNIQkirE
+ vyHUWn26mUimHpcSh6fPo6xl5yH7YFU8=
+X-Gm-Gg: AYBFou1tjUygdPv6EEI51e4dtbgNH6V8gwyQuTxXaDayCmdiD27a1T/F8v6jmeHvAgg
+ ThN0x08LTJ8xKTWCchyHj6IOqQhi9cx/P/8HtwJ90M5aigaLpXTadSeEKEdvWtEg5/sgDrgNnzU
+ /XA01bqcBFKDiDxS6KOkVRNOu49xtyCvNIwtKsaQyyYWuOWO6LqVXFjQYRxTm6P9WNOC5EGNXrz
+ m3su0q7N4AWnwOI2MzIHm6H5iSIkGoWldTuMO9lZ236X7SZLd+IYTVKkwwiAAbbph3EZlAVJP/M
+ gRdLWSVy7nf+kUgJBCj+o2yxgT0QrdGi9PZBSyh+dLvs/eAuPuZ6FNa0d0RPN0KnSuaqrSEPWaL
+ MoJeCsVN9xvpfgxSG/oQz4oHNXhKKD3XM4qgj/O4XjTfDyz9iBxos2JmcQj7KmH49iH38tfU=
+X-Received: by 2002:a05:6402:460d:10b0:6b5:76b9:5040 with SMTP id
+ 4fb4d7f45d1cf-6b7c0d189c3mr1522118a12.41.1794561483071; Fri, 13 Nov 2026
+ 01:18:03 -0800 (PST)
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v17 00/12] migrate on fault for device pages
-To: Andrew Morton <akpm@linux-foundation.org>
-Cc: Jason Gunthorpe <jgg@nvidia.com>,
- Alexandru Elisei <alexandru.elisei@arm.com>, linux-mm@kvack.org,
- dri-devel@lists.freedesktop.org, intel-xe@lists.freedesktop.org,
- linux-kernel@vger.kernel.org, David Hildenbrand <david@kernel.org>,
- Leon Romanovsky <leonro@nvidia.com>, Alistair Popple <apopple@nvidia.com>,
- Balbir Singh <balbirs@nvidia.com>, Zi Yan <ziy@nvidia.com>,
- Matthew Brost <matthew.brost@intel.com>, Lorenzo Stoakes <ljs@kernel.org>,
- "Liam R. Howlett" <liam@infradead.org>, Vlastimil Babka <vbabka@suse.cz>,
- Mike Rapoport <rppt@kernel.org>, Suren Baghdasaryan <surenb@google.com>,
- Michal Hocko <mhocko@suse.com>, Lyude Paul <lyude@redhat.com>,
- Danilo Krummrich <dakr@kernel.org>
-References: <20261103061629.972669-1-mpenttil@redhat.com>
- <avWpWBl1nPcRVmpQ@raptor> <79f33ab0-2e43-4efb-94d0-addaf40745ec@redhat.com>
- <avXoJSGh5xjGFgod@raptor> <20261112164752.GA3692174@nvidia.com>
- <ec4431f1-e70d-477c-b09a-eedc35d97691@redhat.com>
- <20261112162738.d689b46268e077ac06f41d91@linux-foundation.org>
-From: =?UTF-8?Q?Mika_Penttil=C3=A4?= <mpenttil@redhat.com>
-In-Reply-To: <20261112162738.d689b46268e077ac06f41d91@linux-foundation.org>
-X-Mimecast-Spam-Score: 0
-X-Mimecast-MFC-PROC-ID: 78cCxZh0OVFgf7Hyn9F6aJ60V7EVm5TkV2qAxrl-qhA_1794561120
-X-Mimecast-Originator: redhat.com
-Content-Language: en-US
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+References: <CAMeQTsZbLYpPKySm9ubYc8pw0t62ZEdKkkzc4h3Hdjq-9pGO6A@mail.gmail.com>
+ <20261113085341.61992-1-jttelaak@hotmail.com>
+In-Reply-To: <20261113085341.61992-1-jttelaak@hotmail.com>
+From: Gabriel Gama <operatingsystemsdepression@gmail.com>
+Date: Fri, 13 Nov 2026 06:17:51 -0300
+X-Gm-Features: AclHuK_yaydiPJ99MnDiTwkOkjxUjSQmeHhNWjHSrHL_TZxHbJFKAGs5pMyFvBI
+Message-ID: <CAFGNeajPo8DrqNbM+86AQz0LT98a69_+T7R8DoKAX4Q2LJE0kw@mail.gmail.com>
+Subject: Re: [RFC] drm/gma500: SGX535 render ownership,
+ MMU and failure handling
+To: Joseph Telaak <jttelaak04@gmail.com>
+Cc: Patrik Jakobsson <patrik.r.jakobsson@gmail.com>,
+ Thomas Zimmermann <tzimmermann@suse.de>, 
+ dri-devel@lists.freedesktop.org, Joseph Telaak <joseph@telaak.dev>
+Content-Type: multipart/alternative; boundary="000000000000b9e5be066024e7f7"
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -110,99 +101,49 @@ List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-12.3 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
-	DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
-	INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,
-	USER_AGENT_SANE_1 autolearn=unavailable autolearn_force=no
-	version=4.0.1
+X-Spam-Status: No, score=0.2 required=3.0 tests=BAYES_00,DKIM_SIGNED,
+	DKIM_VALID,DKIM_VALID_AU,FREEMAIL_FORGED_FROMDOMAIN,FREEMAIL_FROM,
+	HEADER_FROM_DIFFERENT_DOMAINS,HTML_MESSAGE,MAILING_LIST_MULTI,
+	SPF_HELO_NONE,SPF_PASS autolearn=no autolearn_force=no version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-On 11/13/26 02:27, Andrew Morton wrote:
-
-> On Thu, 12 Nov 2026 19:01:58 +0200 Mika Penttilä <mpenttil@redhat.com> wrote:
->
->> On 11/12/26 18:47, Jason Gunthorpe wrote:
->>> On Thu, Nov 12, 2026 at 04:24:05PM +0000, Alexandru Elisei wrote:
->>>> Hi Mika,
->>>>
->>>> On Thu, Nov 12, 2026 at 04:00:09PM +0200, Mika Penttilä wrote:
->>>>> Hi Alexandru!
->>>>>
->>>>> On 11/12/26 13:56, Alexandru Elisei wrote:
->>>>>> Hi Mika,
->>>>>>
->>>>>> I want to help getting this series merged, and I've been familiarizing myself
->>>>>> with hmm and device migration, please bare with me if the questions I'm asking
->>>>>> are obvious or downright silly.
->>>>> Thanks for the interest and willing to help! I am preparing a v18 of the
->>>>> series and plan to post it early next week.
->>>> The series is big, and as far as I can tell the MM people are hard at work
->>>> reviewing bug fixes. It might be better to wait a while, to give people a
->>>> chance to have a look? I know that if I see a series being reposted often,
->>>> I am less inclined to review the patches since probably a new iteration
->>>> will be posted soon. But I can only speak for myself, you know best.
->>> It is at v17 and it is still getting high severity sashiko errors
->> v14 was first that sashiko managed to review. There was a regression in
->> last posting, but also false potsitives, and sashiko reports same issue
->> then 3-4 times, so the reality is not that bad. 
-> Pining for the days when all we had to deal with was checkpatch.  
-
-Yeah.. running sashiko locally now. Interesting enough, refactoring the
-series (end result being the same) made most of the "high errors" disappear.
-
-
-> Mika, afaict the entire patchset is a performance optimization, yet you
-> say "I don't have a benchmark showing a gain".
-
-No not a performance optimization as is, in the latest cover I explain it:
-
-"The main goal of this patchset is to provide a new feature,
-migrate efficiently on fault, and not directly improve performance
-of current migrate_vma_setup() (which is now routed thru
-hmm_range_fault()) callers."
-
-The "efficiently" is wrong word, I should say "in one walk".  In the
-beginning of the cover, I explain the benefits of having one walk. Also,
-I think it is sensible to have one implementation for it in HMM, instead
-of each driver trying to do something similar.
-
-We don't currently have in kernel the capability to do migrate on fault
-in one walk, so I can't show a performance gain with a simple apples to
-apples test.
-
-Also :
-
-"the selftests show that there is at least no regression for
-current migrate_vma_setup() callers."
-
-So the test is to show there is no regression still for current callers
-(X86-64), not to show if there would be gains.
+--000000000000b9e5be066024e7f7
+Content-Type: text/plain; charset="UTF-8"
 
 >
-> Recipients look at patchsets wondering "why should I spend time on
-> this", especially in these times.  It's best to answer this question
-> right there in the first sentence of the [0/N].  That means numbers,
-> and the better they are, the more attention the patchset will get.
->
->>  Documentation/mm/hmm.rst               |   45 +
->>  drivers/gpu/drm/nouveau/nouveau_dmem.c |  402 ++++++++-
->>  drivers/gpu/drm/nouveau/nouveau_dmem.h |   12 +
->>  drivers/gpu/drm/nouveau/nouveau_svm.c  |  155 ++--
->>  drivers/gpu/drm/nouveau/nouveau_svm.h  |    5 +
->>  include/linux/hmm.h                    |   51 +-
->>  include/linux/migrate.h                |   59 +-
->>  lib/test_hmm.c                         |  174 +++-
->>  lib/test_hmm_uapi.h                    |   21 +-
->>  mm/Kconfig                             |    1 +
->>  mm/hmm.c                               | 1075 ++++++++++++++++++++++--
->>  mm/migrate_device.c                    |  618 +++-----------
->>  tools/testing/selftests/mm/hmm-tests.c |   56 ++
->>  13 files changed, 1984 insertions(+), 690 deletions(-)
-> also, yikes!
-
-Yeah, the nouveau made the numbers bigger - but we have a real user!
-
---Mika
+> I think a shared render-only driver makes sense for the SGX5xx family,
+> except for GMA500 and GMA600, since the SGX support is already integrated
+> into gma500 through reMESA
 
 
+> I'd also like to continue working on the SGX544MP2, since I've already
+> invested considerable time and resources into its development and reverse
+> engineering.
+
+
+> I'm happy to collaborate on shared infrastructure and multicore support
+> while avoiding duplicated work.
+
+--000000000000b9e5be066024e7f7
+Content-Type: text/html; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+
+<div dir=3D"auto"><div><div class=3D"gmail_quote gmail_quote_container"><bl=
+ockquote class=3D"gmail_quote" style=3D"margin:0 0 0 .8ex;border-left:1px #=
+ccc solid;padding-left:1ex">I think a shared render-only driver makes sense=
+ for the SGX5xx family, except for GMA500 and GMA600, since the SGX support=
+ is already integrated into gma500 through reMESA</blockquote><blockquote c=
+lass=3D"gmail_quote" style=3D"margin:0 0 0 .8ex;border-left:1px #ccc solid;=
+padding-left:1ex"><br></blockquote><blockquote class=3D"gmail_quote" style=
+=3D"margin:0 0 0 .8ex;border-left:1px #ccc solid;padding-left:1ex">I&#39;d =
+also like to continue working on the SGX544MP2, since I&#39;ve already inve=
+sted considerable time and resources into its development and reverse engin=
+eering.</blockquote><blockquote class=3D"gmail_quote" style=3D"margin:0 0 0=
+ .8ex;border-left:1px #ccc solid;padding-left:1ex"><br></blockquote><blockq=
+uote class=3D"gmail_quote" style=3D"margin:0 0 0 .8ex;border-left:1px #ccc =
+solid;padding-left:1ex">I&#39;m happy to collaborate on shared infrastructu=
+re and multicore support while avoiding duplicated work.</blockquote></div>=
+</div></div>
+
+--000000000000b9e5be066024e7f7--
