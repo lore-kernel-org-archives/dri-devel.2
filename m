@@ -2,111 +2,147 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 889A8606A643
-	for <dri-devel@archiver.kernel.org>; Fri, 13 Nov 2026 18:42:14 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C7BC6606A336
+	for <dri-devel@archiver.kernel.org>; Fri, 13 Nov 2026 18:50:48 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=amd.com header.i=@amd.com header.a=rsa-sha256 header.s=selector1 header.b=LV9mnBql
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=Pai7rOpH;
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=gW5rm3WB
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id ECA5310E072;
-	Fri, 13 Nov 2026 18:42:08 +0000 (UTC)
-Received: from DM1PR04CU001.outbound.protection.outlook.com
- (mail-centralusazon11010019.outbound.protection.outlook.com [52.101.61.19])
- by gabe.freedesktop.org (Postfix) with ESMTPS id A6D4E10E072
- for <dri-devel@lists.freedesktop.org>; Fri, 13 Nov 2026 18:42:02 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=qtwIjE1qRgr+CAibk8qrcPkXzg5D9xiHvu5/qhaA0TBAVbe9xtT7kvVRcWlda9las9UUvFw5XCZPG45tIyS0jRPG29fqoSbjncq70jnjbQBJS1FrqyhOnYj82JeCuCM/4dxDm8/KjE0L9YpA1GJl5Dgln31ldDUeXjzxJ41IDHmfmT5zIrL8cVipLe+qVPZODr+9ytPcjGaAF53aqwVkzbnXA28lm+lHOt1QHEbQxHSVOTc+e8V6pM8FCs5fKfomz+Q6Z6FvV2xT446GJsfvsmUlbkgvqSBPXlUW7Db9U94mRY0FQR7U15hJPue7U1RDkJTclSZB+B+8r8Wsfjf4Qw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=PbhVfXxNXaG4rCR1ipbi4fA3zeWDtSwEJ1r9zZQVVS8=;
- b=LOLc0Bul/+TkwaPlMv0RrEPQk+AsODh/+GwxICRIz5F5qUsC0D09Q+eoMbOwC0YL50sbh7UFpSVpislbxaeQsBhyeGpNvAHjaPwOgvpqw9aIbxTKCMm5b3cJxoW4Srzlr/V20DN/Dtg+RzSokN7Ozjjd9uWnLvedlZYrsESDFQPA0FR/t5SjhgLuCUXvrfxwM/wb0oSiRWqZ4t/LGathNCtdnqkVjWMZqus7+cqidAOzz9oIbwcFOYM3AZtSSLmmpo1j6NfygKIz/VgyRXdVIYzhw7in2SMePwGERJQFD4W8WUY2HZvN3AwS29NPEC5m9/aONlM/+t9AMChDSwcP4Q==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=quicinc.com smtp.mailfrom=amd.com;
- dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
- header.from=amd.com; dkim=none (message not signed); arc=none (0)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=PbhVfXxNXaG4rCR1ipbi4fA3zeWDtSwEJ1r9zZQVVS8=;
- b=LV9mnBqlC70pkrCGlCX9rwizVc7HusqWoGQiCZo8O0IMtEQw6xMnR9vy0jnYlbNudxIxWugEmULPLM+1rHnL7lCaNvn7Pc7Un3HWYpflUFOakl/wUgpU/HgArMIIKOSifAd7CjrqFswMAdCwN+drn6wAqPAQilNlMeE9wYhBlVA=
-Received: from SJ0PR13CA0235.namprd13.prod.outlook.com (2603:10b6:a03:2c1::30)
- by LV8PR12MB9136.namprd12.prod.outlook.com (2603:10b6:408:18e::5)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.615.10; Fri, 13 Nov
- 2026 18:07:09 +0000
-Received: from BY1PEPF000264B0.namprd02.prod.outlook.com
- (2603:10b6:a03:2c1:cafe::93) by SJ0PR13CA0235.outlook.office365.com
- (2603:10b6:a03:2c1::30) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.21.639.0 via Frontend Transport; Fri, 13
- Nov 2026 18:07:08 +0000
-X-MS-Exchange-Authentication-Results: mx.microsoft.com 1; spf=pass (sender IP
- is 165.204.84.17) smtp.mailfrom=amd.com;
- dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=amd.com;
-Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
- 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=satlexmb07.amd.com; pr=C
-Received: from satlexmb07.amd.com (165.204.84.17) by
- BY1PEPF000264B0.mail.protection.outlook.com (10.167.242.119) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.615.4 via Frontend Transport; Fri, 13 Nov 2026 18:07:08 +0000
-Received: from satlexmb10.amd.com (10.181.42.219) by satlexmb07.amd.com
- (10.181.42.216) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.53; Fri, 13 Nov
- 2026 12:07:08 -0600
-Received: from satlexmb07.amd.com (10.181.42.216) by satlexmb10.amd.com
- (10.181.42.219) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.53; Fri, 13 Nov
- 2026 12:07:07 -0600
-Received: from [172.19.71.207] (10.180.168.240) by satlexmb07.amd.com
- (10.181.42.216) with Microsoft SMTP Server id 15.2.2562.53 via Frontend
- Transport; Fri, 13 Nov 2026 12:07:06 -0600
-Message-ID: <0fd2665a-5817-8188-5b35-74bc50ae7891@amd.com>
-Date: Fri, 13 Nov 2026 10:07:06 -0800
+	by gabe.freedesktop.org (Postfix) with ESMTP id 386DA10EC7E;
+	Fri, 13 Nov 2026 18:50:38 +0000 (UTC)
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com
+ [205.220.180.131])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id A60E511273C
+ for <dri-devel@lists.freedesktop.org>; Fri, 13 Nov 2026 18:50:26 +0000 (UTC)
+Received: from pps.filterd (m0279871.ppops.net [127.0.0.1])
+ by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id
+ 6ADGXJuR2808706
+ for <dri-devel@lists.freedesktop.org>; Fri, 13 Nov 2026 18:50:25 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+ cc:content-transfer-encoding:date:from:message-id:mime-version
+ :subject:to; s=qcppdkim1; bh=UOGbIgdMvNNbvF3rlYZmS8C4yu1k+1TFWuu
+ 8QXx7o+g=; b=Pai7rOpHvCid7pBso1KJQNmUP3ay4+209rkTRCGKrA1soVsInzz
+ 2+EI/9XiO0RAM/GnD/STisvs4OSF4TmMqSpaYOTZTy4YrfruHtbiexkEV8X+AKhJ
+ 6HObc71xpqBRTgvwxdC0xYCS8IOuPWw7fCvssyM7FIliP505dAw/b9KSorRfVPSt
+ Hs1K6yoPpdFLUGK+7yQVE9fsj5oYSiZgP9Mx0gEp4TlIeIfax6HA+62qfOkZuIA5
+ ZsXxXC5DTQR/MQQPUz2nG7Lr+6BZ/wsoDvBGC3M/nm9/vZt3UjBSw5X6aDlmZjaC
+ IaQbELHasdMoTMISlwbVrivN0NT59bXZNNA==
+Received: from mail-dy1-f197.google.com (mail-dy1-f197.google.com
+ [74.125.82.197])
+ by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4hx662rg1m-1
+ (version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+ for <dri-devel@lists.freedesktop.org>; Fri, 13 Nov 2026 18:50:25 +0000 (GMT)
+Received: by mail-dy1-f197.google.com with SMTP id
+ 5a478bee46e88-36de26cb4b3so1591811eec.1
+ for <dri-devel@lists.freedesktop.org>; Fri, 13 Nov 2026 10:50:25 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=oss.qualcomm.com; s=google; t=1794595824; x=1795200624;
+ darn=lists.freedesktop.org; 
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+ bh=UOGbIgdMvNNbvF3rlYZmS8C4yu1k+1TFWuu8QXx7o+g=;
+ b=gW5rm3WB/mnv9x9+YXJjgPcS4rhc0UzaEjTh5T03tZvh252gZQjEH1LjgkL/JCn6i/
+ nJ5Fh4fLPcLxbKqFz/9Ld5/YRw09AAX0LMOPbWVFqOEnmYo0OYoXoe92U2IezFOK6SL3
+ JD5JsfEzOJfyyoLdzav6ng1qOi/qJG4sV/nvnjW6KPUgadP5yxYkwD3PX3FjGQjaOIyV
+ JwHvxsfqREw1bXNCdAooD2P5O7H5Sw4gzJ4SywrcUis62grYruPJzgcN+1VC53dQKTAO
+ S3HhoKh2hwajD+PakYnlCUb5OASlxS8nXYL6t9Pc9jZd9I0mnQb8Ssx9a1jJ4NyyPvNe
+ sXHA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20260707; t=1794595824; x=1795200624;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+ :message-id:reply-to:content-type;
+ bh=UOGbIgdMvNNbvF3rlYZmS8C4yu1k+1TFWuu8QXx7o+g=;
+ b=Eet5Cc93LFry2n2crZi9HFAYlWcTLocKYpb7ngrZGGn2DeyELkk2NzwNwCmv9TPNI1
+ chZTh6tPYP4AuWKCBrWFktaFFIEwM0Vq8N+KGmDOw0kBAFcoWzoWXBF0TUGEtXEu5/ra
+ XXkhuekl40ItgdCVBIHp+GzMZP3LnUoyCSX4YiFHoxhZrO/hkgD6IFCCdwkJH5NIX/j9
+ uwKvUqWGix7gEYuVeow89LQXBgGgGz2t6/wOWPAvSkdLBbHWsQSaFNPIPuNParYbZIjW
+ 6Oh44s/SsFboSwS3t+N0iMh+YO/aN1Qw1pe2budAsCfI0cQIbcdIiA3INuBZ7V00vwkp
+ 4TFQ==
+X-Forwarded-Encrypted: i=1;
+ AL+hErG2bj556x5tQEKRIH5SkMrK/m3n7lDyN9CoIFQE9GEWSmvWnbJrTR3x2mn2nQy3qVhpkAHBwZXx4Eo=@lists.freedesktop.org
+X-Gm-Message-State: APuU4Z9CE56sjwTHDIdzjqTDgeUDKQ9tZbSMwDRDw7AmAGsi62OCA8VW
+ W+JxvrkoBTyFXB3cvdedApHzTeL8sIEkSSiFI4j7lkemFGUrSPGZuxQOc+8eP5LKHjSj1AgEsws
+ 9SIPXhOh/C0t4LThP+owSYSYcEh1HJI20qiSYL8Mj0lhWpwJOou+ytJ4n/LPiqsFLIZRFT/o=
+X-Gm-Gg: AYBFou0+0YtGVgM1DXFLGWwRbmM9iTiVhpn6oZ000PdgkkvxbY6ilaHphD0cTNbHtEl
+ /YREENJCN4ZMwu7uVNb3+sSnjvmPlavLzNnLLIKBXLCX/vAZ9Sa3ZExB+PcotyrCK0iI8rRPnpt
+ FJZ/T6qcaLaeorzRftOMDcwx77tKqmNKDZv5hSCUDH3o2XqCF+FhmUpR80qNCUW5H+p67Ci5/ib
+ 83Be/tLK71Lk/33YYxtsxi52hE67MsbM7pWbZOVVVCO7M3eh/7d4dJV2TOoBXc7dvpdW3KAK7eP
+ 9GzLVXFAGtwn6BsI9Iijbzw0x1KPXIBSHe6geCSGLjA/vwyfmsi1MeBWAhRLodDhsBO5w1zLzOk
+ M+I1EtaAjUV85R6AawT4BbbjzaQzGgscNWgYdc1zbj0amonkwtsGRFJqriU2MmgKtiH8GR1mDJB
+ A=
+X-Received: by 2002:a05:7301:90b:b0:34d:755b:d60b with SMTP id
+ 5a478bee46e88-37968b8a031mr2753159eec.34.1794595824132; 
+ Fri, 13 Nov 2026 10:50:24 -0800 (PST)
+X-Received: by 2002:a05:7301:90b:b0:34d:755b:d60b with SMTP id
+ 5a478bee46e88-37968b8a031mr2753127eec.34.1794595823416; 
+ Fri, 13 Nov 2026 10:50:23 -0800 (PST)
+Received: from hu-mojha-hyd.qualcomm.com ([202.46.23.25])
+ by smtp.gmail.com with ESMTPSA id
+ 5a478bee46e88-379563e6b6dsm15547667eec.21.2026.11.13.10.50.13
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Fri, 13 Nov 2026 10:50:22 -0800 (PST)
+From: Mukesh Ojha <mukesh.ojha@oss.qualcomm.com>
+To: Sumit Garg <sumit.garg@oss.qualcomm.com>,
+ Bjorn Andersson <andersson@kernel.org>,
+ Konrad Dybcio <konradybcio@kernel.org>,
+ Rob Clark <robin.clark@oss.qualcomm.com>,
+ Dmitry Baryshkov <lumag@kernel.org>, David Airlie <airlied@gmail.com>,
+ Simona Vetter <simona@ffwll.ch>,
+ Vikash Garodia <vikash.garodia@oss.qualcomm.com>,
+ Dikshita Agarwal <dikshita.agarwal@oss.qualcomm.com>,
+ "Bryan O'Donoghue" <bod@kernel.org>,
+ Mauro Carvalho Chehab <mchehab@kernel.org>,
+ Alex Elder <elder@kernel.org>, Andrew Lunn <andrew+netdev@lunn.ch>,
+ "David S. Miller" <davem@davemloft.net>,
+ Eric Dumazet <edumazet@kernel.org>, Jakub Kicinski <kuba@kernel.org>,
+ Paolo Abeni <pabeni@redhat.com>, Jeff Johnson <jjohnson@kernel.org>,
+ Mathieu Poirier <mathieu.poirier@linaro.org>
+Cc: Abel Vesa <abelvesa@kernel.org>, Sean Paul <sean@poorly.run>,
+ Akhil P Oommen <akhilpo@oss.qualcomm.com>,
+ Abhinav Kumar <abhinav.kumar@linux.dev>,
+ Jessica Zhang <jesszhan0024@gmail.com>,
+ Marijn Suijten <marijn.suijten@somainline.org>,
+ linux-arm-msm@vger.kernel.org, linux-kernel@vger.kernel.org,
+ dri-devel@lists.freedesktop.org, freedreno@lists.freedesktop.org,
+ linux-media@vger.kernel.org, netdev@vger.kernel.org,
+ linux-wireless@vger.kernel.org, ath12k@lists.infradead.org,
+ linux-remoteproc@vger.kernel.org,
+ Mukesh Ojha <mukesh.ojha@oss.qualcomm.com>
+Subject: [PATCH v2 0/9] Migrate PAS clients to qcom_mdt_pas_load() and
+ qcom_pas_prepare_and_auth_reset()
+Date: Sat, 14 Nov 2026 00:20:00 +0530
+Message-ID: <20261113185009.157893-1-mukesh.ojha@oss.qualcomm.com>
+X-Mailer: git-send-email 2.55.0
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
- Thunderbird/91.11.0
-Subject: Re: [PATCH RESEND V1 0/4] accel/amdxdna: Add AIE4 debug buffer support
-Content-Language: en-US
-To: David Zhang <yidong.zhang@amd.com>, <quic_jhugo@quicinc.com>,
- <karol.wachowski@linux.intel.com>, <max.zhen@amd.com>, <ogabbay@kernel.org>,
- <dri-devel@lists.freedesktop.org>, <linux-kernel@vger.kernel.org>
-CC: <sonal.santan@amd.com>, <mario.limonciello@amd.com>, David Airlie
- <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, Maarten Lankhorst
- <maarten.lankhorst@linux.intel.com>, Maxime Ripard <mripard@kernel.org>,
- Thomas Zimmermann <tzimmermann@suse.de>, Kees Cook <kees@kernel.org>,
- "Gustavo A. R. Silva" <gustavoars@kernel.org>,
- <linux-hardening@vger.kernel.org>
-References: <20261104224302.643329-1-yidong.zhang@amd.com>
-From: Lizhi Hou <lizhi.hou@amd.com>
-In-Reply-To: <20261104224302.643329-1-yidong.zhang@amd.com>
-Content-Type: text/plain; charset="UTF-8"; format=flowed
-Content-Transfer-Encoding: 7bit
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: BY1PEPF000264B0:EE_|LV8PR12MB9136:EE_
-X-MS-Office365-Filtering-Correlation-Id: 8728b169-5bd1-4b98-f4ea-08df41b0eed3
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
- ARA:13230040|36860700016|82310400026|7416014|376014|1800799024|23010399003|18002099003|22082099003|261009223027099003|11063799006|56012099006|10067099003|261102123227099003|261026140227099003|261028144727099003|261022105027099003|261021123027099003|261021121427099003;
-X-Microsoft-Antispam-Message-Info: j6wFgbKzIj7I6nEaubVwVH4j15L5QoDtR7pIgosl6nt/i8t8QZxA0joYvbZpUTHxMIk9wZSgoUU93emKHGDwoneeBE1379vuxsNQyM/3Fhc3IEINTexh/spNLosL9vt5V68Ik8ncB1lhj4hj8wdGSsy1zb4mcuUz2/HMAoi1To4T/aZaMAJHjga/xktpwwmjSxSP5vh4OB6IOHYGbLBeDIxSkAOLk/z9UgxLYCaWq3nrZH83Devjeis0Mq559ryIgWWkylvZuLQblkF5xidOE5B0+ijAqGwouwHpjEXQhLod/D7oxvzm3X0Uc/OB4Vi6/2vt1fDCupvWGqSqS4JWZ9IP6k3zI7Uc0vBFyiizm65KwelJPUMWNFvI/VghDyzujSQNBSlDGP4C1fBlAycITPxNaR0+hon3MDO8HveeNzPR733U7Mz3i+0A8iBchfEnIKf0CeQaJUF3cFyvYVBfkwWEUu/LAoyl6BVH1S3kO7mObP1P06LzPs/qk1mA2gZf7ncwSNWYjISDJUKPBviRD5hk22TzXujqf6ysdU15izM2Vr1G3C9LzFecmUHbu5wuPFsKnL5JV6M0CN830zk7QiHy9buBo9vFBK1prENoH9yMSQHwL6RnDxLOKyNzShAJnxXWsC4mrP7XoTarg3Hxj1qavRDAqRCTtUrtsG+uTmQkSI2+2I0qtoq8QHri7CB+AK8t6WQHol9gIgjerZC23g==
-X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:satlexmb07.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230040)(36860700016)(82310400026)(7416014)(376014)(1800799024)(23010399003)(18002099003)(22082099003)(261009223027099003)(11063799006)(56012099006)(10067099003)(261102123227099003)(261026140227099003)(261028144727099003)(261022105027099003)(261021123027099003)(261021121427099003);
- DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: qB19EGDrb/lW74VqcqnJCmjIszUq+HuZG5Sees4WAU9Fqco4Ts0TgtMyxNAGqDlAt4W6o/dGvK6H4q5qtv7S2802qyqjGS2iy47NOVzzHbFb6MteVM54yGxcS8+SvUGRcqwFwI9OGlebbUa3eEN4Hco4No3QUQZtWUSHHq1MxrKTe8LpYjHZ4ozGRDuclgYqwqowHdWAPpFBaqt7hRD6DgmtByN4udmKQfzHz8fmSw6CCldqhgguBreIY08CWPM300hnz6By1gpdXK9osuxgCCPz2v/Ye5iLFHP5BBv/KNxSxfkezdvcGnj2e2H4luMpPNEeJJiLHhVQ/ucIiYh+BTi0l+0o9jPGT4Hv618ASZQsjzlCiT/rB2HcedINo4CQEg8B1sJisiZCa34X7pf5OMPnLFw1W8x9E15jKdLhI4+vzGZpqYJRzkl0ZJ/npq2/
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 13 Nov 2026 18:07:08.6116 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 8728b169-5bd1-4b98-f4ea-08df41b0eed3
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
- Helo=[satlexmb07.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: BY1PEPF000264B0.namprd02.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: LV8PR12MB9136
+Content-Transfer-Encoding: 8bit
+X-Proofpoint-ORIG-GUID: Y3kIaCZyaHH0nnBu4MSQvEJsJpWStX34
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMTEzMDA3NSBTYWx0ZWRfX/qHOVvfKHg2y
+ vPeUCxpokwZ6NOHzNUBqAvT98+KbR9s5rAUnRsoccvkgHkgzhRt6TiTs7XOcWV8GU4BY1BYbhai
+ 0A639o+KMab0cygFsjTgYYPHWJh2IbQ2bhvEfOTcCDfmaTt/J0V7TMBViMZEvezd4FeFWhzjUJc
+ JlNYk650Rwsb3q17WCeEdc9AYxK+v/kmUQv7xN9a0PHNfBQRZ9uDZYsxVUzrBA297X8QgjaM3Vg
+ XVGQQ51jiFFg7mq4CL/tNs8CJydtwAPKf9kGMDdQwo8DCaFbcOZ40SdfKygqwyAP2P3H1HJOMjK
+ cj9SsPtnnro7Jnm1GHLM4iXzvDbpTjZlfwlcd3SdVtivE8KaaMPEuWvDBwlD+UOaPBhwzk0XCIm
+ QJUXy6bv0PsX3zc9PGKQyrq7O4VVW1vQnmia42w97Gg96LkpY7QtRKXLnEyQPrZtpQk5SsLQ+RG
+ KRKkQ+47a2YMVm6ceZA==
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMTEzMDA3NSBTYWx0ZWRfXzxAn/2xxndr6
+ g6toNmkSWJFU5D0phTXr9lUWMVhp2KrcVsu+LB/weiTUs/TiTvtIVvlNoDlprzPcx5KI2gqSiMU
+ CYuVs6g+ezea7Y+oJiemNAAHBss3wKE=
+X-Proofpoint-GUID: Y3kIaCZyaHH0nnBu4MSQvEJsJpWStX34
+X-Authority-Analysis: v=2.4 cv=M/nYuCws c=1 sm=1 tr=0 ts=6af75bf1 cx=c_pps
+ a=Uww141gWH0fZj/3QKPojxA==:117 a=ZePRamnt/+rB5gQjfz0u9A==:17
+ a=zJRp6_cAMcgA:10 a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22
+ a=u7WPNUs3qKkmUXheDGA7:22 a=3WHJM1ZQz_JShphwDgj5:22 a=VwQbUJbxAAAA:8
+ a=EUspDBNiAAAA:8 a=zG7KPAmT95cOeVn0dqYA:9 a=PxkB5W3o20Ba91AHUih5:22
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
+ definitions=2026-11-13_05,2026-11-11_03,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ phishscore=0 adultscore=0 priorityscore=1501 spamscore=0 suspectscore=0
+ bulkscore=0 malwarescore=0 clxscore=1015 lowpriorityscore=0 impostorscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2611040001 definitions=main-2611130075
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -118,45 +154,67 @@ List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-14.0 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
-	DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
-	INCLUDES_PATCH,MAILING_LIST_MULTI,NICE_REPLY_A,SPF_HELO_NONE,SPF_PASS,
-	USER_AGENT_SANE_1 autolearn=unavailable autolearn_force=no
-	version=4.0.1
+X-Spam-Status: No, score=-13.8 required=3.0 tests=BAYES_00,DKIM_SIGNED,
+	DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_PATCH,
+	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,USER_AGENT_GIT
+	autolearn=unavailable autolearn_force=no version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-Applied patches to drm-misc-next
+In preparation to remove qcom_mdt_load() and qcom_pas_auth_and_reset()
+public function, migrate every user to the new PAS context-aware API
+qcom_mdt_pas_load() and qcom_pas_prepare_and_auth_reset().
 
-On 11/4/26 14:42, David Zhang wrote:
-> This series adds AIE4 debug buffer support, which the xrt-smi validate
-> gemm test uses to read the per-core results, and the AIE4 CERT firmware
-> version query.
->
-> - Add NPU10 and NPU11 devices.
-> - Bump the driver version to 1.0.
-> - Add AIE4 debug buffer support.
-> - Add AIE4 CERT firmware version query.
->
-> This series applies on top of drm-misc-next.
->
-> David Zhang (4):
->    accel/amdxdna: Add NPU10 and NPU11 devices
->    accel/amdxdna: Bump driver version to 1.0
->    accel/amdxdna: Add AIE4 debug buffer support
->    accel/amdxdna: Add AIE4 CERT firmware version query
->
->   drivers/accel/amdxdna/aie4_ctx.c        | 284 +++++++++++++++++++++++-
->   drivers/accel/amdxdna/aie4_message.c    |  20 ++
->   drivers/accel/amdxdna/aie4_msg_priv.h   |  35 +++
->   drivers/accel/amdxdna/aie4_pci.c        |   7 +
->   drivers/accel/amdxdna/aie4_pci.h        |  10 +
->   drivers/accel/amdxdna/amdxdna_ctx.c     |   4 +-
->   drivers/accel/amdxdna/amdxdna_pci_drv.c |  19 +-
->   drivers/accel/amdxdna/amdxdna_pci_drv.h |   6 +
->   drivers/accel/amdxdna/npu3_regs.c       |  78 +++++++
->   include/uapi/drm/amdxdna_accel.h        |  51 +++++
->   10 files changed, 510 insertions(+), 4 deletions(-)
->
->
-> base-commit: e32e83a6c5ec031a7f59d4794113d8484b220254
+This series migrates every remaining caller of the deprecated APIs
+(qcom_wcnss, adreno zap shader, iris, venus, IPA, ath12k) and then
+removes qcom_mdt_load() and qcom_pas_auth_and_reset() entirely.
+
+Requesting the Ack from subsystem owners to get this merge
+through Bjorn's tree.
+
+Changes in v2:
+ - Addressed Sasiko comments.
+ - Addressed Alex comment and added 1/9 as new patch in this
+   series and use the  API to other patches.
+ - Commit description change.
+ - Link to v1: https://lore.kernel.org/lkml/20260925155737.4161358-1-mukesh.ojha@oss.qualcomm.com/
+
+
+Mukesh Ojha (9):
+  firmware: qcom: pas: add qcom_pas_context_init() for pre-allocated
+    context
+  remoteproc: qcom_wcnss: migrate to qcom_mdt_pas_load() and
+    qcom_pas_prepare_and_auth_reset()
+  drm/msm/adreno: migrate zap shader loading to qcom_mdt_pas_load() and
+    qcom_pas_prepare_and_auth_reset()
+  media: iris: migrate firmware loading to qcom_mdt_pas_load() and
+    qcom_pas_prepare_and_auth_reset()
+  media: venus: migrate firmware loading to qcom_mdt_pas_load() and
+    qcom_pas_prepare_and_auth_reset()
+  net: ipa: migrate firmware loading to qcom_mdt_pas_load() and
+    qcom_pas_prepare_and_auth_reset()
+  wifi: ath12k: migrate firmware loading to qcom_mdt_pas_load() and
+    qcom_pas_prepare_and_auth_reset()
+  soc: qcom: mdt_loader: remove qcom_mdt_load()
+  firmware: qcom: pas: remove qcom_pas_auth_and_reset()
+
+ drivers/firmware/qcom/qcom_pas.c              | 42 +++++++------
+ drivers/firmware/qcom/qcom_pas.h              |  3 -
+ drivers/firmware/qcom/qcom_pas_tee.c          |  6 --
+ drivers/firmware/qcom/qcom_scm.c              |  7 +--
+ drivers/gpu/drm/msm/adreno/adreno_gpu.c       | 22 ++-----
+ drivers/media/platform/qcom/iris/iris_core.h  |  2 +
+ .../media/platform/qcom/iris/iris_firmware.c  | 27 ++++----
+ drivers/media/platform/qcom/venus/core.h      |  2 +
+ drivers/media/platform/qcom/venus/firmware.c  | 29 ++++-----
+ drivers/net/ipa/ipa_main.c                    | 23 +++----
+ drivers/net/wireless/ath/ath12k/ahb.c         | 23 ++++---
+ drivers/remoteproc/qcom_wcnss.c               | 12 ++--
+ drivers/soc/qcom/mdt_loader.c                 | 63 +++++++------------
+ include/linux/firmware/qcom/qcom_pas.h        |  3 +-
+ include/linux/soc/qcom/mdt_loader.h           | 12 ----
+ 15 files changed, 116 insertions(+), 160 deletions(-)
+
+-- 
+2.55.0
+
