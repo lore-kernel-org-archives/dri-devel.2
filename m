@@ -2,68 +2,68 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 011E6606A332
-	for <dri-devel@archiver.kernel.org>; Fri, 13 Nov 2026 09:03:22 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0C319606A337
+	for <dri-devel@archiver.kernel.org>; Fri, 13 Nov 2026 09:03:23 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=afiXnqPt
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=fhllXZo0
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id C391C11224D;
+	by gabe.freedesktop.org (Postfix) with ESMTP id CB8811122D9;
 	Fri, 13 Nov 2026 09:03:10 +0000 (UTC)
-Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 99B611121A8
- for <dri-devel@lists.freedesktop.org>; Fri, 13 Nov 2026 09:02:56 +0000 (UTC)
+Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 38C691121C8
+ for <dri-devel@lists.freedesktop.org>; Fri, 13 Nov 2026 09:02:59 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id 7CD1446630;
- Fri, 13 Nov 2026 09:02:56 +0000 (UTC)
+ by tor.source.kernel.org (Postfix) with ESMTP id 921B46262D;
+ Fri, 13 Nov 2026 09:02:58 +0000 (UTC)
 Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
 ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
- t=1794560576;
- b=cyPn7/fP+fB2vJ/mOrS5hHAVaEFGmDGPo+c6kXFsjtM9luBBZk9REeTpse4XrzU6Z2ik
- DBizdm2r8VWKSdIBNBr8YAJXPU1vBPgsNoTZeROxgdC+TyKOf4vHepsK41BTT23Ahc8RS
- +yNWV0d/aXLGqYOEvy/v8NRrAcD2jRFaxfLxdSQx+I0FMpmaRthRFAAPHVx6UGF5e/Czs
- rqXotpEVVp0EaKJ03+/ika1eCmfx5X+iyzNOnXegOp+sVM5W+hJDuiyQ5SAmbskXhK4IP
- yAlKrrdtFOlH+nGI5CYj7zu7Up7BtgqvIuQft8aerVdyyNotd4zII7iTvRl6cVbJG0A==
+ t=1794560578;
+ b=RzaicLOYZUxxhG1+Md5E/DlIhg6H1ZY35QF0ujnd9tgpNSyLBYuG/C3amHtvOqbAjxjF
+ /kkc+nsr+OKoKwuIs4d+/jtl7k8/jY3eVGZH3BYrtydk/+vV2mz0zoFf6hapTOCVL04YP
+ ShdnXMxjaiWedZih7Mq+9wTo3dbQ0lr58p3KxqriQexA+dKQrZq/SZdYyrCFZcaj7ThWw
+ nBCO9c961L+SARrzwMtH16eu+Uqdtg9FqMUElmE2lR9MCe+e4ryUP1qKrBMLVtTRw4kyr
+ jV+vwLb4aTzfskoi31XyKYgmRk385a9xM7MbsQBx0afuPgC1DJXsj1Ee6fNO3F6kn2g==
 ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
- c=relaxed/relaxed; t=1794560576;
+ c=relaxed/relaxed; t=1794560578;
  h=DKIM-Signature:Received:From:Date:Subject:MIME-Version:Content-Type:
  Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
  X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
  X-Original-From:Reply-To:Content-Transfer-Encoding;
- bh=1V9h+Zk2JXursouI9MpK2JJMP8iy0ZumgVOKr78+gRw=;
- b=h3gMIVSuJmD1WKdDigZi/Dz/Rr5VjM006g9QSYHtewFveiQ5+4mjLrq91AS+udB+9oPV
- SK1aVYByh/vxmTBECUPnEhkaQ+RQY/SrCu09NQu/T7HIKRzqY6f5Qsvi71JNfJZ5BV8WJ
- Fg4B4kI6PAJnR/FzMz1y/CZ9mR1VPQ7wKQ8ll6hRL5ONBCvY5yFwuyL4+SIqJhCKsHURp
- rRWrDNUYa1BYE3OgOyg+EGSq5nSOaJ1F8qifhszI0JY/GiodvgRfoHldmVercJJVeKrbO
- 8i1XaZCK2PL/2pRNF1IRw+J6TFlmQnPfr9yo0D/qHLV2YoxMBJgUZ3ZswDpK//d0Aew==
+ bh=eYLzKLCBTLiYDook5p4RJ/AJRhAzIQ0VIozKujGazzs=;
+ b=A6ph3Nw055az4Z2Oy45bxmBAsCt22KwyRB6tBNiLMc39YtEWzbmipN8lKXDNQoQ02IP9
+ QJ1kIItNQmuNIife2xDv2O0758VG6vygb7gLFPmgoUVYzuEL70VlDvVqa7OuL4QLtrY5E
+ DVOi13xS8ZZ8gwxWIk+ofz6GfA/vyrq2+EwF/Aba3p0yRA4Ao09B0uo9pfAndLiBIHP2b
+ HVOkhfRjQRY6xQNuc83SWTgnzW0+CDMrBePPsoiYtij7xTQjyNofgy2B5dzXRUCeMyig3
+ z4F/Xlr6c9scWAWXFT/NxTsYEVauOZP0ju4bB4997kzH0052nnec6aHt8qhpbdVGkMQ==
 ARC-Authentication-Results: i=1; smtp.kernel.org; 
  arc=none smtp.remote-ip=100.80.115.77
 Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
  (No client certificate requested)
- by smtp.kernel.org (Postfix) with ESMTPS id 8BDAE1F000CE;
- Fri, 13 Nov 2026 09:02:55 +0000 (UTC)
+ by smtp.kernel.org (Postfix) with ESMTPS id 2836E1F0089E;
+ Fri, 13 Nov 2026 09:02:56 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1794560576;
- bh=1V9h+Zk2JXursouI9MpK2JJMP8iy0ZumgVOKr78+gRw=;
+ s=k20260515; t=1794560578;
+ bh=eYLzKLCBTLiYDook5p4RJ/AJRhAzIQ0VIozKujGazzs=;
  h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To;
- b=afiXnqPtegKGbPy/6jo0t+0a6K0yPjof9ZecrNUq0cujEShJ1lQN0ZkicUzK1QYPd
- GMCDvT7e9IwR8U18H9wqWGzh01oTRkLSLeJPRL/cUleL0N9+oBU7quS4tyRN22PH59
- cQBxMEQgziEVrPxIMyVjp7ibAw1va0djSK8xwFcwW6NTKV1S432SrwBmi++TVH8LaE
- 11ZVtWtf4Lg4IyT0QlksKAJmInHyY+/QC2M7JghP1mrW0ApSF1/INm9AnWF8JW0phY
- uvYi5UUOP3WmtSbv3JhP3S60+CQBffx9kqV+7VDqHe6+Gg5CKmZjilYaq1RmOg58Lf
- Rxr3XjvpcHHJA==
+ b=fhllXZo0rFD8rrw2Lo+cCBivIaYJdh3Oarx845IiaWDY/3qkgYGzcoDmyva4EIsa7
+ uTTENNNyDZOYuSv4Lz304lOkRjfBFCs2bv4bR/F0BZhYomrsUu13QkyLypy45lymoV
+ yFJwfyjzfjYf8z4i8kprNgjJp/ldn5Fjo7Y7oCal+Tnz+uR2OVhNTn6m7/qTYaU2VQ
+ SpA/p3cpZFSZqzdlgH/trKSVqUnZM/nhPPer9YxsIKZbzKb75e3+hJkq5mnxN861ha
+ j8q9K1LwuPrQYI3bMfc2ojIy+hH+gfMLFjNIuE873L+n661NJbrCu1cX/GHlOZuP0q
+ iwo9AsX+kkAaQ==
 Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
- by lkml.kernel.org (Postfix) with ESMTP id 2C7FC476E6;
+ by lkml.kernel.org (Postfix) with ESMTP id 67665476F2;
  Fri, 13 Nov 2026 09:02:54 +0000 (UTC)
 From: Arun Iyengar via B4 Relay <devnull+aiyengar1990.gmail.com@kernel.org>
-Date: Fri, 13 Nov 2026 09:02:57 +0000
-Subject: [PATCH v3 05/14] drm/panfrost: Unwind a failed GPU mapping without
- dropping its pages
+Date: Fri, 13 Nov 2026 09:03:00 +0000
+Subject: [PATCH v3 08/14] drm/panfrost: Don't signal a job cancelled from
+ _NEXT at a reset as done
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
-Message-Id: <20261113-panfrost-long-jobs-v3-5-80ae78d38f6e@gmail.com>
+Message-Id: <20261113-panfrost-long-jobs-v3-8-80ae78d38f6e@gmail.com>
 References: <20261113-panfrost-long-jobs-v3-0-80ae78d38f6e@gmail.com>
 In-Reply-To: <20261113-panfrost-long-jobs-v3-0-80ae78d38f6e@gmail.com>
 To: Boris Brezillon <boris.brezillon@collabora.com>, 
@@ -75,11 +75,11 @@ To: Boris Brezillon <boris.brezillon@collabora.com>,
 Cc: dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org, 
  Arun Iyengar <aiyengar1990@gmail.com>
 X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1794560572; l=2634;
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1794560572; l=3231;
  i=aiyengar1990@gmail.com; s=20261110; h=from:subject:message-id;
- bh=LXM9VChP6RJ9mS+vj0CLjtPS49692Z/f9+u89B3GkZA=;
- b=MqoXiCgstl33RWQ2qXYpmFv+GQxEShO1FeDlRNYIrvTk38M20DjyVj8zr8v/J2d4I6jIXrtsL
- PYLsx8KCUG8ATmv4YT6VwybdXLGrW97TP4ti2m8MyyYvla0e1/b1EtN
+ bh=4JeGZ1WkTboDgfEiNJi6mgsaNNVt//564xP/a5auNoc=;
+ b=3DLQrx+fTgWlRhjKMCPj2AwDbaXXZlGSSgesP3YXinrMeUDBSr2cHE4X9R03lk5QTilNHk5XC
+ q8kPohAvDV6DEiXw5GF4c0rvfB0ZM/07bTaaSxgn7rySH31nYxc7ZP9
 X-Developer-Key: i=aiyengar1990@gmail.com; a=ed25519;
  pk=zXpRgUTrhaFe6jLyPqbBy3ccfkj04w0g2690Wv3mg+0=
 X-Endpoint-Received: by B4 Relay for aiyengar1990@gmail.com/20261110 with
@@ -108,79 +108,80 @@ X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 
 From: Arun Iyengar <aiyengar1990@gmail.com>
 
-Two error paths of a BO mapping leave wrong state behind when an
-allocation fails part-way (memory cgroup limit, io-pgtable out of
-memory):
+panfrost_reset() cancels the job in each slot's _NEXT registers with
+JS_COMMAND_NOP and soft-stops the running one. If the running job
+completes instead of stopping, panfrost_jm_handle_irq() dequeues it,
+finds both subslots inactive and takes the cancelled job, now at the
+head of the slot, for done as well. The cancelled job gets its jc
+cleared and its done fence signalled: drm_sched_resubmit_jobs() does not
+run it again, and it completes with -ECANCELED without having run.
 
-- When mmu_map_sg() fails, panfrost_mmu_map() calls
-  drm_gem_shmem_put_pages_locked(), without the reservation lock it
-  asserts. The only page reference drm_gem_shmem_get_pages_sgt() took
-  belongs to the sg table cached in shmem->sgt, so this drops pages that
-  shmem->sgt still maps (for an imported BO it underflows
-  pages_use_count). Keep the pages and return the error.
+The Arm driver reads JS_HEAD_NEXT after the NOP: if it still holds the
+job, the job has not started and is evicted. Do the same: take an
+evicted job off the slot while the remaining interrupts are handled and
+put it back afterwards, so that it is restarted with the others.
 
-- When ops->map_pages() fails, mmu_map_sg() does not unmap what the
-  failing call itself had mapped (reported in @mapped). Those PTEs stay
-  in a VA range that drm_mm hands out again. Unmap that part too, and
-  flush the unmapped range.
+Found by code review (Sashiko) of "Soft-stop and resume a job that
+outlives the timeout", which widens the window. Not reproduced.
 
-Fixes: 4da352cf8fb1 ("drm/panfrost: Handle page mapping failure")
+Fixes: 030761e097b4 ("drm/panfrost: Queue jobs on the hardware")
 Cc: stable@vger.kernel.org
+Reported-by: Sashiko <sashiko-bot@kernel.org>
+Closes: https://lore.kernel.org/all/sashiko-outbox-206581@kernel.org/
 Signed-off-by: Arun Iyengar <aiyengar1990@gmail.com>
 ---
- drivers/gpu/drm/panfrost/panfrost_mmu.c | 17 ++++++++++-------
- 1 file changed, 10 insertions(+), 7 deletions(-)
+ drivers/gpu/drm/panfrost/panfrost_job.c | 19 +++++++++++++++++++
+ 1 file changed, 19 insertions(+)
 
-diff --git a/drivers/gpu/drm/panfrost/panfrost_mmu.c b/drivers/gpu/drm/panfrost/panfrost_mmu.c
-index 74fd159de..efa4a3bb1 100644
---- a/drivers/gpu/drm/panfrost/panfrost_mmu.c
-+++ b/drivers/gpu/drm/panfrost/panfrost_mmu.c
-@@ -442,8 +442,11 @@ static int mmu_map_sg(struct panfrost_device *pfdev, struct panfrost_mmu *mmu,
+diff --git a/drivers/gpu/drm/panfrost/panfrost_job.c b/drivers/gpu/drm/panfrost/panfrost_job.c
+index 7319511db..1bb70b07d 100644
+--- a/drivers/gpu/drm/panfrost/panfrost_job.c
++++ b/drivers/gpu/drm/panfrost/panfrost_job.c
+@@ -659,6 +659,7 @@ static void
+ panfrost_reset(struct panfrost_device *pfdev,
+ 	       struct drm_sched_job *bad)
+ {
++	struct panfrost_job *evicted[NUM_JOB_SLOTS] = {};
+ 	u32 js_state, js_state_mask = 0xffffffff;
+ 	unsigned int i, j;
+ 	bool cookie;
+@@ -694,11 +695,25 @@ panfrost_reset(struct panfrost_device *pfdev,
+ 	job_write(pfdev, JOB_INT_MASK, 0);
+ 	synchronize_irq(pfdev->js->irq);
  
- 			ret = ops->map_pages(ops, iova, paddr, pgsize, pgcount, prot,
- 				       GFP_KERNEL, &mapped);
--			if (ret)
-+			if (ret) {
-+				/* Unwind the pages this call mapped too. */
-+				total_mapped += mapped;
- 				goto err_unmap_pages;
-+			}
++	spin_lock(&pfdev->js->job_lock);
+ 	for (i = 0; i < NUM_JOB_SLOTS; i++) {
+ 		/* Cancel the next job and soft-stop the running job. */
+ 		job_write(pfdev, JS_COMMAND_NEXT(i), JS_COMMAND_NOP);
++
++		/* A job still in _NEXT after the NOP never started. Take it
++		 * off the slot, or panfrost_jm_handle_irq() takes it for done
++		 * if the running job completes instead of stopping.
++		 */
++		if (pfdev->jobs[i][1] &&
++		    (job_read(pfdev, JS_HEAD_NEXT_LO(i)) ||
++		     job_read(pfdev, JS_HEAD_NEXT_HI(i)))) {
++			evicted[i] = pfdev->jobs[i][1];
++			pfdev->jobs[i][1] = NULL;
++		}
++
+ 		job_write(pfdev, JS_COMMAND(i), JS_COMMAND_SOFT_STOP);
+ 	}
++	spin_unlock(&pfdev->js->job_lock);
  
- 			/* Don't get stuck if things have gone wrong */
- 			mapped = max(mapped, pgsize);
-@@ -459,7 +462,10 @@ static int mmu_map_sg(struct panfrost_device *pfdev, struct panfrost_mmu *mmu,
- 	return 0;
- 
- err_unmap_pages:
--	mmu_unmap_range(mmu, start_iova, total_mapped);
-+	if (total_mapped) {
-+		mmu_unmap_range(mmu, start_iova, total_mapped);
-+		panfrost_mmu_flush_range(pfdev, mmu, start_iova, total_mapped);
-+	}
- 	return ret;
- }
- 
-@@ -483,18 +489,15 @@ int panfrost_mmu_map(struct panfrost_gem_mapping *mapping)
- 	if (IS_ERR(sgt))
- 		return PTR_ERR(sgt);
- 
-+	/* On failure keep the pages: shmem->sgt holds their only reference. */
- 	ret = mmu_map_sg(pfdev, mapping->mmu, mapping->mmnode.start << PAGE_SHIFT,
- 			 prot, sgt);
- 	if (ret)
--		goto err_put_pages;
-+		return ret;
- 
- 	mapping->active = true;
- 
- 	return 0;
--
--err_put_pages:
--	drm_gem_shmem_put_pages_locked(shmem);
--	return ret;
- }
- 
- void panfrost_mmu_unmap(struct panfrost_gem_mapping *mapping)
+ 	/* Wait at most 10ms for soft-stops to complete */
+ 	ret = readl_poll_timeout(pfdev->iomem + JOB_INT_JS_STATE, js_state,
+@@ -720,6 +735,10 @@ panfrost_reset(struct panfrost_device *pfdev,
+ 	 */
+ 	spin_lock(&pfdev->js->job_lock);
+ 	for (i = 0; i < NUM_JOB_SLOTS; i++) {
++		/* Put the evicted job back, to be restarted. */
++		if (evicted[i])
++			pfdev->jobs[i][pfdev->jobs[i][0] ? 1 : 0] = evicted[i];
++
+ 		for (j = 0; j < ARRAY_SIZE(pfdev->jobs[0]) && pfdev->jobs[i][j]; j++) {
+ 			if (pfdev->jobs[i][j]->requirements & PANFROST_JD_REQ_CYCLE_COUNT ||
+ 			    pfdev->jobs[i][j]->is_profiled)
 
 -- 
 2.55.0
