@@ -2,57 +2,43 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7375E606A323
-	for <dri-devel@archiver.kernel.org>; Fri, 13 Nov 2026 01:41:37 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4C6A7606A31C
+	for <dri-devel@archiver.kernel.org>; Fri, 13 Nov 2026 01:51:14 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=rock-chips.com header.i=@rock-chips.com header.a=rsa-sha256 header.s=default header.b=NRK1Ogzd
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=DbVLUNBM
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id D475D1122FD;
-	Fri, 13 Nov 2026 01:41:31 +0000 (UTC)
-X-Greylist: delayed 303 seconds by postgrey-1.36 at gabe;
- Fri, 13 Nov 2026 01:41:25 UTC
-Received: from mail-m1288.netease.com (mail-m1288.netease.com [103.209.128.8])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 0A0ED1122FD
- for <dri-devel@lists.freedesktop.org>; Fri, 13 Nov 2026 01:41:24 +0000 (UTC)
-Received: from [172.16.12.90] (unknown [61.154.14.86])
- by smtp.qiye.163.com (Hmail) with ESMTP id 5483f8bd3;
- Fri, 13 Nov 2026 09:36:19 +0800 (GMT+08:00)
-Message-ID: <781db207-ca0e-4e41-8706-c0769b58385f@rock-chips.com>
-Date: Fri, 13 Nov 2026 09:36:16 +0800
-X-Archived-By: <archiver.kernel.org>
-MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 3/9] drm/rockchip: vop2: Fix the HDMI sync polarity on
- RK3588
-To: aiyengar1990@gmail.com
-Cc: Cristian Ciocaltea <cristian.ciocaltea@collabora.com>,
- Sandy Huang <hjc@rock-chips.com>, =?UTF-8?Q?Heiko_St=C3=BCbner?=
- <heiko@sntech.de>, Andy Yan <andyshrk@163.com>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- Sascha Hauer <s.hauer@pengutronix.de>,
- Piotr Zalewski <pZ010001011111@proton.me>, dri-devel@lists.freedesktop.org,
- linux-rockchip@lists.infradead.org, linux-arm-kernel@lists.infradead.org,
- linux-kernel@vger.kernel.org
-References: <20261112-vop2-fixes-v2-0-8218c1cf8ac8@gmail.com>
- <20261112-vop2-fixes-v2-3-8218c1cf8ac8@gmail.com>
-Content-Language: en-US
-From: Chaoyi Chen <chaoyi.chen@rock-chips.com>
-In-Reply-To: <20261112-vop2-fixes-v2-3-8218c1cf8ac8@gmail.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-X-HM-Tid: 0aa1d28c68f003a7kunm3ed8a3c2a36d2
-X-HM-MType: 1
-X-HM-Spam-Status: e1kfGhgUHx5ZQUpXWQgPGg8OCBgUHx5ZQUlOS1dZFg8aDwILHllBWSg2Ly
- tZV1koWUFITzdXWRgWCB1ZQUpXWS1ZQUlXWQ8JGhUIEh9ZQVlDTUJIVhlOH0ofTR1CH00aGlYVFA
- kWGhdVEwETFhoSFyQUDg9ZV1kYEgtZQVlNSlVKTk9VSk9VQ01ZV1kWGg8SFR0UWUFZT0tIVUpLSU
- 9PT0hVSktLVUpCS0tZBg++
-DKIM-Signature: a=rsa-sha256;
- b=NRK1OgzdCmB0whylUbps83DuQoBR+n4HlZoHbh9r3cb/rRAS1LmfPW6CJBFracLEP2OjBWzSwHIRlCOx5ZgWV4+srjQntk06TeTXvD8Xvua0J5PX+oSN0N2tCeZvWAtxonYwNljqL5muGYLMjOh2y6mgMc0Cg8AlBD5CZYQ3ncY=;
- s=default; c=relaxed/relaxed; d=rock-chips.com; v=1; 
- bh=yUomd9KXnjseidZCb+3NrIiSfYZB9y809aXsxz/VNIE=;
- h=date:mime-version:subject:message-id:from;
+	by gabe.freedesktop.org (Postfix) with ESMTP id B449F10E6B3;
+	Fri, 13 Nov 2026 01:51:08 +0000 (UTC)
+Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 93BD010E6B3
+ for <dri-devel@lists.freedesktop.org>; Fri, 13 Nov 2026 01:51:02 +0000 (UTC)
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+ by sea.source.kernel.org (Postfix) with ESMTP id 63C9B41849;
+ Fri, 13 Nov 2026 01:51:02 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 188C71F000C4;
+ Fri, 13 Nov 2026 01:51:02 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+ s=k20260515; t=1794534662;
+ bh=novKq1OxOw0oIDwG/zfIOYXbREIwByAud43VwuRJoTs=;
+ h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+ b=DbVLUNBMA2PqCqL5bplgH+6OJEno2/Aob5Qj4YHnypW+ZV6OJyzG6Vf1xj+vvv3dC
+ JFTVw5UY/U23Yw51VUW2gebtZ4VDvPo8DAPn0VHX8566I4gb4vsRCE/bzmsP5KmfCZ
+ ABjK6xS3LDH+9xQ5Pu9fDDn13/nbnTpdg/YrAI9THeJSk9b2HXpDyGXe2Dmn1F6Wnf
+ d7xtocI6ovIxwBBYV64KWKsi0yKL7VU9MbXS3mho35zttMRj8bHKCKHiqARKsmF6MA
+ ipvuBiHxA+Yg2l5E2X8Y/N7SwzSJMezik78TtiuyO1yQf5nYivnb1S8WIR5V2xMYX+
+ LU9daxAVPPYyQ==
+Message-ID: <sashiko-outbox-212075@kernel.org>
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v4 05/12] arm64: dts: qcom: sm6350-lena: Enable Bluetooth
+To: erebion <erebion@erebion.eu>
+Cc: dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org,
+ robh@kernel.org, conor+dt@kernel.org
+In-Reply-To: <20261113-pdx213-upstream-3-v4-5-4b01c50a821c@erebion.eu>
+References: <20261113-pdx213-upstream-3-v4-0-4b01c50a821c@erebion.eu>
+ <20261113-pdx213-upstream-3-v4-5-4b01c50a821c@erebion.eu>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Fri, 13 Nov 2026 01:51:01 +0000
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -63,71 +49,43 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
+Reply-To: sashiko-reviews@lists.linux.dev
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-17.3 required=3.0 tests=BAYES_00,DKIM_SIGNED,
-	DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
-	INCLUDES_CR_TRAILER,INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,
-	SPF_PASS,USER_AGENT_SANE_1 autolearn=unavailable autolearn_force=no
-	version=4.0.1
+X-Spam-Status: No, score=-10.8 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
+	DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
+	INCLUDES_CR_TRAILER,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS
+	autolearn=ham autolearn_force=no version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
+X-Archived-By: <archiver.kernel.org>
 
-Cc: Cristian Ciocaltea <cristian.ciocaltea@collabora.com>
+Thank you for your contribution! Sashiko AI review found 1 potential
+issue to consider:
+- [High] arm64: dts: qcom: Signed-off-by and Author use handle instead
+  of real name
+--
 
-Oh wow, nobody even noticed this.
+commit a88dbe84a474608356cf7418da893f73d6055164
+Author: erebion <erebion@erebion.eu>
 
-On 11/12/2026 4:33 PM, Arun Iyengar via B4 Relay wrote:
-> From: Arun Iyengar <aiyengar1990@gmail.com>
-> 
-> rk3588_set_intf_mux() passes the POLFLAG bits of the mode to
-> rk3588_get_hdmi_pol(), which decodes them as DRM mode flags: the
-> VSYNC_POSITIVE bit is taken for DRM_MODE_FLAG_NHSYNC and POLFLAG_DCLK_INV
-> for DRM_MODE_FLAG_NVSYNC. As a result GRF_VO1_CON0 marks the HSYNC of
-> every +HSync/+VSync mode (e.g. all 1080p, 2160p CTA modes) as negative
-> and both syncs of -HSync/-VSync modes (e.g. 720x480, 640x480) as
-> positive.
-> 
-> The bits in GRF_VO1_CON0 are set for a negative sync; that is how the
-> vendor kernel programs them (vop2_get_hdmi_pol(), called with the mode
-> flags, sets them for DRM_MODE_FLAG_NHSYNC/NVSYNC on RK3588). Decode the
-> POLFLAG bits accordingly.
-> 
-> Fixes: 5a028e8f062f ("drm/rockchip: vop2: Add support for rk3588")
-> Signed-off-by: Arun Iyengar <aiyengar1990@gmail.com>
+> arm64: dts: qcom: sm6350-lena: Enable Bluetooth
+>
+> Configure the required regulators for Bluetooth and enable it on the
+> Xperia 10 III.
+>
+> Signed-off-by: erebion <erebion@erebion.eu>
 
-Reviewed-by: Chaoyi Chen <chaoyi.chen@rock-chips.com>
+[Severity: High]
+Could the Author header and Signed-off-by trailer use a real full name
+instead of the handle "erebion"?  Documentation/process/submitting-patches.=
+rst
+requires a real human name to certify the Developer's Certificate of Origin.
 
-> ---
->  drivers/gpu/drm/rockchip/rockchip_vop2_reg.c | 10 +++++++---
->  1 file changed, 7 insertions(+), 3 deletions(-)
-> 
-> diff --git a/drivers/gpu/drm/rockchip/rockchip_vop2_reg.c b/drivers/gpu/drm/rockchip/rockchip_vop2_reg.c
-> index 659fd0a3ab63..7c48b440cb29 100644
-> --- a/drivers/gpu/drm/rockchip/rockchip_vop2_reg.c
-> +++ b/drivers/gpu/drm/rockchip/rockchip_vop2_reg.c
-> @@ -1687,12 +1687,16 @@ static u32 rk3588_get_mipi_port_mux(int vp_id)
->  		return 0;
->  }
->  
-> -static u32 rk3588_get_hdmi_pol(u32 flags)
-> +/*
-> + * The HDMI sync polarity bits in GRF_VO1_CON0 are set for an active low
-> + * (negative) sync.
-> + */
-> +static u32 rk3588_get_hdmi_pol(u32 polflags)
->  {
->  	u32 val;
->  
-> -	val = (flags & DRM_MODE_FLAG_NHSYNC) ? BIT(HSYNC_POSITIVE) : 0;
-> -	val |= (flags & DRM_MODE_FLAG_NVSYNC) ? BIT(VSYNC_POSITIVE) : 0;
-> +	val = (polflags & BIT(HSYNC_POSITIVE)) ? 0 : BIT(HSYNC_POSITIVE);
-> +	val |= (polflags & BIT(VSYNC_POSITIVE)) ? 0 : BIT(VSYNC_POSITIVE);
->  
->  	return val;
->  }
-> 
+Also, this isn't a bug, but the commit message says it configures the
+regulators for Bluetooth, whereas the PM6350 and PM6150L regulators are
+already defined in the board DTS and this patch only references their
+phandles in the bluetooth node.
 
--- 
-Best, 
-Chaoyi
-
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261113-pdx213-ups=
+tream-3-v4-0-4b01c50a821c@erebion.eu?part=3D5
