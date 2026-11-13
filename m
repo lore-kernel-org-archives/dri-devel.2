@@ -2,21 +2,21 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1C438606A323
-	for <dri-devel@archiver.kernel.org>; Fri, 13 Nov 2026 16:59:13 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 00D19606A33D
+	for <dri-devel@archiver.kernel.org>; Fri, 13 Nov 2026 16:59:15 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=pengutronix.de header.i=@pengutronix.de header.a=rsa-sha256 header.s=20260414 header.b=KLEehsrJ
+	dkim=pass (2048-bit key) header.d=pengutronix.de header.i=@pengutronix.de header.a=rsa-sha256 header.s=20260414 header.b=MqhvfJFj
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 9FAC610EC52;
+	by gabe.freedesktop.org (Postfix) with ESMTP id B2F441126EE;
 	Fri, 13 Nov 2026 16:59:05 +0000 (UTC)
 Received: from mx1.white.stw.pengutronix.de (mx1.white.stw.pengutronix.de
  [185.203.200.13])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 6804810EC52
+ by gabe.freedesktop.org (Postfix) with ESMTPS id A86FB1126E4
  for <dri-devel@lists.freedesktop.org>; Fri, 13 Nov 2026 16:58:59 +0000 (UTC)
 Received: from drehscheibe.grey.stw.pengutronix.de
  (drehscheibe.grey.stw.pengutronix.de [IPv6:2a0a:edc0:0:c01:1d::a2])
  (Authenticated sender: relay-from-drehscheibe.grey.stw.pengutronix.de)
- by mx1.white.stw.pengutronix.de (Postfix) with ESMTPSA id 95B50205A06;
+ by mx1.white.stw.pengutronix.de (Postfix) with ESMTPSA id AB928205A0A;
  Fri, 13 Nov 2026 17:58:53 +0100 (CET)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=pengutronix.de;
  s=20260414; t=1794589133;
@@ -24,46 +24,46 @@ DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=pengutronix.de;
  to:to:cc:cc:mime-version:mime-version:content-type:content-type:
  content-transfer-encoding:content-transfer-encoding:
  in-reply-to:in-reply-to:references:references;
- bh=dCXXq3g6D1s6SKjDhjdThlUNLXSU+tl5c6mTusSIemo=;
- b=KLEehsrJ6lsz/AXN42FueuEqhyhT7OMBgGt0JmJRwZ7xmWJyn8P4OrYg3ZvmKcp4jaH3vo
- U7sUhBi9ZZlB8Di0OO8nEQIYt4BfujDJ0r7YuEGoTDsYtNk2M5fvJJVKQJ1NtFdbPGr3Ez
- QgpOnGJHLmRa0PbJ3tMOk77rg6eMW0nDSLGhHYfkrKS/Fe7ewx1gY9t3R9HSmAqkseKitq
- yYsfHartlHt3B4RddhNPykxm8v4coJGfyy6aSara2TE9ksUt21S+2nin3SSYz2VIvaQcrz
- Qno5h8FJPGa+lTUQqNUrPPbl8k3FmV47kSNH3Xww9/pd2fQvAFpNc3vLQKctpw==
+ bh=0DD0CfyTYSpBOxmAOGks3Gn/EK2/cA2lrTDv89mouTc=;
+ b=MqhvfJFjnTRQezOHZ6rdW3BwbNgFiSNnG6SEWjgDwkXJwjKYWHo1eUakaLnp1dhTfhDrNE
+ ARXzfa+LABd6VaR7PK1Ofxf3TXZV7LfGGJLyVjLqkxzqI2R+bgKR7PidmH1HyhF9FveW+8
+ ypD4M9vLQUk2o+BpCBI8AZJzlSd+cG5RKAl47JmIiaZSrksYiKc+VD1dHDdJrzId6h0fxc
+ jSokBLHDOsVZMrdcx+zmueEQ0FVtmx6c5IkMGNYcco25/BBpGr+pqHlkaWG04+XFxWzctO
+ O5Mku1DusQEhm6dJ2s3W02OLOuT0VQQplaSDWiMc3x3wEoFqmeh4H1vowL8x3w==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=pengutronix.de; 
  s=20260414; t=1794589133;
  h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
  to:to:cc:cc:mime-version:mime-version:content-type:content-type:
  content-transfer-encoding:content-transfer-encoding:
  in-reply-to:in-reply-to:references:references;
- bh=dCXXq3g6D1s6SKjDhjdThlUNLXSU+tl5c6mTusSIemo=;
- b=DAQI8oHaAwaiQ+GW3pTOffG+dY5trvB9ePOLo2RQU57AsO0m4c3kJEis59LpZUdIMElg1a
- 9XGfoFClZhmD5PRQ/MjmzDAPICXOShv0knORoM471kgnmr6JPYxOEUDWlebrkH72a6SRoj
- OStuWP3GMVItVCB541BYQjy8O/xMoGJH+FafkPoP91DhF6fQuwajRjLwORxc7SIrMCJvtA
- BfD7xnztyPoBewGNegmOxsd/ajIMzKm8/ewaTcPBOcvcsE/L0RcYImxoj5wMysTZCpSXm/
- 4y7fBkpSUByNKXahzctqpT+giisbeYcY861HB/VBJHdbz3KFXRx+ORwA2YKpLg==
+ bh=0DD0CfyTYSpBOxmAOGks3Gn/EK2/cA2lrTDv89mouTc=;
+ b=e0Q9IawiUjWpVc7/yjjj5A0A6IINWmlGm/zNDRBSYIjLYIlBiq7ADdYtcTVq/4N7ccpmuV
+ Isq6BEpxTsahnGmbmVhhupXMc87P5BVEWkRSMhBa9HfQKZF5mumk/SbMqKTI4uGzZHjX67
+ 6kHJBU4g5TXbqiKjQtUEhaFPdNIBiyskAEp3cd2aE+4gSR3RsKNTIqlJsiw6Z5AVH5/jiB
+ 7XoVssyh8CrGjwW2xpJmk7meY6YYeGFUKd4zO2DVUP1+8HxHCF+eduZU8Kwv48OIihYDYi
+ kFjj+yJH6YkwgC9Z8+TJLk+oWW6c2o2FJNcHe94Ow4KUb90wAb6tUwzDgkAHaA==
 ARC-Seal: i=1; s=20260414; d=pengutronix.de; t=1794589133; a=rsa-sha256;
  cv=none;
- b=Mv5/aIry7/d+7cP3MRX4In5RYEatjzDbvpZ/8LYuJn+GUBxI3NGLlrPAYtlYeK1E7Fc0T0
- /5u+Zfbb0nrO4vhzlApzuTy6LbtQsZoRjmVEomHgWv+N3xABcNZklqK86EA245i6TeEUmM
- rFohvT1pbsYiw4uUBozZO/jPZIrHzqbVqZOzJNtGibqpqyTY07pMMeCqQ73QTz98O5HobZ
- KpRpYe+2SBb8nTU1h0vU456c7jw2Z/9f5bdoy5pI4d6ZRWCY3X/Y4fI8bLapCXcuMG4aBg
- +ZGBIOTzZ8xPG/7dAulVm6PgK4oS2YdeSSPssOvEVMRIcaoJEyN9TMbEU9u6pQ==
+ b=G2vIBFTvTJBCb9XtTxA0AjsE+cCxV8gBcMuRwggEEReUVDDRlyvA5hMte6lk0RZWrQ4OyA
+ WiAjbkefWkG3qg/++InGetquUMBcj37VjYNyVL6xmyBvjTQXiuxDBl93G2NX/wNPhVm+KZ
+ /ab5zxMZwWCCRRi4aAMN88jf0A2irxiMkzIIfbDuth68OSgw7aqwjTv5h6KaWsyWtVKzKE
+ /EvgwjlPip3CVripqFq1ViEXPobXdKVJ80BC4Pmz0vc+/l8TmaWo0H6rxyQqz/es22JuMQ
+ gH3RYyqn2R1s5t9qQQTsDneVC0QDhf3y7ul8e2n28EBYAYbVNPvZat58gUQ6mg==
 ARC-Authentication-Results: i=1; ORIGINATING;
  auth=pass smtp.auth=relay-from-drehscheibe.grey.stw.pengutronix.de
  smtp.mailfrom=p.zabel@pengutronix.de
 Received: from dude05.red.stw.pengutronix.de ([2a0a:edc0:0:1101:1d::54])
  by drehscheibe.grey.stw.pengutronix.de with esmtp (Exim 4.96)
- (envelope-from <p.zabel@pengutronix.de>) id 1xRuc1-0041Ib-1i;
+ (envelope-from <p.zabel@pengutronix.de>) id 1xRuc1-0041Ib-21;
  Fri, 13 Nov 2026 17:58:53 +0100
 From: Philipp Zabel <p.zabel@pengutronix.de>
-Date: Fri, 13 Nov 2026 17:58:53 +0100
-Subject: [PATCH 1/3] drm/panel: ilitek-ili9881c: Fix Ampire AM8001280G support
+Date: Fri, 13 Nov 2026 17:58:55 +0100
+Subject: [PATCH 3/3] drm/panel: ilitek-ili9881c: Fix TDO TL050HDV35 support
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20261113-panel-ilitek9881c-lanes-v1-1-9d9320cc1387@pengutronix.de>
+Message-Id: <20261113-panel-ilitek9881c-lanes-v1-3-9d9320cc1387@pengutronix.de>
 References: <20261113-panel-ilitek9881c-lanes-v1-0-9d9320cc1387@pengutronix.de>
 In-Reply-To: <20261113-panel-ilitek9881c-lanes-v1-0-9d9320cc1387@pengutronix.de>
 To: Neil Armstrong <neil.armstrong@linaro.org>, 
@@ -94,7 +94,7 @@ X-Spam-Status: No, score=-18.8 required=3.0 tests=BAYES_00,DKIM_SIGNED,
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-Add back the missing number of lanes for Ampire AM8001280G panels.
+Add back the missing number of lanes for TDO TL050HDV35 panels.
 
 Fixes: 2f7e4a699736 ("drm/panel: ilitek-ili9881c: Allow configuration of the number of lanes")
 Signed-off-by: Philipp Zabel <p.zabel@pengutronix.de>
@@ -103,17 +103,17 @@ Signed-off-by: Philipp Zabel <p.zabel@pengutronix.de>
  1 file changed, 1 insertion(+)
 
 diff --git a/drivers/gpu/drm/panel/panel-ilitek-ili9881c.c b/drivers/gpu/drm/panel/panel-ilitek-ili9881c.c
-index 7bf38e96678a..cc4cd646b611 100644
+index 4b68dcf319d4..444d41b3d1c9 100644
 --- a/drivers/gpu/drm/panel/panel-ilitek-ili9881c.c
 +++ b/drivers/gpu/drm/panel/panel-ilitek-ili9881c.c
-@@ -2662,6 +2662,7 @@ static const struct ili9881c_desc am8001280g_desc = {
- 	.mode = &am8001280g_default_mode,
+@@ -2637,6 +2637,7 @@ static const struct ili9881c_desc tl050hdv35_desc = {
  	.mode_flags = MIPI_DSI_MODE_VIDEO | MIPI_DSI_MODE_VIDEO_SYNC_PULSE |
- 		      MIPI_DSI_CLOCK_NON_CONTINUOUS | MIPI_DSI_MODE_LPM,
+ 		      MIPI_DSI_MODE_LPM,
+ 	.default_address_mode = 0x03,
 +	.lanes = 4,
  };
  
- static const struct ili9881c_desc rpi_5inch_desc = {
+ static const struct ili9881c_desc w552946aaa_desc = {
 
 -- 
 2.47.3
