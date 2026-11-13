@@ -2,64 +2,79 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C1BEE606A323
-	for <dri-devel@archiver.kernel.org>; Fri, 13 Nov 2026 13:44:19 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 03781606A32D
+	for <dri-devel@archiver.kernel.org>; Fri, 13 Nov 2026 13:44:21 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass header.d=erebion.eu header.i=@erebion.eu header.a=ed25519-sha256 header.s=202508e header.b=gJqTdYxY;
-	dkim=pass (2048-bit key) header.d=erebion.eu header.i=@erebion.eu header.a=rsa-sha256 header.s=202508r header.b=i0fAs03r
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=nPn9TgdS
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id A98D0112566;
-	Fri, 13 Nov 2026 13:44:01 +0000 (UTC)
-Authentication-Results: gabe.freedesktop.org;
-	dkim=permerror (0-bit key) header.d=erebion.eu header.i=@erebion.eu header.b="gJqTdYxY";
-	dkim=temperror (0-bit key) header.d=erebion.eu header.i=@erebion.eu header.b="i0fAs03r";
-	dkim-atps=neutral
-Received: from erebion.eu (erebion.eu [142.132.183.134])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 3CC7710E706
- for <dri-devel@lists.freedesktop.org>; Fri, 13 Nov 2026 01:25:05 +0000 (UTC)
-DKIM-Signature: v=1; a=ed25519-sha256; s=202508e; d=erebion.eu;
- c=relaxed/relaxed; r=y; 
- h=To:Message-Id:Subject:Date:From; t=1794533096; bh=Oz8dWcjf7rXDTaKG0QODSQJ
- j+5RZeHztc806sWW1OO0=; b=gJqTdYxYiBdZPrLRv6YCpzr61BTjIWTC7+Cq8PaeeWFmTov81w
- cmJ7SjQEhI2tR36HHC4rm9025U7UfLIK1FDg==;
-DKIM-Signature: v=1; a=rsa-sha256; s=202508r; d=erebion.eu; c=relaxed/relaxed;
- r=y; 
- h=To:Message-Id:Subject:Date:From; t=1794533096; bh=Oz8dWcjf7rXDTaKG0QODSQJ
- j+5RZeHztc806sWW1OO0=; b=i0fAs03rQM3uEt92DV4Sj3aI9qvKiransc75BJarjBxmqZ2pK7
- pLyHpY8XK0RSAdXHX/JeS8rKByqyBifvRzUCvqaGP1er8jozrrYVIsjeOA6Ki/PTDzp7DROF7uG
- WtKj4CBSZ9Sm6fd35hlJANM2FaQLI2KAdtj5TyEpgK5U4mHaSEC2nBTelQZl6kaJSbKnlHUEPXH
- 3AZC+DyhKXfgiHQKuxR6JzB/XVUxMdIhfqmo9ChwgL3kW+vFbZR/0DN1cfrsyiW8Rjlt5OAMOH7
- S1/d7XAHMtw9vBWiBPAvmev5prydinDDBVjfHxAiVJ43+QnZLQypi2/3NWO9Lo9P59w==;
-From: erebion <erebion@erebion.eu>
-Date: Fri, 13 Nov 2026 02:24:49 +0100
-Subject: [PATCH v4 05/12] arm64: dts: qcom: sm6350-lena: Enable Bluetooth
+	by gabe.freedesktop.org (Postfix) with ESMTP id 5A85B11256E;
+	Fri, 13 Nov 2026 13:44:05 +0000 (UTC)
+Received: from mail-qt1-f180.google.com (mail-qt1-f180.google.com
+ [209.85.160.180])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 8795210E149
+ for <dri-devel@lists.freedesktop.org>; Fri, 13 Nov 2026 04:42:45 +0000 (UTC)
+Received: by mail-qt1-f180.google.com with SMTP id
+ d75a77b69052e-5364648ae07so8660761cf.1
+ for <dri-devel@lists.freedesktop.org>; Thu, 12 Nov 2026 20:42:45 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20260707; t=1794544964; x=1795149764; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+ bh=Tk5rSAMyMBpK/2/Y0715hQ2D01LoATP9Sswc4ObGJoY=;
+ b=nPn9TgdS63Iblu/WgiRHUNX+v18QHudMuImF4k7iqOjB+zysIh5VYaRPSq7VfkcJRn
+ etyvw1KcDPR2ynOMRVwXEzscz+/hJ88sgatFaErrZ3pCm604VLuiKq2+YTUqWJrvB2lv
+ m6hO4JbNNSsNONZTMvhj7HI6gNHofL0NDdbqS+0O01wnJ1/ao/w92Kr8sqfy+MPDXFcd
+ im9CyI1SoTjyvL1YeEajvWQdd7cPpBBI3eDgnjimbYuhkCpSu49rxcqhFAeoY1HoXeki
+ OpcC7P6dFzpa0Ksri0iEFR9sCsR31nGqs5gKDXr/glplulJxYJLHIA6JzdTtnsQYYVAR
+ pbVA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20260707; t=1794544964; x=1795149764;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+ :message-id:reply-to:content-type;
+ bh=Tk5rSAMyMBpK/2/Y0715hQ2D01LoATP9Sswc4ObGJoY=;
+ b=25xRkUmoSHS1P0PqC3YfiAyVv4efAygLSbN7sUYEUKKur2elTn5XH24RCht3XPjg2+
+ 7sBRjjq03NSyeer3BURTLn50bKRgA7ViDxuTJyYm3+tUzzYRdjfkL0dMlOdy8QUPQX+r
+ Y/bNViUb1+209P7DcjM5iFlMifg9iwWOHj4EOAH+vRGzD0aTxQTOv0fZTZTov3QIKeKV
+ kXHfawxhhFJsE/cts8NtSb5A5yYdMC9/cuOMf4OdRTuSKmzzHJae+l9R6SG9S6B3hli+
+ 2FKf6ar3G284GGxFRfue4e/cZNAf1fTpmnzXQoKH1HSQdR205D9l+NUfYxtxwhDbHc2N
+ uGKw==
+X-Forwarded-Encrypted: i=1;
+ AL+hErE53tLCmNcLlYetMZrtfKLizK/5Ry0gVjmfKj1QKLBooxALjhhuN8xKI6d/Pbo4z8h0WQ88hG6pHgg=@lists.freedesktop.org
+X-Gm-Message-State: APuU4Z8LSmal3P/pkMavw0A6CLMVolpyt2EIJoHl39G4o5q5QNOTyYJx
+ DpW7AwZaNENBlWsw1tqJOrOwTRKNkpbwuJlTW/KweK8DEeXcHivDEWSG
+X-Gm-Gg: AYBFou131KaoqDKeNaS1zkOm3Cuo5nBDOb5Sc/gu7s+PxeR/k8xVMb+2AhLw1UPLF3C
+ lzIRC21FjIcWrRGCs056i+3r14/qccnhtWZwLvLuBCvGY4i7z5KAgWJrlaYp0AePmp5nTcYfuX4
+ r/7qSmVgT+gXSBELx/ycOQxeT2pXVpwA5fhsEyb0Jzpp2SBEpGhILGKYMwPbKw8UgJDw4PAju1Y
+ vWY3bw93kXzF39uuIvVrHbrNPf7u4VHB2WMLDsOkv+djO6OKa4NTe0hVb1nVNdjMoa6rVypc3et
+ 7hYLuMmSY65p1DofpSHd7gOiHozPDaJ0pL4/vU9X6qJxKiWK4KCUoGEkxzCl3qissIVmaHLTq+7
+ tsjaYVzSooKHvEHtBdFYYv+7e7v5n8Q5YkF7AXuIfNznAFcyZjLDCTrkSqUMUJ5TpbmIZlpYoit
+ GDmGEybpOwxlo4f7R/AylOtfgeoic16uaSlz+IFZ5Gs28gy2c7EB6+aykKWiJlEiab6FpALmwZS
+ EpXGi5DH1VZDUhSqO8QW0F8tmhgN1uzV2Y4k5SQqN7L5VkAR4TBxlfdQsaACm3L3jlMMQ7F/bj7
+ vrwhDEbpHhcDhCEYYo4mGvpHyHqcYynsCfML2qyiJvRnEn7Kf1VaMU/FE2qyxx5QJKTjeJHPSl0
+ =
+X-Received: by 2002:a05:622a:590b:b0:532:c181:8fe9 with SMTP id
+ d75a77b69052e-55ac448c6e7mr23800341cf.9.1794544964243; 
+ Thu, 12 Nov 2026 20:42:44 -0800 (PST)
+Received: from linux.. ([8.34.174.240]) by smtp.gmail.com with ESMTPSA id
+ d75a77b69052e-55ad14f1ebbsm10605221cf.23.2026.11.12.20.42.42
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Thu, 12 Nov 2026 20:42:43 -0800 (PST)
+From: Changyul Lee <lcy8047@gmail.com>
+To: Matthew Brost <matthew.brost@intel.com>,
+ =?UTF-8?q?Thomas=20Hellstr=C3=B6m?= <thomas.hellstrom@linux.intel.com>,
+ Rodrigo Vivi <rodrigo.vivi@intel.com>
+Cc: David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ Himal Prasad Ghimiray <himal.prasad.ghimiray@intel.com>,
+ intel-xe@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org, Changyul Lee <lcy8047@gmail.com>
+Subject: [PATCH] drm/xe: Release the SVM prefetch ranges of unparsed ops
+Date: Thu, 12 Nov 2026 23:42:39 -0500
+Message-ID: <20261113044239.2185984-1-lcy8047@gmail.com>
+X-Mailer: git-send-email 2.43.0
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20261113-pdx213-upstream-3-v4-5-4b01c50a821c@erebion.eu>
-References: <20261113-pdx213-upstream-3-v4-0-4b01c50a821c@erebion.eu>
-In-Reply-To: <20261113-pdx213-upstream-3-v4-0-4b01c50a821c@erebion.eu>
-To: Neil Armstrong <neil.armstrong@linaro.org>, 
- Jessica Zhang <jesszhan0024@gmail.com>, 
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
- Bjorn Andersson <andersson@kernel.org>, 
- Konrad Dybcio <konradybcio@kernel.org>, Rob Herring <robh@kernel.org>, 
- Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>
-Cc: linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org, 
- linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org, 
- erebion <erebion@erebion.eu>
-X-Mailer: b4 0.16.0
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1794533093; l=3560;
- i=erebion@erebion.eu; s=20260607; h=from:subject:message-id;
- bh=/vWQ4P7pZq3HW1/sDQRxLtN2hVS9OZwDfC+O7wbkcPQ=;
- b=C8NH6+KzxVIC6nTvLfM5FmtRpFWW5kRKQNsQoYpdzsx0ScS8R2m33k17NZTnN/fGMi+Vf6wsb
- kiOOHEtjGA4ANeK+hLgeAdPL9RSFnN2BNtiqsJmEWRg9pmeIxmHBJew
-X-Developer-Key: i=erebion@erebion.eu; a=ed25519;
- pk=rOCVlR8khmBtCFe4ZlDcbCbIcORxdaNzPDkoIiHM7xc=
+Content-Transfer-Encoding: 8bit
 X-Mailman-Approved-At: Fri, 13 Nov 2026 13:43:28 +0000
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -72,144 +87,56 @@ List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-18.8 required=3.0 tests=BAYES_00,DKIM_SIGNED,
-	DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
-	INCLUDES_CR_TRAILER,INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,
-	SPF_PASS,USER_AGENT_GIT autolearn=unavailable autolearn_force=no
-	version=4.0.1
+X-Spam-Status: No, score=-15.8 required=3.0 tests=BAYES_00,DKIM_SIGNED,
+	DKIM_VALID,DKIM_VALID_AU,FREEMAIL_FORGED_FROMDOMAIN,FREEMAIL_FROM,
+	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
+	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,USER_AGENT_GIT
+	autolearn=unavailable autolearn_force=no version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-Configure the required regulators for Bluetooth and enable it on the
-Xperia 10 III.
+vm_bind_ioctl_ops_create() stores SVM ranges, each with a reference, in
+op->prefetch_range.range for every PREFETCH op on a CPU address mirror
+VMA. xe_vma_ops_fini() releases them only for the ops on vops->list.
+When vm_bind_ioctl_ops_parse() fails, the ops after the failing one are
+never added to that list, and xe_vm_bind_ioctl() frees them with
+drm_gpuva_ops_free(), leaking their XArray nodes and range references.
+A PREFETCH that covers a userptr VMA and a CPU address mirror VMA after
+it does this when pinning the userptr pages fails.
 
-Signed-off-by: erebion <erebion@erebion.eu>
+Release the prefetch ranges of all ops before freeing them. Ranges
+already released through vops->list leave an empty XArray, which
+xe_vma_svm_prefetch_ranges_fini() skips.
+
+Fixes: 09ba0a8f06cd ("drm/xe/svm: Implement prefetch support for SVM ranges")
+Signed-off-by: Changyul Lee <lcy8047@gmail.com>
 ---
- .../dts/qcom/sm6350-sony-xperia-lena-pdx213.dts    | 96 ++++++++++++++++++++++
- 1 file changed, 96 insertions(+)
+Found with a static analysis tool we are developing.
 
-diff --git a/arch/arm64/boot/dts/qcom/sm6350-sony-xperia-lena-pdx213.dts b/arch/arm64/boot/dts/qcom/sm6350-sony-xperia-lena-pdx213.dts
-index 4066de20ea23a..ff07810c3a6a6 100644
---- a/arch/arm64/boot/dts/qcom/sm6350-sony-xperia-lena-pdx213.dts
-+++ b/arch/arm64/boot/dts/qcom/sm6350-sony-xperia-lena-pdx213.dts
-@@ -19,6 +19,10 @@ / {
- 	qcom,msm-id = <434 0x10000>, <459 0x10000>;
- 	qcom,board-id = <0x1000b 0>;
- 
-+	aliases {
-+		serial1 = &uart1;
-+	};
-+
- 	chosen {
- 		#address-cells = <2>;
- 		#size-cells = <2>;
-@@ -376,6 +380,32 @@ &qupv3_id_1 {
- 	status = "okay";
- };
- 
-+/* UART1: HS UART for Bluetooth */
-+&qup_uart1_rts {
-+	/* We'll drive RTS, so no pull */
-+	drive-strength = <2>;
-+	/delete-property/ bias-pull-down;
-+	bias-disable;
-+};
-+
-+&qup_uart1_rx {
-+	/*
-+	 * Configure a pull-up on RX. This is needed to avoid
-+	 * garbage data when the TX pin of the Bluetooth module is
-+	 * in tri-state (module powered off or not driving the
-+	 * signal yet).
-+	 */
-+	/delete-property/ bias-disable;
-+	bias-pull-up;
-+};
-+
-+&qup_uart1_tx {
-+	/* We'll drive TX, so no pull */
-+	drive-strength = <2>;
-+	/delete-property/ bias-pull-up;
-+	bias-disable;
-+};
-+
- &sdc2_off_state {
- 	sd-cd-pins {
- 		pins = "gpio94";
-@@ -419,6 +449,72 @@ ts_int_default: ts-int-default-state {
- 		drive-strength = <2>;
- 		bias-disable;
- 	};
-+
-+	qup_uart1_sleep_cts: qup-uart1-sleep-cts-state {
-+		pins = "gpio61";
-+		function = "gpio";
-+		/*
-+		 * Configure a bias-bus-hold on CTS to lower power
-+		 * usage when Bluetooth is turned off. Bus hold will
-+		 * maintain a low power state regardless of whether
-+		 * the Bluetooth module drives the pin in either
-+		 * direction or leaves the pin fully unpowered.
-+		 */
-+		bias-bus-hold;
-+	};
-+
-+	qup_uart1_sleep_rts: qup-uart1-sleep-rts-state {
-+		pins = "gpio62";
-+		function = "gpio";
-+		/*
-+		 * Configure pull-down on RTS. As RTS is active low
-+		 * signal, pull it low to indicate the BT SoC that it
-+		 * can wakeup the system anytime from suspend state by
-+		 * pulling RX low (by sending wakeup bytes).
-+		 */
-+		bias-pull-down;
-+	};
-+
-+	qup_uart1_sleep_rx: qup-uart1-sleep-rx-state {
-+		pins = "gpio64";
-+		function = "gpio";
-+		/*
-+		 * Configure a pull-up on RX. This is needed to avoid
-+		 * garbage data when the TX pin of the Bluetooth module
-+		 * is floating which may cause spurious wakeups.
-+		 */
-+		bias-pull-up;
-+	};
-+
-+	qup_uart1_sleep_tx: qup-uart1-sleep-tx-state {
-+		pins = "gpio63";
-+		function = "gpio";
-+		/*
-+		 * Configure pull-up on TX when it isn't actively driven
-+		 * to prevent BT SoC from receiving garbage during sleep.
-+		 */
-+		bias-pull-up;
-+	};
-+};
-+
-+&uart1 {
-+	/delete-property/ interrupts;
-+	interrupts-extended = <&intc GIC_SPI 602 IRQ_TYPE_LEVEL_HIGH>,
-+			     <&tlmm 64 IRQ_TYPE_EDGE_FALLING>;
-+
-+	pinctrl-names = "default", "sleep";
-+	pinctrl-1 = <&qup_uart1_sleep_cts>, <&qup_uart1_sleep_rts>, <&qup_uart1_sleep_tx>, <&qup_uart1_sleep_rx>;
-+
-+	status = "okay";
-+
-+	bluetooth {
-+		compatible = "qcom,wcn3991-bt";
-+		vddio-supply = <&pm6350_l11>;
-+		vddxo-supply = <&pm6350_l7>;
-+		vddrf-supply = <&pm6150l_l2>;
-+		vddch0-supply = <&pm6150l_l10>;
-+		firmware-name = "crnv32u.bin";
-+	};
- };
- 
- &usb_1 {
+Compile-tested only, with x86_64_defconfig plus DRM_XE, DRM_XE_GPUSVM
+and W=1.
 
+ drivers/gpu/drm/xe/xe_vm.c | 4 +++-
+ 1 file changed, 3 insertions(+), 1 deletion(-)
+
+diff --git a/drivers/gpu/drm/xe/xe_vm.c b/drivers/gpu/drm/xe/xe_vm.c
+index d25de5652767..ee35ead79371 100644
+--- a/drivers/gpu/drm/xe/xe_vm.c
++++ b/drivers/gpu/drm/xe/xe_vm.c
+@@ -4208,8 +4208,10 @@ int xe_vm_bind_ioctl(struct drm_device *dev, void *data, struct drm_file *file)
+ 		vm_bind_ioctl_ops_unwind(vm, ops, args->num_binds);
+ 	xe_vma_ops_fini(&vops);
+ 	for (i = args->num_binds - 1; i >= 0; --i)
+-		if (ops[i])
++		if (ops[i]) {
++			xe_svm_prefetch_gpuva_ops_fini(ops[i]);
+ 			drm_gpuva_ops_free(&vm->gpuvm, ops[i]);
++		}
+ free_syncs:
+ 	if (err == -ENODATA)
+ 		err = vm_bind_ioctl_signal_fences(vm, q, syncs, num_syncs);
+
+base-commit: 7475ea8b58616b33c04afb976cf0fbaad9dd63fb
 -- 
-2.53.0
+2.43.0
 
