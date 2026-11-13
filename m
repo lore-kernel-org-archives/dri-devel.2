@@ -2,65 +2,66 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6FBF6606C566
-	for <dri-devel@archiver.kernel.org>; Fri, 13 Nov 2026 16:19:12 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8D39C606A881
+	for <dri-devel@archiver.kernel.org>; Fri, 13 Nov 2026 16:19:13 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=wR6Nuj+k
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=oH5wWr2r
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id E4C8011269C;
-	Fri, 13 Nov 2026 16:19:05 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 061A41126A0;
+	Fri, 13 Nov 2026 16:19:06 +0000 (UTC)
 Received: from mail-ej1-f51.google.com (mail-ej1-f51.google.com
  [209.85.218.51])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 9004311269C
- for <dri-devel@lists.freedesktop.org>; Fri, 13 Nov 2026 16:18:55 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id A544610EC47
+ for <dri-devel@lists.freedesktop.org>; Fri, 13 Nov 2026 16:18:49 +0000 (UTC)
 Received: by mail-ej1-f51.google.com with SMTP id
- a640c23a62f3a-c445c95d553so218645666b.1
- for <dri-devel@lists.freedesktop.org>; Fri, 13 Nov 2026 08:18:55 -0800 (PST)
+ a640c23a62f3a-c40f29667e6so273645266b.0
+ for <dri-devel@lists.freedesktop.org>; Fri, 13 Nov 2026 08:18:49 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20260707; t=1794586734; x=1795191534; darn=lists.freedesktop.org;
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:date:subject:cc:to:from:from:to:cc:subject:date
- :message-id:reply-to:content-type;
- bh=fvB29j5CecJ6jZKtZEMGpW6S1Git4SOKTeuMF3fwTjM=;
- b=wR6Nuj+kDE14/UC66V0ArQYYqXMNmEXmxo4ntZbFiP5ktw1ZM1+qILp+CiE+h/9M6E
- 2pwgxaEmsBVR7WUuPv91/OBWFuSPP1yCNlRqCD0ThWmi+pA8oroYOpao+SU0fTPsma5t
- SWWxZUExOjjCn/+Rpakd9ocIFpvxQ+KJSYMI5+Y8t1EfiXpSzkviNGzOGtjqXvPofHmM
- t3Q+tLZXfTsW5C9GnX++8JKGOf/nenbQGjEecSZwr9Gg8bjp2Y4fi8NxvDe8/nFuJ2nd
- iiHTrWRB1veQcWBywJxw9qTNV+mFpgNhfynlfwWWt12PIu15L8lZLUOuLzmT6X/fRMNT
- 3UWQ==
+ d=gmail.com; s=20260707; t=1794586728; x=1795191528; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:content-type:mime-version:references
+ :in-reply-to:message-id:date:subject:cc:to:from:from:to:cc:subject
+ :date:message-id:reply-to:content-type;
+ bh=wB38b6je5TukLZG4QeKQmlwzA/Ycxh9nT5Bea008608=;
+ b=oH5wWr2rlzFmb49SEjIW3azj3bDGWb3SLcEoT4N+whkY97sqLalsWx9uyC3SQiziwu
+ n4s4UYkApXPS7/Fr0wjc5f/lQTY9qNUTVZC/gGE18cwz8XJL63adDPXhUY7XLSl0gFRk
+ t7lJ+0XvxnDEVSUJUK9ziepqw192tpgzKsfNxU7IBJ8NLrWhsJ/ftcI1zZIg74a718Mu
+ r7orSXoFsFn1IXPbCotrJ2Lnb3UD4wqHDBg0gqPhkg8MKZTUXInwLQZ7bV0qF/oWLfny
+ IEz8KFOfHME1r8ukhdE6yAq5oL3mttIrN2qXu/kJyAkfrubVOQDUekCRrNh3lubHw/bD
+ zKvQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20260707; t=1794586734; x=1795191534;
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
- :to:cc:subject:date:message-id:reply-to:content-type;
- bh=fvB29j5CecJ6jZKtZEMGpW6S1Git4SOKTeuMF3fwTjM=;
- b=VyGtLapJh24fmrV866rl9RqYJgFeq1/YF5WqdD0QkSDuU9R9KOXCQI4szkLSgd18Bv
- RZ3X4or6DTqn6GczdTIs5SmhFyvYL8K67uxOGsGbert77A3af/pj52AyAEtNTEQ80gE9
- xIrUG4eud29XAgwwTAC2sF6fPJQU6fzysQoOqY4vebDudzAnSNls1nJDdhtd/WAc1nB1
- 8tpTV2DVnoRpuiqt0Ow2tDUqCwIQga/SffJzcglssrOBKkDpNpzC8GDkgVcJKxfuMfJH
- GrSUQaYO/G19fEk5yAo0qxWW4bNVsYwdNdlj/UtbhAB45HnOjcKKrJTRrZ+dDKhdRmwr
- YrrQ==
+ d=1e100.net; s=20260707; t=1794586728; x=1795191528;
+ h=content-transfer-encoding:content-type:mime-version:references
+ :in-reply-to:message-id:date:subject:cc:to:from:x-gm-gg
+ :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+ :content-type;
+ bh=wB38b6je5TukLZG4QeKQmlwzA/Ycxh9nT5Bea008608=;
+ b=j3JV7AlcEt5WPvPILOL8PgDblPxyi8wQ4ZUZUy+61NXY3qpq/Xx2Fbnyne5+/oLDza
+ j7GuMCyVG1KBLAdJxcBHIcUiv2A98EfzoYYOJ96Se43TqQwxk6G95XW/agouGBRNHiuf
+ 3l+O0nZZA626ZB6XrxmlyGC3s/KuTjYGXGY3wLxg9rhSQVEwo/NP+PDeFVl1im01avEi
+ mmVSdwIF18T5CldfDYSsHhrwOPbJtsGKkUPdsmdIeX6ZIzHAxRU9GAHq0M4LqGE3Ftqw
+ QugK3ldl308fud03XkR0GvxKr4klUgsbPOq1MwVhD6l3nxPXyORQO6BDLSSffdwREJDI
+ Sibg==
 X-Forwarded-Encrypted: i=1;
- AL+hErFo2LVKPI9a9shyAvJxm1Nmx7CUvElig4+RZQ+JvM6QPTicxuOMMyF/xLLK5wuMshfQPeTgMUYQ770=@lists.freedesktop.org
-X-Gm-Message-State: APuU4Z+k1W/V0K9lOwS0PY3ZbvOLttrxR3y7XUrStDmEhtQRqExV97o9
- k+fRh1PmH6uAAmxTxqtsK1/zHTMvAeVhxxlMJX32hWiz6/sHBbyEHL2t
-X-Gm-Gg: AYBFou2lqGMjdb6lz+HBzwhxmezmS6iKLEfYJCteWAbq0UJJuSArmDlRL8kBSRfE/4a
- ODv5c0VDrHIYM5RJG3VQXVgvE7hy3+XXSUT9LMeYHh7H+rJDZSCRLXb5MCAbEEqeormzP6Y+rEN
- MHBaZN/VTHX1EyL0fraczEFdw2ZdB3xtktQjDWbyLePmkFKh393hyH/gOjAzbvyVNd1zG/JdMvc
- xa0jrSKUMTzDI/RYX2Vm/8FGUBQgkQ+Bi2O3pEfdt4MFrdSb4iLcOLUAT1yOseK4NWQIiZD2d7u
- fKL+8W8zmkr/CI6h4tXJllCk3rn7aW8nlwNEXGp/fZWf1DExI+r+lFE2ebRcU+o9BULdxBF7oo0
- UdAkZUOV8W33ZLyepLv1x3icseMnt8WAwSb1LSlETYDFSE0m1Fh6/qiEVSxfSqB+wH88fe7glWg
- QuWtGv7f5Cji/7dmyl3SFMKlfLd3wuTLCxsnXpsfNz0B9wdBVBOPZp0xT5dscbXvxXAsSCzdg0W
- qgPHGIv5zwPqvJ0uy6kAok20Fsa35gO2glDJwYmIxnpgUk6cjWIaERLosaNAC0LOry4CxqQCeVT
- U8NCCxPdHmITvVZ7ReDgqh1xME9oHuLOzqrfwFW0Ia9kOhqkS7G2da+OPTeax70IE306VF+A6p3
- OM4MKkqkfPw==
-X-Received: by 2002:a17:907:3e9d:b0:c33:ca5e:8ddb with SMTP id
- a640c23a62f3a-c5096396e4fmr271748466b.28.1794586733814; 
- Fri, 13 Nov 2026 08:18:53 -0800 (PST)
+ AL+hErE5y41VMW3qgoCq+dg5boSdUGDoVQKMsO8xeQ43j31A/LcwCAQoADg5651G/7K6MzQsLTgxzjxZXaA=@lists.freedesktop.org
+X-Gm-Message-State: APuU4Z97GmmpZ7NOWR/cd3oyhqDds2nlyhmG9D1a2aShEDyiGDulvocE
+ 994mOK9chbGDjfhiwHFGSkKMw/wgBzlsuiQ1dgtTodeoYfx1KvtiOWga
+X-Gm-Gg: AYBFou3/1G8Pg+9cTZEXrxnNA03Om8W027NwbXaK2ZKxs5k8dAc9xYBoDdp4zMe04YL
+ E40DXSnxOpjtjs2mMoY+rynaH/DDI69EpoVa4YCyoiC5f1GEVKnr2G4vMMXGJVjNi6hTkZq7WBu
+ KeakyTRd+cET1J45ee8CNnKTX27DUS6xYs+yYsxdTPSm8Tny7n3WnHu2vdZiwGlmSlolq9YnsMa
+ L0quUIEPOWcCCoFwZMMsE421DgTBSuFoNO7ajlmF2bWSAm/FdX/MtABy91LNdeRpMICv+pvgXU7
+ vMmWFTsP9wc81fiUG4G45E5O4w+i/+SlZlHx/0tolMFnAyEe8A/wDQvDxV4C5R9MZOsGoRL2pHO
+ 1s8djUm16j7Ms/pt2/ZH7T4M/oY5joDp8+0epSh9x6oLTEAIgDmlLDHFsnKu9Hc7QZxvday2Pyj
+ JZVw/O+8SNt2+dHG4QJzFIJU6bkdAJcy+PtyolAwGjDjaLzPLON9O6qGJzZDPsjlhnwTkX1CiyQ
+ zXbXhN0YqikgcUvi+ia6OPEBRbexmb4HZBENdpxH7KrBExG/Zl+uTzzEmUgPRgsqeRrUqeMB0eA
+ hkcFXS0TTk/HuLPxJ5vj5FwBgmQgUJlw9nFFI2w4PlMTS2WfVj1edoLq8h8hPIv/AS6coT4QaMD
+ YZHWksVaIRA==
+X-Received: by 2002:a17:907:c09:b0:c49:9231:5518 with SMTP id
+ a640c23a62f3a-c50963d4f29mr272520066b.21.1794586727949; 
+ Fri, 13 Nov 2026 08:18:47 -0800 (PST)
 Received: from xeon ([188.163.112.62]) by smtp.gmail.com with ESMTPSA id
- a640c23a62f3a-c5095b24b88sm122297266b.16.2026.11.13.08.18.52
+ a640c23a62f3a-c5095b24b88sm122297266b.16.2026.11.13.08.18.46
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Fri, 13 Nov 2026 08:18:53 -0800 (PST)
+ Fri, 13 Nov 2026 08:18:47 -0800 (PST)
 From: Svyatoslav Ryhel <clamor95@gmail.com>
 To: Thierry Reding <thierry.reding@kernel.org>,
  Jonathan Hunter <jonathanh@nvidia.com>,
@@ -82,14 +83,16 @@ To: Thierry Reding <thierry.reding@kernel.org>,
 Cc: linux-media@vger.kernel.org, linux-tegra@vger.kernel.org,
  dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org,
  linux-kernel@vger.kernel.org, linux-staging@lists.linux.dev
-Subject: [PATCH v1 07/10] dt-bindings: display: tegra: Document Tegra114 CSI
-Date: Fri, 13 Nov 2026 18:18:16 +0200
-Message-ID: <20261113161819.36847-8-clamor95@gmail.com>
+Subject: [PATCH v1 04/10] media: tegra-video: vi: Switch to
+ media_entity_remote_source_pad_unique() helper
+Date: Fri, 13 Nov 2026 18:18:13 +0200
+Message-ID: <20261113161819.36847-5-clamor95@gmail.com>
 X-Mailer: git-send-email 2.53.0
 In-Reply-To: <20261113161819.36847-1-clamor95@gmail.com>
 References: <20261113161819.36847-1-clamor95@gmail.com>
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -110,69 +113,36 @@ X-Spam-Status: No, score=-15.8 required=3.0 tests=BAYES_00,DKIM_SIGNED,
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-Add a separate compatible string for the Tegra114 CSI, as it has a
-different programming model, uses three additional clocks, and does not
-contain MIPI calibration logic.
+The tegra_channel_get_remote_source_subdev() helper walks up the chain
+to the initial source. It blindly uses pad 0, assuming it will always be
+the remote source pad. This may not be the case for more complex multipad
+devices — for example, the mt9m114 camera sensor with a built-in IFP,
+where the source pad is 1. Switch to
+media_entity_remote_source_pad_unique() to specifically retrieve the
+remote source pad.
 
 Signed-off-by: Svyatoslav Ryhel <clamor95@gmail.com>
 ---
- .../display/tegra/nvidia,tegra20-csi.yaml     | 23 +++++++++++++++++++
- 1 file changed, 23 insertions(+)
+ drivers/media/platform/nvidia/tegra-video/vi.c | 4 +++-
+ 1 file changed, 3 insertions(+), 1 deletion(-)
 
-diff --git a/Documentation/devicetree/bindings/display/tegra/nvidia,tegra20-csi.yaml b/Documentation/devicetree/bindings/display/tegra/nvidia,tegra20-csi.yaml
-index a1aea9590769f..0c18ac81c6d6f 100644
---- a/Documentation/devicetree/bindings/display/tegra/nvidia,tegra20-csi.yaml
-+++ b/Documentation/devicetree/bindings/display/tegra/nvidia,tegra20-csi.yaml
-@@ -14,6 +14,7 @@ properties:
-     enum:
-       - nvidia,tegra20-csi
-       - nvidia,tegra30-csi
-+      - nvidia,tegra114-csi
+diff --git a/drivers/media/platform/nvidia/tegra-video/vi.c b/drivers/media/platform/nvidia/tegra-video/vi.c
+index 12eaa89304e84..a96ef26af89eb 100644
+--- a/drivers/media/platform/nvidia/tegra-video/vi.c
++++ b/drivers/media/platform/nvidia/tegra-video/vi.c
+@@ -187,9 +187,11 @@ tegra_channel_get_remote_source_subdev(struct tegra_vi_channel *chan)
+ 	if (!subdev)
+ 		return NULL;
  
-   reg:
-     maxItems: 1
-@@ -24,12 +25,18 @@ properties:
-       - description: module clock
-       - description: PAD A clock
-       - description: PAD B clock
-+      - description: A/B lanes clock
-+      - description: C/D lanes clock
-+      - description: E lane clock
- 
-   clock-names:
-     items:
-       - const: csi
-       - const: csia-pad
-       - const: csib-pad
-+      - const: cilab
-+      - const: cilcd
-+      - const: cile
- 
-   avdd-dsi-csi-supply:
-     description: DSI/CSI power supply. Must supply 1.2 V.
-@@ -125,6 +132,22 @@ allOf:
-         clock-names:
-           minItems: 3
- 
-+  - if:
-+      properties:
-+        compatible:
-+          contains:
-+            enum:
-+              - nvidia,tegra114-csi
-+    then:
-+      properties:
-+        "#nvidia,mipi-calibrate-cells": false
++	entity = &subdev->entity;
 +
-+        clocks:
-+          minItems: 6
-+
-+        clock-names:
-+          minItems: 6
-+
- additionalProperties: false
- 
- required:
+ 	pad = &subdev->entity.pads[0];
+ 	while (!(pad->flags & MEDIA_PAD_FL_SOURCE)) {
+-		pad = media_pad_remote_pad_first(pad);
++		pad = media_entity_remote_source_pad_unique(entity);
+ 		if (!pad || !is_media_entity_v4l2_subdev(pad->entity))
+ 			break;
+ 		entity = pad->entity;
 -- 
 2.53.0
 
