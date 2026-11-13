@@ -2,106 +2,94 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 573B2606A31C
-	for <dri-devel@archiver.kernel.org>; Thu, 12 Nov 2026 23:44:34 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 93DE1606A327
+	for <dri-devel@archiver.kernel.org>; Fri, 13 Nov 2026 00:05:31 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=amd.com header.i=@amd.com header.a=rsa-sha256 header.s=selector1 header.b=lBkjfJYX
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=tfliSgpC
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 8B0CF112413;
-	Thu, 12 Nov 2026 23:44:28 +0000 (UTC)
-Received: from PH7PR06CU001.outbound.protection.outlook.com
- (mail-westus3azon11010024.outbound.protection.outlook.com [52.101.201.24])
- by gabe.freedesktop.org (Postfix) with ESMTPS id DF2BD11239B;
- Thu, 12 Nov 2026 23:44:21 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=A2tOnhL0J5wL2gGwGizEXvNcfdCGxjnVzp46/qhONztRgpWj92G/DqIeA/6DrEUo7cpys13YZDBLpO1l1kpoVwyfINHZpSXSDGyQb/SgO96GOx2EGKmZRdw8+ux4ePPWLYgf5I2me0g0VggNRek4Um6qmbtOHW0k3dK89vwtRKhwjOteuy+mhX6Q+pnK0strDJ/mi5/UdyVtM40ELxRDnLc4GR6nkHLZ0pTRJbPaNqSQdJ3nIiWsR/qgEYjjAWr2dMdzkT9ZnKdFF+7+0aE+7Nt619FHXQuV4BO/xdcAYOot0BpMSOgoqTWeapknFIgTecAl3rKVoMASc/2YPoiLRA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=6zPkleiqsljKb3sKClsAxvVbU6og2wa2OyvI62mMUIE=;
- b=J/3gHgK7D6NrODYolxf2HPJGOTRRcOJYuDDH8CCGtIdJezWu9Nq5TUtNHSofPSu2LQwwmJJeGYx0l6kTwix81JIYVAUdW2nvBkfJ+izrmFIuW1Q15N5N08lSTyTpSAglvu89YxqUXKJpzFivd6NeDDhU8Vfqeicq4vQJWpVPJ5rcPJuETfjDofBYs4ZzKr84O6ftU8RNYSiOVmIv34otCPx/rxYZ3VhT5BwPnXZzb56g1E2yzmZBa3wp268swpW1HGx8n72XYKQEySssE5CMkuNe/Lai4yizGDxVbJ2UQf9xY6IBGrOOn2Rv7j+DcomeV5b0B+ulCCh1geYbel3/Lg==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
- dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
- header.from=amd.com; dkim=none (message not signed); arc=none (0)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=6zPkleiqsljKb3sKClsAxvVbU6og2wa2OyvI62mMUIE=;
- b=lBkjfJYXg3Z/BFWAXzJnkRxz8EPOv3MpFMjqjEAsI4jQDznrR6KnIsAetwRUIoH43fnFivXRA0q5Pl5FiuHbxOLTRobbL74OrWpcBJhomDbF2N+igiEN7SrQEx57tnMfxyk0uxRxfd/Aeg54mTXDZL/g+7GVQ1+Q8/2KHC5jots=
-Received: from PH8P221CA0025.NAMP221.PROD.OUTLOOK.COM (2603:10b6:510:2d8::21)
- by SA3PR12MB9132.namprd12.prod.outlook.com (2603:10b6:806:394::16)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.615.8; Thu, 12 Nov
- 2026 23:40:32 +0000
-Received: from DSM2EPF0000000C.namprd02.prod.outlook.com
- (2603:10b6:510:2d8:cafe::ad) by PH8P221CA0025.outlook.office365.com
- (2603:10b6:510:2d8::21) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.21.615.9 via Frontend Transport; Thu, 12
- Nov 2026 23:40:30 +0000
-X-MS-Exchange-Authentication-Results: mx.microsoft.com 1; spf=pass (sender IP
- is 165.204.84.17) smtp.mailfrom=amd.com;
- dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=amd.com;
-Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
- 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=satlexmb07.amd.com; pr=C
-Received: from satlexmb07.amd.com (165.204.84.17) by
- DSM2EPF0000000C.mail.protection.outlook.com (10.167.23.6) with Microsoft SMTP
- Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.615.4 via Frontend Transport; Thu, 12 Nov 2026 23:39:55 +0000
-Received: from [127.0.1.1] (10.180.168.240) by satlexmb07.amd.com
- (10.181.42.216) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.53; Thu, 12 Nov
- 2026 15:54:59 -0600
-From: Mario Limonciello <mario.limonciello@amd.com>
-Subject: [PATCH v7 0/3] Fix VFCT matching after PCI bus renumbering
-Date: Thu, 12 Nov 2026 15:54:52 -0600
-Message-ID: <20261112-vfct-regression-v7-0-69b1e0cf45c2@amd.com>
+	by gabe.freedesktop.org (Postfix) with ESMTP id B472410E68E;
+	Fri, 13 Nov 2026 00:05:25 +0000 (UTC)
+Received: from mail-vs1-f45.google.com (mail-vs1-f45.google.com
+ [209.85.217.45])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 67A8E10E68E
+ for <dri-devel@lists.freedesktop.org>; Fri, 13 Nov 2026 00:05:19 +0000 (UTC)
+Received: by mail-vs1-f45.google.com with SMTP id
+ ada2fe7eead31-7cc1cf48a39so92348137.1
+ for <dri-devel@lists.freedesktop.org>; Thu, 12 Nov 2026 16:05:19 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20260707; t=1794528318; x=1795133118; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:content-type:mime-version:subject
+ :references:in-reply-to:message-id:cc:to:from:date:from:to:cc
+ :subject:date:message-id:reply-to:content-type;
+ bh=ZP7w34GShAuXcCWiodI7YmsdXNmvF5TzQf1yjJvKrG8=;
+ b=tfliSgpCIVbv/N+agekNVawVFXXehEf+/Sm1+Xq1AJksg6mW6aiU5MG4/QBT8R7OK6
+ 7D65Lt5wuoUMsZA0O+DQmIwHa1oopW+tI5CDto2NjpI5tm+NCQyRG81gzAZq4uHHJdau
+ libnLlgFTLAzp9HCTCHcOmyA1kB9H/v/+tog4U/43EeM7iQsodeibnHGzksB2Krz7ADL
+ mURvEaeU05lIouvoatUQ6dkw9W20MsADksBIF7ngSZeI5hx76NMzehpm/0mGFavRyVlf
+ 8Z2R5tMWP34sAdJh4ztH/re6x9UIjLHM9ljJhnOkZavcXcyqTAA67n0ArZlocDiMX8FK
+ hfQg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20260707; t=1794528318; x=1795133118;
+ h=content-transfer-encoding:content-type:mime-version:subject
+ :references:in-reply-to:message-id:cc:to:from:date:x-gm-gg
+ :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+ :content-type;
+ bh=ZP7w34GShAuXcCWiodI7YmsdXNmvF5TzQf1yjJvKrG8=;
+ b=034o7RaEVPIhBXERhNeLlOaL8QGPAGxTENXYEqZ4TIzcZqKWQGfSvxZRdNDu4+ZPoU
+ +brfqnKx6ShXOrEAMog4iiF3uGh9nkWeEDW2O8hTVZbn17xrxioFzGnWdrhtBpABZGC7
+ dRjZSVui5mFD5ocQ2PXLzihlg32jNruS1WLmsi4+YG9I/OQ/5b0WsRH1Zdw93pux0T8F
+ L+AsvlxrVj/k4GwOBz7hgDoThzdGtExHncdja1mhVCBSsWVYdrHBY7ILs5nEBgPIql9u
+ ne3cij8IsNY+j38uXCfVD4yKhBAWs54TfI8dCpwoxVy/fbaUhxgXOJ0aK0k9itE9nHv+
+ 1zzA==
+X-Forwarded-Encrypted: i=1;
+ AL+hErFxuaMUCHWRLBFv5oZDFWDAN0qT+OOnBNFD7PdTJAa6C5NkUupbxzyVDzQqO+AiFlqIv6KZnKPdqP4=@lists.freedesktop.org
+X-Gm-Message-State: APuU4Z97UU7FO02UE27D2D4sf6C1MeoPzfppcHiXVbVArrQZBz8hT+S/
+ NBZQ8jWE7rVEDO9Fnl6+0ESC0LApW8J9uCEoB4mHjSngUQ2jDaHzEFXy
+X-Gm-Gg: AYBFou2yf+uMrBO8JoltvpC6l5mZrNZ0i12WSSKvEPK+K6x5C0gA+CV3BQwZOfMd2+v
+ tvtYh0jtsx7WRHVvnDyHSV1FNX3/qEo+BFuSrTLDPdcTnuF/aY0E1pHhXOvEbD2dSMIYrSvTURh
+ 3pJbuZgm4BxOTM4L0pN4+EuO+wAQRlsLvzNYgTQRppyxw0e53nycw84lkmWs0Yuof19GlsczhoN
+ RM0VvUtDZwVnGgrlQxzA4trLFJdLw0PA4bJzMkTjuzEeguSw96dJqtQT4yLPpFs/wrCW+bT4WRg
+ ynAzyEx5UE4732oqGl9Qr4RkP7uutoSuH+Xulg6EqM72HCXPPxzZtFi6PzonjZWHlnSXUBg/N8g
+ s1pz5dsR0yaYJAzMAaTN32mCGpU+L64wFBkZmpVTfZswXYG25R73cfjPd8n/AlFvEvdHsAI4tTf
+ eaH9LC9RVnfV7I/zi/N3FCCRkbMz5AW3Ib3rAY/4LCJVguNKqC4XbGIxqvVpuJOlUOtOgFzUE+w
+ /qeZVeev2eF0PfO2u0IDv8iKEFlG3zHDeXglR9Bw4jNhQhtXwAP98dEFw4T+KSmVxBmmNne+uH9
+ TmnTuHi9ActDZO2K8BDalKBR1JK97nAbpSv6hutk3F5R6Mhk3LSJdPGPS7OuDySeApuNaMb6gpv
+ L3m3tj8ih/Iaq6xG4KuLYlQ0e0gi9WVPByzH2wYw+W/zBejYhfwaWSy5Hen90rClrlBLhdO3T+/
+ gPVC61Mweo
+X-Received: by 2002:a05:6102:32d1:b0:7c3:a6f0:99cb with SMTP id
+ ada2fe7eead31-7d64db100cbmr246150137.33.1794528316894; 
+ Thu, 12 Nov 2026 16:05:16 -0800 (PST)
+Received: from gmail.com (15.60.86.34.bc.googleusercontent.com. [34.86.60.15])
+ by smtp.gmail.com with ESMTPSA id
+ a1e0cc1a2514c-99c8424fb8fsm546119241.3.2026.11.12.16.05.16
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Thu, 12 Nov 2026 16:05:16 -0800 (PST)
+Date: Thu, 12 Nov 2026 19:05:15 -0500
+From: Willem de Bruijn <willemdebruijn.kernel@gmail.com>
+To: Jan Koester <jan.koester@tuxist.de>, 
+ linux-kernel@vger.kernel.org
+Cc: Willem de Bruijn <willemdebruijn.kernel@gmail.com>, 
+ Jason Wang <jasowangio@gmail.com>, Andrew Lunn <andrew+netdev@lunn.ch>, 
+ "David S. Miller" <davem@davemloft.net>, 
+ Eric Dumazet <edumazet@kernel.org>, Jakub Kicinski <kuba@kernel.org>, 
+ Paolo Abeni <pabeni@redhat.com>, 
+ Karol Wachowski <karol.wachowski@linux.intel.com>, 
+ Andrzej Kacprowski <andrzej.kacprowski@linux.intel.com>, 
+ Oded Gabbay <ogabbay@kernel.org>, Jens Wiklander <jenswi@kernel.org>, 
+ Sumit Garg <sumit.garg@kernel.org>, 
+ Christian Brauner <brauner@kernel.org>, netdev@vger.kernel.org, 
+ dri-devel@lists.freedesktop.org, op-tee@lists.trustedfirmware.org, 
+ linux-fsdevel@vger.kernel.org
+Message-ID: <willemdebruijn.kernel.31eb7df44411@gmail.com>
+In-Reply-To: <20261112153841.1661720-1-jan.koester@tuxist.de>
+References: <cover.1792552161.git.jan.koester@tuxist.de>
+ <20261112153841.1661720-1-jan.koester@tuxist.de>
+Subject: Re: [RFC PATCH v2 0/3] uid_r: convert tun, ivpu and tee
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
+Content-Type: text/plain;
+ charset=utf-8
 Content-Transfer-Encoding: 7bit
-X-B4-Tracking: v=1; b=H4sIAKw19moC/3XOTU7DMBAF4KtUXmPkGf/FrLgHYuHY49ZIbZAdI
- lDVu2OXBYkCyye9781cWaWSqbKnw5UVWnLN06UF+3Bg4eQvR+I5tsxQoAEBji8pzLzQsVDtXY6
- gMAWNg0bPmnovlPLnffHl9SfXj/GNwtxneuOU6zyVr/vJBXrv//UFuODaGxljlHaI8dmf42OYz
- qxvL7jSKPYam44onYoASgu/1XKtzV7LphM5PRiKxtlhq9Va271WTQuy4ARJFzBstf7VAH98rvt
- t5ZInN8CY5FabtYa9Nk1LJ62z4zgaWunb7fYNCMBl+fQBAAA=
-X-Change-ID: 20261019-vfct-regression-2142fc52852a
-To: Bjorn Helgaas <helgaas@kernel.org>, Alex Deucher
- <alexander.deucher@amd.com>, =?utf-8?q?Christian_K=C3=B6nig?=
- <christian.koenig@amd.com>
-CC: Oz Tiram <oz@shift-computing.de>, <linux-pci@vger.kernel.org>,
- <linux-kernel@vger.kernel.org>, <amd-gfx@lists.freedesktop.org>,
- <dri-devel@lists.freedesktop.org>, Mario Limonciello
- <mario.limonciello@amd.com>, Reza Nikzad Chaleshori <rezanikzadch@gmail.com>
-X-Mailer: b4 0.16.0
-X-ClientProxiedBy: satlexmb08.amd.com (10.181.42.217) To satlexmb07.amd.com
- (10.181.42.216)
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: DSM2EPF0000000C:EE_|SA3PR12MB9132:EE_
-X-MS-Office365-Filtering-Correlation-Id: 69d1c63b-c4ea-41d0-f4d5-08df41164165
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
- ARA:13230040|376014|23010399003|36860700016|82310400026|1800799024|6133799003|18002099003|261026140227099003|11063799006|56012099006|261022105027099003|10067099003|261021121427099003|261102123227099003|261009223027099003|261028144727099003|261022075727099003|261021123027099003|261026121527099003|261022115727099003;
-X-Microsoft-Antispam-Message-Info: fQTZe5j/awDfbk5PGZ/GwUJJrXWXKjpaUK6+im+4nrfjn4C8l1Lgz3MOClmyPRvMXJ3wdKi9XKjgpCs9oQc7SIKqwVr5JE685FEnwFr0dqkFsw/GAjwej8klJ+dWKquHufLzQ4lfICozX+R2ZWhc42v6m9Tp7Eem+27sZR+60l+/ErFtRN8JOX2fOUFJWBAab4xTmvKpgqtIW9dCDVWoGDPdto4t6iQjodbUTVxhNOT/9BJordm4tql1dJMDlmV+BBL0HcXC2lRfy64imjl0vtEbkij5IaGDTrlL3ySK6Kg17hHN1Nn4e+1YGf4v14t0KKfXLT/ZG7hFU0V7/OWSRchH2m2jtAPtQPolsxR1ehPHT1f8UfRdsUUH+Y4Ybrq8Kqk6v4kfsROnbXjuSWJy5cQHDYDaRgPd6DKp32AwHQQzcOUhGE/loT9c5P+KfycmLh5pYKKZ0tAfZ05O0zzJSJxqgiFF05NnkE2Iytd+eL9AWlEIgmrtj1KkyL/j3lOSnrmpXkzd+E2FRekrH8ZZ9GxUzQruP3JbzevSxOMFfuPWZ8KPL22+A8YG8YvwvredRDMWrLrHwCaVcLnLZYaBchsKRK+AwlRx5twzJg5n9aTGzC3ZDl23oyivfxGcmuPNJDnuzdT1+SqcKmyc+XGMiDIKud1fISd+eKDr5Q2RxUM=
-X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:satlexmb07.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230040)(376014)(23010399003)(36860700016)(82310400026)(1800799024)(6133799003)(18002099003)(261026140227099003)(11063799006)(56012099006)(261022105027099003)(10067099003)(261021121427099003)(261102123227099003)(261009223027099003)(261028144727099003)(261022075727099003)(261021123027099003)(261026121527099003)(261022115727099003);
- DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: GA1p11qcOizRmaoNvd8MFxZNaoY5EJnKYr6a8MfzN3+S6uqetKzvRClyRFVfFvRIBORitzu9uTwc5oTyDYULpx74wkfCWbs/tKyhsElwNYC/ab9wNVOOSx97st6rxFrkdQu62I9J4Lwe2Ka32NuBqgWEPvFlsAPiVrnTiM8OGn8aCw2Z3cqDtuNEHYVL1KUiJJ65U1uU17EvhxuponJ+S0xjziYanS45aO0a+8bp25a/sJNeJJxiQooQ037q3+CMZCMimiE/FJJd8nDLx1mnrn9Jd7MlISFhn9ECHAUqSZvCMgQlH7Dy8Bs+18VWnWuIjzKGtIb/jDFnJwsMLLPz/wju+crD4LyGQ/u+27qNM2gkQeoxl7AnQIlAcNTvglKuYlrApU8xK/+coBKSgtZRRhBfh5hJSSwoKat79ucdGRZpgHeCOhgIT4Tw3JZXd9Po
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 12 Nov 2026 23:39:55.1744 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 69d1c63b-c4ea-41d0-f4d5-08df41164165
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
- Helo=[satlexmb07.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: DSM2EPF0000000C.namprd02.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SA3PR12MB9132
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -113,96 +101,51 @@ List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-18.8 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
-	DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
-	INCLUDES_CR_TRAILER,INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,
-	SPF_PASS,USER_AGENT_GIT autolearn=unavailable autolearn_force=no
-	version=4.0.1
+X-Spam-Status: No, score=-7.8 required=3.0 tests=BAYES_00,DKIM_SIGNED,
+	DKIM_VALID,DKIM_VALID_AU,FREEMAIL_FORGED_FROMDOMAIN,FREEMAIL_FROM,
+	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_PATCH,MAILING_LIST_MULTI,
+	SPF_HELO_NONE,SPF_PASS autolearn=no autolearn_force=no version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-amdgpu and radeon pick the VFCT image for a GPU by comparing the PCI bus
-number recorded by the BIOS at POST with the device's bus number. When
-the kernel renumbers buses (e.g. pci=realloc), the runtime number no
-longer matches the one in VFCT.
+Jan Koester wrote:
+> Hi,
+> 
+> Building the UUID/GUID id RFC (uid_r v2,
+> <cover.1792552161.git.jan.koester@tuxist.de>) with a distribution
+> config instead of the one I had tested with turned up three users of
+> kuid_t/kgid_t it doesn't build with: kuid_t is a tagged union now and
+> has no .val, and it no longer fits READ_ONCE()/WRITE_ONCE().
+> 
+> 1/3 tun: TUNSETOWNER/TUNSETGROUP write the owner and group under RTNL,
+>     tun_fill_info() may read them without it. Mark that read as
+>     data_race() instead of READ_ONCE(). Only classic ids from
+>     make_kuid()/make_kgid() are ever stored there.
+> 
+> 2/3 accel/ivpu: the per-user context limits are keyed by
+>     __kuid_val(). UUID and GUID users share the (uid_t)-1 bucket, which
+>     only makes the limit stricter for them.
+> 
+> 3/3 tee: the TEE_IOCTL_LOGIN_USER client UUID is derived from the
+>     classic uid. With __kuid_val() alone every UUID or GUID user would
+>     get the same one and could act as any other such user towards the
+>     TEE, so those logins are refused with -EPERM, like ublk refuses
+>     unprivileged devices to them in the series.
+> 
+> These belong into the series before the patch that lets kuid_t and
+> kgid_t hold a UUID or a GUID and will be folded in there in v3; I'm sending
+> them now so that the reviewers of these drivers see what uid_r means
+> for them.
+> 
+> Jan Koester (3):
+>   tun: read the owner and group without READ_ONCE()
+>   accel/ivpu: key user limits by __kuid_val()
+>   tee: refuse user logins of UUID and GUID users
+> 
+>  drivers/accel/ivpu/ivpu_drv.c |  2 +-
+>  drivers/net/tun.c             |  8 ++++----
+>  drivers/tee/tee_core.c        | 13 +++++++++++--
+>  3 files changed, 16 insertions(+), 7 deletions(-)
 
-commit 11c141672045f ("drm/amdgpu: Fix VFCT bus number matching with soft
-filter") and its radeon counterpart worked around this by accepting an
-entry whenever everything but the bus number matched. That picks the
-wrong image when a system has two identical GPUs.
-
-Instead, have the PCI core remember the secondary bus number the
-firmware assigned to each bridge, and make amdgpu and radeon match the
-VFCT bus number against it again, using the bridge above the GPU. The
-value is captured once, when the bridge windows are first read, so
-renumbering and later rescans don't overwrite it.
-
-Patch 1 adds the cached firmware secondary bus number to struct pci_dev.
-Patches 2 and 3 convert amdgpu and radeon to use it and drop the soft
-filter.
-
-Link: https://lore.kernel.org/linux-pci/20261015124843.203905-1-mario.limonciello@amd.com/
-Link: https://lore.kernel.org/amd-gfx/20261019194106.2796150-1-alexander.deucher@amd.com/
-Signed-off-by: Mario Limonciello <mario.limonciello@amd.com>
----
-Changes in v7:
-- Reword the cover letter and the PCI patch to describe the current design:
-  the firmware secondary bus number is cached on the bridge pci_dev when its
-  bridge windows are first read, and amdgpu/radeon match VFCT against it.
-- No code changes.
-- Link to v6: https://patch.msgid.link/20261111-vfct-regression-v6-0-393797bbb6e3@amd.com
-
-Changes in v6:
-- Capture the firmware secondary bus number when reading bridge windows and
-  ignore unconfigured values so rescans cannot replace it with runtime data
-  (Sashiko).
-- No change needed in the VFCT consumers; they continue to read the cached
-  value from the upstream bridge.
-- Link to v5: https://patch.msgid.link/20261110-vfct-regression-v5-0-f49fae981bf3@amd.com
-
-Changes in v5:
-- Record the firmware secondary bus number only on the bridge struct pci_dev,
-  guard it with a validity bit, and keep it across rescans (Bjorn, Lijo).
-- Drop pci_bus::number_initial and have amdgpu/radeon read the saved bridge
-  number when matching VFCT entries.
-
-Changes in v4:
-- Retain secondary bus bus number for a bridge across rescans, and the child bus is initialized
-  from it during allocation, before registration callbacks run. (Sashiko)
-- Rename variable to clarify it's for bridges (Lijo)
-- Link to v3: https://patch.msgid.link/20261026-vfct-regression-v3-0-fe9586ed6978@amd.com
-
-Changes in v3:
-- Preserve the firmware bus number across bridge renumbering, capturing the
-  secondary bus number before pci_scan_bridge_extend() clears it.
-- Adjust member name in all patches
-- Add tags
-- Link to v2: https://patch.msgid.link/20261020-vfct-regression-v2-0-d2394d11450a@amd.com
-
-Changes in v2:
-- pci_alloc_dev(NULL) remains safe.
-- For buses behind a reassigned bridge, the PCI core now saves the firmware secondary bus
-  number before clearing the bridge configuration and carries it into the newly allocated bus.
-  Devices discovered there inherit that original number.
-- Add changes for radeon too.
-- Link to v1: https://patch.msgid.link/20261019-vfct-regression-v1-0-5a63ddd378dd@amd.com
-
----
-Mario Limonciello (3):
-      PCI: Cache bridge firmware secondary bus number
-      drm/amdgpu: Match VFCT using initial PCI bus number
-      drm/radeon: Match VFCT using initial PCI bus number
-
- drivers/gpu/drm/amd/amdgpu/amdgpu_bios.c | 23 ++++++++++-------------
- drivers/gpu/drm/radeon/radeon_bios.c     | 25 +++++++++++--------------
- drivers/pci/probe.c                      | 16 ++++++++++++++--
- include/linux/pci.h                      |  4 ++++
- 4 files changed, 39 insertions(+), 29 deletions(-)
----
-base-commit: c03c1a14507dfaf8b856c2608f9ac216021fc222
-change-id: 20261019-vfct-regression-2142fc52852a
-
-Best regards,
---  
-Mario Limonciello <mario.limonciello@amd.com>
-
+I only received this cover letter. Also do not see the patches on
+https://lore.kernel.org/all
