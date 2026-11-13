@@ -2,93 +2,43 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BBA5160A2618
-	for <dri-devel@archiver.kernel.org>; Fri, 13 Nov 2026 08:49:53 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B8311606A33A
+	for <dri-devel@archiver.kernel.org>; Fri, 13 Nov 2026 08:50:35 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=WR4WRbaq
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=VbsdM43R
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 1257C10E792;
-	Fri, 13 Nov 2026 08:49:48 +0000 (UTC)
-Received: from mail-oi1-f179.google.com (mail-oi1-f179.google.com
- [209.85.167.179])
- by gabe.freedesktop.org (Postfix) with ESMTPS id BB7FF10E792
- for <dri-devel@lists.freedesktop.org>; Fri, 13 Nov 2026 08:49:42 +0000 (UTC)
-Received: by mail-oi1-f179.google.com with SMTP id
- 5614622812f47-5058b105df7so199815b6e.1
- for <dri-devel@lists.freedesktop.org>; Fri, 13 Nov 2026 00:49:42 -0800 (PST)
-ARC-Seal: i=1; a=rsa-sha256; t=1794559782; cv=none;
- d=google.com; s=arc-20260327;
- b=Bgg1+vdNg1QFyYz5jMA4nkPM06NVk9YdyiBdAJVV/N6DRtgUnMO6qd5ON3VqU7vaTK
- 3xVrz+mk4uXZGOveLMwZ7nmUBqF3QDP5oBXaAygp3m81Jft/qbSw+hm5X5WrBwpXLhWw
- 0PFyuO/tbuk0paGA9V0LUTpAXRxN1ty/tG8e6xCHuN+v91u76WRfH3v4cM9Jqp3NI7ge
- rKLkUZgM7AROInFm/BzP7jrUDt0bVPaHI9dIT4M0Msb+HmwILGmfVFKnZRuvo9P0JoUK
- AYDoivptSzykurozH1V5Vom4K57IcKXhS2LiW+wYY1+6IX7lzmDFDpcMR8K/+bBwy2Vf
- MEYg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com;
- s=arc-20260327; 
- h=cc:to:subject:message-id:date:from:in-reply-to:references
- :mime-version:dkim-signature;
- bh=Dzv09GA4BYrIrOu0wQJjxdfknfDDtVqx4Cn7SIfvVMk=;
- fh=jRzZCrTRJXgoFYL0/UFnHmKf+LElAtwLsdHBNWOrH5U=;
- b=U8z3t2xI0wLGhnmdyhxJ0+rluc8zrAcALHSSF+6yHArKX6dzXI6s5jjdNzHQy3ARm8
- aqR3L3l3cl268I0arceQrpsXwSxa8NhaS6BwtG8zYXMua2bRcSCdAQwWAd7IV/lg1OpJ
- fItbkI2j8icfPwjmpQZZfw1Of+DB9+KiMPGdhWLS90lAi4rAXZb/OwbCayWAZ2pGMQlr
- OEkJvy66MnzmT9OeQTNadz2V9hAxsKcUnIC0fUPOunZRU+8Cyc301cR8yBTXgGjWkzZE
- 4oEn3YBrZZgaW4JZrhEmzjXWSCZwbRdX7faohhJdqbmC8n5swV4iRV45EYjo9p169YsX
- OsUw==; darn=lists.freedesktop.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20260707; t=1794559782; x=1795164582; darn=lists.freedesktop.org;
- h=content-type:cc:to:subject:message-id:date:from:in-reply-to
- :references:mime-version:from:to:cc:subject:date:message-id:reply-to
- :content-type; bh=Dzv09GA4BYrIrOu0wQJjxdfknfDDtVqx4Cn7SIfvVMk=;
- b=WR4WRbaqmMismOg+/HfZeXl3sJIVqFUWfArFCA4aY0VDfai7FAEBhphvzkapP5OgOA
- jonRAxh0SAnUOHlA67OcVYkEa9Vcz/lPW4oLL83gV9+KmP+vcfoxqM4sAMkW1ewU8q9z
- uHJNNiRWOP1JG5+pNfN6V3AqEuyeaO2OR1BhAEEcFp75b0JLEAamytX2s4ur71+XD1ze
- ndh/YGV2NMVuZOBuJFAYIWSgd4HpjMxfFU2dVDU4Mmkmk0KDUqrtQQjb2hJe7/SYNq1e
- FG5oJbxMzi62Y+BGSGpSxZ/na8xgoyovDHc/Vx+x+u5E0c3M+oMHPOsXRY+oX+2SLxTP
- LDwQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20260707; t=1794559782; x=1795164582;
- h=content-type:cc:to:subject:message-id:date:from:in-reply-to
- :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
- :subject:date:message-id:reply-to:content-type;
- bh=Dzv09GA4BYrIrOu0wQJjxdfknfDDtVqx4Cn7SIfvVMk=;
- b=J3Bt+iWTcxSABjin5PO2SO4L8eysG1/JxV3iEsvlW3XwM5NjBJghA7ufwnS9FprKxF
- /cOOSIqWDTsSRZQAnpS+CrH9slETMcdErUtPcHWrj3uyCinAwpwxHs0EJzpklYyXVryH
- ftdnjjMFMACR7+fSS1MPyXGMSpHCksMnNYfDEogQA61d1lqqrJGzuFu1V/RarzQ5JwPP
- uE2yA9qP+eBjsasGGfGlTjgm7/Bibq+V1/ZhF5aJHh/YB+n5JC8AmDaF9FEKq2jW6XsK
- +xMD40c4yPnVgrmmU5LskYNi/0GoypXtd8Kmuc34c79aOC05pvE7uYszEe5vF9nyVSSa
- y9hQ==
-X-Gm-Message-State: APuU4Z9+i57eyXgmqWl3rHXPbLhEc0Jj8QVXamccyTxeatxbfy5YkR8l
- JIneAWpOWBnbapzrxOjJdXLFHRCRqbUkY2PY/UOa6qDHiQEK/2O5MKwp4J5Q4DzB3w9qMOzNu0R
- Vnk3ufQnzFVuaPcomBzA1ZD2MfvHHU00=
-X-Gm-Gg: AYBFou0H2A/eJgwUblq8RK35kN+q4Y3GvlrTnsP0GF5s8ufe1mz/agGb0NVzYPnk611
- 7C4FcEwEBVO5QhuHJeH6ygZYNxhcLaXs0T7zHKT7sqkm778y/3rafPkUV/CN4eUfB5avqahor6D
- PzfQcxMbVcB8yptj6F+1xldHYQNjPfe9kpqiLmM4IaeYkTznianTM2iONIXycgKBsCc52Rf7MWm
- WDoiLsiVdJj/H2TjLUV1P8EzEvDpv0S2u8BTh9Y5Bgk4KHToH7BVABuvQVv3JEp8FuAGhkB92r/
- t7dgfO8Hgll4/qu+3FlhmM2EsM3sl2uN72s7BylJH1e6UIMrn0+DZulqYSavgZ5fT6C/IWs6TA4
- 75Xmy6xIIKEFMCa7j40z6CGIhqroSUFrTIzzCHU87dEtkkzOqIxjhTAiGLw40spufz23r0Ko=
-X-Received: by 2002:a05:6808:10ce:b0:539:dfe8:9960 with SMTP id
- 5614622812f47-56e6625e4d1mr1193940b6e.56.1794559781895; Fri, 13 Nov 2026
- 00:49:41 -0800 (PST)
-X-Archived-By: <archiver.kernel.org>
-MIME-Version: 1.0
-References: <20261107174215.15818-1-swizzguy76@gmail.com>
- <20261110085003.3527014-1-karol.wachowski@linux.intel.com>
-In-Reply-To: <20261110085003.3527014-1-karol.wachowski@linux.intel.com>
-From: Toast <swizzguy76@gmail.com>
-Date: Fri, 13 Nov 2026 14:19:31 +0530
-X-Gm-Features: AclHuK-auqnjQ6e6wO-djNHMxE9adJKmvPX4oU29Wat1ijwytmzWBqiZsfPGJSY
-Message-ID: <CAHBKUQYqAEuDHBDX-z6hvTY-GMOwqR9Skmtpn=UhaTK-JRx+1Q@mail.gmail.com>
-Subject: Re: [PATCH v2] accel/ivpu: Defer recovery until probe completes
-To: Karol Wachowski <karol.wachowski@linux.intel.com>
-Cc: dri-devel@lists.freedesktop.org, 
- Andrzej Kacprowski <andrzej.kacprowski@linux.intel.com>,
- Oded Gabbay <ogabbay@kernel.org>, 
- Jeff Hugo <jeff.hugo@oss.qualcomm.com>, dawid.osuchowski@linux.intel.com, 
- stable@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
+	by gabe.freedesktop.org (Postfix) with ESMTP id 2C3AB10EC0E;
+	Fri, 13 Nov 2026 08:50:30 +0000 (UTC)
+Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 4C97710EC0E
+ for <dri-devel@lists.freedesktop.org>; Fri, 13 Nov 2026 08:50:24 +0000 (UTC)
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+ by sea.source.kernel.org (Postfix) with ESMTP id 3551F43B6D;
+ Fri, 13 Nov 2026 08:50:24 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id F02831F000C4;
+ Fri, 13 Nov 2026 08:50:23 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+ s=k20260515; t=1794559824;
+ bh=vR+jY+drmaGWZO9DLL22TvgEhyf7XsILXQsZRgYRlj8=;
+ h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+ b=VbsdM43R8zn1uN3OjaoEt3efWyUIAwk1m13eVcFJGI6YWZq1w5kWCyiEMvn7j7NQx
+ N7bXY1ahNMZiCspxUF32PHtGsrTVgHnHvNl4AYdGwyRC6HbzqroVJbEtHmTq9hTZ+x
+ xVlq0isJMKEV5RmSNC1qdbORio+fqh00/9y53hX8rVcAUe9/MFHdXgHvMOI5qPd9Fj
+ GwhHiMKX3mBGlNK//1UQbILX9Ve+Gqv1QVghEFTsb0TTj5oMuf3c4a7imd4GlMV05f
+ kb+5O5rsg9sagM80Fh6sXOgP5ojazYKTF4UpZw+gUMwyy5vjIwRVytmef5Oi+bJIMm
+ yzIYuVvrGRA7g==
+Message-ID: <sashiko-outbox-212466@kernel.org>
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v6 14/18] drm/bridge: analogix_dp: Move IRQ
+ enable/disable to bind/unbind
+To: "Damon Ding" <damon.ding@rock-chips.com>
+Cc: dri-devel@lists.freedesktop.org
+In-Reply-To: <20261113082305.541652-15-damon.ding@rock-chips.com>
+References: <20261113082305.541652-1-damon.ding@rock-chips.com>
+ <20261113082305.541652-15-damon.ding@rock-chips.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Fri, 13 Nov 2026 08:50:23 +0000
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -99,24 +49,120 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
+Reply-To: sashiko-reviews@lists.linux.dev
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-7.8 required=3.0 tests=BAYES_00,DKIM_SIGNED,
-	DKIM_VALID,DKIM_VALID_AU,FREEMAIL_FORGED_FROMDOMAIN,FREEMAIL_FROM,
-	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,MAILING_LIST_MULTI,
-	SPF_HELO_NONE,SPF_PASS autolearn=no autolearn_force=no version=4.0.1
+X-Spam-Status: No, score=-10.8 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
+	DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
+	INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS autolearn=ham
+	autolearn_force=no version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
+X-Archived-By: <archiver.kernel.org>
 
-Tested on Meteor Lake (Core Ultra 5 125H, vpu_37xx firmware 20260219)
-on top of v7.4-rc1:
+Thank you for your contribution! Sashiko AI review found 1 potential
+issue to consider:
+- [High] drm/bridge: analogix_dp: IRQ storm and unclocked MMIO on PM
+  suspend
+--
 
-- kexec from a 7.0 kernel and from 7.4 with the NPU runtime-suspended:
-  both runs hit ATS_ERR during probe, recovery_work was not queued,
-  probe failed once with -ETIMEDOUT, and there was no oops
-- FLR plus rebind brings the NPU back
-- debugfs force_recovery after a successful probe recovers the NPU
+commit a4a512968af1f8f658769af2378618f972e953d9
+Author: Damon Ding <damon.ding@rock-chips.com>
 
-I couldn't hit an error IRQ after ivpu_boot() succeeds, so the deferred
-recovery in ivpu_pm_enable() isn't covered by this.
+drm/bridge: analogix_dp: Move IRQ enable/disable to bind/unbind
 
-Tested-by: Daksh Sahni <swizzguy76@gmail.com>
+This commit moves enable_irq() and disable_irq() from the bridge enable and
+disable callbacks to analogix_dp_bind() and analogix_dp_unbind(), and
+converts the interrupt handler to a threaded handler that acquires a
+runtime PM reference.
+
+> diff --git a/drivers/gpu/drm/bridge/analogix/analogix_dp_core.c b/drivers=
+/gpu/drm/bridge/analogix/analogix_dp_core.c
+> index b14a8aa12394e..7f6346d45a01c 100644
+> --- a/drivers/gpu/drm/bridge/analogix/analogix_dp_core.c
+> +++ b/drivers/gpu/drm/bridge/analogix/analogix_dp_core.c
+> @@ -700,24 +700,25 @@ static int analogix_dp_enable_scramble(struct analo=
+gix_dp_device *dp,
+>  	return ret < 0 ? ret : 0;
+>  }
+> =20
+> -static irqreturn_t analogix_dp_hardirq(int irq, void *arg)
+> -{
+> -	struct analogix_dp_device *dp =3D arg;
+> -	irqreturn_t ret =3D IRQ_NONE;
+> -	u32 irq_type;
+> -
+> -	irq_type =3D analogix_dp_get_irq_type(dp);
+> -	if (irq_type)
+> -		ret =3D IRQ_WAKE_THREAD;
+> -
+> -	return ret;
+> -}
+> -
+>  static irqreturn_t analogix_dp_irq_thread(int irq, void *arg)
+>  {
+>  	struct analogix_dp_device *dp =3D arg;
+>  	u32 irq_type;
+>  	bool hpd_detected;
+> +	int ret;
+> +
+> +	/*
+> +	 * The device may have been runtime suspended since the interrupt was
+> +	 * raised. Hold a runtime PM reference before touching the registers,
+> +	 * as the controller clocks are only guaranteed to be enabled while
+> +	 * the device is runtime PM active. The GPIO HPD mode needs no such
+> +	 * reference, since it only reads the GPIO level.
+> +	 */
+> +	if (!dp->hpd_gpiod) {
+> +		ret =3D pm_runtime_resume_and_get(dp->dev);
+> +		if (ret)
+> +			return IRQ_HANDLED;
+> +	}
+> =20
+>  	irq_type =3D analogix_dp_get_irq_type(dp);
+>  	if (!dp->hpd_gpiod && irq_type)
+
+[Severity: High]
+Can analogix_dp_irq_thread() race with pm_runtime_force_suspend() during
+system sleep, or trigger an interrupt storm when pm_runtime_resume_and_get()
+fails?
+
+Both rockchip_dp_pm_ops and exynos_dp_pm_ops use DEFINE_RUNTIME_DEV_PM_OPS(=
+),
+which wires pm_runtime_force_suspend() and pm_runtime_force_resume() as the
+system sleep callbacks. Previously, analogix_dp_bridge_disable() called
+disable_irq(dp->irq) during drm_mode_config_helper_suspend() before
+pm_runtime_force_suspend() ran. Keeping dp->irq enabled across bind/unbind
+leaves the interrupt active during dpm_suspend() and dpm_resume():
+
+CPU0                                    CPU1
+analogix_dp_irq_thread()
+  pm_runtime_resume_and_get(dp->dev)
+                                        pm_runtime_force_suspend(dp->dev)
+                                          pm_runtime_disable(dp->dev)
+                                          ...
+                                          analogix_dp_suspend(dp)
+                                            clk_disable_unprepare(dp->clock)
+  analogix_dp_get_irq_type(dp)
+    readl(dp->reg_base + ...)  <-- unclocked MMIO access
+
+pm_runtime_disable() waits for in-flight runtime PM transitions, not active
+usage_count holders, so analogix_dp_suspend() gates the controller clocks
+while analogix_dp_irq_thread() accesses registers, causing an external abort
+on ARM64. In addition, when pm_runtime_need_not_resume() is false during
+pm_runtime_force_suspend() (whenever usage_count > 1), the clocks are turned
+off without setting the runtime status to RPM_SUSPENDED; if an interrupt
+fires before suspend_device_irqs() or after resume_device_irqs(),
+pm_runtime_resume_and_get() sees RPM_ACTIVE and returns 0 while the clocks
+are still gated.
+
+Separately, when dp->dev is runtime-suspended and pm_runtime_resume_and_get=
+()
+fails (for example, returning -EACCES while runtime PM is disabled by
+pm_runtime_force_suspend()), returning IRQ_HANDLED without clearing the
+level-triggered interrupt status causes irq_finalize_oneshot() to unmask the
+still-asserted IRQ line, re-triggering analogix_dp_irq_thread() in a tight
+loop while preventing the spurious IRQ detector from disabling the line.
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261113082305.5416=
+52-1-damon.ding@rock-chips.com?part=3D14
