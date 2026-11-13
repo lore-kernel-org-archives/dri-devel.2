@@ -2,149 +2,102 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C4042606A327
-	for <dri-devel@archiver.kernel.org>; Fri, 13 Nov 2026 13:44:07 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E1DC4606A327
+	for <dri-devel@archiver.kernel.org>; Fri, 13 Nov 2026 13:44:08 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Wy8GlGPy
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=tLUhT89K
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 92487112528;
+	by gabe.freedesktop.org (Postfix) with ESMTP id AF524112556;
 	Fri, 13 Nov 2026 13:43:53 +0000 (UTC)
-Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 1557710E28D;
- Thu, 12 Nov 2026 13:32:20 +0000 (UTC)
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by tor.source.kernel.org (Postfix) with ESMTP id AA2B861333;
- Thu, 12 Nov 2026 13:32:18 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 227E61F00A06;
- Thu, 12 Nov 2026 13:32:17 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1794490338;
- bh=r6ZiRY3FXltBOTurpbapfkXrVhZHo2axQtDyRtG/+Kg=;
- h=From:To:Cc:Subject:Date:In-Reply-To:References;
- b=Wy8GlGPynbdgDuFWN722xaQwNevNtmZMEu0BUn6KzojIS2khSDKExmF3/xNVEdtLl
- eg+MrKwjSLQKSwX6KGIm3YdAvMrdpehkw2SEwXk5ITkqGQcbqHO3TpHS2uV2Am897/
- 10/dPietBwB77+JGc07RnvIwJDQCioeWxjJS5APKr5zv02KG/1GvxTvI2xPg8l2nj9
- 8rVb9kzBJiR4zpdkhL90XWtOFJlNgS29gDuGDeXDl5g8bz1BkEPEanNxu3FAmYKlIF
- uvbMxLrCr7ffOATZvlIHAx+q1QfPvgRNTBbsvWHfJ7CKtkZD92nfbknljW1KTrGL27
- 2KvO5+WPab9Vw==
-From: Maxime Ripard <mripard@kernel.org>
-To: David Airlie <airlied@gmail.com>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Simona Vetter <simona@ffwll.ch>, Thomas Zimmermann <tzimmermann@suse.de>,
- Maxime Ripard <mripard@kernel.org>
-Cc: dri-devel@lists.freedesktop.org, Janne Grunau <j@jannau.net>,
- Sasha Finkelstein <k@chaosmail.tech>, asahi@lists.linux.dev,
- =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
- Alex Deucher <alexander.deucher@amd.com>, amd-gfx@lists.freedesktop.org,
- Aun-Ali Zaidi <admin@kodeit.net>, Liviu Dudau <liviu.dudau@arm.com>,
- Russell King <linux@armlinux.org.uk>,
- Andrew Jeffery <andrew@codeconstruct.com.au>,
- Joel Stanley <joel@jms.id.au>, Dave Airlie <airlied@redhat.com>,
- Jocelyn Falempe <jfalempe@redhat.com>,
- Alexandre Belloni <alexandre.belloni@bootlin.com>,
- Claudiu Beznea <claudiu.beznea@tuxon.dev>,
- Dharma Balasubiramani <dharma.b@microchip.com>,
- Manikandan Muralidharan <manikandan.m@microchip.com>,
- Nicolas Ferre <nicolas.ferre@microchip.com>,
- Alim Akhtar <alim.akhtar@samsung.com>, Inki Dae <inki.dae@samsung.com>,
- Krzysztof Kozlowski <krzk@kernel.org>,
- Kyungmin Park <kyungmin.park@samsung.com>,
- Peter Griffin <peter.griffin@linaro.org>,
- Seung-Woo Kim <sw0312.kim@samsung.com>, linux-samsung-soc@vger.kernel.org,
- Alison Wang <alison.wang@nxp.com>, Stefan Agner <stefan@agner.ch>,
- Ruben Wauters <rubenru09@aol.com>, Tian Tao <tiantao6@hisilicon.com>,
- Xinwei Kong <kong.kongxinwei@hisilicon.com>,
- Yongbang Shi <shiyongbang@huawei.com>, John Stultz <jstultz@google.com>,
- Sumit Semwal <sumit.semwal@linaro.org>,
- Xinliang Liu <xinliang.liu@linaro.org>,
- Yongqin Liu <yongqin.liu@linaro.org>, Dexuan Cui <decui@microsoft.com>,
- Long Li <longli@microsoft.com>,
- Saurabh Sengar <ssengar@linux.microsoft.com>, linux-hyperv@vger.kernel.org,
- Fabio Estevam <festevam@gmail.com>, Frank Li <Frank.Li@nxp.com>,
- Liu Ying <victor.liu@nxp.com>,
- Pengutronix Kernel Team <kernel@pengutronix.de>,
- Sascha Hauer <s.hauer@pengutronix.de>, imx@lists.linux.dev,
- Laurentiu Palcu <laurentiu.palcu@oss.nxp.com>,
- Lucas Stach <l.stach@pengutronix.de>,
- Philipp Zabel <p.zabel@pengutronix.de>,
- Paul Cercueil <paul@crapouillou.net>, linux-mips@vger.kernel.org,
- Anitha Chrisanthus <anitha.chrisanthus@intel.com>,
- Paul Kocialkowski <paulk@sys-base.io>, Huacai Chen <chenhuacai@kernel.org>,
- Icenowy Zheng <zhengxingda@iscas.ac.cn>,
- Jianmin Lv <lvjianmin@loongson.cn>, Mingcong Bai <jeffbai@aosc.io>,
- Qianhai Wu <wuqianhai@loongson.cn>, Xi Ruoyao <xry111@xry111.site>,
- Linus Walleij <linusw@kernel.org>,
- AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>,
- Chun-Kuang Hu <chunkuang.hu@kernel.org>,
- Matthias Brugger <matthias.bgg@gmail.com>,
- Jerome Brunet <jbrunet@baylibre.com>, Kevin Hilman <khilman@baylibre.com>,
- Martin Blumenstingl <martin.blumenstingl@googlemail.com>,
- linux-amlogic@lists.infradead.org, Abhinav Kumar <abhinav.kumar@linux.dev>,
- Dmitry Baryshkov <lumag@kernel.org>,
- Jessica Zhang <jesszhan0024@gmail.com>,
- Marijn Suijten <marijn.suijten@somainline.org>,
- Rob Clark <robin.clark@oss.qualcomm.com>, Sean Paul <sean@poorly.run>,
- freedreno@lists.freedesktop.org, linux-arm-msm@vger.kernel.org,
- Marek Vasut <marex@denx.de>, Danilo Krummrich <dakr@kernel.org>,
- Lyude Paul <lyude@redhat.com>, nouveau@lists.freedesktop.org,
- Tomi Valkeinen <tomi.valkeinen@ideasonboard.com>,
- Gerd Hoffmann <kraxel@redhat.com>, spice-devel@lists.freedesktop.org,
- virtualization@lists.linux.dev,
- Geert Uytterhoeven <geert+renesas@glider.be>,
- Kieran Bingham <kieran.bingham+renesas@ideasonboard.com>,
- Laurent Pinchart <laurent.pinchart+renesas@ideasonboard.com>,
- Magnus Damm <magnus.damm@gmail.com>,
- Tomi Valkeinen <tomi.valkeinen+renesas@ideasonboard.com>,
- linux-renesas-soc@vger.kernel.org, Biju Das <biju.das.jz@bp.renesas.com>,
- =?UTF-8?q?Heiko=20St=C3=BCbner?= <heiko@sntech.de>,
- Sandy Huang <hjc@rock-chips.com>, linux-rockchip@lists.infradead.org,
- Marcus Folkesson <marcus.folkesson@gmail.com>,
- David Lechner <david@lechnology.com>,
- Iker Pedrosa <ikerpedrosam@gmail.com>,
- Javier Martinez Canillas <javierm@redhat.com>,
- Baolin Wang <baolin.wang@linux.alibaba.com>,
- Chunyan Zhang <zhang.lyra@gmail.com>, Orson Zhai <orsonzhai@gmail.com>,
- Alain Volmat <alain.volmat@foss.st.com>,
- Raphael Gallais-Pou <rgallaispou@gmail.com>,
- Alexandre Torgue <alexandre.torgue@foss.st.com>,
- Maxime Coquelin <mcoquelin.stm32@gmail.com>,
- Philippe Cornu <philippe.cornu@foss.st.com>,
- Raphael Gallais-Pou <raphael.gallais-pou@foss.st.com>,
- Yannick Fertre <yannick.fertre@foss.st.com>,
- Chen-Yu Tsai <wens@kernel.org>, Samuel Holland <samuel@sholland.org>,
- linux-sunxi@lists.linux.dev, Jonathan Hunter <jonathanh@nvidia.com>,
- Mikko Perttunen <mperttunen@nvidia.com>,
- Thierry Reding <thierry.reding@kernel.org>, linux-tegra@vger.kernel.org,
- Jyri Sarha <jyri.sarha@iki.fi>, Alexey Brodkin <abrodkin@synopsys.com>,
- Hans de Goede <hansg@kernel.org>,
- Kamlesh Gurudasani <kamlesh.gurudasani@gmail.com>,
- Alex Lanzano <lanzano.alex@gmail.com>,
- LiangCheng Wang <zaq14760@gmail.com>,
- =?UTF-8?q?Ma=C3=ADra=20Canal?= <mcanal@igalia.com>,
- Dave Stevenson <dave.stevenson@raspberrypi.com>,
- Raspberry Pi Kernel Maintenance <kernel-list@raspberrypi.com>,
- Chia-I Wu <olvaffe@gmail.com>,
- Dmitry Osipenko <dmitry.osipenko@collabora.com>,
- Gurchetan Singh <gurchetansingh@chromium.org>,
- Haneen Mohammed <hamohammed.sa@gmail.com>,
- Louis Chauvet <louis.chauvet@bootlin.com>,
- Melissa Wen <melissa.srw@gmail.com>,
- Broadcom internal kernel review list <bcm-kernel-feedback-list@broadcom.com>, 
- Zack Rusin <zack.rusin@broadcom.com>,
- Oleksandr Andrushchenko <oleksandr_andrushchenko@epam.com>,
- Michal Simek <michal.simek@amd.com>, Aditya Garg <aditya.garg@linux.dev>,
- Andy Yan <andyshrk@163.com>
-Subject: Re: (subset) [PATCH RESEND 00/83] drm: Switch drivers to
- drm_mode_config_create_initial_state
-Date: Thu, 12 Nov 2026 14:32:12 +0100
-Message-ID: <179449030440.677082.2648325087165275258.b4-ty@kernel.org>
-X-Mailer: git-send-email 2.56.0
-In-Reply-To: <20261105-drm-no-more-config-reset-v1-0-1f58d1e33380@kernel.org>
-References: <20261105-drm-no-more-config-reset-v1-0-1f58d1e33380@kernel.org>
+Received: from mail-dy1-f169.google.com (mail-dy1-f169.google.com
+ [74.125.82.169])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 0827410E6E8
+ for <dri-devel@lists.freedesktop.org>; Fri, 13 Nov 2026 01:02:04 +0000 (UTC)
+Received: by mail-dy1-f169.google.com with SMTP id
+ 5a478bee46e88-37123334649so52700eec.1
+ for <dri-devel@lists.freedesktop.org>; Thu, 12 Nov 2026 17:02:04 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20260707; t=1794531723; x=1795136523; darn=lists.freedesktop.org;
+ h=message-id:date:references:in-reply-to:cc:to:from:subject
+ :content-transfer-encoding:content-type:mime-version:from:to:cc
+ :subject:date:message-id:reply-to:content-type;
+ bh=QuB4gRralS9yFslodv3QC7A77JieK5X8DdVq10Sbwss=;
+ b=tLUhT89KQATtRE+i9nFTAbiSMLlHETbBu6gGc1+apJGX2X9k4aC9XNMcgNaYDMcvbV
+ /3rMgOt0cjFkZijAvxp36W0cjXP0UcAqs9WYYPvhnYwWFunZD6KSLSTSD1xtfTOhJSxQ
+ Ma1NTNT0hWSW17qjmJIJabC2X4LSHQwVUiTE5GnAfERYOEO9Y6M7vtM5fh8K8Y6JeokT
+ CwmfLvt/3MOOC40Cjmp7qGL/Us+v24efav6ljnfQyP8EtmnDMH6Z2AQ8PDpYI2KqmZEg
+ +7AhEU1Lk1tGnlids1hsA6usVoHN/pd03QCzCJKcuAgHc0uQOZ6KrBfR12b2hOn2wZQm
+ g8JA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20260707; t=1794531723; x=1795136523;
+ h=message-id:date:references:in-reply-to:cc:to:from:subject
+ :content-transfer-encoding:content-type:mime-version:x-gm-gg
+ :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+ :content-type;
+ bh=QuB4gRralS9yFslodv3QC7A77JieK5X8DdVq10Sbwss=;
+ b=rnpyVpg4xrORG6Q3KXgVItJsIAkIIQ65h0Ax/j98mRDN764Ou0W/tFJkfskikak1Y8
+ pBM/NCv+n9XFqFBhjL2aPOhYfGWLF+AWR4flKINDQpwprtr7ZYau8eY6DPHkbSGrvPlz
+ z8bq7OQ4BMt80WGu2la2uTLlU07io05J4TjpyYGuBs9piyf+sZ/wGPG7TYjFER0Eug5y
+ iLOUhB4RwLSK4FBAzbvUPH6fv65riXK42wg8pUsldp1QQJW3xlZHgKSYDvBECq/isUId
+ +/2apiVWGjNuQGsGf1+s+f3m0nQDZV0mbwDVUloOez6l2yAfPmcm8N6doynn7rWDokKu
+ oZVw==
+X-Forwarded-Encrypted: i=1;
+ AL+hErFTpwcCtOZFTpe4zuxD2egcknqTrFiwzK8KLgrxRLZ8Q5sO6rn9OazfOszfaJurF0k7YurrB66uNro=@lists.freedesktop.org
+X-Gm-Message-State: APuU4Z+Jc/7bmLR2nlmuq6qP+LpXD4nwqeYd5a5TNoN6kL5i+4jGd2t0
+ Oi0utarlyMNkqmLRb+OFxSfBPsMu6Kcbv2Cqy18yUBTn9b5Jy4LgVtSpAiPmgx7z9iX+RQ==
+X-Gm-Gg: AYBFou1kkmYTjsDqbQM7KciWijtyDRzzUMirvBHtaTmQzeArww4Gh4DU9GN1Lp3wb90
+ hyh4QYVFEEvdAiIougjTg9m1p8ROhjsi4naZCyeJM8+6J3LpLWFjEftuwIbfWs/xAQ89K3Wh865
+ s8dFgnRxEMiHMMBMB9oeenVHiYgccjJsrt3KmRz5jpbvV8W+GMUrYiHM4WYoOeFXcSxRHgexcGz
+ DzdFIB4kvTC9qnnse7uqlX2xV1bi473Qjzbu9ldkUn+l9X/qVU2RxTMceRxAZ3jpJpUwMdmjrdX
+ hz2gbGhJWeB7myJqgWct2T0En7CA9peInb82FI4TTtzFk4Dl2Phfl/YwPqfklRAPSON+P6T3tbM
+ zobW0DEgQa9ouZYiH0MsVaIb/ZuYCjJjpCdPBTVgMgbTjVSEO8/ZTzCiL8F9ZGTWPXjbw+/G/L3
+ 7FmX8cTHCglwuFkqgbPH6nFnkNOc4t00qeiJvueemOak1kwdvnvsrlzwDPsxAG9gPgB4DDawyh+
+ B/3mV6XQnZQLj2FLIDx4UYBzPgjP2w9xQxOMv8KrixNrwuglIY22TxgkQkRU3hYNCUNGEB7G3Si
+ sIiI0ItOpUiu88N63RnRYg0nmuRh0NyPDq7KnZEqY6RL2ncKeGOGrVfRDYDxtImBwCUb0GYYeRU
+ roHxeRRHWh2Q4
+X-Received: by 2002:a05:7300:c00e:20b0:35e:d21c:f33e with SMTP id
+ 5a478bee46e88-379651ecb3emr1356356eec.1.1794531722833; 
+ Thu, 12 Nov 2026 17:02:02 -0800 (PST)
+Received: from o6.lan ([2602:fce1:44f:115e::])
+ by smtp.gmail.com with ESMTPSA id
+ 5a478bee46e88-37955332ae7sm4453590eec.8.2026.11.12.17.01.53
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Thu, 12 Nov 2026 17:02:02 -0800 (PST)
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
+Content-Transfer-Encoding: 7bit
+Subject: Re: [PATCH v3] mm/zsmalloc: remove CONFIG_ZSMALLOC_STAT
+From: Xueyuan Chen <xueyuan.chen21@gmail.com>
+To: Alexander Gordeev <agordeev@linux.ibm.com>
+Cc: Xueyuan Chen <xueyuan.chen21@gmail.com>, 
+ Minchan Kim <minchan@kernel.org>, 
+ Sergey Senozhatsky <senozhatsky@chromium.org>, 
+ Andrew Morton <akpm@linux-foundation.org>, 
+ David Hildenbrand <david@kernel.org>, Lorenzo Stoakes <ljs@kernel.org>, 
+ "Liam R. Howlett" <liam@infradead.org>, Vlastimil Babka <vbabka@kernel.org>, 
+ Mike Rapoport <rppt@kernel.org>, Suren Baghdasaryan <surenb@google.com>, 
+ Michal Hocko <mhocko@suse.com>, Jonathan Corbet <corbet@lwn.net>, 
+ Shuah Khan <skhan@linuxfoundation.org>, 
+ Randy Dunlap <rdunlap@infradead.org>, Alex Shi <alexs@kernel.org>, 
+ Yanteng Si <si.yanteng@linux.dev>, Dongliang Mu <dzm91@hust.edu.cn>, 
+ Heiko Carstens <hca@linux.ibm.com>, Vasily Gorbik <gor@linux.ibm.com>, 
+ Christian Borntraeger <borntraeger@linux.ibm.com>, 
+ Sven Schnelle <svens@linux.ibm.com>, 
+ Helen Koike <helen.fornazier@gmail.com>, 
+ Vignesh Raman <vignesh.raman@collabora.com>, 
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
+ linux-mm@kvack.org, linux-doc@vger.kernel.org, linux-kernel@vger.kernel.org, 
+ linux-s390@vger.kernel.org, dri-devel@lists.freedesktop.org, 
+ Nhat Pham <nphamcs@gmail.com>
+In-Reply-To: <d812b71d-b7ec-496f-9404-add2282105a6-agordeev@linux.ibm.com>
+References: <20261111-zsmalloc_stat-v3-1-2d85ed51570e@gmail.com>
+ <d812b71d-b7ec-496f-9404-add2282105a6-agordeev@linux.ibm.com>
+Date: Fri, 13 Nov 2026 09:01:51 +0800
+Message-Id: <179453171134.2553194.3867422839676762696.b4-reply@b4>
+X-Mailer: b4 0.16.0
 X-Mailman-Approved-At: Fri, 13 Nov 2026 13:43:28 +0000
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -157,73 +110,73 @@ List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-8.8 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
-	DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
-	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,USER_AGENT_GIT
-	autolearn=unavailable autolearn_force=no version=4.0.1
+X-Spam-Status: No, score=-14.8 required=3.0 tests=BAYES_00,DKIM_SIGNED,
+	DKIM_VALID,DKIM_VALID_AU,FREEMAIL_FORGED_FROMDOMAIN,FREEMAIL_FROM,
+	HEADER_FROM_DIFFERENT_DOMAINS,HK_RANDOM_FROM,INCLUDES_CR_TRAILER,
+	INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,
+	USER_AGENT_GIT autolearn=unavailable autolearn_force=no version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-On Thu, 05 Nov 2026 16:29:09 +0100, Maxime Ripard wrote:
-> drm_mode_config_reset() has a dual role: it creates the initial KMS
-> state at probe time, and resets hardware and software state during
-> suspend/resume cycles. However, the two roles need different
-> behaviors, notably for objects like drm_private_obj that must persist
-> across suspend/resume and are excluded from drm_mode_config_reset()
-> by design.
+On 2026-11-12 13:29 +0100, Alexander Gordeev wrote:
+> On Wed, Nov 11, 2026 at 08:41:26PM +0800, Xueyuan Chen wrote:
+> > CONFIG_ZSMALLOC_STAT only controls the debugfs interface. The class
+> > counters are updated regardless of this option.
+> > 
+> > Remove the CONFIG_ZSMALLOC_STAT guards and rely on the debugfs API
+> > stubs when CONFIG_DEBUG_FS=n. Skip statistics setup silently when
+> > debugfs is unavailable.
+> > 
+> > Remove the Kconfig entry and replace the existing CONFIG_ZSMALLOC_STAT
+> > settings with CONFIG_DEBUG_FS=y. Update the English and Chinese
+> > documentation to match, and clarify the pool name in the debugfs path.
+> > 
+> > Suggested-by: Nhat Pham <nphamcs@gmail.com>
+> > Reviewed-by: Nhat Pham <nphamcs@gmail.com>
+> > Signed-off-by: Xueyuan Chen <xueyuan.chen21@gmail.com>
+> ...
+> >  arch/s390/configs/debug_defconfig                |  2 +-
+> >  arch/s390/configs/defconfig                      |  2 +-
+> ...
+> > diff --git a/arch/s390/configs/debug_defconfig b/arch/s390/configs/debug_defconfig
+> > index d44674b63715..83193ef8efb9 100644
+> > --- a/arch/s390/configs/debug_defconfig
+> > +++ b/arch/s390/configs/debug_defconfig
+> > @@ -100,7 +100,7 @@ CONFIG_UNIXWARE_DISKLABEL=y
+> >  CONFIG_IOSCHED_BFQ=y
+> >  CONFIG_BINFMT_MISC=m
+> >  CONFIG_ZSWAP=y
+> > -CONFIG_ZSMALLOC_STAT=y
+> > +CONFIG_DEBUG_FS=y
+> >  CONFIG_SLAB_BUCKETS=y
+> >  CONFIG_SLUB_STATS=y
+> >  # CONFIG_COMPAT_BRK is not set
+> > diff --git a/arch/s390/configs/defconfig b/arch/s390/configs/defconfig
+> > index e00e252d4694..694a309377d5 100644
+> > --- a/arch/s390/configs/defconfig
+> > +++ b/arch/s390/configs/defconfig
+> > @@ -94,7 +94,7 @@ CONFIG_UNIXWARE_DISKLABEL=y
+> >  CONFIG_IOSCHED_BFQ=y
+> >  CONFIG_BINFMT_MISC=m
+> >  CONFIG_ZSWAP=y
+> > -CONFIG_ZSMALLOC_STAT=y
+> > +CONFIG_DEBUG_FS=y
+> >  CONFIG_SLAB_BUCKETS=y
+> >  # CONFIG_COMPAT_BRK is not set
+> >  CONFIG_MEMORY_HOTPLUG=y
 > 
-> [...]
+> So DEBUG_FS is selected unconditionally? Please, drop this for s390.
+CONFIG_ZSMALLOC_STAT used to select DEBUG_FS, so I added
+CONFIG_DEBUG_FS=y to keep the stats available.
 
-Applied to misc/kernel.git (drm-misc-next)
+OK, I'll drop those lines from the s390 defconfigs in v4.
+> 
+> > --  
+> > Best regards,
+> > Xueyuan
+> 
+> Thanks!
+> 
+> 
 
-[03/83] drm/appletbdrm: Switch to drm_mode_config_create_initial_state
-        commit: 24f5141d0266b391fda87dd3458aad31c26e28df
-[04/83] drm/komeda: Switch to drm_mode_config_create_initial_state
-        commit: 95b07f6f1f820601f9bc4f9dd8cb01e008c4441d
-[06/83] drm/malidp: Switch to drm_mode_config_create_initial_state
-        commit: b0507da85fdd7060decd29d35f5819259718f741
-[08/83] drm/aspeed: Switch to drm_mode_config_create_initial_state
-        commit: fe87bfb1dfa04dd73bb89e60820ced02967faee8
-[10/83] drm/atmel-hlcdc: Switch to drm_mode_config_create_initial_state
-        commit: b36f26eb85d8032b458fab7c6912650c0e5b5561
-[13/83] drm/gud: Switch to drm_mode_config_create_initial_state
-        commit: a53dc66784822a101541c54e1e7e471bbad3e8ee
-[15/83] drm/hisilicon/kirin: Switch to drm_mode_config_create_initial_state
-        commit: 1e8db0d2a2383ce3fb96ea1db26180350d972786
-[17/83] drm/imx/dc: Switch to drm_mode_config_create_initial_state
-        commit: 39283d6d8fbaca8d7bb7e98f7406dad5286bfc6e
-[18/83] drm/imx/dcss: Switch to drm_mode_config_create_initial_state
-        commit: dc54c1bc909873caf0f910677f3de899cdf3b62d
-[24/83] drm/mcde: Switch to drm_mode_config_create_initial_state
-        commit: 046b692dc7d3910b6a85d71e5e941c712bad30ee
-[26/83] drm/meson: Switch to drm_mode_config_create_initial_state
-        commit: a26760da1f8bebdcc7fe6fdcb5df5c6ca007e4cc
-[29/83] drm/lcdif: Switch to drm_mode_config_create_initial_state
-        commit: 0f3e257909538e9cce0213c2d1b9d3a7edf8f348
-[30/83] drm/mxsfb: Switch to drm_mode_config_create_initial_state
-        commit: 99da25e15ccbfb1d0717de28d3b6f45f72958127
-[33/83] drm/pl111: Switch to drm_mode_config_create_initial_state
-        commit: 4b9008133a7b14dbb1eeab84266926062d126ba7
-[38/83] drm/rockchip: Switch to drm_mode_config_create_initial_state
-        commit: c07d0dfba08808c90ab8ccc23a1f0ce9aafae536
-[43/83] drm/ssd130x: Switch to drm_mode_config_create_initial_state
-        commit: d7938a168f56608626d62a7015b448da1cee4dba
-[48/83] drm/corebootdrm: Switch to drm_mode_config_create_initial_state
-        commit: 207a0f90ce3953131806ead64bb512364de260c4
-[49/83] drm/efidrm: Switch to drm_mode_config_create_initial_state
-        commit: 8fa2e7e1b3642113677a6a77f81aa186f3b16293
-[50/83] drm/ofdrm: Switch to drm_mode_config_create_initial_state
-        commit: 1fd3ed4c330b8f56bbcd7d2684e1dae5961ee8ab
-[51/83] drm/simpledrm: Switch to drm_mode_config_create_initial_state
-        commit: cde728838797cdce3bc488acb1338c1dc20c24d2
-[52/83] drm/vesadrm: Switch to drm_mode_config_create_initial_state
-        commit: 705557cddfcbea6c6ee2e50057394c6c6fc2ab8b
-[74/83] drm/tve200: Switch to drm_mode_config_create_initial_state
-        commit: 4b40cfa3178f00188314a1da55dd899e635d2d73
-[77/83] drm/vc4: Switch to drm_mode_config_create_initial_state
-        commit: 6d8d9311bc9daac0e5acc3e5d34ca067abdd1fe4
-[80/83] drm/vkms: Switch to drm_mode_config_create_initial_state
-        commit: 63a80293361bc276fb07cd68511b5f887ff5fa41
 
-Thanks!
-Maxime
