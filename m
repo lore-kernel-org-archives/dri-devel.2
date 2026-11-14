@@ -2,72 +2,69 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AEB64606A8A1
-	for <dri-devel@archiver.kernel.org>; Sat, 14 Nov 2026 23:09:27 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 36E3E606A335
+	for <dri-devel@archiver.kernel.org>; Sat, 14 Nov 2026 23:09:30 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=YQhVQxNK
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=KOEJ5o/+
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id C6E1510E027;
+	by gabe.freedesktop.org (Postfix) with ESMTP id D497F10E071;
 	Sat, 14 Nov 2026 23:09:21 +0000 (UTC)
-Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 3505910E027;
+Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 43A0910E071;
  Sat, 14 Nov 2026 23:09:16 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id B4FBA404C4;
+ by tor.source.kernel.org (Postfix) with ESMTP id 4EA2561AE5;
  Sat, 14 Nov 2026 23:09:15 +0000 (UTC)
 Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
 ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
  t=1794697755;
- b=Uh90h/f4a8KHHE87P4ViZ17yvwOwMXh5e9pCXklgxk471fiPr8lB/kvzL8cKppAbQiOf
- MttOClIsskvm0IC/nnhe1S4+9BNy/wrtuQOjLHs7wm421PvM1TaYoC9tXUPLIlC9UwtLH
- tydv9uCLPUlTFCZg6uKllfx2KTAbobSLSfsLIa+prWZLSuhm8TtklduhEG1Y8gUTGgtzG
- fQeJLNAw/4J11Hif6VTaZ6VOjYl3/tl4x6WuIw0q5M4RiZT2ht8tA6nVCO4z+vNligIRE
- b/Tikpt0rn2+I4uvK515bZDz0BwghlEvUbJ6tpFy+XUTjXj+KPfTpZSR1Qa/439TvUg==
+ b=3oRDZUBCGNBzDOF2o7RvyTB1TuKnelipG4+DiV1VNWOo2Gb+G7IvIeW4HKi3zAMA6ScU
+ y4zTmlxvE1gEuq+N8st8/9M5f7hBwUlbIzt7+VFJNcqhKtjoKnspCBgJpWBTG6xXVuXWq
+ l+jcttyT/+OO+7ZPr+c5oWWRiNcn7+JnEzH6tFJjB3EANumD9+B+hK6fqsn93exroDz1v
+ ezvoG+j6pLqZwxkVdNNUMiWj2rsaoAOIoiCHMAORZWWvs1A21XCqzlOECWTxP2O3E4O8M
+ DPyBDPx/iXRZamUjwntn5vgRg5I7n/OQFnRxr6wo/0ExKS8GG043FHYZZtJNx/CoOPw==
 ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
  c=relaxed/relaxed; t=1794697755;
- h=DKIM-Signature:Received:From:Subject:Date:Message-Id:MIME-Version:
- Content-Type:Content-Transfer-Encoding:X-B4-Tracking:X-Change-ID:To:
- Cc:X-Mailer:X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
- X-Original-From:Reply-To;
- bh=1PTPiOEKRlp9Zsw9ftcdqrl7XVRQXVPvWk2EJN7ugKQ=;
- b=2VYzhItxzBeG8B+6VMzXrdV2on0NVdKbNbYiSfJZPCLP5r3aj3usM7fLRpqjzGYAGN+R
- E8wDTsPGkImBWKhWby8EMK8qM26EvDQuBN3pLk2+Lxhp3QHVI2y6Qlf127e0ASK95ApO8
- /LClrjavN719iFKbgnoluT8L/EOixLU0EWwno5C1oLQD60r8zN9bSRXTzyNV3oNyhbo7y
- kPQbbThKhDL8jrMMX5sYvrd+05NDVAJAZekc5C2IAvxMpo4MXI9gq3trPLanDYrodISA9
- 4idU4LlVoTUQB/0BrdHMvj5cPmtHZwStNmzYNcnWIyIR5HA8CGL2tw+Vwax1W10R8PA==
+ h=DKIM-Signature:Received:From:Date:Subject:MIME-Version:Content-Type:
+ Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
+ X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
+ X-Original-From:Reply-To:Content-Transfer-Encoding;
+ bh=9owcnqrLh9HLkft/is54769ptdoYN16x/JjdXggMJiU=;
+ b=WZeH1zBuCoPjXX+enMqeaGzMMetpCETp9o/fzAS6rT/Taa1w68prw0Lb9LFDWdKA17wh
+ v0jZjciWleP4RwkwcjzhAWgCKhxeg1K3O6oqJ2J5VZqyXgmirV0UB0rUoLFO/Ft++e+39
+ HqpoQKTdoBuUva6fa+74cI5ctr9jBvJ8weaKb5GrO0RSvAJyp+lsh0NZoFbwcW2YsLq8W
+ AI5Lf/WCFD/c44kXu+vYjyVc0zM5iX26C/QTQy/KYR/TI1Gtnlma+Wzsuoj42ekwpYm93
+ 7faMg2HTnt13zvd4QcdJ4FuSFDFqkaGxw+HAMkmWL7PqN4EnuR4Nn2jrUuQE6/fOOPQ==
 ARC-Authentication-Results: i=1; smtp.kernel.org; 
  arc=none smtp.remote-ip=100.80.115.77
 Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
  (No client certificate requested)
- by smtp.kernel.org (Postfix) with ESMTPS id 75E231F000C5;
+ by smtp.kernel.org (Postfix) with ESMTPS id 75DF51F000C4;
  Sat, 14 Nov 2026 23:09:14 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
  s=k20260515; t=1794697755;
- bh=1PTPiOEKRlp9Zsw9ftcdqrl7XVRQXVPvWk2EJN7ugKQ=;
- h=From:Subject:Date:To:Cc:Reply-To;
- b=YQhVQxNK/56nTI3fAqmt39i0g/j7zkCdwv5/uKuD3leTAknrDxNdCnnbh3uYuHgpl
- 1q/a9Tls3Gj7neYytWoVm90r4zHjAqNyRjqEX15ezrOFe1j+sPYQ3sTNHNDfXRjqUw
- OsneOj2U9R7EkBjgWL/TFHtWOM5ReEi7uKn7PHRAUxQ6nZIYkBrhEveOf50WXJvjAY
- n1fJY+12vpKBTq+GuIxJyjfK609KF3O4t/p8OJUuVOjweqUSb+5vxahedNgb7jT0RG
- JB5T4yVWIBk4boEXzmq76d2/cRVk0uYbVg2UYGzEfZgIpE6yecQMXTY5DwfThv2pkG
- Uk/Pi8r2R+6hw==
+ bh=9owcnqrLh9HLkft/is54769ptdoYN16x/JjdXggMJiU=;
+ h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To;
+ b=KOEJ5o/+tYAqpyNXfuHd9WWTQzoghHISu6hbQgfPdBIehNM2Tv4ZIyNJbkGjCrq5t
+ okkRpDkPO2OgurThb67jzvj4A40OxItFUrhfjQFJSP+fibDrT0dSpyk6ZLRh42mCX5
+ O6+E47144KM6FN0mtRffiggW9un36CcKcm20pacYl4c3aUfAlk3ZR6Pf7kZNYsfHD/
+ EwwBTwPwiWNzR5YzH9DCCAmVclO9Xff5qcMqXZvGmenj0UO1leduKbShBEc1pXCgL7
+ g+ph2PY2sok2r1hFggXJ6dXgNyn7l1FRPSAWEXBqKPW61jauM9nIFiyeALgWMMnqH2
+ vi/HiDLc7XmIQ==
 Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
- by lkml.kernel.org (Postfix) with ESMTP id CC97049EBB;
+ by lkml.kernel.org (Postfix) with ESMTP id E6CE249EB4;
  Sat, 14 Nov 2026 23:09:13 +0000 (UTC)
 From: Hugo Sales via B4 Relay <devnull+hugo.hsal.es@kernel.org>
-Subject: [PATCH 0/8] drm/amd/display: Copy probed modes for atomic_check
-Date: Sat, 14 Nov 2026 23:09:11 +0000
-Message-Id: <20261114-amdgpu-modes-four-v1-0-f11e2a6cd407@hsal.es>
+Date: Sat, 14 Nov 2026 23:09:12 +0000
+Subject: [PATCH 1/8] drm/amd/display: Drop the unadvertised mode check
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-X-B4-Tracking: v=1; b=H4sIAAAAAAAC/yXMTQqDMBBA4avIrDtg/MerlC4mZtQRNJJppCDev
- Wldfov3TlAOwgp9dkLgQ1T8lmAeGQwzbROjuGQo8qIxJq+QVjftEVfvWHH0MWDdErGrSrKmg9T
- tgUf5/J/P122NduHh/RvBdX0BTEQDDnUAAAA=
-X-Change-ID: 20261104-amdgpu-modes-four-57aaed43ab18
+Message-Id: <20261114-amdgpu-modes-four-v1-1-f11e2a6cd407@hsal.es>
+References: <20261114-amdgpu-modes-four-v1-0-f11e2a6cd407@hsal.es>
+In-Reply-To: <20261114-amdgpu-modes-four-v1-0-f11e2a6cd407@hsal.es>
 To: Harry Wentland <harry.wentland@amd.com>, Leo Li <sunpeng.li@amd.com>, 
  Rodrigo Siqueira <siqueira@igalia.com>, 
  Alex Deucher <alexander.deucher@amd.com>, 
@@ -80,17 +77,18 @@ Cc: amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
  =?utf-8?q?Ville_Syrj=C3=A4l=C3=A4?= <ville.syrjala@linux.intel.com>, 
  Aurabindo Pillai <aurabindo.pillai@amd.com>, Hugo Sales <hugo@hsal.es>
 X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=openpgp-sha256; l=3829; i=hugo@hsal.es;
+X-Developer-Signature: v=1; a=openpgp-sha256; l=2729; i=hugo@hsal.es;
  h=from:subject:message-id;
- bh=+dDISwyisNdvJwt3B/p7Y642cJGXY2iQt7K7XzoHftQ=;
- b=owJ4nJvAy8zAJVbLU7f+5A3TBYyn1ZIYsn68kmCebrPd1v+MlmhdJK9C9cNofplHL//ExW1I/
- Oh7f3sc++aOUhYGMS4GWTFFFt0bngwsEyfPzCl6vgRmDisTyBAGLk4BmIhFKcM/1ZeTGH7/71+9
- UH7ePY/pk3piq4KStp/9+FTJOH9BVeUXLkaGTb9/NDnrRh5j+r9X9UJEbqmhN7uCX/CJt12nD8V
- VK/1mBgBfp0ul
+ bh=lnT9nVoFlXidbyLYsCe0y4wiJYQVxKPy6EIUZH0LbBw=;
+ b=owJ4nJvAy8zAJVbLU7f+5A3TBYyn1ZIYsn68kph8fspS4XBNK2Mrfn4Wv9g9Lq9ucfqa7KtmS
+ bMV0iniKOgoZWEQ42KQFVNk0b3hycAycfLMnKLnS2DmsDKBDGHg4hSAicTFMTJsLn0svbRX0ulB
+ xrzqTR9PVJnM/Trl1dTqWXoXf00pbTW+w8jQGyN5c/vy9NY3N9+Kf1T+IHxqtoCYfOieb69k1E1
+ Fr9fyAgCaXEg9
 X-Developer-Key: i=hugo@hsal.es; a=openpgp;
  fpr=193D095149CF7E8737B39064D912B0DB205A91C1
 X-Endpoint-Received: by B4 Relay for hugo@hsal.es/default with auth_id=1417
 X-Original-From: Hugo Sales <hugo@hsal.es>
+Content-Transfer-Encoding: 7bit
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -103,83 +101,74 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
 Reply-To: hugo@hsal.es
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-13.8 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
+X-Spam-Status: No, score=-18.8 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
 	DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
-	INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,
-	USER_AGENT_GIT autolearn=ham autolearn_force=no version=4.0.1
+	INCLUDES_CR_TRAILER,INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,
+	SPF_PASS,USER_AGENT_GIT autolearn=ham autolearn_force=no version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-mode_config.mutex protects connector->modes, but amdgpu_dm walks it from
-atomic_check, in create_stream_for_sink() and
-amdgpu_dm_get_highest_refresh_rate_mode(), without that mutex.
-atomic_check can't take the mutex because of lock ordering. An earlier
-patch I submitted moved the probe helper's sort under the modeset locks
-so this walk couldn't race it, and Ville pointed out that the bug is in
-the reader:
-https://lore.kernel.org/r/auh8pUx_kXUYSdZ8@intel.com
+From: Hugo Sales <hugo@hsal.es>
 
-atomic_check only needs the preferred mode and the highest refresh rate
-mode. This series copies both at the end of each probe, under
-mode_config.mutex and connection_mutex, and atomic_check reads the
-copies under connection_mutex. The highest refresh rate copy is the mode
-add_fs_modes() built the FreeSync video modes from, as upstream's cached
-freesync_vid_base is. It's done this way because a search of
-connector->modes at the end of the probe could pick a command line mode
-with a higher refresh rate, and amdgpu_dm_is_freesync_video_mode() would
-then reject the video modes
+Commit fa129ff3b6a7 ("drm/amd/display: warn on unadvertised modes
+without scaling") made create_stream_for_sink() log "Unadvertised mode
+... with RMX_OFF" when the requested mode isn't one the connector
+advertises. Commit 828cfa384e23 ("drm/amd/display: Fix unadvertised mode
+detection") made is_duplicate_mode() search connector->modes as well as
+probed_modes
 
-The copies also need work to stay current after a monitor swap. Until
-the next probe they still describe the previous monitor, as
-connector->modes could, and two paths read them before that probe.
-mode_valid runs before the probe refreshes them, and after a swap the
-HPD handlers commit before the next probe. Patch 3 has mode_valid
-validate each mode with its own timing, so it no longer needs the
-preferred mode. Patch 4 records the EDID of the sink the copies came
-from, and patch 7 uses them only for a sink with that EDID. atomic_check
-checks them against the sink of the stream it builds, since a hotplug
-can swap dc_sink under it. With another sink, atomic_check uses the
-requested mode's own timing until the next probe, as before the first
-probe
+mode_config.mutex protects both lists, and atomic_check, where
+create_stream_for_sink() runs, holds only the modeset locks. A probe on
+another thread can free modes in connector->modes during the walk.
+atomic_check can't take mode_config.mutex, since the probe takes it
+before connection_mutex
 
-Patch 1 drops a debug check that walked probed_modes and
-connector->modes from atomic_check, and asks its author below the cut
-whether to keep it behind mutex_trylock() instead. Patch 2 stops
-add_fs_modes() matching against connector->modes, which dropped the
-FreeSync video modes on every second probe. Patch 4 adds the copies,
-patches 5 and 6 pass the sink of the stream being built to the code that
-checks them, patch 7 switches the readers to them, and patch 8 adds
-tests for the copies
+The check's only effect is the debug message, so drop it.
+is_duplicate_mode() stays for add_fs_modes()
 
-Patch 6 also changes one behaviour, only with amdgpu.freesync_video=1,
-which is off by default. A CRTC turned on straight into a FreeSync video
-mode now gets its fixed refresh config, which it never got before
-
+Fixes: fa129ff3b6a7 ("drm/amd/display: warn on unadvertised modes without scaling")
+Fixes: 828cfa384e23 ("drm/amd/display: Fix unadvertised mode detection")
+Signed-off-by: Hugo Sales <hugo@hsal.es>
 ---
-Hugo Sales (8):
-      drm/amd/display: Drop the unadvertised mode check
-      drm/amd/display: Don't match FreeSync video modes against the last probe
-      drm/amd/display: Validate modes with their own timing
-      drm/amd/display: Copy the preferred and highest refresh modes after probe
-      drm/amd/display: Pass the sink to the FreeSync and stream timing helpers
-      drm/amd/display: Pick the FreeSync video config for the new stream's sink
-      drm/amd/display: Stop reading connector->modes from atomic_check
-      drm/amd/display: Add KUnit tests for the mode copies
-
- drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c  |   38 +-
- drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.h  |   23 +-
- .../amd/display/amdgpu_dm/amdgpu_dm_connector.c    |  499 +++++---
- .../amd/display/amdgpu_dm/amdgpu_dm_connector.h    |   13 +-
- .../amd/display/amdgpu_dm/amdgpu_dm_mst_types.c    |    2 +-
- .../amdgpu_dm/tests/amdgpu_dm_connector_test.c     | 1209 +++++++++++++++++---
- .../amd/display/amdgpu_dm/tests/amdgpu_dm_test.c   |  153 +++
- 7 files changed, 1644 insertions(+), 293 deletions(-)
+Fangzhi, fa129ff3b6a7 says the message is there to advise users to pick
+an advertised mode when they see a visual defect. Do you plan to build
+more on it, like rejecting such modes or a warning userspace can see? If
+you'd rather keep the message, I can do that instead. atomic_check would
+take mode_config.mutex with mutex_trylock() and skip the check while a
+probe holds it. The walk is then safe, and the message only goes missing
+while a probe runs
 ---
-base-commit: 47df73aa49d1988c8f684b7caf8be6570e966844
-change-id: 20261104-amdgpu-modes-four-57aaed43ab18
+ drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_connector.c | 8 --------
+ 1 file changed, 8 deletions(-)
 
-Best regards,
---  
-Hugo Sales <hugo@hsal.es>
+diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_connector.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_connector.c
+index e8f050feb6e39..89f8427433af0 100644
+--- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_connector.c
++++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_connector.c
+@@ -1495,7 +1495,6 @@ create_stream_for_sink(struct drm_connector *connector,
+ 	struct drm_display_mode saved_mode;
+ 	struct drm_display_mode *freesync_mode = NULL;
+ 	bool recalculate_timing = false;
+-	bool unadvertised_mode = false;
+ 	bool scale = dm_state->scaling != RMX_OFF;
+ 	int mode_refresh;
+ 	int preferred_refresh = 0;
+@@ -1627,13 +1626,6 @@ create_stream_for_sink(struct drm_connector *connector,
+ 					&mode, preferred_mode, scale);
+ 
+ 			preferred_refresh = drm_mode_vrefresh(preferred_mode);
+-			unadvertised_mode = !is_duplicate_mode(aconnector, drm_mode);
+-
+-			if (unadvertised_mode && dm_state->scaling == RMX_OFF)
+-				drm_dbg_driver(dev,
+-					       "Unadvertised mode %dx%d@%d with RMX_OFF\n",
+-					       drm_mode->hdisplay, drm_mode->vdisplay,
+-					       drm_mode_vrefresh(drm_mode));
+ 		}
+ 	}
+ 
+
+-- 
+2.56.0
 
 
