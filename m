@@ -2,43 +2,42 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D53AD606A329
-	for <dri-devel@archiver.kernel.org>; Sat, 14 Nov 2026 18:55:24 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A912E606A329
+	for <dri-devel@archiver.kernel.org>; Sat, 14 Nov 2026 18:55:30 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=PjpteExJ
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=WmWNL+2k
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 48D3D10E649;
-	Sat, 14 Nov 2026 18:55:18 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 6E8F510E789;
+	Sat, 14 Nov 2026 18:55:24 +0000 (UTC)
 Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id A0C5F10E590
- for <dri-devel@lists.freedesktop.org>; Sat, 14 Nov 2026 18:54:57 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id D8DBC10E6F7
+ for <dri-devel@lists.freedesktop.org>; Sat, 14 Nov 2026 18:55:00 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id 7B3F845A6A;
- Sat, 14 Nov 2026 18:54:57 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2E2601F000C5;
- Sat, 14 Nov 2026 18:54:57 +0000 (UTC)
+ by sea.source.kernel.org (Postfix) with ESMTP id 7445945B34;
+ Sat, 14 Nov 2026 18:54:59 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2EC1D1F000C5;
+ Sat, 14 Nov 2026 18:54:59 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1794682497;
- bh=klBgaalKgQAl1KlAABtT3hSSeOoMEmMSHb+szwhcuFE=;
+ s=k20260515; t=1794682499;
+ bh=x0suZMqUZombL7FtCyQmS1vyDtWujulgrOLcNZf0x3I=;
  h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
- b=PjpteExJ4BqRNd65kh0hThnZ39Vtbmb1n6wuwcyEhTeugvH/kquYhLDZfVNTNs1bw
- c/0TsZsVTHYp1Iew789rNG9kzd7jIKGFRZUrUnL0kCZ28GKCMRJbnLkjGg9qAoZnrz
- vAB3QXJ1ViE/9gEVia1hmU4HpSe7+lqPNBCYgRO46eXr5Fhm4f3XEYXuOqI87zzPRs
- hH8KmxxJ58dpeGjNjdhcOEIfb0YLrjbuvxTALuLdfI/96tOzjOElvrDQTLW+anBHeh
- gpETgHeEZebSRazIit143CZ9cVAUx3MKE8IxW7w6efuJ6Z39GR7W2K4XWf5yA++H5G
- 5JRptUg/pPcmA==
-Message-ID: <sashiko-outbox-214916@kernel.org>
+ b=WmWNL+2ktjp2UoA3SKynZHx6VwKLiyPHuFrK9YkqIdk5atMYVzUwsbCD2tDeAXhcq
+ cWXCSb0zI6n8Rp2S7QgMLeBN4P8ALgaOlVbWauSK0Y9yL7UUum5qt6c2pRgsfeELb0
+ c+bVHbh2kQdhbDrKKKY4C+sCAm0aPeQnzMjTHmKkhk25q8fKJzz6SP0P9UjDkDkN+1
+ WuWtlak0YNASArt9u6LA8n/XU8LdV/gLSHjWIsfcjKz5nym+G1bk2C+eER6TiIvuEz
+ z1fH/zxVvoc6veHbKKkU3QUFtXnmB8av6iGkWsTzeZWqFAxo52aTh1TvLT9W/2lnr2
+ +GSwnob3hwpgQ==
+Message-ID: <sashiko-outbox-214919@kernel.org>
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v2 5/9] media: venus: migrate firmware loading to
- qcom_mdt_pas_load() and qcom_pas_prepare_and_auth_reset()
+Subject: Re: [PATCH v2 8/9] soc: qcom: mdt_loader: remove qcom_mdt_load()
 To: "Mukesh Ojha" <mukesh.ojha@oss.qualcomm.com>
 Cc: dri-devel@lists.freedesktop.org, media-ci@linuxtv.org
-In-Reply-To: <20261113185009.157893-6-mukesh.ojha@oss.qualcomm.com>
+In-Reply-To: <20261113185009.157893-9-mukesh.ojha@oss.qualcomm.com>
 References: <20261113185009.157893-1-mukesh.ojha@oss.qualcomm.com>
- <20261113185009.157893-6-mukesh.ojha@oss.qualcomm.com>
+ <20261113185009.157893-9-mukesh.ojha@oss.qualcomm.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Sat, 14 Nov 2026 18:54:56 +0000
+Date: Sat, 14 Nov 2026 18:54:58 +0000
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -61,89 +60,134 @@ X-Archived-By: <archiver.kernel.org>
 
 Thank you for your contribution! Sashiko AI review found 1 potential
 issue to consider:
-- [Medium] media: venus: PAS metadata buffer leak in venus_load_fw() and
-  venus_boot()
+- [Medium] soc: qcom: mdt_loader: undocumented mapping change in
+  qcom_mdt_load_no_init()
 --
 
-commit 82fbd4dcc81174e35cd1220225cd23273f0e119b
+commit 1090e40402733b5aabfbf149a8510b247a28a308
 Author: Mukesh Ojha <mukesh.ojha@oss.qualcomm.com>
 
-media: venus: migrate firmware loading to qcom_mdt_pas_load() and qcom_pas_=
-prepare_and_auth_reset()
+soc: qcom: mdt_loader: remove qcom_mdt_load()
 
-This commit migrates the TrustZone firmware loading path in the Venus
-driver to use a PAS context with qcom_mdt_pas_load() and
-qcom_pas_prepare_and_auth_reset().
+This commit removes the unused qcom_mdt_load() helper and moves memory
+region mapping from qcom_mdt_pas_load() into qcom_mdt_load_no_init() when
+mem_region is NULL.
 
-> diff --git a/drivers/media/platform/qcom/venus/firmware.c b/drivers/media=
-/platform/qcom/venus/firmware.c
-> index 3a38ff985822f..704343e241dc6 100644
-> --- a/drivers/media/platform/qcom/venus/firmware.c
-> +++ b/drivers/media/platform/qcom/venus/firmware.c
-> @@ -117,21 +117,22 @@ static int venus_load_fw(struct venus_core *core, c=
-onst char *fwname,
->  		goto err_release_fw;
->  	}
+> diff --git a/drivers/soc/qcom/mdt_loader.c b/drivers/soc/qcom/mdt_loader.c
+> index aafa83466b92b..436d8bc4847a3 100644
+> --- a/drivers/soc/qcom/mdt_loader.c
+> +++ b/drivers/soc/qcom/mdt_loader.c
+> @@ -326,7 +326,8 @@ static bool qcom_mdt_bins_are_split(const struct firm=
+ware *fw)
+>   * @dev:	device handle to associate resources with
+>   * @fw:		firmware object for the mdt file
+>   * @fw_name:	name of the firmware, for construction of segment file names
+> - * @mem_region:	allocated memory region to load firmware into
+> + * @mem_region:	virtual address of the memory region to load firmware in=
+to,
+> + *		or NULL to have the region mapped internally with ioremap_wc()
+>   * @mem_phys:	physical address of allocated memory region
+>   * @mem_size:	size of the allocated memory region
+>   * @reloc_base:	adjusted physical address after relocation
+> @@ -341,6 +342,7 @@ int qcom_mdt_load_no_init(struct device *dev, const s=
+truct firmware *fw,
+>  	const struct elf32_phdr *phdrs;
+>  	const struct elf32_phdr *phdr;
+>  	const struct elf32_hdr *ehdr;
+> +	void __iomem *mapped =3D NULL;
+>  	phys_addr_t mem_reloc;
+>  	phys_addr_t min_addr =3D PHYS_ADDR_MAX;
+>  	ssize_t offset;
+> @@ -350,12 +352,22 @@ int qcom_mdt_load_no_init(struct device *dev, const=
+ struct firmware *fw,
+>  	int ret =3D 0;
+>  	int i;
 > =20
-> -	mem_va =3D memremap(*mem_phys, *mem_size, MEMREMAP_WC);
-> -	if (!mem_va) {
-> -		dev_err(dev, "unable to map memory region %pa size %#zx\n", mem_phys, =
-*mem_size);
-> -		ret =3D -ENOMEM;
-> -		goto err_release_fw;
-> -	}
-> -
-> -	if (core->use_tz)
-> -		ret =3D qcom_mdt_load(dev, mdt, fwname, VENUS_PAS_ID,
-> -				    mem_va, *mem_phys, *mem_size, NULL);
-> -	else
-> +	if (core->use_tz) {
-> +		qcom_pas_context_init(&core->fw.pas_ctx, dev, VENUS_PAS_ID,
-> +				      *mem_phys, *mem_size);
-> +		ret =3D qcom_mdt_pas_load(&core->fw.pas_ctx, mdt, fwname, NULL);
-> +	} else {
-> +		mem_va =3D memremap(*mem_phys, *mem_size, MEMREMAP_WC);
-> +		if (!mem_va) {
-> +			dev_err(dev, "unable to map memory region %pa size %#zx\n",
-> +				mem_phys, *mem_size);
-> +			ret =3D -ENOMEM;
-> +			goto err_release_fw;
+> -	if (!fw || !mem_region || !mem_phys || !mem_size)
+> +	if (!fw || !mem_phys || !mem_size)
+>  		return -EINVAL;
+> =20
+>  	if (!mdt_header_valid(fw))
+>  		return -EINVAL;
+> =20
+> +	if (!mem_region) {
+> +		mapped =3D ioremap_wc(mem_phys, mem_size);
+> +		if (!mapped) {
+> +			dev_err(dev, "unable to map memory region: %pa+%zx\n",
+> +				&mem_phys, mem_size);
+> +			return -ENOMEM;
 > +		}
->  		ret =3D qcom_mdt_load_no_init(dev, mdt, fwname, mem_va,
->  					    *mem_phys, *mem_size, NULL);
-> -
-> -	memunmap(mem_va);
-> +		memunmap(mem_va);
+> +		mem_region =3D (__force void *)mapped;
 > +	}
->  err_release_fw:
->  	release_firmware(mdt);
->  	return ret;
-> @@ -237,7 +238,7 @@ int venus_boot(struct venus_core *core)
->  	core->fw.mem_phys =3D mem_phys;
+> +
+>  	is_split =3D qcom_mdt_bins_are_split(fw);
+>  	ehdr =3D (struct elf32_hdr *)fw->data;
+>  	phdrs =3D (struct elf32_phdr *)(fw->data + ehdr->e_phoff);
+> @@ -434,39 +446,13 @@ int qcom_mdt_load_no_init(struct device *dev, const=
+ struct firmware *fw,
+>  	if (reloc_base)
+>  		*reloc_base =3D mem_reloc;
 > =20
->  	if (core->use_tz)
-> -		ret =3D qcom_pas_auth_and_reset(VENUS_PAS_ID);
-> +		ret =3D qcom_pas_prepare_and_auth_reset(&core->fw.pas_ctx);
->  	else
->  		ret =3D venus_boot_no_tz(core, mem_phys, mem_size);
+> +	if (mapped)
+> +		iounmap(mapped);
+> +
+>  	return ret;
+>  }
+>  EXPORT_SYMBOL_GPL(qcom_mdt_load_no_init);
+[ ... ]
+> @@ -486,21 +472,14 @@ EXPORT_SYMBOL_GPL(qcom_mdt_load);
+>  int qcom_mdt_pas_load(struct qcom_pas_context *ctx, const struct firmwar=
+e *fw,
+>  		      const char *firmware, phys_addr_t *reloc_base)
+>  {
+> -	void __iomem *mem_region;
+>  	int ret;
+> =20
+>  	ret =3D __qcom_mdt_pas_init(ctx->dev, fw, firmware, ctx->pas_id, ctx->m=
+em_phys, ctx);
+>  	if (ret)
+>  		return ret;
+> =20
+> -	mem_region =3D qcom_pas_ctx_map(ctx);
+> -	if (!mem_region)
+> -		return -ENOMEM;
+> -
+> -	ret =3D qcom_mdt_load_no_init(ctx->dev, fw, firmware, (__force void *)m=
+em_region,
+> -				    ctx->mem_phys, ctx->mem_size, reloc_base);
+> -	iounmap(mem_region);
+> -	return ret;
+> +	return qcom_mdt_load_no_init(ctx->dev, fw, firmware, NULL,
+> +				     ctx->mem_phys, ctx->mem_size, reloc_base);
+>  }
+>  EXPORT_SYMBOL_GPL(qcom_mdt_pas_load);
 
 [Severity: Medium]
-As reported by Konrad Dybcio on v1 [1], does this leak the PAS metadata
-buffer stored in core->fw.pas_ctx.ptr?
+Why move the ioremap_wc() mapping from qcom_mdt_pas_load() into
+qcom_mdt_load_no_init() when this patch is only supposed to remove the
+unused qcom_mdt_load()?
 
-Unlike qcom_mdt_load(), which passes a NULL context to
-qcom_pas_init_image() so the metadata buffer is freed immediately,
-qcom_mdt_pas_load() passes &core->fw.pas_ctx and retains the metadata
-allocation in core->fw.pas_ctx.ptr until qcom_pas_metadata_release() is
-called.  Because qcom_pas_metadata_release(&core->fw.pas_ctx) is never
-called after qcom_pas_prepare_and_auth_reset() or on error in
-qcom_mdt_pas_load(), every boot and system error recovery cycle in
-venus_sys_error_handler() -> venus_boot() overwrites core->fw.pas_ctx via
-qcom_pas_context_init() and leaks the buffer.
+qcom_pas_ctx_map() in include/linux/firmware/qcom/qcom_pas.h already
+encapsulates this exact ioremap_wc() and dev_err() sequence for PAS
+callers:
 
-[1] https://lore.kernel.org/r/ce3f58f7-f500-49f8-89cd-611d8e1ac6ac@oss.qual=
-comm.com
+include/linux/firmware/qcom/qcom_pas.h:qcom_pas_ctx_map() {
+	void __iomem *ptr =3D ioremap_wc(ctx->mem_phys, ctx->mem_size);
+
+	if (!ptr)
+		dev_err(ctx->dev, "unable to map memory region: %pa+%zx\n",
+			&ctx->mem_phys, ctx->mem_size);
+	return ptr;
+}
+
+Open-coding it inside qcom_mdt_load_no_init() duplicates qcom_pas_ctx_map()
+and drops the !mem_region -EINVAL check for non-PAS callers (such as
+venus_load_fw(), adsp_load(), and q6v5_wcss_load()), so a caller that
+passes a NULL mem_region after an unchecked mapping failure will silently
+remap the region instead of failing with -EINVAL.  None of these changes to
+qcom_mdt_load_no_init() and qcom_mdt_pas_load() are mentioned in the commit
+message.
 
 --=20
 Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261113185009.1578=
-93-1-mukesh.ojha@oss.qualcomm.com?part=3D5
+93-1-mukesh.ojha@oss.qualcomm.com?part=3D8
