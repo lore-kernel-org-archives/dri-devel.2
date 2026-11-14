@@ -2,86 +2,82 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C5510606A323
-	for <dri-devel@archiver.kernel.org>; Sat, 14 Nov 2026 16:25:48 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AB264606A327
+	for <dri-devel@archiver.kernel.org>; Sat, 14 Nov 2026 16:25:49 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=nEhowwg0
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=UeGeggtV
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id C3AD610F042;
-	Sat, 14 Nov 2026 16:25:20 +0000 (UTC)
-Received: from mail-dy1-f180.google.com (mail-dy1-f180.google.com
- [74.125.82.180])
- by gabe.freedesktop.org (Postfix) with ESMTPS id A1FD310E5B4
- for <dri-devel@lists.freedesktop.org>; Sat, 14 Nov 2026 08:19:18 +0000 (UTC)
-Received: by mail-dy1-f180.google.com with SMTP id
- 5a478bee46e88-36ca32a0faeso191983eec.1
- for <dri-devel@lists.freedesktop.org>; Sat, 14 Nov 2026 00:19:18 -0800 (PST)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 1A55810F043;
+	Sat, 14 Nov 2026 16:25:21 +0000 (UTC)
+Received: from mail-ej1-f47.google.com (mail-ej1-f47.google.com
+ [209.85.218.47])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 4158C10E665
+ for <dri-devel@lists.freedesktop.org>; Sat, 14 Nov 2026 01:44:06 +0000 (UTC)
+Received: by mail-ej1-f47.google.com with SMTP id
+ a640c23a62f3a-c5083bc0e28so314849866b.0
+ for <dri-devel@lists.freedesktop.org>; Fri, 13 Nov 2026 17:44:06 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20260707; t=1794644358; x=1795249158; darn=lists.freedesktop.org;
+ d=gmail.com; s=20260707; t=1794620644; x=1795225444; darn=lists.freedesktop.org;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:from:to:cc:subject:date
  :message-id:reply-to:content-type;
- bh=F88s34t6HgwaWc7KrjRKtNSJ/J1MLEeihPOI9axIS0Y=;
- b=nEhowwg079G7waQRc7yCFvyJWMGX3DgVdzCoo6lYVtCs1hZlYl30eueHAwuXhWAuvE
- nF3ZSnkq3vqx1TauDJvjr6ty2mh0Rm8gAAgLAiWRYR5+ZknidvbEykJwFHz/Cdcv9WhQ
- 4Bq0gMhqoi14WBG1zxQV+n9obq4faVJonRLcVJsv2VpYZuKaauKP6gtajgJzDnEF0Tph
- LACBzVHcbeOdzBSD+kg5BuJF7cvgRjzbwFPqQvwBOpOyQi8zTsMJcVm156VaG6Jxbicz
- LXvsybIp+enmUIBIgd/0coYBmcFJOhORnVWZbkJA4ivTmHHLw+dAS7zBbmNAdHzCPqA1
- KK0A==
+ bh=VhzDk/0P7t86MVcw1NLuypzKVGHVFOfLDCe4I/LxAp8=;
+ b=UeGeggtVAjDTXN7azPpByWLzSwA0+rjoHpvbPjgt59WVjgjOowv7CYrCaL5V42h4If
+ F3koh+yAELG/44SmHlLX0GidnQdF1JhImOEDCnR1IUStQmh4H8OftlhIxNJWZz6PNdMS
+ I7ag4f3Xwxc4lFqPBOiyDe8eE1TauUgjYfsQXPTMmAZMfa1fHC66zn6/iilvCV2wyfss
+ bjnKdxl69yqp/TmBG45s+zc/nOHdQH6rBLonXW+MZwN+6AZ5U1AmM6/DKO6GkW0egDHn
+ dVmYCElxZuPN3qmC5wMR+h2Ho10MH50Qjdsr3ndx8NULpQ04aME+GAZL6jMxdSS68Znu
+ WeqA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20260707; t=1794644358; x=1795249158;
+ d=1e100.net; s=20260707; t=1794620644; x=1795225444;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
  :to:cc:subject:date:message-id:reply-to:content-type;
- bh=F88s34t6HgwaWc7KrjRKtNSJ/J1MLEeihPOI9axIS0Y=;
- b=FpFXAR3Zd6gSMGd8T4qtUAr5lyNaSfHkELb+M8Wc8cBAOH+hyCGCFBCckCn87GmowE
- NGoSk+BUUQf1UJPIaYLH3jEqN5BMFYzwSZ3Jxalncsxc8B1p1Qf5mjJtofdUqWpx1vAC
- uGmxXtECHr2yjruIf1ugLQrPkvUSWZ3Uj4GABwdkSZHLp7HsYyfVdjatGjFvUkpeDij4
- BY9fswklhmZeDWNqGEupEJqjWeT5jfmrQIDOJzOmK+B70iSNUFiaKs1lHfMLHRrYpxDL
- PyNkUiefNTLyucNjQWSYFtuZqhjAZCRV481kHPFmC+4JgGQA3dBlOKAHP4m3srsrg6HQ
- TD+A==
+ bh=VhzDk/0P7t86MVcw1NLuypzKVGHVFOfLDCe4I/LxAp8=;
+ b=DclpiHaDj4vJa78pwQV2eBxkEHfF+Ji6gNOOxqNa3L8F/C40z7N5Z1icL5wTzr8tFx
+ rUoSyd3VhePgkLsoCh5ZG7+Ml/c7jRBiySqe1k7N7HkmhUAWJAs/natXMIDTbgfXQh5l
+ Ji7C3uqGE07UQXHV3yDVJuAhG/eGt7J7Oni5EqqtzcbAPM+JM/nkOmolWOnCuvTHSbjq
+ c2ZNfceRbjXLhfP0kfiecqKsGD809GNck2QCkP5sbYtnwqgm9lCWVW0MN6ES9xWXk2NQ
+ lEPzAPQpLmanWNJyynSiI5rlXMoD1qGCJji5039HBn/+g+mASGGIvkySzdtp4TPGJ4m4
+ LEpg==
 X-Forwarded-Encrypted: i=1;
- AL+hErG7a7PrYhMEsxLiCDtvM5+1qzkmIF631SoFYE4BGvJe57ft9uoP+yfnJg7/MBsXx+DJaWXBB5vp0Z8=@lists.freedesktop.org
-X-Gm-Message-State: APuU4Z9Wc+6oPhlehpu7GNRr5640kZF+aR3A8PjFcMPm2l3hyyUKKub7
- QGIJpRuPVKwRKixU8sG0dMc3j/6I6eh/mV5yCew23hyTOu2keGt7vgik
-X-Gm-Gg: AYBFou0S6DWGyFN7E/0+roD9LVzusXhsb7GJ803jQtCQCOHAZBOld52ak30HonLF1j3
- We0wvAKBF9bMR+MPld4aD7M05daqRMbE1WVRzCYSnZY6LeK7qkTcrL8NCgcHGVMhx/VgulCVz8j
- b13dL0lfz5zH9modSQugMn9yr8VPmWoPSWRlT6TaPh20g0gEh4nIVfWyRrCJauTIXLy8FH55JpY
- FKcdP9T/jz2AZRthXAw0EPy+5jI7JPBHYoGlHPXGCgdBJJ78YROVhKpGSOHNN+5EKdTDjsx/Ujf
- inPUClbl4dPY0930lQbDQw4dPAiOMs39k12G0tjs7QBMmZiHTivdMQ49+2B9b4Dw2vbxlSxdSEv
- U5871ofBViNh8ZpwdIvrknRWJ4bOGUi85cUTTXozUSmuOsRPX4AEHwBMnJIcM3Qb0WEQnXLTuTK
- AQR6D/kRSLoso3oltodVbmWCFRsqk76vNwYZ9OzqLYHsGanMWsL29kPfRfjuQFzDByXp6xYqfYL
- suoGAh2rfea16Px11tl2xNnq0pCNkV6YSU5BAskDUA4hPxYFYYTJ98bQISA6+d7hd2Jrh0GncxE
- oHmUv/C7MB9jwtIDQir9ZSzpwJh9ZmraVClh4hgfcLSA0uqVJ0fg8Hw5f2cfiFlK6w4POHdZ2Xn
- PTgA=
-X-Received: by 2002:a05:7301:a0a:b0:36c:a1bc:6114 with SMTP id
- 5a478bee46e88-3796038259fmr6915918eec.0.1794644357643; 
- Sat, 14 Nov 2026 00:19:17 -0800 (PST)
-Received: from DESKTOP-CJ1L666.localdomain ([211.198.99.62])
+ AL+hErE32VJj4uk/cSUdWTo7wL/jkMNq1dny3ACPgkOgH0eVL6/CGMII3hwyTdQBmSg5zrTC41MXvTrhoNU=@lists.freedesktop.org
+X-Gm-Message-State: APuU4Z9tI73f1itsg9lM0j2eeWV/ipNRxkicmJbqpiDZy80/h9D4RvK2
+ yBsqJU0OuL5JBUjVvsJezQig8L8m1ftrqIi3Y/N2VA9D5vegb62+bYWu
+X-Gm-Gg: AYBFou1D4kUrzb5og70yBx85nju/I+nQnxuP3W6j03zWzz+L3svqiWfZohImLniigp9
+ 3ROk8ckGrhPQymMovSTzYbJUfFUrLEbormsHjr86ceNUXWygWOQO3TxBdnXm+Ex4TXgHuEkmUVe
+ zMKqRF5yjk/cPE3K8JUf14xgHwNPIQk+H3RUBf3WBitTYIx+hR3LUnPsC2n7gj//Pl66TVbVNMg
+ mVeJk/Q18WcPAWy1I5zr1q40HlD1Fg3ZB5gwHO/n5NgdMVpyFP9xbqmna2qTM30W7/Ldhs2oGk9
+ /nZqWLekKz9ufWwf11C4dc+OiYVk6d9qQPQKCK74WNsJwCu4dQLF9YK8lHitbc8c8H4UxIvDcb3
+ D1m+QjnUCwpyujjUkS3heHmaDvVP1eZU1T+Uk+DwIAkmgecPwbzCWa01Plr2+mJH7PELxsSfhoq
+ 7JZk9ncN3SlKbXvuPSjiA9oTSaswGG82CqX9I4x+kCtuVt7vFydW0AoAtZSr5VOZ4/LSi/7JGFe
+ B0ZDYpANqVEKhXLHL/YV/1TgLuHe0cqPfRsAWhqiMlzSXr/PfOa+vqBpXCfhij2PpgLB2doBAEY
+ kqpQu4ay4wvHch3JTjcwnHpiZcJiBlumIbc6lU42LxGHNRyi5apG3bkbKDgwX3NvxXrMDJNuSfJ
+ wy+xgavxj8iy6prcdF4iRqww=
+X-Received: by 2002:a17:907:3e07:b0:c4d:4d5b:849b with SMTP id
+ a640c23a62f3a-c50963408demr386393866b.19.1794620644542; 
+ Fri, 13 Nov 2026 17:44:04 -0800 (PST)
+Received: from SMOK.angora-ide.ts.net
+ (mm-156-219-126-178.vitebsk.dynamic.pppoe.byfly.by. [178.126.219.156])
  by smtp.gmail.com with ESMTPSA id
- 5a478bee46e88-3795378d7e5sm14008333eec.3.2026.11.14.00.19.13
+ a640c23a62f3a-c5095b5a4c1sm161402666b.48.2026.11.13.17.44.03
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Sat, 14 Nov 2026 00:19:17 -0800 (PST)
-From: Jiwoo Kim <arpe1618@gmail.com>
-To: Rob Clark <robin.clark@oss.qualcomm.com>,
- Dmitry Baryshkov <lumag@kernel.org>
-Cc: Akhil P Oommen <akhilpo@oss.qualcomm.com>,
- Konrad Dybcio <konradybcio@kernel.org>,
- Antonino Maniscalco <antomani103@gmail.com>,
- Abhinav Kumar <abhinav.kumar@linux.dev>,
- Jessica Zhang <jesszhan0024@gmail.com>, Sean Paul <sean@poorly.run>,
- Marijn Suijten <marijn.suijten@somainline.org>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org,
- freedreno@lists.freedesktop.org, linux-kernel@vger.kernel.org,
- stable@vger.kernel.org
-Subject: [PATCH v2 1/3] drm/msm: Release the pins and ops of a VM_BIND job
- that never ran
-Date: Sat, 14 Nov 2026 17:19:00 +0900
-Message-ID: <20261114081902.1669-2-arpe1618@gmail.com>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <20261114081902.1669-1-arpe1618@gmail.com>
-References: <20261114081902.1669-1-arpe1618@gmail.com>
+ Fri, 13 Nov 2026 17:44:04 -0800 (PST)
+From: ElXreno <elxreno@gmail.com>
+To: intel-gfx@lists.freedesktop.org,
+	intel-xe@lists.freedesktop.org
+Cc: jani.nikula@linux.intel.com, rodrigo.vivi@intel.com,
+ joonas.lahtinen@linux.intel.com, tursulin@ursulin.net,
+ ville.syrjala@linux.intel.com, ankit.k.nautiyal@intel.com,
+ mitulkumar.ajitkumar.golani@intel.com, airlied@gmail.com, simona@ffwll.ch,
+ dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
+ ElXreno <elxreno@gmail.com>
+Subject: [PATCH 7/7] drm/i915/vrr: Allow VRR with the pipe joiner
+Date: Sat, 14 Nov 2026 04:43:35 +0300
+Message-ID: <20261114014335.2132756-8-elxreno@gmail.com>
+X-Mailer: git-send-email 2.56.0
+In-Reply-To: <20261114014335.2132756-1-elxreno@gmail.com>
+References: <20261114014335.2132756-1-elxreno@gmail.com>
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
@@ -105,160 +101,170 @@ X-Spam-Status: No, score=-15.8 required=3.0 tests=BAYES_00,DKIM_SIGNED,
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-msm_vma_job_run() applies the pgtable updates that vm_bind_job_prepare()
-queued for a VM_BIND job, drops the GEM object references that
-vm_op_enqueue() took for them, and unpins the BOs of the job. A job can
-also be freed without having run: when its entity is killed, e.g. on
-SIGKILL while the process exits, and when msm_ioctl_vm_bind() fails
-part-way through vm_bind_job_prepare() or after it. msm_vma_job_free()
-then frees the queued ops without applying them and without dropping
-their references, and a killed job also keeps its BOs pinned. Besides
-the leaks, the VM no longer matches its pgtables: for example, the
-pages of a VMA that was unmapped from the VM are still mapped.
+VRR has been limited to the fixed refresh rate timing generator with
+the joiner, as the transcoder level VRR operations were not sequenced
+against the pipe level updates of the joined pipes. That keeps VRR
+away from every mode that needs the joiner, such as 3840x2400@240 on
+the eDP panels of current 18" laptops.
 
-In msm_vma_job_free(), apply the queued updates the way
-msm_vma_job_run() does on error: skip the maps, but apply the unmaps,
-so that their references can be dropped without freeing pages that are
-still mapped, and mark the VM unusable. Move that part of
-msm_vma_job_run() into a helper for this. Also clear bos_pinned once
-msm_vma_job_run() has unpinned the BOs, as msm_job_run() does for
-submits, and unpin the BOs of a job that still has them pinned. The
-job's fence does not keep them busy anymore at that point, so take the
-object lock to unpin them.
+The transcoder is now programmed only by the joiner primary, and on
+the MMIO path all joined pipes are armed inside one vblank evasion
+critical section, with the push sent at its end. Take that path for
+VRR with the joiner and let VRR through.
 
-This also marks the VM unusable when msm_ioctl_vm_bind() fails after
-vm_bind_job_prepare() has queued updates, i.e. when the first op fails
-part-way or when sync_file_create() fails. The VM is then left
-partially updated, as when a later op fails.
+A commit whose new state has VRR enabled with the joiner does not use
+the DSB. The push must not be sent before every joined pipe has been
+armed, but each pipe runs its own DSB and nothing orders them against
+each other. Leaving the push to the DSB of the primary, on the
+grounds that it is committed last, is not enough. The secondary's DSB
+waits for the safe window after it has armed (DSB_OPCODE_WAIT_VBLANKS
+with the safe window chicken bits, then the wait in
+intel_dsb_wait_for_delayed_vblank()). When the primary's push ends
+the safe window before the secondary's DSB gets there, that DSB waits
+for the safe window of the next frame, and it is still busy when
+intel_dsb_wait() gives it 1 ms after the flip of the primary has
+completed:
 
-The patch and its changelog were drafted with an AI coding assistant.
-The issue has not been reproduced, and the change has only been
-compile-tested.
+ [CRTC:271:pipe B] DSB 0 timed out waiting for idle (current head=0x100, head=0x0, tail=0x140)
 
-Fixes: 2e6a8a1fe2b2 ("drm/msm: Add VM_BIND ioctl")
-Cc: stable@vger.kernel.org
-Reported-by: Sashiko <sashiko-bot@kernel.org>
-Closes: https://lore.kernel.org/r/sashiko-outbox-214234@kernel.org
-Signed-off-by: Jiwoo Kim <arpe1618@gmail.com>
+That is what a port which only skips the push on the secondaries
+gives, 13 times in 27 minutes of desktop use on Arrow Lake. The DSB
+of a secondary can't check on the push either: commit c3571a239e10
+("drm/i915/vrr: Check that the push send bit is clear after delayed
+vblank") notes that reading TRANS_PUSH from it ends in a DSB response
+timeout.
+
+The LUT load has the same ordering problem: a colour DSB either sends
+the push itself or has to be ordered against the push that the CPU
+sends, on each pipe. So no colour DSB is prepared for such a commit
+either, and the LUTs are loaded the way they are without one: ahead
+of the commit when they can be preloaded, by the vblank worker after
+it otherwise, in which case the commit takes the per pipe critical
+sections, or with MMIO inside the critical section on the platforms
+with double buffered LUTs. The commit that turns VRR off has no VRR
+push to order and keeps its colour DSBs, which are then started from
+inside the joined critical section.
+
+One thing changes for joined modes even while VRR is off, as it
+follows vrr.in_range: the sink is told to ignore the MSA timing
+parameters during link training, as for any other mode within the
+VRR range.
+
+intel_vrr_compute_config() does not ask for LRR with the joiner, and
+DC balance is kept off, each with a FIXME. The vblank delay fastset
+that reuses the LRR code is not touched: where it applies (inherited
+state, or the always on VRR timing generator) it still writes the
+transcoder timings from every joined pipe, with identical values.
+
+Signed-off-by: ElXreno <elxreno@gmail.com>
 ---
-At commit 2e6a8a1fe2b2, msm_vma_job_run() still unpinned the BOs under
-the object lock, and msm_gem_vm_unusable() did not exist yet, so older
-stable trees need an adapted backport.
+ drivers/gpu/drm/i915/display/intel_color.c   |  4 +++
+ drivers/gpu/drm/i915/display/intel_display.c |  4 +++
+ drivers/gpu/drm/i915/display/intel_vrr.c     | 31 ++++++++++++--------
+ drivers/gpu/drm/i915/display/intel_vrr.h     |  1 +
+ 4 files changed, 28 insertions(+), 12 deletions(-)
 
- drivers/gpu/drm/msm/msm_gem_vma.c | 65 +++++++++++++++++++++++--------
- 1 file changed, 49 insertions(+), 16 deletions(-)
-
-diff --git a/drivers/gpu/drm/msm/msm_gem_vma.c b/drivers/gpu/drm/msm/msm_gem_vma.c
-index 8b702422030a..a6f106d0cdef 100644
---- a/drivers/gpu/drm/msm/msm_gem_vma.c
-+++ b/drivers/gpu/drm/msm/msm_gem_vma.c
-@@ -700,16 +700,16 @@ static const struct drm_gpuvm_ops msm_gpuvm_ops = {
- 	.sm_step_unmap = msm_gem_vm_sm_step_unmap,
- };
+diff --git a/drivers/gpu/drm/i915/display/intel_color.c b/drivers/gpu/drm/i915/display/intel_color.c
+index 4070dc8d97d9..08d1c999637e 100644
+--- a/drivers/gpu/drm/i915/display/intel_color.c
++++ b/drivers/gpu/drm/i915/display/intel_color.c
+@@ -2023,6 +2023,10 @@ void intel_color_prepare_commit(struct intel_atomic_state *state,
+ 	if (!crtc_state->pre_csc_lut && !crtc_state->post_csc_lut)
+ 		return;
  
--static struct dma_fence *
--msm_vma_job_run(struct drm_sched_job *_job)
-+/*
-+ * Apply the pgtable updates queued for a job, and drop the references that
-+ * the ops hold.  If ret is an error, or one occurs, the remaining maps are
-+ * skipped, but the unmaps are still applied, as the pages they unmap must
-+ * not be freed while they are still mapped.
-+ */
-+static int
-+vm_bind_job_apply_ops(struct msm_vm_bind_job *job, int ret)
- {
--	struct msm_vm_bind_job *job = to_msm_vm_bind_job(_job);
--	struct drm_device *dev = job->vm->drm;
- 	struct msm_gem_vm *vm = to_msm_vm(job->vm);
--	struct drm_gem_object *obj;
--	int ret = vm->unusable ? -EINVAL : 0;
++	/* TODO sequence the LUT load vs. the VRR push for joined pipes via DSB */
++	if (intel_vrr_needs_mmio_commit(crtc_state))
++		return;
++
+ 	if (HAS_DOUBLE_BUFFERED_LUT(display))
+ 		crtc_state->dsb_color = intel_dsb_prepare(state, crtc, INTEL_DSB_0, 1024);
+ 	else
+diff --git a/drivers/gpu/drm/i915/display/intel_display.c b/drivers/gpu/drm/i915/display/intel_display.c
+index 1fda1bb15674..8f30337c8967 100644
+--- a/drivers/gpu/drm/i915/display/intel_display.c
++++ b/drivers/gpu/drm/i915/display/intel_display.c
+@@ -7681,6 +7681,10 @@ intel_atomic_commit_type(struct intel_atomic_state *state,
+ 	if (new_crtc_state->do_async_flip)
+ 		return INTEL_COMMIT_MMIO;
+ 
++	/* TODO sequence the VRR push for joined pipes via DSB */
++	if (intel_vrr_needs_mmio_commit(new_crtc_state))
++		return INTEL_COMMIT_MMIO;
++
+ 	/* TODO handle VRR with flip queue */
+ 	if (intel_flipq_supported(display) &&
+ 	    !new_crtc_state->vrr.enable &&
+diff --git a/drivers/gpu/drm/i915/display/intel_vrr.c b/drivers/gpu/drm/i915/display/intel_vrr.c
+index 668c495e7407..6543c140e2b5 100644
+--- a/drivers/gpu/drm/i915/display/intel_vrr.c
++++ b/drivers/gpu/drm/i915/display/intel_vrr.c
+@@ -450,6 +450,10 @@ intel_vrr_dc_balance_compute_config(struct intel_crtc_state *crtc_state)
+ 	    !crtc_state->vrr.enable || !display->params.enable_dc_balance)
+ 		return;
+ 
++	/* FIXME figure out DC balance with joined pipes */
++	if (crtc_state->joiner_pipes)
++		return;
++
+ 	crtc_state->vrr.dc_balance.vmax = crtc_state->vrr.vmax;
+ 	crtc_state->vrr.dc_balance.vmin = crtc_state->vrr.vmin;
+ 	crtc_state->vrr.dc_balance.max_increase =
+@@ -495,21 +499,11 @@ intel_vrr_compute_config(struct intel_crtc_state *crtc_state,
+ 	crtc_state->vrr.in_range =
+ 		intel_vrr_is_in_range(connector, drm_mode_vrefresh(adjusted_mode));
+ 
+-	/*
+-	 * Allow fixed refresh rate with VRR Timing Generator.
+-	 * For now set the vrr.in_range to 0, to allow fixed_rr but skip actual
+-	 * VRR and LRR.
+-	 * #TODO For actual VRR with joiner, we need to figure out how to
+-	 * correctly sequence transcoder level stuff vs. pipe level stuff
+-	 * in the commit.
+-	 */
+-	if (crtc_state->joiner_pipes)
+-		crtc_state->vrr.in_range = false;
 -
--	vm_dbg("");
+ 	vmin = intel_vrr_compute_vmin(crtc_state);
  
- 	mutex_lock(&vm->mmu_lock);
- 	vm->mmu->prealloc = &job->prealloc;
-@@ -740,6 +740,22 @@ msm_vma_job_run(struct drm_sched_job *_job)
- 	vm->mmu->prealloc = NULL;
- 	mutex_unlock(&vm->mmu_lock);
+ 	if (crtc_state->vrr.in_range) {
+-		if (HAS_LRR(display))
++		/* FIXME sequence the LRR timing update for joined pipes */
++		if (HAS_LRR(display) && !crtc_state->joiner_pipes)
+ 			crtc_state->update_lrr = true;
+ 		vmax = intel_vrr_compute_vmax(connector, adjusted_mode);
+ 	} else {
+@@ -832,6 +826,19 @@ void intel_vrr_check_push_sent(struct intel_dsb *dsb,
+ 	}
+ }
  
-+	return ret;
++/*
++ * A VRR push latches all joined pipes at once, so it may be sent only
++ * after every one of them has been armed. Each pipe runs its own DSB
++ * and nothing orders the DSBs of the joined pipes against each other,
++ * so they can't sequence that between themselves. Such commits take
++ * the MMIO path, where the joined pipes are armed inside one vblank
++ * evasion critical section.
++ */
++bool intel_vrr_needs_mmio_commit(const struct intel_crtc_state *crtc_state)
++{
++	return crtc_state->vrr.enable && crtc_state->joiner_pipes;
 +}
 +
-+static struct dma_fence *
-+msm_vma_job_run(struct drm_sched_job *_job)
-+{
-+	struct msm_vm_bind_job *job = to_msm_vm_bind_job(_job);
-+	struct drm_device *dev = job->vm->drm;
-+	struct msm_gem_vm *vm = to_msm_vm(job->vm);
-+	struct drm_gem_object *obj;
-+	int ret;
-+
-+	vm_dbg("");
-+
-+	ret = vm_bind_job_apply_ops(job, vm->unusable ? -EINVAL : 0);
-+
- 	/*
- 	 * We failed to perform at least _some_ of the pgtable updates, so
- 	 * now the VM is in an undefined state.  Game over!
-@@ -753,6 +769,8 @@ msm_vma_job_run(struct drm_sched_job *_job)
- 		msm_gem_unpin_active(obj);
- 	}
- 
-+	job->bos_pinned = false;
-+
- 	mutex_unlock(&dev->gem_lru_mutex);
- 
- 	/* VM_BIND ops are synchronous, so no fence to wait on: */
-@@ -766,26 +784,41 @@ msm_vma_job_free(struct drm_sched_job *_job)
- 	struct msm_gem_vm *vm = to_msm_vm(job->vm);
- 	struct drm_gem_object *obj;
- 
-+	/*
-+	 * In error paths, and if the job was killed before it ran, we could
-+	 * have unexecuted ops.  Their changes were already made to the VM, so
-+	 * apply the unmaps, and give up on the VM.
-+	 */
-+	if (!list_empty(&job->vm_ops)) {
-+		vm_bind_job_apply_ops(job, -ECANCELED);
-+		msm_gem_vm_unusable(job->vm);
-+	}
-+
- 	vm->mmu->funcs->prealloc_cleanup(vm->mmu, &job->prealloc);
- 
- 	atomic_sub(job->prealloc.count, &vm->prealloc_throttle.in_flight);
- 
- 	drm_sched_job_cleanup(_job);
- 
-+	/*
-+	 * A job that was killed before it ran still has its BOs pinned.  The
-+	 * job's fence does not keep them busy anymore, so take the object lock
-+	 * to unpin them.
-+	 */
-+	if (job->bos_pinned) {
-+		job_foreach_bo(obj, job) {
-+			msm_gem_lock(obj);
-+			msm_gem_unpin_locked(obj);
-+			msm_gem_unlock(obj);
-+		}
-+	}
-+
- 	job_foreach_bo (obj, job)
- 		drm_gem_object_put(obj);
- 
- 	msm_submitqueue_put(job->queue);
- 	dma_fence_put(job->fence);
- 
--	/* In error paths, we could have unexecuted ops: */
--	while (!list_empty(&job->vm_ops)) {
--		struct msm_vm_op *op =
--			list_first_entry(&job->vm_ops, struct msm_vm_op, node);
--		list_del(&op->node);
--		kfree(op);
--	}
--
- 	wake_up(&vm->prealloc_throttle.wait);
- 
- 	kfree(job);
+ bool intel_vrr_is_push_sent(const struct intel_crtc_state *crtc_state)
+ {
+ 	struct intel_display *display = to_intel_display(crtc_state);
+diff --git a/drivers/gpu/drm/i915/display/intel_vrr.h b/drivers/gpu/drm/i915/display/intel_vrr.h
+index 19c7990be1b2..a72ffba47a80 100644
+--- a/drivers/gpu/drm/i915/display/intel_vrr.h
++++ b/drivers/gpu/drm/i915/display/intel_vrr.h
+@@ -32,6 +32,7 @@ void intel_vrr_check_push_sent(struct intel_dsb *dsb,
+ 			       const struct intel_crtc_state *crtc_state);
+ void intel_vrr_dcb_increment_flip_count(struct intel_crtc_state *crtc_state,
+ 					struct intel_crtc *crtc);
++bool intel_vrr_needs_mmio_commit(const struct intel_crtc_state *crtc_state);
+ bool intel_vrr_is_push_sent(const struct intel_crtc_state *crtc_state);
+ void intel_vrr_disable(const struct intel_crtc_state *old_crtc_state);
+ void intel_vrr_psr_frame_change_enable(const struct intel_crtc_state *crtc_state);
 -- 
-2.43.0
+2.56.0
 
