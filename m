@@ -2,82 +2,76 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C3523606A323
-	for <dri-devel@archiver.kernel.org>; Sat, 14 Nov 2026 12:54:59 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2D8DF606A32D
+	for <dri-devel@archiver.kernel.org>; Sat, 14 Nov 2026 13:58:01 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=furiosa.ai header.i=@furiosa.ai header.a=rsa-sha256 header.s=google header.b=DMb4oLpJ
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=yh/6GoTj
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 1868010E86D;
-	Sat, 14 Nov 2026 12:54:54 +0000 (UTC)
-Received: from mail-dl1-f43.google.com (mail-dl1-f43.google.com [74.125.82.43])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 98B9F10E86D
- for <dri-devel@lists.freedesktop.org>; Sat, 14 Nov 2026 12:54:47 +0000 (UTC)
-Received: by mail-dl1-f43.google.com with SMTP id
- a92af1059eb24-1a8cc11ac42so1756511c88.0
- for <dri-devel@lists.freedesktop.org>; Sat, 14 Nov 2026 04:54:47 -0800 (PST)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 7EFEE10E115;
+	Sat, 14 Nov 2026 13:57:55 +0000 (UTC)
+Received: from mail-ed1-f42.google.com (mail-ed1-f42.google.com
+ [209.85.208.42])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 0514910E115
+ for <dri-devel@lists.freedesktop.org>; Sat, 14 Nov 2026 13:57:50 +0000 (UTC)
+Received: by mail-ed1-f42.google.com with SMTP id
+ 4fb4d7f45d1cf-6b596569640so4236318a12.1
+ for <dri-devel@lists.freedesktop.org>; Sat, 14 Nov 2026 05:57:49 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=furiosa.ai; s=google; t=1794660887; x=1795265687; darn=lists.freedesktop.org;
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:date:subject:cc:to:from:from:to:cc:subject:date
- :message-id:reply-to:content-type;
- bh=kzZ572SYqNYS7AFbKEhSpyO0POmges/XmCJlcN/iV2Y=;
- b=DMb4oLpJxbk5tXIcEk8yF1eFbZV1jaTb/QzY9pzEcfuNtIEdjL8YIJ4POzFAbl+cb/
- EWkFUbTTiQAOY9rxhKsd6A7KkJ1f3dbbd4lT7peoh0gaRggJASZSwixt0FfHN5T8XTY3
- g9Dy8gu0zSFKsNJ28lqNrhLeGl3yONPYHgeJ4=
+ d=gmail.com; s=20260707; t=1794664668; x=1795269468; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+ bh=I1BkrDs+HovYsgHM3nZ2gQpbCc0PGvvE+im9VACCnKE=;
+ b=yh/6GoTjIFewUbd55bGTZwr5D0VdVGXLaBhwD5J4nZa8X/3sYDWev6JK23e9O7b920
+ f+uUr8COX39o0AveUrWNE60iXJ0W+NRhY/TqJhwZ65VpwsWfeP5PIt0qdk1V9ozLF+SM
+ OmQSP6bMhv13p0PZMn+JllXB19spHlywptr4/W46zYf581Z2eQ7DTWPLsQUqUR3r70CT
+ bh5wpxEBSNTEh+YLOjJGhir2L4p23u1wBfIdiFoHNcMLYVOJhRwN2v4lDclFrMgBUzOd
+ xLeuI79Oz4XvcEaoC50Q9WXh/9AV1/jyJCA/5+98q34WBQoGoWPCnv+sCvkS+csQ2uTC
+ iTbg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20260707; t=1794660887; x=1795265687;
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
- :to:cc:subject:date:message-id:reply-to:content-type;
- bh=kzZ572SYqNYS7AFbKEhSpyO0POmges/XmCJlcN/iV2Y=;
- b=Y9dCLDtklQa8yinA8nM/0c/cG0+9tBwjXL1yxiY6Vbu1iLwa+erTtbQGyuPitwEPs/
- e/ol3aqcV/nlWalNTu9QDHg+3vfBfkhVk2ccuORQ4SyNFy13YCylfcmmi+oQlKrVIFM6
- YBeyzch8M4uykUALOc1KP8EuH9EnbbaelohHq0kLY1z4hlgIqo4dHqN4UG8aOEnaVcdB
- bhwHm/P414dE/bcuc42UOTlmIBXyD1t24i8kH6MWwJM7+/9PRSpWojAc05HjThTsHd21
- FMmvZa8Gxmc6XG3KQtyrNqRoSHfUjW3CShYxRz5UCzhtdwtocnDMGWPOfGj+PvIuiWji
- lG+A==
-X-Forwarded-Encrypted: i=1;
- AL+hErGTPo1bpev1ZSJe4cbT8NKyuiVPeg8OKeFFKGWcUFIne8eTvT2Mdrnd4yIbtLuwB75l/A/bcslopdQ=@lists.freedesktop.org
-X-Gm-Message-State: APuU4Z+2wnNyojU44OsCsgdcLZbPBxOxjDnAP7EW3cC/2QrkaduGCpAm
- ci3mq4E55FA2V5EoGJEummMk9shFvZdBmln2fS+vmoYm6HsYCSxxsg6DC2+OzSkyvTw=
-X-Gm-Gg: AYBFou2i4N5vM3xBtOTNE5U0elTuQ/uE19i78FH+SnDOe8XV62bUXsI/xhY701Mi4Xy
- j7u1z9lkf/JGeTgDWFml505nsbDvhKXJJlrd1/eppkbmFQ8xaQaNwcsqcHYz7xeu/UbbNfjzWUp
- Y67d0ynZdB9IqBr3ezXnbzgnNk3cgdR54m38zRdafBkDu6Rt0E4nbH4UOBQP0yhYX99T+ynRPse
- Y4RlsykSBD2B2CPxei1VSJs8Pq0NxVthA06AqKt2Z0i9MvZ7egm5JGYrrtm3B7iKqaOUSzLtRQ8
- 14iZtmPPG9CJ+UUiA1I0cXWSX1yoYOX58BT1RB1cKGucQNL3s1rU34yHOXMf6vfJL5l5WQmj6Q+
- qNJNPHLI/jQCm0OJH8pK0DEUpE7GnqwNSsSOANPAEeXl+afzAtIkNopMchqyLj302ciZk0UTVba
- TriaUwcHGyr2iMfTzCiAcPSQvwOBdbtWUSdmBuw4hthwztphkEYMZZpmFhtg+jjOaR0RXIXcQCr
- QsXnvIrznWgul0dC8J8V34TV1AOTilgq63HaZdr+ORWzB9YGRNeYMhZtKOU00gKSwnj9+BmAuTV
- gABpmpOD13RMoUBKcBHT/4QPuLdktjDFfaKpNSKA5J9Fgjil0AA8N84WaHcDo96X4EVpGRWyAU7
- LhzpAA5YF3EB3
-X-Received: by 2002:a05:701b:2706:b0:1b2:4c54:d976 with SMTP id
- a92af1059eb24-1b50311d3e0mr5111198c88.31.1794660886535; 
- Sat, 14 Nov 2026 04:54:46 -0800 (PST)
-Received: from rock-5b-plus ([61.83.209.48]) by smtp.gmail.com with ESMTPSA id
- a92af1059eb24-1b50319e381sm15468097c88.12.2026.11.14.04.54.41
+ d=1e100.net; s=20260707; t=1794664668; x=1795269468;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+ :message-id:reply-to:content-type;
+ bh=I1BkrDs+HovYsgHM3nZ2gQpbCc0PGvvE+im9VACCnKE=;
+ b=Ib0FAJQSdhvFhQuZWOJNPkrdb9HVHwrKp7lJk2reRZlzSRgsOIY59MkPP57qrQKQcu
+ fIqxe2CD8AhwkgU0fmBRhIKC6y2X+YqpwSYu4nQJJMMVbcmGI9GyyGbPygftLD6/P184
+ Y7eAM+ICe7fs897XS1df15+YI8yRt+mmNJS3q0R1y70FLSUFIN+u37nfg2DgJ0rMLYbc
+ LBLbBHR8Rd3o4hod2Fg7R1Q/0Z4VGTFRvk0eVpP8XPf+o5/kmXHJW2vdm0zsPdw+WNx7
+ dKWomoZLM0lKWD1Q4JQid5upukmY/6Y9QjHj9zTEAn/iAW7fC+jqeHrO6id+WP/wcVdV
+ WZqQ==
+X-Gm-Message-State: APuU4Z/7M9Qw5dmXRHJv4xjs4FY6Zhv7NQm1iN1TE/HrtBdkB4vQbb15
+ yZc7k+vc6lV68D8iJydsBzHIVqoeWkINNvNiJDa98i5wABLyM4dY1PZV
+X-Gm-Gg: AYBFou2vcIaoTZE/d375wytCVxHt7aLwCQoPIYuu8J0c63SlmvSCC6RFNBh8n1gyODq
+ PKmTCHK0FYj9fOX+tyVTEEVCxDiu+seg1JJoAreaGdGOxayiWz3LDtcPU8VC2PgkPDHjYxBKA0m
+ i7kRHnx0Uw2QYhyAD7QE5S9Bnm3REsGT5zpYSVVGlP7WH/t6BsUrF+ir6BPEsqJgsSU2ZhVFo4V
+ 8/+BxFTudqLJlLnUkicGteSUrimW4TgNSzMH4TreT82z/nUyQVjBJ5yOwHRLJMDdhLsR7bc1kYv
+ qfiI6JtQBvL+J0ZZpbnt2vr9s7eF/2OagZrtEAlWMIHWOz25ZNb05fxFv11RS00tQwvEOXq52bn
+ uZhFjn4EYGZoYv0u0/a6EW09EqSYpjTVNBmh4ApVyESo16N997Wzc46RX+caUgHPaL4198jOW+Q
+ eGiouiadGlnXJQ1798pNjLQEX86aHo9bcWfymhKsRZqWyRp8GpzvxdsT5KHTqc1E/yr1p+Nr7Yq
+ v3ZDihr/32eJLtxY6INJvNgWsNMfa3f/ltGtwdxi7KENd7pib6g0m7wEyxQmNQgtUuk1PUyOJUG
+ itIVe9LmrXyfgLnSpU5M8amsjmx2uHBXB2m68hLQwo0LWzHjCzcFBoC2uWsc/BDNEipvFlIAyez
+ lnQgoCrdK/Q==
+X-Received: by 2002:a05:6402:5412:b0:6b7:d189:6041 with SMTP id
+ 4fb4d7f45d1cf-6b7d18963c2mr3488558a12.2.1794664668038; 
+ Sat, 14 Nov 2026 05:57:48 -0800 (PST)
+Received: from xeon ([188.163.112.62]) by smtp.gmail.com with ESMTPSA id
+ 4fb4d7f45d1cf-6b7c23db711sm2231929a12.24.2026.11.14.05.57.45
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Sat, 14 Nov 2026 04:54:46 -0800 (PST)
-From: Sidong Yang <sidong.yang@furiosa.ai>
-To: Jiaxing Hu <gahing@gahingwoo.com>
-Cc: tomeu@tomeuvizoso.net, heiko@sntech.de, robh@kernel.org,
- krzk+dt@kernel.org, conor+dt@kernel.org, joro@8bytes.org, will@kernel.org,
- robin.murphy@arm.com, p.zabel@pengutronix.de, ogabbay@kernel.org,
- zhangqing@rock-chips.com, royalnet026@gmail.com,
- ulf.hansson@oss.qualcomm.com, abel.vesa@oss.qualcomm.com,
- sebastian.reichel@collabora.com, u.kleine-koenig@baylibre.com,
- chaoyi.chen@rock-chips.com, shawn.lin@rock-chips.com,
- finley.xiao@rock-chips.com, diederik@cknow-tech.com, alchark@flipper.net,
- leonard@lausen.nl, vlwwwwww@gmail.com, jeff.hugo@oss.qualcomm.com,
- rfoss@kernel.org, dri-devel@lists.freedesktop.org,
- linux-rockchip@lists.infradead.org, iommu@lists.linux.dev,
- devicetree@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
- linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v17 00/12] accel/rocket: RK3576 NPU (RKNN) enablement
-Date: Sat, 14 Nov 2026 21:54:35 +0900
-Message-ID: <20261114125437.9986-1-sidong.yang@furiosa.ai>
+ Sat, 14 Nov 2026 05:57:46 -0800 (PST)
+From: Svyatoslav Ryhel <clamor95@gmail.com>
+To: Neil Armstrong <neil.armstrong@linaro.org>,
+ Jessica Zhang <jesszhan0024@gmail.com>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>,
+ Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>,
+ Simona Vetter <simona@ffwll.ch>, Svyatoslav Ryhel <clamor95@gmail.com>
+Cc: dri-devel@lists.freedesktop.org,
+	linux-kernel@vger.kernel.org
+Subject: [PATCH v1] drm/panel: panel-lg-ld070wx3: Add support for
+ get_orientation() op
+Date: Sat, 14 Nov 2026 15:57:17 +0200
+Message-ID: <20261114135717.142047-1-clamor95@gmail.com>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <cover.1794615324.git.gahing@gahingwoo.com>
-References: <cover.1794615324.git.gahing@gahingwoo.com>
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
@@ -92,25 +86,74 @@ List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-13.8 required=3.0 tests=BAYES_00,DKIM_SIGNED,
-	DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
-	INCLUDES_CR_TRAILER,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,
-	USER_AGENT_GIT autolearn=unavailable autolearn_force=no version=4.0.1
+X-Spam-Status: No, score=-15.8 required=3.0 tests=BAYES_00,DKIM_SIGNED,
+	DKIM_VALID,DKIM_VALID_AU,FREEMAIL_FORGED_FROMDOMAIN,FREEMAIL_FROM,
+	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
+	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,USER_AGENT_GIT
+	autolearn=unavailable autolearn_force=no version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-On Sat, Nov 14, 2026 at 04:05:17PM +1300, Jiaxing Hu wrote:
-> This series adds RK3576 NPU (RKNN) support to the mainline DRM rocket
-> driver.
+Implement the get_orientation() operation using a standard helper. The
+Nvidia Tegra Note 7, which uses this panel, has it mounted with a
+180-degree rotation, making this change essential for the device correct
+work.
 
-I checked the accel/rocket patches for regressions on a ROCK 5B+
-(RK3588): MobileNet inference with up to 6 concurrent clients, runtime
-PM cycling, core unbind/rebind, GET_PARAM (returns 1) and recovery from
-93 forced job timeouts all pass, with no warnings.
+Signed-off-by: Svyatoslav Ryhel <clamor95@gmail.com>
+---
+ drivers/gpu/drm/panel/panel-lg-ld070wx3.c | 14 ++++++++++++++
+ 1 file changed, 14 insertions(+)
 
-For patches 2-5 and 8-10:
+diff --git a/drivers/gpu/drm/panel/panel-lg-ld070wx3.c b/drivers/gpu/drm/panel/panel-lg-ld070wx3.c
+index 0280addb6500d..eed1dc1e1bc31 100644
+--- a/drivers/gpu/drm/panel/panel-lg-ld070wx3.c
++++ b/drivers/gpu/drm/panel/panel-lg-ld070wx3.c
+@@ -11,6 +11,7 @@
+ #include <video/mipi_display.h>
+ 
+ #include <drm/drm_mipi_dsi.h>
++#include <drm/drm_of.h>
+ #include <drm/drm_modes.h>
+ #include <drm/drm_panel.h>
+ #include <drm/drm_probe_helper.h>
+@@ -24,6 +25,7 @@ struct lg_ld070wx3 {
+ 	struct mipi_dsi_device *dsi;
+ 
+ 	struct regulator_bulk_data *supplies;
++	enum drm_panel_orientation orientation;
+ };
+ 
+ static inline struct lg_ld070wx3 *to_lg_ld070wx3(struct drm_panel *panel)
+@@ -110,10 +112,18 @@ static int lg_ld070wx3_get_modes(struct drm_panel *panel,
+ 	return drm_connector_helper_get_modes_fixed(connector, &lg_ld070wx3_mode);
+ }
+ 
++static enum drm_panel_orientation lg_ld070wx3_get_orientation(struct drm_panel *panel)
++{
++	struct lg_ld070wx3 *priv = to_lg_ld070wx3(panel);
++
++	return priv->orientation;
++}
++
+ static const struct drm_panel_funcs lg_ld070wx3_panel_funcs = {
+ 	.prepare = lg_ld070wx3_prepare,
+ 	.unprepare = lg_ld070wx3_unprepare,
+ 	.get_modes = lg_ld070wx3_get_modes,
++	.get_orientation = lg_ld070wx3_get_orientation,
+ };
+ 
+ static int lg_ld070wx3_probe(struct mipi_dsi_device *dsi)
+@@ -133,6 +143,10 @@ static int lg_ld070wx3_probe(struct mipi_dsi_device *dsi)
+ 	if (ret < 0)
+ 		return dev_err_probe(dev, ret, "failed to get supplies\n");
+ 
++	ret = drm_of_get_panel_orientation(dev->of_node, &priv->orientation);
++	if (ret)
++		return dev_err_probe(dev, ret, "failed to get orientation\n");
++
+ 	priv->dsi = dsi;
+ 	mipi_dsi_set_drvdata(dsi, priv);
+ 
+-- 
+2.53.0
 
-Tested-by: Sidong Yang <sidong.yang@furiosa.ai> # RK3588, ROCK 5B+
-
-Thanks,
-Sidong
