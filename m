@@ -2,57 +2,86 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1AF33606A323
-	for <dri-devel@archiver.kernel.org>; Sat, 14 Nov 2026 16:25:12 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 46379606A327
+	for <dri-devel@archiver.kernel.org>; Sat, 14 Nov 2026 16:25:13 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=fail reason="signature verification failed" (2048-bit key, unprotected) header.d=eder.earth header.i=@eder.earth header.a=rsa-sha256 header.s=default2410 header.b=B0eSUBBz
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=jLqdRcrp
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 9729E10EEE1;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 9C05410EF0D;
 	Sat, 14 Nov 2026 16:24:53 +0000 (UTC)
-Received: from www637.your-server.de (www637.your-server.de [168.119.26.117])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 80A4E10E8BF
- for <dri-devel@lists.freedesktop.org>; Fri, 13 Nov 2026 23:22:41 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=eder.earth; 
- s=default2410;
- h=MIME-Version:Content-Type:In-Reply-To:References:Subject:Cc:
- To:From:Message-ID:Date:Sender:Reply-To:Content-Transfer-Encoding:Content-ID:
- Content-Description:Resent-Date:Resent-From:Resent-Sender:Resent-To:Resent-Cc
- :Resent-Message-ID; bh=YOpY+bvCQ5kV2hHQ7cKQotdaLZ4pxeDDEhz0Yl5WkSg=; b=B0eSUB
- BzZ9xU5+7p5lyBZWhxb9UWsXVYolIYlT4QVMDuIZRNdWOmqI/9kYtMz54WNTlh08y1Q4pEjEUjJy5
- dt0SAPWpROZ2gpIf9N6jhRW6mRz2SfCLEFk1xH0wlsy+Csr0RPdlcRXhxojEPg32J4HVqrgvZA7LK
- kTyk7ki80FhWeeqq70Hv0YKG4kUUPVDz/92ShGzdzyXaAl+I/JADzG/QPVkwsV+r9fKqUlvM23W6p
- /BrNpE9KUCQLcYy6zJMqbg9DQV4R7O0HPo2L8HoQPn6HJc2jkCPaH5Q8gzUNCdnlUiIYfTS1ZEf/t
- wDz+GsauZYeDv7cSjh+n0bDGgtOA==;
-Received: from sslproxy01.your-server.de ([78.46.139.224])
- by www637.your-server.de with esmtpsa  (TLS1.3) tls TLS_AES_256_GCM_SHA384
- (Exim 4.96.2) (envelope-from <sascha@eder.earth>)
- id 1xS0bP-000Dbe-2h; Sat, 14 Nov 2026 00:22:39 +0100
-Received: from [192.168.0.30] (helo=webmail.your-server.de)
- by sslproxy01.your-server.de with esmtpsa (TLS1.3) tls TLS_AES_256_GCM_SHA384
- (Exim 4.96) (envelope-from <sascha@eder.earth>) id 1xS0bQ-0009yl-0A;
- Sat, 14 Nov 2026 00:22:39 +0100
-Date: Sat, 14 Nov 2026 00:22:38 +0100
-Message-ID: <20261114002238.Horde.J5JcAj6uK6Kiv0paSCiNBrB@webmail.your-server.de>
-From: sascha@eder.earth
-To: Hamza Mahfooz <hamzamahfooz@linux.microsoft.com>
-Cc: Dexuan Cui <decui@microsoft.com>, Long Li <longli@microsoft.com>,
- Saurabh Sengar <ssengar@linux.microsoft.com>, linux-hyperv@vger.kernel.org,
- dri-devel@lists.freedesktop.org
-Subject: Re: drm/hyperv: pointer lag on desktop guests - host cursor is
- supported by the protocol but hidden
-References: <20261111121316.Horde.3cW0nxv09zUHPZiYh0D0t3G@webmail.your-server.de>
- <avRlw+MtVNtwojJk@linuxonhyperv3.guj3yctzbm1etfxqx2vob5hsef.xx.internal.cloudapp.net>
- <20261111220506.Horde.EkRyYI2MJXvhgTT5Ojgh9r0@webmail.your-server.de>
- <avTq3OCNdDeyn/La@linuxonhyperv3.guj3yctzbm1etfxqx2vob5hsef.xx.internal.cloudapp.net>
- <20261113021854.Horde.oyp74rgk0-Wh2hQXybP5yVq@webmail.your-server.de>
- <avcKmFO2yzYIzbpF@linuxonhyperv3.guj3yctzbm1etfxqx2vob5hsef.xx.internal.cloudapp.net>
-In-Reply-To: <avcKmFO2yzYIzbpF@linuxonhyperv3.guj3yctzbm1etfxqx2vob5hsef.xx.internal.cloudapp.net>
-User-Agent: Horde Application Framework 5
-Content-Type: text/plain; charset=utf-8; format=flowed; DelSp=Yes
+Received: from mail-dy1-f173.google.com (mail-dy1-f173.google.com
+ [74.125.82.173])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id E9DE310E1B5
+ for <dri-devel@lists.freedesktop.org>; Sat, 14 Nov 2026 06:25:52 +0000 (UTC)
+Received: by mail-dy1-f173.google.com with SMTP id
+ 5a478bee46e88-37605faade6so207420eec.3
+ for <dri-devel@lists.freedesktop.org>; Fri, 13 Nov 2026 22:25:52 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20260707; t=1794637552; x=1795242352; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+ bh=LDQz09G2XyTTuhJSitLdBUGEVlAlYFjTvvQk/ah90w4=;
+ b=jLqdRcrpxbuFvu59MsszipvxcSy4ennxzRclNZvEVmtwkzWq/haGtKL9cRll2Y8j/X
+ oCL68ACmQqQqyHEvVL9tzv4PN05M3o1cnXe+/QNcfWxFTQnOnZ1W7N8e91lylDfoqqI4
+ p1xEyIZiGUZILro1vKTHbonFPWbvH/0QZS6Sz2cKT42dBCltmXzRWrE0Ao9zv9CzEM3A
+ UaQ8ck3fpftwanzrjgzfy5kmoY9awo5XupTik4earMyalc5i3DBgkZazc+s71PbUcKw7
+ IOQNxAdePIhujWLwFwISkl9gJq8q+I7oXYRbMEs4AdZoPATNahXbVvdEVZ0V+Q8T6XQJ
+ HHWw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20260707; t=1794637552; x=1795242352;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+ :message-id:reply-to:content-type;
+ bh=LDQz09G2XyTTuhJSitLdBUGEVlAlYFjTvvQk/ah90w4=;
+ b=nWMB5r/1A4UWiaRjH9jdDtJ3R1wN9utZPTK6bjWNzx4VFoiB5/i31qf5shrXJeWFra
+ NdpL3EvglsFSmB5zPJkdenWO2H9FQYX7bseY58xpBoW3yPL52qtPZJZatfGszRNpkg1z
+ 5HYj4mye2zj8hxNnSH8yGcVrXQyXYOMUaTZTcmXCLxYzl8PDrShSnGXHq0GDgRKhMrOe
+ Rehxa5fv/+OeOWxYTlqK7B/kNhnNTFqEujSDGuv8nYyZJatFi/PCbnbZ1GskAlYDZYFc
+ 8BN6Yz3beWp6cmqvC6PWup57AsahDs8bei4vI+aPy1SOzjKUGMPwDrVBihyM1nbEPpAe
+ g5Jg==
+X-Forwarded-Encrypted: i=1;
+ AL+hErGXhM2aPJ1FlBQoG7+DSbpedakWVfDmCs/1h5/8zz+37ZOSj3hjL4R4jn8URZH5OQgFRQ/VrAySzqY=@lists.freedesktop.org
+X-Gm-Message-State: APuU4Z8T7CvI1HxqJ/AIKbAREzxbqf/vvSAhWNNN7otzVnyEMXqbgYRE
+ JVcvnB6+iR2Xq7kpSdSms4j2WwuGDEGxwMe5ZRvPcY3a2tHHp+EyrMac
+X-Gm-Gg: AYBFou0PHKiuDsWx9Tc0W78mu9Uoc+mOxrKR/6uklhkJJsxJcM0THkc+oyorK7GFQoW
+ SK0Exr5ky+glwNBfJ2sag+ean/yFJrlo8srh/MKVk75cSrJz6Ow7+r0/S86BFdTSzpLHHOnbHAq
+ Dh+bwwNWS+lRrHeZJUSM4jtoKf29P9b9d1VIzTWrYZqULSvgYnIxsfwk3ZAQJQezowjJxqWCLzo
+ IsKkFXrZocaPIJERLO+synNy6dXKHwSZDiy4xuAFpaC4cGcIo+3bEijcwrah3sgRDiXEUH/IUJc
+ 8D9jZ7VFtkTTnmvWWlX7rcSrk8AMPT16cFjrXi2Si5ofVB8lkvRMoUBczeQ2sn2m2GxaELWmdkY
+ 42JX0yVPBMJpnoHpsKy62X5E4zLRK0EW5jNwNtse/LhbWgk0WyRYFuuaHo4gNSJtr3CC+tJ2PN5
+ 21kgz8oVQhQ26BUf4Cfg7jlOoJw6GyG4hx/Uey3w5WPP4frNi0mEZfrcnIj2X2JHX9oleP6Vsst
+ a9607vuv/KWrb05h0/QEHTPwSPJp2Op+N+R/QoB8gofQwDRfPWs366VWDrJrRuLkUVBwFCT8BIB
+ e+6JAm26yzQ58arvfnXBBH04IqmwuU840gidi6RYzo5GmcvDFcOXQy/PwNGu4cq0fA+2b6PjOd9
+ 1i/Q=
+X-Received: by 2002:a05:7300:7481:b0:36d:cd5d:d809 with SMTP id
+ 5a478bee46e88-37964ff2d6emr9111552eec.1.1794637551552; 
+ Fri, 13 Nov 2026 22:25:51 -0800 (PST)
+Received: from DESKTOP-CJ1L666.localdomain ([211.198.99.62])
+ by smtp.gmail.com with ESMTPSA id
+ 5a478bee46e88-3795591f4f8sm13537585eec.13.2026.11.13.22.25.47
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Fri, 13 Nov 2026 22:25:51 -0800 (PST)
+From: Jiwoo Kim <arpe1618@gmail.com>
+To: Rob Clark <robin.clark@oss.qualcomm.com>,
+ Dmitry Baryshkov <lumag@kernel.org>
+Cc: Akhil P Oommen <akhilpo@oss.qualcomm.com>,
+ Konrad Dybcio <konradybcio@kernel.org>,
+ Antonino Maniscalco <antomani103@gmail.com>,
+ Abhinav Kumar <abhinav.kumar@linux.dev>,
+ Jessica Zhang <jesszhan0024@gmail.com>, Sean Paul <sean@poorly.run>,
+ Marijn Suijten <marijn.suijten@somainline.org>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org,
+ freedreno@lists.freedesktop.org, linux-kernel@vger.kernel.org,
+ stable@vger.kernel.org
+Subject: [PATCH 1/2] drm/msm: Destroy the VM_BIND entity when its queue is
+ closed
+Date: Sat, 14 Nov 2026 15:25:40 +0900
+Message-ID: <20261114062541.2001-1-arpe1618@gmail.com>
+X-Mailer: git-send-email 2.43.0
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
-Content-Disposition: inline
-X-Virus-Scanned: Clear (ClamAV 1.4.6/28182/Fri Nov 13 07:24:28 2026)
+Content-Transfer-Encoding: 8bit
 X-Mailman-Approved-At: Sat, 14 Nov 2026 16:24:47 +0000
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -65,305 +94,205 @@ List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-8.6 required=3.0 tests=BAYES_00,DKIM_INVALID,
-	DKIM_SIGNED,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,
-	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS autolearn=unavailable
-	autolearn_force=no version=4.0.1
+X-Spam-Status: No, score=-15.8 required=3.0 tests=BAYES_00,DKIM_SIGNED,
+	DKIM_VALID,DKIM_VALID_AU,FREEMAIL_FORGED_FROMDOMAIN,FREEMAIL_FROM,
+	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
+	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,USER_AGENT_GIT
+	autolearn=unavailable autolearn_force=no version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-> Seems like you can use KWIN_DRM_NO_AMS=1 as a workaround in the
-> meantime until they add hyperv_drm support on their end.
+The entity of a VM_BIND submitqueue is attached to the per-VM scheduler,
+and msm_gem_vm_close() calls drm_sched_fini() on that scheduler when the
+file is closed, which frees its run queues. The submitqueue itself is
+only destroyed on its final put, though, and every VM_BIND job holds a
+reference to it. msm_submitqueue_close() only flushes the entity, and a
+queue that was closed earlier with MSM_SUBMITQUEUE_CLOSE is not flushed
+at all.
 
-That was it. With KWIN_DRM_NO_AMS=1 set for the session (checked in
-kwin_wayland's environment), on the same kernel as before
-(drm-misc-next at c88084027d0e, 7.4.0-rc2):
+The flush gives up after a timeout when the process exits, or on a
+fatal signal, and it only kills the queued jobs when the process exits
+because of SIGKILL. In these cases, and after MSM_SUBMITQUEUE_CLOSE,
+the entity can still have a callback armed on the in-fence of a
+VM_BIND job when drm_sched_fini() runs. When that fence signals,
+drm_sched_entity_wakeup() dereferences entity->rq->sched, and so reads
+a run queue that drm_sched_fini() has freed. If the jobs were killed,
+the final put of the queue then calls drm_sched_entity_destroy(), which
+reads the same freed run queue in drm_sched_entity_flush(). If they
+were not, they never run, and keep the queue, its context and the VM
+alive.
 
-- one pointer, no extra copies
-- smooth, no lag, also on long fast moves
-- clicks land exactly under the tip, checked on small targets
-- cursors too large for the plane still fall back to the software
-   cursor, as before
+Destroy the VM_BIND entity when userspace closes the queue, on file
+close or with MSM_SUBMITQUEUE_CLOSE, instead of on the final put, and
+refuse new VM_BIND jobs on a closed queue. In the MSM_SUBMITQUEUE_CLOSE
+path, do it after dropping ctxlock, as destroying the entity waits for
+the jobs queued on it.
 
-So the driver side works here, and the three pointers came from KWin
-6.3.6 not treating hyperv_drm as a driver that needs the hotspot on
-its atomic path.
+As a result, MSM_SUBMITQUEUE_CLOSE on a VM_BIND queue now waits
+(killably) for the jobs already queued on it, and a fatal signal during
+that wait cancels the remaining ones, where they used to still run. On
+file close, the jobs still queued when the wait gives up are now always
+cancelled, as they already were when the process was killed while
+exiting, instead of being left on the entity.
 
-I will report this to KDE with a pointer to your patch, unless you
-have already done so or would rather do it yourself.
+This was found with an AI coding assistant, which also drafted this
+patch and its changelog. It has not been reproduced, and the change
+has only been compile-tested.
 
-Tested-by: Sascha Eder <sascha@eder.earth>
+Fixes: 92395af63a99 ("drm/msm: Add VM_BIND submitqueue")
+Cc: stable@vger.kernel.org
+Signed-off-by: Jiwoo Kim <arpe1618@gmail.com>
+---
+The scoped_guard() in msm_submitqueue_remove() relies on commit
+ea69d489d3a6 ("drm/msm: Rework queuelock"), so trees older than v7.3
+need a manual backport.
 
-Thank you for the quick help. This makes a Linux guest on Hyper-V
-feel right for the first time.
+If MSM_SUBMITQUEUE_CLOSE should rather not block, the destroy of closed
+VM_BIND queues could instead be deferred to file close, e.g. with a
+per-context list of them.
 
-Sascha
+Not changed here: for a job that never ran, msm_vma_job_free() neither
+unpins the BOs that msm_ioctl_vm_bind() pinned nor drops the GEM
+references that vm_op_enqueue() took. That already happens to VM_BIND
+jobs killed when the process exits, and with this patch also to the
+ones cancelled by a fatal signal during MSM_SUBMITQUEUE_CLOSE.
 
+Deferring drm_sched_fini() of the VM scheduler to msm_gem_vm_free() was
+considered instead. It does not help: the stranded jobs keep the queue,
+its context and the VM alive, so the entities would still have to be
+destroyed at close.
 
-Quoting Hamza Mahfooz <hamzamahfooz@linux.microsoft.com>:
+ drivers/gpu/drm/msm/msm_gem_vma.c     |  5 +++
+ drivers/gpu/drm/msm/msm_gpu.h         |  6 ++++
+ drivers/gpu/drm/msm/msm_submitqueue.c | 50 +++++++++++++++++++--------
+ 3 files changed, 47 insertions(+), 14 deletions(-)
 
-> On Fri, Nov 13, 2026 at 02:18:54AM +0100, sascha@eder.earth wrote:
->> Hi,
->>
->> > Development for the driver is done on drm-misc-next[1], so I would
->> > suggest testing it on there.
->>
->> Done. Short version: the pointer is smooth now, the lag is gone,
->> but the host-drawn pointer shows up three times side by side.
->>
->
->> What I built
->> - drm-misc-next at c88084027d0e ("drm: Discard
->>   pm_runtime_put_autosuspend() return values"), 7.4.0-rc2
->>
->> - The tree already contains the cursor plane code: git am of your
->>   patch failed and patch(1) reported it as previously applied, so I
->>   built the tree as it is. Please tell me if that is not the version
->>   you want tested.
->>
->> - Config: Debian 13's 6.12 config through localmodconfig, with
->>   HYPERV=y, HYPERV_VMBUS=m, DRM_HYPERV=m
->>
->>
->> Setup
->> - Host: Windows 11 Pro 26H2 (build 26300.9711), Hyper-V, Generation 2
->>   VM, basic session (vmconnect), 3840x2160
->> - Guest: Debian 13 userland, KDE Plasma 6.3.6 on Wayland (KWin 6.3.6),
->>   3840x2160 at 200 % scale, 4 vCPUs
->>
->>
->> What works
->> - The pointer follows the hand without delay, also on long fast moves.
->>   KWin picked up the cursor plane without any configuration.
->>
->> - Cursors too large for the plane fall back to the software cursor
->>   correctly: one pointer, drawn right, with the old lag.
->>
->>
->> What does not
->> - Whenever the host draws the pointer, I see it three times: the real
->>   pointer, and two extra copies of it to its right. All three have the
->>   same shape, are evenly spaced in a row and move together. Clicks land
->>   under the leftmost one; the other two are only images. In phone
->>   photos of the screen the three look striped, as if only some of
->>   their lines were drawn or those "ghosts" were meant to render as  
->> one pointer
->>
->> - This is the same for every size that uses the plane and for every theme I
->> tried:
->>
->>     Breeze, 200 % scale   size 12, 18, 24, 30, 36   plane, three pointers
->>                           size 42 and larger        software, one pointer
->>
->>     Breeze Light          same as Breeze
->>
->>     DMZ White, DMZ Black  three pointers
->>
->> - The count is always the same: one real pointer plus two copies,
->>   whatever the cursor size.
->>
->
-> I wasn't able to repro that issue but it seems like KWin maintains a
-> hardcoded list of driver names [1] which it uses to determine if it
-> should enable hotspot support on it's atomic path. Seems like you can
-> use KWIN_DRM_NO_AMS=1 as a workaround in the meantime until they add
-> hyperv_drm support on their end.
->
-> [1]  
-> https://invent.kde.org/plasma/kwin/-/blob/75175b104504748aacd3d6a955a79d19751f8310/src/core/drmdevice.cpp#L48
->
->> - Host is on build 26300.9711 (the 2026-10 security update);
->>   the November update is not offered for this edition yet, so I could not
->>   check whether a newer host build behaves differently.
->>   I will retest when it arrives.
->>
->> I have photos of the screen and could send them off-list or put them
->> somewhere, since the list likely does not take jpg attachments.
->>
->> Tested on the setup above; I would hold a Tested-by until the  
->> copies are gone.
->>
->> regards
->> Sascha
->>
->>
->>
->> Quoting Hamza Mahfooz <hamzamahfooz@linux.microsoft.com>:
->>
->> > On Wed, Nov 11, 2026 at 10:05:06PM +0100, sascha@eder.earth wrote:
->> > > Hi,
->> > >
->> > > thank you for the speedy reply :)
->> > >
->> > > > Cursor plane support is a WIP, you can test out [1] on your end.
->> > >
->> > > That is exactly the fix I was hoping for.
->> > >
->> > > Which tree and commit does the patch apply to?
->> > >
->> > > My guest runs Debian 13 with kernel 6.12, where the driver still has the
->> > > hyperv_ prefix and the simple display pipe,
->> > > so I would build the tree you name with the patch on top and  
->> report back.
->> > >
->> >
->> > Development for the driver is done on drm-misc-next[1], so I would
->> > suggest testing it on there.
->> >
->> > [1] https://gitlab.freedesktop.org/drm/misc/kernel/-/tree/drm-misc-next
->> >
->> > > If you happen to have a version for 6.12, I can test that as well.
->> > >
->> >
->> > Quite a lot has changed in the DRM subsystem since then so I  
->> doubt my patch
->> > applies cleanly there or works as expected.
->> >
->> > Hamza
->> >
->> > > regards
->> > >
->> > > Sascha
->> > >
->> > >
->> > >
->> > > Quoting Hamza Mahfooz <hamzamahfooz@linux.microsoft.com>:
->> > >
->> > > > Hi,
->> > > >
->> > > > On Wed, Nov 11, 2026 at 12:13:16PM +0100, sascha@eder.earth wrote:
->> > > > > Hi,
->> > > > >
->> > > > > I am a Windows developer porting some of my own desktop tools to
->> > > Linux, and
->> > > > > I use a Debian guest on Hyper-V to judge how they look and  
->> feel there.
->> > > > >
->> > > > > The static picture is good, the mouse pointer is not, and I
->> > > think the cause
->> > > > > is small and fixable in hyperv_drm. I am writing because this is
->> > > the first
->> > > > > thing a Windows developer notices when trying Linux on their own
->> > > machine: as
->> > > > > long as a Linux VM feels sluggish next to a Windows VM on the
->> > > same host, few
->> > > > > of us will move a repo over and be happy about it.
->> > > > >
->> > > > > Setup
->> > > > > - Host: [Windows 11/26H2], Hyper-V, Generation 2 VM, basic session
->> > > > > (vmconnect), 3840x2160 display
->> > > > > - Guest: Debian 13, kernel 6.12.113+deb13-amd64, hyperv_drm
->> > > (Synthvid 3.5),
->> > > > > KDE Plasma 6.3.6 on Wayland (KWin 6.3.6, libwayland 1.23.1)
->> > > > > - 4 vCPUs, about 7 GB RAM
->> > > > >
->> > > > > What I saw so far:
->> > > > >
->> > > > > - The pointer trails the hand by a small constant delay. Fast, long
->> > > > > movements (taskbar to top of the screen) are visibly laggy, not just
->> > > > > slightly off.
->> > > > >
->> > > > > - A Windows guest on the same host, same viewer, same mouse  
->> is smooth -
->> > > > > directly, and even when the host itself is reached through RDP.
->> > > The Debian
->> > > > > guest lags in both cases.
->> > > > >
->> > > > > - While moving the pointer: kwin_wayland uses 35-50 % of one
->> > > core, a kworker
->> > > > > (events_unbound) 13-21 %, and the VM is about 80 % idle.  
->> Adding vCPUs
->> > > > > changes nothing, so it is not a lack of CPU.
->> > > > >
->> > > > > - A smaller cursor and disabling KDE's shake-to-enlarge  
->> effect helped a
->> > > > > little. A plain color desktop did not.
->> > > > >
->> > > > > What I think the cause is (from reading the driver, I have not
->> > > patched it)
->> > > > >
->> > > > > 1. hyperv_drm exposes only the primary plane. There is no cursor
->> > > plane, so
->> > > > > the compositor has to paint the pointer into the  
->> framebuffer, and every
->> > > > > movement goes through compositing, the "blit to VRAM" and the
->> > > dirt message.
->> > > > >
->> > > > > 2. hyperv_pipe_update() uses drm_atomic_helper_damage_merged(),
->> > > so the old
->> > > > > and the new pointer position become one bounding rectangle. For
->> > > a long or
->> > > > > diagonal move at 4K that is a large part of the screen per  
->> pointer step,
->> > > > > which matches the more noticable lag (much worse) on big movements.
->> > > > >
->> > > > > 3. The protocol already has what is needed.  
->> hyperv_hide_hw_ptr() exists
->> > > > > because, as its commit message says, "Hyper-V supports a  
->> hardware cursor
->> > > > > feature. It is not used by Linux VM, but the Hyper-V host  
->> still draws" a
->> > > > > pointer; the driver hides it by sending a 1x1 transparent ARGB
->> > > shape with
->> > > > > SYNTHVID_POINTER_SHAPE. So the host does accept a shape from a
->> > > Linux guest
->> > > > > and does draw the pointer itself.
->> > > > >
->> > > > > Proposal:
->> > > > >
->> > > > > Add a cursor plane to hyperv_drm (up to  
->> SYNTHVID_CURSOR_MAX_X/Y, 96x96,
->> > > > > ARGB) that sends the compositor's cursor image and hot spot through
->> > > > > SYNTHVID_POINTER_SHAPE instead of the transparent pixel, and
->> > > re-sends it on
->> > > > > SYNTHVID_FEATURE_CHANGE where the hide call is made today.
->> > > > >
->> > > >
->> > > > Cursor plane support is a WIP, you can test out [1] on your end.
->> > > >
->> > > > [1] https://patchwork.freedesktop.org/patch/761562/
->> > > >
->> > > > Hamza
->> > > >
->> > > > > With cursor hot-spot support for virtualized drivers,
->> > > compositors would then
->> > > > > leave the pointer to the host, as Windows guests do, and pointer
->> > > movement
->> > > > > would cause no framebuffer damage at all.
->> > > > >
->> > > > > Independently of that, handling damage clips individually
->> > > instead of merged
->> > > > > would reduce the cost of the software-cursor fallback (cursors
->> > > larger than
->> > > > > 96x96).
->> > > > >
->> > > > > A second, smaller item found on the way:
->> > > > >
->> > > > > With Set-VMVideo set to 3840x2160 (Maximum), the guest offers
->> > > modes only up
->> > > > > to 2560x1600. The connector's modes come from
->> > > drm_add_modes_noedid(), and
->> > > > > 3840x2160 is not in that table, so it only appears with
->> > > > > video=Virtual-1:3840x2160 on the kernel command line.  
->> Adding the host's
->> > > > > maximum (or preferred) resolution as an explicit mode would make
->> > > 4K hosts
->> > > > > work without that step.
->> > > > >
->> > > > > I can test patches on this setup and report back. I am not in a
->> > > position to
->> > > > > write the kernel change myself (drivers are not my field of work
->> > > at all).
->> > > > >
->> > > > > Thanks for maintaining the driver.
->> > > > >
->> > > > > Sascha Eder
->> > > > >
->> > > > >
->> > >
->> > >
->>
->>
+diff --git a/drivers/gpu/drm/msm/msm_gem_vma.c b/drivers/gpu/drm/msm/msm_gem_vma.c
+index 8b702422030a..0cf518420656 100644
+--- a/drivers/gpu/drm/msm/msm_gem_vma.c
++++ b/drivers/gpu/drm/msm/msm_gem_vma.c
+@@ -1499,6 +1499,11 @@ msm_ioctl_vm_bind(struct drm_device *dev, void *data, struct drm_file *file)
+ 	if (ret)
+ 		goto out_post_unlock;
+ 
++	if (queue->vm_bind_closed) {
++		ret = -ENOENT;
++		goto out_unlock;
++	}
++
+ 	if (args->flags & MSM_VM_BIND_FENCE_FD_IN) {
+ 		struct dma_fence *in_fence;
+ 
+diff --git a/drivers/gpu/drm/msm/msm_gpu.h b/drivers/gpu/drm/msm/msm_gpu.h
+index bc5b31eb1eca..561f2d998e99 100644
+--- a/drivers/gpu/drm/msm/msm_gpu.h
++++ b/drivers/gpu/drm/msm/msm_gpu.h
+@@ -596,6 +596,12 @@ struct msm_gpu_submitqueue {
+ 	struct kref ref;
+ 	struct drm_sched_entity *entity;
+ 
++	/**
++	 * @vm_bind_closed: the queue was closed by userspace, and its VM_BIND
++	 * entity is being or has been destroyed.  Protected by @lock.
++	 */
++	bool vm_bind_closed;
++
+ 	/** @_vm_bind_entity: used for @entity pointer for VM_BIND queues */
+ 	struct drm_sched_entity _vm_bind_entity[0];
+ };
+diff --git a/drivers/gpu/drm/msm/msm_submitqueue.c b/drivers/gpu/drm/msm/msm_submitqueue.c
+index 8d550d281704..2dbe42551bd8 100644
+--- a/drivers/gpu/drm/msm/msm_submitqueue.c
++++ b/drivers/gpu/drm/msm/msm_submitqueue.c
+@@ -79,9 +79,6 @@ void msm_submitqueue_destroy(struct kref *kref)
+ 
+ 	idr_destroy(&queue->fence_idr);
+ 
+-	if (queue->entity == &queue->_vm_bind_entity[0])
+-		drm_sched_entity_destroy(queue->entity);
+-
+ 	msm_context_put(queue->ctx);
+ 
+ 	kfree(queue);
+@@ -107,6 +104,25 @@ struct msm_gpu_submitqueue *msm_submitqueue_get(struct msm_context *ctx,
+ 	return NULL;
+ }
+ 
++/*
++ * The VM_BIND scheduler is torn down by msm_gem_vm_close() when the file is
++ * closed, but a VM_BIND queue can outlive that, as long as a job still holds
++ * a reference to it.  So destroy the VM_BIND entity here, when userspace
++ * closes the queue, rather than on the final put.  Both ways a queue is taken
++ * off ctx->submitqueues come through here.
++ */
++static void msm_submitqueue_close_vm_bind(struct msm_gpu_submitqueue *queue)
++{
++	if (queue->entity != &queue->_vm_bind_entity[0])
++		return;
++
++	mutex_lock(&queue->lock);
++	queue->vm_bind_closed = true;
++	mutex_unlock(&queue->lock);
++
++	drm_sched_entity_destroy(queue->entity);
++}
++
+ void msm_submitqueue_close(struct msm_context *ctx)
+ {
+ 	struct msm_gpu_submitqueue *queue, *tmp;
+@@ -119,8 +135,7 @@ void msm_submitqueue_close(struct msm_context *ctx)
+ 	 * be any more user ioctls coming our way
+ 	 */
+ 	list_for_each_entry_safe(queue, tmp, &ctx->submitqueues, node) {
+-		if (queue->entity == &queue->_vm_bind_entity[0])
+-			drm_sched_entity_flush(queue->entity, MAX_WAIT_SCHED_ENTITY_Q_EMPTY);
++		msm_submitqueue_close_vm_bind(queue);
+ 		list_del(&queue->node);
+ 		msm_submitqueue_put(queue);
+ 	}
+@@ -326,7 +341,7 @@ int msm_submitqueue_query(struct drm_device *drm, struct msm_context *ctx,
+ 
+ int msm_submitqueue_remove(struct msm_context *ctx, u32 id)
+ {
+-	struct msm_gpu_submitqueue *entry;
++	struct msm_gpu_submitqueue *entry, *queue = NULL;
+ 
+ 	if (!ctx)
+ 		return 0;
+@@ -338,16 +353,23 @@ int msm_submitqueue_remove(struct msm_context *ctx, u32 id)
+ 	if (!id)
+ 		return -ENOENT;
+ 
+-	guard(rwsem_write)(&ctx->ctxlock);
+-
+-	list_for_each_entry(entry, &ctx->submitqueues, node) {
+-		if (entry->id == id) {
+-			list_del(&entry->node);
+-			msm_submitqueue_put(entry);
+-			return 0;
++	scoped_guard(rwsem_write, &ctx->ctxlock) {
++		list_for_each_entry(entry, &ctx->submitqueues, node) {
++			if (entry->id == id) {
++				list_del(&entry->node);
++				queue = entry;
++				break;
++			}
+ 		}
+ 	}
+ 
+-	return -ENOENT;
++	if (!queue)
++		return -ENOENT;
++
++	/* Not under ctxlock: destroying the entity can wait for its jobs */
++	msm_submitqueue_close_vm_bind(queue);
++	msm_submitqueue_put(queue);
++
++	return 0;
+ }
+ 
 
-
+base-commit: 1e59855738454b14021b64115f0090eafc7526ae
+-- 
+2.43.0
 
