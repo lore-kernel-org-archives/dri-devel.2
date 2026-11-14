@@ -2,44 +2,44 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A0D85606A8A7
-	for <dri-devel@archiver.kernel.org>; Sat, 14 Nov 2026 05:02:55 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 38D81606A323
+	for <dri-devel@archiver.kernel.org>; Sat, 14 Nov 2026 05:02:59 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=collabora.com header.i=@collabora.com header.a=rsa-sha256 header.s=mail header.b=miJIMTj2
+	dkim=pass (2048-bit key) header.d=collabora.com header.i=@collabora.com header.a=rsa-sha256 header.s=mail header.b=F/utlyaL
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id A147410E770;
-	Sat, 14 Nov 2026 05:02:49 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 73D3910EA9B;
+	Sat, 14 Nov 2026 05:02:53 +0000 (UTC)
 Received: from bali.collaboradmins.com (bali.collaboradmins.com
  [148.251.105.195])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 04AC210EA9B
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 27CF310ECEF
  for <dri-devel@lists.freedesktop.org>; Sat, 14 Nov 2026 05:02:44 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
  s=mail; t=1794632562;
- bh=0r7U5Yg6sSGfBgWp0m+HU9sSss4Q+sJk0BLGFEcJOgY=;
+ bh=BdVId3R9uDagFwOXAz9RaIcqGg/6v8baZJ5M9pnhoeE=;
  h=From:Date:Subject:References:In-Reply-To:To:Cc:From;
- b=miJIMTj2t3lScQjMk3opzUCdWer8efaScumrg+B4yeufIM+RosJDVVBfgm6x71N0P
- m92Wk0hhumGVYYr0UUZ93h99tYOmVoMq8dELAXRgJGwOTIPU4UvmP0Y8h4+KyyU9J2
- MQeFvVYtA39WLrvEvKlZoDxPC0MClvhxJ634PVdIWiwbvZKqEm0pG/21Q1iSmP0c1L
- rxoMGUOZKvZlxVnToO6sAD4n7A+8GHWM49mBnHWxbPeLBtmO33Cejfwy+Bt0YcefXK
- bN0UxghoZZXUv6kfRLtOP3nBBbOJODRQwAmNDKFGruc8fqggNjMAp1uA2U/QLGa+ea
- JP0oQkl/V/p+Q==
+ b=F/utlyaLUIgiT7UncxK5pEQ0f3k+ttXeGP5v6ZB5FFGI4DobjMTsUlJ0hMA8POn1d
+ hOSTjmF0AlEONL7mrDvTmLjPjFg10bdvl6YUS5sAJIo/qDvEny/qpXHGkBVbFv6Dn0
+ ZglnA1BHn+LpuLDQrePd4hf0oIFsPR12upyW7s6frSaRfR5nKpRzAf2Nzd9Q7wQKJb
+ 7uwFsWdgnHLLR8rFi1kdtJT6BVDeSb40dFdPv1WNDdl5TORWfVUsUB7EUcn/SrHL0B
+ zr0iZ7XKVvxlHpRCkV/fjFO/dwm6A4IWH9khfNpsnaXK66QiCYHpORezLEtz35e17A
+ R1DQgxM9O4Qmg==
 Received: from jupiter.universe (unknown [100.64.1.62])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange x25519) (No client certificate requested)
  (Authenticated sender: sre)
- by bali.collaboradmins.com (Postfix) with ESMTPSA id 7BEC417E0FCC;
+ by bali.collaboradmins.com (Postfix) with ESMTPSA id 7A06817E0FA5;
  Sat, 14 Nov 2026 06:02:42 +0100 (CET)
 Received: by jupiter.universe (Postfix, from userid 1000)
- id 2716F480065; Sat, 14 Nov 2026 06:00:56 +0100 (CET)
+ id 2EEE848006A; Sat, 14 Nov 2026 06:00:56 +0100 (CET)
 From: Sebastian Reichel <sebastian.reichel@collabora.com>
-Date: Sat, 14 Nov 2026 06:00:51 +0100
-Subject: [PATCH v12 18/23] drm/bridge: synopsys: dw-dp: Drop useless
- reservation of first slot
+Date: Sat, 14 Nov 2026 06:00:56 +0100
+Subject: [PATCH v12 23/23] drm/bridge: synopsys: dw-dp: Retrain on hotplug
+ with pre-enabled link
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20261114-synopsys-dw-dp-improvements-v12-18-d42d3dc5bdd4@collabora.com>
+Message-Id: <20261114-synopsys-dw-dp-improvements-v12-23-d42d3dc5bdd4@collabora.com>
 References: <20261114-synopsys-dw-dp-improvements-v12-0-d42d3dc5bdd4@collabora.com>
 In-Reply-To: <20261114-synopsys-dw-dp-improvements-v12-0-d42d3dc5bdd4@collabora.com>
 To: Sandy Huang <hjc@rock-chips.com>, 
@@ -64,23 +64,23 @@ Cc: Cristian Ciocaltea <cristian.ciocaltea@collabora.com>,
  devicetree@vger.kernel.org, kernel@collabora.com, 
  linux-arm-kernel@lists.infradead.org, 
  Sebastian Reichel <sebastian.reichel@collabora.com>, 
- Igor Paunovic <royalnet026@gmail.com>
+ Yury Smirnov <yurymonzon@gmail.com>
 X-Mailer: b4 0.16.0
-X-Developer-Signature: v=1; a=openpgp-sha256; l=1365;
+X-Developer-Signature: v=1; a=openpgp-sha256; l=1169;
  i=sebastian.reichel@collabora.com; h=from:subject:message-id;
- bh=0r7U5Yg6sSGfBgWp0m+HU9sSss4Q+sJk0BLGFEcJOgY=;
- b=owJ4nAFtApL9kA0DAAoB2O7X88g7+poByyZiAGr36wfQ6i3dgeRXOjgQnMgr9bqJmKz48UtxY
- dfrDyRbacbwIokCMwQAAQoAHRYhBO9mDQdGP4tyanlUE9ju1/PIO/qaBQJq9+sHAAoJENju1/PI
- O/qaRXAP/ipivOXI9FeMImp3dNekh6NiWVgRlbRPC0pN9hQtqAvSu/ibaioKHjziPePkunrdFFR
- jVqhmn8IMUqZCCD7GNTFYwVEweMojWi8DiwjaJIjNn06QiqajTaLAFTFtoJSnH6hCB0DAIWrqCQ
- JbdFEEDNNt8lMfhZvf/gzcc2y3rQna7qcI+jcCgPr9hUfhamH+rsclYxANtXiCSmA2ybKD2m2aq
- d27QGjz/KPYnnJ8k82sg57687V5AtlbU50ahzbgT2ZRYaufagZZ/n4Pkg+JWnmtgsBN6xQFVg0h
- gBw0QoRCYU8PTOmw3ur/MomSGvqhbQ5mxnok5AQD62zLbiYss/7iy3cF8LIAdXeqSZiZuydxEU8
- E2ifc4X7FdyKK5spG63s6tkQculEd5wGFPYoGBNpGUVPmjjNOFm4CwfQfkeGqB1jm0oSvurvTiD
- U3CbkhIadUI0/LRQaES7PrXY1eyzgOAoUxw9hcTpN/dZMQC4I007ng9kgVgMDoFHNPZ3a2IAPGo
- sz0tXcqpbQt7V0rfZ9XPY8vtKRu/0XpwOm5PbhIumivzln6n42iNsQ0W2DPWNNs9K1D2+G/itjX
- DcJ72TZabBlNSv1NAK/JpyspP139vyksmI8+Qj9m/LY30MPCTZMqTTytlPOGtdc0OABrwADx6Db
- xMmJzwJCryq/iyLkblv4rkA==
+ bh=/a1Sx0xnxtIAy/rO9CtYIv6V8j3eVU/OvzbAEr8LJwU=;
+ b=owJ4nAFtApL9kA0DAAoB2O7X88g7+poByyZiAGr36wdgwOCJLXRq1L9gbTDMJjwS8TSKnF03X
+ n2jVyTsbtiH3okCMwQAAQoAHRYhBO9mDQdGP4tyanlUE9ju1/PIO/qaBQJq9+sHAAoJENju1/PI
+ O/qaml4P/R7wJImy2muDFD6H1V6vdsdRK4+QzwE/p+noQFBeApnsTkUwcoGXYOKbdbl2QKH//cd
+ WBeCdJhT8/1Zv49VejB/VuQ/UD9zTEOzoq1lZffar49mqxdpjyEwYhYzh6HUAmHYWugmcbk3uPR
+ UGkQFpd+qBZKsXgcHLzDwtZdP0UHdauPknnUuz3dG1WY5Eet4/81xVcMUAwZOFC0VFjCwPyLNXn
+ THAFXLw1i3kBW0NTUZFmWz0vMiB27bPGBRLDgeVVrfkrpvPU7WCJM1COIzf9dES5QKN/9IQIcCi
+ baakxV1pTEoKOawblWTyb5QiihOA6VPiE8YLrDHIOK6lu4pa+IHKQ2qAIJsiXkTWHIrrbQUDczg
+ DEkzg9Q+mLUnyv1sAzbplH5mSXgCHY0xeNaUb+k9vjaCt1Q6l0rx0tSIpPxrTM3GP+tNvSejA3U
+ ug3PG+ZG9Yks7JFcVfSN9LdYKLUypCYSTvBHkGDO2zKkZZivVAt1/LwWN+KINJ1Kf5cGRat0Xjh
+ cfwp1YtFJlJF5Z3SmYHTHkEAD457P7hpVW7azg8J1xZ1fMwpJJiW69cEziE46TRx8DnBckdepKJ
+ 6cAr8fODGSn0103Hopmq+JZpy9Z60omov7EycRbPd6ZghYl5JAI/7X0DIaDOPeVxZmbFtNYwJL/
+ M5jX8+gemWUzoJ+u+PV0xfg==
 X-Developer-Key: i=sebastian.reichel@collabora.com; a=openpgp;
  fpr=EF660D07463F8B726A795413D8EED7F3C83BFA9A
 X-BeenThere: dri-devel@lists.freedesktop.org
@@ -102,37 +102,39 @@ X-Spam-Status: No, score=-18.8 required=3.0 tests=BAYES_00,DKIM_SIGNED,
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-The origin of this reservation is unclear, but it is a problem in the
-atomic_enable code since it potentially races with the audio SDP
-reservation once that feature is added. I suppose it was either meant to
-be bitmap_zero(), but that is obviously not needed (and would also be a
-problem for audio support) or some left-over development code before the
-VSC SDP slot was allocated automatically.
+From: Yury Smirnov <yurymonzon@gmail.com>
 
-From my tests SDP slot 0 works fine and can be used. If SDP slot 0
-really needs to be reserved for some reason, the bit should be set in
-the probe function to ensure there are no race conditions.
+A long HPD pulse only sends a hotplug event. When the sink is replugged
+while the output stays enabled with an unchanged mode, the compositor
+might not do any modeset and the link is never trained again, so the
+sink shows no signal.
 
-Tested-by: Igor Paunovic <royalnet026@gmail.com> # Orange Pi 5+
+On a long pulse with the link enabled and the sink present, retrain
+the link if its status shows it lost.
+
+Signed-off-by: Yury Smirnov <yurymonzon@gmail.com>
 Signed-off-by: Sebastian Reichel <sebastian.reichel@collabora.com>
 ---
- drivers/gpu/drm/bridge/synopsys/dw-dp.c | 3 ---
- 1 file changed, 3 deletions(-)
+ drivers/gpu/drm/bridge/synopsys/dw-dp.c | 6 ++++++
+ 1 file changed, 6 insertions(+)
 
 diff --git a/drivers/gpu/drm/bridge/synopsys/dw-dp.c b/drivers/gpu/drm/bridge/synopsys/dw-dp.c
-index cd1499ae449e..1ae5c842a782 100644
+index bf3a53463394..b245d6200913 100644
 --- a/drivers/gpu/drm/bridge/synopsys/dw-dp.c
 +++ b/drivers/gpu/drm/bridge/synopsys/dw-dp.c
-@@ -1712,9 +1712,6 @@ static void dw_dp_bridge_atomic_enable(struct drm_bridge *bridge,
- 		return;
+@@ -2394,6 +2394,12 @@ static void dw_dp_hpd_work(struct work_struct *work)
+ 				dev_warn(dp->dev, "Retrain link failed\n");
+ 		}
+ 	} else {
++		if (dp->link.enabled && dw_dp_hpd_detect(dp)) {
++			ret = dw_dp_link_retrain(dp);
++			if (ret)
++				dev_warn(dp->dev, "Retrain link failed\n");
++		}
++
+ 		drm_helper_hpd_irq_event(dp->bridge.dev);
  	}
- 
--	scoped_guard(mutex, &dp->sdp_lock)
--		set_bit(0, dp->sdp_reg_bank);
--
- 	ret = dw_dp_link_enable(dp);
- 	if (ret < 0) {
- 		dev_err(dp->dev, "failed to enable link: %d\n", ret);
+ }
 
 -- 
 2.53.0
