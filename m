@@ -2,80 +2,86 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1C3E1606A329
-	for <dri-devel@archiver.kernel.org>; Mon, 16 Nov 2026 08:58:55 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0B3DD606A32F
+	for <dri-devel@archiver.kernel.org>; Mon, 16 Nov 2026 08:58:56 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=rtKzJnvb
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=lmM8JJqa
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 4A53210EB70;
+	by gabe.freedesktop.org (Postfix) with ESMTP id B590D10EB89;
 	Mon, 16 Nov 2026 08:58:47 +0000 (UTC)
-Received: from mail-qv1-f43.google.com (mail-qv1-f43.google.com
- [209.85.219.43])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 7E71910E895
- for <dri-devel@lists.freedesktop.org>; Sun, 15 Nov 2026 00:00:24 +0000 (UTC)
-Received: by mail-qv1-f43.google.com with SMTP id
- 6a1803df08f44-91f0b9f0b1cso32514056d6.1
- for <dri-devel@lists.freedesktop.org>; Sat, 14 Nov 2026 16:00:24 -0800 (PST)
+Received: from mail-dy1-f174.google.com (mail-dy1-f174.google.com
+ [74.125.82.174])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id D0A0F10E139
+ for <dri-devel@lists.freedesktop.org>; Sat, 14 Nov 2026 17:18:03 +0000 (UTC)
+Received: by mail-dy1-f174.google.com with SMTP id
+ 5a478bee46e88-36d1b3b9974so168438eec.2
+ for <dri-devel@lists.freedesktop.org>; Sat, 14 Nov 2026 09:18:03 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20260707; t=1794700823; x=1795305623; darn=lists.freedesktop.org;
- h=content-transfer-encoding:mime-version:message-id:date:subject:cc
- :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
- bh=47yra+ALozbc0fVpexoyxbUMKoA6BWbtB+u45dbkO3Y=;
- b=rtKzJnvbNYWrSiFV1zeDJwl3Cpw1Q22ZWLsJkmVtP2vYE93BZcrguM1w0YPubN6Aos
- 6dWAz+MlBmmW05iy/zm6sMwlmnFfM8f44rog8m3uqgaKwv8t557Z+ZBhLVs9lCXn2JBA
- XSFbj3aOcirky51X6XE+5kdBzLR1IQXsDBxBE4UvhigCavlwp0f5ycvUyZNNp2XrinNK
- eCkTAApBpey2nuvZstKz0lqOqsgPqXtY+HZxYp3Wc/x6sXhcUpm7tOIKMREaxHEDmAUh
- K0SuJ5hxW8uV0zOE429vRwcdWa9p2PBCUbWVx2ttLEmshrgoQOIu4fl1NZoOwe3tj3qw
- Jw5A==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20260707; t=1794700823; x=1795305623;
- h=content-transfer-encoding:mime-version:message-id:date:subject:cc
- :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+ d=gmail.com; s=20260707; t=1794676683; x=1795281483; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:mime-version:references:in-reply-to
+ :message-id:date:subject:cc:to:from:from:to:cc:subject:date
  :message-id:reply-to:content-type;
- bh=47yra+ALozbc0fVpexoyxbUMKoA6BWbtB+u45dbkO3Y=;
- b=H8kStrjzOCnvxmZ5sDpaf2MDBUiY5ldx51WOWhi9/ZUC0vZR6SehvJPUb2V3WoYq8k
- 7eKBFEWQx7qDMVZJd2EfyOdbg2SZjugEuuuLqkogKUlq0hfHkrtwGGaiqgHEMA0gGjyC
- OaQBqt/un8aFgt/G5xP3IIu8e/fqJMVlcTrK6ZTi6RQPMd1/aydRFIrI65+vpqEDIOOY
- KG7wBDhJVH5kpZyP1qKVYmRkk8nLgoqq9MZM1jKshPYe0iie/LAgbygooa5Bi7SlrZHp
- UPCdVInFtHaYfRVZmUvHte02xAzQtZycDrSpcJUP1xCt6Ba/KLTHTZyk/tDXK/sBWwT2
- GSHw==
+ bh=4oitWDULEpM5/hVJgOh4m6V8xx8F+2jtGn7i+dhJCug=;
+ b=lmM8JJqaCYVbMf+UIRYdrbkWNXictWwF0SawMgYxXK7fB/H5QtdJzwJzKEOlvVGzVT
+ jqIWdM0hM512n3C753TPEh0Z8nxUUI2w6pUWGlyf9NjqBVHeWG14C4WsJpgepZHiXWX7
+ n7VVQtK7LqIEhVuP42N7mB6GhukVVGAH28hVsAHWrYdTNmScuFYhy1NJ8Hd3sbHYFZQE
+ duWLLw2QwmCz4ptQSR0R/LqeSwAEVqg2/APC8nsnq1eYXgpDcYjyTRqmKPfH9muHkhoX
+ Fa8bR3k9DCnVOZ9v6wm0BAB0MAs4m/DmapPzGBBPinF6lJa5jV2UFhaehh6M7JiUMfty
+ 0T1w==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20260707; t=1794676683; x=1795281483;
+ h=content-transfer-encoding:mime-version:references:in-reply-to
+ :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+ :to:cc:subject:date:message-id:reply-to:content-type;
+ bh=4oitWDULEpM5/hVJgOh4m6V8xx8F+2jtGn7i+dhJCug=;
+ b=lJbJsaKk+ibFdCcuspWjaIppcWoTKknv2/hQuH4KYxo0gJv7UHjIObj3QztKeiVaHr
+ gEAYOXWA6EbuO6g+iwWneMe6Hal15LaNC7sW/S7P0ZQRitmQt4G70dkpw3P0OCJtY9Cs
+ 4ui592JM7MiOF4Gj0vUCh1/PzSBm3vlJetF97ud3iGdHOe5I0rPAv36LVBqVteEuTiwy
+ HKUPA4GgMiQAJJuC4RGJ8HFXEztbKCNkbOYL1GxSFzhg6npGctct01ACaGWEoAGKReSs
+ IvyuBjbxyuQkGPTh1TLOJG1rxpEazl7OAyd5xtekNkmbBM7f3+FMTbfLIHLmYKLST1L6
+ qvig==
 X-Forwarded-Encrypted: i=1;
- AL+hErHpgbHf1YyOwKZWAHzL6S8bpW4hKelLbDN1/TZzSQ194hF6CZhX1eBxav3WG14JOWNrZ7LAe/YkptA=@lists.freedesktop.org
-X-Gm-Message-State: APuU4Z/PQcRIAnJ5B4iXwR2CDeG7+jJOYrr6zXqIbQ/vc/iIIB5TDcF/
- MfRvZawk2q1NhWqWZafwbFwgz/1kAWNg+0Q+d3Snicc2w8hn3FWm8+J2
-X-Gm-Gg: AYBFou1D1g+TY3+AiBl97iqKFJZxpH5jTm/l2dn17zlACFD9dMhYz79MwBFS8VwZ4Ba
- 6w3ti8haa7hngJWPWLSxiHyX4SZh99t1Mh1fY/N7Vm/L4nLL3fuHoNvhL6Ll57skkeCstgpgjkw
- oC4x+fprE3t4LQkE1TUWIvxn3MHGlf9XJU+Cqwyq+y4SaJIsNl75q5fkBhrWCERkkZL+iJnHUS/
- rrOkbmQjcejO7uqZuanoA232fLfBCBd3+SXag3Zgm9qGQINZzBuhk7eA9cEGrbVGmqLijsNlG6V
- 3bYEoW77VSnTuZTa+TZua/jd9w9VsoIgKpwhHktZtstcYlRrYZImW0iU5tGsjKChy9ZWR0GZO8x
- fm/Oy395oirNxDixYt9xtWvQmH7oMSzN7x7VcFibP+Zn4UQSHHzGSWHBqWNtOKlA7sWY48Ew2Kq
- 0nPR+mtyebh6N57JNwfVltP0Fu7z68dnIq3FE2vX4+KnLk/K6BLYQ9aR0uz9YPccbP9qwiE6oQ/
- vtqGvys3jO9XC/cwPZjghZC/X8QC2Dp3s9UzbwaooSEh9VRErWydQG13IYbdnLSmNpxUzw6QtjK
- JK1/XpnGkZqp5oUFA//rG3ygxday0VVeyS3zmKgMAO2tkWkBF3eWjAVEi7a9oPOVaGZnrdsJQml
- IoX0rzu+fmG4k2IHfIgEgn1l6nEAvgZtl3LYE1bhWMtCn34UkfJ9N/ZLnDxwqdoAEBMTiuOCG56
- fr9sTnJZ64tsyjUnCVnReuck7ELFcd50jiLYFjZUe03ek3gSY3aSKkURSqaqeHCqPAYL49C0j1T
- gpvbavIJD58gCW2roIpE8eD7diVk5XagJxtkBtyTMoZ2w==
-X-Received: by 2002:a05:6214:5284:b0:91e:a38a:74e with SMTP id
- 6a1803df08f44-91f241cd1f4mr112380336d6.28.1794700822815; 
- Sat, 14 Nov 2026 16:00:22 -0800 (PST)
-Received: from LRMS.tailf8556c.ts.net
- ([2600:4041:5024:4b00:2cba:4fbd:5596:d1cd])
+ AL+hErEq6jxq7uNE9buQoWgmBmuhihcYZICsBPrdD1arUvVn0f6OzwlCwS3fJQcJpCCkSbTpyive8iZkuyU=@lists.freedesktop.org
+X-Gm-Message-State: APuU4Z+yejiaLHOyjnwOBCwZ+gDEPTd8zbwCmcNMI37MbQ96jd/hwHMq
+ +TYDCVA3G1xRUda4FLiClwajxMgU0zAKLBuV5CUHJMxJLfCUsr8N22fW
+X-Gm-Gg: AYBFou2dIpDtB+VG6EBN/AjWxmhIcpSTuF0s81Y7A635m2kZeflygBZePOGHugaR7RN
+ 0tLI/DUdG31JzmYLdbqoypYoZr5iaQueZUrrAVzrurBEpZPAP/rdxLf8jLhwnVsKfSnEs2xdS7I
+ AiwhX5hOzlRQvxWP5b5aru6XXhjT8CT8jcthriHLpWP99Dl9N7tHgMpfkuZn/gHbD4/bwNBmIAl
+ z7EDY4GLViW5aq8tCOe+WF/HpMC1zLEFKrvrSgTi/5LlcbvRmuaNApAGdqebgJW98jre/oPOaJI
+ OKxIkYkGb4NoneKKVZ0VrXuCX0xuMIREFe7u29dyUdrUBvYvNGhutlxIy9U6sqWcuPGOd5hiY1h
+ 1gvieJyYkN9jaKCLxWZs6bCYFwBOG/a0J0iuH/8pBoGeilZmGunDt1KUxNYKXwzERSBqpzpGTNZ
+ 8LH28xK0/ahDyXGXg12BJDd5Nwj6aLrFNiSTaA3deAbrQwWEgmB8Lbp6lA7ov8rfq99eQo8XLqw
+ 2Ovop0rKCrSs3JSpDhERic9p6dwapCF26M2iuNEqkG+3zrpsQchJsBOTLMbFEW2Jog/ovSJfj1v
+ zmvAE7PqKfBHXnCJetICXXvg4oJ2g814l3es32TaTtV2l3GE0U4omtvU31uVsDpD7mg8yYfGkGW
+ +1XU=
+X-Received: by 2002:a05:7300:c00e:20b0:35e:d21c:f33e with SMTP id
+ 5a478bee46e88-379651ecb3emr9803831eec.1.1794676682696; 
+ Sat, 14 Nov 2026 09:18:02 -0800 (PST)
+Received: from DESKTOP-CJ1L666.localdomain ([211.198.99.62])
  by smtp.gmail.com with ESMTPSA id
- 6a1803df08f44-91f23d70489sm52516536d6.21.2026.11.14.16.00.21
- (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
- Sat, 14 Nov 2026 16:00:22 -0800 (PST)
-From: Jesse Casco <jesse.casco@gmail.com>
-To: robin.clark@oss.qualcomm.com,
-	lumag@kernel.org
-Cc: abhinav.kumar@linux.dev, jesszhan0024@gmail.com, sean@poorly.run,
- marijn.suijten@somainline.org, airlied@gmail.com, simona@ffwll.ch,
+ 5a478bee46e88-37956bb0c40sm19492548eec.28.2026.11.14.09.17.58
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Sat, 14 Nov 2026 09:18:02 -0800 (PST)
+From: Jiwoo Kim <arpe1618@gmail.com>
+To: Rob Clark <rob.clark@oss.qualcomm.com>
+Cc: Dmitry Baryshkov <lumag@kernel.org>,
+ Akhil P Oommen <akhilpo@oss.qualcomm.com>,
+ Konrad Dybcio <konradybcio@kernel.org>,
+ Anna Maniscalco <anna.maniscalco2000@gmail.com>,
+ Abhinav Kumar <abhinav.kumar@linux.dev>,
+ Jessica Zhang <jesszhan0024@gmail.com>, Sean Paul <sean@poorly.run>,
+ Marijn Suijten <marijn.suijten@somainline.org>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
  linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org,
- freedreno@lists.freedesktop.org, linux-kernel@vger.kernel.org
-Subject: [PATCH] drm/msm/dp: don't fall back to a link that can't carry the
- eDP mode
-Date: Sat, 14 Nov 2026 19:00:21 -0500
-Message-ID: <20261115000021.78869-1-jesse.casco@gmail.com>
-X-Mailer: git-send-email 2.56.0
+ freedreno@lists.freedesktop.org, linux-kernel@vger.kernel.org,
+ stable@vger.kernel.org
+Subject: Re: [PATCH v2 0/3] drm/msm: Fix VM_BIND job,
+ queue and entity lifetimes
+Date: Sun, 15 Nov 2026 02:17:52 +0900
+Message-ID: <20261114171752.972-1-arpe1618@gmail.com>
+X-Mailer: git-send-email 2.43.0
+In-Reply-To: <CACSVV00ZppfBKwsHJ+NBYBB7a2f3g1O=6J4Gt1m_A74fudZQoQ@mail.gmail.com>
+References: <CACSVV00ZppfBKwsHJ+NBYBB7a2f3g1O=6J4Gt1m_A74fudZQoQ@mail.gmail.com>
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
@@ -91,96 +97,59 @@ List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-15.8 required=3.0 tests=BAYES_00,DKIM_SIGNED,
+X-Spam-Status: No, score=-5.8 required=3.0 tests=BAYES_00,DKIM_SIGNED,
 	DKIM_VALID,DKIM_VALID_AU,FREEMAIL_FORGED_FROMDOMAIN,FREEMAIL_FROM,
-	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
-	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,USER_AGENT_GIT
-	autolearn=unavailable autolearn_force=no version=4.0.1
+	HEADER_FROM_DIFFERENT_DOMAINS,MAILING_LIST_MULTI,SPF_HELO_NONE,
+	SPF_PASS,USER_AGENT_GIT autolearn=no autolearn_force=no version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-When channel equalisation fails after clock recovery succeeded,
-msm_dp_ctrl_on_link() halves the lane count and trains again. Nothing
-checks that the reduced link can still carry the current mode.
+On Sat, Nov 14, 2026 at 8:40 AM Rob Clark <rob.clark@oss.qualcomm.com> wrote:
+> Oh, right.  We should probably just update last_fence for VM_BIND in
+> the same way.  (Ie. using dma_fence_unwrap_merge() to deal with the
+> case that the current last_fence is on a different timeline.)  I
+> overlooked that.
 
-On the ASUS Zenbook A16, channel equalisation at 4 lanes x HBR2 fails
-on some DPMS wakes. The 2-lane retry trains but can't carry the mode
-(17.03 Gbps needed, 8.64 Gbps available), so the panel stays dark
-while userspace sees the output as on.
+Will do in v4.
 
-For eDP, check the reduced link against the mode with the same
-bandwidth check as msm_dp_display_mode_valid(), and retry at the
-previous parameters when it falls short. External DisplayPort keeps
-the existing fallback.
+> I think if last_fence is also accounting for VM_BIND jobs, this should
+> ensure that all VM_BIND jobs are also finished.
 
-Tested with 100 DPMS off/on cycles before and after: channel
-equalisation failed on 6-7% of wakes either way. Without this patch
-each failure left the panel dark; with it, each one recovered on the
-first retry at 4 lanes.
+It covers their fences, but not the free of a killed job:
+drm_sched_entity_kill_jobs_work() signals the finished fence and only
+then calls free_job(), which can drop the last reference to the queue
+after msm_gem_vm_close() has torn the scheduler down.
+msm_submitqueue_destroy() then calls drm_sched_entity_destroy(), whose
+flush reads entity->rq->sched from the run queue that drm_sched_fini()
+freed. Jobs that ran are freed before drm_sched_fini(), by the
+scheduler or in drm_sched_stop(). So I'd keep patch 2 on top of the
+last_fence change.
 
-Signed-off-by: Jesse Casco <jesse.casco@gmail.com>
----
- drivers/gpu/drm/msm/dp/dp_ctrl.c | 26 ++++++++++++++++++++++++++
- 1 file changed, 26 insertions(+)
+> Yes, userspace must use fences/syncobjs to synchronize VM_BINDs if it
+> is using multiple VM_BIND queues with overlapping updates.  An error
+> would mark the vm unuseable, and the kernel will stop accepting
+> SUBMITs and VM_BINDs.  But maybe we should also handle errors in the
+> UNMAP path as well, as that also indicates that userspace is doing
+> something wrong?
 
-diff --git a/drivers/gpu/drm/msm/dp/dp_ctrl.c b/drivers/gpu/drm/msm/dp/dp_ctrl.c
-index abd3dcd..261645c 100644
---- a/drivers/gpu/drm/msm/dp/dp_ctrl.c
-+++ b/drivers/gpu/drm/msm/dp/dp_ctrl.c
-@@ -1587,6 +1587,16 @@ static int msm_dp_ctrl_link_rate_down_shift(struct msm_dp_ctrl_private *ctrl)
- 	return ret;
- }
- 
-+static bool msm_dp_ctrl_link_fits_mode(struct msm_dp_ctrl_private *ctrl,
-+				       struct msm_dp_panel *panel,
-+				       unsigned long pixel_rate)
-+{
-+	const struct msm_dp_link_info *params = &ctrl->link->link_params;
-+
-+	return (u64)pixel_rate * panel->msm_dp_mode.bpp <=
-+	       (u64)params->num_lanes * params->rate * 8;
-+}
-+
- static int msm_dp_ctrl_link_lane_down_shift(struct msm_dp_ctrl_private *ctrl,
- 					    struct msm_dp_panel *panel)
- {
-@@ -2383,6 +2393,9 @@ int msm_dp_ctrl_on_link(struct msm_dp_ctrl *msm_dp_ctrl,
- 	struct msm_dp_ctrl_private *ctrl;
- 	u32 rate;
- 	int link_train_max_retries = 5;
-+	bool is_edp = panel->connector &&
-+		      panel->connector->connector_type == DRM_MODE_CONNECTOR_eDP;
-+	struct msm_dp_link_info prev_params;
- 	u32 const phy_cts_pixel_clk_khz = 148500;
- 	u8 link_status[DP_LINK_STATUS_SIZE];
- 	unsigned int training_step;
-@@ -2420,6 +2433,7 @@ int msm_dp_ctrl_on_link(struct msm_dp_ctrl *msm_dp_ctrl,
- 		return rc;
- 
- 	while (--link_train_max_retries) {
-+		prev_params = ctrl->link->link_params;
- 		training_step = DP_TRAINING_NONE;
- 		rc = msm_dp_ctrl_setup_main_link(ctrl, panel, &training_step);
- 		if (rc == 0) {
-@@ -2472,6 +2486,18 @@ int msm_dp_ctrl_on_link(struct msm_dp_ctrl *msm_dp_ctrl,
- 			msm_dp_ctrl_clear_training_pattern(ctrl, panel, DP_PHY_DPRX);
- 		}
- 
-+		/*
-+		 * An eDP panel has one fixed mode. A lower rate or lane count that
-+		 * cannot carry it trains, but leaves the panel dark: retry at the
-+		 * previous parameters instead.
-+		 */
-+		if (is_edp && !msm_dp_ctrl_link_fits_mode(ctrl, panel, pixel_rate)) {
-+			ctrl->link->link_params = prev_params;
-+			drm_dbg_dp(ctrl->drm_dev,
-+				   "eDP mode needs rate=%d lanes=%d, retrying\n",
-+				   prev_params.rate, prev_params.num_lanes);
-+		}
-+
- 		rc = msm_dp_ctrl_reinitialize_mainlink(ctrl, panel);
- 		if (rc) {
- 			DRM_ERROR("Failed to reinitialize mainlink. rc=%d\n", rc);
--- 
-2.56.0
+Yes, I'll do that, but it only catches an unmap that finds part of its
+range unmapped, not one that runs while the range still holds the PTEs
+of an older mapping, e.g. one whose own unmap is still queued on a
+third queue. The early unmap then succeeds. If the map runs next,
+before the third queue's unmap, its PTEs belong to no VMA, so nothing
+keeps the BO alive for them until that unmap removes them, and none of
+the three ops fails.
 
+So instead of making unmaps wait for maps, in v4 I'd also track
+whether the map of a VMA has been applied, and mark the VM unusable
+when its unmap runs first. The jobs of a VM run one at a time on
+vm->sched, but v3 patch 1 applies the unmaps of a killed job from the
+kill worker, and msm_vma_job_run() reads vm->unusable before taking
+mmu_lock, so a map waiting for the lock would still be applied. The
+check has to move under the lock, and the flag has to be set before
+the unmap path drops the lock.
+
+This is all from reading the code; I haven't reproduced it.
+
+Thanks,
+Jiwoo Kim
