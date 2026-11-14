@@ -2,65 +2,66 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 55CBD606A32E
-	for <dri-devel@archiver.kernel.org>; Sat, 14 Nov 2026 16:25:43 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 34DCF606A323
+	for <dri-devel@archiver.kernel.org>; Sat, 14 Nov 2026 16:25:44 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=qsJqDdHw
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=pU3Mwfap
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id D050710F03D;
-	Sat, 14 Nov 2026 16:25:13 +0000 (UTC)
-Received: from mail-dl1-f46.google.com (mail-dl1-f46.google.com [74.125.82.46])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 6CD0810E16F
- for <dri-devel@lists.freedesktop.org>; Sat, 14 Nov 2026 08:20:41 +0000 (UTC)
-Received: by mail-dl1-f46.google.com with SMTP id
- a92af1059eb24-1af971cd9f9so55464c88.3
- for <dri-devel@lists.freedesktop.org>; Sat, 14 Nov 2026 00:20:41 -0800 (PST)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 6094510F03A;
+	Sat, 14 Nov 2026 16:25:14 +0000 (UTC)
+Received: from mail-dy1-f180.google.com (mail-dy1-f180.google.com
+ [74.125.82.180])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 5BAB010E16F
+ for <dri-devel@lists.freedesktop.org>; Sat, 14 Nov 2026 08:20:33 +0000 (UTC)
+Received: by mail-dy1-f180.google.com with SMTP id
+ 5a478bee46e88-37123334649so194370eec.1
+ for <dri-devel@lists.freedesktop.org>; Sat, 14 Nov 2026 00:20:33 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20260707; t=1794644441; x=1795249241; darn=lists.freedesktop.org;
+ d=gmail.com; s=20260707; t=1794644433; x=1795249233; darn=lists.freedesktop.org;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:from:to:cc:subject:date
  :message-id:reply-to:content-type;
- bh=1Kn39X2pYs+jW+52+qPxiOSR0mlkbzAfD+hyR5VjqrQ=;
- b=qsJqDdHwMlOtWn9K5N/m4DseRVK2mHtdKaNrCELL2pGo7LEqfr/3cv3ooicWoamHn5
- vfdxhNganbJ0NacVRJ1N/q6uJJMpk2VISDuraWJYxwegb0Y5j1H2aT6b85LSkIrPfr3q
- Q2U+MRTxTDOG2d9YiFfSVYtWzbW85lAxZ3uyyDkrT57Z76MBVPPbSbctyLfZmw7IBQL/
- rF28J5i77+v6NKX/lDsVU2sP9kk+eWQdGz+O9oTYo1di2FM71ja0+gvtcxeJhb1dxUjW
- S++3H2gI6AO56PhnMduc6E57cOxf0ZyjHqcvKK0OT/wgXB3Htb/wGTpd5fPd/jkGKVxs
- OZlA==
+ bh=hp5f15bouPR2UtUnvKHkGzva3ieusdxkwfWzQA5rd1U=;
+ b=pU3MwfapjBB9IC1GnHreMW+UXNEETPrHfoC/tcFP6cbE385pQ15CkkKhXKKx3VOQNR
+ yqcnFr2J/RolKWdbjB7OML6A9o6ACDHc3zCXCIk11DJi/0mmXPkdQh1cgk/7mplqq/h5
+ ACebsgf5vVg+y7rglsEpRH/srPYYGQAtEV4fCrsbgG4GZohUsAGslaWG7HT1rWqZh0Bb
+ pK/z/wNQJ1njVYxNLsLvLvsK9xgZBJIzTC8qLNrQVcy3xCEtCovqbQXFeQc0HIVBsaTY
+ UqOqeo4v3Sg340o+U6nDvM3kszwRpci6mK6myVFC+PvqHEws7eCrYPDlwwgOkh0KoU4/
+ D+4A==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20260707; t=1794644441; x=1795249241;
+ d=1e100.net; s=20260707; t=1794644433; x=1795249233;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
  :to:cc:subject:date:message-id:reply-to:content-type;
- bh=1Kn39X2pYs+jW+52+qPxiOSR0mlkbzAfD+hyR5VjqrQ=;
- b=ztyXY3519DHj6AW7LJipbl/Pta7DWG/FqyXObd0QEAMyPMbTskHfbputXxsvNE2hUa
- uYEv8miZ0Ta5+fSfyb1QDqOgO+el97e82opzbjfWpftm0TTuxBXg3gdBzCefigGWTeyk
- czUp36z1Mk8cmTAdUfoeeliluhXgxw/m91GSggQvod5GscA57s1rEVYq0atv9N/Zv3mp
- AcMdDHP8ZQjFRmKr/54Sf0D4P8wJH1SLMPisgWX7D1WeWDePV/ByzRgCN5poiCvzO0Oh
- YSbElFuXAu4NReRD2/v210EdOazScVb3UAW9wzPxRPzsTsfF1aFTkiEuJ959HxXWGGas
- 6H/g==
+ bh=hp5f15bouPR2UtUnvKHkGzva3ieusdxkwfWzQA5rd1U=;
+ b=WPEylprO4roXzOfFq1o5Pi//T9fkQ1VHB9e9+c7dm8hmk4mEJOXRhIf3TouriAIgkv
+ BmX9VkCPEu3Hn8anPeeHqbX2BntT13fRE2lFZlC3yQYr2S/Kjev0aXQCrU8dE7a0XlDB
+ M5GYK0i3eATytCXEZaaxS4A16fmxMGYycGcwMO90bOQzUfG7/rDnR5wfk07m7byLS0/d
+ Oe4hpWt/ooyC2MK0ZXg2xzfmsx4bTe/6W9vcY8w2JU1NMEAI0tfZtr7spuVkuBjuxXq5
+ /rqdP9W8PxXEp/Cu3hWgHYOi3M3sS8N7aK/CzbssG3WagYa9xAFz/hNhRUDKadOnKBRF
+ UMxw==
 X-Forwarded-Encrypted: i=1;
- AL+hErFU73rWvdSMwyAikxuTidtyRLoiOQS+l+jE1plOBaW+BifXQSofOPG5+9emEq7eIW6d2E+6FlsWLE0=@lists.freedesktop.org
-X-Gm-Message-State: APuU4Z/LQ7sxeMdokHPeQJKHzqS5YoxHgglu+hUsOMRbwyslzHzXTeK3
- OoxxYMLERVR5m13O+04vLriso35+5a73BZIqbtf2vBUSlLUZJdLfjc41IjHuiQRMkVQ=
-X-Gm-Gg: AYBFou1F2WNudj/8CbAyQ13Xq5/6rzyaQqEONWVlRYk2Lx9152dw91mbVR6zGL34mC4
- X84LBUhgyFeX5hGrLRNbaqkvGdEJpidpWAHuABzh7iYtONG4Uzo51oJFM8TWn+PddFOiBtCciVL
- sW+SkHVO+PtoN4icEGn+A6U/FtxSPPuH9tSnBcOrzHRB3Rk71K4rMY6RnmlV8vKCiPxNWvAPCDN
- s6ALgFzrY0gz20TbYSerhBaN6yESspGty4m8S7TTzLsBB4Ky2D1ak8vbSiZokgxGCwPdALm/Gsc
- LjPz2fENM1b0N+yYmjS40abKcodC+p8Eaaugv4jB+2P8ShhK0vxHQ3wpSBi0eXv/8OCiF9FMDuc
- hINYyHC/Lt2BcFpmOvZ/4w3yoecHdUhZTYH4Qqx7Yk9WALyKcd4M14j4CCWj8EkaiNi/BstbwfZ
- wRdXvqPIq3W55tPO+KStG/6rxHrZEAPeK2WtRQ5iR9edcO1cZ3UDQpUELFpLCGW59hblMU+T2O5
- ctkPHFIGxsWwbI5o2HAw2SBHfvubCzVtQVL9CYlkgJZMDVOYqXwY3P8zbousQL1rCnAH9RrqCPI
- gyc9EdU8dPsYInBXcqQ4KTy8N+mT3frTVTuqqBfJy7sORTBDPgsVOxrsyK0TgH861T8WGHmkD2X
- a7xg=
-X-Received: by 2002:a05:701b:260b:b0:143:5c2a:e45f with SMTP id
- a92af1059eb24-1b502fe3f20mr7840573c88.0.1794644440684; 
- Sat, 14 Nov 2026 00:20:40 -0800 (PST)
+ AL+hErEOTdIe+37QlX/4TR8hMSMXaDsFhYNUjwEvxNPhll/tOmOBuUROIwbACGz107qMvi0P4iQTPHfr66I=@lists.freedesktop.org
+X-Gm-Message-State: APuU4Z9Gj/9PTYT4wBIrnhx1ADQfr3YeUNaX/7yZ+VYCtcFQRLG7nEVe
+ rRpfEzgjEIfbxdq+7EsJeDQmKX2WfaaujOtXqU0+CgMonmkvuMSkX5d/
+X-Gm-Gg: AYBFou0qg8I97UuppH2xW8ECMFInZZSfoBBdqgSUGU5QB7C9OCRCuVbXCEK2iUHl+Ey
+ 3+UNo3Ih4eq7YqI8z7Z+jFkr7akPNjY1mDHHDiS/MnWoznAyJG2A055/P+qNuLV2s9n1sQov/Y7
+ maJxjLgoqGn41rWrVOhCH2Ml8XzC10UBDdw46i0iEDv6p5RSHGVyD0eAItP8p0JHLuFZp7S69lb
+ 2BITtaDuyK76PWpzZ158xdqqWMuxXB7ebJFb+EXhvQYGuFlcMkc2xg0ndXJNmYErMq7WwLv25AK
+ MJ/BBKxKBLv1XqvIDNYGsELC/miBJ5vY919tPgzpSLkMO0FuS+uLpYYEvWwCSdqUq5wNrQc0fp2
+ Q+QmVhq404QQzN40nGeymVq0hkaLF+MHkZSbDjIQ5zGAk/SMkWIE1/LucSmCmR3Ye9wgtVi9Crn
+ egC1+GeCUApbJR2poRYJtKGzj+uz6jf4ZcnPRpw3WeFF96gjRnZE1lAAbi3diTUMnfVcONFN8JJ
+ VD+/mFf9Ildtkh/5xE1rXh6zEIVlNjJMpFrI1joww9dvStOwWTnxlbh/cE+rVq+yBcOc7mDY5Ny
+ 2G9zqd1VHpmWn6R/GQ+dPBQ3AdPAUZhqM3WzYMLG50lSiS86A3zh9NTG6igsTecT2uoMvfhPMhP
+ QmLM=
+X-Received: by 2002:a05:7300:c00e:20b0:35e:d21c:f33e with SMTP id
+ 5a478bee46e88-379651ecb3emr8108167eec.1.1794644432522; 
+ Sat, 14 Nov 2026 00:20:32 -0800 (PST)
 Received: from DESKTOP-CJ1L666.localdomain ([211.198.99.62])
  by smtp.gmail.com with ESMTPSA id
- a92af1059eb24-1b5031918c7sm19524043c88.9.2026.11.14.00.20.36
+ a92af1059eb24-1b5031918c7sm19524043c88.9.2026.11.14.00.20.28
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Sat, 14 Nov 2026 00:20:39 -0800 (PST)
+ Sat, 14 Nov 2026 00:20:31 -0800 (PST)
 From: Jiwoo Kim <arpe1618@gmail.com>
 To: Boris Brezillon <boris.brezillon@collabora.com>,
  Rob Herring <robh@kernel.org>, Steven Price <steven.price@arm.com>,
@@ -71,10 +72,10 @@ Cc: Danilo Krummrich <dakr@kernel.org>,
  Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>,
  Simona Vetter <simona@ffwll.ch>, dri-devel@lists.freedesktop.org,
  linux-kernel@vger.kernel.org, stable@vger.kernel.org
-Subject: [PATCH v2 4/4] drm/panfrost: Don't destroy uninitialized entities of
- a new JM context
-Date: Sat, 14 Nov 2026 17:20:16 +0900
-Message-ID: <20261114082016.2454-5-arpe1618@gmail.com>
+Subject: [PATCH v2 2/4] drm/panfrost: Find the jobs of a destroyed JM context
+ by their context
+Date: Sat, 14 Nov 2026 17:20:14 +0900
+Message-ID: <20261114082016.2454-3-arpe1618@gmail.com>
 X-Mailer: git-send-email 2.43.0
 In-Reply-To: <20261114082016.2454-1-arpe1618@gmail.com>
 References: <20261114082016.2454-1-arpe1618@gmail.com>
@@ -101,80 +102,66 @@ X-Spam-Status: No, score=-15.8 required=3.0 tests=BAYES_00,DKIM_SIGNED,
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-When panfrost_jm_ctx_create() fails, it drops its reference to the new
-context, and panfrost_jm_ctx_release() then calls
-drm_sched_entity_destroy() on all the entities of the context. If the
-requested priority is invalid or not allowed, or drm_sched_entity_init()
-fails, some or all of these entities have never been initialized,
-though. Since commit fd177135f0e6 ("drm/sched: Account entity GPU
-time"), drm_sched_entity_fini() then dereferences the NULL entity->stats
-of such an entity, and since commit 2df5efb45425 ("drm/sched: Remove
-redundant entity->rq initialization and checks"),
-drm_sched_entity_flush() already dereferences its NULL entity->rq.
-Userspace can hit this with JM_CTX_CREATE and an invalid priority.
+panfrost_jm_ctx_destroy(), which runs on JM_CTX_DESTROY and when the
+file is closed, looks for the jobs of the context in pfdev->jobs[] by
+comparing job->base.entity with the entities of the context. Since
+commit 96c7c2f4d5bd ("drm/scheduler: set entity to NULL in
+drm_sched_entity_pop_job()"), the scheduler clears job->base.entity
+when it pops a job, before it calls run_job(), so the entity of every
+job in pfdev->jobs[] is NULL and the comparison never matches.
 
-On these error paths, destroy only the entities that were initialized
-and free the context directly. The context is only put once it is fully
-set up.
+The jobs of a destroyed context are therefore neither stopped nor
+detached from the file: they keep running after the file is closed,
+and with profiling enabled, panfrost_dequeue_job() writes their
+engine_usage to the panfrost_file_priv that panfrost_postclose() has
+freed. The same comparison was used in panfrost_job_close() before
+commit 6aa8bc58ac88 ("drm/panfrost: Introduce JM contexts for manging
+job resources").
+
+Match the jobs by job->ctx instead, which a job holds a reference to
+until it is cleaned up.
 
 The patch and its changelog were drafted with an AI coding assistant.
 The issue has not been reproduced, and the change has only been
 compile-tested.
 
-Fixes: 6aa8bc58ac88 ("drm/panfrost: Introduce JM contexts for manging job resources")
+Fixes: 96c7c2f4d5bd ("drm/scheduler: set entity to NULL in drm_sched_entity_pop_job()")
 Cc: stable@vger.kernel.org
 Reported-by: Sashiko <sashiko-bot@kernel.org>
-Closes: https://sashiko.dev/#/bug/linux-1f36c24e-a878-442e-991c-1b387017bee6
+Closes: https://lore.kernel.org/r/sashiko-outbox-214229@kernel.org
 Signed-off-by: Jiwoo Kim <arpe1618@gmail.com>
 ---
- drivers/gpu/drm/panfrost/panfrost_job.c | 14 +++++++++++---
- 1 file changed, 11 insertions(+), 3 deletions(-)
+Trees from before commit 6aa8bc58ac88 ("drm/panfrost: Introduce JM
+contexts for manging job resources") have the same comparison in
+panfrost_job_close() and need a separate backport; there, the jobs of
+the file can be matched by job->mmu instead.
+
+ drivers/gpu/drm/panfrost/panfrost_job.c | 8 +++++---
+ 1 file changed, 5 insertions(+), 3 deletions(-)
 
 diff --git a/drivers/gpu/drm/panfrost/panfrost_job.c b/drivers/gpu/drm/panfrost/panfrost_job.c
-index 0dbed7a50910..95fd9521016d 100644
+index 7022b1b2e020..7a3137dacb9d 100644
 --- a/drivers/gpu/drm/panfrost/panfrost_job.c
 +++ b/drivers/gpu/drm/panfrost/panfrost_job.c
-@@ -1097,6 +1097,7 @@ int panfrost_jm_ctx_create(struct drm_file *file,
- 	struct panfrost_device *pfdev = priv->pfdev;
- 	enum drm_sched_priority sched_prio;
- 	struct panfrost_jm_ctx *jm_ctx;
-+	u32 i;
- 	int ret;
+@@ -1105,13 +1105,15 @@ int panfrost_jm_ctx_destroy(struct drm_file *file, u32 handle)
+ 	/* Kill in-flight jobs */
+ 	spin_lock(&pfdev->js->job_lock);
+ 	for (u32 i = 0; i < ARRAY_SIZE(jm_ctx->slot_entity); i++) {
+-		struct drm_sched_entity *entity = &jm_ctx->slot_entity[i];
+-
+ 		for (int j = ARRAY_SIZE(pfdev->jobs[0]) - 1; j >= 0; j--) {
+ 			struct panfrost_job *job = pfdev->jobs[i][j];
+ 			u32 cmd;
  
- 	jm_ctx = kzalloc_obj(*jm_ctx);
-@@ -1107,15 +1108,15 @@ int panfrost_jm_ctx_create(struct drm_file *file,
+-			if (!job || job->base.entity != entity)
++			/*
++			 * The scheduler clears job->base.entity when it pops the
++			 * job, so match the job by its context.
++			 */
++			if (!job || job->ctx != jm_ctx)
+ 				continue;
  
- 	ret = jm_ctx_prio_to_drm_sched_prio(file, args->priority, &sched_prio);
- 	if (ret)
--		goto err_put_jm_ctx;
-+		goto err_free_jm_ctx;
- 
--	for (u32 i = 0; i < NUM_JOB_SLOTS; i++) {
-+	for (i = 0; i < NUM_JOB_SLOTS; i++) {
- 		struct drm_gpu_scheduler *sched = &pfdev->js->queue[i].sched;
- 
- 		ret = drm_sched_entity_init(&jm_ctx->slot_entity[i], sched_prio,
- 					    &sched, 1, NULL);
- 		if (ret)
--			goto err_put_jm_ctx;
-+			goto err_destroy_entities;
- 	}
- 
- 	ret = xa_alloc(&priv->jm_ctxs, &args->handle, jm_ctx,
-@@ -1129,6 +1130,13 @@ int panfrost_jm_ctx_create(struct drm_file *file,
- 	jm_ctx->destroyed = true;
- 	panfrost_jm_ctx_put(jm_ctx);
- 	return ret;
-+
-+err_destroy_entities:
-+	while (i--)
-+		drm_sched_entity_destroy(&jm_ctx->slot_entity[i]);
-+err_free_jm_ctx:
-+	kfree(jm_ctx);
-+	return ret;
- }
- 
- int panfrost_jm_ctx_destroy(struct drm_file *file, u32 handle)
+ 			if (j == 1) {
 -- 
 2.43.0
 
