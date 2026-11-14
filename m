@@ -2,42 +2,43 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 839EE606C316
-	for <dri-devel@archiver.kernel.org>; Sat, 14 Nov 2026 18:04:38 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CC96B606C32D
+	for <dri-devel@archiver.kernel.org>; Sat, 14 Nov 2026 18:04:39 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=collabora.com header.i=@collabora.com header.a=rsa-sha256 header.s=mail header.b=pMEc2GoT
+	dkim=pass (2048-bit key) header.d=collabora.com header.i=@collabora.com header.a=rsa-sha256 header.s=mail header.b=E2/VSS73
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 8771D10F0A6;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 916C710F0A8;
 	Sat, 14 Nov 2026 18:04:30 +0000 (UTC)
 Received: from bali.collaboradmins.com (bali.collaboradmins.com
  [148.251.105.195])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 5653C10E5D7
- for <dri-devel@lists.freedesktop.org>; Sat, 14 Nov 2026 18:04:19 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 92DE410F083
+ for <dri-devel@lists.freedesktop.org>; Sat, 14 Nov 2026 18:04:21 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
- s=mail; t=1794679458;
- bh=TxqmposBOHXdDsrH5e74JfVT2uddDv95gdLnKGzzKc8=;
+ s=mail; t=1794679460;
+ bh=CoXaP5SMjYToa04HiP4Cu6j1pXkYEZQduwHm/vPwKj4=;
  h=From:Date:Subject:References:In-Reply-To:To:Cc:From;
- b=pMEc2GoTmGBOglomGtdfytnpNJTkCk4lOsXjoqMlh0Xp+qJwK8gwEQ6egtuqVAY1N
- lX2qK+lCZvoqSc4MJVsc5h7EAP1zkDnroorLGXK6Qpn1dWmXWf6CuOUc3DFSzH8t+N
- N5RdSzNaM0+VSQT4wWhdD42QeIgU8OXLENaKnBuO8nj5wGgu+NnGL01W/PktKwmEiu
- tKgHfWOEnuFmNdDMofAr97wd93mZW4ScHsx3hTat1Ti/EGwaidTk84nPD8n8f72fLa
- XC9cFn7ZnWZ/XLkYPpzRHc7VagGJCffi39KQ/7IDegAT0XlNIgtGKOVXNc816aT5v9
- kGt34JSdeveKg==
+ b=E2/VSS73RKr0lwmAIWkHCjym7by0IIMiIoYjIXDlaMG1ek8OAypSOz7ArKri6FZha
+ sYFCtQj7eyS36+QCK/5ttFwgNc8+y3fypYCufUaZmpVhaeQJr2OzQmBNzlPWZuSVKq
+ 25foSCof3c49gT0NtQm9fRmmYB9hWzVGu/paZfyMBiehojBGYnWNdEyHEnBuRmnDly
+ 1siDXCzYR/GdA0VTFWwWJTbNr+t6O5mg4sTCz0NC540f1nBkMso9igLFS/tr9aIkuO
+ tsWB6OCS4QqwuI90P+G/SqjQPn4gmvddbaEh2aTTv9XSSaQUXMhM75yRrtSPqIOGam
+ W7wnCbjhQuqxQ==
 Received: from localhost (unknown [100.64.0.241])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange secp256r1 server-signature RSA-PSS (4096 bits) server-digest
  SHA256) (No client certificate requested)
  (Authenticated sender: cristicc)
- by bali.collaboradmins.com (Postfix) with ESMTPSA id DD9D317E0B1E;
- Sat, 14 Nov 2026 19:04:17 +0100 (CET)
+ by bali.collaboradmins.com (Postfix) with ESMTPSA id 2D52317E101E;
+ Sat, 14 Nov 2026 19:04:20 +0100 (CET)
 From: Cristian Ciocaltea <cristian.ciocaltea@collabora.com>
-Date: Sat, 14 Nov 2026 20:03:25 +0200
-Subject: [PATCH 01/25] video/hdmi: Copy SPD vendor/product with strtomem_pad()
+Date: Sat, 14 Nov 2026 20:03:28 +0200
+Subject: [PATCH 04/25] drm/display: hdmi-state-helper: Reject connectors
+ lacking HDMI funcs
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20261114-drm-conn-hdmi-cleanup-v1-1-20e8a33a2286@collabora.com>
+Message-Id: <20261114-drm-conn-hdmi-cleanup-v1-4-20e8a33a2286@collabora.com>
 References: <20261114-drm-conn-hdmi-cleanup-v1-0-20e8a33a2286@collabora.com>
 In-Reply-To: <20261114-drm-conn-hdmi-cleanup-v1-0-20e8a33a2286@collabora.com>
 To: Helge Deller <deller@gmx.de>, Martin Bugge <marbugge@cisco.com>, 
@@ -47,8 +48,7 @@ To: Helge Deller <deller@gmx.de>, Martin Bugge <marbugge@cisco.com>,
  Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
  David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>
 Cc: kernel@collabora.com, linux-fbdev@vger.kernel.org, 
- dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org, 
- stable@vger.kernel.org
+ dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org
 X-Mailer: b4 0.15.2
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -69,73 +69,39 @@ X-Spam-Status: No, score=-18.8 required=3.0 tests=BAYES_00,DKIM_SIGNED,
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-The HDMI specification defines the SPD InfoFrame Vendor Name and Product
-Description as fixed-size fields, padded with zeros and left without any
-trailing NUL when a name spans the whole field.
+drm_atomic_helper_connector_hdmi_check() must only be used with
+connectors set up via drmm_connector_hdmi_init(), which guarantees
+connector->hdmi.funcs is set.
 
-Mark the fields as non-strings, so that the copies can be handed over to
-strtomem_pad(), which implements precisely the required semantics.  This
-also bounds the reads from the source strings, whereas the open-coded
-strlen() could run past the end of the buffer in the
-hdmi_spd_infoframe_unpack() path, where the names come straight from the
-wire and are not NUL-terminated.
+Other connectors used to fail gracefully: with max_bpc and
+supported_formats both zero, hdmi_compute_config() found no usable
+format/bpc combination and returned -EINVAL before
+hdmi_generate_infoframes() dereferenced hdmi.funcs.
 
-Fixes: 2c676f378edb ("[media] hdmi: added unpack and logging functions for InfoFrames")
-Cc: stable@vger.kernel.org # v6.1+
+As those fields are being replaced by drm_connector_hdmi_funcs
+counterparts, hdmi_compute_config() would dereference hdmi.funcs right
+away.  To preserve the old behaviour, return an error early for such
+connectors, and use drm_WARN_ON_ONCE() to flag the driver bug.
+
 Signed-off-by: Cristian Ciocaltea <cristian.ciocaltea@collabora.com>
 ---
- drivers/video/hdmi.c | 11 +++++------
- include/linux/hdmi.h |  4 ++--
- 2 files changed, 7 insertions(+), 8 deletions(-)
+ drivers/gpu/drm/display/drm_hdmi_state_helper.c | 3 +++
+ 1 file changed, 3 insertions(+)
 
-diff --git a/drivers/video/hdmi.c b/drivers/video/hdmi.c
-index 45b42f14a750..cd18121afa20 100644
---- a/drivers/video/hdmi.c
-+++ b/drivers/video/hdmi.c
-@@ -217,23 +217,22 @@ EXPORT_SYMBOL(hdmi_avi_infoframe_pack);
-  * @vendor: vendor string
-  * @product: product string
-  *
-+ * Both strings are copied into the fixed-size infoframe fields,
-+ * truncated if too long and padded with zeros otherwise.
-+ *
-  * Returns 0 on success or a negative error code on failure.
-  */
- int hdmi_spd_infoframe_init(struct hdmi_spd_infoframe *frame,
- 			    const char *vendor, const char *product)
- {
--	size_t len;
--
- 	memset(frame, 0, sizeof(*frame));
+diff --git a/drivers/gpu/drm/display/drm_hdmi_state_helper.c b/drivers/gpu/drm/display/drm_hdmi_state_helper.c
+index c50cedc7fa65..f533d5a7aab9 100644
+--- a/drivers/gpu/drm/display/drm_hdmi_state_helper.c
++++ b/drivers/gpu/drm/display/drm_hdmi_state_helper.c
+@@ -912,6 +912,9 @@ int drm_atomic_helper_connector_hdmi_check(struct drm_connector *connector,
+ 	if (!new_conn_state->crtc || !new_conn_state->best_encoder)
+ 		return 0;
  
- 	frame->type = HDMI_INFOFRAME_TYPE_SPD;
- 	frame->version = 1;
- 	frame->length = HDMI_SPD_INFOFRAME_SIZE;
- 
--	len = strlen(vendor);
--	memcpy(frame->vendor, vendor, min(len, sizeof(frame->vendor)));
--	len = strlen(product);
--	memcpy(frame->product, product, min(len, sizeof(frame->product)));
-+	strtomem_pad(frame->vendor, vendor, 0);
-+	strtomem_pad(frame->product, product, 0);
- 
- 	return 0;
- }
-diff --git a/include/linux/hdmi.h b/include/linux/hdmi.h
-index b80a5ee63bb2..08922d5330d6 100644
---- a/include/linux/hdmi.h
-+++ b/include/linux/hdmi.h
-@@ -271,8 +271,8 @@ struct hdmi_spd_infoframe {
- 	enum hdmi_infoframe_type type;
- 	unsigned char version;
- 	unsigned char length;
--	char vendor[8];
--	char product[16];
-+	char vendor[8] __nonstring;
-+	char product[16] __nonstring;
- 	enum hdmi_spd_sdi sdi;
- };
- 
++	if (drm_WARN_ON_ONCE(connector->dev, !connector->hdmi.funcs))
++		return -EINVAL;
++
+ 	ret = hdmi_compute_config(connector, new_conn_state, mode);
+ 	if (ret)
+ 		return ret;
 
 -- 
 2.56.0
