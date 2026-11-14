@@ -2,88 +2,88 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 92460606A33E
-	for <dri-devel@archiver.kernel.org>; Sat, 14 Nov 2026 03:07:53 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2B7C3606A89C
+	for <dri-devel@archiver.kernel.org>; Sat, 14 Nov 2026 03:08:05 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gahingwoo.com header.i=@gahingwoo.com header.a=rsa-sha256 header.s=fm1 header.b=AjzfS0WA;
-	dkim=pass (2048-bit key, unprotected) header.d=messagingengine.com header.i=@messagingengine.com header.a=rsa-sha256 header.s=fm3 header.b=s7oJj5QK
+	dkim=pass (2048-bit key, unprotected) header.d=gahingwoo.com header.i=@gahingwoo.com header.a=rsa-sha256 header.s=fm1 header.b=R1vhHnIQ;
+	dkim=pass (2048-bit key, unprotected) header.d=messagingengine.com header.i=@messagingengine.com header.a=rsa-sha256 header.s=fm3 header.b=Gc9FLxKO
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id E8F9810E647;
-	Sat, 14 Nov 2026 03:07:42 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 710AD10E7AA;
+	Sat, 14 Nov 2026 03:07:54 +0000 (UTC)
 Received: from flow-a4-smtp.messagingengine.com
  (flow-a4-smtp.messagingengine.com [103.168.172.139])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 922A710E647
- for <dri-devel@lists.freedesktop.org>; Sat, 14 Nov 2026 03:07:32 +0000 (UTC)
-Received: from phl-compute-04.internal (phl-compute-04.internal [10.202.2.44])
- by mailflow.phl.internal (Postfix) with ESMTP id F2E921381A50
- for <dri-devel@lists.freedesktop.org>; Fri, 13 Nov 2026 22:07:31 -0500 (EST)
-Received: from phl-frontend-04 ([10.202.2.163])
- by phl-compute-04.internal (MEProxy); Fri, 13 Nov 2026 22:07:31 -0500
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 8DC8810E7AA
+ for <dri-devel@lists.freedesktop.org>; Sat, 14 Nov 2026 03:07:43 +0000 (UTC)
+Received: from phl-compute-02.internal (phl-compute-02.internal [10.202.2.42])
+ by mailflow.phl.internal (Postfix) with ESMTP id EDE781381A42
+ for <dri-devel@lists.freedesktop.org>; Fri, 13 Nov 2026 22:07:42 -0500 (EST)
+Received: from phl-frontend-03 ([10.202.2.162])
+ by phl-compute-02.internal (MEProxy); Fri, 13 Nov 2026 22:07:42 -0500
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gahingwoo.com;
  h=cc:cc:content-transfer-encoding:content-type:date:date:from
  :from:in-reply-to:in-reply-to:message-id:mime-version:references
- :reply-to:subject:subject:to:to; s=fm1; t=1794625651; x=
- 1794632851; bh=aKwnhfxjZ2H3/fk0iKxR4EQwzXRHmOE32L9gj5tvdXE=; b=A
- jzfS0WADolvgPWTfpPw8rwj0Iirl4A2uLtnTtWhEvf1eZUE+G7wr+UinTXOKFo8Y
- ri5RXhKFlxxXwxaGKYJlQYXfv7pqhL28rKO5Plu/P05uUt2NxkQhI8CzeqjwZV2m
- KVbaovBRNP5V222fcq8icFKNObs4mvGzTmTWZtVpnRO1uj8CghoPQNAzr9myeR6S
- 16aBP1h1G50j7f6FJst9cV6ijknMBnCHnolLgqXexnOS1o1jW9vMC8W7Ek5Wr3wP
- e7sJEVSwiqrPj+uyupDajew4nDNtL6eld+2poDmTK5tSdEJvypZqtDJ14ZYa0Iuy
- LLsJwN+2Pfo7SSJpRhwGg==
+ :reply-to:subject:subject:to:to; s=fm1; t=1794625662; x=
+ 1794632862; bh=5NV8OaQSZ7s+r7c0sSTXcrTmsPtD1g/zVQ04gw9pcrM=; b=R
+ 1vhHnIQ4bbAw8oPh/D60xC7FBBYeSd5nl0ZeKwg4Xb/zNxsj+9VXLfrOkh9dEl/0
+ Byn67zzfK6z4J1K1NkDjUx+G5a0KiIza/dcW3bjSBcaXCNcBTPEOaxNQl2uAf9OB
+ 8FkAfcj2yRgxKphK5El+K7AJOAEUOsQxNo8/9vB2Xe/vF9im7OqfosiTUZBXAHfo
+ CCaJAI6kGDF+HSDFPYAsNVbvLpStcGDLBtKtxacxHxcwzesxIhYqwVx3ggBerU+H
+ GfDCSB3oNKcF9G+HjvD3DoChsz6bChOmFHtYdo8bs6M4x/auftAv64ARU3szQjIh
+ 6xLz/YQRUukEva5surOPg==
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
  messagingengine.com; h=cc:cc:content-transfer-encoding
  :content-type:date:date:feedback-id:feedback-id:from:from
  :in-reply-to:in-reply-to:message-id:mime-version:references
  :reply-to:subject:subject:to:to:x-me-proxy:x-me-sender
- :x-me-sender:x-sasl-enc; s=fm3; t=1794625651; x=1794632851; bh=a
- KwnhfxjZ2H3/fk0iKxR4EQwzXRHmOE32L9gj5tvdXE=; b=s7oJj5QKkGNR3lYfa
- rstG+0zg47VimcSyatQNgIqGJ1v4IDnV4q2NIMXbGR75CP+4W2ckRljvIGtSCNA+
- RIw40WIYFPnWCYzdZzvC1CvSiAqaKBQSvKE2h+rp1FD5Tf74kLrLaGwcFRcsWWVU
- LW9pH7rJGGl0rvNg+hidjhI1gUpOmllqC23avoPsLNYD61lUX7a4ZFljBh9vA4lH
- 9CQBqML7Wj0ji4uA6nzjLFTASWAfq+3qb87piRxwxVac8puGmv4L1XtOxw0RpfXc
- /+bAtZSLinllmN4cke7VNPozMWTFenfrzG3ByLTmmBBHShm+FvQLxSdDRzmdcoo7
- 9r9jA==
+ :x-me-sender:x-sasl-enc; s=fm3; t=1794625662; x=1794632862; bh=5
+ NV8OaQSZ7s+r7c0sSTXcrTmsPtD1g/zVQ04gw9pcrM=; b=Gc9FLxKOhrzHk8W3V
+ D2ZePDCnZfutHOhApTrREPsOrkfMca6Kied3FmbLUpyT528EUSeq8iQf8LExD5zU
+ 5HZUqfbHo+RTM81AtU0FQYOvxK/B8Qs82BUhQ94ASukl/hLHCuAMXBopIt0Ncwpg
+ tqdZtE7pPgPxpagnhYEy0FShFleyg0pZ+aSI2Rq037sxfveD324wmE5DWrt6pjea
+ fvSZUqLZcBUambnJLVWGTlhwxL+nu1eKuJ2p3/rYU3Nzsvzqkbqmkc33HFK2JbFn
+ 5BmUvkkVl7jG7GezLnRcmioPqma0FW3sX05kBUvjNMQE62ioVYEHk/XFqb/5u5Sr
+ Fj90g==
 X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-09;
  repo=github.com/dkim2wg/interop; date=2026-11-03; sw=lmtpprox;
  action=sign d=gahingwoo.com a=rsa-sha256;
-DKIM2-Signature: i=1; m=1; t=1794625651; d=gahingwoo.com;
+DKIM2-Signature: i=1; m=1; t=1794625662; d=gahingwoo.com;
  mf=PGdhaGluZ0BnYWhpbmd3b28uY29tPg==;
  rt=PGRyaS1kZXZlbEBsaXN0cy5mcmVlZGVza3RvcC5vcmc+;
- s=fm1:rsa-sha256:mrDatJKylUNl6CuMP9RQfx/fIsOcrxnNANWh54wRyawlJwB
- mbRiBFjlm/7AtuCQrvgWtYXtyxEm2YPPJyk7EnRswlwrl56Wdw3psk7lzG87PP4S
- b+IAXtmV4RvtrpLUrYvlHPSP5Qong9M8vRQlehX4qPU662c6Z2bgSBV4hw65RQSK
- xzVPJC/MEKyj1WxkL6RBcFMxB7qH9kuLhZ2g9ojiavUAY1sYlZo4U5YZA9QveVt+
- RV5z0EHs89KV4dt6b2vWCt38yKYu0QxSZ8DRMbuIvwbTmGhrZ7XJWb/6dgOkMT1q
- in4la+VkleUPZk0xAZvIb8nmOgKsCdH2XU12khQ==;
+ s=fm1:rsa-sha256:FLyr1p88Q6wrz05NS2lKI1gmJ6VzkDovV+JS9AMtJUKDFEU
+ I8n8I3TKSsQ6viBdibQYFTutUthK3UUMzjcFypG8peP6IQblNJqr+Sn7B0mWeB12
+ En1RQg56MmWjajbV1QQDv2Se3lNCRihgPQhgduvBiDABBJc+5ReHQW8ohSUSWo7K
+ +GvF4nD8k62NMfSWjWMU+Dk1qvhfmFb/V/+2bmtyT5FEI13wIzSmDO8zZhhQJBwj
+ yvuVlGCC7kFQ+haN+IhOKQ/1xHsbisxq8kFg671isponPe+LFIbLINysg5NbajS6
+ kqdST7Re1rONbaz7BGgVwHMG6qbYjvylarwZQfQ==;
 X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-09;
  repo=github.com/dkim2wg/interop; date=2026-11-03; sw=lmtpprox;
  action=mi-m=1; hc=11;
  hn=cc,content-transfer-encoding,date,feedback-id,from,
  in-reply-to,message-id,mime-version,references,subject,to;
 Message-Instance: m=1;
- h=sha256:GR+FQ9QfYSuTAIX+WYK94sMVTH4D8jXcgGVyPObQ4zc=:szEQstKcQGiJ1bHOpV/Z9LVgnrgA9VvL+XidX6bQEoA=;
-X-ME-Sender: <xms:c9D3aj-vACGB5qEwm1N4ZEjsCubsIhoEOfpYNDFEDLgMVJhTUjAouA>
- <xme:c9D3av5TJpi7B-BQ17hwkZjgiQ9TNYRL95H2-n_O_PG7L0DHNOml2Zt1NSQD9be6y
- hKETV9b2hxv6idFsdR7MlCl-fnrB0PBLfNm2swT4Vmvr03RKndWiUZ4>
-X-ME-Received: <xmr:c9D3ajpc0z19B5fyBT7RQszhIbzhkmDMe0IL6bm1-dR5WYolXqLzNw92fQ9sbce3xRUOQWE7>
-X-ME-Proxy-Cause: dmFkZTEGMxOoH3y/fMppx2r36gm4cx9GYI3ohK01ZShvs6zT+8h1mVWufLahBuei4Ed1/3
- xRbUYha+QR045BDD8FCRFVIM91rSGwUQ7zMnQH1Bkat2KqUfUo8S4YHSEorvk8zLj3SaDW
- 2cnjQVg1N4cjgYIFaRpoqGeOaFHkoldyad78tsE+DecFb61BS2EtavEyFF5qPgk+LGIze3
- 1pj9uE4MqQ3E6Y1sY03sy7yic0nfNy3N91ax17Z8mzLg+z2lmCVcb4QExTOBMVx/MohP3G
- wnkdi+msWCJW4WkcwQvXo9jRKjLop8wk5fKsg/aLeHj4SFgb7u29HtVGx3Iv5RN6/FH7P2
- e2OaL9s1jJLCsKcbvi+TalJtVob/JDEPXrV2jNNNf37iNU3/iihbQinSX7DZplSM980E3e
- 2/oWKrqTAK0RuNllfmGC+fNc199CAl9/c+c4df1FW9exQwDPknHpQLAUszQ7euUugmBfFW
- Un2wsi3dXTAbFc6ZVaJ7WioAdnpXaBvU9keNDOsLWeXopdFGRVubGI2qW6Quluf77ztBQi
- YKgj3X/+6eYy1/MEhpPn+jHgL7MbrFioS6Tn6h04xHB8x08DRLb76+EAsqSnLxyHNxZBOd
- td6B0xezflbvF0Q0Nauj1358gZEHfjmZ8UCHIpvs+MKRwCzfsv8sh4XBDxvA
-X-ME-Proxy: <xmx:c9D3arBX0t9CPG0BNyxjvNbE6KRbH8ZTPrOXk7DH-DyAOXuUSl37YA>
- <xmx:c9D3asNqeZLLRlAZ0BQMlx0ninCtHJBktzln3e0gx2gu_KssUAmWyA>
- <xmx:c9D3aqkpLJvM-mr15HA6hmxZqoCXx9d8QDj6QOF-N7L7ttzIgcbCjw>
- <xmx:c9D3aufeo_HeQA8oXUz7WyqoZSThZlSO0lwQmVt0yuN4TUsMUO6pkw>
- <xmx:c9D3aszvUgG4ePbqVeHhCE0laN8Yaf-wO692xN2so6wDplh3lA0NU2k4>
+ h=sha256:hjRPWJCWyoOpSqgCj3KvdXrgdgv113Wad5wxch666Ks=:mwDJ+2ELBB9MTmSRrMVH8YClnLsBuP4IPdronbv7tPs=;
+X-ME-Sender: <xms:ftD3agoRXmZl70SA6RepnJKKD5XtMRGcMUMMGTIG6OVM3GLMUYxPEA>
+ <xme:ftD3ajG-I17qapcP9p6DuYmA9tQS4juVL4bWAzzLJwJCIc4sQOYQlhUM99yqy97Mo
+ 5o3yFJsnQCxj4uueRlSBfrApF1n5VOK3IQMEGmyllIDIziShG40Gt14>
+X-ME-Received: <xmr:ftD3asdLIhBKPO8TdiY25UPb0Jf882mm1FPBCv87Ochf-maRgMXqTATaVH4OqYYd3pS9Ihf0>
+X-ME-Proxy-Cause: dmFkZTElRkAdxu5zGHOdHgPmUdLFY/QrwyZqLD5T5+wY/l6JKUOH77Ag1LlIB216kO/vg+
+ gEiuWUUjIE8iEhel2feqBBFDbwdBhwVZ4ZVpmzRDWDQhG0tLHJOIbTLc3g2ftxTTci7C0E
+ y3DFveseL85DmyJzHauYG/vSKWsrnGHrEDZErUpA2ik1hQSUExU/7YkPyOKnUB4Ev0qMLd
+ 0dae45wD+byn0RAZNOUIKmn0gTvO3u9kug+tdCqucK/rq6/OIed76A20El2hu0tBP6s6n8
+ VDqNJHD0+tz0ilvR03Rhy4I7CrxtlzRPXMoZQyPaodTj5YGh1nwW/udiI6/r9dwMxCewOg
+ 8vba+8JCNolEpTxnLkmxnm3dR4yFftRd+L/twn6jNO6/ZsxKUUdnnSTSIAlUhtcJfoiREk
+ W3Ji6s5N7JwiUc2+FwsBvHYcvg4gAfmuDIGNd2+OMnEj7agYZ3B1kkmqrf26EutUOwhM2k
+ Hlo15RV0ou41jZDLHaPP7XSkiHnSvrbb28+5efvWiSahpsgPgKit1rOIS+R8jk49Md/Caw
+ Dgi4Y1MaVVXatF9qIyForJIwE2sHREl+NpVOkzLhNQ8bmjoz65Oup2dNC05+sQmZRZLO3h
+ wL7lc6UlV4WIQ5XkzBpPo0dRkTCP3ilmP8J84LTHaVSWsYwMkuP9waMoB08Q
+X-ME-Proxy: <xmx:ftD3auYpeNnThVByAlC5pn332aQF5bfGnEGXN6Ap-1uQYokx_WLPxw>
+ <xmx:ftD3agLgufXXZ3MyJqNmWPIRT4ucH2aX82Ljd7JF8pVK54D0RDQJSA>
+ <xmx:ftD3atgjvjPc6OV2qaoMUz9f9qQJD5A70phFmTk6CtzXcDQQUXDhJQ>
+ <xmx:ftD3astHKwwMX8nurUwTnqCQBsOYNMyp6jWkebsfn_YnlornbMDCng>
+ <xmx:ftD3aiv1_MQ33QYYXQv9ovSltCkZNLWb6xOi7shY41bYTre5GvyavtPC>
 Feedback-ID: i7a5e4b5f:Fastmail
 Received: by mail.messagingengine.com (Postfix) with ESMTPA; Fri,
- 13 Nov 2026 22:07:23 -0500 (EST)
+ 13 Nov 2026 22:07:34 -0500 (EST)
 From: Jiaxing Hu <gahing@gahingwoo.com>
 To: tomeu@tomeuvizoso.net, heiko@sntech.de, robh@kernel.org,
  krzk+dt@kernel.org, conor+dt@kernel.org, joro@8bytes.org, will@kernel.org,
@@ -99,10 +99,9 @@ Cc: royalnet026@gmail.com, ulf.hansson@oss.qualcomm.com,
  linux-rockchip@lists.infradead.org, iommu@lists.linux.dev,
  devicetree@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
  linux-kernel@vger.kernel.org
-Subject: [PATCH v17 10/12] accel/rocket: add a GET_PARAM ioctl for the
- hardware version
-Date: Sat, 14 Nov 2026 16:05:27 +1300
-Message-ID: <bd963b70e40af3c3c74ac1569cda7be885b0ada1.1794615323.git.gahing@gahingwoo.com>
+Subject: [PATCH v17 11/12] arm64: dts: rockchip: add NPU (RKNN) nodes to rk3576
+Date: Sat, 14 Nov 2026 16:05:28 +1300
+Message-ID: <f9f4f43cd1c4c8c6cee0371b4b92badf37e68832.1794615323.git.gahing@gahingwoo.com>
 X-Mailer: git-send-email 2.43.0
 In-Reply-To: <cover.1794615324.git.gahing@gahingwoo.com>
 References: <cover.1794615324.git.gahing@gahingwoo.com>
@@ -128,169 +127,116 @@ X-Spam-Status: No, score=-18.8 required=3.0 tests=BAYES_00,DKIM_SIGNED,
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-Add DRM_IOCTL_ROCKET_GET_PARAM so that userspace can query the NPU
-hardware version and pick the matching hardware description, such as the
-SRAM configuration and the register layout.
+Add the two NPU cores and their two IOMMUs, disabled by default; boards
+enable them.
 
-Add DRM_ROCKET_PARAM_HW_VERSION, which returns a hardware version enum
-that matches the device tree compatible.
+Each core is on its own power domain only: core 0 on PD_NPU0, core 1 on
+PD_NPU1. Measured with both cores running, the results are correct, and
+the nputop and npu domains above them are powered through the domain
+hierarchy.
 
-The enum starts at 1 and 0 is not used:
+Label PD_NPU so a board can connect the NPU supply. The IOMMUs use four
+clocks.
 
-  RK3588: 1
-  RK3576: 2
-
-An unknown parameter or a non-zero reserved field returns -EINVAL.
+Also set CLK_RKNN_DSU0 to 594 MHz. Mainline sets neither its rate nor the
+NPU voltage. On the ROCK 4D the DSU runs at 786 MHz by default and the
+rail boots at 750 mV; with both cores running, each pass of the 5400-row
+test has 11 to 25 wrong words. At 594 MHz the test is all correct. In the
+vendor OPP table, the 500 MHz and 600 MHz steps both need 725 mV.
 
 Signed-off-by: Jiaxing Hu <gahing@gahingwoo.com>
 ---
- drivers/accel/rocket/rocket_core.h |  1 +
- drivers/accel/rocket/rocket_drv.c  | 29 ++++++++++++++++++++++
- include/uapi/drm/rocket_accel.h    | 40 ++++++++++++++++++++++++++++++
- 3 files changed, 70 insertions(+)
+ arch/arm64/boot/dts/rockchip/rk3576.dtsi | 70 +++++++++++++++++++++++-
+ 1 file changed, 69 insertions(+), 1 deletion(-)
 
-diff --git a/drivers/accel/rocket/rocket_core.h b/drivers/accel/rocket/rocket_core.h
-index ef7043046bc6..50c8b05bd394 100644
---- a/drivers/accel/rocket/rocket_core.h
-+++ b/drivers/accel/rocket/rocket_core.h
-@@ -41,6 +41,7 @@ struct rocket_soc_data {
- 	unsigned int num_clks;
- 	unsigned int num_resets;
- 	bool task_con_16bit;
-+	u32 hw_version;
- };
+diff --git a/arch/arm64/boot/dts/rockchip/rk3576.dtsi b/arch/arm64/boot/dts/rockchip/rk3576.dtsi
+index 7828736bf9ac..6ff95066d470 100644
+--- a/arch/arm64/boot/dts/rockchip/rk3576.dtsi
++++ b/arch/arm64/boot/dts/rockchip/rk3576.dtsi
+@@ -1131,7 +1131,7 @@ power: power-controller {
+ 				#address-cells = <1>;
+ 				#size-cells = <0>;
  
- struct rocket_core {
-diff --git a/drivers/accel/rocket/rocket_drv.c b/drivers/accel/rocket/rocket_drv.c
-index fff31c1ebe52..c094f6843095 100644
---- a/drivers/accel/rocket/rocket_drv.c
-+++ b/drivers/accel/rocket/rocket_drv.c
-@@ -5,6 +5,7 @@
- #include <drm/drm_drv.h>
- #include <drm/drm_gem.h>
- #include <drm/drm_ioctl.h>
-+#include <drm/drm_print.h>
- #include <drm/rocket_accel.h>
- #include <linux/clk.h>
- #include <linux/err.h>
-@@ -129,6 +130,31 @@ rocket_postclose(struct drm_device *dev, struct drm_file *file)
- 	module_put(THIS_MODULE);
- }
+-				power-domain@RK3576_PD_NPU {
++				pd_npu: power-domain@RK3576_PD_NPU {
+ 					reg = <RK3576_PD_NPU>;
+ 					#power-domain-cells = <1>;
+ 					#address-cells = <1>;
+@@ -1350,6 +1350,74 @@ power-domain@RK3576_PD_VO1 {
+ 			};
+ 		};
  
-+static int
-+rocket_ioctl_get_param(struct drm_device *dev, void *data, struct drm_file *file)
-+{
-+	struct rocket_device *rdev = to_rocket_device(dev);
-+	struct drm_rocket_get_param *args = data;
-+	const struct rocket_soc_data *soc;
++		rknn_core_0: npu@27700000 {
++			compatible = "rockchip,rk3576-rknn-core";
++			reg = <0x0 0x27700000 0x0 0x1000>,
++			      <0x0 0x27701000 0x0 0x1000>,
++			      <0x0 0x27703000 0x0 0x1000>;
++			reg-names = "pc", "cna", "core";
++			interrupts = <GIC_SPI 247 IRQ_TYPE_LEVEL_HIGH>;
++			clocks = <&cru ACLK_RKNN0>, <&cru HCLK_RKNN_ROOT>,
++				 <&cru CLK_RKNN_DSU0>, <&cru PCLK_NPUTOP_ROOT>,
++				 <&cru ACLK_RKNN_CBUF>, <&cru HCLK_RKNN_CBUF>;
++			clock-names = "aclk", "hclk", "npu", "pclk",
++				      "aclk_cbuf", "hclk_cbuf";
++			assigned-clocks = <&cru CLK_RKNN_DSU0>;
++			assigned-clock-rates = <594000000>;
++			resets = <&cru SRST_A_RKNN0>;
++			reset-names = "srst_a";
++			power-domains = <&power RK3576_PD_NPU0>;
++			iommus = <&rknn_mmu_0>;
++			status = "disabled";
++		};
 +
-+	if (args->reserved != 0) {
-+		drm_dbg(dev, "Reserved field in drm_rocket_get_param struct should be 0.\n");
-+		return -EINVAL;
-+	}
++		rknn_mmu_0: iommu@27702000 {
++			compatible = "rockchip,rk3576-npu-iommu", "rockchip,rk3568-iommu";
++			reg = <0x0 0x27702000 0x0 0x100>,
++			      <0x0 0x27702100 0x0 0x100>;
++			interrupts = <GIC_SPI 247 IRQ_TYPE_LEVEL_HIGH>;
++			clocks = <&cru ACLK_RKNN0>, <&cru HCLK_RKNN_ROOT>,
++				 <&cru ACLK_RKNN_CBUF>, <&cru HCLK_RKNN_CBUF>;
++			clock-names = "aclk", "iface", "aclk_cbuf", "hclk_cbuf";
++			#iommu-cells = <0>;
++			power-domains = <&power RK3576_PD_NPU0>;
++			status = "disabled";
++		};
 +
-+	soc = READ_ONCE(rdev->cores[0].soc);
-+	if (!soc)
-+		return -ENODEV;
++		rknn_core_1: npu@27708000 {
++			compatible = "rockchip,rk3576-rknn-core";
++			reg = <0x0 0x27708000 0x0 0x1000>,
++			      <0x0 0x27709000 0x0 0x1000>,
++			      <0x0 0x2770b000 0x0 0x1000>;
++			reg-names = "pc", "cna", "core";
++			interrupts = <GIC_SPI 248 IRQ_TYPE_LEVEL_HIGH>;
++			clocks = <&cru ACLK_RKNN1>, <&cru HCLK_RKNN_ROOT>,
++				 <&cru CLK_RKNN_DSU0>, <&cru PCLK_NPUTOP_ROOT>,
++				 <&cru ACLK_RKNN_CBUF>, <&cru HCLK_RKNN_CBUF>;
++			clock-names = "aclk", "hclk", "npu", "pclk",
++				      "aclk_cbuf", "hclk_cbuf";
++			assigned-clocks = <&cru CLK_RKNN_DSU0>;
++			assigned-clock-rates = <594000000>;
++			resets = <&cru SRST_A_RKNN1>;
++			reset-names = "srst_a";
++			power-domains = <&power RK3576_PD_NPU1>;
++			iommus = <&rknn_mmu_1>;
++			status = "disabled";
++		};
 +
-+	switch (args->param) {
-+	case DRM_ROCKET_PARAM_HW_VERSION:
-+		args->value = soc->hw_version;
-+		return 0;
-+	default:
-+		return -EINVAL;
-+	}
-+}
++		rknn_mmu_1: iommu@2770a000 {
++			compatible = "rockchip,rk3576-npu-iommu", "rockchip,rk3568-iommu";
++			reg = <0x0 0x2770a000 0x0 0x100>,
++			      <0x0 0x2770a100 0x0 0x100>;
++			interrupts = <GIC_SPI 248 IRQ_TYPE_LEVEL_HIGH>;
++			clocks = <&cru ACLK_RKNN1>, <&cru HCLK_RKNN_ROOT>,
++				 <&cru ACLK_RKNN_CBUF>, <&cru HCLK_RKNN_CBUF>;
++			clock-names = "aclk", "iface", "aclk_cbuf", "hclk_cbuf";
++			#iommu-cells = <0>;
++			power-domains = <&power RK3576_PD_NPU1>;
++			status = "disabled";
++		};
 +
- static const struct drm_ioctl_desc rocket_drm_driver_ioctls[] = {
- #define ROCKET_IOCTL(n, func) \
- 	DRM_IOCTL_DEF_DRV(ROCKET_##n, rocket_ioctl_##func, 0)
-@@ -137,6 +163,7 @@ static const struct drm_ioctl_desc rocket_drm_driver_ioctls[] = {
- 	ROCKET_IOCTL(SUBMIT, submit),
- 	ROCKET_IOCTL(PREP_BO, prep_bo),
- 	ROCKET_IOCTL(FINI_BO, fini_bo),
-+	ROCKET_IOCTL(GET_PARAM, get_param),
- };
- 
- DEFINE_DRM_ACCEL_FOPS(rocket_accel_driver_fops);
-@@ -227,12 +254,14 @@ static const struct rocket_soc_data rk3588_soc_data = {
- 	.num_clks = 4,
- 	.num_resets = 2,
- 	.task_con_16bit = false,
-+	.hw_version = DRM_ROCKET_HW_RK3588,
- };
- 
- static const struct rocket_soc_data rk3576_soc_data = {
- 	.num_clks = 6,
- 	.num_resets = 1,
- 	.task_con_16bit = true,
-+	.hw_version = DRM_ROCKET_HW_RK3576,
- };
- 
- const struct of_device_id rocket_dt_match[] = {
-diff --git a/include/uapi/drm/rocket_accel.h b/include/uapi/drm/rocket_accel.h
-index d0685e372b79..597bf892c96d 100644
---- a/include/uapi/drm/rocket_accel.h
-+++ b/include/uapi/drm/rocket_accel.h
-@@ -15,11 +15,13 @@ extern "C" {
- #define DRM_ROCKET_SUBMIT			0x01
- #define DRM_ROCKET_PREP_BO			0x02
- #define DRM_ROCKET_FINI_BO			0x03
-+#define DRM_ROCKET_GET_PARAM			0x04
- 
- #define DRM_IOCTL_ROCKET_CREATE_BO		DRM_IOWR(DRM_COMMAND_BASE + DRM_ROCKET_CREATE_BO, struct drm_rocket_create_bo)
- #define DRM_IOCTL_ROCKET_SUBMIT			DRM_IOW(DRM_COMMAND_BASE + DRM_ROCKET_SUBMIT, struct drm_rocket_submit)
- #define DRM_IOCTL_ROCKET_PREP_BO		DRM_IOW(DRM_COMMAND_BASE + DRM_ROCKET_PREP_BO, struct drm_rocket_prep_bo)
- #define DRM_IOCTL_ROCKET_FINI_BO		DRM_IOW(DRM_COMMAND_BASE + DRM_ROCKET_FINI_BO, struct drm_rocket_fini_bo)
-+#define DRM_IOCTL_ROCKET_GET_PARAM		DRM_IOWR(DRM_COMMAND_BASE + DRM_ROCKET_GET_PARAM, struct drm_rocket_get_param)
- 
- /**
-  * struct drm_rocket_create_bo - ioctl argument for creating Rocket BOs.
-@@ -185,6 +187,44 @@ struct drm_rocket_submit {
- 	__u64 reserved;
- };
- 
-+/**
-+ * enum drm_rocket_param - parameters for DRM_IOCTL_ROCKET_GET_PARAM
-+ * @DRM_ROCKET_PARAM_HW_VERSION: an enum drm_rocket_hw_version value.
-+ */
-+enum drm_rocket_param {
-+	DRM_ROCKET_PARAM_HW_VERSION = 0,
-+};
-+
-+/**
-+ * enum drm_rocket_hw_version - the NPU, one value per DT compatible
-+ * @DRM_ROCKET_HW_RK3588: "rockchip,rk3588-rknn-core"
-+ * @DRM_ROCKET_HW_RK3576: "rockchip,rk3576-rknn-core"
-+ */
-+enum drm_rocket_hw_version {
-+	DRM_ROCKET_HW_RK3588 = 1,
-+	DRM_ROCKET_HW_RK3576 = 2,
-+};
-+
-+/**
-+ * struct drm_rocket_get_param - ioctl argument for querying a parameter.
-+ */
-+struct drm_rocket_get_param {
-+	/**
-+	 * @param: Input: an enum drm_rocket_param value.
-+	 */
-+	__u32 param;
-+
-+	/**
-+	 * @reserved: Reserved, must be zero.
-+	 */
-+	__u32 reserved;
-+
-+	/**
-+	 * @value: Output: the value of the parameter.
-+	 */
-+	__u64 value;
-+};
-+
- #if defined(__cplusplus)
- }
- #endif
+ 		gpu: gpu@27800000 {
+ 			compatible = "rockchip,rk3576-mali", "arm,mali-bifrost";
+ 			reg = <0x0 0x27800000 0x0 0x20000>;
 -- 
 2.43.0
 
