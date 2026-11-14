@@ -2,83 +2,85 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3445C606A329
-	for <dri-devel@archiver.kernel.org>; Sat, 14 Nov 2026 16:25:07 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 181B9606A32D
+	for <dri-devel@archiver.kernel.org>; Sat, 14 Nov 2026 16:25:09 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=Mgkuo664
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=tO5VJ1I0
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 8933210ECA9;
-	Sat, 14 Nov 2026 16:24:48 +0000 (UTC)
-Received: from mail-ej1-f53.google.com (mail-ej1-f53.google.com
- [209.85.218.53])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 51B5E10E73E
- for <dri-devel@lists.freedesktop.org>; Sat, 14 Nov 2026 01:44:00 +0000 (UTC)
-Received: by mail-ej1-f53.google.com with SMTP id
- a640c23a62f3a-c4682977f9aso302168266b.1
- for <dri-devel@lists.freedesktop.org>; Fri, 13 Nov 2026 17:44:00 -0800 (PST)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 889D610EE0C;
+	Sat, 14 Nov 2026 16:24:49 +0000 (UTC)
+Received: from mail-dy1-f170.google.com (mail-dy1-f170.google.com
+ [74.125.82.170])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 1D43210E53F
+ for <dri-devel@lists.freedesktop.org>; Sat, 14 Nov 2026 06:25:56 +0000 (UTC)
+Received: by mail-dy1-f170.google.com with SMTP id
+ 5a478bee46e88-33c10faf6easo223747eec.0
+ for <dri-devel@lists.freedesktop.org>; Fri, 13 Nov 2026 22:25:56 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20260707; t=1794620638; x=1795225438; darn=lists.freedesktop.org;
+ d=gmail.com; s=20260707; t=1794637555; x=1795242355; darn=lists.freedesktop.org;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:from:to:cc:subject:date
  :message-id:reply-to:content-type;
- bh=0Pz+qENIdDsgTiQZzFFYd3dQorXrNLOkeSm/a1z1K+E=;
- b=Mgkuo664Kc+3FoLbPLfohgPkMkYSwge8DcAzrSxtpUw3aG4PAkt7zZdUAPr1OchCvI
- F5ps4O14wr6hmecGyGD+5tQPKHId2pmrruSfIGmyjZD5EbNV2zVtGfQvzSTmbGwWI/Un
- PgtnXnU/8YtfZoKVg0ZPpgFqyX+eckaI/UEc7qe6RGBKGfaUbpr6gXk7wOAUwxtkqCAv
- mceKMX4jGNq6b0y/MWhBbVsnNZoYoqnAfmrc0MkLEWkaokaVdv2bIyuZyJTEs//xdWOs
- vD3MK20+OhflObUxL3h7hxIPbHAFo66KyaEYUqwGiRTX+k9hx3np2up2lOPSdtXbtqeF
- lkdg==
+ bh=2G/wlgst0b3QmNrVuRQ50SldBGJC/pdF4BObZ2EI5Ls=;
+ b=tO5VJ1I0r1oHwFUt43MAOCDikglCiZcF9DrACqDAsspLaEZwBA4IpQd7SMHlCMMMlw
+ 7+iYxXGY558BAjgvx2LPJX2Z6dka1eY9RUVxeggVZEHAsH/hyQUczFVHhmL54GGWXLZL
+ zRNePObSQL4quSTq3xeM0XNafGiEeZiBBcuUBqOQ1liUa3x7e3E4KAqRzVZSny6uPvsF
+ pup625Tq8syk6uuT3vbFULf1FopEd3AtZFyv0AQoBCAdfbo590m9s6khKB7X/qYpev03
+ LpwpfzdHxLbch++h/rv+CEIcHZALWs2j95AOwX6EPnMIL9ojRqVYVxHHVvTL7l6XsHH5
+ BnAw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20260707; t=1794620638; x=1795225438;
+ d=1e100.net; s=20260707; t=1794637555; x=1795242355;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
  :to:cc:subject:date:message-id:reply-to:content-type;
- bh=0Pz+qENIdDsgTiQZzFFYd3dQorXrNLOkeSm/a1z1K+E=;
- b=vOzQi0eRqcKeJpoCpUPgJYZIxPtKUPGpAlG72V22slXfLvXanQe9TFzjnPd8GnLfDM
- czVDg9raDufeqeKdwPXM1KnJIhfSAEu/jh3Pog8Dz2NkDrZbtrimfZUOFclmDL9BF0QK
- tpHvzv4OmU09QB6t7ct58qXrk/wf45HQ86UidlSdC07wXs7SNyc33mMbN4Su1kXYOHiN
- aNpEivEEtSgeVcAD50ZjkG7vLMIp53xXYAHxfdy4dgXuakTA8xoKOIFBoeD4/HrALnQl
- 6KeKYDXxFEd9Da7wkmmj+bYxfFrtqM0OhbKjUOeyeXO4aErvHcuh+pdExNnBDSjNpG+D
- Xj+A==
+ bh=2G/wlgst0b3QmNrVuRQ50SldBGJC/pdF4BObZ2EI5Ls=;
+ b=ptucC+8SfK9nyhXD3UI/a/rY0ck+Rl18za6+Fobyun6dJYpUSiou7D/c8B+bk5tpqa
+ XHA0iQd7hSdSbwIsYbrFVJj+K7pVl4MtOFue13WQV9FAF2DIO5k4bBUzrNKxcklnM51t
+ 10etMXpTVn6kZerR3iUZxQW8+XNb4V/BKpvAFvNkBb9odwrrTfOnLBVEbYvXuF42Pybn
+ uaUlB0PH3U40sA/HIJMqDLI92QRhAUYmtM40DG6N0x9IuzOt5jXoDB1t+2XtJJVWW3LB
+ SuKhdUIPQISy3vj6soj705e6ckghqx3USfgzrJ7JSSjubwyZ7IoLJrPUAHO2JXp6CIZT
+ Y6EQ==
 X-Forwarded-Encrypted: i=1;
- AL+hErGujxbNNOFTmpHVYnk6SDRX3XMRyzdWav5e2714FPItOuBwEYtH1E1gpoemxeIvRJsWb7NhMZqv78U=@lists.freedesktop.org
-X-Gm-Message-State: APuU4Z9K1gfIpa+g1UpjDcvoO2ROn+tqzu1QrhTgugX5bJBjzEFuJ2ne
- xxHvZO54Qat8x8pYdoGx5ypFB/7p7YZiTmR8yoLsmT7YSG/njNOttp45
-X-Gm-Gg: AYBFou0ywASi0WwmcFvFLzePoaABDexh4scgHN9wr7TCb7nPcdmH6Bbja8pkJaS3JND
- po6xRE9va9ibnAurCDNDLgW01hUWiErNjNxENlTYAHWZRzyxtkdWjJ4LQfRZ4XFrYhFeW34bdsf
- SEbmownIdJfQOzsYFD4HI7uIxA4Cpj+tbx9Gn9H9MXi8oT3f/aJD72VGiCfYGr1iWhRn4HX+3fp
- 7ZYAMYKKifKP90kmmVHc41NEo4geThd8H7S4+M527woy+jlUFVXkXmwV9hErzjyFwgxqieAUZ2D
- S7RhTvxnVzgU3nCRDP6B6rntBshPx7RrrpINna098pUt5fwa2aVnAX/7lu9/e0pBNqUrHf53VzZ
- KxJ/38kkm3XAjOcIdOKB8EX4gXexoIVnpKI5xnFPaWkw5MaIucyvVNRMtN4mRLc74xqRmsPR4LH
- /iNmeowc1pG/o1RbC12oOTrFg+9lDwKXWizHsh2LnOlc4hXh2HE0z0Uhl2kBdAeGNpKzZvsQEOj
- dDfPKlHin3+rwtkG2ZjNEKHxPEBkG7gx5cTceyyLHhddDx6CBBPo3R6DtHd7OK5XyHCOoN1FJWt
- /4VwKSV3pc7+9cWaTj0x3FFUC1NPapScHIs6oONFeX9QhSrJMtSPM7lJd8QJGGB+Tn/kzYV4GbD
- 3s6hjGFXy+Fl6ewmeziSKI/I=
-X-Received: by 2002:a17:907:7b85:b0:c46:a72:e0c3 with SMTP id
- a640c23a62f3a-c5096398905mr356309566b.16.1794620638353; 
- Fri, 13 Nov 2026 17:43:58 -0800 (PST)
-Received: from SMOK.angora-ide.ts.net
- (mm-156-219-126-178.vitebsk.dynamic.pppoe.byfly.by. [178.126.219.156])
+ AL+hErH9xaxcWGP3Ot+6eI3heG5pT8VSGynnAFmMUZ7ZhC2RnayfAxHZtzf9MHS3JTEl38Y6GQKARU7BZ0g=@lists.freedesktop.org
+X-Gm-Message-State: APuU4Z+CvY/Ca6+heYsVBJ3bBQOsPBCE0o5CLNgPUvu8eiJcZ+kU9ssd
+ pRkVLMfuY6JA5fW3G+seCHEvj+cHfmCAwMKyNiw/tthcP5LEMnOjf/wz
+X-Gm-Gg: AYBFou17w9G7QXp2FKXRa9jfWiL6Ja4kvjVcikA1uiL/cpu8lLYJ/0vwJGEsGNST2MS
+ MgeTvHurBeZWXMgNLX/SSTeVWCnJbsjLGPWtLL+Q1kU0stqOmjkpnuACdFZACYrYHRiV1WsvMUd
+ tzzNmYLxkpfxw0o3Y8g9meGgxKeaGWBCpcx1+gVOrLMV/n2844igRsJt/BdCJ2oYxWFY0COXPQc
+ syyAfI7jWBGN3EaOlXl8w4sdHZQ11VFs3NyC7WzRKKNuFWM1nO+ISY6l3M0qod8NrSdODaJgVUa
+ 3z7B0CWC0652Q/uP7wqY6bLz4IylF85VWAb7rswlFpxgkNEKavc8EIT3zB/OORozWDDoZgQhcqu
+ /3C0HO4YO96RHm6Lyqg18ld0pxGzkFMD9sqIbcpTIYgm1392i9ebrmOCPWBW5PH/gDHrUDRNqx/
+ UHWgjyehHgYOxgPfxFm2+QE4P0Yr4v/9t2o1dE907ucn+XAA9cOSzF6mHjpcR5iMTmHtRQSOjFR
+ 0yG8qVGk6jhgjVDThUtUQ+DOmdH60059hH5H97gGff/23TE/TDIw2u/B/RC/oA1W306T5PmLzV0
+ YNG0X7oMBDqNDIW7DenzjmGBDe6nk4w7/fTyaFRVZdBeegqAHReQJuM2XsNbV7smskk4H1EAmjT
+ Xkrg=
+X-Received: by 2002:a05:693c:881c:10b0:36d:5fbc:8c8d with SMTP id
+ 5a478bee46e88-379655d503emr6618386eec.2.1794637555183; 
+ Fri, 13 Nov 2026 22:25:55 -0800 (PST)
+Received: from DESKTOP-CJ1L666.localdomain ([211.198.99.62])
  by smtp.gmail.com with ESMTPSA id
- a640c23a62f3a-c5095b5a4c1sm161402666b.48.2026.11.13.17.43.57
+ 5a478bee46e88-3795591f4f8sm13537585eec.13.2026.11.13.22.25.51
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Fri, 13 Nov 2026 17:43:58 -0800 (PST)
-From: ElXreno <elxreno@gmail.com>
-To: intel-gfx@lists.freedesktop.org,
-	intel-xe@lists.freedesktop.org
-Cc: jani.nikula@linux.intel.com, rodrigo.vivi@intel.com,
- joonas.lahtinen@linux.intel.com, tursulin@ursulin.net,
- ville.syrjala@linux.intel.com, ankit.k.nautiyal@intel.com,
- mitulkumar.ajitkumar.golani@intel.com, airlied@gmail.com, simona@ffwll.ch,
- dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
- ElXreno <elxreno@gmail.com>
-Subject: [PATCH 2/7] drm/i915/vrr: Fix the pixel clock overflow in the vmax
- computation
-Date: Sat, 14 Nov 2026 04:43:30 +0300
-Message-ID: <20261114014335.2132756-3-elxreno@gmail.com>
-X-Mailer: git-send-email 2.56.0
-In-Reply-To: <20261114014335.2132756-1-elxreno@gmail.com>
-References: <20261114014335.2132756-1-elxreno@gmail.com>
+ Fri, 13 Nov 2026 22:25:54 -0800 (PST)
+From: Jiwoo Kim <arpe1618@gmail.com>
+To: Rob Clark <robin.clark@oss.qualcomm.com>,
+ Dmitry Baryshkov <lumag@kernel.org>
+Cc: Akhil P Oommen <akhilpo@oss.qualcomm.com>,
+ Konrad Dybcio <konradybcio@kernel.org>,
+ Antonino Maniscalco <antomani103@gmail.com>,
+ Abhinav Kumar <abhinav.kumar@linux.dev>,
+ Jessica Zhang <jesszhan0024@gmail.com>, Sean Paul <sean@poorly.run>,
+ Marijn Suijten <marijn.suijten@somainline.org>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org,
+ freedreno@lists.freedesktop.org, linux-kernel@vger.kernel.org,
+ stable@vger.kernel.org
+Subject: [PATCH 2/2] drm/msm: Put the VM_BIND queue last in msm_vma_job_free()
+Date: Sat, 14 Nov 2026 15:25:41 +0900
+Message-ID: <20261114062541.2001-2-arpe1618@gmail.com>
+X-Mailer: git-send-email 2.43.0
+In-Reply-To: <20261114062541.2001-1-arpe1618@gmail.com>
+References: <20261114062541.2001-1-arpe1618@gmail.com>
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
@@ -102,39 +104,60 @@ X-Spam-Status: No, score=-15.8 required=3.0 tests=BAYES_00,DKIM_SIGNED,
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-intel_vrr_compute_vmax() multiplies crtc_clock, which is in kHz, by
-1000 in a signed int. A 3840x2400@240 timing has a 2342.4 MHz pixel
-clock, so the product overflows, the quotient turns negative and vmax
-is clamped to crtc_vtotal. vmin then equals vmax and VRR is never
-enabled for the mode, although it is within the range of the panel.
+msm_vma_job_free() puts the job's submitqueue and then wakes up
+vm->prealloc_throttle.wait. The job does not hold a reference to the
+VM of its own: the VM is kept alive by the context, which the queue
+holds a reference to. When the job holds the last reference to the
+queue, as it can once the file has been closed, for example when a
+cancelled job is freed, the put can drop the last reference to the VM,
+and the wakeup then uses a VM that msm_gem_vm_free() has released.
 
-Do the multiplication in 64 bits.
+Since commit 01c8d1f385f7 ("drm/msm: RCU-free the scheduler-containing
+ring and VM objects"), msm_gem_vm_free() frees the VM with kfree_rcu(),
+but msm_vma_job_free() is not in an RCU read-side critical section, so
+a grace period can still end before the wakeup, e.g. if the task is
+preempted in between. Before that commit, the VM was freed right away.
 
-No Fixes tag: intel_vrr_compute_vmax() is only called for a mode
-within the VRR range, such a pixel clock needs the joiner, and
-intel_vrr_compute_config() takes joined modes out of the range so
-far.
+Put the queue only after the last use of the VM.
 
-Signed-off-by: ElXreno <elxreno@gmail.com>
+This was found with an AI coding assistant, which also drafted this
+patch and its changelog. It has not been reproduced, and the change
+has only been compile-tested.
+
+Fixes: b74fae5492d1 ("drm/msm: Add VM_BIND throttling")
+Cc: stable@vger.kernel.org
+Signed-off-by: Jiwoo Kim <arpe1618@gmail.com>
 ---
- drivers/gpu/drm/i915/display/intel_vrr.c | 4 ++--
- 1 file changed, 2 insertions(+), 2 deletions(-)
+Independent of 1/2.
 
-diff --git a/drivers/gpu/drm/i915/display/intel_vrr.c b/drivers/gpu/drm/i915/display/intel_vrr.c
-index e59345bd1d33..a5a5d11380a4 100644
---- a/drivers/gpu/drm/i915/display/intel_vrr.c
-+++ b/drivers/gpu/drm/i915/display/intel_vrr.c
-@@ -416,8 +416,8 @@ int intel_vrr_compute_vmax(struct intel_connector *connector,
- 	const struct drm_display_info *info = &connector->base.display_info;
- 	int vmax;
+ drivers/gpu/drm/msm/msm_gem_vma.c | 7 ++++++-
+ 1 file changed, 6 insertions(+), 1 deletion(-)
+
+diff --git a/drivers/gpu/drm/msm/msm_gem_vma.c b/drivers/gpu/drm/msm/msm_gem_vma.c
+index 0cf518420656..b4b284ca5b38 100644
+--- a/drivers/gpu/drm/msm/msm_gem_vma.c
++++ b/drivers/gpu/drm/msm/msm_gem_vma.c
+@@ -775,7 +775,6 @@ msm_vma_job_free(struct drm_sched_job *_job)
+ 	job_foreach_bo (obj, job)
+ 		drm_gem_object_put(obj);
  
--	vmax = adjusted_mode->crtc_clock * 1000 /
--		(adjusted_mode->crtc_htotal * info->monitor_range.min_vfreq);
-+	vmax = div_u64(mul_u32_u32(adjusted_mode->crtc_clock, 1000),
-+		       adjusted_mode->crtc_htotal * info->monitor_range.min_vfreq);
- 	vmax = max_t(int, vmax, adjusted_mode->crtc_vtotal);
+-	msm_submitqueue_put(job->queue);
+ 	dma_fence_put(job->fence);
  
- 	return vmax;
+ 	/* In error paths, we could have unexecuted ops: */
+@@ -788,6 +787,12 @@ msm_vma_job_free(struct drm_sched_job *_job)
+ 
+ 	wake_up(&vm->prealloc_throttle.wait);
+ 
++	/*
++	 * The queue may hold the last reference to the context, and so to the
++	 * VM, so put it only once we are done with the VM.
++	 */
++	msm_submitqueue_put(job->queue);
++
+ 	kfree(job);
+ }
+ 
 -- 
-2.56.0
+2.43.0
 
