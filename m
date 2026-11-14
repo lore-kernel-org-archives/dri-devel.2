@@ -2,83 +2,86 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 34DCF606A323
-	for <dri-devel@archiver.kernel.org>; Sat, 14 Nov 2026 16:25:44 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 208E0606A323
+	for <dri-devel@archiver.kernel.org>; Sat, 14 Nov 2026 16:25:45 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=pU3Mwfap
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=Daj35KDa
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 6094510F03A;
-	Sat, 14 Nov 2026 16:25:14 +0000 (UTC)
-Received: from mail-dy1-f180.google.com (mail-dy1-f180.google.com
- [74.125.82.180])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 5BAB010E16F
- for <dri-devel@lists.freedesktop.org>; Sat, 14 Nov 2026 08:20:33 +0000 (UTC)
-Received: by mail-dy1-f180.google.com with SMTP id
- 5a478bee46e88-37123334649so194370eec.1
- for <dri-devel@lists.freedesktop.org>; Sat, 14 Nov 2026 00:20:33 -0800 (PST)
+	by gabe.freedesktop.org (Postfix) with ESMTP id EAAD110F03C;
+	Sat, 14 Nov 2026 16:25:16 +0000 (UTC)
+Received: from mail-dy1-f178.google.com (mail-dy1-f178.google.com
+ [74.125.82.178])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id D7D5310E591
+ for <dri-devel@lists.freedesktop.org>; Sat, 14 Nov 2026 08:19:26 +0000 (UTC)
+Received: by mail-dy1-f178.google.com with SMTP id
+ 5a478bee46e88-36dc4797082so208734eec.2
+ for <dri-devel@lists.freedesktop.org>; Sat, 14 Nov 2026 00:19:26 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20260707; t=1794644433; x=1795249233; darn=lists.freedesktop.org;
+ d=gmail.com; s=20260707; t=1794644366; x=1795249166; darn=lists.freedesktop.org;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:from:to:cc:subject:date
  :message-id:reply-to:content-type;
- bh=hp5f15bouPR2UtUnvKHkGzva3ieusdxkwfWzQA5rd1U=;
- b=pU3MwfapjBB9IC1GnHreMW+UXNEETPrHfoC/tcFP6cbE385pQ15CkkKhXKKx3VOQNR
- yqcnFr2J/RolKWdbjB7OML6A9o6ACDHc3zCXCIk11DJi/0mmXPkdQh1cgk/7mplqq/h5
- ACebsgf5vVg+y7rglsEpRH/srPYYGQAtEV4fCrsbgG4GZohUsAGslaWG7HT1rWqZh0Bb
- pK/z/wNQJ1njVYxNLsLvLvsK9xgZBJIzTC8qLNrQVcy3xCEtCovqbQXFeQc0HIVBsaTY
- UqOqeo4v3Sg340o+U6nDvM3kszwRpci6mK6myVFC+PvqHEws7eCrYPDlwwgOkh0KoU4/
- D+4A==
+ bh=C58R8Pgzd1hKqtVMoaWOgYvgQVTOllRn5nwLnk9mw7k=;
+ b=Daj35KDa3FUpOICgbyj62ZRtNWNlNQSpDFfUQKlNYyJzpReE/nH1i4+ZZ4GEDTjyE7
+ XKUXwQBquilRJmXN4LTHIcH9qlh9DT+yQyKKI6DEZxgiVdYFfS5doVn7vWL+dXH3KK7e
+ U9nvQ5vp9rvNgqINA/UtNK4NOqF50+uqpqeMftmOAixbxYGdmRNSaIcDOYAdbTutKBtl
+ rjzgvd+xAyad5zBrloJ5CVa0aZEW7yqW5xKaANIYBD+ASND6BY1SEveBS8mmbUb83I6H
+ Z3/wAFUgx4iOydbnFgfcWy2TlB3/fALxvn8vTHpD0ojAEy6Fowtk8DBkighsJvq8lucU
+ isow==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20260707; t=1794644433; x=1795249233;
+ d=1e100.net; s=20260707; t=1794644366; x=1795249166;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
  :to:cc:subject:date:message-id:reply-to:content-type;
- bh=hp5f15bouPR2UtUnvKHkGzva3ieusdxkwfWzQA5rd1U=;
- b=WPEylprO4roXzOfFq1o5Pi//T9fkQ1VHB9e9+c7dm8hmk4mEJOXRhIf3TouriAIgkv
- BmX9VkCPEu3Hn8anPeeHqbX2BntT13fRE2lFZlC3yQYr2S/Kjev0aXQCrU8dE7a0XlDB
- M5GYK0i3eATytCXEZaaxS4A16fmxMGYycGcwMO90bOQzUfG7/rDnR5wfk07m7byLS0/d
- Oe4hpWt/ooyC2MK0ZXg2xzfmsx4bTe/6W9vcY8w2JU1NMEAI0tfZtr7spuVkuBjuxXq5
- /rqdP9W8PxXEp/Cu3hWgHYOi3M3sS8N7aK/CzbssG3WagYa9xAFz/hNhRUDKadOnKBRF
- UMxw==
+ bh=C58R8Pgzd1hKqtVMoaWOgYvgQVTOllRn5nwLnk9mw7k=;
+ b=h8K1mVLm7T+BngkAWriWts3egmNcFjM8qKlXwzNYQnfZOCjwVgwpDz+s4p1w+lHyuu
+ 8Ix6533Po5phNgOi4EfH63uZOwsAuvc/YuTNO+ReIH3U4X/Cn7jiSwJ0NvnVaeN3560P
+ +IuI36uv4DVSvevcSRWrNPVRx8B4AnJ1hCGhFFZp8af1k1s/cMpxcw3IKSdtSkqByWc1
+ G2GpXHKdQzsC876T4/MTEJVhYhPiv9KniSFg/cqrzYsbJexNc6644XQXv4Nba0nHvGwV
+ OSnIA7KpWyT7hQwyBFnh/XVYgLr4sOwOLnGsl7QZTVYQgvW2FlG9qwtPq+Yt7lwc4+cX
+ YWGA==
 X-Forwarded-Encrypted: i=1;
- AL+hErEOTdIe+37QlX/4TR8hMSMXaDsFhYNUjwEvxNPhll/tOmOBuUROIwbACGz107qMvi0P4iQTPHfr66I=@lists.freedesktop.org
-X-Gm-Message-State: APuU4Z9Gj/9PTYT4wBIrnhx1ADQfr3YeUNaX/7yZ+VYCtcFQRLG7nEVe
- rRpfEzgjEIfbxdq+7EsJeDQmKX2WfaaujOtXqU0+CgMonmkvuMSkX5d/
-X-Gm-Gg: AYBFou0qg8I97UuppH2xW8ECMFInZZSfoBBdqgSUGU5QB7C9OCRCuVbXCEK2iUHl+Ey
- 3+UNo3Ih4eq7YqI8z7Z+jFkr7akPNjY1mDHHDiS/MnWoznAyJG2A055/P+qNuLV2s9n1sQov/Y7
- maJxjLgoqGn41rWrVOhCH2Ml8XzC10UBDdw46i0iEDv6p5RSHGVyD0eAItP8p0JHLuFZp7S69lb
- 2BITtaDuyK76PWpzZ158xdqqWMuxXB7ebJFb+EXhvQYGuFlcMkc2xg0ndXJNmYErMq7WwLv25AK
- MJ/BBKxKBLv1XqvIDNYGsELC/miBJ5vY919tPgzpSLkMO0FuS+uLpYYEvWwCSdqUq5wNrQc0fp2
- Q+QmVhq404QQzN40nGeymVq0hkaLF+MHkZSbDjIQ5zGAk/SMkWIE1/LucSmCmR3Ye9wgtVi9Crn
- egC1+GeCUApbJR2poRYJtKGzj+uz6jf4ZcnPRpw3WeFF96gjRnZE1lAAbi3diTUMnfVcONFN8JJ
- VD+/mFf9Ildtkh/5xE1rXh6zEIVlNjJMpFrI1joww9dvStOwWTnxlbh/cE+rVq+yBcOc7mDY5Ny
- 2G9zqd1VHpmWn6R/GQ+dPBQ3AdPAUZhqM3WzYMLG50lSiS86A3zh9NTG6igsTecT2uoMvfhPMhP
- QmLM=
-X-Received: by 2002:a05:7300:c00e:20b0:35e:d21c:f33e with SMTP id
- 5a478bee46e88-379651ecb3emr8108167eec.1.1794644432522; 
- Sat, 14 Nov 2026 00:20:32 -0800 (PST)
+ AL+hErFX7wz2r2PTavlB6Ejunr1TSz7aFOluuJCKGA76CGSPfZZPVBvlLqMW9SBQT1Kizbz/fnr9sb7GWpA=@lists.freedesktop.org
+X-Gm-Message-State: APuU4Z+SRFLCdA4nhHcENWFskkqSrTviqwQpwAfwfxNwJD32q85fAWL7
+ RrRlNO/mZHRu5Uq0UhRscF52REHP8yrhMD91pkXyzztNH1UtjE0f5vGY
+X-Gm-Gg: AYBFou1HLInqAA4lQQWHGKflWS8WNaBwMYci3VZBe34LQGBRT72qH1+03e+P+j9mvVb
+ lZuhVSpLirK1pWO8xvvBt2T2Rq0AuCULGu3y8Y9YsPvbKZgwRSKqUfgNzm/EYm/WiwspOGBl+Ok
+ hy2E/57tw5w6NQk6jdxlNCP/y+KkZHS+HXLXVBQavm027s7ugdjHCJsKaCnHJ0nsHqQFLLxWded
+ ps1+XFT9qB99mD8fE2FiYcDoEmY9YcWxXRU6g8i4RHvm47H8YkG5L55n/oSsmPLL0jJPV1W/PpB
+ 9Ua3ZD3BMTj0OiIg5a9gWpoiOVlluSpkbGagvkMtMc4wbbwpSnbitx+f6K1PhUKVtHNdpcRN5X5
+ slZM0FJVZ6ClnxkhsXL6yg5sTsD7QgvQWqWpvnmylTFDn9vZ1Gndx9vv+UzAvM8f8eklJpU9C+b
+ GowAHJPbYM/Usbbh7uZWhxQqvvRs7lJc3R2+WBmzJNpO8qtoyOxoYAKAONnXrtXTEpp5bvvbCsu
+ A1KjLNMGZFh3j0RT9zq6Qaq3FpWTKgMCCl5nCbiVHtXSfKdwx+NWMwK5rYFkl+KlKsYIJignDbk
+ iaar7XSt2XviIpq7DNJ2+7vw31PfOOCKtQ5R9lgBbDvcNlE5EQPCuySaKGZEyNfcvRy8q15Xo5z
+ kRWpAqI5s7RZzUdQ3p5jLeXts
+X-Received: by 2002:a05:693c:881a:20b0:36e:66d8:1424 with SMTP id
+ 5a478bee46e88-3796047ff23mr7029007eec.0.1794644366120; 
+ Sat, 14 Nov 2026 00:19:26 -0800 (PST)
 Received: from DESKTOP-CJ1L666.localdomain ([211.198.99.62])
  by smtp.gmail.com with ESMTPSA id
- a92af1059eb24-1b5031918c7sm19524043c88.9.2026.11.14.00.20.28
+ 5a478bee46e88-3795378d7e5sm14008333eec.3.2026.11.14.00.19.21
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Sat, 14 Nov 2026 00:20:31 -0800 (PST)
+ Sat, 14 Nov 2026 00:19:25 -0800 (PST)
 From: Jiwoo Kim <arpe1618@gmail.com>
-To: Boris Brezillon <boris.brezillon@collabora.com>,
- Rob Herring <robh@kernel.org>, Steven Price <steven.price@arm.com>,
- =?UTF-8?q?Adri=C3=A1n=20Larumbe?= <adrian.larumbe@collabora.com>
-Cc: Danilo Krummrich <dakr@kernel.org>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>,
- Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>,
- Simona Vetter <simona@ffwll.ch>, dri-devel@lists.freedesktop.org,
- linux-kernel@vger.kernel.org, stable@vger.kernel.org
-Subject: [PATCH v2 2/4] drm/panfrost: Find the jobs of a destroyed JM context
- by their context
-Date: Sat, 14 Nov 2026 17:20:14 +0900
-Message-ID: <20261114082016.2454-3-arpe1618@gmail.com>
+To: Rob Clark <robin.clark@oss.qualcomm.com>,
+ Dmitry Baryshkov <lumag@kernel.org>
+Cc: Akhil P Oommen <akhilpo@oss.qualcomm.com>,
+ Konrad Dybcio <konradybcio@kernel.org>,
+ Antonino Maniscalco <antomani103@gmail.com>,
+ Abhinav Kumar <abhinav.kumar@linux.dev>,
+ Jessica Zhang <jesszhan0024@gmail.com>, Sean Paul <sean@poorly.run>,
+ Marijn Suijten <marijn.suijten@somainline.org>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org,
+ freedreno@lists.freedesktop.org, linux-kernel@vger.kernel.org,
+ stable@vger.kernel.org
+Subject: [PATCH v2 3/3] drm/msm: Put the VM_BIND queue last in
+ msm_vma_job_free()
+Date: Sat, 14 Nov 2026 17:19:02 +0900
+Message-ID: <20261114081902.1669-4-arpe1618@gmail.com>
 X-Mailer: git-send-email 2.43.0
-In-Reply-To: <20261114082016.2454-1-arpe1618@gmail.com>
-References: <20261114082016.2454-1-arpe1618@gmail.com>
+In-Reply-To: <20261114081902.1669-1-arpe1618@gmail.com>
+References: <20261114081902.1669-1-arpe1618@gmail.com>
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
@@ -102,66 +105,55 @@ X-Spam-Status: No, score=-15.8 required=3.0 tests=BAYES_00,DKIM_SIGNED,
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-panfrost_jm_ctx_destroy(), which runs on JM_CTX_DESTROY and when the
-file is closed, looks for the jobs of the context in pfdev->jobs[] by
-comparing job->base.entity with the entities of the context. Since
-commit 96c7c2f4d5bd ("drm/scheduler: set entity to NULL in
-drm_sched_entity_pop_job()"), the scheduler clears job->base.entity
-when it pops a job, before it calls run_job(), so the entity of every
-job in pfdev->jobs[] is NULL and the comparison never matches.
+msm_vma_job_free() puts the job's submitqueue and then wakes up
+vm->prealloc_throttle.wait. The job does not hold a reference to the
+VM of its own: the VM is kept alive by the context, which the queue
+holds a reference to. When the job holds the last reference to the
+queue, as it can once the file has been closed, for example when a
+cancelled job is freed, the put can drop the last reference to the VM,
+and the wakeup then uses a VM that msm_gem_vm_free() has released.
 
-The jobs of a destroyed context are therefore neither stopped nor
-detached from the file: they keep running after the file is closed,
-and with profiling enabled, panfrost_dequeue_job() writes their
-engine_usage to the panfrost_file_priv that panfrost_postclose() has
-freed. The same comparison was used in panfrost_job_close() before
-commit 6aa8bc58ac88 ("drm/panfrost: Introduce JM contexts for manging
-job resources").
+Since commit 01c8d1f385f7 ("drm/msm: RCU-free the scheduler-containing
+ring and VM objects"), msm_gem_vm_free() frees the VM with kfree_rcu(),
+but msm_vma_job_free() is not in an RCU read-side critical section, so
+a grace period can still end before the wakeup, e.g. if the task is
+preempted in between. Before that commit, the VM was freed right away.
 
-Match the jobs by job->ctx instead, which a job holds a reference to
-until it is cleaned up.
+Put the queue only after the last use of the VM.
 
-The patch and its changelog were drafted with an AI coding assistant.
-The issue has not been reproduced, and the change has only been
-compile-tested.
+This was found with an AI coding assistant, which also drafted this
+patch and its changelog. It has not been reproduced, and the change
+has only been compile-tested.
 
-Fixes: 96c7c2f4d5bd ("drm/scheduler: set entity to NULL in drm_sched_entity_pop_job()")
+Fixes: b74fae5492d1 ("drm/msm: Add VM_BIND throttling")
 Cc: stable@vger.kernel.org
-Reported-by: Sashiko <sashiko-bot@kernel.org>
-Closes: https://lore.kernel.org/r/sashiko-outbox-214229@kernel.org
 Signed-off-by: Jiwoo Kim <arpe1618@gmail.com>
 ---
-Trees from before commit 6aa8bc58ac88 ("drm/panfrost: Introduce JM
-contexts for manging job resources") have the same comparison in
-panfrost_job_close() and need a separate backport; there, the jobs of
-the file can be matched by job->mmu instead.
+ drivers/gpu/drm/msm/msm_gem_vma.c | 7 ++++++-
+ 1 file changed, 6 insertions(+), 1 deletion(-)
 
- drivers/gpu/drm/panfrost/panfrost_job.c | 8 +++++---
- 1 file changed, 5 insertions(+), 3 deletions(-)
-
-diff --git a/drivers/gpu/drm/panfrost/panfrost_job.c b/drivers/gpu/drm/panfrost/panfrost_job.c
-index 7022b1b2e020..7a3137dacb9d 100644
---- a/drivers/gpu/drm/panfrost/panfrost_job.c
-+++ b/drivers/gpu/drm/panfrost/panfrost_job.c
-@@ -1105,13 +1105,15 @@ int panfrost_jm_ctx_destroy(struct drm_file *file, u32 handle)
- 	/* Kill in-flight jobs */
- 	spin_lock(&pfdev->js->job_lock);
- 	for (u32 i = 0; i < ARRAY_SIZE(jm_ctx->slot_entity); i++) {
--		struct drm_sched_entity *entity = &jm_ctx->slot_entity[i];
--
- 		for (int j = ARRAY_SIZE(pfdev->jobs[0]) - 1; j >= 0; j--) {
- 			struct panfrost_job *job = pfdev->jobs[i][j];
- 			u32 cmd;
+diff --git a/drivers/gpu/drm/msm/msm_gem_vma.c b/drivers/gpu/drm/msm/msm_gem_vma.c
+index b1fa1d749c2f..1bffade78623 100644
+--- a/drivers/gpu/drm/msm/msm_gem_vma.c
++++ b/drivers/gpu/drm/msm/msm_gem_vma.c
+@@ -816,11 +816,16 @@ msm_vma_job_free(struct drm_sched_job *_job)
+ 	job_foreach_bo (obj, job)
+ 		drm_gem_object_put(obj);
  
--			if (!job || job->base.entity != entity)
-+			/*
-+			 * The scheduler clears job->base.entity when it pops the
-+			 * job, so match the job by its context.
-+			 */
-+			if (!job || job->ctx != jm_ctx)
- 				continue;
+-	msm_submitqueue_put(job->queue);
+ 	dma_fence_put(job->fence);
  
- 			if (j == 1) {
+ 	wake_up(&vm->prealloc_throttle.wait);
+ 
++	/*
++	 * The queue may hold the last reference to the context, and so to the
++	 * VM, so put it only once we are done with the VM.
++	 */
++	msm_submitqueue_put(job->queue);
++
+ 	kfree(job);
+ }
+ 
 -- 
 2.43.0
 
