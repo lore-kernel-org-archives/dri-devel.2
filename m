@@ -2,49 +2,85 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 72AF3606A32D
-	for <dri-devel@archiver.kernel.org>; Sat, 14 Nov 2026 12:39:54 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C3523606A323
+	for <dri-devel@archiver.kernel.org>; Sat, 14 Nov 2026 12:54:59 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (1024-bit key) header.d=furiosa.ai header.i=@furiosa.ai header.a=rsa-sha256 header.s=google header.b=DMb4oLpJ
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 9AD0110E86C;
-	Sat, 14 Nov 2026 12:39:53 +0000 (UTC)
-X-Greylist: delayed 1223 seconds by postgrey-1.36 at gabe;
- Sat, 14 Nov 2026 12:39:51 UTC
-Received: from pidgin.makrotopia.org (pidgin.makrotopia.org [185.142.180.65])
- by gabe.freedesktop.org (Postfix) with ESMTPS id CCDB210E86C
- for <dri-devel@lists.freedesktop.org>; Sat, 14 Nov 2026 12:39:51 +0000 (UTC)
-Received: from local by pidgin.makrotopia.org with esmtpsa
- (TLS1.3:TLS_AES_256_GCM_SHA384:256:X25519MLKEM768) (Exim 4.100.1)
- (envelope-from <daniel@makrotopia.org>) id 1xSCix-000000004N3-2XUv;
- Sat, 14 Nov 2026 12:19:15 +0000
-Date: Sat, 14 Nov 2026 12:19:11 +0000
-From: Daniel Golle <daniel@makrotopia.org>
-To: Andrzej Hajda <andrzej.hajda@intel.com>,
- Neil Armstrong <neil.armstrong@linaro.org>, Robert Foss <rfoss@kernel.org>,
- Laurent Pinchart <Laurent.pinchart@ideasonboard.com>,
- Jonas Karlman <jonas@kwiboo.se>, Jernej Skrabec <jernej.skrabec@gmail.com>,
- Luca Ceresoli <luca.ceresoli@bootlin.com>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>,
- Thomas Zimmermann <tzimmermann@suse.de>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- Matthias Brugger <matthias.bgg@gmail.com>,
- AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>,
- Hermes Wu <hermes.wu@ite.com.tw>, Allen Chen <allen.chen@ite.com.tw>,
- Pin-yen Lin <treapking@chromium.org>,
- Chen-Yu Tsai <wenst@chromium.org>, dri-devel@lists.freedesktop.org,
- linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
- linux-mediatek@lists.infradead.org
-Cc: Jani Nikula <jani.nikula@intel.com>,
- Dmytro Malovanyi <dmitrymalovanyy@gmail.com>
-Subject: Re: [PATCH v8 00/14] drm/bridge: it6505: DP audio support +
- shared-DAI hw_params fix
-Message-ID: <avhRv2PdtfFMOu2v@makrotopia.org>
-References: <cover.1790552614.git.daniel@makrotopia.org>
+	by gabe.freedesktop.org (Postfix) with ESMTP id 1868010E86D;
+	Sat, 14 Nov 2026 12:54:54 +0000 (UTC)
+Received: from mail-dl1-f43.google.com (mail-dl1-f43.google.com [74.125.82.43])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 98B9F10E86D
+ for <dri-devel@lists.freedesktop.org>; Sat, 14 Nov 2026 12:54:47 +0000 (UTC)
+Received: by mail-dl1-f43.google.com with SMTP id
+ a92af1059eb24-1a8cc11ac42so1756511c88.0
+ for <dri-devel@lists.freedesktop.org>; Sat, 14 Nov 2026 04:54:47 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=furiosa.ai; s=google; t=1794660887; x=1795265687; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:mime-version:references:in-reply-to
+ :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+ :message-id:reply-to:content-type;
+ bh=kzZ572SYqNYS7AFbKEhSpyO0POmges/XmCJlcN/iV2Y=;
+ b=DMb4oLpJxbk5tXIcEk8yF1eFbZV1jaTb/QzY9pzEcfuNtIEdjL8YIJ4POzFAbl+cb/
+ EWkFUbTTiQAOY9rxhKsd6A7KkJ1f3dbbd4lT7peoh0gaRggJASZSwixt0FfHN5T8XTY3
+ g9Dy8gu0zSFKsNJ28lqNrhLeGl3yONPYHgeJ4=
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20260707; t=1794660887; x=1795265687;
+ h=content-transfer-encoding:mime-version:references:in-reply-to
+ :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+ :to:cc:subject:date:message-id:reply-to:content-type;
+ bh=kzZ572SYqNYS7AFbKEhSpyO0POmges/XmCJlcN/iV2Y=;
+ b=Y9dCLDtklQa8yinA8nM/0c/cG0+9tBwjXL1yxiY6Vbu1iLwa+erTtbQGyuPitwEPs/
+ e/ol3aqcV/nlWalNTu9QDHg+3vfBfkhVk2ccuORQ4SyNFy13YCylfcmmi+oQlKrVIFM6
+ YBeyzch8M4uykUALOc1KP8EuH9EnbbaelohHq0kLY1z4hlgIqo4dHqN4UG8aOEnaVcdB
+ bhwHm/P414dE/bcuc42UOTlmIBXyD1t24i8kH6MWwJM7+/9PRSpWojAc05HjThTsHd21
+ FMmvZa8Gxmc6XG3KQtyrNqRoSHfUjW3CShYxRz5UCzhtdwtocnDMGWPOfGj+PvIuiWji
+ lG+A==
+X-Forwarded-Encrypted: i=1;
+ AL+hErGTPo1bpev1ZSJe4cbT8NKyuiVPeg8OKeFFKGWcUFIne8eTvT2Mdrnd4yIbtLuwB75l/A/bcslopdQ=@lists.freedesktop.org
+X-Gm-Message-State: APuU4Z+2wnNyojU44OsCsgdcLZbPBxOxjDnAP7EW3cC/2QrkaduGCpAm
+ ci3mq4E55FA2V5EoGJEummMk9shFvZdBmln2fS+vmoYm6HsYCSxxsg6DC2+OzSkyvTw=
+X-Gm-Gg: AYBFou2i4N5vM3xBtOTNE5U0elTuQ/uE19i78FH+SnDOe8XV62bUXsI/xhY701Mi4Xy
+ j7u1z9lkf/JGeTgDWFml505nsbDvhKXJJlrd1/eppkbmFQ8xaQaNwcsqcHYz7xeu/UbbNfjzWUp
+ Y67d0ynZdB9IqBr3ezXnbzgnNk3cgdR54m38zRdafBkDu6Rt0E4nbH4UOBQP0yhYX99T+ynRPse
+ Y4RlsykSBD2B2CPxei1VSJs8Pq0NxVthA06AqKt2Z0i9MvZ7egm5JGYrrtm3B7iKqaOUSzLtRQ8
+ 14iZtmPPG9CJ+UUiA1I0cXWSX1yoYOX58BT1RB1cKGucQNL3s1rU34yHOXMf6vfJL5l5WQmj6Q+
+ qNJNPHLI/jQCm0OJH8pK0DEUpE7GnqwNSsSOANPAEeXl+afzAtIkNopMchqyLj302ciZk0UTVba
+ TriaUwcHGyr2iMfTzCiAcPSQvwOBdbtWUSdmBuw4hthwztphkEYMZZpmFhtg+jjOaR0RXIXcQCr
+ QsXnvIrznWgul0dC8J8V34TV1AOTilgq63HaZdr+ORWzB9YGRNeYMhZtKOU00gKSwnj9+BmAuTV
+ gABpmpOD13RMoUBKcBHT/4QPuLdktjDFfaKpNSKA5J9Fgjil0AA8N84WaHcDo96X4EVpGRWyAU7
+ LhzpAA5YF3EB3
+X-Received: by 2002:a05:701b:2706:b0:1b2:4c54:d976 with SMTP id
+ a92af1059eb24-1b50311d3e0mr5111198c88.31.1794660886535; 
+ Sat, 14 Nov 2026 04:54:46 -0800 (PST)
+Received: from rock-5b-plus ([61.83.209.48]) by smtp.gmail.com with ESMTPSA id
+ a92af1059eb24-1b50319e381sm15468097c88.12.2026.11.14.04.54.41
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Sat, 14 Nov 2026 04:54:46 -0800 (PST)
+From: Sidong Yang <sidong.yang@furiosa.ai>
+To: Jiaxing Hu <gahing@gahingwoo.com>
+Cc: tomeu@tomeuvizoso.net, heiko@sntech.de, robh@kernel.org,
+ krzk+dt@kernel.org, conor+dt@kernel.org, joro@8bytes.org, will@kernel.org,
+ robin.murphy@arm.com, p.zabel@pengutronix.de, ogabbay@kernel.org,
+ zhangqing@rock-chips.com, royalnet026@gmail.com,
+ ulf.hansson@oss.qualcomm.com, abel.vesa@oss.qualcomm.com,
+ sebastian.reichel@collabora.com, u.kleine-koenig@baylibre.com,
+ chaoyi.chen@rock-chips.com, shawn.lin@rock-chips.com,
+ finley.xiao@rock-chips.com, diederik@cknow-tech.com, alchark@flipper.net,
+ leonard@lausen.nl, vlwwwwww@gmail.com, jeff.hugo@oss.qualcomm.com,
+ rfoss@kernel.org, dri-devel@lists.freedesktop.org,
+ linux-rockchip@lists.infradead.org, iommu@lists.linux.dev,
+ devicetree@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
+ linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v17 00/12] accel/rocket: RK3576 NPU (RKNN) enablement
+Date: Sat, 14 Nov 2026 21:54:35 +0900
+Message-ID: <20261114125437.9986-1-sidong.yang@furiosa.ai>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <cover.1794615324.git.gahing@gahingwoo.com>
+References: <cover.1794615324.git.gahing@gahingwoo.com>
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <cover.1790552614.git.daniel@makrotopia.org>
+Content-Transfer-Encoding: 8bit
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -56,48 +92,25 @@ List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-3.8 required=3.0 tests=BAYES_00,
-	HEADER_FROM_DIFFERENT_DOMAINS,MAILING_LIST_MULTI,SPF_HELO_NONE,
-	SPF_PASS autolearn=no autolearn_force=no version=4.0.1
+X-Spam-Status: No, score=-13.8 required=3.0 tests=BAYES_00,DKIM_SIGNED,
+	DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
+	INCLUDES_CR_TRAILER,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,
+	USER_AGENT_GIT autolearn=unavailable autolearn_force=no version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-Hi,
+On Sat, Nov 14, 2026 at 04:05:17PM +1300, Jiaxing Hu wrote:
+> This series adds RK3576 NPU (RKNN) support to the mainline DRM rocket
+> driver.
 
-On Mon, Sep 28, 2026 at 12:49:25AM +0100, Daniel Golle wrote:
-> Revive HDMI/DP audio support for the it6505, originally posted by
-> Jiaxin Yu [1], rebased onto current -next with the review feedback
-> addressed: &client->dev is gone (the driver gained it6505->dev) and
-> "#sound-dai-cells" has since been added by commit 325af1bef5b9
-> ("dt-bindings: display: bridge: it6505: Add #sound-dai-cells").
-> 
-> Patches 1-12 fix pre-existing bugs found during review of earlier
-> versions of this series; they carry Fixes: tags and are ordered first
-> so stable trees can pick them.
-> 
-> Patch 13 wires up the it6505 audio helpers via hdmi_codec_ops,
-> unblocking the mt8186-mt6366 sound card which references it6505 as
-> the I2S3 codec. Patch 14 makes hw_params succeed with no display
-> attached, needed when the I2S bus is shared with another codec as on
-> MT8186 "steelix" Chromebooks, where the speaker path must keep
-> working regardless of the it6505 link state.
-> 
-> Tested on a MT8186 (google,steelix) Chromebook: the sound card comes
-> up, speakers, microphone and headset jack work. HDMI/DP audio output
-> itself could not be tested for lack of a suitable adapter cable.
+I checked the accel/rocket patches for regressions on a ROCK 5B+
+(RK3588): MobileNet inference with up to 6 concurrent clients, runtime
+PM cycling, core unbind/rebind, GET_PARAM (returns 1) and recovery from
+93 forced job timeouts all pass, with no warnings.
 
-Kind reminder regarding this series.
-Some of the patches have received a review, others did not yet.
-I'd be great to have the Ideapad with working audio without being
-force to build with downstream kernel patches...
+For patches 2-5 and 8-10:
 
-I've added Dmytro Malovanyi and Jani Nikula who have both also
-recently been involved with other patches for the same driver.
+Tested-by: Sidong Yang <sidong.yang@furiosa.ai> # RK3588, ROCK 5B+
 
-If there is anything I can do from my end, please let me know.
-
-
-Cheers
-
-
-Daniel
+Thanks,
+Sidong
