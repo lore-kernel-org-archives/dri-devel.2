@@ -2,43 +2,43 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C2B19606A327
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D53AD606A329
 	for <dri-devel@archiver.kernel.org>; Sat, 14 Nov 2026 18:55:24 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=HU2mr3Rt
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=PjpteExJ
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 56E1B10E6F7;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 48D3D10E649;
 	Sat, 14 Nov 2026 18:55:18 +0000 (UTC)
 Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id F05B110E5CC
- for <dri-devel@lists.freedesktop.org>; Sat, 14 Nov 2026 18:54:58 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id A0C5F10E590
+ for <dri-devel@lists.freedesktop.org>; Sat, 14 Nov 2026 18:54:57 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id C9629458D7;
- Sat, 14 Nov 2026 18:54:58 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 85D4A1F000C5;
- Sat, 14 Nov 2026 18:54:58 +0000 (UTC)
+ by sea.source.kernel.org (Postfix) with ESMTP id 7B3F845A6A;
+ Sat, 14 Nov 2026 18:54:57 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2E2601F000C5;
+ Sat, 14 Nov 2026 18:54:57 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1794682498;
- bh=GjIkAWFwZD0F1pxneUqIIbMLMSAo5EOX7R1+E6hexOk=;
+ s=k20260515; t=1794682497;
+ bh=klBgaalKgQAl1KlAABtT3hSSeOoMEmMSHb+szwhcuFE=;
  h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
- b=HU2mr3RtYVry+kdK380Cg9D1wRDRadKzkxNXtI3fC7ea+TxObxiqQLyRaMJW9wxu2
- GAU7Eu/l/OJl6wLw9jzgn7rzJyC2M/4VnhCTdtmPvktSRBXW/53+Xv3azKKcLwlnFG
- AH5GxGWZL7+Q4e4C3ze82EdqwshkGWl5W1hPICEj3YTGWyzdlkxitWVdbAcWq/IvIe
- 1OcW82u36DShtBsgVFW3IvdCJg25Ib6Y5HcMRAWi3ucig4CGppSxmnn9Z5LQNTMI0A
- +RZg+/+5cO0ikCqEpdJ0+Nb10S5ixgVNT0BZ7jU8nl1qsnw/FFLxxrIJekF2HyrL6W
- 6mw0aRmLbOQJw==
-Message-ID: <sashiko-outbox-214918@kernel.org>
+ b=PjpteExJ4BqRNd65kh0hThnZ39Vtbmb1n6wuwcyEhTeugvH/kquYhLDZfVNTNs1bw
+ c/0TsZsVTHYp1Iew789rNG9kzd7jIKGFRZUrUnL0kCZ28GKCMRJbnLkjGg9qAoZnrz
+ vAB3QXJ1ViE/9gEVia1hmU4HpSe7+lqPNBCYgRO46eXr5Fhm4f3XEYXuOqI87zzPRs
+ hH8KmxxJ58dpeGjNjdhcOEIfb0YLrjbuvxTALuLdfI/96tOzjOElvrDQTLW+anBHeh
+ gpETgHeEZebSRazIit143CZ9cVAUx3MKE8IxW7w6efuJ6Z39GR7W2K4XWf5yA++H5G
+ 5JRptUg/pPcmA==
+Message-ID: <sashiko-outbox-214916@kernel.org>
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v2 7/9] wifi: ath12k: migrate firmware loading to
+Subject: Re: [PATCH v2 5/9] media: venus: migrate firmware loading to
  qcom_mdt_pas_load() and qcom_pas_prepare_and_auth_reset()
 To: "Mukesh Ojha" <mukesh.ojha@oss.qualcomm.com>
 Cc: dri-devel@lists.freedesktop.org, media-ci@linuxtv.org
-In-Reply-To: <20261113185009.157893-8-mukesh.ojha@oss.qualcomm.com>
+In-Reply-To: <20261113185009.157893-6-mukesh.ojha@oss.qualcomm.com>
 References: <20261113185009.157893-1-mukesh.ojha@oss.qualcomm.com>
- <20261113185009.157893-8-mukesh.ojha@oss.qualcomm.com>
+ <20261113185009.157893-6-mukesh.ojha@oss.qualcomm.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Sat, 14 Nov 2026 18:54:58 +0000
+Date: Sat, 14 Nov 2026 18:54:56 +0000
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -61,126 +61,89 @@ X-Archived-By: <archiver.kernel.org>
 
 Thank you for your contribution! Sashiko AI review found 1 potential
 issue to consider:
-- [High] wifi: ath12k: PAS metadata leak in ath12k_ahb_power_up() and
-  shared FW load
+- [Medium] media: venus: PAS metadata buffer leak in venus_load_fw() and
+  venus_boot()
 --
 
-commit 7ea070a02821a21185ed124f14f936a8b5576395
+commit 82fbd4dcc81174e35cd1220225cd23273f0e119b
 Author: Mukesh Ojha <mukesh.ojha@oss.qualcomm.com>
 
-wifi: ath12k: migrate firmware loading to qcom_mdt_pas_load() and qcom_pas_=
+media: venus: migrate firmware loading to qcom_mdt_pas_load() and qcom_pas_=
 prepare_and_auth_reset()
 
-This commit replaces qcom_mdt_load() and qcom_pas_auth_and_reset() in
-ath12k_ahb_power_up() and ath12k_ahb_load_auth_shared_fw() with
-qcom_pas_context_init(), qcom_mdt_pas_load(), and
+This commit migrates the TrustZone firmware loading path in the Venus
+driver to use a PAS context with qcom_mdt_pas_load() and
 qcom_pas_prepare_and_auth_reset().
 
-> diff --git a/drivers/net/wireless/ath/ath12k/ahb.c b/drivers/net/wireless=
-/ath/ath12k/ahb.c
-> index 2c55aae06dd06..355f1f5509975 100644
-> --- a/drivers/net/wireless/ath/ath12k/ahb.c
-> +++ b/drivers/net/wireless/ath/ath12k/ahb.c
-> @@ -411,6 +411,7 @@ static int ath12k_ahb_power_up(struct ath12k_base *ab)
->  	struct ath12k_ahb_rproc_info *rproc_info =3D ab_ahb->rproc_info;
->  	char fw_name[ATH12K_USERPD_FW_NAME_LEN];
->  	char fw2_name[ATH12K_USERPD_FW_NAME_LEN];
-> +	struct qcom_pas_context ctx;
->  	struct device *dev =3D ab->dev;
->  	const struct firmware *fw, *fw2;
->  	unsigned long time_left;
-> @@ -444,14 +445,15 @@ static int ath12k_ahb_power_up(struct ath12k_base *=
-ab)
->  		ATH12K_AHB_UPD_SWID;
-> =20
->  	/* Load FW image to a reserved memory location */
-> -	if (ab_ahb->scm_auth_enabled)
-> -		ret =3D qcom_mdt_load(dev, fw, fw_name, pasid, rproc_info->mem_region,
-> -				    rproc_info->mem_phys, rproc_info->mem_size,
-> -				    NULL);
-> -	else
-> +	if (ab_ahb->scm_auth_enabled) {
-> +		qcom_pas_context_init(&ctx, dev, pasid,
-> +				      rproc_info->mem_phys, rproc_info->mem_size);
-> +		ret =3D qcom_mdt_pas_load(&ctx, fw, fw_name, NULL);
-> +	} else {
->  		ret =3D qcom_mdt_load_no_init(dev, fw, fw_name, rproc_info->mem_region,
->  					    rproc_info->mem_phys, rproc_info->mem_size,
->  					    NULL);
-> +	}
->  	if (ret) {
->  		ath12k_err(ab, "Failed to load MDT segments: %d\n", ret);
->  		goto err_fw;
-> @@ -485,7 +487,7 @@ static int ath12k_ahb_power_up(struct ath12k_base *ab)
-> =20
->  	if (ab_ahb->scm_auth_enabled) {
->  		/* Authenticate FW image using peripheral ID */
-> -		ret =3D qcom_pas_auth_and_reset(pasid);
-> +		ret =3D qcom_pas_prepare_and_auth_reset(&ctx);
->  		if (ret) {
->  			ath12k_err(ab, "failed to boot the remote processor %d\n", ret);
->  			goto err_fw2;
-> @@ -1023,6 +1025,7 @@ static int ath12k_ahb_load_auth_shared_fw(struct at=
-h12k_base *ab,
->  					  struct ath12k_ahb_rproc_info *rproc_info,
->  					  const char *fw_name, u32 pasid)
->  {
-> +	struct qcom_pas_context ctx;
->  	int ret;
-> =20
->  	const struct firmware *fw __free(firmware) =3D NULL;
-> @@ -1041,14 +1044,16 @@ static int ath12k_ahb_load_auth_shared_fw(struct =
-ath12k_base *ab,
->  	ath12k_dbg(ab, ATH12K_DBG_AHB, "loading firmware %s, size %zd\n", fw_na=
-me,
->  		   fw->size);
-> =20
-> -	ret =3D qcom_mdt_load(ab->dev, fw, fw_name, pasid, rproc_info->mem_regi=
-on,
-> -			    rproc_info->mem_phys, rproc_info->mem_size, NULL);
-> +	qcom_pas_context_init(&ctx, ab->dev, pasid,
-> +			      rproc_info->mem_phys, rproc_info->mem_size);
-> +
-> +	ret =3D qcom_mdt_pas_load(&ctx, fw, fw_name, NULL);
->  	if (ret) {
->  		ath12k_err(ab, "failed to load RO firmware %s: %d\n", fw_name, ret);
->  		return ret;
+> diff --git a/drivers/media/platform/qcom/venus/firmware.c b/drivers/media=
+/platform/qcom/venus/firmware.c
+> index 3a38ff985822f..704343e241dc6 100644
+> --- a/drivers/media/platform/qcom/venus/firmware.c
+> +++ b/drivers/media/platform/qcom/venus/firmware.c
+> @@ -117,21 +117,22 @@ static int venus_load_fw(struct venus_core *core, c=
+onst char *fwname,
+>  		goto err_release_fw;
 >  	}
 > =20
-> -	ret =3D qcom_pas_auth_and_reset(pasid);
-> +	ret =3D qcom_pas_prepare_and_auth_reset(&ctx);
->  	if (ret)
->  		ath12k_err(ab, "failed to authenticate and boot shared firmware: %d\n",
->  			   ret);
+> -	mem_va =3D memremap(*mem_phys, *mem_size, MEMREMAP_WC);
+> -	if (!mem_va) {
+> -		dev_err(dev, "unable to map memory region %pa size %#zx\n", mem_phys, =
+*mem_size);
+> -		ret =3D -ENOMEM;
+> -		goto err_release_fw;
+> -	}
+> -
+> -	if (core->use_tz)
+> -		ret =3D qcom_mdt_load(dev, mdt, fwname, VENUS_PAS_ID,
+> -				    mem_va, *mem_phys, *mem_size, NULL);
+> -	else
+> +	if (core->use_tz) {
+> +		qcom_pas_context_init(&core->fw.pas_ctx, dev, VENUS_PAS_ID,
+> +				      *mem_phys, *mem_size);
+> +		ret =3D qcom_mdt_pas_load(&core->fw.pas_ctx, mdt, fwname, NULL);
+> +	} else {
+> +		mem_va =3D memremap(*mem_phys, *mem_size, MEMREMAP_WC);
+> +		if (!mem_va) {
+> +			dev_err(dev, "unable to map memory region %pa size %#zx\n",
+> +				mem_phys, *mem_size);
+> +			ret =3D -ENOMEM;
+> +			goto err_release_fw;
+> +		}
+>  		ret =3D qcom_mdt_load_no_init(dev, mdt, fwname, mem_va,
+>  					    *mem_phys, *mem_size, NULL);
+> -
+> -	memunmap(mem_va);
+> +		memunmap(mem_va);
+> +	}
+>  err_release_fw:
+>  	release_firmware(mdt);
+>  	return ret;
+> @@ -237,7 +238,7 @@ int venus_boot(struct venus_core *core)
+>  	core->fw.mem_phys =3D mem_phys;
+> =20
+>  	if (core->use_tz)
+> -		ret =3D qcom_pas_auth_and_reset(VENUS_PAS_ID);
+> +		ret =3D qcom_pas_prepare_and_auth_reset(&core->fw.pas_ctx);
+>  	else
+>  		ret =3D venus_boot_no_tz(core, mem_phys, mem_size);
 
-[Severity: High]
-Does this leak the PAS metadata buffer stored in ctx.ptr in both
-ath12k_ahb_power_up() and ath12k_ahb_load_auth_shared_fw()?
+[Severity: Medium]
+As reported by Konrad Dybcio on v1 [1], does this leak the PAS metadata
+buffer stored in core->fw.pas_ctx.ptr?
 
-Previously, qcom_mdt_load() passed a NULL context pointer to
-__qcom_mdt_pas_init() -> qcom_pas_init_image(), so the underlying backend
-freed the metadata allocation immediately.  qcom_mdt_pas_load() instead
-passes &ctx, which retains the allocated metadata buffer in ctx.ptr until
-the caller releases it with qcom_pas_metadata_release(&ctx):
+Unlike qcom_mdt_load(), which passes a NULL context to
+qcom_pas_init_image() so the metadata buffer is freed immediately,
+qcom_mdt_pas_load() passes &core->fw.pas_ctx and retains the metadata
+allocation in core->fw.pas_ctx.ptr until qcom_pas_metadata_release() is
+called.  Because qcom_pas_metadata_release(&core->fw.pas_ctx) is never
+called after qcom_pas_prepare_and_auth_reset() or on error in
+qcom_mdt_pas_load(), every boot and system error recovery cycle in
+venus_sys_error_handler() -> venus_boot() overwrites core->fw.pas_ctx via
+qcom_pas_context_init() and leaks the buffer.
 
-drivers/firmware/qcom/qcom_scm.c:qcom_scm_pas_init_image() {
-	...
-	if (ret < 0 || !ctx) {
-		dma_free_coherent(dev, size, mdata_buf, mdata_phys);
-	} else if (ctx) {
-		ctx->ptr =3D mdata_buf;
-		ctx->phys =3D mdata_phys;
-		ctx->size =3D size;
-	}
-	...
-}
-
-Because neither function calls qcom_pas_metadata_release(&ctx) after
-qcom_pas_prepare_and_auth_reset(&ctx) or on the error paths after
-qcom_mdt_pas_load() (including if qcom_mdt_pas_load() fails after
-qcom_pas_init_image() succeeds), the stack-allocated ctx goes out of scope
-and leaks the metadata buffer on every firmware load.
+[1] https://lore.kernel.org/r/ce3f58f7-f500-49f8-89cd-611d8e1ac6ac@oss.qual=
+comm.com
 
 --=20
 Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261113185009.1578=
-93-1-mukesh.ojha@oss.qualcomm.com?part=3D7
+93-1-mukesh.ojha@oss.qualcomm.com?part=3D5
