@@ -2,227 +2,86 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A364F606A329
-	for <dri-devel@archiver.kernel.org>; Mon, 16 Nov 2026 09:00:26 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7F2F3606A329
+	for <dri-devel@archiver.kernel.org>; Mon, 16 Nov 2026 09:00:31 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=permerror header.d=sakamocchi.jp header.i=@sakamocchi.jp header.a=rsa-sha1 header.s=fm3 header.b=pjuVmr/L;
-	dkim=permerror header.d=messagingengine.com header.i=@messagingengine.com header.a=rsa-sha1 header.s=fm3 header.b=syy3aDEc
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=LBvc45Ra
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id E203C10ED4E;
+	by gabe.freedesktop.org (Postfix) with ESMTP id C2B7710ED4C;
 	Mon, 16 Nov 2026 09:00:25 +0000 (UTC)
-Authentication-Results: gabe.freedesktop.org;
-	dkim=permerror (0-bit key) header.d=sakamocchi.jp header.i=@sakamocchi.jp header.b="pjuVmr/L";
-	dkim=permerror (0-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b="syy3aDEc";
-	dkim-atps=neutral
-X-Greylist: delayed 366 seconds by postgrey-1.36 at gabe;
- Sun, 15 Nov 2026 01:26:16 UTC
-Received: from flow-a8-smtp.messagingengine.com
- (flow-a8-smtp.messagingengine.com [103.168.172.143])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 3549610E2C7
- for <dri-devel@lists.freedesktop.org>; Sun, 15 Nov 2026 01:26:16 +0000 (UTC)
-Received: from phl-compute-02.internal (phl-compute-02.internal [10.202.2.42])
- by mailflow.phl.internal (Postfix) with ESMTP id 9C0421381CF7
- for <dri-devel@lists.freedesktop.org>; Sat, 14 Nov 2026 20:20:09 -0500 (EST)
-Received: from phl-frontend-04 ([10.202.2.163])
- by phl-compute-02.internal (MEProxy); Sat, 14 Nov 2026 20:20:09 -0500
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=sakamocchi.jp;
- h=cc:cc:content-type:content-type:date:date:from:from
- :in-reply-to:in-reply-to:message-id:mime-version:references
- :reply-to:subject:subject:to:to; s=fm3; t=1794705609; x=
- 1794712809; bh=QIES4zNTDxRjCnYHiHcWq6p6uX7fK/EWYh7I/zXroHQ=; b=p
- juVmr/LC7nCJ0SQ2rWUhRQGDMnlVGg/71zflyfizaeCefqOj8Wyp1bv5cUdTgRb8
- 7XUxKSQFA4h5chwE1lADu0vrwg8OhHP6GoQHRhO7+gqlPzaI30gfxszAJ8iBZnAq
- w6LhtavpJKSJHCgIMJ9jaiAQhtgloSfAXiebl32YH12R4n49k4Dhf+Y8W3pLV4v+
- Lk6DFTk8SpQ9jSXzpScexBSvyhdEJDbrQwMC0927YExgznJjfLZe0flh8fHQL7IO
- vj78LH6slSiU2T+/dLzxP/iDcsVNxx1fb6S0NI/BKneEKfRIjGfp58LmRDVhLSom
- qjpjx4Q11TfgHJQJAHUUA==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
- messagingengine.com; h=cc:cc:content-type:content-type:date:date
- :feedback-id:feedback-id:from:from:in-reply-to:in-reply-to
- :message-id:mime-version:references:reply-to:subject:subject:to
- :to:x-me-proxy:x-me-sender:x-me-sender:x-sasl-enc; s=fm3; t=
- 1794705609; x=1794712809; bh=QIES4zNTDxRjCnYHiHcWq6p6uX7fK/EWYh7
- I/zXroHQ=; b=syy3aDEccFqwMWi7OqQgN+5WtM3ZAfMLRFvK6Ty6zA65HPirgvN
- ilcYb0Q1wBWUsxvkCfegkY1pzVtpHUOC6WAP6pTtbZPWcSU2JRmZq5bj3XtaI5mJ
- 5KZK4MCZjfikGyCw8udPD79DzKX657SNeo8VKm+NBs1zDN72HR3ZemlLBm38jus1
- WDdVI20E7k3nTziG5v/jPkof/xTKUHTBh7LLvCto0jlE2c4pmQs/fxRRAq0SyBeZ
- lruY2Ddh8f3CbRk7/EsENeVrGkeN2qYTfTHHssLqQwRRARUN/edAoqWV9ygwuEYm
- jIS3U35+DcIoM5H/MAq31DLvDAGEUQlNvVA==
-X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-09;
- repo=github.com/dkim2wg/interop; date=2026-11-03; sw=lmtpprox;
- action=sign d=sakamocchi.jp a=rsa-sha256;
-DKIM2-Signature: i=1; m=1; t=1794705609; d=sakamocchi.jp;
- mf=PG8tdGFrYXNoaUBzYWthbW9jY2hpLmpwPg==;
- rt=PGRyaS1kZXZlbEBsaXN0cy5mcmVlZGVza3RvcC5vcmc+;
- s=fm3:rsa-sha256:rABce0BO5UmO3MEgj5fUb8YQur/LbutzCeLxqZu0en3e8nF
- wDmx0sDjwOwqt+KYQwFo1DZciTpXHfHY3PBDJsFaukDkQaXIy212pUpmokNAe0nX
- WbWJ22D5lgYu6uoTRhrDuCfRbs1l+mHa/ocwyEeNlKxCTK20XyXAUyNsOsRBJdXO
- SsDPfCwsZ93cHWk214Q/txbdKMbLKqLPj+raKJtHD2GcPTcpAbyPnZy3D9HOErQb
- NwKlaRov2QFj0XksZFpoMUTQiQzZ+RDwe9VABdhLLIn5hyJ9s3pEnuPX5i8ej7ue
- VyAnTVjx9tWC+AtMYDcofk6PoF2rYLC0T9IVfAA==;
-X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-09;
- repo=github.com/dkim2wg/interop; date=2026-11-03; sw=lmtpprox;
- action=mi-m=1; hc=13;
- hn=cc,content-disposition,content-type,date,feedback-id,from,
- in-reply-to,mail-followup-to,message-id,mime-version,references,
- subject,to;
-Message-Instance: m=1;
- h=sha256:ntV32t7KOIfGMot6swX3CNi9IkfeqivW9U6qBDwCqc8=:4RP5xhIBVdE4nHZvdVXdOxDGDwEwdGMsIHWUj8/gqfI=;
-X-ME-Sender: <xms:xQj5aiop4gg9dsJ6_Vn6u45zXMYueatHm6sTqNkrPjF6p_uliIn0fA>
- <xme:xQj5ao-c0CruU-TGxTE7NFYZSaEuQncLSSmM997vVUnXnDFfvxt3Mt5vMRNmSfmhf
- 34fKN--fbmH87piFvayMBFAxnjq6WHAkHe46t3SFxeylFtFg6aPnx9A>
-X-ME-Received: <xmr:xQj5atXGMWjP8faJlCtXj9RrVZeBW-gqDucCpC0ZXa191cT5jnWReGYw_Z8rYiOMsAtlcaNqIM8bDcRsKH9aHiPzWCfQ_w>
-X-ME-Proxy-Cause: dmFkZTGQstm6GOmXFdPQXDqZqAYG7aQouPeZUHJ4IBXrRYWFH6lFNnMWIuGsSOCFSsBuXW
- LbDJxfVrfV3cl+wc1JM2qA4EvGILGxXqZILW7GfZPYDe6vWDeehuWas6PsFLq2rp3ZCMLK
- vb2ZkQs61G65smsTsr3W8fx/U8N5II0Wva1plTCgHg5UpMnhi5PWu1EQKVr47yDlfh1UvS
- LYKjU/U9x7MTbsMHbdhB5rWUTX8pbvj9eAIRg5DGXYvFzZokg4/nvH5yq0IUoDc8xEYNrb
- hSXdXqov4GW1obuCd3P9CA8Y5vszeSouSKwogVvelkFQGttmZKq/NF5ipA4vDPXyrU1Xrm
- Zrz3WElYlhVCDcPNRnAGrD/gNAj1b7M9bHXUiJrCqgmTebsAx0cfPWnZGZ3/j9Ea2UWcPj
- qqJZ67js4v5NriJFPwSb5fBisbBQrZL2hM4YjWQCJ9uoloExIgLFI0L7sZA853RBWP4ncp
- DBuj0o8Fkgdi7cJEPrTBBMdPRnMErqVngCb+aWeUA0zKt+uaR6UB1bg9ZicNV0ayYa37yt
- I8T18lqRGBzHHbPK9Mrtu/1JSrYmpYKqgKJaY1owBZ4nprZ++3QPl5fwcLNIPsiGvSmzop
- Zbr1xrRPLyP5mMh+v5LgBzIwywaOGj2L4LIDZM+0lWqxfhjtWj2WgxvXglrg
-X-ME-Proxy: <xmx:xQj5avAwgflb4ksIG5XRwHT6xxt96MMxRO3omUvuEt-3k_ppqJzgYw>
- <xmx:xQj5aka9rFrx7_oeihBM0qdilVdSsLFNvKaV60FpVwOaq7EoVM3bNQ>
- <xmx:xQj5ak3AzNFqwOx2mTfPhYibu1bQ_UDkW9NgFtUhfBWBcyXvs0uL4A>
- <xmx:xQj5aoGo_8KYcqvEjpNAxM_sotiXZsyQPcuJ_BoRuwGjdfls4pLNfg>
- <xmx:yQj5amBDENmX5NhRabHbZy5mqP0Iv6_jzPBpOZyadDNP-V1uD_qCKZw->
-Feedback-ID: ie8e14432:Fastmail
-Received: by mail.messagingengine.com (Postfix) with ESMTPA; Sat,
- 14 Nov 2026 20:19:47 -0500 (EST)
-Date: Sun, 15 Nov 2026 10:19:45 +0900
-From: Takashi Sakamoto <o-takashi@sakamocchi.jp>
-To: Randy Dunlap <rdunlap@infradead.org>
-Cc: linux-kernel@vger.kernel.org, Jonathan Corbet <corbet@lwn.net>,
- Shuah Khan <skhan@linuxfoundation.org>, linux-doc@vger.kernel.org,
- David Hildenbrand <david@kernel.org>,
- Andrew Morton <akpm@linux-foundation.org>,
- Jason Gunthorpe <jgg@nvidia.com>,
- Leon Romanovsky <leonro@nvidia.com>, linux-mm@kvack.org,
- Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>,
- linux-sound@vger.kernel.org, Jens Axboe <axboe@kernel.dk>,
- linux-block@vger.kernel.org, Marcel Holtmann <marcel@holtmann.org>,
- Luiz Augusto von Dentz <luiz.dentz@gmail.com>,
- linux-bluetooth@vger.kernel.org,
- Willem de Bruijn <willemdebruijn.kernel@gmail.com>,
- Jason Wang <jasowangio@gmail.com>, David Heidelberg <david@ixit.cz>,
- oe-linux-nfc@lists.linux.dev, Chas Williams <3chas3@gmail.com>,
- linux-atm-general@lists.sourceforge.net,
- "David S. Miller" <davem@davemloft.net>,
- Eric Dumazet <edumazet@kernel.org>,
- Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
- netdev@vger.kernel.org, Helge Deller <deller@gmx.de>,
- linux-fbdev@vger.kernel.org, dri-devel@lists.freedesktop.org,
- MPT-FusionLinux.pdl@broadcom.com,
- "James E.J. Bottomley" <James.Bottomley@hansenpartnership.com>,
- "Martin K. Petersen" <mkp@kernel.org>, linux-scsi@vger.kernel.org,
- Miquel Raynal <miquel.raynal@bootlin.com>,
- Richard Weinberger <richard@nod.at>, Vignesh Raghavendra <vigneshr@ti.com>,
- Zhihao Cheng <chengzhihao1@huawei.com>,
- linux-mtd@lists.infradead.org, Neill Kapron <nkapron@google.com>,
- Andrey Konovalov <andreyknvl@gmail.com>,
- Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
- linux-usb@vger.kernel.org, Juergen Gross <jgross@suse.com>,
- Stefano Stabellini <sstabellini@kernel.org>,
- xen-devel@lists.xenproject.org, Hans de Goede <hansg@kernel.org>,
- Arnd Bergmann <arnd@arndb.de>, "Michael S. Tsirkin" <mst@redhat.com>,
- Eugenio =?iso-8859-1?Q?P=E9rez?= <eperezma@redhat.com>,
- Sean Christopherson <seanjc@google.com>,
- Paolo Bonzini <pbonzini@redhat.com>, kvm@vger.kernel.org,
- virtualization@lists.linux.dev, Jan Kara <jack@suse.cz>,
- linux-fsdevel@vger.kernel.org, Theodore Ts'o <tytso@mit.edu>,
- linux-ext4@vger.kernel.org, Mike Marshall <hubcap@omnibond.com>,
- devel@lists.orangefs.org, Paulo Alcantara <pc@manguebit.org>,
- Namjae Jeon <linkinjeon@kernel.org>, linux-cifs@vger.kernel.org,
- Jaegeuk Kim <jaegeuk@kernel.org>, Chao Yu <chao@kernel.org>,
- linux-f2fs-devel@lists.sourceforge.net,
- Florian Fainelli <florian.fainelli@broadcom.com>,
- Broadcom internal kernel review list <bcm-kernel-feedback-list@broadcom.com>, 
- linux-rpi-kernel@lists.infradead.org, linux-arm-kernel@lists.infradead.org,
- Tzung-Bi Shih <tzungbi@kernel.org>, Benson Leung <bleung@chromium.org>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- Alex Deucher <alexander.deucher@amd.com>,
- Christian =?iso-8859-1?Q?K=F6nig?= <christian.koenig@amd.com>,
- amd-gfx@lists.freedesktop.org, Jani Nikula <jani.nikula@linux.intel.com>,
- Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
- Rodrigo Vivi <rodrigo.vivi@intel.com>,
- Tvrtko Ursulin <tursulin@ursulin.net>, intel-gfx@lists.freedesktop.org,
- Matthew Brost <matthew.brost@intel.com>,
- Thomas =?iso-8859-1?Q?Hellstr=F6m?= <thomas.hellstrom@linux.intel.com>,
- intel-xe@lists.freedesktop.org
-Subject: Re: [PATCH 02/12] docs: ioctl-number: update sound entries
-Message-ID: <20261115011945.GA238787@sakamocchi.jp>
-Mail-Followup-To: Randy Dunlap <rdunlap@infradead.org>,
- linux-kernel@vger.kernel.org, Jonathan Corbet <corbet@lwn.net>,
- Shuah Khan <skhan@linuxfoundation.org>, linux-doc@vger.kernel.org,
- David Hildenbrand <david@kernel.org>,
- Andrew Morton <akpm@linux-foundation.org>,
- Jason Gunthorpe <jgg@nvidia.com>,
- Leon Romanovsky <leonro@nvidia.com>, linux-mm@kvack.org,
- Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>,
- linux-sound@vger.kernel.org, Jens Axboe <axboe@kernel.dk>,
- linux-block@vger.kernel.org, Marcel Holtmann <marcel@holtmann.org>,
- Luiz Augusto von Dentz <luiz.dentz@gmail.com>,
- linux-bluetooth@vger.kernel.org,
- Willem de Bruijn <willemdebruijn.kernel@gmail.com>,
- Jason Wang <jasowangio@gmail.com>, David Heidelberg <david@ixit.cz>,
- oe-linux-nfc@lists.linux.dev, Chas Williams <3chas3@gmail.com>,
- linux-atm-general@lists.sourceforge.net,
- "David S. Miller" <davem@davemloft.net>,
- Eric Dumazet <edumazet@kernel.org>,
- Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
- netdev@vger.kernel.org, Helge Deller <deller@gmx.de>,
- linux-fbdev@vger.kernel.org, dri-devel@lists.freedesktop.org,
- MPT-FusionLinux.pdl@broadcom.com,
- "James E.J. Bottomley" <James.Bottomley@hansenpartnership.com>,
- "Martin K. Petersen" <mkp@kernel.org>, linux-scsi@vger.kernel.org,
- Miquel Raynal <miquel.raynal@bootlin.com>,
- Richard Weinberger <richard@nod.at>,
- Vignesh Raghavendra <vigneshr@ti.com>,
- Zhihao Cheng <chengzhihao1@huawei.com>,
- linux-mtd@lists.infradead.org, Neill Kapron <nkapron@google.com>,
- Andrey Konovalov <andreyknvl@gmail.com>,
- Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
- linux-usb@vger.kernel.org, Juergen Gross <jgross@suse.com>,
- Stefano Stabellini <sstabellini@kernel.org>,
- xen-devel@lists.xenproject.org, Hans de Goede <hansg@kernel.org>,
- Arnd Bergmann <arnd@arndb.de>,
- "Michael S. Tsirkin" <mst@redhat.com>,
- Eugenio =?iso-8859-1?Q?P=E9rez?= <eperezma@redhat.com>,
- Sean Christopherson <seanjc@google.com>,
- Paolo Bonzini <pbonzini@redhat.com>, kvm@vger.kernel.org,
- virtualization@lists.linux.dev, Jan Kara <jack@suse.cz>,
- linux-fsdevel@vger.kernel.org, Theodore Ts'o <tytso@mit.edu>,
- linux-ext4@vger.kernel.org, Mike Marshall <hubcap@omnibond.com>,
- devel@lists.orangefs.org, Paulo Alcantara <pc@manguebit.org>,
- Namjae Jeon <linkinjeon@kernel.org>, linux-cifs@vger.kernel.org,
- Jaegeuk Kim <jaegeuk@kernel.org>, Chao Yu <chao@kernel.org>,
- linux-f2fs-devel@lists.sourceforge.net,
- Florian Fainelli <florian.fainelli@broadcom.com>,
- Broadcom internal kernel review list <bcm-kernel-feedback-list@broadcom.com>, 
- linux-rpi-kernel@lists.infradead.org,
- linux-arm-kernel@lists.infradead.org,
- Tzung-Bi Shih <tzungbi@kernel.org>,
- Benson Leung <bleung@chromium.org>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- Alex Deucher <alexander.deucher@amd.com>,
- Christian =?iso-8859-1?Q?K=F6nig?= <christian.koenig@amd.com>,
- amd-gfx@lists.freedesktop.org,
- Jani Nikula <jani.nikula@linux.intel.com>,
- Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
- Rodrigo Vivi <rodrigo.vivi@intel.com>,
- Tvrtko Ursulin <tursulin@ursulin.net>,
- intel-gfx@lists.freedesktop.org,
- Matthew Brost <matthew.brost@intel.com>,
- Thomas =?iso-8859-1?Q?Hellstr=F6m?= <thomas.hellstrom@linux.intel.com>,
- intel-xe@lists.freedesktop.org
-References: <20261114202653.3113381-1-rdunlap@infradead.org>
- <20261114202653.3113381-3-rdunlap@infradead.org>
+Received: from mail-wr2-f11.google.com (mail-wr2-f11.google.com
+ [74.125.225.75])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 9EC5310E281
+ for <dri-devel@lists.freedesktop.org>; Sat, 14 Nov 2026 18:52:07 +0000 (UTC)
+Received: by mail-wr2-f11.google.com with SMTP id
+ ffacd0b85a97d-4901ac93584so783281f8f.0
+ for <dri-devel@lists.freedesktop.org>; Sat, 14 Nov 2026 10:52:07 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20260707; t=1794682326; x=1795287126; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:content-type:in-reply-to:from
+ :content-language:references:cc:to:subject:user-agent:mime-version
+ :date:message-id:from:to:cc:subject:date:message-id:reply-to
+ :content-type; bh=rVBETihkpK3ZyrNBm4wNB0zQniJSB3VwqkgPzbMYV+E=;
+ b=LBvc45RaBXuqZDMLUk5W9taoeHxH+uf5DUZt1ESonmZl1xt9ybjQrOzOrRKNxUFCob
+ ISM8wKJBewfFZjVR+j29XMpAxMlWgUZ1GU3GozuOUOUAdEhEGIFhi1qpWj6aPbiT8IiC
+ AYCFqMZhf0ziMNK+Eh1MwQPbn3jK114lmG0PV3q33VD4eJ4SiG/u4qdcbkOZaKn5ITwh
+ lXyUmVg9hWBfHJlfFjkGE73ngE2GaK56iOCzurAPi/0ijFkZld2b3kmgBzH2bZO0azzT
+ 9mjOoRmVWZr62nh/EU3fQOtz295DutIrqcSvSRTYl+QJEw3ewUHh5be3PZ2kkCIyKU5P
+ +7ZQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20260707; t=1794682326; x=1795287126;
+ h=content-transfer-encoding:content-type:in-reply-to:from
+ :content-language:references:cc:to:subject:user-agent:mime-version
+ :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+ :message-id:reply-to:content-type;
+ bh=rVBETihkpK3ZyrNBm4wNB0zQniJSB3VwqkgPzbMYV+E=;
+ b=j5OpEDZ3llYjJK47H1pNL9NhaHOcUnCgNt093rRG9q6qMH/ZyX7lYGQnJlCKZZXS1Q
+ z/7KrVGwGmrTm1GAMnUfIxZP93mPsn48vzWswuEAxSz0e948mZC3lfdrxx7X5P4clGq7
+ Kty6MjI/cnxe+rdDON3IqQF5MUxNJwRXb6NYyLrEY9kdmoRwbAvaoQK22sfauvCk/ZUr
+ vrx4FORpgueokHqVYGDvis9iEqklfPiyGJbhTvDBA/KMrzcZbvXQTQs0c5AN0lqp4goC
+ +BmzEVDcEdXaWo6OivFogay47yBX8p863pC9fJrk86BdzT96VIP/+vi6cuwCBDBfhhow
+ A7wg==
+X-Forwarded-Encrypted: i=1;
+ AL+hErHfuclmkTSGvOMK2/SMCPpL+H2itdReBund3wqEiXizdTF69M09KwGJrOrfbe0GXBsV7K+pCFatEOg=@lists.freedesktop.org
+X-Gm-Message-State: APuU4Z80esmDKQBRxiXgivxY4QFgmVVt0UZrWz21NsOxiA66yvjCNksa
+ xFeLtg77f8OaL8wSZPivJiOwL233zRr4HrQeCKMef4p1vnMm4+i3i787
+X-Gm-Gg: AYBFou1GhJ3V98sXaXXHUvB3l2CvjtZEitM0w15a0YyeavC5HqUNJflsf5mrf7cXbSt
+ jDssh7jig75FK2TS0221amuLVX58wkkHS3oM51OfDy+VT4UO8NUEsymctylFa7J/i1buaEc5Y2g
+ 4LEk1DP/WJAPHMV0x9w8gvUo0UDgRCd3a40fRnLw1e4K1LeD6xcYRTdtAKD9SLdp7DiHQU91Ysf
+ LS5zGYHZSFF+L/Pwyl6WtlTcmD00uFG3v6YOcsia5gKpPEe8jdvOCE8bsgUtEZL49yEs0e23Zx2
+ 5EaxkOxdVS3Ha3iami4tp/xP+dOnwzMHmy9haUyYLAPUmzST2hI+Wcub/o/gHtJ1xqeqod8sm9n
+ 0ZiYTxP4KejaT1/pL5RHUIOAZUpUfqLj15oPJRMQ+U/Gio7LubTBZTxyonnUrJ2cbUJTuyaW003
+ uhtPactqR+nedzRfBln2FpGLo8uupMekcTIvJjYOp4O9AJ2mpAM7VeRUFGxo7QCB92rcWc/pObX
+ aPAaqAZbIUBMxUXctWoNpfck26mQYc2bqA6tXLEYsWVFmIW6MmNSkCYdV2vMoqgi3rSWd33lkic
+ T2Key0raJbRYtnz45da1Y9HkNVewdU7t4hc=
+X-Received: by 2002:a05:6000:250a:b0:49e:f905:4698 with SMTP id
+ ffacd0b85a97d-49ef90546a4mr2226078f8f.2.1794682325669; 
+ Sat, 14 Nov 2026 10:52:05 -0800 (PST)
+Received: from [192.168.1.7] ([31.94.68.191]) by smtp.gmail.com with ESMTPSA id
+ ffacd0b85a97d-49c5f1c18b9sm10201381f8f.20.2026.11.14.10.52.02
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Sat, 14 Nov 2026 10:52:04 -0800 (PST)
+Message-ID: <5e30862a-5161-49d7-8713-2da9dec4356d@gmail.com>
+Date: Sat, 14 Nov 2026 18:52:01 +0000
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261114202653.3113381-3-rdunlap@infradead.org>
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2 2/3] drm/amd/display: unlock secondary tile on Apple
+ 5K, iMac panels
+To: amd-gfx@lists.freedesktop.org
+Cc: Alex Deucher <alexander.deucher@amd.com>,
+ =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ Harry Wentland <harry.wentland@amd.com>, Leo Li <sunpeng.li@amd.com>,
+ Rodrigo Siqueira <siqueira@igalia.com>,
+ Mario Limonciello <mario.limonciello@amd.com>,
+ dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org
+References: <94672259-c526-4ec7-a69c-7dda8d934593@gmail.com>
+Content-Language: en-US
+From: Richard Lane <richardlanedev@gmail.com>
+In-Reply-To: <94672259-c526-4ec7-a69c-7dda8d934593@gmail.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 X-Mailman-Approved-At: Mon, 16 Nov 2026 09:00:24 +0000
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -235,58 +94,214 @@ List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-13.6 required=3.0 tests=BAYES_00,DKIM_INVALID,
-	DKIM_SIGNED,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,
-	INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS
+X-Spam-Status: No, score=-14.2 required=3.0 tests=BAYES_00,DKIM_SIGNED,
+	DKIM_VALID,DKIM_VALID_AU,FREEMAIL_FORGED_FROMDOMAIN,FREEMAIL_FROM,
+	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
+	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,USER_AGENT_SANE_1
 	autolearn=unavailable autolearn_force=no version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-Hi,
-
-On Sat, Nov 14, 2026 at 12:26:40PM -0800, Randy Dunlap wrote:
-> Update the list of files where sound ioctls are defined and update
-> the ranges of function numbers that are used.
+On 01/11/2026 23:24, Richard Lane wrote:
+> Apple 27" 5K iMacs (2014-2019, iMac15,1 through Polaris-based iMac19,1)
+> expose their internal 5120x2880 panel as a 2x1 tiled display over an eDP
+> root link and a secondary DP link. At boot, the panel TCON operates in
+> single-pipe mode and holds the secondary DP link's HPD line low until
+> unlocked via DPCD registers.
 > 
-> Signed-off-by: Randy Dunlap <rdunlap@infradead.org>
+> Enable native tiled detection and link training for DCE < 12 Apple 5K
+> panels:
+> - Point the secondary DP dc_link to the root eDP dc_link (apple_5k_peer)
+>   during EDID quirk matching on DCE < 12 iMac15,1, iMac17,1, iMac18,3,
+>   and Polaris-based iMac19,1 (checking connector_signal since panel IDs
+>   can flip across the two links after S3 wake). DCE >= 12 support for
+>   Vega-based iMac19,1, iMacPro1,1, and iMac20,x is documented as TODO.
+> - Avoid falling back to DVI and latch the secondary tile via DPCD 0x4F1
+>   on the root eDP link when probing the secondary link, allowing the
+>   secondary link to read its EDID and populate DRM's DisplayID tile
+>   properties (has_tile, tile_group, and tile_is_single_monitor).
+> - Write the 3-byte Boot Camp source table (0x04, 0x1d, 0x03) to DPCD
+>   0x310 in dpcd_set_source_specific_data() to unlock the secondary tile.
+> - Prevent the secondary tile from entering DP_SET_POWER D3, which causes
+>   the TCON to drop HPD and stop responding to AUX transactions.
+> - Unlatch both tiles (0x4F1) and clear DP_SOURCE_TABLE_REVISION (0x310)
+>   and DP_EDP_CONFIGURATION_SET (0x10A) in dm_suspend() so the TCON
+>   returns to single-pipe mode for the EFI boot screen across reboots.
+> 
+> Signed-off-by: Richard Lane <richardlanedev@gmail.com>
 > ---
-> [Since having multiple maintainers trying to merge these would
-> cause some conflicts, it would be more manageable for Jon to
-> take all of these through the docs-next tree.]
+>  .../gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c | 19 ++++++++++++++++
+>  .../amd/display/amdgpu_dm/amdgpu_dm_helpers.c | 22 +++++++++++++++++++
+>  drivers/gpu/drm/amd/display/dc/dc.h           |  1 +
+>  .../drm/amd/display/dc/link/link_detection.c  |  7 +++++-
+>  .../dc/link/protocols/link_dp_capability.c    |  4 ++++
+>  .../display/dc/link/protocols/link_dp_phy.c   |  3 +++
+>  6 files changed, 55 insertions(+), 1 deletion(-)
 > 
-> Cc: Jonathan Corbet <corbet@lwn.net>
-> Cc: Shuah Khan <skhan@linuxfoundation.org>
-> Cc: linux-doc@vger.kernel.org
-> Cc: Jaroslav Kysela <perex@perex.cz>
-> Cc: Takashi Iwai <tiwai@suse.com>
-> Cc: linux-sound@vger.kernel.org
-> 
->  Documentation/userspace-api/ioctl/ioctl-number.rst |   12 +++++++++--
->  1 file changed, 10 insertions(+), 2 deletions(-)
-> 
-> --- linux-next-20261111.orig/Documentation/userspace-api/ioctl/ioctl-number.rst
-> +++ linux-next-20261111/Documentation/userspace-api/ioctl/ioctl-number.rst
-> ...(snip)...
-> @@ -168,7 +174,7 @@ Code  Seq#    Include File
->  'H'   C0-DF  net/bluetooth/cmtp/cmtp.h                                 conflict!
->  'H'   C0-DF  net/bluetooth/bnep/bnep.h                                 conflict!
->  'H'   F1     linux/hid-roccat.h                                        <mailto:erazor_de@users.sourceforge.net>
-> -'H'   F8-FA  sound/firewire.h
-> +'H'   F8-FE  sound/firewire.h                                          conflict!
-> ...(snip)...
+> diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
+> index bdabb4bf14da..74cd88d8d580 100644
+> --- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
+> +++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
+> @@ -1607,6 +1607,23 @@ STATIC_IFN_KUNIT void dm_destroy_cached_state(struct amdgpu_device *adev)
+>  }
+>  EXPORT_IF_KUNIT(dm_destroy_cached_state);
+>  
+> +static void amdgpu_dm_apple5k_unlatch(struct dc *dc)
+> +{
+> +	const u8 zeros[3] = { 0 };
+> +
+> +	for (int i = 0; i < dc->link_count; i++) {
+> +		struct dc_link *link = dc->links[i];
+> +
+> +		if (link->apple_5k_peer) {
+> +			core_link_write_dpcd(link, DP_SOURCE_TABLE_REVISION, zeros, 3);
+> +			core_link_write_dpcd(link, DP_EDP_CONFIGURATION_SET, zeros, 1);
+> +			core_link_write_dpcd(link, 0x4F1, zeros, 1);
+> +			core_link_write_dpcd(link->apple_5k_peer, 0x4F1, zeros, 1);
+> +			break;
+> +		}
+> +	}
+> +}
+> +
+>  static int dm_suspend(struct amdgpu_ip_block *ip_block)
+>  {
+>  	struct amdgpu_device *adev = ip_block->adev;
+> @@ -1674,6 +1691,8 @@ static int dm_suspend(struct amdgpu_ip_block *ip_block)
+>  
+>  	amdgpu_dm_hpd_rx_irq_work_suspend(dm);
+>  
+> +	amdgpu_dm_apple5k_unlatch(dm->dc);
+> +
+>  	dc_set_power_state(dm->dc, DC_ACPI_CM_POWER_STATE_D3);
+>  
+>  	if (dm->dc->caps.ips_support && adev->in_s0ix)
+> diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_helpers.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_helpers.c
+> index 9774ea33272d..532748127f72 100644
+> --- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_helpers.c
+> +++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_helpers.c
+> @@ -173,6 +173,28 @@ STATIC_IFN_KUNIT void apply_edid_quirks(struct dc_link *link, struct edid *edid,
+>  		drm_dbg_driver(dev, "Force FreeSync min to 60 Hz on panel id %X\n", panel_id);
+>  		edid_caps->panel_patch.force_freesync_min_hz = 60;
+>  		break;
+> +	/*
+> +	 * Workaround for Apple 27" 5K iMacs which expose a 2x1 tiled internal
+> +	 * panel over an eDP root link and a secondary DP link. Point the
+> +	 * secondary link to the root link to latch/unlatch the TCON via DPCD,
+> +	 * checking connector_signal as panel IDs can flip after wake.
+> +	 * IDs (Root/Tile): iMac15,1 (AE01/02), iMac17,1 (AE05/06),
+> +	 * iMac18,3 (AE11/12), iMac19,1 (AE25/26); TODO (DCE >= 12): iMac19,1
+> +	 * Vega, iMacPro1,1 (AE1D/1E), iMac20,x (AE31/32).
+> +	 */
+> +	case drm_edid_encode_panel_id('A', 'P', 'P', 0xAE01):
+> +	case drm_edid_encode_panel_id('A', 'P', 'P', 0xAE02):
+> +	case drm_edid_encode_panel_id('A', 'P', 'P', 0xAE05):
+> +	case drm_edid_encode_panel_id('A', 'P', 'P', 0xAE06):
+> +	case drm_edid_encode_panel_id('A', 'P', 'P', 0xAE11):
+> +	case drm_edid_encode_panel_id('A', 'P', 'P', 0xAE12):
+> +	case drm_edid_encode_panel_id('A', 'P', 'P', 0xAE25):
+> +	case drm_edid_encode_panel_id('A', 'P', 'P', 0xAE26):
+> +		if (link->connector_signal == SIGNAL_TYPE_EDP &&
+> +		    link->ctx->dce_version < DCE_VERSION_12_0 &&
+> +		    (link->link_index ^ 1) < link->dc->link_count)
+> +			link->dc->links[link->link_index ^ 1]->apple_5k_peer = link;
+> +		break;
+>  	default:
+>  		return;
+>  	}
 
-I overlooked this entry when inserting the additional ioctl commands in
-the following commits:
+For machines with both the Apple and OCLP (OpenCore Legacy Patcher) folders
+deleted from the EFI partion, an additional 5 lines are required in
+amdgpu_dm_helpers.c to latch the root tile. This works consistently across
+multiple reboots. It also works with the Apple and OCLP folders in place.
+I can add this to v3 of the patch.
 
-* 90e8ac5c9d446 ("ALSA: firewire-tascam: add new hwdep ioctl command to get state image")
-* 58b62ab702591 ("ALSA: firewire-motu: add ioctl command to read cached hardware meter")
-* ca15a09ccc5bd ("ALSA: firewire-motu: add ioctl command to read cached parameters in register DSP model")
+@@ -26,6 +26,7 @@
+ #include <linux/string.h>
+ #include <linux/acpi.h>
+ #include <linux/i2c.h>
++#include <linux/dmi.h>
+ 
+ #include <drm/drm_atomic.h>
+ #include <drm/drm_probe_helper.h>
 
-Thank you for catching and correcting this.
+@@ -1265,6 +1288,11 @@
+ 	if (link->dc->hwss.prepare_ddc)
+ 		link->dc->hwss.prepare_ddc(link);
+ 
++	if (link->connector_signal == SIGNAL_TYPE_EDP &&
++	    link->ctx->dce_version < DCE_VERSION_12_0 &&
++	    dmi_match(DMI_SYS_VENDOR, "Apple Inc."))
++		dm_helpers_dp_write_dpcd(ctx, link, 0x4F1, &(const uint8_t){1}, 1);
++
+ 	/* some dongles read edid incorrectly the first time,
+ 	 * do check sum and retry to make sure read correct edid.
+ 	 */
 
-Reviewed-by: Takashi Sakamoto <o-takashi@sakamocchi.jp>
+Richard
+> diff --git a/drivers/gpu/drm/amd/display/dc/dc.h b/drivers/gpu/drm/amd/display/dc/dc.h
+> index f4fefa7c9ab8..aa1a9eea99d1 100644
+> --- a/drivers/gpu/drm/amd/display/dc/dc.h
+> +++ b/drivers/gpu/drm/amd/display/dc/dc.h
+> @@ -2003,6 +2003,7 @@ struct dc_scratch_space {
+>  	bool skip_implict_edp_power_control;
+>  	bool forced_psr_active;
+>  	enum backlight_control_type backlight_control_type;
+> +	struct dc_link *apple_5k_peer;
+>  };
+>  
+>  struct dc {
+> diff --git a/drivers/gpu/drm/amd/display/dc/link/link_detection.c b/drivers/gpu/drm/amd/display/dc/link/link_detection.c
+> index b4546f93af0c..47755f8b9c3e 100644
+> --- a/drivers/gpu/drm/amd/display/dc/link/link_detection.c
+> +++ b/drivers/gpu/drm/amd/display/dc/link/link_detection.c
+> @@ -218,7 +218,7 @@ static enum signal_type link_detect_sink_signal_type(struct dc_link *link,
+>  			 * we assume signal is DVI; it could be corrected
+>  			 * to HDMI after dongle detection
+>  			 */
+> -			if (!dm_helpers_is_dp_sink_present(link))
+> +			if (!link->apple_5k_peer && !dm_helpers_is_dp_sink_present(link))
+>  				result = SIGNAL_TYPE_DVI_SINGLE_LINK;
+>  		}
+>  		break;
+> @@ -1625,6 +1625,11 @@ bool link_detect_connection_type(struct dc_link *link, enum dc_connection_type *
+>  		}
+>  	}
+>  
+> +	if (*type == dc_connection_none && link->apple_5k_peer) {
+> +		core_link_write_dpcd(link->apple_5k_peer, 0x4F1, &(const uint8_t){1}, 1);
+> +		*type = dc_connection_single;
+> +	}
+> +
+>  	return true;
+>  }
+>  
+> diff --git a/drivers/gpu/drm/amd/display/dc/link/protocols/link_dp_capability.c b/drivers/gpu/drm/amd/display/dc/link/protocols/link_dp_capability.c
+> index ad1a499b0d9d..d646b156c90b 100644
+> --- a/drivers/gpu/drm/amd/display/dc/link/protocols/link_dp_capability.c
+> +++ b/drivers/gpu/drm/amd/display/dc/link/protocols/link_dp_capability.c
+> @@ -1496,6 +1496,10 @@ void dpcd_set_source_specific_data(struct dc_link *link)
+>  				link->dc->vendor_signature.data.raw,
+>  				sizeof(link->dc->vendor_signature.data.raw));
+>  	}
+> +
+> +	if (link->apple_5k_peer)
+> +		core_link_write_dpcd(link, DP_SOURCE_TABLE_REVISION,
+> +				     (const uint8_t[]){0x04, 0x1d, 0x03}, 3);
+>  }
+>  
+>  void dpcd_write_cable_id_to_dprx(struct dc_link *link)
+> diff --git a/drivers/gpu/drm/amd/display/dc/link/protocols/link_dp_phy.c b/drivers/gpu/drm/amd/display/dc/link/protocols/link_dp_phy.c
+> index 49521ac4b0e8..56fe2710ee2c 100644
+> --- a/drivers/gpu/drm/amd/display/dc/link/protocols/link_dp_phy.c
+> +++ b/drivers/gpu/drm/amd/display/dc/link/protocols/link_dp_phy.c
+> @@ -50,6 +50,9 @@ void dpcd_write_rx_power_ctrl(struct dc_link *link, bool on)
+>  	if (link->sync_lt_in_progress)
+>  		return;
+>  
+> +	if (!on && link->apple_5k_peer)
+> +		return;
+> +
+>  	core_link_write_dpcd(link, DP_SET_POWER, &state,
+>  						 sizeof(state));
+>  
 
-
-Thanks
-
-Takashi Sakamoto
