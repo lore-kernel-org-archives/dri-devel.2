@@ -2,66 +2,64 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 161A6606A329
-	for <dri-devel@archiver.kernel.org>; Sat, 14 Nov 2026 19:08:26 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0938E606A329
+	for <dri-devel@archiver.kernel.org>; Sat, 14 Nov 2026 19:17:51 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=QYNoTnXj
+	dkim=pass (2048-bit key) header.d=igalia.com header.i=@igalia.com header.a=rsa-sha256 header.s=20170329 header.b=H6dEtL/n
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 2729210E1BB;
-	Sat, 14 Nov 2026 19:08:20 +0000 (UTC)
-Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id EED9210E181;
- Sat, 14 Nov 2026 19:08:13 +0000 (UTC)
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by tor.source.kernel.org (Postfix) with ESMTP id DFB1E60DE6;
- Sat, 14 Nov 2026 19:08:12 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6C2531F000C4;
- Sat, 14 Nov 2026 19:08:05 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1794683292;
- bh=jrpYg7S3w1u/s304fksd+9WkuwgFpjkNMJMjxnYOktE=;
- h=Date:From:To:Cc:Subject:References:In-Reply-To;
- b=QYNoTnXjjZhBPnpa8pOfyk2yFfApF74bnIOvALp/oKYkwpyK77UolVRCAS9PWBwUT
- vTBNeJc2BT3hD65bSUXiJIzuZRodbsdX1fnL8/SMLFCYNn/+H570eO0UW2ZwVw9sWk
- GMxUycxR4kFYE/1x4BsPOWM6QfVcHWY7lAkRzLGYC2spj4KtaAwckhv3IaoPq1c+i0
- 7WJXBqF1BvvLoxaDFl2abs10ZuIiJ39Ub7KZHMiai60iJ0e/m7v+0PTgqGv8kiifml
- yLA7l8Fl3UguxEqgTAbhHe6k1GakSXqMGY5FQ9ZyVqlS8LVqbDnHwiqz6bl9cWiY9E
- wqQgRo+ur+kWQ==
-Date: Sat, 14 Nov 2026 19:08:02 +0000
-From: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
-To: "David Hildenbrand (Arm)" <david@kernel.org>
-Cc: "Liam R. Howlett" <liam@infradead.org>, 
- Vlastimil Babka <vbabka@kernel.org>, Mike Rapoport <rppt@kernel.org>, 
- Suren Baghdasaryan <surenb@google.com>, Michal Hocko <mhocko@suse.com>, 
- Andrew Morton <akpm@linux-foundation.org>, Willy Tarreau <w@1wt.eu>, 
- Jani Nikula <jani.nikula@linux.intel.com>,
- Joonas Lahtinen <joonas.lahtinen@linux.intel.com>, 
- Rodrigo Vivi <rodrigo.vivi@intel.com>, Tvrtko Ursulin <tursulin@ursulin.net>, 
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
- Chris Wilson <chris@chris-wilson.co.uk>, Matthew Auld <matthew.auld@intel.com>,
- Madhavan Srinivasan <maddy@linux.ibm.com>,
- Michael Ellerman <mpe@ellerman.id.au>, 
- Nicholas Piggin <npiggin@gmail.com>,
- "Christophe Leroy (CS GROUP)" <chleroy@kernel.org>, 
- "Ritesh Harjani (IBM)" <ritesh.list@gmail.com>,
- Shrikanth Hegde <sshegde@linux.ibm.com>, Rik van Riel <riel@redhat.com>,
- Benjamin Herrenschmidt <benh@kernel.crashing.org>, 
- linux-mm@kvack.org, linux-kernel@vger.kernel.org,
- intel-gfx@lists.freedesktop.org, 
- dri-devel@lists.freedesktop.org, linuxppc-dev@lists.ozlabs.org,
- stable@vger.kernel.org, Felix Kuehling <Felix.Kuehling@amd.com>,
- Christian =?utf-8?B?S8O2bmln?= <christian.koenig@amd.com>, 
- Chris Mason <mason@kernel.org>
-Subject: Re: [PATCH 5/5] mm: check permissions and bounds for vm_ops->access
-Message-ID: <aviwYZhpXFczMwRR@gremlin>
-References: <20261112-access_shite-v1-0-988a5c470db2@kernel.org>
- <20261112-access_shite-v1-5-988a5c470db2@kernel.org>
+	by gabe.freedesktop.org (Postfix) with ESMTP id 3ABA910E15D;
+	Sat, 14 Nov 2026 19:17:45 +0000 (UTC)
+Received: from fanzine2.igalia.com (fanzine2.igalia.com [213.97.179.56])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 0720C10E140
+ for <dri-devel@lists.freedesktop.org>; Sat, 14 Nov 2026 19:17:38 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com; 
+ s=20170329;
+ h=Cc:To:Content-Transfer-Encoding:Content-Type:MIME-Version:
+ Message-Id:Date:Subject:From:From:Reply-To;
+ bh=gc5Z6gN9T1zRiO8jOARI7bBD/WlDAtzBF45Ir4fmwrA=; t=1794683858; x=2110043858; 
+ b=H6dEtL/nPPuO23rO93QqwmCOEROUmqZ9euwZBg4jVTdBN1K1ieJG8IbrGUYbRXdlaIXr4WG3cgP
+ PoNAohhwJByhp0ObmC76vVjH7damx0zo3fDSDi6omLFg+II2k14QOWGogKyAjkYiYRpC8d/7yDRxv
+ WHKYxo1KxbErfWHRIvr1joGReNK7b7ve4oRodc+O+GC12JWEWXlSDqHV3vcwt/cfeljz3Pre9d9NS
+ Ztc2gmOKPQWuJtw7nE4omJAYhTFH4kLM0S5JBIdzGbPERNhIR0HExJDCEpHbi9do7iPv+nHDSK2j0
+ kN6GlaI4xbXph3q/NzvqA0VLTq0gPynEveSA==;
+Received: from [179.105.94.163] (helo=[10.0.0.1])
+ by fanzine2.igalia.com with esmtpsa 
+ (Cipher TLS1.3:ECDHE_X25519__RSA_PSS_RSAE_SHA256__AES_256_GCM:256) (Exim)
+ id 1xSJFi-00AgZ4-8m; Sat, 14 Nov 2026 20:17:30 +0100
+From: =?utf-8?q?Ma=C3=ADra_Canal?= <mcanal@igalia.com>
+Subject: [PATCH v2 0/3] drm/vc4: Fix async page flip completion
+Date: Sat, 14 Nov 2026 16:16:49 -0300
+Message-Id: <20261114-vc4-async-flip-fixes-v2-0-d33cbe99ed5d@igalia.com>
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=iso-8859-1
-Content-Disposition: inline
+Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
-In-Reply-To: <20261112-access_shite-v1-5-988a5c470db2@kernel.org>
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/22NwQ6CMBBEf4Xs2TXdWq148j8Mh1IKbIKUtKaRk
+ P67lcSbc3szmZkNogvsItyqDYJLHNnPBeShAjuaeXDIXWGQQl6oCJNVaOI6W+wnXrDnt4tILZm
+ WdGd1fYZSXYLbg9J8NIVHji8f1v0l0df9Dcr/g4lQoJJK1UaL01WJOw9mYnO0/glNzvkD1aHCE
+ bkAAAA=
+X-Change-ID: 20261111-vc4-async-flip-fixes-1b1ab17dc795
+To: Iago Toral <itoral@igalia.com>, Melissa Wen <mwen@igalia.com>, 
+ Maxime Ripard <mripard@kernel.org>, 
+ Dave Stevenson <dave.stevenson@raspberrypi.com>, 
+ Raspberry Pi Kernel Maintenance <kernel-list@raspberrypi.com>, 
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
+ Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>, 
+ Simona Vetter <simona@ffwll.ch>
+Cc: kernel-dev@igalia.com, dri-devel@lists.freedesktop.org, 
+ stable@vger.kernel.org, =?utf-8?q?Ma=C3=ADra_Canal?= <mcanal@igalia.com>
+X-Mailer: b4 0.14.3
+X-Developer-Signature: v=1; a=openpgp-sha256; l=3372; i=mcanal@igalia.com;
+ h=from:subject:message-id; bh=k9c7fjRnDZfH2KZDLdxlR4nqcUEFKDoSPfRPfYSSyFI=;
+ b=owEBbQGS/pANAwAKAT/zDop2iPqqAcsmYgBq+LPGQAr5eyX8M2bytNlzNJALeU7iRQ1ntnmJV
+ Kv06rVenGyJATMEAAEKAB0WIQT45F19ARZ3Bymmd9E/8w6Kdoj6qgUCavizxgAKCRA/8w6Kdoj6
+ qqAyCADaH+eqRrSh3X8Q+Gnt9bBhDOq3rIAQEz4KlugrDnNF8CnUEYZpaASOEyEId3sJ7+aeBU7
+ a4S/16G/+aeAst2IfoAVFI6wZfauP7FdwG/Tidoh1Sel/rTyFF23cFJGKYY78voYQxmZEua63p5
+ fbaMt8UZ9JNkXnkXfenQac+J4vAyPY9XpMsIkt3fA2HPb74KKbcf1pfLorDq9g4/zVcyhn1yfrp
+ BM7utgdK4G1QYAmuUwmt20tbVrJKfWwu9P60VZpYGjrZ7ek9Ax/6vM8lTEY1E+Gy1eDC8EDjNii
+ Oufz4SmubGocurcA/GIcNIfzDTyTykgPEAxut87RnI34aHXC
+X-Developer-Key: i=mcanal@igalia.com; a=openpgp;
+ fpr=F8E45D7D0116770729A677D13FF30E8A7688FAAA
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -73,109 +71,80 @@ List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-20.8 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
-	DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
-	INCLUDES_CR_TRAILER,INCLUDES_PATCH,MAILING_LIST_MULTI,
-	MENTIONS_GIT_HOSTING,SPF_HELO_NONE,SPF_PASS autolearn=unavailable
-	autolearn_force=no version=4.0.1
+X-Spam-Status: No, score=-13.8 required=3.0 tests=BAYES_00,DKIM_SIGNED,
+	DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_PATCH,
+	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,USER_AGENT_GIT
+	autolearn=unavailable autolearn_force=no version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-On Thu, Nov 12, 2026 at 11:09:01PM +0100, David Hildenbrand (Arm) wrote:
-> GUP rejects VM_IO and VM_PFNMAP mappings early. __access_remote_vm() then
-> falls back to vm_ops->access without checking VMA permissions and without
-> limiting the request to the VMA size.
->
-> Consequently, /proc/<pid>/mem can bypass protections even without
-> FOLL_FORCE, or cross into another mapping without checking its
-> permissions.
->
-> Check VMA permissions before calling ->access and limit each request to
-> the current VMA. Implement similar access permission checks as GUP,
-> however:
->  (1) Reject writes to CoW mappings because the callbacks access backing
->      memory directly and cannot handle CoW.
->  (2) Allow forced writes to non-CoW mappings with VM_MAYWRITE.
->
-> This intentionally breaks forced writes through legacy amdgpu PROT_NONE,
-> MAP_PRIVATE debugger mappings. The workaround in commit fa5239f2af98
-> ("drm/amdgpu: workaround failed COW checks for Thunk VMAs") cleared
-> VM_MAYWRITE to avoid CoW, but debugger writes still succeeded by
-> exploiting the missing access-permission checks fixed here. Reads remain
-> supported. Userspace must use MAP_SHARED instead; ROCm 5.5.0, released
-> in May 2023, already does so.
->
-> Link: https://github.com/ROCm/ROCT-Thunk-Interface/commit/fea44fab6e84eda52fcf6b419b35600c18f4c022
-> Fixes: 272ddc8b3735 ("proc: don't use FOLL_FORCE for reading cmdline and environment")
-> Cc: stable@vger.kernel.org
-> Cc: Felix Kuehling <Felix.Kuehling@amd.com>
-> Cc: Christian K�nig <christian.koenig@amd.com>
-> Cc: Simona Vetter <simona@ffwll.ch>
-> Reported-by: Chris Mason <mason@kernel.org>
-> Signed-off-by: David Hildenbrand (Arm) <david@kernel.org>
+VC4 implements async page flips with a custom code path that waits for
+the BO fence before completing the flip. On VC4_GEN_4 (RPi 0-3), the
+completion also decrements the usecnt of the old FB's BO. This series
+fixes three bugs in that path.
 
-LGTM, yikes at this in general :)
+Since commit e8941ac97f28 ("drm/vc4: Remove BOs seqnos"), the completion
+runs from a dma_fence callback. VC4 signals that fence from the render
+job IRQ handler. As vc4_bo_dec_usecnt() takes a mutex, running an SDL
+application with SDL_VIDEODRIVER=kmsdrm on the RPi 3 triggers:
 
-Reviewed-by: Lorenzo Stoakes (ARM) <ljs@kernel.org>
+  [ 2511.636319] BUG: sleeping function called from invalid context at kernel/locking/mutex.c:623
+  [ 2511.636667] in_atomic(): 1, irqs_disabled(): 1, non_block: 0, pid: 0, name: swapper/0
+  [ 2511.636681] preempt_count: 1000002, expected: 0
+  [ 2511.636689] RCU nest depth: 0, expected: 0
+  [ 2511.636698] locks held by swapper/0/0: 1, on CPU#0:
+  [ 2511.636711]  #0: ffff000037183198 (&fence->inline_lock){-...}-{3:3}, at: dma_fence_signal+0x88/0xec
+  <snip>
+  [ 2511.636892] Hardware name: Raspberry Pi 3 Model B Plus Rev 1.3 (DT)
+  [ 2511.636899] Call trace:
+  <snip>
+  [ 2511.636991]  mutex_lock_nested+0x24/0x30
+  [ 2511.637002]  vc4_bo_dec_usecnt+0x40/0x124 [vc4]
+  [ 2511.637070]  vc4_async_page_flip_complete_with_cleanup+0xa0/0xc4 [vc4]
+  [ 2511.637102]  dma_fence_signal_timestamp_locked+0x118/0x290
+  [ 2511.637116]  dma_fence_signal+0x9c/0xec
+  [ 2511.637126]  vc4_irq_render_job_done+0x24/0x114 [vc4]
+  [ 2511.637158]  vc4_irq+0x16c/0x274 [vc4]
 
-> ---
->  mm/memory.c | 25 +++++++++++++++++++++++--
->  1 file changed, 23 insertions(+), 2 deletions(-)
->
-> diff --git a/mm/memory.c b/mm/memory.c
-> index d4370c1b331c9..9872f289c1e49 100644
-> --- a/mm/memory.c
-> +++ b/mm/memory.c
-> @@ -7362,6 +7362,7 @@ EXPORT_SYMBOL_GPL(generic_access_phys);
->  static int __access_remote_vm(struct mm_struct *mm, unsigned long addr,
->  			      void *buf, int len, unsigned int gup_flags)
->  {
-> +	const bool force = gup_flags & FOLL_FORCE;
->  	void *old_buf = buf;
->  	int write = gup_flags & FOLL_WRITE;
->
-> @@ -7401,15 +7402,35 @@ static int __access_remote_vm(struct mm_struct *mm, unsigned long addr,
->  			if (gup_flags & FOLL_ANON)
->  				break;
->
-> +			if (write) {
-> +				if (!vma_test(vma, VMA_MAYWRITE_BIT))
-> +					break;
-> +				if (!vma_test(vma, VMA_WRITE_BIT) && !force)
-> +					break;
-> +				/*
-> +				 * In contrast to GUP, we historically allowed
-> +				 * FOLL_FORCE write access to non-CoW mappings.
-> +				 * However, we must always reject CoW mappings
-> +				 * as we cannot CoW here.
-> +				 */
-> +				if (vma_is_cow_mapping(vma))
-> +					break;
-> +			} else if (!vma_test(vma, VMA_READ_BIT)) {
-> +				if (!force || !vma_test(vma, VMA_MAYREAD_BIT))
-> +					break;
-> +			}
-> +
->  			/*
->  			 * Check if this is a VM_IO | VM_PFNMAP VMA, which
->  			 * we can access using slightly different code.
->  			 */
->  			bytes = 0;
->  #ifdef CONFIG_HAVE_IOREMAP_PROT
-> -			if (vma->vm_ops && vma->vm_ops->access)
-> +			if (vma->vm_ops && vma->vm_ops->access) {
-> +				bytes = min_t(unsigned long, len, vma->vm_end - addr);
->  				bytes = vma->vm_ops->access(vma, addr, buf,
-> -							    len, write);
-> +							    bytes, write);
-> +			}
->  #endif
->  			if (bytes <= 0)
->  				break;
->
-> --
-> 2.43.0
->
+While looking into this issue, I also noticed that, since commit
+4d12c36fb73b ("drm/vc4: crtc: Move the BO handling out of common page-flip
+callback"), the old FB is released before decrementing its BO usecnt. If
+userspace removes the old FB and closes its handle while the flip is
+pending, vc4_bo_dec_usecnt() runs on a freed or recycled BO.
 
---
-Cheers, Lorenzo
+Patch 1 fixes the use-after-free, patch 2 moves the completion to a worker
+and patch 3 returns fence lookup errors to userspace instead of leaving
+the flip pending forever.
+
+In v1, Sashiko reported that a flip waiting on its fence can complete
+after, or concurrently with, a later flip that has no fence. This has been
+possible since commit 82faa3276012 ("drm/vc4: kms: Remove async modeset
+semaphore") and isn't changed by this series. The best way to fix it
+would be moving to the generic async helpers, which is on my TODO list.
+Until then, this series keeps the current behavior and only fixes the bugs
+above.
+
+Best regards,
+- Maíra
+
+---
+v1 -> v2: https://lore.kernel.org/r/20261112-vc4-async-flip-fixes-v1-0-42449a703840@igalia.com
+
+- [1/3] Add the refcount underflow warning to the commit message.
+- [2/3] Allocate the workqueue after initializing the CRTC, so it's
+  released before the CRTC is cleaned up and named after the CRTC (Sashiko).
+- [3/3] New patch.
+
+---
+Maíra Canal (3):
+      drm/vc4: Drop BO usecnt before releasing the old FB
+      drm/vc4: Complete async page flips from an ordered workqueue
+      drm/vc4: Look up the async page flip fence before committing the flip
+
+ drivers/gpu/drm/vc4/vc4_crtc.c | 136 +++++++++++++++++++----------------------
+ drivers/gpu/drm/vc4/vc4_drv.h  |   6 ++
+ 2 files changed, 70 insertions(+), 72 deletions(-)
+---
+base-commit: d48ea86919434695da12d280dccab72b094397e1
+change-id: 20261111-vc4-async-flip-fixes-1b1ab17dc795
+
