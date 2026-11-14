@@ -2,42 +2,46 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E7B86606A32D
-	for <dri-devel@archiver.kernel.org>; Sat, 14 Nov 2026 16:38:27 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A08DC606A334
+	for <dri-devel@archiver.kernel.org>; Sat, 14 Nov 2026 16:40:55 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=HKQubDGB
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=MNd7VK1G
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 29AB710E264;
-	Sat, 14 Nov 2026 16:38:22 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id E816910F05A;
+	Sat, 14 Nov 2026 16:40:48 +0000 (UTC)
 Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 1306710E264
- for <dri-devel@lists.freedesktop.org>; Sat, 14 Nov 2026 16:38:15 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 48FDD10F01F;
+ Sat, 14 Nov 2026 16:40:42 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by tor.source.kernel.org (Postfix) with ESMTP id 56B8061423;
- Sat, 14 Nov 2026 16:38:14 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id D95D01F000C4;
- Sat, 14 Nov 2026 16:38:13 +0000 (UTC)
+ by tor.source.kernel.org (Postfix) with ESMTP id 9437D61423;
+ Sat, 14 Nov 2026 16:40:41 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 116631F000C4;
+ Sat, 14 Nov 2026 16:40:41 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1794674294;
- bh=AeX6XuE7e2Pgc/Ao1xJe90LjSjZOuzRBgCqPZev9yTY=;
- h=From:Subject:Reply-To:To:In-Reply-To:References:Date;
- b=HKQubDGBVpMUDP1odjlGn5xALOgbHqwRSlSDWC10L+3iF4V0taYqVNqStFl9ZmUMo
- cy6x4LziH9JbCiMX+rF7kGlLznEfQHDytv7AgHjxAdTtJVPcx0iXGYObYsuVsSFt/h
- +Ah6L1QVlxkkOXh7Pq0XdWcss0G1ReSut03+foUsLrcc7ZfWF2NJ5tcwdVcigM3bWJ
- jPKlrgX7XZgrdFA0HtTDbSm7RKcEpnGyij69+49pILgJQ7bD/zRge/SZzOU0/gehC1
- dxAVEnVNnRA5DJjvFXHds4qfAylFlsX694hsCOxpf6rwLMqAWp26Mv8Spja9Y7MEp3
- CfZ2qwPcYZugQ==
-Message-ID: <sashiko-outbox-214768@kernel.org>
+ s=k20260515; t=1794674441;
+ bh=76YzoH3eC5J75SkXbzht9ZuXRhvm4oeuPSOwGHELOl4=;
+ h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+ b=MNd7VK1GO50T5U4GVymvcWO6iSIe3mq8/y73Ndlsu9Ke3+4UmMykIDqSEMgvxoEg3
+ PxWBrtlY3txk/isLlee9LMPfZOQViCflZRR6yyAGgVbboeI489bqR4tyuCZKsmM7cl
+ KnPSmkDYO3kowZbfUdgkvKvc8Lezm99rZxHIhH6UKurFPoOpZF8e9uZA3S3t5ofxQy
+ gDhEVqqefm0l7+LQWZAsFHgNXHdDBLUHjsBxjY581VptRvmGAenash3UTvN5oc0K6L
+ e/mTgZ5V4k+cteYsuhPLxAuwsjkl78X+90kLXq1S1kHDI2P9J68MfTsBQr+lapYsi0
+ eUV72rfSQtcig==
+Message-ID: <sashiko-outbox-214778@kernel.org>
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v2] drm/fbdev-dma: Copy the shadow buffer on unblank
-To: "Angelo Compagnucci" <angelo.compagnucci@gmail.com>,
- dri-devel@lists.freedesktop.org
-In-Reply-To: <20261113110708.927665-1-angelo.compagnucci@gmail.com>
-References: <20261112091630.3947184-1-angelo.compagnucci@gmail.com>
- <20261113110708.927665-1-angelo.compagnucci@gmail.com>
+Subject: Re: [PATCH v2 07/12] platform/apple-gmux: Add documentation about
+ iMacs
+To: "Atharva Tiwari" <atharvatiwarilinuxdev@gmail.com>
+Cc: =?utf-8?b?b3BlbiBsaXN0OlBDSSBTVUJTWVNURU0=?= <linux-pci@vger.kernel.org>, 
+ =?utf-8?b?b3BlbiBsaXN0OlJBREVPTiBhbmQgQU1ER1BVIERSTSBEUklWRVJT?=
+ <amd-gfx@lists.freedesktop.org>, 
+ =?utf-8?b?b3BlbiBsaXN0OkRSTSBEUklWRVJT?= <dri-devel@lists.freedesktop.org>
+In-Reply-To: <20261114160731.3756-8-atharvatiwarilinuxdev@gmail.com>
+References: <20261114160731.3756-1-atharvatiwarilinuxdev@gmail.com>
+ <20261114160731.3756-8-atharvatiwarilinuxdev@gmail.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Sat, 14 Nov 2026 16:38:13 +0000
+Date: Sat, 14 Nov 2026 16:40:40 +0000
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -50,106 +54,295 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
 Reply-To: sashiko-reviews@lists.linux.dev
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-15.8 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
+X-Spam-Status: No, score=-10.8 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
 	DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
-	INCLUDES_CR_TRAILER,INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,
-	SPF_PASS autolearn=ham autolearn_force=no version=4.0.1
+	INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS
+	autolearn=unavailable autolearn_force=no version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 X-Archived-By: <archiver.kernel.org>
 
-Thank you for your contribution! Sashiko AI review found 2 potential
+Thank you for your contribution! Sashiko AI review found 5 potential
 issues to consider:
-- [Medium] drm/fbdev-dma: sleeping lock in
-  drm_fbdev_dma_shadowed_fb_blank() on oops
-- [Low] drm/fbdev-dma: missing Fixes trailer for shadow buffer unblank
-  fix
+- [High] platform/x86: apple-gmux: premature teardown and EFI write in
+  gmux_shutdown()
+- [Medium] platform/x86: apple-gmux: uninitialized work and race in
+  gmux_probe()
+- [Medium] platform/x86: apple-gmux: state save bugs in
+  gmux_set_discrete_state()
+- [Medium] platform/x86: apple-gmux: lost irq bits and loop in
+  gmux_notify_work()
+- [Low] platform/x86: apple-gmux: unused variable result in
+  gmux_set_discrete_state()
 --
 
-commit a63597b4af664e3cb6d1b39bfd1dd1e573a6fdb2
-Author: Angelo Compagnucci <angelo.compagnucci@gmail.com>
+commit 765faab19bedc6dfe41f21d3ab1e32b30a85f20e
+Author: Atharva Tiwari <atharvatiwarilinuxdev@gmail.com>
 
-> drm/fbdev-dma: Copy the shadow buffer on unblank
->
-> With a shadow buffer, what userspace draws in fbdev reaches the
-> framebuffer memory only when the damage worker runs. Turning the display
-> on shows the framebuffer memory as it is. So a program that draws its
-> first picture and then unblanks, such as a boot splash, shows an older
-> picture for a moment.
->
-> Seen on an ILI9341 panel (tinydrm ili9341): enabling the pipe sends the
-> whole framebuffer memory to the panel, still black, and the splash only
-> replaces it once the damage worker runs.
->
-> Nothing can be flushed to a display that is off. But the copy from the
-> shadow buffer into the framebuffer memory does not need the display. On
-> unblank, copy the whole shadow buffer into the framebuffer memory before
-> turning the display on. The damage worker still flushes the damage once
-> the display is on.
->
-> Signed-off-by: Angelo Compagnucci <angelo.compagnucci@gmail.com>
+platform/apple-gmux: Add documentation about iMacs
 
-[Severity: Low]
-This fixes a bug introduced with shadow buffering.  Should the commit
-message include a Fixes tag?
+This series updates the apple-gmux driver to support power control,
+interrupt handling, EFI switch state persistence, and documentation for
+MMIO/T2 Macs.
 
-  Fixes: 360399643299 ("drm/fbdev-dma: Add shadow buffering for deferred I/=
-O")
-
-> diff --git a/drivers/gpu/drm/drm_fbdev_dma.c b/drivers/gpu/drm/drm_fbdev_=
-dma.c
-> index 452f844003504..cc8813538bd90 100644
-> --- a/drivers/gpu/drm/drm_fbdev_dma.c
-> +++ b/drivers/gpu/drm/drm_fbdev_dma.c
+> diff --git a/drivers/platform/x86/apple-gmux.c b/drivers/platform/x86/app=
+le-gmux.c
+> index 9c728ac4e045a..4f5c984450580 100644
+> --- a/drivers/platform/x86/apple-gmux.c
+> +++ b/drivers/platform/x86/apple-gmux.c
 
 [ ... ]
 
-> @@ -196,6 +187,41 @@ static const struct drm_fb_helper_funcs drm_fbdev_dm=
-a_helper_funcs =3D {
->   * struct drm_fb_helper
->   */
+> @@ -502,23 +557,158 @@ static int gmux_switch_ddc(enum vga_switcheroo_cli=
+ent_id id)
+
+[ ... ]
+
+>  static int gmux_set_discrete_state(struct apple_gmux_data *gmux_data,
+>  				   enum vga_switcheroo_state state)
+>  {
+>  	reinit_completion(&gmux_data->powerchange_done);
+> +	acpi_handle discrete_handle;
+> +	acpi_status status;
+> +	unsigned long long result;
+
+[Severity: Low]
+result is never used in gmux_set_discrete_state(), and these declarations
+are placed after a statement, triggering compiler warnings.
+
+> +
+> +	if (!gmux_data->discrete_pdev)
+> +		return -ENODEV;
+> +
+> +	discrete_handle =3D ACPI_HANDLE(&gmux_data->discrete_pdev->dev);
+> +	if (!discrete_handle)
+> +		return -ENODEV;
 > =20
-> +static int drm_fbdev_dma_shadowed_fb_blank(int blank, struct fb_info *in=
-fo)
-> +{
-> +	struct drm_fb_helper *fb_helper =3D info->par;
-> +	struct drm_clip_rect clip =3D {
-> +		.x2 =3D fb_helper->fb->width,
-> +		.y2 =3D fb_helper->fb->height,
-> +	};
+>  	if (state =3D=3D VGA_SWITCHEROO_ON) {
+> -		gmux_write8(gmux_data, GMUX_PORT_DISCRETE_POWER, 1);
+> -		gmux_write8(gmux_data, GMUX_PORT_DISCRETE_POWER, 3);
+> +		if (gmux_data->type =3D=3D APPLE_GMUX_TYPE_MMIO) {
+> +			acpi_handle handle;
+> +			u16 vendor;
+> +			int i;
 > +
-> +	/*
-> +	 * Turning the display on shows the framebuffer memory. Copy the
-> +	 * shadow buffer into it first, so it holds what was drawn. This
-> +	 * does not need the display; the damage worker still flushes the
-> +	 * damage once the display is on.
-> +	 */
-> +	if (blank =3D=3D FB_BLANK_UNBLANK)
-> +		drm_fbdev_dma_damage_blit(fb_helper, &clip);
+> +			gmux_write8(gmux_data, GMUX_PORT_DISCRETE_POWER, 2);
+> +			msleep(100);
+> +			gmux_write8(gmux_data, GMUX_PORT_DISCRETE_POWER, 3);
 > +
-> +	return drm_fb_helper_blank(blank, info);
-> +}
+> +			status =3D acpi_execute_simple_method(discrete_handle, "PWRD", 0);
+> +			if (ACPI_FAILURE(status))
+> +				return -EIO;
+> +			msleep(20);
+> +
+> +			if (gmux_save_restore_pci(NULL, "\\_SB_.PCI0.PEG0", 0, &handle))
+> +				return -EIO;
+> +
+> +			if (gmux_save_restore_pci(handle, "EGP0", 0, &handle))
+> +				return -EIO;
+> +
+> +			if (gmux_save_restore_pci(handle, "EGP1", 0, &handle))
+> +				return -EIO;
+> +
+> +			for (i =3D 0; i < 1000; i++) {
+> +				pci_read_config_word(gmux_data->discrete_pdev,
+> +							PCI_VENDOR_ID, &vendor);
+> +				if (vendor !=3D 0xffff)
+> +					break;
+> +				msleep(1);
+> +			}
+> +			if (vendor =3D=3D 0xffff)
+> +				return -ETIMEDOUT;
+> +
+> +			if (gmux_save_restore_pci(handle, "GFX0", 0, NULL))
+> +				return -EIO;
+> +
+> +			if (gmux_save_restore_pci(handle, "HDAU", 0, NULL))
+> +				return -EIO;
+> +		} else {
+> +			gmux_write8(gmux_data, GMUX_PORT_DISCRETE_POWER, 1);
+> +			gmux_write8(gmux_data, GMUX_PORT_DISCRETE_POWER, 3);
+> +		}
+>  		pr_debug("Discrete card powered up\n");
+>  	} else {
+> -		gmux_write8(gmux_data, GMUX_PORT_DISCRETE_POWER, 1);
+> -		gmux_write8(gmux_data, GMUX_PORT_DISCRETE_POWER, 0);
+> +		if (gmux_data->type =3D=3D APPLE_GMUX_TYPE_MMIO) {
+> +			acpi_handle parent_handle =3D discrete_handle;
+> +			bool saved_hda =3D false;
+> +
+> +			/* If the power state was OFF, then we only do
+> +			 * PWRD and we do not save registers, as the
+> +			 * registers are already saved
+> +			 */
+> +			if (gmux_data->power_state =3D=3D VGA_SWITCHEROO_OFF)
+> +				goto do_pwrd;
+> +
+> +			while (ACPI_SUCCESS(acpi_get_parent(parent_handle,
+> +							&parent_handle))) {
+> +				if (!saved_hda) {
+> +					if (!gmux_save_restore_pci(parent_handle,
+> +								"HDAU", true, NULL)) {
+> +						saved_hda =3D true;
+> +						pci_save_state(gmux_data->discrete_pdev);
+> +						gmux_data->discrete_pdev->current_state =3D
+> +								PCI_D3cold;
+> +					}
+> +				}
+> +				if (gmux_save_restore_pci(parent_handle, NULL, true, NULL))
+> +					break;
+> +			}
 
 [Severity: Medium]
-Can calling drm_fbdev_dma_damage_blit() before checking oops_in_progress
-sleep in atomic context or deadlock during an oops or panic?
+Does requiring gmux_data->discrete_pdev and discrete_handle at the start of
+gmux_set_discrete_state() break power control on non-MMIO Macs when
+discrete_pdev has not been populated yet or lacks an ACPI companion handle,
+even though only the APPLE_GMUX_TYPE_MMIO paths use them?
 
-When the VT console is blanked during an oops or panic, bust_spinlocks(0)
-and panic() call console_unblank() -> ... -> fb_blank(info,
-FB_BLANK_UNBLANK) with oops_in_progress set and interrupts disabled.
-drm_fb_helper_blank() guards against this at entry:
+Also, in the MMIO power-off loop, pci_save_state(gmux_data->discrete_pdev)
+is gated on gmux_save_restore_pci(parent_handle, "HDAU", true, NULL)
+succeeding, so the discrete GPU's PCI state is not saved before cutting
+power if HDAU is absent or fails to save.  Finally, if an MMIO power-on
+fails after gmux_save_restore_pci() restores PEG0, EGP0, and EGP1 (which
+clears pdev->state_saved), returning early leaves gmux_data->power_state as
+VGA_SWITCHEROO_OFF, causing the next power-off to jump to do_pwrd without
+saving the bridges' PCI state again.
 
-drivers/gpu/drm/clients/drm_fbdev_helper.c:drm_fb_helper_blank() {
-	if (oops_in_progress)
-		return -EBUSY;
+[ ... ]
+
+> @@ -655,23 +853,78 @@ static void gmux_clear_interrupts(struct apple_gmux=
+_data *gmux_data)
+>  	/* to clear interrupts write back current status */
+>  	status =3D gmux_interrupt_get_status(gmux_data);
+>  	gmux_write8(gmux_data, GMUX_PORT_INTERRUPT_STATUS, status);
+> -	/* Prevent flood of status=3D0 interrupts */
+> -	if (gmux_data->config =3D=3D &apple_gmux_mmio)
+> -		acpi_execute_simple_method(gmux_data->dhandle, "GMSP", 0);
+>  }
+> =20
+> +static void gmux_notify_work(struct work_struct *work)
+> +{
+> +	struct apple_gmux_data *gmux_data =3D
+> +		container_of(work, struct apple_gmux_data, interrupt_work);
+> +	u8 status;
+> +	bool turn_on_gpu =3D false;
+> +
+> +	status =3D gmux_interrupt_get_status(gmux_data);
+> +	if (!status)
+> +		return;
+> +
+> +	gmux_disable_interrupts(gmux_data);
+> +	pr_debug("Notify handler called: status %d\n", status);
+> +	acpi_execute_simple_method(gmux_data->dhandle, "GMSP", 0);
+> +
+> +	status =3D gmux_interrupt_get_status(gmux_data);
+> +	while (status) {
+> +		gmux_write8(gmux_data, GMUX_PORT_INTERRUPT_STATUS, status);
+> +		if (status & GMUX_INTERRUPT_STATUS_FAILED) {
+> +			pr_warn_ratelimited("interrupt failed: status: 0x%x\n", status);
+> +			status =3D gmux_interrupt_get_status(gmux_data);
+> +			continue;
+> +		}
+> +		if (status & GMUX_INTERRUPT_STATUS_POWER)
+> +			complete(&gmux_data->powerchange_done);
+
+[Severity: Medium]
+Does writing status to GMUX_PORT_INTERRUPT_STATUS before the continue on
+GMUX_INTERRUPT_STATUS_FAILED drop GMUX_INTERRUPT_STATUS_POWER or
+GMUX_INTERRUPT_STATUS_HOTPLUG events that were set in the same status read?
+Clearing all asserted bits in hardware and skipping the remaining checks
+can cause powerchange_done timeouts or missed hotplug wakeups.  Also,
+while (status) has no bound, so a stuck status bit will spin indefinitely on
+the system workqueue.
+
+[ ... ]
+
+> @@ -920,6 +1174,8 @@ static int gmux_probe(struct pnp_dev *pnp, const str=
+uct pnp_device_id *id)
+>  			goto err_notify;
+>  		}
+> =20
+> +		if (type =3D=3D APPLE_GMUX_TYPE_MMIO)
+> +			INIT_WORK(&gmux_data->interrupt_work, gmux_notify_work);
+>  		status =3D acpi_enable_gpe(NULL, gmux_data->gpe);
+
+[ ... ]
+
+> @@ -972,6 +1230,9 @@ static int gmux_probe(struct pnp_dev *pnp, const str=
+uct pnp_device_id *id)
+>  		acpi_remove_notify_handler(gmux_data->dhandle,
+>  					   ACPI_DEVICE_NOTIFY,
+>  					   &gmux_notify_handler);
+> +
+> +	if (gmux_data->type =3D=3D APPLE_GMUX_TYPE_MMIO)
+> +		cancel_work_sync(&gmux_data->interrupt_work);
+>  err_notify:
+>  	backlight_device_unregister(bdev);
+>  err_unmap:
+> @@ -1001,6 +1262,9 @@ static void gmux_remove(struct pnp_dev *pnp)
+>  					   &gmux_notify_handler);
+>  	}
+> =20
+> +	if (gmux_data->type =3D=3D APPLE_GMUX_TYPE_MMIO)
+> +		cancel_work_sync(&gmux_data->interrupt_work);
+
+[Severity: Medium]
+Can gmux_data->interrupt_work be scheduled or canceled before INIT_WORK()
+runs?
+
+INIT_WORK(&gmux_data->interrupt_work, gmux_notify_work) is only called when
+evaluating GMGP succeeds, and after acpi_install_notify_handler() is
+registered.  If GMGP fails on an MMIO system, err_enable_gpe and
+gmux_remove() call cancel_work_sync(&gmux_data->interrupt_work) on an
+uninitialized work_struct, and an ACPI notification arriving between
+acpi_install_notify_handler() and INIT_WORK() (or before
+init_completion(&gmux_data->powerchange_done)) will schedule uninitialized
+work.  Also, gmux_suspend() disables interrupts without canceling
+interrupt_work, allowing an in-flight gmux_notify_work() to call
+gmux_enable_interrupts() and re-enable interrupts while suspended.
+
+>  	pci_dev_put(gmux_data->discrete_pdev);
+>  	backlight_device_unregister(gmux_data->bdev);
+> =20
+>  	if (gmux_data->iomem_base) {
+> @@ -1012,6 +1276,15 @@ static void gmux_remove(struct pnp_dev *pnp)
+>  	kfree(gmux_data);
+>  }
+> =20
+> +static void gmux_shutdown(struct pnp_dev *pnp)
+> +{
+> +	struct apple_gmux_data *gmux_data =3D pnp_get_drvdata(pnp);
+> +
+> +	gmux_write_switch_state_efi(gmux_data);
+> +
+> +	gmux_remove(pnp);
+> +}
+
+[Severity: High]
+Does calling gmux_remove() from gmux_shutdown() cause a NULL pointer
+dereference when pci_device_shutdown() runs afterward?
+
+gmux_remove() calls vga_switcheroo_unregister_handler() (setting
+vgasr_priv.handler to NULL), unmaps MMIO, and frees gmux_data.  Because PNP
+devices are registered after PCI devices, device_shutdown() runs
+gmux_shutdown() before pci_device_shutdown() on the discrete GPU.  If the
+discrete GPU is runtime-suspended at shutdown, pci_device_shutdown() calls
+pm_runtime_resume() -> vga_switcheroo_runtime_resume() ->
+vga_switcheroo_power_switch(), which dereferences vgasr_priv.handler:
+
+drivers/gpu/vga/vga_switcheroo.c:vga_switcheroo_power_switch() {
+	struct vga_switcheroo_client *client;
+
+	if (!vgasr_priv.handler->power_state)
+		return;
     ...
 }
 
-Calling drm_fbdev_dma_damage_blit() before reaching that check
-unconditionally acquires the sleeping mutex fb_helper->lock, which sleeps in
-atomic context and can deadlock if the crashing context or a stopped CPU
-already holds fb_helper->lock.
+Also, gmux_shutdown() calls gmux_write_switch_state_efi() without checking
+gmux_data->type =3D=3D APPLE_GMUX_TYPE_MMIO (unlike gmux_switchto()), writi=
+ng
+the T2 gpu-active EFI variable on classic and indexed gmux Macs as well.
 
 --=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261113110708.9276=
-65-1-angelo.compagnucci@gmail.com?part=3D1
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261114160731.3756=
+-1-atharvatiwarilinuxdev@gmail.com?part=3D7
