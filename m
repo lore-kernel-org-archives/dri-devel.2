@@ -2,66 +2,65 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4EFE7606A323
-	for <dri-devel@archiver.kernel.org>; Sat, 14 Nov 2026 16:08:55 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5AF8D606A32D
+	for <dri-devel@archiver.kernel.org>; Sat, 14 Nov 2026 16:09:15 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=Cm8FOXnu
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=Q7WeXn/Y
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 82CBA10E64B;
-	Sat, 14 Nov 2026 16:08:49 +0000 (UTC)
-Received: from mail-dy1-f178.google.com (mail-dy1-f178.google.com
- [74.125.82.178])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 5140B10E64B
- for <dri-devel@lists.freedesktop.org>; Sat, 14 Nov 2026 16:08:43 +0000 (UTC)
-Received: by mail-dy1-f178.google.com with SMTP id
- 5a478bee46e88-37000e7234bso92327eec.1
- for <dri-devel@lists.freedesktop.org>; Sat, 14 Nov 2026 08:08:43 -0800 (PST)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 789E010E6D8;
+	Sat, 14 Nov 2026 16:09:09 +0000 (UTC)
+Received: from mail-dy1-f176.google.com (mail-dy1-f176.google.com
+ [74.125.82.176])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 0D41E10E6FD
+ for <dri-devel@lists.freedesktop.org>; Sat, 14 Nov 2026 16:09:03 +0000 (UTC)
+Received: by mail-dy1-f176.google.com with SMTP id
+ 5a478bee46e88-3720addb068so3246061eec.1
+ for <dri-devel@lists.freedesktop.org>; Sat, 14 Nov 2026 08:09:03 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20260707; t=1794672523; x=1795277323; darn=lists.freedesktop.org;
+ d=gmail.com; s=20260707; t=1794672542; x=1795277342; darn=lists.freedesktop.org;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:from:to:cc:subject:date
  :message-id:reply-to:content-type;
- bh=GtGLStqV/9gomKNOwdwCe8z1kLFSUJF9rkzKgx7PnnM=;
- b=Cm8FOXnu6korQovECplv+zE760xep6JOxhQnurMkU8l7Kt7Ri3Zx0vzMcooBI04Yu2
- 21bYMjhXTueBJfvEVovmOM+kXrA6g/7KJl8C5qZ2H5rAS923AcKbooVFBXdo3saRdxFi
- ag7E+5EDxdxE9RzS5NirpMzDEc+4ym1hhm+3zKL82HDRhgEZWjFD1b5kL8i9cgpKg8Gs
- Pqj9xkcLFdp7lPU+yee8FzNkloCOCtfWVDCv0QkFtSjDoCagcRw+2go/cCA9A+l48CxS
- EP49+Jv3M4czK7otG88q4fNP2gxp1S+xi2iZju5vi2z114/J1yfrv5brT+xQUXG4n9xY
- RG8w==
+ bh=+LcEkWrq+TcQgEw8Wv5fzNU6IOsV4OoefE8SBVTJLlU=;
+ b=Q7WeXn/Ybcq8mz6aC3NYFnYbaz2s2Gjm7PAkN6LqEe2gxEdMViZqPsnnW+Op+rEIdB
+ GDwr+eE2E0FHlFS00zk1h4JVToimKwPsvVoOPuPtETC4NhvEB6q3JVnJKrPvQKNGwFpF
+ ROVAXPc03BXeDCLHyHO5aIFzwqXAm8lI9+owGeQceiOJk9gsAfECLMxlbXM61encoF95
+ //CqO5eauYwLW2gOSJuLBUaMxpuEva53C+OnOj2b5CHwO/S+eaSk9m3TvJneNjZRQqAz
+ FO0IM5QF4JRxF1JPSxApGiAj+YbhLVujBvFDb1jqz94rH/Z3TkqTeQsTKu51e88nuQiJ
+ PPxA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20260707; t=1794672523; x=1795277323;
+ d=1e100.net; s=20260707; t=1794672542; x=1795277342;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
  :to:cc:subject:date:message-id:reply-to:content-type;
- bh=GtGLStqV/9gomKNOwdwCe8z1kLFSUJF9rkzKgx7PnnM=;
- b=NKOEF6YyhXXXCZxVKqP2L1673so3olzm4FurDdkfyztrkv7t2LdUM5S5Lz9nURwAtR
- 1j0RR5Z8cKfukQajxwN//nKvB4NdU+F3S7K9GWWloxdl/9w91yhX8IyppvVndAwvMvm8
- QpuWlneV01IFXPE4qAwiAdLyMACtA+nNWYt8I7qjM1lt2fAz3dFbBCc2cUtTNGgNqms9
- KrtjlAHA3TjkTozdoQGgDgmBvjY4OxMswPsqvkReF0mXFv2ZGQGflgS9ST5+ty7D/hrh
- EmK8uc3xMpHeIESzO4PKcM9DZgvrLGkwZEcaXqXwbsQdbr8TWj0Z5H0jMcIRA7ryrtEP
- J2SA==
+ bh=+LcEkWrq+TcQgEw8Wv5fzNU6IOsV4OoefE8SBVTJLlU=;
+ b=Jmh0+D60MAndYkaJVXSS8kUKRrXedNKQhCyUvH4Rr1KbVbpiFUoOlI2+WmT59CIX0g
+ 8QSx+kSL6YNs4uhEQs/MEdAvTxwTAsySgI0ZlfY/NpRQ7bKXaFQz79q+ygPjo0B80AYg
+ ETYK6vb+3LlcjL7ORMR0oUEBcpa2jdsYYXzXXrLURjmN7iqNipHyzVbcJ+dIEUFIyb0C
+ DgnW8DIecCbRFWA2Ez/SGRp9Y388IkqK7lO1PWa3QIE9z/n95LBMcdSHodVrQwoc7R6H
+ tti/pgPaV+bkGKmphkn0TM7td2N8cY6clFWFhx8WwIKe9iZ3nLI3cQRm2MZ6ROu4cLnl
+ 6ljQ==
 X-Forwarded-Encrypted: i=1;
- AL+hErHzGKFwHSMieAUM88Vh6KudDWJDXDiaahYdgL30zYyF/Cc/8uhhhZIOBz6D/xEkOhBAA9Gjg9aMnRU=@lists.freedesktop.org
-X-Gm-Message-State: APuU4Z+NSH6CupTaORsBeaogrovnMqyGqzVxYNZWlj8vcjIlrC8FBP0E
- XL8b4ey5dJcxIi4zY8pt2fri/q7wbfIIVPaSAskdtRwGF/J1/DQobUM=
-X-Gm-Gg: AYBFou0fFCYdO9x0ZfsAMf/lbRKXcblBdbnwIxO8oms6k9+UYh9BLms+YAE0poCgOmE
- Z6EnpiIQtJZsJhXjzIwh2soksJArEQQ1ytEG0N3UPpWI8E0/YgqO8MJh3sYo9X50Sy876EEIwfW
- Xw0IbDSB6mmj9hK2wdhsawZO4aP5Jmd3Ufb0KhIRx30p2Jno6xMDJnTPPT1lfSbOOduDEfKI+3F
- 4uOXhS/wTZMSMxziOMqNji4pwCRaNS9HI/jax4m1Q5okyCY94PmC8C5cUvtef1ov12Lp9PO2Wcg
- Stfp6XtqEI0dzETPZMzRgV8ynRg5NArTeKwWi83s1RUBLVUvIvEu8MI7ZTuTmZciw7BG8DrGy3i
- 99aHlDmKhFVtVbC5yjpNItB1wJgBhkrRWMckuVH+kBpmHVtEsQU4zqyyhehb7VUyuNYMARdJbfx
- e/O/h1mAprPZcZDHDNRImsuBkwT4H/+L6DTy81CtcXu5Yf7VFbUKc7cEBUEQciWGgvt/X9mZeVd
- STT3VZ6XO+N1BDseKwDdq76VtGL2QSpMRPNbBE2u5YBcVt4M8mLda4dKKxCcGlfE1N7LaCQ4csX
- dcsCdk7HvE+ZK1tTf5LQhdaJEI8aC82GHFtkBd62vFn4yiE/yPw0Badri0cBsaADw8VjO5f0qRG
- eoLG3RS2J5zI=
-X-Received: by 2002:a05:7022:1081:b0:154:e9d2:d741 with SMTP id
- a92af1059eb24-1b503112e3amr4894890c88.8.1794672522574; 
- Sat, 14 Nov 2026 08:08:42 -0800 (PST)
+ AL+hErF61bewTTdn8fTSrLhB44SVsGTsCcHBSM0MnxzrYTcVu2ttinZFlBz5WVyvPAuSrO54Fey/oT11QjU=@lists.freedesktop.org
+X-Gm-Message-State: APuU4Z93CMRDa3imt2MpazKYZFYVuxa3TvobVpJ/zxFJKUZNRaAtkt3C
+ LlLqeoAj4/53MzLC5/1DvgOr1NpnjwA/OIUV7XtZVWsESN+/49DSZqo=
+X-Gm-Gg: AYBFou1NV4JUYn+lAXtlBMkUD5zbTcm1NgezoDjncaPyzqCvNRLEOrMgP/Yo6L/xL/2
+ X5WFi/7xmTxHIJyYkuIrMfJEvaXCsxir//Y/qmMd1EhBRTY3c97/OAhQ2RsMuKFKFFgjU/ZVkmA
+ MuOfj/veIfHPs6wxlZ4py6mC5xIltplARQ5yItN8UxqGZeLk4aWNL32AEVlil8KnKLYgj1AuoYJ
+ /i1zdC2WAGOEZXkXYzbRPsqoPTsDoXaNe3OLTMl6SME998Ylw25co2s0oxVCit3UaJjP5apPLe8
+ +prgT/fPGg6WMzgeoF4OfAybaTD41ol0mrL83oiWTQxB+f/sPrAAk1AaRaWhXLas+vjiTZkK1th
+ narmYJKvd5xhX0vxUw9IuH9pq6aumkM2791lN3aKO9uOt9h9fJpiCIwKNEKQ6wL/kN7GTsxPu6B
+ vAlbOI044bQnxwcF31xMSex3359bQYTEuTqjnF2EkqRTxSjni48ptAe5ODiaMspQQ1dewZYDknJ
+ 42VUrse2nxaheOjBSSTdpuxlEIuWMZIZN3j4i/P+8so+ZFv4OjAYsrigAoC4MZcLJ3hL2sXatXy
+ vvguEHCxCHOAnjB1BpCVC2XMHI8KlgIslWl4nGtH8qJ8PJSEeCPvQHppCbdoXhPm+A==
+X-Received: by 2002:a05:693c:4019:b0:35f:2858:aa4b with SMTP id
+ 5a478bee46e88-379675fc9ebmr5136627eec.30.1794672542162; 
+ Sat, 14 Nov 2026 08:09:02 -0800 (PST)
 Received: from at-Standard-PC-Q35-ICH9-2009 ([106.202.127.108])
  by smtp.gmail.com with ESMTPSA id
- 5a478bee46e88-37956bb0919sm17567582eec.29.2026.11.14.08.08.33
+ 5a478bee46e88-37956bb0919sm17567582eec.29.2026.11.14.08.08.46
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Sat, 14 Nov 2026 08:08:42 -0800 (PST)
+ Sat, 14 Nov 2026 08:09:01 -0800 (PST)
 From: Atharva Tiwari <atharvatiwarilinuxdev@gmail.com>
 To: 
 Cc: Atharva Tiwari <atharvatiwarilinuxdev@gmail.com>,
@@ -83,9 +82,9 @@ Cc: Atharva Tiwari <atharvatiwarilinuxdev@gmail.com>,
  amd-gfx@lists.freedesktop.org (open list:RADEON and AMDGPU DRM DRIVERS),
  dri-devel@lists.freedesktop.org (open list:DRM DRIVERS),
  platform-driver-x86@vger.kernel.org (open list:X86 PLATFORM DRIVERS)
-Subject: [PATCH v2 03/12] platform/apple-gmux: Fix MMIO interface
-Date: Sat, 14 Nov 2026 11:06:27 -0500
-Message-ID: <20261114160731.3756-4-atharvatiwarilinuxdev@gmail.com>
+Subject: [PATCH v2 04/12] platform/apple-gmux: Fix Interrupts for MMIO systems
+Date: Sat, 14 Nov 2026 11:06:28 -0500
+Message-ID: <20261114160731.3756-5-atharvatiwarilinuxdev@gmail.com>
 X-Mailer: git-send-email 2.55.0
 In-Reply-To: <20261114160731.3756-1-atharvatiwarilinuxdev@gmail.com>
 References: <20261114160731.3756-1-atharvatiwarilinuxdev@gmail.com>
@@ -111,10 +110,8 @@ X-Spam-Status: No, score=-15.8 required=3.0 tests=BAYES_00,DKIM_SIGNED,
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-This patch brings a lot of fixes to MMIO interface such as:
-1. Using 1ms waits instead of 100us.
-2. Checking if Timed out before reading and writing
-3. Adding missing wait before gmux_mmio_write32
+on MMIO systems, we need check to for failure in interrupts,
+and we have implimented display hotplug to wake up the gpu.
 
 Tested-by: Sebastian Zygadlo <szgit@icloud.com>
 Tested-by: Yossef Osman <yossef.osman@proton.me>
@@ -122,113 +119,226 @@ Co-developed-by: Andre Eikmeyer <dev@deq.rocks>
 Signed-off-by: Andre Eikmeyer <dev@deq.rocks>
 Signed-off-by: Atharva Tiwari <atharvatiwarilinuxdev@gmail.com>
 ---
- drivers/platform/x86/apple-gmux.c | 60 +++++++++++++++++--------------
- 1 file changed, 34 insertions(+), 26 deletions(-)
+ drivers/platform/x86/apple-gmux.c | 101 ++++++++++++++++++++++++++----
+ 1 file changed, 88 insertions(+), 13 deletions(-)
 
 diff --git a/drivers/platform/x86/apple-gmux.c b/drivers/platform/x86/apple-gmux.c
-index 34e94f2b2..9625551e5 100644
+index 9625551e5..37ba20779 100644
 --- a/drivers/platform/x86/apple-gmux.c
 +++ b/drivers/platform/x86/apple-gmux.c
-@@ -235,8 +235,8 @@ static int gmux_mmio_wait(struct apple_gmux_data *gmux_data)
- 	u8 gwr = ioread8(gmux_data->iomem_base + GMUX_MMIO_COMMAND_SEND);
+@@ -6,6 +6,8 @@
+  *  Copyright (C) 2010-2012 Andreas Heider <andreas@meetr.de>
+  *  Copyright (C) 2015 Lukas Wunner <lukas@wunner.de>
+  *  Copyright (C) 2023 Orlando Chamberlain <orlandoch.dev@gmail.com>
++ *  Copyright (C) 2026 Atharva Tiwari <atharvatiwarilinuxdev@gmail.com>
++ *  Copyright (C) 2026 Andre Eikmeyer <dev@deq.rocks>
+  */
  
- 	while (i && gwr) {
-+		fsleep(1000);
- 		gwr = ioread8(gmux_data->iomem_base + GMUX_MMIO_COMMAND_SEND);
--		udelay(100);
- 		i--;
+ #define pr_fmt(fmt) KBUILD_MODNAME ": " fmt
+@@ -22,6 +24,8 @@
+ #include <linux/pci.h>
+ #include <linux/vga_switcheroo.h>
+ #include <linux/debugfs.h>
++#include <linux/workqueue.h>
++#include <linux/pm_runtime.h>
+ #include <acpi/video.h>
+ #include <asm/io.h>
+ 
+@@ -65,6 +69,10 @@ struct apple_gmux_data {
+ 
+ 	struct backlight_device *bdev;
+ 
++	/* interrupt handling data */
++	u8 external_state;
++	struct work_struct interrupt_work;
++
+ 	/* power handling data */
+ 	struct pci_dev *discrete_pdev;
+ 	enum apple_gmux_type type;
+@@ -103,6 +111,7 @@ struct apple_gmux_config {
+ 
+ #define GMUX_INTERRUPT_STATUS_ACTIVE	0
+ #define GMUX_INTERRUPT_STATUS_DISPLAY	(1 << 0)
++#define GMUX_INTERRUPT_STATUS_FAILED	(1 << 1)
+ #define GMUX_INTERRUPT_STATUS_POWER	(1 << 2)
+ #define GMUX_INTERRUPT_STATUS_HOTPLUG	(1 << 3)
+ 
+@@ -412,8 +421,8 @@ static const struct backlight_ops gmux_bl_ops = {
+  * the discrete GPU can then be woken to drive the newly connected display.
+  * The ability to switch AUX on these generations could be used to improve
+  * reliability of hotplug detection by having the integrated GPU poll the
+- * ports while the discrete GPU is asleep, but currently we do not make use
+- * of this feature.
++ * ports while the discrete GPU is asleep, but currently we only make use of
++ * this feature on MMIO/T2 Macs.
+  *
+  * Our switching policy for the external port is that on those generations
+  * which are able to switch it fully, the port is switched together with the
+@@ -777,9 +786,10 @@ static const struct apple_gmux_config apple_gmux_mmio = {
+  * value is read and then inverted.
+  *
+  * Because Linux masquerades as Darwin, it ends up in the notification-only code
+- * path. On MMIO gmux's, this seems to lead to us being unable to clear interrupts,
+- * unless we call GMSP(0). Without this, there is a flood of status=0 interrupts
+- * that can't be cleared. This issue seems to be unique to MMIO gmux's.
++ * path. On MMIO gmux's, The Polarity is initally left in a undefined state leading
++ * to lots of interrupts, that we can't clear, to fix this we set the polarity to 0
++ * everytime we enable interrupts, On MMIO gmux's, GMLV reads the same GPIO pin as
++ * GMSP, and setting the polarity to 1, stops the Interrupts completely.
+  */
+ 
+ static inline void gmux_disable_interrupts(struct apple_gmux_data *gmux_data)
+@@ -788,8 +798,11 @@ static inline void gmux_disable_interrupts(struct apple_gmux_data *gmux_data)
+ 		    GMUX_INTERRUPT_DISABLE);
+ }
+ 
+-static inline void gmux_enable_interrupts(struct apple_gmux_data *gmux_data)
++static inline void gmux_enable_interrupts(struct apple_gmux_data *gmux_data, bool do_gmsp)
+ {
++	if (gmux_data->type == APPLE_GMUX_TYPE_MMIO && do_gmsp)
++		acpi_execute_simple_method(gmux_data->dhandle, "GMSP", 0);
++
+ 	gmux_write8(gmux_data, GMUX_PORT_INTERRUPT_ENABLE,
+ 		    GMUX_INTERRUPT_ENABLE);
+ }
+@@ -806,23 +819,78 @@ static void gmux_clear_interrupts(struct apple_gmux_data *gmux_data)
+ 	/* to clear interrupts write back current status */
+ 	status = gmux_interrupt_get_status(gmux_data);
+ 	gmux_write8(gmux_data, GMUX_PORT_INTERRUPT_STATUS, status);
+-	/* Prevent flood of status=0 interrupts */
+-	if (gmux_data->config == &apple_gmux_mmio)
+-		acpi_execute_simple_method(gmux_data->dhandle, "GMSP", 0);
+ }
+ 
++static void gmux_notify_work(struct work_struct *work)
++{
++	struct apple_gmux_data *gmux_data =
++		container_of(work, struct apple_gmux_data, interrupt_work);
++	u8 status;
++	bool turn_on_gpu = false;
++
++	status = gmux_interrupt_get_status(gmux_data);
++	if (!status)
++		return;
++
++	gmux_disable_interrupts(gmux_data);
++	pr_debug("Notify handler called: status %d\n", status);
++	acpi_execute_simple_method(gmux_data->dhandle, "GMSP", 0);
++
++	status = gmux_interrupt_get_status(gmux_data);
++	while (status) {
++		gmux_write8(gmux_data, GMUX_PORT_INTERRUPT_STATUS, status);
++		if (status & GMUX_INTERRUPT_STATUS_FAILED) {
++			pr_warn_ratelimited("interrupt failed: status: 0x%x\n", status);
++			status = gmux_interrupt_get_status(gmux_data);
++			continue;
++		}
++		if (status & GMUX_INTERRUPT_STATUS_POWER)
++			complete(&gmux_data->powerchange_done);
++
++		if (status & GMUX_INTERRUPT_STATUS_HOTPLUG) {
++			/*
++			 * We get an interrupt every time a display connects or disconnects, but
++			 * the GET_DISPLAY port only tells us if a display is connected or not,
++			 * so we resume every time a display is connected or disconnected.
++			 */
++			u8 external_state = gmux_read8(gmux_data,
++						GMUX_PORT_SWITCH_GET_DISPLAY);
++			if (external_state != gmux_data->external_state) {
++				gmux_data->external_state = external_state;
++				if (external_state)
++					pr_debug("A display has been connected\n");
++				else
++					pr_debug("All displays has been disconnected\n");
++			}
++			turn_on_gpu = true;
++		}
++		status = gmux_interrupt_get_status(gmux_data);
++	}
++
++	gmux_enable_interrupts(gmux_data, 0);
++
++	if (turn_on_gpu && !gmux_data->external_switchable && gmux_data->discrete_pdev &&
++			    pm_runtime_enabled(&gmux_data->discrete_pdev->dev))
++		pm_request_resume(&gmux_data->discrete_pdev->dev);
++
++}
+ static void gmux_notify_handler(acpi_handle device, u32 value, void *context)
+ {
+ 	u8 status;
+ 	struct pnp_dev *pnp = (struct pnp_dev *)context;
+ 	struct apple_gmux_data *gmux_data = pnp_get_drvdata(pnp);
+ 
++	if (gmux_data->type == APPLE_GMUX_TYPE_MMIO) {
++		schedule_work(&gmux_data->interrupt_work);
++		return;
++	}
++
+ 	status = gmux_interrupt_get_status(gmux_data);
+ 	gmux_disable_interrupts(gmux_data);
+ 	pr_debug("Notify handler called: status %d\n", status);
+ 
+ 	gmux_clear_interrupts(gmux_data);
+-	gmux_enable_interrupts(gmux_data);
++	gmux_enable_interrupts(gmux_data, 0);
+ 
+ 	if (status & GMUX_INTERRUPT_STATUS_POWER)
+ 		complete(&gmux_data->powerchange_done);
+@@ -916,7 +984,7 @@ static int gmux_resume(struct device *dev)
+ 	struct pnp_dev *pnp = to_pnp_dev(dev);
+ 	struct apple_gmux_data *gmux_data = pnp_get_drvdata(pnp);
+ 
+-	gmux_enable_interrupts(gmux_data);
++	gmux_enable_interrupts(gmux_data, 1);
+ 	gmux_write_switch_state(gmux_data);
+ 	if (gmux_data->power_state == VGA_SWITCHEROO_OFF)
+ 		gmux_set_discrete_state(gmux_data, gmux_data->power_state);
+@@ -1072,6 +1140,8 @@ static int gmux_probe(struct pnp_dev *pnp, const struct pnp_device_id *id)
+ 			goto err_notify;
+ 		}
+ 
++		if (type == APPLE_GMUX_TYPE_MMIO)
++			INIT_WORK(&gmux_data->interrupt_work, gmux_notify_work);
+ 		status = acpi_enable_gpe(NULL, gmux_data->gpe);
+ 		if (ACPI_FAILURE(status)) {
+ 			pr_err("Cannot enable gpe: %s\n",
+@@ -1094,7 +1164,7 @@ static int gmux_probe(struct pnp_dev *pnp, const struct pnp_device_id *id)
+ 
+ 	apple_gmux_data = gmux_data;
+ 	init_completion(&gmux_data->powerchange_done);
+-	gmux_enable_interrupts(gmux_data);
++	gmux_enable_interrupts(gmux_data, 1);
+ 	gmux_read_switch_state(gmux_data);
+ 
+ 	/*
+@@ -1124,6 +1194,9 @@ static int gmux_probe(struct pnp_dev *pnp, const struct pnp_device_id *id)
+ 		acpi_remove_notify_handler(gmux_data->dhandle,
+ 					   ACPI_DEVICE_NOTIFY,
+ 					   &gmux_notify_handler);
++
++	if (gmux_data->type == APPLE_GMUX_TYPE_MMIO)
++		cancel_work_sync(&gmux_data->interrupt_work);
+ err_notify:
+ 	backlight_device_unregister(bdev);
+ err_unmap:
+@@ -1145,7 +1218,6 @@ static void gmux_remove(struct pnp_dev *pnp)
+ 
+ 	gmux_fini_debugfs(gmux_data);
+ 	vga_switcheroo_unregister_handler();
+-	pci_dev_put(gmux_data->discrete_pdev);
+ 	gmux_disable_interrupts(gmux_data);
+ 	if (gmux_data->gpe >= 0) {
+ 		acpi_disable_gpe(NULL, gmux_data->gpe);
+@@ -1154,6 +1226,9 @@ static void gmux_remove(struct pnp_dev *pnp)
+ 					   &gmux_notify_handler);
  	}
  
-@@ -245,15 +245,16 @@ static int gmux_mmio_wait(struct apple_gmux_data *gmux_data)
++	if (gmux_data->type == APPLE_GMUX_TYPE_MMIO)
++		cancel_work_sync(&gmux_data->interrupt_work);
++	pci_dev_put(gmux_data->discrete_pdev);
+ 	backlight_device_unregister(gmux_data->bdev);
  
- static u8 gmux_mmio_read8(struct apple_gmux_data *gmux_data, int port)
- {
--	u8 val;
-+	u8 val = 0;
- 
- 	mutex_lock(&gmux_data->index_lock);
--	gmux_mmio_wait(gmux_data);
--	iowrite8((port & 0xff), gmux_data->iomem_base + GMUX_MMIO_PORT_SELECT);
--	iowrite8(GMUX_MMIO_READ | sizeof(val),
--		gmux_data->iomem_base + GMUX_MMIO_COMMAND_SEND);
--	gmux_mmio_wait(gmux_data);
--	val = ioread8(gmux_data->iomem_base);
-+	if (gmux_mmio_wait(gmux_data)) {
-+		iowrite8((port & 0xff), gmux_data->iomem_base + GMUX_MMIO_PORT_SELECT);
-+		iowrite8(GMUX_MMIO_READ | sizeof(val),
-+			gmux_data->iomem_base + GMUX_MMIO_COMMAND_SEND);
-+		if (gmux_mmio_wait(gmux_data))
-+			val = ioread8(gmux_data->iomem_base);
-+	}
- 	mutex_unlock(&gmux_data->index_lock);
- 
- 	return val;
-@@ -263,28 +264,33 @@ static void gmux_mmio_write8(struct apple_gmux_data *gmux_data, int port,
- 			      u8 val)
- {
- 	mutex_lock(&gmux_data->index_lock);
--	gmux_mmio_wait(gmux_data);
--	iowrite8(val, gmux_data->iomem_base);
- 
--	iowrite8(port & 0xff, gmux_data->iomem_base + GMUX_MMIO_PORT_SELECT);
--	iowrite8(GMUX_MMIO_WRITE | sizeof(val),
--		gmux_data->iomem_base + GMUX_MMIO_COMMAND_SEND);
-+	if (gmux_mmio_wait(gmux_data)) {
-+		iowrite8(val, gmux_data->iomem_base);
- 
--	gmux_mmio_wait(gmux_data);
-+		iowrite8(port & 0xff, gmux_data->iomem_base + GMUX_MMIO_PORT_SELECT);
-+		iowrite8(GMUX_MMIO_WRITE | sizeof(val),
-+			gmux_data->iomem_base + GMUX_MMIO_COMMAND_SEND);
-+
-+		/* We already wrote the value there is no point to check if timeout */
-+		gmux_mmio_wait(gmux_data);
-+	}
- 	mutex_unlock(&gmux_data->index_lock);
- }
- 
- static u32 gmux_mmio_read32(struct apple_gmux_data *gmux_data, int port)
- {
--	u32 val;
-+	u32 val = 0;
- 
- 	mutex_lock(&gmux_data->index_lock);
--	gmux_mmio_wait(gmux_data);
--	iowrite8((port & 0xff), gmux_data->iomem_base + GMUX_MMIO_PORT_SELECT);
--	iowrite8(GMUX_MMIO_READ | sizeof(val),
--		gmux_data->iomem_base + GMUX_MMIO_COMMAND_SEND);
--	gmux_mmio_wait(gmux_data);
--	val = ioread32be(gmux_data->iomem_base);
-+
-+	if (gmux_mmio_wait(gmux_data)) {
-+		iowrite8((port & 0xff), gmux_data->iomem_base + GMUX_MMIO_PORT_SELECT);
-+		iowrite8(GMUX_MMIO_READ | sizeof(val),
-+			gmux_data->iomem_base + GMUX_MMIO_COMMAND_SEND);
-+		if (gmux_mmio_wait(gmux_data))
-+			val = ioread32be(gmux_data->iomem_base);
-+	}
- 	mutex_unlock(&gmux_data->index_lock);
- 
- 	return val;
-@@ -294,11 +300,13 @@ static void gmux_mmio_write32(struct apple_gmux_data *gmux_data, int port,
- 			       u32 val)
- {
- 	mutex_lock(&gmux_data->index_lock);
--	iowrite32be(val, gmux_data->iomem_base);
--	iowrite8(port & 0xff, gmux_data->iomem_base + GMUX_MMIO_PORT_SELECT);
--	iowrite8(GMUX_MMIO_WRITE | sizeof(val),
--		gmux_data->iomem_base + GMUX_MMIO_COMMAND_SEND);
--	gmux_mmio_wait(gmux_data);
-+	if (gmux_mmio_wait(gmux_data)) {
-+		iowrite32be(val, gmux_data->iomem_base);
-+		iowrite8(port & 0xff, gmux_data->iomem_base + GMUX_MMIO_PORT_SELECT);
-+		iowrite8(GMUX_MMIO_WRITE | sizeof(val),
-+			gmux_data->iomem_base + GMUX_MMIO_COMMAND_SEND);
-+		gmux_mmio_wait(gmux_data);
-+	}
- 	mutex_unlock(&gmux_data->index_lock);
- }
- 
+ 	if (gmux_data->iomem_base) {
 -- 
 2.55.0
 
