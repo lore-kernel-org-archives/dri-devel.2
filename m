@@ -2,103 +2,85 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 33CF1606A327
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EC742606A330
 	for <dri-devel@archiver.kernel.org>; Sat, 14 Nov 2026 16:25:15 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=rcVejacT
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=uDsqkpaJ
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 6B57610F004;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 66E7210F003;
 	Sat, 14 Nov 2026 16:24:54 +0000 (UTC)
-Received: from mail-lj1-f182.google.com (mail-lj1-f182.google.com
- [209.85.208.182])
- by gabe.freedesktop.org (Postfix) with ESMTPS id EF53D10ECAE
- for <dri-devel@lists.freedesktop.org>; Fri, 13 Nov 2026 20:24:59 +0000 (UTC)
-Received: by mail-lj1-f182.google.com with SMTP id
- 38308e7fff4ca-3ae3b5b1027so246301fa.2
- for <dri-devel@lists.freedesktop.org>; Fri, 13 Nov 2026 12:24:59 -0800 (PST)
-ARC-Seal: i=1; a=rsa-sha256; t=1794601498; cv=none;
- d=google.com; s=arc-20260327;
- b=cj4xgOV/fIU84PzO0/bMOmNfi/X0iB65lZzqHH7/Gig7J8EfNJacJwr/vjGMiTSPvH
- 8gI4nKGutLGYMZucKU9queXeJ6GVH60K9s2K95b7jPZknVYAy6gEL1gxSvK6BUtT4mmY
- ayYA0v6WtohcQXE11cW7+38KP6APJk6FDdkoACwasa7nfN1eJ6CvxuOkOQEBnlQMGR5c
- rlyMg6YRzOUtyHBbZwYAPc6K+7AEaOG5rxdYHtLL79ziUbpArUSiDe+RUPoExAuhqd/P
- jkDsh2Sbolq1RZolMUsvMRqGqticQzLUIU5QdvADhvSr+BQZ/kJXfDivuR7lhxXeQyd0
- OQww==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com;
- s=arc-20260327; 
- h=cc:to:subject:message-id:date:from:in-reply-to:references
- :mime-version:dkim-signature;
- bh=WU1bfrRJnySLXBq2fMTwUjF2uo3KDqqVLdyu6MbMrY4=;
- fh=zoxaxzIOT6ltR0HcNmpfJfcJIJbGwuH0NETdoyup5Eg=;
- b=UA/yHyMgal9DptebvTzzg9x2wQ5gOZVAe35xWCAs8upEZoIYYDspUhsZv5X9770ERj
- wr70KaP+E/fDeUsR/UrdxhEi0iyLdwANzfCiY5wwqWEZLOZSshSi5dbVUF6lGE7VACxQ
- u2y29YGTL7nGYV4TWQJSdhUrxOwJnt5ZfIB7TAG8yKFw/AdX7i+6PI3YeDa/uyOPHPq0
- 3F5NZOIj7VoEQaA31vn9cG/t5Y1zWc/hdP3c+EL9FrLRMQW77nSURfYCabnI76C8JxD3
- oaT3WNYzdoWuVbLCYEIQXb4Xfr0ZB5IhNcrV7Mr6avR43omCiD2F2yfDnxVyA90tl1q/
- nYQQ==; darn=lists.freedesktop.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
+Received: from mail-dl1-f48.google.com (mail-dl1-f48.google.com [74.125.82.48])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 554F610E22C
+ for <dri-devel@lists.freedesktop.org>; Sat, 14 Nov 2026 08:20:29 +0000 (UTC)
+Received: by mail-dl1-f48.google.com with SMTP id
+ a92af1059eb24-1397a4855beso51832c88.2
+ for <dri-devel@lists.freedesktop.org>; Sat, 14 Nov 2026 00:20:29 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20260707; t=1794601498; x=1795206298; darn=lists.freedesktop.org;
- h=content-type:cc:to:subject:message-id:date:from:in-reply-to
- :references:mime-version:from:to:cc:subject:date:message-id:reply-to
- :content-type; bh=WU1bfrRJnySLXBq2fMTwUjF2uo3KDqqVLdyu6MbMrY4=;
- b=rcVejacT1GsjWiSuAMW+oVwjUTSl2Yeb6pOYzp6k+RjJKd+RIu2HxEujC/Zi1htYss
- CMWPWOGw2NI75P30prJ3OnqLZ+Hcfvq8zbRz/4sgY/dC1khkTXuYy48ZrBV8oso7yu4k
- Pkm8Sgvml+djH0borySyM83qzLfk+QcEzwEoSb7jepBe4L6P1YSFMvbdY0ApxJEl9J5j
- 5fi4GpDY1lYswqNE74DOpcp4jWjhZf8KUUdOj7h1AigOezUDbxuk3BBRRQOQDaVBvxft
- nKzOBn0OnABpWOjg5dGhGrRAeBt/6GX3NcVT/CK0ybFjjRWCjc+W8Jp8WjI9jBlDrib/
- 2f0w==
+ d=gmail.com; s=20260707; t=1794644428; x=1795249228; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:mime-version:references:in-reply-to
+ :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+ :message-id:reply-to:content-type;
+ bh=SqXDyJrLwFkhi21RssicBQAdX6l60Qls8EPKvWmfnzg=;
+ b=uDsqkpaJLd4J7zXwPPSi+bRLbXGpPZcylDt4/XoKaMtD9hG4Ty310eCNTLo5RHgqMZ
+ EJQpSyikLwWyGiA9Z2wtfLgpIT7eZh87ut9hDs8mvdGIciCERHP6FcLWQUkRa5UDvMuL
+ R77RZtTfE+kDBf84oSiV7eVYraeyiG6TBv39Nd/iTi9kTDTA8leQkQ4i+pxMw5K6Q015
+ L1lQKACbi+FEHK0n6yewwvXRtaLJwhHolr0H2Lzbqn4MebayAyxUQVtDhXHEEPIXx6ip
+ bnWdKmeFHCqRNhJJS0607QmwB/pxaX4vC+nUGLMImo+bjo0MiAj2aeCKSNsBbKgEB7MM
+ 87lA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20260707; t=1794601498; x=1795206298;
- h=content-type:cc:to:subject:message-id:date:from:in-reply-to
- :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
- :subject:date:message-id:reply-to:content-type;
- bh=WU1bfrRJnySLXBq2fMTwUjF2uo3KDqqVLdyu6MbMrY4=;
- b=atMVolvwxNu9WFZGHxlAyu9P83hHExd0mqwsuvv1IF4CjuY9b95DMNG25altIK8qfT
- oMCr3tezq+UNGOcYHArzH3XxGtld6XEdVFvkqRfwjRb8nwiQTaPBVzR2K9Q2rhMPq1CX
- q8AinDAYznP2vL9kbk5llEQhmoxpOjgGQ5vxaO4Qd9n3zzLmgRP6LWX8GovHOHdVRmls
- 4T2BYxSF0IID01ENBIMPI1DA2w0OvEwsAFe5XXWH3DTOmgAK463pprJ4WeXFJ8IKz1h9
- Vj5rR02CH7aFupvmaRrTCxrvcd6MLSR6mN3M3CAOa3C+eFj8g+RhsYUVycQ7BvXZn0Zk
- y1fA==
+ d=1e100.net; s=20260707; t=1794644428; x=1795249228;
+ h=content-transfer-encoding:mime-version:references:in-reply-to
+ :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+ :to:cc:subject:date:message-id:reply-to:content-type;
+ bh=SqXDyJrLwFkhi21RssicBQAdX6l60Qls8EPKvWmfnzg=;
+ b=Onp7dzup/Y3Sg9b2FWEsWQDWCA9IzrUBORv+5gTv5jcT3fNVO4mpjqx/5O3iWU98Rl
+ xnvhl1E4dIZyXMQRc/QLRTnIUyaYnpN7utqNC7QmkbEXpNeXRiTwcWdJ+cJeI73TSXUl
+ OB72/0uV9EF406t5gYXmmGzpIuJITcal9R5WkU0t6SFUsKcf4Wi+zFtzcJTgaIyXAAVc
+ Of8gR4yNPI6sdAfyaowT4d3xhXgBVLxV4yLmhccOJVE0rtFwA058FscERQUcV/qUcvlh
+ CzkvzcOlXlqdalAdr5ec62e/i2rZD2GYjZDyN/8s0uz+MhMbgi/eAND6V/ZGHiWMOhTZ
+ cNRg==
 X-Forwarded-Encrypted: i=1;
- AL+hErF1UZ/2csi+Ep7mjM+WAIWsJlGwjdiN/EUBriHXP2EMvHB/thuSzGJOBuqk9d1rNVX4rdtO4q0Panw=@lists.freedesktop.org
-X-Gm-Message-State: APuU4Z+qppL4AJUPLJL45x+z4e5DtHepRyJHaHrF2aKTcU+gL8RbqZcE
- tPAWVquHIX8+uoFVDrcs75dro+USHrd3UrTCesWvrPzL1R8xaWowukESW5eDnDiGBgu9xLk7GeU
- Bif9oIbl06JD2c5i6YL48mK8YwbuVWEw=
-X-Gm-Gg: AYBFou3BaIlMQPkYnaHD87oAQjkcjpI1Z5eG9HNGlFSSNHKsqMZeuEoJ0i23ks3UL+z
- qVCKNT5VeUx5UnKda/+HkdmGBBh9DhtkKp92mtamhkOgtqdIsdJPYOc0tqX3fNtD1xrPHs+buGO
- ctzp/5M3mHioVmlwsV+OlRtAqOzWyZnVaGtVlR6fAIzIPL143tM+HBlBhCoUIm63OcMMYKcu992
- f9yVEEQ6JQLQ1lM73Kp9RG1D76jy8tGJYK1XSUPBMUnXA2FrOGUzfQvgFuamVT00yZz4jW+W3RR
- TU/yS+ZaDTg3dTHEMqoJ0P5P+0RTRmthkgOc/naUoEronfR8iC0lsSEyieVJ03GetPtrSa8HFNl
- 1Xh3/tZlL6dvPffYFSVuy4zdUOy6Q11n4tW+NmTePAIiLLhmvR67jcx5nGFWBs2JYWiOG09A=
-X-Received: by 2002:ac2:4bd3:0:b0:5bf:f87e:3d25 with SMTP id
- 2adb3069b0e04-5c17075fbeemr1839415e87.2.1794601497810; Fri, 13 Nov 2026
- 12:24:57 -0800 (PST)
+ AL+hErEE4I/PmYaykOVJcA/JL5ZilxV8zIjVlGZaasfzONhTMjD1mPnYRYVmCu+FMX5O3s8qzt6deGFrs0A=@lists.freedesktop.org
+X-Gm-Message-State: APuU4Z+dFZRl7IGyHBSKIh/eiVGycB6UFt6WNcS3cZxyTzB5h+km+QuV
+ gXlOwY/zbFwyA5KEluxaJXebruaODzKcHGb4F8bGU5yk3kH5qmi07TDD
+X-Gm-Gg: AYBFou0gBzol5I98XhGugAG7Pvgs2uFbK6/hyCGaLpXvwEEhCYe7ndn1tjMJxky0VWq
+ BW/8994kdu40yHrvtizoZIpBvbpRAjnXr0vuP/Lv5tCTZqAPRrSSphRHgB1dHrmC/nX/S96WW2I
+ eM1fvkDSE/d8pgAswOG9l5ntZeQPi5FIYwnH/HmZTs+Udgc0squ49nw7gBtS5FEzklvdYYacb4u
+ ltIbA3Es2Y0Q8+y62VpT8EKrPRX8633cQ9PF/KOWg75xMjNWJneRgxL+qrZ27YVhpHLyB8g3Maa
+ wuF1LkaDcwxEP4Ogkbdh7NDtu9FmYmh7XdfqoKvlEsG322MiF5HJo/Mw2vmAPuPf4EN3O8ec67k
+ LTsC4ppzkJCdmxsTqRIUi/3Dq06vNKTmb+2ivxCRIMt1umH0RKWDbhdTDAhjO8JKDyIoHQgIxWa
+ 4IDuz6+lkQqe5Ih/7o//1sK6oWqnkLD1uVwWiN3V6OBvN9lXuM5EeeCt1ySyiEtlidwv4ppkLhM
+ LFoaBdp5Z+0IgZ2dH7R2P+Z/y+fe+mQerJHZynBUPS9JZVMa5//h4Try+RW9T51GfEssVX4Bksb
+ jpWNPypZBRUTJGTtfhkzd4QLnrD6KSi9jHLacgKSGXIXHiXP4eXtaFyvBcl066M4HCQbN/VSCk3
+ fboU=
+X-Received: by 2002:a05:701b:290a:b0:127:def:dd72 with SMTP id
+ a92af1059eb24-1b5030f8a7dmr6472366c88.2.1794644428430; 
+ Sat, 14 Nov 2026 00:20:28 -0800 (PST)
+Received: from DESKTOP-CJ1L666.localdomain ([211.198.99.62])
+ by smtp.gmail.com with ESMTPSA id
+ a92af1059eb24-1b5031918c7sm19524043c88.9.2026.11.14.00.20.24
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Sat, 14 Nov 2026 00:20:27 -0800 (PST)
+From: Jiwoo Kim <arpe1618@gmail.com>
+To: Boris Brezillon <boris.brezillon@collabora.com>,
+ Rob Herring <robh@kernel.org>, Steven Price <steven.price@arm.com>,
+ =?UTF-8?q?Adri=C3=A1n=20Larumbe?= <adrian.larumbe@collabora.com>
+Cc: Danilo Krummrich <dakr@kernel.org>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>,
+ Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>,
+ Simona Vetter <simona@ffwll.ch>, dri-devel@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org, stable@vger.kernel.org
+Subject: [PATCH v2 1/4] drm/panfrost: Hold a reference to the MMU context of a
+ job
+Date: Sat, 14 Nov 2026 17:20:13 +0900
+Message-ID: <20261114082016.2454-2-arpe1618@gmail.com>
+X-Mailer: git-send-email 2.43.0
+In-Reply-To: <20261114082016.2454-1-arpe1618@gmail.com>
+References: <20261114082016.2454-1-arpe1618@gmail.com>
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
-References: <20261112-vop2-fixes-v2-0-8218c1cf8ac8@gmail.com>
- <20261112-vop2-fixes-v2-3-8218c1cf8ac8@gmail.com>
- <a5b52d95-7fa2-4148-aa02-cfee6f195e1a@rock-chips.com>
-In-Reply-To: <a5b52d95-7fa2-4148-aa02-cfee6f195e1a@rock-chips.com>
-From: Arun Iyengar <aiyengar1990@gmail.com>
-Date: Fri, 13 Nov 2026 12:24:46 -0800
-X-Gm-Features: AclHuK9InRTgWzumTIOYOi5MivIL20TRnUBG8RNDv3yJlv7_a6OpEdGqBKKf5lU
-Message-ID: <CAEy9hNVKy6sTA70B8kfhP7eBFCUFobFn4SvXUGMxzCs-bpXW0A@mail.gmail.com>
-Subject: Re: [PATCH v2 3/9] drm/rockchip: vop2: Fix the HDMI sync polarity on
- RK3588
-To: Damon Ding <damon.ding@rock-chips.com>
-Cc: Sandy Huang <hjc@rock-chips.com>,
- =?UTF-8?Q?Heiko_St=C3=BCbner?= <heiko@sntech.de>, 
- Andy Yan <andyshrk@163.com>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
- Sascha Hauer <s.hauer@pengutronix.de>,
- Piotr Zalewski <pZ010001011111@proton.me>, 
- Chaoyi Chen <chaoyi.chen@rock-chips.com>, dri-devel@lists.freedesktop.org, 
- linux-rockchip@lists.infradead.org, linux-arm-kernel@lists.infradead.org, 
- linux-kernel@vger.kernel.org, cristian.ciocaltea@collabora.com
-Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 8bit
 X-Mailman-Approved-At: Sat, 14 Nov 2026 16:24:47 +0000
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -111,29 +93,66 @@ List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-1.8 required=3.0 tests=BAYES_00,DKIM_SIGNED,
-	DKIM_VALID,DKIM_VALID_AU,FORGED_GMAIL_RCVD,FREEMAIL_FORGED_FROMDOMAIN,
-	FREEMAIL_FROM,HEADER_FROM_DIFFERENT_DOMAINS,MAILING_LIST_MULTI,
-	SPF_HELO_NONE,SPF_PASS autolearn=no autolearn_force=no version=4.0.1
+X-Spam-Status: No, score=-15.8 required=3.0 tests=BAYES_00,DKIM_SIGNED,
+	DKIM_VALID,DKIM_VALID_AU,FREEMAIL_FORGED_FROMDOMAIN,FREEMAIL_FROM,
+	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
+	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,USER_AGENT_GIT
+	autolearn=unavailable autolearn_force=no version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-Hi Damon, Chaoyi,
+A job stores the MMU context of its file in job->mmu without taking a
+reference to it. Once the file is closed, the context is only kept
+alive by the BO mappings that still reference it, and a job may be
+submitted with no BOs at all.
 
-The TRM names GRF_VO1_CON0 bit 5 the HDMI0 vsync polarity and bit 6
-hsync (7 and 8 for HDMI1); the driver, like the vendor kernel, uses
-them the other way round.
+When the file is closed while such a job is still running,
+panfrost_jm_close() does not wait for the job, and panfrost_postclose()
+then drops the file's reference to the context, which frees it unless
+BO mappings of other jobs still hold it. The job interrupt handling
+that follows calls panfrost_mmu_as_put() on the freed job->mmu, and
+panfrost_core_dump() also reads job->mmu if the job times out.
 
-The HDMI controller agrees with the TRM. With patch 3 and 1920x1080@144
-+HSync -VSync the driver sets bit 6, and VIDEO_INTERFACE_STATUS0 reports
--HSync +VSync; with 1600x1280@60 -HSync +VSync it sets bit 5 and the
-controller sees +HSync -VSync.
+Take a reference to the MMU context when the job is created and drop
+it when the job is cleaned up.
 
-v3 keeps patch 3 as you reviewed it and adds patch 4, which swaps the
-two bits; with it the controller reports both modes as set. Please
-shout if the TRM is wrong here.
+This was found with an AI coding assistant, which also drafted this
+patch and its changelog. It has not been reproduced, and the change
+has only been compile-tested.
 
-v3 4/8: https://lore.kernel.org/r/20261113-vop2-fixes-v3-4-08ae37e83b5c@gmail.com
+Fixes: 6e516faf0431 ("drm/panfrost: Job should reference MMU not file_priv")
+Cc: stable@vger.kernel.org
+Signed-off-by: Jiwoo Kim <arpe1618@gmail.com>
+---
+ drivers/gpu/drm/panfrost/panfrost_drv.c | 2 +-
+ drivers/gpu/drm/panfrost/panfrost_job.c | 1 +
+ 2 files changed, 2 insertions(+), 1 deletion(-)
 
-Best regards,
-Arun
+diff --git a/drivers/gpu/drm/panfrost/panfrost_drv.c b/drivers/gpu/drm/panfrost/panfrost_drv.c
+index 7c348a0bf1ee..afda794e2aeb 100644
+--- a/drivers/gpu/drm/panfrost/panfrost_drv.c
++++ b/drivers/gpu/drm/panfrost/panfrost_drv.c
+@@ -331,7 +331,7 @@ static int panfrost_ioctl_submit(struct drm_device *dev, void *data,
+ 	job->jc = args->jc;
+ 	job->requirements = args->requirements;
+ 	job->flush_id = panfrost_gpu_get_latest_flush_id(pfdev);
+-	job->mmu = file_priv->mmu;
++	job->mmu = panfrost_mmu_ctx_get(file_priv->mmu);
+ 	job->ctx = panfrost_jm_ctx_get(jm_ctx);
+ 	job->engine_usage = &file_priv->engine_usage;
+ 
+diff --git a/drivers/gpu/drm/panfrost/panfrost_job.c b/drivers/gpu/drm/panfrost/panfrost_job.c
+index 4ddf4b722ddf..7022b1b2e020 100644
+--- a/drivers/gpu/drm/panfrost/panfrost_job.c
++++ b/drivers/gpu/drm/panfrost/panfrost_job.c
+@@ -377,6 +377,7 @@ static void panfrost_job_cleanup(struct kref *ref)
+ 		kvfree(job->bos);
+ 	}
+ 
++	panfrost_mmu_ctx_put(job->mmu);
+ 	panfrost_jm_ctx_put(job->ctx);
+ 	kfree(job);
+ }
+-- 
+2.43.0
+
