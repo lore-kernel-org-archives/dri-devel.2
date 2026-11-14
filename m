@@ -2,81 +2,97 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6F3A5606A329
-	for <dri-devel@archiver.kernel.org>; Sat, 14 Nov 2026 04:44:01 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7AB57606A323
+	for <dri-devel@archiver.kernel.org>; Sat, 14 Nov 2026 04:57:40 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=ddywqgbC
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=K6r8+Znz
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id A1A4410E54F;
-	Sat, 14 Nov 2026 04:43:55 +0000 (UTC)
-Received: from mail-pj1-f52.google.com (mail-pj1-f52.google.com
- [209.85.216.52])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 109AE10E631
- for <dri-devel@lists.freedesktop.org>; Sat, 14 Nov 2026 04:43:49 +0000 (UTC)
-Received: by mail-pj1-f52.google.com with SMTP id
- 98e67ed59e1d1-3b094e649d3so1805444a91.0
- for <dri-devel@lists.freedesktop.org>; Fri, 13 Nov 2026 20:43:49 -0800 (PST)
+	by gabe.freedesktop.org (Postfix) with ESMTP id C346110E1DB;
+	Sat, 14 Nov 2026 04:57:34 +0000 (UTC)
+Received: from mail-oi1-f171.google.com (mail-oi1-f171.google.com
+ [209.85.167.171])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id D909810E1DB
+ for <dri-devel@lists.freedesktop.org>; Sat, 14 Nov 2026 04:57:28 +0000 (UTC)
+Received: by mail-oi1-f171.google.com with SMTP id
+ 5614622812f47-4d7034a99a9so1861873b6e.3
+ for <dri-devel@lists.freedesktop.org>; Fri, 13 Nov 2026 20:57:28 -0800 (PST)
+ARC-Seal: i=1; a=rsa-sha256; t=1794632248; cv=none;
+ d=google.com; s=arc-20260327;
+ b=cCYfCtypGGkNv4YZNXvK6t7Ja4dv0MX9d9kImpyajRn+si8IhuUdi6esoprQ646oZr
+ 8xujVo6+xeJncWQORyqmwgfbKXdgFDqf+kyh0+ioHINcfm41CcTf4vJrUuNtoLa8o94A
+ cGsfo0dPzCkw7Zl4pEinED1WqLlzA9AMvLBlybJpm4poUFB5JDlDkgh+EcLqPDv6nTCT
+ mVQbBbBxc0kmafzCosPeMzoPudTnH2keihYC0DCaxrNkFXsnbR33eswafGhFgojlgKec
+ Ll9jH3QAA7MLiwENz0nQ/tpBAckzWaHCl+OOX01uVueCH9tVPDZC6X3W8apKAqJqup0c
+ 1YPw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com;
+ s=arc-20260327; 
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:dkim-signature;
+ bh=mAWpV1M0Nu9QZUQqIslKLnJ4FSbGHgAq0csTQNUImDg=;
+ fh=hERwEpKOKKIYEsaQfGF0fjPlMsn1/U6t9j+Mnny1Dhw=;
+ b=DhZHXe2hZIkQpIet2VrPYiugwGSJcIEseyD5RVlssfuLISgE0166Ml/UCVJxh0q1od
+ uUgpSewJfKMyqrabX7XMQziGR+bggDpxB4U2m1IlUaF+MsT4uAgAmCI6ZmczJWnGla7T
+ TZcHOnPKPQ0phub/TyyfYg86lAfoiqfy5e95i4eumNk5DU71Bn3t825C+n6Nb4OD4WIz
+ IUkmJAqhmslc0oSHpWU5OKi8D1TkmoCJB1AhdB6IsdSuW2gPHfzYmBs0hYcGl6lzyroo
+ vtyF8WMPLDgbxvbQGi1JP7q7c4EsiJHAIWhYKlhbstI//wmCa4xHMDbU49LYG8Dfvi/t
+ iggQ==; darn=lists.freedesktop.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20260707; t=1794631428; x=1795236228; darn=lists.freedesktop.org;
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:date:subject:cc:to:from:from:to:cc:subject:date
- :message-id:reply-to:content-type;
- bh=I/Osil3p9tI+TJ45W4tyUJkbTxb/QirMyt7rDHJX8Ic=;
- b=ddywqgbCjhCP/E1Bh74QHLpB/de2Cs2yL6eRjoAHUvSGlSf6bfSqChaMqhOEd67A3j
- 69mFbKNCNI3isboMP+anbbCzaTQdSmswx9qwqFcPhdfT1tKVKvvo3L9zstqpl+2V9ATK
- mTj+K7nTbUy6WJ6RX2qz5klBOLlUggN3dIp1rsOikWdDTlpsQB2Ree5HLmVzQrsRTeR8
- 5692o5HFKopRfPmeicaKh6Nz5vL3kOIcEt9gKaNMxs0quS+ufxjpKW2MwiDWRkYd+tBn
- zWBA/TiRyY4pD8+qeFano9ND37eH2UTIHXnQ2qJTGyxCs5vnsLL4mMRZ4Z/ImQsJ98V+
- l7tw==
+ d=gmail.com; s=20260707; t=1794632248; x=1795237048; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:content-type:cc:to:subject:message-id
+ :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+ :date:message-id:reply-to:content-type;
+ bh=mAWpV1M0Nu9QZUQqIslKLnJ4FSbGHgAq0csTQNUImDg=;
+ b=K6r8+ZnzM2CRS1TvTJn1TUICw19gsXKEcDVjufF2OlG2I8P0PE6F1DVXUdwtCmrPkB
+ YZ76+eHsHGnkdOnkzba6zIGGj6ozVnKPv9khv09/zNYF+mDqideElpzzNAhWIOA8Coh2
+ 7MrhAg0ALa9KnSn7QbAJ/DK2rhIS/BJmlgNaFm7fOoI1EJBqzpAt5VPWnCd1SfEXmEKH
+ yQQ6wp0fUYhGWLIaF2T2XtWXfUgSCOdgmy7kgIegGbceC8CqA2ahFUxplWKZQEo6/nMU
+ DfWZwdgFZjXrRbSrFHezjUNi2SnLWXfp7YTqwnfwTz0cQ4N1TiQ7y+o2NY/OIMW7f43y
+ 7GtA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20260707; t=1794631428; x=1795236228;
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
- :to:cc:subject:date:message-id:reply-to:content-type;
- bh=I/Osil3p9tI+TJ45W4tyUJkbTxb/QirMyt7rDHJX8Ic=;
- b=E/WDa7r80DsO+TxhVQKH3bvDavOjxiEe1FMqwgycMCpxmN/nPutrbzUVkuSj3Lg5cj
- K+o3oIjsm1exp/kXRJHn9LZen/sYRIWXysP6pOkd2ch7b5nvx8lmorDGwJRUF35vkB3/
- h8eFBfOmxOeZYwSvjP1SyMU3dpXYaaeV69Ij4DmHQHsM9LUMN6JcnIrwJM6L8dOd/UHp
- N6x5TCWJr9xaQw9vlRVNQIcTA/Rhr+7jgGlnSt1e/qP93kSW+m3sYJ24l7FVfgWX+dOH
- ToO8KP99l7bc2e8/ahmW7FXLiNcZeXVJruqD1u6YI+nIC50PkTh6TrcscgDEnZhWKjh1
- 9HBw==
+ d=1e100.net; s=20260707; t=1794632248; x=1795237048;
+ h=content-transfer-encoding:content-type:cc:to:subject:message-id
+ :date:from:in-reply-to:references:mime-version:x-gm-gg
+ :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+ :content-type;
+ bh=mAWpV1M0Nu9QZUQqIslKLnJ4FSbGHgAq0csTQNUImDg=;
+ b=Nr9stwohIpiqxabqJuC+4qj30SwM8+dHhB8wpUM0Kyn55n+wDjwkiQlKiAtmxxsUID
+ FUpeOPP1Dya+Qf9bp73FSpvdXRBdI1sZ7FKkJZGJ+qpdsJthFU+OZN3JxePhPeidd460
+ +0oM4P6NehIdjFVgMdFmECzgqUyVAuPPza/P8scSxNjPT80OC3CEfU5dXKpH158zq7OC
+ T5ANEMeUXq34lPyGRvbaV5WO8CoykWKKy0e02sIVKAwqcmch6F+BxTHOH4NkgF81l0oH
+ LfvLMAZgqtQ/SK6rdgRb/5NFqBlIO3Oc1/VPoMY9zTw6oCq1JmRfGCJZFkZ4o8Rrm04b
+ xImw==
 X-Forwarded-Encrypted: i=1;
- AL+hErE2Ar0GcWa0t23Qbz0A7Seh0y04Aj/2Ddu+RC/moVrUyIWi0/Oo17cFDYZtNI8aB+o1PNYStOA1dlA=@lists.freedesktop.org
-X-Gm-Message-State: APuU4Z+0VmvnuovxN7CwoytBSrPtgetLJ0xhLvM5TTr2mon2dCf2pc5H
- 9LYtNKSRI7+sJ1/++d/4zxWpXvkqcEIVQnQovW2hGnuO6o8P0e+RmOqC
-X-Gm-Gg: AYBFou3hZO69tmPkg9dQkzFlP42t2CbMsha24dddz6ckFnarsFU6hgDZtIb/YS7etll
- Eig/bs31QX/wxjJvXRwihyUCTEq18UQOcw0F8B69dcYFJr4BW7mFH9Td8ZBDaiL/np5Q4y7J4u3
- SyT7ouP+u6oQu7/cRUEL0LfUYcNgKlTTaIas3AbnrdQU7hC56nXGDusY84/67TX5fYG/dmS896e
- CiC1dZEiLeLWZ78MOWUjHHkziUPIDrXs+56hqWuMFd1KzOeWj3mrSIVNlLJ2KTGeIncx4QuUfJ1
- zeFMEUoCKH71W/eIxpAvMoHr+GLzmEvwo0y5VNVzir1KYj/KCfjxgbuiLce/j2wMIyUwts26LuZ
- TPNvxrSy5SeKZZeue8IU2gxcXj+8eDui+RYZ3K5GM124s+kSsglTGRxoT/I6zjBLtp3LTtud6s5
- kC7B5X7r7jUFp8B7BQcFEUfsT0Y6yzSUmFI6HS9EhUJbTKYVggE68BG4TRFKazuc3IavvfRSROX
- 68hdkCWvRpVWjva+T5EYRjv6RzoDQEb6Xuko9FbeusjlCyUZgiAnZLpEXWTQMvw2GvTfbRwyVl+
- ClE/JRWD/qL+2hiVv1p0KI2chay3r2+omlU=
-X-Received: by 2002:a17:90b:590d:b0:3ac:a7ee:6770 with SMTP id
- 98e67ed59e1d1-3b1b087b76bmr4366544a91.7.1794631428549; 
- Fri, 13 Nov 2026 20:43:48 -0800 (PST)
-Received: from localhost ([176.210.133.73]) by smtp.gmail.com with ESMTPSA id
- 98e67ed59e1d1-3b1b3eaf732sm3230685a91.3.2026.11.13.20.43.41
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Fri, 13 Nov 2026 20:43:47 -0800 (PST)
-From: Vladislav Zaharov <vladazaharova2018@gmail.com>
-To: dakr@kernel.org,
-	jhubbard@nvidia.com
-Cc: acourbot@nvidia.com, aliceryhl@google.com, ttabi@nvidia.com,
- gary@garyguo.net, nova-gpu@lists.linux.dev,
- dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
- linux-doc@vger.kernel.org, vladazaharova2018@gmail.com
-Subject: [PATCH v8 4/4] Documentation: nova: remove completed GSP log buffer
- task
-Date: Sat, 14 Nov 2026 11:43:04 +0700
-Message-ID: <20261114044304.245684-5-vladazaharova2018@gmail.com>
-X-Mailer: git-send-email 2.56.0
-In-Reply-To: <20261114044304.245684-1-vladazaharova2018@gmail.com>
-References: <20261114044304.245684-1-vladazaharova2018@gmail.com>
+ AL+hErEK9aIQLZ6JevFlfCNhEI4ueNpJL6UtUp7Utwp3AKbJwKdir6GwvFI6/2vu6yYP7Rr5stTizeHxzsU=@lists.freedesktop.org
+X-Gm-Message-State: APuU4Z+QhPSa0UpKd0ujACvf3edLGy7MnnMinfOYF4dvFsWkf5RM+RPl
+ jRKEDT0+CjD81dmjSfql/oZ+N82WfmF3Abvykxdh3eo1Hw16Vvr+HabyO8x99SHvcufPLqUsbW5
+ FwhbsFYMRAMAcVyiQSp8HPhA5msfVTrg=
+X-Gm-Gg: AYBFou3XRC/oFnDraZRyj4oprBrwv0I30iqqF7VNrA+p6DwiFMiHg9VQyjJ1oGmeDn5
+ NJf+bKRfQd43GMAgZh9e14k2ouMM43Bsfr4fd3EH7Nyw2nKx3Ux5nC3B7fNi8JRXODp9YVWFCnp
+ VL9JWoLH8N0YCdiBYY6qHMt6A7TC9YXeV3AbedxiQ5gQXXMA/0V7LafPFlmtrIuP1Hl+71bEFeQ
+ aseVPWItti6n6QrCwQc14LyFgVEcRrYxvf64qLRmmongfqz4chEKWXacheM19tycqFUB0UKr3++
+ tVUNvfAPb0+PP6cISxUL55ILmNZMgyqhiUIrnXhgVEzAzmT7guTEgyUlzwgxwNpO5FnoBX11ACY
+ wfiUHo/piT3IjW6VPEhjA3XljIjYuDUYWAuvtpY7DlS1PorA9bWSVlCXVBkLJB0w7/Bg1Jsg0wR
+ VmtJWUeZYeXRuztJcx
+X-Received: by 2002:a05:6808:831b:b0:572:6ee:8b6b with SMTP id
+ 5614622812f47-57206eeac9emr372158b6e.66.1794632247852; Fri, 13 Nov 2026
+ 20:57:27 -0800 (PST)
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+References: <20261107174215.15818-1-swizzguy76@gmail.com>
+ <f585562b-dbdc-415b-a493-475cf545a092@linux.intel.com>
+In-Reply-To: <f585562b-dbdc-415b-a493-475cf545a092@linux.intel.com>
+From: Toast <swizzguy76@gmail.com>
+Date: Sat, 14 Nov 2026 10:27:17 +0530
+X-Gm-Features: AclHuK8QlfT2uRLD1uAa8XnAGmCLr9nS6RezPS4g9Ri_LHUcmb3SIj8Cm9mcaUQ
+Message-ID: <CAHBKUQYt-GjFnTNZRFbwo5DCf9hzN=sBW=XSwcGhEUKvCf-t9w@mail.gmail.com>
+Subject: Re: [PATCH] accel/ivpu: Disable recovery work on probe failure
+To: Karol Wachowski <karol.wachowski@linux.intel.com>
+Cc: jacek.lawrynowicz@linux.intel.com, jeff.hugo@oss.qualcomm.com, 
+ dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org, 
+ ogabbay@kernel.org, andrzej.kacprowski@linux.intel.com
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -88,45 +104,147 @@ List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-15.8 required=3.0 tests=BAYES_00,DKIM_SIGNED,
+X-Spam-Status: No, score=-12.8 required=3.0 tests=BAYES_00,DKIM_SIGNED,
 	DKIM_VALID,DKIM_VALID_AU,FREEMAIL_FORGED_FROMDOMAIN,FREEMAIL_FROM,
 	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
-	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,USER_AGENT_GIT
-	autolearn=unavailable autolearn_force=no version=4.0.1
+	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS autolearn=unavailable
+	autolearn_force=no version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-The GSP-RM log buffers are exposed in debugfs, and with gsp_keep_logs
-they also survive a failed probe.
+Tested on Meteor Lake (Core Ultra 5 125H, vpu_37xx firmware 20260219)
+on top of v7.4-rc1:
 
-Signed-off-by: Vladislav Zaharov <vladazaharova2018@gmail.com>
----
- Documentation/gpu/nova/core/todo.rst | 12 ------------
- 1 file changed, 12 deletions(-)
+- kexec from a 7.0 kernel and from 7.4 with the NPU runtime-suspended:
+  both runs hit ATS_ERR during probe, recovery_work was not queued,
+  probe failed once with -ETIMEDOUT, and there was no oops
+- FLR plus rebind brings the NPU back
+- debugfs force_recovery after a successful probe recovers the NPU
 
-diff --git a/Documentation/gpu/nova/core/todo.rst b/Documentation/gpu/nova/core/todo.rst
-index a01c362b1be0..28fc7329d56b 100644
---- a/Documentation/gpu/nova/core/todo.rst
-+++ b/Documentation/gpu/nova/core/todo.rst
-@@ -141,18 +141,6 @@ Implement support for instmem (bar2) used to store page tables.
- GPU System Processor (GSP)
- ==========================
- 
--Export GSP log buffers
------------------------
--
--Recent patches from Timur Tabi [1] added support to expose GSP-RM log buffers
--(even after failure to probe the driver) through debugfs.
--
--This is also an interesting feature for nova-core, especially in the early days.
--
--| Link: https://lore.kernel.org/nouveau/20241030202952.694055-2-ttabi@nvidia.com/ [1]
--| Reference: Debugfs abstractions
--| Complexity: Intermediate
--
- GSP firmware abstraction
- ------------------------
- 
--- 
-2.56.0
+I couldn't hit an error IRQ after ivpu_boot() succeeds, so the deferred
+recovery in ivpu_pm_enable() isn't covered by this.
 
+Tested-by: Daksh Sahni <swizzguy76@gmail.com>
+
+On Tue, Nov 10, 2026 at 2:03=E2=80=AFPM Karol Wachowski
+<karol.wachowski@linux.intel.com> wrote:
+>
+> On 07-Nov-26 18:42, Daksh Sahni wrote:
+> > If the NPU raises an error interrupt while ivpu_dev_init() boots the
+> > firmware, the Buttress, MMU or WDT IRQ handler calls
+> > ivpu_pm_trigger_recovery(), which queues recovery_work. When ivpu_boot(=
+)
+> > then fails, the err_ipc_fini path tears the device down without
+> > disabling recovery_work and probe returns an error. devres unmaps the
+> > register BARs while the work is still queued or running, and the work
+> > faults on the first register access:
+> >
+> >    BUG: unable to handle page fault for address: ffffcfc6680200f4
+> >    Workqueue: events_unbound ivpu_pm_recovery_work [intel_vpu]
+> >    RIP: 0010:ivpu_hw_ip_ipc_rx_addr_get+0xc/0xb0 [intel_vpu]
+> >    Call Trace:
+> >     ivpu_wait_for_ready+0x155/0x220 [intel_vpu]
+> >     ivpu_boot+0x9e/0x270 [intel_vpu]
+> >     ivpu_resume+0xa4/0xd0 [intel_vpu]
+> >     ivpu_pm_reset_complete+0x2c/0x90 [intel_vpu]
+> >     ivpu_pm_recovery_work+0xf6/0x140 [intel_vpu]
+> >     process_one_work+0x1da/0x3c0
+> >     worker_thread+0x1af/0x340
+> >     kthread+0xfa/0x130
+> >     ret_from_fork+0x2b9/0x380
+> >     ret_from_fork_asm+0x1a/0x30
+> >
+> > The work dies between pm_runtime_disable() in ivpu_pm_reset_begin() and
+> > pm_runtime_enable() in ivpu_pm_reset_complete(), so the PCI device is
+> > also left with runtime PM disabled and never autosuspends after a later
+> > rebind.
+> >
+> > Commit 5eaa49741119 ("accel/ivpu: Prevent recovery invocation during
+> > probe and resume") stopped IPC failures during probe from triggering
+> > recovery, but the IRQ handlers still can.
+> >
+> > Call ivpu_pm_disable_recovery() at the start of the err_ipc_fini path,
+> > as ivpu_dev_fini() already does, so the work is flushed and cannot be
+> > queued again before the device is torn down.
+> >
+> > Reproduced on Meteor Lake (Core Ultra 5 125H, vpu_37xx firmware
+> > 20260219) by kexec'ing with the NPU runtime-suspended: probe in the new
+> > kernel gets an ATS_ERR Buttress IRQ during firmware boot. With this
+> > change probe still fails with -ECANCELED, there is no oops, and an FLR
+> > followed by a rebind brings the NPU back.
+> >
+> > Fixes: 852be13f3bd3 ("accel/ivpu: Add PM support")
+> > Cc: stable@vger.kernel.org
+> > Signed-off-by: Daksh Sahni <swizzguy76@gmail.com>
+>
+>   Hi Daksh,
+>
+>   Thanks for the report and the thorough analysis, it's correct. An error
+>   IRQ that fires once ivpu_boot() has enabled interrupts can queue
+>   recovery_work during probe, and nothing on the probe error path stops
+>   it.
+>
+>   As Sashiko pointed out, disabling the work on err_ipc_fini comes too
+>   late. By then recovery_work may already have run concurrently with
+>   ivpu_boot(). It can also race with a probe that succeeds, which you saw
+>   yourself in one of your runs.
+>
+>   I'll send a v2 that addresses this along the lines you offered and
+>   Sashiko suggested. recovery_work stays disabled for the whole of probe
+>   and is enabled in ivpu_pm_enable(). A recovery requested during probe
+>   is not lost. If ivpu_boot() fails, probe unwinds with nothing pending.
+>
+>   If  probe succeeds, ivpu_pm_enable() runs the deferred recovery and
+>   waits for it before issuing the initial autosuspend request. The NPU is
+>   then reset before first use, and the autosuspend no longer lands while
+>   runtime PM is disabled, which covers your second note too. The patch
+>   will keep your Reported-by.
+>
+>   I'm running it through our internal CI first and will post it once that
+>   passes. When it's out, could you test it on your Meteor Lake kexec
+>   setup and reply with your Tested-by? Once I have it, I'll go ahead
+>   and merge.
+>
+>   Thanks,
+>   Karol
+> > ---
+> >
+> > Notes:
+> >      Tested on v7.4-rc1 (d48723711bae).
+> >
+> >      Two things this patch does not address:
+> >
+> >      The trigger is kexec with the NPU runtime-suspended in the old ker=
+nel.
+> >      The driver has no .shutdown hook, so the new kernel's probe sees s=
+tale
+> >      NPU state and gets ATS_ERR. A cold boot doesn't hit it. Whether th=
+at
+> >      wants a shutdown hook or a reset at probe seems like your call.
+> >
+> >      In one of four runs that hit ATS_ERR, probe succeeded while
+> >      recovery_work was running concurrently. Probe returned 0, but the
+> >      autosuspend request from ivpu_pm_enable() landed while recovery ha=
+d
+> >      runtime PM disabled, so the NPU stayed active until first use. Not
+> >      allowing IRQ-triggered recovery until ivpu_pm_enable() would cover=
+ both
+> >      cases; I can send a v2 that does that if you prefer.
+> >
+> >   drivers/accel/ivpu/ivpu_drv.c | 1 +
+> >   1 file changed, 1 insertion(+)
+> >
+> > diff --git a/drivers/accel/ivpu/ivpu_drv.c b/drivers/accel/ivpu/ivpu_dr=
+v.c
+> > index 247ed6b2ff62..4fcccf78ec5d 100644
+> > --- a/drivers/accel/ivpu/ivpu_drv.c
+> > +++ b/drivers/accel/ivpu/ivpu_drv.c
+> > @@ -852,6 +852,7 @@ static int ivpu_dev_init(struct ivpu_device *vdev)
+> >       return 0;
+> >
+> >   err_ipc_fini:
+> > +     ivpu_pm_disable_recovery(vdev);
+> >       ivpu_ipc_fini(vdev);
+> >   err_fw_fini:
+> >       ivpu_fw_fini(vdev);
+>
