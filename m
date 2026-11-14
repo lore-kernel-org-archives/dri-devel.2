@@ -2,82 +2,83 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F0E90606A335
-	for <dri-devel@archiver.kernel.org>; Sat, 14 Nov 2026 16:25:01 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 19F26606A32D
+	for <dri-devel@archiver.kernel.org>; Sat, 14 Nov 2026 16:25:04 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=R319Fwef
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=PSlAsAlB
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id A67A310EE01;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 760FB10ECA6;
 	Sat, 14 Nov 2026 16:24:48 +0000 (UTC)
-Received: from mail-pj1-f50.google.com (mail-pj1-f50.google.com
- [209.85.216.50])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 96C7510E110
- for <dri-devel@lists.freedesktop.org>; Fri, 13 Nov 2026 16:27:13 +0000 (UTC)
-Received: by mail-pj1-f50.google.com with SMTP id
- 98e67ed59e1d1-3b1c2c31a6fso49551a91.3
- for <dri-devel@lists.freedesktop.org>; Fri, 13 Nov 2026 08:27:13 -0800 (PST)
+Received: from mail-ej1-f48.google.com (mail-ej1-f48.google.com
+ [209.85.218.48])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 11AE210E2D1
+ for <dri-devel@lists.freedesktop.org>; Sat, 14 Nov 2026 01:44:04 +0000 (UTC)
+Received: by mail-ej1-f48.google.com with SMTP id
+ a640c23a62f3a-c4d581da0aaso241492166b.2
+ for <dri-devel@lists.freedesktop.org>; Fri, 13 Nov 2026 17:44:03 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20260707; t=1794587233; x=1795192033; darn=lists.freedesktop.org;
- h=content-transfer-encoding:mime-version:message-id:date:subject:cc
- :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
- bh=nH+4fuf6JFUHnT4EFq7h99rEDt8N7Ykz0lHqkyH7S6o=;
- b=R319FwefEDfx3ZYs+xaEBGfaH5PZWHyNZu3VRmZA8LQIW1mUcUCr2Dp5UQBWayFuH4
- E44xe7P38SpBNWLK55uCfERCdGESegBZPVUUoDYksDjyQ6FuXAiWF7fxlpdWTTfBdneo
- MEn4Jkp84Pv410TFkxPin3M9Hc5i2uij8QYrehbNzQ1kPvf32sfprjlBOyovBBOVFT+A
- f4SN6jqev17FeAnTeCpyjZ8IZZX5iMN2GRFMnS4Y13/gjP0/OjhRu2hbnavRsNHZVfmw
- trVduVsF/9+14D9OsSrQoc+HRsgiYf2pJikZCazHXCQj0ph/ssOMfZud+C1MvvMCoAYa
- zT8g==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20260707; t=1794587233; x=1795192033;
- h=content-transfer-encoding:mime-version:message-id:date:subject:cc
- :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+ d=gmail.com; s=20260707; t=1794620642; x=1795225442; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:mime-version:references:in-reply-to
+ :message-id:date:subject:cc:to:from:from:to:cc:subject:date
  :message-id:reply-to:content-type;
- bh=nH+4fuf6JFUHnT4EFq7h99rEDt8N7Ykz0lHqkyH7S6o=;
- b=K7xhwHaQ3pxlQIApsJgAJaawV7Y1jH+2dqlI2gQfXLKIiKynFaM6sEfQVUdXEti/o5
- VQlWuIIzvyJJn2/35qrDB8N+44MTD0xd6ecgNUwyj9c6tLiB5kSISQ95RmZ8PPVMHgLd
- DNXXzlR5FAp80zHqb7AkqYF7vTHTz2gRRZwNl0/vX7COjTkb7JiezBmhjyZ7KClJSFwb
- Qcel/023uRWTaSrVMD+DuXPLSVnoBA5Xkz3w1K9CWMlqFd9gLQt2myD7RFiFfmxC2dTp
- aKdljtUrPSpO8q02Y0WKJfEtZSd28+sqUHY25V31100WXMFtl+jVmXJ6ApdjqGgyVixM
- nwKw==
+ bh=gVcYrHxuKjjRDsavX/u54wCI8Z5NBBro/KfpNW0Hgew=;
+ b=PSlAsAlBKR1eJfNX0s3CCrfiFEzTUQqfrqtOZ4XRAIAMeGPMVzd7wfkCDRtrSfwD3C
+ DOLLejzMzrOBfVsSV4F7z/47Yd/OVor5z5MaNNPdpOvLmkz0a6XM44QIlPRLSYbDps2t
+ kEskpE1m0ue68ot1HyVvJN7Hp2V89tGnBfa8nUeUVcJmQfqLV2yvZdhXKTjiTvknNOke
+ LdqBAEfD/OSCToueU9OijOwTdc8Iak1M2OzaP7h167/L+LseKBIpfslLiEQDICW1l/T6
+ AAg5h0naC5EsL4KLp0SIEUWYr7vS1qVJMegalcYKXru+vwwo+4Am4oKsJUPiGKtIhfZV
+ yYVQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20260707; t=1794620642; x=1795225442;
+ h=content-transfer-encoding:mime-version:references:in-reply-to
+ :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+ :to:cc:subject:date:message-id:reply-to:content-type;
+ bh=gVcYrHxuKjjRDsavX/u54wCI8Z5NBBro/KfpNW0Hgew=;
+ b=xdnRKAlK7gp49AoOd/YPVrnxpYf6ZaMF4vHPsLuHCRlL5Tm1Xvs8Q8/92bmqV9+i3X
+ GoSjc//SZhSBADWWdrMyGYembe0BPgX1PZGD42A5IW2ZPrk/nwBxg+5P2MnV5Wssz1U8
+ Z2HONE5oGxXIdYh/h1FaBUFJOBoWtBQFSyWzOq+3svruIhFif/uz/KJx9ByUltEBMOU2
+ Snade+6bDGSg+o7UeDMFAYH1KuaauV4scWseKfjPAuG0u5KLQyrzrokvnNP8Y8/dI655
+ 2x+cPRybKwPM2vB3DZqysH4fn2MCnpwiEXClKIjvl2ONv1OBcs/GRmW9J1ec2nTA3K7K
+ hXRg==
 X-Forwarded-Encrypted: i=1;
- AL+hErGmU4zLXdvJxl+p+bQoQLoYy3bH4XC+bDcazwu+UGNKYP5av2WqSpzq8B0ITEmeW9+gvIRCEbQSHoo=@lists.freedesktop.org
-X-Gm-Message-State: APuU4Z91o7nNs/9q5bjYpKzMGy2KikIvy0cn5HuiyfuORm3sb1qfVdZq
- Wsec1fk3tg3Cwxnltf8ORcgfJ+diSiVLcWdOGIvoA852IuExuYTw06gQ
-X-Gm-Gg: AYBFou37UbhEaqAktNF1aJhq30EpHKUWd4YzqOu8UJqOfiBVTiU0hAX5uB6qOapzDgF
- beOKesxn+3UyTYVN3e/pYjUD7Sy35/DgUCEW5Ih8WXTEGmEB6uTBTBfCbTDYy9Yto/X1IyvZdcy
- Nl3OpTe7wFAAv5Z4Zop7iKaSmdOCaAJMVkeIu0KBRanPHk471/lNmujIfA5setvo+f+55b26fit
- 9/RdRBGM+84nBahpEy0toe06LtfegYSYld0mJAKTxPk17NgA0QdbDTosZVP19lPV/9jrX5mLbCn
- 6QNHZTB33wuFwrC+7Rhnm2dzl0gjICsQX6xLuF6OXDqG3hesqi/gb+8LhPxTt7RS+6UkthFua9e
- 2buZvpQ6A/kQcjDQBqreB/wsDvlrVVomi7KFjncLfbki7MntJh1EGQHRWPH1zFlnw7AHAVNZd3L
- 4JPQYb17vSz6p87snZ57ZG27akzO8mx8Q7KVsHUSEFIpP9xOI+c2+u/lqIjwCrBZEswEwdbdzfJ
- Ez/hXVmOxKgHle4xM6pBw+fQKU9H5i9RGOfvccLvFZ8L9q+3kXw6SIs6TzFPD2V9W/NaGR/iUly
- AK4X5ULqz4xoXlbtYhbPdsV0YikRdfc8+r03gkRU4ilJ43tjk3ndH2ZDxFrD2hlkxlvlyIQQU09
- fItA=
-X-Received: by 2002:a17:90b:568f:b0:3ae:629:ca12 with SMTP id
- 98e67ed59e1d1-3b1b0b506dbmr4305114a91.3.1794587233028; 
- Fri, 13 Nov 2026 08:27:13 -0800 (PST)
-Received: from DESKTOP-CJ1L666.localdomain ([211.198.99.62])
+ AL+hErFjKBgxt/JVVpS7hgIy1o9ZMX8JrFoCRt5YU6fg7IfG9NmovZlu9ukLsrFb6jRMaT3n2qugYwUiLSU=@lists.freedesktop.org
+X-Gm-Message-State: APuU4Z/neW9HHxM8o6NzgmSiyFN36LeQzZcgJUitLQvKv+EX4CpKc45o
+ 86TLmIxRMQBk08tp9TlEwxEGJa2SOpvoyawCVugNazlmFgT6u5VDK9AZ
+X-Gm-Gg: AYBFou2NcqL5GsINzxC7VOe3+xxxmW/QWo/c+kus8+UJy0XjNlC7+9+Ya18c000AR5H
+ 8S1FoXkx9zw48vfbJjDBiVGdObmGBF800Aq4zjU/5DfIko906vSvkY2wV+hmjI/Rd3AU+Q8gxoJ
+ JT350daQv987KbK4otKJ2cV4o3X+wNLw5JmLMPaVckpFfrMuP86O1fAjz0QX4nK2jQM2Hkj1XAl
+ ow6JCGeuwE774pSZejezCSUF5ZU1fupBuvItVgxpfU0k3pXF1+OOcNAlazdzlwMSA2R6L6Zz0kN
+ LrRv8w9L/ja6ANEwRLk/8uOaWbWjAEjzvaFgzWV1r5GmkxZ5jX4MwuU3JK4oXQQN6j2i4eatIyq
+ 1mH9I8QyGiEjhkFXqkXrREI5nksd3IbMxW9qq3SBxPZZYxmECS3eDDD93bsl0WvS3EnlPtl1xRH
+ egPymwOpzda88gNSHyxlmJL6f5LHgbfvizwzbI7zGPr42FjeT8MNpUkGOism/nIcLeCx78KpLiP
+ th+JNWHGKiyA20RZt8gvDwYiCS+CnHjweTr2GEcJK+NwGauxeL+l27xrIMnEls31sOwt/oKQcol
+ 3AK3JHROudNaCUO+uSNK4bzGXBRLiDQoURk2CarZX3K7WVUdFHN4W/oONuHn8rkLusZPmJ9UrBj
+ 9uXgujkFprHprwQZl1dnVVeQ=
+X-Received: by 2002:a17:907:96ac:b0:c29:3c97:c994 with SMTP id
+ a640c23a62f3a-c50963bd677mr349321366b.35.1794620642059; 
+ Fri, 13 Nov 2026 17:44:02 -0800 (PST)
+Received: from SMOK.angora-ide.ts.net
+ (mm-156-219-126-178.vitebsk.dynamic.pppoe.byfly.by. [178.126.219.156])
  by smtp.gmail.com with ESMTPSA id
- 98e67ed59e1d1-3b1bfb607e7sm712916a91.3.2026.11.13.08.27.05
+ a640c23a62f3a-c5095b5a4c1sm161402666b.48.2026.11.13.17.44.00
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Fri, 13 Nov 2026 08:27:09 -0800 (PST)
-From: Jiwoo Kim <arpe1618@gmail.com>
-To: Boris Brezillon <boris.brezillon@collabora.com>,
- Steven Price <steven.price@arm.com>, Liviu Dudau <liviu.dudau@arm.com>
-Cc: Akash Goel <akash.goel@arm.com>, Karunika Choo <karunika.choo@arm.com>,
- Lukas Zapolskas <lukas.zapolskas@arm.com>,
- Chris Diamand <chris.diamand@arm.com>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>,
- Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>,
- Simona Vetter <simona@ffwll.ch>, dri-devel@lists.freedesktop.org,
- linux-kernel@vger.kernel.org, Jiwoo Kim <arpe1618@gmail.com>,
- stable@vger.kernel.org
-Subject: [PATCH] drm/panthor: Don't access gpu_contexts of a destroyed heap
- pool
-Date: Sat, 14 Nov 2026 01:26:51 +0900
-Message-ID: <20261113162648.110226253-1-arpe1618@gmail.com>
-X-Mailer: git-send-email 2.43.0
+ Fri, 13 Nov 2026 17:44:01 -0800 (PST)
+From: ElXreno <elxreno@gmail.com>
+To: intel-gfx@lists.freedesktop.org,
+	intel-xe@lists.freedesktop.org
+Cc: jani.nikula@linux.intel.com, rodrigo.vivi@intel.com,
+ joonas.lahtinen@linux.intel.com, tursulin@ursulin.net,
+ ville.syrjala@linux.intel.com, ankit.k.nautiyal@intel.com,
+ mitulkumar.ajitkumar.golani@intel.com, airlied@gmail.com, simona@ffwll.ch,
+ dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
+ ElXreno <elxreno@gmail.com>
+Subject: [PATCH 5/7] drm/i915: Arm joined pipes within one vblank evasion for
+ VRR
+Date: Sat, 14 Nov 2026 04:43:33 +0300
+Message-ID: <20261114014335.2132756-6-elxreno@gmail.com>
+X-Mailer: git-send-email 2.56.0
+In-Reply-To: <20261114014335.2132756-1-elxreno@gmail.com>
+References: <20261114014335.2132756-1-elxreno@gmail.com>
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
@@ -101,131 +102,192 @@ X-Spam-Status: No, score=-15.8 required=3.0 tests=BAYES_00,DKIM_SIGNED,
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-panthor_heap_grow() and panthor_heap_return_chunk() compute the heap
-context offset from pool->gpu_contexts before taking pool->lock.
+All joined pipes run off the transcoder of the primary, so one vblank
+latches every one of them. On the MMIO path each pipe nevertheless
+goes through its own intel_pipe_update_start()/intel_pipe_update_end()
+critical section, one pipe after another. When the vblank falls
+between two of them the earlier pipe latches its new state a frame
+ahead of the later one, and for that frame the halves of the screen
+come from different frames.
 
-The tiler OOM work holds references on the group, its VM and the heap
-pool when it calls these functions, but nothing stops
-panthor_vm_destroy() from destroying the pool in the meantime.
-panthor_heap_pool_destroy() frees the gpu_contexts BO under pool->lock
-and marks the pool as destroyed by clearing pool->vm, but leaves
-pool->gpu_contexts pointing to the freed BO. VM destruction doesn't
-wait for the work either: panthor_sched_prepare_for_vm_destruction()
-only flushes the scheduler tick work, and only when the VM is active,
-and evicting the group doesn't help, as group_unbind_locked() uses
-cancel_work(), which doesn't wait for a tiler OOM work that is already
-running. Such a work can then read the freed BO.
+With VRR that gets worse, as the commit ends the frame itself: the
+push at the end of the primary's section latches whatever has been
+armed by then. Commit the joined pipes together when VRR is in use:
+do the vblank evasion once, on the primary, arm all of them inside
+that critical section and let the primary send the push at its end.
+The evasion accounting, the trace events and the atomic update
+failure check then run once as well, for the primary.
 
-Take pool->lock before dereferencing pool->gpu_contexts, and return
--EINVAL if the pool has been destroyed, as panthor_heap_create()
-already does.
+Armed this way the critical section takes 15 us on average for two
+pipes on Arrow Lake (71983 commits at 240 fps: 71918 under 30 us, 16
+between 30 and 60 us, 49 between 60 and 188 us), against the 100 us
+the evasion allows for. The window is not scaled with the number of
+pipes. The 49 are single MMIO writes that stall, not more work: the
+instruction count is that of an ordinary section, the CPU stays in
+C0, there is no SMI or NMI, and the register differs from case to
+case. The per pipe sections of the same mode without VRR and with
+the DSB turned off show the same stalls (15 of 72002 sections over
+60 us), so they do not come from arming two pipes in one section.
+None of them ran into a vblank.
 
-The problem was found through AI-assisted source code review. The fix
-is compile-tested only and there is no reproducer, as I don't have
-Mali CSF hardware.
+The per pipe sequence is kept where the critical section has per
+pipe work attached or the pipes need sequencing against others:
+modesets, the atomic fallback of a legacy cursor update, async flips,
+commits that need the vblank worker for the LUT load and commits that
+change the DDB allocation of a joined pipe. The vblank worker is
+needed on the platforms without double buffered LUTs, when a colour
+update or a fastset has LUTs to load that can neither be preloaded
+nor be left to a colour DSB. Commits that go through the DSB or the
+flip queue are not affected, and neither is the commit sequence of a
+joined configuration without VRR. The latter has the same race
+against the fixed vblank, it is left alone only to keep this change
+to the case that can be tested with it.
 
-Fixes: 9cca48fa4f89 ("drm/panthor: Add the heap logical block")
-Cc: stable@vger.kernel.org
-Assisted-by: Claude:claude-opus-5-5
-Signed-off-by: Jiwoo Kim <arpe1618@gmail.com>
+On the platforms with double buffered LUTs there is no vblank worker.
+Where no colour DSB is used the LUTs are loaded with MMIO inside the
+critical section, which here is the joined one and then loads them
+for all joined pipes. I have no such hardware and have not tested
+that.
+
+No functional change yet, VRR is not allowed with the joiner.
+
+Signed-off-by: ElXreno <elxreno@gmail.com>
 ---
+ drivers/gpu/drm/i915/display/intel_crtc.c    |  2 +-
+ drivers/gpu/drm/i915/display/intel_crtc.h    |  1 +
+ drivers/gpu/drm/i915/display/intel_display.c | 88 ++++++++++++++++++++
+ 3 files changed, 90 insertions(+), 1 deletion(-)
 
-Notes:
-    This conflicts trivially with Osama Abdelkader's pending "drm/panthor:
-    Fix race when retrieving the new chunk in panthor_heap_grow()", as both
-    change the local variables at the top of panthor_heap_grow(). I can
-    rebase on top of it if it lands first.
-    
-    While looking at this, I also noticed that panthor_heap_create() reads
-    pool->vm without pool->lock when allocating the initial chunks, in
-    panthor_alloc_heap_chunk(), so a concurrent VM destroy can make
-    panthor_kernel_bo_create() hit its drm_WARN_ON(!vm). That doesn't touch
-    freed memory and is left for a separate patch.
-
- drivers/gpu/drm/panthor/panthor_heap.c | 44 +++++++++++++++++++-------
- 1 file changed, 33 insertions(+), 11 deletions(-)
-
-diff --git a/drivers/gpu/drm/panthor/panthor_heap.c b/drivers/gpu/drm/panthor/panthor_heap.c
-index 99311abdf1..e55f7e648d 100644
---- a/drivers/gpu/drm/panthor/panthor_heap.c
-+++ b/drivers/gpu/drm/panthor/panthor_heap.c
-@@ -90,7 +90,7 @@ struct panthor_heap_pool {
- 	/** @vm: VM this pool is bound to. */
- 	struct panthor_vm *vm;
+diff --git a/drivers/gpu/drm/i915/display/intel_crtc.c b/drivers/gpu/drm/i915/display/intel_crtc.c
+index 139c9dae536e..f41616a060b5 100644
+--- a/drivers/gpu/drm/i915/display/intel_crtc.c
++++ b/drivers/gpu/drm/i915/display/intel_crtc.c
+@@ -487,7 +487,7 @@ int intel_crtc_get_pipe_from_crtc_id_ioctl(struct drm_device *dev, void *data,
+ 	return 0;
+ }
  
--	/** @lock: Lock protecting access to @xa. */
-+	/** @lock: Lock protecting access to @xa, @vm and @gpu_contexts. */
- 	struct rw_semaphore lock;
- 
- 	/** @xa: Array storing panthor_heap objects. */
-@@ -371,16 +371,27 @@ int panthor_heap_return_chunk(struct panthor_heap_pool *pool,
- 			      u64 heap_gpu_va,
- 			      u64 chunk_gpu_va)
+-static bool intel_crtc_needs_vblank_work(const struct intel_crtc_state *crtc_state)
++bool intel_crtc_needs_vblank_work(const struct intel_crtc_state *crtc_state)
  {
--	u64 offset = heap_gpu_va - panthor_kernel_bo_gpuva(pool->gpu_contexts);
--	u32 heap_id = (u32)offset / panthor_heap_ctx_stride(pool->ptdev);
- 	struct panthor_heap_chunk *chunk, *tmp, *removed = NULL;
- 	struct panthor_heap *heap;
-+	u32 heap_id;
-+	u64 offset;
- 	int ret;
+ 	struct intel_display *display = to_intel_display(crtc_state);
  
--	if (offset > U32_MAX || heap_id >= MAX_HEAPS_PER_POOL)
--		return -EINVAL;
--
- 	down_read(&pool->lock);
+diff --git a/drivers/gpu/drm/i915/display/intel_crtc.h b/drivers/gpu/drm/i915/display/intel_crtc.h
+index 12507b51ee77..0478394b01e8 100644
+--- a/drivers/gpu/drm/i915/display/intel_crtc.h
++++ b/drivers/gpu/drm/i915/display/intel_crtc.h
+@@ -50,6 +50,7 @@ void intel_pipe_update_start(struct intel_atomic_state *state,
+ 			     struct intel_crtc *crtc);
+ void intel_pipe_update_end(struct intel_atomic_state *state,
+ 			   struct intel_crtc *crtc);
++bool intel_crtc_needs_vblank_work(const struct intel_crtc_state *crtc_state);
+ void intel_wait_for_vblank_workers(struct intel_atomic_state *state);
+ struct intel_crtc *intel_first_crtc(struct intel_display *display);
+ struct intel_crtc *intel_crtc_for_pipe(struct intel_display *display,
+diff --git a/drivers/gpu/drm/i915/display/intel_display.c b/drivers/gpu/drm/i915/display/intel_display.c
+index aa03f674d93b..1fda1bb15674 100644
+--- a/drivers/gpu/drm/i915/display/intel_display.c
++++ b/drivers/gpu/drm/i915/display/intel_display.c
+@@ -7151,12 +7151,100 @@ static void intel_post_update_crtc(struct intel_atomic_state *state,
+ 	}
+ }
+ 
++/*
++ * All joined pipes run off the transcoder of the primary, so one
++ * vblank latches every one of them, and with VRR the commit itself
++ * ends the frame with a push. The arming registers of all joined
++ * pipes then have to be written within a single vblank evasion
++ * critical section, with the push at its end, or the pipes may
++ * latch in different frames.
++ */
++static bool intel_crtc_needs_joined_update(struct intel_atomic_state *state,
++					   struct intel_crtc *crtc)
++{
++	struct intel_display *display = to_intel_display(state);
++	const struct intel_crtc_state *old_crtc_state =
++		intel_atomic_get_old_crtc_state(state, crtc);
++	const struct intel_crtc_state *new_crtc_state =
++		intel_atomic_get_new_crtc_state(state, crtc);
++	struct intel_crtc *pipe_crtc;
 +
-+	/* The heap contexts are gone if the pool has been destroyed. */
-+	if (!pool->vm) {
-+		ret = -EINVAL;
-+		goto out_unlock;
++	if (!new_crtc_state->joiner_pipes)
++		return false;
++
++	/* FIXME do this for the fixed refresh rate case as well */
++	if (!old_crtc_state->vrr.enable && !new_crtc_state->vrr.enable)
++		return false;
++
++	/* FIXME the cursor unpin works are set up per pipe */
++	if (state->base.legacy_cursor_update)
++		return false;
++
++	for_each_intel_crtc_in_pipe_mask(display, pipe_crtc,
++					 intel_crtc_joined_pipe_mask(new_crtc_state)) {
++		const struct intel_crtc_state *old_pipe_crtc_state =
++			intel_atomic_get_old_crtc_state(state, pipe_crtc);
++		const struct intel_crtc_state *new_pipe_crtc_state =
++			intel_atomic_get_new_crtc_state(state, pipe_crtc);
++
++		/* The DSB and the flip queue do their own vblank evasion */
++		if (new_pipe_crtc_state->commit_type != INTEL_COMMIT_MMIO)
++			return false;
++
++		if (intel_crtc_needs_modeset(new_pipe_crtc_state) ||
++		    new_pipe_crtc_state->do_async_flip)
++			return false;
++
++		/* FIXME the vblank work is set up per pipe */
++		if (intel_crtc_needs_vblank_work(new_pipe_crtc_state))
++			return false;
++
++		/*
++		 * A changed DDB allocation must be sequenced
++		 * against the other pipes one pipe at a time.
++		 */
++		if (!skl_ddb_entry_equal(&old_pipe_crtc_state->wm.skl.ddb,
++					 &new_pipe_crtc_state->wm.skl.ddb))
++			return false;
 +	}
 +
-+	offset = heap_gpu_va - panthor_kernel_bo_gpuva(pool->gpu_contexts);
-+	heap_id = (u32)offset / panthor_heap_ctx_stride(pool->ptdev);
-+	if (offset > U32_MAX || heap_id >= MAX_HEAPS_PER_POOL) {
-+		ret = -EINVAL;
-+		goto out_unlock;
-+	}
++	return true;
++}
 +
- 	heap = xa_load(&pool->xa, heap_id);
- 	if (!heap) {
- 		ret = -EINVAL;
-@@ -435,16 +446,27 @@ int panthor_heap_grow(struct panthor_heap_pool *pool,
- 		      u32 pending_frag_count,
- 		      u64 *new_chunk_gpu_va)
++static void intel_update_joined_crtcs(struct intel_atomic_state *state,
++				      struct intel_crtc *primary_crtc)
++{
++	struct intel_display *display = to_intel_display(state);
++	const struct intel_crtc_state *new_crtc_state =
++		intel_atomic_get_new_crtc_state(state, primary_crtc);
++	u8 pipe_mask = intel_crtc_joined_pipe_mask(new_crtc_state);
++	struct intel_crtc *pipe_crtc;
++
++	/* Perform vblank evasion around the commit of all joined pipes */
++	intel_pipe_update_start(state, primary_crtc);
++
++	for_each_intel_crtc_in_pipe_mask_reverse(display, pipe_crtc, pipe_mask)
++		commit_pipe_arm(state, pipe_crtc);
++
++	intel_pipe_update_end(state, primary_crtc);
++
++	for_each_intel_crtc_in_pipe_mask_reverse(display, pipe_crtc, pipe_mask)
++		intel_post_update_crtc(state, pipe_crtc);
++}
++
+ static void intel_update_crtc(struct intel_atomic_state *state,
+ 			      struct intel_crtc *crtc)
  {
--	u64 offset = heap_gpu_va - panthor_kernel_bo_gpuva(pool->gpu_contexts);
--	u32 heap_id = (u32)offset / panthor_heap_ctx_stride(pool->ptdev);
- 	struct panthor_heap_chunk *chunk;
- 	struct panthor_heap *heap;
-+	u32 heap_id;
-+	u64 offset;
- 	int ret;
+ 	struct intel_crtc_state *new_crtc_state =
+ 		intel_atomic_get_new_crtc_state(state, crtc);
  
--	if (offset > U32_MAX || heap_id >= MAX_HEAPS_PER_POOL)
--		return -EINVAL;
--
- 	down_read(&pool->lock);
-+
-+	/* The heap contexts are gone if the pool has been destroyed. */
-+	if (!pool->vm) {
-+		ret = -EINVAL;
-+		goto out_unlock;
++	if (intel_crtc_needs_joined_update(state, crtc)) {
++		/* The secondaries are committed along with the primary */
++		if (intel_crtc_is_joiner_primary(new_crtc_state))
++			intel_update_joined_crtcs(state, crtc);
++		return;
 +	}
 +
-+	offset = heap_gpu_va - panthor_kernel_bo_gpuva(pool->gpu_contexts);
-+	heap_id = (u32)offset / panthor_heap_ctx_stride(pool->ptdev);
-+	if (offset > U32_MAX || heap_id >= MAX_HEAPS_PER_POOL) {
-+		ret = -EINVAL;
-+		goto out_unlock;
-+	}
-+
- 	heap = xa_load(&pool->xa, heap_id);
- 	if (!heap) {
- 		ret = -EINVAL;
-
-base-commit: bafda823590ddf7031ecb765d673572fae7ab44a
+ 	switch (new_crtc_state->commit_type) {
+ 	case INTEL_COMMIT_FLIPQ:
+ 		intel_flipq_enable(new_crtc_state);
 -- 
-2.43.0
+2.56.0
 
