@@ -2,40 +2,39 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F105F606A323
-	for <dri-devel@archiver.kernel.org>; Sat, 14 Nov 2026 18:14:46 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 061AA606A327
+	for <dri-devel@archiver.kernel.org>; Sat, 14 Nov 2026 18:14:50 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=GTRh6QTH
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=cggeO0OW
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 0C17810E188;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 1383010E267;
 	Sat, 14 Nov 2026 18:14:41 +0000 (UTC)
 Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 52A6E10E267
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 29A5B10E188
  for <dri-devel@lists.freedesktop.org>; Sat, 14 Nov 2026 18:14:34 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by tor.source.kernel.org (Postfix) with ESMTP id CA403608FA;
+ by tor.source.kernel.org (Postfix) with ESMTP id 294B960008;
  Sat, 14 Nov 2026 18:14:33 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 56AA61F000C4;
- Sat, 14 Nov 2026 18:14:33 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id AB00C1F000C4;
+ Sat, 14 Nov 2026 18:14:32 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1794680073;
- bh=Q/SP1Nudm6vRLU2OZJjgN6v3qFBuwTdTsDXWkWT+2Y8=;
+ s=k20260515; t=1794680072;
+ bh=Y5H+uTbiiSWnrXDs+Y5FMkJ7U7wN86frgowRRfW7joU=;
  h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
- b=GTRh6QTHTGihGZ7Vxcm0yFC/K0pnufH2humktjTILh/aYXoETvOVecqQuxhnzjei7
- g9sQInmag9OXoy8HGWpqJ01yJdQ7z5Me75PHO1lXW7mjFit9PHz1KdBBoHiXbJXB8i
- p9r/awRDYQY1VJbnTaSzhoa/RKh8psbJ+klv8BoBjjWCvTQ0Fx5ze7pYExD+KvjTAd
- 4UnC18vhjxwYlgzWk/IgdFWQk7WzOpibeqv+sAGh1nl2snzEXXDNjIa/lnlkpCiBMc
- cdred5RTfwDFVjc2DNWVTpMuDLVm29HBDDEAywupoz4F2psREER2iFPoiS4InmyHci
- o58ygpyO8dtFg==
-Message-ID: <sashiko-outbox-214894@kernel.org>
+ b=cggeO0OWgeJoKcBPviD1sSYDTHYDloRMYy1OEu2RDHk3dovzR8W8I5a1nk4GYaeRM
+ 5QQKqxLgfX5PyYsqyBgma4A5HmMB4RpgEdUFu2VAI/Zo6XOe4Nn7rID8bew9pCJWMw
+ +nCdxlJNV6l+ViQ5hGdhSJ2rdiU796EeQOLUoQctO/SKeqX1rv2z6k7APkP+2h3UzX
+ fHxJAlMWmD6CAwviJRmmE10I8VUdp9XuNGqhWyUrkOJCTJBfr6qmTNRXCekLYURUL1
+ Nr17qEXOo3YJp1eBdNhfU9nd5lPuQQ+ObYt4I9Sti+8c73lWty0hQDrjeyl6RT/GW1
+ xpq5rVv3BfSTg==
+Message-ID: <sashiko-outbox-214893@kernel.org>
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH 06/25] drm/tests: hdmi: Convert to
- drmm_connector_hdmi_init()
+Subject: Re: [PATCH 23/25] drm/tests: bridge: Set supported HDMI version
 To: "Cristian Ciocaltea" <cristian.ciocaltea@collabora.com>
 Cc: dri-devel@lists.freedesktop.org
-In-Reply-To: <20261114-drm-conn-hdmi-cleanup-v1-6-20e8a33a2286@collabora.com>
+In-Reply-To: <20261114-drm-conn-hdmi-cleanup-v1-23-20e8a33a2286@collabora.com>
 References: <20261114-drm-conn-hdmi-cleanup-v1-0-20e8a33a2286@collabora.com>
- <20261114-drm-conn-hdmi-cleanup-v1-6-20e8a33a2286@collabora.com>
+ <20261114-drm-conn-hdmi-cleanup-v1-23-20e8a33a2286@collabora.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
 Date: Sat, 14 Nov 2026 18:14:32 +0000
@@ -62,70 +61,60 @@ X-Archived-By: <archiver.kernel.org>
 Thank you for your contribution! Sashiko AI review found no new issues
 in this patch, but noticed 1 related pre-existing issue it does not
 introduce:
-- [Medium] drm/tests: ww_mutex leak in
-  drm_test_check_reject_audio_infoframe() [1]
+- [Medium] drm/tests: bridge: memory leak of edid in
+  drm_test_bridge_chain_init() [1]
 --
 
-commit d078fa85b984429f42b17f7efe1e93d8055ccfb2
+commit e45be11e80ff96e23882e09db24056eb896ea3a6
 Author: Cristian Ciocaltea <cristian.ciocaltea@collabora.com>
 
-drm/tests: hdmi: Convert to drmm_connector_hdmi_init()
+drm/tests: bridge: Set supported HDMI version
 
-This commit converts the HDMI state helper KUnit tests to the new
-drmm_connector_hdmi_init() signature and stores each connector's
-drm_connector_hdmi_funcs copy in drm_atomic_helper_connector_hdmi_priv so
-it outlives the connector.
+This commit sets supported_hdmi_ver to HDMI_VERSION_1_4 on HDMI test
+bridges in the KUnit bridge tests.
 
-> diff --git a/drivers/gpu/drm/tests/drm_hdmi_state_helper_test.c b/drivers=
-/gpu/drm/tests/drm_hdmi_state_helper_test.c
-> index 336bb644cb7c9..f1bdd197429c6 100644
-> --- a/drivers/gpu/drm/tests/drm_hdmi_state_helper_test.c
-> +++ b/drivers/gpu/drm/tests/drm_hdmi_state_helper_test.c
-
-[ ... ]
-
-> @@ -3314,8 +3310,6 @@ static void drm_test_check_reject_audio_infoframe(s=
-truct kunit *test)
->  	int ret;
-> =20
->  	priv =3D drm_kunit_helper_connector_hdmi_init_with_edid_funcs(test,
-> -				BIT(DRM_OUTPUT_COLOR_FORMAT_RGB444),
-> -				8,
->  				&reject_audio_infoframe_hdmi_funcs,
->  				test_edid_hdmi_1080p_rgb_max_200mhz);
->  	KUNIT_ASSERT_NOT_NULL(test, priv);
+> diff --git a/drivers/gpu/drm/tests/drm_bridge_test.c b/drivers/gpu/drm/te=
+sts/drm_bridge_test.c
+> index 15583ade84946..a445f71c31b84 100644
+> --- a/drivers/gpu/drm/tests/drm_bridge_test.c
+> +++ b/drivers/gpu/drm/tests/drm_bridge_test.c
+> @@ -497,6 +497,7 @@ drm_test_bridge_chain_init(struct kunit *test, unsign=
+ed int num_bridges,
+>  			bridge->type =3D DRM_MODE_CONNECTOR_HDMIA;
+>  			bridge->vendor =3D "LNX";
+>  			bridge->product =3D "KUnit";
+> +			bridge->supported_hdmi_ver =3D HDMI_VERSION_1_4;
+>  			bridge->supported_formats =3D (BIT(DRM_OUTPUT_COLOR_FORMAT_RGB444) |
+>  						     BIT(DRM_OUTPUT_COLOR_FORMAT_YCBCR444) |
+>  						     BIT(DRM_OUTPUT_COLOR_FORMAT_YCBCR422) |
 
 [Severity: Medium]
-This problem wasn't introduced by this patch, but can a failed assertion in
-drm_test_check_reject_audio_infoframe() leak the modeset ww_mutex locks in
-ctx [1]?
+This problem wasn't introduced by this patch, but does
+drm_test_bridge_chain_init() leak edid [1] when has_hdmi is true?
 
-drivers/gpu/drm/tests/drm_hdmi_state_helper_test.c:drm_test_check_reject_au=
-dio_infoframe() {
+drivers/gpu/drm/tests/drm_bridge_test.c:drm_test_bridge_chain_init() {
     ...
-	drm_modeset_acquire_init(&ctx, 0);
+	scoped_guard(mutex, &drm->mode_config.mutex) {
+		edid =3D drm_edid_alloc(test_edid_hdmi_1080p_rgb_yuv_4k_yuv420_dc_max_200=
+mhz,
+				ARRAY_SIZE(test_edid_hdmi_1080p_rgb_yuv_4k_yuv420_dc_max_200mhz));
+		if (!edid)
+			return ERR_PTR(-EINVAL);
 
-retry_conn_enable:
-	ret =3D drm_kunit_helper_enable_crtc_connector(test, drm,
-						     crtc, conn,
-						     preferred,
-						     &ctx);
+		drm_edid_connector_update(priv->connector, edid);
+		KUNIT_ASSERT_GT(test, drm_edid_connector_add_modes(priv->connector), 0);
+
+		ret =3D priv->connector->funcs->fill_modes(priv->connector, 4096, 4096);
+	}
     ...
-	KUNIT_ASSERT_EQ(test, ret, 0);
-    ...
-	drm_modeset_drop_locks(&ctx);
-	drm_modeset_acquire_fini(&ctx);
 }
 
-KUNIT_ASSERT_* returns immediately on failure, bypassing
-drm_modeset_drop_locks() and drm_modeset_acquire_fini() at the end of the
-function.  Because ctx lives on the stack, returning with locks held leaves
-dangling lock list nodes pointing to out-of-scope stack memory, triggering
-lockdep warnings and potential crashes during subsequent tests or DRM
-device cleanup.
+drm_edid_connector_update() copies the EDID data into a connector property
+blob without taking ownership of edid, and drm_edid_free() is never called
+before returning.
 
-[1] https://sashiko.dev/#/bug/linux-1258d4b2-95ea-43e2-a892-e2011a232ee8
+[1] https://sashiko.dev/#/bug/linux-cc41077e-4212-413a-a83b-7a6487bad187
 
 --=20
 Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261114-drm-conn-h=
-dmi-cleanup-v1-0-20e8a33a2286@collabora.com?part=3D6
+dmi-cleanup-v1-0-20e8a33a2286@collabora.com?part=3D23
