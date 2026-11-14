@@ -2,44 +2,44 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 967D3606A332
-	for <dri-devel@archiver.kernel.org>; Sat, 14 Nov 2026 05:01:21 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 24043606A89B
+	for <dri-devel@archiver.kernel.org>; Sat, 14 Nov 2026 05:01:23 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=collabora.com header.i=@collabora.com header.a=rsa-sha256 header.s=mail header.b=Cfwg245a
+	dkim=pass (2048-bit key) header.d=collabora.com header.i=@collabora.com header.a=rsa-sha256 header.s=mail header.b=C9ylrcxn
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 6390C10E7AC;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 62B8510E7A8;
 	Sat, 14 Nov 2026 05:01:12 +0000 (UTC)
 Received: from bali.collaboradmins.com (bali.collaboradmins.com
  [148.251.105.195])
- by gabe.freedesktop.org (Postfix) with ESMTPS id DE33D10E770
+ by gabe.freedesktop.org (Postfix) with ESMTPS id B6D4310E6EC
  for <dri-devel@lists.freedesktop.org>; Sat, 14 Nov 2026 05:01:04 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
- s=mail; t=1794632457;
- bh=jW3pTq3R7bOpTIyh4wVZ51psj2/mar6tT6/Xkgyz95U=;
+ s=mail; t=1794632456;
+ bh=QxdMOism8SgOCS21Pd4nTNnv0OG6gglB5ydp900h808=;
  h=From:Date:Subject:References:In-Reply-To:To:Cc:From;
- b=Cfwg245aIg22lpownZsOmrhQm3NyLBV9MH2XACwSCMNpmS/4kFtwZE6fXPLDsZME5
- lLUKv+gdIQWhpX0gjcuGF4KaHdBCETymWyLfz4l9JWc+wSQ9mX4hsmHYBrzjLclmaS
- gHP3HBdB3e4EsPrWyp1qEWhpcz9e1W4b7CllMqDaFycjX0T6YEkYHl1clXGgKr+xZi
- SmIPOmicU8FDpzddBoKWMHEoNn5IRXRjjPG90MeW6SiTYBfj/P7kXhygIUgNX5EuWW
- 7DTx67dvcZow4EurZOrq5htyJUKsyw8nDpyE41VXs02di9WRYyIZNYhbqzTf75Nt/+
- H5+TbPK8OefSw==
+ b=C9ylrcxnOe6qFQsW7w5p6iB73+p+F9WFdttzRktJm0Gz3QPt1me2gbKOZX2LJoyJ5
+ WrbwhtQ/bm38NBS9909QE0u/DJoodlHz9ZxJakVvJCEOG/KHwa7/fIWAyqr8S8WeTg
+ Y1BAVcCLcGgyjT22zTq2eFkfhxIGqr2tuqTywzy4KjiXhe2l8OYl+0djHNMiRO4R/j
+ wWxakRLH9xL7hZ2LCBpHnB86QPbODRdhyHJACxYieVhDoiUuYQ4dPPLSgUulOi3XA0
+ KdKJKOzuR+/DeO0/TxmJNC+I+oW7kRxMfki05T40Oa3jDeWfLcLFEmDdZKfqckX64B
+ iCUeM80vdhjkQ==
 Received: from jupiter.universe (unknown [100.64.1.62])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange x25519) (No client certificate requested)
  (Authenticated sender: sre)
- by bali.collaboradmins.com (Postfix) with ESMTPSA id CEA2117E3BE8;
+ by bali.collaboradmins.com (Postfix) with ESMTPSA id B645617E3BD1;
  Sat, 14 Nov 2026 06:00:56 +0100 (CET)
 Received: by jupiter.universe (Postfix, from userid 1000)
- id 1EF70480052; Sat, 14 Nov 2026 06:00:56 +0100 (CET)
+ id 18F89480047; Sat, 14 Nov 2026 06:00:56 +0100 (CET)
 From: Sebastian Reichel <sebastian.reichel@collabora.com>
-Date: Sat, 14 Nov 2026 06:00:46 +0100
-Subject: [PATCH v12 13/23] drm/rockchip: dw_dp: Implement out-of-band HPD
- handling
+Date: Sat, 14 Nov 2026 06:00:42 +0100
+Subject: [PATCH v12 09/23] drm/bridge: synopsys: dw-dp: Support
+ MEDIA_BUS_FMT_FIXED
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20261114-synopsys-dw-dp-improvements-v12-13-d42d3dc5bdd4@collabora.com>
+Message-Id: <20261114-synopsys-dw-dp-improvements-v12-9-d42d3dc5bdd4@collabora.com>
 References: <20261114-synopsys-dw-dp-improvements-v12-0-d42d3dc5bdd4@collabora.com>
 In-Reply-To: <20261114-synopsys-dw-dp-improvements-v12-0-d42d3dc5bdd4@collabora.com>
 To: Sandy Huang <hjc@rock-chips.com>, 
@@ -66,21 +66,21 @@ Cc: Cristian Ciocaltea <cristian.ciocaltea@collabora.com>,
  Sebastian Reichel <sebastian.reichel@collabora.com>, 
  Igor Paunovic <royalnet026@gmail.com>
 X-Mailer: b4 0.16.0
-X-Developer-Signature: v=1; a=openpgp-sha256; l=6431;
+X-Developer-Signature: v=1; a=openpgp-sha256; l=3869;
  i=sebastian.reichel@collabora.com; h=from:subject:message-id;
- bh=jW3pTq3R7bOpTIyh4wVZ51psj2/mar6tT6/Xkgyz95U=;
- b=owJ4nAFtApL9kA0DAAoB2O7X88g7+poByyZiAGr36weIOLemRYG8AS8zuIkjV18ZzUojTLjK1
- wMCLKX5BebR84kCMwQAAQoAHRYhBO9mDQdGP4tyanlUE9ju1/PIO/qaBQJq9+sHAAoJENju1/PI
- O/qagsQP+QE4IBi+H2jk02AviXZbcohR6OfA6KCLqERt71uAjHrLO2fZnrI1HX6iDIJggIi4UPd
- n12JjEOKW+gkyIeuPOQs+M7hNmaDgIx7K/EKXgi1BmIxYGTUZJg5g4aMRrGEJr7Ki6+KmXFd1An
- oVxy6a7H8YBQGQAgPmhvtyUdFFHIcrCHFqdT0Bs2tuCRr8lR9Jzw7kaEV+6imIgQE+65SyKsKI3
- oksVF9S75ubd83fZrtuylo6zTpUMAZ8p4VCqEjEdA+QyrqFT/egfLygzb3THU5wd1495fcygxHb
- BgZ7OAIYrGrX4Bf8wMMOaAGDRBR2MVDjp3BWGTXs5O5jk0hxj7RzBJTMcFJKzvgX2/jBdiRvLRw
- 4C+lVYdRZZsxMI0jDrFXVOP0lEbauRw3XxJBaXMT/eXt/xBkLtMbspgYmYCMNYKSsYoWhY71J/e
- pctpm5MEdwSxLZK1B7ZxsnV/BsPSOl+t10I/c8DP1kHVedkRJi/fODjYZK7q2H2s7yc2S+H2Yvt
- t/qfctTrNI2+CgLh8FGX4ipEbSmbsuw2iXoqDKU6ZytJVb7R0Vo0z91Z5chbA4rF+EsDgbXjIKT
- O65pHg3FzjqBEJ6dWQK4EanGQPio8tPFRPq4NrpKYcL23dF9DRzZSY/SNDXE5sFvinm++crPTV7
- w8O5jGD/95QyiA6anqN8oSA==
+ bh=QxdMOism8SgOCS21Pd4nTNnv0OG6gglB5ydp900h808=;
+ b=owJ4nAFtApL9kA0DAAoB2O7X88g7+poByyZiAGr36wfglAOEVNJTvKhHq999+Q8N9n2wXR9et
+ JNR4P8DgheS/IkCMwQAAQoAHRYhBO9mDQdGP4tyanlUE9ju1/PIO/qaBQJq9+sHAAoJENju1/PI
+ O/qaKm4P/0lrFXviKzssjcyuHIGiSo66qrpi7GBtUwUZy5lI0ZXbrZD88OPNhhk/VzqOGj82kJX
+ uZSNYFwYOTEIfZpfGWSWH9OnG/lY968p5LppZmPAIYiv1/8yuO5NbYdz5OYZKhAoDXmiyF+FaSD
+ KNNDy++MpoC+6QVD+6wx33vaMddEbL2tP5YsaNcP+uZSyBb2UPknjYIA+y1PNdUnFAPHFQ2Fx5O
+ IXnZA7U79zz2tn1NuqMuJmkd4WHkPlpoDx7bOvFBF5yVRO497O+nOx+P4cmoDTUBAxZHC6E9Exo
+ H53f75r2gJYbKyD9epp2/fTFEIgqSiAJawqH8Ai8y+o8/3EYGSWYHANN7zsa/Cssh6KaRdPzQqm
+ eMI+MoJtN7wm/vm7YMhqIi/wJs1F9qX2IB26BS5S3uK7dSzHeHIjg3kIyD8NJhqeHUutpZsw4XI
+ yjuiahRWxhoOsun/VYUhm3Jluy+bfbXmWNBTuS9aWTySWD8dRRyMo30nxUw/zq3YjgzmrxwSDPS
+ 0apuKVFnHTnIUpBR0QCmPpFJF7iY6/UFei5FjjqU07Esvzid9zUr6Uv4lLZJsQGr3aO8MxF2zAh
+ jp+cAbhBxt7Os64GaD2eaqMvta+R1oiEp9ts4IpZUpf59o26V5Z97kzu1LVFl0Rflz6JbHeNXuo
+ 1VF5U6MGkYNdAL5C/AFs5sQ==
 X-Developer-Key: i=sebastian.reichel@collabora.com; a=openpgp;
  fpr=EF660D07463F8B726A795413D8EED7F3C83BFA9A
 X-BeenThere: dri-devel@lists.freedesktop.org
@@ -102,205 +102,92 @@ X-Spam-Status: No, score=-18.8 required=3.0 tests=BAYES_00,DKIM_SIGNED,
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-Implement out-of-band hotplug handling, which will be used to receive
-external hotplug information from the USB-C state machine. This is
-currently handled by the USBDP PHY, which brings quite some trouble
-as the register being accessed requires the power-domain from the DP
-controller. Thus this patch prevents massive SError problems once
-runtime PM is implemented (and enabled) in the DP driver. Apart from
-that it avoids custom TypeC HPD info parsing in the USBDP PHY driver.
+Add support for MEDIA_BUS_FMT_FIXED, which is e.g. requested for USB-C
+DP chains as the last bridge in the chain (aux-hpd-bridge) does not
+implement atomic_get_output_bus_fmts(), which results in the generic
+drm_atomic_bridge_chain_select_bus_fmts() code using MEDIA_BUS_FMT_FIXED
+instead. For decent support of this, two areas are changed:
 
-In contrast to the USBDP PHY this does not just enable the hotplug
-signal when a DP AltMode capable adapter is plugged in, but instead
-properly detects if a cable is plugged in for things like USB-C to
-HDMI adapters.
+1. In atomic_check, resolving MEDIA_BUS_FMT_FIXED output format by
+   using the negotiated input format.
+
+2. Implementing a custom .atomic_get_input_bus_fmts hook that, on
+   MEDIA_BUS_FMT_FIXED, advertises all bandwidth-validated formats
+   from dw_dp_bridge_atomic_get_output_bus_fmts(). This lets the
+   upstream encoder negotiate the best mutually supported format.
 
 Tested-by: Igor Paunovic <royalnet026@gmail.com> # Orange Pi 5+
 Signed-off-by: Sebastian Reichel <sebastian.reichel@collabora.com>
 ---
- drivers/gpu/drm/rockchip/dw_dp-rockchip.c | 116 ++++++++++++++++++++++++++++--
- 1 file changed, 111 insertions(+), 5 deletions(-)
+ drivers/gpu/drm/bridge/synopsys/dw-dp.c | 34 +++++++++++++++++++++++++++++++--
+ 1 file changed, 32 insertions(+), 2 deletions(-)
 
-diff --git a/drivers/gpu/drm/rockchip/dw_dp-rockchip.c b/drivers/gpu/drm/rockchip/dw_dp-rockchip.c
-index 38e8fe75718e..c5386653991d 100644
---- a/drivers/gpu/drm/rockchip/dw_dp-rockchip.c
-+++ b/drivers/gpu/drm/rockchip/dw_dp-rockchip.c
-@@ -7,9 +7,12 @@
-  */
- 
- #include <linux/component.h>
-+#include <linux/hw_bitfield.h>
- #include <linux/media-bus-format.h>
-+#include <linux/mfd/syscon.h>
- #include <linux/of_device.h>
- #include <linux/platform_device.h>
-+#include <linux/regmap.h>
- #include <linux/videodev2.h>
- 
- #include <drm/bridge/dw_dp.h>
-@@ -23,12 +26,46 @@
- 
- #include "rockchip_drm_drv.h"
- 
-+#define ROCKCHIP_MAX_CTRLS 2
-+
-+#define ROCKCHIP_VO_GRF_DP_SINK_HPD_SEL BIT(10)
-+#define ROCKCHIP_VO_GRF_DP_SINK_HPD_CFG BIT(11)
-+
-+struct rockchip_dw_dp_plat_data {
-+	u8 num_ctrls;
-+	u64 ctrl_ids[ROCKCHIP_MAX_CTRLS];
-+	u32 max_link_rate;
-+	u8 pixel_mode;
-+	u32 hpd_reg[ROCKCHIP_MAX_CTRLS];
-+};
-+
- struct rockchip_dw_dp {
- 	struct dw_dp *base;
- 	struct device *dev;
-+	const struct rockchip_dw_dp_plat_data *pdata;
-+	struct regmap *vo_grf;
- 	struct rockchip_encoder *encoder;
-+	int id;
- };
- 
-+static void dw_dp_rockchip_hpd_sw_sel(void *data, bool force_hpd_from_sw)
-+{
-+	struct rockchip_dw_dp *dp = data;
-+	u32 hpd_reg = dp->pdata->hpd_reg[dp->id];
-+
-+	regmap_write(dp->vo_grf, hpd_reg,
-+		     FIELD_PREP_WM16(ROCKCHIP_VO_GRF_DP_SINK_HPD_SEL, force_hpd_from_sw));
-+}
-+
-+static void dw_dp_rockchip_hpd_sw_cfg(void *data, bool hpd)
-+{
-+	struct rockchip_dw_dp *dp = data;
-+	u32 hpd_reg = dp->pdata->hpd_reg[dp->id];
-+
-+	regmap_write(dp->vo_grf, hpd_reg,
-+		     FIELD_PREP_WM16(ROCKCHIP_VO_GRF_DP_SINK_HPD_CFG, hpd));
-+}
-+
- static int dw_dp_encoder_atomic_check(struct drm_encoder *encoder,
- 				      struct drm_crtc_state *crtc_state,
- 				      struct drm_connector_state *conn_state)
-@@ -71,6 +108,35 @@ static const struct drm_encoder_helper_funcs dw_dp_encoder_helper_funcs = {
- 	.atomic_check		= dw_dp_encoder_atomic_check,
- };
- 
-+static struct regmap *dw_dp_rockchip_get_vo_grf(struct rockchip_dw_dp *dp)
-+{
-+	struct device_node *np = dev_of_node(dp->dev);
-+	struct of_phandle_args args;
-+	struct regmap *regmap;
-+	int ret;
-+
-+	ret = of_parse_phandle_with_args(np, "phys", "#phy-cells", 0, &args);
-+	if (ret)
-+		return ERR_PTR(-ENODEV);
-+
-+	/*
-+	 * Limit this workaround to RK3576 and RK3588, potential future platforms
-+	 * reusing the driver should just add a VO GRF phandle in the DisplayPort
-+	 * controller DT node.
-+	 */
-+	if (!of_device_is_compatible(args.np, "rockchip,rk3576-usbdp-phy") &&
-+	    !of_device_is_compatible(args.np, "rockchip,rk3588-usbdp-phy")) {
-+		regmap = ERR_PTR(-ENODEV);
-+		goto out_put_node;
-+	}
-+
-+	regmap = syscon_regmap_lookup_by_phandle(args.np, "rockchip,vo-grf");
-+
-+out_put_node:
-+	of_node_put(args.np);
-+	return regmap;
-+}
-+
- static int dw_dp_rockchip_bind(struct device *dev, struct device *master, void *data)
+diff --git a/drivers/gpu/drm/bridge/synopsys/dw-dp.c b/drivers/gpu/drm/bridge/synopsys/dw-dp.c
+index 158c727ab58b..5db9063ee97e 100644
+--- a/drivers/gpu/drm/bridge/synopsys/dw-dp.c
++++ b/drivers/gpu/drm/bridge/synopsys/dw-dp.c
+@@ -1536,6 +1536,7 @@ static int dw_dp_bridge_atomic_check(struct drm_bridge *bridge,
+ 				     struct drm_connector_state *conn_state)
  {
- 	struct rockchip_dw_dp *dp = dev_get_drvdata(dev);
-@@ -121,19 +187,53 @@ static const struct component_ops dw_dp_rockchip_component_ops = {
+ 	struct drm_display_mode *adjusted_mode = &crtc_state->adjusted_mode;
++	unsigned int out_bus_format = bridge_state->output_bus_cfg.format;
+ 	struct dw_dp *dp = bridge_to_dp(bridge);
+ 	struct dw_dp_bridge_state *state;
+ 	const struct dw_dp_output_format *fmt;
+@@ -1546,7 +1547,10 @@ static int dw_dp_bridge_atomic_check(struct drm_bridge *bridge,
+ 	state = to_dw_dp_bridge_state(bridge_state);
+ 	mode = &state->mode;
  
- static int dw_dp_rockchip_probe(struct platform_device *pdev)
- {
--	const struct dw_dp_plat_data *plat_data;
-+	const struct rockchip_dw_dp_plat_data *plat_data_const;
-+	struct dw_dp_plat_data *plat_data;
- 	struct device *dev = &pdev->dev;
- 	struct rockchip_dw_dp *dp;
-+	struct resource *res;
-+	int id;
+-	fmt = dw_dp_get_output_format(bridge_state->output_bus_cfg.format);
++	if (out_bus_format == MEDIA_BUS_FMT_FIXED)
++		out_bus_format = bridge_state->input_bus_cfg.format;
++
++	fmt = dw_dp_get_output_format(out_bus_format);
+ 	if (!fmt)
+ 		return -EINVAL;
  
--	plat_data = of_device_get_match_data(dev);
--	if (!plat_data)
-+	plat_data_const = device_get_match_data(dev);
-+	if (!plat_data_const)
- 		return -ENODEV;
- 
-+	plat_data = devm_kzalloc(dev, sizeof(*plat_data), GFP_KERNEL);
-+	if (!plat_data)
-+		return -ENOMEM;
-+
- 	dp = devm_kzalloc(dev, sizeof(*dp), GFP_KERNEL);
- 	if (!dp)
- 		return -ENOMEM;
- 	platform_set_drvdata(pdev, dp);
- 	dp->dev = dev;
-+	dp->pdata = plat_data_const;
-+
-+	res = platform_get_mem_or_io(pdev, 0);
-+	if (!res)
-+		return -ENODEV;
-+
-+	/* find the DisplayPort ID from the io address */
-+	dp->id = -ENODEV;
-+	for (id = 0; id < plat_data_const->num_ctrls; id++) {
-+		if (res->start == plat_data_const->ctrl_ids[id]) {
-+			dp->id = id;
-+			break;
-+		}
-+	}
-+
-+	if (dp->id < 0)
-+		return dp->id;
-+
-+	dp->vo_grf = dw_dp_rockchip_get_vo_grf(dp);
-+	if (IS_ERR(dp->vo_grf))
-+		return PTR_ERR(dp->vo_grf);
-+
-+	plat_data->max_link_rate = plat_data_const->max_link_rate;
-+	plat_data->pixel_mode = plat_data_const->pixel_mode;
-+	plat_data->hpd_sw_sel = dw_dp_rockchip_hpd_sw_sel;
-+	plat_data->hpd_sw_cfg = dw_dp_rockchip_hpd_sw_cfg;
-+	plat_data->data = dp;
- 
- 	dp->base = dw_dp_probe(pdev, plat_data);
- 	if (IS_ERR(dp->base))
-@@ -147,14 +247,20 @@ static void dw_dp_rockchip_remove(struct platform_device *pdev)
- 	component_del(&pdev->dev, &dw_dp_rockchip_component_ops);
+@@ -1831,6 +1835,32 @@ static u32 *dw_dp_bridge_atomic_get_output_bus_fmts(struct drm_bridge *bridge,
+ 	return output_fmts;
  }
  
--static const struct dw_dp_plat_data rk3588_dp_plat_data = {
-+static const struct rockchip_dw_dp_plat_data rk3588_dp_plat_data = {
-+	.num_ctrls = 2,
-+	.ctrl_ids = {0xfde50000, 0xfde60000},
- 	.max_link_rate = 810000,
- 	.pixel_mode = DW_DP_MP_QUAD_PIXEL,
-+	.hpd_reg = {0x0000, 0x0008},
- };
- 
--static const struct dw_dp_plat_data rk3576_dp_plat_data = {
-+static const struct rockchip_dw_dp_plat_data rk3576_dp_plat_data = {
-+	.num_ctrls = 1,
-+	.ctrl_ids = {0x27e40000},
- 	.max_link_rate = 810000,
- 	.pixel_mode = DW_DP_MP_DUAL_PIXEL,
-+	.hpd_reg = {0x0000},
- };
- 
- static const struct of_device_id dw_dp_of_match[] = {
++static u32 *
++dw_dp_bridge_atomic_get_input_bus_fmts(struct drm_bridge *bridge,
++				       struct drm_bridge_state *bridge_state,
++				       struct drm_crtc_state *crtc_state,
++				       struct drm_connector_state *conn_state,
++				       u32 output_fmt,
++				       unsigned int *num_input_fmts)
++{
++	/*
++	 * MEDIA_BUS_FMT_FIXED means the downstream bridge does not constrain
++	 * the bus format. In that case, advertise all formats supported by the
++	 * DP link so the upstream encoder can negotiate the best match.
++	 */
++	if (output_fmt == MEDIA_BUS_FMT_FIXED)
++		return dw_dp_bridge_atomic_get_output_bus_fmts(bridge,
++							       bridge_state,
++							       crtc_state,
++							       conn_state,
++							       num_input_fmts);
++
++	return drm_atomic_helper_bridge_propagate_bus_fmt(bridge, bridge_state,
++							 crtc_state, conn_state,
++							 output_fmt,
++							 num_input_fmts);
++}
++
+ static struct drm_bridge_state *dw_dp_bridge_atomic_duplicate_state(struct drm_bridge *bridge)
+ {
+ 	struct dw_dp_bridge_state *state;
+@@ -1883,7 +1913,7 @@ static const struct drm_bridge_funcs dw_dp_bridge_funcs = {
+ 	.atomic_duplicate_state = dw_dp_bridge_atomic_duplicate_state,
+ 	.atomic_destroy_state = drm_atomic_helper_bridge_destroy_state,
+ 	.atomic_create_state = drm_atomic_helper_bridge_create_state,
+-	.atomic_get_input_bus_fmts = drm_atomic_helper_bridge_propagate_bus_fmt,
++	.atomic_get_input_bus_fmts = dw_dp_bridge_atomic_get_input_bus_fmts,
+ 	.atomic_get_output_bus_fmts = dw_dp_bridge_atomic_get_output_bus_fmts,
+ 	.atomic_check = dw_dp_bridge_atomic_check,
+ 	.mode_valid = dw_dp_bridge_mode_valid,
 
 -- 
 2.53.0
