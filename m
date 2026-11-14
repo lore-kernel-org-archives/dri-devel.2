@@ -2,43 +2,43 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7EBF6606A333
-	for <dri-devel@archiver.kernel.org>; Sat, 14 Nov 2026 05:01:25 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8AD4A606A329
+	for <dri-devel@archiver.kernel.org>; Sat, 14 Nov 2026 05:01:30 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=collabora.com header.i=@collabora.com header.a=rsa-sha256 header.s=mail header.b=oJtJqDHy
+	dkim=pass (2048-bit key) header.d=collabora.com header.i=@collabora.com header.a=rsa-sha256 header.s=mail header.b=JV6dSIYK
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 6916910E7CF;
-	Sat, 14 Nov 2026 05:01:12 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 3144F10EB30;
+	Sat, 14 Nov 2026 05:01:18 +0000 (UTC)
 Received: from bali.collaboradmins.com (bali.collaboradmins.com
  [148.251.105.195])
- by gabe.freedesktop.org (Postfix) with ESMTPS id AFFB310E69A
- for <dri-devel@lists.freedesktop.org>; Sat, 14 Nov 2026 05:01:04 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 2FC9210E761
+ for <dri-devel@lists.freedesktop.org>; Sat, 14 Nov 2026 05:01:11 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
  s=mail; t=1794632457;
- bh=QTpU/U5Y23UxjssfJ4URaTuUHxqKTQrqcLne01mYDaE=;
+ bh=mnLwXsYtnsb7GeCy1GBlGm35J14qnNJQ1xWbhGMHV/0=;
  h=From:Date:Subject:References:In-Reply-To:To:Cc:From;
- b=oJtJqDHyUOXtw21llGJ2kT8zf4oNvlLkV4c62L6zDfooU+NGGhLaJkCjXfWzTOY5p
- 3hbnBrY9s70eekOl9HFOVg2OmUYLWrlKjzaN5fsjPZ2KRlfwtPfvu61rIUVdHRNcgx
- llmXyCzkrP2mGdpMiDvnu/36XU2mV0a+FijBIM26qeSAsKEvOFg5PuCFs34dFJGE4+
- bU3Dud6669ipqc13s7X420RT8kaUwgWy8Fnu8wn+KEmkC9SjglUS5fqYXWwXZ8nxV+
- OXUXz09Z62FEY2bKAIkaFFRIkWC1gQml+Tx7nCFTGHjWNkhdL+QmATrZmESOJNLd+d
- nBXFhIXL0Zu3w==
+ b=JV6dSIYKn2G/dPCqZEyNxicIgOVKHUK6BO/XSiWsLFmIZPMUZhJzkbCUpu68RftkL
+ CniqyRsJ7Zx210K0pTA0rK8NVValzIWd3vSMXSvGvQKVrmscr/yQoQBZjW1aY5SEEL
+ zi0jEbOjB9u33cawW1IkM20n3Y9jTHSr5aFsz8iTmX3J/AN2B2dOagqmED7NO4hxO1
+ 4c2KW9eAaAhV1y1c8ZSaU3qe2Cbv7MeR8lSEqpJStANTV6L2sBwxe3FZUAkRtRFxDb
+ xpjOzfqqa8sftbUV+D5OQQhx66yllmt9kkuTBPv7WR3JamZqdXG7KmZ9KTkOS/kF6x
+ y1aV2M066cTGw==
 Received: from jupiter.universe (unknown [100.64.1.62])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange x25519) (No client certificate requested)
  (Authenticated sender: sre)
- by bali.collaboradmins.com (Postfix) with ESMTPSA id C570617E3BDF;
- Sat, 14 Nov 2026 06:00:56 +0100 (CET)
+ by bali.collaboradmins.com (Postfix) with ESMTPSA id 0181917E3BEA;
+ Sat, 14 Nov 2026 06:00:57 +0100 (CET)
 Received: by jupiter.universe (Postfix, from userid 1000)
- id 1BEE948004C; Sat, 14 Nov 2026 06:00:56 +0100 (CET)
+ id 220CB480061; Sat, 14 Nov 2026 06:00:56 +0100 (CET)
 From: Sebastian Reichel <sebastian.reichel@collabora.com>
-Date: Sat, 14 Nov 2026 06:00:44 +0100
-Subject: [PATCH v12 11/23] drm/bridge: Add out-of-band HPD notify handler
+Date: Sat, 14 Nov 2026 06:00:48 +0100
+Subject: [PATCH v12 15/23] drm/rockchip: dw_dp: Add runtime PM support
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20261114-synopsys-dw-dp-improvements-v12-11-d42d3dc5bdd4@collabora.com>
+Message-Id: <20261114-synopsys-dw-dp-improvements-v12-15-d42d3dc5bdd4@collabora.com>
 References: <20261114-synopsys-dw-dp-improvements-v12-0-d42d3dc5bdd4@collabora.com>
 In-Reply-To: <20261114-synopsys-dw-dp-improvements-v12-0-d42d3dc5bdd4@collabora.com>
 To: Sandy Huang <hjc@rock-chips.com>, 
@@ -65,21 +65,21 @@ Cc: Cristian Ciocaltea <cristian.ciocaltea@collabora.com>,
  Sebastian Reichel <sebastian.reichel@collabora.com>, 
  Igor Paunovic <royalnet026@gmail.com>
 X-Mailer: b4 0.16.0
-X-Developer-Signature: v=1; a=openpgp-sha256; l=2442;
+X-Developer-Signature: v=1; a=openpgp-sha256; l=2123;
  i=sebastian.reichel@collabora.com; h=from:subject:message-id;
- bh=QTpU/U5Y23UxjssfJ4URaTuUHxqKTQrqcLne01mYDaE=;
- b=owJ4nAFtApL9kA0DAAoB2O7X88g7+poByyZiAGr36wfL8oaz7pLdf3d4AqmLaAyhk4juoR9VT
- UeTugeDxn5kcYkCMwQAAQoAHRYhBO9mDQdGP4tyanlUE9ju1/PIO/qaBQJq9+sHAAoJENju1/PI
- O/qaL18P/3wkGcBTDwgNntnjRaEXeX28fNdD/4jRS8rKqOEJpvSWg5wN3W38Iu5rmlcWhmb6Awp
- D6sugSTq8o974akKWRAfDdWELnyOnLL+km01KBofyDTIlG35hpKUcUaZqnAeFwJYT8lmhbexJcm
- 0JKxuFtXop5+bV5G/7rqctJaaFQNnb90lcToMMRZDWkKQfe1wHOw5RnpoHf0aonq/Eaxkp/5twy
- GTeN8UbUD1IypvrA8QkB+cfmrwAohVMSbX9cu9yaT/ES7VtbVBjXuHkdv02Ku6hhBI/puReVxSB
- HhQS7B7nkuqjMZUQn/hmKruJdunZchZqnCtFkABMpvJAXkc9Fn0mr3/RAn4iKaW0bhRjIBsON+Q
- ATvigdYVXmLZr0qiXCiq+Z6oqEOpb/Iu69bjeXurbBgAaAc8bCJw8PB+GAcU3r23JEp2npM9YpJ
- dnkVkMnOIiuaCSPFL1p9fVeQd9/oSKiDl8RAIPanGVL0QxbUsxHXPYyRD6OhgTSJ9LgviYgxu6r
- yQbZpyQ62TVoHUksjFEuE+R4LUTZVmHlnAjYaH7MGs/HPiH7DnUWUyitpi564r6l843kqsGB2Q2
- AIzmtqjjmS9pZYPQVkxB5ZVrd7Vid9NVcIsumcbhO7EIM/yTg6MmflOhSoavaxtJWnuTiPrEhX4
- 8elFNQnMiy2C11+NTJo4j9w==
+ bh=mnLwXsYtnsb7GeCy1GBlGm35J14qnNJQ1xWbhGMHV/0=;
+ b=owJ4nAFtApL9kA0DAAoB2O7X88g7+poByyZiAGr36we2zCjnm5BlstHLolxg+Sb+x4stiUfJm
+ sDCWagCyfyEqIkCMwQAAQoAHRYhBO9mDQdGP4tyanlUE9ju1/PIO/qaBQJq9+sHAAoJENju1/PI
+ O/qaKbMQAIliBlNemxFVbhJ+wmwuPH7C3v+ndaa+fE9uOLr7AbYz3SADc6KkuO/mTRAL12n26FC
+ BbE80Y6PL9O2mHoGIUkqp6CNzSS3DBP9AFiWYK7dTWaNLkdVDb87FoD5cvCYrhL/wqXcvNZSFOy
+ 7EbETjQ72RtqBTY2d4AebmhagGBYSPyjn1QHzL0Nw6HVP1n0buFbKoMYC495o7yJjx/ASiyez/1
+ tzP0m/B69RkOUtBjz9toLWIzehCd8MPqEF28YuB5DCV5JazMP0MiJjRUugk9BLo608nGIt5z6Gy
+ Z13Pm//R2WQDmcTVC8DlRFg90RlvauJxYSchIchk0JT9Bq/bVBEHHWSFc/9B1hHXoDpTazE6k1S
+ X89s72uTk/T+ISmiXU8dIgaus9VHoJ6R+ruSRJtkX3+IRai6R8u7HRaWv6VFOKXooEgFEPbTAKt
+ D7q6wPXZXwO+Ruk0SkawIFdjGOr7zRYRATu6L2Ls7IKcrqrURNfuhz+peDOiu0elJoOcUO9IhIE
+ QIclSOEzW7T39E79ebrqTYmO+uXlIikbRi+/XIxBbLMMLzYphtNGocAAr1KQGwlj13IUFhG0U4g
+ FWz8H+3QUu5cKYf3a5w2F6X/XPqY/NddGY/MwWoGfZfZSLHzWjhGrU4AomMt5ZOVd+nQUR088rf
+ ycD6n6ukWoze3reKKGiE5jA==
 X-Developer-Key: i=sebastian.reichel@collabora.com; a=openpgp;
  fpr=EF660D07463F8B726A795413D8EED7F3C83BFA9A
 X-BeenThere: dri-devel@lists.freedesktop.org
@@ -101,67 +101,67 @@ X-Spam-Status: No, score=-18.8 required=3.0 tests=BAYES_00,DKIM_SIGNED,
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-For DP bridges, that can be used for DP AltMode, it might be necessary
-to enforce HPD status. There is an existing ->oob_hotplug_event() on
-the DRM connector, but it currently just calls into hpd_notify().
-
-As DP bridge drivers usually also implement .detect and that also
-generates calls into hpd_notify, this is a bad place to force the
-HPD status as the follow-up detect call might force it off again
-resulting in all follow-up calls to the detection routine also
-failing.
-
-Avoid this by having a dedicated function for OOB events.
+Add support for runtime PM to the Rockchip RK3576/3588 Synopsys
+DesignWare DisplayPort driver.
 
 Tested-by: Igor Paunovic <royalnet026@gmail.com> # Orange Pi 5+
 Signed-off-by: Sebastian Reichel <sebastian.reichel@collabora.com>
 ---
- drivers/gpu/drm/display/drm_bridge_connector.c |  6 ++++++
- include/drm/drm_bridge.h                       | 14 ++++++++++++++
- 2 files changed, 20 insertions(+)
+ drivers/gpu/drm/rockchip/dw_dp-rockchip.c | 21 +++++++++++++++++++++
+ 1 file changed, 21 insertions(+)
 
-diff --git a/drivers/gpu/drm/display/drm_bridge_connector.c b/drivers/gpu/drm/display/drm_bridge_connector.c
-index 2202e6044444..2d49d7f27def 100644
---- a/drivers/gpu/drm/display/drm_bridge_connector.c
-+++ b/drivers/gpu/drm/display/drm_bridge_connector.c
-@@ -181,6 +181,12 @@ static void drm_bridge_connector_oob_hotplug_event(struct drm_connector *connect
- 	struct drm_bridge_connector *bridge_connector =
- 		to_drm_bridge_connector(connector);
+diff --git a/drivers/gpu/drm/rockchip/dw_dp-rockchip.c b/drivers/gpu/drm/rockchip/dw_dp-rockchip.c
+index 1cc6cfad4104..99d948a7c51f 100644
+--- a/drivers/gpu/drm/rockchip/dw_dp-rockchip.c
++++ b/drivers/gpu/drm/rockchip/dw_dp-rockchip.c
+@@ -12,6 +12,7 @@
+ #include <linux/mfd/syscon.h>
+ #include <linux/of_device.h>
+ #include <linux/platform_device.h>
++#include <linux/pm_runtime.h>
+ #include <linux/regmap.h>
+ #include <linux/videodev2.h>
  
-+	/* Notify all bridges in the pipeline of hotplug events. */
-+	drm_for_each_bridge_in_chain(bridge_connector->encoder, bridge) {
-+		if (bridge->funcs->oob_notify)
-+			bridge->funcs->oob_notify(bridge, connector, status);
-+	}
-+
- 	drm_bridge_connector_handle_hpd(bridge_connector, status);
+@@ -229,6 +230,7 @@ static int dw_dp_rockchip_probe(struct platform_device *pdev)
+ 	if (IS_ERR(dp->vo_grf))
+ 		return PTR_ERR(dp->vo_grf);
+ 
++	plat_data->autosuspend_delay = 500;
+ 	plat_data->max_link_rate = plat_data_const->max_link_rate;
+ 	plat_data->pixel_mode = plat_data_const->pixel_mode;
+ 	plat_data->hpd_sw_sel = dw_dp_rockchip_hpd_sw_sel;
+@@ -251,6 +253,24 @@ static void dw_dp_rockchip_remove(struct platform_device *pdev)
+ 	component_del(&pdev->dev, &dw_dp_rockchip_component_ops);
  }
  
-diff --git a/include/drm/drm_bridge.h b/include/drm/drm_bridge.h
-index 1981d24a700d..753f193c2803 100644
---- a/include/drm/drm_bridge.h
-+++ b/include/drm/drm_bridge.h
-@@ -540,6 +540,20 @@ struct drm_bridge_funcs {
- 	 */
- 	void (*hpd_disable)(struct drm_bridge *bridge);
- 
-+	/**
-+	 * @oob_notify:
-+	 *
-+	 * Notify the bridge of out of band hot plug detection.
-+	 *
-+	 * This callback is optional, it may be implemented by bridges that
-+	 * need to be notified of display connection or disconnection for
-+	 * internal reasons. One use case is to force the DP controllers HPD
-+	 * signal for USB-C DP AltMode.
-+	 */
-+	void (*oob_notify)(struct drm_bridge *bridge,
-+			   struct drm_connector *connector,
-+			   enum drm_connector_status status);
++static int dw_dp_rockchip_runtime_suspend(struct device *dev)
++{
++	struct rockchip_dw_dp *dp = dev_get_drvdata(dev);
 +
- 	/**
- 	 * @hdmi_tmds_char_rate_valid:
- 	 *
++	return dw_dp_runtime_suspend(dp->base);
++}
++
++static int dw_dp_rockchip_runtime_resume(struct device *dev)
++{
++	struct rockchip_dw_dp *dp = dev_get_drvdata(dev);
++
++	return dw_dp_runtime_resume(dp->base);
++}
++
++static const struct dev_pm_ops dw_dp_pm_ops = {
++	RUNTIME_PM_OPS(dw_dp_rockchip_runtime_suspend, dw_dp_rockchip_runtime_resume, NULL)
++};
++
+ static const struct rockchip_dw_dp_plat_data rk3588_dp_plat_data = {
+ 	.num_ctrls = 2,
+ 	.ctrl_ids = {0xfde50000, 0xfde60000},
+@@ -285,5 +305,6 @@ struct platform_driver dw_dp_driver = {
+ 	.driver = {
+ 		.name = "dw-dp",
+ 		.of_match_table = dw_dp_of_match,
++		.pm = pm_ptr(&dw_dp_pm_ops),
+ 	},
+ };
 
 -- 
 2.53.0
