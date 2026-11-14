@@ -2,43 +2,43 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 829C6606A327
-	for <dri-devel@archiver.kernel.org>; Sat, 14 Nov 2026 18:55:18 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 19D87606A329
+	for <dri-devel@archiver.kernel.org>; Sat, 14 Nov 2026 18:55:19 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=YXHuV+nu
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=anZdYjkg
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 3E20F10E5CC;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 38D3110E590;
 	Sat, 14 Nov 2026 18:55:12 +0000 (UTC)
-Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 5097610E649
- for <dri-devel@lists.freedesktop.org>; Sat, 14 Nov 2026 18:54:59 +0000 (UTC)
+Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id EFB0C10E2BB
+ for <dri-devel@lists.freedesktop.org>; Sat, 14 Nov 2026 18:54:56 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by tor.source.kernel.org (Postfix) with ESMTP id 5BAD561CFB;
- Sat, 14 Nov 2026 18:54:58 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id D41401F000C5;
- Sat, 14 Nov 2026 18:54:57 +0000 (UTC)
+ by sea.source.kernel.org (Postfix) with ESMTP id C9EA2459BE;
+ Sat, 14 Nov 2026 18:54:56 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 84A221F000C5;
+ Sat, 14 Nov 2026 18:54:56 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1794682498;
- bh=J6cW65eThHtGVOFXjimhk5/gjH4eo9kyKFi45jNILag=;
+ s=k20260515; t=1794682496;
+ bh=Hu9Lw7r+aHyF1TEr76uiSPI9fladcuG5BJV7gD6A5DM=;
  h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
- b=YXHuV+nuYuLUvaxQx2v6kTTNH96kOzOpRTQ2KAosqyR5BbWtKkb4NrGR/o2GxUlsp
- nhoXqVjq1vEwH8kcejer73hlYmnMEB3bunh3ATMhBATMaYsPrdp5wvF+Eoz89ncmAw
- Aj7Tbcc9faW7IGacnsHP1gVPuy61DTqtD8JH9JjliGPpuSpt4A/bYbY1OvtpLTJxiJ
- YgzMCmy2oBmeIAW/cA40pH4vWezmzb2r58fAhPk4dbz1iEZ4uXoAOUglVERgIWCFIp
- qIyaoXQ0OY/5c3DfMrbo0GpnFZD+yh6cgNM0w+EWrcRIi4uAjF7Pp+WzPFdrqzR5zl
- biJElLrutZ6Yg==
-Message-ID: <sashiko-outbox-214917@kernel.org>
+ b=anZdYjkgillV4DJPQJDqUjaqDfrEETwmxWUz1nGjuddJv9trcbXWid9ryOByFTYa+
+ GHaRWgL0hO+AidDsyxoc5VqE23OLk+JKroh4tBTY52XWYrSCawe2bC3a2e8/EJH9yA
+ t5ufv9WU51M1zLSZ5MRMGb/f3eqQd93Urh3x2wAZU/8HO2S08QvmheNLQWhPxdnUWX
+ r4dRtjhdGHoErPDm3Kq7fcobRY2GPRyoXnwb2UePVKdIHwkwj3Z60UtH3ZgX7A9AXW
+ Mn3ZVTu7ZugB00n3YrRg1JzCi8FfW2eKKGGZN6+Gbfu97nNU7BSI2DAor1zXP7jaZQ
+ lbdC+u5SzWfCQ==
+Message-ID: <sashiko-outbox-214915@kernel.org>
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v2 6/9] net: ipa: migrate firmware loading to
+Subject: Re: [PATCH v2 4/9] media: iris: migrate firmware loading to
  qcom_mdt_pas_load() and qcom_pas_prepare_and_auth_reset()
 To: "Mukesh Ojha" <mukesh.ojha@oss.qualcomm.com>
 Cc: dri-devel@lists.freedesktop.org, media-ci@linuxtv.org
-In-Reply-To: <20261113185009.157893-7-mukesh.ojha@oss.qualcomm.com>
+In-Reply-To: <20261113185009.157893-5-mukesh.ojha@oss.qualcomm.com>
 References: <20261113185009.157893-1-mukesh.ojha@oss.qualcomm.com>
- <20261113185009.157893-7-mukesh.ojha@oss.qualcomm.com>
+ <20261113185009.157893-5-mukesh.ojha@oss.qualcomm.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Sat, 14 Nov 2026 18:54:57 +0000
+Date: Sat, 14 Nov 2026 18:54:56 +0000
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -59,101 +59,100 @@ X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 X-Archived-By: <archiver.kernel.org>
 
-Thank you for your contribution! Sashiko AI review found 1 potential
-issue to consider:
-- [Medium] net: ipa: missing qcom_pas_metadata_release() in
-  ipa_firmware_load()
+Thank you for your contribution! Sashiko AI review found 2 potential
+issues to consider:
+- [Medium] media: iris: unzeroed carveout scanned by
+  iris_detect_firmware()
+- [Low] media: iris: missing kernel-doc entry for pas_ctx in struct
+  iris_core
 --
 
-commit 5c113c8e8e89734c8d281cbb95db1ce83f9398ac
+commit 7ebe09aa487374b06a38922ce80ef4d57f96da6a
 Author: Mukesh Ojha <mukesh.ojha@oss.qualcomm.com>
 
-net: ipa: migrate firmware loading to qcom_mdt_pas_load() and qcom_pas_prep=
-are_and_auth_reset()
+media: iris: migrate firmware loading to qcom_mdt_pas_load() and qcom_pas_p=
+repare_and_auth_reset()
 
-This commit replaces the memremap(), qcom_mdt_load(), and
-qcom_pas_auth_and_reset() sequence in ipa_firmware_load() with
-qcom_pas_context_init(), qcom_mdt_pas_load(), and
-qcom_pas_prepare_and_auth_reset().
+This commit embeds a struct qcom_pas_context in struct iris_core and
+migrates iris firmware loading and authentication to qcom_mdt_pas_load()
+and qcom_pas_prepare_and_auth_reset().
 
-> diff --git a/drivers/net/ipa/ipa_main.c b/drivers/net/ipa/ipa_main.c
-> index 14ac2d2faf7c2..0a37741c22858 100644
-> --- a/drivers/net/ipa/ipa_main.c
-> +++ b/drivers/net/ipa/ipa_main.c
-> @@ -585,12 +585,11 @@ static void ipa_deconfig(struct ipa *ipa)
+> diff --git a/drivers/media/platform/qcom/iris/iris_core.h b/drivers/media=
+/platform/qcom/iris/iris_core.h
+> index 3e4cf652bf39a..ac73bda072f85 100644
+> --- a/drivers/media/platform/qcom/iris/iris_core.h
+> +++ b/drivers/media/platform/qcom/iris/iris_core.h
+
+[ ... ]
+
+> @@ -129,6 +130,7 @@ struct iris_core {
+>  	struct platform_inst_fw_cap		inst_fw_caps_dec[INST_FW_CAP_MAX];
+>  	struct platform_inst_fw_cap		inst_fw_caps_enc[INST_FW_CAP_MAX];
+>  	struct dma_iova_state			*iova_state;
+> +	struct qcom_pas_context			pas_ctx;
+>  };
 > =20
->  static int ipa_firmware_load(struct device *dev)
->  {
-> +	struct qcom_pas_context ctx;
->  	const struct firmware *fw;
->  	struct resource res;
->  	phys_addr_t phys;
->  	const char *path;
-> -	ssize_t size;
-> -	void *virt;
->  	int ret;
-> =20
->  	ret =3D of_reserved_mem_region_to_resource(dev->of_node, 0, &res);
-> @@ -615,24 +614,18 @@ static int ipa_firmware_load(struct device *dev)
+>  int iris_core_init(struct iris_core *core);
+
+[Severity: Low]
+This isn't a bug, but struct iris_core has a kernel-doc comment block
+that lacks an @pas_ctx entry, which causes a W=3D1 kernel-doc warning.
+
+> diff --git a/drivers/media/platform/qcom/iris/iris_firmware.c b/drivers/m=
+edia/platform/qcom/iris/iris_firmware.c
+> index 21f57d37da187..b701a7f43514b 100644
+> --- a/drivers/media/platform/qcom/iris/iris_firmware.c
+> +++ b/drivers/media/platform/qcom/iris/iris_firmware.c
+> @@ -201,21 +201,20 @@ static int iris_load_fw_to_memory(struct iris_core =
+*core)
+>  		goto err_release_fw;
 >  	}
 > =20
->  	phys =3D res.start;
-> -	size =3D (size_t)resource_size(&res);
-> -	virt =3D memremap(phys, size, MEMREMAP_WC);
-> -	if (!virt) {
-> -		dev_err(dev, "unable to remap firmware memory\n");
+> -	mem_virt =3D memremap(mem_phys, res_size, MEMREMAP_WC);
+> -	if (!mem_virt) {
 > -		ret =3D -ENOMEM;
-> -		goto out_release_firmware;
+> -		goto err_release_fw;
 > -	}
-> +	qcom_pas_context_init(&ctx, dev, IPA_PAS_ID, phys, resource_size(&res));
-> =20
-> -	ret =3D qcom_mdt_load(dev, fw, path, IPA_PAS_ID, virt, phys, size, NULL=
-);
-> +	ret =3D qcom_mdt_pas_load(&ctx, fw, path, NULL);
->  	if (ret) {
->  		dev_err(dev, "error %d loading \"%s\"\n", ret, path);
-> -	} else {
-> -		ret =3D qcom_pas_auth_and_reset(IPA_PAS_ID);
-> -		if (ret)
-> -			dev_err(dev, "error %d authenticating \"%s\"\n", ret, path);
-> +		goto out_release_firmware;
->  	}
-> =20
-> -	memunmap(virt);
-> +	ret =3D qcom_pas_prepare_and_auth_reset(&ctx);
-> +	if (ret)
-> +		dev_err(dev, "error %d authenticating \"%s\"\n", ret, path);
+> -
+> -	memset(mem_virt, 0, res_size);
+> -
+> -	ret =3D qcom_mdt_load(dev, firmware, fw_name,
+> -			    IRIS_PAS_ID, mem_virt, mem_phys, res_size, NULL);
+> +	qcom_pas_context_init(&core->pas_ctx, dev, IRIS_PAS_ID, mem_phys,
+> +			      res_size);
 > +
->  out_release_firmware:
->  	release_firmware(fw);
+> +	ret =3D qcom_mdt_pas_load(&core->pas_ctx, firmware, fw_name, NULL);
+> +	if (!ret) {
+> +		mem_virt =3D memremap(mem_phys, res_size, MEMREMAP_WC);
+> +		if (!mem_virt) {
+> +			ret =3D -ENOMEM;
+> +			goto err_release_fw;
+> +		}
+> =20
+> -	if (!ret)
+>  		iris_detect_firmware(core, fw_name, mem_virt, res_size, desc);
+> -
+> -	memunmap(mem_virt);
+> +		memunmap(mem_virt);
+> +	}
 
 [Severity: Medium]
-Does this leak the firmware metadata buffer stored in ctx.ptr?
+Can iris_detect_firmware() scan uninitialized carveout memory now that
+memset(mem_virt, 0, res_size) is removed?
 
-Previously, qcom_mdt_load() called __qcom_mdt_pas_init() with a NULL contex=
-t,
-so qcom_scm_pas_init_image() freed the coherent DMA metadata buffer before
-returning:
-
-drivers/firmware/qcom/qcom_scm.c:qcom_scm_pas_init_image() {
-    ...
-	if (ret < 0 || !ctx) {
-		dma_free_coherent(dev, size, mdata_buf, mdata_phys);
-	} else if (ctx) {
-		ctx->ptr =3D mdata_buf;
-		ctx->phys =3D mdata_phys;
-		ctx->size =3D size;
-	}
-    ...
-}
-
-Passing a non-NULL &ctx to qcom_mdt_pas_load() retains that buffer in
-ctx.ptr.  Because this tree does not include 2aa8fafc08e7 ("firmware: qcom:
-pas: Make MDT buffer retention explicit"), qcom_pas_init_image() does not
-release ctx.ptr on its own, and ipa_firmware_load() returns without calling
-qcom_pas_metadata_release(&ctx), leaking the allocation when ctx goes out of
-scope.
+qcom_mdt_pas_load() calls qcom_mdt_load_no_init(), which only writes each
+PT_LOAD segment and zeroes its BSS tail, leaving inter-segment gaps and
+the trailing [fw_size, res_size) portion of the reserved memory region
+untouched.  When a dual-generation platform uses a DT firmware-name
+override to load a Gen1 image, iris_detect_firmware() ->
+iris_detect_gen2_from_fwdata() scans the entire res_size mapping and can
+match stale bytes in the unwritten carveout (for example after a warm
+reboot or kexec), misclassifying the Gen1 firmware as Gen2 and selecting
+incompatible HFI operations and buffer-sizing callbacks.  Commit
+a9ff61527805 ("media: iris: Add Gen2 firmware autodetect and fallback")
+added the memset() specifically to avoid scanning stale data across
+res_size.
 
 --=20
 Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261113185009.1578=
-93-1-mukesh.ojha@oss.qualcomm.com?part=3D6
+93-1-mukesh.ojha@oss.qualcomm.com?part=3D4
