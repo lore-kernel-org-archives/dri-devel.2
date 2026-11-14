@@ -2,45 +2,45 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 29E58606A329
-	for <dri-devel@archiver.kernel.org>; Sat, 14 Nov 2026 16:43:14 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 93D93606A32D
+	for <dri-devel@archiver.kernel.org>; Sat, 14 Nov 2026 16:44:45 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=XubsZamF
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=dB90KEMQ
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 61BEB10F060;
-	Sat, 14 Nov 2026 16:43:08 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id AC0F510F05D;
+	Sat, 14 Nov 2026 16:44:39 +0000 (UTC)
 Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id B1B4910E490;
- Sat, 14 Nov 2026 16:43:01 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id A31A810F05B;
+ Sat, 14 Nov 2026 16:44:27 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by tor.source.kernel.org (Postfix) with ESMTP id D2EBF623A4;
- Sat, 14 Nov 2026 16:43:00 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 51C0D1F000C4;
- Sat, 14 Nov 2026 16:43:00 +0000 (UTC)
+ by tor.source.kernel.org (Postfix) with ESMTP id A0B2B61408;
+ Sat, 14 Nov 2026 16:44:26 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 215A01F000C9;
+ Sat, 14 Nov 2026 16:44:26 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1794674580;
- bh=F59FT509f2CfDyBOFyoFzjGGKGH9Yq/Rsd+UdzZbK8s=;
+ s=k20260515; t=1794674666;
+ bh=sAOg0Uu6rqt8/EL4a3goYpGIbFTebZMGo9T8DSBK82w=;
  h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
- b=XubsZamFYGF6kVZbq76PPtOJmTXtHt6R7636BqGmLmfCjdwS75/dAq93S8jocPnXe
- uTsFDJreHHsGUrBhHfZbo4SGB6KdN/jGDQsyuzVjKn2cre9ew3WRnyiQoT1g7xsXgi
- 6U1Y1HH6P4IB4qwjGtlkSt/l4LZWpnkJjnfb1Z9ygIdV8VOddO+vYqi8KIOFt53LPA
- vijfETfW2NfFll7PsoxrDMyIMl5Pg2VuZCE6hS3ITPoLfHyxgqOlAekbWeaVY2/Rid
- YybRFJ2qugcZ4u54HLj496xhZ+jSm2KWV40bqICPwvoBpOdxq9oMZym3KwHjK1frAk
- Ykr0ttftjRQxQ==
-Message-ID: <sashiko-outbox-214781@kernel.org>
+ b=dB90KEMQ7WpgwT+lDqI5uf21/AR9XoA63CTgITICNXF7xa4JUd4XoI3A5z4KkCIOa
+ 3Zllzq8ReirS/6gizw2LR+AW1cOpVenU66A6ChI5MNilpRbyJ2HfnyySLNdt9oio1E
+ LUCL7c8CErEepfz8P7V9BJ3JrPFdQzkPFDcXfBFahvVkh1pXgrSMimCjVygaHL0Gfg
+ 1xWxy81FEMccfyqKe+VZOqx0HulkTD/QI3B6Wn+ZT2g3X+Bd5Vbi+o8hPrrCiTzU2r
+ 0nU/1eTOeiIzTwDNPYyb3n0+dIBhuvwZXittQp59IBMQyaXDnNlwShvLVR/Eo73MVu
+ ArJoPDlfkodUA==
+Message-ID: <sashiko-outbox-214782@kernel.org>
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v2 01/12] platform/apple-gmux: Fix power for MMIO systems
+Subject: Re: [PATCH v2 08/12] drm/amdgpu: Add Apple GMUX runtime PM support
 To: "Atharva Tiwari" <atharvatiwarilinuxdev@gmail.com>
 Cc: =?utf-8?b?b3BlbiBsaXN0OlBDSSBTVUJTWVNURU0=?= <linux-pci@vger.kernel.org>, 
  =?utf-8?b?b3BlbiBsaXN0OlJBREVPTiBhbmQgQU1ER1BVIERSTSBEUklWRVJT?=
  <amd-gfx@lists.freedesktop.org>, 
  =?utf-8?b?b3BlbiBsaXN0OkRSTSBEUklWRVJT?= <dri-devel@lists.freedesktop.org>
-In-Reply-To: <20261114160731.3756-2-atharvatiwarilinuxdev@gmail.com>
+In-Reply-To: <20261114160731.3756-9-atharvatiwarilinuxdev@gmail.com>
 References: <20261114160731.3756-1-atharvatiwarilinuxdev@gmail.com>
- <20261114160731.3756-2-atharvatiwarilinuxdev@gmail.com>
+ <20261114160731.3756-9-atharvatiwarilinuxdev@gmail.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Sat, 14 Nov 2026 16:42:59 +0000
+Date: Sat, 14 Nov 2026 16:44:25 +0000
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -61,297 +61,216 @@ X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 X-Archived-By: <archiver.kernel.org>
 
-Thank you for your contribution! Sashiko AI review found 7 potential
+Thank you for your contribution! Sashiko AI review found 4 potential
 issues to consider:
-- [High] platform/x86: apple-gmux: hardcoded EGP0/EGP1 path in
-  gmux_set_discrete_state()
-- [High] platform/x86: apple-gmux: inconsistent state in
-  gmux_set_discrete_state()
-- [High] platform/x86: apple-gmux: bridge config access and state loss
-  across suspend
-- [Medium] platform/x86: apple-gmux: unconditional discrete_pdev check
-  on non-MMIO
-- [Medium] platform/x86: apple-gmux: dGPU PCI save gated on HDAU in
-  power-off
-- [Low] platform/x86: apple-gmux: unused variable in
-  gmux_set_discrete_state()
-- [Low] platform/x86: apple-gmux: race on discrete_pdev in
-  gmux_get_client_id()
+- [High] drm/amdgpu: missing switcheroo readiness checks in
+  amdgpu_device_supports_gmux()
+- [High] drm/amdgpu: broken smart-suspend handling for GMUX in
+  amdgpu_pci_probe()
+- [High] drm/amdgpu: NULL deref on shutdown when GMUX GPU is
+  runtime-suspended
+- [Medium] drm/amdgpu: amdgpu_device_init() ignores runpm param for GMUX
+  switcheroo
 --
 
-commit fc14cf5232ba075c0f19cf13add68d34508463ca
-Author: Atharva Tiwari <atharvatiwarilinuxdev@gmail.com>
+commit c24cbddf263bec215538d74185508de97d4f9ff8
+Author: Andre Eikmeyer <dev@deq.rocks>
 
-platform/apple-gmux: Fix power for MMIO systems
+drm/amdgpu: Add Apple GMUX runtime PM support
 
-This commit adds discrete GPU power control support for MMIO gmux systems
-by saving and restoring upstream PCIe bridge state via ACPI handles and
-evaluating the ACPI PWRD method alongside gmux port writes.
+This commit adds runtime PM support for T2 MacBook Pro discrete GPUs
+using the vga_switcheroo PM domain and skips initial eDP detection when
+the GMUX GPU is not the boot display device.
 
-> diff --git a/drivers/platform/x86/apple-gmux.c b/drivers/platform/x86/app=
-le-gmux.c
-> index 9c728ac4e045a..34e94f2b2dee1 100644
-> --- a/drivers/platform/x86/apple-gmux.c
-> +++ b/drivers/platform/x86/apple-gmux.c
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c b/drivers/gpu/drm=
+/amd/amdgpu/amdgpu_device.c
+> index 9269e780feb73..ac336594bf055 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
 [ ... ]
-> @@ -502,23 +506,158 @@ static int gmux_switch_ddc(enum vga_switcheroo_cli=
-ent_id id)
-[ ... ]
-> +static int gmux_save_restore_pci(acpi_handle parent_handle, const char *=
-name,
-> +				bool save, acpi_handle *out_handle)
+> @@ -570,6 +571,46 @@ bool amdgpu_device_supports_px(struct amdgpu_device =
+*adev)
+>  	return false;
+>  }
+> =20
+> +static const struct dmi_system_id amdgpu_gmux_runpm_dmi_table[] =3D {
+> +	{
+> +		.matches =3D {
+> +			DMI_MATCH(DMI_PRODUCT_NAME, "MacBookPro15,1"),
+> +		},
+> +	},
+> +	{
+> +		.matches =3D {
+> +			DMI_MATCH(DMI_PRODUCT_NAME, "MacBookPro15,3"),
+> +		},
+> +	},
+> +	{
+> +		.matches =3D {
+> +			DMI_MATCH(DMI_PRODUCT_NAME, "MacBookPro16,1"),
+> +		},
+> +	},
+> +	{
+> +		.matches =3D {
+> +			DMI_MATCH(DMI_PRODUCT_NAME, "MacBookPro16,4"),
+> +		},
+> +	},
+> +	{ }
+> +};
+> +
+> +bool amdgpu_device_supports_gmux(struct amdgpu_device *adev)
 > +{
-> +	acpi_status status;
-> +	acpi_handle handle;
-> +	struct acpi_device *adev;
-> +	struct device *dev;
-> +	struct pci_dev *pdev;
-> +
-> +	if (name) {
-> +		status =3D acpi_get_handle(parent_handle, name, &handle);
-> +		if (ACPI_FAILURE(status))
-> +			return -EIO;
-> +
-> +		if (out_handle)
-> +			*out_handle =3D handle;
-> +	} else
-> +		handle =3D parent_handle;
-> +
-> +	adev =3D acpi_fetch_acpi_dev(handle);
-> +	if (!adev)
-> +		return -EIO;
-> +
-> +	dev =3D acpi_get_first_physical_node(adev);
-> +	if (!dev || !dev_is_pci(dev))
-> +		return -EIO;
-> +
-> +	pdev =3D to_pci_dev(dev);
-> +
-> +	if (save) {
-> +		pci_save_state(pdev);
-> +		pdev->current_state =3D PCI_D3cold;
-> +	} else {
-> +		pdev->current_state =3D PCI_D0;
-> +		pci_restore_state(pdev);
-> +	}
-> +	return 0;
+> +	return dmi_check_system(amdgpu_gmux_runpm_dmi_table) &&
+> +	       !pci_is_thunderbolt_attached(adev->pdev) &&
+> +	       !dev_is_removable(&adev->pdev->dev) &&
+> +	       apple_gmux_detect(NULL, NULL);
 > +}
-> +
->  static int gmux_set_discrete_state(struct apple_gmux_data *gmux_data,
->  				   enum vga_switcheroo_state state)
->  {
->  	reinit_completion(&gmux_data->powerchange_done);
-> +	acpi_handle discrete_handle;
-> +	acpi_status status;
-> +	unsigned long long result;
-
-[Severity: Low]
-The local variable result is unused and causes a -Wunused-variable warning
-(and a build failure with CONFIG_WERROR=3Dy).  Also, these variable
-declarations are placed after the reinit_completion() statement.
-
-> +
-> +	if (!gmux_data->discrete_pdev)
-> +		return -ENODEV;
-> +
-> +	discrete_handle =3D ACPI_HANDLE(&gmux_data->discrete_pdev->dev);
-> +	if (!discrete_handle)
-> +		return -ENODEV;
-
-[Severity: Medium]
-Should the discrete_pdev and discrete_handle checks be restricted to
-APPLE_GMUX_TYPE_MMIO?
-
-Non-MMIO systems (PIO and indexed) only write to GMUX_PORT_DISCRETE_POWER
-and never use discrete_pdev or discrete_handle.  Checking them
-unconditionally causes gmux_set_discrete_state() to fail with -ENODEV on
-non-MMIO systems if the discrete GPU lacks an ACPI companion node, if a
-GPU driver runtime-suspends before the second VGA client registers and
-triggers gmux_get_client_id(), or if apple-gmux is unbound and re-probed
-(since vga_switcheroo_enable() skips calling get_client_id() for clients
-whose ID is already assigned).
-
-> =20
->  	if (state =3D=3D VGA_SWITCHEROO_ON) {
-> -		gmux_write8(gmux_data, GMUX_PORT_DISCRETE_POWER, 1);
-> -		gmux_write8(gmux_data, GMUX_PORT_DISCRETE_POWER, 3);
-> +		if (gmux_data->type =3D=3D APPLE_GMUX_TYPE_MMIO) {
-> +			acpi_handle handle;
-> +			u16 vendor;
-> +			int i;
-> +
-> +			gmux_write8(gmux_data, GMUX_PORT_DISCRETE_POWER, 2);
-> +			msleep(100);
-> +			gmux_write8(gmux_data, GMUX_PORT_DISCRETE_POWER, 3);
-> +
-> +			status =3D acpi_execute_simple_method(discrete_handle, "PWRD", 0);
-> +			if (ACPI_FAILURE(status))
-> +				return -EIO;
-> +			msleep(20);
-> +
-> +			if (gmux_save_restore_pci(NULL, "\\_SB_.PCI0.PEG0", 0, &handle))
-> +				return -EIO;
-> +
-> +			if (gmux_save_restore_pci(handle, "EGP0", 0, &handle))
-> +				return -EIO;
-> +
-> +			if (gmux_save_restore_pci(handle, "EGP1", 0, &handle))
-> +				return -EIO;
 
 [Severity: High]
-Does hardcoding EGP0 and EGP1 here break power-up on MMIO systems where
-the discrete GPU sits directly under PEG0 without a PCIe switch (such as
-Polaris-based T2 MacBookPro15,1 and MacBookPro15,3)?
+Can amdgpu_device_supports_gmux() return true before the vga_switcheroo
+handler and peer GPU client are registered?
 
-On power-down, gmux_set_discrete_state() dynamically walks up the ACPI
-parent chain from discrete_handle regardless of bridge depth and cuts
-power via PWRD(1).  On power-up, however, gmux_save_restore_pci() returns
--EIO if EGP0 or EGP1 has no physical struct pci_dev, aborting after
-PWRD(0) and leaving the discrete GPU un-restored in PCI_D3cold.
+When the system boots with the discrete GPU as the default VGA device
+(pdev =3D=3D vga_default_device()), vga_switcheroo_client_probe_defer() does
+not defer probing even if apple-gmux has not registered its handler yet.
+Because apple_gmux_detect(NULL, NULL) only checks the PNP MMIO resource,
+amdgpu attaches vga_pm_domain and enables runtime autosuspend; when the
+autosuspend timer fires while vgasr_priv.handler is NULL,
+vga_switcheroo_runtime_suspend() dereferences vgasr_priv.handler->switchto
+and crashes:
 
-> +
-> +			for (i =3D 0; i < 1000; i++) {
-> +				pci_read_config_word(gmux_data->discrete_pdev,
-> +							PCI_VENDOR_ID, &vendor);
-> +				if (vendor !=3D 0xffff)
-> +					break;
-> +				msleep(1);
-> +			}
-> +			if (vendor =3D=3D 0xffff)
-> +				return -ETIMEDOUT;
-> +
-> +			if (gmux_save_restore_pci(handle, "GFX0", 0, NULL))
-> +				return -EIO;
-> +
-> +			if (gmux_save_restore_pci(handle, "HDAU", 0, NULL))
-> +				return -EIO;
-> +		} else {
-> +			gmux_write8(gmux_data, GMUX_PORT_DISCRETE_POWER, 1);
-> +			gmux_write8(gmux_data, GMUX_PORT_DISCRETE_POWER, 3);
-> +		}
->  		pr_debug("Discrete card powered up\n");
->  	} else {
-> -		gmux_write8(gmux_data, GMUX_PORT_DISCRETE_POWER, 1);
-> -		gmux_write8(gmux_data, GMUX_PORT_DISCRETE_POWER, 0);
-> +		if (gmux_data->type =3D=3D APPLE_GMUX_TYPE_MMIO) {
-> +			acpi_handle parent_handle =3D discrete_handle;
-> +			bool saved_hda =3D false;
-> +
-> +			/* If the power state was OFF, then we only do
-> +			 * PWRD and we do not save registers, as the
-> +			 * registers are already saved
-> +			 */
-> +			if (gmux_data->power_state =3D=3D VGA_SWITCHEROO_OFF)
-> +				goto do_pwrd;
+drivers/gpu/vga/vga_switcheroo.c:vga_switcheroo_runtime_suspend() {
+	...
+	mutex_lock(&vgasr_mutex);
+	if (vgasr_priv.handler->switchto) {
+		mutex_lock(&vgasr_priv.mux_hw_lock);
+		vgasr_priv.handler->switchto(VGA_SWITCHEROO_IGD);
+	...
+}
 
-[Severity: High]
-What happens across system suspend and resume when the discrete GPU is
-powered off (gmux_data->power_state =3D=3D VGA_SWITCHEROO_OFF)?
-
-gmux_save_restore_pci() sets pdev->current_state =3D PCI_D3cold on the
-upstream bridges (PEG0, EGP0, EGP1) and cuts their power via PWRD(1), but
-the bridge devices are not runtime-suspended.  During system suspend,
-pci_pm_suspend() clears pci_dev->state_saved =3D false and
-pci_pm_suspend_noirq() calls pci_save_state() on the powered-off bridges;
-as noted in the comment above gmux_save_restore_pci(), accessing these
-bridges while off triggers a CPU CATERR or overwrites saved_config_space
-with 0xffffffff.  Even if suspend completes, pci_pm_resume_noirq() runs
-before gmux_resume() and calls pci_pm_default_resume_early(), resetting
-the bridges to PCI_D0 and clearing state_saved =3D false, after which
-gmux_resume() -> gmux_set_discrete_state() takes this goto do_pwrd branch
-and cuts bridge power without saving their post-resume PCI state or
-marking them PCI_D3cold.
-
-> +
-> +			while (ACPI_SUCCESS(acpi_get_parent(parent_handle,
-> +							&parent_handle))) {
-> +				if (!saved_hda) {
-> +					if (!gmux_save_restore_pci(parent_handle,
-> +								"HDAU", true, NULL)) {
-> +						saved_hda =3D true;
-> +						pci_save_state(gmux_data->discrete_pdev);
-> +						gmux_data->discrete_pdev->current_state =3D
-> +								PCI_D3cold;
-> +					}
-> +				}
-
-[Severity: Medium]
-Why is saving gmux_data->discrete_pdev gated on gmux_save_restore_pci()
-succeeding for HDAU?
-
-If the HDAU audio device is absent or has been removed via sysfs,
-gmux_save_restore_pci(parent_handle, "HDAU", ...) returns -EIO.  On
-power-off, discrete_pdev config state is never saved and its current_state
-is not set to PCI_D3cold before PWRD(1) cuts power; on power-on, the HDAU
-restore at the end of the VGA_SWITCHEROO_ON branch also returns -EIO after
-the hardware and GFX0 have already been powered up.
-
-> +				if (gmux_save_restore_pci(parent_handle, NULL, true, NULL))
-> +					break;
-> +			}
-> +do_pwrd:
-> +			status =3D acpi_execute_simple_method(discrete_handle, "PWRD", 1);
-> +			if (ACPI_FAILURE(status))
-> +				return -EIO;
-> +			msleep(20);
-> +			gmux_write8(gmux_data, GMUX_PORT_DISCRETE_POWER, 1);
-> +			mdelay(10);
-> +			gmux_write8(gmux_data, GMUX_PORT_DISCRETE_POWER, 0);
-> +		} else {
-> +			gmux_write8(gmux_data, GMUX_PORT_DISCRETE_POWER, 1);
-> +			gmux_write8(gmux_data, GMUX_PORT_DISCRETE_POWER, 0);
-> +		}
->  		pr_debug("Discrete card powered down\n");
->  	}
-> =20
->  	gmux_data->power_state =3D state;
-
-[Severity: High]
-Can early error returns in gmux_set_discrete_state() leave
-gmux_data->power_state out of sync with the hardware and PCI device states?
-
-In the VGA_SWITCHEROO_ON branch, if polling PCI_VENDOR_ID times out or
-restoring one of the devices (such as HDAU) fails after PWRD(0) and the
-upstream bridge restores have already run, the function returns an error
-before updating gmux_data->power_state =3D VGA_SWITCHEROO_ON.  Callers in
-vga_switcheroo ignore the return value of handler->power_state(), leaving
-the hardware and bridges in PCI_D0 while gmux_data->power_state remains
-VGA_SWITCHEROO_OFF.  On the next power-off or system resume, the
-if (gmux_data->power_state =3D=3D VGA_SWITCHEROO_OFF) check jumps straight =
-to
-do_pwrd and cuts bridge power via PWRD(1) without saving PCI state or
-setting current_state to PCI_D3cold, exposing the powered-off bridges to
-config accesses and a CPU CATERR.  Conversely, if PWRD(1) fails at
-do_pwrd, the devices are left marked PCI_D3cold while power remains on.
+Even after apple-gmux registers its handler,
+vga_switcheroo_client_probe_defer() does not wait for the integrated GPU
+client (i915) to register, so vga_switcheroo_enable() has not run and
+gmux_set_discrete_state() fails with -ENODEV during runtime suspend
+without saving bridge state or cutting power.  Also, unlike
+amdgpu_device_supports_px(), amdgpu_device_supports_gmux() does not check
+IS_ENABLED(CONFIG_VGA_SWITCHEROO), and calling
+vga_switcheroo_client_probe_defer() unconditionally in amdgpu_pci_probe()
+defers Thunderbolt eGPUs or systems with stub APP000B ACPI devices where
+gmux_probe() returns -ENODEV.
 
 [ ... ]
-> @@ -552,10 +691,14 @@ static enum vga_switcheroo_client_id gmux_get_clien=
-t_id(struct pci_dev *pdev)
->  	else if (pdev->vendor =3D=3D PCI_VENDOR_ID_NVIDIA &&
->  		 pdev->device =3D=3D 0x0863)
->  		return VGA_SWITCHEROO_IGD;
-> -	else
-> +	else {
-> +		if (!apple_gmux_data->discrete_pdev)
-> +			apple_gmux_data->discrete_pdev =3D pci_dev_get(pdev);
-> +
->  		return VGA_SWITCHEROO_DIS;
-> -}
+
+> @@ -4202,12 +4246,13 @@ int amdgpu_device_init(struct amdgpu_device *adev,
+>  		vga_client_register(adev->pdev, amdgpu_device_vga_set_decode);
 > =20
-> +	}
-> +}
+>  	px =3D amdgpu_device_supports_px(adev);
+> +	gmux =3D amdgpu_device_supports_gmux(adev);
+> =20
+>  	if (amdgpu_device_should_register_switcheroo(adev, px))
+>  		vga_switcheroo_register_client(adev->pdev,
+> -					       &amdgpu_switcheroo_ops, px);
+> +					       &amdgpu_switcheroo_ops, px || gmux);
+> =20
+> -	if (px)
+> +	if (px || gmux)
+>  		vga_switcheroo_init_domain_pm_ops(adev->dev, &adev->vga_pm_domain);
 
-[Severity: Low]
-Can concurrent calls to gmux_get_client_id() race on
-apple_gmux_data->discrete_pdev and leak a pci_dev reference?
+[Severity: Medium]
+Does enabling driver_power_control and attaching vga_pm_domain here ignore
+the amdgpu.runpm module parameter?
 
-vga_switcheroo_enable() calls get_client_id() under vgasr_mutex, whereas
-vga_switcheroo_lock_ddc() and vga_switcheroo_unlock_ddc() call it under
-vgasr_priv.mux_hw_lock without holding vgasr_mutex.  If the discrete GPU
-driver locks DDC while the second GPU client registers, both threads can
-see apple_gmux_data->discrete_pdev as NULL and call pci_dev_get(pdev),
-while gmux_remove() only calls pci_dev_put() once.
+amdgpu_device_init() runs before amdgpu_device_detect_runtime_pm_mode(),
+which only selects AMDGPU_RUNPM_GMUX when amdgpu_runtime_pm is -1 or -2.
+Booting with amdgpu.runpm=3D0 leaves runtime PM disabled while
+driver_power_control is true, turning manual vga_switcheroo OFF/ON
+commands into no-ops.  Booting with amdgpu.runpm=3D1 or 2 selects
+AMDGPU_RUNPM_BACO or AMDGPU_RUNPM_BAMACO while vga_pm_domain is still
+attached, so runtime suspend enters BACO without caching PCI state or
+setting PP_MP1_STATE_UNLOAD before vga_switcheroo_runtime_suspend() cuts
+power via GMUX.
+
+[Severity: High]
+Can pci_device_shutdown() trigger a NULL pointer dereference in
+vga_switcheroo_power_switch() when the GMUX GPU is runtime-suspended at
+shutdown?
+
+PNP devices are registered after PCI devices in devices_kset, and no
+device_link orders the PCI GPU before the apple-gmux PNP device.  During
+device_shutdown(), gmux_shutdown() -> gmux_remove() ->
+vga_switcheroo_unregister_handler() runs first and sets
+vgasr_priv.handler =3D NULL while the GPU remains in D3cold.  When
+pci_device_shutdown() then runs on the GPU, it calls pm_runtime_resume()
+-> vga_switcheroo_runtime_resume() -> vga_switcheroo_power_switch(), which
+dereferences vgasr_priv.handler->power_state:
+
+drivers/gpu/vga/vga_switcheroo.c:vga_switcheroo_power_switch() {
+	if (!vgasr_priv.handler->power_state)
+		return;
+	...
+}
+
+In addition, amdgpu_pci_shutdown() then calls amdgpu_device_prepare() and
+amdgpu_device_suspend(), which only check for DRM_SWITCH_POWER_OFF (not
+DRM_SWITCH_POWER_DYNAMIC_OFF) and access hardware on the powered-off GPU.
+
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c b/drivers/gpu/drm/am=
+d/amdgpu/amdgpu_drv.c
+> index d9d794a7db964..3978ed284048f 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
+[ ... ]
+> @@ -2494,11 +2497,12 @@ static int amdgpu_pci_probe(struct pci_dev *pdev,
+>  		DRM_ERROR("Creating debugfs files failed (%d).\n", ret);
+> =20
+>  	if (adev->pm.rpm_mode !=3D AMDGPU_RUNPM_NONE) {
+> -		/* only need to skip on ATPX */
+> +		/* ATPX requires a full system-sleep transition. */
+>  		if (amdgpu_device_supports_px(adev))
+>  			dev_pm_set_driver_flags(ddev->dev, DPM_FLAG_NO_DIRECT_COMPLETE);
+> -		/* we want direct complete for BOCO */
+> -		if (amdgpu_device_supports_boco(adev))
+> +		/* BOCO and GMUX can remain runtime suspended across system sleep. */
+> +		if (amdgpu_device_supports_boco(adev) ||
+> +		    adev->pm.rpm_mode =3D=3D AMDGPU_RUNPM_GMUX)
+>  			dev_pm_set_driver_flags(ddev->dev, DPM_FLAG_SMART_PREPARE |
+>  						DPM_FLAG_SMART_SUSPEND |
+>  						DPM_FLAG_MAY_SKIP_RESUME);
+> @@ -2610,7 +2614,9 @@ static int amdgpu_pmops_prepare(struct device *dev)
+>  	/* Return a positive number here so
+>  	 * DPM_FLAG_SMART_SUSPEND works properly
+>  	 */
+> -	if (amdgpu_device_supports_boco(adev) && pm_runtime_suspended(dev))
+> +	if ((amdgpu_device_supports_boco(adev) ||
+> +	     adev->pm.rpm_mode =3D=3D AMDGPU_RUNPM_GMUX) &&
+> +	    pm_runtime_suspended(dev))
+>  		return 1;
+
+[Severity: High]
+What happens during system sleep or hibernation when direct_complete is
+not used on a runtime-suspended GMUX GPU?
+
+When the HDA audio consumer (snd_hda_intel) is bound, its child PCM
+devices clear direct_complete during dpm_prepare() after
+amdgpu_pmops_prepare() on the supplier GPU has already returned 1 and
+skipped amdgpu_device_prepare().  In dpm_suspend(), pci_pm_suspend() on
+the HDA device runtime-resumes the GMUX GPU and clears its
+direct_complete, so amdgpu_pmops_suspend() -> amdgpu_device_suspend() runs
+without amdgpu_device_prepare() having executed, and because
+vga_pm_domain only implements runtime PM callbacks, GMUX never powers off
+the GPU for system sleep.
+
+Conversely, if direct_complete is cleared while the GMUX GPU stays
+runtime-suspended (for example via a child backlight device, wakeup
+settings, or during hibernation in pci_pm_poweroff()), DPM_FLAG_SMART_SUSPE=
+ND
+causes pci_pm_suspend() and pci_pm_poweroff() to skip pm_runtime_resume()
+and call amdgpu_device_suspend() while the GPU is powered off in
+DRM_SWITCH_POWER_DYNAMIC_OFF.  On resume, pci_pm_resume() sees
+pci_dev->state_saved =3D=3D true from runtime suspend and calls
+amdgpu_pmops_resume() while GMUX still has power cut, where
+pci_device_is_present() reads 0xffff, sets adev->no_hw_access =3D true, and
+runs amdgpu_device_resume() on the powered-off device.
 
 --=20
 Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261114160731.3756=
--1-atharvatiwarilinuxdev@gmail.com?part=3D1
+-1-atharvatiwarilinuxdev@gmail.com?part=3D8
