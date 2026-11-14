@@ -2,83 +2,86 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CC251606A32D
-	for <dri-devel@archiver.kernel.org>; Sat, 14 Nov 2026 16:25:05 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3445C606A329
+	for <dri-devel@archiver.kernel.org>; Sat, 14 Nov 2026 16:25:07 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=yahoo.fr header.i=@yahoo.fr header.a=rsa-sha256 header.s=s2048 header.b=aiC3XRFf
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=Mgkuo664
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 9930A10ECF1;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 8933210ECA9;
 	Sat, 14 Nov 2026 16:24:48 +0000 (UTC)
-Received: from sonic313-20.consmr.mail.ir2.yahoo.com
- (sonic313-20.consmr.mail.ir2.yahoo.com [77.238.179.187])
- by gabe.freedesktop.org (Postfix) with ESMTPS id CF8D210E79D
- for <dri-devel@lists.freedesktop.org>; Fri, 13 Nov 2026 13:00:25 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=yahoo.fr; s=s2048;
- t=1794574824; bh=Kp7knWh9ofl45N6b1gti1nExdA8H/UwtkNHp3rQFPMo=;
- h=From:To:Cc:Subject:Date:In-Reply-To:References:Content-Type:From:Subject:Reply-To:Content-Type;
- b=aiC3XRFf9F6JHrqJXIY5bjaoP0WrAgO/vZIPhlmNvSy/NUXprQvmAnS6JGd3ZNdrdd/7xYDTDX06HMvztED5vQEXdBVSSFsO366DMAUwiyKxy0xVqmOPBmgUK1dYoG9YUIoYAI+IMhh9Vs23Fc6RyZ6PkG20dp/R/Aau4wDB0lc3wChMonHgcIvMYbhF3kPmHUxiuGSS5llihXgMVUT2b9gJ3VyObrul24iIeH9sle45yNTHrzHWk2Mq5U0JScIvcvyJn0CL3KVwKIFGiIcxfRkYK7//+WedpVf5+nUpMBk5ptROY2I+ZNTOTm9R/7794xN96593VAeAW2GA0FLNCg==
-X-SONIC-DKIM-SIGN: v=1; a=rsa-sha256; c=relaxed/relaxed; d=yahoo.com; s=s2048;
- t=1794574824; bh=gvuM0yqY9fAPeo65eBSE77zhITR6gfJEH8ACXEZsyhe=;
- h=X-Sonic-MF:From:To:Subject:Date:From:Subject;
- b=ji3V4YA9B38WQz4QSNX4W8kPu77xOoV+tUJiw15piUFOwBKLNoMoS+iCWxzzQlgBAN46Br9xTYkx49T9Tcn2bWSFdURdmHtVezLHf/7g3gNh1ibl6NxClaYQ7upCQo+v3pM0SFFVQJ5OsNrQGAMmwQzChkycSBtPgvCvAoVSdv4/HC2nhHvrnqtONKGx0Da4wzuZ2//bbP/MIY28zgaw82pso5rx31bZSEW/IHbLkB94GT6CsLcbB+HJffL/aGnYagak9VTLU3QsgqFIjnSYLe6udGh8byrGc1MwZSjwV1KFmrisfPduxxtoDTIXjR47c9yHQC8kLeGgRAhtMaT3Ow==
-X-YMail-OSG: zZGpyCoVM1ks8QXfpO.to6W.e0d4657Oj1NQTp2oq3WmUBHaWjK.td2b9uCC37e
- XI4OO1WpzRLHUkVBJaYT4quEUMMV9W6bZ0ZFFtRy6SSz19ZEtFspU0SN6zJKqpVemcq0jR7HW2NK
- GMgxF69_7Dzjn4NF1MIUisb0Cu3ENzsqUNTVPG7x797w4WW9IVgE8fxmHmfVdyY5ur9pWQO3YWCu
- Y7choIt_.b34_lMS6wpDVSBzPlEB9miHRbWrAfs_S2ad2_g8CeFAxSyOvtSUw9OIcPVdbFXXBysL
- OeSl4vVSvl02lj95iMq36fxgI_bBa9yqmhq15ZFsR7apDYHoKg5fefC9FErea0BPs0Tt3zXzkXKt
- mkuDHA.tRpu3K7KC9hbKR0v6Xu6U.glAEktIe9e2Tqwyxw1s8epdqhOgK9k58_aD4hlib5qD9Y0o
- ur9sBWLrm8kNpBVPrQts3WlRp69_MdPkUj8PD21phMSZAOehz8DirjjFUO3UWYeIRIA4Qd2zZ3sZ
- 2UNtiiS3LZWVdbWO_Vlrmlio3gHglNvohIfsp2Pl3PnU.d7up2L0qOwRgs3rcP0g0gVPDbKyyXKQ
- iXoKk.VIK36D01Szz6Ne4odq6iti2roJluuHgCyqt.Ld_ffcDIvxMLKab3vNIXaZgvb8ZVXIF1aK
- KqAaB2fQJMGk6DrmmROmB2g6FnZBqZgAfpYQLHOpuOPsf4H_3.trrTRvFLPMyXREqPikDRcHUQFE
- OpPOSRrWLOWrbTLytZ7nM1IgoQBi2APWLh2_jwPMjB_aUmFIR79fkl7jKYlSu4MKS5o_2Zbl9dwz
- aD6mopLc_GyezST7eB1Brfbdmh57hf_afZDlHtQSAswqpAx7JjTbe23BmmMX7iRwHupC6VlPdHV9
- IoXOxDukouNDCg.f9HN22lDpcoVD86t2InKongLF9nvyGj0M4DGDfLlY2IS8iC8v28wvvtyRkGUK
- i0k9PLaOnl.GQ5ICzV281hiN6xuVPdVW7QTZe88nuC3BHkKUGAdPpaCRtb_FtCRM9mL6m5Srcqm7
- AqGjPsxOZksQfcpaowT8fOhOkwM8hWhyXrQj_NZJL_DoAhpn_4X1nA7Qi6uPG0Jxh.33qhcjrluo
- 5_tJVY.Bz39LRhkZJ3hpn.un4fTD..ezRE0KKMyTEx9HGcoR5gkaa_nQIbWRFMMm7iF9hdQiAIbn
- ia0ufocr1KIWfCUHCh8_ppmUU6zDHCpVme0bIwUfYry6ZRIQrEiCDfHsKvdKQXLNVk0z2Kj5jb3c
- SHeCG5tdIkKKczWF7NhdIqKL2hPJs4CzQ3htDFGZXo9vfZjHwECy.ITZHfMg_CfeunMENAWC8f48
- M3qdTjZLhE4ReJxlEtG02iL8e6Ecb_5XcfSwp8PeRql8zGpZv.VEDZpn7d5bsuHQjTO1.dohfvY.
- 67WnDNFSp.dJLW.ozZPpb4sf3N3sLqq_k77BeEr44G52sX1geBX5saCsW8rRZm7tNfjbY2vdFVSf
- QjHHSHhpXHY7C8UGpXtGAWirYYkx3RkmiNozo1heAV4prB1oKGh_Qai6kGdnqp_r1DLxh5pbaxUx
- FXLJW1v37ZxDoe1VttOLnXwE1mvWMgfHHDiCi2ESQybW0.ToZxasjno9.iWprUwQG4HqXL8YVPpz
- g.ukxFXcr2_K9IhkVcfQkAhieZBJwCSoMossH9bDWEtWJWXBEr2kb5wsOjMYuYTtT4tm4hFhIkwB
- iDYuSte7IV.UbZRVlrol3hWW4dok0stLtYKKv17syzfyctYxK0SkQ90XufufTcgyVKDOXWevGgQA
- m4z_YvgCcsAR9wCBkwO6x_XJLtE_lGLOEhvGNOLAKgkTDTnizLnn3A03IHCCIiKkp.ccs0lm26QO
- oBx_6rgnJLiPVtUJ6lg.55eq0ymBED8sOArl57CqOpMvp3.Oi6CgcpIrWicWftkUuad6m95Trt6D
- wudct.gvSmEspkQ3MtE7OvCd18Jf5vw1ZQFkLAzm1qYiY_4rV_o4i.RmaxCx7eA.CImcXYo9D7t2
- o2SH4qHPpUUpEkm3MYEAXkcAjfK6L1iXHjIAr6jrSub3e2HxGkjj8N6ptsLauow9yZB2WyJPFI8S
- 1_ecl0JZkges9_rIalIPvxihVHonGPAoLiNMWpnj28QNgydTGSjfG5eSmrSWEpCGIhcVp5cTksMN
- _IAz8lBKnrfNrMjfSTRdL.HSYY9QQpxnbYB4DirEGF1iydqJQuPH6NwFn0ykVmWE.Qh1eexzx8Fi
- refJcvMiWUQnAa0rrIkJelgs6YmsD85Twim_xLkkGcd4puiXADX5h3PRzPdhZnWh6wF5PMJNkCq_
- 3
-X-Sonic-MF: <fabstz-it@yahoo.fr>
-X-Sonic-ID: 0161231a-1834-4ac6-b207-2ecebea6d790
-Received: from sonic.gate.mail.ne1.yahoo.com by
- sonic313.consmr.mail.ir2.yahoo.com with HTTP; Fri, 13 Nov 2026 13:00:24 +0000
-Received: by hermes--production-ir2-5dd9bf4598-cdfcp (Yahoo Inc. Hermes SMTP
- Server) with ESMTPA ID b0cfbf3edf66c7acae4f528f93058857; 
- Fri, 13 Nov 2026 13:00:20 +0000 (UTC)
-From: Fab Stz <fabstz-it@yahoo.fr>
-To: Beomseok Kim <dilddream31@gmail.com>,
- Marek Czernohous <mczernohous@gmail.com>
-Cc: nouveau@lists.freedesktop.org, Lyude Paul <lyude@redhat.com>,
- Danilo Krummrich <dakr@kernel.org>, maarten.lankhorst@linux.intel.com,
- mripard@kernel.org, simona@ffwll.ch, dri-devel@lists.freedesktop.org,
- linux-kernel@vger.kernel.org, stable@vger.kernel.org
-Subject: Re: [PATCH] drm/nouveau: Clear fence channel in no-signaling path
-Date: Fri, 13 Nov 2026 14:00:18 +0100
-Message-ID: <2430996.ElGaqSPkdT@debian>
-In-Reply-To: <179451962164.1494544.10983579250194846394@gmail.com>
-References: <20260928081450.19340-1-dilddream31@gmail.com>
- <179451962164.1494544.10983579250194846394@gmail.com>
+Received: from mail-ej1-f53.google.com (mail-ej1-f53.google.com
+ [209.85.218.53])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 51B5E10E73E
+ for <dri-devel@lists.freedesktop.org>; Sat, 14 Nov 2026 01:44:00 +0000 (UTC)
+Received: by mail-ej1-f53.google.com with SMTP id
+ a640c23a62f3a-c4682977f9aso302168266b.1
+ for <dri-devel@lists.freedesktop.org>; Fri, 13 Nov 2026 17:44:00 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20260707; t=1794620638; x=1795225438; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:mime-version:references:in-reply-to
+ :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+ :message-id:reply-to:content-type;
+ bh=0Pz+qENIdDsgTiQZzFFYd3dQorXrNLOkeSm/a1z1K+E=;
+ b=Mgkuo664Kc+3FoLbPLfohgPkMkYSwge8DcAzrSxtpUw3aG4PAkt7zZdUAPr1OchCvI
+ F5ps4O14wr6hmecGyGD+5tQPKHId2pmrruSfIGmyjZD5EbNV2zVtGfQvzSTmbGwWI/Un
+ PgtnXnU/8YtfZoKVg0ZPpgFqyX+eckaI/UEc7qe6RGBKGfaUbpr6gXk7wOAUwxtkqCAv
+ mceKMX4jGNq6b0y/MWhBbVsnNZoYoqnAfmrc0MkLEWkaokaVdv2bIyuZyJTEs//xdWOs
+ vD3MK20+OhflObUxL3h7hxIPbHAFo66KyaEYUqwGiRTX+k9hx3np2up2lOPSdtXbtqeF
+ lkdg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20260707; t=1794620638; x=1795225438;
+ h=content-transfer-encoding:mime-version:references:in-reply-to
+ :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+ :to:cc:subject:date:message-id:reply-to:content-type;
+ bh=0Pz+qENIdDsgTiQZzFFYd3dQorXrNLOkeSm/a1z1K+E=;
+ b=vOzQi0eRqcKeJpoCpUPgJYZIxPtKUPGpAlG72V22slXfLvXanQe9TFzjnPd8GnLfDM
+ czVDg9raDufeqeKdwPXM1KnJIhfSAEu/jh3Pog8Dz2NkDrZbtrimfZUOFclmDL9BF0QK
+ tpHvzv4OmU09QB6t7ct58qXrk/wf45HQ86UidlSdC07wXs7SNyc33mMbN4Su1kXYOHiN
+ aNpEivEEtSgeVcAD50ZjkG7vLMIp53xXYAHxfdy4dgXuakTA8xoKOIFBoeD4/HrALnQl
+ 6KeKYDXxFEd9Da7wkmmj+bYxfFrtqM0OhbKjUOeyeXO4aErvHcuh+pdExNnBDSjNpG+D
+ Xj+A==
+X-Forwarded-Encrypted: i=1;
+ AL+hErGujxbNNOFTmpHVYnk6SDRX3XMRyzdWav5e2714FPItOuBwEYtH1E1gpoemxeIvRJsWb7NhMZqv78U=@lists.freedesktop.org
+X-Gm-Message-State: APuU4Z9K1gfIpa+g1UpjDcvoO2ROn+tqzu1QrhTgugX5bJBjzEFuJ2ne
+ xxHvZO54Qat8x8pYdoGx5ypFB/7p7YZiTmR8yoLsmT7YSG/njNOttp45
+X-Gm-Gg: AYBFou0ywASi0WwmcFvFLzePoaABDexh4scgHN9wr7TCb7nPcdmH6Bbja8pkJaS3JND
+ po6xRE9va9ibnAurCDNDLgW01hUWiErNjNxENlTYAHWZRzyxtkdWjJ4LQfRZ4XFrYhFeW34bdsf
+ SEbmownIdJfQOzsYFD4HI7uIxA4Cpj+tbx9Gn9H9MXi8oT3f/aJD72VGiCfYGr1iWhRn4HX+3fp
+ 7ZYAMYKKifKP90kmmVHc41NEo4geThd8H7S4+M527woy+jlUFVXkXmwV9hErzjyFwgxqieAUZ2D
+ S7RhTvxnVzgU3nCRDP6B6rntBshPx7RrrpINna098pUt5fwa2aVnAX/7lu9/e0pBNqUrHf53VzZ
+ KxJ/38kkm3XAjOcIdOKB8EX4gXexoIVnpKI5xnFPaWkw5MaIucyvVNRMtN4mRLc74xqRmsPR4LH
+ /iNmeowc1pG/o1RbC12oOTrFg+9lDwKXWizHsh2LnOlc4hXh2HE0z0Uhl2kBdAeGNpKzZvsQEOj
+ dDfPKlHin3+rwtkG2ZjNEKHxPEBkG7gx5cTceyyLHhddDx6CBBPo3R6DtHd7OK5XyHCOoN1FJWt
+ /4VwKSV3pc7+9cWaTj0x3FFUC1NPapScHIs6oONFeX9QhSrJMtSPM7lJd8QJGGB+Tn/kzYV4GbD
+ 3s6hjGFXy+Fl6ewmeziSKI/I=
+X-Received: by 2002:a17:907:7b85:b0:c46:a72:e0c3 with SMTP id
+ a640c23a62f3a-c5096398905mr356309566b.16.1794620638353; 
+ Fri, 13 Nov 2026 17:43:58 -0800 (PST)
+Received: from SMOK.angora-ide.ts.net
+ (mm-156-219-126-178.vitebsk.dynamic.pppoe.byfly.by. [178.126.219.156])
+ by smtp.gmail.com with ESMTPSA id
+ a640c23a62f3a-c5095b5a4c1sm161402666b.48.2026.11.13.17.43.57
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Fri, 13 Nov 2026 17:43:58 -0800 (PST)
+From: ElXreno <elxreno@gmail.com>
+To: intel-gfx@lists.freedesktop.org,
+	intel-xe@lists.freedesktop.org
+Cc: jani.nikula@linux.intel.com, rodrigo.vivi@intel.com,
+ joonas.lahtinen@linux.intel.com, tursulin@ursulin.net,
+ ville.syrjala@linux.intel.com, ankit.k.nautiyal@intel.com,
+ mitulkumar.ajitkumar.golani@intel.com, airlied@gmail.com, simona@ffwll.ch,
+ dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
+ ElXreno <elxreno@gmail.com>
+Subject: [PATCH 2/7] drm/i915/vrr: Fix the pixel clock overflow in the vmax
+ computation
+Date: Sat, 14 Nov 2026 04:43:30 +0300
+Message-ID: <20261114014335.2132756-3-elxreno@gmail.com>
+X-Mailer: git-send-email 2.56.0
+In-Reply-To: <20261114014335.2132756-1-elxreno@gmail.com>
+References: <20261114014335.2132756-1-elxreno@gmail.com>
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 7Bit
-Content-Type: text/plain; charset="utf-8"
-X-Mailer: WebService/1.1.26943
- mail.backend.jedi.jws.acl:role.jedi.acl.token.atz.jws.hermes.yahoo
+Content-Transfer-Encoding: 8bit
 X-Mailman-Approved-At: Sat, 14 Nov 2026 16:24:47 +0000
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -91,24 +94,47 @@ List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-2.8 required=3.0 tests=BAYES_00,DKIM_SIGNED,
+X-Spam-Status: No, score=-15.8 required=3.0 tests=BAYES_00,DKIM_SIGNED,
 	DKIM_VALID,DKIM_VALID_AU,FREEMAIL_FORGED_FROMDOMAIN,FREEMAIL_FROM,
-	HEADER_FROM_DIFFERENT_DOMAINS,MAILING_LIST_MULTI,SPF_HELO_NONE,
-	SPF_PASS autolearn=no autolearn_force=no version=4.0.1
+	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
+	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,USER_AGENT_GIT
+	autolearn=unavailable autolearn_force=no version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-Hello,
+intel_vrr_compute_vmax() multiplies crtc_clock, which is in kHz, by
+1000 in a signed int. A 3840x2400@240 timing has a 2342.4 MHz pixel
+clock, so the product overflows, the quotient turns negative and vmax
+is clamped to crtc_vtotal. vmin then equals vmax and VRR is never
+enabled for the mode, although it is within the range of the panel.
 
-> The patch applies to 6.12.y with an offset; compile-tested there with
-> W=1 only. I have asked the reporter (Cc'd) to test it.
+Do the multiplication in 64 bits.
 
-Thank you Marek, Beomseok and other contributors.
+No Fixes tag: intel_vrr_compute_vmax() is only called for a mode
+within the VRR range, such a pixel clock needs the joiner, and
+intel_vrr_compute_config() takes joined modes out of the range so
+far.
 
-For my quick test of the patch by Beomseok Kim, please see https://gitlab.freedesktop.org/drm/nouveau/-/work_items/443#note_3781457
+Signed-off-by: ElXreno <elxreno@gmail.com>
+---
+ drivers/gpu/drm/i915/display/intel_vrr.c | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
 
-Regards
-Fab
-
-
+diff --git a/drivers/gpu/drm/i915/display/intel_vrr.c b/drivers/gpu/drm/i915/display/intel_vrr.c
+index e59345bd1d33..a5a5d11380a4 100644
+--- a/drivers/gpu/drm/i915/display/intel_vrr.c
++++ b/drivers/gpu/drm/i915/display/intel_vrr.c
+@@ -416,8 +416,8 @@ int intel_vrr_compute_vmax(struct intel_connector *connector,
+ 	const struct drm_display_info *info = &connector->base.display_info;
+ 	int vmax;
+ 
+-	vmax = adjusted_mode->crtc_clock * 1000 /
+-		(adjusted_mode->crtc_htotal * info->monitor_range.min_vfreq);
++	vmax = div_u64(mul_u32_u32(adjusted_mode->crtc_clock, 1000),
++		       adjusted_mode->crtc_htotal * info->monitor_range.min_vfreq);
+ 	vmax = max_t(int, vmax, adjusted_mode->crtc_vtotal);
+ 
+ 	return vmax;
+-- 
+2.56.0
 
