@@ -2,43 +2,78 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 51E9C606A898
-	for <dri-devel@archiver.kernel.org>; Sat, 14 Nov 2026 03:31:54 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B420B606A331
+	for <dri-devel@archiver.kernel.org>; Sat, 14 Nov 2026 04:36:00 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=OHXwyMRa
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=A9uttR3t
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id ADC0B10EC15;
-	Sat, 14 Nov 2026 03:31:48 +0000 (UTC)
-Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 130B489091;
- Sat, 14 Nov 2026 03:31:42 +0000 (UTC)
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id C3510467BE;
- Sat, 14 Nov 2026 03:31:41 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7D8031F000C4;
- Sat, 14 Nov 2026 03:31:41 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1794627101;
- bh=TD324dSPzOSVtrbAGqBfjsp768XIuMRBD3uusT7REdY=;
- h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
- b=OHXwyMRa206h6ZkNJjQA7hlH7xCJDqcqjhj1x1VxNe0bSf0rgD0d5isvhXK4XTRIq
- maJmDw9SzueW7/O2FYT7mEVu36mQMJufKsnvTdRLbkKxxNyeKhuwN09gsS+wFHu5pi
- zbq+u7vPuDlUBp7Oo1Zw54doPL+nxYZ/Bo6lnIguxXMJthJLtxs25giHoU0EJMAulC
- hFD9S08hOKJLxoFrrDB3swSfDpI2Z54BLznu9awEPF0q635nq1f4ALKLO+3BSOq7iZ
- rhgRPZPgH/olLMGZh5JaO69Bb3ogR36KiKdVuKbfM6YIXfXc3bAZ5ZloLxxQp9wnEr
- KNn183s+bv8BA==
-Message-ID: <sashiko-outbox-214116@kernel.org>
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH 4/5] drm/amd/pm: allow editing the smu8 overdrive sclk
- table
-To: "Joshua Horne" <hornejd@etsu.edu>
-Cc: amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org
-In-Reply-To: <20261113-smu8-overdrive-v1-4-763f07bdfca9@etsu.edu>
-References: <20261113-smu8-overdrive-v1-0-763f07bdfca9@etsu.edu>
- <20261113-smu8-overdrive-v1-4-763f07bdfca9@etsu.edu>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Sat, 14 Nov 2026 03:31:41 +0000
+	by gabe.freedesktop.org (Postfix) with ESMTP id EBED610E11B;
+	Sat, 14 Nov 2026 04:35:54 +0000 (UTC)
+Received: from mail-pg1-f173.google.com (mail-pg1-f173.google.com
+ [209.85.215.173])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id F380910E11B
+ for <dri-devel@lists.freedesktop.org>; Sat, 14 Nov 2026 04:35:47 +0000 (UTC)
+Received: by mail-pg1-f173.google.com with SMTP id
+ 41be03b00d2f7-cdb1199bfd8so700328a12.1
+ for <dri-devel@lists.freedesktop.org>; Fri, 13 Nov 2026 20:35:47 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20260707; t=1794630947; x=1795235747; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+ bh=RxV2i3CwJwPvn+mwJ4cbWtgTLXqgAkSjs2t6czxawYk=;
+ b=A9uttR3toAblMO21ZC42vJgQ+E3cLC1Zcr8UtqGkoiXYVDsMlpKnN/I1sNaOfvo4hh
+ MUoM0es/Jn7i1ylRYHoQB+d+1Fqap7RX6dj3hyrgABZFA3hbzpwGgOBW2sfvJbgSTii2
+ wEbvp95ouf3fJfeKIRPOElg/gcHwUUUb8spVrhgHdRdnX+Ssfi4kvimsCY8RWnGuoKJ4
+ tNPWENwtZPoEDdP35X7o1S5+7LQ1QvaFRBzo8Ot6tUg577HE2PuYgpPaZHeG+85zIO4S
+ 6bFt290HA9uv9yP5anY7w75qnA+lZb6Y9HzSNEJnTqU0djZPaPX5i2JQ9YOB/ROzHTIt
+ N2mQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20260707; t=1794630947; x=1795235747;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+ :message-id:reply-to:content-type;
+ bh=RxV2i3CwJwPvn+mwJ4cbWtgTLXqgAkSjs2t6czxawYk=;
+ b=Sfe6bX6h16R/jn3KLayhwYdGnoPAb5c4PDxL3sFyV2FG5KU5osCNhoQf1S/v7FrKEO
+ 9t7uTFZvhE3j+OQk95jXeTK3pQmTUWFTpeo3BMnGmc6vzXAtIfhSIdYCPnG3knkzAcJv
+ 3gdvGt4XZ7OvXkCh7R8oS323cF1t81Ud/O6J30aAfEYHTuHm1aZ3HixsII0nc2co8Jnl
+ fXOGoBi+CG38Fy+cPqQr2nf5iYPcqG9r3ecgCbhWKXScgm2mM0iJLB60vbYLJyvR85qX
+ m6TbsXWvqobCOu/udLWXDyfpKNd4HC+9Ss38I8p4XmbLyPqIHe4IwRY7xQcMH8jip9Bh
+ ObDg==
+X-Forwarded-Encrypted: i=1;
+ AL+hErH+2NVAH6TOgq7E3d181RCo0Y2fmEE6zCRMlWG7j4tb/uB1yy9kXIekOtmra3K4yRuvpewLfWhVJnw=@lists.freedesktop.org
+X-Gm-Message-State: APuU4Z8egJ8f72e6hyKueB//clql3Q7S/JFg/8luwTrmABcEeDlSDMco
+ S/8BQhPbrCM5gKqx52SQUI9VABcsy/LWf2Fo79gNvChNBmD1LBcC3VRL
+X-Gm-Gg: AYBFou0rOY8kVFtsv2qMUKGOeyB+9mQO2DIiK7liKb3lPmpJkdubFmf/NoWZPjn8oLG
+ F9r64shJJPgiBO1IijG4W/N5IQRKsQ0gNZzKDgV7B31gwV/TKpF3RNWrfDxGIbj3yfqWYJVnjFv
+ tai+5EOEpbY+TYFgyzESz7f/owPz+/T7GsM5Fm1yKKDyZRwCL5V7qqGApEQkE9QknvTrxwoKTvE
+ IzD7fXC80DB2sm9yI9JyR6lxHJxNcU3xuCF2qVthW0AfrKPJj8LL2UJ5HBBwJ4vcHLDWggV1fyE
+ wLT+hxh9mvTZeRojttdRQD+LSIB2/NRXUU8Ys2onoxJTy1hUmDmK9lhDp6KohH/Lc/BrNOWQIvV
+ wxyVAgdEZFo60k6d2D/2yecrRvGTM3I873wvl63Qg9Z/T03Y4iNHsPf8IK6fshVrTxlpi3EYHAc
+ HOWRtB2FKdGv3isc1upGhrl2HJElJ7+4nlogGLBp1RuCcJIHUEfBPVPG6msnW/Oy/1ahYcIzAdl
+ TgU1IYrh10uo+/+7aJKivDPsnh/S2rWiqviA+Ev8HU+8lpMITc+Vct/cfBAp768DMRvtY5d2wNT
+ pWo8iDDAMwf0a8xMUZ6Bi+2JKVndB8CmL5g=
+X-Received: by 2002:a17:90a:c88b:b0:3ac:8897:7ba5 with SMTP id
+ 98e67ed59e1d1-3b1b0ba890emr4682230a91.59.1794630947279; 
+ Fri, 13 Nov 2026 20:35:47 -0800 (PST)
+Received: from localhost ([176.210.133.73]) by smtp.gmail.com with ESMTPSA id
+ 98e67ed59e1d1-3b197d32ea0sm12089020a91.15.2026.11.13.20.35.40
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Fri, 13 Nov 2026 20:35:46 -0800 (PST)
+From: Vladislav Zaharov <vladazaharova2018@gmail.com>
+To: dakr@kernel.org,
+	joelagnelf@nvidia.com
+Cc: acourbot@nvidia.com, aliceryhl@google.com, ecourtney@nvidia.com,
+ gary@garyguo.net, nova-gpu@lists.linux.dev,
+ dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
+ vladazaharova2018@gmail.com
+Subject: [PATCH v2] gpu: nova-core: mm: reserve room for every prepared page
+ table page
+Date: Sat, 14 Nov 2026 11:35:35 +0700
+Message-ID: <20261114043535.158583-1-vladazaharova2018@gmail.com>
+X-Mailer: git-send-email 2.56.0
+X-Archived-By: <archiver.kernel.org>
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -49,222 +84,174 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
-Reply-To: sashiko-reviews@lists.linux.dev
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-10.8 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
-	DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
-	INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS autolearn=ham
-	autolearn_force=no version=4.0.1
+X-Spam-Status: No, score=-15.8 required=3.0 tests=BAYES_00,DKIM_SIGNED,
+	DKIM_VALID,DKIM_VALID_AU,FREEMAIL_FORGED_FROMDOMAIN,FREEMAIL_FROM,
+	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
+	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,USER_AGENT_GIT
+	autolearn=unavailable autolearn_force=no version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
-X-Archived-By: <archiver.kernel.org>
 
-Thank you for your contribution! Sashiko AI review found 2 potential
-issues to consider:
-- [Medium] drm/amd/pm: stale SclkHardMin level after
-  smu8_od_upload_sclk_table()
-- [Medium] drm/amd/pm: fractional boundary clocks rejected in
-  smu8_od_edit_sclk_level()
---
+install_mappings() moves every page in pt_pages into page_table_allocs
+with push_within_capacity(), but prepare_map() reserves room only for an
+estimate of the pages of the mapping it prepares. The estimate is too
+low for a range that crosses a page table boundary, and it leaves out
+pages that earlier calls put in pt_pages. Preparing several mappings
+before executing them is then enough to make the push fail. The page is
+freed although its PDE has been written, and pages still in pt_pages
+can have their PDEs installed into it later.
 
-commit f271cff6b522292ee10f53b957a90f73690433ee
-Author: Joshua Horne <hornejd@etsu.edu>
+Reserve room for each page when it is added to pt_pages, and drop the
+estimate. Also move a page into page_table_allocs before writing its
+PDE, so that a failing PDE write does not free it either.
 
-drm/amd/pm: allow editing the smu8 overdrive sclk table
+The problem was found by an LLM-assisted code review.
 
-This commit implements pp_od_clk_voltage editing, reset, and commit
-commands for the SMU8 SCLK OverDrive table on Carrizo and Stoney.
+Fixes: 4e4182282d4e ("gpu: nova-core: mm: Add multi-page mapping API to VMM")
+Signed-off-by: Vladislav Zaharov <vladazaharova2018@gmail.com>
+---
+v2: reserve room for each page as it is added to pt_pages, so that pages
+left by earlier or failed calls are covered too. The Sashiko review
+pointed out that v1 alone still lets a failing push free a parent page
+while its children stay in pt_pages.
 
-> diff --git a/drivers/gpu/drm/amd/pm/powerplay/hwmgr/smu8_hwmgr.c b/driver=
-s/gpu/drm/amd/pm/powerplay/hwmgr/smu8_hwmgr.c
-> index 93a7e7e176f37..c6045234965c0 100644
-> --- a/drivers/gpu/drm/amd/pm/powerplay/hwmgr/smu8_hwmgr.c
-> +++ b/drivers/gpu/drm/amd/pm/powerplay/hwmgr/smu8_hwmgr.c
-> @@ -860,10 +860,86 @@ static void smu8_populate_umdpstate_clocks(struct p=
-p_hwmgr *hwmgr)
+Tested on a GB203 with a temporary self-test that prepares eight
+single-page mappings 1 TiB apart in a fresh Vmm and then executes them:
+without this patch every execute_map() fails with -ENOMEM, with it they
+all succeed. The MM self-tests still pass.
 
-[ ... ]
+v1: https://lore.kernel.org/nova-gpu/20261113075422.943779-1-vladazaharova2018@gmail.com/
 
-> +static int smu8_od_upload_sclk_table(struct pp_hwmgr *hwmgr)
-> +{
-> +	struct smu8_hwmgr *data =3D hwmgr->backend;
-> +	const struct phm_odn_clock_levels *od =3D &data->od_edit_sclk;
-> +	struct phm_clock_voltage_dependency_table *vddc_table =3D
-> +				hwmgr->dyn_state.vddc_dependency_on_sclk;
-> +	struct phm_clock_voltage_dependency_table *vdd_gfx_table =3D
-> +				hwmgr->dyn_state.vdd_gfx_dependency_on_sclk;
-> +	struct pp_power_state *ps;
-> +	uint32_t i;
-> +
-> +	data->od_update_pending =3D false;
-> +
-> +	/* the power states refer to the levels by clock, update them first */
-> +	ps =3D hwmgr->ps;
-> +	for (i =3D 0; i < hwmgr->num_ps; i++) {
-> +		smu8_od_update_power_state(hwmgr, ps);
-> +		ps =3D (struct pp_power_state *)
-> +			((unsigned long)ps + hwmgr->ps_size);
-> +	}
-> +	smu8_od_update_power_state(hwmgr, hwmgr->current_ps);
-> +	smu8_od_update_power_state(hwmgr, hwmgr->request_ps);
-> +
-> +	/* the NB voltages (GnbVid) of the levels are left untouched */
-> +	for (i =3D 0; i < od->num_of_pl; i++) {
-> +		vddc_table->entries[i].clk =3D od->entries[i].clock;
-> +		vdd_gfx_table->entries[i].clk =3D od->entries[i].clock;
-> +		vdd_gfx_table->entries[i].v =3D
-> +			convert_to_vid(od->entries[i].vddc);
-> +	}
-> +
-> +	smu8_populate_umdpstate_clocks(hwmgr);
-> +
-> +	/*
-> +	 * The SMU switches to the new clock and voltage of a level the next
-> +	 * time it enters that level.
-> +	 */
-> +	return smu8_upload_pptable_to_smu(hwmgr);
-> +}
-> +
->  static int smu8_set_power_state_tasks(struct pp_hwmgr *hwmgr, const void=
- *input)
->  {
-> +	struct smu8_hwmgr *data =3D hwmgr->backend;
->  	int ret =3D 0;
-> =20
-> +	if (data->od_update_pending) {
-> +		ret =3D smu8_od_upload_sclk_table(hwmgr);
-> +		if (ret)
-> +			return ret;
-> +	}
-> +
->  	smu8_update_sclk_limit(hwmgr);
+ drivers/gpu/nova-core/mm/pagetable.rs     | 24 ---------------
+ drivers/gpu/nova-core/mm/pagetable/map.rs | 37 ++++++++++++++---------
+ 2 files changed, 22 insertions(+), 39 deletions(-)
 
-[Severity: Medium]
-Does smu8_update_sclk_limit() skip updating PPSMC_MSG_SetSclkHardMin on
-the SMU after smu8_od_upload_sclk_table() modifies
-vddc_dependency_on_sclk?
+diff --git a/drivers/gpu/nova-core/mm/pagetable.rs b/drivers/gpu/nova-core/mm/pagetable.rs
+index 63a7e1855caa..03a132406a15 100644
+--- a/drivers/gpu/nova-core/mm/pagetable.rs
++++ b/drivers/gpu/nova-core/mm/pagetable.rs
+@@ -248,30 +248,6 @@ fn entry_size(level: PageTableLevel) -> usize {
+             8 // 64-bit PDE/PTE
+         }
+     }
+-
+-    /// Compute upper bound on page table pages needed for `num_virt_pages`.
+-    ///
+-    /// Walks from PTE level up through PDE levels, accumulating the tree.
+-    fn pt_pages_upper_bound(num_virt_pages: usize) -> usize {
+-        let mut total = 0;
+-
+-        // PTE pages at the leaf level.
+-        let pte_epp = Self::entries_per_page(Self::PTE_LEVEL);
+-        let mut pages_at_level = num_virt_pages.div_ceil(pte_epp);
+-        total += pages_at_level;
+-
+-        // Walk PDE levels bottom-up (reverse of PDE_LEVELS).
+-        for &level in Self::PDE_LEVELS.iter().rev() {
+-            let epp = Self::entries_per_page(level);
+-
+-            // How many pages at this level do we need to point to
+-            // the previous pages_at_level?
+-            pages_at_level = pages_at_level.div_ceil(epp);
+-            total += pages_at_level;
+-        }
+-
+-        total
+-    }
+ }
+ 
+ /// Marker struct for MMU v2 (Turing/Ampere/Ada).
+diff --git a/drivers/gpu/nova-core/mm/pagetable/map.rs b/drivers/gpu/nova-core/mm/pagetable/map.rs
+index f7774b9cc972..2517fdcc5217 100644
+--- a/drivers/gpu/nova-core/mm/pagetable/map.rs
++++ b/drivers/gpu/nova-core/mm/pagetable/map.rs
+@@ -116,6 +116,7 @@ fn ensure_single_pte_path(
+         &self,
+         mm: &mut GpuMm<'_>,
+         vfn: Vfn,
++        page_table_allocs: &mut KVec<Pin<KBox<AllocatedBlocks>>>,
+         pt_pages: &mut RBTree<VramAddress, PreparedPtPage>,
+     ) -> Result {
+         let max_iter = 2 * M::PDE_LEVELS.len();
+@@ -140,6 +141,10 @@ fn ensure_single_pte_path(
+                     install_addr,
+                     level,
+                 } => {
++                    // Reserve so install_mappings() can use push_within_capacity (no alloc in
++                    // fence signalling critical path). It installs every page in `pt_pages`,
++                    // including pages left by earlier calls, so keep room for all of them.
++                    page_table_allocs.reserve(pt_pages.iter().count() + 1, GFP_KERNEL)?;
+                     let page = Self::alloc_and_zero_page(mm, level)?;
+                     let node = RBTreeNode::new(install_addr, page, GFP_KERNEL)?;
+                     let old = pt_pages.insert(node);
+@@ -163,8 +168,8 @@ fn ensure_single_pte_path(
+ 
+     /// Prepare page table resources for mapping `num_pages` pages starting at `vfn_start`.
+     ///
+-    /// Reserves capacity in `page_table_allocs`, then walks the hierarchy
+-    /// per-VFN to prepare pages for all missing PDEs.
++    /// Walks the hierarchy per-VFN to prepare pages for all missing PDEs, and
++    /// reserves capacity in `page_table_allocs` for them.
+     pub(super) fn prepare_map(
+         &self,
+         mm: &mut GpuMm<'_>,
+@@ -173,16 +178,11 @@ pub(super) fn prepare_map(
+         page_table_allocs: &mut KVec<Pin<KBox<AllocatedBlocks>>>,
+         pt_pages: &mut RBTree<VramAddress, PreparedPtPage>,
+     ) -> Result {
+-        // Pre-reserve so install_mappings() can use push_within_capacity (no alloc
+-        // in fence signalling critical path).
+-        let pt_upper_bound = M::pt_pages_upper_bound(num_pages);
+-        page_table_allocs.reserve(pt_upper_bound, GFP_KERNEL)?;
+-
+         // Walk the hierarchy per-VFN to prepare pages for all missing PDEs.
+         for i in 0..num_pages {
+             let i_u64: u64 = i.into_safe_cast();
+             let vfn = Vfn::new(vfn_start.raw() + i_u64);
+-            self.ensure_single_pte_path(mm, vfn, pt_pages)?;
++            self.ensure_single_pte_path(mm, vfn, page_table_allocs, pt_pages)?;
+         }
+         Ok(())
+     }
+@@ -207,10 +207,21 @@ pub(super) fn install_mappings(
+             while let Some(c) = cursor {
+                 let (next, node) = c.remove_current();
+                 let (install_addr, page) = node.to_key_value();
+-                let page_vram =
+-                    VramAddress::from_raw(page.alloc.iter().next().ok_or(ENOMEM)?.offset());
++                let page_vram = page
++                    .alloc
++                    .iter()
++                    .next()
++                    .map(|b| VramAddress::from_raw(b.offset()));
++                let level = page.level;
++
++                // Keep the page before pointing a PDE at it, so that no failure below can free a
++                // page that a PDE points at. ensure_single_pte_path() reserved room for it.
++                page_table_allocs
++                    .push_within_capacity(page.alloc)
++                    .map_err(|_| ENOMEM)?;
++                let page_vram = page_vram.ok_or(ENOMEM)?;
+ 
+-                if page.level == M::DUAL_PDE_LEVEL {
++                if level == M::DUAL_PDE_LEVEL {
+                     let new_dpde = M::DualPde::new_small(Pfn::from(page_vram));
+                     new_dpde.write(pramin, install_addr)?;
+                 } else {
+@@ -218,10 +229,6 @@ pub(super) fn install_mappings(
+                     new_pde.write(pramin, install_addr)?;
+                 }
+ 
+-                page_table_allocs
+-                    .push_within_capacity(page.alloc)
+-                    .map_err(|_| ENOMEM)?;
+-
+                 cursor = next;
+             }
+ 
 
-smu8_update_sclk_limit() resolves hwmgr->display_config->min_core_set_clock
-against vddc_dependency_on_sclk via smu8_get_sclk_level(), but only sends
-PPSMC_MSG_SetSclkHardMin when data->sclk_dpm.hard_min_clk differs from
-min_core_set_clock:
+base-commit: 0ff9e5b9ff6736c37593cd7db89f4593ec4f8e86
+-- 
+2.56.0
 
-drivers/gpu/drm/amd/pm/powerplay/hwmgr/smu8_hwmgr.c:smu8_update_sclk_limit(=
-) {
-	...
-	clock =3D hwmgr->display_config->min_core_set_clock;
-	if (clock =3D=3D 0)
-		pr_debug("min_core_set_clock not set\n");
-
-	if (data->sclk_dpm.hard_min_clk !=3D clock) {
-		data->sclk_dpm.hard_min_clk =3D clock;
-
-		smum_send_msg_to_smc_with_parameter(hwmgr,
-						PPSMC_MSG_SetSclkHardMin,
-						 smu8_get_sclk_level(hwmgr,
-					data->sclk_dpm.hard_min_clk,
-					     PPSMC_MSG_SetSclkHardMin),
-						 NULL);
-	}
-	...
-}
-
-When committing an OverDrive edit while min_core_set_clock is unchanged,
-data->sclk_dpm.hard_min_clk already equals clock, so the SMU keeps the old
-DPM level index even if the edited frequencies shift which level satisfies
-min_core_set_clock, allowing SCLK to drop below the display minimum or
-staying pinned higher than needed.  Invalidating
-data->sclk_dpm.hard_min_clk in smu8_od_upload_sclk_table() would force
-smu8_update_sclk_limit() to resend the updated level.
-
-[ ... ]
-
-> @@ -2057,6 +2133,145 @@ static void smu8_dpm_powergate_vce(struct pp_hwmg=
-r *hwmgr, bool bgate)
->  	}
->  }
-> =20
-> +/* the engine clock that the PLL produces for @clk */
-> +static uint32_t smu8_od_real_sclk(struct pp_hwmgr *hwmgr, uint32_t clk)
-> +{
-> +	pp_atomctrl_clock_dividers_kong dividers;
-> +
-> +	if (atomctrl_get_engine_pll_dividers_kong(hwmgr, clk, &dividers) ||
-> +	    !dividers.real_clock)
-> +		return clk;
-> +
-> +	return dividers.real_clock;
-> +}
-> +
-> +static int smu8_od_edit_sclk_level(struct pp_hwmgr *hwmgr,
-> +				   struct phm_odn_clock_levels *od,
-> +				   long level, long mhz, long mv)
-> +{
-> +	struct smu8_hwmgr *data =3D hwmgr->backend;
-> +	struct amdgpu_device *adev =3D hwmgr->adev;
-> +	uint32_t min_clk, max_clk, clk;
-> +
-> +	min_clk =3D data->od_default_sclk.entries[0].clock;
-> +	max_clk =3D hwmgr->platform_descriptor.overdriveLimit.engineClock;
-> +
-> +	if (level < 0 || level >=3D od->num_of_pl) {
-> +		dev_info(adev->dev,
-> +			 "OD sclk level %ld is out of range [0 - %u]\n",
-> +			 level, od->num_of_pl - 1);
-> +		return -EINVAL;
-> +	}
-> +
-> +	if (mhz < min_clk / 100 || mhz > max_clk / 100) {
-> +		dev_info(adev->dev,
-> +			 "OD engine clock is out of range [%u - %u] MHz\n",
-> +			 min_clk / 100, max_clk / 100);
-> +		return -EINVAL;
-> +	}
-> +
-> +	if (mv < data->od_min_vddc || mv > data->od_max_vddc) {
-> +		dev_info(adev->dev, "OD voltage is out of range [%u - %u] mV\n",
-> +			 data->od_min_vddc, data->od_max_vddc);
-> +		return -EINVAL;
-> +	}
-> +
-> +	/*
-> +	 * OD_SCLK shows whole MHz, so keep the exact clock of a level that is
-> +	 * written back unchanged. Otherwise use the clock the PLL produces.
-> +	 */
-> +	clk =3D mhz * 100;
-> +	if (clk =3D=3D od->entries[level].clock / 100 * 100)
-> +		clk =3D od->entries[level].clock;
-> +	else
-> +		clk =3D smu8_od_real_sclk(hwmgr, clk);
-> +
-> +	if (clk < min_clk || clk > max_clk) {
-> +		dev_info(adev->dev,
-> +			 "OD engine clock %u.%02u MHz is out of range\n",
-> +			 clk / 100, clk % 100);
-> +		return -EINVAL;
-> +	}
-
-[Severity: Medium]
-Can smu8_od_edit_sclk_level() reject the minimum MHz shown in OD_RANGE when
-min_clk has a non-zero fractional MHz part (min_clk % 100 !=3D 0)?
-
-On Carrizo and Stoney, VBIOS clocks are stored in 10 kHz units and often
-have fractional MHz values (such as 30476 for 304.76 MHz), while OD_RANGE
-and OD_SCLK print truncated whole MHz (min_clk / 100).  Once level 0 is
-edited to another frequency, writing back mhz =3D min_clk / 100 no longer
-matches od->entries[level].clock / 100 * 100, so clk =3D (min_clk / 100) * =
-100
-is passed to smu8_od_real_sclk().  Because that input is already strictly
-less than min_clk and ComputeMemoryEnginePLL rounds down to the nearest PLL
-step, the resulting clk is below min_clk and fails the clk < min_clk check
-with -EINVAL.  Similarly, when max_clk % 100 !=3D 0, writing max_clk / 100
-after an edit passes (max_clk / 100) * 100 < max_clk to smu8_od_real_sclk()
-and cannot reach the max_clk PLL step.
-
-Checking data->od_default_sclk.entries[level].clock (as well as min_clk and
-max_clk) for a whole-MHz match before calling smu8_od_real_sclk() would
-allow restoring a level's default or boundary clock.
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261113-smu8-overd=
-rive-v1-0-763f07bdfca9@etsu.edu?part=3D4
