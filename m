@@ -2,45 +2,53 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 93D93606A32D
-	for <dri-devel@archiver.kernel.org>; Sat, 14 Nov 2026 16:44:45 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EDB62606A327
+	for <dri-devel@archiver.kernel.org>; Sat, 14 Nov 2026 16:49:31 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=dB90KEMQ
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Kv4ajCDW
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id AC0F510F05D;
-	Sat, 14 Nov 2026 16:44:39 +0000 (UTC)
-Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id A31A810F05B;
- Sat, 14 Nov 2026 16:44:27 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id F3A7510E69E;
+	Sat, 14 Nov 2026 16:49:25 +0000 (UTC)
+Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 4C18F10E69E
+ for <dri-devel@lists.freedesktop.org>; Sat, 14 Nov 2026 16:49:19 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by tor.source.kernel.org (Postfix) with ESMTP id A0B2B61408;
- Sat, 14 Nov 2026 16:44:26 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 215A01F000C9;
- Sat, 14 Nov 2026 16:44:26 +0000 (UTC)
+ by sea.source.kernel.org (Postfix) with ESMTP id 5F722413D6;
+ Sat, 14 Nov 2026 16:49:18 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4325A1F000C4;
+ Sat, 14 Nov 2026 16:49:18 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1794674666;
- bh=sAOg0Uu6rqt8/EL4a3goYpGIbFTebZMGo9T8DSBK82w=;
- h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
- b=dB90KEMQ7WpgwT+lDqI5uf21/AR9XoA63CTgITICNXF7xa4JUd4XoI3A5z4KkCIOa
- 3Zllzq8ReirS/6gizw2LR+AW1cOpVenU66A6ChI5MNilpRbyJ2HfnyySLNdt9oio1E
- LUCL7c8CErEepfz8P7V9BJ3JrPFdQzkPFDcXfBFahvVkh1pXgrSMimCjVygaHL0Gfg
- 1xWxy81FEMccfyqKe+VZOqx0HulkTD/QI3B6Wn+ZT2g3X+Bd5Vbi+o8hPrrCiTzU2r
- 0nU/1eTOeiIzTwDNPYyb3n0+dIBhuvwZXittQp59IBMQyaXDnNlwShvLVR/Eo73MVu
- ArJoPDlfkodUA==
-Message-ID: <sashiko-outbox-214782@kernel.org>
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v2 08/12] drm/amdgpu: Add Apple GMUX runtime PM support
-To: "Atharva Tiwari" <atharvatiwarilinuxdev@gmail.com>
-Cc: =?utf-8?b?b3BlbiBsaXN0OlBDSSBTVUJTWVNURU0=?= <linux-pci@vger.kernel.org>, 
- =?utf-8?b?b3BlbiBsaXN0OlJBREVPTiBhbmQgQU1ER1BVIERSTSBEUklWRVJT?=
- <amd-gfx@lists.freedesktop.org>, 
- =?utf-8?b?b3BlbiBsaXN0OkRSTSBEUklWRVJT?= <dri-devel@lists.freedesktop.org>
-In-Reply-To: <20261114160731.3756-9-atharvatiwarilinuxdev@gmail.com>
-References: <20261114160731.3756-1-atharvatiwarilinuxdev@gmail.com>
- <20261114160731.3756-9-atharvatiwarilinuxdev@gmail.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Sat, 14 Nov 2026 16:44:25 +0000
+ s=k20260515; t=1794674958;
+ bh=GFFDq8pJNZo/uEP/nJ8eiBqAW9Nsrz2VEU8NX0H+46E=;
+ h=Subject:From:In-Reply-To:References:Date:To:Cc;
+ b=Kv4ajCDWNDhAC5GBILJroZgOzx31Ur3TLYVGnIQW9sjMCYrAoqY6XUQmbMzFEe/e/
+ RogjjtmMEj+IVNfa62l60XuHHbJRo3TDyV0iXp9lZHfWzUNptVLvrRVxIkLy9EYWI/
+ 8cpdn7t4+8j1xpcmyo3jdFiiyiIiadtycXnJhp7EW4FhgrfDoTuNDNTcDfshu7lPyb
+ u6Ua0rXpdme8k6+8esDqIQGeOB5q5xtUiez7RXWicCk8cFCDtX8X6bArek3NcVq6XG
+ PkOdLPLQHVnRiGDyMoiScYub/ZbEi0ZCRONg2T+xEJtpCzfMp9hYXRAaVf/4R+GGIw
+ 5LaJlNKbRNYMg==
+Received: from [10.30.226.235] (localhost [IPv6:::1])
+ by aws-us-west-2-korg-oddjob-rhel9-1.codeaurora.org (Postfix) with ESMTP id
+ 3A43C380821F; Sat, 14 Nov 2026 16:49:18 +0000 (UTC)
+Subject: Re: [git pull] drm fixes for 7.4-rc3
+From: pr-tracker-bot@kernel.org
+In-Reply-To: <CAPM=9tyPUacWoB9-tqq+hNDB2RexAuTB7Whp1hMs1d4ZmeswpA@mail.gmail.com>
+References: <CAPM=9tyPUacWoB9-tqq+hNDB2RexAuTB7Whp1hMs1d4ZmeswpA@mail.gmail.com>
+X-PR-Tracked-List-Id: Direct Rendering Infrastructure - Development
+ <dri-devel.lists.freedesktop.org>
+X-PR-Tracked-Message-Id: <CAPM=9tyPUacWoB9-tqq+hNDB2RexAuTB7Whp1hMs1d4ZmeswpA@mail.gmail.com>
+X-PR-Tracked-Remote: https://gitlab.freedesktop.org/drm/kernel.git
+ tags/drm-fixes-2026-11-14
+X-PR-Tracked-Commit-Id: 637c4514732baa5d19bb716c00d6fd67034f238f
+X-PR-Merge-Tree: torvalds/linux.git
+X-PR-Merge-Refname: refs/heads/master
+X-PR-Merge-Commit-Id: b21c45d2151a2ce78806b4234513a1793525611b
+Message-Id: <179467495679.2233204.6522313419302052392.pr-tracker-bot@kernel.org>
+Date: Sat, 14 Nov 2026 16:49:16 +0000
+To: Dave Airlie <airlied@gmail.com>
+Cc: Linus Torvalds <torvalds@linux-foundation.org>, Sima Vetter <sima@ffwll.ch>,
+ dri-devel <dri-devel@lists.freedesktop.org>,
+ LKML <linux-kernel@vger.kernel.org>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -51,226 +59,24 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
-Reply-To: sashiko-reviews@lists.linux.dev
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 X-Spam-Status: No, score=-10.8 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
 	DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
-	INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS
-	autolearn=unavailable autolearn_force=no version=4.0.1
+	MAILING_LIST_MULTI,MENTIONS_GIT_HOSTING,SPF_HELO_NONE,SPF_PASS
+	autolearn=ham autolearn_force=no version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 X-Archived-By: <archiver.kernel.org>
 
-Thank you for your contribution! Sashiko AI review found 4 potential
-issues to consider:
-- [High] drm/amdgpu: missing switcheroo readiness checks in
-  amdgpu_device_supports_gmux()
-- [High] drm/amdgpu: broken smart-suspend handling for GMUX in
-  amdgpu_pci_probe()
-- [High] drm/amdgpu: NULL deref on shutdown when GMUX GPU is
-  runtime-suspended
-- [Medium] drm/amdgpu: amdgpu_device_init() ignores runpm param for GMUX
-  switcheroo
---
+The pull request you sent on Sat, 14 Nov 2026 11:30:32 +1000:
 
-commit c24cbddf263bec215538d74185508de97d4f9ff8
-Author: Andre Eikmeyer <dev@deq.rocks>
+> https://gitlab.freedesktop.org/drm/kernel.git tags/drm-fixes-2026-11-14
 
-drm/amdgpu: Add Apple GMUX runtime PM support
+has been merged into torvalds/linux.git:
+https://git.kernel.org/torvalds/c/b21c45d2151a2ce78806b4234513a1793525611b
 
-This commit adds runtime PM support for T2 MacBook Pro discrete GPUs
-using the vga_switcheroo PM domain and skips initial eDP detection when
-the GMUX GPU is not the boot display device.
+Thank you!
 
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c b/drivers/gpu/drm=
-/amd/amdgpu/amdgpu_device.c
-> index 9269e780feb73..ac336594bf055 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
-[ ... ]
-> @@ -570,6 +571,46 @@ bool amdgpu_device_supports_px(struct amdgpu_device =
-*adev)
->  	return false;
->  }
-> =20
-> +static const struct dmi_system_id amdgpu_gmux_runpm_dmi_table[] =3D {
-> +	{
-> +		.matches =3D {
-> +			DMI_MATCH(DMI_PRODUCT_NAME, "MacBookPro15,1"),
-> +		},
-> +	},
-> +	{
-> +		.matches =3D {
-> +			DMI_MATCH(DMI_PRODUCT_NAME, "MacBookPro15,3"),
-> +		},
-> +	},
-> +	{
-> +		.matches =3D {
-> +			DMI_MATCH(DMI_PRODUCT_NAME, "MacBookPro16,1"),
-> +		},
-> +	},
-> +	{
-> +		.matches =3D {
-> +			DMI_MATCH(DMI_PRODUCT_NAME, "MacBookPro16,4"),
-> +		},
-> +	},
-> +	{ }
-> +};
-> +
-> +bool amdgpu_device_supports_gmux(struct amdgpu_device *adev)
-> +{
-> +	return dmi_check_system(amdgpu_gmux_runpm_dmi_table) &&
-> +	       !pci_is_thunderbolt_attached(adev->pdev) &&
-> +	       !dev_is_removable(&adev->pdev->dev) &&
-> +	       apple_gmux_detect(NULL, NULL);
-> +}
-
-[Severity: High]
-Can amdgpu_device_supports_gmux() return true before the vga_switcheroo
-handler and peer GPU client are registered?
-
-When the system boots with the discrete GPU as the default VGA device
-(pdev =3D=3D vga_default_device()), vga_switcheroo_client_probe_defer() does
-not defer probing even if apple-gmux has not registered its handler yet.
-Because apple_gmux_detect(NULL, NULL) only checks the PNP MMIO resource,
-amdgpu attaches vga_pm_domain and enables runtime autosuspend; when the
-autosuspend timer fires while vgasr_priv.handler is NULL,
-vga_switcheroo_runtime_suspend() dereferences vgasr_priv.handler->switchto
-and crashes:
-
-drivers/gpu/vga/vga_switcheroo.c:vga_switcheroo_runtime_suspend() {
-	...
-	mutex_lock(&vgasr_mutex);
-	if (vgasr_priv.handler->switchto) {
-		mutex_lock(&vgasr_priv.mux_hw_lock);
-		vgasr_priv.handler->switchto(VGA_SWITCHEROO_IGD);
-	...
-}
-
-Even after apple-gmux registers its handler,
-vga_switcheroo_client_probe_defer() does not wait for the integrated GPU
-client (i915) to register, so vga_switcheroo_enable() has not run and
-gmux_set_discrete_state() fails with -ENODEV during runtime suspend
-without saving bridge state or cutting power.  Also, unlike
-amdgpu_device_supports_px(), amdgpu_device_supports_gmux() does not check
-IS_ENABLED(CONFIG_VGA_SWITCHEROO), and calling
-vga_switcheroo_client_probe_defer() unconditionally in amdgpu_pci_probe()
-defers Thunderbolt eGPUs or systems with stub APP000B ACPI devices where
-gmux_probe() returns -ENODEV.
-
-[ ... ]
-
-> @@ -4202,12 +4246,13 @@ int amdgpu_device_init(struct amdgpu_device *adev,
->  		vga_client_register(adev->pdev, amdgpu_device_vga_set_decode);
-> =20
->  	px =3D amdgpu_device_supports_px(adev);
-> +	gmux =3D amdgpu_device_supports_gmux(adev);
-> =20
->  	if (amdgpu_device_should_register_switcheroo(adev, px))
->  		vga_switcheroo_register_client(adev->pdev,
-> -					       &amdgpu_switcheroo_ops, px);
-> +					       &amdgpu_switcheroo_ops, px || gmux);
-> =20
-> -	if (px)
-> +	if (px || gmux)
->  		vga_switcheroo_init_domain_pm_ops(adev->dev, &adev->vga_pm_domain);
-
-[Severity: Medium]
-Does enabling driver_power_control and attaching vga_pm_domain here ignore
-the amdgpu.runpm module parameter?
-
-amdgpu_device_init() runs before amdgpu_device_detect_runtime_pm_mode(),
-which only selects AMDGPU_RUNPM_GMUX when amdgpu_runtime_pm is -1 or -2.
-Booting with amdgpu.runpm=3D0 leaves runtime PM disabled while
-driver_power_control is true, turning manual vga_switcheroo OFF/ON
-commands into no-ops.  Booting with amdgpu.runpm=3D1 or 2 selects
-AMDGPU_RUNPM_BACO or AMDGPU_RUNPM_BAMACO while vga_pm_domain is still
-attached, so runtime suspend enters BACO without caching PCI state or
-setting PP_MP1_STATE_UNLOAD before vga_switcheroo_runtime_suspend() cuts
-power via GMUX.
-
-[Severity: High]
-Can pci_device_shutdown() trigger a NULL pointer dereference in
-vga_switcheroo_power_switch() when the GMUX GPU is runtime-suspended at
-shutdown?
-
-PNP devices are registered after PCI devices in devices_kset, and no
-device_link orders the PCI GPU before the apple-gmux PNP device.  During
-device_shutdown(), gmux_shutdown() -> gmux_remove() ->
-vga_switcheroo_unregister_handler() runs first and sets
-vgasr_priv.handler =3D NULL while the GPU remains in D3cold.  When
-pci_device_shutdown() then runs on the GPU, it calls pm_runtime_resume()
--> vga_switcheroo_runtime_resume() -> vga_switcheroo_power_switch(), which
-dereferences vgasr_priv.handler->power_state:
-
-drivers/gpu/vga/vga_switcheroo.c:vga_switcheroo_power_switch() {
-	if (!vgasr_priv.handler->power_state)
-		return;
-	...
-}
-
-In addition, amdgpu_pci_shutdown() then calls amdgpu_device_prepare() and
-amdgpu_device_suspend(), which only check for DRM_SWITCH_POWER_OFF (not
-DRM_SWITCH_POWER_DYNAMIC_OFF) and access hardware on the powered-off GPU.
-
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c b/drivers/gpu/drm/am=
-d/amdgpu/amdgpu_drv.c
-> index d9d794a7db964..3978ed284048f 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
-[ ... ]
-> @@ -2494,11 +2497,12 @@ static int amdgpu_pci_probe(struct pci_dev *pdev,
->  		DRM_ERROR("Creating debugfs files failed (%d).\n", ret);
-> =20
->  	if (adev->pm.rpm_mode !=3D AMDGPU_RUNPM_NONE) {
-> -		/* only need to skip on ATPX */
-> +		/* ATPX requires a full system-sleep transition. */
->  		if (amdgpu_device_supports_px(adev))
->  			dev_pm_set_driver_flags(ddev->dev, DPM_FLAG_NO_DIRECT_COMPLETE);
-> -		/* we want direct complete for BOCO */
-> -		if (amdgpu_device_supports_boco(adev))
-> +		/* BOCO and GMUX can remain runtime suspended across system sleep. */
-> +		if (amdgpu_device_supports_boco(adev) ||
-> +		    adev->pm.rpm_mode =3D=3D AMDGPU_RUNPM_GMUX)
->  			dev_pm_set_driver_flags(ddev->dev, DPM_FLAG_SMART_PREPARE |
->  						DPM_FLAG_SMART_SUSPEND |
->  						DPM_FLAG_MAY_SKIP_RESUME);
-> @@ -2610,7 +2614,9 @@ static int amdgpu_pmops_prepare(struct device *dev)
->  	/* Return a positive number here so
->  	 * DPM_FLAG_SMART_SUSPEND works properly
->  	 */
-> -	if (amdgpu_device_supports_boco(adev) && pm_runtime_suspended(dev))
-> +	if ((amdgpu_device_supports_boco(adev) ||
-> +	     adev->pm.rpm_mode =3D=3D AMDGPU_RUNPM_GMUX) &&
-> +	    pm_runtime_suspended(dev))
->  		return 1;
-
-[Severity: High]
-What happens during system sleep or hibernation when direct_complete is
-not used on a runtime-suspended GMUX GPU?
-
-When the HDA audio consumer (snd_hda_intel) is bound, its child PCM
-devices clear direct_complete during dpm_prepare() after
-amdgpu_pmops_prepare() on the supplier GPU has already returned 1 and
-skipped amdgpu_device_prepare().  In dpm_suspend(), pci_pm_suspend() on
-the HDA device runtime-resumes the GMUX GPU and clears its
-direct_complete, so amdgpu_pmops_suspend() -> amdgpu_device_suspend() runs
-without amdgpu_device_prepare() having executed, and because
-vga_pm_domain only implements runtime PM callbacks, GMUX never powers off
-the GPU for system sleep.
-
-Conversely, if direct_complete is cleared while the GMUX GPU stays
-runtime-suspended (for example via a child backlight device, wakeup
-settings, or during hibernation in pci_pm_poweroff()), DPM_FLAG_SMART_SUSPE=
-ND
-causes pci_pm_suspend() and pci_pm_poweroff() to skip pm_runtime_resume()
-and call amdgpu_device_suspend() while the GPU is powered off in
-DRM_SWITCH_POWER_DYNAMIC_OFF.  On resume, pci_pm_resume() sees
-pci_dev->state_saved =3D=3D true from runtime suspend and calls
-amdgpu_pmops_resume() while GMUX still has power cut, where
-pci_device_is_present() reads 0xffff, sets adev->no_hw_access =3D true, and
-runs amdgpu_device_resume() on the powered-off device.
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261114160731.3756=
--1-atharvatiwarilinuxdev@gmail.com?part=3D8
+-- 
+Deet-doot-dot, I am a bot.
+https://korg.docs.kernel.org/prtracker.html
