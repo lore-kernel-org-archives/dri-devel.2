@@ -2,44 +2,43 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1CECD606A884
-	for <dri-devel@archiver.kernel.org>; Sat, 14 Nov 2026 03:31:19 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 51E9C606A898
+	for <dri-devel@archiver.kernel.org>; Sat, 14 Nov 2026 03:31:54 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=opnvwktI
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=OHXwyMRa
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 4F2F210ED27;
-	Sat, 14 Nov 2026 03:31:13 +0000 (UTC)
-Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 1EFFD10ED2C
- for <dri-devel@lists.freedesktop.org>; Sat, 14 Nov 2026 03:31:07 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id ADC0B10EC15;
+	Sat, 14 Nov 2026 03:31:48 +0000 (UTC)
+Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 130B489091;
+ Sat, 14 Nov 2026 03:31:42 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by tor.source.kernel.org (Postfix) with ESMTP id 28BA9620E0;
- Sat, 14 Nov 2026 03:31:06 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8A98E1F000C4;
- Sat, 14 Nov 2026 03:31:05 +0000 (UTC)
+ by sea.source.kernel.org (Postfix) with ESMTP id C3510467BE;
+ Sat, 14 Nov 2026 03:31:41 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7D8031F000C4;
+ Sat, 14 Nov 2026 03:31:41 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1794627065;
- bh=SeNA25RLTTM6AhK2d0DTC//UL0WeQKsx2DC3v0cqtM8=;
+ s=k20260515; t=1794627101;
+ bh=TD324dSPzOSVtrbAGqBfjsp768XIuMRBD3uusT7REdY=;
  h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
- b=opnvwktIFUvJMwHjj3jW2RmfUPb++7CxjuwOtaEWuIyYJbh9Dipo5uvZ9SY/74Osj
- 4CUiN/3RvLHgUt5jjMBo+TRlQHbf6RDkw15pZtHVC5lnZvVEX+Qt4x+IYSZzHqOq//
- o8fMhpcc7e9vaR+7wB0SSXEMKyuUtg8ShmspmNdR9HNTtFrvmUL3meqgf2MVi96F9q
- /B2uvaDVY6Wqef+w72yHWS0Hs46uM7ke5/2iKJ40Ro2reFiQry+HiASQ5cixAzHOsr
- FVSFqb8+w7AumV9kcWB17qb/rRd4vz3zCSLghDI2t5hnpqyQrRa0VDm5dHz9QzJ7iI
- 2rsg7XgIVD43w==
-Message-ID: <sashiko-outbox-214115@kernel.org>
+ b=OHXwyMRa206h6ZkNJjQA7hlH7xCJDqcqjhj1x1VxNe0bSf0rgD0d5isvhXK4XTRIq
+ maJmDw9SzueW7/O2FYT7mEVu36mQMJufKsnvTdRLbkKxxNyeKhuwN09gsS+wFHu5pi
+ zbq+u7vPuDlUBp7Oo1Zw54doPL+nxYZ/Bo6lnIguxXMJthJLtxs25giHoU0EJMAulC
+ hFD9S08hOKJLxoFrrDB3swSfDpI2Z54BLznu9awEPF0q635nq1f4ALKLO+3BSOq7iZ
+ rhgRPZPgH/olLMGZh5JaO69Bb3ogR36KiKdVuKbfM6YIXfXc3bAZ5ZloLxxQp9wnEr
+ KNn183s+bv8BA==
+Message-ID: <sashiko-outbox-214116@kernel.org>
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v17 03/12] accel/rocket: wait for a running IRQ handler
- before resetting a core
-To: "Jiaxing Hu" <gahing@gahingwoo.com>
-Cc: dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org,
- robh@kernel.org, conor+dt@kernel.org
-In-Reply-To: <18667b2afdcaae217fa1038f5348ab23ed756bdc.1794615323.git.gahing@gahingwoo.com>
-References: <cover.1794615324.git.gahing@gahingwoo.com>
- <18667b2afdcaae217fa1038f5348ab23ed756bdc.1794615323.git.gahing@gahingwoo.com>
+Subject: Re: [PATCH 4/5] drm/amd/pm: allow editing the smu8 overdrive sclk
+ table
+To: "Joshua Horne" <hornejd@etsu.edu>
+Cc: amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org
+In-Reply-To: <20261113-smu8-overdrive-v1-4-763f07bdfca9@etsu.edu>
+References: <20261113-smu8-overdrive-v1-0-763f07bdfca9@etsu.edu>
+ <20261113-smu8-overdrive-v1-4-763f07bdfca9@etsu.edu>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Sat, 14 Nov 2026 03:31:05 +0000
+Date: Sat, 14 Nov 2026 03:31:41 +0000
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -52,154 +51,220 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
 Reply-To: sashiko-reviews@lists.linux.dev
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-15.8 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
+X-Spam-Status: No, score=-10.8 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
 	DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
-	INCLUDES_CR_TRAILER,INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,
-	SPF_PASS autolearn=ham autolearn_force=no version=4.0.1
+	INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS autolearn=ham
+	autolearn_force=no version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 X-Archived-By: <archiver.kernel.org>
 
-Thank you for your contribution! Sashiko AI review found 3 potential
+Thank you for your contribution! Sashiko AI review found 2 potential
 issues to consider:
-- [High] accel/rocket: raw IRQ status can re-latch before reset in
-  rocket_reset()
-- [High] accel/rocket: race with pm_runtime_force_suspend() in
-  rocket_reset()
-- [Low] accel/rocket: missing Fixes trailer for IRQ race fix in
-  rocket_reset()
+- [Medium] drm/amd/pm: stale SclkHardMin level after
+  smu8_od_upload_sclk_table()
+- [Medium] drm/amd/pm: fractional boundary clocks rejected in
+  smu8_od_edit_sclk_level()
 --
 
-commit 9e5305abf9afea9e1a362f158ce4e7b07f213cce
-Author: Jiaxing Hu <gahing@gahingwoo.com>
+commit f271cff6b522292ee10f53b957a90f73690433ee
+Author: Joshua Horne <hornejd@etsu.edu>
 
-> accel/rocket: wait for a running IRQ handler before resetting a core
->
-> drm_sched_stop() does not wait for a threaded IRQ handler that is already
-> running, so call synchronize_irq() after it to make sure the handler has
-> finished before the reset.
->
-> Before synchronize_irq(), mask the interrupt and clear the raw status, so
-> that the NPU core cannot report a completion afterwards.
->
-> Do this under job_lock, because the submit path sets the interrupt mask
-> under the same lock.
->
-> Only touch these registers when the device is powered: check with
-> pm_runtime_get_if_active(), so that a register access with the power
-> domain off cannot raise an SError.
->
-> Suggested-by: Igor Paunovic <royalnet026@gmail.com>
-> Signed-off-by: Jiaxing Hu <gahing@gahingwoo.com>
-> Tested-by: Igor Paunovic <royalnet026@gmail.com> # RK3588, three cores, i=
-nduced reset, JOB_TIMEOUT_MS=3D2
+drm/amd/pm: allow editing the smu8 overdrive sclk table
 
-[Severity: Low]
-This fixes the IRQ race in rocket_reset() introduced with job submission.
-Should this include:
+This commit implements pp_od_clk_voltage editing, reset, and commit
+commands for the SMU8 SCLK OverDrive table on Carrizo and Stoney.
 
-  Fixes: 0810d5ad88a1 ("accel/rocket: Add job submission IOCTL")
+> diff --git a/drivers/gpu/drm/amd/pm/powerplay/hwmgr/smu8_hwmgr.c b/driver=
+s/gpu/drm/amd/pm/powerplay/hwmgr/smu8_hwmgr.c
+> index 93a7e7e176f37..c6045234965c0 100644
+> --- a/drivers/gpu/drm/amd/pm/powerplay/hwmgr/smu8_hwmgr.c
+> +++ b/drivers/gpu/drm/amd/pm/powerplay/hwmgr/smu8_hwmgr.c
+> @@ -860,10 +860,86 @@ static void smu8_populate_umdpstate_clocks(struct p=
+p_hwmgr *hwmgr)
 
-> diff --git a/drivers/accel/rocket/rocket_job.c b/drivers/accel/rocket/roc=
-ket_job.c
-> index b61bb4d242ce3..8b4ad028bc9b2 100644
-> --- a/drivers/accel/rocket/rocket_job.c
-> +++ b/drivers/accel/rocket/rocket_job.c
-> @@ -402,6 +402,16 @@ rocket_reset(struct rocket_core *core, struct drm_sc=
-hed_job *bad)
-> =20
->  	drm_sched_stop(&core->sched, bad);
-> =20
-> +	scoped_guard(mutex, &core->job_lock) {
-> +		if (pm_runtime_get_if_active(core->dev) > 0) {
-> +			rocket_pc_writel(core, INTERRUPT_MASK, 0x0);
-> +			rocket_pc_writel(core, INTERRUPT_CLEAR, 0x1ffff);
-> +			pm_runtime_put_autosuspend(core->dev);
-> +		}
-> +	}
+[ ... ]
 
-[Severity: High]
-Can pm_runtime_force_suspend() disable the core clocks while rocket_reset()
-writes INTERRUPT_MASK and INTERRUPT_CLEAR?
-
-core->reset.wq is not WQ_FREEZABLE, and drm_sched_stop() drops
-sched.credit_count to 0, making rocket_job_is_idle() return true while
-rocket_reset() is still running.  Because pm_runtime_force_suspend() ignores
-dev->power.usage_count and rocket_device_runtime_suspend() does not take
-core->job_lock, system suspend can disable the clocks concurrently:
-
-kworker (core->reset.wq)          system suspend
-rocket_reset()
-  drm_sched_stop()
-    credit_count -> 0
-  mutex_lock(&core->job_lock)
-  pm_runtime_get_if_active() > 0
-                                  pm_runtime_force_suspend()
-                                    rocket_device_runtime_suspend()
-                                      rocket_job_is_idle() -> true
-                                      clk_bulk_disable_unprepare()
-  rocket_pc_writel(...)
-    <-- unclocked MMIO access (SError / bus hang)
-
-In addition, in rocket_core_fini(), an in-flight job holds a runtime PM
-reference that keeps the core active across pm_runtime_disable() before
-rocket_job_fini() cancels the reset worker.  pm_runtime_get_if_active() then
-returns -EINVAL and skips masking and clearing interrupts on the active core
-before synchronize_irq().
-
+> +static int smu8_od_upload_sclk_table(struct pp_hwmgr *hwmgr)
+> +{
+> +	struct smu8_hwmgr *data =3D hwmgr->backend;
+> +	const struct phm_odn_clock_levels *od =3D &data->od_edit_sclk;
+> +	struct phm_clock_voltage_dependency_table *vddc_table =3D
+> +				hwmgr->dyn_state.vddc_dependency_on_sclk;
+> +	struct phm_clock_voltage_dependency_table *vdd_gfx_table =3D
+> +				hwmgr->dyn_state.vdd_gfx_dependency_on_sclk;
+> +	struct pp_power_state *ps;
+> +	uint32_t i;
 > +
-> +	synchronize_irq(core->irq);
+> +	data->od_update_pending =3D false;
+> +
+> +	/* the power states refer to the levels by clock, update them first */
+> +	ps =3D hwmgr->ps;
+> +	for (i =3D 0; i < hwmgr->num_ps; i++) {
+> +		smu8_od_update_power_state(hwmgr, ps);
+> +		ps =3D (struct pp_power_state *)
+> +			((unsigned long)ps + hwmgr->ps_size);
+> +	}
+> +	smu8_od_update_power_state(hwmgr, hwmgr->current_ps);
+> +	smu8_od_update_power_state(hwmgr, hwmgr->request_ps);
+> +
+> +	/* the NB voltages (GnbVid) of the levels are left untouched */
+> +	for (i =3D 0; i < od->num_of_pl; i++) {
+> +		vddc_table->entries[i].clk =3D od->entries[i].clock;
+> +		vdd_gfx_table->entries[i].clk =3D od->entries[i].clock;
+> +		vdd_gfx_table->entries[i].v =3D
+> +			convert_to_vid(od->entries[i].vddc);
+> +	}
+> +
+> +	smu8_populate_umdpstate_clocks(hwmgr);
+> +
+> +	/*
+> +	 * The SMU switches to the new clock and voltage of a level the next
+> +	 * time it enters that level.
+> +	 */
+> +	return smu8_upload_pptable_to_smu(hwmgr);
+> +}
+> +
+>  static int smu8_set_power_state_tasks(struct pp_hwmgr *hwmgr, const void=
+ *input)
+>  {
+> +	struct smu8_hwmgr *data =3D hwmgr->backend;
+>  	int ret =3D 0;
+> =20
+> +	if (data->od_update_pending) {
+> +		ret =3D smu8_od_upload_sclk_table(hwmgr);
+> +		if (ret)
+> +			return ret;
+> +	}
+> +
+>  	smu8_update_sclk_limit(hwmgr);
 
-[Severity: High]
-Can an active DPU task complete after INTERRUPT_CLEAR is written and re-lat=
-ch
-INTERRUPT_RAW_STATUS before rocket_core_reset() stops the hardware?
+[Severity: Medium]
+Does smu8_update_sclk_limit() skip updating PPSMC_MSG_SetSclkHardMin on
+the SMU after smu8_od_upload_sclk_table() modifies
+vddc_dependency_on_sclk?
 
-Unlike rocket_job_handle_irq(), which writes 0x0 to OPERATION_ENABLE before
-writing INTERRUPT_CLEAR, rocket_reset() leaves the core running across
-synchronize_irq() and iommu_detach_group() until rocket_core_reset() asserts
-the reset lines.  And because rocket_job_irq_handler() checks the unmasked
-INTERRUPT_RAW_STATUS register on a shared IRQ line (shared with the IOMMU):
+smu8_update_sclk_limit() resolves hwmgr->display_config->min_core_set_clock
+against vddc_dependency_on_sclk via smu8_get_sclk_level(), but only sends
+PPSMC_MSG_SetSclkHardMin when data->sclk_dpm.hard_min_clk differs from
+min_core_set_clock:
 
-drivers/accel/rocket/rocket_job.c:rocket_job_irq_handler() {
-	u32 raw_status =3D rocket_pc_readl(core, INTERRUPT_RAW_STATUS);
-...
-	if (!(raw_status & PC_INTERRUPT_RAW_STATUS_DPU_0 ||
-	      raw_status & PC_INTERRUPT_RAW_STATUS_DPU_1))
-		return IRQ_NONE;
+drivers/gpu/drm/amd/pm/powerplay/hwmgr/smu8_hwmgr.c:smu8_update_sclk_limit(=
+) {
+	...
+	clock =3D hwmgr->display_config->min_core_set_clock;
+	if (clock =3D=3D 0)
+		pr_debug("min_core_set_clock not set\n");
 
-	rocket_pc_writel(core, INTERRUPT_MASK, 0x0);
+	if (data->sclk_dpm.hard_min_clk !=3D clock) {
+		data->sclk_dpm.hard_min_clk =3D clock;
 
-	return IRQ_WAKE_THREAD;
+		smum_send_msg_to_smc_with_parameter(hwmgr,
+						PPSMC_MSG_SetSclkHardMin,
+						 smu8_get_sclk_level(hwmgr,
+					data->sclk_dpm.hard_min_clk,
+					     PPSMC_MSG_SetSclkHardMin),
+						 NULL);
+	}
+	...
 }
 
-a task finishing in that window sets PC_INTERRUPT_RAW_STATUS_DPU_0/1 again,
-and a shared IOMMU interrupt on core->irq can wake
-rocket_job_irq_handler_thread() after synchronize_irq() has already returne=
-d:
+When committing an OverDrive edit while min_core_set_clock is unchanged,
+data->sclk_dpm.hard_min_clk already equals clock, so the SMU keeps the old
+DPM level index even if the edited frequencies shift which level satisfies
+min_core_set_clock, allowing SCLK to drop below the display minimum or
+staying pinned higher than needed.  Invalidating
+data->sclk_dpm.hard_min_clk in smu8_od_upload_sclk_table() would force
+smu8_update_sclk_limit() to resend the updated level.
 
-kworker (core->reset.wq)          <hardirq> / irq thread
-rocket_reset()
-  rocket_pc_writel(INTERRUPT_MASK, 0x0)
-  rocket_pc_writel(INTERRUPT_CLEAR, 0x1ffff)
-  [DPU finishes, re-latches INTERRUPT_RAW_STATUS]
-  synchronize_irq(core->irq)
-                                  [shared IOMMU IRQ fires]
-                                  rocket_job_irq_handler()
-                                    reads INTERRUPT_RAW_STATUS
-                                    returns IRQ_WAKE_THREAD
-  iommu_detach_group()
-  rocket_core_reset()
-                                  rocket_job_irq_handler_thread()
-                                    rocket_job_handle_irq()  <-- races with=
- reset
+[ ... ]
 
-This also detaches the IOMMU group in iommu_detach_group() while
-OPERATION_ENABLE is still set and the NPU has not yet been reset.  Clearing
-OPERATION_ENABLE before INTERRUPT_CLEAR (or reading the masked
-INTERRUPT_STATUS register in rocket_job_irq_handler()) would prevent the raw
-status from re-triggering the IRQ thread.
+> @@ -2057,6 +2133,145 @@ static void smu8_dpm_powergate_vce(struct pp_hwmg=
+r *hwmgr, bool bgate)
+>  	}
+>  }
+> =20
+> +/* the engine clock that the PLL produces for @clk */
+> +static uint32_t smu8_od_real_sclk(struct pp_hwmgr *hwmgr, uint32_t clk)
+> +{
+> +	pp_atomctrl_clock_dividers_kong dividers;
+> +
+> +	if (atomctrl_get_engine_pll_dividers_kong(hwmgr, clk, &dividers) ||
+> +	    !dividers.real_clock)
+> +		return clk;
+> +
+> +	return dividers.real_clock;
+> +}
+> +
+> +static int smu8_od_edit_sclk_level(struct pp_hwmgr *hwmgr,
+> +				   struct phm_odn_clock_levels *od,
+> +				   long level, long mhz, long mv)
+> +{
+> +	struct smu8_hwmgr *data =3D hwmgr->backend;
+> +	struct amdgpu_device *adev =3D hwmgr->adev;
+> +	uint32_t min_clk, max_clk, clk;
+> +
+> +	min_clk =3D data->od_default_sclk.entries[0].clock;
+> +	max_clk =3D hwmgr->platform_descriptor.overdriveLimit.engineClock;
+> +
+> +	if (level < 0 || level >=3D od->num_of_pl) {
+> +		dev_info(adev->dev,
+> +			 "OD sclk level %ld is out of range [0 - %u]\n",
+> +			 level, od->num_of_pl - 1);
+> +		return -EINVAL;
+> +	}
+> +
+> +	if (mhz < min_clk / 100 || mhz > max_clk / 100) {
+> +		dev_info(adev->dev,
+> +			 "OD engine clock is out of range [%u - %u] MHz\n",
+> +			 min_clk / 100, max_clk / 100);
+> +		return -EINVAL;
+> +	}
+> +
+> +	if (mv < data->od_min_vddc || mv > data->od_max_vddc) {
+> +		dev_info(adev->dev, "OD voltage is out of range [%u - %u] mV\n",
+> +			 data->od_min_vddc, data->od_max_vddc);
+> +		return -EINVAL;
+> +	}
+> +
+> +	/*
+> +	 * OD_SCLK shows whole MHz, so keep the exact clock of a level that is
+> +	 * written back unchanged. Otherwise use the clock the PLL produces.
+> +	 */
+> +	clk =3D mhz * 100;
+> +	if (clk =3D=3D od->entries[level].clock / 100 * 100)
+> +		clk =3D od->entries[level].clock;
+> +	else
+> +		clk =3D smu8_od_real_sclk(hwmgr, clk);
+> +
+> +	if (clk < min_clk || clk > max_clk) {
+> +		dev_info(adev->dev,
+> +			 "OD engine clock %u.%02u MHz is out of range\n",
+> +			 clk / 100, clk % 100);
+> +		return -EINVAL;
+> +	}
+
+[Severity: Medium]
+Can smu8_od_edit_sclk_level() reject the minimum MHz shown in OD_RANGE when
+min_clk has a non-zero fractional MHz part (min_clk % 100 !=3D 0)?
+
+On Carrizo and Stoney, VBIOS clocks are stored in 10 kHz units and often
+have fractional MHz values (such as 30476 for 304.76 MHz), while OD_RANGE
+and OD_SCLK print truncated whole MHz (min_clk / 100).  Once level 0 is
+edited to another frequency, writing back mhz =3D min_clk / 100 no longer
+matches od->entries[level].clock / 100 * 100, so clk =3D (min_clk / 100) * =
+100
+is passed to smu8_od_real_sclk().  Because that input is already strictly
+less than min_clk and ComputeMemoryEnginePLL rounds down to the nearest PLL
+step, the resulting clk is below min_clk and fails the clk < min_clk check
+with -EINVAL.  Similarly, when max_clk % 100 !=3D 0, writing max_clk / 100
+after an edit passes (max_clk / 100) * 100 < max_clk to smu8_od_real_sclk()
+and cannot reach the max_clk PLL step.
+
+Checking data->od_default_sclk.entries[level].clock (as well as min_clk and
+max_clk) for a whole-MHz match before calling smu8_od_real_sclk() would
+allow restoring a level's default or boundary clock.
 
 --=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/cover.1794615324.gi=
-t.gahing@gahingwoo.com?part=3D3
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261113-smu8-overd=
+rive-v1-0-763f07bdfca9@etsu.edu?part=3D4
