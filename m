@@ -2,43 +2,42 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EDC1A606B5EE
-	for <dri-devel@archiver.kernel.org>; Sat, 14 Nov 2026 18:04:36 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 839EE606C316
+	for <dri-devel@archiver.kernel.org>; Sat, 14 Nov 2026 18:04:38 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=collabora.com header.i=@collabora.com header.a=rsa-sha256 header.s=mail header.b=B12y/U9Z
+	dkim=pass (2048-bit key) header.d=collabora.com header.i=@collabora.com header.a=rsa-sha256 header.s=mail header.b=pMEc2GoT
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id E9C0510F09D;
-	Sat, 14 Nov 2026 18:04:29 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 8771D10F0A6;
+	Sat, 14 Nov 2026 18:04:30 +0000 (UTC)
 Received: from bali.collaboradmins.com (bali.collaboradmins.com
  [148.251.105.195])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 1599610E6F2
- for <dri-devel@lists.freedesktop.org>; Sat, 14 Nov 2026 18:04:20 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 5653C10E5D7
+ for <dri-devel@lists.freedesktop.org>; Sat, 14 Nov 2026 18:04:19 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
  s=mail; t=1794679458;
- bh=owVPqFwaoXUU+Gcwxuroc+P7E9LF5U9XqHzH7kbz1s0=;
+ bh=TxqmposBOHXdDsrH5e74JfVT2uddDv95gdLnKGzzKc8=;
  h=From:Date:Subject:References:In-Reply-To:To:Cc:From;
- b=B12y/U9ZpAz20vm5D/hHAoJXT6bUWc70g2oxD7FJYj70lsjHuxYMk0KvXUVmc8Fei
- sj2Lol28GXfoqtzZ/DUXkdVS9FOY3M//CY3rjl7QCYHaUyxVv8fusKD3D5NPueCAbS
- EioT5ySwEncxK10qAQE1R1O5X5/Rvm5CaqO63kWxFO46HqaB1FDJpQB3AsXNpjRLm4
- K+7qDUM+TLAABHVc2VoIalm5nNucBNh5PRVxk2BjubXwq3KNzLf+L2HHWzAXjBGYrX
- hlDHzub9P2V7fUU19t4dEC9Vr/2Mckl1RU32SVMvf3ZMKI/CWonWN42wuXXX5YuxN/
- cvdFwRv/tqRtQ==
+ b=pMEc2GoTmGBOglomGtdfytnpNJTkCk4lOsXjoqMlh0Xp+qJwK8gwEQ6egtuqVAY1N
+ lX2qK+lCZvoqSc4MJVsc5h7EAP1zkDnroorLGXK6Qpn1dWmXWf6CuOUc3DFSzH8t+N
+ N5RdSzNaM0+VSQT4wWhdD42QeIgU8OXLENaKnBuO8nj5wGgu+NnGL01W/PktKwmEiu
+ tKgHfWOEnuFmNdDMofAr97wd93mZW4ScHsx3hTat1Ti/EGwaidTk84nPD8n8f72fLa
+ XC9cFn7ZnWZ/XLkYPpzRHc7VagGJCffi39KQ/7IDegAT0XlNIgtGKOVXNc816aT5v9
+ kGt34JSdeveKg==
 Received: from localhost (unknown [100.64.0.241])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange secp256r1 server-signature RSA-PSS (4096 bits) server-digest
  SHA256) (No client certificate requested)
  (Authenticated sender: cristicc)
- by bali.collaboradmins.com (Postfix) with ESMTPSA id A669617E0BCF;
- Sat, 14 Nov 2026 19:04:18 +0100 (CET)
+ by bali.collaboradmins.com (Postfix) with ESMTPSA id DD9D317E0B1E;
+ Sat, 14 Nov 2026 19:04:17 +0100 (CET)
 From: Cristian Ciocaltea <cristian.ciocaltea@collabora.com>
-Date: Sat, 14 Nov 2026 20:03:26 +0200
-Subject: [PATCH 02/25] video/hdmi: Define SPD InfoFrame vendor/product
- field lengths
+Date: Sat, 14 Nov 2026 20:03:25 +0200
+Subject: [PATCH 01/25] video/hdmi: Copy SPD vendor/product with strtomem_pad()
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20261114-drm-conn-hdmi-cleanup-v1-2-20e8a33a2286@collabora.com>
+Message-Id: <20261114-drm-conn-hdmi-cleanup-v1-1-20e8a33a2286@collabora.com>
 References: <20261114-drm-conn-hdmi-cleanup-v1-0-20e8a33a2286@collabora.com>
 In-Reply-To: <20261114-drm-conn-hdmi-cleanup-v1-0-20e8a33a2286@collabora.com>
 To: Helge Deller <deller@gmx.de>, Martin Bugge <marbugge@cisco.com>, 
@@ -48,7 +47,8 @@ To: Helge Deller <deller@gmx.de>, Martin Bugge <marbugge@cisco.com>,
  Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
  David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>
 Cc: kernel@collabora.com, linux-fbdev@vger.kernel.org, 
- dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org
+ dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org, 
+ stable@vger.kernel.org
 X-Mailer: b4 0.15.2
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -69,92 +69,70 @@ X-Spam-Status: No, score=-18.8 required=3.0 tests=BAYES_00,DKIM_SIGNED,
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-The HDMI specification defines the SPD InfoFrame Vendor Name and
-Product Description as fixed-size fields of 8 and 16 bytes
-respectively.
+The HDMI specification defines the SPD InfoFrame Vendor Name and Product
+Description as fixed-size fields, padded with zeros and left without any
+trailing NUL when a name spans the whole field.
 
-Add defines for those lengths and use them in place of the related
-magic numbers, including the payload offsets and the log format
-precisions.  While at it, fix the continuation line alignment in
-hdmi_spd_infoframe_log().
+Mark the fields as non-strings, so that the copies can be handed over to
+strtomem_pad(), which implements precisely the required semantics.  This
+also bounds the reads from the source strings, whereas the open-coded
+strlen() could run past the end of the buffer in the
+hdmi_spd_infoframe_unpack() path, where the names come straight from the
+wire and are not NUL-terminated.
 
-No functional change intended.
-
+Fixes: 2c676f378edb ("[media] hdmi: added unpack and logging functions for InfoFrames")
+Cc: stable@vger.kernel.org # v6.1+
 Signed-off-by: Cristian Ciocaltea <cristian.ciocaltea@collabora.com>
 ---
- drivers/video/hdmi.c | 20 +++++++++++++-------
- include/linux/hdmi.h |  7 +++++--
- 2 files changed, 18 insertions(+), 9 deletions(-)
+ drivers/video/hdmi.c | 11 +++++------
+ include/linux/hdmi.h |  4 ++--
+ 2 files changed, 7 insertions(+), 8 deletions(-)
 
 diff --git a/drivers/video/hdmi.c b/drivers/video/hdmi.c
-index cd18121afa20..7eeadac2de69 100644
+index 45b42f14a750..cd18121afa20 100644
 --- a/drivers/video/hdmi.c
 +++ b/drivers/video/hdmi.c
-@@ -304,9 +304,11 @@ ssize_t hdmi_spd_infoframe_pack_only(const struct hdmi_spd_infoframe *frame,
- 	ptr += HDMI_INFOFRAME_HEADER_SIZE;
+@@ -217,23 +217,22 @@ EXPORT_SYMBOL(hdmi_avi_infoframe_pack);
+  * @vendor: vendor string
+  * @product: product string
+  *
++ * Both strings are copied into the fixed-size infoframe fields,
++ * truncated if too long and padded with zeros otherwise.
++ *
+  * Returns 0 on success or a negative error code on failure.
+  */
+ int hdmi_spd_infoframe_init(struct hdmi_spd_infoframe *frame,
+ 			    const char *vendor, const char *product)
+ {
+-	size_t len;
+-
+ 	memset(frame, 0, sizeof(*frame));
  
- 	memcpy(ptr, frame->vendor, sizeof(frame->vendor));
--	memcpy(ptr + 8, frame->product, sizeof(frame->product));
-+	memcpy(ptr + HDMI_SPD_INFOFRAME_VENDOR_LEN, frame->product,
-+	       sizeof(frame->product));
+ 	frame->type = HDMI_INFOFRAME_TYPE_SPD;
+ 	frame->version = 1;
+ 	frame->length = HDMI_SPD_INFOFRAME_SIZE;
  
--	ptr[24] = frame->sdi;
-+	ptr[HDMI_SPD_INFOFRAME_VENDOR_LEN + HDMI_SPD_INFOFRAME_PRODUCT_LEN] =
-+		frame->sdi;
- 
- 	hdmi_infoframe_set_checksum(buffer, length);
- 
-@@ -1284,10 +1286,12 @@ static void hdmi_spd_infoframe_log(const char *level,
- 	hdmi_infoframe_log_header(level, dev,
- 				  (const struct hdmi_any_infoframe *)frame);
- 
--	hdmi_log("    vendor: %.8s\n", frame->vendor);
--	hdmi_log("    product: %.16s\n", frame->product);
-+	hdmi_log("    vendor: %.*s\n", HDMI_SPD_INFOFRAME_VENDOR_LEN,
-+		 frame->vendor);
-+	hdmi_log("    product: %.*s\n", HDMI_SPD_INFOFRAME_PRODUCT_LEN,
-+		 frame->product);
- 	hdmi_log("    source device information: %s (0x%x)\n",
--		hdmi_spd_sdi_get_name(frame->sdi), frame->sdi);
-+		 hdmi_spd_sdi_get_name(frame->sdi), frame->sdi);
- }
- 
- static const char *
-@@ -1642,11 +1646,13 @@ static int hdmi_spd_infoframe_unpack(struct hdmi_spd_infoframe *frame,
- 
- 	ptr += HDMI_INFOFRAME_HEADER_SIZE;
- 
--	ret = hdmi_spd_infoframe_init(frame, ptr, ptr + 8);
-+	ret = hdmi_spd_infoframe_init(frame, ptr,
-+				      ptr + HDMI_SPD_INFOFRAME_VENDOR_LEN);
- 	if (ret)
- 		return ret;
- 
--	frame->sdi = ptr[24];
-+	frame->sdi = ptr[HDMI_SPD_INFOFRAME_VENDOR_LEN +
-+			 HDMI_SPD_INFOFRAME_PRODUCT_LEN];
+-	len = strlen(vendor);
+-	memcpy(frame->vendor, vendor, min(len, sizeof(frame->vendor)));
+-	len = strlen(product);
+-	memcpy(frame->product, product, min(len, sizeof(frame->product)));
++	strtomem_pad(frame->vendor, vendor, 0);
++	strtomem_pad(frame->product, product, 0);
  
  	return 0;
  }
 diff --git a/include/linux/hdmi.h b/include/linux/hdmi.h
-index 08922d5330d6..7d96821b486d 100644
+index b80a5ee63bb2..08922d5330d6 100644
 --- a/include/linux/hdmi.h
 +++ b/include/linux/hdmi.h
-@@ -267,12 +267,15 @@ enum hdmi_spd_sdi {
- 	HDMI_SPD_SDI_PMP,
- };
- 
-+#define HDMI_SPD_INFOFRAME_VENDOR_LEN	8
-+#define HDMI_SPD_INFOFRAME_PRODUCT_LEN	16
-+
- struct hdmi_spd_infoframe {
+@@ -271,8 +271,8 @@ struct hdmi_spd_infoframe {
  	enum hdmi_infoframe_type type;
  	unsigned char version;
  	unsigned char length;
--	char vendor[8] __nonstring;
--	char product[16] __nonstring;
-+	char vendor[HDMI_SPD_INFOFRAME_VENDOR_LEN] __nonstring;
-+	char product[HDMI_SPD_INFOFRAME_PRODUCT_LEN] __nonstring;
+-	char vendor[8];
+-	char product[16];
++	char vendor[8] __nonstring;
++	char product[16] __nonstring;
  	enum hdmi_spd_sdi sdi;
  };
  
