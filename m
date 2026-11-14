@@ -2,44 +2,44 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 59535606A323
-	for <dri-devel@archiver.kernel.org>; Sat, 14 Nov 2026 05:01:27 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 30A80606A334
+	for <dri-devel@archiver.kernel.org>; Sat, 14 Nov 2026 05:01:28 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=collabora.com header.i=@collabora.com header.a=rsa-sha256 header.s=mail header.b=havA/dBs
+	dkim=pass (2048-bit key) header.d=collabora.com header.i=@collabora.com header.a=rsa-sha256 header.s=mail header.b=AwU4ZKVz
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 2C47010E660;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 6FDAF10E69A;
 	Sat, 14 Nov 2026 05:01:17 +0000 (UTC)
 Received: from bali.collaboradmins.com (bali.collaboradmins.com
  [148.251.105.195])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 1F21410E7B2
- for <dri-devel@lists.freedesktop.org>; Sat, 14 Nov 2026 05:01:05 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 2EE0510E6EC
+ for <dri-devel@lists.freedesktop.org>; Sat, 14 Nov 2026 05:01:11 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
- s=mail; t=1794632456;
- bh=s5L6s2fj0KUYXfVyQ1DqZ+JQ9NOwnY5J+JG3saptonk=;
+ s=mail; t=1794632457;
+ bh=qiTnNJ+ur0YxXmV+nt05zCuHB94myasDkxur83iCFBk=;
  h=From:Date:Subject:References:In-Reply-To:To:Cc:From;
- b=havA/dBs65Byi5UoQBP8wJtmf7zNcIySraIf79Fv8OC8/G2Lf/S6++QjOuhIuPfpl
- jne9hLLseMKfcArFLuEWAZpNf5DMpn5Sl2jD8cZg27+lHFBZw9MOXJkjMcPRKkEVlh
- xpny/G9Wh6hBu4bASFAoP+h7J8MGIRTOmY/KEMmo4Om/9SAw8et0WR+7C04N7t/hmx
- xBAUYw9O9OhxhdEUhrOh5j4OIFrzKDHqQXhSaQ/PHRrwPB0u1YWyZ5lpXmZ99uDzgg
- BhHKp0oKX65KLdpSYoD42KHUBJZJmoSbMFuxF7OAj/neqZ6FU5O0ABE9IvrBEpNKMV
- zMgxR6XOIwKKA==
+ b=AwU4ZKVzF8jDvmTXv5KxJT3byOWTHPEKnoYi6WSFYgThhCO5lb+eDqVrcRoYo0s4R
+ Hvh/djDGXzNlycGOs3cjqzKJ170/Tl1yGyXG7zyHlQPeXawgUNkn/NjWMa2lSAMkM9
+ LUe+g9gJsaDWQZaU3EZ1K08u6AgYSJ7PARRk/VmRVN3w2jeO0k1c9nGknwjVjH1Cnx
+ TUxfdYFr9PFcSTI7Q7eMOyzpW+Z/APqacg8s8Tx2Nju2BMnut36jBNkeGkDnnu5zzV
+ zxF5D7MH/sQCOqi4Il2WCAFNTNrh7rq/hhscIkUwNETgjLXZ+uyWh9iDyCp6w24+Tv
+ d3wVTf/r5QtVg==
 Received: from jupiter.universe (unknown [100.64.1.62])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange x25519) (No client certificate requested)
  (Authenticated sender: sre)
- by bali.collaboradmins.com (Postfix) with ESMTPSA id B06F417E3873;
- Sat, 14 Nov 2026 06:00:56 +0100 (CET)
+ by bali.collaboradmins.com (Postfix) with ESMTPSA id 1B0EA17E3BFD;
+ Sat, 14 Nov 2026 06:00:57 +0100 (CET)
 Received: by jupiter.universe (Postfix, from userid 1000)
- id 176FA480041; Sat, 14 Nov 2026 06:00:56 +0100 (CET)
+ id 2A267480067; Sat, 14 Nov 2026 06:00:56 +0100 (CET)
 From: Sebastian Reichel <sebastian.reichel@collabora.com>
-Date: Sat, 14 Nov 2026 06:00:41 +0100
-Subject: [PATCH v12 08/23] drm/bridge: synopsys: dw-dp: Free output_fmts
- when none are valid
+Date: Sat, 14 Nov 2026 06:00:53 +0100
+Subject: [PATCH v12 20/23] drm/bridge: synopsys: dw-dp: Use regmap_set_bits
+ in dw_dp_send_sdp
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20261114-synopsys-dw-dp-improvements-v12-8-d42d3dc5bdd4@collabora.com>
+Message-Id: <20261114-synopsys-dw-dp-improvements-v12-20-d42d3dc5bdd4@collabora.com>
 References: <20261114-synopsys-dw-dp-improvements-v12-0-d42d3dc5bdd4@collabora.com>
 In-Reply-To: <20261114-synopsys-dw-dp-improvements-v12-0-d42d3dc5bdd4@collabora.com>
 To: Sandy Huang <hjc@rock-chips.com>, 
@@ -64,24 +64,23 @@ Cc: Cristian Ciocaltea <cristian.ciocaltea@collabora.com>,
  devicetree@vger.kernel.org, kernel@collabora.com, 
  linux-arm-kernel@lists.infradead.org, 
  Sebastian Reichel <sebastian.reichel@collabora.com>, 
- Sashiko <sashiko-bot@kernel.org>, Igor Paunovic <royalnet026@gmail.com>, 
- Andy Yan <andyshrk@163.com>
+ Igor Paunovic <royalnet026@gmail.com>
 X-Mailer: b4 0.16.0
-X-Developer-Signature: v=1; a=openpgp-sha256; l=1171;
+X-Developer-Signature: v=1; a=openpgp-sha256; l=1320;
  i=sebastian.reichel@collabora.com; h=from:subject:message-id;
- bh=s5L6s2fj0KUYXfVyQ1DqZ+JQ9NOwnY5J+JG3saptonk=;
- b=owJ4nAFtApL9kA0DAAoB2O7X88g7+poByyZiAGr36wdVhJcVdhP9bjxZFQ1W/2gr23BLxdb50
- iBoRxLYYN7nkIkCMwQAAQoAHRYhBO9mDQdGP4tyanlUE9ju1/PIO/qaBQJq9+sHAAoJENju1/PI
- O/qaNTMP/3PNDKw26kgszhl+kZVw6GXhu+cFR2amPDo/QudctDpi6POkP3xdts4iX/FAN+aM6qg
- iyK0qwwCxAVCJfOEHsHqfgf/ZJEuVxYun7fQ8dnjlOXJOc511FrNu3YbxdiWPchh889l0Uzy6zo
- HpGTCjgGX+ttaS7/BoWNAVyIgAGsgQIraXcMnVJ8VZdDcEhw4yPWwtZYKCWfpHAxAP+DSXODEIf
- Iw3lyVJEj8WPZS8dpvS+FmF2/dhOo0HmJl21hnzhs7wp1/Fy0To985rrehuUohuF+E40HIT/Fgt
- NhAfPtMMaG1FIDAdtsW3lrIqvWHBZkkNRmwxF8BsjRTPtbmr/KYa20r4bn7hEMdRZS2sTTBkCll
- UFH+GsmMF2vDeVcE+nHzRLrXrg+5521s7Z/ymoAW6uaOduNZpMOIRXqSZn3CoUIp0QxU/+Blb3u
- wPgPx0h7CIIsE0kKnq6cLnAFdFPrgSnD0OdaniYXzGNa5HzOTjiwm9N5UsQgMRbQ85BilqQ7Tqc
- qbBaMXF0PjoxvGOUd9qOJRutj8OaQXQDVGNb8k9zqvAhgQelA7uzOv7loUlpWMmK+BqgLUac7wj
- 1mx4UJ6Suuc/WPKTDI3Dt52zIcOi6qx4rqAHzM46DmNO/60Dz0QIw9Lqbb0bcC31qrRJDhtpRbX
- tg8POWXath6uekmYteTEu+w==
+ bh=qiTnNJ+ur0YxXmV+nt05zCuHB94myasDkxur83iCFBk=;
+ b=owJ4nAFtApL9kA0DAAoB2O7X88g7+poByyZiAGr36wf4v07B4qdQilfmkg+Uyh3Lo+yP8VsVu
+ FXfwNb9sqBh94kCMwQAAQoAHRYhBO9mDQdGP4tyanlUE9ju1/PIO/qaBQJq9+sHAAoJENju1/PI
+ O/qa8SoP/0YImbqbgVdXBLzRUNM4BOriNDKJzweEyk9m+MVlwRxd4vZmJA83LzGmYyBEIPK6JHt
+ wMytUCYMR5fQXoKZRfFBPP/tIQlULp7XvssuRPFWOYeKTyJ+rpBFObJLVuBo+y9nV0RZkxKlkvy
+ 7Xl5fZFiBpb0u+lstfbaT2oRI6p9bCdkWHiRB0smPaQMaCtMnr0GNHq+aqciLJH9hz7/R2RaC41
+ gBPaJG+rgsABX4CwiOtf3XmxUrjbooR67QaGLYToSjlwnGkzm8vbgoOvOYMxKkcy59hBs/w9ycm
+ Dml3mkqBI6ARBh8zrHOXMNijqTwzffvWGnExKDdjlkuoR1VkYJjg42RuTSb1hh3wKGziYE+WBSW
+ SCWuhGNHicpZG725GvSpHyz/pEs7ix3rwVZodurDLNi/DUMk5RswimgPkKM3OLBCyI+jZ6yArP+
+ FA8M1fJJ3Y3PYTibcQw0jnQnvVVTpGsgGnwr5CCU9UFmATFbbtTBNMcgcVqlRdtj+rTj2gAcl2d
+ hBd1wqY3Nz2DPoMrybdTW30frn4GjWuwcN2PU/LOYrJJVfth63EScfz61wZD+KMTFECjzldZNyy
+ iQXL3KfF5yxwxXUV9irsNHlGzMTkYVQVGLddwsi0SqDjBqMMADQWVjZJufPFokXipRvNmf4LQiK
+ i3f7iiWsSPlAAeJMWzm8sOA==
 X-Developer-Key: i=sebastian.reichel@collabora.com; a=openpgp;
  fpr=EF660D07463F8B726A795413D8EED7F3C83BFA9A
 X-BeenThere: dri-devel@lists.freedesktop.org
@@ -103,36 +102,40 @@ X-Spam-Status: No, score=-18.8 required=3.0 tests=BAYES_00,DKIM_SIGNED,
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-If dw_dp_bandwidth_ok() returns false for all formats, *num_output_fmts
-might end up becoming 0. In this case functions calling it assume that
-nothing needs to be free'd, so free output_fmts within the function to
-avoid leaking memory.
+Simplify dw_dp_send_sdp() a little bit by making use of
+regmap_set_bits.
 
-Fixes: 86eecc3a9c2e ("drm/bridge: synopsys: Add DW DPTX Controller support library")
-Reported-by: Sashiko <sashiko-bot@kernel.org>
-Reviewed-by: Andy Yan <andy.yan@rock-chips.com>
+No functional change intended.
+
 Tested-by: Igor Paunovic <royalnet026@gmail.com> # Orange Pi 5+
 Signed-off-by: Sebastian Reichel <sebastian.reichel@collabora.com>
 ---
- drivers/gpu/drm/bridge/synopsys/dw-dp.c | 5 +++++
- 1 file changed, 5 insertions(+)
+ drivers/gpu/drm/bridge/synopsys/dw-dp.c | 10 ++++------
+ 1 file changed, 4 insertions(+), 6 deletions(-)
 
 diff --git a/drivers/gpu/drm/bridge/synopsys/dw-dp.c b/drivers/gpu/drm/bridge/synopsys/dw-dp.c
-index 4afa57f4bce2..158c727ab58b 100644
+index 6e165e39b1f8..3c10cdb9ca28 100644
 --- a/drivers/gpu/drm/bridge/synopsys/dw-dp.c
 +++ b/drivers/gpu/drm/bridge/synopsys/dw-dp.c
-@@ -1821,6 +1821,11 @@ static u32 *dw_dp_bridge_atomic_get_output_bus_fmts(struct drm_bridge *bridge,
- 		output_fmts[j++] = fmt->bus_format;
- 	}
+@@ -1068,14 +1068,12 @@ static int dw_dp_send_sdp(struct dw_dp *dp, struct dw_dp_sdp *sdp)
+ 			     FIELD_PREP(SDP_REGS, get_unaligned_le32(payload)));
  
-+	if (j == 0) {
-+		kfree(output_fmts);
-+		output_fmts = NULL;
-+	}
-+
- 	*num_output_fmts = j;
+ 	if (sdp->flags & DW_DP_SDP_VERTICAL_INTERVAL)
+-		regmap_update_bits(dp->regmap, DW_DP_SDP_VERTICAL_CTRL,
+-				   EN_VERTICAL_SDP << nr,
+-				   EN_VERTICAL_SDP << nr);
++		regmap_set_bits(dp->regmap, DW_DP_SDP_VERTICAL_CTRL,
++				EN_VERTICAL_SDP << nr);
  
- 	return output_fmts;
+ 	if (sdp->flags & DW_DP_SDP_HORIZONTAL_INTERVAL)
+-		regmap_update_bits(dp->regmap, DW_DP_SDP_HORIZONTAL_CTRL,
+-				   EN_HORIZONTAL_SDP << nr,
+-				   EN_HORIZONTAL_SDP << nr);
++		regmap_set_bits(dp->regmap, DW_DP_SDP_HORIZONTAL_CTRL,
++				EN_HORIZONTAL_SDP << nr);
+ 
+ 	return nr;
+ }
 
 -- 
 2.53.0
