@@ -2,83 +2,86 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E7496606A323
-	for <dri-devel@archiver.kernel.org>; Sat, 14 Nov 2026 16:25:47 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C5510606A323
+	for <dri-devel@archiver.kernel.org>; Sat, 14 Nov 2026 16:25:48 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=tTPYG1hS
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=nEhowwg0
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 3937D10F041;
+	by gabe.freedesktop.org (Postfix) with ESMTP id C3AD610F042;
 	Sat, 14 Nov 2026 16:25:20 +0000 (UTC)
-Received: from mail-dy1-f176.google.com (mail-dy1-f176.google.com
- [74.125.82.176])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 75F2610E22C
- for <dri-devel@lists.freedesktop.org>; Sat, 14 Nov 2026 08:20:37 +0000 (UTC)
-Received: by mail-dy1-f176.google.com with SMTP id
- 5a478bee46e88-33c10faf6easo229996eec.0
- for <dri-devel@lists.freedesktop.org>; Sat, 14 Nov 2026 00:20:37 -0800 (PST)
+Received: from mail-dy1-f180.google.com (mail-dy1-f180.google.com
+ [74.125.82.180])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id A1FD310E5B4
+ for <dri-devel@lists.freedesktop.org>; Sat, 14 Nov 2026 08:19:18 +0000 (UTC)
+Received: by mail-dy1-f180.google.com with SMTP id
+ 5a478bee46e88-36ca32a0faeso191983eec.1
+ for <dri-devel@lists.freedesktop.org>; Sat, 14 Nov 2026 00:19:18 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20260707; t=1794644437; x=1795249237; darn=lists.freedesktop.org;
+ d=gmail.com; s=20260707; t=1794644358; x=1795249158; darn=lists.freedesktop.org;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:from:to:cc:subject:date
  :message-id:reply-to:content-type;
- bh=5+RlFqufX4xhL1zOaDcekPTcuiYRW3XbXJOszvYL5u4=;
- b=tTPYG1hSjl0unIoY7az4uitGR1noAjdA87UwPM0bUmX6Orhj3DjyPqOD9nzUXq4nq2
- jEKU/rRjfnMQb1yuVca8KCabpN2IJVSaICyjrV0BCBwyoqw2HrklCa7TljVifHDVh1Kl
- LYsLAgH6aoiJOsM1a+Va62cFEKzZbl6m9o7bDbSOxsWVMc0wROXQgymIyPHyN0oCV+ct
- eOvm9SXCw+CIg9fYpCz+7FGH+8hDMYavQ4U+xNumeFkOQIjKlxoNtEEzP4Lqee90rB1d
- 7YyQeabuEIkMLxUYOVM18Xs29UOGy/BuOLThrTd03yQMi8tUFvMuTN5HL1Up2LaUtcvB
- Tz7w==
+ bh=F88s34t6HgwaWc7KrjRKtNSJ/J1MLEeihPOI9axIS0Y=;
+ b=nEhowwg079G7waQRc7yCFvyJWMGX3DgVdzCoo6lYVtCs1hZlYl30eueHAwuXhWAuvE
+ nF3ZSnkq3vqx1TauDJvjr6ty2mh0Rm8gAAgLAiWRYR5+ZknidvbEykJwFHz/Cdcv9WhQ
+ 4Bq0gMhqoi14WBG1zxQV+n9obq4faVJonRLcVJsv2VpYZuKaauKP6gtajgJzDnEF0Tph
+ LACBzVHcbeOdzBSD+kg5BuJF7cvgRjzbwFPqQvwBOpOyQi8zTsMJcVm156VaG6Jxbicz
+ LXvsybIp+enmUIBIgd/0coYBmcFJOhORnVWZbkJA4ivTmHHLw+dAS7zBbmNAdHzCPqA1
+ KK0A==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20260707; t=1794644437; x=1795249237;
+ d=1e100.net; s=20260707; t=1794644358; x=1795249158;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
  :to:cc:subject:date:message-id:reply-to:content-type;
- bh=5+RlFqufX4xhL1zOaDcekPTcuiYRW3XbXJOszvYL5u4=;
- b=z+j5t06GVVhN7BXdfQxDCa6q+fPf+k0Z+R7RU8Dg2xnWEA2I/xN6WWbMNmOu2i6j4U
- j+LAGdXXYSSLYuZ16dlEv9KrQSxhc6WpF2vKYo4MAwG+jPXxXnIPnyALHn2sR/QNqpRh
- CwONZhITDtnLnT35lMh02N024EUWSWEvTTwP7GGQhGuM49vH6RW58lvvc76Chjfh89bM
- ioKHr5mQEI24UEHOfMc2wlVD2KzzNZvVYzth9net/bLY7NNXTRX7US4hzONavVqVSB48
- +Ud/Dhe3cQ+GxNBJBWpZyblfhUojiS5EJhjlP8YQy3H5gR35qn4/PYduiT7jWfn7W70A
- jtBA==
+ bh=F88s34t6HgwaWc7KrjRKtNSJ/J1MLEeihPOI9axIS0Y=;
+ b=FpFXAR3Zd6gSMGd8T4qtUAr5lyNaSfHkELb+M8Wc8cBAOH+hyCGCFBCckCn87GmowE
+ NGoSk+BUUQf1UJPIaYLH3jEqN5BMFYzwSZ3Jxalncsxc8B1p1Qf5mjJtofdUqWpx1vAC
+ uGmxXtECHr2yjruIf1ugLQrPkvUSWZ3Uj4GABwdkSZHLp7HsYyfVdjatGjFvUkpeDij4
+ BY9fswklhmZeDWNqGEupEJqjWeT5jfmrQIDOJzOmK+B70iSNUFiaKs1lHfMLHRrYpxDL
+ PyNkUiefNTLyucNjQWSYFtuZqhjAZCRV481kHPFmC+4JgGQA3dBlOKAHP4m3srsrg6HQ
+ TD+A==
 X-Forwarded-Encrypted: i=1;
- AL+hErH0URfMMYfIi39+7ChskIkO5zu6/wlvLebr3Skgu1WBmMIWQhXYN6sGSicBry47DdG53Jg4BCkrLq4=@lists.freedesktop.org
-X-Gm-Message-State: APuU4Z/yWkghxCaOqsLSG9v8dhpIIVqhIUMCiRHmAMJDsnbAo4q/h2FP
- PVOQREgqXnLCiqs4pMDgMOPClWLf3Smd8LjYlonCZUbjaZxQnCUEX+nZ
-X-Gm-Gg: AYBFou0pNa9kFk0CK/zy97n2yaZXQ8DAro0PNhjBoTHZ3R2QKCKQEGkvRuYWxmF9ayP
- UiQ/MUTvf0vqpotESgHpBor7l/K5ZDfqkaByfr1idVhkcqiLBQNdtLuZMhRYy4aXxSD36VP4eig
- vlCQOcWjU6fz22hdzwVawcRsOUDEQq7LT92AONBU1ohkcs1J9HJJkHXSFTXaWPyH3/Af9P5U0lR
- rAB7H3SHEnyWzz0ZCWUrw9nFuqYjj/R0pdeaYGvEL4wueVh5uz1CxlcSitm1pQMT7Uctpbz4709
- MdGHGLaXOTAG0D/k0mcyv8i2a30EbweTn75amV/IimbtZ37fUXNJ1DPUlZzii3FQ9PdDt4LsfyC
- 2X0iCMxKThDS4wAeNwQTWcovij0ZE/TUii1XG1ZHS1lM00rPOzj3lWC3f9DV6jSOnvHjm62cBB8
- RF8WriaN24HHOgYr7egzJAA3zceOC92nZWzL5hpIDWP3QUzn3LAx61K8Dr0SNTx15oP0+gI/Xdh
- CMGBKkrO+8Psp0dBEhZVDfOUbHKnUGTBocXXFaGUWLUSWneUxDh4+VbeGOT27h1VrxoNdDP902C
- VMHiA/oZzFMJm0wNS0zBx77YNa38aOoPil4nHcxGBb43gVKX4oyBZ4uaXVXcrqgFaIHtyIdxiVv
- Y1Io=
-X-Received: by 2002:a05:7300:7481:b0:36d:cd5d:d809 with SMTP id
- 5a478bee46e88-37964ff2d6emr9742335eec.1.1794644436617; 
- Sat, 14 Nov 2026 00:20:36 -0800 (PST)
+ AL+hErG7a7PrYhMEsxLiCDtvM5+1qzkmIF631SoFYE4BGvJe57ft9uoP+yfnJg7/MBsXx+DJaWXBB5vp0Z8=@lists.freedesktop.org
+X-Gm-Message-State: APuU4Z9Wc+6oPhlehpu7GNRr5640kZF+aR3A8PjFcMPm2l3hyyUKKub7
+ QGIJpRuPVKwRKixU8sG0dMc3j/6I6eh/mV5yCew23hyTOu2keGt7vgik
+X-Gm-Gg: AYBFou0S6DWGyFN7E/0+roD9LVzusXhsb7GJ803jQtCQCOHAZBOld52ak30HonLF1j3
+ We0wvAKBF9bMR+MPld4aD7M05daqRMbE1WVRzCYSnZY6LeK7qkTcrL8NCgcHGVMhx/VgulCVz8j
+ b13dL0lfz5zH9modSQugMn9yr8VPmWoPSWRlT6TaPh20g0gEh4nIVfWyRrCJauTIXLy8FH55JpY
+ FKcdP9T/jz2AZRthXAw0EPy+5jI7JPBHYoGlHPXGCgdBJJ78YROVhKpGSOHNN+5EKdTDjsx/Ujf
+ inPUClbl4dPY0930lQbDQw4dPAiOMs39k12G0tjs7QBMmZiHTivdMQ49+2B9b4Dw2vbxlSxdSEv
+ U5871ofBViNh8ZpwdIvrknRWJ4bOGUi85cUTTXozUSmuOsRPX4AEHwBMnJIcM3Qb0WEQnXLTuTK
+ AQR6D/kRSLoso3oltodVbmWCFRsqk76vNwYZ9OzqLYHsGanMWsL29kPfRfjuQFzDByXp6xYqfYL
+ suoGAh2rfea16Px11tl2xNnq0pCNkV6YSU5BAskDUA4hPxYFYYTJ98bQISA6+d7hd2Jrh0GncxE
+ oHmUv/C7MB9jwtIDQir9ZSzpwJh9ZmraVClh4hgfcLSA0uqVJ0fg8Hw5f2cfiFlK6w4POHdZ2Xn
+ PTgA=
+X-Received: by 2002:a05:7301:a0a:b0:36c:a1bc:6114 with SMTP id
+ 5a478bee46e88-3796038259fmr6915918eec.0.1794644357643; 
+ Sat, 14 Nov 2026 00:19:17 -0800 (PST)
 Received: from DESKTOP-CJ1L666.localdomain ([211.198.99.62])
  by smtp.gmail.com with ESMTPSA id
- a92af1059eb24-1b5031918c7sm19524043c88.9.2026.11.14.00.20.32
+ 5a478bee46e88-3795378d7e5sm14008333eec.3.2026.11.14.00.19.13
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Sat, 14 Nov 2026 00:20:35 -0800 (PST)
+ Sat, 14 Nov 2026 00:19:17 -0800 (PST)
 From: Jiwoo Kim <arpe1618@gmail.com>
-To: Boris Brezillon <boris.brezillon@collabora.com>,
- Rob Herring <robh@kernel.org>, Steven Price <steven.price@arm.com>,
- =?UTF-8?q?Adri=C3=A1n=20Larumbe?= <adrian.larumbe@collabora.com>
-Cc: Danilo Krummrich <dakr@kernel.org>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>,
- Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>,
- Simona Vetter <simona@ffwll.ch>, dri-devel@lists.freedesktop.org,
- linux-kernel@vger.kernel.org, stable@vger.kernel.org
-Subject: [PATCH v2 3/4] drm/panfrost: Stop a job queued after its JM context
- was destroyed
-Date: Sat, 14 Nov 2026 17:20:15 +0900
-Message-ID: <20261114082016.2454-4-arpe1618@gmail.com>
+To: Rob Clark <robin.clark@oss.qualcomm.com>,
+ Dmitry Baryshkov <lumag@kernel.org>
+Cc: Akhil P Oommen <akhilpo@oss.qualcomm.com>,
+ Konrad Dybcio <konradybcio@kernel.org>,
+ Antonino Maniscalco <antomani103@gmail.com>,
+ Abhinav Kumar <abhinav.kumar@linux.dev>,
+ Jessica Zhang <jesszhan0024@gmail.com>, Sean Paul <sean@poorly.run>,
+ Marijn Suijten <marijn.suijten@somainline.org>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org,
+ freedreno@lists.freedesktop.org, linux-kernel@vger.kernel.org,
+ stable@vger.kernel.org
+Subject: [PATCH v2 1/3] drm/msm: Release the pins and ops of a VM_BIND job
+ that never ran
+Date: Sat, 14 Nov 2026 17:19:00 +0900
+Message-ID: <20261114081902.1669-2-arpe1618@gmail.com>
 X-Mailer: git-send-email 2.43.0
-In-Reply-To: <20261114082016.2454-1-arpe1618@gmail.com>
-References: <20261114082016.2454-1-arpe1618@gmail.com>
+In-Reply-To: <20261114081902.1669-1-arpe1618@gmail.com>
+References: <20261114081902.1669-1-arpe1618@gmail.com>
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
@@ -102,174 +105,160 @@ X-Spam-Status: No, score=-15.8 required=3.0 tests=BAYES_00,DKIM_SIGNED,
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-panfrost_jm_ctx_destroy(), which runs on JM_CTX_DESTROY and when the
-file is closed, sets jm_ctx->destroyed and then stops the jobs of the
-context that it finds in pfdev->jobs[]. panfrost_job_run() checks the
-flag once, without any lock, and panfrost_job_hw_submit() can then
-sleep in pm_runtime_get_sync() before it queues the job in
-pfdev->jobs[] under job_lock. A job that is between the check and the
-queueing when its context is destroyed is therefore neither cancelled
-nor stopped, and can then be started after its context, and possibly
-its file, are gone. With profiling enabled, its engine_usage also still
-points into the panfrost_file_priv that panfrost_postclose() frees, and
-panfrost_dequeue_job() writes to it when the job completes.
+msm_vma_job_run() applies the pgtable updates that vm_bind_job_prepare()
+queued for a VM_BIND job, drops the GEM object references that
+vm_op_enqueue() took for them, and unpins the BOs of the job. A job can
+also be freed without having run: when its entity is killed, e.g. on
+SIGKILL while the process exits, and when msm_ioctl_vm_bind() fails
+part-way through vm_bind_job_prepare() or after it. msm_vma_job_free()
+then frees the queued ops without applying them and without dropping
+their references, and a killed job also keeps its BOs pinned. Besides
+the leaks, the VM no longer matches its pgtables: for example, the
+pages of a VMA that was unmapped from the VM are still mapped.
 
-Before commit 6aa8bc58ac88 ("drm/panfrost: Introduce JM contexts for
-manging job resources"), the close path called
-drm_sched_entity_destroy(), which waits for a run_job() call in
-progress on the entity, before it looked for the jobs to stop. The
-entities are now only destroyed when the last reference to the context
-is dropped.
+In msm_vma_job_free(), apply the queued updates the way
+msm_vma_job_run() does on error: skip the maps, but apply the unmaps,
+so that their references can be dropped without freeing pages that are
+still mapped, and mark the VM unusable. Move that part of
+msm_vma_job_run() into a helper for this. Also clear bos_pinned once
+msm_vma_job_run() has unpinned the BOs, as msm_job_run() does for
+submits, and unpin the BOs of a job that still has them pinned. The
+job's fence does not keep them busy anymore at that point, so take the
+object lock to unpin them.
 
-Move the per-job part of panfrost_jm_ctx_destroy() into a helper, and
-call it from panfrost_job_hw_submit() on the job it has just queued if
-the context has been destroyed by then. The check in
-panfrost_job_hw_submit() and the loop in panfrost_jm_ctx_destroy() both
-run under job_lock, and panfrost_jm_ctx_destroy() sets the flag before
-it takes the lock, so with the previous patch, such a job is either
-found by panfrost_jm_ctx_destroy() or sees the flag, and it then goes
-through the same stop and completion path in both cases. Cancelling the
-job in panfrost_job_hw_submit() instead would leave a gap in the fence
-seqnos of the slot, which the job chain flags rely on. Use READ_ONCE()
-and WRITE_ONCE() for the flag, as it is written outside job_lock and
-read without it in panfrost_job_run().
+This also marks the VM unusable when msm_ioctl_vm_bind() fails after
+vm_bind_job_prepare() has queued updates, i.e. when the first op fails
+part-way or when sync_file_create() fails. The VM is then left
+partially updated, as when a later op fails.
 
-This was found with an AI coding assistant, which also drafted this
-patch and its changelog. It has not been reproduced, and the change
-has only been compile-tested.
+The patch and its changelog were drafted with an AI coding assistant.
+The issue has not been reproduced, and the change has only been
+compile-tested.
 
-Fixes: 6aa8bc58ac88 ("drm/panfrost: Introduce JM contexts for manging job resources")
+Fixes: 2e6a8a1fe2b2 ("drm/msm: Add VM_BIND ioctl")
 Cc: stable@vger.kernel.org
+Reported-by: Sashiko <sashiko-bot@kernel.org>
+Closes: https://lore.kernel.org/r/sashiko-outbox-214234@kernel.org
 Signed-off-by: Jiwoo Kim <arpe1618@gmail.com>
 ---
-panfrost_stop_job() is the loop body of panfrost_jm_ctx_destroy() moved
-into a helper unchanged, apart from the lockdep assertion.
+At commit 2e6a8a1fe2b2, msm_vma_job_run() still unpinned the BOs under
+the object lock, and msm_gem_vm_unusable() did not exist yet, so older
+stable trees need an adapted backport.
 
-When the job is in subslot 0, the hard stop is written right after
-JS_COMMAND_NEXT=START, as panfrost_jm_ctx_destroy() can already do for
-a job it finds just after it was started. Whether the job manager can
-miss a stop that early could not be checked on hardware.
+ drivers/gpu/drm/msm/msm_gem_vma.c | 65 +++++++++++++++++++++++--------
+ 1 file changed, 49 insertions(+), 16 deletions(-)
 
-Arun Iyengar's "Resume long jobs instead of resetting" series also
-changes panfrost_job_hw_submit(); this patch does not depend on it:
-https://lore.kernel.org/r/20261113-panfrost-long-jobs-v3-0-80ae78d38f6e@gmail.com
-
- drivers/gpu/drm/panfrost/panfrost_job.c | 68 ++++++++++++++++---------
- 1 file changed, 44 insertions(+), 24 deletions(-)
-
-diff --git a/drivers/gpu/drm/panfrost/panfrost_job.c b/drivers/gpu/drm/panfrost/panfrost_job.c
-index 7a3137dacb9d..0dbed7a50910 100644
---- a/drivers/gpu/drm/panfrost/panfrost_job.c
-+++ b/drivers/gpu/drm/panfrost/panfrost_job.c
-@@ -202,6 +202,37 @@ panfrost_enqueue_job(struct panfrost_device *pfdev, int slot,
- 	return 1;
- }
+diff --git a/drivers/gpu/drm/msm/msm_gem_vma.c b/drivers/gpu/drm/msm/msm_gem_vma.c
+index 8b702422030a..a6f106d0cdef 100644
+--- a/drivers/gpu/drm/msm/msm_gem_vma.c
++++ b/drivers/gpu/drm/msm/msm_gem_vma.c
+@@ -700,16 +700,16 @@ static const struct drm_gpuvm_ops msm_gpuvm_ops = {
+ 	.sm_step_unmap = msm_gem_vm_sm_step_unmap,
+ };
  
-+/* Stop a job of a destroyed JM context, found in pfdev->jobs[slot][subslot]. */
-+static void panfrost_stop_job(struct panfrost_device *pfdev, int slot,
-+			      unsigned int subslot, struct panfrost_job *job)
-+{
-+	u32 cmd;
-+
-+	lockdep_assert_held(&pfdev->js->job_lock);
-+
-+	if (subslot == 1) {
-+		/* Try to cancel the job before it starts */
-+		job_write(pfdev, JS_COMMAND_NEXT(slot), JS_COMMAND_NOP);
-+		/* Reset the job head so it doesn't get restarted if
-+		 * the job in the first slot failed.
-+		 */
-+		job->jc = 0;
-+	}
-+
-+	if (panfrost_has_hw_feature(pfdev, HW_FEATURE_JOBCHAIN_DISAMBIGUATION)) {
-+		cmd = panfrost_get_job_chain_flag(job) ?
-+		      JS_COMMAND_HARD_STOP_1 :
-+		      JS_COMMAND_HARD_STOP_0;
-+	} else {
-+		cmd = JS_COMMAND_HARD_STOP;
-+	}
-+
-+	job_write(pfdev, JS_COMMAND(slot), cmd);
-+
-+	/* Jobs can outlive their file context */
-+	job->engine_usage = NULL;
+-static struct dma_fence *
+-msm_vma_job_run(struct drm_sched_job *_job)
++/*
++ * Apply the pgtable updates queued for a job, and drop the references that
++ * the ops hold.  If ret is an error, or one occurs, the remaining maps are
++ * skipped, but the unmaps are still applied, as the pages they unmap must
++ * not be freed while they are still mapped.
++ */
++static int
++vm_bind_job_apply_ops(struct msm_vm_bind_job *job, int ret)
+ {
+-	struct msm_vm_bind_job *job = to_msm_vm_bind_job(_job);
+-	struct drm_device *dev = job->vm->drm;
+ 	struct msm_gem_vm *vm = to_msm_vm(job->vm);
+-	struct drm_gem_object *obj;
+-	int ret = vm->unusable ? -EINVAL : 0;
+-
+-	vm_dbg("");
+ 
+ 	mutex_lock(&vm->mmu_lock);
+ 	vm->mmu->prealloc = &job->prealloc;
+@@ -740,6 +740,22 @@ msm_vma_job_run(struct drm_sched_job *_job)
+ 	vm->mmu->prealloc = NULL;
+ 	mutex_unlock(&vm->mmu_lock);
+ 
++	return ret;
 +}
 +
- static int panfrost_job_hw_submit(struct panfrost_job *job, int js)
- {
- 	struct panfrost_device *pfdev = job->pfdev;
-@@ -272,6 +303,16 @@ static int panfrost_job_hw_submit(struct panfrost_job *job, int js)
- 			"JS: Submitting atom %p to js[%d][%d] with head=0x%llx AS %d",
- 			job, js, subslot, jc_head, cfg & 0xf);
- 	}
++static struct dma_fence *
++msm_vma_job_run(struct drm_sched_job *_job)
++{
++	struct msm_vm_bind_job *job = to_msm_vm_bind_job(_job);
++	struct drm_device *dev = job->vm->drm;
++	struct msm_gem_vm *vm = to_msm_vm(job->vm);
++	struct drm_gem_object *obj;
++	int ret;
 +
++	vm_dbg("");
++
++	ret = vm_bind_job_apply_ops(job, vm->unusable ? -EINVAL : 0);
++
+ 	/*
+ 	 * We failed to perform at least _some_ of the pgtable updates, so
+ 	 * now the VM is in an undefined state.  Game over!
+@@ -753,6 +769,8 @@ msm_vma_job_run(struct drm_sched_job *_job)
+ 		msm_gem_unpin_active(obj);
+ 	}
+ 
++	job->bos_pinned = false;
++
+ 	mutex_unlock(&dev->gem_lru_mutex);
+ 
+ 	/* VM_BIND ops are synchronous, so no fence to wait on: */
+@@ -766,26 +784,41 @@ msm_vma_job_free(struct drm_sched_job *_job)
+ 	struct msm_gem_vm *vm = to_msm_vm(job->vm);
+ 	struct drm_gem_object *obj;
+ 
 +	/*
-+	 * panfrost_jm_ctx_destroy() only stops the jobs it finds in
-+	 * pfdev->jobs[], so stop this one here if its context was destroyed
-+	 * while we were getting here, e.g. while waiting for the GPU to
-+	 * resume. job_lock orders this against panfrost_jm_ctx_destroy().
++	 * In error paths, and if the job was killed before it ran, we could
++	 * have unexecuted ops.  Their changes were already made to the VM, so
++	 * apply the unmaps, and give up on the VM.
 +	 */
-+	if (READ_ONCE(job->ctx->destroyed))
-+		panfrost_stop_job(pfdev, js, subslot, job);
++	if (!list_empty(&job->vm_ops)) {
++		vm_bind_job_apply_ops(job, -ECANCELED);
++		msm_gem_vm_unusable(job->vm);
++	}
 +
- 	spin_unlock(&pfdev->js->job_lock);
+ 	vm->mmu->funcs->prealloc_cleanup(vm->mmu, &job->prealloc);
  
- 	return 0;
-@@ -404,7 +445,7 @@ static struct dma_fence *panfrost_job_run(struct drm_sched_job *sched_job)
- 	struct dma_fence *fence = NULL;
- 	int ret;
+ 	atomic_sub(job->prealloc.count, &vm->prealloc_throttle.in_flight);
  
--	if (job->ctx->destroyed)
-+	if (READ_ONCE(job->ctx->destroyed))
- 		return ERR_PTR(-ECANCELED);
+ 	drm_sched_job_cleanup(_job);
  
- 	if (unlikely(job->base.s_fence->finished.error))
-@@ -1100,14 +1141,13 @@ int panfrost_jm_ctx_destroy(struct drm_file *file, u32 handle)
- 	if (!jm_ctx)
- 		return -EINVAL;
++	/*
++	 * A job that was killed before it ran still has its BOs pinned.  The
++	 * job's fence does not keep them busy anymore, so take the object lock
++	 * to unpin them.
++	 */
++	if (job->bos_pinned) {
++		job_foreach_bo(obj, job) {
++			msm_gem_lock(obj);
++			msm_gem_unpin_locked(obj);
++			msm_gem_unlock(obj);
++		}
++	}
++
+ 	job_foreach_bo (obj, job)
+ 		drm_gem_object_put(obj);
  
--	jm_ctx->destroyed = true;
-+	WRITE_ONCE(jm_ctx->destroyed, true);
+ 	msm_submitqueue_put(job->queue);
+ 	dma_fence_put(job->fence);
  
- 	/* Kill in-flight jobs */
- 	spin_lock(&pfdev->js->job_lock);
- 	for (u32 i = 0; i < ARRAY_SIZE(jm_ctx->slot_entity); i++) {
- 		for (int j = ARRAY_SIZE(pfdev->jobs[0]) - 1; j >= 0; j--) {
- 			struct panfrost_job *job = pfdev->jobs[i][j];
--			u32 cmd;
- 
- 			/*
- 			 * The scheduler clears job->base.entity when it pops the
-@@ -1116,27 +1156,7 @@ int panfrost_jm_ctx_destroy(struct drm_file *file, u32 handle)
- 			if (!job || job->ctx != jm_ctx)
- 				continue;
- 
--			if (j == 1) {
--				/* Try to cancel the job before it starts */
--				job_write(pfdev, JS_COMMAND_NEXT(i), JS_COMMAND_NOP);
--				/* Reset the job head so it doesn't get restarted if
--				 * the job in the first slot failed.
--				 */
--				job->jc = 0;
--			}
+-	/* In error paths, we could have unexecuted ops: */
+-	while (!list_empty(&job->vm_ops)) {
+-		struct msm_vm_op *op =
+-			list_first_entry(&job->vm_ops, struct msm_vm_op, node);
+-		list_del(&op->node);
+-		kfree(op);
+-	}
 -
--			if (panfrost_has_hw_feature(pfdev, HW_FEATURE_JOBCHAIN_DISAMBIGUATION)) {
--				cmd = panfrost_get_job_chain_flag(job) ?
--				      JS_COMMAND_HARD_STOP_1 :
--				      JS_COMMAND_HARD_STOP_0;
--			} else {
--				cmd = JS_COMMAND_HARD_STOP;
--			}
--
--			job_write(pfdev, JS_COMMAND(i), cmd);
--
--			/* Jobs can outlive their file context */
--			job->engine_usage = NULL;
-+			panfrost_stop_job(pfdev, i, j, job);
- 		}
- 	}
- 	spin_unlock(&pfdev->js->job_lock);
+ 	wake_up(&vm->prealloc_throttle.wait);
+ 
+ 	kfree(job);
 -- 
 2.43.0
 
