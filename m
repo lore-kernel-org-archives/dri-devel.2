@@ -2,82 +2,87 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AB264606A327
-	for <dri-devel@archiver.kernel.org>; Sat, 14 Nov 2026 16:25:49 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AC092606A323
+	for <dri-devel@archiver.kernel.org>; Sat, 14 Nov 2026 16:25:50 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=UeGeggtV
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=MX2maVoF
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 1A55810F043;
-	Sat, 14 Nov 2026 16:25:21 +0000 (UTC)
-Received: from mail-ej1-f47.google.com (mail-ej1-f47.google.com
- [209.85.218.47])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 4158C10E665
- for <dri-devel@lists.freedesktop.org>; Sat, 14 Nov 2026 01:44:06 +0000 (UTC)
-Received: by mail-ej1-f47.google.com with SMTP id
- a640c23a62f3a-c5083bc0e28so314849866b.0
- for <dri-devel@lists.freedesktop.org>; Fri, 13 Nov 2026 17:44:06 -0800 (PST)
+	by gabe.freedesktop.org (Postfix) with ESMTP id B284710F047;
+	Sat, 14 Nov 2026 16:25:24 +0000 (UTC)
+Received: from mail-dy1-f181.google.com (mail-dy1-f181.google.com
+ [74.125.82.181])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 1FB0210E898
+ for <dri-devel@lists.freedesktop.org>; Sat, 14 Nov 2026 14:19:13 +0000 (UTC)
+Received: by mail-dy1-f181.google.com with SMTP id
+ 5a478bee46e88-36e90071735so314450eec.0
+ for <dri-devel@lists.freedesktop.org>; Sat, 14 Nov 2026 06:19:13 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20260707; t=1794620644; x=1795225444; darn=lists.freedesktop.org;
+ d=gmail.com; s=20260707; t=1794665952; x=1795270752; darn=lists.freedesktop.org;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:from:to:cc:subject:date
  :message-id:reply-to:content-type;
- bh=VhzDk/0P7t86MVcw1NLuypzKVGHVFOfLDCe4I/LxAp8=;
- b=UeGeggtVAjDTXN7azPpByWLzSwA0+rjoHpvbPjgt59WVjgjOowv7CYrCaL5V42h4If
- F3koh+yAELG/44SmHlLX0GidnQdF1JhImOEDCnR1IUStQmh4H8OftlhIxNJWZz6PNdMS
- I7ag4f3Xwxc4lFqPBOiyDe8eE1TauUgjYfsQXPTMmAZMfa1fHC66zn6/iilvCV2wyfss
- bjnKdxl69yqp/TmBG45s+zc/nOHdQH6rBLonXW+MZwN+6AZ5U1AmM6/DKO6GkW0egDHn
- dVmYCElxZuPN3qmC5wMR+h2Ho10MH50Qjdsr3ndx8NULpQ04aME+GAZL6jMxdSS68Znu
- WeqA==
+ bh=AdmBh3xC9KRN8uEPKMGQW7/JjymKHmtkhbvdkKIOQCs=;
+ b=MX2maVoFW9UXh09Jzjhrxaz4zpWJZuit6tQmHjNDvUnaM5yK6V1yIQ/kQrwq9fOpML
+ WJw0VDSFz/aAvMmzfbvmBpTKkI6tBjNG69F6yA88qHtl855fIm585c+QK9T8TJSdmlcF
+ mu3Cd4j15LxBvDpXl91YTrIvUzPWmRif1ofhL2yHk0HJlq1sMS6LSVtzroNN4HK5RInE
+ EWG1G9d1TkCt2JyB/Vw3GM40M2VTFILMySM6fz3e69v8WDn6C7qbBZ6SFKFVTLg6GPuF
+ 4y58OdcjiWYuDYlSmws2nf8MLfCGbWGTcKdTKSHhrEBUfGKzdSwC1AUpdaKIOTfeVR6M
+ hUhw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20260707; t=1794620644; x=1795225444;
+ d=1e100.net; s=20260707; t=1794665952; x=1795270752;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
  :to:cc:subject:date:message-id:reply-to:content-type;
- bh=VhzDk/0P7t86MVcw1NLuypzKVGHVFOfLDCe4I/LxAp8=;
- b=DclpiHaDj4vJa78pwQV2eBxkEHfF+Ji6gNOOxqNa3L8F/C40z7N5Z1icL5wTzr8tFx
- rUoSyd3VhePgkLsoCh5ZG7+Ml/c7jRBiySqe1k7N7HkmhUAWJAs/natXMIDTbgfXQh5l
- Ji7C3uqGE07UQXHV3yDVJuAhG/eGt7J7Oni5EqqtzcbAPM+JM/nkOmolWOnCuvTHSbjq
- c2ZNfceRbjXLhfP0kfiecqKsGD809GNck2QCkP5sbYtnwqgm9lCWVW0MN6ES9xWXk2NQ
- lEPzAPQpLmanWNJyynSiI5rlXMoD1qGCJji5039HBn/+g+mASGGIvkySzdtp4TPGJ4m4
- LEpg==
+ bh=AdmBh3xC9KRN8uEPKMGQW7/JjymKHmtkhbvdkKIOQCs=;
+ b=I7AIQm0yOwL+Wz/vLWy/UO2MyKSmKKGwhy5dIFbgvMo6iVzF0B3PkKLRdMaYUg6+y4
+ hvMcvlLJ1WmUlD4btMMyTa/omfzD3KICYd+VLzFADeC+pdx/45DySACI1pZ6D7otG3bv
+ Bgpir/eF7EwZ0hkibcElrji1KwjGodcUsRfFQHEpocNLXJ4tvhPtqMvaXS3aRqZ0XK8Q
+ MQZzUVyQ8mOIJbeTnjd7BIWGGwu6n8paI9V8aY/tZlgC/ZyvrzN3gAJyKB7vsKkJg/2g
+ gwqSHHboVGMrO0wa0ypNuzv7TUuz4yn5kCMq4ByrnBWzlnjZ13NksN18VLXpXyzFLL7b
+ 2/ug==
 X-Forwarded-Encrypted: i=1;
- AL+hErE32VJj4uk/cSUdWTo7wL/jkMNq1dny3ACPgkOgH0eVL6/CGMII3hwyTdQBmSg5zrTC41MXvTrhoNU=@lists.freedesktop.org
-X-Gm-Message-State: APuU4Z9tI73f1itsg9lM0j2eeWV/ipNRxkicmJbqpiDZy80/h9D4RvK2
- yBsqJU0OuL5JBUjVvsJezQig8L8m1ftrqIi3Y/N2VA9D5vegb62+bYWu
-X-Gm-Gg: AYBFou1D4kUrzb5og70yBx85nju/I+nQnxuP3W6j03zWzz+L3svqiWfZohImLniigp9
- 3ROk8ckGrhPQymMovSTzYbJUfFUrLEbormsHjr86ceNUXWygWOQO3TxBdnXm+Ex4TXgHuEkmUVe
- zMKqRF5yjk/cPE3K8JUf14xgHwNPIQk+H3RUBf3WBitTYIx+hR3LUnPsC2n7gj//Pl66TVbVNMg
- mVeJk/Q18WcPAWy1I5zr1q40HlD1Fg3ZB5gwHO/n5NgdMVpyFP9xbqmna2qTM30W7/Ldhs2oGk9
- /nZqWLekKz9ufWwf11C4dc+OiYVk6d9qQPQKCK74WNsJwCu4dQLF9YK8lHitbc8c8H4UxIvDcb3
- D1m+QjnUCwpyujjUkS3heHmaDvVP1eZU1T+Uk+DwIAkmgecPwbzCWa01Plr2+mJH7PELxsSfhoq
- 7JZk9ncN3SlKbXvuPSjiA9oTSaswGG82CqX9I4x+kCtuVt7vFydW0AoAtZSr5VOZ4/LSi/7JGFe
- B0ZDYpANqVEKhXLHL/YV/1TgLuHe0cqPfRsAWhqiMlzSXr/PfOa+vqBpXCfhij2PpgLB2doBAEY
- kqpQu4ay4wvHch3JTjcwnHpiZcJiBlumIbc6lU42LxGHNRyi5apG3bkbKDgwX3NvxXrMDJNuSfJ
- wy+xgavxj8iy6prcdF4iRqww=
-X-Received: by 2002:a17:907:3e07:b0:c4d:4d5b:849b with SMTP id
- a640c23a62f3a-c50963408demr386393866b.19.1794620644542; 
- Fri, 13 Nov 2026 17:44:04 -0800 (PST)
-Received: from SMOK.angora-ide.ts.net
- (mm-156-219-126-178.vitebsk.dynamic.pppoe.byfly.by. [178.126.219.156])
+ AL+hErEbNa95tkLLnd2fLBgURaBqFbHc6JC31GiV+ewQYJC80KdV6ibFIjt/IVBUrpjHcqqGhFM4dX+VHzg=@lists.freedesktop.org
+X-Gm-Message-State: APuU4Z9cWJFKhzQDdmY2QBm6bJtP9hxoLaEfmLJThypOwDupU3Ald/3Y
+ iNbo0CI6Bjj7AulbAR1SQxc9DOW55Okc1z6Vti6ri7GDFEnmAw1UZ4VX
+X-Gm-Gg: AYBFou0LvFwc/NsVdBsczK3iDTcNJZMgN1mdcN1M3ZEJCbI8T0rmoF8dHhovguPodu5
+ gLKb4yUHAGgDUYiFqJWuar7LB/EjzOilHrAm1Vs2XJ4XX9cZj1jxnBFUSu65O5nNE+tql01RVvD
+ LnX9PWHo1bT04SMvvSq+hhbcmamQVKftW9Rb3+v1VQFsFdwfKK1+Wpf4JIWKrKFcY6Tu82sIZvU
+ ykigSn8tSjQlYqBV/E02CyMv9va/zC41IWwXh3pWkHx02nmNcJ89Bl7aPIwVWGcpyzkCMWG9vFK
+ +6u0Wdb57V8Ijb40871UNCLxp55Eb2o0zUTU0OWSPfIq9dbxJiIfhVNR+OpQXGUdwUhZVS/R5mN
+ 6DHnAbOYLH/0RonDAQT227XiEZrIQPoypX1oFgRXKn1B5RBrs093qUEu+XVHC77GpP9i3gI93Jf
+ AfRWjftVk5KnfSB2J/MncGV2ngRIsL580SbsVCyJWDGMJ8Lm49GPX8ePy6W32TLT/ViAKmurHAi
+ UCWRJZ8smm5NXME1UgfUag3f3Wy4v7vFBQBHCZKgh6c2gFNxqaANDUl4icnQwFuYvxHgjyOEbly
+ YkrWIWaZZqYHyZjYkhwmFBFPVEaUdwEZjnq9Nvlfy02GGRAY2BNEBsjbsFZCBuru7JHKv4p5fBC
+ hLx8=
+X-Received: by 2002:a05:701b:4508:10b0:1b3:a881:a67b with SMTP id
+ a92af1059eb24-1b5030b6337mr8411764c88.1.1794665952002; 
+ Sat, 14 Nov 2026 06:19:12 -0800 (PST)
+Received: from DESKTOP-CJ1L666.localdomain ([211.198.99.62])
  by smtp.gmail.com with ESMTPSA id
- a640c23a62f3a-c5095b5a4c1sm161402666b.48.2026.11.13.17.44.03
+ a92af1059eb24-1b5031b2519sm14745032c88.13.2026.11.14.06.19.07
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Fri, 13 Nov 2026 17:44:04 -0800 (PST)
-From: ElXreno <elxreno@gmail.com>
-To: intel-gfx@lists.freedesktop.org,
-	intel-xe@lists.freedesktop.org
-Cc: jani.nikula@linux.intel.com, rodrigo.vivi@intel.com,
- joonas.lahtinen@linux.intel.com, tursulin@ursulin.net,
- ville.syrjala@linux.intel.com, ankit.k.nautiyal@intel.com,
- mitulkumar.ajitkumar.golani@intel.com, airlied@gmail.com, simona@ffwll.ch,
- dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
- ElXreno <elxreno@gmail.com>
-Subject: [PATCH 7/7] drm/i915/vrr: Allow VRR with the pipe joiner
-Date: Sat, 14 Nov 2026 04:43:35 +0300
-Message-ID: <20261114014335.2132756-8-elxreno@gmail.com>
-X-Mailer: git-send-email 2.56.0
-In-Reply-To: <20261114014335.2132756-1-elxreno@gmail.com>
-References: <20261114014335.2132756-1-elxreno@gmail.com>
+ Sat, 14 Nov 2026 06:19:11 -0800 (PST)
+From: Jiwoo Kim <arpe1618@gmail.com>
+To: Rob Clark <robin.clark@oss.qualcomm.com>,
+ Dmitry Baryshkov <lumag@kernel.org>
+Cc: Akhil P Oommen <akhilpo@oss.qualcomm.com>,
+ Konrad Dybcio <konradybcio@kernel.org>,
+ Anna Maniscalco <anna.maniscalco2000@gmail.com>,
+ Julius Bairaktaris <julius@bairaktaris.de>,
+ Abhinav Kumar <abhinav.kumar@linux.dev>,
+ Jessica Zhang <jesszhan0024@gmail.com>, Sean Paul <sean@poorly.run>,
+ Marijn Suijten <marijn.suijten@somainline.org>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org,
+ freedreno@lists.freedesktop.org, linux-kernel@vger.kernel.org,
+ stable@vger.kernel.org
+Subject: [PATCH v3 2/3] drm/msm: Destroy the VM_BIND entity when its queue is
+ closed
+Date: Sat, 14 Nov 2026 23:18:50 +0900
+Message-ID: <20261114141851.134290-3-arpe1618@gmail.com>
+X-Mailer: git-send-email 2.43.0
+In-Reply-To: <20261114141851.134290-1-arpe1618@gmail.com>
+References: <20261114141851.134290-1-arpe1618@gmail.com>
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
@@ -101,170 +106,186 @@ X-Spam-Status: No, score=-15.8 required=3.0 tests=BAYES_00,DKIM_SIGNED,
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-VRR has been limited to the fixed refresh rate timing generator with
-the joiner, as the transcoder level VRR operations were not sequenced
-against the pipe level updates of the joined pipes. That keeps VRR
-away from every mode that needs the joiner, such as 3840x2400@240 on
-the eDP panels of current 18" laptops.
+The entity of a VM_BIND submitqueue is attached to the per-VM scheduler,
+and msm_gem_vm_close() calls drm_sched_fini() on that scheduler when the
+file is closed, which frees its run queues. The submitqueue itself is
+only destroyed on its final put, though, and every VM_BIND job holds a
+reference to it. msm_submitqueue_close() only flushes the entity, and a
+queue that was closed earlier with MSM_SUBMITQUEUE_CLOSE is not flushed
+at all.
 
-The transcoder is now programmed only by the joiner primary, and on
-the MMIO path all joined pipes are armed inside one vblank evasion
-critical section, with the push sent at its end. Take that path for
-VRR with the joiner and let VRR through.
+The flush gives up after a timeout when the process exits, or on a
+fatal signal, and it only kills the queued jobs when the process exits
+because of SIGKILL. In these cases, and after MSM_SUBMITQUEUE_CLOSE,
+the entity can still have a callback armed on the in-fence of a
+VM_BIND job when drm_sched_fini() runs. When that fence signals,
+drm_sched_entity_wakeup() dereferences entity->rq->sched, and so reads
+a run queue that drm_sched_fini() has freed. If the jobs were killed,
+the final put of the queue then calls drm_sched_entity_destroy(), which
+reads the same freed run queue in drm_sched_entity_flush(). If they
+were not, they never run, and keep the queue, its context and the VM
+alive.
 
-A commit whose new state has VRR enabled with the joiner does not use
-the DSB. The push must not be sent before every joined pipe has been
-armed, but each pipe runs its own DSB and nothing orders them against
-each other. Leaving the push to the DSB of the primary, on the
-grounds that it is committed last, is not enough. The secondary's DSB
-waits for the safe window after it has armed (DSB_OPCODE_WAIT_VBLANKS
-with the safe window chicken bits, then the wait in
-intel_dsb_wait_for_delayed_vblank()). When the primary's push ends
-the safe window before the secondary's DSB gets there, that DSB waits
-for the safe window of the next frame, and it is still busy when
-intel_dsb_wait() gives it 1 ms after the flip of the primary has
-completed:
+Destroy the VM_BIND entity when userspace closes the queue, on file
+close or with MSM_SUBMITQUEUE_CLOSE, instead of on the final put, and
+refuse new VM_BIND jobs on a closed queue. In the MSM_SUBMITQUEUE_CLOSE
+path, do it after dropping ctxlock, as destroying the entity waits for
+the jobs queued on it.
 
- [CRTC:271:pipe B] DSB 0 timed out waiting for idle (current head=0x100, head=0x0, tail=0x140)
+As a result, MSM_SUBMITQUEUE_CLOSE on a VM_BIND queue now waits
+(killably) for the jobs already queued on it, and a fatal signal during
+that wait cancels the remaining ones, where they used to still run. On
+file close, the jobs still queued when the wait gives up are now always
+cancelled, as they already were when the process was killed while
+exiting, instead of being left on the entity. With the previous patch,
+such jobs apply their unmaps and release their pins and references.
 
-That is what a port which only skips the push on the secondaries
-gives, 13 times in 27 minutes of desktop use on Arrow Lake. The DSB
-of a secondary can't check on the push either: commit c3571a239e10
-("drm/i915/vrr: Check that the push send bit is clear after delayed
-vblank") notes that reading TRANS_PUSH from it ends in a DSB response
-timeout.
+This was found with an AI coding assistant, which also drafted this
+patch and its changelog. It has not been reproduced, and the change
+has only been compile-tested.
 
-The LUT load has the same ordering problem: a colour DSB either sends
-the push itself or has to be ordered against the push that the CPU
-sends, on each pipe. So no colour DSB is prepared for such a commit
-either, and the LUTs are loaded the way they are without one: ahead
-of the commit when they can be preloaded, by the vblank worker after
-it otherwise, in which case the commit takes the per pipe critical
-sections, or with MMIO inside the critical section on the platforms
-with double buffered LUTs. The commit that turns VRR off has no VRR
-push to order and keeps its colour DSBs, which are then started from
-inside the joined critical section.
-
-One thing changes for joined modes even while VRR is off, as it
-follows vrr.in_range: the sink is told to ignore the MSA timing
-parameters during link training, as for any other mode within the
-VRR range.
-
-intel_vrr_compute_config() does not ask for LRR with the joiner, and
-DC balance is kept off, each with a FIXME. The vblank delay fastset
-that reuses the LRR code is not touched: where it applies (inherited
-state, or the always on VRR timing generator) it still writes the
-transcoder timings from every joined pipe, with identical values.
-
-Signed-off-by: ElXreno <elxreno@gmail.com>
+Fixes: 92395af63a99 ("drm/msm: Add VM_BIND submitqueue")
+Cc: stable@vger.kernel.org
+Signed-off-by: Jiwoo Kim <arpe1618@gmail.com>
 ---
- drivers/gpu/drm/i915/display/intel_color.c   |  4 +++
- drivers/gpu/drm/i915/display/intel_display.c |  4 +++
- drivers/gpu/drm/i915/display/intel_vrr.c     | 31 ++++++++++++--------
- drivers/gpu/drm/i915/display/intel_vrr.h     |  1 +
- 4 files changed, 28 insertions(+), 12 deletions(-)
+The scoped_guard() in msm_submitqueue_remove() relies on commit
+ea69d489d3a6 ("drm/msm: Rework queuelock"), so trees older than v7.3
+need a manual backport.
 
-diff --git a/drivers/gpu/drm/i915/display/intel_color.c b/drivers/gpu/drm/i915/display/intel_color.c
-index 4070dc8d97d9..08d1c999637e 100644
---- a/drivers/gpu/drm/i915/display/intel_color.c
-+++ b/drivers/gpu/drm/i915/display/intel_color.c
-@@ -2023,6 +2023,10 @@ void intel_color_prepare_commit(struct intel_atomic_state *state,
- 	if (!crtc_state->pre_csc_lut && !crtc_state->post_csc_lut)
- 		return;
+If MSM_SUBMITQUEUE_CLOSE should rather not block, the destroy of closed
+VM_BIND queues could instead be deferred to file close, e.g. with a
+per-context list of them. That would also keep the ioctl out of a
+killable wait for the queued jobs, which the freezer cannot interrupt.
+
+ drivers/gpu/drm/msm/msm_gem_vma.c     |  5 +++
+ drivers/gpu/drm/msm/msm_gpu.h         |  6 ++++
+ drivers/gpu/drm/msm/msm_submitqueue.c | 50 +++++++++++++++++++--------
+ 3 files changed, 47 insertions(+), 14 deletions(-)
+
+diff --git a/drivers/gpu/drm/msm/msm_gem_vma.c b/drivers/gpu/drm/msm/msm_gem_vma.c
+index 0b9f2e8916b7..ce9d97582df5 100644
+--- a/drivers/gpu/drm/msm/msm_gem_vma.c
++++ b/drivers/gpu/drm/msm/msm_gem_vma.c
+@@ -1557,6 +1557,11 @@ msm_ioctl_vm_bind(struct drm_device *dev, void *data, struct drm_file *file)
+ 	if (ret)
+ 		goto out_post_unlock;
  
-+	/* TODO sequence the LUT load vs. the VRR push for joined pipes via DSB */
-+	if (intel_vrr_needs_mmio_commit(crtc_state))
-+		return;
++	if (queue->vm_bind_closed) {
++		ret = -ENOENT;
++		goto out_unlock;
++	}
 +
- 	if (HAS_DOUBLE_BUFFERED_LUT(display))
- 		crtc_state->dsb_color = intel_dsb_prepare(state, crtc, INTEL_DSB_0, 1024);
- 	else
-diff --git a/drivers/gpu/drm/i915/display/intel_display.c b/drivers/gpu/drm/i915/display/intel_display.c
-index 1fda1bb15674..8f30337c8967 100644
---- a/drivers/gpu/drm/i915/display/intel_display.c
-+++ b/drivers/gpu/drm/i915/display/intel_display.c
-@@ -7681,6 +7681,10 @@ intel_atomic_commit_type(struct intel_atomic_state *state,
- 	if (new_crtc_state->do_async_flip)
- 		return INTEL_COMMIT_MMIO;
+ 	if (args->flags & MSM_VM_BIND_FENCE_FD_IN) {
+ 		struct dma_fence *in_fence;
  
-+	/* TODO sequence the VRR push for joined pipes via DSB */
-+	if (intel_vrr_needs_mmio_commit(new_crtc_state))
-+		return INTEL_COMMIT_MMIO;
+diff --git a/drivers/gpu/drm/msm/msm_gpu.h b/drivers/gpu/drm/msm/msm_gpu.h
+index bc5b31eb1eca..561f2d998e99 100644
+--- a/drivers/gpu/drm/msm/msm_gpu.h
++++ b/drivers/gpu/drm/msm/msm_gpu.h
+@@ -596,6 +596,12 @@ struct msm_gpu_submitqueue {
+ 	struct kref ref;
+ 	struct drm_sched_entity *entity;
+ 
++	/**
++	 * @vm_bind_closed: the queue was closed by userspace, and its VM_BIND
++	 * entity is being or has been destroyed.  Protected by @lock.
++	 */
++	bool vm_bind_closed;
 +
- 	/* TODO handle VRR with flip queue */
- 	if (intel_flipq_supported(display) &&
- 	    !new_crtc_state->vrr.enable &&
-diff --git a/drivers/gpu/drm/i915/display/intel_vrr.c b/drivers/gpu/drm/i915/display/intel_vrr.c
-index 668c495e7407..6543c140e2b5 100644
---- a/drivers/gpu/drm/i915/display/intel_vrr.c
-+++ b/drivers/gpu/drm/i915/display/intel_vrr.c
-@@ -450,6 +450,10 @@ intel_vrr_dc_balance_compute_config(struct intel_crtc_state *crtc_state)
- 	    !crtc_state->vrr.enable || !display->params.enable_dc_balance)
- 		return;
+ 	/** @_vm_bind_entity: used for @entity pointer for VM_BIND queues */
+ 	struct drm_sched_entity _vm_bind_entity[0];
+ };
+diff --git a/drivers/gpu/drm/msm/msm_submitqueue.c b/drivers/gpu/drm/msm/msm_submitqueue.c
+index 8d550d281704..2dbe42551bd8 100644
+--- a/drivers/gpu/drm/msm/msm_submitqueue.c
++++ b/drivers/gpu/drm/msm/msm_submitqueue.c
+@@ -79,9 +79,6 @@ void msm_submitqueue_destroy(struct kref *kref)
  
-+	/* FIXME figure out DC balance with joined pipes */
-+	if (crtc_state->joiner_pipes)
-+		return;
-+
- 	crtc_state->vrr.dc_balance.vmax = crtc_state->vrr.vmax;
- 	crtc_state->vrr.dc_balance.vmin = crtc_state->vrr.vmin;
- 	crtc_state->vrr.dc_balance.max_increase =
-@@ -495,21 +499,11 @@ intel_vrr_compute_config(struct intel_crtc_state *crtc_state,
- 	crtc_state->vrr.in_range =
- 		intel_vrr_is_in_range(connector, drm_mode_vrefresh(adjusted_mode));
+ 	idr_destroy(&queue->fence_idr);
  
--	/*
--	 * Allow fixed refresh rate with VRR Timing Generator.
--	 * For now set the vrr.in_range to 0, to allow fixed_rr but skip actual
--	 * VRR and LRR.
--	 * #TODO For actual VRR with joiner, we need to figure out how to
--	 * correctly sequence transcoder level stuff vs. pipe level stuff
--	 * in the commit.
--	 */
--	if (crtc_state->joiner_pipes)
--		crtc_state->vrr.in_range = false;
+-	if (queue->entity == &queue->_vm_bind_entity[0])
+-		drm_sched_entity_destroy(queue->entity);
 -
- 	vmin = intel_vrr_compute_vmin(crtc_state);
+ 	msm_context_put(queue->ctx);
  
- 	if (crtc_state->vrr.in_range) {
--		if (HAS_LRR(display))
-+		/* FIXME sequence the LRR timing update for joined pipes */
-+		if (HAS_LRR(display) && !crtc_state->joiner_pipes)
- 			crtc_state->update_lrr = true;
- 		vmax = intel_vrr_compute_vmax(connector, adjusted_mode);
- 	} else {
-@@ -832,6 +826,19 @@ void intel_vrr_check_push_sent(struct intel_dsb *dsb,
- 	}
+ 	kfree(queue);
+@@ -107,6 +104,25 @@ struct msm_gpu_submitqueue *msm_submitqueue_get(struct msm_context *ctx,
+ 	return NULL;
  }
  
 +/*
-+ * A VRR push latches all joined pipes at once, so it may be sent only
-+ * after every one of them has been armed. Each pipe runs its own DSB
-+ * and nothing orders the DSBs of the joined pipes against each other,
-+ * so they can't sequence that between themselves. Such commits take
-+ * the MMIO path, where the joined pipes are armed inside one vblank
-+ * evasion critical section.
++ * The VM_BIND scheduler is torn down by msm_gem_vm_close() when the file is
++ * closed, but a VM_BIND queue can outlive that, as long as a job still holds
++ * a reference to it.  So destroy the VM_BIND entity here, when userspace
++ * closes the queue, rather than on the final put.  Both ways a queue is taken
++ * off ctx->submitqueues come through here.
 + */
-+bool intel_vrr_needs_mmio_commit(const struct intel_crtc_state *crtc_state)
++static void msm_submitqueue_close_vm_bind(struct msm_gpu_submitqueue *queue)
 +{
-+	return crtc_state->vrr.enable && crtc_state->joiner_pipes;
++	if (queue->entity != &queue->_vm_bind_entity[0])
++		return;
++
++	mutex_lock(&queue->lock);
++	queue->vm_bind_closed = true;
++	mutex_unlock(&queue->lock);
++
++	drm_sched_entity_destroy(queue->entity);
 +}
 +
- bool intel_vrr_is_push_sent(const struct intel_crtc_state *crtc_state)
+ void msm_submitqueue_close(struct msm_context *ctx)
  {
- 	struct intel_display *display = to_intel_display(crtc_state);
-diff --git a/drivers/gpu/drm/i915/display/intel_vrr.h b/drivers/gpu/drm/i915/display/intel_vrr.h
-index 19c7990be1b2..a72ffba47a80 100644
---- a/drivers/gpu/drm/i915/display/intel_vrr.h
-+++ b/drivers/gpu/drm/i915/display/intel_vrr.h
-@@ -32,6 +32,7 @@ void intel_vrr_check_push_sent(struct intel_dsb *dsb,
- 			       const struct intel_crtc_state *crtc_state);
- void intel_vrr_dcb_increment_flip_count(struct intel_crtc_state *crtc_state,
- 					struct intel_crtc *crtc);
-+bool intel_vrr_needs_mmio_commit(const struct intel_crtc_state *crtc_state);
- bool intel_vrr_is_push_sent(const struct intel_crtc_state *crtc_state);
- void intel_vrr_disable(const struct intel_crtc_state *old_crtc_state);
- void intel_vrr_psr_frame_change_enable(const struct intel_crtc_state *crtc_state);
+ 	struct msm_gpu_submitqueue *queue, *tmp;
+@@ -119,8 +135,7 @@ void msm_submitqueue_close(struct msm_context *ctx)
+ 	 * be any more user ioctls coming our way
+ 	 */
+ 	list_for_each_entry_safe(queue, tmp, &ctx->submitqueues, node) {
+-		if (queue->entity == &queue->_vm_bind_entity[0])
+-			drm_sched_entity_flush(queue->entity, MAX_WAIT_SCHED_ENTITY_Q_EMPTY);
++		msm_submitqueue_close_vm_bind(queue);
+ 		list_del(&queue->node);
+ 		msm_submitqueue_put(queue);
+ 	}
+@@ -326,7 +341,7 @@ int msm_submitqueue_query(struct drm_device *drm, struct msm_context *ctx,
+ 
+ int msm_submitqueue_remove(struct msm_context *ctx, u32 id)
+ {
+-	struct msm_gpu_submitqueue *entry;
++	struct msm_gpu_submitqueue *entry, *queue = NULL;
+ 
+ 	if (!ctx)
+ 		return 0;
+@@ -338,16 +353,23 @@ int msm_submitqueue_remove(struct msm_context *ctx, u32 id)
+ 	if (!id)
+ 		return -ENOENT;
+ 
+-	guard(rwsem_write)(&ctx->ctxlock);
+-
+-	list_for_each_entry(entry, &ctx->submitqueues, node) {
+-		if (entry->id == id) {
+-			list_del(&entry->node);
+-			msm_submitqueue_put(entry);
+-			return 0;
++	scoped_guard(rwsem_write, &ctx->ctxlock) {
++		list_for_each_entry(entry, &ctx->submitqueues, node) {
++			if (entry->id == id) {
++				list_del(&entry->node);
++				queue = entry;
++				break;
++			}
+ 		}
+ 	}
+ 
+-	return -ENOENT;
++	if (!queue)
++		return -ENOENT;
++
++	/* Not under ctxlock: destroying the entity can wait for its jobs */
++	msm_submitqueue_close_vm_bind(queue);
++	msm_submitqueue_put(queue);
++
++	return 0;
+ }
+ 
 -- 
-2.56.0
+2.43.0
 
