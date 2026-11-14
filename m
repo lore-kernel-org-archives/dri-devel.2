@@ -2,44 +2,43 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5E700606A323
-	for <dri-devel@archiver.kernel.org>; Sat, 14 Nov 2026 05:35:23 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 70686606A32D
+	for <dri-devel@archiver.kernel.org>; Sat, 14 Nov 2026 05:47:50 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Ob0X2G2w
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=aO44Et0y
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id CF7EF10EE66;
-	Sat, 14 Nov 2026 05:35:17 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id D7CFB10EFD1;
+	Sat, 14 Nov 2026 05:47:44 +0000 (UTC)
 Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 7E64B10EE66
- for <dri-devel@lists.freedesktop.org>; Sat, 14 Nov 2026 05:35:11 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 3516310EFD1
+ for <dri-devel@lists.freedesktop.org>; Sat, 14 Nov 2026 05:47:39 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id 6242440141;
- Sat, 14 Nov 2026 05:35:11 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 05FC61F000C4;
- Sat, 14 Nov 2026 05:35:10 +0000 (UTC)
+ by sea.source.kernel.org (Postfix) with ESMTP id DCD2B4561B;
+ Sat, 14 Nov 2026 05:47:38 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7E6241F000C4;
+ Sat, 14 Nov 2026 05:47:38 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1794634511;
- bh=p6NbTdvOfzySm6kJdMeRe8au78jL3SvlAsiNxTZt/Bk=;
+ s=k20260515; t=1794635258;
+ bh=K+K1Mtp+6uB+jRJ+toNFB2qgyTFWl5MdNrLepxwgRaE=;
  h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
- b=Ob0X2G2we2MCyJwr0EHAk4LboiZ/234NI25Dwi2ZiJSoaxy6bhN/XM6QEvtB29wTw
- ocqsg5tdOp7gGLLqfeGAK/8eLD+bgtJO0XpU1Qrt79Sr3/0BYYpAzXO0Mn8pNT+nOq
- SuzIbv8vxVfo5h38JisrqEsTU+GGQ88bD6+p35HE97WxVCCz+mmKFPspcIoBzrYlJk
- Yc6aVQwzRaQ+qorXN2jHbYaFfX8/Mk8VcRLjGosQi2k9HvnmTS16J2TqgZgX/3Zwsc
- oYSg1V4KGfwO3nJSwdkRQE7wnGGtyJSOGV9qiRHTsyGFk3TKvbPo4q57B28V/jcqUA
- JCkPUfDyJVV0w==
-Message-ID: <sashiko-outbox-214184@kernel.org>
+ b=aO44Et0yGQi/uQpMWpAKjauRV/MDuu5vZlA7D/nRvWTx+cX7ohIstJwkO4+Kz9KZe
+ 0Yx1dVoGJ7LKjfDdkmU8t20lq8OdFm6toLIv7pzc9L5086WEejyR5Qrb1GGuyWocZ2
+ D2Rh0wx8X+pPsqD7WyU0+xrlx7aFw9IYE6hRUh15EmSjQeINBXZraHZT3e6NyR1PX3
+ PUGIYBgEpkJw43b/eHhN67uvh0/WSO6j7Asq2Q3IE9x13l+vCkOI/BSs2CgJWCcce2
+ ECc80qsRg5eFDk7+5VioN/cuE6TbgRcrl6Uhc5LN1I3JMKonwtUsWjCcOuS9GjrAou
+ N5EwcG9bsUHKA==
+Message-ID: <sashiko-outbox-214188@kernel.org>
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v12 02/23] drm/bridge: synopsys: dw-dp: Fix incorrect
- resource lifetimes in bind callback
+Subject: Re: [PATCH v12 22/23] drm/bridge: synopsys: dw-dp: Add audio support
 To: "Sebastian Reichel" <sebastian.reichel@collabora.com>
 Cc: dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org,
  robh@kernel.org, conor+dt@kernel.org
-In-Reply-To: <20261114-synopsys-dw-dp-improvements-v12-2-d42d3dc5bdd4@collabora.com>
+In-Reply-To: <20261114-synopsys-dw-dp-improvements-v12-22-d42d3dc5bdd4@collabora.com>
 References: <20261114-synopsys-dw-dp-improvements-v12-0-d42d3dc5bdd4@collabora.com>
- <20261114-synopsys-dw-dp-improvements-v12-2-d42d3dc5bdd4@collabora.com>
+ <20261114-synopsys-dw-dp-improvements-v12-22-d42d3dc5bdd4@collabora.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Sat, 14 Nov 2026 05:35:10 +0000
+Date: Sat, 14 Nov 2026 05:47:38 +0000
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -60,207 +59,269 @@ X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 X-Archived-By: <archiver.kernel.org>
 
-Thank you for your contribution! Sashiko AI review found 3 potential
+Thank you for your contribution! Sashiko AI review found 5 potential
 issues to consider:
-- [High] drm/rockchip: dw_dp: bridge not detached on unbind in
-  dw_dp_rockchip_unbind()
-- [Medium] drm/bridge: dw-dp: disable_irq() in dw_dp_bridge_detach()
-  starves AUX transfers
-- [Low] drm/bridge: dw-dp: missing struct platform_device forward
-  declaration
+- [Medium] drm/bridge: dw-dp: unselected audio clock disabled before mux
+  switch
+- [Medium] drm/bridge: dw-dp: unadvertised sample_width limit breaks
+  32-bit I2S formats
+- [Medium] drm/bridge: dw-dp: checking params->cea.channels breaks
+  non-PCM audio
+- [Medium] drm/bridge: dw-dp: missing
+  drm_connector_hdmi_audio_plugged_notify() calls
+- [Low] drm/bridge: dw-dp: invalid hdmi_audio_dai_port in dw_dp_probe()
 --
 
-commit a9596a762ddd1d48c8d46fe4311e13805a449537
+commit 20fac3cf1ff3b933dbf4d3b4b4b914b2c8a55eb1
 Author: Sebastian Reichel <sebastian.reichel@collabora.com>
 
-drm/bridge: synopsys: dw-dp: Fix incorrect resource lifetimes in bind callb=
-ack
+drm/bridge: synopsys: dw-dp: Add audio support
 
-This commit moves the DesignWare DP controller's devm-managed resource
-allocation and bridge registration from dw_dp_bind() into a new
-dw_dp_probe() helper, leaving only drm_bridge_attach() in dw_dp_bind() and
-enabling the interrupt only while the bridge is attached.
+This commit adds DisplayPort audio support to the Synopsys DesignWare
+DisplayPort bridge driver using the DRM bridge audio callbacks.
 
 > diff --git a/drivers/gpu/drm/bridge/synopsys/dw-dp.c b/drivers/gpu/drm/br=
 idge/synopsys/dw-dp.c
-> index 0a34d6a6ace46..ac16d290d49be 100644
+> index 3c10cdb9ca28b..bf3a53463394f 100644
 > --- a/drivers/gpu/drm/bridge/synopsys/dw-dp.c
 > +++ b/drivers/gpu/drm/bridge/synopsys/dw-dp.c
-> @@ -1827,16 +1827,22 @@ static int dw_dp_bridge_attach(struct drm_bridge =
-*bridge,
->  	dp->aux.transfer =3D dw_dp_aux_transfer;
-> =20
->  	ret =3D drm_dp_aux_register(&dp->aux);
-> -	if (ret)
+
+[ ... ]
+
+> @@ -1696,6 +1727,261 @@ static int dw_dp_link_enable(struct dw_dp *dp)
+>  	return ret;
+>  }
+
+[ ... ]
+
+> +static int __dw_dp_audio_enable(struct dw_dp *dp)
+> +{
+> +	u8 audio_data_in_en;
+> +
+> +	switch (dp->audio_channels) {
+> +	case 1:
+> +	case 2:
+> +		audio_data_in_en =3D AUDIO_DATA_IN_EN_CHANNEL12;
+> +		break;
+> +	case 8:
+> +		audio_data_in_en =3D AUDIO_DATA_IN_EN_CHANNEL12 |
+> +				   AUDIO_DATA_IN_EN_CHANNEL34 |
+> +				   AUDIO_DATA_IN_EN_CHANNEL56 |
+> +				   AUDIO_DATA_IN_EN_CHANNEL78;
+> +		break;
+> +	default:
+> +		return -EINVAL;
+> +	}
+> +
+> +	regmap_update_bits(dp->regmap, DW_DP_AUD_CONFIG1,
+> +			   AUDIO_DATA_IN_EN | NUM_CHANNELS | AUDIO_DATA_WIDTH |
+> +			   AUDIO_INF_SELECT | HBR_MODE_ENABLE | AUDIO_MUTE,
+> +			   FIELD_PREP(AUDIO_DATA_IN_EN, audio_data_in_en) |
+> +			   FIELD_PREP(NUM_CHANNELS, dp->audio_channels - 1) |
+> +			   FIELD_PREP(AUDIO_DATA_WIDTH, dp->audio_sample_width) |
+> +			   FIELD_PREP(AUDIO_INF_SELECT, dp->audio_interface) |
+> +			   FIELD_PREP(HBR_MODE_ENABLE, 0) |
+> +			   FIELD_PREP(AUDIO_MUTE, dp->audio_muted));
+> +
+> +	/* Wait for inf switch */
+> +	usleep_range(20, 40);
+
+[ ... ]
+
+> +static int dw_dp_audio_prepare(struct drm_bridge *bridge,
+> +			       struct drm_connector *connector,
+> +			       struct hdmi_codec_daifmt *daifmt,
+> +			       struct hdmi_codec_params *params)
+> +{
+> +	struct dw_dp *dp =3D bridge_to_dp(bridge);
+> +	u8 supported_audio_interfaces;
+> +	enum dw_dp_audio_interface audio_interface;
+> +	u32 cfg1;
+> +	int ret;
+> +
+> +	guard(mutex)(&dp->audio_lock);
+> +
+> +	/*
+> +	 * prepare might be called multiple times, so release the clocks
+> +	 * from previous calls to keep the calls in balance.
+> +	 */
+> +	if (dp->audio_interface !=3D DW_DP_AUDIO_UNUSED)
+> +		__dw_dp_audio_disable(dp);
+> +
+> +	/* The hardware is limited to 1,2 or 8 channels */
+> +	switch (params->cea.channels) {
+> +	case 1:
+> +	case 2:
+> +	case 8:
+> +		break;
+> +	default:
+> +		dev_err(dp->dev, "invalid audio channels %d\n", params->cea.channels);
+> +		return -EINVAL;
+> +	}
+
+[Severity: Medium]
+Should dw_dp_audio_prepare() check and store params->channels instead of
+params->cea.channels?
+
+In hdmi_codec_fill_codec_params(), params->cea.channels is set to 0 when
+IEC958_AES0_NONAUDIO is set in the IEC958 status bits (meaning "refer to
+stream header" in the CTA-861 Audio InfoFrame), while params->channels holds
+the actual stream channel count.  Using params->cea.channels causes
+dw_dp_audio_prepare() to reject non-PCM streams with -EINVAL, and would also
+program NUM_CHANNELS and AUDIO_DATA_IN_EN in DW_DP_AUD_CONFIG1 with the
+InfoFrame field rather than the stream channel count.
+
+> +
+> +	if (params->sample_width < 16 || params->sample_width > 24) {
+> +		dev_err(dp->dev, "invalid data sample width %d\n", params->sample_widt=
+h);
+> +		return -EINVAL;
+> +	}
+
+[Severity: Medium]
+Does rejecting sample_width > 24 here break 32-bit formats advertised on the
+I2S DAI?
+
+In dw_dp_probe(), bridge->hdmi_audio_i2s_formats is left unset, so
+hdmi_codec_probe() falls back to its default I2S_FORMATS mask, which
+includes SNDRV_PCM_FMTBIT_S32_LE and SNDRV_PCM_FMTBIT_IEC958_SUBFRAME_LE
+(used by ALSA's iec958 plugin to insert PCUV bits in I2S mode).
+hdmi_codec_prepare() sets params->sample_width to
+snd_pcm_format_width(runtime->format), which is 32 for both formats, causing
+dw_dp_audio_prepare() to fail with -EINVAL after hw_params succeeds.
+Should bridge->hdmi_audio_i2s_formats be restricted to 16-bit through 24-bit
+formats?
+
+> +
+> +	switch (daifmt->fmt) {
+> +	case HDMI_SPDIF:
+> +		audio_interface =3D DW_DP_AUDIO_SPDIF;
+> +		break;
+> +	case HDMI_I2S:
+> +		/*
+> +		 * It is recommended to use SPDIF instead of I2S, since I2S mode requi=
+res
+> +		 * manually inserting PCUV control bits from userspace and this is done
+> +		 * automatically in hardware for SPDIF mode.
+> +		 */
+> +		audio_interface =3D DW_DP_AUDIO_I2S;
+> +		break;
+> +	default:
+> +		dev_err(dp->dev, "invalid DAI format %d\n", daifmt->fmt);
+> +		return -EINVAL;
+> +	}
+> +
+> +	regmap_read(dp->regmap, DW_DP_CONFIG_REG1, &cfg1);
+> +	supported_audio_interfaces =3D FIELD_GET(AUDIO_SELECT, cfg1);
+> +
+> +	if (supported_audio_interfaces !=3D DW_DP_AUDIO_I2S_AND_SPDIF &&
+> +	    supported_audio_interfaces !=3D audio_interface) {
+> +		dev_err(dp->dev, "unsupported DAI %d\n", daifmt->fmt);
+> +		return -EINVAL;
+> +	}
+> +
+> +	ret =3D clk_prepare_enable(dp->spdif_clk);
+> +	if (ret)
+> +		return ret;
+> +
+> +	ret =3D clk_prepare_enable(dp->i2s_clk);
 > +	if (ret) {
->  		dev_err(dev, "Aux register failed: %d\n", ret);
+> +		clk_disable_unprepare(dp->spdif_clk);
 > +		return ret;
 > +	}
-> =20
-> -	return ret;
-> +	enable_irq(dp->irq);
 > +
-> +	return 0;
->  }
-> =20
->  static void dw_dp_bridge_detach(struct drm_bridge *bridge)
->  {
->  	struct dw_dp *dp =3D bridge_to_dp(bridge);
-> =20
-> +	disable_irq(dp->irq);
-> +	cancel_work_sync(&dp->hpd_work);
->  	drm_dp_aux_unregister(&dp->aux);
+> +	if (audio_interface =3D=3D DW_DP_AUDIO_I2S)
+> +		clk_disable_unprepare(dp->spdif_clk);
+> +	else if (audio_interface =3D=3D DW_DP_AUDIO_SPDIF)
+> +		clk_disable_unprepare(dp->i2s_clk);
+> +
+> +	dp->audio_channels =3D params->cea.channels;
+> +	dp->audio_channel_allocation =3D params->cea.channel_allocation;
+> +	dp->audio_sample_width =3D params->sample_width;
+> +	dp->audio_interface =3D audio_interface;
+> +
+> +	ret =3D __dw_dp_audio_enable(dp);
+
+[Severity: Medium]
+Does disabling the unselected audio clock before calling
+__dw_dp_audio_enable() defeat keeping both clocks running across the
+AUDIO_INF_SELECT mux switch?
+
+Both dp->spdif_clk and dp->i2s_clk are enabled here and the unselected clock
+is immediately disabled before any register access occurs.  The actual
+AUDIO_INF_SELECT update in DW_DP_AUD_CONFIG1 and the 20-40 us interface
+switch delay happen inside __dw_dp_audio_enable(), which is also called from
+dw_dp_bridge_atomic_enable() after dw_dp_reset() resets AUDIO_INF_SELECT to
+0 (I2S).  If the hardware mux requires both clocks to be active while
+switching AUDIO_INF_SELECT, both clocks should be enabled around the
+DW_DP_AUD_CONFIG1 update and usleep_range(20, 40) inside
+__dw_dp_audio_enable().
+
+[ ... ]
+
+> @@ -1734,12 +2020,22 @@ static void dw_dp_bridge_atomic_enable(struct drm=
+_bridge *bridge,
+>  		dev_err(dp->dev, "failed to enable video: %d\n", ret);
+>  		return;
+>  	}
+> +
+> +	scoped_guard(mutex, &dp->audio_lock) {
+> +		if (dp->audio_interface !=3D DW_DP_AUDIO_UNUSED) {
+> +			ret =3D __dw_dp_audio_enable(dp);
+> +			if (ret < 0)
+> +				dev_err(dp->dev, "failed to restore audio: %d\n", ret);
+> +		}
+> +	}
 >  }
 
 [Severity: Medium]
-Does calling disable_irq(dp->irq) before cancel_work_sync(&dp->hpd_work)
-and drm_dp_aux_unregister(&dp->aux) starve in-flight AUX transfers?
+Should the driver call drm_connector_hdmi_audio_plugged_notify() when the
+DisplayPort link is enabled, disabled, or hotplugged?
 
-Both HPD_EVENT and AUX_REPLY_EVENT share dp->irq, and dw_dp_aux_transfer()
-waits on dp->complete, which is signaled from dw_dp_irq().  If
-dw_dp_hpd_work() or a /dev/drm_dp_aux* transaction is running when
-dw_dp_bridge_detach() disables dp->irq, AUX_REPLY_EVENT is never delivered
-and every DPCD retry in drm_dp_dpcd_access() stalls until
-wait_for_completion_timeout() expires.
-
-[ ... ]
-
-> @@ -1982,6 +1988,18 @@ static const struct regmap_config dw_dp_regmap_con=
-fig =3D {
->  	.rd_table =3D &dw_dp_readable_table,
->  };
-> =20
-> +int dw_dp_bind(struct dw_dp *dp, struct drm_encoder *encoder)
-> +{
-> +	return drm_bridge_attach(encoder, &dp->bridge, NULL, DRM_BRIDGE_ATTACH_=
-NO_CONNECTOR);
-> +}
-> +EXPORT_SYMBOL_GPL(dw_dp_bind);
-> +
-> +void dw_dp_unbind(struct dw_dp *dp)
-> +{
-> +	/* nothing to do as bridge is detached automatically */
-> +}
-> +EXPORT_SYMBOL_GPL(dw_dp_unbind);
+The patch includes drm/display/drm_hdmi_audio_helper.h and sets
+DRM_BRIDGE_OP_DP_AUDIO, but never calls
+drm_connector_hdmi_audio_plugged_notify().  Because drm_bridge_connector
+only calls drm_atomic_helper_connector_hdmi_hotplug() automatically when
+DRM_BRIDGE_OP_HDMI is set, hdmi-codec's plugged_cb() is never invoked for
+this bridge.  As a result, ASoC jack detection (SND_JACK_AVOUT) is never
+signaled and the ALSA ELD control is not updated on hotplug before a PCM
+stream is opened.
 
 [ ... ]
 
-> diff --git a/drivers/gpu/drm/rockchip/dw_dp-rockchip.c b/drivers/gpu/drm/=
-rockchip/dw_dp-rockchip.c
-> index b23efb153c9e6..38e8fe75718e4 100644
-> --- a/drivers/gpu/drm/rockchip/dw_dp-rockchip.c
-> +++ b/drivers/gpu/drm/rockchip/dw_dp-rockchip.c
-
-[ ... ]
-
-> @@ -73,37 +73,28 @@ static const struct drm_encoder_helper_funcs dw_dp_en=
-coder_helper_funcs =3D {
-> =20
->  static int dw_dp_rockchip_bind(struct device *dev, struct device *master=
-, void *data)
->  {
-> -	struct platform_device *pdev =3D to_platform_device(dev);
-> -	const struct dw_dp_plat_data *plat_data;
-> +	struct rockchip_dw_dp *dp =3D dev_get_drvdata(dev);
->  	struct drm_device *drm_dev =3D data;
-> -	struct rockchip_dw_dp *dp;
->  	struct drm_encoder *encoder;
->  	struct drm_connector *connector;
->  	int ret;
-> =20
-> -	dp =3D drmm_kzalloc(drm_dev, sizeof(*dp), GFP_KERNEL);
-> -	if (!dp)
-> +	dp->encoder =3D drmm_kzalloc(drm_dev, sizeof(*dp->encoder), GFP_KERNEL);
-> +	if (!dp->encoder)
->  		return -ENOMEM;
-> =20
-> -	dp->dev =3D dev;
-> -	platform_set_drvdata(pdev, dp);
-> -
-> -	plat_data =3D of_device_get_match_data(dev);
-> -	if (!plat_data)
-> -		return -ENODEV;
-> -
-> -	encoder =3D &dp->encoder.encoder;
-> +	encoder =3D &dp->encoder->encoder;
->  	encoder->possible_crtcs =3D drm_of_find_possible_crtcs(drm_dev, dev->of=
-_node);
-> -	rockchip_drm_encoder_set_crtc_endpoint_id(&dp->encoder, dev->of_node, 0=
-, 0);
-> +	rockchip_drm_encoder_set_crtc_endpoint_id(dp->encoder, dev->of_node, 0,=
- 0);
-> =20
->  	ret =3D drmm_encoder_init(drm_dev, encoder, NULL, DRM_MODE_ENCODER_TMDS=
-, NULL);
->  	if (ret)
+> @@ -2368,12 +2673,21 @@ int dw_dp_probe(struct dw_dp *dp)
 >  		return ret;
->  	drm_encoder_helper_add(encoder, &dw_dp_encoder_helper_funcs);
 > =20
-> -	dp->base =3D dw_dp_bind(dev, encoder, plat_data);
-> -	if (IS_ERR(dp->base))
-> -		return PTR_ERR(dp->base);
-> +	ret =3D dw_dp_bind(dp->base, encoder);
-> +	if (ret)
-> +		return dev_err_probe(dev, ret, "failed to bind DW-DP bridge\n");
+>  	dp->vsc_sdp_nr =3D -1;
+> +	dp->audio_interface =3D DW_DP_AUDIO_UNUSED;
+> +	dp->audio_sdp_nr =3D -1;
 > =20
->  	connector =3D drm_bridge_connector_init(drm_dev, encoder);
->  	if (IS_ERR(connector)) {
-
-[Severity: High]
-Does keeping drmm_encoder_init() while making dw_dp_unbind() a no-op leave
-dp->bridge attached across component unbind?
-
-drmm_encoder_init() defers drm_encoder_cleanup() -> drm_bridge_detach() ->
-dw_dp_bridge_detach() until the final drm_device reference drops in
-drm_managed_release().  If the component is unbound while userspace holds
-an open file descriptor to /dev/dri/card*, drm_dev_put() in
-rockchip_drm_unbind() does not release drm_dev:
-
-- If the dw-dp platform device is then removed, devres_release_all() frees
-  dp->irq, dp->regmap, MMIO, clocks and dp->phy while dw_dp_bridge_detach()
-  has not run, leaving dp->hpd_work and dp->aux active against freed
-  resources (use-after-free) and later calling disable_irq() on a freed IRQ
-  when the DRM fd closes.
-- If the component is rebound while the old DRM fd is still open,
-  dp->bridge.dev is still non-NULL and drm_bridge_attach() in dw_dp_bind()
-  fails with -EBUSY.
-- If drm_bridge_connector_init() or a later component's bind fails, the
-  error path calls the no-op dw_dp_unbind(), leaving dp->irq enabled and
-  dp->aux registered while earlier components are unbound.
-
-Initializing the encoder with drm_encoder_init() and calling
-drm_encoder_cleanup() in dw_dp_rockchip_unbind() and on the
-drm_bridge_connector_init() error path (as analogix_dp-rockchip.c and
-cdn-dp-core.c do) would detach the bridge synchronously at unbind time.
-
-[ ... ]
-
-> diff --git a/include/drm/bridge/dw_dp.h b/include/drm/bridge/dw_dp.h
-> index 22105c3e8e4d6..a82412a9e7695 100644
-> --- a/include/drm/bridge/dw_dp.h
-> +++ b/include/drm/bridge/dw_dp.h
-> @@ -22,7 +22,8 @@ struct dw_dp_plat_data {
->  	u8 pixel_mode;
->  };
-> =20
-> -struct dw_dp *dw_dp_bind(struct device *dev, struct drm_encoder *encoder,
-> -			 const struct dw_dp_plat_data *plat_data);
-> +int dw_dp_bind(struct dw_dp *dp, struct drm_encoder *encoder);
->  void dw_dp_unbind(struct dw_dp *dp);
-> +
-> +struct dw_dp *dw_dp_probe(struct platform_device *pdev, const struct dw_=
-dp_plat_data *plat_data);
->  #endif /* __DW_DP__ */
+>  	bridge =3D &dp->bridge;
+>  	bridge->of_node =3D dev->of_node;
+> -	bridge->ops =3D DRM_BRIDGE_OP_DETECT | DRM_BRIDGE_OP_EDID | DRM_BRIDGE_=
+OP_HPD;
+> +	bridge->ops =3D DRM_BRIDGE_OP_DP_AUDIO |
+> +		      DRM_BRIDGE_OP_DETECT |
+> +		      DRM_BRIDGE_OP_EDID |
+> +		      DRM_BRIDGE_OP_HPD;
+>  	bridge->type =3D DRM_MODE_CONNECTOR_DisplayPort;
+>  	bridge->ycbcr_420_allowed =3D true;
+> +	bridge->hdmi_audio_dev =3D dev;
+> +	bridge->hdmi_audio_max_i2s_playback_channels =3D 8;
+> +	bridge->hdmi_audio_dai_port =3D 1;
+> +	bridge->hdmi_audio_spdif_playback =3D true;
 
 [Severity: Low]
-Does include/drm/bridge/dw_dp.h need a forward declaration for struct
-platform_device?
+Should bridge->hdmi_audio_dai_port be set to -1 instead of 1?
 
-This header only includes <linux/device.h> and forward-declares struct
-drm_encoder and struct dw_dp, so compiling it standalone (e.g. with
-CONFIG_DRM_HEADER_TEST=3Dy) or before <linux/platform_device.h> triggers a
--Wvisibility warning on dw_dp_probe().
+In rockchip,dw-dp.yaml (and in dw_dp_probe() via
+of_drm_get_bridge_by_endpoint(dev->of_node, 1, 0)), OF-graph port 1 is the
+DisplayPort video output port, while audio DAIs are referenced via
+#sound-dai-cells =3D <1> rather than an OF-graph audio port.  Per struct
+drm_bridge documentation, hdmi_audio_dai_port should be -1 when an OF-graph
+audio port is not used, otherwise drm_connector_hdmi_audio_get_dai_id() will
+match the video output port.
 
 --=20
 Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261114-synopsys-d=
-w-dp-improvements-v12-0-d42d3dc5bdd4@collabora.com?part=3D2
+w-dp-improvements-v12-0-d42d3dc5bdd4@collabora.com?part=3D22
