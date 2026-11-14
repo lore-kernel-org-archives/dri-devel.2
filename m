@@ -2,43 +2,44 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3F3AA606A32E
-	for <dri-devel@archiver.kernel.org>; Sat, 14 Nov 2026 01:49:01 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 65DD8606A338
+	for <dri-devel@archiver.kernel.org>; Sat, 14 Nov 2026 01:52:33 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=M1C5aA+b
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=fmpxA95K
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 6225B10E55A;
-	Sat, 14 Nov 2026 01:48:55 +0000 (UTC)
-Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 5643010E2D1;
- Sat, 14 Nov 2026 01:48:49 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 9F27710E664;
+	Sat, 14 Nov 2026 01:52:27 +0000 (UTC)
+Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id AE2DE10E561;
+ Sat, 14 Nov 2026 01:52:21 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id F1F0441923;
- Sat, 14 Nov 2026 01:48:48 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id A22681F000C4;
- Sat, 14 Nov 2026 01:48:48 +0000 (UTC)
+ by tor.source.kernel.org (Postfix) with ESMTP id A39AE61849;
+ Sat, 14 Nov 2026 01:52:20 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 27A431F000C4;
+ Sat, 14 Nov 2026 01:52:20 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1794620928;
- bh=+C23i9s4pK7w5fShW/lOLZO1rtkyssCMKTEdIDY+USc=;
+ s=k20260515; t=1794621140;
+ bh=xGD+ImPPMSdRVjb8LyXNlIDELcjgx0xmYwlBg3ducEk=;
  h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
- b=M1C5aA+b3Skr0G/yAx/w3t5J0nipR2pjVB6FffD4yKG7g1LPnHljz/qpxRfvlV9L1
- BgkbjpWuhyDUszMCO9GFzu70zdsxFkFrv7rRObn2bG+1IgXhwn3dCpiaUnq3TV8r2D
- DbEAOsFlhMyGgkkst63i249hlG/uOZKB7T0ap0sB7v2CIAuWvgqcxUvInhVHSSMbnN
- RbXijigCqYMfSWx4sGp2JPIdHTJJAssNTsFD84ZUK0NcTlt+PZ93cRKJLDhZSiR5SK
- ODb17Ebq14yUSQxlhVqh5gRg0JJ1BIW8D9TLT5TMnrxosIngB2+avudkJqBb3RHtFF
- RZT6Aw/Qfn7DA==
-Message-ID: <sashiko-outbox-214011@kernel.org>
+ b=fmpxA95KGiWINwaez0Z32HSPpZUvWL1Fia/lSNl0D4BwsDRiZI/UmRX0QZsLNJGE2
+ 93nZVWqnUGUT4PmbDXqUElMtuzfRqHB41bj9/PGr52bX3EWADRKL868adpDkH2LXdo
+ 8pJrtd5Qypvq1MDEQZe7fjlZzTlyhuo4nAcq3T2pl8b2CFQDtwxWouUCIVf2T52iDh
+ MzSMGHBbrIqw/rktLh3Hw+BHeWobR4UGf4F7SqU9Xij7LiTQqXmcunuWIlSScx+YKf
+ hvuEL6Uw2vzca6ib6BKCwD1ikcMO3KibpdIMX/B18ETAni43LRM0j1czPbG/ajAZ1O
+ Yc8ANNUH+3Zrg==
+Message-ID: <sashiko-outbox-214014@kernel.org>
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH 4/7] drm/i915: Split intel_update_crtc() into its stages
+Subject: Re: [PATCH 2/7] drm/i915/vrr: Fix the pixel clock overflow in the
+ vmax computation
 To: ElXreno <elxreno@gmail.com>, intel-gfx@lists.freedesktop.org,
  intel-xe@lists.freedesktop.org
 Cc: dri-devel@lists.freedesktop.org
-In-Reply-To: <20261114014335.2132756-5-elxreno@gmail.com>
+In-Reply-To: <20261114014335.2132756-3-elxreno@gmail.com>
 References: <20261114014335.2132756-1-elxreno@gmail.com>
- <20261114014335.2132756-5-elxreno@gmail.com>
+ <20261114014335.2132756-3-elxreno@gmail.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Sat, 14 Nov 2026 01:48:48 +0000
+Date: Sat, 14 Nov 2026 01:52:19 +0000
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -61,30 +62,36 @@ X-Archived-By: <archiver.kernel.org>
 
 Thank you for your contribution! Sashiko AI review found 1 potential
 issue to consider:
-- [High] drm/i915: Signed-off-by trailer uses handle instead of real
-  full name
+- [High] drm/i915/vrr: use of handle instead of real name in
+  Signed-off-by trailer
 --
 
-commit 4c5cd64a7c5678be3ce749725bc8055689ef0bfc
+commit a171d275708d23dc260c42db008a450a9d345462
 Author: ElXreno <elxreno@gmail.com>
 
-> drm/i915: Split intel_update_crtc() into its stages
+> drm/i915/vrr: Fix the pixel clock overflow in the vmax computation
 >
-> Pull the arming of a pipe on the MMIO path and the bookkeeping that
-> follows the commit of a pipe out of intel_update_crtc(), into
-> commit_pipe_arm() and intel_post_update_crtc(). The next patch arms
-> several joined pipes inside one vblank evasion critical section and
-> needs them separately.
+> intel_vrr_compute_vmax() multiplies crtc_clock, which is in kHz, by
+> 1000 in a signed int. A 3840x2400@240 timing has a 2342.4 MHz pixel
+> clock, so the product overflows, the quotient turns negative and vmax
+> is clamped to crtc_vtotal. vmin then equals vmax and VRR is never
+> enabled for the mode, although it is within the range of the panel.
 >
-> No functional change.
+> Do the multiplication in 64 bits.
+>
+> No Fixes tag: intel_vrr_compute_vmax() is only called for a mode
+> within the VRR range, such a pixel clock needs the joiner, and
+> intel_vrr_compute_config() takes joined modes out of the range so
+> far.
 >
 > Signed-off-by: ElXreno <elxreno@gmail.com>
 
 [Severity: High]
-The Author and Signed-off-by lines use a handle ("ElXreno") rather than a
-real full name, which does not meet the Developer's Certificate of Origin
-requirements in Documentation/process/submitting-patches.rst.
+Could the Author and Signed-off-by lines be updated to use a real full name
+rather than a handle?  Documentation/process/submitting-patches.rst requires
+a known identity rather than a pseudonym or single-word username for the
+Developer Certificate of Origin.
 
 --=20
 Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261114014335.2132=
-756-1-elxreno@gmail.com?part=3D4
+756-1-elxreno@gmail.com?part=3D2
