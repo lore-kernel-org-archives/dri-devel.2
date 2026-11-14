@@ -2,68 +2,67 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 05681606A89B
-	for <dri-devel@archiver.kernel.org>; Sat, 14 Nov 2026 23:09:33 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 17498606A89B
+	for <dri-devel@archiver.kernel.org>; Sat, 14 Nov 2026 23:09:36 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=XL4q1Dri
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=T8/0cmMm
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id D63B910E2AD;
-	Sat, 14 Nov 2026 23:09:22 +0000 (UTC)
-Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 7FBCF10E094;
- Sat, 14 Nov 2026 23:09:16 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id E267310E234;
+	Sat, 14 Nov 2026 23:09:27 +0000 (UTC)
+Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 3319410E1CB;
+ Sat, 14 Nov 2026 23:09:19 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by tor.source.kernel.org (Postfix) with ESMTP id F2EFB61CE2;
- Sat, 14 Nov 2026 23:09:15 +0000 (UTC)
+ by sea.source.kernel.org (Postfix) with ESMTP id 0D1244607D;
+ Sat, 14 Nov 2026 23:09:19 +0000 (UTC)
 Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
 ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
- t=1794697755;
- b=x8gnMIw2EWGCWTIBUBm3V+bDKcYRoCWUChvegY92w3fHrBtW3QaIry3mVZol9GegNpgR
- 9mUaLADnIL2MIlLoh9zWKou5Q0BEi0h6PYxIcMJZhs0APBgYv8Y4cyuARLgSSxud3Uw9G
- POWnfoxRse0YjURzE16btKtuUTQmgqCYXDL30xirxt+9ueRcPtU8FBkLcsoECIGF9LcTK
- ITbrrTcP+oS8CXbpwc4+t6Evpu8XWxj2gNto3wFeEd/ipm6HQISv0LtseRpUXgUvK3/O7
- NOM6toQarLnZgKjRJTTtKh67S/VUtDB2t+rok433MV2C0w+4Mzcdk+h+BIG4UOSTYwQ==
+ t=1794697758;
+ b=ZYt08MWJLc5u6CqLJI+7qvfOXCukPfWxdgBakUwEkAgXn8c760qlpNu+OFGtKrCoQUbj
+ eJwjyM1vnT6UG1cke+JxYFHv9uKL760639SZF8y4LELxMF2Ga55HfUngmDvvDuN8LkrSS
+ /1lYmH7YOfAVnL0YKzhLYYs5JqvGMRt/UIiD+5IOEdMW223z9Zu/Yv0yIlF9fvVcRXrnm
+ 8KraTq/BE13NXfvhLRy3jrnxPV8cwMEHWp6m9uibBAZHjWS7aTZ4nzVug75nNxXEKbxp+
+ 6R60D9HFWps+hHMVgDzW6J5xskA2A88CycGngjbiFEYw3cUZPSSLDfGfu+ulmT8prmA==
 ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
- c=relaxed/relaxed; t=1794697755;
+ c=relaxed/relaxed; t=1794697758;
  h=DKIM-Signature:Received:From:Date:Subject:MIME-Version:Content-Type:
  Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
  X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
  X-Original-From:Reply-To:Content-Transfer-Encoding;
- bh=5nRX9BV8mjVmto8Gsx3EfTDHCBTdBSYk1raaxm4LEB4=;
- b=dNvweEgrEpFPzeCucWnINuZ4Mz0Wf+x5VAOTheHfQcgnrSAP04nTM9c4923Qj2AaMp8Q
- 9fseWu20ZGIiYYj+HVn1fOxtEjcQdhLEMjcjdKqf5LB7FKsG1hz35rPA476H9oEN00SKp
- 0tUShg3sbSliO7RX5M8T0ZmENNZwG0yg3TzYC32fr8YLkI7SJMw/Iz0n4L9bejae5zT7U
- yVNj7OdsrExRpmIdr0D8geVJ5AU4Z6+/UC1tzTtFloL4gp173UZAvVJX2tPUNQJbyDw5X
- 4KyhUXVLVGASTcB6Uxq7o6EMRiBVzZ4+HePhraqA6jEX3Civo3wKc8TBipHxcgoVERA==
+ bh=i6meqUZWlsUzsQisK+Q2k0oCyhUO59VVwpXdQtBM5c8=;
+ b=KwC420AwK2pFfxU+qhv7tCGhkq/ShXdUqgg7OwUyMujVMRN2rcHq0WyEYwM8Hmd/sSn5
+ bFSMf3CXsZDOZPFDr+BW10ezunI9zv0oLOj5BMzak62RoM6iNC1YwOYTPdadPaU6WAFkr
+ PX2ldSP+eAAV73Sg+hxW9sLaQAN1rFnoVLvA3JISrdF5WC7o/tEdd6MJHkF4+vyNfBYr5
+ 2EVYcsd8ZyxnTNAm+xZNm2u8d+k+s1VaSBR2AVpfiPnNUgRIW3Rk7UvXa/BUfBMnFMgcW
+ bGctrfjkd/xXXKfl5kVCUu6lOlKAFmkP37L3mv2+prJ3D3zasRp3nzzPDPEXMq8z+sg==
 ARC-Authentication-Results: i=1; smtp.kernel.org; 
  arc=none smtp.remote-ip=100.80.115.77
 Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
  (No client certificate requested)
- by smtp.kernel.org (Postfix) with ESMTPS id 78BD91F000C6;
- Sat, 14 Nov 2026 23:09:14 +0000 (UTC)
+ by smtp.kernel.org (Postfix) with ESMTPS id 303991F000D0;
+ Sat, 14 Nov 2026 23:09:16 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1794697755;
- bh=5nRX9BV8mjVmto8Gsx3EfTDHCBTdBSYk1raaxm4LEB4=;
+ s=k20260515; t=1794697758;
+ bh=i6meqUZWlsUzsQisK+Q2k0oCyhUO59VVwpXdQtBM5c8=;
  h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To;
- b=XL4q1DridIVtEc+NF5IaqRJXHuGlxTAgyTE8/Eao7MPKjEXWCFiEmi07CfOA7UOpR
- OkNeADGim6BTADD8BaA81ME5YRhyaHnVr5CUi+s0iLNlHskVaQ5RPXIviUEm0y+emD
- k39jdrNE+4+INNsX0PcQ2FJgFYotTInHU1PXc6hM9xeiPBXcDoUeiibwuo4wGFUUy6
- qGiHd9RflvaEXY3g+Yh3yzOvodCc0g+Ttdc/WrIw8NJ0ZElSUvrzGnfsRMihycPkhC
- 4szpPyYXkklY5cgfK8MswZ/27K0NuHoEgxurkA9RY1lHaMARhhW+DUnNdYzdjoWuv2
- 8h+bNsVVMad6g==
+ b=T8/0cmMmqQmzT+2+kNYdWslUfCClIRxXkbRfWLoVGpsswpehCritVpKpstEVkDQaE
+ fnIwLOzPauE5QN9pINk1+kDFRR8SaNc2QfArNhnu1NophbhepL2M7kQiAkbsgp/zT5
+ r1dG7qfsQFMT+Z9NqVuKMF9F2UXxfrkQybaTkvct/O8uRwE+Ji3O3EXrqe5o08albS
+ s5WfTrYDEdkv4cAJqTtIpey5w8F5rpeE1j0IGMHMa9s/9nu+I5tr4q5BrEEaHwkOwb
+ ahVMOt3aP7zKA6iaZi0fjNTxNY5UGD70iTsXfmWjdwY468P9P4bDUy9RNpZTx8ddPq
+ sWf/yUV4314Rg==
 Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
- by lkml.kernel.org (Postfix) with ESMTP id 081F849EBF;
+ by lkml.kernel.org (Postfix) with ESMTP id 906B649ED7;
  Sat, 14 Nov 2026 23:09:14 +0000 (UTC)
 From: Hugo Sales via B4 Relay <devnull+hugo.hsal.es@kernel.org>
-Date: Sat, 14 Nov 2026 23:09:13 +0000
-Subject: [PATCH 2/8] drm/amd/display: Don't match FreeSync video modes
- against the last probe
+Date: Sat, 14 Nov 2026 23:09:19 +0000
+Subject: [PATCH 8/8] drm/amd/display: Add KUnit tests for the mode copies
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
-Message-Id: <20261114-amdgpu-modes-four-v1-2-f11e2a6cd407@hsal.es>
+Message-Id: <20261114-amdgpu-modes-four-v1-8-f11e2a6cd407@hsal.es>
 References: <20261114-amdgpu-modes-four-v1-0-f11e2a6cd407@hsal.es>
 In-Reply-To: <20261114-amdgpu-modes-four-v1-0-f11e2a6cd407@hsal.es>
 To: Harry Wentland <harry.wentland@amd.com>, Leo Li <sunpeng.li@amd.com>, 
@@ -78,13 +77,13 @@ Cc: amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
  =?utf-8?q?Ville_Syrj=C3=A4l=C3=A4?= <ville.syrjala@linux.intel.com>, 
  Aurabindo Pillai <aurabindo.pillai@amd.com>, Hugo Sales <hugo@hsal.es>
 X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=openpgp-sha256; l=5805; i=hugo@hsal.es;
+X-Developer-Signature: v=1; a=openpgp-sha256; l=10931; i=hugo@hsal.es;
  h=from:subject:message-id;
- bh=yWWy7i9YetkE5GAq3UFyqpx2cMMLNJIdP9f/Q6iE3xM=;
- b=owJ4nJvAy8zAJVbLU7f+5A3TBYyn1ZIYsn68kmh5vitWNXVa0wYXy+sLipbJLD3wY1/Ka+GtB
- hoa4TMuldzqKGVhEONikBVTZNG94cnAMnHyzJyi50tg5rAygQxh4OIUgImsmcDI8GfD9LYvPRcq
- jF1PM73ber72xwUPlpLF3cpRIX+/liU1MzD8L5K4ImfN0HD0/LmPK89MsTRSElZ1W5ClxhHWWsx
- 0b/E5DgChSkyL
+ bh=0Ok0LbQjfbD5jZ0plsL2pNY0UFR/TkJW9zWYDxB4hFk=;
+ b=owJ4nJvAy8zAJVbLU7f+5A3TBYyn1ZIYsn68kigO08yI/TLvq0xof9B+n5cWN1k3BC/1tjXsP
+ NSterF28r6OUhYGMS4GWTFFFt0bngwsEyfPzCl6vgRmDisTyBAGLk4BmEjMG4b/uYnKJ/dc/95i
+ u41zRQwz24XdNQuV4rZuswg/mlUQJrzeguGv7IsPt/583LnNq6JPevI2vz9Xlki6feBmVvk94Uf
+ Gopl7GAAHek47
 X-Developer-Key: i=hugo@hsal.es; a=openpgp;
  fpr=193D095149CF7E8737B39064D912B0DB205A91C1
 X-Endpoint-Received: by B4 Relay for hugo@hsal.es/default with auth_id=1417
@@ -111,138 +110,259 @@ X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 
 From: Hugo Sales <hugo@hsal.es>
 
-add_fs_modes() runs in ->get_modes() and skips a FreeSync video mode
-that is_duplicate_mode() finds. Since commit 828cfa384e23
-("drm/amd/display: Fix unadvertised mode detection"),
-is_duplicate_mode() also searches connector->modes, which during a
-re-probe still lists the previous probe's modes. add_fs_modes() then
-takes every FreeSync video mode for a duplicate and adds none, and the
-probe helper prunes the old ones as stale. With amdgpu.freesync_video=1,
-the FreeSync video modes disappear on every second probe
+Test that atomic_check reads the mode copies, not connector->modes, and
+only for the sink they came from. The highest refresh rate lookup
+returns nothing without a copy, even with modes in connector->modes, and
+nothing for a sink with another EDID or none, while a replugged sink
+with the same EDID keeps the copy. Scaling ignores a preferred mode copy
+from another sink, and dm_set_freesync_video_config() sets the fixed
+refresh config only when the copies match the new stream's sink
 
-The connector->modes search was for the unadvertised mode check, which
-is gone, so search only probed_modes again
-
-Fixes: 828cfa384e23 ("drm/amd/display: Fix unadvertised mode detection")
 Signed-off-by: Hugo Sales <hugo@hsal.es>
 ---
- .../amd/display/amdgpu_dm/amdgpu_dm_connector.c    |  5 -----
- .../amdgpu_dm/tests/amdgpu_dm_connector_test.c     | 26 +++++++++++-----------
- 2 files changed, 13 insertions(+), 18 deletions(-)
+ .../amdgpu_dm/tests/amdgpu_dm_connector_test.c     | 120 +++++++++++++++++++++
+ .../amd/display/amdgpu_dm/tests/amdgpu_dm_test.c   |  69 ++++++++++++
+ 2 files changed, 189 insertions(+)
 
-diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_connector.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_connector.c
-index 89f8427433af0..da2ee6179cb67 100644
---- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_connector.c
-+++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_connector.c
-@@ -1409,11 +1409,6 @@ STATIC_IFN_KUNIT bool is_duplicate_mode(struct amdgpu_dm_connector *aconnector,
- 			return true;
- 	}
- 
--	list_for_each_entry(m, &aconnector->base.modes, head) {
--		if (drm_mode_equal(m, mode))
--			return true;
--	}
--
- 	return false;
- }
- 
 diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/tests/amdgpu_dm_connector_test.c b/drivers/gpu/drm/amd/display/amdgpu_dm/tests/amdgpu_dm_connector_test.c
-index addc407841a2a..5af111698e355 100644
+index 71ad7e4ea5c9e..6fbf85e50872c 100644
 --- a/drivers/gpu/drm/amd/display/amdgpu_dm/tests/amdgpu_dm_connector_test.c
 +++ b/drivers/gpu/drm/amd/display/amdgpu_dm/tests/amdgpu_dm_connector_test.c
-@@ -1136,7 +1136,6 @@ static void dm_test_is_duplicate_mode_empty_list(struct kunit *test)
- 	aconnector = kunit_kzalloc(test, sizeof(*aconnector), GFP_KERNEL);
- 	KUNIT_ASSERT_NOT_NULL(test, aconnector);
- 
--	INIT_LIST_HEAD(&aconnector->base.modes);
- 	INIT_LIST_HEAD(&aconnector->base.probed_modes);
- 	mode.hdisplay = 1920;
- 	mode.vdisplay = 1080;
-@@ -1157,12 +1156,11 @@ static void dm_test_is_duplicate_mode_match(struct kunit *test)
- 	aconnector = kunit_kzalloc(test, sizeof(*aconnector), GFP_KERNEL);
- 	KUNIT_ASSERT_NOT_NULL(test, aconnector);
- 
--	INIT_LIST_HEAD(&aconnector->base.modes);
- 	INIT_LIST_HEAD(&aconnector->base.probed_modes);
- 	existing.hdisplay = 1920;
- 	existing.vdisplay = 1080;
- 	existing.clock = 148500;
--	list_add_tail(&existing.head, &aconnector->base.modes);
-+	list_add_tail(&existing.head, &aconnector->base.probed_modes);
- 
- 	candidate.hdisplay = 1920;
- 	candidate.vdisplay = 1080;
-@@ -1172,10 +1170,14 @@ static void dm_test_is_duplicate_mode_match(struct kunit *test)
+@@ -2534,6 +2534,95 @@ static void dm_test_highest_refresh_preferred_mode(struct kunit *test)
+ 	KUNIT_EXPECT_EQ(test, aconnector->freesync_vid_base.clock, 0);
  }
  
- /**
-- * dm_test_is_duplicate_mode_probed_match - Test probed mode duplicate match
-+ * dm_test_is_duplicate_mode_previous_probe - Test modes of the previous probe don't count
-  * @test: The KUnit test context
++/**
++ * dm_test_highest_refresh_skips_modes - Test atomic_check callers never walk base.modes
++ * @test: The KUnit test context
 + *
-+ * During a re-probe, base.modes still holds the previous probe's modes. A
-+ * mode listed only there is not a duplicate, so add_fs_modes() builds the
-+ * FreeSync video modes again on every probe
-  */
--static void dm_test_is_duplicate_mode_probed_match(struct kunit *test)
-+static void dm_test_is_duplicate_mode_previous_probe(struct kunit *test)
- {
- 	struct amdgpu_dm_connector *aconnector;
- 	struct drm_display_mode existing = {};
-@@ -1189,13 +1191,13 @@ static void dm_test_is_duplicate_mode_probed_match(struct kunit *test)
- 	existing.hdisplay = 1920;
- 	existing.vdisplay = 1080;
- 	existing.clock = 148500;
--	list_add_tail(&existing.head, &aconnector->base.probed_modes);
-+	list_add_tail(&existing.head, &aconnector->base.modes);
++ * base.modes needs &drm_mode_config.mutex, which atomic_check doesn't hold.
++ * Without a copy the lookup returns NULL, even though base.modes has a mode
++ */
++static void dm_test_highest_refresh_skips_modes(struct kunit *test)
++{
++	struct amdgpu_dm_connector *aconnector;
++	struct dc_sink *sink;
++	struct drm_display_mode *mode;
++
++	aconnector = kunit_kzalloc(test, sizeof(*aconnector), GFP_KERNEL);
++	KUNIT_ASSERT_NOT_NULL(test, aconnector);
++	mode = kunit_kzalloc(test, sizeof(*mode), GFP_KERNEL);
++	KUNIT_ASSERT_NOT_NULL(test, mode);
++
++	aconnector->base.connector_type = DRM_MODE_CONNECTOR_HDMIA;
++	INIT_LIST_HEAD(&aconnector->base.modes);
++	INIT_LIST_HEAD(&aconnector->base.probed_modes);
++
++	mode->type = DRM_MODE_TYPE_PREFERRED;
++	mode->clock = 148500;
++	mode->hdisplay = 1920;
++	mode->vdisplay = 1080;
++	mode->htotal = 2200;
++	mode->vtotal = 1125;
++	list_add_tail(&mode->head, &aconnector->base.modes);
++
++	sink = dm_test_copies_sink(test, aconnector);
++	KUNIT_EXPECT_NULL(test, dm_test_highest_locked(test, aconnector, false, sink));
++	KUNIT_EXPECT_EQ(test, aconnector->freesync_vid_base.clock, 0);
++}
++
++/**
++ * dm_test_highest_refresh_other_sink - Test a copy from another sink is ignored
++ * @test: The KUnit test context
++ *
++ * After a monitor swap the copy describes the previous monitor until the next
++ * probe, so a sink with another EDID, or with none, gets no freesync base. A
++ * new sink with the same EDID, as after a replug, keeps it
++ */
++static void dm_test_highest_refresh_other_sink(struct kunit *test)
++{
++	struct amdgpu_dm_connector *aconnector;
++	struct drm_display_mode *mode;
++	struct dc_sink *probed, *other, *replugged, *no_edid;
++
++	aconnector = kunit_kzalloc(test, sizeof(*aconnector), GFP_KERNEL);
++	KUNIT_ASSERT_NOT_NULL(test, aconnector);
++	mode = kunit_kzalloc(test, sizeof(*mode), GFP_KERNEL);
++	KUNIT_ASSERT_NOT_NULL(test, mode);
++	other = kunit_kzalloc(test, sizeof(*other), GFP_KERNEL);
++	KUNIT_ASSERT_NOT_NULL(test, other);
++	replugged = kunit_kzalloc(test, sizeof(*replugged), GFP_KERNEL);
++	KUNIT_ASSERT_NOT_NULL(test, replugged);
++	no_edid = kunit_kzalloc(test, sizeof(*no_edid), GFP_KERNEL);
++	KUNIT_ASSERT_NOT_NULL(test, no_edid);
++
++	aconnector->base.connector_type = DRM_MODE_CONNECTOR_HDMIA;
++	INIT_LIST_HEAD(&aconnector->base.probed_modes);
++	aconnector->freesync_vid_base.clock = 148500;
++	aconnector->freesync_vid_base.hdisplay = 1920;
++	aconnector->freesync_vid_base.vdisplay = 1080;
++	aconnector->freesync_vid_base.htotal = 2200;
++	aconnector->freesync_vid_base.vtotal = 1125;
++	drm_mode_copy(mode, &aconnector->freesync_vid_base);
++
++	probed = dm_test_copies_sink(test, aconnector);
++	replugged->dc_edid = probed->dc_edid;
++	other->dc_edid = probed->dc_edid;
++	other->dc_edid.raw_edid[12]++;
++
++	KUNIT_EXPECT_PTR_EQ(test,
++			    dm_test_highest_locked(test, aconnector, false, probed),
++			    &aconnector->freesync_vid_base);
++	KUNIT_EXPECT_TRUE(test, dm_test_is_fs_video_locked(test, mode, aconnector, probed));
++	KUNIT_EXPECT_PTR_EQ(test,
++			    dm_test_highest_locked(test, aconnector, false, replugged),
++			    &aconnector->freesync_vid_base);
++
++	KUNIT_EXPECT_NULL(test, dm_test_highest_locked(test, aconnector, false, other));
++	KUNIT_EXPECT_FALSE(test, dm_test_is_fs_video_locked(test, mode, aconnector, other));
++	KUNIT_EXPECT_NULL(test,
++			  dm_test_highest_locked(test, aconnector, false, no_edid));
++	KUNIT_EXPECT_NULL(test, dm_test_highest_locked(test, aconnector, false, NULL));
++}
++
+ /* Tests for amdgpu_dm_connector_update_mode_copies() */
  
- 	candidate.hdisplay = 1920;
- 	candidate.vdisplay = 1080;
- 	candidate.clock = 148500;
- 
--	KUNIT_EXPECT_TRUE(test, is_duplicate_mode(aconnector, &candidate));
-+	KUNIT_EXPECT_FALSE(test, is_duplicate_mode(aconnector, &candidate));
+ static struct drm_display_mode *
+@@ -8233,6 +8322,34 @@ static void dm_test_create_validate_stream_scaled_copy(struct kunit *test)
+ 	KUNIT_EXPECT_EQ(test, dm_test_cvs_first_h_addressable, 3840);
  }
  
++/**
++ * dm_test_create_validate_stream_stale_copy - Test atomic_check ignores a stale copy
++ * @test: The KUnit test context
++ *
++ * After a monitor swap the connector has a sink with another EDID, and the
++ * copy describes the previous monitor. Its timing must not be applied, even
++ * with scaling on
++ */
++static void dm_test_create_validate_stream_stale_copy(struct kunit *test)
++{
++	struct dm_test_cvs_dc *c = dm_test_cvs_dc_alloc(test);
++
++	/* drm_mode_convert_umode() fills in the CRTC timing of atomic modes */
++	drm_mode_set_crtcinfo(c->mode, CRTC_INTERLACE_HALVE_V);
++	c->dm_state->scaling = RMX_FULL;
++	dm_test_cvs_set_preferred_copy(test, c);
++	c->aconnector->dc_sink->dc_edid.raw_edid[12]++;
++	c->tgfuncs->validate_timing = dm_test_cvs_record_first_h_addressable;
++	dm_test_cvs_first_h_addressable = 0;
++
++	KUNIT_EXPECT_NULL(test,
++			  dm_test_validate_locked(&c->aconnector->base,
++						  c->mode,
++						  c->dm_state,
++						  NULL));
++	KUNIT_EXPECT_EQ(test, dm_test_cvs_first_h_addressable, 1920);
++}
++
  /**
-@@ -1212,11 +1214,10 @@ static void dm_test_is_duplicate_mode_no_match(struct kunit *test)
- 	KUNIT_ASSERT_NOT_NULL(test, aconnector);
+  * dm_test_mode_valid_ignores_preferred_copy - Test mode_valid uses the mode's own timing
+  * @test: The KUnit test context
+@@ -11271,6 +11388,8 @@ static struct kunit_case amdgpu_dm_connector_tests[] = {
+ 	KUNIT_CASE(dm_test_highest_refresh_cached_base),
+ 	KUNIT_CASE(dm_test_highest_refresh_preferred_mode),
+ 	KUNIT_CASE(dm_test_highest_refresh_probed_skips_copy),
++	KUNIT_CASE(dm_test_highest_refresh_skips_modes),
++	KUNIT_CASE(dm_test_highest_refresh_other_sink),
+ 	/* amdgpu_dm_connector_update_mode_copies */
+ 	KUNIT_CASE(dm_test_update_mode_copies_highest_refresh),
+ 	KUNIT_CASE(dm_test_update_mode_copies_no_preferred),
+@@ -11503,6 +11622,7 @@ static struct kunit_case amdgpu_dm_connector_tests[] = {
+ 	KUNIT_CASE(dm_test_create_validate_stream_prune_context),
+ 	KUNIT_CASE(dm_test_create_validate_stream_hdmi_rgb_first),
+ 	KUNIT_CASE(dm_test_create_validate_stream_scaled_copy),
++	KUNIT_CASE(dm_test_create_validate_stream_stale_copy),
+ 	KUNIT_CASE(dm_test_mode_valid_ignores_preferred_copy),
+ 	/* amdgpu_dm_update_connector_after_detect */
+ 	KUNIT_CASE(dm_test_update_after_detect_mst_noop),
+diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/tests/amdgpu_dm_test.c b/drivers/gpu/drm/amd/display/amdgpu_dm/tests/amdgpu_dm_test.c
+index 8eaa5909068bc..b6b3964ce497d 100644
+--- a/drivers/gpu/drm/amd/display/amdgpu_dm/tests/amdgpu_dm_test.c
++++ b/drivers/gpu/drm/amd/display/amdgpu_dm/tests/amdgpu_dm_test.c
+@@ -3296,6 +3296,74 @@ static void dm_test_freesync_video_config_no_old_stream(struct kunit *test)
+ 	amdgpu_freesync_vid_mode = saved_vid_mode;
+ }
  
- 	INIT_LIST_HEAD(&aconnector->base.probed_modes);
--	INIT_LIST_HEAD(&aconnector->base.modes);
- 	existing.hdisplay = 1920;
- 	existing.vdisplay = 1080;
- 	existing.clock = 148500;
--	list_add_tail(&existing.head, &aconnector->base.modes);
-+	list_add_tail(&existing.head, &aconnector->base.probed_modes);
- 
- 	candidate.hdisplay = 2560;
- 	candidate.vdisplay = 1440;
-@@ -1238,13 +1239,12 @@ static void dm_test_is_duplicate_mode_same_size_different_clock(struct kunit *te
- 
- 	aconnector = kunit_kzalloc(test, sizeof(*aconnector), GFP_KERNEL);
- 	KUNIT_ASSERT_NOT_NULL(test, aconnector);
--	INIT_LIST_HEAD(&aconnector->base.probed_modes);
- 
--	INIT_LIST_HEAD(&aconnector->base.modes);
-+	INIT_LIST_HEAD(&aconnector->base.probed_modes);
- 	existing.hdisplay = 1920;
- 	existing.vdisplay = 1080;
- 	existing.clock = 148500;
--	list_add_tail(&existing.head, &aconnector->base.modes);
-+	list_add_tail(&existing.head, &aconnector->base.probed_modes);
- 
- 	candidate.hdisplay = 1920;
- 	candidate.vdisplay = 1080;
-@@ -10402,7 +10402,7 @@ static struct kunit_case amdgpu_dm_connector_tests[] = {
- 	/* is_duplicate_mode */
- 	KUNIT_CASE(dm_test_is_duplicate_mode_empty_list),
- 	KUNIT_CASE(dm_test_is_duplicate_mode_match),
--	KUNIT_CASE(dm_test_is_duplicate_mode_probed_match),
-+	KUNIT_CASE(dm_test_is_duplicate_mode_previous_probe),
- 	KUNIT_CASE(dm_test_is_duplicate_mode_no_match),
- 	KUNIT_CASE(dm_test_is_duplicate_mode_same_size_different_clock),
- 	/* amdgpu_dm_get_encoder_crtc_mask */
++/**
++ * dm_test_freesync_video_config_new_sink - Test the fixed config follows the new stream's sink
++ * @test: The KUnit test context
++ *
++ * The mode is a 50 Hz FreeSync video mode of a 1080p60 base. The fixed config
++ * is set only when the copies match the sink the new stream was built for,
++ * the sink create_stream_for_sink() checked when it picked the timing
++ */
++static void dm_test_freesync_video_config_new_sink(struct kunit *test)
++{
++	uint saved_vid_mode = amdgpu_freesync_vid_mode;
++	struct amdgpu_dm_connector *aconnector;
++	struct drm_display_mode *base, *mode;
++	struct dm_crtc_state *crtc_state;
++	struct dc_stream_state *stream;
++	struct dc_sink *sink, *other;
++
++	aconnector = kunit_kzalloc(test, sizeof(*aconnector), GFP_KERNEL);
++	KUNIT_ASSERT_NOT_NULL(test, aconnector);
++	crtc_state = kunit_kzalloc(test, sizeof(*crtc_state), GFP_KERNEL);
++	KUNIT_ASSERT_NOT_NULL(test, crtc_state);
++	stream = kunit_kzalloc(test, sizeof(*stream), GFP_KERNEL);
++	KUNIT_ASSERT_NOT_NULL(test, stream);
++	sink = kunit_kzalloc(test, sizeof(*sink), GFP_KERNEL);
++	KUNIT_ASSERT_NOT_NULL(test, sink);
++	other = kunit_kzalloc(test, sizeof(*other), GFP_KERNEL);
++	KUNIT_ASSERT_NOT_NULL(test, other);
++
++	aconnector->base.connector_type = DRM_MODE_CONNECTOR_HDMIA;
++	base = &aconnector->freesync_vid_base;
++	base->clock = 148500;
++	base->hdisplay = 1920;
++	base->hsync_start = 2008;
++	base->hsync_end = 2052;
++	base->htotal = 2200;
++	base->vdisplay = 1080;
++	base->vsync_start = 1084;
++	base->vsync_end = 1089;
++	base->vtotal = 1125;
++
++	mode = &crtc_state->base.mode;
++	drm_mode_copy(mode, base);
++	mode->vsync_start += 225;
++	mode->vsync_end += 225;
++	mode->vtotal += 225;
++
++	memset(sink->dc_edid.raw_edid, 0x5a, 128);
++	sink->dc_edid.length = 128;
++	other->dc_edid = sink->dc_edid;
++	other->dc_edid.raw_edid[12]++;
++	aconnector->mode_copies_edid_size = 128;
++	memcpy(aconnector->mode_copies_edid, sink->dc_edid.raw_edid, 128);
++
++	amdgpu_freesync_vid_mode = 1;
++
++	stream->sink = other;
++	dm_test_fs_video_config_locked(test, aconnector, crtc_state, stream);
++	KUNIT_EXPECT_EQ(test, (int)crtc_state->freesync_config.state,
++			(int)VRR_STATE_UNSUPPORTED);
++
++	stream->sink = sink;
++	dm_test_fs_video_config_locked(test, aconnector, crtc_state, stream);
++	KUNIT_EXPECT_EQ(test, (int)crtc_state->freesync_config.state,
++			(int)VRR_STATE_ACTIVE_FIXED);
++
++	amdgpu_freesync_vid_mode = saved_vid_mode;
++}
++
+ /**
+  * dm_test_update_crtc_state_unchanged - Test unchanged state needs no validation
+  * @test: The KUnit test context
+@@ -5443,6 +5511,7 @@ static struct kunit_case amdgpu_dm_tests[] = {
+ 	KUNIT_CASE(dm_test_aquire_global_lock_no_commit),
+ 	KUNIT_CASE(dm_test_aquire_global_lock_waits_commit),
+ 	KUNIT_CASE(dm_test_freesync_video_config_no_old_stream),
++	KUNIT_CASE(dm_test_freesync_video_config_new_sink),
+ 	KUNIT_CASE(dm_test_update_crtc_state_unchanged),
+ 	KUNIT_CASE(dm_test_update_plane_state_detached),
+ 	KUNIT_CASE(dm_test_mod_power_update_streams_empty),
 
 -- 
 2.56.0
