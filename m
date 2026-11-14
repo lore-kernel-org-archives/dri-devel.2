@@ -2,85 +2,90 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E6E98606A329
-	for <dri-devel@archiver.kernel.org>; Mon, 16 Nov 2026 08:58:56 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B4053606A323
+	for <dri-devel@archiver.kernel.org>; Mon, 16 Nov 2026 08:58:57 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=D/snmn4A
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=EkMs4p0G
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id DB12710EC48;
+	by gabe.freedesktop.org (Postfix) with ESMTP id E04A710EC53;
 	Mon, 16 Nov 2026 08:58:47 +0000 (UTC)
-Received: from mail-wm1-f44.google.com (mail-wm1-f44.google.com
- [209.85.128.44])
- by gabe.freedesktop.org (Postfix) with ESMTPS id C6F6A10E2FD
- for <dri-devel@lists.freedesktop.org>; Mon, 16 Nov 2026 07:02:18 +0000 (UTC)
-Received: by mail-wm1-f44.google.com with SMTP id
- 5b1f17b1804b1-4b467581b98so24300835e9.0
- for <dri-devel@lists.freedesktop.org>; Sun, 15 Nov 2026 23:02:18 -0800 (PST)
+Received: from mail-lj1-f169.google.com (mail-lj1-f169.google.com
+ [209.85.208.169])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id EA80810E05E
+ for <dri-devel@lists.freedesktop.org>; Sat, 14 Nov 2026 20:07:38 +0000 (UTC)
+Received: by mail-lj1-f169.google.com with SMTP id
+ 38308e7fff4ca-3adff684a52so25841941fa.1
+ for <dri-devel@lists.freedesktop.org>; Sat, 14 Nov 2026 12:07:38 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20260707; t=1794812537; x=1795417337; darn=lists.freedesktop.org;
- h=content-transfer-encoding:content-type:mime-version:references
- :in-reply-to:message-id:date:subject:cc:to:from:from:to:cc:subject
- :date:message-id:reply-to:content-type;
- bh=2WwhmAqxPEFlsm5zE6uH7fU7EMvllXc0ISVSjbfBGoc=;
- b=D/snmn4AvG/FsheZwle+l7IErkLgcSXjfDEJUQWP5kC5iQRAq80rbR9mMyiLOa2kxi
- zexI+ttMnpFFwfwKbULfPYheEUKvEKgU111N7c0ms8t70z03bgxU8lcNyCDkwlxb7BZy
- kEAKnb+iLIA4t32G+RrE1/xAJYEKPHRcTBHTDHv4n9zW+ssAULEcb+++4GZvfPE+e8yL
- gD5WiEn3Z7JIYu2E8gfTlNmtq7esFJIpjMwRjsnAJfeoemHPv678L9Qi0lZ8ZhfRxLyn
- RRPl6KEmNOXiTQeFzC0xWuxbzi9+QwXjrM3cTIrTOyNV9IzzIm2VjZO+fUT/ai3WBaI6
- pkSA==
+ d=gmail.com; s=20260707; t=1794686857; x=1795291657; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:mime-version:references:in-reply-to
+ :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+ :message-id:reply-to:content-type;
+ bh=R7dtlKbfcr0G/r1hntPJsms+e0JAvg0N9xC2Og7VBO4=;
+ b=EkMs4p0GL6nqryF7fc6uP1F8CLtby4TCV000Ca2bo93BBfXzEs+rdsFjj0aLC7Yw5v
+ eR1VQX9jh/wGDObA6v4Ytk0kwZIjg68AElWSG8T/Qac4jMlHF6J1bJMdJI5gw4mtauLw
+ hpp5kZVRYVt/TcAWWvEbytCrcSkN6JkKjsSrZcsdZPCDIZ26qCuwrg5KifRJdszOwGXu
+ aCGt9pTed7+Gsq37rETOrpZE0vnoupWGvU9zAElPXvnkTeqIaJ0398Va3UPx6kEjVaKQ
+ pEZxTMkHyuEr6IyJgrMj+SBlK3WZvGsIshGU19GyOXbSUhNzH73MHOnTmuTZ3FLpI94L
+ WNbw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20260707; t=1794812537; x=1795417337;
- h=content-transfer-encoding:content-type:mime-version:references
- :in-reply-to:message-id:date:subject:cc:to:from:x-gm-gg
- :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
- :content-type;
- bh=2WwhmAqxPEFlsm5zE6uH7fU7EMvllXc0ISVSjbfBGoc=;
- b=CcHxJ3Q/9/ggQgooKQPt+mI0T8rcLBD3sdDdGmXYWedKxZsFjHQrjxv90CNr+vxMPP
- MGz7JuxyP2/TD+gEpEWJAVtftMCSiZWY/QyE5oH4L+E0Sql1R1LJXvGJu4IXKy3T6rMf
- I/mQ2rK92Si4AHxOUc6FF+5V204g2//5cjEbc599etneqmQLD5YysS8VeEsGHHtcur6s
- KYXgQd040LxI0UPqVGpmrL4DjL8pcEetg0SLr3l+UOj3J8ZaZbuNlOiEvW9s+N5TPwTJ
- 4efohSgagKYp4aW+RW5JOyersn9ewKKv9sDjXI9uPJLtzH4DqAgjFVOajtXTj4761GEW
- mstQ==
+ d=1e100.net; s=20260707; t=1794686857; x=1795291657;
+ h=content-transfer-encoding:mime-version:references:in-reply-to
+ :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+ :to:cc:subject:date:message-id:reply-to:content-type;
+ bh=R7dtlKbfcr0G/r1hntPJsms+e0JAvg0N9xC2Og7VBO4=;
+ b=tiB3coHe8/95LKkSB2KT8qKew2ehWvEGgR81QcHnkkdz5qVgl2mnwsoT15NQpu9mJr
+ Np2v+BiBz5QK9wwszkE/jSGz4v2keeoWsz+TY1OxwvnAKxzS4Fj/Kz+koyfGt+ti16QF
+ Mnjo7YdDP2FKAQ1JiTznCc/2WUg3fCz8y/0LYuE8nijP4S1NoK6N7wsGxzP3RWxQKIkt
+ BjgwPO7gBtz/ivReaoEtQnH78xMpYRHbuAdrnir5dX99bBzzbdg9O7JUZaZHzmEvMA9b
+ oC7IoDKxneaXlwNgBX9pMOryXCHi4bDDCTdRE2Ni1CU3sprB0GZfq9g8XjX57i40GK1o
+ s1pw==
 X-Forwarded-Encrypted: i=1;
- AL+hErGMHkg7TjuieNds8fiZuDcp7d07WxCrSQkVUOMFPf4XZYq3Ca+uXbIs62U8MmGIZVVCulHSECavt/o=@lists.freedesktop.org
-X-Gm-Message-State: APuU4Z/3y4MQ5JPzzeNEkWnC7cYuyJ5cMK4h2vgslICorYHOaZDFPeG3
- VP9hGvq+iJswqxctQ7Z9SokFHFiefqEGFg36cEoaKZFcC6mf0AGEKcmc
-X-Gm-Gg: AYBFou0Fkm3kYK5EEclOQBtsSsjmrJnQZM2fHb0G8FrwKQuYkVVN80mdKrW62RGiOpt
- p/q1YQ/L4e+C6BlF0oDZ59wvdNCVZ6T0krdfNIlMzpDqZfxcF/B+BQ38hw3IzbOQxtlo1f8VXeo
- gQFNmwbsLK9/ggvRYev5pI6st/e1H8HIaz3g3e03aznlc2BVOuDl3i0JiDnYGIc/Pcq0DU7DquP
- NKojfKOQheWSrsibOvIxuFI6HRVo6Zex9FAaj+MrkDXSyo7WWewiLpFD7sclXJLGkGSdFeGqPuq
- mfMbd4hzNWRgvvLt+nRJLU7mhfZb/qjwdi2juGgFHdwtEDZeAUKrb4/Wo1XYxoOUwHPveXwu8bh
- 56bHVv5vwRr/9ukyDavmsK1Ls3bzQuXCNpXaSp+6npQSgRM9GDULigBthPcuS7N3QwTPC2niUJa
- BWoWey6zKsqo9T57m3rVu+21J45RbL/3BdmaG6po4PxwHCqAo1mBTph6K/uSFFSv+WdIksYWmGY
- IhtB8QHZDM9jge4iFdLQeYwmtUns2IsS/8lKnTuLdCYbkY6x0q5CGPNQq9dhst3bfOsrz3aN5M1
- aBfN58yn9OJF78Qxo2hYT2rL8PIPgEER
-X-Received: by 2002:a05:600c:8708:b0:4a6:30c3:1114 with SMTP id
- 5b1f17b1804b1-4bb55a7ece6mr210888835e9.12.1794812536974; 
- Sun, 15 Nov 2026 23:02:16 -0800 (PST)
-Received: from dl360p ([130.61.107.245]) by smtp.gmail.com with ESMTPSA id
- 5b1f17b1804b1-4bb4e2538b9sm558777625e9.1.2026.11.15.23.02.15
+ AL+hErFzQHeOzRbZ8MMbqU1E05jXXMZ12BMIwbFickDLZYiIwxclp0sCkuLKCGbz+2IkZcmC0ACaOd1bGlU=@lists.freedesktop.org
+X-Gm-Message-State: APuU4Z9GC2U+IY/WMC2m1wPL0vRwqPZoRpFWZ1fWn+ZXxRokKGsBwKIO
+ fzVDz7lIemgSEGLQcRhCBHRwhFw4mb+WmF4RaI4+qhddVDDoCvA8tVU8
+X-Gm-Gg: AYBFou13y8SwTlqBLXpGsfMdTKcJVW+2TBH+TLVP3yx0pEkhg7QDizL2Ch0ZsVlbI7F
+ EGcD+c1VSSDRdMTOLsDL4NQbRR3eqf8IhArP06If1of7HPGIdQtrFWr90Eq9walcIFsxDkFZpgb
+ uxXyZKC9baFyn7HtxfR6Rs8yYLqZEtQl0qtQKKI9LQaPItygdiir54Uou13PNVa6/Wx01QXZfR2
+ OM2emN77P1BUe5yVJ3+Iq9gz9QgkxUWGgzMdx1aQ9R6A3yeu9T9hM3YySaoiS9IzplrZJVOO2Zh
+ 0aNxPEan3HINqYwsSiwX+hDCkQz164/AesZdiHFzOCccY7BS7QLmhEpktAOQB2h0JJVHLWmzGYW
+ xw9/VzLplCtCJm06gfuI7jpAGjJhy+brvgP2po6JUDxATjEI0iSyKsyXG5lQOADzGxbKqZWRMml
+ /SA/uP9X409c+t1fkCKtFs4VKzh66AdODWJL5wqoeXMhF98pe5JiUWAZBAyxmpO4qtNJ2X7RNGs
+ Am6b9qR21384dYnBtpW1ik0OoMIL34mZgBVLyFedKS9SLbz8nFzefVRqtLVq+9R3pdhAVxRFlEt
+ xYQQs4dnFQHPxDT0Awbyikt81Gcl1lI4pdRgp4A=
+X-Received: by 2002:a2e:be24:0:b0:3ab:4e70:6959 with SMTP id
+ 38308e7fff4ca-3ae1c0008bdmr24199811fa.19.1794686857016; 
+ Sat, 14 Nov 2026 12:07:37 -0800 (PST)
+Received: from IuseArchBTW ([194.28.181.64]) by smtp.gmail.com with ESMTPSA id
+ 2adb3069b0e04-5c1712da125sm1891070e87.1.2026.11.14.12.07.29
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Sun, 15 Nov 2026 23:02:16 -0800 (PST)
-From: =?UTF-8?q?Adil=20H=C3=BCsrev=20Tepe?= <tadilhusrev@gmail.com>
-To: Neil Armstrong <neil.armstrong@linaro.org>,
- Jessica Zhang <jesszhan0024@gmail.com>, Rob Herring <robh@kernel.org>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>
-Cc: David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>,
- Thomas Zimmermann <tzimmermann@suse.de>, dri-devel@lists.freedesktop.org,
- devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
- =?UTF-8?q?Adil=20H=C3=BCsrev=20Tepe?= <tadilhusrev@gmail.com>
-Subject: [PATCH v1 1/2] dt-bindings: display: panel: add Novatek NT36525
-Date: Mon, 16 Nov 2026 10:02:11 +0300
-Message-ID: <20261116070212.314228-2-tadilhusrev@gmail.com>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20261116070212.314228-1-tadilhusrev@gmail.com>
-References: <20261116070212.314228-1-tadilhusrev@gmail.com>
+ Sat, 14 Nov 2026 12:07:36 -0800 (PST)
+From: Ivan Tverdokhleb <mbkchelofficialdev@gmail.com>
+To: rust-for-linux@vger.kernel.org
+Cc: Danilo Krummrich <dakr@kernel.org>, Alice Ryhl <aliceryhl@google.com>,
+ Matthew Auld <matthew.auld@intel.com>,
+ Arun Pravin <arunpravin.paneerselvam@amd.com>,
+ Joel Fernandes <joelagnelf@nvidia.com>, Miguel Ojeda <ojeda@kernel.org>,
+ Boqun Feng <boqun@kernel.org>, Gary Guo <gary@garyguo.net>,
+ =?UTF-8?q?Bj=C3=B6rn=20Roy=20Baron?= <bjorn3_gh@protonmail.com>,
+ Benno Lossin <lossin@kernel.org>, Andreas Hindborg <a.hindborg@kernel.org>,
+ Trevor Gross <tmgross@umich.edu>,
+ Daniel Almeida <daniel.almeida@collabora.com>,
+ Tamir Duberstein <tamird@kernel.org>,
+ Alexandre Courbot <acourbot@nvidia.com>,
+ =?UTF-8?q?Onur=20=C3=96zkan?= <work@onurozkan.dev>,
+ Peter Zijlstra <peterz@infradead.org>, Ingo Molnar <mingo@redhat.com>,
+ Will Deacon <will@kernel.org>, Waiman Long <longman@redhat.com>,
+ Lyude Paul <lyude@redhat.com>, dri-devel@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org
+Subject: [PATCH 1/2] rust: sync: lock: allow fallible initializers in Lock::new
+Date: Sat, 14 Nov 2026 22:07:00 +0200
+Message-ID: <20261114200703.33229-2-mbkchelofficialdev@gmail.com>
+X-Mailer: git-send-email 2.56.1
+In-Reply-To: <20261114200703.33229-1-mbkchelofficialdev@gmail.com>
+References: <20261114200703.33229-1-mbkchelofficialdev@gmail.com>
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 X-Mailman-Approved-At: Mon, 16 Nov 2026 08:58:46 +0000
 X-BeenThere: dri-devel@lists.freedesktop.org
@@ -94,108 +99,59 @@ List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-15.8 required=3.0 tests=BAYES_00,DKIM_SIGNED,
-	DKIM_VALID,DKIM_VALID_AU,FREEMAIL_FORGED_FROMDOMAIN,FREEMAIL_FROM,
-	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
-	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,USER_AGENT_GIT
-	autolearn=unavailable autolearn_force=no version=4.0.1
+X-Spam-Status: No, score=-14.8 required=3.0 tests=BAYES_00,DKIM_SIGNED,
+	DKIM_VALID,DKIM_VALID_AU,FORGED_GMAIL_RCVD,FREEMAIL_FORGED_FROMDOMAIN,
+	FREEMAIL_FROM,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,
+	INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,
+	USER_AGENT_GIT autolearn=unavailable autolearn_force=no version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-Add a binding for MIPI-DSI video-mode panels based on the Novatek
-NT36525 controller. The first compatible names the specific panel as
-fitted in a device; the second is the NT36525 controller it is based
-on. The initial user is the panel in the Samsung Galaxy XCover5
-(SM-G525F).
+Currently Lock::new() only accepts an infallible initializer for the
+protected data, because impl PinInit<T> defaults the error type to
+Infallible. This prevents wrapping a fallible initializer, such as
+Opaque::try_ffi_init(), in a Mutex or SpinLock.
 
-The binding was drafted during XCover5 mainline bring-up with the help
-of an AI coding assistant (Claude Code, Anthropic), from a description
-of the panel and the stock device tree, and reviewed and validated
-(dt_binding_check, yamllint) by me.
+Make Lock::new() generic over the error type E, so that it accepts any
+impl PinInit<T, E> and returns impl PinInit<Self, E>. E must implement
+From<Infallible>, since initializing the lock state itself cannot fail.
 
-Signed-off-by: Adil Hüsrev Tepe <tadilhusrev@gmail.com>
+This is needed, for example, by the GPU buddy allocator, which has a
+TODO to move its gpu_buddy structure inside the mutex.
+
+Signed-off-by: Ivan Tverdokhleb <mbkchelofficialdev@gmail.com>
 ---
- .../display/panel/novatek,nt36525.yaml        | 71 +++++++++++++++++++
- 1 file changed, 71 insertions(+)
- create mode 100644 Documentation/devicetree/bindings/display/panel/novatek,nt36525.yaml
+ rust/kernel/sync/lock.rs | 8 ++++----
+ 1 file changed, 4 insertions(+), 4 deletions(-)
 
-diff --git a/Documentation/devicetree/bindings/display/panel/novatek,nt36525.yaml b/Documentation/devicetree/bindings/display/panel/novatek,nt36525.yaml
-new file mode 100644
-index 000000000..5c6e7cce0
---- /dev/null
-+++ b/Documentation/devicetree/bindings/display/panel/novatek,nt36525.yaml
-@@ -0,0 +1,71 @@
-+# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
-+%YAML 1.2
-+---
-+$id: http://devicetree.org/schemas/display/panel/novatek,nt36525.yaml#
-+$schema: http://devicetree.org/meta-schemas/core.yaml#
-+
-+title: Novatek NT36525 MIPI-DSI panel
-+
-+maintainers:
-+  - Adil Hüsrev Tepe <tadilhusrev@gmail.com>
-+
-+description:
-+  A MIPI-DSI video-mode panel driven by a Novatek NT36525 controller,
-+  720x1480. The first compatible string names the specific panel as fitted
-+  in a device; the second is the NT36525 controller it is based on. The
-+  panel reset (RESX) is active high in the Samsung Galaxy XCover5 bring-up
-+  sequence.
-+
-+allOf:
-+  - $ref: panel-common.yaml#
-+
-+properties:
-+  compatible:
-+    items:
-+      - enum:
-+          - samsung,xcover5-nt36525
-+      - const: novatek,nt36525
-+
-+  reg:
-+    maxItems: 1
-+    description: DSI virtual channel
-+
-+  reset-gpios:
-+    maxItems: 1
-+
-+  vdd-supply:
-+    description: panel power supply
-+
-+  port: true
-+
-+required:
-+  - compatible
-+  - reg
-+  - reset-gpios
-+  - vdd-supply
-+  - port
-+
-+additionalProperties: false
-+
-+examples:
-+  - |
-+    #include <dt-bindings/gpio/gpio.h>
-+
-+    dsi {
-+        #address-cells = <1>;
-+        #size-cells = <0>;
-+
-+        panel@0 {
-+            compatible = "samsung,xcover5-nt36525", "novatek,nt36525";
-+            reg = <0>;
-+            reset-gpios = <&gpa0 0 GPIO_ACTIVE_HIGH>;
-+            vdd-supply = <&panel_vdd>;
-+
-+            port {
-+                panel_in: endpoint {
-+                    remote-endpoint = <&dsi_out>;
-+                };
-+            };
-+        };
-+    };
-+...
+diff --git a/rust/kernel/sync/lock.rs b/rust/kernel/sync/lock.rs
+index 10b6b5e9b024..26c071088b02 100644
+--- a/rust/kernel/sync/lock.rs
++++ b/rust/kernel/sync/lock.rs
+@@ -128,11 +128,11 @@ unsafe impl<T: ?Sized + Send, B: Backend> Sync for Lock<T, B> {}
+ 
+ impl<T, B: Backend> Lock<T, B> {
+     /// Constructs a new lock initialiser.
+-    pub fn new(
+-        t: impl PinInit<T>,
++    pub fn new<E: core::convert::From<core::convert::Infallible>>(
++        t: impl PinInit<T, E>,
+         name: &'static CStr,
+         key: Pin<&'static LockClassKey>,
+-    ) -> impl PinInit<Self> {
++    ) -> impl PinInit<Self, E> {
+         pin_init!(Self {
+             data <- UnsafeCell::pin_init(t),
+             _pin: PhantomPinned,
+@@ -141,7 +141,7 @@ pub fn new(
+             state <- Opaque::ffi_init(|slot| unsafe {
+                 B::init(slot, name.as_char_ptr(), key.as_ptr())
+             }),
+-        })
++        }? E)
+     }
+ }
+ 
 -- 
-2.53.0
+2.56.1
 
