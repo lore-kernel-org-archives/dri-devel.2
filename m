@@ -2,82 +2,43 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1D8C2606A330
-	for <dri-devel@archiver.kernel.org>; Sat, 14 Nov 2026 14:51:06 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B25EB606A32E
+	for <dri-devel@archiver.kernel.org>; Sat, 14 Nov 2026 14:56:39 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=E4qdlJT4
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ibcIAxwm
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 7B83410E245;
-	Sat, 14 Nov 2026 14:51:00 +0000 (UTC)
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.18])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 5459C10E245
- for <dri-devel@lists.freedesktop.org>; Sat, 14 Nov 2026 14:50:54 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1794667855; x=1826203855;
- h=date:from:to:cc:subject:message-id:references:
- mime-version:in-reply-to;
- bh=xfSb5R7QVeGowcxt6acIHVsFPIN1UpvT8ACebsp3uZs=;
- b=E4qdlJT4UzjHtJQjflayjr+ildmt6kSXIpoRdU0TISCmsI1Iy/yiSO/f
- DNGIilGhwwFwy+bYXA813eQ9CtJCu+9+DklZ680+5nfEJbb7ZOz/iD0Js
- 3o+S+DgaRPH71JYKIoYZP2la9khtO386NKjakOU8+IhyLidh7K73953Qo
- N/yX1l7w35VmPrsnP1mQbRJk2/2R2JcK3rbK1cdXnMD0xBc9/pDXM3GDZ
- CGbp9PoOVFL+1vbcB+owYs472jqODcYauS0QrtEqaAL7Uu032RPnqERZp
- HJwqnLAYxlbwtaG//TQpIQjDlnt44gT0AaZLjxfVS5ENUhTO3kCQPnDG2 A==;
-X-CSE-ConnectionGUID: 7XUc51vdTH2KFtgZVpuSqg==
-X-CSE-MsgGUID: zm5bJfnuTRSYnOM5aEpk7Q==
-X-IronPort-AV: E=McAfee;i="6800,10657,11966"; a="3491728"
-X-IronPort-AV: E=Sophos;i="6.27,213,1787036400"; 
-   d="scan'208";a="3491728"
-Received: from orviesa006.jf.intel.com ([10.64.159.146])
- by fmvoesa112.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 14 Nov 2026 06:50:54 -0800
-X-CSE-ConnectionGUID: WDUILf8cSCuARF2hXQQ1Ig==
-X-CSE-MsgGUID: wIArbPdDQ7Wlmv3HV+HTsA==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,213,1787036400"; 
-   d="scan'208";a="9160945"
-Received: from lkp-server01.sh.intel.com (HELO 0caa9d2d175c) ([10.239.97.150])
- by orviesa006.jf.intel.com with ESMTP; 14 Nov 2026 06:50:47 -0800
-Received: from kbuild by 0caa9d2d175c with local (Exim 4.98.2)
- (envelope-from <lkp@intel.com>) id 1xSF5Y-000000015cW-0yZg;
- Sat, 14 Nov 2026 14:50:44 +0000
-Date: Sat, 14 Nov 2026 22:49:59 +0800
-From: kernel test robot <lkp@intel.com>
-To: Mukesh Ojha <mukesh.ojha@oss.qualcomm.com>,
- Sumit Garg <sumit.garg@oss.qualcomm.com>,
- Bjorn Andersson <andersson@kernel.org>,
- Konrad Dybcio <konradybcio@kernel.org>,
- Rob Clark <robin.clark@oss.qualcomm.com>,
- Dmitry Baryshkov <lumag@kernel.org>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- Vikash Garodia <vikash.garodia@oss.qualcomm.com>,
- Dikshita Agarwal <dikshita.agarwal@oss.qualcomm.com>,
- Bryan O'Donoghue <bod@kernel.org>,
- Mauro Carvalho Chehab <mchehab@kernel.org>,
- Alex Elder <elder@kernel.org>, Andrew Lunn <andrew+netdev@lunn.ch>,
- "David S. Miller" <davem@davemloft.net>,
- Eric Dumazet <edumazet@kernel.org>,
- Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
- Jeff Johnson <jjohnson@kernel.org>,
- Mathieu Poirier <mathieu.poirier@linaro.org>
-Cc: oe-kbuild-all@lists.linux.dev, linux-media@vger.kernel.org,
- netdev@vger.kernel.org, Abel Vesa <abelvesa@kernel.org>,
- Sean Paul <sean@poorly.run>, Akhil P Oommen <akhilpo@oss.qualcomm.com>,
- Abhinav Kumar <abhinav.kumar@linux.dev>,
- Jessica Zhang <jesszhan0024@gmail.com>,
- Marijn Suijten <marijn.suijten@somainline.org>,
- linux-arm-msm@vger.kernel.org, linux-kernel@vger.kernel.org,
- dri-devel@lists.freedesktop.org
-Subject: Re: [PATCH v2 2/9] remoteproc: qcom_wcnss: migrate to
- qcom_mdt_pas_load() and qcom_pas_prepare_and_auth_reset()
-Message-ID: <202611142207.UkqcyoQJ-lkp@intel.com>
-References: <20261113185009.157893-3-mukesh.ojha@oss.qualcomm.com>
-X-Archived-By: <archiver.kernel.org>
-MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261113185009.157893-3-mukesh.ojha@oss.qualcomm.com>
+	by gabe.freedesktop.org (Postfix) with ESMTP id 1736810E25A;
+	Sat, 14 Nov 2026 14:56:34 +0000 (UTC)
+Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 1D56A10E843
+ for <dri-devel@lists.freedesktop.org>; Sat, 14 Nov 2026 14:56:28 +0000 (UTC)
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+ by sea.source.kernel.org (Postfix) with ESMTP id BF9F845B08;
+ Sat, 14 Nov 2026 14:56:27 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 839EA1F000C5;
+ Sat, 14 Nov 2026 14:56:27 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+ s=k20260515; t=1794668187;
+ bh=oUUuZx9waQczCNuKhYOm3eeE+7Z1IP1uoHhKCb6B6Tk=;
+ h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+ b=ibcIAxwmSOTC3Phai8b0c0khT7yQrbhx0fqywF2rTDxpTfov/6H3EZZoK7sQ69f7v
+ OHhUAJBpPeA+dndinZ2tklTyiEEMVaK+634ufR1Aj4hWqqJzWTVxz2WHFU+FBloCEN
+ 8sxNukGEJtsYekGKtnh/0oHZro7vDS5vK7m3XsAojSgdA68i6ppKHKXp0gL5KAlEf+
+ J9qAGOLrSuv1mcJU/blzgWv+dx81dlZO9olu3Wom0Dg1fVD/GgTSI8BAsaM2BhJdJc
+ Y55pmV8bMDWREfU7o2py0hcBaWeodSr4IpUC8oEYwQiG6PiHL8g5DICRMKWnj40blF
+ M/4dSpfjMj2Tw==
+Message-ID: <sashiko-outbox-214650@kernel.org>
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v3 2/3] drm/msm: Destroy the VM_BIND entity when its
+ queue is closed
+To: "Jiwoo Kim" <arpe1618@gmail.com>
+Cc: dri-devel@lists.freedesktop.org
+In-Reply-To: <20261114141851.134290-3-arpe1618@gmail.com>
+References: <20261114141851.134290-1-arpe1618@gmail.com>
+ <20261114141851.134290-3-arpe1618@gmail.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Sat, 14 Nov 2026 14:56:27 +0000
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -88,74 +49,113 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
+Reply-To: sashiko-reviews@lists.linux.dev
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 X-Spam-Status: No, score=-10.8 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
 	DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
-	MAILING_LIST_MULTI,MENTIONS_GIT_HOSTING,SPF_HELO_NONE,SPF_PASS
-	autolearn=unavailable autolearn_force=no version=4.0.1
+	INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS autolearn=ham
+	autolearn_force=no version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
+X-Archived-By: <archiver.kernel.org>
 
-Hi Mukesh,
-
-kernel test robot noticed the following build errors:
-
-[auto build test ERROR on remoteproc/rproc-next]
-[also build test ERROR on drm-misc/drm-misc-next ath/ath-next linus/master v7.4-rc2 next-20261113]
-[cannot apply to linux-review/Mukesh-Ojha/remoteproc-qcom_wcnss-migrate-to-qcom_mdt_pas_load-and-qcom_pas_prepare_and_auth_reset/20260925-212730]
-[If your patch is applied to the wrong git tree, kindly drop us a note.
-And when submitting patch, we suggest to use '--base' as documented in
-https://git-scm.com/docs/git-format-patch#_base_tree_information]
-
-url:    https://github.com/intel-lab-lkp/linux/commits/Mukesh-Ojha/firmware-qcom-pas-add-qcom_pas_context_init-for-pre-allocated-context/20261114-002001
-base:   https://git.kernel.org/pub/scm/linux/kernel/git/remoteproc/linux.git rproc-next
-patch link:    https://lore.kernel.org/r/20261113185009.157893-3-mukesh.ojha%40oss.qualcomm.com
-patch subject: [PATCH v2 2/9] remoteproc: qcom_wcnss: migrate to qcom_mdt_pas_load() and qcom_pas_prepare_and_auth_reset()
-config: arm64-defconfig (https://download.01.org/0day-ci/archive/20261114/202611142207.UkqcyoQJ-lkp@intel.com/config)
-compiler: aarch64-linux-gcc (GCC) 16.2.0
-reproduce (this is a W=1 build): (https://download.01.org/0day-ci/archive/20261114/202611142207.UkqcyoQJ-lkp@intel.com/reproduce)
-
-If you fix the issue in a separate patch/commit (i.e. not just a new version of
-the same patch/commit), kindly add following tags
-| Reported-by: kernel test robot <lkp@intel.com>
-| Closes: https://lore.kernel.org/oe-kbuild-all/202611142207.UkqcyoQJ-lkp@intel.com/
-
-All errors (new ones prefixed by >>):
-
-   drivers/remoteproc/qcom_wcnss.c: In function 'wcnss_load':
->> drivers/remoteproc/qcom_wcnss.c:161:75: error: passing argument 4 of 'qcom_mdt_pas_load' makes pointer from integer without a cast [-Wint-conversion]
-     161 |         ret = qcom_mdt_pas_load(wcnss->pas_ctx, fw, rproc->firmware, wcnss->mem_reloc);
-         |                                                                      ~~~~~^~~~~~~~~~~
-         |                                                                           |
-         |                                                                           phys_addr_t {aka long long unsigned int}
-   drivers/remoteproc/qcom_wcnss.c:161:75: note: possible fix: take the address with '&'
-     161 |         ret = qcom_mdt_pas_load(wcnss->pas_ctx, fw, rproc->firmware, wcnss->mem_reloc);
-         |                                                                      ~~~~~^~~~~~~~~~~
-         |                                                                      &
-   In file included from drivers/remoteproc/qcom_wcnss.c:25:
-   include/linux/soc/qcom/mdt_loader.h:24:58: note: expected 'phys_addr_t *' {aka 'long long unsigned int *'} but argument is of type 'phys_addr_t' {aka 'long long unsigned int'}
-      24 |                       const char *firmware, phys_addr_t *reloc_base);
-         |                                             ~~~~~~~~~~~~~^~~~~~~~~~
-
-
-vim +/qcom_mdt_pas_load +161 drivers/remoteproc/qcom_wcnss.c
-
-   155	
-   156	static int wcnss_load(struct rproc *rproc, const struct firmware *fw)
-   157	{
-   158		struct qcom_wcnss *wcnss = rproc->priv;
-   159		int ret;
-   160	
- > 161		ret = qcom_mdt_pas_load(wcnss->pas_ctx, fw, rproc->firmware, wcnss->mem_reloc);
-   162		if (ret)
-   163			return ret;
-   164	
-   165		qcom_pil_info_store("wcnss", wcnss->mem_phys, wcnss->mem_size);
-   166	
-   167		return 0;
-   168	}
-   169	
-
+Thank you for your contribution! Sashiko AI review found 1 potential
+issue to consider:
+- [High] drm/msm: out-of-order VM_BIND ops when killing entity in
+  close_vm_bind()
 --
-0-DAY CI Kernel Test Service
-https://github.com/intel/lkp-tests/wiki
+
+commit 85e072e9d1eb16c143e9ba2cbe9ba1651898e394
+Author: Jiwoo Kim <arpe1618@gmail.com>
+
+drm/msm: Destroy the VM_BIND entity when its queue is closed
+
+This commit destroys a VM_BIND submitqueue's scheduler entity when the queue
+is closed via MSM_SUBMITQUEUE_CLOSE or file close rather than on the final
+kref put, and rejects new VM_BIND jobs on closed queues.
+
+> diff --git a/drivers/gpu/drm/msm/msm_submitqueue.c b/drivers/gpu/drm/msm/=
+msm_submitqueue.c
+> index 8d550d281704e..2dbe42551bd8f 100644
+> --- a/drivers/gpu/drm/msm/msm_submitqueue.c
+> +++ b/drivers/gpu/drm/msm/msm_submitqueue.c
+[ ... ]
+> @@ -107,6 +104,25 @@ struct msm_gpu_submitqueue *msm_submitqueue_get(stru=
+ct msm_context *ctx,
+>  	return NULL;
+>  }
+> =20
+> +/*
+> + * The VM_BIND scheduler is torn down by msm_gem_vm_close() when the fil=
+e is
+> + * closed, but a VM_BIND queue can outlive that, as long as a job still =
+holds
+> + * a reference to it.  So destroy the VM_BIND entity here, when userspace
+> + * closes the queue, rather than on the final put.  Both ways a queue is=
+ taken
+> + * off ctx->submitqueues come through here.
+> + */
+> +static void msm_submitqueue_close_vm_bind(struct msm_gpu_submitqueue *qu=
+eue)
+> +{
+> +	if (queue->entity !=3D &queue->_vm_bind_entity[0])
+> +		return;
+> +
+> +	mutex_lock(&queue->lock);
+> +	queue->vm_bind_closed =3D true;
+> +	mutex_unlock(&queue->lock);
+> +
+> +	drm_sched_entity_destroy(queue->entity);
+> +}
+
+[Severity: High]
+Can destroying a single VM_BIND entity here cause page table updates on a
+sibling VM_BIND queue of the same VM to run out of order with a killed job's
+cleanup?
+
+All VM_BIND queues in a context share ctx->vm and synchronously update its
+drm_gpuvm state during msm_ioctl_vm_bind(), while deferring the actual IOMMU
+page table updates to the scheduler.  When drm_sched_entity_destroy() is
+interrupted by a fatal signal in msm_submitqueue_remove() (or times out or
+is killed in msm_submitqueue_close()), drm_sched_entity_fini() kills the
+entity's remaining jobs while sibling VM_BIND queues on the same VM can sti=
+ll
+run jobs on vm->sched.
+
+Because msm_gem_vm_unusable() is only called inside msm_vma_job_free() after
+a killed job's in-fences signal and after vm_bind_job_apply_ops(job,
+-ECANCELED) finishes, vm->unusable stays false in the meantime.  Even when a
+job J2 on queue Q2 depends on the out-fence of job J1 on queue Q1,
+drm_sched_entity_kill_jobs_work() signals J1's scheduled and finished fences
+before calling free_job():
+
+CPU0 (system_wq)                  CPU1 (vm->sched.submit_wq)
+drm_sched_entity_kill_jobs_work()
+  drm_sched_fence_scheduled(J1)
+  drm_sched_fence_finished(J1)
+                                  msm_vma_job_run(J2)
+                                    /* vm->unusable is still false */
+                                    vm_bind_job_apply_ops(J2, 0)
+                                      vm_map_op(iova, BO_B)
+  msm_vma_job_free(J1)
+    vm_bind_job_apply_ops(J1, -ECANCELED)
+      vm_unmap_op(iova, BO_0)     <-- unmaps BO_B's live mapping
+    msm_gem_vm_unusable(job->vm)
+
+Conversely, if J1 on Q2 maps BO_B at iova and J2 on Q1 unmaps it (removing
+the VMA from drm_gpuvm in vm_bind_job_prepare()), killing Q1 lets
+msm_vma_job_free(J2) run vm_unmap_op() before msm_vma_job_run(J1) acquires
+vm->mmu_lock (having already read vm->unusable as false):
+
+drivers/gpu/drm/msm/msm_gem_vma.c:msm_vma_job_run() {
+    ...
+	ret =3D vm_bind_job_apply_ops(job, vm->unusable ? -EINVAL : 0);
+}
+
+J1 then maps BO_B into the IOMMU page tables after J2's unmap has already
+executed and after the VMA and GEM object references have been dropped,
+leaving freed physical pages mapped in the GPU IOMMU.
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261114141851.1342=
+90-1-arpe1618@gmail.com?part=3D2
