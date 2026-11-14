@@ -2,96 +2,109 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 50F17606A331
-	for <dri-devel@archiver.kernel.org>; Sat, 14 Nov 2026 16:11:35 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A0991606A32D
+	for <dri-devel@archiver.kernel.org>; Sat, 14 Nov 2026 16:17:54 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=Rl0RAIDa
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=H+o0zQKe
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 7F3BF10EC73;
-	Sat, 14 Nov 2026 16:11:29 +0000 (UTC)
-Received: from mail-dy1-f182.google.com (mail-dy1-f182.google.com
- [74.125.82.182])
- by gabe.freedesktop.org (Postfix) with ESMTPS id EAD7510EC9E
- for <dri-devel@lists.freedesktop.org>; Sat, 14 Nov 2026 16:11:23 +0000 (UTC)
-Received: by mail-dy1-f182.google.com with SMTP id
- 5a478bee46e88-36fc0a3fe93so3783669eec.0
- for <dri-devel@lists.freedesktop.org>; Sat, 14 Nov 2026 08:11:23 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20260707; t=1794672683; x=1795277483; darn=lists.freedesktop.org;
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:date:subject:cc:to:from:from:to:cc:subject:date
- :message-id:reply-to:content-type;
- bh=kYhEGps0UomI4ThdCaZM/6xhr977LUTH98N7MCn1AQg=;
- b=Rl0RAIDa3oUmQhbTfxk1bZ/f+szCzAqun2NG1I4IctUi1r3Pvk7hhN+o+/SPXvN6aU
- QLEXmhJt29WqxyovuzzGCplk7GRz804eQR3fyHJ1Vm2mCj5QwvF31fCp+sxQcpfD6YUG
- 8qD7qUhuOqmto3whBv6EC5+pUvIFE36VjwvcOXdmXV1kdbKEDY+mBqX45cFTOP6Oq2LJ
- WSXyZ9Pg0uWS65YmWfImP6RigIga9wJIWLuST37sYwAE+cGP8lUFnIdI45QL2JG5WMGU
- gN3PMStPcr7g6t2F42829PJc55LPyODbKaQ16hcYmzuXx1+udlYvLSP7yUquGNVzAf5I
- /KHQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20260707; t=1794672683; x=1795277483;
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
- :to:cc:subject:date:message-id:reply-to:content-type;
- bh=kYhEGps0UomI4ThdCaZM/6xhr977LUTH98N7MCn1AQg=;
- b=wGGZu2l9oYCPAXNdjMTkQiARU+aBElIFeUFYtb3yKycocicW5YmxX06ZWufP/U1KBZ
- qE4bWAvKZ9Bcw6ZhkJ/lxp/L9BIKvBc/Y/fF8AqO/QwumQfgjZRcdABGRtMrmlTg1mgb
- BDUy/dW91aS5gk7nMSeA2uzmu+Oc2cwIZL86rLE475eoh4VOT2PAtk6N1IFd0fx8FBCf
- BcUj7vloTxOvvAvH0j5YUttanMY7XRb4tI8IpeEBHygL8LlcivAXiDTR5E3ZakM+jhrG
- UkvlSyDqQaBTaPW0vdZ9syE8LvLQFpdosIOvYxVmc7u9x3jZ4MXHSuvgpX9W4dDKLkdj
- R75A==
-X-Forwarded-Encrypted: i=1;
- AL+hErFIPTU8kKU0xkJhLp+okf1B5liJl8uOjKHzC2g+G9j8RWN5HBCUFc1B18Ij3QOzgCU8/Db/7p7BB1g=@lists.freedesktop.org
-X-Gm-Message-State: APuU4Z9dyEpH3bNgTohngravSoEEL82TNpEXm3GdjqtJn+yZoJV68ej7
- zGVvsTaqx1maASqcnkDMrxerdl4mmESyZSf6Bx88T7NmkO15BnJukVA=
-X-Gm-Gg: AYBFou1ioA4EmR3MFUnbwLU5XjWr9NblE1yd1BWNDfF272bMD3CJER6B2l/K5Amci9R
- NCZI0gab+9cTLpQp/dWB8oZC3b+vfFDHLlniGNNUV4lUZx0l6OPFQ0x3xI4QSpgZFRtiFEpAAz2
- P7zhJyR/yNuXni9nJQKu9O/tnll+HbxzhvWYU7WOP5haPLkuB1zPSrGqNRDgi4xfYfBwx/lvlh7
- tJwS/VJoDPM+PVxh0p5bx5xg5Nc0/DonGOkdvutGEm5bRpQ8McTHSQ26VQ7BF0dPV3fH9AXn17N
- LSFjn3tNICbuynE4csg8lSXRjDYzbuWDTHZth/VFazFEog932PHBvjtxjume+RDvcliH21oRq9a
- DDc9GwqQd2DBvPbflFwiyc3ePjsrK9r2yyMgSuhTmf6XIShoLkUZ8CgEAWTIFly1QJFSK7BQK0x
- laiK2eTlMFym/DBDJkytQFMJq+4jVtx3uJU2xkHbT0QQg0biUG0xH4BlZn8Rs8Vq0jkgCKvdOZJ
- snOKEUQuWjNHByWOON63tPcs3mteAt433QAfHHI0DcNQUf2ILvpyxasOuoRgBHYnitakIiU9dc0
- AHUGgZvbTc9xF1FTLL+lpvWxtawHJBYPUKQ0b5EtbJIo2VFBEtrowHqtp7O9LbSf7w==
-X-Received: by 2002:a05:693c:8115:b0:36a:1008:5815 with SMTP id
- 5a478bee46e88-37963372d85mr5904580eec.5.1794672683015; 
- Sat, 14 Nov 2026 08:11:23 -0800 (PST)
-Received: from at-Standard-PC-Q35-ICH9-2009 ([106.202.127.108])
- by smtp.gmail.com with ESMTPSA id
- 5a478bee46e88-37956bb0919sm17567582eec.29.2026.11.14.08.11.09
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Sat, 14 Nov 2026 08:11:22 -0800 (PST)
-From: Atharva Tiwari <atharvatiwarilinuxdev@gmail.com>
-To: 
-Cc: Andre Eikmeyer <dev@deq.rocks>, Sebastian Zygadlo <szgit@icloud.com>,
- Yossef Osman <yossef.osman@proton.me>,
- Atharva Tiwari <atharvatiwarilinuxdev@gmail.com>,
- Bjorn Helgaas <bhelgaas@google.com>, Thomas Gleixner <tglx@kernel.org>,
- Ingo Molnar <mingo@redhat.com>, Borislav Petkov <bp@alien8.de>,
- Dave Hansen <dave.hansen@linux.intel.com>,
- x86@kernel.org (maintainer:X86 ARCHITECTURE (32-BIT AND 64-BIT)),
- "H. Peter Anvin" <hpa@zytor.com>, Alex Deucher <alexander.deucher@amd.com>,
- =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- Harry Wentland <harry.wentland@amd.com>, Leo Li <sunpeng.li@amd.com>,
- Rodrigo Siqueira <siqueira@igalia.com>,
- Kenneth Feng <kenneth.feng@amd.com>, Hans de Goede <hansg@kernel.org>,
- =?UTF-8?q?Ilpo=20J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>,
- linux-pci@vger.kernel.org (open list:PCI SUBSYSTEM),
- linux-kernel@vger.kernel.org (open list:X86 ARCHITECTURE (32-BIT AND 64-BIT)), 
- amd-gfx@lists.freedesktop.org (open list:RADEON and AMDGPU DRM DRIVERS),
- dri-devel@lists.freedesktop.org (open list:DRM DRIVERS),
- platform-driver-x86@vger.kernel.org (open list:X86 PLATFORM DRIVERS)
-Subject: [PATCH v2 12/12] drm/amd/display: Skip panel power savings on eDP
- links without a panel
-Date: Sat, 14 Nov 2026 11:06:36 -0500
-Message-ID: <20261114160731.3756-13-atharvatiwarilinuxdev@gmail.com>
-X-Mailer: git-send-email 2.55.0
-In-Reply-To: <20261114160731.3756-1-atharvatiwarilinuxdev@gmail.com>
-References: <20261114160731.3756-1-atharvatiwarilinuxdev@gmail.com>
+	by gabe.freedesktop.org (Postfix) with ESMTP id B484D10E2B0;
+	Sat, 14 Nov 2026 16:17:48 +0000 (UTC)
+Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 1F1F910E168;
+ Sat, 14 Nov 2026 16:17:42 +0000 (UTC)
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+ by sea.source.kernel.org (Postfix) with ESMTP id 99C91400CE;
+ Sat, 14 Nov 2026 16:17:41 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8B4631F000C5;
+ Sat, 14 Nov 2026 16:17:32 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+ s=k20260515; t=1794673061;
+ bh=LG93qKhG+N0YzkKVt1kZxr2I4R5vNgIJxzUIUOArJxg=;
+ h=Date:Subject:To:Cc:References:From:In-Reply-To;
+ b=H+o0zQKevrxN2RqI7ZiEvtvyYAmczSPPRUty+Me1GnOITblIdxrCfOPY1BtO+Qb3x
+ FwLY8mphgY8Y8Tey96xcy7xmmtpXOpSJOR4lt1PbvUsFAyVyaHoYa4Z6kmpTrPhzmf
+ Yejfri/UxWoUkzbk/4Pt0DpyHJuCVKE3oantMWAJ84BpkYO5csTlSFqjDF6REMmZSF
+ pnbnVPelq5lrwhWx/avtuYaYXGpa/zk3XdGOysdZ5Nta1VFwSNJn3XmafKfjboFLxC
+ Jamcx1VKWKOIZskFqsMxw0wgW7UcWmBsHxQWNmLb5E6/qRT/S50HIogXBoVDTkksUu
+ hGy8wtvaqIfwg==
+Message-ID: <beb98f9c-c6fb-4bf6-962a-46f542a19c53@kernel.org>
+Date: Sat, 14 Nov 2026 17:17:27 +0100
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 0/5] mm,drm/i915,powerpc/spufs: vm_ops->access related
+ fixes
+To: Lorenzo Stoakes <ljs@kernel.org>, "Liam R. Howlett" <liam@infradead.org>, 
+ Vlastimil Babka <vbabka@kernel.org>, Mike Rapoport <rppt@kernel.org>,
+ Suren Baghdasaryan <surenb@google.com>, Michal Hocko <mhocko@suse.com>,
+ Andrew Morton <akpm@linux-foundation.org>, Willy Tarreau <w@1wt.eu>,
+ Jani Nikula <jani.nikula@linux.intel.com>,
+ Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
+ Rodrigo Vivi <rodrigo.vivi@intel.com>, Tvrtko Ursulin
+ <tursulin@ursulin.net>, David Airlie <airlied@gmail.com>,
+ Simona Vetter <simona@ffwll.ch>, Chris Wilson <chris@chris-wilson.co.uk>,
+ Matthew Auld <matthew.auld@intel.com>,
+ Madhavan Srinivasan <maddy@linux.ibm.com>,
+ Michael Ellerman <mpe@ellerman.id.au>, Nicholas Piggin <npiggin@gmail.com>,
+ "Christophe Leroy (CS GROUP)" <chleroy@kernel.org>,
+ "Ritesh Harjani (IBM)" <ritesh.list@gmail.com>,
+ Shrikanth Hegde <sshegde@linux.ibm.com>, Rik van Riel <riel@redhat.com>,
+ Benjamin Herrenschmidt <benh@kernel.crashing.org>
+Cc: linux-mm@kvack.org, linux-kernel@vger.kernel.org,
+ intel-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
+ linuxppc-dev@lists.ozlabs.org, Chris Mason <mason@kernel.org>,
+ stable@vger.kernel.org, Felix Kuehling <Felix.Kuehling@amd.com>,
+ =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>
+References: <20261112-access_shite-v1-0-988a5c470db2@kernel.org>
+From: "David Hildenbrand (Arm)" <david@kernel.org>
+Content-Language: en-US
+Autocrypt: addr=david@kernel.org; keydata=
+ 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
+ qIws/H2t
+In-Reply-To: <20261112-access_shite-v1-0-988a5c470db2@kernel.org>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -103,58 +116,65 @@ List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-15.8 required=3.0 tests=BAYES_00,DKIM_SIGNED,
-	DKIM_VALID,DKIM_VALID_AU,FREEMAIL_FORGED_FROMDOMAIN,FREEMAIL_FROM,
-	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
-	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,USER_AGENT_GIT
-	autolearn=unavailable autolearn_force=no version=4.0.1
+X-Spam-Status: No, score=-17.3 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
+	DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
+	INCLUDES_CR_TRAILER,INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,
+	SPF_PASS,USER_AGENT_SANE_1 autolearn=unavailable autolearn_force=no
+	version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-From: Andre Eikmeyer <dev@deq.rocks>
+On 11/12/26 23:08, David Hildenbrand (Arm) wrote:
+> While working on vm_ops->access related fixes in core code for FOLL_ANON
+> and VMA access permission + size handling, I stumbled over two driver
+> issues. Also, I have to update one selftest that specifies PROT_WRITE
+> but actually wants read-access.
+> 
+> Fixing it all in this series, because it's all intertwined.
+> 
+> In patch #5 we break a debugging use case for older ROCm versions, where
+> the amdgpu driver hacked around it by exploiting broken access checks in
+> core-mm.
+> 
+> Tested as good as I can with selftests. I cannot really test the
+> i915 and powerpc/spufs stuff on real hardware.
+> 
+> Signed-off-by: David Hildenbrand (Arm) <david@kernel.org>
+> ---
+> Chris Mason (1):
+>       mm: do not call vm_ops->access with FOLL_ANON
+> 
+> David Hildenbrand (Arm) (4):
+>       drm/i915: consider vm_pgoff in vm_access()
+>       drm/i915/selftests: request read access for mmap access tests
+>       powerpc/spufs: consider vm_pgoff in spufs_mem_mmap_access()
+>       mm: check permissions and bounds for vm_ops->access
+> 
+>  arch/powerpc/platforms/cell/spufs/file.c           |  3 ++-
+>  drivers/gpu/drm/i915/gem/i915_gem_mman.c           |  4 +++-
+>  drivers/gpu/drm/i915/gem/selftests/i915_gem_mman.c |  3 ++-
+>  mm/memory.c                                        | 28 ++++++++++++++++++++--
+>  4 files changed, 33 insertions(+), 5 deletions(-)
+> 
 
-When GMUX routes the internal panel to the integrated GPU, the eDP link
-of the AMD GPU has no sink. It still exposed panel_power_savings, and
-tuned writes it on every switch between AC and battery. Each write sends
-a hotplug event and the following connector probe runtime resumes the
-GPU that GMUX had powered off. Only create the attribute when the link
-has a panel.
+We get some test failures regarding error handling: e.g.,
+https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_178442v1/shard-glk6/igt@gem_mmap_offset@oob-read.html
 
-Tested-by: Sebastian Zygadlo <szgit@icloud.com>
-Tested-by: Yossef Osman <yossef.osman@proton.me>
-Signed-off-by: Andre Eikmeyer <dev@deq.rocks>
-Signed-off-by: Atharva Tiwari <atharvatiwarilinuxdev@gmail.com>
----
- drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_backlight.c    | 3 +++
- .../drm/amd/display/amdgpu_dm/tests/amdgpu_dm_backlight_test.c | 1 +
- 2 files changed, 4 insertions(+)
+It's all about error handling.
 
-diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_backlight.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_backlight.c
-index 703d0617d..c8fbd2167 100644
---- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_backlight.c
-+++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_backlight.c
-@@ -761,6 +761,9 @@ amdgpu_dm_should_create_sysfs(struct amdgpu_dm_connector *amdgpu_dm_connector)
- 	if (amdgpu_dm_connector->base.connector_type != DRM_MODE_CONNECTOR_eDP)
- 		return false;
- 
-+	if (!amdgpu_dm_connector->dc_link->edp_sink_present)
-+		return false;
-+
- 	if (link->panel_type != PANEL_TYPE_LCD && !link->panel_config.cacp.cacp_supported)
- 		return false;
- 
-diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/tests/amdgpu_dm_backlight_test.c b/drivers/gpu/drm/amd/display/amdgpu_dm/tests/amdgpu_dm_backlight_test.c
-index 7ca17f803..d71f5e5da 100644
---- a/drivers/gpu/drm/amd/display/amdgpu_dm/tests/amdgpu_dm_backlight_test.c
-+++ b/drivers/gpu/drm/amd/display/amdgpu_dm/tests/amdgpu_dm_backlight_test.c
-@@ -52,6 +52,7 @@ static void setup_test_connector(struct kunit *test,
- 	fixture->aconnector->dc_link = fixture->link;
- 	fixture->aconnector->base.dev = &fixture->adev->ddev;
- 	fixture->link->connector_signal = signal;
-+	fixture->link->edp_sink_present = true;
- }
- 
- static void setup_test_dm_ddev(struct kunit *test, struct amdgpu_display_manager *dm)
+Before the correct handling in patch #5, we would pass a size that exceeds the
+actual VMA to vm_access(), and that one would return -EIO.
+
+In the test above 8 bytes whereby the VMA only allowed for 4 more bytes.
+
+Now we properly handle that in core code and get a partial read completion on
+the 4 bytes.
+
+I think the test should be fixed to expect a partial read completion.
+
+We won't hack around this in core-mm.
+
 -- 
-2.55.0
+Cheers,
 
+David
