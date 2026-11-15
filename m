@@ -2,68 +2,68 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 99179606A32C
-	for <dri-devel@archiver.kernel.org>; Sun, 15 Nov 2026 06:11:48 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3D17D606A323
+	for <dri-devel@archiver.kernel.org>; Sun, 15 Nov 2026 06:11:50 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=y/7ouGM/
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=kOfdagFa
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id B250D10E200;
-	Sun, 15 Nov 2026 06:11:41 +0000 (UTC)
-Received: from mail-wm1-f44.google.com (mail-wm1-f44.google.com
- [209.85.128.44])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 013E110E079
- for <dri-devel@lists.freedesktop.org>; Sun, 15 Nov 2026 06:11:27 +0000 (UTC)
-Received: by mail-wm1-f44.google.com with SMTP id
- 5b1f17b1804b1-49d05d51553so12304975e9.2
- for <dri-devel@lists.freedesktop.org>; Sat, 14 Nov 2026 22:11:27 -0800 (PST)
+	by gabe.freedesktop.org (Postfix) with ESMTP id B7A0010E20A;
+	Sun, 15 Nov 2026 06:11:42 +0000 (UTC)
+Received: from mail-wm1-f52.google.com (mail-wm1-f52.google.com
+ [209.85.128.52])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 638B710E1D0
+ for <dri-devel@lists.freedesktop.org>; Sun, 15 Nov 2026 06:11:25 +0000 (UTC)
+Received: by mail-wm1-f52.google.com with SMTP id
+ 5b1f17b1804b1-4a1fbd52ab6so19755655e9.0
+ for <dri-devel@lists.freedesktop.org>; Sat, 14 Nov 2026 22:11:25 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20260707; t=1794723086; x=1795327886; darn=lists.freedesktop.org;
+ d=gmail.com; s=20260707; t=1794723084; x=1795327884; darn=lists.freedesktop.org;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:from:to:cc:subject:date
  :message-id:reply-to:content-type;
- bh=bKP+aWmCnAOyzY6tYN5Sieibvo/NSg7cNkXShke5YqE=;
- b=y/7ouGM/I8ouD3tMcOHCITsRFc3I5lrnCeGyYSvpTGcWswelYy07Scvcxh2uKRqCVs
- 1LqFXklRptmTvjKz5wzHO6hMRLmGJpzy54B+03CmBrJajtVpmTS7p3pbx/ZXCr5GkeYs
- bWRwNoRChn3EHBN1Ttc/tXM8TNqLSnCSBAB/6bmTIrZeQqn0hyz9OMUb22qpx8iNoGi/
- MmXwT4AI0pIddwZFMZvVbVBxWcGtHhF8lGNiGNdk+5Gu1MqmbyQrLFouEZegfgVf/wAR
- Y93vQznlg8ksoLoO4+cihVWf5e8O1YyFEmiksMzF2JiY5iIvZCX0DxMSvDjmeCmQjdZE
- 1IAA==
+ bh=tAc8EDwX+oraDK+6dFO3Rvp07/tBaltgJEnu0lCCOi8=;
+ b=kOfdagFaj/bnPzwXEl3dU1RaoCWW0pRLKJGMRnKHe2lIxYF2dl9YnnhIYGg34xxMXi
+ fImRQ/IfJ4CAGlWZGfe1jZibm1OSK73Cq8CDpDT2Yyf1hdsAXWQsg7a2GkgHJIFKmrRp
+ FUa1aDsilP1Ur7bDIihlKscL6rOzMjzOxrRp3dW0YhGfJAxFy8q//XnNDxy8y75Wg8Tl
+ zZkdnLsHzb6oXa6uLJmXU0DE2aEe52Z1h5H/EWdvvsu26QvkTUV/0I+5T3jRKJ++YFSt
+ lN4FOBUj0wTod7j6KEmiGHcOdUO54qDIqU94Aiykn/DBSpJxdiPGkkxbsVjwuiH7WZv3
+ 0iwg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20260707; t=1794723086; x=1795327886;
+ d=1e100.net; s=20260707; t=1794723084; x=1795327884;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
  :to:cc:subject:date:message-id:reply-to:content-type;
- bh=bKP+aWmCnAOyzY6tYN5Sieibvo/NSg7cNkXShke5YqE=;
- b=xcD98+PhtRXxzL1jAbbv8WiVyocNNRhzgfkQlE7RwM4iHMBCMC6LsC5gPW06Rs1ygN
- Ys+S2RIs7X1N4CjEMTE/VGVAmrNAplJQLy43Z5ZvFd/ppP/BFAzN3CU6XwAo4EKibiZ5
- XSdHEADklk3v8+hUvmMlWfk/SaTjdu5ItqH0j4Gs9NiNqZymwpQBrrJQZ7849QsBBTU6
- FsgBv65LbAivhVo2sVkAd//b6U60go3fV/UQwHRtdYYBeVguMyRLNZXNwz8C1+kW1QOd
- G7VInwoqrPhPmcR0EKjvzyfZ09LLpryH6+cuMgcFNmvDQTiEJLEr3boHpKvdHdstC8jk
- 72Hg==
+ bh=tAc8EDwX+oraDK+6dFO3Rvp07/tBaltgJEnu0lCCOi8=;
+ b=vb5zO8pG0Y9wWGsDKonJLNOSIwDVxs/ZdgnyW3rVAMi8z2bjRSGZU4eFN0jc9vFAMM
+ 072csE+QTsKUYaVEVhdr0sVMH8f70v+1dluTejx/85A/HhIbXGl0eT3EmRIUz+A4RSxf
+ bneHVWFWfhgcCjYYnUFOBzjDYk7Lbhq8GsQc5G+7LBCmLb3fNe1W05QeR2ACTStvkkuJ
+ Oukxz9aioUcC9s5UdX09tKenwRRBq1jUI5wedQ5L3/bsFkEOgiygLb4hfeN/fjvlHDvy
+ GSPgPmpph5OkIVI8IqkmdtwOtxpbtRYKwcbSt10mh0AhMjQhJeK1O97angDaDeoEePRg
+ mhlg==
 X-Forwarded-Encrypted: i=1;
- AL+hErFIFloOC6fnF8C7cQBzY2onaH+KwpZH2YSeR/+9cO6uVEoW5HtagmEir4euSG3rkcnzld5iP0DHWzY=@lists.freedesktop.org
-X-Gm-Message-State: APuU4Z/poqYUF8txrKCOfVeK1mZ5Dh5U9OoeJunjH1osvIIdChO2Ygfa
- uNbTFnhzITTOvjzkIhm4YiZqLKyLKoduFPlMvaJffEuF8dRMpt9cGVTN
-X-Gm-Gg: AYBFou1T1kd7ELf9eldExpJz45QWkD6mpdYHl08ytIchW4oDCybaq/zQXzLhn3MlIZM
- nSy8Ka2HOKT5vCTyuI3cIaNS8Zyeh0ztjzwCmwqZ/IQJg9oa2NLCysuHSDU8CyHj4SrzBSNQY/d
- Fvf6dQBvV8+ubZymg8N1WZWHgW8yHSv5j089SxxwzuIqk/NECAwFkHT0SVS/B99XuTZRT9n7BAk
- 6KY7Q3NFnlG1nL6ia1L33OgLceQAuPF7ssGXtG8yKTtBz9iCPa19KsDHHCTy2Rs4sEhLxr9HdgN
- cRjeCNCozUg8VSktXe9NG9K8YfpTZoWdMXGWGBGEmFq7Z2mgIWLkZuICOEZSlQFIZ2Fn8wNeCLv
- 7bGY9TPmvqr4dJNTI96J56jxznbye5Igpd94DUFaN030cVO2+jzrbEt9z5PAyYUp3YKTad3ym+D
- UxxbTfIyho4FSPMfelO7mIcd9HGAQUhp6b3rxjG0uw7ab7wzlryrF8cTYez2Mp5JmbIayyUnohP
- Y8N8+kYo0r00aJrlEQjQiG5sX4RCCmcBYayIkLeCGW7inOqj0rv8p9/UIzP/+WlogDtkbpaeK7/
- guj4GtI3k53UQU3aobuZN3V1qtoPkGQbFMounwJK6SYpeSa68Y6lN+KXX47Ez4CPYNccseJ1UTU
- K1bBe0nyMcTYgIvQc7IALSlE2aTQXLKZO0XZgHC4cGIVvOpX0xSrEFOR0eHvQB1k0ls9l+aETFK
- 8Nn6d5Rd2TZcufTVAz/iA/C1nGpM09ZDCmOUJTEWyBDbpj6evIkNzZj7pdqTEi6ZoQJf0L9v+Ud
- t18roxZjJje9g==
-X-Received: by 2002:a05:600c:3487:b0:4a2:526b:d410 with SMTP id
- 5b1f17b1804b1-4bb55a4f1b4mr151025935e9.13.1794723086291; 
- Sat, 14 Nov 2026 22:11:26 -0800 (PST)
+ AL+hErF4vaTbY9uGXgaTHtDw79znlZF5IGJdF9t6k5wZDL2n4NraVl4fMHbudBuE6L88G8OhodFlZGyKEwc=@lists.freedesktop.org
+X-Gm-Message-State: APuU4Z9nVXS80de8m4o1U+DCmTYAf2Sfb+zhPwJfMhnX7nG1Y/9ILKfb
+ JqMHRzAOMgR3JOL9IALiKlTSUrMdNQ4G4yiCHsZefxHPCocxtj4zMq0+
+X-Gm-Gg: AYBFou1EcIEM1nWxR+bRHtmQMpBG7cbgGhMkOs6KupjnaccXmAs+vFYxTv4bu5ZJpor
+ zB2nwHLnIvrgWE5W5AiwXkzfgggDDRq/gPsXfDyhw2TxQsMYRGDvo6KQUhidiwFkhleIiJQSOcT
+ UxSKxgWRJKTb9gahaUO3SYg1xorLjLvAPpuQFQXRD+7jOTN1CLoxl1PQTTR+knKzOa36gxU5m2L
+ CrKiwb93/USup6l7u6bEjML8N00S6vxh04WTZ/KJFk12doJtozUqNtCYlIOjTSCvpc095pU+4z7
+ My/6zx0y75fvXI3qFj/veRv6tKN/EEudsZO4J1yBO9j/vOdruZvay8aJKEd+8aePjKmBguSEE4s
+ XgFYEc/LGKMNg8t/+uqQDwOPnt45VzpbHoruc0IYctRvlOOdc9shqk9DOhWTlsX2sYW26a5d06x
+ YEwhtMlolBP4YIKhybAp4UzHplYaeYaDstZTsyylkANJ8OsI9B2LfE7K2j9hSvKF/Olhcr+LAwW
+ dzuvjX9F2uz7wtvosfrnYFjlRiUM7sw6wXKifHPq6uzxRpT+DTbZn67lC60jjFNyRdJdV6TWILF
+ E/YQJB/stpw71AHBqJwwB1r1mC7ZtayfZwAyBRcs5Zk1+EFOsaZ3HiE45nr8umv2wsU4wikcrdz
+ a7qLB8EHO5ObeC75/OsGvSDnU3u0UW7b66LsTG/6ehtQqRsCbJzRYl05jDQDe9A9UBdVPHa95f2
+ 9r5mdIdoIgcA3oFF9QKAodRnTnB75Ggq+IuX0vvfmR4/0dghq9e1J16MaZIUmkqZsGyLZoh73SP
+ TPSSqXoureCug==
+X-Received: by 2002:a05:600c:4f90:b0:4a2:8c5:5e5 with SMTP id
+ 5b1f17b1804b1-4bb55a47680mr145173255e9.7.1794723083470; 
+ Sat, 14 Nov 2026 22:11:23 -0800 (PST)
 Received: from jernej-laptop ([2a00:ee2:6a02:9300:bb69:6bcf:1b11:e85b])
  by smtp.gmail.com with ESMTPSA id
- 5b1f17b1804b1-4bb5ba25b50sm139331075e9.14.2026.11.14.22.11.25
+ 5b1f17b1804b1-4bb5ba25b50sm139331075e9.14.2026.11.14.22.11.22
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Sat, 14 Nov 2026 22:11:25 -0800 (PST)
+ Sat, 14 Nov 2026 22:11:23 -0800 (PST)
 From: Jernej Skrabec <jernej.skrabec@gmail.com>
 To: Chen-Yu Tsai <wens@kernel.org>,
 	Samuel Holland <samuel@sholland.org>
@@ -74,9 +74,9 @@ Cc: mripard@kernel.org, maarten.lankhorst@linux.intel.com, tzimmermann@suse.de,
  dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org,
  linux-arm-kernel@lists.infradead.org, linux-sunxi@lists.linux.dev,
  linux-kernel@vger.kernel.org, linux-clk@vger.kernel.org
-Subject: [PATCH v3 4/8] drm/sun4i: vi_layer: Limit formats for DE33
-Date: Sun, 15 Nov 2026 07:10:58 +0100
-Message-ID: <20261115061102.229680-5-jernej.skrabec@gmail.com>
+Subject: [PATCH v3 2/8] clk: sunxi-ng: de2: Export register regmap for DE33
+Date: Sun, 15 Nov 2026 07:10:56 +0100
+Message-ID: <20261115061102.229680-3-jernej.skrabec@gmail.com>
 X-Mailer: git-send-email 2.56.1
 In-Reply-To: <20261115061102.229680-1-jernej.skrabec@gmail.com>
 References: <20261115061102.229680-1-jernej.skrabec@gmail.com>
@@ -102,122 +102,88 @@ X-Spam-Status: No, score=-15.8 required=3.0 tests=BAYES_00,DKIM_SIGNED,
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-YUV formats need scaler support due to chroma upscaling, but that's not
-yet supported in the driver. Remove them from supported list until
-DE33 scaler is properly supported.
+The DE33 clock driver presets the plane mapping, which is not something
+that a clock driver should do. Remove that and export the mapping
+registers through a regmap instead, so the DRM driver can set them
+properly.
 
-Reviewed-by: Chen-Yu Tsai <wens@kernel.org>
 Signed-off-by: Jernej Skrabec <jernej.skrabec@gmail.com>
 ---
- drivers/gpu/drm/sun4i/sun8i_vi_layer.c | 72 ++++++++++++++++++++------
- 1 file changed, 56 insertions(+), 16 deletions(-)
+ drivers/clk/sunxi-ng/ccu-sun8i-de2.c | 43 ++++++++++++++++++++++++++--
+ 1 file changed, 40 insertions(+), 3 deletions(-)
 
-diff --git a/drivers/gpu/drm/sun4i/sun8i_vi_layer.c b/drivers/gpu/drm/sun4i/sun8i_vi_layer.c
-index 6b19fafd50ad..09d94f7f9977 100644
---- a/drivers/gpu/drm/sun4i/sun8i_vi_layer.c
-+++ b/drivers/gpu/drm/sun4i/sun8i_vi_layer.c
-@@ -380,6 +380,33 @@ static const u32 sun8i_vi_layer_de3_formats[] = {
- 	DRM_FORMAT_YVU422,
+diff --git a/drivers/clk/sunxi-ng/ccu-sun8i-de2.c b/drivers/clk/sunxi-ng/ccu-sun8i-de2.c
+index 6ec6c0dc4c26..f17570efafaa 100644
+--- a/drivers/clk/sunxi-ng/ccu-sun8i-de2.c
++++ b/drivers/clk/sunxi-ng/ccu-sun8i-de2.c
+@@ -9,6 +9,7 @@
+ #include <linux/module.h>
+ #include <linux/of.h>
+ #include <linux/platform_device.h>
++#include <linux/regmap.h>
+ #include <linux/reset.h>
+ 
+ #include "ccu_common.h"
+@@ -283,6 +284,36 @@ static const struct sunxi_ccu_desc sun50i_h616_de33_clk_desc = {
+ 	.num_resets	= ARRAY_SIZE(sun50i_h616_de33_resets),
  };
  
-+static const u32 sun8i_vi_layer_de3_no_yuv_formats[] = {
-+	DRM_FORMAT_ABGR1555,
-+	DRM_FORMAT_ABGR2101010,
-+	DRM_FORMAT_ABGR4444,
-+	DRM_FORMAT_ABGR8888,
-+	DRM_FORMAT_ARGB1555,
-+	DRM_FORMAT_ARGB2101010,
-+	DRM_FORMAT_ARGB4444,
-+	DRM_FORMAT_ARGB8888,
-+	DRM_FORMAT_BGR565,
-+	DRM_FORMAT_BGR888,
-+	DRM_FORMAT_BGRA1010102,
-+	DRM_FORMAT_BGRA5551,
-+	DRM_FORMAT_BGRA4444,
-+	DRM_FORMAT_BGRA8888,
-+	DRM_FORMAT_BGRX8888,
-+	DRM_FORMAT_RGB565,
-+	DRM_FORMAT_RGB888,
-+	DRM_FORMAT_RGBA1010102,
-+	DRM_FORMAT_RGBA4444,
-+	DRM_FORMAT_RGBA5551,
-+	DRM_FORMAT_RGBA8888,
-+	DRM_FORMAT_RGBX8888,
-+	DRM_FORMAT_XBGR8888,
-+	DRM_FORMAT_XRGB8888,
++/*
++ * Add a regmap for the DE33 plane driver to access plane
++ * mapping registers.
++ * Only these registers are allowed to be written, to prevent
++ * overriding clock and reset configuration.
++ */
++
++#define SUN50I_DE33_CHN2CORE_REG 0x24
++#define SUN50I_DE33_PORT12CHN_REG 0x2c
++
++static const struct regmap_range sun8i_de2_ccu_regmap_accessible_ranges[] = {
++	regmap_reg_range(SUN50I_DE33_CHN2CORE_REG, SUN50I_DE33_PORT12CHN_REG),
 +};
 +
- static const uint64_t sun8i_layer_modifiers[] = {
- 	DRM_FORMAT_MOD_LINEAR,
- 	DRM_FORMAT_MOD_INVALID
-@@ -395,6 +422,7 @@ struct sun8i_layer *sun8i_vi_layer_init_one(struct drm_device *drm,
- 	u32 supported_encodings, supported_ranges;
- 	unsigned int format_count;
- 	struct sun8i_layer *layer;
-+	bool yuv_support = true;
- 	const u32 *formats;
- 	int ret;
- 
-@@ -410,8 +438,18 @@ struct sun8i_layer *sun8i_vi_layer_init_one(struct drm_device *drm,
- 	layer->cfg = cfg;
- 
- 	if (layer->cfg->de_type >= SUN8I_MIXER_DE3) {
--		formats = sun8i_vi_layer_de3_formats;
--		format_count = ARRAY_SIZE(sun8i_vi_layer_de3_formats);
-+		/*
-+		 * TODO: DE33 drivers doesn't support scaling yet, which is a
-+		 * requirement for YUV support.
-+		 */
-+		yuv_support = layer->cfg->scaler_mask & BIT(phy_index);
-+		if (yuv_support) {
-+			formats = sun8i_vi_layer_de3_formats;
-+			format_count = ARRAY_SIZE(sun8i_vi_layer_de3_formats);
-+		} else {
-+			formats = sun8i_vi_layer_de3_no_yuv_formats;
-+			format_count = ARRAY_SIZE(sun8i_vi_layer_de3_no_yuv_formats);
-+		}
- 	} else {
- 		formats = sun8i_vi_layer_formats;
- 		format_count = ARRAY_SIZE(sun8i_vi_layer_formats);
-@@ -443,22 +481,24 @@ struct sun8i_layer *sun8i_vi_layer_init_one(struct drm_device *drm,
- 		return ERR_PTR(ret);
++static const struct regmap_access_table sun8i_de2_ccu_regmap_accessible_table = {
++	.yes_ranges = sun8i_de2_ccu_regmap_accessible_ranges,
++	.n_yes_ranges = ARRAY_SIZE(sun8i_de2_ccu_regmap_accessible_ranges),
++};
++
++static const struct regmap_config sun8i_de2_ccu_regmap_config = {
++	.reg_bits	= 32,
++	.val_bits	= 32,
++	.reg_stride	= 4,
++	.max_register	= SUN50I_DE33_PORT12CHN_REG,
++
++	/* other devices have no business accessing other registers */
++	.wr_table	= &sun8i_de2_ccu_regmap_accessible_table,
++	.rd_table	= &sun8i_de2_ccu_regmap_accessible_table,
++};
++
+ static int sunxi_de2_clk_probe(struct platform_device *pdev)
+ {
+ 	struct clk *bus_clk, *mod_clk;
+@@ -336,13 +367,19 @@ static int sunxi_de2_clk_probe(struct platform_device *pdev)
  	}
  
--	supported_encodings = BIT(DRM_COLOR_YCBCR_BT601) |
--			      BIT(DRM_COLOR_YCBCR_BT709);
--	if (layer->cfg->de_type >= SUN8I_MIXER_DE3)
--		supported_encodings |= BIT(DRM_COLOR_YCBCR_BT2020);
-+	if (yuv_support) {
-+		supported_encodings = BIT(DRM_COLOR_YCBCR_BT601) |
-+				      BIT(DRM_COLOR_YCBCR_BT709);
-+		if (layer->cfg->de_type >= SUN8I_MIXER_DE3)
-+			supported_encodings |= BIT(DRM_COLOR_YCBCR_BT2020);
- 
--	supported_ranges = BIT(DRM_COLOR_YCBCR_LIMITED_RANGE) |
--			   BIT(DRM_COLOR_YCBCR_FULL_RANGE);
-+		supported_ranges = BIT(DRM_COLOR_YCBCR_LIMITED_RANGE) |
-+				   BIT(DRM_COLOR_YCBCR_FULL_RANGE);
- 
--	ret = drm_plane_create_color_properties(&layer->plane,
--						supported_encodings,
--						supported_ranges,
--						DRM_COLOR_YCBCR_BT709,
--						DRM_COLOR_YCBCR_LIMITED_RANGE);
--	if (ret) {
--		dev_err(drm->dev, "Couldn't add encoding and range properties!\n");
--		return ERR_PTR(ret);
-+		ret = drm_plane_create_color_properties(&layer->plane,
-+							supported_encodings,
-+							supported_ranges,
-+							DRM_COLOR_YCBCR_BT709,
-+							DRM_COLOR_YCBCR_LIMITED_RANGE);
-+		if (ret) {
-+			dev_err(drm->dev, "Couldn't add encoding and range properties!\n");
-+			return ERR_PTR(ret);
+ 	/*
+-	 * The DE33 requires these additional (unknown) registers set
++	 * The DE33 requires these additional plane mapping registers set
+ 	 * during initialisation.
+ 	 */
+ 	if (of_device_is_compatible(pdev->dev.of_node,
+ 				    "allwinner,sun50i-h616-de33-clk")) {
+-		writel(0, reg + 0x24);
+-		writel(0x0000a980, reg + 0x28);
++		struct regmap *regmap;
++
++		regmap = devm_regmap_init_mmio(&pdev->dev, reg,
++					       &sun8i_de2_ccu_regmap_config);
++		if (IS_ERR(regmap)) {
++			ret = PTR_ERR(regmap);
++			goto err_assert_reset;
 +		}
  	}
  
- 	drm_plane_helper_add(&layer->plane, &sun8i_vi_layer_helper_funcs);
+ 	ret = devm_sunxi_ccu_probe(&pdev->dev, reg, ccu_desc);
 -- 
 2.43.0
 
