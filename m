@@ -2,94 +2,127 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 041F3606A31F
-	for <dri-devel@archiver.kernel.org>; Sun, 15 Nov 2026 23:22:38 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 179AD606A31F
+	for <dri-devel@archiver.kernel.org>; Sun, 15 Nov 2026 23:47:53 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=FOoKQ47I
+	dkim=pass (1024-bit key, unprotected) header.d=amd.com header.i=@amd.com header.a=rsa-sha256 header.s=selector1 header.b=MdUPQ0w0
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 126DE10E33C;
-	Sun, 15 Nov 2026 23:22:32 +0000 (UTC)
-Received: from mail-wm1-f48.google.com (mail-wm1-f48.google.com
- [209.85.128.48])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 9872710E1A4
- for <dri-devel@lists.freedesktop.org>; Sun, 15 Nov 2026 23:22:16 +0000 (UTC)
-Received: by mail-wm1-f48.google.com with SMTP id
- 5b1f17b1804b1-4a5b2be99a8so17861795e9.2
- for <dri-devel@lists.freedesktop.org>; Sun, 15 Nov 2026 15:22:16 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20260707; t=1794784935; x=1795389735; darn=lists.freedesktop.org;
- h=content-transfer-encoding:content-type:mime-version:references
- :in-reply-to:message-id:date:subject:cc:to:from:from:to:cc:subject
- :date:message-id:reply-to:content-type;
- bh=Erdyei72788KVv8pLaqul7iSgCQZTDqlNCfVWoF2cUc=;
- b=FOoKQ47IP4EYC5LlWqGndW3VhqXeLy8tFs42YhipS534nlhqK4op1RS74q9BfeCTz7
- ocBgkzhZif1y1JwBDTA9Nzj+fFcsDPqrEkR2b7tFzypjxvv7BvuGxQVZY6Gjl30BJ7O5
- vfI3+0INhKdcbq637H/djfc87geTw0ha+fIxLe9SqsShX3z7nF5I0SFh+tUMqUxWkIVY
- 1ZZuKBAPmCbjfcH9u4SZcEI5VJ4sBHcELKARSnMRa8UgvEZUVOeKvfldJMTmuA5165wj
- cfO7cR9VKPFPJfr+S3kEr4Yav+gBU/vP1Y6z0YEW3kO8wWiR5By5CCSJSH1PmA2YG42a
- FOKQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20260707; t=1794784935; x=1795389735;
- h=content-transfer-encoding:content-type:mime-version:references
- :in-reply-to:message-id:date:subject:cc:to:from:x-gm-gg
- :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
- :content-type;
- bh=Erdyei72788KVv8pLaqul7iSgCQZTDqlNCfVWoF2cUc=;
- b=nH2EGtBhZnTUdsmnNIWISD1XMNwueNRHfWXopcVzMyCkHZoIL03G98NR4MB9Rsb5IB
- 6gn+0IGF5aTMkvYMmcaPdY/xB++Y6QINUGFLLjY4FlBlCBzIDffFFl/EhjZbsA3/FvI3
- veBQRuua3lPxVN3qIvu2tdNm5MukXrort1IBl0Bhs8n7CgqJT19+jkxcr3AIW2aUxdLu
- JS3NNkBg8y4Xl1bUOfdRcnj1vwBmHxaM2H+bPxv4iFUg1Z6dcZPw7Fk7HRSKukPlCVTl
- Lf7ciVkGf4vdY7QM1PMmHpsFw5Hbo6KXIfWIiN+Fg9RXZaOy/Hl1VOmsbDjYhXusuhJu
- Lf/A==
-X-Forwarded-Encrypted: i=1;
- AL+hErGDNR0ya6zL55x8V48MVf/yKjNq31RTfNBzMrvIR2lJL34HnsYitE6omJzfVAGmpKX2ndcIV8HA25o=@lists.freedesktop.org
-X-Gm-Message-State: APuU4Z9svAF/do0Mk4CtKuSRG0+s+sUiZTQwKDjtDg3bQ06UMKmnKEiC
- 63+2uxDHgQdqV3Zp4qCueWmU4rt7dyYmvae6lEL/pBRSE9m2czoB3QJu
-X-Gm-Gg: AYBFou1q43Dogi9iMvdcJtCMDT2bkcvrbg74sFpp5kbzONYI+mFmbuA4ybb6ZBYsTZY
- umaS75h6QsMcZ/mZB4siz1pu93cn8OJI+8h89C1q48wCg0dqh0CX3bGHnVCE/lspCFrOsAdunLn
- WhShwM0/gqqLahMvldiQuD09N10wDbuZAbq6S1ljpFpsC5IKOicP2jA456Fb7L0MHKrilmgRIgb
- K9zNzVlsUqU/K643ecH/LdOWQqpKsKDJB7Ex7mbNjDG4d2zRVx1PeSrJxJmi/SckkOURCWnMCdJ
- Oxb4Gx5oMkj3X3zE2T9Fhs/m8WZhKnSZRypAmSvqeemrKeHVdz/xfV3d8Ka1dAloSCVD8N1Rb+R
- AyVOFq9wOOKxPGsUBE3Ogj1yvdxT25Q4Wf1Lp/bDdJ2gzM01cAapVNITo1oP6seKyNURSwq6fdE
- OKlRuEaVZZYRc7idl9PseiN/da7KqrrKie+CFbk246ht6dhEofSm4Ywye56vZklMGK4S42krRIh
- gn2N6jorWh3giRN/krY3MpT1XlKUErpzY1d8JzxMW5RZtiDPtOiDVK7tx7Z/UQIBD3FTFZDZDzv
- Kmqfee91VniVzt8mgKK875qJDURVjKvlxODfIFXbzM7PJ5aVokssDBA=
-X-Received: by 2002:a05:600c:3509:b0:4a1:dbdf:17a8 with SMTP id
- 5b1f17b1804b1-4bb559f2cc3mr183275325e9.2.1794784934909; 
- Sun, 15 Nov 2026 15:22:14 -0800 (PST)
-Received: from ingenieria31.oficinasStQ.local ([79.117.0.220])
- by smtp.gmail.com with ESMTPSA id
- 5b1f17b1804b1-4bb571f976esm127920955e9.3.2026.11.15.15.22.13
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Sun, 15 Nov 2026 15:22:14 -0800 (PST)
-From: =?UTF-8?q?M=C3=A0xim=20Pedraza=20Padilla?= <maximpedraza@gmail.com>
-To: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>,
- Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>,
- Simona Vetter <simona@ffwll.ch>, Ard Biesheuvel <ardb@kernel.org>,
- Jonathan Corbet <corbet@lwn.net>, Helge Deller <deller@gmx.de>,
- Peter Jones <pjones@redhat.com>
-Cc: Francesco Valla <francesco@valla.it>,
- Jani Nikula <jani.nikula@linux.intel.com>,
- Mario Limonciello <mario.limonciello@amd.com>,
- Javier Martinez Canillas <javierm@redhat.com>,
- Jocelyn Falempe <jfalempe@redhat.com>, Sam Ravnborg <sam@ravnborg.org>,
- Ilias Apalodimas <ilias.apalodimas@linaro.org>,
- Shuah Khan <skhan@linuxfoundation.org>,
- Randy Dunlap <rdunlap@infradead.org>, dri-devel@lists.freedesktop.org,
- linux-efi@vger.kernel.org, linux-fbdev@vger.kernel.org,
- linux-doc@vger.kernel.org, linux-embedded@vger.kernel.org,
- linux-kernel@vger.kernel.org
-Subject: [PATCH v7 6/6] drm/client: splash: pick the image source in one place
-Date: Mon, 16 Nov 2026 01:21:56 +0100
-Message-Id: <20261116002156.1027726-7-maximpedraza@gmail.com>
-X-Mailer: git-send-email 2.39.5
-In-Reply-To: <20261116002156.1027726-1-maximpedraza@gmail.com>
-References: <20261116002156.1027726-1-maximpedraza@gmail.com>
+	by gabe.freedesktop.org (Postfix) with ESMTP id 4158110E36E;
+	Sun, 15 Nov 2026 23:47:47 +0000 (UTC)
+Received: from BL2PR02CU003.outbound.protection.outlook.com
+ (mail-eastusazon11011009.outbound.protection.outlook.com [52.101.52.9])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 224F510E0AC;
+ Sun, 15 Nov 2026 23:47:41 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=GUc+1aPlE8+N0pZxmlUs73RzeJh2bhJ8ThtTqz9aMjeOkJxBcNUIOH7hSOiR6F0qagirlfonpUBNB6Bz686mwlPRpCy9qCDP9+kpihC2a3mPcZbDuCInGrz3RnxZio/ep8XiWi5U7EwBbaqujSC39jbZwgPjiyHiZ1rIRLg4BPsVIpl8w8PEFPg9t97IT7LQbRkmI+6MZ7KbTyKFWZpfjfzjzTpNqQIzey6HUjNmml7aHlGgqFHwj9ATN8UoDFcN8BJvRFurKOkeEdIiO3i0zCik7ga4VZe9vQ53SUnA4ftIlfQJGq8rJwDvj8zBEUKmUBqVjT0eL9OoCbkrGglmTw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=g1xPnIsX/qon71ekIa3b2Fhf/asc8240gRK7bVj6l/c=;
+ b=VjRKvjB36l9i2NOEEVrjyCWtpVof1BzafVDq6qmy/h3YaE9zjWIPRfvUXy6+A2PtLRM1zcSv0tPUZSlPpbaxDr7ZDAuPI/rzIPKlgSw/WQorbDwqLjc7e/rL8PryjbL+xHltfV2Gk+QVdiks6+87vqgTvBu7jGLrBOSkr3WPrYQw8NV40XufpZCyhVwlEDRB67Kn3AhesIgk04hUoBPL3QU4JkrwRP7yS2E7QajWrbbCBdCayylMsDaXo4JHrG9rYt0V9TCFaj3N2Xr+IfMb+fTy6uh28IAWIWBXuNZ+Jo7ST69rsvDC6Sxj6j4G8yDO+TgEpsXv/03vKbunNyzZ4A==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
+ header.d=amd.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=g1xPnIsX/qon71ekIa3b2Fhf/asc8240gRK7bVj6l/c=;
+ b=MdUPQ0w0X92GK5z8lOTyKBvvWDLDyBJDxlriwRAMNX9KhJ0NJHBHb0iEUgH6ycefvEhjBIE1QHIHbXesGXim7Ht2UZQjSzo2RL4/u8HxUAuhnez4vbsT8vpLBvVeyZgf3YjLtgSY/eDgn0afA98pcb8c3VGxNYhMrhuidGVqoN4=
+Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=amd.com;
+Received: from CHAPR12MB999225.namprd12.prod.outlook.com
+ (2603:10b6:610:2fe::11) by CY5PR12MB6036.namprd12.prod.outlook.com
+ (2603:10b6:930:2c::10) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.615.14; Sun, 15 Nov
+ 2026 23:47:37 +0000
+Received: from CHAPR12MB999225.namprd12.prod.outlook.com
+ ([fe80::a4c2:82c3:da88:c585]) by CHAPR12MB999225.namprd12.prod.outlook.com
+ ([fe80::a4c2:82c3:da88:c585%6]) with mapi id 15.21.0615.013; Sun, 15 Nov 2026
+ 23:47:37 +0000
+Message-ID: <fd0f7746-ff00-4dc9-a5a5-c10611b94aad@amd.com>
+Date: Mon, 16 Nov 2026 07:47:24 +0800
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] drm/amd/display: Restore PSR-SU guard in power module
+To: Egor Perevoshchikov <rickbatra0z@gmail.com>, amd-gfx@lists.freedesktop.org
+Cc: Harry Wentland <harry.wentland@amd.com>, Leo Li <sunpeng.li@amd.com>,
+ Rodrigo Siqueira <siqueira@igalia.com>,
+ Alex Deucher <alexander.deucher@amd.com>,
+ =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
+ Mario Limonciello <mario.limonciello@amd.com>
+References: <20261031040051.46100-1-rickbatra0z@gmail.com>
+Content-Language: en-US
+From: Ray Wu <ray.wu@amd.com>
+In-Reply-To: <20261031040051.46100-1-rickbatra0z@gmail.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
+X-ClientProxiedBy: TP0P295CA0058.TWNP295.PROD.OUTLOOK.COM
+ (2603:1096:910:3::17) To CHAPR12MB999225.namprd12.prod.outlook.com
+ (2603:10b6:610:2fe::11)
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: CHAPR12MB999225:EE_|CY5PR12MB6036:EE_
+X-MS-Office365-Filtering-Correlation-Id: f5e180ac-5d54-42a8-44e8-08df4372d408
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+ ARA:13230040|23010399003|376014|366016|1800799024|10067099003|11063799006|5023799004|56012099006|261026121527099003|261026140227099003|261028144727099003|261022105027099003|261022075727099003|261021123027099003|261021121427099003|261102123227099003|261009223027099003|18002099003|22082099003|6133799003;
+X-Microsoft-Antispam-Message-Info: MKqatpU7mQ9zxT7Pg7Norh3tYu9dQorTjbQkQDiU+3npj/vvXVN+r+GivtrYjBNrWcLRuyQ/H0U6WnyXF4ErnpL2P6ZiDxolkS3lxtc7VtJv+22wO4Jig52k1JqtlGNnoMYmVD4pXFOVMU8A2qlpRuhN7Y7joNmdhb2aDX+iLgyarUu8oalSoD5l716vFqlFqJL3OqBzxhg/+W5KvZUfj2+zbbK/fmIkKXuRAj9SilkhqXcVHwnX0xpk4rqPmf3f3lTQCN2Q8fnjwFFAiu/XYxIhPkiB+VvOFnzAFnoLTkYPrhOJQipgYTVhOCX1m3pTy+Vwgb9kuGDy3vkHa9IUt4ZUPa/1LhcVBxSZBgO+Jzv6nC4YHIEWH0jqidBw2yn7Z9O/MfbB1Xb4D8Bi4nIMKdjYe0l55DqLLPnOSYOnWw6Ac5Ov8vdII0VzmdoS5yCrnujyBNvwvme6KRD5O1SvofnSVLlgxoNyWXSsy7mUSS0cc2Rons8FOC+LMmz+kjJ85jS6fh7NsvWWZJmT3pR5FuD1UtdSjyLEWO1CMqJVojgNGw7pi+7+nmTG1AdmRkV/8ZwaQUSW5CCnfCG/YWqDCV6a6sXpVUfbCO0IF5ByxJg0pLsGWQ7nrxUha10jBssu
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:CHAPR12MB999225.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230040)(23010399003)(376014)(366016)(1800799024)(10067099003)(11063799006)(5023799004)(56012099006)(261026121527099003)(261026140227099003)(261028144727099003)(261022105027099003)(261022075727099003)(261021123027099003)(261021121427099003)(261102123227099003)(261009223027099003)(18002099003)(22082099003)(6133799003);
+ DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?L01GcGdWRksrZkNBRmJtTTdSQlBtQU5iU2VOMzVRc3plbVJLRmp2RXgyTllm?=
+ =?utf-8?B?anNvRFVlZXRlc2oyZHBmN1dmdFFzaEdmbU1ZRFlLNmZ6RW52NlV2RmptZC8x?=
+ =?utf-8?B?OFVSeUNRTEtkd3UrRFpVb3BzREhBeHIycVYrdFNDVnpBdTVvVzVhY1Z0T0pB?=
+ =?utf-8?B?U29NU2lrR1lrSmQ2ZU92M3R6UXVKN05zNHFVWEpMNHVmM3Ivcy92WjEyMUY0?=
+ =?utf-8?B?SFB1VmVXR0tnY2owRnFmRFhCdzBGNldNaHhmSzlxaFp3aVhtK3d2enhyQmNn?=
+ =?utf-8?B?eW5PK2w4VmYxdWpkZWU3cWI0NExLY2hMRVhhbm5sV2ErTzgrV010ZW5QZk5Q?=
+ =?utf-8?B?b0JLZ3ZLR09TV3lDRUJQM2tLTkV1QU12MGNCU0VmUmxaVTRjQzV4YVNHMWRY?=
+ =?utf-8?B?ZXFzS01GS0F4aHAxNGJqd1NZMjNCZzd3QXY1Vi9HWnBhWExrODMyR1huU1BJ?=
+ =?utf-8?B?L0N0ZFJ4QnZtZUJBNWRFZXRqU2l4R3FoOEVHRmxQNmpscFJpakpVdGpFa2Nm?=
+ =?utf-8?B?d1pGSkplK1oyRFlZWXhOZlUvV1RJV3NqckhqM2Q0TEJvM1MxR0RzY1Zaek5q?=
+ =?utf-8?B?N05RN1pXN1RVNjhmbjdpOG82REN5K1JhNkU5Z2ZLWTE3STZ1cnBjRmxWOTV1?=
+ =?utf-8?B?d29sUWFpc01LeDUxSmNRZFUxam1Ka2VrRldrMjZtYzQ5L29RQ1FmZVZUanlB?=
+ =?utf-8?B?WjI5L09WVFFOWHV1WDFWaDk4ck1paDR2REVqd0lyUzRyNlZaRnRaTWR1TytF?=
+ =?utf-8?B?VGRuaEhMVGpaRXgzVWhwWEFhTEFKcFJSKyt5US9oZG1vcmZYdjFlRFMwOS9y?=
+ =?utf-8?B?SjV2QWhPdzlXekJBaWNuVHdrWGtJcHA4TUcwTFlXSFM3MFVBQU0rYW82RTRi?=
+ =?utf-8?B?UklwV2REM1pJU21SUXRNbzQ2U0dOWDBBNVlNeFFmRmJHNTVKKzJ1cEMwVGtz?=
+ =?utf-8?B?WTRQZHdCdi9yYmoyWG1lQUJQWlhyTGszc2ZtVTNVa2t4L1dIM0crbzJYblV3?=
+ =?utf-8?B?SDdCNFhxZlR4OVNibnNmanAwRk90cStycENzWW1KeGI3UGZhOElkdWx0dVdZ?=
+ =?utf-8?B?SGtwdXZ0K3B2NjJoU0crV2pVYnNiVFYwTGxEMGkyK3JGOXhISmwzTUVUUnVy?=
+ =?utf-8?B?UUo2S2d5ZEdIcmZObjhpMlQxTVBRQzdidE5CZm9QU2FwczB6eTl6VUhtWS9I?=
+ =?utf-8?B?dnJDcW1QUkFHS3p3Qlg0Y05nSzU0VWNVLzZ0b2pIdWowY2ttTWNjanFud0JB?=
+ =?utf-8?B?aStCbHg1Ymh4dlBDUVBuRnhZNUd2c3VmTHdOeGt0M20xMmhia3pqcmFHLzlW?=
+ =?utf-8?B?LzlqNjd6QTFzRUl1NnNuRloxVjVRWGM2Y041RHFYeDVQZ0dJbTNOaHdabHZV?=
+ =?utf-8?B?TUQxV0dENFR6eE56WFk5enZNcnJzSzNRQXZRWW1wSHFFVWNhbGlqYnR5V1pa?=
+ =?utf-8?B?djRzU2dMVHcxTGpVWVRDOWM4dDBtMEtxbDBmK284a0tORzA5M0Z0SFZKckQ0?=
+ =?utf-8?B?czExQkN0RlVsc1ZpVkQvQ3JCbnpqTXFYOGFQTUI1UVhQZTB3cnVWUFk2cS9O?=
+ =?utf-8?B?OTVaaVlrT2xJS2hpSjM2OU5wTkhPclpFK3pYZHhZVWdlUXNvK01PV3JqZGRQ?=
+ =?utf-8?B?VUFXRjNEQVBoeHpvNnlFMGtIVXVSdERNd2pzVFpmR3JOQjJYaXlXYU9tT2lX?=
+ =?utf-8?B?SkVDV0lnRVdhZVh1MkgzczlWaHVldjA1NzZFQmkrTDkwd3ZhUXlZeXV5ajN4?=
+ =?utf-8?B?TVBjeDd4TWNNZXNJRHZabDErMXJ2ZGpETDNLMkdKTUN1MDMwSXNFSmhmK1pj?=
+ =?utf-8?B?SFl3RytXd0NITDdRK1ZOM1FldG9aZlpjaGtBWHpTTE9FRE81NnA0WTBURHNT?=
+ =?utf-8?B?STVsSjVlclVvaUROR09SQS9HNEkrajVFRjhQbi93NkpSdmJCWFo0RHcrK1hW?=
+ =?utf-8?B?SUMwd3psU2VxYVd1OVB2c2ZHUHVQdVhXbXNQVFpVQWphdjU0a3FnRE9wOWVu?=
+ =?utf-8?B?VWlENnBVRFJ2VGZ3anZaeUxrY3JHd3FTNEhkdTkrSXB2aXJKRm83c1hLUE9i?=
+ =?utf-8?B?WnpkSTJWb3k3RE95Qk5MOXRhY09YN1NtRlMwWTNwbDA0T0dwTW4rYzBscmhP?=
+ =?utf-8?B?U0VHR2J1UjJ4emxTcWt0Z3BUVzBUbTFzdi9CY2F1SkNpSy9BcFdkVmhLR0d6?=
+ =?utf-8?B?UTF0dktydENiRzNvMjlRUXU4dXlrWWRrM043QUhkS0huNlhzdk9sL0x4UkJu?=
+ =?utf-8?B?MDI2QXZKRHVPR0J5NlZVNmVmOWtzMGV2b216SzVVeDMwUytvWmtGWFNqaUNz?=
+ =?utf-8?B?SHV0bDlHSVZmRG1iazJNQkZzWWZraXZNTmduUmEyR3ZSN0RTNDNSQT09?=
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: f5e180ac-5d54-42a8-44e8-08df4372d408
+X-MS-Exchange-CrossTenant-AuthSource: CHAPR12MB999225.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 15 Nov 2026 23:47:37.3952 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: nksVriRW0Dd6r47xSFFFz5dPYTNwfJI1iLNqzBYC8OaDVWERl49u3DHuXXZ+Q/E2cDnJlGUc0becUuEUrzrsuw==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: CY5PR12MB6036
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -101,120 +134,107 @@ List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-15.8 required=3.0 tests=BAYES_00,DKIM_SIGNED,
-	DKIM_VALID,DKIM_VALID_AU,FREEMAIL_FORGED_FROMDOMAIN,FREEMAIL_FROM,
-	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
-	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,USER_AGENT_GIT
-	autolearn=unavailable autolearn_force=no version=4.0.1
+X-Spam-Status: No, score=-17.3 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
+	DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
+	INCLUDES_CR_TRAILER,INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,
+	SPF_PASS,USER_AGENT_SANE_1 autolearn=unavailable autolearn_force=no
+	version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-The client chooses between two sources with a boolean: the BGRT if the
-firmware left one, otherwise the BMP loaded as firmware. A third one is
-coming, and with it an order of preference that a boolean cannot hold.
+Reviewed-by: Ray Wu <ray.wu@amd.com>
 
-Name the source in use with an enum, picked once by
-drm_splash_pick_source(), and have drm_splash_image_load() switch on
-it. No functional change.
-
-v7:
-- DRM_SPLASH_SRC_FW for DRM_SPLASH_SRC_BMP: the BGRT is a BMP too
-
-Suggested-by: Thomas Zimmermann <tzimmermann@suse.de>
-Signed-off-by: Màxim Pedraza Padilla <maximpedraza@gmail.com>
----
- drivers/gpu/drm/clients/drm_splash.c | 46 ++++++++++++++++++++++------
- 1 file changed, 37 insertions(+), 9 deletions(-)
-
-diff --git a/drivers/gpu/drm/clients/drm_splash.c b/drivers/gpu/drm/clients/drm_splash.c
-index d54cf628cf17..fbbdc034e417 100644
---- a/drivers/gpu/drm/clients/drm_splash.c
-+++ b/drivers/gpu/drm/clients/drm_splash.c
-@@ -39,6 +39,16 @@
-  * a static image.
-  */
- 
-+/*
-+ * Where the image comes from. drm_splash_pick_source() sets the order of
-+ * preference; NONE is zero, so that a new splash starts without a source.
-+ */
-+enum drm_splash_source {
-+	DRM_SPLASH_SRC_NONE,
-+	DRM_SPLASH_SRC_BGRT,
-+	DRM_SPLASH_SRC_FW,
-+};
-+
- struct drm_splash_scanout {
- 	int id;
- 	/* Modesets scanning this buffer out, by position in the list */
-@@ -91,7 +101,7 @@ struct drm_splash {
- 	const struct firmware *fw;
- 	void *map_data;
- 
--	bool use_bgrt;
-+	enum drm_splash_source src;
- };
- 
- static struct drm_splash *client_to_drm_splash(struct drm_client_dev *client)
-@@ -439,7 +449,7 @@ static int drm_splash_bmp_to_scanout(struct drm_splash *splash,
- 		return -EINVAL;
- 	}
- 
--	if (splash->use_bgrt) {
-+	if (splash->src == DRM_SPLASH_SRC_BGRT) {
- 		x_pad = efi_bgrt_image_offset_x();
- 		y_pad = efi_bgrt_image_offset_y();
- 
-@@ -509,13 +519,31 @@ static int drm_splash_bmp_to_scanout(struct drm_splash *splash,
- static int drm_splash_image_load(struct drm_splash *splash, const u8 **img_data,
- 				 size_t *img_data_len)
- {
--	if (splash->use_bgrt)
-+	switch (splash->src) {
-+	case DRM_SPLASH_SRC_BGRT:
- 		return drm_splash_bgrt_load(splash, img_data, img_data_len);
-+	case DRM_SPLASH_SRC_FW:
-+		return drm_splash_fw_load(splash, img_data, img_data_len);
-+	case DRM_SPLASH_SRC_NONE:
-+		break;
-+	}
- 
--	if (!IS_ENABLED(CONFIG_DRM_CLIENT_SPLASH_SRC_FW))
--		return -ENOENT;
-+	return -ENOENT;
-+}
-+
-+/*
-+ * Pick the one source the image will come from: the BGRT is whatever the
-+ * firmware shows, and the BMP loaded as firmware is the fallback. With
-+ * neither, only the background colour is drawn.
-+ */
-+static enum drm_splash_source drm_splash_pick_source(struct drm_splash *splash)
-+{
-+	if (drm_splash_bgrt_available(splash))
-+		return DRM_SPLASH_SRC_BGRT;
-+	if (IS_ENABLED(CONFIG_DRM_CLIENT_SPLASH_SRC_FW))
-+		return DRM_SPLASH_SRC_FW;
- 
--	return drm_splash_fw_load(splash, img_data, img_data_len);
-+	return DRM_SPLASH_SRC_NONE;
- }
- 
- /* At unregister, once nothing else can use the image */
-@@ -858,10 +886,10 @@ static void drm_splash_rebuild(struct drm_splash *splash)
- 
- 	if (!splash->source_picked) {
- 		splash->source_picked = true;
--		splash->use_bgrt = drm_splash_bgrt_available(splash);
-+		splash->src = drm_splash_pick_source(splash);
- 
--		/* If no other image has been loaded, try to load a BMP as firmware */
--		if (IS_ENABLED(CONFIG_DRM_CLIENT_SPLASH_SRC_FW) && !splash->use_bgrt) {
-+		/* The BMP loaded as firmware is the only source that arrives later */
-+		if (splash->src == DRM_SPLASH_SRC_FW) {
- 			ret = drm_splash_fw_request(splash);
- 			splash->fw_requested = !ret;
- 			if (ret)
--- 
-2.39.5
-
+On 10/31/2026 12:00 PM, Egor Perevoshchikov wrote:
+> [You don't often get email from rickbatra0z@gmail.com. Learn why this is important at https://aka.ms/LearnAboutSenderIdentification ]
+>
+> Commit a5ce8695d6d1 ("drm/amd/display: Avoid configuring PSR granularity
+> if PSR-SU not supported") restricted DSC slice-height configuration to
+> PSR-SU. The power-module integration removed that guarded caller. Its
+> replacement in mod_power_psr_notify_mode_change() calls
+> psr_su_set_dsc_slice_height() unconditionally and ignores its return value.
+>
+> On PSR1 links with a DSC slice configuration, this applies a PSR-SU-only
+> alignment check even though selective update is not enabled. If the
+> calculated DSC slice height is not a multiple of the nonzero advertised
+> SU Y granularity, the helper triggers an assertion. It also sets
+> dsc_slice_height before failing the check, so the caller passes this
+> SU-specific value into PSR1 setup despite the failure.
+>
+> Restore the PSR version guard and failure handling in the new caller.
+> PSR1 proceeds with the zero-initialized DSC slice height, while PSR-SU
+> retains its alignment validation and stops setup if that validation fails.
+>
+> Fixes: 3c108046e1d6 ("drm/amd/display: Add power module on Linux")
+> Closes: https://gitlab.freedesktop.org/drm/amd/-/work_items/3027
+> Cc: stable@vger.kernel.org
+> Assisted-by: LLM
+> Signed-off-by: Egor Perevoshchikov <rickbatra0z@gmail.com>
+> ---
+> Tested on a Xiaomi Redmi Book Pro 15 2023 (TM2209), Ryzen 7 7840HS /
+> Radeon 780M, BIOS RMAPH5B0P0909, with Linux 7.3.0 on NixOS.
+>
+> The tested panel uses PSR1. Its 2000-line mode has 16 vertical DSC slices,
+> giving a slice height of 125, which is not a multiple of its advertised
+> SU Y granularity of 4.
+>
+> Before the patch, boot produced:
+>
+>    WARNING: .../display/modules/power/power_psr.c:666
+>      psr_su_set_dsc_slice_height+0x7e/0xa0 [amdgpu]
+>      mod_power_psr_notify_mode_change+0x1b7/0x270 [amdgpu]
+>      mod_power_notify_mode_change+0x160/0x1d0 [amdgpu]
+>
+> After rebuilding and booting with the patch, that warning is absent.
+> With VRR disabled, repeated debugfs reads report psr_state=6 (PSR_STATE3)
+> both with and without the patch. PSR remains functional in both cases.
+>
+> The older dsc2_disable warning in #3027 is no longer reproduced on this
+> kernel. This patch addresses the remaining psr_su_set_dsc_slice_height
+> warning; it does not modify the dsc2_disable path.
+>
+> The patch is based on the mainline v7.3 release:
+>    c03c1a14507dfaf8b856c2608f9ac216021fc222
+> This matches the kernel release used for hardware testing. The original
+> power_psr.c is identical to the Linux 7.3 source used for the
+> hardware-tested patch.
+> The patch also applies to drm-next-2026-10-31:
+>    f94ed3d7cba3c83eef50b1a96d630d63cf54f69c
+>
+> Additional validation covered eight cases in an isolated C harness using
+> the actual setup and slice-height functions with hardware calls stubbed.
+> The original PSR1 warning was reproduced; the patch avoids it, retains
+> valid PSR-SU setup, and prevents setup after failed SU alignment
+> validation.
+> The patched translation unit was also compiled against Linux 7.3 headers.
+> PSR-SU behavior has not been tested on PSR-SU-capable hardware.
+>
+> LLM assistance: source history tracing; stubbed software tests; submission
+> checks.
+>
+>   drivers/gpu/drm/amd/display/modules/power/power_psr.c | 9 ++++++---
+>   1 file changed, 6 insertions(+), 3 deletions(-)
+>
+> diff --git a/drivers/gpu/drm/amd/display/modules/power/power_psr.c b/drivers/gpu/drm/amd/display/modules/power/power_psr.c
+> index 96bb77fff05..7139395b5c0 100644
+> --- a/drivers/gpu/drm/amd/display/modules/power/power_psr.c
+> +++ b/drivers/gpu/drm/amd/display/modules/power/power_psr.c
+> @@ -94,9 +94,12 @@ bool mod_power_psr_notify_mode_change(struct mod_power *mod_power,
+>           * The value of DSC slice height is determined in DSC Driver but it does not
+>           * propagated out here, so we need to calculate it as below 'slice_height'.
+>           */
+> -       psr_su_set_dsc_slice_height(dc, link,
+> -                               (struct dc_stream_state *) stream,
+> -                               &psr_config);
+> +       if (link->psr_settings.psr_version == DC_PSR_VERSION_SU_1) {
+> +               if (!psr_su_set_dsc_slice_height(dc, link,
+> +                                                (struct dc_stream_state *)stream,
+> +                                                &psr_config))
+> +                       return false;
+> +       }
+>
+>          dc_link_setup_psr(link, stream, &psr_config, &psr_context);
+>
+>
+> base-commit: c03c1a14507dfaf8b856c2608f9ac216021fc222
+> --
+> 2.56.0
