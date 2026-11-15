@@ -2,68 +2,68 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id ADAC5606A32C
-	for <dri-devel@archiver.kernel.org>; Sun, 15 Nov 2026 06:11:47 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 99179606A32C
+	for <dri-devel@archiver.kernel.org>; Sun, 15 Nov 2026 06:11:48 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=0GajCzLf
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=y/7ouGM/
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 7E80A10E1D0;
+	by gabe.freedesktop.org (Postfix) with ESMTP id B250D10E200;
 	Sun, 15 Nov 2026 06:11:41 +0000 (UTC)
-Received: from mail-wm1-f42.google.com (mail-wm1-f42.google.com
- [209.85.128.42])
- by gabe.freedesktop.org (Postfix) with ESMTPS id A4D1E10E200
- for <dri-devel@lists.freedesktop.org>; Sun, 15 Nov 2026 06:11:29 +0000 (UTC)
-Received: by mail-wm1-f42.google.com with SMTP id
- 5b1f17b1804b1-4bb5b8ef642so11995735e9.1
- for <dri-devel@lists.freedesktop.org>; Sat, 14 Nov 2026 22:11:29 -0800 (PST)
+Received: from mail-wm1-f44.google.com (mail-wm1-f44.google.com
+ [209.85.128.44])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 013E110E079
+ for <dri-devel@lists.freedesktop.org>; Sun, 15 Nov 2026 06:11:27 +0000 (UTC)
+Received: by mail-wm1-f44.google.com with SMTP id
+ 5b1f17b1804b1-49d05d51553so12304975e9.2
+ for <dri-devel@lists.freedesktop.org>; Sat, 14 Nov 2026 22:11:27 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20260707; t=1794723088; x=1795327888; darn=lists.freedesktop.org;
+ d=gmail.com; s=20260707; t=1794723086; x=1795327886; darn=lists.freedesktop.org;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:from:to:cc:subject:date
  :message-id:reply-to:content-type;
- bh=HyRQC7LCLt2aLLScf7p5/WBb90iUzNQpHgR+zoYi5DQ=;
- b=0GajCzLfxAAvGLiA2Oy5dPrhzfc33wjV+6FDQxHQ2yqxjKt077A3swUkDU9arCx1hE
- 5lyRu9llBICKnIZ0Bvy+oZS8A0vPzGDoUKJRwUDo4DWMn9WJFgckMIyUcMOr/vjiIaf8
- 5x+de/8MgKk+Rjrnhdhfni0kx5dxctAZPXvvRT3w7nHBsw05jHLbRJ6tzCfGik6KJye2
- k3vNYRB330YAPzUG5Xl+/IlPJapIdPaxmQFsy/zPqfLbWJF4L1Cm3Tz9RKB1T7lu3wn7
- pmX8AzCZY4xVoeXPJUpY0Hz6SBsKcDwnAcMqniYsN4SC6BE3M9qndz+FRfV3ivjKrnab
- t7sw==
+ bh=bKP+aWmCnAOyzY6tYN5Sieibvo/NSg7cNkXShke5YqE=;
+ b=y/7ouGM/I8ouD3tMcOHCITsRFc3I5lrnCeGyYSvpTGcWswelYy07Scvcxh2uKRqCVs
+ 1LqFXklRptmTvjKz5wzHO6hMRLmGJpzy54B+03CmBrJajtVpmTS7p3pbx/ZXCr5GkeYs
+ bWRwNoRChn3EHBN1Ttc/tXM8TNqLSnCSBAB/6bmTIrZeQqn0hyz9OMUb22qpx8iNoGi/
+ MmXwT4AI0pIddwZFMZvVbVBxWcGtHhF8lGNiGNdk+5Gu1MqmbyQrLFouEZegfgVf/wAR
+ Y93vQznlg8ksoLoO4+cihVWf5e8O1YyFEmiksMzF2JiY5iIvZCX0DxMSvDjmeCmQjdZE
+ 1IAA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20260707; t=1794723088; x=1795327888;
+ d=1e100.net; s=20260707; t=1794723086; x=1795327886;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
  :to:cc:subject:date:message-id:reply-to:content-type;
- bh=HyRQC7LCLt2aLLScf7p5/WBb90iUzNQpHgR+zoYi5DQ=;
- b=iMXz7YJRaLwps9KjgBQiUtqAUFLKdNI6ka9n1keHK5v2g+v7sfWKR9PCUjD9/i1lnd
- TlNS2MxWTgkgpCX6/J3SrsQqsb5jQ8T9VZ0FMF4p7cEe1yIn8lQ8rbzN5A9yvhy+4eYL
- z7ACsSRBFq+RIVM2COMU6T+wbtdyNNkxt303m+xIN72B1LsIg6ZTFLzWR7Pkepa/GwqT
- zs6Q1hxO5CFSwcuxnDO0oD/GlyTsAMtyGk0ixw42VjlZ11URu6YMlGEtO1HdEeYIa2Xw
- HABo+YkDptlAJ/qa9X+W3eOi6fYM9GP0dvGOOOYEX6uFpPhmotqqDiq2QhPlmLEH0rnz
- joVA==
+ bh=bKP+aWmCnAOyzY6tYN5Sieibvo/NSg7cNkXShke5YqE=;
+ b=xcD98+PhtRXxzL1jAbbv8WiVyocNNRhzgfkQlE7RwM4iHMBCMC6LsC5gPW06Rs1ygN
+ Ys+S2RIs7X1N4CjEMTE/VGVAmrNAplJQLy43Z5ZvFd/ppP/BFAzN3CU6XwAo4EKibiZ5
+ XSdHEADklk3v8+hUvmMlWfk/SaTjdu5ItqH0j4Gs9NiNqZymwpQBrrJQZ7849QsBBTU6
+ FsgBv65LbAivhVo2sVkAd//b6U60go3fV/UQwHRtdYYBeVguMyRLNZXNwz8C1+kW1QOd
+ G7VInwoqrPhPmcR0EKjvzyfZ09LLpryH6+cuMgcFNmvDQTiEJLEr3boHpKvdHdstC8jk
+ 72Hg==
 X-Forwarded-Encrypted: i=1;
- AL+hErE3u7EoD/P/mxEAZH71WmgMTgEognWxHNyhwzzXsbrqxzaF9VfWoCkYpUpJONZ9o8XKsCEiNVLQ38E=@lists.freedesktop.org
-X-Gm-Message-State: APuU4Z86zN+eJcaAZO6+6NOckmd1ib07JJXdVRlP25FS44opj3cDQh52
- mmXrysTplm/dwyv84upO2CP+owtEpX0qgA7N/m3dmj9C0Pv+5Fdbq6b5
-X-Gm-Gg: AYBFou1lbBOrpr9ahp8E7QaSby44h9qxhsY8xQyx2Yp8fJoEzCRjcoK4vKfrjsP9PqK
- 4QcvAfNx0czL2kqfUdLYOxHJJGD5yqcHIDMnNUVjcgGbVzpaVWbw9HWJ+q6k8gXD+dngr+9cfKt
- L1JVwLe+eHAK22rZS00Fb5N+77w91Rqu+demSOJA9TSw60TRmd7Neh1nLQNHicYeBqqpoiF8xh6
- tRzsw1bLo7aq2MnXHY1rD07G2sTki6RG0yhd8ZAJW6t137mW2JGvBAir+yfutwO4K3rWoal07R7
- uLeFdjwIL+c0EQ058k2NecclmiUIAsuoJ33kcz4rIm2s3OK1RiLQ21SpyjGOqLAZ/148Gu4Zgys
- qii9UM91pNMudlMoQJd7BSVxWhGAmY8tGzS9zgQ/ndg8gVVmk3NAbG1havlWUrJWv1PEK9Lwsfq
- QOxlScM1q48ymQ8YHVcZYaiJyxj92T3+LCXZRt0aEyY4cZNpQTBNS77ZwkzpuaENLtjiYo6qcH9
- IGI4TZYWGtKasHLUcrW/EgkMmnpPqIk1/ZDhkhEI72pgH0VivjCWaY9I42/FE2D3OjatfTp/Bl0
- Ibg+5x/NnnYqPAHfU8TsNtdRdjCRsH+MDDUXS9RWUXD6pZaR1Dg7wGta3hJEhTKV1X/orBI4tm3
- 93vxCFS2uAd5kPWA6lgeIHOiUQtP/h3TgEgTvYO6jnoPa2EadB+aFf8HaNxC2mnEB+wawdfIE9E
- ZdLuv+5A2O1arIAWSUc6Na9BsPLLjf6I9rmA/1YG+mkIQkpadnQdeeZi3PWyQGLBh44D3seOBPZ
- gVVb5KbS49hpA==
-X-Received: by 2002:a05:600c:34d6:b0:4a8:f2ad:a9e5 with SMTP id
- 5b1f17b1804b1-4bb559f609cmr135894335e9.3.1794723087765; 
- Sat, 14 Nov 2026 22:11:27 -0800 (PST)
+ AL+hErFIFloOC6fnF8C7cQBzY2onaH+KwpZH2YSeR/+9cO6uVEoW5HtagmEir4euSG3rkcnzld5iP0DHWzY=@lists.freedesktop.org
+X-Gm-Message-State: APuU4Z/poqYUF8txrKCOfVeK1mZ5Dh5U9OoeJunjH1osvIIdChO2Ygfa
+ uNbTFnhzITTOvjzkIhm4YiZqLKyLKoduFPlMvaJffEuF8dRMpt9cGVTN
+X-Gm-Gg: AYBFou1T1kd7ELf9eldExpJz45QWkD6mpdYHl08ytIchW4oDCybaq/zQXzLhn3MlIZM
+ nSy8Ka2HOKT5vCTyuI3cIaNS8Zyeh0ztjzwCmwqZ/IQJg9oa2NLCysuHSDU8CyHj4SrzBSNQY/d
+ Fvf6dQBvV8+ubZymg8N1WZWHgW8yHSv5j089SxxwzuIqk/NECAwFkHT0SVS/B99XuTZRT9n7BAk
+ 6KY7Q3NFnlG1nL6ia1L33OgLceQAuPF7ssGXtG8yKTtBz9iCPa19KsDHHCTy2Rs4sEhLxr9HdgN
+ cRjeCNCozUg8VSktXe9NG9K8YfpTZoWdMXGWGBGEmFq7Z2mgIWLkZuICOEZSlQFIZ2Fn8wNeCLv
+ 7bGY9TPmvqr4dJNTI96J56jxznbye5Igpd94DUFaN030cVO2+jzrbEt9z5PAyYUp3YKTad3ym+D
+ UxxbTfIyho4FSPMfelO7mIcd9HGAQUhp6b3rxjG0uw7ab7wzlryrF8cTYez2Mp5JmbIayyUnohP
+ Y8N8+kYo0r00aJrlEQjQiG5sX4RCCmcBYayIkLeCGW7inOqj0rv8p9/UIzP/+WlogDtkbpaeK7/
+ guj4GtI3k53UQU3aobuZN3V1qtoPkGQbFMounwJK6SYpeSa68Y6lN+KXX47Ez4CPYNccseJ1UTU
+ K1bBe0nyMcTYgIvQc7IALSlE2aTQXLKZO0XZgHC4cGIVvOpX0xSrEFOR0eHvQB1k0ls9l+aETFK
+ 8Nn6d5Rd2TZcufTVAz/iA/C1nGpM09ZDCmOUJTEWyBDbpj6evIkNzZj7pdqTEi6ZoQJf0L9v+Ud
+ t18roxZjJje9g==
+X-Received: by 2002:a05:600c:3487:b0:4a2:526b:d410 with SMTP id
+ 5b1f17b1804b1-4bb55a4f1b4mr151025935e9.13.1794723086291; 
+ Sat, 14 Nov 2026 22:11:26 -0800 (PST)
 Received: from jernej-laptop ([2a00:ee2:6a02:9300:bb69:6bcf:1b11:e85b])
  by smtp.gmail.com with ESMTPSA id
- 5b1f17b1804b1-4bb5ba25b50sm139331075e9.14.2026.11.14.22.11.26
+ 5b1f17b1804b1-4bb5ba25b50sm139331075e9.14.2026.11.14.22.11.25
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Sat, 14 Nov 2026 22:11:27 -0800 (PST)
+ Sat, 14 Nov 2026 22:11:25 -0800 (PST)
 From: Jernej Skrabec <jernej.skrabec@gmail.com>
 To: Chen-Yu Tsai <wens@kernel.org>,
 	Samuel Holland <samuel@sholland.org>
@@ -73,11 +73,10 @@ Cc: mripard@kernel.org, maarten.lankhorst@linux.intel.com, tzimmermann@suse.de,
  sboyd@kernel.org, Andre Przywara <andre.przywara@arm.com>,
  dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org,
  linux-arm-kernel@lists.infradead.org, linux-sunxi@lists.linux.dev,
- linux-kernel@vger.kernel.org, linux-clk@vger.kernel.org,
- Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
-Subject: [PATCH v3 5/8] dt-bindings: display: allwinner: Add DE33 planes
-Date: Sun, 15 Nov 2026 07:10:59 +0100
-Message-ID: <20261115061102.229680-6-jernej.skrabec@gmail.com>
+ linux-kernel@vger.kernel.org, linux-clk@vger.kernel.org
+Subject: [PATCH v3 4/8] drm/sun4i: vi_layer: Limit formats for DE33
+Date: Sun, 15 Nov 2026 07:10:58 +0100
+Message-ID: <20261115061102.229680-5-jernej.skrabec@gmail.com>
 X-Mailer: git-send-email 2.56.1
 In-Reply-To: <20261115061102.229680-1-jernej.skrabec@gmail.com>
 References: <20261115061102.229680-1-jernej.skrabec@gmail.com>
@@ -103,71 +102,122 @@ X-Spam-Status: No, score=-15.8 required=3.0 tests=BAYES_00,DKIM_SIGNED,
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-Allwinner Display Engine 3.3 contains planes, which are shared resources
-between all mixers present in SoC. They can be assigned to specific
-mixer by using registers which reside in display clocks MMIO.
+YUV formats need scaler support due to chroma upscaling, but that's not
+yet supported in the driver. Remove them from supported list until
+DE33 scaler is properly supported.
 
-Add a binding for them.
-
-Reviewed-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+Reviewed-by: Chen-Yu Tsai <wens@kernel.org>
 Signed-off-by: Jernej Skrabec <jernej.skrabec@gmail.com>
 ---
- .../allwinner,sun50i-h616-de33-planes.yaml    | 46 +++++++++++++++++++
- 1 file changed, 46 insertions(+)
- create mode 100644 Documentation/devicetree/bindings/display/allwinner,sun50i-h616-de33-planes.yaml
+ drivers/gpu/drm/sun4i/sun8i_vi_layer.c | 72 ++++++++++++++++++++------
+ 1 file changed, 56 insertions(+), 16 deletions(-)
 
-diff --git a/Documentation/devicetree/bindings/display/allwinner,sun50i-h616-de33-planes.yaml b/Documentation/devicetree/bindings/display/allwinner,sun50i-h616-de33-planes.yaml
-new file mode 100644
-index 000000000000..0a07cb8a5f79
---- /dev/null
-+++ b/Documentation/devicetree/bindings/display/allwinner,sun50i-h616-de33-planes.yaml
-@@ -0,0 +1,46 @@
-+# SPDX-License-Identifier: GPL-2.0-only OR BSD-2-Clause
-+%YAML 1.2
-+---
-+$id: http://devicetree.org/schemas/display/allwinner,sun50i-h616-de33-planes.yaml#
-+$schema: http://devicetree.org/meta-schemas/core.yaml#
+diff --git a/drivers/gpu/drm/sun4i/sun8i_vi_layer.c b/drivers/gpu/drm/sun4i/sun8i_vi_layer.c
+index 6b19fafd50ad..09d94f7f9977 100644
+--- a/drivers/gpu/drm/sun4i/sun8i_vi_layer.c
++++ b/drivers/gpu/drm/sun4i/sun8i_vi_layer.c
+@@ -380,6 +380,33 @@ static const u32 sun8i_vi_layer_de3_formats[] = {
+ 	DRM_FORMAT_YVU422,
+ };
+ 
++static const u32 sun8i_vi_layer_de3_no_yuv_formats[] = {
++	DRM_FORMAT_ABGR1555,
++	DRM_FORMAT_ABGR2101010,
++	DRM_FORMAT_ABGR4444,
++	DRM_FORMAT_ABGR8888,
++	DRM_FORMAT_ARGB1555,
++	DRM_FORMAT_ARGB2101010,
++	DRM_FORMAT_ARGB4444,
++	DRM_FORMAT_ARGB8888,
++	DRM_FORMAT_BGR565,
++	DRM_FORMAT_BGR888,
++	DRM_FORMAT_BGRA1010102,
++	DRM_FORMAT_BGRA5551,
++	DRM_FORMAT_BGRA4444,
++	DRM_FORMAT_BGRA8888,
++	DRM_FORMAT_BGRX8888,
++	DRM_FORMAT_RGB565,
++	DRM_FORMAT_RGB888,
++	DRM_FORMAT_RGBA1010102,
++	DRM_FORMAT_RGBA4444,
++	DRM_FORMAT_RGBA5551,
++	DRM_FORMAT_RGBA8888,
++	DRM_FORMAT_RGBX8888,
++	DRM_FORMAT_XBGR8888,
++	DRM_FORMAT_XRGB8888,
++};
 +
-+title: Allwinner H616 Display Engine 3.3 planes
-+
-+maintainers:
-+  - Jernej Skrabec <jernej.skrabec@gmail.com>
-+
-+description:
-+  Display Engine 3.3 planes are independent of mixers, contrary to
-+  previous generations of Display Engine. Planes can be assigned to
-+  mixers independently and even dynamically during runtime.
-+
-+properties:
-+  compatible:
-+    enum:
-+      - allwinner,sun50i-h616-de33-planes
-+
-+  reg:
-+    maxItems: 1
-+
-+  allwinner,plane-mapping:
-+    $ref: /schemas/types.yaml#/definitions/phandle
-+    description:
-+      Phandle of the device responsible for assigning (mapping) planes
-+      between mixers.
-+
-+required:
-+  - compatible
-+  - reg
-+  - allwinner,plane-mapping
-+
-+additionalProperties: false
-+
-+examples:
-+  - |
-+    planes: planes@100000 {
-+        compatible = "allwinner,sun50i-h616-de33-planes";
-+        reg = <0x100000 0x180000>;
-+        allwinner,plane-mapping = <&display_clocks>;
-+    };
-+
-+...
+ static const uint64_t sun8i_layer_modifiers[] = {
+ 	DRM_FORMAT_MOD_LINEAR,
+ 	DRM_FORMAT_MOD_INVALID
+@@ -395,6 +422,7 @@ struct sun8i_layer *sun8i_vi_layer_init_one(struct drm_device *drm,
+ 	u32 supported_encodings, supported_ranges;
+ 	unsigned int format_count;
+ 	struct sun8i_layer *layer;
++	bool yuv_support = true;
+ 	const u32 *formats;
+ 	int ret;
+ 
+@@ -410,8 +438,18 @@ struct sun8i_layer *sun8i_vi_layer_init_one(struct drm_device *drm,
+ 	layer->cfg = cfg;
+ 
+ 	if (layer->cfg->de_type >= SUN8I_MIXER_DE3) {
+-		formats = sun8i_vi_layer_de3_formats;
+-		format_count = ARRAY_SIZE(sun8i_vi_layer_de3_formats);
++		/*
++		 * TODO: DE33 drivers doesn't support scaling yet, which is a
++		 * requirement for YUV support.
++		 */
++		yuv_support = layer->cfg->scaler_mask & BIT(phy_index);
++		if (yuv_support) {
++			formats = sun8i_vi_layer_de3_formats;
++			format_count = ARRAY_SIZE(sun8i_vi_layer_de3_formats);
++		} else {
++			formats = sun8i_vi_layer_de3_no_yuv_formats;
++			format_count = ARRAY_SIZE(sun8i_vi_layer_de3_no_yuv_formats);
++		}
+ 	} else {
+ 		formats = sun8i_vi_layer_formats;
+ 		format_count = ARRAY_SIZE(sun8i_vi_layer_formats);
+@@ -443,22 +481,24 @@ struct sun8i_layer *sun8i_vi_layer_init_one(struct drm_device *drm,
+ 		return ERR_PTR(ret);
+ 	}
+ 
+-	supported_encodings = BIT(DRM_COLOR_YCBCR_BT601) |
+-			      BIT(DRM_COLOR_YCBCR_BT709);
+-	if (layer->cfg->de_type >= SUN8I_MIXER_DE3)
+-		supported_encodings |= BIT(DRM_COLOR_YCBCR_BT2020);
++	if (yuv_support) {
++		supported_encodings = BIT(DRM_COLOR_YCBCR_BT601) |
++				      BIT(DRM_COLOR_YCBCR_BT709);
++		if (layer->cfg->de_type >= SUN8I_MIXER_DE3)
++			supported_encodings |= BIT(DRM_COLOR_YCBCR_BT2020);
+ 
+-	supported_ranges = BIT(DRM_COLOR_YCBCR_LIMITED_RANGE) |
+-			   BIT(DRM_COLOR_YCBCR_FULL_RANGE);
++		supported_ranges = BIT(DRM_COLOR_YCBCR_LIMITED_RANGE) |
++				   BIT(DRM_COLOR_YCBCR_FULL_RANGE);
+ 
+-	ret = drm_plane_create_color_properties(&layer->plane,
+-						supported_encodings,
+-						supported_ranges,
+-						DRM_COLOR_YCBCR_BT709,
+-						DRM_COLOR_YCBCR_LIMITED_RANGE);
+-	if (ret) {
+-		dev_err(drm->dev, "Couldn't add encoding and range properties!\n");
+-		return ERR_PTR(ret);
++		ret = drm_plane_create_color_properties(&layer->plane,
++							supported_encodings,
++							supported_ranges,
++							DRM_COLOR_YCBCR_BT709,
++							DRM_COLOR_YCBCR_LIMITED_RANGE);
++		if (ret) {
++			dev_err(drm->dev, "Couldn't add encoding and range properties!\n");
++			return ERR_PTR(ret);
++		}
+ 	}
+ 
+ 	drm_plane_helper_add(&layer->plane, &sun8i_vi_layer_helper_funcs);
 -- 
 2.43.0
 
