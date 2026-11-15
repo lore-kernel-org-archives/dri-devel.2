@@ -2,34 +2,34 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D0805606A31F
-	for <dri-devel@archiver.kernel.org>; Sun, 15 Nov 2026 20:28:05 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 602E1606A329
+	for <dri-devel@archiver.kernel.org>; Sun, 15 Nov 2026 20:28:17 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ImwEBJaq
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ETF5Z0WA
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 95B3A10E361;
-	Sun, 15 Nov 2026 20:27:59 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 7833910E3C9;
+	Sun, 15 Nov 2026 20:28:11 +0000 (UTC)
 Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id D37E910E1F7;
- Sun, 15 Nov 2026 20:27:52 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 1EB0610E419;
+ Sun, 15 Nov 2026 20:28:05 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id B313C41AB6;
- Sun, 15 Nov 2026 20:27:52 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6F4081F000C6;
- Sun, 15 Nov 2026 20:27:49 +0000 (UTC)
+ by sea.source.kernel.org (Postfix) with ESMTP id 034B441AB6;
+ Sun, 15 Nov 2026 20:28:05 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id D3DCB1F000C4;
+ Sun, 15 Nov 2026 20:27:54 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1794774472;
- bh=VdczhNN3rVTkdzSKO/1FEF2ObIEkmXp6tYC01E0w0n0=;
+ s=k20260515; t=1794774484;
+ bh=iL9gs0hHi938yh2WI7Rig0yplwSjqvzkRGjQ5uPboKU=;
  h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
- b=ImwEBJaq0nehyC/JF9/iqbjz5qT+awTRS1rhu59kzLmGMo98Mvzh4P4MxHjn3QEhd
- LdruBaWqwycsIv9VzmTkygHkWfaHareFtghbZyuL728hNd+MhXMD1btY8h5c5JgNTA
- F3f+HW+jOq2DAS+9cBjKYIqx/caWoQhZgT3lwtzPSlDGSljTPoOw4VoK3PwtvM2sy0
- Jt/bs3s21iolxS8OtIFa1DXW89RWjNpR5VoGh40DxeLKfozQXUEhwhUhLyFiUHn9cQ
- 4Nc4NypjRd3VCQqb43rzmgdLn24tDFN2pZW14vSWhtim/Oa3QBHVPBQA7hCv0vA5Xk
- RQuCq+oeh2NOw==
-Message-ID: <sashiko-outbox-215807@kernel.org>
+ b=ETF5Z0WAqh95BGpkVJKfpqGcs9JI8RAoRt4nI+73Jvpwec+3LLtpvx5oLIOpOfGsT
+ GOEPDW9rPmVNyvWKj75N4qe/uuqYO9Ct+c+rkqTJy8JuSRXz8Cd8ame+5r1JLvG/3A
+ reDElin5T7+X5Y7q3072wbnRv3MkRD1vWKJ66eWwdYKSqePxhpqdkT13QWNUnnpmGY
+ uWWkItczjTLp6aObld3Ovht8ffOQ/ZvRuyPp7S9k0+Fw6T0VXIdNJKdR58ItUCYtae
+ UkRrFmwjS4VMsil7spiRSB/64XxcHyS+/KBT36lH7fuE9R+NdOThy0hIAK8YBBEQQ1
+ KRVyv4dQidmtA==
+Message-ID: <sashiko-outbox-215810@kernel.org>
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH 07/12] docs: ioctl-number: update MTD entries
+Subject: Re: [PATCH 10/12] docs: ioctl-number: update FS entries
 To: "Randy Dunlap" <rdunlap@infradead.org>
 Cc: "Jonathan Corbet" <corbet@lwn.net>,
  "Shuah Khan" <skhan@linuxfoundation.org>, "David
@@ -78,12 +78,12 @@ Cc: "Jonathan Corbet" <corbet@lwn.net>,
  intel-gfx@lists.freedesktop.org, "Matthew Brost" <matthew.brost@intel.com>,
  =?utf-8?b?VGhvbWFzIEhlbGxzdHLDtm0=?= <thomas.hellstrom@linux.intel.com>,
  intel-xe@lists.freedesktop.org
-In-Reply-To: <20261114202653.3113381-8-rdunlap@infradead.org>
+In-Reply-To: <20261114202653.3113381-11-rdunlap@infradead.org>
 References: <20261114202653.3113381-1-rdunlap@infradead.org>
- <20261114202653.3113381-8-rdunlap@infradead.org>
+ <20261114202653.3113381-11-rdunlap@infradead.org>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Sun, 15 Nov 2026 20:27:49 +0000
+Date: Sun, 15 Nov 2026 20:27:54 +0000
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -106,44 +106,48 @@ X-Archived-By: <archiver.kernel.org>
 
 Thank you for your contribution! Sashiko AI review found 1 potential
 issue to consider:
-- [Low] docs: ioctl-number: missing update of 'O' range for
-  mtd/ubi-user.h to 00-08
+- [Low] docs: ioctl-number: ext4 00-2F ioctl range points to
+  fs/ext4/ext4.h instead of uapi/linux/ext4.h
 --
 
-commit ccf1b77b46484d55fbc7ee02d93a71ebab16f010
+commit 9072a8199d2be085dc5ab2567392180faf810c6d
 Author: Randy Dunlap <rdunlap@infradead.org>
 
-docs: ioctl-number: update MTD entries
+docs: ioctl-number: update FS entries
 
-This commit updates the sequence number ranges and file entries for MTD
-and UBI ioctls in Documentation/userspace-api/ioctl/ioctl-number.rst.
+This commit updates the header file paths and sequence number ranges for
+filesystem ioctls in Documentation/userspace-api/ioctl/ioctl-number.rst.
 
 > diff --git a/Documentation/userspace-api/ioctl/ioctl-number.rst b/Documen=
 tation/userspace-api/ioctl/ioctl-number.rst
-> index d47f817335666..1ff4fd4bf9b5c 100644
+> index 87e547be9e2ac..abc89b6288ba3 100644
 > --- a/Documentation/userspace-api/ioctl/ioctl-number.rst
 > +++ b/Documentation/userspace-api/ioctl/ioctl-number.rst
 
 [ ... ]
 
-> @@ -306,7 +306,7 @@ Code  Seq#    Include File                           =
+> @@ -275,7 +276,7 @@ Code  Seq#    Include File                           =
                   Comments
->  'n'   E0-FF  linux/matroxfb.h                                          m=
-atroxfb
->  'n'   F8-FA  video/sisfb.h                                             s=
-isfb
->  'o'   00-1F  fs/ocfs2/ocfs2_fs.h                                       O=
-CFS2
-> -'o'   00-03  mtd/ubi-user.h                                            c=
-onflict! (OCFS2 and UBI overlaps)
-> +'o'   00-06  mtd/ubi-user.h                                            c=
-onflict! (OCFS2 and UBI overlap)
+>  'f'   00-1F  linux/ext2_fs.h                                           c=
+onflict!
+>  'f'   00-1F  linux/ext3_fs.h                                           c=
+onflict!
+>  'f'   00-0F  fs/jfs/jfs_dinode.h                                       c=
+onflict!
+> -'f'   00-0F  fs/ext4/ext4.h                                            c=
+onflict!
+> +'f'   00-2F  fs/ext4/ext4.h                                            c=
+onflict!
 
 [Severity: Low]
-Should the 'O' entry for mtd/ubi-user.h also be updated from 00-06 to
-00-08?  include/uapi/mtd/ubi-user.h defines UBI_VOL_IOC_MAGIC ('O')
-ioctls up to 8 (UBI_IOCVOLCRBLK at 7 and UBI_IOCVOLRMBLK at 8).
+Should this entry point to uapi/linux/ext4.h (or both headers) instead of
+only fs/ext4/ext4.h?
+
+Commit 519fe1bae7e2 ("ext4: Add a uapi header for ext4 userspace APIs")
+moved the EXT4_IOC_* definitions spanning 0x03 through 0x2E into
+include/uapi/linux/ext4.h, leaving only the compat EXT4_IOC32_* definitions
+(0x03 through 0x08) in fs/ext4/ext4.h.
 
 --=20
 Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261114202653.3113=
-381-1-rdunlap@infradead.org?part=3D7
+381-1-rdunlap@infradead.org?part=3D10
