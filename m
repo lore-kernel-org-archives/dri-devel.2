@@ -2,81 +2,88 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DC3E0606A33E
-	for <dri-devel@archiver.kernel.org>; Mon, 16 Nov 2026 08:59:01 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C55A1606A88C
+	for <dri-devel@archiver.kernel.org>; Mon, 16 Nov 2026 08:59:02 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=rWz/TTop
+	dkim=fail reason="signature verification failed" (2048-bit key, unprotected) header.d=charmerstraining.com header.i=@charmerstraining.com header.a=rsa-sha256 header.s=google header.b=Fs8MCu7D
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id E7C0410ED00;
-	Mon, 16 Nov 2026 08:58:48 +0000 (UTC)
-Received: from mail-wm1-f50.google.com (mail-wm1-f50.google.com
- [209.85.128.50])
- by gabe.freedesktop.org (Postfix) with ESMTPS id F15EC10E0C0
- for <dri-devel@lists.freedesktop.org>; Mon, 16 Nov 2026 07:02:16 +0000 (UTC)
-Received: by mail-wm1-f50.google.com with SMTP id
- 5b1f17b1804b1-4ac95761c85so18085415e9.2
- for <dri-devel@lists.freedesktop.org>; Sun, 15 Nov 2026 23:02:16 -0800 (PST)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 644B310ED21;
+	Mon, 16 Nov 2026 08:58:54 +0000 (UTC)
+Received: from mail-pj1-f53.google.com (mail-pj1-f53.google.com
+ [209.85.216.53])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id C767F10E047
+ for <dri-devel@lists.freedesktop.org>; Sun, 15 Nov 2026 03:08:58 +0000 (UTC)
+Received: by mail-pj1-f53.google.com with SMTP id
+ 98e67ed59e1d1-3b37951a397so438447a91.0
+ for <dri-devel@lists.freedesktop.org>; Sat, 14 Nov 2026 19:08:58 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20260707; t=1794812535; x=1795417335; darn=lists.freedesktop.org;
- h=content-transfer-encoding:content-type:mime-version:message-id:date
- :subject:cc:to:from:from:to:cc:subject:date:message-id:reply-to
- :content-type; bh=Oar97+R2dcLaRVk0nmpwc72qymMp7EMYfC2wL31fOwU=;
- b=rWz/TTop2yT+uXTtkDD2w8SMlDshncHVRIhpxPUT0I+BjlDWN4sPIcq+LXMCW+wF8S
- T9vBGzgQ5moEx2e3fp3dHsJT5c/pz8PwXO9JLqQ5nXQaytr3GtNffv6eE9c0VAPakT5S
- ApwQ2k9UT1PQv4Sb9uJMePMJI39of1o9og9O04cGYkB5sP51YLEU/T6AwVSaK6B9fYrX
- SCAj2c8LxbpmeoL7qiQ5WH7JF70N3alWM/9AbRiFwwaY7mnCeX9xmjge7rEFYLAUCoWj
- 1T86TVi70bRlkQPGZCLQ6ikClGzgJj2wxnsaAU+JEWVWH9eGPr5BkmXo7Zet+GbEKK22
- bMmw==
+ d=charmerstraining.com; s=google; t=1794712138; x=1795316938;
+ darn=lists.freedesktop.org; 
+ h=content-transfer-encoding:mime-version:references:in-reply-to
+ :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+ :message-id:reply-to:content-type;
+ bh=XYng5pWI4USr1KWNzMKOzbrap54zZqn6X9wIRG9MW9w=;
+ b=Fs8MCu7D0gjMuj1sHIyiGeB+yo4NT8BwVelozmKk+CVi044Hzbo8qo9BxZtgYwDtii
+ gp9ks5GY8JfXBNo9Y74xQQFiYHYBksbIZbxwqGSG7dfac57Xqzu6BWqatwPFvFNor9ga
+ SGpG87RhvqHZ7hkoHa7nnG+i/IpoMddeJppr2U6Z6ZGub6qE2bAoFPfxOUOTDRhMEYmU
+ tH8LgyJYLEY5HBhE+4YUZjinbBwAqndhk1UkNYpmx4F0a9XXZ4H7FdPG8BuzfX5FgJSS
+ BzqaLfuDGURRSlW7s7gDOdJk1/YVbccfYXig6kEQffk2Nj5C5yZnBMrYFCAxKk1SMqIQ
+ EIgg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20260707; t=1794812535; x=1795417335;
- h=content-transfer-encoding:content-type:mime-version:message-id:date
- :subject:cc:to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject
- :date:message-id:reply-to:content-type;
- bh=Oar97+R2dcLaRVk0nmpwc72qymMp7EMYfC2wL31fOwU=;
- b=lKOuCjDM79mS01zeq89KJT8oQj4/18GERbBahZlpuAlGZA7Q0thXMKmVyuG/3d84vm
- PnaGsss+i+RQkNY3TV8ZPB0YEx5bfsfoW5N4kZvKcBQxsm0DfdwgibeAVD7EEfAjLwMd
- 5uezItNxNmd9+TuTB1sqDfMivRI9NxAIYGLOzSog9iHtvRRhlSoV4n+GuBoE42adEMt3
- bCa7bIZ3i/A2P3Lv1w3uHQVv+CGb4K6elc7Pfint3z41gNCWBe1an98Wu85G4ZXJAD1O
- OqzmuwrTCIsyruRFPoqG3XXYjVZD5yBm45OnF5TwxTQSmrzj0O8qttrJg0YGV9fDKFyr
- rWYQ==
+ d=1e100.net; s=20260707; t=1794712138; x=1795316938;
+ h=content-transfer-encoding:mime-version:references:in-reply-to
+ :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+ :to:cc:subject:date:message-id:reply-to:content-type;
+ bh=XYng5pWI4USr1KWNzMKOzbrap54zZqn6X9wIRG9MW9w=;
+ b=h0VKIr7irK0n695OVtcPSYWSHCSUuY+pDAJ79TRy/2c4J9M4bBDCUndFlddHaZvnsL
+ AeQ5WB3XWFC9YjHYcmldEmES8oma7uXmQcKRmWD5v9aUX+hfFqZsMmtYmxdEAhu252d6
+ cail/hqmqC0l7F72Uoeggf8sqT+Ciq4syUQzKnEzM3qosxrNb4EXnKN22xvrKpNJGgEh
+ WeAao6p9AKg1ad573Ul5IFj9wL3G5Xt50UcwC2imXp8Xtxac/cnCZFm1DR5J8LbpJRCu
+ iOysC6liqIJRpf2junGwTjSXw2m8k7HsaQXFtXNmdFu8+xz0Q9AwG0MYTVUcjtt3hvbt
+ XSCA==
 X-Forwarded-Encrypted: i=1;
- AL+hErHJ8BuotRmSKdmWIgsH1JJbjwlDNIVSiiFpaeUhSM3aQR2iYzRn04e1eNiQ/IXGv8mKwjqDxbCQxm0=@lists.freedesktop.org
-X-Gm-Message-State: APuU4Z+f7MW2CKmrS7VOK8U5l5N3rAX/XijK7gOM1fAnssA9+T78zKpJ
- SNPtJlivbuquoC9AzEs0RDNFIhjHcHn9JwLiMxRPD44wpPXoVKgx32Ac
-X-Gm-Gg: AYBFou0Wb2EEOoniwrmOP7jnbs3/k+aBQgflspelOwZqhihpVOv1RUp7L63Ou4Vk1na
- rYNqXL02z1WogdqUW8jEmzSn5o49hiCbeBU21/p+pw4F6KqujyxI8eCYYjyJI9RBIbH7zgGN1Xj
- P5iPSd960Ocuh48h+ByXjEXEwBLm1M/+/uXo3MCrLvIFA2Hy7UI069/Wcqb806L5iXUgdYgHtVX
- TXZy2CQwn1na+NksoIFF88l9aIVE1ZavEbTap34uuYnkTwmX8vPN6g4Nur877zgtDlYw0hacuLc
- oGlXbFHTrMFv68AaHFHPb/bLhPP1DlOFMl2qV29B7FkL4NUQGXsaWGY3y3W+SkT4Vzi7bLaE+st
- mMdZKCH8edKSfOrABKrOzAy9Cpyba7txAmkMT/rmDzq0jzkD+d4T5rAnQD1pjE1T9s6dOJS7GTS
- gbQhfLAveCY+O580LyvM+oLPiK5bVz+Gj9xXn7RaMg9fG29OQttJxLwQTX8sxhGO39MO6lL1qvv
- aomfVrAwy1TtDxuWBJqCaLeJFH0xeh9X9W/P9BzAb+sVLMYWmw03LOjDkmw8Qa3gZOGQeLe/M4m
- eiEAUjJIeShn
-X-Received: by 2002:a05:600c:4e13:b0:4ba:38a9:85e3 with SMTP id
- 5b1f17b1804b1-4bb55a47fabmr200763425e9.12.1794812535128; 
- Sun, 15 Nov 2026 23:02:15 -0800 (PST)
-Received: from dl360p ([130.61.107.245]) by smtp.gmail.com with ESMTPSA id
- 5b1f17b1804b1-4bb4e2538b9sm558777625e9.1.2026.11.15.23.02.13
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Sun, 15 Nov 2026 23:02:14 -0800 (PST)
-From: =?UTF-8?q?Adil=20H=C3=BCsrev=20Tepe?= <tadilhusrev@gmail.com>
-To: Neil Armstrong <neil.armstrong@linaro.org>,
- Jessica Zhang <jesszhan0024@gmail.com>, Rob Herring <robh@kernel.org>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>
-Cc: David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>,
- Thomas Zimmermann <tzimmermann@suse.de>, dri-devel@lists.freedesktop.org,
- devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
- =?UTF-8?q?Adil=20H=C3=BCsrev=20Tepe?= <tadilhusrev@gmail.com>
-Subject: [PATCH v1 0/2] drm/panel: add Novatek NT36525 (Samsung Galaxy XCover5)
-Date: Mon, 16 Nov 2026 10:02:10 +0300
-Message-ID: <20261116070212.314228-1-tadilhusrev@gmail.com>
-X-Mailer: git-send-email 2.53.0
+ AL+hErE2O3a5krV3SLPk5trpTh4wSLODyzyzH14le95OGygofJJPYpcjkD+DTPk+dE59vOj7kfRqO0YJ4Mo=@lists.freedesktop.org
+X-Gm-Message-State: APuU4Z8F8O0DM+Nz3WXjjVRkfR/4y3OSzwBy9/Zg+2cRZ9lIlrxcyOU+
+ EUzW3oo0s0noUsr1yzhfi7+fcc8JnldSEfLQzL9lijdXSCX3LvHhGW6CJpq05s3VaLs=
+X-Gm-Gg: AYBFou2NRrIAT2dLJX42qr+TdpBdBh+GzFIsyUbxGyh5IeijOk0u9rcrH2wIQkyGFes
+ LHJAyvFu4jh04xQKIM9JnnpqvCpG7j0PVkBZ0PX3WMv6ym3Yr5J4nl00/RqpQUEM4MgMQ42O1mX
+ tbzWkbNWdPXQftU6JBuKc/zt/Ba5au7m6fa68AzmpNJ5RItKAhDixK8g7rwd2qe1G0eylU5jnWD
+ vKO3pLygQeSlpTvJZft/r4wf8kD/1vrhcMF5ypOrm7hdC4ITZJZh8eUBpbcdeUBQA4BcSPpB7s+
+ MumIfC27e1ompvF2lPGGR7JhcR/Zki7y1kb5v2x/F9feTut2AuHqxlIX+dl/UjnfdIdDCh8T4Lq
+ nGg9aBsXQnbRcXIUzdGUlqZerIJWlYl6S/9sE77ksobGDGJRPZWLw3pC4E+4Nn1CFLv86AhxemL
+ t0wGYa8oc9GW9po1frjaGrm2MGfrmC7Dy6EdzrSkCrcutYYYOEU+S6QfZnH8k29OfRdVr7aTuiO
+ O9qYw9vzPttHpjDefX7/f/GoCKGMVauZgrfr6tvl9p3f86p7JDRXQPS5HwCSWd8l2Ir9IBcTCFo
+ nmYhmvUEbp4GMxtVGS0cHNp1xKfOdV8a+zrD3M8SXgs+db+LwFECug88krMRp8NKEYa8GglQcqg
+ +TXyRpi1ea4X0ZgPj4efqjL70/4y6ACrzYwye2oUDggmne0eeLYMJ9N6DBjgxIffCZLNSshtDG8
+ Q97F8GCfpmu4diUW3SLmWcyBcXwdOczJ8425Y03+cZJMYO0J4MBH/obQ==
+X-Received: by 2002:a17:90b:4c49:b0:3ab:4f1:4f7e with SMTP id
+ 98e67ed59e1d1-3b1b0b8ef0fmr6902713a91.28.1794712138264; 
+ Sat, 14 Nov 2026 19:08:58 -0800 (PST)
+Received: from ip-192-168-20-3.ap-southeast-2.compute.internal
+ (2403-5803-1750-0-d1fd-685c-f50c-5901.ip6.aussiebb.net.
+ [2403:5803:1750:0:d1fd:685c:f50c:5901])
+ by smtp.gmail.com with ESMTPSA id
+ 98e67ed59e1d1-3b197d32ea0sm15422530a91.15.2026.11.14.19.08.53
+ (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
+ Sat, 14 Nov 2026 19:08:57 -0800 (PST)
+From: Ed Schofield <ed@charmerstraining.com>
+To: Atharva Tiwari <atharvatiwarilinuxdev@gmail.com>
+Cc: Doitall <diainquiries@protonmail.com>, Andre Eikmeyer <dev@deq.rocks>,
+ Alex Deucher <alexander.deucher@amd.com>,
+ =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ Harry Wentland <harry.wentland@amd.com>, Leo Li <sunpeng.li@amd.com>,
+ Rodrigo Siqueira <siqueira@igalia.com>, amd-gfx@lists.freedesktop.org,
+ dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v2] drm/amd/amdgpu: Add 5K Support for iMac20, 1 and iMac20,
+ 2
+Date: Sun, 15 Nov 2026 14:08:48 +1100
+Message-ID: <20261115030848.17705-1-ed@charmerstraining.com>
+X-Mailer: git-send-email 2.54.0
+In-Reply-To: <20261113214721.9382-1-atharvatiwarilinuxdev@gmail.com>
+References: <20261113214721.9382-1-atharvatiwarilinuxdev@gmail.com>
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 X-Mailman-Approved-At: Mon, 16 Nov 2026 08:58:46 +0000
 X-BeenThere: dri-devel@lists.freedesktop.org
@@ -90,56 +97,69 @@ List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-10.8 required=3.0 tests=BAYES_00,DKIM_SIGNED,
-	DKIM_VALID,DKIM_VALID_AU,FREEMAIL_FORGED_FROMDOMAIN,FREEMAIL_FROM,
-	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_PATCH,MAILING_LIST_MULTI,
-	SPF_HELO_NONE,SPF_PASS,USER_AGENT_GIT autolearn=unavailable
-	autolearn_force=no version=4.0.1
+X-Spam-Status: No, score=-11.6 required=3.0 tests=BAYES_00,DKIM_INVALID,
+	DKIM_SIGNED,HEADER_FROM_DIFFERENT_DOMAINS,MAILING_LIST_MULTI,
+	MENTIONS_GIT_HOSTING,SPF_HELO_NONE,SPF_PASS,USER_AGENT_GIT
+	autolearn=unavailable autolearn_force=no version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-This series adds a DRM panel driver and its DT binding for MIPI-DSI
-video-mode panels based on the Novatek NT36525 controller, as fitted on
-the Samsung Galaxy XCover5 (SM-G525F, Exynos850). The panel is 720x1480,
-uses an active-high reset (RESX), and a DCS init sequence that mirrors
-the stock Samsung bring-up. Backlight goes through drm_panel_of_backlight().
+Hi Atharva,
 
-  Patch 1  dt-bindings (compatible: "samsung,xcover5-nt36525",
-           "novatek,nt36525")
-  Patch 2  the panel driver
+Thanks for posting this. I've built v2 unchanged and tested it on my
+iMac20,1 over the weekend (on 7.3 plus the t2linux patches).
 
-Tested on a Samsung Galaxy XCover5 running 7.4-rc1 plus this series: the
-panel initialises and displays correctly under phosh. checkpatch.pl and
-dt_binding_check are clean (bar the usual new-file MAINTAINERS note; the
-files are covered by the DRM PANEL DRIVERS wildcards).
+It works well in normal use. I ran automated tests over 32 boots, 55
+display off/on cycles and about 40 suspend/resume cycles, and both
+halves of the panel came back at 2560x2880 and 10 bpc every time,
+including from scaled modes.
 
-Based on v7.4-rc1.
+However, your v2 hangs the GPU when the two halves are set to different
+modes. This happened 3 times out of 3, just as with my very similar "r2"
+variant that I described in [1].
 
-Tool usage
-----------
-This series was developed during XCover5 mainline bring-up with the help
-of an AI coding assistant (Claude Code, Anthropic). The assistant converted
-the vendor init stream to mipi_dsi_dcs_write_seq_multi(), drafted the driver
-skeleton and the DT binding, and drafted these changelogs. I reviewed every
-line, validated the binding (dt_binding_check, yamllint), tested the driver
-on hardware, and take full responsibility for the contribution.
-Prompt summary: "convert the XCover5 NT36525 vendor panel init into a
-mainline drm_panel driver plus DT binding; keep it checkpatch- and
-dt_binding_check-clean; test on the device." Review comments are welcome
-and I will answer them myself.
+To reproduce this, leave the left half (eDP) at 2560x2880, set the right
+half (DP-1) to 2048x2304, which its EDID advertises, then start a
+second program that uses the GPU. Each time the log showed:
 
-Adil Hüsrev Tepe (2):
-  dt-bindings: display: panel: add Novatek NT36525
-  drm/panel: add Novatek NT36525 panel driver
+  amdgpu: SMU: No response msg_reg: 2a resp_reg: 0
+  amdgpu: Failed to disable gfxoff!
+  (repeated four times, about 4 s apart)
+  amdgpu: ring sdma1 timeout, signaled seq=17, emitted seq=19
+  amdgpu: Ring sdma1 reset failed
+  amdgpu: GPU reset begin!
 
- .../display/panel/novatek,nt36525.yaml        |  71 +++
- drivers/gpu/drm/panel/Kconfig                 |  13 +
- drivers/gpu/drm/panel/Makefile                |   1 +
- drivers/gpu/drm/panel/panel-novatek-nt36525.c | 486 ++++++++++++++++++
- 4 files changed, 571 insertions(+)
- create mode 100644 Documentation/devicetree/bindings/display/panel/novatek,nt36525.yaml
- create mode 100644 drivers/gpu/drm/panel/panel-novatek-nt36525.c
+The reset never finishes and the machine has to be rebooted. Since the
+halves are separate connectors, anything that sets modes per connector
+can trigger this.
 
--- 
-2.53.0
+I think the cause is the early "return true" in
+resource_are_streams_timing_synchronizable(), which tells DC the two
+streams are synchronized even when their timings differ. Taking the
+shortcut only when the timings really match avoids the hang:
 
+        if (stream1->ctx->dc->config.imac5K_support &&
+            stream1->timing.h_total == stream2->timing.h_total &&
+            stream1->timing.v_total == stream2->timing.v_total &&
+            stream1->timing.pix_clk_100hz == stream2->timing.pix_clk_100hz &&
+            ((stream1->signal == SIGNAL_TYPE_EDP && ...
+
+With that check, the same test passed 9 times out of 9 on a kernel
+("r3" [2]) that is otherwise very close to your v2, and the normal 5K
+case still takes the shortcut. Without the check it failed 7 times out
+of 7 before v2, so the result is consistent. Dropping the shortcut
+altogether also passed (8 of 8, "r1" [3]).
+
+Could you add that check in v3? I'm happy to retest quickly.
+
+One note: my Tested-by and Signed-off-by tags were added before
+I had seen or tested this version. I'm glad to give both for a version
+with the check above. Please use ed@charmerstraining.com.
+
+Thanks again for all your work on this!
+
+Ed
+
+[1] https://github.com/t2linux/wiki/issues/743#issuecomment-6588960822
+[2] https://github.com/edschofield/linux-t2-patches/blob/7273823e425200e9f371e9272e02ebf9abb6f1c2/7003-amdgpu-add-support-for-5K.patch
+[3] https://github.com/edschofield/linux-t2-patches/blob/5d3775923bf481c487ff96efc8fb3e24ecf8c9cd/7003-amdgpu-add-support-for-5K.patch
