@@ -2,102 +2,97 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 05C37606A31E
-	for <dri-devel@archiver.kernel.org>; Sun, 15 Nov 2026 08:20:10 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CCA6C606A31A
+	for <dri-devel@archiver.kernel.org>; Sun, 15 Nov 2026 08:49:29 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=amd.com header.i=@amd.com header.a=rsa-sha256 header.s=selector1 header.b=wqTDtZ83
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=dpqZ0/XE
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 867BC10E292;
-	Sun, 15 Nov 2026 08:20:02 +0000 (UTC)
-Received: from CO1PR03CU002.outbound.protection.outlook.com
- (mail-westus2azon11010037.outbound.protection.outlook.com [52.101.46.37])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 40E0910E292;
- Sun, 15 Nov 2026 08:19:56 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=YI51ymNvT0zpZ37i57Md3Rx01l/R1GlXdaCfLuU/ScnPj44crsKA3f0FTzFsXL8/Lz1ZBvX4EUhlgXCkd8rW3Gjy79QvZ8DWaDflnTUkCr2BtHUpWG0p99+yg6rrbsGCZdD04CFdf78EbmQQ5yTfoZBWJZgtiO6AgyNEaJlfJJy7wGGg6xSIx5poCNyeRHwqZX4q1lap1gd3x/1+6e1DLc8bFtAqFCzhmIs2Pz/dqyHS7XGEGAUeDalNum274sU8akXZaGLXunYRFpzytflzHvHUZd7MSCnSaSKOW5TVdCbtj2lbxdn8ICsWoTA+GgJN7Sy4Vf9I8MxD14xhNLhzrQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=wt5uxd5QvfObo3EWW9do14rMxIvkTMWqwnXdkARK2mM=;
- b=XrpSt4X2VuGVyORKtEDbQn9FFaxTccQ6cgJZgMIbz4a5T9WLfLMYOfVbeDftXQium7rjMM+ZrNcYnY7b38juFyXWVojICoz+vh3znTghEhKrQ1es+UC3fFbTTXZaoDcSsSkgFmPLfz1+tP9KNbfSJHgcGC1UOmb3V9ngwfKoNLP1ru5pdvqSnCFNP9jMummdHbLWBrvFM9YFQihPaNk0/Zi7JL8hhkj+2dGFAdz9vGExCQTtvqYSItTC0wc/YLNDgKwgGqEHlmGkLt8fd/KiVwbdsRfe9gJ0iAPf5+LI9LPAQffiAJNY17HqqWU2ZEhV8aPePFWoJHOoV35NvMSp4g==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
- dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
- header.from=amd.com; dkim=none (message not signed); arc=none (0)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=wt5uxd5QvfObo3EWW9do14rMxIvkTMWqwnXdkARK2mM=;
- b=wqTDtZ83YwZsthNWC+vYqI3Bh/pZmyjkQWNpTpKMBagbx2UYcTpghN8cXqWOWareXfXtzmmjg98n6l+Jc8cN+7AwvpO91bM/woOU5iptGn2Qmjogaw5NMYC5jfaLUVMhTe10cH44AUEoKfxx5wp/bk9IU4fR16D+kSPG7167IbQ=
-Received: from BN9PR03CA0157.namprd03.prod.outlook.com (2603:10b6:408:f4::12)
- by DS7PR12MB6239.namprd12.prod.outlook.com (2603:10b6:8:95::18) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.615.13; Sun, 15 Nov
- 2026 08:19:45 +0000
-Received: from BN1PEPF00018071.namprd04.prod.outlook.com
- (2603:10b6:408:f4:cafe::3b) by BN9PR03CA0157.outlook.office365.com
- (2603:10b6:408:f4::12) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.21.615.10 via Frontend Transport; Sun,
- 15 Nov 2026 08:19:45 +0000
-X-MS-Exchange-Authentication-Results: mx.microsoft.com 1; spf=pass (sender IP
- is 165.204.84.17) smtp.mailfrom=amd.com;
- dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=amd.com;
-Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
- 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=satlexmb08.amd.com; pr=C
-Received: from satlexmb08.amd.com (165.204.84.17) by
- BN1PEPF00018071.mail.protection.outlook.com (10.167.245.199) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.615.4 via Frontend Transport; Sun, 15 Nov 2026 08:19:44 +0000
-Received: from satlexmb08.amd.com (10.181.42.217) by satlexmb08.amd.com
- (10.181.42.217) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.57; Sun, 15 Nov
- 2026 02:19:44 -0600
-Received: from wayne-dev-lnx.amd.com (10.180.168.240) by satlexmb08.amd.com
- (10.181.42.217) with Microsoft SMTP Server id 15.2.2562.57 via Frontend
- Transport; Sun, 15 Nov 2026 02:19:42 -0600
-From: Wayne Lin <Wayne.Lin@amd.com>
-To: <amd-gfx@lists.freedesktop.org>
-CC: Mario Limonciello <superm1@kernel.org>, Harry Wentland
- <harry.wentland@amd.com>, Leo Li <sunpeng.li@amd.com>, Alex Deucher
- <alexander.deucher@amd.com>, Richard Hughes <richard@hughsie.com>,
- <simonit.orig@gmail.com>, <dri-devel@lists.freedesktop.org>
-Subject: Re: [PATCH v2] drm/amd/display: Route connector DDC over AUX for
- native DP sinks
-Date: Sun, 15 Nov 2026 16:20:42 +0800
-Message-ID: <20261115082042.1902826-1-Wayne.Lin@amd.com>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <20261103-superm1-amdgpu-ddc-v2-1-7bde6d004382@kernel.org>
-References: <20261103-superm1-amdgpu-ddc-v2-1-7bde6d004382@kernel.org>
+	by gabe.freedesktop.org (Postfix) with ESMTP id 24F0110E046;
+	Sun, 15 Nov 2026 08:49:24 +0000 (UTC)
+Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id DF57010E046
+ for <dri-devel@lists.freedesktop.org>; Sun, 15 Nov 2026 08:49:17 +0000 (UTC)
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+ by sea.source.kernel.org (Postfix) with ESMTP id 27D854392C;
+ Sun, 15 Nov 2026 08:49:17 +0000 (UTC)
+Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
+ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
+ t=1794732557;
+ b=boqvfHsThvZVyYibacBhO1YrtuGRNyunVmpI1+GLV3N5leKZ86lg68/AVg0eBkE5EpOv
+ oY4QBiKPCXrWBCdWy4TSsvGb42aOkgo4vkn7sT11ObCNa/KvJt8uuASLREqNQ63ST+S3l
+ XGZaouhSWwsZfoy37cc61JmjYSreK/l3GhfgmRwdpsJCXFNDeMeDOFrXXDluEbBcqueZ1
+ ZVfXPfV4trN9AlsUq6yBCuXvwk1GhYeOWsy/IjRr2OI6LracWqTDsIQHoo8WWMRG8ewnt
+ z0guR2UQ76zPNyiNDFFLOBUN2xsgBaCph/dSi75XL0OTY1NwdjHpKS11CtrICtI0uaw==
+ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
+ c=relaxed/relaxed; t=1794732557;
+ h=DKIM-Signature:Received:From:Date:Subject:MIME-Version:Content-Type:
+ Message-Id:X-B4-Tracking:X-Change-ID:To:Cc:X-Mailer:
+ X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
+ X-Original-From:Reply-To:Content-Transfer-Encoding;
+ bh=Th68mQt9KjboqzFUfG6n2gxnCDTInTK8JGxyN+AwcXo=;
+ b=b3V+Q93mA9q+BkZDqJFPD03tdIXmALA1h6TwAr3inPCeAtMQ3b59XHIvbTzl4YWuIqoE
+ FVBoo4hUGdyGleBkjKQHV1Ugma/29lDtcFbtWqelneUiWu60H48LLSXKZXb6tTWy7P4ZP
+ +JLqyfeCSzWq8qZXqBA73PpZz2fhDZl9flLvmXS7bC3uS33iOJLEImaHQeWtjqoKwXPCm
+ JvlwTACbJ837+Qz9zpoqRbYtXqXtmGJQSQ42h5TzP2LEeFCtijZ5ZUt85URGtTtxWWdHd
+ B2SZ3D9xX3QgW6pJurNI6S862FO5l7OCa8j07XWrlCaJVk9EaV8UtRMnEwrywXCa1NQ==
+ARC-Authentication-Results: i=1; smtp.kernel.org; 
+ arc=none smtp.remote-ip=100.80.115.77
+Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+ (No client certificate requested)
+ by smtp.kernel.org (Postfix) with ESMTPS id 4763C1F000C6;
+ Sun, 15 Nov 2026 08:49:16 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+ s=k20260515; t=1794732557;
+ bh=Th68mQt9KjboqzFUfG6n2gxnCDTInTK8JGxyN+AwcXo=;
+ h=From:Date:Subject:To:Cc:Reply-To;
+ b=dpqZ0/XE2eGod2aMDqwqkN1pvcqOdc0QN0Zab5xL+o4INHUYftGlvi+3Wu3HmTlyH
+ r7Hs/5pcZyxjO+Otm+p0FbEzSgQ/oxzRC4pywXWhQt2R3lFYDVPykw0ha68pywsdpZ
+ 0ClKfvsj/8uBbEanGsNT9kzKLHvS3rqCBkW2aJ2ZgySQq/9t/oxYltSEvmNtTFNNeo
+ XWbILPN2S2er9tiYnpDtXRCEhlgPc4tNl9DeR7BozPSHcB9hq93D9trWXOb0b6OoL/
+ 9+BVNftkdbzGtXkMwmv1ZQJiZtJ5eEGknyBKndGmkrRb6upDGsS9NFT+vP088NMTQj
+ igXQMjWZoH7Pw==
+Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
+ by lkml.kernel.org (Postfix) with ESMTP id BC02149FEA;
+ Sun, 15 Nov 2026 08:49:15 +0000 (UTC)
+From: Arun Iyengar via B4 Relay <devnull+aiyengar1990.gmail.com@kernel.org>
+Date: Sun, 15 Nov 2026 08:49:15 +0000
+Subject: [PATCH v3] drm/bridge: Fail an unsatisfiable bus format
+ negotiation with -EINVAL
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: BN1PEPF00018071:EE_|DS7PR12MB6239:EE_
-X-MS-Office365-Filtering-Correlation-Id: b46b6c35-ccb2-4bd3-d278-08df42f134c1
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
- ARA:13230040|1800799024|376014|23010399003|82310400026|36860700016|10067099003|11063799006|56012099006|261022105027099003|261021121427099003|261026121527099003|261026140227099003|261028144727099003|261102123227099003|261009223027099003|18002099003|22082099003|13003099007;
-X-Microsoft-Antispam-Message-Info: 2uAfP9hwM14BrWLRwsaH6f8UvTHLIY34i2Ky8rrAu4rAFi3wEKLBIJ6LeO26turyXOYZTxj1HJ/iWs13Z+sLX0JaIvouluN8npFkmHPZHp9yd8U5OtAhWDybFWT3n97Y4cTKp/rLAWK8CS9yEsqMh/k2IviVFftufjVt0hdcsa7Q15A6L3BeFPgHskRnhsD3Myb8qPSk5zhPuU6a/VbtKZC48bhPznmLFJYlTdCgSWngGxt1B8tuQtgpPQYipjj1QXhhs3ndVbO/YAKg0gpx3Jkyn170C0vKbQD+oBB7vRDovvXU1K3Y/zklU1oPbto1w1DRZ2XJI87rhcfEJ4qqI/YN9mvHuLRlqbIsZMCczoFwLq9+2Rp1/zMDjyeU2aAsLEs5IMn+wRtMlaMK2dQSbgftKHjCPSPSokBd/Q5TCsKUxiJcqggvGeBE1iGGy2g+B0kcnye+qGgxoo9f+5zzN56YZ4MMMrXM9JdWQGfCUSVFnXHorn7dVtZqDxyJhrxKYqqH2LRCmhKk1QuqraXw3jq6u1+8PBunz1FEyfnc0QknxOPRGRBBJGr4kJu6Hz8ELSBl588eEj5Panpbll+DnHkWn0QeZuuF9DqiPT35T4ACo4T26JTytFotBUemho+FbfkmeTIu+PbpkEUChth6l9fzC+g4Q63J5rLV03E3SS4=
-X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:satlexmb08.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230040)(1800799024)(376014)(23010399003)(82310400026)(36860700016)(10067099003)(11063799006)(56012099006)(261022105027099003)(261021121427099003)(261026121527099003)(261026140227099003)(261028144727099003)(261102123227099003)(261009223027099003)(18002099003)(22082099003)(13003099007);
- DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: 92NV2iOyJ90klmdAAyXaE8NSWIwKhP52v3hgLmQBfEXdlXRJ9w0msSIv6Rd/zCIAbJ3V7mwzz5rJFSgByW/QV0OWXiXJW7c+9cC2ZTwxyV1Tb6xXEslZAaxnl4gWz3sSQkbrAQePRN0LXR4mF2dmpKsvo0GiSVYks6S5gohbiLrEQ7qLZOhax0pZs2unwTjbJKKJbgiB0YsC+8D5EV+dz2i/T+KBcO7RyuPv7wtCA+61nP7Cw8TPO2qwu2r2b1Lm9G2b6D4njFX2ZuiTy7Yzi2G7f9k8o/h0DTbd4iYRTTkPmdreE365kOoX/bEAaPcXJ2xbyxIndh50kNyPqD3/m4a5SkxBDbd+yVr3OgkFA5DHq4gpi55OpITP9ZD2BgJBrwIGw3GZGE31Axa5NDRm4FqfAxayLMF7MkssMGaa/Tbq/f+A9L1rOkS8tp+PW72X
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 15 Nov 2026 08:19:44.9147 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: b46b6c35-ccb2-4bd3-d278-08df42f134c1
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
- Helo=[satlexmb08.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: BN1PEPF00018071.namprd04.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DS7PR12MB6239
+Content-Type: text/plain; charset="utf-8"
+Message-Id: <20261115-drm-bridge-busfmt-einval-v3-1-ab38616d6135@gmail.com>
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/42Nyw6CMBBFf4V0bU2nrfhY+R/GBX0AYyiYFhoN4
+ d9tccPKuDyZO+fMJFiPNpBLMRNvIwYc+gRiVxDdVn1jKZrEhDNeAgCjxjuqPJp0UVOo3Ugt9rH
+ qKNf6pIQBJs+CpPentzW+VvXt/uUwqYfVY/blRYthHPx7bUfIuz8yEShQnSJSGS54Ka+Nq7Db6
+ 8GRnIl8K4IfIp5EtVJHeWaHEqTaipZl+QCHQoFpGwEAAA==
+X-Change-ID: 20261110-drm-bridge-busfmt-einval-2cc8b3d10493
+To: Andrzej Hajda <andrzej.hajda@intel.com>, 
+ Neil Armstrong <neil.armstrong@linaro.org>, Robert Foss <rfoss@kernel.org>, 
+ Laurent Pinchart <Laurent.pinchart@ideasonboard.com>, 
+ Jonas Karlman <jonas@kwiboo.se>, Jernej Skrabec <jernej.skrabec@gmail.com>, 
+ Luca Ceresoli <luca.ceresoli@bootlin.com>, 
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>
+Cc: dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org, 
+ Nicolas Frattaroli <nicolas.frattaroli@collabora.com>, 
+ Boris Brezillon <boris.brezillon@collabora.com>, 
+ Arun Iyengar <aiyengar1990@gmail.com>
+X-Mailer: b4 0.15.2
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1794732555; l=2445;
+ i=aiyengar1990@gmail.com; s=20261110; h=from:subject:message-id;
+ bh=wDXeQt9euA8I+/3t45VeI1f/YvX4GBH9rBxqF2WJVaY=;
+ b=DYQVDCJ5ppn7LVbkF62hmMtueR/ast2YyZseZIpyOAfxSFZ+ZZp/me3meaoXZI8p8lH7Sn9rg
+ QUXTgKPXV3yDUEoOnrUNcQV4SCFb078jHL9BxsuAupqrTT7/s0tLsbi
+X-Developer-Key: i=aiyengar1990@gmail.com; a=ed25519;
+ pk=zXpRgUTrhaFe6jLyPqbBy3ccfkj04w0g2690Wv3mg+0=
+X-Endpoint-Received: by B4 Relay for aiyengar1990@gmail.com/20261110 with
+ auth_id=1480
+X-Original-From: Arun Iyengar <aiyengar1990@gmail.com>
+Content-Transfer-Encoding: 7bit
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -108,76 +103,81 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
+Reply-To: aiyengar1990@gmail.com
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-23.8 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
-	DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
-	INCLUDES_CR_TRAILER,INCLUDES_PATCH,MAILING_LIST_MULTI,
-	MENTIONS_GIT_HOSTING,SPF_HELO_NONE,SPF_PASS,USER_AGENT_GIT
-	autolearn=unavailable autolearn_force=no version=4.0.1
+X-Spam-Status: No, score=-16.8 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
+	DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,FREEMAIL_REPLYTO_END_DIGIT,
+	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
+	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,USER_AGENT_GIT autolearn=ham
+	autolearn_force=no version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-Reviewed-by: Wayne Lin <Wayne.Lin@amd.com>
+From: Arun Iyengar <aiyengar1990@gmail.com>
 
-On Tue, 03 Nov 2026 08:18:40 -0600, Mario Limonciello wrote:
-> On DisplayPort and eDP connectors DDC is tunneled over the AUX channel,
-> but the connector's "ddc" adapter ("AMDGPU DM i2c hw bus N") always
-> drives the physical i2c pins, which don't reach a native DP sink.  The
-> AUX backed adapter ("AMDGPU DM aux hw bus N") does, so userspace such as
-> fwupd, which uses the "ddc" sysfs link for DDC/CI, has to work around
-> this.
->
-> Keep a single i2c bus per connector and pick the transport per transfer
-> based on the detected sink: if the sink is a native DP/eDP/MST sink,
-> forward the transfer to the AUX adapter, otherwise (DVI/HDMI, including
-> DP++ with a passive adapter) use the hw i2c engine as before.
->
-> Reported-by: simonit.orig@gmail.com
-> Closes: https://github.com/fwupd/fwupd/pull/11308
-> Signed-off-by: Mario Limonciello <superm1@kernel.org>
-> ---
-> Changes in v2:
-> - Check which i2c bus to use on the fly instead of changing static symlink to
->   avoid regressing passive adapters.
-> - Link to v1: https://patch.msgid.link/20261102-superm1-amdgpu-ddc-v1-1-9c5cb4a4f62d@amd.com
-> ---
->  .../gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_connector.c  | 16 ++++++++++++++++
->  1 file changed, 16 insertions(+)
->
-> diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_connector.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_connector.c
-> index b498fc5fbb140..678caffa3d120 100644
-> --- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_connector.c
-> +++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_connector.c
-> @@ -3373,6 +3373,22 @@ STATIC_IFN_KUNIT int amdgpu_dm_i2c_xfer(struct i2c_adapter *i2c_adap,
->  	int i;
->  	int result = -EIO;
->  
-> +	if (!i2c->oem) {
-> +		struct dc_link *link = ddc_service->link;
-> +		struct amdgpu_dm_connector *aconnector = link->priv;
-> +
-> +		/*
-> +		 * DDC to a native DisplayPort sink is tunneled over the AUX
-> +		 * channel; the physical i2c pins only reach DVI/HDMI sinks
-> +		 * (e.g. DP++ with a passive adapter).  Route accordingly so
-> +		 * the connector's single "ddc" bus works for either sink.
-> +		 */
-> +		if (aconnector && link->local_sink &&
-> +		    dc_is_dp_signal(link->local_sink->sink_signal) &&
-> +		    aconnector->dm_dp_aux.aux.ddc.algo)
-> +			return i2c_transfer(&aconnector->dm_dp_aux.aux.ddc, msgs, num);
-> +	}
-> +
->  	if (!ddc_service->ddc_pin)
->  		return result;
->  
->
-> ---
-> base-commit: 6628e7d4c6b25c8d18f1345e3a20d21829aae7e4
-> change-id: 20261102-superm1-amdgpu-ddc-63f0eb10c022
->
-> Best regards,
-> --  
-> Mario Limonciello <superm1@kernel.org>
->
->
+If no bus format chain fits, drm_atomic_bridge_chain_check() passes
+-ENOTSUPP from the negotiation to userspace. Return -EINVAL instead and
+update the KUnit test that expects -ENOTSUPP.
+
+Fixes: f32df58acc68 ("drm/bridge: Add the necessary bits to support bus format negotiation")
+Signed-off-by: Arun Iyengar <aiyengar1990@gmail.com>
+---
+Tested with the drm KUnit tests (UML).
+Developed with Claude (Anthropic), which wrote the code and the commit
+message. I reviewed it.
+---
+Changes in v3:
+- Shorter commit message, without the DW DP example (Nicolas Frattaroli)
+- Drop the code comment
+- Link to v2: https://patch.msgid.link/20261111-drm-bridge-busfmt-einval-v2-1-fbb74905614b@gmail.com
+
+Changes in v2:
+- Make drm_test_bridge_rgb_yuv_no_path() expect -EINVAL (Sashiko)
+- Add the Fixes tag (Sashiko)
+- Cc Nicolas Frattaroli and Boris Brezillon
+- Link to v1: https://patch.msgid.link/20261110-drm-bridge-busfmt-einval-v1-1-c0494bd23264@gmail.com
+---
+ drivers/gpu/drm/drm_bridge.c            | 6 ++++++
+ drivers/gpu/drm/tests/drm_bridge_test.c | 2 +-
+ 2 files changed, 7 insertions(+), 1 deletion(-)
+
+diff --git a/drivers/gpu/drm/drm_bridge.c b/drivers/gpu/drm/drm_bridge.c
+index 8ae2f9b1db44..33120cc7f982 100644
+--- a/drivers/gpu/drm/drm_bridge.c
++++ b/drivers/gpu/drm/drm_bridge.c
+@@ -1437,6 +1437,12 @@ int drm_atomic_bridge_chain_check(struct drm_bridge *bridge,
+ 
+ 	ret = drm_atomic_bridge_chain_select_bus_fmts(bridge, crtc_state,
+ 						      conn_state);
++	if (ret == -ENOTSUPP) {
++		drm_dbg_atomic(bridge->dev,
++			       "[ENCODER:%d:%s] no bus format chain found\n",
++			       bridge->encoder->base.id, bridge->encoder->name);
++		return -EINVAL;
++	}
+ 	if (ret)
+ 		return ret;
+ 
+diff --git a/drivers/gpu/drm/tests/drm_bridge_test.c b/drivers/gpu/drm/tests/drm_bridge_test.c
+index 15583ade8494..792dbd035501 100644
+--- a/drivers/gpu/drm/tests/drm_bridge_test.c
++++ b/drivers/gpu/drm/tests/drm_bridge_test.c
+@@ -1351,7 +1351,7 @@ static void drm_test_bridge_rgb_yuv_no_path(struct kunit *test)
+ 		drm_modeset_backoff(&ctx);
+ 		goto retry_commit;
+ 	}
+-	KUNIT_EXPECT_EQ(test, ret, -ENOTSUPP);
++	KUNIT_EXPECT_EQ(test, ret, -EINVAL);
+ 
+ 	drm_modeset_drop_locks(&ctx);
+ 	drm_modeset_acquire_fini(&ctx);
+
+---
+base-commit: 8deaade4a5a4ff635df91e246e42139ab2b33f6d
+change-id: 20261110-drm-bridge-busfmt-einval-2cc8b3d10493
+
+Best regards,
+--  
+Arun Iyengar <aiyengar1990@gmail.com>
+
+
