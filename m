@@ -2,53 +2,58 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AF9BE606A31E
-	for <dri-devel@archiver.kernel.org>; Sun, 15 Nov 2026 11:53:30 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id ED9D7606A330
+	for <dri-devel@archiver.kernel.org>; Sun, 15 Nov 2026 12:07:44 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=seu.edu.cn header.i=@seu.edu.cn header.a=rsa-sha256 header.s=default header.b=jTHSvA5/
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=QmryQVy3
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 1B14A10E051;
-	Sun, 15 Nov 2026 11:53:25 +0000 (UTC)
-X-Greylist: delayed 304 seconds by postgrey-1.36 at gabe;
- Sun, 15 Nov 2026 11:53:18 UTC
-Received: from mail-m155101.qiye.163.com (mail-m155101.qiye.163.com
- [101.71.155.101])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 0A44310E051
- for <dri-devel@lists.freedesktop.org>; Sun, 15 Nov 2026 11:53:17 +0000 (UTC)
-Received: from [192.168.17.1] (unknown [124.79.98.159])
- by smtp.qiye.163.com (Hmail) with ESMTP id 54b7e04f2;
- Sun, 15 Nov 2026 19:48:10 +0800 (GMT+08:00)
-From: Hongyan Xu <getshell@seu.edu.cn>
-To: Andrzej Hajda <andrzej.hajda@intel.com>,
- Neil Armstrong <neil.armstrong@linaro.org>, Robert Foss <rfoss@kernel.org>
-Cc: Laurent Pinchart <Laurent.pinchart@ideasonboard.com>,
- Jonas Karlman <jonas@kwiboo.se>, Jernej Skrabec <jernej.skrabec@gmail.com>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
- Simona Vetter <simona@ffwll.ch>, David Airlie <airlied@gmail.com>,
- Luca Ceresoli <luca.ceresoli@bootlin.com>, dri-devel@lists.freedesktop.org,
- linux-kernel@vger.kernel.org, stable@vger.kernel.org
-Subject: [RFC PATCH v2 1/2] drm/bridge: protect complete HPD helpers during
- unplug
-Date: Sun, 15 Nov 2026 19:48:07 +0800
-Message-ID: <179474328799.103840.339489006600833395@seu.edu.cn>
-In-Reply-To: <179474328603.103840.4363768155390012601@seu.edu.cn>
-References: <179474328603.103840.4363768155390012601@seu.edu.cn>
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
+	by gabe.freedesktop.org (Postfix) with ESMTP id 64D2510E8BC;
+	Sun, 15 Nov 2026 12:07:39 +0000 (UTC)
+Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 1B2B910E860
+ for <dri-devel@lists.freedesktop.org>; Sun, 15 Nov 2026 12:07:32 +0000 (UTC)
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+ by sea.source.kernel.org (Postfix) with ESMTP id DA16B43C95
+ for <dri-devel@lists.freedesktop.org>; Sun, 15 Nov 2026 12:07:31 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id A9A391F000CB
+ for <dri-devel@lists.freedesktop.org>; Sun, 15 Nov 2026 12:07:31 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+ s=k20260515; t=1794744451;
+ bh=pAyFOMytrC+WHeplIQk/P9QT+U18pl2Kv43Ux7MJxzk=;
+ h=References:In-Reply-To:Reply-To:From:Date:Subject:To:Cc;
+ b=QmryQVy3E4N4wEuCGP5CyTEkNTyKEYCUZRKbip0gcAAbNA8XjVCONvX1P27ojkmK2
+ 7wlRSq6lkiWMj3EkWkwQgJdwRLGN7RGgtGvjP8nhcKGYuwoA7jYvt25xAHHvQj7G0+
+ zhaffkcEJHF9LY/5rfg8kj/dyKMuUp1emC6EF0WDhzRWkh8e8ehO6K2cwPgIPToN2w
+ y1nhTkR+Z2VIr1K7WGDrFwhGbNfmFstNZRPdMB3BL8jzHwGas9wcBEF0bxFKT6y3uc
+ /A3bifvu+XZpGDBD9fN14pMIu81f8POg8z4RcF0j/qFeYnsE3dJmsJc176FcysyTvV
+ rPFzIWhB+6NuQ==
+Received: by mail-lj1-f171.google.com with SMTP id
+ 38308e7fff4ca-3ae1fd4252fso25741341fa.0
+ for <dri-devel@lists.freedesktop.org>; Sun, 15 Nov 2026 04:07:31 -0800 (PST)
+X-Gm-Message-State: APuU4Z+6RW0J8aaToZhV4vE8/6TROtLzSaXtKbAd6qVFxcST3ld3XScF
+ SR+jBfh3bAiTN5VxLC9BsnLiVoC8RN23wT5SdDcdlqFVSvpIQf98CNT6+GBp1YChDeHtiXdanyG
+ 6JmWWiX9zPnnW9msMH0TuotGAb4eDeZk=
+X-Received: by 2002:a05:651c:b26:b0:3ab:3bf3:1606 with SMTP id
+ 38308e7fff4ca-3ae2b52ecbemr25194061fa.24.1794744450062; Sun, 15 Nov 2026
+ 04:07:30 -0800 (PST)
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
-X-HM-Tid: 0aa1df094ac503a1kunmbac61c98bf7ba
-X-HM-MType: 10
-X-HM-Spam-Status: e1kfGhgUHx5ZQUtXWQgPGg8OCBgUHx5ZQUlOS1dZFg8aDwILHllBWSg2Ly
- tZV1koWUFITzdXWRgWCB1ZQUpXWS1ZQUlXWQ8JGhUIEh9ZQVlDHx9NVkpLSUwYH0xJGUlITlYeHw
- 5VEwETFhoSFyQUDg9ZV1kYEgtZQVlKSU9VTEJVQkNVSk5CWVdZFhoPEhUdFFlBWUtVS1VLVUtZBg
- ++
-DKIM-Signature: a=rsa-sha256;
- b=jTHSvA5/LJKPs2weugYzR09ChYp1GF56CvCcatsb3rpW3QtLCt9A7JC4We2q2h7mvlYronOSvXow5nJbrq2IQbTVYj4oaNiyB+RfRi80ghzHjlQIFMJ9/01QZrSrFhoKumo3QSGaJ1ApqWce3n6a2cJvmWWlOoI1bk1D5S8x0S0=;
- c=relaxed/relaxed; s=default; d=seu.edu.cn; v=1; 
- bh=9zw9gLo4xSdeNGbb2wIoBEkOuWDWIwBbMytZCe7N47s=;
- h=date:mime-version:subject:message-id:from;
+References: <20261115061102.229680-1-jernej.skrabec@gmail.com>
+ <20261115061102.229680-3-jernej.skrabec@gmail.com>
+ <sashiko-outbox-215249@kernel.org>
+In-Reply-To: <sashiko-outbox-215249@kernel.org>
+From: Chen-Yu Tsai <wens@kernel.org>
+Date: Sun, 15 Nov 2026 20:07:17 +0800
+X-Gmail-Original-Message-ID: <CAGb2v6544+a2Cv65u8ZCsJmP4d6DD8W2Kb3WOtvo8=Q2+snt2w@mail.gmail.com>
+X-Gm-Features: AclHuK_eMLnNxsMBol5YFdkTkMTb1ru6MI-INl_vc-Xaa50KKeV9dybfAnsle1E
+Message-ID: <CAGb2v6544+a2Cv65u8ZCsJmP4d6DD8W2Kb3WOtvo8=Q2+snt2w@mail.gmail.com>
+Subject: Re: [PATCH v3 2/8] clk: sunxi-ng: de2: Export register regmap for DE33
+To: sashiko-reviews@lists.linux.dev, Jernej Skrabec <jernej.skrabec@gmail.com>
+Cc: dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org, 
+ linux-sunxi@lists.linux.dev, linux-clk@vger.kernel.org, robh@kernel.org, 
+ conor+dt@kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -59,149 +64,78 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
+Reply-To: wens@kernel.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-15.8 required=3.0 tests=BAYES_00,DKIM_SIGNED,
-	DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
-	INCLUDES_CR_TRAILER,INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,
-	SPF_PASS autolearn=unavailable autolearn_force=no version=4.0.1
+X-Spam-Status: No, score=-10.8 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
+	DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
+	INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS autolearn=ham
+	autolearn_force=no version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-A bridge driver can protect its HPD hook with drm_bridge_enter(),
-but the core HPD helpers acquire their own mutexes before that hook
-and release them after it returns. A driver-only section therefore
-does not make drm_bridge_unplug() wait for those mutex users before
-drm_bridge_remove() destroys the HPD mutexes.
+On Sun, Nov 15, 2026 at 2:27=E2=80=AFPM <sashiko-bot@kernel.org> wrote:
+>
+> Thank you for your contribution! Sashiko AI review found 1 potential
+> issue to consider:
+> - [Medium] clk: sunxi-ng: de2: missing select REGMAP_MMIO for
+>   SUN8I_DE2_CCU
 
-Enter the unplug critical section before acquiring HPD mutexes in
-enable, disable and notify, and leave it after the final unlock. An
-unplugged bridge then rejects later calls before mutex or hook use,
-and unplug waits for the complete helpers already in progress.
+Added while applying.
 
-Found by the author's in-house static analysis tool.
-
-Fixes: d36137085a4a ("drm/bridge: add drm_bridge_unplug() and drm_bridge_enter/exit()")
-Cc: stable@vger.kernel.org
-Link: https://lore.kernel.org/all/20260728135214.1850-1-getshell@seu.edu.cn/
-Signed-off-by: Hongyan Xu <getshell@seu.edu.cn>
-Signed-off-by: Zehao Gao <gaozehao@iie.ac.cn>
----
-
-Discovery: found by the author's in-house static analysis tool.
-
- drivers/gpu/drm/drm_bridge.c | 41 ++++++++++++++++++++++++++++++++++++
- 1 file changed, 41 insertions(+)
-
-diff --git a/drivers/gpu/drm/drm_bridge.c b/drivers/gpu/drm/drm_bridge.c
-index 1b4ee74..e2adb94 100644
---- a/drivers/gpu/drm/drm_bridge.c
-+++ b/drivers/gpu/drm/drm_bridge.c
-@@ -300,6 +300,16 @@ void drm_bridge_unplug(struct drm_bridge *bridge)
- 
- 	synchronize_srcu(&drm_bridge_unplug_srcu);
- 
-+	/*
-+	 * No helper can enter any more and every in-flight one has finished.
-+	 * Drop the HPD registration now, while drm_bridge_remove() has not
-+	 * destroyed the mutexes that protect it.
-+	 */
-+	mutex_lock(&bridge->hpd_mutex);
-+	bridge->hpd_cb = NULL;
-+	bridge->hpd_data = NULL;
-+	mutex_unlock(&bridge->hpd_mutex);
-+
- 	drm_bridge_remove(bridge);
- }
- EXPORT_SYMBOL(drm_bridge_unplug);
-@@ -1551,6 +1561,10 @@ EXPORT_SYMBOL_GPL(drm_bridge_edid_read);
-  * Hot plug detection is supported only if the DRM_BRIDGE_OP_HPD flag is set in
-  * bridge->ops. This function shall not be called when the flag is not set.
-  *
-+ * Calls are serialized against drm_bridge_unplug(); once the bridge has been
-+ * unplugged, this function returns without installing the callback or calling
-+ * &drm_bridge_funcs.hpd_enable.
-+ *
-  * Only one hot plug detection callback can be registered at a time, it is an
-  * error to call this function when hot plug detection is already enabled for
-  * the bridge.
-@@ -1560,9 +1574,14 @@ void drm_bridge_hpd_enable(struct drm_bridge *bridge,
- 				      enum drm_connector_status status),
- 			   void *data)
- {
-+	int idx;
-+
- 	if (!(bridge->ops & DRM_BRIDGE_OP_HPD))
- 		return;
- 
-+	if (!drm_bridge_enter(bridge, &idx))
-+		return;
-+
- 	mutex_lock(&bridge->hpd_state_mutex);
- 
- 	mutex_lock(&bridge->hpd_mutex);
-@@ -1582,6 +1601,7 @@ void drm_bridge_hpd_enable(struct drm_bridge *bridge,
- 
- unlock:
- 	mutex_unlock(&bridge->hpd_state_mutex);
-+	drm_bridge_exit(idx);
- }
- EXPORT_SYMBOL_GPL(drm_bridge_hpd_enable);
- 
-@@ -1596,12 +1616,23 @@ EXPORT_SYMBOL_GPL(drm_bridge_hpd_enable);
-  *
-  * Hot plug detection is supported only if the DRM_BRIDGE_OP_HPD flag is set in
-  * bridge->ops. This function shall not be called when the flag is not set.
-+ *
-+ * Calls are serialized against drm_bridge_unplug(), which waits for any
-+ * in-flight helper and clears the registered callback before removing the
-+ * bridge.  Once the bridge has been unplugged, this function therefore
-+ * returns without calling &drm_bridge_funcs.hpd_disable.
-  */
- void drm_bridge_hpd_disable(struct drm_bridge *bridge)
- {
-+	int idx;
-+
- 	if (!(bridge->ops & DRM_BRIDGE_OP_HPD))
- 		return;
- 
-+	/* drm_bridge_unplug() has already dropped the registration. */
-+	if (!drm_bridge_enter(bridge, &idx))
-+		return;
-+
- 	mutex_lock(&bridge->hpd_state_mutex);
- 	if (bridge->funcs->hpd_disable)
- 		bridge->funcs->hpd_disable(bridge);
-@@ -1611,6 +1642,7 @@ void drm_bridge_hpd_disable(struct drm_bridge *bridge)
- 	bridge->hpd_data = NULL;
- 	mutex_unlock(&bridge->hpd_mutex);
- 	mutex_unlock(&bridge->hpd_state_mutex);
-+	drm_bridge_exit(idx);
- }
- EXPORT_SYMBOL_GPL(drm_bridge_hpd_disable);
- 
-@@ -1624,14 +1656,23 @@ EXPORT_SYMBOL_GPL(drm_bridge_hpd_disable);
-  * enabled by drm_bridge_hpd_enable().
-  *
-  * This function shall be called in a context that can sleep.
-+ *
-+ * Once the bridge has been unplugged the event is dropped: the registered
-+ * callback is not invoked.
-  */
- void drm_bridge_hpd_notify(struct drm_bridge *bridge,
- 			   enum drm_connector_status status)
- {
-+	int idx;
-+
-+	if (!drm_bridge_enter(bridge, &idx))
-+		return;
-+
- 	mutex_lock(&bridge->hpd_mutex);
- 	if (bridge->hpd_cb)
- 		bridge->hpd_cb(bridge->hpd_data, status);
- 	mutex_unlock(&bridge->hpd_mutex);
-+	drm_bridge_exit(idx);
- }
- EXPORT_SYMBOL_GPL(drm_bridge_hpd_notify);
- 
--- 
-2.50.1.windows.1
+> --
+>
+> commit d1c006fcc75e6e1facbfb7f265581bef0d4d672a
+> Author: Jernej Skrabec <jernej.skrabec@gmail.com>
+>
+> clk: sunxi-ng: de2: Export register regmap for DE33
+>
+> This commit removes the hardcoded DE33 plane mapping writes from the cloc=
+k
+> driver and exports those registers via an MMIO regmap instead.
+>
+> > diff --git a/drivers/clk/sunxi-ng/ccu-sun8i-de2.c b/drivers/clk/sunxi-n=
+g/ccu-sun8i-de2.c
+> > index 6ec6c0dc4c261..f17570efafaae 100644
+> > --- a/drivers/clk/sunxi-ng/ccu-sun8i-de2.c
+> > +++ b/drivers/clk/sunxi-ng/ccu-sun8i-de2.c
+>
+> [ ... ]
+>
+> > @@ -336,13 +367,19 @@ static int sunxi_de2_clk_probe(struct platform_de=
+vice *pdev)
+> >       }
+> >
+> >       /*
+> > -      * The DE33 requires these additional (unknown) registers set
+> > +      * The DE33 requires these additional plane mapping registers set
+> >        * during initialisation.
+> >        */
+> >       if (of_device_is_compatible(pdev->dev.of_node,
+> >                                   "allwinner,sun50i-h616-de33-clk")) {
+> > -             writel(0, reg + 0x24);
+> > -             writel(0x0000a980, reg + 0x28);
+> > +             struct regmap *regmap;
+> > +
+> > +             regmap =3D devm_regmap_init_mmio(&pdev->dev, reg,
+> > +                                            &sun8i_de2_ccu_regmap_conf=
+ig);
+> > +             if (IS_ERR(regmap)) {
+> > +                     ret =3D PTR_ERR(regmap);
+> > +                     goto err_assert_reset;
+> > +             }
+> >       }
+>
+> [Severity: Medium]
+> Should SUN8I_DE2_CCU select REGMAP_MMIO in drivers/clk/sunxi-ng/Kconfig?
+>
+> Without it, enabling SUN8I_DE2_CCU when REGMAP_MMIO is disabled (for
+> example under COMPILE_TEST=3Dy with ARCH_SUNXI=3Dn) or built as a module =
+with
+> SUN8I_DE2_CCU=3Dy breaks compilation on sun8i_de2_ccu_regmap_config or fa=
+ils
+> to link __devm_regmap_init_mmio_clk().
+>
+> --
+> Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261115061102.22=
+9680-1-jernej.skrabec@gmail.com?part=3D2
+>
