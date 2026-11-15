@@ -2,85 +2,64 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 569A6606A337
-	for <dri-devel@archiver.kernel.org>; Sun, 15 Nov 2026 08:59:08 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8B4D9606A31D
+	for <dri-devel@archiver.kernel.org>; Sun, 15 Nov 2026 10:11:18 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=OxwBSr13
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=CkPbNoUk
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 8B55710E1BA;
-	Sun, 15 Nov 2026 08:59:02 +0000 (UTC)
-Received: from mail-ej1-f44.google.com (mail-ej1-f44.google.com
- [209.85.218.44])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 4E09210E1BA
- for <dri-devel@lists.freedesktop.org>; Sun, 15 Nov 2026 08:58:46 +0000 (UTC)
-Received: by mail-ej1-f44.google.com with SMTP id
- a640c23a62f3a-c4cdc606b47so441721466b.0
- for <dri-devel@lists.freedesktop.org>; Sun, 15 Nov 2026 00:58:46 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20260707; t=1794733125; x=1795337925; darn=lists.freedesktop.org;
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:date:subject:cc:to:from:from:to:cc:subject:date
- :message-id:reply-to:content-type;
- bh=Yu1iUE5tUZZVSrKcPtur6Bk4ggWxQJ9hvoe00qeVCog=;
- b=OxwBSr134wQEfW2emvGUyuPGQ/KAFh8kUbCuQU/WFfqVR1B4as7GGEFLW2LzUhclgY
- 33lPImj+q0GQQazCNyCe94SH14kjdoBaliNHNDJdPpIgg+FMLLsWC5CjzaPWC6wvmn9C
- p1g/s8SwqjTgWeYqqPsZcW8CDVHREXF6mgswOLP3HjVqjWfrJQIbKSGfwvkMnyP4VCKC
- RLW/4rduClgFVT947wI2lmTJsOitRV3trzwQ5kjFxMPMcmaK70BQFt1yGAsFaMUKeYlS
- hW+rs0aJuPSvRUA70gZ/qvee5fbKfgxzmLvZYOKHEa4TgiCavQ4Pl+gak97oquEsw+2m
- fg7Q==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20260707; t=1794733125; x=1795337925;
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
- :to:cc:subject:date:message-id:reply-to:content-type;
- bh=Yu1iUE5tUZZVSrKcPtur6Bk4ggWxQJ9hvoe00qeVCog=;
- b=1MqlK+/X9RruS8P5H29cbasKvMqu6BRI32XhbWxpcxapEC0vY9saSPDUd0bFDCfOl4
- krg9Brxqfx+nTIkbCMgXntp397QEipVTM4S1ybPXcwpQVQEYEK4AgrX1VS2y/CTcpQHj
- /sW4SjvMWd7NDu7fHpqgipjG642dSRruXb6MLei6qln5XXDjsBkqUO1m1oG/7f5xbQQf
- KiG1yJR650UbNxTj1M+PoYthxsinxTJcWAY+F2PuiGio68C1JZM3pxa1M1d/YCgOdkDA
- /3Dr/FRVLNq3xvy4N4m4LmB389KWBZnyv4o7i8oizegHBRHD60mmiAnrDGcgimMTuuiY
- 8AWQ==
-X-Forwarded-Encrypted: i=1;
- AL+hErHNaRhIg60rTCppUmgeDh7mjciDzb2Qs7FkVYK1IasEMl8oMTPUyqyM6IROnAqA2ff+TR+AEHU8gQ0=@lists.freedesktop.org
-X-Gm-Message-State: APuU4Z/jNpkdauUbMZJWzMMzT46apXryP0n6jlG1/q8wj8MDjyHRkqC8
- kEjyj5uZIAuFIUF4UXNVIAiZDNJ+QQOl+bRCsnqOPeYJSWvAx8072uUD
-X-Gm-Gg: AYBFou3R0sxecFFL/pCTuPRArxmOmd306/LDiuJhjyNWGwihZ14GYFVHqkW+7QrFea4
- yWuvt50NfZp9gnXmJayYcM6CIQ3NR2PKW2z2iW9StNiHZRDAFF+zhRomICyYB2n1mF+28bUgYRu
- m47pRRluo+k+E46gkwMG4fAJxQYPBESuKMudDIeS7bEoF5DITZj3y0YuesC6V1nbtVY6aI1UEcS
- 51O9KUh5F7dAw4a//f2n8kE2dG8sIpkgF3ZC/KUTTVNHiX7QAYHrH0GkjprtXtTsJy0clRpHgbk
- xiM4Z808E7g0HHWutJ7k+qKPaPkOtk6I5pZe84aoGlcoHunQM/rJee2D0E0qBDQ9g96xYSRvkXQ
- wFRVd/m7OUShJ/A49t0duzgxN4DWvtQBGJrXZ1D2ORBIqX/kN6PRSQeiUX0NdDCEj9eF8U9FSpD
- YXZgCWSLMMwBfHnGdc0qKxye9zMMAhXBJmwLkC3UgKM+RDXVcWsAESJORTmicFRGucwJJxZ9mnt
- pNoMY9KH2Y0Y1Nxwyk7CvWxv0Z2sh9Z3iDM1hEBPr8zow4w+qNLjDxB6MfZ2KplQXwlOX7K1wT9
- GwaBoqWKAZ1kKemcoMJHOnI2MsMqRLLXEW2iZzRHufk5mbEDqAskVR7yeCnQC/i7dlk7n27ByR1
- XENHRGVn+aQ==
-X-Received: by 2002:a17:907:5cb:b0:c50:95b7:d189 with SMTP id
- a640c23a62f3a-c5095dd72f4mr610171066b.0.1794733124625; 
- Sun, 15 Nov 2026 00:58:44 -0800 (PST)
-Received: from xeon ([188.163.112.62]) by smtp.gmail.com with ESMTPSA id
- a640c23a62f3a-c5095a5c4b7sm287613266b.1.2026.11.15.00.58.42
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Sun, 15 Nov 2026 00:58:43 -0800 (PST)
-From: Svyatoslav Ryhel <clamor95@gmail.com>
-To: Lee Jones <lee@kernel.org>, Pavel Machek <pavel@kernel.org>,
- Griffin Kroah-Hartman <griffin@kroah.com>, Rob Herring <robh@kernel.org>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>, Liam Girdwood <lgirdwood@gmail.com>,
- Mark Brown <broonie@kernel.org>, Daniel Thompson <danielt@kernel.org>,
- Jingoo Han <jingoohan1@gmail.com>, Svyatoslav Ryhel <clamor95@gmail.com>
-Cc: linux-leds@vger.kernel.org, devicetree@vger.kernel.org,
- linux-kernel@vger.kernel.org, mfd@lists.linux.dev,
- dri-devel@lists.freedesktop.org
-Subject: [PATCH v7 4/4] mfd: aat2870: Add support for VIN and IN-LDO power
- supplies
-Date: Sun, 15 Nov 2026 10:58:25 +0200
-Message-ID: <20261115085826.89641-5-clamor95@gmail.com>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20261115085826.89641-1-clamor95@gmail.com>
-References: <20261115085826.89641-1-clamor95@gmail.com>
+	by gabe.freedesktop.org (Postfix) with ESMTP id E27FA10E02A;
+	Sun, 15 Nov 2026 10:11:12 +0000 (UTC)
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.13])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 4E39D10E02A
+ for <dri-devel@lists.freedesktop.org>; Sun, 15 Nov 2026 10:11:06 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1794737466; x=1826273466;
+ h=message-id:date:mime-version:subject:to:references:cc:
+ from:in-reply-to:content-transfer-encoding;
+ bh=qP4i3ZW+UEpqjfC7VVz5GX0q1rTom9mYvGQGPRYMnbA=;
+ b=CkPbNoUkFKEtD1CrObbtiVY+dcM6efd1uwrdAnaR2SZwG6J10BikoBdY
+ 0Fm3Fxt6JC0ggVkoxcJRWh2J6l47iJBVxxaGWpHm7TcVYOMk2+nbLeYhP
+ 8+6SoR79f26D89XqUrftoNeZ2ea7OFVTkwBcMG5Ra/TqEApSQ3SyqIBpd
+ LTfrpijJZl4vXGEUnmUhLiOD3LDbQNgTCs83Cx3fhAqCy5s2fe7vnyApM
+ DF0DhvS2cbS2Zj3ilRgZcofpPYFDdZqDRXD8vcssxzMCSWCKdig/DOpHs
+ sB1bjpRTG1yHcvqbrxdT7xxTAkodcSCgfwLL3NtYFLkZJEUE3abT7Onbn w==;
+X-CSE-ConnectionGUID: 04KlbFBbQIClzlgxhEmNMA==
+X-CSE-MsgGUID: xjRBDIuuQWCGgTZj4UsNWw==
+X-IronPort-AV: E=McAfee;i="6800,10657,11966"; a="3483322"
+X-IronPort-AV: E=Sophos;i="6.27,214,1787036400"; 
+   d="scan'208";a="3483322"
+Received: from orviesa003.jf.intel.com ([10.64.159.143])
+ by fmvoesa107.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 15 Nov 2026 02:11:05 -0800
+X-CSE-ConnectionGUID: zcpRL1ChSjajhToZdqPYfw==
+X-CSE-MsgGUID: XFFPDAWQRfWuL55ItEogAA==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,214,1787036400"; 
+   d="scan'208";a="9139163"
+Received: from mschuett-mobl1.ger.corp.intel.com (HELO [10.245.113.173])
+ ([10.245.113.173])
+ by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 15 Nov 2026 02:11:03 -0800
+Message-ID: <aeea0018-4242-4424-a29a-94fe77dc6e92@linux.intel.com>
+Date: Sun, 15 Nov 2026 11:11:00 +0100
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2] accel/ivpu: Defer recovery until probe completes
+To: Toast <swizzguy76@gmail.com>
+References: <20261107174215.15818-1-swizzguy76@gmail.com>
+ <20261110085003.3527014-1-karol.wachowski@linux.intel.com>
+ <CAHBKUQYqAEuDHBDX-z6hvTY-GMOwqR9Skmtpn=UhaTK-JRx+1Q@mail.gmail.com>
+Content-Language: en-US
+Cc: dri-devel@lists.freedesktop.org,
+ Andrzej Kacprowski <andrzej.kacprowski@linux.intel.com>,
+ Oded Gabbay <ogabbay@kernel.org>, Jeff Hugo <jeff.hugo@oss.qualcomm.com>,
+ dawid.osuchowski@linux.intel.com, stable@vger.kernel.org
+From: Karol Wachowski <karol.wachowski@linux.intel.com>
+In-Reply-To: <CAHBKUQYqAEuDHBDX-z6hvTY-GMOwqR9Skmtpn=UhaTK-JRx+1Q@mail.gmail.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -92,62 +71,43 @@ List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-15.8 required=3.0 tests=BAYES_00,DKIM_SIGNED,
-	DKIM_VALID,DKIM_VALID_AU,FREEMAIL_FORGED_FROMDOMAIN,FREEMAIL_FROM,
-	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
-	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,USER_AGENT_GIT
-	autolearn=unavailable autolearn_force=no version=4.0.1
+X-Spam-Status: No, score=-10.3 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
+	DKIM_SIGNED,DKIM_VALID,HEADER_FROM_DIFFERENT_DOMAINS,
+	INCLUDES_CR_TRAILER,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,
+	USER_AGENT_SANE_1 autolearn=unavailable autolearn_force=no
+	version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-The AAT2870 supports a dedicated main power supply input alongside parent
-power supply for its internal regulators.
+On 13-Nov-26 9:49, Toast wrote:
+> Tested on Meteor Lake (Core Ultra 5 125H, vpu_37xx firmware 20260219)
+> on top of v7.4-rc1:
+> 
+> - kexec from a 7.0 kernel and from 7.4 with the NPU runtime-suspended:
+>    both runs hit ATS_ERR during probe, recovery_work was not queued,
+>    probe failed once with -ETIMEDOUT, and there was no oops
+> - FLR plus rebind brings the NPU back
+> - debugfs force_recovery after a successful probe recovers the NPU
+> 
+> I couldn't hit an error IRQ after ivpu_boot() succeeds, so the deferred
+> recovery in ivpu_pm_enable() isn't covered by this.
+> 
+> Tested-by: Daksh Sahni <swizzguy76@gmail.com>
 
-Add support for retrieving and managing these supply regulators
-(vin-supply and in-ldo-supply) using the regulator framework to ensure
-proper power supply dependencies and power-up sequencing.
+Hi Daksh,
 
-Signed-off-by: Svyatoslav Ryhel <clamor95@gmail.com>
----
- drivers/mfd/aat2870-core.c            | 5 +++++
- drivers/regulator/aat2870-regulator.c | 1 +
- 2 files changed, 6 insertions(+)
+Thanks a lot for testing!
 
-diff --git a/drivers/mfd/aat2870-core.c b/drivers/mfd/aat2870-core.c
-index f5409dd91efb3..9017960ee73b1 100644
---- a/drivers/mfd/aat2870-core.c
-+++ b/drivers/mfd/aat2870-core.c
-@@ -14,6 +14,7 @@
- #include <linux/kernel.h>
- #include <linux/mfd/aat2870.h>
- #include <linux/of_platform.h>
-+#include <linux/regulator/consumer.h>
- #include <linux/regulator/machine.h>
- #include <linux/slab.h>
- #include <linux/uaccess.h>
-@@ -307,6 +308,10 @@ static int aat2870_i2c_probe(struct i2c_client *client)
- 
- 	aat2870->reg_cache = aat2870_regs;
- 
-+	ret = devm_regulator_get_enable(&client->dev, "vin");
-+	if (ret)
-+		return dev_err_probe(&client->dev, ret, "Failed to enable regulator\n");
-+
- 	aat2870->en_pin = devm_gpiod_get_optional(&client->dev, "enable",
- 						  GPIOD_OUT_HIGH);
- 	if (IS_ERR(aat2870->en_pin))
-diff --git a/drivers/regulator/aat2870-regulator.c b/drivers/regulator/aat2870-regulator.c
-index 73b6d06858cff..896f39e345379 100644
---- a/drivers/regulator/aat2870-regulator.c
-+++ b/drivers/regulator/aat2870-regulator.c
-@@ -105,6 +105,7 @@ static const unsigned int aat2870_ldo_voltages[] = {
- #define AAT2870_LDO(ids, match, vsel, vmask) {		\
- 	.name = #ids,					\
- 	.of_match = (match),				\
-+	.supply_name = "in-ldo",			\
- 	.id = AAT2870_ID_##ids,				\
- 	.n_voltages = ARRAY_SIZE(aat2870_ldo_voltages),	\
- 	.volt_table = aat2870_ldo_voltages,		\
--- 
-2.53.0
+Just a heads-up: I already sent v3 a few days ago:
+https://lore.kernel.org/all/20261110121534.3566028-1-karol.wachowski@linux.intel.com/
 
+which includes a small adjustment in ivpu_pm_reset_complete() so 
+autosuspend isn't lost after a reset (reported by Sashiko).
+
+Because of this change, I haven't carried over your Tested-by tag 
+automatically. If you happen to have a spare moment to give v3 a quick 
+spin, that would be great, otherwise no worries I've already have your 
+Reported-by tag.
+
+Thanks,
+Karol
