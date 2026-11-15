@@ -2,50 +2,41 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 77418606A323
-	for <dri-devel@archiver.kernel.org>; Sun, 15 Nov 2026 18:10:47 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4EDE2606A31A
+	for <dri-devel@archiver.kernel.org>; Sun, 15 Nov 2026 18:30:46 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=nC9ucYjC
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=NDvPHSud
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id BB6F010E004;
-	Sun, 15 Nov 2026 18:10:41 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 7AA2B10E012;
+	Sun, 15 Nov 2026 18:30:40 +0000 (UTC)
 Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id E4ECE10E004
- for <dri-devel@lists.freedesktop.org>; Sun, 15 Nov 2026 18:10:34 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 8EADC10E012
+ for <dri-devel@lists.freedesktop.org>; Sun, 15 Nov 2026 18:30:33 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id 46F5040825;
- Sun, 15 Nov 2026 18:10:34 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 533D91F000C9;
- Sun, 15 Nov 2026 18:10:32 +0000 (UTC)
+ by sea.source.kernel.org (Postfix) with ESMTP id 43BE743CA2
+ for <dri-devel@lists.freedesktop.org>; Sun, 15 Nov 2026 18:30:33 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id F12001F000C4;
+ Sun, 15 Nov 2026 18:30:32 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1794766234;
- bh=oRUWJuYUdcnMydAoLlo9QJ+Mlot2+ydrhYYhuU+km0U=;
- h=From:Date:Subject:To:Cc;
- b=nC9ucYjCQd7zHssPAL9i8kDCNiFXuxub4Ti5OWI02xXauE2VobgT8XpAB7PHvLfOU
- Klr43CgXwUcQpGMAn97rEHJa8t1ccj7ZuzN5BoiOrDV+D1mPsbw3XEP/WhNizigo+W
- OhAcHk1y1K8nqg5pvtAF7ZK5teCkZYjXwlNa3v0YHpCZ5IlqpUD1FzKHHJsrIfSvz1
- TR4WrJcLAwePZl8zIhDgXce2BV4i/C0OtX3oIZJTOmt43Ezjr8o8Kb8cB9gfrSzGyH
- cK8LvYK3mynNOzUkS78qhJ3US+IIS5YZX5fSHSFXn63ZGaCe7oymJ7U4lg5YotOzFk
- WPPt5lFGkg6IQ==
-From: Linus Walleij <linusw@kernel.org>
-Date: Sun, 15 Nov 2026 19:10:29 +0100
-Subject: [PATCH] drm/mcde: Use power domain for display power
-X-Archived-By: <archiver.kernel.org>
-MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20261115-ux500-drm-mcde-powerdomain-v1-1-afdc326cceb7@kernel.org>
-X-B4-Tracking: v=1; b=H4sIAAAAAAAA/x3MUQrDIAwA0KuEfDegRUfnVcY+xKRbPtQS2VYov
- fug7wDvwCGmMjDBgSZfHdobJvATYHnn9hJSxgQ4u/nmvY/02aNzxFapFhba+k+Me83aaMkL3zm
- UmEPACXAzWXW/8sfzPP86AZVZbAAAAA==
-X-Change-ID: 20261115-ux500-drm-mcde-powerdomain-8a8d9d4c5a44
-To: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>
-Cc: dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org, 
- Ulf Hansson <ulfh@kernel.org>, linux-pm@vger.kernel.org, 
- Linus Walleij <linusw@kernel.org>
-X-Mailer: b4 0.16.0
+ s=k20260515; t=1794767433;
+ bh=KnLftDAs6OECyhkIMxPbQMR16BMamkTdaFnm/OsQa2c=;
+ h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+ b=NDvPHSudI6YidCfoHQV1yfPazkIITE+o+XAEXFdj713PtkF6fq/0rW0mseX5hiLUw
+ bimPFaUhVlXo5MGgQ1plG3g8K7FkvupzS7rlJmLMrEqj79UntQYGkqWKhlrXOk6Yu+
+ R5eLe2zCdGoUvlNGcNqCAYrJps5FssORm1+h2zNpynq4HGrozL8Tmiv16tmWHvg6yf
+ pgrKSW2eflJwXbArOcde+KpwxAvkrynJrzm+jNXqfTC8hwwTHUe3zJK8Ij+9gUWOIc
+ iK26LHLYysWSnZnme0xNRPFI+EaDss6BxycJsKQTJC3y1/GAFARWoDnIFFw6M/JXIn
+ NmGsMCBezCsvQ==
+Message-ID: <sashiko-outbox-215719@kernel.org>
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH] drm/mcde: Use power domain for display power
+To: "Linus Walleij" <linusw@kernel.org>
+Cc: dri-devel@lists.freedesktop.org
+In-Reply-To: <20261115-ux500-drm-mcde-powerdomain-v1-1-afdc326cceb7@kernel.org>
+References: <20261115-ux500-drm-mcde-powerdomain-v1-1-afdc326cceb7@kernel.org>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Sun, 15 Nov 2026 18:30:32 +0000
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -56,250 +47,76 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
+Reply-To: sashiko-reviews@lists.linux.dev
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-18.8 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
+X-Spam-Status: No, score=-10.8 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
 	DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
-	INCLUDES_CR_TRAILER,INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,
-	SPF_PASS,USER_AGENT_GIT autolearn=ham autolearn_force=no version=4.0.1
+	INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS autolearn=ham
+	autolearn_force=no version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
+X-Archived-By: <archiver.kernel.org>
 
-Replace explicit EPOD regulator handling with runtime PM, including the
-power cycle used to reset the display hardware. Treat only negative
-pm_runtime_put_sync_suspend() return values as errors.
+Thank you for your contribution! Sashiko AI review found no new issues
+in this patch, but noticed 1 related pre-existing issue it does not
+introduce:
+- [High] drm/mcde: TOCTOU race in mcde_clk_div_recalc_rate() [1]
+--
 
-Keep the separate VANA regulator enabled while the driver is bound:
-the AB8500 CSI/DSI analog supply is not controlled by the MCDE power
-domain. Preserve its probe failure and removal cleanup.
+commit b6626239eb4624a10d2245cb12fab62bbafe702d
+Author: Linus Walleij <linusw@kernel.org>
 
-Signed-off-by: Linus Walleij <linusw@kernel.org>
----
-The Ux500 genpd prerequisites have been merged into the powerdomain tree.
-Please take this conversion through DRM; the companion bindings and DTS
-changes will be submitted separately.
----
- drivers/gpu/drm/mcde/mcde_clk_div.c |  4 +--
- drivers/gpu/drm/mcde/mcde_display.c | 13 ++++-----
- drivers/gpu/drm/mcde/mcde_drm.h     |  1 -
- drivers/gpu/drm/mcde/mcde_drv.c     | 56 +++++++++++++++++--------------------
- drivers/gpu/drm/mcde/mcde_dsi.c     |  1 -
- 5 files changed, 33 insertions(+), 42 deletions(-)
+drm/mcde: Use power domain for display power
 
-diff --git a/drivers/gpu/drm/mcde/mcde_clk_div.c b/drivers/gpu/drm/mcde/mcde_clk_div.c
-index 8c5af2677357..1a22e6233946 100644
---- a/drivers/gpu/drm/mcde/mcde_clk_div.c
-+++ b/drivers/gpu/drm/mcde/mcde_clk_div.c
-@@ -1,7 +1,7 @@
- // SPDX-License-Identifier: GPL-2.0
- #include <linux/clk-provider.h>
- #include <linux/io.h>
--#include <linux/regulator/consumer.h>
-+#include <linux/pm_runtime.h>
- 
- #include "mcde_drm.h"
- #include "mcde_display_regs.h"
-@@ -95,7 +95,7 @@ static unsigned long mcde_clk_div_recalc_rate(struct clk_hw *hw,
- 	 * It will come up with 0 in the divider register bits, which
- 	 * means "divide by 2".
- 	 */
--	if (!regulator_is_enabled(mcde->epod))
-+	if (!pm_runtime_active(mcde->dev))
- 		return DIV_ROUND_UP_ULL(prate, 2);
- 
- 	cr = readl(mcde->regs + cdiv->cr);
-diff --git a/drivers/gpu/drm/mcde/mcde_display.c b/drivers/gpu/drm/mcde/mcde_display.c
-index 281f5b3274bd..57305fdbcdcc 100644
---- a/drivers/gpu/drm/mcde/mcde_display.c
-+++ b/drivers/gpu/drm/mcde/mcde_display.c
-@@ -7,7 +7,7 @@
- #include <linux/clk.h>
- #include <linux/delay.h>
- #include <linux/dma-buf.h>
--#include <linux/regulator/consumer.h>
-+#include <linux/pm_runtime.h>
- #include <linux/media-bus-format.h>
- 
- #include <drm/drm_atomic_helper.h>
-@@ -1187,16 +1187,15 @@ static void mcde_crtc_helper_atomic_enable(struct drm_crtc *crtc,
- 	int ret;
- 
- 	/* This powers up the entire MCDE block and the DSI hardware */
--	ret = regulator_enable(mcde->epod);
-+	ret = pm_runtime_resume_and_get(mcde->dev);
- 	if (ret) {
--		dev_err(drm->dev, "can't re-enable EPOD regulator\n");
-+		dev_err(drm->dev, "can't enable MCDE power domain\n");
- 		return;
- 	}
- 
- 	dev_info(drm->dev, "enable MCDE, %d x %d format %p4cc\n",
- 		 mode->hdisplay, mode->vdisplay, &format);
- 
--
- 	/* Clear any pending interrupts */
- 	mcde_display_disable_irqs(mcde);
- 	writel(0, mcde->regs + MCDE_IMSCERR);
-@@ -1347,9 +1346,9 @@ static void mcde_crtc_helper_atomic_disable(struct drm_crtc *crtc,
- 		spin_unlock_irq(&crtc->dev->event_lock);
- 	}
- 
--	ret = regulator_disable(mcde->epod);
--	if (ret)
--		dev_err(drm->dev, "can't disable EPOD regulator\n");
-+	ret = pm_runtime_put_sync_suspend(mcde->dev);
-+	if (ret < 0)
-+		dev_err(drm->dev, "can't disable MCDE power domain\n");
- 	/* Make sure we are powered down (before we may power up again) */
- 	usleep_range(50000, 70000);
- 
-diff --git a/drivers/gpu/drm/mcde/mcde_drm.h b/drivers/gpu/drm/mcde/mcde_drm.h
-index edbb4580a7d8..296edf9ebef4 100644
---- a/drivers/gpu/drm/mcde/mcde_drm.h
-+++ b/drivers/gpu/drm/mcde/mcde_drm.h
-@@ -93,7 +93,6 @@ struct mcde {
- 	/* Locks the MCDE FIFO control register A and B */
- 	spinlock_t fifo_crx1_lock;
- 
--	struct regulator *epod;
- 	struct regulator *vana;
- };
- 
-diff --git a/drivers/gpu/drm/mcde/mcde_drv.c b/drivers/gpu/drm/mcde/mcde_drv.c
-index 759e279b645a..af26ac5a4455 100644
---- a/drivers/gpu/drm/mcde/mcde_drv.c
-+++ b/drivers/gpu/drm/mcde/mcde_drv.c
-@@ -61,6 +61,7 @@
- #include <linux/module.h>
- #include <linux/of_platform.h>
- #include <linux/platform_device.h>
-+#include <linux/pm_runtime.h>
- #include <linux/regulator/consumer.h>
- #include <linux/slab.h>
- #include <linux/delay.h>
-@@ -283,33 +284,26 @@ static int mcde_probe(struct platform_device *pdev)
- 	mcde->dev = dev;
- 	platform_set_drvdata(pdev, drm);
- 
--	/* First obtain and turn on the main power */
--	mcde->epod = devm_regulator_get(dev, "epod");
--	if (IS_ERR(mcde->epod)) {
--		ret = PTR_ERR(mcde->epod);
--		dev_err(dev, "can't get EPOD regulator\n");
--		return ret;
--	}
--	ret = regulator_enable(mcde->epod);
-+	pm_runtime_enable(dev);
-+	ret = pm_runtime_resume_and_get(dev);
- 	if (ret) {
--		dev_err(dev, "can't enable EPOD regulator\n");
-+		dev_err(dev, "can't enable MCDE power domain\n");
-+		pm_runtime_disable(dev);
- 		return ret;
- 	}
-+
-+	/* The CSI/DSI analog supply is separate from the MCDE power domain. */
- 	mcde->vana = devm_regulator_get(dev, "vana");
- 	if (IS_ERR(mcde->vana)) {
- 		ret = PTR_ERR(mcde->vana);
- 		dev_err(dev, "can't get VANA regulator\n");
--		goto regulator_epod_off;
-+		goto pm_runtime_put;
- 	}
- 	ret = regulator_enable(mcde->vana);
- 	if (ret) {
- 		dev_err(dev, "can't enable VANA regulator\n");
--		goto regulator_epod_off;
-+		goto pm_runtime_put;
- 	}
--	/*
--	 * The vendor code uses ESRAM (onchip RAM) and need to activate
--	 * the v-esram34 regulator, but we don't use that yet
--	 */
- 
- 	/* Clock the silicon so we can access the registers */
- 	mcde->mcde_clk = devm_clk_get(dev, "mcde");
-@@ -412,14 +406,15 @@ static int mcde_probe(struct platform_device *pdev)
- 
- 	/*
- 	 * Perform an invasive reset of the MCDE and all blocks by
--	 * cutting the power to the subsystem, then bring it back up
-+	 * powering down the subsystem, then bring it back up
- 	 * later when we enable the display as a result of
- 	 * component_master_add_with_match().
- 	 */
--	ret = regulator_disable(mcde->epod);
--	if (ret) {
--		dev_err(dev, "can't disable EPOD regulator\n");
--		return ret;
-+	ret = pm_runtime_put_sync_suspend(dev);
-+	if (ret < 0) {
-+		dev_err(dev, "can't disable MCDE power domain\n");
-+		pm_runtime_get_noresume(dev);
-+		goto clk_disable;
- 	}
- 	/* Wait 50 ms so we are sure we cut the power */
- 	usleep_range(50000, 70000);
-@@ -428,13 +423,7 @@ static int mcde_probe(struct platform_device *pdev)
- 					      match);
- 	if (ret) {
- 		dev_err(dev, "failed to add component master\n");
--		/*
--		 * The EPOD regulator is already disabled at this point so some
--		 * special errorpath code is needed
--		 */
--		clk_disable_unprepare(mcde->mcde_clk);
--		regulator_disable(mcde->vana);
--		return ret;
-+		goto clk_disable_pm_disabled;
- 	}
- 
- 	return 0;
-@@ -443,10 +432,15 @@ static int mcde_probe(struct platform_device *pdev)
- 	clk_disable_unprepare(mcde->mcde_clk);
- regulator_off:
- 	regulator_disable(mcde->vana);
--regulator_epod_off:
--	regulator_disable(mcde->epod);
-+pm_runtime_put:
-+	pm_runtime_put_sync_suspend(dev);
-+	goto pm_runtime_disable;
-+clk_disable_pm_disabled:
-+	clk_disable_unprepare(mcde->mcde_clk);
-+	regulator_disable(mcde->vana);
-+pm_runtime_disable:
-+	pm_runtime_disable(dev);
- 	return ret;
--
- }
- 
- static void mcde_remove(struct platform_device *pdev)
-@@ -457,7 +451,7 @@ static void mcde_remove(struct platform_device *pdev)
- 	component_master_del(&pdev->dev, &mcde_drm_comp_ops);
- 	clk_disable_unprepare(mcde->mcde_clk);
- 	regulator_disable(mcde->vana);
--	regulator_disable(mcde->epod);
-+	pm_runtime_disable(&pdev->dev);
- }
- 
- static void mcde_shutdown(struct platform_device *pdev)
-diff --git a/drivers/gpu/drm/mcde/mcde_dsi.c b/drivers/gpu/drm/mcde/mcde_dsi.c
-index daac8d67913d..86ae23894cda 100644
---- a/drivers/gpu/drm/mcde/mcde_dsi.c
-+++ b/drivers/gpu/drm/mcde/mcde_dsi.c
-@@ -8,7 +8,6 @@
- #include <linux/of.h>
- #include <linux/platform_device.h>
- #include <linux/regmap.h>
--#include <linux/regulator/consumer.h>
- #include <video/mipi_display.h>
- 
- #include <drm/drm_atomic_state_helper.h>
+This commit replaces explicit EPOD regulator handling in the MCDE DRM
+driver with runtime PM calls while keeping the separate VANA analog supply
+enabled during driver binding.
 
----
-base-commit: 9ae477db090b44816741fd9c49a3c459fc7d407b
-change-id: 20261115-ux500-drm-mcde-powerdomain-8a8d9d4c5a44
+> diff --git a/drivers/gpu/drm/mcde/mcde_clk_div.c b/drivers/gpu/drm/mcde/m=
+cde_clk_div.c
+> index 8c5af2677357f..1a22e6233946c 100644
+> --- a/drivers/gpu/drm/mcde/mcde_clk_div.c
+> +++ b/drivers/gpu/drm/mcde/mcde_clk_div.c
+> @@ -1,7 +1,7 @@
+>  // SPDX-License-Identifier: GPL-2.0
+>  #include <linux/clk-provider.h>
+>  #include <linux/io.h>
+> -#include <linux/regulator/consumer.h>
+> +#include <linux/pm_runtime.h>
+> =20
+>  #include "mcde_drm.h"
+>  #include "mcde_display_regs.h"
+> @@ -95,7 +95,7 @@ static unsigned long mcde_clk_div_recalc_rate(struct cl=
+k_hw *hw,
+>  	 * It will come up with 0 in the divider register bits, which
+>  	 * means "divide by 2".
+>  	 */
+> -	if (!regulator_is_enabled(mcde->epod))
+> +	if (!pm_runtime_active(mcde->dev))
+>  		return DIV_ROUND_UP_ULL(prate, 2);
+> =20
+>  	cr =3D readl(mcde->regs + cdiv->cr);
 
-Best regards,
---  
-Linus Walleij <linusw@kernel.org>
+[Severity: High]
+This problem wasn't introduced by this patch, but can mcde->dev runtime-sus=
+pend [1] between pm_runtime_active() and readl()?
 
+pm_runtime_active() does not take a runtime PM reference, so a concurrent
+suspend can power down the MCDE block before the register read completes:
+
+CPU0                                  CPU1
+mcde_clk_div_recalc_rate()
+  pm_runtime_active(mcde->dev)
+                                      pm_runtime_put_sync_suspend(mcde->dev)
+  readl(mcde->regs + cdiv->cr)  <-- unpowered MMIO access
+
+Reading MCDE registers while the power domain is off causes an unhandled
+hardware fault.  Using pm_runtime_get_if_in_use() and dropping the
+reference after readl() would keep the domain powered across the register
+read.
+
+[1] https://sashiko.dev/#/bug/linux-29030bde-9a9e-4287-978a-034b8c472d84
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261115-ux500-drm-=
+mcde-powerdomain-v1-1-afdc326cceb7@kernel.org?part=3D1
