@@ -2,37 +2,39 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id ED827606A323
-	for <dri-devel@archiver.kernel.org>; Sun, 15 Nov 2026 20:51:36 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1F141606A31F
+	for <dri-devel@archiver.kernel.org>; Sun, 15 Nov 2026 20:54:34 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=sntech.de header.i=@sntech.de header.a=rsa-sha256 header.s=gloria202408 header.b=zlSOePED
+	dkim=pass (2048-bit key) header.d=sntech.de header.i=@sntech.de header.a=rsa-sha256 header.s=gloria202408 header.b=lUJj666O
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id DC35410E293;
-	Sun, 15 Nov 2026 20:51:30 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 2734710E12D;
+	Sun, 15 Nov 2026 20:54:28 +0000 (UTC)
 Received: from gloria.sntech.de (gloria.sntech.de [185.11.138.130])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 0F99410E293
- for <dri-devel@lists.freedesktop.org>; Sun, 15 Nov 2026 20:51:25 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id EB9A410E12D
+ for <dri-devel@lists.freedesktop.org>; Sun, 15 Nov 2026 20:54:21 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=sntech.de; 
  s=gloria202408;
  h=Content-Type:Content-Transfer-Encoding:MIME-Version:
  References:In-Reply-To:Message-ID:Date:Subject:Cc:To:From:Reply-To;
- bh=mzOs5klzZsM8DpqoUJkRmjxNxFZASEQHOw94+lLwCGA=; b=zlSOePEDqRn4Zo4UkzqpUSx/w5
- JgSMLMHUQZ97X3XIrSM/KIzDKoua1s9XMmvoYaRP6vr7fal/+zIm+mFb15i4OmRDyLrgOa1ETZPz5
- ynwuGz1Dz8iOeE5cdEGF7+UgBP0/yRCP1bzgpLUyONv6Orsgw/cMpu10SBQKqHjE/GBfUYmGmJSBA
- UOpf/+9CQ8/zYA6lEvGTDvhKGUEgsq4/wZCR9xBLjyg63aiS6kfhgPvx+SmPtJjXu397oYbFLkZNr
- VNQYza7sKMrLWBOxyKCQO6fw4xQ5QoNcLu66tZUZsZDm0v7Dq06K3wTGywPrfV3hg0R31Y+EeQnvA
- 1BlxRdVg==;
+ bh=mQITPQGWRMPapYV4KJxOKGOcD1pJ1nJ8SAJpVhFH3iw=; b=lUJj666O6C1QpnJsRkOFuouIKx
+ rOO0gPDjJOU9aPVvU/cWwm9mgrFljEDlbTLBxFnak3S6mb16fxKZvwOLynBpW9hlXt+9BsfxSk3Hn
+ idOrHpjJnNLv0sIePB+p11P0IBDA785Ettc6LjFTuZOmQz5pVmbPVuUo/SZsO6YL9IY6ZJv7SObaE
+ mkc15mGsca2SS9aN4MhSrMX8bHb+PDl5xJMlNyLKl2+mjmFxnvEm0DSQLbpB8p2/ouXVBi+awL552
+ e0VXUlCbyfhyrpfIV/vLbLSaIwwCgqaRPbUlrtyLQ1allaPYbO0GUmxOvOaGkZuvuadLjjeWZZCRd
+ yby4Usyw==;
 From: Heiko =?UTF-8?B?U3TDvGJuZXI=?= <heiko@sntech.de>
-To: Tomeu Vizoso <tomeu@tomeuvizoso.net>, Oded Gabbay <ogabbay@kernel.org>,
- Jeff Hugo <jeff.hugo@oss.qualcomm.com>, dri-devel@lists.freedesktop.org,
- linux-kernel@vger.kernel.org
-Cc: Guangshuo Li <lgs201920130244@gmail.com>,
- Guangshuo Li <lgs201920130244@gmail.com>
-Subject: Re: [PATCH] accel/rocket: put IOMMU domain on BO creation failure
-Date: Sun, 15 Nov 2026 21:51:18 +0100
-Message-ID: <Z8-0sxgbQR2_ndmAA6Kohg@sntech.de>
-In-Reply-To: <20260708114354.753817-1-lgs201920130244@gmail.com>
-References: <20260708114354.753817-1-lgs201920130244@gmail.com>
+To: Tomeu Vizoso <tomeu@tomeuvizoso.net>, Igor Paunovic <royalnet026@gmail.com>
+Cc: Oded Gabbay <ogabbay@kernel.org>, dri-devel@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org, linux-rockchip@lists.infradead.org,
+ Guangshuo Li <lgs201920130244@gmail.com>, Jiaxing Hu <gahing@gahingwoo.com>,
+ Igor Paunovic <royalnet026@gmail.com>
+Subject: Re: [PATCH v2 1/2] accel/rocket: release the shared device's devres on
+ teardown
+Date: Sun, 15 Nov 2026 21:54:18 +0100
+Message-ID: <noBimnyXRY-OqqHLl_N-BA@sntech.de>
+In-Reply-To: <20260731064933.12548-2-royalnet026@gmail.com>
+References: <20260731064933.12548-1-royalnet026@gmail.com>
+ <20260731064933.12548-2-royalnet026@gmail.com>
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: quoted-printable
@@ -55,22 +57,36 @@ X-Spam-Status: No, score=-10.8 required=3.0 tests=BAYES_00,DKIM_SIGNED,
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-Am Mittwoch, 8. Juli 2026, 13:43:54 Mitteleurop=C3=A4ische Normalzeit schri=
-eb Guangshuo Li:
-> rocket_ioctl_create_bo() takes an IOMMU domain reference for each newly
-> created BO.
+Am Freitag, 31. Juli 2026, 08:49:32 Mitteleurop=C3=A4ische Normalzeit schri=
+eb Igor Paunovic:
+> rocket_device_init() attaches its allocations to the shared "rknn"
+> platform device via devres: devm_drm_dev_alloc(), devm_kcalloc() for
+> the cores array and devm_mutex_init(). That device is registered at
+> module init, never binds to a driver, and is only unregistered at
+> module exit - so its devres list is not released for as long as the
+> module is loaded.
 >=20
-> The normal GEM object release path drops that reference from
-> rocket_gem_bo_free(). However, the BO creation error paths free the
-> object with drm_gem_shmem_object_free(), which bypasses the driver's GEM
-> .free callback. Those paths therefore release the shmem object without
-> dropping the IOMMU domain reference.
+> rocket_device_fini() only calls drm_dev_unregister(): it does not run
+> the drm_dev_put() devres action or free any of the other entries.
+> Every fini/re-init cycle therefore leaks the previous rocket_device
+> (with its embedded drm_device and all drmm state, including the accel
+> minor number), the cores array and the mutex devres node. The cycle is
+> easy to trigger: unbind the last bound core and bind one again, or
+> fail the first core's probe (-EPROBE_DEFER retries included).
 >=20
-> Drop the domain reference explicitly on the BO creation error path before
-> freeing the shmem object.
+> Observable symptom, RK3588 (Orange Pi 5 Plus): each unbind/rebind
+> cycle of all three cores moves the accel node forward -
+> /dev/accel/accel0 comes back as accel1, then accel2 - because every
+> leaked drm_device keeps its minor pinned.
 >=20
-> Fixes: 658ebeac3351 ("accel/rocket: Add IOCTL for BO creation")
-> Signed-off-by: Guangshuo Li <lgs201920130244@gmail.com>
+> Wrap the initialization in a devres group and release exactly that
+> group wherever the device is torn down: on the rocket_device_init()
+> error path, when the first core's rocket_core_init() fails, and when
+> the last core is removed. Each fini now frees what the matching init
+> allocated, and the accel minor is reusable again.
+>=20
+> Fixes: ed98261b4168 ("accel/rocket: Add a new driver for Rockchip's NPU")
+> Signed-off-by: Igor Paunovic <royalnet026@gmail.com>
 
 Reviewed-by: Heiko Stuebner <heiko@sntech.de>
 
