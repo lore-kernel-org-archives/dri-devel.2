@@ -2,65 +2,49 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B3349606A327
-	for <dri-devel@archiver.kernel.org>; Sun, 15 Nov 2026 14:06:40 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A783C606A31D
+	for <dri-devel@archiver.kernel.org>; Sun, 15 Nov 2026 14:07:04 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=mz+siG7D
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ERCctqRo
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id E6B9010E24F;
-	Sun, 15 Nov 2026 14:06:34 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id E866F10E29E;
+	Sun, 15 Nov 2026 14:06:58 +0000 (UTC)
 Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id CA79210E24F
- for <dri-devel@lists.freedesktop.org>; Sun, 15 Nov 2026 14:06:28 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 0948010E26E;
+ Sun, 15 Nov 2026 14:06:52 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id 9B93645A88
- for <dri-devel@lists.freedesktop.org>; Sun, 15 Nov 2026 14:06:28 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 70A0D1F000CF
- for <dri-devel@lists.freedesktop.org>; Sun, 15 Nov 2026 14:06:28 +0000 (UTC)
+ by sea.source.kernel.org (Postfix) with ESMTP id DFB29456AF;
+ Sun, 15 Nov 2026 14:06:51 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 35BEE1F000C4;
+ Sun, 15 Nov 2026 14:06:51 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1794751588;
- bh=Yjh8Gm7XLBcgfYiYP3LTQh3dAygMMLi9uTvlwpldUyI=;
- h=References:In-Reply-To:Reply-To:From:Date:Subject:To:Cc;
- b=mz+siG7D/yfCsaQUtmvyh2TtPp6RSL+xZHuVfQQpgQhiqnFA2hy66sFqJDYv/zhNN
- PZdl2f5jnz2cqc1ntx0TIL/cO1Z0Kh+VIfLZI8tPEkRNIx2NwRPylPxwO04vLWiK/C
- S/tzsizO2aQtz305oM/Q/OG/w+H4MHYJduUfF7hKbiu9ouFFLGxed4MMPRDyLH/eDG
- hMtlbugIRv5AqQQEF5MAIKv7X7WhfHNaoVQIgvD4XmINyiuNwknyiWuDimQGiag2xB
- vmscKeRolp3ztysYOwCMZUOKT9oN5lIzDVQYCH3SP/dTdMtB1CQAPEP/qgiHKxh2iZ
- XHTmXMjR20iDA==
-Received: by mail-lj1-f170.google.com with SMTP id
- 38308e7fff4ca-3adf87fc0c6so22408661fa.0
- for <dri-devel@lists.freedesktop.org>; Sun, 15 Nov 2026 06:06:28 -0800 (PST)
-X-Forwarded-Encrypted: i=1;
- AL+hErFpfxE9Je3GkqIEtTweAboBTfgKR7gz2QRUhyPA7+i4Ypnc2lOcOmXeq032JYA7T0qLeyz+eVVpcBo=@lists.freedesktop.org
-X-Gm-Message-State: APuU4Z9DVU7M7my7B28qf3eKjPE0F5FVzowc0YdXtlxgJZO7vzbFdwzl
- KAuxTu6arYSgsvlAKA+GxFX1gfSTxrbqzJRYxgdOM/KIhVCIhsU7uniWzS56gELznnZez960biG
- 0oB1bEW3R6YEcCf5loSVZUhEZ4nhjd7M=
-X-Received: by 2002:a05:651c:41d1:b0:3ab:1207:bd2f with SMTP id
- 38308e7fff4ca-3ae2b4bad8cmr29149331fa.11.1794751586867; Sun, 15 Nov 2026
- 06:06:26 -0800 (PST)
+ s=k20260515; t=1794751611;
+ bh=RwSOhU1sXIw9Fgw/IOjebI38Eb90DcWzMsDdecSXIOc=;
+ h=Date:Subject:To:Cc:References:From:In-Reply-To;
+ b=ERCctqRoahls0W1xfobOaqi2LNTtl20O0HPndcZqw0pLZX7pXweipZVbno31JeiIc
+ rxCjeqffRccsRb1BajgeWD9SCvIpRMtfZgJ9AroL4nm60JFqI5WaMz9OgpuXMNa/0F
+ NGGZ2XQbHevfFUgWn1LKEA2Fz7UawSzWOdsqfeqPqzw3IWZCMOQIqgKwsxRnX2v3zT
+ tJgzByz5+0UBC6czxN9Ekn/Z+WzIu4rRGoSrApHS39ql/S98//DOKjVnlUoygRjTg5
+ U1NJYzaxQO1FATwphqP2bfkpY/gXe3rBo5FUPf3CujfVuT4SpBA/MLFztPCdBwY93q
+ Ih1OXOscY4Lxw==
+Message-ID: <c6d79680-1fd2-4e71-9d00-616010b7727c@kernel.org>
+Date: Sun, 15 Nov 2026 08:06:50 -0600
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
-References: <20261115061102.229680-1-jernej.skrabec@gmail.com>
- <20261115061102.229680-8-jernej.skrabec@gmail.com>
-In-Reply-To: <20261115061102.229680-8-jernej.skrabec@gmail.com>
-From: Chen-Yu Tsai <wens@kernel.org>
-Date: Sun, 15 Nov 2026 22:06:13 +0800
-X-Gmail-Original-Message-ID: <CAGb2v67Kkiz=ns+DGS-nGeX7c_nT61B-CkXggqq0K2uxXGQ1UQ@mail.gmail.com>
-X-Gm-Features: AclHuK-7yda1JGDc_9OgA1yiAcJwBx1hvDReZ63bJlhLUfk9UlCfGoWhOH0aQLI
-Message-ID: <CAGb2v67Kkiz=ns+DGS-nGeX7c_nT61B-CkXggqq0K2uxXGQ1UQ@mail.gmail.com>
-Subject: Re: [PATCH v3 7/8] dt-bindings: display: allwinner: Split H616 DE33
- layer reg space
-To: Jernej Skrabec <jernej.skrabec@gmail.com>
-Cc: Samuel Holland <samuel@sholland.org>, mripard@kernel.org, 
- maarten.lankhorst@linux.intel.com, tzimmermann@suse.de, airlied@gmail.com, 
- simona@ffwll.ch, robh@kernel.org, krzk+dt@kernel.org, conor+dt@kernel.org, 
- bmasney+clk@redhat.com, jbrunet+clk@baylibre.com, sboyd@kernel.org, 
- Andre Przywara <andre.przywara@arm.com>, dri-devel@lists.freedesktop.org, 
- devicetree@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
- linux-sunxi@lists.linux.dev, linux-kernel@vger.kernel.org, 
- linux-clk@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2] drm/amd/display: Route connector DDC over AUX for
+ native DP sinks
+Content-Language: en-US
+To: simonit.orig@gmail.com, Richard Hughes <richard@hughsie.com>
+Cc: Harry Wentland <harry.wentland@amd.com>, Leo Li <sunpeng.li@amd.com>,
+ Alex Deucher <alexander.deucher@amd.com>, dri-devel@lists.freedesktop.org,
+ Wayne Lin <Wayne.Lin@amd.com>, amd-gfx@lists.freedesktop.org
+References: <20261103-superm1-amdgpu-ddc-v2-1-7bde6d004382@kernel.org>
+ <20261115082042.1902826-1-Wayne.Lin@amd.com>
+From: Mario Limonciello <superm1@kernel.org>
+In-Reply-To: <20261115082042.1902826-1-Wayne.Lin@amd.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -71,113 +55,87 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
-Reply-To: wens@kernel.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-15.8 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
+X-Spam-Status: No, score=-22.3 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
 	DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
-	INCLUDES_CR_TRAILER,INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,
-	SPF_PASS autolearn=ham autolearn_force=no version=4.0.1
+	INCLUDES_CR_TRAILER,INCLUDES_PATCH,MAILING_LIST_MULTI,
+	MENTIONS_GIT_HOSTING,SPF_HELO_NONE,SPF_PASS,USER_AGENT_SANE_1
+	autolearn=unavailable autolearn_force=no version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-On Sun, Nov 15, 2026 at 2:11=E2=80=AFPM Jernej Skrabec <jernej.skrabec@gmai=
-l.com> wrote:
->
-> As it turns out, current H616 DE33 binding was written based on
-> incomplete understanding of DE33 design. Namely, planes are shared
-> resource and not tied to specific mixer, which was the case for previous
-> generations of Display Engine (DE3 and earlier).
->
-> This means that current DE33 binding doesn't properly reflect HW and
-> using it would mean that second mixer (used for second display output)
-> can't be supported.
->
-> Remove layer register space, which will be represented with additional
-> node, and replace it with phandle, which will point to that new, shared
-> node. That way, all mixers can share same layers.
->
-> This change is intentionally not backward compatible and the old binding
-> will not be supported by the driver, for the following reasons:
->
-> - It can't describe the hardware. Plane register space is shared
->   between all mixers, but the old binding puts it in the mixer node, so
->   only one mixer can ever claim it. The second mixer can't be supported
->   with the old binding at all. It also has no way to reference plane to
->   mixer mapping registers, which live in display clocks register space.
->
-> - Supporting it would mean keeping a second, mixer-local plane
->   management path in the driver, with hardcoded plane mapping, which
->   doesn't match the hardware and which can't be tested, since nothing
->   uses it.
->
-> - It was never used. Upstream H616 DT has no Display Engine nodes and
->   the rest of H616 display pipeline (TCON, HDMI, PHY) is not supported
->   upstream yet, so the old binding never produced a working display.
->   Vendor BSP kernels use a completely different DT structure and no
->   other known DT consumer (U-Boot, *BSD, Zephyr, TF-A, ...) implements
->   H616 display support. Only out of tree WIP patches used it and those
->   are updated together with the kernel.
->
-> The driver will print an error, asking to update the device tree, when
-> the old binding is detected.
->
-> Signed-off-by: Jernej Skrabec <jernej.skrabec@gmail.com>
+On 11/15/26 02:20, Wayne Lin wrote:
+> Reviewed-by: Wayne Lin <Wayne.Lin@amd.com>
 
-Reviewed-by: Chen-Yu Tsai <wens@kernel.org>
+Thanks Wayne.
 
-> ---
->  .../display/allwinner,sun8i-a83t-de2-mixer.yaml  | 16 ++++++++++------
->  1 file changed, 10 insertions(+), 6 deletions(-)
->
-> diff --git a/Documentation/devicetree/bindings/display/allwinner,sun8i-a8=
-3t-de2-mixer.yaml b/Documentation/devicetree/bindings/display/allwinner,sun=
-8i-a83t-de2-mixer.yaml
-> index cbd18fd83e52..064e4ca7e419 100644
-> --- a/Documentation/devicetree/bindings/display/allwinner,sun8i-a83t-de2-=
-mixer.yaml
-> +++ b/Documentation/devicetree/bindings/display/allwinner,sun8i-a83t-de2-=
-mixer.yaml
-> @@ -46,6 +46,10 @@ properties:
->    resets:
->      maxItems: 1
->
-> +  allwinner,planes:
-> +    $ref: /schemas/types.yaml#/definitions/phandle
-> +    description: Phandle of Display Engine 3.3 planes node
-> +
->    ports:
->      $ref: /schemas/graph.yaml#/properties/ports
->
-> @@ -74,22 +78,22 @@ allOf:
->        properties:
->          reg:
->            description: |
-> -            Registers for controlling individual layers of the display
-> -            engine (layers), global control (top), and display blending
-> -            control (display). Names are from Allwinner BSP kernel.
-> -          maxItems: 3
-> +            Registers for display blending control (display) and global
-> +            control (top). Names are from Allwinner BSP kernel.
-> +          maxItems: 2
->          reg-names:
->            items:
-> -            - const: layers
-> -            - const: top
->              - const: display
-> +            - const: top
->        required:
->          - reg-names
-> +        - allwinner,planes
->
->      else:
->        properties:
->          reg:
->            maxItems: 1
-> +        allwinner,planes: false
->
->  required:
->    - compatible
-> --
-> 2.43.0
->
->
+Simon, Richard,
+
+Can you please check that this resolves the issue raised?
+
+Thanks,
+
+> 
+> On Tue, 03 Nov 2026 08:18:40 -0600, Mario Limonciello wrote:
+>> On DisplayPort and eDP connectors DDC is tunneled over the AUX channel,
+>> but the connector's "ddc" adapter ("AMDGPU DM i2c hw bus N") always
+>> drives the physical i2c pins, which don't reach a native DP sink.  The
+>> AUX backed adapter ("AMDGPU DM aux hw bus N") does, so userspace such as
+>> fwupd, which uses the "ddc" sysfs link for DDC/CI, has to work around
+>> this.
+>>
+>> Keep a single i2c bus per connector and pick the transport per transfer
+>> based on the detected sink: if the sink is a native DP/eDP/MST sink,
+>> forward the transfer to the AUX adapter, otherwise (DVI/HDMI, including
+>> DP++ with a passive adapter) use the hw i2c engine as before.
+>>
+>> Reported-by: simonit.orig@gmail.com
+>> Closes: https://github.com/fwupd/fwupd/pull/11308
+>> Signed-off-by: Mario Limonciello <superm1@kernel.org>
+>> ---
+>> Changes in v2:
+>> - Check which i2c bus to use on the fly instead of changing static symlink to
+>>    avoid regressing passive adapters.
+>> - Link to v1: https://patch.msgid.link/20261102-superm1-amdgpu-ddc-v1-1-9c5cb4a4f62d@amd.com
+>> ---
+>>   .../gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_connector.c  | 16 ++++++++++++++++
+>>   1 file changed, 16 insertions(+)
+>>
+>> diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_connector.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_connector.c
+>> index b498fc5fbb140..678caffa3d120 100644
+>> --- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_connector.c
+>> +++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_connector.c
+>> @@ -3373,6 +3373,22 @@ STATIC_IFN_KUNIT int amdgpu_dm_i2c_xfer(struct i2c_adapter *i2c_adap,
+>>   	int i;
+>>   	int result = -EIO;
+>>   
+>> +	if (!i2c->oem) {
+>> +		struct dc_link *link = ddc_service->link;
+>> +		struct amdgpu_dm_connector *aconnector = link->priv;
+>> +
+>> +		/*
+>> +		 * DDC to a native DisplayPort sink is tunneled over the AUX
+>> +		 * channel; the physical i2c pins only reach DVI/HDMI sinks
+>> +		 * (e.g. DP++ with a passive adapter).  Route accordingly so
+>> +		 * the connector's single "ddc" bus works for either sink.
+>> +		 */
+>> +		if (aconnector && link->local_sink &&
+>> +		    dc_is_dp_signal(link->local_sink->sink_signal) &&
+>> +		    aconnector->dm_dp_aux.aux.ddc.algo)
+>> +			return i2c_transfer(&aconnector->dm_dp_aux.aux.ddc, msgs, num);
+>> +	}
+>> +
+>>   	if (!ddc_service->ddc_pin)
+>>   		return result;
+>>   
+>>
+>> ---
+>> base-commit: 6628e7d4c6b25c8d18f1345e3a20d21829aae7e4
+>> change-id: 20261102-superm1-amdgpu-ddc-63f0eb10c022
+>>
+>> Best regards,
+>> --
+>> Mario Limonciello <superm1@kernel.org>
+>>
+>>
+
