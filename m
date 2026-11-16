@@ -2,135 +2,44 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 30C0B606A323
-	for <dri-devel@archiver.kernel.org>; Mon, 16 Nov 2026 13:42:31 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7FF57606A31C
+	for <dri-devel@archiver.kernel.org>; Mon, 16 Nov 2026 13:44:49 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.a=rsa-sha256 header.s=susede2_rsa header.b=xBT3hkpd;
-	dkim=pass header.d=suse.de header.i=@suse.de header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=5ocw8uss;
-	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.a=rsa-sha256 header.s=susede2_rsa header.b=xBT3hkpd;
-	dkim=neutral header.d=suse.de header.i=@suse.de header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=5ocw8uss
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=TTZdlw1S
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 79C8610F034;
-	Mon, 16 Nov 2026 13:42:20 +0000 (UTC)
-Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.223.130])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 1770810F034
- for <dri-devel@lists.freedesktop.org>; Mon, 16 Nov 2026 13:42:09 +0000 (UTC)
-Received: from imap1.dmz-prg2.suse.org (unknown [10.150.64.97])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
- (No client certificate requested)
- by smtp-out1.suse.de (Postfix) with ESMTPS id 962AE221BD;
- Mon, 16 Nov 2026 13:42:07 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
- t=1794836527; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
- bh=f1+vxka76e+8hnc4s2/BRUfyzG0x6KSxkUIOdVoU9QI=;
- b=xBT3hkpdIoOC4Pbhq5A+kr6jEtXbBTn+Y6QEhZg89uETHYy5oX/aHp7UHG2Rboiy7fdQoY
- 9UDx2HJavxbL5n4TfjSv9jZTHMsn1p/pZB2nX7RT6/M1PtezGdlJsSTFzs3cQqs6W+KQHn
- ZbhpmTndH6F0T1dBQNBAEciNEzlm9Nk=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_ed25519; t=1794836527;
- h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
- bh=f1+vxka76e+8hnc4s2/BRUfyzG0x6KSxkUIOdVoU9QI=;
- b=5ocw8uss8O3+PJfehkW/Jdy2YjgJZf/f2rtjyxNJGpi65R5USn9WU4U7jznd1TYtNj1Rth
- HecujcnJRNuWP2CQ==
-Authentication-Results: smtp-out1.suse.de;
-	none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
- t=1794836527; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
- bh=f1+vxka76e+8hnc4s2/BRUfyzG0x6KSxkUIOdVoU9QI=;
- b=xBT3hkpdIoOC4Pbhq5A+kr6jEtXbBTn+Y6QEhZg89uETHYy5oX/aHp7UHG2Rboiy7fdQoY
- 9UDx2HJavxbL5n4TfjSv9jZTHMsn1p/pZB2nX7RT6/M1PtezGdlJsSTFzs3cQqs6W+KQHn
- ZbhpmTndH6F0T1dBQNBAEciNEzlm9Nk=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_ed25519; t=1794836527;
- h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
- bh=f1+vxka76e+8hnc4s2/BRUfyzG0x6KSxkUIOdVoU9QI=;
- b=5ocw8uss8O3+PJfehkW/Jdy2YjgJZf/f2rtjyxNJGpi65R5USn9WU4U7jznd1TYtNj1Rth
- HecujcnJRNuWP2CQ==
-Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
- (No client certificate requested)
- by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 27E2F1334C;
- Mon, 16 Nov 2026 13:42:07 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
- by imap1.dmz-prg2.suse.org with ESMTPSA id EMJrNi4I+2pENgAAD6G6ig
- (envelope-from <tzimmermann@suse.de>); Mon, 16 Nov 2026 13:42:07 +0000
-Message-ID: <9765be24-b9b4-46f4-bdf4-782cd6a551d2@suse.de>
-Date: Mon, 16 Nov 2026 14:42:06 +0100
-X-Archived-By: <archiver.kernel.org>
-MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 4/4] drm/verisilicon: check old state CRTC in plane
- atomic_disable
-To: Icenowy Zheng <zhengxingda@iscas.ac.cn>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>
-Cc: David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>,
- Joey Lu <a0987203069@gmail.com>, Han Gao <gaohan@iscas.ac.cn>,
- dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
- Icenowy Zheng <uwu@icenowy.me>
-References: <20261102075710.1286456-1-zhengxingda@iscas.ac.cn>
- <20261102075710.1286456-5-zhengxingda@iscas.ac.cn>
-Content-Language: en-US
-From: Thomas Zimmermann <tzimmermann@suse.de>
-Autocrypt: addr=tzimmermann@suse.de; keydata=
- xsBNBFs50uABCADEHPidWt974CaxBVbrIBwqcq/WURinJ3+2WlIrKWspiP83vfZKaXhFYsdg
- XH47fDVbPPj+d6tQrw5lPQCyqjwrCPYnq3WlIBnGPJ4/jreTL6V+qfKRDlGLWFjZcsrPJGE0
- BeB5BbqP5erN1qylK9i3gPoQjXGhpBpQYwRrEyQyjuvk+Ev0K1Jc5tVDeJAuau3TGNgah4Yc
- hdHm3bkPjz9EErV85RwvImQ1dptvx6s7xzwXTgGAsaYZsL8WCwDaTuqFa1d1jjlaxg6+tZsB
- 9GluwvIhSezPgnEmimZDkGnZRRSFiGP8yjqTjjWuf0bSj5rUnTGiyLyRZRNGcXmu6hjlABEB
- AAHNJ1Rob21hcyBaaW1tZXJtYW5uIDx0emltbWVybWFubkBzdXNlLmRlPsLAjgQTAQgAOAIb
- AwULCQgHAgYVCgkICwIEFgIDAQIeAQIXgBYhBHIX+6yM6c9jRKFo5WgNwR1TC3ojBQJftODH
- AAoJEGgNwR1TC3ojx1wH/0hKGWugiqDgLNXLRD/4TfHBEKmxIrmfu9Z5t7vwUKfwhFL6hqvo
- lXPJJKQpQ2z8+X2vZm/slsLn7J1yjrOsoJhKABDi+3QWWSGkaGwRJAdPVVyJMfJRNNNIKwVb
- U6B1BkX2XDKDGffF4TxlOpSQzdtNI/9gleOoUA8+jy8knnDYzjBNOZqLG2FuTdicBXblz0Mf
- vg41gd9kCwYXDnD91rJU8tzylXv03E75NCaTxTM+FBXPmsAVYQ4GYhhgFt8S2UWMoaaABLDe
- 7l5FdnLdDEcbmd8uLU2CaG4W2cLrUaI4jz2XbkcPQkqTQ3EB67hYkjiEE6Zy3ggOitiQGcqp
- j//OwE0EWznS4AEIAMYmP4M/V+T5RY5at/g7rUdNsLhWv1APYrh9RQefODYHrNRHUE9eosYb
- T6XMryR9hT8XlGOYRwKWwiQBoWSDiTMo/Xi29jUnn4BXfI2px2DTXwc22LKtLAgTRjP+qbU6
- 3Y0xnQN29UGDbYgyyK51DW3H0If2a3JNsheAAK+Xc9baj0LGIc8T9uiEWHBnCH+RdhgATnWW
- GKdDegUR5BkDfDg5O/FISymJBHx2Dyoklv5g4BzkgqTqwmaYzsl8UxZKvbaxq0zbehDda8lv
- hFXodNFMAgTLJlLuDYOGLK2AwbrS3Sp0AEbkpdJBb44qVlGm5bApZouHeJ/+n+7r12+lqdsA
- EQEAAcLAdgQYAQgAIAIbDBYhBHIX+6yM6c9jRKFo5WgNwR1TC3ojBQJftOH6AAoJEGgNwR1T
- C3ojVSkIALpAPkIJPQoURPb1VWjh34l0HlglmYHvZszJWTXYwavHR8+k6Baa6H7ufXNQtThR
- yIxJrQLW6rV5lm7TjhffEhxVCn37+cg0zZ3j7zIsSS0rx/aMwi6VhFJA5hfn3T0TtrijKP4A
- SAQO9xD1Zk9/61JWk8OysuIh7MXkl0fxbRKWE93XeQBhIJHQfnc+YBLprdnxR446Sh8Wn/2D
- Ya8cavuWf2zrB6cZurs048xe0UbSW5AOSo4V9M0jzYI4nZqTmPxYyXbm30Kvmz0rYVRaitYJ
- 4kyYYMhuULvrJDMjZRvaNe52tkKAvMevcGdt38H4KSVXAylqyQOW5zvPc4/sq9c=
-In-Reply-To: <20261102075710.1286456-5-zhengxingda@iscas.ac.cn>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
-X-Spam-Level: 
-X-Spamd-Result: default: False [-13.29 / 50.00]; SUSE_INTERNAL_BYPASS(-9.00)[];
- BAYES_HAM(-3.00)[100.00%]; NEURAL_HAM_LONG(-1.00)[-1.000];
- NEURAL_HAM_SHORT(-0.20)[-1.000]; MIME_GOOD(-0.10)[text/plain];
- XM_UA_NO_VERSION(0.01)[]; RCPT_COUNT_SEVEN(0.00)[11];
- RCVD_TLS_ALL(0.00)[]; FREEMAIL_ENVRCPT(0.00)[gmail.com];
- ARC_NA(0.00)[]; RCVD_VIA_SMTP_AUTH(0.00)[];
- MIME_TRACE(0.00)[0:+]; MID_RHS_MATCH_FROM(0.00)[];
- DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
- URIBL_BLOCKED(0.00)[iscas.ac.cn:email,suse.com:url,imap1.dmz-prg2.suse.org:helo];
- FROM_HAS_DN(0.00)[];
- FREEMAIL_CC(0.00)[gmail.com,ffwll.ch,oss.qualcomm.com,iscas.ac.cn,lists.freedesktop.org,vger.kernel.org,icenowy.me];
- TO_DN_SOME(0.00)[]; FROM_EQ_ENVFROM(0.00)[];
- TO_MATCH_ENVRCPT_ALL(0.00)[]; RCVD_COUNT_TWO(0.00)[2];
- DBL_BLOCKED_OPENRESOLVER(0.00)[suse.com:url, iscas.ac.cn:email,
- imap1.dmz-prg2.suse.org:helo]
-X-Spam-Score: -13.29
+	by gabe.freedesktop.org (Postfix) with ESMTP id CE88E10F1B8;
+	Mon, 16 Nov 2026 13:44:43 +0000 (UTC)
+Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id AA66510F1B8
+ for <dri-devel@lists.freedesktop.org>; Mon, 16 Nov 2026 13:44:37 +0000 (UTC)
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+ by sea.source.kernel.org (Postfix) with ESMTP id 5FFB743E8F;
+ Mon, 16 Nov 2026 13:44:37 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id BF1AA1F000C4;
+ Mon, 16 Nov 2026 13:44:36 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+ s=k20260515; t=1794836677;
+ bh=ZB7/fR3G3xPQ2TEQq2wWWvk5pwsC+bKitpxTB4jxwOU=;
+ h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+ b=TTZdlw1S13KnQRAwnlN1jlxDbbEl7xOAbQ9ikEINOiNV3d/7BuQLAPOCc1LHIUmqN
+ zfomsykx0nQDp7pit6MqO1VbBy4xzbqdF9TWAhI8eSli1SoqwDVU7oFfoDmgQbpwFM
+ guzWiCOMSr3Xg0Q9GvNWseRpVA3raEl+/34GaGrZ0BepgPl2870F/fUWXyTd7LdPaH
+ 79f3IVyk6mFRAnHJwow83xg15z2bEb/G7KZbU5cM4RWF2xRTnJBKvlHer9PS3vpkyF
+ f17vbugn9lgSONJbicssfjHa09ODzCBBDLIRL3imDzXUcja1qYeSBg8G3x1DSlFkd+
+ lKU5Cp0Pf1HEg==
+Message-ID: <sashiko-outbox-217102@kernel.org>
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v3 11/11] phy: qcom: edp: Add Nord eDP/DP PHY support
+To: "Nabige Aala" <nabige.aala@oss.qualcomm.com>
+Cc: linux-phy@lists.infradead.org, devicetree@vger.kernel.org,
+ dri-devel@lists.freedesktop.org, robh@kernel.org, conor+dt@kernel.org,
+ vkoul@kernel.org, neil.armstrong@linaro.org, olteanv@gmail.com
+In-Reply-To: <20261116-nord-drv-dt-v3-11-e3d3bf0e2c49@oss.qualcomm.com>
+References: <20261116-nord-drv-dt-v3-0-e3d3bf0e2c49@oss.qualcomm.com>
+ <20261116-nord-drv-dt-v3-11-e3d3bf0e2c49@oss.qualcomm.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Mon, 16 Nov 2026 13:44:36 +0000
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -141,97 +50,177 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
+Reply-To: sashiko-reviews@lists.linux.dev
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-17.3 required=3.0 tests=BAYES_00,DKIM_SIGNED,
-	DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
-	INCLUDES_CR_TRAILER,INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,
-	SPF_PASS,USER_AGENT_SANE_1 autolearn=unavailable autolearn_force=no
-	version=4.0.1
+X-Spam-Status: No, score=-10.8 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
+	DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
+	INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS autolearn=ham
+	autolearn_force=no version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
+X-Archived-By: <archiver.kernel.org>
 
-Hi
-
-Am 02.11.26 um 08:57 schrieb Icenowy Zheng:
-> As atomic_update hooks of both planes would utilize atomic_disable
-> functions to disable the plane when it's set to invisible (even when
-> technically enabled), the atomic_disable functions need to check whether
-> the plane is really enabled before.
-
-Why? Why not just disable the plane?
-
-Also see my review of the other patch. Why not remove that disable call 
-from atomic_update?
-
-Best regards
-Thomas
-
->
-> Add such a check to prevent NULL dereference.
->
-> Fixes: dbf21777caa8 ("drm: verisilicon: add a driver for Verisilicon display controllers")
-> Fixes: 8c4ae2189125 ("drm: verisilicon: add support for cursor planes")
-> Signed-off-by: Icenowy Zheng <zhengxingda@iscas.ac.cn>
-> ---
->   drivers/gpu/drm/verisilicon/vs_cursor_plane.c  | 13 ++++++++++---
->   drivers/gpu/drm/verisilicon/vs_primary_plane.c | 13 ++++++++++---
->   2 files changed, 20 insertions(+), 6 deletions(-)
->
-> diff --git a/drivers/gpu/drm/verisilicon/vs_cursor_plane.c b/drivers/gpu/drm/verisilicon/vs_cursor_plane.c
-> index 5295dc2f9ee2e..bee19b65b9a4e 100644
-> --- a/drivers/gpu/drm/verisilicon/vs_cursor_plane.c
-> +++ b/drivers/gpu/drm/verisilicon/vs_cursor_plane.c
-> @@ -104,9 +104,16 @@ static void vs_cursor_plane_atomic_disable(struct drm_plane *plane,
->   	struct drm_plane_state *state = drm_atomic_get_old_plane_state(atomic_state,
->   								       plane);
->   	struct drm_crtc *crtc = state->crtc;
-> -	struct vs_crtc *vcrtc = drm_crtc_to_vs_crtc(crtc);
-> -	unsigned int output = vcrtc->id;
-> -	struct vs_dc *dc = vcrtc->dc;
-> +	struct vs_crtc *vcrtc;
-> +	unsigned int output;
-> +	struct vs_dc *dc;
-> +
-> +	if (!crtc)
-> +		return;
-> +
-> +	vcrtc = drm_crtc_to_vs_crtc(crtc);
-> +	output = vcrtc->id;
-> +	dc = vcrtc->dc;
->   
->   	regmap_update_bits(dc->regs, VSDC_CURSOR_CONFIG(output),
->   			   VSDC_CURSOR_CONFIG_FMT_MASK,
-> diff --git a/drivers/gpu/drm/verisilicon/vs_primary_plane.c b/drivers/gpu/drm/verisilicon/vs_primary_plane.c
-> index e687313d6f057..01725e60e5fbd 100644
-> --- a/drivers/gpu/drm/verisilicon/vs_primary_plane.c
-> +++ b/drivers/gpu/drm/verisilicon/vs_primary_plane.c
-> @@ -65,9 +65,16 @@ static void vs_primary_plane_atomic_disable(struct drm_plane *plane,
->   	struct drm_plane_state *state = drm_atomic_get_old_plane_state(atomic_state,
->   								       plane);
->   	struct drm_crtc *crtc = state->crtc;
-> -	struct vs_crtc *vcrtc = drm_crtc_to_vs_crtc(crtc);
-> -	unsigned int output = vcrtc->id;
-> -	struct vs_dc *dc = vcrtc->dc;
-> +	struct vs_crtc *vcrtc;
-> +	unsigned int output;
-> +	struct vs_dc *dc;
-> +
-> +	if (!crtc)
-> +		return;
-> +
-> +	vcrtc = drm_crtc_to_vs_crtc(crtc);
-> +	output = vcrtc->id;
-> +	dc = vcrtc->dc;
->   
->   	regmap_clear_bits(dc->regs, VSDC_FB_CONFIG_EX(output),
->   			  VSDC_FB_CONFIG_EX_FB_EN);
-
--- 
+Thank you for your contribution! Sashiko AI review found 2 potential
+issues to consider:
+- [Low] phy: qcom: edp: duplicated v6/v8 definitions and misplaced Nord
+  code
+- [Low] phy: qcom: edp: asymmetric DRV_LVL writes in
+  qcom_edp_tx_res_config_nord()
 --
-Thomas Zimmermann
-Graphics Driver Developer
-SUSE Software Solutions Germany GmbH
-Frankenstr. 146, 90461 Nürnberg, Germany, www.suse.com
-GF: Stefan Gaiser, Jochen Jaser, Abhinav Puri, (HRB 36809, AG Nürnberg)
 
+commit d8ce2b9ae0271c780b642dc599049c73dd865127
+Author: Ritesh Kumar <ritesh.kumar@oss.qualcomm.com>
 
+phy: qcom: edp: Add Nord eDP/DP PHY support
+
+This commit adds eDP/DP PHY support, callbacks, configuration tables, and t=
+he
+qcom,nord-dp-phy compatible string for the Qualcomm Nord SoC.
+
+> diff --git a/drivers/phy/qualcomm/phy-qcom-edp.c b/drivers/phy/qualcomm/p=
+hy-qcom-edp.c
+> index c61e57cc2aa7b..d5de6d322f023 100644
+> --- a/drivers/phy/qualcomm/phy-qcom-edp.c
+> +++ b/drivers/phy/qualcomm/phy-qcom-edp.c
+> @@ -27,6 +27,7 @@
+>  #include "phy-qcom-qmp-qserdes-com-v6.h"
+> =20
+>  #include "phy-qcom-qmp-qserdes-dp-com-v8.h"
+> +#include "phy-qcom-qmp-qserdes-dp-com-v8-nord.h"
+> =20
+>  /* EDP_PHY registers */
+>  #define DP_PHY_CFG                              0x0010
+> @@ -1514,6 +1515,262 @@ static int qcom_edp_phy_probe(struct platform_dev=
+ice *pdev)
+>  	return PTR_ERR_OR_ZERO(phy_provider);
+>  }
+> =20
+> +static const u8 nord_dp_pre_emp_hbr_rbr[4][4] =3D {
+
+[ ... ]
+
+> +static const u8 edp_phy_vco_div_cfg_nord[4] =3D {
+> +	0x00, 0x00, 0x02, 0x01,
+> +};
+> +
+> +static int qcom_edp_ldo_config_nord(const struct qcom_edp *edp)
+> +{
+> +	const struct phy_configure_opts_dp *dp_opts =3D &edp->dp_opts;
+> +
+> +	writel(0xd0, edp->tx0 + TXn_LDO_CONFIG);
+> +	writel(dp_opts->lanes > 2 ? 0xd0 : 0x00, edp->tx1 + TXn_LDO_CONFIG);
+> +	writel(0x03, edp->edp + DP_PHY_LDO_CFG_NORD);
+> +
+> +	return 0;
+> +}
+> +
+> +static int qcom_edp_tx_res_config_nord(const struct qcom_edp *edp)
+> +{
+> +	writel(0x06, edp->tx0 + TXn_RES_CODE_LANE_OFFSET_TX0);
+> +	writel(0x06, edp->tx0 + TXn_RES_CODE_LANE_OFFSET_TX1);
+> +	writel(0x06, edp->tx1 + TXn_RES_CODE_LANE_OFFSET_TX0);
+> +	writel(0x06, edp->tx1 + TXn_RES_CODE_LANE_OFFSET_TX1);
+> +	writel(0x06, edp->tx0 + TXn_TX_EMP_POST1_LVL);
+> +	writel(0x06, edp->tx1 + TXn_TX_EMP_POST1_LVL);
+> +	writel(0x05, edp->tx0 + TXn_TX_BAND_NORD);
+> +	writel(0x05, edp->tx1 + TXn_TX_BAND_NORD);
+> +	writel(0x12, edp->edp + DP_PHY_TX_LN0_DRV_LVL_NORD);
+> +	writel(0x12, edp->edp + DP_PHY_TX_LN1_DRV_LVL_NORD);
+> +
+> +	return 0;
+> +}
+
+[Severity: Low]
+As reported by Dmitry Baryshkov on v2 [1], should initial TX drive-level
+programming be handled symmetrically between qcom_edp_tx_res_config_nord()
+and qcom_edp_tx_res_config_default()?
+
+qcom_edp_tx_res_config_nord() programs DP_PHY_TX_LN0_DRV_LVL_NORD and
+DP_PHY_TX_LN1_DRV_LVL_NORD, whereas qcom_edp_tx_res_config_default() omits
+TXn_TX_DRV_LVL and leaves those writes hardcoded in qcom_edp_phy_power_on():
+
+drivers/phy/qualcomm/phy-qcom-edp.c:qcom_edp_phy_power_on() {
+    ...
+	ret =3D edp->cfg->ver_ops->tx_res_config(edp);
+	if (ret)
+		return ret;
+	writel(0x1f, edp->tx0 + TXn_TX_DRV_LVL);
+	writel(0x1f, edp->tx1 + TXn_TX_DRV_LVL);
+    ...
+}
+
+Because qcom_edp_phy_power_on() unconditionally writes 0x1f to TXn_TX_DRV_L=
+VL
+after calling tx_res_config(), Nord still executes the legacy TXn_TX_DRV_LVL
+writes even though it relocates drive-level control to
+DP_PHY_TX_LN0_DRV_LVL_NORD and DP_PHY_TX_LN1_DRV_LVL_NORD.
+
+> +
+> +static int qcom_edp_phy_power_on_nord(const struct qcom_edp *edp)
+> +{
+> +	u32 val;
+> +
+> +	writel(DP_PHY_PD_CTL_PWRDN | DP_PHY_PD_CTL_AUX_PWRDN |
+> +	       DP_PHY_PD_CTL_LANE_0_1_PWRDN | DP_PHY_PD_CTL_LANE_2_3_PWRDN |
+> +	       DP_PHY_PD_CTL_PLL_PWRDN | DP_PHY_PD_CTL_DP_CLAMP_EN,
+> +	       edp->edp + DP_PHY_PD_CTL);
+> +	writel(0xfc, edp->edp + DP_PHY_MODE);
+> +
+> +	return readl_poll_timeout(edp->pll + NORD_DP_QSERDES_COM_CMN_STATUS,
+> +				  val, val & BIT(7), 5, 200);
+> +}
+> +
+> +static int qcom_edp_phy_com_resetsm_cntrl_nord(const struct qcom_edp *ed=
+p)
+> +{
+> +	u32 val;
+> +
+> +	writel(0x20, edp->pll + NORD_DP_QSERDES_COM_RESETSM_CNTRL);
+> +
+> +	return readl_poll_timeout(edp->pll + NORD_DP_QSERDES_COM_C_READY_STATUS,
+> +				  val, val & BIT(0), 500, 10000);
+> +}
+
+[ ... ]
+
+>  static const struct of_device_id qcom_edp_phy_match_table[] =3D {
+>  	{ .compatible =3D "qcom,glymur-dp-phy", .data =3D &glymur_phy_cfg, },
+>  	{ .compatible =3D "qcom,sa8775p-edp-phy", .data =3D &sa8775p_dp_phy_cfg=
+, },
+> @@ -1522,6 +1779,7 @@ static const struct of_device_id qcom_edp_phy_match=
+_table[] =3D {
+>  	{ .compatible =3D "qcom,sc8280xp-dp-phy", .data =3D &sc8280xp_dp_phy_cf=
+g, },
+>  	{ .compatible =3D "qcom,sc8280xp-edp-phy", .data =3D &sc8280xp_edp_phy_=
+cfg, },
+>  	{ .compatible =3D "qcom,x1e80100-dp-phy", .data =3D &x1e80100_phy_cfg, =
+},
+> +	{ .compatible =3D "qcom,nord-dp-phy", .data =3D &nord_edp_phy_cfg, },
+>  	{ }
+>  };
+>  MODULE_DEVICE_TABLE(of, qcom_edp_phy_match_table);
+
+[Severity: Low]
+Can Nord reuse the existing v6 and v8 definitions instead of duplicating
+them?
+
+All 40 NORD_DP_QSERDES_COM_* offsets in phy-qcom-qmp-qserdes-dp-com-v8-nord=
+.h
+are identical to the QSERDES_V6_COM_* offsets in
+phy-qcom-qmp-qserdes-com-v6.h, which is already included in this file.
+Consequently, qcom_edp_phy_power_on_nord() and
+qcom_edp_phy_com_resetsm_cntrl_nord() are identical to
+qcom_edp_phy_power_on_v6() and qcom_edp_phy_com_resetsm_cntrl_v6(), and
+edp_phy_vco_div_cfg_nord is identical to edp_phy_vco_div_cfg_v8.
+
+Also, the Nord register macros, configuration tables, and callbacks are
+placed after qcom_edp_phy_probe() instead of alongside the other SoC
+definitions earlier in the file, and qcom,nord-dp-phy is appended to the end
+of the alphabetically sorted qcom_edp_phy_match_table[].
+
+[1] https://lore.kernel.org/r/qqfucmyebsvemdr5px33wabsxxq4owozwmxcqu62sprs5=
+k32bo@kb5pjx2m4ucq
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261116-nord-drv-d=
+t-v3-0-e3d3bf0e2c49@oss.qualcomm.com?part=3D11
