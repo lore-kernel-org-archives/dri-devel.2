@@ -2,80 +2,82 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B5474606A32C
-	for <dri-devel@archiver.kernel.org>; Mon, 16 Nov 2026 09:12:27 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 18280606A31C
+	for <dri-devel@archiver.kernel.org>; Mon, 16 Nov 2026 09:12:34 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=YgGa5GCv
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=SUjXNyHJ
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 0D72310EDBB;
-	Mon, 16 Nov 2026 09:12:22 +0000 (UTC)
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.9])
- by gabe.freedesktop.org (Postfix) with ESMTPS id AC19210EDD5;
- Mon, 16 Nov 2026 09:12:15 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1794820336; x=1826356336;
- h=from:to:cc:subject:date:message-id:in-reply-to:
- references:mime-version:content-transfer-encoding;
- bh=GQ6nvZncaJPWB21Rm55NWdBG4xu4kDWV0iEJex5xTMo=;
- b=YgGa5GCvjmGSd01v/19GlSqLiPK+ifhA+AsOzbGUxZi5HOCmHdZMcnAe
- bcrLE3oELJHAQ+3z5xgGBEEMslb+k6lsXUaxaLmNHeQ9qyuBHsEAfPvDa
- 5ZmrHtNV1PxSeHjL63EsGX6AHP311X9k7LOjYkLKBZr4z4/2Y2x3SnqcW
- 91UXgZtRmkeMPozVR3nUgE3deGoBPufEN2hsP4xRCBkJCZ1k5K8hJOMRW
- 6LnGWzEXVBUvv09MAYWdhqu+wv991d6HkwPv6xd+4MXkAqJU76A81ombV
- 4+DWC7a2ONZqQubldYu+pdGaGcnqbfKkAShtmkTs/uiSqxEYz3mSMeTgm w==;
-X-CSE-ConnectionGUID: ZFm5w+7kQHOSy5lY2+rXEg==
-X-CSE-MsgGUID: slrcWXtTSoWC3SpRyJ/v0g==
-X-IronPort-AV: E=McAfee;i="6800,10657,11967"; a="3428573"
-X-IronPort-AV: E=Sophos;i="6.27,216,1787036400"; 
-   d="scan'208";a="3428573"
-Received: from orviesa006.jf.intel.com ([10.64.159.146])
- by fmvoesa103.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 16 Nov 2026 01:12:16 -0800
-X-CSE-ConnectionGUID: kZCPs1nAQZOSz0ZFfl6zzQ==
-X-CSE-MsgGUID: 8V2PE1BoR/CxCzo6AyKZPw==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,216,1787036400"; 
-   d="scan'208";a="9486461"
-Received: from ettammin-mobl3.ger.corp.intel.com (HELO localhost)
- ([10.245.245.93])
- by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 16 Nov 2026 01:12:08 -0800
-From: Ville Syrjala <ville.syrjala@linux.intel.com>
-To: dri-devel@lists.freedesktop.org
-Cc: intel-gfx@lists.freedesktop.org, intel-xe@lists.freedesktop.org,
- Erwin Springer <aot.lerwin@gmail.com>, amd-gfx@lists.freedesktop.org,
- =?UTF-8?q?Andr=C3=A9=20Almeida?= <andrealmeid@igalia.com>,
- Boris Brezillon <bbrezillon@kernel.org>,
- Christopher Snowhill <chris@kode54.net>,
- Dave Stevenson <dave.stevenson@raspberrypi.com>,
- Dharma Balasubiramani <dharma.b@microchip.com>,
- Dmitry Baryshkov <lumag@kernel.org>, freedreno@lists.freedesktop.org,
- Gustavo Padovan <gustavo.padovan@collabora.com>,
- Huacai Chen <chenhuacai@kernel.org>,
- Icenowy Zheng <zhengxingda@iscas.ac.cn>,
- Jianmin Lv <lvjianmin@loongson.cn>, linux-arm-msm@vger.kernel.org,
- linux-mediatek@lists.infradead.org, linux-rockchip@lists.infradead.org,
- linux-tegra@vger.kernel.org, Liviu Dudau <liviu.dudau@arm.com>,
- =?UTF-8?q?Ma=C3=ADra=20Canal?= <mcanal@igalia.com>,
- Manikandan Muralidharan <manikandan.m@microchip.com>,
- Maxime Ripard <mripard@kernel.org>, Mingcong Bai <jeffbai@aosc.io>,
- nouveau@lists.freedesktop.org, Qianhai Wu <wuqianhai@loongson.cn>,
- Raspberry Pi Kernel Maintenance <kernel-list@raspberrypi.com>,
- Simon Ser <contact@emersion.fr>, wayland-devel@lists.freedesktop.org,
- Xaver Hugl <xaver.hugl@kde.org>, Xi Ruoyao <xry111@xry111.site>
-Subject: [PATCH 03/12] drm/atomic: Add FIXMEs around the incorrect use of the
- .atomic_bypass_check() for async flips
-Date: Mon, 16 Nov 2026 11:11:21 +0200
-Message-ID: <20261116091130.13950-4-ville.syrjala@linux.intel.com>
-X-Mailer: git-send-email 2.56.0
-In-Reply-To: <20261116091130.13950-1-ville.syrjala@linux.intel.com>
-References: <20261116091130.13950-1-ville.syrjala@linux.intel.com>
+	by gabe.freedesktop.org (Postfix) with ESMTP id B098010EDAE;
+	Mon, 16 Nov 2026 09:12:27 +0000 (UTC)
+Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id C48CC10EDC4
+ for <dri-devel@lists.freedesktop.org>; Mon, 16 Nov 2026 09:12:17 +0000 (UTC)
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+ by tor.source.kernel.org (Postfix) with ESMTP id 1F6A36281A;
+ Mon, 16 Nov 2026 09:12:17 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5114D1F000C4;
+ Mon, 16 Nov 2026 09:11:59 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+ s=k20260515; t=1794820336;
+ bh=IxfUAOszvQCTXUmZErFMvX2ZmocarrUeS5PZzSS+txo=;
+ h=From:To:Cc:Subject:Date:In-Reply-To:References;
+ b=SUjXNyHJ9Hg2zHxR9TjqEO7QRgDHSG8VfPYUe7za4T5zhiyhT3JvYwjMfSPgBzfF6
+ +6CNLavCTp1Ihs4HuQS7B6uqzFxy4fu4Cvn/KubNIRS8rxFoxkO+oD56YhjXGx8vEQ
+ upXFmBjUfrcM7lCEyaFh3c+bqNKWIylB1FzphK0gmZeipB1D1S76cS0bzHV247Q9EK
+ hNGaaOYIp2Kd3iegiULYZpUuHRpcvmFR6uNmlSbbgd5OrEHc04/uA4snUPsYGcAuGi
+ T8wAutIVuvWHb2eEzzthL4MVOvWd8A4lKxXgCJD3tNtnxIIrw45hKwrNbR/CcMVWys
+ JqsLtyboolF+A==
+From: "Aneesh Kumar K.V (Arm)" <aneesh.kumar@kernel.org>
+To: linux-coco@lists.linux.dev
+Cc: "Aneesh Kumar K.V (Arm)" <aneesh.kumar@kernel.org>,
+ Andrew Morton <akpm@linux-foundation.org>,
+ Baoquan He <baoquan.he@linux.dev>, Mike Rapoport <rppt@kernel.org>,
+ Pasha Tatashin <pasha.tatashin@soleen.com>,
+ Pratyush Yadav <pratyush@kernel.org>,
+ Catalin Marinas <catalin.marinas@arm.com>,
+ =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
+ Jason Gunthorpe <jgg@ziepe.ca>, Joerg Roedel <joro@8bytes.org>,
+ Marc Zyngier <maz@kernel.org>, Marek Szyprowski <m.szyprowski@samsung.com>,
+ Robin Murphy <robin.murphy@arm.com>, Steven Price <steven.price@arm.com>,
+ Sumit Semwal <sumit.semwal@linaro.org>,
+ Suzuki K Poulose <suzuki.poulose@arm.com>,
+ Thomas Gleixner <tglx@kernel.org>, Will Deacon <will@kernel.org>,
+ Russell King <linux@armlinux.org.uk>,
+ Benjamin Gaignard <benjamin.gaignard@collabora.com>,
+ Brian Starkey <Brian.Starkey@arm.com>, John Stultz <jstultz@google.com>,
+ Mark Rutland <mark.rutland@arm.com>, Radu Rendec <radu@rendec.net>,
+ "T.J. Mercier" <tjmercier@google.com>,
+ Madhavan Srinivasan <maddy@linux.ibm.com>,
+ Michael Ellerman <mpe@ellerman.id.au>, Nicholas Piggin <npiggin@gmail.com>,
+ Christophe Leroy <chleroy@kernel.org>,
+ Ritesh Harjani <ritesh.list@gmail.com>,
+ Shrikanth Hegde <sshegde@linux.ibm.com>,
+ Alexander Gordeev <agordeev@linux.ibm.com>,
+ Gerald Schaefer <gerald.schaefer@linux.ibm.com>,
+ Heiko Carstens <hca@linux.ibm.com>, Vasily Gorbik <gor@linux.ibm.com>,
+ Christian Borntraeger <borntraeger@linux.ibm.com>,
+ Sven Schnelle <svens@linux.ibm.com>, Ingo Molnar <mingo@redhat.com>,
+ Borislav Petkov <bp@alien8.de>, Dave Hansen <dave.hansen@linux.intel.com>,
+ x86@kernel.org, "H . Peter Anvin" <hpa@zytor.com>,
+ Kiryl Shutsemau <kas@kernel.org>,
+ Rick Edgecombe <rick.p.edgecombe@intel.com>,
+ "K . Y . Srinivasan" <kys@microsoft.com>,
+ Haiyang Zhang <haiyangz@microsoft.com>, Wei Liu <wei.liu@kernel.org>,
+ Dexuan Cui <decui@microsoft.com>, Long Li <longli@microsoft.com>,
+ Paolo Bonzini <pbonzini@redhat.com>,
+ Vitaly Kuznetsov <vkuznets@redhat.com>, Andy Lutomirski <luto@kernel.org>,
+ Peter Zijlstra <peterz@infradead.org>, dri-devel@lists.freedesktop.org,
+ iommu@lists.linux.dev, linaro-mm-sig@lists.linaro.org,
+ linux-arm-kernel@lists.infradead.org, linux-media@vger.kernel.org,
+ linux-mm@kvack.org, kvmarm@lists.linux.dev, patches@lists.linux.dev
+Subject: [PATCH v10 01/13] mm: Add an allocator for CoCo shared memory
+Date: Mon, 16 Nov 2026 14:41:24 +0530
+Message-ID: <20261116091137.94252-2-aneesh.kumar@kernel.org>
+X-Mailer: git-send-email 2.43.0
+In-Reply-To: <20261116091137.94252-1-aneesh.kumar@kernel.org>
+References: <20261116091137.94252-1-aneesh.kumar@kernel.org>
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park,
- 6 krs Bertel Jungin Aukio 5, 02600 Espoo, Finland
 Content-Transfer-Encoding: 8bit
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -88,103 +90,363 @@ List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-16.8 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
-	DKIM_SIGNED,DKIM_VALID,HEADER_FROM_DIFFERENT_DOMAINS,
+X-Spam-Status: No, score=-18.8 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
+	DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
 	INCLUDES_CR_TRAILER,INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,
-	SPF_PASS,USER_AGENT_GIT autolearn=unavailable autolearn_force=no
-	version=4.0.1
+	SPF_PASS,USER_AGENT_GIT autolearn=ham autolearn_force=no version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-From: Ville Syrjälä <ville.syrjala@linux.intel.com>
+Confidential-computing guests may require memory shared with the host to
+be aligned and transitioned in units larger than PAGE_SIZE. Several DMA
+users need struct page-backed allocations satisfying these requirements.
+Provide a common allocator instead of requiring each user to open-code
+this sequence.
 
-The "bypass update" stuff has nothing to do with async vs.
-sync updates as far as the hardware is concerned (as in
-tearing vs. not). What it does is bypass the normal commit
-machinery and just let the driver directly perform the
-update (as it sees fit) and swap the plane state without
-involving the whole crtc commit machinery.
+Add alloc_cc_shared_pages() and its node-aware variant. The allocator
+rounds the requested size to the architecture's shared granule,
+allocates suitably aligned contiguous pages and transitions the
+complete range to shared state. It also preserves the caller's GFP
+policy.
 
-The actual hardware update it does could be an async flip
-(as in tearing) or a mailbox flip, depending on how the
-driver decides to do it.
+A private-to-shared transition may alter memory contents. Mask
+__GFP_ZERO from the underlying allocation and when requested, clear the
+complete transitioned range after cc_make_shared() succeeds.
 
-The use of bypass updates vs. not is a driver decision, and
-the high level atomic code should not be making incorrect
-assumptions about it. Toss in some FIXMEs in the hopes
-that people will relocate this stuff to a more appropriate
-place.
+Return the page and transitioned size so free_cc_shared_pages() can
+restore the complete range to private state before freeing it. If
+private state cannot be established, retain the allocation instead of
+returning a possibly shared page to the buddy allocator.
 
-Cc: amd-gfx@lists.freedesktop.org
-Cc: André Almeida <andrealmeid@igalia.com>
-Cc: Boris Brezillon <bbrezillon@kernel.org>
-Cc: Christopher Snowhill <chris@kode54.net>
-Cc: Dave Stevenson <dave.stevenson@raspberrypi.com>
-Cc: Dharma Balasubiramani <dharma.b@microchip.com>
-Cc: Dmitry Baryshkov <lumag@kernel.org>
-Cc: freedreno@lists.freedesktop.org
-Cc: Gustavo Padovan <gustavo.padovan@collabora.com>
-Cc: Huacai Chen <chenhuacai@kernel.org>
-Cc: Icenowy Zheng <zhengxingda@iscas.ac.cn>
-Cc: intel-gfx@lists.freedesktop.org
-Cc: intel-xe@lists.freedesktop.org
-Cc: Jianmin Lv <lvjianmin@loongson.cn>
-Cc: linux-arm-msm@vger.kernel.org
-Cc: linux-mediatek@lists.infradead.org
-Cc: linux-rockchip@lists.infradead.org
-Cc: linux-tegra@vger.kernel.org
-Cc: Liviu Dudau <liviu.dudau@arm.com>
-Cc: Maíra Canal <mcanal@igalia.com>
-Cc: Manikandan Muralidharan <manikandan.m@microchip.com>
-Cc: Maxime Ripard <mripard@kernel.org>
-Cc: Mingcong Bai <jeffbai@aosc.io>
-Cc: nouveau@lists.freedesktop.org
-Cc: Qianhai Wu <wuqianhai@loongson.cn>
-Cc: Raspberry Pi Kernel Maintenance <kernel-list@raspberrypi.com>
-Cc: Simon Ser <contact@emersion.fr>
-Cc: wayland-devel@lists.freedesktop.org
-Cc: Xaver Hugl <xaver.hugl@kde.org>
-Cc: Xi Ruoyao <xry111@xry111.site>
-Signed-off-by: Ville Syrjälä <ville.syrjala@linux.intel.com>
+Also provide the shared-granule geometry and byte-oriented transition
+helpers used by the allocator and by callers managing their own backing
+memory.
+
+Cc: Andrew Morton <akpm@linux-foundation.org>
+Signed-off-by: Aneesh Kumar K.V (Arm) <aneesh.kumar@kernel.org>
 ---
- drivers/gpu/drm/drm_atomic_uapi.c        | 6 ++++++
- include/drm/drm_modeset_helper_vtables.h | 4 ++--
- 2 files changed, 8 insertions(+), 2 deletions(-)
+ MAINTAINERS               |   2 +
+ include/linux/cc_shared.h |  39 +++++++
+ mm/Makefile               |   1 +
+ mm/cc_shared.c            | 238 ++++++++++++++++++++++++++++++++++++++
+ 4 files changed, 280 insertions(+)
+ create mode 100644 include/linux/cc_shared.h
+ create mode 100644 mm/cc_shared.c
 
-diff --git a/drivers/gpu/drm/drm_atomic_uapi.c b/drivers/gpu/drm/drm_atomic_uapi.c
-index 04fcaa72c46f..eb002799497c 100644
---- a/drivers/gpu/drm/drm_atomic_uapi.c
-+++ b/drivers/gpu/drm/drm_atomic_uapi.c
-@@ -1290,6 +1290,12 @@ int drm_atomic_set_property(struct drm_atomic_commit *state,
- 				break;
- 			}
+diff --git a/MAINTAINERS b/MAINTAINERS
+index 3e626e45d432..5ce879ea2ef4 100644
+--- a/MAINTAINERS
++++ b/MAINTAINERS
+@@ -28553,6 +28553,8 @@ F:	drivers/pci/tsm/
+ F:	drivers/virt/coco/guest/
+ F:	drivers/virt/coco/tsm-core.c
+ F:	include/linux/*tsm*.h
++F:	include/linux/cc_shared.h
++F:	mm/cc_shared.c
+ F:	samples/tsm-mr/
  
-+			/*
-+			 * FIXME this is in the wrong place. Whether to do a
-+			 * bypass commit for async flips would is a driver
-+			 * decision. Drivers that want this need to just do
-+			 * these checks themselves somewhere.
-+			 */
- 			if (ret && plane->type != DRM_PLANE_TYPE_PRIMARY) {
- 				/* ask the driver if this non-primary plane is supported */
- 				if (plane_funcs && plane_funcs->atomic_bypass_check)
-diff --git a/include/drm/drm_modeset_helper_vtables.h b/include/drm/drm_modeset_helper_vtables.h
-index cc511068f53a..d28d8ffc66b4 100644
---- a/include/drm/drm_modeset_helper_vtables.h
-+++ b/include/drm/drm_modeset_helper_vtables.h
-@@ -1430,10 +1430,10 @@ struct drm_plane_helper_funcs {
- 	 * given update can be committed bypassing the atomic commit machinery.
- 	 * That is, if it can jump ahead of the state currently queued for update.
- 	 *
--	 * This function is also used by drm_atomic_set_property() to determine
-+	 * This function is also abused by drm_atomic_set_property() to determine
- 	 * if the plane can be flipped in async. The flip flag is used to
- 	 * distinguish if the function is used for just the plane state or for a
--	 * flip.
-+	 * flip. FIXME this is wrong, and needs to be moved into the drivers.
- 	 *
- 	 * RETURNS:
- 	 *
+ TRUSTED SERVICES TEE DRIVER
+diff --git a/include/linux/cc_shared.h b/include/linux/cc_shared.h
+new file mode 100644
+index 000000000000..5f8db7c468c5
+--- /dev/null
++++ b/include/linux/cc_shared.h
+@@ -0,0 +1,39 @@
++/* SPDX-License-Identifier: GPL-2.0 */
++#ifndef _LINUX_CC_SHARED_H
++#define _LINUX_CC_SHARED_H
++
++#include <linux/gfp_types.h>
++#include <linux/types.h>
++
++struct page;
++
++struct cc_shared_pages {
++	struct page *page;
++	size_t shared_size;
++};
++
++struct cc_shared_layout {
++	size_t requested_size;
++	size_t shared_size;
++	size_t alignment;
++};
++
++/*
++ * Architectures may override this to return the granule used for transitions
++ * between private and shared memory. The value must be a power of two and no
++ * smaller than PAGE_SIZE.
++ */
++size_t arch_cc_shared_granule_size(void);
++
++size_t cc_shared_granule_size(void);
++int cc_shared_calc_layout(size_t requested, struct cc_shared_layout *layout);
++bool cc_shared_range_valid(phys_addr_t base, size_t size);
++int cc_make_shared(void *addr, size_t size);
++int cc_make_private(void *addr, size_t size);
++int alloc_cc_shared_pages_node(int nid, gfp_t gfp,
++		size_t requested, struct cc_shared_pages *mem);
++int alloc_cc_shared_pages(gfp_t gfp,
++		size_t requested, struct cc_shared_pages *mem);
++void free_cc_shared_pages(struct cc_shared_pages *mem);
++
++#endif /* _LINUX_CC_SHARED_H */
+diff --git a/mm/Makefile b/mm/Makefile
+index 2a3ec53d62ee..a712656449d1 100644
+--- a/mm/Makefile
++++ b/mm/Makefile
+@@ -57,6 +57,7 @@ obj-y			:= filemap.o mempool.o oom_kill.o fadvise.o \
+ 			   interval_tree.o list_lru.o workingset.o \
+ 			   debug.o gup.o mmap_lock.o vma_init.o char-mem.o \
+ 			   $(mmu-y)
++obj-y			+= cc_shared.o
+ 
+ # Give 'page_alloc' its own module-parameter namespace
+ page-alloc-y := page_alloc.o
+diff --git a/mm/cc_shared.c b/mm/cc_shared.c
+new file mode 100644
+index 000000000000..77ee65c4c35e
+--- /dev/null
++++ b/mm/cc_shared.c
+@@ -0,0 +1,238 @@
++// SPDX-License-Identifier: GPL-2.0
++/*
++ * Copyright (C) 2026 ARM Ltd.
++ */
++#include <linux/align.h>
++#include <linux/cc_platform.h>
++#include <linux/cc_shared.h>
++#include <linux/errno.h>
++#include <linux/export.h>
++#include <linux/gfp.h>
++#include <linux/log2.h>
++#include <linux/mm.h>
++#include <linux/mem_encrypt.h>
++#include <linux/numa.h>
++#include <linux/overflow.h>
++#include <linux/set_memory.h>
++
++size_t __weak arch_cc_shared_granule_size(void)
++{
++	return PAGE_SIZE;
++}
++
++size_t cc_shared_granule_size(void)
++{
++	size_t granule = arch_cc_shared_granule_size();
++
++	if (WARN_ON_ONCE(granule < PAGE_SIZE || !is_power_of_2(granule)))
++		return PAGE_SIZE;
++
++	return granule;
++}
++EXPORT_SYMBOL_GPL(cc_shared_granule_size);
++
++int cc_shared_calc_layout(size_t requested, struct cc_shared_layout *layout)
++{
++	size_t granule, rounded;
++
++	if (!requested || !layout)
++		return -EINVAL;
++
++	granule = cc_shared_granule_size();
++	if (check_add_overflow(requested, granule - 1, &rounded))
++		return -EOVERFLOW;
++
++	rounded = ALIGN_DOWN(rounded, granule);
++	layout->requested_size = requested;
++	layout->shared_size = rounded;
++	layout->alignment = granule;
++
++	return 0;
++}
++EXPORT_SYMBOL_GPL(cc_shared_calc_layout);
++
++bool cc_shared_range_valid(phys_addr_t base, size_t size)
++{
++	size_t granule = cc_shared_granule_size();
++
++	if (!size)
++		return false;
++
++	return IS_ALIGNED(base, granule) && IS_ALIGNED(size, granule);
++}
++EXPORT_SYMBOL_GPL(cc_shared_range_valid);
++
++static int cc_validate_transition(void *addr, size_t size)
++{
++	phys_addr_t phys;
++
++	if (!addr || !size || !PAGE_ALIGNED(addr) ||
++	    !virt_addr_valid(addr))
++		return -EINVAL;
++
++	phys = page_to_phys(virt_to_page(addr));
++	if (!cc_shared_range_valid(phys, size))
++		return -EINVAL;
++
++	return 0;
++}
++
++int cc_make_shared(void *addr, size_t size)
++{
++	int ret = cc_validate_transition(addr, size);
++
++	if (ret)
++		return ret;
++
++	return set_memory_decrypted((unsigned long)addr, size >> PAGE_SHIFT);
++}
++
++int cc_make_private(void *addr, size_t size)
++{
++	int ret = cc_validate_transition(addr, size);
++
++	if (ret)
++		return ret;
++
++	return set_memory_encrypted((unsigned long)addr, size >> PAGE_SHIFT);
++}
++
++static int __alloc_cc_shared_pages_node(int nid, gfp_t gfp,
++					size_t requested,
++					struct cc_shared_pages *mem)
++{
++	struct cc_shared_layout layout;
++	struct page *page;
++	unsigned int order;
++	bool zero = gfp & __GFP_ZERO;
++	int ret;
++
++	ret = cc_shared_calc_layout(requested, &layout);
++	if (ret)
++		return ret;
++
++	order = get_order(layout.shared_size);
++	if (order > MAX_PAGE_ORDER)
++		return -EINVAL;
++	/*
++	 * State transitions require a linear-map address and may modify memory.
++	 * Allocate from low memory and defer requested zeroing until afterwards.
++	 * Shared allocations have no migration support, so they must not
++	 * be allocated with __GFP_MOVABLE.
++	 */
++	gfp &= ~(__GFP_HIGHMEM | __GFP_ZERO | __GFP_MOVABLE);
++	if (nid == NUMA_NO_NODE)
++		page = alloc_pages(gfp, order);
++	else
++		page = alloc_pages_node(nid, gfp, order);
++	if (!page)
++		return -ENOMEM;
++
++	ret = cc_make_shared(page_address(page), layout.shared_size);
++	if (ret) {
++		/*
++		 * A failed transition may leave the range partially
++		 * shared, with no indication of which pages changed state.
++		 * Converting the whole range back to private is not safe
++		 * on architectures that cannot handle pages which are
++		 * already private. Leak the allocation rather than return
++		 * pages with uncertain state to the allocator.
++		 */
++		pr_warn_ratelimited("leaking %zu bytes with uncertain shared state\n",
++				    layout.shared_size);
++		return ret;
++	}
++
++	if (zero)
++		memset(page_address(page), 0, layout.shared_size);
++
++	mem->page = page;
++	mem->shared_size = layout.shared_size;
++	return 0;
++}
++
++/**
++ * alloc_cc_shared_pages_node - allocate memory that can be shared
++ * @nid: NUMA node from which to allocate, or %NUMA_NO_NODE
++ * @gfp: allocation flags
++ * @requested: number of bytes requested; must be nonzero
++ * @mem: storage for the allocated page and the size of the shared range
++ *
++ * Allocate at least @requested bytes and make the allocation shared when
++ * memory encryption is active.  A memory-state transition requires a valid
++ * linear-map address, so such allocations never come from high memory
++ *
++ * The shared range may be rounded up to the architecture's transition
++ * granule.  On success, @mem->shared_size records the actual size that was
++ * made shared and must be retained unchanged for free_cc_shared_pages().
++ * @mem is not modified on failure.
++ *
++ * Return: 0 on success, or a negative error code on failure.
++ */
++int alloc_cc_shared_pages_node(int nid, gfp_t gfp,
++			       size_t requested,
++			       struct cc_shared_pages *mem)
++{
++	struct page *page;
++	unsigned int order;
++
++	if (!mem || !requested)
++		return -EINVAL;
++
++	if (cc_platform_has(CC_ATTR_MEM_ENCRYPT))
++		return __alloc_cc_shared_pages_node(nid, gfp, requested, mem);
++
++	order = get_order(requested);
++	if (order > MAX_PAGE_ORDER)
++		return -EINVAL;
++
++	if (nid == NUMA_NO_NODE)
++		page = alloc_pages(gfp, order);
++	else
++		page = alloc_pages_node(nid, gfp, order);
++	if (!page)
++		return -ENOMEM;
++
++	mem->page = page;
++	mem->shared_size = requested;
++	return 0;
++}
++EXPORT_SYMBOL_GPL(alloc_cc_shared_pages_node);
++
++/**
++ * alloc_cc_shared_pages - allocate memory that can be shared
++ * @gfp: allocation flags
++ * @requested: number of bytes requested; must be nonzero
++ * @mem: storage for the allocated page and the size of the shared range
++ *
++ * Equivalent to alloc_cc_shared_pages_node() with %NUMA_NO_NODE.
++ *
++ * Return: 0 on success, or a negative error code on failure.
++ */
++int alloc_cc_shared_pages(gfp_t gfp,
++			  size_t requested, struct cc_shared_pages *mem)
++{
++	return alloc_cc_shared_pages_node(NUMA_NO_NODE, gfp, requested, mem);
++}
++EXPORT_SYMBOL_GPL(alloc_cc_shared_pages);
++
++void free_cc_shared_pages(struct cc_shared_pages *mem)
++{
++	if (!mem || !mem->page)
++		return;
++
++	if (!cc_platform_has(CC_ATTR_MEM_ENCRYPT))
++		goto free_pages;
++
++	if (cc_make_private(page_address(mem->page), mem->shared_size)) {
++		pr_warn_ratelimited("leaking %zu bytes that cannot be made private\n",
++				    mem->shared_size);
++		return;
++	}
++
++free_pages:
++	__free_pages(mem->page, get_order(mem->shared_size));
++	mem->page = NULL;
++	mem->shared_size = 0;
++}
++EXPORT_SYMBOL_GPL(free_cc_shared_pages);
 -- 
-2.56.0
+2.43.0
 
