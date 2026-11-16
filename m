@@ -2,19 +2,19 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 01BB7606A31C
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D4CD3606A31C
 	for <dri-devel@archiver.kernel.org>; Mon, 16 Nov 2026 21:40:19 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=broadcom.com header.i=@broadcom.com header.a=rsa-sha256 header.s=google header.b=UOF4tQrY
+	dkim=pass (1024-bit key) header.d=broadcom.com header.i=@broadcom.com header.a=rsa-sha256 header.s=google header.b=B1SPhXFU
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 4A36C10F474;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 51E1910F47E;
 	Mon, 16 Nov 2026 21:40:13 +0000 (UTC)
-Received: from mail-pj1-f99.google.com (mail-pj1-f99.google.com
- [209.85.216.99])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 3E3F410F46D
+Received: from mail-pj1-f100.google.com (mail-pj1-f100.google.com
+ [209.85.216.100])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id E817710E466
  for <dri-devel@lists.freedesktop.org>; Mon, 16 Nov 2026 21:39:59 +0000 (UTC)
-Received: by mail-pj1-f99.google.com with SMTP id
- 98e67ed59e1d1-3ae691283ecso174240a91.0
+Received: by mail-pj1-f100.google.com with SMTP id
+ 98e67ed59e1d1-3b3a914e4c8so329383a91.0
  for <dri-devel@lists.freedesktop.org>; Mon, 16 Nov 2026 13:39:59 -0800 (PST)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20260707; t=1794865199; x=1795469999;
@@ -23,72 +23,71 @@ X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
  :reply-to:content-type;
  bh=SCfz1f0OOAQVJN2xpcPcFGbJPw3mdu0gWKPmT7oxwLI=;
- b=KXctz2CHgX9skj9+1rLSYCf1QZZrfwnuzjJ4so/DDKQUwZsiqis0CSkyhfAEeSPEtQ
- cuYFXWqgjUooKfpIQQKPJw1UuOfwjiwJo2JBTbPN2KkkVVC7NykUe2FmYYekfGQKtUG7
- +crICc9wW2iL4jaCFSABmf0Fh1UG4usOP/Up1cuJp6tHMD1uRkA8TUgQvEV08Gm8Pak5
- UHyXmMAuDpKPD3fX3p3TE+WRJj/K1X0kc6Zv4gKVoc7ADZnbiJgagqJoW/dJ44nhIE35
- s8B3ps/5utp/Thn1ue+kIMoGz7De5Gb+F5vkHsrswvWQor9RPUdswYzU5KXvihvlX0VV
- ddKA==
-X-Gm-Message-State: APuU4Z8mSgfCf5jRMu+dvEtM0Q8G3HKJzq7FbHXS3KviT2BOfyPT4AJF
- 7xfEaEKUduMwhgsjWBHex5RcbBX67dDJie+F/J5JXhW2MHirzvpA0ZVh0ENrjXZR9NCIX0Ywks2
- 37u50XmhoYXeaeGL9ZuzIK8y2i67leaB6KlZBuTTKlMnKcddCHvfw3SRDTcDZj2zSL8XCBI1bdZ
- wdg7W4QxX3QRqOeLswXk5gpqrxjOQsYPqr+1kUjyaLwLIUjgPJBLVNByy3xaj59IwHyrShNpZ98
- 01FhP9t/CED+2biBnD6
-X-Gm-Gg: AZFdTZdgDiwq1rm1fDXP+pBEDfXLTkhu1fDFn5v4ZdgtQuRzOKIC+IyfzTi78A0X4TW
- E5HcQz8tLzVCIMrPJ1yT5O0VjFlN/6lu67/kenUNpFlyToDaorfSnv3+oJcciqzzITSV5AKDswr
- 2JRkuRV4M3MUlRqY5dxBhzEBnaMhQyAmQHIy9cW5aHz1kG1Nlc8VOlmpYpzzdEuH4UwIUsooALo
- C1ilYGOlHEAdaNHAppYpFWFoGYNkOaa1vKJ9CoLtVOSv4O9MY8f4RHT3fcS7viwLBG6zHeZ5kM8
- wh/3oPVPxcZMqzLXovcTbkOqsGSgyAKwlGdBrQB9BCGNxUDcU833DN3aZijC/ckdIberSBcnWFO
- BAvUHsGk8KM22/chGjY52PhGrx5ymOIPUdmyz0dSXhXGuNcb4KjbfWutq39ri/gK9pe4Uzcx+Vr
- 4+ZzMvX2s5gx9/DrlQBj3kmcQZZmsBYg8S+hg=
-X-Received: by 2002:a17:90b:4fc2:b0:39e:6c68:fd91 with SMTP id
- 98e67ed59e1d1-3b3abe61f72mr397211a91.38.1794865198659; 
- Mon, 16 Nov 2026 13:39:58 -0800 (PST)
+ b=xS8WaSxJDfBuTPRUy3hkAviWpE1DMNfZKBX0B2TCWtolR2HzIoL1kYG1DUh7UymHKe
+ h1QDAl/Ity4tMwHLxWSZf1+Aga/WAd8ei7qrNznsDlZt0ookWhgGlpg3mbxX2sZdqwM/
+ tDMicioc2uAPhtEaQc0aF9eazoRNhtUjHibAbqg7owjfth9gPHr9lsWBG6Jv75KfcsE6
+ X3qneSccc3gHtBERI2cF6FXdozKWDA0P7i8KaeybuaBuTShWjiS9aN8v2F/ec3oj9l4I
+ VNAO8xoPZ97JCfizq2QgdCKzwzYhvwqVqnr1szDwMIikZrBygsPWm4IzduM59O8PuUMZ
+ wUQQ==
+X-Gm-Message-State: APuU4Z8HuLvSUfzs1nm8LvHQV254QKK7MVsuMhVQDm2Yxgz+M6DXgwiu
+ yQV/T/xP2gyrJcCTYSRDLQJANchMnxy+l3PrARZKgavotUUdlwWndcVuES4e0h9F3f8iqzejj6L
+ ykbtsUQn3MH2CMCnm7dJn0n9BlUOGiMM6/18pdpaJ1FpOkPWgtdHySXOxF2Ds5F+e0uJ/XqnU76
+ CyLkXIbL5vLvSUG7gNKHWHNnPni5b9oasuxm0YI0WqW/EFSNFUFs1ea4cXRbUro8fbF7XlLpJO+
+ N6lZo3UOVx8J/kO7sBr
+X-Gm-Gg: AZFdTZfthyVTs2+k2mYs/JWxUDCc2aMUuPs1C9hJ3ryru7AhgxR3R4WiM+/ESUTzvez
+ nqMffYQbdvduaVZT//ueBmQyGMuiyo38VVyo5GrN81RpL821d9j9XndxzVMMF1lzhWfTMz6d5jE
+ 3rRA77teKEOiYGgSZAJZMB7jp75GCpq+zhZpE+BKaaEpJuGMlf2g6C7I4CSEzWHPkEgDa4zTtBa
+ 3md4wkyhrgm+uC/8GsxF+EE45u7/vvPLJEH8wMMHHXcNZBOep20s8uVgPRmzALiE1StKFHF2G8j
+ zoeinoEzPFwdaboAX3rZA2Js/nM8nygF5tSwiBiqivEAyFPyly4RHyAaZ1p/jbQoyKRx0ompK54
+ 9kl+E5w3TrEQFIB6e5/K1aBhKawAV17Kgr7dxEs/HYWKNLozJvS0lFK2G2lpnfoA7BcYZ7upjj6
+ DFkYhD861Wr/f9wBAZAB2t/rAqBjcrnsyf
+X-Received: by 2002:a17:90b:4d0b:b0:3a2:b16d:928b with SMTP id
+ 98e67ed59e1d1-3b1b0a48f95mr10681488a91.46.1794865199332; 
+ Mon, 16 Nov 2026 13:39:59 -0800 (PST)
 Received: from smtp-us-east1-p01-i01-si01.dlp.protect.broadcom.com
- (address-144-49-247-123.dlp.protect.broadcom.com. [144.49.247.123])
+ (address-144-49-247-28.dlp.protect.broadcom.com. [144.49.247.28])
  by smtp-relay.gmail.com with ESMTPS id
- 98e67ed59e1d1-3b3ab9f198fsm475549a91.0.2026.11.16.13.39.58
+ 98e67ed59e1d1-3b3abceb007sm420082a91.4.2026.11.16.13.39.58
  for <dri-devel@lists.freedesktop.org>
  (version=TLS1_2 cipher=ECDHE-ECDSA-AES128-GCM-SHA256 bits=128/128);
- Mon, 16 Nov 2026 13:39:58 -0800 (PST)
+ Mon, 16 Nov 2026 13:39:59 -0800 (PST)
 X-Relaying-Domain: broadcom.com
 X-CFilter-Loop: Reflected
-Received: by mail-dy1-f200.google.com with SMTP id
- 5a478bee46e88-375bac6bd21so225514eec.0
- for <dri-devel@lists.freedesktop.org>; Mon, 16 Nov 2026 13:39:57 -0800 (PST)
+Received: by mail-dl1-f69.google.com with SMTP id
+ a92af1059eb24-1b3a348a6dbso3445172c88.1
+ for <dri-devel@lists.freedesktop.org>; Mon, 16 Nov 2026 13:39:58 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=broadcom.com; s=google; t=1794865197; x=1795469997;
+ d=broadcom.com; s=google; t=1794865198; x=1795469998;
  darn=lists.freedesktop.org; 
  h=content-transfer-encoding:mime-version:content-type:references
  :in-reply-to:message-id:date:subject:cc:to:from:from:to:cc:subject
  :date:message-id:reply-to:content-type;
  bh=SCfz1f0OOAQVJN2xpcPcFGbJPw3mdu0gWKPmT7oxwLI=;
- b=UOF4tQrYsbpZ2fTOmNMWRPv8S2f77IA27XcWLXMt76kWGZUr2ruNy5tGldrrO713IM
- XdMCL4dW/sPJbth3PJOAxyCNepwrZnPUroo6yOy+OPqgjbsatbEmbwVcxi0OhQRN0ZGE
- u6oTqT9fvnp/atwkzEUkYO9l7oI/3vQoV0gHI=
-X-Received: by 2002:a05:7300:7b1e:b0:36c:a3ae:936e with SMTP id
- 5a478bee46e88-3810e418910mr743300eec.5.1794865196978; 
- Mon, 16 Nov 2026 13:39:56 -0800 (PST)
-X-Received: by 2002:a05:7300:7b1e:b0:36c:a3ae:936e with SMTP id
- 5a478bee46e88-3810e418910mr743271eec.5.1794865196316; 
- Mon, 16 Nov 2026 13:39:56 -0800 (PST)
+ b=B1SPhXFU8g6Rnc3SPwX7YGX/zfwFHrTEaIP/6+h7nnQzLCryUYEQrXKgHBANvWXe8x
+ vZVbCarPrljCcEcsA7P8wZvgILl6X2E9olDlCNdY1i91om9u2yUtxYEwVcwIk2OCR47W
+ p5mMjSGqYpop2f1jgsNX9A3XGqrCsclLM5A8w=
+X-Received: by 2002:a05:701b:4281:20b0:1b3:af3a:e784 with SMTP id
+ a92af1059eb24-1b5031570f9mr12230335c88.32.1794865197370; 
+ Mon, 16 Nov 2026 13:39:57 -0800 (PST)
+X-Received: by 2002:a05:701b:4281:20b0:1b3:af3a:e784 with SMTP id
+ a92af1059eb24-1b5031570f9mr12230172c88.32.1794865191949; 
+ Mon, 16 Nov 2026 13:39:51 -0800 (PST)
 Received: from vertex.localdomain
  (pool-173-49-113-140.phlapa.fios.verizon.net. [173.49.113.140])
  by smtp.gmail.com with ESMTPSA id
- 5a478bee46e88-37955ffcbc9sm52707892eec.18.2026.11.16.13.39.53
+ a92af1059eb24-1b5329ec87bsm8162390c88.0.2026.11.16.13.39.50
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Mon, 16 Nov 2026 13:39:54 -0800 (PST)
+ Mon, 16 Nov 2026 13:39:51 -0800 (PST)
 From: Zack Rusin <zack.rusin@broadcom.com>
 To: Ian Forbes <ian.forbes@broadcom.com>
 Cc: dri-devel@lists.freedesktop.org, bcm-kernel-feedback-list@broadcom.com,
- maaz.mombasawala@broadcom.com
-Subject: Re: [PATCH] drm/vmwgfx: Check whether CRTC is active when updating
- planes
-Date: Mon, 16 Nov 2026 16:39:52 -0500
-Message-ID: <179485275607.3430538.17535791320298247054@broadcom.com>
+ maaz.mombasawala@broadcom.com, michael.banack@broadcom.com
+Subject: Re: [PATCH] drm/vmwgfx: Never destroy STDU zero's Screen Target
+Date: Mon, 16 Nov 2026 16:39:48 -0500
+Message-ID: <179485275606.3430538.17052063469507523535@broadcom.com>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20260522195303.797091-1-ian.forbes@broadcom.com>
-References: <20260522195303.797091-1-ian.forbes@broadcom.com>
+In-Reply-To: <20260514153103.1465013-1-ian.forbes@broadcom.com>
+References: <20260514153103.1465013-1-ian.forbes@broadcom.com>
 Content-Type: text/plain; charset="utf-8"
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
