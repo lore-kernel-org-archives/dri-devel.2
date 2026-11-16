@@ -2,52 +2,43 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E21E6606A31C
-	for <dri-devel@archiver.kernel.org>; Mon, 16 Nov 2026 10:27:07 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B0664606A32A
+	for <dri-devel@archiver.kernel.org>; Mon, 16 Nov 2026 10:30:26 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=bootlin.com header.i=@bootlin.com header.a=rsa-sha256 header.s=dkim header.b=2wkW/amK
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=VzMeAW77
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 4A64389089;
-	Mon, 16 Nov 2026 10:27:02 +0000 (UTC)
-Received: from smtpout-03.galae.net (smtpout-03.galae.net [185.246.85.4])
- by gabe.freedesktop.org (Postfix) with ESMTPS id E91C6890BB
- for <dri-devel@lists.freedesktop.org>; Mon, 16 Nov 2026 10:26:55 +0000 (UTC)
-Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
- by smtpout-03.galae.net (Postfix) with ESMTPS id E5CAE4E415DC;
- Mon, 16 Nov 2026 10:26:53 +0000 (UTC)
-Received: from mail.galae.net (mail.galae.net [212.83.136.155])
- by smtpout-01.galae.net (Postfix) with ESMTPS id BB0406023F;
- Mon, 16 Nov 2026 10:26:53 +0000 (UTC)
-Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon)
- with ESMTPSA id 3B15A11BC1801; Mon, 16 Nov 2026 11:26:45 +0100 (CET)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
- t=1794824809; h=from:subject:date:message-id:to:cc:mime-version:content-type:
- content-transfer-encoding:content-language:in-reply-to:references;
- bh=smzNFETvZmiq84ADVssam0d3wZhZl64hu2ffrxSSLdI=;
- b=2wkW/amKQhFd1XrIBOv2a9aAfPAEGjpqr0VloY3Eukh5LG4IBths7faDMnCTWv1CiRL2DN
- 3hCJXG8hf/NIW/nkRqOrGf+dy19Fw6mDjOGXFy3IZUIgzSsAjZwrrTvL84l01H/5ZodxA3
- r5d8lqRfUWul+nI/WgqPLELJuBvsohsCc1IiEjfga0sGYLkFatahDYabsswUzOpESVqs6i
- wnfNNiYTchyyBLdsr9B2tzD3A5cKbCyMuTqM6HuYzX9dg+0alaQ9MUpGUfPf7tipmoYuRc
- 3+5I8t0U80i9IcWJ+1cgGRFT11EQE8qeVq8wK+MYDPSO3n8kVac6UPysVy4O1Q==
-Message-ID: <a81d01a5-d755-4ce9-902f-dcd75bc0916e@bootlin.com>
-Date: Mon, 16 Nov 2026 11:26:44 +0100
-X-Archived-By: <archiver.kernel.org>
-MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] MAINTAINERS: Add myself as a VKMS reviewer
-To: Oarora Etimis <oaroraetimis@gmail.com>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>
-Cc: Melissa Wen <melissa.srw@gmail.com>,
- Haneen Mohammed <hamohammed.sa@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- dri-devel@lists.freedesktop.org
-References: <20261116091020.88281-1-oaroraetimis@gmail.com>
-From: Louis Chauvet <louis.chauvet@bootlin.com>
-Content-Language: en-US
-In-Reply-To: <20261116091020.88281-1-oaroraetimis@gmail.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-X-Last-TLS-Session-Version: TLSv1.3
+	by gabe.freedesktop.org (Postfix) with ESMTP id 110FF891AA;
+	Mon, 16 Nov 2026 10:30:21 +0000 (UTC)
+Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 627EC891AA
+ for <dri-devel@lists.freedesktop.org>; Mon, 16 Nov 2026 10:30:15 +0000 (UTC)
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+ by tor.source.kernel.org (Postfix) with ESMTP id 28EF562884
+ for <dri-devel@lists.freedesktop.org>; Mon, 16 Nov 2026 10:30:14 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id B6F2C1F000C4;
+ Mon, 16 Nov 2026 10:30:13 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+ s=k20260515; t=1794825013;
+ bh=wSpKswCumLXRzMy4DetbCUxzkDWVDNtWP05JDYUhsow=;
+ h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+ b=VzMeAW7724Oemf6ZPfCMt6GxSbXmtABfXC6srQnsHgUZG3Z7TxT1n19UumsutBt3o
+ 2fCm3w7kk2cRlgQnfZUXue36oW0piTboKzEjZxX6Fie4xSnQsm5wTTEYudPFmDt7jd
+ GihJeQJjejdSXlMCT7kkP8idZZ/3f8uVns2QgSdRdCQk7ot0NuyY6OBsEG71gVwTZ9
+ JNGWaZIteqCMZq7HukfQtbaYOjg/z4twQsUGgcOmQgI0yFFASk31YqOwN91hsouWo2
+ p7tUNAM9OnNH58Yev7qWu8orxazePB+yKP/jMUyuVxtqHEVYDANkG3wrA9J264fIuz
+ hgLWM1BUoPFrQ==
+Message-ID: <sashiko-outbox-216737@kernel.org>
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v11 1/9] drm/lease: Add a helper to tell whether a lease
+ was revoked
+To: "Maxime Ripard" <mripard@kernel.org>
+Cc: dri-devel@lists.freedesktop.org
+In-Reply-To: <20261116-drm-reset-state-flag-v11-1-378b3f7bef32@kernel.org>
+References: <20261116-drm-reset-state-flag-v11-0-378b3f7bef32@kernel.org>
+ <20261116-drm-reset-state-flag-v11-1-378b3f7bef32@kernel.org>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Mon, 16 Nov 2026 10:30:13 +0000
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -58,49 +49,75 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
+Reply-To: sashiko-reviews@lists.linux.dev
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-17.3 required=3.0 tests=BAYES_00,DKIM_SIGNED,
-	DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
-	INCLUDES_CR_TRAILER,INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,
-	SPF_PASS,USER_AGENT_SANE_1 autolearn=ham autolearn_force=no
-	version=4.0.1
+X-Spam-Status: No, score=-10.8 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
+	DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
+	INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS autolearn=ham
+	autolearn_force=no version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
+X-Archived-By: <archiver.kernel.org>
 
+Thank you for your contribution! Sashiko AI review found 1 potential
+issue to consider:
+- [Medium] drm/lease: drm_lease_revoked() falsely reports empty leases
+  as revoked
+--
 
+commit 607dbf11bac99a263d86d7f9e9dbfe6aff207269
+Author: Maxime Ripard <mripard@kernel.org>
 
-On 11/16/26 10:10, Oarora Etimis wrote:
-> VKMS has been kinda quiet lately: the last VKMS-specific change is from
-> 14 August, and the commits after that are tree-wide API conversions.
-> There is little review activity on the VKMS patches too.
+drm/lease: Add a helper to tell whether a lease was revoked
 
-Sorry for the long silence, I was going trough personal issues. It is 
-mostly resolved I am currently catching up.
+This commit adds drm_lease_revoked() to check whether a drm_file belongs
+to a lessee whose lease has been revoked.
 
-> I would like to try reviewing VKMS patches and help move things along.
-> 
-> Add myself as a reviewer so I get copied on VKMS submissions.
-> 
-> Signed-off-by: Oarora Etimis <oaroraetimis@gmail.com>
+> diff --git a/drivers/gpu/drm/drm_lease.c b/drivers/gpu/drm/drm_lease.c
+> index 5d2cf724cbd7b..dd59df14dcc02 100644
+> --- a/drivers/gpu/drm/drm_lease.c
+> +++ b/drivers/gpu/drm/drm_lease.c
+> @@ -147,6 +147,32 @@ bool drm_lease_held(struct drm_file *file_priv, int =
+id)
+>  	return ret;
+>  }
+> =20
+> +/*
+> + * Checks whether the file is a lessee whose lease has been revoked. A
+> + * lease is always revoked as a whole, so an empty one has been revoked.
+> + */
+> +bool drm_lease_revoked(struct drm_file *file_priv)
+> +{
+> +	struct drm_master *master;
+> +	bool ret =3D false;
+> +
+> +	if (!file_priv)
+> +		return false;
+> +
+> +	master =3D drm_file_get_master(file_priv);
+> +	if (!master)
+> +		return false;
+> +
+> +	if (master->lessor) {
+> +		mutex_lock(&master->dev->mode_config.idr_mutex);
+> +		ret =3D idr_is_empty(&master->leases);
+> +		mutex_unlock(&master->dev->mode_config.idr_mutex);
+> +	}
+> +
+> +	drm_master_put(&master);
+> +	return ret;
+> +}
 
-Reviewed-by: Louis Chauvet <louis.chauvet@bootlin.com>
+[Severity: Medium]
+Does drm_lease_revoked() falsely report an active empty lease as revoked?
 
-Thanks a lot for the help!
+Since commit 4bb2d367a5a2 ("drm/lease: allow empty leases"),
+drm_mode_create_lease_ioctl() permits creating a lease with
+object_count =3D=3D 0, leaving master->lessor set and master->leases empty =
+on
+an unrevoked lease.  Callers checking drm_lease_revoked() will treat valid
+empty leases as revoked.
 
-> ---
->   MAINTAINERS | 1 +
->   1 file changed, 1 insertion(+)
-> 
-> diff --git a/MAINTAINERS b/MAINTAINERS
-> index c4f4e48774d0..44397af566da 100644
-> --- a/MAINTAINERS
-> +++ b/MAINTAINERS
-> @@ -8842,6 +8842,7 @@ M:	Louis Chauvet <louis.chauvet@bootlin.com>
->   R:	Haneen Mohammed <hamohammed.sa@gmail.com>
->   R:	Simona Vetter <simona@ffwll.ch>
->   R:	Melissa Wen <melissa.srw@gmail.com>
-> +R:	Oarora Etimis <oaroraetimis@gmail.com>
->   L:	dri-devel@lists.freedesktop.org
->   S:	Maintained
->   T:	git https://gitlab.freedesktop.org/drm/misc/kernel.git
-
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261116-drm-reset-=
+state-flag-v11-0-378b3f7bef32@kernel.org?part=3D1
