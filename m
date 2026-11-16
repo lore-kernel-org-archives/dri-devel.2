@@ -2,54 +2,55 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 166DD606A885
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CFC54606A32F
 	for <dri-devel@archiver.kernel.org>; Mon, 16 Nov 2026 10:31:47 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=jEDfccdw
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Crjyqnfg
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 6225C10E0FF;
+	by gabe.freedesktop.org (Postfix) with ESMTP id E392110EEF7;
 	Mon, 16 Nov 2026 10:31:41 +0000 (UTC)
 Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 4EE7910ED7C
- for <dri-devel@lists.freedesktop.org>; Mon, 16 Nov 2026 10:31:26 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 903C010ED7C
+ for <dri-devel@lists.freedesktop.org>; Mon, 16 Nov 2026 10:31:32 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id 38A7A461F7;
- Mon, 16 Nov 2026 10:31:26 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8D70A1F000C4;
- Mon, 16 Nov 2026 10:31:25 +0000 (UTC)
+ by sea.source.kernel.org (Postfix) with ESMTP id 7926946202;
+ Mon, 16 Nov 2026 10:31:32 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id CB83D1F000D0;
+ Mon, 16 Nov 2026 10:31:31 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1794825086;
- bh=f2fy59n0gjGHDyiXt8QI5UIvnqgoPFFaIAgKHI6NNec=;
+ s=k20260515; t=1794825092;
+ bh=8UTx7hfn9ScqGKLwZ+mlESG3z0L0rpzo7VEppQIjtdI=;
  h=From:Date:Subject:References:In-Reply-To:To:Cc;
- b=jEDfccdwwo1b5Ld6UhBQHca5Vgb/RYdKSCMScuFk9Zv7m3nzs3e7RcV7CIoPRIB/0
- VuUJdQqdcgfmPCGuIvkHOV0PK4FIjYSBOSbuyRcMcQThP8OIhxaNSwoSwf6rgkmR5U
- t38zsSPd+qcxhKH4tspVSHMhU9//SuBZSOCvcKAEcyAEfeaDgpw99V4XtBYq6YqlZr
- 55WeHFjJWSfqmSfouLhr43WxQac4qVb4Cd+r0Ahb9ynfRJRa9k4aI5sFk2NTf6qOkL
- e0eHmcm/LzGni8PV/QxzWakuAwXDYb6iBsANVJahaj/lVldbcGYozoNmuyJHZ/dFjq
- AdsQvYRpeJu9Q==
+ b=CrjyqnfgqDAwBCGrhzRMcCstb84E5uKwsqN23pwagrScobSV3YvnEdK0GpDlNkcEY
+ ddCCvjlIqDML23q1dGVDxMn5UJIfgzXZJ4nGHl55OaLkyQ/ZBm2DE1h4VfG95MyMiA
+ a12Sn4N1UeEvu2Slr4P1IO5giMcPfr4anYH+OczkkzVu4g+gFtWV2PKmOCi8KE2q/K
+ qM59QyP3hebM67Q6+b3SDO7wXs0GOC/0uGLicL6JVgR83a+OFB9cFJYmi/9JoBCaVe
+ oS4WwZv/6Vn/OSxnKTgLXxA7rIUsaFpvyaqrOVKpHDeozj2CCh9Kwaji+f1B2xytBz
+ gEvwQXU3/QZkA==
 From: Maxime Ripard <mripard@kernel.org>
-Date: Mon, 16 Nov 2026 11:30:25 +0100
-Subject: [PATCH v2 09/64] drm/hisilicon/hibmc: Remove hibmc_unload() from
- the load error path
+Date: Mon, 16 Nov 2026 11:30:27 +0100
+Subject: [PATCH v2 11/64] drm/hyperv: Switch to
+ drm_mode_config_create_initial_state
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20261116-drm-no-more-config-reset-v2-9-0bb471f4d1e0@kernel.org>
+Message-Id: <20261116-drm-no-more-config-reset-v2-11-0bb471f4d1e0@kernel.org>
 References: <20261116-drm-no-more-config-reset-v2-0-0bb471f4d1e0@kernel.org>
 In-Reply-To: <20261116-drm-no-more-config-reset-v2-0-0bb471f4d1e0@kernel.org>
 To: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
  Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>, 
  Simona Vetter <simona@ffwll.ch>
 Cc: dri-devel@lists.freedesktop.org, Maxime Ripard <mripard@kernel.org>, 
- sashiko-bot@kernel.org
+ Dexuan Cui <decui@microsoft.com>, Long Li <longli@microsoft.com>, 
+ Saurabh Sengar <ssengar@linux.microsoft.com>, linux-hyperv@vger.kernel.org
 X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=openpgp-sha256; l=1866; i=mripard@kernel.org;
- h=from:subject:message-id; bh=FYJue8xO9P5CCjNgF9HZD+9G8SAJaD1ti586WpW4nHw=;
- b=owGbwMvMwCmsHn9OcpHtvjLG02pJDFm/brv88XLbX6Ntt0XOcttK7m1ql/o5ci88vZ8zcTv/s
- sdXI0qvdkxlYRDmZJAVU2R5IhN2enn74ioH+5U/YOawMoEMYeDiFICJJDMyVrO2OIcZ3maqz59+
- P1bV4Mdhti2bw4NTymN5uwsOXNaTmjVRxP3s9QOJ16wmTLWq6gm9x9gwadUjtqkTCrcnBuasvae
- lsfRO53zvnetcVWyuyojNMbpr5LJXxGkdz+b8F335Z/8aP9MHAA==
+X-Developer-Signature: v=1; a=openpgp-sha256; l=1296; i=mripard@kernel.org;
+ h=from:subject:message-id; bh=zciRmC5jF1oTFHKhECPibOoiM4CO6x8cndCWlHWuVSQ=;
+ b=owGbwMvMwCmsHn9OcpHtvjLG02pJDFm/brsc3SN5/ImYvYvhDLUrevPKOIIsuYturp58qv7gN
+ /MqI6MdHVNZGIQ5GWTFFFmeyISdXt6+uMrBfuUPmDmsTCBDGLg4BWAixWKMDQcPPe3O2hDRKHfT
+ gf/MgsMHLnlIBJ4SW6Kw92D7JrbGdD85n7/Ss2doBP0tnv3WIZ47lrGabdo0VRW1+Y0T1MKf78z
+ rvrT8iEGEfmrNh7x//muEw3o8fvA+EDzSJTP39bmoFr3YTkEA
 X-Developer-Key: i=mripard@kernel.org; a=openpgp;
  fpr=BE5675C37E818C8B5764241C254BCFC56BF6CE8D
 X-BeenThere: dri-devel@lists.freedesktop.org
@@ -70,52 +71,42 @@ X-Spam-Status: No, score=-18.8 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-The error path of hibmc_load() calls hibmc_unload(), which only calls
-drm_atomic_helper_shutdown().
+drm_mode_config_reset() has a dual role: it creates the initial KMS
+state at probe time, and resets hardware and software state during
+suspend/resume cycles.
 
-However, all the failures handled there (hibmc_kms_init(),
-drm_vblank_init() and hibmc_msi_init()) happen before
-drm_mode_config_reset() has run, so the CRTC state is still NULL at
-that point. drm_atomic_helper_shutdown() will then go through
-drm_atomic_helper_disable_all() and drm_atomic_get_crtc_state() to
-drm_atomic_helper_crtc_duplicate_state(), which trips its
-WARN_ON(!crtc->state) and returns an error.
+Since the two roles need different behaviors (notably for objects like
+drm_private_obj that must persist across suspend/resume),
+drm_mode_config_create_initial_state() was introduced to handle only
+the initial state creation at probe time.
 
-Since the device hasn't been registered and no atomic commit ever ran
-when hibmc_load() fails, there's nothing to shut down in the first
-place. Remove that call.
+Switch to drm_mode_config_create_initial_state().
 
-hibmc_unload() is still called by hibmc_pci_probe() and
-hibmc_pci_remove(), where the initial state has been created.
-
-It will also be needed when drm_mode_config_reset() gets replaced by
-drm_mode_config_create_initial_state(), whose state allocation can
-fail.
-
-Fixes: b11bc1ae46587 ("drm/hisilicon/hibmc: Add MSI irq getting and requesting for HPD")
-Reported-by: sashiko-bot@kernel.org
-Link: https://lore.kernel.org/r/sashiko-outbox-199610@kernel.org
 Signed-off-by: Maxime Ripard <mripard@kernel.org>
 ---
- drivers/gpu/drm/hisilicon/hibmc/hibmc_drm_drv.c | 1 -
- 1 file changed, 1 deletion(-)
+Cc: Dexuan Cui <decui@microsoft.com>
+Cc: Long Li <longli@microsoft.com>
+Cc: Saurabh Sengar <ssengar@linux.microsoft.com>
+Cc: linux-hyperv@vger.kernel.org
+---
+ drivers/gpu/drm/hyperv/hyperv_drm_modeset.c | 4 +---
+ 1 file changed, 1 insertion(+), 3 deletions(-)
 
-diff --git a/drivers/gpu/drm/hisilicon/hibmc/hibmc_drm_drv.c b/drivers/gpu/drm/hisilicon/hibmc/hibmc_drm_drv.c
-index 602930964e93..272a8ab6427a 100644
---- a/drivers/gpu/drm/hisilicon/hibmc/hibmc_drm_drv.c
-+++ b/drivers/gpu/drm/hisilicon/hibmc/hibmc_drm_drv.c
-@@ -417,11 +417,10 @@ static int hibmc_load(struct drm_device *dev)
- 	drmm_kms_helper_poll_init(dev);
+diff --git a/drivers/gpu/drm/hyperv/hyperv_drm_modeset.c b/drivers/gpu/drm/hyperv/hyperv_drm_modeset.c
+index 759952f4ff19..73938303e663 100644
+--- a/drivers/gpu/drm/hyperv/hyperv_drm_modeset.c
++++ b/drivers/gpu/drm/hyperv/hyperv_drm_modeset.c
+@@ -500,9 +500,7 @@ int hv_drm_mode_config_init(struct hv_drm_device *hv)
  
- 	return 0;
+ 	ret = drm_vblank_init(dev, 1);
+ 	if (ret)
+ 		return ret;
  
- err:
--	hibmc_unload(dev);
- 	drm_err(dev, "failed to initialize drm driver: %d\n", ret);
- 	return ret;
+-	drm_mode_config_reset(dev);
+-
+-	return 0;
++	return drm_mode_config_create_initial_state(dev);
  }
- 
- static int hibmc_pci_probe(struct pci_dev *pdev,
 
 -- 
 2.56.1
