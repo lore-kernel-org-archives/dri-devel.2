@@ -2,100 +2,127 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 14D1B606A322
-	for <dri-devel@archiver.kernel.org>; Mon, 16 Nov 2026 18:15:18 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3AECB606A334
+	for <dri-devel@archiver.kernel.org>; Mon, 16 Nov 2026 18:17:15 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=c0qyRX7U
+	dkim=pass (2048-bit key, unprotected) header.d=Nvidia.com header.i=@Nvidia.com header.a=rsa-sha256 header.s=selector2 header.b=S0KQW/gG
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 739C210F378;
-	Mon, 16 Nov 2026 18:15:12 +0000 (UTC)
-Received: from mail-ot1-f50.google.com (mail-ot1-f50.google.com
- [209.85.210.50])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 4BCB210F379
- for <dri-devel@lists.freedesktop.org>; Mon, 16 Nov 2026 18:15:06 +0000 (UTC)
-Received: by mail-ot1-f50.google.com with SMTP id
- 46e09a7af769-7f84a55cc06so2933592a34.2
- for <dri-devel@lists.freedesktop.org>; Mon, 16 Nov 2026 10:15:06 -0800 (PST)
-ARC-Seal: i=1; a=rsa-sha256; t=1794852905; cv=none;
- d=google.com; s=arc-20260327;
- b=LpClr8cU+oVcMugIyM/qFYoPT/MYphCC5pdbd/yZXNssMcaOCK262UIlh6NNKoanNr
- gjUC77fPHBbuRkA6Mg+u4+zkDiK5NEv1eSRZBhqkvMPLHNwd2U3ll8alxNHjXZf77zUS
- mi+Js1aZ8YUbp76wInZs61lpslxbjcHoe8+IVOSVZkQcFGBQ2W5fzXzEW+rLuJjvq85k
- EMFSN+qXnEollaa43bulgMoFAym4fLcyOqNCuwECQOguUMb3Aa02aT5np5btpYnoe6VN
- YvEu+hyNABlREVLWHoQn7cJBF78aZv4jXBMv3TtxwbwLVzRlZidlPRwfJJ9T5XK4IoYc
- 5v9w==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com;
- s=arc-20260327; 
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:dkim-signature;
- bh=Y9VFYmn0OLSOPuVThwD952io40l2TovP2T7RuvsEtdM=;
- fh=6LCNSQZhmmuSaIYry1ix5Q84UMRuxE/0F+PYU2k9vgg=;
- b=Dqon99S+U6X0kvH6v6uYJyIBVkDI207Oix1RDj4L01O7g3AUYDHN7pk8epsSHbAw+2
- vfR55jHDjO4f/93rZU0OwUHiXRaHDSweGkREukXSQZeKQksN2+msgpR84MI3OY/kgexR
- iU5L3IujI956ZI3UeuAsk3cmx34xcMMqgvpT7i9KHnxjwQbc9Rp53wOeglzwNtK1J27f
- 5TJaGShTx1bnIwihzu6diiHBfcpP8Ja5/Tvx5rVochSnl1T4qdf53kkU2ypWp5FBhq2b
- j1Q3kH4gOmMreO1ScJCt5M2wx7fToi6LxmOcHFC0VWm5x2XWhUsrTlRHa6+hmzvSjWho
- d8NQ==; darn=lists.freedesktop.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20260707; t=1794852905; x=1795457705; darn=lists.freedesktop.org;
- h=content-transfer-encoding:content-type:cc:to:subject:message-id
- :date:from:in-reply-to:references:mime-version:from:to:cc:subject
- :date:message-id:reply-to:content-type;
- bh=Y9VFYmn0OLSOPuVThwD952io40l2TovP2T7RuvsEtdM=;
- b=c0qyRX7UdV90LvNizrajXTM0opkb5lod5vS3/U2DNIxHTa1TjM6uff6yJfdy+Zd8Zv
- /LugjRmVcboaareQmhBqgr2tqaoNUCXbqYFM0GOhiz/Pe56OsSCFh/Bp7jw9p3vlDjud
- j7wc6xYQSe5fbtqHC0AaenOCLhFES+93LQj3PD9A2i+T2Q973YQXBrtCQtXmgcVdpASy
- gcgI6uA8NfT/h/rw1Fsq5Yh1d2gn+a7/trHwFjugHksvA8N+RuhG5g5xAKOkSjs3zixc
- zR2drf9qUNVDn6hSwz5P5lDleeInVWpWhG30By6jPEKbzT1RMW9yzpC+0VF5GVvIvArD
- yNPg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20260707; t=1794852905; x=1795457705;
- h=content-transfer-encoding:content-type:cc:to:subject:message-id
- :date:from:in-reply-to:references:mime-version:x-gm-gg
- :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
- :content-type;
- bh=Y9VFYmn0OLSOPuVThwD952io40l2TovP2T7RuvsEtdM=;
- b=O+7arjO0HkBJy8G21H60fKRHwENJlExwyosp41+sWzodPtWDlHThs/XEqceyfm697b
- j7QnEpug5a6EvWxFXdbb4vEZ4JTY2ux41tWBEvb2P9nIbXGUwkQcentMcSN/NAFxxn2q
- 233AR9hqvgJ/LlVvvIFGwKei+DLOEVyJq8KFT/iqVzci8UdROGz2nG4zuea0IaqgfY0N
- vbRO4EdLmm8Rywm3+B1aL/P6XM+Ajii4tn5kw83WeADICoOCjI7wKRJg4kg6La19o8JA
- r824pDCu5TSBLlVhKSpS6FfW6biW6Y9eqIbvm/lmRiaoQ6oko1vIWUkGdgS7/HgrWwsh
- 2y1w==
-X-Forwarded-Encrypted: i=1;
- AL+hErHfdRpV2uFt25zIxOG8EMLzdLLBnpr0jBnSLVPuBx7Ptrf0RYOBMTdk7vWbqCNAMQ8RMhrWjgLZDf0=@lists.freedesktop.org
-X-Gm-Message-State: APuU4Z9xHrlStlRvk/HmKvXwIXjUUE6/rfE29J8asoMEZpTdXsB8BuEw
- Sfsf1ssPHQ+BFgxBOilhCBzTojLuAiTPb6lZwJkbImF2Yd21LXeU326LwEOJczaC/0qhE5cLhmN
- d5dRNMdyUr//JWdNDadlUNkw15VzD80Y=
-X-Gm-Gg: AYBFou1JCGhlv5nkeZ38MsohbUZYfBQueemxpvomIIaUxxKM7MxlGCNMTyZh//NEb7r
- XfQt4mPLtTnHqsbOs09WIr9xGkott5yQ18/Aege7leQJZ10b0dJ1ElldBnMKNyfBHTJKhdAam03
- Gf6vPz+JYyieRfdNwlux+diVJDSFzLnnwhrIIyutNCyXz2xo2PbrbanwLd8MEe3JPzV6HnuXymO
- KvJ/q3w3TkCbTo+r+9Z2lWr9GfHGO1cTxdsrg3nzAJ4mTDogFAA7F8UTe7sp0y7o8SMWw9qd7Pq
- OV/grxeMWrnlKwYZYn5GUq5/ufldpAEMSRojQVKdAjByx/HUm0x8MAOYva3a/Yb6kTXW8K4XVv7
- mAo9FciFHRjuRa+HwOsyh+wL7CuoLPJ1j1GVFa7/PK31Zz/M432STHC5zCHv4mNB9hL9yo6TlIR
- Ob6hIbH//NyHbyqVpBCMXYLp953YgWdB7ga1fTr6zKVoaywACMdw==
-X-Received: by 2002:a05:6808:4f5e:b0:53b:11c7:2da0 with SMTP id
- 5614622812f47-56e63285bd9mr11614093b6e.21.1794852905260; Mon, 16 Nov 2026
- 10:15:05 -0800 (PST)
+	by gabe.freedesktop.org (Postfix) with ESMTP id A5F8A10E421;
+	Mon, 16 Nov 2026 18:17:09 +0000 (UTC)
+Received: from SJ2PR03CU001.outbound.protection.outlook.com
+ (mail-westusazon11012020.outbound.protection.outlook.com [52.101.43.20])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 5B0A510EA51
+ for <dri-devel@lists.freedesktop.org>; Mon, 16 Nov 2026 18:17:03 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=dguWgp5nZwI7wdiH5v29QkrmOefmCM9LGK/eP3OOeo2AwHQ+3g/CRTAee/gzNvp+WHryRrjpTLsRt+vQv9aGIrBFNJieikoGdC3LIQKOZAKHf2ueEzVpaKag8OL4S505z1DZvha2RTIIUvUQIqrlRsPQ5Ifnycjb/oF0V57ZlvgO3jIj/iHbpetc9JOPDo4QAu5HmyuSIDLdgl6jS6dRmyXEBs2yv0AUzgkmDgJuva7eIctKL4ktPZ963CMrgG0zzRxKA74UtNK5xTaEBgghhAGprvCUoIMd5krFLBH1lUqE/gJCA0mlvFM6mBbRqk1yLslt3irSe20QZ9iMr700Lg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=oNfu7Qx9QWNdej/Iw5qZrDdqCuxWsTyvULvk1oCcjrg=;
+ b=N3ktxXEJ8UxDLUnPkvxl4sn7XyUrd6UJXQKaDzqa8IIvGCnrmMba/7OacD9oq3y+9HdYqmYA1SOKfhJdg2BCjX6zxjlQUNppmE8bj+vxl3ileVEWw3d/1V53dSKexwmlOebPhnR+HKQxRyyn+1toCv0awZRgbrvtgtTbWkKuplHKPCW55DofvW1+3m0PDAKeAH4HC1fq7ZF2rUiK7gph83OAspxM/b6wj/SN6uewNV09ogqvag8L9owY4AQBJ6Kqlbq9XMdiPtQcUSU6Yu5ehMwHluXy+rYINbgQSyPZqYDK7mgqaifrgBeW4y229VoQmFeNB32tE1OFJOKXZh6isw==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
+ dkim=pass header.d=nvidia.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
+ s=selector2;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=oNfu7Qx9QWNdej/Iw5qZrDdqCuxWsTyvULvk1oCcjrg=;
+ b=S0KQW/gGelilkQ7f8MxA51pYEScFvW771oWc3hPjP6K9DqBd/WkYR/kmT6ilmOYV7FX3C3K1scFilsNQe8siTE3dYFfu3/8caMKrADxPK0jKvn7qfRwiBznWOqVy42F3k3DS7tZE0Q052wL92vCaD1/B69m5iy9QOSRBhdJ9S8//ZqHM5IASFzp1x+qOGc3As5Q94yLQBG2aJozR+Ba1n1bMYYsZ3rH7iD1IFn96YEnFek/7mDxR4PH4eDn9153v3Pjn80UvDhZW1vTgm+VhQMweSvPr3+QuGlUyk03hSqH5jwf16oj/l+l7Qpqyy42HUWvy/8R4sBr6DJa44Zrmig==
+Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=nvidia.com;
+Received: from CHBPR12MB731189.namprd12.prod.outlook.com
+ (2603:10b6:610:33d::12) by CY3PR12MB9605.namprd12.prod.outlook.com
+ (2603:10b6:930:103::9) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.592.8; Mon, 16 Nov
+ 2026 18:16:59 +0000
+Received: from CHBPR12MB731189.namprd12.prod.outlook.com
+ ([fe80::b0e5:123d:fe06:e10d]) by CHBPR12MB731189.namprd12.prod.outlook.com
+ ([fe80::b0e5:123d:fe06:e10d%6]) with mapi id 15.21.0615.013; Mon, 16 Nov 2026
+ 18:16:59 +0000
+Date: Mon, 16 Nov 2026 14:16:57 -0400
+From: Jason Gunthorpe <jgg@nvidia.com>
+To: David Matlack <dmatlack@google.com>
+Cc: Alex Mastro <amastro@fb.com>, dri-devel@lists.freedesktop.org,
+ iommu@lists.linux.dev, kvm@vger.kernel.org,
+ linaro-mm-sig@lists.linaro.org, linux-kernel@vger.kernel.org,
+ linux-kselftest@vger.kernel.org, linux-media@vger.kernel.org,
+ linux-pci@vger.kernel.org, Alex Williamson <alex@shazbot.org>,
+ Bjorn Helgaas <bhelgaas@google.com>,
+ Christian =?utf-8?B?S8O2bmln?= <christian.koenig@amd.com>,
+ Josh Hilke <jrhilke@google.com>, Kevin Tian <kevin.tian@intel.com>,
+ Leon Romanovsky <leon@kernel.org>,
+ Logan Gunthorpe <logang@deltatee.com>, Matt Evans <mattev@meta.com>,
+ Matt Evans <matt@ozlabs.org>, Mina Almasry <almasrymina@google.com>,
+ Samiullah Khawaja <skhawaja@google.com>, Shuah Khan <shuah@kernel.org>,
+ Sumit Semwal <sumit.semwal@linaro.org>, Vipin Sharma <vipinsh@google.com>
+Subject: Re: [RFC PATCH 0/7] vfio: selftests: Add peer-to-peer DMA selftest
+Message-ID: <20261116181657.GC2245175@nvidia.com>
+References: <20261111192411.4133780-1-dmatlack@google.com>
+ <avYjFfqr3T/U7lvn@devgpu015.cco6.facebook.com>
+ <DMTK99TDM9AM.SAM3Z4COP9WS@google.com>
+ <20261115231946.GB1239159@nvidia.com>
+ <CALzav=efnA_ABCZVicX0QeTmHknaEbMeWOy8cS+zHYVhm5z+iw@mail.gmail.com>
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <CALzav=efnA_ABCZVicX0QeTmHknaEbMeWOy8cS+zHYVhm5z+iw@mail.gmail.com>
+X-ClientProxiedBy: BN9PR03CA0770.namprd03.prod.outlook.com
+ (2603:10b6:408:13a::25) To CHBPR12MB731189.namprd12.prod.outlook.com
+ (2603:10b6:610:33d::12)
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
-References: <20261108060418.4554-1-sowmyatorra@gmail.com>
- <20261108075335.13248-1-sowmyatorra@gmail.com>
-In-Reply-To: <20261108075335.13248-1-sowmyatorra@gmail.com>
-From: Sowmya Torra <sowmyatorra@gmail.com>
-Date: Mon, 16 Nov 2026 23:44:54 +0530
-X-Gm-Features: AclHuK80DRIS82kx7xBKjBoqWiP5iWpB5RL4yuJG733QwPO3EG-EZ7zh6pOiZ0o
-Message-ID: <CAFsBPPnsv2xbLXHQfM66h6RdK1+mGR91S=D86OzKzmds1cTPnA@mail.gmail.com>
-Subject: Re: [PATCH v4] drm/xe: Remove unused xe_vm_restart and xe_vma_flush
- tracepoints
-To: matthew.brost@intel.com, thomas.hellstrom@linux.intel.com, 
- rodrigo.vivi@intel.com
-Cc: airlied@gmail.com, simona@ffwll.ch, intel-xe@lists.freedesktop.org, 
- dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org, 
- outreachy@lists.linux.dev, rostedt@goodmis.org, julianbraha@gmail.com, 
- julia.lawall@inria.fr
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: CHBPR12MB731189:EE_|CY3PR12MB9605:EE_
+X-MS-Office365-Filtering-Correlation-Id: f1c7f693-4d60-4aa8-55ff-08df440dcdff
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+ ARA:13230040|366016|23010399003|376014|1800799024|7416014|6133799003|22082099003|10067099003|18002099003|56012099006|4143699003|261021121427099003|261102123227099003|261026121527099003|11063799006|261022075727099003;
+X-Microsoft-Antispam-Message-Info: gwJMATy1A/s7NhHE/DnAwlVouUWCaz+rERA1TGEOLE0iQgPFrhxVT3gsSVsjhVoVfnTordSnParP74TatUw1Ed78QzHNxbSZUM9ty7cOCqmgwJ6aVp/uNO89rX+X6x8zbIgVkKWxH+h8N/CEOqiqdm6fdhyJ+d5EOOpuloyFbR+O1DozI1X1iWOyoz5CruiDxVRcfSfbu8kOiWuf52LB/l4BWfYAq9EmAozmY0Nwnzr0K5Srkufq+FDukwI/LNOfnMrFMAaRSeglum627kd8FLQ+rS08ZNl++WUde3kaEkGJC/vcrHNzTtOH2ytDqIDS6zP1CeTP6yVndRSlbmq5sGYvA6GSirsdCHSGveg5U8WKi7MUhfwyP1u1aXL6uYGNwFbb5EhGQEw1uIyc5I9HvZxqDN2QVaUqKoziOekNnd1n3ckB/lc1EhTK6KHLJ6QMPN0BGvoYXW8N6KFpeTVVWwXAjqUFVRrW8z4sEajaQBnO84f/bqmNevXxg9VTbBoGMRm8gJud1TwDCwYg6R288y9gjXZ5UQdyMjD2CrVoJ8499qJMpzL95KXO57X1VjiNDDmKvH/kgHNAqUig/ruE8Y1178CzxKDjNX1UQi1scmHU9eMDsFRxmSnJKf26EnESKO0/8UpEYDZ18wLKliu4RlLc7pOvMDdtH4ois8cYU5U=
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:CHBPR12MB731189.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230040)(366016)(23010399003)(376014)(1800799024)(7416014)(6133799003)(22082099003)(10067099003)(18002099003)(56012099006)(4143699003)(261021121427099003)(261102123227099003)(261026121527099003)(11063799006)(261022075727099003);
+ DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: =?us-ascii?Q?qGEiDsiLCSQTw25Etch/rvT/THlWeutyqsN/MYcBPQMLbNwX7XJTiAj8ho1X?=
+ =?us-ascii?Q?cjb1Oy3YN3M0wydc1BHU99ezBsVWkuNwrWce2hhiRuz85GH87w7DjYkWVKrn?=
+ =?us-ascii?Q?55HfQDZUrOgzwUAk1hXF3uULRa9ZSSf5hJMgIZ9Jx1/0p5FPajhNdcmr07em?=
+ =?us-ascii?Q?C1YIgJ3Gj9U5xFBWW84IoqKGqK5ejGc6tlBb8/nCRzwkV9ZyG4oJZ4UdXrE+?=
+ =?us-ascii?Q?E60qsPxDzIdqo6tYpMfgituryY2pTmydW5RNnC0ZAlRQ9Ia57bEdFeA+Alty?=
+ =?us-ascii?Q?FnP6YnlhwSpSJdKAXwA/H1E9hH1K6+FKNayOLNpSbhTlYGDncRpQUVMXEEmL?=
+ =?us-ascii?Q?cTGZ5UXtfd3kzCVCp9vaJ0K+3zF/70QZZ2E3i7ImGigR5pYAZL1pnDDOf3KS?=
+ =?us-ascii?Q?MLgpj1T0XihIdTFEthBXC0FOx4JV6NTwJAsnrbhB8bsGQBdJjqreUK32zk2W?=
+ =?us-ascii?Q?s6R0GIQE+WYKKRsyNWLeQevL6k4wNdtUmDxRnBPDk3VH/Y+o9QyIMuhC0Vr9?=
+ =?us-ascii?Q?7UdZFXqxetJXBXp8kILcuYcFY9CsPhb1hz/YIO6DbPmgG3nJGgUMEhTS7rj8?=
+ =?us-ascii?Q?vvdHHwM67FCX6OyzWp7NvMvT5clYRs3rUbz1vvpDqCVpaYsIzurTMXCYOyLe?=
+ =?us-ascii?Q?CnoAS3e8ktykofp/VUSLvUDpd5+iYLb/w1CuzHekpifgrrUAhCuwd4cNOuDl?=
+ =?us-ascii?Q?mvAsU0tLuhQtCRYINpD+goeHnKuyJi2unaKWKh4Zp8yQN4cVcwBSyiNlsIWP?=
+ =?us-ascii?Q?XPzWCrX07Er/VqUn1Ao3fWBDwuVa4ESsbqWTJBv1Rsj4AguJKB94G7nPhv1s?=
+ =?us-ascii?Q?gI6/T5ojOuAQObHn8+9Mr1/x99qUKOQNybf4hdG3bZyLgI4FE4xupj0Qazy7?=
+ =?us-ascii?Q?sMKomSYpMQsmftpV0wN3nNvCjLQGHP1wGP5Vq9FyEOKUh0hhPtdCctP+BRa8?=
+ =?us-ascii?Q?ZSg4D+O76UXZq5iZi4ZSbrdEdXS2+hWqKGRfxOmQwj2V1gqnlGOWVZdR30dM?=
+ =?us-ascii?Q?J1V7b6n+FUpP8JjNEGEJgxBQAD2sdWkCHvxQXALNUGybJjrgn/vI+H4DDDg1?=
+ =?us-ascii?Q?GgMD9WBh35gJ88CL+GR0SDuNqsu/trNaPPa/PKGp/fXO8AOTVghfTD/P2Xat?=
+ =?us-ascii?Q?kVWsdC21Lsc1VraXpd19Yzn5TXCcRiOLZVyDPmic6g4QY3U0wDPZf8mhUnnU?=
+ =?us-ascii?Q?TPTstesPI3eXeKLKg1i1kURQYjtxQVNAzaUtJz0yGQ5aWztM3pjzjXb1+/Gk?=
+ =?us-ascii?Q?oCuHaP1fXUWLx+AFgEiMpEocI70yj0T8Mk2ua+asY0keD38YfZetUivvrmAZ?=
+ =?us-ascii?Q?JgYXBNdXddCi2wIr/Jdx3g7EeBULhIx8Ak1MZVxEcttzU1Sfdsf7xCxf9TAV?=
+ =?us-ascii?Q?C2AU8/N/2ZnRGzsMa5o5LMsMoiNjwIg8ami68JSiiO/siXUfXPI8jX/44hPV?=
+ =?us-ascii?Q?O07zy8z3G3X4ZLkQZc1lQVYvoHMrp6Uok1EuyXBbXX4WjF3dig+txoBfvMjm?=
+ =?us-ascii?Q?dDO+88vuir9iT8yv3PibbghZQkBcfNUVI67rD6j/MNDFvjhpWV6LlnMmsh3Y?=
+ =?us-ascii?Q?ydhmpRKN1V8CkeGFt64QgFrHecgVjwa7vMzPx3UKKtyYU5xlHuLHj8wL3wUk?=
+ =?us-ascii?Q?80/OnN4K5CtusOh98rDVfT0rt0aFUv9hCT8Tx5V7IMxTNs0bpNQ2HCottUH8?=
+ =?us-ascii?Q?Fs4HV7R54RMRP9Mq+iWzqCJJbxZsUInOqU2RdEAO0trP0PIw1L+yFoed1jV5?=
+ =?us-ascii?Q?Z5scw5TiWQ=3D=3D?=
+X-OriginatorOrg: Nvidia.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: f1c7f693-4d60-4aa8-55ff-08df440dcdff
+X-MS-Exchange-CrossTenant-AuthSource: CHBPR12MB731189.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 16 Nov 2026 18:16:59.2497 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: ZluOYr7nHXxiyLsI35fj3xjusr8Rqf5BVhPpTIIqAXgupTPEaV/DXlJ0+3ll8Szd
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: CY3PR12MB9605
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -107,89 +134,36 @@ List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-12.8 required=3.0 tests=BAYES_00,DKIM_SIGNED,
-	DKIM_VALID,DKIM_VALID_AU,FREEMAIL_FORGED_FROMDOMAIN,FREEMAIL_FROM,
-	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
-	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS autolearn=unavailable
+X-Spam-Status: No, score=-5.8 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
+	DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
+	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS autolearn=no
 	autolearn_force=no version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-Hi everyone,
+On Mon, Nov 16, 2026 at 10:02:56AM -0800, David Matlack wrote:
 
-I received a CI notification saying that testing could not start
-because my email address is not on the allowlist.
+> > > The way I designed the P2P selftest support requires 2 things:
+> > >
+> > >  (A) initiator: A device that has a VFIO selftests driver.
+> > >  (B) target: A device that can provide a memory BAR (vfio_pci_find_mem_bar()).
+> > >
+> > > So far I haven't found a single device that can do both. But you are
+> > > right that theoretically a single device could satisfy both
+> > > requirements.
+> >
+> > mlx5 can do both
+> 
+> Looks like GPUs and NVMe can do both as well.
+> 
+> How would we implement vfio_pci_find_mem_bar() for mlx5? BTW for the
+> target device, by "a memory BAR" I meant "a region of a memory BAR
+> that behaves like normal RAM". Sorry that was not clear.
 
-The notification refers to my earlier patch removing only
-xe_vm_restart. I have since sent v4, which combines the removal of
-xe_vm_restart and xe_vma_flush.
+It's a litlle complicated, you have to allocate a "Device memory" (DM)
+from the FW, then you get a chunk of BAR that is like RAM.
 
-Could someone trigger CI for v4? Please let me know if I need to do
-anything on my side.
+There may also be some device boot time configuration that has to be
+done to turn it on, I forget.
 
-Thanks,
-Sowmya
-
-On Sun, Nov 8, 2026 at 1:28=E2=80=AFPM Torra Sowmya <sowmyatorra@gmail.com>=
- wrote:
->
-> Commit f3e9b1f43458 ("drm/xe: Remove async worker and rework sync
-> binds") removed the calls to trace_xe_vm_restart() and
-> trace_xe_vma_flush(), but left both event definitions behind.
->
-> Remove the unused definitions from xe_trace_bo.h to avoid
-> generating code and data for events with no remaining callers.
->
-> With the tested x86-64 configuration, size reports a reduction of
-> 888 bytes in xe_trace_bo.o, from 20262 to 19374 bytes: 296 bytes
-> in text and 592 bytes in data.
->
-> Fixes: f3e9b1f43458 ("drm/xe: Remove async worker and rework sync binds")
-> Signed-off-by: Torra Sowmya <sowmyatorra@gmail.com>
-> ---
-> Changes in v4:
-> - Combine the xe_vm_restart and xe_vma_flush removals as requested
->   by Steven. This replaces the separate patches for these events.
-> - Report the measured combined object-size reduction.
->
-> Changes in v3:
-> - Add the Fixes tag.
->
-> Changes in v2:
-> - Document the measured object-size reduction.
->
->  drivers/gpu/drm/xe/xe_trace_bo.h | 10 ----------
->  1 file changed, 10 deletions(-)
->
-> diff --git a/drivers/gpu/drm/xe/xe_trace_bo.h b/drivers/gpu/drm/xe/xe_tra=
-ce_bo.h
-> index 86323cf3be2c..a6802f6d3a01 100644
-> --- a/drivers/gpu/drm/xe/xe_trace_bo.h
-> +++ b/drivers/gpu/drm/xe/xe_trace_bo.h
-> @@ -115,11 +115,6 @@ DECLARE_EVENT_CLASS(xe_vma,
->                               __entry->end, __entry->ptr)
->  )
->
-> -DEFINE_EVENT(xe_vma, xe_vma_flush,
-> -            TP_PROTO(struct xe_vma *vma),
-> -            TP_ARGS(vma)
-> -);
-> -
->  DEFINE_EVENT(xe_vma, xe_vma_pagefault,
->              TP_PROTO(struct xe_vma *vma),
->              TP_ARGS(vma)
-> @@ -228,11 +223,6 @@ DEFINE_EVENT(xe_vm, xe_vm_cpu_bind,
->              TP_ARGS(vm)
->  );
->
-> -DEFINE_EVENT(xe_vm, xe_vm_restart,
-> -            TP_PROTO(struct xe_vm *vm),
-> -            TP_ARGS(vm)
-> -);
-> -
->  DEFINE_EVENT(xe_vm, xe_vm_rebind_worker_enter,
->              TP_PROTO(struct xe_vm *vm),
->              TP_ARGS(vm)
-> --
-> 2.47.3
->
+Jason
