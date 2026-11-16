@@ -2,50 +2,71 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 892EB606A323
-	for <dri-devel@archiver.kernel.org>; Mon, 16 Nov 2026 09:53:07 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9AB67606A32F
+	for <dri-devel@archiver.kernel.org>; Mon, 16 Nov 2026 09:55:00 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=cmss.chinamobile.com header.i=@cmss.chinamobile.com header.a=rsa-sha256 header.s=default header.b=NX0AFeRu
+	dkim=pass (2048-bit key) header.d=pengutronix.de header.i=@pengutronix.de header.a=rsa-sha256 header.s=20260414 header.b=NrYmbsjB
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id EAAEE10ED5F;
-	Mon, 16 Nov 2026 09:53:01 +0000 (UTC)
-Received: from cmccmta4.chinamobile.com (cmccmta4.chinamobile.com
- [111.22.67.137])
- by gabe.freedesktop.org (Postfix) with ESMTP id B6F3210E1F9
- for <dri-devel@lists.freedesktop.org>; Mon, 16 Nov 2026 09:52:54 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=cmss.chinamobile.com; s=default; l=0;
- h=from:subject:message-id:to:cc:mime-version;
- bh=47DEQpj8HBSa+/TImW+5JCeuQeRkm5NMpJWZG3hSuFU=;
- b=NX0AFeRuBGf8xNILELAWCIgB8/+mUnQIrjXoiDyA5jHR8jfUeT+jIRVtoZ7wjs7NkMFaJsT2GpEDE
- 9DdHzmM/YGtTBkWdoZiMSyABSi2lSBzTsDBP+/DQ+T063Xv0fNjOA8Py2GXshQACA7ohSFOl+EOItH
- oFeIajgECZNS7K6w=
-X-RM-TagInfo: emlType=0                                       
-X-RM-SPAM-FLAG: 00000000
-Received: from spf.mail.chinamobile.com (unknown[10.188.0.87])
- by rmmx-syy-dmz-app08-12008 (RichMail) with SMTP id 2ee86afad2731e1-9f697;
- Mon, 16 Nov 2026 17:52:51 +0800 (CST)
-X-RM-TRANSID: 2ee86afad2731e1-9f697
-X-RM-TagInfo: emlType=0                                       
-X-RM-SPAM-FLAG: 00000000
-Received: from DESKTOP-3K8GUTQ (unknown[223.108.79.97])
- by rmsmtp-syy-appsvr01-12001 (RichMail) with SMTP id 2ee16afad270b12-87bf5;
- Mon, 16 Nov 2026 17:52:51 +0800 (CST)
-X-RM-TRANSID: 2ee16afad270b12-87bf5
-From: Xiangwu Lai <laixiangwu@cmss.chinamobile.com>
-To: Laurentiu Palcu <laurentiu.palcu@oss.nxp.com>
-Cc: Xiangwu Lai <laixiangwu@cmss.chinamobile.com>,
- dri-devel@lists.freedesktop.org, imx@lists.linux.dev,
- linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v2] drm/imx/dcss: Fix clock leak on blkctl init failure
-Date: Mon, 16 Nov 2026 17:52:49 +0800
-Message-ID: <20261116095249.1519-1-laixiangwu@cmss.chinamobile.com>
-X-Mailer: git-send-email 2.50.1.windows.1
-In-Reply-To: <20261030111304.2205-1-laixiangwu@cmss.chinamobile.com>
-References: <20261030111304.2205-1-laixiangwu@cmss.chinamobile.com>
+	by gabe.freedesktop.org (Postfix) with ESMTP id 0F0B710ED8B;
+	Mon, 16 Nov 2026 09:54:55 +0000 (UTC)
+Received: from mx1.white.stw.pengutronix.de (mx1.white.stw.pengutronix.de
+ [185.203.200.13])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id AF12610ED8B
+ for <dri-devel@lists.freedesktop.org>; Mon, 16 Nov 2026 09:54:48 +0000 (UTC)
+Received: from [IPv6:2a0a:edc0:0:900:1d::4e] (lupine.office.stw.pengutronix.de
+ [IPv6:2a0a:edc0:0:900:1d::4e])
+ (Authenticated sender: pza@pengutronix.de)
+ by mx1.white.stw.pengutronix.de (Postfix) with ESMTPSA id 42F8120062C;
+ Mon, 16 Nov 2026 10:54:47 +0100 (CET)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=pengutronix.de;
+ s=20260414; t=1794822887;
+ h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+ to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references;
+ bh=Pnk+YSSUyRHpLAftbwKFGJcFj9ouF3Kcek56y/WRV8U=;
+ b=NrYmbsjB42x17PnV6D9zzI8fx02lEM67mjdb0THfvnrqQEJLjFSEpba31yCgm5WR/x6PV4
+ VMvH0tA0LKiCqduW6SKryg1uioQxoy3n6VouUsBtmzYlHtMjb86s8L5tRC2rWS9TtWLENu
+ Ou0bPeVrzPKh4YnGfkagZGW1ABXHyo2PMnKyyeOmYxiCiGCl+6iIItdcYKv1F3aLREpemU
+ eKLBZerPy1VlZjO12aL7RnWWxsvmpJI3JErjWbMy1LTKPF/qJhlTITHGFGVox+9WR/FDo5
+ O7dUilXvnc6I/3pPlxvl9JQdFwSzYBB1PBRMlV3BdOvbq1Xq56ECbeJVOXVqVw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=pengutronix.de; 
+ s=20260414; t=1794822887;
+ h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+ to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references;
+ bh=Pnk+YSSUyRHpLAftbwKFGJcFj9ouF3Kcek56y/WRV8U=;
+ b=dK0IPdZrfDR01znkvBsX3FUdfiSNCOwg7J1TpAKVi587GE6+QlUzgTiiNZCX/SvK3z6YBg
+ phrqq8ZXLwD57Ejtboga0MU1IqLv2K0s+l9Z9GLKEpOVB2js3Ij12zmV5gbhuwGG8btp8+
+ E9FPd8ho2WGK3zWASmr5d3yFKt3X1OTt3PrNGwwtgunUSHYdeH/Fr9mZpMZiUfJB+dqEBS
+ PY9ave2d6GB0K/V+guM/THNQ92Ea2slDto98xs6uVFk5zWQKrbKROnta/8eRG7WwJusQao
+ ooFCwRJjaQoMG3MwZBHjSxvAYb/2usxI/Z1Z+aU4OuKoSdzPZ65COuOYUGjHyg==
+ARC-Seal: i=1; s=20260414; d=pengutronix.de; t=1794822887; a=rsa-sha256;
+ cv=none;
+ b=UfNkY2KqyGI4MSRqdca5V7PhgtjdQaiJfzKD3Qx+HsMFpEyt30qLzUBD5Eh2pT86MpjzBl
+ q6M7Dfg3hwj8H1DfkSrnGhzmmzJOUCWzEpJ9sMRlxPdySzzv/A1W3MY5wNsINTRrnVNF/H
+ TStnpBOO9OWhxgJdicGSZIOFmi1zleUOEI5wtnGI0EkwhVDedytj7zjdb3HvIhiKsRBiTJ
+ JM0TR6WJjrY502xgy+CYds5/3EBzPizuc6evIbzn6VT1YMXwk17qU7BRV6Nl66df0i3w3O
+ 9JrmShnMB1EcE3HoRGWiTt2kCTpG2anl4HuwVaxrPoFKu0Yz6psobtOI7MvGiA==
+ARC-Authentication-Results: i=1; ORIGINATING;
+ auth=pass smtp.auth=pza@pengutronix.de smtp.mailfrom=p.zabel@pengutronix.de
+Message-ID: <4de1556915872149ab2da2f8a6eec78a1201157c.camel@pengutronix.de>
+Subject: Re: [PATCH 1/3] drm/panel: ilitek-ili9881c: Fix Ampire AM8001280G
+ support
+From: Philipp Zabel <p.zabel@pengutronix.de>
+To: sashiko-reviews@lists.linux.dev
+Cc: dri-devel@lists.freedesktop.org
+Date: Mon, 16 Nov 2026 10:54:47 +0100
+In-Reply-To: <sashiko-outbox-213271@kernel.org>
+References: <20261113-panel-ilitek9881c-lanes-v1-0-9d9320cc1387@pengutronix.de>
+ <20261113-panel-ilitek9881c-lanes-v1-1-9d9320cc1387@pengutronix.de>
+ <sashiko-outbox-213271@kernel.org>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+User-Agent: Evolution 3.56.2-0+deb13u1 
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -57,31 +78,61 @@ List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-6.6 required=3.0 tests=BAYES_00,DKIM_INVALID,
-	DKIM_SIGNED,HEADER_FROM_DIFFERENT_DOMAINS,MAILING_LIST_MULTI,
-	SPF_HELO_NONE,SPF_PASS,USER_AGENT_GIT autolearn=no autolearn_force=no
-	version=4.0.1
+X-Spam-Status: No, score=-10.8 required=3.0 tests=BAYES_00,DKIM_SIGNED,
+	DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_PATCH,
+	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS autolearn=unavailable
+	autolearn_force=no version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-Hi Laurentiu,
+On Fr, 2026-11-13 at 17:06 +0000, sashiko-bot@kernel.org wrote:
+> Thank you for your contribution! Sashiko AI review found no new issues
+> in this patch, but noticed 1 related pre-existing issue it does not
+> introduce:
+> - [High] drm/panel: ilitek-ili9881c: missing lanes init in three panel
+>   descriptors [1]
+> --
+>=20
+> commit 40a8a814e1b52ccce761f231179cd2bd05641a2c
+> Author: Philipp Zabel <p.zabel@pengutronix.de>
+>=20
+> drm/panel: ilitek-ili9881c: Fix Ampire AM8001280G support
+>=20
+> This commit sets .lanes =3D 4 in am8001280g_desc to restore the lane coun=
+t
+> for Ampire AM8001280G panels.
+>=20
+> > diff --git a/drivers/gpu/drm/panel/panel-ilitek-ili9881c.c b/drivers/gp=
+u/drm/panel/panel-ilitek-ili9881c.c
+> > index 7bf38e96678ac..cc4cd646b6111 100644
+> > --- a/drivers/gpu/drm/panel/panel-ilitek-ili9881c.c
+> > +++ b/drivers/gpu/drm/panel/panel-ilitek-ili9881c.c
+> > @@ -2662,6 +2662,7 @@ static const struct ili9881c_desc am8001280g_desc=
+ =3D {
+> >  	.mode =3D &am8001280g_default_mode,
+> >  	.mode_flags =3D MIPI_DSI_MODE_VIDEO | MIPI_DSI_MODE_VIDEO_SYNC_PULSE =
+|
+> >  		      MIPI_DSI_CLOCK_NON_CONTINUOUS | MIPI_DSI_MODE_LPM,
+> > +	.lanes =3D 4,
+> >  };
+>=20
+> [Severity: High]
+> This problem wasn't introduced by this patch, but are kd050hdfia020_desc
+> and tl050hdv35_desc also missing their .lanes initializer from
+> 2f7e4a699736 ("drm/panel: ilitek-ili9881c: Allow configuration of the
+> number of lanes") [1]?
 
-gentle ping on this patch:
+Yes, see patches 2 and 3.
 
-  drm/imx/dcss: Fix clock leak on blkctl init failure
-  https://lore.kernel.org/all/20261030111304.2205-1-laixiangwu@cmss.chinamobile.com/
+> Without .lanes set, ili9881c_dsi_probe() passes dsi->lanes =3D=3D 0 to
+> mipi_dsi_attach(), causing DSI host attachment to fail with -EINVAL or
+> triggering a division by zero in DSI host controller drivers that divide
+> by dsi->lanes.
+>=20
+> [1] https://sashiko.dev/#/bug/linux-62dd6149-f822-4521-aeee-730978e33590
 
-dcss_submodules_init() enables the five DCSS clocks before
-initializing the submodules, but if the first submodule (blkctl)
-fails to initialize it returns directly, leaving all clocks prepared
-and enabled.  v2 jumps to err_clocks like the other error paths and
-renames the labels to the err_<x> style you suggested; it carries
-your Reviewed-by from Oct 30.
+I've observed samsung-dsim run into the "waiting for header FIFO timed
+out" error message without this patch.
 
-It does not seem to have landed in drm-misc yet - is there anything
-else needed from my side to get it queued for the v7.5 merge window?
-
-Best regards,
-Xiangwu Lai
-
-
+regards
+Philipp
