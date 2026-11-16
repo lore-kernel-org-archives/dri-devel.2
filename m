@@ -2,43 +2,43 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 20C6D60A380E
-	for <dri-devel@archiver.kernel.org>; Mon, 16 Nov 2026 10:53:25 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CC218606A32F
+	for <dri-devel@archiver.kernel.org>; Mon, 16 Nov 2026 10:54:07 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=aoSWhf/I
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=MpeZxR8Y
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 6F2E010EF38;
-	Mon, 16 Nov 2026 10:53:19 +0000 (UTC)
-Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id BCD3210EF48
- for <dri-devel@lists.freedesktop.org>; Mon, 16 Nov 2026 10:53:13 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 3062810E3D8;
+	Mon, 16 Nov 2026 10:54:02 +0000 (UTC)
+Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 5AE1D10E3D8
+ for <dri-devel@lists.freedesktop.org>; Mon, 16 Nov 2026 10:53:55 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by tor.source.kernel.org (Postfix) with ESMTP id D2F6B612E1
- for <dri-devel@lists.freedesktop.org>; Mon, 16 Nov 2026 10:53:12 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6C3521F000D4;
- Mon, 16 Nov 2026 10:53:12 +0000 (UTC)
+ by sea.source.kernel.org (Postfix) with ESMTP id 25E8B413CA
+ for <dri-devel@lists.freedesktop.org>; Mon, 16 Nov 2026 10:53:55 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id D77341F000C6;
+ Mon, 16 Nov 2026 10:53:54 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1794826392;
- bh=uNRTHpClDcGJT9VuJMizGjX30rswfzGw31U6AwA3Q/U=;
+ s=k20260515; t=1794826435;
+ bh=R/1IPjXtaTBrPgusSaO6H2YLWwEn4dsOW+wm8pspz4w=;
  h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
- b=aoSWhf/Ir2Q7dnPlrfvF/Xim5EbNdJoNOo8MO3ie7OCiO753NseyI1VXs6E/ToGPA
- hdKIt/WLDfrjfF+3Gwr/sexagclYGpghhwZh6UmBspkOy/VNLWqUt0icVnn2PZvV8j
- oQtY0pBNMX+5mjTJ2KBqftG5ZfsTUVyX631PfzSDd+aSqSSY28mNp4b83ExJjztdHV
- KC/QSI8zX/xN7d5/m8axZvRaICw25d6eH9EjULmTDAAnQfNM94g1TpMqUXpXHmOE6j
- R83QvJ8K+TtUXuHCr2KvhbmLZlH+DLon/hjrMZ/QGP8+C2PGwmOaYpFstXdz20IKBr
- 4PbkgPlo/KkLQ==
-Message-ID: <sashiko-outbox-216789@kernel.org>
+ b=MpeZxR8YqBGBIHyMpZUOfCA1e6VcpwVG3V/+SgK8vYzeig/bLQFYlx8wa9HMHj77i
+ z+xBHOVKYpFtIXN4sknsFDedVPtCoLi3kGEveyDglHE6ytzv8puO6ZJsB2fX0P8pRx
+ oBgmqrELfjnbxEUj8UaOMBe6cd5mH6hpaCNieaFBubZfqTMFBTpoSYejAZyqPCe23a
+ S/jaVPC6hzMkk31nxkOU0+6ev5AlJZWNS09vIMc7m2+kuoYReDzGrrUpPGfKhnON8n
+ g6JT/0NFw2zO7iEvm7VSjk5krvme6hBn7EgPo0NCS8L3WnJZkaoEe/7oBsRUoNAc3o
+ /WCHJpEwNVfow==
+Message-ID: <sashiko-outbox-216790@kernel.org>
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v2 39/64] drm/tests: drm_atomic_test: Switch to
+Subject: Re: [PATCH v2 17/64] drm/loongson: Switch to
  drm_mode_config_create_initial_state
 To: "Maxime Ripard" <mripard@kernel.org>
 Cc: dri-devel@lists.freedesktop.org
-In-Reply-To: <20261116-drm-no-more-config-reset-v2-39-0bb471f4d1e0@kernel.org>
+In-Reply-To: <20261116-drm-no-more-config-reset-v2-17-0bb471f4d1e0@kernel.org>
 References: <20261116-drm-no-more-config-reset-v2-0-0bb471f4d1e0@kernel.org>
- <20261116-drm-no-more-config-reset-v2-39-0bb471f4d1e0@kernel.org>
+ <20261116-drm-no-more-config-reset-v2-17-0bb471f4d1e0@kernel.org>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Mon, 16 Nov 2026 10:53:12 +0000
+Date: Mon, 16 Nov 2026 10:53:54 +0000
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -61,47 +61,69 @@ X-Archived-By: <archiver.kernel.org>
 
 Thank you for your contribution! Sashiko AI review found 1 potential
 issue to consider:
-- [Low] drm/tests: misplaced fixup hunk in
-  drm_atomic_test_init_drm_components()
+- [High] drm/loongson: skipped CRTC and encoder hardware reset in
+  lsdc_create_device()
 --
 
-commit 4a8e39a2143161f4693081f0e4cf620a298d8f3a
+commit 8beeb01686f101cdce0b7603e2b5e7c72cefba29
 Author: Maxime Ripard <mripard@kernel.org>
 
-drm/tests: drm_atomic_test: Switch to drm_mode_config_create_initial_state
+drm/loongson: Switch to drm_mode_config_create_initial_state
 
-This commit switches create_device() in drm_atomic_test.c from
-drm_mode_config_reset() to drm_mode_config_create_initial_state(), and
-updates error handling in drm_atomic_test_init_drm_components() in
-drm_atomic_commit_test.c.
+This commit replaces drm_mode_config_reset() with
+drm_mode_config_create_initial_state() during device creation in
+lsdc_create_device().
 
-> diff --git a/drivers/gpu/drm/tests/drm_atomic_commit_test.c b/drivers/gpu=
-/drm/tests/drm_atomic_commit_test.c
-> index 97f60ce68b3e4..a02859a0d8bf3 100644
-> --- a/drivers/gpu/drm/tests/drm_atomic_commit_test.c
-> +++ b/drivers/gpu/drm/tests/drm_atomic_commit_test.c
-> @@ -135,8 +135,7 @@ drm_atomic_test_init_drm_components(struct kunit *tes=
-t, bool has_connectors)
+> diff --git a/drivers/gpu/drm/loongson/lsdc_drv.c b/drivers/gpu/drm/loongs=
+on/lsdc_drv.c
+> index 5a13df31eb902..fbb2658acce40 100644
+> --- a/drivers/gpu/drm/loongson/lsdc_drv.c
+> +++ b/drivers/gpu/drm/loongson/lsdc_drv.c
+> @@ -247,7 +247,9 @@ lsdc_create_device(struct pci_dev *pdev,
+>  	if (ret)
+>  		return ERR_PTR(ret);
 > =20
->  done:
->  	ret =3D drm_mode_config_create_initial_state(drm);
-> -	if (ret)
-> -		return ERR_PTR(ret);
-> +	KUNIT_ASSERT_EQ(test, ret, 0);
+> -	drm_mode_config_reset(ddev);
+> +	ret =3D drm_mode_config_create_initial_state(ddev);
+> +	if (ret)
+> +		return ERR_PTR(ret);
 > =20
->  	return priv;
+>  	return ldev;
 >  }
 
-[Severity: Low]
-Should this hunk be squashed into the earlier commit "drm/tests:
-drm_atomic_state_test: Switch to drm_mode_config_create_initial_state"?
+[Severity: High]
+Does replacing drm_mode_config_reset() with
+drm_mode_config_create_initial_state() skip hardware initialization that
+this driver relies on during probe?
 
-That commit converted drm_atomic_test_init_drm_components() to return
-ERR_PTR(ret), even though callers such as
-drm_test_check_connector_changed_modeset() only check
-KUNIT_ASSERT_NOT_NULL(test, priv) and would dereference an error pointer
-at that point in the series.
+Unlike drm_mode_config_reset(), drm_mode_config_create_initial_state() does
+not call crtc->helper_private->hw_reset() or encoder->funcs->reset():
+
+drivers/gpu/drm/loongson/lsdc_output_7a2000.c:ls7a2000_hdmi0_encoder_reset(=
+) {
+	...
+	val =3D PHY_CLOCK_POL | PHY_CLOCK_EN | PHY_DATA_EN;
+	lsdc_wreg32(ldev, LSDC_CRTC0_DVO_CONF_REG, val);
+
+	/* using software gpio emulated i2c */
+	val =3D lsdc_rreg32(ldev, LSDC_HDMI0_INTF_CTRL_REG);
+	val &=3D ~HW_I2C_EN;
+	lsdc_wreg32(ldev, LSDC_HDMI0_INTF_CTRL_REG, val);
+
+	/* help the hdmi phy to get out of reset state */
+	lsdc_wreg32(ldev, LSDC_HDMI0_PHY_CTRL_REG, HDMI_PHY_RESET_N);
+	...
+}
+
+On both LS7A1000 and LS7A2000, the encoder reset callbacks are the only
+places in the driver that program LSDC_CRTC0_DVO_CONF_REG and
+LSDC_CRTC1_DVO_CONF_REG.  On LS7A2000, skipping encoder reset also leaves
+the HDMI PHY in reset and HW_I2C_EN set, breaking software GPIO I2C for
+connector detection and EDID reads before an atomic enable runs.  In
+addition, skipping lsdc_crtc_hw_reset() leaves LSDC_CRTC0_CFG_REG and
+LSDC_CRTC1_CFG_REG with firmware settings across read-modify-write modeset
+updates instead of initializing them to CFG_RESET_N | LSDC_PF_XRGB8888.
 
 --=20
 Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261116-drm-no-mor=
-e-config-reset-v2-0-0bb471f4d1e0@kernel.org?part=3D39
+e-config-reset-v2-0-0bb471f4d1e0@kernel.org?part=3D17
