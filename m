@@ -2,44 +2,149 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7FF57606A31C
-	for <dri-devel@archiver.kernel.org>; Mon, 16 Nov 2026 13:44:49 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 08A43606A323
+	for <dri-devel@archiver.kernel.org>; Mon, 16 Nov 2026 13:47:20 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=TTZdlw1S
+	dkim=pass (2048-bit key) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.a=rsa-sha256 header.s=selector1-NXP1-onmicrosoft-com header.b=MnCv8Fdj
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id CE88E10F1B8;
-	Mon, 16 Nov 2026 13:44:43 +0000 (UTC)
-Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id AA66510F1B8
- for <dri-devel@lists.freedesktop.org>; Mon, 16 Nov 2026 13:44:37 +0000 (UTC)
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id 5FFB743E8F;
- Mon, 16 Nov 2026 13:44:37 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id BF1AA1F000C4;
- Mon, 16 Nov 2026 13:44:36 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1794836677;
- bh=ZB7/fR3G3xPQ2TEQq2wWWvk5pwsC+bKitpxTB4jxwOU=;
- h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
- b=TTZdlw1S13KnQRAwnlN1jlxDbbEl7xOAbQ9ikEINOiNV3d/7BuQLAPOCc1LHIUmqN
- zfomsykx0nQDp7pit6MqO1VbBy4xzbqdF9TWAhI8eSli1SoqwDVU7oFfoDmgQbpwFM
- guzWiCOMSr3Xg0Q9GvNWseRpVA3raEl+/34GaGrZ0BepgPl2870F/fUWXyTd7LdPaH
- 79f3IVyk6mFRAnHJwow83xg15z2bEb/G7KZbU5cM4RWF2xRTnJBKvlHer9PS3vpkyF
- f17vbugn9lgSONJbicssfjHa09ODzCBBDLIRL3imDzXUcja1qYeSBg8G3x1DSlFkd+
- lKU5Cp0Pf1HEg==
-Message-ID: <sashiko-outbox-217102@kernel.org>
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v3 11/11] phy: qcom: edp: Add Nord eDP/DP PHY support
-To: "Nabige Aala" <nabige.aala@oss.qualcomm.com>
-Cc: linux-phy@lists.infradead.org, devicetree@vger.kernel.org,
- dri-devel@lists.freedesktop.org, robh@kernel.org, conor+dt@kernel.org,
- vkoul@kernel.org, neil.armstrong@linaro.org, olteanv@gmail.com
-In-Reply-To: <20261116-nord-drv-dt-v3-11-e3d3bf0e2c49@oss.qualcomm.com>
-References: <20261116-nord-drv-dt-v3-0-e3d3bf0e2c49@oss.qualcomm.com>
- <20261116-nord-drv-dt-v3-11-e3d3bf0e2c49@oss.qualcomm.com>
+	by gabe.freedesktop.org (Postfix) with ESMTP id 5F89210E620;
+	Mon, 16 Nov 2026 13:47:14 +0000 (UTC)
+Received: from DU2PR03CU002.outbound.protection.outlook.com
+ (mail-northeuropeazon11011009.outbound.protection.outlook.com [52.101.65.9])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 6521110F1E5;
+ Mon, 16 Nov 2026 13:47:08 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=VTT/QqNSgHGjx2ttCvzygsHXut3Q8X89Rb8bFWG+Yu0cvQK052LM7yeNwX/AxBAXrIMvmwfEZcEgzq942hiAOF0nzB+u/HGXFPUwbi/T8cgSkOuUt4pxBhO/JT+gjJ7tgSMLQQr4D9Zwhh1jiG0nAf7R/R5omME3EiC26SSmnMRC5fG5Us2gvlc7Jhljvmnl75swQQK0abVekbtwin4yiq/jDLQQyYelrkdz1ZzRNpefGYmEMTry0WTFDGpAG5afnyflJ0/gZwhOINtES+rwO96Y3Kgd9GgT0TxdAgu+SxvTgfVFVg8WllvoafE42AcyXB83CdgoPyXbcsiyy7E6fw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=s6+we+zNEogUULxek8r/se8xwtl5vHAyZIOGOEG2TtU=;
+ b=ewwsrdv58MwJRmzDyRVrysPiVfh+UsGjqPR6OGlidHAV7/9jxFaV57eFwvDeD6HK4neQufPybEayIG1ydG3A9r1oARescdcwv2IGz9LhN0A3hYvUHXbygoAMpY1eJG4A6fTly5rj1C0c0vM1Wa0R9xJKSLOrX8yQVsJMfqSza9CWNZpJOYvWGdUzTAm7Zb3lB2J0vQF9kST1OP5U3CGz00KKwHS10hbs7aovE9QT5RvghexVSEWtr6Y74Da5lIoc55gNDJUiZTl7G3Vj1URJbbRzxT1tDbvR2OxoRSqMM0GTmg2yCqACSrDNykMrP5NQSMg6WUwQO6Y475VYT/5zLA==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=oss.nxp.com; dmarc=pass action=none header.from=oss.nxp.com;
+ dkim=pass header.d=oss.nxp.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=NXP1.onmicrosoft.com; 
+ s=selector1-NXP1-onmicrosoft-com;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=s6+we+zNEogUULxek8r/se8xwtl5vHAyZIOGOEG2TtU=;
+ b=MnCv8FdjIyxwwMpHhAB0ZJsbYV2Pw54iJRL3zINQDbQWGRthffO81OEnMVKcQ+sSm92yYvL5DoYTG4KTCVKe3ltB0cZgFYRgGjsCI/7o3pfDh00jNPsU+JoSr2s/O4jOBe65RVkt6xYycihEmv3Y15+aT5beYiQzCrV+SU+waDT0wQCCrSH2rIqa835DyJphcXQ+MiMyw2j8qxx2qkxTNPp3XwmgGGhH83+fV7anb3bTgkO6xy9GemkbIw/L8OER3Gne7UrX91dRNEGCFe6V3LJijHMmNZSFl6Y/mglfOVlHJ/+utlITvXI/enn90sMTeMVUsESJuiObKYuIbLPLbQ==
+Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=oss.nxp.com;
+Received: from MI3PR04MB12438.eurprd04.prod.outlook.com (2603:10a6:290:76::14)
+ by GV1PR04MB10126.eurprd04.prod.outlook.com (2603:10a6:150:1a5::6)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.615.13; Mon, 16 Nov
+ 2026 13:47:02 +0000
+Received: from MI3PR04MB12438.eurprd04.prod.outlook.com
+ ([fe80::c715:c32:8bb1:b70b]) by MI3PR04MB12438.eurprd04.prod.outlook.com
+ ([fe80::c715:c32:8bb1:b70b%4]) with mapi id 15.21.0615.013; Mon, 16 Nov 2026
+ 13:47:02 +0000
+Date: Mon, 16 Nov 2026 08:46:49 -0500
+From: Frank Li <Frank.li@oss.nxp.com>
+To: "Rafael J. Wysocki (Intel)" <rafael@kernel.org>
+Cc: Frank Li <Frank.Li@nxp.com>,
+ Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+ Andrzej Kacprowski <andrzej.kacprowski@linux.intel.com>,
+ Karol Wachowski <karol.wachowski@linux.intel.com>,
+ Oded Gabbay <ogabbay@kernel.org>,
+ Jani Nikula <jani.nikula@linux.intel.com>,
+ Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
+ Rodrigo Vivi <rodrigo.vivi@intel.com>,
+ Tvrtko Ursulin <tursulin@ursulin.net>,
+ Matthew Brost <matthew.brost@intel.com>,
+ Thomas Hellstrom <thomas.hellstrom@linux.intel.com>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ Alex Elder <elder@kernel.org>, Will Deacon <will@kernel.org>,
+ Robin Murphy <robin.murphy@arm.com>, Joerg Roedel <joro@8bytes.org>,
+ Rob Clark <robin.clark@oss.qualcomm.com>,
+ Sakari Ailus <sakari.ailus@linux.intel.com>,
+ Mauro Carvalho Chehab <mchehab@kernel.org>,
+ Guenter Roeck <linux@roeck-us.net>, Guan-Yu Lin <guanyulin@google.com>,
+ Mathias Nyman <mathias.nyman@linux.intel.com>,
+ linux-pm@vger.kernel.org, linux-usb@vger.kernel.org,
+ dri-devel@lists.freedesktop.org, intel-gfx@lists.freedesktop.org,
+ intel-xe@lists.freedesktop.org, linux-hwmon@vger.kernel.org,
+ linux-arm-kernel@lists.infradead.org, iommu@lists.linux.dev,
+ linux-arm-msm@vger.kernel.org, linux-media@vger.kernel.org,
+ linux-staging@lists.linux.dev, netdev@vger.kernel.org,
+ imx@lists.linux.dev, Rob Herring <robh@kernel.org>
+Subject: Re: [PATCH 1/1] PM: runtime: change stub pm_runtime_get_if_active()
+ return 1 when !CONFIG_PM
+Message-ID: <avsJSUvOTl1Pp6Qe@lizhi-Precision-Tower-5810>
+References: <20261029163044.3062958-1-Frank.Li@oss.nxp.com>
+ <CAJZ5v0jyuMjh4En_r2TYui+sNbGveJ0Rz1Da39LEK9e-HxHgGA@mail.gmail.com>
 Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Mon, 16 Nov 2026 13:44:36 +0000
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <CAJZ5v0jyuMjh4En_r2TYui+sNbGveJ0Rz1Da39LEK9e-HxHgGA@mail.gmail.com>
+X-ClientProxiedBy: PH8P221CA0040.NAMP221.PROD.OUTLOOK.COM
+ (2603:10b6:510:346::17) To MI3PR04MB12438.eurprd04.prod.outlook.com
+ (2603:10a6:290:76::14)
+X-Archived-By: <archiver.kernel.org>
+MIME-Version: 1.0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: MI3PR04MB12438:EE_|GV1PR04MB10126:EE_
+X-MS-Office365-Filtering-Correlation-Id: c5eb739a-d46b-40eb-7b63-08df43e8182e
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+ ARA:13230040|366016|1800799024|7416014|376014|23010399003|19092799006|10067099003|11063799006|4143699003|56012099006|261021121427099003|261026121527099003|261102123227099003|261009223327099003|261009223027099003|261009221727099003|261009221227099003|261009220027099003|22082099003|18002099003|6133799003;
+X-Microsoft-Antispam-Message-Info: arWDUWabQbUJW+iJBHLLTlm4QNkiF1ZoS9iwwa+uuoHQ2r9xjWchQVEzlJMdLcU/gO5sG10EtSwCSOPzu3EAKz7n4X47gR4Rvk5ccOvW7J3yYScGQUFlepv8ZWgzVePs+SbZwOHY3aUYr6xj9aogd2ejo8QoDk0VEgs+ZVpAAp1rqPEEhS0EX3uPiZY3KsRRHRsVkXYeaEPK6ddnHDi3ZovPGztOFNo6UV+pY7i3aU8SPD65nYD6mTvBC+dl3mHu8qy0GZ0gVv5dNqVC7lxdQCBlGW1m+lg7JC5xqz4PLOI2dxHH5IJPZoj/mtY7jZ/2ueeGImwrL1ilFQBRN0MOx2+SxArzOKOigaQzwGZ+pV6AlhC0e9xgRJFpnK2tCOyXldWYQPPD16BXNffXp42Qf7+lMb5I294KbW65u6JLVshT7JjSv0JImjCP3kOMvByKEyK+FPnjZZf1LKtoq7RR5ByrHJVrSm9qZHJx1orBuQ8SpUlMxJjcEPRg6YhzpXpcgFN6qSdr1yB6RWtz3yR/Fx8foSLHBiNI7MUETfTc8BbJOGVBTru70xP9AWDDWjcIM/TUkIZGSeN4/85uCKw/WjlsEyFLxjudKt0fpgjcWh7WLZHxYbC4Gsckch5U14Ka15zDoNKBiFkh19GxTWFCLA==
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:MI3PR04MB12438.eurprd04.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230040)(366016)(1800799024)(7416014)(376014)(23010399003)(19092799006)(10067099003)(11063799006)(4143699003)(56012099006)(261021121427099003)(261026121527099003)(261102123227099003)(261009223327099003)(261009223027099003)(261009221727099003)(261009221227099003)(261009220027099003)(22082099003)(18002099003)(6133799003);
+ DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?RHp4dnV3T01RODltYW0xWTlGdkRHME9VWkJ1MDZXY3gvTlBlU0IzZ0ZpcU1a?=
+ =?utf-8?B?ZG5KZ2xqb0VDOGhKVnovRDMzZWFSRWl2MkozNHNWTzJ2WlBkN2wyMFB3RmZQ?=
+ =?utf-8?B?bkFsRVhYcWFlaFpoS1J0K1Y4cmVXWGlNak85c1B0TFZ2MU9Mek1HQzB6b2U0?=
+ =?utf-8?B?alROVjhySUFPbFZMRVBzSDVjMFNWc2diOUpnYWltOUJPVlBRZ3ozYWJqWWxH?=
+ =?utf-8?B?cDh3WDJ5SDJLSEJOYUxhU2RpNXRiN3NiendOaVVvL3hxMlQ5ZDl6ZkwyZTlU?=
+ =?utf-8?B?ekZrSEE1Y0JEMk5VM3pONTZMSkVoYnZsQlJkaEpodFRyaEYwdnc2dm8vd0RE?=
+ =?utf-8?B?bHZ6Y2MxbWp5R0hNeEVIa3ZOUUpPTWV4ZVVCWk5jK1czUHJ1bDJDOGhaQi9W?=
+ =?utf-8?B?K29VTko4N2wvaU5Tc3ZIM3JEOGRhT0pqS012VWRZQzg0V3IreE9mTmNweGtx?=
+ =?utf-8?B?ME9ZUFFaQWR4bmNtYkR6eGtrUTBGUE55QWJ6WEtuTW1VY1hhR2VvakxOd1Uy?=
+ =?utf-8?B?Unh0U2U4RDZqdWFiRW55ZFpaKzBzMFNSZ1pZMUxiNmtoa3p3YWFvOTI3WDlV?=
+ =?utf-8?B?SW4zYkNhVzNMUng1Y3hpSzYyUzR0Qm11QktVZWdFVEdtVGlqc3BienVzUWhv?=
+ =?utf-8?B?Qyt2aE9QNUx1VG9lZTk2bUpyY2lpZjVpOXB3ZXVtYjVMYUNJWlVQdDNUdG1F?=
+ =?utf-8?B?R3YveHZUMFJ2NmZVRU5SVEtaOXVOTW8vMjFaL01kdVhaSGRFeEZUMGdNV1Z1?=
+ =?utf-8?B?cS9YamFNTk9LelRUcWpEa1kzQlZNSjhRVGZHU2pTUXA1UjB2V1dwanVSdzcr?=
+ =?utf-8?B?NTlTVXovS0RkTkFsRzdEeE4vRmNWdEZ4ZUdYMjFab1E1SHd0Zk5FajNOc1Zn?=
+ =?utf-8?B?VzE1REtzMkZFek5tdWd2STRDVXRtVmJaT3JRLy9GMFdNZUkwVVo5eE80a1dB?=
+ =?utf-8?B?bFZ4eTUzbmhJVW5vMnkvTVZDSmlkQUlDaWU5cnZaZWhGOTVDT3lVclRCTlMw?=
+ =?utf-8?B?dlA2Z3NTUTV0WnYwVUszNDcrbnUwaDZIR1MvbTBwd2ZwRGswNGJFRW04N21Y?=
+ =?utf-8?B?VFFzZ1dDWG52R1lYeGZjd1JUSzhjL1JEc0ZBYlFaSHJkQjNzMklZNTlub0gw?=
+ =?utf-8?B?eHRtYTFoU2NXSWg0RFVtbU0xK24zM3YvdDQ1bmNpYWljcFJVYkFoWXp2cWpu?=
+ =?utf-8?B?MnRKSk12Skx3dXJ4N0ptc1ZjZC82bWswU1ZJQUVGSWZJQ1VHYkFFOXZCYVEz?=
+ =?utf-8?B?UGk2T1NxaVFLWHcyaWxCSkFCdVFPNkxTaTV5UHRRd0NxdE9reHByRlF2YWxW?=
+ =?utf-8?B?S3JuVzdESXduWGt6d3VQOVVRN0VVbXluS21jSTkrNTZzazVCWEFBVHZpek5T?=
+ =?utf-8?B?Tll4V1RYN3hWUmlhVHBjdnVIOUNLblpvbGs1NEdxZm5VZ3dRODQ1K1hBMjdL?=
+ =?utf-8?B?ckExUTl5TjBjandzYmduNXpWTjVoVHdEWVAxMVkvZ0JJSTRUbEdWWUhzSmR1?=
+ =?utf-8?B?a1FiQnBYL3JQS2lPQjJDTlFudThpTTNTd240TmNhM255eGEvUFdlNStHaFpn?=
+ =?utf-8?B?blgvOFg2OXEwVUpIeEZWTkpzVjBGdGwvbkdqWUdHejdJSk9KTUVUdzlYSjNk?=
+ =?utf-8?B?ekg0S2ZQZTVYU3dFaEpyTlRmV3JORmJRM2w5MzhCV0xva3l6Q1FJcGpleDVK?=
+ =?utf-8?B?LzJaZXFjY3lURytMeE1aQ0s1UEdEWGU0NWZRSE03L0MxRlB5M0k1WDYxZmp6?=
+ =?utf-8?B?QjJPZ3lZVE1OZUg3dkpHa1RpZkI4ejZEU253UU5NbzQ0TzhzcVlpUjd4NzJR?=
+ =?utf-8?B?WGhNVWNkWllVWGlDeTdLR3AxT3V5TlRJdmpOQmVpQ3BIUEZJZUN2ajRia0dK?=
+ =?utf-8?B?K28vU2dUc1FHNG9Zc2MxSTI5OGIvSCtrRkhwekY3ajlrelB6VDBnUGtSc25F?=
+ =?utf-8?B?TFh3WTVZRHF5bDFUNHMrUTBwMlIrVVhrcVYzMmoxSlBWVWJlVHQzOHdDdHFa?=
+ =?utf-8?B?K3VwUHpWM2grNnc5eGVaQ1JqNU1FUU52cldYOXErVnNhL2V2dkNmNzVibWpy?=
+ =?utf-8?B?S1lSWEk1U3l5U0dCdmJPM212NVFVZVNwMU1DMWZWb0NRcVVNd1REengxbzVo?=
+ =?utf-8?B?TEdPcGZhRmE3a0tFdDNtYlFyemhpZDAwZXBrOEF2UEQyYjZtb2RPY1h3MklG?=
+ =?utf-8?B?N2VZUE5VclFKUDBGUDgreDVwaCtiQUJyRlpzd29mNGJvb2I5bXJCazEzSVZW?=
+ =?utf-8?B?SlVxWHhSYlpSeHFxVVF2UUM5T20xZ2podFJTbDU4VWxzdlRNdTdsV1N0WExw?=
+ =?utf-8?B?Z1R1UUV1cWlEZHdlK1BwbFROV3BjMk1kcjBvekM0N0IrSVpYZkdhbitrMXRB?=
+ =?utf-8?Q?lg/KbMN6cDJNuuk9DdarxLt9LxDJFBekHGGff?=
+X-OriginatorOrg: oss.nxp.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: c5eb739a-d46b-40eb-7b63-08df43e8182e
+X-MS-Exchange-CrossTenant-AuthSource: MI3PR04MB12438.eurprd04.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 16 Nov 2026 13:47:02.8120 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: Mdqg3vBx9hCegs+4Ra+oGFNChPKkebTPci0RDlWfSahWAH72anKnjKucUH5I32fNbky99Zkq9wFEGh3xTQuOsi3Vee9ykMTZE7mksrDtekO/x23SaNtnjo2olyRkHE8L
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: GV1PR04MB10126
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -50,177 +155,78 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
-Reply-To: sashiko-reviews@lists.linux.dev
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-10.8 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
-	DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
-	INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS autolearn=ham
+X-Spam-Status: No, score=-8.8 required=3.0 tests=BAYES_00,DKIM_SIGNED,
+	DKIM_VALID,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,
+	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS autolearn=ham
 	autolearn_force=no version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
-X-Archived-By: <archiver.kernel.org>
 
-Thank you for your contribution! Sashiko AI review found 2 potential
-issues to consider:
-- [Low] phy: qcom: edp: duplicated v6/v8 definitions and misplaced Nord
-  code
-- [Low] phy: qcom: edp: asymmetric DRV_LVL writes in
-  qcom_edp_tx_res_config_nord()
---
+On Fri, Nov 13, 2026 at 07:18:55PM +0100, Rafael J. Wysocki (Intel) wrote:
+> On Thu, Oct 29, 2026 at 5:31 PM <Frank.Li@oss.nxp.com> wrote:
+> >
+> > From: Frank Li <Frank.Li@nxp.com>
+> >
+> > When CONFIG_PM is not enabled, all devices runtime PM state should be
+> > treated as active.
+> >
+> > __pm_runtime_resume() returns 1 (called by pm_runtime_get()).
+> > pm_runtime_get_if_active() is the try-and-get version of pm_runtime_get().
+> > stub pm_runtime_active() also returns true. So pm_runtime_get_if_active()
+> > should return the same value as the stub pm_runtime_get(), which is 1.
+> >
+> > Analysis of all callers and their behavior with old (-EINVAL) vs new (1):
+> >
+> > Pattern A: if (!pm_runtime_get_if_active(dev)) -- no impact
+> >   Both -EINVAL and 1 are non-zero, so !ret is false in both cases.
+> >   Callers: drivers/accel/ethosu/ethosu_perfmon.c,
+> >            drivers/gpu/drm/msm/adreno/a6xx_gmu.c,
+> >            drivers/gpu/drm/msm/msm_perfcntr.c,
+> >            drivers/gpu/drm/v3d/v3d_mmu.c,
+> >            drivers/gpu/drm/v3d/v3d_perfmon.c (x4),
+> >            drivers/media/i2c/gc08a3.c gc05a2.c og0ve1b.c ov6211.c,
+> >            drivers/media/i2c/ccs/ccs-core.c s5kjn1.c lm3560.c (x2),
+> >            drivers/media/i2c/s5k3m5.c thp7312.c imx283.c ov64a40.c,
+> >            drivers/media/pci/intel/ipu6/ipu6-buttress.c,
+> >            sound/hda/core/device.c
+> >
+> > Pattern B: if (!ret) after get -- no impact
+> >   Both -EINVAL and 1 are non-zero, !ret is false in both cases.
+> >   drivers/gpu/drm/amd/pm/amdgpu_pm.c (comment says "allow access"
+> >     in kernels without CONFIG_PM), drivers/pci/pci.c
+> >
+> > Pattern C: ret > 0 / ret <= 0 / ret != 1 checks -- FIXED
+> >   drivers/usb/core/offload.c: checks (!= 1), old -EINVAL caused
+> >     -EBUSY even with !CONFIG_PM. Fixed: now returns 1, proceeds.
+> >   drivers/accel/ivpu/ivpu_job.c: drm_WARN_ON(<= 0), old -EINVAL
+> >     spuriously triggered WARN. Fixed: 1 > 0, no warn.
+> >   drivers/gpu/drm/i915/intel_runtime_pm.c: checks (<= 0), old
+> >     -EINVAL triggered error path. Fixed: 1 > 0, correct path.
+> >   drivers/accel/ivpu/ivpu_sysfs.c: (> 0), old skipped freq read.
+> >     Fixed: proceeds correctly without CONFIG_PM.
+> >   drivers/gpu/drm/xe/xe_pm.c: wraps (> 0), all xe callers
+> >     (xe_bo.c, xe_shrinker.c, xe_vsec.c, xe_ggtt.c, xe_guc_ct.c,
+> >     xe_pxp.c) now correctly treat !CONFIG_PM as active.
+> >   drivers/net/ipa/ipa_smp2p.c: power_on = (> 0), now correctly true.
+> >   drivers/iommu/arm/arm-smmu/arm-smmu-qcom.c: (> 0), now correctly
+> >     executes stall register update.
+> >   drivers/staging/media/ipu7/ipu7-buttress.c: active (<= 0) early
+> >     return now skipped, correctly proceeds.
+> >
+> > Pattern D: explicit -EINVAL check
+> >   drivers/hwmon/prom21-xhci.c: checks (> 0) then (== -EINVAL).
+> >     Old: took -EINVAL fallback. New: takes (> 0) fast path.
+> >     Both succeed when CONFIG_PM is disabled; functionally equivalent.
+> >   drivers/hwmon/eic7700-pvt.c: call is guarded by IS_ENABLED(CONFIG_PM),
+> >     stub is never reached. No impact.
+> >
+> > Signed-off-by: Frank Li <Frank.Li@nxp.com>
+>
+> People sent feedback, so I'm wondering if there's going to be a v2 or
+> does someone else need to take care of this going forward?
 
-commit d8ce2b9ae0271c780b642dc599049c73dd865127
-Author: Ritesh Kumar <ritesh.kumar@oss.qualcomm.com>
+Sorry, I forget this thread. I will post v2 soon.
 
-phy: qcom: edp: Add Nord eDP/DP PHY support
+Frank
 
-This commit adds eDP/DP PHY support, callbacks, configuration tables, and t=
-he
-qcom,nord-dp-phy compatible string for the Qualcomm Nord SoC.
-
-> diff --git a/drivers/phy/qualcomm/phy-qcom-edp.c b/drivers/phy/qualcomm/p=
-hy-qcom-edp.c
-> index c61e57cc2aa7b..d5de6d322f023 100644
-> --- a/drivers/phy/qualcomm/phy-qcom-edp.c
-> +++ b/drivers/phy/qualcomm/phy-qcom-edp.c
-> @@ -27,6 +27,7 @@
->  #include "phy-qcom-qmp-qserdes-com-v6.h"
-> =20
->  #include "phy-qcom-qmp-qserdes-dp-com-v8.h"
-> +#include "phy-qcom-qmp-qserdes-dp-com-v8-nord.h"
-> =20
->  /* EDP_PHY registers */
->  #define DP_PHY_CFG                              0x0010
-> @@ -1514,6 +1515,262 @@ static int qcom_edp_phy_probe(struct platform_dev=
-ice *pdev)
->  	return PTR_ERR_OR_ZERO(phy_provider);
->  }
-> =20
-> +static const u8 nord_dp_pre_emp_hbr_rbr[4][4] =3D {
-
-[ ... ]
-
-> +static const u8 edp_phy_vco_div_cfg_nord[4] =3D {
-> +	0x00, 0x00, 0x02, 0x01,
-> +};
-> +
-> +static int qcom_edp_ldo_config_nord(const struct qcom_edp *edp)
-> +{
-> +	const struct phy_configure_opts_dp *dp_opts =3D &edp->dp_opts;
-> +
-> +	writel(0xd0, edp->tx0 + TXn_LDO_CONFIG);
-> +	writel(dp_opts->lanes > 2 ? 0xd0 : 0x00, edp->tx1 + TXn_LDO_CONFIG);
-> +	writel(0x03, edp->edp + DP_PHY_LDO_CFG_NORD);
-> +
-> +	return 0;
-> +}
-> +
-> +static int qcom_edp_tx_res_config_nord(const struct qcom_edp *edp)
-> +{
-> +	writel(0x06, edp->tx0 + TXn_RES_CODE_LANE_OFFSET_TX0);
-> +	writel(0x06, edp->tx0 + TXn_RES_CODE_LANE_OFFSET_TX1);
-> +	writel(0x06, edp->tx1 + TXn_RES_CODE_LANE_OFFSET_TX0);
-> +	writel(0x06, edp->tx1 + TXn_RES_CODE_LANE_OFFSET_TX1);
-> +	writel(0x06, edp->tx0 + TXn_TX_EMP_POST1_LVL);
-> +	writel(0x06, edp->tx1 + TXn_TX_EMP_POST1_LVL);
-> +	writel(0x05, edp->tx0 + TXn_TX_BAND_NORD);
-> +	writel(0x05, edp->tx1 + TXn_TX_BAND_NORD);
-> +	writel(0x12, edp->edp + DP_PHY_TX_LN0_DRV_LVL_NORD);
-> +	writel(0x12, edp->edp + DP_PHY_TX_LN1_DRV_LVL_NORD);
-> +
-> +	return 0;
-> +}
-
-[Severity: Low]
-As reported by Dmitry Baryshkov on v2 [1], should initial TX drive-level
-programming be handled symmetrically between qcom_edp_tx_res_config_nord()
-and qcom_edp_tx_res_config_default()?
-
-qcom_edp_tx_res_config_nord() programs DP_PHY_TX_LN0_DRV_LVL_NORD and
-DP_PHY_TX_LN1_DRV_LVL_NORD, whereas qcom_edp_tx_res_config_default() omits
-TXn_TX_DRV_LVL and leaves those writes hardcoded in qcom_edp_phy_power_on():
-
-drivers/phy/qualcomm/phy-qcom-edp.c:qcom_edp_phy_power_on() {
-    ...
-	ret =3D edp->cfg->ver_ops->tx_res_config(edp);
-	if (ret)
-		return ret;
-	writel(0x1f, edp->tx0 + TXn_TX_DRV_LVL);
-	writel(0x1f, edp->tx1 + TXn_TX_DRV_LVL);
-    ...
-}
-
-Because qcom_edp_phy_power_on() unconditionally writes 0x1f to TXn_TX_DRV_L=
-VL
-after calling tx_res_config(), Nord still executes the legacy TXn_TX_DRV_LVL
-writes even though it relocates drive-level control to
-DP_PHY_TX_LN0_DRV_LVL_NORD and DP_PHY_TX_LN1_DRV_LVL_NORD.
-
-> +
-> +static int qcom_edp_phy_power_on_nord(const struct qcom_edp *edp)
-> +{
-> +	u32 val;
-> +
-> +	writel(DP_PHY_PD_CTL_PWRDN | DP_PHY_PD_CTL_AUX_PWRDN |
-> +	       DP_PHY_PD_CTL_LANE_0_1_PWRDN | DP_PHY_PD_CTL_LANE_2_3_PWRDN |
-> +	       DP_PHY_PD_CTL_PLL_PWRDN | DP_PHY_PD_CTL_DP_CLAMP_EN,
-> +	       edp->edp + DP_PHY_PD_CTL);
-> +	writel(0xfc, edp->edp + DP_PHY_MODE);
-> +
-> +	return readl_poll_timeout(edp->pll + NORD_DP_QSERDES_COM_CMN_STATUS,
-> +				  val, val & BIT(7), 5, 200);
-> +}
-> +
-> +static int qcom_edp_phy_com_resetsm_cntrl_nord(const struct qcom_edp *ed=
-p)
-> +{
-> +	u32 val;
-> +
-> +	writel(0x20, edp->pll + NORD_DP_QSERDES_COM_RESETSM_CNTRL);
-> +
-> +	return readl_poll_timeout(edp->pll + NORD_DP_QSERDES_COM_C_READY_STATUS,
-> +				  val, val & BIT(0), 500, 10000);
-> +}
-
-[ ... ]
-
->  static const struct of_device_id qcom_edp_phy_match_table[] =3D {
->  	{ .compatible =3D "qcom,glymur-dp-phy", .data =3D &glymur_phy_cfg, },
->  	{ .compatible =3D "qcom,sa8775p-edp-phy", .data =3D &sa8775p_dp_phy_cfg=
-, },
-> @@ -1522,6 +1779,7 @@ static const struct of_device_id qcom_edp_phy_match=
-_table[] =3D {
->  	{ .compatible =3D "qcom,sc8280xp-dp-phy", .data =3D &sc8280xp_dp_phy_cf=
-g, },
->  	{ .compatible =3D "qcom,sc8280xp-edp-phy", .data =3D &sc8280xp_edp_phy_=
-cfg, },
->  	{ .compatible =3D "qcom,x1e80100-dp-phy", .data =3D &x1e80100_phy_cfg, =
-},
-> +	{ .compatible =3D "qcom,nord-dp-phy", .data =3D &nord_edp_phy_cfg, },
->  	{ }
->  };
->  MODULE_DEVICE_TABLE(of, qcom_edp_phy_match_table);
-
-[Severity: Low]
-Can Nord reuse the existing v6 and v8 definitions instead of duplicating
-them?
-
-All 40 NORD_DP_QSERDES_COM_* offsets in phy-qcom-qmp-qserdes-dp-com-v8-nord=
-.h
-are identical to the QSERDES_V6_COM_* offsets in
-phy-qcom-qmp-qserdes-com-v6.h, which is already included in this file.
-Consequently, qcom_edp_phy_power_on_nord() and
-qcom_edp_phy_com_resetsm_cntrl_nord() are identical to
-qcom_edp_phy_power_on_v6() and qcom_edp_phy_com_resetsm_cntrl_v6(), and
-edp_phy_vco_div_cfg_nord is identical to edp_phy_vco_div_cfg_v8.
-
-Also, the Nord register macros, configuration tables, and callbacks are
-placed after qcom_edp_phy_probe() instead of alongside the other SoC
-definitions earlier in the file, and qcom,nord-dp-phy is appended to the end
-of the alphabetically sorted qcom_edp_phy_match_table[].
-
-[1] https://lore.kernel.org/r/qqfucmyebsvemdr5px33wabsxxq4owozwmxcqu62sprs5=
-k32bo@kb5pjx2m4ucq
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261116-nord-drv-d=
-t-v3-0-e3d3bf0e2c49@oss.qualcomm.com?part=3D11
