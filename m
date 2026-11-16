@@ -2,72 +2,108 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1BF7C606A880
-	for <dri-devel@archiver.kernel.org>; Mon, 16 Nov 2026 18:00:50 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D18E1606A33D
+	for <dri-devel@archiver.kernel.org>; Mon, 16 Nov 2026 18:03:36 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=czzKdeD5
+	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=n9LaP2nI
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 7B98110E291;
-	Mon, 16 Nov 2026 18:00:44 +0000 (UTC)
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.16])
- by gabe.freedesktop.org (Postfix) with ESMTPS id C1D0E10E291
- for <dri-devel@lists.freedesktop.org>; Mon, 16 Nov 2026 18:00:38 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1794852039; x=1826388039;
- h=date:from:to:cc:subject:message-id:references:
- mime-version:in-reply-to;
- bh=wWTaX5iA12+M0wZvVENhAikZT3twTo+LW7rgrLUSPGY=;
- b=czzKdeD5M0VQO/XLCplAUBt5kG6UTfNZAHDTc2cz0yCI3u0+CL5tG04V
- 5sps0E3mUUYovZhtmiX5uRJpw/tbTenewKzM9T48fD1zkdDmsShyrgrGq
- /nU+js8h+5xqu/wvI7dUrLtZfzWDMfyCNWO9wVJX1rdYwrn2w5X/KXvCy
- 6ICDeS6no7jIfC2xPDV2rMU8XlY0pizIVdYYaMtt3QuMLPCT9oG3i0WVi
- nsdpBpQAhnarZ/M8VkG9mSXahpIGWeZ7iqjHIkE4I6uAhd0vVOOhDKrf5
- t7uLxMsw8O32IUZT64R4Z7aQReydrPlOJ4bhFZ0XKk7Hz/1fMFJXjqaez w==;
-X-CSE-ConnectionGUID: XUm0H7t4QBaDdpgY30SknA==
-X-CSE-MsgGUID: BMiI8jIoQJCsAvyfhEePNg==
-X-IronPort-AV: E=McAfee;i="6800,10657,11968"; a="3632824"
-X-IronPort-AV: E=Sophos;i="6.27,217,1787036400"; 
-   d="scan'208";a="3632824"
-Received: from orviesa006.jf.intel.com ([10.64.159.146])
- by fmvoesa110.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 16 Nov 2026 10:00:39 -0800
-X-CSE-ConnectionGUID: RV4zCj+tTT6w/vcjLZb1Bw==
-X-CSE-MsgGUID: r6GgFtjpRX2f2sT+idN6jA==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,217,1787036400"; 
-   d="scan'208";a="9591695"
-Received: from lkp-server01.sh.intel.com (HELO 0caa9d2d175c) ([10.239.97.150])
- by orviesa006.jf.intel.com with ESMTP; 16 Nov 2026 10:00:34 -0800
-Received: from kbuild by 0caa9d2d175c with local (Exim 4.98.2)
- (envelope-from <lkp@intel.com>) id 1xT10J-000000019Bc-1yxt;
- Mon, 16 Nov 2026 18:00:31 +0000
-Date: Tue, 17 Nov 2026 02:00:13 +0800
-From: kernel test robot <lkp@intel.com>
-To: Ketil Johnsen <ketil.johnsen@arm.com>,
- Boris Brezillon <bbrezillon@kernel.org>,
- Steven Price <steven.price@arm.com>,
- Liviu Dudau <liviu.dudau@arm.com>, Akash Goel <akash.goel@arm.com>,
- Karunika Choo <karunika.choo@arm.com>,
- Lukas Zapolskas <lukas.zapolskas@arm.com>,
- Chris Diamand <chris.diamand@arm.com>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>,
- Thomas Zimmermann <tzimmermann@suse.de>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- Daniel Almeida <daniel.almeida@collabora.com>,
- Alice Ryhl <aliceryhl@google.com>
-Cc: oe-kbuild-all@lists.linux.dev, dri-devel@lists.freedesktop.org,
- linux-kernel@vger.kernel.org, rust-for-linux@vger.kernel.org,
- Ketil Johnsen <ketil.johnsen@arm.com>
-Subject: Re: [PATCH v5 11/13] drm/panthor: Support FW init of protm
-Message-ID: <202611170131.5ommYcYW-lkp@intel.com>
-References: <20261116112601.3483649-12-ketil.johnsen@arm.com>
+	by gabe.freedesktop.org (Postfix) with ESMTP id 3072510E447;
+	Mon, 16 Nov 2026 18:03:31 +0000 (UTC)
+Received: from mail-ej1-f43.google.com (mail-ej1-f43.google.com
+ [209.85.218.43])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id B0E3110E447
+ for <dri-devel@lists.freedesktop.org>; Mon, 16 Nov 2026 18:03:25 +0000 (UTC)
+Received: by mail-ej1-f43.google.com with SMTP id
+ a640c23a62f3a-c4d427836e9so499835566b.1
+ for <dri-devel@lists.freedesktop.org>; Mon, 16 Nov 2026 10:03:25 -0800 (PST)
+ARC-Seal: i=1; a=rsa-sha256; t=1794852204; cv=none;
+ d=google.com; s=arc-20260327;
+ b=fDVG1K+ejIlk15qfPWmGer6FalC6eXsi9ebODIcHGQ6uHmDlFQO/s8ELOZuacnxxpu
+ KxU4T8G1rujnmnme/eduoXG4z/5ZCkBdFEXPT5eLWUcPoLtc42UUNtWRxfo5PeALtNd/
+ aSjchUno9r19G8+s561aNzfr2jO6mxC36y1rNhB0AwewLF7GEBgrgLRkmEyIUweWZj7n
+ 9cC366qniL4hyI8yj0mjp5KHghu2nRVjtVev2StVN4bn3ugEjdpo2VFp7o3qQwQGMnjl
+ enBh1R6WNQbNneBA4E7pqPskH9NQ3M393QXUUrWxcBkidCUs5pQ6MEYAW/BLIBgSs6qE
+ IjuA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com;
+ s=arc-20260327; 
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:dkim-signature;
+ bh=UsEi7nj+gIWpohML70hey3/GRg+ovwcWW0/uBKwbaX0=;
+ fh=UwGKJdq4dupUukV8uN7sTzaFHGySaObqHsV6fFwPex4=;
+ b=B35CLKDr2MUgsnlu73eqGN/b+bodEWna9BfDpRW3ZlplO0WFEccFWpquf6+e5jgVsr
+ u6po+pAMnHPzTCSZqEINTOmcmrsclFx8pYqek4A3bkCFJ5ABaR9eeg5xJYJlxzkvzyJ4
+ ZvPCgckmuCa+Gy6KsKWSrojMkd98q/8xKCAN/J2nOAXcK5pBOJdfh8y1Jw58y8TNIQwG
+ ROrXn0nJyLQEHX98xEQO0OOHocEB6CdN5jlMt1apCqVJYncNtLjCLlAca3QnrRRypLht
+ 2LTxYEoGwcwahKDdorAMSE+HhOw6BPtV6mIplS6U5VSAX6Oc3TJtT30pvea8Jal/9B/8
+ c+gw==; darn=lists.freedesktop.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=google.com; s=20260707; t=1794852204; x=1795457004;
+ darn=lists.freedesktop.org; 
+ h=content-transfer-encoding:content-type:cc:to:subject:message-id
+ :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+ :date:message-id:reply-to:content-type;
+ bh=UsEi7nj+gIWpohML70hey3/GRg+ovwcWW0/uBKwbaX0=;
+ b=n9LaP2nIWtV1JlwObq2Qn3x5SaQLad0y5f8o/zf5g7npZ994yVAaE9pLjKCBlfADTk
+ VqzKWkYyOGMF9SyDYZYqHdZEG39Gbo0KsBxhsMxm/tQgTt0sx2b/GhhMSewODHbPEolQ
+ uURpfO1lSKQf41ZNCDxmmZbxXyuORVmv9RUed+z2qhsoYnm3jK13CP4hvj7EZguSPs8K
+ jmGCHRGOITAvWBbGTk3m4vM4aSj63mTzSWnWnMyq+y5ySdu8ksXud2lQ2Ew/s6FpmIwI
+ Eapa0tm6ZNJaYSFHZjAKPYN4LaKeNbaRdOYez/mlOwvgX0Uy9VKgaE8vjhu0LaKCEf0B
+ YQjA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20260707; t=1794852204; x=1795457004;
+ h=content-transfer-encoding:content-type:cc:to:subject:message-id
+ :date:from:in-reply-to:references:mime-version:x-gm-gg
+ :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+ :content-type;
+ bh=UsEi7nj+gIWpohML70hey3/GRg+ovwcWW0/uBKwbaX0=;
+ b=XYYse10hs0wsLPQET6LwoyKoRs1Gc8gvem30yfqNvbod+o24aiU2xDz9LsbHo9UL4H
+ 1Dzsr9PhiYCvZaBV8yGQuWl27onKc1Ch4GbjsnM3sJQ8XjEal9YZXtWg3GxXtvs9CtVr
+ 4qbEktuHCOGjZVuBqP+Mmc01kcX9IS6Ie9unwkX/o2MRy0Jly2dfCHG+S9+F1xwEJJkM
+ rBz+kzIwsj3rZAEPMXx6Fh8SZfsiJHryN9CZxTDls8YDFQIjG8UNts8fRXTTWe8l/vtA
+ Zpb8+ykVD8YdKZg3XE5x8JnCtjSQWJKqKMneO0kexLjZxizoS6BNKJcjpsZ8VJxKKsoz
+ VgGg==
+X-Forwarded-Encrypted: i=1;
+ AL+hErGw3de1GKGuIGEdFGbKhIO3E4WRs/IYIzb2HcV9ZS1IMEh6otTYpzPhHhmUh3vOT5dRk1wwlR/YHhk=@lists.freedesktop.org
+X-Gm-Message-State: APuU4Z95y+Lr2sP4mzXrnTNec0D/nBRGfyNWHiuF8vL7gcTWRHDQsBDG
+ POTKYf8H09jY8MatSIG6YFJ3C8F+W0CmwACWz8f+MMUoM6yzujTCPItgZUXqBRHdBnDp59mH0Km
+ yCMUIGZRUKzHsPdiYp3LHaU8pLx+SE9iwJPAu4UZq
+X-Gm-Gg: AYBFou1GxuEsKenww02KOuUfu4kNWSbgM+DyFqfN7XN6LbV49A26kex4iCGlKCQl4uR
+ v7GG8GySsq4/pCYVY6Cfjej6cpdzcn8RM+ce1x3Cutt6Y0DWpBv62N2UJR7gSed/I7TskhexRck
+ uLTRWs63oKmolAx5VJNUn5ZQFBnHYagg7BA6dXJVTK2cPCnBMKjdKXLMc5tQW+Dil1huoWtFZr8
+ YLeIOSroa1w7NUakELUP33hxOaP9aPcvYJu/vRuWBsYqWEXPubyG30+zKu04ziILpNNgsMrjmzY
+ 9uGKITZgJw+imB959wgZDjuryXSdJxuvDb5DFasOaykDxWJxOEG95GOxokxBpOHZdaRU9AaqVT6
+ PCiFP/qafbP3SUXy+xD/PBK9Rn5XHWVofcyAr1LUNCC7NQUbhGumzerpZOOY=
+X-Received: by 2002:a17:907:ea92:b0:c49:cdc8:10cf with SMTP id
+ a640c23a62f3a-c50963df2ccmr868161066b.40.1794852203026; Mon, 16 Nov 2026
+ 10:03:23 -0800 (PST)
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261116112601.3483649-12-ketil.johnsen@arm.com>
+References: <20261111192411.4133780-1-dmatlack@google.com>
+ <avYjFfqr3T/U7lvn@devgpu015.cco6.facebook.com>
+ <DMTK99TDM9AM.SAM3Z4COP9WS@google.com> <20261115231946.GB1239159@nvidia.com>
+In-Reply-To: <20261115231946.GB1239159@nvidia.com>
+From: David Matlack <dmatlack@google.com>
+Date: Mon, 16 Nov 2026 10:02:56 -0800
+X-Gm-Features: AclHuK98Rk-099iLtslJwrWtAxHkQR-ncmpykOH17KTcOCuNGBfykDUUL8uCEbE
+Message-ID: <CALzav=efnA_ABCZVicX0QeTmHknaEbMeWOy8cS+zHYVhm5z+iw@mail.gmail.com>
+Subject: Re: [RFC PATCH 0/7] vfio: selftests: Add peer-to-peer DMA selftest
+To: Jason Gunthorpe <jgg@nvidia.com>
+Cc: Alex Mastro <amastro@fb.com>, dri-devel@lists.freedesktop.org,
+ iommu@lists.linux.dev, 
+ kvm@vger.kernel.org, linaro-mm-sig@lists.linaro.org, 
+ linux-kernel@vger.kernel.org, linux-kselftest@vger.kernel.org, 
+ linux-media@vger.kernel.org, linux-pci@vger.kernel.org, 
+ Alex Williamson <alex@shazbot.org>, Bjorn Helgaas <bhelgaas@google.com>, 
+ =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>, 
+ Josh Hilke <jrhilke@google.com>, Kevin Tian <kevin.tian@intel.com>, 
+ Leon Romanovsky <leon@kernel.org>, Logan Gunthorpe <logang@deltatee.com>,
+ Matt Evans <mattev@meta.com>, 
+ Matt Evans <matt@ozlabs.org>, Mina Almasry <almasrymina@google.com>, 
+ Samiullah Khawaja <skhawaja@google.com>, Shuah Khan <shuah@kernel.org>, 
+ Sumit Semwal <sumit.semwal@linaro.org>, Vipin Sharma <vipinsh@google.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -79,50 +115,43 @@ List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-10.8 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
+X-Spam-Status: No, score=-13.3 required=3.0 tests=BAYES_00,DKIMWL_WL_MED,
 	DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
-	MAILING_LIST_MULTI,MENTIONS_GIT_HOSTING,SPF_HELO_NONE,SPF_PASS
-	autolearn=unavailable autolearn_force=no version=4.0.1
+	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,USER_IN_DEF_DKIM_WL
+	autolearn=no autolearn_force=no version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-Hi Ketil,
+On Sun, Nov 15, 2026 at 3:19=E2=80=AFPM Jason Gunthorpe <jgg@nvidia.com> wr=
+ote:
+>
+> On Thu, Nov 12, 2026 at 01:47:03PM -0800, David Matlack wrote:
+> > On Thu Nov 12, 2026 at 12:35 PM PST, Alex Mastro wrote:
+> > > Hey David,
+> > >
+> > > On Wed, Nov 11, 2026 at 07:24:04PM +0000, David Matlack wrote:
+> > >
+> > >>     Is requiring userspace to re-issue IOMMU_IOAS_MAP_FILE the expec=
+ted
+> > >>     uAPI behavior?
+>
+> Yes. Even if we wanted to the locking is doesn't allow trying to do it
+> automatically.
+>
+> > The way I designed the P2P selftest support requires 2 things:
+> >
+> >  (A) initiator: A device that has a VFIO selftests driver.
+> >  (B) target: A device that can provide a memory BAR (vfio_pci_find_mem_=
+bar()).
+> >
+> > So far I haven't found a single device that can do both. But you are
+> > right that theoretically a single device could satisfy both
+> > requirements.
+>
+> mlx5 can do both
 
-kernel test robot noticed the following build warnings:
+Looks like GPUs and NVMe can do both as well.
 
-[auto build test WARNING on drm-misc/drm-misc-next]
-[also build test WARNING on next-20261113]
-[cannot apply to linux-review/Ketil-Johnsen/drm-panthor-De-duplicate-FW-memory-section-sync/20261012-145929 linus/master v7.4-rc3]
-[If your patch is applied to the wrong git tree, kindly drop us a note.
-And when submitting patch, we suggest to use '--base' as documented in
-https://git-scm.com/docs/git-format-patch#_base_tree_information]
-
-url:    https://github.com/intel-lab-lkp/linux/commits/Ketil-Johnsen/drm-panthor-De-duplicate-FW-memory-section-sync/20261116-122549
-base:   https://gitlab.freedesktop.org/drm/misc/kernel.git drm-misc-next
-patch link:    https://lore.kernel.org/r/20261116112601.3483649-12-ketil.johnsen%40arm.com
-patch subject: [PATCH v5 11/13] drm/panthor: Support FW init of protm
-config: sparc64-randconfig-1000-20261116 (https://download.01.org/0day-ci/archive/20261117/202611170131.5ommYcYW-lkp@intel.com/config)
-compiler: sparc64-linux-gcc (GCC) 15.3.0
-reproduce (this is a W=1 build): (https://download.01.org/0day-ci/archive/20261117/202611170131.5ommYcYW-lkp@intel.com/reproduce)
-
-If you fix the issue in a separate patch/commit (i.e. not just a new version of
-the same patch/commit), kindly add following tags
-| Reported-by: kernel test robot <lkp@intel.com>
-| Closes: https://lore.kernel.org/oe-kbuild-all/202611170131.5ommYcYW-lkp@intel.com/
-
-All warnings (new ones prefixed by >>):
-
-   Warning: drivers/gpu/drm/panthor/panthor_fw.c:145 Excess struct member 'start' description in 'panthor_fw_binary_section_entry_hdr' (did you mean one of: 'va.start', 'data.start')
-   Warning: drivers/gpu/drm/panthor/panthor_fw.c:145 Excess struct member 'end' description in 'panthor_fw_binary_section_entry_hdr' (did you mean one of: 'va.end', 'data.end')
-   Warning: drivers/gpu/drm/panthor/panthor_fw.c:208 Excess struct member 'buf' description in 'panthor_fw_section' (did you mean one of: 'data.buf')
->> Warning: drivers/gpu/drm/panthor/panthor_fw.c:299 struct member 'protm' not described in 'panthor_fw'
-   Warning: drivers/gpu/drm/panthor/panthor_fw.c:299 Excess struct member 'ping_work' description in 'panthor_fw' (did you mean one of: 'watchdog.ping_work')
-   Warning: drivers/gpu/drm/panthor/panthor_fw.c:145 Excess struct member 'start' description in 'panthor_fw_binary_section_entry_hdr' (did you mean one of: 'va.start', 'data.start')
-   Warning: drivers/gpu/drm/panthor/panthor_fw.c:145 Excess struct member 'end' description in 'panthor_fw_binary_section_entry_hdr' (did you mean one of: 'va.end', 'data.end')
-   Warning: drivers/gpu/drm/panthor/panthor_fw.c:208 Excess struct member 'buf' description in 'panthor_fw_section' (did you mean one of: 'data.buf')
->> Warning: drivers/gpu/drm/panthor/panthor_fw.c:299 struct member 'protm' not described in 'panthor_fw'
-   Warning: drivers/gpu/drm/panthor/panthor_fw.c:299 Excess struct member 'ping_work' description in 'panthor_fw' (did you mean one of: 'watchdog.ping_work')
-
--- 
-0-DAY CI Kernel Test Service
-https://github.com/intel/lkp-tests/wiki
+How would we implement vfio_pci_find_mem_bar() for mlx5? BTW for the
+target device, by "a memory BAR" I meant "a region of a memory BAR
+that behaves like normal RAM". Sorry that was not clear.
