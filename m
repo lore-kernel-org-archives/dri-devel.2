@@ -2,29 +2,29 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BD47E606A8B5
-	for <dri-devel@archiver.kernel.org>; Mon, 16 Nov 2026 11:27:00 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B3821606AB56
+	for <dri-devel@archiver.kernel.org>; Mon, 16 Nov 2026 11:27:01 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=fail reason="signature verification failed" (1024-bit key) header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=foss header.b=msp/g4el
+	dkim=fail reason="signature verification failed" (1024-bit key) header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=foss header.b=oYR3Q17V
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 902EC10E3A2;
-	Mon, 16 Nov 2026 11:26:54 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id BAC5910EF73;
+	Mon, 16 Nov 2026 11:26:55 +0000 (UTC)
 Received: from foss.arm.com (foss.arm.com [217.140.110.172])
- by gabe.freedesktop.org (Postfix) with ESMTP id 58B6510EF74
- for <dri-devel@lists.freedesktop.org>; Mon, 16 Nov 2026 11:26:37 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTP id 4E18910E3A2
+ for <dri-devel@lists.freedesktop.org>; Mon, 16 Nov 2026 11:26:49 +0000 (UTC)
 Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
- by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id DD5A01A25;
- Mon, 16 Nov 2026 03:26:33 -0800 (PST)
+ by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id DF8A21713;
+ Mon, 16 Nov 2026 03:26:45 -0800 (PST)
 Received: from e120398-lin.trondheim.arm.com (e120398-lin.trondheim.arm.com
  [10.42.46.160])
- by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 7D30D3F632;
- Mon, 16 Nov 2026 03:26:33 -0800 (PST)
+ by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 7F14F3F9A2;
+ Mon, 16 Nov 2026 03:26:45 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
- t=1794828396; bh=djCV46gFXSUjJDLnpEYs3SS+/BUK3Xz8k+mzlUb3qnI=;
+ t=1794828408; bh=BMIS0FP095oGN0RpoWacZRu0RNuTHjIHrs+5UcM7wG4=;
  h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=msp/g4elUBPDMpMIQurlyEfGRyu7yDUHESwjbVZPZy6BK6UAJ8aFjKU+94aGIpaQX
- RJ0bgxPMu8MxFxt2aw4QuTm95hgMfXrjWcRcQVNY10MHQ1iMmVhLRso4ZjDApAwWTP
- iZeGZlYC435DNG0ZYUbvVbQyk8GmtCqqyY0UPqW0=
+ b=oYR3Q17V14rrhzf3ig0YHnB9UJGFD67vMrogJ9zu9Y7HTKGaDPc19Cqf78EpNhXNt
+ p4+OmgNk1FTsp7it8kfzQ9gxSbkjbbXku200c4tZhbqbkUQ835x+ee+C802wmFPilt
+ 84iKfIXQsFLmIs7x7FBSUBHuPdD0ub3JnqNGlTOI=
 From: Ketil Johnsen <ketil.johnsen@arm.com>
 To: Boris Brezillon <boris.brezillon@collabora.com>,
  Steven Price <steven.price@arm.com>, Liviu Dudau <liviu.dudau@arm.com>,
@@ -39,9 +39,9 @@ To: Boris Brezillon <boris.brezillon@collabora.com>,
  Alice Ryhl <aliceryhl@google.com>
 Cc: dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
  rust-for-linux@vger.kernel.org, Ketil Johnsen <ketil.johnsen@arm.com>
-Subject: [PATCH v5 04/13] drm/panthor: Don't allocate protm_suspend_buf
-Date: Mon, 16 Nov 2026 12:25:52 +0100
-Message-ID: <20261116112601.3483649-5-ketil.johnsen@arm.com>
+Subject: [PATCH v5 07/13] drm/panthor: Keep size and VA in FW section obj
+Date: Mon, 16 Nov 2026 12:25:55 +0100
+Message-ID: <20261116112601.3483649-8-ketil.johnsen@arm.com>
 X-Mailer: git-send-email 2.43.0
 In-Reply-To: <20261116112601.3483649-1-ketil.johnsen@arm.com>
 References: <20261116112601.3483649-1-ketil.johnsen@arm.com>
@@ -66,51 +66,70 @@ X-Spam-Status: No, score=-16.6 required=3.0 tests=BAYES_00,DKIM_INVALID,
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-The PROTM suspend buffer is only needed if the group is going to
-use PROTM in the first place, so let's not assume we need one until
-we're being asked to.
+From: Boris Brezillon <boris.brezillon@collabora.com>
 
-Reviewed-by: Boris Brezillon <boris.brezillon@collabora.com>
-Reviewed-by: Steven Price <steven.price@arm.com>
-Reviewed-by: Liviu Dudau <liviu.dudau@arm.com>
+Keep a copy of the FW section size and VA in the
+panthor_fw_section object. We need this in the future when handling
+late init of protected memory for FW sections of type
+CSF_FW_BINARY_IFACE_ENTRY_PROT.
+
+Signed-off-by: Boris Brezillon <boris.brezillon@collabora.com>
+Co-developed-by: Ketil Johnsen <ketil.johnsen@arm.com>
 Signed-off-by: Ketil Johnsen <ketil.johnsen@arm.com>
----
- drivers/gpu/drm/panthor/panthor_sched.c | 14 ++++----------
- 1 file changed, 4 insertions(+), 10 deletions(-)
 
-diff --git a/drivers/gpu/drm/panthor/panthor_sched.c b/drivers/gpu/drm/panthor/panthor_sched.c
-index c75be18d24274..e67fd0fe20144 100644
---- a/drivers/gpu/drm/panthor/panthor_sched.c
-+++ b/drivers/gpu/drm/panthor/panthor_sched.c
-@@ -3641,9 +3641,11 @@ static void add_group_kbo_sizes(struct panthor_device *ptdev,
- 	if (drm_WARN_ON(&ptdev->base, ptdev != group->ptdev))
- 		return;
- 
--	group->fdinfo.kbo_sizes += group->suspend_buf->obj->size;
--	group->fdinfo.kbo_sizes += group->protm_suspend_buf->obj->size;
- 	group->fdinfo.kbo_sizes += group->syncobjs->obj->size;
-+	group->fdinfo.kbo_sizes += group->suspend_buf->obj->size;
+---
+
+v4:
+- First version of this change as a separate commit
+---
+ drivers/gpu/drm/panthor/panthor_fw.c | 21 +++++++++++++++------
+ 1 file changed, 15 insertions(+), 6 deletions(-)
+
+diff --git a/drivers/gpu/drm/panthor/panthor_fw.c b/drivers/gpu/drm/panthor/panthor_fw.c
+index 7b8c90b19f4fe..fc07796fc9ef7 100644
+--- a/drivers/gpu/drm/panthor/panthor_fw.c
++++ b/drivers/gpu/drm/panthor/panthor_fw.c
+@@ -198,6 +198,12 @@ struct panthor_fw_section {
+ 		/** @size: Size of @buf in bytes. */
+ 		size_t size;
+ 	} data;
 +
-+	if (group->protm_suspend_buf)
-+		group->fdinfo.kbo_sizes += group->protm_suspend_buf->obj->size;
++	/** @size: Section size. */
++	size_t size;
++
++	/** @va: Section VA. */
++	u32 va;
+ };
  
- 	for (i = 0; i < group->queue_count; i++) {
- 		queue =	group->queues[i];
-@@ -3724,14 +3726,6 @@ int panthor_group_create(struct drm_file *file,
- 		goto err_put_group;
+ #define CSF_MCU_SHARED_REGION_START		0x04000000ULL
+@@ -669,18 +675,21 @@ static int panthor_fw_load_section_entry(struct panthor_device *ptdev,
+ 		section->name = name;
  	}
  
--	suspend_size = csg_iface->control->protm_suspend_size;
--	group->protm_suspend_buf = panthor_fw_alloc_suspend_buf_mem(ptdev, suspend_size);
--	if (IS_ERR(group->protm_suspend_buf)) {
--		ret = PTR_ERR(group->protm_suspend_buf);
--		group->protm_suspend_buf = NULL;
--		goto err_put_group;
--	}
--
- 	group->syncobjs = panthor_kernel_bo_create(ptdev, group->vm,
- 						   group_args->queues.count *
- 						   sizeof(struct panthor_syncobj_64b),
++	section->size = section_size;
++	section->va = hdr.va.start;
++
+ 	if (section_size) {
+ 		u32 vm_map_flags = section_vm_map_flags(section);
+-		u64 va = hdr.va.start;
+ 
+-		section->mem = panthor_kernel_bo_create(ptdev, panthor_fw_vm(ptdev),
+-							section_size,
+-							DRM_PANTHOR_BO_NO_MMAP,
+-							vm_map_flags, va, "FW section");
++		section->mem = panthor_kernel_bo_create(
++			ptdev, panthor_fw_vm(ptdev), section->size,
++			DRM_PANTHOR_BO_NO_MMAP, vm_map_flags, section->va,
++			"FW section");
+ 		if (IS_ERR(section->mem))
+ 			return PTR_ERR(section->mem);
+ 
+-		if (drm_WARN_ON(&ptdev->base, section->mem->va_node.start != hdr.va.start))
++		if (drm_WARN_ON(&ptdev->base,
++				section->mem->va_node.start != section->va))
+ 			return -EINVAL;
+ 
+ 		if (section->flags & CSF_FW_BINARY_IFACE_ENTRY_SHARED) {
 -- 
 2.43.0
 
