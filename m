@@ -2,80 +2,103 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6DEA7606A329
-	for <dri-devel@archiver.kernel.org>; Mon, 16 Nov 2026 09:00:04 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CFD9F606A897
+	for <dri-devel@archiver.kernel.org>; Mon, 16 Nov 2026 09:00:07 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=UkJPpQpa
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=Xha3Mfax
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 3FA2F10ED16;
-	Mon, 16 Nov 2026 08:59:57 +0000 (UTC)
-Received: from mail-ot1-f52.google.com (mail-ot1-f52.google.com
- [209.85.210.52])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 44C5E10E4B9
- for <dri-devel@lists.freedesktop.org>; Mon, 16 Nov 2026 00:14:48 +0000 (UTC)
-Received: by mail-ot1-f52.google.com with SMTP id
- 46e09a7af769-862aca1ed4dso459708a34.0
- for <dri-devel@lists.freedesktop.org>; Sun, 15 Nov 2026 16:14:48 -0800 (PST)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 6998310ED48;
+	Mon, 16 Nov 2026 09:00:01 +0000 (UTC)
+Received: from mail-dy1-f173.google.com (mail-dy1-f173.google.com
+ [74.125.82.173])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 8C6B910E8B8
+ for <dri-devel@lists.freedesktop.org>; Mon, 16 Nov 2026 01:38:39 +0000 (UTC)
+Received: by mail-dy1-f173.google.com with SMTP id
+ 5a478bee46e88-36e90071735so436205eec.0
+ for <dri-devel@lists.freedesktop.org>; Sun, 15 Nov 2026 17:38:39 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20260707; t=1794788087; x=1795392887; darn=lists.freedesktop.org;
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:date:subject:cc:to:from:from:to:cc:subject:date
- :message-id:reply-to:content-type;
- bh=hajHB6HzF67vIT/RkiyTzXzkwKgwGw3/XSrXRBWaGzk=;
- b=UkJPpQpaBqy2R6xncTaK53bYzBk8v5tnKQc+iPtG3LWQzB7Ke4rpqp5AIY88q2QBXB
- DOJNKZEkgvS35Fc/I+oOyey7Mpbq5DAexeWfV3LhM0hjXLzFrql/hChAf0/5TnBv9A+T
- vy5Oo8EMl5wKK4pharm6vJTFf3UbbH3CqY72qwpDgvZE+SalwC+TEDxXCKYJrBgElENS
- J5/i5ZzDLwwq+UXpXEva6MNsMVwodnOKSi47FbtTesLC533r1HkFuQ3ETuHRnp6X/cII
- Ua6PAyAA24pjRxLdha7bNyR3feNNWVECwsHj9gXIHQBasK8IHvUVVry9Uzl7/mk9O8Fo
- TDhQ==
+ d=gmail.com; s=20260707; t=1794793119; x=1795397919; darn=lists.freedesktop.org;
+ h=cc:to:message-id:content-transfer-encoding:content-type
+ :mime-version:subject:date:from:from:to:cc:subject:date:message-id
+ :reply-to:content-type;
+ bh=0YbBEF/i3LHD2RuXWt/9khib8KcPq1szk/F79X3/JjE=;
+ b=Xha3MfaxqOSX08/tONECOTwvHcDXHHnxdg0Tz7/mMO4a3i2k+DexSSrH+B+Jg7lf6i
+ f0wBRNu96IsZdUhUNxCQjD1zRRIqz0OQXEJzX67fTJgtyMXfX6vPswv0kP5YvgR3Zt1/
+ 4VJjM2+vLNtR8oVP5wjHJXIgoAHUBd5rNhzEjaAHCCURVvPd1dgTSCfRMrzUk+5rwKPr
+ xRs7wskvG5kFgvC0idJjtHEjL3Ndo/kaQwsOtjzqcAsewF1lha91n290cZYXZ39hBzeM
+ jwXmwraiATMaurymtZtJOF29BNW/hMrKoyqJ936Vc4xy2El/XvZIgcmcVzydrom5bNrY
+ tBHA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20260707; t=1794788087; x=1795392887;
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
- :to:cc:subject:date:message-id:reply-to:content-type;
- bh=hajHB6HzF67vIT/RkiyTzXzkwKgwGw3/XSrXRBWaGzk=;
- b=GylemvYvaNnL6EKodXz4GZNFQ/3YM+BvB+zFTNMljBEqbEve+VrUeHEYLmBrwhL9Ow
- gzuoId5H6hW5X1qUK8nfCLiGj4oP4DX5aBwQem7LzaniTjqNCbd8QLiUtrN4WhS+FPNw
- 3b4s7KAWCRSk6YBIZXlIXXM1Djcmfgn0us3YPDYD2tIKcCJAZN8aDnENgk332m0niAzH
- X+R0SSxPG622xI10E7ZUJqQ9qYX753+UYPCuAmJZru7Wdl6J1TF/H2fT9dhMitv6lvFi
- PjTC/4hS194GodSimNt92FEnrlswSqbANwmVuS4WQOUxLx+phHzrOnVt5Iad5+BuMktm
- rIog==
+ d=1e100.net; s=20260707; t=1794793119; x=1795397919;
+ h=cc:to:message-id:content-transfer-encoding:content-type
+ :mime-version:subject:date:from:x-gm-gg:x-gm-message-state:from:to
+ :cc:subject:date:message-id:reply-to:content-type;
+ bh=0YbBEF/i3LHD2RuXWt/9khib8KcPq1szk/F79X3/JjE=;
+ b=dFZm1BY8JOqZZ3uZhlAgkzj+FLyZyu+L9kGuuQK7y8OU2emrPZsjZzarKp9sNjpM+O
+ 7TR3fmT54OxHDsM22WLNWkiQHcNkPnTofEJcASls1Bn79r4L04sz14yB+VIfZnFKYEvu
+ +ELENXIR1OFoufqP5UxDL3amy2wBsg94939a0p/svtyQ6OupYfQofWUcd77PZwZzqMj5
+ ZBqf8A8u7RB5vUvgiewIv7Q7dylAbq/zonoYqe4Juko0n0L2EZ0nzPDfHiA0MPowQWTW
+ CgVDFRoPDl0frW1mMDJ5FtoJojDnNTM0lf4M8P89a0YYX4/+eVLGrkYulDPst6di5PJI
+ 5YkQ==
 X-Forwarded-Encrypted: i=1;
- AL+hErEw+SSHjmuhRvKyAlQoYHHDMVldSwmHxtsDex0RiZ4qDDixHH2nJ7FrYu1VXVoZHn55Ays59gJ37hc=@lists.freedesktop.org
-X-Gm-Message-State: APuU4Z+ISmfCrGIpkXY0tKljYbjrSuKMKkYtyfpP/SvVETSjAzFdllkK
- N9HjuZfyFV+9LxTmMoGt9RKorEIs9XjlXoMfET6qejpN8CIMZWgKkl/m
-X-Gm-Gg: AYBFou0kNde+3SttAcKJ3GCeERPcqsrWg5DOlxwU2M15E1Ys8Voow/O7FEayH0Coa+I
- jg/DAkvhfJfzTk6F72hXcKAdKzTNnEMLuBvZ2gkgw6BzeqKv7NjmSQtOEl70ULxYXtmZoyb0kW0
- myCRnRsSH9R6p01xpiuQZ5VkjVsZfsotfjYSy2XG/1KodH5hdhqhHTNlUb/G4cwdIP6BHa2rePO
- 46CN9AxGETSoBAxp6Ngxl4I4SzhKopV1dryOJP8/NM3Ez1iPKFPQN68PhZ+WUHOhoQ73KDzqQhY
- Sut0Lm9XGbhm2pLRvoBV9sK1Qoc2GQAz55iXFFdIlR18GkgUjFajDP5dm/wMFMeFB+E8+/q8Da2
- mDUVuannsFBIsGTEyj2ECHWLNqnhhMIMCfnJJjh3D2xOivpsjH/9pXnDCWb8lBswoIKIPEsO3rQ
- CBvIiyJEMHm5+MjW0zFJxpjwbXsEIIoRxXUIMHa1Q23/VsvDQQmbth5+BakS9/CI/QDBx8uy70C
- /K9hQ3pS1eWB7tbo/M/dyFKy13jszyLQ9+bE+5zRehDnDU21FQHLpsB+k8Dx8k4sWlkVV0MpyS/
- VH5vowy3VMvkSWSIlF6LbYkU4UAWX6ZD+r4hcWR1ft4aL3I+VhJHRvpkBf1ZLt9r437wPlQ69L+
- moxpQKOZBlK+iJTDeCtXtQEmPtQHLCtxo956++vX/BQDO
-X-Received: by 2002:a05:6808:2386:b0:567:dc9f:c83f with SMTP id
- 5614622812f47-56e642d3183mr8069796b6e.14.1794788086920; 
- Sun, 15 Nov 2026 16:14:46 -0800 (PST)
-Received: from desktop ([68.248.142.83]) by smtp.gmail.com with ESMTPSA id
- 5614622812f47-56e6dcfc483sm8495537b6e.1.2026.11.15.16.14.46
+ AL+hErFTyRjbphFPNYN/vFaTu/saTUNS/T4B8dvAMeZ+o43YAiCqL/gjI93NRNyxKNL6K5yrY+Eyzl4ZRMI=@lists.freedesktop.org
+X-Gm-Message-State: APuU4Z8TvNQlwwVx/tcD3Yn11Pzwn7ShSXDw5c3Ma6YzdbYZuZxdYAB/
+ YSagAlM1+QmX7OaTwBY940kQHQEwgaWWeAlWDx28eY30BeVDtyTmTn8q
+X-Gm-Gg: AYBFou2s2hKoERKV02Eypj6L/YLQ4wd2fwgNitjabr6J5VMxX2Pcw39Qh02UWperUBw
+ 0jn3LlkJd7lKoiCp0Jo0prZFHCCqomMJmxrNHjIFjIFCblqLshwhQ9MavrQAEKBSfs0qPbvfRrr
+ DYj1h+DiPa5F8EOcjXe/t0dGb3iacByn7pqpPsKHS37L6ht9BAEdupKidaACH7xQVAwsil/iOnD
+ pMLEj8Lry/wvwFLRVcqZwVHBQgM2l2XHwuhiJaU7hJOHdWXQosxNUfdpOGBseT3O1M3c6qFyHci
+ wcdwyLRrLuLHieTZQl62bQsMtFElAn+WzIwg76NIy0p2OohPY2CwLsPCdnRxpGsNix4LVPSBnAI
+ L3Z9ZwH8qXz058LuQitZ7Zu6bcl+p3TnYOZeMkNQSxnRJ3OH91psb3EjZB4uHE1RYwpIireJ4Tu
+ wCGa2iD/xceBcP4SD3PpIp+BcNMRa67IctYa2VpFHEsdyAKAQQVBDeQgRpKtiDVimOZrah5FDqF
+ HmttByWbSd1SKglE0tHUTDC9UmUG8gr5ODEWfvKvzaPUxuhdL83i05GQ8H2X3LILPntaD/WgezF
+ /kNnLMiwaDoLtSYq9V9i20E7F/rDa359E3CUn8/bJN/kFRK9xCTf18oHcjc3wzgoTAM=
+X-Received: by 2002:a05:7301:a0a:b0:375:f846:5b3f with SMTP id
+ 5a478bee46e88-3796057e734mr12265396eec.0.1794793118399; 
+ Sun, 15 Nov 2026 17:38:38 -0800 (PST)
+Received: from o6.lan ([2602:fce1:44f:115e::])
+ by smtp.gmail.com with ESMTPSA id
+ 5a478bee46e88-379560f5e06sm38324766eec.19.2026.11.15.17.38.28
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Sun, 15 Nov 2026 16:14:46 -0800 (PST)
-From: Claudio Forain <claudioforain@gmail.com>
-To: amd-gfx@lists.freedesktop.org
-Cc: harry.wentland@amd.com, sunpeng.li@amd.com, alexander.deucher@amd.com,
- ray.wu@amd.com, alex.hung@amd.com, superm1@kernel.org, siqueira@igalia.com,
- dri-devel@lists.freedesktop.org, Claudio Forain <claudioforain@gmail.com>
-Subject: [PATCH v2] drm/amd/display: Disallow idle on cursor update during ISM
- hysteresis
-Date: Sun, 15 Nov 2026 18:11:51 -0600
-Message-ID: <20261116001151.28754-1-claudioforain@gmail.com>
-X-Mailer: git-send-email 2.56.0
-In-Reply-To: <20261109230147.16302-1-claudioforain@gmail.com>
-References: <20261109230147.16302-1-claudioforain@gmail.com>
+ Sun, 15 Nov 2026 17:38:37 -0800 (PST)
+From: Xueyuan Chen <xueyuan.chen21@gmail.com>
+Date: Mon, 16 Nov 2026 09:38:21 +0800
+Subject: [PATCH v4] mm/zsmalloc: remove CONFIG_ZSMALLOC_STAT
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
+Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
+Message-Id: <20261116-zsmalloc_stat-v4-1-fa9197a2e580@gmail.com>
+X-B4-Tracking: v=1; b=H4sIAIxe+moC/3WOQWrDMBBFrxK07rQeRbaTrHqPUspIGscqtmUk1
+ yQNvnulhIAxdPk/8978m4gcHEdx2t1E4NlF54cU1MtOmJaGM4OzKQtZyAqxqOA39tR13nzFiSb
+ g1FplDcq6EokZAzfucvd9fD5y/NHfbKYsyReaIoMONJg2V1pBbt6eWrDBj5Dd+bh1cfLhel83Y
+ 5b+N2RGQNBlrRpVoyLbvJ97ct2r8b3IQ2a5po9bWkIBhpgVVgdFmrb0fkUjbul9+i3toWRbYlk
+ XvKaXZfkDtBYCEGUBAAA=
+X-Change-ID: 20261106-zsmalloc_stat-e261d4dc1276
+To: Minchan Kim <minchan@kernel.org>, 
+ Sergey Senozhatsky <senozhatsky@chromium.org>, 
+ Andrew Morton <akpm@linux-foundation.org>, 
+ David Hildenbrand <david@kernel.org>, Lorenzo Stoakes <ljs@kernel.org>, 
+ "Liam R. Howlett" <liam@infradead.org>, Vlastimil Babka <vbabka@kernel.org>, 
+ Mike Rapoport <rppt@kernel.org>, Suren Baghdasaryan <surenb@google.com>, 
+ Michal Hocko <mhocko@suse.com>, Jonathan Corbet <corbet@lwn.net>, 
+ Shuah Khan <skhan@linuxfoundation.org>, 
+ Randy Dunlap <rdunlap@infradead.org>, Alex Shi <alexs@kernel.org>, 
+ Yanteng Si <si.yanteng@linux.dev>, Dongliang Mu <dzm91@hust.edu.cn>, 
+ Heiko Carstens <hca@linux.ibm.com>, Vasily Gorbik <gor@linux.ibm.com>, 
+ Alexander Gordeev <agordeev@linux.ibm.com>, 
+ Christian Borntraeger <borntraeger@linux.ibm.com>, 
+ Sven Schnelle <svens@linux.ibm.com>, 
+ Helen Koike <helen.fornazier@gmail.com>, 
+ Vignesh Raman <vignesh.raman@collabora.com>, 
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>
+Cc: linux-mm@kvack.org, linux-doc@vger.kernel.org, 
+ linux-kernel@vger.kernel.org, linux-s390@vger.kernel.org, 
+ dri-devel@lists.freedesktop.org, Nhat Pham <nphamcs@gmail.com>, 
+ Xueyuan Chen <xueyuan.chen21@gmail.com>
+X-Mailer: b4 0.16.0
 X-Mailman-Approved-At: Mon, 16 Nov 2026 08:58:46 +0000
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -88,261 +111,254 @@ List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-15.8 required=3.0 tests=BAYES_00,DKIM_SIGNED,
+X-Spam-Status: No, score=-14.8 required=3.0 tests=BAYES_00,DKIM_SIGNED,
 	DKIM_VALID,DKIM_VALID_AU,FREEMAIL_FORGED_FROMDOMAIN,FREEMAIL_FROM,
-	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
-	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,USER_AGENT_GIT autolearn=ham
-	autolearn_force=no version=4.0.1
+	HEADER_FROM_DIFFERENT_DOMAINS,HK_RANDOM_FROM,INCLUDES_CR_TRAILER,
+	INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,
+	USER_AGENT_GIT autolearn=unavailable autolearn_force=no version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-[Why]
-Idle optimizations are HW-wide, but the Idle State Manager (ISM) runs per
-CRTC. With two displays, a static CRTC's ISM reaches OPTIMIZED_IDLE and
-allows idle optimizations while another CRTC is receiving legacy cursor
-updates, which hold no vblank reference. The cursor CRTC's ISM then sits in
-HYSTERESIS_WAITING, and BEGIN_CURSOR_UPDATE only moves it to
-HYSTERESIS_BUSY without touching idle.
+CONFIG_ZSMALLOC_STAT only controls the debugfs interface. The class
+counters are updated regardless of this option.
 
-Every cursor update then calls dc_stream_program_cursor_attributes(),
-which exits and re-enters idle through synchronous DMUB commands. On DCNs
-that set debug.exit_idle_opt_for_cursor_updates,
-dc_stream_program_cursor_position() does the same, for up to four DMUB
-commands per cursor update under dc_lock. On Xorg with an RX 9070 XT
-(DCN401) the cursor visibly speeds up and slows down.
+Remove the CONFIG_ZSMALLOC_STAT guards and rely on the debugfs API
+stubs when CONFIG_DEBUG_FS=n. Skip statistics setup silently when
+debugfs is unavailable.
 
-ISM tracing on v7.3.3 while moving the cursor: of 12675 cursor updates that
-started in HYSTERESIS_WAITING, 9172 ran with idle allowed; none of the 866
-that started in FULL_POWER_RUNNING did, as vblank was enabled there.
+Remove the Kconfig entry and drop CONFIG_ZSMALLOC_STAT from both s390
+defconfigs. Replace it with CONFIG_DEBUG_FS=y in the DRM CI configs.
+Update the English and Chinese documentation to match and use
+<pool-name> in the debugfs path.
 
-[How]
-When BEGIN_CURSOR_UPDATE moves a CRTC from HYSTERESIS_WAITING to
-HYSTERESIS_BUSY, disallow idle. The CRTC's hysteresis timer, re-armed on
-END_CURSOR_UPDATE, allows idle again once the cursor stops. Only idle is
-touched; static screen optimizations are left alone. FULL_POWER states
-are not changed: no timer is pending there that would allow idle again.
-The change is not DCN specific, as the cursor attributes path exits idle
-on every DCN.
-
-With this change, the same trace shows none of 22732 cursor updates
-running with idle allowed, and idle is allowed again once the cursor
-stops. Static desktop GPU power is unchanged (25.9 W average over 40 s,
-with and without the change).
-
-Add KUnit tests for the veto and for FULL_POWER_RUNNING leaving idle
-untouched.
-
-Fixes: 754003486c3c ("drm/amd/display: Add Idle state manager(ISM)")
-Closes: https://gitlab.freedesktop.org/drm/amd/-/issues/6115
-Link: https://gitlab.freedesktop.org/drm/amd/-/issues/4906
-Assisted-by: Claude:claude-opus-5-5
-Signed-off-by: Claudio Forain <claudioforain@gmail.com>
+Suggested-by: Nhat Pham <nphamcs@gmail.com>
+Reviewed-by: Nhat Pham <nphamcs@gmail.com>
+Reviewed-by: Randy Dunlap <rdunlap@infradead.org>
+Reviewed-by: Sergey Senozhatsky <senozhatsky@chromium.org>
+Acked-by: Dongliang Mu <dzm91@hust.edu.cn> # Documentation
+Signed-off-by: Xueyuan Chen <xueyuan.chen21@gmail.com>
 ---
+Changes in v4:
+- Drop CONFIG_DEBUG_FS=y from the s390 defconfigs (Alexander).
+- Add Reviewed-by and Acked-by tags.
+- Link to v3: https://patch.msgid.link/20261111-zsmalloc_stat-v3-1-2d85ed51570e@gmail.com
 
-Notes:
-    v2:
-    - New approach. v1 allowed idle only when every CRTC was idle, which read
-      other CRTCs' state under only dc_lock, could leave idle disallowed for
-      good after a CRTC was enabled or resumed static, and broke the ISM KUnit
-      commit tests (all found by the sashiko.dev review). v2 keeps the
-      per-CRTC model: it only disallows idle when a cursor update starts on a
-      CRTC in hysteresis, and that CRTC's own timer allows it again. No other
-      CRTC's state is read.
-    - Call dc_allow_idle_optimizations() directly rather than
-      dm_ism_commit_idle_optimization_state(), which would also toggle the
-      PSR/Replay static screen events on every cursor update. The veto shows
-      in the amdgpu_dm_ism_event trace as HYSTERESIS_WAITING ->
-      HYSTERESIS_BUSY on BEGIN_CURSOR_UPDATE, and in the DC IPS log with
-      dm_ism_dispatch_power_state as the caller.
-    - Add KUnit tests.
-    
-    v1: https://lore.kernel.org/r/20261109230147.16302-1-claudioforain@gmail.com/
-    
-    AI assistance: Claude Code (claude-opus-5-5) helped me trace the ISM and
-    idle interaction, wrote the ftrace capture and analysis scripts, and
-    drafted the code change, the KUnit tests and this changelog. I reviewed
-    all of it and ran the traces, power measurements and KUnit tests myself.
-    Before sending, I ran a local Sashiko review (with Claude) on v2. It
-    found a KUNIT_ASSERT inside a scoped_guard, a redundant
-    idle_optimizations_allowed check with a test that could not fail, and
-    a changelog that understated which DCNs are affected; all are fixed here.
-    
-    Tested:
-    - RX 9070 XT (DCN401), Xorg, two DP displays (240 Hz, and 60 Hz rotated),
-      patch applied to v7.3.3: the ISM traces in the changelog, plus after
-      DPMS off/on and after a modeset of the 60 Hz display. In both, idle was
-      allowed again after the cursor stopped and no cursor update ran with
-      idle allowed.
-    - ISM KUnit suite on amd-staging-drm-next (UML): all pass.
-    
-    Not tested:
-    - Suspend/resume: CONFIG_SUSPEND is not set on this machine, so I could
-      not test it as I said I would in the v1 thread.
-    - Other DCNs and APUs. With IPS, idle now stays off for the hysteresis
-      window while the cursor moves instead of being exited and re-entered on
-      every update; I have not measured the power impact there.
-    - PSR/Replay panels and Wayland compositors.
+Changes in v3:
+- Squash the three patches into one (Nhat, Sergey).
+- Add Nhat's Reviewed-by.
+- Update the documentation wording.
+- Link to v2: https://patch.msgid.link/20261109-zsmalloc_stat-v2-0-caee41684aba@gmail.com
 
- .../drm/amd/display/amdgpu_dm/amdgpu_dm_ism.c |  17 +++
- .../amdgpu_dm/tests/amdgpu_dm_ism_test.c      | 110 ++++++++++++++++++
- 2 files changed, 127 insertions(+)
+Changes in v2:
+- Drop CONFIG_ZSMALLOC_STAT instead of making the counters conditional.
+- Update configuration files and documentation.
+- Link to v1: https://patch.msgid.link/20261106-zsmalloc_stat-v1-1-b574f4714adf@gmail.com
+---
+ Documentation/mm/zsmalloc.rst                    |  4 +--
+ Documentation/translations/zh_CN/mm/zsmalloc.rst |  2 +-
+ arch/s390/configs/debug_defconfig                |  1 -
+ arch/s390/configs/defconfig                      |  1 -
+ drivers/gpu/drm/ci/arm.config                    |  2 +-
+ drivers/gpu/drm/ci/arm64.config                  |  2 +-
+ drivers/gpu/drm/ci/x86_64.config                 |  2 +-
+ mm/Kconfig                                       |  9 -------
+ mm/zsmalloc.c                                    | 33 ++----------------------
+ 9 files changed, 8 insertions(+), 48 deletions(-)
 
-diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_ism.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_ism.c
-index 127eaba4de..21eeae66cb 100644
---- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_ism.c
-+++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_ism.c
-@@ -401,6 +401,23 @@ static enum amdgpu_dm_ism_event dm_ism_dispatch_power_state(
- 			mod_delayed_work(system_dfl_wq, &ism->delayed_work,
- 					 nsecs_to_jiffies(delay_ns));
- 		break;
-+	case DM_ISM_STATE_HYSTERESIS_BUSY:
-+		/*
-+		 * Idle optimizations are HW-wide, so another CRTC's ISM may have
-+		 * allowed them while this CRTC was still in hysteresis. Every
-+		 * cursor update would then exit and re-enter idle through DMUB.
-+		 * Disallow idle when a cursor update starts here; this CRTC's
-+		 * hysteresis timer, re-armed on END_CURSOR_UPDATE, allows it
-+		 * again once the cursor stops. Only idle is touched, not static
-+		 * screen optimizations.
-+		 */
-+		if (ism->previous_state == DM_ISM_STATE_HYSTERESIS_WAITING) {
-+			struct amdgpu_crtc *acrtc = ism_to_amdgpu_crtc(ism);
-+			struct dc *dc = drm_to_adev(acrtc->base.dev)->dm.dc;
-+
-+			dc_allow_idle_optimizations(dc, false);
-+		}
-+		break;
- 	case DM_ISM_STATE_OPTIMIZED_IDLE:
- 		sso_delay_ns = dm_ism_get_sso_delay(ism, acrtc_state->stream);
- 		if (sso_delay_ns > 0) {
-diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/tests/amdgpu_dm_ism_test.c b/drivers/gpu/drm/amd/display/amdgpu_dm/tests/amdgpu_dm_ism_test.c
-index a9c6485e2a..6c51129826 100644
---- a/drivers/gpu/drm/amd/display/amdgpu_dm/tests/amdgpu_dm_ism_test.c
-+++ b/drivers/gpu/drm/amd/display/amdgpu_dm/tests/amdgpu_dm_ism_test.c
-@@ -1375,6 +1375,114 @@ static void dm_test_ism_commit_disallows_idle_on_timer_aborted(struct kunit *tes
- 	amdgpu_dm_ism_flush(&acrtc->ism);
+diff --git a/Documentation/mm/zsmalloc.rst b/Documentation/mm/zsmalloc.rst
+index d2bbecd78e14..4c0786378dc3 100644
+--- a/Documentation/mm/zsmalloc.rst
++++ b/Documentation/mm/zsmalloc.rst
+@@ -33,8 +33,8 @@ proper handle-based APIs.
+ stat
+ ====
+ 
+-With CONFIG_ZSMALLOC_STAT, we could see zsmalloc internal information via
+-``/sys/kernel/debug/zsmalloc/<user name>``. Here is a sample of stat output::
++With CONFIG_DEBUG_FS, we could see zsmalloc internal information via
++``/sys/kernel/debug/zsmalloc/<pool-name>``. Here is a sample of stat output::
+ 
+  # cat /sys/kernel/debug/zsmalloc/zram0/classes
+ 
+diff --git a/Documentation/translations/zh_CN/mm/zsmalloc.rst b/Documentation/translations/zh_CN/mm/zsmalloc.rst
+index 4c8c9b1006a9..b555a07ac871 100644
+--- a/Documentation/translations/zh_CN/mm/zsmalloc.rst
++++ b/Documentation/translations/zh_CN/mm/zsmalloc.rst
+@@ -32,7 +32,7 @@ zs_unmap_object()解除映射。
+ stat
+ ====
+ 
+-通过CONFIG_ZSMALLOC_STAT，我们可以通过 ``/sys/kernel/debug/zsmalloc/<user name>``
++启用CONFIG_DEBUG_FS，我们可以通过 ``/sys/kernel/debug/zsmalloc/<pool-name>``
+ 看到zsmalloc内部信息。下面是一个统计输出的例子。::
+ 
+  # cat /sys/kernel/debug/zsmalloc/zram0/classes
+diff --git a/arch/s390/configs/debug_defconfig b/arch/s390/configs/debug_defconfig
+index d44674b63715..2ae3bc11ef61 100644
+--- a/arch/s390/configs/debug_defconfig
++++ b/arch/s390/configs/debug_defconfig
+@@ -100,7 +100,6 @@ CONFIG_UNIXWARE_DISKLABEL=y
+ CONFIG_IOSCHED_BFQ=y
+ CONFIG_BINFMT_MISC=m
+ CONFIG_ZSWAP=y
+-CONFIG_ZSMALLOC_STAT=y
+ CONFIG_SLAB_BUCKETS=y
+ CONFIG_SLUB_STATS=y
+ # CONFIG_COMPAT_BRK is not set
+diff --git a/arch/s390/configs/defconfig b/arch/s390/configs/defconfig
+index e00e252d4694..3458ec09f172 100644
+--- a/arch/s390/configs/defconfig
++++ b/arch/s390/configs/defconfig
+@@ -94,7 +94,6 @@ CONFIG_UNIXWARE_DISKLABEL=y
+ CONFIG_IOSCHED_BFQ=y
+ CONFIG_BINFMT_MISC=m
+ CONFIG_ZSWAP=y
+-CONFIG_ZSMALLOC_STAT=y
+ CONFIG_SLAB_BUCKETS=y
+ # CONFIG_COMPAT_BRK is not set
+ CONFIG_MEMORY_HOTPLUG=y
+diff --git a/drivers/gpu/drm/ci/arm.config b/drivers/gpu/drm/ci/arm.config
+index d7c51670da2f..fc0a8a4bfb18 100644
+--- a/drivers/gpu/drm/ci/arm.config
++++ b/drivers/gpu/drm/ci/arm.config
+@@ -5,7 +5,7 @@ CONFIG_CRYPTO_ZSTD=y
+ CONFIG_ZRAM_MEMORY_TRACKING=y
+ CONFIG_ZRAM_WRITEBACK=y
+ CONFIG_ZRAM=y
+-CONFIG_ZSMALLOC_STAT=y
++CONFIG_DEBUG_FS=y
+ 
+ # abootimg with a 'dummy' rootfs fails with root=/dev/nfs
+ CONFIG_BLK_DEV_INITRD=n
+diff --git a/drivers/gpu/drm/ci/arm64.config b/drivers/gpu/drm/ci/arm64.config
+index c46125c1f80f..10b01b55a66d 100644
+--- a/drivers/gpu/drm/ci/arm64.config
++++ b/drivers/gpu/drm/ci/arm64.config
+@@ -5,7 +5,7 @@ CONFIG_CRYPTO_ZSTD=y
+ CONFIG_ZRAM_MEMORY_TRACKING=y
+ CONFIG_ZRAM_WRITEBACK=y
+ CONFIG_ZRAM=y
+-CONFIG_ZSMALLOC_STAT=y
++CONFIG_DEBUG_FS=y
+ 
+ # abootimg with a 'dummy' rootfs fails with root=/dev/nfs
+ CONFIG_BLK_DEV_INITRD=n
+diff --git a/drivers/gpu/drm/ci/x86_64.config b/drivers/gpu/drm/ci/x86_64.config
+index 7ac98a78691e..8225b806dad8 100644
+--- a/drivers/gpu/drm/ci/x86_64.config
++++ b/drivers/gpu/drm/ci/x86_64.config
+@@ -5,7 +5,7 @@ CONFIG_CRYPTO_ZSTD=y
+ CONFIG_ZRAM_MEMORY_TRACKING=y
+ CONFIG_ZRAM_WRITEBACK=y
+ CONFIG_ZRAM=y
+-CONFIG_ZSMALLOC_STAT=y
++CONFIG_DEBUG_FS=y
+ 
+ CONFIG_PWM=y
+ CONFIG_PM_DEVFREQ=y
+diff --git a/mm/Kconfig b/mm/Kconfig
+index afff1b25b543..4a77cda7f1d7 100644
+--- a/mm/Kconfig
++++ b/mm/Kconfig
+@@ -130,15 +130,6 @@ menu "Zsmalloc allocator options"
+ 
+ comment "Zsmalloc is a common backend allocator for zswap & zram"
+ 
+-config ZSMALLOC_STAT
+-	bool "Export zsmalloc statistics"
+-	select DEBUG_FS
+-	help
+-	  This option enables code in the zsmalloc to collect various
+-	  statistics about what's happening in zsmalloc and exports that
+-	  information to userspace via debugfs.
+-	  If unsure, say N.
+-
+ config ZSMALLOC_CHAIN_SIZE
+ 	int "Maximum number of physical pages per-zspage"
+ 	default 8
+diff --git a/mm/zsmalloc.c b/mm/zsmalloc.c
+index 7ef80e0da626..104ccf3aa170 100644
+--- a/mm/zsmalloc.c
++++ b/mm/zsmalloc.c
+@@ -222,9 +222,7 @@ struct zs_size_stat {
+ 	unsigned long objs[NR_CLASS_STAT_TYPES];
+ };
+ 
+-#ifdef CONFIG_ZSMALLOC_STAT
+ static struct dentry *zs_stat_root;
+-#endif
+ 
+ static size_t huge_class_size;
+ 
+@@ -279,9 +277,7 @@ struct zs_pool {
+ 	/* Compact classes */
+ 	struct shrinker *shrinker;
+ 
+-#ifdef CONFIG_ZSMALLOC_STAT
+ 	struct dentry *stat_dentry;
+-#endif
+ #ifdef CONFIG_COMPACTION
+ 	struct work_struct free_work;
+ #endif
+@@ -565,14 +561,10 @@ static inline unsigned long class_stat_read(struct size_class *class, int type)
+ 	return class->stats.objs[type];
  }
  
-+/*
-+ * Config and history shared by the cursor tests below: a non-zero idle-allow
-+ * delay parks the FSM in HYSTERESIS_WAITING, and sso_num_frames = 0 lets the
-+ * timer cascade straight to OPTIMIZED_IDLE_SSO.
-+ */
-+static const struct amdgpu_dm_ism_config dm_ism_test_cursor_config = {
-+	.filter_num_frames = 5,
-+	.filter_entry_count = 3,
-+	.activation_num_delay_frames = 10,
-+	.filter_history_size = 8,
-+	.filter_old_history_threshold = 0,
-+	.sso_num_frames = 0,
-+};
-+
-+/**
-+ * dm_test_ism_cursor_in_hysteresis_disallows_idle - cursor vetoes foreign idle
-+ * @test: KUnit test context
-+ *
-+ * Idle optimizations are HW-wide; here another CRTC is modelled as having
-+ * allowed them while this CRTC waits in HYSTERESIS_WAITING. A cursor update
-+ * (BEGIN_CURSOR_UPDATE -> HYSTERESIS_BUSY) must disallow idle so that cursor
-+ * programming does not exit and re-enter idle per update. END_CURSOR_UPDATE
-+ * must re-arm the hysteresis timer without re-allowing, and the timer must
-+ * allow idle again.
-+ */
-+static void dm_test_ism_cursor_in_hysteresis_disallows_idle(struct kunit *test)
-+{
-+	struct amdgpu_device *adev;
-+	struct amdgpu_crtc *acrtc = alloc_test_acrtc(test, &adev);
-+	struct amdgpu_dm_ism_config config = dm_ism_test_cursor_config;
-+	struct dc_stream_state *stream;
-+
-+	stream = setup_commit_test(test, acrtc, &config);
-+	setup_idle_delay_history(&acrtc->ism, stream);
-+
-+	scoped_guard(mutex, &adev->dm.dc_lock) {
-+		amdgpu_dm_ism_commit_event(&acrtc->ism,
-+					   DM_ISM_EVENT_ENTER_IDLE_REQUESTED);
-+		KUNIT_EXPECT_EQ(test, (int)acrtc->ism.current_state,
-+				(int)DM_ISM_STATE_HYSTERESIS_WAITING);
-+
-+		/* Another CRTC's ISM allowed HW-wide idle. */
-+		adev->dm.dc->idle_optimizations_allowed = true;
-+
-+		amdgpu_dm_ism_commit_event(&acrtc->ism,
-+					   DM_ISM_EVENT_BEGIN_CURSOR_UPDATE);
-+		KUNIT_EXPECT_EQ(test, (int)acrtc->ism.current_state,
-+				(int)DM_ISM_STATE_HYSTERESIS_BUSY);
-+		KUNIT_EXPECT_EQ(test, dm_ism_test_idle.calls, 1);
-+		KUNIT_EXPECT_FALSE(test, dm_ism_test_idle.last_allow);
-+		KUNIT_EXPECT_FALSE(test, adev->dm.dc->idle_optimizations_allowed);
-+
-+		amdgpu_dm_ism_commit_event(&acrtc->ism,
-+					   DM_ISM_EVENT_END_CURSOR_UPDATE);
-+		KUNIT_EXPECT_EQ(test, (int)acrtc->ism.current_state,
-+				(int)DM_ISM_STATE_HYSTERESIS_WAITING);
-+		KUNIT_EXPECT_TRUE(test, delayed_work_pending(&acrtc->ism.delayed_work));
-+		KUNIT_EXPECT_EQ(test, dm_ism_test_idle.calls, 1);
-+		KUNIT_EXPECT_FALSE(test, adev->dm.dc->idle_optimizations_allowed);
-+
-+		/* Run the hysteresis timer's event by hand. */
-+		cancel_delayed_work(&acrtc->ism.delayed_work);
-+		amdgpu_dm_ism_commit_event(&acrtc->ism,
-+					   DM_ISM_EVENT_TIMER_ELAPSED);
-+		KUNIT_EXPECT_EQ(test, (int)acrtc->ism.current_state,
-+				(int)DM_ISM_STATE_OPTIMIZED_IDLE_SSO);
-+		KUNIT_EXPECT_EQ(test, dm_ism_test_idle.calls, 2);
-+		KUNIT_EXPECT_TRUE(test, dm_ism_test_idle.last_allow);
-+		KUNIT_EXPECT_TRUE(test, adev->dm.dc->idle_optimizations_allowed);
-+	}
-+
-+	amdgpu_dm_ism_flush(&acrtc->ism);
-+}
-+
-+/**
-+ * dm_test_ism_cursor_in_full_power_leaves_idle - FULL_POWER cursor is a no-op
-+ * @test: KUnit test context
-+ *
-+ * A CRTC in FULL_POWER_RUNNING has no pending hysteresis timer that would
-+ * allow idle again, so a cursor update there must not disallow idle;
-+ * otherwise idle could stay off after the cursor stops.
-+ */
-+static void dm_test_ism_cursor_in_full_power_leaves_idle(struct kunit *test)
-+{
-+	struct amdgpu_device *adev;
-+	struct amdgpu_crtc *acrtc = alloc_test_acrtc(test, &adev);
-+	struct amdgpu_dm_ism_config config = dm_ism_test_cursor_config;
-+
-+	setup_commit_test(test, acrtc, &config);
-+	adev->dm.dc->idle_optimizations_allowed = true;
-+
-+	scoped_guard(mutex, &adev->dm.dc_lock) {
-+		amdgpu_dm_ism_commit_event(&acrtc->ism,
-+					   DM_ISM_EVENT_BEGIN_CURSOR_UPDATE);
-+		KUNIT_EXPECT_EQ(test, (int)acrtc->ism.current_state,
-+				(int)DM_ISM_STATE_FULL_POWER_BUSY);
-+		amdgpu_dm_ism_commit_event(&acrtc->ism,
-+					   DM_ISM_EVENT_END_CURSOR_UPDATE);
-+		KUNIT_EXPECT_EQ(test, (int)acrtc->ism.current_state,
-+				(int)DM_ISM_STATE_FULL_POWER_RUNNING);
-+
-+		KUNIT_EXPECT_EQ(test, dm_ism_test_idle.calls, 0);
-+		KUNIT_EXPECT_TRUE(test, adev->dm.dc->idle_optimizations_allowed);
-+	}
-+
-+	amdgpu_dm_ism_flush(&acrtc->ism);
-+}
-+
- /**
-  * dm_test_ism_exit_from_optimized_idle_disallows_idle - leaving OPTIMIZED_IDLE
-  * @test: KUnit test context
-@@ -1615,6 +1723,8 @@ static struct kunit_case dm_ism_test_cases[] = {
- 	KUNIT_CASE(dm_test_ism_commit_allows_idle_on_optimized_idle),
- 	KUNIT_CASE(dm_test_ism_commit_enables_sso_on_optimized_idle_sso),
- 	KUNIT_CASE(dm_test_ism_commit_disallows_idle_on_timer_aborted),
-+	KUNIT_CASE(dm_test_ism_cursor_in_hysteresis_disallows_idle),
-+	KUNIT_CASE(dm_test_ism_cursor_in_full_power_leaves_idle),
- 	/* dm_ism_dispatch_power_state previous-state arms */
- 	KUNIT_CASE(dm_test_ism_exit_from_optimized_idle_disallows_idle),
- 	KUNIT_CASE(dm_test_ism_exit_from_sso_disallows_idle),
--- 
-2.56.0
+-#ifdef CONFIG_ZSMALLOC_STAT
+-
+ static void __init zs_stat_init(void)
+ {
+-	if (!debugfs_initialized()) {
+-		pr_warn("debugfs not available, stat dir not created\n");
++	if (!debugfs_initialized())
+ 		return;
+-	}
+ 
+ 	zs_stat_root = debugfs_create_dir("zsmalloc", NULL);
+ }
+@@ -650,10 +642,8 @@ DEFINE_SHOW_ATTRIBUTE(zs_stats_size);
+ 
+ static void zs_pool_stat_create(struct zs_pool *pool, const char *name)
+ {
+-	if (!zs_stat_root) {
+-		pr_warn("no root stat dir, not creating <%s> stat dir\n", name);
++	if (IS_ERR_OR_NULL(zs_stat_root))
+ 		return;
+-	}
+ 
+ 	pool->stat_dentry = debugfs_create_dir(name, zs_stat_root);
+ 
+@@ -666,25 +656,6 @@ static void zs_pool_stat_destroy(struct zs_pool *pool)
+ 	debugfs_remove_recursive(pool->stat_dentry);
+ }
+ 
+-#else /* CONFIG_ZSMALLOC_STAT */
+-static void __init zs_stat_init(void)
+-{
+-}
+-
+-static void __exit zs_stat_exit(void)
+-{
+-}
+-
+-static inline void zs_pool_stat_create(struct zs_pool *pool, const char *name)
+-{
+-}
+-
+-static inline void zs_pool_stat_destroy(struct zs_pool *pool)
+-{
+-}
+-#endif
+-
+-
+ /*
+  * For each size class, zspages are divided into different groups
+  * depending on their usage ratio. This function returns fullness
+
+---
+base-commit: fa4ad798f6f681031775266044ba1b0cf3c670bd
+
+--  
+Best regards,
+Xueyuan
 
