@@ -2,125 +2,127 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4E95A606A323
-	for <dri-devel@archiver.kernel.org>; Mon, 16 Nov 2026 15:30:56 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 416FE606A334
+	for <dri-devel@archiver.kernel.org>; Mon, 16 Nov 2026 15:31:18 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=aol.com header.i=@aol.com header.a=rsa-sha256 header.s=a2048 header.b=WyTwsgnL
+	dkim=pass (1024-bit key, unprotected) header.d=amd.com header.i=@amd.com header.a=rsa-sha256 header.s=selector1 header.b=M5zuDo6f
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 5FD1910E903;
-	Mon, 16 Nov 2026 15:30:50 +0000 (UTC)
-Received: from sonic315-54.consmr.mail.gq1.yahoo.com
- (sonic315-54.consmr.mail.gq1.yahoo.com [98.137.65.30])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 9663E10E903
- for <dri-devel@lists.freedesktop.org>; Mon, 16 Nov 2026 15:30:44 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=aol.com; s=a2048;
- t=1794843044; bh=CacpKblEsA760YtsmLMPl5YPi5Ety3Wyn3XjcqxLU+Q=;
- h=Subject:From:To:Cc:Date:In-Reply-To:References:Content-Type:From:Subject:Reply-To:Content-Type;
- b=WyTwsgnLg6wlZ+I6NUp3cLPR7oQ9V7R0xKoTHz3fmWoi6tS2AZKtaFeJ8z9GudGj9lNhki4uhLFCcyuUBuLnfw4gOvaGlF6OYz1Td9jxsmw33sFlnOAwbEv6kTl8ZU8zLdcM/4k8DKNfs+2eXgVvK8YSDEIUzwYQ9IMT5EhZEMQgyWw3F5oJ10lmJjmxeo8/dmUUjk/J3Qo9oZIGGxwCZQeccNz6vE5ET+ashCjjXckUupWvtFZ8QtmB7AAj4S95m3IMt8NXRfqjs+/Hg/PQhRzeKcpKh3tvuKbyPUerDf4o/d60Q/zcTuFKRYxbq4ZRt9BosoKQaUNOz6hi/EuOcw==
-X-SONIC-DKIM-SIGN: v=1; a=rsa-sha256; c=relaxed/relaxed; d=yahoo.com; s=s2048;
- t=1794843044; bh=sf5Q7cRdTi5g8h7Dmr2jQX5HEudDAAMeGBu4a8x/YQ4=;
- h=X-Sonic-MF:Subject:From:To:Date:From:Subject;
- b=cKXXnJFrrHUxv00DkgxEV4aH7Ff+EFSzkT1kHQFEYS4l4gFLXt+ZR90ehQi5QXX4/rWfc8dsOveTlGdske4p25lUAvN/S932g58cb0vq2TysUU9s7VQMhe1ZDJf7VnRvNSLh0j5WBMUjiyG6WjQL7wUQ77FouAN9b7ieEXPwUnuWS6mTb6qMgQktRwIgrP+7hEdyO4arB2YVU1CVAD8cM7RMV/kdrrK2NQ//kb0mb2eFrhEomdXayXlsQZChnF40eodSeF1DRUVcwwsR+oyFPd4JT1qbo7oBHnsEdpXPUUbX4nF8TjZf1m+DOXG+CNalE4C3mSEFBnVrnRg+vKoU9Q==
-X-YMail-OSG: Yniyq5kVM1n5b.o_SbUExf6yAWCn1MHtugftmypjK7rsJHb.JbmK8ub7k7H4VtV
- iD_x8OQ3GGXSPWecPrHrZFCMefWVOZPHp2_Fgg3MHGMPI0pEStXmikq5UzAQ0DFFXQGp5XOBo4s4
- tSPLMdJQqKLn_o7s2DWKLzUa1PrBnO7jm2G_Lyb7RHR4xaoDL5D57FChqafXRuOp5UF1voGsxbsG
- me3iS5aP0V7r.Qghpw7gjzv.wybLK6t2rM56gyhmb.byw5pwrRyg6zRlU8utn3wWAMV92ZCiW5au
- dgXV2gO0Emh54cotQgu04t_zV4Fd3PaSi6XncP2jU6BCMIdDTzwfwzFIyef_nI.6nS6tMfYWsN6X
- KZcGPGsqVs5Mxu2iuxghQjJWtKdgjbP2JyXmimYz3If.EgoN8iWDrPh4CQ202ZCjQ_hIMAMRQUcl
- XXP6ERCCUcIEy2EoVmBdNHiumN56Nk0hQF.uOYtI9kNNJJnZwTQ.zxvlLWm.8qrj0WOP_Y.90WER
- PlsApCpn3uPMuri9a2q.vNzQmsu2JfpHM8eGoiGROLh3a.qKi_cBlqDLk1HBcNIzu0gjtPRhCZwx
- _pdgqDUZVCcDf4eHW93iIxqbmtEO6S33gWGLCX_Q.NSryHsguiX31lOGgI89zdVfym_1uOnPjxPD
- 4HLvRDmWgNhIzdAwGKiYSBp_iQ2K9t4ZruQNSuyqFw3F1audPvjSyqBvuzphSiO6VsSlaeLxrNWe
- CJ11cNR_OJhA09IeLFqH5RWLvJUVFnCn3ZkqCTUztPI0RRAtTApgitnGfDKMeIp2BD19iRzuYnLY
- 64DW4_hiNA6rIcgJv2tQgdP0fYtv8o5Zsnq88MkwD.heFgzvh6ZiUKA5cAEzQgX.POy3e8KMeuXw
- hJBQjmOP22b72EzZBe7h_pOi_gJKAVZOdHKxne1ecxWKT3QK1Dard9UEpbiLnAAh7jQwkNp1.sBG
- X7LVBvgAk.YDEhI_unUGS9PgCgK7W0XkJzcyr.H6d33AxZpiGw__fVP1wKOHxMD_sEOwx1YsI8IL
- LGKLWvh3AHcIlv4skYgmLA7k4x_Qt3aOJfrBozTFsXcpH2Ki_w_..SFWbtyoUOi.6l6poEkKuc8C
- cjoIjFmfdKRzlIyaWSrTtaXRSRLHeI36OumYvmy9ohs7QVbbKYecLTvWGq26MQRWiHWm5mO0XxJM
- kBVK0zwaZzGYFZQzlxovsbmS4zu6j7ZWkI7C7gN5K66S_RefYawXgRjK8VfJhM6Uvwnv_50mVStd
- CxEP0jOQSf6lkjhFnRxHM3Bid9Ojjxy195PQ5sZqloaKI2mLFp5V9p4ELUX7k3UvgTO.eTh.zGTv
- AI9Vfy0D2FeWD2k2CqNn1ztapxB8JfL7HtdxNb8Vfgp4sUGEhZjyLJkeC09IFSL2f6dIQQCXgAfs
- l3lue94_h9qQeckIId8x3zRZ9QpczRIZPSaoXQEwEBPilAXBjhG3wYtwqxNIo4ThLhCWCf3wfwtC
- GAXnOtoV3.s6_93ypdFHkzK0lfDYuwatFPw7agMxmHgiAsx.ShXxysXtoRDzhfM9yleBn4m4lsFV
- IVn5mOYvjHBU6x4um7ctxPwHY_dSmjoqmkQYpD1mynVP_tXzE6QKEqc.SRasRwroI_I03FIpJ5bh
- Mr9JV_57CCxAEGn.AiiZ5fEya0sE8rB6LYxQC49Q8d2FQcJHP6XkwtUa7vf2oGFGz.OgiE02GqQN
- ZU40GtlEJLjE2Nhg.vADQ0bOLjz6tHwEE_wF7YoIyulKsZZruWF8nhrshqAHcUlDq6O7NRS3.dOV
- F3g8Z9daeDT4NVkNCh29ujdpEo.ulWN5I.RGyaYXza6iY1e4QvJclq7ch6FPJSdY1yCKzxlqcmYi
- KA7PsfM88Kxewma5CGPPhiiil2alttInUkU4jR2WvsK_oEKl4Tlbzcyc5OLnD5fBbQqnsTwQgnH8
- WCLr2pVF7yF5udDFkYElg653YYJtfDajFpoBWDv7MgOXkzdymZF6Q0zY00gy2aHtcFsxdNFqAFzE
- 1pY0eWXoCncdxp2qXZoqT.3ZANFc8pr1fCw35OiEJEOnEvTKIL9RbIAOtVKHZmjl9Gys2BauJpoS
- aCkuRm36kvPqgkXR35a9AUTJnpKCidOjM5Y0Y4FvPwu1wFITrecAk0op9dxqnHGKQpskXhVUA7Ga
- 1CsDZQyHEOgFNxYJaYA7t60CGnvnY0UvjQgGp_uowYn.ha0Kl3AEClahkV4qzZWcTgcO42nfvDjy
- 8zsoovr_Py_LUjrNOncXbxCCCIkhoiXUp_EHbj43LPkC57EWNq9u_eBBihquleQZ6JFiqSFk-
-X-Sonic-MF: <rubenru09@aol.com>
-X-Sonic-ID: 191b3ebe-fddc-4d07-9b0c-a801f7fb10ad
-Received: from sonic.gate.mail.ne1.yahoo.com by
- sonic315.consmr.mail.gq1.yahoo.com with HTTP; Mon, 16 Nov 2026 15:30:44 +0000
-Received: by hermes--production-ir2-5dd9bf4598-ztwl7 (Yahoo Inc. Hermes SMTP
- Server) with ESMTPA ID a2560806a443f778c1e95ce8d3860c30; 
- Mon, 16 Nov 2026 15:30:39 +0000 (UTC)
-Message-ID: <2b9812d198c7edb5efc3906482478fa08b3c6b84.camel@aol.com>
-Subject: Re: [PATCH v4] drm/gud: move format init from gud_probe()
-From: Ruben Wauters <rubenru09@aol.com>
-To: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, Maxime Ripard	
- <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, David Airlie
- <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>
-Cc: dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org
-Date: Mon, 16 Nov 2026 15:30:05 +0000
-In-Reply-To: <20261107162207.26336-1-rubenru09@aol.com>
-References: <20261107162207.26336-1-rubenru09.ref@aol.com>
- <20261107162207.26336-1-rubenru09@aol.com>
-Autocrypt: addr=rubenru09@aol.com; prefer-encrypt=mutual;
- keydata=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
-Content-Type: multipart/signed; micalg="pgp-sha512";
- protocol="application/pgp-signature"; boundary="=-K9g/5YUFLFdTjZdxQD2F"
-User-Agent: Evolution 3.60.2 
+	by gabe.freedesktop.org (Postfix) with ESMTP id 7256F10EB2B;
+	Mon, 16 Nov 2026 15:31:12 +0000 (UTC)
+Received: from BN1PR04CU002.outbound.protection.outlook.com
+ (mail-eastus2azon11010001.outbound.protection.outlook.com [52.101.56.1])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 9FE2A10F267
+ for <dri-devel@lists.freedesktop.org>; Mon, 16 Nov 2026 15:31:05 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=LK+07FsWlCFioNqjmPT2amfAxkRyMGuiWn5yMxteMkLpzZq8dhnN06FUUbkBO6Yak7XdTvUEOnK9Psn5Wh1OZZXQFVF6LdTuaB023nV8FvcGrrMQWbzXNq1aqgTcpVkc891ydZdGAh4eNps621UawkHJLP2TY61xG39CsnR7IbGy5wuhsMWsLHnMg6W6gYpVExzskyU3bgYcdNOyWeu6U55cPASGocHIO8B4WAlFsdjYPgX9lp+1yj95vfEAZKPxuiMxryq3eNgXtbTHF0eNq3/lAd7mgHvdwgF62yXiEFMk6Jvk9dGzhbpA+gMLhgmO8x93cxddn7vHvrmFZ6q9HQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=C+j+4XkHf4LiDZU7z6o8HQSgVoE7bLITsjQsgM893MM=;
+ b=uvkrYp8RukLek9qedd1xK94F6EPj0vHz7U3Jn2Fzkr5hcP9TcXlEPFNYwhND8HHCcf2qXkXb4bsLhg7ckSfAT0awjVcn6GViWVrACYOUf86Ewo0qg8eUnczeVo4Z78sIelUMb+bXvX/cybVLW9mBMxMZvayJPA8mIKtQFZgHw7eoFRcnj89FhGPgK6YlRpvlS76xv/kl3JV71MZJE7yVYnc0BPBn2p1DMV8UQdRM98Fm239voBWh5b6Lei77r1Kqhx871JWzalPLmUgrSxLCoOebJ1bdQswbYRQxKS6Nbpg/R8S+RHru89FXTzZnonqskp0uIVT5HMwDhmfq0lxGdg==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
+ header.d=amd.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=C+j+4XkHf4LiDZU7z6o8HQSgVoE7bLITsjQsgM893MM=;
+ b=M5zuDo6fM+ESoNL3yOjUGApZZsZ9X3ufZVNjntkp6/0nEVovwPDJ5n0btHee1HZ4CskOS666LJAdqXvsC0EKuyrHKHcB532nNfv9AP+hn83GCSYcd7tqqQiBTS3uvQ0NpQP8mXI026GH/8hEuVBcZuBP640/QeywWawLQBFOTak=
+Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=amd.com;
+Received: from PH7PR12MB5685.namprd12.prod.outlook.com (2603:10b6:510:13c::22)
+ by SA3PR12MB138305.namprd12.prod.outlook.com (2603:10b6:806:517::6)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.615.14; Mon, 16 Nov
+ 2026 15:31:00 +0000
+Received: from PH7PR12MB5685.namprd12.prod.outlook.com
+ ([fe80::ce69:cfae:774d:a65c]) by PH7PR12MB5685.namprd12.prod.outlook.com
+ ([fe80::ce69:cfae:774d:a65c%3]) with mapi id 15.21.0615.013; Mon, 16 Nov 2026
+ 15:31:00 +0000
+Message-ID: <d65e90aa-a97a-4703-adb9-e95e07d8e4c7@amd.com>
+Date: Mon, 16 Nov 2026 16:30:54 +0100
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v3] drm/syncobj: Limit the number of handles and use
+ kvmalloc for user-sized arrays
+To: "Yu, Fei" <fei.yu@intel.com>
+Cc: dri-devel@lists.freedesktop.org, tursulin@ursulin.net,
+ maarten.lankhorst@linux.intel.com, mripard@kernel.org, tzimmermann@suse.de,
+ airlied@gmail.com, simona@ffwll.ch, linux-kernel@vger.kernel.org,
+ syzbot+95416f957d84e858b377@syzkaller.appspotmail.com,
+ madhurkumar004@gmail.com, stable@vger.kernel.org
+References: <3aaea7f4-62a5-435c-b1ca-35babf30a7d2@amd.com>
+ <20261110084906.2458016-1-fei.yu@intel.com>
+Content-Language: en-US
+From: =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>
+In-Reply-To: <20261110084906.2458016-1-fei.yu@intel.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+X-ClientProxiedBy: FR2P281CA0144.DEUP281.PROD.OUTLOOK.COM
+ (2603:10a6:d10:98::18) To PH7PR12MB5685.namprd12.prod.outlook.com
+ (2603:10b6:510:13c::22)
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
-X-Mailer: WebService/1.1.27017
- mail.backend.jedi.jws.acl:role.jedi.acl.token.atz.jws.hermes.aol
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: PH7PR12MB5685:EE_|SA3PR12MB138305:EE_
+X-MS-Office365-Filtering-Correlation-Id: b50a3786-256a-4fdb-a86d-08df43f69d75
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+ ARA:13230040|1800799024|376014|23010399003|7416014|366016|22082099003|18002099003|5023799004|11063799006|56012099006|10067099003|4143699003|261102123227099003|261028144727099003|261026121527099003|261026140227099003|261021121427099003|261021123027099003|261022105027099003;
+X-Microsoft-Antispam-Message-Info: JMbvlthBL5VxjQyYPLI4HPf06MWgNDeRoxIsvBjJHaWxIih9vws6jJ+97D0sVFyRZ93Pg+NfDQmdAjzWllJRDf21bTp7RwQxhL11Gptc/7DrmvH09VtQEraHVaEMJliS3BOytDLUR6318WKLx6r1Fx2JL5aHSVEjXErmf8k3PnpUYlv3/0fE6M7mR+v4mQQHLLVZA654TZTMvRc09fJMaJ+ihVagtDHeWnh8SdMeNteybBsQQWYud862LOvdwNC1EriN21W+0tdnxt2Sr39H8s3OTWxhpZrxsxYJLtwQAgi0EGGdZANB/GmfX2ehbjNytggC/xV6vok60fzrepWpApbPDx00h91jNdqjKXd5e/LuXFOy14Tkp1YvbFnkR+X/8lj53oTmiNVGOQECkshwlPZmS9d6o4o+sqQLDnYXurAiIOMJ+HOfnQZhqQSmZbExRillmL5M8lakGqBPWZCu150OvGgflwffILntFShoP1OSq69pXnLieDjNkqKuC/arryx7LYF4/cMuUHVTTZOdRyr61xJKROjX6zYoh9u2c8NHrzMXQUTGDAVPG6jQo3qOuuKX+ahIvYVxkJndwijs5GrLzQ671QyTHWWCdiithp3GkIsNrY/gQsATgitmGDd04SQGbRBm+u+zvYF3KUhTe6WOZLJF642ZmdI/0d2b38o=
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:PH7PR12MB5685.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230040)(1800799024)(376014)(23010399003)(7416014)(366016)(22082099003)(18002099003)(5023799004)(11063799006)(56012099006)(10067099003)(4143699003)(261102123227099003)(261028144727099003)(261026121527099003)(261026140227099003)(261021121427099003)(261021123027099003)(261022105027099003);
+ DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?Rk4wblpreHZXdEtkZmI0Ukx1S2tJL1dIb0cxdk0vSlNoMm5lSVNpVitTSXM5?=
+ =?utf-8?B?MjN4elVobjVOdXpRN0NsaTdNVFNTbktTeTMvLzYrM280SFJMYWhMSUZDWEtn?=
+ =?utf-8?B?dFZUd1Nmcis4MWpPNmptSkduWEhIc3ZFeEJKdkVZSkpKZ05rNEUvZ1NPTXVh?=
+ =?utf-8?B?RFEyakNKeXlESDRkbWxEbUJyNSt0Vk9DWi9WR1dxWktDaXI1RGo5a3l2bXlI?=
+ =?utf-8?B?R0RZM0E1cW1KSFBBZzBsbzQ0c0FXcW1hMDFTdnJEUWlsQnVhRXVycXRZNnp5?=
+ =?utf-8?B?dzRzVVgzV3JJR2hHWnl6VW14d2ppZkpQdjlNMmdpRmJUemF4SHFpaDlqNmRF?=
+ =?utf-8?B?c0RpcHlyc2tPNUdNSEdCb0w0Vmt3b2J5V1dVZ1RkMEc4MlRzdWVRQnREN1FT?=
+ =?utf-8?B?cGw2MndZUW9pT2JKMTgrajVHTzBuTElZUjUvRFVoQ3B4R3dmTVR5ZTNEdTIy?=
+ =?utf-8?B?ZnN6K0psY2RDS2J1YVVuMjZHWHltTThkKzV3QlRpYm9kcHdSYVlJaHBaRG5Q?=
+ =?utf-8?B?K3Rja2VmOUZyTnZUNlIvTUFCQzVva2hOL1ozUFBNenkzSUtuUUtMaXRnZGVW?=
+ =?utf-8?B?M1B1SmN3Rmc3ZHZuNU81eVVSSTBEQnF2L2t5TnNyOW1Mb0R2MDJkb0xycisy?=
+ =?utf-8?B?bVRZcXhpbTFPd25lN3NQTTdEa2FnWEZzZkZ2MDRxMkhpL1A0UlhFR2ZaU1dy?=
+ =?utf-8?B?enFhVjd6MkdUOWV2SHE0ZjhKVWRFTzJmL2NLV3JHV3VPWVRZaU5lYndNbXdL?=
+ =?utf-8?B?cVh1LzhVZ1Vkc1pPM01ENzRKMzBDeG9hWWZvZEJtN3lQb3ZwUnBSUVdQVXZs?=
+ =?utf-8?B?clZuK3RrYThNVUh5SFRwMWhpZVRlRnNWWnl4YzJlNGtBWlppQUJLVjZUUnNn?=
+ =?utf-8?B?QWdXdUtJMmtJS010OE5pRFBDUGR2WmRqSTE5S3J0clZlb21uVURmQVY0aEpM?=
+ =?utf-8?B?SGx2dE55a1BCaGdjbHA5aUR4R1YxZUNXVjhHZk5Sb1pobHBLSUhUZ3B2ckww?=
+ =?utf-8?B?T2dUMUN2enV4cVJNTWJuMi9pWjh5cmhKd281RldEMzRMQlRkM3pEQ2hleGtj?=
+ =?utf-8?B?ZjJUNU9qTm1OekdKSDZzeS9NWGlRME5zRGFZWmMxcGllUVQ4OHU0S3dWZGpS?=
+ =?utf-8?B?MHpYNFYxREIxSUJCOUdOQm02WWFxdWVNQjFXR2tCZFprUXBORUg4QkV3ZE91?=
+ =?utf-8?B?L0tqYXZUWFBMZWpPUEdJYjBBNFNhRWRJK1doQ29jQnIwVU9JUmxRY0tSb2ZS?=
+ =?utf-8?B?aHRjN1lKQ1JvTERwZWNkVnhZdmZsTlRGbFVVNXRhZzVYeEE2WU5nZGhqb1ho?=
+ =?utf-8?B?a1RIcTZkRngrRk9hN204WjJDWTRrVG8yUkRvYnRCM1V3Vm9GTldyZW1QajZi?=
+ =?utf-8?B?TWZXUUpKQUQ2Q1JDVnc2K2tJNVR1UDFCZDhIWnU2Y0dMdEJhalB2UzRHSUNQ?=
+ =?utf-8?B?L29RbUdVcmJOWUdaU0xrMENPaWdQYk1UYU5QK04xVG1Xdml2VlZvbWJpQlda?=
+ =?utf-8?B?eFVQbjhidWUrcUlQU3d5aTF2NnpPQVRZcnlORkQ2RUdtdDlMSUNhVVNJaXVj?=
+ =?utf-8?B?MERoQXV5ODJEQW5rUm4yZ1NNdlYrUTBEUU5aL0kyUTFCckNDVkYvWWM2RHdN?=
+ =?utf-8?B?R0I3b2dVQ0RVZ0lETSszM3ZhTzJ3K2dCdW1iM0ZFcGs1K3hNbXBRNGJFZDc1?=
+ =?utf-8?B?VHhtNk03Z0NUaEQ0UUZSemgwTEhQbFc2ZFVDWnlqNWJHbXY1c1p6c0gySzYz?=
+ =?utf-8?B?dEtLMVlyTmtUUWY0ZjdzODFoK1VZYXlmdkF2SVdiMXgwOHZhTGZ4NTYzM0da?=
+ =?utf-8?B?SnhDVkozNHE5U0dBOW1ocUdXcVpidno3bDlFNjdjenp1YUFkSTY4VnlUa3NP?=
+ =?utf-8?B?RCthYnlieXdvcy9tZW1kMS84Yk1CV0gyRzNFK2t0YW5nYTNsblUwL2ZvWmhN?=
+ =?utf-8?B?OGVudVpRV3RvVVNKS1JCN29SdEIxZ0RSVnVqL1JlT2tSd2JuSm9ZV3lMMDJp?=
+ =?utf-8?B?UjlLNkVGZ1lndnBIMDlSOTZ0TzE4dDRFZ3lWRnprUk9KMk56ZUNZT2JJRXJ6?=
+ =?utf-8?B?N1pOaThHR0pjMFNSMmdoR3loMXMwcHdoamMwTzdrZHArZ1JVcStTK1Jka0N5?=
+ =?utf-8?B?Zklybi81amlSTC8xd2hnK3RGYjEwb3JSVUVvRUw3dkdRK1hmZDh3OHljSmxr?=
+ =?utf-8?B?WXJxa0FqYzhwNm5uNWJsTWRrUFBKT1Y5WkM4cTVtN2N5TndqYkRwN0tjYkgr?=
+ =?utf-8?B?R2FXelQ2Rmp1bmdFRXZ4eHNSMzJlbTJnWTQybGRQZTUyckExakU4WWEzb2FW?=
+ =?utf-8?Q?LJj72jZy1MDcchB/bK?=
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: b50a3786-256a-4fdb-a86d-08df43f69d75
+X-MS-Exchange-CrossTenant-AuthSource: PH7PR12MB5685.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 16 Nov 2026 15:30:59.9109 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: FrEt3gy+xnS5XOwsRgrARx05iX2tJmQT76B0al/iTcHMClLtlBb30k4jqf/7e/Te
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SA3PR12MB138305
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -132,321 +134,40 @@ List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-12.8 required=3.0 tests=BAYES_00,DKIM_SIGNED,
-	DKIM_VALID,DKIM_VALID_AU,FREEMAIL_FORGED_FROMDOMAIN,FREEMAIL_FROM,
-	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
-	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS autolearn=unavailable
-	autolearn_force=no version=4.0.1
+X-Spam-Status: No, score=-12.3 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
+	DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
+	INCLUDES_CR_TRAILER,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,
+	USER_AGENT_SANE_1 autolearn=ham autolearn_force=no version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
+On 11/10/26 09:49, Yu, Fei wrote:
+> From: Fei Yu <fei.yu@intel.com>
+> 
+> On 11/9/26 12:54, Christian König wrote:
+>> On 11/9/26 02:48, Yu, Fei wrote:
+>>> Signed-off-by: Fei Yu <fei.yu@intel.com>
+>>
+>> Reviewed-by: Christian König <christian.koenig@amd.com>
+>>
+>> Let me know if you need somebody to push this to drm-misc-next.
+> 
+> Thanks for the review! Yes please, I don't have drm-misc commit
+> access, so I'd be grateful if you could push it.
+> 
+> Since it carries Fixes: and Cc: stable, drm-misc-fixes was what we
+> discussed earlier, but drm-misc-next is fine with me too if you
+> prefer, your call.
 
---=-K9g/5YUFLFdTjZdxQD2F
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Right, I just pushed it to drm-misc-fixes.
 
-Hi,
+Sorry for the delay,
+Christian.
 
-On Sat, 2026-11-07 at 16:21 +0000, Ruben Wauters wrote:
-> As part of the cleanup of gud_probe(), this patch splits off format init
-> code from gud_probe into it's own function. This makes the code more
-> compartmentalised and easier to follow, and makes gud_probe() smaller
-> and also easier to read.
->=20
-> Signed-off-by: Ruben Wauters <rubenru09@aol.com>
+> 
+> I'll send the uAPI doc patch for the 1M limit against drm-misc-next
+> once this has landed.
+> 
+> Thanks,
+> Fei
 
-I was wondering if it would be possible to get a review on this one,
-since sashiko hasn't found any further issues, so I can get this merged
-
-Thanks
-
-Ruben
-> ---
-> V1 -> V2:
-> - Removed output parameters for gud_get_formats()
-> - Added gud_get_max_buffer_size() helper function
->=20
-> Apologies this v2 took so long
->=20
-> V2 -> V3:
-> - Fix potential num_formats underflow
-> - Skip XRGB8888 in size calculations if emulated
-> - Remove redundant r1 and XRGB1111 size calculations
->=20
-> V3 -> V4
-> - Take XRGB8888 emulated format into account when calculating
->   max_buffer_size
-> ---
->  drivers/gpu/drm/gud/gud_drv.c | 185 ++++++++++++++++++++--------------
->  1 file changed, 111 insertions(+), 74 deletions(-)
->=20
-> diff --git a/drivers/gpu/drm/gud/gud_drv.c b/drivers/gpu/drm/gud/gud_drv.=
-c
-> index 680447f426f3..1ffb2a4fc901 100644
-> --- a/drivers/gpu/drm/gud/gud_drv.c
-> +++ b/drivers/gpu/drm/gud/gud_drv.c
-> @@ -435,11 +435,115 @@ static void gud_free_buffers_and_mutex(void *data)
->  	mutex_destroy(&gdrm->ctrl_lock);
->  }
-> =20
-> -static int gud_probe(struct usb_interface *intf, const struct usb_device=
-_id *id)
-> +static size_t gud_get_max_buffer_size(struct gud_device *gdrm, u32 *form=
-ats, u32 num_formats)
-> +{
-> +	struct drm_device *drm =3D &gdrm->drm;
-> +	size_t max_buffer_size =3D 0;
-> +	size_t fmt_buf_size;
-> +	int i;
-> +
-> +	for (i =3D 0; i < num_formats; i++) {
-> +		const struct drm_format_info *info =3D drm_format_info(formats[i]);
-> +
-> +		/* Substitute emulated XRGB8888 for proper format */
-> +		if (formats[i] =3D=3D DRM_FORMAT_XRGB8888 && gdrm->xrgb8888_emulation_=
-format)
-> +			info =3D gdrm->xrgb8888_emulation_format;
-> +
-> +		fmt_buf_size =3D drm_format_info_min_pitch(info, 0, drm->mode_config.m=
-ax_width) *
-> +							 drm->mode_config.max_height;
-> +		max_buffer_size =3D max(max_buffer_size, fmt_buf_size);
-> +	}
-> +
-> +	return max_buffer_size;
-> +}
-> +
-> +static int gud_get_formats(struct gud_device *gdrm, u32 *formats)
->  {
->  	const struct drm_format_info *xrgb8888_emulation_format =3D NULL;
->  	bool rgb565_supported =3D false, xrgb8888_supported =3D false;
->  	unsigned int num_formats_dev, num_formats =3D 0;
-> +	u8 *formats_dev;
-> +	struct drm_device *drm =3D &gdrm->drm;
-> +	struct device *usb_device =3D gdrm->drm.dev;
-> +	int ret, i;
-> +
-> +	formats_dev =3D devm_kmalloc(usb_device, GUD_FORMATS_MAX_NUM, GFP_KERNE=
-L);
-> +	if (!formats_dev)
-> +		return -ENOMEM;
-> +
-> +	ret =3D gud_usb_get(gdrm, GUD_REQ_GET_FORMATS, 0, formats_dev, GUD_FORM=
-ATS_MAX_NUM);
-> +	if (ret < 0)
-> +		return ret;
-> +
-> +	num_formats_dev =3D ret;
-> +	for (i =3D 0; i < num_formats_dev; i++) {
-> +		const struct drm_format_info *info;
-> +		u32 format;
-> +
-> +		format =3D gud_to_fourcc(formats_dev[i]);
-> +		if (!format) {
-> +			drm_dbg(drm, "Unsupported format: 0x%02x\n", formats_dev[i]);
-> +			continue;
-> +		}
-> +
-> +		if (format =3D=3D GUD_DRM_FORMAT_R1)
-> +			info =3D &gud_drm_format_r1;
-> +		else if (format =3D=3D GUD_DRM_FORMAT_XRGB1111)
-> +			info =3D &gud_drm_format_xrgb1111;
-> +		else
-> +			info =3D drm_format_info(format);
-> +
-> +		switch (format) {
-> +		case GUD_DRM_FORMAT_R1:
-> +			fallthrough;
-> +		case DRM_FORMAT_R8:
-> +			fallthrough;
-> +		case GUD_DRM_FORMAT_XRGB1111:
-> +			fallthrough;
-> +		case DRM_FORMAT_RGB332:
-> +			fallthrough;
-> +		case DRM_FORMAT_RGB888:
-> +			if (!xrgb8888_emulation_format)
-> +				xrgb8888_emulation_format =3D info;
-> +			break;
-> +		case DRM_FORMAT_RGB565:
-> +			rgb565_supported =3D true;
-> +			if (!xrgb8888_emulation_format)
-> +				xrgb8888_emulation_format =3D info;
-> +			break;
-> +		case DRM_FORMAT_XRGB8888:
-> +			xrgb8888_supported =3D true;
-> +			break;
-> +		}
-> +
-> +		if (format =3D=3D GUD_DRM_FORMAT_R1 || format =3D=3D GUD_DRM_FORMAT_XR=
-GB1111)
-> +			continue; /* Internal not for userspace */
-> +
-> +		formats[num_formats++] =3D format;
-> +	}
-> +
-> +	if (!num_formats && !xrgb8888_emulation_format) {
-> +		dev_err(usb_device, "No supported pixel formats found\n");
-> +		return -EINVAL;
-> +	}
-> +
-> +	/* Prefer speed over color depth */
-> +	if (rgb565_supported)
-> +		drm->mode_config.preferred_depth =3D 16;
-> +
-> +	if (!xrgb8888_supported && xrgb8888_emulation_format) {
-> +		gdrm->xrgb8888_emulation_format =3D xrgb8888_emulation_format;
-> +		formats[num_formats++] =3D DRM_FORMAT_XRGB8888;
-> +	}
-> +
-> +	devm_kfree(usb_device, formats_dev);
-> +
-> +	return num_formats;
-> +}
-> +
-> +static int gud_probe(struct usb_interface *intf, const struct usb_device=
-_id *id)
-> +{
-> +	int num_formats =3D 0;
->  	struct usb_endpoint_descriptor *bulk_out;
->  	struct gud_display_descriptor_req desc;
->  	struct device *dev =3D &intf->dev;
-> @@ -447,9 +551,8 @@ static int gud_probe(struct usb_interface *intf, cons=
-t struct usb_device_id *id)
->  	struct gud_device *gdrm;
->  	struct drm_device *drm;
->  	struct device *dma_dev;
-> -	u8 *formats_dev;
->  	u32 *formats;
-> -	int ret, i;
-> +	int ret;
-> =20
->  	ret =3D usb_find_bulk_out_endpoint(intf->cur_altsetting, &bulk_out);
->  	if (ret)
-> @@ -510,81 +613,16 @@ static int gud_probe(struct usb_interface *intf, co=
-nst struct usb_device_id *id)
->  	drm->mode_config.helper_private =3D &gud_mode_config_helpers;
-> =20
->  	/* Format init */
-> -	formats_dev =3D devm_kmalloc(dev, GUD_FORMATS_MAX_NUM, GFP_KERNEL);
->  	/* Add room for emulated XRGB8888 */
->  	formats =3D devm_kmalloc_array(dev, GUD_FORMATS_MAX_NUM + 1, sizeof(*fo=
-rmats), GFP_KERNEL);
-> -	if (!formats_dev || !formats)
-> +	if (!formats)
->  		return -ENOMEM;
-> =20
-> -	ret =3D gud_usb_get(gdrm, GUD_REQ_GET_FORMATS, 0, formats_dev, GUD_FORM=
-ATS_MAX_NUM);
-> -	if (ret < 0)
-> -		return ret;
-> -
-> -	num_formats_dev =3D ret;
-> -	for (i =3D 0; i < num_formats_dev; i++) {
-> -		const struct drm_format_info *info;
-> -		size_t fmt_buf_size;
-> -		u32 format;
-> -
-> -		format =3D gud_to_fourcc(formats_dev[i]);
-> -		if (!format) {
-> -			drm_dbg(drm, "Unsupported format: 0x%02x\n", formats_dev[i]);
-> -			continue;
-> -		}
-> -
-> -		if (format =3D=3D GUD_DRM_FORMAT_R1)
-> -			info =3D &gud_drm_format_r1;
-> -		else if (format =3D=3D GUD_DRM_FORMAT_XRGB1111)
-> -			info =3D &gud_drm_format_xrgb1111;
-> -		else
-> -			info =3D drm_format_info(format);
-> -
-> -		switch (format) {
-> -		case GUD_DRM_FORMAT_R1:
-> -			fallthrough;
-> -		case DRM_FORMAT_R8:
-> -			fallthrough;
-> -		case GUD_DRM_FORMAT_XRGB1111:
-> -			fallthrough;
-> -		case DRM_FORMAT_RGB332:
-> -			fallthrough;
-> -		case DRM_FORMAT_RGB888:
-> -			if (!xrgb8888_emulation_format)
-> -				xrgb8888_emulation_format =3D info;
-> -			break;
-> -		case DRM_FORMAT_RGB565:
-> -			rgb565_supported =3D true;
-> -			if (!xrgb8888_emulation_format)
-> -				xrgb8888_emulation_format =3D info;
-> -			break;
-> -		case DRM_FORMAT_XRGB8888:
-> -			xrgb8888_supported =3D true;
-> -			break;
-> -		}
-> -
-> -		fmt_buf_size =3D drm_format_info_min_pitch(info, 0, drm->mode_config.m=
-ax_width) *
-> -			       drm->mode_config.max_height;
-> -		max_buffer_size =3D max(max_buffer_size, fmt_buf_size);
-> -
-> -		if (format =3D=3D GUD_DRM_FORMAT_R1 || format =3D=3D GUD_DRM_FORMAT_XR=
-GB1111)
-> -			continue; /* Internal not for userspace */
-> -
-> -		formats[num_formats++] =3D format;
-> -	}
-> +	num_formats =3D gud_get_formats(gdrm, formats);
-> +	if (num_formats <=3D 0)
-> +		return num_formats;
-> =20
-> -	if (!num_formats && !xrgb8888_emulation_format) {
-> -		dev_err(dev, "No supported pixel formats found\n");
-> -		return -EINVAL;
-> -	}
-> -
-> -	/* Prefer speed over color depth */
-> -	if (rgb565_supported)
-> -		drm->mode_config.preferred_depth =3D 16;
-> -
-> -	if (!xrgb8888_supported && xrgb8888_emulation_format) {
-> -		gdrm->xrgb8888_emulation_format =3D xrgb8888_emulation_format;
-> -		formats[num_formats++] =3D DRM_FORMAT_XRGB8888;
-> -	}
-> +	max_buffer_size =3D gud_get_max_buffer_size(gdrm, formats, num_formats)=
-;
-> =20
->  	if (desc.max_buffer_size)
->  		max_buffer_size =3D le32_to_cpu(desc.max_buffer_size);
-> @@ -650,7 +688,6 @@ static int gud_probe(struct usb_interface *intf, cons=
-t struct usb_device_id *id)
->  		return ret;
-> =20
->  	devm_kfree(dev, formats);
-> -	devm_kfree(dev, formats_dev);
-> =20
->  	drm_client_setup(drm, NULL);
-> =20
-
---=-K9g/5YUFLFdTjZdxQD2F
-Content-Type: application/pgp-signature; name="signature.asc"
-Content-Description: This is a digitally signed message part
-
------BEGIN PGP SIGNATURE-----
-
-iQLCBAABCgCsFiEE3obNNdPQ9V5CQi2Y0n5QwFCuDOEFAmr7IX0bFIAAAAAABAAO
-bWFudTIsMi41KzEuMTIsMiwyXxSAAAAAAC4AKGlzc3Vlci1mcHJAbm90YXRpb25z
-Lm9wZW5wZ3AuZmlmdGhob3JzZW1hbi5uZXRERTg2Q0QzNUQzRDBGNTVFNDI0MjJE
-OThEMjdFNTBDMDUwQUUwQ0UxEhxydWJlbnJ1MDlAYW9sLmNvbQAKCRDSflDAUK4M
-4UP/D/94Obv6rN1kyeiSrhZBskyZpYuQP45alnQb6R2vlMJer89N+5LaJ1IEeIsf
-qoDAyzSwWaWXhL1kz2HxTG8VgxPaoapXQhmIuxD10bcmDq8Ten/7BbHkIespY1i0
-i+LaGHRZTWdywOE8dQh0eUIlkaenOUn23ikU3h9JYJswYYWIFI5xK1QUn7KbTZRl
-dqUVRrjMCon3noUp9xFRsFE1geDJP/5V26e2vPnH2gmJ1jOwAi+v+0FE/YqKlRav
-Wkix8CMeeFAhZAKdoKXihEnET4wiFkb9BwptA8Gn2L2fKXf+AzB/57rRpb4JE/m9
-xflBHGhxrCdp3ocVf2+rRmLT9gf6JMFnORpsWjZ4T33dpAYD+LO4d5QC8mXoC2CX
-xkIQCBsvRD4OH51hu4/skrzzHenxwK86xWvy1OyN+sx0gIZBATP9nMzs/R9VNGAW
-/U704GAhYa2KRXyQwgC5mL8l4erS+XD5bc22RXkKajdOLSXbMAL+vVaZLg/+1+Im
-xsbzLe0/FrAducQHT7FRw+dfxtmijJprLWkV0Gvf/X/nwcEVFuIWz4qV3tDiEMeh
-5lN4IHMrLCdQOXlwYyvNLPeLeSIblPG9Fudh3/BG1FXxNWsTdGJNOEtyYprcoA6D
-vQnbmvsx5Dhf9iD3MYYPLeqFxWz1Mb1FNwGN6TXNFb5i22JaKw==
-=YAOx
------END PGP SIGNATURE-----
-
---=-K9g/5YUFLFdTjZdxQD2F--
