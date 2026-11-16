@@ -2,53 +2,54 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0EEC1606A31C
-	for <dri-devel@archiver.kernel.org>; Mon, 16 Nov 2026 10:34:13 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 41F53606A31C
+	for <dri-devel@archiver.kernel.org>; Mon, 16 Nov 2026 10:34:14 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=fc3nMspP
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=D4ybwFFz
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 1112C10EF23;
-	Mon, 16 Nov 2026 10:34:07 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 1DFFA10EF2A;
+	Mon, 16 Nov 2026 10:34:08 +0000 (UTC)
 Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 59C3B10EEBB
- for <dri-devel@lists.freedesktop.org>; Mon, 16 Nov 2026 10:33:52 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 6960B10EE6A
+ for <dri-devel@lists.freedesktop.org>; Mon, 16 Nov 2026 10:33:55 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by tor.source.kernel.org (Postfix) with ESMTP id D361D62340;
- Mon, 16 Nov 2026 10:33:51 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0D2621F000CF;
- Mon, 16 Nov 2026 10:33:50 +0000 (UTC)
+ by tor.source.kernel.org (Postfix) with ESMTP id E2B0A60DC0;
+ Mon, 16 Nov 2026 10:33:54 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1D8921F000C4;
+ Mon, 16 Nov 2026 10:33:53 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1794825231;
- bh=bba2iwhebaJEkibbHPjzj5cHl4kyx/sxDtsBORlF6tw=;
+ s=k20260515; t=1794825234;
+ bh=oLu3BAILNHfcvltFWGbaIm7YoIMxLrf+262H777JAaA=;
  h=From:Date:Subject:References:In-Reply-To:To:Cc;
- b=fc3nMspPhujc4PF0cWPvTIiQvomL1tE8640SRtb7zV2aIIFUB2eY4xN95oHdki1Z7
- I7tFwkvL/VWI1LfZb3ZyJpsERAmCRO1mEu/MVifvmiuO04166vs6ARetP7CWa0OyLD
- lTcPxn8rcQVlO6FSVH1uKIeVO/2vb9b01mGzKHjt/ZDAl6HNx7OhRqA6H3xD02mKOr
- AnElOYjcjE5yopEr80vcYQUN8cN6RFdFtviE6TT3JuErxU2r6r8+nTuEXRaJwl+FIY
- kuI2iQ83hlT5I8CRP1svefgkx/U7oI6E2kYO+D/IiPklHUyuYviescccOklufvSZMh
- BqunZUD/TeEIw==
+ b=D4ybwFFzP8ljAsiOCilQs13Xgc2nkeIwVpIj9B6Sdj0pCeT+KwY7yw5XIoAz4CIMA
+ h8MhhmBb47lqdfJTO//LGPluhCBwi2Vg428/9udH2TEQ8ZaWjXSPAFWc2cP4e8CDLr
+ cJCoOatqfDy9DyduWdVFoY3Mkxk+FG48DuUBour1FKonFzVIRYAv4xd4/HLzZ7J06E
+ xXgF/D/X1vtuLEYxYL4WUmdJKVMFFD5BpxdSC5cJDEwnsaJLDP4rdgrmYydNMFLvDk
+ GYC1ICy0u2wVl3BUSyjHjB1VEU1v0t5TSX9gEbPptaUuvCF8ZVttRnlqYqgnm0sOU/
+ CUxJke8zpnKyQ==
 From: Maxime Ripard <mripard@kernel.org>
-Date: Mon, 16 Nov 2026 11:31:10 +0100
-Subject: [PATCH v2 54/64] drm/panel-mipi-dbi: Switch to
+Date: Mon, 16 Nov 2026 11:31:11 +0100
+Subject: [PATCH v2 55/64] drm/pixpaper: Switch to
  drm_mode_config_create_initial_state
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20261116-drm-no-more-config-reset-v2-54-0bb471f4d1e0@kernel.org>
+Message-Id: <20261116-drm-no-more-config-reset-v2-55-0bb471f4d1e0@kernel.org>
 References: <20261116-drm-no-more-config-reset-v2-0-0bb471f4d1e0@kernel.org>
 In-Reply-To: <20261116-drm-no-more-config-reset-v2-0-0bb471f4d1e0@kernel.org>
 To: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
  Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>, 
  Simona Vetter <simona@ffwll.ch>
-Cc: dri-devel@lists.freedesktop.org, Maxime Ripard <mripard@kernel.org>
+Cc: dri-devel@lists.freedesktop.org, Maxime Ripard <mripard@kernel.org>, 
+ LiangCheng Wang <zaq14760@gmail.com>
 X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=openpgp-sha256; l=1212; i=mripard@kernel.org;
- h=from:subject:message-id; bh=0bfdM7WpkfyW0bp7ZoCNrTrIg60SZxXdXr91eTitXMs=;
- b=owGbwMvMwCmsHn9OcpHtvjLG02pJDFm/boczrd3G2ZDwPorzwJ089ouTlR5pPruVKZxzOene8
- +plDn/FO6ayMAhzMsiKKbI8kQk7vbx9cZWD/cofMHNYmUCGMHBxCsBEZngxNsxsXnF7ZsTBmizW
- F/9d/F2P2O+YKmTY0rR4zrTfts8OT/TIeTBjZcidawnrOKvnP9bu7WRsmGZstETsddgliUo2KY7
- j260ZG3OKnp1OPiP+d8+8KsbnAhGykbN1k1Kmr327gT2nIWsyAA==
+X-Developer-Signature: v=1; a=openpgp-sha256; l=1292; i=mripard@kernel.org;
+ h=from:subject:message-id; bh=GlQA2Bbd+ZMFh0AX38FhVwkFO5rUuFR1XIY0B3i2tv8=;
+ b=owGbwMvMwCmsHn9OcpHtvjLG02pJDFm/bkd8a97D1K88xyX4dPlPJ/403+dqMTP8Q8zeBKT0r
+ ixlP2fTMZWFQZiTQVZMkeWJTNjp5e2LqxzsV/6AmcPKBDKEgYtTACbC481YK1MmZRLt+Obikr7T
+ D6dq5sc+6469z/7iyqZdW9l/HDmR+ens9n/7g+cLVe1vTmu2eny2ibHhwTbbyW0rHsX7Kr+Z3fT
+ 9W4Hd+UvJa+Zbuv60frY0M1b4V+Wxq29K/8xLTqgL2vRH12MPAA==
 X-Developer-Key: i=mripard@kernel.org; a=openpgp;
  fpr=BE5675C37E818C8B5764241C254BCFC56BF6CE8D
 X-BeenThere: dri-devel@lists.freedesktop.org
@@ -82,18 +83,20 @@ Switch to drm_mode_config_create_initial_state().
 
 Signed-off-by: Maxime Ripard <mripard@kernel.org>
 ---
- drivers/gpu/drm/tiny/panel-mipi-dbi.c | 4 +++-
+Cc: LiangCheng Wang <zaq14760@gmail.com>
+---
+ drivers/gpu/drm/tiny/pixpaper.c | 4 +++-
  1 file changed, 3 insertions(+), 1 deletion(-)
 
-diff --git a/drivers/gpu/drm/tiny/panel-mipi-dbi.c b/drivers/gpu/drm/tiny/panel-mipi-dbi.c
-index 3f462d79a6d3..6835c7d0f208 100644
---- a/drivers/gpu/drm/tiny/panel-mipi-dbi.c
-+++ b/drivers/gpu/drm/tiny/panel-mipi-dbi.c
-@@ -488,11 +488,13 @@ static int panel_mipi_dbi_spi_probe(struct spi_device *spi)
+diff --git a/drivers/gpu/drm/tiny/pixpaper.c b/drivers/gpu/drm/tiny/pixpaper.c
+index 2a92a28b40f6..f8a633d0fbd8 100644
+--- a/drivers/gpu/drm/tiny/pixpaper.c
++++ b/drivers/gpu/drm/tiny/pixpaper.c
+@@ -1116,11 +1116,13 @@ static int pixpaper_probe(struct spi_device *spi)
  
- 	ret = drm_connector_attach_encoder(connector, encoder);
- 	if (ret)
- 		return ret;
+ 	drm_connector_helper_add(&panel->connector,
+ 				 &pixpaper_connector_helper_funcs);
+ 	drm_connector_attach_encoder(&panel->connector, &panel->encoder);
  
 -	drm_mode_config_reset(drm);
 +	ret = drm_mode_config_create_initial_state(drm);
