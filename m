@@ -2,54 +2,55 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CC040606A31C
-	for <dri-devel@archiver.kernel.org>; Mon, 16 Nov 2026 10:34:01 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 49F76606A323
+	for <dri-devel@archiver.kernel.org>; Mon, 16 Nov 2026 10:34:04 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=VTaZFF/K
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Fc4Z772S
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 0076B10EF20;
-	Mon, 16 Nov 2026 10:33:53 +0000 (UTC)
-Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 8B8D810EE6A
- for <dri-devel@lists.freedesktop.org>; Mon, 16 Nov 2026 10:33:28 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 530DD10EF1A;
+	Mon, 16 Nov 2026 10:33:58 +0000 (UTC)
+Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id F11D910EE6A
+ for <dri-devel@lists.freedesktop.org>; Mon, 16 Nov 2026 10:33:16 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id 70EE943C23;
- Mon, 16 Nov 2026 10:33:28 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id CBF091F000C4;
- Mon, 16 Nov 2026 10:33:27 +0000 (UTC)
+ by tor.source.kernel.org (Postfix) with ESMTP id 30F54618E0;
+ Mon, 16 Nov 2026 10:33:16 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 58F081F000C4;
+ Mon, 16 Nov 2026 10:33:15 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1794825208;
- bh=uHeAS1OD5csAjrNv2BLWSyP7HOHZUd2Im5PvMQjQSHs=;
+ s=k20260515; t=1794825195;
+ bh=WsbICVKFvsNCgi2O6UHiKIyWvk3rsyoSm5SV1x5toTw=;
  h=From:Date:Subject:References:In-Reply-To:To:Cc;
- b=VTaZFF/KKoNP6jRQHurmIoURF2cPwZjYBAMQ5irPqv9zLNJDjzL7xQ8oidW/ARh5S
- 5KtGrHw+mBZ/YxduykwyQfJu6F2r1RA4Mco8S+jXMvPHPn4kjPDqhkxU8RuVh+J5w4
- +2HJUxrAS97nXJMtSPiuJKLkpPxLPTQH9FfabU73D6Re1QKm6O+KMUXk8UACwAsh3i
- 4tdmRcMtCfU2YTRfZ5A3RSb48AGJRMms5mQWUmh688b2gm6WGFmWwjqs2XLOgrLLrW
- IYeWkeLAV90gyOGnzI9gJPDo5vrVV3NLb8TjJ3DZsGiFIQb6IyWJ96N85xxPhiFF7R
- mtHgGkd9GhgIg==
+ b=Fc4Z772SiiuMTEYr7quRsgv2HwVROTuKlppBeD7XIwJiqSCXJzi/0FNpkdHXkOQ4Z
+ sBO/xNNV2Otbb0ZHhSsreq7IrKmH250bGycQu6G11lYDZR/MEmS9ixMw05RgTLKdqm
+ JNEljhWJ3sT3h4p5vb+jEPVFOdCyPdBkYoxSKYB0yX3M6kEq5bKg/CoCHUmkHgv3EU
+ F3MTiwhhc2EPkC9kebUMlzU+PPj+YTfcRM2ps+vL/lcY9E2/kKsfjjCHFMwCvgJo8z
+ kTVn+piASpTRVJtbxXC7m2RlzFWaWJmEboOpgoYLisVJZrklV2V3bnYOjoHVcAcaT0
+ e9fDgPNbZPlPQ==
 From: Maxime Ripard <mripard@kernel.org>
-Date: Mon, 16 Nov 2026 11:31:03 +0100
-Subject: [PATCH v2 47/64] drm/gm12u320: Switch to
+Date: Mon, 16 Nov 2026 11:30:59 +0100
+Subject: [PATCH v2 43/64] drm/tilcdc: Switch to
  drm_mode_config_create_initial_state
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20261116-drm-no-more-config-reset-v2-47-0bb471f4d1e0@kernel.org>
+Message-Id: <20261116-drm-no-more-config-reset-v2-43-0bb471f4d1e0@kernel.org>
 References: <20261116-drm-no-more-config-reset-v2-0-0bb471f4d1e0@kernel.org>
 In-Reply-To: <20261116-drm-no-more-config-reset-v2-0-0bb471f4d1e0@kernel.org>
 To: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
  Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>, 
  Simona Vetter <simona@ffwll.ch>
 Cc: dri-devel@lists.freedesktop.org, Maxime Ripard <mripard@kernel.org>, 
- Hans de Goede <hansg@kernel.org>
+ Jyri Sarha <jyri.sarha@iki.fi>, 
+ Tomi Valkeinen <tomi.valkeinen@ideasonboard.com>
 X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=openpgp-sha256; l=1279; i=mripard@kernel.org;
- h=from:subject:message-id; bh=kjBxV9Rxk0B/SC1PWT+i8pSDygx9B9DuRLCilWuFAGQ=;
- b=owGbwMvMwCmsHn9OcpHtvjLG02pJDFm/bocU7ZygdfDFEsn55qkPlFVadLO6D05uVfzx6Xzjw
- b+SG08EdkxhYRDmZJAVU2R5IhN2enn74ioH+5U/YOawMoEMYeDiFICJrHZkrFPv3/5C+fvf1qCU
- rhkCnTMfPKvQmZ7Wquzr1xoU/MWxxFFwyT/heH+Pd89FTmd2+CwqZixiDtg8+3UQV+ruBXfOZ5x
- Z9Km+xnVb+9IVk24t+xS03m1l0kNVsfVvfS2///Zd1cdw5wcA
+X-Developer-Signature: v=1; a=openpgp-sha256; l=1344; i=mripard@kernel.org;
+ h=from:subject:message-id; bh=J3o6ys0Oa/uitqeS5k0hv0iGrNuPEEjZVHHv/YKvhp0=;
+ b=owGbwMvMwCmsHn9OcpHtvjLG02pJDFm/bgexfTGfKi51LmlbovHlBx6XZfhcpNvv+qnMrDbf1
+ nQx5HtRx1QWBmFOBlkxRZYnMmGnl7cvrnKwX/kDZg4rE8gQBi5OAZjIp5eM9WUxl5mKiqb672QS
+ dZvz9dqV7dJXViTssFFd5eSzVON1pmavxR2Fre+uHiuyespW/bepkbHh1YVTyhPnz02QOLlVWFh
+ YYdpDiRP/V8+o+lXAU+9e+feNxKlH71+7W/tJfV7by11+PSESAA==
 X-Developer-Key: i=mripard@kernel.org; a=openpgp;
  fpr=BE5675C37E818C8B5764241C254BCFC56BF6CE8D
 X-BeenThere: dri-devel@lists.freedesktop.org
@@ -83,30 +84,31 @@ Switch to drm_mode_config_create_initial_state().
 
 Signed-off-by: Maxime Ripard <mripard@kernel.org>
 ---
-Cc: Hans de Goede <hansg@kernel.org>
+Cc: Jyri Sarha <jyri.sarha@iki.fi>
+Cc: Tomi Valkeinen <tomi.valkeinen@ideasonboard.com>
 ---
- drivers/gpu/drm/tiny/gm12u320.c | 4 +++-
+ drivers/gpu/drm/tilcdc/tilcdc_drv.c | 4 +++-
  1 file changed, 3 insertions(+), 1 deletion(-)
 
-diff --git a/drivers/gpu/drm/tiny/gm12u320.c b/drivers/gpu/drm/tiny/gm12u320.c
-index 5c4004346ff8..527b830e4465 100644
---- a/drivers/gpu/drm/tiny/gm12u320.c
-+++ b/drivers/gpu/drm/tiny/gm12u320.c
-@@ -770,11 +770,13 @@ static int gm12u320_usb_probe(struct usb_interface *interface,
+diff --git a/drivers/gpu/drm/tilcdc/tilcdc_drv.c b/drivers/gpu/drm/tilcdc/tilcdc_drv.c
+index 1d6c9a423a41..da718d9cb1d6 100644
+--- a/drivers/gpu/drm/tilcdc/tilcdc_drv.c
++++ b/drivers/gpu/drm/tilcdc/tilcdc_drv.c
+@@ -420,11 +420,13 @@ static int tilcdc_pdev_probe(struct platform_device *pdev)
+ 	if (ret < 0) {
+ 		drm_err(ddev, "failed to install IRQ handler\n");
+ 		goto unregister_cpufreq_notif;
+ 	}
  
- 	ret = drm_connector_attach_encoder(&gm12u320->conn, &gm12u320->encoder);
- 	if (ret)
- 		return ret;
- 
--	drm_mode_config_reset(dev);
-+	ret = drm_mode_config_create_initial_state(dev);
+-	drm_mode_config_reset(ddev);
++	ret = drm_mode_config_create_initial_state(ddev);
 +	if (ret)
-+		return ret;
++		goto stop_poll;
  
- 	usb_set_intfdata(interface, dev);
- 	ret = drm_dev_register(dev, 0);
+ 	drm_kms_helper_poll_init(ddev);
+ 
+ 	ret = drm_dev_register(ddev, 0);
  	if (ret)
- 		return ret;
 
 -- 
 2.56.1
