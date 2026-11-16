@@ -2,43 +2,43 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CC218606A32F
-	for <dri-devel@archiver.kernel.org>; Mon, 16 Nov 2026 10:54:07 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E3E2A606A881
+	for <dri-devel@archiver.kernel.org>; Mon, 16 Nov 2026 10:55:42 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=MpeZxR8Y
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=VFzPJYlF
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 3062810E3D8;
-	Mon, 16 Nov 2026 10:54:02 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 51B1A10EF41;
+	Mon, 16 Nov 2026 10:55:37 +0000 (UTC)
 Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 5AE1D10E3D8
- for <dri-devel@lists.freedesktop.org>; Mon, 16 Nov 2026 10:53:55 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id DAAF410EF4D
+ for <dri-devel@lists.freedesktop.org>; Mon, 16 Nov 2026 10:55:30 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id 25E8B413CA
- for <dri-devel@lists.freedesktop.org>; Mon, 16 Nov 2026 10:53:55 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id D77341F000C6;
- Mon, 16 Nov 2026 10:53:54 +0000 (UTC)
+ by sea.source.kernel.org (Postfix) with ESMTP id A0AC74012B
+ for <dri-devel@lists.freedesktop.org>; Mon, 16 Nov 2026 10:55:30 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5CD291F000C5;
+ Mon, 16 Nov 2026 10:55:30 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1794826435;
- bh=R/1IPjXtaTBrPgusSaO6H2YLWwEn4dsOW+wm8pspz4w=;
+ s=k20260515; t=1794826530;
+ bh=//uSG//TNZsArgExQlhnfqZG3cpeY6UO8Gx0T5czSyI=;
  h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
- b=MpeZxR8YqBGBIHyMpZUOfCA1e6VcpwVG3V/+SgK8vYzeig/bLQFYlx8wa9HMHj77i
- z+xBHOVKYpFtIXN4sknsFDedVPtCoLi3kGEveyDglHE6ytzv8puO6ZJsB2fX0P8pRx
- oBgmqrELfjnbxEUj8UaOMBe6cd5mH6hpaCNieaFBubZfqTMFBTpoSYejAZyqPCe23a
- S/jaVPC6hzMkk31nxkOU0+6ev5AlJZWNS09vIMc7m2+kuoYReDzGrrUpPGfKhnON8n
- g6JT/0NFw2zO7iEvm7VSjk5krvme6hBn7EgPo0NCS8L3WnJZkaoEe/7oBsRUoNAc3o
- /WCHJpEwNVfow==
-Message-ID: <sashiko-outbox-216790@kernel.org>
+ b=VFzPJYlFCczF/FzmjA9o7FfA0R5yb9WA1WGbWOvPZtd4Sy2P9M1hN2mrF0f1Fsjnm
+ KRIv6Y7S2IzsVf03DUFyIYN6MsuLNO++OxsMm+v8w2KBjoYxOy38xzw3Ot3drECIqW
+ /SX1q85ys1ByMhJ5bzoDLgUHh9GHWeCWmiqdccvJm001bXfGIe50hdTAEwVqbtBOKA
+ g8P2klcKqs3NQUTpb8SS2hxxSDxLdgG4mG5dcAiY+MLQQ/8B+/rMn2HQyLq38YUoOd
+ T852CzwD7muQUkLFQfay8ySuhNg7xGMh85dCZqU3KgBc5vDkW10rV+xT22gih82Hi4
+ cPVwWmGht3eIg==
+Message-ID: <sashiko-outbox-216798@kernel.org>
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v2 17/64] drm/loongson: Switch to
+Subject: Re: [PATCH v2 38/64] drm/tests: drm_atomic_state_test: Switch to
  drm_mode_config_create_initial_state
 To: "Maxime Ripard" <mripard@kernel.org>
 Cc: dri-devel@lists.freedesktop.org
-In-Reply-To: <20261116-drm-no-more-config-reset-v2-17-0bb471f4d1e0@kernel.org>
+In-Reply-To: <20261116-drm-no-more-config-reset-v2-38-0bb471f4d1e0@kernel.org>
 References: <20261116-drm-no-more-config-reset-v2-0-0bb471f4d1e0@kernel.org>
- <20261116-drm-no-more-config-reset-v2-17-0bb471f4d1e0@kernel.org>
+ <20261116-drm-no-more-config-reset-v2-38-0bb471f4d1e0@kernel.org>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Mon, 16 Nov 2026 10:53:54 +0000
+Date: Mon, 16 Nov 2026 10:55:29 +0000
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -59,71 +59,76 @@ X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 X-Archived-By: <archiver.kernel.org>
 
-Thank you for your contribution! Sashiko AI review found 1 potential
-issue to consider:
-- [High] drm/loongson: skipped CRTC and encoder hardware reset in
-  lsdc_create_device()
+Thank you for your contribution! Sashiko AI review found 2 potential
+issues to consider:
+- [Medium] drm/tests: ERR_PTR dereference after
+  drm_atomic_test_init_drm_components()
+- [Low] drm/tests: commit subject uses stale drm_atomic_state_test
+  prefix
 --
 
-commit 8beeb01686f101cdce0b7603e2b5e7c72cefba29
+commit 764d6a07d978e1acc8e6005af10238d412ddeb08
 Author: Maxime Ripard <mripard@kernel.org>
 
-drm/loongson: Switch to drm_mode_config_create_initial_state
+drm/tests: drm_atomic_state_test: Switch to drm_mode_config_create_initial_=
+state
 
-This commit replaces drm_mode_config_reset() with
-drm_mode_config_create_initial_state() during device creation in
-lsdc_create_device().
+This commit switches drm_atomic_test_init_drm_components() from
+drm_mode_config_reset() to drm_mode_config_create_initial_state() for
+initial KMS state creation.
 
-> diff --git a/drivers/gpu/drm/loongson/lsdc_drv.c b/drivers/gpu/drm/loongs=
-on/lsdc_drv.c
-> index 5a13df31eb902..fbb2658acce40 100644
-> --- a/drivers/gpu/drm/loongson/lsdc_drv.c
-> +++ b/drivers/gpu/drm/loongson/lsdc_drv.c
-> @@ -247,7 +247,9 @@ lsdc_create_device(struct pci_dev *pdev,
->  	if (ret)
->  		return ERR_PTR(ret);
+> drm/tests: drm_atomic_state_test: Switch to drm_mode_config_create_initia=
+l_state
+
+[Severity: Low]
+This isn't a bug, but 5164f7e7ff8e ("drm: Rename struct drm_atomic_state
+to drm_atomic_commit") renamed this test file to
+drm_atomic_commit_test.c, so the subject prefix still refers to the old
+name.
+
+> diff --git a/drivers/gpu/drm/tests/drm_atomic_commit_test.c b/drivers/gpu=
+/drm/tests/drm_atomic_commit_test.c
+> index 6ccb001f6264b..97f60ce68b3e4 100644
+> --- a/drivers/gpu/drm/tests/drm_atomic_commit_test.c
+> +++ b/drivers/gpu/drm/tests/drm_atomic_commit_test.c
+> @@ -134,7 +134,9 @@ drm_atomic_test_init_drm_components(struct kunit *tes=
+t, bool has_connectors)
+>  	}
 > =20
-> -	drm_mode_config_reset(ddev);
-> +	ret =3D drm_mode_config_create_initial_state(ddev);
+>  done:
+> -	drm_mode_config_reset(drm);
+> +	ret =3D drm_mode_config_create_initial_state(drm);
 > +	if (ret)
 > +		return ERR_PTR(ret);
 > =20
->  	return ldev;
+>  	return priv;
 >  }
 
-[Severity: High]
-Does replacing drm_mode_config_reset() with
-drm_mode_config_create_initial_state() skip hardware initialization that
-this driver relies on during probe?
+[Severity: Medium]
+Can returning ERR_PTR(ret) here lead to an error pointer dereference in
+the callers?
 
-Unlike drm_mode_config_reset(), drm_mode_config_create_initial_state() does
-not call crtc->helper_private->hw_reset() or encoder->funcs->reset():
+Every earlier step in drm_atomic_test_init_drm_components() aborts via
+KUNIT_ASSERT_*, and the callers only check KUNIT_ASSERT_NOT_NULL(test,
+priv) before passing priv to set_up_atomic_state(), which dereferences
+priv->crtc:
 
-drivers/gpu/drm/loongson/lsdc_output_7a2000.c:ls7a2000_hdmi0_encoder_reset(=
-) {
+drivers/gpu/drm/tests/drm_atomic_commit_test.c:drm_test_check_connector_cha=
+nged_modeset() {
 	...
-	val =3D PHY_CLOCK_POL | PHY_CLOCK_EN | PHY_DATA_EN;
-	lsdc_wreg32(ldev, LSDC_CRTC0_DVO_CONF_REG, val);
+	priv =3D drm_atomic_test_init_drm_components(test, true);
+	KUNIT_ASSERT_NOT_NULL(test, priv);
 
-	/* using software gpio emulated i2c */
-	val =3D lsdc_rreg32(ldev, LSDC_HDMI0_INTF_CTRL_REG);
-	val &=3D ~HW_I2C_EN;
-	lsdc_wreg32(ldev, LSDC_HDMI0_INTF_CTRL_REG, val);
-
-	/* help the hdmi phy to get out of reset state */
-	lsdc_wreg32(ldev, LSDC_HDMI0_PHY_CTRL_REG, HDMI_PHY_RESET_N);
+	/* First, do a modeset to set the connector */
+	ret =3D set_up_atomic_state(test, priv, &priv->connectors[0], &ctx);
 	...
 }
 
-On both LS7A1000 and LS7A2000, the encoder reset callbacks are the only
-places in the driver that program LSDC_CRTC0_DVO_CONF_REG and
-LSDC_CRTC1_DVO_CONF_REG.  On LS7A2000, skipping encoder reset also leaves
-the HDMI PHY in reset and HW_I2C_EN set, breaking software GPIO I2C for
-connector detection and EDID reads before an atomic enable runs.  In
-addition, skipping lsdc_crtc_hw_reset() leaves LSDC_CRTC0_CFG_REG and
-LSDC_CRTC1_CFG_REG with firmware settings across read-modify-write modeset
-updates instead of initializing them to CFG_RESET_N | LSDC_PF_XRGB8888.
+Using KUNIT_ASSERT_EQ(test, ret, 0) here matches the rest of the helper,
+and it looks like that change was accidentally squashed into the
+following commit "drm/tests: drm_atomic_test: Switch to
+drm_mode_config_create_initial_state".
 
 --=20
 Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261116-drm-no-mor=
-e-config-reset-v2-0-0bb471f4d1e0@kernel.org?part=3D17
+e-config-reset-v2-0-0bb471f4d1e0@kernel.org?part=3D38
