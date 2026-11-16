@@ -2,130 +2,165 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E0919606A899
-	for <dri-devel@archiver.kernel.org>; Mon, 16 Nov 2026 04:03:25 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E2F68606A335
+	for <dri-devel@archiver.kernel.org>; Mon, 16 Nov 2026 04:12:28 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=Nvidia.com header.i=@Nvidia.com header.a=rsa-sha256 header.s=selector2 header.b=SFyQGTX1
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=gZKUcXqP;
+	dkim=fail reason="signature verification failed" (1024-bit key, unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=selector1 header.b=j31MuEK7
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 0F72910E0EB;
-	Mon, 16 Nov 2026 04:03:20 +0000 (UTC)
-Received: from BL0PR03CU003.outbound.protection.outlook.com
- (mail-eastusazon11012059.outbound.protection.outlook.com [52.101.53.59])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 725D810E0EB
- for <dri-devel@lists.freedesktop.org>; Mon, 16 Nov 2026 04:03:13 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 4E7A110E1FD;
+	Mon, 16 Nov 2026 04:12:18 +0000 (UTC)
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.11])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 80EA910E1CF;
+ Mon, 16 Nov 2026 04:12:06 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1794802326; x=1826338326;
+ h=date:from:to:cc:subject:message-id:references:
+ content-transfer-encoding:in-reply-to:mime-version;
+ bh=okzC6i4Sw0jkR2z7XroTGNJWWLpJjpF7V11QWeKGqVk=;
+ b=gZKUcXqPembvL2DuzspU6BCdmDt5UPi6kQI0dV4iKrS+8kmtIHMiapGd
+ fE1Gk7yPkk9jQtQObq7saVykHX8YcwFG7u/oh8r+CVMKz/YEX0zIBtwfV
+ cZ4xjTzyvB411bRjkh51EhmWAK6x65WsXmvfyKrcvXfJHs//aAKsqaDEG
+ NfXpygahfLUHx15c478FSlE3jLNUNxlxc33/i9xog1sL+iph7zihJnmya
+ lb33myGKTeyklfayiK8oA0lUyD7BJAXo4UB1m80AAo3FpWZiTFj0WLhJh
+ 6D5RzGjix+aMAwaPdrqSiizEUoe5dTiPHkEVEp4g1Y2Js7mFY6AEsXFF9 w==;
+X-CSE-ConnectionGUID: 6U+17SzfQeOKoAnSQV+afg==
+X-CSE-MsgGUID: o2FKY3s0Q/y4s0Nq+cQD0g==
+X-IronPort-AV: E=McAfee;i="6800,10657,11967"; a="3425256"
+X-IronPort-AV: E=Sophos;i="6.27,216,1787036400"; 
+   d="scan'208";a="3425256"
+Received: from orviesa001.jf.intel.com ([10.64.159.141])
+ by orvoesa103.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 15 Nov 2026 20:12:06 -0800
+X-CSE-ConnectionGUID: VobQBLPaTgmF+nbEpIdhBw==
+X-CSE-MsgGUID: YuIEQageT/ONVLxvcZeZfA==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,216,1787036400"; 
+   d="scan'208";a="9520439"
+Received: from orsmsx902.amr.corp.intel.com ([10.22.229.24])
+ by orviesa001.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 15 Nov 2026 20:12:07 -0800
+Received: from ORSMSX902.amr.corp.intel.com (10.22.229.24) by
+ ORSMSX902.amr.corp.intel.com (10.22.229.24) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.56; Sun, 15 Nov 2026 20:12:05 -0800
+Received: from ORSEDG902.ED.cps.intel.com (10.7.248.12) by
+ ORSMSX902.amr.corp.intel.com (10.22.229.24) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.56 via Frontend Transport; Sun, 15 Nov 2026 20:12:05 -0800
+Received: from BL2PR02CU003.outbound.protection.outlook.com (52.101.52.55) by
+ edgegateway.intel.com (134.134.137.112) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.56; Sun, 15 Nov 2026 20:12:05 -0800
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=ISBOX894efrK2z6cPPpCJDeoetFIzzoOD44Ta9Lhe9GvKWaO7BKU21pxriOPyMEu8gfvAdjxnmo073gEBR8WrXm3wMOvScFmr5I88bRTR+q1zWfBQKpd55seZkFW0T1jdikT/cCTlpNzNxmxsu0CKJvaVD9XtkeIODZ2SluaxMUqNagMW9zSxBtkLhzqea2P8/Idv3rOxXXKZG+4ZtGDwWgZBKni0Sjb1tNB7wtYLesPtwAWadZsu2uN1ghVfxV2xf7d0hD28fPzvhDZbaUaHwLL5hZ6vhycfjiHMKr4t07IR3fK0tmoSMXhvXyW8vXMOc9MnBCswitUbL76PxoEtQ==
+ b=oTYtAkazuFygwjfA9rXzcT3xkNXER/tENGBMRLF6G0Xl+sn8ZAmhvkNhzVvYemDRt9uzX+8Q1Fjzcj98kEaZOhaPpT9qV9IYF2CO6a4yC0Ir0bhoGaa1E9arJ7TvmEZjAyuz3loFi9zj9QI8CvaVZvUv9PFtdvikvNsR1Q/FZDFJMdKPTU0V6NQBqGVkZBY6A/JY0BzJ+tt2OhyNnYjThaV0mMHjSnxIBp1QLMMCGzJoMNfoyiWa3bWyZtDplLPej/4LBMNt9NJsk/U/gI40LCNWXHC/WjzmPisAfloU0PhsJo3DL9TjxvfBDMEgQJHOsENDJXotmXkW7iHyCYSh6g==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=txdxShazMCeZ+97jCCVZjbVKT3ItALb5i0Swrs2NoTY=;
- b=MH6vsf8gxXrb7sqIN50HpuWgxR/XQ4UYANvv8wdBA5d2T7T07RaTtdKKALLWRSDi9Tw2iFLEAjtAdHZdi7iA11xpTF1/gvphtV4MM1D3j3iqAB+18JHh9uSVXCEqeuVshrF8X+acG/21glttv490Mp/QcFDSyLPaq7BkFPnqcPnzfyB5EESgEmLTk1uwr0XqCExbae08OpP6pOB6Yqz6svhUjs5ewvLqJUcRBSadnd6znxE/KfsjorAZwK3dSVng1wOGS/tcvKGvN4gnBMnDqfpgLJURajZXv3VTPz9fVWr34htmgyZR8N9SGiB3R+jNRAdmE0wTYCvFFyW98UACpw==
+ bh=ylFkgEP9STZB5+AkhAMsSgFCMu/TL5rflmVNpE+ewbo=;
+ b=Cl5QiG8NzB6wkZhDlbYP9T2NtvAnH+xDHVXvfCZi9Au3skVJHA9nJJbVX1OMNHTpjvvH9FnjTWDtHPJK0jpPAX/N/MBMfTrCWOxR89i8PwVq50EA4GYvPPJEADdcoGJxNBpA2dBrXX32UFffSTqFfY2qOWWyXsYMfVaDDf58NzzvMNzieO82vb5uwXowColIHULL1HaZI1w0s6AmpbVAVG5s5Gxa9LHma5M8my5FC3NyRke8BUYnw5AnwnclKQDx3aUqtrG/mLhIgPFebgjwWx1MOLWRP94GWqgk8qvfPsz39Y6ribHV13oOumkcp6xXYA7t5WYetvnabhkLhRSVkA==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
- dkim=pass header.d=nvidia.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
- s=selector2;
+ smtp.mailfrom=intel.com; dmarc=pass action=none header.from=intel.com;
+ dkim=pass header.d=intel.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=intel.com; s=selector1;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=txdxShazMCeZ+97jCCVZjbVKT3ItALb5i0Swrs2NoTY=;
- b=SFyQGTX1wispHDvlOJvizpWRTJKUAkzletKSfWLCtqqESEL4X3eEL/X0ogyZxZWmRvUhubnG9TeFMSPYCw8zTNdi+kc016SKg4+eI9Ed85BZTgAH7yZ19IK2rtKPEjJwV3JeK10Ej4u1l+fqoJyr8CAWpj5CBwnHYBKUkwJhWCJqAaBXTBnn1xk576JqnmmjKTs2Y4QWywcRNdcpc6BCyoh+QVKgYzgwtN+xUVL95Ic8b+xYgMXJ4Hg/CVkOLVtu4xdzt1tbu0lWJkJ3t3Ue5PUlb2xIz2+mdvr/e8ZCheh+oLVP06yYyTOBIihUHJT6QWMB9+7KjcRxP0Q301XjDw==
+ bh=ylFkgEP9STZB5+AkhAMsSgFCMu/TL5rflmVNpE+ewbo=;
+ b=j31MuEK7rqfMpNqUc7SrlXxLxbKPgNgrtXNwfPQr7l87/GvmzsoXCfNzmcBwfiILhlHaLLclmiREuPylkHGaTSOcb5royFNntHsggff2Wy/B9CmhV7lFJYCeywfqYPojMnU3tlJnKn3gudYby9U6ohxGmmMGobdnbzGlwQmYD/Y=
 Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=nvidia.com;
-Received: from PH7PR12MB6858.namprd12.prod.outlook.com (2603:10b6:510:1b4::20)
- by CHBPR12MB497579.namprd12.prod.outlook.com (2603:10b6:610:33d::6)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.615.14; Mon, 16 Nov
- 2026 04:03:03 +0000
-Received: from PH7PR12MB6858.namprd12.prod.outlook.com
- ([fe80::a550:dbcf:2fcf:463d]) by PH7PR12MB6858.namprd12.prod.outlook.com
- ([fe80::a550:dbcf:2fcf:463d%6]) with mapi id 15.21.0615.012; Mon, 16 Nov 2026
- 04:03:03 +0000
-Content-Transfer-Encoding: quoted-printable
-Content-Type: text/plain; charset=UTF-8
-Date: Mon, 16 Nov 2026 13:02:13 +0900
-Message-Id: <DMWC45NN5L9I.2NUG81ETBC84L@nvidia.com>
-To: "Danilo Krummrich" <dakr@kernel.org>
-Cc: <aliceryhl@google.com>, <abdiel.janulgue@gmail.com>,
- <daniel.almeida@collabora.com>, <robin.murphy@arm.com>,
- <a.hindborg@kernel.org>, <ojeda@kernel.org>, <boqun@kernel.org>,
- <gary@garyguo.net>, <bjorn3_gh@protonmail.com>, <lossin@kernel.org>,
- <tmgross@umich.edu>, <tamird@kernel.org>, <work@onurozkan.dev>,
- <driver-core@lists.linux.dev>, <nova-gpu@lists.linux.dev>,
- <dri-devel@lists.freedesktop.org>, <linux-kernel@vger.kernel.org>,
- <rust-for-linux@vger.kernel.org>
-Subject: Re: [PATCH 1/2] rust: scatterlist: tie owned tables to the device's
- bound lifetime
-From: "Alexandre Courbot" <acourbot@nvidia.com>
-References: <20261114234324.82387-1-dakr@kernel.org>
-In-Reply-To: <20261114234324.82387-1-dakr@kernel.org>
-X-ClientProxiedBy: OS7PR01CA0302.jpnprd01.prod.outlook.com
- (2603:1096:604:26f::12) To MW4PR12MB6873.namprd12.prod.outlook.com
- (2603:10b6:303:20c::17)
+ header.d=none;dmarc=none action=none header.from=intel.com;
+Received: from MW3PR11MB4684.namprd11.prod.outlook.com (2603:10b6:303:5d::14)
+ by IA3PPF849DF23EC.namprd11.prod.outlook.com
+ (2603:10b6:20f:fc04::cf) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.615.10; Mon, 16 Nov
+ 2026 04:10:03 +0000
+Received: from MW3PR11MB4684.namprd11.prod.outlook.com
+ ([fe80::2f5a:96ce:f7e4:c315]) by MW3PR11MB4684.namprd11.prod.outlook.com
+ ([fe80::2f5a:96ce:f7e4:c315%7]) with mapi id 15.21.0615.013; Mon, 16 Nov 2026
+ 04:10:03 +0000
+Date: Sun, 15 Nov 2026 20:10:00 -0800
+From: Niranjana Vishwanathapura <niranjana.vishwanathapura@intel.com>
+To: Matthew Brost <matthew.brost@intel.com>
+CC: <intel-xe@lists.freedesktop.org>, <dri-devel@lists.freedesktop.org>,
+ Carlos Santa <carlos.santa@intel.com>, Ryan Neph <ryanneph@google.com>,
+ Christian Koenig <christian.koenig@amd.com>, Huang Rui <ray.huang@amd.com>,
+ Matthew Auld <matthew.auld@intel.com>, Maarten Lankhorst
+ <maarten.lankhorst@linux.intel.com>, Maxime Ripard <mripard@kernel.org>,
+ Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>,
+ Simona Vetter <simona@ffwll.ch>, <linux-kernel@vger.kernel.org>, Thomas
+ =?iso-8859-1?Q?Hellstr=F6m?= <thomas.hellstrom@linux.intel.com>
+Subject: Re: [PATCH v3 28/33] drm/xe: Use IOVA-based DMA mapping for eligible
+ tt BOs
+Message-ID: <avqCGBJBe-1ycHuO@nvishwa1-desk>
+References: <20260711025619.2540575-1-matthew.brost@intel.com>
+ <20260711025619.2540575-29-matthew.brost@intel.com>
+ <avat_NbhVqfLIyE7@nvishwa1-desk>
+ <avdujVDHaYT3zi1b@gsse-cloud1.jf.intel.com>
+Content-Type: text/plain; charset=iso-8859-1; format=flowed
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <avdujVDHaYT3zi1b@gsse-cloud1.jf.intel.com>
+X-ClientProxiedBy: SJ0PR13CA0055.namprd13.prod.outlook.com
+ (2603:10b6:a03:2c2::30) To MW3PR11MB4684.namprd11.prod.outlook.com
+ (2603:10b6:303:5d::14)
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: PH7PR12MB6858:EE_|CHBPR12MB497579:EE_
-X-MS-Office365-Filtering-Correlation-Id: 231770a1-dcb3-44e1-b1f8-08df439671bf
+X-MS-TrafficTypeDiagnostic: MW3PR11MB4684:EE_|IA3PPF849DF23EC:EE_
+X-MS-Office365-Filtering-Correlation-Id: b5f78dc6-f4a2-4e45-3d25-08df43977d47
+X-LD-Processed: 46c98d88-e344-4ed4-8496-4ed7712e255d,ExtAddr
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
- ARA:13230040|23010399003|10070799003|1800799024|366016|376014|7416014|261028144727099003|261102123227099003|261022075727099003|261022105027099003|261021121427099003|261026121527099003|261026140227099003|11063799006|56012099006|10067099003|18002099003|22082099003|6133799003|261009223027099003;
-X-Microsoft-Antispam-Message-Info: RP4jQLtU/l8vi12lskFLG6OO7DBwICyM5gQvydc4KHyFJ63elyDoF6U9+tMYwMWK04N0wiZNrvaHLN3PbC0J5Nn/AmtzucgnkXupuIV62reKkIQuXu2m/JrGF3lO6Ako32d6ZZ4YH5v9HgY+H3g828c5H4/UzPtBhRubz0AMefZfZf0dhgtGnMr7Jwv9gO0dT28+NAKKJvsUjKirhEsQ/YXziJdZgTohp5atSQLpEK/pURwNzdb58g7tCjpNbnrl81g8spueDy6EjpWiLYBz0ATVFA3TAb3YDOLqT9hYpFqIj83AblIlLjHCwg9Z3xfjlDlz22EGGwHJd9CP4ZS93zVxa0TbZYvR+3mhSdWX8TDoK+wHClpV6JmbQ2n/EEAznjtlQlyCu8qsoFKuCkSIRTzTis0fnUvfnyZZtsPEjwujnuO2SM6TLVkX7zOtHktH0EZh0ZSDkXvX+Vf9TLF30az7kDmEsXvhNFJTovyHnqd3O2niQMUi1HmZTSF0pp3vmzGmRfmwvf7Tv0o8ja+li8/2u/T2ZUFE5d3oaKuHj5CJDiEaKlyg1rauXV241Mc0K74Pja31uFMZ2GzrO7YCv+8A5OoNYoZw3QxcXtUpe3OOvVxViAgMZRuSTYjp5Zmo6vtiuzoT6hG+0DsZDKMuVX7fPVSx9TSnV5bPqDlVI0c=
+ ARA:13230040|23010399003|7416014|376014|366016|1800799024|261009223027099003|261026140227099003|10067099003|11063799006|4143699003|261021121427099003|56012099006|261022113327099003|261022105027099003|261022075727099003|261102123227099003|261028144727099003|261026121527099003|261021123027099003|18002099003|22082099003|6133799003;
+X-Microsoft-Antispam-Message-Info: ZyiWW9AqnWLZyQe5pGhEI7OAKrJFbAy5+8/UQS+5238JWxyG2goDakmH1p9r50hLQD1Eq+qXPQf64HmUvP8r64RY/zK/G2uknKf+Rv3Y5O4C7j37RxcQ0sIblnV+LI7/CVJXHZXAd1hwfF6Ddw0heMkAE+HyljwwIFVfHvGUdyLcAx79QWMPZfPpAa0eMQKPb1HGD4KCk0cgQXIRTTWs9IMTexYJGcmXGD57MCadHuk1dy6Xbx2QubXrVOVDv9EyHsOZbg85FrwmPBO8MeF+rw/En0uRZnL28sOzVJbd51t1HWIEWRoM+Bo+YzB2JW0UYbAeT5dDe5Qzv4wmwVSyO2/kXmzoaBk+HrmQctiQGevbPFVBjBRB92lSOTJyQ7rpxiPFeQ9ArtlphGNaHZqvf6p3oPuR8hgczwr/telxnqsqEOagOaXXArnrP15yrVll8CbAEUhq4A+8hDMP2KK1fM58iCXIfcvpK5Y6iwOKKluM5975O8SX5d6VX87S0gRvcYMfP6X+khcXAUsrdjhs8G9kscoQJE/IcR8PbZq5YFkHrd2Lzh+kd0BBSJWvCMeGnHAksxZ6sq32LwVyNztOsdxHvWv7Ye5TO50GBYj29UoslbKNwMURR2lU7rznUjyaqvQTTZfuIRsB1W00+Kq6PqBAMycRusmQa6k/XEqDiyE=
 X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:PH7PR12MB6858.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(23010399003)(10070799003)(1800799024)(366016)(376014)(7416014)(261028144727099003)(261102123227099003)(261022075727099003)(261022105027099003)(261021121427099003)(261026121527099003)(261026140227099003)(11063799006)(56012099006)(10067099003)(18002099003)(22082099003)(6133799003)(261009223027099003);
+ IPV:NLI; SFV:NSPM; H:MW3PR11MB4684.namprd11.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230040)(23010399003)(7416014)(376014)(366016)(1800799024)(261009223027099003)(261026140227099003)(10067099003)(11063799006)(4143699003)(261021121427099003)(56012099006)(261022113327099003)(261022105027099003)(261022075727099003)(261102123227099003)(261028144727099003)(261026121527099003)(261021123027099003)(18002099003)(22082099003)(6133799003);
  DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 2
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?V0FGWmI0U2NkL3cwQ2dyL3B3MTNDSGg0d2xwM21abGoyK09JWUNSSHNvZGVU?=
- =?utf-8?B?ZmNZdXdIVUEzbHdGdUl6WnpQTnA5MzV0eDRReUNaMVBzRlZoRWlSRzVNSFhF?=
- =?utf-8?B?Wi9iWUgyY21pQm11dWs5UG52TjhCRTNaYVhQRnhEVGlzM3hRRk1tanVkMTAz?=
- =?utf-8?B?RmJHQkU1NEwrUXZYM1hwVTBUV1YxNjZYd0c3alZXd2JwL1dCN3pxTDgveGU3?=
- =?utf-8?B?elBWL1RndGEzc2thdFY4UXRibG8vVEVwZzI0UHdnZ3R5Rld6TzZSOFlFbDFn?=
- =?utf-8?B?b0JXRmViSDdFVFEycGNlVkFCZHFTaUpCUmk4dnd5RUNkdkNtYWlGQnFtWHR0?=
- =?utf-8?B?bEdwYlVmM2dhRGprRXFYUDYvZ1M1bVJYbTNja2FzTnUvQ0NDbTVGd2NKbUx0?=
- =?utf-8?B?eEgrOFFMeFA1K2tJVENNbWZoNGpmK2tGZDBIKzZUZTBid2RuMzVXRjF4azZL?=
- =?utf-8?B?VXg5a3p4R2ZuRE9SZitJTldJanFQdlpKN1hkdUVvckZ3V1RDR3VXU0xUWjBl?=
- =?utf-8?B?YjlRYzJ5YzJCZGtsWHp1ZmJFOERtdEJYMXljUEgyKzM2TlZ5c3FWYlBZcGNG?=
- =?utf-8?B?ZzU0ZVJVQzgzcUFHUkVublVzcngreDN0REdNeFdFdW45NFIzZU94TXQvRUxF?=
- =?utf-8?B?SHpOU2xPTi8wOUFSdkIvbm1qY1NYYzRaa2I1enl0ck56aThNcnhTVnIwWHpW?=
- =?utf-8?B?cjZobXhCZVo2WFBEdDJtMHROMVZxMDZtVUJsSlRXS2NzdkQ1OTZ2b3g0WG8v?=
- =?utf-8?B?bjZvbmtPalN1S1NtcnVRUlF2U0VHYmM0emY0RURMWkltNmp0S0tqRTkyaEtG?=
- =?utf-8?B?bVUybmJWVDZCcTJmQjBtWkxsM1JaNEwyaktSSlhKeU1iTDB3cTJKOHVScWtG?=
- =?utf-8?B?ZjMzVjBPRGhOU1B3ZmowaTR5TGlCZGlGazlqSkwrWnNnM20waGJyNWVXejVp?=
- =?utf-8?B?SlJNamlyRzhsUjZCZllqUUVFR0R6emlOOFQyUlZmZ2hUbTB3bWdqUjJwcFN2?=
- =?utf-8?B?cWNRZC8yMFk2YmlwKzFPV2RYUGlWMSs4MGRLbTBnSEhkQTBqOWVDYzFjbkps?=
- =?utf-8?B?SFJHVjhRRGtLMThncnQ1VWgyMVdKRkNXdmhMS2xGaUJCakNWMFdDSnFNYmFF?=
- =?utf-8?B?ZVdLdEFGUmE3eHRmRUlNcm9taHo1a1FYVnhJYS84SUJVbW4rS2JkdmxzWnNY?=
- =?utf-8?B?NVdFVjBDaElCdVRMd3YzR2R1S2JPMzIrVjRvR1VGUytCaTJVMEN5ZmdoZkw3?=
- =?utf-8?B?M2E2U2xtb2p5T0ZyNFYwZlJvbm5FQVp0YVZ5R0tvc0lvck9TZmdDN3lSWk14?=
- =?utf-8?B?clVjZzlsTDRkL2daTzg5WEVUazlPa2c2WFpDRFd5NUEzdFVwNlJHMHBxL0lL?=
- =?utf-8?B?em1iRktLcnRSVmQ2dzVubStuN0s1aFUwaXN4bDM1dlQrOGhEQXZHUVdzZEpY?=
- =?utf-8?B?YnU2MVFZak1JK2RWemZqczB5ZUlteVVLMTB0OG05U1d6OHJ0YTIrZWJrczZW?=
- =?utf-8?B?Q1F6bWdLN2Y5dkhkOWlzT0NZN2M4dkpvbmV2SU4zYThvdHJSeEJVZGcrL3FB?=
- =?utf-8?B?ekJWNGxBNWQ4bHRjVk1KZm9ReHd6b3l4SWIzVVR6S0wwT3dlSjZPY0cxVHVH?=
- =?utf-8?B?SnVKMjdQalhYSyt0U09HVXc3MEF1QUM2MlR4Z0ZyVk5HQlcxQkxmbzlOb2JI?=
- =?utf-8?B?SGFzN0dLRmU0WFBHZDNyRjdtRzJzK1EzOWtEdkxZL2o1WWVRWWJjMGRWVmI3?=
- =?utf-8?B?Wk03OVh1bEIwWi9xQUF6TXhHKy9CRGFDckJRU2VFclVaOTRKQmVGbVZCT0Zx?=
- =?utf-8?B?UGU3UXNpRmhiR0crNjU2d1FETVI5bllzRkNmVUp4eGhZdHViSkM4RTl5T1pO?=
- =?utf-8?B?RDhITDBMMW80VHhZVnhxbXlUVE5Ib29aRHNINVhnZ2ZrVTgvczZJZnozTy9H?=
- =?utf-8?B?OUJkRkw2cGtpVFd3U3Z0U0dRb21sZ2p3eFJDeVdLWmZHZDcvMjhCZXV3Vlh6?=
- =?utf-8?B?MmlkVGE2b3lKRHMrNVJnRFo2NDFlSzBMa2pmbzNBekJ5MSs3OEtER2ZLeFFt?=
- =?utf-8?B?QjhoMUZGSDBtMnVjWWt4ek1CamhOQUY3Wm1HWDBhbys5bWhGdXRkZHVRQUdy?=
- =?utf-8?B?bGY2RE1jelNOOFYxSUtlQUQ2SlNZVDduVTZ2TlQyY0I0SGFlekpxYkhRdFo1?=
- =?utf-8?B?aVVHZ0x0YkhyaS9SR0ZJeWFvYVh3R0c3ZG1wUlNGczd3TTIrK3NzZGZ4WGZD?=
- =?utf-8?B?TEJnN2lXczgzNmJsdDFZdHZzeTk3eGorcDk3cmZRaDFZcVJrWVhuZXFEWGV0?=
- =?utf-8?B?d2tlaEh1emJDYnNWOEJZL3RMdTN1Q3VNVWwwK1QrOU14TUh4U0V0aTU3MHIw?=
- =?utf-8?Q?liW6oClAy/a6O3EUcsj0VDhpNnWAIZSu4fz0I9xa/3+Bm?=
-X-MS-Exchange-AntiSpam-MessageData-1: Ow3QwEemCjjKjw==
-X-OriginatorOrg: Nvidia.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 231770a1-dcb3-44e1-b1f8-08df439671bf
-X-MS-Exchange-CrossTenant-AuthSource: MW4PR12MB6873.namprd12.prod.outlook.com
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: =?iso-8859-1?Q?zsRJ5RRUghWBjmm8yqeYhQ531LPgJlABsEUrp/OdtBGOJbVZ8yPCSi/nkp?=
+ =?iso-8859-1?Q?Ig5H61l4nOZivcdQsDvf+Eo+egsOn+vziP+/uI8bbyFvUXoe/EjgxcvlM0?=
+ =?iso-8859-1?Q?YfZ74MLT5WvU6UqxQuDN41L5JbpJBTTftccevD6v5wy7i5GWRNN+7QWmAY?=
+ =?iso-8859-1?Q?xLTGuaRY+n/o0IuFGhK6VqzEzyAUJ+5+v4ap54fx+3pZZ/HJOubDG1ly7E?=
+ =?iso-8859-1?Q?bD+PSUP342zLHKYFF2B6FjJ7LwVsb7PLqA0xTniL9C2WVkW8IIPdIvWRRe?=
+ =?iso-8859-1?Q?AsbDzo5hoEHVTNyVsYvnG4WlHw+VToPvkONBIqzSRq789iV+EF/I1Rym4i?=
+ =?iso-8859-1?Q?yuL6nJYl0bwf5SJYraFZryLoiy9TLWhvLfTbnuoLtfel8ownfJuN871AEj?=
+ =?iso-8859-1?Q?7mWVIP9Nl0O34OAR3zgdcfzU8WP4w28kEdwsmEKTDP3OiSgzGsTXJfcu7W?=
+ =?iso-8859-1?Q?MhMbmxqBsWsYpVS8k+qhyTQMos76ccSoRri2qXXkmiMTVWEEFpv9FJ/gCh?=
+ =?iso-8859-1?Q?Hsoc6W60oottgTrA1i2BPj+4SR9yJg97ECNttrWNqmxTLCsE4wDf1s3KdY?=
+ =?iso-8859-1?Q?+0zK50HjUuqWJ3R5efnbJJHbdyw0mxvqpeGUVdr6etTkr+zabtWW3fGx6V?=
+ =?iso-8859-1?Q?ZxA/D830AwknnaqCYk2ew8rkNUgq5ZZQCwqw/GZMWs6T435bTYXIUIezRH?=
+ =?iso-8859-1?Q?URWNG27qAcRpkIxZFpWoQqhgJFJdwBcNyhxfizmrreMvJXf37u3aeC7GbK?=
+ =?iso-8859-1?Q?TY1FgtzqLzF7T19Evau8QUW8VkbjmXrSOvvNDMnfhO4q6Aq/zUI0bs9M6i?=
+ =?iso-8859-1?Q?2QaSGV03EV3riRA3E5bIbCyQguRhibebjDKvVYAtesN+Lh3QhaHrnQEWtp?=
+ =?iso-8859-1?Q?YBRxV0Q1UbEUgo3F71sQK4Ks768q5Rv6kQ3TVkpD59gnGQSDPgqxz66Xyr?=
+ =?iso-8859-1?Q?bD5woBsd31RBqmLIPzSo/lqmD2nnIKN4MNQ9QcJLJYs9as3CGw7g1BoWaL?=
+ =?iso-8859-1?Q?6WF8ugchiR9BeOzwzKbDPZpSSQa9DshLq2qaWpjj27A85xpgbs+8PGPynw?=
+ =?iso-8859-1?Q?avgSjjaSgmGKMSM1QrJPHC8dGVEZFw3IQWihEBIien30o4DlAp38YYC0/A?=
+ =?iso-8859-1?Q?PY4y6QSFBp4qqRsOtdFArWsos+O4/Uw2GodabagRaYLx2qpi+MJ2z1KkNE?=
+ =?iso-8859-1?Q?6OTQDbtJrIHZxtvwKWLed2p4uPppDX7yUwsI1tkQR3IBrmWON9xT7PY5E6?=
+ =?iso-8859-1?Q?MJJIiz2V0gqh32qHaQTQY4vXezqOlrAbSJ+kHC/aVgYep/1gUIFrni6Uh5?=
+ =?iso-8859-1?Q?GAm9HdUIZhXySbDJYlJIEQVmbhYwfO7YZtIknBhn2LCaSqyIAua2cpQ3yh?=
+ =?iso-8859-1?Q?QJHjQRz6vz2gkVJpVNoORKf0GvgTOqmTp8vgRrwyOArkgSscWyXzBrfa48?=
+ =?iso-8859-1?Q?qXI50cv4C4imhpxS7vHM3kKyS3KhYXuLkfWyZhJzVW58Gj/G/nfUtLO3m6?=
+ =?iso-8859-1?Q?DqDJlLnjTuXYNLYMypabFidPrhz0KdqBra8uV/TH7VhVe0WqqGz9mO8tPk?=
+ =?iso-8859-1?Q?rEqzBX+OnPMXR/oWzdQDvgotz7YEpAsTpjuZCNAFW88HurCHI9F3tEOTAL?=
+ =?iso-8859-1?Q?xdvE8FjA+ZVIrA2zpeeH9yFTwbtjpv+RoTnrbpVhiAN8Chr3tEK6UrSm7l?=
+ =?iso-8859-1?Q?+jcH64vgnGeNvwovpGfBtZUdtjnX9Kl7Z56WtGKQu1PadzQP56euULoFAc?=
+ =?iso-8859-1?Q?ke1l3GDGv+yVIAsgzW78gQ8EQ2Og4J5aD/GBA3IkiYjkDoK6YnLuF8B3op?=
+ =?iso-8859-1?Q?PrmjLG8yTPNzV+doE2RsXCWBWE/FwyFUIa590kJ4uENdHgP1vscL?=
+X-Exchange-RoutingPolicyChecked: zZt8GNMJZyZOB6LBw9KE9oo777OmEP1PKEvh+7hAaFbL6EcY/kAafF+11VYH9jrb/9tXwrrjlfH/I+u/ky54YntWorJgum7lVRlhPNkHlgkQGM5KFNUDwgmR2gbI0duKv9Ng0N6aWZ4LFdB27VhvNVXRyp7WIbiXvoGLZUzLXWMy4H6VgSF5F5RPTkUfP+Vp52FTifUrZjTVmyvHDJfHF/5ylM1GyFlMQEhEa9RoJeEehsUOW4YxxuLjMyFgzkM2+WdegETlttYb0Zm+gYfNbxA23fp5i5YWt40kdxj2Pz3OB1FNcbBklDH+/676I569+W2qQmJ/o+sIBkUEq6X7aQ==
+X-MS-Exchange-CrossTenant-Network-Message-Id: b5f78dc6-f4a2-4e45-3d25-08df43977d47
+X-MS-Exchange-CrossTenant-AuthSource: MW3PR11MB4684.namprd11.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 16 Nov 2026 04:03:02.9372 (UTC)
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 16 Nov 2026 04:10:03.2915 (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
+X-MS-Exchange-CrossTenant-Id: 46c98d88-e344-4ed4-8496-4ed7712e255d
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: 0yn+nY2MFtzuMLs/PukL6VgqUnnae/LRT4/jj61R/HXdAAoS1UzILOt890OoFF32ZwMQ+U65djScMfC9+UGAJw==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: CHBPR12MB497579
+X-MS-Exchange-CrossTenant-UserPrincipalName: CIOP+RSgaPKlxtX91fjLYCupzMBVpbXsIRoBQY/CJ8fnF6uibHQ3QqWOoC3R5Plv9LuEhnyzJvij9LvGz+jlH/3XlqznGgSxhTkr31eu5rgZncCNBD4KpiMIhrKH7zCU
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: IA3PPF849DF23EC
+X-OriginatorOrg: intel.com
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -137,271 +172,599 @@ List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-10.8 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
+X-Spam-Status: No, score=-15.8 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
 	DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
-	INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS
-	autolearn=unavailable autolearn_force=no version=4.0.1
+	INCLUDES_CR_TRAILER,INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,
+	SPF_PASS autolearn=unavailable autolearn_force=no version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-On Sun Nov 15, 2026 at 8:42 AM JST, Danilo Krummrich wrote:
-<...>
-> diff --git a/drivers/gpu/nova-core/firmware/radix3.rs b/drivers/gpu/nova-=
-core/firmware/radix3.rs
-> index 94235bd1209d..a3e43fc8ec86 100644
-> --- a/drivers/gpu/nova-core/firmware/radix3.rs
-> +++ b/drivers/gpu/nova-core/firmware/radix3.rs
-> @@ -35,14 +35,11 @@
->  #[pin_data]
->  pub(crate) struct Radix3<'a> {
->      /// The mapped data.
-> -    #[pin]
-> -    data: SGTable<Owned<VVec<u8>>>,
-> +    data: SGTable<Owned<'a, VVec<u8>>>,
->      /// Level 2: one entry per page of `data`.
-> -    #[pin]
-> -    level2: SGTable<Owned<VVec<u8>>>,
-> +    level2: SGTable<Owned<'a, VVec<u8>>>,
->      /// Level 1: one entry per page of `level2`.
-> -    #[pin]
-> -    level1: SGTable<Owned<VVec<u8>>>,
-> +    level1: SGTable<Owned<'a, VVec<u8>>>,
->      /// Level 0: one page, whose single entry is the DMA address of the =
-first `level1` page.
->      level0: Coherent<'a, [u64]>,
->      /// Length of `data`, in bytes.
-> @@ -59,14 +56,14 @@ pub(crate) fn new(
-> =20
->          pin_init::pin_init_scope(move || {
->              Ok(try_pin_init!(Self {
-> -                data <- SGTable::new(dev, data, DataDirection::ToDevice,=
- GFP_KERNEL),
-> -                level2 <- {
-> -                    build_lvl(&data)
-> -                        .map(|l2| SGTable::new(dev, l2, DataDirection::T=
-oDevice, GFP_KERNEL))?
-> +                data: SGTable::new(dev, data, DataDirection::ToDevice, G=
-FP_KERNEL)?,
-> +                level2: {
-> +                    let l2 =3D build_lvl(data)?;
-> +                    SGTable::new(dev, l2, DataDirection::ToDevice, GFP_K=
-ERNEL)?
->                  },
-> -                level1 <- {
-> -                    build_lvl(&level2)
-> -                        .map(|l1| SGTable::new(dev, l1, DataDirection::T=
-oDevice, GFP_KERNEL))?
-> +                level1: {
-> +                    let l1 =3D build_lvl(level2)?;
-> +                    SGTable::new(dev, l1, DataDirection::ToDevice, GFP_K=
-ERNEL)?
->                  },
->                  level0: {
->                      // Allocate the level 0 page table as a device-visib=
-le DMA object, and map the
-> @@ -81,7 +78,7 @@ pub(crate) fn new(
->                      let mut level0 =3D CoherentBox::<'_, [u64]>::zeroed_=
-slice(
->                          dev,
->                          GSP_PAGE_SIZE / size_of::<u64>(),
-> -                        GFP_KERNEL
-> +                        GFP_KERNEL,
+On Fri, Nov 13, 2026 at 12:09:49PM -0800, Matthew Brost wrote:
+>On Thu, Nov 12, 2026 at 10:28:12PM -0800, Niranjana Vishwanathapura wrote:
+>> On Fri, Jul 10, 2026 at 07:56:14PM -0700, Matthew Brost wrote:
+>> > Add support for mapping a ttm_tt's pages using the IOVA-based DMA API
+>> > (dma_iova_try_alloc()/link()/sync()/unlink()/free()) as an alternative
+>> > to the scatter-gather list. An IOVA mapping is a single contiguous DMA
+>> > range, which is cheaper to walk and program than an sg list.
+>> >
+>> > Whether the IOVA API can be used depends on the IOMMU mode, so the
+>> > decision is made once per tt at xe_ttm_tt_create() time and recorded in
+>> > struct xe_ttm_tt::use_iova. To keep the scope limited, only device BOs
+>> > that are not GGTT-mapped are eligible: dma-buf imports manage their own
+>> > mapping and GGTT bindings are programmed directly from the sg list.
+>> > dma_iova_try_alloc() may still fail, in which case the tt transparently
+>> > falls back to the sg list, which remains the default.
+>> >
+>> > The IOVA reservation is allocated at tt creation and freed at tt
+>> > destroy. xe_tt_map_iova() links the tt pages (coalescing physically
+>> > contiguous runs) and syncs the IOTLB; xe_tt_unmap_iova() unlinks them
+>> > but keeps the reservation so the tt can be remapped without
+>> > re-allocating IOVA space. xe_tt_map()/xe_tt_unmap() dispatch between the
+>> > IOVA and sg backends, and xe_bo_dma_unmap_pinned() learns about the IOVA
+>> > case.
+>> >
+>> > Consumers that walked the sg list via xe_res_first_sg(xe_bo_sg()) now go
+>> > through the new xe_res_first_tt() helper, which initializes either an
+>> > IOVA cursor (xe_res_first_iova()) or an sg cursor depending on the tt's
+>> > mapping mode.
+>> >
+>> > Cc: Carlos Santa <carlos.santa@intel.com>
+>> > Cc: Ryan Neph <ryanneph@google.com>
+>> > Cc: Christian Koenig <christian.koenig@amd.com>
+>> > Cc: Huang Rui <ray.huang@amd.com>
+>> > Cc: Matthew Auld <matthew.auld@intel.com>
+>> > Cc: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>
+>> > Cc: Maxime Ripard <mripard@kernel.org>
+>> > Cc: Thomas Zimmermann <tzimmermann@suse.de>
+>> > Cc: David Airlie <airlied@gmail.com>
+>> > Cc: Simona Vetter <simona@ffwll.ch>
+>> > Cc: dri-devel@lists.freedesktop.org
+>> > Cc: linux-kernel@vger.kernel.org
+>> > Cc: Thomas Hellström <thomas.hellstrom@linux.intel.com>
+>> > Assisted-by: GitHub_Copilot:claude-opus-4.8
+>> > Signed-off-by: Matthew Brost <matthew.brost@intel.com>
+>> > ---
+>> > drivers/gpu/drm/xe/tests/xe_migrate.c |   6 +-
+>> > drivers/gpu/drm/xe/xe_bo.c            | 239 ++++++++++++++++++++++++--
+>> > drivers/gpu/drm/xe/xe_bo.h            |   5 +-
+>> > drivers/gpu/drm/xe/xe_ggtt.c          |   2 +-
+>> > drivers/gpu/drm/xe/xe_migrate.c       |  14 +-
+>> > drivers/gpu/drm/xe/xe_pt.c            |   2 +-
+>> > 6 files changed, 237 insertions(+), 31 deletions(-)
+>> >
+>> > diff --git a/drivers/gpu/drm/xe/tests/xe_migrate.c b/drivers/gpu/drm/xe/tests/xe_migrate.c
+>> > index 41de648b2c86..119134e67c89 100644
+>> > --- a/drivers/gpu/drm/xe/tests/xe_migrate.c
+>> > +++ b/drivers/gpu/drm/xe/tests/xe_migrate.c
+>> > @@ -253,7 +253,7 @@ static void xe_migrate_sanity_test(struct xe_migrate *m, struct kunit *test,
+>> > 	if (xe_bo_is_vram(pt))
+>> > 		xe_res_first(pt->ttm.resource, 0, xe_bo_size(pt), &src_it);
+>> > 	else
+>> > -		xe_res_first_sg(xe_bo_sg(pt), 0, xe_bo_size(pt), &src_it);
+>> > +		xe_res_first_tt(pt->ttm.ttm, 0, xe_bo_size(pt), &src_it);
+>> >
+>> > 	emit_pte(m, bb, NUM_KERNEL_PDE - 1, xe_bo_is_vram(pt), false,
+>> > 		 &src_it, XE_PAGE_SIZE, pt->ttm.resource);
+>> > @@ -385,12 +385,12 @@ static struct dma_fence *blt_copy(struct xe_tile *tile,
+>> > 	bool dst_is_vram = mem_type_is_vram(dst->mem_type);
+>> >
+>> > 	if (!src_is_vram)
+>> > -		xe_res_first_sg(xe_bo_sg(src_bo), 0, size, &src_it);
+>> > +		xe_res_first_tt(src_bo->ttm.ttm, 0, size, &src_it);
+>> > 	else
+>> > 		xe_res_first(src, 0, size, &src_it);
+>> >
+>> > 	if (!dst_is_vram)
+>> > -		xe_res_first_sg(xe_bo_sg(dst_bo), 0, size, &dst_it);
+>> > +		xe_res_first_tt(dst_bo->ttm.ttm, 0, size, &dst_it);
+>> > 	else
+>> > 		xe_res_first(dst, 0, size, &dst_it);
+>> >
+>> > diff --git a/drivers/gpu/drm/xe/xe_bo.c b/drivers/gpu/drm/xe/xe_bo.c
+>> > index caf5aa0bab53..d54e69aefeba 100644
+>> > --- a/drivers/gpu/drm/xe/xe_bo.c
+>> > +++ b/drivers/gpu/drm/xe/xe_bo.c
+>> > @@ -6,6 +6,7 @@
+>> > #include "xe_bo.h"
+>> >
+>> > #include <linux/dma-buf.h>
+>> > +#include <linux/dma-mapping.h>
+>> > #include <linux/nospec.h>
+>> >
+>> > #include <drm/drm_drv.h>
+>> > @@ -15,6 +16,7 @@
+>> > #include <drm/ttm/ttm_backup.h>
+>> > #include <drm/ttm/ttm_device.h>
+>> > #include <drm/ttm/ttm_placement.h>
+>> > +#include <drm/ttm/ttm_pool.h>
+>> > #include <drm/ttm/ttm_tt.h>
+>> > #include <uapi/drm/xe_drm.h>
+>> >
+>> > @@ -420,6 +422,32 @@ struct xe_ttm_tt {
+>> > 	struct ttm_tt ttm;
+>> > 	struct sg_table sgt;
+>> > 	struct sg_table *sg;
+>> > +	/**
+>> > +	 * @iova: IOVA state describing the single contiguous IOVA mapping of
+>> > +	 * the tt pages. Only valid when @use_iova is true.
+>> > +	 */
+>> > +	struct dma_iova_state iova;
+>> > +	/**
+>> > +	 * @use_iova: Whether this tt is DMA mapped using the IOVA-based DMA
+>> > +	 * API instead of a scatter-gather list. Decided once at tt creation
+>> > +	 * time and stable for the lifetime of the tt.
+>> > +	 */
+>> > +	bool use_iova;
+>> > +	/**
+>> > +	 * @iova_linked: Whether the tt pages are currently linked into the
+>> > +	 * IOVA mapping. Only meaningful when @use_iova is true.
+>> > +	 */
+>> > +	bool iova_linked;
+>> > +#if IS_ENABLED(CONFIG_DEBUG_FS)
+>> > +	/**
+>> > +	 * @iova_dma_pages: Per-order count of DMA-mapped pages this tt
+>> > +	 * accounted into xe->mem.dma_mapped_pages[] for its IOVA mapping,
+>> > +	 * recorded at link time so the unlink can apply an exactly matching
+>> > +	 * decrement without re-walking tt->pages (which TTM may mutate, e.g.
+>> > +	 * during defrag). Counter ownership stays isolated in xe_bo.c.
+>> > +	 */
+>> > +	unsigned long iova_dma_pages[NR_PAGE_ORDERS];
+>> > +#endif
+>> > 	/** @purgeable: Whether the content of the pages of @ttm is purgeable. */
+>> > 	bool purgeable;
+>> > };
+>> > @@ -468,6 +496,52 @@ static void xe_tt_account_dma_pages(struct xe_device *xe,
+>> > }
+>> > #endif
+>> >
+>> > +/*
+>> > + * xe_tt_account_iova_add - account one freshly linked IOVA folio
+>> > + * @xe: the xe device
+>> > + * @xe_tt: the xe_ttm_tt being mapped
+>> > + * @order: page order of the linked folio
+>> > + *
+>> > + * Add the folio's 2^order pages to xe->mem.dma_mapped_pages[order] and record
+>> > + * the same amount in @xe_tt so xe_tt_unaccount_iova() can later subtract an
+>> > + * exactly matching count without re-walking tt->pages.
+>> > + */
+>> > +#if IS_ENABLED(CONFIG_DEBUG_FS)
+>> > +static void xe_tt_account_iova_add(struct xe_device *xe,
+>> > +				   struct xe_ttm_tt *xe_tt, unsigned int order)
+>> > +{
+>> > +	unsigned long chunk = 1UL << order;
+>> > +
+>> > +	xe_tt->iova_dma_pages[order] += chunk;
+>> > +	atomic_long_add(chunk, &xe->mem.dma_mapped_pages[order]);
+>> > +}
+>> > +
+>> > +static void xe_tt_unaccount_iova(struct xe_device *xe,
+>> > +				 struct xe_ttm_tt *xe_tt)
+>> > +{
+>> > +	unsigned int order;
+>> > +
+>> > +	for (order = 0; order < NR_PAGE_ORDERS; order++) {
+>> > +		unsigned long pages = xe_tt->iova_dma_pages[order];
+>> > +
+>> > +		if (pages) {
+>> > +			atomic_long_sub(pages, &xe->mem.dma_mapped_pages[order]);
+>> > +			xe_tt->iova_dma_pages[order] = 0;
+>> > +		}
+>> > +	}
+>> > +}
+>> > +#else
+>> > +static void xe_tt_account_iova_add(struct xe_device *xe,
+>> > +				   struct xe_ttm_tt *xe_tt, unsigned int order)
+>> > +{
+>> > +}
+>> > +
+>> > +static void xe_tt_unaccount_iova(struct xe_device *xe,
+>> > +				 struct xe_ttm_tt *xe_tt)
+>> > +{
+>> > +}
+>> > +#endif
+>>
+>> Assisted-by: LLM
+>>
+>
+>Yes.
+>
+>> NIT..As mentioned in patch 12, I am not sure if CONFIG_DEBUG_FS is the
+>> right config for this. May be XE_DEBUG would be better?
+>>
+>
+>Again I think CONFIG_DEBUG_FS is desired config. We want these stats on
+>most production builds for debug - not just CI configs.
+>
+>The only case we wouldn't want these is some crazy data center config
+>that literally turns off all debug things. Same idea as GT stats not
+>having its own Kconfig.
+>
 
-Stray hunk? Maybe we can move it to patch 2 since it reformats that part
-anyway.
+Sure.
 
->                      )?;
->                      level0[0] =3D level1_entry_addr.to_le();
-> =20
-> @@ -105,7 +102,7 @@ pub(crate) fn size(&self) -> usize {
-> =20
->  /// Returns the size of the level that maps `sg_table`: one `u64` entry =
-per [`GSP_PAGE_SIZE`]
->  /// page of each DMA-mapped region, rounded up to whole pages.
-> -fn lvl_size(sg_table: &SGTable<Owned<VVec<u8>>>) -> usize {
-> +fn lvl_size(sg_table: &SGTable<Owned<'_, VVec<u8>>>) -> usize {
->      let entries: usize =3D sg_table
->          .iter()
->          .map(|sg_entry| usize::from_safe_cast(sg_entry.dma_len()).div_ce=
-il(GSP_PAGE_SIZE))
-> @@ -122,7 +119,7 @@ fn lvl_size(sg_table: &SGTable<Owned<VVec<u8>>>) -> u=
-size {
->  ///
->  /// - `ENOMEM` if the level cannot be allocated.
->  /// - `EINVAL` if `sg_table` yields more entries than [`lvl_size`] sized=
- the level for.
-> -fn build_lvl(sg_table: &SGTable<Owned<VVec<u8>>>) -> Result<VVec<u8>> {
-> +fn build_lvl(sg_table: &SGTable<Owned<'_, VVec<u8>>>) -> Result<VVec<u8>=
-> {
->      let mut dst =3D VVec::<u8>::zeroed(lvl_size(sg_table), GFP_KERNEL).m=
-ap_err(|_| ENOMEM)?;
->      let mut entries =3D dst.chunks_exact_mut(size_of::<u64>());
-> =20
-> diff --git a/rust/kernel/scatterlist.rs b/rust/kernel/scatterlist.rs
-> index 6379a8748117..93f431d7f548 100644
-> --- a/rust/kernel/scatterlist.rs
-> +++ b/rust/kernel/scatterlist.rs
-> @@ -19,7 +19,8 @@
->  //! The main entry point is the [`SGTable`] type, which represents a com=
-plete scatter-gather table.
->  //! It can be either:
->  //!
-> -//! - An owned table ([`SGTable<Owned<P>>`]), created from a Rust memory=
- buffer (e.g., [`VVec`]).
-> +//! - An owned table ([`SGTable<Owned<'a, P>>`]), created from a Rust me=
-mory buffer (e.g.,
-> +//!   [`VVec`]) and tied to the [`Device<Bound>`] lifetime.
->  //!   This type manages the allocation of the `struct sg_table`, the DMA=
- mapping of the buffer, and
->  //!   the automatic cleanup of all resources.
->  //! - A borrowed reference (&[`SGTable`]), which provides safe, read-onl=
-y access to a table that was
-> @@ -33,15 +34,13 @@
->      alloc::allocator::VmallocPageIter,
->      bindings,
->      device::{Bound, Device},
-> -    devres::Devres,
->      dma,
->      error,
->      page,
->      prelude::*,
-> -    sync::aref::ARef,
->      types::Opaque, //
->  };
-> -use core::{ops::Deref, ptr::NonNull};
-> +use core::ops::Deref;
-> =20
->  /// A single entry in a scatter-gather list.
->  ///
-> @@ -123,9 +122,7 @@ unsafe impl Sync for Borrowed {}
->  ///
->  /// All [`SGTable`] variants can be iterated over the individual [`SGEnt=
-ry`]s.
->  #[repr(transparent)]
-> -#[pin_data]
->  pub struct SGTable<T: private::Sealed =3D Borrowed> {
-> -    #[pin]
->      inner: T,
->  }
-> =20
-> @@ -177,63 +174,41 @@ pub fn iter(&self) -> SGTableIter<'_> {
->  ///
->  /// # Invariants
->  ///
-> -/// - `sgt` is a valid pointer to a `struct sg_table` for the entire lif=
-etime of the
-> -///   [`DmaMappedSgt`].
->  /// - `sgt` is always DMA mapped.
-> -struct DmaMappedSgt {
-> -    sgt: NonNull<bindings::sg_table>,
-> -    dev: ARef<Device>,
-> +struct DmaMappedSgt<'a> {
-> +    dev: &'a Device<Bound>,
-> +    sgt: RawSGTable,
+>> > +
+>> > static int xe_tt_map_sg(struct xe_device *xe, struct ttm_tt *tt)
+>> > {
+>> > 	struct xe_ttm_tt *xe_tt = container_of(tt, struct xe_ttm_tt, ttm);
+>> > @@ -514,28 +588,129 @@ static void xe_tt_unmap_sg(struct xe_device *xe, struct ttm_tt *tt)
+>> > 	}
+>> > }
+>> >
+>> > -struct sg_table *xe_bo_sg(struct xe_bo *bo)
+>> > +/*
+>> > + * xe_tt_map_iova - DMA map a tt using the IOVA-based DMA API.
+>> > + *
+>> > + * Link all of the tt's pages into the IOVA range reserved at tt creation
+>> > + * time, one folio at a time, and sync the IOTLB once at the end. The IOVA
+>> > + * reservation itself is kept across map/unmap cycles and only released when
+>> > + * the tt is destroyed.
+>> > + */
+>> > +static int xe_tt_map_iova(struct xe_device *xe, struct ttm_tt *tt)
+>> > {
+>> > -	struct ttm_tt *tt = bo->ttm.ttm;
+>> > 	struct xe_ttm_tt *xe_tt = container_of(tt, struct xe_ttm_tt, ttm);
+>> > +	struct device *dev = xe->drm.dev;
+>> > +	unsigned long num_pages = tt->num_pages;
+>> > +	unsigned long i = 0;
+>> > +	size_t mapped = 0;
+>> > +	int ret;
+>> > +
+>> > +	if (xe_tt->iova_linked)
+>> > +		return 0;
+>> > +
+>> > +	while (i < num_pages) {
+>> > +		struct page *page = tt->pages[i];
+>> > +		unsigned int order = ttm_pool_page_order_nodma(page);
+>> > +		size_t len = PAGE_SIZE << order;
+>>
+>> NIT...as ttm_pool_page_order_nodma() is works only at chunk head
+>> (where order is stored in page->private), it should be fine.
+>> But if we ever endup here for pages[i] other than chunk head, it
+>> would become hard to debug. Is there a way we can assert for that here?
+>>
+>
+>I don't see an easy to determine page is a head page or not. TTM pages
+>are all non-compound - we do want to fix that - right now AFIAK we set
+>p->private to the order for only head pages and zero is a valid order.
+>
 
-The `RawSGTable` documentation still mentions `Owned`. We could adapt it
-or (maybe better) just drop that sentence.
+ok.
 
->      dir: dma::DataDirection,
->  }
-> =20
-> -// SAFETY: `DmaMappedSgt` can be sent to any task.
-> -unsafe impl Send for DmaMappedSgt {}
-> -
-> -// SAFETY: `DmaMappedSgt` has no interior mutability and can be accessed=
- concurrently.
-> -unsafe impl Sync for DmaMappedSgt {}
-> -
-> -impl DmaMappedSgt {
-> -    /// # Safety
-> -    ///
-> -    /// - `sgt` must be a valid pointer to a `struct sg_table` for the e=
-ntire lifetime of the
-> -    ///   returned [`DmaMappedSgt`].
-> -    /// - The caller must guarantee that `sgt` remains DMA mapped for th=
-e entire lifetime of
-> -    ///   [`DmaMappedSgt`].
-> -    unsafe fn new(
-> -        sgt: NonNull<bindings::sg_table>,
-> -        dev: &Device<Bound>,
-> -        dir: dma::DataDirection,
-> -    ) -> Result<Self> {
-> +impl<'a> DmaMappedSgt<'a> {
-> +    /// Takes ownership of `sgt` and maps it for DMA.
-> +    fn new(dev: &'a Device<Bound>, sgt: RawSGTable, dir: dma::DataDirect=
-ion) -> Result<Self> {
->          // SAFETY:
->          // - `dev.as_raw()` is a valid pointer to a `struct device`, whi=
-ch is guaranteed to be
->          //   bound to a driver for the duration of this call.
-> -        // - `sgt` is a valid pointer to a `struct sg_table`.
-> +        // - `sgt.as_raw()` is a valid pointer to a `struct sg_table`.
->          error::to_result(unsafe {
-> -            bindings::dma_map_sgtable(dev.as_raw(), sgt.as_ptr(), dir.in=
-to(), 0)
-> +            bindings::dma_map_sgtable(dev.as_raw(), sgt.as_raw(), dir.in=
-to(), 0)
->          })?;
-> =20
-> -        // INVARIANT: By the safety requirements of this function it is =
-guaranteed that `sgt` is
-> -        // valid for the entire lifetime of this object instance.
-> -        Ok(Self {
-> -            sgt,
-> -            dev: dev.into(),
-> -            dir,
-> -        })
-> +        // INVARIANT: `sgt` was successfully DMA mapped and is owned by =
-this object until drop.
-> +        Ok(Self { dev, sgt, dir })
->      }
->  }
-> =20
-> -impl Drop for DmaMappedSgt {
-> +impl Drop for DmaMappedSgt<'_> {
->      #[inline]
->      fn drop(&mut self) {
->          // SAFETY:
->          // - `self.dev.as_raw()` is a pointer to a valid `struct device`=
-.
->          // - `self.dev` is the same device the mapping has been created =
-for in `Self::new()`.
-> -        // - `self.sgt.as_ptr()` is a valid pointer to a `struct sg_tabl=
-e` by the type invariants
-> -        //   of `Self`.
-> +        // - `self.sgt.as_raw()` is a valid pointer to a `struct sg_tabl=
-e` for the lifetime of
-> +        //   `self`.
->          // - `self.dir` is the same `dma::DataDirection` the mapping has=
- been created with in
->          //   `Self::new()`.
->          unsafe {
-> -            bindings::dma_unmap_sgtable(self.dev.as_raw(), self.sgt.as_p=
-tr(), self.dir.into(), 0)
-> +            bindings::dma_unmap_sgtable(self.dev.as_raw(), self.sgt.as_r=
-aw(), self.dir.into(), 0)
->          };
->      }
->  }
-> @@ -308,38 +283,27 @@ fn drop(&mut self) {
->  ///
->  /// - The backing memory pages.
->  /// - The `struct sg_table` allocation (`sgt`).
+>> > +
+>> > +		ret = dma_iova_link(dev, &xe_tt->iova, page_to_phys(page),
+>> > +				    mapped, len, DMA_BIDIRECTIONAL,
+>> > +				    DMA_ATTR_SKIP_CPU_SYNC);
+>> > +		if (ret)
+>> > +			goto err_unlink;
+>> >
+>> > -	return xe_tt->sg;
+>> > +		xe_tt_account_iova_add(xe, xe_tt, order);
+>> > +		mapped += len;
+>> > +		i += 1UL << order;
+>> > +	}
+>> > +
+>> > +	ret = dma_iova_sync(dev, &xe_tt->iova, 0, mapped);
+>> > +	if (ret)
+>> > +		goto err_unlink;
+>> > +
+>> > +	xe_tt->iova_linked = true;
+>> > +	return 0;
+>> > +
+>> > +err_unlink:
+>> > +	if (mapped) {
+>> > +		dma_iova_unlink(dev, &xe_tt->iova, 0, mapped,
+>> > +				DMA_BIDIRECTIONAL, DMA_ATTR_SKIP_CPU_SYNC);
+>> > +		xe_tt_unaccount_iova(xe, xe_tt);
+>> > +	}
+>> > +	return ret;
+>> > }
+>> >
+>> > -/**
+>> > - * xe_tt_sg() - Return the DMA scatter-gather table backing a ttm_tt.
+>> > - * @tt: The ttm_tt to query.
+>> > +/*
+>> > + * xe_tt_unmap_iova - Unlink a tt's pages from its IOVA mapping.
+>> >  *
+>> > - * Like xe_bo_sg(), but takes the ttm_tt directly. Used by the defrag copy
+>> > - * path which needs the old (source) tt's sg table without a backing xe_bo.
+>> > + * Unlink the pages but keep the IOVA reservation so the tt can be remapped
+>> > + * later without re-allocating IOVA space.
+>> > + */
+>> > +static void xe_tt_unmap_iova(struct xe_device *xe, struct ttm_tt *tt)
+>> > +{
+>> > +	struct xe_ttm_tt *xe_tt = container_of(tt, struct xe_ttm_tt, ttm);
+>> > +
+>> > +	if (xe_tt->iova_linked) {
+>> > +		/*
+>> > +		 * Unmap with attrs 0 (matching the sg unmap path) so that the
+>> > +		 * CPU copy-back sync is performed for non-coherent or bounced
+>> > +		 * (SWIOTLB) mappings, even though the link was done with
+>> > +		 * DMA_ATTR_SKIP_CPU_SYNC.
+>> > +		 */
+>> > +		dma_iova_unlink(xe->drm.dev, &xe_tt->iova, 0,
+>> > +				dma_iova_size(&xe_tt->iova),
+>> > +				DMA_BIDIRECTIONAL, 0);
+>> > +		xe_tt_unaccount_iova(xe, xe_tt);
+>> > +		xe_tt->iova_linked = false;
+>> > +	}
+>> > +}
+>> > +
+>> > +/*
+>> > + * xe_tt_map - DMA map a tt, using IOVA when available and sg otherwise.
+>> > + */
+>> > +static int xe_tt_map(struct xe_device *xe, struct ttm_tt *tt)
+>> > +{
+>> > +	struct xe_ttm_tt *xe_tt = container_of(tt, struct xe_ttm_tt, ttm);
+>> > +
+>> > +	if (xe_tt->use_iova)
+>> > +		return xe_tt_map_iova(xe, tt);
+>> > +
+>> > +	return xe_tt_map_sg(xe, tt);
+>> > +}
+>> > +
+>> > +/*
+>> > + * xe_tt_unmap - Undo xe_tt_map().
+>> > + */
+>> > +static void xe_tt_unmap(struct xe_device *xe, struct ttm_tt *tt)
+>> > +{
+>> > +	struct xe_ttm_tt *xe_tt = container_of(tt, struct xe_ttm_tt, ttm);
+>> > +
+>> > +	if (xe_tt->use_iova)
+>> > +		xe_tt_unmap_iova(xe, tt);
+>> > +	else
+>> > +		xe_tt_unmap_sg(xe, tt);
+>> > +}
+>> > +
+>> > +/**
+>> > + * xe_res_first_tt() - Initialize a resource cursor over a ttm_tt's DMA mapping.
+>> > + * @tt: The ttm_tt to walk.
+>> > + * @start: Start of the range, in bytes.
+>> > + * @size: Size of the range, in bytes.
+>> > + * @cur: The cursor to initialize.
+>> >  *
+>> > - * Return: The sg table, or NULL if the tt is not currently mapped.
+>> > + * Initialize @cur to walk the DMA addresses backing @tt, transparently
+>> > + * handling both the IOVA-based mapping (single contiguous range) and the
+>> > + * scatter-gather list fallback.
+>> >  */
+>> > -struct sg_table *xe_tt_sg(struct ttm_tt *tt)
+>> > +void xe_res_first_tt(struct ttm_tt *tt, u64 start, u64 size,
+>> > +		     struct xe_res_cursor *cur)
+>> > {
+>> > 	struct xe_ttm_tt *xe_tt = container_of(tt, struct xe_ttm_tt, ttm);
+>> >
+>> > -	return xe_tt->sg;
+>> > +	if (xe_tt->use_iova)
+>> > +		xe_res_first_iova(&xe_tt->iova, start, size, cur);
+>> > +	else
+>> > +		xe_res_first_sg(xe_tt->sg, start, size, cur);
+>> > }
+>> >
+>> > /*
+>> > @@ -651,6 +826,21 @@ static struct ttm_tt *xe_ttm_tt_create(struct ttm_buffer_object *ttm_bo,
+>> > 		}
+>> > 	}
+>> >
+>> > +	/*
+>> > +	 * Eligible BOs are DMA mapped using the IOVA-based DMA API, which
+>> > +	 * yields a single contiguous IOVA range instead of a scatter-gather
+>> > +	 * list. Only device BOs that are not GGTT-mapped qualify: dma-buf
+>> > +	 * imports manage their own mapping and GGTT bindings are programmed
+>> > +	 * directly from the sg list. dma_iova_try_alloc() may still fail
+>> > +	 * depending on the IOMMU mode, in which case we transparently fall
+>> > +	 * back to the sg list. The reservation lives for the tt's lifetime.
+>> > +	 */
+>> > +	if (ttm_bo->type != ttm_bo_type_sg &&
+>> > +	    !(bo->flags & (XE_BO_FLAG_GGTT | XE_BO_FLAG_GGTT_ALL)) &&
+>> > +	    dma_iova_try_alloc(xe->drm.dev, &xe_tt->iova, 0,
+>> > +			       (size_t)tt->num_pages << PAGE_SHIFT))
+>> > +		xe_tt->use_iova = true;
+>>
+>> Shouldn't we be allocating 2M aligned iova here by passing 2M to 'phys'
+>> instead of 0? We need both 2M aligned iova and 2M aligned physical address
+>> (beneficial order) which defragmentation expected to provide by benefecial
+>> order, right?
+>>
+>
+>I thought this API worked that way and when I add iova support to GPUSVM
+>I coded it this way, but it appears to not be needed:
+>
+>git format-patch -1 9175f49330d19
+>
+>^^^ This removed passing in 2M.
+>
 
-`sgt` is removed by this patch.
+Ok, yah, it looks like api automatically aligns iova based on the size.
 
-<...>
-> diff --git a/samples/rust/rust_dma.rs b/samples/rust/rust_dma.rs
-> index ffb693544673..844e137cddc8 100644
-> --- a/samples/rust/rust_dma.rs
-> +++ b/samples/rust/rust_dma.rs
-> @@ -35,8 +35,7 @@
->  struct DmaSampleData<'bound> {
->      pdev: &'bound pci::Device<Bound>,
->      ca: Coherent<'bound, [MyStruct]>,
-> -    #[pin]
-> -    sgt: SGTable<Owned<VVec<u8>>>,
-> +    sgt: SGTable<Owned<'bound, VVec<u8>>>,
+Niranjana
 
-Since there is no more `pin` in `DmaSampleData`, can we also remove its
-`pinned_drop` attribute?
+>Matt
+>
+>> Niranjana
+>>
+>> > +
+>> > 	return tt;
+>> > }
+>> >
+>> > @@ -700,7 +890,7 @@ static void xe_ttm_tt_unpopulate(struct ttm_device *ttm_dev, struct ttm_tt *tt)
+>> > 	    !(tt->page_flags & TTM_TT_FLAG_EXTERNAL_MAPPABLE))
+>> > 		return;
+>> >
+>> > -	xe_tt_unmap_sg(xe, tt);
+>> > +	xe_tt_unmap(xe, tt);
+>> >
+>> > 	ttm_pool_free(&ttm_dev->pool, tt);
+>> > 	xe_ttm_tt_account_subtract(xe, tt);
+>> > @@ -709,6 +899,19 @@ static void xe_ttm_tt_unpopulate(struct ttm_device *ttm_dev, struct ttm_tt *tt)
+>> >
+>> > static void xe_ttm_tt_destroy(struct ttm_device *ttm_dev, struct ttm_tt *tt)
+>> > {
+>> > +	struct xe_ttm_tt *xe_tt = container_of(tt, struct xe_ttm_tt, ttm);
+>> > +
+>> > +	/*
+>> > +	 * Release the IOVA reservation made in xe_ttm_tt_create(). The pages
+>> > +	 * must already have been unlinked by xe_tt_unmap().
+>> > +	 */
+>> > +	if (xe_tt->use_iova) {
+>> > +		struct xe_device *xe = ttm_to_xe_device(ttm_dev);
+>> > +
+>> > +		xe_assert(xe, !xe_tt->iova_linked);
+>> > +		dma_iova_free(xe->drm.dev, &xe_tt->iova);
+>> > +	}
+>> > +
+>> > 	ttm_tt_fini(tt);
+>> > 	kfree(tt);
+>> > }
+>> > @@ -1557,7 +1760,7 @@ static int xe_bo_move(struct ttm_buffer_object *ttm_bo, bool evict,
+>> > 	/* Bo creation path, moving to system or TT. */
+>> > 	if ((!old_mem && ttm) && !handle_system_ccs) {
+>> > 		if (new_mem->mem_type == XE_PL_TT)
+>> > -			ret = xe_tt_map_sg(xe, ttm);
+>> > +			ret = xe_tt_map(xe, ttm);
+>> > 		if (!ret)
+>> > 			ttm_bo_move_null(ttm_bo, new_mem);
+>> > 		goto out;
+>> > @@ -1587,7 +1790,7 @@ static int xe_bo_move(struct ttm_buffer_object *ttm_bo, bool evict,
+>> > 		(!ttm && ttm_bo->type == ttm_bo_type_device);
+>> >
+>> > 	if (new_mem->mem_type == XE_PL_TT) {
+>> > -		ret = xe_tt_map_sg(xe, ttm);
+>> > +		ret = xe_tt_map(xe, ttm);
+>> > 		if (ret)
+>> > 			goto out;
+>> > 	}
+>> > @@ -1757,7 +1960,7 @@ static int xe_bo_move(struct ttm_buffer_object *ttm_bo, bool evict,
+>> > 		if (IS_VF_CCS_READY(xe))
+>> > 			xe_sriov_vf_ccs_detach_bo(bo);
+>> >
+>> > -		xe_tt_unmap_sg(xe, ttm_bo->ttm);
+>> > +		xe_tt_unmap(xe, ttm_bo->ttm);
+>> > 	}
+>> >
+>> > 	xe_bo_defrag_update(bo);
+>> > @@ -1785,7 +1988,7 @@ static long xe_bo_shrink_purge(struct ttm_operation_ctx *ctx,
+>> > 		if (lret)
+>> > 			return lret;
+>> >
+>> > -		xe_tt_unmap_sg(xe, bo->ttm);
+>> > +		xe_tt_unmap(xe, bo->ttm);
+>> > 		ttm_bo_move_null(bo, new_resource);
+>> > 	}
+>> >
+>> > @@ -2212,6 +2415,8 @@ int xe_bo_dma_unmap_pinned(struct xe_bo *bo)
+>> > 						 DMA_BIDIRECTIONAL);
+>> > 			ttm_bo->sg = NULL;
+>> > 			xe_tt->sg = NULL;
+>> > +		} else if (xe_tt->use_iova) {
+>> > +			xe_tt_unmap_iova(ttm_to_xe_device(ttm_bo->bdev), tt);
+>> > 		} else if (xe_tt->sg) {
+>> > 			dma_unmap_sgtable(ttm_to_xe_device(ttm_bo->bdev)->drm.dev,
+>> > 					  xe_tt->sg,
+>> > @@ -3779,7 +3984,7 @@ dma_addr_t __xe_bo_addr(struct xe_bo *bo, u64 offset, size_t page_size)
+>> > 	if (!xe_bo_is_vram(bo) && !xe_bo_is_stolen(bo)) {
+>> > 		xe_assert(xe, bo->ttm.ttm);
+>> >
+>> > -		xe_res_first_sg(xe_bo_sg(bo), page << PAGE_SHIFT,
+>> > +		xe_res_first_tt(bo->ttm.ttm, page << PAGE_SHIFT,
+>> > 				page_size, &cur);
+>> > 		return xe_res_dma(&cur) + offset;
+>> > 	} else {
+>> > diff --git a/drivers/gpu/drm/xe/xe_bo.h b/drivers/gpu/drm/xe/xe_bo.h
+>> > index 18fcccd082b7..3e2eaefecb8f 100644
+>> > --- a/drivers/gpu/drm/xe/xe_bo.h
+>> > +++ b/drivers/gpu/drm/xe/xe_bo.h
+>> > @@ -552,8 +552,9 @@ void xe_bo_dev_init(struct xe_bo_dev *bo_device);
+>> >
+>> > void xe_bo_dev_fini(struct xe_bo_dev *bo_device);
+>> >
+>> > -struct sg_table *xe_bo_sg(struct xe_bo *bo);
+>> > -struct sg_table *xe_tt_sg(struct ttm_tt *tt);
+>> > +struct xe_res_cursor;
+>> > +void xe_res_first_tt(struct ttm_tt *tt, u64 start, u64 size,
+>> > +		     struct xe_res_cursor *cur);
+>> >
+>> > /*
+>> >  * xe_sg_segment_size() - Provides upper limit for sg segment size.
+>> > diff --git a/drivers/gpu/drm/xe/xe_ggtt.c b/drivers/gpu/drm/xe/xe_ggtt.c
+>> > index 8ec23862477f..4084bc183e06 100644
+>> > --- a/drivers/gpu/drm/xe/xe_ggtt.c
+>> > +++ b/drivers/gpu/drm/xe/xe_ggtt.c
+>> > @@ -699,7 +699,7 @@ static void xe_ggtt_map_bo(struct xe_ggtt *ggtt, struct xe_ggtt_node *node,
+>> > 	if (!xe_bo_is_vram(bo) && !xe_bo_is_stolen(bo)) {
+>> > 		xe_assert(xe_bo_device(bo), bo->ttm.ttm);
+>> >
+>> > -		for (xe_res_first_sg(xe_bo_sg(bo), 0, xe_bo_size(bo), &cur);
+>> > +		for (xe_res_first_tt(bo->ttm.ttm, 0, xe_bo_size(bo), &cur);
+>> > 		     cur.remaining; xe_res_next(&cur, XE_PAGE_SIZE))
+>> > 			ggtt->pt_ops->ggtt_set_pte(ggtt, end - cur.remaining,
+>> > 						   pte | xe_res_dma(&cur));
+>> > diff --git a/drivers/gpu/drm/xe/xe_migrate.c b/drivers/gpu/drm/xe/xe_migrate.c
+>> > index 9990a7144a9f..666c715a9067 100644
+>> > --- a/drivers/gpu/drm/xe/xe_migrate.c
+>> > +++ b/drivers/gpu/drm/xe/xe_migrate.c
+>> > @@ -1005,16 +1005,16 @@ static struct dma_fence *__xe_migrate_copy(struct xe_migrate *m,
+>> > 		return ERR_PTR(-EINVAL);
+>> >
+>> > 	if (!src_is_vram)
+>> > -		xe_res_first_sg(src_tt ? xe_tt_sg(src_tt) : xe_bo_sg(src_bo), 0, size, &src_it);
+>> > +		xe_res_first_tt(src_tt ? src_tt : src_bo->ttm.ttm, 0, size, &src_it);
+>> > 	else
+>> > 		xe_res_first(src, 0, size, &src_it);
+>> > 	if (!dst_is_vram)
+>> > -		xe_res_first_sg(xe_bo_sg(dst_bo), 0, size, &dst_it);
+>> > +		xe_res_first_tt(dst_bo->ttm.ttm, 0, size, &dst_it);
+>> > 	else
+>> > 		xe_res_first(dst, 0, size, &dst_it);
+>> >
+>> > 	if (copy_system_ccs)
+>> > -		xe_res_first_sg(src_tt ? xe_tt_sg(src_tt) : xe_bo_sg(src_bo),
+>> > +		xe_res_first_tt(src_tt ? src_tt : src_bo->ttm.ttm,
+>> > 				xe_bo_ccs_pages_start(src_bo),
+>> > 				PAGE_ALIGN(xe_device_ccs_bytes(xe, size)),
+>> > 				&ccs_it);
+>> > @@ -1383,9 +1383,9 @@ int xe_migrate_ccs_rw_copy(struct xe_tile *tile, struct xe_exec_queue *q,
+>> >
+>> > 	ctx = &xe->sriov.vf.ccs.contexts[read_write];
+>> >
+>> > -	xe_res_first_sg(xe_bo_sg(src_bo), 0, size, &src_it);
+>> > +	xe_res_first_tt(src_bo->ttm.ttm, 0, size, &src_it);
+>> >
+>> > -	xe_res_first_sg(xe_bo_sg(src_bo), xe_bo_ccs_pages_start(src_bo),
+>> > +	xe_res_first_tt(src_bo->ttm.ttm, xe_bo_ccs_pages_start(src_bo),
+>> > 			PAGE_ALIGN(xe_device_ccs_bytes(xe, size)),
+>> > 			&ccs_it);
+>> >
+>> > @@ -1588,7 +1588,7 @@ struct dma_fence *xe_migrate_vram_copy_chunk(struct xe_bo *vram_bo, u64 vram_off
+>> > 	xe_assert(xe, !range_overflows(sysmem_offset, size, (u64)sysmem_bo->ttm.base.size));
+>> >
+>> > 	xe_res_first(vram, vram_offset, size, &vram_it);
+>> > -	xe_res_first_sg(xe_bo_sg(sysmem_bo), sysmem_offset, size, &sysmem_it);
+>> > +	xe_res_first_tt(sysmem_bo->ttm.ttm, sysmem_offset, size, &sysmem_it);
+>> >
+>> > 	while (size) {
+>> > 		u32 pte_flags = PTE_UPDATE_FLAG_IS_VRAM;
+>> > @@ -1800,7 +1800,7 @@ struct dma_fence *xe_migrate_clear(struct xe_migrate *m,
+>> > 		clear_only_system_ccs = true;
+>> >
+>> > 	if (!clear_vram)
+>> > -		xe_res_first_sg(xe_bo_sg(bo), 0, xe_bo_size(bo), &src_it);
+>> > +		xe_res_first_tt(bo->ttm.ttm, 0, xe_bo_size(bo), &src_it);
+>> > 	else
+>> > 		xe_res_first(src, 0, xe_bo_size(bo), &src_it);
+>> >
+>> > diff --git a/drivers/gpu/drm/xe/xe_pt.c b/drivers/gpu/drm/xe/xe_pt.c
+>> > index 7111b5d0f6aa..185d15fb0a97 100644
+>> > --- a/drivers/gpu/drm/xe/xe_pt.c
+>> > +++ b/drivers/gpu/drm/xe/xe_pt.c
+>> > @@ -797,7 +797,7 @@ xe_pt_stage_bind(struct xe_tile *tile, struct xe_vma *vma,
+>> > 			xe_res_first(bo->ttm.resource, xe_vma_bo_offset(vma),
+>> > 				     xe_vma_size(vma), &curs);
+>> > 		else
+>> > -			xe_res_first_sg(xe_bo_sg(bo), xe_vma_bo_offset(vma),
+>> > +			xe_res_first_tt(bo->ttm.ttm, xe_vma_bo_offset(vma),
+>> > 					xe_vma_size(vma), &curs);
+>> > 	} else if (!range) {
+>> > 		curs.size = xe_vma_size(vma);
+>> > --
+>> > 2.34.1
+>> >
