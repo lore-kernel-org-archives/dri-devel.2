@@ -2,50 +2,68 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 021D0606A31C
-	for <dri-devel@archiver.kernel.org>; Mon, 16 Nov 2026 11:02:10 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3C2CA606A31C
+	for <dri-devel@archiver.kernel.org>; Mon, 16 Nov 2026 11:03:27 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=igalia.com header.i=@igalia.com header.a=rsa-sha256 header.s=20170329 header.b=VPrdVG0j
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=D9slPciu
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 66C8110ED9D;
-	Mon, 16 Nov 2026 11:02:04 +0000 (UTC)
-Received: from fanzine2.igalia.com (fanzine2.igalia.com [213.97.179.56])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 0B58310ED9D
- for <dri-devel@lists.freedesktop.org>; Mon, 16 Nov 2026 11:01:58 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com; 
- s=20170329;
- h=MIME-Version:Content-Transfer-Encoding:Content-Type:Date:Cc:To:
- From:Subject:Message-ID:From:Reply-To;
- bh=Rf8qt+Zh3EUE2lSQ6kbDmdifzLtndza1jl085CZIWqw=; t=1794826917; x=2110186917; 
- b=VPrdVG0jhhG3yMRNe030Mf9rbzTYQGrAga8je0BoBTbcP1ZB5R/8pQsPx566RTEUjgEjIWdEDGQ
- 4UPRB4QitwtGPffq9OdE7ZUkM4Bka2XwlIC2VkwRqUZ8gD50mNxWD3SUEn9Bhg98M4X1AqyHwu+nq
- 6ZqtMwJgRaV+5BR9Cimm1vmYf5tfNUtl2REaFUKFM4lIX3v+nbQcgAnfQYgOXOyLjbQwl0q5D0sie
- 9Xyninze5d3SswgPGdEe0O8xrc4iHQ68t0jox9BwtUf0WIW16bRJ5Wwfwt3ah+8zmlU5Oz3R8+ZS+
- ZdBOX2OQCrNXGZC3hr7g2uPMymYrbv3JPyqQ==;
-Received: from [137.101.48.64] (helo=[192.168.0.17])
- by fanzine2.igalia.com with esmtpsa 
- (Cipher TLS1.3:ECDHE_SECP256R1__RSA_PSS_RSAE_SHA256__AES_256_GCM:256) (Exim)
- id 1xSuTA-000000009mR-1nOX; Mon, 16 Nov 2026 12:01:52 +0100
-Message-ID: <08699944b70494159b0f750c1ffb4d8dc14bfe82.camel@igalia.com>
-Subject: Re: [PATCH v2 0/3] drm/vc4: Fix async page flip completion
-From: Iago Toral <itoral@igalia.com>
-To: =?ISO-8859-1?Q?Ma=EDra?= Canal <mcanal@igalia.com>, Melissa Wen
- <mwen@igalia.com>, Maxime Ripard <mripard@kernel.org>, Dave Stevenson
- <dave.stevenson@raspberrypi.com>, Raspberry Pi Kernel Maintenance
- <kernel-list@raspberrypi.com>, Maarten Lankhorst
- <maarten.lankhorst@linux.intel.com>, Thomas Zimmermann
- <tzimmermann@suse.de>,  David Airlie <airlied@gmail.com>, Simona Vetter
- <simona@ffwll.ch>
-Cc: kernel-dev@igalia.com, dri-devel@lists.freedesktop.org, 
- stable@vger.kernel.org
-Date: Mon, 16 Nov 2026 12:01:41 +0100
-In-Reply-To: <20261114-vc4-async-flip-fixes-v2-0-d33cbe99ed5d@igalia.com>
-References: <20261114-vc4-async-flip-fixes-v2-0-d33cbe99ed5d@igalia.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-User-Agent: Evolution 3.52.3-0ubuntu1.1 
+	by gabe.freedesktop.org (Postfix) with ESMTP id 6705D10EF57;
+	Mon, 16 Nov 2026 11:03:21 +0000 (UTC)
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.11])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 3004610EF57
+ for <dri-devel@lists.freedesktop.org>; Mon, 16 Nov 2026 11:03:15 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1794826996; x=1826362996;
+ h=from:to:cc:subject:in-reply-to:references:date:
+ message-id:mime-version;
+ bh=Ic6j+iLLJHWTLcxQJh6egA6Z2981WwOmhes2lvK7oj0=;
+ b=D9slPciuFicVdn36XHB6HL7UdcG0CQus3cAnCFzY5M9SLmNWmrru0fQt
+ 9xV4cTk6R4N6nNmNLayj7zJbmVXPdeWYB3Q3uEbevV/6KnKKFYTSMb5f5
+ LicGSPaGXFwpcns4jMqmmCrx/2CmVXCaCoEoQWg3w+6U4b7F7cghKn+Qi
+ uVXMtvsXyrI2X80gHO9K8WW9wzk8TYMlSIH7myPBlNWrRerfSAcK7v5Di
+ sl7NbrZBV57WgpoFj7S6Fj6xgicId9lyzrwDBmRut6BwuBUSkjkBvmLeN
+ 0FAo+NuX+0h3pJ7uk19lXzxrMu3QT3oN+cDS+ZZtnjenAFcGfQgYwxqej A==;
+X-CSE-ConnectionGUID: cbhjCpcnS9GCm5KbqVFmjg==
+X-CSE-MsgGUID: 86PVqHy8TBWao1iCZjvTPA==
+X-IronPort-AV: E=McAfee;i="6800,10657,11967"; a="3453771"
+X-IronPort-AV: E=Sophos;i="6.27,216,1787036400"; 
+   d="scan'208";a="3453771"
+Received: from fmviesa007.fm.intel.com ([10.60.135.147])
+ by orvoesa103.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 16 Nov 2026 03:03:15 -0800
+X-CSE-ConnectionGUID: Bcm91qDkRgG8yxshQVOoRg==
+X-CSE-MsgGUID: Kcmi/Uz2TpiDOhUS1MIq/A==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,216,1787036400"; 
+   d="scan'208";a="9929761"
+Received: from slindbla-desk.ger.corp.intel.com (HELO localhost)
+ ([10.245.245.117])
+ by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 16 Nov 2026 03:03:10 -0800
+From: Jani Nikula <jani.nikula@linux.intel.com>
+To: Xin Ji <anx-upstream@analogixsemi.com.cn>, Andrzej Hajda
+ <andrzej.hajda@intel.com>, Neil Armstrong <neil.armstrong@linaro.org>,
+ Robert Foss <rfoss@kernel.org>, Laurent Pinchart
+ <Laurent.pinchart@ideasonboard.com>, Jonas Karlman <jonas@kwiboo.se>,
+ Jernej Skrabec <jernej.skrabec@gmail.com>, Luca Ceresoli
+ <luca.ceresoli@bootlin.com>, Maarten Lankhorst
+ <maarten.lankhorst@linux.intel.com>, Maxime Ripard <mripard@kernel.org>,
+ Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>,
+ Simona Vetter <simona@ffwll.ch>
+Cc: bliang@analogixsemi.com, qwen@analogixsemi.com, fshao@chromium.org, Xin
+ Ji <xji@analogixsemi.com>, dri-devel@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org
+Subject: Re: [PATCH] drm/bridge: anx7625: switch to drm_edid_read_custom()
+In-Reply-To: <20261116023740.2257699-1-anx-upstream@analogixsemi.com.cn>
+Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park,
+ 6 krs Bertel Jungin Aukio 5, 02600 Espoo, Finland
+References: <20261116023740.2257699-1-anx-upstream@analogixsemi.com.cn>
+Date: Mon, 16 Nov 2026 13:03:07 +0200
+Message-ID: <d1553faf45c5651feefd667a3decb454fc596415@intel.com>
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
+Content-Type: text/plain
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -57,115 +75,293 @@ List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-15.8 required=3.0 tests=BAYES_00,DKIM_SIGNED,
-	DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
+X-Spam-Status: No, score=-9.8 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
+	DKIM_SIGNED,DKIM_VALID,HEADER_FROM_DIFFERENT_DOMAINS,
 	INCLUDES_CR_TRAILER,INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,
-	SPF_PASS autolearn=unavailable autolearn_force=no version=4.0.1
+	SPF_PASS,UNWANTED_LANGUAGE_BODY autolearn=unavailable
+	autolearn_force=no version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-Thanks! Looks good to me:
+On Mon, 16 Nov 2026, Xin Ji <anx-upstream@analogixsemi.com.cn> wrote:
+> From: Xin Ji <xji@analogixsemi.com>
+>
+> Currently, sp_tx_get_edid_block() only reads the base block extension
+> count at 0x7e and ignores CTA-861 HF-EEODB overrides in block 1. On
+> displays using HF-EEODB, the driver only reads 2 blocks, which
+> drm_edid_valid() then rejects due to the size mismatch.
+> Switch to drm_edid_read_custom() with a per-block read callback so DRM
+> core handles block count discovery (including HF-EEODB and >4 blocks)
+> and validation automatically.
 
-Reviewed-by: Iago Toral Quiroga <itoral@igalia.com>
+Yay!
 
-El s=C3=A1b, 14-11-2026 a las 16:16 -0300, Ma=C3=ADra Canal escribi=C3=B3:
-> VC4 implements async page flips with a custom code path that waits
-> for
-> the BO fence before completing the flip. On VC4_GEN_4 (RPi 0-3), the
-> completion also decrements the usecnt of the old FB's BO. This series
-> fixes three bugs in that path.
->=20
-> Since commit e8941ac97f28 ("drm/vc4: Remove BOs seqnos"), the
-> completion
-> runs from a dma_fence callback. VC4 signals that fence from the
-> render
-> job IRQ handler. As v
-> c4_bo_dec_usecnt() takes a mutex, running an SDL
-> application with SDL_VIDEODRIVER=3Dkmsdrm on the RPi 3 triggers:
->=20
-> =C2=A0 [ 2511.636319] BUG: sleeping function called from invalid context
-> at kernel/locking/mutex.c:623
-> =C2=A0 [ 2511.636667] in_atomic(): 1, irqs_disabled(): 1, non_block: 0,
-> pid: 0, name: swapper/0
-> =C2=A0 [ 2511.636681] preempt_count: 1000002, expected: 0
-> =C2=A0 [ 2511.636689] RCU nest depth: 0, expected: 0
-> =C2=A0 [ 2511.636698] locks held by swapper/0/0: 1, on CPU#0:
-> =C2=A0 [ 2511.636711]=C2=A0 #0: ffff000037183198 (&fence->inline_lock){-.=
-..}-
-> {3:3}, at: dma_fence_signal+0x88/0xec
-> =C2=A0 <snip>
-> =C2=A0 [ 2511.636892] Hardware name: Raspberry Pi 3 Model B Plus Rev 1.3
-> (DT)
-> =C2=A0 [ 2511.636899] Call trace:
-> =C2=A0 <snip>
-> =C2=A0 [ 2511.636991]=C2=A0 mutex_lock_nested+0x24/0x30
-> =C2=A0 [ 2511.637002]=C2=A0 vc4_bo_dec_usecnt+0x40/0x124 [vc4]
-> =C2=A0 [ 2511.637070]=C2=A0 vc4_async_page_flip_complete_with_cleanup+0xa=
-0/0xc4
-> [vc4]
-> =C2=A0 [ 2511.637102]=C2=A0 dma_fence_signal_timestamp_locked+0x118/0x290
-> =C2=A0 [ 2511.637116]=C2=A0 dma_fence_signal+0x9c/0xec
-> =C2=A0 [ 2511.637126]=C2=A0 vc4_irq_render_job_done+0x24/0x114 [vc4]
-> =C2=A0 [ 2511.637158]=C2=A0 vc4_irq+0x16c/0x274 [vc4]
->=20
-> While looking into this issue, I also noticed that, since commit
-> 4d12c36fb73b ("drm/vc4: crtc: Move the BO handling out of common
-> page-flip
-> callback"), the old FB is released before decrementing its BO usecnt.
-> If
-> userspace removes the old FB and closes its handle while the flip is
-> pending, vc4_bo_dec_usecnt() runs on a freed or recycled BO.
->=20
-> Patch 1 fixes the use-after-free, patch 2 moves the completion to a
-> worker
-> and patch 3 returns fence lookup errors to userspace instead of
-> leaving
-> the flip pending forever.
->=20
-> In v1, Sashiko reported that a flip waiting on its fence can complete
-> after, or concurrently with, a later flip that has no fence. This has
-> been
-> possible since commit 82faa3276012 ("drm/vc4: kms: Remove async
-> modeset
-> semaphore") and isn't changed by this series. The best way to fix it
-> would be moving to the generic async helpers, which is on my TODO
-> list.
-> Until then, this series keeps the current behavior and only fixes the
-> bugs
-> above.
->=20
-> Best regards,
-> - Ma=C3=ADra
->=20
-> ---
-> v1 -> v2:
-> https://lore.kernel.org/r/20261112-vc4-async-flip-fixes-v1-0-42449a703840=
-@igalia.com
->=20
-> - [1/3] Add the refcount underflow warning to the commit message.
-> - [2/3] Allocate the workqueue after initializing the CRTC, so it's
-> =C2=A0 released before the CRTC is cleaned up and named after the CRTC
-> (Sashiko).
-> - [3/3] New patch.
->=20
-> ---
-> Ma=C3=ADra Canal (3):
-> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 drm/vc4: Drop BO usecnt before releasing t=
-he old FB
-> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 drm/vc4: Complete async page flips from an=
- ordered workqueue
-> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 drm/vc4: Look up the async page flip fence=
- before committing
-> the flip
->=20
-> =C2=A0drivers/gpu/drm/vc4/vc4_crtc.c | 136 +++++++++++++++++++-----------=
--
-> ----------
-> =C2=A0drivers/gpu/drm/vc4/vc4_drv.h=C2=A0 |=C2=A0=C2=A0 6 ++
-> =C2=A02 files changed, 70 insertions(+), 72 deletions(-)
-> ---
-> base-commit: d48ea86919434695da12d280dccab72b094397e1
-> change-id: 20261111-vc4-async-flip-fixes-1b1ab17dc795
->=20
->=20
+It warms my heart that the work I put in drm_edid.c to handle HF-EEODB
+still keeps paying off, and people can enable the complexity of it by
+*simplifying* the driver code. :)
 
+> Signed-off-by: Xin Ji <xji@analogixsemi.com>
+> ---
+>  drivers/gpu/drm/bridge/analogix/anx7625.c | 172 +++++-----------------
+>  drivers/gpu/drm/bridge/analogix/anx7625.h |   4 -
+>  2 files changed, 33 insertions(+), 143 deletions(-)
+>
+> diff --git a/drivers/gpu/drm/bridge/analogix/anx7625.c b/drivers/gpu/drm/bridge/analogix/anx7625.c
+> index c3af88e14f8b..eb503be005e0 100644
+> --- a/drivers/gpu/drm/bridge/analogix/anx7625.c
+> +++ b/drivers/gpu/drm/bridge/analogix/anx7625.c
+> @@ -1022,27 +1022,6 @@ static int sp_tx_aux_rd(struct anx7625_data *ctx, u8 len_cmd)
+>  	return (ret | wait_aux_op_finish(ctx));
+>  }
+>  
+> -static int sp_tx_get_edid_block(struct anx7625_data *ctx)
+> -{
+> -	int c = 0;
+> -	struct device *dev = ctx->dev;
+> -
+> -	sp_tx_aux_wr(ctx, 0x7e);
+> -	sp_tx_aux_rd(ctx, 0x01);
+> -	c = anx7625_reg_read(ctx, ctx->i2c.rx_p0_client, AP_AUX_BUFF_START);
+> -	if (c < 0) {
+> -		DRM_DEV_ERROR(dev, "IO error : access AUX BUFF.\n");
+> -		return -EIO;
+> -	}
+> -
+> -	DRM_DEV_DEBUG_DRIVER(dev, " EDID Block = %d\n", c + 1);
+> -
+> -	if (c > MAX_EDID_BLOCK)
+> -		c = 1;
+> -
+> -	return c;
+> -}
+> -
+>  static int edid_read(struct anx7625_data *ctx,
+>  		     u8 offset, u8 *pblock_buf)
+>  {
+> @@ -1123,18 +1102,16 @@ static int segments_edid_read(struct anx7625_data *ctx,
+>  	return ret;
+>  }
+>  
+> -static int sp_tx_edid_read(struct anx7625_data *ctx,
+> -			   u8 *pedid_blocks_buf)
+> +static int anx7625_get_edid_block(void *data, u8 *buf, unsigned int block, size_t len)
+>  {
+> +	struct anx7625_data *ctx = data;
+>  	u8 offset;
+> -	int edid_pos;
+> -	int count, blocks_num;
+> -	u8 pblock_buf[MAX_DPCD_BUFFER_SIZE];
+> -	u8 i, j;
+> -	int g_edid_break = 0;
+> -	int ret;
+> +	int ret, i;
+>  	struct device *dev = ctx->dev;
+>  
+> +	if (len != EDID_LENGTH || block > 255)
+> +		return -EINVAL;
+> +
+>  	/* Address initial */
+>  	ret = anx7625_reg_write(ctx, ctx->i2c.rx_p0_client,
+>  				AP_AUX_ADDR_7_0, 0x50);
+> @@ -1147,85 +1124,18 @@ static int sp_tx_edid_read(struct anx7625_data *ctx,
+>  		return -EIO;
+>  	}
+>  
+> -	blocks_num = sp_tx_get_edid_block(ctx);
+> -	if (blocks_num < 0)
+> -		return blocks_num;
+> -
+> -	count = 0;
+> -
+> -	do {
+> -		switch (count) {
+> -		case 0:
+> -		case 1:
+> -			for (i = 0; i < 8; i++) {
+> -				offset = (i + count * 8) * MAX_DPCD_BUFFER_SIZE;
+> -				g_edid_break = edid_read(ctx, offset,
+> -							 pblock_buf);
+> -
+> -				if (g_edid_break < 0)
+> -					break;
+> -
+> -				memcpy(&pedid_blocks_buf[offset],
+> -				       pblock_buf,
+> -				       MAX_DPCD_BUFFER_SIZE);
+> -			}
+> -
+> -			break;
+> -		case 2:
+> -			offset = 0x00;
+> -
+> -			for (j = 0; j < 8; j++) {
+> -				edid_pos = (j + count * 8) *
+> -					MAX_DPCD_BUFFER_SIZE;
+> -
+> -				if (g_edid_break == 1)
+> -					break;
+> -
+> -				ret = segments_edid_read(ctx, count / 2,
+> -							 pblock_buf, offset);
+> -				if (ret < 0)
+> -					return ret;
+> -
+> -				memcpy(&pedid_blocks_buf[edid_pos],
+> -				       pblock_buf,
+> -				       MAX_DPCD_BUFFER_SIZE);
+> -				offset = offset + 0x10;
+> -			}
+> -
+> -			break;
+> -		case 3:
+> -			offset = 0x80;
+> -
+> -			for (j = 0; j < 8; j++) {
+> -				edid_pos = (j + count * 8) *
+> -					MAX_DPCD_BUFFER_SIZE;
+> -				if (g_edid_break == 1)
+> -					break;
+> -
+> -				ret = segments_edid_read(ctx, count / 2,
+> -							 pblock_buf, offset);
+> -				if (ret < 0)
+> -					return ret;
+> -
+> -				memcpy(&pedid_blocks_buf[edid_pos],
+> -				       pblock_buf,
+> -				       MAX_DPCD_BUFFER_SIZE);
+> -				offset = offset + 0x10;
+> -			}
+> -
+> -			break;
+> -		default:
+> -			break;
+> -		}
+> -
+> -		count++;
+> +	DRM_DEV_DEBUG_DRIVER(dev, "Read EDID block %u, len %zu\n", block, len);
+>  
+> -	} while (blocks_num >= count);
+> +	for (i = 0; i < len; i += MAX_DPCD_BUFFER_SIZE) {
+> +		offset = (block & 1) * EDID_LENGTH + i;
+> +		if (block < 2)
+> +			ret = edid_read(ctx, offset, &buf[i]);
+> +		else
+> +			ret = segments_edid_read(ctx, block / 2, &buf[i],
+> +						 offset);
+>  
+> -	/* Check edid data */
+> -	if (!drm_edid_is_valid((struct edid *)pedid_blocks_buf)) {
+> -		DRM_DEV_ERROR(dev, "WARNING! edid check fail!\n");
+> -		return -EINVAL;
+> +		if (ret < 0)
+> +			return -EIO;
+>  	}
+>  
+>  	/* Reset aux channel */
+> @@ -1235,7 +1145,7 @@ static int sp_tx_edid_read(struct anx7625_data *ctx,
+>  		return ret;
+>  	}
+>  
+> -	return (blocks_num + 1);
+> +	return 0;
+>  }
+>  
+>  static void anx7625_power_on(struct anx7625_data *ctx)
+> @@ -1958,37 +1868,6 @@ static ssize_t anx7625_aux_transfer(struct drm_dp_aux *aux,
+>  	return ret;
+>  }
+>  
+> -static const struct drm_edid *anx7625_edid_read(struct anx7625_data *ctx)
+> -{
+> -	struct device *dev = ctx->dev;
+> -	u8 *edid_buf;
+> -	int edid_num;
+> -
+> -	if (ctx->cached_drm_edid)
+> -		goto out;
+> -
+> -	edid_buf = kmalloc(FOUR_BLOCK_SIZE, GFP_KERNEL);
+> -	if (!edid_buf)
+> -		return NULL;
+> -
+> -	pm_runtime_get_sync(dev);
+> -	_anx7625_hpd_polling(ctx, 5000 * 100);
+> -	edid_num = sp_tx_edid_read(ctx, edid_buf);
+> -	pm_runtime_put_sync(dev);
+> -
+> -	if (edid_num < 1) {
+> -		DRM_DEV_ERROR(dev, "Fail to read EDID: %d\n", edid_num);
+> -		kfree(edid_buf);
+> -		return NULL;
+> -	}
+> -
+> -	ctx->cached_drm_edid = drm_edid_alloc(edid_buf, edid_num * ONE_BLOCK_SIZE);
+> -	kfree(edid_buf);
+> -
+> -out:
+> -	return drm_edid_dup(ctx->cached_drm_edid);
+> -}
+> -
+>  static enum drm_connector_status anx7625_sink_detect(struct anx7625_data *ctx)
+>  {
+>  	struct device *dev = ctx->dev;
+> @@ -2647,10 +2526,25 @@ static const struct drm_edid *anx7625_bridge_edid_read(struct drm_bridge *bridge
+>  {
+>  	struct anx7625_data *ctx = bridge_to_anx7625(bridge);
+>  	struct device *dev = ctx->dev;
+> +	const struct drm_edid *drm_edid;
+>  
+>  	DRM_DEV_DEBUG_DRIVER(dev, "drm bridge get edid\n");
+>  
+> -	return anx7625_edid_read(ctx);
+> +	if (ctx->cached_drm_edid)
+> +		return drm_edid_dup(ctx->cached_drm_edid);
+> +
+> +	pm_runtime_get_sync(dev);
+> +	_anx7625_hpd_polling(ctx, 5000 * 100);
+> +	ctx->cached_drm_edid = drm_edid_read_custom(connector,
+> +						    anx7625_get_edid_block,
+> +						    ctx);
+> +	drm_edid = drm_edid_dup(ctx->cached_drm_edid);
+
+Consider deduplicating?
+
+	if (!ctx->cached_drm_edid) {
+		// ...
+                ctx->cached_drm_edid = drm_edid_read_custom();
+                // ...
+        }
+
+	drm_edid = drm_edid_dup(ctx->cached_drm_edid);
+
+
+BR,
+Jani.
+
+> +	pm_runtime_put_sync(dev);
+> +
+> +	if (!drm_edid)
+> +		DRM_DEV_ERROR(dev, "Fail to read EDID\n");
+> +
+> +	return drm_edid;
+>  }
+>  
+>  static void anx7625_bridge_hpd_enable(struct drm_bridge *bridge)
+> diff --git a/drivers/gpu/drm/bridge/analogix/anx7625.h b/drivers/gpu/drm/bridge/analogix/anx7625.h
+> index 957d234ec07c..55615ad274f2 100644
+> --- a/drivers/gpu/drm/bridge/analogix/anx7625.h
+> +++ b/drivers/gpu/drm/bridge/analogix/anx7625.h
+> @@ -424,10 +424,6 @@ enum audio_wd_len {
+>  
+>  #define MAX_DPCD_BUFFER_SIZE	16
+>  
+> -#define ONE_BLOCK_SIZE      128
+> -#define FOUR_BLOCK_SIZE     (128 * 4)
+> -
+> -#define MAX_EDID_BLOCK	3
+>  #define EDID_TRY_CNT	3
+>  #define SUPPORT_PIXEL_CLOCK	300000
+
+-- 
+Jani Nikula, Intel
