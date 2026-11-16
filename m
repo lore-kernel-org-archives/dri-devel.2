@@ -2,46 +2,52 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EB3D0606A32F
-	for <dri-devel@archiver.kernel.org>; Mon, 16 Nov 2026 12:43:41 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EC783606A32A
+	for <dri-devel@archiver.kernel.org>; Mon, 16 Nov 2026 12:43:47 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=fail reason="signature verification failed" (1024-bit key) header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=foss header.b=QiPGF9LM
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ophYpZLf
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 5A9F410F046;
-	Mon, 16 Nov 2026 12:43:36 +0000 (UTC)
-Received: from foss.arm.com (foss.arm.com [217.140.110.172])
- by gabe.freedesktop.org (Postfix) with ESMTP id 05A1310F050
- for <dri-devel@lists.freedesktop.org>; Mon, 16 Nov 2026 12:43:30 +0000 (UTC)
-Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
- by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 87E411713
- for <dri-devel@lists.freedesktop.org>; Mon, 16 Nov 2026 04:43:26 -0800 (PST)
-Received: from [192.168.0.1] (usa-sjc-imap-foss1.foss.arm.com [10.121.207.14])
- by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPA id
- 4CA7D3F632
- for <dri-devel@lists.freedesktop.org>; Mon, 16 Nov 2026 04:43:29 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
- t=1794833009; bh=dg7j36cEkL6YwieU84eZURhUe2r7Iw1mLinaBzUPWbM=;
- h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
- b=QiPGF9LM2BOOFe8k2GgptyM6YyXH7BndLCrdwmP8Mb7s9dz3Xtr//+85WyZWelYJP
- UMQWa8pKlob+rVM5ATQewnOlD9y9Sj4E5cBPph1ufIs4thHrgLAKXH8ys58btLia3V
- E4SXsJm3pGsRAZM+RllOj/dt/qe7fBWjNtrQIgok=
-Date: Mon, 16 Nov 2026 12:43:19 +0000
-From: Liviu Dudau <liviu.dudau@arm.com>
-To: Tuo Li <islituo@gmail.com>
-Cc: boris.brezillon@collabora.com, steven.price@arm.com,
- maarten.lankhorst@linux.intel.com, mripard@kernel.org,
- tzimmermann@suse.de, airlied@gmail.com, simona@ffwll.ch,
- dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH] drm/panthor: Fix NULL pointer dereference in sync signal
- cleanup
-Message-ID: <avr6Z-LoyfKvDH0U@e142607>
-References: <20261113094456.5000-1-islituo@gmail.com>
+	by gabe.freedesktop.org (Postfix) with ESMTP id 5503010F050;
+	Mon, 16 Nov 2026 12:43:42 +0000 (UTC)
+Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 6275010F050
+ for <dri-devel@lists.freedesktop.org>; Mon, 16 Nov 2026 12:43:36 +0000 (UTC)
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+ by sea.source.kernel.org (Postfix) with ESMTP id 4810A400C4;
+ Mon, 16 Nov 2026 12:43:36 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id A84781F000C4;
+ Mon, 16 Nov 2026 12:43:32 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+ s=k20260515; t=1794833016;
+ bh=CXw4JlwiXiBhfP+REkN7yHwsbglu9GFDUemcCMcjoyM=;
+ h=Date:To:From:Subject:Cc:References:In-Reply-To;
+ b=ophYpZLfEeJvZlyuCYfZQfdTYYsdpI8fR6sP3Tve7NtPhGSNkll+L3vUBsawnzHZK
+ tgqRZdtsdeyiesEA2ZzPZB65M1ecVQ7kkIXgSEeoZGEvfcd7M8KVIUThCyAuMAqKJP
+ D24o8ubU7QD9JSn3GLyCbxDyBgNeol2ayOI+Ux3kJA28Wj/MSsRtKvXsbj5CsHS+k+
+ pycZ86HNuYgM2sC1qAItD/vL1oaoobi2HtgHkaGW6d2x0VpwMPFvtNDg8JZfy6HABW
+ scy6jgCf2Ckujy4m/DVo2UZOgYwis6praWLL4Osj8ZBRoUd1t6DkHcirUWZ5nkNZDo
+ +HKIJrcojIMJg==
 X-Archived-By: <archiver.kernel.org>
-MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <20261113094456.5000-1-islituo@gmail.com>
+Mime-Version: 1.0
+Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=UTF-8
+Date: Mon, 16 Nov 2026 13:43:31 +0100
+Message-Id: <DMWN7AJF6SXX.1HN3UMDROET7F@kernel.org>
+To: "Alexandre Courbot" <acourbot@nvidia.com>
+From: "Danilo Krummrich" <dakr@kernel.org>
+Subject: Re: [PATCH 1/2] rust: scatterlist: tie owned tables to the device's
+ bound lifetime
+Cc: <aliceryhl@google.com>, <abdiel.janulgue@gmail.com>,
+ <daniel.almeida@collabora.com>, <robin.murphy@arm.com>,
+ <a.hindborg@kernel.org>, <ojeda@kernel.org>, <boqun@kernel.org>,
+ <gary@garyguo.net>, <bjorn3_gh@protonmail.com>, <lossin@kernel.org>,
+ <tmgross@umich.edu>, <tamird@kernel.org>, <work@onurozkan.dev>,
+ <driver-core@lists.linux.dev>, <nova-gpu@lists.linux.dev>,
+ <dri-devel@lists.freedesktop.org>, <linux-kernel@vger.kernel.org>,
+ <rust-for-linux@vger.kernel.org>
+References: <20261114234324.82387-1-dakr@kernel.org>
+ <DMWC45NN5L9I.2NUG81ETBC84L@nvidia.com>
+In-Reply-To: <DMWC45NN5L9I.2NUG81ETBC84L@nvidia.com>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -53,59 +59,70 @@ List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-13.6 required=3.0 tests=BAYES_00,DKIM_INVALID,
-	DKIM_SIGNED,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,
-	INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS
-	autolearn=unavailable autolearn_force=no version=4.0.1
+X-Spam-Status: No, score=-10.8 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
+	DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
+	INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS autolearn=ham
+	autolearn_force=no version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-On Fri, Nov 13, 2026 at 05:44:56PM +0800, Tuo Li wrote:
-> In panthor_submit_ctx_add_sync_signal(), drm_syncobj_find() may return
-> NULL. The function then jumps to err_free_sig_sync, where
-> panthor_sync_signal_free() unconditionally calls drm_syncobj_put() on
-> the NULL pointer, causing a NULL pointer dereference.
-> 
-> Check sig_sync->syncobj before calling drm_syncobj_put() to avoid the
-> NULL pointer dereference.
-> 
-> Fixes: 4bdca1150792 ("drm/panthor: Add the driver frontend block")
-> Signed-off-by: Tuo Li <islituo@gmail.com>
+On Mon Nov 16, 2026 at 5:02 AM CET, Alexandre Courbot wrote:
+>> @@ -81,7 +78,7 @@ pub(crate) fn new(
+>>                      let mut level0 =3D CoherentBox::<'_, [u64]>::zeroed=
+_slice(
+>>                          dev,
+>>                          GSP_PAGE_SIZE / size_of::<u64>(),
+>> -                        GFP_KERNEL
+>> +                        GFP_KERNEL,
+>
+> Stray hunk? Maybe we can move it to patch 2 since it reformats that part
+> anyway.
 
-Reviewed-by: Liviu Dudau <liviu.dudau@arm.com>
+I noticed this before sending too, but for some odd reason rustfmt insists =
+on
+this with this change.
 
-Best regards,
-Liviu
+When I noticed I was 'whatever', but now I got curious. It happens when
 
-> ---
->  drivers/gpu/drm/panthor/panthor_drv.c | 4 +++-
->  1 file changed, 3 insertions(+), 1 deletion(-)
-> 
-> diff --git a/drivers/gpu/drm/panthor/panthor_drv.c b/drivers/gpu/drm/panthor/panthor_drv.c
-> index dc8d0191aef4..8d73956530a8 100644
-> --- a/drivers/gpu/drm/panthor/panthor_drv.c
-> +++ b/drivers/gpu/drm/panthor/panthor_drv.c
-> @@ -364,7 +364,9 @@ panthor_sync_signal_free(struct panthor_sync_signal *sig_sync)
->  	if (!sig_sync)
->  		return;
->  
-> -	drm_syncobj_put(sig_sync->syncobj);
-> +	if (sig_sync->syncobj)
-> +		drm_syncobj_put(sig_sync->syncobj);
-> +
->  	dma_fence_chain_free(sig_sync->chain);
->  	dma_fence_put(sig_sync->fence);
->  	kfree(sig_sync);
-> -- 
-> 2.43.0
-> 
+	level2 <- {
+	    build_lvl(&data)
+	        .map(|l2| SGTable::new(dev, l2, DataDirection::ToDevice, GFP_KERNE=
+L))?
+	},
+=09
+is changed to
 
--- 
-====================
-| I would like to |
-| fix the world,  |
-| but they're not |
-| giving me the   |
- \ source code!  /
-  ---------------
-    ¯\_(ツ)_/¯
+	level2: {
+	    let l2 =3D build_lvl(data)?;
+	    SGTable::new(dev, l2, DataDirection::ToDevice, GFP_KERNEL)?
+	},
+=09
+
+>> @@ -308,38 +283,27 @@ fn drop(&mut self) {
+>>  ///
+>>  /// - The backing memory pages.
+>>  /// - The `struct sg_table` allocation (`sgt`).
+>
+> `sgt` is removed by this patch.
+
+Good catch, I will remove this and the other one.
+
+> <...>
+>> diff --git a/samples/rust/rust_dma.rs b/samples/rust/rust_dma.rs
+>> index ffb693544673..844e137cddc8 100644
+>> --- a/samples/rust/rust_dma.rs
+>> +++ b/samples/rust/rust_dma.rs
+>> @@ -35,8 +35,7 @@
+>>  struct DmaSampleData<'bound> {
+>>      pdev: &'bound pci::Device<Bound>,
+>>      ca: Coherent<'bound, [MyStruct]>,
+>> -    #[pin]
+>> -    sgt: SGTable<Owned<VVec<u8>>>,
+>> +    sgt: SGTable<Owned<'bound, VVec<u8>>>,
+>
+> Since there is no more `pin` in `DmaSampleData`, can we also remove its
+> `pinned_drop` attribute?
+
+Yes, I left it as is intentionally though as this patch is purely a mechani=
+cal
+conversion. I can send another one, analogous to the nova-core one.
