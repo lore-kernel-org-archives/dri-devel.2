@@ -2,58 +2,54 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BFE89606A332
-	for <dri-devel@archiver.kernel.org>; Mon, 16 Nov 2026 10:32:16 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8A5EF606A329
+	for <dri-devel@archiver.kernel.org>; Mon, 16 Nov 2026 10:32:17 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=lbhcYG6T
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=b8R0D1Jk
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 64BB610ED7C;
-	Mon, 16 Nov 2026 10:32:10 +0000 (UTC)
-Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 225A810EDC0;
- Mon, 16 Nov 2026 10:32:02 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 2942810EE16;
+	Mon, 16 Nov 2026 10:32:11 +0000 (UTC)
+Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id B480310ED7C
+ for <dri-devel@lists.freedesktop.org>; Mon, 16 Nov 2026 10:31:59 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id 0794C46209;
- Mon, 16 Nov 2026 10:32:02 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8B12B1F000C5;
- Mon, 16 Nov 2026 10:32:01 +0000 (UTC)
+ by tor.source.kernel.org (Postfix) with ESMTP id 2B255628C1;
+ Mon, 16 Nov 2026 10:31:59 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 556471F000C5;
+ Mon, 16 Nov 2026 10:31:58 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1794825121;
- bh=knOyFaUO3FKrhtRHRqH99Z/CNRw2SZfnLMjOYRBuGnU=;
+ s=k20260515; t=1794825118;
+ bh=UC/SrA/tC7Pwu8E3xBEUpm72k/jU347FcGuaZSqzLGM=;
  h=From:Date:Subject:References:In-Reply-To:To:Cc;
- b=lbhcYG6ThTQrKKTCgi81ikBzpWvTujiLVp5oJZNIx1XVg5yVFqFpW5+S5WE1EudfM
- pISg+uRhbaTNF7MhwvhzJW2LBhZhiyOOfO9umtczIqM/Qog0cSM9gYdkRUj0olRm2w
- +chNF3+rwDavZIZXr6OddKX3UGZIPqxiWavvZvDivFV+4CsLlNlFGs9zhNbX45rjqw
- atIUXl8yt29H+gTFghkUYRpLCG9dVcL3tmYZV8lcoZvZCl+PtraQkdyv//VwuFZS6t
- ep/wlk7WQrm6FfvY8NWn/eSdVw1rI0uc5Se+QJTMblnCDW0Zg0qsTdfR4xNYBNYqvs
- yDbtAAZE13XmA==
+ b=b8R0D1Jks0TzIeM1BApaMwlLEbJf/Tp7ECdGEKvGFnqZM72qoH6YNP05ONtNMTHrf
+ oxAxuEdeTnaqf4lWAjSDnQrf1V/zUUR3j3gbw3sZpAgLjajjK5VNws07Dq9QLOy7tR
+ y1WZfaw0UkJK56w8nqqvwjSHfYx/4L9iNKGanKskqJrSxcn70swU8azp52f99krZq7
+ iCoFWgVrL74CJ7mZyip+f2xcdeO9UyMTZJn/UPlzyJsqRx5klyR5LPIk4VKHGDU++B
+ Tly7FIVrs6dDVTVZpUyk0aJbqMT1rxRMTny1TU1pd5cpIlq+1Yq7NxXfFQVuJE5wCE
+ +pNJXPf9G0YHA==
 From: Maxime Ripard <mripard@kernel.org>
-Date: Mon, 16 Nov 2026 11:30:36 +0100
-Subject: [PATCH v2 20/64] drm/msm: Switch to
+Date: Mon, 16 Nov 2026 11:30:35 +0100
+Subject: [PATCH v2 19/64] drm/mgag200: Switch to
  drm_mode_config_create_initial_state
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20261116-drm-no-more-config-reset-v2-20-0bb471f4d1e0@kernel.org>
+Message-Id: <20261116-drm-no-more-config-reset-v2-19-0bb471f4d1e0@kernel.org>
 References: <20261116-drm-no-more-config-reset-v2-0-0bb471f4d1e0@kernel.org>
 In-Reply-To: <20261116-drm-no-more-config-reset-v2-0-0bb471f4d1e0@kernel.org>
 To: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
  Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>, 
  Simona Vetter <simona@ffwll.ch>
 Cc: dri-devel@lists.freedesktop.org, Maxime Ripard <mripard@kernel.org>, 
- Abhinav Kumar <abhinav.kumar@linux.dev>, 
- Dmitry Baryshkov <lumag@kernel.org>, Jessica Zhang <jesszhan0024@gmail.com>, 
- Marijn Suijten <marijn.suijten@somainline.org>, 
- Rob Clark <robin.clark@oss.qualcomm.com>, Sean Paul <sean@poorly.run>, 
- freedreno@lists.freedesktop.org, linux-arm-msm@vger.kernel.org
+ Dave Airlie <airlied@redhat.com>, Jocelyn Falempe <jfalempe@redhat.com>
 X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=openpgp-sha256; l=1532; i=mripard@kernel.org;
- h=from:subject:message-id; bh=PcY4ZpeNGzN471kZUkkkcGkDS5JzxgkVz0ugy/XkvFY=;
- b=owGbwMvMwCmsHn9OcpHtvjLG02pJDFm/bnscL0iQqL8xmTf74Zn7wb4rn+1b8fgHz6HjTtoyr
- ke2Zp+Z3DGVhUGYk0FWTJHliUzY6eXti6sc7Ff+gJnDygQyhIGLUwAm8lidseFbAbdcyWcR3Wm1
- +fyBq5banFp9lu/H+ySBCcyO55d3Xt6/7baaONsS7+n7WDKeS6y628RYH9GTv13fL+hMxZr2/U8
- KLrcfXr/N+33JbidBtX2rVXIibaxWb1tVL5q/UIDX/RjLL75lAA==
+X-Developer-Signature: v=1; a=openpgp-sha256; l=6561; i=mripard@kernel.org;
+ h=from:subject:message-id; bh=o1sAv4nOzQZYRzdu01ISuMNxVt0ZuQKk9jyCbw9nL9w=;
+ b=owGbwMvMwCmsHn9OcpHtvjLG02pJDFm/bns4ubyIfbmWiWWRZtq9BnmmDLOvBRf+2IhvEWpoq
+ 00/GqzWMZWFQZiTQVZMkeWJTNjp5e2LqxzsV/6AmcPKBDKEgYtTACYyp56x4Yqdrfud83fLRWam
+ BP3ZsvyL9nTOjbMzd2vNYV3oKlK2bKnYmm6vl5GnbtebVE264xFxiLHhytU/86rL2CO96lb+WDz
+ B0crAf5ub6rVror6vmT7zt25Q1g+r9n7kaD6nIKAw4OUulikA
 X-Developer-Key: i=mripard@kernel.org; a=openpgp;
  fpr=BE5675C37E818C8B5764241C254BCFC56BF6CE8D
 X-BeenThere: dri-devel@lists.freedesktop.org
@@ -87,37 +83,182 @@ Switch to drm_mode_config_create_initial_state().
 
 Signed-off-by: Maxime Ripard <mripard@kernel.org>
 ---
-Cc: Abhinav Kumar <abhinav.kumar@linux.dev>
-Cc: Dmitry Baryshkov <lumag@kernel.org>
-Cc: Jessica Zhang <jesszhan0024@gmail.com>
-Cc: Marijn Suijten <marijn.suijten@somainline.org>
-Cc: Rob Clark <robin.clark@oss.qualcomm.com>
-Cc: Sean Paul <sean@poorly.run>
-Cc: freedreno@lists.freedesktop.org
-Cc: linux-arm-msm@vger.kernel.org
+Cc: Dave Airlie <airlied@redhat.com>
+Cc: Jocelyn Falempe <jfalempe@redhat.com>
 ---
- drivers/gpu/drm/msm/msm_kms.c | 4 +++-
- 1 file changed, 3 insertions(+), 1 deletion(-)
+ drivers/gpu/drm/mgag200/mgag200_g200.c    | 4 +++-
+ drivers/gpu/drm/mgag200/mgag200_g200eh.c  | 4 +++-
+ drivers/gpu/drm/mgag200/mgag200_g200eh3.c | 4 +++-
+ drivers/gpu/drm/mgag200/mgag200_g200eh5.c | 4 +++-
+ drivers/gpu/drm/mgag200/mgag200_g200er.c  | 4 +++-
+ drivers/gpu/drm/mgag200/mgag200_g200ev.c  | 4 +++-
+ drivers/gpu/drm/mgag200/mgag200_g200ew3.c | 4 +++-
+ drivers/gpu/drm/mgag200/mgag200_g200se.c  | 4 +++-
+ drivers/gpu/drm/mgag200/mgag200_g200wb.c  | 4 +++-
+ 9 files changed, 27 insertions(+), 9 deletions(-)
 
-diff --git a/drivers/gpu/drm/msm/msm_kms.c b/drivers/gpu/drm/msm/msm_kms.c
-index e5d0ea629448..9592fa28c85b 100644
---- a/drivers/gpu/drm/msm/msm_kms.c
-+++ b/drivers/gpu/drm/msm/msm_kms.c
-@@ -329,11 +329,13 @@ int msm_drm_kms_init(struct device *dev, const struct drm_driver *drv)
- 	if (ret < 0) {
- 		DRM_DEV_ERROR(dev, "failed to install IRQ handler\n");
- 		goto err_msm_uninit;
- 	}
+diff --git a/drivers/gpu/drm/mgag200/mgag200_g200.c b/drivers/gpu/drm/mgag200/mgag200_g200.c
+index 9e6b4618fadd..d4788cdf64d7 100644
+--- a/drivers/gpu/drm/mgag200/mgag200_g200.c
++++ b/drivers/gpu/drm/mgag200/mgag200_g200.c
+@@ -399,10 +399,12 @@ struct mga_device *mgag200_g200_device_create(struct pci_dev *pdev, const struct
  
--	drm_mode_config_reset(ddev);
-+	ret = drm_mode_config_create_initial_state(ddev);
+ 	ret = mgag200_g200_pipeline_init(mdev);
+ 	if (ret)
+ 		return ERR_PTR(ret);
+ 
+-	drm_mode_config_reset(dev);
++	ret = drm_mode_config_create_initial_state(dev);
 +	if (ret)
-+		goto err_msm_uninit;
++		return ERR_PTR(ret);
+ 	drm_kms_helper_poll_init(dev);
  
- 	return 0;
+ 	return mdev;
+ }
+diff --git a/drivers/gpu/drm/mgag200/mgag200_g200eh.c b/drivers/gpu/drm/mgag200/mgag200_g200eh.c
+index e64bfeafbefc..b6ef287c05da 100644
+--- a/drivers/gpu/drm/mgag200/mgag200_g200eh.c
++++ b/drivers/gpu/drm/mgag200/mgag200_g200eh.c
+@@ -271,10 +271,12 @@ struct mga_device *mgag200_g200eh_device_create(struct pci_dev *pdev, const stru
  
- err_msm_uninit:
- 	return ret;
+ 	ret = mgag200_g200eh_pipeline_init(mdev);
+ 	if (ret)
+ 		return ERR_PTR(ret);
+ 
+-	drm_mode_config_reset(dev);
++	ret = drm_mode_config_create_initial_state(dev);
++	if (ret)
++		return ERR_PTR(ret);
+ 	drm_kms_helper_poll_init(dev);
+ 
+ 	return mdev;
+ }
+diff --git a/drivers/gpu/drm/mgag200/mgag200_g200eh3.c b/drivers/gpu/drm/mgag200/mgag200_g200eh3.c
+index 183b7676ea6a..973770ee941a 100644
+--- a/drivers/gpu/drm/mgag200/mgag200_g200eh3.c
++++ b/drivers/gpu/drm/mgag200/mgag200_g200eh3.c
+@@ -176,10 +176,12 @@ struct mga_device *mgag200_g200eh3_device_create(struct pci_dev *pdev,
+ 
+ 	ret = mgag200_g200eh3_pipeline_init(mdev);
+ 	if (ret)
+ 		return ERR_PTR(ret);
+ 
+-	drm_mode_config_reset(dev);
++	ret = drm_mode_config_create_initial_state(dev);
++	if (ret)
++		return ERR_PTR(ret);
+ 	drm_kms_helper_poll_init(dev);
+ 
+ 	return mdev;
+ }
+diff --git a/drivers/gpu/drm/mgag200/mgag200_g200eh5.c b/drivers/gpu/drm/mgag200/mgag200_g200eh5.c
+index dc375c055b0e..0241244bd3f5 100644
+--- a/drivers/gpu/drm/mgag200/mgag200_g200eh5.c
++++ b/drivers/gpu/drm/mgag200/mgag200_g200eh5.c
+@@ -196,10 +196,12 @@ struct mga_device *mgag200_g200eh5_device_create(struct pci_dev *pdev,
+ 
+ 	ret = mgag200_g200eh5_pipeline_init(mdev);
+ 	if (ret)
+ 		return ERR_PTR(ret);
+ 
+-	drm_mode_config_reset(dev);
++	ret = drm_mode_config_create_initial_state(dev);
++	if (ret)
++		return ERR_PTR(ret);
+ 	drm_kms_helper_poll_init(dev);
+ 
+ 	return mdev;
+ }
+diff --git a/drivers/gpu/drm/mgag200/mgag200_g200er.c b/drivers/gpu/drm/mgag200/mgag200_g200er.c
+index 205678a57bfe..df83857b9634 100644
+--- a/drivers/gpu/drm/mgag200/mgag200_g200er.c
++++ b/drivers/gpu/drm/mgag200/mgag200_g200er.c
+@@ -304,10 +304,12 @@ struct mga_device *mgag200_g200er_device_create(struct pci_dev *pdev, const stru
+ 
+ 	ret = mgag200_g200er_pipeline_init(mdev);
+ 	if (ret)
+ 		return ERR_PTR(ret);
+ 
+-	drm_mode_config_reset(dev);
++	ret = drm_mode_config_create_initial_state(dev);
++	if (ret)
++		return ERR_PTR(ret);
+ 	drm_kms_helper_poll_init(dev);
+ 
+ 	return mdev;
+ }
+diff --git a/drivers/gpu/drm/mgag200/mgag200_g200ev.c b/drivers/gpu/drm/mgag200/mgag200_g200ev.c
+index d60693ac0749..82ee58b3faab 100644
+--- a/drivers/gpu/drm/mgag200/mgag200_g200ev.c
++++ b/drivers/gpu/drm/mgag200/mgag200_g200ev.c
+@@ -309,10 +309,12 @@ struct mga_device *mgag200_g200ev_device_create(struct pci_dev *pdev, const stru
+ 
+ 	ret = mgag200_g200ev_pipeline_init(mdev);
+ 	if (ret)
+ 		return ERR_PTR(ret);
+ 
+-	drm_mode_config_reset(dev);
++	ret = drm_mode_config_create_initial_state(dev);
++	if (ret)
++		return ERR_PTR(ret);
+ 	drm_kms_helper_poll_init(dev);
+ 
+ 	return mdev;
+ }
+diff --git a/drivers/gpu/drm/mgag200/mgag200_g200ew3.c b/drivers/gpu/drm/mgag200/mgag200_g200ew3.c
+index 9c14d0eb66bc..19c6a65e8621 100644
+--- a/drivers/gpu/drm/mgag200/mgag200_g200ew3.c
++++ b/drivers/gpu/drm/mgag200/mgag200_g200ew3.c
+@@ -194,10 +194,12 @@ struct mga_device *mgag200_g200ew3_device_create(struct pci_dev *pdev,
+ 
+ 	ret = mgag200_g200ew3_pipeline_init(mdev);
+ 	if (ret)
+ 		return ERR_PTR(ret);
+ 
+-	drm_mode_config_reset(dev);
++	ret = drm_mode_config_create_initial_state(dev);
++	if (ret)
++		return ERR_PTR(ret);
+ 	drm_kms_helper_poll_init(dev);
+ 
+ 	return mdev;
+ }
+diff --git a/drivers/gpu/drm/mgag200/mgag200_g200se.c b/drivers/gpu/drm/mgag200/mgag200_g200se.c
+index 349ec36f6d49..937bceb8309f 100644
+--- a/drivers/gpu/drm/mgag200/mgag200_g200se.c
++++ b/drivers/gpu/drm/mgag200/mgag200_g200se.c
+@@ -516,10 +516,12 @@ struct mga_device *mgag200_g200se_device_create(struct pci_dev *pdev, const stru
+ 
+ 	ret = mgag200_g200se_pipeline_init(mdev);
+ 	if (ret)
+ 		return ERR_PTR(ret);
+ 
+-	drm_mode_config_reset(dev);
++	ret = drm_mode_config_create_initial_state(dev);
++	if (ret)
++		return ERR_PTR(ret);
+ 	drm_kms_helper_poll_init(dev);
+ 
+ 	return mdev;
+ }
+diff --git a/drivers/gpu/drm/mgag200/mgag200_g200wb.c b/drivers/gpu/drm/mgag200/mgag200_g200wb.c
+index f65d4238422f..92e4cd9ef50e 100644
+--- a/drivers/gpu/drm/mgag200/mgag200_g200wb.c
++++ b/drivers/gpu/drm/mgag200/mgag200_g200wb.c
+@@ -318,10 +318,12 @@ struct mga_device *mgag200_g200wb_device_create(struct pci_dev *pdev, const stru
+ 
+ 	ret = mgag200_g200wb_pipeline_init(mdev);
+ 	if (ret)
+ 		return ERR_PTR(ret);
+ 
+-	drm_mode_config_reset(dev);
++	ret = drm_mode_config_create_initial_state(dev);
++	if (ret)
++		return ERR_PTR(ret);
+ 	drm_kms_helper_poll_init(dev);
+ 
+ 	return mdev;
+ }
 
 -- 
 2.56.1
