@@ -2,44 +2,44 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F0D90606A32C
-	for <dri-devel@archiver.kernel.org>; Mon, 16 Nov 2026 23:00:05 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D497A606A31C
+	for <dri-devel@archiver.kernel.org>; Mon, 16 Nov 2026 23:00:26 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Krb9myh2
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=lPstk6bS
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 3DD7210F49F;
-	Mon, 16 Nov 2026 23:00:00 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 0DD5210F48A;
+	Mon, 16 Nov 2026 23:00:21 +0000 (UTC)
 Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id E2E6E10F4AF
- for <dri-devel@lists.freedesktop.org>; Mon, 16 Nov 2026 22:59:53 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id ED39910F48A
+ for <dri-devel@lists.freedesktop.org>; Mon, 16 Nov 2026 23:00:14 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id B4314401C6;
- Mon, 16 Nov 2026 22:59:53 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 560261F000C4;
- Mon, 16 Nov 2026 22:59:53 +0000 (UTC)
+ by sea.source.kernel.org (Postfix) with ESMTP id D63D8459D8;
+ Mon, 16 Nov 2026 23:00:14 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7968F1F000C7;
+ Mon, 16 Nov 2026 23:00:14 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1794869993;
- bh=IfyJ6AVcbEU3tV+ZGhTklX4g9T4Ofirk+LjAfVx+wFQ=;
+ s=k20260515; t=1794870014;
+ bh=l9dupyilK2kUIywdtAJzDg+QskeK5iZcBPdqB1Hyg0M=;
  h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
- b=Krb9myh27CInfMjguGoVMixJ4Lt2aqe0vwhsZUW92lX4s7YyBNAPxJmRl+4aKZtm5
- YzDdDRsy5cvR/Inav6NGZlxRt7VqEbiR7pA/gC+3TxlLQpUxmv2ojJd/lxtseC7sGF
- RkkL0Ov3c6T0tyozcPgtPQTKkTV3ErjPz1szsCbIHPrEgDRItSfqH7aHw82I1jlyjy
- YCTA9xPEfA0m0Qd61QTBc3wlsrq+fb4rliThojNZgnZZ47Jgb321TvPKFtHzkHUhP5
- Kcme1i8qhWN7Wggh6Y2iepP6liAG2o1k7uNTWpXBLmutnUwtZyeRvNWWyGXraVFJO7
- p8TxHn8e6hf2w==
-Message-ID: <sashiko-outbox-217831@kernel.org>
+ b=lPstk6bSVJyWebrhsSmV/4gX6lLaGQgU/Df/oOM4GxxrasNFtQIgZAdubseChTazE
+ NoNxuzCdpjDLfkrk+Gzd+ih8JkrHHTW1Z6nKakn1zcaQnHA6br7qFNDpiYS9n1l93q
+ JOrNFceRUHzJ2UZclDglzJjJowQFdZrtcXwvgLQUfzfIyRwtNnZ0LKq/8vaFq7Dpdu
+ NKOjsNxwrM4YsMBA+Z+Tas9tAqE8akO21pwLVjRV0/VUaF6XyylemZ9sm+cjItA3Kd
+ Qvpwe9twyWBumezaAnJBxkTeSKxfnwGdtbKFo4mNpNRs0kv3umCpgLOe5QCQR6ZVrb
+ TeoDhEpytt1hQ==
+Message-ID: <sashiko-outbox-217832@kernel.org>
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v5 12/12] arm64: dts: qcom: sm6350-lena: enable
- remaining i2c busses
+Subject: Re: [PATCH v5 10/12] arm64: dts: qcom: sm6350-lena: Add PMK8350
+ thermals
 To: erebion <erebion@erebion.eu>
 Cc: dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org,
  robh@kernel.org, conor+dt@kernel.org
-In-Reply-To: <20261116-pdx213-upstream-3-v5-12-7318a19806eb@erebion.eu>
+In-Reply-To: <20261116-pdx213-upstream-3-v5-10-7318a19806eb@erebion.eu>
 References: <20261116-pdx213-upstream-3-v5-0-7318a19806eb@erebion.eu>
- <20261116-pdx213-upstream-3-v5-12-7318a19806eb@erebion.eu>
+ <20261116-pdx213-upstream-3-v5-10-7318a19806eb@erebion.eu>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Mon, 16 Nov 2026 22:59:52 +0000
+Date: Mon, 16 Nov 2026 23:00:14 +0000
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -62,26 +62,30 @@ X-Archived-By: <archiver.kernel.org>
 
 Thank you for your contribution! Sashiko AI review found 1 potential
 issue to consider:
-- [High] arm64: dts: qcom: handle used instead of real name in
-  Signed-off-by
+- [High] arm64: dts: qcom: Signed-off-by trailer uses handle instead of
+  real name
 --
 
-commit aa50f38e977106112fddebf20e119b54f3aca941
+commit 740c0daeec4b7b67f69c91c933b4ac4150f59402
 Author: erebion <erebion@erebion.eu>
 
-> arm64: dts: qcom: sm6350-lena: enable remaining i2c busses
+> arm64: dts: qcom: sm6350-lena: Add PMK8350 thermals
 >
-> Enable all i2c busses where something is connected on this phone. Add
-> comments as placeholders for which components are still missing.
+> Configure the thermals for the xo-thermal thermistor connected to
+> PMK8350.
 >
-> Reviewed-by: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
+> The trip points can really only be considered as placeholders, more
+> configuration with cooling etc. can be added later.
+>
 > Signed-off-by: erebion <erebion@erebion.eu>
 
 [Severity: High]
-The Author header and Signed-off-by trailer use the handle "erebion"
-instead of a full real name, which is required by the Developer's
-Certificate of Origin in Documentation/process/submitting-patches.rst.
+The Signed-off-by trailer and commit Author field use the single-word
+handle "erebion" instead of a real name.  Under the Developer's
+Certificate of Origin in Documentation/process/submitting-patches.rst,
+patches must be signed off using a known real-name identity rather than a
+pseudonym or handle.
 
 --=20
 Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261116-pdx213-ups=
-tream-3-v5-0-7318a19806eb@erebion.eu?part=3D12
+tream-3-v5-0-7318a19806eb@erebion.eu?part=3D10
