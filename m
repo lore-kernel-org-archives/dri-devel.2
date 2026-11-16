@@ -2,70 +2,52 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 43097606A31C
-	for <dri-devel@archiver.kernel.org>; Mon, 16 Nov 2026 10:16:14 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4C5F0606A323
+	for <dri-devel@archiver.kernel.org>; Mon, 16 Nov 2026 10:16:42 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=V+eIapUd
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Sp4Clq07
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id A074510EE32;
-	Mon, 16 Nov 2026 10:16:08 +0000 (UTC)
-Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 5C5CD10EE1A;
- Mon, 16 Nov 2026 10:16:02 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id A6BAB10EE53;
+	Mon, 16 Nov 2026 10:16:36 +0000 (UTC)
+Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 09B6510EE53
+ for <dri-devel@lists.freedesktop.org>; Mon, 16 Nov 2026 10:16:31 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by tor.source.kernel.org (Postfix) with ESMTP id 77D78626BD;
- Mon, 16 Nov 2026 10:16:01 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 75AA91F000C4;
- Mon, 16 Nov 2026 10:16:00 +0000 (UTC)
+ by sea.source.kernel.org (Postfix) with ESMTP id 9C18D41A66;
+ Mon, 16 Nov 2026 10:16:30 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id ABAF81F000C6;
+ Mon, 16 Nov 2026 10:16:27 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1794824161;
- bh=q4d263XXglI0iqpL8mpE7A6pZt/pDzsX4AunwdC2UEw=;
- h=From:To:Cc:Subject:Date:In-Reply-To:References;
- b=V+eIapUdbPOyQuRXEyb2TCgUjwso8Fj7arBAuXeX0Vxe4e2SbEGr2YSDg+ahcU7aT
- IhTga7Kzf9bKk2f1vHkMM+9+0Gn1U9Dr5vxyZvN+cMjO2QoCF58aLWrYQioFILxedM
- 0FSrn+TFRzFI9Ctlx68zaLBDcgBc6MRmMp92j4zblNKGspBk9NIo4pFulJrrfMRD14
- SmZIW4OWKZYOA7ituF5ZgkYtsWvWXRXAqygSAgqqbZV9nRJ/5zlJ3RrULyH0zwaxFz
- 4LOQXx1k3LU4zZLnVt7h+yH2BRCqW+OvloeTmSBdhbrWCz8gib7FkXj2YWAwgSO3l2
- w4Zd5Ci1oguPw==
-From: Maxime Ripard <mripard@kernel.org>
-To: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>,
- Simona Vetter <simona@ffwll.ch>, Louis Chauvet <louis.chauvet@bootlin.com>,
- Haneen Mohammed <hamohammed.sa@gmail.com>,
- Melissa Wen <melissa.srw@gmail.com>, Maxime Ripard <mripard@kernel.org>
-Cc: Daniel Stone <daniels@collabora.com>,
- Harry Wentland <harry.wentland@amd.com>,
- Jocelyn Falempe <jfalempe@redhat.com>,
- =?UTF-8?q?Jonas=20=C3=85dahl?= <jadahl@redhat.com>,
- =?UTF-8?q?Michel=20D=C3=A4nzer?= <mdaenzer@redhat.com>,
- Pekka Paalanen <pekka.paalanen@collabora.com>,
- Sebastian Wick <sebastian.wick@redhat.com>,
- Simon Ser <contact@emersion.fr>,
- Victoria Brekenfeld <victoria@system76.com>,
- Xaver Hugl <xaver.hugl@kde.org>, dri-devel@lists.freedesktop.org,
- linux-kernel@vger.kernel.org, Leo Li <sunpeng.li@amd.com>,
- Rodrigo Siqueira <siqueira@igalia.com>,
- Alex Deucher <alexander.deucher@amd.com>,
- =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
- amd-gfx@lists.freedesktop.org, Daniel Stone <daniel@fooishbar.org>,
- Dave Stevenson <dave.stevenson@raspberrypi.com>,
- =?UTF-8?q?Ma=C3=ADra=20Canal?= <mcanal@igalia.com>,
- Raspberry Pi Kernel Maintenance <kernel-list@raspberrypi.com>,
- Rob Clark <robin.clark@oss.qualcomm.com>,
- Dmitry Baryshkov <lumag@kernel.org>,
- Abhinav Kumar <abhinav.kumar@linux.dev>,
- Jessica Zhang <jesszhan0024@gmail.com>, freedreno@lists.freedesktop.org,
- Oarora Etimis <oaroraetimis@gmail.com>
-Subject: Re: (subset) [PATCH v10 0/9] drm: Add DRM_MODE_ATOMIC_RESET flag
-Date: Mon, 16 Nov 2026 11:15:56 +0100
-Message-ID: <179482414984.70626.579928766697794355.b4-ty@kernel.org>
-X-Mailer: git-send-email 2.56.1
-In-Reply-To: <20261112-drm-reset-state-flag-v10-0-cefaa1ed056d@kernel.org>
-References: <20261112-drm-reset-state-flag-v10-0-cefaa1ed056d@kernel.org>
+ s=k20260515; t=1794824190;
+ bh=xhOm1k28TVwjypTguaVYnEw+SHxoaZ9nytF6bokwZmQ=;
+ h=From:Date:Subject:To:Cc;
+ b=Sp4Clq07qqcT6dBdu6p/fAbn56W7lg/E/r2BFLf6WhsjFmbH8I4RZUoDvaBOAtBpj
+ pOSevZxScwYl5maLReg10kmOQ/Zk3j4myV0xg5GZRTYVzEEb81QWQ/kN2xyofQOfbn
+ j9QK/lp2LyMjppG3wqkrrr6P1Fq/bCpVcTUctdRN/H33tElF5GPtXXpLdfIVVSU61I
+ OS55emC/3rClVpunTHG95dJ7Ls2Pb07CST+AWi7+hK4JtYbScyE/9f4/CLbdqhI54S
+ wVnNIhYb+PASaIUOZ8zMzT6giBPqzrtEp9VcTIU7sRi28fwbKa5mbJ8jcY4dz3SPZw
+ Pkg8NfCYxyKZw==
+From: Linus Walleij <linusw@kernel.org>
+Date: Mon, 16 Nov 2026 11:16:26 +0100
+Subject: [PATCH] dt-bindings: display: ste,mcde: Deprecate EPOD supply
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
+Content-Transfer-Encoding: 7bit
+Message-Id: <20261116-ux500-mcde-powerdomain-binding-v1-1-4f0f7ee280a0@kernel.org>
+X-B4-Tracking: v=1; b=H4sIAAAAAAAA/x3NUQqDMAwA0KuEfBtonfajVxn7aJvM5cNUWjYF8
+ e4D3wXeiV2aSscIJzb5addqGMEPgOWTbBFSxgg4ujF47wN9j9k5WgsLbXWXxnVNapTVWG0hl9j
+ nx1ymkAsOgFuTtx538Hxd1x8BHuFQcAAAAA==
+X-Change-ID: 20261116-ux500-mcde-powerdomain-binding-0ad1b35c46bc
+To: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>
+Cc: dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org, 
+ linux-kernel@vger.kernel.org, Ulf Hansson <ulfh@kernel.org>, 
+ linux-pm@vger.kernel.org, Linus Walleij <linusw@kernel.org>
+X-Mailer: b4 0.16.0
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -77,27 +59,76 @@ List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-8.8 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
+X-Spam-Status: No, score=-18.8 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
 	DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
-	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,USER_AGENT_GIT autolearn=ham
-	autolearn_force=no version=4.0.1
+	INCLUDES_CR_TRAILER,INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,
+	SPF_PASS,USER_AGENT_GIT autolearn=ham autolearn_force=no version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-On Thu, 12 Nov 2026 17:31:49 +0100, Maxime Ripard wrote:
-> Userspace currently has no atomic way to bring a display pipeline back
-> to a pristine state. A compositor that wants to start from a known
-> baseline must explicitly set every property on every KMS object to its
-> default value, which requires tracking which properties exist and what
-> their defaults are. This is fragile and must be updated every time a
-> new property is added to the kernel.
-> 
-> [...]
+Make epod-supply optional and mark it deprecated.
 
-Applied to misc/kernel.git (drm-misc-next)
+The MCDE should use its power domain instead.
 
-[1/9] drm/amd/display: Fix planes atomic_create_state implementation
-      commit: 02d46912debff86b107519f9557557b3f9c13df4
+Require either epod-supply or power-domains, allowing both for
+transitional device trees. Reject nodes describing neither.
 
-Thanks!
-Maxime
+Acked-by: Rob Herring (Arm) <robh@kernel.org>
+Signed-off-by: Linus Walleij <linusw@kernel.org>
+---
+Deprecate the legacy EPOD supply and allow MCDE to use its power domain
+instead. Accept either property or both, rejecting nodes with neither.
+
+This binding-only change can be applied independently. The companion
+MCDE driver and Ux500 DTS changes are submitted separately.
+---
+ Documentation/devicetree/bindings/display/ste,mcde.yaml | 11 ++++++++---
+ 1 file changed, 8 insertions(+), 3 deletions(-)
+
+diff --git a/Documentation/devicetree/bindings/display/ste,mcde.yaml b/Documentation/devicetree/bindings/display/ste,mcde.yaml
+index 05e7e4ebc882..e7978eca6f32 100644
+--- a/Documentation/devicetree/bindings/display/ste,mcde.yaml
++++ b/Documentation/devicetree/bindings/display/ste,mcde.yaml
+@@ -39,7 +39,8 @@ properties:
+     maxItems: 1
+ 
+   epod-supply:
+-    description: a phandle to the EPOD regulator
++    description: a phandle to the legacy EPOD regulator
++    deprecated: true
+ 
+   vana-supply:
+     description: a phandle to the analog voltage regulator
+@@ -103,9 +104,14 @@ required:
+   - interrupts
+   - clocks
+   - clock-names
+-  - epod-supply
+   - vana-supply
+ 
++anyOf:
++  - required:
++      - epod-supply
++  - required:
++      - power-domains
++
+ additionalProperties: false
+ 
+ examples:
+@@ -121,7 +127,6 @@ examples:
+       reg = <0xa0350000 0x1000>;
+       interrupts = <GIC_SPI 48 IRQ_TYPE_LEVEL_HIGH>;
+       power-domains = <&pm_domains DOMAIN_B2R2_MCDE>;
+-      epod-supply = <&db8500_b2r2_mcde_reg>;
+       vana-supply = <&ab8500_ldo_ana_reg>;
+       clocks = <&prcmu_clk PRCMU_MCDECLK>,
+                <&prcmu_clk PRCMU_LCDCLK>,
+
+---
+base-commit: 6628e7d4c6b25c8d18f1345e3a20d21829aae7e4
+change-id: 20261116-ux500-mcde-powerdomain-binding-0ad1b35c46bc
+
+Best regards,
+--  
+Linus Walleij <linusw@kernel.org>
+
