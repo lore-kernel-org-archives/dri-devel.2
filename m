@@ -2,102 +2,104 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 137AE606A322
-	for <dri-devel@archiver.kernel.org>; Mon, 16 Nov 2026 21:40:28 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1A8EB606A31C
+	for <dri-devel@archiver.kernel.org>; Mon, 16 Nov 2026 21:50:18 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=broadcom.com header.i=@broadcom.com header.a=rsa-sha256 header.s=google header.b=cwMONJbl
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=JtyAisH5
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 691FA10F46D;
-	Mon, 16 Nov 2026 21:40:22 +0000 (UTC)
-Received: from mail-pg1-f225.google.com (mail-pg1-f225.google.com
- [209.85.215.225])
- by gabe.freedesktop.org (Postfix) with ESMTPS id DBD5B10E466
- for <dri-devel@lists.freedesktop.org>; Mon, 16 Nov 2026 21:40:08 +0000 (UTC)
-Received: by mail-pg1-f225.google.com with SMTP id
- 41be03b00d2f7-cd69954c755so3322401a12.3
- for <dri-devel@lists.freedesktop.org>; Mon, 16 Nov 2026 13:40:08 -0800 (PST)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20260707; t=1794865208; x=1795470008;
- h=content-transfer-encoding:mime-version:content-type:references
- :in-reply-to:message-id:date:subject:cc:to:from:dkim-signature
- :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
- :reply-to:content-type;
- bh=w7gJaq0U2XA1qzZik/lkoh6ncUAk4PKRnqK8WDeKiB8=;
- b=pv67EMiKHEPwwQ54qmIcDWct+Zj9v6VOpX8/1AYWXKRW/xXJ7Hg6wzV+CEJnEb+GwY
- aXsVL1PsRid1bHNyCDyUt2Ozf49NVHMnKFpTj8d7fOJ2anELu3erMe2IbVi2jkLgzbLO
- JBWUqU+wqOaVaATYxgv+wMonzbA125uaBOsxk990VgppLtgXaGlF9UKyWPOs0dEwMtMR
- eQvakhXbW9m5L31a9LJtCN04gAMCs3f9gjV00v0uXYAH33t++1AmDXqYc0iXY0L595AU
- ZagzCq+gAS6YY6EGT8ucPyoJ/g5WXnr27hsCi6YJNbCeotu/E/C9+twuuvSCgEAO72/4
- 3pvA==
-X-Forwarded-Encrypted: i=1;
- AL+hErE0aToi7SZvpcbZbQvJGsVTo0HQLAnqX8wxYrR0DfgIHPsNZCiaiRRXBZxznW/ke5VnytlFJOLuKMU=@lists.freedesktop.org
-X-Gm-Message-State: APuU4Z/MHfDi7HrgGyQqXMox3WUrhqVAjFUhfZH7+9VFf7DCJ1A6oFFz
- sPeITFBqa33vl+UElpLcVrmUC53VlHcvtEC0TTo5P/rueoZsrzzPnU7RnJ/TEnYFXbeEsDTHfXx
- VHFnNSqVAWAdyvyP4QohOuM8GiTl/oUNncAtVASQJbVtUz6ifyXy5YPTzSYo4zb4r26TstQ0qgy
- TM9b1TukDliHp/8ZGaDtBBYc4srMoMiOLGlFc1KryOe2dqk0a7lhPMgL500PJWmxGLu6idgPpUP
- ikbOTA0Jy67zR20JmGL
-X-Gm-Gg: AZFdTZd45FYQI37UI1CWAb+Ym0fxm0Q0ZyrB8mF3l7mB64VH/0T8uc1EK6oBOmLj3Ct
- GeKR5QYk9b7WL+/MNHEdP4nMH+qMupdb7sFXl/yVG4OTjkVr0vG+jza6k83YTMn/XDNLUoFw1er
- Br0QR8+T2qqaYnYGDruWL4moMBQLeC1fxhexohmssjLowXbHvpMBxWBNJuWcg8Ho9kLwJiPP5Zh
- tqMArs2/yGlOp+FvW+POyB86PnG///5GUF3N6RhR8QZ60TD6QkJV6lo6CNmW4WM//PuuCgCVM5X
- O0zarC4sST+6HT7vbY1C08qg9OMpnbl3Piqz0PjQv1LuZROIm+xavxN4LvrAcqWNL+McDtudgDI
- Du4fwerHJgvKKSmsca871msyfjFFnKYxIqm5its4dLnqaF5f25i/Y653ra7vfXMAi4kESXVwXFz
- 0ZVHi+cheJgaBM2GFSVyAJpRZgyK0xc1eR
-X-Received: by 2002:a17:90a:c88b:b0:3ac:9c37:9430 with SMTP id
- 98e67ed59e1d1-3b1b09e6a07mr11806617a91.21.1794865208309; 
- Mon, 16 Nov 2026 13:40:08 -0800 (PST)
-Received: from smtp-us-east1-p01-i01-si01.dlp.protect.broadcom.com
- (address-144-49-247-26.dlp.protect.broadcom.com. [144.49.247.26])
- by smtp-relay.gmail.com with ESMTPS id
- 98e67ed59e1d1-3b1c3e09606sm3735319a91.3.2026.11.16.13.40.07
- for <dri-devel@lists.freedesktop.org>
- (version=TLS1_2 cipher=ECDHE-ECDSA-AES128-GCM-SHA256 bits=128/128);
- Mon, 16 Nov 2026 13:40:08 -0800 (PST)
-X-Relaying-Domain: broadcom.com
-X-CFilter-Loop: Reflected
-Received: by mail-dy1-f200.google.com with SMTP id
- 5a478bee46e88-341eff9e381so6055009eec.1
- for <dri-devel@lists.freedesktop.org>; Mon, 16 Nov 2026 13:40:07 -0800 (PST)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 6663E10E4AC;
+	Mon, 16 Nov 2026 21:50:12 +0000 (UTC)
+Received: from mail-ed1-f47.google.com (mail-ed1-f47.google.com
+ [209.85.208.47])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 68B8910E4AC
+ for <dri-devel@lists.freedesktop.org>; Mon, 16 Nov 2026 21:50:05 +0000 (UTC)
+Received: by mail-ed1-f47.google.com with SMTP id
+ 4fb4d7f45d1cf-6b7bffb5b8fso5045594a12.3
+ for <dri-devel@lists.freedesktop.org>; Mon, 16 Nov 2026 13:50:05 -0800 (PST)
+ARC-Seal: i=1; a=rsa-sha256; t=1794865804; cv=none;
+ d=google.com; s=arc-20260327;
+ b=YiOlE8gGfsNbBsYvkI0PKibkiUZ9Sj3rig1UNj95t70m1AKnEU4j4MIaJXsPY3Bjq7
+ ANs8vS6ht510+8CNCweNfP1MtuX4PwuWqbTa9MhlMroCPXLO9Ads8cdjIh4vvGKSMgNB
+ vBhHMXuqjlEW08uMFtwHB7Xc5R4rm/zg3ME7PXD3wymsRWLrTLF8WIYXJGM3+DF2OO6T
+ 8oslrD26FIbOsBzjAqxK1QVzuJnBPuNmJHOGmI2gnlFTj+Hxrf7oZLbFfx6WWhwd9W10
+ /sFjx2F0gJGTLbjhL5g1tNEZHLLfJEgRQ0kcc1fWyCrRMXwmtzKHldEv56XbaN1ASWEs
+ 3uJA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com;
+ s=arc-20260327; 
+ h=cc:to:subject:message-id:date:from:in-reply-to:references
+ :mime-version:dkim-signature;
+ bh=rJRV0Ub6rrZ4JdF46CX9umoUrMATSTEOe/htZXEiHsI=;
+ fh=VnFTR6txXwjzans0+aPbZtaSbAubDbUbpFe//aN80ow=;
+ b=TnIrLy70Wwc1CjsjYKhNiMVT8OUyXUynIQTu0oa50priWj3uXSWvuEY7HOsPGwFRTJ
+ 9iu8V2rJTsEBmUrDbFS/7ovODr+v3V0fEGoRT42SlZpFFW5iieFW4I+0N4t9a4A8SDE+
+ 5eNMRvpiCVhJjIqs6F3ho+iphO0pyENgop1tWzv3Em8qV6iQZEK29GHc4znsp3QmSUfa
+ oivIfCUa6IWcf7EmiQnUGXg3v/Kate9TZpb8cQJusNuFspVUasQOKn0sPfM0lTiW/CNv
+ 1X/ZQ3ZDESVTOHlBKx0L8Uvyx7p2jl+mAgUiZgP5CKc2b+IkRQhHZGEvCpjA7UNcE55Q
+ 8yjQ==; darn=lists.freedesktop.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=broadcom.com; s=google; t=1794865206; x=1795470006;
- darn=lists.freedesktop.org; 
- h=content-transfer-encoding:mime-version:content-type:references
- :in-reply-to:message-id:date:subject:cc:to:from:from:to:cc:subject
- :date:message-id:reply-to:content-type;
- bh=w7gJaq0U2XA1qzZik/lkoh6ncUAk4PKRnqK8WDeKiB8=;
- b=cwMONJbluQFvfcFct1Nd6PkixvArZbxGUwShZUVcwqyn6Uzss0xylt6oUXctzZP1z7
- UJ6iRYUHXg7RQ91eOcjOUTZ0xiLwGrUkorvzpZ2/JxsijZeuDJbwgRegPqpgsnAW1HYj
- 72QGxycg2ubDQGtO+5gLKSX2c4HkxZSNpst+0=
+ d=gmail.com; s=20260707; t=1794865804; x=1795470604; darn=lists.freedesktop.org;
+ h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+ :references:mime-version:from:to:cc:subject:date:message-id:reply-to
+ :content-type; bh=rJRV0Ub6rrZ4JdF46CX9umoUrMATSTEOe/htZXEiHsI=;
+ b=JtyAisH5VZ/CpvEoczDLu5uXaTPtuDR4I8whHrCHt1kHOMiVE8IV1Wb9xi0SmVLUYo
+ cQm02c/miDXXjlnWe/buAikHi4ZFM4oF2QTZw2FSUpPhDKXfp7HzOr/zoteBmyNm0MTR
+ lJDlGDnEtms8MjYgxA18c+JyvY7K3MSkAB0ag0SAbeTeZ+nGOP75Fxd7yzQUhoY8u6ts
+ uGXeQU4Cum6gY0zoKchsj5wZny9WsCQb098niupgLT0EosBRU2cCnY1olAnkdrb7N9N2
+ wSY5X6x4iml5q51IxEwZPbVGnqcB+sfLB+YVn89YeBYl2ok9cFsE4yFo8u8TMjXoRID+
+ XV1w==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20260707; t=1794865804; x=1795470604;
+ h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+ :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
+ :subject:date:message-id:reply-to:content-type;
+ bh=rJRV0Ub6rrZ4JdF46CX9umoUrMATSTEOe/htZXEiHsI=;
+ b=RLjMLkh0TW/JNrVUrSewXQHMQZaufaBGS1juSHWKrUUV4GRN432YpD3rjKFZygOgUQ
+ XynJQb3eIRy8iEtsz2JiDt2EL6b56S+cO1ttFtld0f25BqeT1gIQwjftOpageSeGTVyr
+ wV7C2i1aI5Ee28Ou0rF+NlIEFHFtPd+6tv2z5uikuP/3+37HpIMZJhLNfyFZi+cN0O9d
+ NugMBZIx+oZ/HKQm8+LMswn6y8cAL7Np/iitOPCKN1bTqUpbdFqMtn1k7JbkxHnvpAb/
+ hDrI7ZxG+1SOUAGZpz2NvllNk9pfJQ0zcfH52pDufFePwvjwuWZe4L42uSQiZGOFegV5
+ oUSw==
 X-Forwarded-Encrypted: i=1;
- AL+hErHzWiIl3qatsX/qC1nQVuoDVjPqt1emAmaQz+pIMtkfEwopo8pA9lekY9b8IbX3uHw+gOs8+CwjaUE=@lists.freedesktop.org
-X-Received: by 2002:a05:7300:2204:b0:367:185e:867a with SMTP id
- 5a478bee46e88-379679df9d9mr17264299eec.38.1794865190197; 
- Mon, 16 Nov 2026 13:39:50 -0800 (PST)
-X-Received: by 2002:a05:7300:2204:b0:367:185e:867a with SMTP id
- 5a478bee46e88-379679df9d9mr17264030eec.38.1794865184515; 
- Mon, 16 Nov 2026 13:39:44 -0800 (PST)
-Received: from vertex.localdomain
- (pool-173-49-113-140.phlapa.fios.verizon.net. [173.49.113.140])
- by smtp.gmail.com with ESMTPSA id
- 5a478bee46e88-37955e0d966sm37780089eec.15.2026.11.16.13.39.42
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Mon, 16 Nov 2026 13:39:43 -0800 (PST)
-From: Zack Rusin <zack.rusin@broadcom.com>
-To: Jaeyeong Lee <finpiler@protonmail.com>
-Cc: bcm-kernel-feedback-list@broadcom.com, dri-devel@lists.freedesktop.org,
- linux-kernel@vger.kernel.org
-Subject: Re: [PATCH] drm/vmwgfx: Erase the detached resource entry on resource
- release
-Date: Mon, 16 Nov 2026 16:39:41 -0500
-Message-ID: <179485275604.3430538.5664968222788399295@broadcom.com>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20260725143859.797134-1-finpiler@protonmail.com>
-References: <20260725143859.797134-1-finpiler@protonmail.com>
-Content-Type: text/plain; charset="utf-8"
+ AL+hErFq0NlQwbJiP2YEksO/MgsL1JHAp5533N71lHZhypCeAVVQcc+X1aodcZ5wip62j/uJrCaTyxaEYIA=@lists.freedesktop.org
+X-Gm-Message-State: APuU4Z9uFRxAZDJe7hAb7rQFIwRsZoH916x0Cy18jgQpCFAktZN2Xj3S
+ Sa2O/x1g5zu7Q/DUGkwg3IVkja+0RwqfknnaWa5DWUqZBcSfgeeV7OAcEN0zGkW4C83EeI9sEtw
+ a0hdQM0TPTjv5uImzoK0iId+LQx15MDw=
+X-Gm-Gg: AYBFou3u4XKSTU7CnkE49VIj3YYeNQ4pmz/5yp6xXmvx58JkSl/xlnnJtPhEPLhrkdb
+ iqLEeDp2zghPS3WmUhav+5tUSIAgZ/GSszr0HT5BDujlackg/XL02Z1L7luZ2fZnhNQL67WyCzb
+ eu8F/Plazh6Ieb75qjiGV6622+V0bRBG0O339BUCj3tVoPrqUUy9VkshIl+Er4mdvptLxDq1DdA
+ T8WvQqcYAXlXdS3IMFuZ5Appu2nkkrVB4MqOfGpX9+E5LyFRIP4jDT/fR/dEvqIwvhmguwoohAd
+ zhCHQudZDJnR98ZQZNTWw8g7kbmwlQfZorY0t3FaFGamb5JyQ44/IN1VI/f4qYJf0ucxWZ5Jznb
+ A15hdhJOYDlToMZyXp8J72HWnpAI0PRsIH/3NtGAM1KQfMzxImTxAaz/XdGgrcSv2vUQ=
+X-Received: by 2002:a05:6402:2b87:b0:6b5:8695:f839 with SMTP id
+ 4fb4d7f45d1cf-6b7c0d24fdfmr9668541a12.45.1794865803505; Mon, 16 Nov 2026
+ 13:50:03 -0800 (PST)
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-DetectorID-Processed: b00c1d49-9d2e-4205-b15f-d015386d3d5e
+References: <CAMeQTsZbLYpPKySm9ubYc8pw0t62ZEdKkkzc4h3Hdjq-9pGO6A@mail.gmail.com>
+ <20261113085341.61992-1-jttelaak@hotmail.com>
+ <CAFGNeajPo8DrqNbM+86AQz0LT98a69_+T7R8DoKAX4Q2LJE0kw@mail.gmail.com>
+ <CAFGNeage70+BaM6SP-q7YAgp-tgrATuO7m-eEoN6ERr0mC55aA@mail.gmail.com>
+ <17f2783e-9157-458b-8463-f98395e391ca@suse.de>
+ <CAFGNeagxEcfPuEHFt3TxKhCDoZ0HODpXwXcKpuBxKK=09FkRMw@mail.gmail.com>
+ <CAFGNeaiYntE7dQ=-sgaM8gRKuZ+wQ-479ShXKW8v99YVSdHn5w@mail.gmail.com>
+ <CAMeQTsazkHgYiCnSEC67useW++0WEY8E0RS1ShssWybrWCGuiw@mail.gmail.com>
+ <CAFGNeajczb-2Xcjfaj82hc-hprJXRHsr8uSudO32j6S17T+YQw@mail.gmail.com>
+ <CAMeQTsb-Tjzu6i8Fa4X6Ta-JdRPd6vf--eEePTzZKvPuPX5GGg@mail.gmail.com>
+ <CAPY4CJ5=+fXRX=29uS_oxwVQxstAf4WoFNVSYaUiYmWEjar5Kw@mail.gmail.com>
+ <CAMeQTsab5H7F5CFvd_XkDndmMiBXRSYBhrMHAf9jynzEqaWp+w@mail.gmail.com>
+ <CAPY4CJ4Pq0gXUdGiEp-6srpVUBxYUXPQgOAJr1PJK3SeVn_Rew@mail.gmail.com>
+In-Reply-To: <CAPY4CJ4Pq0gXUdGiEp-6srpVUBxYUXPQgOAJr1PJK3SeVn_Rew@mail.gmail.com>
+From: Gabriel Gama <operatingsystemsdepression@gmail.com>
+Date: Mon, 16 Nov 2026 18:49:51 -0300
+X-Gm-Features: AclHuK95X3dIeI8uNU2mmuDdUvNrztj82on_MQyLnBbJwwze9azNulqy_WyxtyQ
+Message-ID: <CAFGNeahyKxLV1fMp_diNAvXN2JrdRVPt7NRJ5SDuLrfGQ1V3Nw@mail.gmail.com>
+Subject: Re: [RFC] drm/gma500: SGX535 render ownership,
+ MMU and failure handling
+To: Joseph Telaak <joseph@telaak.dev>
+Cc: Patrik Jakobsson <patrik.r.jakobsson@gmail.com>,
+ Thomas Zimmermann <tzimmermann@suse.de>, dri-devel@lists.freedesktop.org
+Content-Type: multipart/alternative; boundary="000000000000a3334c06606bc212"
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -109,14 +111,22 @@ List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-8.8 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
-	DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
-	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,USER_AGENT_GIT autolearn=ham
-	autolearn_force=no version=4.0.1
+X-Spam-Status: No, score=0.2 required=3.0 tests=BAYES_00,DKIM_SIGNED,
+	DKIM_VALID,DKIM_VALID_AU,FREEMAIL_FORGED_FROMDOMAIN,FREEMAIL_FROM,
+	HEADER_FROM_DIFFERENT_DOMAINS,HTML_MESSAGE,MAILING_LIST_MULTI,
+	SPF_HELO_NONE,SPF_PASS autolearn=no autolearn_force=no version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-Thank you. I rebased it, dropped the v7.2-rc4 analysis note from the
-commit message and applied it to drm-misc-fixes.
+--000000000000a3334c06606bc212
+Content-Type: text/plain; charset="UTF-8"
 
-z
+That's a good idea. It could also put some pressure on Imagination
+Technologies to release the Series5 documentation
+
+--000000000000a3334c06606bc212
+Content-Type: text/html; charset="UTF-8"
+
+<div dir="auto"><p>That&#39;s a good idea. It could also put some pressure on Imagination Technologies to release the Series5 documentation</p></div>
+
+--000000000000a3334c06606bc212--
