@@ -2,125 +2,100 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C1AFD606A32A
-	for <dri-devel@archiver.kernel.org>; Mon, 16 Nov 2026 14:03:17 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6464D606A329
+	for <dri-devel@archiver.kernel.org>; Mon, 16 Nov 2026 14:09:17 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=ziepe.ca header.i=@ziepe.ca header.a=rsa-sha256 header.s=google header.b=USa/GFbD
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=c0+BQ7MB
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 1611A10E6F0;
-	Mon, 16 Nov 2026 14:03:12 +0000 (UTC)
-Received: from mail-yx1-f42.google.com (mail-yx1-f42.google.com
- [74.125.224.42])
- by gabe.freedesktop.org (Postfix) with ESMTPS id D977610E6F0
- for <dri-devel@lists.freedesktop.org>; Mon, 16 Nov 2026 14:03:05 +0000 (UTC)
-Received: by mail-yx1-f42.google.com with SMTP id
- 956f58d0204a3-67db23d8892so1451375d50.2
- for <dri-devel@lists.freedesktop.org>; Mon, 16 Nov 2026 06:03:05 -0800 (PST)
+	by gabe.freedesktop.org (Postfix) with ESMTP id D14C110EA0B;
+	Mon, 16 Nov 2026 14:09:11 +0000 (UTC)
+Received: from mail-ed1-f45.google.com (mail-ed1-f45.google.com
+ [209.85.208.45])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 18B8410EA0B
+ for <dri-devel@lists.freedesktop.org>; Mon, 16 Nov 2026 14:09:05 +0000 (UTC)
+Received: by mail-ed1-f45.google.com with SMTP id
+ 4fb4d7f45d1cf-6ae305e3bd9so6210733a12.0
+ for <dri-devel@lists.freedesktop.org>; Mon, 16 Nov 2026 06:09:05 -0800 (PST)
+ARC-Seal: i=1; a=rsa-sha256; t=1794838143; cv=none;
+ d=google.com; s=arc-20260327;
+ b=jNhcLB4Urx/PHaGSVoi1oQeUb4+oGEagSQVATOSbFhA0kRXxdALzcP0v5ZyNCXRuCY
+ iR5tPy9wcJhSpNez8WnqYbzdZOt3UsVIQ3kI3Rkvuj4ybBP/ElPYG+zfgriK/qEE1646
+ i3/9MAoOQkbfvGnCeXjRYst1dp7ODePxAkp7Ct9YLjuFpDQ2v7jdu8XGcL1WgGnbI9g4
+ etN3g5jjVosymEioaOocphFTLcmMeAgQ8dlRCBGPFM4ClNukF00pTS4GxbkLPjYZ2oCj
+ rx9kX7O+Sg0FF1Hx3a+OKh2Lf53LN7RsWqLc76kgJk9gyrRGyFvYk67QECJvvYxbNMUS
+ WOkg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com;
+ s=arc-20260327; 
+ h=cc:to:subject:message-id:date:from:in-reply-to:references
+ :mime-version:dkim-signature;
+ bh=4hKevxP5Z/lSUazobwW68qRBBwY7gSBePYG2tqVcXNw=;
+ fh=fPSMNTCGdZfsIsm5fa1cOLf2fkW1DHAR0FITBTI8U6w=;
+ b=YcLz5iLgDbjoGC/DNKkGhrshxErEyhKX6S1iYTN2d91u6CYXf/99kYWzf2m1QtF9Q2
+ aasorZLLlHZ7ybLCI/i2bY3Xh0+aIErbNVCBb6bddFu590oKLP3s2wcEdpRFVRN3pQam
+ LnmuoP2BhOhF2Ogfgc93DtEWJjLRJPuwWLWna2dIwvvVRUhQ21wtG7JHUF7YRib/xx4J
+ LC77QjgIQ12PQwGlz3vZ5TqK1bbxlm1YrAtHNkpj/egtjdwd2f3kV/eUoaqtWtdIeY3E
+ r4qYCSkCpq3LANFsRxFbY428BEknGzy01Y0fmAu9IorGo3cFplW4xviLr3ElptqbeftL
+ nBtA==; darn=lists.freedesktop.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=ziepe.ca; s=google; t=1794837784; x=1795442584; darn=lists.freedesktop.org; 
- h=in-reply-to:content-disposition:content-type:mime-version
- :references:message-id:subject:cc:to:from:date:from:to:cc:subject
- :date:message-id:reply-to:content-type;
- bh=8htNjDuwhthg5uXuXp42Sb+r8eU4x+ykq7/WcmWSjZg=;
- b=USa/GFbDf+wuSurOXuq+R99zmrXeHwqKWgQW3+BwKUUmSk/0mOUVmZXgeD6veni5ko
- 5zQKFKQfjwfHidgRrYFsYye2qEbA/DtJmLsEU259XUnanhxGred0e17+lQ5XGbdsv7MB
- ybWO+YHgLEfWx6qLbcZFojDMCzueWWefI0FSzhi2P3q5LmBYGBSQj1uc+eqj33rrFbQi
- hiJG/tINvieZEyjP3Fi9il2RJkbeZy74jNxPZtwnVZLQ772UAqk7AV7AP1GAEizv9JMl
- TKBsSgPn3jRV5kQkJdmhSoAA2bcVvZnYp/4rOuXK7PvHB8t3wk/vcRwhE+yCfxQ3xj4R
- UItA==
+ d=gmail.com; s=20260707; t=1794838143; x=1795442943; darn=lists.freedesktop.org;
+ h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+ :references:mime-version:from:to:cc:subject:date:message-id:reply-to
+ :content-type; bh=4hKevxP5Z/lSUazobwW68qRBBwY7gSBePYG2tqVcXNw=;
+ b=c0+BQ7MBQTMl6hrQRipyh6Cmx1GYcH/XEP/rtU475uBfh9luB2l1kfuEn1fKGYikVt
+ xP0qM8qIF6wgKnQiOc2y+MDvZjw5TI4G8OayTCPbcZqo4dbOl0RhJftMYqc+PVZw9kQP
+ 7Q4MoJDs0W7D4m6vQ1f3I0SZFA3kkDHK8LDZXD0harEXz0e+YCo4AlPBlwItYzVHBBFE
+ LE1PfbMCIhXDzu7USPe9T8PWFrqSF9/ZeYqq7dKvhkiot2+VaL2HrtrWWAqZrTjh+CZq
+ agZtxQifHKu+k2fT2Gx3Ugqp5slCYgANrDOqVsbGwVIsRMlNMPp7Y1Sc4DqMAupo43kL
+ sspg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20260707; t=1794837784; x=1795442584;
- h=in-reply-to:content-disposition:content-type:mime-version
- :references:message-id:subject:cc:to:from:date:x-gm-gg
- :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
- :content-type;
- bh=8htNjDuwhthg5uXuXp42Sb+r8eU4x+ykq7/WcmWSjZg=;
- b=wO/14P2n7rsocEtFVkp+tNtoVcPvlokc+iDIXHV/LzuK/Gf30dTJiYzI1biwJriKjL
- 6ktTWyjfQ1OdGPRfRnIgyvqRRSG7G8H7+v7w1Z/EXbc9cU8fLmPWoYFH8GyHYdT0TWhd
- sPvjQp2mwAzUhyqaVUVdSp2k7n1GWmMOhbZSYRkrup5bvjqOYg7nwaDj43zT45orwXBf
- AFQwhFJzhybGDI32NeUa7wv9mBROMlz6hxgbHwArI/BdlAGZSXMfoDopn7QDC+IwiRs/
- yX9HjDf/+GpdJmcdVbYfocOtALivoyU58eqgPocotkusv6/Bi/oCh2cnmBKD/Th5M32a
- Qwxw==
+ d=1e100.net; s=20260707; t=1794838143; x=1795442943;
+ h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+ :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
+ :subject:date:message-id:reply-to:content-type;
+ bh=4hKevxP5Z/lSUazobwW68qRBBwY7gSBePYG2tqVcXNw=;
+ b=1ybrDjdoKCF5cueIXABLEaiuuh7wuZdteHHkXRWq+69+72PjPLbtGzW2c49xhYLYkf
+ kKltImQE8MnyEAz3Qujrq/yWaoiumvaNIeyW7JJ5FWVExsqcQLI57l3kUQAQTfreg8yf
+ GcVrtumT2tfVUcbBomme7ncdTAcuiNI3X1Js0Q0FBHlPga8JiQW7gub2Z6RbUetH4mcO
+ z/2pN/La/TltdOkN8S8rbBAbQjBWJIrzX2EekhURBnz8Vmc/niCMwdfMrnpC3ZtUJ5oe
+ q3axPY87AhQuBMlLgLBvbsY1tgCBhkPW+v9HYzN7za2yC+7L5R+/g3ZoKm+xLi8d06tC
+ 8T0A==
 X-Forwarded-Encrypted: i=1;
- AL+hErH2y8sUZJcvspMk8mUlU4jseDSlkp4tJ3s+xViBSH6ZivszHThgBcxWzuO4NB+aIsOUh21UymCIXcE=@lists.freedesktop.org
-X-Gm-Message-State: APuU4Z9lNCVz0vywgohrF+ajnoAyRSD0EU6l9Qbla9Re5ByoJlMZ2BNf
- /Ms/Yigw5GSNx9fnJeJ7JfbGVjhy3ObvqWxbHazGMksIRjWVXkG8YnsvgoBa0DfNe9E=
-X-Gm-Gg: AZFdTZfeljNdNVOM1RXVVlRp+Xem4xtM2QFUUZ7aI5ZtONo6jaOlvEFZvC5plSlfObs
- wcGKNTGXcnapLrZD5u9gxkfWDj+FBaSV7LSxXpQiaEUbYxVOQ95DyaE4vRIdI/y7kHUnsRqTbF4
- 3PPm/hvCQQ/7ZBByT1DYrlmznpU4jYvIhnAPPls2d+qYe+ScQeJfLfoGyif1oPVcTXD/o3pHe7m
- SglUDb0ScWbvgw6wN3GpDJq8oZ0dOZ3RrBWK9nMlfanr8KVAvxd8bBozdov9brz4CUqJWsgsMSa
- 6NhRF/LD7FFa+AlJVKKdUWzb6jZkJoHj6KJyNIJSSAchKXw8CKYDiZob2WdkQ92PJSfWoeYhe9g
- /MgekJ0bMdmQ6JBO9uYiOnufIQCfA3U/NkTbiFwXw+yt1VLE6XG1OPUtVp5Dbb3eSulULs3zIbn
- wnpXJsx3Mx2a43o78SBSzVluPCbNd6zLIrfhb+v6da5+/VgO+1zXjZnbk37ObhEupxuHqsICS9t
- VRK4LDP1y9HgQHCsSw3f75TchbgVF49M9PwP2pZ6dXFKvLefhZ93nTNpQBpr6BTW2advK6cJcYy
- AKY1et/5p8S7fpLUeO4rB8QHat8=
-X-Received: by 2002:a53:ccc7:0:b0:67b:f935:8639 with SMTP id
- 956f58d0204a3-67d89787ecdmr4996887d50.63.1794837784278; 
- Mon, 16 Nov 2026 06:03:04 -0800 (PST)
-Received: from ziepe.ca ([142.166.156.71]) by smtp.gmail.com with ESMTPSA id
- af79cd13be357-9494c8b889csm858426085a.32.2026.11.16.06.02.59
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Mon, 16 Nov 2026 06:03:00 -0800 (PST)
-Received: from jgg by wakko with local (Exim 4.97)
- (envelope-from <jgg@ziepe.ca>) id 1xSxIR-00000009Q2N-0sq0;
- Mon, 16 Nov 2026 10:02:59 -0400
-Date: Mon, 16 Nov 2026 10:02:59 -0400
-From: Jason Gunthorpe <jgg@ziepe.ca>
-To: "Aneesh Kumar K.V" <aneesh.kumar@kernel.org>
-Cc: Fuad Tabba <fuad.tabba@linux.dev>, linux-coco@lists.linux.dev,
- Andrew Morton <akpm@linux-foundation.org>,
- Baoquan He <baoquan.he@linux.dev>, Mike Rapoport <rppt@kernel.org>,
- Pasha Tatashin <pasha.tatashin@soleen.com>,
- Pratyush Yadav <pratyush@kernel.org>,
- Catalin Marinas <catalin.marinas@arm.com>,
- Christian =?utf-8?B?S8O2bmln?= <christian.koenig@amd.com>,
- Joerg Roedel <joro@8bytes.org>, Marc Zyngier <maz@kernel.org>,
- Marek Szyprowski <m.szyprowski@samsung.com>,
- Robin Murphy <robin.murphy@arm.com>, Steven Price <steven.price@arm.com>,
- Sumit Semwal <sumit.semwal@linaro.org>,
- Suzuki K Poulose <suzuki.poulose@arm.com>,
- Thomas Gleixner <tglx@kernel.org>, Will Deacon <will@kernel.org>,
- Russell King <linux@armlinux.org.uk>,
- Benjamin Gaignard <benjamin.gaignard@collabora.com>,
- Brian Starkey <Brian.Starkey@arm.com>, John Stultz <jstultz@google.com>,
- Mark Rutland <mark.rutland@arm.com>, Radu Rendec <radu@rendec.net>,
- "T.J. Mercier" <tjmercier@google.com>,
- Madhavan Srinivasan <maddy@linux.ibm.com>,
- Michael Ellerman <mpe@ellerman.id.au>, Nicholas Piggin <npiggin@gmail.com>,
- Christophe Leroy <chleroy@kernel.org>,
- Ritesh Harjani <ritesh.list@gmail.com>,
- Shrikanth Hegde <sshegde@linux.ibm.com>,
- Alexander Gordeev <agordeev@linux.ibm.com>,
- Gerald Schaefer <gerald.schaefer@linux.ibm.com>,
- Heiko Carstens <hca@linux.ibm.com>, Vasily Gorbik <gor@linux.ibm.com>,
- Christian Borntraeger <borntraeger@linux.ibm.com>,
- Sven Schnelle <svens@linux.ibm.com>, Ingo Molnar <mingo@redhat.com>,
- Borislav Petkov <bp@alien8.de>,
- Dave Hansen <dave.hansen@linux.intel.com>, x86@kernel.org,
- "H . Peter Anvin" <hpa@zytor.com>, Kiryl Shutsemau <kas@kernel.org>,
- Rick Edgecombe <rick.p.edgecombe@intel.com>,
- "K . Y . Srinivasan" <kys@microsoft.com>,
- Haiyang Zhang <haiyangz@microsoft.com>,
- Wei Liu <wei.liu@kernel.org>, Dexuan Cui <decui@microsoft.com>,
- Long Li <longli@microsoft.com>, Paolo Bonzini <pbonzini@redhat.com>,
- Vitaly Kuznetsov <vkuznets@redhat.com>, Andy Lutomirski <luto@kernel.org>,
- Peter Zijlstra <peterz@infradead.org>,
- dri-devel@lists.freedesktop.org, iommu@lists.linux.dev,
- linaro-mm-sig@lists.linaro.org,
- linux-arm-kernel@lists.infradead.org, linux-media@vger.kernel.org,
- linux-mm@kvack.org, kvmarm@lists.linux.dev, patches@lists.linux.dev,
- Vincent Donnefort <vdonnefort@google.com>
-Subject: Re: [PATCH v10 02/13] mm: Zero memory during shared memory transitions
-Message-ID: <20261116140259.GL2532299@ziepe.ca>
-References: <20261116091137.94252-1-aneesh.kumar@kernel.org>
- <20261116091137.94252-3-aneesh.kumar@kernel.org>
- <CA+EHjTw7QzzkQYKV3jyvW5mqZQMenTfm=kus9i87tYqACDOv0Q@mail.gmail.com>
- <yq5ah5hgyj1p.fsf@kernel.org>
+ AL+hErHAtKATZohEEc3A6y640wla+pCTlTdlx5It4ihXk1bx4Xgh7Go5OHU6spOQSwBmswFTxiA3P7/XPj8=@lists.freedesktop.org
+X-Gm-Message-State: APuU4Z+o1t3md32L3vjd4YAxMYzsaGADDrxFh959kfCACSb3EVRkQXtF
+ znlSdefeJ+o+H8Aa/wDYIK6aARCQ7TZHi9zhEIbRk09zdXi4tU6WpApTuOuQVK+3yhoDkTavrr0
+ cH9TGfgQ0H2nf+l7U7rmPdpUDR3eDutM=
+X-Gm-Gg: AYBFou13haPuIDB1LPf3deF9rFwjofGGj0iYPbM3yR1vHin+ynaxzNhsGI/Z5u29qWi
+ ITdx/K1h3J1oOLuQQ2P+2Tsqnw0ZyJg9gwrnpu6yTNk5SccTXZAfPZNVxamjMOzECkvVTc+Z8cG
+ 6bcmu6E3UXREfDURGkiFu3qEBxM6L9xHwpP8GKQBI8o27mxO2V5Az6Hnd9eFqDhwtpPV/y8qz/g
+ tAHp1W485k1AWu2tZjGITEx8ub4RtJBYWI4v0WL8iUIs+xqYEACSFSQHm/go+2RifdZjy+P1Pae
+ vvE1Rx6hv+47aczlGY4ZknMUCpkI7BDET0aus2UK6VrOLP0Px4I159j3kZXHSb5uchL96Z5Z4Fz
+ ZS55+QXg9mXbW7jNKi9GjQMvsAI0J5JOoajI3yZzSzTlfwvHGtA==
+X-Received: by 2002:a05:6402:c517:10b0:6b3:d0e9:2e87 with SMTP id
+ 4fb4d7f45d1cf-6b7c08b0a8cmr5365382a12.5.1794838143218; Mon, 16 Nov 2026
+ 06:09:03 -0800 (PST)
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <yq5ah5hgyj1p.fsf@kernel.org>
+References: <CAMeQTsZbLYpPKySm9ubYc8pw0t62ZEdKkkzc4h3Hdjq-9pGO6A@mail.gmail.com>
+ <20261113085341.61992-1-jttelaak@hotmail.com>
+ <CAFGNeajPo8DrqNbM+86AQz0LT98a69_+T7R8DoKAX4Q2LJE0kw@mail.gmail.com>
+ <CAFGNeage70+BaM6SP-q7YAgp-tgrATuO7m-eEoN6ERr0mC55aA@mail.gmail.com>
+ <17f2783e-9157-458b-8463-f98395e391ca@suse.de>
+ <CAFGNeagxEcfPuEHFt3TxKhCDoZ0HODpXwXcKpuBxKK=09FkRMw@mail.gmail.com>
+ <CAFGNeaiYntE7dQ=-sgaM8gRKuZ+wQ-479ShXKW8v99YVSdHn5w@mail.gmail.com>
+ <CAMeQTsazkHgYiCnSEC67useW++0WEY8E0RS1ShssWybrWCGuiw@mail.gmail.com>
+In-Reply-To: <CAMeQTsazkHgYiCnSEC67useW++0WEY8E0RS1ShssWybrWCGuiw@mail.gmail.com>
+From: Gabriel Gama <operatingsystemsdepression@gmail.com>
+Date: Mon, 16 Nov 2026 11:08:51 -0300
+X-Gm-Features: AclHuK8D8s812Gl24IAkZcrWISvAra_KalwIH0VrKm7xxpebhC_-rS2Q1DH73vg
+Message-ID: <CAFGNeajczb-2Xcjfaj82hc-hprJXRHsr8uSudO32j6S17T+YQw@mail.gmail.com>
+Subject: Re: [RFC] drm/gma500: SGX535 render ownership,
+ MMU and failure handling
+To: Patrik Jakobsson <patrik.r.jakobsson@gmail.com>
+Cc: Thomas Zimmermann <tzimmermann@suse.de>,
+ Joseph Telaak <jttelaak04@gmail.com>, 
+ dri-devel@lists.freedesktop.org, Joseph Telaak <joseph@telaak.dev>
+Content-Type: multipart/alternative; boundary="000000000000f4b89106606551df"
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -132,58 +107,40 @@ List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-5.8 required=3.0 tests=BAYES_00,DKIM_SIGNED,
-	DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
-	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS autolearn=no
-	autolearn_force=no version=4.0.1
+X-Spam-Status: No, score=0.2 required=3.0 tests=BAYES_00,DKIM_SIGNED,
+	DKIM_VALID,DKIM_VALID_AU,FREEMAIL_FORGED_FROMDOMAIN,FREEMAIL_FROM,
+	HEADER_FROM_DIFFERENT_DOMAINS,HTML_MESSAGE,MAILING_LIST_MULTI,
+	SPF_HELO_NONE,SPF_PASS autolearn=no autolearn_force=no version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-On Mon, Nov 16, 2026 at 07:28:42PM +0530, Aneesh Kumar K.V wrote:
-> Fuad Tabba <fuad.tabba@linux.dev> writes:
-> 
-> > Hi Aneesh,
-> >
-> > On Mon, 16 Nov 2026 at 09:12, Aneesh Kumar K.V (Arm)
-> > <aneesh.kumar@kernel.org> wrote:
-> > [...]
-> >> Keep allocations on platforms without memory encryption on the ordinary page
-> >> allocator path so the original GFP constraints, including __GFP_ZERO, remain
-> >> intact. Remove post-transition memset() calls that are now redundant and
-> >> explicitly clear allocations on paths where no transition occurs.
-> >>
-> >> This intentionally makes every private-to-shared transition destructive;
-> >> callers can no longer use set_memory_decrypted() to preserve existing contents.
-> >
-> > pKVM shares memory in place, and a guest has to be able to share
-> > memory it has already set up, as Vincent pointed out [1]. That was one
-> > of the primary reasons for in-place conversion in guest_memfd.
-> >
-> > Cheers,
-> > /fuad
-> >
-> > [1] https://lore.kernel.org/all/avro44jUWOARFzul@google.com/
-> 
-> 
-> Thanks for catching this. We discussed it before, but I reached the
-> opposite conclusion:
-> 
-> https://lore.kernel.org/all/yq5a5wzw2ree.fsf@kernel.org
-> 
-> My mistake. How do you suggest we handle this? We want to avoid zeroing
-> pages multiple times with different CoCo configurations. For example, to
-> allocate a zeroed page, we currently do:
-> 
-> alloc_pages(__GFP_ZERO)
-> set_memory_decrypted()
-> memset(0, PAGE_SIZE)
+--000000000000f4b89106606551df
+Content-Type: text/plain; charset="UTF-8"
 
-Just like you are wrapping set_memory_decrypted() in an allocator API
-the user that wants to have the no-change sharing needs its own
-special API too.
+Hi,
 
-Then you can bury a special implementation for pkvm there.
+If I'm not mistaken, Joseph removed his kernel RFCs (This is in his GitHub
+repo)
+For Poulsbo I'll stick with the GMA500 drm, it makes much more sense;
+Once I finish reverse-engineering the SGX544MP2, I plan to develop a
+separate DRM driver for it.
 
-Where is this special user in the kernel anyhow?
+Thanks for taking the time to look into my patches!
 
-Jason
+ty,
+gabriel
+
+--000000000000f4b89106606551df
+Content-Type: text/html; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+
+<div dir=3D"auto">Hi,=C2=A0<div dir=3D"auto"><br><div dir=3D"auto">If I&#39=
+;m not mistaken, Joseph removed his kernel RFCs (This is in his GitHub repo=
+)=C2=A0</div><div dir=3D"auto">For Poulsbo I&#39;ll stick with the GMA500 d=
+rm, it makes much more sense;</div><div dir=3D"auto">Once I finish reverse-=
+engineering the SGX544MP2, I plan to develop a separate DRM driver for it.<=
+/div><div dir=3D"auto"><br></div><div dir=3D"auto">Thanks for taking the ti=
+me to look into my patches!</div><div dir=3D"auto"><br></div><div dir=3D"au=
+to">ty,</div><div dir=3D"auto">gabriel</div></div></div>
+
+--000000000000f4b89106606551df--
