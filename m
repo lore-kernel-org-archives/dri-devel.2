@@ -2,99 +2,42 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5967C606A33B
-	for <dri-devel@archiver.kernel.org>; Mon, 16 Nov 2026 11:49:42 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3BA8C606A31C
+	for <dri-devel@archiver.kernel.org>; Mon, 16 Nov 2026 11:51:13 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=OGcmHDrA
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=RQNekTbJ
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id B0A2510EF95;
-	Mon, 16 Nov 2026 11:49:36 +0000 (UTC)
-Received: from mail-ej1-f44.google.com (mail-ej1-f44.google.com
- [209.85.218.44])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 10AAD10EF95
- for <dri-devel@lists.freedesktop.org>; Mon, 16 Nov 2026 11:49:31 +0000 (UTC)
-Received: by mail-ej1-f44.google.com with SMTP id
- a640c23a62f3a-c4697404c2bso442242166b.2
- for <dri-devel@lists.freedesktop.org>; Mon, 16 Nov 2026 03:49:30 -0800 (PST)
-ARC-Seal: i=1; a=rsa-sha256; t=1794829769; cv=none;
- d=google.com; s=arc-20260327;
- b=K3H6C/PstH/PUomcfvzWDHEDopZiws/WNbKIsLaEwQdo8a0bMr7meX/5cqCVxW1YvS
- rD4j/0MIXsZkDBYyiSglIfqmrC6hNhPCh7sq+1MFlDoxoaTbZtIqe2Uo51lmvdLIv6SQ
- J+sZVaw9oJNPxv4tAY9LHocreKa8CSo82Lba/8wGdrnILbBqMo9XajO/95u6YlYjTXc6
- oDR55KJSdglzYrWGZPdA78OrIGSr4U+KFyUdFkpp0W29QHw74YQ9jQ3uT/bSVnA6i1q7
- 0rpOfc6zYje1sb40dEkStGUhMZdsWGs97gs+4jhq8pVkfFGYj5vby95aQPusI9GcaWwU
- aTVw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com;
- s=arc-20260327; 
- h=cc:to:subject:message-id:date:from:in-reply-to:references
- :mime-version:dkim-signature;
- bh=NpduhABgQz1EiCZx6B5Kln+Huvhgjd7Ot+bN5UIn0HY=;
- fh=6SVR7wGZaRyIDapB+M9voWaBm6+WAUxMiTswI0L0Nk0=;
- b=dSgJYHpIvC8W13gQDprIncaWhEyvDDEmmK5YTVUC1XjQmDwI5nOELKqGPN9yLHfXtx
- RRzU0ivcoi+OMDLLx7OGd4yHw/EWf4Nr18ozp9HNzo0OJrstGnPpqxch11zOkhVQrswS
- 9/7G9M0M2sKPZ3NKoRCON0kb3iYxZM+ipc6fdMqhGLG5fdg4UkG2jecNKy8zuqwWjjYN
- 4D2RoTRXsN0EZLY1JhP8e7D1ZHVpody/9usFlpZGsZ9829KaPCyJbmkP6XNDDNqg/dbB
- odEBdnRhOu+UmYzWW8G5HIRfKQYu+1fuGJ7so1+1N86ptEGlhzxqs9I/+ZG8My2l5RiY
- OEoQ==; darn=lists.freedesktop.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20260707; t=1794829769; x=1795434569; darn=lists.freedesktop.org;
- h=content-type:cc:to:subject:message-id:date:from:in-reply-to
- :references:mime-version:from:to:cc:subject:date:message-id:reply-to
- :content-type; bh=NpduhABgQz1EiCZx6B5Kln+Huvhgjd7Ot+bN5UIn0HY=;
- b=OGcmHDrA6kRFJaqyVOCxIDkkIR7+GNLFqBRmUbKXYmAmxWeeQoZD3R5i30rrythCeg
- fblzuFwJOag/P/KfSTy8N/WPhFaw2RGN8j/enrxtghgzjYo2B7AgYKa7V9pRVH1wsoms
- PzgQgVFuYnvk4E2mOz3yUG3sgiTx5S7GgzjAiv7R+Yg3g+sE+ftt1JEHpbKvUl4qVOwW
- //pRQUo+nh49dmlnCAzrpxCPn2Pm5+E3ckfxLSQaf51aC8+MAMlFEPh079YwsMHvJDN0
- FJC8TQvoO2L+ZfEVgNu0z7H+q8ij1DzybfGuvJQA8Pv4jSAXVP/VrymL+FFLWtULl849
- KWNw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20260707; t=1794829769; x=1795434569;
- h=content-type:cc:to:subject:message-id:date:from:in-reply-to
- :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
- :subject:date:message-id:reply-to:content-type;
- bh=NpduhABgQz1EiCZx6B5Kln+Huvhgjd7Ot+bN5UIn0HY=;
- b=LSwq5FyS1ZEXd9vzPYnvNRu8DAc/DUybu/SgQ75E5Jk+rc9c1xHvClhSaM+7/ZThCW
- LCqwlp7z+OF8MF0CDUTuODspXu/JN/NneW6jFuRBivdMn+VE2eXRMQTb4QH15TgxzuRD
- IvrJ0ZJDMtMpklStWJSmUJxbwYsOd+UrubbYTmuiIdPgiuSuu+BL6WVZgJ4gsUFSvqKt
- 60CXaFsHlrSl58wT4JyHGoW0zjSmNYitP7lgnc3ceaAMlJ9d2Dfzz2HbmoCjAqHhF5Z3
- 1Xq1LvUH3FkmIWLkYhCoeFZlGyjxpEd78KsRqbmPHxU4eCJaNrKX77u1kuwfolSk2sSB
- yj+A==
-X-Forwarded-Encrypted: i=1;
- AL+hErEvLwxl3FViToYmJjvbcQdh5Uq+Y1RLbA6fZy1+kAZQFp4gAi1wdvvb4RD6LUTQ8/Mb62jkMjG0Tos=@lists.freedesktop.org
-X-Gm-Message-State: APuU4Z9ynFpdkpq7zaprkZn7kiL/Qbgozb9bM3F316Nas5W+m/B+Fdsr
- tf4xB1bw8wy02oYDJJx5DsojVBCXNGo5wVbk2TjVVf23vgC6Tb6Fe6SIHxsWMNqpxT0xOFKesW0
- thDeCOzi9ziv5dMSXWJ6oDMYLPcs6FUM=
-X-Gm-Gg: AYBFou2cxUMmidyT2D3W+6QArVvv0ELY8jOty8N49XfyTd+su01qqqXvNZvs016Q3zy
- bikPnqeF3sDzrkHOC91tW8vDrm6JJaagy50YRvL9VqfVg9KY3VXodsrBH9Qb12ZHe7TfP/LvGaT
- 1/8XOM2jdVew4LKcsA51A64WdYGixsuwEqtPD8A8lKRfE1q4dWe198g0SNrjTSCqVWWHDY0aoo5
- KYYVmCh6QPmq86dOQBuGp+U3VkFWYqffbDNP2jmS7lsfY0mUgkw6Zr3j/fT+COQ/tBDJI+Bt5B9
- eAcH0cPiuNbJl7MdWyhBax7mNQh6HBjRiGwQ/G3qNwuHOncBQIS1iZAya5baP7nGHvKSteMEL+t
- 5Gcw83bOwQM7lMP9faIYF9ccKDHLO+laBbEXg/KjyZkMP5SAscZvCwKpipQ93B1QLQv5O7q8=
-X-Received: by 2002:a17:907:86a6:b0:c42:4750:8d49 with SMTP id
- a640c23a62f3a-c5096427bb2mr808609566b.25.1794829769073; Mon, 16 Nov 2026
- 03:49:29 -0800 (PST)
-X-Archived-By: <archiver.kernel.org>
-MIME-Version: 1.0
-References: <CAMeQTsZbLYpPKySm9ubYc8pw0t62ZEdKkkzc4h3Hdjq-9pGO6A@mail.gmail.com>
- <20261113085341.61992-1-jttelaak@hotmail.com>
- <CAFGNeajPo8DrqNbM+86AQz0LT98a69_+T7R8DoKAX4Q2LJE0kw@mail.gmail.com>
- <CAFGNeage70+BaM6SP-q7YAgp-tgrATuO7m-eEoN6ERr0mC55aA@mail.gmail.com>
- <17f2783e-9157-458b-8463-f98395e391ca@suse.de>
- <CAFGNeagxEcfPuEHFt3TxKhCDoZ0HODpXwXcKpuBxKK=09FkRMw@mail.gmail.com>
- <CAFGNeaiYntE7dQ=-sgaM8gRKuZ+wQ-479ShXKW8v99YVSdHn5w@mail.gmail.com>
-In-Reply-To: <CAFGNeaiYntE7dQ=-sgaM8gRKuZ+wQ-479ShXKW8v99YVSdHn5w@mail.gmail.com>
-From: Gabriel Gama <operatingsystemsdepression@gmail.com>
-Date: Mon, 16 Nov 2026 08:49:17 -0300
-X-Gm-Features: AclHuK9WX-oWLkCrPQ2cRyujrZhoBNU7daeFrD7FbTy8maDykBgkJv-yNmO594E
-Message-ID: <CAFGNeagfwXZ_MPTaBTGyHacFoKq8PwdXgzWCfkX+R-B63NRfvw@mail.gmail.com>
-Subject: Re: [RFC] drm/gma500: SGX535 render ownership,
- MMU and failure handling
-To: Thomas Zimmermann <tzimmermann@suse.de>
-Cc: Joseph Telaak <jttelaak04@gmail.com>,
- Patrik Jakobsson <patrik.r.jakobsson@gmail.com>, 
- dri-devel@lists.freedesktop.org, Joseph Telaak <joseph@telaak.dev>
-Content-Type: multipart/alternative; boundary="000000000000d165bf0660635e2d"
+	by gabe.freedesktop.org (Postfix) with ESMTP id A414D10EF9F;
+	Mon, 16 Nov 2026 11:51:07 +0000 (UTC)
+Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id B300710EF9F
+ for <dri-devel@lists.freedesktop.org>; Mon, 16 Nov 2026 11:51:01 +0000 (UTC)
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+ by sea.source.kernel.org (Postfix) with ESMTP id 7DFD243EC5;
+ Mon, 16 Nov 2026 11:51:01 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2E0691F000C4;
+ Mon, 16 Nov 2026 11:51:01 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+ s=k20260515; t=1794829861;
+ bh=gzmeSfGW1JPAjRUUHIsDgS0E69cYBPQsNNg/Y3bhO5E=;
+ h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+ b=RQNekTbJaboHat8Cjpe+s4t8GB5cTiPRyCf27NwdPE+6YUoeTKbgMgiaMSvykfcqP
+ nMdd+QwjmawxuQi6d8pcxzY9vgwKdGk916PoMxPvlpGN3rrBwMhTdivgx3/8qwhtfI
+ 2vBgsIetBjypqVZycz7WVk4jU514DyTTMe9RzXYhi8i7RkfFV6FJh7+S6dDVrPEtAw
+ cHjyCatZL2/rRV8LCRt8y2+fLWMsMLcEr3HpPCkdzMuKKLxaJFT9iPe1uwTZhE+VOp
+ KGoMAncivMLgWa5HSPB4g/Mgmj+Aj0tX4rUXJya++NEXo6mChTJS7ZxBLMNyAWPXVD
+ s94hLSPr/hMww==
+Message-ID: <sashiko-outbox-216960@kernel.org>
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v5 11/13] drm/panthor: Support FW init of protm
+To: "Ketil Johnsen" <ketil.johnsen@arm.com>
+Cc: dri-devel@lists.freedesktop.org, ojeda@kernel.org, gary@garyguo.net
+In-Reply-To: <20261116112601.3483649-12-ketil.johnsen@arm.com>
+References: <20261116112601.3483649-1-ketil.johnsen@arm.com>
+ <20261116112601.3483649-12-ketil.johnsen@arm.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Mon, 16 Nov 2026 11:51:00 +0000
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -105,47 +48,255 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
+Reply-To: sashiko-reviews@lists.linux.dev
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=0.2 required=3.0 tests=BAYES_00,DKIM_SIGNED,
-	DKIM_VALID,DKIM_VALID_AU,FREEMAIL_FORGED_FROMDOMAIN,FREEMAIL_FROM,
-	HEADER_FROM_DIFFERENT_DOMAINS,HTML_MESSAGE,MAILING_LIST_MULTI,
-	SPF_HELO_NONE,SPF_PASS autolearn=no autolearn_force=no version=4.0.1
+X-Spam-Status: No, score=-10.8 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
+	DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
+	INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS autolearn=ham
+	autolearn_force=no version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
+X-Archived-By: <archiver.kernel.org>
 
---000000000000d165bf0660635e2d
-Content-Type: text/plain; charset="UTF-8"
+Thank you for your contribution! Sashiko AI review found 4 potential
+issues to consider:
+- [High] drm/panthor: NULL pointer dereference in
+  panthor_fw_query_protm_info()
+- [Medium] drm/panthor: UAF or NULL dereference of fw->vm outside
+  drm_dev_enter()
+- [Low] drm/panthor: missing kernel-doc for protm member in struct
+  panthor_fw
+- [Low] drm/panthor: NULL shared_section->mem in
+  panthor_fw_load_section_entry()
+--
 
-The AI model did not appear to have any leaked source information (on the
-contrary, it struggled to find 0x07000345 and still hasn't found it to this
-day)
+commit 5ac4027cd6058f1c3359662cdf5433f1c22a832b
+Author: Boris Brezillon <boris.brezillon@collabora.com>
 
-I still dream about that DWORD  to this day, because even after reverse
-engineering it, I haven't figured out what it does; I've only implemented
-it mathematically.
+drm/panthor: Support FW init of protm
 
-This dword has a commit made specifically for it on GitHub (hash starts
-with 07000345)
+This commit adds UAPI and firmware support to query protected mode
+information and initialize the protected firmware section from a
+userspace-supplied GEM buffer object.
 
->
+> diff --git a/drivers/gpu/drm/panthor/panthor_fw.c b/drivers/gpu/drm/panth=
+or/panthor_fw.c
+> index b565b362f401f..af86b1844ead8 100644
+> --- a/drivers/gpu/drm/panthor/panthor_fw.c
+> +++ b/drivers/gpu/drm/panthor/panthor_fw.c
+[ ... ]
+> @@ -267,6 +269,18 @@ struct panthor_fw {
+>  		struct delayed_work ping_work;
+>  	} watchdog;
+> =20
+> +	struct  {
+> +		/** @protm.init_lock: Used to serialize protm initialization. */
+> +		struct mutex init_lock;
+> +
+> +		/** @protm.inited: set to true when protm.section is initialized */
+> +		bool inited;
+> +
+> +		/** @protm.section: The protected mode section. */
+> +		struct panthor_fw_section *section;
+> +
+> +	} protm;
 
---000000000000d165bf0660635e2d
-Content-Type: text/html; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+[Severity: Low]
+This isn't a bug, but struct panthor_fw has a kernel-doc comment block and
+protm is missing its top-level @protm description, which triggers a
+kernel-doc warning with W=3D1 builds.
 
-<div dir=3D"auto">The AI model did not appear to have any leaked source inf=
-ormation (on the contrary, it struggled to find 0x07000345 and still hasn&#=
-39;t found it to this day)<div dir=3D"auto"><br></div><div dir=3D"auto">I s=
-till dream about that DWORD=C2=A0 to this day, because even after reverse e=
-ngineering it, I haven&#39;t figured out what it does; I&#39;ve only implem=
-ented it mathematically.=C2=A0</div><div dir=3D"auto"><br></div><div dir=3D=
-"auto">This dword has a commit made specifically for it on GitHub (hash sta=
-rts with 07000345)=C2=A0</div><div class=3D"gmail_quote gmail_quote_contain=
-er" dir=3D"auto"><blockquote class=3D"gmail_quote" style=3D"margin:0 0 0 .8=
-ex;border-left:1px #ccc solid;padding-left:1ex"><div class=3D"gmail_quote">=
-<blockquote class=3D"gmail_quote" style=3D"margin:0 0 0 .8ex;border-left:1p=
-x #ccc solid;padding-left:1ex">
-</blockquote></div>
-</blockquote></div></div>
+[ ... ]
+> @@ -637,12 +659,6 @@ static int panthor_fw_load_section_entry(struct pant=
+hor_device *ptdev,
+>  		return -EINVAL;
+>  	}
+> =20
+> -	if (hdr.flags & CSF_FW_BINARY_IFACE_ENTRY_PROT) {
+> -		drm_warn(&ptdev->base,
+> -			 "Firmware protected mode entry is not supported, ignoring");
+> -		return 0;
+> -	}
+> -
+>  	if (hdr.va.start =3D=3D CSF_MCU_SHARED_REGION_START &&
+>  	    !(hdr.flags & CSF_FW_BINARY_IFACE_ENTRY_SHARED)) {
+>  		drm_err(&ptdev->base,
+> @@ -694,7 +710,22 @@ static int panthor_fw_load_section_entry(struct pant=
+hor_device *ptdev,
+>  	section->size =3D section_size;
+>  	section->va =3D hdr.va.start;
+> =20
+> -	if (section_size) {
+> +	if (hdr.flags & CSF_FW_BINARY_IFACE_ENTRY_PROT) {
+> +		guard(mutex)(&ptdev->fw->protm.init_lock);
+> +
+> +		if (ptdev->fw->protm.section) {
+> +			drm_err(&ptdev->base,
+> +				"Only one protected section supported\n");
+> +			return -EINVAL;
+> +		}
+> +
+> +		ptdev->fw->protm.section =3D section;
+> +	}
+> +
+> +	/* Defer the section->mem creation if this is a protected entry.
+> +	 * This will be populated when DRM_IOCTL_PANTHOR_PROTM_INIT is called.
+> +	 */
+> +	if (section->size && !(hdr.flags & CSF_FW_BINARY_IFACE_ENTRY_PROT)) {
+>  		u32 vm_map_flags =3D section_vm_map_flags(section);
+> =20
+>  		section->mem =3D panthor_kernel_bo_create(
 
---000000000000d165bf0660635e2d--
+[Severity: Low]
+Can a malformed firmware binary cause a NULL pointer dereference of
+ptdev->fw->shared_section->mem in panthor_fw_init_ifaces()?
+
+If an entry at CSF_MCU_SHARED_REGION_START has both
+CSF_FW_BINARY_IFACE_ENTRY_SHARED and CSF_FW_BINARY_IFACE_ENTRY_PROT set,
+panthor_fw_load_section_entry() skips allocating section->mem and still
+assigns ptdev->fw->shared_section =3D section, which
+panthor_fw_init_ifaces() then dereferences via panthor_kernel_bo_size().
+Rejecting CSF_FW_BINARY_IFACE_ENTRY_PROT when
+CSF_FW_BINARY_IFACE_ENTRY_SHARED is set would prevent this.
+
+[ ... ]
+> @@ -1610,6 +1641,101 @@ int panthor_fw_protm_exit(struct panthor_device *=
+ptdev, u32 timeout_ms)
+>  	return panthor_fw_protm_exit_wait(ptdev, timeout_ms);
+>  }
+> =20
+> +int panthor_fw_protm_init(struct drm_file *file,
+> +			  struct drm_panthor_protm_init *args)
+> +{
+> +	struct panthor_file *pfile =3D file->driver_priv;
+> +	struct panthor_device *ptdev =3D pfile->ptdev;
+> +	ssize_t vm_pgsz =3D panthor_vm_page_size(ptdev->fw->vm);
+> +	struct panthor_fw_section *protm_section;
+> +	struct panthor_kernel_bo *mem;
+> +	struct drm_gem_object *obj;
+> +	u32 vm_map_flags;
+> +	int cookie, ret =3D 0;
+> +
+> +	if (!capable(CAP_SYS_MODULE))
+> +		return -EPERM;
+> +
+> +	if (args->pad)
+> +		return -EINVAL;
+> +
+> +	mutex_lock(&ptdev->fw->protm.init_lock);
+> +
+> +	protm_section =3D ptdev->fw->protm.section;
+> +
+> +	if (!protm_section || !protm_section->size) {
+> +		ret =3D -EINVAL;
+> +		goto out_unlock;
+> +	}
+> +
+> +	if (ptdev->fw->protm.inited)
+> +		goto out_unlock;
+> +
+> +	if (!drm_dev_enter(&ptdev->base, &cookie)) {
+> +		ret =3D -ENODEV;
+> +		goto out_unlock;
+> +	}
+
+[Severity: Medium]
+Can calling panthor_vm_page_size(ptdev->fw->vm) before drm_dev_enter() here
+(and without drm_dev_enter() in panthor_fw_query_protm_info() below) cause
+a use-after-free or NULL pointer dereference if the device is unplugged
+concurrently?
+
+CPU0                                    CPU1
+drm_ioctl_kernel()
+  panthor_ioctl_protm_init()
+    panthor_fw_protm_init()
+                                        panthor_device_unplug()
+                                          drm_dev_unplug(&ptdev->base)
+                                          panthor_fw_unplug(ptdev)
+                                            panthor_vm_put(ptdev->fw->vm)
+                                            ptdev->fw->vm =3D NULL
+      panthor_vm_page_size(ptdev->fw->vm)
+        <-- NULL / UAF dereference
+      ...
+      drm_dev_enter(&ptdev->base, &cookie)
+
+Evaluating panthor_vm_page_size(ptdev->fw->vm) only inside a
+drm_dev_enter() section in both functions would avoid racing with
+panthor_fw_unplug().
+
+> +
+> +	obj =3D drm_gem_object_lookup(file,
+> +				    args->fw_protected_sections_bo_handle);
+> +	if (!obj) {
+> +		ret =3D -ENOENT;
+> +		goto out_dev_exit;
+> +	}
+> +
+> +	if (obj->size < ALIGN(ptdev->fw->protm.section->size, vm_pgsz)) {
+> +		ret =3D -EINVAL;
+> +		goto out_gem_put;
+> +	}
+> +
+> +	vm_map_flags =3D section_vm_map_flags(protm_section);
+> +
+> +	mem =3D panthor_kernel_bo_create_from_gem(
+> +		ptdev, panthor_fw_vm(ptdev), to_panthor_bo(obj), vm_map_flags,
+> +		protm_section->va, protm_section->size);
+> +	if (IS_ERR(mem)) {
+> +		ret =3D PTR_ERR(mem);
+> +		goto out_gem_put;
+> +	}
+> +
+> +	protm_section->mem =3D mem;
+> +
+> +	ptdev->fw->protm.inited =3D true;
+> +
+> +out_gem_put:
+> +	drm_gem_object_put(obj);
+> +
+> +out_dev_exit:
+> +	drm_dev_exit(cookie);
+> +
+> +out_unlock:
+> +	mutex_unlock(&ptdev->fw->protm.init_lock);
+> +
+> +	return ret;
+> +}
+> +
+> +bool panthor_fw_protm_is_inited(struct panthor_device *ptdev)
+> +{
+> +	guard(mutex)(&ptdev->fw->protm.init_lock);
+> +	return ptdev->fw->protm.inited;
+> +}
+> +
+> +void panthor_fw_query_protm_info(struct drm_file *file,
+> +				 struct drm_panthor_protm_info *arg)
+> +{
+> +	struct panthor_file *pfile =3D file->driver_priv;
+> +	struct panthor_device *ptdev =3D pfile->ptdev;
+> +	ssize_t vm_pgsz =3D panthor_vm_page_size(ptdev->fw->vm);
+> +
+> +	guard(mutex)(&ptdev->fw->protm.init_lock);
+> +
+> +	memset(arg, 0, sizeof(*arg));
+> +	arg->state =3D ptdev->fw->protm.inited ? DRM_PANTHOR_PROTM_INITIALIZED =
+: 0;
+> +	arg->group_protected_suspend_buf_size =3D ptdev->fw->protm_suspend_size;
+> +	arg->fw_protected_sections_size =3D  ALIGN(ptdev->fw->protm.section->si=
+ze,
+> +						 vm_pgsz);
+> +}
+
+[Severity: High]
+Does panthor_fw_query_protm_info() dereference a NULL
+ptdev->fw->protm.section when the loaded firmware has no protected section?
+
+Unlike panthor_fw_protm_init(), which checks whether protm_section is NULL,
+querying DRM_PANTHOR_DEV_QUERY_PROTM_INFO unconditionally reads
+ptdev->fw->protm.section->size, allowing any user with render node access
+to trigger a kernel NULL pointer dereference if the firmware binary lacks a
+non-empty CSF_FW_BINARY_IFACE_ENTRY_PROT entry.
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261116112601.3483=
+649-1-ketil.johnsen@arm.com?part=3D11
