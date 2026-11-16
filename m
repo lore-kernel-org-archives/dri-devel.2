@@ -2,54 +2,54 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 46435606A33F
-	for <dri-devel@archiver.kernel.org>; Mon, 16 Nov 2026 10:32:00 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B0EE4606A329
+	for <dri-devel@archiver.kernel.org>; Mon, 16 Nov 2026 10:32:05 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=LTmTvPl4
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=VJewrb36
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 124A810EDB9;
-	Mon, 16 Nov 2026 10:31:54 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 9E3AF10EDC8;
+	Mon, 16 Nov 2026 10:31:59 +0000 (UTC)
 Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id E7DBB10EEF9
- for <dri-devel@lists.freedesktop.org>; Mon, 16 Nov 2026 10:31:41 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 2D0CE10ED7C
+ for <dri-devel@lists.freedesktop.org>; Mon, 16 Nov 2026 10:31:45 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id E272B46217;
- Mon, 16 Nov 2026 10:31:41 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 43C2A1F000C6;
- Mon, 16 Nov 2026 10:31:41 +0000 (UTC)
+ by sea.source.kernel.org (Postfix) with ESMTP id 16914461F3;
+ Mon, 16 Nov 2026 10:31:45 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6D5131F000C9;
+ Mon, 16 Nov 2026 10:31:44 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1794825101;
- bh=ZRNPs/LT+6XmOTreFUizMBTt0H389mHgExrykkUO7W8=;
+ s=k20260515; t=1794825105;
+ bh=WoProLCDQoys0ydmoIJ1y+M1TaKf2RDCy8kDGhjoHTM=;
  h=From:Date:Subject:References:In-Reply-To:To:Cc;
- b=LTmTvPl4bksGyQVLtSqXowkTwzMs57YFqqNQ+5s03Ivjsm79iHfDMaygWQ+rlU4jb
- Mb9STu9yTQA/3j8zkLqOyW6ixNZVpILpdaTRpWgrc3QlJema77ex0GxyHoe0505BQo
- v0y0t0UyahUTgB+vIe3w3deWF2romEidwMTk2h+7/wPYrtJr1WyaqraK0gREc61Uec
- Ebzx4pZscgr39DoTt3WGy3hQGKE19bDs8ll8MK2OfQmfqBeqeImpuGMAZRFaH5kvVl
- izZjJIRjwzjxECxPRw6AUHZKMXOPPNGrLghSPRITE9K5l1946NNBk3pT8E7LefH6B7
- rLIeiZeFYofCQ==
+ b=VJewrb36jcXWGFjnvRdJCuAUEpZfeFJZOzkIy6ibFeSD/xFYMw6kRBqzXIJdXTIRY
+ aJyT4NkX4E1IPz5pCeRN380zrhd4yt+nnjAcii/tJ0hpDKSKbswCkYEdQ+PMROGCZO
+ LCBQnUa4m6q6ObuXMQujIOzAEUadnJENt/5JHG06dBerrekCQQG8PI78PyZ5EFdYoO
+ WGhGn/CFd9cWjXAzVZkL/9ziazybklpM7wel23fPDLGGxdkNNgG066mjuLfaYjaYmw
+ H3h3uzeiSF7gA7vx76GwjtsHV3IqZwFoYeSeHpQonrVc3JqFrQMVJqfzuIchBYslI4
+ 3DnoF2SuUF2ug==
 From: Maxime Ripard <mripard@kernel.org>
-Date: Mon, 16 Nov 2026 11:30:30 +0100
-Subject: [PATCH v2 14/64] drm/ingenic: Switch to
+Date: Mon, 16 Nov 2026 11:30:31 +0100
+Subject: [PATCH v2 15/64] drm/kmb: Switch to
  drm_mode_config_create_initial_state
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20261116-drm-no-more-config-reset-v2-14-0bb471f4d1e0@kernel.org>
+Message-Id: <20261116-drm-no-more-config-reset-v2-15-0bb471f4d1e0@kernel.org>
 References: <20261116-drm-no-more-config-reset-v2-0-0bb471f4d1e0@kernel.org>
 In-Reply-To: <20261116-drm-no-more-config-reset-v2-0-0bb471f4d1e0@kernel.org>
 To: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
  Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>, 
  Simona Vetter <simona@ffwll.ch>
 Cc: dri-devel@lists.freedesktop.org, Maxime Ripard <mripard@kernel.org>, 
- Paul Cercueil <paul@crapouillou.net>, linux-mips@vger.kernel.org
+ Anitha Chrisanthus <anitha.chrisanthus@intel.com>
 X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=openpgp-sha256; l=1495; i=mripard@kernel.org;
- h=from:subject:message-id; bh=ASvQzTlOpZn+fBlvgsv7zBnyTcy5fielArqHW3YjGJ8=;
- b=owGbwMvMwCmsHn9OcpHtvjLG02pJDFm/brvFy/H7Pzd2PFgYtmhngsJFThaTCm4h8dtZ7YE9B
- xU05jt0TGVhEOZkkBVTZHkiE3Z6efviKgf7lT9g5rAygQxh4OIUgIl0X2Js+PE2Xfv4W072C+n/
- Pd6c8td+PPVDh4hsn3TVrB6/jIN+0x+c3bZv4drSLtnDS9daqr3OYWzYz7V1/uzJbBaWzy8XK63
- YbLzSSkt5ksTW6GP8j60TnuukF57/uvjTmkMqDr8mLStXv3gaAA==
+X-Developer-Signature: v=1; a=openpgp-sha256; l=1268; i=mripard@kernel.org;
+ h=from:subject:message-id; bh=w1HqhxqdpYK/2O7zu4O8fWqetLy3opl8efTb6vh66hE=;
+ b=owGbwMvMwCmsHn9OcpHtvjLG02pJDFm/brvlH43/e5Flg5XJE4/nm+xMulOaPnipdnYlXZbt7
+ pYujrzdMZWFQZiTQVZMkeWJTNjp5e2LqxzsV/6AmcPKBDKEgYtTACYSo8VYp9CclCv0J1lN9NUk
+ 5XRtzaA/ds9WrJQ4EJk08cu0fV9+SVhXbvttHGB7MMx9xjyf6TZbGBv2zpjRtODSfmNe3dt1z8I
+ OXpzP0PaV18x4nVHgz786f+f/vrRbRsBROnHFx0fmCcwN8w4AAA==
 X-Developer-Key: i=mripard@kernel.org; a=openpgp;
  fpr=BE5675C37E818C8B5764241C254BCFC56BF6CE8D
 X-BeenThere: dri-devel@lists.freedesktop.org
@@ -81,34 +81,31 @@ the initial state creation at probe time.
 
 Switch to drm_mode_config_create_initial_state().
 
-Acked-by: Paul Cercueil <paul@crapouillou.net>
 Signed-off-by: Maxime Ripard <mripard@kernel.org>
 ---
-Cc: Paul Cercueil <paul@crapouillou.net>
-Cc: linux-mips@vger.kernel.org
+Cc: Anitha Chrisanthus <anitha.chrisanthus@intel.com>
 ---
- drivers/gpu/drm/ingenic/ingenic-drm-drv.c | 4 +++-
- 1 file changed, 3 insertions(+), 1 deletion(-)
+ drivers/gpu/drm/kmb/kmb_drv.c | 3 +--
+ 1 file changed, 1 insertion(+), 2 deletions(-)
 
-diff --git a/drivers/gpu/drm/ingenic/ingenic-drm-drv.c b/drivers/gpu/drm/ingenic/ingenic-drm-drv.c
-index 6acb7d2f25b9..c73eeb95dd3d 100644
---- a/drivers/gpu/drm/ingenic/ingenic-drm-drv.c
-+++ b/drivers/gpu/drm/ingenic/ingenic-drm-drv.c
-@@ -1362,11 +1362,13 @@ static int ingenic_drm_bind(struct device *dev, bool has_components)
- 	ret = drmm_add_action_or_reset(drm, ingenic_drm_atomic_private_obj_fini,
- 				       &priv->private_obj);
- 	if (ret)
- 		goto err_drvdata;
+diff --git a/drivers/gpu/drm/kmb/kmb_drv.c b/drivers/gpu/drm/kmb/kmb_drv.c
+index 7c2eb1152fc2..fc8ab5124bd6 100644
+--- a/drivers/gpu/drm/kmb/kmb_drv.c
++++ b/drivers/gpu/drm/kmb/kmb_drv.c
+@@ -196,12 +196,11 @@ static int kmb_setup_mode_config(struct drm_device *drm)
+ 		drm_err(drm, "failed to initialize vblank\n");
+ 		pm_runtime_disable(drm->dev);
+ 		return ret;
+ 	}
  
 -	drm_mode_config_reset(drm);
-+	ret = drm_mode_config_create_initial_state(drm);
-+	if (ret)
-+		goto err_drvdata;
+-	return 0;
++	return drm_mode_config_create_initial_state(drm);
+ }
  
- 	ret = clk_prepare_enable(priv->pix_clk);
- 	if (ret) {
- 		dev_err(dev, "Unable to start pixel clock\n");
- 		goto err_drvdata;
+ static irqreturn_t handle_lcd_irq(struct drm_device *dev)
+ {
+ 	unsigned long status, val, val1;
 
 -- 
 2.56.1
