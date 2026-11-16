@@ -2,19 +2,19 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AB4D4606A31C
-	for <dri-devel@archiver.kernel.org>; Mon, 16 Nov 2026 08:53:21 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 60944606A331
+	for <dri-devel@archiver.kernel.org>; Mon, 16 Nov 2026 08:56:06 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 1C5D210E0EE;
-	Mon, 16 Nov 2026 08:53:21 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id C2CB510E385;
+	Mon, 16 Nov 2026 08:56:05 +0000 (UTC)
 Received: from pidgin.makrotopia.org (pidgin.makrotopia.org [185.142.180.65])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 9858A10E0EE
- for <dri-devel@lists.freedesktop.org>; Mon, 16 Nov 2026 08:53:20 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id BAE2A10EC8E
+ for <dri-devel@lists.freedesktop.org>; Mon, 16 Nov 2026 08:56:04 +0000 (UTC)
 Received: from local by pidgin.makrotopia.org with esmtpsa
  (TLS1.3:TLS_AES_256_GCM_SHA384:256:X25519MLKEM768) (Exim 4.100.1)
- (envelope-from <daniel@makrotopia.org>) id 1xSsSY-000000007q8-22SV;
- Mon, 16 Nov 2026 08:53:06 +0000
-Date: Mon, 16 Nov 2026 08:52:46 +0000
+ (envelope-from <daniel@makrotopia.org>) id 1xSsVK-000000007s4-3RPS;
+ Mon, 16 Nov 2026 08:55:59 +0000
+Date: Mon, 16 Nov 2026 08:55:45 +0000
 From: Daniel Golle <daniel@makrotopia.org>
 To: Luca Ceresoli <luca.ceresoli@bootlin.com>
 Cc: Andrzej Hajda <andrzej.hajda@intel.com>,
@@ -32,17 +32,17 @@ Cc: Andrzej Hajda <andrzej.hajda@intel.com>,
  Chen-Yu Tsai <wenst@chromium.org>, dri-devel@lists.freedesktop.org,
  linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
  linux-mediatek@lists.infradead.org
-Subject: Re: [PATCH v8 04/14] drm/bridge: it6505: unregister DP AUX adapter
- on bridge detach
-Message-ID: <179481904177.211952.12953364281549371036@makrotopia.org>
+Subject: Re: [PATCH v8 06/14] drm/bridge: it6505: bail out of the IRQ handler
+ when status reads fail
+Message-ID: <179481904177.211952.7029866729856302771@makrotopia.org>
 References: <cover.1790552614.git.daniel@makrotopia.org>
- <ae0941be8fb5e20a309f2e30b5e2d8818168aa38.1790552614.git.daniel@makrotopia.org>
- <179251509976.78870.2847307917157375162.b4-review@b4>
+ <2e003c2e6fdb56d03c3a6effdf090079afb2ffaf.1790552614.git.daniel@makrotopia.org>
+ <179251509977.78870.3399297204284524303.b4-review@b4>
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <179251509976.78870.2847307917157375162.b4-review@b4>
+In-Reply-To: <179251509977.78870.3399297204284524303.b4-review@b4>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -63,20 +63,35 @@ X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 Hi Luca,
 
 On Tue, Oct 20, 2026 at 06:51:39PM +0200, Luca Ceresoli wrote:
-> The drm_dp_aux_unregister() docs don't say it is idempotent, so is it fair
-> to assume it is and always will?
+> One first question it whether a read failure is realistic or not, and
+> whether you have experienced it on real hardware.
 
-It is today, as both drm_dp_aux_unregister_devnode() and
-i2c_del_adapter() return early for an adapter that is not registered,
-but you are right that this is not a documented guarantee.
+I have not hit it on hardware. It takes a failing i2c transfer, e.g.
+the chip NACKing while held in reset, which can be provoked through
+the force_power_on_off debugfs knob: it6505_poweroff() only calls
+disable_irq_nosync(), so a running handler keeps reading from a chip
+that is being put into reset.
 
-> I think it would be much cleaner if user drivers took case of calling it at
-> the appropriate times, not more.
+And hostesly, my interest here is basically getting audio going on
+that Lenovo Ideapad, and for that
+
+https://lore.kernel.org/all/cover.1784561622.git.daniel@makrotopia.org/
+
+is sufficient. The 12 other patches are what Sahsiko has been chasing
+me into, and all the complains it had looked valid and legitimate, so
+I took on writing the fixes for that as well.
+
+[...]
+> I would consider replacing all the 3 it6505_read() calls with a single
+> regmap_bulk_read(), making error management cleaner.
 >
-> A flag similar to it6505->extcon_state used in patch 3 could allow that?
+> What do you think about this option?
+>
+> Perhaps the three it6505_write() below could also become a bulk write.
 
-Agreed, I'll track the registration in a flag in v9, like
-extcon_registered from patch 1.
+Makes sense, INT_STATUS_01..03 are contiguous and the driver already
+uses multi-byte transfers elsewhere. I'll switch to a bulk read and
+write in v9.
 
 Cheers
 
