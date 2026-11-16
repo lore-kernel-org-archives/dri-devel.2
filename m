@@ -2,96 +2,48 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3FD8D606A31C
-	for <dri-devel@archiver.kernel.org>; Mon, 16 Nov 2026 09:17:05 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6594A606A332
+	for <dri-devel@archiver.kernel.org>; Mon, 16 Nov 2026 09:18:11 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=mimecast20190719 header.b=EMITteBu
+	dkim=pass (2048-bit key) header.d=kemnade.info header.i=@kemnade.info header.a=rsa-sha256 header.s=20220719 header.b=LtZX5IaF
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 5136510E276;
-	Mon, 16 Nov 2026 09:16:59 +0000 (UTC)
-Received: from us-smtp-delivery-124.mimecast.com
- (us-smtp-delivery-124.mimecast.com [170.10.133.124])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 2A28610EE65
- for <dri-devel@lists.freedesktop.org>; Mon, 16 Nov 2026 09:16:48 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
- s=mimecast20190719; t=1794820607;
- h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
- to:to:cc:cc:mime-version:mime-version:content-type:content-type:
- in-reply-to:in-reply-to:references:references;
- bh=oRP30ct8ql2mTXDmxPgRrEvZM+dzcMrlEdSg9+eoSP4=;
- b=EMITteBu+Zq8r2lIitF9xBTTKbkSgXU4IffsBkd4BZFKpcgITbCd7jZEUSnebvtB2Q1W6d
- PH35SJqECAscrYKbWMwb5wWggcBbMPV98Z82Erc6SmcAfUQrQ+UmiqSowFcYnMHNmbUBtL
- /2QOZwEK8sHfcBqS3vJlpjRRNyFyp5s=
-Received: from mail-wr1-f69.google.com (mail-wr1-f69.google.com
- [209.85.221.69]) by relay.mimecast.com with ESMTP with STARTTLS
- (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-218-sgJLUA5wNMGfBldGUoCnYA-1; Mon, 16 Nov 2026 04:16:42 -0500
-X-MC-Unique: sgJLUA5wNMGfBldGUoCnYA-1
-X-Mimecast-MFC-AGG-ID: sgJLUA5wNMGfBldGUoCnYA_1794820601
-Received: by mail-wr1-f69.google.com with SMTP id
- ffacd0b85a97d-4901562b819so2970973f8f.3
- for <dri-devel@lists.freedesktop.org>; Mon, 16 Nov 2026 01:16:41 -0800 (PST)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20260707; t=1794820601; x=1795425401;
- h=content-type:mime-version:message-id:date:references:in-reply-to
- :subject:cc:to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject
- :date:message-id:reply-to:content-type;
- bh=oRP30ct8ql2mTXDmxPgRrEvZM+dzcMrlEdSg9+eoSP4=;
- b=r+nmRwoX40JDeZR3PUOccTDzbL0JwfR57ww37t0xmGqSbd1NP5cmDA5SMqsjfe83Up
- fwsWgv+VDelWgtCccATs6jsCdgoO9nFubKNlIPkct6FQbR0ggVmjqLbrDEND6YNDJtQ0
- hCxYjcRCxFnsoW4RKD2Pup08gG0thulFQze8rPDcLJ3tz+hqBofWULOeY93WsWXPcYHM
- Pl/sJBbBpy3PaDNghAU8KJbIu7Xq0lR1BZicVutOw9gIeEhhN0zZu2WmKqvG4/kX/zUo
- +TsEbzkrIrfhN4QIUvnEpexlmckZKX0ZXqDRxbjYskyA32k1k7ie1w1n3LtnF3ZDtSB8
- BISw==
-X-Forwarded-Encrypted: i=1;
- AL+hErFvuFSnVXXmQLp+/vfHUC/8bBlI+JD5ncvOrlc0dldcd7uWLqafWs86gwC8mf7Q554CalR7rv9VUGA=@lists.freedesktop.org
-X-Gm-Message-State: APuU4Z+3HcbNbjtsb8KPSOKVkrkFDpircwOlV9WwS7Y4IhoacIJORe5p
- 6HxvuvcTh3MPX6N5GZFtbl2HIJe1OERA1g1zvc4XPXiOGNN6cG8MRlT99CpLlUnpSBjO7Jecka/
- SYJIdJsJhOSh7hoyhHDZpMkyNFm/ffp/XvO1J/gmH5kkBLCeT7VoMSIQa7t4LDHYOGOAJpg==
-X-Gm-Gg: AZFdTZdB/8kaVlRj4q1fB765Vv5Bn8bMgq31g/fvpVECj9BHHe2KB1ekSQ1ur0UKIbx
- r6ILXgHURPrF31Jb/qLGZo2PboATxpY2PmuqPC4WQrAnejPNWMbrtyEOhwY4SyoHy6lGSydAtrc
- 7mqUKShLGnbSUmG3dKBovVMPvENhLNQ+VKPrWx6JHy4Fh0VJoLPzRvNUzNLOYCwqkurDxDx/+RN
- Y7xzurkaqRXMYO2DOiLLqO6dpYFK8ECAnKBc0rVO/y6MnNqv118qSZLSYe3zwBu0HFiZ12V47O4
- ETkfKa533AHeI2oEekiwON7DufUG6iU6/39iV5tn0Y8KrjXdugFOahjmHLyqJCCrZnN1mRyKUlA
- B3G03knxdKbqWJhNsofMhjtaZI0ZtG0QZTdg7lyFPuC2ePkt5WgEQalwsS8yQKdEWCtVK/NTJMB
- ODyk0hjqMmP/DkrXjOebBBVYOdpmZxQ4SFHnFaO+8=
-X-Received: by 2002:a05:6000:4907:b0:48e:b62:d133 with SMTP id
- ffacd0b85a97d-49c6d453058mr20772424f8f.5.1794820600451; 
- Mon, 16 Nov 2026 01:16:40 -0800 (PST)
-X-Received: by 2002:a05:6000:4907:b0:48e:b62:d133 with SMTP id
- ffacd0b85a97d-49c6d453058mr20772359f8f.5.1794820599837; 
- Mon, 16 Nov 2026 01:16:39 -0800 (PST)
-Received: from localhost (62-151-111-63.jazzfree.ya.com. [62.151.111.63])
- by smtp.gmail.com with ESMTPSA id
- ffacd0b85a97d-49dc430fa15sm14802191f8f.13.2026.11.16.01.16.38
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Mon, 16 Nov 2026 01:16:39 -0800 (PST)
-From: Javier Martinez Canillas <javierm@redhat.com>
-To: "Mario Limonciello (AMD)" <superm1@kernel.org>, Maxime Ripard
- <mripard@kernel.org>, Alex Deucher <alexander.deucher@amd.com>, Jani
- Nikula <jani.nikula@linux.intel.com>, Maarten Lankhorst
- <maarten.lankhorst@linux.intel.com>, Thomas Zimmermann
- <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>, Simona Vetter
- <simona@ffwll.ch>, Harry Wentland <harry.wentland@amd.com>, Leo Li
- <sunpeng.li@amd.com>, Rodrigo Siqueira <siqueira@igalia.com>
-Cc: Mario Limonciello <superm1@kernel.org>, Xaver Hugl
- <xaver.hugl@gmail.com>, dri-devel@lists.freedesktop.org,
- linux-kernel@vger.kernel.org, amd-gfx@lists.freedesktop.org,
- intel-gfx@lists.freedesktop.org, intel-xe@lists.freedesktop.org,
- nouveau@lists.freedesktop.org, Mario Limonciello
- <mario.limonciello@amd.com>
-Subject: Re: [PATCH v11 06/12] drm/bridge: add connector luminance operations
-In-Reply-To: <20261103-superm1-backlight-property-v11-6-00cce7b2ba22@kernel.org>
-References: <20261103-superm1-backlight-property-v11-0-00cce7b2ba22@kernel.org>
- <20261103-superm1-backlight-property-v11-6-00cce7b2ba22@kernel.org>
-Date: Mon, 16 Nov 2026 10:16:38 +0100
-Message-ID: <xlv1tslhrv9l.fsf@fmartine-thinkpadx1carbongen12.rmtes.csb>
+	by gabe.freedesktop.org (Postfix) with ESMTP id BE11410E9DE;
+	Mon, 16 Nov 2026 09:18:05 +0000 (UTC)
+Received: from mail.andi.de1.cc (mail.andi.de1.cc [178.238.236.174])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 070BE10E9DE
+ for <dri-devel@lists.freedesktop.org>; Mon, 16 Nov 2026 09:18:00 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+ d=kemnade.info; s=20220719; h=References:In-Reply-To:Subject:Cc:To:From:
+ Reply-To:Content-ID:Content-Description;
+ bh=Z8vIOmbIt256h0sN5KP+ZCa71ev+Q0ASUR7JzYgKmR4=; t=1794820679; x=1796030279; 
+ b=LtZX5IaF0uuBj9zVWhm3+8GI2nVMeKbcyFBTu++HKyrEi4ir/Nc/7dZDr16KjEPPLQGyjp5LX7r
+ gikdQE+OeQEIV7x72+19MBctGSwmsCzojKm1A3hFTNvpuDmak8avttn2H2iKp/aypCXvwvwPaYPAk
+ CyqMUoYV0lzjsS33Z5yp9ggH+1C1TDS/lQOBBjQGGUxAZm/yFzlve6eEm5avyzu05zjhAnRPZUYhS
+ ENhDYbGdjQLTyvYFz9uRd3ggEhcPwnxdJgnwFH9T1msNuoejS7CWo4nMP0krIsNyZDID0SXfaG+n2
+ H0Ernlkbiu28z02E3bdWF/XpgImaZlBe7cyg==;
+Date: Mon, 16 Nov 2026 10:17:37 +0100
+From: Andreas Kemnade <andreas@kemnade.info>
+To: Tomi Valkeinen <tomi.valkeinen@ideasonboard.com>
+Cc: Marek Vasut <marex@denx.de>, Andrzej Hajda <andrzej.hajda@intel.com>,
+ Neil Armstrong <neil.armstrong@linaro.org>, Robert Foss <rfoss@kernel.org>,
+ Laurent Pinchart <Laurent.pinchart@ideasonboard.com>, Jonas Karlman
+ <jonas@kwiboo.se>, Jernej Skrabec <jernej.skrabec@gmail.com>, Maarten
+ Lankhorst <maarten.lankhorst@linux.intel.com>, Maxime Ripard
+ <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, David Airlie
+ <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org, Dave
+ Stevenson <dave.stevenson@raspberrypi.com>
+Subject: Re: [PATCH v5 12/13] drm/bridge: tc358762: Set DE_POL and DCLK_POL
+ properly
+Message-ID: <20261116101737.38caec27@kemnade.info>
+In-Reply-To: <20261015-tc358762-fixes-v5-12-7cd721a6451b@ideasonboard.com>
+References: <20261015-tc358762-fixes-v5-0-7cd721a6451b@ideasonboard.com>
+ <20261015-tc358762-fixes-v5-12-7cd721a6451b@ideasonboard.com>
+X-Mailer: Claws Mail 4.3.1 (GTK 3.24.49; aarch64-unknown-linux-gnu)
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
-X-Mimecast-Spam-Score: 0
-X-Mimecast-MFC-PROC-ID: Dbo49LscRnbBCQKBjyr_2NKYyTEBR6j9VD9MMJ2P5jU_1794820601
-X-Mimecast-Originator: redhat.com
-Content-Type: text/plain
+Content-Type: text/plain; charset=US-ASCII
+Content-Transfer-Encoding: 7bit
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -103,33 +55,67 @@ List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-10.8 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
-	DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
-	INCLUDES_CR_TRAILER,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS
-	autolearn=unavailable autolearn_force=no version=4.0.1
+X-Spam-Status: No, score=-17.3 required=3.0 tests=BAYES_00,DKIM_SIGNED,
+	DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
+	INCLUDES_CR_TRAILER,INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,
+	SPF_PASS,USER_AGENT_SANE_2 autolearn=unavailable autolearn_force=no
+	version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-"Mario Limonciello (AMD)" <superm1@kernel.org> writes:
+On Thu, 15 Oct 2026 14:16:03 +0300
+Tomi Valkeinen <tomi.valkeinen@ideasonboard.com> wrote:
 
-Hello Mario,
-
-> From: Mario Limonciello <mario.limonciello@amd.com>
->
-> Allow bridges that own brightness control to advertise a luminance
-> operation and its supported relative range.
->
-> Signed-off-by: Mario Limonciello <mario.limonciello@amd.com>
+> The driver hardcodes LCDCTRL_DCLK_POL and ~DE_POL, ignoring what the
+> panel actuall wants. Fix this by looking at the
+> bridge_state->output_bus_cfg.flags, and set the polarities correctly.
+> 
+> Signed-off-by: Tomi Valkeinen <tomi.valkeinen@ideasonboard.com>
+Reviewed-by: Andreas Kemnade <andreas@kemnade.info>
 > ---
-
-I'm not a bridge expert but this make sense to me.
-
-Acked-by: Javier Martinez Canillas <javierm@redhat.com>
-
--- 
-Best regards,
-
-Javier Martinez Canillas
-Core Platforms
-Red Hat
+>  drivers/gpu/drm/bridge/tc358762.c | 10 +++++++++-
+>  1 file changed, 9 insertions(+), 1 deletion(-)
+> 
+> diff --git a/drivers/gpu/drm/bridge/tc358762.c b/drivers/gpu/drm/bridge/tc358762.c
+> index 33312300e606..e73be376e33c 100644
+> --- a/drivers/gpu/drm/bridge/tc358762.c
+> +++ b/drivers/gpu/drm/bridge/tc358762.c
+> @@ -186,12 +186,15 @@ static void tc358762_enable(struct drm_bridge *bridge,
+>  {
+>  	struct tc358762 *ctx = bridge_to_tc358762(bridge);
+>  	struct drm_connector_state *conn_state;
+> +	struct drm_bridge_state *bridge_state;
+>  	struct drm_crtc_state *crtc_state;
+>  	struct drm_connector *connector;
+>  	struct drm_display_mode *mode;
+>  	u32 lcdctrl;
+>  	int ret;
+>  
+> +	bridge_state = drm_atomic_get_new_bridge_state(state, bridge);
+> +
+>  	connector = drm_atomic_get_new_connector_for_encoder(state, bridge->encoder);
+>  	conn_state = drm_atomic_get_new_connector_state(state, connector);
+>  	crtc_state = drm_atomic_get_new_crtc_state(state, conn_state->crtc);
+> @@ -243,7 +246,9 @@ static void tc358762_enable(struct drm_bridge *bridge,
+>  	if (ctx->use_vtg)
+>  		lcdctrl |= LCDCTRL_VTGEN;
+>  
+> -	lcdctrl |= LCDCTRL_DCLK_POL;
+> +	/* Note: DCLK_POL affects pixdata, de and syncs */
+> +	if (bridge_state->output_bus_cfg.flags & DRM_BUS_FLAG_PIXDATA_DRIVE_POSEDGE)
+> +		lcdctrl |= LCDCTRL_DCLK_POL;
+>  
+>  	if (mode->flags & DRM_MODE_FLAG_PHSYNC)
+>  		lcdctrl |= LCDCTRL_HSYNC_POL;
+> @@ -251,6 +256,9 @@ static void tc358762_enable(struct drm_bridge *bridge,
+>  	if (mode->flags & DRM_MODE_FLAG_PVSYNC)
+>  		lcdctrl |= LCDCTRL_VSYNC_POL;
+>  
+> +	if (bridge_state->output_bus_cfg.flags & DRM_BUS_FLAG_DE_LOW)
+> +		lcdctrl |= LCDCTRL_DE_POL;
+> +
+>  	tc358762_write(ctx, LCDCTRL, lcdctrl);
+>  
+>  	tc358762_write(ctx, PPI_STARTPPI, PPI_STARTPPI_STARTPPI);
+> 
 
