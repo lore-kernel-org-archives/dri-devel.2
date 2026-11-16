@@ -2,63 +2,87 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 38D55606A323
-	for <dri-devel@archiver.kernel.org>; Mon, 16 Nov 2026 10:51:05 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 33C02606A31C
+	for <dri-devel@archiver.kernel.org>; Mon, 16 Nov 2026 10:52:00 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=Xg9e+AqB
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=KKO0GtmL
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 97C2A10E324;
-	Mon, 16 Nov 2026 10:50:59 +0000 (UTC)
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.19])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 423DD10E324
- for <dri-devel@lists.freedesktop.org>; Mon, 16 Nov 2026 10:50:53 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1794826254; x=1826362254;
- h=from:to:cc:subject:in-reply-to:references:date:
- message-id:mime-version;
- bh=wpXd1p0hteXZVmr0NA5K9bSo20DaHXFaojY1b1jiCxs=;
- b=Xg9e+AqBUFmmJXashBBXe76m+iHACPkZS7tthADPGNzGzl4F5yvsTnkn
- E9Kvtkqzg0Sf6AIjsAyO4gjTmoCB3D0UaFtRl0hgJEGdmRUSSiauuvkc1
- JSHcG60iGa8iTp6jdC8zJCi3I3pdWI/G3Vp4PAVukLbtUuzR1YZyxpX7N
- EusL2Ds8DRxR1D+uJOY5bQalWod3i7bXHCDU0Xu898UiW16NDj8oxpZG+
- gQUIBCE+t75eDlOFHUUDnSQWbtQ0Kt9hvnwDsXPvF5z8mEsIuuCqIGGgG
- wS6QWnWm7jBTP+4hL9iA5eTnvfWxWTVO3Mwu/DOlexA5Uxf1627eTJvIi w==;
-X-CSE-ConnectionGUID: 6+nRCvJBTIeLIKgqZ8aeIQ==
-X-CSE-MsgGUID: 3iMdLJBaSVCyc9Mt/aO3YQ==
-X-IronPort-AV: E=McAfee;i="6800,10657,11967"; a="3661069"
-X-IronPort-AV: E=Sophos;i="6.27,216,1787036400"; 
-   d="scan'208";a="3661069"
-Received: from fmviesa009.fm.intel.com ([10.60.135.149])
- by fmvoesa113.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 16 Nov 2026 02:50:53 -0800
-X-CSE-ConnectionGUID: kN3mEAjrScmTeueMq8BcHQ==
-X-CSE-MsgGUID: uGhBcIjbSaG0KcBw4bw2Fg==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,216,1787036400"; 
-   d="scan'208";a="9866611"
-Received: from slindbla-desk.ger.corp.intel.com (HELO localhost)
- ([10.245.245.117])
- by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 16 Nov 2026 02:50:51 -0800
-From: Jani Nikula <jani.nikula@linux.intel.com>
-To: Arun Iyengar via B4 Relay <devnull+aiyengar1990.gmail.com@kernel.org>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, Maxime Ripard
- <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, David
- Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>
-Cc: dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org, Arun
- Iyengar <aiyengar1990@gmail.com>
-Subject: Re: [PATCH v2] drm/debugfs: Accept "reset" with a trailing newline
- in edid_override
-In-Reply-To: <20261113-drm-debugfs-edid-reset-v2-1-07939ebe7a8b@gmail.com>
-Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park,
- 6 krs Bertel Jungin Aukio 5, 02600 Espoo, Finland
-References: <20261113-drm-debugfs-edid-reset-v2-1-07939ebe7a8b@gmail.com>
-Date: Mon, 16 Nov 2026 12:50:48 +0200
-Message-ID: <79235528599da1ab5445fd8fcdc529c182eacf33@intel.com>
+	by gabe.freedesktop.org (Postfix) with ESMTP id 8F18189452;
+	Mon, 16 Nov 2026 10:51:54 +0000 (UTC)
+Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 5D53510E3D8
+ for <dri-devel@lists.freedesktop.org>; Mon, 16 Nov 2026 10:51:48 +0000 (UTC)
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+ by sea.source.kernel.org (Postfix) with ESMTP id 22640411BC;
+ Mon, 16 Nov 2026 10:51:48 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9FA0D1F000C5;
+ Mon, 16 Nov 2026 10:51:34 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+ s=k20260515; t=1794826308;
+ bh=rny6q4V2AlEW+9be9hzTdzBqG+gm95vTnvqQb/sLFhY=;
+ h=Date:From:To:Cc:Subject:References:In-Reply-To;
+ b=KKO0GtmLmo3FANikUbE0i8Y6q8f05SERDvSmxDTTrvZcguvwuOPJiERRLiY3km+p9
+ zo6CwRf5CpRVfMsRxBO5VC7BJ8aswdfaLrTnWNGso8MYwfkMSlZlr/JCwl7Yb0DKYI
+ eBWEl8S+pydXFjwbZYHaKbLWD1FXtNqR/hU+W0ogRIXX/8Ttqui5864q8rXI5QbV1c
+ R6fnfNJlYbpdNAOv54aoayBIVtR/wby4m5kxP9JLbu1/7ECYHfn8X6ZW0o2rJV/Mfu
+ EVIiWUPpZlAFacz9vc7Vc16Rny5Ozfd3TgFqBoUQmnJ8ExsrAtD4LpzCw5QASx/URm
+ B8JnGpBuX+mvA==
+Date: Mon, 16 Nov 2026 11:51:32 +0100
+From: Lorenzo Pieralisi <lpieralisi@kernel.org>
+To: "Aneesh Kumar K.V" <aneesh.kumar@kernel.org>
+Cc: Marc Zyngier <maz@kernel.org>, linux-coco@lists.linux.dev,
+ Andrew Morton <akpm@linux-foundation.org>,
+ Baoquan He <baoquan.he@linux.dev>, Mike Rapoport <rppt@kernel.org>,
+ Pasha Tatashin <pasha.tatashin@soleen.com>,
+ Pratyush Yadav <pratyush@kernel.org>,
+ Catalin Marinas <catalin.marinas@arm.com>,
+ Christian =?iso-8859-1?Q?K=F6nig?= <christian.koenig@amd.com>,
+ Jason Gunthorpe <jgg@ziepe.ca>, Joerg Roedel <joro@8bytes.org>,
+ Marek Szyprowski <m.szyprowski@samsung.com>,
+ Robin Murphy <robin.murphy@arm.com>, Steven Price <steven.price@arm.com>,
+ Sumit Semwal <sumit.semwal@linaro.org>,
+ Suzuki K Poulose <suzuki.poulose@arm.com>,
+ Thomas Gleixner <tglx@kernel.org>, Will Deacon <will@kernel.org>,
+ Russell King <linux@armlinux.org.uk>,
+ Benjamin Gaignard <benjamin.gaignard@collabora.com>,
+ Brian Starkey <Brian.Starkey@arm.com>, John Stultz <jstultz@google.com>,
+ Mark Rutland <mark.rutland@arm.com>, Radu Rendec <radu@rendec.net>,
+ "T.J. Mercier" <tjmercier@google.com>,
+ Madhavan Srinivasan <maddy@linux.ibm.com>,
+ Michael Ellerman <mpe@ellerman.id.au>, Nicholas Piggin <npiggin@gmail.com>,
+ Christophe Leroy <chleroy@kernel.org>,
+ Ritesh Harjani <ritesh.list@gmail.com>,
+ Shrikanth Hegde <sshegde@linux.ibm.com>,
+ Alexander Gordeev <agordeev@linux.ibm.com>,
+ Gerald Schaefer <gerald.schaefer@linux.ibm.com>,
+ Heiko Carstens <hca@linux.ibm.com>, Vasily Gorbik <gor@linux.ibm.com>,
+ Christian Borntraeger <borntraeger@linux.ibm.com>,
+ Sven Schnelle <svens@linux.ibm.com>, Ingo Molnar <mingo@redhat.com>,
+ Borislav Petkov <bp@alien8.de>,
+ Dave Hansen <dave.hansen@linux.intel.com>, x86@kernel.org,
+ "H . Peter Anvin" <hpa@zytor.com>, Kiryl Shutsemau <kas@kernel.org>,
+ Rick Edgecombe <rick.p.edgecombe@intel.com>,
+ "K . Y . Srinivasan" <kys@microsoft.com>,
+ Haiyang Zhang <haiyangz@microsoft.com>,
+ Wei Liu <wei.liu@kernel.org>, Dexuan Cui <decui@microsoft.com>,
+ Long Li <longli@microsoft.com>, Paolo Bonzini <pbonzini@redhat.com>,
+ Vitaly Kuznetsov <vkuznets@redhat.com>, Andy Lutomirski <luto@kernel.org>,
+ Peter Zijlstra <peterz@infradead.org>,
+ dri-devel@lists.freedesktop.org, iommu@lists.linux.dev,
+ linaro-mm-sig@lists.linaro.org,
+ linux-arm-kernel@lists.infradead.org, linux-media@vger.kernel.org,
+ linux-mm@kvack.org, kvmarm@lists.linux.dev, patches@lists.linux.dev
+Subject: Re: [PATCH v9 14/14] irqchip/gic-v3-its: Preallocate VPE L1 tables
+Message-ID: <avrgNBXDFMGL6dqO@red-moon>
+References: <20261104164555.3555725-1-aneesh.kumar@kernel.org>
+ <20261104164555.3555725-15-aneesh.kumar@kernel.org>
+ <86zevn1c9a.wl-maz@kernel.org> <yq5ah5huoteu.fsf@kernel.org>
+ <87ld6x8zb7.wl-maz@kernel.org> <yq5apkw5xpnz.fsf@kernel.org>
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <yq5apkw5xpnz.fsf@kernel.org>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -70,85 +94,80 @@ List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-13.8 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
-	DKIM_SIGNED,DKIM_VALID,HEADER_FROM_DIFFERENT_DOMAINS,
-	INCLUDES_CR_TRAILER,INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,
-	SPF_PASS autolearn=unavailable autolearn_force=no version=4.0.1
+X-Spam-Status: No, score=-5.8 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
+	DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
+	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS autolearn=no
+	autolearn_force=no version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-On Fri, 13 Nov 2026, Arun Iyengar via B4 Relay <devnull+aiyengar1990.gmail.com@kernel.org> wrote:
-> From: Arun Iyengar <aiyengar1990@gmail.com>
->
-> Writing "reset" to edid_override only removes the override when exactly
-> those five bytes are written, so "echo reset > edid_override" fails with
-> -EINVAL and leaves the override in place.
->
-> Compare with sysfs_streq() on a NUL-terminated copy, and reject writes
-> larger than the largest possible EDID (256 blocks) before copying,
-> so that the size of the copy is bounded.
->
-> Suggested-by: Jani Nikula <jani.nikula@linux.intel.com>
-> Signed-off-by: Arun Iyengar <aiyengar1990@gmail.com>
-> ---
-> Tested on an Orange Pi 5 (RK3588S) with this patch on a 7.3 based
-> kernel: "echo reset" and "printf reset" both remove an override, an EDID
-> override round trip still works, and garbage or oversized writes fail
-> with -EINVAL.
->
-> Developed with Claude (Anthropic), which wrote the code and the commit
-> message. I reviewed and tested it.
-> ---
-> Changes in v2:
-> - Use memdup_user_nul() and sysfs_streq() (Jani Nikula)
-> - Reject writes larger than 256 EDID blocks before copying
-> - Shorter commit message
-> - Link to v1: https://patch.msgid.link/20261112-drm-debugfs-edid-reset-v1-1-4cd19d83cd22@gmail.com
-> ---
->  drivers/gpu/drm/drm_debugfs.c | 8 ++++++--
->  1 file changed, 6 insertions(+), 2 deletions(-)
->
-> diff --git a/drivers/gpu/drm/drm_debugfs.c b/drivers/gpu/drm/drm_debugfs.c
-> index a72f9723d3a9..7c39c8ed3984 100644
-> --- a/drivers/gpu/drm/drm_debugfs.c
-> +++ b/drivers/gpu/drm/drm_debugfs.c
-> @@ -565,11 +565,15 @@ static ssize_t edid_write(struct file *file, const char __user *ubuf,
->  	char *buf;
->  	int ret;
->  
-> -	buf = memdup_user(ubuf, len);
-> +	/* An EDID has at most 256 blocks */
-> +	if (len > 256 * EDID_LENGTH)
-> +		return -EINVAL;
+On Mon, Nov 16, 2026 at 11:51:04AM +0530, Aneesh Kumar K.V wrote:
+> Marc Zyngier <maz@kernel.org> writes:
+> 
+> > On Fri, 06 Nov 2026 15:45:29 +0000,
+> > Aneesh Kumar K.V <aneesh.kumar@kernel.org> wrote:
+> >> 
+> >> Marc Zyngier <maz@kernel.org> writes:
+> >> 
+> >> > On Wed, 04 Nov 2026 16:45:55 +0000,
+> >> > "Aneesh Kumar K.V (Arm)" <aneesh.kumar@kernel.org> wrote:
+> >> >> 
+> >> >> VPE L1 tables are allocated from the CPU-starting callback, where sleeping is
+> >> >> not allowed.  Remove the page allocation from this atomic path.
+> >> >> 
+> >> >> Use a blocking allocation for the boot CPU and record the resulting table
+> >> >> order.  Allocate a page of that order from the sleepable CPU hotplug prepare
+> >> >> stage for each secondary CPU.  Consume the preallocated page only when the CPU
+> >> >> cannot inherit an existing redistributor or ITS table.
+> >> >> 
+> >> >> Reclaim unused preallocations after the CPU reaches the online state, and from
+> >> >> the prepare-state teardown when CPU bring-up aborts.
+> >> >
+> >> > No. The way to do it is to move the ITS probing out of the
+> >> > non-sleepable CPU hotplug path.
+> >> >
+> >> > I proposed a potential hack at [1] (which I find far more palatable
+> >> > than this proposal), but the real fix is to probe the ITSs as
+> >> > devices.
+> >> >
+> >> 
+> >> Could you share a bit more detail on what you have in mind?
+> >> 
+> >> Are you suggesting that we create a platform device for each ITS and
+> >> initialize it through the driver's probe callback, while the rest of the
+> >> GIC initialization stays in the existing early boot path?
+> >> 
+> >> Would that mean the main GIC is operational during early boot, while
+> >> ITS-dependent features, such as MSI delivery and direct injection, become
+> >> available after the ITS devices probe?
+> >> 
+> >> Is that the split you have in mind?
+> >
+> > Yes. Then once this is done, all the tables become normal DMA
+> > allocations, for which there should already be adequate support.
+> >
+> 
+> Thanks for confirming. Can we handle the ITS platform-device conversion
+> and the switch to DMA allocations in a separate series?
+> 
+> The existing VPE L1 allocation path calls set_memory_decrypted() from
+> the non-sleepable CPU-starting callback, even though
+> set_memory_decrypted() can sleep. This issue predates the shared-granule
+> allocator changes.
 
-This is an unrelated change nobody asked for, and it diverges from a
-review I tried to converge by presenting a clean hand-written solution
-that the LLM didn't come up with on its own.
+If I may ask, why does the existing code ends up calling set_memory_decrypt(),
+or reworded, why does the VPE L1 allocation path goes through the ITS specific
+allocation function rather than using alloc_pages() (as it was before
+b08e2f42e86b5) ?
 
+Why did b08e2f42e86b5 patched allocate_vpe_l1_table() allocation and moved
+it to using its_alloc_pages() ?
 
-BR,
-Jani.
+Thanks,
+Lorenzo
 
-> +
-> +	buf = memdup_user_nul(ubuf, len);
->  	if (IS_ERR(buf))
->  		return PTR_ERR(buf);
->  
-> -	if (len == 5 && !strncmp(buf, "reset", 5))
-> +	if (sysfs_streq(buf, "reset"))
->  		ret = drm_edid_override_reset(connector);
->  	else
->  		ret = drm_edid_override_set(connector, buf, len);
->
-> ---
-> base-commit: cb0a63f0c96e8ecb90199eeb99cc2a7fcfa703d4
-> change-id: 20261110-drm-debugfs-edid-reset-0504a20c67d1
->
-> Best regards,
-> --  
-> Arun Iyengar <aiyengar1990@gmail.com>
->
->
-
--- 
-Jani Nikula, Intel
+> 
+> Since fixing this properly needs a broader ITS rework, can we handle
+> that separately and drop the preallocation patch from this series?
+> 
+> -aneesh
