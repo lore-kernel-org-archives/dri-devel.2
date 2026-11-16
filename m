@@ -2,66 +2,66 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9414C606A31F
-	for <dri-devel@archiver.kernel.org>; Sun, 15 Nov 2026 23:22:30 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5E99A606A31F
+	for <dri-devel@archiver.kernel.org>; Sun, 15 Nov 2026 23:22:31 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=uHrtWwae
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=NjcgtciL
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id F374A10E1A4;
-	Sun, 15 Nov 2026 23:22:24 +0000 (UTC)
-Received: from mail-wm1-f47.google.com (mail-wm1-f47.google.com
- [209.85.128.47])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 2893610E088
- for <dri-devel@lists.freedesktop.org>; Sun, 15 Nov 2026 23:22:06 +0000 (UTC)
-Received: by mail-wm1-f47.google.com with SMTP id
- 5b1f17b1804b1-4a140e7405dso30651865e9.3
- for <dri-devel@lists.freedesktop.org>; Sun, 15 Nov 2026 15:22:06 -0800 (PST)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 99A7810E1EC;
+	Sun, 15 Nov 2026 23:22:25 +0000 (UTC)
+Received: from mail-wm1-f50.google.com (mail-wm1-f50.google.com
+ [209.85.128.50])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id B563010E0AC
+ for <dri-devel@lists.freedesktop.org>; Sun, 15 Nov 2026 23:22:14 +0000 (UTC)
+Received: by mail-wm1-f50.google.com with SMTP id
+ 5b1f17b1804b1-4a2153c8525so16748825e9.3
+ for <dri-devel@lists.freedesktop.org>; Sun, 15 Nov 2026 15:22:14 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20260707; t=1794784924; x=1795389724; darn=lists.freedesktop.org;
+ d=gmail.com; s=20260707; t=1794784933; x=1795389733; darn=lists.freedesktop.org;
  h=content-transfer-encoding:content-type:mime-version:references
  :in-reply-to:message-id:date:subject:cc:to:from:from:to:cc:subject
  :date:message-id:reply-to:content-type;
- bh=2M6HoHkTeVcJIWfMAzqJ94aeV/R3TSw3Z3JZl8kxSXI=;
- b=uHrtWwaeSEwLamUOdKgJlQY47CSPpE1N/Zua/AXJSXUKNs8WvX1ky8wy40Rb2jWZT/
- O1z0am3Hat03r24NWMEaHrnwz3um6ZFf3ZKTqwsI6qsmwBno1MDAXLKpSGvz+Y1IOH6Z
- byD+eF+SDZOqGw2KH9jygx1F3fwJhy8XvtP+MlibQwkPmfXBErj51ipDmaULIRwv5KAr
- tQtfeGT4IPFjM0rpImix0lUh0JEDaQJAe5LaSWLcINaFbtw9lYXaHwC0SfUcpkGT+dlb
- KjnAdbUiEST9gHuDBci8XfsvrTy2tNvA6OFBLvt7GjYvNRkM+YD3S1v9BfMklXOCMLO3
- rdVA==
+ bh=uREsKIEDczdDVdj720bXK/T41S+3ar5PxkrrHsI/TEM=;
+ b=NjcgtciLTpcMH9mmPUjcXK1B7zRGk2+Bk/JnDc3VI4LNwWuHfevMCF7f4LT4gkcVa2
+ psltskPMjL29o0YM7NzjYyVmRx0WUMjqwg2zSnHWA3iYX87L7GBfpbjSaLjKlz53y1Ra
+ nHReKDhMmtLKkj5J87lBtqfAMaOUzqPBZ7M0AKqqKrVaCf9WnvixLAuQLBxyWp4u2bP7
+ J9pTt53r7AT+0Ra4Z9GYMuFfGxktmgXJ7ll4LktUc9Vg9TKRuu1R0tjUs1c1r/zlpRVE
+ TrkuP1aRBZWcSS0+ZRtMByAOv9u2u8/NWvI9cab+qq2O/5vYhTkVN2L8iF0VmTYRtLeV
+ XN1Q==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20260707; t=1794784924; x=1795389724;
+ d=1e100.net; s=20260707; t=1794784933; x=1795389733;
  h=content-transfer-encoding:content-type:mime-version:references
  :in-reply-to:message-id:date:subject:cc:to:from:x-gm-gg
  :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
  :content-type;
- bh=2M6HoHkTeVcJIWfMAzqJ94aeV/R3TSw3Z3JZl8kxSXI=;
- b=z/bmDSXGL/bkHbTzhcmiY4EsvrsdqBdphPEqankPtKIbYoLrhx1Ct2+UKzZfgq+C7H
- Ke1Ms3W6yAcSJKDUZhKRh4aD57n4Nuxsy1nE2HR7hKeCgQ+NbyTLPD4FWeyC42YIgqbD
- q9kr6wfH4ywGX/o63QhMj5+4oqzzPHa6N02KhQ7ziuzRjHvcVFnYLWp0zJKQ4m45gM39
- fokHICR3P5SE3DsBxK5mVfS2hkPUSdIvLnrSmGLl3RZawgDbeApi3N00HgYWw8vZAG+W
- WBrbCsBfhiHyJR62EFUN/Y4M33D6GoZrvvL+MSuJYRD0KpdDYLMU8RGTgiIDCWaKmiZD
- P88Q==
+ bh=uREsKIEDczdDVdj720bXK/T41S+3ar5PxkrrHsI/TEM=;
+ b=IkZdDjnMqetFU0f1qSbSgEEUc3x5AjiLKglVEJR/J6uXUI/SzwOmn6vwv+htElub7x
+ Fvwen5bGd69VoypMt0ZlXz9Q471JwCPmHBfIxsDy+7M65rnTLi7xwvI0F8aDY/wW3CUl
+ Axh+WK43ps6xWp6G+vwBr6Hq7J7dVaZFgye1luG/MFY67VSEvlb8PNUd9o4+oaxAG3L9
+ LMf3bnG7U9NKsPpcpAEjD2HQXKIbrEMvkSYLcnBAG5zBxU5Hz6HUIB9WXdt4RJC5BhY9
+ PFwWxagu5qfjcaClDxsiyWR9pHAzqenxO+iZ0boX5fFlCaUXpR5pAH9UqMx09djnoJLV
+ M7zA==
 X-Forwarded-Encrypted: i=1;
- AL+hErHdnEWlDiy0XuHhKdQIpEt0R0xUiDvgaYuyZ1ZEVdjEalbcUTLtv0vHlafEpA36uilvcTkvRYz91Sc=@lists.freedesktop.org
-X-Gm-Message-State: APuU4Z8NUineVi/fuC8Y4ROxOTYNqg951nEZsFtb3S64Z7tuKapKszIx
- jb98b3nUhoX2qbhsFcSxttekxtpNRJVvWB36mb09gudIj003Ru2tbGAf
-X-Gm-Gg: AYBFou0xV6/0wN1Zhc8wqbKAWIBTndjz6gb38M5pmKLrJ8lDMnWzMQfEZZ63hqS8LPh
- NVgSd9ry0L1RQFqov80+0VIbe4zr5uS8YiFdzFCSJ9FzRehsRd/giUxHVmuSPGiddQGArUK5RHW
- 7aMffWejEfcrAbVad2cZCg84jwhETUftq09P8hOq+nXtME7xxRT9kP0W2jeDZZm618M2YMfyYCV
- RCPt/EZ4+pjdxAPOYhyGCakFd3Qq3NkAGgxLaeJHgMvrnWeYlDrc/7fFvjrrcwCh6lu+KSgIBOP
- GvnQPBYAyYMlgBPTjz3Qf6iOi55yg/kHTm/itFA7SBuIvBczRamdOUIX4ZhHZdzlsjTWEgF07DG
- ZmeMlZelsbWwEHzn1z5wplHpvcAT0KHMuWsz2475PK7Ef1oSECSbCPCq1Av4zSg2OD9VQna10Vh
- O7nUc9lh+IAscAA73xgvFXNESln7F8aA3SxHLm8cjL0ntyCrUGdBkG6sywi9KAF9f3zhLnuw87/
- +bzuSnLSctNt8+5DcvaWmSlmhfD3Fdtwv9XbVc/zbzad0v3spWcsmL4gsfhEzDOBa8uDBhT0IKy
- L/eW4gpwsxmdAv0QC79D98nTV9bj9Zpi9EKfDrh7qKSK6TdZko9JLxo=
-X-Received: by 2002:a05:600c:482:b0:4a5:75d2:c104 with SMTP id
- 5b1f17b1804b1-4bb55a59c9dmr137490185e9.22.1794784924398; 
- Sun, 15 Nov 2026 15:22:04 -0800 (PST)
+ AL+hErHXDQjjazH2lf1B8bbJ0soUdA/jPe0LGrSBilS/SixzDgZiEXx+sJYigGcK5nf+1c0m8TfpOSNBi3I=@lists.freedesktop.org
+X-Gm-Message-State: APuU4Z9k2HcWhBOY5D3ldE1BosBBZxhDCmt1qtChFIUsuUsx9k6Y/mZ4
+ B76bKetql6qwJltiAL5KY9vFlM9dWNPrlqCO7f4OoMvUoT4MdAIiyyfW
+X-Gm-Gg: AYBFou1srOKncC7CJkxQDrTDm5jIoGbSI1Yc+WabTZXXUCVZrBP+ViUvSMb+apPzBwQ
+ Fj7bo/O2Y9PYuRIXulydrQbJqK9p3GHD+A0Mkk+uITth7d9ekffEfavEaQ+67e0UvZKi3rYO78q
+ Q0vwsNccEyahnSvalo6U9J+KgzrncY3FYp5+IHKm9CPSg0CEQy+Rb3/TL/NjE1SaFYr4hhKaN+d
+ mHObxLLB6TbHMgfnMtApe1Wx/RnGxEnGcXD9yhOh518aWK08F7e9EA4aMdquoYM7765S/LzzCPB
+ jDhYhm5CjK1P6P0OKzf7LvETnXA7ZfMnpgnYfpQcfkr0d7qfLMvkZx1qLrXwYq+HeH1UX/d6SkK
+ aV6zVXwihjYBRXY9jqiotRPc3ERSs8IaCZd4bX/sFRQ5z3QUdAxrBnPRn/OyICIBoF7HMmKUVb3
+ ek4eTTBbY9jK1aA9I966UDwsrZ0W84GofaDMU5dWaDa9rTkb4cU+77Q0/zO2eDHWpj8bpYclVKq
+ yprfi7vs3gxUyaMjTD+4iQ8oWcia25kGL/Xcnn6piv4FdnJNeTGOV5EjEbP7wnn6kbUIsoQGOy8
+ PRHXcUOrAK9cUSmJyo1iOaGMvxK5VlNNvc5QyY61xzByNQPIMzKW9H0=
+X-Received: by 2002:a05:600c:34d5:b0:4b7:6942:39bd with SMTP id
+ 5b1f17b1804b1-4bb55ab1610mr175771075e9.26.1794784932986; 
+ Sun, 15 Nov 2026 15:22:12 -0800 (PST)
 Received: from ingenieria31.oficinasStQ.local ([79.117.0.220])
  by smtp.gmail.com with ESMTPSA id
- 5b1f17b1804b1-4bb571f976esm127920955e9.3.2026.11.15.15.22.02
+ 5b1f17b1804b1-4bb571f976esm127920955e9.3.2026.11.15.15.22.11
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Sun, 15 Nov 2026 15:22:04 -0800 (PST)
+ Sun, 15 Nov 2026 15:22:12 -0800 (PST)
 From: =?UTF-8?q?M=C3=A0xim=20Pedraza=20Padilla?= <maximpedraza@gmail.com>
 To: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
  Maxime Ripard <mripard@kernel.org>,
@@ -80,10 +80,9 @@ Cc: Francesco Valla <francesco@valla.it>,
  linux-efi@vger.kernel.org, linux-fbdev@vger.kernel.org,
  linux-doc@vger.kernel.org, linux-embedded@vger.kernel.org,
  linux-kernel@vger.kernel.org
-Subject: [PATCH v7 1/6] drm/clients: Kconfig: indent DRM_CLIENT_DEFAULT with
- tabs
-Date: Mon, 16 Nov 2026 01:21:51 +0100
-Message-Id: <20261116002156.1027726-2-maximpedraza@gmail.com>
+Subject: [PATCH v7 5/6] drm: docs: remove bootsplash from TODO
+Date: Mon, 16 Nov 2026 01:21:55 +0100
+Message-Id: <20261116002156.1027726-6-maximpedraza@gmail.com>
 X-Mailer: git-send-email 2.39.5
 In-Reply-To: <20261116002156.1027726-1-maximpedraza@gmail.com>
 References: <20261116002156.1027726-1-maximpedraza@gmail.com>
@@ -110,38 +109,46 @@ X-Spam-Status: No, score=-15.8 required=3.0 tests=BAYES_00,DKIM_SIGNED,
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-The body of DRM_CLIENT_DEFAULT is indented with spaces, unlike every
-other entry in the file. Use tabs, so that the next client added to the
-list does not have to pick one or the other.
+From: Francesco Valla <francesco@valla.it>
 
-No functional change.
+Now that a splash client exists, remove the bootsplash task from the
+TODO list for the DRM subsystem.
 
+Signed-off-by: Francesco Valla <francesco@valla.it>
 Reviewed-by: Thomas Zimmermann <tzimmermann@suse.de>
 Signed-off-by: Màxim Pedraza Padilla <maximpedraza@gmail.com>
 ---
- drivers/gpu/drm/clients/Kconfig | 10 +++++-----
- 1 file changed, 5 insertions(+), 5 deletions(-)
+ Documentation/gpu/todo.rst | 17 -----------------
+ 1 file changed, 17 deletions(-)
 
-diff --git a/drivers/gpu/drm/clients/Kconfig b/drivers/gpu/drm/clients/Kconfig
-index 6096c623d9d5..8d8bc37ec9f2 100644
---- a/drivers/gpu/drm/clients/Kconfig
-+++ b/drivers/gpu/drm/clients/Kconfig
-@@ -114,10 +114,10 @@ config DRM_CLIENT_DEFAULT_LOG
- endchoice
+diff --git a/Documentation/gpu/todo.rst b/Documentation/gpu/todo.rst
+index e6d36f8da086..5e987e18bfcd 100644
+--- a/Documentation/gpu/todo.rst
++++ b/Documentation/gpu/todo.rst
+@@ -756,23 +756,6 @@ See drivers/gpu/drm/amd/display/TODO for tasks.
  
- config DRM_CLIENT_DEFAULT
--       string
--       depends on DRM_CLIENT
--       default "fbdev" if DRM_CLIENT_DEFAULT_FBDEV
--       default "log" if DRM_CLIENT_DEFAULT_LOG
--       default ""
-+	string
-+	depends on DRM_CLIENT
-+	default "fbdev" if DRM_CLIENT_DEFAULT_FBDEV
-+	default "log" if DRM_CLIENT_DEFAULT_LOG
-+	default ""
+ Contact: Harry Wentland, Alex Deucher
  
- endmenu
+-Bootsplash
+-==========
+-
+-There is support in place now for writing internal DRM clients making it
+-possible to pick up the bootsplash work that was rejected because it was written
+-for fbdev.
+-
+-- [v6,8/8] drm/client: Hack: Add bootsplash example
+-  https://patchwork.freedesktop.org/patch/306579/
+-
+-- [RFC PATCH v2 00/13] Kernel based bootsplash
+-  https://lore.kernel.org/r/20171213194755.3409-1-mstaudt@suse.de
+-
+-Contact: Sam Ravnborg
+-
+-Level: Advanced
+-
+ Brightness handling on devices with multiple internal panels
+ ============================================================
+ 
 -- 
 2.39.5
 
