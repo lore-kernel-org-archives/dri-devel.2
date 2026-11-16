@@ -2,26 +2,26 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CAE4F606A323
-	for <dri-devel@archiver.kernel.org>; Mon, 16 Nov 2026 08:02:29 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BA5A8606A329
+	for <dri-devel@archiver.kernel.org>; Mon, 16 Nov 2026 08:17:16 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kemnade.info header.i=@kemnade.info header.a=rsa-sha256 header.s=20220719 header.b=IDkUFj3n
+	dkim=pass (2048-bit key) header.d=kemnade.info header.i=@kemnade.info header.a=rsa-sha256 header.s=20220719 header.b=UYGE+3up
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 2EDAE10E212;
-	Mon, 16 Nov 2026 08:02:24 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 24E5410E2A4;
+	Mon, 16 Nov 2026 08:17:11 +0000 (UTC)
 Received: from mail.andi.de1.cc (mail.andi.de1.cc [178.238.236.174])
- by gabe.freedesktop.org (Postfix) with ESMTPS id C5A0110E212
- for <dri-devel@lists.freedesktop.org>; Mon, 16 Nov 2026 08:02:17 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 8F73910E2A4
+ for <dri-devel@lists.freedesktop.org>; Mon, 16 Nov 2026 08:17:04 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
  d=kemnade.info; s=20220719; h=References:In-Reply-To:Subject:Cc:To:From:
  Reply-To:Content-ID:Content-Description;
- bh=kImUUDUMbJNjcB2Ehox7k7NTkFpga3rhi0U9FNipmLY=; t=1794816137; x=1796025737; 
- b=IDkUFj3nihsv4KRTGv3kz6/AsH13NQapYIGERV12DffOUCWikNbHQCyRvJCt6pyYOk+nZRjRA6r
- D1uvud3TeWM1TWA1UNdClfiLj+45MqJZwADf8E7IdtubsMbEONANRPWM/nas60TBAJmiqlpc86gvv
- KN3VfyjU7Px14zezxlgcLd9MKT4dVYZ1eQuFqvdjwykgoa25zqmuqrhG13i7VDpZb8q07p3C2/pko
- 2JrScMoAXNbplfv2/Xs5799CEnl2JggkCEn5Ayg1lkjgdwSGEnMoYhwJq8GnAbCiAJjzI6ls9ytky
- Naps6dETFUntPAupnQrRV3elDyBn4pVHBHbg==;
-Date: Mon, 16 Nov 2026 09:02:06 +0100
+ bh=cw42d6ZCptc5PSIS/Cy7d405imHq7uVLiZ3GFGb5rYA=; t=1794817024; x=1796026624; 
+ b=UYGE+3upzdi7tkJWV4eEc/CSyfeviaKXQf7ctltYXRWAvblpd1TycFr3K1lhiBDnbJT9jiPIvsI
+ KrjVJsz+S9Csu65qK3vWRYhEi3h/i4ccQKU5fX3KzJuexuD/udollkyFbYsI5D6r0NpTSA2+ENjJ6
+ lYP4cCWREReQfK4DUovi2ZdKdE7BlGZyq7+v8+nwW65VcBFoqiFnFSIBf7ULUok+/iPOIbXA3C4Ja
+ vxitgCu6W5xH7hsfzzIvIVHUdaDrE5iyEJThX4LGFVxFDYwAEU1Ax/MiEhpXhHfn0uZWmyreLQBAK
+ rY76oAsWpOUpyf0ApRLjfMfvHpMCXRZR1HQg==;
+Date: Mon, 16 Nov 2026 09:16:54 +0100
 From: Andreas Kemnade <andreas@kemnade.info>
 To: Tomi Valkeinen <tomi.valkeinen@ideasonboard.com>
 Cc: Marek Vasut <marex@denx.de>, Andrzej Hajda <andrzej.hajda@intel.com>,
@@ -33,11 +33,11 @@ Cc: Marek Vasut <marex@denx.de>, Andrzej Hajda <andrzej.hajda@intel.com>,
  <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
  dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org, Dave
  Stevenson <dave.stevenson@raspberrypi.com>
-Subject: Re: [PATCH v5 03/13] drm/bridge: tc358762: Improve LCDCTRL defines
-Message-ID: <20261116090206.4085771b@kemnade.info>
-In-Reply-To: <20261015-tc358762-fixes-v5-3-7cd721a6451b@ideasonboard.com>
+Subject: Re: [PATCH v5 04/13] drm/bridge: tc358762: Configure SYSCTRL first
+Message-ID: <20261116091654.26a56120@kemnade.info>
+In-Reply-To: <20261015-tc358762-fixes-v5-4-7cd721a6451b@ideasonboard.com>
 References: <20261015-tc358762-fixes-v5-0-7cd721a6451b@ideasonboard.com>
- <20261015-tc358762-fixes-v5-3-7cd721a6451b@ideasonboard.com>
+ <20261015-tc358762-fixes-v5-4-7cd721a6451b@ideasonboard.com>
 X-Mailer: Claws Mail 4.3.1 (GTK 3.24.49; aarch64-unknown-linux-gnu)
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
@@ -62,83 +62,56 @@ X-Spam-Status: No, score=-17.3 required=3.0 tests=BAYES_00,DKIM_SIGNED,
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-On Thu, 15 Oct 2026 14:15:54 +0300
+On Thu, 15 Oct 2026 14:15:55 +0300
 Tomi Valkeinen <tomi.valkeinen@ideasonboard.com> wrote:
 
-> LCDCTRL fields are quite wrong in the driver. Fix the field defines.
+> SYSCTRL affects the DPI output and the clock tree, but we configure it
+> late, when the DPI output is already enabled and clocks are running.
 > 
-> A few notes about the wrong fields:
-> 
-> LCDCTRL_VSDELAY(1) actually sets LCDCTRL_DCLK_POL
-> LCDCTRL_UNK6 | LCDCTRL_VTGEN actually set LCDCTRL_PXLFORM_RGB888
-> LCDCTRL_RGB888 actually sets LCDCTRL_DPI_EN
-> 
-> The total still resulted in a working display even if the defines were
-> quite wrong.
+> Move the SYSCTRL configuration to the beginning, before anything is
+> enabled.
 > 
 > Signed-off-by: Tomi Valkeinen <tomi.valkeinen@ideasonboard.com>
 
+sounds sane so
+
 Reviewed-by: Andreas Kemnade <andreas@kemnade.info>
+
 > ---
->  drivers/gpu/drm/bridge/tc358762.c | 33 ++++++++++++++++++++-------------
->  1 file changed, 20 insertions(+), 13 deletions(-)
+>  drivers/gpu/drm/bridge/tc358762.c | 14 +++++++-------
+>  1 file changed, 7 insertions(+), 7 deletions(-)
 > 
 > diff --git a/drivers/gpu/drm/bridge/tc358762.c b/drivers/gpu/drm/bridge/tc358762.c
-> index 59c68432f8e1..26671dc66874 100644
+> index 26671dc66874..f5ee781275fc 100644
 > --- a/drivers/gpu/drm/bridge/tc358762.c
 > +++ b/drivers/gpu/drm/bridge/tc358762.c
-> @@ -46,17 +46,22 @@
->  #define DSI_LANEENABLE_L0EN	BIT(1)
->  #define DSI_LANEENABLE_L1EN	BIT(2)
+> @@ -134,6 +134,13 @@ static int tc358762_init(struct tc358762 *ctx)
+>  {
+>  	u32 lcdctrl;
 >  
-> -/* LCDC/DPI Host Registers, based on guesswork that this matches TC358764 */
-> +/* LCDC/DPI Registers */
->  #define LCDCTRL			0x0420 /* Video Path Control */
->  #define LCDCTRL_MSF		BIT(0) /* Magic square in RGB666 */
-> -#define LCDCTRL_VTGEN		BIT(4)/* Use chip clock for timing */
-> -#define LCDCTRL_UNK6		BIT(6) /* Unknown */
-> -#define LCDCTRL_EVTMODE		BIT(5) /* Event mode */
-> -#define LCDCTRL_RGB888		BIT(8) /* RGB888 mode */
-> -#define LCDCTRL_HSPOL		BIT(17) /* Polarity of HSYNC signal */
-> -#define LCDCTRL_DEPOL		BIT(18) /* Polarity of DE signal */
-> -#define LCDCTRL_VSPOL		BIT(19) /* Polarity of VSYNC signal */
-> -#define LCDCTRL_VSDELAY(v)	(((v) & 0xfff) << 20) /* VSYNC delay */
-> +#define LCDCTRL_VTGEN		BIT(1) /* Use chip clock for timing */
-> +#define LCDCTRL_PXLFORM		GENMASK_U32(6, 4)
-> +#define LCDCTRL_PXLFORM_RGB666		0	/* x:R:G:B 6:8:8:8 */
-> +#define LCDCTRL_PXLFORM_RGB666_24	1	/* x:R:x:G:x:B 2:6:2:6:2:6 */
-> +#define LCDCTRL_PXLFORM_RGB565		2	/* x:R:G:B 8:5:6:5 */
-> +#define LCDCTRL_PXLFORM_RGB565_1	3	/* x:R:x:G:x:B 3:5:2:6:3:5 */
-> +#define LCDCTRL_PXLFORM_RGB565_2	4	/* x:R:x:G:x:B:x 2:5:3:6:2:5:1 */
-> +#define LCDCTRL_PXLFORM_RGB888		5	/* R:G:B 8:8:8 */
-> +#define LCDCTRL_DPI_EN		BIT(8)
-> +#define LCDCTRL_HSYNC_POL	BIT(17) /* Polarity of HSYNC signal */
-> +#define LCDCTRL_DE_POL		BIT(18) /* Polarity of DE signal */
-> +#define LCDCTRL_VSYNC_POL	BIT(19) /* Polarity of VSYNC signal */
-> +#define LCDCTRL_DCLK_POL	BIT(20) /* Polarity of pixel clock */
->  
->  /* SPI Master Registers */
->  #define SPICMR			0x0450
-> @@ -139,14 +144,16 @@ static int tc358762_init(struct tc358762 *ctx)
->  
->  	tc358762_write(ctx, SPICMR, 0x00);
->  
-> -	lcdctrl = LCDCTRL_VSDELAY(1) | LCDCTRL_RGB888 |
-> -		  LCDCTRL_UNK6 | LCDCTRL_VTGEN;
-> +	lcdctrl = FIELD_PREP(LCDCTRL_PXLFORM, LCDCTRL_PXLFORM_RGB888) |
-> +		  LCDCTRL_DPI_EN;
+> +	tc358762_write(ctx, SYSCTRL,
+> +		       FIELD_PREP(SYSCTRL_DPIDATA_IO_MASK, SYSCTRL_DPIDATA_IO_4MA) |
+> +		       FIELD_PREP(SYSCTRL_DPISTB_IO_MASK, SYSCTRL_DPISTB_IO_4MA) |
+> +		       FIELD_PREP(SYSCTRL_PCLKDIV_MASK, SYSCTRL_PCLKDIV_DIV_3));
 > +
-> +	lcdctrl |= LCDCTRL_DCLK_POL;
->  
->  	if (ctx->mode.flags & DRM_MODE_FLAG_NHSYNC)
-> -		lcdctrl |= LCDCTRL_HSPOL;
-> +		lcdctrl |= LCDCTRL_HSYNC_POL;
->  
->  	if (ctx->mode.flags & DRM_MODE_FLAG_NVSYNC)
-> -		lcdctrl |= LCDCTRL_VSPOL;
-> +		lcdctrl |= LCDCTRL_VSYNC_POL;
+> +	msleep(100);
+> +
+>  	tc358762_write(ctx, DSI_LANEENABLE,
+>  		       DSI_LANEENABLE_L0EN | DSI_LANEENABLE_CLEN);
+>  	tc358762_write(ctx, PPI_D0S_CLRSIPOCOUNT, 5);
+> @@ -157,13 +164,6 @@ static int tc358762_init(struct tc358762 *ctx)
 >  
 >  	tc358762_write(ctx, LCDCTRL, lcdctrl);
+>  
+> -	tc358762_write(ctx, SYSCTRL,
+> -		       FIELD_PREP(SYSCTRL_DPIDATA_IO_MASK, SYSCTRL_DPIDATA_IO_4MA) |
+> -		       FIELD_PREP(SYSCTRL_DPISTB_IO_MASK, SYSCTRL_DPISTB_IO_4MA) |
+> -		       FIELD_PREP(SYSCTRL_PCLKDIV_MASK, SYSCTRL_PCLKDIV_DIV_3));
+> -
+> -	msleep(100);
+> -
+>  	tc358762_write(ctx, PPI_STARTPPI, PPI_STARTPPI_STARTPPI);
+>  	tc358762_write(ctx, DSI_STARTDSI, DSI_STARTDSI_STARTDSI);
 >  
 > 
 
