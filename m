@@ -2,97 +2,69 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5502B606A322
-	for <dri-devel@archiver.kernel.org>; Mon, 16 Nov 2026 20:50:39 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 40495606A32C
+	for <dri-devel@archiver.kernel.org>; Mon, 16 Nov 2026 21:12:00 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=EpSwLiwZ
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=SYEx8TXt
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id AE92310E475;
-	Mon, 16 Nov 2026 20:50:33 +0000 (UTC)
-Received: from mail-pf1-f174.google.com (mail-pf1-f174.google.com
- [209.85.210.174])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 2B63510E475
- for <dri-devel@lists.freedesktop.org>; Mon, 16 Nov 2026 20:50:27 +0000 (UTC)
-Received: by mail-pf1-f174.google.com with SMTP id
- d2e1a72fcca58-8b6b22be970so1420424b3a.1
- for <dri-devel@lists.freedesktop.org>; Mon, 16 Nov 2026 12:50:27 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=google.com; s=20260707; t=1794862227; x=1795467027;
- darn=lists.freedesktop.org; 
- h=in-reply-to:references:to:from:subject:cc:message-id:date
- :content-type:content-transfer-encoding:mime-version:from:to:cc
- :subject:date:message-id:reply-to:content-type;
- bh=itpoRBF/1k6lXJt+7gBQZf0XsZd0eRgpwFhim4ck9gw=;
- b=EpSwLiwZ8cbl8dQgGW7rzC0lVrOKPUIEHFIVfhaeK4Fq6kdscq9SE480xKTpxlkEd3
- e++ZdjXtmslrAYlathXJD/qEuS1iAambRsOlB5IIW/HsZYbpa2tKd89ItiiPOXRgrC6R
- IHLcP3hH5POl8P/Hd7oU3jEOccZ6fRtXdE89L0gZhaeMyI1MxRUeF4rABxn+h1Kfsrqq
- UPEvR080de3y0j4vA1q16dc5f6AQbg1TId3hjR6SJKRbxUES5PEQAlmi5eB8OfFA3Elv
- WXhm8LDMo8hkpET8/RAbgT0X8HMPNLFsa8t7v2xL28rVyc1kk8Pn38lpX+rpeyhvTB+X
- 10Xg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20260707; t=1794862227; x=1795467027;
- h=in-reply-to:references:to:from:subject:cc:message-id:date
- :content-type:content-transfer-encoding:mime-version:x-gm-gg
- :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
- :content-type;
- bh=itpoRBF/1k6lXJt+7gBQZf0XsZd0eRgpwFhim4ck9gw=;
- b=o3lZL39BZdPc6CQ3xkV5Wzp/MQ+pj57eYn93trRQTsBVkxrzV7uFWLqJmiLI9dJJFw
- 3BQikXTetVvHymi5c8b+RQfGSI7/WiusgmS/+qASxS2PZV7YjeBWrpHGm/3DoqE/QjdO
- GqU2FhCplYujRpbtReFrq901wZ0Gnf+okCmJrbPQHLMOmbtXA58OQn1ESeQd1HV5V0HV
- VomOW9/C9cau81WxrRwfbW6gErTaBwQwC9hwh/f62X+FJzvp4Ozrgfu1Lb78Nr50Nf86
- Z5RhWOrhjCxAJjeiwnKneP18MVNOe4GKyDoAZzY/e9KmNCSuA+zCe/5ZvcpRJ7xBxjLF
- 5Rpw==
-X-Forwarded-Encrypted: i=1;
- AL+hErH/T6KdC23Vv0RvuVDn2nG6hdWc43CQnDwS9Dq+Ocu7i8ZDGAwI8mfNbxD46GweJi7ffnxVFSJaJiM=@lists.freedesktop.org
-X-Gm-Message-State: APuU4Z9f/yy9yG60ITweRWKWLmWYVdb9JtbUEy8Hfr+yaqhvdkA0HGue
- MsT2HBmX+1DiRmGY8OiMer13ZSz/A2J17+2UjSVhX3K9OzI5jCBhqpjabVFAvp1r3w==
-X-Gm-Gg: AYBFou3NLJhQVkNrUaXpNbCe3YF0SeV8XWSQl5j6Wz3pBimlmzj+dqmHo1xg6qE3dgk
- AJPEOBPYhR0UKgtbWEJw/pPFPF74jJKdTM37oxhFdBStxFuYR5eT//48y2VIPWlJU57IJWubXMd
- UlGA/592R4B/RrJ/8kdWRZjP2JS3cTwGyOr/073d+Odr0tWBI1T2/fZErsbaKN0M/Gj8REXshoC
- rLMCWXE7NrpFAaj8RXoS9FeuooO5v7GosUh/NNnM7IHruI8BwJzJw5ajUC8LLDMm0VDr4P+EK+n
- rd1QyWSLc6lDi57dgSd/7CqCr9Ax02AJHge8LmD+Nm0XQhhGYY7wbtog1fBieEGka70iRWK8inK
- KOYrwQPvt4nJrSiulDJZPKJVdDaompWVefHJHxGxilOItXv60jmjI8IaHbD7l9UdjkSEBSLfAXz
- h8JepR9oqujdtrbJ+FLXHMk6/LHN9IslIQvwgNPUsKYa9Hrv3g9rac8ljZrQ9/9rqbkrhLt/yuT
- RZTgYmQNiGrEmgL67RCvFGuIiIxWUW/NOTx7pekTPcx04h5lpWTEcKJUJNDJbt5IQ44PhYTCZ/W
- yPVPTJ7Cfe/Hj/sbF77psRscOl3kEU1ey3QcyF9q4/iL3w01yRUTrKlQrUFNnUR3
-X-Received: by 2002:a05:6a20:ef03:b0:3e2:4350:1528 with SMTP id
- adf61e73a8af0-3f7a51ba2ffmr9092719637.7.1794862225898; 
- Mon, 16 Nov 2026 12:50:25 -0800 (PST)
-Received: from localhost (33.79.127.34.bc.googleusercontent.com.
- [34.127.79.33]) by smtp.gmail.com with ESMTPSA id
- 41be03b00d2f7-cddc18c847asm4527944a12.28.2026.11.16.12.50.24
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Mon, 16 Nov 2026 12:50:25 -0800 (PST)
-X-Archived-By: <archiver.kernel.org>
-Mime-Version: 1.0
+	by gabe.freedesktop.org (Postfix) with ESMTP id A295110E44F;
+	Mon, 16 Nov 2026 21:11:54 +0000 (UTC)
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.9])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id CC34510E44F;
+ Mon, 16 Nov 2026 21:11:47 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1794863508; x=1826399508;
+ h=message-id:subject:from:to:cc:date:in-reply-to:
+ references:content-transfer-encoding:mime-version;
+ bh=tPICxjq1N4RV20UsKkWwpwgKmWTNCzLHki4n3niZRB8=;
+ b=SYEx8TXtMwV7sEiYZ6SkAaBWOdFoPfsrs+hHjksZ9j+9gfkbA7Rbn37q
+ hb45n48y9fKgYNMQsRyXe4qXfJFr7yiKBJlA8cEvx6xfBIlHSGdfa5J7A
+ 6EdQlMsQLq5AMhvkiidJMRQ+67+gSSDLsNejoL37feTwLohyU1Omd5d+Q
+ 3bE/Hofl2mWwQkDLFqGWjYMJuwYj1CmrxRBzoGedFUbtupn8OW66WzEvM
+ GVrNqnAmGrOrmHgG5fekEyoI9CzEFuSISO9ajnEMpr0D1maZxv99tF1WQ
+ 66dpY+CiLNeMykZTtJs8L2aA8rkyQeCE+5jyDEH8ZfLTan+u0cyB8leSS A==;
+X-CSE-ConnectionGUID: nPOOW+TkR4i/FUoACghazw==
+X-CSE-MsgGUID: XhvwwgxIRfuUxWyCyq4FJA==
+X-IronPort-AV: E=McAfee;i="6800,10657,11968"; a="3494702"
+X-IronPort-AV: E=Sophos;i="6.27,217,1787036400"; 
+   d="scan'208";a="3494702"
+Received: from fmviesa013.fm.intel.com ([10.60.135.153])
+ by fmvoesa103.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 16 Nov 2026 13:11:47 -0800
+X-CSE-ConnectionGUID: DFNsRiT0Tr+0O228TzssZA==
+X-CSE-MsgGUID: Az38CCIpRNiGNLtlz+pRzg==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,217,1787036400"; d="scan'208";a="11568453"
+Received: from pgcooper-mobl3.ger.corp.intel.com (HELO [10.245.245.189])
+ ([10.245.245.189])
+ by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 16 Nov 2026 13:11:44 -0800
+Message-ID: <0a8c14b4ee7e332c3c59d23fb71aaa953e12df5a.camel@linux.intel.com>
+Subject: Re: [PATCH] mm/hmm: skip NUMA balancing on protnone faults
+From: Thomas =?ISO-8859-1?Q?Hellstr=F6m?= <thomas.hellstrom@linux.intel.com>
+To: "David Hildenbrand (Arm)" <david@kernel.org>, Matthew Auld
+ <matthew.auld@intel.com>, linux-mm@kvack.org
+Cc: dri-devel@lists.freedesktop.org, intel-xe@lists.freedesktop.org, Matthew
+ Brost <matthew.brost@intel.com>, Mika =?ISO-8859-1?Q?Penttil=E4?=
+ <mpenttil@redhat.com>,  Leon Romanovsky	 <leon@kernel.org>, Jason Gunthorpe
+ <jgg@ziepe.ca>, John Hubbard	 <jhubbard@nvidia.com>
+Date: Mon, 16 Nov 2026 22:11:41 +0100
+In-Reply-To: <f81bd37a-9637-44be-83fd-be7e717fa182@kernel.org>
+References: <20261112-numa-v1-1-ad9cbca8f49a@intel.com>
+ <b32fb02a-68b4-4db9-83dd-254147dbf215@kernel.org>
+ <1993e931e6a4b0cda5c04e72b1a8d5fb924f950a.camel@linux.intel.com>
+ <9ec3e8b9-064a-47a7-8d00-566ff371b846@kernel.org>
+ <0b794f803517c27ea818a2e894761095300b4da4.camel@linux.intel.com>
+ <6af3d5d2-4fab-4a3f-85d9-34564fca8ffe@kernel.org>
+ <58755e3cb51d534b749d70847a5478a40c1c10fa.camel@linux.intel.com>
+ <f81bd37a-9637-44be-83fd-be7e717fa182@kernel.org>
+Organization: Intel Sweden AB, Registration Number: 556189-6027
+Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
-Content-Type: text/plain; charset=UTF-8
-Date: Mon, 16 Nov 2026 12:50:24 -0800
-Message-Id: <DMWXK2VTL3XP.MWW7ZG7Z6HUF@google.com>
-Cc: "Jason Gunthorpe" <jgg@nvidia.com>, "Alex Mastro" <amastro@fb.com>,
- <dri-devel@lists.freedesktop.org>, <iommu@lists.linux.dev>,
- <kvm@vger.kernel.org>, <linaro-mm-sig@lists.linaro.org>,
- <linux-kernel@vger.kernel.org>, <linux-kselftest@vger.kernel.org>,
- <linux-media@vger.kernel.org>, <linux-pci@vger.kernel.org>, "Alex
- Williamson" <alex@shazbot.org>, "Bjorn Helgaas" <bhelgaas@google.com>,
- =?utf-8?q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>, "Josh Hilke"
- <jrhilke@google.com>, "Kevin Tian" <kevin.tian@intel.com>, "Leon
- Romanovsky" <leon@kernel.org>, "Logan Gunthorpe" <logang@deltatee.com>,
- "Matt Evans" <mattev@meta.com>, "Matt Evans" <matt@ozlabs.org>, "Mina
- Almasry" <almasrymina@google.com>, "Shuah Khan" <shuah@kernel.org>, "Sumit
- Semwal" <sumit.semwal@linaro.org>, "Vipin Sharma" <vipinsh@google.com>
-Subject: Re: [RFC PATCH 0/7] vfio: selftests: Add peer-to-peer DMA selftest
-From: "David Matlack" <dmatlack@google.com>
-To: "Samiullah Khawaja" <skhawaja@google.com>, "David Matlack"
- <dmatlack@google.com>
-X-Mailer: aerc 0.21.0
-References: <20261111192411.4133780-1-dmatlack@google.com>
- <avYjFfqr3T/U7lvn@devgpu015.cco6.facebook.com>
- <DMTK99TDM9AM.SAM3Z4COP9WS@google.com>
- <20261115231946.GB1239159@nvidia.com>
- <CALzav=efnA_ABCZVicX0QeTmHknaEbMeWOy8cS+zHYVhm5z+iw@mail.gmail.com>
- <avtI--OIZu5E5sma@google.com>
-In-Reply-To: <avtI--OIZu5E5sma@google.com>
+User-Agent: Evolution 3.58.3 (3.58.3-2.fc43) 
+X-Archived-By: <archiver.kernel.org>
+MIME-Version: 1.0
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -104,69 +76,70 @@ List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-13.3 required=3.0 tests=BAYES_00,DKIMWL_WL_MED,
-	DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
-	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,USER_IN_DEF_DKIM_WL
-	autolearn=no autolearn_force=no version=4.0.1
+X-Spam-Status: No, score=-3.8 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
+	DKIM_SIGNED,DKIM_VALID,HEADER_FROM_DIFFERENT_DOMAINS,
+	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS autolearn=no
+	autolearn_force=no version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-On Mon Nov 16, 2026 at 10:24 AM PST, Samiullah Khawaja wrote:
-> On Mon, Nov 16, 2026 at 10:02:56AM -0800, David Matlack wrote:
->>Looks like GPUs and NVMe can do both as well.
->
-> AFAIU the memory BARs for GPUs would need initialization. The internal
-> VRAM needs to be exposed (mapped) to the BARs.
->
-> Do you think we should have a P2P device "setup" step that can be
-> implemented for various types of devices?
+On Mon, 2026-11-16 at 21:12 +0100, David Hildenbrand (Arm) wrote:
+> On 11/16/26 15:53, Thomas Hellstr=C3=B6m wrote:
+> > On Fri, 2026-11-13 at 22:19 +0100, David Hildenbrand (Arm) wrote:
+> > > On 11/13/26 21:56, Thomas Hellstr=C3=B6m wrote:
+> > > >=20
+> > > > Wouldn't the net effect be that content stays put instead of
+> > > > being
+> > > > migrated? In both cases a later CPU access will not trigger
+> > > > NUMA
+> > > > hinting except that the proposed change doesn't send content to
+> > > > an
+> > > > irrelevant node?
+> > >=20
+> > > My point is that you are essentially disabling NUMA hinting
+> > > because
+> > > the CPU will
+> > > no longer trigger NUMA hinting faults.
+> >=20
+> > Yes, I got that part, but that's is only for a single scan, right?
+>=20
+> Well, one NUMA-hinting protects again, you would get an MMU notifier,
+> and fault
+> again here?
+>=20
+> It all gets pretty unpredictable for these PTEs, no?
 
-Yes, I think we need something like that.
+True, it does. But again, my point is that exact same thing happens if
+hmm_range_fault() is allowed to take the fault and migrate? Which
+happens here.
 
-I've been prototyping a new optional op in struct vfio_pci_driver_ops:
+>=20
+>=20
+> > > But then, just disable it entirely. Maybe John knows what to do.
+> >=20
+> > We can't do that globally, really, for these type of apps. But one
+> > remedy might be recommending the app to mbind() with a no-
+> > migration-on-
+> > fault policy.
+>=20
+> Yeah, something like this. I mean, it's hard to see how NUMA
+> balancing makes any
+> sense here. You're just trying to fight the mechanism because it ends
+> up causing
+> more harm then good.
+>=20
+> >=20
+> > Also the hmm O(n=C2=B2) complexity in this situation isn't really ideal=
+.
+> > We
+> > might need to look at that as well.
+> I didn't quite get that, can you elaborate?
 
-  /*
-   * Set up a range of device memory, accessible through a BAR,
-   * that other devices can target with P2P DMA and that the CPU
-   * can access through mem_bar->vaddr.
-   */
-  int (*mem_bar_setup)(struct vfio_pci_device *device, u64 min_size,
-                       struct vfio_pci_mem_bar *mem_bar);
+My understanding is that due to the migration invalidations
+hmm_range_fault() is restarted from the beginning roughly on each PMD,
+leading to O(n_pages=C2=B2) complexity, although with a small constant.
 
-vfio_pci_find_mem_bar() falls back to calling it when the device does
-not match any entry in mem_bar_descs[], sanity checks the returned
-range, and then runs the existing memory verification on it.
-mem_bar_descs[] stays around for devices like pci-testdev that need no
-setup.
+Thanks,
+Thomas
 
-For NVIDIA GPUs, I had an LLM work on it and the setup was simpler than
-I expected, at least on Blackwell. BAR1 comes out of reset in physical
-mode, where BAR1 offset N maps directly to VRAM physical address N
-without going through the GPU MMU. The LLM confirmed this on by writing
-VRAM through BAR1 and reading it back through the BAR0 PRAMIN window
-(and vice versa) at offsets from 256MiB up to 178GiB.
 
-The nv_falcon implementation only has to:
-
-  - Wait for FSP to finish booting, which takes a few seconds after the
-    reset VFIO does when the device is opened.
-  - Make sure BAR1 is in physical mode.
-  - Return the range of BAR1 that maps VRAM (the size comes from
-    NV_USABLE_FB_SIZE_IN_MB), staying clear of firmware reservations at
-    either end.
-
-With that the P2P test passes with a ConnectX-7 (mlx5 driver) as the
-initiator and B200 VRAM as the target.
-
-A couple of open questions:
-
- 1. The prototype allows .mem_bar_setup() to be called before .init().
-    That is enough for GPUs, but as Jason described, mlx5 device memory
-    has to be allocated from firmware, which needs the command interface
-    and therefore init(). Supporting mlx5 as a target would mean running
-    .mem_bar_setup() after .init().
-
- 2. nv_falcon does not support Falcon DMA on Blackwell yet, so a B200
-    can only be a target for now. That requires a driver to be able to
-    probe a device that cannot do memcpy. I am not sure I want to go
-    down that road.
