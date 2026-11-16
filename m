@@ -2,61 +2,148 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7FA83606A31C
-	for <dri-devel@archiver.kernel.org>; Mon, 16 Nov 2026 12:57:28 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 10C10606A323
+	for <dri-devel@archiver.kernel.org>; Mon, 16 Nov 2026 12:58:16 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=D/zyN+Hk
+	dkim=pass (1024-bit key, unprotected) header.d=amd.com header.i=@amd.com header.a=rsa-sha256 header.s=selector1 header.b=LTB7ktJB
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id A72E510F126;
-	Mon, 16 Nov 2026 12:57:22 +0000 (UTC)
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.17])
- by gabe.freedesktop.org (Postfix) with ESMTPS id DBCA910F106;
- Mon, 16 Nov 2026 12:57:15 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1794833836; x=1826369836;
- h=from:to:cc:subject:date:message-id:in-reply-to:
- references:mime-version:content-transfer-encoding;
- bh=kx80+iVT0K/rR5znwIn6S+ycgVAvrV4U7MbNwpiJeJs=;
- b=D/zyN+HkePsYOMBA5aICEBAVd1ETtbfnTwf+kvwWdNjxAJjyh7eYK+Kf
- /e22cupRgB5L7pS6k9PlWk/+COZchv/jlq5RXnIbnSkDCo2ujOqL18kaU
- T7LkyJI2yTHRrzs21Z/fqVbTDSTHoCnzjWcNTOhKI+7YM/esjJJZ35SLH
- oQDAfgWjLk08VpRSEH9ea5CIpcMN9U1eip9GuwZ02fGQC236Ty2Q2WTjV
- FU6oUxNSl4HI2QaZC/rsnuwmQIipLpjLNHlAfrXt15VYXflV8YINJvf7k
- Es6QxWDADgEwE6Za62vw5PBxgxvo6grZrKBB8st2ymtg4fzYNyIsjzq1F Q==;
-X-CSE-ConnectionGUID: D6lQT6qfSlCOntrvZAKh5Q==
-X-CSE-MsgGUID: u5Npc8HHTBS3jgYFWbmQyw==
-X-IronPort-AV: E=McAfee;i="6800,10657,11968"; a="3557851"
-X-IronPort-AV: E=Sophos;i="6.27,216,1787036400"; 
-   d="scan'208";a="3557851"
-Received: from orviesa004.jf.intel.com ([10.64.159.144])
- by fmvoesa111.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 16 Nov 2026 04:57:16 -0800
-X-CSE-ConnectionGUID: U67JIv9WRKmiVuPdA/N14w==
-X-CSE-MsgGUID: 9sCZ22HbTmOmt1KoJTflCw==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,216,1787036400"; 
-   d="scan'208";a="9439994"
-Received: from ettammin-mobl3.ger.corp.intel.com (HELO localhost)
- ([10.245.245.93])
- by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 16 Nov 2026 04:57:14 -0800
-From: Ville Syrjala <ville.syrjala@linux.intel.com>
-To: dri-devel@lists.freedesktop.org
-Cc: intel-gfx@lists.freedesktop.org,
-	intel-xe@lists.freedesktop.org
-Subject: [PATCH 4/4] drm/tests: Test event ownership in atomic states
-Date: Mon, 16 Nov 2026 14:56:49 +0200
-Message-ID: <20261116125649.15742-5-ville.syrjala@linux.intel.com>
-X-Mailer: git-send-email 2.56.0
-In-Reply-To: <20261116125649.15742-1-ville.syrjala@linux.intel.com>
-References: <20261116125649.15742-1-ville.syrjala@linux.intel.com>
+	by gabe.freedesktop.org (Postfix) with ESMTP id 7206810F115;
+	Mon, 16 Nov 2026 12:58:10 +0000 (UTC)
+Received: from SN4PR2101CU001.outbound.protection.outlook.com
+ (mail-southcentralusazon11012034.outbound.protection.outlook.com
+ [40.93.195.34])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 6CEB310F0F7;
+ Mon, 16 Nov 2026 12:58:04 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=UM3/DMFJ2RQXohHDT6VLfgkwG7ONDcUg2nM6lOH4Madcj5TaHqs6Lo1TWrngKCMDVDISSF3lbu/ER7NK3M2xkF8XoALznWnFtXP7nBrdL2oFwsJi4THDLQKr2xXlhqGUfCtgqb3ULpUQynSxnlsCOnVaPqf35HT/HCKysjpvVThZJqYifJsz4FsDhmKlRSxlPbFUK9Spp497x2PevQ+QPGxhHDlYNP50EhpIIYQqt43KTRoJs/V/HXwQVOaRqvQBkb8P1zxD5tn/cS2bkBguzWfjKHTo/HK6PI2pnd7sqBM9mycTESNofr3fbzQfXuAECG5RAtdvbkcdHSXpi12Tgw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=hYciQj3SKQaeterWqoO2WWlbcMQ4WfWLOXZDSmdLoMU=;
+ b=ORO0edwr1w5WJblaP1SB8KvO5w+3o0w2ae6cRK+6Fegk78ElL6qDZ1g3ZaKF+Aci79ZfcfQfVATx7k4O9mqsdm0qhGjA8LWUOWQyK2kj1AGOc3cN4uFD2Q9+AJ4CwldxHuEkGyXcf+DTfJagxWPvqW86sczTMniPlleHlh7ACFDXD6KPPNw6Hl8xdut7UK6J/qUPXsznQAShgdLNbBweulPRyWWYJciIcpLjTgnYkzAUQZolY/N/J0OUeA8fy4gNawpZri6FZtvD/U7Hdpx+Rldtg4+UEdE9NemPi8XI3nAfln/RYcLUdV7yCKES8Zrs/SEPR9dF+bAd9Zxfk9M/oA==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
+ header.d=amd.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=hYciQj3SKQaeterWqoO2WWlbcMQ4WfWLOXZDSmdLoMU=;
+ b=LTB7ktJBRH3xPIPnGuhmu8fwcys9kRSflGfBdrbI86SRU1rbhEoRmuXCP4ICCXiODMWXPX8TbQjSidKnKPxkxjF8lVc4HRy2tFEiIjpU19kZlR+jhwyBAmIIK8Uojh8q+S7D203niKBkPZpFi0ibRFQONl0TtKlOgbxApCtcWZ0=
+Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=amd.com;
+Received: from PH7PR12MB5685.namprd12.prod.outlook.com (2603:10b6:510:13c::22)
+ by IA1PR12MB6068.namprd12.prod.outlook.com (2603:10b6:208:3ec::10)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.615.14; Mon, 16 Nov
+ 2026 12:57:59 +0000
+Received: from PH7PR12MB5685.namprd12.prod.outlook.com
+ ([fe80::ce69:cfae:774d:a65c]) by PH7PR12MB5685.namprd12.prod.outlook.com
+ ([fe80::ce69:cfae:774d:a65c%3]) with mapi id 15.21.0615.013; Mon, 16 Nov 2026
+ 12:57:58 +0000
+Message-ID: <8768b2e1-e944-46a0-8508-84a9ff491412@amd.com>
+Date: Mon, 16 Nov 2026 13:57:39 +0100
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2 06/23] dma-buf: Let the exporter select mapping type at
+ pin/map
+To: Alistair Popple <apopple@nvidia.com>
+Cc: Karl Mehltretter <kmehltretter@gmail.com>,
+ Sumit Semwal <sumit.semwal@linaro.org>,
+ =?UTF-8?Q?Thomas_Hellstr=C3=B6m?= <thomas.hellstrom@linux.intel.com>,
+ Simona Vetter <simona.vetter@ffwll.ch>,
+ Matthew Brost <matthew.brost@intel.com>,
+ Vivek Kasireddy <vivek.kasireddy@intel.com>,
+ Dongwon Kim <dongwon.kim@intel.com>, Kevin Tian <kevin.tian@intel.com>,
+ Xu Yilun <yilun.xu@linux.intel.com>, Baolu Lu <baolu.lu@linux.intel.com>,
+ Felix Kuehling <felix.kuehling@amd.com>,
+ Alex Deucher <alexander.deucher@amd.com>, dri-devel@lists.freedesktop.org,
+ intel-xe@lists.freedesktop.org, amd-gfx@lists.freedesktop.org,
+ linux-media@vger.kernel.org, linaro-mm-sig@lists.linaro.org,
+ linux-rdma@vger.kernel.org, iommu@lists.linux.dev,
+ Keith Busch <kbusch@kernel.org>, Jens Axboe <axboe@kernel.dk>,
+ Christoph Hellwig <hch@lst.de>, Sagi Grimberg <sagi@grimberg.me>,
+ linux-nvme@lists.infradead.org, "David S. Miller" <davem@davemloft.net>,
+ Eric Dumazet <edumazet@kernel.org>, Jakub Kicinski <kuba@kernel.org>,
+ Paolo Abeni <pabeni@redhat.com>, Simon Horman <horms@kernel.org>,
+ Mina Almasry <almasrymina@google.com>, netdev@vger.kernel.org,
+ Alexey Kardashevskiy <aik@amd.com>, zhipingz@meta.com, treding@nvidia.com,
+ jhubbard@nvidia.com, Jason Gunthorpe <jgg@ziepe.ca>,
+ Leon Romanovsky <leon@kernel.org>
+References: <20261105-dma_mapping_type_v4-v2-0-78b8dc9ae80a@nvidia.com>
+ <20261105-dma_mapping_type_v4-v2-6-78b8dc9ae80a@nvidia.com>
+ <au7mBMbRC8q6NILj@gmail.com> <avE0QsqV5RZoaWc3@nvdebian.thelocal>
+ <de268b0f-19fd-4e05-a8d2-e0f436aaedfc@amd.com>
+ <avqgQ1k8zx0_N4rM@nvdebian.thelocal>
+Content-Language: en-US
+From: =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>
+In-Reply-To: <avqgQ1k8zx0_N4rM@nvdebian.thelocal>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+X-ClientProxiedBy: BN9PR03CA0601.namprd03.prod.outlook.com
+ (2603:10b6:408:106::6) To PH7PR12MB5685.namprd12.prod.outlook.com
+ (2603:10b6:510:13c::22)
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park,
- 6 krs Bertel Jungin Aukio 5, 02600 Espoo, Finland
-Content-Transfer-Encoding: 8bit
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: PH7PR12MB5685:EE_|IA1PR12MB6068:EE_
+X-MS-Office365-Filtering-Correlation-Id: 0f7a7d3c-22b2-41c0-c9c3-08df43e13d2f
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+ ARA:13230040|23010399003|1800799024|366016|376014|7416014|261102123227099003|261028144727099003|261102130727099003|261022075727099003|261022105027099003|261021135927099003|261021121427099003|261026121527099003|261026140227099003|11063799006|4143699003|56012099006|10067099003|18002099003|22082099003|261009223027099003|3023799007;
+X-Microsoft-Antispam-Message-Info: bUTXmXzBj5NAF6d8lYILsVTGtOpLbAzFmBibZuErWbvGHLguWWBeENOpI8rI3KbLe7AiT+NhD4Qf4q2SzRNrLoy6psqhAaly1rm3Cr/GNRXSNJb1cE9p1lM99vkXwQuazlVegKr852pc1m/vaS4V0V/DX8deEGXX7vH/2thFMrlmVdWn5bc8P0VQSOMzGXkZvDG+ffkRGR56fmygr8itz4O3Dg0AQiue7tkI8nctqgQMk9/vFd1qvRoGiPuZds4VPNVgNrY36h2QYizxegEpDZbhmXtBmP/oJpcVKY58rUHulQgm38jV3nHftrGEnmsapNbS/81vaM9RfjT9qG9uyiFwhpn6C34I5dABhPRqu481u1P48ezqj+uEN8N86lNw4BwFCWfie71jlEwH+wvohdKe4lv1B7oHPusPQuZTmOzAeNp66utau0sNrmHMgncllMAemnYSGQn0tBnosDPV8pqLPZuePIMO5bXyF4pLHZD9u/ifB0uWxNUXHIM7PNJJTZGtnzO+waXAIaTwQlUSMRcozA1wCgKxDqUe5seddBXjOMP413nJZVne+CdCxIOwepDuwwmmeJ2pgXhUMipHDOz3BKrBi/nNgQm4dJKq1vqjyusxMiGQGZCrtK1Jn3xBsDNVPO+aN28YYZcYctEq3hwZWJvce7CRiFZpDMdiqCE=
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:PH7PR12MB5685.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230040)(23010399003)(1800799024)(366016)(376014)(7416014)(261102123227099003)(261028144727099003)(261102130727099003)(261022075727099003)(261022105027099003)(261021135927099003)(261021121427099003)(261026121527099003)(261026140227099003)(11063799006)(4143699003)(56012099006)(10067099003)(18002099003)(22082099003)(261009223027099003)(3023799007);
+ DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?VVp5cGJtYW5vblhHdFlacDd1anZnYk9ta2JoRkRBWTlCV29zTGVxL2VHcS9j?=
+ =?utf-8?B?QjVsaGJOM2JZUzJ4cWR4Z2V5YlA1ZDZucy9EWjhHUWFEcU1JR1RWWFJ3bmpH?=
+ =?utf-8?B?VmZDZHJBMDBsWmQwOEhOVHM4eHVuYmFPeHdGZFZLcS9qWDFPdUh4QmZmZmxa?=
+ =?utf-8?B?S0ZsMkdSZGpuR0dCc0w5dXVOTk1yRHZVaytJQW9RUHFXUkZiMWdQdzFDamxR?=
+ =?utf-8?B?RTBYYUxobENpQW15ODRtWk9KSXRhaEZzZHp1ZEgwa0Q5V2h0d1FGaHF0bStS?=
+ =?utf-8?B?dGhNOEtDNU0vK0NUdmNneGhmazh0cTdmMjFZZUJIR0RnRWJlQlN3ckFlODEv?=
+ =?utf-8?B?NFllTUIvak41dEN3SGxvc3VOTFFmVjBqa2lJcjZiUTlqeVdIUHBrYWVsTUtx?=
+ =?utf-8?B?bTBpNkN2Nm1WY0wxZm92SitHbXRibzJvRjI1TGw0NGJzQmo2VE92ZXpDU1kw?=
+ =?utf-8?B?OFo0ZjBnUDhJNVhhNjhYUTA1VDExZStJRUZleFhsNmN1QUdKYVlpMFYxWGEz?=
+ =?utf-8?B?TlZQbjB5SmZkVWZlMC9TZUk3Uml3d0lnc2Foa0d3TjRFNEE0QmVjVWM1MVJZ?=
+ =?utf-8?B?cU9EWHhLUXpvVDA3RWl3TjV1RWkzbC9tSXNzcU5qNzZCNlE5SjJzcmZ4dUlS?=
+ =?utf-8?B?Szd0SFNRWTFhc1FYOTZiVlFURW93SGgza1hyMllTa1VGb3NhVEhYYy85SC9w?=
+ =?utf-8?B?MUJCTDNYNENWMkZieXFLTVZ1cE1kdk9Eem9ZKzNveU5MbjBLOVBoYklBVVYr?=
+ =?utf-8?B?bTUraGExTGE2SHhKSG1YSFp6U2ViUTBpcUd0dkR6NHRzT29YVk5iWGhTV1Js?=
+ =?utf-8?B?WEFMVFZ2bFI2WTZRdFdtUE1FVDYxV29RNTZDUTNEclRLQ1cwUTVtb0RBQ3Fx?=
+ =?utf-8?B?T1llNld2M3Q2RWthQ1cvTXlpamhGZWIrTkdzeXBVTTh6MitHcWlsdjNVT1lu?=
+ =?utf-8?B?VTVEa1pSZzEvZWR2WllKNmVGdllURC9mTloydm1zY3pCZ3JaZEl2VjRydlRP?=
+ =?utf-8?B?b1BGb1dyTEFlNGtDWWpITnEyMTVpQ21GZko0b2xhK2M5NWhBV2ZjcjdlTXlh?=
+ =?utf-8?B?U2ZVREFhN0lsOGoxWHpJcEx2R0lxMnJyNGZybjM2dXdnQUtLRWllYlhvdGl2?=
+ =?utf-8?B?Q2U2N1VZKytLN3FPZ2pTeW1aMTg0R2NKcm1DdEtpZUlGVjl6RnFwYVZLdXVM?=
+ =?utf-8?B?dnRpL0NTUjkxbVRzOFZ0SkE1dmtFeHp5SFJZQkVwaXZHaE5Rbk1kNW9VWnFM?=
+ =?utf-8?B?QkZvNG9NQU9ITkg4MVFSb3NsYXRNNHZUYUJGZ0pQQzVzMktmT0dVdlVLQUI0?=
+ =?utf-8?B?bzdvMEFDRWk3VHpFandRbG5kKzIvUlBLRU5hOXc4R0VuRFNMWk5UOU9WTXVm?=
+ =?utf-8?B?OG1aWk95Um00VktwVGU3QXN6Mjg2MDdPUFlMRUpBeHdNZkNvY0JoRW9tdmI4?=
+ =?utf-8?B?TTc0SUMzZ09ERVJyS2F2b1JjdjdGR3NSbGpjS0dNSU9WczdMd3RZajZFTWF0?=
+ =?utf-8?B?OHFHeG43TmxpbnpqZGJ2S1M4U253MnJqRU5lekNlSW9DSGgwUHFTMjFXdER3?=
+ =?utf-8?B?YjFlcnc0MTJ6Ly9OSklpYWVETThaT3luT1BQcU1xa1Q2ZGRDc3gyV2tHWXFS?=
+ =?utf-8?B?L3hkWWV1NkJsNGhtcnhUR2xQU3FzcVJZZ0pJdXM0TEhhaGY3L3dPdTI2aGYx?=
+ =?utf-8?B?SVhuMnZrV3BUY0g0MGRIZFZVd2kzUnM1ZldIcFFobm9QdGFsTVJjUmxiU2NF?=
+ =?utf-8?B?Yzk5WUIrd3M1UkowcEtpOHRxeWwyRm1lVVBTM1l0bDhmUUpLV0NGdHcrTEVM?=
+ =?utf-8?B?M2ZaZzJ2dW5ybDhRYUo1c2g4b3FXeXNrNmd3N1c5dFlQWnRDcC9QeGdsZjhq?=
+ =?utf-8?B?YkxUc09LTGNmcFdSVis5cnNTR1YxeVdaSGhLc0lIVGdzclFjVVNJbG5XR2E2?=
+ =?utf-8?B?aUJobHJUU01DQTJrVVA2d0J2TmZ5TXJ1ZXFvRnhvanp0OGoxUDZrYm9PMFIx?=
+ =?utf-8?B?Y3c5SXQrdVN0TzRsYkczeVhxT1U2RXJ4Si9mbFhLOHdaVHJpR3FPSFVScmhj?=
+ =?utf-8?B?cXp1QWZFYTVUZTdRcHlPLzlRVXJsZE5EY1hXaGVyNDNTS2xFU2xDa09uTnFT?=
+ =?utf-8?B?Tk93YTBZRWorbENqVFFrWGo4Qm94L0hicG1Tb1B1RWNGaThRWkpWWXlsRjVH?=
+ =?utf-8?B?SUhRS0JJT0R0MmVQV05KRy9JSndRWU8rVVpuWjdOOGpraGFCam8ya2FHa01a?=
+ =?utf-8?B?WjRpRW1yRW5ySCs2TmFzblRoVjlkSlRHdjJ0RlJheXdsVzE0UmtNN29nYzFq?=
+ =?utf-8?Q?47fBIFgJbCbjZaw8sE?=
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 0f7a7d3c-22b2-41c0-c9c3-08df43e13d2f
+X-MS-Exchange-CrossTenant-AuthSource: PH7PR12MB5685.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 16 Nov 2026 12:57:58.5489 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: NfsjKpikeXvk0eFUXeC36vVisqiFEDJ62gQvE1j6B7OvZ7a0iG3co00NSvADw4lX
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: IA1PR12MB6068
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -68,264 +155,130 @@ List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-16.8 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
-	DKIM_SIGNED,DKIM_VALID,HEADER_FROM_DIFFERENT_DOMAINS,
-	INCLUDES_CR_TRAILER,INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,
-	SPF_PASS,USER_AGENT_GIT autolearn=unavailable autolearn_force=no
-	version=4.0.1
+X-Spam-Status: No, score=-7.3 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
+	DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
+	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,USER_AGENT_SANE_1
+	autolearn=no autolearn_force=no version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-From: Ville Syrjälä <ville.syrjala@linux.intel.com>
+On 11/16/26 07:27, Alistair Popple wrote:
+> On 2026-11-09 at 21:59 +1100, Christian König <christian.koenig@amd.com> wrote...
+>> On 11/9/26 03:58, Alistair Popple wrote:
+>>> On 2026-11-07 at 19:57 +1100, Karl Mehltretter <kmehltretter@gmail.com> wrote...
+>>>> On Thu, Nov 05, 2026 at 05:40:41PM +0100, Alistair Popple wrote:
+>>>>> + * A pin or map that fails after dma_buf_mapping_select() may reopen the
+>>>>> + * choice only if it was the one that made it. A selection that predates the
+>>>>> + * call belongs to a live pin or mapping and must survive, otherwise the next
+>>>>> + * pin or map would reselect under it without an invalidate.
+>>>>> + */
+>>>>> +void dma_buf_mapping_unselect(struct dma_buf_attachment *attach,
+>>>>> +			      bool was_selected)
+>>>>> +{
+>>>>> +	dma_resv_assert_held(attach->dmabuf->resv);
+>>>>> +
+>>>>> +	if (was_selected)
+>>>>> +		return;
+>>>>> +
+>>>>> +	attach->selected = false;
+>>>>> +	attach->selected_idx = 0;
+>>>>> +}
+>>>>> +
+>>>>
+>>>> After dma_buf_invalidate_mappings(), attach->selected is false while
+>>>> attach->selected_idx still holds that mapping's entry for a pending
+>>>> unmap. 
+>>>>
+>>>> If a pin/map fails before that unmap runs, was_selected is false and
+>>>> dma_buf_mapping_unselect() resets attach->selected_idx to 0.
+>>>>
+>>>> A subsequent dma_buf_unmap_sgt() then uses matches[0].
+>>>
+>>> Actually there's a bigger issue here. The contract at the moment states that
+>>> mapping type may change after invalidation. However that doesn't account for the
+>>> fact mappings can outlive the invalidation.
+>>>
+>>> This could be dealt with by switching everything over to the generic
+>>> dma_buf_mapping_map/unmap() path, but that requires an allocation per mapping
+>>> just to track the mapping type.
+>>
+>> You need an allocation per mapping anyway to identify the mapping anyway.
+>>
+>> We currently abuse the sg_table for that, but essentially the idea of having a structure/object to represent the mapping needs to stay around as far as I can see.
+> 
+> Oh right, I see that now.
+> 
+> Do you think it makes sense to convert all exporters to return a mapping type
+> specific struct (eg. dma_buf_sgt_mapping) rather than the sgt directly?
 
-Add KUnit tests for what happens to the event of a CRTC state that went
-through drm_atomic_helper_setup_commit(): an internally allocated event
-and an event provided by the caller must both be thrown away, releasing
-their reference on the commit, if the state is destroyed without the
-event having been consumed, while a consumed and sent event completes
-flip_done and is left alone.
+No, we essentially want to get away from the whole sgt approach.
 
-Signed-off-by: Ville Syrjälä <ville.syrjala@linux.intel.com>
----
- .../gpu/drm/tests/drm_atomic_commit_test.c    | 201 +++++++++++++++++-
- 1 file changed, 200 insertions(+), 1 deletion(-)
+The whole purpose of DMA-buf was to exchange DMA addresses between drivers and sgt is problematic for that job because it mixed both the input as well as the output of the DMA mapping operation into one structure.
 
-diff --git a/drivers/gpu/drm/tests/drm_atomic_commit_test.c b/drivers/gpu/drm/tests/drm_atomic_commit_test.c
-index 6ccb001f6264..80b3f6fd872a 100644
---- a/drivers/gpu/drm/tests/drm_atomic_commit_test.c
-+++ b/drivers/gpu/drm/tests/drm_atomic_commit_test.c
-@@ -5,9 +5,13 @@
-  * Copyright (c) 2024 Qualcomm Innovation Center, Inc. All rights reserved.
-  */
- 
-+#include <linux/dma-fence.h>
-+
- #include <drm/drm_atomic.h>
- #include <drm/drm_atomic_helper.h>
- #include <drm/drm_atomic_uapi.h>
-+#include <drm/drm_file.h>
-+#include <drm/drm_vblank.h>
- #include <drm/drm_kunit_helpers.h>
- #include <drm/drm_probe_helper.h>
- 
-@@ -378,6 +382,187 @@ KUNIT_ARRAY_PARAM(drm_check_in_clone_mode, drm_clone_mode_tests,
- KUNIT_ARRAY_PARAM(drm_check_valid_clones, drm_valid_clone_mode_tests,
- 		  drm_check_valid_clones_desc);
- 
-+struct drm_event_test_ctx {
-+	struct drm_atomic_test_priv *priv;
-+	struct drm_modeset_acquire_ctx ctx;
-+	struct drm_atomic_commit *state;
-+	struct drm_crtc_state *crtc_state;
-+	struct drm_crtc_commit *commit;
-+};
-+
-+/*
-+ * Set up a state with an enabled CRTC and run drm_atomic_helper_setup_commit()
-+ * on it. Takes an extra reference on the CRTC commit, which the caller has to
-+ * drop, so that the references held by the state and its event can be counted.
-+ */
-+static void drm_event_test_setup_commit(struct kunit *test,
-+					struct drm_event_test_ctx *c,
-+					struct drm_pending_vblank_event *event,
-+					bool active)
-+{
-+	int ret;
-+
-+	c->priv = drm_atomic_test_init_drm_components(test, false);
-+	KUNIT_ASSERT_NOT_NULL(test, c->priv);
-+
-+	drm_modeset_acquire_init(&c->ctx, 0);
-+
-+	c->state = drm_kunit_helper_atomic_state_alloc(test, &c->priv->drm,
-+						       &c->ctx);
-+	KUNIT_ASSERT_NOT_ERR_OR_NULL(test, c->state);
-+
-+	c->crtc_state = drm_atomic_get_crtc_state(c->state, c->priv->crtc);
-+	KUNIT_ASSERT_NOT_ERR_OR_NULL(test, c->crtc_state);
-+
-+	c->crtc_state->enable = active;
-+	c->crtc_state->active = active;
-+	c->crtc_state->event = event;
-+
-+	ret = drm_atomic_helper_setup_commit(c->state, false);
-+	KUNIT_ASSERT_EQ(test, ret, 0);
-+
-+	c->commit = c->crtc_state->commit;
-+	KUNIT_ASSERT_NOT_NULL(test, c->commit);
-+	if (active) {
-+		KUNIT_ASSERT_NOT_NULL(test, c->crtc_state->event);
-+		KUNIT_EXPECT_PTR_EQ(test, c->crtc_state->event->base.completion,
-+				    &c->commit->flip_done);
-+	}
-+
-+	drm_crtc_commit_get(c->commit);
-+}
-+
-+static void drm_event_test_finish(struct drm_event_test_ctx *c)
-+{
-+	drm_crtc_commit_put(c->commit);
-+	drm_modeset_drop_locks(&c->ctx);
-+	drm_modeset_acquire_fini(&c->ctx);
-+}
-+
-+/*
-+ * Test that destroying a state whose commit was never queued throws away the
-+ * event allocated by drm_atomic_helper_setup_commit(), and gives up the
-+ * reference the event held on the commit.
-+ */
-+static void drm_test_event_abort_internal(struct kunit *test)
-+{
-+	struct drm_event_test_ctx c;
-+
-+	drm_event_test_setup_commit(test, &c, NULL, true);
-+
-+	/* state, crtcs[].commit and the event, plus the one taken above */
-+	KUNIT_EXPECT_EQ(test, kref_read(&c.commit->ref), 4);
-+
-+	drm_atomic_commit_clear(c.state);
-+
-+	KUNIT_EXPECT_EQ(test, kref_read(&c.commit->ref), 1);
-+	KUNIT_EXPECT_FALSE(test, try_wait_for_completion(&c.commit->flip_done));
-+
-+	drm_event_test_finish(&c);
-+}
-+
-+/*
-+ * Same as above, but with an event provided by the caller, like the atomic
-+ * uapi does.
-+ */
-+static void drm_test_event_abort_user(struct kunit *test)
-+{
-+	struct drm_pending_vblank_event *event;
-+	struct drm_event_test_ctx c;
-+
-+	event = kzalloc_obj(*event);
-+	KUNIT_ASSERT_NOT_NULL(test, event);
-+
-+	drm_event_test_setup_commit(test, &c, event, true);
-+	KUNIT_EXPECT_PTR_EQ(test, c.crtc_state->event, event);
-+	KUNIT_EXPECT_EQ(test, kref_read(&c.commit->ref), 4);
-+
-+	/* the event is freed here */
-+	drm_atomic_commit_clear(c.state);
-+
-+	KUNIT_EXPECT_EQ(test, kref_read(&c.commit->ref), 1);
-+
-+	drm_event_test_finish(&c);
-+}
-+
-+static const char *drm_event_test_fence_name(struct dma_fence *fence)
-+{
-+	return "drm-event-test";
-+}
-+
-+static const struct dma_fence_ops drm_event_test_fence_ops = {
-+	.get_driver_name = drm_event_test_fence_name,
-+	.get_timeline_name = drm_event_test_fence_name,
-+};
-+
-+/*
-+ * Test that an event from the atomic uapi (here with an out-fence) is thrown
-+ * away with the state when the CRTC stays off. drm_atomic_helper_setup_commit()
-+ * skips such CRTCs, so no driver is required to consume the event and nothing
-+ * but the state destructor is left to free it. The fence reference tells
-+ * whether the event got freed.
-+ */
-+static void drm_test_event_stays_off(struct kunit *test)
-+{
-+	struct drm_pending_vblank_event *event;
-+	struct drm_event_test_ctx c;
-+	struct dma_fence fence;
-+	spinlock_t lock;
-+
-+	event = kzalloc_obj(*event);
-+	KUNIT_ASSERT_NOT_NULL(test, event);
-+
-+	spin_lock_init(&lock);
-+	dma_fence_init(&fence, &drm_event_test_fence_ops, &lock, 0, 0);
-+	/* the event's reference; the one from dma_fence_init() stays ours */
-+	event->base.fence = dma_fence_get(&fence);
-+
-+	drm_event_test_setup_commit(test, &c, event, false);
-+
-+	KUNIT_EXPECT_PTR_EQ(test, c.crtc_state->event, event);
-+	KUNIT_EXPECT_NULL(test, event->base.completion);
-+	KUNIT_EXPECT_TRUE(test, try_wait_for_completion(&c.commit->flip_done));
-+	KUNIT_EXPECT_EQ(test, kref_read(&fence.refcount), 2);
-+
-+	/* the event is freed here */
-+	drm_atomic_commit_clear(c.state);
-+
-+	KUNIT_EXPECT_EQ(test, kref_read(&fence.refcount), 1);
-+	KUNIT_EXPECT_EQ(test, kref_read(&c.commit->ref), 1);
-+
-+	/* the last reference is not dropped, @fence is on the stack */
-+	drm_event_test_finish(&c);
-+}
-+
-+/*
-+ * Test that an event which the driver consumed is not touched when the state
-+ * is destroyed, and that sending it completes flip_done.
-+ */
-+static void drm_test_event_consumed(struct kunit *test)
-+{
-+	struct drm_pending_vblank_event *event;
-+	struct drm_event_test_ctx c;
-+
-+	drm_event_test_setup_commit(test, &c, NULL, true);
-+
-+	event = c.crtc_state->event;
-+	c.crtc_state->event = NULL;
-+
-+	spin_lock_irq(&c.priv->drm.event_lock);
-+	drm_send_event_locked(&c.priv->drm, &event->base);
-+	spin_unlock_irq(&c.priv->drm.event_lock);
-+
-+	KUNIT_EXPECT_TRUE(test, try_wait_for_completion(&c.commit->flip_done));
-+	/* the event gave up its reference when it was sent */
-+	KUNIT_EXPECT_EQ(test, kref_read(&c.commit->ref), 3);
-+
-+	drm_atomic_commit_clear(c.state);
-+
-+	KUNIT_EXPECT_EQ(test, kref_read(&c.commit->ref), 1);
-+
-+	drm_event_test_finish(&c);
-+}
-+
- static struct kunit_case drm_test_check_modeset_test[] = {
- 	KUNIT_CASE(drm_test_check_connector_changed_modeset),
- 	{}
-@@ -391,6 +576,19 @@ static struct kunit_case drm_in_clone_mode_check_test[] = {
- 	{}
- };
- 
-+static struct kunit_case drm_event_ownership_tests[] = {
-+	KUNIT_CASE(drm_test_event_abort_internal),
-+	KUNIT_CASE(drm_test_event_abort_user),
-+	KUNIT_CASE(drm_test_event_stays_off),
-+	KUNIT_CASE(drm_test_event_consumed),
-+	{}
-+};
-+
-+static struct kunit_suite drm_event_ownership_test_suite = {
-+	.name = "drm_atomic_event_ownership",
-+	.test_cases = drm_event_ownership_tests,
-+};
-+
- static struct kunit_suite drm_test_check_modeset_test_suite = {
- 	.name = "drm_validate_modeset",
- 	.test_cases = drm_test_check_modeset_test,
-@@ -402,7 +600,8 @@ static struct kunit_suite drm_in_clone_mode_check_test_suite = {
- };
- 
- kunit_test_suites(&drm_in_clone_mode_check_test_suite,
--		  &drm_test_check_modeset_test_suite);
-+		  &drm_test_check_modeset_test_suite,
-+		  &drm_event_ownership_test_suite);
- 
- MODULE_AUTHOR("Jessica Zhang <quic_jesszhan@quicinc.com");
- MODULE_DESCRIPTION("Test cases for the drm_atomic_helper functions");
--- 
-2.56.0
+What we need is the functionality to either say map the buffer at this specific address in that address space (IOMMU domain, internal address space whatever) or just to return DMA addresses plus the information in which address space those addresses are valid.
+
+Regards,
+Christian.
+
+> Ie. change map_dma_buf() callbacks to return *dma_buf_sgt_mapping instead of
+> *sg_table and convert exporters to allocate that instead of a *sg_table.
+> 
+> I've taken a look at doing that and whilst it touches all the exporters the
+> changes are fairly mechanical in nature, with only two or three annoying
+> exporters that have slightly different patterns (one of which is buggy).
+> 
+>  - Alistair
+> 
+>> Regards,
+>> Christian.
+>>
+>>>
+>>> The alternate is we update the contract to say mapping type cannot change until
+>>> after all importers have unmapped. Enforcing this would require tracking the
+>>> number of live mappings/pins per-attachment, but I think this is the better
+>>> solution so will add that for the next version.
+>>>
+>>>>>  int dma_buf_pin(struct dma_buf_attachment *attach)
+>>>>>  {
+>>>>>  	struct dma_buf *dmabuf = attach->dmabuf;
+>>>>> +	bool selected = attach->selected;
+>>>>>  	int ret = 0;
+>>>>>  
+>>>>>  	WARN_ON(!attach->importer_ops);
+>>>>>  
+>>>>>  	dma_resv_assert_held(dmabuf->resv);
+>>>>>  
+>>>>> -	if (dmabuf->ops->pin)
+>>>>> +	ret = dma_buf_mapping_select(attach);
+>>>>> +	if (ret)
+>>>>> +		return ret;
+>>>>> +
+>>>>> +	if (dmabuf->ops->pin) {
+>>>>>  		ret = dmabuf->ops->pin(attach);
+>>>>> +		if (ret)
+>>>>> +			dma_buf_mapping_unselect(attach, selected);
+>>>>> +	}
+>>>>
+>>>> dma_buf_mapping_select() sets attach->selected = true before ops->pin()
+>>>> and the map callbacks run.
+>>>>
+>>>> In patches 14/15, xe/amdgpu migrate a VRAM buffer to system memory
+>>>> during pin and map when the attachment does not accept P2P.
+>>>>
+>>>> That migration calls dma_buf_invalidate_mappings() and clears
+>>>> attach->selected on every attachment, also the one being pinned/mapped. 
+>>>>
+>>>> When the callback succeeds, the attachment stays pinned or mapped with
+>>>> attach->selected == false.
+>>>>
+>>>> A later map/pin on the same attachment can then reselect without an
+>>>> invalidation.
+>>>
+>>> Argh. Thanks. Will fix.
+>>>
+>>>  - Alistair
+>>>
+>>>> Thanks,
+>>>> Karl
+>>
 
