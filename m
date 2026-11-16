@@ -2,87 +2,43 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 33C02606A31C
-	for <dri-devel@archiver.kernel.org>; Mon, 16 Nov 2026 10:52:00 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 20C6D60A380E
+	for <dri-devel@archiver.kernel.org>; Mon, 16 Nov 2026 10:53:25 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=KKO0GtmL
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=aoSWhf/I
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 8F18189452;
-	Mon, 16 Nov 2026 10:51:54 +0000 (UTC)
-Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 5D53510E3D8
- for <dri-devel@lists.freedesktop.org>; Mon, 16 Nov 2026 10:51:48 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 6F2E010EF38;
+	Mon, 16 Nov 2026 10:53:19 +0000 (UTC)
+Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id BCD3210EF48
+ for <dri-devel@lists.freedesktop.org>; Mon, 16 Nov 2026 10:53:13 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id 22640411BC;
- Mon, 16 Nov 2026 10:51:48 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9FA0D1F000C5;
- Mon, 16 Nov 2026 10:51:34 +0000 (UTC)
+ by tor.source.kernel.org (Postfix) with ESMTP id D2F6B612E1
+ for <dri-devel@lists.freedesktop.org>; Mon, 16 Nov 2026 10:53:12 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6C3521F000D4;
+ Mon, 16 Nov 2026 10:53:12 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1794826308;
- bh=rny6q4V2AlEW+9be9hzTdzBqG+gm95vTnvqQb/sLFhY=;
- h=Date:From:To:Cc:Subject:References:In-Reply-To;
- b=KKO0GtmLmo3FANikUbE0i8Y6q8f05SERDvSmxDTTrvZcguvwuOPJiERRLiY3km+p9
- zo6CwRf5CpRVfMsRxBO5VC7BJ8aswdfaLrTnWNGso8MYwfkMSlZlr/JCwl7Yb0DKYI
- eBWEl8S+pydXFjwbZYHaKbLWD1FXtNqR/hU+W0ogRIXX/8Ttqui5864q8rXI5QbV1c
- R6fnfNJlYbpdNAOv54aoayBIVtR/wby4m5kxP9JLbu1/7ECYHfn8X6ZW0o2rJV/Mfu
- EVIiWUPpZlAFacz9vc7Vc16Rny5Ozfd3TgFqBoUQmnJ8ExsrAtD4LpzCw5QASx/URm
- B8JnGpBuX+mvA==
-Date: Mon, 16 Nov 2026 11:51:32 +0100
-From: Lorenzo Pieralisi <lpieralisi@kernel.org>
-To: "Aneesh Kumar K.V" <aneesh.kumar@kernel.org>
-Cc: Marc Zyngier <maz@kernel.org>, linux-coco@lists.linux.dev,
- Andrew Morton <akpm@linux-foundation.org>,
- Baoquan He <baoquan.he@linux.dev>, Mike Rapoport <rppt@kernel.org>,
- Pasha Tatashin <pasha.tatashin@soleen.com>,
- Pratyush Yadav <pratyush@kernel.org>,
- Catalin Marinas <catalin.marinas@arm.com>,
- Christian =?iso-8859-1?Q?K=F6nig?= <christian.koenig@amd.com>,
- Jason Gunthorpe <jgg@ziepe.ca>, Joerg Roedel <joro@8bytes.org>,
- Marek Szyprowski <m.szyprowski@samsung.com>,
- Robin Murphy <robin.murphy@arm.com>, Steven Price <steven.price@arm.com>,
- Sumit Semwal <sumit.semwal@linaro.org>,
- Suzuki K Poulose <suzuki.poulose@arm.com>,
- Thomas Gleixner <tglx@kernel.org>, Will Deacon <will@kernel.org>,
- Russell King <linux@armlinux.org.uk>,
- Benjamin Gaignard <benjamin.gaignard@collabora.com>,
- Brian Starkey <Brian.Starkey@arm.com>, John Stultz <jstultz@google.com>,
- Mark Rutland <mark.rutland@arm.com>, Radu Rendec <radu@rendec.net>,
- "T.J. Mercier" <tjmercier@google.com>,
- Madhavan Srinivasan <maddy@linux.ibm.com>,
- Michael Ellerman <mpe@ellerman.id.au>, Nicholas Piggin <npiggin@gmail.com>,
- Christophe Leroy <chleroy@kernel.org>,
- Ritesh Harjani <ritesh.list@gmail.com>,
- Shrikanth Hegde <sshegde@linux.ibm.com>,
- Alexander Gordeev <agordeev@linux.ibm.com>,
- Gerald Schaefer <gerald.schaefer@linux.ibm.com>,
- Heiko Carstens <hca@linux.ibm.com>, Vasily Gorbik <gor@linux.ibm.com>,
- Christian Borntraeger <borntraeger@linux.ibm.com>,
- Sven Schnelle <svens@linux.ibm.com>, Ingo Molnar <mingo@redhat.com>,
- Borislav Petkov <bp@alien8.de>,
- Dave Hansen <dave.hansen@linux.intel.com>, x86@kernel.org,
- "H . Peter Anvin" <hpa@zytor.com>, Kiryl Shutsemau <kas@kernel.org>,
- Rick Edgecombe <rick.p.edgecombe@intel.com>,
- "K . Y . Srinivasan" <kys@microsoft.com>,
- Haiyang Zhang <haiyangz@microsoft.com>,
- Wei Liu <wei.liu@kernel.org>, Dexuan Cui <decui@microsoft.com>,
- Long Li <longli@microsoft.com>, Paolo Bonzini <pbonzini@redhat.com>,
- Vitaly Kuznetsov <vkuznets@redhat.com>, Andy Lutomirski <luto@kernel.org>,
- Peter Zijlstra <peterz@infradead.org>,
- dri-devel@lists.freedesktop.org, iommu@lists.linux.dev,
- linaro-mm-sig@lists.linaro.org,
- linux-arm-kernel@lists.infradead.org, linux-media@vger.kernel.org,
- linux-mm@kvack.org, kvmarm@lists.linux.dev, patches@lists.linux.dev
-Subject: Re: [PATCH v9 14/14] irqchip/gic-v3-its: Preallocate VPE L1 tables
-Message-ID: <avrgNBXDFMGL6dqO@red-moon>
-References: <20261104164555.3555725-1-aneesh.kumar@kernel.org>
- <20261104164555.3555725-15-aneesh.kumar@kernel.org>
- <86zevn1c9a.wl-maz@kernel.org> <yq5ah5huoteu.fsf@kernel.org>
- <87ld6x8zb7.wl-maz@kernel.org> <yq5apkw5xpnz.fsf@kernel.org>
-X-Archived-By: <archiver.kernel.org>
-MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <yq5apkw5xpnz.fsf@kernel.org>
+ s=k20260515; t=1794826392;
+ bh=uNRTHpClDcGJT9VuJMizGjX30rswfzGw31U6AwA3Q/U=;
+ h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+ b=aoSWhf/Ir2Q7dnPlrfvF/Xim5EbNdJoNOo8MO3ie7OCiO753NseyI1VXs6E/ToGPA
+ hdKIt/WLDfrjfF+3Gwr/sexagclYGpghhwZh6UmBspkOy/VNLWqUt0icVnn2PZvV8j
+ oQtY0pBNMX+5mjTJ2KBqftG5ZfsTUVyX631PfzSDd+aSqSSY28mNp4b83ExJjztdHV
+ KC/QSI8zX/xN7d5/m8axZvRaICw25d6eH9EjULmTDAAnQfNM94g1TpMqUXpXHmOE6j
+ R83QvJ8K+TtUXuHCr2KvhbmLZlH+DLon/hjrMZ/QGP8+C2PGwmOaYpFstXdz20IKBr
+ 4PbkgPlo/KkLQ==
+Message-ID: <sashiko-outbox-216789@kernel.org>
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v2 39/64] drm/tests: drm_atomic_test: Switch to
+ drm_mode_config_create_initial_state
+To: "Maxime Ripard" <mripard@kernel.org>
+Cc: dri-devel@lists.freedesktop.org
+In-Reply-To: <20261116-drm-no-more-config-reset-v2-39-0bb471f4d1e0@kernel.org>
+References: <20261116-drm-no-more-config-reset-v2-0-0bb471f4d1e0@kernel.org>
+ <20261116-drm-no-more-config-reset-v2-39-0bb471f4d1e0@kernel.org>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Mon, 16 Nov 2026 10:53:12 +0000
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -93,81 +49,59 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
+Reply-To: sashiko-reviews@lists.linux.dev
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-5.8 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
+X-Spam-Status: No, score=-10.8 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
 	DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
-	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS autolearn=no
+	INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS autolearn=ham
 	autolearn_force=no version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
+X-Archived-By: <archiver.kernel.org>
 
-On Mon, Nov 16, 2026 at 11:51:04AM +0530, Aneesh Kumar K.V wrote:
-> Marc Zyngier <maz@kernel.org> writes:
-> 
-> > On Fri, 06 Nov 2026 15:45:29 +0000,
-> > Aneesh Kumar K.V <aneesh.kumar@kernel.org> wrote:
-> >> 
-> >> Marc Zyngier <maz@kernel.org> writes:
-> >> 
-> >> > On Wed, 04 Nov 2026 16:45:55 +0000,
-> >> > "Aneesh Kumar K.V (Arm)" <aneesh.kumar@kernel.org> wrote:
-> >> >> 
-> >> >> VPE L1 tables are allocated from the CPU-starting callback, where sleeping is
-> >> >> not allowed.  Remove the page allocation from this atomic path.
-> >> >> 
-> >> >> Use a blocking allocation for the boot CPU and record the resulting table
-> >> >> order.  Allocate a page of that order from the sleepable CPU hotplug prepare
-> >> >> stage for each secondary CPU.  Consume the preallocated page only when the CPU
-> >> >> cannot inherit an existing redistributor or ITS table.
-> >> >> 
-> >> >> Reclaim unused preallocations after the CPU reaches the online state, and from
-> >> >> the prepare-state teardown when CPU bring-up aborts.
-> >> >
-> >> > No. The way to do it is to move the ITS probing out of the
-> >> > non-sleepable CPU hotplug path.
-> >> >
-> >> > I proposed a potential hack at [1] (which I find far more palatable
-> >> > than this proposal), but the real fix is to probe the ITSs as
-> >> > devices.
-> >> >
-> >> 
-> >> Could you share a bit more detail on what you have in mind?
-> >> 
-> >> Are you suggesting that we create a platform device for each ITS and
-> >> initialize it through the driver's probe callback, while the rest of the
-> >> GIC initialization stays in the existing early boot path?
-> >> 
-> >> Would that mean the main GIC is operational during early boot, while
-> >> ITS-dependent features, such as MSI delivery and direct injection, become
-> >> available after the ITS devices probe?
-> >> 
-> >> Is that the split you have in mind?
-> >
-> > Yes. Then once this is done, all the tables become normal DMA
-> > allocations, for which there should already be adequate support.
-> >
-> 
-> Thanks for confirming. Can we handle the ITS platform-device conversion
-> and the switch to DMA allocations in a separate series?
-> 
-> The existing VPE L1 allocation path calls set_memory_decrypted() from
-> the non-sleepable CPU-starting callback, even though
-> set_memory_decrypted() can sleep. This issue predates the shared-granule
-> allocator changes.
+Thank you for your contribution! Sashiko AI review found 1 potential
+issue to consider:
+- [Low] drm/tests: misplaced fixup hunk in
+  drm_atomic_test_init_drm_components()
+--
 
-If I may ask, why does the existing code ends up calling set_memory_decrypt(),
-or reworded, why does the VPE L1 allocation path goes through the ITS specific
-allocation function rather than using alloc_pages() (as it was before
-b08e2f42e86b5) ?
+commit 4a8e39a2143161f4693081f0e4cf620a298d8f3a
+Author: Maxime Ripard <mripard@kernel.org>
 
-Why did b08e2f42e86b5 patched allocate_vpe_l1_table() allocation and moved
-it to using its_alloc_pages() ?
+drm/tests: drm_atomic_test: Switch to drm_mode_config_create_initial_state
 
-Thanks,
-Lorenzo
+This commit switches create_device() in drm_atomic_test.c from
+drm_mode_config_reset() to drm_mode_config_create_initial_state(), and
+updates error handling in drm_atomic_test_init_drm_components() in
+drm_atomic_commit_test.c.
 
-> 
-> Since fixing this properly needs a broader ITS rework, can we handle
-> that separately and drop the preallocation patch from this series?
-> 
-> -aneesh
+> diff --git a/drivers/gpu/drm/tests/drm_atomic_commit_test.c b/drivers/gpu=
+/drm/tests/drm_atomic_commit_test.c
+> index 97f60ce68b3e4..a02859a0d8bf3 100644
+> --- a/drivers/gpu/drm/tests/drm_atomic_commit_test.c
+> +++ b/drivers/gpu/drm/tests/drm_atomic_commit_test.c
+> @@ -135,8 +135,7 @@ drm_atomic_test_init_drm_components(struct kunit *tes=
+t, bool has_connectors)
+> =20
+>  done:
+>  	ret =3D drm_mode_config_create_initial_state(drm);
+> -	if (ret)
+> -		return ERR_PTR(ret);
+> +	KUNIT_ASSERT_EQ(test, ret, 0);
+> =20
+>  	return priv;
+>  }
+
+[Severity: Low]
+Should this hunk be squashed into the earlier commit "drm/tests:
+drm_atomic_state_test: Switch to drm_mode_config_create_initial_state"?
+
+That commit converted drm_atomic_test_init_drm_components() to return
+ERR_PTR(ret), even though callers such as
+drm_test_check_connector_changed_modeset() only check
+KUNIT_ASSERT_NOT_NULL(test, priv) and would dereference an error pointer
+at that point in the series.
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261116-drm-no-mor=
+e-config-reset-v2-0-0bb471f4d1e0@kernel.org?part=3D39
