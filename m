@@ -2,88 +2,73 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 031A6606A33F
-	for <dri-devel@archiver.kernel.org>; Mon, 16 Nov 2026 15:12:09 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A8317606A31C
+	for <dri-devel@archiver.kernel.org>; Mon, 16 Nov 2026 15:14:25 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=quzZMp2L
+	dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.a=rsa-sha256 header.s=dkim header.b=hrhqEx4T
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id C886210E7AF;
-	Mon, 16 Nov 2026 15:12:02 +0000 (UTC)
-Received: from mail-ej1-f45.google.com (mail-ej1-f45.google.com
- [209.85.218.45])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 1798E10EA65
- for <dri-devel@lists.freedesktop.org>; Mon, 16 Nov 2026 15:10:57 +0000 (UTC)
-Received: by mail-ej1-f45.google.com with SMTP id
- a640c23a62f3a-c4cdc606b47so620214866b.0
- for <dri-devel@lists.freedesktop.org>; Mon, 16 Nov 2026 07:10:57 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20260707; t=1794841855; x=1795446655; darn=lists.freedesktop.org;
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:date:subject:cc:to:from:from:to:cc:subject:date
- :message-id:reply-to:content-type;
- bh=1z7RmYK1NjDMEO9+xJDI+w73bgLEkLKZ4jmIOyAvUDw=;
- b=quzZMp2LSuqihe11t1DbUobasQ7gGeN3cnxnkZorVr9nEI9t0gbJkqPAPphy0Ax0HI
- 5oWSnkN7P0skZVPQTY7j0W8vvc/+/EAudNMTYuM7LJVMnMqeo4lcmSgtK9A9Ns5L1NWv
- UkQAanLRwck1yK0ZCYTlBJmNC/rZiaX50CVvsWSYWs91eyYhImMabt3prBOPiL61fJor
- Vx2tcOex3pHEAVgwup1ag+4a0lYOV6MSoB7v6o8yQfgwl37EZUjyur/0wh7paQsfiJfR
- d3zirdURqn8NrNkw8aAO/dh+A1gL4B0pK9aprwmnuAxpYY1ZT6UVVnOOpLkVguFhN6R/
- H6cQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20260707; t=1794841855; x=1795446655;
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
- :to:cc:subject:date:message-id:reply-to:content-type;
- bh=1z7RmYK1NjDMEO9+xJDI+w73bgLEkLKZ4jmIOyAvUDw=;
- b=S8TiTHfG2GP4D4Rvgj1rF0/ypBbXVGs1HqIkg8qSp/SLtiooVFiIcCUk/iy782p1/c
- KLW37BG0Qz7zin6rRlOwUAEUEYC5dA38Cy7O/tNsu7a1E6l8OJL9L6zSmqNQlRa8pIgz
- LdCVrSYsQ/ZLphd0iswbYnysHd9z/iKEkosIkoFk+fYr3q4ir//5ORsOsrDptNhSqQqF
- 3p0zIF5L5UBBJnGkzU203xOc4zbA/jZhRPN4s4oA4xigLhvDsq74BddfZM13QxrrZ3rj
- a/jXsX3ch+M7mpdNjWva0qLDhY9pzqeUY5IwOdT4Y8MJgFpE1NZywwdvO8Oww1tiSoOd
- PkYw==
-X-Gm-Message-State: APuU4Z+hj5ZPZ3p0DjUJcj9xtN5oUCnt86Z9MqFD/vVvWOjpoQU9LS3D
- BCw4Nq5/z/rW5/RnjbYgmtgw6TM8xqiJWAl4089VysUvtYhQIGOaOqpq
-X-Gm-Gg: AYBFou0fQUzVI/KmE2Ip6Cfm2LT8TlfDXRxuvnfTUciUSVX8wkZVmWKXar/G0WhW+xq
- FhPtE/hqXLxCgLjeHF5+bjYtjDBM+1PqCt/BG0NxT6qFjCP685tgWnfzzfu0C4cYqUhbA8K4Z4I
- ZdP1BWvBR2IRCvzO8+bebIFykdHzxpj+1FpoF810WdFMutVx1wCHJ/BE0nZ4Y97JciZmE/QGZbx
- 4vGDbeZCb9v91rBWh1U/EvtgjRrAPjIFLIQdR50DfDdN9KOY3EFs6JAzOvXcHNRagBiW9NCiivl
- ePPxgucJ+mAsWPlKU8w/nadprxtB53LkJ5fWMx/QD1W7O34j+AW0l2xhyfdTBSkS9yzWr5M2rNU
- VHbRN/+MOcfrGQlN6vl65mLy2VYb+VbHKzCj8nabIVVA5m7SqTkrcIRp74YletoWfi+Z2z339RZ
- 8HHSVr2Wb7ampyVNbnic0zk2OXQ1gvO1gNV4iXiIssU5CkffqCyu5RIeIGmC3/YxpFA6G00oIx2
- wei9nDhUAnGyq8bFUF3ZmKOMvSJu2nynJKHdZ2baYFCM9WV1eAtcohp9NWJOAlP5wlb+sSWvvKH
- Zgn9oXeT2ihI1hN9foh79mCkJZrqHzpKDdTLM7+bilTa5kj57UVt+N8RQp83syF0F5AQtMlu6xQ
- BBbrupHh8+g==
-X-Received: by 2002:a17:907:9612:b0:c29:f5d8:9c75 with SMTP id
- a640c23a62f3a-c50963fe3dcmr895394166b.36.1794841855283; 
- Mon, 16 Nov 2026 07:10:55 -0800 (PST)
-Received: from xeon ([188.163.112.62]) by smtp.gmail.com with ESMTPSA id
- a640c23a62f3a-c5095b93a85sm420868466b.84.2026.11.16.07.10.52
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Mon, 16 Nov 2026 07:10:53 -0800 (PST)
-From: Svyatoslav Ryhel <clamor95@gmail.com>
-To: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>,
- Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>,
- Simona Vetter <simona@ffwll.ch>, Rob Herring <robh@kernel.org>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>,
- Thierry Reding <thierry.reding@kernel.org>,
- Jonathan Hunter <jonathanh@nvidia.com>,
- Neil Armstrong <neil.armstrong@linaro.org>,
- Jessica Zhang <jesszhan0024@gmail.com>,
- Mikko Perttunen <mperttunen@nvidia.com>,
- Svyatoslav Ryhel <clamor95@gmail.com>
-Cc: dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org,
- linux-tegra@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: [PATCH v7 11/12] dt-bindings: display: tegra: Document 8-bit CPU
- parallel interface
-Date: Mon, 16 Nov 2026 17:10:16 +0200
-Message-ID: <20261116151017.274764-12-clamor95@gmail.com>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20261116151017.274764-1-clamor95@gmail.com>
-References: <20261116151017.274764-1-clamor95@gmail.com>
+	by gabe.freedesktop.org (Postfix) with ESMTP id 3DC2A10F260;
+	Mon, 16 Nov 2026 15:14:18 +0000 (UTC)
+Received: from smtpout-02.galae.net (smtpout-02.galae.net [185.246.84.56])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 3946410EDD4;
+ Mon, 16 Nov 2026 15:14:12 +0000 (UTC)
+Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
+ by smtpout-02.galae.net (Postfix) with ESMTPS id 91BD01A1688;
+ Mon, 16 Nov 2026 15:14:10 +0000 (UTC)
+Received: from mail.galae.net (mail.galae.net [212.83.136.155])
+ by smtpout-01.galae.net (Postfix) with ESMTPS id 5EAA66023F;
+ Mon, 16 Nov 2026 15:14:10 +0000 (UTC)
+Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon)
+ with ESMTPSA id 4C02C11BC183B; Mon, 16 Nov 2026 16:13:53 +0100 (CET)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
+ t=1794842044; h=from:subject:date:message-id:to:cc:mime-version:content-type:
+ content-transfer-encoding:content-language:in-reply-to:references;
+ bh=3/EqQi0niERAJNyYMq1hZvt8inmcWvBEwiXFS+iUL0s=;
+ b=hrhqEx4T9QQ2tYqo/iy/LuHHWtedSZ9onNfveWjQEAHCqavnOAmS/ZBSwa0pXuUaWeGFoE
+ JGCYD0UbYierkaXyh0sZ3XHSFY7px3bitUZsQ7cefgjxtV9TKEdgN+UnSHWYcazeLuMLRa
+ y0D43nUuTbTvY1O4ahIhQ5AZdq9uNR1fET/1oCNLS/AAxHecGpl9Xo3GRN04KMCeM/FXbo
+ HdGlvhmVr4WZLcCCC0L84Q/igHfDx5fj09IetVv+8GoiA2nGgWVaET5ZXXgFEdDbgLj2nO
+ 8YrbUgEfY4SbQ1e7+mgn6uxvPcnpTlwq48fuftp1BeekqTdBgBbdTLkzAUhHxA==
+Message-ID: <dfe3ce17-8153-4cd1-b9df-fe0d61cec9c4@bootlin.com>
+Date: Mon, 16 Nov 2026 16:13:52 +0100
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
+User-Agent: Betterbird (Linux)
+Subject: Re: [PATCH RFC v3 0/8] Add support for DisplayPort link training
+ information report
+To: Jani Nikula <jani.nikula@linux.intel.com>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ Rodrigo Vivi <rodrigo.vivi@intel.com>,
+ Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
+ Tvrtko Ursulin <tursulin@ursulin.net>,
+ Andrzej Hajda <andrzej.hajda@intel.com>,
+ Neil Armstrong <neil.armstrong@linaro.org>, Robert Foss <rfoss@kernel.org>,
+ Laurent Pinchart <Laurent.pinchart@ideasonboard.com>,
+ Jonas Karlman <jonas@kwiboo.se>, Jernej Skrabec <jernej.skrabec@gmail.com>,
+ Luca Ceresoli <luca.ceresoli@bootlin.com>,
+ Chun-Kuang Hu <chunkuang.hu@kernel.org>,
+ Philipp Zabel <p.zabel@pengutronix.de>,
+ Matthias Brugger <matthias.bgg@gmail.com>,
+ AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>,
+ Dmitry Baryshkov <lumag@kernel.org>, Daniel Stone <daniels@collabora.com>,
+ Manasi Navare <navaremanasi@google.com>
+Cc: Thomas Petazzoni <thomas.petazzoni@bootlin.com>,
+ Mark Yacoub <markyacoub@google.com>, Sean Paul <seanpaul@google.com>,
+ Drew Davenport <ddavenport@google.com>,
+ Louis Chauvet <louis.chauvet@bootlin.com>, dri-devel@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org, intel-gfx@lists.freedesktop.org,
+ intel-xe@lists.freedesktop.org, linux-mediatek@lists.infradead.org,
+ linux-arm-kernel@lists.infradead.org
+References: <20261012-feat_link_cap-v3-0-7517f4aba0f3@bootlin.com>
+ <51ec15feef9a88e460ab6fefc48b5b982f4857c0@intel.com>
+From: Kory Maincent <kory.maincent@bootlin.com>
+Content-Language: en-US
+In-Reply-To: <51ec15feef9a88e460ab6fefc48b5b982f4857c0@intel.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
+X-Last-TLS-Session-Version: TLSv1.3
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -95,172 +80,113 @@ List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-15.8 required=3.0 tests=BAYES_00,DKIM_SIGNED,
-	DKIM_VALID,DKIM_VALID_AU,FREEMAIL_FORGED_FROMDOMAIN,FREEMAIL_FROM,
-	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
-	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,USER_AGENT_GIT
-	autolearn=unavailable autolearn_force=no version=4.0.1
+X-Spam-Status: No, score=-5.8 required=3.0 tests=BAYES_00,DKIM_SIGNED,
+	DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
+	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS autolearn=no
+	autolearn_force=no version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-Document 8-bit CPU parallel MIPI DBI Type B interface provided by
-Tegra20/30 SoCs display controller.
 
-Reviewed-by: Rob Herring (Arm) <robh@kernel.org>
-Signed-off-by: Svyatoslav Ryhel <clamor95@gmail.com>
----
- .../display/tegra/nvidia,tegra20-dbi.yaml     | 108 ++++++++++++++++++
- .../display/tegra/nvidia,tegra20-dc.yaml      |  15 +++
- 2 files changed, 123 insertions(+)
- create mode 100644 Documentation/devicetree/bindings/display/tegra/nvidia,tegra20-dbi.yaml
 
-diff --git a/Documentation/devicetree/bindings/display/tegra/nvidia,tegra20-dbi.yaml b/Documentation/devicetree/bindings/display/tegra/nvidia,tegra20-dbi.yaml
-new file mode 100644
-index 0000000000000..6a34202f80765
---- /dev/null
-+++ b/Documentation/devicetree/bindings/display/tegra/nvidia,tegra20-dbi.yaml
-@@ -0,0 +1,108 @@
-+# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
-+%YAML 1.2
-+---
-+$id: http://devicetree.org/schemas/display/tegra/nvidia,tegra20-dbi.yaml#
-+$schema: http://devicetree.org/meta-schemas/core.yaml#
-+
-+title: Nvidia Tegra Display Controller based MIPI DBI Type B interface
-+
-+maintainers:
-+  - Svyatoslav Ryhel <clamor95@gmail.com>
-+
-+description: The display controller in Tegra20/30 SoCs features an
-+  8-bit SPI interface that closely resembles the MIPI DBI Type B
-+  protocol and is referred to as '8-bit CPU'. Each display controller
-+  provides two such interfaces, which can be used to send MIPI DCS
-+  commands to initialize and control the panel while image data is
-+  transmitted via 16/18/24-line RGB.
-+
-+properties:
-+  nvidia,interface:
-+    $ref: /schemas/types.yaml#/definitions/uint32
-+    description:
-+      Number of DBI interface used, 0 - primary, 1 - secondary. If
-+      property is not set, primary will be used.
-+    enum: [ 0, 1 ]
-+
-+  panel:
-+    type: object
-+    description: Node of supported panel driven by the bridge.
-+
-+  ports:
-+    $ref: /schemas/graph.yaml#/properties/ports
-+
-+    properties:
-+      port@0:
-+        $ref: /schemas/graph.yaml#/$defs/port-base
-+        unevaluatedProperties: false
-+        description: Video port for RGB input.
-+
-+        properties:
-+          endpoint:
-+            $ref: /schemas/graph.yaml#/$defs/endpoint-base
-+            unevaluatedProperties: false
-+
-+            properties:
-+              bus-width:
-+                enum: [ 16, 18, 24 ]
-+
-+      port@1:
-+        $ref: /schemas/graph.yaml#/properties/port
-+        description: Video port for DBI output (panel or connector).
-+
-+    required:
-+      - port@0
-+      - port@1
-+
-+required:
-+  - panel
-+  - ports
-+
-+unevaluatedProperties: false
-+
-+examples:
-+  - |
-+    #include <dt-bindings/gpio/gpio.h>
-+
-+    dbi {
-+        nvidia,interface = <0>;
-+
-+        panel {
-+            compatible = "hit,tx10d07vm0baa";
-+
-+            reset-gpios = <&gpio 175 GPIO_ACTIVE_LOW>;
-+
-+            avci-supply = <&vcc_2v8_lcd>;
-+            iovcc-supply = <&iovcc_1v8_lcd>;
-+
-+            backlight = <&backlight>;
-+
-+            port {
-+                panel_input: endpoint {
-+                    remote-endpoint = <&bridge_output>;
-+                };
-+            };
-+        };
-+
-+        ports {
-+            #address-cells = <1>;
-+            #size-cells = <0>;
-+
-+            port@0 {
-+                reg = <0>;
-+
-+                bridge_input: endpoint {
-+                    remote-endpoint = <&dpi_output>;
-+                    bus-width = <24>;
-+                };
-+            };
-+
-+            port@1 {
-+                reg = <1>;
-+
-+                bridge_output: endpoint {
-+                    remote-endpoint = <&panel_input>;
-+                };
-+            };
-+        };
-+    };
-diff --git a/Documentation/devicetree/bindings/display/tegra/nvidia,tegra20-dc.yaml b/Documentation/devicetree/bindings/display/tegra/nvidia,tegra20-dc.yaml
-index 69be95afd5627..a014bf0dd508d 100644
---- a/Documentation/devicetree/bindings/display/tegra/nvidia,tegra20-dc.yaml
-+++ b/Documentation/devicetree/bindings/display/tegra/nvidia,tegra20-dc.yaml
-@@ -76,6 +76,9 @@ properties:
-     $ref: /schemas/types.yaml#/definitions/phandle-array
-     description: A list of phandles of outputs that this display controller can drive.
- 
-+  dbi:
-+    $ref: /schemas/display/tegra/nvidia,tegra20-dbi.yaml#
-+
-   rgb:
-     type: object
- 
-@@ -155,6 +158,18 @@ allOf:
-             - const: wind
-             - const: wint
- 
-+  - if:
-+      properties:
-+        compatible:
-+          contains:
-+            enum:
-+              - nvidia,tegra114-dc
-+              - nvidia,tegra124-dc
-+              - nvidia,tegra210-dc
-+    then:
-+      properties:
-+        dbi: false
-+
- additionalProperties: false
- 
- required:
+On 11/16/26 14:10, Jani Nikula wrote:
+> On Mon, 12 Oct 2026, Kory Maincent <kory.maincent@bootlin.com> wrote:
+>> DisplayPort link training negotiates the physical-layer parameters needed
+>> for a reliable connection: lane count, link rate, and optionally Display
+>> Stream Compression (DSC). Currently, each driver exposes this state in
+>> its own way, often through driver-specific debugfs entries, with no
+>> standard interface for userspace diagnostic and monitoring tools.
+>>
+>> This series introduces generic helpers, for exposing DP link capabilities
+>> and state as standard sysfs entries.
+> 
+> So how did we end up with sysfs here?
+
+In the first RFC it was in DRM properties. I presented it in the display 
+hackfest in Nice last years. People suggested to use sysfs instead but 
+if the need appears later in the development move back to DRM 
+properties. I first though DRM properties seems better as it is the user 
+interface used by distros but I had no strong argument about the change 
+to sysfs, so I moved on to it.
+
+>> The aim of such development is to guide users to select the most suitable
+>> DisplayPort connector for their needs. For example, if you have a USB-C
+>> hub with lesser capabilities than your computer’s native DisplayPort
+>> connector (such as HBR2 versus HBR3 support), the system could recommend
+>> connecting high-resolution displays directly to the computer’s port
+>> instead of through the hub to ensure optimal performance.
+> 
+> I do wonder how all this is supposed to work in more complex real world
+> scenarios, though.
+> 
+> I believe the user primarily cares about *modes*. Which display modes
+> can be used with each display/connector pair.
+> 
+> With the low level link information, are you proposing to compute the
+> required bandwidth for modes in userspace? I think it's going to be a
+> lot of work to compute the bandwidth requirements, taking into account
+> DP SST vs. MST vs. UHBR and DSC and bit depth and everything, and you'll
+> still miss any driver/GPU specific contraints. Or are you just proposing
+> to match the physical characteristics only?
+
+This is a requirement from Google, yes they want to compute the 
+bandwidth for modes in the userspace side.
+@Manasi could describe in detail how would you implement it?
+
+> Given all the connectors and displays and their modes on a system, you
+> could estimate a) for each display, what modes could be used on each
+> connector, and b) for each connector, what modes could be used on a
+> display, if connected. From the user POV, they could be shown why some
+> display mode is not available on the current connector, and crucially,
+> on which connector it could be available.
+> 
+> In general, I'm wondering if you're really after higher level
+> information, something like "connector max available bandwidth
+> with/without DSC", that would more directly map to the user needs as I
+> see them than low level link details.
+> 
+> Do you have the userspace somewhere? That's needed for merging UABI
+> anyway [1].
+> 
+> [1] https://docs.kernel.org/gpu/drm-uapi.html#open-source-userspace-requirements
+
+I wanted to add it to IGT GPU tools, but I was hopping for community 
+review on this RFC before the IGT development.
+
+>> The new drm_dp_source_set_caps and drm_dp_sink_set_caps helper expose
+>> source and sink training capabilities to userspace via sysfs attributes
+>> under dp_link. Finally drm_dp_set_cur_link_params helper is provided to
+>> report current link information at runtime.
+>>
+>> Three drivers are updated as reference implementations: i915 (direct
+>> connector path), ANX7625 and MediaTek (via the bridge connector framework
+>> using a new DRM_BRIDGE_OP_DP flag).
+>>
+>> Here is a sysfs example:
+>>
+>> cur_link_info_dsc            sink_link_caps_nlanes
+>> cur_link_info_link_rate      source_link_caps_dsc
+>> cur_link_info_nlanes         source_link_caps_link_rates
+>> sink_link_caps_dsc           source_link_caps_nlanes
+>> sink_link_caps_link_rates
+>>
+>> 1620000 2160000 2700000 3240000 4320000 5400000
+>>
+>> 1620000 2700000 5400000 10000000 20000000
+>>
+>> 5400000
+>>
+>> This series is rebased on top of drm-misc and may conflict with the
+>> current state of the drm i915 tree. Which tree should pick this up,
+>> given that it mixes core development with driver changes?
+> 
+> For development, please just base your work on top of drm-tip, and the
+> tree(s) will be sorted out later.
+
+Oh, ok, thanks you.
+
 -- 
-2.53.0
+Köry Maincent, Bootlin
+Embedded Linux and kernel engineering
+https://bootlin.com
 
