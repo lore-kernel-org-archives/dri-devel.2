@@ -2,151 +2,44 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D5DE8606A332
-	for <dri-devel@archiver.kernel.org>; Mon, 16 Nov 2026 16:23:37 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5447D606A31C
+	for <dri-devel@archiver.kernel.org>; Mon, 16 Nov 2026 16:23:48 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=mmVTds2r;
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=WJkowAvs
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Hm0LOsNf
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id C8F1810F2E5;
-	Mon, 16 Nov 2026 16:23:26 +0000 (UTC)
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com
- [205.220.180.131])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 5FFE110F2D8
- for <dri-devel@lists.freedesktop.org>; Mon, 16 Nov 2026 16:23:06 +0000 (UTC)
-Received: from pps.filterd (m0279871.ppops.net [127.0.0.1])
- by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id
- 6AGGK5Oc3692941
- for <dri-devel@lists.freedesktop.org>; Mon, 16 Nov 2026 16:23:05 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
- cc:content-transfer-encoding:date:from:in-reply-to:message-id
- :mime-version:references:subject:to; s=qcppdkim1; bh=BZVUNIWMPuP
- DdEXUHU9zeRI/d11l8gukZD6tZvmKObo=; b=mmVTds2r5rkgKTwEnGI5LCpN5b2
- /tLsDWF6guoPca0gYr5QEN4hCVmdEc+pATQVG1P751FBpszfBZsJ4Wybc7N//Cyq
- 43ND00eDQ58lfF/yy5tgXS62HcNfy8tR1JIkrA+VHr+eEd8xANlKBfWkJcFZ5j4H
- zeGe2aop2OFMX+rcBxESBd3QXyhNOIS0pEoUptM9zXiDPChmK7gDObRqHAG8TYph
- 4v9/DfUuuNaEQj3EDbVGsS9aHrWhzrkEJn2bcONk/h+wY9NimNbIfnqZK+vAT6+7
- R4/5QQkkWc8KSYkzM2upY1JO0UgXH0Hz7eOs39KTTK7pf/GC77z+GqgB9bQ==
-Received: from mail-dy1-f199.google.com (mail-dy1-f199.google.com
- [74.125.82.199])
- by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4j01f810bp-1
- (version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
- for <dri-devel@lists.freedesktop.org>; Mon, 16 Nov 2026 16:23:05 +0000 (GMT)
-Received: by mail-dy1-f199.google.com with SMTP id
- 5a478bee46e88-3425098ae4bso5057eec.0
- for <dri-devel@lists.freedesktop.org>; Mon, 16 Nov 2026 08:23:05 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=oss.qualcomm.com; s=google; t=1794846184; x=1795450984;
- darn=lists.freedesktop.org; 
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:date:subject:cc:to:from:from:to:cc:subject:date
- :message-id:reply-to:content-type;
- bh=BZVUNIWMPuPDdEXUHU9zeRI/d11l8gukZD6tZvmKObo=;
- b=WJkowAvsCr2QufS6qFTyq+fWGXNFHnwLRSV5vBGGTIMQQWGXE+TcBHggmh9ymWS9po
- EDH6fzT3o1N5ON9Dbq5m4kGc9Eq2QbNeYi9St5F4FWJm5Fmh12ppWYZwWXaZh3Cu6NHY
- f2pdRdC00nbzMvK9vJ6q0qiDVvINF2mkeBSWH9DnVYG86gBvmGv4AcRfKEO7TYI8LDRJ
- fUm4Vvt+Gi62+gN3Tc/1/Y8HKSJKghhwwfU7E7dY6Rr4Csvm7VC/LydKE37NwAIny9nr
- U3x2BWkr8+XXFp8rlWsHxHd7d6at00RIglUskmQGtPDoIKuDbLn6kskmw9+q9zAy5JY/
- 5e6w==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20260707; t=1794846184; x=1795450984;
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
- :to:cc:subject:date:message-id:reply-to:content-type;
- bh=BZVUNIWMPuPDdEXUHU9zeRI/d11l8gukZD6tZvmKObo=;
- b=gpYAVT8rY9Yryf8lCME/VD/q/zJ/3vPgZ0joS2mAs11l6jDmiCIUcXWOxU5x9i6a+A
- F0S28M0GTdCw7si2t7CsZ8MKAvgag0JJBeUoSeqyEnUSrWw/3VblvvPvuy8QZmp7ivLM
- oYVvCtehxP7MZowtCsDzTQCRmQ/MRv0qPJn3yWNLisw1OtZmloXgBsjQ9kzsOzuE9xNS
- vH1QVbkf+1ta8YNJR+yMYFHuiS0eNHOlQnKXZQVRQFwURkGM+EAuzpGY5P7YS4BuUDnQ
- OrJFtu49nqmJ4uMa4+MhimkrgXiC58okyVeIZ1FgFVltcpJwsErutvGeGXGUmfulZSpJ
- ovgw==
-X-Forwarded-Encrypted: i=1;
- AL+hErHRSbkefnb00pUg7fBU0ad6Mw7QjanDyG2sanIkAICx8jwZG3+oOU8xtbxPd32USi37J5Q2Of/mgo4=@lists.freedesktop.org
-X-Gm-Message-State: APuU4Z/bhJim06QvSlHp6BCBeSoc8hIguU7eaDcHjNN8WXQeZhuprWfv
- eUjq83I31oJNTe2NfgjRK6s3btufyFxogYFrpgMOtq43bgBLoN5x+1AkjltOrzPNZ4SY3T0bvaL
- 4LgWQx6rMrLTXXO4FQAt3Yay3VqyESuAPRmi4/Rwz1SPOrn/xW+x0Rn952MPYtkpJ99hmWww=
-X-Gm-Gg: AYBFou2kJXWoC4/UWXSi/zx/zuMUvd8+IOoLs5pzAFL5czUawivOVbYK7dyuhCDLNFT
- zra8YAJLU3VZhggRSoIufXi13MMaYKCbAlojkT3kZ3jVxz+RIkFPOabP/2PZpleTosq5+36qxEm
- jjcuCvI47bkFtwpDWByhE4z66Aoo0tncZUUhxBynvl0QrEKBNzR7mFIgVc9qdepd4UgA/YW71BI
- JRGTWbH4wIdfFPZbFE7wl4xPfNxDOGlGkjS4vt/WcDYTKCPc0jCqwS+R/TllFHZwjm0Qt/NPJax
- F5/MzHRUu6ZsIaWtcBeJ3yoTt1EQSIRK9qy2/I2/48bdBBX49GWYo7w2M3Hz3j3odwNir0hamRP
- lPvL685GzTmC1/qOrkUKWEosw8nEWK4XCG0RBo0MUuJEXdf6NFFkhrvTzoaEFil80DDL0lgepFP
- HE
-X-Received: by 2002:a05:7022:f20f:b0:1a9:4d51:8c33 with SMTP id
- a92af1059eb24-1b5030b1230mr11218997c88.18.1794846184091; 
- Mon, 16 Nov 2026 08:23:04 -0800 (PST)
-X-Received: by 2002:a05:7022:f20f:b0:1a9:4d51:8c33 with SMTP id
- a92af1059eb24-1b5030b1230mr11218947c88.18.1794846183414; 
- Mon, 16 Nov 2026 08:23:03 -0800 (PST)
-Received: from hu-mojha-hyd.qualcomm.com ([202.46.23.25])
- by smtp.gmail.com with ESMTPSA id
- a92af1059eb24-1b5031468b7sm38623826c88.5.2026.11.16.08.22.53
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Mon, 16 Nov 2026 08:23:03 -0800 (PST)
-From: Mukesh Ojha <mukesh.ojha@oss.qualcomm.com>
-To: Sumit Garg <sumit.garg@oss.qualcomm.com>,
- Bjorn Andersson <andersson@kernel.org>,
- Konrad Dybcio <konradybcio@kernel.org>,
- Rob Clark <robin.clark@oss.qualcomm.com>,
- Dmitry Baryshkov <lumag@kernel.org>, David Airlie <airlied@gmail.com>,
- Simona Vetter <simona@ffwll.ch>,
- Vikash Garodia <vikash.garodia@oss.qualcomm.com>,
- Dikshita Agarwal <dikshita.agarwal@oss.qualcomm.com>,
- "Bryan O'Donoghue" <bod@kernel.org>,
- Mauro Carvalho Chehab <mchehab@kernel.org>,
- Alex Elder <elder@kernel.org>, Andrew Lunn <andrew+netdev@lunn.ch>,
- "David S. Miller" <davem@davemloft.net>,
- Eric Dumazet <edumazet@kernel.org>, Jakub Kicinski <kuba@kernel.org>,
- Paolo Abeni <pabeni@redhat.com>, Jeff Johnson <jjohnson@kernel.org>,
- Mathieu Poirier <mathieu.poirier@linaro.org>
-Cc: Abel Vesa <abelvesa@kernel.org>, Sean Paul <sean@poorly.run>,
- Akhil P Oommen <akhilpo@oss.qualcomm.com>,
- Abhinav Kumar <abhinav.kumar@linux.dev>,
- Jessica Zhang <jesszhan0024@gmail.com>,
- Marijn Suijten <marijn.suijten@somainline.org>,
- linux-arm-msm@vger.kernel.org, linux-kernel@vger.kernel.org,
- dri-devel@lists.freedesktop.org, freedreno@lists.freedesktop.org,
- linux-media@vger.kernel.org, netdev@vger.kernel.org,
- linux-wireless@vger.kernel.org, ath12k@lists.infradead.org,
- linux-remoteproc@vger.kernel.org,
- Mukesh Ojha <mukesh.ojha@oss.qualcomm.com>, Alex Elder <elder@riscstar.com>
-Subject: [PATCH v3 6/9] net: ipa: migrate firmware loading to
- qcom_mdt_pas_load() and qcom_pas_prepare_and_auth_reset()
-Date: Mon, 16 Nov 2026 21:51:45 +0530
-Message-ID: <20261116162148.2864501-7-mukesh.ojha@oss.qualcomm.com>
-X-Mailer: git-send-email 2.55.0
-In-Reply-To: <20261116162148.2864501-1-mukesh.ojha@oss.qualcomm.com>
-References: <20261116162148.2864501-1-mukesh.ojha@oss.qualcomm.com>
-X-Archived-By: <archiver.kernel.org>
-MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMTE2MDA2NCBTYWx0ZWRfX2S7BVbS51WnD
- i/O9fNRzEOMvWNgHnvpj50h+5C6d7u4T4Wj4BEg1ubrrHMUD2YbwPZJ1ZHeBrQlZictwYBD1JLc
- zX36lPpiotOjTy2oljTUfEBsGSDp9sM6nA6kYku9DyBSDjm2hAxMWg955aLpg2803vfCoCKhB3+
- yEQL3uO5vIWMnPVdTEn6SuzXwBOhnOUdMYsdtYF/uuz7D5/lBo+n+p8jqao0wSsveMGXMxUAfUR
- dBwIUlNVCXZIQmqFf3z0Xa90keqhDYBFGNLd1Asch9OxmwOfB9EPJ1O1zVSgiCuyLreQYTCufry
- C23w+vpZbAjiqDC8wMmXcL/KFZaC7y1N0/JEmDC2cdK+HLtMJBKtJsewcmvjsp/aQRb5wseQBUo
- aNzxOW3w58AEvXQLrOZIxGumr7EE5yTEzK5msOEYdVfx7Nie+EXtASyrTS+XxHXSy7eEiichg5L
- xgbLwbcuj29XBQaBISA==
-X-Proofpoint-GUID: Hqhql58iIHbDe_xo5gLtVTJqh_kE0puC
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMTE2MDA2NCBTYWx0ZWRfX8grcfFwum2ka
- PlGRwqJT4EZ21CiMpJbFasr0QXZ8NnOFpwQUcQfqw9kmOeHL+/1Khwi2HXXiZ+BUojhOGV1RqH3
- U2xyoorJZJTJXteVR5ow3txicJ1i9g0=
-X-Proofpoint-ORIG-GUID: Hqhql58iIHbDe_xo5gLtVTJqh_kE0puC
-X-Authority-Analysis: v=2.4 cv=VMpIDNPX c=1 sm=1 tr=0 ts=6afb2de9 cx=c_pps
- a=cFYjgdjTJScbgFmBucgdfQ==:117 a=ZePRamnt/+rB5gQjfz0u9A==:17
- a=zJRp6_cAMcgA:10 a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22
- a=u7WPNUs3qKkmUXheDGA7:22 a=3WHJM1ZQz_JShphwDgj5:22 a=ee_2aqc6AAAA:8
- a=EUspDBNiAAAA:8 a=P8P2WCEqvqb6tQ3B-mUA:9 a=scEy_gLbYbu1JhEsrz4S:22
- a=VOpmJXOdbJOWo2YY3GeN:22
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
- definitions=2026-11-16_05,2026-11-16_01,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- priorityscore=1501 malwarescore=0 suspectscore=0 impostorscore=0 bulkscore=0
- spamscore=0 adultscore=0 phishscore=0 clxscore=1015 lowpriorityscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2611040001 definitions=main-2611160064
+	by gabe.freedesktop.org (Postfix) with ESMTP id 084FC10F2E4;
+	Mon, 16 Nov 2026 16:23:42 +0000 (UTC)
+Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 6FA7410F2FB;
+ Mon, 16 Nov 2026 16:23:34 +0000 (UTC)
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+ by tor.source.kernel.org (Postfix) with ESMTP id 69FA062F1C;
+ Mon, 16 Nov 2026 16:23:33 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id E01AB1F000C4;
+ Mon, 16 Nov 2026 16:23:32 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+ s=k20260515; t=1794846213;
+ bh=32mFNLQUKtUkrWv4Og1eMZ5U67MAPSgRgOmFqHC2o4c=;
+ h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+ b=Hm0LOsNf/wOMHJLB8a/RUbMzFzdKjkUrIpQ7Axln0AIgGcG1kEH0jEl4/B5cZIHdx
+ woDoKPXxsycxZJLgr+0XjbeQMZFISxvlrs+UxJ3oyhaHL+hYlzDbZ374jOYCMTUvEg
+ G9VUT/5qyuzWTSZInt3L2NV8ee/MWGyL8zi2hZ+9dpmEKfUDVFv8rqL0UNVa/Vj52u
+ 2jUKIUrD+ehbEbSvI/74U2uhH8hwnntMxLzIWvfuT4JPnfIXF2aDIQvOZ3PA5TR78T
+ jbEZqfgcaLq8DKwZLXvZV4p3vUmyyr8lTaRz8OPtP9B2reA2g4/UmcuXZHVpeP6sNc
+ 3EUumdhER6fEw==
+Message-ID: <sashiko-outbox-217356@kernel.org>
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v3 1/2] gpu/buddy: find range-biased blocks in the free
+ trees
+To: "William Palacek" <William.Palacek@amd.com>,
+ dri-devel@lists.freedesktop.org
+Cc: intel-xe@lists.freedesktop.org
+In-Reply-To: <17f2a6366ba845edc799dbeb712c12f8d060afad.1794845083.git.William.Palacek@amd.com>
+References: <cover.1794845083.git.William.Palacek@amd.com>
+ <17f2a6366ba845edc799dbeb712c12f8d060afad.1794845083.git.William.Palacek@amd.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Mon, 16 Nov 2026 16:23:32 +0000
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -157,85 +50,97 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
+Reply-To: sashiko-reviews@lists.linux.dev
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-18.8 required=3.0 tests=BAYES_00,DKIM_SIGNED,
-	DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
-	INCLUDES_CR_TRAILER,INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,
-	SPF_PASS,USER_AGENT_GIT autolearn=unavailable autolearn_force=no
-	version=4.0.1
+X-Spam-Status: No, score=-10.8 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
+	DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
+	INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS
+	autolearn=unavailable autolearn_force=no version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
+X-Archived-By: <archiver.kernel.org>
 
-ipa_firmware_load() calls qcom_mdt_load(), which bundles metadata
-initialization, memory setup, and segment loading into a single API that
-does not expose a PAS context. Later it calls qcom_pas_auth_and_reset() for
-TrustZone authentication, which is the intended behaviour. However, a new
-qcom_mdt_pas_load() has recently been introduced that works with a PAS
-context and can handle everything qcom_mdt_load() provides, along with
-additional functionality such as shmbridge creation and retrieving memory
-from the shmbridge buffer when the same remote processor needs to run while
-Linux runs at EL2.
+Thank you for your contribution! Sashiko AI review found 1 potential
+issue to consider:
+- [Medium] gpu/buddy: u64 underflow on inverted range in
+  __alloc_range_bias()
+--
 
-Replace the open-coded memremap()/qcom_mdt_load()/memunmap() sequence with
-qcom_pas_context_init() and qcom_mdt_pas_load() and
-qcom_pas_auth_and_reset() with qcom_pas_prepare_and_auth_reset().
+commit 84539d9e7a89604b1f5d66dfb390e667e4fccb69
+Author: William Palacek <William.Palacek@amd.com>
 
-Acked-by: Alex Elder <elder@riscstar.com>
-Signed-off-by: Mukesh Ojha <mukesh.ojha@oss.qualcomm.com>
----
- drivers/net/ipa/ipa_main.c | 23 ++++++++---------------
- 1 file changed, 8 insertions(+), 15 deletions(-)
+gpu/buddy: find range-biased blocks in the free trees
 
-diff --git a/drivers/net/ipa/ipa_main.c b/drivers/net/ipa/ipa_main.c
-index 14ac2d2faf7c..0a37741c2285 100644
---- a/drivers/net/ipa/ipa_main.c
-+++ b/drivers/net/ipa/ipa_main.c
-@@ -585,12 +585,11 @@ static void ipa_deconfig(struct ipa *ipa)
- 
- static int ipa_firmware_load(struct device *dev)
- {
-+	struct qcom_pas_context ctx;
- 	const struct firmware *fw;
- 	struct resource res;
- 	phys_addr_t phys;
- 	const char *path;
--	ssize_t size;
--	void *virt;
- 	int ret;
- 
- 	ret = of_reserved_mem_region_to_resource(dev->of_node, 0, &res);
-@@ -615,24 +614,18 @@ static int ipa_firmware_load(struct device *dev)
- 	}
- 
- 	phys = res.start;
--	size = (size_t)resource_size(&res);
--	virt = memremap(phys, size, MEMREMAP_WC);
--	if (!virt) {
--		dev_err(dev, "unable to remap firmware memory\n");
--		ret = -ENOMEM;
--		goto out_release_firmware;
--	}
-+	qcom_pas_context_init(&ctx, dev, IPA_PAS_ID, phys, resource_size(&res));
- 
--	ret = qcom_mdt_load(dev, fw, path, IPA_PAS_ID, virt, phys, size, NULL);
-+	ret = qcom_mdt_pas_load(&ctx, fw, path, NULL);
- 	if (ret) {
- 		dev_err(dev, "error %d loading \"%s\"\n", ret, path);
--	} else {
--		ret = qcom_pas_auth_and_reset(IPA_PAS_ID);
--		if (ret)
--			dev_err(dev, "error %d authenticating \"%s\"\n", ret, path);
-+		goto out_release_firmware;
- 	}
- 
--	memunmap(virt);
-+	ret = qcom_pas_prepare_and_auth_reset(&ctx);
-+	if (ret)
-+		dev_err(dev, "error %d authenticating \"%s\"\n", ret, path);
-+
- out_release_firmware:
- 	release_firmware(fw);
- 
--- 
-2.55.0
+This commit replaces the root-to-leaf block tree walk in
+__alloc_range_bias() with augmented RB-tree lookups in the per-order
+free trees, adding a subtree_has_dirty augment to skip all-clear
+subtrees on dirty requests.
 
+> diff --git a/drivers/gpu/buddy.c b/drivers/gpu/buddy.c
+> index e7d2212bcec95..baf17700ffba5 100644
+> --- a/drivers/gpu/buddy.c
+> +++ b/drivers/gpu/buddy.c
+
+[ ... ]
+
+> @@ -1247,96 +1262,155 @@ static bool block_incompatible(struct gpu_buddy_=
+block *block, unsigned int flags
+>  			     gpu_buddy_block_is_clear(block);
+>  }
+> =20
+> -static struct gpu_buddy_block *
+> -__alloc_range_bias(struct gpu_buddy *mm,
+> -		   u64 start, u64 end,
+> -		   unsigned int order,
+> -		   unsigned long flags,
+> -		   bool fallback)
+
+[ ... ]
+
+> +static struct gpu_buddy_block *
+> +__alloc_range_bias(struct gpu_buddy *mm,
+> +		   u64 start, u64 end,
+> +		   unsigned int order,
+> +		   unsigned long flags,
+> +		   bool fallback)
+> +{
+> +	u64 req_size =3D mm->chunk_size << order;
+> +	struct gpu_buddy_block *block =3D NULL;
+> +	u64 best =3D 0;
+> +	unsigned int i;
+> +	int err;
+> =20
+> +	for (i =3D order; i <=3D mm->max_order; i++) {
+> +		struct rb_root *root =3D &mm->free_tree[i];
+> +		u64 size =3D mm->chunk_size << i;
+> +		struct gpu_buddy_block *found;
+> +		u64 offset =3D 0;
+> =20
+> +		if (!fallback) {
+> +			if (end - start < size)
+> +				break;
+> =20
+> +			found =3D rbtree_last_range_block(root, end - size + 1,
+> +							flags, false);
+> +			if (!found || gpu_buddy_block_offset(found) < start)
+> +				continue;
+
+[Severity: Medium]
+Can end - start and end - size + 1 underflow when start > end, causing
+__alloc_range_bias() to allocate a block outside [start, end)?
+
+gpu_buddy_alloc_blocks() checks end <=3D mm->size and
+range_overflows(start, size, mm->size), which only checks start + size
+<=3D mm->size, so an inverted range (for example, when
+AMDGPU_GEM_CREATE_CPU_ACCESS_REQUIRED clamps lpfn to visible_pfn below a
+memory partition's fpfn in amdgpu_bo_placement_from_domain()) reaches
+__alloc_range_bias() with start > end.  Previously, the adjusted_end vs
+adjusted_start check rejected inverted ranges with -ENOSPC.  In the new
+strict pass, end - start wraps in u64 arithmetic past the size check,
+and when size > end, end - size + 1 wraps to near U64_MAX, so
+rbtree_last_range_block() matches and returns a block at offset >=3D start
+> end.
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/17f2a6366ba845edc79=
+9dbeb712c12f8d060afad.1794845083.git.William.Palacek@amd.com?part=3D1
