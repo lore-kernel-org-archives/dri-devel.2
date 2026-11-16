@@ -2,55 +2,50 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5C6036072DC2
-	for <dri-devel@archiver.kernel.org>; Mon, 16 Nov 2026 11:19:01 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C67E0606E4A1
+	for <dri-devel@archiver.kernel.org>; Mon, 16 Nov 2026 11:26:33 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.a=rsa-sha256 header.s=dkim header.b=SwYez2F7
+	dkim=fail reason="signature verification failed" (1024-bit key) header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=foss header.b=bkM+TK2t
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 9167210E29A;
-	Mon, 16 Nov 2026 11:18:55 +0000 (UTC)
-Received: from smtpout-03.galae.net (smtpout-03.galae.net [185.246.85.4])
- by gabe.freedesktop.org (Postfix) with ESMTPS id DDC5210E29A
- for <dri-devel@lists.freedesktop.org>; Mon, 16 Nov 2026 11:18:48 +0000 (UTC)
-Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
- by smtpout-03.galae.net (Postfix) with ESMTPS id 5D3264E415DE;
- Mon, 16 Nov 2026 11:18:47 +0000 (UTC)
-Received: from mail.galae.net (mail.galae.net [212.83.136.155])
- by smtpout-01.galae.net (Postfix) with ESMTPS id 1E2666023F;
- Mon, 16 Nov 2026 11:18:47 +0000 (UTC)
-Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon)
- with ESMTPSA id 1D9F011BC00CB; Mon, 16 Nov 2026 12:18:40 +0100 (CET)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
- t=1794827926; h=from:subject:date:message-id:to:cc:mime-version:content-type:
- content-transfer-encoding:in-reply-to:references;
- bh=dktc9lc+Bf7CsFmPizG4GZLduM0R6qpdkcP/3gu+EEE=;
- b=SwYez2F7X4olubYZ3QgDwgCQFJA25xgFhJqRhpBSP4o6vAQJswZtzhTlgXVima26nl2ujJ
- hdgAaKRrYWYUnlp6gQ11CuZdQ2rpg3BhD5TtbJEoPhAkoXwFCxGgNwXrq/2UnLSWYe+Ne/
- ZdUUFg7kM/khXPCOafpLTGx13V/7FWyAS4kFbtKk2C1fC0uG6EFnUFn9f2bBQ6CMgQvaFM
- Z8EC6PAXcds7g/kDLUa1R9IyqC1KTXQp/ECjcJuKgeb0Q+MTFl0bsMl+Y5Z6WCW02/JuI0
- XFLJ+f64DgdLdet2hlBlz3NqBk+2j5PfkODrnsoio3QrjUkmaroJLsvcIQjD6g==
-From: Luca Ceresoli <luca.ceresoli@bootlin.com>
-To: Andrzej Hajda <andrzej.hajda@intel.com>, 
- Neil Armstrong <neil.armstrong@linaro.org>, Robert Foss <rfoss@kernel.org>, 
- Laurent Pinchart <Laurent.pinchart@ideasonboard.com>, 
- Jonas Karlman <jonas@kwiboo.se>, Jernej Skrabec <jernej.skrabec@gmail.com>, 
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
- Laurentiu Palcu <laurentiu.palcu@oss.nxp.com>
-Cc: dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org
-In-Reply-To: <20261030163254.3175671-1-laurentiu.palcu@oss.nxp.com>
-References: <20261030163254.3175671-1-laurentiu.palcu@oss.nxp.com>
-Subject: Re: [PATCH] drm/bridge: fsl-ldb: Remove panel naming and use
- scoped device_node cleanup
-Message-Id: <179482792078.118378.10625483248086042386.b4-ty@b4>
-Date: Mon, 16 Nov 2026 12:18:40 +0100
+	by gabe.freedesktop.org (Postfix) with ESMTP id 01E7910E40E;
+	Mon, 16 Nov 2026 11:26:28 +0000 (UTC)
+Received: from foss.arm.com (foss.arm.com [217.140.110.172])
+ by gabe.freedesktop.org (Postfix) with ESMTP id EE1A610E40E
+ for <dri-devel@lists.freedesktop.org>; Mon, 16 Nov 2026 11:26:21 +0000 (UTC)
+Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
+ by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 721951713;
+ Mon, 16 Nov 2026 03:26:18 -0800 (PST)
+Received: from e120398-lin.trondheim.arm.com (e120398-lin.trondheim.arm.com
+ [10.42.46.160])
+ by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 1263C3F632;
+ Mon, 16 Nov 2026 03:26:17 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
+ t=1794828381; bh=iB0d6tgW3I2e5iitol76b342HkezV3YpGx343zM0/zM=;
+ h=From:To:Cc:Subject:Date:From;
+ b=bkM+TK2tJdavJuFwKlvA3OTO5Z7WFJZ2Ry/hovLMoG4/7WB6qd6OJWj9Kr85r2H5I
+ //LtvIcHtqD8/sYEz1+1XlQfr7pIzO4UTSARsJksEiw7nurMGivn1OhtcI6PId5ZAN
+ ULJRWKwh9gx/Kh0day3tZN8qI3KwfEtFRWCNxkJY=
+From: Ketil Johnsen <ketil.johnsen@arm.com>
+To: Boris Brezillon <boris.brezillon@collabora.com>,
+ Steven Price <steven.price@arm.com>, Liviu Dudau <liviu.dudau@arm.com>,
+ Akash Goel <akash.goel@arm.com>, Karunika Choo <karunika.choo@arm.com>,
+ Lukas Zapolskas <lukas.zapolskas@arm.com>,
+ Chris Diamand <chris.diamand@arm.com>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>,
+ Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>,
+ Simona Vetter <simona@ffwll.ch>,
+ Daniel Almeida <daniel.almeida@collabora.com>,
+ Alice Ryhl <aliceryhl@google.com>
+Cc: dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
+ rust-for-linux@vger.kernel.org, Ketil Johnsen <ketil.johnsen@arm.com>
+Subject: [PATCH v5 00/13] drm/panthor: Protected mode support for Mali CSF GPUs
+Date: Mon, 16 Nov 2026 12:25:48 +0100
+Message-ID: <20261116112601.3483649-1-ketil.johnsen@arm.com>
+X-Mailer: git-send-email 2.43.0
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-X-Mailer: b4 0.16.0
-X-Last-TLS-Session-Version: TLSv1.3
+Content-Transfer-Encoding: 8bit
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -62,36 +57,196 @@ List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-8.8 required=3.0 tests=BAYES_00,DKIM_SIGNED,
-	DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
-	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,USER_AGENT_GIT autolearn=ham
-	autolearn_force=no version=4.0.1
+X-Spam-Status: No, score=-11.6 required=3.0 tests=BAYES_00,DKIM_INVALID,
+	DKIM_SIGNED,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_PATCH,
+	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,USER_AGENT_GIT
+	autolearn=unavailable autolearn_force=no version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
+Hi,
 
-On Fri, 30 Oct 2026 16:32:52 +0000, Laurentiu Palcu wrote:
-> The remote endpoint node is not necessarily a panel, so drop the "panel"
-> naming and refer to the next bridge instead. Update the error message
-> printed when no output port is connected.
-> 
-> While at it, convert the device_node handling in fsl_ldb_probe() to use
-> the __free(device_node) cleanup helper. Since remote1 and remote2 now
-> stay valid until the function returns, pass the selected one directly to
-> of_drm_find_and_get_bridge() and drop the extra panel_node reference.
-> Do the same for the dual-link port1/port2 lookups.
-> 
-> [...]
+This is a patch series covering the support for protected mode execution in
+Mali Panthor CSF kernel driver.
 
-Applied, thanks!
+It builds on the initial RFC posted by Florent Tomasin back in January of 2025.
 
-[1/1] drm/bridge: fsl-ldb: Remove panel naming and use scoped device_node cleanup
-      commit: 16c31b960788c1cee1bf9e8b115cda8b4643cb39
+The initial RFC can be found here:
+https://lore.kernel.org/lkml/cover.1738228114.git.florent.tomasin@arm.com/
 
-Best regards,
+The Mali CSF GPUs come with the support for protected mode execution at the
+HW level. This feature requires two main changes in the kernel driver:
+
+1) Configure the GPU with a protected buffer. The system must provide a DMA
+   heap from which the driver can get protected buffers.
+   It can be a carved-out memory or dynamically allocated protected memory region.
+   Some system includes a trusted FW which is in charge of the protected memory.
+   This problem is integration specific and the responsibility to allocate the
+   required protected memory from the correct and system specific DMA heap is
+   left to user space (Mesa). Panthor CSF driver must be handed the needed
+   buffers via new IOCTLs.
+
+2) Handle enter and exit of the GPU HW from normal to protected mode of execution.
+   FW sends a request for protected mode entry to the kernel driver.
+   The acknowledgment of that request is a scheduling decision. Effectively,
+   protected mode execution should not overrule normal mode of execution.
+   A fair distribution of execution time will guaranty the overall performance
+   of the device, including the UI (usually executing in normal mode),
+   will not regress when a protected mode job is submitted by an application.
+
+
+Background
+----------
+
+Current Mali Panthor CSF driver does not allow a user space application to
+execute protected jobs on the GPU. This use case is quite common on end-user-device.
+A user may want to watch a video or render content that is under a "Digital Right
+Management" protection, or launch an application with user private data.
+
+1) User-space:
+
+   In order for an application to execute protected jobs on a Mali CSF GPU the
+   user space application must submit jobs to the GPU within a "protected regions"
+   (range of commands to execute in protected mode).
+
+   Find here an example of a command buffer that contains protected commands:
+
+```
+          <--- Normal mode ---><--- Protected mode ---><--- Normal mode --->
+   +-------------------------------------------------------------------------+
+   | ... | CMD_0 | ... | CMD_N | PROT_REGION | CMD_N+1 | ... | CMD_N+M | ... |
+   +-------------------------------------------------------------------------+
+```
+
+   The PROT_REGION command acts as a barrier to notify the HW of upcoming
+   protected jobs. It also defines the number of commands to execute in protected
+   mode.
+
+   The Mesa definition of the opcode can be found here:
+
+     https://gitlab.freedesktop.org/mesa/mesa/-/blob/main/src/panfrost/lib/genxml/v10.xml?ref_type=heads#L763
+
+2) Kernel-space:
+
+   When loading the FW image, the Kernel driver must also load the data section
+   of CSF FW that comes from the protected memory, in order to allow FW to
+   execute in protected mode.
+
+   The FW uses the same protected memory buffer to execute protected jobs from
+   all processes on the system. Note: This buffer must be provided by a user
+   space process with CAP_SYS_MODULE though.
+
+   In addition, when a CSG (group) is created, it must have a protected suspend
+   buffer. User space must provide this buffer on group creation if it want to
+   execute protected jobs.
+
+   The required size of both these buffer types can be queried. See
+   query type DRM_PANTHOR_DEV_QUERY_PROTM_INFO.
+
+Design decisions
+----------------
+
+The earlier versions (RFC and v1) relied on in-kernel allocation of protected
+DMA-bufs, both for the required FW memory (system wide), and per group
+suspend buffers (per process). This is no longer needed.
+Starting with v2, this is now changed and it is user space which is responsible
+for supplying these buffers.
+Only a user space processes with elevated privileges (CAP_SYS_MODULE) is trusted
+to provide the system wide protected FW memory. This only needs to happen once
+per boot, and is needed before any non-privileged processes can make use of
+protected rendering.
+
+The Mali Panthor CSF kernel driver will handle enter/exit of protected
+mode with a fair consideration of the job scheduling.
+
+If the system integrator does not provide a protected DMA heap, the driver
+will not allow any protected mode execution.
+
+Testing
+-------
+
+1) Platform and development environment
+
+   Any platform containing a Mali CSF type of GPU and a protected memory allocator
+   that is based on DMA Heap can be used. For example, it can be a physical platform
+   or a simulator such as Arm Total Compute FVPs platforms. Reference to the latter:
+
+     https://developer.arm.com/Tools%20and%20Software/Fixed%20Virtual%20Platforms/Total%20Compute%20FVPs
+
+2) Mesa:
+
+PanVK support can be found here:
+https://gitlab.freedesktop.org/mesa/mesa/-/merge_requests/40044
+
+
+Previous versions
+-----------------
+v4: https://lore.kernel.org/lkml/20261012125940.3291951-1-ketil.johnsen@arm.com/
+v3: https://lkml.org/lkml/2026/9/11/1187
+v2: https://lkml.org/lkml/2026/7/12/369
+v1: https://lkml.org/lkml/2026/5/5/1523
+
+
+Highlevel changes
+-----------------
+
+Changes in v5:
+- Main changes are to the "drm/panthor: Add support for entering and exiting protected mode" patch.
+  Use an empty transtab for VMs requesting updates when in protected mode.
+  This allows us to keep non-protected groups on slot for immediate resume on protm exit.
+- See each patch for detailed changes
+
+Changes in v4:
+- Main changes are to the "drm/panthor: Add support for entering and exiting protected mode" patch.
+  A new approach to avoid uneccesary protm premption by non-running VMs.
+  This patch do need some splitting before final version. Will do that if
+  this approach gets the general approval.
+- Split the old patch "drm/panthor: Expose protected rendering features" into
+  multiple smaller patches.
+- See each patch for detailed changes
+
+Changes in v3:
+- Dropped patch "drm/panthor: Explicit expansion of locked VM region"
+- See each patch for detailed changes
+
+Changes in v2:
+- Conceptually similar to v1, but heavily reworked to address fault handling
+- User space provides all protected memory buffers (no in-kernel dmabuf alloc)
+
+Boris Brezillon (7):
+  drm/panthor: Pass drm_file instead of panthor_file
+  drm/panthor: New function for FW section map flags
+  drm/panthor: Keep size and VA in FW section obj
+  drm/panthor: Refactor GEM usage flags assignment
+  drm/panthor: Create kernel BO from existing GEM
+  drm/panthor: Support FW init of protm
+  drm/panthor: Protm support for groups
+
+Florent Tomasin (2):
+  drm/panthor: Minor scheduler refactoring
+  drm/panthor: Add support for entering and exiting protected mode
+
+Ketil Johnsen (4):
+  drm/panthor: De-duplicate FW memory section sync
+  drm/panthor: Don't allocate protm_suspend_buf
+  drm/panthor: Use a copy of suspend buffer sizes
+  drm/panthor: Bump version to expose protm feature
+
+ drivers/gpu/drm/panthor/panthor_device.h |   8 +
+ drivers/gpu/drm/panthor/panthor_drv.c    |  64 ++-
+ drivers/gpu/drm/panthor/panthor_fw.c     | 347 ++++++++++--
+ drivers/gpu/drm/panthor/panthor_fw.h     |  12 +
+ drivers/gpu/drm/panthor/panthor_gem.c    | 111 ++--
+ drivers/gpu/drm/panthor/panthor_gem.h    |   9 +-
+ drivers/gpu/drm/panthor/panthor_gpu.c    |  49 +-
+ drivers/gpu/drm/panthor/panthor_gpu.h    |   4 +
+ drivers/gpu/drm/panthor/panthor_mmu.c    | 368 +++++++++----
+ drivers/gpu/drm/panthor/panthor_mmu.h    |  11 +-
+ drivers/gpu/drm/panthor/panthor_sched.c  | 672 +++++++++++++++++++----
+ drivers/gpu/drm/panthor/panthor_sched.h  |  39 +-
+ include/uapi/drm/panthor_drm.h           |  85 ++-
+ 13 files changed, 1441 insertions(+), 338 deletions(-)
+
 -- 
-Luca Ceresoli, Bootlin
-Embedded Linux and Kernel engineering
-https://bootlin.com
-
+2.43.0
 
