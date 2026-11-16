@@ -2,63 +2,63 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4060060A2613
-	for <dri-devel@archiver.kernel.org>; Mon, 16 Nov 2026 15:11:01 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5A4ED606A335
+	for <dri-devel@archiver.kernel.org>; Mon, 16 Nov 2026 15:11:15 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=QApUcuR+
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=nMHsD+SD
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 88CE010F243;
-	Mon, 16 Nov 2026 15:10:52 +0000 (UTC)
-Received: from mail-ej1-f53.google.com (mail-ej1-f53.google.com
- [209.85.218.53])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 19BB910EF82
- for <dri-devel@lists.freedesktop.org>; Mon, 16 Nov 2026 15:10:44 +0000 (UTC)
-Received: by mail-ej1-f53.google.com with SMTP id
- a640c23a62f3a-c50a2efbe1dso565655966b.3
- for <dri-devel@lists.freedesktop.org>; Mon, 16 Nov 2026 07:10:44 -0800 (PST)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 86F6D10F167;
+	Mon, 16 Nov 2026 15:11:09 +0000 (UTC)
+Received: from mail-ej1-f41.google.com (mail-ej1-f41.google.com
+ [209.85.218.41])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 30A1310F04F
+ for <dri-devel@lists.freedesktop.org>; Mon, 16 Nov 2026 15:10:54 +0000 (UTC)
+Received: by mail-ej1-f41.google.com with SMTP id
+ a640c23a62f3a-c4d427836e9so470079666b.1
+ for <dri-devel@lists.freedesktop.org>; Mon, 16 Nov 2026 07:10:54 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20260707; t=1794841842; x=1795446642; darn=lists.freedesktop.org;
+ d=gmail.com; s=20260707; t=1794841852; x=1795446652; darn=lists.freedesktop.org;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:from:to:cc:subject:date
  :message-id:reply-to:content-type;
- bh=mbvLcy9HUv2G6MMG8rNmvtC6ROCR4D1d+RS6v72Z6yA=;
- b=QApUcuR+LpJGEYASz21EGVv8gCzx/l/o6KVujrei+PraCM5oClSLpLrpsx3nZplUT6
- ZHZovKTtWoDErWiny9rN9KSQzZvDuPrGTD5VciMnJfsbcop/Ty5TxzdoMHNF/MNsNWFq
- J6g/oVbg7KSzYGw8FbQzv01VjQseMQe4vhW/NIEox9NSgm2VH9lG8P+LMW7OB2zE1/Bc
- vGBFauOSQ2hGxZ8Nrso0Lwb2yDb0+Idi4gTzH+UZdi+BjvF73VUHjB8cEmudGx78D0CF
- yAvWb8TMSaCa7FPssCtUm0MaF5UcHHskcGrcALlkeyrb+toF6UGXDf9kWmIs5ZpWqA0V
- SZ6g==
+ bh=3z6P0aYlufuvnlooWGHkbmG4E1HPBYeLov8HTyHzM/I=;
+ b=nMHsD+SDaJb9+D2zo1s+hOPnAKd1aZnzQ1nLjOX3kySijNQ6aIlSpEhZtQL+e6XYJD
+ ueNGb+NoiQ9ybFIglsTNjAuV/S4KayaIyT2W1eiSboip3JasFjIT9goi9oq8kdtrQJ5t
+ 7Uezlk43HPBXgBk3fj3NmviRfnoPZ3aknSqJ8YQtR0R/WEViIZCjbyyZkbcBUsSPfwNL
+ 1uYUMXPDwOTWeL3f4sUGxMxzeDBkl3VU0zszgmtG2CM4MIsmfeWBt9IP5o2dKskglMvf
+ Uv4+mvrljKkOXMd2jkt0vf2S2uUEwr4Zae4UgspZpSf9lNXDur2Kd68Vhbw0wZHreJSZ
+ znKw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20260707; t=1794841842; x=1795446642;
+ d=1e100.net; s=20260707; t=1794841852; x=1795446652;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
  :to:cc:subject:date:message-id:reply-to:content-type;
- bh=mbvLcy9HUv2G6MMG8rNmvtC6ROCR4D1d+RS6v72Z6yA=;
- b=AMtIJLg8vScmms+Sx8lyH9NCOBPQ+l65xwdPtsrG1LRP1uJR/2g9b+zdgVCiCYdkDU
- o72Xvr0Q18bbLJHqG2ODgtU2yR4OnjLEu4hrJzgPKfCQY+hZsv1EgYP9wi2kE2qEneEm
- TXjfl6AkFq+Z9ry9yI8QSE7nCeIu1DHuhnHDsvOdK4sGtvZsjE4uTCfr+6ziwTmhD18b
- T28LPDwQ9n8x6ZrPk4RZzYPtAfEnBwKSoLeZ99A8xBAoFHLpBB+5xAL72K68KzKiTYFq
- XvQJa0VkreuehO+2mGFj+gPCmh4QvRmweztSDsEQVq9bn8PEKjik30ZF3ek2+YjYu2to
- chig==
-X-Gm-Message-State: APuU4Z8IcKU9DDhIZViKiBwjLfcrEV6VojhSWMQoLyuiC2Uf8Sol7vbx
- 30Q/mXCAmBX+P60YE/Bz0PxNtTJJeq8O7zI1bG43x5ZPFkQv7tSUV28H
-X-Gm-Gg: AYBFou2jKV78fMGoxD04b+zg4s14Bc9AtaAXV+l9wvaA0SI0YrCfsgQzxQ/3AlH51cd
- cHnt+mbYuU6GeWuWzmSGb655K1tJDXA409gNzhIKq6tNA9G45PA4X6ObiTuGpd7+weaWL8t8dAd
- oijDfNlT2phxpsOqHnQ9rzhvQAtAFNBW7RKod1IquNmSOX6A1uPh2ykdGJjIpHGBOmFUn83nQt4
- azeYK1CsDJbtPAMaaMC6uxYmOqx6VbvHhPMmSJghde0pkG++5nn49yVl02qKEft77msE+hEGBwQ
- RLSVBBzpvN6/e3vET1e1uPYpgmk31fB8Y0I7A50J7GHQDP6rJbpZVwyWZx+JaZVS9MbQNmGDQhg
- 1UaMiZGDJQV8u/qxdaMtoy6kbWNODPo5GCd60S1RTT6GstuPuQXuSRRQa7XDpuvfa2qincdgzRR
- J9kFcg8jFpMmPNRWJpY2AJuWm7mJUfAQC5NgxACY3CmBBosW0vMMrv1xhbgfjv09aKRGrZJAq6V
- 5xpretuWUq4+oRepMR2Cw7VIo+gLIBrShouKPVbrsC8l5KYPjRuBoOmmjOjPkICQ5THINxYcXy3
- CjHopVde4MRVSRyjuYXKLOhqO1jjkCXNRTvGFEv8/lvwxYJwApGtJBOTy+VtrlurYylQOChfJ/l
- 1Z9rWmXycdvc=
-X-Received: by 2002:a17:907:8686:b0:c40:b59:1b with SMTP id
- a640c23a62f3a-c5096389f41mr846550366b.44.1794841842225; 
- Mon, 16 Nov 2026 07:10:42 -0800 (PST)
+ bh=3z6P0aYlufuvnlooWGHkbmG4E1HPBYeLov8HTyHzM/I=;
+ b=aS6KIVlwgFXl2EOEy6ZTcVaYn/GZ25xvt7bl04uEqhg+aJAardDa1mbcN60QAEDWLl
+ lZ4N3GZnDf2bsq1O1l+eo3+XTlZk4PmFkkwLJf3WwmK7bJtm37+TP04Orvq1QzgMrX+s
+ LxqlQTP5mC7BSNDhIXDTHNmn2K0h5+88KuaZ5M9b9xg/2+Bc+4kz4NFlSz98Y3Tm4oYc
+ uRQ+8Cbn4sVUoFiGhFXWw3Raz43glmDAYUU1QpXiVivSQzufDIBwfMjqKfBOgerNB+Fy
+ FqZSIgmrR9hqVsHh3yCu6JGy7SwnFSyp0MS6mXcBHaqPQO8hngsp919U7kGimnT4OGlw
+ laKg==
+X-Gm-Message-State: APuU4Z8p88y58g5LofHEE7DuUqdBbJXjYWvZc57h8ZxpIt0wvgwSm7Sy
+ V+voGkTIPII/yHfycbhOd/S2xETTUELnMnJ/AQYN7KUclVpgA0HGp6Fd
+X-Gm-Gg: AYBFou3VqHuWdOXx54Ky8oDIP0slRp17/qSL//09LmYpPpwNz6x8qPYxAOAJePcRpq3
+ HSmqKVsBfv1L2bICoZxr8upTOPRJtcLFe+6Ok96n7yT/Eyyy9lss8h7R/tsCq+FrmBvVFY773Uo
+ JIYvIepsXtCTsTXRsjku4HNMAWIhJf2G/qvjAKdAnv0HIid+79YyC2ECe37oyh2BW32ngszLfSI
+ PmyEJ6OKjjo+I4url77wcUQ0I1EvPssEGje6AcpnTcdQoXcAvdmDUmH0BXIkmL9/sZ8834F2GeO
+ KnM/LhDePsi9VMnRDlR2HyKLO7EqgpUEumzKuSuPspvO/8GlonDmyEKNbRNpjHiSyV+eDeSqkti
+ AYV2BXpC+rCOD9OwlhS5bPYFdivaQ0d5zkI9u5EZUmSmh8MVWzOjcFmujDmU3VuHje+B/70mK36
+ utEHcZoJ3fWtHbz5WGVU1bj1O84WqPA+Byq9+Ua7QUVymJSSQaouPSK5tx7M1TV6HzEUg7lID1b
+ NAJhjJq7Su9Gnm31s7NhZ/Z2Z34NhaG5A82kigLMNUkTb/oTIGElI65Bhh4LUx+iMkID2KcK8dT
+ WmLVOTsIkjU4XokrITYSMo8dpsYsICvsQq5T9ws+rM7Zd7zzNb9RlGK3vyrh/HpZ/r2A3EWGpL8
+ aRahNJ+m0Dw==
+X-Received: by 2002:a17:907:3ccc:b0:c49:a235:8e0c with SMTP id
+ a640c23a62f3a-c509637e31dmr872386066b.22.1794841852361; 
+ Mon, 16 Nov 2026 07:10:52 -0800 (PST)
 Received: from xeon ([188.163.112.62]) by smtp.gmail.com with ESMTPSA id
- a640c23a62f3a-c5095b93a85sm420868466b.84.2026.11.16.07.10.40
+ a640c23a62f3a-c5095b93a85sm420868466b.84.2026.11.16.07.10.50
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Mon, 16 Nov 2026 07:10:41 -0800 (PST)
+ Mon, 16 Nov 2026 07:10:51 -0800 (PST)
 From: Svyatoslav Ryhel <clamor95@gmail.com>
 To: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
  Maxime Ripard <mripard@kernel.org>,
@@ -74,10 +74,10 @@ To: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
  Svyatoslav Ryhel <clamor95@gmail.com>
 Cc: dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org,
  linux-tegra@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: [PATCH v7 05/12] drm/panel: panel-lg-lh400wv3: Drop redundant
- disable() operation
-Date: Mon, 16 Nov 2026 17:10:10 +0200
-Message-ID: <20261116151017.274764-6-clamor95@gmail.com>
+Subject: [PATCH v7 10/12] drm/tegra: rgb: Parameterize configuration based on
+ bus flags
+Date: Mon, 16 Nov 2026 17:10:15 +0200
+Message-ID: <20261116151017.274764-11-clamor95@gmail.com>
 X-Mailer: git-send-email 2.53.0
 In-Reply-To: <20261116151017.274764-1-clamor95@gmail.com>
 References: <20261116151017.274764-1-clamor95@gmail.com>
@@ -95,57 +95,101 @@ List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-15.8 required=3.0 tests=BAYES_00,DKIM_SIGNED,
+X-Spam-Status: No, score=-11.8 required=3.0 tests=BAYES_00,DKIM_SIGNED,
 	DKIM_VALID,DKIM_VALID_AU,FREEMAIL_FORGED_FROMDOMAIN,FREEMAIL_FROM,
 	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
-	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,USER_AGENT_GIT
-	autolearn=unavailable autolearn_force=no version=4.0.1
+	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,UNWANTED_LANGUAGE_BODY,
+	USER_AGENT_GIT autolearn=unavailable autolearn_force=no version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-Squash the disable() and unprepare() functions, since there is no need for
-host adjustments between them.
+Parameterize configuration based on bus flags passed from the bridge or
+panel. The list of supported flags includes now pixel clock polarity,
+display enable (DE) polarity, and data alignment.
 
 Signed-off-by: Svyatoslav Ryhel <clamor95@gmail.com>
 ---
- drivers/gpu/drm/panel/panel-lg-lh400wv3.c | 10 +---------
- 1 file changed, 1 insertion(+), 9 deletions(-)
+ drivers/gpu/drm/tegra/rgb.c | 39 +++++++++++++++++++++++++++++++++----
+ 1 file changed, 35 insertions(+), 4 deletions(-)
 
-diff --git a/drivers/gpu/drm/panel/panel-lg-lh400wv3.c b/drivers/gpu/drm/panel/panel-lg-lh400wv3.c
-index 63efeb434be13..c6834e5312089 100644
---- a/drivers/gpu/drm/panel/panel-lg-lh400wv3.c
-+++ b/drivers/gpu/drm/panel/panel-lg-lh400wv3.c
-@@ -115,7 +115,7 @@ static int lg_lh400wv3_enable(struct drm_panel *panel)
- 	return 0;
- }
+diff --git a/drivers/gpu/drm/tegra/rgb.c b/drivers/gpu/drm/tegra/rgb.c
+index d48d498068ac8..faecd6f94359f 100644
+--- a/drivers/gpu/drm/tegra/rgb.c
++++ b/drivers/gpu/drm/tegra/rgb.c
+@@ -5,6 +5,7 @@
+  */
  
--static int lg_lh400wv3_disable(struct drm_panel *panel)
-+static int lg_lh400wv3_unprepare(struct drm_panel *panel)
- {
- 	struct lg_lh400wv3 *priv = to_lg_lh400wv3(panel);
+ #include <linux/clk.h>
++#include <linux/media-bus-format.h>
+ #include <linux/of.h>
  
-@@ -126,13 +126,6 @@ static int lg_lh400wv3_disable(struct drm_panel *panel)
- 	panel_dbi_command(priv, 0xc1, 0x01);
- 	usleep_range(10000, 11000);
+ #include <drm/drm_atomic_helper.h>
+@@ -106,6 +107,7 @@ static void tegra_rgb_encoder_enable(struct drm_encoder *encoder,
+ 	struct tegra_output *output = encoder_to_output(encoder);
+ 	struct tegra_rgb *rgb = to_rgb(output);
+ 	struct drm_connector_state *conn_state;
++	struct drm_bridge_state *bridge_state;
+ 	struct drm_crtc_state *crtc_state;
+ 	struct drm_connector *connector;
+ 	struct drm_display_mode *mode;
+@@ -117,12 +119,21 @@ static void tegra_rgb_encoder_enable(struct drm_encoder *encoder,
+ 	crtc_state = drm_atomic_get_new_crtc_state(state, conn_state->crtc);
+ 	mode = &crtc_state->adjusted_mode;
  
--	return 0;
--}
--
--static int lg_lh400wv3_unprepare(struct drm_panel *panel)
--{
--	struct lg_lh400wv3 *priv = to_lg_lh400wv3(panel);
--
- 	gpiod_set_value_cansleep(priv->reset_gpio, 1);
- 	regulator_bulk_disable(ARRAY_SIZE(lg_lh400wv3_supplies), priv->supplies);
++	/* Get but flags from the bridge state. */
++	bridge_state = drm_atomic_get_new_bridge_state(state, output->bridge);
++	if (bridge_state)
++		bus_flags = bridge_state->input_bus_cfg.flags;
++	else
++		bus_flags = DRM_BUS_FLAG_PIXDATA_SAMPLE_NEGEDGE |
++			    DRM_BUS_FLAG_DE_HIGH |
++			    DRM_BUS_FLAG_DATA_MSB_TO_LSB;
++
+ 	tegra_dc_write_regs(rgb->dc, rgb_enable, ARRAY_SIZE(rgb_enable));
  
-@@ -175,7 +168,6 @@ static int lg_lh400wv3_get_modes(struct drm_panel *panel,
- static const struct drm_panel_funcs lg_lh400wv3_panel_funcs = {
- 	.prepare = lg_lh400wv3_prepare,
- 	.enable = lg_lh400wv3_enable,
--	.disable = lg_lh400wv3_disable,
- 	.unprepare = lg_lh400wv3_unprepare,
- 	.get_modes = lg_lh400wv3_get_modes,
- };
+ 	value = DE_SELECT_ACTIVE | DE_CONTROL_NORMAL;
+ 	tegra_dc_writel(rgb->dc, value, DC_DISP_DATA_ENABLE_OPTIONS);
+ 
+-	/* configure H- and V-sync signal polarities */
++	/* configure H- and V-sync and pixel clock signal polarities */
+ 	value = tegra_dc_readl(rgb->dc, DC_COM_PIN_OUTPUT_POLARITY(1));
+ 
+ 	if (mode->flags & DRM_MODE_FLAG_NHSYNC)
+@@ -135,11 +146,31 @@ static void tegra_rgb_encoder_enable(struct drm_encoder *encoder,
+ 	else
+ 		value &= ~LVS_OUTPUT_POLARITY_LOW;
+ 
++	if (bus_flags & DRM_BUS_FLAG_PIXDATA_SAMPLE_POSEDGE)
++		value &= ~BIT(PIN_LSC0);
++	else
++		value |= BIT(PIN_LSC0);
++
+ 	tegra_dc_writel(rgb->dc, value, DC_COM_PIN_OUTPUT_POLARITY(1));
+ 
+-	/* XXX: parameterize? */
+-	value = DISP_DATA_FORMAT_DF1P1C | DISP_ALIGNMENT_MSB |
+-		DISP_ORDER_RED_BLUE;
++	/* configure DE signal polarities */
++	value = tegra_dc_readl(rgb->dc, DC_COM_PIN_OUTPUT_POLARITY(3));
++
++	if (bus_flags & DRM_BUS_FLAG_DE_LOW)
++		value |= BIT(PIN_LSPI);
++	else
++		value &= ~BIT(PIN_LSPI);
++
++	tegra_dc_writel(rgb->dc, value, DC_COM_PIN_OUTPUT_POLARITY(3));
++
++	/* configure DATA order and alignment */
++	value = DISP_DATA_FORMAT_DF1P1C | DISP_ORDER_RED_BLUE;
++
++	if (bus_flags & DRM_BUS_FLAG_DATA_LSB_TO_MSB)
++		value |= DISP_ALIGNMENT_LSB;
++	else
++		value &= ~DISP_ALIGNMENT_LSB;
++
+ 	tegra_dc_writel(rgb->dc, value, DC_DISP_DISP_INTERFACE_CONTROL);
+ 
+ 	tegra_dc_commit(rgb->dc);
 -- 
 2.53.0
 
