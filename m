@@ -2,56 +2,57 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8D531606A323
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A2551606A32F
 	for <dri-devel@archiver.kernel.org>; Mon, 16 Nov 2026 10:32:15 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=RXRa2Ruj
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=RgB3i4uQ
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id A95E910EDFD;
+	by gabe.freedesktop.org (Postfix) with ESMTP id B1C0610EDFF;
 	Mon, 16 Nov 2026 10:32:09 +0000 (UTC)
 Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 594E910E0FF
- for <dri-devel@lists.freedesktop.org>; Mon, 16 Nov 2026 10:31:29 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id BD4B110ED7C
+ for <dri-devel@lists.freedesktop.org>; Mon, 16 Nov 2026 10:31:52 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id 417F640D91;
- Mon, 16 Nov 2026 10:31:29 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9CF211F000C9;
- Mon, 16 Nov 2026 10:31:28 +0000 (UTC)
+ by sea.source.kernel.org (Postfix) with ESMTP id A5D6E43BB3;
+ Mon, 16 Nov 2026 10:31:52 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0A1761F000CB;
+ Mon, 16 Nov 2026 10:31:51 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1794825089;
- bh=TA6zOrFesw7aL50cbKjrnaUaPtu6yX6Cj/zeufIhDTw=;
+ s=k20260515; t=1794825112;
+ bh=aySVLXyxIk33FwYFAk7LQLwzaVdzkKRtu2if9A/L9ok=;
  h=From:Date:Subject:References:In-Reply-To:To:Cc;
- b=RXRa2RujQfLiU1DzXZsVHkcl7GQvPrVFhT5dynOQuAYCo0PCo5KeH8HsvIsfxdiFB
- mO/nm5tVHadSWd/8XS73pZYRJCpHmvEobMpvMzVy5YUVwaLNphT58t+eSBdDyX7soG
- lgIpkSlnLZNpoH/x9ATnkOq6HXkXcZlxEUGq0fBWvoAM0W5Oq4/D8XziNa5FaFgVP1
- bb3z0VoRGuxUY9uvdUG68pB6WRDPazOBly2PL1bjy2yBmA4aiMFUiAQJ7KODo9LfLk
- r8BdLZtR9lAUmvlQJXLja1n5B954OwP01TyNPMLOig/JDKc/Jwly+Phu2kUA9QDNc+
- lNCwZ15dvK8GA==
+ b=RgB3i4uQkJ3RQWm31pjW811nDPYI3cjVornEAv+sghs1J0ux++SAinOvLcap8QvnQ
+ IKk2Rwlz7WSAuGm6YLjszH4qYAcEUgIbfljIu9d4KhYnCPU1qs2ooSVobO5TAiZxPB
+ XjItr5MMCBsdV0wvaotGkalgfsp/IkR4Yof6aDr+kQhzC0xUjQVRn87nK3/9GfMt46
+ yQW6LUCNAbdaDrv6ewYyEyn6MRctEXjhIonYCQmVo42mivukwNeSqWXYAGhOsQJkoZ
+ bgzy5CTD0ZnWJ2NfE8O6Qf3dX0CErNwMva7+GnmI7d+ECwDdqg9tH8MMaTDpsrm09w
+ Nj6LX4lY4s0IA==
 From: Maxime Ripard <mripard@kernel.org>
-Date: Mon, 16 Nov 2026 11:30:26 +0100
-Subject: [PATCH v2 10/64] drm/hisilicon/hibmc: Switch to
+Date: Mon, 16 Nov 2026 11:30:33 +0100
+Subject: [PATCH v2 17/64] drm/loongson: Switch to
  drm_mode_config_create_initial_state
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20261116-drm-no-more-config-reset-v2-10-0bb471f4d1e0@kernel.org>
+Message-Id: <20261116-drm-no-more-config-reset-v2-17-0bb471f4d1e0@kernel.org>
 References: <20261116-drm-no-more-config-reset-v2-0-0bb471f4d1e0@kernel.org>
 In-Reply-To: <20261116-drm-no-more-config-reset-v2-0-0bb471f4d1e0@kernel.org>
 To: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
  Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>, 
  Simona Vetter <simona@ffwll.ch>
 Cc: dri-devel@lists.freedesktop.org, Maxime Ripard <mripard@kernel.org>, 
- Tian Tao <tiantao6@hisilicon.com>, 
- Xinwei Kong <kong.kongxinwei@hisilicon.com>, 
- Yongbang Shi <shiyongbang@huawei.com>
+ Huacai Chen <chenhuacai@kernel.org>, 
+ Icenowy Zheng <zhengxingda@iscas.ac.cn>, Jianmin Lv <lvjianmin@loongson.cn>, 
+ Mingcong Bai <jeffbai@aosc.io>, Qianhai Wu <wuqianhai@loongson.cn>, 
+ Xi Ruoyao <xry111@xry111.site>
 X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=openpgp-sha256; l=1499; i=mripard@kernel.org;
- h=from:subject:message-id; bh=UByDnV+ThGFjxtxj4TO0HplD1HfbJJnpkIstgpvBvIM=;
- b=owGbwMvMwCmsHn9OcpHtvjLG02pJDFm/brtYPEm9ElBwdVKrQf1yyxkv3zDFlL704T9S3cD1Y
- PW1HL8jHVNZGIQ5GWTFFFmeyISdXt6+uMrBfuUPmDmsTCBDGLg4BWAi5rsY6wPulEavzfUQECjf
- d6Dj2sszHiL1Oz1XMak8mvGsbr/xv+d93eWhgfHWCxdsZurbFxS2nrFWzE/8++NjqV9iso88Ndj
- zSWiL0Zl9Gxeu3VW1aMPKX5XWtXvtF3MrPY67fD54gorJ5Ys7AA==
+X-Developer-Signature: v=1; a=openpgp-sha256; l=1496; i=mripard@kernel.org;
+ h=from:subject:message-id; bh=dBkv84uwpX7o1nb3aIBi1Dlq1zvFc72jWkyIc0luvLo=;
+ b=owGbwMvMwCmsHn9OcpHtvjLG02pJDFm/brtfjG/c1P1r61pNW1H5PfMPX+7bfOQm1/3ElUoHL
+ /jer/n9qGMqC4MwJ4OsmCLLE5mw08vbF1c52K/8ATOHlQlkCAMXpwBMpO4OY8PE6J8pLxTvzBG6
+ /Drl9UyP40bb3m/3ls+xSr/REqWodu6Qqnjsn/SlLTvPG6hMjPyy7ypjfeL1ioAlhUFRyZkXVG/
+ fb/oavv6p+b9W2Wab5Wsi56+YtXlPf+gpU36rL/mbjq/Id72lBwA=
 X-Developer-Key: i=mripard@kernel.org; a=openpgp;
  fpr=BE5675C37E818C8B5764241C254BCFC56BF6CE8D
 X-BeenThere: dri-devel@lists.freedesktop.org
@@ -85,34 +86,35 @@ Switch to drm_mode_config_create_initial_state().
 
 Signed-off-by: Maxime Ripard <mripard@kernel.org>
 ---
-Cc: Tian Tao <tiantao6@hisilicon.com>
-Cc: Xinwei Kong <kong.kongxinwei@hisilicon.com>
-Cc: Yongbang Shi <shiyongbang@huawei.com>
+Cc: Huacai Chen <chenhuacai@kernel.org>
+Cc: Icenowy Zheng <zhengxingda@iscas.ac.cn>
+Cc: Jianmin Lv <lvjianmin@loongson.cn>
+Cc: Mingcong Bai <jeffbai@aosc.io>
+Cc: Qianhai Wu <wuqianhai@loongson.cn>
+Cc: Xi Ruoyao <xry111@xry111.site>
 ---
- drivers/gpu/drm/hisilicon/hibmc/hibmc_drm_drv.c | 6 ++++--
- 1 file changed, 4 insertions(+), 2 deletions(-)
+ drivers/gpu/drm/loongson/lsdc_drv.c | 4 +++-
+ 1 file changed, 3 insertions(+), 1 deletion(-)
 
-diff --git a/drivers/gpu/drm/hisilicon/hibmc/hibmc_drm_drv.c b/drivers/gpu/drm/hisilicon/hibmc/hibmc_drm_drv.c
-index 272a8ab6427a..029a2e13b98b 100644
---- a/drivers/gpu/drm/hisilicon/hibmc/hibmc_drm_drv.c
-+++ b/drivers/gpu/drm/hisilicon/hibmc/hibmc_drm_drv.c
-@@ -409,12 +409,14 @@ static int hibmc_load(struct drm_device *dev)
- 	if (ret) {
- 		drm_err(dev, "hibmc msi init failed, ret:%d\n", ret);
- 		goto err;
- 	}
+diff --git a/drivers/gpu/drm/loongson/lsdc_drv.c b/drivers/gpu/drm/loongson/lsdc_drv.c
+index 5a13df31eb90..fbb2658acce4 100644
+--- a/drivers/gpu/drm/loongson/lsdc_drv.c
++++ b/drivers/gpu/drm/loongson/lsdc_drv.c
+@@ -245,11 +245,13 @@ lsdc_create_device(struct pci_dev *pdev,
+ 	ret = lsdc_modeset_init(ldev, descp->num_of_crtc, descp->funcs,
+ 				loongson_vblank);
+ 	if (ret)
+ 		return ERR_PTR(ret);
  
--	/* reset all the states of crtc/plane/encoder/connector */
--	drm_mode_config_reset(dev);
-+	/* Create all the states of crtc/plane/encoder/connector */
-+	ret = drm_mode_config_create_initial_state(dev);
+-	drm_mode_config_reset(ddev);
++	ret = drm_mode_config_create_initial_state(ddev);
 +	if (ret)
-+		goto err;
++		return ERR_PTR(ret);
  
- 	drmm_kms_helper_poll_init(dev);
+ 	return ldev;
+ }
  
- 	return 0;
- 
+ /* For multiple GPU driver instance co-exixt in the system */
 
 -- 
 2.56.1
