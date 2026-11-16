@@ -2,136 +2,56 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 97500606A333
-	for <dri-devel@archiver.kernel.org>; Mon, 16 Nov 2026 15:25:40 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.a=rsa-sha256 header.s=selector1-NXP1-onmicrosoft-com header.b=kyQBwJEV
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 073B1606A339
+	for <dri-devel@archiver.kernel.org>; Mon, 16 Nov 2026 15:25:45 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id AEB8310EA43;
-	Mon, 16 Nov 2026 15:25:33 +0000 (UTC)
-Received: from DUZPR83CU001.outbound.protection.outlook.com
- (mail-northeuropeazon11012020.outbound.protection.outlook.com [52.101.66.20])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 0E99C10E0E9;
- Mon, 16 Nov 2026 15:25:27 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=T3R9oshvYFZPDrPduCwrtF2mf9HZ71pIkecFZDfWqXJY+S3lC4qFOyxD6WjCWegxCtlXLpH9wVDv7tefSMiseu1kYud9QotU2QtHnrLZJ/ygnPPs6A57t88kSprGwUkQ2dB8IpLoD1N38KqF/M4x+EmtAjd/iskvSVlwpM2RhFjt8062Q+9wlIYm0uMF4wY4gU3dWfTWdZ6L4ZYPvZ9CFjFnLlXCBMXj2cehKq/LQjMz6b+NIaED8a4DG6o9JfR8/y2zk5HcGQJTzJWZ45lvH5ztk1cHszk593OOe6jvtF/C/9oi0YhfugPTCLq6aM6kFMKfbLWSHQmXalfc8dMmLA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=kwU0aqAfTOVb09U8gKdoBVAG+8nbfQGFHmI2srC8srU=;
- b=H2m6YXooq56e7YRPyIwMiwvqAU7SZ06xm+J3jTqoG8NqVofgEV20PqcjOzjXQTPVOzz5AZqdVd01MflRa/rPsD1AO6vXKXOq996r5DWRCSgehu/58YnAca5WBMaCZSEvyMZVpNKn2rFV12fr53NWtsBadnn+CKso6zc6GO1F1pFzPeZ6PxWBWSM0oCKY2zP9Qez7u3mb9IX56M1WQWPffoewyfQhqDMAVurLi4pCM6lIduQcD/MV9WC3NSb0iNcnmmdLU85jUMNLWYDG8EgwNVRVJkAd9G7pZWhr5Ol+j+GEAOWxZ3tU/EHXNEhcMPX5mKv/qAV6LenvrTaCFo/DQQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=oss.nxp.com; dmarc=pass action=none header.from=oss.nxp.com;
- dkim=pass header.d=oss.nxp.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=NXP1.onmicrosoft.com; 
- s=selector1-NXP1-onmicrosoft-com;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=kwU0aqAfTOVb09U8gKdoBVAG+8nbfQGFHmI2srC8srU=;
- b=kyQBwJEVUZgO0EPw99NbJvjoBp3KT2Gpg7NsZ1bkFUKBzj4z2KMEPb0u4jqu+U2Maa3Z2SUHD+IQqKYc8A6+GGlYnN0eQUbPp7wSXN7ztSRkY4NUKTSVxwoi76Vf42rgUC4l655pS0dhFkuYFxJ24oqSuD7tlDSCCRu4Y/IcCIVSoccNpN/T4Us/py3dZZoITMCfuyb4que8dS/gcTxdXd36C7bJb1lDnR8hEjiwYad2BaMlLMkdJ5P8wtCly8Dhfi7cZzcaLimNLryvEZdKP2RYrn7d0G2HhldiSQQQe7323CKD3xuNqpVbUuMNxtyFS9azSCk6CwEGhpPWZA3iUQ==
-Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=oss.nxp.com;
-Received: from MI3PR04MB12438.eurprd04.prod.outlook.com (2603:10a6:290:76::14)
- by DU7PR04MB11161.eurprd04.prod.outlook.com (2603:10a6:10:5b3::17)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.615.14; Mon, 16 Nov
- 2026 15:25:22 +0000
-Received: from MI3PR04MB12438.eurprd04.prod.outlook.com
- ([fe80::c715:c32:8bb1:b70b]) by MI3PR04MB12438.eurprd04.prod.outlook.com
- ([fe80::c715:c32:8bb1:b70b%4]) with mapi id 15.21.0615.013; Mon, 16 Nov 2026
- 15:25:22 +0000
-From: Frank.Li@oss.nxp.com
-To: 
-Cc: Frank Li <Frank.Li@nxp.com>, Alex Elder <elder@riscstar.com>,
- "Rafael J. Wysocki" <rafael@kernel.org>,
- Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
- Andrzej Kacprowski <andrzej.kacprowski@linux.intel.com>,
- Karol Wachowski <karol.wachowski@linux.intel.com>,
- Oded Gabbay <ogabbay@kernel.org>,
- Jani Nikula <jani.nikula@linux.intel.com>,
- Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
- Rodrigo Vivi <rodrigo.vivi@intel.com>,
- Tvrtko Ursulin <tursulin@ursulin.net>,
- Matthew Brost <matthew.brost@intel.com>,
- "Thomas Hellstrom" <thomas.hellstrom@linux.intel.com>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- Alex Elder <elder@kernel.org>, Will Deacon <will@kernel.org>,
- Robin Murphy <robin.murphy@arm.com>, "Joerg Roedel" <joro@8bytes.org>,
- Rob Clark <robin.clark@oss.qualcomm.com>,
- Sakari Ailus <sakari.ailus@linux.intel.com>,
- Mauro Carvalho Chehab <mchehab@kernel.org>,
- Guenter Roeck <linux@roeck-us.net>, Guan-Yu Lin <guanyulin@google.com>,
- Mathias Nyman <mathias.nyman@linux.intel.com>, linux-pm@vger.kernel.org,
- linux-usb@vger.kernel.org, dri-devel@lists.freedesktop.org,
- intel-gfx@lists.freedesktop.org, intel-xe@lists.freedesktop.org,
- linux-hwmon@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
- iommu@lists.linux.dev, linux-arm-msm@vger.kernel.org,
- linux-media@vger.kernel.org, linux-staging@lists.linux.dev,
- netdev@vger.kernel.org, imx@lists.linux.dev
-Subject: [PATCH v2 1/2] PM: runtime: fix stub pm_runtime_get_if_active() for
- !CONFIG_PM
-Date: Mon, 16 Nov 2026 10:25:10 -0500
-Message-ID: <20261116152513.2676573-1-Frank.Li@oss.nxp.com>
-X-Mailer: git-send-email 2.43.0
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-ClientProxiedBy: PH7P223CA0017.NAMP223.PROD.OUTLOOK.COM
- (2603:10b6:510:338::10) To MI3PR04MB12438.eurprd04.prod.outlook.com
- (2603:10a6:290:76::14)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 68DBA10F221;
+	Mon, 16 Nov 2026 15:25:43 +0000 (UTC)
+Received: from cstnet.cn (smtp25.cstnet.cn [159.226.251.25])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 8622510F239
+ for <dri-devel@lists.freedesktop.org>; Mon, 16 Nov 2026 15:25:41 +0000 (UTC)
+Received: from edelgard.fodlan.icenowy.me (unknown [112.94.102.23])
+ by APP-05 (Coremail) with SMTP id zQCowAAHZbpuIPtqNhpFAQ--.4733S2;
+ Mon, 16 Nov 2026 23:25:35 +0800 (CST)
+Message-ID: <83aa9fb5be26fb407c7f1393bc01099d374cf51f.camel@iscas.ac.cn>
+Subject: Re: [PATCH v2 2/4] drm/verisilicon: nuke planes' atomic_enable hooks
+From: Icenowy Zheng <zhengxingda@iscas.ac.cn>
+To: Thomas Zimmermann <tzimmermann@suse.de>, Maarten Lankhorst
+ <maarten.lankhorst@linux.intel.com>, Maxime Ripard <mripard@kernel.org>
+Cc: David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
+ Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>, Joey Lu
+ <a0987203069@gmail.com>, Han Gao <gaohan@iscas.ac.cn>, 
+ dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org
+Date: Mon, 16 Nov 2026 23:25:34 +0800
+In-Reply-To: <55991183-ab5f-4445-afce-37a79310ef27@suse.de>
+References: <20261102075710.1286456-1-zhengxingda@iscas.ac.cn>
+ <20261102075710.1286456-3-zhengxingda@iscas.ac.cn>
+ <8e3b36c6-e2d8-4746-aefe-462bba1a4b05@suse.de>
+ <5830251f1420c152b2efc2ee37248057bdfc901d.camel@iscas.ac.cn>
+ <55991183-ab5f-4445-afce-37a79310ef27@suse.de>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+User-Agent: Evolution 3.58.3 
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: MI3PR04MB12438:EE_|DU7PR04MB11161:EE_
-X-MS-Office365-Filtering-Correlation-Id: 34e94d89-9953-4c08-4f4e-08df43f5d4bd
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
- ARA:13230040|19092799006|7416014|366016|376014|23010399003|1800799024|18002099003|6133799003|11063799006|56012099006|10067099003|261022075727099003|261022105027099003|261028144727099003|261026121527099003|261021123027099003|261021121427099003|261026140227099003|261009223027099003|261009223327099003|261009221227099003|261009220027099003|261102123227099003|261009221727099003;
-X-Microsoft-Antispam-Message-Info: kiz/bkm1v3jdulKiQWNUyJNwErxxuNx2eVWey0BIKtzfA2g5TuGrOJc0aNesYkW/z2K0P81/euDeDl0CMXEzYfENpZkSYfhL+WQoweGNvsm+NWsgwZqdfEQl6QkiNxd1u28yYb45sCCmjesSQHnqwfmHNKiuH0cd52Yq1zg6wh1OMXl6pGfWb7ykBsVHPWfLrOb6H2YHpFY8HSskTQyQgjhCzDNti+XV48LSSNljSBbxSTWVHH6HTeKYYSqF1a4eIsDsH2q5fmq8sO8xku8fKxyjV+GkxqdsfkzT8cNOOg5esY8r0xBZIWaNVdaY2oGlHUTZFxC9b7eVxP0gtUSsASmuTXa00M9zb4LnAthR8K6ZPKs8nZF3J1D6fmoDzJLS8rntVRVHUdwyoECqQlkxyXgmJ65oLhIhi6C3/WvauOXFVIHQLnDh4VMK5b2NslfvIE3eSqqVdZBRTwNau65ZHnTWpDLlT01FyjpmxH1lfmKd7iHr9oVnWJDye0tKZkT47pczFVyjuaIfDJepknCm/+50FOAf9Y22I7XAdNTAR8R2rPl4/LWn5lVNOi7SlcW3BNYEfnX/6tDkU7a2HcqAfMm1lzvenXyBqIePBHoSzg0MT1j2PR8GkgI17PichB6uEGHZmJo5n7jG+3BG/1qxe2+tCwV4aicvzkRoNC/OYcU=
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:MI3PR04MB12438.eurprd04.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(19092799006)(7416014)(366016)(376014)(23010399003)(1800799024)(18002099003)(6133799003)(11063799006)(56012099006)(10067099003)(261022075727099003)(261022105027099003)(261028144727099003)(261026121527099003)(261021123027099003)(261021121427099003)(261026140227099003)(261009223027099003)(261009223327099003)(261009221227099003)(261009220027099003)(261102123227099003)(261009221727099003);
- DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?us-ascii?Q?jjsXZKNgmbHP6THel3p6tv7fU6QECNyoCn6OPDoZdn06gAkTkbZGFIF/nVB3?=
- =?us-ascii?Q?MxueDqZePQ+GLQOIReLcN8T73fshjhDGuBoZh//36tajDhEgGCzzkEel7A+p?=
- =?us-ascii?Q?Bt10SKtbUFwvI+twGCcyB/vDUKaLqoivQU7Xjj4oMA01Tr2gmKIFWOYQLJUF?=
- =?us-ascii?Q?Go4LWEc14xikn4ucaCN+ovkarlZuEwiSVsvZqCfO5PxlMd5Y/QZjY44bRxrw?=
- =?us-ascii?Q?JTqJyNU1Isd6UshhFLigtDtJUgpUinzmz096COr9wJKucWvRrDvLP/frNhZd?=
- =?us-ascii?Q?Pms9PoHjeS9x/oK+vGjEvRpVZt0Z4iGpkHmdlAh0HlRJRNQrtcXmFBjbcdzP?=
- =?us-ascii?Q?qvU0uWWRdANCfS22s8c07/ytR6iWHXkXGK4B/uSI4RhbjIcbclQWeSkROW7q?=
- =?us-ascii?Q?N0dzlBha6Soq5tFpAHZX+CGntbSz9gf7N6MzUrP3csqzXn04J9a3GuiD5ihS?=
- =?us-ascii?Q?78JKkP/DfsLB+l1Ai32FckrFfvVOB5VF3eqQbOfx5ZJZrehCv3fIUFYkLVUT?=
- =?us-ascii?Q?Q1yGA76aFpUaIkopiu4Z3kdpWse7cXvU9gZ+C8oagcxp36pL9oUpQV/CStxq?=
- =?us-ascii?Q?04UdlTES35iqy4pxoIAoIWkkehbt1w+QAAsor8rr8TfBqrg1i2qMwKc+LcYn?=
- =?us-ascii?Q?1XepXumUPd++Kh9t9Mdwj9pJtRzvJHw/YiJoF5Sfs7XxW654laf24Uv3QtZ6?=
- =?us-ascii?Q?mBw9bCmbOTTpgbE8N7qNl5xeWRiZ7tIod6Djn9kF+SF6lGjLIWrnPrPfJk5X?=
- =?us-ascii?Q?jOGH8RciVDVFWfMBx/FnyO0L2G8xKWzbG1Jst6UMV3lU9TE6Qiawxj5KBGp8?=
- =?us-ascii?Q?cpjd7A1ab1mgzSxQ6Jr6NYv5j9cgiQjG7KYTXCQPMMs4v4dKQhiWxtiMH/dD?=
- =?us-ascii?Q?iy75LEVHkC5wliTwcRIST1M3Ossy8rjEArne0IQ9dh/iWEdXrOrvPXGb2BuX?=
- =?us-ascii?Q?qOga0f2ZhbP5wvo8qkqdk/4h4cYEffCsOEtzAJ03dHWHIcD8k75nIVxblYNo?=
- =?us-ascii?Q?m9LaxodBXkbXRCt/r3aLdBBk2I4O3mLaY6uBNuAzEfca8Zm0QVdcWw9yhFdO?=
- =?us-ascii?Q?IW0axWzIygqgAWefwAnw8qz6wQ3BDO6ENLAds7CJcWNSixwTCfH8Ys+wcnBB?=
- =?us-ascii?Q?KxSYK9p9xvurRheAbJeOIreqqIfdexb8rIi1/Lv1FACqgyHpdehMOvflQuWY?=
- =?us-ascii?Q?UE4nuqeW1BLW8GK29WDOHq4qyqwDNdJmaVsnx7RDOEY2NwrTGgiqx5dM9e9q?=
- =?us-ascii?Q?/kN1yKFE57lM5XjuGcFfg6zD9+lXBaAK3yHAuLrk1urE/Rw2/CZA66YUkCPD?=
- =?us-ascii?Q?5YYv4/adfeHPW7Bo7yxdqkHClDLihrx6AkjmOwKrPcF4M/H3koj4pqGRaiBv?=
- =?us-ascii?Q?Ny+K5E/WPR96NW7+eSZIoEJa2LJSyOzmhDrT1XUsmiz7P+LQiAsOlhzP86UF?=
- =?us-ascii?Q?LkQv66VaMQmRVq0/zdLkCRxW+pCvqVvwykaAsvfvnP5tyN/hl29VEiwcCOTr?=
- =?us-ascii?Q?u6DERBybMWVRecCjuxwdvc4HuIqACdeAoVvC+40kD0tBoqt6denC+o4TcRNf?=
- =?us-ascii?Q?tlJMLbOuGmaCzWRl9fGWm4EFb4tKM/u/s1xKhlgX+LH5zKtMBJ/2YIwCOiyP?=
- =?us-ascii?Q?HX8DdXBJ3MH8C6DhxnBs+lSCMte9aW+8X17cvoOWTKBHmbsGACx0vFBisfoW?=
- =?us-ascii?Q?EbC+9ch/T5ijSfbZ/fgoYXgZJa4qQOJRQsqWND8V/IAQGelYFrsX5HouQJiz?=
- =?us-ascii?Q?WHkpW34wLYAzDHAXk8kP3Mvn0CdgjxU=3D?=
-X-OriginatorOrg: oss.nxp.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 34e94d89-9953-4c08-4f4e-08df43f5d4bd
-X-MS-Exchange-CrossTenant-AuthSource: MI3PR04MB12438.eurprd04.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 16 Nov 2026 15:25:22.6861 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: GHBCqLzXO7YQGxkxz3HqKE+328TOvnt2XmPv9gZq0bs/gPBtsNe5U0uXHwjE4X/CNcRBHZi78qqihf23AUTM0f4jkeE14AeF+W9uXFWtlZ0hDstg+Hb1+ENfOauEc3Cv
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DU7PR04MB11161
+X-CM-TRANSID: zQCowAAHZbpuIPtqNhpFAQ--.4733S2
+X-Coremail-Antispam: 1UD129KBjvJXoW3Xr4kZFy7Zw1kAF13Aw17Awb_yoW3Ww13pr
+ 4vyFy0kw4rXFykXr9Fqw4Dtayagw47t3s7Xr4DGa40qrnxtrnrWa18Xr93uF4kJrWkG3Wf
+ JF42yFZxZryxAF7anT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
+ 9KBjDU0xBIdaVrnRJUUUvqb7Iv0xC_Kw4lb4IE77IF4wAFF20E14v26r4j6ryUM7CY07I2
+ 0VC2zVCF04k26cxKx2IYs7xG6rWj6s0DM7CIcVAFz4kK6r1j6r18M28lY4IEw2IIxxk0rw
+ A2F7IY1VAKz4vEj48ve4kI8wA2z4x0Y4vE2Ix0cI8IcVAFwI0_Gr0_Xr1l84ACjcxK6xII
+ jxv20xvEc7CjxVAFwI0_Gr0_Cr1l84ACjcxK6I8E87Iv67AKxVW0oVCq3wA2z4x0Y4vEx4
+ A2jsIEc7CjxVAFwI0_GcCE3s1le2I262IYc4CY6c8Ij28IcVAaY2xG8wAqx4xG64xvF2IE
+ w4CE5I8CrVC2j2WlYx0E2Ix0cI8IcVAFwI0_JrI_JrylYx0Ex4A2jsIE14v26r1j6r4UMc
+ vjeVCFs4IE7xkEbVWUJVW8JwACjcxG0xvEwIxGrwACI402YVCY1x02628vn2kIc2xKxwCY
+ 1x0262kKe7AKxVWUtVW8ZwCF04k20xvY0x0EwIxGrwCFx2IqxVCFs4IE7xkEbVWUJVW8Jw
+ C20s026c02F40E14v26r1j6r18MI8I3I0E7480Y4vE14v26r106r1rMI8E67AF67kF1VAF
+ wI0_Jw0_GFylIxkGc2Ij64vIr41lIxAIcVC0I7IYx2IY67AKxVWUJVWUCwCI42IY6xIIjx
+ v20xvEc7CjxVAFwI0_Gr0_Cr1lIxAIcVCF04k26cxKx2IYs7xG6r1j6r1xMIIF0xvEx4A2
+ jsIE14v26r1j6r4UMIIF0xvEx4A2jsIEc7CjxVAFwI0_Gr0_Gr1UYxBIdaVFxhVjvjDU0x
+ ZFpf9x07b0SoAUUUUU=
+X-CM-SenderInfo: x2kh0wp0lqwv3d6l2u1dvotugofq/
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -143,140 +63,251 @@ List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-16.8 required=3.0 tests=BAYES_00,DKIM_SIGNED,
-	DKIM_VALID,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,
-	INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,
-	USER_AGENT_GIT autolearn=unavailable autolearn_force=no version=4.0.1
+X-Spam-Status: No, score=-13.8 required=3.0 tests=BAYES_00,
+	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
+	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS autolearn=unavailable
+	autolearn_force=no version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-From: Frank Li <Frank.Li@nxp.com>
+=E5=9C=A8 2026-11-16=E4=B8=80=E7=9A=84 16:20 +0100=EF=BC=8CThomas Zimmerman=
+n=E5=86=99=E9=81=93=EF=BC=9A
+> Hi
+>=20
+> Am 16.11.26 um 16:11 schrieb Icenowy Zheng:
+> > =E5=9C=A8 2026-11-16=E4=B8=80=E7=9A=84 14:37 +0100=EF=BC=8CThomas Zimme=
+rmann=E5=86=99=E9=81=93=EF=BC=9A
+> > > Hi
+> > >=20
+> > > Am 02.11.26 um 08:57 schrieb Icenowy Zheng:
+> > > > The atomic_update hooks of both planes are just bailing out
+> > > > early
+> > > > when
+> > > > the planes are invisible, so it's reasonable to just remove
+> > > > these
+> > > > hooks
+> > > > and update the enabled state in atomic_update.
+> > > >=20
+> > > > This fixes the problem that invisible but enabled planes won't
+> > > > be
+> > > > shown when made visible, as pointed by Sashiko.
+> > > >=20
+> > > > Fixes: dbf21777caa8 ("drm: verisilicon: add a driver for
+> > > > Verisilicon display controllers")
+> > > > Fixes: 8c4ae2189125 ("drm: verisilicon: add support for cursor
+> > > > planes")
+> > > > Signed-off-by: Icenowy Zheng <zhengxingda@iscas.ac.cn>
+> > > > ---
+> > > > =C2=A0=C2=A0 drivers/gpu/drm/verisilicon/vs_cursor_plane.c | 22 +++=
+------
+> > > > -----
+> > > > --
+> > > > =C2=A0=C2=A0 .../gpu/drm/verisilicon/vs_primary_plane.c=C2=A0=C2=A0=
+=C2=A0 | 26 +++++----
+> > > > -----
+> > > > -----
+> > > > =C2=A0=C2=A0 2 files changed, 10 insertions(+), 38 deletions(-)
+> > > >=20
+> > > > diff --git a/drivers/gpu/drm/verisilicon/vs_cursor_plane.c
+> > > > b/drivers/gpu/drm/verisilicon/vs_cursor_plane.c
+> > > > index da456dced88aa..5295dc2f9ee2e 100644
+> > > > --- a/drivers/gpu/drm/verisilicon/vs_cursor_plane.c
+> > > > +++ b/drivers/gpu/drm/verisilicon/vs_cursor_plane.c
+> > > > @@ -98,23 +98,6 @@ static void vs_cursor_plane_commit(struct
+> > > > vs_dc
+> > > > *dc, unsigned int output)
+> > > > =C2=A0=C2=A0=C2=A0			VSDC_CURSOR_CONFIG_IMG_UPDATE);
+> > > > =C2=A0=C2=A0 }
+> > > > =C2=A0=C2=A0=20
+> > > > -static void vs_cursor_plane_atomic_enable(struct drm_plane
+> > > > *plane,
+> > > > -					=C2=A0=C2=A0 struct
+> > > > drm_atomic_commit *atomic_state)
+> > > > -{
+> > > > -	struct drm_plane_state *state =3D
+> > > > drm_atomic_get_new_plane_state(atomic_state,
+> > > > -
+> > > > 						=09
+> > > > 	=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 plane);
+> > > > -	struct drm_crtc *crtc =3D state->crtc;
+> > > > -	struct vs_crtc *vcrtc =3D drm_crtc_to_vs_crtc(crtc);
+> > > > -	unsigned int output =3D vcrtc->id;
+> > > > -	struct vs_dc *dc =3D vcrtc->dc;
+> > > > -
+> > > > -	regmap_update_bits(dc->regs,
+> > > > VSDC_CURSOR_CONFIG(output),
+> > > > -			=C2=A0=C2=A0 VSDC_CURSOR_CONFIG_FMT_MASK,
+> > > > -			=C2=A0=C2=A0 VSDC_CURSOR_CONFIG_FMT_ARGB8888);
+> > > > -
+> > > > -	vs_cursor_plane_commit(dc, output);
+> > > > -}
+> > > > -
+> > > > =C2=A0=C2=A0 static void vs_cursor_plane_atomic_disable(struct drm_=
+plane
+> > > > *plane,
+> > > > =C2=A0=C2=A0=C2=A0					=C2=A0=C2=A0=C2=A0 struct
+> > > > drm_atomic_commit *atomic_state)
+> > > > =C2=A0=C2=A0 {
+> > > > @@ -153,6 +136,10 @@ static void
+> > > > vs_cursor_plane_atomic_update(struct drm_plane *plane,
+> > > > =C2=A0=C2=A0=C2=A0	output =3D vcrtc->id;
+> > > > =C2=A0=C2=A0=C2=A0	dc =3D vcrtc->dc;
+> > > > =C2=A0=C2=A0=20
+> > > > +	regmap_update_bits(dc->regs,
+> > > > VSDC_CURSOR_CONFIG(output),
+> > > > +			=C2=A0=C2=A0 VSDC_CURSOR_CONFIG_FMT_MASK,
+> > > > +			=C2=A0=C2=A0 VSDC_CURSOR_CONFIG_FMT_ARGB8888);
+> > > > +
+> > > > =C2=A0=C2=A0=C2=A0	/* Other sizes should be rejected by atomic_chec=
+k */
+> > > > =C2=A0=C2=A0=C2=A0	switch (state->crtc_w) {
+> > > > =C2=A0=C2=A0=C2=A0	case 32:
+> > > > @@ -225,7 +212,6 @@ static void
+> > > > vs_cursor_plane_atomic_update(struct drm_plane *plane,
+> > > > =C2=A0=C2=A0 static const struct drm_plane_helper_funcs
+> > > > vs_cursor_plane_helper_funcs =3D {
+> > > > =C2=A0=C2=A0=C2=A0	.atomic_check	=3D vs_cursor_plane_atomic_check,
+> > > > =C2=A0=C2=A0=C2=A0	.atomic_update	=3D vs_cursor_plane_atomic_update=
+,
+> > > > -	.atomic_enable	=3D vs_cursor_plane_atomic_enable,
+> > > > =C2=A0=C2=A0=C2=A0	.atomic_disable	=3D
+> > > > vs_cursor_plane_atomic_disable,
+> > > But now you have the worst of both worlds: atomic_disable is
+> > > still
+> > > around but also done by atomic_update. And atomic_update always
+> > > sets
+> > > these registers even if the plane is already visible.
+> > >=20
+> > > I'd instead remove the disable calls from atomic_update [1] . I
+> > > think
+> > > you should never reach this is you have an atomic_disable
+> > > installed.
+> > > See
+> > > [1] for the logic.
+> > The drm_atomic_plane_disabling() function only checks whether a
+> > CRTC is
+> > bound -- I think it could be possible that a plane is bound to a
+> > CRTC
+> > but with an invisible coordinate (especially for the cursor plane).
+>=20
+> Sure, but is that a problem for this hardware?
 
-When CONFIG_PM is not enabled, should be treated as if runtime PM were
-enabled for the device and the runtime status is active.
+For the cursor plane, the unchecked coordinate might be improper for
+the registers.
 
-It's a subtle distinction but the previous behavior returned -EINVAL, which
-means "runtime PM is disabled for the device"
+For the primary plane, if the plane is found to be totally off by
+drm_atomic_helper_check_plane_state(), the check for can_position,
+which is below the code snippet I referenced, would be bypassed, and
+such plane would be programmed to be visible by the atomic_update hook
+even if it shouldn't be visible.
 
-__pm_runtime_resume() returns 1 (called by pm_runtime_get()).
-pm_runtime_get_if_active() is the try-and-get version of pm_runtime_get().
-stub pm_runtime_active() also returns true. So pm_runtime_get_if_active()
-should return the same value as the stub pm_runtime_get(), which is 1.
+Thanks,
+Icenowy
 
-Analysis of all callers and their behavior with old (-EINVAL) vs new (1):
-
-Pattern A: if (!pm_runtime_get_if_active(dev)) -- no impact
-  Both -EINVAL and 1 are non-zero, so !ret is false in both cases.
-  Callers: drivers/accel/ethosu/ethosu_perfmon.c,
-           drivers/gpu/drm/msm/adreno/a6xx_gmu.c,
-           drivers/gpu/drm/msm/msm_perfcntr.c,
-           drivers/gpu/drm/v3d/v3d_mmu.c,
-           drivers/gpu/drm/v3d/v3d_perfmon.c (x4),
-           drivers/media/i2c/gc08a3.c gc05a2.c og0ve1b.c ov6211.c,
-           drivers/media/i2c/ccs/ccs-core.c s5kjn1.c lm3560.c (x2),
-           drivers/media/i2c/s5k3m5.c thp7312.c imx283.c ov64a40.c,
-           drivers/media/pci/intel/ipu6/ipu6-buttress.c,
-           sound/hda/core/device.c
-
-Pattern B: if (!ret) after get -- no impact
-  Both -EINVAL and 1 are non-zero, !ret is false in both cases.
-  drivers/gpu/drm/amd/pm/amdgpu_pm.c (comment says "allow access"
-    in kernels without CONFIG_PM), drivers/pci/pci.c
-
-Pattern C: ret > 0 / ret <= 0 / ret != 1 checks -- FIXED
-  drivers/usb/core/offload.c: checks (!= 1), old -EINVAL caused
-    -EBUSY even with !CONFIG_PM. Fixed: now returns 1, proceeds.
-  drivers/accel/ivpu/ivpu_job.c: drm_WARN_ON(<= 0), old -EINVAL
-    spuriously triggered WARN. Fixed: 1 > 0, no warn.
-  drivers/gpu/drm/i915/intel_runtime_pm.c: checks (<= 0), old
-    -EINVAL triggered error path. Fixed: 1 > 0, correct path.
-  drivers/accel/ivpu/ivpu_sysfs.c: (> 0), old skipped freq read.
-    Fixed: proceeds correctly without CONFIG_PM.
-  drivers/gpu/drm/xe/xe_pm.c: wraps (> 0), all xe callers
-    (xe_bo.c, xe_shrinker.c, xe_vsec.c, xe_ggtt.c, xe_guc_ct.c,
-    xe_pxp.c) now correctly treat !CONFIG_PM as active.
-  drivers/net/ipa/ipa_smp2p.c: power_on = (> 0), now correctly true.
-  drivers/iommu/arm/arm-smmu/arm-smmu-qcom.c: (> 0), now correctly
-    executes stall register update.
-  drivers/staging/media/ipu7/ipu7-buttress.c: active (<= 0) early
-    return now skipped, correctly proceeds.
-
-Pattern D: explicit -EINVAL check
-  drivers/hwmon/prom21-xhci.c: checks (> 0) then (== -EINVAL).
-    Old: took -EINVAL fallback. New: takes (> 0) fast path.
-    Both succeed when CONFIG_PM is disabled; functionally equivalent.
-  drivers/hwmon/eic7700-pvt.c: call is guarded by IS_ENABLED(CONFIG_PM),
-    stub is never reached. No impact.
-
-Fixes: bd3d245b0fef5 ("usb: core: use dedicated spinlock for offload state")
-Fixes: 7806bad76ac39 ("accel/ivpu: Prevent runtime suspend during context abort work")
-Fixes: 9d58aa46291d4 ("drm/i915: Fix the GT fence revocation runtime PM logic")
-Fixes: 1524c28b99527 ("accel/ivpu: Show NPU frequency in sysfs")
-Fixes: 30c399529f4c6 ("drm/xe: Document Xe PM component")
-Fixes: 0d08026ac6099 ("net: ipa: kill ipa_clock_get_additional()")
-Fixes: 70892277ca2db ("iommu/arm-smmu-qcom: Make set_stall work when the device is on")
-Fixes: 9ad65684b9285 ("media: staging/ipu7: Ignore interrupts when device is suspended")
-Acked-by: Alex Elder <elder@riscstar.com>
-Signed-off-by: Frank Li <Frank.Li@nxp.com>
----
-Change in v2
-- add fixes tag for patten C.
-- add Alex Elder ack tags
-- change subject to fix stub pm_runtime_get_if_active()
-
-Cc: "Rafael J. Wysocki" <rafael@kernel.org>
-Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-Cc: Andrzej Kacprowski <andrzej.kacprowski@linux.intel.com>
-Cc: Karol Wachowski <karol.wachowski@linux.intel.com>
-Cc: Oded Gabbay <ogabbay@kernel.org>
-Cc: Jani Nikula <jani.nikula@linux.intel.com>
-Cc: Joonas Lahtinen <joonas.lahtinen@linux.intel.com>
-Cc: Rodrigo Vivi <rodrigo.vivi@intel.com>
-Cc: Tvrtko Ursulin <tursulin@ursulin.net>
-Cc: Matthew Brost <matthew.brost@intel.com>
-Cc: "Thomas Hellstrom" <thomas.hellstrom@linux.intel.com>
-Cc: David Airlie <airlied@gmail.com>
-Cc: Simona Vetter <simona@ffwll.ch>
-Cc: Alex Elder <elder@kernel.org>
-Cc: Will Deacon <will@kernel.org>
-Cc: Robin Murphy <robin.murphy@arm.com>
-Cc: "Joerg Roedel" <joro@8bytes.org>
-Cc: Rob Clark <robin.clark@oss.qualcomm.com>
-Cc: Sakari Ailus <sakari.ailus@linux.intel.com>
-Cc: Mauro Carvalho Chehab <mchehab@kernel.org>
-Cc: Guenter Roeck <linux@roeck-us.net>
-Cc: Guan-Yu Lin <guanyulin@google.com>
-Cc: Mathias Nyman <mathias.nyman@linux.intel.com>
-Cc: linux-pm@vger.kernel.org
-Cc: linux-usb@vger.kernel.org
-Cc: dri-devel@lists.freedesktop.org
-Cc: intel-gfx@lists.freedesktop.org
-Cc: intel-xe@lists.freedesktop.org
-Cc: linux-hwmon@vger.kernel.org
-Cc: linux-arm-kernel@lists.infradead.org
-Cc: iommu@lists.linux.dev
-Cc: linux-arm-msm@vger.kernel.org
-Cc: linux-media@vger.kernel.org
-Cc: linux-staging@lists.linux.dev
-Cc: netdev@vger.kernel.org
-Cc: imx@lists.linux.dev
----
- include/linux/pm_runtime.h | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
-
-diff --git a/include/linux/pm_runtime.h b/include/linux/pm_runtime.h
-index 64921b10ac74f..de9e7518ecef2 100644
---- a/include/linux/pm_runtime.h
-+++ b/include/linux/pm_runtime.h
-@@ -280,7 +280,7 @@ static inline int pm_runtime_get_if_in_use(struct device *dev)
- }
- static inline int pm_runtime_get_if_active(struct device *dev)
- {
--	return -EINVAL;
-+	return 1;
- }
- static inline int __pm_runtime_set_status(struct device *dev,
- 					    unsigned int status) { return 0; }
---
-2.43.0
+>=20
+> Best regards
+> Thomas
+>=20
+> >=20
+> > The end of drm_atomic_helper_check_plane_state() says:
+> >=20
+> > ```
+> > 	if (!plane_state->visible)
+> > 		/*
+> > 		 * Plane isn't visible; some drivers can handle
+> > this
+> > 		 * so we just return success here.=C2=A0 Drivers that
+> > can't
+> > 		 * (including those that use the primary plane
+> > helper's
+> > 		 * update function) will return an error from
+> > their
+> > 		 * update_plane handler.
+> > 		 */
+> > 		return 0;
+> > ```
+> >=20
+> > Thanks,
+> > Icenowy
+> >=20
+> > > [1]
+> > > https://elixir.bootlin.com/linux/v7.3.1/source/drivers/gpu/drm/drm_at=
+omic_helper.c#L3030
+> > >=20
+> > > Best regards
+> > > Thomas
+> > >=20
+> > > > =C2=A0=C2=A0 };
+> > > > =C2=A0=C2=A0=20
+> > > > diff --git a/drivers/gpu/drm/verisilicon/vs_primary_plane.c
+> > > > b/drivers/gpu/drm/verisilicon/vs_primary_plane.c
+> > > > index 8e94491693019..fca692f4f7d5c 100644
+> > > > --- a/drivers/gpu/drm/verisilicon/vs_primary_plane.c
+> > > > +++ b/drivers/gpu/drm/verisilicon/vs_primary_plane.c
+> > > > @@ -59,25 +59,6 @@ static void vs_primary_plane_commit(struct
+> > > > vs_dc
+> > > > *dc, unsigned int output)
+> > > > =C2=A0=C2=A0=C2=A0			VSDC_FB_CONFIG_EX_COMMIT);
+> > > > =C2=A0=C2=A0 }
+> > > > =C2=A0=C2=A0=20
+> > > > -static void vs_primary_plane_atomic_enable(struct drm_plane
+> > > > *plane,
+> > > > -					=C2=A0=C2=A0 struct
+> > > > drm_atomic_commit *atomic_state)
+> > > > -{
+> > > > -	struct drm_plane_state *state =3D
+> > > > drm_atomic_get_new_plane_state(atomic_state,
+> > > > -
+> > > > 						=09
+> > > > 	=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 plane);
+> > > > -	struct drm_crtc *crtc =3D state->crtc;
+> > > > -	struct vs_crtc *vcrtc =3D drm_crtc_to_vs_crtc(crtc);
+> > > > -	unsigned int output =3D vcrtc->id;
+> > > > -	struct vs_dc *dc =3D vcrtc->dc;
+> > > > -
+> > > > -	regmap_set_bits(dc->regs, VSDC_FB_CONFIG_EX(output),
+> > > > -			VSDC_FB_CONFIG_EX_FB_EN);
+> > > > -	regmap_update_bits(dc->regs,
+> > > > VSDC_FB_CONFIG_EX(output),
+> > > > -			=C2=A0=C2=A0 VSDC_FB_CONFIG_EX_DISPLAY_ID_MASK,
+> > > > -			=C2=A0=C2=A0
+> > > > VSDC_FB_CONFIG_EX_DISPLAY_ID(output));
+> > > > -
+> > > > -	vs_primary_plane_commit(dc, output);
+> > > > -}
+> > > > -
+> > > > =C2=A0=C2=A0 static void vs_primary_plane_atomic_disable(struct drm=
+_plane
+> > > > *plane,
+> > > > =C2=A0=C2=A0=C2=A0					=C2=A0=C2=A0=C2=A0 struct
+> > > > drm_atomic_commit *atomic_state)
+> > > > =C2=A0=C2=A0 {
+> > > > @@ -144,13 +125,18 @@ static void
+> > > > vs_primary_plane_atomic_update(struct drm_plane *plane,
+> > > > =C2=A0=C2=A0=C2=A0	regmap_write(dc->regs, VSDC_FB_BLEND_CONFIG(outp=
+ut),
+> > > > =C2=A0=C2=A0=C2=A0		=C2=A0=C2=A0=C2=A0=C2=A0 VSDC_FB_BLEND_CONFIG_B=
+LEND_DISABLE);
+> > > > =C2=A0=C2=A0=20
+> > > > +	regmap_set_bits(dc->regs, VSDC_FB_CONFIG_EX(output),
+> > > > +			VSDC_FB_CONFIG_EX_FB_EN);
+> > > > +	regmap_update_bits(dc->regs,
+> > > > VSDC_FB_CONFIG_EX(output),
+> > > > +			=C2=A0=C2=A0 VSDC_FB_CONFIG_EX_DISPLAY_ID_MASK,
+> > > > +			=C2=A0=C2=A0
+> > > > VSDC_FB_CONFIG_EX_DISPLAY_ID(output));
+> > > > +
+> > > > =C2=A0=C2=A0=C2=A0	vs_primary_plane_commit(dc, output);
+> > > > =C2=A0=C2=A0 }
+> > > > =C2=A0=C2=A0=20
+> > > > =C2=A0=C2=A0 static const struct drm_plane_helper_funcs
+> > > > vs_primary_plane_helper_funcs =3D {
+> > > > =C2=A0=C2=A0=C2=A0	.atomic_check	=3D vs_primary_plane_atomic_check,
+> > > > =C2=A0=C2=A0=C2=A0	.atomic_update	=3D vs_primary_plane_atomic_updat=
+e,
+> > > > -	.atomic_enable	=3D vs_primary_plane_atomic_enable,
+> > > > =C2=A0=C2=A0=C2=A0	.atomic_disable	=3D
+> > > > vs_primary_plane_atomic_disable,
+> > > > =C2=A0=C2=A0 };
+> > > > =C2=A0=C2=A0=20
 
