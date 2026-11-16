@@ -2,68 +2,65 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3C2CA606A31C
-	for <dri-devel@archiver.kernel.org>; Mon, 16 Nov 2026 11:03:27 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C9405606A7A5
+	for <dri-devel@archiver.kernel.org>; Mon, 16 Nov 2026 11:07:08 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=D9slPciu
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=TSYn1qSd
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 6705D10EF57;
-	Mon, 16 Nov 2026 11:03:21 +0000 (UTC)
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.11])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 3004610EF57
- for <dri-devel@lists.freedesktop.org>; Mon, 16 Nov 2026 11:03:15 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 46DBC10EF5D;
+	Mon, 16 Nov 2026 11:07:02 +0000 (UTC)
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.14])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id C502F10E1FC;
+ Mon, 16 Nov 2026 11:06:55 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1794826996; x=1826362996;
- h=from:to:cc:subject:in-reply-to:references:date:
- message-id:mime-version;
- bh=Ic6j+iLLJHWTLcxQJh6egA6Z2981WwOmhes2lvK7oj0=;
- b=D9slPciuFicVdn36XHB6HL7UdcG0CQus3cAnCFzY5M9SLmNWmrru0fQt
- 9xV4cTk6R4N6nNmNLayj7zJbmVXPdeWYB3Q3uEbevV/6KnKKFYTSMb5f5
- LicGSPaGXFwpcns4jMqmmCrx/2CmVXCaCoEoQWg3w+6U4b7F7cghKn+Qi
- uVXMtvsXyrI2X80gHO9K8WW9wzk8TYMlSIH7myPBlNWrRerfSAcK7v5Di
- sl7NbrZBV57WgpoFj7S6Fj6xgicId9lyzrwDBmRut6BwuBUSkjkBvmLeN
- 0FAo+NuX+0h3pJ7uk19lXzxrMu3QT3oN+cDS+ZZtnjenAFcGfQgYwxqej A==;
-X-CSE-ConnectionGUID: cbhjCpcnS9GCm5KbqVFmjg==
-X-CSE-MsgGUID: 86PVqHy8TBWao1iCZjvTPA==
-X-IronPort-AV: E=McAfee;i="6800,10657,11967"; a="3453771"
+ t=1794827215; x=1826363215;
+ h=date:from:to:cc:subject:message-id:references:
+ mime-version:content-transfer-encoding:in-reply-to;
+ bh=qCwso2uQ2/62mGILc8ag51ow5Ts+a29fjoznxART+QM=;
+ b=TSYn1qSdU54rL1gT9MnpeCDA++O7KUIiJ8+hWnocDKi3PbkmVRKMTBct
+ Cb5kII/GrOFo5H2Zq3O0mrw9/UzaVwSZnw2JQMFB9V2bt4xXBwzUO4osJ
+ J9bKfWIZUcRdO9gWO8KTJj0NWWdjpMuMlY92X9RrV0O7kGsOBWH0Pvjdw
+ zA2yOryoM4D5e4/mpR++QrOwtOU6GklpM2RmbOfKya4qv8bUhIwKDUaqh
+ eKD0SVb2V0PrA4+3COgJRRmHwlC+hzi5TZkhB5mitK5x9t80kAy2CDpnR
+ 5ougeap/ZHNa3SHV7DBJHZCSavPV8NzW5y/bzvJCelVPWDHu5mRLFa6+0 Q==;
+X-CSE-ConnectionGUID: vSKyAdGvRueeySQmt70AzA==
+X-CSE-MsgGUID: t0vy2FikTeafmVjthge+sQ==
+X-IronPort-AV: E=McAfee;i="6800,10657,11967"; a="3453440"
 X-IronPort-AV: E=Sophos;i="6.27,216,1787036400"; 
-   d="scan'208";a="3453771"
-Received: from fmviesa007.fm.intel.com ([10.60.135.147])
- by orvoesa103.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 16 Nov 2026 03:03:15 -0800
-X-CSE-ConnectionGUID: Bcm91qDkRgG8yxshQVOoRg==
-X-CSE-MsgGUID: Kcmi/Uz2TpiDOhUS1MIq/A==
+   d="scan'208";a="3453440"
+Received: from orviesa001.jf.intel.com ([10.64.159.141])
+ by orvoesa106.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 16 Nov 2026 03:06:55 -0800
+X-CSE-ConnectionGUID: NMmGwipARqSecEOCB4XmEg==
+X-CSE-MsgGUID: vjl5vvydRJK9sRaDY8XKuw==
 X-ExtLoop1: 1
 X-IronPort-AV: E=Sophos;i="6.27,216,1787036400"; 
-   d="scan'208";a="9929761"
-Received: from slindbla-desk.ger.corp.intel.com (HELO localhost)
- ([10.245.245.117])
+   d="scan'208";a="9592531"
+Received: from ettammin-mobl3.ger.corp.intel.com (HELO localhost)
+ ([10.245.245.93])
  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 16 Nov 2026 03:03:10 -0800
-From: Jani Nikula <jani.nikula@linux.intel.com>
-To: Xin Ji <anx-upstream@analogixsemi.com.cn>, Andrzej Hajda
- <andrzej.hajda@intel.com>, Neil Armstrong <neil.armstrong@linaro.org>,
- Robert Foss <rfoss@kernel.org>, Laurent Pinchart
- <Laurent.pinchart@ideasonboard.com>, Jonas Karlman <jonas@kwiboo.se>,
- Jernej Skrabec <jernej.skrabec@gmail.com>, Luca Ceresoli
- <luca.ceresoli@bootlin.com>, Maarten Lankhorst
- <maarten.lankhorst@linux.intel.com>, Maxime Ripard <mripard@kernel.org>,
- Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>,
- Simona Vetter <simona@ffwll.ch>
-Cc: bliang@analogixsemi.com, qwen@analogixsemi.com, fshao@chromium.org, Xin
- Ji <xji@analogixsemi.com>, dri-devel@lists.freedesktop.org,
- linux-kernel@vger.kernel.org
-Subject: Re: [PATCH] drm/bridge: anx7625: switch to drm_edid_read_custom()
-In-Reply-To: <20261116023740.2257699-1-anx-upstream@analogixsemi.com.cn>
-Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park,
- 6 krs Bertel Jungin Aukio 5, 02600 Espoo, Finland
-References: <20261116023740.2257699-1-anx-upstream@analogixsemi.com.cn>
-Date: Mon, 16 Nov 2026 13:03:07 +0200
-Message-ID: <d1553faf45c5651feefd667a3decb454fc596415@intel.com>
+ 16 Nov 2026 03:06:54 -0800
+Date: Mon, 16 Nov 2026 13:06:49 +0200
+From: Ville =?iso-8859-1?Q?Syrj=E4l=E4?= <ville.syrjala@linux.intel.com>
+To: sashiko-reviews@lists.linux.dev
+Cc: dri-devel@lists.freedesktop.org, intel-gfx@lists.freedesktop.org,
+ intel-xe@lists.freedesktop.org, amd-gfx@lists.freedesktop.org
+Subject: Re: [PATCH 11/12] drm/atomic/uapi: Make async flips a bit more
+ palatable through atomic
+Message-ID: <avrjyUtl78ZnXsAd@intel.com>
+References: <20261116091130.13950-1-ville.syrjala@linux.intel.com>
+ <20261116091130.13950-12-ville.syrjala@linux.intel.com>
+ <sashiko-outbox-216633@kernel.org>
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain
+Content-Type: text/plain; charset=iso-8859-1
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <sashiko-outbox-216633@kernel.org>
+X-Patchwork-Hint: comment
+Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
+ krs Bertel Jungin Aukio 5, 02600 Espoo, Finland
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -75,293 +72,187 @@ List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-9.8 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
-	DKIM_SIGNED,DKIM_VALID,HEADER_FROM_DIFFERENT_DOMAINS,
-	INCLUDES_CR_TRAILER,INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,
-	SPF_PASS,UNWANTED_LANGUAGE_BODY autolearn=unavailable
+X-Spam-Status: No, score=-8.8 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
+	DKIM_SIGNED,DKIM_VALID,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_PATCH,
+	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS autolearn=unavailable
 	autolearn_force=no version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-On Mon, 16 Nov 2026, Xin Ji <anx-upstream@analogixsemi.com.cn> wrote:
-> From: Xin Ji <xji@analogixsemi.com>
->
-> Currently, sp_tx_get_edid_block() only reads the base block extension
-> count at 0x7e and ignores CTA-861 HF-EEODB overrides in block 1. On
-> displays using HF-EEODB, the driver only reads 2 blocks, which
-> drm_edid_valid() then rejects due to the size mismatch.
-> Switch to drm_edid_read_custom() with a per-block read callback so DRM
-> core handles block count discovery (including HF-EEODB and >4 blocks)
-> and validation automatically.
+On Mon, Nov 16, 2026 at 09:44:58AM +0000, sashiko-bot@kernel.org wrote:
+> Thank you for your contribution! Sashiko AI review found 2 potential
+> issues to consider:
+> - [High] drm/atomic: skipping all no-op planes breaks CRTC-only async
+>   flips
+> - [Medium] drm/atomic: stale FB_DAMAGE_CLIPS read in
+>   drm_atomic_set_property()
+> --
+> 
+> commit 64d10f48b65296ed20fc62e81d5d8b357f0e8b51
+> Author: Ville Syrjälä <ville.syrjala@linux.intel.com>
+> 
+> drm/atomic/uapi: Make async flips a bit more palatable through atomic
+> 
+> This commit filters out no-op property changes during atomic async flips
+> in drm_atomic_set_property() before duplicating plane and connector states,
+> while still adding the associated CRTCs to the commit.
+> 
+> > diff --git a/drivers/gpu/drm/drm_atomic_uapi.c b/drivers/gpu/drm/drm_atomic_uapi.c
+> > index 7517950d2e515..87181aba14514 100644
+> > --- a/drivers/gpu/drm/drm_atomic_uapi.c
+> > +++ b/drivers/gpu/drm/drm_atomic_uapi.c
+> 
+> [ ... ]
+> 
+> > @@ -1285,16 +1326,19 @@ int drm_atomic_set_property(struct drm_atomic_commit *state,
+> >  		struct drm_plane_state *plane_state;
+> >  		struct drm_mode_config *config = &plane->dev->mode_config;
+> >  		const struct drm_plane_helper_funcs *plane_funcs = plane->helper_private;
+> > -
+> > -		plane_state = drm_atomic_get_plane_state(state, plane);
+> > -		if (IS_ERR(plane_state)) {
+> > -			ret = PTR_ERR(plane_state);
+> > -			break;
+> > -		}
+> > +		bool is_noop = false;
+> >  
+> >  		if (async_flip) {
+> > -			/* no-op changes are always allowed */
+> > -			ret = drm_atomic_plane_get_property(plane, plane_state,
+> > +			const struct drm_plane_state *current_plane_state;
+> > +
+> > +			current_plane_state =
+> > +				__drm_atomic_get_current_plane_state(state, plane);
+> > +			if (IS_ERR(current_plane_state)) {
+> > +				ret = PTR_ERR(current_plane_state);
+> > +				break;
+> > +			}
+> > +
+> > +			ret = drm_atomic_plane_get_property(plane, current_plane_state,
+> >  							    prop, &old_val);
+> 
+> [Severity: Medium]
+> Does reading prop_fb_damage_clips from current_plane_state return the
+> previous commit's damage blob ID instead of 0?
+> 
+> Unlike IN_FENCE_FD (which always reports -1), drm_atomic_plane_get_property()
+> returns state->fb_damage_clips->base.id, and state->fb_damage_clips is only
+> cleared to NULL when __drm_atomic_helper_plane_duplicate_state() duplicates
+> the state for a new commit.  Before this change, drm_atomic_get_plane_state()
+> ran first, so old_val was always 0 on a fresh plane state.
+> 
+> When current_plane_state is the un-duplicated plane->state from a previous
+> commit that attached damage clips, passing FB_DAMAGE_CLIPS = 0 on a
+> non-primary plane (such as a cursor plane) looks like a property change
+> (old_val != 0) and fails the async flip with -EINVAL.  Conversely, if
+> userspace passes the same blob ID as the previous commit before FB_ID in the
+> property list, FB_DAMAGE_CLIPS is skipped as a no-op and then wiped to NULL
+> when FB_ID duplicates the plane state.
 
-Yay!
+Good catch. Damage clips should also be an ephemeral property so the old
+value should be special.
 
-It warms my heart that the work I put in drm_edid.c to handle HF-EEODB
-still keeps paying off, and people can enable the complexity of it by
-*simplifying* the driver code. :)
+> 
+> >  			if (ret)
+> >  				break;
+> > @@ -1318,25 +1362,40 @@ int drm_atomic_set_property(struct drm_atomic_commit *state,
+> >  				break;
+> >  			}
+> >  
+> > -			/*
+> > -			 * FIXME this is in the wrong place. Whether to do a
+> > -			 * bypass commit for async flips would is a driver
+> > -			 * decision. Drivers that want this need to just do
+> > -			 * these checks themselves somewhere.
+> > -			 */
+> > -			if (old_val != prop_value && plane->type != DRM_PLANE_TYPE_PRIMARY) {
+> > -				/* ask the driver if this non-primary plane is supported */
+> > -				if (plane_funcs && plane_funcs->atomic_bypass_check)
+> > -					ret = plane_funcs->atomic_bypass_check(plane, state, true);
+> > -				else
+> > -					ret = -EINVAL;
+> > -
+> > -				if (ret) {
+> > -					drm_dbg_atomic(prop->dev,
+> > -						       "[PLANE:%d:%s] does not support async flips\n",
+> > -						       obj->id, plane->name);
+> > -					break;
+> > -				}
+> > +			if (old_val == prop_value)
+> > +				is_noop = true;
+> > +		}
+> > +
+> > +		/* No-op plane property changes can be fully skipped */
+> > +		if (is_noop) {
+> > +			ret = 0;
+> > +			break;
+> > +		}
+> 
+> [Severity: High]
+> What happens when all plane property updates in an async flip commit are
+> no-ops (for example, primary plane FB_ID set to the current FB_ID)?
+> 
+> __drm_atomic_get_current_plane_state() adds the CRTC to the commit and
+> set_async_flip() sets crtc_state->async_flip = true, but skipping all planes
+> leaves the commit with zero planes in state.
+> 
+> On i915/xe, crtc_state->do_async_flip is only set in
+> intel_plane_atomic_calc_changes(), which only runs for planes in state.
+> With no planes in state, do_async_flip stays false:
+> 
+> 1. If the first async flip on a pipe is a no-op, uapi.async_flip becomes
+>    true in crtc->state without switching the primary plane to minimal
+>    wm0/DDB.  On the next async flip where FB_ID actually changes,
+>    intel_plane_do_async_flip() sees old_crtc_state->uapi.async_flip == true
+>    and sets do_async_flip = true, while skl_compute_wm() tries to switch to
+>    minimal wm0/DDB for the first time; skl_ddb_add_affected_planes() and
+>    skl_wm_add_affected_planes() then reject that and all subsequent async
+>    flips with -EINVAL because watermarks/DDB cannot change during an async
+>    flip.
+> 
+> 2. intel_crtc_complete_noop_async_flip() from commit "drm/i915: Complete
+>    no-op async flips by hand" returns early on !crtc_state->do_async_flip,
+>    so a no-op async flip falls through to a vblank-waited sync commit.
 
-> Signed-off-by: Xin Ji <xji@analogixsemi.com>
-> ---
->  drivers/gpu/drm/bridge/analogix/anx7625.c | 172 +++++-----------------
->  drivers/gpu/drm/bridge/analogix/anx7625.h |   4 -
->  2 files changed, 33 insertions(+), 143 deletions(-)
->
-> diff --git a/drivers/gpu/drm/bridge/analogix/anx7625.c b/drivers/gpu/drm/bridge/analogix/anx7625.c
-> index c3af88e14f8b..eb503be005e0 100644
-> --- a/drivers/gpu/drm/bridge/analogix/anx7625.c
-> +++ b/drivers/gpu/drm/bridge/analogix/anx7625.c
-> @@ -1022,27 +1022,6 @@ static int sp_tx_aux_rd(struct anx7625_data *ctx, u8 len_cmd)
->  	return (ret | wait_aux_op_finish(ctx));
->  }
->  
-> -static int sp_tx_get_edid_block(struct anx7625_data *ctx)
-> -{
-> -	int c = 0;
-> -	struct device *dev = ctx->dev;
-> -
-> -	sp_tx_aux_wr(ctx, 0x7e);
-> -	sp_tx_aux_rd(ctx, 0x01);
-> -	c = anx7625_reg_read(ctx, ctx->i2c.rx_p0_client, AP_AUX_BUFF_START);
-> -	if (c < 0) {
-> -		DRM_DEV_ERROR(dev, "IO error : access AUX BUFF.\n");
-> -		return -EIO;
-> -	}
-> -
-> -	DRM_DEV_DEBUG_DRIVER(dev, " EDID Block = %d\n", c + 1);
-> -
-> -	if (c > MAX_EDID_BLOCK)
-> -		c = 1;
-> -
-> -	return c;
-> -}
-> -
->  static int edid_read(struct anx7625_data *ctx,
->  		     u8 offset, u8 *pblock_buf)
->  {
-> @@ -1123,18 +1102,16 @@ static int segments_edid_read(struct anx7625_data *ctx,
->  	return ret;
->  }
->  
-> -static int sp_tx_edid_read(struct anx7625_data *ctx,
-> -			   u8 *pedid_blocks_buf)
-> +static int anx7625_get_edid_block(void *data, u8 *buf, unsigned int block, size_t len)
->  {
-> +	struct anx7625_data *ctx = data;
->  	u8 offset;
-> -	int edid_pos;
-> -	int count, blocks_num;
-> -	u8 pblock_buf[MAX_DPCD_BUFFER_SIZE];
-> -	u8 i, j;
-> -	int g_edid_break = 0;
-> -	int ret;
-> +	int ret, i;
->  	struct device *dev = ctx->dev;
->  
-> +	if (len != EDID_LENGTH || block > 255)
-> +		return -EINVAL;
-> +
->  	/* Address initial */
->  	ret = anx7625_reg_write(ctx, ctx->i2c.rx_p0_client,
->  				AP_AUX_ADDR_7_0, 0x50);
-> @@ -1147,85 +1124,18 @@ static int sp_tx_edid_read(struct anx7625_data *ctx,
->  		return -EIO;
->  	}
->  
-> -	blocks_num = sp_tx_get_edid_block(ctx);
-> -	if (blocks_num < 0)
-> -		return blocks_num;
-> -
-> -	count = 0;
-> -
-> -	do {
-> -		switch (count) {
-> -		case 0:
-> -		case 1:
-> -			for (i = 0; i < 8; i++) {
-> -				offset = (i + count * 8) * MAX_DPCD_BUFFER_SIZE;
-> -				g_edid_break = edid_read(ctx, offset,
-> -							 pblock_buf);
-> -
-> -				if (g_edid_break < 0)
-> -					break;
-> -
-> -				memcpy(&pedid_blocks_buf[offset],
-> -				       pblock_buf,
-> -				       MAX_DPCD_BUFFER_SIZE);
-> -			}
-> -
-> -			break;
-> -		case 2:
-> -			offset = 0x00;
-> -
-> -			for (j = 0; j < 8; j++) {
-> -				edid_pos = (j + count * 8) *
-> -					MAX_DPCD_BUFFER_SIZE;
-> -
-> -				if (g_edid_break == 1)
-> -					break;
-> -
-> -				ret = segments_edid_read(ctx, count / 2,
-> -							 pblock_buf, offset);
-> -				if (ret < 0)
-> -					return ret;
-> -
-> -				memcpy(&pedid_blocks_buf[edid_pos],
-> -				       pblock_buf,
-> -				       MAX_DPCD_BUFFER_SIZE);
-> -				offset = offset + 0x10;
-> -			}
-> -
-> -			break;
-> -		case 3:
-> -			offset = 0x80;
-> -
-> -			for (j = 0; j < 8; j++) {
-> -				edid_pos = (j + count * 8) *
-> -					MAX_DPCD_BUFFER_SIZE;
-> -				if (g_edid_break == 1)
-> -					break;
-> -
-> -				ret = segments_edid_read(ctx, count / 2,
-> -							 pblock_buf, offset);
-> -				if (ret < 0)
-> -					return ret;
-> -
-> -				memcpy(&pedid_blocks_buf[edid_pos],
-> -				       pblock_buf,
-> -				       MAX_DPCD_BUFFER_SIZE);
-> -				offset = offset + 0x10;
-> -			}
-> -
-> -			break;
-> -		default:
-> -			break;
-> -		}
-> -
-> -		count++;
-> +	DRM_DEV_DEBUG_DRIVER(dev, "Read EDID block %u, len %zu\n", block, len);
->  
-> -	} while (blocks_num >= count);
-> +	for (i = 0; i < len; i += MAX_DPCD_BUFFER_SIZE) {
-> +		offset = (block & 1) * EDID_LENGTH + i;
-> +		if (block < 2)
-> +			ret = edid_read(ctx, offset, &buf[i]);
-> +		else
-> +			ret = segments_edid_read(ctx, block / 2, &buf[i],
-> +						 offset);
->  
-> -	/* Check edid data */
-> -	if (!drm_edid_is_valid((struct edid *)pedid_blocks_buf)) {
-> -		DRM_DEV_ERROR(dev, "WARNING! edid check fail!\n");
-> -		return -EINVAL;
-> +		if (ret < 0)
-> +			return -EIO;
->  	}
->  
->  	/* Reset aux channel */
-> @@ -1235,7 +1145,7 @@ static int sp_tx_edid_read(struct anx7625_data *ctx,
->  		return ret;
->  	}
->  
-> -	return (blocks_num + 1);
-> +	return 0;
->  }
->  
->  static void anx7625_power_on(struct anx7625_data *ctx)
-> @@ -1958,37 +1868,6 @@ static ssize_t anx7625_aux_transfer(struct drm_dp_aux *aux,
->  	return ret;
->  }
->  
-> -static const struct drm_edid *anx7625_edid_read(struct anx7625_data *ctx)
-> -{
-> -	struct device *dev = ctx->dev;
-> -	u8 *edid_buf;
-> -	int edid_num;
-> -
-> -	if (ctx->cached_drm_edid)
-> -		goto out;
-> -
-> -	edid_buf = kmalloc(FOUR_BLOCK_SIZE, GFP_KERNEL);
-> -	if (!edid_buf)
-> -		return NULL;
-> -
-> -	pm_runtime_get_sync(dev);
-> -	_anx7625_hpd_polling(ctx, 5000 * 100);
-> -	edid_num = sp_tx_edid_read(ctx, edid_buf);
-> -	pm_runtime_put_sync(dev);
-> -
-> -	if (edid_num < 1) {
-> -		DRM_DEV_ERROR(dev, "Fail to read EDID: %d\n", edid_num);
-> -		kfree(edid_buf);
-> -		return NULL;
-> -	}
-> -
-> -	ctx->cached_drm_edid = drm_edid_alloc(edid_buf, edid_num * ONE_BLOCK_SIZE);
-> -	kfree(edid_buf);
-> -
-> -out:
-> -	return drm_edid_dup(ctx->cached_drm_edid);
-> -}
-> -
->  static enum drm_connector_status anx7625_sink_detect(struct anx7625_data *ctx)
->  {
->  	struct device *dev = ctx->dev;
-> @@ -2647,10 +2526,25 @@ static const struct drm_edid *anx7625_bridge_edid_read(struct drm_bridge *bridge
->  {
->  	struct anx7625_data *ctx = bridge_to_anx7625(bridge);
->  	struct device *dev = ctx->dev;
-> +	const struct drm_edid *drm_edid;
->  
->  	DRM_DEV_DEBUG_DRIVER(dev, "drm bridge get edid\n");
->  
-> -	return anx7625_edid_read(ctx);
-> +	if (ctx->cached_drm_edid)
-> +		return drm_edid_dup(ctx->cached_drm_edid);
-> +
-> +	pm_runtime_get_sync(dev);
-> +	_anx7625_hpd_polling(ctx, 5000 * 100);
-> +	ctx->cached_drm_edid = drm_edid_read_custom(connector,
-> +						    anx7625_get_edid_block,
-> +						    ctx);
-> +	drm_edid = drm_edid_dup(ctx->cached_drm_edid);
+Right on both accounts. I'll probably need to make sure we really 
+switch into async flip mode even when there are no planes in the
+commit.
 
-Consider deduplicating?
+If/when we add async flip for multiple planes this might become an
+even trickier proposition. We'll probably need to force the "first
+async flip is actually sync" every time a new plane starts to perform
+async flips, even if there are planes already in async flip mode in 
+the same commit. I suppose we should be able to keep those planes
+in async flip mode though, so as to not involve the "async flip
+bit is double buffered on vblank" workaround that would cost
+another extra frame to get those planes back out of async mode.
 
-	if (!ctx->cached_drm_edid) {
-		// ...
-                ctx->cached_drm_edid = drm_edid_read_custom();
-                // ...
-        }
+Keeping the previous async flip planes in async flip mode 
+through that transition would mean that those planes' DDB
+allocations must stay put (can't change those in an async flip)
+which means we have to always reserve DDB space based on the
+sync flip use case, and only use a subset of the allocated
+space for planes doing async flips. Currently I think we let
+other planes consume the DDB that the async flip plane won't
+actually use, except on new hw with the automagic async flip
+WM/DDB feature.
 
-	drm_edid = drm_edid_dup(ctx->cached_drm_edid);
+In the meantime I guess I could just add the primary plane into
+the commit in the driver every time uapi asks for async flips.
+Hmm, but the plane may be completely off, which would need special
+consideration for setting do_async_flip. And IIRC the hardware
+still won't signal flip done for a disabled->disabled transition
+on the plane, so we'll still need the no-op completion path.
 
-
-BR,
-Jani.
-
-> +	pm_runtime_put_sync(dev);
-> +
-> +	if (!drm_edid)
-> +		DRM_DEV_ERROR(dev, "Fail to read EDID\n");
-> +
-> +	return drm_edid;
->  }
->  
->  static void anx7625_bridge_hpd_enable(struct drm_bridge *bridge)
-> diff --git a/drivers/gpu/drm/bridge/analogix/anx7625.h b/drivers/gpu/drm/bridge/analogix/anx7625.h
-> index 957d234ec07c..55615ad274f2 100644
-> --- a/drivers/gpu/drm/bridge/analogix/anx7625.h
-> +++ b/drivers/gpu/drm/bridge/analogix/anx7625.h
-> @@ -424,10 +424,6 @@ enum audio_wd_len {
->  
->  #define MAX_DPCD_BUFFER_SIZE	16
->  
-> -#define ONE_BLOCK_SIZE      128
-> -#define FOUR_BLOCK_SIZE     (128 * 4)
-> -
-> -#define MAX_EDID_BLOCK	3
->  #define EDID_TRY_CNT	3
->  #define SUPPORT_PIXEL_CLOCK	300000
+> 
+> 3. On amdgpu_dm, a commit with no planes skips pageflip event arming in
+>    amdgpu_dm_commit_planes() and falls back to drm_send_event_locked() in
+>    amdgpu_dm_atomic_commit_tail(), sending DRM_EVENT_FLIP_COMPLETE with a
+>    zeroed sequence and timestamp.
+> 
+> -- 
+> Sashiko AI review · https://sashiko.dev/#/patchset/20261116091130.13950-1-ville.syrjala@linux.intel.com?part=11
 
 -- 
-Jani Nikula, Intel
+Ville Syrjälä
+Intel
