@@ -2,54 +2,54 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CE750606A31C
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EBFA4606A33E
 	for <dri-devel@archiver.kernel.org>; Mon, 16 Nov 2026 10:31:59 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=QaB6p8c+
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=NFmXEw50
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id F31F710E36B;
-	Mon, 16 Nov 2026 10:31:53 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 061F710EDA8;
+	Mon, 16 Nov 2026 10:31:54 +0000 (UTC)
 Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 3F76310EDA8
- for <dri-devel@lists.freedesktop.org>; Mon, 16 Nov 2026 10:31:48 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id B9E8510ED7C
+ for <dri-devel@lists.freedesktop.org>; Mon, 16 Nov 2026 10:31:38 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id 2834F46207;
- Mon, 16 Nov 2026 10:31:48 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 853B71F000C9;
- Mon, 16 Nov 2026 10:31:47 +0000 (UTC)
+ by sea.source.kernel.org (Postfix) with ESMTP id B4013414A2;
+ Mon, 16 Nov 2026 10:31:38 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 16B5C1F0092A;
+ Mon, 16 Nov 2026 10:31:37 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1794825108;
- bh=7AgVRm3xV4SFqS8EPY4HOFYH4+AGjZPUxNb7BNrS5QQ=;
+ s=k20260515; t=1794825098;
+ bh=BFTz8j9I1oP4jWbFG4RWd9aapoMhFvIa9NTIa899S0Q=;
  h=From:Date:Subject:References:In-Reply-To:To:Cc;
- b=QaB6p8c+fpTTe9IROukikSm9uJwNapQc+bVon2pjXx1L1uRcUSNWITPeqhj9G1aw9
- /rqf6s46NzXUfqkM/mS/Pkp5lG4LiTrrQ0DVac1pG3j6KQe9Ejo2z1ghmTuWTdTGsJ
- AUAO4jy7l5clqYN1GAE3Rcpd9ugJos3YsfArsojafYj/4Isy9uILOZq3A/L06lWuHT
- WIXmrnuG/y3HSqd6N+2GVkXPyUhNuVJsKOFLmevJ7lcCq4nAjlMeee2Mjbe1NxkH4R
- B3kIuMq0S/quO+m2xXmnLLcdLkci859v5n7K3S5G6RIAXzLSWKofDHHjsdZEZdVonM
- Hn8BkkigG993g==
+ b=NFmXEw50If152Mv5owo7kHnuRUXc4nsSqvl9N+Ot7HGLigXhX4cVGvO9o9f4PUV77
+ O3I/UOuMekV97fYZ2AICmkUkCjlvnuE5vQMNUupOgvEeUUKvUWYyh/crmyJufW1cnw
+ UWaVT1rEyh/YHD+DMlreX7pRy+fCXcM+Qs/qwByzyTN0VoTd/XGvfii00w1iPiMlZE
+ p6pt2v/HzFelZDF0tXYnz1jKpb7kGPnbalXrBecRwJwQh6yBqPZ/Sdwj5lOkculfOR
+ ZygVNcjN887ycO3sT15RmAjLNdfb6Zqg9EUogJncHuoE531u+zjwCsX9YghOtfhWbF
+ bH5fLHync/dXA==
 From: Maxime Ripard <mripard@kernel.org>
-Date: Mon, 16 Nov 2026 11:30:32 +0100
-Subject: [PATCH v2 16/64] drm/logicvc: Switch to
- drm_mode_config_create_initial_state
+Date: Mon, 16 Nov 2026 11:30:29 +0100
+Subject: [PATCH v2 13/64] drm/ingenic: Move the private object creation
+ before the reset
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20261116-drm-no-more-config-reset-v2-16-0bb471f4d1e0@kernel.org>
+Message-Id: <20261116-drm-no-more-config-reset-v2-13-0bb471f4d1e0@kernel.org>
 References: <20261116-drm-no-more-config-reset-v2-0-0bb471f4d1e0@kernel.org>
 In-Reply-To: <20261116-drm-no-more-config-reset-v2-0-0bb471f4d1e0@kernel.org>
 To: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
  Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>, 
  Simona Vetter <simona@ffwll.ch>
 Cc: dri-devel@lists.freedesktop.org, Maxime Ripard <mripard@kernel.org>, 
- Paul Kocialkowski <paulk@sys-base.io>
+ sashiko-bot@kernel.org
 X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=openpgp-sha256; l=1334; i=mripard@kernel.org;
- h=from:subject:message-id; bh=6v0S6D1gaycRHE1KcU+DYI+c+zW+rbPmYvUVTLd0QY0=;
- b=owGbwMvMwCmsHn9OcpHtvjLG02pJDFm/brsvWdl99ZvH23vd7mxajX9uBOituXRc3MJn6jaNG
- u7sRifDjqksDMKcDLJiiixPZMJOL29fXOVgv/IHzBxWJpAhDFycAjAR7TrGho2Ho0P7tU48uJn7
- oFbYf+W5f55yx86fdvRt09RabyzwJOXlMeurGglsc//M67n3OS03h7HOJFDjnuNL7Rxp8Qfvpf6
- 8n89UUrM8Pa9y26LdbW57OiJ2bvr1zKo3Z7rH244Md86ExGUA
+X-Developer-Signature: v=1; a=openpgp-sha256; l=2930; i=mripard@kernel.org;
+ h=from:subject:message-id; bh=YXCDfjEDBNiU11YDtCcUeZsNmdebGWgFzFNobJl32ro=;
+ b=owGbwMvMwCmsHn9OcpHtvjLG02pJDFm/brv+erA/5OHD2UrKoX/lzLyfajAJ7Xlz8XLDIRlXp
+ XlaARzJHVNZGIQ5GWTFFFmeyISdXt6+uMrBfuUPmDmsTCBDGLg4BWAiwqsY6yuOdM+sWHKkqWYf
+ y910t+6cpDOrT72W3nc77qb1tLjOOSKLs/Smp/ZmCrq6lv/ZMl95IWO9V+vDXZEL51lav90uOGX
+ y9Yr2LVP+VS5nbBJeZyXwS7xjq1Hy6/jtpx9nnLNeXXi7ZecvAA==
 X-Developer-Key: i=mripard@kernel.org; a=openpgp;
  fpr=BE5675C37E818C8B5764241C254BCFC56BF6CE8D
 X-BeenThere: dri-devel@lists.freedesktop.org
@@ -70,43 +70,79 @@ X-Spam-Status: No, score=-18.8 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-drm_mode_config_reset() has a dual role: it creates the initial KMS
-state at probe time, and resets hardware and software state during
-suspend/resume cycles.
+ingenic_drm_bind() calls drm_atomic_private_obj_init() late in the
+bind sequence, without checking its return value.
 
-Since the two roles need different behaviors (notably for objects like
-drm_private_obj that must persist across suspend/resume),
-drm_mode_config_create_initial_state() was introduced to handle only
-the initial state creation at probe time.
+drm_atomic_private_obj_init() registers the object on the
+drm->mode_config.privobj_list and then allocates its initial state
+through the atomic_create_state hook. If that allocation fails, it
+returns an error but leaves the object registered with a NULL state.
+Since the return value isn't checked, the probe would continue and
+the first atomic commit would then crash in
+drm_atomic_get_private_obj_state() -> ingenic_drm_duplicate_state(),
+which does a kmemdup() of that NULL state.
 
-Switch to drm_mode_config_create_initial_state().
+Check the drm_atomic_private_obj_init() return value, and move it and
+its drmm cleanup action before drm_mode_config_reset().
 
+This will also be needed when drm_mode_config_reset() gets replaced
+by drm_mode_config_create_initial_state(), which creates the initial
+state of the drm_private_obj instances registered so far: the private
+object will already have its state by then, so
+drm_mode_config_create_initial_state() will skip it.
+
+Fixes: 8e46b1ebf3704 ("drm/ingenic: Switch private_obj initialization to atomic_create_state")
+Reported-by: sashiko-bot@kernel.org
+Link: https://lore.kernel.org/r/sashiko-outbox-199703@kernel.org
 Signed-off-by: Maxime Ripard <mripard@kernel.org>
 ---
-Cc: Paul Kocialkowski <paulk@sys-base.io>
----
- drivers/gpu/drm/logicvc/logicvc_mode.c | 4 +++-
- 1 file changed, 3 insertions(+), 1 deletion(-)
+ drivers/gpu/drm/ingenic/ingenic-drm-drv.c | 18 ++++++++++--------
+ 1 file changed, 10 insertions(+), 8 deletions(-)
 
-diff --git a/drivers/gpu/drm/logicvc/logicvc_mode.c b/drivers/gpu/drm/logicvc/logicvc_mode.c
-index 3cf04b70bd27..15503f96743f 100644
---- a/drivers/gpu/drm/logicvc/logicvc_mode.c
-+++ b/drivers/gpu/drm/logicvc/logicvc_mode.c
-@@ -59,11 +59,13 @@ int logicvc_mode_init(struct logicvc_drm *logicvc)
- 	mode_config->min_height = 1;
- 	mode_config->max_height = 2048;
- 	mode_config->preferred_depth = preferred_depth;
- 	mode_config->funcs = &logicvc_mode_config_funcs;
+diff --git a/drivers/gpu/drm/ingenic/ingenic-drm-drv.c b/drivers/gpu/drm/ingenic/ingenic-drm-drv.c
+index 625ec76cf04d..6acb7d2f25b9 100644
+--- a/drivers/gpu/drm/ingenic/ingenic-drm-drv.c
++++ b/drivers/gpu/drm/ingenic/ingenic-drm-drv.c
+@@ -1352,10 +1352,20 @@ static int ingenic_drm_bind(struct device *dev, bool has_components)
+ 	if (ret) {
+ 		dev_err(dev, "Failed calling drm_vblank_init()\n");
+ 		goto err_drvdata;
+ 	}
  
--	drm_mode_config_reset(drm_dev);
-+	ret = drm_mode_config_create_initial_state(drm_dev);
++	ret = drm_atomic_private_obj_init(drm, &priv->private_obj,
++					  &ingenic_drm_private_state_funcs);
 +	if (ret)
-+		return ret;
++		goto err_drvdata;
++
++	ret = drmm_add_action_or_reset(drm, ingenic_drm_atomic_private_obj_fini,
++				       &priv->private_obj);
++	if (ret)
++		goto err_drvdata;
++
+ 	drm_mode_config_reset(drm);
  
- 	drm_kms_helper_poll_init(drm_dev);
+ 	ret = clk_prepare_enable(priv->pix_clk);
+ 	if (ret) {
+ 		dev_err(dev, "Unable to start pixel clock\n");
+@@ -1399,18 +1409,10 @@ static int ingenic_drm_bind(struct device *dev, bool has_components)
+ 	if (ret) {
+ 		dev_err(dev, "Unable to register clock notifier\n");
+ 		goto err_devclk_disable;
+ 	}
  
- 	return 0;
- }
+-	drm_atomic_private_obj_init(drm, &priv->private_obj,
+-				    &ingenic_drm_private_state_funcs);
+-
+-	ret = drmm_add_action_or_reset(drm, ingenic_drm_atomic_private_obj_fini,
+-				       &priv->private_obj);
+-	if (ret)
+-		goto err_clk_notifier_unregister;
+-
+ 	ret = drm_dev_register(drm, 0);
+ 	if (ret) {
+ 		dev_err(dev, "Failed to register DRM driver\n");
+ 		goto err_clk_notifier_unregister;
+ 	}
 
 -- 
 2.56.1
