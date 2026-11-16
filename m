@@ -2,91 +2,50 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3FF51606A31C
-	for <dri-devel@archiver.kernel.org>; Mon, 16 Nov 2026 10:59:46 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 021D0606A31C
+	for <dri-devel@archiver.kernel.org>; Mon, 16 Nov 2026 11:02:10 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=mimecast20190719 header.b=YAGjUNnc
+	dkim=pass (2048-bit key) header.d=igalia.com header.i=@igalia.com header.a=rsa-sha256 header.s=20170329 header.b=VPrdVG0j
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 9EEFA10EF50;
-	Mon, 16 Nov 2026 10:59:40 +0000 (UTC)
-Received: from us-smtp-delivery-124.mimecast.com
- (us-smtp-delivery-124.mimecast.com [170.10.133.124])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 91DDF10EF50
- for <dri-devel@lists.freedesktop.org>; Mon, 16 Nov 2026 10:59:33 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
- s=mimecast20190719; t=1794826772;
- h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
- to:to:cc:cc:mime-version:mime-version:content-type:content-type:
- in-reply-to:in-reply-to:references:references;
- bh=mJaN0b3PvIpi2y0OVrA15M2BP9AXuuHR0w2trP7Mx30=;
- b=YAGjUNncY3EDisBpWlxLEQsHYg3T7VMwzQpVc4S4grk78OS9qLzyt0GsAzCdRkuJqyuMuI
- 1I1FgizGndwYUuWbTMS0N1CaWlkwO5zpS4zXhvEburi5P/wNBHWLcNXi7rYwlU7/VHZ+nh
- YMBPqePg2bWB/sVd42/pAgRkq5ROrhA=
-Received: from mail-wr1-f71.google.com (mail-wr1-f71.google.com
- [209.85.221.71]) by relay.mimecast.com with ESMTP with STARTTLS
- (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-590-CMgwBcHaO-q1Z5ouSmN-hQ-1; Mon, 16 Nov 2026 05:59:31 -0500
-X-MC-Unique: CMgwBcHaO-q1Z5ouSmN-hQ-1
-X-Mimecast-MFC-AGG-ID: CMgwBcHaO-q1Z5ouSmN-hQ_1794826770
-Received: by mail-wr1-f71.google.com with SMTP id
- ffacd0b85a97d-492e3189fc9so2110093f8f.1
- for <dri-devel@lists.freedesktop.org>; Mon, 16 Nov 2026 02:59:31 -0800 (PST)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20260707; t=1794826770; x=1795431570;
- h=content-type:mime-version:message-id:date:references:in-reply-to
- :subject:cc:to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject
- :date:message-id:reply-to:content-type;
- bh=mJaN0b3PvIpi2y0OVrA15M2BP9AXuuHR0w2trP7Mx30=;
- b=s8g3gXDx81+zZLXrMbt6BKvLvSs/xXSQQmR9XuEy+4/Xfj5Jz3dNdE2tudWAzL/O6V
- TqowXjfv9BpLYF4wazTLofKTKPG9nleyRxSk43OfbVravqNJuV65WzBpECIVZlTGIdNx
- PfqpOlFTBAyDaAHoYPhsIGOWDtiY7YNDXTi8cySz4lPBhRZQylzXw64LYINlFPZku4W1
- L/8GRV8EVMzTkfIFjJ/0YsW1D49RlWWOCsXtZG+NeeTV3Gqau+oqKSvIIi5NFcu5lxYn
- NLgorOgdEuXPbpipvgKS6wE1K0CThpBqFiThYkpflD4QOcewwjuZj1n16IvgJ4Dl+Iei
- BDbQ==
-X-Forwarded-Encrypted: i=1;
- AL+hErFGS+YMgexvt6/s73BpCKDCWYeAVfUXP1Lf5gbToCuF+cOTKI1VFQsu9fbcRNxu5mB2GQvGHr9mmEo=@lists.freedesktop.org
-X-Gm-Message-State: APuU4Z8+YhLiVZvscJZZTocIZJqWcZH7CVisJCMuso2SK/uinniq97DS
- W/ScqtwX0aLzViKMGY8W7zkLeux6/lNksePxMxbQKd4ltq8xEZjp7Ae4fgZZ5jO57LzEOUN+gA7
- 04wTf4pg1bL83FN5s5s11ErqmZaA/0h2ZQjM6GpNDBxqp+sS728uNflr5bANibKWxVma+UQ==
-X-Gm-Gg: AZFdTZdUsXn4jHNVoOX8114gkmjvA7rLTbMBZhxFsYc4K55pKNe6iBSVqUCXF4k8vHO
- UCYnygY06lq1HDhrL6ihpypU6wZS76lsMEYHZtrwMNKT/0YuT+2yhTbVtM9mCauTSFmV/c6vNqc
- mlFR9qi8Bqcd8icE39X23Tuy8VBF2OM1myHFF5Vw4WqIV0WlklTcjlZZ1BPCmgg15TpaYYiuEkr
- CDAfi3w2W6aa1AVQPVjTuUTdSA5INNP4SNbDffAmIUpS6+Glh1GjvuChGgwrflwIwnX7wdjBI4p
- khDFcwCYvVbJa+7NDFi0ya6SoFjU0KiXsvPG2hgIcZFjGgE749hJM/qHWn/3N6c3M1d3cowAVUV
- AjQA0YQtpeDeKE4BbH/pnr9gwAm+/PVosHv1waNFkncdLrzbVT6UBZF5H8JqyyRoPTiBQdA5ir8
- Kyw0CzEcDiJQSizdjnJn59Yy0pzSLIceH+hoeFjmE=
-X-Received: by 2002:a05:6000:1614:b0:48e:7b12:aca5 with SMTP id
- ffacd0b85a97d-49c72e85eadmr15496742f8f.46.1794826769933; 
- Mon, 16 Nov 2026 02:59:29 -0800 (PST)
-X-Received: by 2002:a05:6000:1614:b0:48e:7b12:aca5 with SMTP id
- ffacd0b85a97d-49c72e85eadmr15496699f8f.46.1794826769302; 
- Mon, 16 Nov 2026 02:59:29 -0800 (PST)
-Received: from localhost (62-151-111-63.jazzfree.ya.com. [62.151.111.63])
- by smtp.gmail.com with ESMTPSA id
- ffacd0b85a97d-49c6020bb0fsm20381961f8f.34.2026.11.16.02.59.28
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Mon, 16 Nov 2026 02:59:28 -0800 (PST)
-From: Javier Martinez Canillas <javierm@redhat.com>
-To: Han Gao via B4 Relay <devnull+gaohan.iscas.ac.cn@kernel.org>, Ard
- Biesheuvel <ardb@kernel.org>, Ilias Apalodimas
- <ilias.apalodimas@linaro.org>, Thomas Zimmermann <tzimmermann@suse.de>,
- Borislav Petkov <bp@suse.de>, Simona Vetter <simona.vetter@ffwll.ch>
-Cc: linux-efi@vger.kernel.org, linux-kernel@vger.kernel.org,
- dri-devel@lists.freedesktop.org, linux-riscv@lists.infradead.org, Han Gao
- <rabenda.cn@gmail.com>, stable@vger.kernel.org, Han Gao
- <gaohan@iscas.ac.cn>
-Subject: Re: [PATCH] firmware/sysfb: Avoid simple-framebuffer behind DT PCI
- host bridges
-In-Reply-To: <20261107-sysfb-dt-pci-efifb-v1-1-86d6c598671a@iscas.ac.cn>
-References: <20261107-sysfb-dt-pci-efifb-v1-1-86d6c598671a@iscas.ac.cn>
-Date: Mon, 16 Nov 2026 11:59:27 +0100
-Message-ID: <xlv1fqx1rqi8.fsf@fmartine-thinkpadx1carbongen12.rmtes.csb>
+	by gabe.freedesktop.org (Postfix) with ESMTP id 66C8110ED9D;
+	Mon, 16 Nov 2026 11:02:04 +0000 (UTC)
+Received: from fanzine2.igalia.com (fanzine2.igalia.com [213.97.179.56])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 0B58310ED9D
+ for <dri-devel@lists.freedesktop.org>; Mon, 16 Nov 2026 11:01:58 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com; 
+ s=20170329;
+ h=MIME-Version:Content-Transfer-Encoding:Content-Type:Date:Cc:To:
+ From:Subject:Message-ID:From:Reply-To;
+ bh=Rf8qt+Zh3EUE2lSQ6kbDmdifzLtndza1jl085CZIWqw=; t=1794826917; x=2110186917; 
+ b=VPrdVG0jhhG3yMRNe030Mf9rbzTYQGrAga8je0BoBTbcP1ZB5R/8pQsPx566RTEUjgEjIWdEDGQ
+ 4UPRB4QitwtGPffq9OdE7ZUkM4Bka2XwlIC2VkwRqUZ8gD50mNxWD3SUEn9Bhg98M4X1AqyHwu+nq
+ 6ZqtMwJgRaV+5BR9Cimm1vmYf5tfNUtl2REaFUKFM4lIX3v+nbQcgAnfQYgOXOyLjbQwl0q5D0sie
+ 9Xyninze5d3SswgPGdEe0O8xrc4iHQ68t0jox9BwtUf0WIW16bRJ5Wwfwt3ah+8zmlU5Oz3R8+ZS+
+ ZdBOX2OQCrNXGZC3hr7g2uPMymYrbv3JPyqQ==;
+Received: from [137.101.48.64] (helo=[192.168.0.17])
+ by fanzine2.igalia.com with esmtpsa 
+ (Cipher TLS1.3:ECDHE_SECP256R1__RSA_PSS_RSAE_SHA256__AES_256_GCM:256) (Exim)
+ id 1xSuTA-000000009mR-1nOX; Mon, 16 Nov 2026 12:01:52 +0100
+Message-ID: <08699944b70494159b0f750c1ffb4d8dc14bfe82.camel@igalia.com>
+Subject: Re: [PATCH v2 0/3] drm/vc4: Fix async page flip completion
+From: Iago Toral <itoral@igalia.com>
+To: =?ISO-8859-1?Q?Ma=EDra?= Canal <mcanal@igalia.com>, Melissa Wen
+ <mwen@igalia.com>, Maxime Ripard <mripard@kernel.org>, Dave Stevenson
+ <dave.stevenson@raspberrypi.com>, Raspberry Pi Kernel Maintenance
+ <kernel-list@raspberrypi.com>, Maarten Lankhorst
+ <maarten.lankhorst@linux.intel.com>, Thomas Zimmermann
+ <tzimmermann@suse.de>,  David Airlie <airlied@gmail.com>, Simona Vetter
+ <simona@ffwll.ch>
+Cc: kernel-dev@igalia.com, dri-devel@lists.freedesktop.org, 
+ stable@vger.kernel.org
+Date: Mon, 16 Nov 2026 12:01:41 +0100
+In-Reply-To: <20261114-vc4-async-flip-fixes-v2-0-d33cbe99ed5d@igalia.com>
+References: <20261114-vc4-async-flip-fixes-v2-0-d33cbe99ed5d@igalia.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+User-Agent: Evolution 3.52.3-0ubuntu1.1 
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
-X-Mimecast-Spam-Score: 0
-X-Mimecast-MFC-PROC-ID: jCpPM7YDVoiA8bq9DOxypfPzinc0ZRgG0N-BzX4cD98_1794826770
-X-Mimecast-Originator: redhat.com
-Content-Type: text/plain
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -98,92 +57,115 @@ List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-15.8 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
-	DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
+X-Spam-Status: No, score=-15.8 required=3.0 tests=BAYES_00,DKIM_SIGNED,
+	DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
 	INCLUDES_CR_TRAILER,INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,
 	SPF_PASS autolearn=unavailable autolearn_force=no version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-Han Gao via B4 Relay <devnull+gaohan.iscas.ac.cn@kernel.org> writes:
+Thanks! Looks good to me:
 
-Hello Han Gao,
+Reviewed-by: Iago Toral Quiroga <itoral@igalia.com>
 
-> From: Han Gao <gaohan@iscas.ac.cn>
->
-> With SYSFB_SIMPLEFB, sysfb registers a simple-framebuffer device that
-> claims the framebuffer memory when it is added. On DT systems, the PCI
-> host bridge may probe later and then fails to claim its memory window.
-> On QEMU RISC-V virt with EDK2, a bochs-display and pci-host-generic
-> built as a module:
->
->   [    0.703813] pci-host-generic 30000000.pci: resource collision: [mem 0x40000000-0x7fffffff] conflicts with BOOTFB [mem 0x40000000-0x403e7fff]
->
-> In that case, register an efi-framebuffer device instead. It claims no
-> memory before it probes, and commit 64c8a0cd0a53 ("efi/arm: Defer probe
-> of PCIe backed efifb on DT systems") makes it wait for the host bridge.
->
-
-I think this is a workaround and it just works because sysfb does not add
-a resource (using the platform_device_add_resources() helper) when adding
-the platform data for the device.
-
-> Tested on a HiFive Unmatched with EDK2 and a PCIe graphics card, and on
-> QEMU.
->
-> Fixes: 8633ef82f101 ("drivers/firmware: consolidate EFI framebuffer setup for all arches")
-> Cc: stable@vger.kernel.org
-> Signed-off-by: Han Gao <gaohan@iscas.ac.cn>
+El s=C3=A1b, 14-11-2026 a las 16:16 -0300, Ma=C3=ADra Canal escribi=C3=B3:
+> VC4 implements async page flips with a custom code path that waits
+> for
+> the BO fence before completing the flip. On VC4_GEN_4 (RPi 0-3), the
+> completion also decrements the usecnt of the old FB's BO. This series
+> fixes three bugs in that path.
+>=20
+> Since commit e8941ac97f28 ("drm/vc4: Remove BOs seqnos"), the
+> completion
+> runs from a dma_fence callback. VC4 signals that fence from the
+> render
+> job IRQ handler. As v
+> c4_bo_dec_usecnt() takes a mutex, running an SDL
+> application with SDL_VIDEODRIVER=3Dkmsdrm on the RPi 3 triggers:
+>=20
+> =C2=A0 [ 2511.636319] BUG: sleeping function called from invalid context
+> at kernel/locking/mutex.c:623
+> =C2=A0 [ 2511.636667] in_atomic(): 1, irqs_disabled(): 1, non_block: 0,
+> pid: 0, name: swapper/0
+> =C2=A0 [ 2511.636681] preempt_count: 1000002, expected: 0
+> =C2=A0 [ 2511.636689] RCU nest depth: 0, expected: 0
+> =C2=A0 [ 2511.636698] locks held by swapper/0/0: 1, on CPU#0:
+> =C2=A0 [ 2511.636711]=C2=A0 #0: ffff000037183198 (&fence->inline_lock){-.=
+..}-
+> {3:3}, at: dma_fence_signal+0x88/0xec
+> =C2=A0 <snip>
+> =C2=A0 [ 2511.636892] Hardware name: Raspberry Pi 3 Model B Plus Rev 1.3
+> (DT)
+> =C2=A0 [ 2511.636899] Call trace:
+> =C2=A0 <snip>
+> =C2=A0 [ 2511.636991]=C2=A0 mutex_lock_nested+0x24/0x30
+> =C2=A0 [ 2511.637002]=C2=A0 vc4_bo_dec_usecnt+0x40/0x124 [vc4]
+> =C2=A0 [ 2511.637070]=C2=A0 vc4_async_page_flip_complete_with_cleanup+0xa=
+0/0xc4
+> [vc4]
+> =C2=A0 [ 2511.637102]=C2=A0 dma_fence_signal_timestamp_locked+0x118/0x290
+> =C2=A0 [ 2511.637116]=C2=A0 dma_fence_signal+0x9c/0xec
+> =C2=A0 [ 2511.637126]=C2=A0 vc4_irq_render_job_done+0x24/0x114 [vc4]
+> =C2=A0 [ 2511.637158]=C2=A0 vc4_irq+0x16c/0x274 [vc4]
+>=20
+> While looking into this issue, I also noticed that, since commit
+> 4d12c36fb73b ("drm/vc4: crtc: Move the BO handling out of common
+> page-flip
+> callback"), the old FB is released before decrementing its BO usecnt.
+> If
+> userspace removes the old FB and closes its handle while the flip is
+> pending, vc4_bo_dec_usecnt() runs on a freed or recycled BO.
+>=20
+> Patch 1 fixes the use-after-free, patch 2 moves the completion to a
+> worker
+> and patch 3 returns fence lookup errors to userspace instead of
+> leaving
+> the flip pending forever.
+>=20
+> In v1, Sashiko reported that a flip waiting on its fence can complete
+> after, or concurrently with, a later flip that has no fence. This has
+> been
+> possible since commit 82faa3276012 ("drm/vc4: kms: Remove async
+> modeset
+> semaphore") and isn't changed by this series. The best way to fix it
+> would be moving to the generic async helpers, which is on my TODO
+> list.
+> Until then, this series keeps the current behavior and only fixes the
+> bugs
+> above.
+>=20
+> Best regards,
+> - Ma=C3=ADra
+>=20
 > ---
-> In QEMU, efifb takes over with SYSFB_SIMPLEFB and efidrm without it.
-> With pci-host-generic built in, simpledrm is still used.
+> v1 -> v2:
+> https://lore.kernel.org/r/20261112-vc4-async-flip-fixes-v1-0-42449a703840=
+@igalia.com
+>=20
+> - [1/3] Add the refcount underflow warning to the commit message.
+> - [2/3] Allocate the workqueue after initializing the CRTC, so it's
+> =C2=A0 released before the CRTC is cleaned up and named after the CRTC
+> (Sashiko).
+> - [3/3] New patch.
+>=20
 > ---
->  drivers/firmware/efi/sysfb_efi.c | 16 ++++++++++++++++
->  drivers/firmware/sysfb.c         |  8 +++++++-
->  include/linux/sysfb.h            |  6 ++++++
->  3 files changed, 29 insertions(+), 1 deletion(-)
->
-> diff --git a/drivers/firmware/efi/sysfb_efi.c b/drivers/firmware/efi/sysfb_efi.c
-> index 2338de73c62c..5c2cb87178ff 100644
-> --- a/drivers/firmware/efi/sysfb_efi.c
-> +++ b/drivers/firmware/efi/sysfb_efi.c
-> @@ -421,6 +421,22 @@ __init void sysfb_apply_efi_quirks(struct screen_info *si)
->  		dmi_check_system(efifb_dmi_swap_width_height);
->  }
->  
-> +/* Returns true if the EFI framebuffer is in a DT PCI host bridge window */
-> +__init bool sysfb_efifb_behind_dt_pci(const struct screen_info *si)
-> +{
-> +	struct device_node *np;
-> +
-> +	if (si->orig_video_isVGA != VIDEO_TYPE_EFI || !IS_ENABLED(CONFIG_PCI))
-> +		return false;
-> +
-> +	np = find_pci_overlap_node();
-> +	if (!np)
-> +		return false;
-> +
-> +	of_node_put(np);
-> +	return true;
-> +}
-> +
-
-I don't think this that much. I feel that is adding DT + PCI logic that is
-platform specific. Instead, maybe what can be done instead is make the sysfb 
-logic consistent between "efi-framebuffer" and "simple-framebuffer" platform
-data setup.
-
-That is, not add a IORESOURCE_MEM to prevent platform_device_add() to add it
-to the global memory resource list. Instead, the framebuffer address + size
-could be passed to the simpledrm driver through the simplefb_platform_data.
-
-The simpledrm driver then could claim the memory at probe time, which is what
-efidrm does as well.
-
--- 
-Best regards,
-
-Javier Martinez Canillas
-Core Platforms
-Red Hat
+> Ma=C3=ADra Canal (3):
+> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 drm/vc4: Drop BO usecnt before releasing t=
+he old FB
+> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 drm/vc4: Complete async page flips from an=
+ ordered workqueue
+> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 drm/vc4: Look up the async page flip fence=
+ before committing
+> the flip
+>=20
+> =C2=A0drivers/gpu/drm/vc4/vc4_crtc.c | 136 +++++++++++++++++++-----------=
+-
+> ----------
+> =C2=A0drivers/gpu/drm/vc4/vc4_drv.h=C2=A0 |=C2=A0=C2=A0 6 ++
+> =C2=A02 files changed, 70 insertions(+), 72 deletions(-)
+> ---
+> base-commit: d48ea86919434695da12d280dccab72b094397e1
+> change-id: 20261111-vc4-async-flip-fixes-1b1ab17dc795
+>=20
+>=20
 
