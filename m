@@ -2,83 +2,80 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 078A5606A337
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C556B606A334
 	for <dri-devel@archiver.kernel.org>; Mon, 16 Nov 2026 09:14:00 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=GcXC+zTa
+	dkim=fail reason="signature verification failed" (2048-bit key) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=f4JXUQVI
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 527EF10EE83;
+	by gabe.freedesktop.org (Postfix) with ESMTP id D2D0F10EEA6;
 	Mon, 16 Nov 2026 09:13:54 +0000 (UTC)
-Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 11C6D10E9DC
- for <dri-devel@lists.freedesktop.org>; Mon, 16 Nov 2026 09:13:48 +0000 (UTC)
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by tor.source.kernel.org (Postfix) with ESMTP id 86939625BA;
- Mon, 16 Nov 2026 09:13:47 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id E3D131F000C4;
- Mon, 16 Nov 2026 09:13:29 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1794820427;
- bh=Acdm197U0xK657CGEFs4haruK4G8I1o86W9oW5IkpgM=;
- h=From:To:Cc:Subject:Date:In-Reply-To:References;
- b=GcXC+zTasqUB6rZyp40ubqEMD2P5RI8V5mDV45QPKVzlxAigUSw03ias6QPRyLqM0
- G4bwYwatGjWTsJyY/FRnX+9H6uvcYv0NPrI7EpF4/Ic6diJLNLvrg2Txa9y2G7A+nv
- JWcpNLdCUL0cO6p5FH2N3GE001X6ofrN03s8FEd0H5/BTYKjiFIDVN4JmNq2ERtW+D
- jKVtjlpfcCgfIHxgbzs5Sk1bKX+yUpuE0GN4qbMne/oQzqNDhXf5oKrBbNVoi128gh
- cSgXzFgU2xG+7W0HRdl3wc3UKyqYfcO9H2mL+AEFs6QQsldsl4pqvldtd2rsFs9o+Y
- tnafUuwMfeP/A==
-From: "Aneesh Kumar K.V (Arm)" <aneesh.kumar@kernel.org>
-To: linux-coco@lists.linux.dev
-Cc: "Aneesh Kumar K.V (Arm)" <aneesh.kumar@kernel.org>,
- Andrew Morton <akpm@linux-foundation.org>,
- Baoquan He <baoquan.he@linux.dev>, Mike Rapoport <rppt@kernel.org>,
- Pasha Tatashin <pasha.tatashin@soleen.com>,
- Pratyush Yadav <pratyush@kernel.org>,
- Catalin Marinas <catalin.marinas@arm.com>,
- =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
- Jason Gunthorpe <jgg@ziepe.ca>, Joerg Roedel <joro@8bytes.org>,
- Marc Zyngier <maz@kernel.org>, Marek Szyprowski <m.szyprowski@samsung.com>,
- Robin Murphy <robin.murphy@arm.com>, Steven Price <steven.price@arm.com>,
- Sumit Semwal <sumit.semwal@linaro.org>,
- Suzuki K Poulose <suzuki.poulose@arm.com>,
- Thomas Gleixner <tglx@kernel.org>, Will Deacon <will@kernel.org>,
- Russell King <linux@armlinux.org.uk>,
- Benjamin Gaignard <benjamin.gaignard@collabora.com>,
- Brian Starkey <Brian.Starkey@arm.com>, John Stultz <jstultz@google.com>,
- Mark Rutland <mark.rutland@arm.com>, Radu Rendec <radu@rendec.net>,
- "T.J. Mercier" <tjmercier@google.com>,
- Madhavan Srinivasan <maddy@linux.ibm.com>,
- Michael Ellerman <mpe@ellerman.id.au>, Nicholas Piggin <npiggin@gmail.com>,
- Christophe Leroy <chleroy@kernel.org>,
- Ritesh Harjani <ritesh.list@gmail.com>,
- Shrikanth Hegde <sshegde@linux.ibm.com>,
- Alexander Gordeev <agordeev@linux.ibm.com>,
- Gerald Schaefer <gerald.schaefer@linux.ibm.com>,
- Heiko Carstens <hca@linux.ibm.com>, Vasily Gorbik <gor@linux.ibm.com>,
- Christian Borntraeger <borntraeger@linux.ibm.com>,
- Sven Schnelle <svens@linux.ibm.com>, Ingo Molnar <mingo@redhat.com>,
- Borislav Petkov <bp@alien8.de>, Dave Hansen <dave.hansen@linux.intel.com>,
- x86@kernel.org, "H . Peter Anvin" <hpa@zytor.com>,
- Kiryl Shutsemau <kas@kernel.org>,
- Rick Edgecombe <rick.p.edgecombe@intel.com>,
- "K . Y . Srinivasan" <kys@microsoft.com>,
- Haiyang Zhang <haiyangz@microsoft.com>, Wei Liu <wei.liu@kernel.org>,
- Dexuan Cui <decui@microsoft.com>, Long Li <longli@microsoft.com>,
- Paolo Bonzini <pbonzini@redhat.com>,
- Vitaly Kuznetsov <vkuznets@redhat.com>, Andy Lutomirski <luto@kernel.org>,
- Peter Zijlstra <peterz@infradead.org>, dri-devel@lists.freedesktop.org,
- iommu@lists.linux.dev, linaro-mm-sig@lists.linaro.org,
- linux-arm-kernel@lists.infradead.org, linux-media@vger.kernel.org,
- linux-mm@kvack.org, kvmarm@lists.linux.dev, patches@lists.linux.dev
-Subject: [PATCH v10 06/13] dma-pool: Allocate CoCo atomic pools using CoCo
- shared memory allocator
-Date: Mon, 16 Nov 2026 14:41:29 +0530
-Message-ID: <20261116091137.94252-7-aneesh.kumar@kernel.org>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <20261116091137.94252-1-aneesh.kumar@kernel.org>
-References: <20261116091137.94252-1-aneesh.kumar@kernel.org>
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.10])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id C1D2510EE93;
+ Mon, 16 Nov 2026 09:13:48 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1794820429; x=1826356429;
+ h=from:to:cc:subject:date:message-id:in-reply-to:
+ references:mime-version:content-transfer-encoding;
+ bh=6RcgTJRMkf6knyitWUlwWvr0eo1SGio0/PgROTWQTvY=;
+ b=f4JXUQVI7gVezUeQqJPUCql+BDGX948l1e6f7kBScr45Z7G1zzHakfY9
+ v0mEFvxh8Lpj3dFk8QjxTopBfHKt+Kxb5864bCDI18mtf1CvEavvQgfdx
+ 8JudFJCuCrhnSAKQBrR683IuzH38BtR0xVHKhVbe1bllrIDOB4bovdNFc
+ KYNmPpvQeHQ/O39Wx7KUwkyG8Ta8nEmKbhbrW4YMH9ssI9raxxLuiYs02
+ ZSjgvYn25enXGuLKw8pZSN2cYPmTnvW8LONw2Mq0GVUY9b5cxgM3BvQsZ
+ 34UfnfpSrW7ic+J1/HPKKBOdvC7bo5A4dEWwFST6Si00DOMJVHpn+UwV5 w==;
+X-CSE-ConnectionGUID: RfRy1rh8RNi4+boOo3F/ug==
+X-CSE-MsgGUID: CIQVBZdBS/e3KiXG4qR1FA==
+X-IronPort-AV: E=McAfee;i="6800,10657,11967"; a="3458240"
+X-IronPort-AV: E=Sophos;i="6.27,216,1787036400"; 
+   d="scan'208";a="3458240"
+Received: from orviesa009.jf.intel.com ([10.64.159.149])
+ by orvoesa102.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 16 Nov 2026 01:13:47 -0800
+X-CSE-ConnectionGUID: bvoRwiFQRNi3Az4Cm0njaA==
+X-CSE-MsgGUID: pGwRFgaZQoqDY1QJ87JxXg==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,216,1787036400"; 
+   d="scan'208";a="9692160"
+Received: from ettammin-mobl3.ger.corp.intel.com (HELO localhost)
+ ([10.245.245.93])
+ by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 16 Nov 2026 01:13:40 -0800
+From: Ville Syrjala <ville.syrjala@linux.intel.com>
+To: dri-devel@lists.freedesktop.org
+Cc: intel-gfx@lists.freedesktop.org, intel-xe@lists.freedesktop.org,
+ Erwin Springer <aot.lerwin@gmail.com>, amd-gfx@lists.freedesktop.org,
+ =?UTF-8?q?Andr=C3=A9=20Almeida?= <andrealmeid@igalia.com>,
+ Boris Brezillon <bbrezillon@kernel.org>,
+ Christopher Snowhill <chris@kode54.net>,
+ Dave Stevenson <dave.stevenson@raspberrypi.com>,
+ Dharma Balasubiramani <dharma.b@microchip.com>,
+ Dmitry Baryshkov <lumag@kernel.org>, freedreno@lists.freedesktop.org,
+ Gustavo Padovan <gustavo.padovan@collabora.com>,
+ Huacai Chen <chenhuacai@kernel.org>,
+ Icenowy Zheng <zhengxingda@iscas.ac.cn>,
+ Jianmin Lv <lvjianmin@loongson.cn>, linux-arm-msm@vger.kernel.org,
+ linux-mediatek@lists.infradead.org, linux-rockchip@lists.infradead.org,
+ linux-tegra@vger.kernel.org, Liviu Dudau <liviu.dudau@arm.com>,
+ =?UTF-8?q?Ma=C3=ADra=20Canal?= <mcanal@igalia.com>,
+ Manikandan Muralidharan <manikandan.m@microchip.com>,
+ Maxime Ripard <mripard@kernel.org>, Mingcong Bai <jeffbai@aosc.io>,
+ nouveau@lists.freedesktop.org, Qianhai Wu <wuqianhai@loongson.cn>,
+ Raspberry Pi Kernel Maintenance <kernel-list@raspberrypi.com>,
+ Simon Ser <contact@emersion.fr>, wayland-devel@lists.freedesktop.org,
+ Xaver Hugl <xaver.hugl@kde.org>, Xi Ruoyao <xry111@xry111.site>
+Subject: [PATCH 12/12] drm/atomic/uapi: Extract {connector, crtc,
+ plane}_async_flip_check()
+Date: Mon, 16 Nov 2026 11:11:30 +0200
+Message-ID: <20261116091130.13950-13-ville.syrjala@linux.intel.com>
+X-Mailer: git-send-email 2.56.0
+In-Reply-To: <20261116091130.13950-1-ville.syrjala@linux.intel.com>
+References: <20261116091130.13950-1-ville.syrjala@linux.intel.com>
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
+Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park,
+ 6 krs Bertel Jungin Aukio 5, 02600 Espoo, Finland
 Content-Transfer-Encoding: 8bit
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -91,124 +88,318 @@ List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-18.8 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
-	DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
-	INCLUDES_CR_TRAILER,INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,
-	SPF_PASS,USER_AGENT_GIT autolearn=ham autolearn_force=no version=4.0.1
+X-Spam-Status: No, score=-16.6 required=3.0 tests=BAYES_00,DKIM_INVALID,
+	DKIM_SIGNED,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,
+	INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,
+	USER_AGENT_GIT autolearn=unavailable autolearn_force=no version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-Atomic DMA allocations cannot perform a potentially sleeping
-private/shared state transition at allocation time. The atomic DMA pools
-avoid this by transitioning their backing allocations in a sleepable
-context and suballocating memory that is already shared.
+From: Ville Syrjälä <ville.syrjala@linux.intel.com>
 
-Architectures may require these transitions to use a shared granule size
-larger than PAGE_SIZE. The existing fallback loop can reduce the backing
-allocation below the order required by that size, producing a range that
-cannot be safely transitioned.
+Reduce the clutter in drm_atomic_set_property() by
+extracting the async flip related checks to
+connector,crtc,plane}_async_flip_check().
 
-For pools marked cc_shared, round the requested pool size up to a multiple
-of the shared granule size and prevent allocation fallback below the order
-required by that size. Pass __DMA_ATTR_ALLOC_CC_SHARED to
-dma_alloc_from_contiguous() so it enforces the mandatory alignment. If CMA
-cannot satisfy it, fall back to the buddy allocator. Non-shared pools pass
-zero attributes and retain the existing CMA alignment policy.
-
-Use the cc_make_shared() and cc_make_private() helpers to transition the
-backing allocation and validate its address and size.
-
-Individual atomic allocations may remain smaller than the shared granule
-size because the backing allocation remains owned by the pool and in the
-shared state.
-
-Cc: Marek Szyprowski <m.szyprowski@samsung.com>
-Cc: Robin Murphy <robin.murphy@arm.com>
-Signed-off-by: Aneesh Kumar K.V (Arm) <aneesh.kumar@kernel.org>
+Cc: amd-gfx@lists.freedesktop.org
+Cc: André Almeida <andrealmeid@igalia.com>
+Cc: Boris Brezillon <bbrezillon@kernel.org>
+Cc: Christopher Snowhill <chris@kode54.net>
+Cc: Dave Stevenson <dave.stevenson@raspberrypi.com>
+Cc: Dharma Balasubiramani <dharma.b@microchip.com>
+Cc: Dmitry Baryshkov <lumag@kernel.org>
+Cc: freedreno@lists.freedesktop.org
+Cc: Gustavo Padovan <gustavo.padovan@collabora.com>
+Cc: Huacai Chen <chenhuacai@kernel.org>
+Cc: Icenowy Zheng <zhengxingda@iscas.ac.cn>
+Cc: intel-gfx@lists.freedesktop.org
+Cc: intel-xe@lists.freedesktop.org
+Cc: Jianmin Lv <lvjianmin@loongson.cn>
+Cc: linux-arm-msm@vger.kernel.org
+Cc: linux-mediatek@lists.infradead.org
+Cc: linux-rockchip@lists.infradead.org
+Cc: linux-tegra@vger.kernel.org
+Cc: Liviu Dudau <liviu.dudau@arm.com>
+Cc: Maíra Canal <mcanal@igalia.com>
+Cc: Manikandan Muralidharan <manikandan.m@microchip.com>
+Cc: Maxime Ripard <mripard@kernel.org>
+Cc: Mingcong Bai <jeffbai@aosc.io>
+Cc: nouveau@lists.freedesktop.org
+Cc: Qianhai Wu <wuqianhai@loongson.cn>
+Cc: Raspberry Pi Kernel Maintenance <kernel-list@raspberrypi.com>
+Cc: Simon Ser <contact@emersion.fr>
+Cc: wayland-devel@lists.freedesktop.org
+Cc: Xaver Hugl <xaver.hugl@kde.org>
+Cc: Xi Ruoyao <xry111@xry111.site>
+Signed-off-by: Ville Syrjälä <ville.syrjala@linux.intel.com>
 ---
- kernel/dma/pool.c | 27 +++++++++++++++++++++------
- 1 file changed, 21 insertions(+), 6 deletions(-)
+ drivers/gpu/drm/drm_atomic_uapi.c | 215 +++++++++++++++++-------------
+ 1 file changed, 124 insertions(+), 91 deletions(-)
 
-diff --git a/kernel/dma/pool.c b/kernel/dma/pool.c
-index 70b7f64b17ab..da487c3f9dc6 100644
---- a/kernel/dma/pool.c
-+++ b/kernel/dma/pool.c
-@@ -4,12 +4,12 @@
-  * Copyright (C) 2020 Google LLC
-  */
- #include <linux/cma.h>
-+#include <linux/cc_shared.h>
- #include <linux/debugfs.h>
- #include <linux/dma-map-ops.h>
- #include <linux/dma-direct.h>
- #include <linux/init.h>
- #include <linux/genalloc.h>
--#include <linux/set_memory.h>
- #include <linux/slab.h>
- #include <linux/workqueue.h>
- #include <linux/cc_platform.h>
-@@ -85,6 +85,9 @@ static bool cma_in_zone(gfp_t gfp)
- static int atomic_pool_expand(struct dma_gen_pool *dma_pool, size_t pool_size,
- 			      gfp_t gfp)
- {
-+	struct cc_shared_layout layout;
-+	unsigned long attrs = 0;
-+	unsigned int min_order = 0;
- 	unsigned int order;
- 	struct page *page = NULL;
- 	bool leak_pages = false;
-@@ -92,6 +95,19 @@ static int atomic_pool_expand(struct dma_gen_pool *dma_pool, size_t pool_size,
- 	int ret = -ENOMEM;
- 	pgprot_t prot __maybe_unused;
+diff --git a/drivers/gpu/drm/drm_atomic_uapi.c b/drivers/gpu/drm/drm_atomic_uapi.c
+index 87181aba1451..65e1be6c4ad5 100644
+--- a/drivers/gpu/drm/drm_atomic_uapi.c
++++ b/drivers/gpu/drm/drm_atomic_uapi.c
+@@ -1194,6 +1194,124 @@ int drm_atomic_connector_commit_dpms(struct drm_atomic_commit *state,
+ 	return ret;
+ }
  
-+	if (dma_pool->cc_shared) {
-+		int err;
++static int connector_async_flip_check(struct drm_atomic_commit *state,
++				      struct drm_connector *connector,
++				      struct drm_property *prop,
++				      u64 prop_value, bool *is_noop)
++{
++	const struct drm_connector_state *current_connector_state;
++	u64 old_val = 0;
++	int ret;
 +
-+		err = cc_shared_calc_layout(pool_size, &layout);
-+		if (err)
-+			return err;
-+		pool_size = layout.shared_size;
-+		min_order = get_order(layout.alignment);
-+		if (min_order > MAX_PAGE_ORDER)
-+			return -E2BIG;
-+		attrs = __DMA_ATTR_ALLOC_CC_SHARED;
++	current_connector_state =
++		__drm_atomic_get_current_connector_state(state, connector);
++	if (IS_ERR(current_connector_state))
++		return PTR_ERR(current_connector_state);
++
++	ret = drm_atomic_connector_get_property(connector, current_connector_state,
++						prop, &old_val);
++	if (ret)
++		return ret;
++
++	/*
++	 * Note that for WRITEBACK_FB_ID and WRITEBACK_OUT_FENCE_PTR
++	 * the old value will always be 0. So any commit that sets either
++	 * property to any other value will not be considered a no-op.
++	 */
++	if (old_val != prop_value) {
++		drm_dbg_atomic(prop->dev,
++			       "[CONNECTOR:%d:%s][PROP:%d:%s] Unsupported property change during async flip\n",
++			       connector->base.id, connector->name,
++			       prop->base.id, prop->name);
++		return -EINVAL;
 +	}
 +
- 	/* Cannot allocate larger than MAX_PAGE_ORDER */
- 	order = min(get_order(pool_size), MAX_PAGE_ORDER);
++	*is_noop = old_val == prop_value;
++
++	return 0;
++}
++
++static int crtc_async_flip_check(struct drm_atomic_commit *state,
++				 struct drm_crtc *crtc,
++				 struct drm_property *prop,
++				 u64 prop_value, bool *is_noop)
++{
++	const struct drm_crtc_state *current_crtc_state;
++	u64 old_val = 0;
++	int ret;
++
++	current_crtc_state =
++		__drm_atomic_get_current_crtc_state(state, crtc);
++	if (IS_ERR(current_crtc_state))
++		return PTR_ERR(current_crtc_state);
++
++	ret = drm_atomic_crtc_get_property(crtc, current_crtc_state,
++					   prop, &old_val);
++	if (ret)
++		return ret;
++
++	/*
++	 * Note that for OUT_FENCE_PTR the old value will always be 0.
++	 * So any commit that sets the property to any other value
++	 * will not be considered a no-op.
++	 */
++	if (old_val != prop_value) {
++		drm_dbg_atomic(prop->dev,
++			       "[CRTC:%d:%s][PROP:%d:%s] Unsupported property change during async flip\n",
++			       crtc->base.id, crtc->name,
++			       prop->base.id, prop->name);
++		return -EINVAL;
++	}
++
++	*is_noop = old_val == prop_value;
++
++	return 0;
++}
++
++static int plane_async_flip_check(struct drm_atomic_commit *state,
++				  struct drm_plane *plane,
++				  struct drm_property *prop,
++				  u64 prop_value, bool *is_noop)
++{
++	struct drm_device *dev = plane->dev;
++	struct drm_mode_config *config = &dev->mode_config;
++	const struct drm_plane_state *current_plane_state;
++	u64 old_val = 0;
++	int ret;
++
++	current_plane_state =
++		__drm_atomic_get_current_plane_state(state, plane);
++	if (IS_ERR(current_plane_state))
++		return PTR_ERR(current_plane_state);
++
++	ret = drm_atomic_plane_get_property(plane, current_plane_state,
++					    prop, &old_val);
++	if (ret)
++		return ret;
++
++	/*
++	 * Fail everything that isn't no-op or a pure flip.
++	 *
++	 * Note that for IN_FENCE_FD the old value will always be -1.
++	 * So any commit that sets the property to any other value
++	 * will not be considered a no-op.
++	 */
++	if (old_val != prop_value &&
++	    prop != config->prop_fb_id &&
++	    prop != config->prop_in_fence_fd &&
++	    prop != config->prop_fb_damage_clips) {
++		drm_dbg_atomic(prop->dev,
++			       "[PLANE:%d:%s][PROP:%d:%s] Unsupported property change during async flip\n",
++			       plane->base.id, plane->name,
++			       prop->base.id, prop->name);
++		return -EINVAL;
++	}
++
++	*is_noop = old_val == prop_value;
++
++	return 0;
++}
++
+ int drm_atomic_set_property(struct drm_atomic_commit *state,
+ 			    struct drm_file *file_priv,
+ 			    struct drm_mode_object *obj,
+@@ -1202,7 +1320,6 @@ int drm_atomic_set_property(struct drm_atomic_commit *state,
+ 			    bool async_flip)
+ {
+ 	struct drm_mode_object *ref;
+-	u64 old_val;
+ 	int ret;
  
-@@ -99,10 +115,10 @@ static int atomic_pool_expand(struct dma_gen_pool *dma_pool, size_t pool_size,
- 		pool_size = 1 << (PAGE_SHIFT + order);
- 		if (cma_in_zone(gfp))
- 			page = dma_alloc_from_contiguous(NULL, 1 << order,
--							 order, 0, false);
-+							 order, attrs, false);
- 		if (!page)
- 			page = alloc_pages(gfp | __GFP_NOWARN, order);
--	} while (!page && order-- > 0);
-+	} while (!page && order-- > min_order);
- 	if (!page)
- 		goto out;
+ 	if (!drm_property_change_valid_get(prop, prop_value, &ref))
+@@ -1215,36 +1332,10 @@ int drm_atomic_set_property(struct drm_atomic_commit *state,
+ 		bool is_noop = false;
  
-@@ -126,8 +142,7 @@ static int atomic_pool_expand(struct dma_gen_pool *dma_pool, size_t pool_size,
- 	 * shrink so no re-encryption occurs in dma_direct_free().
- 	 */
- 	if (dma_pool->cc_shared) {
--		ret = set_memory_decrypted((unsigned long)page_to_virt(page),
--					   1 << order);
-+		ret = cc_make_shared(page_to_virt(page), pool_size);
- 		if (ret) {
- 			leak_pages = true;
- 			goto remove_mapping;
-@@ -144,7 +159,7 @@ static int atomic_pool_expand(struct dma_gen_pool *dma_pool, size_t pool_size,
+ 		if (async_flip) {
+-			const struct drm_connector_state *current_connector_state;
+-
+-			current_connector_state =
+-				__drm_atomic_get_current_connector_state(state, connector);
+-			if (IS_ERR(current_connector_state)) {
+-				ret = PTR_ERR(current_connector_state);
+-				break;
+-			}
+-
+-			ret = drm_atomic_connector_get_property(connector, current_connector_state,
+-								prop, &old_val);
++			ret = connector_async_flip_check(state, connector,
++							 prop, prop_value, &is_noop);
+ 			if (ret)
+ 				break;
+-
+-			/*
+-			 * Note that for WRITEBACK_FB_ID and WRITEBACK_OUT_FENCE_PTR
+-			 * the old value will always be 0. So any commit that sets either
+-			 * property to any other value will not be considered a no-op.
+-			 */
+-			if (old_val != prop_value) {
+-				drm_dbg_atomic(prop->dev,
+-					       "[CONNECTOR:%d:%s][PROP:%d:%s] Unsupported property change during async flip\n",
+-					       connector->base.id, connector->name,
+-					       prop->base.id, prop->name);
+-				ret = -EINVAL;
+-				break;
+-			}
+-
+-			if (old_val == prop_value)
+-				is_noop = true;
+ 		}
  
- encrypt_mapping:
- 	if (dma_pool->cc_shared &&
--	    set_memory_encrypted((unsigned long)page_to_virt(page), 1 << order))
-+	    cc_make_private(page_to_virt(page), pool_size))
- 		leak_pages = true;
+ 		/* No-op connector property changes can be completely skipped */
+@@ -1270,36 +1361,10 @@ int drm_atomic_set_property(struct drm_atomic_commit *state,
+ 		bool is_noop = false;
  
- remove_mapping:
+ 		if (async_flip) {
+-			const struct drm_crtc_state *current_crtc_state;
+-
+-			current_crtc_state =
+-				__drm_atomic_get_current_crtc_state(state, crtc);
+-			if (IS_ERR(current_crtc_state)) {
+-				ret = PTR_ERR(current_crtc_state);
+-				break;
+-			}
+-
+-			ret = drm_atomic_crtc_get_property(crtc, current_crtc_state,
+-							   prop, &old_val);
++			ret = crtc_async_flip_check(state, crtc,
++						    prop, prop_value, &is_noop);
+ 			if (ret)
+ 				break;
+-
+-			/*
+-			 * Note that for OUT_FENCE_PTR the old value will always be 0.
+-			 * So any commit that sets the property to any other value
+-			 * will not be considered a no-op.
+-			 */
+-			if (old_val != prop_value) {
+-				drm_dbg_atomic(prop->dev,
+-					       "[CRTC:%d:%s][PROP:%d:%s] Unsupported property change during async flip\n",
+-					       crtc->base.id, crtc->name,
+-					       prop->base.id, prop->name);
+-				ret = -EINVAL;
+-				break;
+-			}
+-
+-			if (old_val == prop_value)
+-				is_noop = true;
+ 		}
+ 
+ 		/*
+@@ -1324,46 +1389,14 @@ int drm_atomic_set_property(struct drm_atomic_commit *state,
+ 	case DRM_MODE_OBJECT_PLANE: {
+ 		struct drm_plane *plane = obj_to_plane(obj);
+ 		struct drm_plane_state *plane_state;
+-		struct drm_mode_config *config = &plane->dev->mode_config;
+ 		const struct drm_plane_helper_funcs *plane_funcs = plane->helper_private;
+ 		bool is_noop = false;
+ 
+ 		if (async_flip) {
+-			const struct drm_plane_state *current_plane_state;
+-
+-			current_plane_state =
+-				__drm_atomic_get_current_plane_state(state, plane);
+-			if (IS_ERR(current_plane_state)) {
+-				ret = PTR_ERR(current_plane_state);
+-				break;
+-			}
+-
+-			ret = drm_atomic_plane_get_property(plane, current_plane_state,
+-							    prop, &old_val);
++			ret = plane_async_flip_check(state, plane,
++						     prop, prop_value, &is_noop);
+ 			if (ret)
+ 				break;
+-
+-			/*
+-			 * Fail everything that isn't no-op or a pure flip.
+-			 *
+-			 * Note that for IN_FENCE_FD the old value will always be -1.
+-			 * So any commit that sets the property to any other value
+-			 * will not be considered a no-op.
+-			 */
+-			if (old_val != prop_value &&
+-			    prop != config->prop_fb_id &&
+-			    prop != config->prop_in_fence_fd &&
+-			    prop != config->prop_fb_damage_clips) {
+-				drm_dbg_atomic(prop->dev,
+-					       "[PLANE:%d:%s][PROP:%d:%s] Unsupported property change during async flip\n",
+-					       plane->base.id, plane->name,
+-					       prop->base.id, prop->name);
+-				ret = -EINVAL;
+-				break;
+-			}
+-
+-			if (old_val == prop_value)
+-				is_noop = true;
+ 		}
+ 
+ 		/* No-op plane property changes can be fully skipped */
 -- 
-2.43.0
+2.56.0
 
