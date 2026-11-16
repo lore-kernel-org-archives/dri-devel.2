@@ -2,42 +2,110 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5403C606A334
-	for <dri-devel@archiver.kernel.org>; Mon, 16 Nov 2026 14:49:43 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2786D606A32A
+	for <dri-devel@archiver.kernel.org>; Mon, 16 Nov 2026 14:50:27 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=is2ZO7df
+	dkim=pass (2048-bit key, unprotected) header.d=foss.st.com header.i=@foss.st.com header.a=rsa-sha256 header.s=selector2 header.b=GhJiDAN3
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id BCDF610EA47;
-	Mon, 16 Nov 2026 14:49:37 +0000 (UTC)
-Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 5067A10EA46;
- Mon, 16 Nov 2026 14:49:31 +0000 (UTC)
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id 1C67946501;
- Mon, 16 Nov 2026 14:49:31 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id C23901F000C6;
- Mon, 16 Nov 2026 14:49:30 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1794840571;
- bh=PxVOi7tPmLo7n67xVcopT5WRl6oeAOApaY8g9JY/xHc=;
- h=From:Subject:Reply-To:To:In-Reply-To:References:Date;
- b=is2ZO7dfjhQ0v8Isxdm3msTG1tx7FjnwWuEG2Lq83BkCcHl9vBE93KUS9Fs50fFU4
- rUXaftyCpAdNpuKDWKsfvF+OYEza40a6V5KEtM/Spks/e2OP3U14nddt67ZbQPHZSy
- qIaoVN8lIfMIJyPO8x1YGGMnJNaz6xVraji0jIIYsyV1d4nbCmX5NjOqsdiQRLeHw6
- GXWg+Gl0tcPKba7Np8VbB+bBZUBG5mT4c0ibEOO2Q1QVOao/S2RiiwopacI7+W1NGF
- buzYJJj6wu6YKZb1IEcT8OVEa19OqI/mAsXNVLC9o7SgGtWQvMwGxABXUF5j+FFwyF
- AY36v5a7x8ztw==
-Message-ID: <sashiko-outbox-217194@kernel.org>
-From: sashiko-bot@kernel.org
-Subject: Re: [REGRESSION] i915: UHBR training fails with TB5 dock after
- 1fd440de4e02; source FFE update skipped?
-To: "Frederik Schwan" <frederik@tty42.de>, intel-gfx@lists.freedesktop.org,
- dri-devel@lists.freedesktop.org
-In-Reply-To: <aveDNRBLx1a-9hRQ@mail.tty42.de>
-References: <aveDNRBLx1a-9hRQ@mail.tty42.de>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Mon, 16 Nov 2026 14:49:29 +0000
+	by gabe.freedesktop.org (Postfix) with ESMTP id 78C6210EBB6;
+	Mon, 16 Nov 2026 14:50:21 +0000 (UTC)
+Received: from OSPPR02CU001.outbound.protection.outlook.com
+ (mail-norwayeastazon11013058.outbound.protection.outlook.com [40.107.159.58])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 66A2010EBB6
+ for <dri-devel@lists.freedesktop.org>; Mon, 16 Nov 2026 14:50:14 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=DHVtjb3ZHHY6oucIbicnFj1oyru5cx6LpLGU85YDdUwVCARhmD4ByKpliN+Uu+RHgLgfR8dbDRdGZ8C16L70H4456+4ENIHq819mUP1tGB9Q5qY70o9AWG3VRHyBOuwLXg1parlX8OkvHBdyaWQM8jnr+nRHm0IGzSP4GQtWc5YqPl4imrewlzUIfMf6OecEd1EFzOF4slVOK+Lavh4KV9m+rtR0M7IGFcpI+frD8YPTNK5Mh++7BlDa3+bEJHSCkgR9YzekeATmH6iWejBfNC7PqTXg3dexd23x0XR4nUb4f8lwZF4EEDFXzvJqY7yPSm6DDCevmcP9Anp0vGU7pw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=aQ8uTD6eEE3uSrpkf4GjmmY1uCzEAvBDY2W8EfMMRQ4=;
+ b=S3LKKKYsIiW6s++WR7H2/DxygS9qNGsV+c9+bzdM5Da4AWn7aurCOD7sfxJRIUDffd/xHki135CJ0qkrjirSJmwUevs8Ab+5817rkhk2hos3kR2eigdFN7vmGGkbtv6xQqete2Xf4BNIdn13qRnM0orV6um8uC1DiysJRWMOTgb6jdyzjEomPqF5+9UgD+OmCx8Mokl8Vci4s1QV2ve3fXVRHT/WFhIBwvIcuCdMHU4Jk1Vj5n+ALlH41tMZd1Cor9728FPm6MeTwPY99+K2GavJ8QQ5XGzZqMPON7m1SmUmnKfkcCj6xt59qBjM3lFRT2jDiDFzNqpzxBZ4rmMMZw==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=fail (sender ip is
+ 164.130.1.59) smtp.rcpttodomain=kernel.org smtp.mailfrom=foss.st.com;
+ dmarc=fail (p=none sp=none pct=100) action=none header.from=foss.st.com;
+ dkim=none (message not signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=foss.st.com;
+ s=selector2;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=aQ8uTD6eEE3uSrpkf4GjmmY1uCzEAvBDY2W8EfMMRQ4=;
+ b=GhJiDAN3ZU7VzSRFtzFQ0OjieODbr7zLqu20IroDkz9uirmbNO8Y3K2xnJ9eeMIZTAbHaUXQvG43RUKshROWoBA7Y6KxyoY2YeC7DJ/U/oMKISvX/o8qI1hhGC1Lx0b1g47xSlqQ909oW4mM5Pw26AADz4MpMSVeyYMQIUvrsVXnqfT3a+frusMmcHFQy5R9phfTWkRetYzi/nW8MCqokO0/h8t87kmp6DKd73DD5e9JR88NWOTOfC47MydN0wIwtQ2epl8U73JBjVifszonVWvmllDSClsKyhOXIqLcfXVG7nmx82+G1yKMV2YFZog4UQtLwTjdLoKRzx6fa2YsUA==
+Received: from DB8PR06CA0037.eurprd06.prod.outlook.com (2603:10a6:10:120::11)
+ by DB5PR10MB7702.EURPRD10.PROD.OUTLOOK.COM (2603:10a6:10:4a3::18)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.639.4; Mon, 16 Nov
+ 2026 14:50:10 +0000
+Received: from DU2PEPF00028D00.eurprd03.prod.outlook.com
+ (2603:10a6:10:120:cafe::1e) by DB8PR06CA0037.outlook.office365.com
+ (2603:10a6:10:120::11) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.21.615.10 via Frontend Transport; Mon,
+ 16 Nov 2026 14:50:10 +0000
+X-MS-Exchange-Authentication-Results: mx.microsoft.com 1; spf=fail (sender IP
+ is 164.130.1.59)
+ smtp.mailfrom=foss.st.com; dkim=none (message not signed)
+ header.d=none;dmarc=fail action=none header.from=foss.st.com;
+Received-SPF: Fail (protection.outlook.com: domain of foss.st.com does not
+ designate 164.130.1.59 as permitted sender) receiver=protection.outlook.com;
+ client-ip=164.130.1.59; helo=smtpO365.st.com;
+Received: from smtpO365.st.com (164.130.1.59) by
+ DU2PEPF00028D00.mail.protection.outlook.com (10.167.242.184) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.21.639.5 via Frontend Transport; Mon, 16 Nov 2026 14:50:09 +0000
+Received: from STKDAG1NODE1.st.com (10.75.128.132) by smtpo365.st.com
+ (10.250.44.71) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.56; Mon, 16 Nov
+ 2026 15:50:53 +0100
+Received: from [10.252.28.159] (10.252.28.159) by STKDAG1NODE1.st.com
+ (10.75.128.132) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.56; Mon, 16 Nov
+ 2026 15:50:08 +0100
+Message-ID: <dbb59c5f-145c-4544-a729-3e8baf261050@foss.st.com>
+Date: Mon, 16 Nov 2026 15:50:07 +0100
+X-Archived-By: <archiver.kernel.org>
+MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2 35/64] drm/stm: Switch to
+ drm_mode_config_create_initial_state
+To: Maxime Ripard <mripard@kernel.org>, Maarten Lankhorst
+ <maarten.lankhorst@linux.intel.com>, Thomas Zimmermann <tzimmermann@suse.de>, 
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>
+CC: <dri-devel@lists.freedesktop.org>, Alexandre Torgue
+ <alexandre.torgue@foss.st.com>, Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+ Philippe Cornu <philippe.cornu@foss.st.com>, Yannick Fertre
+ <yannick.fertre@foss.st.com>
+References: <20261116-drm-no-more-config-reset-v2-0-0bb471f4d1e0@kernel.org>
+ <20261116-drm-no-more-config-reset-v2-35-0bb471f4d1e0@kernel.org>
+Content-Language: en-US
+From: Raphael Gallais-Pou <raphael.gallais-pou@foss.st.com>
+In-Reply-To: <20261116-drm-no-more-config-reset-v2-35-0bb471f4d1e0@kernel.org>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 8bit
+X-ClientProxiedBy: ENXCAS1NODE2.st.com (10.75.128.138) To STKDAG1NODE1.st.com
+ (10.75.128.132)
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: DU2PEPF00028D00:EE_|DB5PR10MB7702:EE_
+X-MS-Office365-Filtering-Correlation-Id: a07b84b9-9f70-4ac3-f29a-08df43f0e98a
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+ ARA:13230040|36860700016|376014|1800799024|23010399003|82310400026|10067099003|4143699003|11063799006|56012099006|261026140227099003|261028144727099003|261022105027099003|261022075727099003|261009223027099003|18002099003|22082099003;
+X-Microsoft-Antispam-Message-Info: fUqMt1yWZazyHNLQRZ4vstEA1CaVhWWVLCb+NER/GAJdU/lKxKE9h+ACE0PA8Abs2wS7JUDuarqYwfqnUf2nwUNU2hW+hJvNQBCDq1HNzvU+vJLLGxl265DWogNAgBG9O2SXar0TImjxP9zT64Bt4yRyCy9y3OfTVwOHoKu8dJ+Jh/VFSH3wUMU4wMWajT9Ky/dMBU3MGDXB9L8obnq09QmIKtQdXYc/WqNURAz9DJVGpaCCsn1pTVso8latBsusYwnY7ds1aE5fC6iaH9IBC1BGTBx3cj46Dntf6daTVMbR8aizcTmmVe3bB/T8GoXI+AJjDGuKXsB56k4Ko+8nxwAR41K6VI/mQU/pP20XICUZiXZB7geD4QIt7QTX1iGpY5+w3whSii4ZCSfLPjuJ4UNgVt5ccNa7d2xZi4zr4Rkg1KprQKwbZzIkGmYdITpeO0NiO1345yjwGhmSkqPkByqkwBeHlsRDMK72hvY3Af51oJYBCIPr56TXqyf2Y0Ko8aZDON/bTjVGsgLgnoHP6MpPcg8BcIoobaOnkrpPDRjxARl2LFpT94FDrb6USwZUTfchuSdnPNz8ENmKXDgNBjziOB/CCRszuWKVJh9Ew4yTYKJ7BbaIuZg7QP2f5a/lIFQQjkKgB4nuR7Mqhpw+4BVf4P1Vf2zMFGRyZ+F0IOtmfCxydTFavQRQpMNzvtUReEk001c8/BmYhgboO2r1zg==
+X-Forefront-Antispam-Report: CIP:164.130.1.59; CTRY:IT; LANG:en; SCL:1; SRV:;
+ IPV:CAL; SFV:NSPM; H:smtpO365.st.com; PTR:InfoDomainNonexistent; CAT:NONE;
+ SFS:(13230040)(36860700016)(376014)(1800799024)(23010399003)(82310400026)(10067099003)(4143699003)(11063799006)(56012099006)(261026140227099003)(261028144727099003)(261022105027099003)(261022075727099003)(261009223027099003)(18002099003)(22082099003);
+ DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: OgHWs6yh3HACz1V1LLksA9ilTE5ln6iMhjFITaqYEQmA9J5hWOZ8WGJNtEt+d7YhsHPMklHzTHz/ep+pFYYfWtD83buLIZRT82qrlDepA/xsAJ8FzUSl6zKSViNoxU3m5NVXxknBd7aUmNZJt53kCbrTLYTv5sBNKDI9qtUe+Woo6+LSCfYQPvq1hX6SVwmzhI1l/cSZa52IkCuplaL7oz+tG0ELOghBpo+QnLyEAUR/tx43BoDKHxJRz4psflipwwoh5UutUV0kVmoKsnlLpM12x8DxfT4y/Wei5ua6hicG4NX+klYGqlrP2NOSnyjKyhEC5oJPJLAm/Xjik9Ze7Z35ElPrryhjAWeAegPhEGOzjEThagBDIWSnHDSgpVMUSbpNqsTynJ09WJtMugc8HV8vjbhlZ0aApQqhWU0c17CuXtCdqSu6vuVbvcho4WK8
+X-OriginatorOrg: foss.st.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 16 Nov 2026 14:50:09.8120 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: a07b84b9-9f70-4ac3-f29a-08df43f0e98a
+X-MS-Exchange-CrossTenant-Id: 75e027c9-20d5-47d5-b82f-77d7cd041e8f
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=75e027c9-20d5-47d5-b82f-77d7cd041e8f; Ip=[164.130.1.59];
+ Helo=[smtpO365.st.com]
+X-MS-Exchange-CrossTenant-AuthSource: DU2PEPF00028D00.eurprd03.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DB5PR10MB7702
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -48,139 +116,35 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
-Reply-To: sashiko-reviews@lists.linux.dev
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-10.8 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
-	DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
-	INCLUDES_CR_TRAILER,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS
-	autolearn=unavailable autolearn_force=no version=4.0.1
+X-Spam-Status: No, score=-12.3 required=3.0 tests=BAYES_00,DKIM_SIGNED,
+	DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
+	INCLUDES_CR_TRAILER,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,
+	USER_AGENT_SANE_1 autolearn=ham autolearn_force=no version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
-X-Archived-By: <archiver.kernel.org>
 
-Thank you for your contribution! Sashiko AI review found 1 potential
-issue to consider:
-- [Low] drm/i915/dp: raw email report in changelog, sign-off mismatch,
-  and Fixes tag
---
 
-commit 4c3a78dc876392e84ec307e2257c7451d9a82be2
-Author: Frederik Schwan <frederik@tty42.de>
 
-> i915: UHBR training fails with TB5 dock after 1fd440de4e02; source FFE up=
-date skipped?
+On 11/16/26 11:30, Maxime Ripard wrote:
+> drm_mode_config_reset() has a dual role: it creates the initial KMS
+> state at probe time, and resets hardware and software state during
+> suspend/resume cycles.
 >
-> Hi everyone,
-> I just upgraded my system to 7.3.x and found a regression with my noteboo=
-k/dock setup.
-> 3x 4k displays are hooked to the dock, 2 by DP and one through USB-C (I g=
-uess that DP-alt mode then).
+> Since the two roles need different behaviors (notably for objects like
+> drm_private_obj that must persist across suspend/resume),
+> drm_mode_config_create_initial_state() was introduced to handle only
+> the initial state creation at probe time.
 >
-> Until 7.2 all displays worked. With 7.3 all displays work until kernel sw=
-itches from fbdev (?) after
-> which the 2 DP displays have no signal anymore but the USB-C one still wo=
-rks.
+> Switch to drm_mode_config_create_initial_state().
 >
-> Bisect:
->
-> # bad: [c03c1a14507dfaf8b856c2608f9ac216021fc222] Linux 7.3
-> # good: [8d3ae59288f1e7d58d76558a6ee96d533bc5019f] Linux 7.2
-> git bisect start 'v7.3' 'v7.2' '--' 'drivers/gpu/drm/i915/display' 'drive=
-rs/gpu/drm/display'
-> # good: [bbf51a67d1fe895f3d27402d2560259a619b6dba] drm/i915/dp_link_caps:=
- Use max common lane count from link_caps
-> git bisect good bbf51a67d1fe895f3d27402d2560259a619b6dba
-> # good: [d6a1bc7c9b4ce71674a633242251d8a804ced82d] drm/i915: Throw away t=
-he BIOS fb if has the wrong depth/bpp
-> git bisect good d6a1bc7c9b4ce71674a633242251d8a804ced82d
-> # bad: [f0cabcc880aba3f05ca59d735f6d166b7fceca80] drm/i915/fbc: No surfac=
-e size restrictions from LNL onwards
-> git bisect bad f0cabcc880aba3f05ca59d735f6d166b7fceca80
-> # good: [b0b6d44646dc7750df4f052d17688fb7e7569a74] drm/dp_tunnel: Add UHB=
-R tunneling support
-> git bisect good b0b6d44646dc7750df4f052d17688fb7e7569a74
-> # bad: [662560bad9be29c3e1a2668806392d2ed9a743d6] drm/i915/bw: Fix spelli=
-ng mistake "threshod" -> "threshold"
-> git bisect bad 662560bad9be29c3e1a2668806392d2ed9a743d6
-> # good: [47fff2b1749e9ba5dfab7528960555cc865360b5] drm/i915/dp: Disable U=
-HBR link configs with 1/2 lanes
-> git bisect good 47fff2b1749e9ba5dfab7528960555cc865360b5
-> # bad: [8b9bc7786adef4e2df3a23293c0682efac6dcc83] drm/i915/dram: Interpre=
-t 0xF populated-channel count as 16
-> git bisect bad 8b9bc7786adef4e2df3a23293c0682efac6dcc83
-> # bad: [1fd440de4e02efab97874bbda0a4daf59d228fa3] drm/i915/dp_tunnel: Add=
- UHBR tunneling support
-> git bisect bad 1fd440de4e02efab97874bbda0a4daf59d228fa3
-> # first 'bad' commit: [1fd440de4e02efab97874bbda0a4daf59d228fa3] drm/i915=
-/dp_tunnel: Add UHBR tunneling support
->
-> I collected logs as well with `drm.debug=3D0x10e log_buf_len=3D32M thunde=
-rbolt.dyndbg=3D+p`:
->
-> good: v7.2-rc1-263-gb0b6d44646dc.log
-> bad: v7.2-rc1-268-g1fd440de4e02.log
-> patched: patched.log
->
-> #regzbot introduced: 1fd440de4e02efab97874bbda0a4daf59d228fa3
-> #regzbot title: i915: UHBR training fails through TB5 dock when source FF=
-E updates are skipped
->
-> I was desperate and thought I'd give it a quick try with help of Codex wh=
-ich ended in a rabbit whole of DP protocol investigation for me :).
-> We came up with a patch which I tested successfully.
->
-> I've attached the patch and the "report" codex created in case you're int=
-erested.
->
-> Best regards,
-> Frederik
->
-> UHBR link training uses intra-hop AUX replies at the DPRX address even
-> when LTTPRs are present. However, intel_dp_set_signal_levels() only
-> programs the source transmitter when intel_dp_phy_is_downstream_of_source=
-()
-> identifies the receiver being trained as directly downstream of it.
-> With LTTPRs present, this check rejects DP_PHY_DPRX.
->
-> As a result, UHBR training updates the requested FFE presets in the DPCD
-> training set but does not apply them to the source PHY. This causes
-> UHBR20 and UHBR10 training failures on a Meteor Lake system connected to
-> a ThinkPad Thunderbolt 5 Smart Dock 7500. Enabling UHBR tunneling exposed
-> the existing assumption in the source signal-level update path.
->
-> Always update the source signal levels during UHBR training. Preserve
-> the per-PHY check for 8b/10b training, which trains downstream receivers
-> individually.
->
-> With this change, the affected system completes four-lane UHBR20
-> training, including channel equalization, interlane alignment and CDS.
->
-> Fixes: 1fd440de4e02 ("drm/i915/dp_tunnel: Add UHBR tunneling support")
-> Signed-off-by: Frederik Schwan <freswa@archlinux.org>
-> Assisted-by: Codex:gpt-6
+> Signed-off-by: Maxime Ripard <mripard@kernel.org>
+> ---
 
-[Severity: Low]
-Should the Fixes tag reference a421d8a99216 ("drm/i915/dp: rewrite DP 2.0
-128b/132b link training based on errata") instead?
+Hi Maxime, 
 
-Commit 1fd440de4e02 ("drm/i915/dp_tunnel: Add UHBR tunneling support") only
-enabled 128b/132b link rates over DP tunnels and exposed this issue on
-Thunderbolt 5 docks.  The bug in intel_dp_set_signal_levels() when training
-128b/132b links with LTTPRs was introduced by a421d8a99216 ("drm/i915/dp:
-rewrite DP 2.0 128b/132b link training based on errata"), which switched
-intel_dp_128b132b_lane_eq() to concurrent intra-hop AUX mode passing
-DP_PHY_DPRX without updating intel_dp_set_signal_levels() to program the
-source PHY for UHBR links, and citing 1fd440de4e02 ("drm/i915/dp_tunnel:
-Add UHBR tunneling support") could prevent backports to stable kernels with
-non-tunneled UHBR and LTTPR configurations.
+Acked-by: Raphaël Gallais-Pou <raphael.gallais-pou@foss.st.com>
 
-In addition, the subject line is phrased as a bug-report question rather
-than an imperative patch subject with the "drm/i915/dp:" prefix, the first
-half of the commit message retains the conversational email report, raw git
-bisect output, and regzbot directives, and the Author email address
-(<frederik@tty42.de>) does not match the Signed-off-by address
-(<freswa@archlinux.org>).
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/aveDNRBLx1a-9hRQ@ma=
-il.tty42.de?part=3D1
+Thanks, 
+Best regards, 
+Raphaël
