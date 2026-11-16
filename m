@@ -2,78 +2,83 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D4010606A323
-	for <dri-devel@archiver.kernel.org>; Mon, 16 Nov 2026 09:13:38 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9CE00606A31C
+	for <dri-devel@archiver.kernel.org>; Mon, 16 Nov 2026 09:13:44 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=edbaIGVe
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=XvXzC9G/
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id B0C9310EDB3;
-	Mon, 16 Nov 2026 09:13:32 +0000 (UTC)
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.18])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 7770010EDBF;
- Mon, 16 Nov 2026 09:13:26 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1794820406; x=1826356406;
- h=from:to:cc:subject:date:message-id:in-reply-to:
- references:mime-version:content-transfer-encoding;
- bh=edhm/RUm1gwG1ns28z24sx9rwV2Bz4AIJAEgDfivZos=;
- b=edbaIGVeeLAMucWtoJVU/2RGATgkPjAJEeyv3k+0E3O93Kr4Cdk71War
- Ga6U2lukBVpyEhGqTVo9JFPBPyvjG/r/05W/cw7+aWtOmpp30uZjI63Hf
- 3FaDv3KUdOHq4h08hKRgWLfb7Q74UNyXhxK+QzchOPG/xW0YTBdnwJHuN
- WPjnCCL5Kw/Yykx5CuSK4wA5VZwkf0PELmXCVRDG5ysN2siiLeLnbHwbY
- tCUxsJJExXLuRwTrEzwJ+qa4KZ740eoMpOXuQfWHTcBTyeOJ5ki9sp73t
- NhjlO0RADQk61P9qmSVG/bty/MHfun1is9YwNrwWq5w0BFKCWd4oc4RNg Q==;
-X-CSE-ConnectionGUID: sv6qQjomQZmOiwahun7oYg==
-X-CSE-MsgGUID: p4FymYeaT92dAvRlQwGNwg==
-X-IronPort-AV: E=McAfee;i="6800,10657,11967"; a="3579213"
-X-IronPort-AV: E=Sophos;i="6.27,216,1787036400"; 
-   d="scan'208";a="3579213"
-Received: from fmviesa010.fm.intel.com ([10.60.135.150])
- by fmvoesa112.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 16 Nov 2026 01:13:26 -0800
-X-CSE-ConnectionGUID: 9stVJmFCQHClbVwAwSIULg==
-X-CSE-MsgGUID: QPpDDzNuR/+FFLzWW1UqMw==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,216,1787036400"; d="scan'208";a="10032390"
-Received: from ettammin-mobl3.ger.corp.intel.com (HELO localhost)
- ([10.245.245.93])
- by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 16 Nov 2026 01:13:19 -0800
-From: Ville Syrjala <ville.syrjala@linux.intel.com>
-To: dri-devel@lists.freedesktop.org
-Cc: intel-gfx@lists.freedesktop.org, intel-xe@lists.freedesktop.org,
- Erwin Springer <aot.lerwin@gmail.com>, amd-gfx@lists.freedesktop.org,
- =?UTF-8?q?Andr=C3=A9=20Almeida?= <andrealmeid@igalia.com>,
- Boris Brezillon <bbrezillon@kernel.org>,
- Christopher Snowhill <chris@kode54.net>,
- Dave Stevenson <dave.stevenson@raspberrypi.com>,
- Dharma Balasubiramani <dharma.b@microchip.com>,
- Dmitry Baryshkov <lumag@kernel.org>, freedreno@lists.freedesktop.org,
- Gustavo Padovan <gustavo.padovan@collabora.com>,
- Huacai Chen <chenhuacai@kernel.org>,
- Icenowy Zheng <zhengxingda@iscas.ac.cn>,
- Jianmin Lv <lvjianmin@loongson.cn>, linux-arm-msm@vger.kernel.org,
- linux-mediatek@lists.infradead.org, linux-rockchip@lists.infradead.org,
- linux-tegra@vger.kernel.org, Liviu Dudau <liviu.dudau@arm.com>,
- =?UTF-8?q?Ma=C3=ADra=20Canal?= <mcanal@igalia.com>,
- Manikandan Muralidharan <manikandan.m@microchip.com>,
- Maxime Ripard <mripard@kernel.org>, Mingcong Bai <jeffbai@aosc.io>,
- nouveau@lists.freedesktop.org, Qianhai Wu <wuqianhai@loongson.cn>,
- Raspberry Pi Kernel Maintenance <kernel-list@raspberrypi.com>,
- Simon Ser <contact@emersion.fr>, wayland-devel@lists.freedesktop.org,
- Xaver Hugl <xaver.hugl@kde.org>, Xi Ruoyao <xry111@xry111.site>
-Subject: [PATCH 10/12] drm/i915: Complete no-op "async flips" by hand
-Date: Mon, 16 Nov 2026 11:11:28 +0200
-Message-ID: <20261116091130.13950-11-ville.syrjala@linux.intel.com>
-X-Mailer: git-send-email 2.56.0
-In-Reply-To: <20261116091130.13950-1-ville.syrjala@linux.intel.com>
-References: <20261116091130.13950-1-ville.syrjala@linux.intel.com>
+	by gabe.freedesktop.org (Postfix) with ESMTP id 7E54D10EE87;
+	Mon, 16 Nov 2026 09:13:38 +0000 (UTC)
+Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 2806810EE5A
+ for <dri-devel@lists.freedesktop.org>; Mon, 16 Nov 2026 09:13:30 +0000 (UTC)
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+ by tor.source.kernel.org (Postfix) with ESMTP id 8D1E160E05;
+ Mon, 16 Nov 2026 09:13:29 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id E7DD91F000C4;
+ Mon, 16 Nov 2026 09:13:11 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+ s=k20260515; t=1794820409;
+ bh=wp4OrTiwenmqlPziYX6n9mBW2tsSmcV548D5rvQG8BU=;
+ h=From:To:Cc:Subject:Date:In-Reply-To:References;
+ b=XvXzC9G/jiuBYWUAixkir74C1Q4yp5X/dt24tJRLFbDKbpmIyiD13Jpqo6GUIIpN8
+ kV3CWvckkgquOOFKpeIv/4DOarMyUv6kC94y3gzZHl/MZXs5IufRfOizd2ZeH/FF6D
+ 4/G8zyURxbFOxk9lQf3/r1C8MJqUYzj1PjTmBxqinPDgTduKhOiso1GBXqo61oXO91
+ 34Qgd0Hf0jv4tIJXRlJPoUA+NUDaxoWoCcxyU9H897oKK3kjrnWmZ3dTvoHDprP0jP
+ xD0fmzGlEvWYxgV6C+jIWfD1we21vWRgLxrqJDILrR725d/R0IQOydFrYxUOWVTnKi
+ 7V3WoExu8G3MQ==
+From: "Aneesh Kumar K.V (Arm)" <aneesh.kumar@kernel.org>
+To: linux-coco@lists.linux.dev
+Cc: "Aneesh Kumar K.V (Arm)" <aneesh.kumar@kernel.org>,
+ Andrew Morton <akpm@linux-foundation.org>,
+ Baoquan He <baoquan.he@linux.dev>, Mike Rapoport <rppt@kernel.org>,
+ Pasha Tatashin <pasha.tatashin@soleen.com>,
+ Pratyush Yadav <pratyush@kernel.org>,
+ Catalin Marinas <catalin.marinas@arm.com>,
+ =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
+ Jason Gunthorpe <jgg@ziepe.ca>, Joerg Roedel <joro@8bytes.org>,
+ Marc Zyngier <maz@kernel.org>, Marek Szyprowski <m.szyprowski@samsung.com>,
+ Robin Murphy <robin.murphy@arm.com>, Steven Price <steven.price@arm.com>,
+ Sumit Semwal <sumit.semwal@linaro.org>,
+ Suzuki K Poulose <suzuki.poulose@arm.com>,
+ Thomas Gleixner <tglx@kernel.org>, Will Deacon <will@kernel.org>,
+ Russell King <linux@armlinux.org.uk>,
+ Benjamin Gaignard <benjamin.gaignard@collabora.com>,
+ Brian Starkey <Brian.Starkey@arm.com>, John Stultz <jstultz@google.com>,
+ Mark Rutland <mark.rutland@arm.com>, Radu Rendec <radu@rendec.net>,
+ "T.J. Mercier" <tjmercier@google.com>,
+ Madhavan Srinivasan <maddy@linux.ibm.com>,
+ Michael Ellerman <mpe@ellerman.id.au>, Nicholas Piggin <npiggin@gmail.com>,
+ Christophe Leroy <chleroy@kernel.org>,
+ Ritesh Harjani <ritesh.list@gmail.com>,
+ Shrikanth Hegde <sshegde@linux.ibm.com>,
+ Alexander Gordeev <agordeev@linux.ibm.com>,
+ Gerald Schaefer <gerald.schaefer@linux.ibm.com>,
+ Heiko Carstens <hca@linux.ibm.com>, Vasily Gorbik <gor@linux.ibm.com>,
+ Christian Borntraeger <borntraeger@linux.ibm.com>,
+ Sven Schnelle <svens@linux.ibm.com>, Ingo Molnar <mingo@redhat.com>,
+ Borislav Petkov <bp@alien8.de>, Dave Hansen <dave.hansen@linux.intel.com>,
+ x86@kernel.org, "H . Peter Anvin" <hpa@zytor.com>,
+ Kiryl Shutsemau <kas@kernel.org>,
+ Rick Edgecombe <rick.p.edgecombe@intel.com>,
+ "K . Y . Srinivasan" <kys@microsoft.com>,
+ Haiyang Zhang <haiyangz@microsoft.com>, Wei Liu <wei.liu@kernel.org>,
+ Dexuan Cui <decui@microsoft.com>, Long Li <longli@microsoft.com>,
+ Paolo Bonzini <pbonzini@redhat.com>,
+ Vitaly Kuznetsov <vkuznets@redhat.com>, Andy Lutomirski <luto@kernel.org>,
+ Peter Zijlstra <peterz@infradead.org>, dri-devel@lists.freedesktop.org,
+ iommu@lists.linux.dev, linaro-mm-sig@lists.linaro.org,
+ linux-arm-kernel@lists.infradead.org, linux-media@vger.kernel.org,
+ linux-mm@kvack.org, kvmarm@lists.linux.dev, patches@lists.linux.dev
+Subject: [PATCH v10 05/13] dma-contiguous: Derive shared alignment from DMA
+ attributes
+Date: Mon, 16 Nov 2026 14:41:28 +0530
+Message-ID: <20261116091137.94252-6-aneesh.kumar@kernel.org>
+X-Mailer: git-send-email 2.43.0
+In-Reply-To: <20261116091137.94252-1-aneesh.kumar@kernel.org>
+References: <20261116091137.94252-1-aneesh.kumar@kernel.org>
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park,
- 6 krs Bertel Jungin Aukio 5, 02600 Espoo, Finland
 Content-Transfer-Encoding: 8bit
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -86,119 +91,285 @@ List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-16.8 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
-	DKIM_SIGNED,DKIM_VALID,HEADER_FROM_DIFFERENT_DOMAINS,
+X-Spam-Status: No, score=-18.8 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
+	DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
 	INCLUDES_CR_TRAILER,INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,
-	SPF_PASS,USER_AGENT_GIT autolearn=unavailable autolearn_force=no
-	version=4.0.1
+	SPF_PASS,USER_AGENT_GIT autolearn=ham autolearn_force=no version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-From: Ville Syrjälä <ville.syrjala@linux.intel.com>
+Confidential-computing shared DMA allocations require CMA backing memory
+to be aligned to the architecture shared-memory granule. Passing explicit
+alignment orders through the DMA allocation stack exposes this derived
+constraint to callers and requires separate preferred and mandatory values.
 
-If no planes appear in an async flip commit there will be
-no flip done interrupt. Complete the commit by hand in
-that case. Shouldn't really matter where we do this exactly,
-but just before the wait stuff near the end of the commit
-seems reasonable.
+The DMA core already records whether an allocation needs shared backing in
+__DMA_ATTR_ALLOC_CC_SHARED. Pass allocation attributes to the DMA-contiguous
+entry points and derive the mandatory alignment there before calling CMA.
+Preserve the existing alignment clamping for ordinary allocations, while
+rejecting shared allocations whose granule exceeds CONFIG_CMA_ALIGNMENT so
+callers can fall back to the page allocator.
 
-This can't happen via the legacy page flip ioctl path,
-but nothing prevents fully no-op (as far as planes are
-concerned) "async flips" via the atomic ioctl.
-
-TODO: igt tests for atomic+async uapi don't really exist :(
-
-Cc: amd-gfx@lists.freedesktop.org
-Cc: André Almeida <andrealmeid@igalia.com>
-Cc: Boris Brezillon <bbrezillon@kernel.org>
-Cc: Christopher Snowhill <chris@kode54.net>
-Cc: Dave Stevenson <dave.stevenson@raspberrypi.com>
-Cc: Dharma Balasubiramani <dharma.b@microchip.com>
-Cc: Dmitry Baryshkov <lumag@kernel.org>
-Cc: freedreno@lists.freedesktop.org
-Cc: Gustavo Padovan <gustavo.padovan@collabora.com>
-Cc: Huacai Chen <chenhuacai@kernel.org>
-Cc: Icenowy Zheng <zhengxingda@iscas.ac.cn>
-Cc: intel-gfx@lists.freedesktop.org
-Cc: intel-xe@lists.freedesktop.org
-Cc: Jianmin Lv <lvjianmin@loongson.cn>
-Cc: linux-arm-msm@vger.kernel.org
-Cc: linux-mediatek@lists.infradead.org
-Cc: linux-rockchip@lists.infradead.org
-Cc: linux-tegra@vger.kernel.org
-Cc: Liviu Dudau <liviu.dudau@arm.com>
-Cc: Maíra Canal <mcanal@igalia.com>
-Cc: Manikandan Muralidharan <manikandan.m@microchip.com>
-Cc: Maxime Ripard <mripard@kernel.org>
-Cc: Mingcong Bai <jeffbai@aosc.io>
-Cc: nouveau@lists.freedesktop.org
-Cc: Qianhai Wu <wuqianhai@loongson.cn>
-Cc: Raspberry Pi Kernel Maintenance <kernel-list@raspberrypi.com>
-Cc: Simon Ser <contact@emersion.fr>
-Cc: wayland-devel@lists.freedesktop.org
-Cc: Xaver Hugl <xaver.hugl@kde.org>
-Cc: Xi Ruoyao <xry111@xry111.site>
-Signed-off-by: Ville Syrjälä <ville.syrjala@linux.intel.com>
+Cc: Russell King <linux@armlinux.org.uk>
+Cc: Robin Murphy <robin.murphy@arm.com>
+Cc: "Joerg Roedel (AMD)" <joro@8bytes.org>
+Cc: Will Deacon <will@kernel.org>
+Cc: Marek Szyprowski <m.szyprowski@samsung.com>
+Cc: Andrew Morton <akpm@linux-foundation.org>
+Cc: Baoquan He <baoquan.he@linux.dev>
+Cc: Mike Rapoport <rppt@kernel.org>
+Cc: Pasha Tatashin <pasha.tatashin@soleen.com>
+Cc: Pratyush Yadav <pratyush@kernel.org>
+Signed-off-by: Aneesh Kumar K.V (Arm) <aneesh.kumar@kernel.org>
 ---
- drivers/gpu/drm/i915/display/intel_display.c | 38 ++++++++++++++++++++
- 1 file changed, 38 insertions(+)
+ arch/arm/mm/dma-mapping.c   |  5 +++--
+ drivers/iommu/dma-iommu.c   |  2 +-
+ include/linux/dma-map-ops.h |  9 ++++----
+ kernel/dma/contiguous.c     | 41 +++++++++++++++++++++++++++----------
+ kernel/dma/direct.c         |  2 +-
+ kernel/dma/ops_helpers.c    |  2 +-
+ kernel/dma/pool.c           |  2 +-
+ kernel/kexec_file.c         |  3 ++-
+ 8 files changed, 44 insertions(+), 22 deletions(-)
 
-diff --git a/drivers/gpu/drm/i915/display/intel_display.c b/drivers/gpu/drm/i915/display/intel_display.c
-index f4d9148efde3..afaaf3fc4646 100644
---- a/drivers/gpu/drm/i915/display/intel_display.c
-+++ b/drivers/gpu/drm/i915/display/intel_display.c
-@@ -1190,6 +1190,42 @@ static void intel_crtc_disable_flip_done(struct intel_atomic_state *state,
- 	}
+diff --git a/arch/arm/mm/dma-mapping.c b/arch/arm/mm/dma-mapping.c
+index fb2eb0ed7bb8..22888880b832 100644
+--- a/arch/arm/mm/dma-mapping.c
++++ b/arch/arm/mm/dma-mapping.c
+@@ -398,7 +398,8 @@ static void *__alloc_from_contiguous(struct device *dev, size_t size,
+ 	struct page *page;
+ 	void *ptr = NULL;
+ 
+-	page = dma_alloc_from_contiguous(dev, count, order, gfp & __GFP_NOWARN);
++	page = dma_alloc_from_contiguous(dev, count, order, 0,
++					 gfp & __GFP_NOWARN);
+ 	if (!page)
+ 		return NULL;
+ 
+@@ -866,7 +867,7 @@ static struct page **__iommu_alloc_buffer(struct device *dev, size_t size,
+ 		unsigned long order = get_order(size);
+ 		struct page *page;
+ 
+-		page = dma_alloc_from_contiguous(dev, count, order,
++		page = dma_alloc_from_contiguous(dev, count, order, 0,
+ 						 gfp & __GFP_NOWARN);
+ 		if (!page)
+ 			goto error;
+diff --git a/drivers/iommu/dma-iommu.c b/drivers/iommu/dma-iommu.c
+index 78742aeba932..2d2781910740 100644
+--- a/drivers/iommu/dma-iommu.c
++++ b/drivers/iommu/dma-iommu.c
+@@ -1646,7 +1646,7 @@ static void *iommu_dma_alloc_pages(struct device *dev, size_t size,
+ 	struct page *page = NULL;
+ 	void *cpu_addr;
+ 
+-	page = dma_alloc_contiguous(dev, alloc_size, gfp);
++	page = dma_alloc_contiguous(dev, alloc_size, gfp, 0);
+ 	if (!page) {
+ 		cpu_addr = alloc_pages_exact_nid(node, alloc_size, gfp);
+ 		if (!cpu_addr)
+diff --git a/include/linux/dma-map-ops.h b/include/linux/dma-map-ops.h
+index afaf2c12189b..7a83942a10f3 100644
+--- a/include/linux/dma-map-ops.h
++++ b/include/linux/dma-map-ops.h
+@@ -99,10 +99,11 @@ int __init dma_contiguous_reserve_area(phys_addr_t size, phys_addr_t base,
+ 		phys_addr_t limit, struct cma **res_cma, bool fixed);
+ 
+ struct page *dma_alloc_from_contiguous(struct device *dev, size_t count,
+-				       unsigned int order, bool no_warn);
++		unsigned int order, unsigned long attrs, bool no_warn);
+ bool dma_release_from_contiguous(struct device *dev, struct page *pages,
+ 				 int count);
+-struct page *dma_alloc_contiguous(struct device *dev, size_t size, gfp_t gfp);
++struct page *dma_alloc_contiguous(struct device *dev, size_t size,
++				  gfp_t gfp, unsigned long attrs);
+ void dma_free_contiguous(struct device *dev, struct page *page, size_t size);
+ 
+ void dma_contiguous_early_fixup(phys_addr_t base, unsigned long size);
+@@ -125,7 +126,7 @@ static inline int dma_contiguous_reserve_area(phys_addr_t size,
+ 	return -ENOSYS;
+ }
+ static inline struct page *dma_alloc_from_contiguous(struct device *dev,
+-		size_t count, unsigned int order, bool no_warn)
++		size_t count, unsigned int order, unsigned long attrs, bool no_warn)
+ {
+ 	return NULL;
+ }
+@@ -136,7 +137,7 @@ static inline bool dma_release_from_contiguous(struct device *dev,
+ }
+ /* Use fallback alloc() and free() when CONFIG_DMA_CMA=n */
+ static inline struct page *dma_alloc_contiguous(struct device *dev, size_t size,
+-		gfp_t gfp)
++		gfp_t gfp, unsigned long attrs)
+ {
+ 	return NULL;
+ }
+diff --git a/kernel/dma/contiguous.c b/kernel/dma/contiguous.c
+index 90937dc7c627..e593ecbc64f4 100644
+--- a/kernel/dma/contiguous.c
++++ b/kernel/dma/contiguous.c
+@@ -39,6 +39,7 @@
+ 
+ #include <asm/page.h>
+ 
++#include <linux/cc_shared.h>
+ #include <linux/memblock.h>
+ #include <linux/err.h>
+ #include <linux/sizes.h>
+@@ -357,19 +358,29 @@ int __init dma_contiguous_reserve_area(phys_addr_t size, phys_addr_t base,
+  * dma_alloc_from_contiguous() - allocate pages from contiguous area
+  * @dev:   Pointer to device for which the allocation is performed.
+  * @count: Requested number of pages.
+- * @align: Requested alignment of pages (in PAGE_SIZE order).
++ * @align: Preferred alignment of pages (in PAGE_SIZE order).
++ * @attrs: DMA allocation attributes.
+  * @no_warn: Avoid printing message about failed allocation.
+  *
+  * This function allocates memory buffer for specified device. It uses
+  * device specific contiguous memory area if available or the default
+  * global one. Requires architecture specific dev_get_cma_area() helper
+  * function.
++ *
++ * The preferred alignment is capped at CONFIG_CMA_ALIGNMENT. The internal
++ * shared-allocation attribute requires at least the architecture shared
++ * granule alignment and fails if that exceeds the CMA alignment limit.
+  */
+ struct page *dma_alloc_from_contiguous(struct device *dev, size_t count,
+-				       unsigned int align, bool no_warn)
++		unsigned int align, unsigned long attrs, bool no_warn)
+ {
+-	if (align > CONFIG_CMA_ALIGNMENT)
+-		align = CONFIG_CMA_ALIGNMENT;
++	unsigned int required_align = 0;
++
++	if (attrs & __DMA_ATTR_ALLOC_CC_SHARED)
++		required_align = get_order(cc_shared_granule_size());
++	if (required_align > CONFIG_CMA_ALIGNMENT)
++		return NULL;
++	align = min(max(align, required_align), CONFIG_CMA_ALIGNMENT);
+ 
+ 	return cma_alloc(dev_get_cma_area(dev), count, align, no_warn);
+ }
+@@ -390,10 +401,9 @@ bool dma_release_from_contiguous(struct device *dev, struct page *pages,
+ 	return cma_release(dev_get_cma_area(dev), pages, count);
  }
  
-+static void intel_crtc_complete_noop_async_flip(struct intel_crtc_state *crtc_state)
-+{
-+	struct intel_display *display = to_intel_display(crtc_state);
-+	struct intel_crtc *crtc = to_intel_crtc(crtc_state->uapi.crtc);
-+
-+	if (!crtc_state->do_async_flip)
-+		return;
-+
-+	/*
-+	 * If there are planes actually performing the async flip then
-+	 * the commit will be completed via the flip done interrupt
-+	 * handler. For a fully no-op "async flip" the commit must
-+	 * be completed by hand as no interrupt will be raised.
-+	 */
-+	if (crtc_state->update_planes)
-+		return;
-+
-+	if (crtc_state->uapi.event) {
-+		spin_lock_irq(&display->drm->event_lock);
-+		drm_crtc_send_vblank_event(&crtc->base,
-+					   crtc_state->uapi.event);
-+		spin_unlock_irq(&display->drm->event_lock);
-+
-+		crtc_state->uapi.event = NULL;
-+	}
-+}
-+
-+static void intel_atomic_complete_noop_async_flips(struct intel_atomic_state *state)
-+{
-+	struct intel_crtc_state *new_crtc_state;
-+	struct intel_crtc *crtc;
-+
-+	for_each_new_intel_crtc_in_state(state, crtc, new_crtc_state)
-+		intel_crtc_complete_noop_async_flip(new_crtc_state);
-+}
-+
- static void intel_crtc_async_flip_disable_wa(struct intel_atomic_state *state,
- 					     struct intel_crtc *crtc)
+-static struct page *cma_alloc_aligned(struct cma *cma, size_t size, gfp_t gfp)
++static struct page *cma_alloc_aligned(struct cma *cma, size_t size, gfp_t gfp,
++				      unsigned int align)
  {
-@@ -7852,6 +7888,8 @@ static void intel_atomic_commit_tail(struct intel_atomic_state *state)
- 	if (intel_display_power_dc3co_allowed(display))
- 		intel_cmtg_program(state);
+-	unsigned int align = min(get_order(size), CONFIG_CMA_ALIGNMENT);
+-
+ 	return cma_alloc(cma, size >> PAGE_SHIFT, align, gfp & __GFP_NOWARN);
+ }
  
-+	intel_atomic_complete_noop_async_flips(state);
-+
- 	intel_wait_for_vblank_workers(state);
+@@ -402,6 +412,7 @@ static struct page *cma_alloc_aligned(struct cma *cma, size_t size, gfp_t gfp)
+  * @dev:   Pointer to device for which the allocation is performed.
+  * @size:  Requested allocation size.
+  * @gfp:   Allocation flags.
++ * @attrs: DMA allocation attributes.
+  *
+  * tries to use device specific contiguous memory area if available, or it
+  * tries to use per-numa cma, if the allocation fails, it will fallback to
+@@ -412,8 +423,11 @@ static struct page *cma_alloc_aligned(struct cma *cma, size_t size, gfp_t gfp)
+  * there is no need to waste CMA pages for that kind; it also helps reduce
+  * fragmentations.
+  */
+-struct page *dma_alloc_contiguous(struct device *dev, size_t size, gfp_t gfp)
++struct page *dma_alloc_contiguous(struct device *dev, size_t size,
++				  gfp_t gfp, unsigned long attrs)
+ {
++	unsigned int required_align = 0;
++	unsigned int align = get_order(size);
+ #ifdef CONFIG_DMA_NUMA_CMA
+ 	int nid = dev_to_node(dev);
+ #endif
+@@ -421,8 +435,13 @@ struct page *dma_alloc_contiguous(struct device *dev, size_t size, gfp_t gfp)
+ 	/* CMA can be used only in the context which permits sleeping */
+ 	if (!gfpflags_allow_blocking(gfp))
+ 		return NULL;
++	if (attrs & __DMA_ATTR_ALLOC_CC_SHARED)
++		required_align = get_order(cc_shared_granule_size());
++	if (required_align > CONFIG_CMA_ALIGNMENT)
++		return NULL;
++	align = min(max(align, required_align), CONFIG_CMA_ALIGNMENT);
+ 	if (dev->cma_area)
+-		return cma_alloc_aligned(dev->cma_area, size, gfp);
++		return cma_alloc_aligned(dev->cma_area, size, gfp, align);
+ 	if (size <= PAGE_SIZE)
+ 		return NULL;
  
- 	/* FIXME: We should call drm_atomic_helper_commit_hw_done() here
+@@ -431,7 +450,7 @@ struct page *dma_alloc_contiguous(struct device *dev, size_t size, gfp_t gfp)
+ 		struct cma *cma = dma_contiguous_numa_area[nid];
+ 		struct page *page;
+ 		if (cma) {
+-			page = cma_alloc_aligned(cma, size, gfp);
++			page = cma_alloc_aligned(cma, size, gfp, align);
+ 			if (page)
+ 				return page;
+ 		}
+@@ -440,7 +459,7 @@ struct page *dma_alloc_contiguous(struct device *dev, size_t size, gfp_t gfp)
+ 	if (!dma_contiguous_default_area)
+ 		return NULL;
+ 
+-	return cma_alloc_aligned(dma_contiguous_default_area, size, gfp);
++	return cma_alloc_aligned(dma_contiguous_default_area, size, gfp, align);
+ }
+ 
+ /**
+diff --git a/kernel/dma/direct.c b/kernel/dma/direct.c
+index 596c90e8f890..7e71f96b6ffd 100644
+--- a/kernel/dma/direct.c
++++ b/kernel/dma/direct.c
+@@ -125,7 +125,7 @@ static struct page *__dma_direct_alloc_pages(struct device *dev, size_t size,
+ 	WARN_ON_ONCE(!PAGE_ALIGNED(size));
+ 
+ 	gfp |= dma_direct_optimal_gfp_mask(dev, &phys_limit);
+-	page = dma_alloc_contiguous(dev, size, gfp);
++	page = dma_alloc_contiguous(dev, size, gfp, 0);
+ 	if (page) {
+ 		if (dma_coherent_ok(dev, page_to_phys(page), size) &&
+ 		    (allow_highmem || !PageHighMem(page)))
+diff --git a/kernel/dma/ops_helpers.c b/kernel/dma/ops_helpers.c
+index 5cdf3f60cf47..11453e5ee0d3 100644
+--- a/kernel/dma/ops_helpers.c
++++ b/kernel/dma/ops_helpers.c
+@@ -66,7 +66,7 @@ struct page *dma_common_alloc_pages(struct device *dev, size_t size,
+ 	struct page *page;
+ 	phys_addr_t phys;
+ 
+-	page = dma_alloc_contiguous(dev, size, gfp);
++	page = dma_alloc_contiguous(dev, size, gfp, 0);
+ 	if (!page) {
+ 		void *va = alloc_pages_exact_nid(dev_to_node(dev), size, gfp);
+ 
+diff --git a/kernel/dma/pool.c b/kernel/dma/pool.c
+index 00f422a1e896..70b7f64b17ab 100644
+--- a/kernel/dma/pool.c
++++ b/kernel/dma/pool.c
+@@ -99,7 +99,7 @@ static int atomic_pool_expand(struct dma_gen_pool *dma_pool, size_t pool_size,
+ 		pool_size = 1 << (PAGE_SHIFT + order);
+ 		if (cma_in_zone(gfp))
+ 			page = dma_alloc_from_contiguous(NULL, 1 << order,
+-							 order, false);
++							 order, 0, false);
+ 		if (!page)
+ 			page = alloc_pages(gfp | __GFP_NOWARN, order);
+ 	} while (!page && order-- > 0);
+diff --git a/kernel/kexec_file.c b/kernel/kexec_file.c
+index b668ce8d68ee..5bcba818f046 100644
+--- a/kernel/kexec_file.c
++++ b/kernel/kexec_file.c
+@@ -702,7 +702,8 @@ static int kexec_alloc_contig(struct kexec_buf *kbuf)
+ 	if (kbuf->image->type == KEXEC_TYPE_CRASH)
+ 		return -EPERM;
+ 
+-	p = dma_alloc_from_contiguous(NULL, nr_pages, get_order(kbuf->buf_align), true);
++	p = dma_alloc_from_contiguous(NULL, nr_pages,
++				      get_order(kbuf->buf_align), 0, true);
+ 	if (!p)
+ 		return -ENOMEM;
+ 
 -- 
-2.56.0
+2.43.0
 
