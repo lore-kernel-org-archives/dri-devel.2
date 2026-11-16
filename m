@@ -2,54 +2,54 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C8DF7606A31C
-	for <dri-devel@archiver.kernel.org>; Mon, 16 Nov 2026 10:34:53 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4CFCE606A323
+	for <dri-devel@archiver.kernel.org>; Mon, 16 Nov 2026 10:34:57 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=cOJYpv1i
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Cq2fncV7
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id AEA7010EF2B;
-	Mon, 16 Nov 2026 10:34:46 +0000 (UTC)
-Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 704AA10EF21
- for <dri-devel@lists.freedesktop.org>; Mon, 16 Nov 2026 10:34:05 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 4B5CA10EF2C;
+	Mon, 16 Nov 2026 10:34:51 +0000 (UTC)
+Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 6663010EF39
+ for <dri-devel@lists.freedesktop.org>; Mon, 16 Nov 2026 10:34:12 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id 594E1434F8;
- Mon, 16 Nov 2026 10:34:05 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id B16781F000C5;
- Mon, 16 Nov 2026 10:34:04 +0000 (UTC)
+ by tor.source.kernel.org (Postfix) with ESMTP id DFAB460DC0;
+ Mon, 16 Nov 2026 10:34:11 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 117CC1F000C4;
+ Mon, 16 Nov 2026 10:34:10 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1794825245;
- bh=4kTwAWXb2fWyNK1QLT4lc891ow5rzqar8ZHYSq9im2I=;
+ s=k20260515; t=1794825251;
+ bh=LnrrbU7keYlTIsVcDs8eWvd96fcxCdK4v5wxQ0dTnmI=;
  h=From:Date:Subject:References:In-Reply-To:To:Cc;
- b=cOJYpv1igPD/BBsqq2mZ9ZDu9rBwXmtATtRNPXN7nd5LbBPPPM2VA6z9ptGBR+Vgz
- HIgfITW6a5mjg//B+38J1cIOxBXXJRKoXkpecr/xzxThzAU85+hhFZuErRpMasl5v3
- 7UgJQ4zeCVG5wMqhDHMKK9ImOyQuxzT7xBesvn4OG8lWU8GYB8mnDK/FKgmYGQWHbm
- QUBlQOgxe+kglAP3C3GpgetUNcneYXE+awdVoKT56gvlSVo53X6Xe8Fy4FsJWS1mBb
- 8BawiILu+7a0obYK8cR+rDjHyQtdvCNaoR0lQ/2kbjbBajBSdWRWRXwHGyDgksRnEh
- FN9pdmIkdTFIA==
+ b=Cq2fncV787RuHm2i2ZisUU2TxPtXFrtma+H4eJBnqtIbAzxCb1gigh9IgI3UPx9ge
+ D6r39JzTPkJhS0glBPdUQCTxBqo5zibszIzVqA6cw47Ndj0SNiDkqYTbq1wzVVUvRJ
+ T4lmy2bAHr+aCRNg94H3eTlMrFH9Pwm68svi/PDI31T+i5ISJ3Jjo1swaVwlozvjs8
+ MTg06vcQgxw9rZcWYGUpE18iW1I75yUEFfIkEQh8pfBsobaL7HIi9YuFpK0BNQadvV
+ 3AuYGAaSSLfo3oxQPGa1Rx5kM8rePhzogNYFjepKDbrxOo/SCCxVWuAYzUDmgY/Zik
+ isGyX1NhvEBVw==
 From: Maxime Ripard <mripard@kernel.org>
-Date: Mon, 16 Nov 2026 11:31:14 +0100
-Subject: [PATCH v2 58/64] drm/udl: Switch to
+Date: Mon, 16 Nov 2026 11:31:16 +0100
+Subject: [PATCH v2 60/64] drm/verisilicon: Switch to
  drm_mode_config_create_initial_state
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20261116-drm-no-more-config-reset-v2-58-0bb471f4d1e0@kernel.org>
+Message-Id: <20261116-drm-no-more-config-reset-v2-60-0bb471f4d1e0@kernel.org>
 References: <20261116-drm-no-more-config-reset-v2-0-0bb471f4d1e0@kernel.org>
 In-Reply-To: <20261116-drm-no-more-config-reset-v2-0-0bb471f4d1e0@kernel.org>
 To: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
  Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>, 
  Simona Vetter <simona@ffwll.ch>
 Cc: dri-devel@lists.freedesktop.org, Maxime Ripard <mripard@kernel.org>, 
- Dave Airlie <airlied@redhat.com>, Sean Paul <sean@poorly.run>
+ Icenowy Zheng <zhengxingda@iscas.ac.cn>
 X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=openpgp-sha256; l=1239; i=mripard@kernel.org;
- h=from:subject:message-id; bh=hQj/+9EcYWLaCWd8D0NpwSfwZD+oBv59tNCi2js147g=;
- b=owGbwMvMwCmsHn9OcpHtvjLG02pJDFm/bke6XrraqRGd3/j66bqudpGK0vYPXAuyvJzeTPu0Y
- E65waENHVNZGIQ5GWTFFFmeyISdXt6+uMrBfuUPmDmsTCBDGLg4BWAiojsY6zN+nSufZR7Vuy+b
- 3aJRVLs/r+i/4pVNnp6bD/aLJ2xuM5O0MhXIVKzXk/sS0/V/hlc8Y63IFuNDG80DmC8ETjPOu/n
- z0c55171nHDym7JMSM0nc8p7Nu+V/F07c/2HnSytvX6sF9qsB
+X-Developer-Signature: v=1; a=openpgp-sha256; l=1294; i=mripard@kernel.org;
+ h=from:subject:message-id; bh=CqaLY4XBlon9SHzhv5QX519qlSr6GY7QhDVdEVtqTzE=;
+ b=owGbwMvMwCmsHn9OcpHtvjLG02pJDFm/bkftvLFwWprcPLOKKS3ruwsz5inMuCNgJRyTmH/LX
+ rv5qc2UjqksDMKcDLJiiixPZMJOL29fXOVgv/IHzBxWJpAhDFycAjCRo0yMDfuaL/6KCLq8uIp7
+ 7uV1jkeSv+2cs55F4e3lyJeMvNcfC03MUvRafU1Txbrh0K1/fXsvFTE2zGKyObLjl8fz/17H9P5
+ 7tnM91w+bJHTmd97SuiS2+5ksP88cmbbDs0r370VtkUcvttxzBgA=
 X-Developer-Key: i=mripard@kernel.org; a=openpgp;
  fpr=BE5675C37E818C8B5764241C254BCFC56BF6CE8D
 X-BeenThere: dri-devel@lists.freedesktop.org
@@ -83,30 +83,30 @@ Switch to drm_mode_config_create_initial_state().
 
 Signed-off-by: Maxime Ripard <mripard@kernel.org>
 ---
-Cc: Dave Airlie <airlied@redhat.com>
-Cc: Sean Paul <sean@poorly.run>
+Cc: Icenowy Zheng <zhengxingda@iscas.ac.cn>
 ---
- drivers/gpu/drm/udl/udl_modeset.c | 4 +++-
+ drivers/gpu/drm/verisilicon/vs_drm.c | 4 +++-
  1 file changed, 3 insertions(+), 1 deletion(-)
 
-diff --git a/drivers/gpu/drm/udl/udl_modeset.c b/drivers/gpu/drm/udl/udl_modeset.c
-index d8a617e2d2ea..02138457a97b 100644
---- a/drivers/gpu/drm/udl/udl_modeset.c
-+++ b/drivers/gpu/drm/udl/udl_modeset.c
-@@ -538,10 +538,12 @@ int udl_modeset_init(struct udl_device *udl)
+diff --git a/drivers/gpu/drm/verisilicon/vs_drm.c b/drivers/gpu/drm/verisilicon/vs_drm.c
+index fd259d53f49f..3f93cd43c623 100644
+--- a/drivers/gpu/drm/verisilicon/vs_drm.c
++++ b/drivers/gpu/drm/verisilicon/vs_drm.c
+@@ -128,11 +128,13 @@ int vs_drm_initialize(struct vs_dc *dc, struct platform_device *pdev)
+ 	vs_mode_config_init(drm);
  
- 	ret = drm_connector_attach_encoder(connector, encoder);
- 	if (ret)
- 		return ret;
+ 	/* Enable connectors polling */
+ 	drm_kms_helper_poll_init(drm);
  
--	drm_mode_config_reset(dev);
-+	ret = drm_mode_config_create_initial_state(dev);
+-	drm_mode_config_reset(drm);
++	ret = drm_mode_config_create_initial_state(drm);
 +	if (ret)
-+		return ret;
- 	drmm_kms_helper_poll_init(dev);
++		goto err_fini_poll;
  
- 	return 0;
- }
+ 	ret = drm_dev_register(drm, 0);
+ 	if (ret)
+ 		goto err_fini_poll;
+ 
 
 -- 
 2.56.1
