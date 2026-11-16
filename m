@@ -2,42 +2,43 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E3F4B606A31C
-	for <dri-devel@archiver.kernel.org>; Mon, 16 Nov 2026 16:11:37 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CB41F606A31C
+	for <dri-devel@archiver.kernel.org>; Mon, 16 Nov 2026 16:11:44 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=amd.com header.i=@amd.com header.a=rsa-sha256 header.s=selector1 header.b=BUqpzaBU
+	dkim=pass (1024-bit key, unprotected) header.d=amd.com header.i=@amd.com header.a=rsa-sha256 header.s=selector1 header.b=reM2ZjY4
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 3354810E835;
-	Mon, 16 Nov 2026 16:11:29 +0000 (UTC)
-Received: from SJ2PR03CU001.outbound.protection.outlook.com
- (mail-westusazon11012047.outbound.protection.outlook.com [52.101.43.47])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 81F3610E835;
- Mon, 16 Nov 2026 16:11:22 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id C3CD010F244;
+	Mon, 16 Nov 2026 16:11:38 +0000 (UTC)
+Received: from SA9PR02CU001.outbound.protection.outlook.com
+ (mail-southcentralusazon11013046.outbound.protection.outlook.com
+ [40.93.196.46])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 0672810F2CE;
+ Mon, 16 Nov 2026 16:11:25 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=ifwYybOTsRd8XXbHSahSAp1fUH7Zmh9cnr4dKZZBV8noBXQGJDh5NOcYiCVllXyXIV1puvDmQvz0FHMt3wdgfxdQYjxgknyXeyQ3ruqtgjwa0+AWtCR0bphlhh2j4kKLO2Pp7i6cF3Yat8PPhreQ+a67Mnan5UlHSfzZ6Iz4DVjDqAWNU3yYXW2fGLspu8WwXOixvcMdql8cIu/F2nhkIlA8kzuxtJHZ5tryrV+XjhwTdRUA2fjN9LuaZGHVdDKX0Yqb+46pU7DinpJMKdiQbsYs61WjGchlCMqkw7XbcFqTEJbHqhi+kmMyFcb27pVgcpKxzB1qcKWM96ZUpRNgiQ==
+ b=Ouh2VAuudoW3tP/SR7BJi9pKMkud5aubfYAzbo0+8ZiO4z26YfUf0Kwr4HyTXdJSmV3iSmagCpanDD5iTQInhV+V0PDotzQt0l8siItlaCUl9XGOToo1E1iHXnnsHoaT3lLz/h+9RTCnELIGjOqX0ReU8KpsK8g9/40M+Fm8335AREE8eI+sQu9KpuY/gTtSbx+9geB7Jf0Z8ciAru4u7ag3gu1OzqlG1vZ8PeYF0QYBv5Ql8nnjer4vmOX7UbMkkB3xzUL9Wl9LtfbsuJnrFGJSu4hUj6MEun1umUtRo0jkxe3ELicjrZt7+Nv9jZAwH5QQvyNWyM1ABZ1UI4bPrQ==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=1CYGVv49n4roaq+kYmssLi+IvD7btNE0VFtk2rNMQcs=;
- b=PwHRW2y97u+r9xV5lJrzcCf7RRLuSsvE2ZAmmSli121S+NTR+7+vEv31bwPLhRXLIGHw/pI2PAVPMDNMRfA//G2bNCN9m9YZoimipfOCnbuumbny7VXfiA87qVjsCJKY9iuMCUJUneeO9kz3Xr1QWIehbXYGDa/LIfBzcFeZ1futtevXB1jPKeKOYwj+Qrxy6x5lh7ztgylKa+LzP/Y4N7BWfvSl5Svi8ER67O6dfa7+1mmdV9zaCcRmY6fiUA+BR7qyNupcGEbCNjbxfcvh2jOezR6pJF24KpSMUoHY1Chi0qhtIZonm9oecNHm/cGfDQcfPuN3J4Hq/vW4YuRZbw==
+ bh=LHpl87zmF1/4nKJH4W4E7I3trP5FZmdyQm1H9rGiW2k=;
+ b=NScXw6tyx51GYPND4TB9FCDL/YcEggeqPLSfk2JzkctG9wrod91nZ7QNvVag0ij9rWlXqj+mCoDlLn6SQnGSw+oAxtjcysO2mn9DtGKPE7DrBPs7Xjan7Vp0gRDCI2fBXTfFlv2FyLc14Im/ZIblqsi2Ql0irYyhbmQxJzx0KD3sBpqxhD5/mA3ZdCnuBrtwqAJX/Lq7PZxD5ZBsvtIhfEUv07DvRv6wXssBYIrBwyW7mqMtinjFLwJQ/je2++B4JTuWKXNCAlZPAe2pq+KdBO16Rj+zWS9c1/ArArISTxArKQbi/wexPwf6KtP+e67RXye5QLRoNsbvFDDOdXOtug==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
  165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
  dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
  header.from=amd.com; dkim=none (message not signed); arc=none (0)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=1CYGVv49n4roaq+kYmssLi+IvD7btNE0VFtk2rNMQcs=;
- b=BUqpzaBUEr4RdJEvHHn0b0ldpqV3MNYi85UHYT5VrW4+tNsdk95SEG+Pfwjhhics9dgUY/+CM/IR3yMSIsHz34RvdrFSYkMN15nZ4RhQkomLb569p9VTAyxSxOpv7ZRZ4ojCUjVtVUHwLcPrCwMg93JKOxPUsDToEXeeHszjRTs=
-Received: from BLAPR05CA0020.namprd05.prod.outlook.com (2603:10b6:208:36e::23)
- by SA1PR12MB7101.namprd12.prod.outlook.com (2603:10b6:806:29d::16)
- with Microsoft SMTP Server (version=TLS1_2,
+ bh=LHpl87zmF1/4nKJH4W4E7I3trP5FZmdyQm1H9rGiW2k=;
+ b=reM2ZjY4SI77nPIjOS+mkgBeEp6agKH2FKag47LhN+0397skXHwz6kgkyk1OYM4zNImSIVvbj2698lwQAXu2hjR1ezwJJ0s+AxdgP+8n4T2W+fhpwkEut3ZW0ADFi0naTM28nH2h9IqxV6JqN96TWAe0/oC49i0m3EOKNYUwrx4=
+Received: from BN0PR04CA0196.namprd04.prod.outlook.com (2603:10b6:408:e9::21)
+ by DM4PR12MB5914.namprd12.prod.outlook.com (2603:10b6:8:67::21) with
+ Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.615.14; Mon, 16 Nov
  2026 16:11:16 +0000
-Received: from LV8PEPF0000005C.namprd02.prod.outlook.com
- (2603:10b6:208:36e:cafe::23) by BLAPR05CA0020.outlook.office365.com
- (2603:10b6:208:36e::23) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.21.639.7 via Frontend Transport; Mon, 16
- Nov 2026 16:11:16 +0000
+Received: from LV8PEPF00000059.namprd02.prod.outlook.com
+ (2603:10b6:408:e9:cafe::17) by BN0PR04CA0196.outlook.office365.com
+ (2603:10b6:408:e9::21) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.21.615.13 via Frontend Transport; Mon,
+ 16 Nov 2026 16:11:15 +0000
 X-MS-Exchange-Authentication-Results: mx.microsoft.com 1; spf=pass (sender IP
  is 165.204.84.17) smtp.mailfrom=amd.com;
  dkim=none (message not signed)
@@ -46,13 +47,13 @@ Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
  165.204.84.17 as permitted sender) receiver=protection.outlook.com;
  client-ip=165.204.84.17; helo=satlexmb07.amd.com; pr=C
 Received: from satlexmb07.amd.com (165.204.84.17) by
- LV8PEPF0000005C.mail.protection.outlook.com (10.167.245.132) with Microsoft
+ LV8PEPF00000059.mail.protection.outlook.com (10.167.245.133) with Microsoft
  SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.615.4 via Frontend Transport; Mon, 16 Nov 2026 16:11:16 +0000
+ 15.21.615.4 via Frontend Transport; Mon, 16 Nov 2026 16:11:15 +0000
 Received: from alysaliu-dev.amd.com (10.180.168.240) by satlexmb07.amd.com
  (10.181.42.216) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.57; Mon, 16 Nov
- 2026 10:11:15 -0600
+ 2026 10:11:13 -0600
 From: William Palacek <William.Palacek@amd.com>
 To: <dri-devel@lists.freedesktop.org>
 CC: <intel-xe@lists.freedesktop.org>, Matthew Auld <matthew.auld@intel.com>,
@@ -60,13 +61,10 @@ CC: <intel-xe@lists.freedesktop.org>, Matthew Auld <matthew.auld@intel.com>,
  <sanjay.kumar.yadav@intel.com>, Joel Fernandes <joelagnelf@nvidia.com>,
  =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
  <linux-kernel@vger.kernel.org>, William Palacek <William.Palacek@amd.com>
-Subject: [PATCH v3 2/2] gpu/tests/buddy: add range-biased allocation
- performance test
-Date: Mon, 16 Nov 2026 11:11:02 -0500
-Message-ID: <1cd56b1074ceee96ad4cfb59122d09315a62fa78.1794845083.git.William.Palacek@amd.com>
+Subject: [PATCH v3 0/2] gpu/buddy: find range-biased blocks in the free trees
+Date: Mon, 16 Nov 2026 11:11:00 -0500
+Message-ID: <cover.1794845083.git.William.Palacek@amd.com>
 X-Mailer: git-send-email 2.43.0
-In-Reply-To: <cover.1794845083.git.William.Palacek@amd.com>
-References: <cover.1794845083.git.William.Palacek@amd.com>
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
@@ -75,29 +73,29 @@ X-ClientProxiedBy: satlexmb08.amd.com (10.181.42.217) To satlexmb07.amd.com
  (10.181.42.216)
 X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: LV8PEPF0000005C:EE_|SA1PR12MB7101:EE_
-X-MS-Office365-Filtering-Correlation-Id: 0e803baa-74d6-4385-d1bd-08df43fc3e4e
+X-MS-TrafficTypeDiagnostic: LV8PEPF00000059:EE_|DM4PR12MB5914:EE_
+X-MS-Office365-Filtering-Correlation-Id: 7f08652c-bc4b-4e16-4a56-08df43fc3daa
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
- ARA:13230040|23010399003|376014|1800799024|82310400026|36860700016|10067099003|56012099006|11063799006|261026121527099003|261021123027099003|261021121427099003|261102123227099003|261009223027099003|18002099003|22082099003;
-X-Microsoft-Antispam-Message-Info: YgqkuAhnuq0JXowT/Hdu4+TKtWmzzMHp4qkoXLUYeVCSVZWTmJvBSZoT1c4IFt25TCst4Dhyx+zi+LgW/flhFLuNW92FMXU6Frl+DmxWQUjteGl7oelg0lxAql9V5QSRYmnidi1013VSe54EibTliryYi5F4mu4I0nk0vSOR/28YVPsgAgIQIJ+1f/y/0uMQGPMPE8SlO/DZ/553T3HXe8OwZpEq6xAj4axelqjb8ibtbPtN6KItkHfPIQYmF74sHr03KaVGpVuYwQPhQwb2v+5XpWFrmLubBBjGe0mmXW6cC8byalINSs/4k/4A+uykrztnC5DJNC75zw+imKXSHv8WOfFITnVt4mrEAmr2v7X3FJfHO2YeFPqSG16uSzjh/GdXg6Q3QVmIZTTTEtEMFXVOYIVQL8AYFGih+4ND555WgDg1ZDv9DlwrrCiHrj6xM1gZbcFypDwgqKmfjwzzQfMfEy6/NDKLWcj2g+ND2sdvv//yKc1M+GlAtQUA3FB98gP44Gj2BRnjtZPPlFO0Yt9la7G4u+GnfoyDTR1Q2CcEshw6i3PcyBzYc1s0GG5nzbbIqEvkbB7SfuHO4jci2Cu0fQ/OSBYmusIyZp/HNhDDtwaccJCqHNFD7vy8Kv6IpQiCDPeqCzsc/XnYNn+TSsOef3le1UWmqt3BMt7giqCYkWbVlFV1vKavi7DwO4NLTKY15ror+TykVWXvXAUv7A==
+ ARA:13230040|376014|23010399003|1800799024|36860700016|82310400026|10067099003|11063799006|56012099006|261026121527099003|261021123027099003|261021121427099003|261102123227099003|261009223027099003|18002099003;
+X-Microsoft-Antispam-Message-Info: dSJH5cNoL8YBSALz7YLbBgYJkhNI/947Ysg8zACe5Qa4vSHPMc0glntBhHjnsAbLIg3GpbmP2+yp+wKbVp1hEFyQAq+3PF7I9fAWWu4gLNX9UxSmBEy57y8Q4nUNjkqHQAdfgjveS/YsawutkurucFs5iI0bavUre+mtb8lgE1sYJJMiYn6+4Ne4BxmmyWt/R5yPZYtm0kZ2CAjjmjb8DJdqRCepxUT1efURkujFINFMXvNStvhDtcVeOryouCTkzjGwB92t41J48gduBIc+x0yKwSA1pt9JREbJWUFuWijM3DVnTVCNYdPPjsE6GxaPq6giTlxmedVQa0WMsu3SjG0eSPBqGhEYAD5DL3UA09feQRAg8KlNGErjg/CRQpwfGwKFACcM5n0qFgRG/OmjkDdh04jhdARgTIzpNS27+GXlcjZb/EtAKELRzzeEdd/DvB4zKUhS6rrdGzGa8Isqd46wzsPWzEE9kRVSBxvU9XxlLZwf4LoJuago0AeUK+qc0uavJHLSYGyu1CvshS+9QMv52nAAilL4A6/VR38yZmiwaPqyYAsCpKzLhaye6KQOoh3Me0Q3PJpmKYI9c3AS7UZ2nKvGBvksobWoKmkh0jC3oAFBZkaeyaUpQjpYwDBbP2eQQIH94frYHeCpssMcgg==
 X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
  IPV:NLI; SFV:NSPM; H:satlexmb07.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230040)(23010399003)(376014)(1800799024)(82310400026)(36860700016)(10067099003)(56012099006)(11063799006)(261026121527099003)(261021123027099003)(261021121427099003)(261102123227099003)(261009223027099003)(18002099003)(22082099003);
+ SFS:(13230040)(376014)(23010399003)(1800799024)(36860700016)(82310400026)(10067099003)(11063799006)(56012099006)(261026121527099003)(261021123027099003)(261021121427099003)(261102123227099003)(261009223027099003)(18002099003);
  DIR:OUT; SFP:1101; 
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: mOfhm+qX2dPMbDGvDX3Ya1Ru+C2HaauxC5eE+wT9OH+EoLXJDhBuwOKQXlGnPpZh6Wr4PgX2cmPndFmmiKpfOXgHFGoyI4ZrhiSTPJOdGJg+M07UilWHosjM0aqfY2wWcBEudxGb12D9sb225G4dTXSraw0D6U2l4I8gKq64sea4/xmo8pO66SU7nQgQxkXfrsPdEHvKNcFS35anha/DlgO/VUyobBwQnQ4XbkuFBxR/YFYQIgOEnCn3kGkecAFIQCalH5AwxR9pHypQ9Mc4VUReH4SeC0xoSVhKjoPV64TYqYckSZAx0QjgEt+Kf3HKTuL2amnEe52uamvNmEW+edo3LnQlaFWRq7QGUT5LF6vJubiUFAi3Mjnm1nhIJ+3SsITtE32AdaQz3hGBZJn/NZM/EjSM9u82097IPKBKHuJLz+gn72DHNgmme5x2TLCl
+X-MS-Exchange-AntiSpam-MessageData-0: +xKzFCUTprhW0QlJ4Z80lLKyE0eiapPQKQcoRtGR/J9HbivvkgodRReVuYr5p1H5tNDLKutlF3dW71sc1Ceajea8cboeNOD0jI/8+mmDSCV/Hu4O2krnZv3NJeEfjyJ3HJVL1gdvZS3k3C7zfY5loXB9BO973WjM23tZcxhiF3qr6dhJDbBbvM4GwBjck5E+/i1h+cxEH8v2sq3PpObiZKV/xBEbPUonpyJEWbxIAV7JbAQZWLCy98t0ydz5SxJ8LGSJvZMIalKYygFOXPb3h3M4zWj7By8dPdjs9JV4LkLbZpfeoght5y9C2Xgrkf4dvEu7rmr9aT+1ZL8CChQ0ElJZNgH10y4CGOoMtTIDTuptljUBn1Er8z/VaAMgLAmIHUzbwOjQ4WNX/YJa2GXImLrETo7jO8rZ1E98qCwT0N9Pg53DsMP0dp0q1vAKkBRa
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 16 Nov 2026 16:11:16.5650 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 0e803baa-74d6-4385-d1bd-08df43fc3e4e
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 16 Nov 2026 16:11:15.4855 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 7f08652c-bc4b-4e16-4a56-08df43fc3daa
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
  Helo=[satlexmb07.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: LV8PEPF0000005C.namprd02.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthSource: LV8PEPF00000059.namprd02.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Anonymous
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SA1PR12MB7101
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM4PR12MB5914
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -109,80 +107,38 @@ List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-18.8 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
+X-Spam-Status: No, score=-13.8 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
 	DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
-	INCLUDES_CR_TRAILER,INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,
-	SPF_PASS,USER_AGENT_GIT autolearn=unavailable autolearn_force=no
-	version=4.0.1
+	INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,
+	USER_AGENT_GIT autolearn=ham autolearn_force=no version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-Fill a 1 GiB range of a 4 GiB manager top-down with 64 KiB range-biased
-allocations that request cleared memory, as amdgpu does for KFD VRAM on
-NPS4 partitions, check that each one is placed directly below the
-previous one, and report the time taken: 1103 ms with the walk, 2 ms
-with the free tree lookup.
+A range-restricted allocation walks every split block in the range, so
+its cost grows linearly with the number of live allocations there.
+amdgpu restricts every VRAM allocation to its memory partition under
+NPS2/NPS4, so on MI300X in CPX/NPS4 KFD allocation latency grows with
+every live BO, under a VRAM manager lock shared by the compute
+partitions.
 
-Cc: Matthew Auld <matthew.auld@intel.com>
-Cc: Arunpravin Paneer Selvam <Arunpravin.PaneerSelvam@amd.com>
-Signed-off-by: William Palacek <William.Palacek@amd.com>
----
+Patch 1 replaces the walk with an O(log n) lookup in the offset-sorted
+free trees, based on Arun's class-aware version of v1; placement is
+unchanged. Patch 2 adds a KUnit test for the NPS4 pattern (range-biased,
+cleared, top-down, 64 KiB) that also checks placement: 1103 ms before,
+2 ms after.
 
-Notes:
-    v3:
-    - times for the new base and lookup (1103 ms, 2 ms)
-    
-    v2:
-    - check top-down placement
+v2: https://patchwork.freedesktop.org/series/178108/
+v1: https://patchwork.freedesktop.org/series/176957/
 
- drivers/gpu/tests/gpu_buddy_test.c | 27 +++++++++++++++++++++++++++
- 1 file changed, 27 insertions(+)
+William Palacek (2):
+  gpu/buddy: find range-biased blocks in the free trees
+  gpu/tests/buddy: add range-biased allocation performance test
 
-diff --git a/drivers/gpu/tests/gpu_buddy_test.c b/drivers/gpu/tests/gpu_buddy_test.c
-index 9aaca2fc6a02..e48a99136e68 100644
---- a/drivers/gpu/tests/gpu_buddy_test.c
-+++ b/drivers/gpu/tests/gpu_buddy_test.c
-@@ -283,6 +283,32 @@ static void gpu_test_buddy_fragmentation_performance(struct kunit *test)
- 	gpu_buddy_fini(&mm);
- }
- 
-+static void gpu_test_buddy_range_bias_performance(struct kunit *test)
-+{
-+	struct gpu_buddy_block *block;
-+	LIST_HEAD(allocated);
-+	struct gpu_buddy mm;
-+	ktime_t t0;
-+	u64 i;
-+
-+	/* Fill one NPS4-like quarter top-down with cleared 64 KiB allocations. */
-+	KUNIT_ASSERT_FALSE(test, gpu_buddy_init(&mm, SZ_4G, SZ_4K));
-+	t0 = ktime_get();
-+	for (i = 1; i <= SZ_1G / SZ_64K; i++) {
-+		KUNIT_ASSERT_FALSE(test, gpu_buddy_alloc_blocks(&mm, SZ_1G, SZ_2G, SZ_64K,
-+								SZ_64K, &allocated,
-+								GPU_BUDDY_RANGE_ALLOCATION |
-+								GPU_BUDDY_CLEAR_ALLOCATION |
-+								GPU_BUDDY_TOPDOWN_ALLOCATION));
-+		block = list_last_entry(&allocated, struct gpu_buddy_block, link);
-+		KUNIT_ASSERT_EQ(test, gpu_buddy_block_offset(block), SZ_2G - i * SZ_64K);
-+	}
-+	kunit_info(test, "Range-biased fill took %lld ms\n",
-+		   ktime_ms_delta(ktime_get(), t0));
-+	gpu_buddy_free_list(&mm, &allocated, 0);
-+	gpu_buddy_fini(&mm);
-+}
-+
- static void gpu_test_buddy_dirty_tracker_performance(struct kunit *test)
- {
- 	struct gpu_buddy_block *block, *tmp;
-@@ -1701,6 +1727,7 @@ static struct kunit_case gpu_buddy_tests[] = {
- 	KUNIT_CASE(gpu_test_buddy_alloc_range_clear_guard),
- 	KUNIT_CASE_SLOW(gpu_test_buddy_fragmentation_performance),
- 	KUNIT_CASE_SLOW(gpu_test_buddy_dirty_tracker_performance),
-+	KUNIT_CASE_SLOW(gpu_test_buddy_range_bias_performance),
- 	KUNIT_CASE(gpu_test_buddy_alloc_exceeds_max_order),
- 	KUNIT_CASE(gpu_test_buddy_offset_aligned_allocation),
- 	KUNIT_CASE(gpu_test_buddy_subtree_offset_alignment_stress),
+ drivers/gpu/buddy.c                | 214 +++++++++++++++++++----------
+ drivers/gpu/tests/gpu_buddy_test.c |  27 ++++
+ include/linux/gpu_buddy.h          |   1 +
+ 3 files changed, 172 insertions(+), 70 deletions(-)
+
 -- 
 2.43.0
 
