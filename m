@@ -2,55 +2,54 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8DA66606A323
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F2112606A31C
 	for <dri-devel@archiver.kernel.org>; Mon, 16 Nov 2026 10:33:58 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=UTy1g1Gr
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=lr2ugz3u
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 981DE10EF13;
+	by gabe.freedesktop.org (Postfix) with ESMTP id AC58110EF1C;
 	Mon, 16 Nov 2026 10:33:52 +0000 (UTC)
-Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id AFD3A10EF13
- for <dri-devel@lists.freedesktop.org>; Mon, 16 Nov 2026 10:33:25 +0000 (UTC)
+Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id E7B4C10EF1D
+ for <dri-devel@lists.freedesktop.org>; Mon, 16 Nov 2026 10:33:38 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by tor.source.kernel.org (Postfix) with ESMTP id 8AEFD628C1;
- Mon, 16 Nov 2026 10:33:25 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id B5D841F000C4;
- Mon, 16 Nov 2026 10:33:24 +0000 (UTC)
+ by sea.source.kernel.org (Postfix) with ESMTP id D0355421FC;
+ Mon, 16 Nov 2026 10:33:38 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2EBAB1F000C5;
+ Mon, 16 Nov 2026 10:33:38 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1794825205;
- bh=WGtNUpx7CBH9AVW0rbFPnwpFHv8Ka71t7S5EnLEFcOI=;
+ s=k20260515; t=1794825218;
+ bh=OWwJtdR9I8/zcRAOcSzC2NNXxN3UWKsRgB7qZE+WkkU=;
  h=From:Date:Subject:References:In-Reply-To:To:Cc;
- b=UTy1g1GrGRitYr3yLk/qHaOXhVfVL1IxLWwx1o+VM8w830mO24HQoXCcxDhBYbcEh
- 7ciFDeBJIcJ+ucOYMHhrYjCgsTYilFUHKJh6KUsKtlmPzooMGOKOJotA4Kg/MBeFw7
- +xg0LfplTtCSTaWRkKJyrZCGAdihxUcVIFKJO3OAdscg9vjqDBdOuscVKMMYTG66Iz
- iWQsKQy4ckKJN+olqtYthqPjs46QsxNu9aEskMZ9MxcmYJ5MRdk+UMlcVFb+cGeR6L
- gWpiaAxw6/uY4R7N4s1Oa8e5t/f6oESsUXKKOiOoJHHI7p+YpkGEJwc/V7cgXY+Ghl
- 2z+79rUZoELFg==
+ b=lr2ugz3uJnJaSxqY3ysVuh2+c2/EaHaVS8bvyl2BhiH9N8D1qeyNUFD0FcJ8Z0nNM
+ CTM4vIzVMfbYdB4L90RL1C3B7vJeKdJTPpe9qWHM21yq0F7c2A9QELUP+jiQOcmJe4
+ 566N6xGOg+m0oQUIrlfRzkSgdNzxDchJan7iNA0yq/+N34/pR1CKXNKdQ8PQnKNz4I
+ aOhqLSirR3PzO6CXCyC2sWVxNbat1Fg7aYqnT+g2y7txlEAM/hvhpBavyjCEt4jAD/
+ KWtRUtht/RgNv8LA2bhFQDHOF+xvgcYepj0K77SVDyKfC7OyOH4Lh6zpIYaAHOjsEX
+ 1LoaV3RPyfBWA==
 From: Maxime Ripard <mripard@kernel.org>
-Date: Mon, 16 Nov 2026 11:31:02 +0100
-Subject: [PATCH v2 46/64] drm/cirrus-qemu: Switch to
+Date: Mon, 16 Nov 2026 11:31:06 +0100
+Subject: [PATCH v2 50/64] drm/ili9225: Switch to
  drm_mode_config_create_initial_state
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20261116-drm-no-more-config-reset-v2-46-0bb471f4d1e0@kernel.org>
+Message-Id: <20261116-drm-no-more-config-reset-v2-50-0bb471f4d1e0@kernel.org>
 References: <20261116-drm-no-more-config-reset-v2-0-0bb471f4d1e0@kernel.org>
 In-Reply-To: <20261116-drm-no-more-config-reset-v2-0-0bb471f4d1e0@kernel.org>
 To: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
  Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>, 
  Simona Vetter <simona@ffwll.ch>
 Cc: dri-devel@lists.freedesktop.org, Maxime Ripard <mripard@kernel.org>, 
- Dave Airlie <airlied@redhat.com>, Gerd Hoffmann <kraxel@redhat.com>, 
- virtualization@lists.linux.dev
+ David Lechner <david@lechnology.com>
 X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=openpgp-sha256; l=1313; i=mripard@kernel.org;
- h=from:subject:message-id; bh=tgxKCg4Td3S4DS+64eM4+SYN9OtbbAEdjJzeA7C40qU=;
- b=owGbwMvMwCmsHn9OcpHtvjLG02pJDFm/bocUFBYkF+6z2rdgJktyRWrHipumvFWBnKfVPghfy
- 7kw58OpjqksDMKcDLJiiixPZMJOL29fXOVgv/IHzBxWJpAhDFycAjCRpjOMtWJazwI7fSTaqqbb
- cv4KcOLIlvhUcMa1ZM+biLt9H7VdvJ5tW5Gz2bVsw+GVR/nWbD3QxFgrFvl3iqLrDcEb+/VsPh2
- 9cHp1S37nIQ12C1t28z/T83/9FnS2meB44kT9/Au9XyOaynYAAA==
+X-Developer-Signature: v=1; a=openpgp-sha256; l=1213; i=mripard@kernel.org;
+ h=from:subject:message-id; bh=XhphqJVbwLBpXA3ntytP9Wa8OTZNgnACHz6uYinaWwo=;
+ b=owGbwMvMwCmsHn9OcpHtvjLG02pJDFm/bocqZt7uEQqoChE/I2U/VfPklT/dKhHb/6Z39f/5q
+ LzMhMWtYyoLgzAng6yYIssTmbDTy9sXVznYr/wBM4eVCWQIAxenAEykyZ+x4TSDlMatxL8iNt8m
+ Pzq9Jrd9q96enZbV8zlLzOZZGLLtaFsUMNfv1KWEunWn6w4c7FKJYqxTenzxPjOXuNaBV1Pvl/7
+ /WN83N1Vus+wqk+ha1xvVsXfM/36XEs3ff2N64pEQhob/Z5YCAA==
 X-Developer-Key: i=mripard@kernel.org; a=openpgp;
  fpr=BE5675C37E818C8B5764241C254BCFC56BF6CE8D
 X-BeenThere: dri-devel@lists.freedesktop.org
@@ -84,32 +83,30 @@ Switch to drm_mode_config_create_initial_state().
 
 Signed-off-by: Maxime Ripard <mripard@kernel.org>
 ---
-Cc: Dave Airlie <airlied@redhat.com>
-Cc: Gerd Hoffmann <kraxel@redhat.com>
-Cc: virtualization@lists.linux.dev
+Cc: David Lechner <david@lechnology.com>
 ---
- drivers/gpu/drm/tiny/cirrus-qemu.c | 4 +++-
+ drivers/gpu/drm/tiny/ili9225.c | 4 +++-
  1 file changed, 3 insertions(+), 1 deletion(-)
 
-diff --git a/drivers/gpu/drm/tiny/cirrus-qemu.c b/drivers/gpu/drm/tiny/cirrus-qemu.c
-index 9e3051b9c3f7..98664f573ff8 100644
---- a/drivers/gpu/drm/tiny/cirrus-qemu.c
-+++ b/drivers/gpu/drm/tiny/cirrus-qemu.c
-@@ -621,11 +621,13 @@ static int cirrus_pci_probe(struct pci_dev *pdev,
+diff --git a/drivers/gpu/drm/tiny/ili9225.c b/drivers/gpu/drm/tiny/ili9225.c
+index 5bf52a8fd75b..3b1f3b9a0abe 100644
+--- a/drivers/gpu/drm/tiny/ili9225.c
++++ b/drivers/gpu/drm/tiny/ili9225.c
+@@ -516,11 +516,13 @@ static int ili9225_probe(struct spi_device *spi)
  
- 	ret = cirrus_pipe_init(cirrus);
- 	if (ret < 0)
+ 	ret = drm_connector_attach_encoder(connector, encoder);
+ 	if (ret)
  		return ret;
  
--	drm_mode_config_reset(dev);
-+	ret = drm_mode_config_create_initial_state(dev);
+-	drm_mode_config_reset(drm);
++	ret = drm_mode_config_create_initial_state(drm);
 +	if (ret)
 +		return ret;
  
- 	pci_set_drvdata(pdev, dev);
- 	ret = drm_dev_register(dev, 0);
+ 	ret = drm_dev_register(drm, 0);
  	if (ret)
  		return ret;
+ 
 
 -- 
 2.56.1
