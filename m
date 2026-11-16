@@ -2,58 +2,54 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0E6CF606A336
-	for <dri-devel@archiver.kernel.org>; Mon, 16 Nov 2026 10:31:36 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1C47E606A32C
+	for <dri-devel@archiver.kernel.org>; Mon, 16 Nov 2026 10:31:37 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ODUBMTjs
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=e14rC70Q
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 473B010EEE5;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 5D57010EEEE;
 	Mon, 16 Nov 2026 10:31:30 +0000 (UTC)
-Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 41DC310E843
- for <dri-devel@lists.freedesktop.org>; Mon, 16 Nov 2026 10:31:20 +0000 (UTC)
+Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 267AF10E0FF
+ for <dri-devel@lists.freedesktop.org>; Mon, 16 Nov 2026 10:31:23 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by tor.source.kernel.org (Postfix) with ESMTP id 1DF7662887;
- Mon, 16 Nov 2026 10:31:20 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 484521F000C4;
- Mon, 16 Nov 2026 10:31:19 +0000 (UTC)
+ by sea.source.kernel.org (Postfix) with ESMTP id 09A7442DEE;
+ Mon, 16 Nov 2026 10:31:23 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 609FC1F000C4;
+ Mon, 16 Nov 2026 10:31:22 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1794825079;
- bh=HR1RnG73PrXXW9f/KrS7v/UuHKcFn403pSvB3v4W9gU=;
+ s=k20260515; t=1794825082;
+ bh=1sm80scMhgRgVSuKEz+dT4uD/UvgQWkPdc7nTKmqvJo=;
  h=From:Date:Subject:References:In-Reply-To:To:Cc;
- b=ODUBMTjsyBR50n0RnnIkFijnpZFYJkbqs4kXGVGODhDtXc1bivzW/taUGsgyr023a
- GseO1tuD2m68NZQ0d3luzZQF1sqsUNjS4OWFm2oKz9ulLYY98RC8zvz57xujS00tL3
- tNacntiKXcS3HOixihTOQDsgV/GLtv4ReXogxPjqO7d9a6VZ04PAYAmyx5imcYn+/L
- /cnEz37OAs9G1aBo9csI8hWzCJ2YFuFPA/Gc5nbAriJxk5hZFjz+0nWWNaX9PYmzMB
- FHe2x1hgxnRzepKPRHj7oG3ZtK6EEdho2cOZYofXJa8xrTWu8AtC5D6oq/jV4VwKFf
- h8xGAhW+Kj0Zg==
+ b=e14rC70Qsxt47++z1FGXco9H0vXp852Ct2nXN2rvrLhGME4jhOJnz0U/IMqALh0qK
+ cYkv5oclvICnR4cSI1DfsCCgHpVRDUurlX0NADoLKKQGlETDzKV0nvtEt2GSqJku+0
+ Q1tzmbjnIQE83+039Cw7dY04n2l4b1gXW0MOoz3UWQci7lr4ylx5hDfjD4xQCsVgZK
+ OZwxkhOttRRRBUkFWmEpX0OLWbDea0UZV2yZ7vVSqFrEXjspyUt6znmbkM03mDi1yS
+ d6NpOGgatTID/VCfDRXyTrpvX4/FfcZaxYyN/R2ommH28ng2f84Pg4UO7yjQLZjYmA
+ EbJiCkmxV/yBw==
 From: Maxime Ripard <mripard@kernel.org>
-Date: Mon, 16 Nov 2026 11:30:23 +0100
-Subject: [PATCH v2 07/64] drm/exynos: Switch to
+Date: Mon, 16 Nov 2026 11:30:24 +0100
+Subject: [PATCH v2 08/64] drm/fsl-dcu: Switch to
  drm_mode_config_create_initial_state
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20261116-drm-no-more-config-reset-v2-7-0bb471f4d1e0@kernel.org>
+Message-Id: <20261116-drm-no-more-config-reset-v2-8-0bb471f4d1e0@kernel.org>
 References: <20261116-drm-no-more-config-reset-v2-0-0bb471f4d1e0@kernel.org>
 In-Reply-To: <20261116-drm-no-more-config-reset-v2-0-0bb471f4d1e0@kernel.org>
 To: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
  Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>, 
  Simona Vetter <simona@ffwll.ch>
 Cc: dri-devel@lists.freedesktop.org, Maxime Ripard <mripard@kernel.org>, 
- Alim Akhtar <alim.akhtar@samsung.com>, Inki Dae <inki.dae@samsung.com>, 
- Krzysztof Kozlowski <krzk@kernel.org>, 
- Kyungmin Park <kyungmin.park@samsung.com>, 
- Peter Griffin <peter.griffin@linaro.org>, 
- Seung-Woo Kim <sw0312.kim@samsung.com>, linux-samsung-soc@vger.kernel.org
+ Alison Wang <alison.wang@nxp.com>, Stefan Agner <stefan@agner.ch>
 X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=openpgp-sha256; l=1574; i=mripard@kernel.org;
- h=from:subject:message-id; bh=jqgMByXeT6UiGU7jKa8TjYMskSzMribJdbP82Ad+0/Y=;
- b=owGbwMvMwCmsHn9OcpHtvjLG02pJDFm/bjuLXtjyvqFKhG9fcV7AyXaRnq7217FdLTnpz+q/G
- jOrHdzRMZWFQZiTQVZMkeWJTNjp5e2LqxzsV/6AmcPKBDKEgYtTACZyxYSxYX3eJoZoRzYmUzH1
- WQLVfaXq7dsUWbocXj/hM6x5VX1c0ezJnAXXLXi3v1q6IzwmI3wvY63Yq4UGRzbv/DQnboWG23O
- pyIeCy0/W951rPDTr96IfmWwd7Ova5j14t2P2BHmT2ANrBV0A
+X-Developer-Signature: v=1; a=openpgp-sha256; l=1312; i=mripard@kernel.org;
+ h=from:subject:message-id; bh=+NVxE3LZkL572rmjcX0JFiX8JDoJrsz3eP2PEAbPGas=;
+ b=owGbwMvMwCmsHn9OcpHtvjLG02pJDFm/bjt/q9P75Z3Ic+R0VKb8dNdFH6xFn255+GVC627uU
+ 11GqTcvdkxlYRDmZJAVU2R5IhN2enn74ioH+5U/YOawMoEMYeDiFICJWIkyVrPwli6YwhXCbGop
+ tWCK6GytjYEL63d93ez3z/3gxdk23j8rr30LLtzCMvXPtgkGK5zMRBgbWgXS1R/8+zPDfJth5fL
+ eXTuzJ7h8/Dn18U721xIvdNsU7h29yCIe+tx2wd6lkyPy9l2xAwA=
 X-Developer-Key: i=mripard@kernel.org; a=openpgp;
  fpr=BE5675C37E818C8B5764241C254BCFC56BF6CE8D
 X-BeenThere: dri-devel@lists.freedesktop.org
@@ -87,36 +83,31 @@ Switch to drm_mode_config_create_initial_state().
 
 Signed-off-by: Maxime Ripard <mripard@kernel.org>
 ---
-Cc: Alim Akhtar <alim.akhtar@samsung.com>
-Cc: Inki Dae <inki.dae@samsung.com>
-Cc: Krzysztof Kozlowski <krzk@kernel.org>
-Cc: Kyungmin Park <kyungmin.park@samsung.com>
-Cc: Peter Griffin <peter.griffin@linaro.org>
-Cc: Seung-Woo Kim <sw0312.kim@samsung.com>
-Cc: linux-samsung-soc@vger.kernel.org
+Cc: Alison Wang <alison.wang@nxp.com>
+Cc: Stefan Agner <stefan@agner.ch>
 ---
- drivers/gpu/drm/exynos/exynos_drm_drv.c | 4 +++-
+ drivers/gpu/drm/fsl-dcu/fsl_dcu_drm_kms.c | 4 +++-
  1 file changed, 3 insertions(+), 1 deletion(-)
 
-diff --git a/drivers/gpu/drm/exynos/exynos_drm_drv.c b/drivers/gpu/drm/exynos/exynos_drm_drv.c
-index 9ee30086879f..712e5ac86f50 100644
---- a/drivers/gpu/drm/exynos/exynos_drm_drv.c
-+++ b/drivers/gpu/drm/exynos/exynos_drm_drv.c
-@@ -275,11 +275,13 @@ static int exynos_drm_bind(struct device *dev)
+diff --git a/drivers/gpu/drm/fsl-dcu/fsl_dcu_drm_kms.c b/drivers/gpu/drm/fsl-dcu/fsl_dcu_drm_kms.c
+index 5b47000738e4..9c2189661d8a 100644
+--- a/drivers/gpu/drm/fsl-dcu/fsl_dcu_drm_kms.c
++++ b/drivers/gpu/drm/fsl-dcu/fsl_dcu_drm_kms.c
+@@ -40,11 +40,13 @@ int fsl_dcu_drm_modeset_init(struct fsl_dcu_drm_device *fsl_dev)
  
- 	ret = drm_vblank_init(drm, drm->mode_config.num_crtc);
+ 	ret = fsl_dcu_create_outputs(fsl_dev);
  	if (ret)
- 		goto err_unbind_all;
+ 		goto err;
  
--	drm_mode_config_reset(drm);
-+	ret = drm_mode_config_create_initial_state(drm);
+-	drm_mode_config_reset(fsl_dev->drm);
++	ret = drm_mode_config_create_initial_state(fsl_dev->drm);
 +	if (ret)
-+		goto err_unbind_all;
++		goto err;
+ 	drm_kms_helper_poll_init(fsl_dev->drm);
  
- 	/* init kms poll for handling hpd */
- 	drm_kms_helper_poll_init(drm);
+ 	return 0;
  
- 	/* register the DRM device */
+ err:
 
 -- 
 2.56.1
