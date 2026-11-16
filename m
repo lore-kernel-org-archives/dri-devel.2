@@ -2,83 +2,79 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9CE00606A31C
-	for <dri-devel@archiver.kernel.org>; Mon, 16 Nov 2026 09:13:44 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2D643606A32C
+	for <dri-devel@archiver.kernel.org>; Mon, 16 Nov 2026 09:13:52 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=XvXzC9G/
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=kg6uPett
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 7E54D10EE87;
-	Mon, 16 Nov 2026 09:13:38 +0000 (UTC)
-Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 2806810EE5A
- for <dri-devel@lists.freedesktop.org>; Mon, 16 Nov 2026 09:13:30 +0000 (UTC)
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by tor.source.kernel.org (Postfix) with ESMTP id 8D1E160E05;
- Mon, 16 Nov 2026 09:13:29 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id E7DD91F000C4;
- Mon, 16 Nov 2026 09:13:11 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1794820409;
- bh=wp4OrTiwenmqlPziYX6n9mBW2tsSmcV548D5rvQG8BU=;
- h=From:To:Cc:Subject:Date:In-Reply-To:References;
- b=XvXzC9G/jiuBYWUAixkir74C1Q4yp5X/dt24tJRLFbDKbpmIyiD13Jpqo6GUIIpN8
- kV3CWvckkgquOOFKpeIv/4DOarMyUv6kC94y3gzZHl/MZXs5IufRfOizd2ZeH/FF6D
- 4/G8zyURxbFOxk9lQf3/r1C8MJqUYzj1PjTmBxqinPDgTduKhOiso1GBXqo61oXO91
- 34Qgd0Hf0jv4tIJXRlJPoUA+NUDaxoWoCcxyU9H897oKK3kjrnWmZ3dTvoHDprP0jP
- xD0fmzGlEvWYxgV6C+jIWfD1we21vWRgLxrqJDILrR725d/R0IQOydFrYxUOWVTnKi
- 7V3WoExu8G3MQ==
-From: "Aneesh Kumar K.V (Arm)" <aneesh.kumar@kernel.org>
-To: linux-coco@lists.linux.dev
-Cc: "Aneesh Kumar K.V (Arm)" <aneesh.kumar@kernel.org>,
- Andrew Morton <akpm@linux-foundation.org>,
- Baoquan He <baoquan.he@linux.dev>, Mike Rapoport <rppt@kernel.org>,
- Pasha Tatashin <pasha.tatashin@soleen.com>,
- Pratyush Yadav <pratyush@kernel.org>,
- Catalin Marinas <catalin.marinas@arm.com>,
- =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
- Jason Gunthorpe <jgg@ziepe.ca>, Joerg Roedel <joro@8bytes.org>,
- Marc Zyngier <maz@kernel.org>, Marek Szyprowski <m.szyprowski@samsung.com>,
- Robin Murphy <robin.murphy@arm.com>, Steven Price <steven.price@arm.com>,
- Sumit Semwal <sumit.semwal@linaro.org>,
- Suzuki K Poulose <suzuki.poulose@arm.com>,
- Thomas Gleixner <tglx@kernel.org>, Will Deacon <will@kernel.org>,
- Russell King <linux@armlinux.org.uk>,
- Benjamin Gaignard <benjamin.gaignard@collabora.com>,
- Brian Starkey <Brian.Starkey@arm.com>, John Stultz <jstultz@google.com>,
- Mark Rutland <mark.rutland@arm.com>, Radu Rendec <radu@rendec.net>,
- "T.J. Mercier" <tjmercier@google.com>,
- Madhavan Srinivasan <maddy@linux.ibm.com>,
- Michael Ellerman <mpe@ellerman.id.au>, Nicholas Piggin <npiggin@gmail.com>,
- Christophe Leroy <chleroy@kernel.org>,
- Ritesh Harjani <ritesh.list@gmail.com>,
- Shrikanth Hegde <sshegde@linux.ibm.com>,
- Alexander Gordeev <agordeev@linux.ibm.com>,
- Gerald Schaefer <gerald.schaefer@linux.ibm.com>,
- Heiko Carstens <hca@linux.ibm.com>, Vasily Gorbik <gor@linux.ibm.com>,
- Christian Borntraeger <borntraeger@linux.ibm.com>,
- Sven Schnelle <svens@linux.ibm.com>, Ingo Molnar <mingo@redhat.com>,
- Borislav Petkov <bp@alien8.de>, Dave Hansen <dave.hansen@linux.intel.com>,
- x86@kernel.org, "H . Peter Anvin" <hpa@zytor.com>,
- Kiryl Shutsemau <kas@kernel.org>,
- Rick Edgecombe <rick.p.edgecombe@intel.com>,
- "K . Y . Srinivasan" <kys@microsoft.com>,
- Haiyang Zhang <haiyangz@microsoft.com>, Wei Liu <wei.liu@kernel.org>,
- Dexuan Cui <decui@microsoft.com>, Long Li <longli@microsoft.com>,
- Paolo Bonzini <pbonzini@redhat.com>,
- Vitaly Kuznetsov <vkuznets@redhat.com>, Andy Lutomirski <luto@kernel.org>,
- Peter Zijlstra <peterz@infradead.org>, dri-devel@lists.freedesktop.org,
- iommu@lists.linux.dev, linaro-mm-sig@lists.linaro.org,
- linux-arm-kernel@lists.infradead.org, linux-media@vger.kernel.org,
- linux-mm@kvack.org, kvmarm@lists.linux.dev, patches@lists.linux.dev
-Subject: [PATCH v10 05/13] dma-contiguous: Derive shared alignment from DMA
- attributes
-Date: Mon, 16 Nov 2026 14:41:28 +0530
-Message-ID: <20261116091137.94252-6-aneesh.kumar@kernel.org>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <20261116091137.94252-1-aneesh.kumar@kernel.org>
-References: <20261116091137.94252-1-aneesh.kumar@kernel.org>
+	by gabe.freedesktop.org (Postfix) with ESMTP id 7EA9F10EE92;
+	Mon, 16 Nov 2026 09:13:46 +0000 (UTC)
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.18])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 2CC4910E9DC;
+ Mon, 16 Nov 2026 09:13:37 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1794820417; x=1826356417;
+ h=from:to:cc:subject:date:message-id:in-reply-to:
+ references:mime-version:content-transfer-encoding;
+ bh=R2jtCYJzpoIMcias7P6pJiZdvsxl+IKsmM3AiTZ415c=;
+ b=kg6uPettSnNMMUv1qAVAtlGVTrLZa/V5s6B93wq/6vi6qNXMedZfP/Qb
+ 5JEIBFo0rCIcOylIG4Atz5oezL1+hJyIPTS1mi8fXw4WvIfEEz6hYKdvs
+ RCv+wWdlKBVFtPR/xgH+LTm5NC6tkTHrD2EhkH9B5aTpbv+82wFFoTI+V
+ Zw2V1xQ/nUmPVNPD3OSdZZ4A+JCw05ZpnWzJ6T3ISNnym6nBr19EW38+a
+ TW0XxE5q/0Q+kHOVz86ZKIXnepLnPrQSdIE/8DvAPsGeh9zha9Bi0YBvM
+ HobkR0drWoiE/xyU+BJZB3PUSCZ43q3O8+yje9cQfzG+IUg91JgEWIbui A==;
+X-CSE-ConnectionGUID: +Q+sri+uS8GvsFlhjYewlg==
+X-CSE-MsgGUID: wF09Cns9TOq8EEBv+KAOsw==
+X-IronPort-AV: E=McAfee;i="6800,10657,11967"; a="3579247"
+X-IronPort-AV: E=Sophos;i="6.27,216,1787036400"; 
+   d="scan'208";a="3579247"
+Received: from fmviesa010.fm.intel.com ([10.60.135.150])
+ by fmvoesa112.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 16 Nov 2026 01:13:36 -0800
+X-CSE-ConnectionGUID: LJd/t5j7RBuvfs/0Ms9siA==
+X-CSE-MsgGUID: hHJSOhWCSuqX5dqc8w6vYw==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,216,1787036400"; d="scan'208";a="10032418"
+Received: from ettammin-mobl3.ger.corp.intel.com (HELO localhost)
+ ([10.245.245.93])
+ by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 16 Nov 2026 01:13:30 -0800
+From: Ville Syrjala <ville.syrjala@linux.intel.com>
+To: dri-devel@lists.freedesktop.org
+Cc: intel-gfx@lists.freedesktop.org, intel-xe@lists.freedesktop.org,
+ Erwin Springer <aot.lerwin@gmail.com>, amd-gfx@lists.freedesktop.org,
+ =?UTF-8?q?Andr=C3=A9=20Almeida?= <andrealmeid@igalia.com>,
+ Boris Brezillon <bbrezillon@kernel.org>,
+ Christopher Snowhill <chris@kode54.net>,
+ Dave Stevenson <dave.stevenson@raspberrypi.com>,
+ Dharma Balasubiramani <dharma.b@microchip.com>,
+ Dmitry Baryshkov <lumag@kernel.org>, freedreno@lists.freedesktop.org,
+ Gustavo Padovan <gustavo.padovan@collabora.com>,
+ Huacai Chen <chenhuacai@kernel.org>,
+ Icenowy Zheng <zhengxingda@iscas.ac.cn>,
+ Jianmin Lv <lvjianmin@loongson.cn>, linux-arm-msm@vger.kernel.org,
+ linux-mediatek@lists.infradead.org, linux-rockchip@lists.infradead.org,
+ linux-tegra@vger.kernel.org, Liviu Dudau <liviu.dudau@arm.com>,
+ =?UTF-8?q?Ma=C3=ADra=20Canal?= <mcanal@igalia.com>,
+ Manikandan Muralidharan <manikandan.m@microchip.com>,
+ Maxime Ripard <mripard@kernel.org>, Mingcong Bai <jeffbai@aosc.io>,
+ nouveau@lists.freedesktop.org, Qianhai Wu <wuqianhai@loongson.cn>,
+ Raspberry Pi Kernel Maintenance <kernel-list@raspberrypi.com>,
+ Simon Ser <contact@emersion.fr>, wayland-devel@lists.freedesktop.org,
+ Xaver Hugl <xaver.hugl@kde.org>, Xi Ruoyao <xry111@xry111.site>
+Subject: [PATCH 11/12] drm/atomic/uapi: Make async flips a bit more palatable
+ through atomic
+Date: Mon, 16 Nov 2026 11:11:29 +0200
+Message-ID: <20261116091130.13950-12-ville.syrjala@linux.intel.com>
+X-Mailer: git-send-email 2.56.0
+In-Reply-To: <20261116091130.13950-1-ville.syrjala@linux.intel.com>
+References: <20261116091130.13950-1-ville.syrjala@linux.intel.com>
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
+Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park,
+ 6 krs Bertel Jungin Aukio 5, 02600 Espoo, Finland
 Content-Transfer-Encoding: 8bit
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -91,285 +87,450 @@ List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-18.8 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
-	DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
+X-Spam-Status: No, score=-16.8 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
+	DKIM_SIGNED,DKIM_VALID,HEADER_FROM_DIFFERENT_DOMAINS,
 	INCLUDES_CR_TRAILER,INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,
-	SPF_PASS,USER_AGENT_GIT autolearn=ham autolearn_force=no version=4.0.1
+	SPF_PASS,USER_AGENT_GIT autolearn=unavailable autolearn_force=no
+	version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-Confidential-computing shared DMA allocations require CMA backing memory
-to be aligned to the architecture shared-memory granule. Passing explicit
-alignment orders through the DMA allocation stack exposes this derived
-constraint to callers and requires separate preferred and mandatory values.
+From: Ville Syrjälä <ville.syrjala@linux.intel.com>
 
-The DMA core already records whether an allocation needs shared backing in
-__DMA_ATTR_ALLOC_CC_SHARED. Pass allocation attributes to the DMA-contiguous
-entry points and derive the mandatory alignment there before calling CMA.
-Preserve the existing alignment clamping for ordinary allocations, while
-rejecting shared allocations whose granule exceeds CONFIG_CMA_ALIGNMENT so
-callers can fall back to the page allocator.
+Userspace developers are supremely lazy, and apparently not willing
+to spend any effort on trimming out no-op property changes from
+their atomic commits.
 
-Cc: Russell King <linux@armlinux.org.uk>
-Cc: Robin Murphy <robin.murphy@arm.com>
-Cc: "Joerg Roedel (AMD)" <joro@8bytes.org>
-Cc: Will Deacon <will@kernel.org>
-Cc: Marek Szyprowski <m.szyprowski@samsung.com>
-Cc: Andrew Morton <akpm@linux-foundation.org>
-Cc: Baoquan He <baoquan.he@linux.dev>
-Cc: Mike Rapoport <rppt@kernel.org>
-Cc: Pasha Tatashin <pasha.tatashin@soleen.com>
-Cc: Pratyush Yadav <pratyush@kernel.org>
-Signed-off-by: Aneesh Kumar K.V (Arm) <aneesh.kumar@kernel.org>
+For normal atomic commits it just means that the kernel and/or
+hardware will need to do a bit more work to deal with the redundant
+updates. Eg. on i915/xe we don't bother doing an exhaustive comparison
+of all the state to filter out no-ops, and thus we end up feeding
+most of it to the hardware. Apart from wasted power (not an
+insignificant amount probably in some cases) that is kinda fine.
+
+For normal atomic commit the rule is also that all side effects
+of the commit must be observed. For example, if the plane's
+framebuffer appears on the property list, we have to make sure
+that any shadow copies of the framebuffer contents (PSR,
+i915/xe FBC, etc.) are updated (even if the FB_ID stays the
+same) in case there was any front buffer rendering done to
+the buffer.
+
+But for async flips the uapi has completely separate rules,
+essentially saying that a plane that is part of the atomic
+commit can be completely ignored by the driver if none its
+properties are changing values. Ie. side effects need not
+be observed.
+
+The current scheme can sort of work without any extra state
+comparisons, but only if every plane on the device supports
+async flips. That is generally not the case. Eg. on i915/xe
+we only support async flips on the primary plane. Later
+hardware generations do support async flips on sprite planes
+as well, but we've not hooked that up yet. And cursor planes
+don't support async flips on any hardware generation.
+
+Currently the only way to implement the no-op checks is by
+having the driver perform that exhaustive comparison of the
+full state. That would be tedious and supremely fragile as
+it would be very easy to forget to update those checks when
+adding a new piece of state.
+
+Let's avoid that whole mess by doing the no-op filtering
+directly in the atomic ioctl handler. It's pretty easy on
+this level as all we really have to care about is the actual
+uapi property values, not how they get stored in the state
+objects (since we reuse the normal drm_atomic_get_property()
+for that), and derived state is not a factor on this level
+at all. The code is in fact mostly already there, just for
+input validation purposes. It just needs to be extended
+slightly to completely filter out the no-ops.
+
+This way we can completely skip adding planes and connectors
+to the state if all they have is no-op property changes. The
+driver never even sees the no-op objects, and thus can't think
+it needs to reject the commit due to their presence. CRTCs
+we have to add even if none of their properties change state.
+This is because the uapi rules say that any CRTC named in the
+commit (either directly, or indirectly via a plane/connector)
+must actually perform the commit, and send back the completion
+event. For that reason we must also always add the
+plane's/connector's current crtc to the state in the new
+bespoke __drm_atomic_get_current_*_state() helpers.
+
+TODO: igt tests for atomic+async uapi don't really exist :(
+
+Cc: amd-gfx@lists.freedesktop.org
+Cc: André Almeida <andrealmeid@igalia.com>
+Cc: Boris Brezillon <bbrezillon@kernel.org>
+Cc: Christopher Snowhill <chris@kode54.net>
+Cc: Dave Stevenson <dave.stevenson@raspberrypi.com>
+Cc: Dharma Balasubiramani <dharma.b@microchip.com>
+Cc: Dmitry Baryshkov <lumag@kernel.org>
+Cc: freedreno@lists.freedesktop.org
+Cc: Gustavo Padovan <gustavo.padovan@collabora.com>
+Cc: Huacai Chen <chenhuacai@kernel.org>
+Cc: Icenowy Zheng <zhengxingda@iscas.ac.cn>
+Cc: intel-gfx@lists.freedesktop.org
+Cc: intel-xe@lists.freedesktop.org
+Cc: Jianmin Lv <lvjianmin@loongson.cn>
+Cc: linux-arm-msm@vger.kernel.org
+Cc: linux-mediatek@lists.infradead.org
+Cc: linux-rockchip@lists.infradead.org
+Cc: linux-tegra@vger.kernel.org
+Cc: Liviu Dudau <liviu.dudau@arm.com>
+Cc: Maíra Canal <mcanal@igalia.com>
+Cc: Manikandan Muralidharan <manikandan.m@microchip.com>
+Cc: Maxime Ripard <mripard@kernel.org>
+Cc: Mingcong Bai <jeffbai@aosc.io>
+Cc: nouveau@lists.freedesktop.org
+Cc: Qianhai Wu <wuqianhai@loongson.cn>
+Cc: Raspberry Pi Kernel Maintenance <kernel-list@raspberrypi.com>
+Cc: Simon Ser <contact@emersion.fr>
+Cc: wayland-devel@lists.freedesktop.org
+Cc: Xaver Hugl <xaver.hugl@kde.org>
+Cc: Xi Ruoyao <xry111@xry111.site>
+Signed-off-by: Ville Syrjälä <ville.syrjala@linux.intel.com>
 ---
- arch/arm/mm/dma-mapping.c   |  5 +++--
- drivers/iommu/dma-iommu.c   |  2 +-
- include/linux/dma-map-ops.h |  9 ++++----
- kernel/dma/contiguous.c     | 41 +++++++++++++++++++++++++++----------
- kernel/dma/direct.c         |  2 +-
- kernel/dma/ops_helpers.c    |  2 +-
- kernel/dma/pool.c           |  2 +-
- kernel/kexec_file.c         |  3 ++-
- 8 files changed, 44 insertions(+), 22 deletions(-)
+ drivers/gpu/drm/drm_atomic.c        |  97 +++++++++++++++++++
+ drivers/gpu/drm/drm_atomic_uapi.c   | 139 ++++++++++++++++++++--------
+ drivers/gpu/drm/drm_crtc_internal.h |   9 ++
+ 3 files changed, 205 insertions(+), 40 deletions(-)
 
-diff --git a/arch/arm/mm/dma-mapping.c b/arch/arm/mm/dma-mapping.c
-index fb2eb0ed7bb8..22888880b832 100644
---- a/arch/arm/mm/dma-mapping.c
-+++ b/arch/arm/mm/dma-mapping.c
-@@ -398,7 +398,8 @@ static void *__alloc_from_contiguous(struct device *dev, size_t size,
- 	struct page *page;
- 	void *ptr = NULL;
- 
--	page = dma_alloc_from_contiguous(dev, count, order, gfp & __GFP_NOWARN);
-+	page = dma_alloc_from_contiguous(dev, count, order, 0,
-+					 gfp & __GFP_NOWARN);
- 	if (!page)
- 		return NULL;
- 
-@@ -866,7 +867,7 @@ static struct page **__iommu_alloc_buffer(struct device *dev, size_t size,
- 		unsigned long order = get_order(size);
- 		struct page *page;
- 
--		page = dma_alloc_from_contiguous(dev, count, order,
-+		page = dma_alloc_from_contiguous(dev, count, order, 0,
- 						 gfp & __GFP_NOWARN);
- 		if (!page)
- 			goto error;
-diff --git a/drivers/iommu/dma-iommu.c b/drivers/iommu/dma-iommu.c
-index 78742aeba932..2d2781910740 100644
---- a/drivers/iommu/dma-iommu.c
-+++ b/drivers/iommu/dma-iommu.c
-@@ -1646,7 +1646,7 @@ static void *iommu_dma_alloc_pages(struct device *dev, size_t size,
- 	struct page *page = NULL;
- 	void *cpu_addr;
- 
--	page = dma_alloc_contiguous(dev, alloc_size, gfp);
-+	page = dma_alloc_contiguous(dev, alloc_size, gfp, 0);
- 	if (!page) {
- 		cpu_addr = alloc_pages_exact_nid(node, alloc_size, gfp);
- 		if (!cpu_addr)
-diff --git a/include/linux/dma-map-ops.h b/include/linux/dma-map-ops.h
-index afaf2c12189b..7a83942a10f3 100644
---- a/include/linux/dma-map-ops.h
-+++ b/include/linux/dma-map-ops.h
-@@ -99,10 +99,11 @@ int __init dma_contiguous_reserve_area(phys_addr_t size, phys_addr_t base,
- 		phys_addr_t limit, struct cma **res_cma, bool fixed);
- 
- struct page *dma_alloc_from_contiguous(struct device *dev, size_t count,
--				       unsigned int order, bool no_warn);
-+		unsigned int order, unsigned long attrs, bool no_warn);
- bool dma_release_from_contiguous(struct device *dev, struct page *pages,
- 				 int count);
--struct page *dma_alloc_contiguous(struct device *dev, size_t size, gfp_t gfp);
-+struct page *dma_alloc_contiguous(struct device *dev, size_t size,
-+				  gfp_t gfp, unsigned long attrs);
- void dma_free_contiguous(struct device *dev, struct page *page, size_t size);
- 
- void dma_contiguous_early_fixup(phys_addr_t base, unsigned long size);
-@@ -125,7 +126,7 @@ static inline int dma_contiguous_reserve_area(phys_addr_t size,
- 	return -ENOSYS;
+diff --git a/drivers/gpu/drm/drm_atomic.c b/drivers/gpu/drm/drm_atomic.c
+index 81591173265d..176520aec21c 100644
+--- a/drivers/gpu/drm/drm_atomic.c
++++ b/drivers/gpu/drm/drm_atomic.c
+@@ -497,6 +497,28 @@ drm_atomic_get_crtc_state(struct drm_atomic_commit *state,
  }
- static inline struct page *dma_alloc_from_contiguous(struct device *dev,
--		size_t count, unsigned int order, bool no_warn)
-+		size_t count, unsigned int order, unsigned long attrs, bool no_warn)
- {
- 	return NULL;
- }
-@@ -136,7 +137,7 @@ static inline bool dma_release_from_contiguous(struct device *dev,
- }
- /* Use fallback alloc() and free() when CONFIG_DMA_CMA=n */
- static inline struct page *dma_alloc_contiguous(struct device *dev, size_t size,
--		gfp_t gfp)
-+		gfp_t gfp, unsigned long attrs)
- {
- 	return NULL;
- }
-diff --git a/kernel/dma/contiguous.c b/kernel/dma/contiguous.c
-index 90937dc7c627..e593ecbc64f4 100644
---- a/kernel/dma/contiguous.c
-+++ b/kernel/dma/contiguous.c
-@@ -39,6 +39,7 @@
+ EXPORT_SYMBOL(drm_atomic_get_crtc_state);
  
- #include <asm/page.h>
- 
-+#include <linux/cc_shared.h>
- #include <linux/memblock.h>
- #include <linux/err.h>
- #include <linux/sizes.h>
-@@ -357,19 +358,29 @@ int __init dma_contiguous_reserve_area(phys_addr_t size, phys_addr_t base,
-  * dma_alloc_from_contiguous() - allocate pages from contiguous area
-  * @dev:   Pointer to device for which the allocation is performed.
-  * @count: Requested number of pages.
-- * @align: Requested alignment of pages (in PAGE_SIZE order).
-+ * @align: Preferred alignment of pages (in PAGE_SIZE order).
-+ * @attrs: DMA allocation attributes.
-  * @no_warn: Avoid printing message about failed allocation.
-  *
-  * This function allocates memory buffer for specified device. It uses
-  * device specific contiguous memory area if available or the default
-  * global one. Requires architecture specific dev_get_cma_area() helper
-  * function.
-+ *
-+ * The preferred alignment is capped at CONFIG_CMA_ALIGNMENT. The internal
-+ * shared-allocation attribute requires at least the architecture shared
-+ * granule alignment and fails if that exceeds the CMA alignment limit.
-  */
- struct page *dma_alloc_from_contiguous(struct device *dev, size_t count,
--				       unsigned int align, bool no_warn)
-+		unsigned int align, unsigned long attrs, bool no_warn)
- {
--	if (align > CONFIG_CMA_ALIGNMENT)
--		align = CONFIG_CMA_ALIGNMENT;
-+	unsigned int required_align = 0;
++const struct drm_crtc_state *
++__drm_atomic_get_current_crtc_state(struct drm_atomic_commit *state,
++				    struct drm_crtc *crtc)
++{
++	const struct drm_crtc_state *crtc_state;
++	int ret;
 +
-+	if (attrs & __DMA_ATTR_ALLOC_CC_SHARED)
-+		required_align = get_order(cc_shared_granule_size());
-+	if (required_align > CONFIG_CMA_ALIGNMENT)
-+		return NULL;
-+	align = min(max(align, required_align), CONFIG_CMA_ALIGNMENT);
- 
- 	return cma_alloc(dev_get_cma_area(dev), count, align, no_warn);
- }
-@@ -390,10 +401,9 @@ bool dma_release_from_contiguous(struct device *dev, struct page *pages,
- 	return cma_release(dev_get_cma_area(dev), pages, count);
- }
- 
--static struct page *cma_alloc_aligned(struct cma *cma, size_t size, gfp_t gfp)
-+static struct page *cma_alloc_aligned(struct cma *cma, size_t size, gfp_t gfp,
-+				      unsigned int align)
++	WARN_ON(!state->acquire_ctx);
++	drm_WARN_ON(state->dev, state->checked);
++
++	crtc_state = drm_atomic_get_new_crtc_state(state, crtc);
++	if (crtc_state)
++		return crtc_state;
++
++	ret = drm_modeset_lock(&crtc->mutex, state->acquire_ctx);
++	if (ret)
++		return ERR_PTR(ret);
++
++	return crtc->state;
++}
++/* Do not export! Only meant for drm_atomic_set_property(). */
++
+ static int drm_atomic_crtc_check(const struct drm_crtc_state *old_crtc_state,
+ 				 const struct drm_crtc_state *new_crtc_state)
  {
--	unsigned int align = min(get_order(size), CONFIG_CMA_ALIGNMENT);
+@@ -704,6 +726,43 @@ drm_atomic_get_plane_state(struct drm_atomic_commit *state,
+ }
+ EXPORT_SYMBOL(drm_atomic_get_plane_state);
+ 
++const struct drm_plane_state *
++__drm_atomic_get_current_plane_state(struct drm_atomic_commit *state,
++				     struct drm_plane *plane)
++{
++	const struct drm_plane_state *plane_state;
++	int ret;
++
++	WARN_ON(!state->acquire_ctx);
++	drm_WARN_ON(state->dev, state->checked);
++
++	plane_state = drm_atomic_get_new_plane_state(state, plane);
++	if (plane_state)
++		return plane_state;
++
++	ret = drm_modeset_lock(&plane->mutex, state->acquire_ctx);
++	if (ret)
++		return ERR_PTR(ret);
++
++	plane_state = plane->state;
++
++	/*
++	 * The plane's current crtc must always be added
++	 * to the commit for completion/event purposes.
++	 */
++	if (plane_state->crtc) {
++		struct drm_crtc_state *crtc_state;
++
++		crtc_state = drm_atomic_get_crtc_state(state,
++						       plane_state->crtc);
++		if (IS_ERR(crtc_state))
++			return ERR_CAST(crtc_state);
++	}
++
++	return plane_state;
++}
++/* Do not export! Only meant for drm_atomic_set_property(). */
++
+ static void drm_atomic_commit_set_colorop_state(struct drm_atomic_commit *commit,
+ 						struct drm_colorop *colorop,
+ 						struct drm_colorop_state *colorop_state)
+@@ -1496,6 +1555,44 @@ drm_atomic_get_connector_state(struct drm_atomic_commit *state,
+ }
+ EXPORT_SYMBOL(drm_atomic_get_connector_state);
+ 
++const struct drm_connector_state *
++__drm_atomic_get_current_connector_state(struct drm_atomic_commit *state,
++					 struct drm_connector *connector)
++{
++	struct drm_mode_config *config = &connector->dev->mode_config;
++	const struct drm_connector_state *connector_state;
++	int ret;
++
++	WARN_ON(!state->acquire_ctx);
++	drm_WARN_ON(state->dev, state->checked);
++
++	connector_state = drm_atomic_get_new_connector_state(state, connector);
++	if (connector_state)
++		return connector_state;
++
++	ret = drm_modeset_lock(&config->connection_mutex, state->acquire_ctx);
++	if (ret)
++		return ERR_PTR(ret);
++
++	connector_state = connector->state;
++
++	/*
++	 * The connectors's current crtc must always be added
++	 * to the commit for completion/event purposes.
++	 */
++	if (connector_state->crtc) {
++		struct drm_crtc_state *crtc_state;
++
++		crtc_state = drm_atomic_get_crtc_state(state,
++						       connector_state->crtc);
++		if (IS_ERR(crtc_state))
++			return ERR_CAST(crtc_state);
++	}
++
++	return connector_state;
++}
++/* Do not export! Only meant for drm_atomic_set_property(). */
++
+ static void drm_atomic_connector_print_state(struct drm_printer *p,
+ 		const struct drm_connector_state *state)
+ {
+diff --git a/drivers/gpu/drm/drm_atomic_uapi.c b/drivers/gpu/drm/drm_atomic_uapi.c
+index 7517950d2e51..87181aba1451 100644
+--- a/drivers/gpu/drm/drm_atomic_uapi.c
++++ b/drivers/gpu/drm/drm_atomic_uapi.c
+@@ -1212,15 +1212,19 @@ int drm_atomic_set_property(struct drm_atomic_commit *state,
+ 	case DRM_MODE_OBJECT_CONNECTOR: {
+ 		struct drm_connector *connector = obj_to_connector(obj);
+ 		struct drm_connector_state *connector_state;
 -
- 	return cma_alloc(cma, size >> PAGE_SHIFT, align, gfp & __GFP_NOWARN);
- }
+-		connector_state = drm_atomic_get_connector_state(state, connector);
+-		if (IS_ERR(connector_state)) {
+-			ret = PTR_ERR(connector_state);
+-			break;
+-		}
++		bool is_noop = false;
  
-@@ -402,6 +412,7 @@ static struct page *cma_alloc_aligned(struct cma *cma, size_t size, gfp_t gfp)
-  * @dev:   Pointer to device for which the allocation is performed.
-  * @size:  Requested allocation size.
-  * @gfp:   Allocation flags.
-+ * @attrs: DMA allocation attributes.
-  *
-  * tries to use device specific contiguous memory area if available, or it
-  * tries to use per-numa cma, if the allocation fails, it will fallback to
-@@ -412,8 +423,11 @@ static struct page *cma_alloc_aligned(struct cma *cma, size_t size, gfp_t gfp)
-  * there is no need to waste CMA pages for that kind; it also helps reduce
-  * fragmentations.
-  */
--struct page *dma_alloc_contiguous(struct device *dev, size_t size, gfp_t gfp)
-+struct page *dma_alloc_contiguous(struct device *dev, size_t size,
-+				  gfp_t gfp, unsigned long attrs)
- {
-+	unsigned int required_align = 0;
-+	unsigned int align = get_order(size);
- #ifdef CONFIG_DMA_NUMA_CMA
- 	int nid = dev_to_node(dev);
- #endif
-@@ -421,8 +435,13 @@ struct page *dma_alloc_contiguous(struct device *dev, size_t size, gfp_t gfp)
- 	/* CMA can be used only in the context which permits sleeping */
- 	if (!gfpflags_allow_blocking(gfp))
- 		return NULL;
-+	if (attrs & __DMA_ATTR_ALLOC_CC_SHARED)
-+		required_align = get_order(cc_shared_granule_size());
-+	if (required_align > CONFIG_CMA_ALIGNMENT)
-+		return NULL;
-+	align = min(max(align, required_align), CONFIG_CMA_ALIGNMENT);
- 	if (dev->cma_area)
--		return cma_alloc_aligned(dev->cma_area, size, gfp);
-+		return cma_alloc_aligned(dev->cma_area, size, gfp, align);
- 	if (size <= PAGE_SIZE)
- 		return NULL;
- 
-@@ -431,7 +450,7 @@ struct page *dma_alloc_contiguous(struct device *dev, size_t size, gfp_t gfp)
- 		struct cma *cma = dma_contiguous_numa_area[nid];
- 		struct page *page;
- 		if (cma) {
--			page = cma_alloc_aligned(cma, size, gfp);
-+			page = cma_alloc_aligned(cma, size, gfp, align);
- 			if (page)
- 				return page;
+ 		if (async_flip) {
+-			ret = drm_atomic_connector_get_property(connector, connector_state,
++			const struct drm_connector_state *current_connector_state;
++
++			current_connector_state =
++				__drm_atomic_get_current_connector_state(state, connector);
++			if (IS_ERR(current_connector_state)) {
++				ret = PTR_ERR(current_connector_state);
++				break;
++			}
++
++			ret = drm_atomic_connector_get_property(connector, current_connector_state,
+ 								prop, &old_val);
+ 			if (ret)
+ 				break;
+@@ -1238,6 +1242,21 @@ int drm_atomic_set_property(struct drm_atomic_commit *state,
+ 				ret = -EINVAL;
+ 				break;
+ 			}
++
++			if (old_val == prop_value)
++				is_noop = true;
++		}
++
++		/* No-op connector property changes can be completely skipped */
++		if (is_noop) {
++			ret = 0;
++			break;
++		}
++
++		connector_state = drm_atomic_get_connector_state(state, connector);
++		if (IS_ERR(connector_state)) {
++			ret = PTR_ERR(connector_state);
++			break;
  		}
-@@ -440,7 +459,7 @@ struct page *dma_alloc_contiguous(struct device *dev, size_t size, gfp_t gfp)
- 	if (!dma_contiguous_default_area)
- 		return NULL;
  
--	return cma_alloc_aligned(dma_contiguous_default_area, size, gfp);
-+	return cma_alloc_aligned(dma_contiguous_default_area, size, gfp, align);
- }
+ 		ret = drm_atomic_connector_set_property(connector,
+@@ -1248,15 +1267,19 @@ int drm_atomic_set_property(struct drm_atomic_commit *state,
+ 	case DRM_MODE_OBJECT_CRTC: {
+ 		struct drm_crtc *crtc = obj_to_crtc(obj);
+ 		struct drm_crtc_state *crtc_state;
+-
+-		crtc_state = drm_atomic_get_crtc_state(state, crtc);
+-		if (IS_ERR(crtc_state)) {
+-			ret = PTR_ERR(crtc_state);
+-			break;
+-		}
++		bool is_noop = false;
  
- /**
-diff --git a/kernel/dma/direct.c b/kernel/dma/direct.c
-index 596c90e8f890..7e71f96b6ffd 100644
---- a/kernel/dma/direct.c
-+++ b/kernel/dma/direct.c
-@@ -125,7 +125,7 @@ static struct page *__dma_direct_alloc_pages(struct device *dev, size_t size,
- 	WARN_ON_ONCE(!PAGE_ALIGNED(size));
+ 		if (async_flip) {
+-			ret = drm_atomic_crtc_get_property(crtc, crtc_state,
++			const struct drm_crtc_state *current_crtc_state;
++
++			current_crtc_state =
++				__drm_atomic_get_current_crtc_state(state, crtc);
++			if (IS_ERR(current_crtc_state)) {
++				ret = PTR_ERR(current_crtc_state);
++				break;
++			}
++
++			ret = drm_atomic_crtc_get_property(crtc, current_crtc_state,
+ 							   prop, &old_val);
+ 			if (ret)
+ 				break;
+@@ -1274,6 +1297,24 @@ int drm_atomic_set_property(struct drm_atomic_commit *state,
+ 				ret = -EINVAL;
+ 				break;
+ 			}
++
++			if (old_val == prop_value)
++				is_noop = true;
++		}
++
++		/*
++		 * CRTCs must always be included in the commit,
++		 * even for no-op property changes.
++		 */
++		crtc_state = drm_atomic_get_crtc_state(state, crtc);
++		if (IS_ERR(crtc_state)) {
++			ret = PTR_ERR(crtc_state);
++			break;
++		}
++
++		if (is_noop) {
++			ret = 0;
++			break;
+ 		}
  
- 	gfp |= dma_direct_optimal_gfp_mask(dev, &phys_limit);
--	page = dma_alloc_contiguous(dev, size, gfp);
-+	page = dma_alloc_contiguous(dev, size, gfp, 0);
- 	if (page) {
- 		if (dma_coherent_ok(dev, page_to_phys(page), size) &&
- 		    (allow_highmem || !PageHighMem(page)))
-diff --git a/kernel/dma/ops_helpers.c b/kernel/dma/ops_helpers.c
-index 5cdf3f60cf47..11453e5ee0d3 100644
---- a/kernel/dma/ops_helpers.c
-+++ b/kernel/dma/ops_helpers.c
-@@ -66,7 +66,7 @@ struct page *dma_common_alloc_pages(struct device *dev, size_t size,
- 	struct page *page;
- 	phys_addr_t phys;
+ 		ret = drm_atomic_crtc_set_property(crtc,
+@@ -1285,16 +1326,19 @@ int drm_atomic_set_property(struct drm_atomic_commit *state,
+ 		struct drm_plane_state *plane_state;
+ 		struct drm_mode_config *config = &plane->dev->mode_config;
+ 		const struct drm_plane_helper_funcs *plane_funcs = plane->helper_private;
+-
+-		plane_state = drm_atomic_get_plane_state(state, plane);
+-		if (IS_ERR(plane_state)) {
+-			ret = PTR_ERR(plane_state);
+-			break;
+-		}
++		bool is_noop = false;
  
--	page = dma_alloc_contiguous(dev, size, gfp);
-+	page = dma_alloc_contiguous(dev, size, gfp, 0);
- 	if (!page) {
- 		void *va = alloc_pages_exact_nid(dev_to_node(dev), size, gfp);
+ 		if (async_flip) {
+-			/* no-op changes are always allowed */
+-			ret = drm_atomic_plane_get_property(plane, plane_state,
++			const struct drm_plane_state *current_plane_state;
++
++			current_plane_state =
++				__drm_atomic_get_current_plane_state(state, plane);
++			if (IS_ERR(current_plane_state)) {
++				ret = PTR_ERR(current_plane_state);
++				break;
++			}
++
++			ret = drm_atomic_plane_get_property(plane, current_plane_state,
+ 							    prop, &old_val);
+ 			if (ret)
+ 				break;
+@@ -1318,25 +1362,40 @@ int drm_atomic_set_property(struct drm_atomic_commit *state,
+ 				break;
+ 			}
  
-diff --git a/kernel/dma/pool.c b/kernel/dma/pool.c
-index 00f422a1e896..70b7f64b17ab 100644
---- a/kernel/dma/pool.c
-+++ b/kernel/dma/pool.c
-@@ -99,7 +99,7 @@ static int atomic_pool_expand(struct dma_gen_pool *dma_pool, size_t pool_size,
- 		pool_size = 1 << (PAGE_SHIFT + order);
- 		if (cma_in_zone(gfp))
- 			page = dma_alloc_from_contiguous(NULL, 1 << order,
--							 order, false);
-+							 order, 0, false);
- 		if (!page)
- 			page = alloc_pages(gfp | __GFP_NOWARN, order);
- 	} while (!page && order-- > 0);
-diff --git a/kernel/kexec_file.c b/kernel/kexec_file.c
-index b668ce8d68ee..5bcba818f046 100644
---- a/kernel/kexec_file.c
-+++ b/kernel/kexec_file.c
-@@ -702,7 +702,8 @@ static int kexec_alloc_contig(struct kexec_buf *kbuf)
- 	if (kbuf->image->type == KEXEC_TYPE_CRASH)
- 		return -EPERM;
+-			/*
+-			 * FIXME this is in the wrong place. Whether to do a
+-			 * bypass commit for async flips would is a driver
+-			 * decision. Drivers that want this need to just do
+-			 * these checks themselves somewhere.
+-			 */
+-			if (old_val != prop_value && plane->type != DRM_PLANE_TYPE_PRIMARY) {
+-				/* ask the driver if this non-primary plane is supported */
+-				if (plane_funcs && plane_funcs->atomic_bypass_check)
+-					ret = plane_funcs->atomic_bypass_check(plane, state, true);
+-				else
+-					ret = -EINVAL;
++			if (old_val == prop_value)
++				is_noop = true;
++		}
  
--	p = dma_alloc_from_contiguous(NULL, nr_pages, get_order(kbuf->buf_align), true);
-+	p = dma_alloc_from_contiguous(NULL, nr_pages,
-+				      get_order(kbuf->buf_align), 0, true);
- 	if (!p)
- 		return -ENOMEM;
+-				if (ret) {
+-					drm_dbg_atomic(prop->dev,
+-						       "[PLANE:%d:%s] does not support async flips\n",
+-						       obj->id, plane->name);
+-					break;
+-				}
++		/* No-op plane property changes can be fully skipped */
++		if (is_noop) {
++			ret = 0;
++			break;
++		}
++
++		plane_state = drm_atomic_get_plane_state(state, plane);
++		if (IS_ERR(plane_state)) {
++			ret = PTR_ERR(plane_state);
++			break;
++		}
++
++		/*
++		 * FIXME this is in the wrong place. Whether to do a
++		 * bypass commit for async flips would is a driver
++		 * decision. Drivers that want this need to just do
++		 * these checks themselves somewhere.
++		 */
++		if (async_flip && !is_noop && plane->type != DRM_PLANE_TYPE_PRIMARY) {
++			/* ask the driver if this non-primary plane is supported */
++			if (plane_funcs && plane_funcs->atomic_bypass_check)
++				ret = plane_funcs->atomic_bypass_check(plane, state, true);
++			else
++				ret = -EINVAL;
++
++			if (ret) {
++				drm_dbg_atomic(prop->dev,
++					       "[PLANE:%d:%s] does not support async flips\n",
++					       obj->id, plane->name);
++				break;
+ 			}
+ 		}
  
+diff --git a/drivers/gpu/drm/drm_crtc_internal.h b/drivers/gpu/drm/drm_crtc_internal.h
+index 3492787c3697..5ae86d33e3ae 100644
+--- a/drivers/gpu/drm/drm_crtc_internal.h
++++ b/drivers/gpu/drm/drm_crtc_internal.h
+@@ -252,6 +252,15 @@ int __drm_atomic_helper_set_config(struct drm_mode_set *set,
+ 
+ void drm_atomic_print_new_state(const struct drm_atomic_commit *state,
+ 		struct drm_printer *p);
++const struct drm_crtc_state *
++__drm_atomic_get_current_crtc_state(struct drm_atomic_commit *state,
++				    struct drm_crtc *crtc);
++const struct drm_connector_state *
++__drm_atomic_get_current_connector_state(struct drm_atomic_commit *state,
++					 struct drm_connector *connector);
++const struct drm_plane_state *
++__drm_atomic_get_current_plane_state(struct drm_atomic_commit *state,
++				     struct drm_plane *plane);
+ 
+ /* drm_atomic_uapi.c */
+ int drm_atomic_connector_commit_dpms(struct drm_atomic_commit *state,
 -- 
-2.43.0
+2.56.0
 
