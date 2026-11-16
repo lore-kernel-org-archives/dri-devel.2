@@ -2,80 +2,150 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 33050606A31C
-	for <dri-devel@archiver.kernel.org>; Mon, 16 Nov 2026 13:10:57 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C484F606A31C
+	for <dri-devel@archiver.kernel.org>; Mon, 16 Nov 2026 13:12:11 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=Db7RY90V
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=A4AF64nu
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 7BFAD10F132;
-	Mon, 16 Nov 2026 13:10:50 +0000 (UTC)
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.11])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 161AE10F12D;
- Mon, 16 Nov 2026 13:10:44 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1794834644; x=1826370644;
- h=from:to:cc:subject:in-reply-to:references:date:
- message-id:mime-version:content-transfer-encoding;
- bh=FE8Eb/o2jNhMmUkY0cmLF5+hbV0dzwgrgopBYqNs/2g=;
- b=Db7RY90VJBMp0IobypR/45LHYchBIG55PtBnIF62pvPKlws3a0zSfHpJ
- FqdpSYbOXsu5Vko1Qlqk4SYO9cPLQrM3C6XhGOd6GmvrKtW7zc19lIDhG
- Bw/McS3IAwLu1cWrpaG8snjCyFORJTj+JKn42P/U1bhQdsUscvnIPEi3I
- mxkde87AKXLpvIROSwA+2vC8VoM80yZI32Gqll8OovpH0J6GoYSk4cd8G
- /m/RsaudiU7b1+1rjyvtZb4jKuvE179SVNZqyUSaZhq9ZWu3qLRClpdi4
- gWRZY5SJ9/20MP4Kk1hdTCqYGhHL8ickdcN+lxYMciEvKrdJu/weypXoq A==;
-X-CSE-ConnectionGUID: sAmTLOMWTm20BhMkZW3rig==
-X-CSE-MsgGUID: 45avBj4RS56S7amHHLiQPA==
-X-IronPort-AV: E=McAfee;i="6800,10657,11968"; a="3464635"
-X-IronPort-AV: E=Sophos;i="6.27,216,1787036400"; 
-   d="scan'208";a="3464635"
-Received: from orviesa003.jf.intel.com ([10.64.159.143])
- by orvoesa103.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 16 Nov 2026 05:10:43 -0800
-X-CSE-ConnectionGUID: neqRBvN9TSuOXPoowwyZdg==
-X-CSE-MsgGUID: HJr8YL80TZmLcafdJ7R4kA==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,216,1787036400"; 
-   d="scan'208";a="9388760"
-Received: from slindbla-desk.ger.corp.intel.com (HELO localhost)
- ([10.245.245.117])
- by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 16 Nov 2026 05:10:34 -0800
-From: Jani Nikula <jani.nikula@linux.intel.com>
-To: Kory Maincent <kory.maincent@bootlin.com>, Maarten Lankhorst
- <maarten.lankhorst@linux.intel.com>, Maxime Ripard <mripard@kernel.org>,
- Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>,
- Simona Vetter <simona@ffwll.ch>, Rodrigo Vivi <rodrigo.vivi@intel.com>,
- Joonas Lahtinen <joonas.lahtinen@linux.intel.com>, Tvrtko Ursulin
- <tursulin@ursulin.net>, Andrzej Hajda <andrzej.hajda@intel.com>, Neil
- Armstrong <neil.armstrong@linaro.org>, Robert Foss <rfoss@kernel.org>,
- Laurent Pinchart <Laurent.pinchart@ideasonboard.com>, Jonas Karlman
- <jonas@kwiboo.se>, Jernej Skrabec <jernej.skrabec@gmail.com>, Luca
- Ceresoli <luca.ceresoli@bootlin.com>, Chun-Kuang Hu
- <chunkuang.hu@kernel.org>, Philipp Zabel <p.zabel@pengutronix.de>,
- Matthias Brugger <matthias.bgg@gmail.com>, AngeloGioacchino Del Regno
- <angelogioacchino.delregno@collabora.com>, Dmitry Baryshkov
- <lumag@kernel.org>, Daniel Stone <daniels@collabora.com>
-Cc: Thomas Petazzoni <thomas.petazzoni@bootlin.com>, Mark Yacoub
- <markyacoub@google.com>, Sean Paul <seanpaul@google.com>, Manasi Navare
- <navaremanasi@google.com>, Drew Davenport <ddavenport@google.com>, Louis
- Chauvet <louis.chauvet@bootlin.com>, dri-devel@lists.freedesktop.org,
- linux-kernel@vger.kernel.org, intel-gfx@lists.freedesktop.org,
- intel-xe@lists.freedesktop.org, linux-mediatek@lists.infradead.org,
- linux-arm-kernel@lists.infradead.org, Kory Maincent
- <kory.maincent@bootlin.com>
-Subject: Re: [PATCH RFC v3 0/8] Add support for DisplayPort link training
- information report
-In-Reply-To: <20261012-feat_link_cap-v3-0-7517f4aba0f3@bootlin.com>
-Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park,
- 6 krs Bertel Jungin Aukio 5, 02600 Espoo, Finland
-References: <20261012-feat_link_cap-v3-0-7517f4aba0f3@bootlin.com>
-Date: Mon, 16 Nov 2026 15:10:30 +0200
-Message-ID: <51ec15feef9a88e460ab6fefc48b5b982f4857c0@intel.com>
+	by gabe.freedesktop.org (Postfix) with ESMTP id 29CCE10EA02;
+	Mon, 16 Nov 2026 13:12:06 +0000 (UTC)
+Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 6A64510EED8;
+ Mon, 16 Nov 2026 10:21:06 +0000 (UTC)
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+ by tor.source.kernel.org (Postfix) with ESMTP id 607C462887;
+ Mon, 16 Nov 2026 10:21:05 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id D4BA51F000C6;
+ Mon, 16 Nov 2026 10:21:03 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+ s=k20260515; t=1794824465;
+ bh=eCrA9mVjaBK8MAY40JPU1DywzMNRUcfqehnrbY/XXEA=;
+ h=From:To:Cc:Subject:Date:In-Reply-To:References;
+ b=A4AF64nuBLP4D/WB5XYrARCuvN2Uya+3U/WL8n/jma9gny6IDC2hNd/K8trp//kOW
+ 03vAkDVhr12heLXIsz1vZ3Lizif1tDNSK+WI9rfYCraTnB+tG780UlFvGKGfeYW4Yj
+ /IGW6YDtveTz1JbN3vYsZvH06G36SZgQ90exTJ8WtMz1sp4PXUGZOa7wDC7+oNODEN
+ esEoQ++w65AfXmz1JPtKklbmO8G8ttx+3dNK4t7h98eTe2QMB5YoB+XXQnlZYrcWRj
+ ZrIAkdIqvc1bQVWn9O14VYmxY1+VqEs5E6zOpHJTbvhSY+cUGEVijNGts5/I2lDndf
+ xBytnwQqkpBDA==
+From: Maxime Ripard <mripard@kernel.org>
+To: David Airlie <airlied@gmail.com>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Simona Vetter <simona@ffwll.ch>, Thomas Zimmermann <tzimmermann@suse.de>,
+ Maxime Ripard <mripard@kernel.org>
+Cc: dri-devel@lists.freedesktop.org, Janne Grunau <j@jannau.net>,
+ Sasha Finkelstein <k@chaosmail.tech>, asahi@lists.linux.dev,
+ =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
+ Alex Deucher <alexander.deucher@amd.com>, amd-gfx@lists.freedesktop.org,
+ Aun-Ali Zaidi <admin@kodeit.net>, Liviu Dudau <liviu.dudau@arm.com>,
+ Russell King <linux@armlinux.org.uk>,
+ Andrew Jeffery <andrew@codeconstruct.com.au>,
+ Joel Stanley <joel@jms.id.au>, Dave Airlie <airlied@redhat.com>,
+ Jocelyn Falempe <jfalempe@redhat.com>,
+ Alexandre Belloni <alexandre.belloni@bootlin.com>,
+ Claudiu Beznea <claudiu.beznea@tuxon.dev>,
+ Dharma Balasubiramani <dharma.b@microchip.com>,
+ Manikandan Muralidharan <manikandan.m@microchip.com>,
+ Nicolas Ferre <nicolas.ferre@microchip.com>,
+ Alim Akhtar <alim.akhtar@samsung.com>, Inki Dae <inki.dae@samsung.com>,
+ Krzysztof Kozlowski <krzk@kernel.org>,
+ Kyungmin Park <kyungmin.park@samsung.com>,
+ Peter Griffin <peter.griffin@linaro.org>,
+ Seung-Woo Kim <sw0312.kim@samsung.com>, linux-samsung-soc@vger.kernel.org,
+ Alison Wang <alison.wang@nxp.com>, Stefan Agner <stefan@agner.ch>,
+ Ruben Wauters <rubenru09@aol.com>, Tian Tao <tiantao6@hisilicon.com>,
+ Xinwei Kong <kong.kongxinwei@hisilicon.com>,
+ Yongbang Shi <shiyongbang@huawei.com>, John Stultz <jstultz@google.com>,
+ Sumit Semwal <sumit.semwal@linaro.org>,
+ Xinliang Liu <xinliang.liu@linaro.org>,
+ Yongqin Liu <yongqin.liu@linaro.org>, Dexuan Cui <decui@microsoft.com>,
+ Long Li <longli@microsoft.com>,
+ Saurabh Sengar <ssengar@linux.microsoft.com>, linux-hyperv@vger.kernel.org,
+ Fabio Estevam <festevam@gmail.com>, Frank Li <Frank.Li@nxp.com>,
+ Liu Ying <victor.liu@nxp.com>,
+ Pengutronix Kernel Team <kernel@pengutronix.de>,
+ Sascha Hauer <s.hauer@pengutronix.de>, imx@lists.linux.dev,
+ Laurentiu Palcu <laurentiu.palcu@oss.nxp.com>,
+ Lucas Stach <l.stach@pengutronix.de>,
+ Philipp Zabel <p.zabel@pengutronix.de>,
+ Paul Cercueil <paul@crapouillou.net>, linux-mips@vger.kernel.org,
+ Anitha Chrisanthus <anitha.chrisanthus@intel.com>,
+ Paul Kocialkowski <paulk@sys-base.io>, Huacai Chen <chenhuacai@kernel.org>,
+ Icenowy Zheng <zhengxingda@iscas.ac.cn>,
+ Jianmin Lv <lvjianmin@loongson.cn>, Mingcong Bai <jeffbai@aosc.io>,
+ Qianhai Wu <wuqianhai@loongson.cn>, Xi Ruoyao <xry111@xry111.site>,
+ Linus Walleij <linusw@kernel.org>,
+ AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>,
+ Chun-Kuang Hu <chunkuang.hu@kernel.org>,
+ Matthias Brugger <matthias.bgg@gmail.com>,
+ Jerome Brunet <jbrunet@baylibre.com>, Kevin Hilman <khilman@baylibre.com>,
+ Martin Blumenstingl <martin.blumenstingl@googlemail.com>,
+ linux-amlogic@lists.infradead.org, Abhinav Kumar <abhinav.kumar@linux.dev>,
+ Dmitry Baryshkov <lumag@kernel.org>,
+ Jessica Zhang <jesszhan0024@gmail.com>,
+ Marijn Suijten <marijn.suijten@somainline.org>,
+ Rob Clark <robin.clark@oss.qualcomm.com>, Sean Paul <sean@poorly.run>,
+ freedreno@lists.freedesktop.org, linux-arm-msm@vger.kernel.org,
+ Marek Vasut <marex@denx.de>, Danilo Krummrich <dakr@kernel.org>,
+ Lyude Paul <lyude@redhat.com>, nouveau@lists.freedesktop.org,
+ Tomi Valkeinen <tomi.valkeinen@ideasonboard.com>,
+ Gerd Hoffmann <kraxel@redhat.com>, spice-devel@lists.freedesktop.org,
+ virtualization@lists.linux.dev,
+ Geert Uytterhoeven <geert+renesas@glider.be>,
+ Kieran Bingham <kieran.bingham+renesas@ideasonboard.com>,
+ Laurent Pinchart <laurent.pinchart+renesas@ideasonboard.com>,
+ Magnus Damm <magnus.damm@gmail.com>,
+ Tomi Valkeinen <tomi.valkeinen+renesas@ideasonboard.com>,
+ linux-renesas-soc@vger.kernel.org, Biju Das <biju.das.jz@bp.renesas.com>,
+ =?UTF-8?q?Heiko=20St=C3=BCbner?= <heiko@sntech.de>,
+ Sandy Huang <hjc@rock-chips.com>, linux-rockchip@lists.infradead.org,
+ Marcus Folkesson <marcus.folkesson@gmail.com>,
+ David Lechner <david@lechnology.com>,
+ Iker Pedrosa <ikerpedrosam@gmail.com>,
+ Javier Martinez Canillas <javierm@redhat.com>,
+ Baolin Wang <baolin.wang@linux.alibaba.com>,
+ Chunyan Zhang <zhang.lyra@gmail.com>, Orson Zhai <orsonzhai@gmail.com>,
+ Alain Volmat <alain.volmat@foss.st.com>,
+ Raphael Gallais-Pou <rgallaispou@gmail.com>,
+ Alexandre Torgue <alexandre.torgue@foss.st.com>,
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+ Philippe Cornu <philippe.cornu@foss.st.com>,
+ Raphael Gallais-Pou <raphael.gallais-pou@foss.st.com>,
+ Yannick Fertre <yannick.fertre@foss.st.com>,
+ Chen-Yu Tsai <wens@kernel.org>, Samuel Holland <samuel@sholland.org>,
+ linux-sunxi@lists.linux.dev, Jonathan Hunter <jonathanh@nvidia.com>,
+ Mikko Perttunen <mperttunen@nvidia.com>,
+ Thierry Reding <thierry.reding@kernel.org>, linux-tegra@vger.kernel.org,
+ Jyri Sarha <jyri.sarha@iki.fi>, Alexey Brodkin <abrodkin@synopsys.com>,
+ Hans de Goede <hansg@kernel.org>,
+ Kamlesh Gurudasani <kamlesh.gurudasani@gmail.com>,
+ Alex Lanzano <lanzano.alex@gmail.com>,
+ LiangCheng Wang <zaq14760@gmail.com>,
+ =?UTF-8?q?Ma=C3=ADra=20Canal?= <mcanal@igalia.com>,
+ Dave Stevenson <dave.stevenson@raspberrypi.com>,
+ Raspberry Pi Kernel Maintenance <kernel-list@raspberrypi.com>,
+ Chia-I Wu <olvaffe@gmail.com>,
+ Dmitry Osipenko <dmitry.osipenko@collabora.com>,
+ Gurchetan Singh <gurchetansingh@chromium.org>,
+ Haneen Mohammed <hamohammed.sa@gmail.com>,
+ Louis Chauvet <louis.chauvet@bootlin.com>,
+ Melissa Wen <melissa.srw@gmail.com>,
+ Broadcom internal kernel review list <bcm-kernel-feedback-list@broadcom.com>, 
+ Zack Rusin <zack.rusin@broadcom.com>,
+ Oleksandr Andrushchenko <oleksandr_andrushchenko@epam.com>,
+ Michal Simek <michal.simek@amd.com>, Aditya Garg <aditya.garg@linux.dev>,
+ Andy Yan <andyshrk@163.com>
+Subject: Re: (subset) [PATCH RESEND 00/83] drm: Switch drivers to
+ drm_mode_config_create_initial_state
+Date: Mon, 16 Nov 2026 11:20:59 +0100
+Message-ID: <179482445067.74579.7064780976000809844.b4-ty@kernel.org>
+X-Mailer: git-send-email 2.56.1
+In-Reply-To: <20261105-drm-no-more-config-reset-v1-0-1f58d1e33380@kernel.org>
+References: <20261105-drm-no-more-config-reset-v1-0-1f58d1e33380@kernel.org>
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
+X-Mailman-Approved-At: Mon, 16 Nov 2026 13:12:05 +0000
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -87,175 +157,27 @@ List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-13.8 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
-	DKIM_SIGNED,DKIM_VALID,HEADER_FROM_DIFFERENT_DOMAINS,
-	INCLUDES_CR_TRAILER,INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,
-	SPF_PASS autolearn=unavailable autolearn_force=no version=4.0.1
+X-Spam-Status: No, score=-8.8 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
+	DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
+	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,USER_AGENT_GIT autolearn=ham
+	autolearn_force=no version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-On Mon, 12 Oct 2026, Kory Maincent <kory.maincent@bootlin.com> wrote:
-> DisplayPort link training negotiates the physical-layer parameters needed
-> for a reliable connection: lane count, link rate, and optionally Display
-> Stream Compression (DSC). Currently, each driver exposes this state in
-> its own way, often through driver-specific debugfs entries, with no
-> standard interface for userspace diagnostic and monitoring tools.
->
-> This series introduces generic helpers, for exposing DP link capabilities
-> and state as standard sysfs entries.
+On Thu, 05 Nov 2026 16:29:09 +0100, Maxime Ripard wrote:
+> drm_mode_config_reset() has a dual role: it creates the initial KMS
+> state at probe time, and resets hardware and software state during
+> suspend/resume cycles. However, the two roles need different
+> behaviors, notably for objects like drm_private_obj that must persist
+> across suspend/resume and are excluded from drm_mode_config_reset()
+> by design.
+> 
+> [...]
 
-So how did we end up with sysfs here?
+Applied to misc/kernel.git (drm-misc-next)
 
-> The aim of such development is to guide users to select the most suitable
-> DisplayPort connector for their needs. For example, if you have a USB-C
-> hub with lesser capabilities than your computer=E2=80=99s native DisplayP=
-ort
-> connector (such as HBR2 versus HBR3 support), the system could recommend
-> connecting high-resolution displays directly to the computer=E2=80=99s po=
-rt
-> instead of through the hub to ensure optimal performance.
+[45/83] drm/sti: Switch to drm_mode_config_create_initial_state
+        commit: a8670a2ab1a81dc3fc30093e47c23b83244ca4d0
 
-I do wonder how all this is supposed to work in more complex real world
-scenarios, though.
-
-I believe the user primarily cares about *modes*. Which display modes
-can be used with each display/connector pair.
-
-With the low level link information, are you proposing to compute the
-required bandwidth for modes in userspace? I think it's going to be a
-lot of work to compute the bandwidth requirements, taking into account
-DP SST vs. MST vs. UHBR and DSC and bit depth and everything, and you'll
-still miss any driver/GPU specific contraints. Or are you just proposing
-to match the physical characteristics only?
-
-Given all the connectors and displays and their modes on a system, you
-could estimate a) for each display, what modes could be used on each
-connector, and b) for each connector, what modes could be used on a
-display, if connected. From the user POV, they could be shown why some
-display mode is not available on the current connector, and crucially,
-on which connector it could be available.
-
-In general, I'm wondering if you're really after higher level
-information, something like "connector max available bandwidth
-with/without DSC", that would more directly map to the user needs as I
-see them than low level link details.
-
-Do you have the userspace somewhere? That's needed for merging UABI
-anyway [1].
-
-[1] https://docs.kernel.org/gpu/drm-uapi.html#open-source-userspace-require=
-ments
-
->
-> The new drm_dp_source_set_caps and drm_dp_sink_set_caps helper expose
-> source and sink training capabilities to userspace via sysfs attributes
-> under dp_link. Finally drm_dp_set_cur_link_params helper is provided to
-> report current link information at runtime.
->
-> Three drivers are updated as reference implementations: i915 (direct
-> connector path), ANX7625 and MediaTek (via the bridge connector framework
-> using a new DRM_BRIDGE_OP_DP flag).
->
-> Here is a sysfs example:
->
-> cur_link_info_dsc            sink_link_caps_nlanes
-> cur_link_info_link_rate      source_link_caps_dsc
-> cur_link_info_nlanes         source_link_caps_link_rates
-> sink_link_caps_dsc           source_link_caps_nlanes
-> sink_link_caps_link_rates
->
-> 1620000 2160000 2700000 3240000 4320000 5400000
->
-> 1620000 2700000 5400000 10000000 20000000
->
-> 5400000
->
-> This series is rebased on top of drm-misc and may conflict with the
-> current state of the drm i915 tree. Which tree should pick this up,
-> given that it mixes core development with driver changes?
-
-For development, please just base your work on top of drm-tip, and the
-tree(s) will be sorted out later.
-
-BR,
-Jani.
-
-
-> Patch 1,2: Move helpers out of i915
-> Patch 3: Introduce DisplayPort link training capabilities and state helpe=
-rs
-> Patch 4: Read i915 DSC capabilities in any case
-> Patch 5  Use dp_connector helpers in i915 to expose link training state
-> Patch 6: Introduce DRM_BRIDGE_OP_DP and wire bridge connectors
-> Patch 7: Use dp_connector helpers in anx7625 to expose link training state
-> Patch 8: Use dp_connector helpers in mediatek to expose link training sta=
-te
->
-> Changes in v3:
-> - Rework the core to use new helpers instead of an extension of
->   drmm_connector_init().
-> - Add a new mutex to protect sysfs read write access instead of using
->   the global connection_mutex.
-> - Move helpers out of i915.
-> - Add the support in the anx7625 driver.
-> - Link to v2: https://patch.msgid.link/20260619-feat_link_cap-v2-0-a3dec4=
-c02ad9@bootlin.com
->
-> Changes in v2:
-> - Removed work converting i915 to DRM managed resource
-> - Remove voltage swing and pre-emphasis properties
-> - Expose link training state via sysfs dp_link/ group instead of
->   connector properties
-> - Add comprehensive sysfs attributes for both source and sink capabilities
-> - Add new helpers for managing sink capabilities and for current link
->   parameters
-> - Link to v1: https://lore.kernel.org/r/20260409-feat_link_cap-v1-0-7069e=
-8199ce2@bootlin.com
->
-> Signed-off-by: Kory Maincent <kory.maincent@bootlin.com>
-> ---
-> Kory Maincent (8):
->       drm: Move sink link rates reading helpers out of i915
->       drm: Move DSC capability reading helper out of i915
->       drm: Introduce DisplayPort link training capabilities and state hel=
-pers
->       drm/i915/display/dp: Read DPCD DSC capabilities in any case
->       drm/i915/display/dp: Use dp_connector helpers to expose link traini=
-ng state
->       drm/bridge: Expose link training state via new DRM_BRIDGE_OP_DP flag
->       drm/analogix/anx7625: Use dp_connector helpers to expose link train=
-ing state
->       drm/mediatek: Use dp_connector helpers to expose link training state
->
->  Documentation/ABI/testing/sysfs-class-drm-dp       |  85 +++
->  drivers/gpu/drm/bridge/analogix/anx7625.c          |  68 +++
->  drivers/gpu/drm/bridge/analogix/anx7625.h          |   1 +
->  drivers/gpu/drm/display/Kconfig                    |   1 +
->  drivers/gpu/drm/display/drm_bridge_connector.c     |  29 ++
->  drivers/gpu/drm/display/drm_dp_helper.c            | 571 +++++++++++++++=
-++++++
->  drivers/gpu/drm/drm_connector.c                    |  11 +
->  drivers/gpu/drm/drm_sysfs.c                        | 155 ++++++
->  drivers/gpu/drm/i915/display/intel_display_types.h |   2 +
->  drivers/gpu/drm/i915/display/intel_dp.c            | 249 ++++-----
->  .../gpu/drm/i915/display/intel_dp_link_training.c  |  14 +
->  drivers/gpu/drm/mediatek/mtk_dp.c                  |  79 ++-
->  include/drm/display/drm_dp.h                       |   1 +
->  include/drm/display/drm_dp_helper.h                |  25 +
->  include/drm/drm_bridge.h                           |  13 +
->  include/drm/drm_connector.h                        |  53 ++
->  include/drm/drm_sysfs.h                            |   1 +
->  17 files changed, 1202 insertions(+), 156 deletions(-)
-> ---
-> base-commit: 34e9ab0182494d7599dc9759bc216550d814b396
-> change-id: 20260226-feat_link_cap-20cbb6f31d40
->
-> Best regards,
-> --=20=20
-> K=C3=B6ry Maincent, Bootlin
-> Embedded Linux and kernel engineering
-> https://bootlin.com
->
-
---=20
-Jani Nikula, Intel
+Thanks!
+Maxime
