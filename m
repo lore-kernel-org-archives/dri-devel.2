@@ -2,77 +2,90 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4E86F606A323
-	for <dri-devel@archiver.kernel.org>; Mon, 16 Nov 2026 16:36:51 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9C30F606A31C
+	for <dri-devel@archiver.kernel.org>; Mon, 16 Nov 2026 16:39:19 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=imgtec.com header.i=@imgtec.com header.a=rsa-sha256 header.s=dk201812 header.b=v3QOpWh5
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=mIAvKWrp
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id ECAC410EAA9;
-	Mon, 16 Nov 2026 16:36:44 +0000 (UTC)
-Received: from mx08-00376f01.pphosted.com (mx08-00376f01.pphosted.com
- [91.207.212.86])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 9CBF410E9FB;
- Mon, 16 Nov 2026 16:36:28 +0000 (UTC)
-Received: from pps.filterd (m0168888.ppops.net [127.0.0.1])
- by mx08-00376f01.pphosted.com (8.18.1.12/8.18.1.12) with ESMTP id
- 6AGCQd1H4134120; Mon, 16 Nov 2026 16:36:20 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=imgtec.com; h=cc
- :content-transfer-encoding:content-type:date:from:in-reply-to
- :message-id:mime-version:references:subject:to; s=dk201812; bh=Y
- LJoUU89ZGsCK2NZO6kWkIJ/kxhCMvVuD1RYH0B+ixs=; b=v3QOpWh5N54Uhr2NL
- pmb1gtAphcjISPZC3MsPqD0/xpH2wstKlcbf+CUMDW3kw73ogVxZz+JWNEho821i
- nEfRb49OzaIPr0GLbdxhQR2ct9qzqloG4CBOv24HX92/91pQWf3izQGVk+eQC6gB
- 7thsc6theYj3bqdviIWhVXwoHJfAexOMR+K33mWQAETglPm4r8zHD1KGBjNd5A/g
- 6fqTvvUr3kV2/eNtS22uxPIEORaFw0Sv0AhcdqKdOlUSZ8rpBn2StakeFJOq1tbd
- 4yeLFxaTUVNJE25vA9ZovATiD+f5d4JXTaei6RvrDKBon9AwC2aBxExfJoHpfbBE
- nqJkg==
-Received: from hhmail02.hh.imgtec.org
- (83-244-153-141.cust-83.exponential-e.net [83.244.153.141])
- by mx08-00376f01.pphosted.com (PPS) with ESMTPS id 4hxestsjep-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT
- key_exchange=secp384r1); Mon, 16 Nov 2026 16:36:20 +0000 (GMT)
-Received: from NP-A-BELLE.kl.imgtec.org (172.25.4.178) by
- HHMAIL02.hh.imgtec.org (10.100.10.20) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.56; Mon, 16 Nov 2026 16:36:19 +0000
-From: Alessio Belle <alessio.belle@imgtec.com>
-To: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, Maxime Ripard
- <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, David Airlie
- <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, Luigi Santivetti
- <luigi.santivetti@imgtec.com>
-CC: <imagination@lists.freedesktop.org>, <dri-devel@lists.freedesktop.org>,
- <linux-kernel@vger.kernel.org>, <frank.binns@imgtec.com>,
- <brajesh.gupta@imgtec.com>
-In-Reply-To: <20261105-document-drm_pvr_dev_query_heap_info_get-v1-1-b899401606e4@imgtec.com>
-References: <20261105-document-drm_pvr_dev_query_heap_info_get-v1-1-b899401606e4@imgtec.com>
-Subject: Re: [PATCH] drm/imagination: improve
- DRM_PVR_DEV_QUERY_HEAP_INFO_GET documentation
-Message-ID: <179484697973.410388.13422245137747065489.b4-ty@b4>
-Date: Mon, 16 Nov 2026 16:36:19 +0000
+	by gabe.freedesktop.org (Postfix) with ESMTP id CCB4710EE9F;
+	Mon, 16 Nov 2026 16:39:13 +0000 (UTC)
+Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 51BB110EE9F
+ for <dri-devel@lists.freedesktop.org>; Mon, 16 Nov 2026 16:39:07 +0000 (UTC)
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+ by tor.source.kernel.org (Postfix) with ESMTP id 82966601D4;
+ Mon, 16 Nov 2026 16:39:06 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id EAD0A1F000C4;
+ Mon, 16 Nov 2026 16:38:52 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+ s=k20260515; t=1794847146;
+ bh=lMR9qDrcuTjHQIrjpgVj0zhPv473ZEqMMWfCbIqm3Q0=;
+ h=Date:From:To:Cc:Subject:References:In-Reply-To;
+ b=mIAvKWrpblygY2gORXGuS+vgNMSQVSMyYMGIWMZc/H6+A5K1SRoMSSKhPXBmNJgcL
+ mHah2e2gLJCrS2rxFDDsqYQDQN2FxJ5htDLRKrxn2bLKgTVEqpump37b2SIHvTGsNQ
+ Ku5hQP3825SFJhmREJktFIa1+uNR3LVV36d53y4Pua2UL+tsbROoDeiW2EWcsiQjF8
+ tMV5yx4cwz+87l8OdaVp1F+SRVxQXher8R55izBUPgHi/4VmsjOC/E29z/2iAVxVRe
+ y35CyYf1mPlNrWcbpNKBstQFgnObG4iv555rXzHuoT41V85m42mMchmbA63X97Xt6w
+ Q/i7Lj/aLTTvg==
+Date: Mon, 16 Nov 2026 17:38:50 +0100
+From: Lorenzo Pieralisi <lpieralisi@kernel.org>
+To: Steven Price <steven.price@arm.com>
+Cc: "Aneesh Kumar K.V" <aneesh.kumar@kernel.org>,
+ Marc Zyngier <maz@kernel.org>, linux-coco@lists.linux.dev,
+ Andrew Morton <akpm@linux-foundation.org>,
+ Baoquan He <baoquan.he@linux.dev>, Mike Rapoport <rppt@kernel.org>,
+ Pasha Tatashin <pasha.tatashin@soleen.com>,
+ Pratyush Yadav <pratyush@kernel.org>,
+ Catalin Marinas <catalin.marinas@arm.com>,
+ Christian =?iso-8859-1?Q?K=F6nig?= <christian.koenig@amd.com>,
+ Jason Gunthorpe <jgg@ziepe.ca>, Joerg Roedel <joro@8bytes.org>,
+ Marek Szyprowski <m.szyprowski@samsung.com>,
+ Robin Murphy <robin.murphy@arm.com>,
+ Sumit Semwal <sumit.semwal@linaro.org>,
+ Suzuki K Poulose <suzuki.poulose@arm.com>,
+ Thomas Gleixner <tglx@kernel.org>, Will Deacon <will@kernel.org>,
+ Russell King <linux@armlinux.org.uk>,
+ Benjamin Gaignard <benjamin.gaignard@collabora.com>,
+ Brian Starkey <Brian.Starkey@arm.com>, John Stultz <jstultz@google.com>,
+ Mark Rutland <mark.rutland@arm.com>, Radu Rendec <radu@rendec.net>,
+ "T.J. Mercier" <tjmercier@google.com>,
+ Madhavan Srinivasan <maddy@linux.ibm.com>,
+ Michael Ellerman <mpe@ellerman.id.au>, Nicholas Piggin <npiggin@gmail.com>,
+ Christophe Leroy <chleroy@kernel.org>,
+ Ritesh Harjani <ritesh.list@gmail.com>,
+ Shrikanth Hegde <sshegde@linux.ibm.com>,
+ Alexander Gordeev <agordeev@linux.ibm.com>,
+ Gerald Schaefer <gerald.schaefer@linux.ibm.com>,
+ Heiko Carstens <hca@linux.ibm.com>, Vasily Gorbik <gor@linux.ibm.com>,
+ Christian Borntraeger <borntraeger@linux.ibm.com>,
+ Sven Schnelle <svens@linux.ibm.com>, Ingo Molnar <mingo@redhat.com>,
+ Borislav Petkov <bp@alien8.de>,
+ Dave Hansen <dave.hansen@linux.intel.com>, x86@kernel.org,
+ "H . Peter Anvin" <hpa@zytor.com>, Kiryl Shutsemau <kas@kernel.org>,
+ Rick Edgecombe <rick.p.edgecombe@intel.com>,
+ "K . Y . Srinivasan" <kys@microsoft.com>,
+ Haiyang Zhang <haiyangz@microsoft.com>,
+ Wei Liu <wei.liu@kernel.org>, Dexuan Cui <decui@microsoft.com>,
+ Long Li <longli@microsoft.com>, Paolo Bonzini <pbonzini@redhat.com>,
+ Vitaly Kuznetsov <vkuznets@redhat.com>, Andy Lutomirski <luto@kernel.org>,
+ Peter Zijlstra <peterz@infradead.org>,
+ dri-devel@lists.freedesktop.org, iommu@lists.linux.dev,
+ linaro-mm-sig@lists.linaro.org,
+ linux-arm-kernel@lists.infradead.org, linux-media@vger.kernel.org,
+ linux-mm@kvack.org, kvmarm@lists.linux.dev, patches@lists.linux.dev
+Subject: Re: [PATCH v9 14/14] irqchip/gic-v3-its: Preallocate VPE L1 tables
+Message-ID: <avsxmk815rlqNstc@red-moon>
+References: <20261104164555.3555725-1-aneesh.kumar@kernel.org>
+ <20261104164555.3555725-15-aneesh.kumar@kernel.org>
+ <86zevn1c9a.wl-maz@kernel.org> <yq5ah5huoteu.fsf@kernel.org>
+ <87ld6x8zb7.wl-maz@kernel.org> <yq5apkw5xpnz.fsf@kernel.org>
+ <avrgNBXDFMGL6dqO@red-moon>
+ <f2e47b68-1aee-4d17-8b63-e67075e7a42e@arm.com>
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-X-Mailer: b4 0.16.0
-X-Proofpoint-GUID: 1HpDm2F3_kQp23M7uTd6pQPLuWsuAYOe
-X-Proofpoint-ORIG-GUID: 1HpDm2F3_kQp23M7uTd6pQPLuWsuAYOe
-X-Authority-Analysis: v=2.4 cv=O8OsLx9W c=1 sm=1 tr=0 ts=6afb3104 cx=c_pps
- a=AKOq//PuzOIrVTIF9yBwbA==:117 a=AKOq//PuzOIrVTIF9yBwbA==:17
- a=vO48zYV2LvQA:10 a=IkcTkHD0fZMA:10 a=zJRp6_cAMcgA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=kQ-hrUj2-E3RCbRHssb7:22 a=qZQ2PDNLMSdLoqI-hfl9:22
- a=r_1tXGB3AAAA:8 a=jSLtM6S-_AGHOE5eHdIA:9 a=QEXdDO2ut3YA:10
- a=t8nPyN_e6usw4ciXM-Pk:22
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMTE2MDA2NiBTYWx0ZWRfX9L2fGalIkrve
- P1cfyKfJrXbRNSBZ2UZ0jxui/f3nVal+c3AlAKQx/tcNdttBn81AhK1EGkqc1hgLJNbiq/p0luA
- 3Tv7aenu0UdqulQB/ZPro5X+FmxuM3mvpNqdPxrdmV5rPshVqNPHL3fpgWRhYD4G2LOTFISMbda
- LXUiRgXwXnvSvVdRiGKryQFUbKXHys6MxCdwVB14y99ZymQ4L5ZhxH6musTkqyR13JexC+cHoiG
- wJcHX50HlA493K1xY+zrhEltFwfd8yorGvLxsuExFV1St/pP+a2sFMuRb2IoOvUKB7BxLFn2vHB
- mexPDZ0/EvyPzXyZWCY+kNCgKrFTLpjfOxnIaHaC6S/VKNP6YsdCXGX5T+Vyf8Ac42Y+TwdyNpI
- 7GszTePFAWaOzSjmexienE7ZPIiQfUcwKL82QLunHhtKlm7Y+w9dxR+1xZCzwkBK71VcwOHbaFF
- prYZjBl3Cb/7rZlI+pg==
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMTE2MDA2NiBTYWx0ZWRfX8uTyPd0PgRB7
- 79QUQVigU8hjiIxrmKKWBmXLMpRvf3R+Zd9HIiujRdsu81Tx+xKwxtipNwD0pj94uA5sSbPTVam
- OTd5VLoptbGuxcXnZCgzSqvDS6g6p00=
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <f2e47b68-1aee-4d17-8b63-e67075e7a42e@arm.com>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -84,24 +97,62 @@ List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-8.8 required=3.0 tests=BAYES_00,DKIM_SIGNED,
-	DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
-	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,USER_AGENT_GIT autolearn=ham
+X-Spam-Status: No, score=-5.8 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
+	DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
+	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS autolearn=no
 	autolearn_force=no version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-On Thu, 05 Nov 2026 12:24:23 +0000, Luigi Santivetti wrote:
-> Add more information about how the array of drm_pvr_heap is filled in and
-> set expectations for when userspace and kernel run with a mismatched UAPI
-> header.
+On Mon, Nov 16, 2026 at 03:32:25PM +0000, Steven Price wrote:
 
-Applied to drm-misc-next, thanks!
+[...]
 
-[1/1] drm/imagination: improve DRM_PVR_DEV_QUERY_HEAP_INFO_GET documentation
-      commit: ee1e297216f300160ee91dae0b53b3a42e601d1b
+> >> Thanks for confirming. Can we handle the ITS platform-device conversion
+> >> and the switch to DMA allocations in a separate series?
+> >>
+> >> The existing VPE L1 allocation path calls set_memory_decrypted() from
+> >> the non-sleepable CPU-starting callback, even though
+> >> set_memory_decrypted() can sleep. This issue predates the shared-granule
+> >> allocator changes.
+> > 
+> > If I may ask, why does the existing code ends up calling set_memory_decrypt(),
+> > or reworded, why does the VPE L1 allocation path goes through the ITS specific
+> > allocation function rather than using alloc_pages() (as it was before
+> > b08e2f42e86b5) ?
+> 
+> Because it needs to be accessible to the GIC "hardware". In this case
+> the GIC is emulated by the hypervisor and the hypervisor for a realm can
+> only see the unprotected memory.
+> 
+> Now I agree this is a little academic in practise because Linux (as a
+> hypervisor) will not expose RVPEID - so allocate_vpe_l1_table() will
+> early out. IIUC this would only actually be relevant in the case of
+> nested virtualisation within a realm guest - which is a long way off if
+> it ever happens.
 
-Best regards,
--- 
-Alessio Belle <alessio.belle@imgtec.com>
+That's what I was actually getting at.
 
+> > Why did b08e2f42e86b5 patched allocate_vpe_l1_table() allocation and moved
+> > it to using its_alloc_pages() ?
+> 
+> In that commit I simply changed all the allocation paths which were
+> allocating memory to be visible to the GIC to use the new allocator. As
+> we "know" that the GIC can only access "decrypted" memory. Admittedly
+> that could easily change in the future - but my expectation is that it
+> will only change with the switch to GICv5.
+
+Yes. I just wanted to understand whether, for VPE tables, this is,
+currently, a requirement.
+
+> Of course what I missed was that this specific allocation uses
+> GFP_ATOMIC and that set_memory_decrypted() can sleep. This wouldn't have
+> shown up on any testing because of the early exit:
+> 
+>         if (!gic_rdists->has_rvpeid)
+>                 return 0;
+
+Understood, see above.
+
+Thanks,
+Lorenzo
