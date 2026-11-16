@@ -2,50 +2,62 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 59C4A606A323
-	for <dri-devel@archiver.kernel.org>; Mon, 16 Nov 2026 01:20:23 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5A51E606A332
+	for <dri-devel@archiver.kernel.org>; Mon, 16 Nov 2026 01:25:58 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=nabladev.com header.i=@nabladev.com header.a=rsa-sha256 header.s=dkim header.b=NkpujxrM
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=FeWZf3a7
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id C2B6D10E02E;
-	Mon, 16 Nov 2026 01:20:17 +0000 (UTC)
-Received: from mx.nabladev.com (mx.nabladev.com [178.251.229.89])
- by gabe.freedesktop.org (Postfix) with ESMTPS id D116910E02E
- for <dri-devel@lists.freedesktop.org>; Mon, 16 Nov 2026 01:20:11 +0000 (UTC)
-Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon)
- with ESMTPSA id CE91310ECE5; Mon, 16 Nov 2026 02:20:05 +0100 (CET)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=nabladev.com;
- s=dkim; t=1794792009;
- h=from:subject:date:message-id:to:cc:mime-version:content-type:
- content-transfer-encoding:content-language:in-reply-to:references;
- bh=dWm0RA0tqTSQdhSoSRmxYRJkKHnJc3RlGD6s85ZFy6o=;
- b=NkpujxrMWHvpHm5fXyGZ4jZJd6IkJyOnFtBYv9hthQrvQQH+xPgGUzZUg/z36bh7FsdTtw
- Q/FogVUucUP8XnscyICVSkneDDNsUFVM65R9JkeLI3pepRHkYK2JlaUx+pOgbheXE+xhXx
- 9oFqbVd7YqXzen7fzurK37eRhYYM3UjPFHX72E1SBswuqvuZcXmdtyXSv2FNi0JKimnLfu
- Di/8uZxX+JYTmzq/Fqfcv4Hmdxci3dilZLpLYqz8rz0Dw1dmVpzmKjtHo4pe64AfuybM30
- HCYtj/u+IG5vuGjfWc6EC9ZtD2WOSunsfyFW5xeGd+Ch5dYa7x85tADcCAHsYA==
-Message-ID: <293083d1-1085-40a7-9d6d-1776ed649238@nabladev.com>
-Date: Sat, 14 Nov 2026 17:37:55 +0100
+	by gabe.freedesktop.org (Postfix) with ESMTP id 2A0BA10E6FE;
+	Mon, 16 Nov 2026 01:25:51 +0000 (UTC)
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.9])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 4FF9710E239;
+ Mon, 16 Nov 2026 01:25:45 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1794792345; x=1826328345;
+ h=from:to:cc:subject:date:message-id:mime-version:
+ content-transfer-encoding;
+ bh=BLOuta+tVwr5HFfQ5nmDPeLu7zE+xwUDwOnQV0+6c6U=;
+ b=FeWZf3a7wVLAtWnDYE4x4KhRCKoQmv4nxukW7QWoGt9kRe9pxI2cE1VE
+ SusNTCqucVMUAJSB/JI1QIv7UtwwBDbiFBPTWIuQzrKVEbLVBPGnSEclV
+ DcEzAB5MvNKJS/WRX77a178pAHO9AM+RcZGwbRBAD3kBvzxf3yRZU7GDC
+ dbeJzLg/RLvmvjYWz5iSWYMEq1bYTTiwRC86Z4seGLdsg59q5kQVC1s23
+ Iw/tm496a0T+7CI3nJhNxvuJyDIbdG4K0fPDo1bY+6QUbCHhtcGv0KTjR
+ MqOrwL8yy6oxaErto+kwSc3H1VUzxKeWA06/vGqOTRS8fekW9V2wjJYF4 w==;
+X-CSE-ConnectionGUID: UWFRdaqHTZ6baRHO4/hddA==
+X-CSE-MsgGUID: n2IbwDEBSvm2fRv7qrYJDA==
+X-IronPort-AV: E=McAfee;i="6800,10657,11967"; a="3398623"
+X-IronPort-AV: E=Sophos;i="6.27,215,1787036400"; 
+   d="scan'208";a="3398623"
+Received: from orviesa004.jf.intel.com ([10.64.159.144])
+ by fmvoesa103.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 15 Nov 2026 17:25:44 -0800
+X-CSE-ConnectionGUID: H6GJtnegRDydh1J/QZzQjw==
+X-CSE-MsgGUID: GpNbJmHNQc+LMTtZ3T+KfQ==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,215,1787036400"; 
+   d="scan'208";a="9295467"
+Received: from emr-371.sh.intel.com ([10.112.106.129])
+ by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 15 Nov 2026 17:25:42 -0800
+From: Baoli Zhang <baoli.zhang@linux.intel.com>
+To: intel-xe@lists.freedesktop.org,
+	intel-gfx@lists.freedesktop.org
+Cc: dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
+ jani.nikula@linux.intel.com, rodrigo.vivi@intel.com,
+ joonas.lahtinen@linux.intel.com, tursulin@ursulin.net,
+ matthew.brost@intel.com, thomas.hellstrom@linux.intel.com,
+ matthew.auld@intel.com, airlied@gmail.com, simona@ffwll.ch,
+ andriy.shevchenko@linux.intel.com,
+ Baoli Zhang <baoli.zhang@linux.intel.com>
+Subject: [PATCH 0/3] drm/xe/display: Free the KMS objects on DRM device
+ release, not on unbind
+Date: Mon, 16 Nov 2026 09:15:01 +0800
+Message-ID: <20261116011504.3910139-1-baoli.zhang@linux.intel.com>
+X-Mailer: git-send-email 2.43.0
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] Revert "nouveau: pci: quiesce GPU on shutdown"
-To: =?UTF-8?Q?Uwe_Kleine-K=C3=B6nig?= <ukleinek@debian.org>,
- dri-devel@lists.freedesktop.org
-Cc: Danilo Krummrich <dakr@kernel.org>, David Airlie <airlied@gmail.com>,
- Li Chen <me@linux.beauty>, Lyude Paul <lyude@redhat.com>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>, Ole Carlsen <ole.carlsen@tutamail.com>,
- Simona Vetter <simona@ffwll.ch>, Thomas Zimmermann <tzimmermann@suse.de>,
- linux-kernel@vger.kernel.org
-References: <20261025213027.842978-1-marex@nabladev.com>
- <aviIPk4xbKhgqcTy@monoceros>
-Content-Language: en-US
-From: Marek Vasut <marex@nabladev.com>
-In-Reply-To: <aviIPk4xbKhgqcTy@monoceros>
-Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
-X-Last-TLS-Session-Version: TLSv1.3
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -57,63 +69,64 @@ List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-5.9 required=3.0 tests=BAYES_00,DATE_IN_PAST_24_48,
-	DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
-	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,USER_AGENT_SANE_1
-	autolearn=no autolearn_force=no version=4.0.1
+X-Spam-Status: No, score=-11.8 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
+	DKIM_SIGNED,DKIM_VALID,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_PATCH,
+	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,USER_AGENT_GIT
+	autolearn=unavailable autolearn_force=no version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-On 11/14/26 5:20 PM, Uwe Kleine-König wrote:
+Unbinding xe while a display server still has the DRM fd open gives
+these warnings, and drm_fb_release() later walks the freed framebuffers
+when the fd is closed:
 
-[...]
+  WARNING: drivers/gpu/drm/drm_mode_config.c:571 at drm_mode_config_cleanup+0x2e7/0x300
+  xe 0000:00:02.0: [drm] drm_WARN_ON(!list_empty(&fb->filp_head))
+  WARNING: drivers/gpu/drm/drm_framebuffer.c:833 at drm_framebuffer_free+0x87/0xa0
 
->> -static void
->> -nouveau_drm_shutdown(struct pci_dev *pdev)
->> -{
->> -	struct nouveau_drm *drm = pci_get_drvdata(pdev);
->> -	int ret;
->> -
->> -	if (!drm)
->> -		return;
->> -
->> -	if (drm->dev->switch_power_state == DRM_SWITCH_POWER_OFF ||
->> -	    drm->dev->switch_power_state == DRM_SWITCH_POWER_DYNAMIC_OFF)
->> -		return;
->> -
->> -	ret = nouveau_do_suspend(drm, false);
->> -	if (ret)
->> -		NV_ERROR(drm, "shutdown suspend failed with: %d\n", ret);
->> -
->> -	pci_save_state(pdev);
->> -	pci_disable_device(pdev);
->> -	pci_set_power_state(pdev, PCI_D3hot);
->> -	/*
->> -	 *  This is just to give the pci power transition time to settle
->> -	 *  before an immediate kexec jump. it’s mirroring the existing
->> -	 *  nouveau_pmops_suspend() behavior, which already does
->> -	 *  udelay(200) right after pci_set_power_state(..., pci_d3hot). In
->> -	 *  ->shutdown() we’re allowed to sleep, so I used usleep_range()
->> -	 *  instead of a busy-wait udelay().
->> -	 */
->> -	usleep_range(200, 400);
->> -}
->> -
-> 
-> I cannot reproduce it
+Since 5b6937b65e45 ("drm/xe/display: move display fini stuff to devm")
+xe frees the KMS objects on unbind, but they should only be freed with
+the last reference to the DRM device. drm_mode_config_init() already
+registers drm_mode_config_cleanup() as a drmm action, so xe can simply
+stop calling it. The first two patches prepare the shared display code
+for that, with no change for i915:
 
-I can surely reproduce it, because since Linux 7.1 I cannot shut down my 
-computer, something which worked since the beginning.
+1: move the hardware teardown out of the encoder ->destroy() callbacks
+   into a new ->remove() hook, which still runs on unbind
+2: move drm_mode_config_cleanup() out of
+   intel_display_driver_remove_noirq() into the drivers
+3: the actual fix, xe stops calling it
 
-> , but maybe it's helpful to find out where/how the
-> driver hangs. Adding printks might be enough, and if not, remove stuff
-> from nouveau_drm_shutdown() until it works.
+i915 keeps freeing the KMS objects on unbind for now. It frees the
+display structure from its ->release() callback, before the drmm
+actions run, so it can't rely on drmm without further changes.
 
-The laptop screen goes off, the machine is unresponsive this late during 
-shutdown, so adding printks() does not help.
+We hit this with the LTP-DDT test TELEMETRY_XS_FUNC_TELEM_DRIVER, which
+unbinds xe, on PTL with RHEL 10.3 and a v6.18.60 kernel (the trace above
+is from there). It doesn't reproduce on Ubuntu, and only reproduces on
+the first run after boot. My guess is that GDM holds the device on RHEL
+and doesn't get it back after the first unbind/rebind.
 
-> I'd guess this gives the
-> needed insights to determine a fix without reverting the identified
-> commit.
-The problematic commit should be reverted and reworked, since it breaks 
-existing users. I am open to testing patches on that machine.
+Yanx tested the series backported to v6.18.60, the warnings are gone.
+On mainline it is build-tested only.
+
+Baoli Zhang (3):
+  drm/i915/display: Tear down encoder hardware state in a separate hook
+  drm/i915/display: Let the drivers free the KMS objects
+  drm/xe/display: Free the KMS objects on DRM device release
+
+ drivers/gpu/drm/i915/display/g4x_dp.c            |  8 ++++++--
+ drivers/gpu/drm/i915/display/intel_ddi.c         | 16 +++++++++++-----
+ .../gpu/drm/i915/display/intel_display_driver.c  | 15 ++++++++++++++-
+ .../gpu/drm/i915/display/intel_display_driver.h  |  1 +
+ .../gpu/drm/i915/display/intel_display_types.h   |  7 +++++++
+ drivers/gpu/drm/i915/display/intel_encoder.c     |  9 +++++++++
+ drivers/gpu/drm/i915/display/intel_encoder.h     |  1 +
+ drivers/gpu/drm/i915/display/intel_sdvo.c        | 11 +++++++++--
+ drivers/gpu/drm/i915/i915_driver.c               |  2 ++
+ drivers/gpu/drm/xe/display/xe_display.c          |  4 ++++
+ 10 files changed, 64 insertions(+), 10 deletions(-)
+
+-- 
+2.43.0
+
