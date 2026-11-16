@@ -2,79 +2,42 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D3959606A330
-	for <dri-devel@archiver.kernel.org>; Mon, 16 Nov 2026 09:11:54 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 93DE7606A31C
+	for <dri-devel@archiver.kernel.org>; Mon, 16 Nov 2026 09:12:00 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=JiiRgnob
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=YRPC/eHf
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 9E1E310ED86;
-	Mon, 16 Nov 2026 09:11:48 +0000 (UTC)
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.10])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 0DC4110ED7C;
- Mon, 16 Nov 2026 09:11:42 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1794820302; x=1826356302;
- h=from:to:cc:subject:date:message-id:mime-version:
- content-transfer-encoding;
- bh=l353EF9EPl54Khh5AMtA/qBDbCWKicb1AKbM4kMTiUU=;
- b=JiiRgnobXQY/vsywjXjWEHZe2DOZDejuwek9/2OJLOdp5kBDuOW1BEEh
- ws32kyiQ2SHFy9JMN6wtztGsDBrsFwvr7EbbP1Jn2q79gN4Ll2468zKM7
- JL4GvEpvJhiknGtRl0JbzaJA22I8oHLl41w0ya/6mj8yQoEuWcaT0tdJM
- VWHRTc+BBoLI9lIGBYG2merIFRN56A1Vdb+7Km2+RZFK9CnZdS70CtdPI
- fW82dchUAgf8R+OoKmklLtLg0EJg29sJE8nUYyY6GWDmsPeZ2JhnngCs0
- bi+tOSdUO0jfYtXAA4s1do6QAM48EWQAXQWkcANXS7nUP3aOTzttrha+O A==;
-X-CSE-ConnectionGUID: 4ViDgMiCR2iLBiyiiRsvqA==
-X-CSE-MsgGUID: vcZHJIQtQWy6Qe/q5AuiaA==
-X-IronPort-AV: E=McAfee;i="6800,10657,11967"; a="3441636"
-X-IronPort-AV: E=Sophos;i="6.27,216,1787036400"; 
-   d="scan'208";a="3441636"
-Received: from fmviesa003.fm.intel.com ([10.60.135.143])
- by fmvoesa104.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 16 Nov 2026 01:11:41 -0800
-X-CSE-ConnectionGUID: oDjVyYydS6al3Wos2dGXfg==
-X-CSE-MsgGUID: 8mptrhgqRVSxBju7Y/d8gw==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,216,1787036400"; 
-   d="scan'208";a="9636207"
-Received: from ettammin-mobl3.ger.corp.intel.com (HELO localhost)
- ([10.245.245.93])
- by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 16 Nov 2026 01:11:33 -0800
-From: Ville Syrjala <ville.syrjala@linux.intel.com>
-To: dri-devel@lists.freedesktop.org
-Cc: intel-gfx@lists.freedesktop.org, intel-xe@lists.freedesktop.org,
- Erwin Springer <aot.lerwin@gmail.com>, amd-gfx@lists.freedesktop.org,
- =?UTF-8?q?Andr=C3=A9=20Almeida?= <andrealmeid@igalia.com>,
- Boris Brezillon <bbrezillon@kernel.org>,
- Christopher Snowhill <chris@kode54.net>,
- Dave Stevenson <dave.stevenson@raspberrypi.com>,
- Dharma Balasubiramani <dharma.b@microchip.com>,
- Dmitry Baryshkov <lumag@kernel.org>, freedreno@lists.freedesktop.org,
- Gustavo Padovan <gustavo.padovan@collabora.com>,
- Huacai Chen <chenhuacai@kernel.org>,
- Icenowy Zheng <zhengxingda@iscas.ac.cn>,
- Jianmin Lv <lvjianmin@loongson.cn>, linux-arm-msm@vger.kernel.org,
- linux-mediatek@lists.infradead.org, linux-rockchip@lists.infradead.org,
- linux-tegra@vger.kernel.org, Liviu Dudau <liviu.dudau@arm.com>,
- =?UTF-8?q?Ma=C3=ADra=20Canal?= <mcanal@igalia.com>,
- Manikandan Muralidharan <manikandan.m@microchip.com>,
- Maxime Ripard <mripard@kernel.org>, Mingcong Bai <jeffbai@aosc.io>,
- nouveau@lists.freedesktop.org, Qianhai Wu <wuqianhai@loongson.cn>,
- Raspberry Pi Kernel Maintenance <kernel-list@raspberrypi.com>,
- Simon Ser <contact@emersion.fr>, wayland-devel@lists.freedesktop.org,
- Xaver Hugl <xaver.hugl@kde.org>, Xi Ruoyao <xry111@xry111.site>
-Subject: [PATCH 00/12] drm/atomic: Try to make atomic+async usable,
- and clear up the "async update" helper confusion
-Date: Mon, 16 Nov 2026 11:11:18 +0200
-Message-ID: <20261116091130.13950-1-ville.syrjala@linux.intel.com>
-X-Mailer: git-send-email 2.56.0
-X-Archived-By: <archiver.kernel.org>
-MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park,
- 6 krs Bertel Jungin Aukio 5, 02600 Espoo, Finland
-Content-Transfer-Encoding: 8bit
+	by gabe.freedesktop.org (Postfix) with ESMTP id CBE9910ED93;
+	Mon, 16 Nov 2026 09:11:54 +0000 (UTC)
+Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 8D4DC10E9DC
+ for <dri-devel@lists.freedesktop.org>; Mon, 16 Nov 2026 09:11:47 +0000 (UTC)
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+ by tor.source.kernel.org (Postfix) with ESMTP id AD3D762788;
+ Mon, 16 Nov 2026 09:11:46 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3CE2B1F000C7;
+ Mon, 16 Nov 2026 09:11:46 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+ s=k20260515; t=1794820306;
+ bh=4nkE5eKl/GAJTyCEzr+0pBXORpO8ZFmdM286uGYwDI0=;
+ h=From:Subject:Reply-To:To:In-Reply-To:References:Date;
+ b=YRPC/eHfSuKWoQOMPrgwjfbCCYtbgEvrCP/UgzA7MN0IJ4axDQqxWnuhZfHXZz/NF
+ Woh5Q33dCS0LQchR7STSwhim+0cFSazGYiTTQpCRAlkVwXc4uUQDik0QfhL6r+/qSJ
+ hUim0IpVmFzyKgSdDoY6SyImfqtlWjLMA41BoswLjKMUJrQZ+h0beGZh+i9dwaooSb
+ QnvZzSJe+pxwJ5ua9W/twuqzByQldxo8MTHzZUcckOMxWmBugk3aSFWDQ4gd9UwDYL
+ dTg8j2XmRMJOyoGEPYl/uUBrQGf9e7ULndWwEUsMPyJuOeG8oQvFr7GFlBFmHPdgbQ
+ PGT04xRM96Qxg==
+Message-ID: <sashiko-outbox-216593@kernel.org>
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v3] drm/fbdev-dma: Copy the shadow buffer on unblank
+To: "Angelo Compagnucci" <angelo.compagnucci@gmail.com>,
+ dri-devel@lists.freedesktop.org
+In-Reply-To: <20261114201351.2788719-1-angelo.compagnucci@gmail.com>
+References: <20261113110708.927665-1-angelo.compagnucci@gmail.com>
+ <20261114201351.2788719-1-angelo.compagnucci@gmail.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Mon, 16 Nov 2026 09:11:45 +0000
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -85,108 +48,92 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
+Reply-To: sashiko-reviews@lists.linux.dev
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-11.8 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
-	DKIM_SIGNED,DKIM_VALID,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_PATCH,
-	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,USER_AGENT_GIT
-	autolearn=unavailable autolearn_force=no version=4.0.1
+X-Spam-Status: No, score=-10.8 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
+	DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
+	INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS autolearn=ham
+	autolearn_force=no version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
+X-Archived-By: <archiver.kernel.org>
 
-From: Ville Syrjälä <ville.syrjala@linux.intel.com>
+Thank you for your contribution! Sashiko AI review found 1 potential
+issue to consider:
+- [Medium] drm/fbdev-dma: unaddressed v2 review on
+  drm_fbdev_dma_shadowed_fb_blank()
+--
 
-The weird uapi semantics of the atomic async flip support make it
-really hard for drivers to implement. Try to fix that by filtering
-out the no-op junk from the commit that userspace likes to put there.
+commit 7dc07a1feeaa7bfcabe7b06bf9f13b3b3f41fd0e
+Author: Angelo Compagnucci <angelo.compagnucci@gmail.com>
 
-Also a lot of people are apparently confusing the
-.atomic_async_{update,check}() hack with async flips. The two
-are completely orthogonal, so try to clear up that mess by
-renaming the hack to .atomic_bypass_{update,check}().
+drm/fbdev-dma: Copy the shadow buffer on unblank
 
-TODO: atomic+async is in serious need to proper tests, somehow
-      all that seems to have gotten skipped when the feature
-      was added :(
+This commit adds a custom .fb_blank callback for shadowed fbdev-dma
+framebuffers that copies the shadow buffer into the GEM DMA buffer on
+FB_BLANK_UNBLANK before calling drm_fb_helper_blank().
 
-Cc: amd-gfx@lists.freedesktop.org
-Cc: André Almeida <andrealmeid@igalia.com>
-Cc: Boris Brezillon <bbrezillon@kernel.org>
-Cc: Christopher Snowhill <chris@kode54.net>
-Cc: Dave Stevenson <dave.stevenson@raspberrypi.com>
-Cc: Dharma Balasubiramani <dharma.b@microchip.com>
-Cc: Dmitry Baryshkov <lumag@kernel.org>
-Cc: freedreno@lists.freedesktop.org
-Cc: Gustavo Padovan <gustavo.padovan@collabora.com>
-Cc: Huacai Chen <chenhuacai@kernel.org>
-Cc: Icenowy Zheng <zhengxingda@iscas.ac.cn>
-Cc: intel-gfx@lists.freedesktop.org
-Cc: intel-xe@lists.freedesktop.org
-Cc: Jianmin Lv <lvjianmin@loongson.cn>
-Cc: linux-arm-msm@vger.kernel.org
-Cc: linux-mediatek@lists.infradead.org
-Cc: linux-rockchip@lists.infradead.org
-Cc: linux-tegra@vger.kernel.org
-Cc: Liviu Dudau <liviu.dudau@arm.com>
-Cc: Maíra Canal <mcanal@igalia.com>
-Cc: Manikandan Muralidharan <manikandan.m@microchip.com>
-Cc: Maxime Ripard <mripard@kernel.org>
-Cc: Mingcong Bai <jeffbai@aosc.io>
-Cc: nouveau@lists.freedesktop.org
-Cc: Qianhai Wu <wuqianhai@loongson.cn>
-Cc: Raspberry Pi Kernel Maintenance <kernel-list@raspberrypi.com>
-Cc: Simon Ser <contact@emersion.fr>
-Cc: wayland-devel@lists.freedesktop.org
-Cc: Xaver Hugl <xaver.hugl@kde.org>
-Cc: Xi Ruoyao <xry111@xry111.site>
+> diff --git a/drivers/gpu/drm/drm_fbdev_dma.c b/drivers/gpu/drm/drm_fbdev_=
+dma.c
+> index 452f844003504..3effc5c05d9ce 100644
+> --- a/drivers/gpu/drm/drm_fbdev_dma.c
+> +++ b/drivers/gpu/drm/drm_fbdev_dma.c
 
-Ville Syrjälä (12):
-  drm/atomic: Remove tall tales about tearing vs. "async updates"
-  drm/atomic: s/async/bypass/
-  drm/atomic: Add FIXMEs around the incorrect use of the
-    .atomic_bypass_check() for async flips
-  drm/atomic: Highlight that bypass commits need care
-  drm/atomic/uapi: Eliminate the confusing
-    drm_atomic_check_prop_changes()
-  drm/atomic/uapi: Improve the async flip property rejection debugs
-  drm/atomic/uapi: Document the non-obvious fence/fb_id prop behaviour
-  drm/atomic/uapi: Add a FIXME about colorop vs. async flips
-  drm/atomic-helper: Mark drm_atomic_crtc_state_for_each_plane_state()
-    unsafe
-  drm/i915: Complete no-op "async flips" by hand
-  drm/atomic/uapi: Make async flips a bit more palatable through atomic
-  drm/atomic/uapi: Extract {connector,crtc,plane}_async_flip_check()
+[ ... ]
 
- .clang-format                                 |   2 +-
- .../gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c |  12 +-
- .../amd/display/amdgpu_dm/amdgpu_dm_plane.c   |  20 +-
- .../amd/display/amdgpu_dm/amdgpu_dm_plane.h   |   6 +-
- .../amd/display/amdgpu_dm/amdgpu_dm_trace.h   |  16 +-
- .../amdgpu_dm/tests/amdgpu_dm_plane_test.c    |  32 +--
- drivers/gpu/drm/arm/malidp_crtc.c             |   6 +-
- drivers/gpu/drm/drm_atomic.c                  |  97 ++++++++
- drivers/gpu/drm/drm_atomic_helper.c           |  49 ++---
- drivers/gpu/drm/drm_atomic_uapi.c             | 208 ++++++++++++++----
- drivers/gpu/drm/drm_crtc_internal.h           |   9 +
- drivers/gpu/drm/drm_self_refresh_helper.c     |   4 +-
- drivers/gpu/drm/i915/display/i9xx_wm.c        |   2 +-
- drivers/gpu/drm/i915/display/intel_display.c  |  38 ++++
- drivers/gpu/drm/i915/display/intel_display.h  |   4 +-
- drivers/gpu/drm/loongson/lsdc_plane.c         |  18 +-
- drivers/gpu/drm/mediatek/mtk_plane.c          |  12 +-
- drivers/gpu/drm/msm/disp/dpu1/dpu_core_perf.c |   2 +-
- drivers/gpu/drm/msm/disp/dpu1/dpu_crtc.c      |   2 +-
- drivers/gpu/drm/msm/disp/mdp5/mdp5_crtc.c     |   2 +-
- drivers/gpu/drm/msm/disp/mdp5/mdp5_plane.c    |  12 +-
- drivers/gpu/drm/msm/msm_atomic.c              |   2 +-
- drivers/gpu/drm/rockchip/rockchip_drm_vop.c   |  12 +-
- drivers/gpu/drm/tegra/dc.c                    |  18 +-
- drivers/gpu/drm/vc4/vc4_hvs.c                 |   2 +-
- drivers/gpu/drm/vc4/vc4_plane.c               |  16 +-
- include/drm/drm_atomic.h                      |  10 +-
- include/drm/drm_atomic_helper.h               |  20 +-
- include/drm/drm_modeset_helper_vtables.h      |  50 +++--
- 29 files changed, 482 insertions(+), 201 deletions(-)
+> @@ -196,6 +187,45 @@ static const struct drm_fb_helper_funcs drm_fbdev_dm=
+a_helper_funcs =3D {
+>   * struct drm_fb_helper
+>   */
+> =20
+> +static int drm_fbdev_dma_shadowed_fb_blank(int blank, struct fb_info *in=
+fo)
+> +{
+> +	struct drm_fb_helper *fb_helper =3D info->par;
+> +	struct drm_clip_rect clip =3D {
+> +		.x2 =3D fb_helper->fb->width,
+> +		.y2 =3D fb_helper->fb->height,
+> +	};
+> +
+> +	/*
+> +	 * Turning the display on shows the framebuffer memory. Copy the
+> +	 * shadow buffer into it first, so it holds what was drawn. This
+> +	 * does not need the display; the damage worker still flushes the
+> +	 * damage once the display is on.
+> +	 *
+> +	 * The copy takes a mutex, so skip it during an oops, where the
+> +	 * console is unblanked in atomic context. drm_fb_helper_blank()
+> +	 * does nothing then.
+> +	 */
+> +	if (blank =3D=3D FB_BLANK_UNBLANK && !oops_in_progress)
+> +		drm_fbdev_dma_damage_blit(fb_helper, &clip);
+> +
+> +	return drm_fb_helper_blank(blank, info);
+> +}
 
--- 
-2.56.0
+[Severity: Medium]
+As reported by Thomas Zimmermann on v2 [1], does this comment and the
+commit message accurately describe how unblanking and damage flushing
+interact here?
 
+In v2, Thomas Zimmermann noted in response to the v1 -> v2 changelog entry
+that some hardware and drivers require the CRTC to be enabled before
+display data can be transferred (as in drm_atomic_helper_commit_tail_rpm()),
+and asked what problem this change is trying to solve.
+
+In addition, on MIPI DBI drivers such as ili9341,
+drm_fb_helper_blank(FB_BLANK_UNBLANK) -> drm_fb_helper_dpms() ->
+drm_client_modeset_commit_atomic() enables the CRTC and immediately
+commits the active planes with full-frame damage, which transfers the GEM
+DMA buffer to the panel during drm_fb_helper_blank() itself rather than
+waiting for the damage worker. If FB_BLANK_UNBLANK is called while
+deferred I/O work is still pending, drm_fbdev_dma_shadowed_fb_blank()
+copies the shadow buffer and the modeset flushes the full frame to the
+panel, and then drm_fb_helper_damage_work() runs afterward and copies and
+flushes the damaged area a second time.
+
+[1] https://lore.kernel.org/r/556dd1ab-a1af-4c8b-be6e-04382ed0b958@suse.de
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261114201351.2788=
+719-1-angelo.compagnucci@gmail.com?part=3D1
