@@ -2,44 +2,98 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BD902606A32C
-	for <dri-devel@archiver.kernel.org>; Mon, 16 Nov 2026 09:29:09 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C3F9D606A323
+	for <dri-devel@archiver.kernel.org>; Mon, 16 Nov 2026 09:29:17 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=G0KDZQkJ
+	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=mimecast20190719 header.b=EreqnY2u
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 2800310EEC5;
-	Mon, 16 Nov 2026 09:29:04 +0000 (UTC)
-Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 1BBCD10EED0;
- Mon, 16 Nov 2026 09:28:58 +0000 (UTC)
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by tor.source.kernel.org (Postfix) with ESMTP id 1CB0161CDB;
- Mon, 16 Nov 2026 09:28:57 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8D03C1F000C9;
- Mon, 16 Nov 2026 09:28:56 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1794821336;
- bh=iV0PlOn0JtIZRD1Y78S1YDWGWl3fhKMaQgHUChC2WPs=;
- h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
- b=G0KDZQkJ4Jzll1GdHmMEbEFMObQmKCn3M+3rdzW9Kl9rFjOGkRRHaJPpiedcynxTZ
- yCrI8DnR/GcWo86DuXiykLlj+j1FE/FMgI8yuwXG43pcIlGHtd/KBJYybyHy/eZdKV
- OG3mhdowPcutbYg/WVFN01Z/CWil4q9bwVTXjeFjzU9x9vUUWscXLrHWE6mMbg3QYV
- rMiXiCeHcL+QBxKwlAIUT3s/hoCyu6C98rlflt6Ay+BJ7UB4J6kVn9B5qrHFj6lmnJ
- 00UXAPWHs5bplNC0fIYpGeJFEK+2cZwo3BuzvI03dgtLpOoGfFe9l/HQ7R2bLIDdqT
- eetE7EYx7aabg==
-Message-ID: <sashiko-outbox-216616@kernel.org>
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH 10/12] drm/i915: Complete no-op "async flips" by hand
-To: "Ville Syrjala" <ville.syrjala@linux.intel.com>,
- dri-devel@lists.freedesktop.org
-Cc: intel-gfx@lists.freedesktop.org, intel-xe@lists.freedesktop.org,
- amd-gfx@lists.freedesktop.org
-In-Reply-To: <20261116091130.13950-11-ville.syrjala@linux.intel.com>
-References: <20261116091130.13950-1-ville.syrjala@linux.intel.com>
- <20261116091130.13950-11-ville.syrjala@linux.intel.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Mon, 16 Nov 2026 09:28:56 +0000
+	by gabe.freedesktop.org (Postfix) with ESMTP id 1DD2610EE7C;
+	Mon, 16 Nov 2026 09:29:12 +0000 (UTC)
+Received: from us-smtp-delivery-124.mimecast.com
+ (us-smtp-delivery-124.mimecast.com [170.10.133.124])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 91BBA10EEDA
+ for <dri-devel@lists.freedesktop.org>; Mon, 16 Nov 2026 09:29:05 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+ s=mimecast20190719; t=1794821344;
+ h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+ to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+ in-reply-to:in-reply-to:references:references;
+ bh=wFbznQG0d5IonVOFhnusqlVdFzPG48oiZmmSS9tPXTU=;
+ b=EreqnY2uGsPcGB08CysgsQlx2r4/WZU1DJtu10NyBFowSXSRQwTr+DDZ5u4hEu8Vvrf2VL
+ T2HA1h/5StAh4rLX6cK0x6E/6USu1TwtXzonLSXLJ+6m+hDOcsVfH/CQWfq8AAP6EgT9B/
+ 0TGalq8gj1Y5x0gaJwlsRwjRFpJ6+bg=
+X-MC-Rep: binary re single
+Received: from mail-wm1-f71.google.com (mail-wm1-f71.google.com
+ [209.85.128.71]) by relay.mimecast.com with ESMTP with STARTTLS
+ (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
+ us-mta-2-_30DmQKgOAWbkHYyiIfPgA-1; Mon, 16 Nov 2026 04:29:03 -0500
+X-MC-Unique: _30DmQKgOAWbkHYyiIfPgA-1
+X-Mimecast-MFC-AGG-ID: _30DmQKgOAWbkHYyiIfPgA_1794821342
+Received: by mail-wm1-f71.google.com with SMTP id
+ 5b1f17b1804b1-4a359c7f47bso26106315e9.2
+ for <dri-devel@lists.freedesktop.org>; Mon, 16 Nov 2026 01:29:03 -0800 (PST)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20260707; t=1794821342; x=1795426142;
+ h=content-type:mime-version:message-id:date:references:in-reply-to
+ :subject:cc:to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject
+ :date:message-id:reply-to:content-type;
+ bh=wFbznQG0d5IonVOFhnusqlVdFzPG48oiZmmSS9tPXTU=;
+ b=i7+dTamR1Yr1ueZ+n5di8w1I4iTJjBekwcOuJDWU+8vCegPx56ixk6b5dMRRWgjnXq
+ 2NkZfVhulriMdVmzIZS7paH2TF9cTEUXmAHsa37rA2A4+VcY64I377cK8zxTOIi0Be2m
+ y7x0mxbOA6hN9SkOyl9FAdOl/Jn8nzWgjSqR3QUNgutfo5FR1Clejf+D7+HACRj6LT5k
+ 1kbI5xhMAE8+wkSrsAq134U+J1PAMBIN/VY/AaIe7saSf4e2QAxtSoNYFsMqNNUJnpSm
+ YOgtdb9XCakWBxA01TIl2mRrrDJXj6G6Vl85VgDNyyk+ZvsPTdHGkKgKc8vyEJMjjTfz
+ GdVQ==
+X-Forwarded-Encrypted: i=1;
+ AL+hErF2960yTswow6OYrMRU/s2CwDeT5n/HXLii83QZ59VCE3tsOg6koZDxgQpKbcv1RmD2bKM/NrWvcl8=@lists.freedesktop.org
+X-Gm-Message-State: APuU4Z9KkpBrHGJ85hWfr2ch2LvMHWU26gkLMoRUeYscWFF9KVlcEzxa
+ 3Q6YjJCv/520SYTyTVk6jXIxB5tjNqohsaky3ek16hFdeEHsd1/YeBTWvJZbPexm53GKrgBWcqQ
+ cO2BHvw2v0PQVxMSl5BZhAywUSVAg7kXLHBpjIvnZ+Xf74PSKzRRdCY5skasEYOUzGyxt3g==
+X-Gm-Gg: AYBFou3k32FWCrBnZ/bPNjPE9bwmUXWcWUOtvzSHU/40Rckk2rxiAoPnSzpM+tilGhu
+ P1CWlh4Uo5a56OLEzFFjB/MaV7H/bWmTjiYsmBzfcEd7oy6zAx2MKYzp8bIKdxF7jzL7fiYORy5
+ fR+xHPVN5qljlZxnOGJggI8MEWtj4QD7C/j1Kuj7PdRmOdTDlODtClvebC8+zgPABpOAlr+EXdD
+ AFPwjSGkma8h89tti0Rj479tqCUJQ8chSYdpz2t88QXykf3bkw8sE+rjrgjDr3ec/THeFDwPjzE
+ 7tXkjKeYx8wVRHPKbHRfM+ZEm0l95Ot9XoR7zWyEFp6E73ur2k1GKe6dvFoQbM19IQxw3sl0/s+
+ bX4o5fYnAMix0egFc9d+DYvIRTAvX1aGfwnNjCO8dtNJ9rN+Ok53oJkiIZAK3Xujdhvy1nWdXcT
+ xURceKysZ633dhRlZC4yPu+F1/3Ms/hFs5sGIcXBY=
+X-Received: by 2002:a05:600d:41c9:b0:4bb:60bd:5398 with SMTP id
+ 5b1f17b1804b1-4bb60bd5507mr133776725e9.10.1794821341852; 
+ Mon, 16 Nov 2026 01:29:01 -0800 (PST)
+X-Received: by 2002:a05:600d:41c9:b0:4bb:60bd:5398 with SMTP id
+ 5b1f17b1804b1-4bb60bd5507mr133775995e9.10.1794821341249; 
+ Mon, 16 Nov 2026 01:29:01 -0800 (PST)
+Received: from localhost (62-151-111-63.jazzfree.ya.com. [62.151.111.63])
+ by smtp.gmail.com with ESMTPSA id
+ 5b1f17b1804b1-4bb675200e4sm115370395e9.0.2026.11.16.01.29.00
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Mon, 16 Nov 2026 01:29:00 -0800 (PST)
+From: Javier Martinez Canillas <javierm@redhat.com>
+To: "Mario Limonciello (AMD)" <superm1@kernel.org>, Maxime Ripard
+ <mripard@kernel.org>, Alex Deucher <alexander.deucher@amd.com>, Jani
+ Nikula <jani.nikula@linux.intel.com>, Maarten Lankhorst
+ <maarten.lankhorst@linux.intel.com>, Thomas Zimmermann
+ <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>, Simona Vetter
+ <simona@ffwll.ch>, Harry Wentland <harry.wentland@amd.com>, Leo Li
+ <sunpeng.li@amd.com>, Rodrigo Siqueira <siqueira@igalia.com>
+Cc: Mario Limonciello <superm1@kernel.org>, Xaver Hugl
+ <xaver.hugl@gmail.com>, dri-devel@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org, amd-gfx@lists.freedesktop.org,
+ intel-gfx@lists.freedesktop.org, intel-xe@lists.freedesktop.org,
+ nouveau@lists.freedesktop.org, Mario Limonciello
+ <mario.limonciello@amd.com>
+Subject: Re: [PATCH v11 11/12] drm/bridge: add PS8622 connector luminance
+ support
+In-Reply-To: <20261103-superm1-backlight-property-v11-11-00cce7b2ba22@kernel.org>
+References: <20261103-superm1-backlight-property-v11-0-00cce7b2ba22@kernel.org>
+ <20261103-superm1-backlight-property-v11-11-00cce7b2ba22@kernel.org>
+Date: Mon, 16 Nov 2026 10:28:59 +0100
+Message-ID: <xlv1ld6trup0.fsf@fmartine-thinkpadx1carbongen12.rmtes.csb>
+X-Archived-By: <archiver.kernel.org>
+MIME-Version: 1.0
+X-Mimecast-Spam-Score: 0
+X-Mimecast-MFC-PROC-ID: BqUKa9Fc3xL7SH-5EMY2LsnP5v-77VEzKVk2n4CsSoA_1794821342
+X-Mimecast-Originator: redhat.com
+Content-Type: text/plain
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -50,110 +104,31 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
-Reply-To: sashiko-reviews@lists.linux.dev
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 X-Spam-Status: No, score=-10.8 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
 	DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
-	INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS autolearn=ham
-	autolearn_force=no version=4.0.1
+	INCLUDES_CR_TRAILER,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS
+	autolearn=unavailable autolearn_force=no version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
-X-Archived-By: <archiver.kernel.org>
 
-Thank you for your contribution! Sashiko AI review found 2 potential
-issues to consider:
-- [Medium] drm/i915: unreachable noop check in
-  intel_crtc_complete_noop_async_flip()
-- [Medium] drm/i915: intel_crtc_complete_noop_async_flip() checks
-  cleared uapi.event
---
+"Mario Limonciello (AMD)" <superm1@kernel.org> writes:
 
-commit 828bac38a449130d5473b2a45f7f646152241cec
-Author: Ville Syrj=C3=A4l=C3=A4 <ville.syrjala@linux.intel.com>
+> From: Mario Limonciello <mario.limonciello@amd.com>
+>
+> Expose PS8622 brightness through bridge luminance operations when
+> DRM_LUMINANCE is enabled. Keep registering the backlight class device
+> otherwise.
+>
+> Signed-off-by: Mario Limonciello <mario.limonciello@amd.com>
+> ---
 
-drm/i915: Complete no-op "async flips" by hand
+Acked-by: Javier Martinez Canillas <javierm@redhat.com>
 
-This commit adds helpers to manually send the vblank event for atomic
-async flip commits when no planes are updated.
+-- 
+Best regards,
 
-> diff --git a/drivers/gpu/drm/i915/display/intel_display.c b/drivers/gpu/d=
-rm/i915/display/intel_display.c
-> index f79caeb5a82ec..dd12929284bb8 100644
-> --- a/drivers/gpu/drm/i915/display/intel_display.c
-> +++ b/drivers/gpu/drm/i915/display/intel_display.c
-> @@ -1190,6 +1190,42 @@ static void intel_crtc_disable_flip_done(struct in=
-tel_atomic_state *state,
->  	}
->  }
-> =20
-> +static void intel_crtc_complete_noop_async_flip(struct intel_crtc_state =
-*crtc_state)
-> +{
-> +	struct intel_display *display =3D to_intel_display(crtc_state);
-> +	struct intel_crtc *crtc =3D to_intel_crtc(crtc_state->uapi.crtc);
-> +
-> +	if (!crtc_state->do_async_flip)
-> +		return;
-> +
-> +	/*
-> +	 * If there are planes actually performing the async flip then
-> +	 * the commit will be completed via the flip done interrupt
-> +	 * handler. For a fully no-op "async flip" the commit must
-> +	 * be completed by hand as no interrupt will be raised.
-> +	 */
-> +	if (crtc_state->update_planes)
-> +		return;
+Javier Martinez Canillas
+Core Platforms
+Red Hat
 
-[Severity: Medium]
-Can crtc_state->do_async_flip ever be true when crtc_state->update_planes
-is zero?
-
-intel_crtc_duplicate_state() initializes both fields to zero/false, and the
-only place that sets new_crtc_state->do_async_flip =3D true is
-intel_plane_atomic_check_with_state() -> intel_plane_atomic_calc_changes()
-for a visible plane, after intel_plane_atomic_check_with_state() has
-already set BIT(plane->id) in new_crtc_state->update_planes:
-
-drivers/gpu/drm/i915/display/intel_plane.c:intel_plane_atomic_check_with_st=
-ate() {
-	...
-	if (new_plane_state->uapi.visible || old_plane_state->uapi.visible)
-		new_crtc_state->update_planes |=3D BIT(plane->id);
-	...
-	return intel_plane_atomic_calc_changes(old_crtc_state, new_crtc_state,
-					       old_plane_state, new_plane_state);
-}
-
-When no visible planes are in the atomic state, crtc_state->do_async_flip
-remains false (unlike crtc_state->uapi.async_flip), so this function always
-returns early on the first check and never completes a no-op async flip.
-
-> +
-> +	if (crtc_state->uapi.event) {
-> +		spin_lock_irq(&display->drm->event_lock);
-> +		drm_crtc_send_vblank_event(&crtc->base,
-> +					   crtc_state->uapi.event);
-> +		spin_unlock_irq(&display->drm->event_lock);
-> +
-> +		crtc_state->uapi.event =3D NULL;
-> +	}
-> +}
-
-[Severity: Medium]
-Will crtc_state->uapi.event always be NULL by the time
-intel_crtc_complete_noop_async_flip() runs?
-
-In intel_atomic_commit_tail(), commit_modeset_enables() runs before
-intel_atomic_complete_noop_async_flips().  When new_crtc_state->do_async_fl=
-ip
-is true, intel_update_crtc() -> intel_pipe_update_start() calls
-intel_crtc_prepare_vblank_event(new_crtc_state, &crtc->flip_done_event),
-which moves new_crtc_state->uapi.event into crtc->flip_done_event and sets
-new_crtc_state->uapi.event =3D NULL.  With update_planes =3D=3D 0, no flip-=
-done
-interrupt will fire to consume crtc->flip_done_event, leaving the event
-unsent and causing drm_atomic_helper_wait_for_flip_done() to time out.
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261116091130.1395=
-0-1-ville.syrjala@linux.intel.com?part=3D10
