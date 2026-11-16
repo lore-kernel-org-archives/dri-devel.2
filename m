@@ -2,53 +2,52 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2DE4A606A323
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7FA83606A31C
 	for <dri-devel@archiver.kernel.org>; Mon, 16 Nov 2026 12:57:28 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=iXpcPjgW
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=D/zyN+Hk
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 904CF10F106;
+	by gabe.freedesktop.org (Postfix) with ESMTP id A72E510F126;
 	Mon, 16 Nov 2026 12:57:22 +0000 (UTC)
 Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.17])
- by gabe.freedesktop.org (Postfix) with ESMTPS id DCC1F10F0E3;
- Mon, 16 Nov 2026 12:57:10 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id DBCA910F106;
+ Mon, 16 Nov 2026 12:57:15 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1794833831; x=1826369831;
+ t=1794833836; x=1826369836;
  h=from:to:cc:subject:date:message-id:in-reply-to:
  references:mime-version:content-transfer-encoding;
- bh=+hUgFPRsWFfAxX+Kejrp12AwPEOCv5HBeQvi4ZNFPAA=;
- b=iXpcPjgWXxBt38/urX0rrpc6mKf/J+GoNI+bvC8/6SOa9nIMr39tzydY
- Rykcs7zhdiS0c7wHtZNwVfQke0obo0YCWz4Y+0+CcJq8E9/plqgFFvBw8
- ymKYVAHSYUmrph0xDNepmyd5hw06tuXJV8HyEUtFH2zmMjS8SUJbUELOn
- ZQqJ/9GQktyrrWFSURbgtlr2lp9+FNphw2mFt8yIQ97pmSsfbWeYxOQJ2
- caWEu5przDa0ltf2tNVqj4M+p18VAXso1dtjEQC08IIr8ypVEKTpwXizx
- cUHETtagu1s0RVkhGa/3updqxGpy5+QLSKispYds5XRxEE6588UbY49xi A==;
-X-CSE-ConnectionGUID: OJIcSx49Sge8KES6uocB3A==
-X-CSE-MsgGUID: XusR/OaJRKGqyJzn6DPgbQ==
-X-IronPort-AV: E=McAfee;i="6800,10657,11968"; a="3557849"
+ bh=kx80+iVT0K/rR5znwIn6S+ycgVAvrV4U7MbNwpiJeJs=;
+ b=D/zyN+HkePsYOMBA5aICEBAVd1ETtbfnTwf+kvwWdNjxAJjyh7eYK+Kf
+ /e22cupRgB5L7pS6k9PlWk/+COZchv/jlq5RXnIbnSkDCo2ujOqL18kaU
+ T7LkyJI2yTHRrzs21Z/fqVbTDSTHoCnzjWcNTOhKI+7YM/esjJJZ35SLH
+ oQDAfgWjLk08VpRSEH9ea5CIpcMN9U1eip9GuwZ02fGQC236Ty2Q2WTjV
+ FU6oUxNSl4HI2QaZC/rsnuwmQIipLpjLNHlAfrXt15VYXflV8YINJvf7k
+ Es6QxWDADgEwE6Za62vw5PBxgxvo6grZrKBB8st2ymtg4fzYNyIsjzq1F Q==;
+X-CSE-ConnectionGUID: D6lQT6qfSlCOntrvZAKh5Q==
+X-CSE-MsgGUID: u5Npc8HHTBS3jgYFWbmQyw==
+X-IronPort-AV: E=McAfee;i="6800,10657,11968"; a="3557851"
 X-IronPort-AV: E=Sophos;i="6.27,216,1787036400"; 
-   d="scan'208";a="3557849"
+   d="scan'208";a="3557851"
 Received: from orviesa004.jf.intel.com ([10.64.159.144])
  by fmvoesa111.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 16 Nov 2026 04:57:11 -0800
-X-CSE-ConnectionGUID: 4A06LWQNR6KRWbYuw2c0NA==
-X-CSE-MsgGUID: e4ymLo/sQ+yud6wZNeHx3Q==
+ 16 Nov 2026 04:57:16 -0800
+X-CSE-ConnectionGUID: U67JIv9WRKmiVuPdA/N14w==
+X-CSE-MsgGUID: 9sCZ22HbTmOmt1KoJTflCw==
 X-ExtLoop1: 1
 X-IronPort-AV: E=Sophos;i="6.27,216,1787036400"; 
-   d="scan'208";a="9439963"
+   d="scan'208";a="9439994"
 Received: from ettammin-mobl3.ger.corp.intel.com (HELO localhost)
  ([10.245.245.93])
  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 16 Nov 2026 04:57:09 -0800
+ 16 Nov 2026 04:57:14 -0800
 From: Ville Syrjala <ville.syrjala@linux.intel.com>
 To: dri-devel@lists.freedesktop.org
 Cc: intel-gfx@lists.freedesktop.org,
 	intel-xe@lists.freedesktop.org
-Subject: [PATCH 3/4] drm/atomic: Free unconsumed events in the CRTC state
- destructor
-Date: Mon, 16 Nov 2026 14:56:48 +0200
-Message-ID: <20261116125649.15742-4-ville.syrjala@linux.intel.com>
+Subject: [PATCH 4/4] drm/tests: Test event ownership in atomic states
+Date: Mon, 16 Nov 2026 14:56:49 +0200
+Message-ID: <20261116125649.15742-5-ville.syrjala@linux.intel.com>
 X-Mailer: git-send-email 2.56.0
 In-Reply-To: <20261116125649.15742-1-ville.syrjala@linux.intel.com>
 References: <20261116125649.15742-1-ville.syrjala@linux.intel.com>
@@ -79,188 +78,254 @@ X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 
 From: Ville Syrjälä <ville.syrjala@linux.intel.com>
 
-The ownership of an event attached to a CRTC state is currently split
-three ways: drm_atomic_helper_setup_commit() allocated events are freed
-through drm_crtc_commit::event, events from the atomic uapi are freed by
-complete_signaling(), and a flag (drm_crtc_commit::abort_completion) is
-needed so the right party drops the reference the event holds on the
-commit.
-
-Simplify this by having __drm_atomic_helper_crtc_destroy_state() throw
-away any event that is still in the state, since an event that was not
-consumed by the driver can only be there because the commit did not
-happen. drm_event_cancel_free() takes care of the file and fence
-bookkeeping, and of releasing the event's completion. This allows
-drm_crtc_commit::event, drm_crtc_commit::abort_completion and the
-cancelling in complete_signaling() to go away.
-
-All drivers clear the event from the CRTC state when they consume it,
-and drm_atomic_helper_commit_hw_done() already warns if they do not.
+Add KUnit tests for what happens to the event of a CRTC state that went
+through drm_atomic_helper_setup_commit(): an internally allocated event
+and an event provided by the caller must both be thrown away, releasing
+their reference on the commit, if the state is destroyed without the
+event having been consumed, while a consumed and sent event completes
+flip_done and is left alone.
 
 Signed-off-by: Ville Syrjälä <ville.syrjala@linux.intel.com>
 ---
- drivers/gpu/drm/drm_atomic_helper.c       | 10 ++------
- drivers/gpu/drm/drm_atomic_state_helper.c | 29 ++++++++++-------------
- drivers/gpu/drm/drm_atomic_uapi.c         | 24 ++++---------------
- include/drm/drm_atomic.h                  | 15 ------------
- 4 files changed, 19 insertions(+), 59 deletions(-)
+ .../gpu/drm/tests/drm_atomic_commit_test.c    | 201 +++++++++++++++++-
+ 1 file changed, 200 insertions(+), 1 deletion(-)
 
-diff --git a/drivers/gpu/drm/drm_atomic_helper.c b/drivers/gpu/drm/drm_atomic_helper.c
-index 31e46f6ccd22..23b24d633f2e 100644
---- a/drivers/gpu/drm/drm_atomic_helper.c
-+++ b/drivers/gpu/drm/drm_atomic_helper.c
-@@ -2559,19 +2559,15 @@ int drm_atomic_helper_setup_commit(struct drm_atomic_commit *state,
- 		}
- 
- 		if (!new_crtc_state->event) {
--			commit->event = kzalloc_obj(*commit->event);
--			if (!commit->event)
-+			new_crtc_state->event = kzalloc_obj(*new_crtc_state->event);
-+			if (!new_crtc_state->event)
- 				return -ENOMEM;
--
--			new_crtc_state->event = commit->event;
- 		}
- 
- 		new_crtc_state->event->base.completion = &commit->flip_done;
- 		new_crtc_state->event->base.completion_release = release_crtc_commit;
- 		drm_crtc_commit_get(commit);
- 
--		commit->abort_completion = true;
--
- 		state->crtcs[i].commit = commit;
- 		drm_crtc_commit_get(commit);
- 	}
-@@ -3340,8 +3336,6 @@ int drm_atomic_helper_swap_state(struct drm_atomic_commit *state,
- 			list_add(&new_crtc_state->commit->commit_entry,
- 				 &crtc->commit_list);
- 			spin_unlock(&crtc->commit_lock);
--
--			new_crtc_state->commit->event = NULL;
- 		}
- 	}
- 
-diff --git a/drivers/gpu/drm/drm_atomic_state_helper.c b/drivers/gpu/drm/drm_atomic_state_helper.c
-index 267f44330629..8ddf03cf521e 100644
---- a/drivers/gpu/drm/drm_atomic_state_helper.c
-+++ b/drivers/gpu/drm/drm_atomic_state_helper.c
-@@ -174,25 +174,20 @@ EXPORT_SYMBOL(drm_atomic_helper_crtc_duplicate_state);
+diff --git a/drivers/gpu/drm/tests/drm_atomic_commit_test.c b/drivers/gpu/drm/tests/drm_atomic_commit_test.c
+index 6ccb001f6264..80b3f6fd872a 100644
+--- a/drivers/gpu/drm/tests/drm_atomic_commit_test.c
++++ b/drivers/gpu/drm/tests/drm_atomic_commit_test.c
+@@ -5,9 +5,13 @@
+  * Copyright (c) 2024 Qualcomm Innovation Center, Inc. All rights reserved.
   */
- void __drm_atomic_helper_crtc_destroy_state(struct drm_crtc_state *state)
- {
--	if (state->commit) {
--		/*
--		 * In the event that a non-blocking commit returns
--		 * -ERESTARTSYS before the commit_tail work is queued, we will
--		 * have an extra reference to the commit object. Release it, if
--		 * the event has not been consumed by the worker.
--		 *
--		 * state->event may be freed, so we can't directly look at
--		 * state->event->base.completion.
--		 */
--		if (state->event && state->commit->abort_completion)
--			drm_crtc_commit_put(state->commit);
--
--		kfree(state->commit->event);
--		state->commit->event = NULL;
--
--		drm_crtc_commit_put(state->commit);
-+	/*
-+	 * An event that is still here was never consumed, eg. because a
-+	 * non-blocking commit returned -ERESTARTSYS before the commit_tail
-+	 * work was queued. Throw it away, which also releases the extra
-+	 * reference to the commit that the event holds for its completion.
-+	 */
-+	if (state->event) {
-+		drm_event_cancel_free(state->crtc->dev, &state->event->base);
-+		state->event = NULL;
- 	}
  
-+	if (state->commit)
-+		drm_crtc_commit_put(state->commit);
++#include <linux/dma-fence.h>
 +
- 	drm_property_blob_put(state->mode_blob);
- 	drm_property_blob_put(state->degamma_lut);
- 	drm_property_blob_put(state->ctm);
-diff --git a/drivers/gpu/drm/drm_atomic_uapi.c b/drivers/gpu/drm/drm_atomic_uapi.c
-index 1eebcf6f5e05..2884063513ad 100644
---- a/drivers/gpu/drm/drm_atomic_uapi.c
-+++ b/drivers/gpu/drm/drm_atomic_uapi.c
-@@ -1552,13 +1552,10 @@ static int prepare_signaling(struct drm_device *dev,
- }
+ #include <drm/drm_atomic.h>
+ #include <drm/drm_atomic_helper.h>
+ #include <drm/drm_atomic_uapi.h>
++#include <drm/drm_file.h>
++#include <drm/drm_vblank.h>
+ #include <drm/drm_kunit_helpers.h>
+ #include <drm/drm_probe_helper.h>
  
- static void complete_signaling(struct drm_device *dev,
--			       struct drm_atomic_commit *state,
- 			       struct drm_out_fence_state *fence_state,
- 			       unsigned int num_fences,
- 			       bool install_fds)
- {
--	struct drm_crtc *crtc;
--	struct drm_crtc_state *crtc_state;
- 	int i;
+@@ -378,6 +382,187 @@ KUNIT_ARRAY_PARAM(drm_check_in_clone_mode, drm_clone_mode_tests,
+ KUNIT_ARRAY_PARAM(drm_check_valid_clones, drm_valid_clone_mode_tests,
+ 		  drm_check_valid_clones_desc);
  
- 	if (install_fds) {
-@@ -1570,21 +1567,10 @@ static void complete_signaling(struct drm_device *dev,
- 		return;
- 	}
- 
--	for_each_new_crtc_in_state(state, crtc, crtc_state, i) {
--		struct drm_pending_vblank_event *event = crtc_state->event;
--		/*
--		 * Free the allocated event. drm_atomic_helper_setup_commit
--		 * can allocate an event too, so only free it if it's ours
--		 * to prevent a double free in drm_atomic_commit_clear.
--		 */
--		if (event && (event->base.fence || event->base.file_priv)) {
--			if (crtc_state->commit && crtc_state->commit->abort_completion)
--				drm_crtc_commit_put(crtc_state->commit);
--			drm_event_cancel_free(dev, &event->base);
--			crtc_state->event = NULL;
--		}
--	}
--
-+	/*
-+	 * Any events that were not consumed are thrown away when the state
-+	 * is destroyed.
-+	 */
- 	if (!fence_state)
- 		return;
- 
-@@ -1778,7 +1764,7 @@ int drm_mode_atomic_ioctl(struct drm_device *dev,
- 	}
- 
- out:
--	complete_signaling(dev, state, fence_state, num_fences, !ret);
-+	complete_signaling(dev, fence_state, num_fences, !ret);
- 
- 	if (ret == -EDEADLK) {
- 		drm_atomic_commit_clear(state);
-diff --git a/include/drm/drm_atomic.h b/include/drm/drm_atomic.h
-index 3ae35b09c0cf..33d21ffdfc68 100644
---- a/include/drm/drm_atomic.h
-+++ b/include/drm/drm_atomic.h
-@@ -140,21 +140,6 @@ struct drm_crtc_commit {
- 	 */
- 	struct list_head commit_entry;
- 
--	/**
--	 * @event:
--	 *
--	 * &drm_pending_vblank_event pointer to clean up private events.
--	 */
--	struct drm_pending_vblank_event *event;
--
--	/**
--	 * @abort_completion:
--	 *
--	 * A flag that's set after drm_atomic_helper_setup_commit() takes a
--	 * second reference for the completion of $drm_crtc_state.event. It's
--	 * used by the free code to remove the second reference if commit fails.
--	 */
--	bool abort_completion;
++struct drm_event_test_ctx {
++	struct drm_atomic_test_priv *priv;
++	struct drm_modeset_acquire_ctx ctx;
++	struct drm_atomic_commit *state;
++	struct drm_crtc_state *crtc_state;
++	struct drm_crtc_commit *commit;
++};
++
++/*
++ * Set up a state with an enabled CRTC and run drm_atomic_helper_setup_commit()
++ * on it. Takes an extra reference on the CRTC commit, which the caller has to
++ * drop, so that the references held by the state and its event can be counted.
++ */
++static void drm_event_test_setup_commit(struct kunit *test,
++					struct drm_event_test_ctx *c,
++					struct drm_pending_vblank_event *event,
++					bool active)
++{
++	int ret;
++
++	c->priv = drm_atomic_test_init_drm_components(test, false);
++	KUNIT_ASSERT_NOT_NULL(test, c->priv);
++
++	drm_modeset_acquire_init(&c->ctx, 0);
++
++	c->state = drm_kunit_helper_atomic_state_alloc(test, &c->priv->drm,
++						       &c->ctx);
++	KUNIT_ASSERT_NOT_ERR_OR_NULL(test, c->state);
++
++	c->crtc_state = drm_atomic_get_crtc_state(c->state, c->priv->crtc);
++	KUNIT_ASSERT_NOT_ERR_OR_NULL(test, c->crtc_state);
++
++	c->crtc_state->enable = active;
++	c->crtc_state->active = active;
++	c->crtc_state->event = event;
++
++	ret = drm_atomic_helper_setup_commit(c->state, false);
++	KUNIT_ASSERT_EQ(test, ret, 0);
++
++	c->commit = c->crtc_state->commit;
++	KUNIT_ASSERT_NOT_NULL(test, c->commit);
++	if (active) {
++		KUNIT_ASSERT_NOT_NULL(test, c->crtc_state->event);
++		KUNIT_EXPECT_PTR_EQ(test, c->crtc_state->event->base.completion,
++				    &c->commit->flip_done);
++	}
++
++	drm_crtc_commit_get(c->commit);
++}
++
++static void drm_event_test_finish(struct drm_event_test_ctx *c)
++{
++	drm_crtc_commit_put(c->commit);
++	drm_modeset_drop_locks(&c->ctx);
++	drm_modeset_acquire_fini(&c->ctx);
++}
++
++/*
++ * Test that destroying a state whose commit was never queued throws away the
++ * event allocated by drm_atomic_helper_setup_commit(), and gives up the
++ * reference the event held on the commit.
++ */
++static void drm_test_event_abort_internal(struct kunit *test)
++{
++	struct drm_event_test_ctx c;
++
++	drm_event_test_setup_commit(test, &c, NULL, true);
++
++	/* state, crtcs[].commit and the event, plus the one taken above */
++	KUNIT_EXPECT_EQ(test, kref_read(&c.commit->ref), 4);
++
++	drm_atomic_commit_clear(c.state);
++
++	KUNIT_EXPECT_EQ(test, kref_read(&c.commit->ref), 1);
++	KUNIT_EXPECT_FALSE(test, try_wait_for_completion(&c.commit->flip_done));
++
++	drm_event_test_finish(&c);
++}
++
++/*
++ * Same as above, but with an event provided by the caller, like the atomic
++ * uapi does.
++ */
++static void drm_test_event_abort_user(struct kunit *test)
++{
++	struct drm_pending_vblank_event *event;
++	struct drm_event_test_ctx c;
++
++	event = kzalloc_obj(*event);
++	KUNIT_ASSERT_NOT_NULL(test, event);
++
++	drm_event_test_setup_commit(test, &c, event, true);
++	KUNIT_EXPECT_PTR_EQ(test, c.crtc_state->event, event);
++	KUNIT_EXPECT_EQ(test, kref_read(&c.commit->ref), 4);
++
++	/* the event is freed here */
++	drm_atomic_commit_clear(c.state);
++
++	KUNIT_EXPECT_EQ(test, kref_read(&c.commit->ref), 1);
++
++	drm_event_test_finish(&c);
++}
++
++static const char *drm_event_test_fence_name(struct dma_fence *fence)
++{
++	return "drm-event-test";
++}
++
++static const struct dma_fence_ops drm_event_test_fence_ops = {
++	.get_driver_name = drm_event_test_fence_name,
++	.get_timeline_name = drm_event_test_fence_name,
++};
++
++/*
++ * Test that an event from the atomic uapi (here with an out-fence) is thrown
++ * away with the state when the CRTC stays off. drm_atomic_helper_setup_commit()
++ * skips such CRTCs, so no driver is required to consume the event and nothing
++ * but the state destructor is left to free it. The fence reference tells
++ * whether the event got freed.
++ */
++static void drm_test_event_stays_off(struct kunit *test)
++{
++	struct drm_pending_vblank_event *event;
++	struct drm_event_test_ctx c;
++	struct dma_fence fence;
++	spinlock_t lock;
++
++	event = kzalloc_obj(*event);
++	KUNIT_ASSERT_NOT_NULL(test, event);
++
++	spin_lock_init(&lock);
++	dma_fence_init(&fence, &drm_event_test_fence_ops, &lock, 0, 0);
++	/* the event's reference; the one from dma_fence_init() stays ours */
++	event->base.fence = dma_fence_get(&fence);
++
++	drm_event_test_setup_commit(test, &c, event, false);
++
++	KUNIT_EXPECT_PTR_EQ(test, c.crtc_state->event, event);
++	KUNIT_EXPECT_NULL(test, event->base.completion);
++	KUNIT_EXPECT_TRUE(test, try_wait_for_completion(&c.commit->flip_done));
++	KUNIT_EXPECT_EQ(test, kref_read(&fence.refcount), 2);
++
++	/* the event is freed here */
++	drm_atomic_commit_clear(c.state);
++
++	KUNIT_EXPECT_EQ(test, kref_read(&fence.refcount), 1);
++	KUNIT_EXPECT_EQ(test, kref_read(&c.commit->ref), 1);
++
++	/* the last reference is not dropped, @fence is on the stack */
++	drm_event_test_finish(&c);
++}
++
++/*
++ * Test that an event which the driver consumed is not touched when the state
++ * is destroyed, and that sending it completes flip_done.
++ */
++static void drm_test_event_consumed(struct kunit *test)
++{
++	struct drm_pending_vblank_event *event;
++	struct drm_event_test_ctx c;
++
++	drm_event_test_setup_commit(test, &c, NULL, true);
++
++	event = c.crtc_state->event;
++	c.crtc_state->event = NULL;
++
++	spin_lock_irq(&c.priv->drm.event_lock);
++	drm_send_event_locked(&c.priv->drm, &event->base);
++	spin_unlock_irq(&c.priv->drm.event_lock);
++
++	KUNIT_EXPECT_TRUE(test, try_wait_for_completion(&c.commit->flip_done));
++	/* the event gave up its reference when it was sent */
++	KUNIT_EXPECT_EQ(test, kref_read(&c.commit->ref), 3);
++
++	drm_atomic_commit_clear(c.state);
++
++	KUNIT_EXPECT_EQ(test, kref_read(&c.commit->ref), 1);
++
++	drm_event_test_finish(&c);
++}
++
+ static struct kunit_case drm_test_check_modeset_test[] = {
+ 	KUNIT_CASE(drm_test_check_connector_changed_modeset),
+ 	{}
+@@ -391,6 +576,19 @@ static struct kunit_case drm_in_clone_mode_check_test[] = {
+ 	{}
  };
  
- struct __drm_colorops_state {
++static struct kunit_case drm_event_ownership_tests[] = {
++	KUNIT_CASE(drm_test_event_abort_internal),
++	KUNIT_CASE(drm_test_event_abort_user),
++	KUNIT_CASE(drm_test_event_stays_off),
++	KUNIT_CASE(drm_test_event_consumed),
++	{}
++};
++
++static struct kunit_suite drm_event_ownership_test_suite = {
++	.name = "drm_atomic_event_ownership",
++	.test_cases = drm_event_ownership_tests,
++};
++
+ static struct kunit_suite drm_test_check_modeset_test_suite = {
+ 	.name = "drm_validate_modeset",
+ 	.test_cases = drm_test_check_modeset_test,
+@@ -402,7 +600,8 @@ static struct kunit_suite drm_in_clone_mode_check_test_suite = {
+ };
+ 
+ kunit_test_suites(&drm_in_clone_mode_check_test_suite,
+-		  &drm_test_check_modeset_test_suite);
++		  &drm_test_check_modeset_test_suite,
++		  &drm_event_ownership_test_suite);
+ 
+ MODULE_AUTHOR("Jessica Zhang <quic_jesszhan@quicinc.com");
+ MODULE_DESCRIPTION("Test cases for the drm_atomic_helper functions");
 -- 
 2.56.0
 
