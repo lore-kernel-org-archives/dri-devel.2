@@ -2,62 +2,46 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9B588606A32A
-	for <dri-devel@archiver.kernel.org>; Mon, 16 Nov 2026 12:39:53 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EB3D0606A32F
+	for <dri-devel@archiver.kernel.org>; Mon, 16 Nov 2026 12:43:41 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.a=rsa-sha256 header.s=dkim header.b=CtE9QPD5
+	dkim=fail reason="signature verification failed" (1024-bit key) header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=foss header.b=QiPGF9LM
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id D1EEE10EFEC;
-	Mon, 16 Nov 2026 12:39:47 +0000 (UTC)
-Received: from smtpout-02.galae.net (smtpout-02.galae.net [185.246.84.56])
- by gabe.freedesktop.org (Postfix) with ESMTPS id C190D10EFE9
- for <dri-devel@lists.freedesktop.org>; Mon, 16 Nov 2026 12:39:41 +0000 (UTC)
-Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
- by smtpout-02.galae.net (Postfix) with ESMTPS id E9E9D1A168D;
- Mon, 16 Nov 2026 12:39:39 +0000 (UTC)
-Received: from mail.galae.net (mail.galae.net [212.83.136.155])
- by smtpout-01.galae.net (Postfix) with ESMTPS id BCFDA6023F;
- Mon, 16 Nov 2026 12:39:39 +0000 (UTC)
-Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon)
- with ESMTPSA id CE01111BC00A4; Mon, 16 Nov 2026 13:39:32 +0100 (CET)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
- t=1794832778; h=from:subject:date:message-id:to:cc:mime-version:content-type:
- content-transfer-encoding:content-language:in-reply-to:references;
- bh=nxenrdouUK6y+DAi07yt6iOH6+eUJjLJwROhmePJqr8=;
- b=CtE9QPD5mt4WKb6jYrR88eZzNnZ+KnWR4rRe4+95QyBRycvl4uEVBAzWr3pHtvyZ7Glgxt
- /V/8wB2sC3TO/t6hG//e3FgR0S5DLaCKDX4epeugDYooqK5nEDpLkakJJTCGJbNFqTC3Ag
- sRJWfr+jx1rvfO59FP2sq853TSqMaulQpmB8DmGzx4Pygepb/a/gKSdfKO0FInvXmGfcP0
- CvIdnfETafMjxtw5zLG3xGvRO/HnweGoIXDEvZKMXqAzFZa0D/flgya1vkk/+1MF3sPWcq
- qzxmwWqIfGI9+o+xG7OMsPEPvhiQSbPeZjr2jxWj+BEajTralxH6LCeQ2U3C+w==
-Message-ID: <e086d6f0-0729-4408-934f-4cac8980f5bc@bootlin.com>
-Date: Mon, 16 Nov 2026 13:39:31 +0100
+	by gabe.freedesktop.org (Postfix) with ESMTP id 5A9F410F046;
+	Mon, 16 Nov 2026 12:43:36 +0000 (UTC)
+Received: from foss.arm.com (foss.arm.com [217.140.110.172])
+ by gabe.freedesktop.org (Postfix) with ESMTP id 05A1310F050
+ for <dri-devel@lists.freedesktop.org>; Mon, 16 Nov 2026 12:43:30 +0000 (UTC)
+Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
+ by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 87E411713
+ for <dri-devel@lists.freedesktop.org>; Mon, 16 Nov 2026 04:43:26 -0800 (PST)
+Received: from [192.168.0.1] (usa-sjc-imap-foss1.foss.arm.com [10.121.207.14])
+ by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPA id
+ 4CA7D3F632
+ for <dri-devel@lists.freedesktop.org>; Mon, 16 Nov 2026 04:43:29 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
+ t=1794833009; bh=dg7j36cEkL6YwieU84eZURhUe2r7Iw1mLinaBzUPWbM=;
+ h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+ b=QiPGF9LM2BOOFe8k2GgptyM6YyXH7BndLCrdwmP8Mb7s9dz3Xtr//+85WyZWelYJP
+ UMQWa8pKlob+rVM5ATQewnOlD9y9Sj4E5cBPph1ufIs4thHrgLAKXH8ys58btLia3V
+ E4SXsJm3pGsRAZM+RllOj/dt/qe7fBWjNtrQIgok=
+Date: Mon, 16 Nov 2026 12:43:19 +0000
+From: Liviu Dudau <liviu.dudau@arm.com>
+To: Tuo Li <islituo@gmail.com>
+Cc: boris.brezillon@collabora.com, steven.price@arm.com,
+ maarten.lankhorst@linux.intel.com, mripard@kernel.org,
+ tzimmermann@suse.de, airlied@gmail.com, simona@ffwll.ch,
+ dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH] drm/panthor: Fix NULL pointer dereference in sync signal
+ cleanup
+Message-ID: <avr6Z-LoyfKvDH0U@e142607>
+References: <20261113094456.5000-1-islituo@gmail.com>
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v11 9/9] drm/vkms: Add driver-specific plane property for
- testing
-To: Maxime Ripard <mripard@kernel.org>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>,
- Simona Vetter <simona@ffwll.ch>, Haneen Mohammed <hamohammed.sa@gmail.com>,
- Melissa Wen <melissa.srw@gmail.com>
-Cc: Daniel Stone <daniels@collabora.com>,
- Harry Wentland <harry.wentland@amd.com>,
- Jocelyn Falempe <jfalempe@redhat.com>, =?UTF-8?Q?Jonas_=C3=85dahl?=
- <jadahl@redhat.com>, =?UTF-8?Q?Michel_D=C3=A4nzer?= <mdaenzer@redhat.com>,
- Pekka Paalanen <pekka.paalanen@collabora.com>,
- Sebastian Wick <sebastian.wick@redhat.com>, Simon Ser <contact@emersion.fr>,
- Victoria Brekenfeld <victoria@system76.com>, Xaver Hugl
- <xaver.hugl@kde.org>, dri-devel@lists.freedesktop.org,
- linux-kernel@vger.kernel.org, Oarora Etimis <oaroraetimis@gmail.com>
-References: <20261116-drm-reset-state-flag-v11-0-378b3f7bef32@kernel.org>
- <20261116-drm-reset-state-flag-v11-9-378b3f7bef32@kernel.org>
-From: Louis Chauvet <louis.chauvet@bootlin.com>
-Content-Language: en-US
-In-Reply-To: <20261116-drm-reset-state-flag-v11-9-378b3f7bef32@kernel.org>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-X-Last-TLS-Session-Version: TLSv1.3
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <20261113094456.5000-1-islituo@gmail.com>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -69,207 +53,59 @@ List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-17.3 required=3.0 tests=BAYES_00,DKIM_SIGNED,
-	DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
-	INCLUDES_CR_TRAILER,INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,
-	SPF_PASS,USER_AGENT_SANE_1 autolearn=unavailable autolearn_force=no
-	version=4.0.1
+X-Spam-Status: No, score=-13.6 required=3.0 tests=BAYES_00,DKIM_INVALID,
+	DKIM_SIGNED,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,
+	INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS
+	autolearn=unavailable autolearn_force=no version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-
-
-On 11/16/26 11:17, Maxime Ripard wrote:
-> The DRM_MODE_ATOMIC_RESET flag allows userspace to reset all object
-> states to their defaults before applying new property values. Testing
-> that this mechanism works correctly requires a property that the test
-> can set to a non-default value and then verify is properly reset.
+On Fri, Nov 13, 2026 at 05:44:56PM +0800, Tuo Li wrote:
+> In panthor_submit_ctx_add_sync_signal(), drm_syncobj_find() may return
+> NULL. The function then jumps to err_free_sig_sync, where
+> panthor_sync_signal_free() unconditionally calls drm_syncobj_put() on
+> the NULL pointer, causing a NULL pointer dereference.
 > 
-> Using a standard property for this is problematic: compositors like
-> Mutter enumerate and track all known properties, making it difficult
-> to isolate the reset behavior from the compositor's own property
-> management.
+> Check sig_sync->syncobj before calling drm_syncobj_put() to avoid the
+> NULL pointer dereference.
 > 
-> Add a "vkms-test-do-not-use-in-prod" range property to vkms planes.
-> The property is stored in vkms_plane_state, duplicated across state
-> copies, and initialized from its registered default in
-> atomic_create_state via drm_object_property_get_default_value().
-> 
-> Reviewed-by: Daniel Stone <daniels@collabora.com>
-> Reviewed-by: Oarora Etimis <oaroraetimis@gmail.com>
+> Fixes: 4bdca1150792 ("drm/panthor: Add the driver frontend block")
+> Signed-off-by: Tuo Li <islituo@gmail.com>
 
-Reviewed-by: Louis Chauvet <louis.chauvet@bootlin.com>
+Reviewed-by: Liviu Dudau <liviu.dudau@arm.com>
 
-> Signed-off-by: Maxime Ripard <mripard@kernel.org>
+Best regards,
+Liviu
+
 > ---
->   drivers/gpu/drm/vkms/vkms_drv.h   |  3 ++
->   drivers/gpu/drm/vkms/vkms_plane.c | 63 +++++++++++++++++++++++++++++++++++++--
->   2 files changed, 64 insertions(+), 2 deletions(-)
+>  drivers/gpu/drm/panthor/panthor_drv.c | 4 +++-
+>  1 file changed, 3 insertions(+), 1 deletion(-)
 > 
-> diff --git a/drivers/gpu/drm/vkms/vkms_drv.h b/drivers/gpu/drm/vkms/vkms_drv.h
-> index dea6cad3f1b9..384616095b45 100644
-> --- a/drivers/gpu/drm/vkms/vkms_drv.h
-> +++ b/drivers/gpu/drm/vkms/vkms_drv.h
-> @@ -144,20 +144,23 @@ struct conversion_matrix {
->    * @base: base plane state
->    * @frame_info: data required for composing computation
->    * @pixel_read_line: function to read a pixel line in this plane. The creator of a
->    *		     struct vkms_plane_state must ensure that this pointer is valid
->    * @conversion_matrix: matrix used for yuv formats to convert to rgb
-> + * @vkms_test_do_not_use_value: driver-specific property for testing only
->    */
->   struct vkms_plane_state {
->   	struct drm_shadow_plane_state base;
->   	struct vkms_frame_info frame_info;
->   	pixel_read_line_t pixel_read_line;
->   	struct conversion_matrix conversion_matrix;
-> +	unsigned int vkms_test_do_not_use_value;
->   };
->   
->   struct vkms_plane {
->   	struct drm_plane base;
-> +	struct drm_property *vkms_test_do_not_use_property;
->   };
->   
->   struct vkms_color_lut {
->   	struct drm_color_lut *base;
->   	size_t lut_length;
-> diff --git a/drivers/gpu/drm/vkms/vkms_plane.c b/drivers/gpu/drm/vkms/vkms_plane.c
-> index fd3d34dcf0fe..42513cb462ac 100644
-> --- a/drivers/gpu/drm/vkms/vkms_plane.c
-> +++ b/drivers/gpu/drm/vkms/vkms_plane.c
-> @@ -9,14 +9,18 @@
->   #include <drm/drm_colorop.h>
->   #include <drm/drm_fourcc.h>
->   #include <drm/drm_gem_atomic_helper.h>
->   #include <drm/drm_gem_framebuffer_helper.h>
->   #include <drm/drm_print.h>
-> +#include <drm/drm_property.h>
->   
->   #include "vkms_drv.h"
->   #include "vkms_formats.h"
->   
-> +#define to_vkms_plane(target) \
-> +	container_of_const(target, struct vkms_plane, base)
+> diff --git a/drivers/gpu/drm/panthor/panthor_drv.c b/drivers/gpu/drm/panthor/panthor_drv.c
+> index dc8d0191aef4..8d73956530a8 100644
+> --- a/drivers/gpu/drm/panthor/panthor_drv.c
+> +++ b/drivers/gpu/drm/panthor/panthor_drv.c
+> @@ -364,7 +364,9 @@ panthor_sync_signal_free(struct panthor_sync_signal *sig_sync)
+>  	if (!sig_sync)
+>  		return;
+>  
+> -	drm_syncobj_put(sig_sync->syncobj);
+> +	if (sig_sync->syncobj)
+> +		drm_syncobj_put(sig_sync->syncobj);
 > +
->   static const u32 vkms_formats[] = {
->   	DRM_FORMAT_ARGB8888,
->   	DRM_FORMAT_ABGR8888,
->   	DRM_FORMAT_BGRA8888,
->   	DRM_FORMAT_RGBA8888,
-> @@ -52,16 +56,19 @@ static const u32 vkms_formats[] = {
->   };
->   
->   static struct drm_plane_state *
->   vkms_plane_duplicate_state(struct drm_plane *plane)
->   {
-> +	struct vkms_plane_state *old_state = to_vkms_plane_state(plane->state);
->   	struct vkms_plane_state *vkms_state;
->   
->   	vkms_state = kzalloc_obj(*vkms_state);
->   	if (!vkms_state)
->   		return NULL;
->   
-> +	vkms_state->vkms_test_do_not_use_value = old_state->vkms_test_do_not_use_value;
-> +
->   	__drm_gem_duplicate_shadow_plane_state(plane, &vkms_state->base);
->   
->   	return &vkms_state->base.base;
->   }
->   
-> @@ -83,28 +90,69 @@ static void vkms_plane_destroy_state(struct drm_plane *plane,
->   	kfree(vkms_state);
->   }
->   
->   static struct drm_plane_state *vkms_plane_create_state(struct drm_plane *plane)
->   {
-> +	struct vkms_plane *vkms_plane = to_vkms_plane(plane);
->   	struct vkms_plane_state *vkms_state;
-> +	u64 val;
->   
->   	vkms_state = kzalloc_obj(*vkms_state);
->   	if (!vkms_state) {
->   		DRM_ERROR("Cannot allocate vkms_plane_state\n");
->   		return ERR_PTR(-ENOMEM);
->   	}
->   
->   	__drm_gem_shadow_plane_state_init(plane, &vkms_state->base);
->   
-> +	if (!drm_object_property_get_default_value(&plane->base,
-> +						   vkms_plane->vkms_test_do_not_use_property,
-> +						   &val))
-> +		vkms_state->vkms_test_do_not_use_value = val;
-> +
->   	return &(&vkms_state->base)->base;
->   }
->   
-> +static int vkms_plane_atomic_set_property(struct drm_plane *plane,
-> +					  struct drm_plane_state *state,
-> +					  struct drm_property *property,
-> +					  uint64_t val)
-> +{
-> +	struct vkms_plane *vkms_plane = to_vkms_plane(plane);
-> +	struct vkms_plane_state *vkms_state = to_vkms_plane_state(state);
-> +
-> +	if (property == vkms_plane->vkms_test_do_not_use_property) {
-> +		vkms_state->vkms_test_do_not_use_value = val;
-> +		return 0;
-> +	}
-> +
-> +	return -EINVAL;
-> +}
-> +
-> +static int vkms_plane_atomic_get_property(struct drm_plane *plane,
-> +					  const struct drm_plane_state *state,
-> +					  struct drm_property *property,
-> +					  uint64_t *val)
-> +{
-> +	const struct vkms_plane_state *vkms_state = to_vkms_plane_state(state);
-> +	const struct vkms_plane *vkms_plane = to_vkms_plane(plane);
-> +
-> +	if (property == vkms_plane->vkms_test_do_not_use_property) {
-> +		*val = vkms_state->vkms_test_do_not_use_value;
-> +		return 0;
-> +	}
-> +
-> +	return -EINVAL;
-> +}
-> +
->   static const struct drm_plane_funcs vkms_plane_funcs = {
->   	.update_plane		= drm_atomic_helper_update_plane,
->   	.disable_plane		= drm_atomic_helper_disable_plane,
-> -	.atomic_create_state = vkms_plane_create_state,
-> -	.atomic_duplicate_state = vkms_plane_duplicate_state,
-> +	.atomic_set_property	= vkms_plane_atomic_set_property,
-> +	.atomic_get_property	= vkms_plane_atomic_get_property,
-> +	.atomic_create_state	= vkms_plane_create_state,
-> +	.atomic_duplicate_state	= vkms_plane_duplicate_state,
->   	.atomic_destroy_state	= vkms_plane_destroy_state,
->   };
->   
->   static void vkms_plane_atomic_update(struct drm_plane *plane,
->   				     struct drm_atomic_commit *state)
-> @@ -281,10 +329,21 @@ struct vkms_plane *vkms_plane_init(struct vkms_device *vkmsdev,
->   					  BIT(DRM_COLOR_YCBCR_LIMITED_RANGE) |
->   					  BIT(DRM_COLOR_YCBCR_FULL_RANGE),
->   					  DRM_COLOR_YCBCR_BT601,
->   					  DRM_COLOR_YCBCR_FULL_RANGE);
->   
-> +	plane->vkms_test_do_not_use_property =
-> +		drm_property_create_range(dev, 0,
-> +					  "vkms-test-do-not-use-in-prod",
-> +					  0, U32_MAX);
-> +	if (!plane->vkms_test_do_not_use_property)
-> +		return ERR_PTR(-ENOMEM);
-> +
-> +	drm_object_attach_property(&plane->base.base,
-> +				   plane->vkms_test_do_not_use_property,
-> +				   0);
-> +
->   	if (vkms_config_plane_get_default_pipeline(plane_cfg))
->   		vkms_initialize_colorops(&plane->base);
->   
->   	return plane;
->   }
+>  	dma_fence_chain_free(sig_sync->chain);
+>  	dma_fence_put(sig_sync->fence);
+>  	kfree(sig_sync);
+> -- 
+> 2.43.0
 > 
 
+-- 
+====================
+| I would like to |
+| fix the world,  |
+| but they're not |
+| giving me the   |
+ \ source code!  /
+  ---------------
+    ¯\_(ツ)_/¯
