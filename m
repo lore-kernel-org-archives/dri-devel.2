@@ -2,69 +2,43 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 56200606A322
-	for <dri-devel@archiver.kernel.org>; Mon, 16 Nov 2026 15:49:46 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4659F606A31C
+	for <dri-devel@archiver.kernel.org>; Mon, 16 Nov 2026 15:50:14 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=ideasonboard.com header.i=@ideasonboard.com header.a=rsa-sha256 header.s=mail header.b=vfF6GTfI
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=osIFluT6
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 9896610EA78;
-	Mon, 16 Nov 2026 15:49:40 +0000 (UTC)
-Received: from perceval.ideasonboard.com (perceval.ideasonboard.com
- [213.167.242.64])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 69F6910EA78;
- Mon, 16 Nov 2026 15:49:34 +0000 (UTC)
-Received: from killaraus.ideasonboard.com
- (2001-14ba-7086-3000--a06.rev.dnainternet.fi [IPv6:2001:14ba:7086:3000::a06])
- by perceval.ideasonboard.com (Postfix) with ESMTPSA id 3E3814BB;
- Mon, 16 Nov 2026 16:47:06 +0100 (CET)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=ideasonboard.com;
- s=mail; t=1794844026;
- bh=CitaHNP+eD6uKjpobd8G4BGHZf0N9cqOrXyChUK85EY=;
- h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
- b=vfF6GTfIwSZTnh/YSEOytkbxHiImCvVCvyrpZRm76Nhg/ImdqxvbdMZIk3rSxVBpk
- VVudytRnEhV5bX2uLDhqj5J1EJV9/7pjJcTKjqd3OcJ9XxYkqDyNmaI52R+RFmzNNM
- kxWvwgbX2P2TqXxt/9wDGJMVK21NpG+WnagDaAIE=
-Date: Mon, 16 Nov 2026 17:49:31 +0200
-From: Laurent Pinchart <laurent.pinchart@ideasonboard.com>
-To: Kory Maincent <kory.maincent@bootlin.com>
-Cc: Jani Nikula <jani.nikula@linux.intel.com>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>,
- Thomas Zimmermann <tzimmermann@suse.de>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- Rodrigo Vivi <rodrigo.vivi@intel.com>,
- Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
- Tvrtko Ursulin <tursulin@ursulin.net>,
- Andrzej Hajda <andrzej.hajda@intel.com>,
- Neil Armstrong <neil.armstrong@linaro.org>,
- Robert Foss <rfoss@kernel.org>, Jonas Karlman <jonas@kwiboo.se>,
- Jernej Skrabec <jernej.skrabec@gmail.com>,
- Luca Ceresoli <luca.ceresoli@bootlin.com>,
- Chun-Kuang Hu <chunkuang.hu@kernel.org>,
- Philipp Zabel <p.zabel@pengutronix.de>,
- Matthias Brugger <matthias.bgg@gmail.com>,
- AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>,
- Dmitry Baryshkov <lumag@kernel.org>, Daniel Stone <daniels@collabora.com>,
- Manasi Navare <navaremanasi@google.com>,
- Thomas Petazzoni <thomas.petazzoni@bootlin.com>,
- Mark Yacoub <markyacoub@google.com>, Sean Paul <seanpaul@google.com>,
- Drew Davenport <ddavenport@google.com>,
- Louis Chauvet <louis.chauvet@bootlin.com>,
- dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
- intel-gfx@lists.freedesktop.org, intel-xe@lists.freedesktop.org,
- linux-mediatek@lists.infradead.org, linux-arm-kernel@lists.infradead.org
-Subject: Re: [PATCH RFC v3 0/8] Add support for DisplayPort link training
- information report
-Message-ID: <20261116154931.GA1763340@killaraus.ideasonboard.com>
-References: <20261012-feat_link_cap-v3-0-7517f4aba0f3@bootlin.com>
- <51ec15feef9a88e460ab6fefc48b5b982f4857c0@intel.com>
- <dfe3ce17-8153-4cd1-b9df-fe0d61cec9c4@bootlin.com>
-X-Archived-By: <archiver.kernel.org>
-MIME-Version: 1.0
+	by gabe.freedesktop.org (Postfix) with ESMTP id 698BC10E3E1;
+	Mon, 16 Nov 2026 15:50:08 +0000 (UTC)
+Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id C3A0310E3E1
+ for <dri-devel@lists.freedesktop.org>; Mon, 16 Nov 2026 15:50:01 +0000 (UTC)
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+ by tor.source.kernel.org (Postfix) with ESMTP id EC0DF601E3;
+ Mon, 16 Nov 2026 15:50:00 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6623D1F000C4;
+ Mon, 16 Nov 2026 15:50:00 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+ s=k20260515; t=1794844200;
+ bh=elVbEexr943DYVmadewPTe2CA+ALrWsjIGN8SAQyCm0=;
+ h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+ b=osIFluT6MduMfgiuHhHf0gLJi36zfWejrgj9akPnp+pqTDhQ6+woXBSTMpzFUFjeA
+ Liy+CkLOGKBoqMb+/6JKmUM22GyF/xcq9IkOw/eOfxqLhyeXp6fNoYtPW2IhELma/f
+ SmoFne11V0aW9iF5GRdJip06Gs4J9gRIbyKRjNpsxGAPnL9exJgDHSAw0MBap9n4hP
+ fn/o0eB8/rWkfU5KsJcJE9wIVK4/GlG10FCJaE9dhhDLi8R+rAo6/eMmVf3MEDpSku
+ Y8J4rLmdfYqaQM7LVJKiQ/Qi+nE7ldygv1tHv+eE3CKdlFearF5CCG3Zddm/hBy5O8
+ 4sn2qxv+xzq7A==
+Message-ID: <sashiko-outbox-217315@kernel.org>
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v7 12/12] drm/tegra: Add support for 8-bit CPU interface
+To: "Svyatoslav Ryhel" <clamor95@gmail.com>
+Cc: dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org,
+ robh@kernel.org, conor+dt@kernel.org
+In-Reply-To: <20261116151017.274764-13-clamor95@gmail.com>
+References: <20261116151017.274764-1-clamor95@gmail.com>
+ <20261116151017.274764-13-clamor95@gmail.com>
 Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <dfe3ce17-8153-4cd1-b9df-fe0d61cec9c4@bootlin.com>
+Content-Transfer-Encoding: quoted-printable
+Date: Mon, 16 Nov 2026 15:49:59 +0000
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -75,122 +49,255 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
+Reply-To: sashiko-reviews@lists.linux.dev
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-5.8 required=3.0 tests=BAYES_00,DKIM_SIGNED,
-	DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
-	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS autolearn=no
+X-Spam-Status: No, score=-10.8 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
+	DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
+	INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS autolearn=ham
 	autolearn_force=no version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
+X-Archived-By: <archiver.kernel.org>
 
-On Mon, Nov 16, 2026 at 04:13:52PM +0100, Kory Maincent wrote:
-> On 11/16/26 14:10, Jani Nikula wrote:
-> > On Mon, 12 Oct 2026, Kory Maincent <kory.maincent@bootlin.com> wrote:
-> >> DisplayPort link training negotiates the physical-layer parameters needed
-> >> for a reliable connection: lane count, link rate, and optionally Display
-> >> Stream Compression (DSC). Currently, each driver exposes this state in
-> >> its own way, often through driver-specific debugfs entries, with no
-> >> standard interface for userspace diagnostic and monitoring tools.
-> >>
-> >> This series introduces generic helpers, for exposing DP link capabilities
-> >> and state as standard sysfs entries.
-> > 
-> > So how did we end up with sysfs here?
-> 
-> In the first RFC it was in DRM properties. I presented it in the display 
-> hackfest in Nice last years. People suggested to use sysfs instead but 
-> if the need appears later in the development move back to DRM 
-> properties. I first though DRM properties seems better as it is the user 
-> interface used by distros but I had no strong argument about the change 
-> to sysfs, so I moved on to it.
-> 
-> >> The aim of such development is to guide users to select the most suitable
-> >> DisplayPort connector for their needs. For example, if you have a USB-C
-> >> hub with lesser capabilities than your computer’s native DisplayPort
-> >> connector (such as HBR2 versus HBR3 support), the system could recommend
-> >> connecting high-resolution displays directly to the computer’s port
-> >> instead of through the hub to ensure optimal performance.
-> > 
-> > I do wonder how all this is supposed to work in more complex real world
-> > scenarios, though.
-> > 
-> > I believe the user primarily cares about *modes*. Which display modes
-> > can be used with each display/connector pair.
-> > 
-> > With the low level link information, are you proposing to compute the
-> > required bandwidth for modes in userspace? I think it's going to be a
-> > lot of work to compute the bandwidth requirements, taking into account
-> > DP SST vs. MST vs. UHBR and DSC and bit depth and everything, and you'll
-> > still miss any driver/GPU specific contraints. Or are you just proposing
-> > to match the physical characteristics only?
-> 
-> This is a requirement from Google, yes they want to compute the 
-> bandwidth for modes in the userspace side.
-> @Manasi could describe in detail how would you implement it?
-> 
-> > Given all the connectors and displays and their modes on a system, you
-> > could estimate a) for each display, what modes could be used on each
-> > connector, and b) for each connector, what modes could be used on a
-> > display, if connected. From the user POV, they could be shown why some
-> > display mode is not available on the current connector, and crucially,
-> > on which connector it could be available.
-> > 
-> > In general, I'm wondering if you're really after higher level
-> > information, something like "connector max available bandwidth
-> > with/without DSC", that would more directly map to the user needs as I
-> > see them than low level link details.
-> > 
-> > Do you have the userspace somewhere? That's needed for merging UABI
-> > anyway [1].
-> > 
-> > [1] https://docs.kernel.org/gpu/drm-uapi.html#open-source-userspace-requirements
-> 
-> I wanted to add it to IGT GPU tools, but I was hopping for community 
-> review on this RFC before the IGT development.
+Thank you for your contribution! Sashiko AI review found 8 potential
+issues to consider:
+- [High] drm/tegra: broken disable sequence and active state in
+  tegra_dbi_atomic_disable()
+- [High] drm/tegra: premature bridge add and NULL next_bridge in
+  tegra_dbi_attach()
+- [Medium] drm/tegra: duplicate next_bridge enable call in
+  tegra_dbi_atomic_enable()
+- [Medium] drm/tegra: dangling priv->next_bridge pointer in
+  tegra_dbi_host_detach()
+- [Medium] drm/tegra: device_node refcount leak on dbi_np in
+  tegra_dc_dbi_probe()
+- [Medium] drm/tegra: unbalanced of_node_put() on remote panel node in
+  tegra_dc_dbi_probe()
+- [Medium] drm/tegra: dbi: missing idle wait after stopping DC in
+  tegra_dbi_atomic_enable()
+- [Medium] drm/tegra: unconditional PIN_LDC muxing in
+  tegra_dbi_atomic_enable()
+--
 
-Note the following requirement:
+commit c9bf1d91683f8b29d2b2a60164a0b606d5716c0d
+Author: Svyatoslav Ryhel <clamor95@gmail.com>
 
-  The open-source userspace must not be a toy/test application, but the
-  real thing. Specifically it needs to handle all the usual error and
-  corner cases. These are often the places where new uAPI falls apart
-  and hence essential to assess the fitness of a proposed interface.
+drm/tegra: Add support for 8-bit CPU interface
 
-I think think IGT qualifies. An implementation in a desktop environment
-would likely be needed.
+This commit adds a MIPI DBI host and DRM bridge driver for the 8-bit CPU
+display controller interface on Tegra20 and Tegra30 SoCs, and hooks its pro=
+be
+into tegra_dc_probe().
 
-> >> The new drm_dp_source_set_caps and drm_dp_sink_set_caps helper expose
-> >> source and sink training capabilities to userspace via sysfs attributes
-> >> under dp_link. Finally drm_dp_set_cur_link_params helper is provided to
-> >> report current link information at runtime.
-> >>
-> >> Three drivers are updated as reference implementations: i915 (direct
-> >> connector path), ANX7625 and MediaTek (via the bridge connector framework
-> >> using a new DRM_BRIDGE_OP_DP flag).
-> >>
-> >> Here is a sysfs example:
-> >>
-> >> cur_link_info_dsc            sink_link_caps_nlanes
-> >> cur_link_info_link_rate      source_link_caps_dsc
-> >> cur_link_info_nlanes         source_link_caps_link_rates
-> >> sink_link_caps_dsc           source_link_caps_nlanes
-> >> sink_link_caps_link_rates
-> >>
-> >> 1620000 2160000 2700000 3240000 4320000 5400000
-> >>
-> >> 1620000 2700000 5400000 10000000 20000000
-> >>
-> >> 5400000
-> >>
-> >> This series is rebased on top of drm-misc and may conflict with the
-> >> current state of the drm i915 tree. Which tree should pick this up,
-> >> given that it mixes core development with driver changes?
-> > 
-> > For development, please just base your work on top of drm-tip, and the
-> > tree(s) will be sorted out later.
-> 
-> Oh, ok, thanks you.
+> diff --git a/drivers/gpu/drm/tegra/dbi.c b/drivers/gpu/drm/tegra/dbi.c
+> new file mode 100644
+> index 0000000000000..290e4c51dd3a7
+> --- /dev/null
+> +++ b/drivers/gpu/drm/tegra/dbi.c
+[ ... ]
+> +static void tegra_dbi_host_detach(struct mipi_dbi_host *host, struct mip=
+i_dbi_device *dbidev)
+> +{
+> +	struct tegra_dbi_priv *priv =3D dbi_host_to_tegra_dbi(host);
+> +
+> +	drm_bridge_put(priv->next_bridge);
+> +}
 
--- 
-Regards,
+[Severity: Medium]
+Does tegra_dbi_host_detach() leave a dangling pointer in priv->next_bridge
+after dropping its reference?  If the DBI peripheral driver is unbound,
+later accesses in tegra_dbi_atomic_enable() or tegra_dbi_attach() will
+dereference the freed bridge unless priv->next_bridge is cleared (for
+example with drm_bridge_clear_and_put()).
 
-Laurent Pinchart
+[ ... ]
+
+> +static void tegra_dbi_atomic_enable(struct drm_bridge *bridge,
+> +				    struct drm_atomic_commit *state)
+> +{
+> +	struct tegra_dbi_priv *priv =3D bridge_to_tegra_dbi(bridge);
+> +	struct drm_bridge *next_bridge =3D priv->next_bridge;
+> +	struct tegra_dc *dc =3D priv->dc;
+> +	u32 value;
+> +
+> +	value =3D tegra_dc_readl(dc, DC_CMD_DISPLAY_COMMAND);
+> +	value &=3D ~DISP_CTRL_MODE_MASK;
+> +	tegra_dc_writel(dc, value, DC_CMD_DISPLAY_COMMAND);
+> +
+> +	/* Disable all options except cursor if enabled */
+> +	value =3D tegra_dc_readl(dc, DC_DISP_DISP_WIN_OPTIONS);
+> +	value &=3D CURSOR_ENABLE;
+> +	tegra_dc_writel(dc, value, DC_DISP_DISP_WIN_OPTIONS);
+> +
+> +	tegra_dc_commit(dc);
+
+[Severity: Medium]
+Should tegra_dbi_atomic_enable() wait for the display controller to become
+idle after committing DISP_CTRL_MODE_STOP?
+
+tegra_crtc_atomic_enable() has already started DISP_CTRL_MODE_C_DISPLAY and
+tegra_rgb_encoder_enable() has committed rgb_enable, so GENERAL_ACT_REQ is
+deferred until the next frame boundary rather than latching immediately.
+Because panel enable callbacks sleep across multiple frames while
+bit-banging DCS commands, the pending frame-boundary latch can overwrite
+the active DC_COM_PIN_OUTPUT_* GPIO settings with the shadowed video-mode
+values mid-transfer.
+
+[ ... ]
+
+> +	/* Set LDC pin to V Pulse 1 */
+> +	value =3D tegra_dc_readl(dc, DC_COM_PIN_OUTPUT_SELECT(6));
+> +	value &=3D ~PIN_OUTPUT_SELECT_MASK(PIN_OUTPUT_SELECT_LDC);
+> +	value |=3D PIN_OUTPUT_SELECT_F4(PIN_OUTPUT_SELECT_LDC);
+> +	tegra_dc_writel(dc, value, DC_COM_PIN_OUTPUT_SELECT(6));
+
+[Severity: Medium]
+Does this unconditionally mux V_PULSE1 onto the primary interface D/C pin
+(PIN_LDC) even when the secondary 8-bit CPU interface is used?
+
+On the secondary interface (nvidia,interface =3D 1), the D/C signal is on
+PIN_LVP0 in DC_COM_PIN_OUTPUT_SELECT(4), which tegra_rgb_encoder_enable()
+leaves set to PIN_OUTPUT_SELECT_OUT (0x00210222).  Restoring com_pin_backup
+therefore leaves PIN_LVP0 in fixed GPIO output mode during scanout instead
+of driving per-frame MIPI_DCS_WRITE_MEMORY_START commands.
+
+[ ... ]
+
+> +	/* Unshadow to set up command and data pins */
+> +	tegra_dc_writel(dc, WRITE_MUX | READ_MUX, DC_CMD_STATE_ACCESS);
+> +
+> +	priv->interface->init(priv);
+> +
+> +	priv->active =3D true;
+> +
+> +	/*
+> +	 * DBI requires that the next bridge be enabled here in order to
+> +	 * send DCS commands, since the interface pins will subsequently be
+> +	 * reconfigured for video data.
+> +	 *
+> +	 * Using the prepare_prev_first flag in the panel will not work,
+> +	 * because the DBI bridge requires the panel to be enabled beforehand
+> +	 * for proper configuration.
+> +	 */
+> +	if (next_bridge->funcs && next_bridge->funcs->atomic_enable)
+> +		next_bridge->funcs->atomic_enable(next_bridge, state);
+
+[Severity: Medium]
+As reported by Mikko Perttunen on v5 [1], does calling
+next_bridge->funcs->atomic_enable() here cause it to run twice on every
+modeset?
+
+Because tegra_dbi_attach() links priv->next_bridge into
+encoder->bridge_chain after priv->bridge, drm_atomic_bridge_chain_enable()
+immediately advances to priv->next_bridge and calls its atomic_enable
+callback a second time while priv->active is false.  For panel_bridge, this
+triggers the "Skipping enable of already enabled panel" warning in
+drm_panel_enable(), and any downstream bridge that sends DBI commands in
+the second call fails with -ENODEV.
+
+> +
+> +	tegra_dbi_pin_set(dc, &priv->interface->cs, 0);
+> +
+> +	priv->active =3D false;
+[ ... ]
+> +static void tegra_dbi_atomic_disable(struct drm_bridge *bridge,
+> +				     struct drm_atomic_commit *state)
+> +{
+> +	struct tegra_dbi_priv *priv =3D bridge_to_tegra_dbi(bridge);
+> +	struct tegra_dc *dc =3D priv->dc;
+> +
+> +	tegra_dc_writel(dc, WRITE_MUX | READ_MUX, DC_CMD_STATE_ACCESS);
+> +
+> +	priv->interface->init(priv);
+> +	priv->active =3D true;
+> +}
+
+[Severity: High]
+Does running this setup in atomic_disable prevent panel power-down commands
+from working and leave the interface marked active after CRTC disable?
+
+During disable_outputs(), drm_atomic_bridge_chain_disable() walks the chain
+in reverse, so next_bridge->funcs->atomic_disable() runs before
+tegra_dbi_atomic_disable() while priv->active is still false.  Immediately
+after tegra_dbi_atomic_disable() configures the DBI pins with WRITE_MUX |
+READ_MUX enabled, drm_atomic_helper_commit_encoder_bridge_disable() calls
+tegra_rgb_encoder_disable(), which writes rgb_disable directly to the
+active DC_COM_PIN_OUTPUT_SELECT and DC_COM_PIN_OUTPUT_ENABLE registers and
+tristates the pins before drm_panel_unprepare() runs in post_disable.  In
+addition, nothing clears priv->active or DC_CMD_STATE_ACCESS afterward, so
+tegra_dbi_dbi_command() remains open for MMIO writes after the display
+controller is suspended and unclocked.
+
+[ ... ]
+
+> +static int tegra_dbi_attach(struct drm_bridge *bridge,
+> +			    struct drm_encoder *encoder,
+> +			    enum drm_bridge_attach_flags flags)
+> +{
+> +	struct tegra_dbi_priv *priv =3D bridge_to_tegra_dbi(bridge);
+> +
+> +	return drm_bridge_attach(bridge->encoder, priv->next_bridge, bridge,
+> +				 flags);
+> +}
+
+[Severity: High]
+What happens if tegra_dbi_attach() runs before the MIPI DBI panel driver
+has bound and called tegra_dbi_host_attach()?
+
+tegra_dc_dbi_probe() publishes priv->bridge via devm_drm_bridge_add()
+before devm_mipi_dbi_device_register(), and device_add() succeeds even when
+the panel driver has not probed yet or deferred probe (for instance,
+drivers/gpu/drm/Makefile links tegra/ before panel/).  In that case
+priv->next_bridge is still NULL when host1x_drm_probe() calls
+tegra_dbi_attach(), so drm_bridge_attach() returns -EINVAL instead of
+-EPROBE_DEFER and aborts DRM initialization permanently.
+
+[ ... ]
+
+> +	priv->bridge.of_node =3D of_node_get(dbi_np);
+> +	priv->bridge.timings =3D &default_tegra_dbi_timings;
+> +
+> +	ret =3D devm_drm_bridge_add(dev, &priv->bridge);
+> +	if (ret)
+> +		return ret;
+
+[Severity: Medium]
+Does of_node_get(dbi_np) leak a reference to the dbi device_node?
+
+dbi_np is already managed with __free(device_node), and neither the DRM
+bridge core nor a devm action releases the extra reference stored in
+priv->bridge.of_node on error, probe deferral, or driver unbind.
+
+> +
+> +	np =3D of_graph_get_remote_node(dbi_np, 1, -1);
+> +	if (!np)
+> +		return -EINVAL;
+> +
+> +	dbidev =3D devm_mipi_dbi_device_register(dev, &priv->dbi_host, np);
+> +	of_node_put(np);
+
+[Severity: Medium]
+Does calling of_node_put(np) here cause an of_node refcount underflow when
+dbidev is released?
+
+devm_mipi_dbi_device_register() attaches np to dbidev->dev via
+device_set_node() without taking its own reference, and
+mipi_dbi_device_release() calls of_node_put(dev->of_node) when the device
+is freed:
+
+drivers/gpu/drm/drm_mipi_dbi_bus.c:devm_mipi_dbi_device_register() {
+    ...
+	dbidev->dev.release =3D mipi_dbi_device_release;
+	device_set_node(&dbidev->dev, of_fwnode_handle(np));
+    ...
+}
+
+Dropping np's only reference right after registration leaves
+dbidev->dev.of_node unreferenced and results in a double of_node_put() on
+error unwind or device removal.
+
+[1] https://lore.kernel.org/r/weWUeY3nRGCfNVcl2RuY5g@nvidia.com
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261116151017.2747=
+64-1-clamor95@gmail.com?part=3D12
