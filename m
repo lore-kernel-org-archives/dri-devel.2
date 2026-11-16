@@ -2,43 +2,48 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CF160606A329
-	for <dri-devel@archiver.kernel.org>; Mon, 16 Nov 2026 09:05:05 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BE54C606A31C
+	for <dri-devel@archiver.kernel.org>; Mon, 16 Nov 2026 09:06:00 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=JlhB53Dt
+	dkim=pass (2048-bit key) header.d=kemnade.info header.i=@kemnade.info header.a=rsa-sha256 header.s=20220719 header.b=jDneAKx1
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 3AD1110ED69;
-	Mon, 16 Nov 2026 09:05:00 +0000 (UTC)
-Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id A15D010ED69
- for <dri-devel@lists.freedesktop.org>; Mon, 16 Nov 2026 09:04:53 +0000 (UTC)
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id 5D3EB4168B;
- Mon, 16 Nov 2026 09:04:53 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 15E951F000C4;
- Mon, 16 Nov 2026 09:04:53 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1794819893;
- bh=+A3+MNOLgN2dCbdmsfPHdZsamFx2Y2kd6CS1caYfwZ8=;
- h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
- b=JlhB53Dtk1GaHYavXbNS7k13YKgHFwIafkxVLUT4gjmB9iJ5jGirl2Eg4jzy7UB8P
- LRVJ/09E00XHnVIBBsZsC5jcnGmcnGNl7XcWaG5fiJduL2oUkMTnYfvZfLnXscTsFz
- UrxdOXjMnphDeoiAVcmG35CVJeacVOsnWf5F+hYHloeRYITvx3dRpu+ky1o17gXqM4
- 90c3/LrG9C0MAIypZxW57V7Ta1hqF+j/oqReb61wajIcVmbUaBO4B5X89sUISjdCJy
- QeVAVY6pWaeBAtnw/R3GDuvGUXMKy2K3WjBdeKZpBiD3WvBVfkQ1FnBcbjIDd0XD4M
- 7VmgkdABARq2w==
-Message-ID: <sashiko-outbox-216579@kernel.org>
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v3 1/3] drm/rockchip: vop2: Use
- drm_format_info_min_pitch() for plane offsets
-To: "Chaoyi Chen" <kernel@airkyi.com>
-Cc: dri-devel@lists.freedesktop.org
-In-Reply-To: <20261116084555.1061-2-kernel@airkyi.com>
-References: <20261116084555.1061-1-kernel@airkyi.com>
- <20261116084555.1061-2-kernel@airkyi.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Mon, 16 Nov 2026 09:04:52 +0000
+	by gabe.freedesktop.org (Postfix) with ESMTP id 29EDA10ED6A;
+	Mon, 16 Nov 2026 09:05:55 +0000 (UTC)
+Received: from mail.andi.de1.cc (mail.andi.de1.cc [178.238.236.174])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id CE10110ED6B
+ for <dri-devel@lists.freedesktop.org>; Mon, 16 Nov 2026 09:05:48 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+ d=kemnade.info; s=20220719; h=References:In-Reply-To:Subject:Cc:To:From:
+ Reply-To:Content-ID:Content-Description;
+ bh=/0oXdxbpu71mKxzQVXDmWWE0LshjAYMSIYDSuXABBY4=; t=1794819948; x=1796029548; 
+ b=jDneAKx1jl1OLxVVYUWLUkIRxde3zO39JXF3rvceEIX/QTP3smwIFmw0hMepo4HsrLTalSNMsVC
+ 6pQgtvCzv6gVvagRVK17kOKfQsLCEpbFArseMb24Nzvn1fN1r7QxiQ/iNESUwbM6FGWBbSUWcEvOE
+ gUD46vtRpSg1vzNbDscfvxfXWMG2+uju8pwdfRtsz4DMOyJ9TjYySBbKzDf+k2EQFW76a0lVvv4b9
+ LziAEa+GIekBPR3R3TVGRAC3PDZC8Yqxa8GejLYJB7F00cJzOmTwiBXXdv/rKppDGu7Ut2fmmrUUQ
+ 8bE8V0E+Fq4Dy9Li9zdQu1V29LybEGpGvm0w==;
+Date: Mon, 16 Nov 2026 10:05:26 +0100
+From: Andreas Kemnade <andreas@kemnade.info>
+To: Tomi Valkeinen <tomi.valkeinen@ideasonboard.com>
+Cc: Marek Vasut <marex@denx.de>, Andrzej Hajda <andrzej.hajda@intel.com>,
+ Neil Armstrong <neil.armstrong@linaro.org>, Robert Foss <rfoss@kernel.org>,
+ Laurent Pinchart <Laurent.pinchart@ideasonboard.com>, Jonas Karlman
+ <jonas@kwiboo.se>, Jernej Skrabec <jernej.skrabec@gmail.com>, Maarten
+ Lankhorst <maarten.lankhorst@linux.intel.com>, Maxime Ripard
+ <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, David Airlie
+ <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org, Dave
+ Stevenson <dave.stevenson@raspberrypi.com>
+Subject: Re: [PATCH v5 10/13] drm/bridge: tc358762: Move tc358762_init()
+ into tc358762_enable()
+Message-ID: <20261116100526.3e699f94@kemnade.info>
+In-Reply-To: <20261015-tc358762-fixes-v5-10-7cd721a6451b@ideasonboard.com>
+References: <20261015-tc358762-fixes-v5-0-7cd721a6451b@ideasonboard.com>
+ <20261015-tc358762-fixes-v5-10-7cd721a6451b@ideasonboard.com>
+X-Mailer: Claws Mail 4.3.1 (GTK 3.24.49; aarch64-unknown-linux-gnu)
+X-Archived-By: <archiver.kernel.org>
+MIME-Version: 1.0
+Content-Type: text/plain; charset=US-ASCII
+Content-Transfer-Encoding: 7bit
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -49,87 +54,152 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
-Reply-To: sashiko-reviews@lists.linux.dev
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-10.8 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
-	DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
-	INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS autolearn=ham
-	autolearn_force=no version=4.0.1
+X-Spam-Status: No, score=-17.3 required=3.0 tests=BAYES_00,DKIM_SIGNED,
+	DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
+	INCLUDES_CR_TRAILER,INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,
+	SPF_PASS,USER_AGENT_SANE_2 autolearn=unavailable autolearn_force=no
+	version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
-X-Archived-By: <archiver.kernel.org>
 
-Thank you for your contribution! Sashiko AI review found 1 potential
-issue to consider:
-- [Medium] drm/rockchip: vop2: unaligned block offset for 10-bit packed
-  YUV in vop2_plane_atomic_update()
---
+On Thu, 15 Oct 2026 14:16:01 +0300
+Tomi Valkeinen <tomi.valkeinen@ideasonboard.com> wrote:
 
-commit e065b869dbf756b6652ed995b5a03b6d5409975e
-Author: Chaoyi Chen <chaoyi.chen@rock-chips.com>
-
-drm/rockchip: vop2: Use drm_format_info_min_pitch() for plane offsets
-
-This commit replaces fb->format->cpp[] with drm_format_info_min_pitch()
-when calculating plane byte offsets in vop2_plane_atomic_update() to
-support block-packed 10-bit formats such as NV15, NV20, and NV30.
-
-> diff --git a/drivers/gpu/drm/rockchip/rockchip_drm_vop2.c b/drivers/gpu/d=
-rm/rockchip/rockchip_drm_vop2.c
-> index bfb3841425687..0de038acb56fc 100644
-> --- a/drivers/gpu/drm/rockchip/rockchip_drm_vop2.c
-> +++ b/drivers/gpu/drm/rockchip/rockchip_drm_vop2.c
-> @@ -1290,7 +1290,7 @@ static void vop2_plane_atomic_update(struct drm_pla=
-ne *plane,
-> =20
->  	afbc_en =3D drm_is_afbc(fb->modifier);
-> =20
-> -	offset =3D (src->x1 >> 16) * fb->format->cpp[0];
-> +	offset =3D drm_format_info_min_pitch(fb->format, 0, src->x1 >> 16);
-> =20
+> The only thing tc358762_enable() does is call tc358762_init(). Inline
+> the tc358762_init() into tc358762_enable(), for simplicity and to make
+> it easier to improve the tc358762_enable() in the following commits. No
+> functional change.
+> 
+> Signed-off-by: Tomi Valkeinen <tomi.valkeinen@ideasonboard.com>
+Reviewed-by: Andreas Kemnade <andreas@kemnade.info>
+> ---
+>  drivers/gpu/drm/bridge/tc358762.c | 104 ++++++++++++++++++--------------------
+>  1 file changed, 49 insertions(+), 55 deletions(-)
+> 
+> diff --git a/drivers/gpu/drm/bridge/tc358762.c b/drivers/gpu/drm/bridge/tc358762.c
+> index 2baacef685a5..a91cf159ba27 100644
+> --- a/drivers/gpu/drm/bridge/tc358762.c
+> +++ b/drivers/gpu/drm/bridge/tc358762.c
+> @@ -138,9 +138,56 @@ static inline struct tc358762 *bridge_to_tc358762(struct drm_bridge *bridge)
+>  	return container_of(bridge, struct tc358762, bridge);
+>  }
+>  
+> -static int tc358762_init(struct tc358762 *ctx)
+> +static void tc358762_post_disable(struct drm_bridge *bridge,
+> +				  struct drm_atomic_commit *state)
+> +{
+> +	struct tc358762 *ctx = bridge_to_tc358762(bridge);
+> +	int ret;
+> +
+> +	/*
+> +	 * The post_disable hook might be called multiple times.
+> +	 * We want to avoid regulator imbalance below.
+> +	 */
+> +	if (!ctx->pre_enabled)
+> +		return;
+> +
+> +	ctx->pre_enabled = false;
+> +
+> +	/* Turn off the DPI output */
+> +	tc358762_write(ctx, LCDCTRL, 0);
+> +
+> +	if (ctx->reset_gpio)
+> +		gpiod_set_value_cansleep(ctx->reset_gpio, 0);
+> +
+> +	ret = regulator_disable(ctx->regulator);
+> +	if (ret < 0)
+> +		dev_err(ctx->dev, "error disabling regulators (%d)\n", ret);
+> +}
+> +
+> +static void tc358762_pre_enable(struct drm_bridge *bridge,
+> +				struct drm_atomic_commit *state)
+>  {
+> +	struct tc358762 *ctx = bridge_to_tc358762(bridge);
+> +	int ret;
+> +
+> +	ret = regulator_enable(ctx->regulator);
+> +	if (ret < 0)
+> +		dev_err(ctx->dev, "error enabling regulators (%d)\n", ret);
+> +
+> +	if (ctx->reset_gpio) {
+> +		gpiod_set_value_cansleep(ctx->reset_gpio, 1);
+> +		usleep_range(5000, 10000);
+> +	}
+> +
+> +	ctx->pre_enabled = true;
+> +}
+> +
+> +static void tc358762_enable(struct drm_bridge *bridge,
+> +			    struct drm_atomic_commit *state)
+> +{
+> +	struct tc358762 *ctx = bridge_to_tc358762(bridge);
+>  	u32 lcdctrl;
+> +	int ret;
+>  
 >  	/*
->  	 * AFBC HDR_PTR must set to the zero offset of the framebuffer.
-> @@ -1309,7 +1309,7 @@ static void vop2_plane_atomic_update(struct drm_pla=
-ne *plane,
->  		int hsub =3D fb->format->hsub;
->  		int vsub =3D fb->format->vsub;
-> =20
-> -		offset =3D (src->x1 >> 16) * fb->format->cpp[1] / hsub;
-> +		offset =3D (u32)drm_format_info_min_pitch(fb->format, 1, src->x1 >> 16=
-) / hsub;
->  		offset +=3D (src->y1 >> 16) * fb->pitches[1] / vsub;
-> =20
->  		if ((pstate->rotation & DRM_MODE_REFLECT_Y) && !afbc_en)
+>  	 * DPIENABLE has reset default of 1. Make sure we don't output on
+> @@ -203,60 +250,7 @@ static int tc358762_init(struct tc358762 *ctx)
+>  
+>  	msleep(100);
+>  
+> -	return tc358762_clear_error(ctx);
+> -}
+> -
+> -static void tc358762_post_disable(struct drm_bridge *bridge,
+> -				  struct drm_atomic_commit *state)
+> -{
+> -	struct tc358762 *ctx = bridge_to_tc358762(bridge);
+> -	int ret;
+> -
+> -	/*
+> -	 * The post_disable hook might be called multiple times.
+> -	 * We want to avoid regulator imbalance below.
+> -	 */
+> -	if (!ctx->pre_enabled)
+> -		return;
+> -
+> -	ctx->pre_enabled = false;
+> -
+> -	/* Turn off the DPI output */
+> -	tc358762_write(ctx, LCDCTRL, 0);
+> -
+> -	if (ctx->reset_gpio)
+> -		gpiod_set_value_cansleep(ctx->reset_gpio, 0);
+> -
+> -	ret = regulator_disable(ctx->regulator);
+> -	if (ret < 0)
+> -		dev_err(ctx->dev, "error disabling regulators (%d)\n", ret);
+> -}
+> -
+> -static void tc358762_pre_enable(struct drm_bridge *bridge,
+> -				struct drm_atomic_commit *state)
+> -{
+> -	struct tc358762 *ctx = bridge_to_tc358762(bridge);
+> -	int ret;
+> -
+> -	ret = regulator_enable(ctx->regulator);
+> -	if (ret < 0)
+> -		dev_err(ctx->dev, "error enabling regulators (%d)\n", ret);
+> -
+> -	if (ctx->reset_gpio) {
+> -		gpiod_set_value_cansleep(ctx->reset_gpio, 1);
+> -		usleep_range(5000, 10000);
+> -	}
+> -
+> -	ctx->pre_enabled = true;
+> -}
+> -
+> -static void tc358762_enable(struct drm_bridge *bridge,
+> -			    struct drm_atomic_commit *state)
+> -{
+> -	struct tc358762 *ctx = bridge_to_tc358762(bridge);
+> -	int ret;
+> -
+> -	ret = tc358762_init(ctx);
+> +	ret = tc358762_clear_error(ctx);
+>  	if (ret < 0)
+>  		dev_err(ctx->dev, "error initializing bridge (%d)\n", ret);
+>  }
+> 
 
-[Severity: Medium]
-Can this compute misaligned yrgb_mst and uv_mst offsets for NV15, NV20,
-and NV30 when src->x1 >> 16 is not a multiple of 4?
-
-Those formats pack 4 luma pixels and 2 chroma pairs into 5-byte blocks
-(char_per_block =3D { 5, 5, 0 }, block_w =3D { 4, 2, 0 }), but
-vop2_plane_atomic_check() only requires 2-pixel alignment on src_x for YUV
-formats:
-
-drivers/gpu/drm/rockchip/rockchip_drm_vop2.c:vop2_plane_atomic_check() {
-    ...
-	if (fb->format->is_yuv && src_x % 2) {
-		drm_dbg_kms(vop2->drm, "Invalid Source: Yuv format not support odd xpos\n=
-");
-		return -EINVAL;
-	}
-    ...
-}
-
-When src_x % 4 =3D=3D 2 (2.5 bytes into a 5-byte block),
-drm_format_info_min_pitch() rounds plane 0 up via DIV_ROUND_UP_ULL() to a
-3-byte offset inside a packed 4-pixel block, while dividing plane 1's
-5-byte result by hsub =3D 2 on NV15 and NV20 truncates uv_mst down to a
-2-byte offset.  This corrupts scanout and, when src_x + src_w reaches
-fb->width with src_w % 4 =3D=3D 2, can cause DMA to read 1 byte past the
-validated framebuffer pitch on the final scanline.  Should
-vop2_plane_atomic_check() also require src_x to be aligned to
-drm_format_info_block_width()?
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261116084555.1061=
--1-kernel@airkyi.com?part=3D1
