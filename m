@@ -2,64 +2,66 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2D564606A31C
-	for <dri-devel@archiver.kernel.org>; Mon, 16 Nov 2026 13:27:25 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F27C2606A329
+	for <dri-devel@archiver.kernel.org>; Mon, 16 Nov 2026 13:27:29 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=lor4TepH
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=vSTctVan
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 802F310F16B;
-	Mon, 16 Nov 2026 13:27:19 +0000 (UTC)
-Received: from mail-wr1-f42.google.com (mail-wr1-f42.google.com
- [209.85.221.42])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 6A7DA10E799
- for <dri-devel@lists.freedesktop.org>; Mon, 16 Nov 2026 13:27:13 +0000 (UTC)
-Received: by mail-wr1-f42.google.com with SMTP id
- ffacd0b85a97d-491846221ffso3153428f8f.3
- for <dri-devel@lists.freedesktop.org>; Mon, 16 Nov 2026 05:27:13 -0800 (PST)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 5AB6C10EED3;
+	Mon, 16 Nov 2026 13:27:24 +0000 (UTC)
+Received: from mail-wr1-f52.google.com (mail-wr1-f52.google.com
+ [209.85.221.52])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 7D9C510EED3
+ for <dri-devel@lists.freedesktop.org>; Mon, 16 Nov 2026 13:27:14 +0000 (UTC)
+Received: by mail-wr1-f52.google.com with SMTP id
+ ffacd0b85a97d-49465892f7bso2871397f8f.1
+ for <dri-devel@lists.freedesktop.org>; Mon, 16 Nov 2026 05:27:14 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20260707; t=1794835631; x=1795440431; darn=lists.freedesktop.org;
- h=content-transfer-encoding:content-type:mime-version:message-id:date
- :subject:cc:to:from:from:to:cc:subject:date:message-id:reply-to
- :content-type; bh=94xtLomK+CyqBLZNf/PCrMcMfF2GAQ3+kaMZqvfy240=;
- b=lor4TepH29hYOPYybvuBAjEtQqEIevNvJr/q/6WmlWWNi/x+6j1vUG+lBX7BZcugFK
- 4exrrtFchmxMVXnmFhlzcqiVxjf4RKl9PhT7mT8BWoGzVeHfTVzi/O64Cq01r5S9cQap
- Ieyo+NDePfiaqNdNjceFKzhcLwEwaD6d/xYs5LIeFijQAsSJvcGfQEaXC2cP/+JVMBGH
- m8gRoL9U4u29yskXJogj9StRQGH7wPxEnxuhxp/kfl6rN0pC4hE/qvib9dLwT1IjZ3rv
- 10Li8O6jqBzJriZGmc7xnBvJx5MDR6HzBZWQ9Xxm3X3mvE3CY7gQ+FtZbR5XmPFGuT5A
- ZrOg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20260707; t=1794835631; x=1795440431;
- h=content-transfer-encoding:content-type:mime-version:message-id:date
- :subject:cc:to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject
+ d=gmail.com; s=20260707; t=1794835633; x=1795440433; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:content-type:mime-version:references
+ :in-reply-to:message-id:date:subject:cc:to:from:from:to:cc:subject
  :date:message-id:reply-to:content-type;
- bh=94xtLomK+CyqBLZNf/PCrMcMfF2GAQ3+kaMZqvfy240=;
- b=OtH/xF5KdejlhZ34xm270jcE6umgbD9RfsKsFVK9Pbl8Zn4pnwtBXvywIi5wmxELbr
- RgfiuiwfMGj/8TSi1sX7TCQVahhEXDBiDhD26zXtXyS/XdpmMs/Gdr3VHvcSJYZL2eSQ
- +FNPnXwJQF4OwLacs5mYO0eKp8d4OD22Uqg0+cQ4sTLgyN0l+5Ff5NoSWO3Cig2fsEAz
- wmR2utELr6jkWGxVVJXngSnlYPeHzGrcu/24xKxsZTEyht7nPXnFKyDj2WfzsQ8xFJxZ
- QoN3DPI6t1Hq69P5VrG1RiaJZw3jC/Oqr+R2SItOFN2HGEJ+99WVoUkPisO48iryGMQ2
- Ig+w==
+ bh=RqAZHHXkpbjp642q2K0HIZ7cIhQ/6QUCJipqLujd8Vk=;
+ b=vSTctVanOW9CYyEmErfmN/OFfjMNEbnD+xcBR7JMMekoUZ5tB4fIsGC4Tp/ymOQZGc
+ jFo0jrXE5TuEf1LoBo+FQ/MhETO5QnTTLuLP3FB+GQdsB25oYBzsTemjxJusOyNhVRSK
+ 8WEPeVDT+fBMXCs68SqUuIBrWwEU1Oby8XFTI4Pvnv+Dibdy0kaS8mb8eTgt/YjKz8na
+ /b19OV35XbmtBaHbodf9ifaIhmgdYcUnh0ccAv5PunNXw3X1/vUI47sFnR6heVJSs6KO
+ 7OYqGMWkKjEkh3IKpvxky4EIad2BMiNXXm6QwvWSJQrNJL2tjhQdVEImo4/jIkU/mOAm
+ QMxg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20260707; t=1794835633; x=1795440433;
+ h=content-transfer-encoding:content-type:mime-version:references
+ :in-reply-to:message-id:date:subject:cc:to:from:x-gm-gg
+ :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+ :content-type;
+ bh=RqAZHHXkpbjp642q2K0HIZ7cIhQ/6QUCJipqLujd8Vk=;
+ b=DH0tLn5d5WJ6g7ooxBDWF7WesamTuIesvx+qLqlC5XFErDxq5T5DH8CSK8eVl0ct79
+ iJRY+PCDB9nJsL/pf8hdGmzkHofh4HdazvaYkB3fxKgqU/bxDc624SUnQq7Tj5djaFF3
+ Iw7Fn8tBySZga7AYjUjtk430npsUfj3YovSj5KhRm9Nlkty9xG4FbRlqAJX12z4PGdIS
+ 0Y+nZRC7SaN/XIzC4ypx4kRaG3d4jFePCKhvCevfFwNY+LMTZa1rR+SBEPxPIjOOp5rU
+ YZlGuga5JJTOzsJ+F2OVhdW7jYXvH45/L4i04Ohcbz1NtCxWjR7zHtg3uwOThxAyqE8c
+ E/iQ==
 X-Forwarded-Encrypted: i=1;
- AL+hErEsXchiqJ7g+a4lFsfgN0KEBCkUjiJQbhTQGn1/7BF9cBCVlHsRrM6IVQ8r5afrdVa1lSIw/vbVqls=@lists.freedesktop.org
-X-Gm-Message-State: APuU4Z88iNJWBaOL20vvEgyYHHWN4ijM1DG8fINvS7ZAjhII6MqbZ18f
- FSwW+bLBNKJZqWeNrTd0gO/mrCCkxaogb1pg/GCIaMXfMHCW4q8+q+D9
-X-Gm-Gg: AZFdTZdY0tpv/kXkxPKiKxefTnoRuN0Iz2nW6RZdhfXycfQXFk+WR5rTDPolr9rTyRh
- EtmmjfM/zn9gMDINC7Ud5HNSCpIauuNsGCG/vezfAnZ05LdtxIRG1NfH7cwP3t2b/fyVA34uUfR
- RpMdK/P/IGZ4wYdAddvLjkP76YQDoU8eKfvUt/2FPtkSnBGxuDZu5aSET2ldLQdtnYsjK1kX0Sp
- rL67ecMSplbpEQ7/nCzf7Ouww4wXAg6Xo0/EpEbAk2S8XqsuflY3DNkV4M1WCKPWzDTmiGeYRPl
- ZPJPgs2k49NX2X9SreWmgWCV52e2d1f+nE2Lz2DKTpdse5C81WirKmXJkzekKS5k4+Xc83dpXMp
- x7rZWXtWVw1viME4l1n+htQCKjjqF7eGq5lRaNBAe+aY7IvWES8LTF+OLeK8jf3is8CfVKJ9Y7E
- ZoXblDoTAFjf1pALmMsvBdDQgg8ARrpykG5v+otGwK5tUw8+VPMVSCigCy+VMGP6IpVOiuAbXYi
- iVdfVlahH5RgGM3hNFu4KaorE+Af1CUhxfKcdsor72C3S7C+J+CWzcxWFVcZWFsNCpgOlQEMWpq
- cZBFalIpylKh3ZKVCtNDlAzIHresi/aWHOHT5rVxcKborlZFxuZt2E8=
-X-Received: by 2002:a05:6000:178d:b0:493:f3f2:2241 with SMTP id
- ffacd0b85a97d-49c713adf02mr24690275f8f.23.1794835631363; 
- Mon, 16 Nov 2026 05:27:11 -0800 (PST)
+ AL+hErFJ7wtNlLWmxwW7U3QwMUP/F6mnhOPd2uwn/a/I3DXm9UVC4b/8nTapKgB70F9G9LIvUN2QL5gFLfk=@lists.freedesktop.org
+X-Gm-Message-State: APuU4Z9/YeEc5O3YRqToSmrDZ5WYDtpSuQm3AkQ06RxLQDXZWQXL0Omx
+ wk/a6ZSzbDiSGCzieZT8RL9TzVbaRHvo7sBCoSd7eK+1k5buWuTHnUYw
+X-Gm-Gg: AZFdTZefZGVh7m8QgBm/K4+30j9k3ou9oAUOwPbNt6KM7o2NW7i4u4wFHb53KuQfJWQ
+ HiDGaalJ4ycv/Hr65vPJhOY4muXpBcpITJIHUrHULYoGFdsvm8+eEN5mHxa5CSaqc1CHFp4JAAO
+ fK1VL6FSt1R9W2i+QIQiiuBe2JUNEzRWmgCU3csOmbs63ezk7fDw+hcyu1uHP1JFFSxcpcs9SjH
+ eJlbIGm0+BqiPCySDhPdfc91AEWlVazX77F2JlLh1KGIO0XxuQXtSHwJmjxs9Gkif4sptqePfy9
+ cIPEQxJcczxRaftFa0nGb1AYyuhlVuDAhBtVqTbRnR8AtQ+9/K+SBrXi/ChEReuRF8ucCi2dcll
+ LvVbFYJHhj2rBdPRR6LMEFyTVnxcyYtpmSVGuqiAXNv/+NVsKSuRFyI4rm064vZBBzSkM/UaYjs
+ ydrDLXRW6DUltpYwJAYDK0KrHSa4Ih13Ch8u5sKKkdEQkIPj4s52UUfpjlrZ0vTxSykhW/O6/fe
+ ecpQh0gIkZvhR04wUJ4j/WlfbMG/IysqwewadQ80PcGNsd3t0mNE6SJdZycw/lCytEfcQ0pq/U3
+ oyB96aYVSNsPVOIF+ZKwi/BZlE9zNVvoQtgJm6EyGAo6HgAz8Z+Ec90=
+X-Received: by 2002:a05:6000:4715:b0:490:50c1:f359 with SMTP id
+ ffacd0b85a97d-49c723fba07mr22874709f8f.39.1794835632796; 
+ Mon, 16 Nov 2026 05:27:12 -0800 (PST)
 Received: from ingenieria31.oficinasStQ.local ([79.117.0.220])
  by smtp.gmail.com with ESMTPSA id
- ffacd0b85a97d-49c8d286480sm40370240f8f.7.2026.11.16.05.27.09
+ ffacd0b85a97d-49c8d286480sm40370240f8f.7.2026.11.16.05.27.11
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Mon, 16 Nov 2026 05:27:11 -0800 (PST)
+ Mon, 16 Nov 2026 05:27:12 -0800 (PST)
 From: =?UTF-8?q?M=C3=A0xim=20Pedraza=20Padilla?= <maximpedraza@gmail.com>
 To: Maxime Ripard <mripard@kernel.org>
 Cc: Neil Armstrong <neil.armstrong@linaro.org>,
@@ -74,10 +76,12 @@ Cc: Neil Armstrong <neil.armstrong@linaro.org>,
  Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>,
  Simona Vetter <simona@ffwll.ch>, dri-devel@lists.freedesktop.org,
  linux-kernel@vger.kernel.org
-Subject: [RFC PATCH 0/4] drm/tilcdc: Implement state readout
-Date: Mon, 16 Nov 2026 15:27:03 +0100
-Message-Id: <20261116142707.1299360-1-maximpedraza@gmail.com>
+Subject: [RFC PATCH 1/4] drm/bridge: Add atomic_sro_install_state hook
+Date: Mon, 16 Nov 2026 15:27:04 +0100
+Message-Id: <20261116142707.1299360-2-maximpedraza@gmail.com>
 X-Mailer: git-send-email 2.39.5
+In-Reply-To: <20261116142707.1299360-1-maximpedraza@gmail.com>
+References: <20261116142707.1299360-1-maximpedraza@gmail.com>
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=UTF-8
@@ -93,134 +97,81 @@ List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-10.8 required=3.0 tests=BAYES_00,DKIM_SIGNED,
+X-Spam-Status: No, score=-15.8 required=3.0 tests=BAYES_00,DKIM_SIGNED,
 	DKIM_VALID,DKIM_VALID_AU,FREEMAIL_FORGED_FROMDOMAIN,FREEMAIL_FROM,
-	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_PATCH,MAILING_LIST_MULTI,
-	SPF_HELO_NONE,SPF_PASS,USER_AGENT_GIT autolearn=unavailable
-	autolearn_force=no version=4.0.1
+	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
+	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,USER_AGENT_GIT
+	autolearn=unavailable autolearn_force=no version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-Hi Maxime,
+The state readout core lets private objects take the resources needed to
+keep the hardware running when the state read out becomes current, but
+bridges have no way to use it. A panel left on by the firmware, for one,
+would stay marked as disabled.
 
-Following your suggestion in the boot logo thread ("just implement readout
-then"), this implements hardware state readout for tilcdc on top of your
-v7:
+Add a bridge hook and call it from the bridge private object.
 
-https://lore.kernel.org/r/20261029-drm-state-readout-v7-0-25e5163d75c3@kernel.org
+Assisted-by: Claude:claude-opus-5-5
+Signed-off-by: Màxim Pedraza Padilla <maximpedraza@gmail.com>
+---
+ drivers/gpu/drm/drm_bridge.c | 12 ++++++++++++
+ include/drm/drm_bridge.h     | 12 ++++++++++++
+ 2 files changed, 24 insertions(+)
 
-The goal is that the kernel takes over the display as U-Boot left it, so
-the boot logo stays on screen with no blanking or flicker until userspace
-replaces it.
-
-Patch 1 adds an atomic_sro_install_state hook to bridges, and patch 2 uses
-it in the panel bridge, which also reads out the connector and bridge
-state: without that, the core discards the readout of any driver behind a
-panel. Patch 3 is the tilcdc readout itself: CRTC mode from the raster
-timings, primary plane with a non-GEM framebuffer (as tidss does), encoder
-and hw_reset. Patch 4 keeps panel-simple from turning the panel off at
-probe by driving its enable GPIO low.
-
-For the backlight, pwm-tiecap needs a .get_state(), otherwise pwm_bl sees
-the PWM disabled and sets duty 0 until the panel is enabled. I sent that
-one separately to Uwe and linux-pwm:
-
-https://lore.kernel.org/r/20261116142251.1296742-1-maximpedraza@gmail.com
-
-Tested on an AM335x board (Fides T075, out-of-tree DT) with U-Boot
-leaving an 800x480 RGB565 logo:
-- The logo stays on screen, untouched, from U-Boot to userspace, with the
-  backlight on all along.
-- The U-Boot mode doesn't match the one in the DT (16.94 MHz pixel clock
-  and slightly different timings), so the first commit with the panel
-  mode does a full modeset, as expected.
-- First commits from userspace: a framebuffer flip without modeset, a full
-  modeset to the panel mode, and ACTIVE=0 then 1. No WARN or oops.
-- With drm.atomic_readout=0 the old behaviour comes back: the raster stops
-  and the first commit does a full modeset.
-- Without video set up by U-Boot nothing is adopted and the normal path is
-  taken.
-- The SGX530 driver and a Qt EGLFS application take over from the adopted
-  logo without visible glitches.
-
-The DT needs a reserved-memory node for the U-Boot framebuffer, and
-ti,no-reset-on-init on the GPIO banks (and on the PWMSS) so that ti-sysc
-doesn't reset the panel enable and backlight lines.
-
-The backlight needs some care. With the PWM configured by the bootloader
-and the pin muxed to it, the handover is seamless. If the bootloader drives
-the backlight some other way, for instance with the pin as a plain GPIO and
-the PWM stopped, the light goes off when the kernel muxes the pin to the
-PWM, until the panel is enabled. The bootloader has to leave the backlight
-in the state the kernel will read back.
-
-After each commit, the comparison still reports some mismatches. As far as
-I can tell they come from the core rather than from tilcdc, but I'd
-appreciate your view:
-- connector_mask and encoder_mask, on a commit that only changes the
-  framebuffer: the connector is not part of the commit, so it's not read
-  back.
-- mode_blob, after a modeset: the memcmp() includes the mode type, and
-  DRM_MODE_TYPE_PREFERRED can't be read from the hardware.
-- With ACTIVE=0: crtc, fb, enable, best_encoder and the bridge bus_cfg.
-  The readout sees the raster stopped and can't tell enable=1/active=0
-  from disabled.
-
-Thanks,
-Màxim
-
-Màxim Pedraza Padilla (4):
-  drm/bridge: Add atomic_sro_install_state hook
-  drm/panel: Implement state readout in the panel bridge
-  drm/tilcdc: Implement state readout support
-  drm/panel: simple: Keep the enable GPIO as left by the bootloader
-
- drivers/gpu/drm/drm_bridge.c            |  12 ++
- drivers/gpu/drm/drm_panel.c             |  92 ++++++++++++-
- drivers/gpu/drm/panel/panel-simple.c    |   4 +-
- drivers/gpu/drm/tilcdc/tilcdc_crtc.c    | 173 ++++++++++++++++++++++++
- drivers/gpu/drm/tilcdc/tilcdc_drv.c     |  22 ++-
- drivers/gpu/drm/tilcdc/tilcdc_encoder.c |  29 +++-
- drivers/gpu/drm/tilcdc/tilcdc_plane.c   | 106 +++++++++++++++
- include/drm/drm_bridge.h                |  12 ++
- 8 files changed, 442 insertions(+), 8 deletions(-)
-
-
-base-commit: cf5d8e390e2ac2cfa24a50645efdbb9f0eebe65f
-prerequisite-patch-id: dd600a02afa073bedc54e8b973d6bfdad7594dcf
-prerequisite-patch-id: cb32051331d83506b8e6fd512f93595724905a9f
-prerequisite-patch-id: 72acc5f5b50b767484ff995256e7fb155c05f6eb
-prerequisite-patch-id: 20859bdf469e990a0d7dae3498bc90452afac2b6
-prerequisite-patch-id: ca629fbb440fc4bddbf5594161eb44aadacbffdc
-prerequisite-patch-id: 1a6e113d6f412d798052a924269a7dc876d91ded
-prerequisite-patch-id: 8eacf9b84574fe303134a78ce9c3fcc4ec1c8dbf
-prerequisite-patch-id: be45e01b10b8b0050199e379d51d80866c9bd60f
-prerequisite-patch-id: 0ab25f681f68659f8a0e4f0da80fdf70952dcf8d
-prerequisite-patch-id: cd456ec3d0c297910f46bbc02fdf105dc1881528
-prerequisite-patch-id: 8f0adc84c688489feb0cba21f1f2292be4229095
-prerequisite-patch-id: 86ba5aa9cdc784c0b7f1a63beb76925ef26a51f4
-prerequisite-patch-id: 797d3d2c63a2772528c850d5058e11d064e13b81
-prerequisite-patch-id: a1f2f5aa788a1615c521496408c8380bb076a906
-prerequisite-patch-id: c9f90931b72f402916621991a8a8abf6f4b5ffb5
-prerequisite-patch-id: e0e184d52d20bd622b3752ea73516698bedf554f
-prerequisite-patch-id: 9779c50d8b08c7d2ac14017fe2825d148350e434
-prerequisite-patch-id: 2dfe6357a636b3662dbd8db80bc29bd36a0329ad
-prerequisite-patch-id: 704fb943477b1a761312b0ec16e9291cad7c9769
-prerequisite-patch-id: 0409704173cb408067b9e69071c0af7efe299492
-prerequisite-patch-id: 455ce6bd7b211ef9c772ba06efefdffd27058a87
-prerequisite-patch-id: 5ed7b0ed4e054ecbd8c84e622dbac0f42d60e4a6
-prerequisite-patch-id: 563c77055b805b0d640cd8517627a8c491bce385
-prerequisite-patch-id: ad8a0534dbcf96480f5020f50fd68d5b78c5fac5
-prerequisite-patch-id: 8fe899b77403121b41514f93b859b5e4528a79d9
-prerequisite-patch-id: 4fafee08b92675ea8a6f7fb5e27ff5a769325208
-prerequisite-patch-id: d7abc61edebf4b3a87d94806301a99db4e28c036
-prerequisite-patch-id: 615c6d4def91d820c55f9f05afb0086734c770fa
-prerequisite-patch-id: 67a600dbc806b7426a5f48b11413d3716d4729e5
-prerequisite-patch-id: 86db1a90ea3b2e47a0e082b33d4f9ee5c79782e4
-prerequisite-patch-id: dffc8a4bbcf134bf21a86cd197deefe5143b7210
-prerequisite-patch-id: d1dea459f43a2541077a882c3282b806a7dd5ecc
-prerequisite-patch-id: 0c8a54b1f9bf053b817e949eb82538e7a0630d01
-prerequisite-patch-id: 4582389780efd509f9713da8c161f497f2d89bc8
+diff --git a/drivers/gpu/drm/drm_bridge.c b/drivers/gpu/drm/drm_bridge.c
+index 45a34bbb8f14..cdfd6d44c8d5 100644
+--- a/drivers/gpu/drm/drm_bridge.c
++++ b/drivers/gpu/drm/drm_bridge.c
+@@ -629,6 +629,17 @@ drm_bridge_atomic_readout_priv_state(struct drm_private_obj *obj,
+ 	return 0;
+ }
+ 
++static void
++drm_bridge_atomic_install_priv_state(struct drm_private_obj *obj,
++				     struct drm_private_state *state)
++{
++	struct drm_bridge *bridge = drm_priv_to_bridge(obj);
++
++	if (bridge->funcs->atomic_sro_install_state)
++		bridge->funcs->atomic_sro_install_state(bridge,
++							drm_priv_to_bridge_state(state));
++}
++
+ static bool drm_bridge_atomic_compare_priv_state(struct drm_private_obj *obj,
+ 						 struct drm_printer *p,
+ 						 struct drm_private_state *a,
+@@ -674,6 +685,7 @@ static const struct drm_private_state_funcs drm_bridge_priv_state_funcs = {
+ static const struct drm_private_state_funcs drm_bridge_priv_state_funcs_with_sro = {
+ 	.atomic_sro_compare_state = drm_bridge_atomic_compare_priv_state,
+ 	.atomic_sro_readout_state = drm_bridge_atomic_readout_priv_state,
++	.atomic_sro_install_state = drm_bridge_atomic_install_priv_state,
+ 	.atomic_create_state = drm_bridge_atomic_create_priv_state,
+ 	.atomic_duplicate_state = drm_bridge_atomic_duplicate_priv_state,
+ 	.atomic_destroy_state = drm_bridge_atomic_destroy_priv_state,
+diff --git a/include/drm/drm_bridge.h b/include/drm/drm_bridge.h
+index b73f3424ed62..630af5b3fcf2 100644
+--- a/include/drm/drm_bridge.h
++++ b/include/drm/drm_bridge.h
+@@ -967,6 +967,18 @@ struct drm_bridge_funcs {
+ 					    struct drm_atomic_sro_state *state,
+ 					    struct drm_connector_state *conn_state);
+ 
++	/**
++	 * @atomic_sro_install_state:
++	 *
++	 * This optional hook is called when the state read out from the
++	 * hardware becomes the current state of the bridge, once the CRTCs
++	 * and planes have been installed. It gives the bridge a chance to
++	 * take the resources needed to keep the hardware running. It can't
++	 * fail.
++	 */
++	void (*atomic_sro_install_state)(struct drm_bridge *bridge,
++					 struct drm_bridge_state *state);
++
+ 	/**
+ 	 * @debugfs_init:
+ 	 *
 -- 
 2.39.5
 
