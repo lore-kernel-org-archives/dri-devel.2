@@ -2,104 +2,132 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E068F606A335
-	for <dri-devel@archiver.kernel.org>; Mon, 16 Nov 2026 14:27:23 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BA00E606A330
+	for <dri-devel@archiver.kernel.org>; Mon, 16 Nov 2026 14:28:24 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=Z+nstAQY
+	dkim=pass (1024-bit key, unprotected) header.d=amd.com header.i=@amd.com header.a=rsa-sha256 header.s=selector1 header.b=jWHFnqE/
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 34F9E10E170;
-	Mon, 16 Nov 2026 14:27:18 +0000 (UTC)
-Received: from mail-ej1-f41.google.com (mail-ej1-f41.google.com
- [209.85.218.41])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 1B22010E2FC
- for <dri-devel@lists.freedesktop.org>; Mon, 16 Nov 2026 14:27:12 +0000 (UTC)
-Received: by mail-ej1-f41.google.com with SMTP id
- a640c23a62f3a-c50cc7540b7so199914866b.0
- for <dri-devel@lists.freedesktop.org>; Mon, 16 Nov 2026 06:27:12 -0800 (PST)
-ARC-Seal: i=1; a=rsa-sha256; t=1794839230; cv=none;
- d=google.com; s=arc-20260327;
- b=OonaxJr2VtzksuGVzXC+Qn27tA8SkkE3FcEj8lsSlXuk0O+Kjdg3HwuI5Bsi3/NXwU
- sci4KeakxCSW4c6OxN8BskE2WV7GA+pA1fDRRSnMVqxhC5QzNq/YXic3Z6Ar+bTgSbml
- ckqoxIqWZGWC9jMv5n7NLdcxhXZBERmTL/MoP4rLYag8jPpIsogC0xCe9Jdm2ZPZDwFO
- s7co7wbQnN/j0UC/V/mBMz067UNHBRRGu0Plckx1nEdHejOvzRzxRwoMh4wu6r8RCSJe
- z4QPBkoqLyeOOeGUuizNILE5nnwtRByj1l+UOWNPB4BhEPyShosQHVpqSUPSdjHHitdD
- d2yw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com;
- s=arc-20260327; 
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:dkim-signature;
- bh=HrYX/xFhc8GZdpnYMvRfOawIej7Z1lvx61D8oWOIR3c=;
- fh=TSz6NGglEJwBT/NiedSx9KgoAbBY9pvqwOJQBVb8sh8=;
- b=PeHXsdrdJDD2E5IUGM7w1BMvLxMkT9uE8lQOvT9TaBVZDNW9hMK6+/c9zesdUfByvc
- n8sMlQ9cDSqBahTywVe8ijAWB2Z858ykF3x7i6xELSxZP9PnVdScTMgDQ7FvPOcqx8pV
- wG3QNZ7OYQGnUnCEp1ypWFJadA7Ngf8bO9lixjhxBa3xN8H6GqyyLMVZ+iVjqVioZV7O
- xnMDq3DiRdBcCBMT1Px0gf7MDFyDrRWAcE1+GTRwgEO7ZEhn6pYirIWtVbapKpFUREWm
- iqt4QT82yQjiB5tNM62IEbwch5rA+f2A/2kEQf7LhEiG7i25GYDmmVuhdKYmc0nQ8UNg
- ep8g==; darn=lists.freedesktop.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20260707; t=1794839230; x=1795444030; darn=lists.freedesktop.org;
- h=content-transfer-encoding:content-type:cc:to:subject:message-id
- :date:from:in-reply-to:references:mime-version:from:to:cc:subject
- :date:message-id:reply-to:content-type;
- bh=HrYX/xFhc8GZdpnYMvRfOawIej7Z1lvx61D8oWOIR3c=;
- b=Z+nstAQYr9yS4iMB5fRYxmqzdKf1hcE3sVspQmLm3MEMfBTVf/07UkqyK11FgQun2C
- jTHKR6Gg0XKWmVeM7HUl/si8K3SEpUPbgsi1wcdVc0LKc3MiziM/HjOhtItVPPt+eS2N
- IEP76YUdjegET4rW4dT5XCVwEeTtq/qt0M5CCN6fO2XyqzLk24QgrLUD+MHEQk6oB7Aw
- oxvTqt/Y0mzF42WSoTRYXSV/+026kXQCD4BX8omJgX2Dg0RmIKMz3Y+VeF7eE6qqfCAy
- OF2TM+b2O4TFaBhOFh07S3n1n/E84BRbXj+iNzYnC3fHpSoY5F6F2yjLcfHHBjjaGRBZ
- xcGA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20260707; t=1794839230; x=1795444030;
- h=content-transfer-encoding:content-type:cc:to:subject:message-id
- :date:from:in-reply-to:references:mime-version:x-gm-gg
- :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
- :content-type;
- bh=HrYX/xFhc8GZdpnYMvRfOawIej7Z1lvx61D8oWOIR3c=;
- b=CXguvAZkaAsB57wOuhVI3Hlo4HL/JDqM/nvltWUr/c7+lAuPif0TqIT2E8sLHdV6Ab
- RRVbYb04xOiiT5Wt0YV8ozDxD4sMwPA21ZQIucQs2xYP8MiShnfj5XrnWtUkiLBrvuN2
- F40/0NqakUurwMjdey3yB5PAE99DZ2fFguK1iEEJO6ZgLtr1qszbwP3QCIa1/q7UBrVN
- iZ8sbYcdVfNG1JYuqLUfOgk+ikp943fBsuiMmcAq3vs2crNU7I5+TeLe/+M/YUglH3t2
- QrMWcqd6hTCF9WznHz+YhCsdXh7980sc7ZBf7ok7g0xq+Jt+MdmJom6ulKqZYqkS84St
- K1qQ==
-X-Forwarded-Encrypted: i=1;
- AL+hErEIOXB7AnA9xVUydDEyjfl6QMIiGkySxtPBULJOKOR7GRG1BJeTlzZ8ObtuGFtOIhUR5KyeEcj+GVA=@lists.freedesktop.org
-X-Gm-Message-State: APuU4Z9o2JCOmlc73fv43wKWGiefKVGFsdnfZdWdsFa+gs8rRMq4/LEz
- 1uh0/iv/ibqVE7BPUJf1e8GZi+Fgd/rFhuxx0NpAOmYuVEuiSNj0YRNNylkWAjfxvYwQrNYiNIw
- HkpzQJEJGx1nGhKmNraChGirXtE8A/Q4=
-X-Gm-Gg: AYBFou0/A/q3BBsCt54/3SpYqAVAbxoDvoM1ZaPxau3uvLJEqNnifqfIYg2DpASXYkD
- /oBDyzq/mg2ziuaxSG4HHo4a1vefzB+4zSsTtuts2YxPA1aaq6Ky03ESMn7x2y3Oj40Qx9DepSU
- IKVRRUlAvM8mGSoO2Bn4amUenn/RMBvTEXtLeaBTH1gkB5M8IKmjyxwir7LcQBvrGH9kMzddAa2
- EolRwlrIBF6DRIYdcSa4aWh1ewMeeSqNoVo/tTbVTogEGcesUbkqpMG0fxTusbmwM67UyKj4h62
- MNlAVFXR7lHaZx/PHEJ9LIjOUomrUVFy3Q/uEoCM90SHFZMpsFuvcIEYoJeU8MRJs6Zr9V4o23X
- lgvbHY1G89HetW21YaYIEIS8bMK7GnlUb9yk=
-X-Received: by 2002:a17:906:c14e:b0:c3f:c878:7c1d with SMTP id
- a640c23a62f3a-c5096307650mr843636266b.9.1794839229990; Mon, 16 Nov 2026
- 06:27:09 -0800 (PST)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 2520110E2FC;
+	Mon, 16 Nov 2026 14:28:19 +0000 (UTC)
+Received: from SA9PR02CU001.outbound.protection.outlook.com
+ (mail-southcentralusazon11013008.outbound.protection.outlook.com
+ [40.93.196.8])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 1A1CC10E2FC;
+ Mon, 16 Nov 2026 14:28:13 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=Q2ZtyXSmam4gwikw2ZLLSamiFg08UwtwqPX1gluuhPllvfsPArMVYPgZAfs8umgDkNyiT8Gju+r8PBhxtnMdeLSqjG0zfS4yCE05EMdedzmPP0PhG+P5LOrsbOZsKOdt2YLw29jlBn41azArIYXSYOxnroNKjA4PILVMJB7Y10MFiyApr9nRd6CzM0DQjAlaBnbrPoklNZXiJI/PqW/7pvfeL1lXDZdC9wavgGifzU586VNPd4L9kfPO0pTrCieFo3IVJ5V1ukw6QHgmj+ZaeUo2XYKW+wJCyqPC7c/vyUFkDISceQcskkdo+viYQwTCdF2GkOHZjsZpYIZmxJ1jdA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=Fef76ZpjT/3HIgL/TSYhpLfV16yO3l4lmdpMMYdUwfY=;
+ b=rs/BICUNX8GmFbxLY1q/o5hEGucet37IGNR7Q91qcdL4DUMN5y0UcUdlkkXinbMtv+ZqbJIoOTTdY9JenZ0WFRdQS1JzwTHCrRR039GCvajCB06mI24pifFo3Bndku3AQx6/iV3Wx4Nm3MM+XQ+Ynfgh0XVlheafERc+bkhihMMpRx4GoOzQwcXL4NjCo9/jLdb6eo4d8lDxHndDY0mm0fSJTpaCPiUBzwpIQflbpZhA2i5oxWNX9ohtA39nSo03UKl+Xn/nx4nMOomPbCfB8G5kYI+xB8UfcWsoSRx6bjQsYg5g15PHIqbnCg8vjp+OKAvqdgY+uhjSiFeakjF6XQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
+ header.d=amd.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=Fef76ZpjT/3HIgL/TSYhpLfV16yO3l4lmdpMMYdUwfY=;
+ b=jWHFnqE/Cosq73hFYwwF+y1mzxz+GOmlEz5wJ0He66bdRWVS9XyQDAzB/2eANVPapQ4gKJyqnF+sa9blmz/WXo6PH5UZvNMypDlWxnHAfv49iPkz+2gsz87jdWMqsBumjj/p8RoT+e0MS6GVh0h+zw/TSr4U45L5n5evxGZh46M=
+Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=amd.com;
+Received: from CY5PR12MB6132.namprd12.prod.outlook.com (2603:10b6:930:24::8)
+ by DM6PR12MB4217.namprd12.prod.outlook.com (2603:10b6:5:219::24) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.615.14; Mon, 16 Nov
+ 2026 14:28:09 +0000
+Received: from CY5PR12MB6132.namprd12.prod.outlook.com
+ ([fe80::d9ab:4258:a9ef:b8cd]) by CY5PR12MB6132.namprd12.prod.outlook.com
+ ([fe80::d9ab:4258:a9ef:b8cd%6]) with mapi id 15.21.0615.013; Mon, 16 Nov 2026
+ 14:28:09 +0000
+Message-ID: <393a8963-ea40-4ee3-85c3-ac2de2f90d75@amd.com>
+Date: Mon, 16 Nov 2026 22:28:02 +0800
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2 0/5] drm/amd/display: Commit panel_power_savings writes
+ from the kernel
+To: Hugo Sales <hugo@hsal.es>, Harry Wentland <harry.wentland@amd.com>,
+ Leo Li <sunpeng.li@amd.com>, Rodrigo Siqueira <siqueira@igalia.com>,
+ Alex Deucher <alexander.deucher@amd.com>
+Cc: Mario Limonciello <mario.limonciello@amd.com>, Ray Wu <ray.wu@amd.com>,
+ Alex Hung <alex.hung@amd.com>, Bhawanpreet Lakha
+ <bhawanpreet.lakha@amd.com>, Ivan Lipski <ivan.lipski@amd.com>,
+ =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
+ linux-doc@vger.kernel.org, linux-kernel@vger.kernel.org
+References: <20261113-abm-sysfs-commit-v2-0-5808d17a7e89@hsal.es>
+ <335815674.648716.1794838310991@app.mailbox.org>
+Content-Language: en-US
+From: "Chen, Chen-Yu" <Chen-Yu.Chen@amd.com>
+In-Reply-To: <335815674.648716.1794838310991@app.mailbox.org>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+X-ClientProxiedBy: TP0P295CA0052.TWNP295.PROD.OUTLOOK.COM
+ (2603:1096:910:3::14) To CY5PR12MB6132.namprd12.prod.outlook.com
+ (2603:10b6:930:24::8)
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
-References: <CAMeQTsZbLYpPKySm9ubYc8pw0t62ZEdKkkzc4h3Hdjq-9pGO6A@mail.gmail.com>
- <20261113085341.61992-1-jttelaak@hotmail.com>
- <CAFGNeajPo8DrqNbM+86AQz0LT98a69_+T7R8DoKAX4Q2LJE0kw@mail.gmail.com>
- <CAFGNeage70+BaM6SP-q7YAgp-tgrATuO7m-eEoN6ERr0mC55aA@mail.gmail.com>
- <17f2783e-9157-458b-8463-f98395e391ca@suse.de>
- <CAFGNeagxEcfPuEHFt3TxKhCDoZ0HODpXwXcKpuBxKK=09FkRMw@mail.gmail.com>
- <CAFGNeaiYntE7dQ=-sgaM8gRKuZ+wQ-479ShXKW8v99YVSdHn5w@mail.gmail.com>
- <CAMeQTsazkHgYiCnSEC67useW++0WEY8E0RS1ShssWybrWCGuiw@mail.gmail.com>
- <CAFGNeajczb-2Xcjfaj82hc-hprJXRHsr8uSudO32j6S17T+YQw@mail.gmail.com>
-In-Reply-To: <CAFGNeajczb-2Xcjfaj82hc-hprJXRHsr8uSudO32j6S17T+YQw@mail.gmail.com>
-From: Patrik Jakobsson <patrik.r.jakobsson@gmail.com>
-Date: Mon, 16 Nov 2026 15:26:55 +0100
-X-Gm-Features: AclHuK8pWvM4AZkyXmva7JPnjoXXiKchiyJF4kVvSDx1vCnvs-0PHppzjf6giuY
-Message-ID: <CAMeQTsb-Tjzu6i8Fa4X6Ta-JdRPd6vf--eEePTzZKvPuPX5GGg@mail.gmail.com>
-Subject: Re: [RFC] drm/gma500: SGX535 render ownership,
- MMU and failure handling
-To: Gabriel Gama <operatingsystemsdepression@gmail.com>
-Cc: Thomas Zimmermann <tzimmermann@suse.de>,
- Joseph Telaak <jttelaak04@gmail.com>, 
- dri-devel@lists.freedesktop.org, Joseph Telaak <joseph@telaak.dev>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: CY5PR12MB6132:EE_|DM6PR12MB4217:EE_
+X-MS-Office365-Filtering-Correlation-Id: 650e6665-c80a-4512-3d60-08df43edd616
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+ ARA:13230040|23010399003|366016|1800799024|376014|10067099003|56012099006|11063799006|4143699003|261026140227099003|261028144727099003|261022075727099003|261022105027099003|261009223027099003|18002099003|22082099003;
+X-Microsoft-Antispam-Message-Info: xfwrJ44khjsN0/bIjlDLHlQ8OfEWr1cNH6h3VUbDqVZcSW3qmSU3rNEi5Xrikfdkh1Q4tpTklu4K5rYAh4/g7ZYIaeBXfUgDldgQpzl8qq9DVbUqdNsXGE4VJQDlE2+MapPxrEWDIocurpGMndXpMImQ/0s51DmtKqh+Qf45m5+3wExmB/1rh+trG2OYmneYwWKKqiQgdFrLcn5ISSPq9CRsi9RAjeRusOoN1BcZo0747dy3p/G+yIgIHXHKRmFuG7nNcJlWdQ1WPQWqW3EbDiO3dFkSttye1kr09biQTgaQOC3Nmyt3wCMQ1OfiZabpVnOIbQr7gvG+sCB7Sfn/7Ls8iQsqgVGTTGNzNe3lYv3EIcFE08wM4nNI8OfgCgQbEvH4UK+iaWgIdNZZZiRFlxQUAjh/M6/O99z49IS50HJgH+bVdL0Z8gwTOyLNjJHAcpZuyR6+07GEVhfPDtV/EYuALIdX2S6YR7bhbmMCNuAcRsw1zQs9cloFWZmnFjJo40oCgw2Mq/LMZS5iIBKocpBvpWwsolaMIS0BRu9VAEgadjfmtDQIC+gWUu3ng2QmEkGN2jLHEU06FA3H8HWuIhCJJuox9zrq5rqF8i93EwQ=
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:CY5PR12MB6132.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230040)(23010399003)(366016)(1800799024)(376014)(10067099003)(56012099006)(11063799006)(4143699003)(261026140227099003)(261028144727099003)(261022075727099003)(261022105027099003)(261009223027099003)(18002099003)(22082099003);
+ DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?RExwSXlQVGw2Znl4L2JoSUNKVkY5K2xyK1E0bU1ySVpnMm5hZm9EaXhad2xl?=
+ =?utf-8?B?eCtPWDNRMjg0T3UvOUpqT285QjE1NSs4YTFOemtFYStNZnlzSVNmQ0pNb1NF?=
+ =?utf-8?B?eENLTXl3RlNxTVVwSlZBNzVLL2c0ZW1wTWxnUzJyYmlVUzlXZHRUU2JsSFgz?=
+ =?utf-8?B?b3VvdkEzb2ZuaG5qYXQ4c2FLNWdSQTV0MXl0aDRkU2piN1V3VVg1dGhQRVJw?=
+ =?utf-8?B?UUMrZnQrU205WWpDM2x5Y0JkVjN4WGljN1plZ2dxT0taYnBpb1l5WElRbjRo?=
+ =?utf-8?B?enNHYllJc3JYMWdWQ0lpNGN0QmpxaW55ZythSGw0RnJpTEswcEFxd0ZrSXdQ?=
+ =?utf-8?B?Z0trbi9YNXVVV3lzVU9vNHNYb2kzaGRpWm0zbTcwYnE1YVNzc21WOGZLQmhl?=
+ =?utf-8?B?ekV1SnFYWDlLT1NvUEFSSVFmYlY3bzIyT25SR09zWWpnVTFmZkYxc0tLd0pt?=
+ =?utf-8?B?cUx0eUpURmJUMDVjTTI1azJwb21BV2FzYU14WXpYM1Rsd05BL0ZWZzhYbGRC?=
+ =?utf-8?B?U2tYZ3FKRGk1ZE0wajV4emFONzU3dHhRaXIxWk1MWUJwUjJRMENOWUg5eEtH?=
+ =?utf-8?B?aEhkbEMvNjgySmlqU0w1VzNOdi9nMlIrTnBCVjZjN1VJUGpyUEc2MEJxbmxC?=
+ =?utf-8?B?SmkrYk5tU0lrREhlL0thTWQ1Yk0zRVVveU5rZnVBc1haa01wTmxBL3NDTExw?=
+ =?utf-8?B?TVcvKy82NjJpZURkaWwwUUYzZWZlRmFRRWJpOUlFQ3NiaFpsUVdtalpNODlV?=
+ =?utf-8?B?aHpYWGM2WFJhYVU5Q1VKdzVTQlpOeXhpOEx4c1hjV1JPWXB5OGtKUTJwRWxI?=
+ =?utf-8?B?aEJSNVVVaGNhSVp3S0dmNnBpRDZBek12ZG5yZ1lYai9HR1lDcmQ3MGtWNEs2?=
+ =?utf-8?B?VytGZy9uWEwwbDQ3eDF4cG1wcmJWK2lZUFVkSkJPR3IwTzZyZlBxaE9XMDNt?=
+ =?utf-8?B?RUYzMVV4d1M1Z3R6c2NRcitxWHNSU2s0RmY0bVk3aGR4SHpWYU9IdmYwTkRT?=
+ =?utf-8?B?VUxuK0Z0WFl5cWNXTVVOc0NhbXBka2NEdkFWV3YxR1g4dVZCVXh5bEF6Qml0?=
+ =?utf-8?B?eUdSWGJkWU9tOWFKR1AyeFU4emNsa2kwQ0Jhd3NjN24vZkM4dFI4MFVzM0Zh?=
+ =?utf-8?B?QTdocVIxU0hMUTROQUV0Rkp1dnJra29BMzNYNktPNHFPbHl1YjA3N0d2cFVH?=
+ =?utf-8?B?eEpTR3h4NmtMNzJwblBTQk1ZdGM0bEo5Y2JRWEMrTkxCTjZiY3FlV2VLM2w4?=
+ =?utf-8?B?Nm9rYVJQUDBBeW9DV28rTis2cWJiVjVraWRobmRUNEhiRWZiL1dHTWVhMmJq?=
+ =?utf-8?B?Uk5mYnZUVXJrcE5OWWZ1dkFRbE9HeUNZTTRnam94WHJ5enVmVmROdGx2cDE1?=
+ =?utf-8?B?bU9zcmhnajlZMzJmRk1TWlhONmZENDZEaEpNYVhoeExyTzdFQjJvWllXZFZK?=
+ =?utf-8?B?MGNoWElYUmJBQmVyenVDMldFNXh3S2RyNlJLOFZvSUZsYlRTa0R2YkVsMFRz?=
+ =?utf-8?B?bFlpSXVMam5kejJDcVhFajV1SVo1bitpWU9XaG5DYkRsMzVaTFlQWkRWMU55?=
+ =?utf-8?B?MkZESHNHc1B1Vm1CWkgyUzNoVGp2bXVpTUpCOW5KMHZhUkJveU94Z3pwQStu?=
+ =?utf-8?B?NVhyLzViK3BWR3FJQlA1bG0vTVZCa2FHWHVGbTVBRGNSS0N3VVRBWnY0V2U0?=
+ =?utf-8?B?RzZEb2RsQXdOK2hkMXZUQk9tbkVJeFhGTFcrS0F3VXB3Y0hjcGJXUW5yTHJx?=
+ =?utf-8?B?NmtaRjRVVm5SajhBWnhtMG1nRXVsaDJZU2JEL25uTGV5K1lTNGdPWGtVZVpo?=
+ =?utf-8?B?MFl1VEQ3ZERuNGRzdWNybURMRkorTkM1WHMvUGRla1NDa1pyZWlJaVRaRDRr?=
+ =?utf-8?B?c0NEYlhWeWZIcXltYWNyd0RiREtWN1FOM2R2NXEvalNKVHhXbjRHaUN1YjRq?=
+ =?utf-8?B?a0tvTVZIT2wrYkhjMitwZDdEaUVVQStZOVcyZ2Zwa2o2Nmo3ZGhacVFaOEJ0?=
+ =?utf-8?B?WHM0TlpXYm5ob0RhbTRTcWw4NmdjN2Naa2R4c2k1VXFlVnIrczNqZ1FnNWlU?=
+ =?utf-8?B?MWo5cXJmSVlLeFNNSEw3WEFFVDAvbGt3ZFFQeUdPNVFmdE1QME1Md2JkNHYr?=
+ =?utf-8?B?TXIzRzJwWXRpY3hSOHVOYkpDTDk3SUNjcm9TR2NYVlc0VkdWU0NMNW9vOUt1?=
+ =?utf-8?B?NzErcWliYkhZKzdqOWh3elpJby9QNyt3Q0FPdXpZLzNic1MzbFdraFdJakh5?=
+ =?utf-8?B?QzdJZjRsOVhYWW1HS3RjZElhcU1rWmFicFBxZCtxMzZWMGlsUU9YRkJVNTFo?=
+ =?utf-8?Q?OR4lMzcxSB0hx9zOa6?=
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 650e6665-c80a-4512-3d60-08df43edd616
+X-MS-Exchange-CrossTenant-AuthSource: CY5PR12MB6132.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 16 Nov 2026 14:28:09.2528 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: RwkzXSw6W0X+I0O8WOpOo4U6AJIkSDvDxR8LUHQzKV55AnlRluH+b2lAO5YH8QtCYwzZKttZIxgMhkl9E6NE4Q==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM6PR12MB4217
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -111,40 +139,37 @@ List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-2.8 required=3.0 tests=BAYES_00,DKIM_SIGNED,
-	DKIM_VALID,DKIM_VALID_AU,FREEMAIL_FORGED_FROMDOMAIN,FREEMAIL_FROM,
-	HEADER_FROM_DIFFERENT_DOMAINS,MAILING_LIST_MULTI,SPF_HELO_NONE,
-	SPF_PASS autolearn=no autolearn_force=no version=4.0.1
+X-Spam-Status: No, score=-7.3 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
+	DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
+	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,USER_AGENT_SANE_1
+	autolearn=no autolearn_force=no version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-On Mon, Nov 16, 2026 at 3:09=E2=80=AFPM Gabriel Gama
-<operatingsystemsdepression@gmail.com> wrote:
->
-> Hi,
->
-> If I'm not mistaken, Joseph removed his kernel RFCs (This is in his GitHu=
-b repo)
 
-He offered to work together with you? Two drivers for the same
-hardware is a waste of time and resources for everybody. Lets keep it
-simple.
 
-> For Poulsbo I'll stick with the GMA500 drm, it makes much more sense;
+On 11/16/2026 10:11 PM, Hugo Sales wrote:
+> v3 is out: https://lore.kernel.org/r/20261116-abm-sysfs-commit-v3-0-7a3d84a5328e@hsal.es
+> 
+> It adds a patch 2. Without the forced modeset, a commit that only
+> changes the ABM level on a CRTC with VRR active carried only the primary
+> plane, and DC dropped an active overlay until the next flip. Sashiko
+> reported it on v2 and I reproduced it on my laptop. Patch 2 adds the
+> CRTC's planes when the level changes, and the overlay stays with it
+> 
+> Patch 3 now credits David Weber, who sent the same change in August,
+> and patch 5 says a compositor commit waits for the write instead of
+> failing with -EBUSY, as Chenyu pointed out
+> 
+> Chenyu, if this week's promotion run hasn't started yet, could you take
+> v3 instead of v2? "Leave self-refresh before an ABM level update" stays
+> at v2
 
-Why? You have not clearly shown why the 3D engine on poulsbo is
-different enough to warrant a special driver.
+Yeah, no problem. We'll use v3 instead of v2.
 
-> Once I finish reverse-engineering the SGX544MP2, I plan to develop a sepa=
-rate DRM driver for it.
+Regards,
+Chenyu
 
-Again, why don't you join Joseph on this? Mesa is not going to accept
-3 different drivers either if the hardware is similar. If there is a
-big architectural jump I could understand it but then you need to show
-me that it is the case.
+> 
+> Hugo
 
->
-> Thanks for taking the time to look into my patches!
->
-> ty,
-> gabriel
