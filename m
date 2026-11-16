@@ -2,141 +2,101 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0E103606A336
-	for <dri-devel@archiver.kernel.org>; Mon, 16 Nov 2026 15:53:03 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B7CC0606A322
+	for <dri-devel@archiver.kernel.org>; Mon, 16 Nov 2026 16:11:34 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=amd.com header.i=@amd.com header.a=rsa-sha256 header.s=selector1 header.b=Y8Uf0lj7
+	dkim=pass (1024-bit key, unprotected) header.d=amd.com header.i=@amd.com header.a=rsa-sha256 header.s=selector1 header.b=mUYdUOxp
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 2EFF510F28B;
-	Mon, 16 Nov 2026 15:52:57 +0000 (UTC)
-Received: from DM5PR21CU001.outbound.protection.outlook.com
- (mail-centralusazon11011053.outbound.protection.outlook.com [52.101.62.53])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 62E1C10ECA5;
- Mon, 16 Nov 2026 15:52:50 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id E40D810E42D;
+	Mon, 16 Nov 2026 16:11:28 +0000 (UTC)
+Received: from PH8PR06CU001.outbound.protection.outlook.com
+ (mail-westus3azon11012012.outbound.protection.outlook.com [40.107.209.12])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id AB19510F1F6;
+ Mon, 16 Nov 2026 16:11:22 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=PEKak6TyMl6Tvwg1ShcSvowmIxp/fCf/7VZm3c8qseFZ87zzI5KNz/tamVE6+6+SXBPh2aQAFvyr4OrukHEi0NqevLzZXNoFu/4tHY/rDMiWTZLsCXVg+4dJQ1jdcM1Q86Gr1q7u3Y+lLUy/hUkDo3GrfXYkloyLwEzIdClCv82hw8L8rtlg3Knh2qDS12PVv1DksPpBJzR8aI0nXHsMUoTexywIyB1fJqed4EuQx9CAtsYkZSK0z7KmtXhcEtFT+skQnkR8AuXII42BL9Eg9Vo3U7e5Qe9bGdzBxR7Qnmx9vEuhgWJuLg9e2kFZ6nJO+MTwS5R2cFRKbOI/5NGYIQ==
+ b=lju2r4tTT00fVukRlmbTV53nMBI7T8KKPd7JlJx7M3fDaQeOldmd0tQGxF2q/kDM5Y0kfoOekkIHqlDS3jLpP899TqsYr6+ps+6rJUsnT38apo4QVC2bxv0gASGD91NfxcaudwIy6orXbRPbc2Uuz9OhBWbMPY/B9aM1XxPga2XpIjbag1UxSfTXTc+2sJY/BlpVLbNDrKXXrUkAZptXuOwNsc6lSFUvi4mUiHol9BFr2NieDWJEqB0u16EKWTSDv4KTQgX/Cu7tg30IwVcEBOV0zO/P1w3GQ+A4XeQtz2+t1rYhVHq4cJE4lyaq5uNvNt2XuZ6YQtA9yPBqiLcBXg==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=ij58lxQsKr14Pm1xSdZM8rMDG5yp2ABGVy2VzjtZGDI=;
- b=OZxJQWEIxb1pNNNlaHLnrxRLQwhEadOpih00U9ISBIn4W6cK/+/W7vbwzAq+J3uafWi/sJFEWWEmzzOxAbw5eLkHA+eLrxaa3UXdttM815ZLUiytwcZCifJBRGonlbdZal+VaKOop1t9Gh5fgo8tokhn/eBlEdFrkkT2422rZ/vEew4Ix3ivmtKIsDKs+WU/Pf71vXYYHtLkAzru1YETd2xLuYOaVE5g1Pp9H2SuZygoNxydzojgqvVcNvbgaAI0NlCjKpAf+Bm5PnSGoxg/slWWGMJ94ze+FDFkf1XXs/TbA/RanD9r+d8Nu4cNbPlNLrURPQCa+WaZ8Ee9jgx1yg==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
+ bh=E/4JHD9nD2cFTa90eYhcW8Ic0V2bZbgUfL1/kyLgzSg=;
+ b=FP4eu5JyuVPh9JhWWp7LHoPF74oFhd9+EulHDM7ORua2gvBYbqwDXBBCuhaj5oVte74EHs5q14PspDHG48rWEEHWRJKtz1dVD4qzuEMs6mJ4IMX8bIBl+zw1g6ZvWYVXjLsdL8s4BVxi2XB5rgG0aOd9fYtEhTTQjgiCaKcLRFEpS40YBUWL2/gOEV0BAy0Z/2mxTRujy1p/lVQpEca9NIWe3oqEOL+yOvm04RqtHopZIgWN6FxV5mWmgocC9yp32F52+UDI0eCo/SGOPaibAKFj81LXRScMjgSmVU1aRwPVkYjP3SxJPNnzLOXpphid2krDqZ7YU65LUGUmH5u1Rg==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
+ dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
+ header.from=amd.com; dkim=none (message not signed); arc=none (0)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=ij58lxQsKr14Pm1xSdZM8rMDG5yp2ABGVy2VzjtZGDI=;
- b=Y8Uf0lj79YhSwDj/YqRhwjUeDhJ1tpnvC9ypZlN95snB6vwTvRjplSAr3zMQG4s9ofeEYLOpnewuO2ZEzAqodz5BzDVSubhYJUZJ9GltabuoO1ukzxRr94pvTXXMDLrfrB1W8qZswuR3Z9jU24Sk0b7OPnh4LBr/Hxu6AR3LhgM=
-Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-Received: from PH7PR12MB5685.namprd12.prod.outlook.com (2603:10b6:510:13c::22)
- by SN7PR12MB7787.namprd12.prod.outlook.com (2603:10b6:806:347::15)
+ bh=E/4JHD9nD2cFTa90eYhcW8Ic0V2bZbgUfL1/kyLgzSg=;
+ b=mUYdUOxpIrvAX+Job9yQC7uGCvUOUOo14beo/Vg5BifQ9AsCvpGTHxufIO7mqk7WSznHmJRk6Aji8BdvHXkqSox+gHPqTRVkNbJsSxYtk6GXeqpKxI7WvBf2DaUnI6iTvBGcO+CG2BVICfkipH5dwopvQxnG5LPJ3T8CfnzAi6w=
+Received: from BLAPR05CA0004.namprd05.prod.outlook.com (2603:10b6:208:36e::8)
+ by CH4PR12MB088503.namprd12.prod.outlook.com (2603:10b6:610:50a::9)
  with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.592.13; Mon, 16 Nov
- 2026 15:52:02 +0000
-Received: from PH7PR12MB5685.namprd12.prod.outlook.com
- ([fe80::ce69:cfae:774d:a65c]) by PH7PR12MB5685.namprd12.prod.outlook.com
- ([fe80::ce69:cfae:774d:a65c%3]) with mapi id 15.21.0615.013; Mon, 16 Nov 2026
- 15:52:01 +0000
-Message-ID: <980220a5-390e-40a7-bd5c-16a2225bd75b@amd.com>
-Date: Mon, 16 Nov 2026 16:51:50 +0100
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 5/5] mm: check permissions and bounds for vm_ops->access
-To: "David Hildenbrand (Arm)" <david@kernel.org>,
- Lorenzo Stoakes <ljs@kernel.org>, "Liam R. Howlett" <liam@infradead.org>,
- Vlastimil Babka <vbabka@kernel.org>, Mike Rapoport <rppt@kernel.org>,
- Suren Baghdasaryan <surenb@google.com>, Michal Hocko <mhocko@suse.com>,
- Andrew Morton <akpm@linux-foundation.org>, Willy Tarreau <w@1wt.eu>,
- Jani Nikula <jani.nikula@linux.intel.com>,
- Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
- Rodrigo Vivi <rodrigo.vivi@intel.com>, Tvrtko Ursulin
- <tursulin@ursulin.net>, David Airlie <airlied@gmail.com>,
- Simona Vetter <simona@ffwll.ch>, Chris Wilson <chris@chris-wilson.co.uk>,
- Matthew Auld <matthew.auld@intel.com>,
- Madhavan Srinivasan <maddy@linux.ibm.com>,
- Michael Ellerman <mpe@ellerman.id.au>, Nicholas Piggin <npiggin@gmail.com>,
- "Christophe Leroy (CS GROUP)" <chleroy@kernel.org>,
- "Ritesh Harjani (IBM)" <ritesh.list@gmail.com>,
- Shrikanth Hegde <sshegde@linux.ibm.com>, Rik van Riel <riel@redhat.com>,
- Benjamin Herrenschmidt <benh@kernel.crashing.org>
-Cc: linux-mm@kvack.org, linux-kernel@vger.kernel.org,
- intel-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
- linuxppc-dev@lists.ozlabs.org, stable@vger.kernel.org,
- Felix Kuehling <Felix.Kuehling@amd.com>, Chris Mason <mason@kernel.org>
-References: <20261112-access_shite-v1-0-988a5c470db2@kernel.org>
- <20261112-access_shite-v1-5-988a5c470db2@kernel.org>
-Content-Language: en-US
-From: =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>
-In-Reply-To: <20261112-access_shite-v1-5-988a5c470db2@kernel.org>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
-X-ClientProxiedBy: BN0PR02CA0013.namprd02.prod.outlook.com
- (2603:10b6:408:e4::18) To PH7PR12MB5685.namprd12.prod.outlook.com
- (2603:10b6:510:13c::22)
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.615.14; Mon, 16 Nov
+ 2026 16:11:16 +0000
+Received: from LV8PEPF0000005C.namprd02.prod.outlook.com
+ (2603:10b6:208:36e:cafe::36) by BLAPR05CA0004.outlook.office365.com
+ (2603:10b6:208:36e::8) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.21.639.6 via Frontend Transport; Mon, 16
+ Nov 2026 16:11:16 +0000
+X-MS-Exchange-Authentication-Results: mx.microsoft.com 1; spf=pass (sender IP
+ is 165.204.84.17) smtp.mailfrom=amd.com;
+ dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=satlexmb07.amd.com; pr=C
+Received: from satlexmb07.amd.com (165.204.84.17) by
+ LV8PEPF0000005C.mail.protection.outlook.com (10.167.245.132) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.21.615.4 via Frontend Transport; Mon, 16 Nov 2026 16:11:15 +0000
+Received: from alysaliu-dev.amd.com (10.180.168.240) by satlexmb07.amd.com
+ (10.181.42.216) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.57; Mon, 16 Nov
+ 2026 10:11:14 -0600
+From: William Palacek <William.Palacek@amd.com>
+To: <dri-devel@lists.freedesktop.org>
+CC: <intel-xe@lists.freedesktop.org>, Matthew Auld <matthew.auld@intel.com>,
+ Arunpravin Paneer Selvam <Arunpravin.PaneerSelvam@amd.com>, Sanjay Yadav
+ <sanjay.kumar.yadav@intel.com>, Joel Fernandes <joelagnelf@nvidia.com>,
+ =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
+ <linux-kernel@vger.kernel.org>, William Palacek <William.Palacek@amd.com>
+Subject: [PATCH v3 1/2] gpu/buddy: find range-biased blocks in the free trees
+Date: Mon, 16 Nov 2026 11:11:01 -0500
+Message-ID: <17f2a6366ba845edc799dbeb712c12f8d060afad.1794845083.git.William.Palacek@amd.com>
+X-Mailer: git-send-email 2.43.0
+In-Reply-To: <cover.1794845083.git.William.Palacek@amd.com>
+References: <cover.1794845083.git.William.Palacek@amd.com>
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-ClientProxiedBy: satlexmb08.amd.com (10.181.42.217) To satlexmb07.amd.com
+ (10.181.42.216)
+X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: PH7PR12MB5685:EE_|SN7PR12MB7787:EE_
-X-MS-Office365-Filtering-Correlation-Id: d7e7071f-ce8d-42d9-a252-08df43f98dc2
+X-MS-TrafficTypeDiagnostic: LV8PEPF0000005C:EE_|CH4PR12MB088503:EE_
+X-MS-Office365-Filtering-Correlation-Id: 68cf00ce-a266-4757-b0e8-08df43fc3ddc
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
- ARA:13230040|366016|1800799024|7416014|376014|23010399003|921020|261102123227099003|56012099006|5023799004|11063799006|261009223027099003|261021135927099003|261028144727099003|261022105027099003|261021123027099003|261021121427099003|4143699003|261026121527099003|261102130727099003|261026140227099003|10067099003|22082099003|18002099003|3023799007;
-X-Microsoft-Antispam-Message-Info: 3snhvh5FIjUsD2Zs6dx31G/cGmuF/ydKp6cyZL9Q21wT47PH6Hg3p2Bu+I94QZJD0D6Ye8USEV+3aO9UVL+5NSD2ih820YcHi3//6GeiKkKlSV7UKa5GaqXUJ29uaC23oTU7cjqEfi2uF93P7Uqyaktn3XIfXl/69VKDhaZiabZxfrdnoXsN5mbf8xLTKPJAgMczxmoyTT6e9iOUIXd4/36KIF5rTXOPhcig9rPMm1rZlqMhM2S4e4einoFgNy0fsZuIsI/aKvVjV0OCmv3RZuK/7UYsxvrWfZHNwDyYMKhwBt6fERKosj3RRwkG/ehaRYgOf6R8ijAZizMGNmqyIEktN8oeNsUb+LdL/v1lxmhZKXV++i0dODx4yDksGM5x1lIOjTNmTdsfRETexIyNN8v4joXrm05j0ByYGw62RwbZJ4OibALr/pfC4w2b8uveWb9P7GJ8y7mLO6aGUJTZz5uMrXsS9KB2sQcy681z9mgnjn5zd1N0iM3i/1s9/NDeRQGc44Mx+/jfd1iR5Be54OlqIzADsrOW7oPVAc0jw8UuRXBROJGJv1iTmK2H+VKPJZ4xSxLJzem3Tui/x9nOt1WN9mJEz87JxZGF+rwy4aKknG7RgSe7w/VPob1HcJSTHa2WGH9zJw4zzrRKxiH/Id9/25JO5IPnvZEo3RV5ojA=
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:PH7PR12MB5685.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(366016)(1800799024)(7416014)(376014)(23010399003)(921020)(261102123227099003)(56012099006)(5023799004)(11063799006)(261009223027099003)(261021135927099003)(261028144727099003)(261022105027099003)(261021123027099003)(261021121427099003)(4143699003)(261026121527099003)(261102130727099003)(261026140227099003)(10067099003)(22082099003)(18002099003)(3023799007);
+ ARA:13230040|376014|23010399003|1800799024|36860700016|82310400026|10067099003|11063799006|56012099006|261026121527099003|261026140227099003|261028144727099003|261022105027099003|261021123027099003|261021121427099003|261102123227099003|261009223027099003|18002099003|22082099003;
+X-Microsoft-Antispam-Message-Info: ZcWj5uSmIzkSMSJT4pXHzceEel47tKg5JesaWqLvJhTGSTUBNXGenf9hi2DnRKpnxyie7gPQek7jQN4gIxUT9/QUR35w9/fdLwItgncC5/uArS6uGLajCPqwi03Jf2Xt5/l3wHpQKvl8J8auLaUMyXyPTUSVAYLqxTUM5sQJYGBrnCxauJWmo43TdJSQgc2Qafny4rwoCWVU0pAvSerWqgNZ8J8biNDjTbdeVNfqTKDFK7akzEelbCpGGm5mayQE4pOrvwSrbeJ9XiNk35CJwk5EBsY8eu6HNBRAQKjTgrIpw+8DAIyJI2kwbR5b2Swfi8/f84gZ/vPHRcN/tlOctiInqxr9e3JBI/ColWiR8oFVtBwK0+E5xZOIu6/uRuFCiiTfMg2ra3vpLYQHPDNe9G/dc+C1KmjWYMoMoRVrcr/tlNZuRH0LZ2o87HbP7JpzpQhM7EaZoj7cf9fdy95N9iJqDsX5DtUvdUyLxMqdGV/J8rh8J3diyJzI3FLXgxZBF5BI9pjE96B21TueFAGhr+hlzwoPLBSee160y2zbJqvOHXwJLm1dT9kPvB6TR9NO37f9AZ8V++hCab7jv0Ch+QQF0vQxHyvEitmC4dw3WYA82hTLS8cp8AyAyX+8rpP73LuQflg/2KbVHZfHgRM+Vnw168kZ/ShKSylNp2GGN8fux3xbh6+26jVOz3GhNRepa2KVqmHnYRA4VaKngTKWnQ==
+X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:satlexmb07.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
+ SFS:(13230040)(376014)(23010399003)(1800799024)(36860700016)(82310400026)(10067099003)(11063799006)(56012099006)(261026121527099003)(261026140227099003)(261028144727099003)(261022105027099003)(261021123027099003)(261021121427099003)(261102123227099003)(261009223027099003)(18002099003)(22082099003);
  DIR:OUT; SFP:1101; 
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?NkhwSmRFTWZVYmlWYU5CK3l2QVhLTjJjUi9jY1pEN05vOE1xdHptQSs0R0Y1?=
- =?utf-8?B?dWV1ejExQjF0SEpIeGRTSzdiRUkzMzRYajg4endhdytRRFp5RXVCTTRiTFMr?=
- =?utf-8?B?VVk1SWtwNGNaS2p6TnNjc2tadWJTTUwzSFp0elZvSkh5eFplOFhxS1RwTEpx?=
- =?utf-8?B?akxqZDIvV0RoSGtaR2s4MSs4OWpCbGhEeVRGZUJCR1VqODZBWHdQbnZlcjQv?=
- =?utf-8?B?QW0vSFlsK0hWNERDdlF2SG55N1NkTTQ0RjMzTVZ0VEpabWF6WUVMdWwwNVNF?=
- =?utf-8?B?MVBjdzZhbzhSaUVDY3RHSmR5cVAyYjZCN2lZZWlqNzk5WUNhMjZGbGJMZDJm?=
- =?utf-8?B?bitJRWpXUytSTm81MHpNTWRtcXptOStkbm45WTNMWk9nZ011MEJFRWJmT1pM?=
- =?utf-8?B?bDk4MFA0VEtoWCszMVYxUU5BdVhDMjJvWm9CMFN3aDBwcUFJWUFJVzVMeUZO?=
- =?utf-8?B?SnEweVRrMFdRclV2NGJOK3RpRTZhZTRTY29MaTdHckdPZDhVWWlSMnNGdjBx?=
- =?utf-8?B?clRQaEFub3FkOFdxVUhTY1R1eDkzV2VqV25IVkl5bmF3djZJZWcra0tFNS9Y?=
- =?utf-8?B?T0ZCNk0wWjZ5dFhQSkhCTXNSQkZoWFYvOXpDbzQwaU1PVW5GOXhFc1dVdDJR?=
- =?utf-8?B?ei8zRUVmV3RIMkk0NG5FS0EwdVlvSUJvSGxmT2RHeFQ0Szc2WGEwdCsrZnhG?=
- =?utf-8?B?Sitjb1BKN0R1TzIzNEh6L2E0Qjd2WlRmQ2R6OHpSclZtNGJrL213MEl3azJm?=
- =?utf-8?B?aWpkVUhVdGFUVDByRkp5TWFHT2FmNFh2dnM1dGlueUFJRFA3U0ltbU9mbkgy?=
- =?utf-8?B?Q2xOczRkbUlSWUFzVk5aWWJaYllFNStLajFFcVV2RFlpRWc0TlRoeHJxbHVF?=
- =?utf-8?B?d2VCZ1BOQjhNdmZ1Vnd1SGxMTFdoQVhZNW5hT1hRemhYRWtUYjdvWDd5cFE0?=
- =?utf-8?B?UFVMaWlsaWMzbVU0NGFza21TWmpZMWVtRnoxYnNJaGUraEtFSC9MYmRiR1p6?=
- =?utf-8?B?TDhCeUltUU9mTHVBWUcxVWhYb3d3R2RWRDBxdzFNMTN5NFpFRDhic1hXM1NM?=
- =?utf-8?B?bWEvTitNV2h0TUJkQTJ3UElXck5xNnY0V0MwYlZXcWFXNVgyc2p3T3RNUXZ4?=
- =?utf-8?B?L3dxalp4S3gxTVZEZ0I2cVR0VTkvdGJIazd2WXBLZ0cwUU1WNTdxTmZKWjJz?=
- =?utf-8?B?bTFHWDV1RG1SYkM3akpyN1FjSDUrZHBSclYxSEw4bktNNmg5YWhJWmVuN1Fv?=
- =?utf-8?B?dW5ZNHU0a09vNWkzbktKcUxzalNBR1c5VVRiZGprOXdqenFBdEs0Z3NQS1Rr?=
- =?utf-8?B?L2hjTVZEM3dyQ2l0SE5YQUFJYkk5cXZYRXdudmVYKyt0dnVqeEp4RDVxUlky?=
- =?utf-8?B?YTdvTWxjd3pMNkpnRzA0WFNjeCtsUThhLytyTytxY3NsdzlacGxOT2lneloy?=
- =?utf-8?B?aWNrdGRIZmNJcXdVOVcvbWJRZjc0bysxbkNKamhiMDFXKy9ILy9TaHduVnpG?=
- =?utf-8?B?dTNoTWJDcis3WmFUYkRaOU1DMXNKS1BRb2wyZytTRnBOWmc2UWxVbjUvd0Yx?=
- =?utf-8?B?QkU5WHVnWi9JQ2FyYTZveWo4cVBNdCtCejNCaE0yVnY2WGc5SUE3OVdSQzJw?=
- =?utf-8?B?WGdOaVVoZVFIeFFLOHBtSWwyRk9nNlJTWEp3aTBjckhqY0U3SCtzTDQ2M3FO?=
- =?utf-8?B?NDFmZ2FpcjJQZlVIYVZjd2FUZ1RQdXp6cit3ZzBLSjd5TEttTDlsanVmbWIy?=
- =?utf-8?B?SjVaK0NlYWFLTVppYkF0SlBHMEhzQVRZTTJHTEtXZ3l1ZjNvcjYxWVErSlZa?=
- =?utf-8?B?VGJHQURtVmF3TUJNR1MvekFoV0VmOWU0Tjdpa0gwRGpsVGdJUVNlSWJyNC91?=
- =?utf-8?B?NXpicS9pc08yNGVZaVQ4WEZvVHcvUFdxY2F4VFhzNzFuYkNJcWtpVUZ5Q1J6?=
- =?utf-8?B?eWlTY0JnL3VXSDQwdXk2YUlMd0lHTStPc0VpOFVKNytFa3hxZzJuWC94eVdm?=
- =?utf-8?B?Mm5OOWlQdm9sVFdabXZnRXpmUGh0ZFhEUER1cUhCQVVjckhwcEprOUVjQjFj?=
- =?utf-8?B?SSs5b1V6d0pZQlZqSGh0cEVFUWNUYmprSU5pR2k5RVN3Qyt4NFY1R3IraldD?=
- =?utf-8?B?Z3ZEVFRpTEFJQWRaVFFJQXlZMFV2eHZObnBOOHdEWm1BdVlBMUtHVmZDTG11?=
- =?utf-8?B?NWpmQ3U4VS96U2pGaGJuTEwxcXBHdWRTRTMrS0hwUlVnNWl5Q2FLQ3h6NEcx?=
- =?utf-8?B?OURFMXEyMVNWQTBsTGNWSU5mOENoaTNNOWZIRXhRa0hQNWl2NzI5RHlIbHJO?=
- =?utf-8?Q?C2LaC6UVyr+7P3f9m9?=
+X-MS-Exchange-AntiSpam-MessageData-0: fVSePWkxPlyS3oHTEsAtBmYfGEpeyxqH94pvKL8Ue0MpqBQkRSbHRkf4BVZKEX59uezO4nt4MmIEA6ULt9lFksk65RRSNW0kkbmg6V9ttOllQZx6T5yXC1gz1b4+bjvBOLs7ZbkHxxxkHHAu8M4hxhMj75lkrtvb0UDsDRuMvrKiJSBoK+UKokLMm+sYnNxddZXeI6Kz6nWQRbQmYQk80YAcmrm1/zYZINO/awdS/GVkj0alJE1r2ZhxzOLfbXVMEcYyFuLz/lMrxH5p2/lHZfGfC4SI/ean0OKpIZqzxuKYpMMKyn18/qL69CDzXHyxf6f9cO46O9FGYCgkIW9+n1QGvVxIG/wxe/Q8U+6yakP1AkFkZUHfniFI/5hwLixba9MAI+B44iqgA0HG1vmqXkOvJWDmQ4+s3RLj/i7PuqsVzzzlcFQIMpXQTT1zHW6E
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: d7e7071f-ce8d-42d9-a252-08df43f98dc2
-X-MS-Exchange-CrossTenant-AuthSource: PH7PR12MB5685.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 16 Nov 2026 15:52:01.6662 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 16 Nov 2026 16:11:15.8163 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 68cf00ce-a266-4757-b0e8-08df43fc3ddc
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: waA/3lS9d9VVasydbCt2S+29Igo+X04osKTot6VuJqgpOPT7mmMt7dRtqR5T0nib
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SN7PR12MB7787
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
+ Helo=[satlexmb07.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource: LV8PEPF0000005C.namprd02.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: CH4PR12MB088503
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -148,121 +108,416 @@ List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-22.3 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
+X-Spam-Status: No, score=-18.8 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
 	DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
-	INCLUDES_CR_TRAILER,INCLUDES_PATCH,MAILING_LIST_MULTI,
-	MENTIONS_GIT_HOSTING,SPF_HELO_NONE,SPF_PASS,USER_AGENT_SANE_1
-	autolearn=unavailable autolearn_force=no version=4.0.1
+	INCLUDES_CR_TRAILER,INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,
+	SPF_PASS,USER_AGENT_GIT autolearn=ham autolearn_force=no version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
+__alloc_range_bias() walks the block tree from the roots and visits
+every split block overlapping [start, end) until it finds a suitable
+free block, so a range-restricted allocation costs time linear in the
+number of live allocations in the range. When both clear and dirty
+space exist, a request that the strict pass cannot serve walks the
+range twice.
 
+amdgpu pays this on every VRAM allocation when memory is partitioned
+(NPS2/NPS4): each BO, including the page-table BOs created when memory
+is mapped, is restricted to its partition's range, and KFD requests
+cleared VRAM. On MI300X in CPX/NPS4 the compute partitions that share a
+memory partition also share the VRAM manager lock, so the walk is
+serialised across processes. hipMalloc latency grows linearly with the
+number of live allocations, and vLLM piecewise graph capture slows down
+with every captured graph.
 
-On 11/12/26 23:09, David Hildenbrand (Arm) wrote:
-> GUP rejects VM_IO and VM_PFNMAP mappings early. __access_remote_vm() then
-> falls back to vm_ops->access without checking VMA permissions and without
-> limiting the request to the VMA size.
-> 
-> Consequently, /proc/<pid>/mem can bypass protections even without
-> FOLL_FORCE, or cross into another mapping without checking its
-> permissions.
-> 
-> Check VMA permissions before calling ->access and limit each request to
-> the current VMA. Implement similar access permission checks as GUP,
-> however:
->  (1) Reject writes to CoW mappings because the callbacks access backing
->      memory directly and cannot handle CoW.
->  (2) Allow forced writes to non-CoW mappings with VM_MAYWRITE.
-> 
-> This intentionally breaks forced writes through legacy amdgpu PROT_NONE,
-> MAP_PRIVATE debugger mappings. The workaround in commit fa5239f2af98
-> ("drm/amdgpu: workaround failed COW checks for Thunk VMAs") cleared
-> VM_MAYWRITE to avoid CoW, but debugger writes still succeeded by
-> exploiting the missing access-permission checks fixed here. Reads remain
-> supported. Userspace must use MAP_SHARED instead; ROCm 5.5.0, released
-> in May 2023, already does so.
-> 
-> Link: https://github.com/ROCm/ROCT-Thunk-Interface/commit/fea44fab6e84eda52fcf6b419b35600c18f4c022
-> Fixes: 272ddc8b3735 ("proc: don't use FOLL_FORCE for reading cmdline and environment")
-> Cc: stable@vger.kernel.org
-> Cc: Felix Kuehling <Felix.Kuehling@amd.com>
-> Cc: Christian König <christian.koenig@amd.com>
-> Cc: Simona Vetter <simona@ffwll.ch>
-> Reported-by: Chris Mason <mason@kernel.org>
-> Signed-off-by: David Hildenbrand (Arm) <david@kernel.org>
-> ---
->  mm/memory.c | 25 +++++++++++++++++++++++--
->  1 file changed, 23 insertions(+), 2 deletions(-)
-> 
-> diff --git a/mm/memory.c b/mm/memory.c
-> index d4370c1b331c9..9872f289c1e49 100644
-> --- a/mm/memory.c
-> +++ b/mm/memory.c
-> @@ -7362,6 +7362,7 @@ EXPORT_SYMBOL_GPL(generic_access_phys);
->  static int __access_remote_vm(struct mm_struct *mm, unsigned long addr,
->  			      void *buf, int len, unsigned int gup_flags)
->  {
-> +	const bool force = gup_flags & FOLL_FORCE;
->  	void *old_buf = buf;
->  	int write = gup_flags & FOLL_WRITE;
->  
-> @@ -7401,15 +7402,35 @@ static int __access_remote_vm(struct mm_struct *mm, unsigned long addr,
->  			if (gup_flags & FOLL_ANON)
->  				break;
->  
-> +			if (write) {
+The free trees are sorted by offset, so find the block there instead.
+For each order from the requested one up, look up the highest free
+block that can hold the request, then split the highest of them down to
+the requested order. The strict pass only takes blocks wholly inside
+the range whose class suits the request: subtree_block_state lets a
+clear request skip subtrees without a clear or mixed block, and a new
+subtree_has_dirty augment lets a dirty request skip subtrees that hold
+only clear blocks. The fallback pass takes the highest block of either
+class and may split one that straddles the range edge. Each lookup is
+O(log n) and the walk is gone.
 
-> +				if (!vma_test(vma, VMA_MAYWRITE_BIT))
-> +					break;
-> +				if (!vma_test(vma, VMA_WRITE_BIT) && !force)
-> +					break;
+Placement is unchanged. A seeded random workload of 42218 allocations
+mixing range, clear and top-down requests and cleared and dirty frees
+places every block at the same offset, order and clear state as the
+walk.
 
-I might be wrong but IIRC that was brought up before and was rejected.
+Filling 1 GiB of a 4 GiB manager with 64 KiB range-biased allocations
+that request cleared memory takes 1103 ms before, 2 ms after (KUnit,
+UML). With 8192 free cleared 64 KiB blocks interleaved with allocated
+ones in the range, 4096 dirty range allocations take 541 to 567 ms
+before and 0 ms after, and 4096 cleared ones 106 to 110 ms before and
+0 ms after.
 
-We even had a bug report for AMDGPU from a security researcher claiming that you could circumvent security checks using vma->vm_ops->access() which turned out to be complete nonsense after spending tons of time investigating it.
+On MI300X in CPX/NPS4, with 8000 live 2 MiB hipMalloc allocations on
+one partition, the median latency of the last 800 over the first 800 is
+1.56x and 7.97x before and 0.52x and 1.06x after (two runs each; the
+first run after loading the driver starts slow). vLLM piecewise graph
+capture with tensor parallelism over all 64 partitions stays at 4 to 6 s
+per graph for all 51 graphs.
 
-The technical background is that there are applications which runtime generate shader code which is then protected by making the VMA read only. But the debugger is still allowed to write to it using vma->vm_ops->access().
+Cc: Matthew Auld <matthew.auld@intel.com>
+Cc: Arunpravin Paneer Selvam <Arunpravin.PaneerSelvam@amd.com>
+Signed-off-by: William Palacek <William.Palacek@amd.com>
+---
 
-That behavior is ok because drivers specific and drivers have checks in place if their backing store is read only or not.
+Notes:
+    v3:
+    - rebased onto the merged clear/dirty guard (cb0a63f0c96e) (Arun)
+    - take Arun's free-tree lookup and drop the walk instead of narrowing it
+      (Arun)
+    - strict pass O(log n) for both classes: subtree_block_state for clear
+      requests, new subtree_has_dirty augment for dirty ones
+    - placement now matches the walk exactly, including the guard
+    
+    v2:
+    - rebased onto drm-misc-next (single free tree) (Arun)
+    - take the highest contained block, keeping top-down placement (Arun)
 
-For an example see this code here: https://elixir.bootlin.com/linux/v7.3.1/source/drivers/gpu/drm/i915/gem/i915_gem_ttm.c#L1163
+ drivers/gpu/buddy.c       | 214 +++++++++++++++++++++++++-------------
+ include/linux/gpu_buddy.h |   1 +
+ 2 files changed, 145 insertions(+), 70 deletions(-)
 
-So if you do this here you might break intentional uAPI.
-
-> +				/*
-> +				 * In contrast to GUP, we historically allowed
-> +				 * FOLL_FORCE write access to non-CoW mappings.
-> +				 * However, we must always reject CoW mappings
-> +				 * as we cannot CoW here.
-> +				 */
-> +				if (vma_is_cow_mapping(vma))
-> +					break;
-> +			} else if (!vma_test(vma, VMA_READ_BIT)) {
-> +				if (!force || !vma_test(vma, VMA_MAYREAD_BIT))
-> +					break;
-> +			}
-> +
->  			/*
->  			 * Check if this is a VM_IO | VM_PFNMAP VMA, which
->  			 * we can access using slightly different code.
->  			 */
->  			bytes = 0;
->  #ifdef CONFIG_HAVE_IOREMAP_PROT
-> -			if (vma->vm_ops && vma->vm_ops->access)
-> +			if (vma->vm_ops && vma->vm_ops->access) {
-> +				bytes = min_t(unsigned long, len, vma->vm_end - addr);
-
-Well that check looks totally reasonable to me.
-
-Regards,
-Christian.
-
->  				bytes = vma->vm_ops->access(vma, addr, buf,
-> -							    len, write);
-> +							    bytes, write);
-> +			}
->  #endif
->  			if (bytes <= 0)
->  				break;
-> 
+diff --git a/drivers/gpu/buddy.c b/drivers/gpu/buddy.c
+index e7d2212bcec9..baf17700ffba 100644
+--- a/drivers/gpu/buddy.c
++++ b/drivers/gpu/buddy.c
+@@ -62,6 +62,8 @@ static struct kmem_cache *slab_extents;
+  *     of any block in the subtree, maintained as a max augment. A value of
+  *     >= MIXED means a clear-or-mixed block exists; == CLEAR means a
+  *     fully-clear block exists.
++ *   - subtree_has_dirty: some block in the subtree is not fully clear,
++ *     so range allocations can skip all-clear subtrees for dirty requests.
+  *
+  * Block classes
+  * -------------
+@@ -510,9 +512,11 @@ static inline void gpu_buddy_augment_compute(struct gpu_buddy_block *block)
+ 	struct gpu_buddy_block *right;
+ 	struct gpu_buddy_block *left;
+ 	unsigned int max_align;
++	bool has_dirty;
+ 
+ 	max_align = gpu_buddy_block_offset_alignment(block);
+ 	block_state = gpu_block_cached_state(block);
++	has_dirty = block_state != GPU_BLOCK_CLEAR;
+ 
+ 	left = rb_entry_safe(block->rb.rb_left, struct gpu_buddy_block, rb);
+ 	if (left) {
+@@ -520,6 +524,7 @@ static inline void gpu_buddy_augment_compute(struct gpu_buddy_block *block)
+ 			max_align = left->subtree_max_alignment;
+ 
+ 		block_state = max(block_state, left->subtree_block_state);
++		has_dirty |= left->subtree_has_dirty;
+ 	}
+ 
+ 	right = rb_entry_safe(block->rb.rb_right, struct gpu_buddy_block, rb);
+@@ -528,10 +533,12 @@ static inline void gpu_buddy_augment_compute(struct gpu_buddy_block *block)
+ 			max_align = right->subtree_max_alignment;
+ 
+ 		block_state = max(block_state, right->subtree_block_state);
++		has_dirty |= right->subtree_has_dirty;
+ 	}
+ 
+ 	block->subtree_max_alignment = max_align;
+ 	block->subtree_block_state = block_state;
++	block->subtree_has_dirty = has_dirty;
+ }
+ 
+ static void gpu_buddy_augment_propagate(struct rb_node *rb, struct rb_node *stop)
+@@ -540,14 +547,17 @@ static void gpu_buddy_augment_propagate(struct rb_node *rb, struct rb_node *stop
+ 		struct gpu_buddy_block *block;
+ 		unsigned int old_align;
+ 		enum gpu_block_state old_block_state;
++		bool old_has_dirty;
+ 
+ 		block = rb_entry(rb, struct gpu_buddy_block, rb);
+ 		old_align = block->subtree_max_alignment;
+ 		old_block_state = block->subtree_block_state;
++		old_has_dirty = block->subtree_has_dirty;
+ 
+ 		gpu_buddy_augment_compute(block);
+ 		if (block->subtree_max_alignment == old_align &&
+-		    block->subtree_block_state == old_block_state)
++		    block->subtree_block_state == old_block_state &&
++		    block->subtree_has_dirty == old_has_dirty)
+ 			break;
+ 
+ 		rb = rb_parent(&block->rb);
+@@ -564,6 +574,7 @@ static void gpu_buddy_augment_copy(struct rb_node *rb_old, struct rb_node *rb_ne
+ 
+ 	new->subtree_max_alignment = old->subtree_max_alignment;
+ 	new->subtree_block_state = old->subtree_block_state;
++	new->subtree_has_dirty = old->subtree_has_dirty;
+ }
+ 
+ static void gpu_buddy_augment_rotate(struct rb_node *rb_old, struct rb_node *rb_new)
+@@ -576,6 +587,7 @@ static void gpu_buddy_augment_rotate(struct rb_node *rb_old, struct rb_node *rb_
+ 
+ 	new->subtree_max_alignment = old->subtree_max_alignment;
+ 	new->subtree_block_state = old->subtree_block_state;
++	new->subtree_has_dirty = old->subtree_has_dirty;
+ 
+ 	gpu_buddy_augment_compute(old);
+ }
+@@ -695,6 +707,8 @@ static void rbtree_insert(struct gpu_buddy *mm,
+ 			node->subtree_max_alignment = block_alignment;
+ 		if (node->subtree_block_state < block_state)
+ 			node->subtree_block_state = block_state;
++		if (block_state != GPU_BLOCK_CLEAR)
++			node->subtree_has_dirty = true;
+ 
+ 		if (gpu_buddy_block_offset(block) < gpu_buddy_block_offset(node))
+ 			link = &parent->rb_left;
+@@ -704,6 +718,7 @@ static void rbtree_insert(struct gpu_buddy *mm,
+ 
+ 	block->subtree_max_alignment = block_alignment;
+ 	block->subtree_block_state = block_state;
++	block->subtree_has_dirty = block_state != GPU_BLOCK_CLEAR;
+ 	rb_link_node(&block->rb, parent, link);
+ 	rb_insert_augmented(&block->rb, root, &gpu_buddy_augment_cb);
+ }
+@@ -1247,96 +1262,155 @@ static bool block_incompatible(struct gpu_buddy_block *block, unsigned int flags
+ 			     gpu_buddy_block_is_clear(block);
+ }
+ 
+-static struct gpu_buddy_block *
+-__alloc_range_bias(struct gpu_buddy *mm,
+-		   u64 start, u64 end,
+-		   unsigned int order,
+-		   unsigned long flags,
+-		   bool fallback)
++/* Does the subtree at @node hold a block the strict pass may take? */
++static bool range_subtree_ok(struct rb_node *node, unsigned long flags)
+ {
+-	u64 req_size = mm->chunk_size << order;
+-	struct gpu_buddy_block *block;
+-	LIST_HEAD(dfs);
+-	int err;
+-	int i;
++	struct gpu_buddy_block *block = rbtree_get_free_block(node);
+ 
+-	end = end - 1;
++	if (!block)
++		return false;
++	if (flags & GPU_BUDDY_CLEAR_ALLOCATION)
++		return block->subtree_block_state >= GPU_BLOCK_MIXED;
++	return block->subtree_has_dirty;
++}
+ 
+-	/*
+-	 * This range-constrained search hands back the highest/right-most
+-	 * address that satisfies the request: the roots are seeded high-to-low
+-	 * and the right (higher-address) child is descended first, making
+-	 * top-down the default placement here.
+-	 */
+-	for (i = mm->n_roots - 1; i >= 0; --i)
+-		list_add_tail(&mm->roots[i]->tmp_link, &dfs);
++/*
++ * Highest-offset free block in @root with offset < @limit that the strict
++ * pass may take (any block when @fallback). Subtrees without such a block
++ * are skipped through the augments, so this is O(log n) per call.
++ */
++static struct gpu_buddy_block *
++rbtree_last_range_block(struct rb_root *root, u64 limit,
++			unsigned long flags, bool fallback)
++{
++	struct rb_node *node = root->rb_node;
++	struct rb_node *prev = NULL;
+ 
+-	do {
+-		u64 block_start;
+-		u64 block_end;
++	while (node) {
++		if (gpu_buddy_block_offset(rbtree_get_free_block(node)) < limit) {
++			prev = node;
++			node = node->rb_right;
++		} else {
++			node = node->rb_left;
++		}
++	}
+ 
+-		block = list_first_entry_or_null(&dfs,
+-						 struct gpu_buddy_block,
+-						 tmp_link);
+-		if (!block)
+-			break;
++	for (node = prev; node; node = rb_parent(node)) {
++		if (fallback ||
++		    !block_incompatible(rbtree_get_free_block(node), flags))
++			return rbtree_get_free_block(node);
+ 
+-		list_del(&block->tmp_link);
++		if (range_subtree_ok(node->rb_left, flags)) {
++			/* The left subtree holds one: take its highest. */
++			node = node->rb_left;
++			while (node) {
++				struct gpu_buddy_block *block = rbtree_get_free_block(node);
+ 
+-		if (gpu_buddy_block_order(block) < order)
+-			continue;
++				if (range_subtree_ok(node->rb_right, flags)) {
++					node = node->rb_right;
++					continue;
++				}
++				if (!block_incompatible(block, flags))
++					return block;
++				node = node->rb_left;
++			}
++			return NULL;
++		}
+ 
+-		block_start = gpu_buddy_block_offset(block);
+-		block_end = block_start + gpu_buddy_block_size(mm, block) - 1;
++		/* Climb to the next lower ancestor. */
++		while (rb_parent(node) && node == rb_parent(node)->rb_left)
++			node = rb_parent(node);
++	}
+ 
+-		if (!overlaps(start, end, block_start, block_end))
+-			continue;
++	return NULL;
++}
+ 
+-		if (gpu_buddy_block_is_allocated(block))
+-			continue;
++/*
++ * Return the order-@order block at the highest @req_size-aligned offset in
++ * [@start, @end) that lies inside a free block, splitting as needed. The
++ * strict pass only takes free blocks wholly inside the range whose class
++ * suits @flags; splitting a block that straddles the range edge is left to
++ * the fallback pass, which takes either class.
++ */
++static struct gpu_buddy_block *
++__alloc_range_bias(struct gpu_buddy *mm,
++		   u64 start, u64 end,
++		   unsigned int order,
++		   unsigned long flags,
++		   bool fallback)
++{
++	u64 req_size = mm->chunk_size << order;
++	struct gpu_buddy_block *block = NULL;
++	u64 best = 0;
++	unsigned int i;
++	int err;
+ 
+-		if (block_start < start || block_end > end) {
+-			u64 adjusted_start = max(block_start, start);
+-			u64 adjusted_end = min(block_end, end);
++	for (i = order; i <= mm->max_order; i++) {
++		struct rb_root *root = &mm->free_tree[i];
++		u64 size = mm->chunk_size << i;
++		struct gpu_buddy_block *found;
++		u64 offset = 0;
+ 
+-			if (round_down(adjusted_end + 1, req_size) <=
+-			    round_up(adjusted_start, req_size))
+-				continue;
++		if (!fallback) {
++			if (end - start < size)
++				break;
+ 
+-			/*
+-			 * Strict pass: don't split a partially-overlapping free
+-			 * block; rejecting its child would strand the split. Let
+-			 * the fallback pass consume it (either class accepted).
+-			 */
+-			if (!fallback && gpu_buddy_block_is_free(block))
++			found = rbtree_last_range_block(root, end - size + 1,
++							flags, false);
++			if (!found || gpu_buddy_block_offset(found) < start)
+ 				continue;
+-		}
+-
+-		if (!fallback && block_incompatible(block, flags))
+-			continue;
+ 
+-		if (contains(start, end, block_start, block_end) &&
+-		    order == gpu_buddy_block_order(block)) {
+-			/*
+-			 * Find the free block within the range.
+-			 */
+-			if (gpu_buddy_block_is_free(block))
+-				return block;
++			offset = gpu_buddy_block_offset(found) + size - req_size;
++		} else {
++			/* At most the blocks straddling @end and @start miss. */
++			for (found = rbtree_last_range_block(root, end, flags, true);
++			     found;
++			     found = rbtree_get_free_block(rb_prev(&found->rb))) {
++				u64 lo = max(gpu_buddy_block_offset(found), start);
++				u64 hi = min(gpu_buddy_block_offset(found) + size, end);
++
++				if (hi <= start) {
++					found = NULL;
++					break;
++				}
+ 
+-			continue;
++				if (hi >= lo + req_size) {
++					offset = round_down(hi - req_size, req_size);
++					if (offset >= lo)
++						break;
++				}
++			}
++			if (!found)
++				continue;
+ 		}
+ 
+-		if (!gpu_buddy_block_is_split(block)) {
+-			err = split_block(mm, block);
+-			if (unlikely(err))
+-				goto err_undo;
++		if (!block || offset > best) {
++			block = found;
++			best = offset;
+ 		}
++	}
+ 
+-		list_add(&block->left->tmp_link, &dfs);
+-		list_add(&block->right->tmp_link, &dfs);
+-	} while (1);
++	if (!block)
++		return ERR_PTR(-ENOSPC);
++
++	while (gpu_buddy_block_order(block) > order) {
++		err = split_block(mm, block);
++		if (unlikely(err))
++			goto err_undo;
+ 
+-	return ERR_PTR(-ENOSPC);
++		/*
++		 * Fallback: the child holding @best. Strict: the higher child
++		 * unless its class does not suit, as the old walk did.
++		 */
++		if (fallback)
++			block = best >= gpu_buddy_block_offset(block->right) ?
++				block->right : block->left;
++		else
++			block = block_incompatible(block->right, flags) ?
++				block->left : block->right;
++	}
++
++	return block;
+ 
+ err_undo:
+ 	/*
+diff --git a/include/linux/gpu_buddy.h b/include/linux/gpu_buddy.h
+index ddc4eca84175..6abc66125935 100644
+--- a/include/linux/gpu_buddy.h
++++ b/include/linux/gpu_buddy.h
+@@ -141,6 +141,7 @@ struct gpu_buddy_block {
+ 	unsigned int subtree_max_alignment;
+ 	struct list_head tmp_link;
+ 	bool has_clear;
++	bool subtree_has_dirty;
+ };
+ 
+ /* Order-zero must be at least SZ_4K */
+-- 
+2.43.0
 
