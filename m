@@ -2,51 +2,82 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 11693606A32F
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DC3E0606A33E
 	for <dri-devel@archiver.kernel.org>; Mon, 16 Nov 2026 08:59:01 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kait2en.org header.i=@kait2en.org header.a=rsa-sha256 header.s=dkim header.b=P1au2GoD
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=rWz/TTop
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 0569C10ED0F;
-	Mon, 16 Nov 2026 08:58:49 +0000 (UTC)
-Received: from sirius.syn-flut.de (sirius.syn-flut.de [94.125.25.230])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 4055110E028;
- Sun, 15 Nov 2026 14:34:30 +0000 (UTC)
-Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon)
- with ESMTPSA id 87A57140EE9; Sun, 15 Nov 2026 15:34:23 +0100 (CET)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kait2en.org; s=dkim;
- t=1794753267; h=from:subject:date:message-id:to:cc:mime-version:content-type:
- content-transfer-encoding:in-reply-to:references;
- bh=ZFyZN1FF15cYS5kE09kbPO5/SQOe7sCHNmPWADa0IL0=;
- b=P1au2GoDDwKBl0HsjeUAQxpK7goIWcXviCjq6dEKG1j72D5DOMrGldMKQxwKy0wzgibM4F
- hFdNo8yi0zNSnkRBIvAQxFHbY5YknAc/ENEU2TMAudgFHadxLrvs7htt7bMnyDDCZd4Dfn
- LE7cosNnNyi+hFKXFkzNXMgli+vEdjKKhKkHRKh6MKavddd7c1xWh6BhFLWDyKklRcamNp
- Z/eTejpSGpI0VIFosX7lSQs6mOXvQW5MFAovia0wzCZd0KjZiOuLkpYLEC5Ro3GSSv7v5y
- vCmPSFSYD5CqscWG4B7Z6t+7eafMdtumPowUgd/N3ZZOFs8+Nvw+6MjvFVyFaQ==
-Message-ID: <b58095131bb7a588aafd5b5b0a8cd5f754c21971.camel@kait2en.org>
-Subject: Re: [PATCH RESEND] drm/i915/psr: enable PSR on Apple T2 eDP panels
-From: Alexander Fischer <alexander.fischer@kait2en.org>
-To: Ville =?ISO-8859-1?Q?Syrj=E4l=E4?= <ville.syrjala@linux.intel.com>, 
- Aditya Garg <aditya.garg@linux.dev>
-Cc: Lukas Wunner <lukas@wunner.de>, Jani Nikula
- <jani.nikula@linux.intel.com>,  Rodrigo Vivi <rodrigo.vivi@intel.com>,
- Joonas Lahtinen <joonas.lahtinen@linux.intel.com>, Tvrtko Ursulin	
- <tursulin@ursulin.net>, David Airlie <airlied@gmail.com>, Simona Vetter	
- <simona@ffwll.ch>, =?ISO-8859-1?Q?Jos=E9?= Roberto de Souza	
- <jose.souza@intel.com>, intel-gfx@lists.freedesktop.org, 
- intel-xe@lists.freedesktop.org, dri-devel@lists.freedesktop.org, 
- linux-kernel@vger.kernel.org, Andre Eikmeyer <dev@deq.rocks>, Yossef Osman	
- <yossef.osman@proton.me>
-Date: Sun, 15 Nov 2026 15:34:22 +0100
-In-Reply-To: <avcpZt3CkBJvz49o@intel.com>
-References: <20261112165956.61633-1-aditya.garg@linux.dev>
- <avcpZt3CkBJvz49o@intel.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-User-Agent: Evolution 3.62.1 (by Flathub.org) 
+	by gabe.freedesktop.org (Postfix) with ESMTP id E7C0410ED00;
+	Mon, 16 Nov 2026 08:58:48 +0000 (UTC)
+Received: from mail-wm1-f50.google.com (mail-wm1-f50.google.com
+ [209.85.128.50])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id F15EC10E0C0
+ for <dri-devel@lists.freedesktop.org>; Mon, 16 Nov 2026 07:02:16 +0000 (UTC)
+Received: by mail-wm1-f50.google.com with SMTP id
+ 5b1f17b1804b1-4ac95761c85so18085415e9.2
+ for <dri-devel@lists.freedesktop.org>; Sun, 15 Nov 2026 23:02:16 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20260707; t=1794812535; x=1795417335; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:content-type:mime-version:message-id:date
+ :subject:cc:to:from:from:to:cc:subject:date:message-id:reply-to
+ :content-type; bh=Oar97+R2dcLaRVk0nmpwc72qymMp7EMYfC2wL31fOwU=;
+ b=rWz/TTop2yT+uXTtkDD2w8SMlDshncHVRIhpxPUT0I+BjlDWN4sPIcq+LXMCW+wF8S
+ T9vBGzgQ5moEx2e3fp3dHsJT5c/pz8PwXO9JLqQ5nXQaytr3GtNffv6eE9c0VAPakT5S
+ ApwQ2k9UT1PQv4Sb9uJMePMJI39of1o9og9O04cGYkB5sP51YLEU/T6AwVSaK6B9fYrX
+ SCAj2c8LxbpmeoL7qiQ5WH7JF70N3alWM/9AbRiFwwaY7mnCeX9xmjge7rEFYLAUCoWj
+ 1T86TVi70bRlkQPGZCLQ6ikClGzgJj2wxnsaAU+JEWVWH9eGPr5BkmXo7Zet+GbEKK22
+ bMmw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20260707; t=1794812535; x=1795417335;
+ h=content-transfer-encoding:content-type:mime-version:message-id:date
+ :subject:cc:to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject
+ :date:message-id:reply-to:content-type;
+ bh=Oar97+R2dcLaRVk0nmpwc72qymMp7EMYfC2wL31fOwU=;
+ b=lKOuCjDM79mS01zeq89KJT8oQj4/18GERbBahZlpuAlGZA7Q0thXMKmVyuG/3d84vm
+ PnaGsss+i+RQkNY3TV8ZPB0YEx5bfsfoW5N4kZvKcBQxsm0DfdwgibeAVD7EEfAjLwMd
+ 5uezItNxNmd9+TuTB1sqDfMivRI9NxAIYGLOzSog9iHtvRRhlSoV4n+GuBoE42adEMt3
+ bCa7bIZ3i/A2P3Lv1w3uHQVv+CGb4K6elc7Pfint3z41gNCWBe1an98Wu85G4ZXJAD1O
+ OqzmuwrTCIsyruRFPoqG3XXYjVZD5yBm45OnF5TwxTQSmrzj0O8qttrJg0YGV9fDKFyr
+ rWYQ==
+X-Forwarded-Encrypted: i=1;
+ AL+hErHJ8BuotRmSKdmWIgsH1JJbjwlDNIVSiiFpaeUhSM3aQR2iYzRn04e1eNiQ/IXGv8mKwjqDxbCQxm0=@lists.freedesktop.org
+X-Gm-Message-State: APuU4Z+f7MW2CKmrS7VOK8U5l5N3rAX/XijK7gOM1fAnssA9+T78zKpJ
+ SNPtJlivbuquoC9AzEs0RDNFIhjHcHn9JwLiMxRPD44wpPXoVKgx32Ac
+X-Gm-Gg: AYBFou0Wb2EEOoniwrmOP7jnbs3/k+aBQgflspelOwZqhihpVOv1RUp7L63Ou4Vk1na
+ rYNqXL02z1WogdqUW8jEmzSn5o49hiCbeBU21/p+pw4F6KqujyxI8eCYYjyJI9RBIbH7zgGN1Xj
+ P5iPSd960Ocuh48h+ByXjEXEwBLm1M/+/uXo3MCrLvIFA2Hy7UI069/Wcqb806L5iXUgdYgHtVX
+ TXZy2CQwn1na+NksoIFF88l9aIVE1ZavEbTap34uuYnkTwmX8vPN6g4Nur877zgtDlYw0hacuLc
+ oGlXbFHTrMFv68AaHFHPb/bLhPP1DlOFMl2qV29B7FkL4NUQGXsaWGY3y3W+SkT4Vzi7bLaE+st
+ mMdZKCH8edKSfOrABKrOzAy9Cpyba7txAmkMT/rmDzq0jzkD+d4T5rAnQD1pjE1T9s6dOJS7GTS
+ gbQhfLAveCY+O580LyvM+oLPiK5bVz+Gj9xXn7RaMg9fG29OQttJxLwQTX8sxhGO39MO6lL1qvv
+ aomfVrAwy1TtDxuWBJqCaLeJFH0xeh9X9W/P9BzAb+sVLMYWmw03LOjDkmw8Qa3gZOGQeLe/M4m
+ eiEAUjJIeShn
+X-Received: by 2002:a05:600c:4e13:b0:4ba:38a9:85e3 with SMTP id
+ 5b1f17b1804b1-4bb55a47fabmr200763425e9.12.1794812535128; 
+ Sun, 15 Nov 2026 23:02:15 -0800 (PST)
+Received: from dl360p ([130.61.107.245]) by smtp.gmail.com with ESMTPSA id
+ 5b1f17b1804b1-4bb4e2538b9sm558777625e9.1.2026.11.15.23.02.13
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Sun, 15 Nov 2026 23:02:14 -0800 (PST)
+From: =?UTF-8?q?Adil=20H=C3=BCsrev=20Tepe?= <tadilhusrev@gmail.com>
+To: Neil Armstrong <neil.armstrong@linaro.org>,
+ Jessica Zhang <jesszhan0024@gmail.com>, Rob Herring <robh@kernel.org>,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>
+Cc: David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>,
+ Thomas Zimmermann <tzimmermann@suse.de>, dri-devel@lists.freedesktop.org,
+ devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+ =?UTF-8?q?Adil=20H=C3=BCsrev=20Tepe?= <tadilhusrev@gmail.com>
+Subject: [PATCH v1 0/2] drm/panel: add Novatek NT36525 (Samsung Galaxy XCover5)
+Date: Mon, 16 Nov 2026 10:02:10 +0300
+Message-ID: <20261116070212.314228-1-tadilhusrev@gmail.com>
+X-Mailer: git-send-email 2.53.0
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
-X-Last-TLS-Session-Version: TLSv1.3
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 X-Mailman-Approved-At: Mon, 16 Nov 2026 08:58:46 +0000
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -59,45 +90,56 @@ List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-5.8 required=3.0 tests=BAYES_00,DKIM_SIGNED,
-	DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
-	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS autolearn=no
+X-Spam-Status: No, score=-10.8 required=3.0 tests=BAYES_00,DKIM_SIGNED,
+	DKIM_VALID,DKIM_VALID_AU,FREEMAIL_FORGED_FROMDOMAIN,FREEMAIL_FROM,
+	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_PATCH,MAILING_LIST_MULTI,
+	SPF_HELO_NONE,SPF_PASS,USER_AGENT_GIT autolearn=unavailable
 	autolearn_force=no version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-Hi Ville,
+This series adds a DRM panel driver and its DT binding for MIPI-DSI
+video-mode panels based on the Novatek NT36525 controller, as fitted on
+the Samsung Galaxy XCover5 (SM-G525F, Exynos850). The panel is 720x1480,
+uses an active-high reset (RESX), and a DCS init sequence that mirrors
+the stock Samsung bring-up. Backlight goes through drm_panel_of_backlight().
 
-Thanks for reviewing this.
+  Patch 1  dt-bindings (compatible: "samsung,xcover5-nt36525",
+           "novatek,nt36525")
+  Patch 2  the panel driver
 
-> Which source OUI does the Apple driver write there?
+Tested on a Samsung Galaxy XCover5 running 7.4-rc1 plus this series: the
+panel initialises and displays correctly under phosh. checkpatch.pl and
+dt_binding_check are clean (bar the usual new-file MAINTAINERS note; the
+files are covered by the DRM PANEL DRIVERS wildcards).
 
-When I first tried to get PSR working, I also tried writing Apple's
-00:10:fa from i915 before link training. It made no difference. I then
-traced macOS and found the extra writes in this patch. With those
-added, PSR worked, leaving i915's Intel source OUI unchanged.
+Based on v7.4-rc1.
 
-After your question, I read back 0x300-0x302 on the MacBookPro16,2
-under macOS 26.6.1 and got 00 00 00 twice. The same read method
-returned the expected sink identity at 0x400. I haven't captured boot,
-so I can't say whether a different source OUI was set earlier.
+Tool usage
+----------
+This series was developed during XCover5 mainline bring-up with the help
+of an AI coding assistant (Claude Code, Anthropic). The assistant converted
+the vendor init stream to mipi_dsi_dcs_write_seq_multi(), drafted the driver
+skeleton and the DT binding, and drafted these changelogs. I reviewed every
+line, validated the binding (dt_binding_check, yamllint), tested the driver
+on hardware, and take full responsibility for the contribution.
+Prompt summary: "convert the XCover5 NT36525 vendor panel init into a
+mainline drm_panel driver plus DT binding; keep it checkpatch- and
+dt_binding_check-clean; test on the device." Review comments are welcome
+and I will answer them myself.
 
-> Maybe these should include "SOURCE" vs. "SINK" in the name as well.
+Adil Hüsrev Tepe (2):
+  dt-bindings: display: panel: add Novatek NT36525
+  drm/panel: add Novatek NT36525 panel driver
 
-Agreed. I'll use APPLE_SOURCE_PSR_SETUP for 0x321 and APPLE_SINK_PSR_*
-for the other registers, and update the comment.
+ .../display/panel/novatek,nt36525.yaml        |  71 +++
+ drivers/gpu/drm/panel/Kconfig                 |  13 +
+ drivers/gpu/drm/panel/Makefile                |   1 +
+ drivers/gpu/drm/panel/panel-novatek-nt36525.c | 486 ++++++++++++++++++
+ 4 files changed, 571 insertions(+)
+ create mode 100644 Documentation/devicetree/bindings/display/panel/novatek,nt36525.yaml
+ create mode 100644 drivers/gpu/drm/panel/panel-novatek-nt36525.c
 
-> This is some other device on these systems? Can't just match on the
-GPU subsys vendor/device + sink OUI alone?
+-- 
+2.53.0
 
-Yes, 106b:1801 is the separate T2 Bridge Controller. We only check its
-presence to restrict the quirk to T2 systems and retain NO_PSR on older
-untested Macs. The current subsystem device ID is a wildcard.
-
-Specific GPU subsystem vendor/device pairs plus the sink OUI could
-replace this. I chose T2 detection to avoid a per-model list; the five
-tested models are only a subset of what matches. If you prefer explicit
-subsystem IDs, I can collect and verify those for the tested machines.
-
-Best regards,
-Alex
