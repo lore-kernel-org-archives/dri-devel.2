@@ -2,43 +2,44 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 02FF5606A31C
-	for <dri-devel@archiver.kernel.org>; Mon, 16 Nov 2026 01:53:21 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 46A7B606A31C
+	for <dri-devel@archiver.kernel.org>; Mon, 16 Nov 2026 01:55:11 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=kl0tcgKx
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=FEqg9Fu0
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 5ED5A10E167;
-	Mon, 16 Nov 2026 01:53:15 +0000 (UTC)
-Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 59EF410E008;
- Mon, 16 Nov 2026 01:53:09 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 8480C10E719;
+	Mon, 16 Nov 2026 01:55:05 +0000 (UTC)
+Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id C475310E008;
+ Mon, 16 Nov 2026 01:54:59 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by tor.source.kernel.org (Postfix) with ESMTP id 6CB966127B;
- Mon, 16 Nov 2026 01:53:08 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id E256E1F000C5;
- Mon, 16 Nov 2026 01:53:07 +0000 (UTC)
+ by sea.source.kernel.org (Postfix) with ESMTP id 635E441176;
+ Mon, 16 Nov 2026 01:54:59 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0837A1F000C4;
+ Mon, 16 Nov 2026 01:54:58 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1794793988;
- bh=Si78R8jHIv4VFU2XhNXb4GmWVwjU+50D1Od8gb4lvU0=;
+ s=k20260515; t=1794794099;
+ bh=Gs6WglrfEUV40ZWLl9zGfZQD6GQHzIVaT0gH1XLg80A=;
  h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
- b=kl0tcgKxoNp6B3xeICBWh0iLWzv0pvFUtqU+7t7e98MDUUYTP0005Ks928EEiHbAG
- S82cEH2sN6A9fSOxp+eSjdetQR2Dw77I5/VRVIZ1+FIBsbVpvnCqiIFFq9VaiEGW7U
- R7VGk1R3riZiqea09YcY6qVSqatQCVmCTMOFU/q1ACw0KqPoLVf2xPzFVVFBzdGeMA
- zP+VQOt0lXfxAwvvJtBI6rq6KHs/tbLvLKlGr07KcJvOpELBOtovwQ5xlhDFUXz8Vc
- 3/ohLviL3iqTo131eVY5bPc/mKsUf2XU4FHDcmG2BVCJOmh3rKDeZxEVPGEYT6pV/u
- qMNW+mQBInv9Q==
-Message-ID: <sashiko-outbox-216018@kernel.org>
+ b=FEqg9Fu0tr9UStzN62P41d99FSD4vQzHghztttYt/4xp5gH2zOh9k6fhKdM2oPZ3i
+ Fe8fmXM155bRLBtAvvqRq44UeogoSZ1LhduXr/qtGNTnfiUcpBPtj2cUNcsMGM9KeL
+ mQB1vrWUxAZ/TSrGZ8zh+abThK3CL6WUVzBV3zWEG3oKWkssstFK+iC/KAPAETVtKV
+ vUF4W3DgOvwvY6e85c4TgGSO/6c2fhSuZnU5nvflHHczB41r0l7mwCoPQXMTdXuXTM
+ zuYMk8sDpB/JlpLaAWpX5J63uLh1KtqsZbPxkrD+6WgBzdaVKBy+696KqGQIaUKz17
+ FtBZX/aLSBd2w==
+Message-ID: <sashiko-outbox-216019@kernel.org>
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH 2/3] drm/i915/display: Let the drivers free the KMS objects
+Subject: Re: [PATCH 3/3] drm/xe/display: Free the KMS objects on DRM device
+ release
 To: "Baoli Zhang" <baoli.zhang@linux.intel.com>, intel-xe@lists.freedesktop.org,
  intel-gfx@lists.freedesktop.org
 Cc: dri-devel@lists.freedesktop.org
-In-Reply-To: <20261116011504.3910139-3-baoli.zhang@linux.intel.com>
+In-Reply-To: <20261116011504.3910139-4-baoli.zhang@linux.intel.com>
 References: <20261116011504.3910139-1-baoli.zhang@linux.intel.com>
- <20261116011504.3910139-3-baoli.zhang@linux.intel.com>
+ <20261116011504.3910139-4-baoli.zhang@linux.intel.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Mon, 16 Nov 2026 01:53:07 +0000
+Date: Mon, 16 Nov 2026 01:54:58 +0000
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -59,101 +60,57 @@ X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 X-Archived-By: <archiver.kernel.org>
 
-Thank you for your contribution! Sashiko AI review found 2 potential
-issues to consider:
-- [Medium] drm/i915/display: double intel_encoder_remove_all() on Xe
-  probe error
-- [Medium] drm/i915/display: UAF of struct intel_display in
-  intel_crtc_destroy()
+Thank you for your contribution! Sashiko AI review found 1 potential
+issue to consider:
+- [Medium] drm/xe/display: double encoder->remove() on
+  xe_display_init_early() error
 --
 
-commit 4777f76b60cbdafe718dcc54b80e3edb4d081b1c
+commit b715fa7a2b526531416f015bc7f326dd1dd557ca
 Author: Baoli Zhang <baoli.zhang@linux.intel.com>
 
-drm/i915/display: Let the drivers free the KMS objects
+drm/xe/display: Free the KMS objects on DRM device release
 
-This commit moves drm_mode_config_cleanup() out of
-intel_mode_config_cleanup() into a new
-intel_display_driver_mode_config_cleanup() helper and calls it from the
-i915 and xe driver teardown paths after
-intel_display_driver_remove_noirq().
+This commit removes the calls to intel_display_driver_mode_config_cleanup()
+from xe_display_fini_early() and the xe_display_init_early() error path so
+that KMS objects are freed by drmm on DRM device release.
 
-> diff --git a/drivers/gpu/drm/i915/display/intel_display_driver.c b/driver=
-s/gpu/drm/i915/display/intel_display_driver.c
-> index d513cfc881069..62a4d95d78b53 100644
-> --- a/drivers/gpu/drm/i915/display/intel_display_driver.c
-> +++ b/drivers/gpu/drm/i915/display/intel_display_driver.c
-> @@ -160,6 +160,18 @@ static void intel_mode_config_cleanup(struct intel_d=
-isplay *display)
->  {
->  	intel_atomic_global_obj_cleanup(display);
->  	intel_encoder_remove_all(display);
-> +}
-> +
-> +/*
-> + * Free the KMS objects, including the encoders torn down by
-> + * intel_display_driver_remove_noirq(). Userspace can keep referring to =
-them
-> + * until the last reference to the DRM device is gone.
-> + */
-> +void intel_display_driver_mode_config_cleanup(struct intel_display *disp=
-lay)
-> +{
-> +	if (!HAS_DISPLAY(display))
-> +		return;
-> +
->  	drm_mode_config_cleanup(display->drm);
->  }
+> diff --git a/drivers/gpu/drm/xe/display/xe_display.c b/drivers/gpu/drm/xe=
+/display/xe_display.c
+> index 8f02317a62120..639c2f5aeb66f 100644
+> --- a/drivers/gpu/drm/xe/display/xe_display.c
+> +++ b/drivers/gpu/drm/xe/display/xe_display.c
 
-[Severity: Medium]
-Can this cause intel_encoder_remove_all() to run twice on the same
-encoders if intel_display_driver_probe_nogem() fails during
-xe_display_init_early()?
+[ ... ]
 
-When intel_display_driver_probe_nogem() fails after intel_setup_outputs()
-(for example, if intel_dp_tunnel_mgr_init() fails), its err_mode_config
-path calls intel_mode_config_cleanup(), which now runs
-intel_encoder_remove_all() without destroying the encoders via
-drm_mode_config_cleanup().  xe_display_init_early() then jumps to
-err_noirq and calls intel_display_driver_remove_noirq() ->
-intel_mode_config_cleanup() a second time while those encoders are still
-on mode_config.encoder_list.
-
-Running encoder->remove() twice dereferences a NULL dig_port->tc pointer
-in intel_tc_port_cleanup() (which frees and clears dig_port->tc on the
-first call) and double frees intel_dp->aux.name in intel_dp_aux_fini().
-
-> diff --git a/drivers/gpu/drm/i915/i915_driver.c b/drivers/gpu/drm/i915/i9=
-15_driver.c
-> index aeb7b24c81c8b..d29b37ab2833e 100644
-> --- a/drivers/gpu/drm/i915/i915_driver.c
-> +++ b/drivers/gpu/drm/i915/i915_driver.c
-> @@ -906,6 +906,7 @@ int i915_driver_probe(struct pci_dev *pdev, const str=
-uct pci_device_id *ent)
->  	intel_display_driver_remove(display);
->  	intel_irq_uninstall(i915);
+> @@ -111,7 +114,6 @@ int xe_display_init_early(struct xe_device *xe)
+>  	return devm_add_action_or_reset(xe->drm.dev, xe_display_fini_early, xe);
+>  err_noirq:
 >  	intel_display_driver_remove_noirq(display);
-> +	intel_display_driver_mode_config_cleanup(display);
->  	goto out_cleanup_modeset;
->  out_cleanup_irq:
->  	intel_irq_uninstall(i915);
+> -	intel_display_driver_mode_config_cleanup(display);
+>  	intel_display_power_cleanup(display);
+> =20
+>  	return err;
 
 [Severity: Medium]
-Does the out_cleanup_irq error path in i915_driver_probe() leave CRTCs
-referencing a freed struct intel_display when
-intel_display_driver_probe_nogem() fails?
+Can the err_noirq path in xe_display_init_early() invoke encoder->remove()
+twice on each encoder when intel_display_driver_probe_nogem() fails?
 
-If intel_display_driver_probe_nogem() fails after intel_crtc_init() has
-linked a CRTC onto display->pipe_list, its err_mode_config path calls
-intel_mode_config_cleanup(), which no longer calls
-drm_mode_config_cleanup().  i915_driver_probe() then jumps to
-out_cleanup_irq, bypassing intel_display_driver_mode_config_cleanup(),
-and frees display in i915_driver_late_release() ->
-intel_display_device_remove().  When drmm later runs
-drm_mode_config_cleanup() -> intel_crtc_destroy(),
-list_del(&crtc->pipe_head) writes to display->pipe_list inside the
-already-freed struct intel_display.
+In intel_display_driver_probe_nogem(), if intel_dp_tunnel_mgr_init() fails
+after intel_setup_outputs(), the err_mode_config path calls
+intel_mode_config_cleanup() -> intel_encoder_remove_all(). Because
+drm_mode_config_cleanup() is now deferred to drmm, the encoders remain
+linked on display->drm->mode_config.encoder_list when
+intel_display_driver_probe_nogem() returns an error.
+
+The err_noirq path here then calls intel_display_driver_remove_noirq() ->
+intel_mode_config_cleanup() -> intel_encoder_remove_all() a second time on
+the still-populated encoder_list. On the first pass,
+intel_ddi_encoder_remove() frees dig_port->tc and sets it to NULL in
+intel_tc_port_cleanup() and frees intel_dp->aux.name in
+intel_dp_aux_fini(), so the second pass causes a NULL pointer dereference
+in intel_tc_port_suspend() and a double free of intel_dp->aux.name.
 
 --=20
 Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261116011504.3910=
-139-1-baoli.zhang@linux.intel.com?part=3D2
+139-1-baoli.zhang@linux.intel.com?part=3D3
