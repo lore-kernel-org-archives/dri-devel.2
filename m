@@ -2,66 +2,95 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5281A606A31C
-	for <dri-devel@archiver.kernel.org>; Tue, 17 Nov 2026 08:09:48 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 24F27606A323
+	for <dri-devel@archiver.kernel.org>; Tue, 17 Nov 2026 08:09:49 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass header.d=erebion.eu header.i=@erebion.eu header.a=ed25519-sha256 header.s=202508e header.b=OeUibqBp;
-	dkim=pass (2048-bit key) header.d=erebion.eu header.i=@erebion.eu header.a=rsa-sha256 header.s=202508r header.b=aDtIygVc
+	dkim=pass (2048-bit key) header.d=gourry.net header.i=@gourry.net header.a=rsa-sha256 header.s=google header.b=BjTQbKVQ
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 780D210EFCC;
-	Tue, 17 Nov 2026 08:09:41 +0000 (UTC)
-Authentication-Results: gabe.freedesktop.org;
-	dkim=permerror (0-bit key) header.d=erebion.eu header.i=@erebion.eu header.b="OeUibqBp";
-	dkim=temperror (0-bit key) header.d=erebion.eu header.i=@erebion.eu header.b="aDtIygVc";
-	dkim-atps=neutral
-Received: from erebion.eu (erebion.eu [142.132.183.134])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 790C010F4A1
- for <dri-devel@lists.freedesktop.org>; Mon, 16 Nov 2026 22:50:40 +0000 (UTC)
-DKIM-Signature: v=1; a=ed25519-sha256; s=202508e; d=erebion.eu;
- c=relaxed/relaxed; r=y; 
- h=To:Message-Id:Subject:Date:From; t=1794869433; bh=+4P4Dm+xK1c98QYgMrw5Fig
- S7aFhLx8xQAD0TH21CzY=; b=OeUibqBp1FGobU4rL1KnFUKcYmJx4d3LVzU/OvGb3/jYS/CEKv
- HakHj1M6oIc/Px39qY1XY8KfnZoJuGqs59Dw==;
-DKIM-Signature: v=1; a=rsa-sha256; s=202508r; d=erebion.eu; c=relaxed/relaxed;
- r=y; 
- h=To:Message-Id:Subject:Date:From; t=1794869433; bh=+4P4Dm+xK1c98QYgMrw5Fig
- S7aFhLx8xQAD0TH21CzY=; b=aDtIygVcQIAOvd+YK9LifI6L+qtCGdIJS6A8CutNHhNqWRoVLS
- IVRKB3gQt0tsbud2SC9Dhc26aV4IpJe85uGdqa1Kfqh7XfOSg8rZ4RpFaT/EMDg9DRMVp8zL74g
- T7xuW1n3q1elia/5Dg79MT7hfuqg+XL77/Il4crMVIFfyI+djRN2NVDLYwBDzzSagtEc+Pd+lbb
- IoKOGXIOkLqWgAYMW3xgf7KHLmMArQPA3lOFnKdKULJzj7MJVUkueXe03gy1AIwZJzL9prBN9QS
- SZr9l/rTtK9N+IbfpoGBi6OL1yiaiW2qRmjUhDnbgHEsMWZsG1ibXLdZg5NEb8azG4A==;
-From: erebion <erebion@erebion.eu>
-Date: Mon, 16 Nov 2026 23:50:31 +0100
-Subject: [PATCH v5 01/12] arm64: dts: qcom: sm6350-lena: Add flash LED
+	by gabe.freedesktop.org (Postfix) with ESMTP id B9AAB10F098;
+	Tue, 17 Nov 2026 08:09:42 +0000 (UTC)
+Received: from mail-qv1-f54.google.com (mail-qv1-f54.google.com
+ [209.85.219.54])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 8A51910E487
+ for <dri-devel@lists.freedesktop.org>; Mon, 16 Nov 2026 23:57:54 +0000 (UTC)
+Received: by mail-qv1-f54.google.com with SMTP id
+ 6a1803df08f44-91ec396c93dso71729176d6.1
+ for <dri-devel@lists.freedesktop.org>; Mon, 16 Nov 2026 15:57:54 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gourry.net; s=google; t=1794873473; x=1795478273; darn=lists.freedesktop.org;
+ h=message-id:date:references:in-reply-to:cc:to:from:subject
+ :content-transfer-encoding:content-type:mime-version:from:to:cc
+ :subject:date:message-id:reply-to:content-type;
+ bh=kNMtaHpahG58C4CDJTpyGiQEPKrM5bilgLdnVmpa1D8=;
+ b=BjTQbKVQGLxLjrPYR/qNvpCQkKHEYRBzLdBf86Bxqk6N+fAEExkWKBfnj+EtMXfcq7
+ qVO2cDx8hMvKWs4jNaUViomDFcY+ggGFxu1WwYw16QwWngqdsg5vAzgvQaLL6gRl/Nny
+ n7BKGyUuWLq4DQsU6shEViebdtX9f3u5xd4m8m7n4dbsQi+dLEWTN7yCiVZVFSQ/oraE
+ 0sV49KdJ+YAAhYBn9tnLz5l2X9KoLGsavMO2TxmxV+cp7Vf9GfAmKnHNOeyEHyDFX3lB
+ V8NhPVC4A4HHr+pfTG1fvUsFoXHwacwybCX+D4T0BFMXQ9SqI/nlAQyO3ZKUXBug+vPN
+ F07g==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20260707; t=1794873473; x=1795478273;
+ h=message-id:date:references:in-reply-to:cc:to:from:subject
+ :content-transfer-encoding:content-type:mime-version:x-gm-gg
+ :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+ :content-type;
+ bh=kNMtaHpahG58C4CDJTpyGiQEPKrM5bilgLdnVmpa1D8=;
+ b=H4SELN1LJ53MYM51phQE3YLdnr9wIQJ7Gjlmd4yFlp424PrMlGWCrInW6s9mhGXpkj
+ jpDvUKpTKzbM45o7lXfqmzzT2NwbdXMzISMYMUkfKug1T7f2WOUmbIm7kjMD6naITaZx
+ 8+fMloEqP7rOPgH3r+fLnjTuPbRAlK4P054uVRNfepOoTF6ke0sdFkt1FAXfkJACCQ0o
+ hRB5pdZceUOAg8vhBSuHv0uYHQmTIb+Yp8dvizBbFbjyu1/9/+gUNjGYGpc3pvPkIVQm
+ pCoqRFFpsB/XIYCw0Tb8pRhVtRtTU1p/kfk8jhiKErczW6dnnYkhfhHpmM3Icu7lH/4B
+ sBQA==
+X-Forwarded-Encrypted: i=1;
+ AL+hErHWMIm1yGg3vAZo+t+ESi+dsaqF+LFrGbfdTZ2bhI43HWqJy8Fyz7ca4xm7u5J0OIBnFA2ngYXe3aE=@lists.freedesktop.org
+X-Gm-Message-State: APuU4Z+vhOvYFifjk5A4x1HJcJscrA/zgmWx9+SDS/gxEZ43VYcPmUtl
+ ec/UElyQ7OSU/ptRnoL6iXdYiuTuM8Q4zFj8U+7YZ18csk35ZUf19m1ys/XH5xkYEnnuzBm9fIO
+ 1gWnh
+X-Gm-Gg: AZFdTZc/KWCaRbgyt7tQA77K9smMyELN5L/u7eYGb7Soun3Ji9EbGp1JDKoza3qWeHm
+ IGe0jkcVfEW5oTk90x09naP3FP/OXuj5nIMS19ILWIpY7IEciYfctm42o1g7zJ6oNx0gvf8MpYN
+ DeW2tStjoxb3w/Dcrjuf/p2uaOcqFXl4ejjkvOr0mwKjowXZqzGkzfo169hww8M6ibb/B/y3azO
+ b57IdZkmFuBPp66HQA0WSf/tbUMAfsUTONU5QHwVtJYGGEryaX195bg1POfdlMC6s/6JoITqztL
+ Bu/MSZ+xj4fUoWfkclblLk45iyo9MPwWyNr80vqjbLz9L2oulBnayYLQrqbq2daL18GvfhNTCK8
+ gNqbxhIpmgPDkIXZ2whFyAbTA4IB63w7iY8wWC8tSlsWke1xyUkdtNyBJJlMM5b79HTgATUM7ID
+ VmKSou5qdWyqeoUZd0bzVVSRbNxLQzAnRVVLM6MrSDIXUt5TpcRhDuCO4Y1A2TvI8ukK6lydGTp
+ C2zMXT5VGo5/pKBJdfjFOM5OVOi6L5QIaYJAwMxhCFm0Xn3Y8AvcJGvZedNy1z0fGeMe6nGN3j3
+ 5ioge5Tt5DsWAIR4AJ5Rxb+9J4YSmC3s5xdRCW74pE9yf+JlM257xWJo+h/I4Dw3Tl/VDrxPjVX
+ T6av91vg=
+X-Received: by 2002:a05:6214:4019:b0:91e:a219:fed9 with SMTP id
+ 6a1803df08f44-91f2400c99emr200139666d6.1.1794873473078; 
+ Mon, 16 Nov 2026 15:57:53 -0800 (PST)
+Received: from [192.168.50.231] (pool-71-191-145-202.washdc.fios.verizon.net.
+ [71.191.145.202]) by smtp.gmail.com with ESMTPSA id
+ 6a1803df08f44-91f23d453casm97144106d6.10.2026.11.16.15.57.52
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Mon, 16 Nov 2026 15:57:52 -0800 (PST)
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20261116-pdx213-upstream-3-v5-1-7318a19806eb@erebion.eu>
-References: <20261116-pdx213-upstream-3-v5-0-7318a19806eb@erebion.eu>
-In-Reply-To: <20261116-pdx213-upstream-3-v5-0-7318a19806eb@erebion.eu>
-To: Neil Armstrong <neil.armstrong@linaro.org>, 
- Jessica Zhang <jesszhan0024@gmail.com>, 
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
- Bjorn Andersson <andersson@kernel.org>, 
- Konrad Dybcio <konradybcio@kernel.org>, Rob Herring <robh@kernel.org>, 
- Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>
-Cc: linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org, 
- linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org, 
- phone-devel@vger.kernel.org, erebion <erebion@erebion.eu>, 
- Luca Weiss <luca.weiss@fairphone.com>
-X-Mailer: b4 0.16.0
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1794869432; l=1275;
- i=erebion@erebion.eu; s=20260607; h=from:subject:message-id;
- bh=2S3plW7dluTLpAtgNGakeiDdnyfiuLDdowoj7EPiQuQ=;
- b=J3ZxGYQkQjrLTyvO2X2AdOiZ26ckC+vzNayNwdiHXSj9p5ro8OXuCqEQsSWxxcPDzDdfzNo0T
- Ojdej78y5jbDyKCP1Cu9d2la265ke0JUR8UspGS7WrO/hSVG4VSmwzs
-X-Developer-Key: i=erebion@erebion.eu; a=ed25519;
- pk=rOCVlR8khmBtCFe4ZlDcbCbIcORxdaNzPDkoIiHM7xc=
-X-Mailman-Approved-At: Tue, 17 Nov 2026 08:07:18 +0000
+Content-Transfer-Encoding: 8bit
+Subject: Re: [PATCH] mm/hmm: skip NUMA balancing on protnone faults
+From: "Gregory Price (Meta)" <gourry@gourry.net>
+To: Alistair Popple <apopple@nvidia.com>
+Cc: "Gregory Price (Meta)" <gourry@gourry.net>, 
+ "David Hildenbrand (Arm)" <david@kernel.org>, 
+ =?utf-8?q?Thomas_Hellstr=C3=B6m?= <thomas.hellstrom@linux.intel.com>, 
+ Matthew Auld <matthew.auld@intel.com>, linux-mm@kvack.org, 
+ dri-devel@lists.freedesktop.org, intel-xe@lists.freedesktop.org, 
+ Matthew Brost <matthew.brost@intel.com>, 
+ =?utf-8?q?Mika_Penttil=C3=A4?= <mpenttil@redhat.com>, 
+ Leon Romanovsky <leon@kernel.org>, Jason Gunthorpe <jgg@ziepe.ca>, 
+ John Hubbard <jhubbard@nvidia.com>
+In-Reply-To: <avuN2eIrlqrO0u6O@nvdebian.thelocal>
+References: <20261112-numa-v1-1-ad9cbca8f49a@intel.com>
+ <b32fb02a-68b4-4db9-83dd-254147dbf215@kernel.org>
+ <1993e931e6a4b0cda5c04e72b1a8d5fb924f950a.camel@linux.intel.com>
+ <9ec3e8b9-064a-47a7-8d00-566ff371b846@kernel.org>
+ <179460319801.482102.15329919214055018110.b4-reply@b4>
+ <avuN2eIrlqrO0u6O@nvdebian.thelocal>
+Date: Mon, 16 Nov 2026 18:57:52 -0500
+Message-Id: <179487347201.482102.6428415219993123805.b4-reply@b4>
+X-Mailer: b4 0.17-dev
+X-Mailman-Approved-At: Tue, 17 Nov 2026 08:07:19 +0000
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -73,59 +102,59 @@ List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-18.8 required=3.0 tests=BAYES_00,DKIM_SIGNED,
-	DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
-	INCLUDES_CR_TRAILER,INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,
-	SPF_PASS,USER_AGENT_GIT autolearn=unavailable autolearn_force=no
-	version=4.0.1
+X-Spam-Status: No, score=-13.8 required=3.0 tests=BAYES_00,DKIM_SIGNED,
+	DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_PATCH,
+	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,USER_AGENT_GIT autolearn=ham
+	autolearn_force=no version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-Add a node for the camera flash LED found on the Xperia 10 III
+On 2026-11-17 10:24 +1100, Alistair Popple wrote:
+> On 2026-11-14 at 07:53 +1100, "Gregory Price (Meta)" <gourry@gourry.net> wrote...
+> > On 2026-11-13 21:43 +0100, David Hildenbrand (Arm) wrote:
+> > > On 11/13/26 21:34, Thomas Hellström wrote:
+> > 
+> > > I recall that John (cc) kept saying "GPUs and NUMA balancing is inherently
+> > > incompatible, you have to disable NUMA balancing".
+> > > 
+> > 
+> > If this is a NUMA-hotplugged GPU, then this is resolved by a private
+> > node, because this:
+> > 
+> > @@ -6404,6 +6404,9 @@ static vm_fault_t do_numa_page(struct vm_fault *vmf)
+> >         if (!folio || folio_is_zone_device(folio))
+> > 
+> > 
+> > changes to
+> > 
+> >         if (!folio || folio_is_common_memory(folio))
+> > 
+> > And all folios on the GPU node are never subject to NUMA Balancing
+> > 
+> > so balancing can stay enabled while the GPU memory is not subject to
+> > PROT_NONE spew.
+> 
+> Hi Gregory, just to hopefully help clarify understanding a bit here this isn't
+> related to folio location and therefore private node won't help much.
+> 
+> This about a driver getting a snapshot of current PTE state to program a
+> secondary MMU (in this case on a GPU, but can equally be a NIC or other device).
+> 
+> Even CPU memory being subject to NUMA balancing can have quite an adverse impact
+> on GPU performance due to increased incidence of GPU faults, hence why John says
+> GPUs (using SVM) are inherently incompatible with NUMA balancing.
+> 
 
-Reviewed-by: Luca Weiss <luca.weiss@fairphone.com>
-Signed-off-by: erebion <erebion@erebion.eu>
----
- .../boot/dts/qcom/sm6350-sony-xperia-lena-pdx213.dts      | 15 +++++++++++++++
- 1 file changed, 15 insertions(+)
+Ah, I follow.  I'm still working through the performance implications of
+mmu_notifiers in the presence of PROT_NONE faults, but if i'm
+understanding correctly it tracks that you'd say it's incompatible.
 
-diff --git a/arch/arm64/boot/dts/qcom/sm6350-sony-xperia-lena-pdx213.dts b/arch/arm64/boot/dts/qcom/sm6350-sony-xperia-lena-pdx213.dts
-index 6e2bbf4f060ac..4d78c500d00d3 100644
---- a/arch/arm64/boot/dts/qcom/sm6350-sony-xperia-lena-pdx213.dts
-+++ b/arch/arm64/boot/dts/qcom/sm6350-sony-xperia-lena-pdx213.dts
-@@ -4,9 +4,11 @@
-  */
- /dts-v1/;
- 
-+#include <dt-bindings/leds/common.h>
- #include <dt-bindings/pinctrl/qcom,pmic-gpio.h>
- #include <dt-bindings/regulator/qcom,rpmh-regulator.h>
- #include "sm6350.dtsi"
-+#include "pm6150l.dtsi"
- #include "pm6350.dtsi"
- 
- / {
-@@ -302,6 +304,19 @@ touchscreen@48 {
- 	};
- };
- 
-+&pm6150l_flash {
-+	status = "okay";
-+
-+	led-0 {
-+		function = LED_FUNCTION_FLASH;
-+		color = <LED_COLOR_ID_WHITE>;
-+		led-sources = <1>;
-+		led-max-microamp = <150000>;
-+		flash-max-microamp = <1000000>;
-+		flash-max-timeout-us = <1280000>;
-+	};
-+};
-+
- &pm6350_gpios {
- 	vol_down_n: vol-down-n-state {
- 		pins = "gpio2";
+I presume here the driver needs a global view of memory (or at least all
+memory it can potentially DMA), rather than simply just a subset
+(some set of VMAs)?
+
+~Gregory
 
 -- 
-2.53.0
+~Gregory
 
