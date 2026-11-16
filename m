@@ -2,54 +2,54 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E35D7606A329
-	for <dri-devel@archiver.kernel.org>; Mon, 16 Nov 2026 10:32:38 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8C13D606A330
+	for <dri-devel@archiver.kernel.org>; Mon, 16 Nov 2026 10:32:58 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=eGpzJaaR
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=cKTm7uGA
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id D679810EE8F;
-	Mon, 16 Nov 2026 10:32:32 +0000 (UTC)
-Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 7C60C10EDC0
- for <dri-devel@lists.freedesktop.org>; Mon, 16 Nov 2026 10:32:09 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id E626210EEFB;
+	Mon, 16 Nov 2026 10:32:52 +0000 (UTC)
+Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 8F72C10EEFF
+ for <dri-devel@lists.freedesktop.org>; Mon, 16 Nov 2026 10:32:27 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by tor.source.kernel.org (Postfix) with ESMTP id F2E6B628D3;
- Mon, 16 Nov 2026 10:32:08 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 061651F000C4;
- Mon, 16 Nov 2026 10:32:07 +0000 (UTC)
+ by sea.source.kernel.org (Postfix) with ESMTP id 7752043C6F;
+ Mon, 16 Nov 2026 10:32:27 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id CB9991F000C5;
+ Mon, 16 Nov 2026 10:32:26 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1794825128;
- bh=ndSL2pNTFv6FMlmqgHebpgrWQnY5J2O9h6r+jy0GRds=;
+ s=k20260515; t=1794825147;
+ bh=TxegQ8MfZ/xke2FKW0DQaeQU1vqdAJQ08fQOgfdaOtM=;
  h=From:Date:Subject:References:In-Reply-To:To:Cc;
- b=eGpzJaaRZDGzXnQHRdKURUEj1rS+HxZIwAG6WhBK78TSI5s6N8COLzDDAewc1DlDw
- R8Do5HbBO3fp+6rqcRpq9Wy3atynRZJh4C79Tnf+WR22NcxZedwC5oXk13opSRgnA2
- hWCGRKeA5zyEgwvQqmBadCmjolXRN6kmXlp73jsZFOrpuCIgpHFcdKceLa36UtEOnS
- oVUHXNsnnftLkb+nCmXmelpZ5p3etz82bJxMObSLrB9oTkKva1Xf6+ndQET0bwUxFg
- Mx1NJvhtHIsf3vENxXybUS5M0cO8vb62rH2UdiEmICF7LRC/mYzFQlyBNA2wUFAV7d
- Tx2m17z8o5JPg==
+ b=cKTm7uGAFDoTWO+FjFT1/rm9kJP/CLjk9DSJtI7p5j0GsnFOskGDBcqFAJU3w921c
+ DWf8QEOO7MbNM8YAHDfUt/5f9vzDlfUtYmy9BBsGpeWjC0VW7kQOvJ37+1YKy14q/e
+ uLVlIQbWNeCGaMXwLeNPvDjIUxpeOFse6kI2PAfCVQvzotJjEnV7XkQzsyO4Q0OBvx
+ SjQOZkdmKuzIjD8L1bNCrnUHyjMElimjomlgrv6ymdAJrzbFzuc0ENBG2mz1C6TzGU
+ rpwbeMYk58zi3ut6xerkpVBuvymChl2hs1vJ6se+mRfYoqywx8lfHEIPZhEInExZtY
+ y79QUzn2tghcw==
 From: Maxime Ripard <mripard@kernel.org>
-Date: Mon, 16 Nov 2026 11:30:38 +0100
-Subject: [PATCH v2 22/64] drm/omap: Switch to
+Date: Mon, 16 Nov 2026 11:30:44 +0100
+Subject: [PATCH v2 28/64] drm/st7571: Switch to
  drm_mode_config_create_initial_state
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20261116-drm-no-more-config-reset-v2-22-0bb471f4d1e0@kernel.org>
+Message-Id: <20261116-drm-no-more-config-reset-v2-28-0bb471f4d1e0@kernel.org>
 References: <20261116-drm-no-more-config-reset-v2-0-0bb471f4d1e0@kernel.org>
 In-Reply-To: <20261116-drm-no-more-config-reset-v2-0-0bb471f4d1e0@kernel.org>
 To: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
  Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>, 
  Simona Vetter <simona@ffwll.ch>
 Cc: dri-devel@lists.freedesktop.org, Maxime Ripard <mripard@kernel.org>, 
- Tomi Valkeinen <tomi.valkeinen@ideasonboard.com>
+ Marcus Folkesson <marcus.folkesson@gmail.com>
 X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=openpgp-sha256; l=1311; i=mripard@kernel.org;
- h=from:subject:message-id; bh=kAk1XpcKRoDRjz8FkFWqJUChaxJNsDSAyEKojbWuos0=;
- b=owGbwMvMwCmsHn9OcpHtvjLG02pJDFm/bnvm6HxIjV2gLM/Ufth48TZTG/45zck1uxIvyCpec
- lAxW+rQMZWFQZiTQVZMkeWJTNjp5e2LqxzsV/6AmcPKBDKEgYtTACZSyc1Y77pq36WAi3e7DNT4
- O+rkdC98fnByI8e2deJedYmPrm2QDz1pannWo/F82VNpd1lD18PSjA0nTdftZ97yppkpelrSxZl
- Je0P3tjWfmlc441CjfWfPa3uGg5a/HAM7dCQSpNp2qH1w+wsA
+X-Developer-Signature: v=1; a=openpgp-sha256; l=1341; i=mripard@kernel.org;
+ h=from:subject:message-id; bh=z9a+Sl597ePhxJ3NE6QeXi7MrnMM3t6AUmHP+RUKPbk=;
+ b=owGbwMvMwCmsHn9OcpHtvjLG02pJDFm/bvvkzIzbY7q1Vrc38D9bFF+ribVLXLvVWl+jMwF/v
+ 4XGsyl3TGVhEOZkkBVTZHkiE3Z6efviKgf7lT9g5rAygQxh4OIUgInc/cNYpxHic6D014Zfiau3
+ Vd5m29Twg2OP5KuPTF07O1ZnblnSnf3O+fAa3dcb0k7Oe3wm4WvPBsaGjRu37LxT/qT01r+etEO
+ vf4kUbBHd1xp8buJl3ori57/TLqxiZCm9svLVruiFJREu5+u9AQ==
 X-Developer-Key: i=mripard@kernel.org; a=openpgp;
  fpr=BE5675C37E818C8B5764241C254BCFC56BF6CE8D
 X-BeenThere: dri-devel@lists.freedesktop.org
@@ -83,30 +83,30 @@ Switch to drm_mode_config_create_initial_state().
 
 Signed-off-by: Maxime Ripard <mripard@kernel.org>
 ---
-Cc: Tomi Valkeinen <tomi.valkeinen@ideasonboard.com>
+Cc: Marcus Folkesson <marcus.folkesson@gmail.com>
 ---
- drivers/gpu/drm/omapdrm/omap_drv.c | 4 +++-
+ drivers/gpu/drm/sitronix/st7571.c | 4 +++-
  1 file changed, 3 insertions(+), 1 deletion(-)
 
-diff --git a/drivers/gpu/drm/omapdrm/omap_drv.c b/drivers/gpu/drm/omapdrm/omap_drv.c
-index 89a6d3b4aa6f..db216c888a8f 100644
---- a/drivers/gpu/drm/omapdrm/omap_drv.c
-+++ b/drivers/gpu/drm/omapdrm/omap_drv.c
-@@ -533,11 +533,13 @@ static int omap_modeset_init(struct drm_device *dev)
- 	dev->mode_config.normalize_zpos = true;
+diff --git a/drivers/gpu/drm/sitronix/st7571.c b/drivers/gpu/drm/sitronix/st7571.c
+index 608d38eab0fc..2d82fb78587d 100644
+--- a/drivers/gpu/drm/sitronix/st7571.c
++++ b/drivers/gpu/drm/sitronix/st7571.c
+@@ -865,11 +865,13 @@ struct st7571_device *st7571_probe(struct device *dev,
+ 	if (ret < 0) {
+ 		dev_err(st7571->dev, "Failed to initialize connector\n");
+ 		return ERR_PTR(ret);
+ 	}
  
- 	dev->mode_config.funcs = &omap_mode_config_funcs;
- 	dev->mode_config.helper_private = &omap_mode_config_helper_funcs;
- 
--	drm_mode_config_reset(dev);
-+	ret = drm_mode_config_create_initial_state(dev);
+-	drm_mode_config_reset(drm);
++	ret = drm_mode_config_create_initial_state(drm);
 +	if (ret)
-+		return ret;
++		return ERR_PTR(ret);
  
- 	omap_drm_irq_install(dev);
- 
- 	return 0;
- }
+ 	ret = drm_dev_register(drm, 0);
+ 	if (ret) {
+ 		dev_err(st7571->dev, "Failed to register DRM device\n");
+ 		return ERR_PTR(ret);
 
 -- 
 2.56.1
