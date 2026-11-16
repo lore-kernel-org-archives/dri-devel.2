@@ -2,129 +2,52 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 54FFC606A31C
-	for <dri-devel@archiver.kernel.org>; Mon, 16 Nov 2026 13:12:12 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E7161606A32A
+	for <dri-devel@archiver.kernel.org>; Mon, 16 Nov 2026 13:12:13 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=eZAQjQAj
+	dkim=pass (2048-bit key, unprotected) header.d=baryla.org header.i=@baryla.org header.a=rsa-sha256 header.s=dkim header.b=HG+C7W+d
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 8413910EA23;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 908F410E010;
 	Mon, 16 Nov 2026 13:12:06 +0000 (UTC)
-Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id F20D610E0FF;
- Mon, 16 Nov 2026 10:30:57 +0000 (UTC)
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id 696FF44009;
- Mon, 16 Nov 2026 10:30:57 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0581E1F000C4;
- Mon, 16 Nov 2026 10:30:56 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1794825057;
- bh=hNoOLAkKTtSxiJZHPRFlIqEnER1Prl4GCQs18G25yPc=;
- h=From:Subject:Date:To:Cc;
- b=eZAQjQAjpGYV7/Eiek+/CM3GGGJ7mjOU0aI2Pqqy/lVi1PtK6N21dH4ReeD0yKxqR
- GA1WugARvXRRPA6PeNht/rYimME1ClZwx1fSDoFfrh5kea5FQkRCxCEQoFpyHLo3IF
- zC++9JOkXFllW30ghcP3a7eJozKLkpENKLLCTfRnFEmvFEI25C5pZ3pc/azcAIQaLB
- NMO/PzMqEmOjhtcDp6mEbUeo1FXq+UAR6AvqupyYKTcJOEDrEkmMMx2+fhfVZ/pO+S
- 6SfUpl6vvQdsNnk69fbG3tG3yCQR+I5DMRpaolHqjO7QkZf9xYrBswRl65X0R1nVLO
- EsaYuU4/pW6xQ==
-From: Maxime Ripard <mripard@kernel.org>
-Subject: [PATCH v2 00/64] drm: Switch drivers to
- drm_mode_config_create_initial_state
-Date: Mon, 16 Nov 2026 11:30:16 +0100
-Message-Id: <20261116-drm-no-more-config-reset-v2-0-0bb471f4d1e0@kernel.org>
+X-Greylist: delayed 462 seconds by postgrey-1.36 at gabe;
+ Mon, 16 Nov 2026 11:15:24 UTC
+Received: from mail.baryla.org (mail.baryla.org [217.182.77.61])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 2B3E010EF73;
+ Mon, 16 Nov 2026 11:15:24 +0000 (UTC)
+Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon)
+ with ESMTPSA id 2A82E74613A; Mon, 16 Nov 2026 11:07:41 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=baryla.org; s=dkim;
+ t=1794827261; h=from:subject:date:message-id:to:cc:mime-version:content-type:
+ content-transfer-encoding:in-reply-to:references;
+ bh=mSKHltzBGWAj3KmddZORQ4Qcz3ohrAZDhoh6LxxVyv0=;
+ b=HG+C7W+ddYmt+VV5/VQn9z38cBy7TRBXaJDvmeW4QOLjEhwJ+Hcl8lqgtLf7HwL77DiuBf
+ v/gRDXrGWLHSftlR0ZqjccV9icfDt48xBbp4QiTjNZA2FKFt/CVsn3cMkiCLpSnxtMf2sP
+ Mj9MKd4EPwTt+KBZDDQmc0Egr44F2ozdEDovrKGIqPEfbMCPwC68Cj8upALNdzuKJhLxX1
+ KCuUp8qCYnkjN5I7pX7vXoPAykthaDKOkSGd+t8nMB5sjjWYa0DE+OulIb9gwcPlX3uQAN
+ KDsdGg6pTiJLmlBUqLSszXtdmu7EHnlYJw2iXdPkvKNZLK9mT5fTkoI6zC9aGg==
+From: =?utf-8?q?Karol_Bary=C5=82a?= <git@baryla.org>
+Date: Mon, 16 Nov 2026 12:07:33 +0100
+Subject: [PATCH 2/2] drm/amd/display: Add KUnit tests for the MST last link
+ check on logical ports
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-X-B4-Tracking: v=1; b=H4sIAAAAAAAA/3XNQQ6CMBBA0as0s2ZMW0IRVt7DsCBlChOlNVPSa
- Ah3N7J3+xfv75BJmDL0agehwplThF7ZSoFfxjgT8gS9Aqut062xOMmKMeGahNCnGHhGoUwbGhq
- vXWic6+oJKgUvocDvk74PlYKF85bkc56K+dUTNUY3/9FiUGPr6sZpb72vw+1BEul5STLDcBzHF
- w7mkJrBAAAA
-X-Change-ID: 20260712-drm-no-more-config-reset-1ea89f56693d
-To: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
- Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>, 
- Simona Vetter <simona@ffwll.ch>
-Cc: dri-devel@lists.freedesktop.org, Maxime Ripard <mripard@kernel.org>, 
- Janne Grunau <j@jannau.net>, Sasha Finkelstein <k@chaosmail.tech>, 
- asahi@lists.linux.dev, 
+Content-Transfer-Encoding: 8bit
+Message-Id: <20261116-mst-logical-port-v1-2-6b446ebe75e7@baryla.org>
+References: <20261116-mst-logical-port-v1-0-6b446ebe75e7@baryla.org>
+In-Reply-To: <20261116-mst-logical-port-v1-0-6b446ebe75e7@baryla.org>
+To: Harry Wentland <harry.wentland@amd.com>, Leo Li <sunpeng.li@amd.com>, 
+ Rodrigo Siqueira <siqueira@igalia.com>, 
+ Alex Deucher <alexander.deucher@amd.com>, 
  =?utf-8?q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>, 
- Alex Deucher <alexander.deucher@amd.com>, amd-gfx@lists.freedesktop.org, 
- sashiko-bot@kernel.org, Liviu Dudau <liviu.dudau@arm.com>, 
- Russell King <linux@armlinux.org.uk>, Dave Airlie <airlied@redhat.com>, 
- Jocelyn Falempe <jfalempe@redhat.com>, 
- Alim Akhtar <alim.akhtar@samsung.com>, Inki Dae <inki.dae@samsung.com>, 
- Krzysztof Kozlowski <krzk@kernel.org>, 
- Kyungmin Park <kyungmin.park@samsung.com>, 
- Peter Griffin <peter.griffin@linaro.org>, 
- Seung-Woo Kim <sw0312.kim@samsung.com>, linux-samsung-soc@vger.kernel.org, 
- Alison Wang <alison.wang@nxp.com>, Stefan Agner <stefan@agner.ch>, 
- Tian Tao <tiantao6@hisilicon.com>, 
- Xinwei Kong <kong.kongxinwei@hisilicon.com>, 
- Yongbang Shi <shiyongbang@huawei.com>, Dexuan Cui <decui@microsoft.com>, 
- Long Li <longli@microsoft.com>, 
- Saurabh Sengar <ssengar@linux.microsoft.com>, linux-hyperv@vger.kernel.org, 
- Fabio Estevam <festevam@gmail.com>, Frank Li <Frank.Li@nxp.com>, 
- Pengutronix Kernel Team <kernel@pengutronix.de>, 
- Philipp Zabel <p.zabel@pengutronix.de>, 
- Sascha Hauer <s.hauer@pengutronix.de>, imx@lists.linux.dev, 
- Paul Cercueil <paul@crapouillou.net>, linux-mips@vger.kernel.org, 
- Anitha Chrisanthus <anitha.chrisanthus@intel.com>, 
- Paul Kocialkowski <paulk@sys-base.io>, Huacai Chen <chenhuacai@kernel.org>, 
- Icenowy Zheng <zhengxingda@iscas.ac.cn>, Jianmin Lv <lvjianmin@loongson.cn>, 
- Mingcong Bai <jeffbai@aosc.io>, Qianhai Wu <wuqianhai@loongson.cn>, 
- Xi Ruoyao <xry111@xry111.site>, 
- AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>, 
- Chun-Kuang Hu <chunkuang.hu@kernel.org>, 
- Matthias Brugger <matthias.bgg@gmail.com>, 
- Abhinav Kumar <abhinav.kumar@linux.dev>, 
- Dmitry Baryshkov <lumag@kernel.org>, Jessica Zhang <jesszhan0024@gmail.com>, 
- Marijn Suijten <marijn.suijten@somainline.org>, 
- Rob Clark <robin.clark@oss.qualcomm.com>, Sean Paul <sean@poorly.run>, 
- freedreno@lists.freedesktop.org, linux-arm-msm@vger.kernel.org, 
- Danilo Krummrich <dakr@kernel.org>, Lyude Paul <lyude@redhat.com>, 
- nouveau@lists.freedesktop.org, 
- Tomi Valkeinen <tomi.valkeinen@ideasonboard.com>, 
- Gerd Hoffmann <kraxel@redhat.com>, spice-devel@lists.freedesktop.org, 
- virtualization@lists.linux.dev, 
- Geert Uytterhoeven <geert+renesas@glider.be>, 
- Kieran Bingham <kieran.bingham+renesas@ideasonboard.com>, 
- Laurent Pinchart <laurent.pinchart+renesas@ideasonboard.com>, 
- Magnus Damm <magnus.damm@gmail.com>, 
- Tomi Valkeinen <tomi.valkeinen+renesas@ideasonboard.com>, 
- linux-renesas-soc@vger.kernel.org, Biju Das <biju.das.jz@bp.renesas.com>, 
- Marcus Folkesson <marcus.folkesson@gmail.com>, 
- David Lechner <david@lechnology.com>, Iker Pedrosa <ikerpedrosam@gmail.com>, 
- Baolin Wang <baolin.wang@linux.alibaba.com>, 
- Chunyan Zhang <zhang.lyra@gmail.com>, Orson Zhai <orsonzhai@gmail.com>, 
- Alexandre Torgue <alexandre.torgue@foss.st.com>, 
- Maxime Coquelin <mcoquelin.stm32@gmail.com>, 
- Philippe Cornu <philippe.cornu@foss.st.com>, 
- Raphael Gallais-Pou <raphael.gallais-pou@foss.st.com>, 
- Yannick Fertre <yannick.fertre@foss.st.com>, Chen-Yu Tsai <wens@kernel.org>, 
- Samuel Holland <samuel@sholland.org>, linux-sunxi@lists.linux.dev, 
- Jonathan Hunter <jonathanh@nvidia.com>, 
- Mikko Perttunen <mperttunen@nvidia.com>, 
- Thierry Reding <thierry.reding@kernel.org>, linux-tegra@vger.kernel.org, 
- Jyri Sarha <jyri.sarha@iki.fi>, Alexey Brodkin <abrodkin@synopsys.com>, 
- Hans de Goede <hansg@kernel.org>, 
- Kamlesh Gurudasani <kamlesh.gurudasani@gmail.com>, 
- Alex Lanzano <lanzano.alex@gmail.com>, LiangCheng Wang <zaq14760@gmail.com>, 
- Chia-I Wu <olvaffe@gmail.com>, 
- Dmitry Osipenko <dmitry.osipenko@collabora.com>, 
- Gurchetan Singh <gurchetansingh@chromium.org>, 
- Broadcom internal kernel review list <bcm-kernel-feedback-list@broadcom.com>, 
- Zack Rusin <zack.rusin@broadcom.com>, 
- Oleksandr Andrushchenko <oleksandr_andrushchenko@epam.com>, 
- Michal Simek <michal.simek@amd.com>
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
+ Zaeem Mohamed <zaeem.mohamed@amd.com>, Wayne Lin <wayne.lin@amd.com>, 
+ Jerry Zuo <jerry.zuo@amd.com>
+Cc: amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org, 
+ linux-kernel@vger.kernel.org, 
+ =?utf-8?q?Karol_Bary=C5=82a?= <git@baryla.org>
 X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=openpgp-sha256; l=10588; i=mripard@kernel.org;
- h=from:subject:message-id; bh=UnO0MjpeeK9krxZGNzUbW4Y98HkRuMvk6bepjPVE67A=;
- b=owGbwMvMwCmsHn9OcpHtvjLG02pJDFm/bjtoSp5cbau8nO/fFo9nZ3JyVwYp7+OL+35/yiTLj
- 8w57O6rO6ayMAhzMsiKKbI8kQk7vbx9cZWD/cofMHNYmUCGMHBxCsBELOoYG97r7D+c8fKXCs+H
- V+zz97t4P63mf7xgZkOXUP6qJIaq9nfS1kVzNb7H6/ffELF9qLf2CGPD5+wrem7q7TGnXggsSF2
- lK1P0cGKITLburVPeF8KE889ce3pjvWDAm+I7u+YFRSqyTtoHAA==
-X-Developer-Key: i=mripard@kernel.org; a=openpgp;
- fpr=BE5675C37E818C8B5764241C254BCFC56BF6CE8D
+X-Last-TLS-Session-Version: TLSv1.3
 X-Mailman-Approved-At: Mon, 16 Nov 2026 13:12:05 +0000
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -137,186 +60,89 @@ List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-18.8 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
-	DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
+X-Spam-Status: No, score=-18.8 required=3.0 tests=BAYES_00,DKIM_SIGNED,
+	DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
 	INCLUDES_CR_TRAILER,INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,
-	SPF_PASS,USER_AGENT_GIT autolearn=ham autolearn_force=no version=4.0.1
+	SPF_PASS,USER_AGENT_GIT autolearn=unavailable autolearn_force=no
+	version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-drm_mode_config_reset() has a dual role: it creates the initial KMS
-state at probe time, and resets hardware and software state during
-suspend/resume cycles. However, the two roles need different
-behaviors, notably for objects like drm_private_obj that must persist
-across suspend/resume and are excluded from drm_mode_config_reset()
-by design.
+Check that a logical port accepts a DSC mode even when its
+DP_LINK_BW_SET describes a link too slow for the uncompressed stream,
+and that port 7, the highest physical port number, is still rejected.
 
-Previous series introduced drm_mode_config_create_initial_state() to
-handle only the initial state creation at probe time, including
-drm_private_obj. Unlike drm_mode_config_reset(), it returns an error
-code, allowing drivers to properly handle allocation failures.
-
-This series switches all drivers calling drm_mode_config_reset() at
-probe time to drm_mode_config_create_initial_state(). The conversion
-was done using a Coccinelle semantic patch.
-
-This is part, and the final piece, of a larger transition to remove the
-overloaded reset semantics from the KMS subsystem, following similar
-series for planes, CRTCs, connectors, and bridges.
-
-Signed-off-by: Maxime Ripard <mripard@kernel.org>
+Signed-off-by: Karol Baryła <git@baryla.org>
 ---
-Changes in v2:
-- Fix some sashiko issues
-- Link to v1: https://lore.kernel.org/r/20261105-drm-no-more-config-reset-v1-0-763560c2cc3f@kernel.org
+ .../amdgpu_dm/tests/amdgpu_dm_mst_types_test.c     | 47 ++++++++++++++++++++++
+ 1 file changed, 47 insertions(+)
 
----
-Maxime Ripard (64):
-      drm/adp: Switch to drm_mode_config_create_initial_state
-      drm/amdgpu: Switch to drm_mode_config_create_initial_state
-      drm/hdlcd: Fix drm_atomic_helper_shutdown() on the probe error path
-      drm/hdlcd: Switch to drm_mode_config_create_initial_state
-      drm/armada: Switch to drm_mode_config_create_initial_state
-      drm/ast: Switch to drm_mode_config_create_initial_state
-      drm/exynos: Switch to drm_mode_config_create_initial_state
-      drm/fsl-dcu: Switch to drm_mode_config_create_initial_state
-      drm/hisilicon/hibmc: Remove hibmc_unload() from the load error path
-      drm/hisilicon/hibmc: Switch to drm_mode_config_create_initial_state
-      drm/hyperv: Switch to drm_mode_config_create_initial_state
-      drm/imx/ipuv3: Switch to drm_mode_config_create_initial_state
-      drm/ingenic: Move the private object creation before the reset
-      drm/ingenic: Switch to drm_mode_config_create_initial_state
-      drm/kmb: Switch to drm_mode_config_create_initial_state
-      drm/logicvc: Switch to drm_mode_config_create_initial_state
-      drm/loongson: Switch to drm_mode_config_create_initial_state
-      drm/mediatek: Switch to drm_mode_config_create_initial_state
-      drm/mgag200: Switch to drm_mode_config_create_initial_state
-      drm/msm: Switch to drm_mode_config_create_initial_state
-      drm/nouveau: Switch to drm_mode_config_create_initial_state
-      drm/omap: Switch to drm_mode_config_create_initial_state
-      drm/qxl: Destroy the monitors object on the modeset init error path
-      drm/qxl: Switch to drm_mode_config_create_initial_state
-      drm/rcar-du: Switch to drm_mode_config_create_initial_state
-      drm/rz-du: Switch to drm_mode_config_create_initial_state
-      drm/shmobile: Switch to drm_mode_config_create_initial_state
-      drm/st7571: Switch to drm_mode_config_create_initial_state
-      drm/st7586: Switch to drm_mode_config_create_initial_state
-      drm/st7735r: Switch to drm_mode_config_create_initial_state
-      drm/st7920: Switch to drm_mode_config_create_initial_state
-      drm/sprd: Switch to drm_mode_config_create_initial_state
-      drm/sti: Fix drm_atomic_helper_shutdown() on the bind error paths
-      drm/sti: Move drm_mode_config_create_initial_state() before drm_dev_register()
-      drm/stm: Switch to drm_mode_config_create_initial_state
-      drm/sun4i: Switch to drm_mode_config_create_initial_state
-      drm/tegra: Switch to drm_mode_config_create_initial_state
-      drm/tests: drm_atomic_state_test: Switch to drm_mode_config_create_initial_state
-      drm/tests: drm_atomic_test: Switch to drm_mode_config_create_initial_state
-      drm/tests: drm_bridge_test: Switch to drm_mode_config_create_initial_state
-      drm/tests: drm_hdmi_state_helper_test: Switch to drm_mode_config_create_initial_state
-      drm/tidss: Switch to drm_mode_config_create_initial_state
-      drm/tilcdc: Switch to drm_mode_config_create_initial_state
-      drm/arcpgu: Switch to drm_mode_config_create_initial_state
-      drm/bochs: Switch to drm_mode_config_create_initial_state
-      drm/cirrus-qemu: Switch to drm_mode_config_create_initial_state
-      drm/gm12u320: Switch to drm_mode_config_create_initial_state
-      drm/hx8357d: Switch to drm_mode_config_create_initial_state
-      drm/ili9163: Switch to drm_mode_config_create_initial_state
-      drm/ili9225: Switch to drm_mode_config_create_initial_state
-      drm/ili9341: Switch to drm_mode_config_create_initial_state
-      drm/ili9486: Switch to drm_mode_config_create_initial_state
-      drm/mi0283qt: Switch to drm_mode_config_create_initial_state
-      drm/panel-mipi-dbi: Switch to drm_mode_config_create_initial_state
-      drm/pixpaper: Switch to drm_mode_config_create_initial_state
-      drm/repaper: Switch to drm_mode_config_create_initial_state
-      drm/sharp-memory: Switch to drm_mode_config_create_initial_state
-      drm/udl: Switch to drm_mode_config_create_initial_state
-      drm/vboxvideo: Switch to drm_mode_config_create_initial_state
-      drm/verisilicon: Switch to drm_mode_config_create_initial_state
-      drm/virtio: Switch to drm_mode_config_create_initial_state
-      drm/vmwgfx: Switch to drm_mode_config_create_initial_state
-      drm/xen: Switch to drm_mode_config_create_initial_state
-      drm/xlnx: Switch to drm_mode_config_create_initial_state
+diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/tests/amdgpu_dm_mst_types_test.c b/drivers/gpu/drm/amd/display/amdgpu_dm/tests/amdgpu_dm_mst_types_test.c
+index e624eb55cae1..e33a9daaebde 100644
+--- a/drivers/gpu/drm/amd/display/amdgpu_dm/tests/amdgpu_dm_mst_types_test.c
++++ b/drivers/gpu/drm/amd/display/amdgpu_dm/tests/amdgpu_dm_mst_types_test.c
+@@ -2943,6 +2943,51 @@ static void dm_mst_test_port_mode_last_link_synaptics_quirk(struct kunit *test)
+ 	KUNIT_EXPECT_EQ(test, (u32)ctx.stream->timing.flags.DSC, 1U);
+ }
+ 
++/**
++ * dm_mst_test_port_mode_logical_port_skips_last_link_check - logical ports have no last link
++ * @test: KUnit test context
++ *
++ * A logical port is the branch device's own internal sink, so no DP link
++ * follows it. A DP_LINK_BW_SET too slow for the uncompressed stream must not
++ * reject the mode, and the link settings are not read.
++ */
++static void dm_mst_test_port_mode_logical_port_skips_last_link_check(struct kunit *test)
++{
++	struct dm_mst_test_port_mode_ctx ctx;
++
++	dm_mst_test_init_port_mode_ctx(test, &ctx, 2500000, 1000, 100000);
++	dm_mst_test_enable_dsc(test, &ctx);
++	ctx.port->pdt = DP_PEER_DEVICE_SST_SINK;
++	ctx.port->port_num = DP_MST_LOGICAL_PORT_0;
++	dm_mst_test_set_link_settings(DP_LINK_BW_1_62, 1, DP_8b_10b_ENCODING);
++
++	KUNIT_EXPECT_EQ(test, dm_dp_mst_is_port_support_mode(ctx.aconnector, ctx.stream), DC_OK);
++	KUNIT_EXPECT_EQ(test, (u32)ctx.stream->timing.flags.DSC, 1U);
++	KUNIT_EXPECT_EQ(test, ctx.aconnector->mst_local_bw, 0U);
++}
++
++/**
++ * dm_mst_test_port_mode_highest_physical_port_last_link_checked - port 7 is physical
++ * @test: KUnit test context
++ *
++ * Port numbers 0-7 are physical and only 8 and above are logical, so a too
++ * slow last link behind port 7 still rejects the mode.
++ */
++static void dm_mst_test_port_mode_highest_physical_port_last_link_checked(struct kunit *test)
++{
++	struct dm_mst_test_port_mode_ctx ctx;
++
++	dm_mst_test_init_port_mode_ctx(test, &ctx, 2500000, 1000, 100000);
++	dm_mst_test_enable_dsc(test, &ctx);
++	ctx.port->pdt = DP_PEER_DEVICE_SST_SINK;
++	ctx.port->port_num = DP_MST_LOGICAL_PORT_0 - 1;
++	dm_mst_test_set_link_settings(DP_LINK_BW_1_62, 1, DP_8b_10b_ENCODING);
++
++	KUNIT_EXPECT_EQ(test, dm_dp_mst_is_port_support_mode(ctx.aconnector, ctx.stream),
++			DC_FAIL_BANDWIDTH_VALIDATE);
++	KUNIT_EXPECT_EQ(test, ctx.aconnector->mst_local_bw, 1257120U);
++}
++
+ /**
+  * dm_mst_test_port_mode_upstream_vc_too_small - the upstream hop is the bottleneck
+  * @test: KUnit test context
+@@ -4143,6 +4188,8 @@ static struct kunit_case dm_mst_types_test_cases[] = {
+ 	KUNIT_CASE(dm_mst_test_port_mode_last_link_too_slow),
+ 	KUNIT_CASE(dm_mst_test_port_mode_last_link_cached_bw),
+ 	KUNIT_CASE(dm_mst_test_port_mode_last_link_synaptics_quirk),
++	KUNIT_CASE(dm_mst_test_port_mode_logical_port_skips_last_link_check),
++	KUNIT_CASE(dm_mst_test_port_mode_highest_physical_port_last_link_checked),
+ 	KUNIT_CASE(dm_mst_test_port_mode_upstream_vc_too_small),
+ 	KUNIT_CASE(dm_mst_test_port_mode_branch_throughput_exceeded),
+ 	/* get_conv_frl_bw tests */
 
- drivers/gpu/drm/adp/adp_drv.c                      |  4 +---
- drivers/gpu/drm/amd/amdgpu/amdgpu_vkms.c           |  4 +++-
- .../amdgpu_dm/tests/amdgpu_dm_connector_test.c     |  3 ++-
- .../amdgpu_dm/tests/amdgpu_dm_mst_types_test.c     |  4 +++-
- drivers/gpu/drm/arm/hdlcd_drv.c                    |  9 +++++----
- drivers/gpu/drm/armada/armada_drv.c                |  4 +++-
- drivers/gpu/drm/ast/ast_mode.c                     |  4 +++-
- drivers/gpu/drm/exynos/exynos_drm_drv.c            |  4 +++-
- drivers/gpu/drm/fsl-dcu/fsl_dcu_drm_kms.c          |  4 +++-
- drivers/gpu/drm/hisilicon/hibmc/hibmc_drm_drv.c    |  7 ++++---
- drivers/gpu/drm/hyperv/hyperv_drm_modeset.c        |  4 +---
- drivers/gpu/drm/imx/ipuv3/imx-drm-core.c           |  4 +++-
- drivers/gpu/drm/ingenic/ingenic-drm-drv.c          | 22 +++++++++++++---------
- drivers/gpu/drm/kmb/kmb_drv.c                      |  3 +--
- drivers/gpu/drm/logicvc/logicvc_mode.c             |  4 +++-
- drivers/gpu/drm/loongson/lsdc_drv.c                |  4 +++-
- drivers/gpu/drm/mediatek/mtk_drm_drv.c             |  8 +++++++-
- drivers/gpu/drm/mgag200/mgag200_g200.c             |  4 +++-
- drivers/gpu/drm/mgag200/mgag200_g200eh.c           |  4 +++-
- drivers/gpu/drm/mgag200/mgag200_g200eh3.c          |  4 +++-
- drivers/gpu/drm/mgag200/mgag200_g200eh5.c          |  4 +++-
- drivers/gpu/drm/mgag200/mgag200_g200er.c           |  4 +++-
- drivers/gpu/drm/mgag200/mgag200_g200ev.c           |  4 +++-
- drivers/gpu/drm/mgag200/mgag200_g200ew3.c          |  4 +++-
- drivers/gpu/drm/mgag200/mgag200_g200se.c           |  4 +++-
- drivers/gpu/drm/mgag200/mgag200_g200wb.c           |  4 +++-
- drivers/gpu/drm/msm/msm_kms.c                      |  4 +++-
- drivers/gpu/drm/nouveau/nouveau_display.c          |  4 +++-
- drivers/gpu/drm/omapdrm/omap_drv.c                 |  4 +++-
- drivers/gpu/drm/qxl/qxl_display.c                  | 11 +++++++++--
- drivers/gpu/drm/renesas/rcar-du/rcar_du_kms.c      |  4 +++-
- drivers/gpu/drm/renesas/rz-du/rzg2l_du_kms.c       |  4 +++-
- drivers/gpu/drm/renesas/shmobile/shmob_drm_kms.c   |  4 +++-
- drivers/gpu/drm/sitronix/st7571.c                  |  4 +++-
- drivers/gpu/drm/sitronix/st7586.c                  |  4 +++-
- drivers/gpu/drm/sitronix/st7735r.c                 |  4 +++-
- drivers/gpu/drm/sitronix/st7920.c                  |  4 +---
- drivers/gpu/drm/sprd/sprd_drm.c                    |  6 ++++--
- drivers/gpu/drm/sti/sti_drv.c                      | 10 ++++------
- drivers/gpu/drm/stm/drv.c                          |  6 +++++-
- drivers/gpu/drm/sun4i/sun4i_drv.c                  |  4 +++-
- drivers/gpu/drm/sun4i/sun4i_framebuffer.c          |  6 +++---
- drivers/gpu/drm/sun4i/sun4i_framebuffer.h          |  2 +-
- drivers/gpu/drm/tegra/drm.c                        |  4 +++-
- drivers/gpu/drm/tests/drm_atomic_commit_test.c     |  3 ++-
- drivers/gpu/drm/tests/drm_atomic_test.c            |  4 +++-
- drivers/gpu/drm/tests/drm_bridge_test.c            | 12 +++++++++---
- drivers/gpu/drm/tests/drm_hdmi_state_helper_test.c |  3 ++-
- drivers/gpu/drm/tidss/tidss_drv.c                  |  6 +++++-
- drivers/gpu/drm/tilcdc/tilcdc_drv.c                |  4 +++-
- drivers/gpu/drm/tiny/arcpgu.c                      |  4 +++-
- drivers/gpu/drm/tiny/bochs.c                       |  4 +---
- drivers/gpu/drm/tiny/cirrus-qemu.c                 |  4 +++-
- drivers/gpu/drm/tiny/gm12u320.c                    |  4 +++-
- drivers/gpu/drm/tiny/hx8357d.c                     |  4 +++-
- drivers/gpu/drm/tiny/ili9163.c                     |  4 +++-
- drivers/gpu/drm/tiny/ili9225.c                     |  4 +++-
- drivers/gpu/drm/tiny/ili9341.c                     |  4 +++-
- drivers/gpu/drm/tiny/ili9486.c                     |  4 +++-
- drivers/gpu/drm/tiny/mi0283qt.c                    |  4 +++-
- drivers/gpu/drm/tiny/panel-mipi-dbi.c              |  4 +++-
- drivers/gpu/drm/tiny/pixpaper.c                    |  4 +++-
- drivers/gpu/drm/tiny/repaper.c                     |  4 +++-
- drivers/gpu/drm/tiny/sharp-memory.c                |  4 +++-
- drivers/gpu/drm/udl/udl_modeset.c                  |  4 +++-
- drivers/gpu/drm/vboxvideo/vbox_mode.c              |  5 ++++-
- drivers/gpu/drm/verisilicon/vs_drm.c               |  4 +++-
- drivers/gpu/drm/virtio/virtgpu_display.c           |  3 +--
- drivers/gpu/drm/vmwgfx/vmwgfx_kms.c                | 14 +++++++++++++-
- drivers/gpu/drm/vmwgfx/vmwgfx_ldu.c                |  3 ---
- drivers/gpu/drm/vmwgfx/vmwgfx_scrn.c               |  3 ---
- drivers/gpu/drm/vmwgfx/vmwgfx_stdu.c               |  3 ---
- drivers/gpu/drm/xen/xen_drm_front_kms.c            |  4 +++-
- drivers/gpu/drm/xlnx/zynqmp_kms.c                  |  6 ++++--
- 74 files changed, 243 insertions(+), 115 deletions(-)
----
-base-commit: a8670a2ab1a81dc3fc30093e47c23b83244ca4d0
-change-id: 20260712-drm-no-more-config-reset-1ea89f56693d
-
-Best regards,
 -- 
-Maxime Ripard <mripard@kernel.org>
+2.56.1
 
