@@ -2,88 +2,85 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0B3DD606A32F
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E6E98606A329
 	for <dri-devel@archiver.kernel.org>; Mon, 16 Nov 2026 08:58:56 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=lmM8JJqa
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=D/snmn4A
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id B590D10EB89;
+	by gabe.freedesktop.org (Postfix) with ESMTP id DB12710EC48;
 	Mon, 16 Nov 2026 08:58:47 +0000 (UTC)
-Received: from mail-dy1-f174.google.com (mail-dy1-f174.google.com
- [74.125.82.174])
- by gabe.freedesktop.org (Postfix) with ESMTPS id D0A0F10E139
- for <dri-devel@lists.freedesktop.org>; Sat, 14 Nov 2026 17:18:03 +0000 (UTC)
-Received: by mail-dy1-f174.google.com with SMTP id
- 5a478bee46e88-36d1b3b9974so168438eec.2
- for <dri-devel@lists.freedesktop.org>; Sat, 14 Nov 2026 09:18:03 -0800 (PST)
+Received: from mail-wm1-f44.google.com (mail-wm1-f44.google.com
+ [209.85.128.44])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id C6F6A10E2FD
+ for <dri-devel@lists.freedesktop.org>; Mon, 16 Nov 2026 07:02:18 +0000 (UTC)
+Received: by mail-wm1-f44.google.com with SMTP id
+ 5b1f17b1804b1-4b467581b98so24300835e9.0
+ for <dri-devel@lists.freedesktop.org>; Sun, 15 Nov 2026 23:02:18 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20260707; t=1794676683; x=1795281483; darn=lists.freedesktop.org;
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:date:subject:cc:to:from:from:to:cc:subject:date
- :message-id:reply-to:content-type;
- bh=4oitWDULEpM5/hVJgOh4m6V8xx8F+2jtGn7i+dhJCug=;
- b=lmM8JJqaCYVbMf+UIRYdrbkWNXictWwF0SawMgYxXK7fB/H5QtdJzwJzKEOlvVGzVT
- jqIWdM0hM512n3C753TPEh0Z8nxUUI2w6pUWGlyf9NjqBVHeWG14C4WsJpgepZHiXWX7
- n7VVQtK7LqIEhVuP42N7mB6GhukVVGAH28hVsAHWrYdTNmScuFYhy1NJ8Hd3sbHYFZQE
- duWLLw2QwmCz4ptQSR0R/LqeSwAEVqg2/APC8nsnq1eYXgpDcYjyTRqmKPfH9muHkhoX
- Fa8bR3k9DCnVOZ9v6wm0BAB0MAs4m/DmapPzGBBPinF6lJa5jV2UFhaehh6M7JiUMfty
- 0T1w==
+ d=gmail.com; s=20260707; t=1794812537; x=1795417337; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:content-type:mime-version:references
+ :in-reply-to:message-id:date:subject:cc:to:from:from:to:cc:subject
+ :date:message-id:reply-to:content-type;
+ bh=2WwhmAqxPEFlsm5zE6uH7fU7EMvllXc0ISVSjbfBGoc=;
+ b=D/snmn4AvG/FsheZwle+l7IErkLgcSXjfDEJUQWP5kC5iQRAq80rbR9mMyiLOa2kxi
+ zexI+ttMnpFFwfwKbULfPYheEUKvEKgU111N7c0ms8t70z03bgxU8lcNyCDkwlxb7BZy
+ kEAKnb+iLIA4t32G+RrE1/xAJYEKPHRcTBHTDHv4n9zW+ssAULEcb+++4GZvfPE+e8yL
+ gD5WiEn3Z7JIYu2E8gfTlNmtq7esFJIpjMwRjsnAJfeoemHPv678L9Qi0lZ8ZhfRxLyn
+ RRPl6KEmNOXiTQeFzC0xWuxbzi9+QwXjrM3cTIrTOyNV9IzzIm2VjZO+fUT/ai3WBaI6
+ pkSA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20260707; t=1794676683; x=1795281483;
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
- :to:cc:subject:date:message-id:reply-to:content-type;
- bh=4oitWDULEpM5/hVJgOh4m6V8xx8F+2jtGn7i+dhJCug=;
- b=lJbJsaKk+ibFdCcuspWjaIppcWoTKknv2/hQuH4KYxo0gJv7UHjIObj3QztKeiVaHr
- gEAYOXWA6EbuO6g+iwWneMe6Hal15LaNC7sW/S7P0ZQRitmQt4G70dkpw3P0OCJtY9Cs
- 4ui592JM7MiOF4Gj0vUCh1/PzSBm3vlJetF97ud3iGdHOe5I0rPAv36LVBqVteEuTiwy
- HKUPA4GgMiQAJJuC4RGJ8HFXEztbKCNkbOYL1GxSFzhg6npGctct01ACaGWEoAGKReSs
- IvyuBjbxyuQkGPTh1TLOJG1rxpEazl7OAyd5xtekNkmbBM7f3+FMTbfLIHLmYKLST1L6
- qvig==
+ d=1e100.net; s=20260707; t=1794812537; x=1795417337;
+ h=content-transfer-encoding:content-type:mime-version:references
+ :in-reply-to:message-id:date:subject:cc:to:from:x-gm-gg
+ :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+ :content-type;
+ bh=2WwhmAqxPEFlsm5zE6uH7fU7EMvllXc0ISVSjbfBGoc=;
+ b=CcHxJ3Q/9/ggQgooKQPt+mI0T8rcLBD3sdDdGmXYWedKxZsFjHQrjxv90CNr+vxMPP
+ MGz7JuxyP2/TD+gEpEWJAVtftMCSiZWY/QyE5oH4L+E0Sql1R1LJXvGJu4IXKy3T6rMf
+ I/mQ2rK92Si4AHxOUc6FF+5V204g2//5cjEbc599etneqmQLD5YysS8VeEsGHHtcur6s
+ KYXgQd040LxI0UPqVGpmrL4DjL8pcEetg0SLr3l+UOj3J8ZaZbuNlOiEvW9s+N5TPwTJ
+ 4efohSgagKYp4aW+RW5JOyersn9ewKKv9sDjXI9uPJLtzH4DqAgjFVOajtXTj4761GEW
+ mstQ==
 X-Forwarded-Encrypted: i=1;
- AL+hErEq6jxq7uNE9buQoWgmBmuhihcYZICsBPrdD1arUvVn0f6OzwlCwS3fJQcJpCCkSbTpyive8iZkuyU=@lists.freedesktop.org
-X-Gm-Message-State: APuU4Z+yejiaLHOyjnwOBCwZ+gDEPTd8zbwCmcNMI37MbQ96jd/hwHMq
- +TYDCVA3G1xRUda4FLiClwajxMgU0zAKLBuV5CUHJMxJLfCUsr8N22fW
-X-Gm-Gg: AYBFou2dIpDtB+VG6EBN/AjWxmhIcpSTuF0s81Y7A635m2kZeflygBZePOGHugaR7RN
- 0tLI/DUdG31JzmYLdbqoypYoZr5iaQueZUrrAVzrurBEpZPAP/rdxLf8jLhwnVsKfSnEs2xdS7I
- AiwhX5hOzlRQvxWP5b5aru6XXhjT8CT8jcthriHLpWP99Dl9N7tHgMpfkuZn/gHbD4/bwNBmIAl
- z7EDY4GLViW5aq8tCOe+WF/HpMC1zLEFKrvrSgTi/5LlcbvRmuaNApAGdqebgJW98jre/oPOaJI
- OKxIkYkGb4NoneKKVZ0VrXuCX0xuMIREFe7u29dyUdrUBvYvNGhutlxIy9U6sqWcuPGOd5hiY1h
- 1gvieJyYkN9jaKCLxWZs6bCYFwBOG/a0J0iuH/8pBoGeilZmGunDt1KUxNYKXwzERSBqpzpGTNZ
- 8LH28xK0/ahDyXGXg12BJDd5Nwj6aLrFNiSTaA3deAbrQwWEgmB8Lbp6lA7ov8rfq99eQo8XLqw
- 2Ovop0rKCrSs3JSpDhERic9p6dwapCF26M2iuNEqkG+3zrpsQchJsBOTLMbFEW2Jog/ovSJfj1v
- zmvAE7PqKfBHXnCJetICXXvg4oJ2g814l3es32TaTtV2l3GE0U4omtvU31uVsDpD7mg8yYfGkGW
- +1XU=
-X-Received: by 2002:a05:7300:c00e:20b0:35e:d21c:f33e with SMTP id
- 5a478bee46e88-379651ecb3emr9803831eec.1.1794676682696; 
- Sat, 14 Nov 2026 09:18:02 -0800 (PST)
-Received: from DESKTOP-CJ1L666.localdomain ([211.198.99.62])
- by smtp.gmail.com with ESMTPSA id
- 5a478bee46e88-37956bb0c40sm19492548eec.28.2026.11.14.09.17.58
+ AL+hErGMHkg7TjuieNds8fiZuDcp7d07WxCrSQkVUOMFPf4XZYq3Ca+uXbIs62U8MmGIZVVCulHSECavt/o=@lists.freedesktop.org
+X-Gm-Message-State: APuU4Z/3y4MQ5JPzzeNEkWnC7cYuyJ5cMK4h2vgslICorYHOaZDFPeG3
+ VP9hGvq+iJswqxctQ7Z9SokFHFiefqEGFg36cEoaKZFcC6mf0AGEKcmc
+X-Gm-Gg: AYBFou0Fkm3kYK5EEclOQBtsSsjmrJnQZM2fHb0G8FrwKQuYkVVN80mdKrW62RGiOpt
+ p/q1YQ/L4e+C6BlF0oDZ59wvdNCVZ6T0krdfNIlMzpDqZfxcF/B+BQ38hw3IzbOQxtlo1f8VXeo
+ gQFNmwbsLK9/ggvRYev5pI6st/e1H8HIaz3g3e03aznlc2BVOuDl3i0JiDnYGIc/Pcq0DU7DquP
+ NKojfKOQheWSrsibOvIxuFI6HRVo6Zex9FAaj+MrkDXSyo7WWewiLpFD7sclXJLGkGSdFeGqPuq
+ mfMbd4hzNWRgvvLt+nRJLU7mhfZb/qjwdi2juGgFHdwtEDZeAUKrb4/Wo1XYxoOUwHPveXwu8bh
+ 56bHVv5vwRr/9ukyDavmsK1Ls3bzQuXCNpXaSp+6npQSgRM9GDULigBthPcuS7N3QwTPC2niUJa
+ BWoWey6zKsqo9T57m3rVu+21J45RbL/3BdmaG6po4PxwHCqAo1mBTph6K/uSFFSv+WdIksYWmGY
+ IhtB8QHZDM9jge4iFdLQeYwmtUns2IsS/8lKnTuLdCYbkY6x0q5CGPNQq9dhst3bfOsrz3aN5M1
+ aBfN58yn9OJF78Qxo2hYT2rL8PIPgEER
+X-Received: by 2002:a05:600c:8708:b0:4a6:30c3:1114 with SMTP id
+ 5b1f17b1804b1-4bb55a7ece6mr210888835e9.12.1794812536974; 
+ Sun, 15 Nov 2026 23:02:16 -0800 (PST)
+Received: from dl360p ([130.61.107.245]) by smtp.gmail.com with ESMTPSA id
+ 5b1f17b1804b1-4bb4e2538b9sm558777625e9.1.2026.11.15.23.02.15
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Sat, 14 Nov 2026 09:18:02 -0800 (PST)
-From: Jiwoo Kim <arpe1618@gmail.com>
-To: Rob Clark <rob.clark@oss.qualcomm.com>
-Cc: Dmitry Baryshkov <lumag@kernel.org>,
- Akhil P Oommen <akhilpo@oss.qualcomm.com>,
- Konrad Dybcio <konradybcio@kernel.org>,
- Anna Maniscalco <anna.maniscalco2000@gmail.com>,
- Abhinav Kumar <abhinav.kumar@linux.dev>,
- Jessica Zhang <jesszhan0024@gmail.com>, Sean Paul <sean@poorly.run>,
- Marijn Suijten <marijn.suijten@somainline.org>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org,
- freedreno@lists.freedesktop.org, linux-kernel@vger.kernel.org,
- stable@vger.kernel.org
-Subject: Re: [PATCH v2 0/3] drm/msm: Fix VM_BIND job,
- queue and entity lifetimes
-Date: Sun, 15 Nov 2026 02:17:52 +0900
-Message-ID: <20261114171752.972-1-arpe1618@gmail.com>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <CACSVV00ZppfBKwsHJ+NBYBB7a2f3g1O=6J4Gt1m_A74fudZQoQ@mail.gmail.com>
-References: <CACSVV00ZppfBKwsHJ+NBYBB7a2f3g1O=6J4Gt1m_A74fudZQoQ@mail.gmail.com>
+ Sun, 15 Nov 2026 23:02:16 -0800 (PST)
+From: =?UTF-8?q?Adil=20H=C3=BCsrev=20Tepe?= <tadilhusrev@gmail.com>
+To: Neil Armstrong <neil.armstrong@linaro.org>,
+ Jessica Zhang <jesszhan0024@gmail.com>, Rob Herring <robh@kernel.org>,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>
+Cc: David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>,
+ Thomas Zimmermann <tzimmermann@suse.de>, dri-devel@lists.freedesktop.org,
+ devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+ =?UTF-8?q?Adil=20H=C3=BCsrev=20Tepe?= <tadilhusrev@gmail.com>
+Subject: [PATCH v1 1/2] dt-bindings: display: panel: add Novatek NT36525
+Date: Mon, 16 Nov 2026 10:02:11 +0300
+Message-ID: <20261116070212.314228-2-tadilhusrev@gmail.com>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <20261116070212.314228-1-tadilhusrev@gmail.com>
+References: <20261116070212.314228-1-tadilhusrev@gmail.com>
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 X-Mailman-Approved-At: Mon, 16 Nov 2026 08:58:46 +0000
 X-BeenThere: dri-devel@lists.freedesktop.org
@@ -97,59 +94,108 @@ List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-5.8 required=3.0 tests=BAYES_00,DKIM_SIGNED,
+X-Spam-Status: No, score=-15.8 required=3.0 tests=BAYES_00,DKIM_SIGNED,
 	DKIM_VALID,DKIM_VALID_AU,FREEMAIL_FORGED_FROMDOMAIN,FREEMAIL_FROM,
-	HEADER_FROM_DIFFERENT_DOMAINS,MAILING_LIST_MULTI,SPF_HELO_NONE,
-	SPF_PASS,USER_AGENT_GIT autolearn=no autolearn_force=no version=4.0.1
+	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
+	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,USER_AGENT_GIT
+	autolearn=unavailable autolearn_force=no version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-On Sat, Nov 14, 2026 at 8:40 AM Rob Clark <rob.clark@oss.qualcomm.com> wrote:
-> Oh, right.  We should probably just update last_fence for VM_BIND in
-> the same way.  (Ie. using dma_fence_unwrap_merge() to deal with the
-> case that the current last_fence is on a different timeline.)  I
-> overlooked that.
+Add a binding for MIPI-DSI video-mode panels based on the Novatek
+NT36525 controller. The first compatible names the specific panel as
+fitted in a device; the second is the NT36525 controller it is based
+on. The initial user is the panel in the Samsung Galaxy XCover5
+(SM-G525F).
 
-Will do in v4.
+The binding was drafted during XCover5 mainline bring-up with the help
+of an AI coding assistant (Claude Code, Anthropic), from a description
+of the panel and the stock device tree, and reviewed and validated
+(dt_binding_check, yamllint) by me.
 
-> I think if last_fence is also accounting for VM_BIND jobs, this should
-> ensure that all VM_BIND jobs are also finished.
+Signed-off-by: Adil Hüsrev Tepe <tadilhusrev@gmail.com>
+---
+ .../display/panel/novatek,nt36525.yaml        | 71 +++++++++++++++++++
+ 1 file changed, 71 insertions(+)
+ create mode 100644 Documentation/devicetree/bindings/display/panel/novatek,nt36525.yaml
 
-It covers their fences, but not the free of a killed job:
-drm_sched_entity_kill_jobs_work() signals the finished fence and only
-then calls free_job(), which can drop the last reference to the queue
-after msm_gem_vm_close() has torn the scheduler down.
-msm_submitqueue_destroy() then calls drm_sched_entity_destroy(), whose
-flush reads entity->rq->sched from the run queue that drm_sched_fini()
-freed. Jobs that ran are freed before drm_sched_fini(), by the
-scheduler or in drm_sched_stop(). So I'd keep patch 2 on top of the
-last_fence change.
+diff --git a/Documentation/devicetree/bindings/display/panel/novatek,nt36525.yaml b/Documentation/devicetree/bindings/display/panel/novatek,nt36525.yaml
+new file mode 100644
+index 000000000..5c6e7cce0
+--- /dev/null
++++ b/Documentation/devicetree/bindings/display/panel/novatek,nt36525.yaml
+@@ -0,0 +1,71 @@
++# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
++%YAML 1.2
++---
++$id: http://devicetree.org/schemas/display/panel/novatek,nt36525.yaml#
++$schema: http://devicetree.org/meta-schemas/core.yaml#
++
++title: Novatek NT36525 MIPI-DSI panel
++
++maintainers:
++  - Adil Hüsrev Tepe <tadilhusrev@gmail.com>
++
++description:
++  A MIPI-DSI video-mode panel driven by a Novatek NT36525 controller,
++  720x1480. The first compatible string names the specific panel as fitted
++  in a device; the second is the NT36525 controller it is based on. The
++  panel reset (RESX) is active high in the Samsung Galaxy XCover5 bring-up
++  sequence.
++
++allOf:
++  - $ref: panel-common.yaml#
++
++properties:
++  compatible:
++    items:
++      - enum:
++          - samsung,xcover5-nt36525
++      - const: novatek,nt36525
++
++  reg:
++    maxItems: 1
++    description: DSI virtual channel
++
++  reset-gpios:
++    maxItems: 1
++
++  vdd-supply:
++    description: panel power supply
++
++  port: true
++
++required:
++  - compatible
++  - reg
++  - reset-gpios
++  - vdd-supply
++  - port
++
++additionalProperties: false
++
++examples:
++  - |
++    #include <dt-bindings/gpio/gpio.h>
++
++    dsi {
++        #address-cells = <1>;
++        #size-cells = <0>;
++
++        panel@0 {
++            compatible = "samsung,xcover5-nt36525", "novatek,nt36525";
++            reg = <0>;
++            reset-gpios = <&gpa0 0 GPIO_ACTIVE_HIGH>;
++            vdd-supply = <&panel_vdd>;
++
++            port {
++                panel_in: endpoint {
++                    remote-endpoint = <&dsi_out>;
++                };
++            };
++        };
++    };
++...
+-- 
+2.53.0
 
-> Yes, userspace must use fences/syncobjs to synchronize VM_BINDs if it
-> is using multiple VM_BIND queues with overlapping updates.  An error
-> would mark the vm unuseable, and the kernel will stop accepting
-> SUBMITs and VM_BINDs.  But maybe we should also handle errors in the
-> UNMAP path as well, as that also indicates that userspace is doing
-> something wrong?
-
-Yes, I'll do that, but it only catches an unmap that finds part of its
-range unmapped, not one that runs while the range still holds the PTEs
-of an older mapping, e.g. one whose own unmap is still queued on a
-third queue. The early unmap then succeeds. If the map runs next,
-before the third queue's unmap, its PTEs belong to no VMA, so nothing
-keeps the BO alive for them until that unmap removes them, and none of
-the three ops fails.
-
-So instead of making unmaps wait for maps, in v4 I'd also track
-whether the map of a VMA has been applied, and mark the VM unusable
-when its unmap runs first. The jobs of a VM run one at a time on
-vm->sched, but v3 patch 1 applies the unmaps of a killed job from the
-kill worker, and msm_vma_job_run() reads vm->unusable before taking
-mmu_lock, so a map waiting for the lock would still be applied. The
-check has to move under the lock, and the flag has to be set before
-the unmap path drops the lock.
-
-This is all from reading the code; I haven't reproduced it.
-
-Thanks,
-Jiwoo Kim
