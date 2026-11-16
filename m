@@ -2,42 +2,55 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 32740606A31C
-	for <dri-devel@archiver.kernel.org>; Mon, 16 Nov 2026 11:37:32 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6C58C606A31C
+	for <dri-devel@archiver.kernel.org>; Mon, 16 Nov 2026 11:37:45 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=bE/DsTj+
+	dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.a=rsa-sha256 header.s=dkim header.b=n1/8+wKk
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 5F6A910E1F5;
-	Mon, 16 Nov 2026 11:37:26 +0000 (UTC)
-Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 52FB410E1F5
- for <dri-devel@lists.freedesktop.org>; Mon, 16 Nov 2026 11:37:20 +0000 (UTC)
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id DCFBF403CC;
- Mon, 16 Nov 2026 11:37:19 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8CA3C1F000C4;
- Mon, 16 Nov 2026 11:37:19 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1794829039;
- bh=ueIInQc4QKIr2ojhCRxCqRdUNkfPQgEM8n1d1ohthAU=;
- h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
- b=bE/DsTj+3RvWsprIvL9fV+wAqN2+szNZq1u438VQoTGynf3x6qWDPDMKLMens1bHQ
- m9/Qlj/au2+Z7BdJ1ctN35IgD+CnZVFgnS2vulasItxu/fQlmR7jJ+jM1aA4MEw727
- 10wC3Pok2NFmcgZuD869X5w+vSyJU8gzK9K3/HdEmP0VLGFNte5waO5nU1f1nWW9hv
- W65k4Yuk5O7eqmOREKiKIFfyzv6HrZI0m3PBEKqk33DLaSS+BuO4KAcIOhi/1S+MNm
- SmZGYRsYJKUWySPq9XWTUxtEbGGODfet0zK6bgdowF/TmXVDQnrfa+pUktqlrS+bL+
- Gij5N0TgPZk2Q==
-Message-ID: <sashiko-outbox-216952@kernel.org>
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v5 10/13] drm/panthor: Use a copy of suspend buffer sizes
-To: "Ketil Johnsen" <ketil.johnsen@arm.com>
-Cc: dri-devel@lists.freedesktop.org, ojeda@kernel.org, gary@garyguo.net
-In-Reply-To: <20261116112601.3483649-11-ketil.johnsen@arm.com>
-References: <20261116112601.3483649-1-ketil.johnsen@arm.com>
- <20261116112601.3483649-11-ketil.johnsen@arm.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Mon, 16 Nov 2026 11:37:19 +0000
+	by gabe.freedesktop.org (Postfix) with ESMTP id 923FD10EF96;
+	Mon, 16 Nov 2026 11:37:39 +0000 (UTC)
+Received: from smtpout-04.galae.net (smtpout-04.galae.net [185.171.202.116])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 8630610E2D3
+ for <dri-devel@lists.freedesktop.org>; Mon, 16 Nov 2026 11:37:32 +0000 (UTC)
+Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
+ by smtpout-04.galae.net (Postfix) with ESMTPS id 6384BC4EFD5;
+ Mon, 16 Nov 2026 11:37:34 +0000 (UTC)
+Received: from mail.galae.net (mail.galae.net [212.83.136.155])
+ by smtpout-01.galae.net (Postfix) with ESMTPS id 69FE16023F;
+ Mon, 16 Nov 2026 11:37:30 +0000 (UTC)
+Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon)
+ with ESMTPSA id 84F1011BC0949; Mon, 16 Nov 2026 12:37:20 +0100 (CET)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
+ t=1794829045; h=from:subject:date:message-id:to:cc:mime-version:content-type:
+ content-transfer-encoding:in-reply-to:references;
+ bh=tlxQbNS6YQ6dC4GW6OJCCMzPULNSrAZH+Tzi4oNheUc=;
+ b=n1/8+wKkaYL+fR3a+f5O3cXaZsUZ2LP2/kH6EvLZuqQciO/HWmnBxlP87Krgwjab+hEo1V
+ e28S+wm/bNgiSHEm2F7KjKk1AMq4ZWsEFKVfUHNgsNRo0u5ZQfb7UAYv01CQQdl7L0Gbvj
+ COzUiq+IZRAA9xsAQGHggG0PYOPK4moR1QCsdqoEgNmoNTePnttnK6MIV2xmsgKNJi1fdb
+ EwEFueQfCrqePqeGDKKjFUIX9P3qES5mYvaoS0DEGA/OJXgV4gljcO9Fntx7Xxkgh34A41
+ 88c6abrL3RTW0XiqpxzYjlVWUqthJqiBD8LqmW0/ft8dQY3Tfm6QPneSjtOS1A==
+From: Luca Ceresoli <luca.ceresoli@bootlin.com>
+To: Jyri Sarha <jyri.sarha@iki.fi>, 
+ Tomi Valkeinen <tomi.valkeinen@ideasonboard.com>, 
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
+ "Kory Maincent (TI.com)" <kory.maincent@bootlin.com>, 
+ "Markus Schneider-Pargmann (TI)" <msp@baylibre.com>
+Cc: dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org, 
+ Julien Panis <jpanis@baylibre.com>, "Mendez, Judith" <jm@ti.com>, 
+ "Francis, Sebin" <sebin.francis@ti.com>, stable@vger.kernel.org
+In-Reply-To: <20261103-v7-4-topic-am335lpm-tilcdc-v1-1-b7f91f9c9a05@baylibre.com>
+References: <20261103-v7-4-topic-am335lpm-tilcdc-v1-1-b7f91f9c9a05@baylibre.com>
+Subject: Re: [PATCH] drm/tilcdc: Fix suspend/resume drvdata
+Message-Id: <179482904036.190319.14137028928687094984.b4-ty@b4>
+Date: Mon, 16 Nov 2026 12:37:20 +0100
+X-Archived-By: <archiver.kernel.org>
+MIME-Version: 1.0
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-Mailer: b4 0.16.0
+X-Last-TLS-Session-Version: TLSv1.3
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -48,67 +61,36 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
-Reply-To: sashiko-reviews@lists.linux.dev
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-10.8 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
-	DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
-	INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS autolearn=ham
+X-Spam-Status: No, score=-8.8 required=3.0 tests=BAYES_00,DKIM_SIGNED,
+	DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
+	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,USER_AGENT_GIT autolearn=ham
 	autolearn_force=no version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
-X-Archived-By: <archiver.kernel.org>
 
-Thank you for your contribution! Sashiko AI review found 1 potential
-issue to consider:
-- [Low] drm/panthor: unused variable csg_iface in panthor_group_create()
---
 
-commit 71ef359cc5f25037d19672b0d70e07aa5a47adee
-Author: Ketil Johnsen <ketil.johnsen@arm.com>
+On Tue, 03 Nov 2026 14:15:33 +0100, Markus Schneider-Pargmann (TI) wrote:
+> drvdata contains a pointer to a struct tilcdc_drm_private and not a
+> pointer to a struct drm_device anymore.
+> 
+> Note that this breaks suspend/resume at the moment, it hangs on
+> acquiring a mutex.
+> 
+> Interpret drvdata correctly as struct tilcdc_drm_private as is done in
+> the rest of the driver.
+> 
+> [...]
 
-drm/panthor: Use a copy of suspend buffer sizes
+Applied, thanks!
 
-This commit caches the regular and protected suspend buffer sizes from the
-firmware CSG control interface during initialization and uses the cached
-size when allocating the suspend buffer in panthor_group_create().
+[1/1] drm/tilcdc: Fix suspend/resume drvdata
+      commit: b4d01c788bfa50dc65ffb5fbc9db4135004c0e01
 
-> diff --git a/drivers/gpu/drm/panthor/panthor_sched.c b/drivers/gpu/drm/pa=
-nthor/panthor_sched.c
-> index ca6aa6a55661a..9c78f04d4f30a 100644
-> --- a/drivers/gpu/drm/panthor/panthor_sched.c
-> +++ b/drivers/gpu/drm/panthor/panthor_sched.c
-> @@ -4058,7 +4058,7 @@ int panthor_group_create(struct drm_file *file,
->  	struct panthor_scheduler *sched =3D ptdev->scheduler;
->  	struct panthor_fw_csg_iface *csg_iface =3D panthor_fw_get_csg_iface(ptd=
-ev, 0);
->  	struct panthor_group *group =3D NULL;
-> -	u32 gid, i, suspend_size;
-> +	u32 gid, i;
->  	int ret;
-> =20
->  	if (group_args->pad)
-> @@ -4109,8 +4109,8 @@ int panthor_group_create(struct drm_file *file,
->  		goto err_put_group;
->  	}
-> =20
-> -	suspend_size =3D csg_iface->control->suspend_size;
-> -	group->suspend_buf =3D panthor_fw_alloc_suspend_buf_mem(ptdev, suspend_=
-size);
-> +	group->suspend_buf =3D
-> +		panthor_fw_alloc_suspend_buf_mem(ptdev, panthor_fw_suspend_size(ptdev)=
-);
->  	if (IS_ERR(group->suspend_buf)) {
->  		ret =3D PTR_ERR(group->suspend_buf);
->  		group->suspend_buf =3D NULL;
+Best regards,
+-- 
+Luca Ceresoli, Bootlin
+Embedded Linux and Kernel engineering
+https://bootlin.com
 
-[Severity: Low]
-Does replacing csg_iface->control->suspend_size with
-panthor_fw_suspend_size(ptdev) leave csg_iface unused in
-panthor_group_create()?  That triggers a -Wunused-variable warning (and a
-build failure with CONFIG_WERROR=3Dy) at this point in the series, as the
-csg_iface declaration is only removed in the later commit "drm/panthor:
-Protm support for groups".
 
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261116112601.3483=
-649-1-ketil.johnsen@arm.com?part=3D10
