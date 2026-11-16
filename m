@@ -2,48 +2,88 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F12DD606A882
-	for <dri-devel@archiver.kernel.org>; Mon, 16 Nov 2026 15:02:47 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2D97F606A8BE
+	for <dri-devel@archiver.kernel.org>; Mon, 16 Nov 2026 15:03:07 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux.microsoft.com header.i=@linux.microsoft.com header.a=rsa-sha256 header.s=default header.b=ERypDUVe
+	dkim=pass (1024-bit key) header.d=suse.com header.i=@suse.com header.a=rsa-sha256 header.s=susede1 header.b=rWKhfsNn;
+	dkim=pass (1024-bit key) header.d=suse.com header.i=@suse.com header.a=rsa-sha256 header.s=susede1 header.b=rWKhfsNn
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 27EB810E413;
-	Mon, 16 Nov 2026 15:02:42 +0000 (UTC)
-Received: from linux.microsoft.com (linux.microsoft.com [13.77.154.182])
- by gabe.freedesktop.org (Postfix) with ESMTP id C753410E414
- for <dri-devel@lists.freedesktop.org>; Mon, 16 Nov 2026 15:02:35 +0000 (UTC)
-Received: by linux.microsoft.com (Postfix, from userid 1216)
- id C1DBF20B7168; Mon, 16 Nov 2026 07:02:29 -0800 (PST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 linux.microsoft.com C1DBF20B7168
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linux.microsoft.com;
- s=default; t=1794841349;
- bh=UrYcNCnPwkCr55f9wx8oAre7u+b0LDqMaAoFyZ5VaPg=;
- h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
- b=ERypDUVeu4NV1skzpf8c34AAAzQIG3PkRJQtWby0OLSkQ3SY2aKbeQhqT/Dm96/en
- QBTevP16cm96ExjC3d+nw/C85+oOk2rhax6ilL9H7pHsMuKWWdKczebjbxfa/YpNm1
- C5WCyZWbv2VYosYIY9eN6Z7Wtq1XqTTfLgniRwhg=
-Date: Mon, 16 Nov 2026 10:02:29 -0500
-From: Hamza Mahfooz <hamzamahfooz@linux.microsoft.com>
-To: Michael Kelley <mhklinux@outlook.com>
-Cc: "dri-devel@lists.freedesktop.org" <dri-devel@lists.freedesktop.org>,
- Dexuan Cui <decui@microsoft.com>,
- Saurabh Sengar <ssengar@linux.microsoft.com>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>,
- Thomas Zimmermann <tzimmermann@suse.de>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- Kees Cook <kees@kernel.org>, "Gustavo A. R. Silva" <gustavoars@kernel.org>,
- "linux-hyperv@vger.kernel.org" <linux-hyperv@vger.kernel.org>,
- "linux-hardening@vger.kernel.org" <linux-hardening@vger.kernel.org>
-Subject: Re: [PATCH 0/2] drm/hyperv: address worthwhile gaps
-Message-ID: <avsbBTsIoo09yr9L@linuxonhyperv3.guj3yctzbm1etfxqx2vob5hsef.xx.internal.cloudapp.net>
-References: <20261113215843.1939889-1-hamzamahfooz@linux.microsoft.com>
- <MN2PR02MB68638ED8E06516AFFAE4B218D47E2@MN2PR02MB6863.namprd02.prod.outlook.com>
+	by gabe.freedesktop.org (Postfix) with ESMTP id 50BEA10E414;
+	Mon, 16 Nov 2026 15:02:56 +0000 (UTC)
+Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.223.131])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 16D5710E414
+ for <dri-devel@lists.freedesktop.org>; Mon, 16 Nov 2026 15:02:44 +0000 (UTC)
+Received: from imap1.dmz-prg2.suse.org (imap1.dmz-prg2.suse.org
+ [IPv6:2a07:de40:b281:104:10:150:64:97])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+ (No client certificate requested)
+ by smtp-out2.suse.de (Postfix) with ESMTPS id 9D7E01FB16;
+ Mon, 16 Nov 2026 15:02:42 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
+ t=1794841362; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references;
+ bh=J5VnG0NPXUCKdQJEnrA3iW0cqMEJyeKN/gOcr8jRAcw=;
+ b=rWKhfsNn4WbapkBCldm/RX2TuiuDRM8WcCcA2ZdmXhaxUGU+XUqG30wcS8PCEOCS4jCz3v
+ oiwr6+Bhwk7GjvomUH0+nP2xkodv3Lfn3gw/upg+Msu4fGVPU7lbQS8vDMogAGIFEZ5aZP
+ j4tOVou8yHj+719+paW/BVw3RNUzn8E=
+Authentication-Results: smtp-out2.suse.de;
+ dkim=pass header.d=suse.com header.s=susede1 header.b=rWKhfsNn
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
+ t=1794841362; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references;
+ bh=J5VnG0NPXUCKdQJEnrA3iW0cqMEJyeKN/gOcr8jRAcw=;
+ b=rWKhfsNn4WbapkBCldm/RX2TuiuDRM8WcCcA2ZdmXhaxUGU+XUqG30wcS8PCEOCS4jCz3v
+ oiwr6+Bhwk7GjvomUH0+nP2xkodv3Lfn3gw/upg+Msu4fGVPU7lbQS8vDMogAGIFEZ5aZP
+ j4tOVou8yHj+719+paW/BVw3RNUzn8E=
+Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+ (No client certificate requested)
+ by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 5462413408;
+ Mon, 16 Nov 2026 15:02:42 +0000 (UTC)
+Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
+ by imap1.dmz-prg2.suse.org with ESMTPSA id gro6CxIb+2ryDwAAD6G6ig
+ (envelope-from <jgross@suse.com>); Mon, 16 Nov 2026 15:02:42 +0000
+From: Juergen Gross <jgross@suse.com>
+To: linux-kernel@vger.kernel.org,
+	dri-devel@lists.freedesktop.org
+Cc: Juergen Gross <jgross@suse.com>,
+	David Airlie <airlied@redhat.com>
+Subject: [PATCH v6 05/12] agp/nvidia: Stop using 32-bit MSR interfaces
+Date: Mon, 16 Nov 2026 16:02:01 +0100
+Message-ID: <20261116150208.1572254-6-jgross@suse.com>
+X-Mailer: git-send-email 2.56.0
+In-Reply-To: <20261116150208.1572254-1-jgross@suse.com>
+References: <20261116150208.1572254-1-jgross@suse.com>
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <MN2PR02MB68638ED8E06516AFFAE4B218D47E2@MN2PR02MB6863.namprd02.prod.outlook.com>
+Content-Transfer-Encoding: 8bit
+X-Spamd-Result: default: False [-12.01 / 50.00]; SUSE_INTERNAL_BYPASS(-9.00)[];
+ BAYES_HAM(-3.00)[100.00%]; NEURAL_HAM_LONG(-1.00)[-1.000];
+ MID_CONTAINS_FROM(1.00)[]; R_MISSING_CHARSET(0.50)[];
+ R_DKIM_ALLOW(-0.20)[suse.com:s=susede1];
+ NEURAL_HAM_SHORT(-0.20)[-1.000]; MIME_GOOD(-0.10)[text/plain];
+ MX_GOOD(-0.01)[]; TO_MATCH_ENVRCPT_ALL(0.00)[]; ARC_NA(0.00)[];
+ RCVD_VIA_SMTP_AUTH(0.00)[];
+ RBL_SPAMHAUS_BLOCKED_OPENRESOLVER(0.00)[2a07:de40:b281:104:10:150:64:97:from]; 
+ FROM_HAS_DN(0.00)[]; TO_DN_SOME(0.00)[]; MIME_TRACE(0.00)[0:+];
+ URIBL_BLOCKED(0.00)[imap1.dmz-prg2.suse.org:rdns,imap1.dmz-prg2.suse.org:helo,suse.com:email,suse.com:dkim];
+ FROM_EQ_ENVFROM(0.00)[]; RCVD_TLS_ALL(0.00)[];
+ DKIM_SIGNED(0.00)[suse.com:s=susede1];
+ RECEIVED_SPAMHAUS_BLOCKED_OPENRESOLVER(0.00)[2a07:de40:b281:106:10:150:64:167:received];
+ DBL_BLOCKED_OPENRESOLVER(0.00)[suse.com:email,suse.com:dkim,imap1.dmz-prg2.suse.org:rdns,imap1.dmz-prg2.suse.org:helo];
+ RCVD_COUNT_TWO(0.00)[2]; RCPT_COUNT_THREE(0.00)[4];
+ DKIM_TRACE(0.00)[suse.com:+]
+X-Rspamd-Server: rspamd1.dmz-prg2.suse.org
+X-Rspamd-Action: no action
+X-Spam-Score: -12.01
+X-Spam-Level: 
+X-Rspamd-Queue-Id: 9D7E01FB16
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -55,61 +95,81 @@ List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-10.8 required=3.0 tests=BAYES_00,DKIM_SIGNED,
-	DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_PATCH,
-	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS autolearn=unavailable
-	autolearn_force=no version=4.0.1
+X-Spam-Status: No, score=-18.8 required=3.0 tests=BAYES_00,DKIM_SIGNED,
+	DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
+	INCLUDES_CR_TRAILER,INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,
+	SPF_PASS,USER_AGENT_GIT autolearn=unavailable autolearn_force=no
+	version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-On Sat, Nov 14, 2026 at 05:43:06PM +0000, Michael Kelley wrote:
-> From: Hamza Mahfooz <hamzamahfooz@linux.microsoft.com> Sent: Friday, November 13, 2026 1:59 PM
-> > 
-> > I was doing a deep dive into the host spec and noticed some gaps. So,
-> > I went ahead and hacked together the patches in this series for items
-> > that seemed worthwhile to address.
-> 
-> Are you (or someone on the Microsoft side) testing these changes
-> in a Generation 1 VM, as well as on back revs of the Hyper-V host?
+The 32-bit MSR interfaces rdmsr() and wrmsr() are planned to be
+removed. Use the related 64-bit variants instead.
 
-Ya, I have smoke tested all of these patches on WS2016 (both gen1 and
-gen2). Also, I have it on good authority that they should be good at
-least as far back as VMBus v3.0, so it should cover everything that
-is currently supported.
+Signed-off-by: Juergen Gross <jgross@suse.com>
+---
+ drivers/char/agp/nvidia-agp.c | 32 +++++++++++++++-----------------
+ 1 file changed, 15 insertions(+), 17 deletions(-)
 
-> Testing should go back to Windows Server 2016/Windows 10 for
-> both Gen1 and Gen2.
-> 
-> Same questions apply to your earlier cursor plane support. I just
-> did basic smoke testing of the cursor plane support on both Gen1
-> and Gen2 VMs using vmconnect.exe on an up-to-date Windows 11
-> host -- no obvious problems. But I don't have access to older hosts
-> like WS2016/Win10 to do the back rev testing.
-> 
-> There are multiple frame buffer differences in Gen1 and Gen2 VMs,
-> but most (or all?) are in the lowest layer in how the frame buffer is
-> allocated and mapped. Hopefully these higher-level changes you are
-> making are agnostic of the VM generation, but thoroughness would
-> dictate testing both.
-> 
-> I'm less sure about what might have changed in current Hyper-V
-> versions and WS2016 from 10 years ago. My general impression is
-> that very little, if anything, has changed in the Hyper-V frame buffer
-> support, but again it would be better to not get a bad surprise after
-> the code has gone in.
-> 
-> Michael
-> 
-> > 
-> > Hamza Mahfooz (2):
-> >   drm/hyperv: add modes for all resolutions offered by the host
-> >   drm/hyperv: batch dirty rectangles
-> > 
-> >  drivers/gpu/drm/hyperv/hyperv_drm.h         | 15 ++++
-> >  drivers/gpu/drm/hyperv/hyperv_drm_drv.c     |  4 ++
-> >  drivers/gpu/drm/hyperv/hyperv_drm_modeset.c | 32 ++++++++-
-> >  drivers/gpu/drm/hyperv/hyperv_drm_proto.c   | 79 ++++++++++++++++-----
-> >  4 files changed, 110 insertions(+), 20 deletions(-)
-> > 
-> > --
-> > 2.56.0
+diff --git a/drivers/char/agp/nvidia-agp.c b/drivers/char/agp/nvidia-agp.c
+index 4787391bb6b4..3e760bc00afa 100644
+--- a/drivers/char/agp/nvidia-agp.c
++++ b/drivers/char/agp/nvidia-agp.c
+@@ -65,22 +65,20 @@ static int nvidia_fetch_size(void)
+ 
+ static int nvidia_init_iorr(u32 base, u32 size)
+ {
+-	u32 base_hi, base_lo;
+-	u32 mask_hi, mask_lo;
+-	u32 sys_hi, sys_lo;
++	struct msr base_msr, mask_msr, sys_msr;
+ 	u32 iorr_addr, free_iorr_addr;
+ 
+ 	/* Find the iorr that is already used for the base */
+ 	/* If not found, determine the uppermost available iorr */
+ 	free_iorr_addr = AMD_K7_NUM_IORR;
+ 	for (iorr_addr = 0; iorr_addr < AMD_K7_NUM_IORR; iorr_addr++) {
+-		rdmsr(IORR_BASE0 + 2 * iorr_addr, base_lo, base_hi);
+-		rdmsr(IORR_MASK0 + 2 * iorr_addr, mask_lo, mask_hi);
++		rdmsrq(IORR_BASE0 + 2 * iorr_addr, base_msr.q);
++		rdmsrq(IORR_MASK0 + 2 * iorr_addr, mask_msr.q);
+ 
+-		if ((base_lo & 0xfffff000) == (base & 0xfffff000))
++		if ((base_msr.l & 0xfffff000) == (base & 0xfffff000))
+ 			break;
+ 
+-		if ((mask_lo & 0x00000800) == 0)
++		if ((mask_msr.l & 0x00000800) == 0)
+ 			free_iorr_addr = iorr_addr;
+ 	}
+ 
+@@ -89,16 +87,16 @@ static int nvidia_init_iorr(u32 base, u32 size)
+ 		if (iorr_addr >= AMD_K7_NUM_IORR)
+ 			return -EINVAL;
+ 	}
+-    base_hi = 0x0;
+-    base_lo = (base & ~0xfff) | 0x18;
+-    mask_hi = 0xf;
+-    mask_lo = ((~(size - 1)) & 0xfffff000) | 0x800;
+-    wrmsr(IORR_BASE0 + 2 * iorr_addr, base_lo, base_hi);
+-    wrmsr(IORR_MASK0 + 2 * iorr_addr, mask_lo, mask_hi);
+-
+-    rdmsr(SYSCFG, sys_lo, sys_hi);
+-    sys_lo |= 0x00100000;
+-    wrmsr(SYSCFG, sys_lo, sys_hi);
++    base_msr.h = 0x0;
++    base_msr.l = (base & ~0xfff) | 0x18;
++    mask_msr.h = 0xf;
++    mask_msr.l = ((~(size - 1)) & 0xfffff000) | 0x800;
++    wrmsrq(IORR_BASE0 + 2 * iorr_addr, base_msr.q);
++    wrmsrq(IORR_MASK0 + 2 * iorr_addr, mask_msr.q);
++
++    rdmsrq(SYSCFG, sys_msr.q);
++    sys_msr.l |= 0x00100000;
++    wrmsrq(SYSCFG, sys_msr.q);
+ 
+ 	return 0;
+ }
+-- 
+2.56.0
+
