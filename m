@@ -2,95 +2,136 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BECF9606A31C
-	for <dri-devel@archiver.kernel.org>; Mon, 16 Nov 2026 15:21:15 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 97500606A333
+	for <dri-devel@archiver.kernel.org>; Mon, 16 Nov 2026 15:25:40 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=fXjYVgVj
+	dkim=pass (2048-bit key) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.a=rsa-sha256 header.s=selector1-NXP1-onmicrosoft-com header.b=kyQBwJEV
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id F3F7010E9F8;
-	Mon, 16 Nov 2026 15:21:09 +0000 (UTC)
-Received: from mail-ot1-f41.google.com (mail-ot1-f41.google.com
- [209.85.210.41])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 44A5710E9F8
- for <dri-devel@lists.freedesktop.org>; Mon, 16 Nov 2026 15:21:03 +0000 (UTC)
-Received: by mail-ot1-f41.google.com with SMTP id
- 46e09a7af769-86298f9267fso1782808a34.0
- for <dri-devel@lists.freedesktop.org>; Mon, 16 Nov 2026 07:21:03 -0800 (PST)
-ARC-Seal: i=1; a=rsa-sha256; t=1794842462; cv=none;
- d=google.com; s=arc-20260327;
- b=jSRu3fzE7wEcU1z3xKG9j5Op/CDknP+RiaE3Kk3vv0CzeAQRrywFZE69tOLTTTpn2C
- RqGd3N9MiTgirqvoKuBjkSWeUy4G/iotlNmXgEbfonMfvU19UeUg/L/qXr0hHMC1pIGM
- 0kKS++MD97doXed2sEU3yKcE0IHrt9CyyGS6SxqxWMeXsAXgayjJSUv0/8Ynp7XsKKfk
- gSS4MVH9AfjZmKthz32Y8/dO3V06Hu+dTdz1qtTs9t7lfvBMVibk3fwyQu6zhtVdE+kh
- caHbgEL4qksbcXJUz+GW5UskV9nLFXk1Wv6AFDPkMyCwGRdJMP6PTAgxcKR3rFMy5MJA
- ORXA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com;
- s=arc-20260327; 
- h=cc:to:subject:message-id:date:from:in-reply-to:references
- :mime-version:dkim-signature;
- bh=yaRFeuYNCqrpBRnf326QJfCMjIZ+L5Mx9shtOZ662Gs=;
- fh=brprwnxaV0NUtzcbJRxg6Hi+sPzJdu7YK1fCtStMag0=;
- b=MGpGGS4zrFdU63NMyp498rL57h1+6sOaajK+SSqueF6plbKN1svrRFG/ol4fghbSha
- fMMWnk5roV9yaovrojAQMU84Q2N4uLpZ/sz9/PTqYV1pMm7mNrBjcAciqrwxhlU3/Ktb
- hH6XA+/gAk7CiW/fyCTnElxGpbuqSj8TRJytWaS7FBk9jTExV2L3BqlrgOurWmA31G8s
- 56lXbu/7AkM49j8IQo4XIZq4m0pqb5cGZQObAQhE5XVV/z2l29OvYlQZ/mxNJGGoHYsB
- anQLiiUi/coUU+3mBFr3luGzsCnLdIzzx/1m7HYkueiXY5tSdr6+ZNRCPovTXYZ7Qo8X
- Te7Q==; darn=lists.freedesktop.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20260707; t=1794842462; x=1795447262; darn=lists.freedesktop.org;
- h=content-type:cc:to:subject:message-id:date:from:in-reply-to
- :references:mime-version:from:to:cc:subject:date:message-id:reply-to
- :content-type; bh=yaRFeuYNCqrpBRnf326QJfCMjIZ+L5Mx9shtOZ662Gs=;
- b=fXjYVgVjAyFrIA56Y5pvPkUp0Xr8oJpIOmMO27TE7JAvcqZjSmrcsxjGUkjNnSoiju
- 06KYdNIg1oXdCD6bJrRbe/cQQp5tEtSwCzB7/QNsPVwRE5Mw3Z03VMR5F8lzQ4FNOtfM
- UQ5r87qQuzOjM34MnxprPfSa79D1rIcRrJW9sq1CCaN789qBW0QrZjeys1LENGsWu9uD
- Nfz20bLaAHQnazXEixyMSfJ7Q8ThCKtwIVAGkDMmFCqmtUQXqo/1P+XHcRZkJzlAOUUn
- xGggcgw1j5CosPMJGJy007p60L6BVRwVEBkfeGgsIkL0APtFvOjGK686BAVwJh1N9ENw
- doeA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20260707; t=1794842462; x=1795447262;
- h=content-type:cc:to:subject:message-id:date:from:in-reply-to
- :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
- :subject:date:message-id:reply-to:content-type;
- bh=yaRFeuYNCqrpBRnf326QJfCMjIZ+L5Mx9shtOZ662Gs=;
- b=nrMQAD3Gi8Lts9a0thNkG8hfSEam/aIXwY0tEvMCLBlxDkK7H93MbTUzwonwyK0DVL
- 4Yf7tMA/84SpaVHPUv0gulR+6ISkf2RpHAowHopefWIdfGXqg2XMbuQ2lO2NJcVrV0jK
- pOGdNW9YYFBGHm3yHj3RvPcpElm1ixbabelHREmQki1d10lV+FArAhwgBSe/A1NOFWiG
- IzKh0RXmd6sDzFKo90/xKp3zzfbwkhqacplLBS6oX48dKBPKmnjUxUc5vZ18y98ASlfX
- f8UjzZ55gjzjr4AIpeZltuDKhqX469b4iiWDOGRC3SzIn66BUltKVhGPEmp4pehAEevw
- mlNw==
-X-Forwarded-Encrypted: i=1;
- AL+hErGwDWiJcOMnCTaT26ZI2YSTCXpInA8bA5kKKTA0wG1MCpNaBv94jmlItlTly8XraouIwXr+/GUrVy8=@lists.freedesktop.org
-X-Gm-Message-State: APuU4Z/AIeRVHB3QM0IuUQ8xggEZd0rRqUDXqNCcgqKPW7lIgn32Tk8n
- 40NjDZKkBGpOazaTknGlJ4GIiwpR5nTw1eTyxw7BQTq63ywJKuT/TCZtQpmusR+JNPETvVCtXb5
- hovYwn1+M/YcoZU//ofnOIUH+cISCiTg=
-X-Gm-Gg: AYBFou2/D6U1UFMwrarRAhnMuoqe5LnoiVOqTH0RCp/xdJocg2iKltC2v0/qoJtcKTq
- eeYV5o2b5/gqVgIgSU5FNNktL2kgRLbdnt01iu1wDvNjfBWM7Zj6gyoDa+L8V07JJ0/me27X8X/
- tIFxr4ZlTMXAO4MGWiNwNsTF3BXF/byGuoyQ2euqiPsnArR2mlW83RR0iOfIfrReexRAi2RBHgt
- X97ARuqoD9xLOUcw17hyiWpgqLG0W2cpv/2Aqk5mG/RTciPO/7M4D1EChf/y3CqT27MszNR1Rhk
- 3JP+pBWTkxjaV6UaagKlWOVK6hZW1VQYZuGAFBFllqs/mLzR57plBI0YS0gWf+7qsYP7oOLpX76
- uF7FKYLv0KUK1JgKUy7vFkjaW7kWVjWLScT+P
-X-Received: by 2002:a05:6830:44aa:b0:81b:a5f9:3490 with SMTP id
- 46e09a7af769-86289943e4cmr8630778a34.24.1794842462168; Mon, 16 Nov 2026
- 07:21:02 -0800 (PST)
+	by gabe.freedesktop.org (Postfix) with ESMTP id AEB8310EA43;
+	Mon, 16 Nov 2026 15:25:33 +0000 (UTC)
+Received: from DUZPR83CU001.outbound.protection.outlook.com
+ (mail-northeuropeazon11012020.outbound.protection.outlook.com [52.101.66.20])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 0E99C10E0E9;
+ Mon, 16 Nov 2026 15:25:27 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=T3R9oshvYFZPDrPduCwrtF2mf9HZ71pIkecFZDfWqXJY+S3lC4qFOyxD6WjCWegxCtlXLpH9wVDv7tefSMiseu1kYud9QotU2QtHnrLZJ/ygnPPs6A57t88kSprGwUkQ2dB8IpLoD1N38KqF/M4x+EmtAjd/iskvSVlwpM2RhFjt8062Q+9wlIYm0uMF4wY4gU3dWfTWdZ6L4ZYPvZ9CFjFnLlXCBMXj2cehKq/LQjMz6b+NIaED8a4DG6o9JfR8/y2zk5HcGQJTzJWZ45lvH5ztk1cHszk593OOe6jvtF/C/9oi0YhfugPTCLq6aM6kFMKfbLWSHQmXalfc8dMmLA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=kwU0aqAfTOVb09U8gKdoBVAG+8nbfQGFHmI2srC8srU=;
+ b=H2m6YXooq56e7YRPyIwMiwvqAU7SZ06xm+J3jTqoG8NqVofgEV20PqcjOzjXQTPVOzz5AZqdVd01MflRa/rPsD1AO6vXKXOq996r5DWRCSgehu/58YnAca5WBMaCZSEvyMZVpNKn2rFV12fr53NWtsBadnn+CKso6zc6GO1F1pFzPeZ6PxWBWSM0oCKY2zP9Qez7u3mb9IX56M1WQWPffoewyfQhqDMAVurLi4pCM6lIduQcD/MV9WC3NSb0iNcnmmdLU85jUMNLWYDG8EgwNVRVJkAd9G7pZWhr5Ol+j+GEAOWxZ3tU/EHXNEhcMPX5mKv/qAV6LenvrTaCFo/DQQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=oss.nxp.com; dmarc=pass action=none header.from=oss.nxp.com;
+ dkim=pass header.d=oss.nxp.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=NXP1.onmicrosoft.com; 
+ s=selector1-NXP1-onmicrosoft-com;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=kwU0aqAfTOVb09U8gKdoBVAG+8nbfQGFHmI2srC8srU=;
+ b=kyQBwJEVUZgO0EPw99NbJvjoBp3KT2Gpg7NsZ1bkFUKBzj4z2KMEPb0u4jqu+U2Maa3Z2SUHD+IQqKYc8A6+GGlYnN0eQUbPp7wSXN7ztSRkY4NUKTSVxwoi76Vf42rgUC4l655pS0dhFkuYFxJ24oqSuD7tlDSCCRu4Y/IcCIVSoccNpN/T4Us/py3dZZoITMCfuyb4que8dS/gcTxdXd36C7bJb1lDnR8hEjiwYad2BaMlLMkdJ5P8wtCly8Dhfi7cZzcaLimNLryvEZdKP2RYrn7d0G2HhldiSQQQe7323CKD3xuNqpVbUuMNxtyFS9azSCk6CwEGhpPWZA3iUQ==
+Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=oss.nxp.com;
+Received: from MI3PR04MB12438.eurprd04.prod.outlook.com (2603:10a6:290:76::14)
+ by DU7PR04MB11161.eurprd04.prod.outlook.com (2603:10a6:10:5b3::17)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.615.14; Mon, 16 Nov
+ 2026 15:25:22 +0000
+Received: from MI3PR04MB12438.eurprd04.prod.outlook.com
+ ([fe80::c715:c32:8bb1:b70b]) by MI3PR04MB12438.eurprd04.prod.outlook.com
+ ([fe80::c715:c32:8bb1:b70b%4]) with mapi id 15.21.0615.013; Mon, 16 Nov 2026
+ 15:25:22 +0000
+From: Frank.Li@oss.nxp.com
+To: 
+Cc: Frank Li <Frank.Li@nxp.com>, Alex Elder <elder@riscstar.com>,
+ "Rafael J. Wysocki" <rafael@kernel.org>,
+ Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+ Andrzej Kacprowski <andrzej.kacprowski@linux.intel.com>,
+ Karol Wachowski <karol.wachowski@linux.intel.com>,
+ Oded Gabbay <ogabbay@kernel.org>,
+ Jani Nikula <jani.nikula@linux.intel.com>,
+ Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
+ Rodrigo Vivi <rodrigo.vivi@intel.com>,
+ Tvrtko Ursulin <tursulin@ursulin.net>,
+ Matthew Brost <matthew.brost@intel.com>,
+ "Thomas Hellstrom" <thomas.hellstrom@linux.intel.com>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ Alex Elder <elder@kernel.org>, Will Deacon <will@kernel.org>,
+ Robin Murphy <robin.murphy@arm.com>, "Joerg Roedel" <joro@8bytes.org>,
+ Rob Clark <robin.clark@oss.qualcomm.com>,
+ Sakari Ailus <sakari.ailus@linux.intel.com>,
+ Mauro Carvalho Chehab <mchehab@kernel.org>,
+ Guenter Roeck <linux@roeck-us.net>, Guan-Yu Lin <guanyulin@google.com>,
+ Mathias Nyman <mathias.nyman@linux.intel.com>, linux-pm@vger.kernel.org,
+ linux-usb@vger.kernel.org, dri-devel@lists.freedesktop.org,
+ intel-gfx@lists.freedesktop.org, intel-xe@lists.freedesktop.org,
+ linux-hwmon@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
+ iommu@lists.linux.dev, linux-arm-msm@vger.kernel.org,
+ linux-media@vger.kernel.org, linux-staging@lists.linux.dev,
+ netdev@vger.kernel.org, imx@lists.linux.dev
+Subject: [PATCH v2 1/2] PM: runtime: fix stub pm_runtime_get_if_active() for
+ !CONFIG_PM
+Date: Mon, 16 Nov 2026 10:25:10 -0500
+Message-ID: <20261116152513.2676573-1-Frank.Li@oss.nxp.com>
+X-Mailer: git-send-email 2.43.0
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-ClientProxiedBy: PH7P223CA0017.NAMP223.PROD.OUTLOOK.COM
+ (2603:10b6:510:338::10) To MI3PR04MB12438.eurprd04.prod.outlook.com
+ (2603:10a6:290:76::14)
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
-References: <20261112091630.3947184-1-angelo.compagnucci@gmail.com>
- <20261113110708.927665-1-angelo.compagnucci@gmail.com>
- <556dd1ab-a1af-4c8b-be6e-04382ed0b958@suse.de>
-In-Reply-To: <556dd1ab-a1af-4c8b-be6e-04382ed0b958@suse.de>
-From: Angelo Compagnucci <angelo.compagnucci@gmail.com>
-Date: Mon, 16 Nov 2026 16:20:25 +0100
-X-Gm-Features: AclHuK8Wq_XIQ_2rZb9c7_Iq7CILACZEQVd0aPHW3Sgs6Lur7GDDomI69L08mRQ
-Message-ID: <CA+TH9VnN-o94K5i2mC4fe4-z6tWCquqJiYa0BHxXNO98PoDEJQ@mail.gmail.com>
-Subject: Re: [PATCH v2] drm/fbdev-dma: Copy the shadow buffer on unblank
-To: Thomas Zimmermann <tzimmermann@suse.de>
-Cc: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>, 
- dri-devel@lists.freedesktop.org, David Airlie <airlied@gmail.com>, 
- Simona Vetter <simona@ffwll.ch>, Javier Martinez Canillas <javierm@redhat.com>
-Content-Type: multipart/alternative; boundary="00000000000062ac030660665331"
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: MI3PR04MB12438:EE_|DU7PR04MB11161:EE_
+X-MS-Office365-Filtering-Correlation-Id: 34e94d89-9953-4c08-4f4e-08df43f5d4bd
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+ ARA:13230040|19092799006|7416014|366016|376014|23010399003|1800799024|18002099003|6133799003|11063799006|56012099006|10067099003|261022075727099003|261022105027099003|261028144727099003|261026121527099003|261021123027099003|261021121427099003|261026140227099003|261009223027099003|261009223327099003|261009221227099003|261009220027099003|261102123227099003|261009221727099003;
+X-Microsoft-Antispam-Message-Info: kiz/bkm1v3jdulKiQWNUyJNwErxxuNx2eVWey0BIKtzfA2g5TuGrOJc0aNesYkW/z2K0P81/euDeDl0CMXEzYfENpZkSYfhL+WQoweGNvsm+NWsgwZqdfEQl6QkiNxd1u28yYb45sCCmjesSQHnqwfmHNKiuH0cd52Yq1zg6wh1OMXl6pGfWb7ykBsVHPWfLrOb6H2YHpFY8HSskTQyQgjhCzDNti+XV48LSSNljSBbxSTWVHH6HTeKYYSqF1a4eIsDsH2q5fmq8sO8xku8fKxyjV+GkxqdsfkzT8cNOOg5esY8r0xBZIWaNVdaY2oGlHUTZFxC9b7eVxP0gtUSsASmuTXa00M9zb4LnAthR8K6ZPKs8nZF3J1D6fmoDzJLS8rntVRVHUdwyoECqQlkxyXgmJ65oLhIhi6C3/WvauOXFVIHQLnDh4VMK5b2NslfvIE3eSqqVdZBRTwNau65ZHnTWpDLlT01FyjpmxH1lfmKd7iHr9oVnWJDye0tKZkT47pczFVyjuaIfDJepknCm/+50FOAf9Y22I7XAdNTAR8R2rPl4/LWn5lVNOi7SlcW3BNYEfnX/6tDkU7a2HcqAfMm1lzvenXyBqIePBHoSzg0MT1j2PR8GkgI17PichB6uEGHZmJo5n7jG+3BG/1qxe2+tCwV4aicvzkRoNC/OYcU=
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:MI3PR04MB12438.eurprd04.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230040)(19092799006)(7416014)(366016)(376014)(23010399003)(1800799024)(18002099003)(6133799003)(11063799006)(56012099006)(10067099003)(261022075727099003)(261022105027099003)(261028144727099003)(261026121527099003)(261021123027099003)(261021121427099003)(261026140227099003)(261009223027099003)(261009223327099003)(261009221227099003)(261009220027099003)(261102123227099003)(261009221727099003);
+ DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: =?us-ascii?Q?jjsXZKNgmbHP6THel3p6tv7fU6QECNyoCn6OPDoZdn06gAkTkbZGFIF/nVB3?=
+ =?us-ascii?Q?MxueDqZePQ+GLQOIReLcN8T73fshjhDGuBoZh//36tajDhEgGCzzkEel7A+p?=
+ =?us-ascii?Q?Bt10SKtbUFwvI+twGCcyB/vDUKaLqoivQU7Xjj4oMA01Tr2gmKIFWOYQLJUF?=
+ =?us-ascii?Q?Go4LWEc14xikn4ucaCN+ovkarlZuEwiSVsvZqCfO5PxlMd5Y/QZjY44bRxrw?=
+ =?us-ascii?Q?JTqJyNU1Isd6UshhFLigtDtJUgpUinzmz096COr9wJKucWvRrDvLP/frNhZd?=
+ =?us-ascii?Q?Pms9PoHjeS9x/oK+vGjEvRpVZt0Z4iGpkHmdlAh0HlRJRNQrtcXmFBjbcdzP?=
+ =?us-ascii?Q?qvU0uWWRdANCfS22s8c07/ytR6iWHXkXGK4B/uSI4RhbjIcbclQWeSkROW7q?=
+ =?us-ascii?Q?N0dzlBha6Soq5tFpAHZX+CGntbSz9gf7N6MzUrP3csqzXn04J9a3GuiD5ihS?=
+ =?us-ascii?Q?78JKkP/DfsLB+l1Ai32FckrFfvVOB5VF3eqQbOfx5ZJZrehCv3fIUFYkLVUT?=
+ =?us-ascii?Q?Q1yGA76aFpUaIkopiu4Z3kdpWse7cXvU9gZ+C8oagcxp36pL9oUpQV/CStxq?=
+ =?us-ascii?Q?04UdlTES35iqy4pxoIAoIWkkehbt1w+QAAsor8rr8TfBqrg1i2qMwKc+LcYn?=
+ =?us-ascii?Q?1XepXumUPd++Kh9t9Mdwj9pJtRzvJHw/YiJoF5Sfs7XxW654laf24Uv3QtZ6?=
+ =?us-ascii?Q?mBw9bCmbOTTpgbE8N7qNl5xeWRiZ7tIod6Djn9kF+SF6lGjLIWrnPrPfJk5X?=
+ =?us-ascii?Q?jOGH8RciVDVFWfMBx/FnyO0L2G8xKWzbG1Jst6UMV3lU9TE6Qiawxj5KBGp8?=
+ =?us-ascii?Q?cpjd7A1ab1mgzSxQ6Jr6NYv5j9cgiQjG7KYTXCQPMMs4v4dKQhiWxtiMH/dD?=
+ =?us-ascii?Q?iy75LEVHkC5wliTwcRIST1M3Ossy8rjEArne0IQ9dh/iWEdXrOrvPXGb2BuX?=
+ =?us-ascii?Q?qOga0f2ZhbP5wvo8qkqdk/4h4cYEffCsOEtzAJ03dHWHIcD8k75nIVxblYNo?=
+ =?us-ascii?Q?m9LaxodBXkbXRCt/r3aLdBBk2I4O3mLaY6uBNuAzEfca8Zm0QVdcWw9yhFdO?=
+ =?us-ascii?Q?IW0axWzIygqgAWefwAnw8qz6wQ3BDO6ENLAds7CJcWNSixwTCfH8Ys+wcnBB?=
+ =?us-ascii?Q?KxSYK9p9xvurRheAbJeOIreqqIfdexb8rIi1/Lv1FACqgyHpdehMOvflQuWY?=
+ =?us-ascii?Q?UE4nuqeW1BLW8GK29WDOHq4qyqwDNdJmaVsnx7RDOEY2NwrTGgiqx5dM9e9q?=
+ =?us-ascii?Q?/kN1yKFE57lM5XjuGcFfg6zD9+lXBaAK3yHAuLrk1urE/Rw2/CZA66YUkCPD?=
+ =?us-ascii?Q?5YYv4/adfeHPW7Bo7yxdqkHClDLihrx6AkjmOwKrPcF4M/H3koj4pqGRaiBv?=
+ =?us-ascii?Q?Ny+K5E/WPR96NW7+eSZIoEJa2LJSyOzmhDrT1XUsmiz7P+LQiAsOlhzP86UF?=
+ =?us-ascii?Q?LkQv66VaMQmRVq0/zdLkCRxW+pCvqVvwykaAsvfvnP5tyN/hl29VEiwcCOTr?=
+ =?us-ascii?Q?u6DERBybMWVRecCjuxwdvc4HuIqACdeAoVvC+40kD0tBoqt6denC+o4TcRNf?=
+ =?us-ascii?Q?tlJMLbOuGmaCzWRl9fGWm4EFb4tKM/u/s1xKhlgX+LH5zKtMBJ/2YIwCOiyP?=
+ =?us-ascii?Q?HX8DdXBJ3MH8C6DhxnBs+lSCMte9aW+8X17cvoOWTKBHmbsGACx0vFBisfoW?=
+ =?us-ascii?Q?EbC+9ch/T5ijSfbZ/fgoYXgZJa4qQOJRQsqWND8V/IAQGelYFrsX5HouQJiz?=
+ =?us-ascii?Q?WHkpW34wLYAzDHAXk8kP3Mvn0CdgjxU=3D?=
+X-OriginatorOrg: oss.nxp.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 34e94d89-9953-4c08-4f4e-08df43f5d4bd
+X-MS-Exchange-CrossTenant-AuthSource: MI3PR04MB12438.eurprd04.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 16 Nov 2026 15:25:22.6861 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: GHBCqLzXO7YQGxkxz3HqKE+328TOvnt2XmPv9gZq0bs/gPBtsNe5U0uXHwjE4X/CNcRBHZi78qqihf23AUTM0f4jkeE14AeF+W9uXFWtlZ0hDstg+Hb1+ENfOauEc3Cv
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DU7PR04MB11161
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -102,407 +143,140 @@ List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-9.8 required=3.0 tests=BAYES_00,DKIM_SIGNED,
-	DKIM_VALID,DKIM_VALID_AU,FREEMAIL_FORGED_FROMDOMAIN,FREEMAIL_FROM,
-	HEADER_FROM_DIFFERENT_DOMAINS,HTML_MESSAGE,INCLUDES_CR_TRAILER,
-	INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS autolearn=ham
-	autolearn_force=no version=4.0.1
+X-Spam-Status: No, score=-16.8 required=3.0 tests=BAYES_00,DKIM_SIGNED,
+	DKIM_VALID,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,
+	INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,
+	USER_AGENT_GIT autolearn=unavailable autolearn_force=no version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
---00000000000062ac030660665331
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+From: Frank Li <Frank.Li@nxp.com>
 
-Il giorno lun 16 nov 2026 alle ore 08:48 Thomas Zimmermann <
-tzimmermann@suse.de> ha scritto:
+When CONFIG_PM is not enabled, should be treated as if runtime PM were
+enabled for the device and the runtime status is active.
 
-> Hi
->
-> Am 13.11.26 um 12:07 schrieb Angelo Compagnucci:
-> > With a shadow buffer, what userspace draws in fbdev reaches the
-> > framebuffer memory only when the damage worker runs. Turning the displa=
-y
-> > on shows the framebuffer memory as it is. So a program that draws its
-> > first picture and then unblanks, such as a boot splash, shows an older
-> > picture for a moment.
-> >
-> > Seen on an ILI9341 panel (tinydrm ili9341): enabling the pipe sends the
-> > whole framebuffer memory to the panel, still black, and the splash only
-> > replaces it once the damage worker runs.
-> >
-> > Nothing can be flushed to a display that is off. But the copy from the
-> > shadow buffer into the framebuffer memory does not need the display. On
-> > unblank, copy the whole shadow buffer into the framebuffer memory befor=
-e
-> > turning the display on. The damage worker still flushes the damage once
-> > the display is on.
-> >
-> > Signed-off-by: Angelo Compagnucci <angelo.compagnucci@gmail.com>
-> > ---
-> > Changes v1 -> v2:
-> >    - Do not flush the damage before unblanking: nothing can reach a
-> >      display that is off. Instead, in fbdev-dma, copy the whole shadow
-> >      buffer into the framebuffer memory on unblank, which needs no
-> >      display [Thomas Zimmermann]
->
-> That's not really the issue. There's hardware/drivers where we need the
-> CRTC to be switched on before we can transfer display data. Search
-> drm_atomic_helper_commit_tail_rpm() [1] for that. IDK how much of a
-> problem this is in practice. Flushing buffers on such a system might
-> give actual errors instead of just some temporary display noise.
->
-> What exactly are you trying to achieve?
->
+It's a subtle distinction but the previous behavior returned -EINVAL, which
+means "runtime PM is disabled for the device"
 
-Thanks, I misread your remark on v1. The changelog and the commit
-message of v2 are wrong on this, and I will fix them.
+__pm_runtime_resume() returns 1 (called by pm_runtime_get()).
+pm_runtime_get_if_active() is the try-and-get version of pm_runtime_get().
+stub pm_runtime_active() also returns true. So pm_runtime_get_if_active()
+should return the same value as the stub pm_runtime_get(), which is 1.
 
-v2 does not transfer display data, though. The damage worker does two
-things in drm_fbdev_dma_helper_fb_dirty():
+Analysis of all callers and their behavior with old (-EINVAL) vs new (1):
 
-  1. drm_fbdev_dma_damage_blit(): a memcpy from the shadow buffer into
-     the GEM buffer;
-  2. fb->funcs->dirty(): the call into the driver.
+Pattern A: if (!pm_runtime_get_if_active(dev)) -- no impact
+  Both -EINVAL and 1 are non-zero, so !ret is false in both cases.
+  Callers: drivers/accel/ethosu/ethosu_perfmon.c,
+           drivers/gpu/drm/msm/adreno/a6xx_gmu.c,
+           drivers/gpu/drm/msm/msm_perfcntr.c,
+           drivers/gpu/drm/v3d/v3d_mmu.c,
+           drivers/gpu/drm/v3d/v3d_perfmon.c (x4),
+           drivers/media/i2c/gc08a3.c gc05a2.c og0ve1b.c ov6211.c,
+           drivers/media/i2c/ccs/ccs-core.c s5kjn1.c lm3560.c (x2),
+           drivers/media/i2c/s5k3m5.c thp7312.c imx283.c ov64a40.c,
+           drivers/media/pci/intel/ipu6/ipu6-buttress.c,
+           sound/hda/core/device.c
 
-On unblank, v2 calls only the first one. It does not call
-fb->funcs->dirty(), it commits nothing, and it touches no hardware. The
-damage worker already does this same copy whatever the state of the
-display, when userspace draws while the display is blanked.
+Pattern B: if (!ret) after get -- no impact
+  Both -EINVAL and 1 are non-zero, !ret is false in both cases.
+  drivers/gpu/drm/amd/pm/amdgpu_pm.c (comment says "allow access"
+    in kernels without CONFIG_PM), drivers/pci/pci.c
 
-So I think a device that needs the CRTC on is not affected. Do you
-agree, or do I miss a case?
+Pattern C: ret > 0 / ret <= 0 / ret != 1 checks -- FIXED
+  drivers/usb/core/offload.c: checks (!= 1), old -EINVAL caused
+    -EBUSY even with !CONFIG_PM. Fixed: now returns 1, proceeds.
+  drivers/accel/ivpu/ivpu_job.c: drm_WARN_ON(<= 0), old -EINVAL
+    spuriously triggered WARN. Fixed: 1 > 0, no warn.
+  drivers/gpu/drm/i915/intel_runtime_pm.c: checks (<= 0), old
+    -EINVAL triggered error path. Fixed: 1 > 0, correct path.
+  drivers/accel/ivpu/ivpu_sysfs.c: (> 0), old skipped freq read.
+    Fixed: proceeds correctly without CONFIG_PM.
+  drivers/gpu/drm/xe/xe_pm.c: wraps (> 0), all xe callers
+    (xe_bo.c, xe_shrinker.c, xe_vsec.c, xe_ggtt.c, xe_guc_ct.c,
+    xe_pxp.c) now correctly treat !CONFIG_PM as active.
+  drivers/net/ipa/ipa_smp2p.c: power_on = (> 0), now correctly true.
+  drivers/iommu/arm/arm-smmu/arm-smmu-qcom.c: (> 0), now correctly
+    executes stall register update.
+  drivers/staging/media/ipu7/ipu7-buttress.c: active (<= 0) early
+    return now skipped, correctly proceeds.
 
-> What exactly are you trying to achieve?
+Pattern D: explicit -EINVAL check
+  drivers/hwmon/prom21-xhci.c: checks (> 0) then (== -EINVAL).
+    Old: took -EINVAL fallback. New: takes (> 0) fast path.
+    Both succeed when CONFIG_PM is disabled; functionally equivalent.
+  drivers/hwmon/eic7700-pvt.c: call is guarded by IS_ENABLED(CONFIG_PM),
+    stub is never reached. No impact.
 
-A boot splash on a small SPI panel (ILI9341, tinydrm), through fbdev.
-The splash maps the framebuffer, draws its first frame while the display
-is still blanked, and then unblanks with FBIOBLANK.
+Fixes: bd3d245b0fef5 ("usb: core: use dedicated spinlock for offload state")
+Fixes: 7806bad76ac39 ("accel/ivpu: Prevent runtime suspend during context abort work")
+Fixes: 9d58aa46291d4 ("drm/i915: Fix the GT fence revocation runtime PM logic")
+Fixes: 1524c28b99527 ("accel/ivpu: Show NPU frequency in sysfs")
+Fixes: 30c399529f4c6 ("drm/xe: Document Xe PM component")
+Fixes: 0d08026ac6099 ("net: ipa: kill ipa_clock_get_additional()")
+Fixes: 70892277ca2db ("iommu/arm-smmu-qcom: Make set_stall work when the device is on")
+Fixes: 9ad65684b9285 ("media: staging/ipu7: Ignore interrupts when device is suspended")
+Acked-by: Alex Elder <elder@riscstar.com>
+Signed-off-by: Frank Li <Frank.Li@nxp.com>
+---
+Change in v2
+- add fixes tag for patten C.
+- add Alex Elder ack tags
+- change subject to fix stub pm_runtime_get_if_active()
 
-What happens today:
+Cc: "Rafael J. Wysocki" <rafael@kernel.org>
+Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+Cc: Andrzej Kacprowski <andrzej.kacprowski@linux.intel.com>
+Cc: Karol Wachowski <karol.wachowski@linux.intel.com>
+Cc: Oded Gabbay <ogabbay@kernel.org>
+Cc: Jani Nikula <jani.nikula@linux.intel.com>
+Cc: Joonas Lahtinen <joonas.lahtinen@linux.intel.com>
+Cc: Rodrigo Vivi <rodrigo.vivi@intel.com>
+Cc: Tvrtko Ursulin <tursulin@ursulin.net>
+Cc: Matthew Brost <matthew.brost@intel.com>
+Cc: "Thomas Hellstrom" <thomas.hellstrom@linux.intel.com>
+Cc: David Airlie <airlied@gmail.com>
+Cc: Simona Vetter <simona@ffwll.ch>
+Cc: Alex Elder <elder@kernel.org>
+Cc: Will Deacon <will@kernel.org>
+Cc: Robin Murphy <robin.murphy@arm.com>
+Cc: "Joerg Roedel" <joro@8bytes.org>
+Cc: Rob Clark <robin.clark@oss.qualcomm.com>
+Cc: Sakari Ailus <sakari.ailus@linux.intel.com>
+Cc: Mauro Carvalho Chehab <mchehab@kernel.org>
+Cc: Guenter Roeck <linux@roeck-us.net>
+Cc: Guan-Yu Lin <guanyulin@google.com>
+Cc: Mathias Nyman <mathias.nyman@linux.intel.com>
+Cc: linux-pm@vger.kernel.org
+Cc: linux-usb@vger.kernel.org
+Cc: dri-devel@lists.freedesktop.org
+Cc: intel-gfx@lists.freedesktop.org
+Cc: intel-xe@lists.freedesktop.org
+Cc: linux-hwmon@vger.kernel.org
+Cc: linux-arm-kernel@lists.infradead.org
+Cc: iommu@lists.linux.dev
+Cc: linux-arm-msm@vger.kernel.org
+Cc: linux-media@vger.kernel.org
+Cc: linux-staging@lists.linux.dev
+Cc: netdev@vger.kernel.org
+Cc: imx@lists.linux.dev
+---
+ include/linux/pm_runtime.h | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-  1. The frame is in the shadow buffer. The deferred I/O work is
-     scheduled 50 ms later (fbdefio.delay =3D HZ / 20).
-  2. FBIOBLANK turns the CRTC on. The driver sends the GEM buffer to the
-     panel and turns the backlight on. The GEM buffer is still black.
-  3. The deferred I/O and the damage work run, and the frame replaces
-     the black picture.
+diff --git a/include/linux/pm_runtime.h b/include/linux/pm_runtime.h
+index 64921b10ac74f..de9e7518ecef2 100644
+--- a/include/linux/pm_runtime.h
++++ b/include/linux/pm_runtime.h
+@@ -280,7 +280,7 @@ static inline int pm_runtime_get_if_in_use(struct device *dev)
+ }
+ static inline int pm_runtime_get_if_active(struct device *dev)
+ {
+-	return -EINVAL;
++	return 1;
+ }
+ static inline int __pm_runtime_set_status(struct device *dev,
+ 					    unsigned int status) { return 0; }
+--
+2.43.0
 
-So the panel shows a black picture for a moment before the splash, a
-visible flash at each boot. The aim is that the first picture the panel
-shows after an unblank is the one that userspace drew before it.
-
-If you think this is better fixed somewhere else, I am happy to rework
-it.
-
-Best regards,
-Angelo
-
->
-> [1]
->
-> https://elixir.bootlin.com/linux/v7.3.1/source/drivers/gpu/drm/drm_atomic=
-_helper.c#L2009
->
-> Best regards
-> Thomas
->
->
-> >    - The fbdev helpers are unchanged, so the title changed too; v1 was
-> >      "drm/fb-helper: flush damage before unblanking"
-> >
-> >   drivers/gpu/drm/drm_fbdev_dma.c | 44 ++++++++++++++++++++++++++------=
--
-> >   1 file changed, 35 insertions(+), 9 deletions(-)
-> >
-> > diff --git a/drivers/gpu/drm/drm_fbdev_dma.c
-> b/drivers/gpu/drm/drm_fbdev_dma.c
-> > index 452f84400350..cc8813538bd9 100644
-> > --- a/drivers/gpu/drm/drm_fbdev_dma.c
-> > +++ b/drivers/gpu/drm/drm_fbdev_dma.c
-> > @@ -93,15 +93,6 @@ static void drm_fbdev_dma_shadowed_fb_destroy(struct
-> fb_info *info)
-> >       drm_client_release(&fb_helper->client);
-> >   }
-> >
-> > -static const struct fb_ops drm_fbdev_dma_shadowed_fb_ops =3D {
-> > -     .owner =3D THIS_MODULE,
-> > -     .fb_open =3D drm_fbdev_dma_fb_open,
-> > -     .fb_release =3D drm_fbdev_dma_fb_release,
-> > -     FB_DEFAULT_DEFERRED_OPS(drm_fbdev_dma_shadowed),
-> > -     DRM_FB_HELPER_DEFAULT_OPS,
-> > -     .fb_destroy =3D drm_fbdev_dma_shadowed_fb_destroy,
-> > -};
-> > -
-> >   /*
-> >    * struct drm_fb_helper
-> >    */
-> > @@ -196,6 +187,41 @@ static const struct drm_fb_helper_funcs
-> drm_fbdev_dma_helper_funcs =3D {
-> >    * struct drm_fb_helper
-> >    */
-> >
-> > +static int drm_fbdev_dma_shadowed_fb_blank(int blank, struct fb_info
-> *info)
-> > +{
-> > +     struct drm_fb_helper *fb_helper =3D info->par;
-> > +     struct drm_clip_rect clip =3D {
-> > +             .x2 =3D fb_helper->fb->width,
-> > +             .y2 =3D fb_helper->fb->height,
-> > +     };
-> > +
-> > +     /*
-> > +      * Turning the display on shows the framebuffer memory. Copy the
-> > +      * shadow buffer into it first, so it holds what was drawn. This
-> > +      * does not need the display; the damage worker still flushes the
-> > +      * damage once the display is on.
-> > +      */
-> > +     if (blank =3D=3D FB_BLANK_UNBLANK)
-> > +             drm_fbdev_dma_damage_blit(fb_helper, &clip);
-> > +
-> > +     return drm_fb_helper_blank(blank, info);
-> > +}
-> > +
-> > +static const struct fb_ops drm_fbdev_dma_shadowed_fb_ops =3D {
-> > +     .owner =3D THIS_MODULE,
-> > +     .fb_open =3D drm_fbdev_dma_fb_open,
-> > +     .fb_release =3D drm_fbdev_dma_fb_release,
-> > +     FB_DEFAULT_DEFERRED_OPS(drm_fbdev_dma_shadowed),
-> > +     /* DRM_FB_HELPER_DEFAULT_OPS, with a blank that copies the shadow
-> */
-> > +     .fb_check_var =3D drm_fb_helper_check_var,
-> > +     .fb_set_par =3D drm_fb_helper_set_par,
-> > +     .fb_setcmap =3D drm_fb_helper_setcmap,
-> > +     .fb_blank =3D drm_fbdev_dma_shadowed_fb_blank,
-> > +     .fb_pan_display =3D drm_fb_helper_pan_display,
-> > +     .fb_ioctl =3D drm_fb_helper_ioctl,
-> > +     .fb_destroy =3D drm_fbdev_dma_shadowed_fb_destroy,
-> > +};
-> > +
-> >   static int drm_fbdev_dma_driver_fbdev_probe_tail(struct drm_fb_helper
-> *fb_helper,
-> >                                                struct
-> drm_fb_helper_surface_size *sizes)
-> >   {
->
-> --
-> --
-> Thomas Zimmermann
-> Graphics Driver Developer
-> SUSE Software Solutions Germany GmbH
-> Frankenstr. 146, 90461 N=C3=BCrnberg, Germany, www.suse.com
-> GF: Stefan Gaiser, Jochen Jaser, Abhinav Puri, (HRB 36809, AG N=C3=BCrnbe=
-rg)
->
->
->
-
---=20
-Profile: http://it.linkedin.com/in/compagnucciangelo
-
---00000000000062ac030660665331
-Content-Type: text/html; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-
-<div dir=3D"ltr"><div dir=3D"ltr"><br></div><br><div class=3D"gmail_quote g=
-mail_quote_container"><div dir=3D"ltr" class=3D"gmail_attr">Il giorno lun 1=
-6 nov 2026 alle ore 08:48 Thomas Zimmermann &lt;<a href=3D"mailto:tzimmerma=
-nn@suse.de">tzimmermann@suse.de</a>&gt; ha scritto:<br></div><blockquote cl=
-ass=3D"gmail_quote" style=3D"margin:0px 0px 0px 0.8ex;border-left:1px solid=
- rgb(204,204,204);padding-left:1ex">Hi<br>
-<br>
-Am 13.11.26 um 12:07 schrieb Angelo Compagnucci:<br>
-&gt; With a shadow buffer, what userspace draws in fbdev reaches the<br>
-&gt; framebuffer memory only when the damage worker runs. Turning the displ=
-ay<br>
-&gt; on shows the framebuffer memory as it is. So a program that draws its<=
-br>
-&gt; first picture and then unblanks, such as a boot splash, shows an older=
-<br>
-&gt; picture for a moment.<br>
-&gt;<br>
-&gt; Seen on an ILI9341 panel (tinydrm ili9341): enabling the pipe sends th=
-e<br>
-&gt; whole framebuffer memory to the panel, still black, and the splash onl=
-y<br>
-&gt; replaces it once the damage worker runs.<br>
-&gt;<br>
-&gt; Nothing can be flushed to a display that is off. But the copy from the=
-<br>
-&gt; shadow buffer into the framebuffer memory does not need the display. O=
-n<br>
-&gt; unblank, copy the whole shadow buffer into the framebuffer memory befo=
-re<br>
-&gt; turning the display on. The damage worker still flushes the damage onc=
-e<br>
-&gt; the display is on.<br>
-&gt;<br>
-&gt; Signed-off-by: Angelo Compagnucci &lt;<a href=3D"mailto:angelo.compagn=
-ucci@gmail.com" target=3D"_blank">angelo.compagnucci@gmail.com</a>&gt;<br>
-&gt; ---<br>
-&gt; Changes v1 -&gt; v2:<br>
-&gt;=C2=A0 =C2=A0 - Do not flush the damage before unblanking: nothing can =
-reach a<br>
-&gt;=C2=A0 =C2=A0 =C2=A0 display that is off. Instead, in fbdev-dma, copy t=
-he whole shadow<br>
-&gt;=C2=A0 =C2=A0 =C2=A0 buffer into the framebuffer memory on unblank, whi=
-ch needs no<br>
-&gt;=C2=A0 =C2=A0 =C2=A0 display [Thomas Zimmermann]<br>
-<br>
-That&#39;s not really the issue. There&#39;s hardware/drivers where we need=
- the <br>
-CRTC to be switched on before we can transfer display data. Search <br>
-drm_atomic_helper_commit_tail_rpm() [1] for that. IDK how much of a <br>
-problem this is in practice. Flushing buffers on such a system might <br>
-give actual errors instead of just some temporary display noise.<br>
-<br>
-What exactly are you trying to achieve?<br></blockquote><div><br></div><div=
->Thanks, I misread your remark on v1. The changelog and the commit<br>messa=
-ge of v2 are wrong on this, and I will fix them.<br><br>v2 does not transfe=
-r display data, though. The damage worker does two<br>things in drm_fbdev_d=
-ma_helper_fb_dirty():<br><br>=C2=A0 1. drm_fbdev_dma_damage_blit(): a memcp=
-y from the shadow buffer into<br>=C2=A0 =C2=A0 =C2=A0the GEM buffer;<br>=C2=
-=A0 2. fb-&gt;funcs-&gt;dirty(): the call into the driver.<br><br>On unblan=
-k, v2 calls only the first one. It does not call<br>fb-&gt;funcs-&gt;dirty(=
-), it commits nothing, and it touches no hardware. The<br>damage worker alr=
-eady does this same copy whatever the state of the<br>display, when userspa=
-ce draws while the display is blanked.<br><br>So I think a device that need=
-s the CRTC on is not affected. Do you<br>agree, or do I miss a case?<br><br=
->&gt; What exactly are you trying to achieve?<br><br>A boot splash on a sma=
-ll SPI panel (ILI9341, tinydrm), through fbdev.<br>The splash maps the fram=
-ebuffer, draws its first frame while the display<br>is still blanked, and t=
-hen unblanks with FBIOBLANK.<br><br>What happens today:<br><br>=C2=A0 1. Th=
-e frame is in the shadow buffer. The deferred I/O work is<br>=C2=A0 =C2=A0 =
-=C2=A0scheduled 50 ms later (fbdefio.delay =3D HZ / 20).<br>=C2=A0 2. FBIOB=
-LANK turns the CRTC on. The driver sends the GEM buffer to the<br>=C2=A0 =
-=C2=A0 =C2=A0panel and turns the backlight on. The GEM buffer is still blac=
-k.<br>=C2=A0 3. The deferred I/O and the damage work run, and the frame rep=
-laces<br>=C2=A0 =C2=A0 =C2=A0the black picture.<br><br>So the panel shows a=
- black picture for a moment before the splash, a<br>visible flash at each b=
-oot. The aim is that the first picture the panel<br>shows after an unblank =
-is the one that userspace drew before it.<br><br>If you think this is bette=
-r fixed somewhere else, I am happy to rework<br>it.<br><br>Best regards,<br=
->Angelo=C2=A0</div><blockquote class=3D"gmail_quote" style=3D"margin:0px 0p=
-x 0px 0.8ex;border-left:1px solid rgb(204,204,204);padding-left:1ex">
-<br>
-[1] <br>
-<a href=3D"https://elixir.bootlin.com/linux/v7.3.1/source/drivers/gpu/drm/d=
-rm_atomic_helper.c#L2009" rel=3D"noreferrer" target=3D"_blank">https://elix=
-ir.bootlin.com/linux/v7.3.1/source/drivers/gpu/drm/drm_atomic_helper.c#L200=
-9</a><br>
-<br>
-Best regards<br>
-Thomas<br>
-<br>
-<br>
-&gt;=C2=A0 =C2=A0 - The fbdev helpers are unchanged, so the title changed t=
-oo; v1 was<br>
-&gt;=C2=A0 =C2=A0 =C2=A0 &quot;drm/fb-helper: flush damage before unblankin=
-g&quot;<br>
-&gt;<br>
-&gt;=C2=A0 =C2=A0drivers/gpu/drm/drm_fbdev_dma.c | 44 +++++++++++++++++++++=
-+++++-------<br>
-&gt;=C2=A0 =C2=A01 file changed, 35 insertions(+), 9 deletions(-)<br>
-&gt;<br>
-&gt; diff --git a/drivers/gpu/drm/drm_fbdev_dma.c b/drivers/gpu/drm/drm_fbd=
-ev_dma.c<br>
-&gt; index 452f84400350..cc8813538bd9 100644<br>
-&gt; --- a/drivers/gpu/drm/drm_fbdev_dma.c<br>
-&gt; +++ b/drivers/gpu/drm/drm_fbdev_dma.c<br>
-&gt; @@ -93,15 +93,6 @@ static void drm_fbdev_dma_shadowed_fb_destroy(struc=
-t fb_info *info)<br>
-&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0drm_client_release(&amp;fb_helper-&gt;client=
-);<br>
-&gt;=C2=A0 =C2=A0}<br>
-&gt;=C2=A0 =C2=A0<br>
-&gt; -static const struct fb_ops drm_fbdev_dma_shadowed_fb_ops =3D {<br>
-&gt; -=C2=A0 =C2=A0 =C2=A0.owner =3D THIS_MODULE,<br>
-&gt; -=C2=A0 =C2=A0 =C2=A0.fb_open =3D drm_fbdev_dma_fb_open,<br>
-&gt; -=C2=A0 =C2=A0 =C2=A0.fb_release =3D drm_fbdev_dma_fb_release,<br>
-&gt; -=C2=A0 =C2=A0 =C2=A0FB_DEFAULT_DEFERRED_OPS(drm_fbdev_dma_shadowed),<=
-br>
-&gt; -=C2=A0 =C2=A0 =C2=A0DRM_FB_HELPER_DEFAULT_OPS,<br>
-&gt; -=C2=A0 =C2=A0 =C2=A0.fb_destroy =3D drm_fbdev_dma_shadowed_fb_destroy=
-,<br>
-&gt; -};<br>
-&gt; -<br>
-&gt;=C2=A0 =C2=A0/*<br>
-&gt;=C2=A0 =C2=A0 * struct drm_fb_helper<br>
-&gt;=C2=A0 =C2=A0 */<br>
-&gt; @@ -196,6 +187,41 @@ static const struct drm_fb_helper_funcs drm_fbdev=
-_dma_helper_funcs =3D {<br>
-&gt;=C2=A0 =C2=A0 * struct drm_fb_helper<br>
-&gt;=C2=A0 =C2=A0 */<br>
-&gt;=C2=A0 =C2=A0<br>
-&gt; +static int drm_fbdev_dma_shadowed_fb_blank(int blank, struct fb_info =
-*info)<br>
-&gt; +{<br>
-&gt; +=C2=A0 =C2=A0 =C2=A0struct drm_fb_helper *fb_helper =3D info-&gt;par;=
-<br>
-&gt; +=C2=A0 =C2=A0 =C2=A0struct drm_clip_rect clip =3D {<br>
-&gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0.x2 =3D fb_helper-&gt=
-;fb-&gt;width,<br>
-&gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0.y2 =3D fb_helper-&gt=
-;fb-&gt;height,<br>
-&gt; +=C2=A0 =C2=A0 =C2=A0};<br>
-&gt; +<br>
-&gt; +=C2=A0 =C2=A0 =C2=A0/*<br>
-&gt; +=C2=A0 =C2=A0 =C2=A0 * Turning the display on shows the framebuffer m=
-emory. Copy the<br>
-&gt; +=C2=A0 =C2=A0 =C2=A0 * shadow buffer into it first, so it holds what =
-was drawn. This<br>
-&gt; +=C2=A0 =C2=A0 =C2=A0 * does not need the display; the damage worker s=
-till flushes the<br>
-&gt; +=C2=A0 =C2=A0 =C2=A0 * damage once the display is on.<br>
-&gt; +=C2=A0 =C2=A0 =C2=A0 */<br>
-&gt; +=C2=A0 =C2=A0 =C2=A0if (blank =3D=3D FB_BLANK_UNBLANK)<br>
-&gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0drm_fbdev_dma_damage_=
-blit(fb_helper, &amp;clip);<br>
-&gt; +<br>
-&gt; +=C2=A0 =C2=A0 =C2=A0return drm_fb_helper_blank(blank, info);<br>
-&gt; +}<br>
-&gt; +<br>
-&gt; +static const struct fb_ops drm_fbdev_dma_shadowed_fb_ops =3D {<br>
-&gt; +=C2=A0 =C2=A0 =C2=A0.owner =3D THIS_MODULE,<br>
-&gt; +=C2=A0 =C2=A0 =C2=A0.fb_open =3D drm_fbdev_dma_fb_open,<br>
-&gt; +=C2=A0 =C2=A0 =C2=A0.fb_release =3D drm_fbdev_dma_fb_release,<br>
-&gt; +=C2=A0 =C2=A0 =C2=A0FB_DEFAULT_DEFERRED_OPS(drm_fbdev_dma_shadowed),<=
-br>
-&gt; +=C2=A0 =C2=A0 =C2=A0/* DRM_FB_HELPER_DEFAULT_OPS, with a blank that c=
-opies the shadow */<br>
-&gt; +=C2=A0 =C2=A0 =C2=A0.fb_check_var =3D drm_fb_helper_check_var,<br>
-&gt; +=C2=A0 =C2=A0 =C2=A0.fb_set_par =3D drm_fb_helper_set_par,<br>
-&gt; +=C2=A0 =C2=A0 =C2=A0.fb_setcmap =3D drm_fb_helper_setcmap,<br>
-&gt; +=C2=A0 =C2=A0 =C2=A0.fb_blank =3D drm_fbdev_dma_shadowed_fb_blank,<br=
->
-&gt; +=C2=A0 =C2=A0 =C2=A0.fb_pan_display =3D drm_fb_helper_pan_display,<br=
->
-&gt; +=C2=A0 =C2=A0 =C2=A0.fb_ioctl =3D drm_fb_helper_ioctl,<br>
-&gt; +=C2=A0 =C2=A0 =C2=A0.fb_destroy =3D drm_fbdev_dma_shadowed_fb_destroy=
-,<br>
-&gt; +};<br>
-&gt; +<br>
-&gt;=C2=A0 =C2=A0static int drm_fbdev_dma_driver_fbdev_probe_tail(struct dr=
-m_fb_helper *fb_helper,<br>
-&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =
-=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
-=A0 =C2=A0 =C2=A0 =C2=A0 struct drm_fb_helper_surface_size *sizes)<br>
-&gt;=C2=A0 =C2=A0{<br>
-<br>
--- <br>
---<br>
-Thomas Zimmermann<br>
-Graphics Driver Developer<br>
-SUSE Software Solutions Germany GmbH<br>
-Frankenstr. 146, 90461 N=C3=BCrnberg, Germany, <a href=3D"http://www.suse.c=
-om" rel=3D"noreferrer" target=3D"_blank">www.suse.com</a><br>
-GF: Stefan Gaiser, Jochen Jaser, Abhinav Puri, (HRB 36809, AG N=C3=BCrnberg=
-)<br>
-<br>
-<br>
-</blockquote></div><div><br clear=3D"all"></div><br><span class=3D"gmail_si=
-gnature_prefix">-- </span><br><div dir=3D"ltr" class=3D"gmail_signature">Pr=
-ofile: <a href=3D"http://it.linkedin.com/in/compagnucciangelo" target=3D"_b=
-lank">http://it.linkedin.com/in/compagnucciangelo</a></div></div>
-
---00000000000062ac030660665331--
