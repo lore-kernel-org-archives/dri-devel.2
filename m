@@ -2,141 +2,43 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 27751606A31C
-	for <dri-devel@archiver.kernel.org>; Tue, 17 Nov 2026 14:27:39 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A1523606A336
+	for <dri-devel@archiver.kernel.org>; Tue, 17 Nov 2026 14:28:29 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.a=rsa-sha256 header.s=susede2_rsa header.b=XX1PMUPo;
-	dkim=pass header.d=suse.de header.i=@suse.de header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=qYUIFuhC;
-	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.a=rsa-sha256 header.s=susede2_rsa header.b=L67zpXxz;
-	dkim=neutral header.d=suse.de header.i=@suse.de header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=Nv4lMFH5
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ZOssXA88
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 3A1D210E474;
-	Tue, 17 Nov 2026 14:27:28 +0000 (UTC)
-Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.223.131])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 80DF710E474
- for <dri-devel@lists.freedesktop.org>; Tue, 17 Nov 2026 14:27:16 +0000 (UTC)
-Received: from imap1.dmz-prg2.suse.org (imap1.dmz-prg2.suse.org
- [IPv6:2a07:de40:b281:104:10:150:64:97])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
- (No client certificate requested)
- by smtp-out2.suse.de (Postfix) with ESMTPS id DEA041F747;
- Tue, 17 Nov 2026 14:27:14 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
- t=1794925635; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
- bh=dxAtnxRdPb6RizC0hsVDfzOQY3Uxk3xTtJ6atzT4xFQ=;
- b=XX1PMUPoLbqEFaTmRcvoTQ0MoUcjEe7z0pc2Gz7GyXsN1rhyQfoiWypeu4NRbj6IDgmtak
- jcDXveMxjp4pDTKOP41miAPMmS7UVhOjW89p4hfEhB4CpHPLhYP2ggvdtFieCNkJ6g4hLd
- OzmBpKRM+fGL4ap8a3bypK1mF9Tm0HU=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_ed25519; t=1794925635;
- h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
- bh=dxAtnxRdPb6RizC0hsVDfzOQY3Uxk3xTtJ6atzT4xFQ=;
- b=qYUIFuhC5a9oRw0SMfSSKTOB2NKEa0UuiSfQirl8mCrsOL6FH7qOnGfN1BYHvW87uOZ4VQ
- 6TcEcJ6yuTjXl2Ag==
-Authentication-Results: smtp-out2.suse.de;
- dkim=pass header.d=suse.de header.s=susede2_rsa header.b=L67zpXxz;
- dkim=pass header.d=suse.de header.s=susede2_ed25519 header.b=Nv4lMFH5
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
- t=1794925634; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
- bh=dxAtnxRdPb6RizC0hsVDfzOQY3Uxk3xTtJ6atzT4xFQ=;
- b=L67zpXxzEvS0qYrqrV2PhO3iP1WUKBUS6UBW8Ra70ALcrtwRUnXHuU99+3gCFZfM1qBFsT
- Jbc7+VieDfPXZDgqXPVnejNmCOzLih79rEWgsPIr+ioGoGRVKp38eUOdH6NB0aifPieZLI
- R7tsyg9b8YvVRfOFSmw5l/i1Fn1blq0=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_ed25519; t=1794925634;
- h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
- bh=dxAtnxRdPb6RizC0hsVDfzOQY3Uxk3xTtJ6atzT4xFQ=;
- b=Nv4lMFH5auwsoEcOTtApQluCHJ3XBIUOofFrTuR2+A62uYtTi/NsDL2KsvH9ZaP+RzptLp
- ZFp6TetMz/jNysDw==
-Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
- (No client certificate requested)
- by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 3E9D813302;
- Tue, 17 Nov 2026 14:27:14 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
- by imap1.dmz-prg2.suse.org with ESMTPSA id T/7UBUJk/Gp9OgAAD6G6ig
- (envelope-from <tzimmermann@suse.de>); Tue, 17 Nov 2026 14:27:14 +0000
-Message-ID: <5ae18246-bc8d-4d0f-a6d9-390f4a79ad9f@suse.de>
-Date: Tue, 17 Nov 2026 15:27:13 +0100
-X-Archived-By: <archiver.kernel.org>
-MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] drm/gud: fix potential divide error due to optimisation
-To: Ruben Wauters <ruben.wauters@linux.dev>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>, David Airlie <airlied@gmail.com>,
- Simona Vetter <simona@ffwll.ch>
-Cc: dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org
-References: <20261117141943.10540-1-ruben.wauters@linux.dev>
-Content-Language: en-US
-From: Thomas Zimmermann <tzimmermann@suse.de>
-Autocrypt: addr=tzimmermann@suse.de; keydata=
- xsBNBFs50uABCADEHPidWt974CaxBVbrIBwqcq/WURinJ3+2WlIrKWspiP83vfZKaXhFYsdg
- XH47fDVbPPj+d6tQrw5lPQCyqjwrCPYnq3WlIBnGPJ4/jreTL6V+qfKRDlGLWFjZcsrPJGE0
- BeB5BbqP5erN1qylK9i3gPoQjXGhpBpQYwRrEyQyjuvk+Ev0K1Jc5tVDeJAuau3TGNgah4Yc
- hdHm3bkPjz9EErV85RwvImQ1dptvx6s7xzwXTgGAsaYZsL8WCwDaTuqFa1d1jjlaxg6+tZsB
- 9GluwvIhSezPgnEmimZDkGnZRRSFiGP8yjqTjjWuf0bSj5rUnTGiyLyRZRNGcXmu6hjlABEB
- AAHNJ1Rob21hcyBaaW1tZXJtYW5uIDx0emltbWVybWFubkBzdXNlLmRlPsLAjgQTAQgAOAIb
- AwULCQgHAgYVCgkICwIEFgIDAQIeAQIXgBYhBHIX+6yM6c9jRKFo5WgNwR1TC3ojBQJftODH
- AAoJEGgNwR1TC3ojx1wH/0hKGWugiqDgLNXLRD/4TfHBEKmxIrmfu9Z5t7vwUKfwhFL6hqvo
- lXPJJKQpQ2z8+X2vZm/slsLn7J1yjrOsoJhKABDi+3QWWSGkaGwRJAdPVVyJMfJRNNNIKwVb
- U6B1BkX2XDKDGffF4TxlOpSQzdtNI/9gleOoUA8+jy8knnDYzjBNOZqLG2FuTdicBXblz0Mf
- vg41gd9kCwYXDnD91rJU8tzylXv03E75NCaTxTM+FBXPmsAVYQ4GYhhgFt8S2UWMoaaABLDe
- 7l5FdnLdDEcbmd8uLU2CaG4W2cLrUaI4jz2XbkcPQkqTQ3EB67hYkjiEE6Zy3ggOitiQGcqp
- j//OwE0EWznS4AEIAMYmP4M/V+T5RY5at/g7rUdNsLhWv1APYrh9RQefODYHrNRHUE9eosYb
- T6XMryR9hT8XlGOYRwKWwiQBoWSDiTMo/Xi29jUnn4BXfI2px2DTXwc22LKtLAgTRjP+qbU6
- 3Y0xnQN29UGDbYgyyK51DW3H0If2a3JNsheAAK+Xc9baj0LGIc8T9uiEWHBnCH+RdhgATnWW
- GKdDegUR5BkDfDg5O/FISymJBHx2Dyoklv5g4BzkgqTqwmaYzsl8UxZKvbaxq0zbehDda8lv
- hFXodNFMAgTLJlLuDYOGLK2AwbrS3Sp0AEbkpdJBb44qVlGm5bApZouHeJ/+n+7r12+lqdsA
- EQEAAcLAdgQYAQgAIAIbDBYhBHIX+6yM6c9jRKFo5WgNwR1TC3ojBQJftOH6AAoJEGgNwR1T
- C3ojVSkIALpAPkIJPQoURPb1VWjh34l0HlglmYHvZszJWTXYwavHR8+k6Baa6H7ufXNQtThR
- yIxJrQLW6rV5lm7TjhffEhxVCn37+cg0zZ3j7zIsSS0rx/aMwi6VhFJA5hfn3T0TtrijKP4A
- SAQO9xD1Zk9/61JWk8OysuIh7MXkl0fxbRKWE93XeQBhIJHQfnc+YBLprdnxR446Sh8Wn/2D
- Ya8cavuWf2zrB6cZurs048xe0UbSW5AOSo4V9M0jzYI4nZqTmPxYyXbm30Kvmz0rYVRaitYJ
- 4kyYYMhuULvrJDMjZRvaNe52tkKAvMevcGdt38H4KSVXAylqyQOW5zvPc4/sq9c=
-In-Reply-To: <20261117141943.10540-1-ruben.wauters@linux.dev>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
-X-Rspamd-Queue-Id: DEA041F747
-X-Spam-Level: 
-X-Rspamd-Server: rspamd2.dmz-prg2.suse.org
-X-Rspamd-Action: no action
-X-Spamd-Result: default: False [-13.50 / 50.00]; SUSE_INTERNAL_BYPASS(-9.00)[];
- BAYES_HAM(-3.00)[100.00%]; NEURAL_HAM_LONG(-1.00)[-1.000];
- R_DKIM_ALLOW(-0.20)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
- NEURAL_HAM_SHORT(-0.20)[-1.000]; MIME_GOOD(-0.10)[text/plain];
- XM_UA_NO_VERSION(0.01)[]; MX_GOOD(-0.01)[];
- FREEMAIL_ENVRCPT(0.00)[gmail.com];
- URIBL_BLOCKED(0.00)[linux.dev:email,suse.com:url,suse.de:dkim,suse.de:email,imap1.dmz-prg2.suse.org:rdns,imap1.dmz-prg2.suse.org:helo];
- FREEMAIL_TO(0.00)[linux.dev,linux.intel.com,kernel.org,gmail.com,ffwll.ch];
- MIME_TRACE(0.00)[0:+];
- DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
- ARC_NA(0.00)[];
- RBL_SPAMHAUS_BLOCKED_OPENRESOLVER(0.00)[2a07:de40:b281:104:10:150:64:97:from]; 
- TO_MATCH_ENVRCPT_ALL(0.00)[]; RCVD_TLS_ALL(0.00)[];
- DKIM_TRACE(0.00)[suse.de:+]; RCVD_COUNT_TWO(0.00)[2];
- FROM_EQ_ENVFROM(0.00)[]; FROM_HAS_DN(0.00)[];
- TO_DN_SOME(0.00)[]; MID_RHS_MATCH_FROM(0.00)[];
- RECEIVED_SPAMHAUS_BLOCKED_OPENRESOLVER(0.00)[2a07:de40:b281:106:10:150:64:167:received];
- RCPT_COUNT_SEVEN(0.00)[7]; RCVD_VIA_SMTP_AUTH(0.00)[];
- DBL_BLOCKED_OPENRESOLVER(0.00)[suse.de:dkim, suse.de:email,
- imap1.dmz-prg2.suse.org:rdns, imap1.dmz-prg2.suse.org:helo, suse.com:url,
- linux.dev:email]
-X-Spam-Score: -13.50
+	by gabe.freedesktop.org (Postfix) with ESMTP id C6D7110F781;
+	Tue, 17 Nov 2026 14:28:23 +0000 (UTC)
+Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id BE14710F781;
+ Tue, 17 Nov 2026 14:28:17 +0000 (UTC)
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+ by sea.source.kernel.org (Postfix) with ESMTP id 4A0C240E58;
+ Tue, 17 Nov 2026 14:28:17 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id F01811F000C4;
+ Tue, 17 Nov 2026 14:28:16 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+ s=k20260515; t=1794925697;
+ bh=MA0c4cOneuLD32OwZl6gBBL6dzZ926okDKSMQXY4r58=;
+ h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+ b=ZOssXA888MLYjaeNsORoNLErnOWOfwdXcJSpUOOWAK4mCYDPpUjCQeYd22zON1yo3
+ Aou7QF9GFQhHr9hWZ/qdjKexyb/IOT6PD0sZKXdcaH3fL89vl7451yhDid1p5UoUQW
+ JWpuTXHFai3v9W3OdfdD9fI5u3ytCouh/7eihXO6y0u5cQjVX359kabzTnOxt7CxtO
+ bM5gSC0z0lVZdzBn5PUy6nSf9gCWLZfLaQXwjMQjnjJUw6CXkr1tI+upP4hBmekoSr
+ pub95e1YyGhjwFiFDNZDs1F2nQ09FazDHAN7jfAy9pMez75aQ5CpH/IS90DrC+Ioy+
+ MhN6bqy0TfH2g==
+Message-ID: <sashiko-outbox-218965@kernel.org>
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v2 05/10] drm/amdgpu: Track dirty bo_va structures in
+ update ctx
+To: "Natalie Vock" <nat@pixelcluster.dev>
+Cc: amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org
+In-Reply-To: <20261117-prt-explicit-sync-v2-5-bb3851cb6a0c@pixelcluster.dev>
+References: <20261117-prt-explicit-sync-v2-0-bb3851cb6a0c@pixelcluster.dev>
+ <20261117-prt-explicit-sync-v2-5-bb3851cb6a0c@pixelcluster.dev>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Tue, 17 Nov 2026 14:28:16 +0000
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -147,54 +49,158 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
+Reply-To: sashiko-reviews@lists.linux.dev
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-17.3 required=3.0 tests=BAYES_00,DKIM_SIGNED,
-	DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
-	INCLUDES_CR_TRAILER,INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,
-	SPF_PASS,USER_AGENT_SANE_1 autolearn=unavailable autolearn_force=no
-	version=4.0.1
+X-Spam-Status: No, score=-10.8 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
+	DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
+	INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS
+	autolearn=unavailable autolearn_force=no version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
+X-Archived-By: <archiver.kernel.org>
 
-
-
-Am 17.11.26 um 15:17 schrieb Ruben Wauters:
-> Compilers can potentially optmise the read of gdrm->stats_actual_length
-> to two separate reads. As flagged by sashiko, when the rect is flushed
-> the stats_actual_length can reset to zero. If this was to occur between
-> the two reads, the divide error can still be triggered (albeit rarely).
->
-> Fix this by adding a READ_ONCE around the gdrm->stats_actual_length
->
-> Fixes: 431c2dffd2b7 ("drm/gud: avoid divide error in gud_stats_debugfs")
-> Signed-off-by: Ruben Wauters <ruben.wauters@linux.dev>
-
-Reviewed-by: Thomas Zimmermann <tzimmermann@suse.de>
-
-> ---
->   drivers/gpu/drm/gud/gud_drv.c | 2 +-
->   1 file changed, 1 insertion(+), 1 deletion(-)
->
-> diff --git a/drivers/gpu/drm/gud/gud_drv.c b/drivers/gpu/drm/gud/gud_drv.c
-> index cec5d64e152b..4854b30ea5ba 100644
-> --- a/drivers/gpu/drm/gud/gud_drv.c
-> +++ b/drivers/gpu/drm/gud/gud_drv.c
-> @@ -329,7 +329,7 @@ static int gud_stats_debugfs(struct seq_file *m, void *data)
->   	seq_puts(m, "\n");
->   
->   	if (gdrm->compression) {
-> -		u64 actual_length = gdrm->stats_actual_length;
-> +		u64 actual_length = READ_ONCE(gdrm->stats_actual_length);
->   		u64 remainder;
->   		u64 ratio, ratio_frac;
->   
-
--- 
+Thank you for your contribution! Sashiko AI review found 3 potential
+issues to consider:
+- [High] drm/amdgpu: UAF on bo_va in amdgpu_vm_update_ctx_fini() after
+  amdgpu_vm_bo_del()
+- [High] drm/amdgpu: skipped delete in
+  amdgpu_vm_update_ctx_add_freed_mapping()
+- [Low] drm/amdgpu: update_link placed under wrong lock comment in
+  amdgpu_bo_va
 --
-Thomas Zimmermann
-Graphics Driver Developer
-SUSE Software Solutions Germany GmbH
-Frankenstr. 146, 90461 Nürnberg, Germany, www.suse.com
-GF: Stefan Gaiser, Jochen Jaser, Abhinav Puri, (HRB 36809, AG Nürnberg)
 
+commit 3f1753904c640653510160bf642992a7a55fbc3d
+Author: Natalie Vock <nat@pixelcluster.dev>
 
+drm/amdgpu: Track dirty bo_va structures in update ctx
+
+This commit adds an update_link list head to struct amdgpu_bo_va and tracks
+modified bo_va structures in a dirty_bo_vas list on struct amdgpu_vm_update=
+_ctx.
+
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_object.h b/drivers/gpu/drm=
+/amd/amdgpu/amdgpu_object.h
+> index e0090dc10682f..068c57ed537fd 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_object.h
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_object.h
+> @@ -80,6 +80,8 @@ struct amdgpu_bo_va {
+>  	/* protected by bo being reserved */
+>  	unsigned			ref_count;
+> =20
+> +	struct list_head		update_link;
+> +
+>  	/* all other members protected by the VM PD being reserved */
+>  	struct dma_fence	        *last_pt_update;
+> =20
+
+[Severity: Low]
+Should update_link be placed below the "all other members protected by the =
+VM
+PD being reserved" comment?  It is modified by the update_ctx helpers while
+only the VM PD reservation lock is held, including when the individual BO is
+NULL (such as fpriv->prt_va) or not reserved (when clearing overlapping
+mappings of other BOs in the VM).
+
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c b/drivers/gpu/drm/amd=
+/amdgpu/amdgpu_vm.c
+> index 1e2d45979efdb..330c288053352 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c
+
+[ ... ]
+
+> @@ -1733,8 +1735,10 @@ static void
+>  amdgpu_vm_update_ctx_add_freed_mapping(struct amdgpu_vm_update_ctx *ctx,
+>  				       struct amdgpu_bo_va_mapping *mapping)
+>  {
+> -	WARN_ON(!list_empty(&mapping->pending_list));
+> -	list_add(&mapping->pending_list, &ctx->deleted);
+> +	if (list_empty(&mapping->bo_va->update_link))
+> +		list_add(&mapping->bo_va->update_link, &ctx->dirty_bo_vas);
+> +	if (list_empty(&mapping->pending_list))
+> +		list_add(&mapping->pending_list, &ctx->deleted);
+>  }
+
+[Severity: High]
+Can skipping list_add(&mapping->pending_list, &ctx->deleted) when
+mapping->pending_list is non-empty leave freed mappings in vm->va?
+
+Within one update_ctx, amdgpu_vm_bo_clear_mappings() and
+amdgpu_vm_bo_replace_map() put overlapping mappings onto ctx->cleared via
+mapping->pending_list; if amdgpu_vm_bo_unmap() is then called on that mappi=
+ng
+in the same context, amdgpu_vm_update_ctx_add_freed_mapping() leaves it on
+ctx->cleared instead of moving it to ctx->deleted, so
+amdgpu_vm_update_ctx_execute_replace() re-inserts any non-cleared remainder.
+
+Furthermore, if an update_ctx is aborted before
+amdgpu_vm_update_ctx_execute_replace() finishes processing ctx->cleared (for
+example, if amdgpu_vm_bo_replace_map() fails in
+amdgpu_vm_update_ctx_add_new_mapping()), neither amdgpu_vm_update_ctx_fini()
+here nor amdgpu_vm_update_ctx_rollback() in commit "drm/amdgpu: Add functio=
+n to
+roll back a VM update ctx" unlinks entries from ctx->cleared.  When the BO =
+is
+later removed in amdgpu_vm_bo_del(), amdgpu_vm_update_ctx_add_freed_mapping=
+()
+silently skips adding the mapping to update_ctx.deleted and kfree(bo_va) fr=
+ees
+bo_va while the mapping remains in vm->va with a dangling mapping->bo_va
+pointer, causing a use-after-free on subsequent vm->va traversals.
+
+>  int amdgpu_vm_update_ctx_execute_replace(struct amdgpu_vm_update_ctx *ct=
+x)
+
+[ ... ]
+
+> @@ -1878,10 +1883,16 @@ void amdgpu_vm_update_ctx_init(struct amdgpu_vm_u=
+pdate_ctx *ctx,
+>  void amdgpu_vm_update_ctx_fini(struct amdgpu_vm_update_ctx *ctx)
+>  {
+>  	struct interval_tree_node *node, *next_node;
+> +	struct amdgpu_bo_va *bo_va, *next_bo_va;
+> =20
+>  	list_splice(&ctx->freed, &ctx->vm->delayed_freed);
+>  	amdgpu_sync_free(&ctx->sync);
+> =20
+> +	list_for_each_entry_safe(bo_va, next_bo_va, &ctx->dirty_bo_vas,
+> +				 update_link) {
+> +		list_del_init(&bo_va->update_link);
+> +	}
+
+[Severity: High]
+Does this cause a use-after-free on bo_va when a caller unmaps and deletes a
+bo_va before finalizing update_ctx?
+
+In amdgpu_unmap_static_csa(), amdgpu_vm_bo_unmap() adds bo_va->update_link =
+to
+update_ctx.dirty_bo_vas, and amdgpu_vm_bo_del() then frees bo_va before
+amdgpu_vm_update_ctx_fini() runs:
+
+drivers/gpu/drm/amd/amdgpu/amdgpu_csa.c:amdgpu_unmap_static_csa() {
+    ...
+	r =3D amdgpu_vm_bo_unmap(&update_ctx, bo_va, csa_addr);
+	if (r) {
+		drm_err(adev_to_drm(adev),
+			"failed to do bo_unmap on static CSA, err=3D%d\n", r);
+		goto error_ctx;
+	}
+	amdgpu_vm_update_ctx_commit(&update_ctx);
+
+	amdgpu_vm_bo_del(adev, bo_va);
+
+error_ctx:
+	amdgpu_vm_update_ctx_fini(&update_ctx);
+    ...
+}
+
+Because amdgpu_vm_bo_del() calls kfree(bo_va) without unlinking
+bo_va->update_link from the outer update_ctx.dirty_bo_vas,
+amdgpu_vm_update_ctx_fini() executes list_del_init(&bo_va->update_link) on =
+the
+freed bo_va.  Unlinking bo_va->update_link in amdgpu_vm_bo_del() before
+kfree(bo_va) would avoid this.
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261117-prt-explic=
+it-sync-v2-0-bb3851cb6a0c@pixelcluster.dev?part=3D5
