@@ -2,65 +2,65 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2B8DA606A31C
-	for <dri-devel@archiver.kernel.org>; Wed, 18 Nov 2026 13:47:23 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 426A9606A31C
+	for <dri-devel@archiver.kernel.org>; Wed, 18 Nov 2026 13:47:24 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=NH6Jy6oK
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=S3belS6I
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 32E0D10FCC0;
+	by gabe.freedesktop.org (Postfix) with ESMTP id E2A9410FCC5;
 	Wed, 18 Nov 2026 13:47:10 +0000 (UTC)
-Received: from mail-wm1-f49.google.com (mail-wm1-f49.google.com
- [209.85.128.49])
- by gabe.freedesktop.org (Postfix) with ESMTPS id ABFEC10F645
- for <dri-devel@lists.freedesktop.org>; Tue, 17 Nov 2026 12:39:52 +0000 (UTC)
-Received: by mail-wm1-f49.google.com with SMTP id
- 5b1f17b1804b1-4a2000d5fb1so23637505e9.1
- for <dri-devel@lists.freedesktop.org>; Tue, 17 Nov 2026 04:39:52 -0800 (PST)
+Received: from mail-wm1-f48.google.com (mail-wm1-f48.google.com
+ [209.85.128.48])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id D68E110F6A4
+ for <dri-devel@lists.freedesktop.org>; Tue, 17 Nov 2026 12:39:55 +0000 (UTC)
+Received: by mail-wm1-f48.google.com with SMTP id
+ 5b1f17b1804b1-4a9a8d6cea8so11252395e9.1
+ for <dri-devel@lists.freedesktop.org>; Tue, 17 Nov 2026 04:39:55 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20260707; t=1794919191; x=1795523991; darn=lists.freedesktop.org;
+ d=gmail.com; s=20260707; t=1794919194; x=1795523994; darn=lists.freedesktop.org;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:from:to:cc:subject:date
  :message-id:reply-to:content-type;
- bh=0qh6b8xWE5s4NSuahM9vcqi/jo2yZx4jTaD46fezOa4=;
- b=NH6Jy6oKjjLRyboJzLeDUiVGbpQyEujq5GzKS2XYh9Q3yJBJ/7E72++0aPqm8kGSt3
- tI+pT/0jTST/1sP3h3RQIosrUlrXEXCepJQkikbrDJFC7TTfx2CTUPd0WMF2rcPAYLHC
- DQiQLdOdeHNkQrdfnQTpEYr4i3etL8D4a/QePkKagmjANdvCO9ya+DmBAzOBVla6FhDF
- mFnMmhZ5k6nDNCbnTbIYZ6jyubJhdOYIjRjTFFuYgAt/qwzrz6ijagy+ZDLUsQ+zpwGe
- QtzH5INSeID73N7zfCtU0itAE+Kq5qXrlx+DTDeVfVEvH6GG1DVvFc4b7OVitNpsN2kk
- WtFw==
+ bh=EWIILX83ZCKLQmbiG76q0UMzDBvPWPGt2S4uq8LCJ/Y=;
+ b=S3belS6IgcZ7fwjgLurZAnywa0PyEz3sYYFB/tWIB1QaiIianapmpmfmL7lur0LyQB
+ t5LwIWbZ3Y2MWnXAGhcR1Y3eC2O/3H4r6GEYVCb6utQt+vqZHJu7lUUHTmb1QmSBg+x4
+ Bx50MXhgnwquEfRYijDefLovmYIWgkiJrxL3hUhu4phJklVV1g7xTWr04TtM/If9XSlS
+ 7jCkdD72/oQjouHl29qKJI0CBqz3iVryejivQjFoXXZinOBdiRiV8s76lZow4jHI5whI
+ OtDab9kPEYXKQ/f0xC2qOyyfOmSVU3wcfQdMqFqiNEJ6cwvwCuR6DM8PVB0E6nxlqgbu
+ RBWQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20260707; t=1794919191; x=1795523991;
+ d=1e100.net; s=20260707; t=1794919194; x=1795523994;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
  :to:cc:subject:date:message-id:reply-to:content-type;
- bh=0qh6b8xWE5s4NSuahM9vcqi/jo2yZx4jTaD46fezOa4=;
- b=EFHTTyIA+inuOpezOHKjJiBu4LGe3ZOQaKsAXbMEPoMz1IJai/ML/AhGmD1TB47G/Q
- WEb3vTzySdnmNvavOdVuYOIYQCztZLbv8NTjOIAvTj60eZ0IxksEnrt73fPq2XeTqphy
- ub76eypy4GyVIFnW+Oht35KwtTX+iMu3cgOpN1Glzv86k3Sf13AKtYYxJFZ2xYtD1kig
- kurDm4QHXnqVAtp/s04d0/kZOpbZBMmHztf0nFMZlZjIwXDiQDIuw8/IaxEXVkpkVD6q
- t9geqgDK+Ffi/C0zjdohifB+jBsYtEGHkDGou6qW02elL+zEFp4t3Y+CYz/aSpbOVA4q
- kTvQ==
+ bh=EWIILX83ZCKLQmbiG76q0UMzDBvPWPGt2S4uq8LCJ/Y=;
+ b=PWbTjcX+KKbyXM9q03Q2T6FsY3eNLNV+Ky5yezNpKiB4h0CI7EExE/acQbLBBbJoQC
+ LjS6RzJV9GjDgEFIwzlk1gzrSVhGjZDGp2Qw2ABjectgTXp7QTYB/7v+ftmNlqOKV26L
+ JWhLdNdcjovb7xWC2BrZLLy5GM4IhXQBhryJ23o9mxd9rPYTu8NPCIOugPBG8/9WDZvE
+ zMKh2T1KhrFdHgfD/kVXHHdE8KjJ7GeyhWlcu1ROoWgpPqxhuCgY/J8je3bulZaTgTCL
+ djk0npZnRj6WF3fwNoP0rLZ+5DuMIvXgbpqjFF4T8zxgw4K0BabhzpNcxD6vT7OjvDQO
+ yAqA==
 X-Forwarded-Encrypted: i=1;
- AL+hErGCzDeGW/J9OuIyqiPpbrb3d6BEA/am2K/yFLvglyM2qtao212ptcJX1t1fvonk+oSZm1vA5Ht1etw=@lists.freedesktop.org
-X-Gm-Message-State: APuU4Z9pAGsYSHAnf4YIpiZS6G0SCI4smpSLjX7SlKHwwg0CY/VJ1wKL
- VjS+e/Frh98FD9avd6eXk1yeDA5vKSqioxDqwxpTjiOuX8vlsP50QiS8
-X-Gm-Gg: AYBFou1PFtJoniFkdV3Nec3NNdXtuo5V0ETMD9ztl49tLroDV98nFJ5cPKaFePFWTYa
- aZ/oCgob3mcXMlV6gLCm/bfr6SrMJJjrchZL4IhoOI9JA9617aihqymkRBaaumT1RZXTTh7WDs4
- ex+9JlAsoMmBY6EmlNkL8q3onC8zxQUb2XEPOdGouFZ1iVoSLhjMRcphB4m7g7VGBnSAAVQ20vP
- a16aoqTTVR7FWR608QETGSIRvUzs06lQlHp7kYWCJt7HS8GGdbYCpFbCGDBEfeQ3QfQkrZO04tt
- 3wXs5geyS6W2+A0k1EMqSnn3+ckqebqzLA3vul5slx5K1UKGvC4wIA+UEegTF+ZCTtDdygQOYTt
- 6Je2SzTa04g+HIgyYK59hZQ4ad0gC2c3rL6UqLrBZYMbilAYOQI8hSUBTQi2Nw3NlkWvO5AJ89z
- IhrzLIl4fZB3hEY+N/E/BFuuZKPIAWm3AMRKmfqlUYQo95zxOT/eAWMSrmhSAtB7EiCndeI7GU0
- W2Bt8qw31BAXOUVlBmW2oDj8Z0RfxXBxIfStxUSUVfFsriq/fpYND42C7BtCj2/V2S/cwqCa2Sp
- OQdSpdHeEj1W1OW6huIZEuVCUEVjW6qr2N1Mw8Ok+55eooO9z+NboaFbAytXvdDbAxk6/A==
-X-Received: by 2002:a05:600c:4752:b0:4a3:59c9:a754 with SMTP id
- 5b1f17b1804b1-4bb55ab2b89mr286218165e9.22.1794919190906; 
- Tue, 17 Nov 2026 04:39:50 -0800 (PST)
+ AL+hErEODIJ3JYwopqriLTJAc6BdRWhth3KQP0yN0gEpvP9OQStbPcKnFp2AVR8G4tVjmfzgw3O25/svwLk=@lists.freedesktop.org
+X-Gm-Message-State: APuU4Z+uMfD3EFlotR/+/ov3VIvoSnWUNVD9ruNe+/E2gYsQf3CSRxA1
+ rE7lMR86D/mrc1honz22IikYssUx2k48oGaHAGtxUN/enjwh/Wk4Paqb
+X-Gm-Gg: AYBFou167dQDbhx9SffeffYM6ylxX/IZQaMtmeM0zwVe8ITkUxwjr4GbJknZ8iMrbKy
+ bAjHUEwQJfCRXkDbbBbLxdNdlsJTSQuE0ctrcVLHIE7fxyC6W7W01qkyw4aoZukxi7W1LCBhLzR
+ QWtKWdtsDt3e/3weMk0T6AA5dvoa/9bltlQ/hc8Qc5L7ct83K6bgbV1rR1g0COJRGYyEb9J5VFI
+ XT+JMbEBLtnt5He4ydGSwnQdBcpoPh5BRE95eSAWwo4h1p4D05i5dRsgOYwXM15we7guJ4z2pq0
+ O5+iso9e5W7eQUidYxnKmPWJIZn7IH52Oc8yZNwTlMPD/h5T3RDAS4J1DBNOoW+coZVtpFOrmKJ
+ QKLUP5xLAKxqxpnu4lsjWFRBiz8p4mTiHtt/77wCx0X/F93pW6f6rTXwWepIoiDxbA/msVGG4s5
+ zUnB9LsYI+/ty4RWssfVLi9WDGjPt4oVO11BGTePFN3HBwSk7+NxjjfeFcLJXlBQmPVhddFN7Vs
+ YNFXr1Xvfs6l7FVYb5vtxbcC5qEgZHgDNBV9d32vZSunI2SZoNaVgWJjD/V3I8Z3FASYup6pDTa
+ +vvZA2/suLTEBf60Hpu2YeYVtbz0x7y6Ge8x3myEucMxATM19VENyWF68nk+RZ29itFwyg==
+X-Received: by 2002:a05:600c:b99:b0:4bb:5d38:259f with SMTP id
+ 5b1f17b1804b1-4bb7838bdaamr53261735e9.12.1794919193994; 
+ Tue, 17 Nov 2026 04:39:53 -0800 (PST)
 Received: from DESKTOP-BJ3EVC4.lan (94-21-223-203.pool.digikabel.hu.
  [94.21.223.203]) by smtp.gmail.com with ESMTPSA id
- 5b1f17b1804b1-4bb783f8154sm71474905e9.4.2026.11.17.04.39.50
+ 5b1f17b1804b1-4bb783f8154sm71474905e9.4.2026.11.17.04.39.52
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Tue, 17 Nov 2026 04:39:50 -0800 (PST)
+ Tue, 17 Nov 2026 04:39:53 -0800 (PST)
 From: rofikkerneldev <rofikcoga@gmail.com>
 To: linux-arm-msm@vger.kernel.org
 Cc: devicetree@vger.kernel.org, dri-devel@lists.freedesktop.org,
@@ -72,10 +72,9 @@ Cc: devicetree@vger.kernel.org, dri-devel@lists.freedesktop.org,
  Neil Armstrong <neil.armstrong@linaro.org>,
  Dmitry Torokhov <dmitry.torokhov@gmail.com>,
  rofikkerneldev <rofikcoga@gmail.com>
-Subject: [PATCH v1 02/11] arm64: dts: qcom: add LG V60 ThinQ 5G (timelm)
- support
-Date: Tue, 17 Nov 2026 13:39:37 +0100
-Message-Id: <20261117123946.668557-3-rofikcoga@gmail.com>
+Subject: [PATCH v1 05/11] drm/panel: add LG SW43103 panel driver
+Date: Tue, 17 Nov 2026 13:39:40 +0100
+Message-Id: <20261117123946.668557-6-rofikcoga@gmail.com>
 X-Mailer: git-send-email 2.39.5
 In-Reply-To: <20261117123946.668557-1-rofikcoga@gmail.com>
 References: <20261117123946.668557-1-rofikcoga@gmail.com>
@@ -94,606 +93,675 @@ List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-20.8 required=3.0 tests=BAYES_00,DKIM_SIGNED,
+X-Spam-Status: No, score=-15.8 required=3.0 tests=BAYES_00,DKIM_SIGNED,
 	DKIM_VALID,DKIM_VALID_AU,FREEMAIL_FORGED_FROMDOMAIN,FREEMAIL_FROM,
 	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
-	MAILING_LIST_MULTI,MENTIONS_GIT_HOSTING,SPF_HELO_NONE,SPF_PASS,
-	USER_AGENT_GIT autolearn=unavailable autolearn_force=no version=4.0.1
+	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,USER_AGENT_GIT
+	autolearn=unavailable autolearn_force=no version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-Add initial support for the LG V60 ThinQ 5G (timelm), based on the
-Qualcomm SM8250 SoC.
-
-Describe the memory layout, PMIC regulators, buttons, serial console,
-UFS, SD card, and USB.
+Add support for the 1080x2460 SW43103 AMOLED panel. Handle power and
+reset sequencing, DCS backlight control, and the DSC configuration
+required by the panel.
 
 Signed-off-by: rofikkerneldev <rofikcoga@gmail.com>
 ---
- MAINTAINERS                                   |   6 +
- arch/arm64/boot/dts/qcom/Makefile             |   1 +
- .../arm64/boot/dts/qcom/sm8250-lge-timelm.dts | 543 ++++++++++++++++++
- 3 files changed, 550 insertions(+)
- create mode 100644 arch/arm64/boot/dts/qcom/sm8250-lge-timelm.dts
+ MAINTAINERS                              |   1 +
+ drivers/gpu/drm/panel/Kconfig            |  13 +
+ drivers/gpu/drm/panel/Makefile           |   1 +
+ drivers/gpu/drm/panel/panel-lg-sw43103.c | 594 +++++++++++++++++++++++
+ 4 files changed, 609 insertions(+)
+ create mode 100644 drivers/gpu/drm/panel/panel-lg-sw43103.c
 
 diff --git a/MAINTAINERS b/MAINTAINERS
-index ccbcdc0799b9f..315a4a000b405 100644
+index bca5065166c25..abdaabe16ed53 100644
 --- a/MAINTAINERS
 +++ b/MAINTAINERS
-@@ -15231,6 +15231,12 @@ Q:	http://patchwork.linuxtv.org/project/linux-media/list/
- T:	git git://linuxtv.org/mkrufky/tuners.git
- F:	drivers/media/dvb-frontends/lgdt3305.*
+@@ -15235,6 +15235,7 @@ LG SW43103 PANEL DRIVER
+ M:	rofikkerneldev <rofikcoga@gmail.com>
+ S:	Maintained
+ F:	Documentation/devicetree/bindings/display/panel/lg,sw43103.yaml
++F:	drivers/gpu/drm/panel/panel-lg-sw43103.c
  
-+LG V60 THINQ 5G (TIMELM) SUPPORT
-+M:	rofikkerneldev <rofikcoga@gmail.com>
-+L:	linux-arm-msm@vger.kernel.org
-+S:	Maintained
-+F:	arch/arm64/boot/dts/qcom/sm8250-lge-timelm*
+ LG V60 THINQ 5G (TIMELM) SUPPORT
+ M:	rofikkerneldev <rofikcoga@gmail.com>
+diff --git a/drivers/gpu/drm/panel/Kconfig b/drivers/gpu/drm/panel/Kconfig
+index 7a520b4d60fef..e765b9c7b02e6 100644
+--- a/drivers/gpu/drm/panel/Kconfig
++++ b/drivers/gpu/drm/panel/Kconfig
+@@ -540,6 +540,19 @@ config DRM_PANEL_LG_LG4573
+ 	  Say Y here if you want to enable support for LG4573 RGB panel.
+ 	  To compile this driver as a module, choose M here.
+ 
++config DRM_PANEL_LG_SW43103
++	tristate "LG / BOE SW43103 panel"
++	depends on OF
++	depends on DRM_MIPI_DSI
++	depends on BACKLIGHT_CLASS_DEVICE
++	select DRM_DISPLAY_DSC_HELPER
++	select DRM_DISPLAY_HELPER
++	help
++	  Say Y here if you want to enable support for LG / BOE SW43103 panel.
++	  The panel has a 1080x2460@60Hz resolution and uses DSC command mode.
++	  It is used on devices such as the LG V60 ThinQ 5G (timelm).
++	  To compile this driver as a module, choose M here.
 +
- LIBATA PATA ARASAN COMPACT FLASH CONTROLLER
- M:	Viresh Kumar <vireshk@kernel.org>
- L:	linux-ide@vger.kernel.org
-diff --git a/arch/arm64/boot/dts/qcom/Makefile b/arch/arm64/boot/dts/qcom/Makefile
-index 88230c4e00ea9..91c9d95696f2a 100644
---- a/arch/arm64/boot/dts/qcom/Makefile
-+++ b/arch/arm64/boot/dts/qcom/Makefile
-@@ -409,6 +409,7 @@ dtb-$(CONFIG_ARCH_QCOM)	+= sm8150-mtp.dtb
- dtb-$(CONFIG_ARCH_QCOM)	+= sm8150-sony-xperia-kumano-bahamut.dtb
- dtb-$(CONFIG_ARCH_QCOM)	+= sm8150-sony-xperia-kumano-griffin.dtb
- dtb-$(CONFIG_ARCH_QCOM)	+= sm8250-hdk.dtb
-+dtb-$(CONFIG_ARCH_QCOM)	+= sm8250-lge-timelm.dtb
- dtb-$(CONFIG_ARCH_QCOM)	+= sm8250-mtp.dtb
- dtb-$(CONFIG_ARCH_QCOM)	+= sm8250-samsung-r8q.dtb
- dtb-$(CONFIG_ARCH_QCOM)	+= sm8250-samsung-x1q.dtb
-diff --git a/arch/arm64/boot/dts/qcom/sm8250-lge-timelm.dts b/arch/arm64/boot/dts/qcom/sm8250-lge-timelm.dts
+ config DRM_PANEL_LG_SW43408
+ 	tristate "LG SW43408 panel"
+ 	depends on GPIOLIB
+diff --git a/drivers/gpu/drm/panel/Makefile b/drivers/gpu/drm/panel/Makefile
+index da5175909d540..c6f3280cd5828 100644
+--- a/drivers/gpu/drm/panel/Makefile
++++ b/drivers/gpu/drm/panel/Makefile
+@@ -53,6 +53,7 @@ obj-$(CONFIG_DRM_PANEL_LINCOLNTECH_LCD197) += panel-lincolntech-lcd197.o
+ obj-$(CONFIG_DRM_PANEL_LG_LB035Q02) += panel-lg-lb035q02.o
+ obj-$(CONFIG_DRM_PANEL_LG_LD070WX3) += panel-lg-ld070wx3.o
+ obj-$(CONFIG_DRM_PANEL_LG_LG4573) += panel-lg-lg4573.o
++obj-$(CONFIG_DRM_PANEL_LG_SW43103) += panel-lg-sw43103.o
+ obj-$(CONFIG_DRM_PANEL_LG_SW43408) += panel-lg-sw43408.o
+ obj-$(CONFIG_DRM_PANEL_LXD_M9189A) += panel-lxd-m9189a.o
+ obj-$(CONFIG_DRM_PANEL_MAGNACHIP_D53E6EA8966) += panel-magnachip-d53e6ea8966.o
+diff --git a/drivers/gpu/drm/panel/panel-lg-sw43103.c b/drivers/gpu/drm/panel/panel-lg-sw43103.c
 new file mode 100644
-index 0000000000000..74b673ebbeb9d
+index 0000000000000..caab54e0d1153
 --- /dev/null
-+++ b/arch/arm64/boot/dts/qcom/sm8250-lge-timelm.dts
-@@ -0,0 +1,543 @@
-+// SPDX-License-Identifier: BSD-3-Clause
++++ b/drivers/gpu/drm/panel/panel-lg-sw43103.c
+@@ -0,0 +1,594 @@
++// SPDX-License-Identifier: GPL-2.0+
 +/*
-+ * Copyright (c) 2026 rofikkerneldev <rofikcoga@gmail.com>
-+ * Device Tree for LG V60 ThinQ 5G (timelm / LM-V600)
++ * Copyright (C) 2026 Rofik Kernel <rofikcoga@gmail.com>
++ * Panel driver for LG / BOE SW43103 FHD+ DSC Command Mode AMOLED panel
++ * (LG V60 ThinQ 5G - timelm)
 + */
 +
-+/dts-v1/;
++#include <linux/backlight.h>
++#include <linux/delay.h>
++#include <linux/gpio/consumer.h>
++#include <linux/module.h>
++#include <linux/of.h>
++#include <linux/regulator/consumer.h>
 +
-+#include <dt-bindings/gpio/gpio.h>
-+#include <dt-bindings/input/input.h>
-+#include <dt-bindings/leds/common.h>
-+#include <dt-bindings/phy/phy.h>
-+#include <dt-bindings/regulator/qcom,rpmh-regulator.h>
-+#include <dt-bindings/sound/qcom,q6afe.h>
-+#include <dt-bindings/sound/qcom,q6asm.h>
-+#include <dt-bindings/usb/pd.h>
-+#include "sm8250.dtsi"
-+#include "pm8150.dtsi"
-+#include "pm8150b.dtsi"
-+#include "pm8150l.dtsi"
-+#include "pm8009.dtsi"
++#include <video/mipi_display.h>
 +
-+/*
-+ * Delete upstream reserved-memory nodes that differ on LG V60.
-+ */
-+/delete-node/ &adsp_mem;
-+/delete-node/ &spss_mem;
-+/delete-node/ &cdsp_secure_heap;
++#include <drm/drm_mipi_dsi.h>
++#include <drm/drm_panel.h>
++#include <drm/drm_probe_helper.h>
++#include <drm/display/drm_dsc.h>
++#include <drm/display/drm_dsc_helper.h>
 +
-+/ {
-+	model = "LG V60 ThinQ 5G";
-+	compatible = "lge,timelm", "qcom,sm8250";
-+	chassis-type = "handset";
++#define NUM_SUPPLIES 2
 +
-+	aliases {
-+		serial0 = &uart12;
++struct sw43103_panel {
++	struct drm_panel base;
++	struct mipi_dsi_device *link;
++
++	struct regulator_bulk_data supplies[NUM_SUPPLIES];
++
++	struct gpio_desc *reset_gpio;
++	struct gpio_desc *enable_gpio;
++
++	struct drm_dsc_config dsc;
++};
++
++static inline struct sw43103_panel *to_panel_info(struct drm_panel *panel)
++{
++	return container_of(panel, struct sw43103_panel, base);
++}
++
++static void sw43103_init_sequence(struct mipi_dsi_multi_context *ctx)
++{
++	/* Manufacturer Command Protect Unlock */
++	mipi_dsi_dcs_write_seq_multi(ctx, 0xb0, 0xa1);
++
++	/* Column Address Set: 0 to 1079 (0x0437) */
++	mipi_dsi_dcs_write_seq_multi(ctx, MIPI_DCS_SET_COLUMN_ADDRESS,
++				     0x00, 0x00, 0x04, 0x37);
++
++	/* Page Address Set: 0 to 2459 (0x099b) */
++	mipi_dsi_dcs_write_seq_multi(ctx, MIPI_DCS_SET_PAGE_ADDRESS,
++				     0x00, 0x00, 0x09, 0x9b);
++
++	/* HBM Mode2 */
++	mipi_dsi_dcs_write_seq_multi(ctx, 0x55, 0x08);
++
++	/* Partial Address Row Set: 0 to 2459 */
++	mipi_dsi_dcs_write_seq_multi(ctx, MIPI_DCS_SET_PARTIAL_ROWS,
++				     0x00, 0x00, 0x09, 0x9b);
++
++	/* Partial Address Column Set: 0 to 1079 */
++	mipi_dsi_dcs_write_seq_multi(ctx, MIPI_DCS_SET_PARTIAL_COLUMNS,
++				     0x00, 0x00, 0x04, 0x37);
++
++	/* Tear Effect On */
++	mipi_dsi_dcs_set_tear_on_multi(ctx, MIPI_DSI_DCS_TEAR_MODE_VBLANK);
++
++	/* Manufacturer Command Protect */
++	mipi_dsi_dcs_write_seq_multi(ctx, 0xb0, 0xca);
++
++	/* Sleep Out */
++	mipi_dsi_dcs_exit_sleep_mode_multi(ctx);
++	mipi_dsi_msleep(ctx, 120);
++
++	/* MCS Lv1 */
++	mipi_dsi_dcs_write_seq_multi(ctx, 0xb0, 0xa1);
++
++	/* Workaround for AOD VBP Issue */
++	mipi_dsi_dcs_write_seq_multi(ctx, 0xb3,
++				     0x91, 0x49, 0x00, 0x0f, 0x0c, 0x00,
++				     0x0f, 0x0c, 0x28, 0x00, 0x02, 0x14);
++
++	/* Global IRC */
++	mipi_dsi_dcs_write_seq_multi(ctx, 0xb0, 0xa5);
++	mipi_dsi_dcs_write_seq_multi(ctx, 0xb1,
++				     0x61, 0xc0, 0x00, 0x00, 0x00, 0x10, 0xff);
++	mipi_dsi_dcs_write_seq_multi(ctx, 0xb2,
++				     0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
++				     0x00, 0xea, 0x6b, 0x60, 0x58, 0x50, 0x49, 0x41,
++				     0x3a, 0x33, 0x2c, 0x25, 0x1e, 0x17, 0x11, 0x0b,
++				     0x05, 0x6c, 0x61, 0x58, 0x50, 0x48, 0x40, 0x38,
++				     0x31, 0x29, 0x22, 0x1b, 0x14, 0x0d, 0x06, 0x00,
++				     0x62, 0x57, 0x4d, 0x44, 0x3c);
++	mipi_dsi_dcs_write_seq_multi(ctx, 0xb3,
++				     0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
++				     0x00, 0x34, 0x2d, 0x25, 0x1e, 0x16, 0x0f, 0x08,
++				     0x01, 0x00, 0x57, 0x4c, 0x42, 0x3a, 0x31, 0x29,
++				     0x22, 0x1a, 0x12, 0x0b, 0x03, 0x00, 0x00, 0x4c,
++				     0x42, 0x38, 0x2e, 0x26, 0x1e, 0x16, 0x0e, 0x07,
++				     0x00, 0x00, 0x00, 0x45, 0x39);
++	mipi_dsi_dcs_write_seq_multi(ctx, 0xb4,
++				     0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
++				     0x00, 0x2f, 0x25, 0x1c, 0x14, 0x0c, 0x04, 0x00,
++				     0x00, 0x00, 0x34, 0x2a, 0x21, 0x19, 0x10, 0x09,
++				     0x01, 0x00, 0x00, 0x00, 0x2e, 0x23, 0x19, 0x10,
++				     0x08, 0x00, 0x00, 0x00, 0x00, 0x25, 0x1b, 0x11,
++				     0x08, 0x00, 0x00, 0x00, 0x00);
++	mipi_dsi_dcs_write_seq_multi(ctx, 0xb5,
++				     0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x1f,
++				     0x13, 0x09, 0x00, 0x00, 0x00, 0x00, 0x16, 0x0c,
++				     0x03, 0x00, 0x00, 0x00, 0x0e, 0x06, 0x00, 0x00,
++				     0x00, 0x0b, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
++				     0x00, 0x00, 0x00);
++	mipi_dsi_dcs_write_seq_multi(ctx, 0xb6,
++				     0x44, 0x31, 0x10, 0x00, 0x00, 0x64, 0x00, 0x59,
++				     0xf3, 0x10, 0x80, 0x30, 0x20, 0x00, 0x00, 0x00,
++				     0x00, 0x00, 0x00, 0x00, 0x00);
++
++	/* Global IRC DCC Control */
++	mipi_dsi_dcs_write_seq_multi(ctx, 0xd1,
++				     0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
++				     0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
++				     0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
++				     0x00, 0x00, 0x00, 0x00, 0x00, 0xd0, 0x10, 0x02,
++				     0x00, 0x00, 0x00);
++
++	/* V256 Enable */
++	mipi_dsi_dcs_write_seq_multi(ctx, 0xb0, 0xa3);
++	mipi_dsi_dcs_write_seq_multi(ctx, 0xee, 0x02, 0x00, 0x00);
++
++	/* Gamma Band 1 */
++	mipi_dsi_dcs_write_seq_multi(ctx, 0xb8,
++				     0x00, 0x00, 0x83, 0xff, 0x5c, 0x96, 0xf2, 0x29,
++				     0x84, 0xb4, 0xd2, 0x77, 0x70, 0xa3, 0xcb, 0xe4);
++	mipi_dsi_dcs_write_seq_multi(ctx, 0xb9,
++				     0x00, 0x00, 0x02, 0xff, 0x4d, 0xd7, 0xb4, 0xfe,
++				     0x66, 0xa0, 0xca, 0x6f, 0x6f, 0xa8, 0xce, 0xe6);
++	mipi_dsi_dcs_write_seq_multi(ctx, 0xba,
++				     0x00, 0x00, 0x84, 0xff, 0x89, 0x3d, 0xec, 0x28,
++				     0x83, 0xae, 0xd2, 0x7e, 0x77, 0xa8, 0xcb, 0xe0);
++
++	/* Gamma Band 2 */
++	mipi_dsi_dcs_write_seq_multi(ctx, 0xbb,
++				     0x00, 0x13, 0x83, 0xff, 0x61, 0x66, 0xed, 0x24,
++				     0x81, 0xaf, 0xd4, 0x7b, 0x6b, 0xa8, 0xce, 0xe4);
++	mipi_dsi_dcs_write_seq_multi(ctx, 0xbc,
++				     0x00, 0x13, 0x02, 0xff, 0x53, 0xb4, 0xad, 0xf4,
++				     0x5e, 0x9d, 0xc7, 0x71, 0x68, 0xaa, 0xcf, 0xe6);
++	mipi_dsi_dcs_write_seq_multi(ctx, 0xbd,
++				     0x00, 0x13, 0x84, 0xff, 0x8a, 0x05, 0xea, 0x23,
++				     0x80, 0xaf, 0xd3, 0x82, 0x74, 0xab, 0xce, 0xe3);
++
++	/* Gamma Band 3 */
++	mipi_dsi_dcs_write_seq_multi(ctx, 0xbe,
++				     0x00, 0x37, 0x83, 0xff, 0x77, 0x5c, 0xdd, 0x15,
++				     0x79, 0xaf, 0xcf, 0x72, 0x6f, 0xa7, 0xce, 0xe5);
++	mipi_dsi_dcs_write_seq_multi(ctx, 0xbf,
++				     0x00, 0x37, 0x02, 0xff, 0x65, 0xaa, 0xa0, 0xe5,
++				     0x52, 0x96, 0xc4, 0x64, 0x6b, 0xa9, 0xcf, 0xe7);
++	mipi_dsi_dcs_write_seq_multi(ctx, 0xc0,
++				     0x00, 0x37, 0x83, 0xff, 0x9d, 0xfd, 0xd8, 0x1c,
++				     0x7c, 0xac, 0xd0, 0x7b, 0x78, 0xac, 0xce, 0xe4);
++
++	/* Gamma Band 4 */
++	mipi_dsi_dcs_write_seq_multi(ctx, 0xc1,
++				     0x02, 0x24, 0x82, 0xff, 0x7e, 0xf1, 0xcc, 0x05,
++				     0x6e, 0xa4, 0xca, 0x6f, 0x6e, 0xab, 0xd2, 0xe8);
++	mipi_dsi_dcs_write_seq_multi(ctx, 0xc2,
++				     0x02, 0x24, 0x02, 0xff, 0x6e, 0x58, 0xa3, 0xd5,
++				     0x3d, 0x8c, 0xbc, 0x59, 0x66, 0xaa, 0xd2, 0xe8);
++	mipi_dsi_dcs_write_seq_multi(ctx, 0xc3,
++				     0x02, 0x24, 0x83, 0xff, 0x9e, 0x7e, 0xc5, 0x10,
++				     0x72, 0xab, 0xcd, 0x78, 0x79, 0xb0, 0xd5, 0xe9);
++
++	/* Gamma Band 5 */
++	mipi_dsi_dcs_write_seq_multi(ctx, 0xc4,
++				     0x04, 0x0f, 0x02, 0xff, 0x88, 0xa4, 0xc4, 0xe9,
++				     0x60, 0xa0, 0xc8, 0x64, 0x6b, 0xac, 0xd3, 0xe9);
++	mipi_dsi_dcs_write_seq_multi(ctx, 0xc5,
++				     0x04, 0x0f, 0x02, 0xff, 0x7a, 0x20, 0xac, 0xca,
++				     0x30, 0x7d, 0xb6, 0x4a, 0x5c, 0xa8, 0xd2, 0xe9);
++	mipi_dsi_dcs_write_seq_multi(ctx, 0xc6,
++				     0x04, 0x0f, 0x03, 0xff, 0xa8, 0x2e, 0xbd, 0xfa,
++				     0x65, 0xa3, 0xcc, 0x6e, 0x76, 0xb3, 0xd6, 0xea);
++
++	/* Gamma Band 6 */
++	mipi_dsi_dcs_write_seq_multi(ctx, 0xc7,
++				     0x06, 0x12, 0x02, 0xff, 0x99, 0x7d, 0xbc, 0xde,
++				     0x51, 0x8e, 0xc6, 0x58, 0x63, 0xaa, 0xd2, 0xe9);
++	mipi_dsi_dcs_write_seq_multi(ctx, 0xc8,
++				     0x06, 0x12, 0x02, 0xff, 0x8d, 0x02, 0x9a, 0xcf,
++				     0x1e, 0x6b, 0xb0, 0x37, 0x50, 0xa3, 0xd0, 0xe7);
++	mipi_dsi_dcs_write_seq_multi(ctx, 0xc9,
++				     0x06, 0x12, 0x03, 0xff, 0xbc, 0x04, 0xb3, 0xdb,
++				     0x63, 0x8f, 0xc6, 0x67, 0x6f, 0xb1, 0xd5, 0xea);
++
++	/* Gamma Band 7 */
++	mipi_dsi_dcs_write_seq_multi(ctx, 0xca,
++				     0x08, 0x0a, 0x02, 0xff, 0xa3, 0x44, 0xca, 0xda,
++				     0x2d, 0x8d, 0xbc, 0x4c, 0x5a, 0xa7, 0xd0, 0xea);
++	mipi_dsi_dcs_write_seq_multi(ctx, 0xcb,
++				     0x08, 0x0a, 0x01, 0xff, 0x97, 0xd5, 0xb4, 0xdb,
++				     0x21, 0x6f, 0xa1, 0x24, 0x42, 0x9d, 0xcd, 0xe7);
++	mipi_dsi_dcs_write_seq_multi(ctx, 0xcc,
++				     0x08, 0x0a, 0x02, 0xff, 0xc6, 0xc5, 0xb8, 0xc7,
++				     0x46, 0x98, 0xbd, 0x5a, 0x68, 0xaf, 0xd4, 0xea);
++
++	/* Gamma Band 8 */
++	mipi_dsi_dcs_write_seq_multi(ctx, 0xcd,
++				     0x0c, 0x02, 0x01, 0xff, 0xb2, 0xfd, 0xac, 0xd5,
++				     0x25, 0x6d, 0xb7, 0x3b, 0x45, 0x9e, 0xd0, 0xe6);
++	mipi_dsi_dcs_write_seq_multi(ctx, 0xce,
++				     0x0c, 0x02, 0x01, 0xff, 0xa5, 0x9a, 0xac, 0xe2,
++				     0x31, 0x68, 0xab, 0x0e, 0x2a, 0x90, 0xc9, 0xe3);
++	mipi_dsi_dcs_write_seq_multi(ctx, 0xcf,
++				     0x0c, 0x02, 0x02, 0xff, 0xd5, 0x74, 0xad, 0xe6,
++				     0x2f, 0x7c, 0xbf, 0x43, 0x58, 0xa6, 0xd3, 0xe9);
++
++	/* Gamma Band 9 */
++	mipi_dsi_dcs_write_seq_multi(ctx, 0xd0,
++				     0x12, 0x00, 0x01, 0xff, 0xc8, 0x97, 0x01, 0xb6,
++				     0x0b, 0x82, 0xab, 0x0a, 0x26, 0x8d, 0xc7, 0xe4);
++	mipi_dsi_dcs_write_seq_multi(ctx, 0xd1,
++				     0x12, 0x00, 0x01, 0xff, 0xbe, 0x4a, 0x01, 0xc0,
++				     0x44, 0x80, 0xb3, 0x03, 0x06, 0x76, 0xba, 0xde);
++	mipi_dsi_dcs_write_seq_multi(ctx, 0xd2,
++				     0x12, 0x00, 0x02, 0xff, 0xf2, 0x00, 0x01, 0xb1,
++				     0x11, 0x5f, 0xa8, 0x16, 0x30, 0x94, 0xc8, 0xe7);
++
++	/* Gamma Band 10 */
++	mipi_dsi_dcs_write_seq_multi(ctx, 0xd3,
++				     0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
++				     0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00);
++	mipi_dsi_dcs_write_seq_multi(ctx, 0xd4,
++				     0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
++				     0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00);
++	mipi_dsi_dcs_write_seq_multi(ctx, 0xd5,
++				     0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
++				     0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00);
++
++	mipi_dsi_dcs_write_seq_multi(ctx, 0xb0, 0xa5);
++	mipi_dsi_dcs_write_seq_multi(ctx, 0xcd,
++				     0x10, 0x12, 0x01, 0x5a, 0x90, 0x00, 0x00, 0x00,
++				     0x00, 0x00, 0x5d);
++
++	mipi_dsi_dcs_write_seq_multi(ctx, 0xb0, 0xa1);
++	mipi_dsi_dcs_write_seq_multi(ctx, 0x55,
++				     0x08, 0x00, 0x82, 0xa8, 0x1c, 0x61, 0x0a, 0x90,
++				     0x04, 0x00);
++
++	/* Dimming Frame Setting */
++	mipi_dsi_dcs_write_seq_multi(ctx, 0xb0, 0xa3);
++	mipi_dsi_dcs_write_seq_multi(ctx, 0xb3,
++				     0x1f, 0x63, 0x00, 0x00, 0x06);
++
++	/* Default Color Mode (Natural) */
++	mipi_dsi_dcs_write_seq_multi(ctx, 0x53, 0x84);
++	mipi_dsi_dcs_write_seq_multi(ctx, 0xb0, 0xa4);
++	mipi_dsi_dcs_write_seq_multi(ctx, 0xb4,
++				     0x00, 0x03, 0x05, 0xaf, 0x03, 0x05, 0xaf, 0x03,
++				     0x05, 0xaf);
++	mipi_dsi_dcs_write_seq_multi(ctx, 0xb5,
++				     0x00, 0xff, 0x94, 0x1f, 0xae, 0x37, 0xae, 0x1f,
++				     0x94, 0x00, 0xfb, 0x94, 0x1e, 0xad, 0x35, 0xab,
++				     0x1c, 0x90, 0x00, 0xdd, 0x8f, 0x16, 0x9f, 0x24,
++				     0x97, 0x04, 0x75);
++	mipi_dsi_dcs_write_seq_multi(ctx, 0xb7,
++				     0x80, 0x80, 0x80, 0x80, 0x80, 0x80, 0x80, 0x80,
++				     0x80, 0x80, 0x80, 0x80);
++	mipi_dsi_dcs_write_seq_multi(ctx, 0xb8,
++				     0x80, 0x80, 0x80, 0x80, 0x80, 0x80, 0x80, 0x80,
++				     0x80, 0x80, 0x80, 0x80);
++	mipi_dsi_dcs_write_seq_multi(ctx, 0xb9,
++				     0x35, 0x2d, 0x2d, 0x37, 0x34, 0x35, 0x36, 0x36,
++				     0x36, 0x2d, 0x35, 0x33);
++	mipi_dsi_dcs_write_seq_multi(ctx, 0xba,
++				     0x80, 0x80, 0x80, 0x80, 0x88, 0x80, 0x80, 0x80,
++				     0x80, 0x80, 0x80, 0x7d);
++	mipi_dsi_dcs_write_seq_multi(ctx, 0xbb,
++				     0x80, 0x5a, 0x7b, 0x95, 0x65, 0x70, 0x96, 0x90,
++				     0x90, 0x90, 0x83, 0x72);
++
++	/* DCC(GCC) Off */
++	mipi_dsi_dcs_write_seq_multi(ctx, 0xb0, 0xa1);
++	mipi_dsi_dcs_write_seq_multi(ctx, 0xc2,
++				     0xf3, 0x20, 0x00, 0x00, 0x1d);
++	mipi_dsi_dcs_write_seq_multi(ctx, 0xb0, 0xa5);
++	mipi_dsi_dcs_write_seq_multi(ctx, 0xd1,
++				     0x0a, 0x00, 0x01);
++	mipi_dsi_msleep(ctx, 20);
++	mipi_dsi_dcs_write_seq_multi(ctx, 0xd1,
++				     0x02, 0x00, 0x01);
++	mipi_dsi_dcs_write_seq_multi(ctx, 0xd1,
++				     0x00, 0x00, 0x01);
++}
++
++static int sw43103_program(struct drm_panel *panel)
++{
++	struct sw43103_panel *sw43103 = to_panel_info(panel);
++	struct mipi_dsi_multi_context ctx = { .dsi = sw43103->link };
++	struct drm_dsc_picture_parameter_set pps;
++
++	sw43103_init_sequence(&ctx);
++
++	/* Transmit PPS in high speed mode */
++	sw43103->link->mode_flags &= ~MIPI_DSI_MODE_LPM;
++
++	drm_dsc_pps_payload_pack(&pps, sw43103->link->dsc);
++
++	mipi_dsi_picture_parameter_set_multi(&ctx, &pps);
++
++	/* Switch back to low power mode for DSC compression enable */
++	sw43103->link->mode_flags |= MIPI_DSI_MODE_LPM;
++
++	/* Enable DSC compression mode with PPS 0 */
++	mipi_dsi_compression_mode_ext_multi(&ctx, true,
++					    MIPI_DSI_COMPRESSION_DSC, 0);
++
++	return ctx.accum_err;
++}
++
++static int sw43103_prepare(struct drm_panel *panel)
++{
++	struct sw43103_panel *ctx = to_panel_info(panel);
++	int ret;
++
++	ret = regulator_bulk_enable(ARRAY_SIZE(ctx->supplies), ctx->supplies);
++	if (ret < 0)
++		return ret;
++
++	if (ctx->enable_gpio)
++		gpiod_set_value_cansleep(ctx->enable_gpio, 1);
++
++	usleep_range(5000, 6000);
++
++	/* Hardware reset sequence: deassert, assert 2ms, deassert */
++	gpiod_set_value_cansleep(ctx->reset_gpio, 0);
++	usleep_range(10000, 11000);
++	gpiod_set_value_cansleep(ctx->reset_gpio, 1);
++	usleep_range(2000, 3000);
++	gpiod_set_value_cansleep(ctx->reset_gpio, 0);
++	usleep_range(10000, 11000);
++
++	ret = sw43103_program(panel);
++	if (ret)
++		goto poweroff;
++
++	return 0;
++
++poweroff:
++	gpiod_set_value_cansleep(ctx->reset_gpio, 1);
++	if (ctx->enable_gpio)
++		gpiod_set_value_cansleep(ctx->enable_gpio, 0);
++	regulator_bulk_disable(ARRAY_SIZE(ctx->supplies), ctx->supplies);
++	return ret;
++}
++
++static int sw43103_enable(struct drm_panel *panel)
++{
++	struct sw43103_panel *sw43103 = to_panel_info(panel);
++	struct mipi_dsi_multi_context ctx = { .dsi = sw43103->link };
++
++	/* Display On */
++	mipi_dsi_dcs_set_display_on_multi(&ctx);
++	mipi_dsi_msleep(&ctx, 20);
++
++	/* Enable display backlight control and full brightness */
++	mipi_dsi_dcs_write_seq_multi(&ctx, MIPI_DCS_WRITE_CONTROL_DISPLAY, 0x2c);
++	mipi_dsi_dcs_write_seq_multi(&ctx, MIPI_DCS_SET_DISPLAY_BRIGHTNESS, 0x07, 0xff);
++
++	return ctx.accum_err;
++}
++
++static int sw43103_disable(struct drm_panel *panel)
++{
++	struct sw43103_panel *sw43103 = to_panel_info(panel);
++	struct mipi_dsi_multi_context ctx = { .dsi = sw43103->link };
++
++	/* Display Off (0x28) */
++	mipi_dsi_dcs_set_display_off_multi(&ctx);
++	mipi_dsi_msleep(&ctx, 20);
++
++	/* Sleep In (0x10) */
++	mipi_dsi_dcs_enter_sleep_mode_multi(&ctx);
++	mipi_dsi_msleep(&ctx, 80);
++
++	return ctx.accum_err;
++}
++
++static int sw43103_unprepare(struct drm_panel *panel)
++{
++	struct sw43103_panel *sw43103 = to_panel_info(panel);
++
++	gpiod_set_value_cansleep(sw43103->reset_gpio, 1);
++	if (sw43103->enable_gpio)
++		gpiod_set_value_cansleep(sw43103->enable_gpio, 0);
++
++	return regulator_bulk_disable(ARRAY_SIZE(sw43103->supplies), sw43103->supplies);
++}
++
++static const struct drm_display_mode sw43103_mode = {
++	.clock = 179177,
++	.hdisplay = 1080,
++	.hsync_start = 1080 + 50,
++	.hsync_end = 1080 + 50 + 30,
++	.htotal = 1080 + 50 + 30 + 50,
++	.vdisplay = 2460,
++	.vsync_start = 2460 + 4,
++	.vsync_end = 2460 + 4 + 2,
++	.vtotal = 2460 + 4 + 2 + 2,
++	.width_mm = 69,
++	.height_mm = 158,
++	.type = DRM_MODE_TYPE_DRIVER | DRM_MODE_TYPE_PREFERRED,
++};
++
++static int sw43103_get_modes(struct drm_panel *panel,
++			     struct drm_connector *connector)
++{
++	return drm_connector_helper_get_modes_fixed(connector, &sw43103_mode);
++}
++
++static int sw43103_backlight_update_status(struct backlight_device *bl)
++{
++	struct mipi_dsi_device *dsi = bl_get_data(bl);
++	u16 brightness = backlight_get_brightness(bl);
++	u8 ctrl = 0x2c;
++	int ret;
++
++	dsi->mode_flags &= ~MIPI_DSI_MODE_LPM;
++
++	ret = mipi_dsi_dcs_write(dsi, MIPI_DCS_WRITE_CONTROL_DISPLAY, &ctrl, sizeof(ctrl));
++	if (ret < 0)
++		goto out;
++
++	ret = mipi_dsi_dcs_set_display_brightness_large(dsi, brightness);
++
++out:
++	dsi->mode_flags |= MIPI_DSI_MODE_LPM;
++
++	return ret < 0 ? ret : 0;
++}
++
++static const struct backlight_ops sw43103_backlight_ops = {
++	.update_status = sw43103_backlight_update_status,
++};
++
++static int sw43103_backlight_init(struct sw43103_panel *ctx)
++{
++	struct device *dev = &ctx->link->dev;
++	const struct backlight_properties props = {
++		.type = BACKLIGHT_PLATFORM,
++		.brightness = 1024,
++		.max_brightness = 2047,
 +	};
 +
-+	chosen {
-+		stdout-path = "serial0:115200n8";
-+		#address-cells = <2>;
-+		#size-cells = <2>;
-+		ranges;
++	ctx->base.backlight = devm_backlight_device_register(dev, dev_name(dev), dev,
++							     ctx->link,
++							     &sw43103_backlight_ops,
++							     &props);
 +
-+		framebuffer: framebuffer@9c000000 {
-+			compatible = "simple-framebuffer";
-+			reg = <0 0x9c000000 0 0x1200000>;
-+			width = <1080>;
-+			height = <2460>;
-+			stride = <(1080 * 4)>;
-+			format = "a8r8g8b8";
-+			clocks = <&dispcc DISP_CC_MDSS_AHB_CLK>,
-+				 <&gcc GCC_DISP_HF_AXI_CLK>,
-+				 <&gcc GCC_DISP_SF_AXI_CLK>,
-+				 <&dispcc DISP_CC_MDSS_VSYNC_CLK>,
-+				 <&dispcc DISP_CC_MDSS_MDP_CLK>,
-+				 <&dispcc DISP_CC_MDSS_BYTE0_CLK>,
-+				 <&dispcc DISP_CC_MDSS_BYTE0_INTF_CLK>,
-+				 <&dispcc DISP_CC_MDSS_PCLK0_CLK>,
-+				 <&dispcc DISP_CC_MDSS_ESC0_CLK>;
-+			power-domains = <&dispcc MDSS_GDSC>;
-+		};
-+	};
++	if (IS_ERR(ctx->base.backlight))
++		return dev_err_probe(dev, PTR_ERR(ctx->base.backlight),
++				     "Failed to create backlight\n");
 +
-+	battery: battery {
-+		compatible = "simple-battery";
-+		charge-full-design-microamp-hours = <4900000>;
-+		energy-full-design-microwatt-hours = <18800000>;
-+		voltage-min-design-microvolt = <3400000>;
-+		voltage-max-design-microvolt = <4450000>;
-+	};
++	return 0;
++}
 +
-+	gpio_keys: gpio-keys {
-+		compatible = "gpio-keys";
-+
-+		pinctrl-0 = <&vol_up_n &hot1_key_n>;
-+		pinctrl-names = "default";
-+
-+		key-vol-up {
-+			label = "Volume Up";
-+			gpios = <&pm8150_gpios 6 GPIO_ACTIVE_LOW>;
-+			linux,code = <KEY_VOLUMEUP>;
-+			debounce-interval = <15>;
-+			linux,can-disable;
-+			wakeup-source;
-+		};
-+
-+		key-assistant {
-+			label = "Google Assistant";
-+			gpios = <&pm8150_gpios 1 GPIO_ACTIVE_LOW>;
-+			linux,code = <KEY_ASSISTANT>;
-+			debounce-interval = <15>;
-+			linux,can-disable;
-+			wakeup-source;
-+		};
-+	};
-+
-+	reserved-memory {
-+		ramoops: ramoops@b0000000 {
-+			compatible = "ramoops";
-+			reg = <0x0 0xb0000000 0x0 0x280000>;
-+			record-size = <0x1000>;
-+			console-size = <0x40000>;
-+			ftrace-size = <0x40000>;
-+			pmsg-size = <0x200000>;
-+		};
-+
-+		adsp_mem: memory@8a100000 {
-+			reg = <0x0 0x8a100000 0x0 0x2500000>;
-+			no-map;
-+		};
-+
-+		spss_mem: memory@8c600000 {
-+			reg = <0x0 0x8c600000 0x0 0x100000>;
-+			no-map;
-+		};
-+
-+		cdsp_secure_heap: memory@8c700000 {
-+			reg = <0x0 0x8c700000 0x0 0x4600000>;
-+			no-map;
-+		};
-+	};
-+
-+	vph_pwr: vph-pwr-regulator {
-+		compatible = "regulator-fixed";
-+		regulator-name = "vph_pwr";
-+		regulator-min-microvolt = <3700000>;
-+		regulator-max-microvolt = <3700000>;
-+	};
-+
-+	/* S6c is really ebi.lvl but it's there for supply map completeness sake. */
-+	vreg_s6c_0p88: smpc6-regulator {
-+		compatible = "regulator-fixed";
-+		regulator-name = "vreg_s6c_0p88";
-+		regulator-min-microvolt = <880000>;
-+		regulator-max-microvolt = <880000>;
-+		regulator-always-on;
-+		vin-supply = <&vph_pwr>;
-+	};
++static const struct drm_panel_funcs sw43103_funcs = {
++	.prepare = sw43103_prepare,
++	.unprepare = sw43103_unprepare,
++	.enable = sw43103_enable,
++	.disable = sw43103_disable,
++	.get_modes = sw43103_get_modes,
 +};
 +
-+&apps_rsc {
-+	regulators-0 {
-+		compatible = "qcom,pm8150-rpmh-regulators";
-+		qcom,pmic-id = "a";
-+
-+		vdd-s1-supply = <&vph_pwr>;
-+		vdd-s2-supply = <&vph_pwr>;
-+		vdd-s3-supply = <&vph_pwr>;
-+		vdd-s4-supply = <&vph_pwr>;
-+		vdd-s5-supply = <&vph_pwr>;
-+		vdd-s6-supply = <&vph_pwr>;
-+		vdd-s7-supply = <&vph_pwr>;
-+		vdd-s8-supply = <&vph_pwr>;
-+		vdd-s9-supply = <&vph_pwr>;
-+		vdd-s10-supply = <&vph_pwr>;
-+		vdd-l1-l8-l11-supply = <&vreg_s6c_0p88>;
-+		vdd-l2-l10-supply = <&vreg_bob>;
-+		vdd-l3-l4-l5-l18-supply = <&vreg_s6a_0p6>;
-+		vdd-l6-l9-supply = <&vreg_s8c_1p2>;
-+		vdd-l7-l12-l14-l15-supply = <&vreg_s5a_1p9>;
-+		vdd-l13-l16-l17-supply = <&vreg_bob>;
-+
-+		vreg_s4a_1p8: smps4 {
-+			regulator-name = "vreg_s4a_1p8";
-+			regulator-min-microvolt = <1800000>;
-+			regulator-max-microvolt = <1920000>;
-+			regulator-initial-mode = <RPMH_REGULATOR_MODE_HPM>;
-+		};
-+
-+		vreg_s5a_1p9: smps5 {
-+			regulator-name = "vreg_s5a_1p9";
-+			regulator-min-microvolt = <1824000>;
-+			regulator-max-microvolt = <2040000>;
-+			regulator-initial-mode = <RPMH_REGULATOR_MODE_HPM>;
-+		};
-+
-+		vreg_s6a_0p6: smps6 {
-+			regulator-name = "vreg_s6a_0p6";
-+			regulator-min-microvolt = <600000>;
-+			regulator-max-microvolt = <1128000>;
-+			regulator-initial-mode = <RPMH_REGULATOR_MODE_HPM>;
-+		};
-+
-+		vreg_l2a_3p1: ldo2 {
-+			regulator-name = "vreg_l2a_3p1";
-+			regulator-min-microvolt = <3072000>;
-+			regulator-max-microvolt = <3072000>;
-+			regulator-initial-mode = <RPMH_REGULATOR_MODE_HPM>;
-+		};
-+
-+		vreg_l3a_0p9: ldo3 {
-+			regulator-name = "vreg_l3a_0p9";
-+			regulator-min-microvolt = <928000>;
-+			regulator-max-microvolt = <932000>;
-+			regulator-initial-mode = <RPMH_REGULATOR_MODE_HPM>;
-+		};
-+
-+		vreg_l5a_0p88: ldo5 {
-+			regulator-name = "vreg_l5a_0p88";
-+			regulator-min-microvolt = <880000>;
-+			regulator-max-microvolt = <880000>;
-+			regulator-initial-mode = <RPMH_REGULATOR_MODE_HPM>;
-+		};
-+
-+		vreg_l6a_1p2: ldo6 {
-+			regulator-name = "vreg_l6a_1p2";
-+			regulator-min-microvolt = <1200000>;
-+			regulator-max-microvolt = <1200000>;
-+			regulator-initial-mode = <RPMH_REGULATOR_MODE_HPM>;
-+		};
-+
-+		vreg_l9a_1p2: ldo9 {
-+			regulator-name = "vreg_l9a_1p2";
-+			regulator-min-microvolt = <1200000>;
-+			regulator-max-microvolt = <1200000>;
-+			regulator-initial-mode = <RPMH_REGULATOR_MODE_HPM>;
-+		};
-+
-+		vreg_l12a_1p8: ldo12 {
-+			regulator-name = "vreg_l12a_1p8";
-+			regulator-min-microvolt = <1800000>;
-+			regulator-max-microvolt = <1800000>;
-+			regulator-initial-mode = <RPMH_REGULATOR_MODE_HPM>;
-+		};
-+
-+		vreg_l14a_1p8: ldo14 {
-+			regulator-name = "vreg_l14a_1p8";
-+			regulator-min-microvolt = <1800000>;
-+			regulator-max-microvolt = <1880000>;
-+			regulator-initial-mode = <RPMH_REGULATOR_MODE_HPM>;
-+		};
-+
-+		vreg_l17a_3p0: ldo17 {
-+			regulator-name = "vreg_l17a_3p0";
-+			regulator-min-microvolt = <2496000>;
-+			regulator-max-microvolt = <3008000>;
-+			regulator-initial-mode = <RPMH_REGULATOR_MODE_HPM>;
-+		};
-+
-+		vreg_l18a_0p9: ldo18 {
-+			regulator-name = "vreg_l18a_0p9";
-+			regulator-min-microvolt = <800000>;
-+			regulator-max-microvolt = <920000>;
-+			regulator-initial-mode = <RPMH_REGULATOR_MODE_HPM>;
-+		};
-+	};
-+
-+	regulators-1 {
-+		compatible = "qcom,pm8150l-rpmh-regulators";
-+		qcom,pmic-id = "c";
-+
-+		vdd-s1-supply = <&vph_pwr>;
-+		vdd-s2-supply = <&vph_pwr>;
-+		vdd-s3-supply = <&vph_pwr>;
-+		vdd-s4-supply = <&vph_pwr>;
-+		vdd-s5-supply = <&vph_pwr>;
-+		vdd-s6-supply = <&vph_pwr>;
-+		vdd-s7-supply = <&vph_pwr>;
-+		vdd-s8-supply = <&vph_pwr>;
-+		vdd-l1-l8-supply = <&vreg_s4a_1p8>;
-+		vdd-l2-l3-supply = <&vreg_s8c_1p2>;
-+		vdd-l4-l5-l6-supply = <&vreg_bob>;
-+		vdd-l7-l11-supply = <&vreg_bob>;
-+		vdd-l9-l10-supply = <&vreg_bob>;
-+		vdd-bob-supply = <&vph_pwr>;
-+
-+		vreg_bob: bob {
-+			regulator-name = "vreg_bob";
-+			regulator-min-microvolt = <3350000>;
-+			regulator-max-microvolt = <3960000>;
-+			regulator-initial-mode = <RPMH_REGULATOR_MODE_AUTO>;
-+		};
-+
-+		vreg_s7c_0p35: smps7 {
-+			regulator-name = "vreg_s7c_0p35";
-+			regulator-min-microvolt = <348000>;
-+			regulator-max-microvolt = <1000000>;
-+			regulator-initial-mode = <RPMH_REGULATOR_MODE_HPM>;
-+		};
-+
-+		vreg_s8c_1p2: smps8 {
-+			regulator-name = "vreg_s8c_1p2";
-+			regulator-min-microvolt = <1200000>;
-+			regulator-max-microvolt = <1400000>;
-+			regulator-initial-mode = <RPMH_REGULATOR_MODE_HPM>;
-+		};
-+
-+		vreg_l1c_1p8: ldo1 {
-+			regulator-name = "vreg_l1c_1p8";
-+			regulator-min-microvolt = <1800000>;
-+			regulator-max-microvolt = <1800000>;
-+			regulator-initial-mode = <RPMH_REGULATOR_MODE_HPM>;
-+		};
-+
-+		vreg_l3c_1p2: ldo3 {
-+			regulator-name = "vreg_l3c_1p2";
-+			regulator-min-microvolt = <1200000>;
-+			regulator-max-microvolt = <1200000>;
-+			regulator-initial-mode = <RPMH_REGULATOR_MODE_HPM>;
-+		};
-+
-+		vreg_l5c_1p8: ldo5 {
-+			regulator-name = "vreg_l5c_1p8";
-+			regulator-min-microvolt = <1800000>;
-+			regulator-max-microvolt = <2800000>;
-+			regulator-initial-mode = <RPMH_REGULATOR_MODE_HPM>;
-+		};
-+
-+		vreg_l6c_2p9: ldo6 {
-+			regulator-name = "vreg_l6c_2p9";
-+			regulator-min-microvolt = <1800000>;
-+			regulator-max-microvolt = <2960000>;
-+			regulator-initial-mode = <RPMH_REGULATOR_MODE_HPM>;
-+			regulator-allow-set-load;
-+			regulator-allowed-modes = <RPMH_REGULATOR_MODE_LPM
-+						   RPMH_REGULATOR_MODE_HPM>;
-+		};
-+
-+		vreg_l7c_2p85: ldo7 {
-+			regulator-name = "vreg_l7c_2p85";
-+			regulator-min-microvolt = <2856000>;
-+			regulator-max-microvolt = <3104000>;
-+			regulator-initial-mode = <RPMH_REGULATOR_MODE_HPM>;
-+		};
-+
-+		vreg_l8c_1p8: ldo8 {
-+			regulator-name = "vreg_l8c_1p8";
-+			regulator-min-microvolt = <1800000>;
-+			regulator-max-microvolt = <1800000>;
-+			regulator-initial-mode = <RPMH_REGULATOR_MODE_HPM>;
-+		};
-+
-+		vreg_l9c_2p9: ldo9 {
-+			regulator-name = "vreg_l9c_2p9";
-+			regulator-min-microvolt = <2704000>;
-+			regulator-max-microvolt = <2960000>;
-+			regulator-initial-mode = <RPMH_REGULATOR_MODE_HPM>;
-+			regulator-allow-set-load;
-+			regulator-allowed-modes = <RPMH_REGULATOR_MODE_LPM
-+						   RPMH_REGULATOR_MODE_HPM>;
-+		};
-+
-+		vreg_l10c_3p3: ldo10 {
-+			regulator-name = "vreg_l10c_3p3";
-+			regulator-min-microvolt = <3296000>;
-+			regulator-max-microvolt = <3296000>;
-+			regulator-initial-mode = <RPMH_REGULATOR_MODE_HPM>;
-+		};
-+
-+		vreg_l11c_3p0: ldo11 {
-+			regulator-name = "vreg_l11c_3p0";
-+			regulator-min-microvolt = <3000000>;
-+			regulator-max-microvolt = <3000000>;
-+			regulator-initial-mode = <RPMH_REGULATOR_MODE_HPM>;
-+		};
-+	};
-+
-+	regulators-2 {
-+		compatible = "qcom,pm8009-rpmh-regulators";
-+		qcom,pmic-id = "f";
-+
-+		vdd-s1-supply = <&vph_pwr>;
-+		vdd-s2-supply = <&vreg_bob>;
-+		vdd-l2-supply = <&vreg_s8c_1p2>;
-+		vdd-l5-l6-supply = <&vreg_bob>;
-+		vdd-l7-supply = <&vreg_s4a_1p8>;
-+
-+		vreg_s1f_1p2: smps1 {
-+			regulator-name = "vreg_s1f_1p2";
-+			regulator-min-microvolt = <1200000>;
-+			regulator-max-microvolt = <1200000>;
-+			regulator-initial-mode = <RPMH_REGULATOR_MODE_HPM>;
-+		};
-+
-+		vreg_s2f_0p5: smps2 {
-+			regulator-name = "vreg_s2f_0p5";
-+			regulator-min-microvolt = <512000>;
-+			regulator-max-microvolt = <1100000>;
-+			regulator-initial-mode = <RPMH_REGULATOR_MODE_HPM>;
-+		};
-+
-+		vreg_l2f_1p3: ldo2 {
-+			regulator-name = "vreg_l2f_1p3";
-+			regulator-min-microvolt = <1304000>;
-+			regulator-max-microvolt = <1304000>;
-+			regulator-initial-mode = <RPMH_REGULATOR_MODE_HPM>;
-+		};
-+
-+		vreg_l4f_1p05: ldo4 {
-+			regulator-name = "vreg_l4f_1p05";
-+			regulator-min-microvolt = <1050000>;
-+			regulator-max-microvolt = <1050000>;
-+			regulator-initial-mode = <RPMH_REGULATOR_MODE_HPM>;
-+		};
-+
-+		vreg_l5f_2p8: ldo5 {
-+			regulator-name = "vreg_l5f_2p8";
-+			regulator-min-microvolt = <2800000>;
-+			regulator-max-microvolt = <2800000>;
-+			regulator-initial-mode = <RPMH_REGULATOR_MODE_HPM>;
-+		};
-+
-+		vreg_l6f_2p8: ldo6 {
-+			regulator-name = "vreg_l6f_2p8";
-+			regulator-min-microvolt = <2800000>;
-+			regulator-max-microvolt = <2800000>;
-+			regulator-initial-mode = <RPMH_REGULATOR_MODE_HPM>;
-+		};
-+
-+		vreg_l7f_1p8: ldo7 {
-+			regulator-name = "vreg_l7f_1p8";
-+			regulator-min-microvolt = <1800000>;
-+			regulator-max-microvolt = <1800000>;
-+			regulator-initial-mode = <RPMH_REGULATOR_MODE_HPM>;
-+		};
-+	};
++static const struct of_device_id sw43103_of_match[] = {
++	{ .compatible = "lg,sw43103" },
++	{ .compatible = "boe,sw43103" },
++	{ /* sentinel */ }
 +};
++MODULE_DEVICE_TABLE(of, sw43103_of_match);
 +
-+&cdsp {
-+	status = "okay";
++static int sw43103_add(struct sw43103_panel *ctx)
++{
++	struct device *dev = &ctx->link->dev;
++	int ret;
++
++	ctx->supplies[0].supply = "vddi"; /* 1.8 V */
++	ctx->supplies[0].init_load_uA = 62000;
++	ctx->supplies[1].supply = "vpnl"; /* 3.0 V */
++	ctx->supplies[1].init_load_uA = 857000;
++
++	ret = devm_regulator_bulk_get(dev, ARRAY_SIZE(ctx->supplies),
++				      ctx->supplies);
++	if (ret < 0)
++		return ret;
++
++	ctx->reset_gpio = devm_gpiod_get(dev, "reset", GPIOD_OUT_LOW);
++	if (IS_ERR(ctx->reset_gpio)) {
++		ret = PTR_ERR(ctx->reset_gpio);
++		return dev_err_probe(dev, ret, "cannot get reset gpio\n");
++	}
++
++	ctx->enable_gpio = devm_gpiod_get_optional(dev, "enable", GPIOD_OUT_LOW);
++	if (IS_ERR(ctx->enable_gpio)) {
++		ret = PTR_ERR(ctx->enable_gpio);
++		return dev_err_probe(dev, ret, "cannot get enable gpio\n");
++	}
++
++	ret = sw43103_backlight_init(ctx);
++	if (ret < 0)
++		return ret;
++
++	ctx->base.prepare_prev_first = true;
++
++	drm_panel_add(&ctx->base);
++	return 0;
++}
++
++static int sw43103_probe(struct mipi_dsi_device *dsi)
++{
++	struct sw43103_panel *ctx;
++	int ret;
++
++	ctx = devm_drm_panel_alloc(&dsi->dev, __typeof(*ctx), base,
++				   &sw43103_funcs, DRM_MODE_CONNECTOR_DSI);
++	if (IS_ERR(ctx))
++		return PTR_ERR(ctx);
++
++	dsi->mode_flags = MIPI_DSI_MODE_LPM;
++	dsi->format = MIPI_DSI_FMT_RGB888;
++	dsi->lanes = 4;
++
++	ctx->link = dsi;
++	mipi_dsi_set_drvdata(dsi, ctx);
++
++	ret = sw43103_add(ctx);
++	if (ret < 0)
++		return ret;
++
++	/* The panel works only in DSC mode. Set DSC params. */
++	ctx->dsc.dsc_version_major = 1;
++	ctx->dsc.dsc_version_minor = 1;
++
++	/* slice_count * slice_width == 2 * 540 = 1080 */
++	ctx->dsc.pic_width = 1080;
++	ctx->dsc.pic_height = 2460;
++	ctx->dsc.slice_height = 60;
++	ctx->dsc.slice_width = 540;
++	ctx->dsc.slice_count = 2;
++	ctx->dsc.slice_chunk_size = 540;
++	ctx->dsc.bits_per_component = 8;
++	ctx->dsc.bits_per_pixel = 8 << 4;
++	ctx->dsc.block_pred_enable = true;
++
++	dsi->dsc = &ctx->dsc;
++
++	ret = mipi_dsi_attach(dsi);
++	if (ret)
++		drm_panel_remove(&ctx->base);
++
++	return ret;
++}
++
++static void sw43103_remove(struct mipi_dsi_device *dsi)
++{
++	struct sw43103_panel *ctx = mipi_dsi_get_drvdata(dsi);
++	int ret;
++
++	ret = sw43103_unprepare(&ctx->base);
++	if (ret < 0)
++		dev_err(&dsi->dev, "failed to unprepare panel: %d\n", ret);
++
++	ret = mipi_dsi_detach(dsi);
++	if (ret < 0)
++		dev_err(&dsi->dev, "failed to detach from DSI host: %d\n", ret);
++
++	drm_panel_remove(&ctx->base);
++}
++
++static struct mipi_dsi_driver sw43103_driver = {
++	.driver = {
++		.name = "panel-lg-sw43103",
++		.of_match_table = sw43103_of_match,
++	},
++	.probe = sw43103_probe,
++	.remove = sw43103_remove,
 +};
++module_mipi_dsi_driver(sw43103_driver);
 +
-+&gpi_dma0 {
-+	status = "okay";
-+};
-+
-+&gpi_dma1 {
-+	status = "okay";
-+};
-+
-+&gpi_dma2 {
-+	status = "okay";
-+};
-+
-+&gpu {
-+	status = "okay";
-+
-+	zap-shader {
-+		memory-region = <&gpu_mem>;
-+		firmware-name = "qcom/sm8250/a650_zap.mbn";
-+	};
-+};
-+
-+&pm8150_gpios {
-+	hot1_key_n: hot1-key-n-state {
-+		pins = "gpio1";
-+		function = "normal";
-+		bias-pull-up;
-+		input-enable;
-+		power-source = <0>;
-+	};
-+
-+	vol_up_n: vol-up-n-state {
-+		pins = "gpio6";
-+		function = "normal";
-+		bias-pull-up;
-+		input-enable;
-+		power-source = <0>;
-+	};
-+};
-+
-+&pon {
-+	mode-bootloader = <0x2>;
-+	mode-recovery = <0x1>;
-+};
-+
-+&pon_pwrkey {
-+	status = "okay";
-+};
-+
-+&pon_resin {
-+	status = "okay";
-+	linux,code = <KEY_VOLUMEDOWN>;
-+};
-+
-+&qupv3_id_0 {
-+	status = "okay";
-+};
-+
-+&qupv3_id_1 {
-+	status = "okay";
-+};
-+
-+&qupv3_id_2 {
-+	status = "okay";
-+};
-+
-+&uart12 {
-+	status = "okay";
-+};
-+
-+&ufs_mem_hc {
-+	status = "okay";
-+
-+	vcc-supply = <&vreg_l17a_3p0>;
-+	vcc-max-microamp = <800000>;
-+	vccq-supply = <&vreg_l6a_1p2>;
-+	vccq-max-microamp = <800000>;
-+	vccq2-supply = <&vreg_s4a_1p8>;
-+	vccq2-max-microamp = <800000>;
-+};
-+
-+&ufs_mem_phy {
-+	status = "okay";
-+
-+	vdda-phy-supply = <&vreg_l5a_0p88>;
-+	vdda-pll-supply = <&vreg_l9a_1p2>;
-+};
-+
-+&sdhc_2 {
-+	status = "okay";
-+
-+	cd-gpios = <&tlmm 77 GPIO_ACTIVE_LOW>;
-+	vmmc-supply = <&vreg_l9c_2p9>;
-+	vqmmc-supply = <&vreg_l6c_2p9>;
-+	bus-width = <4>;
-+	no-sdio;
-+	no-mmc;
-+};
-+
-+&usb_1 {
-+	status = "okay";
-+};
-+
-+&usb_1_dwc3 {
-+	dr_mode = "peripheral";
-+};
-+
-+&usb_1_hsphy {
-+	status = "okay";
-+
-+	vdda-pll-supply = <&vreg_l5a_0p88>;
-+	vdda18-supply = <&vreg_l12a_1p8>;
-+	vdda33-supply = <&vreg_l2a_3p1>;
-+};
-+
-+&usb_1_qmpphy {
-+	status = "okay";
-+
-+	vdda-phy-supply = <&vreg_l9a_1p2>;
-+	vdda-pll-supply = <&vreg_l18a_0p9>;
-+};
++MODULE_AUTHOR("rofikkerneldev <rofikcoga@gmail.com>");
++MODULE_DESCRIPTION("LG / BOE SW43103 FHD+ DSC Command Mode AMOLED panel");
++MODULE_LICENSE("GPL");
 -- 
 2.39.5
 
