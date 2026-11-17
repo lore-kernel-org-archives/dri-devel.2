@@ -2,126 +2,62 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 92316606A31C
-	for <dri-devel@archiver.kernel.org>; Tue, 17 Nov 2026 03:51:49 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 35ED0606A31C
+	for <dri-devel@archiver.kernel.org>; Tue, 17 Nov 2026 04:17:29 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=fail reason="signature verification failed" (2048-bit key, unprotected) header.d=Nvidia.com header.i=@Nvidia.com header.a=rsa-sha256 header.s=selector2 header.b=AtbilPwy
+	dkim=pass (1024-bit key) header.d=mail.ustc.edu.cn header.i=@mail.ustc.edu.cn header.a=rsa-sha256 header.s=dkim header.b=wqSPP4SN
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 60AD610E2AB;
-	Tue, 17 Nov 2026 03:51:43 +0000 (UTC)
-Received: from BL2PR02CU003.outbound.protection.outlook.com
- (mail-eastusazon11011013.outbound.protection.outlook.com [52.101.52.13])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 2613710E2AB;
- Tue, 17 Nov 2026 03:51:37 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=oQEXlwlJ2JPOlvP6rEPFk/fBpFz+1sOeuf3c2kO9Ea6N3N4j5Irk9qhukN/nhK8K+ytU0K7SSMkxSEqutJtdNzHi5mQ7/tGxWOh5s6InLGBMWDN7NKJE3qiwrUG32mScqVVc+zygZPpnK33GaixTXBoJS4DnDLfEQWL+RBEM5aOAXLXzJsBPnrxI2s35ZOWDCRdxW9CN2bBJYCKrVf3nFXdimKbkQtFEK8Fk8p/OHL/CKaFf8FDbI77WPSwSFI8QwzFOp4nbQuucyLbgnaEPkOreA6VguBEnuqUEPfLZ972fPi9DaPU+sgOgm7XcFDDKWPjf+H19GXPpojGB/4q/vQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=Mrwk+4ssAmP8D1VgyVEK2Q49Io6fjXb8k3Ll1ccYCLg=;
- b=eOODcm8vxwNU9Gm1ugJW0RwxpLV4AZlzW2Vq1Giv2se+/L+rkF1Ho9qn1DbB53H3qT+ttc8t6lJPk0V5zRbGaAEvr0qnW+/QEL70rsbBQ1RCwa/ETrYsfKLXK6hnSolNd/tWoO31VjMudNBB/W5ejf/jNKbUg+NcN8bCzNpCS4t6Rxsrj3rjQwPETJfowyf9XWeznuOnmrw6KOhGC/WLnMlPiFKxf/NKXv1deZmo23GZpXU9/lD7CRS2jUNyZNZKtTKPvuSmIL4fuC09RwCo9Y9LXmmnitDwCYSpIvw1MTFclZDlShHa1BsDelyG3r001ns6g2wRt7gpLpEqEtqQ+g==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
- dkim=pass header.d=nvidia.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
- s=selector2;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=Mrwk+4ssAmP8D1VgyVEK2Q49Io6fjXb8k3Ll1ccYCLg=;
- b=AtbilPwynr9wrXTkzL7j+Sm/AoHZCNCpSetwtu6zJidfwHzKZVmXlKkNX6AKgKU9vVFzxfueK9mUInmMG6cIarugxugG1bfqdgzz4G256SyyjcyEa9N9fld4b8VOpCqFpuykqgE1jftlExwBUhr990Z95JL9fb22DOYKOaGeaVKDnUCPJPgOHq8EgqbTJvufcJrYrhJeST51cgi1c/YWFRYd+kPQv1dXQwevjXi1JVnH5Q/y7AAeExkdlXj+PBM0Qx+3bFnTmotZcjk1RSAaiimv42+CE+txdPbfh4ccG+zCgfHIkQkx7NUF/I41FB5QiQnrcajzPeNXhIhWED2Ywg==
-Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=nvidia.com;
-Received: from SA3PR12MB598757.namprd12.prod.outlook.com
- (2603:10b6:806:52d::14) by IA1PR12MB8286.namprd12.prod.outlook.com
- (2603:10b6:208:3f8::19) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.592.11; Tue, 17 Nov
- 2026 03:51:31 +0000
-Received: from SA3PR12MB598757.namprd12.prod.outlook.com
- ([fe80::e206:100:5946:a777]) by SA3PR12MB598757.namprd12.prod.outlook.com
- ([fe80::e206:100:5946:a777%5]) with mapi id 15.21.0615.013; Tue, 17 Nov 2026
- 03:51:31 +0000
-Date: Tue, 17 Nov 2026 14:51:25 +1100
-From: Alistair Popple <apopple@nvidia.com>
-To: "Gregory Price (Meta)" <gourry@gourry.net>
-Cc: "David Hildenbrand (Arm)" <david@kernel.org>, 
- Thomas =?utf-8?Q?Hellstr=C3=B6m?= <thomas.hellstrom@linux.intel.com>,
- Matthew Auld <matthew.auld@intel.com>, linux-mm@kvack.org, 
- dri-devel@lists.freedesktop.org, intel-xe@lists.freedesktop.org, 
- Matthew Brost <matthew.brost@intel.com>,
- Mika =?utf-8?B?UGVudHRpbMOk?= <mpenttil@redhat.com>, 
- Leon Romanovsky <leon@kernel.org>, Jason Gunthorpe <jgg@ziepe.ca>, 
- John Hubbard <jhubbard@nvidia.com>
-Subject: Re: [PATCH] mm/hmm: skip NUMA balancing on protnone faults
-Message-ID: <avvJZtN88gLXA6Uz@nvdebian.thelocal>
-References: <20261112-numa-v1-1-ad9cbca8f49a@intel.com>
- <b32fb02a-68b4-4db9-83dd-254147dbf215@kernel.org>
- <1993e931e6a4b0cda5c04e72b1a8d5fb924f950a.camel@linux.intel.com>
- <9ec3e8b9-064a-47a7-8d00-566ff371b846@kernel.org>
- <179460319801.482102.15329919214055018110.b4-reply@b4>
- <avuN2eIrlqrO0u6O@nvdebian.thelocal>
- <179487347201.482102.6428415219993123805.b4-reply@b4>
-Content-Type: text/plain; charset=iso-8859-1
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <179487347201.482102.6428415219993123805.b4-reply@b4>
-X-ClientProxiedBy: SYYP282CA0003.AUSP282.PROD.OUTLOOK.COM
- (2603:10c6:10:b4::13) To SA3PR12MB598757.namprd12.prod.outlook.com
- (2603:10b6:806:52d::14)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 9C1E810E0B0;
+	Tue, 17 Nov 2026 04:17:23 +0000 (UTC)
+Received: from ustc.edu.cn (smtp.ustc.edu.cn [202.38.64.46])
+ by gabe.freedesktop.org (Postfix) with ESMTP id E619B10E0B0
+ for <dri-devel@lists.freedesktop.org>; Tue, 17 Nov 2026 04:17:16 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=mail.ustc.edu.cn; s=dkim; h=Received:From:To:Cc:Subject:Date:
+ Message-ID:In-Reply-To:References:Content-Type:
+ Content-Transfer-Encoding:MIME-Version; bh=OBSo/4IN7S6trP7CgPBOd
+ 4llSonUbNqkrJxw7CQiCqA=; b=wqSPP4SNDPs9mlVJhVqodlTTM8hCkkL9ov8+3
+ EuWJ/U4hWyJfNTMieF64k1+L9CI/7g1H+EYsCj7jLh170O8nxj3eHaGU+pa4KE16
+ gFWSsRpFxTiHKK1vc+ekuQdLqUJJ/50c/ucrEEkBKsFZ3pfoCf/w88lX09tub+m0
+ 7LcH/Q=
+Received: from [127.0.1.1] (unknown [114.214.186.145])
+ by mailimap2024 (Coremail) with SMTP id 3pYKCgCHATZH1ftqQgjLAA--.1640S2;
+ Tue, 17 Nov 2026 12:17:11 +0800 (CST)
+From: Qianhui Xu <xiaqinghuan@mail.ustc.edu.cn>
+To: linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org
+Cc: devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+ Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>,
+ Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>,
+ Abel Vesa <abel.vesa@oss.qualcomm.com>,
+ Bjorn Andersson <andersson@kernel.org>, Rob Herring <robh@kernel.org>
+Subject: Re: [PATCH v5 0/3] drm/msm/mdss: reset all block resets described in
+ DT
+Date: Tue, 17 Nov 2026 12:17:11 +0800
+Message-ID: <179488903160.260870.8168848839719897744@mail.ustc.edu.cn>
+In-Reply-To: <20261113155635.1677541-1-xiaqinghuan@mail.ustc.edu.cn>
+References: <20261113155635.1677541-1-xiaqinghuan@mail.ustc.edu.cn>
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: SA3PR12MB598757:EE_|IA1PR12MB8286:EE_
-X-MS-Office365-Filtering-Correlation-Id: 9fa6263e-6ac8-4fea-78d5-08df445e1121
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
- ARA:13230040|1800799024|7416014|376014|366016|23010399003|261026140227099003|261026121527099003|261022105027099003|261021135927099003|261028144727099003|261022075727099003|261102123227099003|261021121427099003|10067099003|18002099003|11063799006|22082099003|4143699003|56012099006;
-X-Microsoft-Antispam-Message-Info: 2ft1/BTqq3EzYaVwaQEFOu12yR88BiZDA3MgnDuV+1jnsu6U1XPekjVaDesdwWu2Br2bX2SqR7Io3NLIPER020zl9i4q/ExuOp0ADG5xBQzo4FOT3XVugL2BPKIPPpM0EskNOD040iAXjv1f/hzoIiklfqjgTmCALP82DZdkgt3T0ow4WJBzUmn86BN0qIzA08X7XaKVQpeyqlLPtXbN/+gbQZI6CvaT3QZlgWCwx5O92Q3cB0Ob/AeKldBRP2jVpYujvrf42x6/Z727lBziLdheiTWHvH6VYToZ641FbroT/xnDwVsyxhRrx+7vfObUVP8lkw/PiF2rFXSKc6yY74vd13HHBJh3EusypMKAtViEBvY2g0NbPXr3sm7izUUHcNnQ55Rm71sqmRpxnVQ4gSjGaCgKr8+j4w+NxTdjONaVWcQ4h9Ugd3z0BEZyxKT+7lNX0ZQYLkX4nmXkaTDNTVoZOxu2pgfnJx90X+iRQG3LnleJyR/Uisi4d7A465m9jJEyOm5oVvsCyGMBG1xL070V+gJGWtnSxEc8OirVjK861nsKmVfl6lN/KbzQvIvgjGN+J6G1OuerTOAjqa0q9DA3kWozmi14a0hDP9NZujY9/KXsyfb0iW1RizV24G6sClY/7OXq7WCJjdcHhcBF8Ae+X+1qdJatv+6j5YFeGcg=
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:SA3PR12MB598757.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(1800799024)(7416014)(376014)(366016)(23010399003)(261026140227099003)(261026121527099003)(261022105027099003)(261021135927099003)(261028144727099003)(261022075727099003)(261102123227099003)(261021121427099003)(10067099003)(18002099003)(11063799006)(22082099003)(4143699003)(56012099006);
- DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?iso-8859-1?Q?ys7IGdBxyoippuG0hWUx1PTg8tun/ER+eMsUcTtNf6zVikBXx0ae5gky72?=
- =?iso-8859-1?Q?vYMT7cJYEfIlUgDOBX2eMY0M6ZvbiBOpzebaPA76s6Y6+HLCckTLA7ftj8?=
- =?iso-8859-1?Q?SpUdKApyeLbnic3LZJ2r8yGlWRASwkfPraJpjxL3uD0nPuzmD9WFR3K134?=
- =?iso-8859-1?Q?aW1XjaEUS6luw96i0q8P1LhgzRjtuKaL9L+zMFKrO3laca2UrvE3OEd38R?=
- =?iso-8859-1?Q?m13jhhvN3Wy0iw2gOLa91ZE4CCv4T5Iho8Yu2vi3cfcYKzG+fvDSIyLhif?=
- =?iso-8859-1?Q?Zil5jC1f3WvNMxk525CyJa8g3u5tR021keqq/wyaqWoOz7LHiUVJqtoOWV?=
- =?iso-8859-1?Q?gngD+DdUZ5XzcYqBHycTmk397elr+A/aURRTa20C2LWSpXY/3ENevSm/BJ?=
- =?iso-8859-1?Q?46foRZR72z8oMK11lj67T/jii2UI7AZm2ZxdNxNm1uPKFB5F8z2YWcbh0y?=
- =?iso-8859-1?Q?NS7oT8DgxDKdDpZmcuzvYgndxqDcVNrIGslnMNKSagYktDb/73CCG2JHAw?=
- =?iso-8859-1?Q?NBw+SWoFopIqIoHsWH7XskkdXDPmY+hwJDx1n8gSih6wA82VxwrOunptM/?=
- =?iso-8859-1?Q?9NbKsBs+hUKek/FxxjIAokJdCdD1/lzX6ZDKIiEBMFiApy+AhMg6wvRiG1?=
- =?iso-8859-1?Q?RCFn8HiHCEQPwdvEObO8yYCkKF0UTvlECetvAwIluWidlB9aPWflhK5JTE?=
- =?iso-8859-1?Q?Ot3WMGG/xK0wJZb7WdzbBIKZwOUZ7CWMSdawDPUzhkwKBc2m1rFyB4FXGb?=
- =?iso-8859-1?Q?/huLDl228HTFZnlpIVIkpgzSs/e9wC0CZqkrr9sm5HrPoK3k1+Hhh35swh?=
- =?iso-8859-1?Q?BOIruM7aRaO7TE/xwDlLlzH++gxOpKGF4l71NNN6ToobZyMpvrr4MgrFRG?=
- =?iso-8859-1?Q?N0P0bU6wgzMYMfq57ScXLUd5KugvzCMOB0L2+b7OFJANk4qUb5v6LBJocR?=
- =?iso-8859-1?Q?DvJk0Xf/NZVNHXD5aBuSWS5RfBOH13u/kp2pxveYIdRMfHkN+K842NfqE0?=
- =?iso-8859-1?Q?FIIyQkTS3C6bMZCdcc9OkXIi2PXb8M/lCR8fD5xaL/jR60bRGX4V+G3QkB?=
- =?iso-8859-1?Q?f1bRdTtI1jEmWkrlZ1NFS3O7m3yqiowq4ghLG6tADO2s90r1gtjNrLVI5u?=
- =?iso-8859-1?Q?gE3nUIowBY02FmFpoWsQlyK4MTFXda5reCVWI48XFA0hocQC/nyHn5T8Rb?=
- =?iso-8859-1?Q?RIQ+7LXZhrGSDKSiV9vpCaw+kbAROBrEQmQpteJWXKR6u5dx3g56OGVMxg?=
- =?iso-8859-1?Q?+u6VGvQ727y40PiSD/i9NvBfX4gFjMwfshX3guWlBimRgaNW7A6zSQdj5N?=
- =?iso-8859-1?Q?LsIY4rAcJUoAp9UjUyiyNHdg3teaS7b+LElqGkfSIhxkCJcM0EnGsMLkwg?=
- =?iso-8859-1?Q?6iElwjovUtvVorcPkmDs7CZ9X1TTpZJjS8g1MWYyX0LqHKM7vgfjtN4xzU?=
- =?iso-8859-1?Q?BevrXvG8mhUjyOvHUlVmAaNwxLqhkgP9yzbODrYxpYEsF8hzmAfTxSlTpi?=
- =?iso-8859-1?Q?hA04y+gQ/hqqg0lFH9QqtOomcso13WrC/bWNrpCbNmj35gga0L0CZPpk7g?=
- =?iso-8859-1?Q?uIWOcq8UpCx0Xlwx2hjnH88Q+HFnJahWqvQb99dxdUTiJ6YyiJrIanyYWY?=
- =?iso-8859-1?Q?PqC7xGkzd4pPrl8TYpSHr/OxHisd8AZcruL9TPnmZAiMYpTrddlf9CWvAH?=
- =?iso-8859-1?Q?ewqyzU6rZNtDD4iN/Vq4doBlpiv/SGU5ujQQt7kG1hxHREkHFvDhHJZsYo?=
- =?iso-8859-1?Q?YZDrLAuCkJXlj4FixKJUGmiQxsTjXQTvfutquVRM9hzIeNqQmWCSm+FjGy?=
- =?iso-8859-1?Q?F1mtAKawEQ=3D=3D?=
-X-OriginatorOrg: Nvidia.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 9fa6263e-6ac8-4fea-78d5-08df445e1121
-X-MS-Exchange-CrossTenant-AuthSource: SA3PR12MB598757.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 17 Nov 2026 03:51:31.6380 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: lV1T40L7Wo9Rp94FFmYKsmYnuG0usMu+/4xXhrX12KJP7UvoSy0gfy1zphLIDbMim7Rd2wkQts36aZSc1idKIw==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: IA1PR12MB8286
+X-CM-TRANSID: 3pYKCgCHATZH1ftqQgjLAA--.1640S2
+X-Coremail-Antispam: 1UD129KBjvJXoWxGr15KF4rtF18AFWkuw4fuFg_yoWrtr43pF
+ ZrKwsxKr1kGry0kFn7Aw4jva4I9wsYkFZ8GF15tryYvan8Kw18Ar93Kw1Fq3429Fs7Xa4j
+ va4jgw18CFWvqaDanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
+ 9KBjDU0xBIdaVrnRJUUUvjb7Iv0xC_Kw4lb4IE77IF4wAFF20E14v26r4j6ryUM7CY07I2
+ 0VC2zVCF04k26cxKx2IYs7xG6rWj6s0DM7CIcVAFz4kK6r1j6r18M28lY4IEw2IIxxk0rw
+ A2F7IY1VAKz4vEj48ve4kI8wA2z4x0Y4vE2Ix0cI8IcVAFwI0_Xr0_Ar1l84ACjcxK6xII
+ jxv20xvEc7CjxVAFwI0_Cr0_Gr1UM28EF7xvwVC2z280aVAFwI0_GcCE3s1l84ACjcxK6I
+ 8E87Iv6xkF7I0E14v26rxl6s0DM2AIxVAIcxkEcVAq07x20xvEncxIr21l5I8CrVACY4xI
+ 64kE6c02F40Ex7xfMcIj6xIIjxv20xvE14v26r1j6r18McIj6I8E87Iv67AKxVWUJVW8Jw
+ Am72CE4IkC6x0Yz7v_Jr0_Gr1lF7xvr2IY64vIr41lc7CjxVAaw2AFwI0_Jw0_GFylc2xS
+ Y4AK67AK6r45MxAIw28IcxkI7VAKI48JMxC20s026xCaFVCjc4AY6r1j6r4UMI8I3I0E5I
+ 8CrVAFwI0_Jr0_Jr4lx2IqxVCjr7xvwVAFwI0_JrI_JrWlx4CE17CEb7AF67AKxVWUtVW8
+ ZwCIc40Y0x0EwIxGrwCI42IY6xIIjxv20xvE14v26r1j6r1xMIIF0xvE2Ix0cI8IcVCY1x
+ 0267AKxVWUJVW8JwCI42IY6xAIw20EY4v20xvaj40_Jr0_JF4lIxAIcVC2z280aVAFwI0_
+ Jr0_Gr1lIxAIcVC2z280aVCY1x0267AKxVWUJVW8JbIYCTnIWIevJa73UjIFyTuYvjxUgR
+ pPUUUUU
+X-CM-SenderInfo: 50ld1x5qjk3t3q6ptxnoox23vfohv3gofq/1tbiAREOB2r7WdojVwACs9
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -133,96 +69,106 @@ List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-8.6 required=3.0 tests=BAYES_00,DKIM_INVALID,
-	DKIM_SIGNED,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_PATCH,
-	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS autolearn=ham
+X-Spam-Status: No, score=-5.8 required=3.0 tests=BAYES_00,DKIM_SIGNED,
+	DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
+	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS autolearn=no
 	autolearn_force=no version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-On 2026-11-17 at 10:57 +1100, "Gregory Price (Meta)" <gourry@gourry.net> wrote...
-> On 2026-11-17 10:24 +1100, Alistair Popple wrote:
-> > On 2026-11-14 at 07:53 +1100, "Gregory Price (Meta)" <gourry@gourry.net> wrote...
-> > > On 2026-11-13 21:43 +0100, David Hildenbrand (Arm) wrote:
-> > > > On 11/13/26 21:34, Thomas Hellström wrote:
-> > > 
-> > > > I recall that John (cc) kept saying "GPUs and NUMA balancing is inherently
-> > > > incompatible, you have to disable NUMA balancing".
-> > > > 
-> > > 
-> > > If this is a NUMA-hotplugged GPU, then this is resolved by a private
-> > > node, because this:
-> > > 
-> > > @@ -6404,6 +6404,9 @@ static vm_fault_t do_numa_page(struct vm_fault *vmf)
-> > >         if (!folio || folio_is_zone_device(folio))
-> > > 
-> > > 
-> > > changes to
-> > > 
-> > >         if (!folio || folio_is_common_memory(folio))
-> > > 
-> > > And all folios on the GPU node are never subject to NUMA Balancing
-> > > 
-> > > so balancing can stay enabled while the GPU memory is not subject to
-> > > PROT_NONE spew.
-> > 
-> > Hi Gregory, just to hopefully help clarify understanding a bit here this isn't
-> > related to folio location and therefore private node won't help much.
-> > 
-> > This about a driver getting a snapshot of current PTE state to program a
-> > secondary MMU (in this case on a GPU, but can equally be a NIC or other device).
-> > 
-> > Even CPU memory being subject to NUMA balancing can have quite an adverse impact
-> > on GPU performance due to increased incidence of GPU faults, hence why John says
-> > GPUs (using SVM) are inherently incompatible with NUMA balancing.
-> > 
-> 
-> Ah, I follow.  I'm still working through the performance implications of
-> mmu_notifiers in the presence of PROT_NONE faults, but if i'm
-> understanding correctly it tracks that you'd say it's incompatible.
+Hi all,
 
-Incompatible is probably not the correct term as it still works. It's just that
-GPU faults are really expensive, and to be avoided at all costs. So having NUMA
-balancing running around randomly unmapping pages the GPU is using (regardless
-of whether or not they are on the device) results in more GPU faults and
-therefore a huge perf impact for basically no (or in fact sometimes negative)
-gain.
+3/3 says "5 of 9 cold PORs became 15 out of 15" and leaves it at that.  That
+is the only place the Q28 evidence has ever appeared upstream, and it does not
+let anyone judge it.  Here is the underlying data and, more importantly, the
+boundary of what it does and does not show.  No code change in this message;
+take it as material for the commit message if you think it belongs there.
 
-> I presume here the driver needs a global view of memory (or at least all
-> memory it can potentially DMA), rather than simply just a subset
-> (some set of VMAs)?
+Board: Lenovo Y700 Gen4 (TB322FC), SM8750P, bonded dual-DSI panel
+"csot,pp8807hb1-1" (driver novatek,nt36536), 1904x3040, DSC, two DSI hosts.
 
-The basic process is this:
+1. What actually fails, and how it is classified
 
-* GPU needs to access some user space virtual address (eg. allocated with mmap/malloc)
-* Therefore GPU driver needs to setup GPU page tables to point to the physical
-  memory[1] backing the user space virtual address
-* To find the physical address the GPU driver uses hmm_range_fault() on the
-  range, possibly faulting pages in if required (ie. if CPU PTE permissions
-  don't match what's required).
-* hmm_range_fault() relies on mmu_notifiers for synchronisation with CPU PTE state.
-* An mmu_notifier firing causes a driver to do two things:
-  a) Must invalidate any GPU page tables / TLBs mapping the notified virtual address.
-  b) Increments a sequence number for any concurrent hmm_range_faults(), which must
-     retry as their view of CPU PTEs is now out-dated. This is the problem
-     this patch series hits - the migration on fault causes an mmu_notifier to fire
-     resulting in a hmm_range_fault() retry and associated overhead.
+The failure is a cold boot (real power-on reset) that brings up no image.  It
+is ~50% of cold PORs, it is random per boot, and it clusters in time; it is
+independent of the kernel image - the same binary is good and then bad in
+neighbouring boots, and seven different kernel variants were tested against
+this.  Three distinguishable forms:
 
-So the driver doesn't need a global view of memory, just a view of the memory
-the GPU needs, or likely needs, to access. Determining that depends on the
-driver - some might require pre-registration of the ranges (eg. via an ioctl)
-prior to launching work whilst others might wait until the GPU work faults on an
-address not in the GPU page tables. Or some combination thereof.
+  A. cardN exists, panel init fails.  Five dmesg lines, in order:
+       command DMA timeout: status=0x2200200
+       peer command DMA timeout: status=0x2200200
+       bonded command DMA failed: master=-110 peer=-110
+       sending dcs data ff 20 failed: -110
+       Failed to initialize panel: -5
+     followed by intf1/ctl 1 reset failure -22 and a vblank/frame-done storm.
+  B. no DRM card at all, with "DSI PLL(0) lock failed, status=0x00000000" at
+     about 0.86 s and a failed device link for panel@0.
+  C. dark panel with everything in the DRM state looking healthy: connector
+     connected, DPMS On, frame counter advancing, backlight non-zero, and the
+     DSI pclk held.  This one is the reason "no DMA timeout in dmesg" must not
+     be read as "display works".
 
- - Alistair
+The only physical discriminator we found for C is the DSI interrupt counter:
+41 on a lit panel, 0 on a dark one, with identical DRM state.
 
-[1] - Well technically the IOVA / DMA address mapping physical system memory
-but that's not relevant for this discussion. We can assume there are no IOMMUs
-present.
+2. Why "reset the MDSS blocks" was picked
 
-> ~Gregory
-> 
-> -- 
-> ~Gregory
-> 
-> 
+Because in a bad boot the failure is not inside the DSI controller and a DSI
+host reset does not clear it.  Registers read from a live bad boot:
+STATUS0 = 0x20003 (engine and DMA busy), DSI interrupt count 0, PLL unlocked
+bit not set (the PLL is locked), and CLK_STATUS sitting at 0x1743/0x3743 with
+DYN_PCLK_ACTIVE never released, where a healthy boot shows 0x343 -> 0x743 ->
+0x343 around each command.  Repeated retries after that point fail with
+identical values, which is why a single bad boot costs the whole session.
+
+Against that, the change under review makes the display driver de-assert the
+MDSS block resets described in DT before anything is programmed, which puts
+the whole MDSS block into a known state before the first DCS command.
+
+3. The measurements
+
+Campaign of 23 real power-on resets, arms sampled alternately in the same
+session, identical kernel/config/ramdisk/dtb/cmdline except for the change:
+
+  base (no reset)                 9 boots: 4 good, 5 storm
+  base + MDSS block reset         5 boots: 5 good
+  base + block reset + DIGTOP    10 boots: 10 good
+  base + DIGTOP only              4 boots: 1 good, 3 storm
+
+Fisher exact, two-sided: block-reset+DIGTOP vs base p = 0.011; DIGTOP alone
+vs base p = 1.0 (no effect); the two arms containing the block reset merged,
+15/15 vs 4/9, p = 0.003.  So the block reset is the thing that does something;
+the DIGTOP/PLL-lock tweak does not, on its own, at all.
+
+Moving the same reset out of the clock driver's probe into the display driver
+(the shape of this series) then measured 5/5 good cold PORs.
+
+4. Two boundaries I do not want to paper over
+
+- The 15/15 figure is a merged group and it predates this series' shape.  It
+  measures "MDSS block resets are de-asserted by the display side early", not
+  literally patch 2/3 of v5.
+- The reset set that was measured on hardware is the three-entry set (core,
+  core_int2, rscc).  After sashiko's remark about 0xa000 v4/v5 dropped to two
+  entries, and the two-entry set has not been through a cold-boot sample yet,
+  nor has 0xa000 been varied on its own.  A paired cold-boot run of two-entry
+  vs three-entry is queued; until it completes, 3/3 stays worded as "not
+  repeated with this exact set" rather than as equivalent.
+
+5. What I would like to know
+
+Is this evidence useful for merging the series, or would you rather see it
+condensed into 2/3's commit message?  And separately: given that the failure
+is a cold-boot race that upstream cannot reproduce on any other board we know
+of, is a quirk-style "reset everything described in DT" acceptable here on its
+own merits, or does it need to be tied to a named hardware erratum to be
+mergeable?
+
+AI-assistance disclosure: this message was drafted with an LLM coding
+assistant; the author verified every number and register value above against
+his own logs and test records and takes responsibility for it.
+
+Thanks,
+Qianhui
+
