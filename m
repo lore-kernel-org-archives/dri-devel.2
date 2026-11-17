@@ -2,57 +2,68 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 198E1606A882
-	for <dri-devel@archiver.kernel.org>; Tue, 17 Nov 2026 12:51:20 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3CCA2606A894
+	for <dri-devel@archiver.kernel.org>; Tue, 17 Nov 2026 12:51:21 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=collabora.com header.i=@collabora.com header.a=rsa-sha256 header.s=mail header.b=QAQUUQk2
+	dkim=pass (2048-bit key, unprotected) header.d=pixelcluster.dev header.i=@pixelcluster.dev header.a=rsa-sha256 header.s=ovhmo-selector-1 header.b=IhHVfrGP
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 661B910F6CB;
-	Tue, 17 Nov 2026 12:51:14 +0000 (UTC)
-Received: from bali.collaboradmins.com (bali.collaboradmins.com
- [148.251.105.195])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 9D6D610F6C9
- for <dri-devel@lists.freedesktop.org>; Tue, 17 Nov 2026 12:50:53 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
- s=mail; t=1794919852;
- bh=/NNQdnvNk7fbdVxY6HWPt8tiESYBlaF64MyDZxk6kR0=;
- h=From:To:Cc:In-Reply-To:References:Subject:Date:From;
- b=QAQUUQk2XnKGQnU7PdVPFu1sH89zSlyTMWLLxn0vnY9qL2Y88IyD3G4pQgZI/aeVn
- B4OvT0d49SQKGJlc5ZCZ6Y1PW1zXSR3nMlcc82y/xht5aWLwUNTTipNpCAMs8bn3On
- hrNLLc78iMilcMrfo7ofuWulPedX3ONL5tr/OB/3c9HmTMBlUvXD3KcnSIPuC5eBMQ
- dSSNmah1e6qkDxReXzxsaAeVgzTSdgBcegcMVSGu/zjUbJuU4aKt2tu4Mtr9axVRO7
- TTyS9yHCjitgjo8iQWiT06HOiCtpSxdpP0Q9611dXatIKLX51j6WpQGJczDF+Z51eD
- r5XHm26IhcGnA==
-Received: from IcarusMOD.eternityproject.eu (unknown [100.64.1.21])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange x25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
- (No client certificate requested) (Authenticated sender: kholk11)
- by bali.collaboradmins.com (Postfix) with ESMTPSA id 5E61417E0311;
- Tue, 17 Nov 2026 13:50:51 +0100 (CET)
-From: AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>
-To: Neil Armstrong <neil.armstrong@linaro.org>, 
- Jessica Zhang <jesszhan0024@gmail.com>, 
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>, 
- Matthias Brugger <matthias.bgg@gmail.com>, 
- David Lechner <dlechner@baylibre.com>
-Cc: dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org, 
- linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
- linux-mediatek@lists.infradead.org
-In-Reply-To: <20261006-panel-himax-hx8279-vddp-v1-0-50d884b42aae@baylibre.com>
-References: <20261006-panel-himax-hx8279-vddp-v1-0-50d884b42aae@baylibre.com>
-Subject: Re: (subset) [PATCH 0/4] drm/panel: himax-hx8279: add VDDP supply
- for Startek KD070FHFID078
-Message-Id: <179491985132.188092.5906284430538056975.b4-ty@b4>
-Date: Tue, 17 Nov 2026 13:50:51 +0100
+	by gabe.freedesktop.org (Postfix) with ESMTP id 51D7010F6CE;
+	Tue, 17 Nov 2026 12:51:15 +0000 (UTC)
+Received: from smtpout10.mo540.mail-out.ovh.net
+ (smtpout10.mo540.mail-out.ovh.net [51.210.91.59])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 11DD710F6B2
+ for <dri-devel@lists.freedesktop.org>; Tue, 17 Nov 2026 12:50:46 +0000 (UTC)
+Received: from director4.derp.mail-out.ovh.net
+ (director4.derp.mail-out.ovh.net [79.137.60.37])
+ by mo540.mail-out.ovh.net (Postfix) with ESMTPS id 4jTPjJ2zbpz455y;
+ Tue, 17 Nov 2026 12:50:44 +0000 (UTC)
+Received: from director4.derp.mail-out.ovh.net
+ (director4.derp.mail-out.ovh.net. [127.0.0.1])
+ by director4.derp.mail-out.ovh.net (inspect_sender_mail_agent) with SMTP
+ for <Felix.Kuehling@amd.com>; Tue, 17 Nov 2026 12:50:44 +0000 (UTC)
+Received: from mta6.priv.ovhmail-u1.ea.mail.ovh.net (unknown [10.110.96.99])
+ by director4.derp.mail-out.ovh.net (Postfix) with ESMTPS id 4jTPjJ1Y8yz1yXC;
+ Tue, 17 Nov 2026 12:50:44 +0000 (UTC)
+Received: from pixelcluster.dev (unknown [10.1.6.7])
+ (Authenticated sender: nat@pixelcluster.dev)
+ by mta6.priv.ovhmail-u1.ea.mail.ovh.net (Postfix) with ESMTPSA id BF5878E2101; 
+ Tue, 17 Nov 2026 12:50:42 +0000 (UTC)
+Authentication-Results: garm.ovh; auth=pass
+ (GARM-98R0028db774df-3351-4ee4-850f-8694323585ce,
+ 00F4D7524EDFA56606BD67631AE7EA1B984E627F) smtp.auth=nat@pixelcluster.dev
+X-OVh-ClientIp: 141.95.41.139
+From: Natalie Vock <nat@pixelcluster.dev>
+Date: Tue, 17 Nov 2026 13:50:16 +0100
+Subject: [PATCH v2 10/10] drm/amdgpu: Bump minor version
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-X-Mailer: b4 0.16.0
+Message-Id: <20261117-prt-explicit-sync-v2-10-bb3851cb6a0c@pixelcluster.dev>
+References: <20261117-prt-explicit-sync-v2-0-bb3851cb6a0c@pixelcluster.dev>
+In-Reply-To: <20261117-prt-explicit-sync-v2-0-bb3851cb6a0c@pixelcluster.dev>
+To: Felix Kuehling <Felix.Kuehling@amd.com>, 
+ Alex Deucher <alexander.deucher@amd.com>, 
+ =?utf-8?q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>, 
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
+ =?utf-8?q?Timur_Krist=C3=B3f?= <timur.kristof@gmail.com>
+Cc: amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org, 
+ linux-kernel@vger.kernel.org, Natalie Vock <nat@pixelcluster.dev>
+X-Mailer: b4 0.15.2
+x-ovh-tracer-id: 5594596638179156284
+X-VR-SPAMSTATE: OK
+X-VR-SPAMSCORE: -100
+X-VR-SPAMCAUSE: dmFkZTGsrjNRgW72yCqkGsXCnOvH7Q6+rWSTt0QN8D7NsOnSRWHW0a1UZ4YzwG3PfGhk2CpDQZK3YXmisSLYwZztr4rBMwMPXW7T3V/AOBPzHqgdP8gAtZmRSmFwzhTkWYmyZ/ZDp71KSx/CkbaMRhkClvUYNnGrD1PzweJNkj3z5YHhSlWNc9ry/1K04Ol0fBWNhEL66oxzy/AkUSTRdOPfSv1iAMFatuXPZ4igKw3QIc3MgFbd7EmFmYSHglT6XHKAJXimVe8T8Fqv0mPC+Q1p7iYCKLwWZoNUbd7LT8X0mEGw6E+B5EkhOIFNfODtMUftuzqYdLPtOdruAs2418yTTya6sqzn70iwvealvmaqO4anQOfF0wyMRadUwLGMt4ZUTHfBGEvltLlw/9AcjUUkuL0EG7JdVBqy2JfP6TZfo9buMqWSnGpxlGstaxjaKBDrftHvEqpH33VxEkxue/twETVtfkDKVbgPUUQEn48HuzYFFTyPiGQx/tNfI9v4b/cCzszYtvngNmRTmQyy4hx2ipsoPVr2yKem3XVROXv/KzHj18OKOW0RUvhKkCwjH7j1TIpqGkUDWsIwM7NuirMJPFiooCNCb6eUHV+wGPcWZWti64U6MFKk7asAf1jAROkkwwLMeZqa4m7ZPMQxmFGr/JnW6teXfeI93yp1LfHh0emsDQ
+DKIM-Signature: a=rsa-sha256; bh=NmRVqvgA6LQRfVb3+xw0hm11h1ZXb2VqypRcp6l/2Uw=; 
+ c=relaxed/relaxed; d=pixelcluster.dev; h=From;
+ s=ovhmo-selector-1; t=1794919844; v=1;
+ b=IhHVfrGPVz4jxFCa/EIJa5yDhr86zA2cKFQezqSho7Ja9xa/n+YivJ7mssW80C/ZnNBbMS22
+ Rzf0IZYYg3ZNzicPHKQq6tXOuiJF9uTnipYxoqFoVi/EUTZANKLXFxkZf6rggWEWuoFFcLRe9oE
+ SA+foZpLhbCy1QgS24nDC4AhYve6Dcce6xioEWxsD8+dhjAkdRQO60aYB51B+qLxz06tLS432lK
+ cggaj7/t6y4lUcdtejR4+Vu6dSLn2E8b5HyY64OuAC7tjEqkIPO/fDXHxw/md0Q4PNH/Mz7Tewo
+ GSqu9TMvqLh3aHZUfV7gqyJwNKSEHVf3deQPfEisDGLBQ==
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -64,31 +75,38 @@ List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-8.8 required=3.0 tests=BAYES_00,DKIM_SIGNED,
+X-Spam-Status: No, score=-18.8 required=3.0 tests=BAYES_00,DKIM_SIGNED,
 	DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
-	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,USER_AGENT_GIT autolearn=ham
-	autolearn_force=no version=4.0.1
+	INCLUDES_CR_TRAILER,INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,
+	SPF_PASS,USER_AGENT_GIT autolearn=unavailable autolearn_force=no
+	version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-On Tue, 06 Oct 2026 15:25:00 -0500, David Lechner wrote:
-> The Startek KD070FHFID078 panel has a VDDP power input, which feeds its
-> DC-DC converter in addition to VDD and IOVCC. On the MediaTek Genio 520
-> and 720 EVKs, VDDP is switched by its own regulator, and on the Genio
-> 1200 EVK it comes from its own PMIC LDO, so it needs to be described and
-> enabled. The existing Genio 1200 EVK device tree also turned out to
-> describe the panel supplies incorrectly, so this series fixes that too.
-> 
-> [...]
+To signal availability of the new AMDGPU_GEM_VA2 ioctl to userspace.
 
-Applied to v7.4-next/dts64, thanks!
+Signed-off-by: Natalie Vock <nat@pixelcluster.dev>
+---
+ drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c | 3 ++-
+ 1 file changed, 2 insertions(+), 1 deletion(-)
 
-[3/4] arm64: dts: mediatek: mt8390-genio-common: add the panel vddp-supply
-      commit: 949fe0bd3a3a6ff0e4451ef38ef780f596d0089d
-[4/4] arm64: dts: mediatek: mt8395-genio-common: fix the panel supplies
-      commit: 036ce7562bef9a85d46ed6ba5b83ef4f5e60ad8b
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
+index 188c8ec234c02..5b0c373102068 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
+@@ -129,9 +129,10 @@
+  * - 3.64.0 - Userq IP support query
+  * - 3.65.0 - Add userq syncobj timeline signaling support
+  * - 3.66.0 - Allow jpeg type 4 packets and VCE SEI command
++ * - 3.67.0 - Add AMDGPU_GEM_VA2 ioctl
+  */
+ #define KMS_DRIVER_MAJOR	3
+-#define KMS_DRIVER_MINOR	66
++#define KMS_DRIVER_MINOR	67
+ #define KMS_DRIVER_PATCHLEVEL	0
+ 
+ /*
 
-Cheers,
-Angelo
-
+-- 
+2.56.1
 
