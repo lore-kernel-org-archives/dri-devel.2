@@ -2,92 +2,50 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CBE79606A31C
-	for <dri-devel@archiver.kernel.org>; Wed, 18 Nov 2026 08:23:33 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BB260606A31C
+	for <dri-devel@archiver.kernel.org>; Wed, 18 Nov 2026 08:23:34 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=HkBcN455
+	dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.a=rsa-sha256 header.s=s110527 header.b=SvLsGhkT
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id E604110EBC6;
-	Wed, 18 Nov 2026 08:23:23 +0000 (UTC)
-Received: from mail-dy1-f170.google.com (mail-dy1-f170.google.com
- [74.125.82.170])
- by gabe.freedesktop.org (Postfix) with ESMTPS id C699610E70E
- for <dri-devel@lists.freedesktop.org>; Tue, 17 Nov 2026 23:51:37 +0000 (UTC)
-Received: by mail-dy1-f170.google.com with SMTP id
- 5a478bee46e88-33fb4680717so961678eec.1
- for <dri-devel@lists.freedesktop.org>; Tue, 17 Nov 2026 15:51:37 -0800 (PST)
-ARC-Seal: i=1; a=rsa-sha256; t=1794959497; cv=none;
- d=google.com; s=arc-20260327;
- b=fbmdGhT7NnxP3lb87IWulF4bIbc7vqvMQY37uqfLVNQFMvNxCXEOE0mpk8nfqx6wI7
- laUBTQmx33q8EBm7mYtghYrf7yFk+VFvFxggwyLg88r9XzxHIHX5ThH9lSzgJMim15Qe
- M+1X6KwAqWixlYAGh8xzweByiFbVnUgKwnLpCLMScytSHAzz8B8zKKnPoNOxSuwq54a3
- mNuNwHAIAKDZPK1wMCMJYDhJXh4As36I6+0mq4S2KPr3rBhs96IUOglNAhxHaW31gK9w
- l+0WXQesg6BinnIHVriMJ4P4cYwAZ9GvjHjhyg9YSNA7+fvnEQ3kznxIMeJBCRAa9f0R
- 3HBQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com;
- s=arc-20260327; 
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:dkim-signature;
- bh=tj4WV4vIcKzSpCk7dHTQCpUn+mLl32o1qUnDLoMnN/M=;
- fh=bN3WHTlzXcVIr2RkgMpk3NXK/DwXOefqRaFpMbeYf7s=;
- b=q/YHEbWbBJxH3nDWLkouSOlvIdabUH+HoNtwZjBTPhPjkbK3Qwh8vRccn7Wo4MBrm5
- nZNW91RIXsFrmFxQyO/wwOB6fogR/Sa4L37XFP0ddf5CyWPx2mCPm6dBo8g9qKyGMy7B
- UU8hdfF9hCIXYtJKu3vo1o9CDRcWBYbrQsLYef9FaD1fwVCY+SZ+hCBrvWc/90tEamD4
- nSpPPm2NMncxjuJaCSvYA8187ZOjTPTP+Z1+DuRQCOWMdlD6xzSly1K+3iFHFLSWS4Ed
- itxfXuwnlmSCvVkSVqphQiQl59YUju5WZv7Y/tkqolG27GaQatQXDCjYuQNAgCa/T1oa
- s52w==; darn=lists.freedesktop.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20260707; t=1794959497; x=1795564297; darn=lists.freedesktop.org;
- h=content-transfer-encoding:content-type:cc:to:subject:message-id
- :date:from:in-reply-to:references:mime-version:from:to:cc:subject
- :date:message-id:reply-to:content-type;
- bh=tj4WV4vIcKzSpCk7dHTQCpUn+mLl32o1qUnDLoMnN/M=;
- b=HkBcN4558uhycflz/7s5MOXvJFT2L4V9vkVFTFxlAVX37wEJmOJ2f7CAXu2crJOZKz
- qPa2IwmQ28kpBusKcQn9cHMxN/2bmH5or9sYelTmrdaHgvOdM/NWnyspYNCn7Pn1w96o
- OnXbMl+UUCpwC8YH+sM3o1YDdkaZxXYYDX3u8wcC5Bb5t0nqDInCCGy9dn8oaB0KRDq4
- o4+ec6fKLqHL5LH2wAvZMAXeXMkifhBu13vT75gufcTHhWeBNPf1fxgrNoRUQAV8zBCs
- jrkj8tqD3DplFcvd+iPkw/YBomDsKFu1C4xVqQ+NBkcnq0layIUnrfH5Bj3GhU7ng4w9
- t5/w==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20260707; t=1794959497; x=1795564297;
- h=content-transfer-encoding:content-type:cc:to:subject:message-id
- :date:from:in-reply-to:references:mime-version:x-gm-gg
- :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
- :content-type;
- bh=tj4WV4vIcKzSpCk7dHTQCpUn+mLl32o1qUnDLoMnN/M=;
- b=sDkN5XQ6wfvQWfG3sXtQ/iaG2+klIDOzXfzWWsmpozo8riHQXVRWj58XHRavYPlytb
- Aiz3psQjtb9zvJFC9/hKgqWS5N13yzoLekYZ9r2dZebfqwpPVBCHlRCq0jh+ZbmNP032
- AIbvCNpbCityk/uD9N9moHpplwvfnQxO8jynpD5vO/FaBYfR7X+VpZcu6U6vKgc03kbZ
- q6NCLPrAzRITb1qpPxX0mLXTlXx7kiyfLzpDkiyIhN43UIZShONRJORYjvufaRV8stxJ
- NbWohKWQEXzXT7q02RLZgqvH93TsIzyPMX3ljloWFBBYBWmX5zQDe2HdtnLM0VB44+Dw
- mURw==
-X-Gm-Message-State: APuU4Z8V1PP0vT5VOjriLEkzIrXMHAtkeKyf4wkXhmgxwEl5El37xOaa
- JA3Gxi6lALvGQUcr7N2ftJvsnzjm8DHldzfVxQiIDoYbJaf0bJLZO7ckW5OHm1ZTU4TalOzogPs
- W8o/wSakQNB2zYjIzQNAocW+RNbo2tRjmmhDs
-X-Gm-Gg: AZFdTZd5NyDPL4nCzIP3ya0L0mSPoeYbIdUEP4raN57i5VNRY918vrSxPUrGXvoVoWf
- 7JAOOmxHoVYBuwtUDXrjVIR3adm9u0BgASQCSlcSnG9qFfxkVp6dYqZZGxvkM+BoZ6iRluE017I
- sDT5gVE8wiK6gF8na4LGBsQiMBsNq9d1TCAUO53ZKM2Z3egQxfhAEHAX6BhF7npeAY1zWkuuAbi
- sAi7fH+KEqYBWzOkTrzhvUHp4NKMYbvssumi/3PniNRC6N5dVh7jKdJqNOTX7k4x7a77LdDEcOf
- kjSMcDmp1U1MJP/5DBR8eupZEMfQETEQzum+qWN8tubnrpTP/eNfnGxHzY/V/qv5vP51aGAC6ej
- Z77ilBAl8Y81OLR2uGqW+HEw19Ss7Th9XhY634DP99m657NUdEeuZZOaTdrdL
-X-Received: by 2002:a05:693c:8946:10b0:370:1652:5ff4 with SMTP id
- 5a478bee46e88-3827f5ad382mr930583eec.6.1794959497041; Tue, 17 Nov 2026
- 15:51:37 -0800 (PST)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 0429E10EBCC;
+	Wed, 18 Nov 2026 08:23:24 +0000 (UTC)
+Received: from m16.mail.163.com (m16.mail.163.com [117.135.210.5])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 132E110E69D
+ for <dri-devel@lists.freedesktop.org>; Tue, 17 Nov 2026 23:18:29 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=163.com;
+ s=s110527; h=From:To:Subject:Date:Message-ID:MIME-Version; bh=iI
+ GCznXhTjwwAbtISLd9zxt6KkpRGg6tsCKG2gaFg90=; b=SvLsGhkTDPXzAfq3BR
+ 9/l8k4//D8k9qjpqRh6nqSAT52sbBOOoDZV1S38pDyyER2j/AgTIWZL6jMwOD1sH
+ CwstOyXCpV9EwQiVgZB+gbA4YVlyD4r5+KrkJ6Q1pyEtVD/eY55ea0C9I4CINX0I
+ 7b4hH93gFoHRAHeRsNjYh5mww=
+Received: from SYPC (unknown [])
+ by gzsmtp2 (Coremail) with SMTP id PSgvCgCXyQiu4Pxq15exGA--.55935S2;
+ Wed, 18 Nov 2026 07:18:07 +0800 (CST)
+From: Yang Siyuan <hsyysy@163.com>
+To: Chen-Yu Tsai <wens@kernel.org>
+Cc: Jernej Skrabec <jernej.skrabec@gmail.com>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>,
+ Thomas Zimmermann <tzimmermann@suse.de>, Simona Vetter <simona@ffwll.ch>,
+ Samuel Holland <samuel@sholland.org>, dri-devel@lists.freedesktop.org,
+ linux-arm-kernel@lists.infradead.org, linux-sunxi@lists.linux.dev,
+ linux-kernel@vger.kernel.org
+Subject: [PATCH v2 0/2] drm/sun4i: report coverage blending for alpha-capable
+ planes
+Date: Wed, 18 Nov 2026 07:17:49 +0800
+Message-ID: <20261117231751.264258-1-hsyysy@163.com>
+X-Mailer: git-send-email 2.56.1
+In-Reply-To: <20261117091932.12063-1-hsyysy@163.com>
+References: <20261117091932.12063-1-hsyysy@163.com>
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
-References: <20261117205902.1293962-1-henryzhang62@gmail.com>
- <sashiko-outbox-219679@kernel.org>
-In-Reply-To: <sashiko-outbox-219679@kernel.org>
-From: Henry Zhang <henryzhang62@gmail.com>
-Date: Tue, 17 Nov 2026 15:51:25 -0800
-X-Gm-Features: Aa3M54qqTmOUkotRAt37uoUQQWDtU-BVQrOf2bvJF2uRaw79Y05rSNpAac70J38
-Message-ID: <CANTW0yqbWZjvzf9pKETu5x5vAC6FtMMBLpRi11yGXg=w=so54A@mail.gmail.com>
-Subject: Re: [PATCH] drm/vc4: dsi: Allocate the encoder per DRM device
-To: sashiko-reviews@lists.linux.dev
-Cc: dri-devel@lists.freedesktop.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 8bit
+X-CM-TRANSID: PSgvCgCXyQiu4Pxq15exGA--.55935S2
+X-Coremail-Antispam: 1Uf129KBjvJXoW7KrW8ZFy3Zw1rAw15ZFWUJwb_yoW8Jw18pF
+ WrG3Z8G34kGr4av3WfJa47XFy3ua1fGFWrWrnxJ3Z3Aw1DAFy5Gryjk3Wa9FWDJr4Ikw47
+ tws8ur9IkFyDC3DanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
+ 9KBjDUYxBIdaVFxhVjvjDU0xZFpf9x07j0GQDUUUUU=
+X-CM-SenderInfo: 5kv152r16rljoofrz/xtbC7RA+cmr84LABfwAA3J
 X-Mailman-Approved-At: Wed, 18 Nov 2026 08:23:05 +0000
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -100,26 +58,41 @@ List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-2.8 required=3.0 tests=BAYES_00,DKIM_SIGNED,
+X-Spam-Status: No, score=-10.7 required=3.0 tests=BAYES_00,DKIM_SIGNED,
 	DKIM_VALID,DKIM_VALID_AU,FREEMAIL_FORGED_FROMDOMAIN,FREEMAIL_FROM,
-	HEADER_FROM_DIFFERENT_DOMAINS,MAILING_LIST_MULTI,SPF_HELO_NONE,
-	SPF_PASS autolearn=no autolearn_force=no version=4.0.1
+	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_PATCH,MAILING_LIST_MULTI,
+	SPF_HELO_NONE,SPF_PASS,UNPARSEABLE_RELAY,USER_AGENT_GIT
+	autolearn=unavailable autolearn_force=no version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-On Tue, Nov 17, 2026 at 1:14=E2=80=AFPM <sashiko-bot@kernel.org> wrote:
-> [Severity: Critical]
-> This problem wasn't introduced by this patch, but does
-> vc4_dsi_init_phy_clocks() just above this hunk leave a dangling OF clock
-> provider behind [1] when vc4_dsi_bind() later fails or the component
-> is unbound?
-Thanks. This is pre-existing and independent of this patch; I sent a
-  separate fix:
+Linux 7.3 added validate_blend_mode_for_alpha_formats(), which warns once
+per plane that exposes a pixel format with an alpha channel but has no
+blend mode property.  Neither the DE2+ mixer planes nor the DE1 backend
+planes create one.
 
-    [PATCH] drm/vc4: dsi: Register the PHY clock provider with devm
-    https://lore.kernel.org/all/20261117234107.1298575-1-henryzhang62@gmail=
-.com/
+Both engines blend a layer with its own alpha channel and do not
+premultiply, which is the DRM "coverage" equation, so advertise exactly
+DRM_MODE_BLEND_COVERAGE and leave the register programming unchanged.
 
-  It confirms the stale provider after unbind and after a failed bind at
-  runtime; the use-after-free lookup itself was not reproduced on my
-  Pi 4, since no clock lookup on the DSI node happened in the tests.
+Changes in v2:
+- Drop the Fixes: tag.  860e748bddcc only added the generic check; it did
+  not change this driver.
+- Drop the code comments; they only restated the commit message.
+- Handle the DE1 backend planes too, in a separate patch, since they
+  expose alpha formats as well and still warned on A10/A20/A31/A33.
+- Link to v1: https://lore.kernel.org/dri-devel/20261117091932.12063-1-hsyysy@163.com/
+
+Yang Siyuan (2):
+  drm/sun4i: mixer: report coverage blending for alpha-capable planes
+  drm/sun4i: backend: report coverage blending for alpha-capable planes
+
+ drivers/gpu/drm/sun4i/sun4i_layer.c    | 7 +++++++
+ drivers/gpu/drm/sun4i/sun8i_ui_layer.c | 7 +++++++
+ drivers/gpu/drm/sun4i/sun8i_vi_layer.c | 9 +++++++++
+ 3 files changed, 23 insertions(+)
+
+base-commit: 091b06388b117fefdcb63336ac09956a4914b961
+-- 
+2.56.1
+
