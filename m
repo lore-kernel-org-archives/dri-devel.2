@@ -2,41 +2,42 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D04DC606A32A
-	for <dri-devel@archiver.kernel.org>; Tue, 17 Nov 2026 12:52:58 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0949B606A334
+	for <dri-devel@archiver.kernel.org>; Tue, 17 Nov 2026 12:53:17 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=imuRLrSg
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=EKe9psCt
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 3C07610E5DE;
-	Tue, 17 Nov 2026 12:52:53 +0000 (UTC)
-Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 9236B10F6CC
- for <dri-devel@lists.freedesktop.org>; Tue, 17 Nov 2026 12:52:46 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 6583910F6C6;
+	Tue, 17 Nov 2026 12:53:11 +0000 (UTC)
+Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id AF20610F6C6
+ for <dri-devel@lists.freedesktop.org>; Tue, 17 Nov 2026 12:53:04 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by tor.source.kernel.org (Postfix) with ESMTP id 80A006347C;
- Tue, 17 Nov 2026 12:52:45 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 77C541F000C4;
- Tue, 17 Nov 2026 12:52:40 +0000 (UTC)
+ by sea.source.kernel.org (Postfix) with ESMTP id 7B1F041263;
+ Tue, 17 Nov 2026 12:53:04 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1BE841F000C4;
+ Tue, 17 Nov 2026 12:52:59 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1794919965;
- bh=6o7TDKHkFTQmT81k6n559xmxvDMTMHvxHuzIWW6x61g=;
- h=Date:Subject:To:Cc:References:From:In-Reply-To;
- b=imuRLrSgXqkUdax43NRoAuK3Vpfg25+EvcIQ1nLwKxoCiVn1gGy9M+gLFAHP8JgQF
- cqiH91XQ9JiWpSbZlJdi6XiHyig75UmspQkg9AGvhtz4mG9RU4RrQyn+CWU9CbgTK4
- m5nh1f/C6sZw7/ikVovsaJQwKv1nPt45+TxGvt8BESnBXTwobjKxsC//R3NvMeRhtE
- UYPtzEIdYcmz07Zn0jGOqETJ2b7dO/j7qJWF+if4QhpBUFaDaiTVgOU7I0QLH+6H3/
- 2yr53EQAvEH/87n2Dug+rFZxNbLTwKj6EPs9WT5XqTrcxgLYhY9DlBwnw8/43OhuRu
- Q7U5HD4vD48XQ==
-Message-ID: <3701981f-cdda-46a7-8079-de5479ae9c27@kernel.org>
-Date: Tue, 17 Nov 2026 13:52:38 +0100
+ s=k20260515; t=1794919984;
+ bh=u5l11zhalUIUwop5aprXHlkgo0BhYi2tAcgYsKF037s=;
+ h=Date:Subject:From:To:Cc:References:In-Reply-To;
+ b=EKe9psCtdF5PvPdLuGaQUBhfvPdRLE5ItUNrRZGiGUeGf+LA3UzCyAvfrijAe32UQ
+ CaEzVXn1mzlrGzV5weGOwFb/TjlysHiYmZORHCugDD4mdFku191jr3j5NAvm78zNe7
+ 1aUoLsNx4ockMr+TEKl+F7nPYUk5A3dN2u6IT1MsLgClzsd0nrtlWv2KrTYmPy2M6N
+ +TA+wNJ9xD21oY/dAb8X5u3MwfwhLpMRhqYCVyfP+XVyMjX/LIwk1yv0/2Sld5gl51
+ jbRld3qk3bFk5C82IlP4vaZFPfUFIBsoY4UZAgzlErIYsDWoUbLZO/kEgZjEKTQewR
+ rxl/rECPskutQ==
+Message-ID: <506611fb-3f68-4e9e-af28-29f701f22d52@kernel.org>
+Date: Tue, 17 Nov 2026 13:52:58 +0100
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
 Subject: Re: [PATCH v2 1/4] dt-bindings: display: mediatek: dpi: Add
  compatible for mt8167
-To: Luca Leonardo Scorcia <l.scorcia@gmail.com>,
- linux-mediatek@lists.infradead.org
-Cc: AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>,
+From: Krzysztof Kozlowski <krzk@kernel.org>
+To: Luca Leonardo Scorcia <l.scorcia@gmail.com>
+Cc: linux-mediatek@lists.infradead.org,
+ AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>,
  Chun-Kuang Hu <chunkuang.hu@kernel.org>,
  Philipp Zabel <p.zabel@pengutronix.de>,
  Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
@@ -50,7 +51,7 @@ Cc: AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>,
  linux-arm-kernel@lists.infradead.org
 References: <20260921113914.779393-1-l.scorcia@gmail.com>
  <20260921113914.779393-2-l.scorcia@gmail.com>
-From: Krzysztof Kozlowski <krzk@kernel.org>
+ <20260925-inventive-crystal-firefly-0deffe@quoll>
 Content-Language: en-US
 Autocrypt: addr=krzk@kernel.org; keydata=
  xsFNBFVDQq4BEAC6KeLOfFsAvFMBsrCrJ2bCalhPv5+KQF2PS2+iwZI8BpRZoV+Bd5kWvN79
@@ -95,7 +96,7 @@ Autocrypt: addr=krzk@kernel.org; keydata=
  K9bCVaboTA2T77QYkRcRJYSsO1alGX0ome/hMLD1daXlkrNUp1HWa3K4iytLRXjCSIorWiGs
  n+q3krnpXu3TFkA8qtOFZMdnIiFuiq1yLT8hptsV5xh1TA2nsVvSYiaCr3q4s4BKjS/KrLDb
  qoxzw8ISjdUp4pA85vb6YLCmb39NgidD+7PmAr65lBNveIFynTgsja1rRQ4=
-In-Reply-To: <20260921113914.779393-2-l.scorcia@gmail.com>
+In-Reply-To: <20260925-inventive-crystal-firefly-0deffe@quoll>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 X-BeenThere: dri-devel@lists.freedesktop.org
@@ -117,29 +118,22 @@ X-Spam-Status: No, score=-17.3 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-On 21/09/2026 13:38, Luca Leonardo Scorcia wrote:
-> MediaTek mt8167 SoC has two Digital Parallel Interface (DPI) blocks,
-> one can be routed to a DPI display while the other is wired to the HDMI
-> block. They are not compatible with any other device, so add a new
-> compatible to describe them in the device tree.
+On 25/09/2026 15:24, Krzysztof Kozlowski wrote:
+> On Mon, Sep 21, 2026 at 01:38:55PM +0200, Luca Leonardo Scorcia wrote:
+>> MediaTek mt8167 SoC has two Digital Parallel Interface (DPI) blocks,
+>> one can be routed to a DPI display while the other is wired to the HDMI
+>> block. They are not compatible with any other device, so add a new
+>> compatible to describe them in the device tree.
+>>
+>> Signed-off-by: Luca Leonardo Scorcia <l.scorcia@gmail.com>
+>> Reviewed-by: AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>
+>> ---
+>>  .../devicetree/bindings/display/mediatek/mediatek,dpi.yaml       | 1 +
+>>  1 file changed, 1 insertion(+)
 > 
-> Signed-off-by: Luca Leonardo Scorcia <l.scorcia@gmail.com>
-> Reviewed-by: AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>
-> ---
->  .../devicetree/bindings/display/mediatek/mediatek,dpi.yaml       | 1 +
->  1 file changed, 1 insertion(+)
-> 
-> diff --git a/Documentation/devicetree/bindings/display/mediatek/mediatek,dpi.yaml b/Documentation/devicetree/bindings/display/mediatek/mediatek,dpi.yaml
-> index eb4f276e8dc4..6cd96a5cd4ae 100644
-> --- a/Documentation/devicetree/bindings/display/mediatek/mediatek,dpi.yaml
-> +++ b/Documentation/devicetree/bindings/display/mediatek/mediatek,dpi.yaml
-> @@ -21,6 +21,7 @@ properties:
->        - enum:
->            - mediatek,mt2701-dpi
->            - mediatek,mt7623-dpi
-> +          - mediatek,mt8167-dpi
+> Acked-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
 
-Turns out you bring here undocumented ABI. NAK.
+And un-acked. Undocumented ABI.
 
 Best regards,
 Krzysztof
