@@ -2,67 +2,67 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D315B606A32F
-	for <dri-devel@archiver.kernel.org>; Tue, 17 Nov 2026 17:41:25 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A7CCF606A32C
+	for <dri-devel@archiver.kernel.org>; Tue, 17 Nov 2026 17:41:26 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=DWppmC3Y
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=h5gkaqT8
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 4D66010F871;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 68B1710F872;
 	Tue, 17 Nov 2026 17:41:20 +0000 (UTC)
 Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id AD5B010F872
- for <dri-devel@lists.freedesktop.org>; Tue, 17 Nov 2026 17:41:10 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id EFAE410F871
+ for <dri-devel@lists.freedesktop.org>; Tue, 17 Nov 2026 17:41:09 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id 8E1A4438CA;
- Tue, 17 Nov 2026 17:41:10 +0000 (UTC)
+ by sea.source.kernel.org (Postfix) with ESMTP id C48554148A;
+ Tue, 17 Nov 2026 17:41:09 +0000 (UTC)
 Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
 ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
- t=1794937270;
- b=hggrTW6cLkQC3AYNrB4Zxq2N3Re5awRVSB5k9oViYArguAA+O7QJFxrDm02+1Txdtuja
- 9MuUDWgQFlkUTuptskXpONytOkI+AmKUZGiImRwcDw84judH84Wy9rbr5+RkJsWp4p/Hd
- 7nOCdNmsFbAXQU+nFIARw5E7RdH81oM3BJYO0n+YJMbbWdP4QVHUixqx7rL+jyY62Yytn
- HPqZt3N693LBvRd2gUDyO4ld5CYhBMhIfvCvQO3YUMUGR0Pt1M8kIRiPFZD9fL9hj+mgS
- /m6te7QBHWL0Om/YtpDySawjTs843v5uIQv1swkJSuzV/FEq89VOJf4Ty2gWka8sG5A==
+ t=1794937269;
+ b=ApNr+YRjWjs6/aAtd6211n1+7XACOp5k9JfCazDT4LQGRMVLLZOMmAbxqbePsZGdSWNA
+ Q2akWXTCUgwMZw249DbE9fzht56cXmTTq11A3apvnz8c5A2tnSmJxIJ/j4yuXL3HW7nVr
+ S6EBZRoP7Md6ZdzEHs/cG2MKVf2Smnl2EmdgjFymboA7Ch4eHn6mzCXDMrNKKF1Gr+/LG
+ T0YPfUwt7fu/hpf5iUq1DnoHg4SXq08Fl36niiEfSZ1SftrWqrqYZOCA55DzhToOkiJVh
+ 7gNwdieyWU4PwkPPYVkRnAUYyQwgCyxM0bOUe49cEMQ5BppODmMVaQxSH13mcBGF0Nw==
 ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
- c=relaxed/relaxed; t=1794937270;
+ c=relaxed/relaxed; t=1794937269;
  h=DKIM-Signature:Received:From:Date:Subject:MIME-Version:Content-Type:
  Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
  X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
  X-Original-From:Reply-To:Content-Transfer-Encoding;
- bh=PkXhu0l4H/bANI7i7NIqN6ewWg2q567ZHzhlp9epxj0=;
- b=tIEk1ppPBwLozEYDsRxQ+pu8V4z3xKss2O4THVw+il/iQ6h4M+yJtHEeAHr2AGlgPrk7
- J9rRCXfkQJ8NYwLC3NsaOwSPjv/S2X8aacv6Jop++0yaHT7aDP8pZfIiL7x6BtVaYkIu4
- 4rXK1qyjE7ZLDp8PKQoI0cMY0gGUfv9+Gj3lnxnh42em5K93UDiPMgtl70P81qcrC13Xi
- E/QrdyA1gHRL+0Okq+oPUPLk+aYDj77sU4neQbyM2ba2ff1xma2su/9ow23Tpd3jhwUca
- 0Neczip8hL+hYgaAIOch8CRAFaLlKldC4S3xOD8LgRnkOo0b45cbfBUjEqUuKjzIuBQ==
+ bh=ppyqVBFv/K6NEphnd837iinHXAyuUDMGYOowkO+mkO4=;
+ b=udbe1mVRyqZcp7KhDYe+7Xhk1noMK6HQVkb/No02DbhgRc/ZvwtUQp9u2d9I1BdcF59C
+ I11UATFhg84AKFN6Suj5YsAGzfRBvp24fKfksKHH4zfQe9fxDpGazV6QT27FRllpnx1XY
+ BLm+CoNZ8QN3rZtpfTztATcIY4oaMHu3RD1MBXCIkkvHwcTid5ZAfM/xhzMjYD8/HBMHM
+ yBDqZogErWmWQYnLgNykESCr1L6gRARA0UlT6gjdY99NT++eiFnXPzgwog0rdX0pITUpS
+ 3eYQs/GqJC+ZMWwttOJ3dCICs8om+/cyan4QbDBkgF8Fru3cpR1I/B4cJ1cHrYtZ1Dg==
 ARC-Authentication-Results: i=1; smtp.kernel.org; 
  arc=none smtp.remote-ip=100.80.115.77
 Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
  (No client certificate requested)
- by smtp.kernel.org (Postfix) with ESMTPS id 28C161F000C9;
+ by smtp.kernel.org (Postfix) with ESMTPS id 1066E1F000C8;
  Tue, 17 Nov 2026 17:41:09 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1794937270;
- bh=PkXhu0l4H/bANI7i7NIqN6ewWg2q567ZHzhlp9epxj0=;
+ s=k20260515; t=1794937269;
+ bh=ppyqVBFv/K6NEphnd837iinHXAyuUDMGYOowkO+mkO4=;
  h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To;
- b=DWppmC3YJ+OENrdCD9tYrnH00mjPBCcZ3gHZ3BpwqDZgCnwBxZj1awQthflsmMgIa
- wxMFETa37KvWG/L2arX22ytn9EFGv6/PpDZrdG9xKoCPXwqFE4YRIWwZlsJne6i5t1
- RoZ52Xi/FRbP0uqQxbXsg+Da1aaZErL5DqGV9fuKeC5NaPFXkyJxae7aR0rS+uh+yu
- HCmrqoRfPzlDCpfBu2dcWGTSXLTp4uzicl0MIeSaWGLQERCCYP1tuQCymcD7PRNmm6
- 1W0Hbgq/+Mym9T3LNSQ8YlKQyrf7YEtB90NYJPOX6AnbozeHxeQzore4Q09Lx8zPUa
- vrNTHtR4lP5Tw==
+ b=h5gkaqT8Q+QiuPOdpMYrtg2a9IvjJU+QlsBxvDtw+8ttXRttXgkhbOGaLeA4J5CGS
+ YjUE582RakokHY1xbOcjPnqxzauokhPpxeP4KNVKwdWdM4eJVtSa0CfZt/0FUY/E4I
+ ebq5Hj8RuJgshGGVMiQk0auXehCc2uW9B63OSUh0b6lphWyYIUiG1CkOreuMAb6z0K
+ j2gAid2TfAAkhnZNcBIfZSvbN72LiO37hyg5afgENrpe8ZqBc/CASKpAY5JockMcxc
+ RKwPU/ajIe4NBqG4EhpG3YbabSzKY3ptI7ICdHDDc9v3WnRWb20aYGqjvoNha16OyM
+ V7wd3Tyv6JQBg==
 Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
- by lkml.kernel.org (Postfix) with ESMTP id A8B084AA1A;
+ by lkml.kernel.org (Postfix) with ESMTP id 9030D4A9E0;
  Tue, 17 Nov 2026 17:41:08 +0000 (UTC)
 From: Roman Vivchar via B4 Relay <devnull+rva333.protonmail.com@kernel.org>
-Date: Tue, 17 Nov 2026 19:40:59 +0200
-Subject: [PATCH v3 2/2] backlight: add ktd3137 support
+Date: Tue, 17 Nov 2026 19:40:58 +0200
+Subject: [PATCH v3 1/2] dt-bindings: leds: backlight: add Kinetic KTD3137
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
-Message-Id: <20261117-6768-ktd3137-v3-2-b4fd957e3b00@protonmail.com>
+Message-Id: <20261117-6768-ktd3137-v3-1-b4fd957e3b00@protonmail.com>
 References: <20261117-6768-ktd3137-v3-0-b4fd957e3b00@protonmail.com>
 In-Reply-To: <20261117-6768-ktd3137-v3-0-b4fd957e3b00@protonmail.com>
 To: Lee Jones <lee@kernel.org>, Daniel Thompson <danielt@kernel.org>, 
@@ -73,11 +73,11 @@ Cc: dri-devel@lists.freedesktop.org, linux-leds@vger.kernel.org,
  devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
  linux-fbdev@vger.kernel.org, Roman Vivchar <rva333@protonmail.com>
 X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1794937267; l=10091;
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1794937267; l=2713;
  i=rva333@protonmail.com; s=20260510; h=from:subject:message-id;
- bh=3qfYLeE00rYscZFZNTo27W69H4V8j5fx2mW1XJdwLWk=;
- b=M2ea4aK8o93N3XAH4RLnHppI/BiYl6ndmwPi/qP1whBHgVJfQDQGyz3yqhDiD30uTfTMXVU2M
- 9q7IJi7rJVNDpQtAFWFKjucjjKOX32IOkoO1x/HRkisniC4GNGTmm/K
+ bh=pDM+rGPXIE2Yxr4m0AujuxyA6pI+AXeeqaEO+1/IX5I=;
+ b=lRk4ur1Kybvlb1eJxV5XXPq1Kirw6HYBmLH+xQfuFyhR32msgoWa0/A+8xK1OPkhVI1rE+b0r
+ ho4Z47d519VCYH/YsbySzDEt0r+ly1a3t95IeJDh1+5k0om+eExvoge
 X-Developer-Key: i=rva333@protonmail.com; a=ed25519;
  pk=zww/nWjBGoQ4POXCG0BV6fx2iuXK6jx77rsKPA5YK5Y=
 X-Endpoint-Received: by B4 Relay for rva333@protonmail.com/20260510 with
@@ -106,326 +106,103 @@ X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 
 From: Roman Vivchar <rva333@protonmail.com>
 
-Add support for the KTD3137 display backlight IC. It's used in various
-Xiaomi phones, such as Xiaomi Redmi Note 9.
+Kinetic KTD3137 is an LED IC, used in various mobile devices for the
+display backlight. Add devicetree bindings documentation for this chip.
+
+Datasheet: https://www.kinet-ic.com/uploads/KTD3137-04a.pdf
 
 Signed-off-by: Roman Vivchar <rva333@protonmail.com>
 ---
- MAINTAINERS                       |   1 +
- drivers/video/backlight/Kconfig   |  11 ++
- drivers/video/backlight/Makefile  |   1 +
- drivers/video/backlight/ktd3137.c | 257 ++++++++++++++++++++++++++++++++++++++
- 4 files changed, 270 insertions(+)
+ .../bindings/leds/backlight/kinetic,ktd3137.yaml   | 64 ++++++++++++++++++++++
+ MAINTAINERS                                        |  5 ++
+ 2 files changed, 69 insertions(+)
 
+diff --git a/Documentation/devicetree/bindings/leds/backlight/kinetic,ktd3137.yaml b/Documentation/devicetree/bindings/leds/backlight/kinetic,ktd3137.yaml
+new file mode 100644
+index 000000000000..987f73b2c2cf
+--- /dev/null
++++ b/Documentation/devicetree/bindings/leds/backlight/kinetic,ktd3137.yaml
+@@ -0,0 +1,64 @@
++# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
++%YAML 1.2
++---
++$id: http://devicetree.org/schemas/leds/backlight/kinetic,ktd3137.yaml#
++$schema: http://devicetree.org/meta-schemas/core.yaml#
++
++title: Kinetic Technologies KTD3137 LED Backlight
++
++maintainers:
++  - Roman Vivchar <rva333@protonmail.com>
++
++description:
++  The Kinetic Technologies KTD3137 is an I2C LED backlight driver for medium
++  to large size LCD panels.
++
++allOf:
++  - $ref: common.yaml#
++
++properties:
++  compatible:
++    const: kinetic,ktd3137
++
++  reg:
++    maxItems: 1
++
++  default-brightness:
++    maximum: 2047
++    default: 2047
++
++  enable-gpios:
++    maxItems: 1
++    description: GPIO connected to the HWEN pin.
++
++  led-max-microamp:
++    minimum: 5000
++    maximum: 29800
++    default: 20200
++
++  vin-supply: true
++
++required:
++  - compatible
++  - reg
++  - vin-supply
++
++unevaluatedProperties: false
++
++examples:
++  - |
++    #include <dt-bindings/gpio/gpio.h>
++
++    i2c {
++        #address-cells = <1>;
++        #size-cells = <0>;
++
++        backlight@36 {
++            compatible = "kinetic,ktd3137";
++            reg = <0x36>;
++            enable-gpios = <&pio 160 GPIO_ACTIVE_HIGH>;
++            default-brightness = <2047>;
++            led-max-microamp = <20200>;
++            vin-supply = <&vsys>;
++        };
++    };
 diff --git a/MAINTAINERS b/MAINTAINERS
-index 24dd5b43f167..23114fd09445 100644
+index 15c7dc516f7c..24dd5b43f167 100644
 --- a/MAINTAINERS
 +++ b/MAINTAINERS
-@@ -14622,6 +14622,7 @@ KTD3137 BACKLIGHT DRIVER
- M:	Roman Vivchar <rva333@protonmail.com>
- S:	Maintained
- F:	Documentation/devicetree/bindings/leds/backlight/kinetic,ktd3137.yaml
-+F:	drivers/video/backlight/ktd3137.c
+@@ -14618,6 +14618,11 @@ S:	Maintained
+ F:	Documentation/devicetree/bindings/leds/backlight/kinetic,ktd2801.yaml
+ F:	drivers/video/backlight/ktd2801-backlight.c
  
++KTD3137 BACKLIGHT DRIVER
++M:	Roman Vivchar <rva333@protonmail.com>
++S:	Maintained
++F:	Documentation/devicetree/bindings/leds/backlight/kinetic,ktd3137.yaml
++
  KTEST
  M:	Steven Rostedt <rostedt@goodmis.org>
-diff --git a/drivers/video/backlight/Kconfig b/drivers/video/backlight/Kconfig
-index 7c66b8840d88..0196b8597367 100644
---- a/drivers/video/backlight/Kconfig
-+++ b/drivers/video/backlight/Kconfig
-@@ -199,6 +199,17 @@ config BACKLIGHT_KTD2801
- 	  Say Y to enable the backlight driver for the Kinetic KTD2801 1-wire
- 	  GPIO-controlled backlight found in Samsung Galaxy Core Prime VE LTE.
- 
-+config BACKLIGHT_KTD3137
-+	tristate "Backlight Driver for Kinetic KTD3137"
-+	depends on I2C
-+	select REGMAP_I2C
-+	help
-+	  Say Y to enable the backlight driver for the Kinetic KTD3137
-+	  found in various Xiaomi smartphones.
-+
-+	  To compile this driver as a module, choose M here: the module
-+	  will be called ktd3137.
-+
- config BACKLIGHT_KTZ8866
- 	tristate "Backlight Driver for Kinetic KTZ8866"
- 	depends on I2C
-diff --git a/drivers/video/backlight/Makefile b/drivers/video/backlight/Makefile
-index 34469711c6cd..b2d3b69e9e32 100644
---- a/drivers/video/backlight/Makefile
-+++ b/drivers/video/backlight/Makefile
-@@ -38,6 +38,7 @@ obj-$(CONFIG_BACKLIGHT_HP700)		+= jornada720_bl.o
- obj-$(CONFIG_BACKLIGHT_IPAQ_MICRO)	+= ipaq_micro_bl.o
- obj-$(CONFIG_BACKLIGHT_KTD253)		+= ktd253-backlight.o
- obj-$(CONFIG_BACKLIGHT_KTD2801)		+= ktd2801-backlight.o
-+obj-$(CONFIG_BACKLIGHT_KTD3137)		+= ktd3137.o
- obj-$(CONFIG_BACKLIGHT_KTZ8866)		+= ktz8866.o
- obj-$(CONFIG_BACKLIGHT_LM3509)		+= lm3509_bl.o
- obj-$(CONFIG_BACKLIGHT_LM3533)		+= lm3533_bl.o
-diff --git a/drivers/video/backlight/ktd3137.c b/drivers/video/backlight/ktd3137.c
-new file mode 100644
-index 000000000000..94a10b3be859
---- /dev/null
-+++ b/drivers/video/backlight/ktd3137.c
-@@ -0,0 +1,257 @@
-+// SPDX-License-Identifier: GPL-2.0+
-+/*
-+ * Copyright (c) 2025-2026 Roman Vivchar <rva333@protonmail.com>
-+ *
-+ * Backlight driver for the Kinetic KTD3137
-+ */
-+
-+#include <linux/backlight.h>
-+#include <linux/bitfield.h>
-+#include <linux/delay.h>
-+#include <linux/err.h>
-+#include <linux/gpio/consumer.h>
-+#include <linux/i2c.h>
-+#include <linux/module.h>
-+#include <linux/property.h>
-+#include <linux/regmap.h>
-+#include <linux/regulator/consumer.h>
-+
-+#define KTD3137_REG_DEV_ID		0x00
-+#define KTD3137_REG_SW_RESET		0x01
-+#define KTD3137_REG_MODE		0x02
-+#define KTD3137_REG_CONTROL		0x03
-+#define KTD3137_REG_RATIO_LSB		0x04
-+#define KTD3137_REG_RATIO_MSB		0x05
-+#define KTD3137_REG_PWM			0x06
-+#define KTD3137_REG_RAMP_ON		0x07
-+#define KTD3137_REG_TRANS_RAMP		0x08
-+#define KTD3137_REG_FLASH_SETTING	0x09
-+#define KTD3137_REG_STATUS		0x0a
-+#define KTD3137_REG_MAX			0x0a
-+
-+/* KTD3137_REG_DEV_ID */
-+#define KTD3137_DEV_ID_A		0x12
-+#define KTD3137_DEV_ID_B		0x18
-+
-+/* KTD3137_REG_MODE */
-+#define KTD3137_MODE_BL_EN		BIT(0)
-+#define KTD3137_MODE_CURRENT_MASK	GENMASK(7, 3)
-+
-+/* KTD3137_REG_CONTROL */
-+#define KTD3137_CONTROL_LINEAR		(BIT(1) | BIT(2))
-+#define KTD3137_CONTROL_IND_2P6A	BIT(3)
-+#define KTD3137_CONTROL_OVP_32V		BIT(5)
-+#define KTD3137_CONTROL_FREQ_1000KHZ	BIT(6)
-+#define KTD3137_CONTROL_DEFAULT		(KTD3137_CONTROL_IND_2P6A | \
-+					 KTD3137_CONTROL_OVP_32V | \
-+					 KTD3137_CONTROL_FREQ_1000KHZ)
-+
-+/* KTD3137_REG_RATIO_LSB */
-+#define KTD3137_RATIO_LSB_MASK		GENMASK(2, 0)
-+
-+/* KTD3137_REG_PWM */
-+#define KTD3137_PWM_CH1_EN		BIT(0)
-+#define KTD3137_PWM_CH2_EN		BIT(1)
-+#define KTD3137_PWM_FILTER_6LSB		(BIT(3) | BIT(4))
-+#define KTD3137_PWM_DISABLE		BIT(7)
-+#define KTD3137_PWM_DEFAULT		(KTD3137_PWM_CH1_EN | \
-+					 KTD3137_PWM_CH2_EN | \
-+					 KTD3137_PWM_FILTER_6LSB | \
-+					 KTD3137_PWM_DISABLE)
-+
-+/* KTD3137_REG_RAMP_ON */
-+#define KTD3137_RAMP_ON_MASK		GENMASK(7, 4)
-+#define KTD3137_RAMP_OFF_MASK		GENMASK(3, 0)
-+/* Ramp ON: 2ms, OFF: 8ms */
-+#define KTD3137_RAMP_DEFAULT		(FIELD_PREP(KTD3137_RAMP_ON_MASK, 4) | \
-+					 FIELD_PREP(KTD3137_RAMP_OFF_MASK, 4))
-+
-+#define KTD3137_MAX_BRIGHTNESS		2047
-+
-+#define KTD3137_I_MIN_UA		5000
-+#define KTD3137_I_MAX_UA		29800
-+#define KTD3137_I_STEP_UA		800
-+#define KTD3137_I_DEFAULT_UA		20200
-+
-+struct ktd3137 {
-+	struct device *dev;
-+	struct regmap *regmap;
-+	u32 led_current;
-+};
-+
-+static const struct regmap_config ktd3137_regmap_config = {
-+	.reg_bits = 8,
-+	.val_bits = 8,
-+	.max_register = KTD3137_REG_MAX,
-+};
-+
-+static int ktd3137_init(struct ktd3137 *ktd)
-+{
-+	int ret;
-+
-+	ret = regmap_write(ktd->regmap, KTD3137_REG_CONTROL,
-+			   KTD3137_CONTROL_DEFAULT | KTD3137_CONTROL_LINEAR);
-+	if (ret)
-+		return ret;
-+
-+	ret = regmap_write(ktd->regmap, KTD3137_REG_PWM, KTD3137_PWM_DEFAULT);
-+	if (ret)
-+		return ret;
-+
-+	ret = regmap_write(ktd->regmap, KTD3137_REG_RAMP_ON, KTD3137_RAMP_DEFAULT);
-+	if (ret)
-+		return ret;
-+
-+	ret = regmap_write(ktd->regmap, KTD3137_REG_TRANS_RAMP, 0x00);
-+	if (ret)
-+		return ret;
-+
-+	return regmap_update_bits(ktd->regmap, KTD3137_REG_MODE,
-+				  KTD3137_MODE_CURRENT_MASK, ktd->led_current);
-+}
-+
-+static int ktd3137_backlight_update_status(struct backlight_device *backlight_dev)
-+{
-+	struct ktd3137 *ktd = bl_get_data(backlight_dev);
-+	unsigned int brightness = backlight_get_brightness(backlight_dev);
-+	int ret;
-+
-+	if (brightness > 0) {
-+		ret = regmap_write(ktd->regmap, KTD3137_REG_RATIO_LSB,
-+				   brightness & KTD3137_RATIO_LSB_MASK);
-+		if (ret)
-+			return ret;
-+
-+		ret = regmap_write(ktd->regmap, KTD3137_REG_RATIO_MSB,
-+				   brightness >> 3);
-+		if (ret)
-+			return ret;
-+	}
-+
-+	return regmap_update_bits(ktd->regmap, KTD3137_REG_MODE,
-+				  KTD3137_MODE_BL_EN,
-+				  brightness ? KTD3137_MODE_BL_EN : 0);
-+}
-+
-+static const struct backlight_ops ktd3137_backlight_ops = {
-+	.options = BL_CORE_SUSPENDRESUME,
-+	.update_status = ktd3137_backlight_update_status,
-+};
-+
-+static int ktd3137_parse_dt(struct ktd3137 *ktd)
-+{
-+	u32 max_ua = KTD3137_I_DEFAULT_UA;
-+	u32 val;
-+
-+	device_property_read_u32(ktd->dev, "led-max-microamp", &max_ua);
-+
-+	if (max_ua < KTD3137_I_MIN_UA || max_ua > KTD3137_I_MAX_UA)
-+		return dev_err_probe(ktd->dev, -EINVAL,
-+				     "led-max-microamp (%u) out of range\n", max_ua);
-+
-+	val = (max_ua - KTD3137_I_MIN_UA) / KTD3137_I_STEP_UA;
-+	ktd->led_current = FIELD_PREP(KTD3137_MODE_CURRENT_MASK, val);
-+
-+	return 0;
-+}
-+
-+static int ktd3137_probe(struct i2c_client *client)
-+{
-+	struct backlight_device *backlight_dev;
-+	struct backlight_properties props = { };
-+	struct gpio_desc *enable_gpio;
-+	struct ktd3137 *ktd;
-+	u32 val;
-+	int ret;
-+
-+	ktd = devm_kzalloc(&client->dev, sizeof(*ktd), GFP_KERNEL);
-+	if (!ktd)
-+		return -ENOMEM;
-+
-+	ktd->dev = &client->dev;
-+
-+	ret = devm_regulator_get_enable(ktd->dev, "vin");
-+	if (ret)
-+		return dev_err_probe(ktd->dev, ret, "failed to power up\n");
-+
-+	enable_gpio = devm_gpiod_get_optional(ktd->dev, "enable", GPIOD_OUT_HIGH);
-+	if (IS_ERR(enable_gpio))
-+		return dev_err_probe(ktd->dev, PTR_ERR(enable_gpio),
-+				     "failed to get enable gpio\n");
-+
-+	/* HWEN should stay HIGH for at least 150us before I2C can be used */
-+	fsleep(150);
-+
-+	ktd->regmap = devm_regmap_init_i2c(client, &ktd3137_regmap_config);
-+	if (IS_ERR(ktd->regmap))
-+		return dev_err_probe(ktd->dev, PTR_ERR(ktd->regmap),
-+				     "failed to init regmap\n");
-+
-+	ret = regmap_read(ktd->regmap, KTD3137_REG_DEV_ID, &val);
-+	if (ret)
-+		return dev_err_probe(ktd->dev, ret, "failed to read chip id\n");
-+
-+	if (val != KTD3137_DEV_ID_A && val != KTD3137_DEV_ID_B)
-+		return dev_err_probe(ktd->dev, -ENODEV,
-+				     "unsupported chip id: 0x%02x\n", val);
-+
-+	ret = ktd3137_parse_dt(ktd);
-+	if (ret)
-+		return ret;
-+
-+	ret = ktd3137_init(ktd);
-+	if (ret)
-+		return dev_err_probe(ktd->dev, ret, "failed to init chip\n");
-+
-+	props.type = BACKLIGHT_RAW;
-+	props.max_brightness = KTD3137_MAX_BRIGHTNESS;
-+	props.brightness = KTD3137_MAX_BRIGHTNESS;
-+	props.scale = BACKLIGHT_SCALE_LINEAR;
-+	device_property_read_u32(ktd->dev, "default-brightness", &props.brightness);
-+
-+	backlight_dev = devm_backlight_device_register(ktd->dev,
-+						       "ktd3137-backlight",
-+						       ktd->dev, ktd,
-+						       &ktd3137_backlight_ops,
-+						       &props);
-+	if (IS_ERR(backlight_dev))
-+		return dev_err_probe(ktd->dev, PTR_ERR(backlight_dev),
-+				     "failed to register backlight device\n");
-+
-+	i2c_set_clientdata(client, backlight_dev);
-+	return backlight_update_status(backlight_dev);
-+}
-+
-+static void ktd3137_remove(struct i2c_client *client)
-+{
-+	struct backlight_device *backlight_dev = i2c_get_clientdata(client);
-+
-+	backlight_dev->props.brightness = 0;
-+	backlight_update_status(backlight_dev);
-+}
-+
-+static const struct i2c_device_id ktd3137_ids[] = {
-+	{ .name = "ktd3137" },
-+	{ }
-+};
-+MODULE_DEVICE_TABLE(i2c, ktd3137_ids);
-+
-+static const struct of_device_id ktd3137_match_table[] = {
-+	{ .compatible = "kinetic,ktd3137" },
-+	{ }
-+};
-+MODULE_DEVICE_TABLE(of, ktd3137_match_table);
-+
-+static struct i2c_driver ktd3137_driver = {
-+	.driver = {
-+		.name = "ktd3137",
-+		.of_match_table = ktd3137_match_table,
-+	},
-+	.probe = ktd3137_probe,
-+	.remove = ktd3137_remove,
-+	.id_table = ktd3137_ids,
-+};
-+module_i2c_driver(ktd3137_driver);
-+
-+MODULE_DESCRIPTION("Kinetic KTD3137 Backlight Driver");
-+MODULE_LICENSE("GPL");
+ M:	John Hawley <warthog9@eaglescrag.net>
 
 -- 
 2.56.1
