@@ -2,58 +2,83 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 06801606A31C
-	for <dri-devel@archiver.kernel.org>; Tue, 17 Nov 2026 14:25:05 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6534B606A89A
+	for <dri-devel@archiver.kernel.org>; Tue, 17 Nov 2026 14:27:27 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=mailbox.org header.i=@mailbox.org header.a=rsa-sha256 header.s=mail20150812 header.b=BQF+2GpJ
+	dkim=pass (2048-bit key) header.d=baylibre.com header.i=@baylibre.com header.a=rsa-sha256 header.s=google header.b=pYPW3//C
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 0AF1310F787;
-	Tue, 17 Nov 2026 14:24:59 +0000 (UTC)
-Received: from mout-p-201.mailbox.org (mout-p-201.mailbox.org [80.241.56.171])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 69E8710E5F4;
- Tue, 17 Nov 2026 14:24:52 +0000 (UTC)
-Received: from smtp1.mailbox.org (smtp1.mailbox.org
- [IPv6:2001:67c:2050:b231:465::1])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519MLKEM768 server-signature RSA-PSS (4096 bits) server-digest
- SHA256) (No client certificate requested)
- by mout-p-201.mailbox.org (Postfix) with ESMTPS id 4jTRns31vLzMlX9;
- Tue, 17 Nov 2026 15:24:49 +0100 (CET)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=mailbox.org;
- s=mail20150812; 
- t=1794925489; h=from:from:reply-to:reply-to:subject:subject:date:date:
- message-id:message-id:to:to:cc:cc:mime-version:mime-version:
- content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references;
- bh=j/7cWyCVwtlpm6mypk4rCXgyNna2l4Z4486ikKJlJQ0=;
- b=BQF+2GpJRaXgNium9E8VjAlhLtGttDwOtJn86l7plSHuvFdBSEwPTimMwjghj2LNil0l10
- TuYVzGqQPS6UnQ+Cg2Y3mI4rhlHKSZ4G8KiVMBsydRvo5RW7aF62HjLm5UlOFy83AvT5b4
- i48nswb5pb1wSjJTOvENiz8b+gAdLY4SDI2KnnomXAQcgWkS8naTvwKk0a17A0TAl6lVOf
- z2r3BBm8/4sLTrjbKY8iqkPQmsOxCJqXXkFyqudcL2DBM4kJn0UD+S7IejCyB3nXPutrVP
- cUirGuS9k+S7AHWju6B4MSys8HM0NXfAeT7+gEOs50nB5yF9LkrzSRDbeN5wFQ==
-Message-ID: <f00ae38bcd0fafdacefe21b6ed96164d455301da.camel@mailbox.org>
-Subject: Re: [PATCH] drm/amdgpu: Harden against potential deadlock
-From: Philipp Stanner <phasta@mailbox.org>
-To: phasta@kernel.org, Christian =?ISO-8859-1?Q?K=F6nig?=	
- <christian.koenig@amd.com>, Felix Kuehling <felix.kuehling@amd.com>, Alex
- Deucher <alexander.deucher@amd.com>, David Airlie <airlied@gmail.com>,
- Simona Vetter	 <simona@ffwll.ch>, Sumit Semwal <sumit.semwal@linaro.org>
-Cc: amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org, 
- linux-kernel@vger.kernel.org, linux-media@vger.kernel.org
-Date: Tue, 17 Nov 2026 15:24:47 +0100
-In-Reply-To: <fd9cc070b3a4e28316ad2ffce942227e33974016.camel@mailbox.org>
-References: <20261026141541.469727-2-phasta@kernel.org>
- <bcd63af3-d2ce-488c-ab96-2b11536cd50c@amd.com>
- <1ed5c075-c66a-4144-b23b-a9d80e1fc2c1@amd.com>
- <fd9cc070b3a4e28316ad2ffce942227e33974016.camel@mailbox.org>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-User-Agent: Evolution 3.60.2 (3.60.2-3.fc44) 
+	by gabe.freedesktop.org (Postfix) with ESMTP id 9317A10E06A;
+	Tue, 17 Nov 2026 14:27:21 +0000 (UTC)
+Received: from mail-wr1-f48.google.com (mail-wr1-f48.google.com
+ [209.85.221.48])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 8A00C10E06A
+ for <dri-devel@lists.freedesktop.org>; Tue, 17 Nov 2026 14:27:15 +0000 (UTC)
+Received: by mail-wr1-f48.google.com with SMTP id
+ ffacd0b85a97d-491f34b4e0fso2094309f8f.2
+ for <dri-devel@lists.freedesktop.org>; Tue, 17 Nov 2026 06:27:15 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=baylibre.com; s=google; t=1794925634; x=1795530434;
+ darn=lists.freedesktop.org; 
+ h=content-transfer-encoding:content-type:in-reply-to:from
+ :content-language:references:cc:to:subject:user-agent:mime-version
+ :date:message-id:from:to:cc:subject:date:message-id:reply-to
+ :content-type; bh=wnAbz7Gl1f6zlRr2NWm/XchokgiwNgSv132i/6lKWwU=;
+ b=pYPW3//CAACG1KNyEkIgD13NRywGFq4XLVWJvbSqjeC3Er9JfFPANBnGpoawWtjigb
+ aOkw0RbmuDsSv3nPb/lI0AIsIlI0Z8aoNWQB5ph2FtGbya7fPxKGrLrl/+4HsOYoShAO
+ Iv+bLTjE2gpKiW2/J1IfLxUxgPAvnJvuPFi14QCwkAP7RXuHSgW2E2Bu0ahVYUlo+KQI
+ A14YPJy3puu8vLBr0KJHTY87oguzr/wJjo37GrGP7cCVSWF/oe/AZTf5tpQAndslT87L
+ kPaAbic2stTVawZuoyi0niULjA+WIXah0AIXRRmhPzttxiUMQKzoRiuJR1zYXSXPfV4e
+ T0eA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20260707; t=1794925634; x=1795530434;
+ h=content-transfer-encoding:content-type:in-reply-to:from
+ :content-language:references:cc:to:subject:user-agent:mime-version
+ :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+ :message-id:reply-to:content-type;
+ bh=wnAbz7Gl1f6zlRr2NWm/XchokgiwNgSv132i/6lKWwU=;
+ b=spEJFFmES+oTsm8cFi2L7nzciveg0vWj6Lc/0yNPp1ZjFxiafPuYLaQyLjbDmjIcrD
+ M5pvT7loX9uAUXTqy3CPflqRV8EwMfv6t3dEuF2dzMdfpjb7CJ/VlhQKdDaoxkHTuJ8u
+ 8WGBiclE4my7LTJHc5F48FuR5vXJS8exGeLKB605G6BjDFlS7+QLXoRuyxlC9edmTh2t
+ XMZUTS+S+VIUJ/5yMyQ/SwpETv7uh6EC1HC+Os//cD+sg5qViPjCKuM2PXAcBT07qvCX
+ hrxTTHCdtuedcdog6C4SEKTO2FCl5w72+aXPoeN34jQO6tX9s1QHOVTRxdtccvfB33Ej
+ N4eg==
+X-Gm-Message-State: APuU4Z8wVUrmQDjHHk6XjNyLufo0NUST3L+vIsdzOWVlWrBwvMC2dxCC
+ cTh6Hi0fRZuRYAadtU8rCqXQkJv7rRmCoFTr4hE+vhHc/seyOadG0Ug8TzTJJUhaB84=
+X-Gm-Gg: AZFdTZfVv2LdgGMOwSyyeS7ws+QVDhCKfEJ/D8vkXIeAQtkys/eIZDhFipXDIFXb1fT
+ 753tRTC9ejgtE9fv7ChZdFIPO52EgKDpTvJThKwtpepi5isMhPr5Aa576Z5qu2IjwDPvcVl1xW+
+ xqAWSSD+P+rxpYQz1hWYoc0AV5RIF/J/4aermcHQy0TzqYw0qp6EqyfAu+RHFJPDomlzZoPMCBT
+ eMoCLeyv529BZXR9sqvY8vLlTMyGrn3mWQt3OQ+6VFl+F9YFG0Zn70oUuAsL5BWcuk9KrRBH255
+ uvMfKvAE2RyR6KGFYZiUbl+t3X5Pmcrhi1m38wfEX5EwMU/Qgyq+rf3jqSbayGFC6f3ze3ophcA
+ Hk17zP7N/CudcnGqeLdosu3yec8JzTL68iJvPULM57k3PxMa0pe5Jz9616N1UFtYSDJ+XOKFoP4
+ vT/ujz2Ye6943V60bfdYM6xgrU4DArdjMH1LSFOFM6VoN6XtxHOOaJslj6ngvAyA0HOWU1g+Web
+ KY7SxyX6I6tNAm6ImP76z19K8yAujpl1nSxw8MmxTRe4731wUkTmmQQtebAzKpyvlBkj2moHa23
+ GOUzvDHulWjoX2XDRfOLHzbQx841V9ZC0b3+ieofLu3wVFjkfaAEog9W11di/XVyPXcgMQK1ZBr
+ H3Q==
+X-Received: by 2002:a05:6000:25c3:b0:491:4e13:fde5 with SMTP id
+ ffacd0b85a97d-49c6fc9e61bmr33439745f8f.8.1794925633802; 
+ Tue, 17 Nov 2026 06:27:13 -0800 (PST)
+Received: from ?IPV6:2001:8a0:d6cd:9000:86f4:4e71:9fc8:3183?
+ ([2001:8a0:d6cd:9000:86f4:4e71:9fc8:3183])
+ by smtp.gmail.com with ESMTPSA id
+ ffacd0b85a97d-49c5f77fc47sm28559146f8f.22.2026.11.17.06.27.12
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Tue, 17 Nov 2026 06:27:13 -0800 (PST)
+Message-ID: <c000f684-0989-4ac7-bd40-e6d224fe070b@baylibre.com>
+Date: Tue, 17 Nov 2026 14:27:12 +0000
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
-X-MBO-RS-META: zb3ge4x1gmw6augphdkpqbti7h9jdknf
-X-MBO-RS-ID: e7586474e1991a176c3
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] accel/rocket: fix ignored return value in
+ rocket_ioctl_submit
+To: Kartik Nair <contact.kartikn@gmail.com>, tomeu@tomeuvizoso.net,
+ ogabbay@kernel.org
+Cc: dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org
+References: <20260510200047.6117-1-contact.kartikn@gmail.com>
+Content-Language: en-US
+From: Daniel Drake <ddrake@baylibre.com>
+In-Reply-To: <20260510200047.6117-1-contact.kartikn@gmail.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -64,21 +89,42 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
-Reply-To: phasta@kernel.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-5.8 required=3.0 tests=BAYES_00,DKIM_SIGNED,
+X-Spam-Status: No, score=-7.3 required=3.0 tests=BAYES_00,DKIM_SIGNED,
 	DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
-	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS autolearn=no
-	autolearn_force=no version=4.0.1
+	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,USER_AGENT_SANE_1
+	autolearn=no autolearn_force=no version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-On Tue, 2026-10-27 at 14:18 +0100, Philipp Stanner wrote:
-> On Tue, 2026-10-27 at 12:51 +0100, Christian K=C3=B6nig wrote:
-> > I can take care and push the removal to amd-staging-drm-next when I
-> > find time.
+Hi,
 
-What's the state of this?
+On 10/05/2026 21:00, Kartik Nair wrote:
+> rocket_ioctl_submit() calls rocket_ioctl_submit_job() in a loop but
+> ignores its return value. If any job submission fails, the error is
+> silently dropped and the function returns 0 (success) to userspace,
+> leaving subsequent jobs potentially in an inconsistent state.
+> 
+> Fix this by propagating the error and breaking out of the loop on
+> the first failure.
 
+There's definitely a bug in there, but this approach is just replacing 
+one incorrect behaviour with another.
 
-P.
+After your change if there is an -EINTR generated from within the job 
+submission, this will cause drmIoctl to retry the exact same job 
+sequence, likely causing parts of the sequence to be repeated, possibly 
+with negative consequences.
+
+And on other error paths that would be bubbled up by your change, 
+userspace won't be able to know which parts of the sequence ran vs failed.
+
+I think we need a deeper change here. Is it possible to fully prepare 
+and arm the whole job list first, without executing yet, returning an 
+error code if anything goes wrong in the process?
+
+Then the execution of the job list could happen as a second stage, 
+hopefully without any possibility of failure.
+
+Daniel
+
