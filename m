@@ -2,85 +2,87 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DA84A606A31C
-	for <dri-devel@archiver.kernel.org>; Tue, 17 Nov 2026 16:35:25 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 39EEA606A32A
+	for <dri-devel@archiver.kernel.org>; Tue, 17 Nov 2026 16:35:55 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=baylibre.com header.i=@baylibre.com header.a=rsa-sha256 header.s=google header.b=a+9hWyxG
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=uVV/Y3Ow
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 499A110E644;
-	Tue, 17 Nov 2026 16:35:20 +0000 (UTC)
-Received: from mail-wm1-f44.google.com (mail-wm1-f44.google.com
- [209.85.128.44])
- by gabe.freedesktop.org (Postfix) with ESMTPS id F06D610E644
- for <dri-devel@lists.freedesktop.org>; Tue, 17 Nov 2026 16:35:13 +0000 (UTC)
-Received: by mail-wm1-f44.google.com with SMTP id
- 5b1f17b1804b1-4a9a8d6cea8so15167135e9.1
- for <dri-devel@lists.freedesktop.org>; Tue, 17 Nov 2026 08:35:13 -0800 (PST)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 9B92D10F53D;
+	Tue, 17 Nov 2026 16:35:49 +0000 (UTC)
+Received: from mail-wm1-f52.google.com (mail-wm1-f52.google.com
+ [209.85.128.52])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 10D4910F626
+ for <dri-devel@lists.freedesktop.org>; Tue, 17 Nov 2026 16:35:44 +0000 (UTC)
+Received: by mail-wm1-f52.google.com with SMTP id
+ 5b1f17b1804b1-4b79502c27aso581185e9.1
+ for <dri-devel@lists.freedesktop.org>; Tue, 17 Nov 2026 08:35:43 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=baylibre.com; s=google; t=1794933312; x=1795538112;
- darn=lists.freedesktop.org; 
- h=content-transfer-encoding:content-type:in-reply-to:from
- :content-language:references:cc:to:subject:user-agent:mime-version
- :date:message-id:from:to:cc:subject:date:message-id:reply-to
- :content-type; bh=Z8CIfRuBE0dh3C1ZRhqXdDSEMv+0cdiVuIl1a6bMpog=;
- b=a+9hWyxGeRZz0ZEJ9gpUXzL+wvarGVyfIyRBjDO6NZRpOwRr/BRqxxLO6sk6xgVeW+
- VOP6YA8K7p8cmutTvoAXh+Ul5iXo0FE17eFAhK1MTfmriAPzfS4bMrPQmgWxM9ZEX0T3
- Hw/yMHon6EJPr0xcmCpZMCsVx520MWS07h80Y9gl1zq1KIu0Vg4oyuJHr2SxU62LR+JH
- xvF0/LnfuYRVbK12XPR+hzgc7qem/vjRuFKtzKGzCixHcZh+kv6R0Sp4mrnK+3eWWT7l
- MLnyLaMikpP3dynBAyYbasJNAqMrjKV8Ob2ImEPxdXtsJEj4WxNp2TqYrXeh5T4qOZOr
- bEEA==
+ d=gmail.com; s=20260707; t=1794933342; x=1795538142; darn=lists.freedesktop.org;
+ h=content-type:content-transfer-encoding:mime-version:references
+ :in-reply-to:message-id:date:subject:cc:to:from:from:to:cc:subject
+ :date:message-id:reply-to:content-type;
+ bh=XOOROMKIPXr3CQSNIxjA9uq5C/f3wnb7r92RzJgi0oU=;
+ b=uVV/Y3OwmsI5C/LweBhA6/s94lowqznfolphA8KDzedwrcwWp7cMNrvdjKrESbiXjC
+ XHZgf4hde0xvi/3HPCC4uHXn0v9wnvfyGMDMuw+PUvy2XS51aaeT3duzjrc2w91LiiqG
+ IeMjZatHHf7GNPO0obNDM3l/VW66XcqwIhFA59hNi/B+Hl8KTDXBzUUH+GcUbiE5Kaa5
+ msjqX+77oRh3PVahO1DmrQt3Ln6f+IejnGt5+2HsV8gND58yDhUYLZGz/cUKfDT3J+kf
+ kCU/sthvxit0r8wy/sN0yCTAuDbAnWaisidACzHBz7VzZrHqcfcuucOed4rc7yWD8fvb
+ ukQA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20260707; t=1794933312; x=1795538112;
- h=content-transfer-encoding:content-type:in-reply-to:from
- :content-language:references:cc:to:subject:user-agent:mime-version
- :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
- :message-id:reply-to:content-type;
- bh=Z8CIfRuBE0dh3C1ZRhqXdDSEMv+0cdiVuIl1a6bMpog=;
- b=i4fyqniSb3qyttgLvq5mlUmbJXlUkvXdEFmB82srVbmE0aLb0BwzK65mJNkTEyOKZo
- KItNR5jL4xI0K3K3VmZzInu2Q/gOP5q5/aeGkwzmjF7HGAvThNQaGkXqzDvjWZkHEoBI
- pi5zaEeMwJ/XYtHCKV0iHfxw9JCL/R3PqN+10uyTUGRjwaXhUca6ZRmw+RJvboRJzJzO
- +5JErWkPcq146i2l2F8rnGnzKlj7S2IpD2rr5lmrDjU0mWjm0/+zLQ2Q62olmxjv3fPf
- TXjWAsuqA5sJnkG/zNeeXt1Ml5X7EjJPhAEhECD7biRGX+2r5Qnt3Pa/Bhsui3ndWaHZ
- et7A==
+ d=1e100.net; s=20260707; t=1794933342; x=1795538142;
+ h=content-type:content-transfer-encoding:mime-version:references
+ :in-reply-to:message-id:date:subject:cc:to:from:x-gm-gg
+ :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+ :content-type;
+ bh=XOOROMKIPXr3CQSNIxjA9uq5C/f3wnb7r92RzJgi0oU=;
+ b=0KiwHN8OPUIza5bagyu9QSGesyyxLoIF20KoDjmqnAAFaBV1zd+D/jmoIl1rUMWFVI
+ 0270lw3BrczxA6mGWSBnKPZdV5513xCwXdFtb4zaO9aGdRlmY0j7/JbnQuSt/0yAVU1o
+ BgCfhlLT2Kg213YeK7tBPmvto2ovsnH7OIwVwFK9UG7+BOCqX3UxSxxqbdhqXkBb+n4e
+ H7u8z+AjvzdIK3JksjjUAOlsoKBz7C+TE/heJs0PqdzF8oU7/503/SQOZJ/FybRt9Os8
+ VFr6lGVBvXNjt4SpNnNjX4HGghsdwg4Sw9vCCus09ylVg1HVcyvkzmRNXjUWWKbdZGQW
+ HbAA==
 X-Forwarded-Encrypted: i=1;
- AL+hErHkF8mAxIhSgFuy2f0X1eEUvu+GuZ7VKP3/gR+3FW/L8KAAbrL3tCPJ7ewY6gJFKM+bXdt45PZy4CU=@lists.freedesktop.org
-X-Gm-Message-State: APuU4Z/NF3fs7xdFgG088JfoZGNndR5+ws75jdJn8guQ5V0Gdtg1kcr6
- RJeUBsFvd1e0BxUvv+nzA9n7baKXEn4yNK61LSLHkuHBvvNVi0cwfGoI+dieEXtLcV4=
-X-Gm-Gg: AYBFou1FmEWaX1todEcKDfi7LBQ+hwtZYNHAIzqxoryN2jEMD1STjuj4zjQ/HFKKXf9
- BXoCZjwX9OO+tVU++cxAWv2AcdgDZmcfSccsGPvM1zyqdcXcc0ixClpVcS9kEGf5QCr7vqzvcwA
- QM7Bg33AXC5dfLzaBwdS9qIiHy5ZgKH6929LDfD7dz913EF2xRLxiJ/u7SPQLfzhQj9JCzOoFPt
- 1xIcr0a7DVr2XrcQgB8I2RJEbsmoy7tcLMZKGlsoRqaeFeNQetE7x9lyAERaUd7U/LzBfy2PyRa
- 3oSueMZVWrrxaj2ltoiZnfllWKa68v8A72AbQ/liuxW72NfOogFM2QYS6dxWfIzmzRaiww9vrGw
- hzZHwAHWWky3BmJ/7LHLHFb5+q57eWnRXa/7pHZH8UByrndu7qBPwBzE5utos8CQ8VLv21GKeVW
- YwDlvMZIhlTuvI1KeEbFGudqfzfxJQILBO9a6/00xbVeVEJbsKTgDshERWil3l/HRAREdLPqE03
- G2naGe4s08euCNaxG2+fgv50R+jhH3uJIxXT7n3P2zqs/s2/npGNZh1bDFvYsHe+0l8mGHcpBAy
- 4NpQX8LIh9xDlokvdLrQc0gV3So3Msj/1sAROxph9BhF2s5UfXO9MiBpHslt504JiR4hM2lf0CY
- EBg==
-X-Received: by 2002:a05:600c:4513:b0:4bb:687c:4fbe with SMTP id
- 5b1f17b1804b1-4bb7837c4e5mr72201605e9.8.1794933312192; 
- Tue, 17 Nov 2026 08:35:12 -0800 (PST)
-Received: from ?IPV6:2001:8a0:d6cd:9000:86f4:4e71:9fc8:3183?
- ([2001:8a0:d6cd:9000:86f4:4e71:9fc8:3183])
- by smtp.gmail.com with ESMTPSA id
- 5b1f17b1804b1-4bb7838c6a7sm71536475e9.5.2026.11.17.08.35.10
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Tue, 17 Nov 2026 08:35:11 -0800 (PST)
-Message-ID: <9429350a-4c59-419c-80da-7f6d3768cfce@baylibre.com>
-Date: Tue, 17 Nov 2026 16:35:10 +0000
+ AL+hErGXU+RNinggj015llYUn1kdmR5ZUC5KQPlHjKfBVhLwuL2Dqxp4BPmDqOj1ZGXUed2hQQgnkwY6STk=@lists.freedesktop.org
+X-Gm-Message-State: APuU4Z9MVMieJ8T5oZJV3qJnubUxXLJJqOOcvRmsfrk+viJMABOvBUHI
+ 52SUFip6z3i/OqDujpynckRwN9Z8Y4thIPZ1RBZLGmfL4sk9YezGdCbf
+X-Gm-Gg: AYBFou0a1VxEvS4HoWDcm0xZSEaEtqIkpHm8pK0X0xGO73K3XOz+31/EDXm9WzQpIRE
+ JmnTa0gDLWKZdQotJICgUyF++nf99bpZN9wA9SlvrCYgTFN9wd1Q8BYLtPbBjJb9rdxKjgBhpaV
+ r23zwAXUrTqjRpelIFMJTJ9FL03F1UN9Z2I86oCJHzAdwXoRaCK8Lw3VJb+nzL5XH83CmuXGCmT
+ P41tYuZQd3EzlxOM4+1QAaVBoZGJU3H38UqFwThulJMl2WMpdVnj+8qCzXPhPzrpK5CkM/+NdsN
+ bP+CWl3TpsuCvg3S3Z9pWTccs4EoZ+TSXSnlk2H/h0V1ktHDFCQLiKOHvojrbro4LZ2sHxKtHP+
+ wg9yGNB+l40FyYfajv51TFcRjuXWRzX8LeCJebW1AipVZ20YYM8FxQLLbqMuNGZvXSOX5EGVLl/
+ J/xlmf6EhUtLW3lxFqmUTsAJ5YgSObB2CmvefLPr/85a9FNK6kDen5KOdjWXvtPGgBGlGLiG022
+ 5bv/cPYSdb39ydMwhBC5M6y1STf6Cra56KWt/HRCwljZDbcUyWZWd6mKG98sp44CDdjjsYv6EJN
+ nliRUTwPN+gsr52VD7Zly0cp/ny6H6Pm5rE3nnDFXU+8ZG7sr/hWb+hyBtDM0MNpTWJZ6t4DMpW
+ JjxPPqOkEt0Gw/DdTg0woiOFImYQqntD99U7W60XzbgHAGbpBT7PwNby3tIu3Y4AYuZJW18TlNn
+ DOhuRYXsn3alQg0GyNZpVV/STeUswmJNa6pYHQAKydSosOjhn4mpRKHLkNpZn3ddNkgTb3MTg61
+ agPy7eoWXw94qStJbLibN8goUv+V/Rp5ykI7PAGufL2uvGem+zSEG3h/ss=
+X-Received: by 2002:a05:600c:620a:b0:4bb:6991:2330 with SMTP id
+ 5b1f17b1804b1-4bb69912526mr176343095e9.22.1794933342249; 
+ Tue, 17 Nov 2026 08:35:42 -0800 (PST)
+Received: from jernej-laptop.localnet (95-143-148-21.dynamic.telemach.net.
+ [95.143.148.21]) by smtp.gmail.com with ESMTPSA id
+ ffacd0b85a97d-49c69406640sm28919970f8f.12.2026.11.17.08.35.41
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Tue, 17 Nov 2026 08:35:41 -0800 (PST)
+From: Jernej =?UTF-8?B?xaBrcmFiZWM=?= <jernej.skrabec@gmail.com>
+To: Chen-Yu Tsai <wens@kernel.org>, linux-sunxi@lists.linux.dev
+Cc: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
+ Simona Vetter <simona@ffwll.ch>, Samuel Holland <samuel@sholland.org>,
+ dri-devel@lists.freedesktop.org, linux-arm-kernel@lists.infradead.org,
+ linux-sunxi@lists.linux.dev, linux-kernel@vger.kernel.org,
+ Yang Siyuan <hsyysy@163.com>
+Subject: Re: [PATCH RESEND] drm/sun4i: report coverage pixel blending for
+ alpha-capable planes
+Date: Tue, 17 Nov 2026 17:35:40 +0100
+Message-ID: <VyjYt3XHQ3e42-zx5UUDfg@gmail.com>
+In-Reply-To: <20261117091932.12063-1-hsyysy@163.com>
+References: <20261117091932.12063-1-hsyysy@163.com>
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 0/2] accel/rocket: Fix NULL deref and double-free in job
- submit error path
-To: D D <dhabal123@gmail.com>, Tomeu Vizoso <tomeu@tomeuvizoso.net>
-Cc: simona@ffwll.ch, airlied@gmail.com, dri-devel@lists.freedesktop.org,
- linux-kernel@vger.kernel.org
-References: <CA+g3TbucTCsgvGaywNqyZdh5g-889zK06WZ57Mpxm1qOpgYTfA@mail.gmail.com>
-Content-Language: en-US
-From: Daniel Drake <ddrake@baylibre.com>
-In-Reply-To: <CA+g3TbucTCsgvGaywNqyZdh5g-889zK06WZ57Mpxm1qOpgYTfA@mail.gmail.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset="utf-8"
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -92,37 +94,117 @@ List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-7.3 required=3.0 tests=BAYES_00,DKIM_SIGNED,
-	DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
-	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,USER_AGENT_SANE_1
-	autolearn=no autolearn_force=no version=4.0.1
+X-Spam-Status: No, score=-12.8 required=3.0 tests=BAYES_00,DKIM_SIGNED,
+	DKIM_VALID,DKIM_VALID_AU,FREEMAIL_FORGED_FROMDOMAIN,FREEMAIL_FROM,
+	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
+	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS autolearn=unavailable
+	autolearn_force=no version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-Hi,
+Dne torek, 17. november 2026 ob 10:19:32 Srednjeevropski standardni =C4=8Da=
+s je Yang Siyuan napisal(a):
+> Linux 7.3 added validate_blend_mode_for_alpha_formats(), which warns once
+> per plane that exposes a pixel format with an alpha channel but has no
+> blend mode property:
+>=20
+>   sun4i-drm display-engine: [drm] [PLANE:35:plane-0] pixel format with
+>   alpha exposed but blend mode not setup. Please fix.
+>=20
+> The mixer blends a layer using its own alpha channel: ALPHA_MODE is set
+> to PIXEL when plane alpha is opaque and to COMBINED otherwise, while
+> BLEND_PREMULTIPLY keeps its reset value. That is straight alpha, i.e. the
+> DRM "coverage" blending equation.
+>=20
+> Advertise exactly DRM_MODE_BLEND_COVERAGE on every layer that can expose
+> an alpha format (UI always, VI on DE3 and later). This matches the
+> existing register programming, keeps userspace behaviour unchanged and
+> satisfies the new validation. Premultiplied blending would require
+> driving BLEND_PREMULTIPLY and is left as a follow-up.
 
-On 27/05/2026 15:33, D D wrote:
-> Hi Tomeu,
-> 
-> Two bugs in the job submission error path in rocket_job.c:
-> 
-> 1) rocket_job_cleanup() unconditionally calls
->     rocket_iommu_domain_put(job->domain), but job->domain is only
->     assigned after all fallible operations in
->     rocket_ioctl_submit_job(). On early failure, job->domain is NULL,
->     causing a NULL pointer dereference.
-> 
-> 2) rocket_copy_tasks() frees rjob->tasks on its error path but does
->     not NULL the pointer. rocket_job_cleanup() frees it again,
->     resulting in a double-free.
-Please read the kernel docs on submitting patches, you cannot submit 
-them as attachments.
+The subject says drm/sun4i, but the DE1 backend planes (sun4i_layer.c)
+also expose ARGB8888/ARGB4444/ARGB1555 without a blend mode property, so
+A10/A20/A31/A33 still trigger the warning. Either handle them in a separate
+patch or say in the commit message that this one only covers the DE2+
+mixer.
 
-You also need to rewrite the commit messages to be easily readable by 
-overloaded kernel maintainers. If you are including 10+ 
-function/variable names in a single paragraph, or translating C code 
-into English, it is a sign the commit message is not useful.
+>=20
+> Fixes: 860e748bddcc ("drm: ensure blend mode supported if pixel format wi=
+th alpha exposed")
 
-Thanks
-Daniel
+This is incorrect. That patch only added general check. Drop the tag.
+
+> Signed-off-by: Yang Siyuan <hsyysy@163.com>
+> ---
+>  drivers/gpu/drm/sun4i/sun8i_ui_layer.c | 13 +++++++++++++
+>  drivers/gpu/drm/sun4i/sun8i_vi_layer.c | 14 ++++++++++++++
+>  2 files changed, 27 insertions(+)
+>=20
+> diff --git a/drivers/gpu/drm/sun4i/sun8i_ui_layer.c b/drivers/gpu/drm/sun=
+4i/sun8i_ui_layer.c
+> index 7d894e1eb..ef059ac47 100644
+> --- a/drivers/gpu/drm/sun4i/sun8i_ui_layer.c
+> +++ b/drivers/gpu/drm/sun4i/sun8i_ui_layer.c
+> @@ -283,6 +283,19 @@ struct sun8i_layer *sun8i_ui_layer_init_one(struct d=
+rm_device *drm,
+>  		return ERR_PTR(ret);
+>  	}
+> =20
+> +	/*
+> +	 * The mixer blends the layer using its own alpha channel with the
+> +	 * pixels not premultiplied (BLEND_PREMULTIPLY keeps its reset value),
+> +	 * which is the DRM "coverage" equation. Report it so that the blend
+> +	 * mode validation in drm_mode_config_validate() is satisfied.
+> +	 */
+
+Above comment doesn't add much value.
+
+> +	ret =3D drm_plane_create_blend_mode_property(&layer->plane,
+> +						   BIT(DRM_MODE_BLEND_COVERAGE));
+> +	if (ret) {
+> +		dev_err(drm->dev, "Couldn't add blend mode property\n");
+> +		return ERR_PTR(ret);
+> +	}
+> +
+>  	ret =3D drm_plane_create_zpos_property(&layer->plane, index,
+>  					     0, plane_cnt - 1);
+>  	if (ret) {
+> diff --git a/drivers/gpu/drm/sun4i/sun8i_vi_layer.c b/drivers/gpu/drm/sun=
+4i/sun8i_vi_layer.c
+> index 92dd5a97f..b6771576b 100644
+> --- a/drivers/gpu/drm/sun4i/sun8i_vi_layer.c
+> +++ b/drivers/gpu/drm/sun4i/sun8i_vi_layer.c
+> @@ -470,6 +470,20 @@ struct sun8i_layer *sun8i_vi_layer_init_one(struct d=
+rm_device *drm,
+>  		}
+>  	}
+> =20
+> +	/*
+> +	 * Only DE3 and later expose pixel formats with an alpha channel, and
+> +	 * the mixer blends them with straight alpha (coverage), same as the UI
+> +	 * layer.
+> +	 */
+
+And neither this.
+
+Best regards,
+Jernej
+
+> +	if (layer->cfg->de_type >=3D SUN8I_MIXER_DE3) {
+> +		ret =3D drm_plane_create_blend_mode_property(&layer->plane,
+> +							   BIT(DRM_MODE_BLEND_COVERAGE));
+> +		if (ret) {
+> +			dev_err(drm->dev, "Couldn't add blend mode property\n");
+> +			return ERR_PTR(ret);
+> +		}
+> +	}
+> +
+>  	ret =3D drm_plane_create_zpos_property(&layer->plane, index,
+>  					     0, plane_cnt - 1);
+>  	if (ret) {
+> base-commit: 091b06388b117fefdcb63336ac09956a4914b961
+>=20
+
+
+
 
