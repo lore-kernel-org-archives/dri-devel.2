@@ -2,65 +2,64 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 674F2606A320
-	for <dri-devel@archiver.kernel.org>; Wed, 18 Nov 2026 13:47:19 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4C802606A31C
+	for <dri-devel@archiver.kernel.org>; Wed, 18 Nov 2026 13:47:20 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=BDOqwFEh
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=ighClSv2
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 7C58810FC59;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 8EDF910FCB9;
 	Wed, 18 Nov 2026 13:47:09 +0000 (UTC)
-Received: from mail-wm1-f47.google.com (mail-wm1-f47.google.com
- [209.85.128.47])
- by gabe.freedesktop.org (Postfix) with ESMTPS id A197410F6A0
- for <dri-devel@lists.freedesktop.org>; Tue, 17 Nov 2026 12:39:53 +0000 (UTC)
-Received: by mail-wm1-f47.google.com with SMTP id
- 5b1f17b1804b1-4bb72b44a97so14304595e9.0
- for <dri-devel@lists.freedesktop.org>; Tue, 17 Nov 2026 04:39:53 -0800 (PST)
+Received: from mail-wm1-f53.google.com (mail-wm1-f53.google.com
+ [209.85.128.53])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id D188910E5C4
+ for <dri-devel@lists.freedesktop.org>; Tue, 17 Nov 2026 12:39:50 +0000 (UTC)
+Received: by mail-wm1-f53.google.com with SMTP id
+ 5b1f17b1804b1-4ac95761c85so30978575e9.2
+ for <dri-devel@lists.freedesktop.org>; Tue, 17 Nov 2026 04:39:50 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20260707; t=1794919192; x=1795523992; darn=lists.freedesktop.org;
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:date:subject:cc:to:from:from:to:cc:subject:date
- :message-id:reply-to:content-type;
- bh=nJ5hpYg4Cc8VUEITkJRPygPQ3lscK1+CbDfUcnWlRxY=;
- b=BDOqwFEhS5D6W9/Rz6eoVNK79WIRh0wo53t/PGuT0mKCUXPE1CTXl9cmfRxAQHarxh
- jAicXBcfKY2arVDObln7RqH3GLtb6wizV+pMh3jcYBDTrZyi7FloD+M3iEB9RJUn0tAX
- mSPiPHAfQa5U7WfSoLpAJjOMrffr/DXBqTB5hzzyUS+3HlPb5EmQLOjUMAndFwcFkPDu
- VvrYXO7O8+ai4jE33dizIQsLYgZWGMt34PxkXmBiYSqFXeMvQhm4f5e14ToTIXxfFIZu
- 5HdH0+0g2lEIPSWvph6cetEUkOLIx2Dv4boCio/nxoWAOL35bEVxebJlXMKPtuhUKZdL
- DSZw==
+ d=gmail.com; s=20260707; t=1794919189; x=1795523989; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+ bh=Yf/7M/nDCTW8ZFPsGSaUmFFI3kKEtiDdHsd3kIU7HVk=;
+ b=ighClSv2euIbB1P2LDsf7Mu3kMs+1JrEtAFBnKwHfnVX4cvnmmqvqtQqNyiUmpZvSE
+ tBbv3POuKfsDl9j+Ag/KqJOeC1XHpsj/CCdzil7CDFcfa2D3NF6CrFhpCsLp4T76XSyW
+ aUZK28h8jOv2ED20+yW5rFMujr/P1ihNVsJXq7mwR65ym10uonXDcezTQG9Bx0y5PBez
+ WaBBQhgAp2FrIj81l9Qq6A5sp0+fk2j1NMnb5lDEJFc0OzYy6wDtqaIEEb9/jGEjvEq9
+ Od+NuaospErqcrKEkeuPx2311b+6lWkt6V1LAmMaD5RB3pf/kOyr984GOxXVg2BrRDZ2
+ anpw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20260707; t=1794919192; x=1795523992;
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
- :to:cc:subject:date:message-id:reply-to:content-type;
- bh=nJ5hpYg4Cc8VUEITkJRPygPQ3lscK1+CbDfUcnWlRxY=;
- b=Ql6Pb16dbf1DMUH+s3GDTtYGIOzGvp/QJgFntsPr9PWn1UO7wPaN4ZM2EUJr2E6WyT
- nNFt9gZBEmwB2luqQB1QeaAnlFKbEDLn8hPbI6WXQQOQJwfmtZDzuJKWHCK841sPY8BJ
- RNNt0Zcc3GLSj+9ZMeVsfJnSOIIzS8FqXcUgm/Oxk1XhAu6leIzLz+0ztovYj3D9JXl+
- mnbu+UCUCzpyCF82y8/IkBwHn7P7XFXnaoKx8SFR7nCj4Q+eqImuaUkKjRaFCo8Pr6Y5
- deyeSrasjSK5SS1bqlvTl6XGc1g7MxlZ09F+eur33DaFPsOQ9XgPaisNkjo4bjWM/YIz
- gAMA==
+ d=1e100.net; s=20260707; t=1794919189; x=1795523989;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+ :message-id:reply-to:content-type;
+ bh=Yf/7M/nDCTW8ZFPsGSaUmFFI3kKEtiDdHsd3kIU7HVk=;
+ b=oGM4e0xpZTix0d3xvDqwAfbtd+aA3Y8h5Uh8G8oAJhkGS2AkTC5l89mfh/xJN5oMxx
+ /zRDgwhWvyd2TG0e+MUBYMqboAqeOsVHdla/Ag8jUl+un6b8svKhBlO3EBQhoX+ZbzoR
+ 8sVWmyd2DpxvZsiqLjhfbrvoJhS3e/KN3J0OnqSS5kNXcbr5+TIwGdra7NhHSNnFlmEt
+ 7s8a7SLIwDnxJ3fV5vAkJbGjyyqvzg+hHde9qdF5mZ5l1hrxJORHQRpTtoNCJ6alYfIP
+ O7tGGXtuXm00xmYImqKuk04bLl1cwu92/Krn8PppJcshqFtIzQiCOpBU+UGwBfX1G5i1
+ FPpQ==
 X-Forwarded-Encrypted: i=1;
- AL+hErHN7jUTISFRZ5xBZKnrJOJERCzsS8CLVkPly+kknEvmQsd6ACikFdxzqa6/yw1AtGr+BcrQ3B/7QMA=@lists.freedesktop.org
-X-Gm-Message-State: APuU4Z+tKRl+/yQxtBkk92svky0re7D4X45ZPLoSEENFdFMKJo4Mzuc6
- qsnhi6D7UnhSQGqIQJ7P45Hek9S4oBs/q3nIRcIeAq6gdbeIPvgQSDQL2yXYAg3CXXTApg==
-X-Gm-Gg: AYBFou35Cg9oxCsDuaVt0+5/FM6pvYpVIg4JMGpI4f3PdERWfzdNJWtR4mV6ma/ScR9
- IIIJdM440ZuwVlNQwB9JfecS/3HWVV51l+OineP+SkfN9Fnvy8Y7O5s5a+3aW9Qyx0I0hKNekEP
- gM/kz1FGnFW8NH0xO3L/4kT//Vt3yhB3MoqjBtXnFniBmVAnCnYBbv6dhNf00NLTOf2wYCX4DiW
- nyZ9BQgB/iqqjaya/SVDbXaAUTF75ISn3ZYMpMhCQhXf3GeIJpkAG1u/QGytQTR1sveT7GKumLS
- 9GnMPnUJM+dlwXTZsj9zRkxAfYB9c2gm4EQ+Xg3DbMb+epa0ddUb5ooRt6nwcW6MBgzkxXH0aCa
- mnYf5myCROTyVyQvUPHb+9PQijpr/MTiF50VByL1SfxjD4LzCAiGhS7QUMGGXI+Lzl/6tGPMR3S
- sBR0cTYDnCE03yYFKYtL8fOykBeuRZQWipfGY86z6mSjpKm2KuF6wsIue9zOwHQisvZm7fxIE9q
- RNWmsOkrAl+2LvcU1k4EoJetfiTUwSZsZOGEHixrW8Kiz7RFjGXjdZRbC7pWkIJHoroC6ENM6ux
- SLPIMs6k+D2R/xgG//F4Z6+P2j24v4Jx4HNB6IP6lGoEn/jqKF5QHXzkf1pE7bbM0HsJZA==
-X-Received: by 2002:a05:600c:6096:b0:4bb:5de1:e923 with SMTP id
- 5b1f17b1804b1-4bb5de1f26dmr222829735e9.4.1794919191912; 
- Tue, 17 Nov 2026 04:39:51 -0800 (PST)
+ AL+hErH7kjWcj1uZ6hvLmqMoIB/cV4EC+IxJTVtOhmIwi31CPToVyzPD9tWvhwwQOHLsz26jwjuzWnjQdiU=@lists.freedesktop.org
+X-Gm-Message-State: APuU4Z8Q7grQbDft80ZPDIaAzSFowqqMLgYTY3em6zfBhwuKaRrxyA+1
+ Dz61b6D+N/LNqBCwCytx8o/ljGYUXhAqIKSsD//TLt6C6CPLWcA7RJcV
+X-Gm-Gg: AYBFou2iQhoNO15zTYZg3TMp6x6h1V82OHsraTC7A88l46+pIQPjW5TrH0Pgy4Ft1BX
+ fMT37Zk1/FEy6irHkENVlwO2dObrFa4KKJpMdx+T/eMBJRE8k7UPTTXekmbA5GDY+2Bi0CpU6wv
+ rYgksUDJpGhoR53XS6ECuHn40fnoYEg1VDnNmZ+CCPhThW4F9aPZ2VIo7uO/eZt6psPhOubad6s
+ dtYaQ/tFU6VxviNliW1SJviKXKUx59fjQs677ZQbO5Sbd5j98gCgzeWuDPoEy5oShda9D9yci3w
+ gfV2edWhpkUm/wzZY56gNoGgetx+oU0cemGsMU3J/iGKwNc8lbH8dWLaAAP/5ltn2tt2s71uqf/
+ ZSc0Amo/G7t5bVa38PRXDfmIc6CTGjxWQrnsdHPpdeBAUQlL8jTttzEq6NiczX/X6k+d7Yuzgwi
+ rvcvFjqxICKaQvcC0Q1718bqq+H3NCqR3xbLjjBX8A4zFDkIJeglbRVXwEQehwQqvNGRSbLAqyb
+ xHliq0lBwQN1r5P7zZqLviBgegs0dUEux9hOn4XnPgyl+BdTfIX07niA81JGuMwv8hjMORysx3Q
+ nR2zqPtmU6uQ9Vsryl6DiwgUfG6CdSr9N0Tid1+SGiSzFpHM5dvrcz9y/KIq/fSHWnqkDw==
+X-Received: by 2002:a05:600c:1c0e:b0:4bb:6f45:2a79 with SMTP id
+ 5b1f17b1804b1-4bb6f452d4fmr166096475e9.22.1794919188928; 
+ Tue, 17 Nov 2026 04:39:48 -0800 (PST)
 Received: from DESKTOP-BJ3EVC4.lan (94-21-223-203.pool.digikabel.hu.
  [94.21.223.203]) by smtp.gmail.com with ESMTPSA id
- 5b1f17b1804b1-4bb783f8154sm71474905e9.4.2026.11.17.04.39.51
+ 5b1f17b1804b1-4bb783f8154sm71474905e9.4.2026.11.17.04.39.47
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Tue, 17 Nov 2026 04:39:51 -0800 (PST)
+ Tue, 17 Nov 2026 04:39:47 -0800 (PST)
 From: rofikkerneldev <rofikcoga@gmail.com>
 To: linux-arm-msm@vger.kernel.org
 Cc: devicetree@vger.kernel.org, dri-devel@lists.freedesktop.org,
@@ -72,17 +71,15 @@ Cc: devicetree@vger.kernel.org, dri-devel@lists.freedesktop.org,
  Neil Armstrong <neil.armstrong@linaro.org>,
  Dmitry Torokhov <dmitry.torokhov@gmail.com>,
  rofikkerneldev <rofikcoga@gmail.com>
-Subject: [PATCH v1 03/11] arm64: dts: qcom: sm8250-lge-timelm: add reserved
- memory regions
-Date: Tue, 17 Nov 2026 13:39:38 +0100
-Message-Id: <20261117123946.668557-4-rofikcoga@gmail.com>
+Subject: [PATCH v1 00/11] arm64: qcom: Add initial support for LG V60 ThinQ 5G
+ (timelm)
+Date: Tue, 17 Nov 2026 13:39:35 +0100
+Message-Id: <20261117123946.668557-1-rofikcoga@gmail.com>
 X-Mailer: git-send-email 2.39.5
-In-Reply-To: <20261117123946.668557-1-rofikcoga@gmail.com>
-References: <20261117123946.668557-1-rofikcoga@gmail.com>
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-X-Mailman-Approved-At: Wed, 18 Nov 2026 13:47:08 +0000
+X-Mailman-Approved-At: Wed, 18 Nov 2026 13:47:07 +0000
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -94,56 +91,68 @@ List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-15.8 required=3.0 tests=BAYES_00,DKIM_SIGNED,
+X-Spam-Status: No, score=-20.8 required=3.0 tests=BAYES_00,DKIM_SIGNED,
 	DKIM_VALID,DKIM_VALID_AU,FREEMAIL_FORGED_FROMDOMAIN,FREEMAIL_FROM,
 	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
-	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,USER_AGENT_GIT
-	autolearn=unavailable autolearn_force=no version=4.0.1
+	MAILING_LIST_MULTI,MENTIONS_GIT_HOSTING,SPF_HELO_NONE,SPF_PASS,
+	USER_AGENT_GIT autolearn=unavailable autolearn_force=no version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-Reserve the XBL/UEFI log and DFPS data regions used by the firmware.
-Keep these regions protected from kernel reuse.
+This series adds initial mainline support for the LG V60 ThinQ 5G (timelm),
+an SM8250-based flagship smartphone released in 2020.
+
+The series enables:
+- DT binding and SoC board description for LG V60 ThinQ 5G (timelm)
+- Memory reservations for bootloader and firmware log regions
+- DRM panel driver and binding for the 1080x2460 SW43103 AMOLED display
+- Touchscreen driver and binding for the Silicon Works SW42902 controller
+- USB Type-C TCPM sink mode on PM8150B
+- Bluetooth HCI on GENI UART6 with QCA6390 power sequencing
+- Storage (UFS), SD card, volume keys, and thermal management
+- Entries in MAINTAINERS for timelm platform, panel, and touchscreen
+
+All patches pass checkpatch.pl --strict with 0 errors and 0 warnings,
+and the device tree builds cleanly against Linux 7.4-rc3.
+
+The series is also available on GitHub:
+https://github.com/rofikkerneldev/linux_timelm/tree/timelm-v74-stage1
 
 Signed-off-by: rofikkerneldev <rofikcoga@gmail.com>
----
- arch/arm64/boot/dts/qcom/sm8250-lge-timelm.dts | 16 ++++++++++++++++
- 1 file changed, 16 insertions(+)
 
-diff --git a/arch/arm64/boot/dts/qcom/sm8250-lge-timelm.dts b/arch/arm64/boot/dts/qcom/sm8250-lge-timelm.dts
-index 74b673ebbeb9d..ecbff27976fc2 100644
---- a/arch/arm64/boot/dts/qcom/sm8250-lge-timelm.dts
-+++ b/arch/arm64/boot/dts/qcom/sm8250-lge-timelm.dts
-@@ -103,6 +103,12 @@ ramoops: ramoops@b0000000 {
- 			console-size = <0x40000>;
- 			ftrace-size = <0x40000>;
- 			pmsg-size = <0x200000>;
-+			no-map;
-+		};
-+
-+		res_xbl_uefi_log_region: memory@80880000 {
-+			reg = <0x0 0x80880000 0x0 0x14000>;
-+			no-map;
- 		};
- 
- 		adsp_mem: memory@8a100000 {
-@@ -119,6 +125,16 @@ cdsp_secure_heap: memory@8c700000 {
- 			reg = <0x0 0x8c700000 0x0 0x4600000>;
- 			no-map;
- 		};
-+
-+		cont_splash_mem: memory@9c000000 {
-+			reg = <0x0 0x9c000000 0x0 0x1200000>;
-+			no-map;
-+		};
-+
-+		dfps_data_mem: memory@9e300000 {
-+			reg = <0x0 0x9e300000 0x0 0x100000>;
-+			no-map;
-+		};
- 	};
- 
- 	vph_pwr: vph-pwr-regulator {
+rofikkerneldev (11):
+  dt-bindings: arm: qcom: add LG V60 ThinQ 5G (timelm)
+  arm64: dts: qcom: add LG V60 ThinQ 5G (timelm) support
+  arm64: dts: qcom: sm8250-lge-timelm: add reserved memory regions
+  dt-bindings: display: panel: add LG SW43103
+  drm/panel: add LG SW43103 panel driver
+  dt-bindings: input: touchscreen: add Silicon Works SW42902
+  Input: touchscreen: add Silicon Works SW42902 support
+  arm64: dts: qcom: sm8250-lge-timelm: enable SW43103 panel
+  arm64: dts: qcom: sm8250-lge-timelm: add SW42902 touchscreen
+  arm64: dts: qcom: sm8250-lge-timelm: enable USB Type-C
+  arm64: dts: qcom: sm8250-lge-timelm: add QCA6390 Bluetooth
+
+ .../devicetree/bindings/arm/qcom.yaml         |   1 +
+ .../bindings/display/panel/lg,sw43103.yaml    |  70 ++
+ .../input/touchscreen/lg,sw42902.yaml         |  74 ++
+ .../devicetree/bindings/vendor-prefixes.yaml  |   2 +
+ MAINTAINERS                                   |  19 +
+ arch/arm64/boot/dts/qcom/Makefile             |   1 +
+ .../arm64/boot/dts/qcom/sm8250-lge-timelm.dts | 744 ++++++++++++++++++
+ drivers/gpu/drm/panel/Kconfig                 |  13 +
+ drivers/gpu/drm/panel/Makefile                |   1 +
+ drivers/gpu/drm/panel/panel-lg-sw43103.c      | 594 ++++++++++++++
+ drivers/input/touchscreen/Kconfig             |  11 +
+ drivers/input/touchscreen/Makefile            |   1 +
+ drivers/input/touchscreen/sw42902.c           | 315 ++++++++
+ 13 files changed, 1846 insertions(+)
+ create mode 100644 Documentation/devicetree/bindings/display/panel/lg,sw43103.yaml
+ create mode 100644 Documentation/devicetree/bindings/input/touchscreen/lg,sw42902.yaml
+ create mode 100644 arch/arm64/boot/dts/qcom/sm8250-lge-timelm.dts
+ create mode 100644 drivers/gpu/drm/panel/panel-lg-sw43103.c
+ create mode 100644 drivers/input/touchscreen/sw42902.c
+
 -- 
 2.39.5
 
