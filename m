@@ -2,132 +2,102 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DB945606A31C
-	for <dri-devel@archiver.kernel.org>; Tue, 17 Nov 2026 20:52:39 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C0849606A32A
+	for <dri-devel@archiver.kernel.org>; Tue, 17 Nov 2026 20:55:10 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=nuf+3lpz;
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=UXXgwFdq
+	dkim=pass (1024-bit key, unprotected) header.d=amd.com header.i=@amd.com header.a=rsa-sha256 header.s=selector1 header.b=M1NmXCGJ
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 4E29710E4EE;
-	Tue, 17 Nov 2026 20:52:29 +0000 (UTC)
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com
- [205.220.168.131])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 7B99F10E4EE
- for <dri-devel@lists.freedesktop.org>; Tue, 17 Nov 2026 20:52:17 +0000 (UTC)
-Received: from pps.filterd (m0279863.ppops.net [127.0.0.1])
- by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id
- 6AHKfXnu1627439
- for <dri-devel@lists.freedesktop.org>; Tue, 17 Nov 2026 20:52:17 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
- cc:content-transfer-encoding:content-type:date:from:in-reply-to
- :message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
- fyuxCpKp26itAp4jBe23EHobgug2KOZQvZvYqOY5OLI=; b=nuf+3lpzUGHLeYQq
- 51pBS/GTWnGLUpcbweZqsJi9gQmwQjFtSiCb0tE4k5r16lTD+G6KgFYzBJtPN1Py
- siIy8UNPVpwqAICA7j5MBNDOcTzalNlyGLC6shwyZBl2XDrLGL/nxJg/3AmNgRVN
- oJUJOihy62qtzdg7TzrY+UX6yI1mvc+kiVmo/tSOfYfseiGnsviuQoluX3zKaYyi
- v6NgeFm6LgWTvjvRtjzQkzYwYJ7hBsv0ZlYBPfVpolXGq1Oexb4lWbWUU418Vyqy
- 4w2cQlyztqV6p3g1u6FqW9J3J5FpRbyD4Xl+DqzwnP9dIg8LZR6LOpooABYnooEu
- EJ8hnQ==
-Received: from mail-dy1-f198.google.com (mail-dy1-f198.google.com
- [74.125.82.198])
- by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4j0qms21te-1
- (version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
- for <dri-devel@lists.freedesktop.org>; Tue, 17 Nov 2026 20:52:16 +0000 (GMT)
-Received: by mail-dy1-f198.google.com with SMTP id
- 5a478bee46e88-375f0fd31f4so345371eec.0
- for <dri-devel@lists.freedesktop.org>; Tue, 17 Nov 2026 12:52:16 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=oss.qualcomm.com; s=google; t=1794948736; x=1795553536;
- darn=lists.freedesktop.org; 
- h=content-transfer-encoding:content-type:in-reply-to:from
- :content-language:references:cc:to:subject:user-agent:mime-version
- :date:message-id:from:to:cc:subject:date:message-id:reply-to
- :content-type; bh=fyuxCpKp26itAp4jBe23EHobgug2KOZQvZvYqOY5OLI=;
- b=UXXgwFdquLsM7sog9ARyNtYfQTAGO6ewWv0ATVm81aKcghK1Equ/qB/8GicqWRrJK1
- a/95H1JNnoQll5H7usKy5vk1gbOi37cYW8aB03yyiMPfiRiLvC4Xl1MleIY5NaAb43D0
- TUqcsMYxk9X3ZW00iK56mHFDD4JwsKSvPZO3DScZJyjAxJEb6nVSAw6q7T1RrWI13iHU
- gkgm11MnMLuLjbeDWePWbEfVrB5F2RNXIZ38vQjixDUB0oPAWUvtJOVlGtm6aQgxjunw
- B77f0No1FNWDfokGRG8YnmX5xTQSMYfvuCS1tSBJ0iajdRjP7fVk0Ft3odzvopDvb1JR
- oMtA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20260707; t=1794948736; x=1795553536;
- h=content-transfer-encoding:content-type:in-reply-to:from
- :content-language:references:cc:to:subject:user-agent:mime-version
- :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
- :message-id:reply-to:content-type;
- bh=fyuxCpKp26itAp4jBe23EHobgug2KOZQvZvYqOY5OLI=;
- b=QrNOe9vQ+OgTnZPMlq4QfXdyjkKIO3tCxyuUjzu/vDdRjqiC1NUucujVrM7Pj7fEZ5
- VkTYZRI30xfGu4IGCQBj1IJqid2F9XtMZvlUyclaMyETtOejrT12b7JsxFsx5RPXDc49
- K8iTi7DEpuhrrvS4fcceIU8SzpWHBZYf0056yJPcna2b3g3xbQzwdZ9ljDybuyF/LCgf
- pTo2iuxHUXPSl3oOrdjp0F4Bc9Q9v+2VRZQEy/CjsjYaoI5izoD3Srv2YuSt11P4yqtF
- bQmz0itAKp/Kh29oJeHWimS/zl32xb/es+3XnCyBOo7f3j79XFwbmXFsdlmucLkd3xSV
- GrmQ==
-X-Forwarded-Encrypted: i=1;
- AL+hErGA4yU/+HPCn35zMmTeFiZgvjuOEI8aaBqooys0ojwQ2puGMc0juaEccfkpX1lm0zCp+K+MdzmFE1c=@lists.freedesktop.org
-X-Gm-Message-State: APuU4Z88cZrcbFfLx5OLFM8WDqJ8d3WfvkhjV2RMp19GEB4iUfaiVWDn
- 8GBcq+pS/gRRz6NaWkkboOJ9tYZGxUg0jGdo1eIvBfqvWutrJxV+PUFQQfAqBfCYmKGTzQn7tw6
- OpYFIcjcynuY0028eTUEsr2YvRROiczF7dRczm+GGWGbzbtijGZy4aFWq2RUZnXWndVnv7RY=
-X-Gm-Gg: AZFdTZeS6J+2hWjUT/6G9/tIySWef8ZH7/MsGq3tf/IUKhF4VkxXZWCsQhNWQSw/6Yt
- VjQWyvrhCMUWLRE4qfzmYL8qq20r/vb6TRUW/jiDfHCet3AS5U7298+ijB/pZEvOSEn14NxW1/W
- Y4UrK6WONZQ3Dx8iQ+oonAm0XqaLnlfkvpabDFy4ZsrCYMYupRh1ZlIlyOpA0YIw5rSXwjOV0EE
- +t8LpQ37W/o9t2n0x7T9/wo0CierWHL4NykV8ZarTNFEQDRZ5Y1kBvDXBE4/MkeIjCK3w4F18Nr
- DruW6BeuM+qhB/pUNA8t6ozy7RRqqps1y3NHeuVDvTDmw8V8ZSVNCb/7/WybQSUm5khn7UGo49V
- DgBVHEIV40fwyyWIt+sqP4B6AV+xnlbeboz5lmuA13B4MrlPNwTw8IZ89/ldJgWp6hOayP/85H0
- sL0fOE/0ycNU0fCz1OIgauAAk=
-X-Received: by 2002:a05:7300:7314:b0:381:1580:cb4c with SMTP id
- 5a478bee46e88-38281023cfemr702066eec.24.1794948735896; 
- Tue, 17 Nov 2026 12:52:15 -0800 (PST)
-X-Received: by 2002:a05:7300:7314:b0:381:1580:cb4c with SMTP id
- 5a478bee46e88-38281023cfemr702042eec.24.1794948735366; 
- Tue, 17 Nov 2026 12:52:15 -0800 (PST)
-Received: from [10.226.59.182] (Global_NAT1.qualcomm.com. [129.46.96.20])
- by smtp.gmail.com with ESMTPSA id
- 5a478bee46e88-382a76d70fasm484255eec.22.2026.11.17.12.52.14
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Tue, 17 Nov 2026 12:52:15 -0800 (PST)
-Message-ID: <2f3d94d3-1f9d-4a88-b500-ce42ff85949d@oss.qualcomm.com>
-Date: Tue, 17 Nov 2026 13:52:14 -0700
+	by gabe.freedesktop.org (Postfix) with ESMTP id 208D210E650;
+	Tue, 17 Nov 2026 20:55:05 +0000 (UTC)
+Received: from PH0PR06CU001.outbound.protection.outlook.com
+ (mail-westus3azon11011017.outbound.protection.outlook.com [40.107.208.17])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 14FBF10E650
+ for <dri-devel@lists.freedesktop.org>; Tue, 17 Nov 2026 20:54:59 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=X3DnsW3/UxzIVGaXHcNv8g+QM66vep2lLT7gWoaXUoZdlYLiT63Y3rtTAzJOFb4NBW3U8Rid5Gn9urySKXVDUt2CYL/p1OrthJ72Wm3YhIDxi5PWNX1j1Ngar4z5uhbqQmTZzBjCvhAWWZOR3HWdiCErXsazo9h5Cb+yEgznnqFdTO3i+Um8gWzJ+VQOciMSgmX1/kiA2NLXysk3/G4TPyk6bDIIxIjnLnp3kMiYJh5agn2DhnC4f6GUBUFpLKcoHDyUNNGJPWNLdnbxCSZ9OZ8orOBwj5TX5FbkHoXY914eXpQMmf+OZUAp9M2Bh6HErlOkPRAagLuBOTPhD1iQGg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=pwL7vwOgxfpg9rBBVxZlk1rAe0DG4pheqIv5L75x1J8=;
+ b=LFpuzrIreeH2MuN204ZoXdGk6pqfe4NzE9Zx3shd+dJLKy2W4y6WGCabjJX4A7FknJYA+nzy6kQYtQjd4rX8gtz5pI37DvfiRBSivCcKm0j4tLPmAI/v5tLhX/6lSF+IMGCfMjRFvqASoK5BUdUI2iRDmjnozKmMHf5hbrUISVO/mfMToJcXLomgG7EWEZdSVlB7ZT94ZO8VIgfBjIyD+vNVtcl4nEXIPPZJWiQtk+aWUXrctSa+N2Ns8nHnnpMa9oXN3HVd+TXUUYdKUPDG6PJwOQyunQaa1dqAB3Xw1Mr5FjOVmCaVCQ6iLlssATL70uZ59vNed0UxDvCmlBmfSw==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=kernel.org smtp.mailfrom=amd.com; dmarc=pass
+ (p=quarantine sp=quarantine pct=100) action=none header.from=amd.com;
+ dkim=none (message not signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=pwL7vwOgxfpg9rBBVxZlk1rAe0DG4pheqIv5L75x1J8=;
+ b=M1NmXCGJUccHfVWB7mUflis3XuucLesS8gnL9f+vyENbag8Wqt03qlg//QMGofQ069coJSEFF9nhuNcBlJF+PBKeC2vAu0oCNff3opN2nh7la8EQQe9Xa3DcqpfEM1Vp7jb4N7bH1UY9RSVFVRUo6nuAVHlHVRBH8LaTjKrmEMc=
+Received: from CY8PR02CA0008.namprd02.prod.outlook.com (2603:10b6:930:4d::14)
+ by LV0PR12MB011996.namprd12.prod.outlook.com (2603:10b6:408:60a::20)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.615.14; Tue, 17 Nov
+ 2026 20:54:51 +0000
+Received: from CO1PEPF00012E62.namprd05.prod.outlook.com
+ (2603:10b6:930:4d:cafe::26) by CY8PR02CA0008.outlook.office365.com
+ (2603:10b6:930:4d::14) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.21.615.9 via Frontend Transport; Tue, 17
+ Nov 2026 20:54:49 +0000
+X-MS-Exchange-Authentication-Results: mx.microsoft.com 1; spf=pass (sender IP
+ is 165.204.84.17) smtp.mailfrom=amd.com;
+ dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=satlexmb08.amd.com; pr=C
+Received: from satlexmb08.amd.com (165.204.84.17) by
+ CO1PEPF00012E62.mail.protection.outlook.com (10.167.249.71) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.21.615.4 via Frontend Transport; Tue, 17 Nov 2026 20:54:49 +0000
+Received: from satlexmb07.amd.com (10.181.42.216) by satlexmb08.amd.com
+ (10.181.42.217) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.57; Tue, 17 Nov
+ 2026 14:54:46 -0600
+Received: from [172.19.68.164] (10.180.168.240) by satlexmb07.amd.com
+ (10.181.42.216) with Microsoft SMTP Server id 15.2.2562.57 via Frontend
+ Transport; Tue, 17 Nov 2026 14:54:45 -0600
+Message-ID: <9b502657-323f-43a2-a910-67d734234814@amd.com>
+Date: Tue, 17 Nov 2026 12:54:40 -0800
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2] accel/ivpu: Remove sched_mode module parameter
-To: Andrzej Kacprowski <andrzej.kacprowski@linux.intel.com>,
- dri-devel@lists.freedesktop.org
-Cc: oded.gabbay@gmail.com, karol.wachowski@linux.intel.com, lizhi.hou@amd.com, 
- dawid.osuchowski@linux.intel.com
-References: <20261117204419.2841928-1-andrzej.kacprowski@linux.intel.com>
+Subject: Re: [PATCH V1] accel/amdxdna: Destroy the context when hwctx restart
+ fails
+To: Lizhi Hou <lizhi.hou@amd.com>, <ogabbay@kernel.org>,
+ <quic_jhugo@quicinc.com>, <dri-devel@lists.freedesktop.org>,
+ <mario.limonciello@amd.com>, <karol.wachowski@linux.intel.com>
+CC: <linux-kernel@vger.kernel.org>, <sonal.santan@amd.com>
+References: <20261117165731.132261-1-lizhi.hou@amd.com>
 Content-Language: en-US
-From: Jeff Hugo <jeff.hugo@oss.qualcomm.com>
-In-Reply-To: <20261117204419.2841928-1-andrzej.kacprowski@linux.intel.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
+From: Max Zhen <max.zhen@amd.com>
+In-Reply-To: <20261117165731.132261-1-lizhi.hou@amd.com>
+Content-Type: text/plain; charset="UTF-8"; format=flowed
 Content-Transfer-Encoding: 7bit
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMTE3MDA4MyBTYWx0ZWRfX1RziIQCqBSjH
- v3CisOhMiNWiVJtN3NgaMz2BkOIjyi/8QGEVScCWXlEQl8pMovHA3vvIsSvwO53urygxyMm0UPr
- KSUoME3m2OpvuGYddbEGHpHiRnSdEE8=
-X-Proofpoint-ORIG-GUID: t0ygGNgaKd9FE4mK6NDHM-_BSM2u1OFf
-X-Proofpoint-GUID: t0ygGNgaKd9FE4mK6NDHM-_BSM2u1OFf
-X-Authority-Analysis: v=2.4 cv=BIEmP1QG c=1 sm=1 tr=0 ts=6afcbe80 cx=c_pps
- a=wEP8DlPgTf/vqF+yE6f9lg==:117 a=ouPCqIW2jiPt+lZRy3xVPw==:17
- a=IkcTkHD0fZMA:10 a=zJRp6_cAMcgA:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=yOCtJkima9RkubShWh1s:22
- a=QyXUC8HyAAAA:8 a=EUspDBNiAAAA:8 a=gYI55yF0lsxZyhDyjH8A:9 a=QEXdDO2ut3YA:10
- a=bBxd6f-gb0O0v-kibOvt:22
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMTE3MDA4MyBTYWx0ZWRfX5NIds8W7IMAP
- nRd60r3dvITcUXXmvMgC7Lf8Vb+nHL+rrJKiXoqo5JStP/NesdEE1dV7Z7/C3qC3KdPlpgINfp1
- wQRqwEfM7Xhdj88PQ4AORw1XDSHEonu1o0flpZOto7OqkGvso1jHAt5xc1exgVLBjUDhoHpDeEu
- HgCeeKqGFm1kB/5JQdcVj6290phQ6e87n4YdPOpDDvvk5Ln069cADVfhyF+9e4tGn92d/xa8nC/
- kelqkV/c/JXDDtL33AqaDIF7EJ0vyDk82467rJH6p5NYAe3PcpLYqB9t1sgKsCSbYtDVCBjlHHd
- 9jo8406FJWOC6w+CmwO4RncwXn1ZIVUPOkze63G+Y4CtUqLfStDMz92K66MNS0gDvwARA6dkrvk
- HbGK548WnEe8NtQL+O1Rsf3Yn2bRMnG74iLR+EeZIUtwEismtAI1+iT0Uw3T3qOIIpYN9YDjVkd
- d0TMv9OmaE8dwFn3sEw==
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
- definitions=2026-11-17_04,2026-11-16_01,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- priorityscore=1501 adultscore=0 bulkscore=0 clxscore=1015 malwarescore=0
- phishscore=0 spamscore=0 impostorscore=0 lowpriorityscore=0 suspectscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2611040001 definitions=main-2611170083
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: CO1PEPF00012E62:EE_|LV0PR12MB011996:EE_
+X-MS-Office365-Filtering-Correlation-Id: 41a5548d-0bd3-41d6-67c7-08df44ed0538
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+ ARA:13230040|1800799024|36860700016|82310400026|23010399003|376014|18002099003|22082099003|261009223027099003|11063799006|56012099006|261102123227099003|261028144727099003|261026121527099003|261026140227099003|261021121427099003|261022075727099003|261022105027099003|261021123027099003|10067099003;
+X-Microsoft-Antispam-Message-Info: Wcpxbr9T3owyWXOuh/8HkPx3mdmlrEpBloQL3wpqU7FUt4rcpL8QLbgTGSMsce963u2x/w4Tqdnute8yJD2vX+N4oTfz+/jxDCYjZsMorhOyDwY/G6JBtsMVsAgXOm1mdNTRF0PSpFcU8BMje0bbrVD+Y12AUnHYMk1wPTMml13anrd0eGQk51D2RBy7DMSVWLM6qZKnEmX1V74YSI7d5cXeZ7V9VE+kmFVSkYGRYEdUf8jQlakdNdkvdlqi2UHWZ5eCxmZoitn4Mp6hGqdiJ+cva/o/ceYt2P7LOAFi0e9ISRIhwfceRlnXAm9WhUcmMlD30baqL9TcvgR6JsL2IQVR3MHhxQRaApw2tRxZ3ZpNlC9RlRlFJF2NExITqBC6R2Vl7SXzdPDli4/oFUFdFugJctupw7/4PVT04jX/IIy5N/hWePXErKMCmxtsYB/tmZZ3d+pUjPHzPSOqBP0+jQjOJ+EgnSbpQh11FPfY3l6VXzSjSLBYFoEZ5Jet313M32N6GfLfpKNxtU93vkC6+RtftMXga6ZUDU3ezVitG8VwhjshWvv9k6O+7RouVtRP6ucFzyxRxcxMxbQTrjPu9PWXCVUW7He04m3Ob2RGRvTU78bw3qnuDjXu47JL2Wbg+il7jhwydRekozRl5aNEwSJ9MobyHGtxoATKcyhdpXQh8hLs9sWcs/DKLYuhGbLhbSySbFcc7LIbY00HukbIrg==
+X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:satlexmb08.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
+ SFS:(13230040)(1800799024)(36860700016)(82310400026)(23010399003)(376014)(18002099003)(22082099003)(261009223027099003)(11063799006)(56012099006)(261102123227099003)(261028144727099003)(261026121527099003)(261026140227099003)(261021121427099003)(261022075727099003)(261022105027099003)(261021123027099003)(10067099003);
+ DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: DCuKAbuoDMDUVRgRAtp+7P2xcYMA2iIPNvuE4wZbOO8rpReP2RMsPuCYr4oGNfmBcEJTPxSlP4Q/+Pa0Rlizg8grlTsUuEyz+hqN1QJUaPrmGgE5Zbc8/c0YDc58C8N127gHcXWelhd/x2u/KrmuwzLRbK/9ppg/f34iR5LHGdTaoHmeiL7CV6kE4SIxxAejktUfmk7Vnd+4P45k2Oc4348SlgKAPvW9beQQTWHPUsiTWEG5ZnT0HLERX1RcBwc4IZSHROS5yrel1qq7lMDCivdbMTMLQgcf3dPAL3UwM/jCCaby+QvKhl2yctmyT1WRjCmt9Eq2qy9LPnk0oJhHu9t2DH+oWKB2GHllikwXpX68GPhUIu4QKEPzEvyotRuBOGFCCN7D5Y5dGJJ8xdzy/8XGWhV8DTdmO9DHm/++nrfrQ/HgvwIGoM8BKypNZ2FY
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 17 Nov 2026 20:54:49.4089 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 41a5548d-0bd3-41d6-67c7-08df44ed0538
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
+ Helo=[satlexmb08.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource: CO1PEPF00012E62.namprd05.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: LV0PR12MB011996
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -139,31 +109,73 @@ List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-12.3 required=3.0 tests=BAYES_00,DKIM_SIGNED,
-	DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
-	INCLUDES_CR_TRAILER,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,
-	USER_AGENT_SANE_1 autolearn=ham autolearn_force=no version=4.0.1
+X-Spam-Status: No, score=-17.3 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
+	DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
+	INCLUDES_CR_TRAILER,INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,
+	SPF_PASS,USER_AGENT_SANE_1 autolearn=unavailable autolearn_force=no
+	version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-On 11/17/2026 1:44 PM, Andrzej Kacprowski wrote:
-> OS scheduling supports only a limited subset of NPU functionality and
-> is not intended for production use. However, the sched_mode module
-> parameter exposes it as a regular configuration option, and the driver
-> silently falls back to it when the firmware JSM API is older than 3.24.
+
+
+On 11/17/2026 Tue 08:57, Lizhi Hou wrote:
+> aie2_hwctx_restart() creates the firmware context first, then maps the
+> host buffers and configures the CUs. When any of the later steps fails,
+> the error is propagated to the caller but the context created at the
+> beginning is left behind: hwctx->fw_ctx_id stays valid, the mailbox
+> channel stays allocated and started, and ndev->hwctx_num is not
+> decremented. The hardware context is reported as failed yet remains
+> alive, and because aie2_sched_job_run() only tests hwctx->priv->mbox_chann
+> the scheduler keeps submitting jobs to a context which has no host buffer
+> mapped and no CU configured. Neither aie2_hwctx_resume() nor
+> aie2_sched_job_timedout() looks at the return value, so the context is
+> never cleaned up and the firmware context slot is leaked until the
+> hardware context is destroyed.
 > 
-> Make hardware scheduling the only production mode:
-> - remove the sched_mode module parameter,
-> - require BOOT API 3.17 and JSM API 3.24 or newer, and fail probe with
->    a message requesting a firmware update otherwise,
-> - allow OS scheduling on pre-60XX devices only through the
->    IVPU_TEST_MODE_HWS_DISABLE test_mode bit, for debugging.
+> Tear the context down on the error path.
 > 
-> The initial 37xx and 40xx firmware added to linux-firmware in March 2025
-> reports BOOT and JSM APIs 3.27, meeting both minimum requirements.
+> Fixes: aac243092b70 ("accel/amdxdna: Add command execution")
+> Signed-off-by: Lizhi Hou <lizhi.hou@amd.com>
+Reviewed-by: Max Zhen <max.zhen@amd.com>
+> ---
+>   drivers/accel/amdxdna/aie2_ctx.c | 10 +++++++---
+>   1 file changed, 7 insertions(+), 3 deletions(-)
 > 
-> Extend IVPU_FW_CHECK_API_COMPAT() to accept minimum major and minor
-> versions so both API requirements can be checked explicitly.
-> 
-> Signed-off-by: Andrzej Kacprowski <andrzej.kacprowski@linux.intel.com>
-Reviewed-by: Jeff Hugo <jeff.hugo@oss.qualcomm.com>
+> diff --git a/drivers/accel/amdxdna/aie2_ctx.c b/drivers/accel/amdxdna/aie2_ctx.c
+> index 74d7019268cb..11f5421e497a 100644
+> --- a/drivers/accel/amdxdna/aie2_ctx.c
+> +++ b/drivers/accel/amdxdna/aie2_ctx.c
+> @@ -122,7 +122,7 @@ static int aie2_hwctx_restart(struct amdxdna_dev *xdna, struct amdxdna_hwctx *hw
+>   				heap->mem.size);
+>   	if (ret) {
+>   		XDNA_ERR(xdna, "Map host buf failed, ret %d", ret);
+> -		goto out;
+> +		goto destroy;
+>   	}
+>   
+>   	xa_for_each_range(&hwctx->client->dev_heap_xa, heap_id, heap, 1,
+> @@ -132,16 +132,20 @@ static int aie2_hwctx_restart(struct amdxdna_dev *xdna, struct amdxdna_hwctx *hw
+>   					heap->mem.size);
+>   		if (ret) {
+>   			XDNA_ERR(xdna, "Add heap %ld failed ret %d", heap_id, ret);
+> -			goto out;
+> +			goto destroy;
+>   		}
+>   	}
+>   
+>   	ret = aie2_config_cu(hwctx, NULL);
+>   	if (ret) {
+>   		XDNA_ERR(xdna, "Config cu failed, ret %d", ret);
+> -		goto out;
+> +		goto destroy;
+>   	}
+>   
+> +	return 0;
+> +
+> +destroy:
+> +	aie2_hwctx_stop(xdna, hwctx, NULL);
+>   out:
+>   	XDNA_DBG(xdna, "%s restarted, ret %d", hwctx->name, ret);
+>   	return ret;
+
