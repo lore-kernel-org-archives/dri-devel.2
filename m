@@ -2,121 +2,43 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 60B40606A31C
-	for <dri-devel@archiver.kernel.org>; Tue, 17 Nov 2026 09:58:34 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D3F15606A323
+	for <dri-devel@archiver.kernel.org>; Tue, 17 Nov 2026 10:05:59 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=PKTIhaGa
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Y5skHIsz
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 6D47110F5C7;
-	Tue, 17 Nov 2026 09:58:28 +0000 (UTC)
-Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 2FAB310E592;
- Tue, 17 Nov 2026 09:58:17 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id D088910E424;
+	Tue, 17 Nov 2026 10:05:53 +0000 (UTC)
+Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id A18D810E424
+ for <dri-devel@lists.freedesktop.org>; Tue, 17 Nov 2026 10:05:47 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by tor.source.kernel.org (Postfix) with ESMTP id F0CA461D08;
- Tue, 17 Nov 2026 09:58:15 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id DD77F1F000C5;
- Tue, 17 Nov 2026 09:58:02 +0000 (UTC)
+ by sea.source.kernel.org (Postfix) with ESMTP id 59F3645E68;
+ Tue, 17 Nov 2026 10:05:47 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 231491F000C5;
+ Tue, 17 Nov 2026 10:05:47 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1794909495;
- bh=3LgsglAFrX/+u6sq+JUPf5c5+f8fmRKk1XVeo+aF5S0=;
- h=Date:Subject:To:Cc:References:From:In-Reply-To;
- b=PKTIhaGaFJjS8CEuxmoycngekpxqyTVDnR+ZbXMPkZLRz4ltzKBzyYbM81DD7kjQp
- dJko9j4wHxkttt7vMNmlyiiUPmk6J0+SNRfMMI43e00Q26u/3Zs4SU9IDyENJJCN27
- 0y6HGdbRJ/Pgc8qqTqPRtz/M9tbjAqGvfP3adIBD8UGiRZrpj8LwM74cWF9bM9Ga9G
- deU1O6u/09nFGfMVdsjWFGVDoE+32ZqEozAehWGjEOzwf3+SpXXWsWVQjmE54Nu9xy
- ZyDBWs2rwIBJJ63aMdREtpHzjfvEIv9d9d1TbHnsu6uvOD39NXSmHfWxu6C3eTTsn8
- mhBQ1FxH7fAKQ==
-Message-ID: <c368f4a2-aaf2-49d0-90d1-0bacc9950967@kernel.org>
-Date: Tue, 17 Nov 2026 10:58:00 +0100
-X-Archived-By: <archiver.kernel.org>
-MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 8/9] mm/migrate_device: do not migrate a uffd-protected
- zero page
-To: Tal Zussman <tz2294@columbia.edu>,
- Andrew Morton <akpm@linux-foundation.org>, Mike Rapoport <rppt@kernel.org>,
- Peter Xu <peterx@redhat.com>, James Houghton <jthoughton@google.com>,
- Andrea Arcangeli <aarcange@redhat.com>,
- Suren Baghdasaryan <surenb@google.com>, Balbir Singh <balbirs@nvidia.com>,
- "Liam R. Howlett" <liam@infradead.org>, Lorenzo Stoakes <ljs@kernel.org>,
- Vlastimil Babka <vbabka@kernel.org>, Jann Horn <jannh@google.com>,
- Pedro Falcato <pfalcato@suse.de>, Michal Hocko <mhocko@suse.com>,
- =?UTF-8?B?TWljaGHFgiBNaXJvc8WCYXc=?= <mirq-linux@rere.qmqm.pl>,
- Andrei Vagin <avagin@gmail.com>, Muhammad Usama Anjum <usama.anjum@arm.com>,
- Stephen Rothwell <sfr@canb.auug.org.au>, Arnd Bergmann <arnd@arndb.de>,
- Zi Yan <ziy@nvidia.com>, Matthew Brost <matthew.brost@intel.com>,
- Joshua Hahn <joshua.hahnjy@gmail.com>, Byungchul Park <byungchul@sk.com>,
- Gregory Price <gourry@gourry.net>, Ying Huang
- <ying.huang@linux.alibaba.com>, Alistair Popple <apopple@nvidia.com>,
- Baolin Wang <baolin.wang@linux.alibaba.com>,
- Nico Pache <nico.pache@linux.dev>, Ryan Roberts <ryan.roberts@arm.com>,
- Dev Jain <dev.jain@arm.com>, Barry Song <baohua@kernel.org>,
- Lance Yang <lance.yang@linux.dev>, Usama Arif <usama.arif@linux.dev>,
- Kiryl Shutsemau <kas@kernel.org>, Muchun Song <muchun.song@linux.dev>,
- Oscar Salvador <osalvador@suse.de>,
- =?UTF-8?Q?Miko=C5=82aj_Lenczewski?= <miko.lenczewski@arm.com>
-Cc: linux-mm@kvack.org, linux-kernel@vger.kernel.org,
- linux-fsdevel@vger.kernel.org,
- =?UTF-8?Q?Thomas_Hellstr=C3=B6m?= <thomas.hellstrom@linux.intel.com>,
- Lyude Paul <lyude@redhat.com>, Danilo Krummrich <dakr@kernel.org>,
- Felix Kuehling <Felix.Kuehling@amd.com>, Jason Gunthorpe <jgg@ziepe.ca>,
- Leon Romanovsky <leon@kernel.org>, dri-devel@lists.freedesktop.org,
- intel-xe@lists.freedesktop.org, nouveau@lists.freedesktop.org,
- amd-gfx@lists.freedesktop.org
-References: <20261116-uffd-state-fixes-v2-0-4397a0196479@columbia.edu>
- <20261116-uffd-state-fixes-v2-8-4397a0196479@columbia.edu>
- <a384d75c-2134-407a-924f-ee511f65a2d1@kernel.org>
- <71aa028f-c753-40d5-a8e4-8daef5aea3aa@columbia.edu>
-From: "David Hildenbrand (Arm)" <david@kernel.org>
-Content-Language: en-US
-Autocrypt: addr=david@kernel.org; keydata=
- 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
- qIws/H2t
-In-Reply-To: <71aa028f-c753-40d5-a8e4-8daef5aea3aa@columbia.edu>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+ s=k20260515; t=1794909947;
+ bh=40FB+AJ4c0dk8GAh5/cp7H+aJg3OYARP48fwIDHNdEg=;
+ h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+ b=Y5skHIszSPJEbXRCGY9y2cp9byYj6dMbyFeFi4E6204h+G4HaPl1f7ypwXt09vvBw
+ /3VZDaxRSgyFKhA1JSmyqvTAGvvToer4y5aBMwXe4SDhJ19vSBY6GiElA1Xrek13qI
+ xniv3Ij7KL4Bynr4qYukLycXtyYkeP8+ZkytxXWrwczkYnv671WU4Z8TruxO4wEnFb
+ gBaww3mGlxKNflSbXIQWkOY9mf6ncP7N49Vm5cDPaDQjrv3eh7B9mFcsc+NO/1qgTD
+ Bey/jzLApRRkvo4vGKlcGa1OXue4Nqt2jdH0PXuE3TOncPWaaEZ8h3wlNcJl08qNuD
+ Rn9nGNbm13Vng==
+Message-ID: <sashiko-outbox-218568@kernel.org>
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v4 3/3] misc: fastrpc: fix context leak and hang on
+ signal-interrupted invoke
+To: "Anandu Krishnan E" <anandu.e@oss.qualcomm.com>
+Cc: dri-devel@lists.freedesktop.org
+In-Reply-To: <20261117-interrupted-invoke-v4-v4-3-2320a8a7eda2@oss.qualcomm.com>
+References: <20261117-interrupted-invoke-v4-v4-0-2320a8a7eda2@oss.qualcomm.com>
+ <20261117-interrupted-invoke-v4-v4-3-2320a8a7eda2@oss.qualcomm.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Tue, 17 Nov 2026 10:05:46 +0000
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -127,84 +49,438 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
+Reply-To: sashiko-reviews@lists.linux.dev
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-17.3 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
+X-Spam-Status: No, score=-10.8 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
 	DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
-	INCLUDES_CR_TRAILER,INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,
-	SPF_PASS,USER_AGENT_SANE_1 autolearn=unavailable autolearn_force=no
-	version=4.0.1
+	INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS autolearn=ham
+	autolearn_force=no version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
+X-Archived-By: <archiver.kernel.org>
 
-On 11/17/26 00:06, Tal Zussman wrote:
-> On 11/16/26 3:45 PM, David Hildenbrand (Arm) wrote:
->> On 11/16/26 21:02, Tal Zussman wrote:
->>> Device migration replaces a PTE that maps the zero page with a new PTE
->>> that is built only from the VMA flags, so its userfaultfd WP or RWP
->>> protection is lost. The same applies to the huge zero PMD. Writes and
->>> accesses to the page are then no longer reported to userfaultfd.
->>>
->>> To fix it, do not migrate a uffd-protected zero page. Skip it during
->>> collection, and check again under the page table lock before inserting,
->>> as another thread can protect the page after it was collected.
->>>
->>> The alternative would be to carry the uffd state over to the new entry,
->>> but a uffd-protected zero page in a range that a driver migrates should
->>> be rare.
->>>
->>> Fixes: 292924b26024 ("userfaultfd: wp: apply _PAGE_UFFD_WP bit")
->>> Fixes: a30b48bf1b24 ("mm/migrate_device: implement THP migration of zone device pages")
->>> Cc: Thomas Hellström <thomas.hellstrom@linux.intel.com>
->>> Cc: Lyude Paul <lyude@redhat.com>
->>> Cc: Danilo Krummrich <dakr@kernel.org>
->>> Cc: Felix Kuehling <Felix.Kuehling@amd.com>
->>> Cc: Jason Gunthorpe <jgg@ziepe.ca>
->>> Cc: Leon Romanovsky <leon@kernel.org>
->>> Cc: dri-devel@lists.freedesktop.org
->>> Cc: intel-xe@lists.freedesktop.org
->>> Cc: nouveau@lists.freedesktop.org
->>> Cc: amd-gfx@lists.freedesktop.org
->>> Reviewed-by: Alistair Popple <apopple@nvidia.com>
->>> Signed-off-by: Tal Zussman <tz2294@columbia.edu>
->>> ---
->>>  mm/migrate_device.c | 23 +++++++++++++++++++++--
->>>  1 file changed, 21 insertions(+), 2 deletions(-)
->>>
->>> diff --git a/mm/migrate_device.c b/mm/migrate_device.c
->>> index 9e19fadfa65c..140b99f72508 100644
->>> --- a/mm/migrate_device.c
->>> +++ b/mm/migrate_device.c
->>> @@ -159,7 +159,16 @@ static int migrate_vma_collect_huge_pmd(pmd_t *pmdp, unsigned long start,
->>>  
->>>  		folio = pmd_folio(*pmdp);
->>>  		if (is_huge_zero_folio(folio)) {
->>> +			/*
->>> +			 * Nothing carries the uffd state of the zero page
->>> +			 * over, so skip it if its uffd bit is set.
->>> +			 */
->>> +			bool protected = userfaultfd_protected(walk->vma) &&
->>> +					 pmd_uffd(*pmdp);
->>
->> Now that I read it 3 times in a row below, these needs a helper.
->>
->> userfaultfd_pte_protected() ? userfaultfd_pte?
->>
->> That might help you to get rid of the local variable (that should have been
->> called something that includes uffd and should have been const)
->>
->>
->> Maybe just add a simple helper for the pmd as well and use it below.
->>
-> 
-> Will do. I'll do userfaultfd_pte_protected() and userfaultfd_huge_pmd_protected()
-> to match the existing wp and rwp helpers.
-> 
-> Re: the local variable, I'll rid of it and just call spin_unlock() in
-> both branches, which is a little ugly.
+Thank you for your contribution! Sashiko AI review found 8 potential
+issues to consider:
+- [High] misc: fastrpc: recursive fl->lock deadlock in
+  fastrpc_notify_users()
+- [High] misc: fastrpc: hardirq-to-process fl->lock inversion in rpmsg
+  callback
+- [High] misc: fastrpc: use-after-free of ctx in
+  fastrpc_rpmsg_callback()
+- [High] misc: fastrpc: stale ctx->args reuse in
+  fastrpc_context_restore_interrupted()
+- [High] misc: fastrpc: DSP retval -ERESTARTSYS mishandled as signal in
+  bail path
+- [High] misc: fastrpc: premature ctx put in fastrpc_notify_users()
+  before send
+- [Medium] misc: fastrpc: leaked timed-out contexts and unreclaimed SSR
+  contexts
+- [Medium] misc: fastrpc: ctx_idr exhaustion blocks
+  fastrpc_device_release()
+--
 
-The clean thing to do would be to read the pmd once using pmdp_get() :)
+commit 13c73e8b92c7260a0858f27cc1ca5b1e031ffdf3
+Author: Anandu Krishnan E <anandu.e@oss.qualcomm.com>
 
--- 
-Cheers,
+misc: fastrpc: fix context leak and hang on signal-interrupted invoke
 
-David
+This commit parks signal-interrupted FastRPC invoke contexts on a per-user
+fl->interrupted list so they can be resumed on retry without resending the
+RPC message to the DSP, and updates teardown paths to drain parked
+contexts.
+
+> diff --git a/drivers/misc/fastrpc.c b/drivers/misc/fastrpc.c
+> index c5c3679f87f6f..dd4d3c88e9b97 100644
+> --- a/drivers/misc/fastrpc.c
+> +++ b/drivers/misc/fastrpc.c
+
+[ ... ]
+
+> @@ -644,6 +661,54 @@ static void fastrpc_context_put_wq(struct work_struc=
+t *work)
+>  	fastrpc_context_put(ctx);
+>  }
+> =20
+> +/* Schedules put_work at most once per ctx; racing callers may both try.=
+ */
+> +static void fastrpc_context_schedule_put_work(struct fastrpc_invoke_ctx =
+*ctx)
+> +{
+> +	bool do_schedule;
+> +
+> +	spin_lock(&ctx->fl->lock);
+> +	do_schedule =3D !ctx->put_work_scheduled;
+> +	ctx->put_work_scheduled =3D true;
+> +	spin_unlock(&ctx->fl->lock);
+> +
+> +	if (do_schedule)
+> +		schedule_work(&ctx->put_work);
+> +}
+
+[Severity: High]
+Can calling fastrpc_context_schedule_put_work() from
+fastrpc_rpmsg_callback() deadlock on fl->lock?
+
+On Qualcomm GLINK and SMD transports, the endpoint callback
+fastrpc_rpmsg_callback() runs in hardirq context, while process and
+workqueue paths acquire fl->lock with plain spin_lock() and local
+interrupts enabled:
+
+fastrpc_context_free()
+  spin_lock(&fl->lock)
+  <hardirq>
+    fastrpc_rpmsg_callback()
+      fastrpc_context_schedule_put_work()
+        spin_lock(&ctx->fl->lock)  <-- spins forever
+
+> +
+> +/* References held by ctx are left intact; only list membership changes.=
+ */
+> +static void fastrpc_context_save_interrupted(struct fastrpc_invoke_ctx *=
+ctx)
+> +{
+> +	spin_lock(&ctx->fl->lock);
+> +	list_move_tail(&ctx->node, &ctx->fl->interrupted);
+> +	spin_unlock(&ctx->fl->lock);
+> +}
+> +
+> +/* Matches on handle+sc, not sc alone, to avoid resuming an unrelated ca=
+ll. */
+> +static struct fastrpc_invoke_ctx *fastrpc_context_restore_interrupted(st=
+ruct fastrpc_user *fl,
+> +								      u32 handle, u32 sc)
+> +{
+> +	struct fastrpc_invoke_ctx *ctx =3D NULL, *ictx;
+> +
+> +	spin_lock(&fl->lock);
+> +	list_for_each_entry(ictx, &fl->interrupted, node) {
+> +		if (ictx->pid =3D=3D current->pid && ictx->handle =3D=3D handle &&
+> +		    ictx->sc =3D=3D sc) {
+> +			/* May already be mid-teardown; don't resurrect it. */
+> +			if (kref_get_unless_zero(&ictx->refcount)) {
+> +				ctx =3D ictx;
+> +				list_move_tail(&ctx->node, &fl->pending);
+> +			}
+> +			break;
+> +		}
+> +	}
+> +	spin_unlock(&fl->lock);
+> +
+> +	if (ctx)
+> +		fastrpc_context_put(ctx);
+> +
+> +	return ctx;
+> +}
+
+[Severity: High]
+What happens if a signal without SA_RESTART interrupts an invoke (returning
+-EINTR to user space) and the thread later calls the same (handle, sc)
+method with different buffers?
+
+fastrpc_context_restore_interrupted() matches only on pid, handle, and sc,
+and fastrpc_internal_invoke() jumps straight to wait: without checking or
+updating ctx->args.  The new input buffers are ignored, and when the
+original DSP call finishes, fastrpc_put_args() copies output buffers via
+copy_to_user() to the stale ctx->args[i].ptr addresses from the earlier
+interrupted call, corrupting user-space stack or heap memory.  In addition,
+if user space does not retry after -EINTR, the parked context and its DMA
+buffers and ctx_idr slot remain pinned on fl->interrupted until the file
+descriptor is closed.
+
+[ ... ]
+
+> @@ -1373,7 +1446,13 @@ static int fastrpc_internal_invoke(struct fastrpc_=
+user *fl,  u32 kernel,
+>  		return -EPERM;
+>  	}
+> =20
+> -	ctx =3D fastrpc_context_alloc(fl, kernel, sc, args);
+> +	/* Resume an interrupted invoke instead of resending to the DSP. */
+> +	if (!kernel)
+> +		ctx =3D fastrpc_context_restore_interrupted(fl, handle, sc);
+> +	if (ctx)
+> +		goto wait;
+> +
+> +	ctx =3D fastrpc_context_alloc(fl, kernel, handle, sc, args);
+>  	if (IS_ERR(ctx))
+>  		return PTR_ERR(ctx);
+> =20
+> @@ -1385,8 +1464,15 @@ static int fastrpc_internal_invoke(struct fastrpc_=
+user *fl,  u32 kernel,
+>  	dma_wmb();
+>  	/* Send invoke buffer to remote dsp */
+>  	err =3D fastrpc_invoke_send(fl->sctx, ctx, kernel, handle);
+> -	if (err)
+> -		goto bail;
+> +	if (err) {
+> +		/* Never sent, so not safe to park and resume like bail: does. */
+> +		spin_lock(&fl->lock);
+> +		list_del_init(&ctx->node);
+> +		spin_unlock(&fl->lock);
+> +		fastrpc_context_put(ctx);
+> +		dev_dbg(fl->sctx->dev, "Error: Invoke Failed %d\n", err);
+> +		return err;
+> +	}
+> =20
+>  	/*
+>  	 * Set message context as polled if the call is for a user PD
+> @@ -1395,7 +1481,16 @@ static int fastrpc_internal_invoke(struct fastrpc_=
+user *fl,  u32 kernel,
+>  	if (handle > FASTRPC_MAX_STATIC_HANDLE && fl->pd =3D=3D USER_PD && fl->=
+poll_mode)
+>  		ctx->is_polled =3D true;
+> =20
+> +wait:
+>  	err =3D fastrpc_wait_for_completion(ctx, kernel);
+> +	if (err =3D=3D -ETIMEDOUT)
+> +		dev_warn(fl->sctx->dev,
+> +			 "fastrpc_invoke: TIMEOUT ctxid=3D0x%llx handle=3D0x%x nscalars=3D%d\=
+n",
+> +			 ctx->ctxid, handle, ctx->nscalars);
+> +	else if (err =3D=3D -ERESTARTSYS)
+> +		dev_dbg(fl->sctx->dev,
+> +			"fastrpc_invoke: INTERRUPTED ctxid=3D0x%llx handle=3D0x%x nscalars=3D=
+%d\n",
+> +			ctx->ctxid, handle, ctx->nscalars);
+>  	if (err)
+>  		goto bail;
+> =20
+> @@ -1412,21 +1507,16 @@ static int fastrpc_internal_invoke(struct fastrpc=
+_user *fl,  u32 kernel,
+>  		goto bail;
+> =20
+>  bail:
+> -	if (err !=3D -ERESTARTSYS && err !=3D -ETIMEDOUT) {
+> -		/* We are done with this compute context */
+> -		spin_lock(&fl->lock);
+> -		list_del(&ctx->node);
+> -		spin_unlock(&fl->lock);
+> -		fastrpc_context_put(ctx);
+> -	}
+> -
+>  	if (err =3D=3D -ERESTARTSYS) {
+> +		fastrpc_context_save_interrupted(ctx);
+
+[Severity: High]
+What happens if the DSP completes an invocation with ctx->retval =3D=3D -512
+(-ERESTARTSYS)?
+
+After fastrpc_wait_for_completion() and fastrpc_put_args() have already
+completed, err =3D ctx->retval jumps to bail:, which treats -ERESTARTSYS as=
+ a
+signal interruption and parks the completed context on fl->interrupted
+without dropping the invoker reference.  When the syscall restarts and
+reclaims ctx, a non-polled call hangs waiting on the already-consumed
+ctx->work completion, while a polled call with ctx->is_work_done =3D=3D true
+repeatedly re-runs fastrpc_put_args() and drops map references in
+ctx->fdlist again, underflowing mmap->refcount into a use-after-free:
+
+drivers/misc/fastrpc.c:fastrpc_put_args() {
+    ...
+	/* Clean up fdlist which is updated by DSP */
+	for (i =3D 0; i < FASTRPC_MAX_FDLIST; i++) {
+		if (!fdlist[i])
+			break;
+		if (!fastrpc_map_lookup(fl, (int)fdlist[i], &mmap, false))
+			fastrpc_map_put(mmap);
+	}
+    ...
+}
+
+> +	} else if (err =3D=3D -ETIMEDOUT) {
+> +		/* Leave linked: a late DSP answer or notify_users() still needs to re=
+ach it. */
+> +		fastrpc_context_put(ctx);
+> +	} else {
+>  		spin_lock(&fl->lock);
+> -		list_for_each_entry_safe(buf, b, &fl->mmaps, node) {
+> -			list_del(&buf->node);
+> -			list_add_tail(&buf->node, &fl->cctx->invoke_interrupted_mmaps);
+> -		}
+> +		list_del_init(&ctx->node);
+>  		spin_unlock(&fl->lock);
+> +		fastrpc_context_put(ctx);
+>  	}
+> =20
+>  	if (err)
+> @@ -1728,13 +1818,28 @@ static int fastrpc_device_release(struct inode *i=
+node, struct file *file)
+>  {
+>  	struct fastrpc_user *fl =3D (struct fastrpc_user *)file->private_data;
+>  	struct fastrpc_channel_ctx *cctx =3D fl->cctx;
+> -	unsigned long flags;
+> +	struct fastrpc_invoke_ctx *ctx, *n;
+> +	int release_err;
+> =20
+> -	fastrpc_release_current_dsp_process(fl);
+> +	release_err =3D fastrpc_release_current_dsp_process(fl);
+> =20
+> -	spin_lock_irqsave(&cctx->lock, flags);
+> -	list_del(&fl->user);
+> -	spin_unlock_irqrestore(&cctx->lock, flags);
+> +	/*
+> +	 * Drop the invoker ref unconditionally: no retry can arrive once the
+> +	 * fd is closed. Drop the worker ref only if the DSP confirmed it is
+> +	 * done with the process; otherwise leave ctx linked so a real answer
+> +	 * or a later SSR can still release it.
+> +	 */
+> +	spin_lock(&fl->lock);
+> +	list_for_each_entry_safe(ctx, n, &fl->interrupted, node) {
+> +		ctx->retval =3D -EPIPE;
+> +		complete(&ctx->work);
+> +		spin_unlock(&fl->lock);
+> +		if (!release_err)
+> +			fastrpc_context_schedule_put_work(ctx);
+> +		fastrpc_context_put(ctx);
+> +		spin_lock(&fl->lock);
+> +	}
+> +	spin_unlock(&fl->lock);
+
+[Severity: Medium]
+Does fastrpc_device_release() leak timed-out contexts that were left on
+fl->pending?
+
+When a kernel invoke times out (-ETIMEDOUT), bail: drops only the invoker
+reference and leaves ctx linked on fl->pending holding its worker reference
+and its reference on fl.  If the file descriptor is then closed and
+fastrpc_release_current_dsp_process() succeeds, the DSP process is torn
+down so no late reply will arrive, but fastrpc_device_release() only drains
+fl->interrupted and never drops the worker reference on contexts in
+fl->pending, leaking ctx and fl until the rpmsg channel is removed.
+Similarly, if an interrupted invoke is retried after SSR sets cctx->rpdev
+to NULL, fastrpc_internal_invoke() returns -EPIPE before calling
+fastrpc_context_restore_interrupted(), leaving the parked context
+unreclaimed until fd close.
+
+[Severity: Medium]
+Can parked contexts on fl->interrupted exhaust cctx->ctx_idr and prevent
+fastrpc_release_current_dsp_process() from running?
+
+Each parked context holds one of the 255 slots in cctx->ctx_idr until
+fastrpc_context_free() runs, even after the DSP has already answered and
+dropped the worker reference.  If 255 interrupted contexts accumulate
+across the channel before fd close, fastrpc_release_current_dsp_process()
+runs before fl->interrupted is drained and fails in fastrpc_context_alloc()
+with -ENOSPC, so the DSP is never told to release the process and
+fastrpc_device_release() skips scheduling put_work for any unanswered
+contexts on fl->interrupted.
+
+[ ... ]
+
+> @@ -2835,13 +2940,16 @@ static void fastrpc_notify_users(struct fastrpc_u=
+ser *user)
+>  	list_for_each_entry(ctx, &user->pending, node) {
+>  		ctx->retval =3D -EPIPE;
+>  		complete(&ctx->work);
+> -		/*
+> -		 * fastrpc_invoke_send() took a second reference for the
+> -		 * DSP response that will now never arrive since the
+> -		 * channel is gone; schedule the matching put the same
+> -		 * way a real response would via fastrpc_rpmsg_callback().
+> -		 */
+> -		schedule_work(&ctx->put_work);
+> +		fastrpc_context_schedule_put_work(ctx);
+> +	}
+> +	/*
+> +	 * Invoker ref for a parked context is released by fastrpc_user_free()
+> +	 * or fastrpc_device_release(); this only drops the worker ref.
+> +	 */
+> +	list_for_each_entry(ctx, &user->interrupted, node) {
+> +		ctx->retval =3D -EPIPE;
+> +		complete(&ctx->work);
+> +		fastrpc_context_schedule_put_work(ctx);
+>  	}
+>  	spin_unlock(&user->lock);
+>  }
+
+[Severity: High]
+Does fastrpc_notify_users() deadlock on user->lock when any context is on
+user->pending or user->interrupted?
+
+fastrpc_notify_users() holds spin_lock(&user->lock) while calling
+fastrpc_context_schedule_put_work(ctx), which immediately calls
+spin_lock(&ctx->fl->lock) on the same spinlock (ctx->fl =3D=3D user).
+
+[Severity: High]
+Can fastrpc_notify_users() drop a worker reference that was never taken for
+a context on user->pending?
+
+fastrpc_context_alloc() links ctx onto user->pending with refcount =3D=3D 1
+before fastrpc_get_args() and fastrpc_invoke_send() run, and
+fastrpc_invoke_send() only keeps the second reference if rpmsg_send()
+succeeds:
+
+CPU0                              CPU1
+fastrpc_internal_invoke()
+  fastrpc_context_alloc()
+    list_add_tail(..., &user->pending)
+    kref_init(&ctx->refcount)
+  fastrpc_get_args()
+                                  fastrpc_rpmsg_remove()
+                                    fastrpc_notify_users()
+                                      fastrpc_context_schedule_put_work(ctx)
+                                  fastrpc_context_put_wq()
+                                    fastrpc_context_put(ctx)
+                                      fastrpc_context_free(ctx)
+  fastrpc_invoke_send()  <-- use-after-free
+
+Because ctx is on user->pending before a successful rpmsg_send(),
+put_work drops the invoker's sole reference and frees ctx while
+fastrpc_internal_invoke() is still using it.
+
+[ ... ]
+
+> @@ -2932,11 +3036,11 @@ static int fastrpc_rpmsg_callback(struct rpmsg_de=
+vice *rpdev, void *data,
+>  	complete(&ctx->work);
+> =20
+>  	/*
+> -	 * The DMA buffer associated with the context cannot be freed in
+> -	 * interrupt context so schedule it through a worker thread to
+> -	 * avoid a kernel BUG.
+> +	 * Can't free the DMA buffer in interrupt context; defer to a
+> +	 * worker. Guarded: notify_users()/device_release() may also be
+> +	 * racing to schedule this for the same ctx.
+>  	 */
+> -	schedule_work(&ctx->put_work);
+> +	fastrpc_context_schedule_put_work(ctx);
+> =20
+>  	return 0;
+>  }
+
+[Severity: High]
+Can fastrpc_rpmsg_callback() dereference ctx and ctx->fl after they have
+been freed by a concurrent drain?
+
+fastrpc_rpmsg_callback() looks up ctx with idr_find(&cctx->ctx_idr, ctxid)
+and drops cctx->lock without taking a reference on ctx, while
+fastrpc_device_release() can now drop both the worker and invoker
+references on an interrupted context (and fastrpc_context_free() leaves ctx
+in cctx->ctx_idr while freeing its maps and DMA buffer):
+
+CPU0                              CPU1
+fastrpc_rpmsg_callback()
+  spin_lock_irqsave(&cctx->lock)
+  ctx =3D idr_find(&cctx->ctx_idr, ...)
+  spin_unlock_irqrestore(&cctx->lock)
+                                  fastrpc_device_release()
+                                    fastrpc_context_schedule_put_work(ctx)
+                                    fastrpc_context_put(ctx)
+                                  fastrpc_context_put_wq()
+                                    fastrpc_context_free()
+                                      kfree(ctx)
+                                      fastrpc_user_put(fl)
+                                        kfree(fl)
+  ctx->retval =3D rsp->retval;  <-- use-after-free
+  complete(&ctx->work);
+  fastrpc_context_schedule_put_work(ctx)
+    spin_lock(&ctx->fl->lock);  <-- use-after-free
+
+Even for a context on fl->pending whose put_work already ran from a
+teardown path, calling complete(&ctx->work) lets the woken waiter drop the
+last reference and free ctx and fl before fastrpc_rpmsg_callback() calls
+fastrpc_context_schedule_put_work(ctx).
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261117-interrupte=
+d-invoke-v4-v4-0-2320a8a7eda2@oss.qualcomm.com?part=3D3
