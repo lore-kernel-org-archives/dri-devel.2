@@ -2,57 +2,45 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8E220606A882
-	for <dri-devel@archiver.kernel.org>; Tue, 17 Nov 2026 17:47:25 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C4358606A31C
+	for <dri-devel@archiver.kernel.org>; Tue, 17 Nov 2026 17:50:45 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=mailbox.org header.i=@mailbox.org header.a=rsa-sha256 header.s=mail20150812 header.b=RYTOeDst
+	dkim=pass (1024-bit key) header.d=linux.microsoft.com header.i=@linux.microsoft.com header.a=rsa-sha256 header.s=default header.b=SroCFnag
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 0103010F851;
-	Tue, 17 Nov 2026 17:47:20 +0000 (UTC)
-Received: from mout-p-101.mailbox.org (mout-p-101.mailbox.org [80.241.56.151])
- by gabe.freedesktop.org (Postfix) with ESMTPS id E3C4010F85B
- for <dri-devel@lists.freedesktop.org>; Tue, 17 Nov 2026 17:47:13 +0000 (UTC)
-Received: from smtp2.mailbox.org (smtp2.mailbox.org
- [IPv6:2001:67c:2050:b231:465::2])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519MLKEM768 server-signature RSA-PSS (4096 bits) server-digest
- SHA256) (No client certificate requested)
- by mout-p-101.mailbox.org (Postfix) with ESMTPS id 4jTXHL4Pwcz8v5T;
- Tue, 17 Nov 2026 18:47:10 +0100 (CET)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=mailbox.org;
- s=mail20150812; 
- t=1794937630; h=from:from:reply-to:reply-to:subject:subject:date:date:
- message-id:message-id:to:to:cc:cc:mime-version:mime-version:
- content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references;
- bh=/lX51Mfz1mJ4y/S3UG7mwW4k5DzJAY1kWSKMs4mbXKg=;
- b=RYTOeDstKKPOhsZfw9LnuApiBQ0YwHDBumHIFGRDBY1WybOVpRVW4hgychjVPHh/UKowN7
- X4flyauLehyoqxmP1gIB+N5QX+s/lTn5WTNQR3S/P1am1iCxZk/Wo+VbmMlaiTlkMw4c4r
- re+Z/B1DR2mzn+GYWbPnfgPMhLJDf3A6d49/FNQIfz2VngzfL8++OTAFZEh9wqqYEoSjGi
- /sRxZzEhFLobgp/+moiCkLBQuyj8rsSF/fh1eFmUFwcL21WoYr8fBkhsrjOBIavBiYWKoH
- EzMlxnG8EX3BtgpgYCrhbD1IrLE8+ISllrHU1c/dMSwwrs384zMb15+vIuK5RQ==
-Message-ID: <3005c4692d538785e225f9372e4a261dc457edb2.camel@mailbox.org>
-Subject: Re: [PATCH] dma-buf/dma-fence: Prevent misordering for error checks
-From: Philipp Stanner <phasta@mailbox.org>
-To: Christian =?ISO-8859-1?Q?K=F6nig?= <christian.koenig@amd.com>, Philipp
- Stanner <phasta@kernel.org>, Sumit Semwal <sumit.semwal@linaro.org>, Simona
- Vetter	 <simona.vetter@ffwll.ch>, Chris Wilson <chris@chris-wilson.co.uk>,
- Danilo Krummrich <dakr@kernel.org>, Gary Guo <gary@garyguo.net>, Alice Ryhl
- <aliceryhl@google.com>, Daniel Almeida <daniel.almeida@collabora.com>
-Cc: linux-media@vger.kernel.org, dri-devel@lists.freedesktop.org, 
- linux-kernel@vger.kernel.org, stable@vger.kernel.org
-Date: Tue, 17 Nov 2026 18:47:08 +0100
-In-Reply-To: <efce5fe0-6e7d-417c-93a3-35247b431448@amd.com>
-References: <20261117090144.581909-2-phasta@kernel.org>
- <efce5fe0-6e7d-417c-93a3-35247b431448@amd.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-User-Agent: Evolution 3.60.2 (3.60.2-3.fc44) 
+	by gabe.freedesktop.org (Postfix) with ESMTP id 24FCE10F85B;
+	Tue, 17 Nov 2026 17:50:40 +0000 (UTC)
+Received: from linux.microsoft.com (linux.microsoft.com [13.77.154.182])
+ by gabe.freedesktop.org (Postfix) with ESMTP id 0222010F85B
+ for <dri-devel@lists.freedesktop.org>; Tue, 17 Nov 2026 17:50:33 +0000 (UTC)
+Received: by linux.microsoft.com (Postfix, from userid 1127)
+ id 6CB0720B716A; Tue, 17 Nov 2026 09:50:33 -0800 (PST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 linux.microsoft.com 6CB0720B716A
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linux.microsoft.com;
+ s=default; t=1794937833;
+ bh=QSfDtUjV5sqY0+clyuRqoFT0vPZQTGXQ5UrYyD4RvTg=;
+ h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+ b=SroCFnagoyusRmhlZo6m9GftCHWq+YhL/E79SWH/qWGYRAQED7VT3/q+1x5LEAcM5
+ oJ+LKM91Ab05v6Lc9L2L49kvxk72M9ryYm+Dqwf4BCWuur+irnO9FkSOoOl2u4gVbN
+ 2I+jWmMF5VkZsgLFY1eXHjoLJdspUrPZflR97op8=
+Date: Tue, 17 Nov 2026 09:50:33 -0800
+From: Saurabh Singh Sengar <ssengar@linux.microsoft.com>
+To: Hamza Mahfooz <hamzamahfooz@linux.microsoft.com>
+Cc: dri-devel@lists.freedesktop.org, Dexuan Cui <decui@microsoft.com>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>,
+ Thomas Zimmermann <tzimmermann@suse.de>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ linux-hyperv@vger.kernel.org, stable@vger.kernel.org
+Subject: Re: [PATCH] drm/hyperv: wait for flip_done instead of vblanks in
+ commit tail
+Message-ID: <avyT6Zop6s5G5qwu@linuxonhyperv3.guj3yctzbm1etfxqx2vob5hsef.xx.internal.cloudapp.net>
+References: <20261112184553.1595055-1-hamzamahfooz@linux.microsoft.com>
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
-X-MBO-RS-ID: ecb0f878edf8740d1a6
-X-MBO-RS-META: hx6d7wgupk6yr6hyqbay1awpyj4e9j6c
+Content-Type: multipart/signed; micalg=pgp-sha256;
+ protocol="application/pgp-signature"; boundary="f/9VFZI3/4cqostW"
+Content-Disposition: inline
+In-Reply-To: <20261112184553.1595055-1-hamzamahfooz@linux.microsoft.com>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -63,54 +51,137 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
-Reply-To: phasta@kernel.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-5.8 required=3.0 tests=BAYES_00,DKIM_SIGNED,
+X-Spam-Status: No, score=-20.8 required=3.0 tests=BAYES_00,DKIM_SIGNED,
 	DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
-	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS autolearn=no
+	INCLUDES_CR_TRAILER,INCLUDES_PATCH,MAILING_LIST_MULTI,
+	MENTIONS_GIT_HOSTING,SPF_HELO_NONE,SPF_PASS autolearn=unavailable
 	autolearn_force=no version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-On Tue, 2026-11-17 at 15:55 +0100, Christian K=C3=B6nig wrote:
-> On 11/17/26 10:01, Philipp Stanner wrote:
-> > Many users of dma_fence do things like:
-> >=20
-> > // Thread A
-> > dma_fence_set_error(f, -EINVAL);
-> > dma_fence_signal(f); // <- Takes lock, which orders against the above.
-> >=20
-> > // Thread B
-> > if (dma_fence_is_signaled(f)) // <- Does test_bit(), no ordering.
-> > 	pr_info("err: %i\n", f->error); // <- Can be loaded first.
 
-[=E2=80=A6]
+--f/9VFZI3/4cqostW
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
 
-> > +	//=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 test_and_set_bit() should do the tri=
-ck.
+On Thu, Nov 12, 2026 at 01:45:53PM -0500, Hamza Mahfooz wrote:
+> Since commit 52e6b1988334 ("drm/hypervdrm: Use vblank timer"), the
+> driver's vblanks are generated by an hrtimer, and the default commit
+> tail waits in drm_atomic_helper_wait_for_vblanks() for that timer to
+> fire. In a VM, a timer can fire arbitrarily late, for instance when the
+> host does not run the vCPU that the timer is queued on while the
+> committing task keeps running on another vCPU. If the delay exceeds the
+> helper's timeout, it warns, even though the display works fine:
 >=20
-> That should probably be a C comment, e.g. /* ... */.
+>   [CRTC:35:crtc-0] vblank wait timed out
+>   WARNING: drivers/gpu/drm/drm_atomic_helper.c:1921 at drm_atomic_helper_=
+wait_for_vblanks.part.0+0x212/0x230, CPU#30: setfont/559
+>   Call Trace:
+>    drm_atomic_helper_commit_tail
+>    commit_tail
+>    drm_atomic_helper_commit
+>    drm_atomic_commit
+>    drm_client_modeset_commit_atomic
+>    drm_client_modeset_commit_locked
+>    drm_fb_helper_pan_display
+>    fb_pan_display
+>    bit_update_start
+>    fbcon_switch
+>    redraw_screen
+>    fbcon_do_set_font
+>    fbcon_set_font
+>    con_font_op
+>    vt_ioctl
+>=20
+> This was seen intermittently on Azure VMs during boot, when setfont
+> redraws the console right after hyperv_drm has taken it over.
+>=20
+> Cc: stable@vger.kernel.org
+> Fixes: 52e6b1988334 ("drm/hypervdrm: Use vblank timer")
+> Signed-off-by: Hamza Mahfooz <hamzamahfooz@linux.microsoft.com>
+> ---
+> This is inspired by VKMS (which also uses DRM's vblank timer), wait for
+> the commit's flip_done instead. It completes once the vblank event that
+> drm_crtc_vblank_atomic_flush() armed has been sent on the next timer
+> tick.
+> ---
+>  drivers/gpu/drm/hyperv/hyperv_drm_modeset.c | 24 +++++++++++++++++++++
+>  1 file changed, 24 insertions(+)
+>=20
+> diff --git a/drivers/gpu/drm/hyperv/hyperv_drm_modeset.c b/drivers/gpu/dr=
+m/hyperv/hyperv_drm_modeset.c
+> index cc5c5fbc8..8e5036051 100644
+> --- a/drivers/gpu/drm/hyperv/hyperv_drm_modeset.c
+> +++ b/drivers/gpu/drm/hyperv/hyperv_drm_modeset.c
+> @@ -504,6 +504,29 @@ static const struct drm_mode_config_funcs hv_drm_mod=
+e_config_funcs =3D {
+>  	.atomic_commit =3D drm_atomic_helper_commit,
+>  };
+> =20
+> +/*
+> + * Like drm_atomic_helper_commit_tail(), but wait for the commit's vblank
+> + * events rather than for the vblank counter to advance. The host can de=
+lay
+> + * the vblank timer for longer than drm_atomic_helper_wait_for_vblanks()
+> + * waits before warning.
+> + */
+> +static void hv_drm_atomic_commit_tail(struct drm_atomic_commit *state)
+> +{
+> +	struct drm_device *dev =3D state->dev;
+> +
+> +	drm_atomic_helper_commit_modeset_disables(dev, state);
+> +	drm_atomic_helper_commit_planes(dev, state, 0);
+> +	drm_atomic_helper_commit_modeset_enables(dev, state);
+> +	drm_atomic_helper_fake_vblank(state);
+> +	drm_atomic_helper_commit_hw_done(state);
+> +	drm_atomic_helper_wait_for_flip_done(dev, state);
 
-huh, how did that happen=E2=80=A6
--ETOOMUCHRUST
+Thanks for the patch. Below are my thoughts:
 
-I provide a v2
+Since flip_done is normally signalled through the same vblank timer,
+this change does not remove the dependency on that timer. However,
+drm_atomic_helper_wait_for_vblanks() has a 1-second timeout, whereas
+drm_atomic_helper_wait_for_flip_done() waits up to 10 seconds.
+Could you clarify whether the change resolves the reported case because
+of the longer timeout, or because it avoids waiting for another vblank
+after the commit's event has already completed ?
 
-> Apart from that really good catch.
+This seems relevant to other timer-backed virtual DRM drivers as well.
+The older wait_for_vblanks helper also predates flip_done tracking and
+has previously been described as an interim solution [1].
 
-Found without any LLM 8-)
+We already have a vblank timeout increase [2], and Thomas's timer
+reliability series [3] also discusses delayed vblank handling triggering
+DRM checks, although it is not clear whether those changes address this
+particular case.
 
-I saw it while reworking Rust-fence to force users to always evaluate a
-fence's error code, i.e., you can only check whether a fence is
-signaled when you also check for the error.
+Using flip_done is consistent with VKMS and seems reasonable. However,
+rather than duplicating the default commit tail in each affected driver,
+could we consider a common DRM solution for all ?
 
-dma_fence_is_signaled() incentivizes wrong behavior.
+It would help to identify the precise condition causing the hyperv_drm
+warning and explain why the existing generic timeout increase is
+insufficient. If this is needed as a targeted stable fix, please document
+this in the commit message and as a comment in code.
 
-But btw. we really want to carefully rethink our beloved signaled-bit
-and its semantics. Mind all our past discussions about it.
+[1] https://patchwork.freedesktop.org/patch/318967/
+[2] https://git.kernel.org/linus/79ae8510b5b81b9500370f89c619b50ca9c0990f
+[3] https://lore.kernel.org/dri-devel/20260601141922.91498-1-tzimmermann@su=
+se.de/
 
-This patch is more like a temporary hotfix. Much of our API is quite
-fragile.
+- Saurabh
 
-Regards
-Philipp
+--f/9VFZI3/4cqostW
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iHUEABYIAB0WIQSOqWrMiH3/c1LKmklbHLbp+maJpgUCavyTqgAKCRBbHLbp+maJ
+ptX+AQCvqs8s3A/QiOZyMW2rQ0axdEX4xRC69UVxuJY95Ybr1wEAvwl8h2YH2o8b
+8BdsJIyonDy+BrA6EAXg95J+LL58cg4=
+=bI4E
+-----END PGP SIGNATURE-----
+
+--f/9VFZI3/4cqostW--
