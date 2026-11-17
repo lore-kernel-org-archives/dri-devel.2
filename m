@@ -2,82 +2,78 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2B0AE606A31C
-	for <dri-devel@archiver.kernel.org>; Tue, 17 Nov 2026 16:43:55 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DC0EF606A31C
+	for <dri-devel@archiver.kernel.org>; Tue, 17 Nov 2026 16:43:59 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=baylibre.com header.i=@baylibre.com header.a=rsa-sha256 header.s=google header.b=DseH5NgM
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=YvGtvT8B
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id C105110F753;
-	Tue, 17 Nov 2026 16:43:48 +0000 (UTC)
-Received: from mail-wm1-f47.google.com (mail-wm1-f47.google.com
- [209.85.128.47])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 7612410EE90
- for <dri-devel@lists.freedesktop.org>; Tue, 17 Nov 2026 14:08:13 +0000 (UTC)
-Received: by mail-wm1-f47.google.com with SMTP id
- 5b1f17b1804b1-4a1b07c3c5fso53226535e9.1
- for <dri-devel@lists.freedesktop.org>; Tue, 17 Nov 2026 06:08:13 -0800 (PST)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 35A9E10F7EB;
+	Tue, 17 Nov 2026 16:43:54 +0000 (UTC)
+Received: from mail-pl1-f179.google.com (mail-pl1-f179.google.com
+ [209.85.214.179])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id D324010E405
+ for <dri-devel@lists.freedesktop.org>; Tue, 17 Nov 2026 14:54:14 +0000 (UTC)
+Received: by mail-pl1-f179.google.com with SMTP id
+ d9443c01a7336-2e987a2ba0cso29329005ad.3
+ for <dri-devel@lists.freedesktop.org>; Tue, 17 Nov 2026 06:54:14 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=baylibre.com; s=google; t=1794924492; x=1795529292;
- darn=lists.freedesktop.org; 
- h=content-transfer-encoding:content-type:in-reply-to:from
- :content-language:references:cc:to:subject:user-agent:mime-version
- :date:message-id:from:to:cc:subject:date:message-id:reply-to
- :content-type; bh=v76ViL/fPpH3DxoDiLBNNmIXt8842BqFIg5AT4VdEnI=;
- b=DseH5NgMcVlpiy92yo63uT47zOTB/JkipKfKpK/eguf1jz83d5IKTuHg3BwbPgjjKW
- h8zdkEwEFlyE1wRIKSaMwJwZOD0fJImK0HjbOAuiGfLXFHhbCfZpmgMZGaneRjMmRZM+
- p8way3sArAWpuAzfXsxhmHLlEf8G9UCAZlpoVwskdn8V8IhUH6ABHf1j/KsrUWy6OG92
- 1A1HhZtHnGKwgJmUhny1plLoaSjYuU0rPMvKHRIKL7jNJaoJrElSIQBYghrm9nzBl8yQ
- sah5b1+7jDTeQLEAxdRtyCj3A6MMFFAzMTqLSP5QLvgUPcoLur50VwWU++wodOTVF/nl
- IXtQ==
+ d=gmail.com; s=20260707; t=1794927254; x=1795532054; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+ bh=nR9F0XM+B7rn1+ea8p9fct2rHHNP071jbR/ecoiRPcU=;
+ b=YvGtvT8BhwQonfDWTv6lPSJz00sq4i6nHLDP/k45KYBPvtB+xHkX9MqTunjsn+ZDCU
+ PUcJzRHIjIrVtfBTVPVnUm7tgWMiJxAL4B8lTclKg8JtyaJMsDdR4VSX6y0iovsqwMJ/
+ WB9QGdKAUB2EJ/295nm2k2QBAQa9ruAXPLnVF7wbp28Fw4yChm1Al01R/zzt4DdSGWZG
+ LI9I5dy5JdrAmsi4br/bD/XMWX8Pyw+liTa0RdfrZBGf6Fhn+6dQ1+yqesd+6YiJ4vXi
+ OQn2VyWHxX+DdNM5dVcX4H/h4ttFIxkU93vApcGLBfM/g1X7X+8NhcbNZJcjgJRAoT0E
+ HKHg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20260707; t=1794924492; x=1795529292;
- h=content-transfer-encoding:content-type:in-reply-to:from
- :content-language:references:cc:to:subject:user-agent:mime-version
- :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+ d=1e100.net; s=20260707; t=1794927254; x=1795532054;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
  :message-id:reply-to:content-type;
- bh=v76ViL/fPpH3DxoDiLBNNmIXt8842BqFIg5AT4VdEnI=;
- b=Y+5ePf3ng3hk9jV4jkhC1Jb80f249NYclkKJHDpgtERfm/FFQ4qxWPMXsfF/IKFm6n
- /Ac2NFEozfM021C9AoTkv79pVr57GWM1R1i1+j/fX51lINKZZMWYfTH/Gfx6ks/wAX/1
- FqA64sJF0kQzRwW7++0PF2Tj9gXK1hjqgU3nFsm+8t56oNSSkYS7fKDzFMePsbS9f0Rd
- iev+yJHOQ3uJ9f8QAkdWLXYqbTw+NuKrbi3rdea1cNFgSogRVQsm3AAcjdIRqySXbxn+
- j4J7dqACuRVHFO4LL3G4byxnoCBHHuft269S7IC3yJiJIwuCcd9dnL2Dn/RTj1xiGugy
- GOUw==
-X-Gm-Message-State: APuU4Z/0ftPNV3IkkUDlT4FRZFI8iu8I9EoBsG2o0mmDLIv0m1K4vRy/
- rXPhgIaKpAmyrFThSzG1t9bvVeDyk1gJU/SPtzx9R7AZPq9Z4OLxrpsj/dwPEF495dM=
-X-Gm-Gg: AYBFou2LcUcIWyQpCA/JH8QPcL0/pebG4r2V2iYq01yMXlRON9QCR4YScpio14O/VoK
- Ocl4RXBTIdMKtmQ+7Rgg7W5rUhhGdiLXo3sMiK2/Gqy4kbCM9Br7xF5qhHpuEvj3BLIhmOA1SLi
- KtJhjaay4MuDxYYL5Slep5kGzu7fvdHYCHLCpo+27yRplqqAZomVzzGLaRE3YQT2yHnddu7WyGO
- pJSXzPYVIUVmgg7EUALR/kQnEUehTBxFJGZX65q+6ormPGJ0/qZORTO9pP9ATorOrGv0qlom4VI
- TxqxhWDmKP/+OnQcg1HKUb8yUQHqTUs8EfYeV8RWMyghO8jMy4Vc8+h0wXiKrSSkuKKMTpM/QxD
- fw6VGnxkOYuZjquFHU1aVR/en1UaIuLpLgnQgbcENpS9wgIMPEhW8mYHkrtIYuUvCVkZKicERWW
- bMXUPWRUajYWm2cwSarws84E4QYkMFp16JX33dYnW9dNKmEnIHtpinzejyXVnSozMJqDt6hJISD
- fpzgSQjHq8PHG/XT2a/RxHfVh5/vxmpZ5eRpL8hbdUEMkt67VOsLhPZ9HGk0UiJ986masUhvPVF
- EhauiRR2Ul+fhBtWBjimTpjlfz5OGVQ7mgKCse+ia4w59FlgqOPArRyLGQ36j+vnajiAAjLyXPV
- 2Sw==
-X-Received: by 2002:a05:600c:1daa:b0:4a1:d087:f6ab with SMTP id
- 5b1f17b1804b1-4bb55a4ea8emr285441765e9.18.1794924491662; 
- Tue, 17 Nov 2026 06:08:11 -0800 (PST)
-Received: from ?IPV6:2001:8a0:d6cd:9000:86f4:4e71:9fc8:3183?
- ([2001:8a0:d6cd:9000:86f4:4e71:9fc8:3183])
+ bh=nR9F0XM+B7rn1+ea8p9fct2rHHNP071jbR/ecoiRPcU=;
+ b=FFrrH7/vbRAXLvkmDMaweTB1IOkWxTxoCljQWulQ8TQr6aBHAU6YqThyCeJ4omN+Wb
+ fT0FlmPxI9AI1+4bmGkx8QtUwpusOUIFX6ytu4lyiQU0iM+nYXhZdmTLQtShJ/GHuyAt
+ e//rt6zmNBzV7KZnDTJF165JpZKziqqvN1XkMWMT99akhCHBEJSzdjaA5yHSRupBy1yE
+ CG+P+C0EKd9Tzpws2O6QXPR+B3kJLvrwyj2NuR7FYMw+o9b3PCuzumA0OqLdb7jaaoxl
+ XKYGPJKJUVJn09aFsyTykGIsyvirGARRkt+XKO0eN2gajjQwfvXzD+QrCfzOixT9I9nr
+ r+CQ==
+X-Forwarded-Encrypted: i=1;
+ AL+hErEs2sP/D6ck29jtAOMQl3wvjboQstJQY3VPVty5K+7elT6RRfcaOxrslT+G2VCKR9PbNLpyfn77JC8=@lists.freedesktop.org
+X-Gm-Message-State: APuU4Z9lOogZaYAkE00v5wmuhQRiXcbZ+5Jv+bHKVHhg5P5oW61obVmH
+ VDsoZy/YPMihsBJguCrAOirmb9tJyuD8V8Nm5Y4HVAzECK/uBCiQRgGI
+X-Gm-Gg: AZFdTZfMZrd+tMkvCjI2TION5D2KbXywDKzIZwyPxR6WyBVj/c8OOBaG14gmP+1Xp2O
+ Xm6VHe4/gNK0mmrTpVwthV+4y1LtqYLjPqLQ5I9H8CDDHlk8aiKnrlw7JOCKc0h+X+IrM1QV/a7
+ JU9hLWdTSTCX0g+alp5rG5ENCAgRCr6Lq67FcjybvfZSYV4EBjaexEpCxuYabTAExwIwqmpPxK8
+ NRCuFDmGFM4YVqd7caeGY41S0EBDKE5WJ6y89ZzljOQuDz0joij0OgF7v6HZpCZHsh8Job4yEJp
+ WtXdnJ2d6Mk76gr73nUNgPzCAB5es9uyzPhFeSiCd1dyzYAH6kxxmy8LffAtvuzBwNcLXonJseE
+ CTq2GSwMzSJpwVFDfdhcmWbzwlKwyfjv3Xy/WBjGAMdsPgZWNNqspneGxgnpCnFcy72MtOk94ND
+ OjrrEZLKXW2eiCUnXzhpl+29Qjz0kH7y9ywb1hokb85ifMB06QxlzLh16wWTtiXWUp8P61Y4Pzw
+ h/ooDAlkrp8oFHURraYgyYqbkZGs7F0YX5qLWSWhEZBqFspD46TeZO+BS+UU8Ry/1TMjtqRvz+G
+ OxZArTyziSpmS6X7+hGnNyv1Z2pI0q+g6Ks+lslc6o0+zfNM+a22JoOeNx9ZhEJ6zJ21EObNmS7
+ gQtwJgo4HNSnj0K0DrVwfQOe0d+FBY35HP/TjyG0i
+X-Received: by 2002:a17:902:d4d2:b0:2e9:2a1a:8b69 with SMTP id
+ d9443c01a7336-2ee0dcc33ebmr121427145ad.55.1794927254093; 
+ Tue, 17 Nov 2026 06:54:14 -0800 (PST)
+Received: from lwq-System-Product-Name.. ([2602:feda:30:cafe:ec49:29ac:0:f6])
  by smtp.gmail.com with ESMTPSA id
- 5b1f17b1804b1-4bb69ac4e16sm187624005e9.0.2026.11.17.06.08.10
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Tue, 17 Nov 2026 06:08:11 -0800 (PST)
-Message-ID: <13cf246c-2fc9-4076-92b3-fd953337099e@baylibre.com>
-Date: Tue, 17 Nov 2026 14:08:10 +0000
+ d9443c01a7336-2efd7a7ff9asm16767345ad.54.2026.11.17.06.54.09
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Tue, 17 Nov 2026 06:54:13 -0800 (PST)
+From: Yaohan Li <shunsheng1218@gmail.com>
+To: Felix.Kuehling@amd.com, alexander.deucher@amd.com, christian.koenig@amd.com
+Cc: airlied@gmail.com, simona@ffwll.ch, oded.gabbay@gmail.com,
+ kent.russell@amd.com, amd-gfx@lists.freedesktop.org,
+ dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
+ stable@vger.kernel.org
+Subject: [PATCH] drm/amdkfd: unlink destroyed event waiters from the wait queue
+Date: Tue, 17 Nov 2026 22:54:06 +0800
+Message-Id: <20261117145406.1092636-1-shunsheng1218@gmail.com>
+X-Mailer: git-send-email 2.34.1
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 3/3] accel/rocket: fix NULL derefs and missing error check
-To: Ali Khaledi <ali.khaledi1989@gmail.com>, tomeu@tomeuvizoso.net,
- ogabbay@kernel.org
-Cc: dri-devel@lists.freedesktop.org
-References: <20260301182428.82981-1-ali.khaledi1989@gmail.com>
-Content-Language: en-US
-From: Daniel Drake <ddrake@baylibre.com>
-In-Reply-To: <20260301182428.82981-1-ali.khaledi1989@gmail.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 X-Mailman-Approved-At: Tue, 17 Nov 2026 16:43:43 +0000
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -90,108 +86,90 @@ List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-17.3 required=3.0 tests=BAYES_00,DKIM_SIGNED,
-	DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
-	INCLUDES_CR_TRAILER,INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,
-	SPF_PASS,USER_AGENT_SANE_1 autolearn=ham autolearn_force=no
-	version=4.0.1
+X-Spam-Status: No, score=-15.8 required=3.0 tests=BAYES_00,DKIM_SIGNED,
+	DKIM_VALID,DKIM_VALID_AU,FREEMAIL_FORGED_FROMDOMAIN,FREEMAIL_FROM,
+	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
+	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,USER_AGENT_GIT
+	autolearn=unavailable autolearn_force=no version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-Hi,
+destroy_event() clears waiter->event and calls wake_up_all() before the
+event is removed from the IDR.  The waiters use init_wait(), so a
+successful wake-up already unlinks the wait_queue_entry through
+autoremove_wake_function().  A waiter that is already runnable, though,
+is not woken again and stays linked to ev->wq after destroy_event()
+returns.
 
-The subject says 3/3 but I only see one patch submitted.
+free_waiters() only calls remove_wait_queue() while waiter->event is
+still set.  destroy_event() has already cleared that field, so a waiter
+that is still linked there is freed without being unlinked.
 
-On 01/03/2026 18:24, Ali Khaledi wrote:
-> Fix several issues in the rocket accelerator driver:
-> 
-> rocket_gem.c: Add missing error check after
-> drm_mm_insert_node_generic(). The return value was silently
-> overwritten by iommu_map_sgtable(), causing DMA mapping to use
-> an uninitialized IOVA on MM insertion failure.
-> 
-> rocket_job.c: Add missing NULL check after kvmalloc_array() in
-> rocket_job_push(). A large job can trigger allocation failure,
-> leading to NULL pointer dereference in the following memcpy.
-> 
-> rocket_job.c: Add missing NULL check after kmalloc_objs() in
-> rocket_job_open(). Also fix memory leak of the scheds array
-> when drm_sched_entity_init() fails.
+ev itself is released with kfree_rcu(), so a reader that reaches it
+through RCU -- kfd_set_event() or the GPU signal interrupt path -- can
+take ev->lock afterwards and walk ev->wq in set_event(), writing
+waiter->activated into memory that has already been kfreed.  The
+waitqueue_active() test at the top of set_event() reads the same list.
 
-You could reduce the verbosity of this commit message - no need to show 
-filenames, and you can limit it just to pointing out what is not obvious 
-from the code change itself.
+destroy_event() used to unlink the waiters here.  That unlink was lost
+when the code was converted to wait_queue_entry_t by 74e4071665da,
+which moved the removal into free_waiters() and left the destroyed
+path without one.
 
-> Found by AI-assisted code review (Claude Opus 4.6, Anthropic)
-> in collaboration with Ali Khaledi.
+Unlink whatever is left on the wait queue after wake_up_all(), while
+still holding ev->lock, so the wake-up is delivered first and the
+remainder can no longer outlive its storage.
 
-No need for this statement; if you understand the code and your proposed 
-changes, then submit it without crediting an agent. If you don't 
-understand it, then refrain from submitting until you personally can 
-stand behind your contribution.
+Fixes: 74e4071665da ("drm/amdkfd: Use wait_queue_t to implement event waiting")
+Cc: stable@vger.kernel.org
+Signed-off-by: Yaohan Li <shunsheng1218@gmail.com>
+---
+Prepared against v7.4-rc1-1969-g666539eecdf4.
 
-> Signed-off-by: Ali Khaledi <ali.khaledi1989@gmail.com>
-> ---
->   drivers/accel/rocket/rocket_gem.c | 2 ++
->   drivers/accel/rocket/rocket_job.c | 9 ++++++++-
->   2 files changed, 10 insertions(+), 1 deletion(-)
-> 
-> diff --git a/drivers/accel/rocket/rocket_gem.c b/drivers/accel/rocket/rocket_gem.c
-> index b6a385d2e..7212edc3f 100644
-> --- a/drivers/accel/rocket/rocket_gem.c
-> +++ b/drivers/accel/rocket/rocket_gem.c
-> @@ -95,6 +95,8 @@ int rocket_ioctl_create_bo(struct drm_device *dev, void *data, struct drm_file *
->   					 rkt_obj->size, PAGE_SIZE,
->   					 0, 0);
->   	mutex_unlock(&rocket_priv->mm_lock);
-> +	if (ret)
-> +		goto err;
->   
->   	ret = iommu_map_sgtable(rocket_priv->domain->domain,
->   				rkt_obj->mm.start,
-> diff --git a/drivers/accel/rocket/rocket_job.c b/drivers/accel/rocket/rocket_job.c
-> index ac51bff39..6502b7148 100644
-> --- a/drivers/accel/rocket/rocket_job.c
-> +++ b/drivers/accel/rocket/rocket_job.c
-> @@ -192,6 +192,8 @@ static int rocket_job_push(struct rocket_job *job)
->   
->   	bos = kvmalloc_array(job->in_bo_count + job->out_bo_count, sizeof(void *),
->   			     GFP_KERNEL);
-> +	if (!bos)
-> +		return -ENOMEM;
->   	memcpy(bos, job->in_bos, job->in_bo_count * sizeof(void *));
->   	memcpy(&bos[job->in_bo_count], job->out_bos, job->out_bo_count * sizeof(void *));
+AI assistance: the analysis, the change and its review notes were
+prepared with Claude (Anthropic) as a coding assistant.  The author
+reviewed the reasoning and takes responsibility for the content.
 
-These two have already been fixed in other commits.
+History: fe528c13acc7 unlinked the waiters here.  That unlink was lost
+when the code moved to wait_queue_entry_t (74e4071665da).
 
-> @@ -501,6 +503,9 @@ int rocket_job_open(struct rocket_file_priv *rocket_priv)
->   	unsigned int core;
->   	int ret;
->   
-> +	if (!scheds)
-> +		return -ENOMEM;
-> +
->   	for (core = 0; core < rdev->num_cores; core++)
->   		scheds[core] = &rdev->cores[core].sched;
->   
-> @@ -508,8 +513,10 @@ int rocket_job_open(struct rocket_file_priv *rocket_priv)
->   				    DRM_SCHED_PRIORITY_NORMAL,
->   				    scheds,
->   				    rdev->num_cores, NULL);
-> -	if (WARN_ON(ret))
-> +	if (WARN_ON(ret)) {
-> +		kfree(scheds);
->   		return ret;
-> +	}
->   
->   	return 0;
->   }
+Testing: compile tested only (x86_64, gcc 11.4).  No AMD GPU was
+available, so the race was not run.
+---
+ drivers/gpu/drm/amd/amdkfd/kfd_events.c | 14 +++++++++++++-
+ 1 file changed, 13 insertions(+), 1 deletion(-)
 
-This issue still stands but I would encourage you to do a deeper fix if 
-continuing your work here. Even in the non-error path if num_cores is 1 
-for any reason, it looks like drm will not set sched_list, so the memory 
-will be leaked there too. I think we need a better strategy for handling 
-the scheds.
-
-Daniel
+diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_events.c b/drivers/gpu/drm/amd/amdkfd/kfd_events.c
+index 6e32a892d56f..adc27f25af4d 100644
+--- a/drivers/gpu/drm/amd/amdkfd/kfd_events.c
++++ b/drivers/gpu/drm/amd/amdkfd/kfd_events.c
+@@ -219,13 +219,25 @@ int kfd_event_init_process(struct kfd_process *p)
+ 
+ static void destroy_event(struct kfd_process *p, struct kfd_event *ev)
+ {
+-	struct kfd_event_waiter *waiter;
++	struct kfd_event_waiter *waiter, *tmp;
+ 
+ 	/* Wake up pending waiters. They will return failure */
+ 	spin_lock(&ev->lock);
+ 	list_for_each_entry(waiter, &ev->wq.head, wait.entry)
+ 		WRITE_ONCE(waiter->event, NULL);
+ 	wake_up_all(&ev->wq);
++
++	/*
++	 * A wake-up that actually wakes a task detaches its entry through
++	 * autoremove_wake_function(), but a waiter that was already runnable
++	 * stays on the list.  free_waiters() only unlinks a waiter while
++	 * waiter->event is still set, so once that field has been cleared
++	 * above nothing else will detach the remainder.  Leaving them linked
++	 * would let a concurrent set_event(), which reaches ev through RCU,
++	 * walk a list pointing at already freed waiters.
++	 */
++	list_for_each_entry_safe(waiter, tmp, &ev->wq.head, wait.entry)
++		remove_wait_queue(&ev->wq, &waiter->wait);
+ 	spin_unlock(&ev->lock);
+ 
+ 	if (ev->type == KFD_EVENT_TYPE_SIGNAL ||
+-- 
+2.34.1
 
