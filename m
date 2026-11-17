@@ -2,117 +2,154 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AD62B606A33E
-	for <dri-devel@archiver.kernel.org>; Tue, 17 Nov 2026 23:41:48 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 75770606A31C
+	for <dri-devel@archiver.kernel.org>; Tue, 17 Nov 2026 23:49:15 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=shazbot.org header.i=@shazbot.org header.a=rsa-sha256 header.s=fm2 header.b=O/nAIQ7K;
-	dkim=pass (2048-bit key, unprotected) header.d=messagingengine.com header.i=@messagingengine.com header.a=rsa-sha256 header.s=fm3 header.b=wsdD1Jy0
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=l9Yt0Xwt;
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=Ljn2Mcrc
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 2ACF210E2DE;
-	Tue, 17 Nov 2026 23:41:38 +0000 (UTC)
-X-Greylist: delayed 488 seconds by postgrey-1.36 at gabe;
- Tue, 17 Nov 2026 23:41:26 UTC
-Received: from fout-a2-smtp.messagingengine.com
- (fout-a2-smtp.messagingengine.com [103.168.172.145])
- by gabe.freedesktop.org (Postfix) with ESMTPS id C700C10E2DE
- for <dri-devel@lists.freedesktop.org>; Tue, 17 Nov 2026 23:41:26 +0000 (UTC)
-Received: from phl-compute-03.internal (phl-compute-03.internal [10.202.2.43])
- by mailfout.phl.internal (Postfix) with ESMTP id CAFE9EC090D
- for <dri-devel@lists.freedesktop.org>; Tue, 17 Nov 2026 18:33:17 -0500 (EST)
-Received: from phl-frontend-03 ([10.202.2.162])
- by phl-compute-03.internal (MEProxy); Tue, 17 Nov 2026 18:33:17 -0500
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=shazbot.org; h=
- cc:cc:content-transfer-encoding:content-type:content-type:date
- :date:from:from:in-reply-to:in-reply-to:message-id:mime-version
- :references:reply-to:subject:subject:to:to; s=fm2; t=1794958397;
- x=1795044797; bh=VVypS2BH7BTIDP8XvJg3P0/Wb4ccvreAy4viuz45dWY=; b=
- O/nAIQ7KIz9miCX8OUQv0exfIWDQo6GU4ZnGJjkSH5NHfhU0Vu2iqezwq1Tw5iwO
- qgbLYGQ6OGMLLJgVYcoB0mG/GpNpaNRR31l/vgRmIXqEU4zrDeqdbs5KOlMYdfKW
- OpLa/KYF8nhviereQVFZE0gdQ3s73d4iCq14zGRS5Qplir7FovxBb9D3CBNa6aRf
- gCGrQJ88auWUxJ+H8Wv9vS+890bwngIH1beLu5uKJMERw4v/aji3xpXCiGLmQqB5
- kEMzDNecRk1OeZZfQTF7zmHr6LuiP5zi2i+iaO7acETL4+H2omj4ugIc+QPaJZtI
- BvBIfYwC7asH/6k94hTtqg==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
- messagingengine.com; h=cc:cc:content-transfer-encoding
- :content-type:content-type:date:date:feedback-id:feedback-id
- :from:from:in-reply-to:in-reply-to:message-id:mime-version
- :references:reply-to:subject:subject:to:to:x-me-proxy
- :x-me-sender:x-me-sender:x-sasl-enc; s=fm3; t=1794958397; x=
- 1795044797; bh=VVypS2BH7BTIDP8XvJg3P0/Wb4ccvreAy4viuz45dWY=; b=w
- sdD1Jy039J3NtkZibDurMKuGngpWJ1hYQY5vV4YjfjIBNTbCLguD9broxlEUZbaR
- 2izOMSi5IBzFXBPmHso1PSpjYvmH6+K7XexGqiHCxojQhmvNgvQG/fVewthpBS8S
- wkT1nVPWdmVmxjxaS3tMppAfdGggY0fdKwAVo56D+JPge6u/nNTfnxRnWlzihOs5
- cfA6U0TuFIgsnEgx1RjMzuiz+CQX/mV0QsRhr+J1rjLPnJhze2f/vCEPc8cXKQHx
- +HMD3KuoN9iMTv5Bm2S7vSd7c6PlHL7qWJK4TySMLftqE/F0nM8H+pO8lmQVj781
- aDIJMYARTQP8WabajZDwA==
-X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-09;
- repo=github.com/dkim2wg/interop; date=2026-11-03; sw=lmtpprox;
- action=sign d=shazbot.org a=rsa-sha256;
-DKIM2-Signature: i=1; m=1; t=1794958397; d=shazbot.org;
- mf=PGFsZXhAc2hhemJvdC5vcmc+;
- rt=PGRyaS1kZXZlbEBsaXN0cy5mcmVlZGVza3RvcC5vcmc+;
- s=fm2:rsa-sha256:k7eL+53v1WK+l2Df6A/3ZtDArczXKG96T5TuPA1JeIBDtSs
- VpjUmlRyTYwapCcT5FQFrocfc395woxSP133HnPtwHP6KYl+CQBBiwij3Nlkl6yc
- IB+nvsvep1Z30+cSzB7VOmSBrTMrxNf23G9vdZpn/wIGMC+CfNIHbZ/QANgOcobE
- 7QAXNpNVN8qLP5pBaA+XZUISiu1H5kUwJsbJ4/FGDRATBmk1jFS8e/mpmOCAOI6n
- rAbEhlJ4HxksTatvRivaL12iSalF+xe2jCsz475PNX8GFhbyiFqQipQ8gAX1ftZ6
- L+9xjjyxnO6v4MvaJy+VgMCzfrCi7va2iwvEXHQ==;
-X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-09;
- repo=github.com/dkim2wg/interop; date=2026-11-03; sw=lmtpprox;
- action=mi-m=1; hc=12;
- hn=cc,content-transfer-encoding,content-type,date,feedback-id,
- from,in-reply-to,message-id,mime-version,references,subject,to;
-Message-Instance: m=1;
- h=sha256:27q+KKo7XnsStduA99iu8sekMRO96NPbttKWHrolhyQ=:G/nOOdXrvsS0XmMnQ6K7L6R8U7MrOUPnWlNPXGT9/WE=;
-X-ME-Sender: <xms:POT8aoQqA35B6qL_87dZHdopUrCwbFiYGMLmDlRhohAM_6jXOpohXg>
- <xme:POT8ana5BD-CqIq4YCJ_VxbZH0f_RrLxPI5pYLproLh_6aS1a4uDFrGJ6LNxMEG1u
- W72883v_U5jPM3AwBCkWTov6M-3pGhlcherrFijxKBC_PhF1FSHeprY>
-X-ME-Received: <xmr:POT8ap7gLMc5gBNgElZtmUlkErVQgRxoljrCdyGXwofOstBdGxe-RJmjuxDbMw>
-X-ME-Proxy-Cause: dmFkZTEkeKvcm2WWrV2Nam7Bf9ttXaRNcoFtwJYSfKOnyZQAU7CIanTw/rB2zVFRxoJI7h
- IeudW+EeYwM49qZ6JZju/1GP0nP1Yv+kKkk/D4K930wUxQFcV0XlueXiz+7hjD5kmfaxRz
- bBO3bIRzJoak1QL4Cfa4ASNcv2DAa/M8Z/hOx/jaweCnB2/0DIYpjZW1n8hrKjwCE7vNrU
- P6wpF2p6xUeHF/dxlX9rqKdWZnj4adKNhvBP0hSS6o2uLn/cbVB7VrGdYl3wKD8Sodunof
- tZdMmG/A6owkaSnJITXQLPNles7P2CY/46fhuo0jkSJ251dn9SMZ/Ol2LQy+TNqCcgU7Vm
- lm1NNi1iesVxRVZxXbmKOE3n/CdMBi183kA973NWbfyZ0pnChEb3ChV7mp4YXeuqfpwxY4
- Jqltnk4FZ6BiJAdvWafESXPMn9a7Fx26bsfnNsNFwkTO7zelG2w0PlXuQ5fzdgBMbt/sl9
- fjaZOJinNB0XupczM3md3crznTNbVq0htZl8rExZOtos0XXkNm88ky94vlSQyxt3jRm5HS
- 2j2MH+LtkUeyPFu5ZHApXldAXs0ySexEJVl76LobcwpHdyBpfE+Ra/iVY9x6zdHO5XG1WO
- Dky123hcOfWBFLokWvfQgqvXTUAkUdbwwKwhHUBC3Ajc2gyrbR5AkJZ2iKxQ
-X-ME-Proxy: <xmx:POT8aic-o_s9k0Y30RnqhRd18SaRIZ9tHLj3dSsdN4TuAEF6_5-QnA>
- <xmx:POT8agcdR7quKdAGTgD1yur1yrBabZ_ij82eVJH_AtuIrQUVbEGU9w>
- <xmx:POT8anGZIAvYlwHPBLRFCh1vJiRMyOgyn0nbg8n2MW3f1X754NtGDg>
- <xmx:POT8avHrFNE4YwcuGc2gLce7BCcooJkx91dGrWJL_egKNT5HJLLXIg>
- <xmx:PeT8aoxvctf3KU46eZg9ZJgxx_Q0Im4OHEmS79puSaSmXa8HwuH-7O-U>
-Feedback-ID: i03f14258:Fastmail
-Received: by mail.messagingengine.com (Postfix) with ESMTPA; Tue,
- 17 Nov 2026 18:33:14 -0500 (EST)
-Date: Tue, 17 Nov 2026 15:33:12 -0800
-From: Alex Williamson <alex@shazbot.org>
-To: Matt Evans <matt@ozlabs.org>
-Cc: Alex Mastro <amastro@fb.com>, Leon Romanovsky <leon@kernel.org>, Jason
- Gunthorpe <jgg@nvidia.com>, Christian =?UTF-8?B?S8O2bmln?=
- <christian.koenig@amd.com>, Kevin Tian <kevin.tian@intel.com>, Pranjal
- Shrivastava <praan@google.com>, Longfang Liu <liulongfang@huawei.com>,
- Mahmoud Adam <mngyadam@amazon.de>, David Matlack <dmatlack@google.com>,
- =?UTF-8?B?QmrDtnJuIFTDtnBlbA==?= <bjorn@kernel.org>, Sumit Semwal
- <sumit.semwal@linaro.org>, Ankit Agrawal <ankita@nvidia.com>, Alistair
- Popple <apopple@nvidia.com>, Vivek Kasireddy <vivek.kasireddy@intel.com>,
- linux-kernel@vger.kernel.org, linux-media@vger.kernel.org,
- dri-devel@lists.freedesktop.org, linaro-mm-sig@lists.linaro.org,
- kvm@vger.kernel.org, linux-pci@vger.kernel.org, alex@shazbot.org
-Subject: Re: [PATCH v8 8/9] vfio/pci: Support mmap() of a VFIO DMABUF
-Message-ID: <20261117153312.781fd839@shazbot.org>
-In-Reply-To: <df301c78-2745-4c64-a331-c830efb74660@ozlabs.org>
-References: <20261006193643.76330-1-matt@ozlabs.org>
- <20261006193643.76330-9-matt@ozlabs.org>
- <20261013171347.54e856c7@shazbot.org>
- <0bd00c26-4f53-4387-86be-99f0c37fa47c@ozlabs.org>
- <df301c78-2745-4c64-a331-c830efb74660@ozlabs.org>
-X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; x86_64-pc-linux-gnu)
+	by gabe.freedesktop.org (Postfix) with ESMTP id DD33310E415;
+	Tue, 17 Nov 2026 23:49:04 +0000 (UTC)
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com
+ [205.220.180.131])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 39F8310E415
+ for <dri-devel@lists.freedesktop.org>; Tue, 17 Nov 2026 23:48:54 +0000 (UTC)
+Received: from pps.filterd (m0279872.ppops.net [127.0.0.1])
+ by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id
+ 6AHMfS5V1495429
+ for <dri-devel@lists.freedesktop.org>; Tue, 17 Nov 2026 23:48:53 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+ cc:content-transfer-encoding:content-type:date:from:in-reply-to
+ :message-id:mime-version:references:reply-to:subject:to; s=
+ qcppdkim1; bh=MaHtinZD1wk7Bum6txGTdaRyK+bUzqzEC5csqnjEg9U=; b=l9
+ Yt0XwtTEg/JH+OmVRiqxMbLtJPe0XUm/k84+9qGFxBtGd6xCfQEHy629pzUNKkID
+ Eo7PS1boWeTJY+wPsWLqO/mvzC5V2nciKCTdNjex+ROcG1yTJveyEN0YoEJW+nLB
+ o0A1kvKabeZ1zQBhzozMJLlnH37Js5MGACX0vu/IDXm5NI8LsOXd4YUJTIgVPB/C
+ 89Onpq3arIrhkXPz+B9ndHoF5Ku/LgUEC06PylpdQrcbeRdIlBxUTn8uwwVTQJVC
+ HZFsFPCBn5Z2zc9MW0+Y3rlopV7rTHbbM6noAHkWlyUslQcJpG6vqVoumerUy2Vh
+ QVyyl5FuAtFhO5PZvdWw==
+Received: from mail-oo1-f69.google.com (mail-oo1-f69.google.com
+ [209.85.161.69])
+ by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4j0yv8g7s4-1
+ (version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+ for <dri-devel@lists.freedesktop.org>; Tue, 17 Nov 2026 23:48:52 +0000 (GMT)
+Received: by mail-oo1-f69.google.com with SMTP id
+ 006d021491bc7-6f4d828b9eeso330516eaf.1
+ for <dri-devel@lists.freedesktop.org>; Tue, 17 Nov 2026 15:48:52 -0800 (PST)
+ARC-Seal: i=1; a=rsa-sha256; t=1794959332; cv=none;
+ d=google.com; s=arc-20260327;
+ b=UIVreO35u09lsRnKyNN7oba19MyNoAZg59rklwkr5x3ijfjiEAiCmuqdDinBcV7s53
+ uGr+/sd7c+w1ayI9m49c2L0RiUJsw/WeSgTNLw29qF4ccsMMY1hK+mdJ1IzkO/Q8MHd3
+ 3KenTRpKKAXJzF3exWX5XVDEe5EDt7YCxHwQas6FFcfYdytY5NY2Tkv7xYJbQh+DRZWr
+ hJS7VwglfSC3sLvj3YP8wYiaAjyVU/W63OwWFT+qbresswJ+7BCY+hi6YpkTjOSyfOiA
+ NBrolAEeYPoj78a3+yd7LwE+WTKkDomFPBz6KZgRee93wba6nQ2HlkI1hV1ux87hX4Qp
+ Hv2w==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com;
+ s=arc-20260327; 
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :reply-to:in-reply-to:references:mime-version:dkim-signature;
+ bh=MaHtinZD1wk7Bum6txGTdaRyK+bUzqzEC5csqnjEg9U=;
+ fh=awUltsmqvSID5BIr+4aru6FIolfeDx9s1EwM3PELF5c=;
+ b=P9cl4jjFD5dMjCw8kx9Ats8tR64G0FfdDSdSqiCND60QTbyQdd5vP096pORjaSJceu
+ E/ehdhf79O8LkRWabTHdXENgG3JZfnK5xUvoIzECke+B1XICrXtA0UCXJa7b2RsAcesk
+ xytertjirKKHxZCLNoPZO70bxIrhF2SVgJvpDNbi3AzvTMyW6ERVwz6+KVR0GxuEO7U1
+ R5dfqRSaW2jp1tP6c9hxd50BtlhrfBuDvlkTvF0tVnkKBiFTK0GdUZSfvGeCJgg9UJp7
+ UXCvEN0mB1pBnS3HXsQdPPuFKcHhFcvwRh0EH1UPg656piJi3ZDw+eLyhkeQyTHfg7vP
+ 1vdA==; darn=lists.freedesktop.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=oss.qualcomm.com; s=google; t=1794959332; x=1795564132;
+ darn=lists.freedesktop.org; 
+ h=content-transfer-encoding:content-type:cc:to:subject:message-id
+ :date:from:reply-to:in-reply-to:references:mime-version:from:to:cc
+ :subject:date:message-id:reply-to:content-type;
+ bh=MaHtinZD1wk7Bum6txGTdaRyK+bUzqzEC5csqnjEg9U=;
+ b=Ljn2McrcNqnx2gkBJmUahQD7aaEeo7MfRvQ16olTrI6unCqR17bHT9vha5I42cFktR
+ KtoLOsXxb+8hSayjfohJaQkoWQqGFoQJk5ms/1H/tZy3t0iNXNCZwudTpsq9zwLmrBBR
+ MyUVRtVvoQ+6LXvegAjqppzh3wdc6q9FF5TlBhFvJvU6f9AaOLBofyFmALZXHnMdl4vf
+ 9F1Bysi3NdkbTtFYjmGGaJ2M/LevRCp9+3LXEAHAPbrrYxaFgGvSGjf5SQhFc4ZoYCpP
+ w+0A5WUhadm5l+Iobz1b/fY2iO+bKLRBVwBI7/zdBWHN4zoA0Q4/K+py51ybp07rkfan
+ /SKA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20260707; t=1794959332; x=1795564132;
+ h=content-transfer-encoding:content-type:cc:to:subject:message-id
+ :date:from:reply-to:in-reply-to:references:mime-version:x-gm-gg
+ :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+ :content-type;
+ bh=MaHtinZD1wk7Bum6txGTdaRyK+bUzqzEC5csqnjEg9U=;
+ b=PWrAZ41/1bNt5VhgxG/5JgOMbVepFoXuAPgiTLhq75fkMNxEd4bxycx3uW3uoGbwQW
+ ip0Uli59yMfOfWlA2eNP+tFKG9R3vg0mZmuaWi1wI0KRG8AS+gzSxFeY+Sg0l5dJYVQl
+ n6Z8AhkzUl9mWqPV9zC8PodctbBuAzUEI/wabZazpaDlub6Jjdlugp6oM3DkyJTwHvYo
+ 2hSG7nF+9XW2lRtzML86oU2PH08dRDFjkKYO0SAP02jHLMANTsr1TIrtpnpfd+nzc1vA
+ jVSAM5UuXUceZoDJiAY2xP62ZQgZ8HQZ/fHZD5dXaVm15nsaOA8k/ji9t+wwHUeAzgpt
+ gjMQ==
+X-Forwarded-Encrypted: i=1;
+ AL+hErEnnFPaipamznIFVjnFCTF+90xoNt+SH7LWpRUZWEjYY79B5OxjyXA/BqMk5s7oDiikUmbSEymKhlA=@lists.freedesktop.org
+X-Gm-Message-State: APuU4Z/8Tuf/eU8QnNInn4ypaYvYxwW7TQf5P7YEB4Xeh5UubgLFHKgi
+ UuW6M751Gc5qaNviUgXow9AtRw340sFMJCB9lsro+J89guUiQ5s8kNHwDR7U4x19ZtT73Romwum
+ zdxD2VHXijfSwzW9LVnf8vQpxJAJcGOUaGqmYxzL2HntdK4kTQmjc9X5gga79O8PxmCyya2If91
+ cPEqiL9/0Jj1O6caz9U+9BQa8+uiFX75q3w4nmjHDou11m2A==
+X-Gm-Gg: AYBFou0nJnyOzLPs2gmkdGbMBj/+lrAaOI8JwQhQvr/fxqqH3UCIHUKA7AMlsHo31hC
+ 5oq3pbgq3nrABDWbkiHLns0h/7qLdvEZ8N3ucawXjjY6KUcoKRCxEzpOCnel8xwlKS27dAi3H3z
+ 5To0M8DIYxEDqOj8vhcSMmWGWofD92Uw8adJLlFYQl0TNz4ZTrVXdLjAe4AOLYlz6XSr5v4mZGT
+ JYGUEwXGm2VEh8qEOBxGQ==
+X-Received: by 2002:a05:6820:7090:20b0:71a:eea9:8173 with SMTP id
+ 006d021491bc7-71b1877ef1amr514920eaf.85.1794959331845; 
+ Tue, 17 Nov 2026 15:48:51 -0800 (PST)
+X-Received: by 2002:a05:6820:7090:20b0:71a:eea9:8173 with SMTP id
+ 006d021491bc7-71b1877ef1amr514912eaf.85.1794959331427; Tue, 17 Nov 2026
+ 15:48:51 -0800 (PST)
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
+References: <20261111-a3xx-fix-me-v1-0-d81f50f1ba1e@oss.qualcomm.com>
+ <20261111-a3xx-fix-me-v1-1-d81f50f1ba1e@oss.qualcomm.com>
+ <079897df-fa2c-4ba0-bd45-7b357783b0a8@oss.qualcomm.com>
+In-Reply-To: <079897df-fa2c-4ba0-bd45-7b357783b0a8@oss.qualcomm.com>
+From: Rob Clark <rob.clark@oss.qualcomm.com>
+Date: Tue, 17 Nov 2026 15:48:39 -0800
+X-Gm-Features: AclHuK_gQ7TVoqme6UT0Bozf3_qr3rMIt2eYSB4MEtmBZmpM37PScfWEwT5xtvM
+Message-ID: <CACSVV00s1MbvVp0NXRXEqPMu6Fh0FTzto7TGSKgfOb9pkp9tmA@mail.gmail.com>
+Subject: Re: [PATCH 1/3] drm/msm/a3xx: report CP protected mode faults
+To: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
+Cc: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>,
+ Sean Paul <sean@poorly.run>, Konrad Dybcio <konradybcio@kernel.org>,
+ Akhil P Oommen <akhilpo@oss.qualcomm.com>,
+ Dmitry Baryshkov <lumag@kernel.org>,
+ Abhinav Kumar <abhinav.kumar@linux.dev>,
+ Jessica Zhang <jesszhan0024@gmail.com>,
+ Marijn Suijten <marijn.suijten@somainline.org>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org,
+ freedreno@lists.freedesktop.org, linux-kernel@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
+X-Proofpoint-GUID: TZHRlMEQPlEzWEqKZ6xPXcjW8toQdOwK
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMTE3MDA5NCBTYWx0ZWRfX+HDAumtf0Bkm
+ fWK3YhQpkEN0FsZt29FUQRD0X8t5xb6E9KyXZsN/RGS8qfgnMFTOBRwWWVnQ1MAgjsCq28K86s3
+ DDrra8mkxlJQmad8dsMRU/fsObdnI1A=
+X-Authority-Analysis: v=2.4 cv=c60+0h9l c=1 sm=1 tr=0 ts=6afce7e4 cx=c_pps
+ a=lVi5GcDxkcJcfCmEjVJoaw==:117 a=IkcTkHD0fZMA:10 a=zJRp6_cAMcgA:10
+ a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22
+ a=yx91gb_oNiZeI1HMLzn7:22 a=e5mUnYsNAAAA:8 a=EUspDBNiAAAA:8
+ a=C0sjHUWUpF4vuSjdFmsA:9 a=QEXdDO2ut3YA:10 a=rBiNkAWo9uy_4UTK5NWh:22
+ a=Vxmtnl_E_bksehYqCbjh:22
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMTE3MDA5NCBTYWx0ZWRfXyglBViRbiAnn
+ lfNbE2hTL53xkKDjxB8rgE3ncFdYOjLKuJC1lJ5F4JlySzruzyPv0riLr0MfXfXSoSWXhnPJiqR
+ cdE/D7KIISm54JHfzzt74qL6SZGBjnpL/BuvT374uIrBzjz5iKQaJ195mtoULIoDx9KX+kwVUvW
+ kRU0SKSWK+JA4d4AO33zhWj9QBwani8dP8wBZi6p+aKgZD6Yawxm7cKPW/EECjDJ9vXmzAr15v+
+ /35G7GqwlnR2XqUL2YyudgkCv6JLMbJ14zonCtr8H4t1LdJZ8dNQd8OnIgGpXl7FaoOFdwo78ZS
+ GFv2//3dVHI19/UkjvKRmDeIbxDqojdx/Dj4Gn0uoTvF9b9J7iP/9SDlZVg3em9nnpBsCdsodDi
+ NAD5YLDKoolHEg+kizpMzjcM6RVzZM5cazu0PYKncOLfaH4h/nfOlsuGHYSPU68tBtgF6CGBVZb
+ aBb/BSaVTyWSuzwEr9w==
+X-Proofpoint-ORIG-GUID: TZHRlMEQPlEzWEqKZ6xPXcjW8toQdOwK
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
+ definitions=2026-11-17_05,2026-11-16_01,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ lowpriorityscore=0 clxscore=1015 impostorscore=0 bulkscore=0 phishscore=0
+ adultscore=0 malwarescore=0 suspectscore=0 priorityscore=1501 spamscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2611040001 definitions=main-2611170094
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -123,155 +160,57 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
+Reply-To: rob.clark@oss.qualcomm.com
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-12.3 required=3.0 tests=BAYES_00,DKIM_SIGNED,
+X-Spam-Status: No, score=-15.8 required=3.0 tests=BAYES_00,DKIM_SIGNED,
 	DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
-	MAILING_LIST_MULTI,MENTIONS_GIT_HOSTING,SPF_HELO_NONE,SPF_PASS,
-	USER_AGENT_SANE_2 autolearn=unavailable autolearn_force=no
-	version=4.0.1
+	INCLUDES_CR_TRAILER,INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,
+	SPF_PASS autolearn=unavailable autolearn_force=no version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-On Wed, 11 Nov 2026 10:48:47 +0000
-Matt Evans <matt@ozlabs.org> wrote:
+On Tue, Nov 17, 2026 at 7:53=E2=80=AFAM Konrad Dybcio
+<konrad.dybcio@oss.qualcomm.com> wrote:
+>
+>
+>
+> On 11-Nov-26 14:05, Dmitry Baryshkov wrote:
+> > a3xx_irq() acks every interrupt without looking at it, so a write to a
+> > protected register shows up only as a hangcheck timeout with no hint of
+> > which register was hit. Print the faulting address the way a4xx and a5x=
+x
+> > already do.
+> >
+> > Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
+> > ---
+> >  drivers/gpu/drm/msm/adreno/a3xx_gpu.c | 9 ++++++++-
+> >  1 file changed, 8 insertions(+), 1 deletion(-)
+> >
+> > diff --git a/drivers/gpu/drm/msm/adreno/a3xx_gpu.c b/drivers/gpu/drm/ms=
+m/adreno/a3xx_gpu.c
+> > index 160d302e16a3..7e03b7305493 100644
+> > --- a/drivers/gpu/drm/msm/adreno/a3xx_gpu.c
+> > +++ b/drivers/gpu/drm/msm/adreno/a3xx_gpu.c
+> > @@ -419,7 +419,14 @@ static irqreturn_t a3xx_irq(struct msm_gpu *gpu)
+> >       status =3D gpu_read(gpu, REG_A3XX_RBBM_INT_0_STATUS);
+> >       DBG("%s: %08x", gpu->name, status);
+> >
+> > -     // TODO
+> > +     if (status & A3XX_INT0_CP_REG_PROTECT_FAULT) {
+> > +             u32 val =3D gpu_read(gpu, REG_A3XX_CP_PROTECT_STATUS);
+> > +
+> > +             dev_err_ratelimited(gpu->dev->dev,
+> > +                     "CP | protected mode error | %s | addr=3D0x%8.8X =
+| status=3D0x%8.8X\n",
+> > +                     val & (1 << 24) ? "WRITE" : "READ",
+> > +                     (val & 0xFFFFF) >> 2, val);
+>
+> I would really like BIT/GENMASK here..
 
-> Hi Alex,
->=20
-> On 14/10/2026 21:38, Matt Evans wrote:
-> > Hi Alexes,
-> >=20
-> > On 14/10/2026 00:13, Alex Williamson wrote: =20
-> >> On Tue,=C2=A0 6 Oct 2026 20:36:36 +0100
-> >> Matt Evans <matt@ozlabs.org> wrote:
-> >> =20
-> >>> A VFIO DMABUF can export a subset of a BAR to userspace by fd; add
-> >>> support for mmap() of this fd.=C2=A0 This provides another route for a
-> >>> process to map BARs, in which the process can only map a specific
-> >>> subset of a BAR represented by the exported DMABUF.
-> >>>
-> >>> mmap() support enables userspace drivers to safely delegate BAR
-> >>> sub-ranges to other processes by sharing a DMABUF fd, without having
-> >>> to share the (omnipotent) VFIO device fd with them.
-> >>>
-> >>> Since the main VFIO BAR mmap() is now DMABUF-aware, the new mmap()=20
-> >>> reuses
-> >>> the existing vm_ops.
-> >>>
-> >>> The lifecycle of an exported DMABUF remains decoupled from that of the
-> >>> device fd it came from, i.e. the device fd could be closed with DMABUF
-> >>> VMAs present, meaning a fault on a VMA could happen concurrently with
-> >>> vfio_pci_dma_buf_cleanup().
-> >>>
-> >>> To deal with this scenario, the fault handler now temporarily takes a
-> >>> VFIO device registration to ensure the vdev remains valid, and then
-> >>> vdev locks can be taken. =20
-> >>
-> >> This sounds like potentially measurable overhead if something is
-> >> slamming the fault handler where huge-fault is not supported or active.
-> >> Have you considered a fast path for the internal dmabuf where the
-> >> lifecycle is constrained? =20
-> > [snip]
-> >=20
-> > Hmm.=C2=A0 I'll hack up a test to try to measure the relative overhead =
-of VMA=20
-> > faults before/after (modulo access to meaningful HW). =20
->=20
-> Alex Mastro and I have put together some tests, and measured this=20
-> overhead on the v8 series.
->=20
-> https://github.com/evansm7/vfio-playground/tree/master/vfio-barmap-perf
->=20
-> Alex also generated a similar test with a slightly different method:
->   https://github.com/opsound/vfio-tools/blob/main/vfio_bar_bench.c
->=20
->=20
-> Test method:
->=20
-> Time accesses to a VFIO mmap'd BAR immediately after the mmap, to=20
-> measure the 'cold' initial fault time.  Re-time a second pass for which=20
-> the pagetable should now be populated, and subtract.  This should=20
-> isolate the cost of the fault (uarch exception, generic pagefault=20
-> plumbing, VFIO fault handler) from common costs (the MMIO access itself,=
-=20
-> TLB misses, the loop iterating across the BAR).  Maximise the number of=20
-> faults by disabling hugepages (per concern above).
->=20
-> This is done both for a single-threaded case which just iterates across=20
-> a new BAR mapping, and a multi-threaded contended case.  Rather than=20
-> just pthreads, this test fork()s to try to avoid seeing contention on=20
-> per-mm locks (e.g. mmap_lock) and to focus on the VMA/VFIO locking.
->=20
-> The default test mmaps before forking, meaning there's one shared=20
-> mapping/DMABUF accessed from both processes.  The fault handler should=20
-> then contend on dmabuf->resv, vdev->memory_lock, and vdev->dmabuf_lock.
->=20
-> For comparison/curiosity, the --mt-map-late option mmaps _after_=20
-> forking; this leads to a mapping/DMABUF in each process so I expect no=20
-> contention on dmabuf->resv (but still on memory_lock/dmabuf_lock).
->=20
-> Alex's test instead runs threads in-process, and goes further with=20
-> supporting a larger number of threads (though with the caveat that they=20
-> may also be fighting over intra-process mm locks).  It also supports a=20
-> mode where threads can access per-thread VMAs (which is comparable to=20
-> the 'mt-map-late' option of my test).  Both are interesting approaches IM=
-O.
->=20
->=20
-> Findings:
->=20
-> On the dusty AMD Ryzen 3950X under my desk (targeting a 256MB BAR) I=20
-> found the following averaged over 200 runs:
->=20
->   - A single-threaded/uncontended fault became 5.8% slower
->   - A two-process contended case became 8.7% slower
->    - 0.5% of this is the "early mmap" dmabuf->resv contention, i.e. using
->      mt-map-late (a mapping in each process) reduces by 0.5%.
->=20
-> Alex's runs on fancier EPYC 9334 machines show a similar (slightly=20
-> lower) overhead in the 1-2 case, and go on to show fairly high overhead=20
-> when many threads are involved (baseline times in ns, relative series v8=
-=20
-> behaviour in percentage change):
->=20
->    Threads    One shared mapping   Mapping per thread
->               7.3     v8            7.3     v8
->    --------------------------------------------
->       1       761   +4.5%           777   +2.7%
->       2       869   +6.6%           840   +5.6%
->       8      1465    +78%          1363    +47%
->      16      4152    +97%          4258    +19%
->      32      9927    +92%         10158    +12%
->=20
->=20
-> Now.  The absolute timings of these sub-microsecond faults indicate a=20
-> realistic application won't see a human-visible change.  Small BARs=20
-> mapped with 4k pages are still fast to map;  it is reasonable to ask=20
-> that applications map huge (GBs/TBs) BARs using huge (MB/GB) pages!  Of=20
-> course, this is just a one-time cost of warming up the VMA, not ongoing.
->=20
->=20
-> Alex, my preference is not to complicate the fault handler with a fast=20
-> path just yet.  It's easy to think of a contrived scenario where this=20
-> matters but in middle-of-the-road application behaviour it would be=20
-> surprising if this was noticeable.  What are your thoughts?
->=20
-> (In the previous mail I suggested keying off priv->vfile (or a flag=20
-> thereof), and it seems ~straightforward to skip the extra=20
-> synchronisation.  If you feel strongly that the fault handler doesn't=20
-> have enough if() statements yet and needs more paths then we could bring=
-=20
-> this into v9, but would prefer to follow up later. :)  A fastpath diff=20
-> appears small but the reasoning overhead is bigger.)
+Have a look at how it is done here, to keep it all tied back to
+register defn xml:
 
-I tend to agree.  IIUC, in the worst case concurrency (that we likely
-don't experience), if we assume huge pages, we're looking at low
-single digit millisecond total overhead to fault in an entire BAR
-(~256 max faults).  Further, if our configuration doesn't force type1 to
-fault in the entire BAR for DMA mapping, that overhead is amortized
-across every user/guest access.
+https://patchwork.freedesktop.org/patch/768455/?series=3D178338&rev=3D1
 
-So yes, it's probably not worth having two different locking semantics,
-but we should note that as an intentional decision in the commit log,
-potentially even as a comment in the fault handler.  Thanks,
-
-Alex
+BR,
+-R
