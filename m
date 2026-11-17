@@ -2,45 +2,69 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 762DA606A332
-	for <dri-devel@archiver.kernel.org>; Tue, 17 Nov 2026 12:47:40 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1AB54606A8BA
+	for <dri-devel@archiver.kernel.org>; Tue, 17 Nov 2026 12:50:48 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=bYC/PfWG
+	dkim=pass (2048-bit key, unprotected) header.d=pixelcluster.dev header.i=@pixelcluster.dev header.a=rsa-sha256 header.s=ovhmo-selector-1 header.b=SaP5RLG1
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 9C34A10F6C7;
-	Tue, 17 Nov 2026 12:47:34 +0000 (UTC)
-Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 94ED489C68
- for <dri-devel@lists.freedesktop.org>; Tue, 17 Nov 2026 12:47:28 +0000 (UTC)
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by tor.source.kernel.org (Postfix) with ESMTP id B637B63487;
- Tue, 17 Nov 2026 12:47:27 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id D33B11F000C8;
- Tue, 17 Nov 2026 12:47:25 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1794919647;
- bh=L4CuJ/U6jBRxqbp2KP8YKiaenuPUuuIlyYrCtnXO1z0=;
- h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
- b=bYC/PfWGXJucbpdFYe0lMasv9xm6Wmw8RNzAp8HSd33c5FZt7mId33boPRthhHcb2
- dGerJ1LFGRqOvDlvjN5evjMuEkp+mC32EgFMAWqJnmf1SVrUXVJcQrcLiTLT697lJQ
- 0apwHitK/o7u0okcXHRGL/8rnOQ+QQb0uDQcRDkLUruvzl29g16tnGZeQUQaY4CgVQ
- AEvnSMVF4sdX7ZpkdAqJyMrK5CQVdXTfS4hGuUHrIBdOP7IFohABGz6LQA3O/npHCf
- uBzgpbd8nQrZ+bN/9ARvQRBGus9ePC7bFAVIr7GXMMozwTro1kBDbywIy7rjXKVFSk
- lKVXSnYQ5R1Vg==
-Message-ID: <sashiko-outbox-218789@kernel.org>
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v1 01/11] dt-bindings: arm: qcom: add LG V60 ThinQ 5G
- (timelm)
-To: rofikkerneldev <rofikcoga@gmail.com>
-Cc: devicetree@vger.kernel.org, dri-devel@lists.freedesktop.org,
- linux-input@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org,
- dmitry.torokhov@gmail.com
-In-Reply-To: <20261117123946.668557-2-rofikcoga@gmail.com>
-References: <20261117123946.668557-1-rofikcoga@gmail.com>
- <20261117123946.668557-2-rofikcoga@gmail.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Tue, 17 Nov 2026 12:47:24 +0000
+	by gabe.freedesktop.org (Postfix) with ESMTP id 4DCE010F6C3;
+	Tue, 17 Nov 2026 12:50:42 +0000 (UTC)
+Received: from smtpout10.mo538.mail-out.ovh.net
+ (smtpout10.mo538.mail-out.ovh.net [51.210.91.39])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 2B63910E5C4
+ for <dri-devel@lists.freedesktop.org>; Tue, 17 Nov 2026 12:50:35 +0000 (UTC)
+Received: from director2.derp.mail-out.ovh.net
+ (director2.derp.mail-out.ovh.net [79.137.60.36])
+ by mo538.mail-out.ovh.net (Postfix) with ESMTPS id 4jTPj51Yp0z6FGY;
+ Tue, 17 Nov 2026 12:50:33 +0000 (UTC)
+Received: from director2.derp.mail-out.ovh.net
+ (director2.derp.mail-out.ovh.net. [127.0.0.1])
+ by director2.derp.mail-out.ovh.net (inspect_sender_mail_agent) with SMTP
+ for <Felix.Kuehling@amd.com>; Tue, 17 Nov 2026 12:50:32 +0000 (UTC)
+Received: from mta6.priv.ovhmail-u1.ea.mail.ovh.net (unknown [10.110.178.78])
+ by director2.derp.mail-out.ovh.net (Postfix) with ESMTPS id
+ 4jTPj465Wzz1xp2; Tue, 17 Nov 2026 12:50:32 +0000 (UTC)
+Received: from pixelcluster.dev (unknown [10.1.6.7])
+ (Authenticated sender: nat@pixelcluster.dev)
+ by mta6.priv.ovhmail-u1.ea.mail.ovh.net (Postfix) with ESMTPSA id 61FB48E2104; 
+ Tue, 17 Nov 2026 12:50:31 +0000 (UTC)
+Authentication-Results: garm.ovh; auth=pass
+ (GARM-98R002a7f9e4f6-90e2-4150-b932-19985059a3b2,
+ 00F4D7524EDFA56606BD67631AE7EA1B984E627F) smtp.auth=nat@pixelcluster.dev
+X-OVh-ClientIp: 141.95.41.139
+From: Natalie Vock <nat@pixelcluster.dev>
+Date: Tue, 17 Nov 2026 13:50:07 +0100
+Subject: [PATCH v2 01/10] drm/amdgpu: Remove unused parameter from
+ amdgpu_vm_pte_fragment
+X-Archived-By: <archiver.kernel.org>
+MIME-Version: 1.0
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20261117-prt-explicit-sync-v2-1-bb3851cb6a0c@pixelcluster.dev>
+References: <20261117-prt-explicit-sync-v2-0-bb3851cb6a0c@pixelcluster.dev>
+In-Reply-To: <20261117-prt-explicit-sync-v2-0-bb3851cb6a0c@pixelcluster.dev>
+To: Felix Kuehling <Felix.Kuehling@amd.com>, 
+ Alex Deucher <alexander.deucher@amd.com>, 
+ =?utf-8?q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>, 
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
+ =?utf-8?q?Timur_Krist=C3=B3f?= <timur.kristof@gmail.com>
+Cc: amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org, 
+ linux-kernel@vger.kernel.org, Natalie Vock <nat@pixelcluster.dev>
+X-Mailer: b4 0.15.2
+x-ovh-tracer-id: 5591218938405806396
+X-VR-SPAMSTATE: OK
+X-VR-SPAMSCORE: -100
+X-VR-SPAMCAUSE: dmFkZTGrAxNh0OCp/TgW8Z00538M1glw8EUMMtYMTQIkfoBlnYfE0vlSyw4w5uWuf/QyKUtvCHx7EFC1YQK9QJiefAOuQT22/RonVhgC56ibCMLxgK4dCCF83EYDfkamVxfHM+wyA0Nvvm7rS+sCNtJyY/Jb00er6pXntUGUJf0EYzZZCpUQzQXqPm/8qDoT803NDa4r5nrmdrrXIxHrrU/3K45uUM+B0+i0D8Teg3+rNFu/qNg8OzEHLmYLG3Bn2ErMgHoNASckJmPFcSnlHiSRHxWGk75pm1zRPdg06qGv5yp8rB45X+XQ8Dp2qVMqyf58e8qcwvzrNASxckuxfH4TwrY7agcpFqZtws4puYGXkKOCzHoj1xrXfRKMTavd6t0jQsywhTnP0TOmkDkX4jereRFgewxtbMoq5hDjd/XDPuEPILj3zbIOVe+nQJlXo88YnG03rmErpy2PsV2BbhKZnUaql/U/tPFYP+bRdf4Qm2QJJub8sXmDBoSnqz8iDio6uJwRSjix/tUHRRCNrrEFtmfchPitk0CuE5hTGAAjyVXshyjBui533KKu1+fjWj1UOlDK6GNfPlBfGXOerpTgcpqg4JE6WywdXd+ujgQfKWhJVFxxavZur39YKM49UGJok8u+4JK7mKNMtnr9IwsRK7rwXvjukPMf3OvgQF1LRsNHQg
+DKIM-Signature: a=rsa-sha256; bh=7E3qIaNmaVz1QhOoJuZVv7W5GWmjavhGo5fWuOPFwyw=; 
+ c=relaxed/relaxed; d=pixelcluster.dev; h=From;
+ s=ovhmo-selector-1; t=1794919833; v=1;
+ b=SaP5RLG1d/shDBVl4VVJt53my6q9bszysG7SsZ6dXGtqP8xZ4Y+GNfZmSshVcvmHotA7whEU
+ SYndHkFMh+U3JOlssvNIHuivD4B/wCKf0pIjN9S/MTg3+k3kEYlclXe+tYH/NGo0ys+9y21ZW0H
+ AcdjV4iPECqWp2ySvY9yoZO4pp4KckxbN5AocnAOUG96v8pRXClfxOB7wMpUESdeEfF5gysayEF
+ w445Drke/24IVYmUHDD/sdhSfcwdrzzwATXQM6crI3L3q34JkcPO4BKO3LHVSi8nS7UVjo3J7bc
+ MGD4t1NUuycE7gxvknctCuI2GKgY02PWSV5Hq5lrwX6ag==
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -51,77 +75,62 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
-Reply-To: sashiko-reviews@lists.linux.dev
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-15.8 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
-	DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
+X-Spam-Status: No, score=-18.8 required=3.0 tests=BAYES_00,DKIM_SIGNED,
+	DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
 	INCLUDES_CR_TRAILER,INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,
-	SPF_PASS autolearn=ham autolearn_force=no version=4.0.1
+	SPF_PASS,USER_AGENT_GIT autolearn=unavailable autolearn_force=no
+	version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
-X-Archived-By: <archiver.kernel.org>
 
-Thank you for your contribution! Sashiko AI review found 2 potential
-issues to consider:
-- [High] dt-bindings: arm: qcom: username in Signed-off-by instead of
-  real name
-- [Low] dt-bindings: arm: qcom: duplicate lge vendor prefix instead of
-  lg
---
+Trivial cleanup. No functional change.
 
-commit 3057431969983ea736dadadbf8f06be7752765b6
-Author: rofikkerneldev <rofikcoga@gmail.com>
+Signed-off-by: Natalie Vock <nat@pixelcluster.dev>
+---
+ drivers/gpu/drm/amd/amdgpu/amdgpu_vm_pt.c | 8 +++-----
+ 1 file changed, 3 insertions(+), 5 deletions(-)
 
-> dt-bindings: arm: qcom: add LG V60 ThinQ 5G (timelm)
->
-> Document the compatible for the LG V60 ThinQ 5G (timelm), based on
-> SM8250, and register the LG Electronics vendor prefix.
->
-> Signed-off-by: rofikkerneldev <rofikcoga@gmail.com>
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm_pt.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm_pt.c
+index c73eb416c0e26..4eae6a831b4ee 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm_pt.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm_pt.c
+@@ -745,14 +745,13 @@ static void amdgpu_vm_pte_update_flags(struct amdgpu_vm_update_params *params,
+  * @params: see amdgpu_vm_update_params definition
+  * @start: first PTE to handle
+  * @end: last PTE to handle
+- * @flags: hw mapping flags
+  * @frag: resulting fragment size
+  * @frag_end: end of this fragment
+  *
+  * Returns the first possible fragment for the start and end address.
+  */
+ static void amdgpu_vm_pte_fragment(struct amdgpu_vm_update_params *params,
+-				   uint64_t start, uint64_t end, uint64_t flags,
++				   uint64_t start, uint64_t end,
+ 				   unsigned int *frag, uint64_t *frag_end)
+ {
+ 	/**
+@@ -825,8 +824,7 @@ int amdgpu_vm_ptes_update(struct amdgpu_vm_update_params *params,
+ 	int r;
+ 
+ 	/* figure out the initial fragment */
+-	amdgpu_vm_pte_fragment(params, frag_start, end, flags, &frag,
+-			       &frag_end);
++	amdgpu_vm_pte_fragment(params, frag_start, end, &frag, &frag_end);
+ 
+ 	/* walk over the address space and update the PTs */
+ 	amdgpu_vm_pt_start(adev, params->vm, start, &cursor);
+@@ -932,7 +930,7 @@ int amdgpu_vm_ptes_update(struct amdgpu_vm_update_params *params,
+ 			if (frag_start >= frag_end) {
+ 				/* figure out the next fragment */
+ 				amdgpu_vm_pte_fragment(params, frag_start, end,
+-						       flags, &frag, &frag_end);
++						       &frag, &frag_end);
+ 				if (frag < shift)
+ 					break;
+ 			}
 
-[Severity: High]
-The Author header and Signed-off-by trailer use a handle (rofikkerneldev)
-instead of a known real human name, which is required by the Developer's
-Certificate of Origin in Documentation/process/submitting-patches.rst.
+-- 
+2.56.1
 
-> diff --git a/Documentation/devicetree/bindings/arm/qcom.yaml b/Documentat=
-ion/devicetree/bindings/arm/qcom.yaml
-> index 121ca557ce1ef..f8b34109171d0 100644
-> --- a/Documentation/devicetree/bindings/arm/qcom.yaml
-> +++ b/Documentation/devicetree/bindings/arm/qcom.yaml
-> @@ -1139,6 +1139,7 @@ properties:
-> =20
->        - items:
->            - enum:
-> +              - lge,timelm
->                - qcom,qrb5165-rb5
->                - qcom,sm8250-hdk
->                - qcom,sm8250-mtp
-> diff --git a/Documentation/devicetree/bindings/vendor-prefixes.yaml b/Doc=
-umentation/devicetree/bindings/vendor-prefixes.yaml
-> index 5471a06f93f10..fa50a81880f0b 100644
-> --- a/Documentation/devicetree/bindings/vendor-prefixes.yaml
-> +++ b/Documentation/devicetree/bindings/vendor-prefixes.yaml
-> @@ -971,6 +971,8 @@ patternProperties:
->      description: Lenovo Group Ltd.
->    "^lg,.*":
->      description: LG Corporation
-> +  "^lge,.*":
-> +    description: LG Electronics
->    "^lgphilips,.*":
->      description: LG Display
->    "^libretech,.*":
-
-[Severity: Low]
-Should this use the existing "lg" vendor prefix (lg,timelm) instead of
-adding a duplicate "lge" prefix?
-
-Documentation/devicetree/bindings/vendor-prefixes.yaml already defines
-"^lg,.*" for LG Corporation, and commit 5e4aac2caf12 ("dt-bindings: arm:
-qcom: rename vendor of apq8026-lenok") replaced "lge" with "lg" in
-Documentation/devicetree/bindings/arm/qcom.yaml to avoid separate vendor
-prefixes for internal divisions of LG.
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261117123946.6685=
-57-1-rofikcoga@gmail.com?part=3D1
