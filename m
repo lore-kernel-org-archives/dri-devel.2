@@ -2,67 +2,71 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2BC2B606A32C
-	for <dri-devel@archiver.kernel.org>; Wed, 18 Nov 2026 08:23:28 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 20615606A335
+	for <dri-devel@archiver.kernel.org>; Wed, 18 Nov 2026 08:23:29 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=ugreen.com header.i=@ugreen.com header.a=rsa-sha256 header.s=pkvm2402 header.b=Yb4ezhdb
+	dkim=pass header.d=erebion.eu header.i=@erebion.eu header.a=ed25519-sha256 header.s=202508e header.b=PB8nsasG;
+	dkim=pass (2048-bit key, unprotected) header.d=erebion.eu header.i=@erebion.eu header.a=rsa-sha256 header.s=202508r header.b=NqqhjiQq
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 8721110EB9E;
-	Wed, 18 Nov 2026 08:23:17 +0000 (UTC)
-Received: from bg1.exmail.qq.com (bg1.exmail.qq.com [114.132.67.179])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 5A8A210E22F;
- Wed, 18 Nov 2026 04:12:24 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ugreen.com;
- s=pkvm2402; t=1794975116;
- bh=MazwyKBAAJxGApGVQAi7o9vsXSHn/UcdBNWB4c/zyGI=;
- h=From:To:Subject:Date:Message-Id:MIME-Version;
- b=Yb4ezhdbCInBNJHumjYfh/dBYIQbvSsxRvwgz5fGov7/AVv/xOci+04W1B74Hq2Xe
- 2IkHo/C5c56CavABeA2wvbz7tmmUWEmr2R1mGEj2LgfKgK2vApslCIiM3jGnSb3g+Y
- PHXwZrJTmCK8QuhGUoM8Uq+00SRxCvchx4fWAN+U=
-X-QQ-mid: zesmtpgz5t1794975111t05ee3256
-X-QQ-Originating-IP: 1xiKVLEGuFfQiaVeaP4jLsUEFzIgMIkolLwfBOhDrpk=
-Received: from exmail.qq.com ( [14.155.219.48])
- by bizesmtp.qq.com (ESMTP) with 
- id ; Wed, 18 Nov 2026 12:11:46 +0800 (CST)
-X-QQ-SSF: 0000000000000000000000000000000
-X-QQ-GoodBg: 0
-X-BIZMAIL-ID: 3286016119200316987
-EX-QQ-RecipientCnt: 7
-From: Hanson Wang <hanson.wang@ugreen.com>
-To: intel-gfx@lists.freedesktop.org
-Cc: jani.nikula@linux.intel.com, rodrigo.vivi@intel.com,
- joonas.lahtinen@linux.intel.com, tursulin@ursulin.net,
- dri-devel@lists.freedesktop.org, hanson.wang@ugreen.com
-Subject: Re: [PATCH i915] drm/i915/bw: Ignore inactive CRTCs in bandwidth
- calculation
-Date: Wed, 18 Nov 2026 12:11:46 +0800
-Message-Id: <20261118041146.959672-1-hanson.wang@ugreen.com>
-X-Mailer: git-send-email 2.34.1
-In-Reply-To: <20261016014704.3876294-1-hanson.wang@ugreen.com>
-References: <20261016014704.3876294-1-hanson.wang@ugreen.com>
+	by gabe.freedesktop.org (Postfix) with ESMTP id 1B28410EA67;
+	Wed, 18 Nov 2026 08:23:18 +0000 (UTC)
+Authentication-Results: gabe.freedesktop.org;
+	dkim=permerror (0-bit key) header.d=erebion.eu header.i=@erebion.eu header.b="PB8nsasG";
+	dkim=temperror (0-bit key) header.d=erebion.eu header.i=@erebion.eu header.b="NqqhjiQq";
+	dkim-atps=neutral
+Received: from erebion.eu (erebion.eu [142.132.183.134])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 168EF10E623
+ for <dri-devel@lists.freedesktop.org>; Tue, 17 Nov 2026 18:13:50 +0000 (UTC)
+DKIM-Signature: v=1; a=ed25519-sha256; s=202508e; d=erebion.eu;
+ c=relaxed/relaxed; r=y; 
+ h=From:To:Subject:Date:Message-ID; t=1794939209; bh=bwLHiceTB047v2ScTeAnvuX
+ njg5cRmD9pk1qQPUmwPY=; b=PB8nsasGFp1PALkuQ1gVW5V5BDCOTmTstEHR5ta9y2+qjvMFiO
+ Krbk8uBBhltG2JPiSYUZ3IyHDihAG5gAfJAA==;
+DKIM-Signature: v=1; a=rsa-sha256; s=202508r; d=erebion.eu; c=relaxed/relaxed;
+ r=y; 
+ h=From:To:Subject:Date:Message-ID; t=1794939209; bh=bwLHiceTB047v2ScTeAnvuX
+ njg5cRmD9pk1qQPUmwPY=; b=NqqhjiQqSJBXhiMp1YpwqXdku1q562bbd4lhZtSKmaRxjYeSAp
+ n7mJzlqIkgGGYxa+vpgVbhiFBnh6FI5tSALpPzJ1cHJaW0hdjd6VqtBkoPAnuyVjV6bjJxhAxXQ
+ Z4gUmlnq8p5e/whs+H8Z/YCSRC5DIxBxULGE96pzuoF60fNvwk6mCXNLTjaon8wMixAJZiS/6Fh
+ n9HmNzaVAd7mi1A/2HBesw/eyH152TMTky4wG/y+B6GN6l5yjGvVj3IxsT0LKTC4K2IGocgRteJ
+ CSN9PVyV5hDEWI0fa6vI0X/i4777cpexISNMGOWTgXdzJGhp3aYMbjMc5HTPEjEQYPg==;
+Message-ID: <a164ee03-d2be-46b3-9079-3fd60ae02079@erebion.eu>
+Date: Tue, 17 Nov 2026 19:13:28 +0100
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-QQ-SENDSIZE: 520
-Feedback-ID: zesmtpgz:ugreen.com:qybglogicsvrgz:qybglogicsvrgz3a-0
-X-QQ-XMAILINFO: NnhVmA86AxStAwCINlWD8x1Dy/fd0BNORjxD+AO4SDlBBK8kbxGdqzjV
- 0LqzsQiMKP5TThySVhlXxrJDwrDkqBwkGDfBfW+pl/JDnsrn16pRSMa5XP/rkA9eg9CbLiz
- EkoUhmEtIdZTSp85q5QW68YQJI1oLmbO5MzTacnIi5ZY/o5koW33/v7PEFs3AiokMfGZSIi
- u8Jr1Ku+CiywQ6S8D+rR4Wyo1PllwLhcgTLOLrWVYiMpn6vA4BPoSeXxkLLJuiC4RTgi/yo
- lBHN8e0mYuyTM/4F+RsSwW+cQytwZlMFp8uORPFD93B+h3ff6IfkVd3muwyLyI/qDa9jwW6
- KiLheMLTKtEHg4S+G8ksdDQL4KIcZbygbJHDGL3/N108F4lF2q7x/ZxXdrPeEnQu/wZhcIQ
- +dbC1+jdbl2vAwAZX85KZm3+/JxZJ0iwbH42Ka3lkoY+xF+fd89c1SucQNbGKhZGo7oMnJC
- jB4DN7P8/A/SbUXtbI0EUhuis4F4CIw6MhP7M5snti/YWIART3UebOb0g0Xoox3KrZ+jlOc
- kBUCB3tkGrKWozKaxnjG1xEmug1zm2rOW3UnaIcW81o5La0bXG0ghGcjj6X+9zU7DbVedAJ
- 3WXOWFB7jdB8a6BdmKyaxGtQ0JHz4LUQuh95LH4zEk8ItEO67mwJWvfUBoJonR4+OG2eSo+
- kkqWP3U7LXBTvs/979IlBboO8+3Gn/NooVFFYIi4X7u4MGBzP+TQomRESmDVfzpieXRtRB7
- 9iuQtoFvBurABqGXSkK/HjzZBQmPbX21S54JRlXd1ueHrGIXau6xp5ixy43OvzJeqHfsxAP
- UtVntJjQj6FzEzmtsQLEtSfAjYx7gYbuSk8gYUTtL1x3mF/fFwqtlOQJwMUZSPVHtDexQ9e
- BAVNyzxzFBHWUzoEjPPRYvJrS5NxViJ3Sko85zoSZPPD92S17wC8GZDbTMTzhSOuQ4s6esV
- PMBlb2HDIsuVh02vkP/10XvBG5I+rt89Vb5AZ7eG+YFErtuXUeof1juVuIW+YctXQYi4XWM
- HkMIUR6wpGRJs/x5aqo4c8ZsjxIMbgWs2OggEGMiOr3JciPfbu
-X-QQ-XMRINFO: Nq+8W0+stu50tPAe92KXseR0ZZmBTk3gLg==
-X-QQ-RECHKSPAM: 0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v5 09/12] arm64: dts: qcom: sm6350-lena: Add PM7250B
+ thermals
+Content-Language: en-GB
+To: Luca Weiss <luca.weiss@fairphone.com>,
+ Neil Armstrong <neil.armstrong@linaro.org>,
+ Jessica Zhang <jesszhan0024@gmail.com>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ Bjorn Andersson <andersson@kernel.org>,
+ Konrad Dybcio <konradybcio@kernel.org>, Rob Herring <robh@kernel.org>,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>
+Cc: linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org,
+ linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org,
+ phone-devel@vger.kernel.org
+References: <20261116-pdx213-upstream-3-v5-0-7318a19806eb@erebion.eu>
+ <20261116-pdx213-upstream-3-v5-9-7318a19806eb@erebion.eu>
+ <DMXH1UYFI74N.FT441QG9ND7@fairphone.com>
+From: erebion <erebion@erebion.eu>
+Autocrypt: addr=erebion@erebion.eu; keydata=
+ xjMEY7S2FRYJKwYBBAHaRw8BAQdAUf0YlT6sBQSunZeO44bgAPe+ndqTifGaNjw7vzJ2KPHN
+ HGVyZWJpb24gPGVyZWJpb25AZXJlYmlvbi5ldT7CjwQTFggANxYhBJyMprURw7/YpjH7646v
+ QDJuAq59BQJpWnovBQkHhhzbAhsDBAsJCAcFFQgJCgsFFgIDAQAACgkQjq9AMm4Crn057AEA
+ j3didUIhbtAoppk2eNu6CbtMvkDisHWHVLaWF8YC1VsA/1P0ngBoVghELMachirfTinwBplJ
+ qP7GGlSGRqSfnlAKzjgEY7S2FRIKKwYBBAGXVQEFAQEHQN6NPWcyqKdecGU1vN8FVXBwYEUd
+ OAhF5jpmd7M0Ybx8AwEIB8J+BBgWCAAmFiEEnIymtRHDv9imMfvrjq9AMm4Crn0FAmlaei8F
+ CQeGHNsCGwwACgkQjq9AMm4Crn075QEAoDqfm4OeAEQWMgfQ496u2S3rWJw1EMgTOP51FQbX
+ rY4BAKn6AhEBh605uas3OTVtcwNIAJn1sHTA7HqqWniUe9sP
+In-Reply-To: <DMXH1UYFI74N.FT441QG9ND7@fairphone.com>
+Content-Type: multipart/signed; micalg=pgp-sha256;
+ protocol="application/pgp-signature";
+ boundary="------------Fa2ptS4d9zB5EK84n9ecp0Nu"
 X-Mailman-Approved-At: Wed, 18 Nov 2026 08:23:05 +0000
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -75,30 +79,79 @@ List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-8.8 required=3.0 tests=BAYES_00,DKIM_SIGNED,
+X-Spam-Status: No, score=-7.3 required=3.0 tests=BAYES_00,DKIM_SIGNED,
 	DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
-	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,USER_AGENT_GIT
-	autolearn=unavailable autolearn_force=no version=4.0.1
+	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,USER_AGENT_SANE_1
+	autolearn=no autolearn_force=no version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-Please drop this patch. It does not fix the bug, and the approach is wrong.
+This is an OpenPGP/MIME signed message (RFC 4880 and 3156)
+--------------Fa2ptS4d9zB5EK84n9ecp0Nu
+Content-Type: multipart/mixed; boundary="------------lsyxdZs7ypaUT8bUSEkJ07y6";
+ protected-headers="v1"; hp="clear"
+Message-ID: <a164ee03-d2be-46b3-9079-3fd60ae02079@erebion.eu>
+Date: Tue, 17 Nov 2026 19:13:28 +0100
+MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v5 09/12] arm64: dts: qcom: sm6350-lena: Add PM7250B
+ thermals
+Content-Language: en-GB
+To: Luca Weiss <luca.weiss@fairphone.com>,
+ Neil Armstrong <neil.armstrong@linaro.org>,
+ Jessica Zhang <jesszhan0024@gmail.com>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ Bjorn Andersson <andersson@kernel.org>,
+ Konrad Dybcio <konradybcio@kernel.org>, Rob Herring <robh@kernel.org>,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>
+Cc: linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org,
+ linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org,
+ phone-devel@vger.kernel.org
+References: <20261116-pdx213-upstream-3-v5-0-7318a19806eb@erebion.eu>
+ <20261116-pdx213-upstream-3-v5-9-7318a19806eb@erebion.eu>
+ <DMXH1UYFI74N.FT441QG9ND7@fairphone.com>
+From: erebion <erebion@erebion.eu>
+Autocrypt: addr=erebion@erebion.eu; keydata=
+ xjMEY7S2FRYJKwYBBAHaRw8BAQdAUf0YlT6sBQSunZeO44bgAPe+ndqTifGaNjw7vzJ2KPHN
+ HGVyZWJpb24gPGVyZWJpb25AZXJlYmlvbi5ldT7CjwQTFggANxYhBJyMprURw7/YpjH7646v
+ QDJuAq59BQJpWnovBQkHhhzbAhsDBAsJCAcFFQgJCgsFFgIDAQAACgkQjq9AMm4Crn057AEA
+ j3didUIhbtAoppk2eNu6CbtMvkDisHWHVLaWF8YC1VsA/1P0ngBoVghELMachirfTinwBplJ
+ qP7GGlSGRqSfnlAKzjgEY7S2FRIKKwYBBAGXVQEFAQEHQN6NPWcyqKdecGU1vN8FVXBwYEUd
+ OAhF5jpmd7M0Ybx8AwEIB8J+BBgWCAAmFiEEnIymtRHDv9imMfvrjq9AMm4Crn0FAmlaei8F
+ CQeGHNsCGwwACgkQjq9AMm4Crn075QEAoDqfm4OeAEQWMgfQ496u2S3rWJw1EMgTOP51FQbX
+ rY4BAKn6AhEBh605uas3OTVtcwNIAJn1sHTA7HqqWniUe9sP
+In-Reply-To: <DMXH1UYFI74N.FT441QG9ND7@fairphone.com>
 
-I tested it on the affected systems. After firmware handoff, DBUF
-sanitization disables the inherited plane and clears the CRTC-local
-state, but the global BW entry remains. Zeroing bandwidth for every
-!hw.active CRTC does not remove that stale global state. It would
-also drop the legitimate reservation for a logically enabled but
-inactive CRTC.
+--------------lsyxdZs7ypaUT8bUSEkJ07y6
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: base64
 
-The failure is phantom global bandwidth left by the non-atomic plane
-disable, not an enabled-but-inactive CRTC that should still be counted.
+DQpPbiAxMS8xNy8yNiAxMzowNiwgTHVjYSBXZWlzcyB3cm90ZToNCj4gT24gTW9uIE5vdiAx
+NiwgMjAyNiBhdCAxMTo1MCBQTSBDRVQsIGVyZWJpb24gd3JvdGU6DQo+PiBDb25maWd1cmUg
+dGhlIHRoZXJtYWxzIGZvciB0aGUgY2hnLXNraW4tdGhlcm1hbCBhbmQgY29ubi10aGVybSB0
+aGVybWlzdG9ycyBjb25uZWN0ZWQgdG8NCj4gDQo+IFRoaXMgbGluZSBpcyBhIGJpdCBsb25n
+LiBJZiB5b3UgcmUtc2VuZCwgcGxlYXNlIHdyYXAgaXQuDQoNCkFzIEkndmUgb25seSBhZGRl
+ZCBhIGxpbmVicmVhayBpbiB0aGUgY29tbWl0IG1lc3NhZ2UsIEkgZ3Vlc3MgaXQgd2lsbCBi
+ZSANCmZpbmUgaWYgSSBsZWF2ZSB0aGUgUmV2aWV3ZWQtYnkgaW4gdGhlcmUuIFRoYW5rcyEN
+Cg0KDQotLSANCmVyZWJpb24NCg0KWE1QUDogZXJlYmlvbkBlcmViaW9uLmV1DQoNCkFjY2Vw
+dGVkIGxhbmd1YWdlczogR2VybWFuLCBFbmdsaXNoLCBTd2VkaXNoLCBOb3J3ZWdpYW4sIERh
+bmlzaA0KDQo=
 
-The replacement is a separate patch, not a new version of this one:
+--------------lsyxdZs7ypaUT8bUSEkJ07y6--
 
-  drm/i915/bw: sync global BW after non-atomic plane disable
+--------------Fa2ptS4d9zB5EK84n9ecp0Nu
+Content-Type: application/pgp-signature; name="OpenPGP_signature.asc"
+Content-Description: OpenPGP digital signature
+Content-Disposition: attachment; filename="OpenPGP_signature.asc"
 
-Link: https://lore.kernel.org/intel-gfx/20261118033312.902366-1-hanson.wang@ugreen.com
+-----BEGIN PGP SIGNATURE-----
 
-Thanks,
-Hanson
+wnsEABYIACMWIQScjKa1EcO/2KYx++uOr0AybgKufQUCavyZSAUDAAAAAAAKCRCOr0AybgKufThK
+AP9g8PBKyZGAO8pyNFEgg6wZ68YTStLQFq+J7BWXndfEPwD/X1bI3N3C/4nmkakR9jdSQHJMac+i
+OuTWiPNuXRRW6Ac=
+=y+aL
+-----END PGP SIGNATURE-----
+
+--------------Fa2ptS4d9zB5EK84n9ecp0Nu--
