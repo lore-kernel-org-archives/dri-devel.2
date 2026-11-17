@@ -2,127 +2,46 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E97E2606A31C
-	for <dri-devel@archiver.kernel.org>; Tue, 17 Nov 2026 17:53:09 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=outlook.com header.i=@outlook.com header.a=rsa-sha256 header.s=selector1 header.b=aTv3VpRo
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 139C2606A888
+	for <dri-devel@archiver.kernel.org>; Tue, 17 Nov 2026 18:06:00 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 5FD2610F87B;
-	Tue, 17 Nov 2026 17:53:04 +0000 (UTC)
-Received: from BN8PR05CU002.outbound.protection.outlook.com
- (mail-eastus2azolkn19011030.outbound.protection.outlook.com [52.103.12.30])
- by gabe.freedesktop.org (Postfix) with ESMTPS id A222410F87B
- for <dri-devel@lists.freedesktop.org>; Tue, 17 Nov 2026 17:52:57 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=ZFKsGkz2yWVyLLQPR4heSooOJoaCujUiht/nnGY2eEmhhPkaQeBRXw/mK7TSs/KsVcedyA1yDJCEV+V+t2ximdmSohc8cHRoMaLrqQjdCVglmOSMEVODnv6hrNouhppt7stfq55fIcGLPNxUjExiqTcfrci1n1L3P60N/F0y0SDjCwAWsc9C5TjcjaECYXbYtkBvJ+OLuM9rz/lanX3Xp2npf+nW+Lj8d3Dxn81jGA94iVG0n672UzS4EerkB+fUKNwPMirzuv2Lm0F0CQ5klYbLjtMzCwDbR1DKBC+CzvHxJPN18z8lW1J/iGujpS/RBIs3yu9T+8wmauCPNgGmEQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=aKj4Yp6ZMcXIFKcF7ldAXsKrzwvF+LlcgdBu3WLvyI8=;
- b=BWCz1Jb9EWSMIee+X6wWQeb8vpWmzK+nDDb8fTsqjImGTD1gnHUuf3Kcxc8Ra7MVeICqU415ji0j9vWNfyPNyndXDEuEmSp4tH4/KNUl+CRwAOO70k4RZcSIwEJJz0VGG68VfMk9qNC0OatWNeM/a+FH7yvc24bSDo/Nul7FTh3I0ig+AofvzZFVpnJOrpDHLewUVZ21eVvuJYYvY3AeoxJ0hv/11iIUQndVtSmbrae8BlqkzQbfEwylSMMC/HY5L3Dr7nZSCtRpPMSt0I86GaeFvXqPGeNrEdTeSxrULNON3ReObo3+byDj//hm91wRFTSAnIq9ncVYhr8Dwg9e4Q==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=none; dmarc=none;
- dkim=none; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=outlook.com;
- s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=aKj4Yp6ZMcXIFKcF7ldAXsKrzwvF+LlcgdBu3WLvyI8=;
- b=aTv3VpRobyv/1xnr2RSo4wEw4uuweu/cXSgVi/9xUJsfDzPlu0jnuSP0RQ3TlT/Dbq5KYr8+XZNSjVltuyXoiTak0lyCyyuF4Pk1vxi9dCYI+y6VJjOHCVusYi8NbpIAdBsSOtXeyRVWwkZ11kEK4qZtoEf2RrlX4B/J/gx5d8jrAxMDpJ1KxEyp54bGEqFCblnjiYEDqALy6Qe7Ywse21Sn71yaBHwFKg4jILbhbaaBywqb9jzabBp8J29/vNYWBKUHFoJRz9wq7OUM3ltcBMx5JmU1xsC/4K5OFtMahbe2vknwW1OdMdgPyGzrI6M5u6Y99cBYTFwcsc8nCFaxvw==
-Received: from MN2PR02MB6863.namprd02.prod.outlook.com (2603:10b6:208:1d7::20)
- by DS2PR02MB877199.namprd02.prod.outlook.com (2603:10b6:8:35b::11)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.615.14; Tue, 17 Nov
- 2026 17:52:55 +0000
-Received: from MN2PR02MB6863.namprd02.prod.outlook.com
- ([fe80::da67:fd0f:d96d:ac53]) by MN2PR02MB6863.namprd02.prod.outlook.com
- ([fe80::da67:fd0f:d96d:ac53%4]) with mapi id 15.21.0615.013; Tue, 17 Nov 2026
- 17:52:55 +0000
-From: Michael Kelley <mhklinux@outlook.com>
-To: Hamza Mahfooz <hamzamahfooz@linux.microsoft.com>
-CC: "dri-devel@lists.freedesktop.org" <dri-devel@lists.freedesktop.org>,
- Dexuan Cui <decui@microsoft.com>, Saurabh Sengar
- <ssengar@linux.microsoft.com>, Maarten Lankhorst
- <maarten.lankhorst@linux.intel.com>, Maxime Ripard <mripard@kernel.org>,
+	by gabe.freedesktop.org (Postfix) with ESMTP id 77AAE10E3F6;
+	Tue, 17 Nov 2026 18:05:59 +0000 (UTC)
+Received: from aposti.net (aposti.net [185.119.170.32])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id A8CCD10E6B6
+ for <dri-devel@lists.freedesktop.org>; Tue, 17 Nov 2026 18:05:57 +0000 (UTC)
+Message-ID: <6a81081ad3c2d37ed09c75f1303a84c65792dfe1.camel@crapouillou.net>
+Subject: Re: [PATCH v2] drm/ingenic: Allocate and register the internal
+ bridge separately
+From: Paul Cercueil <paul@crapouillou.net>
+To: Florian Fainelli <f.fainelli@gmail.com>, linux-kernel@vger.kernel.org
+Cc: "H. Nikolaus Schaller" <hns@goldelico.com>, Luca Ceresoli	
+ <luca.ceresoli@bootlin.com>, stable@vger.kernel.org, Maarten Lankhorst	
+ <maarten.lankhorst@linux.intel.com>, Maxime Ripard <mripard@kernel.org>, 
  Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>,
- Simona Vetter <simona@ffwll.ch>, Kees Cook <kees@kernel.org>, "Gustavo A. R.
- Silva" <gustavoars@kernel.org>, "linux-hyperv@vger.kernel.org"
- <linux-hyperv@vger.kernel.org>, "linux-hardening@vger.kernel.org"
- <linux-hardening@vger.kernel.org>
-Subject: RE: [PATCH 0/2] drm/hyperv: address worthwhile gaps
-Thread-Topic: [PATCH 0/2] drm/hyperv: address worthwhile gaps
-Thread-Index: AQHdc7o9SPo9iNf6wUKOy98JYWtdm7ct1BpwgAL7cICAAcG5EA==
-Date: Tue, 17 Nov 2026 17:52:54 +0000
-Message-ID: <MN2PR02MB68636BC62D2EC02F94B60E80D47B2@MN2PR02MB6863.namprd02.prod.outlook.com>
-References: <20261113215843.1939889-1-hamzamahfooz@linux.microsoft.com>
- <MN2PR02MB68638ED8E06516AFFAE4B218D47E2@MN2PR02MB6863.namprd02.prod.outlook.com>
- <avsbBTsIoo09yr9L@linuxonhyperv3.guj3yctzbm1etfxqx2vob5hsef.xx.internal.cloudapp.net>
-In-Reply-To: <avsbBTsIoo09yr9L@linuxonhyperv3.guj3yctzbm1etfxqx2vob5hsef.xx.internal.cloudapp.net>
-Accept-Language: en-US
-Content-Language: en-US
-X-MS-Has-Attach: 
-X-MS-TNEF-Correlator: 
-x-ms-publictraffictype: Email
-x-ms-traffictypediagnostic: MN2PR02MB6863:EE_|DS2PR02MB877199:EE_
-x-ms-office365-filtering-correlation-id: 3744d67c-e1a4-4a59-6969-08df44d39ba3
-x-microsoft-antispam: BCL:0;
- ARA:14566002|37011999003|13091999003|15080799012|55001999006|24021099003|31061999003|25010399006|19110799012|8062599012|41001999006|8060799015|51005399006|440099028|3412199025|102099032|56899033|40105399003;
-x-microsoft-antispam-message-info: =?us-ascii?Q?JEgLO9Jkwij2ZJpupgXSVguo6UJGvADL4EgNrEMFAtZ7H5KMGOdCCYxupera?=
- =?us-ascii?Q?8ciuK3V9zEXBpix6Ny213U23nV6BY7vocButxjqJIKZxEgbsBGrE7KhDYXVo?=
- =?us-ascii?Q?CdDigR9SsnK/zFHCP1FewejM1Lwvq+QyAiUfxrlCKVtjL5unpEBVlwH2VtCw?=
- =?us-ascii?Q?dxK3AmU/YBZxv2BF1yGAfeC5mpbTNFgdLNwAkSav4gKzXjzfcRK2BhK66aWa?=
- =?us-ascii?Q?QGS6bCbRM3kVZ/q48yx8H0qF5DNtKUmKsuBZ2Q2pw2awf6jxGhUwlCJtggc5?=
- =?us-ascii?Q?CA1YjY1OJ+wN5GbHKHlO1IIhAjND27K+S4hwWSdiCsgEycC8NQFvlm5kO56V?=
- =?us-ascii?Q?bvJvO2hHpRmIkoAkQ/WN73ZmIgommrzcwmO+K7ltf+jaDZE1M908xheVM2NJ?=
- =?us-ascii?Q?7ZViV84et+SqyafbtHzmUuuwV4F411tAwnYXNiZORFJqzWv734XfCCpw8rCq?=
- =?us-ascii?Q?Ob5zrl1DcGVTlINnTdLOcomXI+gAyuhSavJOwWaYMyIfp/J8MVFHDcSVxo4n?=
- =?us-ascii?Q?x8I282E3Xzo+txi7KX8FruVVTtm1dZI6o4LI7QIeBo7ZGZ9TG3g7lAxhPuSI?=
- =?us-ascii?Q?8M3PM6Mb88dBTBnkfsbkLzQky/S5/Z8Y/esAkokiat/4JiygNr1EtIkyiKuA?=
- =?us-ascii?Q?NLpw7Dzn+TTlmNPXCUU9CobO2MpZzTtQmj2RW69NVrKhK59eHUMoHWghLP+7?=
- =?us-ascii?Q?CffGxxq3AaGe+4wVqg6VbqmjDVyE9Q2ufl0IPBRjiWcIvet4ngIKY1fnEBJh?=
- =?us-ascii?Q?4m20YJ2d8wPwjlXQdIi5N7WtkrlnoSBu8zSrzn6u591FXarc2oLniw0QZV0l?=
- =?us-ascii?Q?7VtU3EipXvzYCHWbdgC8FwXdvdG4BmQrXyde/ZTA5CL2ZtEEgRxjlNPyFXUS?=
- =?us-ascii?Q?u1JnRjtVlATBOOKU8ktBQHBc7V8WDdxWfdhENySLZMY8p/K+jnC42k/rlKAl?=
- =?us-ascii?Q?fOqYBzEnDU+OlDL3YT9euijFfUW5kl9TNw25/Zvldp7a0zsTdtyyiVXe2dZv?=
- =?us-ascii?Q?VESGoKW6CV9MyE7TLxWgwjhf28gfRwdS1+GcT40rXUhg7+FRBPBnNzApkAA/?=
- =?us-ascii?Q?DGpu6+Xo?=
-x-ms-exchange-antispam-messagedata-chunkcount: 1
-x-ms-exchange-antispam-messagedata-0: =?us-ascii?Q?Dl780Y3VBuhtINDBBmF1eVySOtr71wGAkctihvL6hBDUDBgjZgS2tYMM00sK?=
- =?us-ascii?Q?4UQtA/+/G8VAqQpBHDpRm3G7q58mfz0/IJBEWREfdQUoR7g0zWN4BsU8oBLL?=
- =?us-ascii?Q?A29bIzkZdHwsadKtDnrz0cXCTxbEmgDWsOU+IL3tu04A81tOdir+ed9eTwel?=
- =?us-ascii?Q?kpe8bjcPKjMDStrMlUuzNa+34RDm968WuSl92N0G4L8cUKHk0oGHHq/phYlD?=
- =?us-ascii?Q?qw6IbJ/MX4Q8aREQwLNEN1bkAfB/mORl1XsvuS1grsFBKeelw2PyweOWsmdw?=
- =?us-ascii?Q?BQheTb3wSMFs2ksJ2xyE8jf2hIDs51jSy9olpp3ITDoOUtOCoTtFvQYqTEop?=
- =?us-ascii?Q?78yHON1+aVWV/XCbXKP0r3l6aRyYFdve7oLHuz3XDBYLPqR2ebw+u7kYIQ5M?=
- =?us-ascii?Q?xkttXpE8b5DyziVGO6MBazkRdLNtDlSMq02w4vo7eiIP5d/Ve2tmiz/xiSuX?=
- =?us-ascii?Q?QNZtsVP7Ysm7PIUtn3+tJN+jEoBaxfgIConsnk/40qK3b0GjT9yH8fCePoC9?=
- =?us-ascii?Q?777qItJbZZKuAL7UzPvmruJzzx9TAC7EmnOZ36CvkrJgAkRN5uvx4nUvu4Pm?=
- =?us-ascii?Q?ctpc0CThZG6S5l8ShMzmdom1VqKrj3TRPRVNdpKgX9mIbovGfvMOyYWOmr8C?=
- =?us-ascii?Q?94r5//HnFumxOenMe6msTb0Gw0A+kmRT0AjVZ6I6w1W8/v96z9AsiH3EIH3m?=
- =?us-ascii?Q?oYy08DiOCqzUtggtkLFreciEfafGc9XuVasfq2uisgU5f2SbHL5/hkjQldEy?=
- =?us-ascii?Q?rgR0bSgiplo8yHEf/WF4ATJ4KclH0/4Af1/ejD5B1EoQQy7MoOZxS6gXdwf5?=
- =?us-ascii?Q?WIXKo2hoeIRk14THVldQxr78YY6gdDBQbSzPPw/NDIJCCqkuMwcrVRHFFnOD?=
- =?us-ascii?Q?u1x5Djb910mZTWhhZB8o1tbGNXndr/FGAfC+h5NmW7lhcJi/dknOplOBUAGz?=
- =?us-ascii?Q?v521iabE1NSMuX4etuzmeP8Y/y+DAvkJA01Fv9mzzfkeaxucz8Lw8Mmskrie?=
- =?us-ascii?Q?Z9dZq5kuzXGIabxNKFt3hnfEqqwufYmJHxSSU4IG1ofRE1A0gyWYtMXEKw6A?=
- =?us-ascii?Q?pm8MIS48ES1KVJ16+UQ4ZEa/qeYx3hji/P58wD7zZadJ2cxj7viJwTbPhlSW?=
- =?us-ascii?Q?raAP6i0aonTtkxdVVqhP5PE9Fv4QkU5LqY15HfMB57ZA1IHHnJ1OcF4L9FXl?=
- =?us-ascii?Q?+rSf8Ov79FNgR6pd1tZnLoGgoQ4Q5fL+8/HtPl9KMthtMT+e3fAy2xb3GeDb?=
- =?us-ascii?Q?HIqT5ZYHiv5FSJHvz8th66LNt09qPANrzJw+Rv7WU8CxbiSBTEwdVqFFwfyY?=
- =?us-ascii?Q?JAumwMa7VJE1YAObpZjTfpgJNXBYjs9sSHUd0Y/4I+e/eJGVLAR1KBUSTmTC?=
- =?us-ascii?Q?YoaxxTE=3D?=
-Content-Type: text/plain; charset="us-ascii"
+ Simona Vetter <simona@ffwll.ch>, "open list:INGENIC JZ47xx SoCs"	
+ <linux-mips@vger.kernel.org>, "open list:DRM DRIVERS"	
+ <dri-devel@lists.freedesktop.org>
+Date: Tue, 17 Nov 2026 19:05:50 +0100
+In-Reply-To: <20261117173822.1816385-1-f.fainelli@gmail.com>
+References: <20261117173822.1816385-1-f.fainelli@gmail.com>
+Autocrypt: addr=paul@crapouillou.net; prefer-encrypt=mutual;
+ keydata=mQENBF0KhcEBCADkfmrzdTOp/gFOMQX0QwKE2WgeCJiHPWkpEuPH81/HB2dpjPZNW03ZM
+ LQfECbbaEkdbN4YnPfXgcc1uBe5mwOAPV1MBlaZcEt4M67iYQwSNrP7maPS3IaQJ18ES8JJ5Uf5Uz
+ FZaUawgH+oipYGW+v31cX6L3k+dGsPRM0Pyo0sQt52fsopNPZ9iag0iY7dGNuKenaEqkYNjwEgTtN
+ z8dt6s3hMpHIKZFL3OhAGi88wF/21isv0zkF4J0wlf9gYUTEEY3Eulx80PTVqGIcHZzfavlWIdzhe
+ +rxHTDGVwseR2Y1WjgFGQ2F+vXetAB8NEeygXee+i9nY5qt9c07m8mzjABEBAAG0JFBhdWwgQ2VyY
+ 3VlaWwgPHBhdWxAY3JhcG91aWxsb3UubmV0PokBTgQTAQoAOBYhBNdHYd8OeCBwpMuVxnPua9InSr
+ 1BBQJdCoXBAhsDBQsJCAcCBhUKCQgLAgQWAgMBAh4BAheAAAoJEHPua9InSr1BgvIH/0kLyrI3V0f
+ 33a6D3BJwc1grbygPVYGuC5l5eMnAI+rDmLR19E2yvibRpgUc87NmPEQPpbbtAZt8On/2WZoE5OIP
+ dlId/AHNpdgAtGXo0ZX4LGeVPjxjdkbrKVHxbcdcnY+zzaFglpbVSvp76pxqgVg8PgxkAAeeJV+ET
+ 4t0823Gz2HzCL/6JZhvKAEtHVulOWoBh368SYdolp1TSfORWmHzvQiCCCA+j0cMkYVGzIQzEQhX7U
+ rf9N/nhU5/SGLFEi9DcBfXoGzhyQyLXflhJtKm3XGB1K/pPulbKaPcKAl6rIDWPuFpHkSbmZ9r4KF
+ lBwgAhlGy6nqP7O3u7q23hRU=
+Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
-X-OriginatorOrg: outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: MN2PR02MB6863.namprd02.prod.outlook.com
-X-MS-Exchange-CrossTenant-RMS-PersistedConsumerOrg: 00000000-0000-0000-0000-000000000000
-X-MS-Exchange-CrossTenant-Network-Message-Id: 3744d67c-e1a4-4a59-6969-08df44d39ba3
-X-MS-Exchange-CrossTenant-originalarrivaltime: 17 Nov 2026 17:52:54.9674 (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: 84df9e7f-e9f6-40af-b435-aaaaaaaaaaaa
-X-MS-Exchange-CrossTenant-rms-persistedconsumerorg: 00000000-0000-0000-0000-000000000000
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DS2PR02MB877199
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -134,71 +53,171 @@ List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-7.8 required=3.0 tests=BAYES_00,DKIM_SIGNED,
-	DKIM_VALID,DKIM_VALID_AU,FREEMAIL_FORGED_FROMDOMAIN,FREEMAIL_FROM,
-	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_PATCH,MAILING_LIST_MULTI,
-	SPF_HELO_NONE,SPF_PASS autolearn=no autolearn_force=no version=4.0.1
+X-Spam-Status: No, score=-13.8 required=3.0 tests=BAYES_00,
+	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
+	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS autolearn=unavailable
+	autolearn_force=no version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-From: Hamza Mahfooz <hamzamahfooz@linux.microsoft.com> Sent: Monday, Novemb=
-er 16, 2026 7:02 AM
->=20
-> On Sat, Nov 14, 2026 at 05:43:06PM +0000, Michael Kelley wrote:
-> > From: Hamza Mahfooz <hamzamahfooz@linux.microsoft.com> Sent: Friday,
-> November 13, 2026 1:59 PM
-> > >
-> > > I was doing a deep dive into the host spec and noticed some gaps. So,
-> > > I went ahead and hacked together the patches in this series for items
-> > > that seemed worthwhile to address.
-> >
-> > Are you (or someone on the Microsoft side) testing these changes
-> > in a Generation 1 VM, as well as on back revs of the Hyper-V host?
->=20
-> Ya, I have smoke tested all of these patches on WS2016 (both gen1 and
-> gen2). Also, I have it on good authority that they should be good at
-> least as far back as VMBus v3.0, so it should cover everything that
-> is currently supported.
+Hi Florian,
 
-Excellent.  Thanks.
-
-Michael
-
+Le mardi 17 novembre 2026 =C3=A0 09:38 -0800, Florian Fainelli a =C3=A9crit=
+=C2=A0:
+> The LCD controller's internal bridge is embedded in an object
+> allocated
+> with drmm_encoder_alloc(). This initializes the encoder but leaves
+> the
+> bridge's reference count at zero. Since drm_bridge_attach() takes a
+> reference, probing the CI20 display produces addition-on-zero and
+> underflow warnings and fails to attach the HDMI bridge chain.
 >=20
-> > Testing should go back to Windows Server 2016/Windows 10 for
-> > both Gen1 and Gen2.
-> >
-> > Same questions apply to your earlier cursor plane support. I just
-> > did basic smoke testing of the cursor plane support on both Gen1
-> > and Gen2 VMs using vmconnect.exe on an up-to-date Windows 11
-> > host -- no obvious problems. But I don't have access to older hosts
-> > like WS2016/Win10 to do the back rev testing.
-> >
-> > There are multiple frame buffer differences in Gen1 and Gen2 VMs,
-> > but most (or all?) are in the lowest layer in how the frame buffer is
-> > allocated and mapped. Hopefully these higher-level changes you are
-> > making are agnostic of the VM generation, but thoroughness would
-> > dictate testing both.
-> >
-> > I'm less sure about what might have changed in current Hyper-V
-> > versions and WS2016 from 10 years ago. My general impression is
-> > that very little, if anything, has changed in the Hyper-V frame buffer
-> > support, but again it would be better to not get a bad surprise after
-> > the code has gone in.
-> >
-> > Michael
-> >
-> > >
-> > > Hamza Mahfooz (2):
-> > >   drm/hyperv: add modes for all resolutions offered by the host
-> > >   drm/hyperv: batch dirty rectangles
-> > >
-> > >  drivers/gpu/drm/hyperv/hyperv_drm.h         | 15 ++++
-> > >  drivers/gpu/drm/hyperv/hyperv_drm_drv.c     |  4 ++
-> > >  drivers/gpu/drm/hyperv/hyperv_drm_modeset.c | 32 ++++++++-
-> > >  drivers/gpu/drm/hyperv/hyperv_drm_proto.c   | 79 ++++++++++++++++---=
---
-> > >  4 files changed, 110 insertions(+), 20 deletions(-)
-> > >
-> > > --
-> > > 2.56.0
+> Allocate the internal bridge with devm_drm_bridge_alloc() and
+> register
+> it with devm_drm_bridge_add() before attaching it. Keep the encoder
+> in a
+> separate DRM-managed allocation: encoder cleanup can drop the final
+> bridge reference before it has finished accessing the encoder. Find
+> the internal bridge through the encoder's bridge chain during mode
+> setting, and use the bridge argument directly in bridge callbacks.
+>=20
+> Fixes: 94d50c1a2ca3 ("drm/bridge: get/put the bridge reference in
+> drm_bridge_attach/detach()")
+> Tested-by: H. Nikolaus Schaller <hns@goldelico.com> # CI20 V2a
+> Reviewed-by: Luca Ceresoli <luca.ceresoli@bootlin.com>
+> Reviewed-by: Paul Cercueil <paul@crapouillou.net>
+> CC: stable@vger.kernel.org
+> Signed-off-by: Florian Fainelli <f.fainelli@gmail.com>
+
+Applied to drm-misc-next.
+
+Cheers,
+-Paul
+
+> ---
+> Changes in v2:
+>=20
+> - collected Reviewed-by and Tested-by tags
+> - added CC: stable
+>=20
+> =C2=A0drivers/gpu/drm/ingenic/ingenic-drm-drv.c | 31 +++++++++++++++-----=
+-
+> --
+> =C2=A01 file changed, 21 insertions(+), 10 deletions(-)
+>=20
+> diff --git a/drivers/gpu/drm/ingenic/ingenic-drm-drv.c
+> b/drivers/gpu/drm/ingenic/ingenic-drm-drv.c
+> index 625ec76cf04d..520912f9ed0d 100644
+> --- a/drivers/gpu/drm/ingenic/ingenic-drm-drv.c
+> +++ b/drivers/gpu/drm/ingenic/ingenic-drm-drv.c
+> @@ -121,16 +121,15 @@ struct ingenic_drm {
+> =C2=A0};
+> =C2=A0
+> =C2=A0struct ingenic_drm_bridge {
+> -	struct drm_encoder encoder;
+> =C2=A0	struct drm_bridge bridge, *next_bridge;
+> =C2=A0
+> =C2=A0	struct drm_bus_cfg bus_cfg;
+> =C2=A0};
+> =C2=A0
+> =C2=A0static inline struct ingenic_drm_bridge *
+> -to_ingenic_drm_bridge(struct drm_encoder *encoder)
+> +to_ingenic_drm_bridge(struct drm_bridge *bridge)
+> =C2=A0{
+> -	return container_of(encoder, struct ingenic_drm_bridge,
+> encoder);
+> +	return container_of(bridge, struct ingenic_drm_bridge,
+> bridge);
+> =C2=A0}
+> =C2=A0
+> =C2=A0static inline struct ingenic_drm_private_state *
+> @@ -738,7 +737,9 @@ static void
+> ingenic_drm_encoder_atomic_mode_set(struct drm_encoder *encoder,
+> =C2=A0{
+> =C2=A0	struct ingenic_drm *priv =3D drm_device_get_priv(encoder-
+> >dev);
+> =C2=A0	struct drm_display_mode *mode =3D &crtc_state->adjusted_mode;
+> -	struct ingenic_drm_bridge *bridge =3D
+> to_ingenic_drm_bridge(encoder);
+> +	struct drm_bridge *first_bridge __free(drm_bridge_put) =3D
+> +		drm_bridge_chain_get_first_bridge(encoder);
+> +	struct ingenic_drm_bridge *bridge =3D
+> to_ingenic_drm_bridge(first_bridge);
+> =C2=A0	unsigned int cfg, rgbcfg =3D 0;
+> =C2=A0
+> =C2=A0	priv->panel_is_sharp =3D bridge->bus_cfg.flags &
+> DRM_BUS_FLAG_SHARP_SIGNALS;
+> @@ -799,7 +800,7 @@ static int ingenic_drm_bridge_attach(struct
+> drm_bridge *bridge,
+> =C2=A0				=C2=A0=C2=A0=C2=A0=C2=A0 struct drm_encoder *encoder,
+> =C2=A0				=C2=A0=C2=A0=C2=A0=C2=A0 enum drm_bridge_attach_flags
+> flags)
+> =C2=A0{
+> -	struct ingenic_drm_bridge *ib =3D
+> to_ingenic_drm_bridge(encoder);
+> +	struct ingenic_drm_bridge *ib =3D
+> to_ingenic_drm_bridge(bridge);
+> =C2=A0
+> =C2=A0	return drm_bridge_attach(encoder, ib->next_bridge,
+> =C2=A0				 &ib->bridge, flags);
+> @@ -811,7 +812,7 @@ static int ingenic_drm_bridge_atomic_check(struct
+> drm_bridge *bridge,
+> =C2=A0					=C2=A0=C2=A0 struct
+> drm_connector_state *conn_state)
+> =C2=A0{
+> =C2=A0	struct drm_display_mode *mode =3D &crtc_state->adjusted_mode;
+> -	struct ingenic_drm_bridge *ib =3D
+> to_ingenic_drm_bridge(bridge->encoder);
+> +	struct ingenic_drm_bridge *ib =3D
+> to_ingenic_drm_bridge(bridge);
+> =C2=A0
+> =C2=A0	ib->bus_cfg =3D bridge_state->output_bus_cfg;
+> =C2=A0
+> @@ -1303,22 +1304,32 @@ static int ingenic_drm_bind(struct device
+> *dev, bool has_components)
+> =C2=A0			drm_panel_put(panel);
+> =C2=A0		}
+> =C2=A0
+> -		ib =3D drmm_encoder_alloc(drm, struct
+> ingenic_drm_bridge, encoder,
+> -					NULL, DRM_MODE_ENCODER_DPI,
+> NULL);
+> +		ib =3D devm_drm_bridge_alloc(dev, struct
+> ingenic_drm_bridge, bridge,
+> +					=C2=A0=C2=A0
+> &ingenic_drm_bridge_funcs);
+> =C2=A0		if (IS_ERR(ib)) {
+> =C2=A0			ret =3D PTR_ERR(ib);
+> +			dev_err(dev, "Failed to allocate bridge:
+> %d\n", ret);
+> +			goto err_drvdata;
+> +		}
+> +
+> +		encoder =3D drmm_plain_encoder_alloc(drm, NULL,
+> +						=C2=A0=C2=A0
+> DRM_MODE_ENCODER_DPI, NULL);
+> +		if (IS_ERR(encoder)) {
+> +			ret =3D PTR_ERR(encoder);
+> =C2=A0			dev_err(dev, "Failed to init encoder: %d\n",
+> ret);
+> =C2=A0			goto err_drvdata;
+> =C2=A0		}
+> =C2=A0
+> -		encoder =3D &ib->encoder;
+> =C2=A0		encoder->possible_crtcs =3D drm_crtc_mask(&priv-
+> >crtc);
+> =C2=A0
+> =C2=A0		drm_encoder_helper_add(encoder,
+> &ingenic_drm_encoder_helper_funcs);
+> =C2=A0
+> -		ib->bridge.funcs =3D &ingenic_drm_bridge_funcs;
+> =C2=A0		ib->next_bridge =3D bridge;
+> =C2=A0
+> +		ret =3D devm_drm_bridge_add(dev, &ib->bridge);
+> +		if (ret)
+> +			goto err_drvdata;
+> +
+> =C2=A0		ret =3D drm_bridge_attach(encoder, &ib->bridge, NULL,
+> =C2=A0					DRM_BRIDGE_ATTACH_NO_CONNECT
+> OR);
+> =C2=A0		if (ret) {
