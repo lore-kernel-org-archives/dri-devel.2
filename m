@@ -2,92 +2,102 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E0438606A88A
-	for <dri-devel@archiver.kernel.org>; Tue, 17 Nov 2026 08:41:03 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CA97F606A8BE
+	for <dri-devel@archiver.kernel.org>; Tue, 17 Nov 2026 08:45:42 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=mimecast20190719 header.b=eqGScWh3
+	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.a=rsa-sha256 header.s=susede2_rsa header.b=RTH1Mo2/;
+	dkim=pass header.d=suse.de header.i=@suse.de header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=W7mv2tzX;
+	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.a=rsa-sha256 header.s=susede2_rsa header.b=RTH1Mo2/;
+	dkim=neutral header.d=suse.de header.i=@suse.de header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=W7mv2tzX
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 454FA10F258;
-	Tue, 17 Nov 2026 08:40:58 +0000 (UTC)
-Received: from us-smtp-delivery-124.mimecast.com
- (us-smtp-delivery-124.mimecast.com [170.10.129.124])
- by gabe.freedesktop.org (Postfix) with ESMTPS id E377A10F258
- for <dri-devel@lists.freedesktop.org>; Tue, 17 Nov 2026 08:40:51 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
- s=mimecast20190719; t=1794904851;
- h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
- to:to:cc:cc:mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references;
- bh=U4bNhI6hJeicsg11UGBGd019BKF3mBPUDTgoriuuVmE=;
- b=eqGScWh3ce5oeDIWCKqepGbCRiWA4V5hVZp9sjDKeGS8BMS5xZpwXJVqzCDqu235Rd+NrM
- YbXVXDbO0cvc2UKtR0ahxuZJVoCyhbSt58b0LOpUikzUu5ggD7N7SO5mfaNWZdNYswxo7z
- VD5x9HFnKYTEsRzL8njC+1yQRz7ZeLQ=
-Received: from mx-prod-mc-08.mail-002.prod.us-west-2.aws.redhat.com
- (ec2-35-165-154-97.us-west-2.compute.amazonaws.com [35.165.154.97]) by
- relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.3,
- cipher=TLS_AES_256_GCM_SHA384) id us-mta-267-J7tvt3jsOc-J2K4mCqnInA-1; Tue,
- 17 Nov 2026 03:40:48 -0500
-X-MC-Unique: J7tvt3jsOc-J2K4mCqnInA-1
-X-Mimecast-MFC-AGG-ID: J7tvt3jsOc-J2K4mCqnInA_1794904844
-Received: from mx-prod-int-03.mail-002.prod.us-west-2.aws.redhat.com
- (mx-prod-int-03.mail-002.prod.us-west-2.aws.redhat.com [10.30.177.12])
+	by gabe.freedesktop.org (Postfix) with ESMTP id 2C65F10EB62;
+	Tue, 17 Nov 2026 08:45:32 +0000 (UTC)
+Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.223.131])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id E3EEF10F280
+ for <dri-devel@lists.freedesktop.org>; Tue, 17 Nov 2026 08:45:20 +0000 (UTC)
+Received: from imap1.dmz-prg2.suse.org (imap1.dmz-prg2.suse.org
+ [IPv6:2a07:de40:b281:104:10:150:64:97])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+ key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
  (No client certificate requested)
- by mx-prod-mc-08.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS
- id 1183D18002C4; Tue, 17 Nov 2026 08:40:44 +0000 (UTC)
-Received: from aesteve-thinkpadp1gen8.rmtes.csb
- (headnet04.pony-001.prod.iad2.dc.redhat.com [10.2.32.116])
- by mx-prod-int-03.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS
- id 81E781956049; Tue, 17 Nov 2026 08:40:35 +0000 (UTC)
-From: Albert Esteve <aesteve@redhat.com>
-Date: Tue, 17 Nov 2026 09:39:23 +0100
-Subject: [PATCH v5 8/8] selftests/dmabuf-heaps: Add dma-buf memcg
- accounting tests
+ by smtp-out2.suse.de (Postfix) with ESMTPS id 3F1EB1F6E6;
+ Tue, 17 Nov 2026 08:45:19 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+ t=1794905119; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version: content-transfer-encoding:content-transfer-encoding;
+ bh=HtQfSTCDo69KwjcGYAQjqOB4/Op9vfM277fQ3LSI5Ow=;
+ b=RTH1Mo2/pGsyMVQ6MZkmn8Sne7L3PSATKzVEjORb85vQE4ASWcLdtZVlJMiBn1KbpzqSON
+ EkO2cy9gnNWfiE5qYy3pi/drG3qXTVDOvziiCvavMnf2xd8ySHT+UBNmwPSqDHiCYX1/1f
+ oVSl8S1Vhl34YEp7dtcwj28Rm8F2IEA=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+ s=susede2_ed25519; t=1794905119;
+ h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version: content-transfer-encoding:content-transfer-encoding;
+ bh=HtQfSTCDo69KwjcGYAQjqOB4/Op9vfM277fQ3LSI5Ow=;
+ b=W7mv2tzXxk/39zBlHT9iI910ZFYYrOnP1dYw3039aBTdW26qrLIFpRk3LI2qYJ0ivI0ov/
+ 90yh40VC+HmVviAw==
+Authentication-Results: smtp-out2.suse.de;
+ dkim=pass header.d=suse.de header.s=susede2_rsa header.b="RTH1Mo2/";
+ dkim=pass header.d=suse.de header.s=susede2_ed25519 header.b=W7mv2tzX
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+ t=1794905119; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version: content-transfer-encoding:content-transfer-encoding;
+ bh=HtQfSTCDo69KwjcGYAQjqOB4/Op9vfM277fQ3LSI5Ow=;
+ b=RTH1Mo2/pGsyMVQ6MZkmn8Sne7L3PSATKzVEjORb85vQE4ASWcLdtZVlJMiBn1KbpzqSON
+ EkO2cy9gnNWfiE5qYy3pi/drG3qXTVDOvziiCvavMnf2xd8ySHT+UBNmwPSqDHiCYX1/1f
+ oVSl8S1Vhl34YEp7dtcwj28Rm8F2IEA=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+ s=susede2_ed25519; t=1794905119;
+ h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version: content-transfer-encoding:content-transfer-encoding;
+ bh=HtQfSTCDo69KwjcGYAQjqOB4/Op9vfM277fQ3LSI5Ow=;
+ b=W7mv2tzXxk/39zBlHT9iI910ZFYYrOnP1dYw3039aBTdW26qrLIFpRk3LI2qYJ0ivI0ov/
+ 90yh40VC+HmVviAw==
+Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+ (No client certificate requested)
+ by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id D0BCC1334C;
+ Tue, 17 Nov 2026 08:45:18 +0000 (UTC)
+Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
+ by imap1.dmz-prg2.suse.org with ESMTPSA id jcr5JR4U/GrjUQAAD6G6ig
+ (envelope-from <tzimmermann@suse.de>); Tue, 17 Nov 2026 08:45:18 +0000
+From: Thomas Zimmermann <tzimmermann@suse.de>
+To: javierm@redhat.com, maarten.lankhorst@linux.intel.com, mripard@kernel.org,
+ airlied@gmail.com, simona@ffwll.ch
+Cc: dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
+ sashiko-reviews@lists.linux.dev, Thomas Zimmermann <tzimmermann@suse.de>
+Subject: [PATCH] firmware: sysfb: Remove CONFIG_SYSFB_SIMPLEFB
+Date: Tue, 17 Nov 2026 09:44:57 +0100
+Message-ID: <20261117084514.367399-1-tzimmermann@suse.de>
+X-Mailer: git-send-email 2.56.0
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
-Message-Id: <20261117-v2_20230123_tjmercier_google_com-v5-8-1ce975f2a9ad@redhat.com>
-References: <20261117-v2_20230123_tjmercier_google_com-v5-0-1ce975f2a9ad@redhat.com>
-In-Reply-To: <20261117-v2_20230123_tjmercier_google_com-v5-0-1ce975f2a9ad@redhat.com>
-To: Tejun Heo <tj@kernel.org>, Johannes Weiner <hannes@cmpxchg.org>, 
- =?utf-8?q?Michal_Koutn=C3=BD?= <mkoutny@suse.com>, 
- Jonathan Corbet <corbet@lwn.net>, Shuah Khan <skhan@linuxfoundation.org>, 
- Sumit Semwal <sumit.semwal@linaro.org>, 
- =?utf-8?q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>, 
- Michal Hocko <mhocko@kernel.org>, Roman Gushchin <roman.gushchin@linux.dev>, 
- Shakeel Butt <shakeel.butt@linux.dev>, Muchun Song <muchun.song@linux.dev>, 
- Andrew Morton <akpm@linux-foundation.org>, 
- Benjamin Gaignard <benjamin.gaignard@collabora.com>, 
- Brian Starkey <Brian.Starkey@arm.com>, John Stultz <jstultz@google.com>, 
- "T.J. Mercier" <tjmercier@google.com>, 
- Christian Brauner <brauner@kernel.org>, Paul Moore <paul@paul-moore.com>, 
- James Morris <jmorris@namei.org>, "Serge E. Hallyn" <serge@hallyn.com>, 
- Stephen Smalley <stephen.smalley.work@gmail.com>, 
- Shuah Khan <shuah@kernel.org>, Randy Dunlap <rdunlap@infradead.org>, 
- =?utf-8?q?Ondrej_Mosn=C3=A1=C4=8Dek?= <omosnacek@gmail.com>, 
- Jens Wiklander <jenswi@kernel.org>, Sumit Garg <sumit.garg@kernel.org>, 
- Philipp Stanner <phasta@kernel.org>, 
- =?utf-8?q?Ondrej_Mosn=C3=A1=C4=8Dek?= <omosnacek@gmail.com>
-Cc: airlied@gmail.com, cgroups@vger.kernel.org, linux-doc@vger.kernel.org, 
- linux-kernel@vger.kernel.org, linux-media@vger.kernel.org, 
- dri-devel@lists.freedesktop.org, linaro-mm-sig@lists.linaro.org, 
- linux-mm@kvack.org, linux-security-module@vger.kernel.org, 
- selinux@vger.kernel.org, linux-kselftest@vger.kernel.org, 
- op-tee@lists.trustedfirmware.org, Albert Esteve <aesteve@redhat.com>, 
- echanude@redhat.com, mripard@kernel.org
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1794904759; l=29696;
- i=aesteve@redhat.com; s=20260827; h=from:subject:message-id;
- bh=2KFqOC/8b5TkRv0jTVa2WTsP5g107sO1J9lQIz8yWlg=;
- b=EHzCeS3tLuMaZAsphdfZ3kVPGS3InAX6dolK3I3iK2Y3Qqtsv4Q4GQJHJYKxW/6sTMR9Pt7yD
- qdqQLbajxoPDSS1FGWpRc4GG1kT2w+CYhuZXOrNDq1C1edzveaUR63V
-X-Developer-Key: i=aesteve@redhat.com; a=ed25519;
- pk=zI2RBeZgocwYm3AkJW4CtjoJnKoDZrfBl1xe5Ed6h+U=
-X-Scanned-By: MIMEDefang 3.0 on 10.30.177.12
-X-Mimecast-MFC-PROC-ID: ND65yNc-bVkLIo5RZG3g33FeaIkpTVHLoE7RrQzlHOg_1794904844
-X-Mimecast-Originator: redhat.com
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
+X-Spamd-Result: default: False [-12.01 / 50.00]; SUSE_INTERNAL_BYPASS(-9.00)[];
+ BAYES_HAM(-3.00)[100.00%]; MID_CONTAINS_FROM(1.00)[];
+ NEURAL_HAM_LONG(-1.00)[-1.000]; R_MISSING_CHARSET(0.50)[];
+ R_DKIM_ALLOW(-0.20)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
+ NEURAL_HAM_SHORT(-0.20)[-1.000]; MIME_GOOD(-0.10)[text/plain];
+ MX_GOOD(-0.01)[]; TO_MATCH_ENVRCPT_ALL(0.00)[];
+ FREEMAIL_TO(0.00)[redhat.com,linux.intel.com,kernel.org,gmail.com,ffwll.ch];
+ URIBL_BLOCKED(0.00)[imap1.dmz-prg2.suse.org:rdns,imap1.dmz-prg2.suse.org:helo,suse.de:email,suse.de:dkim];
+ MIME_TRACE(0.00)[0:+];
+ RBL_SPAMHAUS_BLOCKED_OPENRESOLVER(0.00)[2a07:de40:b281:104:10:150:64:97:from]; 
+ ARC_NA(0.00)[];
+ DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
+ RCVD_TLS_ALL(0.00)[]; DKIM_TRACE(0.00)[suse.de:+];
+ RCVD_COUNT_TWO(0.00)[2]; FROM_EQ_ENVFROM(0.00)[];
+ FROM_HAS_DN(0.00)[]; TO_DN_SOME(0.00)[];
+ DBL_BLOCKED_OPENRESOLVER(0.00)[suse.de:email,suse.de:dkim,imap1.dmz-prg2.suse.org:rdns,imap1.dmz-prg2.suse.org:helo];
+ RECEIVED_SPAMHAUS_BLOCKED_OPENRESOLVER(0.00)[2a07:de40:b281:106:10:150:64:167:received];
+ RCPT_COUNT_SEVEN(0.00)[9]; RCVD_VIA_SMTP_AUTH(0.00)[];
+ FREEMAIL_ENVRCPT(0.00)[gmail.com]
+X-Rspamd-Server: rspamd1.dmz-prg2.suse.org
+X-Rspamd-Action: no action
+X-Spam-Score: -12.01
+X-Spam-Level: 
+X-Rspamd-Queue-Id: 3F1EB1F6E6
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -99,1093 +109,350 @@ List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-15.8 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
-	DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
+X-Spam-Status: No, score=-18.8 required=3.0 tests=BAYES_00,DKIM_SIGNED,
+	DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
 	INCLUDES_CR_TRAILER,INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,
-	SPF_PASS autolearn=unavailable autolearn_force=no version=4.0.1
+	SPF_PASS,USER_AGENT_GIT autolearn=unavailable autolearn_force=no
+	version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-Add tests for the new charge_fd field in struct
-dma_heap_allocation_data.
+Enabling SYSFB_SIMPLEFB creates a system-framebuffer device on top of
+a firmware-provided UEFI or VESA framebuffer. It is inflexible and lacks
+support for various features, such as EDID and color LUTs. Therefore
+commit cc79eaf8ee25 ("firmware: sysfb: Mark CONFIG_SYSFB_SIMPLEFB as
+deprecated") marked CONFIG_SYSFB_SIMPLEFB as deprecated.
 
-When the charge_fd feature is absent (unpatched kernel),
-the probe in pidfd_alloc_supported() detects this and the
-tests are skipped gracefully.
+Remove CONFIG_SYSFB_SIMPLEFB and the related code. Remaining users are
+advised to upgrade to efi-framebuffer and vesa-framebuffer with efidrm
+and vesadrm on top. Also remove the outdated comment from sysfb.c.
 
-Add vmtest.sh similar to other subsystem suites, to orchestrate
-building the selftests (optionally with a freshly compiled kernel)
-inside a virtme-ng VM, so the tests can be run without modifying
-the host system. Add a config fragment with required Kconfig symbols.
+Note that this change does not affect DeviceTree simple-framebuffer.
+The kernel still parses them and creates a simple-framebuffer device
+for each.
 
-Also extend test_memcontrol suite to cover cross-cgroup dma-buf
-accounting:
+The MIPS architecture code creates a simple-framebuffer device for the
+display output on the Nintendo N64. Removing CONFIG_SYSFB_SIMPLEFB does
+not affect this code either.
 
-- test_memcg_dmabuf: a buffer charged via pidfd is accounted to
-  the target cgroup's memory.stat
-- test_memcg_dmabuf_xfer_at_limit: transferring a charge to a cgroup
-  at its memory.max limit fails with ENOMEM and leaves the charge in
-  the source cgroup
-- test_memcg_dmabuf_dead_cgroup: a cgroup removed while one of its
-  charged buffers is still open and is released instead of lingering
-  as a dying descendant, and the charge moves to the parent and is
-  released when the buffer is closed.
-
-All of them are skipped on unpatched kernels or when
-/dev/dma_heap/system is absent.
-
-Signed-off-by: Albert Esteve <aesteve@redhat.com>
+Signed-off-by: Thomas Zimmermann <tzimmermann@suse.de>
 ---
- tools/testing/selftests/cgroup/Makefile            |   2 +-
- tools/testing/selftests/cgroup/test_memcontrol.c   | 447 ++++++++++++++++++++-
- tools/testing/selftests/dmabuf-heaps/config        |   1 +
- tools/testing/selftests/dmabuf-heaps/dmabuf-heap.c | 237 ++++++++++-
- tools/testing/selftests/dmabuf-heaps/vmtest.sh     | 226 +++++++++++
- 5 files changed, 909 insertions(+), 4 deletions(-)
+ drivers/firmware/Kconfig          |  16 ----
+ drivers/firmware/Makefile         |   1 -
+ drivers/firmware/sysfb.c          |  33 -------
+ drivers/firmware/sysfb_simplefb.c | 140 ------------------------------
+ drivers/gpu/drm/sysfb/Kconfig     |   4 +-
+ include/linux/sysfb.h             |  25 ------
+ 6 files changed, 2 insertions(+), 217 deletions(-)
+ delete mode 100644 drivers/firmware/sysfb_simplefb.c
 
-diff --git a/tools/testing/selftests/cgroup/Makefile b/tools/testing/selftests/cgroup/Makefile
-index e01584c2189a..9edfc9f1de5c 100644
---- a/tools/testing/selftests/cgroup/Makefile
-+++ b/tools/testing/selftests/cgroup/Makefile
-@@ -1,5 +1,5 @@
- # SPDX-License-Identifier: GPL-2.0
--CFLAGS += -Wall -pthread
-+CFLAGS += -Wall -pthread $(KHDR_INCLUDES)
+diff --git a/drivers/firmware/Kconfig b/drivers/firmware/Kconfig
+index 43e2e2a64594..ab76a6f7f0ab 100644
+--- a/drivers/firmware/Kconfig
++++ b/drivers/firmware/Kconfig
+@@ -210,22 +210,6 @@ config SYSFB
+ 	select BOOT_VESA_SUPPORT
+ 	select SCREEN_INFO
  
- all: ${HELPER_PROGS}
+-config SYSFB_SIMPLEFB
+-	bool "Mark VGA/VBE/EFI FB as generic system framebuffer (deprecated)"
+-	depends on X86 || EFI
+-	select SYSFB
+-	help
+-	  Firmware often provides initial graphics framebuffers so the BIOS,
+-	  bootloader or kernel can show basic video-output during boot for
+-	  user-guidance and debugging.
+-
+-	  This option, if enabled, marks VBE/EFI framebuffers as system
+-	  framebuffers so the generic simpledrm driver can be used.
+-
+-	  This option is deprecated and will be removed in the near future. If
+-	  unsure, say N and select efidrm, vesadrm instead. The dedicated DRM
+-	  drivers provide the same functionality plus additional features.
+-
+ config TH1520_AON_PROTOCOL
+ 	tristate "Always-On firmware protocol"
+ 	depends on ARCH_THEAD || COMPILE_TEST
+diff --git a/drivers/firmware/Makefile b/drivers/firmware/Makefile
+index 50b338313152..6a9413454d10 100644
+--- a/drivers/firmware/Makefile
++++ b/drivers/firmware/Makefile
+@@ -19,7 +19,6 @@ obj-$(CONFIG_RASPBERRYPI_FIRMWARE) += raspberrypi.o
+ obj-$(CONFIG_FW_CFG_SYSFS)	+= qemu_fw_cfg.o
+ obj-$(CONFIG_FW_ATTR_CLASS)	+= firmware_attributes_class.o
+ obj-$(CONFIG_SYSFB)		+= sysfb.o
+-obj-$(CONFIG_SYSFB_SIMPLEFB)	+= sysfb_simplefb.o
+ obj-$(CONFIG_TH1520_AON_PROTOCOL) += thead,th1520-aon.o
+ obj-$(CONFIG_TI_SCI_PROTOCOL)	+= ti_sci.o
+ obj-$(CONFIG_TRUSTED_FOUNDATIONS) += trusted_foundations.o
+diff --git a/drivers/firmware/sysfb.c b/drivers/firmware/sysfb.c
+index 8833582c1883..07738b9e89c5 100644
+--- a/drivers/firmware/sysfb.c
++++ b/drivers/firmware/sysfb.c
+@@ -4,33 +4,11 @@
+  * Copyright (c) 2012-2013 David Herrmann <dh.herrmann@gmail.com>
+  */
  
-diff --git a/tools/testing/selftests/cgroup/test_memcontrol.c b/tools/testing/selftests/cgroup/test_memcontrol.c
-index bb673012dcf0..f612726bd9af 100644
---- a/tools/testing/selftests/cgroup/test_memcontrol.c
-+++ b/tools/testing/selftests/cgroup/test_memcontrol.c
-@@ -18,8 +18,15 @@
- #include <netdb.h>
- #include <errno.h>
- #include <sys/mman.h>
-+#include <sys/prctl.h>
- #include <sys/sysinfo.h>
+-/*
+- * Simple-Framebuffer support
+- * Create a platform-device for any available boot framebuffer. The
+- * simple-framebuffer platform device is already available on DT systems, so
+- * this module parses the global "screen_info" object and creates a suitable
+- * platform device compatible with the "simple-framebuffer" DT object. If
+- * the framebuffer is incompatible, we instead create a legacy
+- * "vesa-framebuffer", "efi-framebuffer" or "platform-framebuffer" device and
+- * pass the screen_info as platform_data. This allows legacy drivers
+- * to pick these devices up without messing with simple-framebuffer drivers.
+- * The global "screen_info" is still valid at all times.
+- *
+- * If CONFIG_SYSFB_SIMPLEFB is not selected, never register "simple-framebuffer"
+- * platform devices, but only use legacy framebuffer devices for
+- * backwards compatibility.
+- *
+- * TODO: We set the dev_id field of all platform-devices to 0. This allows
+- * other OF/DT parsers to create such devices, too. However, they must
+- * start at offset 1 for this to work.
+- */
+-
+ #include <linux/err.h>
+ #include <linux/init.h>
+ #include <linux/kernel.h>
+ #include <linux/mm.h>
+ #include <linux/pci.h>
+-#include <linux/platform_data/simplefb.h>
+ #include <linux/platform_device.h>
+ #include <linux/screen_info.h>
+ #include <linux/sysfb.h>
+@@ -145,9 +123,7 @@ static __init int sysfb_init(void)
+ 	struct screen_info *si = &dpy->screen;
+ 	struct device *parent;
+ 	unsigned int type;
+-	struct simplefb_platform_data mode;
+ 	const char *name;
+-	bool compatible;
+ 	int ret = 0;
  
-+#include <linux/dma-buf.h>
-+#include <linux/dma-heap.h>
-+#include <signal.h>
-+#include <sys/ioctl.h>
-+
-+#include "../pidfd/pidfd.h"
- #include "kselftest.h"
- #include "cgroup_util.h"
- 
-@@ -27,6 +34,13 @@
- #define MEMCG_FLUSH_BYTES	\
- 	(2 * sysconf(_SC_PAGESIZE) * MEMCG_CHARGE_BATCH * get_nprocs())
- 
-+#define DMA_HEAP_SYSTEM		"/dev/dma_heap/system"
-+#define ONE_MEG			(1024 * 1024)
-+
-+#define MEMCG_SOCKSTAT_WAIT_RETRIES        30
-+#define MEMCG_DMABUF_WAIT_RETRIES          30
-+#define MEMCG_DMABUF_DEAD_WAIT_RETRIES     80
-+
- static bool has_localevents;
- static bool has_recursiveprot;
- static int page_size;
-@@ -1797,6 +1811,417 @@ static int test_memcg_inotify_delete_dir(const char *root)
- 	return ret;
- }
- 
-+static int memcg_dmabuf_child(const char *cgroup, void *arg)
-+{
-+	pid_t *parent_pid = arg;
-+
-+	prctl(PR_SET_PDEATHSIG, SIGKILL);
-+	if (getppid() != *parent_pid)
-+		return 0;
-+
-+	pause();
-+	return 0;
-+}
-+
-+/*
-+ * This test allocates a dma-buf via DMA_HEAP_IOCTL_ALLOC with a pidfd
-+ * pointing to a child process in a separate cgroup, then checks that
-+ * memory.stat[dmabuf] in the child's cgroup rises by the allocation size
-+ * and returns to zero after the buffer fd is closed.
-+ */
-+static int test_memcg_dmabuf(const char *root)
-+{
-+	char *parent = NULL, *child_cg = NULL;
-+	int ret = KSFT_FAIL;
-+	int heap_fd = -1, dmabuf_fd = -1, pidfd = -1;
-+	pid_t child_pid, parent_pid = getpid();
-+	int child_status;
-+	long dmabuf_stat;
-+	struct dma_heap_allocation_data alloc = {
-+		.len      = ONE_MEG,
-+		.fd_flags = O_RDWR | O_CLOEXEC,
-+	};
-+
-+	if (access(DMA_HEAP_SYSTEM, R_OK | W_OK)) {
-+		ret = KSFT_SKIP;
-+		goto cleanup;
-+	}
-+
-+	parent = cg_name(root, "dmabuf_memcg_test");
-+	if (!parent)
-+		goto cleanup;
-+
-+	if (cg_create(parent))
-+		goto cleanup_parent;
-+
-+	if (cg_write(parent, "cgroup.subtree_control", "+memory"))
-+		goto cleanup_parent;
-+
-+	child_cg = cg_name(parent, "child");
-+	if (!child_cg)
-+		goto cleanup_parent;
-+
-+	if (cg_create(child_cg))
-+		goto cleanup_parent;
-+
-+	child_pid = cg_run_nowait(child_cg, memcg_dmabuf_child, &parent_pid);
-+	if (child_pid < 0)
-+		goto cleanup_child;
-+
-+	if (cg_wait_for_proc_count(child_cg, 1))
-+		goto cleanup_kill;
-+
-+	pidfd = sys_pidfd_open(child_pid, 0);
-+	if (pidfd < 0) {
-+		ret = KSFT_SKIP;
-+		goto cleanup_kill;
-+	}
-+
-+	heap_fd = open(DMA_HEAP_SYSTEM, O_RDWR);
-+	if (heap_fd < 0) {
-+		ret = KSFT_SKIP;
-+		goto cleanup_pidfd;
-+	}
-+
-+	alloc.charge_fd = (__u32)pidfd;
-+	if (ioctl(heap_fd, DMA_HEAP_IOCTL_ALLOC, &alloc) < 0) {
-+		if (errno == EINVAL || errno == ENOTTY || errno == EOPNOTSUPP)
-+			ret = KSFT_SKIP;
-+		goto cleanup_heap;
-+	}
-+	dmabuf_fd = (int)alloc.fd;
-+
-+	dmabuf_stat = cg_read_key_long(child_cg, "memory.stat", "dmabuf ");
-+	if (dmabuf_stat == -1) {
-+		ret = KSFT_SKIP;
-+		goto cleanup_dmabuf;
-+	}
-+	if (dmabuf_stat != ONE_MEG)
-+		dmabuf_stat = cg_read_key_long_poll(child_cg, "memory.stat",
-+						    "dmabuf ", ONE_MEG,
-+						    MEMCG_DMABUF_WAIT_RETRIES,
-+						    DEFAULT_WAIT_INTERVAL_US);
-+	if (dmabuf_stat != ONE_MEG) {
-+		fprintf(stderr, "Expected dmabuf stat %d, got %ld\n",
-+			ONE_MEG, dmabuf_stat);
-+		goto cleanup_dmabuf;
-+	}
-+
-+	close(dmabuf_fd);
-+	dmabuf_fd = -1;
-+
-+	dmabuf_stat = cg_read_key_long_poll(child_cg, "memory.stat",
-+					    "dmabuf ", 0,
-+					    MEMCG_DMABUF_WAIT_RETRIES,
-+					    DEFAULT_WAIT_INTERVAL_US);
-+	if (dmabuf_stat != 0) {
-+		fprintf(stderr, "Expected dmabuf stat 0 after close, got %ld\n",
-+			dmabuf_stat);
-+		goto cleanup_heap;
-+	}
-+
-+	ret = KSFT_PASS;
-+
-+cleanup_dmabuf:
-+	if (dmabuf_fd >= 0)
-+		close(dmabuf_fd);
-+cleanup_heap:
-+	close(heap_fd);
-+cleanup_pidfd:
-+	close(pidfd);
-+cleanup_kill:
-+	kill(child_pid, SIGTERM);
-+	waitpid(child_pid, &child_status, 0);
-+cleanup_child:
-+	cg_destroy(child_cg);
-+	free(child_cg);
-+cleanup_parent:
-+	cg_destroy(parent);
-+	free(parent);
-+cleanup:
-+	return ret;
-+}
-+
-+/*
-+ * Allocate a dma-buf in cgroup A, set memory.max on cgroup B below the
-+ * buffer size, then attempt DMA_BUF_IOCTL_XFER_CHARGE to B. The transfer
-+ * must fail with ENOMEM and the charge must remain in A.
-+ */
-+static int test_memcg_dmabuf_xfer_at_limit(const char *root)
-+{
-+	char *parent = NULL, *cg_a = NULL, *cg_b = NULL;
-+	int ret = KSFT_FAIL;
-+	int heap_fd = -1, dmabuf_fd = -1, cg_b_fd = -1;
-+	pid_t child_pid, parent_pid = getpid();
-+	int child_status;
-+	long stat_a;
-+	struct dma_heap_allocation_data alloc = {
-+		.len      = ONE_MEG,
-+		.fd_flags = O_RDWR | O_CLOEXEC,
-+	};
-+	struct dma_buf_transfer_charge xfer = { 0 };
-+
-+	if (access(DMA_HEAP_SYSTEM, R_OK | W_OK)) {
-+		ret = KSFT_SKIP;
-+		goto cleanup;
-+	}
-+
-+	parent = cg_name(root, "dmabuf_xfer_limit_test");
-+	if (!parent)
-+		goto cleanup;
-+
-+	if (cg_create(parent))
-+		goto cleanup_parent;
-+
-+	if (cg_write(parent, "cgroup.subtree_control", "+memory"))
-+		goto cleanup_parent;
-+
-+	cg_a = cg_name(parent, "cg_a");
-+	cg_b = cg_name(parent, "cg_b");
-+	if (!cg_a || !cg_b)
-+		goto cleanup_cgs;
-+
-+	if (cg_create(cg_a) || cg_create(cg_b))
-+		goto cleanup_cgs;
-+
-+	if (cg_write(cg_b, "memory.max", "524288"))
-+		goto cleanup_cgs;
-+
-+	child_pid = cg_run_nowait(cg_a, memcg_dmabuf_child, &parent_pid);
-+	if (child_pid < 0)
-+		goto cleanup_cgs;
-+
-+	if (cg_wait_for_proc_count(cg_a, 1))
-+		goto cleanup_kill;
-+
-+	heap_fd = open(DMA_HEAP_SYSTEM, O_RDWR);
-+	if (heap_fd < 0) {
-+		ret = KSFT_SKIP;
-+		goto cleanup_kill;
-+	}
-+
-+	alloc.charge_fd = (__u32)sys_pidfd_open(child_pid, 0);
-+	if ((int)alloc.charge_fd < 0) {
-+		ret = KSFT_SKIP;
-+		goto cleanup_heap;
-+	}
-+
-+	if (ioctl(heap_fd, DMA_HEAP_IOCTL_ALLOC, &alloc) < 0) {
-+		close(alloc.charge_fd);
-+		goto cleanup_heap;
-+	}
-+	close(alloc.charge_fd);
-+	dmabuf_fd = (int)alloc.fd;
-+
-+	stat_a = cg_read_key_long(cg_a, "memory.stat", "dmabuf ");
-+	if (stat_a == -1) {
-+		ret = KSFT_SKIP;
-+		goto cleanup_dmabuf;
-+	}
-+	if (stat_a != ONE_MEG)
-+		stat_a = cg_read_key_long_poll(cg_a, "memory.stat",
-+					       "dmabuf ", ONE_MEG,
-+					       MEMCG_DMABUF_WAIT_RETRIES,
-+					       DEFAULT_WAIT_INTERVAL_US);
-+	if (stat_a != ONE_MEG) {
-+		fprintf(stderr, "Charge not in A after alloc: expected %d, got %ld\n",
-+			ONE_MEG, stat_a);
-+		goto cleanup_dmabuf;
-+	}
-+
-+	cg_b_fd = open(cg_b, O_RDONLY | O_DIRECTORY);
-+	if (cg_b_fd < 0)
-+		goto cleanup_dmabuf;
-+
-+	xfer.charge_fd = (__u32)cg_b_fd;
-+	if (ioctl(dmabuf_fd, DMA_BUF_IOCTL_XFER_CHARGE, &xfer) == 0) {
-+		fprintf(stderr, "xfer_charge should have failed at limit\n");
-+		goto cleanup_cgfd;
-+	}
-+	if (errno != ENOMEM) {
-+		fprintf(stderr, "Expected ENOMEM, got %s\n", strerror(errno));
-+		goto cleanup_cgfd;
-+	}
-+
-+	stat_a = cg_read_key_long_poll(cg_a, "memory.stat",
-+				       "dmabuf ", ONE_MEG,
-+				       MEMCG_DMABUF_WAIT_RETRIES,
-+				       DEFAULT_WAIT_INTERVAL_US);
-+	if (stat_a != ONE_MEG) {
-+		fprintf(stderr, "Charge leaked from A: expected %d, got %ld\n",
-+			ONE_MEG, stat_a);
-+		goto cleanup_cgfd;
-+	}
-+
-+	ret = KSFT_PASS;
-+
-+cleanup_cgfd:
-+	close(cg_b_fd);
-+cleanup_dmabuf:
-+	if (dmabuf_fd >= 0)
-+		close(dmabuf_fd);
-+cleanup_heap:
-+	close(heap_fd);
-+cleanup_kill:
-+	kill(child_pid, SIGTERM);
-+	waitpid(child_pid, &child_status, 0);
-+cleanup_cgs:
-+	if (cg_a) {
-+		cg_destroy(cg_a);
-+		free(cg_a);
-+	}
-+	if (cg_b) {
-+		cg_destroy(cg_b);
-+		free(cg_b);
-+	}
-+cleanup_parent:
-+	cg_destroy(parent);
-+	free(parent);
-+cleanup:
-+	return ret;
-+}
-+
-+/*
-+ * Allocate a dma-buf charged to a cgroup, then remove that cgroup while
-+ * the buffer is still open. The charge is held by an object cgroup,
-+ * which is reparented, so the removed cgroup must be released instead of
-+ * lingering as a dying descendant until the buffer is closed.
-+ */
-+static int test_memcg_dmabuf_dead_cgroup(const char *root)
-+{
-+	char *parent = NULL, *child_cg = NULL;
-+	int ret = KSFT_FAIL;
-+	int heap_fd = -1, dmabuf_fd = -1, cg_fd = -1;
-+	long dmabuf_stat, dying;
-+	struct dma_heap_allocation_data alloc = {
-+		.len      = ONE_MEG,
-+		.fd_flags = O_RDWR | O_CLOEXEC,
-+	};
-+
-+	if (access(DMA_HEAP_SYSTEM, R_OK | W_OK)) {
-+		ret = KSFT_SKIP;
-+		goto cleanup;
-+	}
-+
-+	parent = cg_name(root, "dmabuf_dead_cgroup_test");
-+	if (!parent)
-+		goto cleanup;
-+
-+	if (cg_create(parent))
-+		goto cleanup_parent;
-+
-+	if (cg_write(parent, "cgroup.subtree_control", "+memory"))
-+		goto cleanup_parent;
-+
-+	child_cg = cg_name(parent, "child");
-+	if (!child_cg)
-+		goto cleanup_parent;
-+
-+	if (cg_create(child_cg))
-+		goto cleanup_child;
-+
-+	heap_fd = open(DMA_HEAP_SYSTEM, O_RDWR);
-+	if (heap_fd < 0) {
-+		ret = KSFT_SKIP;
-+		goto cleanup_child;
-+	}
-+
-+	cg_fd = open(child_cg, O_RDONLY | O_DIRECTORY);
-+	if (cg_fd < 0)
-+		goto cleanup_heap;
-+
-+	alloc.charge_fd = (__u32)cg_fd;
-+	if (ioctl(heap_fd, DMA_HEAP_IOCTL_ALLOC, &alloc) < 0) {
-+		if (errno == EINVAL || errno == ENOTTY || errno == EOPNOTSUPP)
-+			ret = KSFT_SKIP;
-+		goto cleanup_cgfd;
-+	}
-+	/* The buffer holds the charge; the fd must not hold the cgroup. */
-+	close(cg_fd);
-+	cg_fd = -1;
-+	dmabuf_fd = (int)alloc.fd;
-+
-+	dmabuf_stat = cg_read_key_long(child_cg, "memory.stat", "dmabuf ");
-+	if (dmabuf_stat == -1) {
-+		ret = KSFT_SKIP;
-+		goto cleanup_dmabuf;
-+	}
-+	if (dmabuf_stat != ONE_MEG)
-+		dmabuf_stat = cg_read_key_long_poll(child_cg, "memory.stat",
-+						    "dmabuf ", ONE_MEG,
-+						    MEMCG_DMABUF_WAIT_RETRIES,
-+						    DEFAULT_WAIT_INTERVAL_US);
-+	if (dmabuf_stat != ONE_MEG) {
-+		fprintf(stderr, "Expected dmabuf stat %d, got %ld\n",
-+			ONE_MEG, dmabuf_stat);
-+		goto cleanup_dmabuf;
-+	}
-+
-+	if (cg_destroy(child_cg)) {
-+		fprintf(stderr, "Failed to remove charged cgroup\n");
-+		goto cleanup_dmabuf;
-+	}
-+
-+	dying = cg_read_key_long_poll(parent, "cgroup.stat",
-+				      "nr_dying_descendants ", 0,
-+				      MEMCG_DMABUF_DEAD_WAIT_RETRIES,
-+				      DEFAULT_WAIT_INTERVAL_US);
-+	if (dying) {
-+		fprintf(stderr, "Removed cgroup still dying with buffer open\n");
-+		goto cleanup_dmabuf;
-+	}
-+
-+	/* The charge must have moved to the parent with the cgroup. */
-+	dmabuf_stat = cg_read_key_long(parent, "memory.stat", "dmabuf ");
-+	if (dmabuf_stat != ONE_MEG)
-+		dmabuf_stat = cg_read_key_long_poll(parent, "memory.stat",
-+						    "dmabuf ", ONE_MEG,
-+						    MEMCG_DMABUF_WAIT_RETRIES,
-+						    DEFAULT_WAIT_INTERVAL_US);
-+	if (dmabuf_stat != ONE_MEG) {
-+		fprintf(stderr, "Charge not in parent after removal: expected %d, got %ld\n",
-+			ONE_MEG, dmabuf_stat);
-+		goto cleanup_dmabuf;
-+	}
-+
-+	/* Uncharge through the reparented object cgroup. */
-+	close(dmabuf_fd);
-+	dmabuf_fd = -1;
-+
-+	dmabuf_stat = cg_read_key_long(parent, "memory.stat", "dmabuf ");
-+	if (dmabuf_stat != 0)
-+		dmabuf_stat = cg_read_key_long_poll(parent, "memory.stat",
-+						    "dmabuf ", 0,
-+						    MEMCG_DMABUF_WAIT_RETRIES,
-+						    DEFAULT_WAIT_INTERVAL_US);
-+	if (dmabuf_stat != 0) {
-+		fprintf(stderr, "Expected dmabuf stat 0 after close, got %ld\n",
-+			dmabuf_stat);
-+		goto cleanup_heap;
-+	}
-+
-+	ret = KSFT_PASS;
-+
-+cleanup_dmabuf:
-+	if (dmabuf_fd >= 0)
-+		close(dmabuf_fd);
-+cleanup_cgfd:
-+	if (cg_fd >= 0)
-+		close(cg_fd);
-+cleanup_heap:
-+	close(heap_fd);
-+cleanup_child:
-+	if (child_cg) {
-+		cg_destroy(child_cg);
-+		free(child_cg);
-+	}
-+cleanup_parent:
-+	cg_destroy(parent);
-+	free(parent);
-+cleanup:
-+	return ret;
-+}
-+
- #define T(x) { x, #x }
- struct memcg_test {
- 	int (*fn)(const char *root);
-@@ -1818,13 +2243,20 @@ struct memcg_test {
- 	T(test_memcg_oom_group_score_events),
- 	T(test_memcg_inotify_delete_file),
- 	T(test_memcg_inotify_delete_dir),
-+	T(test_memcg_dmabuf),
-+	T(test_memcg_dmabuf_xfer_at_limit),
-+	T(test_memcg_dmabuf_dead_cgroup),
- };
- #undef T
- 
- int main(int argc, char **argv)
- {
- 	char root[PATH_MAX];
--	int i, proc_status;
-+	int i, proc_status, count = ARRAY_SIZE(tests);
-+	const char *filter = NULL;
-+
-+	if (argc > 1)
-+		filter = argv[1];
- 
- 	page_size = sysconf(_SC_PAGE_SIZE);
- 	if (page_size <= 0)
-@@ -1855,8 +2287,19 @@ int main(int argc, char **argv)
- 		ksft_exit_skip("Failed to query cgroup mount option\n");
- 	has_localevents = proc_status;
- 
--	ksft_set_plan(ARRAY_SIZE(tests));
-+	if (filter) {
-+		count = 0;
-+		for (i = 0; i < ARRAY_SIZE(tests); i++) {
-+			if (!strcmp(tests[i].name, filter))
-+				count++;
-+		}
-+		if (!count)
-+			ksft_exit_fail_msg("unknown test '%s'\n", filter);
-+	}
-+	ksft_set_plan(count);
- 	for (i = 0; i < ARRAY_SIZE(tests); i++) {
-+		if (filter && strcmp(tests[i].name, filter))
-+			continue;
- 		switch (tests[i].fn(root)) {
- 		case KSFT_PASS:
- 			ksft_test_result_pass("%s\n", tests[i].name);
-diff --git a/tools/testing/selftests/dmabuf-heaps/config b/tools/testing/selftests/dmabuf-heaps/config
-index be091f1cdfa0..94c8f33b71a2 100644
---- a/tools/testing/selftests/dmabuf-heaps/config
-+++ b/tools/testing/selftests/dmabuf-heaps/config
-@@ -1,3 +1,4 @@
-+CONFIG_MEMCG=y
- CONFIG_DMABUF_HEAPS=y
- CONFIG_DMABUF_HEAPS_SYSTEM=y
- CONFIG_DRM_VGEM=y
-diff --git a/tools/testing/selftests/dmabuf-heaps/dmabuf-heap.c b/tools/testing/selftests/dmabuf-heaps/dmabuf-heap.c
-index 1d49df671919..44e3f33acf87 100644
---- a/tools/testing/selftests/dmabuf-heaps/dmabuf-heap.c
-+++ b/tools/testing/selftests/dmabuf-heaps/dmabuf-heap.c
-@@ -3,6 +3,7 @@
- #include <dirent.h>
- #include <errno.h>
- #include <fcntl.h>
-+#include <signal.h>
- #include <stdio.h>
- #include <stdlib.h>
- #include <stdint.h>
-@@ -10,11 +11,16 @@
- #include <unistd.h>
- #include <sys/ioctl.h>
- #include <sys/mman.h>
-+#include <sys/prctl.h>
-+#include <sys/syscall.h>
- #include <sys/types.h>
-+#include <sys/wait.h>
- 
- #include <linux/dma-buf.h>
- #include <linux/dma-heap.h>
-+#include <linux/limits.h>
- #include <drm/drm.h>
-+#include "../pidfd/pidfd.h"
- #include "kselftest.h"
- 
- #define DEVPATH "/dev/dma_heap"
-@@ -320,6 +326,8 @@ static int dmabuf_heap_alloc_newer(int fd, size_t len, unsigned int flags,
- 		__u32 fd;
- 		__u32 fd_flags;
- 		__u64 heap_flags;
-+		__u32 charge_fd;
-+		__u32 __padding;
- 		__u64 garbage1;
- 		__u64 garbage2;
- 		__u64 garbage3;
-@@ -328,6 +336,8 @@ static int dmabuf_heap_alloc_newer(int fd, size_t len, unsigned int flags,
- 		.fd = 0,
- 		.fd_flags = O_RDWR | O_CLOEXEC,
- 		.heap_flags = flags,
-+		.charge_fd = 0,
-+		.__padding = 0,
- 		.garbage1 = 0xffffffff,
- 		.garbage2 = 0x88888888,
- 		.garbage3 = 0x11111111,
-@@ -496,6 +506,227 @@ static void test_alloc_no_fd_leak_on_efault(char *heap_name)
- 	ksft_test_result(fd_before == fd_after,
- 			 "fd leak on EFAULT: before=%d after=%d\n",
- 			 fd_before, fd_after);
-+
-+out:
-+	close(heap_fd);
-+}
-+
-+static int dmabuf_heap_alloc_pidfd(int fd, size_t len, unsigned int heap_flags,
-+				   unsigned int charge_fd, int *dmabuf_fd)
-+{
-+	struct dma_heap_allocation_data data = {
-+		.len = len,
-+		.fd = 0,
-+		.fd_flags = O_RDWR | O_CLOEXEC,
-+		.heap_flags = heap_flags,
-+		.charge_fd = charge_fd,
-+	};
-+	int ret;
-+
-+	if (!dmabuf_fd)
-+		return -EINVAL;
-+
-+	ret = ioctl(fd, DMA_HEAP_IOCTL_ALLOC, &data);
-+	if (ret < 0)
-+		return ret;
-+	*dmabuf_fd = (int)data.fd;
-+	return ret;
-+}
-+
-+/*
-+ * Probe whether the kernel honours charge_fd in DMA_HEAP_IOCTL_ALLOC.
-+ */
-+static bool pidfd_alloc_supported(int heap_fd)
-+{
-+	int devnull_fd, dmabuf_fd = -1, ret;
-+
-+	devnull_fd = open("/dev/null", O_RDONLY);
-+	if (devnull_fd < 0)
-+		return false;
-+
-+	ret = dmabuf_heap_alloc_pidfd(heap_fd, ONE_MEG, 0, devnull_fd, &dmabuf_fd);
-+	if (dmabuf_fd >= 0) {
-+		close(dmabuf_fd);
-+		dmabuf_fd = -1;
-+	}
-+	close(devnull_fd);
-+	return ret < 0;
-+}
-+
-+/*
-+ * Test: allocate charging the calling process's own cgroup via a self pidfd.
-+ */
-+static void test_alloc_pidfd_self(char *heap_name)
-+{
-+	int heap_fd = -1, pidfd = -1, dmabuf_fd = -1, ret;
-+
-+	heap_fd = dmabuf_heap_open(heap_name);
-+
-+	if (!pidfd_alloc_supported(heap_fd)) {
-+		ksft_test_result_skip("charge_fd not supported by this kernel\n");
-+		goto out;
-+	}
-+
-+	pidfd = sys_pidfd_open(getpid(), 0);
-+	if (pidfd < 0) {
-+		ksft_test_result_skip("pidfd_open not available\n");
-+		goto out;
-+	}
-+
-+	ret = dmabuf_heap_alloc_pidfd(heap_fd, ONE_MEG, 0, pidfd, &dmabuf_fd);
-+	ksft_test_result(!ret, "Allocation with self pidfd %d\n", ret);
-+	if (dmabuf_fd >= 0)
-+		close(dmabuf_fd);
-+	close(pidfd);
-+out:
-+	close(heap_fd);
-+}
-+
-+/*
-+ * Test: allocate charging a child process's cgroup via a child pidfd.
-+ */
-+static void test_alloc_pidfd_child(char *heap_name)
-+{
-+	int heap_fd = -1, pidfd = -1, dmabuf_fd = -1;
-+	pid_t child_pid, parent_pid;
-+	int status, ret;
-+
-+	heap_fd = dmabuf_heap_open(heap_name);
-+
-+	if (!pidfd_alloc_supported(heap_fd)) {
-+		ksft_test_result_skip("charge_fd not supported by this kernel\n");
-+		goto out;
-+	}
-+
-+	parent_pid = getpid();
-+	child_pid = fork();
-+	if (child_pid == 0) {
-+		prctl(PR_SET_PDEATHSIG, SIGKILL);
-+		if (getppid() != parent_pid)
-+			_exit(0);
-+		pause();
-+		_exit(0);
-+	}
-+	if (child_pid < 0)
-+		ksft_exit_fail_msg("fork failed: %s\n", strerror(errno));
-+
-+	pidfd = sys_pidfd_open(child_pid, 0);
-+	if (pidfd < 0) {
-+		kill(child_pid, SIGTERM);
-+		waitpid(child_pid, &status, 0);
-+		ksft_test_result_skip("pidfd_open for child failed\n");
-+		goto out;
-+	}
-+
-+	ret = dmabuf_heap_alloc_pidfd(heap_fd, ONE_MEG, 0, pidfd, &dmabuf_fd);
-+	ksft_test_result(!ret, "Allocation with child pidfd %d\n", ret);
-+	if (dmabuf_fd >= 0)
-+		close(dmabuf_fd);
-+	close(pidfd);
-+	kill(child_pid, SIGTERM);
-+	waitpid(child_pid, &status, 0);
-+out:
-+	close(heap_fd);
-+}
-+
-+static int open_self_cgroupfd(void)
-+{
-+	char cgroup_path[PATH_MAX];
-+	char line[PATH_MAX];
-+	int ret = -1;
-+	FILE *f;
-+
-+	f = fopen("/proc/self/cgroup", "r");
-+	if (!f)
-+		return -1;
-+	while (fgets(line, sizeof(line), f)) {
-+		if (strncmp(line, "0::", 3))
-+			continue;
-+		line[strcspn(line, "\n")] = '\0';
-+		if (snprintf(cgroup_path, sizeof(cgroup_path),
-+			     "/sys/fs/cgroup%s", line + 3) < PATH_MAX)
-+			ret = 0;
-+		break;
-+	}
-+	fclose(f);
-+
-+	if (ret)
-+		return -1;
-+
-+	return open(cgroup_path, O_RDONLY | O_DIRECTORY);
-+}
-+
-+/*
-+ * Test: allocate charging the calling process's own cgroup via a cgroupfd.
-+ */
-+static void test_alloc_cgroupfd_self(char *heap_name)
-+{
-+	int heap_fd = -1, cgroup_fd = -1, dmabuf_fd = -1, ret;
-+
-+	heap_fd = dmabuf_heap_open(heap_name);
-+
-+	if (!pidfd_alloc_supported(heap_fd)) {
-+		ksft_test_result_skip("charge_fd not supported by this kernel\n");
-+		goto out;
-+	}
-+
-+	cgroup_fd = open_self_cgroupfd();
-+	if (cgroup_fd < 0) {
-+		ksft_test_result_skip("cannot open self cgroupfd\n");
-+		goto out;
-+	}
-+
-+	ret = dmabuf_heap_alloc_pidfd(heap_fd, ONE_MEG, 0, cgroup_fd, &dmabuf_fd);
-+	ksft_test_result(!ret, "Allocation with cgroupfd %d\n", ret);
-+	if (dmabuf_fd >= 0)
-+		close(dmabuf_fd);
-+	close(cgroup_fd);
-+out:
-+	close(heap_fd);
-+}
-+
-+/*
-+ * Test: transfer a dma-buf's charge to self cgroup via DMA_BUF_IOCTL_XFER_CHARGE.
-+ */
-+static void test_xfer_charge_cgroupfd_self(char *heap_name)
-+{
-+	int heap_fd = -1, cgroup_fd = -1, dmabuf_fd = -1, ret;
-+	struct dma_buf_transfer_charge xfer = { 0 };
-+
-+	heap_fd = dmabuf_heap_open(heap_name);
-+
-+	if (!pidfd_alloc_supported(heap_fd)) {
-+		ksft_test_result_skip("charge_fd not supported by this kernel\n");
-+		goto out;
-+	}
-+
-+	ret = dmabuf_heap_alloc(heap_fd, ONE_MEG, 0, &dmabuf_fd);
-+	if (ret) {
-+		ksft_test_result_fail("Allocation failed %d\n", ret);
-+		goto out;
-+	}
-+
-+	cgroup_fd = open_self_cgroupfd();
-+	if (cgroup_fd < 0) {
-+		ksft_test_result_skip("cannot open self cgroupfd\n");
-+		close(dmabuf_fd);
-+		goto out;
-+	}
-+
-+	xfer.charge_fd = cgroup_fd;
-+	ret = ioctl(dmabuf_fd, DMA_BUF_IOCTL_XFER_CHARGE, &xfer);
-+	if (!ret)
-+		ksft_test_result_pass("XFER_CHARGE to self cgroupfd\n");
-+	else if (errno == EOPNOTSUPP)
-+		ksft_test_result_skip("buffer not memcg-charged (mem_accounting=0?)\n");
-+	else if (errno == ENOTTY || errno == EINVAL)
-+		ksft_test_result_skip("XFER_CHARGE not supported: %s\n",
-+				      strerror(errno));
-+	else
-+		ksft_test_result_fail("XFER_CHARGE failed: %s\n", strerror(errno));
-+
-+	close(cgroup_fd);
-+	close(dmabuf_fd);
- out:
- 	close(heap_fd);
- }
-@@ -530,7 +761,7 @@ int main(void)
- 		return KSFT_SKIP;
+ 	screen_info_apply_fixups();
+@@ -164,17 +140,8 @@ static __init int sysfb_init(void)
+ 		goto unlock_mutex;
  	}
  
--	ksft_set_plan(12 * numer_of_heaps());
-+	ksft_set_plan(16 * numer_of_heaps());
+-	/* try to create a simple-framebuffer device */
+-	compatible = sysfb_parse_mode(si, &mode);
+-	if (compatible) {
+-		pd = sysfb_create_simplefb(si, &mode, parent);
+-		if (!IS_ERR(pd))
+-			goto put_device;
+-	}
+-
+ 	type = screen_info_video_type(si);
  
- 	while ((dir = readdir(d))) {
- 		if (!strncmp(dir->d_name, ".", 2))
-@@ -546,6 +777,10 @@ int main(void)
- 		test_alloc_compat(dir->d_name);
- 		test_alloc_errors(dir->d_name);
- 		test_alloc_no_fd_leak_on_efault(dir->d_name);
-+		test_alloc_pidfd_self(dir->d_name);
-+		test_alloc_pidfd_child(dir->d_name);
-+		test_alloc_cgroupfd_self(dir->d_name);
-+		test_xfer_charge_cgroupfd_self(dir->d_name);
- 	}
- 	closedir(d);
+-	/* if the FB is incompatible, create a legacy framebuffer device */
+ 	switch (type) {
+ 	case VIDEO_TYPE_EGAC:
+ 		name = "ega-framebuffer";
+diff --git a/drivers/firmware/sysfb_simplefb.c b/drivers/firmware/sysfb_simplefb.c
+deleted file mode 100644
+index 71f542e37732..000000000000
+--- a/drivers/firmware/sysfb_simplefb.c
++++ /dev/null
+@@ -1,140 +0,0 @@
+-// SPDX-License-Identifier: GPL-2.0-or-later
+-/*
+- * Generic System Framebuffers
+- * Copyright (c) 2012-2013 David Herrmann <dh.herrmann@gmail.com>
+- */
+-
+-/*
+- * simple-framebuffer probing
+- * Try to convert "screen_info" into a "simple-framebuffer" compatible mode.
+- * If the mode is incompatible, we return "false" and let the caller create
+- * legacy nodes instead.
+- */
+-
+-#include <linux/err.h>
+-#include <linux/init.h>
+-#include <linux/kernel.h>
+-#include <linux/mm.h>
+-#include <linux/platform_data/simplefb.h>
+-#include <linux/platform_device.h>
+-#include <linux/screen_info.h>
+-#include <linux/sysfb.h>
+-
+-static const char simplefb_resname[] = "BOOTFB";
+-static const struct simplefb_format formats[] = SIMPLEFB_FORMATS;
+-
+-/* try parsing screen_info into a simple-framebuffer mode struct */
+-__init bool sysfb_parse_mode(const struct screen_info *si,
+-			     struct simplefb_platform_data *mode)
+-{
+-	__u8 type;
+-	u32 bits_per_pixel;
+-	unsigned int i;
+-
+-	type = si->orig_video_isVGA;
+-	if (type != VIDEO_TYPE_VLFB && type != VIDEO_TYPE_EFI)
+-		return false;
+-
+-	bits_per_pixel = __screen_info_lfb_bits_per_pixel(si);
+-
+-	for (i = 0; i < ARRAY_SIZE(formats); ++i) {
+-		const struct simplefb_format *f = &formats[i];
+-
+-		if (f->transp.length)
+-			continue; /* transparent formats are unsupported by VESA/EFI */
+-
+-		if (bits_per_pixel == f->bits_per_pixel &&
+-		    si->red_size == f->red.length &&
+-		    si->red_pos == f->red.offset &&
+-		    si->green_size == f->green.length &&
+-		    si->green_pos == f->green.offset &&
+-		    si->blue_size == f->blue.length &&
+-		    si->blue_pos == f->blue.offset) {
+-			mode->format = f->name;
+-			mode->width = si->lfb_width;
+-			mode->height = si->lfb_height;
+-			mode->stride = si->lfb_linelength;
+-			return true;
+-		}
+-	}
+-
+-	return false;
+-}
+-
+-__init struct platform_device *sysfb_create_simplefb(const struct screen_info *si,
+-						     const struct simplefb_platform_data *mode,
+-						     struct device *parent)
+-{
+-	struct platform_device *pd;
+-	struct resource res;
+-	u64 base, size;
+-	u32 length;
+-	int ret;
+-
+-	/*
+-	 * If the 64BIT_BASE capability is set, ext_lfb_base will contain the
+-	 * upper half of the base address. Assemble the address, then make sure
+-	 * it is valid and we can actually access it.
+-	 */
+-	base = si->lfb_base;
+-	if (si->capabilities & VIDEO_CAPABILITY_64BIT_BASE)
+-		base |= (u64)si->ext_lfb_base << 32;
+-	if (!base || (u64)(resource_size_t)base != base) {
+-		printk(KERN_DEBUG "sysfb: inaccessible VRAM base\n");
+-		return ERR_PTR(-EINVAL);
+-	}
+-
+-	/*
+-	 * Don't use lfb_size as IORESOURCE size, since it may contain the
+-	 * entire VMEM, and thus require huge mappings. Use just the part we
+-	 * need, that is, the part where the framebuffer is located. But verify
+-	 * that it does not exceed the advertised VMEM.
+-	 * Note that in case of VBE, the lfb_size is shifted by 16 bits for
+-	 * historical reasons.
+-	 */
+-	size = si->lfb_size;
+-	if (si->orig_video_isVGA == VIDEO_TYPE_VLFB)
+-		size <<= 16;
+-	length = mode->height * mode->stride;
+-	if (length > size) {
+-		printk(KERN_WARNING "sysfb: VRAM smaller than advertised\n");
+-		return ERR_PTR(-EINVAL);
+-	}
+-	length = PAGE_ALIGN(length);
+-
+-	/* setup IORESOURCE_MEM as framebuffer memory */
+-	memset(&res, 0, sizeof(res));
+-	res.flags = IORESOURCE_MEM;
+-	res.name = simplefb_resname;
+-	res.start = base;
+-	res.end = res.start + length - 1;
+-	if (res.end <= res.start)
+-		return ERR_PTR(-EINVAL);
+-
+-	pd = platform_device_alloc("simple-framebuffer", 0);
+-	if (!pd)
+-		return ERR_PTR(-ENOMEM);
+-
+-	pd->dev.parent = parent;
+-
+-	sysfb_set_efifb_fwnode(si, pd);
+-
+-	ret = platform_device_add_resources(pd, &res, 1);
+-	if (ret)
+-		goto err_put_device;
+-
+-	ret = platform_device_add_data(pd, mode, sizeof(*mode));
+-	if (ret)
+-		goto err_put_device;
+-
+-	ret = platform_device_add(pd);
+-	if (ret)
+-		goto err_put_device;
+-
+-	return pd;
+-
+-err_put_device:
+-	platform_device_put(pd);
+-
+-	return ERR_PTR(ret);
+-}
+diff --git a/drivers/gpu/drm/sysfb/Kconfig b/drivers/gpu/drm/sysfb/Kconfig
+index f7e48178885e..05d4b3ab4d08 100644
+--- a/drivers/gpu/drm/sysfb/Kconfig
++++ b/drivers/gpu/drm/sysfb/Kconfig
+@@ -25,7 +25,7 @@ config DRM_COREBOOTDRM
  
-diff --git a/tools/testing/selftests/dmabuf-heaps/vmtest.sh b/tools/testing/selftests/dmabuf-heaps/vmtest.sh
-new file mode 100755
-index 000000000000..3574b71ca83e
---- /dev/null
-+++ b/tools/testing/selftests/dmabuf-heaps/vmtest.sh
-@@ -0,0 +1,226 @@
-+#!/bin/bash
-+# SPDX-License-Identifier: GPL-2.0
-+#
-+# Copyright (c) 2026 Red Hat
-+#
-+# Dependencies:
-+#		* virtme-ng
-+#		* qemu	(used by virtme-ng)
-+
-+readonly SCRIPT_DIR="$(cd -P -- "$(dirname -- "${BASH_SOURCE[0]}")" && pwd -P)"
-+readonly KERNEL_CHECKOUT=$(realpath "${SCRIPT_DIR}"/../../../../)
-+readonly CGROUP_DIR="${KERNEL_CHECKOUT}/tools/testing/selftests/cgroup"
-+
-+source "${SCRIPT_DIR}"/../kselftest/ktap_helpers.sh
-+
-+readonly DMABUF_HEAP_TEST="${SCRIPT_DIR}"/dmabuf-heap
-+readonly MEMCONTROL_TEST="${CGROUP_DIR}"/test_memcontrol
-+readonly TMP_DIR=$(mktemp -d /tmp/dmabuf-vmtest.XXXXXXXX)
-+
-+VERBOSE=false
-+BUILD=false
-+BUILD_HOST=""
-+BUILD_HOST_PODMAN_CONTAINER_NAME=""
-+SHELL_MODE=false
-+
-+usage() {
-+	echo
-+	echo "$0 [OPTIONS]"
-+	echo
-+	echo "Options"
-+	echo "  -b: build the kernel from the current source tree and use it for the VM"
-+	echo "  -H: hostname for remote build host (used with -b)"
-+	echo "  -p: podman container name for remote build host (used with -b)"
-+	echo "      Example: -H beefyserver -p vng"
-+	echo "  -s: drop into an interactive shell in the VM instead of running tests"
-+	echo "  -v: enable verbose vng/qemu output"
-+	echo
-+
-+	exit 1
-+}
-+
-+die() {
-+	echo "$*" >&2
-+	exit "${KSFT_FAIL}"
-+}
-+
-+cleanup() {
-+	rm -rf "${TMP_DIR}"
-+}
-+
-+check_deps() {
-+	for dep in vng make; do
-+		if [[ ! -x $(command -v "${dep}") ]]; then
-+			echo -e "skip:    dependency ${dep} not found!\n"
-+			exit "${KSFT_SKIP}"
-+		fi
-+	done
-+
-+	if ${SHELL_MODE}; then
-+		return
-+	fi
-+
-+	if [[ ! -x "${DMABUF_HEAP_TEST}" ]]; then
-+		printf "skip:    %s not found!" "${DMABUF_HEAP_TEST}"
-+		printf " Please build the kselftest dmabuf-heaps target (or use -b).\n"
-+		exit "${KSFT_SKIP}"
-+	fi
-+
-+	if [[ ! -x "${MEMCONTROL_TEST}" ]]; then
-+		printf "skip:    %s not found!" "${MEMCONTROL_TEST}"
-+		printf " Please build the kselftest cgroup target (or use -b).\n"
-+		exit "${KSFT_SKIP}"
-+	fi
-+}
-+
-+check_vng() {
-+	local tested_versions=("1.36" "1.37")
-+	local version
-+	local ok=0
-+
-+	version="$(vng --version)"
-+	for tv in "${tested_versions[@]}"; do
-+		if [[ "${version}" == *"${tv}"* ]]; then
-+			ok=1
-+			break
-+		fi
-+	done
-+
-+	if [[ "${ok}" -eq 0 ]]; then
-+		printf "warning: vng version '%s' has not been tested and may " "${version}" >&2
-+		printf "not function properly.\n\tThe following versions have been tested: " >&2
-+		echo "${tested_versions[@]}" >&2
-+	fi
-+}
-+
-+build_selftests() {
-+	make -C "${KERNEL_CHECKOUT}" headers_install \
-+		INSTALL_HDR_PATH="${TMP_DIR}/usr" -j"$(nproc)"
-+
-+	local khdr="-isystem ${TMP_DIR}/usr/include"
-+
-+	if ! make -C "${SCRIPT_DIR}" KHDR_INCLUDES="${khdr}" -j"$(nproc)"; then
-+		die "failed to build dmabuf-heaps selftests"
-+	fi
-+
-+	if ! make -C "${CGROUP_DIR}" KHDR_INCLUDES="${khdr}" \
-+		"${MEMCONTROL_TEST}" -j"$(nproc)"; then
-+		die "failed to build cgroup/test_memcontrol selftest"
-+	fi
-+}
-+
-+handle_build() {
-+	if ! ${BUILD}; then
-+		return
-+	fi
-+
-+	if [[ ! -d "${KERNEL_CHECKOUT}" ]]; then
-+		echo "-b requires vmtest.sh called from the kernel source tree" >&2
-+		exit 1
-+	fi
-+
-+	pushd "${KERNEL_CHECKOUT}" &>/dev/null
-+
-+	if ! vng --kconfig --config "${SCRIPT_DIR}/config"; then
-+		die "failed to generate .config for kernel source tree (${KERNEL_CHECKOUT})"
-+	fi
-+
-+	local vng_args=("-v" "--config" "${SCRIPT_DIR}/config" "--build")
-+
-+	if [[ -n "${BUILD_HOST}" ]]; then
-+		vng_args+=("--build-host" "${BUILD_HOST}")
-+	fi
-+
-+	if [[ -n "${BUILD_HOST_PODMAN_CONTAINER_NAME}" ]]; then
-+		vng_args+=("--build-host-exec-prefix" \
-+			   "podman exec -ti ${BUILD_HOST_PODMAN_CONTAINER_NAME}")
-+	fi
-+
-+	if ! vng "${vng_args[@]}"; then
-+		die "failed to build kernel from source tree (${KERNEL_CHECKOUT})"
-+	fi
-+
-+	build_selftests
-+
-+	popd &>/dev/null
-+}
-+
-+make_runner() {
-+	# virtme-ng shares the host filesystem, so TMP_DIR is accessible
-+	# inside the VM at the same absolute path.
-+	cat > "${TMP_DIR}/run_tests.sh" <<-EOF
-+	#!/bin/sh
-+	set -u
-+
-+	# Enable memory controller for child cgroups
-+	echo +memory > /sys/fs/cgroup/cgroup.subtree_control 2>/dev/null
-+
-+	PASS=0; FAIL=0; SKIP=0; N=0
-+
-+	run() {
-+		name="\$1"; shift
-+		N=\$((N+1))
-+		"\$@"; rc=\$?
-+		if   [ \$rc -eq 0 ]; then echo "ok \$N \$name";        PASS=\$((PASS+1))
-+		elif [ \$rc -eq 4 ]; then echo "ok \$N \$name # SKIP"; SKIP=\$((SKIP+1))
-+		else                      echo "not ok \$N \$name";    FAIL=\$((FAIL+1))
-+		fi
-+	}
-+
-+	run "dmabuf-heap charge_fd ioctl"	${DMABUF_HEAP_TEST}
-+	run "memcontrol dma-buf memcg"	${MEMCONTROL_TEST} test_memcg_dmabuf
-+	run "memcontrol dma-buf xfer limit" \
-+		${MEMCONTROL_TEST} test_memcg_dmabuf_xfer_at_limit
-+	echo "# PASS=\$PASS SKIP=\$SKIP FAIL=\$FAIL"
-+	[ \$FAIL -eq 0 ]
-+	EOF
-+	chmod +x "${TMP_DIR}/run_tests.sh"
-+}
-+
-+run_vm() {
-+	local verbose_opt=""
-+	local kernel_opt=""
-+
-+	${VERBOSE} && verbose_opt="--verbose"
-+
-+	# If we are running from within the kernel source tree, use the kernel
-+	# source tree as the kernel to boot, otherwise use the running kernel.
-+	if [[ "$(realpath "$(pwd)")" == "${KERNEL_CHECKOUT}"* ]]; then
-+		kernel_opt="${KERNEL_CHECKOUT}"
-+	fi
-+
-+	if ${SHELL_MODE}; then
-+		echo "Starting interactive shell in VM. Exit to stop VM."
-+		vng --run ${kernel_opt} ${verbose_opt} --user root --memory 512M \
-+			--append "dma_heap.mem_accounting=1" \
-+			-- bash --noprofile --norc
-+		exit "${KSFT_PASS}"
-+	fi
-+
-+	vng --run ${kernel_opt} ${verbose_opt} --user root --memory 512M \
-+		--append "dma_heap.mem_accounting=1" \
-+		--exec "${TMP_DIR}/run_tests.sh"
-+}
-+
-+while getopts :hvsbH:p: o
-+do
-+	case $o in
-+	v) VERBOSE=true;;
-+	b) BUILD=true;;
-+	s) SHELL_MODE=true;;
-+	H) BUILD_HOST=$OPTARG;;
-+	p) BUILD_HOST_PODMAN_CONTAINER_NAME=$OPTARG;;
-+	h|*) usage;;
-+	esac
-+done
-+shift $((OPTIND-1))
-+
-+trap cleanup EXIT
-+
-+check_deps
-+check_vng
-+handle_build
-+make_runner
-+
-+echo "Booting VM and running tests..."
-+run_vm
-
+ config DRM_EFIDRM
+ 	tristate "EFI framebuffer driver"
+-	depends on DRM && MMU && EFI && (!SYSFB_SIMPLEFB || COMPILE_TEST)
++	depends on DRM && MMU && EFI
+ 	select APERTURE_HELPERS
+ 	select DRM_CLIENT_SELECTION
+ 	select DRM_GEM_SHMEM_HELPER
+@@ -72,7 +72,7 @@ config DRM_SIMPLEDRM
+ 
+ config DRM_VESADRM
+ 	tristate "VESA framebuffer driver"
+-	depends on DRM && MMU && X86 && (!SYSFB_SIMPLEFB || COMPILE_TEST)
++	depends on DRM && MMU && X86
+ 	select APERTURE_HELPERS
+ 	select DRM_CLIENT_SELECTION
+ 	select DRM_GEM_SHMEM_HELPER
+diff --git a/include/linux/sysfb.h b/include/linux/sysfb.h
+index ed23d6516223..611c8f0d13da 100644
+--- a/include/linux/sysfb.h
++++ b/include/linux/sysfb.h
+@@ -110,29 +110,4 @@ static inline void sysfb_set_efifb_fwnode(const struct screen_info *si,
+ 
+ #endif /* CONFIG_EFI */
+ 
+-#ifdef CONFIG_SYSFB_SIMPLEFB
+-
+-bool sysfb_parse_mode(const struct screen_info *si,
+-		      struct simplefb_platform_data *mode);
+-struct platform_device *sysfb_create_simplefb(const struct screen_info *si,
+-					      const struct simplefb_platform_data *mode,
+-					      struct device *parent);
+-
+-#else /* CONFIG_SYSFB_SIMPLEFB */
+-
+-static inline bool sysfb_parse_mode(const struct screen_info *si,
+-				    struct simplefb_platform_data *mode)
+-{
+-	return false;
+-}
+-
+-static inline struct platform_device *sysfb_create_simplefb(const struct screen_info *si,
+-							    const struct simplefb_platform_data *mode,
+-							    struct device *parent)
+-{
+-	return ERR_PTR(-EINVAL);
+-}
+-
+-#endif /* CONFIG_SYSFB_SIMPLEFB */
+-
+ #endif /* _LINUX_SYSFB_H */
 -- 
-2.55.0
+2.56.0
 
