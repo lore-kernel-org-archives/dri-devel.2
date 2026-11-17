@@ -2,83 +2,141 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6534B606A89A
-	for <dri-devel@archiver.kernel.org>; Tue, 17 Nov 2026 14:27:27 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 27751606A31C
+	for <dri-devel@archiver.kernel.org>; Tue, 17 Nov 2026 14:27:39 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=baylibre.com header.i=@baylibre.com header.a=rsa-sha256 header.s=google header.b=pYPW3//C
+	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.a=rsa-sha256 header.s=susede2_rsa header.b=XX1PMUPo;
+	dkim=pass header.d=suse.de header.i=@suse.de header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=qYUIFuhC;
+	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.a=rsa-sha256 header.s=susede2_rsa header.b=L67zpXxz;
+	dkim=neutral header.d=suse.de header.i=@suse.de header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=Nv4lMFH5
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 9317A10E06A;
-	Tue, 17 Nov 2026 14:27:21 +0000 (UTC)
-Received: from mail-wr1-f48.google.com (mail-wr1-f48.google.com
- [209.85.221.48])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 8A00C10E06A
- for <dri-devel@lists.freedesktop.org>; Tue, 17 Nov 2026 14:27:15 +0000 (UTC)
-Received: by mail-wr1-f48.google.com with SMTP id
- ffacd0b85a97d-491f34b4e0fso2094309f8f.2
- for <dri-devel@lists.freedesktop.org>; Tue, 17 Nov 2026 06:27:15 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=baylibre.com; s=google; t=1794925634; x=1795530434;
- darn=lists.freedesktop.org; 
- h=content-transfer-encoding:content-type:in-reply-to:from
- :content-language:references:cc:to:subject:user-agent:mime-version
- :date:message-id:from:to:cc:subject:date:message-id:reply-to
- :content-type; bh=wnAbz7Gl1f6zlRr2NWm/XchokgiwNgSv132i/6lKWwU=;
- b=pYPW3//CAACG1KNyEkIgD13NRywGFq4XLVWJvbSqjeC3Er9JfFPANBnGpoawWtjigb
- aOkw0RbmuDsSv3nPb/lI0AIsIlI0Z8aoNWQB5ph2FtGbya7fPxKGrLrl/+4HsOYoShAO
- Iv+bLTjE2gpKiW2/J1IfLxUxgPAvnJvuPFi14QCwkAP7RXuHSgW2E2Bu0ahVYUlo+KQI
- A14YPJy3puu8vLBr0KJHTY87oguzr/wJjo37GrGP7cCVSWF/oe/AZTf5tpQAndslT87L
- kPaAbic2stTVawZuoyi0niULjA+WIXah0AIXRRmhPzttxiUMQKzoRiuJR1zYXSXPfV4e
- T0eA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20260707; t=1794925634; x=1795530434;
- h=content-transfer-encoding:content-type:in-reply-to:from
- :content-language:references:cc:to:subject:user-agent:mime-version
- :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
- :message-id:reply-to:content-type;
- bh=wnAbz7Gl1f6zlRr2NWm/XchokgiwNgSv132i/6lKWwU=;
- b=spEJFFmES+oTsm8cFi2L7nzciveg0vWj6Lc/0yNPp1ZjFxiafPuYLaQyLjbDmjIcrD
- M5pvT7loX9uAUXTqy3CPflqRV8EwMfv6t3dEuF2dzMdfpjb7CJ/VlhQKdDaoxkHTuJ8u
- 8WGBiclE4my7LTJHc5F48FuR5vXJS8exGeLKB605G6BjDFlS7+QLXoRuyxlC9edmTh2t
- XMZUTS+S+VIUJ/5yMyQ/SwpETv7uh6EC1HC+Os//cD+sg5qViPjCKuM2PXAcBT07qvCX
- hrxTTHCdtuedcdog6C4SEKTO2FCl5w72+aXPoeN34jQO6tX9s1QHOVTRxdtccvfB33Ej
- N4eg==
-X-Gm-Message-State: APuU4Z8wVUrmQDjHHk6XjNyLufo0NUST3L+vIsdzOWVlWrBwvMC2dxCC
- cTh6Hi0fRZuRYAadtU8rCqXQkJv7rRmCoFTr4hE+vhHc/seyOadG0Ug8TzTJJUhaB84=
-X-Gm-Gg: AZFdTZfVv2LdgGMOwSyyeS7ws+QVDhCKfEJ/D8vkXIeAQtkys/eIZDhFipXDIFXb1fT
- 753tRTC9ejgtE9fv7ChZdFIPO52EgKDpTvJThKwtpepi5isMhPr5Aa576Z5qu2IjwDPvcVl1xW+
- xqAWSSD+P+rxpYQz1hWYoc0AV5RIF/J/4aermcHQy0TzqYw0qp6EqyfAu+RHFJPDomlzZoPMCBT
- eMoCLeyv529BZXR9sqvY8vLlTMyGrn3mWQt3OQ+6VFl+F9YFG0Zn70oUuAsL5BWcuk9KrRBH255
- uvMfKvAE2RyR6KGFYZiUbl+t3X5Pmcrhi1m38wfEX5EwMU/Qgyq+rf3jqSbayGFC6f3ze3ophcA
- Hk17zP7N/CudcnGqeLdosu3yec8JzTL68iJvPULM57k3PxMa0pe5Jz9616N1UFtYSDJ+XOKFoP4
- vT/ujz2Ye6943V60bfdYM6xgrU4DArdjMH1LSFOFM6VoN6XtxHOOaJslj6ngvAyA0HOWU1g+Web
- KY7SxyX6I6tNAm6ImP76z19K8yAujpl1nSxw8MmxTRe4731wUkTmmQQtebAzKpyvlBkj2moHa23
- GOUzvDHulWjoX2XDRfOLHzbQx841V9ZC0b3+ieofLu3wVFjkfaAEog9W11di/XVyPXcgMQK1ZBr
- H3Q==
-X-Received: by 2002:a05:6000:25c3:b0:491:4e13:fde5 with SMTP id
- ffacd0b85a97d-49c6fc9e61bmr33439745f8f.8.1794925633802; 
- Tue, 17 Nov 2026 06:27:13 -0800 (PST)
-Received: from ?IPV6:2001:8a0:d6cd:9000:86f4:4e71:9fc8:3183?
- ([2001:8a0:d6cd:9000:86f4:4e71:9fc8:3183])
- by smtp.gmail.com with ESMTPSA id
- ffacd0b85a97d-49c5f77fc47sm28559146f8f.22.2026.11.17.06.27.12
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Tue, 17 Nov 2026 06:27:13 -0800 (PST)
-Message-ID: <c000f684-0989-4ac7-bd40-e6d224fe070b@baylibre.com>
-Date: Tue, 17 Nov 2026 14:27:12 +0000
+	by gabe.freedesktop.org (Postfix) with ESMTP id 3A1D210E474;
+	Tue, 17 Nov 2026 14:27:28 +0000 (UTC)
+Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.223.131])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 80DF710E474
+ for <dri-devel@lists.freedesktop.org>; Tue, 17 Nov 2026 14:27:16 +0000 (UTC)
+Received: from imap1.dmz-prg2.suse.org (imap1.dmz-prg2.suse.org
+ [IPv6:2a07:de40:b281:104:10:150:64:97])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+ (No client certificate requested)
+ by smtp-out2.suse.de (Postfix) with ESMTPS id DEA041F747;
+ Tue, 17 Nov 2026 14:27:14 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+ t=1794925635; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
+ bh=dxAtnxRdPb6RizC0hsVDfzOQY3Uxk3xTtJ6atzT4xFQ=;
+ b=XX1PMUPoLbqEFaTmRcvoTQ0MoUcjEe7z0pc2Gz7GyXsN1rhyQfoiWypeu4NRbj6IDgmtak
+ jcDXveMxjp4pDTKOP41miAPMmS7UVhOjW89p4hfEhB4CpHPLhYP2ggvdtFieCNkJ6g4hLd
+ OzmBpKRM+fGL4ap8a3bypK1mF9Tm0HU=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+ s=susede2_ed25519; t=1794925635;
+ h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
+ bh=dxAtnxRdPb6RizC0hsVDfzOQY3Uxk3xTtJ6atzT4xFQ=;
+ b=qYUIFuhC5a9oRw0SMfSSKTOB2NKEa0UuiSfQirl8mCrsOL6FH7qOnGfN1BYHvW87uOZ4VQ
+ 6TcEcJ6yuTjXl2Ag==
+Authentication-Results: smtp-out2.suse.de;
+ dkim=pass header.d=suse.de header.s=susede2_rsa header.b=L67zpXxz;
+ dkim=pass header.d=suse.de header.s=susede2_ed25519 header.b=Nv4lMFH5
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+ t=1794925634; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
+ bh=dxAtnxRdPb6RizC0hsVDfzOQY3Uxk3xTtJ6atzT4xFQ=;
+ b=L67zpXxzEvS0qYrqrV2PhO3iP1WUKBUS6UBW8Ra70ALcrtwRUnXHuU99+3gCFZfM1qBFsT
+ Jbc7+VieDfPXZDgqXPVnejNmCOzLih79rEWgsPIr+ioGoGRVKp38eUOdH6NB0aifPieZLI
+ R7tsyg9b8YvVRfOFSmw5l/i1Fn1blq0=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+ s=susede2_ed25519; t=1794925634;
+ h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
+ bh=dxAtnxRdPb6RizC0hsVDfzOQY3Uxk3xTtJ6atzT4xFQ=;
+ b=Nv4lMFH5auwsoEcOTtApQluCHJ3XBIUOofFrTuR2+A62uYtTi/NsDL2KsvH9ZaP+RzptLp
+ ZFp6TetMz/jNysDw==
+Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+ (No client certificate requested)
+ by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 3E9D813302;
+ Tue, 17 Nov 2026 14:27:14 +0000 (UTC)
+Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
+ by imap1.dmz-prg2.suse.org with ESMTPSA id T/7UBUJk/Gp9OgAAD6G6ig
+ (envelope-from <tzimmermann@suse.de>); Tue, 17 Nov 2026 14:27:14 +0000
+Message-ID: <5ae18246-bc8d-4d0f-a6d9-390f4a79ad9f@suse.de>
+Date: Tue, 17 Nov 2026 15:27:13 +0100
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] accel/rocket: fix ignored return value in
- rocket_ioctl_submit
-To: Kartik Nair <contact.kartikn@gmail.com>, tomeu@tomeuvizoso.net,
- ogabbay@kernel.org
+Subject: Re: [PATCH] drm/gud: fix potential divide error due to optimisation
+To: Ruben Wauters <ruben.wauters@linux.dev>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>, David Airlie <airlied@gmail.com>,
+ Simona Vetter <simona@ffwll.ch>
 Cc: dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org
-References: <20260510200047.6117-1-contact.kartikn@gmail.com>
+References: <20261117141943.10540-1-ruben.wauters@linux.dev>
 Content-Language: en-US
-From: Daniel Drake <ddrake@baylibre.com>
-In-Reply-To: <20260510200047.6117-1-contact.kartikn@gmail.com>
+From: Thomas Zimmermann <tzimmermann@suse.de>
+Autocrypt: addr=tzimmermann@suse.de; keydata=
+ xsBNBFs50uABCADEHPidWt974CaxBVbrIBwqcq/WURinJ3+2WlIrKWspiP83vfZKaXhFYsdg
+ XH47fDVbPPj+d6tQrw5lPQCyqjwrCPYnq3WlIBnGPJ4/jreTL6V+qfKRDlGLWFjZcsrPJGE0
+ BeB5BbqP5erN1qylK9i3gPoQjXGhpBpQYwRrEyQyjuvk+Ev0K1Jc5tVDeJAuau3TGNgah4Yc
+ hdHm3bkPjz9EErV85RwvImQ1dptvx6s7xzwXTgGAsaYZsL8WCwDaTuqFa1d1jjlaxg6+tZsB
+ 9GluwvIhSezPgnEmimZDkGnZRRSFiGP8yjqTjjWuf0bSj5rUnTGiyLyRZRNGcXmu6hjlABEB
+ AAHNJ1Rob21hcyBaaW1tZXJtYW5uIDx0emltbWVybWFubkBzdXNlLmRlPsLAjgQTAQgAOAIb
+ AwULCQgHAgYVCgkICwIEFgIDAQIeAQIXgBYhBHIX+6yM6c9jRKFo5WgNwR1TC3ojBQJftODH
+ AAoJEGgNwR1TC3ojx1wH/0hKGWugiqDgLNXLRD/4TfHBEKmxIrmfu9Z5t7vwUKfwhFL6hqvo
+ lXPJJKQpQ2z8+X2vZm/slsLn7J1yjrOsoJhKABDi+3QWWSGkaGwRJAdPVVyJMfJRNNNIKwVb
+ U6B1BkX2XDKDGffF4TxlOpSQzdtNI/9gleOoUA8+jy8knnDYzjBNOZqLG2FuTdicBXblz0Mf
+ vg41gd9kCwYXDnD91rJU8tzylXv03E75NCaTxTM+FBXPmsAVYQ4GYhhgFt8S2UWMoaaABLDe
+ 7l5FdnLdDEcbmd8uLU2CaG4W2cLrUaI4jz2XbkcPQkqTQ3EB67hYkjiEE6Zy3ggOitiQGcqp
+ j//OwE0EWznS4AEIAMYmP4M/V+T5RY5at/g7rUdNsLhWv1APYrh9RQefODYHrNRHUE9eosYb
+ T6XMryR9hT8XlGOYRwKWwiQBoWSDiTMo/Xi29jUnn4BXfI2px2DTXwc22LKtLAgTRjP+qbU6
+ 3Y0xnQN29UGDbYgyyK51DW3H0If2a3JNsheAAK+Xc9baj0LGIc8T9uiEWHBnCH+RdhgATnWW
+ GKdDegUR5BkDfDg5O/FISymJBHx2Dyoklv5g4BzkgqTqwmaYzsl8UxZKvbaxq0zbehDda8lv
+ hFXodNFMAgTLJlLuDYOGLK2AwbrS3Sp0AEbkpdJBb44qVlGm5bApZouHeJ/+n+7r12+lqdsA
+ EQEAAcLAdgQYAQgAIAIbDBYhBHIX+6yM6c9jRKFo5WgNwR1TC3ojBQJftOH6AAoJEGgNwR1T
+ C3ojVSkIALpAPkIJPQoURPb1VWjh34l0HlglmYHvZszJWTXYwavHR8+k6Baa6H7ufXNQtThR
+ yIxJrQLW6rV5lm7TjhffEhxVCn37+cg0zZ3j7zIsSS0rx/aMwi6VhFJA5hfn3T0TtrijKP4A
+ SAQO9xD1Zk9/61JWk8OysuIh7MXkl0fxbRKWE93XeQBhIJHQfnc+YBLprdnxR446Sh8Wn/2D
+ Ya8cavuWf2zrB6cZurs048xe0UbSW5AOSo4V9M0jzYI4nZqTmPxYyXbm30Kvmz0rYVRaitYJ
+ 4kyYYMhuULvrJDMjZRvaNe52tkKAvMevcGdt38H4KSVXAylqyQOW5zvPc4/sq9c=
+In-Reply-To: <20261117141943.10540-1-ruben.wauters@linux.dev>
 Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
+X-Rspamd-Queue-Id: DEA041F747
+X-Spam-Level: 
+X-Rspamd-Server: rspamd2.dmz-prg2.suse.org
+X-Rspamd-Action: no action
+X-Spamd-Result: default: False [-13.50 / 50.00]; SUSE_INTERNAL_BYPASS(-9.00)[];
+ BAYES_HAM(-3.00)[100.00%]; NEURAL_HAM_LONG(-1.00)[-1.000];
+ R_DKIM_ALLOW(-0.20)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
+ NEURAL_HAM_SHORT(-0.20)[-1.000]; MIME_GOOD(-0.10)[text/plain];
+ XM_UA_NO_VERSION(0.01)[]; MX_GOOD(-0.01)[];
+ FREEMAIL_ENVRCPT(0.00)[gmail.com];
+ URIBL_BLOCKED(0.00)[linux.dev:email,suse.com:url,suse.de:dkim,suse.de:email,imap1.dmz-prg2.suse.org:rdns,imap1.dmz-prg2.suse.org:helo];
+ FREEMAIL_TO(0.00)[linux.dev,linux.intel.com,kernel.org,gmail.com,ffwll.ch];
+ MIME_TRACE(0.00)[0:+];
+ DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
+ ARC_NA(0.00)[];
+ RBL_SPAMHAUS_BLOCKED_OPENRESOLVER(0.00)[2a07:de40:b281:104:10:150:64:97:from]; 
+ TO_MATCH_ENVRCPT_ALL(0.00)[]; RCVD_TLS_ALL(0.00)[];
+ DKIM_TRACE(0.00)[suse.de:+]; RCVD_COUNT_TWO(0.00)[2];
+ FROM_EQ_ENVFROM(0.00)[]; FROM_HAS_DN(0.00)[];
+ TO_DN_SOME(0.00)[]; MID_RHS_MATCH_FROM(0.00)[];
+ RECEIVED_SPAMHAUS_BLOCKED_OPENRESOLVER(0.00)[2a07:de40:b281:106:10:150:64:167:received];
+ RCPT_COUNT_SEVEN(0.00)[7]; RCVD_VIA_SMTP_AUTH(0.00)[];
+ DBL_BLOCKED_OPENRESOLVER(0.00)[suse.de:dkim, suse.de:email,
+ imap1.dmz-prg2.suse.org:rdns, imap1.dmz-prg2.suse.org:helo, suse.com:url,
+ linux.dev:email]
+X-Spam-Score: -13.50
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -90,41 +148,53 @@ List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-7.3 required=3.0 tests=BAYES_00,DKIM_SIGNED,
+X-Spam-Status: No, score=-17.3 required=3.0 tests=BAYES_00,DKIM_SIGNED,
 	DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
-	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,USER_AGENT_SANE_1
-	autolearn=no autolearn_force=no version=4.0.1
+	INCLUDES_CR_TRAILER,INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,
+	SPF_PASS,USER_AGENT_SANE_1 autolearn=unavailable autolearn_force=no
+	version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-Hi,
 
-On 10/05/2026 21:00, Kartik Nair wrote:
-> rocket_ioctl_submit() calls rocket_ioctl_submit_job() in a loop but
-> ignores its return value. If any job submission fails, the error is
-> silently dropped and the function returns 0 (success) to userspace,
-> leaving subsequent jobs potentially in an inconsistent state.
-> 
-> Fix this by propagating the error and breaking out of the loop on
-> the first failure.
 
-There's definitely a bug in there, but this approach is just replacing 
-one incorrect behaviour with another.
+Am 17.11.26 um 15:17 schrieb Ruben Wauters:
+> Compilers can potentially optmise the read of gdrm->stats_actual_length
+> to two separate reads. As flagged by sashiko, when the rect is flushed
+> the stats_actual_length can reset to zero. If this was to occur between
+> the two reads, the divide error can still be triggered (albeit rarely).
+>
+> Fix this by adding a READ_ONCE around the gdrm->stats_actual_length
+>
+> Fixes: 431c2dffd2b7 ("drm/gud: avoid divide error in gud_stats_debugfs")
+> Signed-off-by: Ruben Wauters <ruben.wauters@linux.dev>
 
-After your change if there is an -EINTR generated from within the job 
-submission, this will cause drmIoctl to retry the exact same job 
-sequence, likely causing parts of the sequence to be repeated, possibly 
-with negative consequences.
+Reviewed-by: Thomas Zimmermann <tzimmermann@suse.de>
 
-And on other error paths that would be bubbled up by your change, 
-userspace won't be able to know which parts of the sequence ran vs failed.
+> ---
+>   drivers/gpu/drm/gud/gud_drv.c | 2 +-
+>   1 file changed, 1 insertion(+), 1 deletion(-)
+>
+> diff --git a/drivers/gpu/drm/gud/gud_drv.c b/drivers/gpu/drm/gud/gud_drv.c
+> index cec5d64e152b..4854b30ea5ba 100644
+> --- a/drivers/gpu/drm/gud/gud_drv.c
+> +++ b/drivers/gpu/drm/gud/gud_drv.c
+> @@ -329,7 +329,7 @@ static int gud_stats_debugfs(struct seq_file *m, void *data)
+>   	seq_puts(m, "\n");
+>   
+>   	if (gdrm->compression) {
+> -		u64 actual_length = gdrm->stats_actual_length;
+> +		u64 actual_length = READ_ONCE(gdrm->stats_actual_length);
+>   		u64 remainder;
+>   		u64 ratio, ratio_frac;
+>   
 
-I think we need a deeper change here. Is it possible to fully prepare 
-and arm the whole job list first, without executing yet, returning an 
-error code if anything goes wrong in the process?
+-- 
+--
+Thomas Zimmermann
+Graphics Driver Developer
+SUSE Software Solutions Germany GmbH
+Frankenstr. 146, 90461 Nürnberg, Germany, www.suse.com
+GF: Stefan Gaiser, Jochen Jaser, Abhinav Puri, (HRB 36809, AG Nürnberg)
 
-Then the execution of the job list could happen as a second stage, 
-hopefully without any possibility of failure.
-
-Daniel
 
