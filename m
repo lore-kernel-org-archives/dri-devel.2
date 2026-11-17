@@ -2,110 +2,41 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A3D00606A32C
-	for <dri-devel@archiver.kernel.org>; Tue, 17 Nov 2026 09:45:54 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 493BB606A33B
+	for <dri-devel@archiver.kernel.org>; Tue, 17 Nov 2026 09:46:26 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=foss.st.com header.i=@foss.st.com header.a=rsa-sha256 header.s=selector2 header.b=akVuYUqC
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=TF4+AunV
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id D1EF110E598;
-	Tue, 17 Nov 2026 09:45:48 +0000 (UTC)
-Received: from AM0PR83CU005.outbound.protection.outlook.com
- (mail-westeuropeazon11010028.outbound.protection.outlook.com [52.101.69.28])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 7CBEF10F5B4
- for <dri-devel@lists.freedesktop.org>; Tue, 17 Nov 2026 09:45:42 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=cpoO9LLK0j/qZGabXvDZhvUQgOim2gutLxqEnsOesM9vEDH1fe/F8A6tRUGkj/AI5h9fYWF09bQ7xEa1IfK9oUKJXtUH7PQlwgEpn+Oxx4MjNkkGxW1adbkm/26fUvkYJ6OKouX2Elreanm3lD2H5CKYg0HIH4fWUV+Jd6XunelBkDyBRZkWQF+sTBMGzpALMdI1DmH6wTN61EuE1ZzpELhkXOrzycCroF2qQ6FIufvSoBBHbN6yM52CZC6fwOqGX9Ld5YpR7UlCqlk+Oxfi6D6oFW4rHL32s7ONq08plrUWld/QGqVygb0BE8UYY1p688f780r2420HGhsZ8888YQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=hfmger6MPlo4eCj1c6eCzACc8XW2BEuZdNK7bfXqOZ8=;
- b=Qv8Bo/h3uQc5wCDEEQp5q1WoR0KfWQ4TEOZu6u/OFfgytmyPqRruiHNADTeOz1vYgOWp/fz9zeuE9svSOoYWYggWG2HSd56NnVOlhuanLzbjI1xN+wjRqW0/kAUYG0qmErvqUFdIr91WiWpGvfXf7is2javWPsGkTg6Kd2ZOm1pUKCgjli4l/9FYG0snvS8dTRYw3X2V83o+qUywfiwuxs1RkV/n1XovX0mCqA+KBMMNBWWCF7o8pwobOHq5Y6ArLqJoj37wX7vuMLoDHxKZNsxcLxkD6hdNgP8J0FgIfeoCg4PzFs+LGu2xVIzv+hNquRZI7zTwOanWdiKiDcXsHw==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=fail (sender ip is
- 164.130.1.59) smtp.rcpttodomain=kernel.org smtp.mailfrom=foss.st.com;
- dmarc=fail (p=none sp=none pct=100) action=none header.from=foss.st.com;
- dkim=none (message not signed); arc=none (0)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=foss.st.com;
- s=selector2;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=hfmger6MPlo4eCj1c6eCzACc8XW2BEuZdNK7bfXqOZ8=;
- b=akVuYUqCo4oMKOpYFesmsFUFVqSNNyXJV4nb9PF8OFX3lN0u5HzL2O2P/OjH3NpXESxTPPI9DUUjSjTClKcIbUIXv9TD4Xzz/K51SAdr9K8v4mB8W26T8f8ZVCnzXEl3B0IB8upVJx9niN4q1Qm5crEwnagjyhKrbfNw8d5NyzaeV8PjP+fmHmWLx0drPQd6w4NzzA4zWWeo9RiE5qn4ciNzYMl1KvTejK2lfAoqFj0zBH0JWz4IbW6tF/xgnkrr2APpZ0O5OvKRrkFKaG8dfkPU6JrEx292xXwZhUVWyDiA7AcdcnqbAPrgpv1p3LZwo0JJ4cGmuG5Laf3DSrP9oA==
-Received: from OS6P279CA0007.NORP279.PROD.OUTLOOK.COM (2603:10a6:e10:30::8) by
- GVXPR10MB8842.EURPRD10.PROD.OUTLOOK.COM (2603:10a6:150:1de::6) with
- Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.639.7; Tue, 17 Nov 2026 09:45:37 +0000
-Received: from CPH1EPF00000525.eurprd05.prod.outlook.com
- (2603:10a6:e10:30:cafe::67) by OS6P279CA0007.outlook.office365.com
- (2603:10a6:e10:30::8) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.21.615.13 via Frontend Transport; Tue,
- 17 Nov 2026 09:45:33 +0000
-X-MS-Exchange-Authentication-Results: mx.microsoft.com 1; spf=fail (sender IP
- is 164.130.1.59)
- smtp.mailfrom=foss.st.com; dkim=none (message not signed)
- header.d=none;dmarc=fail action=none header.from=foss.st.com;
-Received-SPF: Fail (protection.outlook.com: domain of foss.st.com does not
- designate 164.130.1.59 as permitted sender) receiver=protection.outlook.com;
- client-ip=164.130.1.59; helo=smtpO365.st.com;
-Received: from smtpO365.st.com (164.130.1.59) by
- CPH1EPF00000525.mail.protection.outlook.com (10.167.241.136) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.615.4 via Frontend Transport; Tue, 17 Nov 2026 09:45:33 +0000
-Received: from STKDAG1NODE1.st.com (10.75.128.132) by smtpo365.st.com
- (10.250.44.71) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.56; Tue, 17 Nov
- 2026 10:46:17 +0100
-Received: from [10.48.87.178] (10.48.87.178) by STKDAG1NODE1.st.com
- (10.75.128.132) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.56; Tue, 17 Nov
- 2026 10:45:32 +0100
-Message-ID: <7bed2e64-c290-46ff-ae02-60007af795a5@foss.st.com>
-Date: Tue, 17 Nov 2026 10:45:31 +0100
-X-Archived-By: <archiver.kernel.org>
-MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH RESEND 46/83] drm/stm: Switch to
- drm_mode_config_create_initial_state
-To: Maxime Ripard <mripard@kernel.org>, David Airlie <airlied@gmail.com>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, Simona Vetter
- <simona@ffwll.ch>, Thomas Zimmermann <tzimmermann@suse.de>
-CC: <dri-devel@lists.freedesktop.org>, Alexandre Torgue
- <alexandre.torgue@foss.st.com>, Maxime Coquelin <mcoquelin.stm32@gmail.com>,
- Philippe Cornu <philippe.cornu@foss.st.com>, Raphael Gallais-Pou
- <raphael.gallais-pou@foss.st.com>
-References: <20261105-drm-no-more-config-reset-v1-0-1f58d1e33380@kernel.org>
- <20261105-drm-no-more-config-reset-v1-46-1f58d1e33380@kernel.org>
-Content-Language: en-US
-From: Yannick FERTRE <yannick.fertre@foss.st.com>
-In-Reply-To: <20261105-drm-no-more-config-reset-v1-46-1f58d1e33380@kernel.org>
-Content-Type: text/plain; charset="UTF-8"; format=flowed
-Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: STKCAS1NODE1.st.com (10.75.128.134) To STKDAG1NODE1.st.com
- (10.75.128.132)
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: CPH1EPF00000525:EE_|GVXPR10MB8842:EE_
-X-MS-Office365-Filtering-Correlation-Id: b844d57a-649f-4581-c9a9-08df448f8649
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
- ARA:13230040|376014|36860700016|1800799024|23010399003|82310400026|10067099003|11063799006|4143699003|56012099006|261022105027099003|261021123027099003|261021121427099003|261022075727099003|261021135927099003|261026140227099003|261028144727099003|261102123227099003|261009223027099003|22082099003|18002099003;
-X-Microsoft-Antispam-Message-Info: k+eXBh4rNwicUFHEkZPNJnwW6vpVy9ikKZ5DwUk6W++TNgHOFvkp4odkJoOCs8HIFOqJWHRLoEc6l782jfouAak9Bb2il+XMpgnR3nk5mnxMe+K+Jb2erqZi12L5BN91b9HntktdMJbcj1r2Dy7QqwslarhbXxNxv9nVXaphx5Djj6WiM6tll+tQ+jQTCkQCT08RDFGDb3uRwLMEO8jLVHzeYhOzqTECl7IBC+XN0gYfOSD5dTAAz60v2BY4dMsgXOOMj6CkVovxzp5MnEfXuJFoYXDRvJXh4g3dH/iwqZgigswGJncgFPueu1lCOk7miW4wjAU/ZSXDO2HPxXIXQ/0Ffc9RbvKWanxjcKDkueL+O3y75GgVhj7Ul5gwqFiSzotRkc66stcr6sEHHAwE+w3a+6Z+h8wYYTJuJaWxOCEyn/Y38nJtmYvZ3ICZBtaEKYuT8nu5OPXUQoNUD6FQRdE5trErpIspESBXwoqYx/7hggUPCiwFKLMdC19SPmiFB2f6kMwba7y78iYdHdzAsBxcPEFnJv9bfz2XXz3+6LdhbscmHewAnPbPpHnjbhnrsVi2TXfL0Xs091+ECrSyEyJlg9k2Mwgk/KImeF1nK1WJ0/uLNlrhBhnZw9vUmTQDnmJ1XU1fgS5CXAVlxnS0gE7zX7ZvzsyLUb9ShQ1ePvJMZjBpCcT1Ou+m2u2aExO6JW/wsiBW5tEvjxt+JWFjkQ==
-X-Forefront-Antispam-Report: CIP:164.130.1.59; CTRY:IT; LANG:en; SCL:1; SRV:;
- IPV:CAL; SFV:NSPM; H:smtpO365.st.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230040)(376014)(36860700016)(1800799024)(23010399003)(82310400026)(10067099003)(11063799006)(4143699003)(56012099006)(261022105027099003)(261021123027099003)(261021121427099003)(261022075727099003)(261021135927099003)(261026140227099003)(261028144727099003)(261102123227099003)(261009223027099003)(22082099003)(18002099003);
- DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: NRvIXvOAE2gQ5MgO8GSY1y0EfPUogeXaIVKfepZB4QERbP/iZ/fQ9capv+MKMJbIG3e+0Qne/0FyklGK82IshKVsi8JwgK0TNJXwMO2JxFVbEZ1x+YCunje/GWoUXgFKmzmUKMcaADUXpog4NgGHcO8n+T+hfiYedNd0gkdXxlkDSkzBoMuL7Y9+HOdJgTHhhXRLtrF/pyo9RlDA/yeGFUQHZNbUfP4sFSH8Q6RSwS9CUMdxO+odW1Tgj6gSaa40nPUYjBRDqmc0zhok165lkZDM6moCVD7qT2sqglQa2FhlZF0ZjHVEze5VBhbJjIVYqXkGdEE4aME7XTXXhb6UI4myi53ndM1RII2XXNavR/NW87hTdJKMuXn2vHlyX4A5i2nuuguCVX176Pme3Om0ct9mXmwm8DFtcMoV11QXlBGyqVGFV3bWeZIBrqL72mCT
-X-OriginatorOrg: foss.st.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 17 Nov 2026 09:45:33.2850 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: b844d57a-649f-4581-c9a9-08df448f8649
-X-MS-Exchange-CrossTenant-Id: 75e027c9-20d5-47d5-b82f-77d7cd041e8f
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=75e027c9-20d5-47d5-b82f-77d7cd041e8f; Ip=[164.130.1.59];
- Helo=[smtpO365.st.com]
-X-MS-Exchange-CrossTenant-AuthSource: CPH1EPF00000525.eurprd05.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: GVXPR10MB8842
+	by gabe.freedesktop.org (Postfix) with ESMTP id 7429610F10C;
+	Tue, 17 Nov 2026 09:46:20 +0000 (UTC)
+Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id E51C610F10C
+ for <dri-devel@lists.freedesktop.org>; Tue, 17 Nov 2026 09:46:14 +0000 (UTC)
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+ by sea.source.kernel.org (Postfix) with ESMTP id 9AC87469B4
+ for <dri-devel@lists.freedesktop.org>; Tue, 17 Nov 2026 09:46:14 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 566051F000D4;
+ Tue, 17 Nov 2026 09:46:14 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+ s=k20260515; t=1794908774;
+ bh=xJPeXAU4phUO0g3GQHB/ZpE2IbpkU2oVrj1LnqIuVug=;
+ h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+ b=TF4+AunVWRrE6ZCvC/UktVCxZN8lKqoS2rztXp0Js06Ucc1ok3OYFxT3SJ0x6UBoQ
+ nVCO1nA9NCXcWLQVOmu+jkpkw1a6jj9lW8clpQhjPGg5rRI4Q58hRz08N0QuM3FJcf
+ 6hvO3zgoMLJzJhP55ddi78qLvmeCGE8Oy4eAy3gfODLkMp44QMryS2M6GSQL8ka3kA
+ bcZGOetIjC3dVILKTZuM0Umeu3HBvD3gYoV4E6/hAKDMq+3O69aIreBi0sE5WTUuv4
+ 18CF0KnTncc1Oelmyy8txeQPYn2EBXmr4Jb2cxsIkQ1OscufoUEcuDm+6fyxt/ovOi
+ 9WJPGq7up1Gjg==
+Message-ID: <sashiko-outbox-218518@kernel.org>
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH] drm/sched: Extend locking in drm_sched_entity_select_rq()
+To: "Philipp Stanner" <phasta@kernel.org>
+Cc: dri-devel@lists.freedesktop.org
+In-Reply-To: <20261117093708.647488-2-phasta@kernel.org>
+References: <20261117093708.647488-2-phasta@kernel.org>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Tue, 17 Nov 2026 09:46:13 +0000
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -116,58 +47,101 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
+Reply-To: sashiko-reviews@lists.linux.dev
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-17.3 required=3.0 tests=BAYES_00,DKIM_SIGNED,
-	DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
-	INCLUDES_CR_TRAILER,INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,
-	SPF_PASS,USER_AGENT_SANE_1 autolearn=ham autolearn_force=no
-	version=4.0.1
+X-Spam-Status: No, score=-10.8 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
+	DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
+	INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS autolearn=ham
+	autolearn_force=no version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
+X-Archived-By: <archiver.kernel.org>
 
-Hi Maxime,
+Thank you for your contribution! Sashiko AI review found no new issues
+in this patch, but noticed 1 related pre-existing issue it does not
+introduce:
+- [Critical] drm/sched: out-of-bounds array read in
+  drm_sched_entity_select_rq() [1]
+--
 
-Thanks for the patch.
-Tested-by: Yannick Fertre <yannick.fertre@foss.st.com>
-Acked-by: Yannick Fertre <yannick.fertre@foss.st.com>
+commit fd8a3dbada3c5189d04991dce47c3b6554b565d5
+Author: Philipp Stanner <phasta@kernel.org>
 
-Best regards
+drm/sched: Extend locking in drm_sched_entity_select_rq()
 
+This commit moves spin_lock(&entity->lock) to the start of
+drm_sched_entity_select_rq() so that entity->sched_list and
+spsc_queue_count(&entity->job_queue) are evaluated under lock protection.
 
-On 11/5/26 16:29, Maxime Ripard wrote:
-> drm_mode_config_reset() has a dual role: it creates the initial KMS
-> state at probe time, and resets hardware and software state during
-> suspend/resume cycles.
->
-> Since the two roles need different behaviors (notably for objects like
-> drm_private_obj that must persist across suspend/resume),
-> drm_mode_config_create_initial_state() was introduced to handle only
-> the initial state creation at probe time.
->
-> Switch to drm_mode_config_create_initial_state().
->
-> Signed-off-by: Maxime Ripard <mripard@kernel.org>
-> ---
-> Cc: Alexandre Torgue <alexandre.torgue@foss.st.com>
-> Cc: Maxime Coquelin <mcoquelin.stm32@gmail.com>
-> Cc: Philippe Cornu <philippe.cornu@foss.st.com>
-> Cc: Raphael Gallais-Pou <raphael.gallais-pou@foss.st.com>
-> Cc: Yannick Fertre <yannick.fertre@foss.st.com>
-> ---
->   drivers/gpu/drm/stm/drv.c | 4 +++-
->   1 file changed, 3 insertions(+), 1 deletion(-)
->
-> diff --git a/drivers/gpu/drm/stm/drv.c b/drivers/gpu/drm/stm/drv.c
-> index 0967b9b3451d..60343ffe02f7 100644
-> --- a/drivers/gpu/drm/stm/drv.c
-> +++ b/drivers/gpu/drm/stm/drv.c
-> @@ -105,5 +105,7 @@ static int drv_load(struct drm_device *ddev)
->   		return ret;
->   
-> -	drm_mode_config_reset(ddev);
-> +	ret = drm_mode_config_create_initial_state(ddev);
-> +	if (ret)
-> +		return ret;
->   	drm_kms_helper_poll_init(ddev);
->   
->
+> diff --git a/drivers/gpu/drm/scheduler/sched_entity.c b/drivers/gpu/drm/s=
+cheduler/sched_entity.c
+> index 03e68b4102d50..3856d5e507d7f 100644
+> --- a/drivers/gpu/drm/scheduler/sched_entity.c
+> +++ b/drivers/gpu/drm/scheduler/sched_entity.c
+> @@ -577,22 +577,21 @@ void drm_sched_entity_select_rq(struct drm_sched_en=
+tity *entity)
+>  	struct drm_gpu_scheduler *sched;
+>  	struct drm_sched_rq *rq;
+> =20
+> +	spin_lock(&entity->lock);
+> +
+>  	/* single possible engine and already selected */
+>  	if (!entity->sched_list)
+> -		return;
+> +		goto unlock;
+> =20
+>  	/* queue non-empty, stay on the same engine */
+>  	if (spsc_queue_count(&entity->job_queue))
+> -		return;
+> +		goto unlock;
+> =20
+> -	spin_lock(&entity->lock);
+>  	fence =3D entity->last_scheduled;
+> =20
+>  	/* stay on the same engine if the previous job hasn't finished */
+> -	if (fence && !dma_fence_is_signaled(fence)) {
+> -		spin_unlock(&entity->lock);
+> -		return;
+> -	}
+> +	if (fence && !dma_fence_is_signaled(fence))
+> +		goto unlock;
+> =20
+>  	sched =3D drm_sched_pick_best(entity->sched_list, entity->num_sched_lis=
+t);
+>  	rq =3D sched ? sched->sched_rq[entity->rq_priority] : NULL;
+
+[Severity: Critical]
+This problem wasn't introduced by this patch, but can
+sched->sched_rq[entity->rq_priority] read out of bounds here [1]?
+
+drivers/gpu/drm/scheduler/sched_entity.c:drm_sched_entity_init() {
+	...
+	if (!sched_list[0]->sched_rq) {
+		...
+		pr_warn("%s: called with uninitialized scheduler\n", __func__);
+	} else if (priority >=3D sched_list[0]->num_user_rqs) {
+		...
+		priority =3D max_t(s32,
+				 (s32)sched_list[0]->num_user_rqs - 1,
+				 (s32)DRM_SCHED_PRIORITY_KERNEL);
+	}
+
+	entity->priority =3D priority;
+	entity->rq_priority =3D drm_sched_policy =3D=3D DRM_SCHED_POLICY_FAIR ?
+			      DRM_SCHED_PRIORITY_KERNEL : priority;
+	...
+}
+
+When drm_sched_entity_init() is called with an uninitialized scheduler
+(!sched_list[0]->sched_rq), it warns and skips clamping priority against
+num_user_rqs, storing the unvalidated value into entity->priority and
+entity->rq_priority.  Later, drm_sched_entity_select_rq() indexes
+sched->sched_rq[entity->rq_priority] and drm_sched_entity_update_vruntime()
+indexes vruntime_shift[entity->priority] out of bounds, which can crash the
+kernel.
+
+[1] https://sashiko.dev/#/bug/linux-588f726e-4d3a-4204-b39b-8ff2cd63a19c
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261117093708.6474=
+88-2-phasta@kernel.org?part=3D1
