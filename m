@@ -2,68 +2,69 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7664E606A31C
-	for <dri-devel@archiver.kernel.org>; Tue, 17 Nov 2026 08:14:55 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D104E606A330
+	for <dri-devel@archiver.kernel.org>; Tue, 17 Nov 2026 08:22:27 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=LIRuIEzW
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=itJSOg8A
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id B5BE710EE27;
-	Tue, 17 Nov 2026 08:14:48 +0000 (UTC)
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.9])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 95B1B10EB46;
- Tue, 17 Nov 2026 08:14:42 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 41D3210EA99;
+	Tue, 17 Nov 2026 08:22:22 +0000 (UTC)
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.16])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id C556110EA99;
+ Tue, 17 Nov 2026 08:22:15 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1794903283; x=1826439283;
- h=date:from:to:cc:subject:message-id:references:
- mime-version:in-reply-to;
- bh=HNmUx0jrvNZHfbPCL0lRJuOzMXqXrDP37LApWQ+VGqo=;
- b=LIRuIEzWXHT6W14Zot/PA8K0urVntHnTCSIENZrMHH+VqyEn8KsDESb/
- zbcDxHcgnbObk4n+qvWLQUBkl/DNqoHtNjDuqjBoeIn045N7AM5Udh9x8
- Pk6v2p9ZhSM9MdgMSozAEDz6QVOVlh7Zz5l2KNrAhUEA+Dwksg81Mf68D
- DX13y1ewHcTftVPg+iDNIH90UL+D5KrWG6URIMg6Vb1VDFfhmSDiN5BgI
- /hUvuKQ/2Mth4KfSekmQHtl2aaSXe/kng6O4l1Zq/6bTbhDiifZ2/ShhG
- 9psKKLw6iJC0rNds+QXVEDOaB9imhUWnVJ+5GONgSV8v74I6EOb82H0AA Q==;
-X-CSE-ConnectionGUID: HhRe1UhvTES6xYkBpXpMvQ==
-X-CSE-MsgGUID: Do9JAMsEQRyz9Skyr1hDiw==
-X-IronPort-AV: E=McAfee;i="6800,10657,11968"; a="3517175"
+ t=1794903736; x=1826439736;
+ h=mime-version:content-transfer-encoding:in-reply-to:
+ references:subject:from:cc:to:date:message-id;
+ bh=oDBWfWxuyuXCs7svJ3CMQY+hoTNFGtkSXN+3KpjIDic=;
+ b=itJSOg8A8j2MbO2Seec1ecku5wltac3zmt/G6TYYfg8OhS+QxWSs2uaM
+ NrDLCuNwWA3wYw1D4L8dXWxObUZmUz1FW0nZ6xIS3CdTXGy3ojT6Si788
+ cKgEnD6grMJkk3RTEevRaLDZ4SoQjljNIqfMJRUjp6z6nqS9rsikR7d+e
+ xENtoFc7fp+dzgDCEQi0u03C3f+SWafFoplyhRdWyWGIvfCFbWU34CBSU
+ zq5mfayIFXWAxeAUpPYgJvH/VNAd43aK9eJ/GogjK03M7TrFUjXfQMHht
+ cH/1HDoYcM40KIv2aDSZNdZ4F9tgW7h3OTzSzGMtQEgi/h5kF15fFxAyc w==;
+X-CSE-ConnectionGUID: iEGJKoZUQFWKtDi0WnEgbw==
+X-CSE-MsgGUID: zoYTOuQiQTy/tYuEus/UkQ==
+X-IronPort-AV: E=McAfee;i="6800,10657,11968"; a="3701175"
 X-IronPort-AV: E=Sophos;i="6.27,218,1787036400"; 
-   d="scan'208";a="3517175"
-Received: from fmviesa002.fm.intel.com ([10.60.135.142])
- by orvoesa101.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 17 Nov 2026 00:14:42 -0800
-X-CSE-ConnectionGUID: HIAC5vPkQFS4EZd2BqhXXQ==
-X-CSE-MsgGUID: t3tuitAFQPSxn+gSWM/hXA==
+   d="scan'208";a="3701175"
+Received: from fmviesa003.fm.intel.com ([10.60.135.143])
+ by fmvoesa110.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 17 Nov 2026 00:20:42 -0800
+X-CSE-ConnectionGUID: 4KmUuLCjTM+rIDZU49LxUQ==
+X-CSE-MsgGUID: lcn6PfM5Qx+zmu3znnkgSg==
 X-ExtLoop1: 1
 X-IronPort-AV: E=Sophos;i="6.27,218,1787036400"; 
-   d="scan'208";a="9947828"
-Received: from lkp-server01.sh.intel.com (HELO 0caa9d2d175c) ([10.239.97.150])
- by fmviesa002.fm.intel.com with ESMTP; 17 Nov 2026 00:14:39 -0800
-Received: from kbuild by 0caa9d2d175c with local (Exim 4.98.2)
- (envelope-from <lkp@intel.com>) id 1xTEKq-00000001APf-071k;
- Tue, 17 Nov 2026 08:14:36 +0000
-Date: Tue, 17 Nov 2026 16:14:03 +0800
-From: kernel test robot <lkp@intel.com>
-To: Dave Airlie via B4 Relay <devnull+airlied.redhat.com@kernel.org>,
- Harry Wentland <harry.wentland@amd.com>,
- Leo Li <sunpeng.li@amd.com>, Rodrigo Siqueira <siqueira@igalia.com>,
- Alex Deucher <alexander.deucher@amd.com>,
- Christian =?iso-8859-1?Q?K=F6nig?= <christian.koenig@amd.com>,
- David Airlie <airlied@gmail.com>,
- Austin Zheng <austin.zheng@amd.com>, Jun Lei <jun.lei@amd.com>,
- Kenneth Feng <kenneth.feng@amd.com>
-Cc: llvm@lists.linux.dev, oe-kbuild-all@lists.linux.dev,
- amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
- Dave Airlie <airlied@redhat.com>
-Subject: Re: [PATCH 12/19] drm/amd/display: Migrate amdgpu_dm KUnit tests off
- struct dc internals
-Message-ID: <202611171624.vqpwzkOB-lkp@intel.com>
-References: <20261112-amdgpu-dc-cleanup-v1-12-0fae41718ad2@redhat.com>
+   d="scan'208";a="9906183"
+Received: from ettammin-mobl3.ger.corp.intel.com (HELO localhost)
+ ([10.245.244.6])
+ by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 17 Nov 2026 00:20:37 -0800
+Content-Type: text/plain; charset="utf-8"
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261112-amdgpu-dc-cleanup-v1-12-0fae41718ad2@redhat.com>
+Content-Transfer-Encoding: quoted-printable
+In-Reply-To: <e97d0efc-a6de-4060-be48-c2ca128461b1@amd.com>
+References: <20261109135549.4128280-1-mika.kuoppala@linux.intel.com>
+ <20261109135549.4128280-15-mika.kuoppala@linux.intel.com>
+ <e97d0efc-a6de-4060-be48-c2ca128461b1@amd.com>
+Subject: Re: [PATCH 14/20] drm/xe/eudebug: Add userptr vm pread/pwrite
+From: Joonas Lahtinen <joonas.lahtinen@linux.intel.com>
+Cc: simona.vetter@ffwll.ch, matthew.brost@intel.com,
+ thomas.hellstrom@linux.intel.com, gustavo.sousa@intel.com,
+ jan.maslak@intel.com, dominik.karol.piatkowski@intel.com,
+ rodrigo.vivi@intel.com, andrzej.hajda@intel.com, matthew.auld@intel.com,
+ maciej.patelczyk@intel.com, gwan-gyeong.mun@intel.com,
+ michal.wajdeczko@intel.com, dri-devel@lists.freedesktop.org,
+ Simona Vetter <simona@ffwll.ch>,
+ Dominik Grzegorzek <dominik.grzegorzek@intel.com>
+To: Christian =?utf-8?q?K=C3=B6nig?= <christian.koenig@amd.com>,
+ David Airlie <airlied@gmail.com>,
+ Mika Kuoppala <mika.kuoppala@linux.intel.com>, intel-xe@lists.freedesktop.org
+Date: Tue, 17 Nov 2026 10:20:34 +0200
+Message-ID: <179490363459.14567.17741084775869143840@jlahtine-mobl>
+User-Agent: alot/0.13.dev2+g40c57d620
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -75,56 +76,103 @@ List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-10.8 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
-	DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
-	MAILING_LIST_MULTI,MENTIONS_GIT_HOSTING,SPF_HELO_NONE,SPF_PASS
-	autolearn=unavailable autolearn_force=no version=4.0.1
+X-Spam-Status: No, score=-3.8 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
+	DKIM_SIGNED,DKIM_VALID,HEADER_FROM_DIFFERENT_DOMAINS,
+	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS autolearn=no
+	autolearn_force=no version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-Hi Dave,
+Quoting Christian K=C3=B6nig (2026-11-16 15:17:02)
+> On 11/9/26 14:55, Mika Kuoppala wrote:
+> > Implement debugger vm access for userptrs.
+> >=20
+> > When bind is done, take a ref to the current task so that
+> > we know from which vm the address was bound. Then during
+> > debugger pread/pwrite we use this target task as
+> > parameter to access the debuggee vm with access_process_vm().
+> >=20
+> > This is based on suggestions from Simona, Thomas and Joonas.
+>=20
+> At AMD we had a legthly discussion if such an interface would be necessar=
+y for AMDs debugger interface and came to the conclusion that it is *NOT* a=
+ good idea to have this.
 
-kernel test robot noticed the following build warnings:
+I'd like to refer to our 2024 December discussion on review of v3 of
+this series[1].
 
-[auto build test WARNING on a6836fcbb5b22968019256025321d655b78bc49c]
+Quoting myself from the end:
 
-url:    https://github.com/intel-lab-lkp/linux/commits/Dave-Airlie-via-B4-Relay/drm-amd-display-Drop-the-dead-vmid-module/20261112-114336
-base:   a6836fcbb5b22968019256025321d655b78bc49c
-patch link:    https://lore.kernel.org/r/20261112-amdgpu-dc-cleanup-v1-12-0fae41718ad2%40redhat.com
-patch subject: [PATCH 12/19] drm/amd/display: Migrate amdgpu_dm KUnit tests off struct dc internals
-config: loongarch-allmodconfig (https://download.01.org/0day-ci/archive/20261117/202611171624.vqpwzkOB-lkp@intel.com/config)
-compiler: clang version 19.1.7 (https://github.com/llvm/llvm-project cd708029e0b2869e80abe31ddb175f7c35361f90)
-reproduce (this is a W=1 build): (https://download.01.org/0day-ci/archive/20261117/202611171624.vqpwzkOB-lkp@intel.com/reproduce)
+	"It seems like the peek/poke access to userptr is the big remaining open
+	where opinions differ, so maybe we should first focus on aligning on it.
+	It impacts both core dumping and interactive debugging."
 
-If you fix the issue in a separate patch/commit (i.e. not just a new version of
-the same patch/commit), kindly add following tags
-| Reported-by: kernel test robot <lkp@intel.com>
-| Closes: https://lore.kernel.org/oe-kbuild-all/202611171624.vqpwzkOB-lkp@intel.com/
+Then from same series review, we took Sima's suggestions[2] to be
+implemented. About one year later in 2025 December we got your
+review comments[3] for series v6:
 
-All warnings (new ones prefixed by >>):
+	"But from a ten mile high view it looks sane to me now."
 
->> drivers/gpu/drm/amd/amdgpu/../display/amdgpu_dm/tests/amdgpu_dm_kunit_helpers.c:57:25: warning: cast from 'void (*)(struct dc *)' to 'kunit_action_t *' (aka 'void (*)(void *)') converts to incompatible function type [-Wcast-function-type-strict]
-      57 |         kunit_add_action(test, (kunit_action_t *)dc_test_destroy, dc);
-         |                                ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-   1 warning generated.
+And quoting myself:
 
+	"Understandable and thanks for the high level check, we'll continue with t=
+he
+	current direction then."
 
-vim +57 drivers/gpu/drm/amd/amdgpu/../display/amdgpu_dm/tests/amdgpu_dm_kunit_helpers.c
+So given v4 (which you gave above "looks sane to me" included pretty much
+exactly this patch [4], I'm bit surprised to be starting to reiterate what
+feels like our discussion from [1].
 
-    50	
-    51	struct dc *dm_kunit_alloc_dc(struct kunit *test)
-    52	{
-    53		struct dc *dc;
-    54	
-    55		dc = dc_test_create();
-    56		KUNIT_ASSERT_NOT_NULL(test, dc);
-  > 57		kunit_add_action(test, (kunit_action_t *)dc_test_destroy, dc);
-    58	
-    59		return dc;
-    60	}
-    61	EXPORT_SYMBOL(dm_kunit_alloc_dc);
-    62	
+I'm hoping we can agree to a disagree here. ROCm maybe doesn't need
+interface like this due to requirement of ptrace_attach(), GPU address
+=3D=3D CPU address and no kernel initiated core dumps. We want to avoid
+those limitations in our architecture as discussed in [1].
 
--- 
-0-DAY CI Kernel Test Service
-https://github.com/intel/lkp-tests/wiki
+After you very much seemed to agree in the direction on [3], we've
+spent 2 years incrementally addressing all the other comments in 7 new
+series versions. Thus I'm not really a big fan of reiterating the original
+discussion, so excuse me for being bit irritated here.
+
+> process_vm_readv() and process_vm_writev() interfaces already allow a deb=
+ugger to access userptr resources completely without the need of PTRACE_ATT=
+ACH.
+
+That is correct. However as discussed earlier the access implemented
+here is for reading memory from ppGTT, not the CPU address space. For
+readv/writev userspace driver would have to maintain all ppGTT layouts
+in CPU address space and that'll simply not fit as discussed in [1]
+amongst the other reasons.
+
+This exact same access will be needed when doing core dumps and capturing
+the ppGTT contents during crash by kernel, when there is no GDB involved.
+I don't see any value in diverging the memory access path for interactive
+debug and core dumps.
+
+I don't know if ROCm has plans for supporting core dumps without GDB
+involved, but we definitely want to have that ability. And in [1] we
+seemed to agree on the usefulness.
+
+> Especially since this interface here allows to bypass all the extra secur=
+ity checks otherwise applied to such an action it should probably not be so=
+mething allowed upstream.
+
+To recap. No security is bypassed, access happens as if GPU did the
+access. If the address is not in ppGTT, there's no access to it. So
+access given here is equal to access gained submitting a blitter copy
+command to copy the data using a context with the same ppGTT. Code
+comments were added to explain to eliminate Sashiko false positives.
+
+Unfortunately, we can't actually rely on the RCS/CCS/BCS engines
+making forward progress on current gen hardware as hardware may be
+stalled due to numerous pending page-faults. Especially when doing
+core dumps.
+
+Regards, Joonas
+
+[1] https://lore.kernel.org/intel-xe/173392197322.40386.1225274149499860645=
+3@jlahtine-mobl.ger.corp.intel.com/
+[2] https://lore.kernel.org/intel-xe/Z1q3F81k2TkUzKW7@phenom.ffwll.local/
+[3] https://lore.kernel.org/intel-xe/176520185138.24350.8954844301177099832=
+@jlahtine-mobl/
+[4] https://lore.kernel.org/intel-xe/20250808104356.3294210-11-mika.kuoppal=
+a@linux.intel.com/
