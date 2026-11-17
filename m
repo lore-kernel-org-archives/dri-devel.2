@@ -2,62 +2,128 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 35ED0606A31C
-	for <dri-devel@archiver.kernel.org>; Tue, 17 Nov 2026 04:17:29 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0C0C6606A332
+	for <dri-devel@archiver.kernel.org>; Tue, 17 Nov 2026 04:57:53 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=mail.ustc.edu.cn header.i=@mail.ustc.edu.cn header.a=rsa-sha256 header.s=dkim header.b=wqSPP4SN
+	dkim=pass (1024-bit key, unprotected) header.d=amd.com header.i=@amd.com header.a=rsa-sha256 header.s=selector1 header.b=Dx6njUn0
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 9C1E810E0B0;
-	Tue, 17 Nov 2026 04:17:23 +0000 (UTC)
-Received: from ustc.edu.cn (smtp.ustc.edu.cn [202.38.64.46])
- by gabe.freedesktop.org (Postfix) with ESMTP id E619B10E0B0
- for <dri-devel@lists.freedesktop.org>; Tue, 17 Nov 2026 04:17:16 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=mail.ustc.edu.cn; s=dkim; h=Received:From:To:Cc:Subject:Date:
- Message-ID:In-Reply-To:References:Content-Type:
- Content-Transfer-Encoding:MIME-Version; bh=OBSo/4IN7S6trP7CgPBOd
- 4llSonUbNqkrJxw7CQiCqA=; b=wqSPP4SNDPs9mlVJhVqodlTTM8hCkkL9ov8+3
- EuWJ/U4hWyJfNTMieF64k1+L9CI/7g1H+EYsCj7jLh170O8nxj3eHaGU+pa4KE16
- gFWSsRpFxTiHKK1vc+ekuQdLqUJJ/50c/ucrEEkBKsFZ3pfoCf/w88lX09tub+m0
- 7LcH/Q=
-Received: from [127.0.1.1] (unknown [114.214.186.145])
- by mailimap2024 (Coremail) with SMTP id 3pYKCgCHATZH1ftqQgjLAA--.1640S2;
- Tue, 17 Nov 2026 12:17:11 +0800 (CST)
-From: Qianhui Xu <xiaqinghuan@mail.ustc.edu.cn>
-To: linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org
-Cc: devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
- Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>,
- Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>,
- Abel Vesa <abel.vesa@oss.qualcomm.com>,
- Bjorn Andersson <andersson@kernel.org>, Rob Herring <robh@kernel.org>
-Subject: Re: [PATCH v5 0/3] drm/msm/mdss: reset all block resets described in
- DT
-Date: Tue, 17 Nov 2026 12:17:11 +0800
-Message-ID: <179488903160.260870.8168848839719897744@mail.ustc.edu.cn>
-In-Reply-To: <20261113155635.1677541-1-xiaqinghuan@mail.ustc.edu.cn>
-References: <20261113155635.1677541-1-xiaqinghuan@mail.ustc.edu.cn>
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: 7bit
+	by gabe.freedesktop.org (Postfix) with ESMTP id 61A7810E436;
+	Tue, 17 Nov 2026 04:57:47 +0000 (UTC)
+Received: from CH5PR02CU005.outbound.protection.outlook.com
+ (mail-northcentralusazon11012026.outbound.protection.outlook.com
+ [40.107.200.26])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 7B9B110E4B0;
+ Tue, 17 Nov 2026 04:57:41 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=Vo3O+L2basSR0ZdrXHauSsl+MpxpzW0rhQtokVBmlc7lKkry+DeWoYRlU3/oP0QY8xF/MDf8uU1NRh14iW6iMszF9+lFCNUAF0MB9Eni4un1QvTFbnTBRcazxf5LGBOCCTP0fgXTL+bBiFgJvWmYn/k/sQqAeZQmkxX2aVsUtDAyTC8OzOl9NpfxayozQYbRg+vR84QFC+Wo+v5iiTvf5WbE1B8iDKScAEuAQ/aXOJO/qeA7QQmWLiMXIZm4qjiWAkr26vjTR8uU18xcaVFbgXoR1FsZmmv1tZYQp/3PtUAVxtUdFPp9zxOmC3pwyRgn1UKM3dSigb+8nVBVc8m2iQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=hAjcLX0gzc9IzooIs4+vELEJUBnDev/ZvXu+TXP7xbI=;
+ b=ZnIQ6cNOHdEIQL8/W1TnEv0BNLb4BzUxq/xbaMviFL83WPycGmCtVaAYe0Z6g8I4geO4BOKgQ9T57BI08Qx4ZKNZZ1x1wiIGDDV6O0uayI9vo8JvzgIVo7KnaruuSltRfu2Ne+NwnIcAJh+kehOeeIX+W3EWgGdnb+Aza7QneRLcpOHfpZb9zvAMf0MPFw91tvF8OhodHnMP81NF42OkzeQ7r3IfYbqxXfGC3IuZkPYHBmi3dYMZiUSqtbWUhiVRT9hRo+Pyv5MErfRDmXalddAn4xAxqt64SsR+NsntoQf5RbjLeeZV5ZpgNlMgf81JQH30aMBwmuTFf+8gUsnN3g==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
+ header.d=amd.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=hAjcLX0gzc9IzooIs4+vELEJUBnDev/ZvXu+TXP7xbI=;
+ b=Dx6njUn0SzisBggA729P3KlhIgL6RSeNzvNbB8fVvoZ4OlcLLgSOSfKlJ1l7F8KOn55VEdjXTitDqaGSrB8PIxs6wpd9ascaruqtjVAtpz/sq4XqdpydtAHdAGDgU+DYUe48hokGyNtElAB4MmwWiqJr0ccoihFtBC1CMWf3nuM=
+Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=amd.com;
+Received: from DM4PR12MB5039.namprd12.prod.outlook.com (2603:10b6:5:38a::18)
+ by CH3PR12MB7545.namprd12.prod.outlook.com (2603:10b6:610:146::13) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.615.14; Tue, 17 Nov
+ 2026 04:57:36 +0000
+Received: from DM4PR12MB5039.namprd12.prod.outlook.com
+ ([fe80::762:6408:ca99:701d]) by DM4PR12MB5039.namprd12.prod.outlook.com
+ ([fe80::762:6408:ca99:701d%4]) with mapi id 15.21.0615.013; Tue, 17 Nov 2026
+ 04:57:35 +0000
+Message-ID: <3d156a96-ca2d-479b-b6af-d31b862b9467@amd.com>
+Date: Tue, 17 Nov 2026 10:27:30 +0530
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v4 1/1] gpu/buddy: Prune exhausted subtrees in
+ range-biased allocation
+To: "Yadav, Sanjay Kumar" <sanjay.kumar.yadav@intel.com>,
+ dri-devel@lists.freedesktop.org, William Palacek <William.Palacek@amd.com>
+Cc: intel-xe@lists.freedesktop.org, Matthew Auld <matthew.auld@intel.com>,
+ Joel Fernandes <joelagnelf@nvidia.com>
+References: <20261102051633.2035348-3-sanjay.kumar.yadav@intel.com>
+ <20261102051633.2035348-4-sanjay.kumar.yadav@intel.com>
+ <b07e279a-67f2-4d38-ba24-9ff2ca9a90fb@amd.com>
+ <91f03c24-2bee-4872-bf09-ca54f81ccf50@intel.com>
+Content-Language: en-US
+From: Arunpravin Paneer Selvam <arunpravin.paneerselvam@amd.com>
+In-Reply-To: <91f03c24-2bee-4872-bf09-ca54f81ccf50@intel.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
+X-ClientProxiedBy: MA5PR01CA0291.INDPRD01.PROD.OUTLOOK.COM
+ (2603:1096:a01:21b::18) To DM4PR12MB5039.namprd12.prod.outlook.com
+ (2603:10b6:5:38a::18)
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
-X-CM-TRANSID: 3pYKCgCHATZH1ftqQgjLAA--.1640S2
-X-Coremail-Antispam: 1UD129KBjvJXoWxGr15KF4rtF18AFWkuw4fuFg_yoWrtr43pF
- ZrKwsxKr1kGry0kFn7Aw4jva4I9wsYkFZ8GF15tryYvan8Kw18Ar93Kw1Fq3429Fs7Xa4j
- va4jgw18CFWvqaDanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
- 9KBjDU0xBIdaVrnRJUUUvjb7Iv0xC_Kw4lb4IE77IF4wAFF20E14v26r4j6ryUM7CY07I2
- 0VC2zVCF04k26cxKx2IYs7xG6rWj6s0DM7CIcVAFz4kK6r1j6r18M28lY4IEw2IIxxk0rw
- A2F7IY1VAKz4vEj48ve4kI8wA2z4x0Y4vE2Ix0cI8IcVAFwI0_Xr0_Ar1l84ACjcxK6xII
- jxv20xvEc7CjxVAFwI0_Cr0_Gr1UM28EF7xvwVC2z280aVAFwI0_GcCE3s1l84ACjcxK6I
- 8E87Iv6xkF7I0E14v26rxl6s0DM2AIxVAIcxkEcVAq07x20xvEncxIr21l5I8CrVACY4xI
- 64kE6c02F40Ex7xfMcIj6xIIjxv20xvE14v26r1j6r18McIj6I8E87Iv67AKxVWUJVW8Jw
- Am72CE4IkC6x0Yz7v_Jr0_Gr1lF7xvr2IY64vIr41lc7CjxVAaw2AFwI0_Jw0_GFylc2xS
- Y4AK67AK6r45MxAIw28IcxkI7VAKI48JMxC20s026xCaFVCjc4AY6r1j6r4UMI8I3I0E5I
- 8CrVAFwI0_Jr0_Jr4lx2IqxVCjr7xvwVAFwI0_JrI_JrWlx4CE17CEb7AF67AKxVWUtVW8
- ZwCIc40Y0x0EwIxGrwCI42IY6xIIjxv20xvE14v26r1j6r1xMIIF0xvE2Ix0cI8IcVCY1x
- 0267AKxVWUJVW8JwCI42IY6xAIw20EY4v20xvaj40_Jr0_JF4lIxAIcVC2z280aVAFwI0_
- Jr0_Gr1lIxAIcVC2z280aVCY1x0267AKxVWUJVW8JbIYCTnIWIevJa73UjIFyTuYvjxUgR
- pPUUUUU
-X-CM-SenderInfo: 50ld1x5qjk3t3q6ptxnoox23vfohv3gofq/1tbiAREOB2r7WdojVwACs9
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: DM4PR12MB5039:EE_|CH3PR12MB7545:EE_
+X-MS-Office365-Filtering-Correlation-Id: 6bc8c2ba-fb9a-4869-0141-08df44674be6
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+ ARA:13230040|1800799024|376014|366016|23010399003|10067099003|11063799006|5023799004|56012099006|4143699003|261009223027099003|261021121427099003|261021123027099003|261102123227099003|261102130727099003|261026140227099003|261022105027099003|261026121527099003|261022075727099003|261028144727099003|7136999003|22082099003|11062099010|18002099003;
+X-Microsoft-Antispam-Message-Info: T+lXMmOXVK/wzldgnXkVKLTdc/lHDUPFpLG6bn9jg+5l9xFiOC/pgiKu0PNgYgI6/YBMqzAH7MWDhT38azGzwoCevELWq5iOiokr7HGc4iPkNKAuTUC85PyMQwLJ6GwIcIEjtaTRaTfpyP4PqL5KaTiftZWJZgzcAeqPKuz3RFSS3N5nFVy7o/ivWFKn4hiZ0+/lj+AERAMnXapFbmFLEaYNNZCbaogzwO5nCKLLWg/gj/WHkTt3IpyerAEaZE/JAyvmQGIE/BVGyce0PL7OPsSW7yREy4CkWiMTD+JG+c1n6GA/eNYejBhinKY1vu0wzoKrqeW7jPy7kw4sL+ZkzsuUQHK3DZg0IxZaUrrLrJiJ2v/NWe3xYCXdULofl6lUriNIljMkGlHMhnyqKUL+glvn0Vd8XQxEw8kd0X1n1B7uwi46e9dpS1f5z4D+Wse155c+c2yf24SSskU8wxEIYLm8fNCZ9LxVU0gh/DhGzQrDnvPFmhzDkeBRYusAqd5hS6PE9HACRdoqj9B695LF9uV3mAaJa+Znn3A7yGe46ldKuJG2+sp1a0Ttls6R7mwyjJc0lR81X0WTOZOhjDeIfTpbq0qi0xorw1hgNGbw+KGUby4e4qLBJOLvonNVJDtu
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:DM4PR12MB5039.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230040)(1800799024)(376014)(366016)(23010399003)(10067099003)(11063799006)(5023799004)(56012099006)(4143699003)(261009223027099003)(261021121427099003)(261021123027099003)(261102123227099003)(261102130727099003)(261026140227099003)(261022105027099003)(261026121527099003)(261022075727099003)(261028144727099003)(7136999003)(22082099003)(11062099010)(18002099003);
+ DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?eGZtRFkyblZFSU1Ya0lHWm40YUR6OWdBOVNMK0hMYktPKzd2WExXK0FzR1JY?=
+ =?utf-8?B?Y2hMMEtoWDVXamVTdGFFb2pXMktrU3ZRYjVtYi9GbDM4cytGd21qZ2t0ZnNW?=
+ =?utf-8?B?UHhBVTJuejhSZ2FYYXJ2bzNGbWRrREpzOEZyd0tTR1RxazNYY3dvZkZxZjNY?=
+ =?utf-8?B?WXZVK0NpYVFieUJGTlJ6b3pjSG9pV3NMVGQrdUZIc1BkWXlmVXhaUFRuQjgz?=
+ =?utf-8?B?dXhYRk9Cem9LZmxiMVJ3NW11ZXk0eERoNHRBL0w0VGNJYksvUXhrVUlhYWs3?=
+ =?utf-8?B?NDhvdzQ1WXhreHc0Ync4OUhqRytEMHZTVWh1YW11eEN2ejVTbWRvaGdwZG9F?=
+ =?utf-8?B?UU5FUE1YRFhRbkFkL0RiUmxRWlNRM0xjdE0va3BES3N4YmZCNVRIbThyRzEy?=
+ =?utf-8?B?ZFVYNUhsSmtNVEpBZ1Q3VGNJdS9qVy9pdFl2dUdQZnZyUUd1VlFHNEUwMlpD?=
+ =?utf-8?B?Rkcrc3l3am9CNW9vd1o3QnN4TmNCUWQ2dmNiUG16dUtTcVV1cnBjSUduWEZO?=
+ =?utf-8?B?M1N6elJOeGFQcHdYUE9IaDNGK054eVhIOTNxb3k4WkliSG5FOHIvaWVOYU9V?=
+ =?utf-8?B?cHhNODRIaHRoSCtNYlJQc2p1Z0ZhSlVORWxuWkc0djRYOWtxU01jdE55dDZl?=
+ =?utf-8?B?TmFPRHd5OC9KT1dmdzV1UkF5Qit4Y1RnancyNTVueDBpQVM0a3ZJUVZ0RkFw?=
+ =?utf-8?B?Y3VtS2JJRGhoUk5XclFPKzI3MVA2dDZrODhERDVmais3ZWxtWk5hUmE5ZHVo?=
+ =?utf-8?B?ZW5NeU1wWU9PSHhQSTZrVVU4MjFQa0ozSnpIbWRtakNsci8xMzJDNEU4TFVk?=
+ =?utf-8?B?UEEvZ3lFcHAwRi9TMktoUlgvS2lqbHlOc1NIZCtsaEN5QWFheDNNSS9wWDlP?=
+ =?utf-8?B?bWZBbC8wby9adDFDc1dvUnZ1MG01ZkhvL0hlWE5nQi81T2VzUEkwdFJVRjVP?=
+ =?utf-8?B?QnAwOUdmMU94aEJTMmI3WEREV3RtYnpEYWkzTXNucUpHeFlHejRxdFBzbDRr?=
+ =?utf-8?B?QjdtbDdNZWFHN2wwbEl5V3pISEVUQ09uZldBSXFNZnZGeXJxNjhJU1pCb0RC?=
+ =?utf-8?B?b2tnbTFKalJNallFRUJPTjZRbzc4aWdqVmNaYStwNFBuUWF5S1kvSURvYWtH?=
+ =?utf-8?B?V0h5d05vU1BsUjBFclBvUHhQMzNac3hteEZ6WFhDOGhsUTg0NDFtenZoeWVl?=
+ =?utf-8?B?dkFRME5UNlNNSGt3N0RxTklGSE1nRDVmak9BYmE0dzRXNWdHZm1iRlB6U1pm?=
+ =?utf-8?B?N0ZKYldxa3F2bW5DeWxWOENNWWh5b2lRclNjYjgzaGNHQzZFMWxRRFpqZFVP?=
+ =?utf-8?B?RVU2Umt5MTdCRnFQOVNVWEJ6dlN4ZU5JQ2F0eFc0ZTBVK1R6R1p2dnBJcmp6?=
+ =?utf-8?B?T203ZjVYOExsU2ZrTUlIQlFHRFFpbnQ2YmVEVG1uTm1kNnJUcFFXRlBHblFi?=
+ =?utf-8?B?UnV1eDV6SmNQbGVvWmo4VXQ2MzhycmpXOXVxTWpnbnFuMnMwRFE2RlV2RGs0?=
+ =?utf-8?B?RGJmZVdHd1BlUGxlTTl4SWpNMit2TzgzVFZURkRuZDF1SXR2WmxaR0RMUVRB?=
+ =?utf-8?B?TTNyc3pGRFhmaDVOdCtwa3hIMkRCV0RWTTFEZ3BTWlYxY2txVzRTMzZLK2t6?=
+ =?utf-8?B?eHQxSGg2bDBKVVlyS2ZrNC9kejFoVzhwNHYrWCtuYndZdmtEMDIzWXlwNk9R?=
+ =?utf-8?B?TStCUUhtcTZIY0Q0NHNtVEg0amd4VS9hRnhLTW1GTWpDVzF5VTVCVlplYXVY?=
+ =?utf-8?B?ZzR1cFg3VUM5WVo3bVI4Y3MrSEtMNUEwcGxHVHoybFpFS3V3dE9rUkFlRGlT?=
+ =?utf-8?B?MUtPdEZTN01QSUF1QkFQMzVKSG9JZHJjZGZ4eUdjNFV4NitOS1d1QWpobEg3?=
+ =?utf-8?B?b0gyK0RjR29CSXZITDVqVEYvanpUUWRyai9xZTA1dTJiQjFHL3hzOVZpWE05?=
+ =?utf-8?B?cTRScmdycDNFdnhEN1F4LzFIbXp5ZHg1UGpCNnpTTTloNFprWnlMQUtkR2FB?=
+ =?utf-8?B?SzM0dlpKSHEzZ3MzRXBuWkpDUDZ3eHZCaXZHM1FCUk85WHN4S1JlU0FrZDJ6?=
+ =?utf-8?B?S1JZT2pjWTNtVnRSYmVlZ25TUlNpREp4WVBuK0RqWWc5bm85YkVZNnBhWUtZ?=
+ =?utf-8?B?a1VPeHFjd3dIUm0xRmVheEhzYmtBcFpPekpSVmRKMUU1U1ZJRWxCNW5wWUVU?=
+ =?utf-8?B?Qm9SNkQrcmZJeTRuWEZCbU9DbXNkbU9uR0xGL1NwSVoyVFlkV1dwSkxpYU13?=
+ =?utf-8?B?dnl0bnBOTG96L05qeTcrTG1TNnBuTVBZR1lOWWpTSURvcGtsY1FHYis4SU9Q?=
+ =?utf-8?Q?NwsRPNAx+LiVJa9zbR?=
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 6bc8c2ba-fb9a-4869-0141-08df44674be6
+X-MS-Exchange-CrossTenant-AuthSource: DM4PR12MB5039.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 17 Nov 2026 04:57:35.9161 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: M87wwP7IdemKIYZfUJh4ABQwyIWacD40khjF5RakJoCJX68MP5yV5Ghj3XKE7ulRqi0mD+ipfq8+qgnOtI/mQA==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: CH3PR12MB7545
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -69,106 +135,255 @@ List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-5.8 required=3.0 tests=BAYES_00,DKIM_SIGNED,
-	DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
-	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS autolearn=no
-	autolearn_force=no version=4.0.1
+X-Spam-Status: No, score=-17.3 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
+	DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
+	INCLUDES_CR_TRAILER,INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,
+	SPF_PASS,USER_AGENT_SANE_1 autolearn=ham autolearn_force=no
+	version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-Hi all,
 
-3/3 says "5 of 9 cold PORs became 15 out of 15" and leaves it at that.  That
-is the only place the Q28 evidence has ever appeared upstream, and it does not
-let anyone judge it.  Here is the underlying data and, more importantly, the
-boundary of what it does and does not show.  No code change in this message;
-take it as material for the commit message if you think it belongs there.
 
-Board: Lenovo Y700 Gen4 (TB322FC), SM8750P, bonded dual-DSI panel
-"csot,pp8807hb1-1" (driver novatek,nt36536), 1904x3040, DSC, two DSI hosts.
+On 11/15/2026 9:23 PM, Yadav, Sanjay Kumar wrote:
+>
+> On 09-11-2026 12:10, Arunpravin Paneer Selvam wrote:
+>> Hi Sanjay,
+>>
+>> On 11/2/2026 10:46 AM, Sanjay Yadav wrote:
+>>> __alloc_range_bias() walks the buddy tree depth-first, higher address
+>>> first, and descends every SPLIT block even when nothing below it is
+>>> free. Range allocations are placed top-down, so they pack below the
+>>> range end and each new one walks every block already allocated there:
+>>> O(N) per allocation and O(N^2) for N allocations, under the allocator
+>>> lock.
+>>>
+>>> Track in each block the largest order of any FREE block in its subtree
+>>> (GPU_BUDDY_NO_FREE_ORDER if none), update it when a block is allocated
+>>> or freed, and skip subtrees that cannot satisfy the requested order.
+>>> Splitting needs no update of its own, as both children are marked free
+>>> right after and that propagates the new value up.
+>>> gpu_buddy_block_trim() detaches the block before freeing it, so updates
+>>> stop there while re-allocating inside it; recompute from the parent
+>>> once it is reattached.
+>>>
+>>> Skipped subtrees contain no FREE block of the requested order or
+>>> larger, so the old walk could neither split nor return anything there.
+>>> The remaining blocks are visited in the same order, so the selected
+>>> block and placement are unchanged.
+>> I am not receiving some of the emails you are. sending me. I think 
+>> there may be an issue with my mailbox, so I need to check that on my 
+>> side.
+>> William has also been working on improving the range-allocation 
+>> performance in drm_buddy. His patch is here:
+>>
+>> https://patchwork.freedesktop.org/patch/763478/
+>>
+>> Since both patches are trying to improve the same range-allocation 
+>> path, I would like to converge on a single upstream approach rather 
+>> than carry separate optimizations.
+>> I have put together a version based on William’s offset-sorted 
+>> free-tree approach, extending the search to be class-aware:
+>>
+>> https://gitlab.freedesktop.org/arunpravin24/drm-buddy-range-wip/-/commit/72414977d38f4bcf7a364c64f24aa7f25cf699d9 
+>>
+>>
+>> With this approach, we can remove the buddy-tree DFS walk entirely. 
+>> Cleared blocks are located using the existing subtree_block_state 
+>> augmentation, and top-down placement comes directly from the 
+>> offset-sorted free trees, reducing the lookup to an O(log n) 
+>> free-tree search followed by a small bounded scan.
+>>
+>> @Sanjay, could you take a look at the version above? I think it would 
+>> be better to follow this approach upstream and create a patch with 
+>> the test cases around it.
+> I tested your WIP on our side (applied on current drm-tip, on top of
+> the merged two-pass guard).
+>
+> BMG, CPU-visible BAR resized to 4GB, xe_pat@pt-caching-random-offsets:
+>
+>   drm-tip                 ~48-51s
+>   drm-tip + my v4         ~0.7s
+>   drm-tip + your WIP      ~0.75s
+>  (drm-tip, full BAR       ~0.7s, range path not used)
+> So your version fixes the xe small-BAR case as well as v4 and looks 
+> good to me.
+> v4(already R-b/T-b by Joel) could go in first as the small fix and your
+> series replace the walk on top. Whichever you and Matt prefer.
+Okay, please confirm with Matthew. If this is the final version, I will 
+merge it upstream.
 
-1. What actually fails, and how it is classified
-
-The failure is a cold boot (real power-on reset) that brings up no image.  It
-is ~50% of cold PORs, it is random per boot, and it clusters in time; it is
-independent of the kernel image - the same binary is good and then bad in
-neighbouring boots, and seven different kernel variants were tested against
-this.  Three distinguishable forms:
-
-  A. cardN exists, panel init fails.  Five dmesg lines, in order:
-       command DMA timeout: status=0x2200200
-       peer command DMA timeout: status=0x2200200
-       bonded command DMA failed: master=-110 peer=-110
-       sending dcs data ff 20 failed: -110
-       Failed to initialize panel: -5
-     followed by intf1/ctl 1 reset failure -22 and a vblank/frame-done storm.
-  B. no DRM card at all, with "DSI PLL(0) lock failed, status=0x00000000" at
-     about 0.86 s and a failed device link for panel@0.
-  C. dark panel with everything in the DRM state looking healthy: connector
-     connected, DPMS On, frame counter advancing, backlight non-zero, and the
-     DSI pclk held.  This one is the reason "no DMA timeout in dmesg" must not
-     be read as "display works".
-
-The only physical discriminator we found for C is the DSI interrupt counter:
-41 on a lit panel, 0 on a dark one, with identical DRM state.
-
-2. Why "reset the MDSS blocks" was picked
-
-Because in a bad boot the failure is not inside the DSI controller and a DSI
-host reset does not clear it.  Registers read from a live bad boot:
-STATUS0 = 0x20003 (engine and DMA busy), DSI interrupt count 0, PLL unlocked
-bit not set (the PLL is locked), and CLK_STATUS sitting at 0x1743/0x3743 with
-DYN_PCLK_ACTIVE never released, where a healthy boot shows 0x343 -> 0x743 ->
-0x343 around each command.  Repeated retries after that point fail with
-identical values, which is why a single bad boot costs the whole session.
-
-Against that, the change under review makes the display driver de-assert the
-MDSS block resets described in DT before anything is programmed, which puts
-the whole MDSS block into a known state before the first DCS command.
-
-3. The measurements
-
-Campaign of 23 real power-on resets, arms sampled alternately in the same
-session, identical kernel/config/ramdisk/dtb/cmdline except for the change:
-
-  base (no reset)                 9 boots: 4 good, 5 storm
-  base + MDSS block reset         5 boots: 5 good
-  base + block reset + DIGTOP    10 boots: 10 good
-  base + DIGTOP only              4 boots: 1 good, 3 storm
-
-Fisher exact, two-sided: block-reset+DIGTOP vs base p = 0.011; DIGTOP alone
-vs base p = 1.0 (no effect); the two arms containing the block reset merged,
-15/15 vs 4/9, p = 0.003.  So the block reset is the thing that does something;
-the DIGTOP/PLL-lock tweak does not, on its own, at all.
-
-Moving the same reset out of the clock driver's probe into the display driver
-(the shape of this series) then measured 5/5 good cold PORs.
-
-4. Two boundaries I do not want to paper over
-
-- The 15/15 figure is a merged group and it predates this series' shape.  It
-  measures "MDSS block resets are de-asserted by the display side early", not
-  literally patch 2/3 of v5.
-- The reset set that was measured on hardware is the three-entry set (core,
-  core_int2, rscc).  After sashiko's remark about 0xa000 v4/v5 dropped to two
-  entries, and the two-entry set has not been through a cold-boot sample yet,
-  nor has 0xa000 been varied on its own.  A paired cold-boot run of two-entry
-  vs three-entry is queued; until it completes, 3/3 stays worded as "not
-  repeated with this exact set" rather than as equivalent.
-
-5. What I would like to know
-
-Is this evidence useful for merging the series, or would you rather see it
-condensed into 2/3's commit message?  And separately: given that the failure
-is a cold-boot race that upstream cannot reproduce on any other board we know
-of, is a quirk-style "reset everything described in DT" acceptable here on its
-own merits, or does it need to be tied to a named hardware erratum to be
-mergeable?
-
-AI-assistance disclosure: this message was drafted with an LLM coding
-assistant; the author verified every number and register value above against
-his own logs and test records and takes responsibility for it.
-
-Thanks,
-Qianhui
+Regards,
+Arun.
+>>
+>> @William, could you also take a look at the version above? Hopefully 
+>> we can follow the same approach when porting this optimization to the 
+>> older dual-free-tree branch
+>> used by the ROCm versions you are targeting.
+>>
+>> Thanks,
+>>  Arun
+>>>
+>>> v4: (Matt A)
+>>> - Drop the update in mark_split(), the children being marked free
+>>>    updates the parent
+>>> - Detach the block before __mark_free() in gpu_buddy_block_trim(), so
+>>>    only the final update from the parent propagates up
+>>> - Drop the order, is_allocated() and is_free() checks in
+>>>    __alloc_range_bias() that the pruning check now covers
+>>>
+>>> Cc: Matthew Auld <matthew.auld@intel.com>
+>>> Cc: Arun Pravin <arunpravin.paneerselvam@amd.com>
+>>> Cc: Joel Fernandes <joelagnelf@nvidia.com>
+>>> Assisted-by: LLM
+>>> Signed-off-by: Sanjay Yadav <sanjay.kumar.yadav@intel.com>
+>>> ---
+>>>   drivers/gpu/buddy.c       | 56 
+>>> +++++++++++++++++++++++++++------------
+>>>   include/linux/gpu_buddy.h |  7 +++++
+>>>   2 files changed, 46 insertions(+), 17 deletions(-)
+>>>
+>>> diff --git a/drivers/gpu/buddy.c b/drivers/gpu/buddy.c
+>>> index 28cff97d57dc..93f70c98b235 100644
+>>> --- a/drivers/gpu/buddy.c
+>>> +++ b/drivers/gpu/buddy.c
+>>> @@ -602,6 +602,7 @@ static struct gpu_buddy_block 
+>>> *gpu_block_alloc(struct gpu_buddy *mm,
+>>>       block->header = offset;
+>>>       block->header |= order;
+>>>       block->parent = parent;
+>>> +    block->subtree_max_free_order = GPU_BUDDY_NO_FREE_ORDER;
+>>>         RB_CLEAR_NODE(&block->rb);
+>>>   @@ -717,6 +718,27 @@ static void rbtree_remove(struct gpu_buddy *mm,
+>>>       RB_CLEAR_NODE(&block->rb);
+>>>   }
+>>>   +static void update_subtree_max_free_order(struct gpu_buddy_block 
+>>> *block)
+>>> +{
+>>> +    while (block) {
+>>> +        s8 max_free;
+>>> +
+>>> +        if (gpu_buddy_block_is_free(block))
+>>> +            max_free = gpu_buddy_block_order(block);
+>>> +        else if (gpu_buddy_block_is_split(block))
+>>> +            max_free = max(block->left->subtree_max_free_order,
+>>> + block->right->subtree_max_free_order);
+>>> +        else
+>>> +            max_free = GPU_BUDDY_NO_FREE_ORDER;
+>>> +
+>>> +        if (block->subtree_max_free_order == max_free)
+>>> +            break;
+>>> +
+>>> +        block->subtree_max_free_order = max_free;
+>>> +        block = block->parent;
+>>> +    }
+>>> +}
+>>> +
+>>>   static void mark_allocated(struct gpu_buddy *mm,
+>>>                  struct gpu_buddy_block *block)
+>>>   {
+>>> @@ -729,6 +751,7 @@ static void mark_allocated(struct gpu_buddy *mm,
+>>>       mm->used_scoreboard[gpu_buddy_block_order(block)]++;
+>>>         rbtree_remove(mm, block);
+>>> +    update_subtree_max_free_order(block);
+>>>   }
+>>>     static void __mark_free(struct gpu_buddy *mm,
+>>> @@ -750,6 +773,7 @@ static void __mark_free(struct gpu_buddy *mm,
+>>>       mm->free_scoreboard[gpu_buddy_block_order(block)]++;
+>>>         rbtree_insert(mm, block);
+>>> +    update_subtree_max_free_order(block);
+>>>   }
+>>>     static void mark_free(struct gpu_buddy *mm,
+>>> @@ -869,6 +893,8 @@ int gpu_buddy_init(struct gpu_buddy *mm, u64 
+>>> size, u64 chunk_size)
+>>>         size = round_down(size, chunk_size);
+>>>   +    BUILD_BUG_ON(GPU_BUDDY_MAX_ORDER > S8_MAX);
+>>> +
+>>>       mm->size = size;
+>>>       mm->avail = size;
+>>>       mm->chunk_size = chunk_size;
+>>> @@ -1277,7 +1303,7 @@ __alloc_range_bias(struct gpu_buddy *mm,
+>>>             list_del(&block->tmp_link);
+>>>   -        if (gpu_buddy_block_order(block) < order)
+>>> +        if (block->subtree_max_free_order < (int)order)
+>>>               continue;
+>>>             block_start = gpu_buddy_block_offset(block);
+>>> @@ -1286,9 +1312,6 @@ __alloc_range_bias(struct gpu_buddy *mm,
+>>>           if (!overlaps(start, end, block_start, block_end))
+>>>               continue;
+>>>   -        if (gpu_buddy_block_is_allocated(block))
+>>> -            continue;
+>>> -
+>>>           if (block_start < start || block_end > end) {
+>>>               u64 adjusted_start = max(block_start, start);
+>>>               u64 adjusted_end = min(block_end, end);
+>>> @@ -1298,16 +1321,10 @@ __alloc_range_bias(struct gpu_buddy *mm,
+>>>                   continue;
+>>>           }
+>>>   +        /* Not pruned at @order, so this block itself is FREE */
+>>>           if (contains(start, end, block_start, block_end) &&
+>>> -            order == gpu_buddy_block_order(block)) {
+>>> -            /*
+>>> -             * Find the free block within the range.
+>>> -             */
+>>> -            if (gpu_buddy_block_is_free(block))
+>>> -                return block;
+>>> -
+>>> -            continue;
+>>> -        }
+>>> +            order == gpu_buddy_block_order(block))
+>>> +            return block;
+>>>             if (!gpu_buddy_block_is_split(block)) {
+>>>               err = split_block(mm, block);
+>>> @@ -1856,13 +1873,17 @@ int gpu_buddy_block_trim(struct gpu_buddy *mm,
+>>>                            gpu_buddy_block_offset(block),
+>>>                            gpu_buddy_block_size(mm, block));
+>>>   -    __mark_free(mm, block, was_clear ? GPU_BLOCK_CLEAR : 
+>>> GPU_BLOCK_DIRTY);
+>>> -    mm->avail += gpu_buddy_block_size(mm, block);
+>>> -
+>>> -    /* Prevent recursively freeing this node */
+>>> +    /*
+>>> +     * Detach the block to prevent recursively freeing this node, 
+>>> and to
+>>> +     * keep free-order updates from propagating above it until the 
+>>> trim
+>>> +     * is done.
+>>> +     */
+>>>       parent = block->parent;
+>>>       block->parent = NULL;
+>>>   +    __mark_free(mm, block, was_clear ? GPU_BLOCK_CLEAR : 
+>>> GPU_BLOCK_DIRTY);
+>>> +    mm->avail += gpu_buddy_block_size(mm, block);
+>>> +
+>>>       list_add(&block->tmp_link, &dfs);
+>>>       err =  __alloc_range(mm, &dfs, new_start, new_size,
+>>>                    was_clear ? GPU_BUDDY_CLEAR_ALLOCATION : 0,
+>>> @@ -1881,6 +1902,7 @@ int gpu_buddy_block_trim(struct gpu_buddy *mm,
+>>>       }
+>>>         block->parent = parent;
+>>> +    update_subtree_max_free_order(parent);
+>>>       return err;
+>>>   }
+>>>   EXPORT_SYMBOL(gpu_buddy_block_trim);
+>>> diff --git a/include/linux/gpu_buddy.h b/include/linux/gpu_buddy.h
+>>> index ddc4eca84175..8037f5a0feb1 100644
+>>> --- a/include/linux/gpu_buddy.h
+>>> +++ b/include/linux/gpu_buddy.h
+>>> @@ -141,8 +141,15 @@ struct gpu_buddy_block {
+>>>       unsigned int subtree_max_alignment;
+>>>       struct list_head tmp_link;
+>>>       bool has_clear;
+>>> +    /*
+>>> +     * Largest order of any FREE block in this block's buddy 
+>>> subtree, or
+>>> +     * GPU_BUDDY_NO_FREE_ORDER if none. Protected by the driver lock.
+>>> +     */
+>>> +    s8 subtree_max_free_order;
+>>>   };
+>>>   +#define GPU_BUDDY_NO_FREE_ORDER (-1)
+>>> +
+>>>   /* Order-zero must be at least SZ_4K */
+>>>   #define GPU_BUDDY_MAX_ORDER (63 - 12)
+>>
 
