@@ -2,67 +2,77 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 30A57606A31C
-	for <dri-devel@archiver.kernel.org>; Tue, 17 Nov 2026 13:27:47 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E9C9A606A33F
+	for <dri-devel@archiver.kernel.org>; Tue, 17 Nov 2026 13:28:17 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=pixelcluster.dev header.i=@pixelcluster.dev header.a=rsa-sha256 header.s=ovhmo-selector-1 header.b=JHsFwdSx
+	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=mimecast20190719 header.b=ix68TqQC
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 60D4D10E5F6;
-	Tue, 17 Nov 2026 13:27:41 +0000 (UTC)
-Received: from 4.mo2.mail-out.ovh.net (4.mo2.mail-out.ovh.net [46.105.54.237])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 251C910E5F6
- for <dri-devel@lists.freedesktop.org>; Tue, 17 Nov 2026 13:27:35 +0000 (UTC)
-Received: from director4.derp.mail-out.ovh.net
- (director4.derp.mail-out.ovh.net [79.137.60.37])
- by mo2.mail-out.ovh.net (Postfix) with ESMTPS id 4jTPjH2Wdkz44N9;
- Tue, 17 Nov 2026 12:50:43 +0000 (UTC)
-Received: from director4.derp.mail-out.ovh.net
- (director4.derp.mail-out.ovh.net. [127.0.0.1])
- by director4.derp.mail-out.ovh.net (inspect_sender_mail_agent) with SMTP
- for <Felix.Kuehling@amd.com>; Tue, 17 Nov 2026 12:50:42 +0000 (UTC)
-Received: from mta6.priv.ovhmail-u1.ea.mail.ovh.net (unknown [10.110.164.208])
- by director4.derp.mail-out.ovh.net (Postfix) with ESMTPS id
- 4jTPjG6jPwz21fD; Tue, 17 Nov 2026 12:50:42 +0000 (UTC)
-Received: from pixelcluster.dev (unknown [10.1.6.7])
- (Authenticated sender: nat@pixelcluster.dev)
- by mta6.priv.ovhmail-u1.ea.mail.ovh.net (Postfix) with ESMTPSA id 92A978E2108; 
- Tue, 17 Nov 2026 12:50:41 +0000 (UTC)
-Authentication-Results: garm.ovh; auth=pass
- (GARM-98R002d623240b-6686-4fdb-abce-ee1f3fc8c1a6,
- 00F4D7524EDFA56606BD67631AE7EA1B984E627F) smtp.auth=nat@pixelcluster.dev
-X-OVh-ClientIp: 141.95.41.139
-From: Natalie Vock <nat@pixelcluster.dev>
-Date: Tue, 17 Nov 2026 13:50:15 +0100
-Subject: [PATCH v2 09/10] drm/amdgpu: Add new AMDGPU_GEM_VA2 ioctl
+	by gabe.freedesktop.org (Postfix) with ESMTP id 54B4810F6F0;
+	Tue, 17 Nov 2026 13:28:12 +0000 (UTC)
+Received: from us-smtp-delivery-124.mimecast.com
+ (us-smtp-delivery-124.mimecast.com [170.10.129.124])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 7781E10F6F0
+ for <dri-devel@lists.freedesktop.org>; Tue, 17 Nov 2026 13:28:05 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+ s=mimecast20190719; t=1794922084;
+ h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+ to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding;
+ bh=pgk4Qd0GhYJ0WlbyQl7cozJzKhp0/3wkitfM0BBpn34=;
+ b=ix68TqQCEgIyeZv7M6+fxHLArQWu58ct6CdY3XX1mriRG6psdoArXCI5ofBBNsEfmTqxdR
+ NtlyA0wCQ86c8IDqaYfB1G/9RSUEnLXuBks94HFwjKsoH3huT5o2ATZsXyzX8grJNLmeMf
+ YsTcZnrVsnxc7VrAS9BzJj4PgicuEZk=
+X-MC-Rep: binary re single
+Received: from mx-prod-mc-05.mail-002.prod.us-west-2.aws.redhat.com
+ (ec2-54-186-198-63.us-west-2.compute.amazonaws.com [54.186.198.63]) by
+ relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.3,
+ cipher=TLS_AES_256_GCM_SHA384) id us-mta-115-Nn1SvXetM7qk3lUdHznLWw-1; Tue,
+ 17 Nov 2026 08:28:00 -0500
+X-MC-Unique: Nn1SvXetM7qk3lUdHznLWw-1
+X-Mimecast-MFC-AGG-ID: Nn1SvXetM7qk3lUdHznLWw_1794922079
+Received: from mx-prod-int-05.mail-002.prod.us-west-2.aws.redhat.com
+ (mx-prod-int-05.mail-002.prod.us-west-2.aws.redhat.com [10.30.177.17])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+ (No client certificate requested)
+ by mx-prod-mc-05.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS
+ id F3C8E195608A; Tue, 17 Nov 2026 13:27:57 +0000 (UTC)
+Received: from aesteve-thinkpadp1gen8.rmtes.csb
+ (headnet04.pony-001.prod.iad2.dc.redhat.com [10.2.32.116])
+ by mx-prod-int-05.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS
+ id 887AC1956087; Tue, 17 Nov 2026 13:27:54 +0000 (UTC)
+From: Albert Esteve <aesteve@redhat.com>
+Subject: [PATCH v7 0/3] cgroup: dmem: add selftest helper and coverage
+Date: Tue, 17 Nov 2026 14:27:45 +0100
+Message-Id: <20261117-kunit_cgroups-v7-0-5bcbfe17f323@redhat.com>
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/2XP3UrEMBCG4VtZcmwlP5OZZI+8DxFp0mQbxHZJu
+ 0VZeu+mi1BND7+B54W5synkFCZ2Pt1ZDkua0jiUQU8n5vt2uIQmdWUzySVyJUzzcRvS/O4vebx
+ dp4ai484GBC6IFXPNIaavR+/1rew+TfOYvx/5RWzX35KkqrSIhjeWhFOelG05f8mh69v52Y+fb
+ EstcucgRc1l4c4hku6MBOsPXO1cc6i5KhxC6y13hNGKA4c/XNiaQ+ERvYxgTWwDHLjeOXGsuS4
+ cPUhvSCtAc+C4c6MOv+PGlUNPaLU09I+v6/oDoy37ZuYBAAA=
+X-Change-ID: 20260318-kunit_cgroups-7fb0b9e64017
+To: Tejun Heo <tj@kernel.org>, Johannes Weiner <hannes@cmpxchg.org>, 
+ =?utf-8?q?Michal_Koutn=C3=BD?= <mkoutny@suse.com>, 
+ Shuah Khan <shuah@kernel.org>, Maarten Lankhorst <dev@lankhorst.se>, 
+ Natalie Vock <nat@pixelcluster.dev>
+Cc: linux-kernel@vger.kernel.org, cgroups@vger.kernel.org, 
+ linux-kselftest@vger.kernel.org, dri-devel@lists.freedesktop.org, 
+ Albert Esteve <aesteve@redhat.com>, echanude@redhat.com, mripard@kernel.org, 
+ R Nageswara Sastry <rnsastry@linux.ibm.com>
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1794922072; l=4451;
+ i=aesteve@redhat.com; s=20260827; h=from:subject:message-id;
+ bh=J54cefq5pNs4CXyHrRneTBJTDa9pohFCkKAQn13xwl4=;
+ b=XW1BcOhusZr1LLixs2v/qsL0BnNTojGLahXgKDyYC7ikOFNMK70fa2Nu8+6RdnCGhIvcEEM9g
+ v8FJqQd2H2yAUyMfBGQ015Jilz/c0sIUchLmr+Zh9z2b01kqtSkkURD
+X-Developer-Key: i=aesteve@redhat.com; a=ed25519;
+ pk=zI2RBeZgocwYm3AkJW4CtjoJnKoDZrfBl1xe5Ed6h+U=
+X-Scanned-By: MIMEDefang 3.0 on 10.30.177.17
+X-Mimecast-MFC-PROC-ID: 3ZuqDcKqFKwjcNb_3yeiJgfWy5q2keqJ_k0ItLgVD04_1794922079
+X-Mimecast-Originator: redhat.com
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20261117-prt-explicit-sync-v2-9-bb3851cb6a0c@pixelcluster.dev>
-References: <20261117-prt-explicit-sync-v2-0-bb3851cb6a0c@pixelcluster.dev>
-In-Reply-To: <20261117-prt-explicit-sync-v2-0-bb3851cb6a0c@pixelcluster.dev>
-To: Felix Kuehling <Felix.Kuehling@amd.com>, 
- Alex Deucher <alexander.deucher@amd.com>, 
- =?utf-8?q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>, 
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
- =?utf-8?q?Timur_Krist=C3=B3f?= <timur.kristof@gmail.com>
-Cc: amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org, 
- linux-kernel@vger.kernel.org, Natalie Vock <nat@pixelcluster.dev>
-X-Mailer: b4 0.15.2
-x-ovh-tracer-id: 5594033690946330940
-X-VR-SPAMSTATE: OK
-X-VR-SPAMSCORE: -100
-X-VR-SPAMCAUSE: dmFkZTERuWf9niPU17M4cejTha5MvWh9zMWA4KllIMlbKPwQ8zT8Kc9+GODy+7C3jqbNOQEofWfqAunvaaeJYKie28HeReze4mtF00BIF/RXYJrbtCHuFX+AaZGkIQA49vUR9FWNrNXyGLZIgGZn/YEvRvysg9ZQv4QfqhD4orQKhp5zIBF5HoOGvroNmN2xRgRDxuwczAob+DdGBjj793yYNyL1KtYokDM4LvXpAUHd16mGS9/D+A5oBTu2bYFeRwCZrjMwWWL8TWQ4XfKh/oi1xWyO+UA5dSDoSooS4aB1LVoZbKeaH4vzd8bWntwr+HuiZRg+VvID9DCJFLazom3lehDIBrzC+HP1OPTbJA39xuSgB8nv9Q+fB6TZuMPKkeujW2RRDDOuHGYwEgHxryEp93oFZd2fruL3inFNKzJ4B5T3VoVRbENo3tLYZnaDn4EePDvNYIrqiOGAMSb7RRNEk+bYA4qheC73H+eHT46sizMGyxmwoWcVz50e9MQ2E/v+p5No7WTcYKLkrekkpZk8PW0wmuVsT61+wcYHEWQ9r7seq25azTNSGSlifpf7GJa19bdUD26F8SF/zGCQoz+aFVWByNSH8MZQSd6hADFxaSn48PV8gHjNdxyWwl6mZZgze56GXrfnHMfoAnQbSgTQv1sg28oB67dcN1vX7ZFN1tSnPg
-DKIM-Signature: a=rsa-sha256; bh=OitqE5fs+toNhCDhUPRzKw5sdlQryxw1egGAlNc26kA=; 
- c=relaxed/relaxed; d=pixelcluster.dev; h=From;
- s=ovhmo-selector-1; t=1794919844; v=1;
- b=JHsFwdSxCWmIxinrpq4VzJiX5JWzGNocp3uxpZ/ex1FydG9T/uwBkNXb3WI5EUnX8nh3+QrX
- 08QgQ8uL08JeSCkJRDhxR9bVVh+qIqAqyPQRJOPXcYwErYBGKXdifo7RL9Q8Ak96pifu6w1nmbF
- tZbhNa2rrfsivoMv+G5+nQIoc7yRpeM/lGf5T7D6Jtrhn1j9jxrKp+pJjTgdrVATSHfgrwZCIfq
- 7FzSUtz9HHTqmZRTV716ypvV3YAdANyr0SdtJu4l+OjGmF+dV3EdCCXuOmbE+jvCnk5kSg/Wgg8
- 8dIlLPdw3sxm5kxAFJQTY3uMmUPyI7WGnTXwghWyJCJBA==
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -74,536 +84,116 @@ List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-18.8 required=3.0 tests=BAYES_00,DKIM_SIGNED,
-	DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
+X-Spam-Status: No, score=-15.8 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
+	DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
 	INCLUDES_CR_TRAILER,INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,
-	SPF_PASS,USER_AGENT_GIT autolearn=unavailable autolearn_force=no
-	version=4.0.1
+	SPF_PASS autolearn=unavailable autolearn_force=no version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-This new ioctl is a modernized version of AMDGPU_GEM_VA, with the
-main changes being support for many operations batched in one ioctl,
-and a better sync model that allows passing multiple syncobjs for
-both wait and signal. Timeline syncobj are now properly supported in
-both wait and signal cases.
+Hi all,
 
-One breaking change compared to AMDGPU_GEM_VA is that
-synchronization is now explicit (where possible), meaning that
-previous submissions are not necessarily waited on.
+This small series adds practical test coverage for the dmem
+cgroup controller.
 
-Using this ioctl allows applications that hammer lots of sparse
-operations, particularly some games running under Proton, to see
-significant reductions in stuttering.
+The motivation came from following the recent dmem API discussion in
+thread [1]. That discussion considered changing the dmem API and
+adding a new knob. Currently there are no dedicated tests covering
+dmem behaviour, which makes such changes riskier.
 
-Signed-off-by: Natalie Vock <nat@pixelcluster.dev>
+No reviews were received on the last version. The series is small
+and self-contained, and was tested by R Nageswara Sastry, so
+reviewing it should be cheap.
+
+Adding selftests has an additional challenge: dmem charging paths
+are driver-driven today, so regression testing is harder unless a
+suitable driver is present in the test environment.
+
+This series addresses that by adding:
+- an out-of-tree dmem_selftest helper with alloc/free module parameters,
+- KB() definition next to existing MB()/GB() helpers
+- test_dmem for dmem.max enforcement and byte-accurate dmem.current
+
+The goal is to make dmem behavior easier to validate when evolving the API
+and implementation, while keeping tests deterministic and driver-independent.
+
+Thanks.
+
+[1] - https://lore.kernel.org/all/aZoHfloupKvF2oSu@fedora/
+
+Signed-off-by: Albert Esteve <aesteve@redhat.com>
 ---
- drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c |   3 +-
- drivers/gpu/drm/amd/amdgpu/amdgpu_gem.c | 348 +++++++++++++++++++++++++++++++-
- drivers/gpu/drm/amd/amdgpu/amdgpu_gem.h |   2 +
- include/uapi/drm/amdgpu_drm.h           |  46 +++++
- 4 files changed, 396 insertions(+), 3 deletions(-)
+Changes in v7:
+- Rebased onto v7.4-rc3. No functional changes since v6.
+- Link to v6: https://lore.kernel.org/r/20260831-kunit_cgroups-v6-0-63b6c7695287@redhat.com
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
-index 72b3710462824..188c8ec234c02 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
-@@ -3124,7 +3124,8 @@ const struct drm_ioctl_desc amdgpu_ioctls_kms[] = {
- 	DRM_IOCTL_DEF_DRV(AMDGPU_USERQ_WAIT, amdgpu_userq_wait_ioctl, DRM_AUTH|DRM_RENDER_ALLOW),
- 	DRM_IOCTL_DEF_DRV(AMDGPU_GEM_LIST_HANDLES, amdgpu_gem_list_handles_ioctl, DRM_AUTH|DRM_RENDER_ALLOW),
- 	DRM_IOCTL_DEF_DRV(AMDGPU_PROC_OPTIONS, amdgpu_proc_options_ioctl, DRM_AUTH|DRM_RENDER_ALLOW),
--	DRM_IOCTL_DEF_DRV(AMDGPU_UALINK_HANDLE, amdgpu_gem_ualink_handle_ioctl, DRM_AUTH|DRM_RENDER_ALLOW)
-+	DRM_IOCTL_DEF_DRV(AMDGPU_UALINK_HANDLE, amdgpu_gem_ualink_handle_ioctl, DRM_AUTH|DRM_RENDER_ALLOW),
-+	DRM_IOCTL_DEF_DRV(AMDGPU_GEM_VA2, amdgpu_gem_va2_ioctl, DRM_AUTH|DRM_RENDER_ALLOW),
- };
- 
- static const struct drm_driver amdgpu_kms_driver = {
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_gem.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_gem.c
-index fb7abb095b8ec..0d77103b0a973 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_gem.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_gem.c
-@@ -53,10 +53,13 @@ static int
- amdgpu_gem_add_input_fence(struct drm_file *filp,
- 			   struct amdgpu_vm_update_ctx *update_ctx,
- 			   uint64_t syncobj_handles_array,
-+			   uint64_t syncobj_points_array,
- 			   uint32_t num_syncobj_handles)
- {
- 	struct dma_fence *fence;
- 	uint32_t *syncobj_handles;
-+	uint64_t *syncobj_points;
-+	uint64_t point;
- 	int ret, i;
- 
- 	if (!num_syncobj_handles)
-@@ -67,6 +70,17 @@ amdgpu_gem_add_input_fence(struct drm_file *filp,
- 	if (IS_ERR(syncobj_handles))
- 		return PTR_ERR(syncobj_handles);
- 
-+	if (syncobj_points_array) {
-+		syncobj_points = memdup_user(u64_to_user_ptr(syncobj_points_array),
-+					      size_mul(sizeof(uint64_t), num_syncobj_handles));
-+		if (IS_ERR(syncobj_points)) {
-+			kfree(syncobj_handles);
-+			return PTR_ERR(syncobj_handles);
-+		}
-+	} else {
-+		syncobj_points = NULL;
-+	}
-+
- 	for (i = 0; i < num_syncobj_handles; i++) {
- 
- 		if (!syncobj_handles[i]) {
-@@ -74,7 +88,9 @@ amdgpu_gem_add_input_fence(struct drm_file *filp,
- 			goto free_memdup;
- 		}
- 
--		ret = drm_syncobj_find_fence(filp, syncobj_handles[i], 0, 0, &fence);
-+		point = syncobj_points ? syncobj_points[i] : 0;
-+
-+		ret = drm_syncobj_find_fence(filp, syncobj_handles[i], point, 0, &fence);
- 		if (ret)
- 			goto free_memdup;
- 
-@@ -87,9 +103,111 @@ amdgpu_gem_add_input_fence(struct drm_file *filp,
- 
- free_memdup:
- 	kfree(syncobj_handles);
-+	kfree(syncobj_points);
- 	return ret;
- }
- 
-+struct amdgpu_gem_timeline_out {
-+	struct drm_syncobj **syncobjs;
-+	struct dma_fence_chain **chains;
-+	uint64_t *timeline_points;
-+};
-+
-+static int amdgpu_gem_prepare_timeline_nodes(
-+	struct drm_file *filp, uint64_t syncobj_handles_array,
-+	uint64_t syncobj_points_array, uint32_t num_syncobjs,
-+	struct amdgpu_gem_timeline_out *out)
-+{
-+	uint32_t *syncobj_handles;
-+	uint32_t i;
-+	int r;
-+
-+	syncobj_handles = memdup_user(u64_to_user_ptr(syncobj_handles_array),
-+				      size_mul(sizeof(uint32_t), num_syncobjs));
-+	if (IS_ERR(syncobj_handles))
-+		return PTR_ERR(syncobj_handles);
-+
-+	out->timeline_points =
-+		memdup_user(u64_to_user_ptr(syncobj_points_array),
-+			    size_mul(sizeof(uint64_t), num_syncobjs));
-+	if (IS_ERR(out->timeline_points)) {
-+		r = PTR_ERR(out->timeline_points);
-+		goto err_free_handles;
-+	}
-+
-+	out->chains = kzalloc_objs(*out->chains, num_syncobjs);
-+	if (!out->chains) {
-+		r = -ENOMEM;
-+		goto err_free_points;
-+	}
-+
-+	out->syncobjs = kzalloc_objs(*out->syncobjs, num_syncobjs);
-+	if (!out->syncobjs) {
-+		r = -ENOMEM;
-+		goto err_free_chains;
-+	}
-+
-+	for (i = 0; i < num_syncobjs; i++) {
-+		out->syncobjs[i] = drm_syncobj_find(filp, syncobj_handles[i]);
-+		if (!out->syncobjs[i]) {
-+			r = -ENOENT;
-+			goto err_loop_rollback;
-+		}
-+
-+		if (!out->timeline_points[i])
-+			continue;
-+
-+		out->chains[i] = dma_fence_chain_alloc();
-+		if (!out->chains[i]) {
-+			r = -ENOMEM;
-+			goto err_loop_rollback;
-+		}
-+
-+		continue;
-+err_loop_rollback:
-+		for (;;) {
-+			if (out->syncobjs[i])
-+				drm_syncobj_put(out->syncobjs[i]);
-+			if (out->chains[i])
-+				dma_fence_chain_free(out->chains[i]);
-+			if (i-- == 0)
-+				goto err_free_sync;
-+		}
-+	}
-+
-+	return 0;
-+
-+err_free_sync:
-+	kfree(out->syncobjs);
-+	out->syncobjs = NULL;
-+err_free_chains:
-+	kfree(out->chains);
-+	out->chains = NULL;
-+err_free_points:
-+	kfree(out->timeline_points);
-+	out->timeline_points = NULL;
-+err_free_handles:
-+	kfree(syncobj_handles);
-+	return r;
-+}
-+
-+static void amdgpu_gem_timeline_out_fini(struct amdgpu_gem_timeline_out *tl_out,
-+					 uint32_t num_syncobjs)
-+{
-+	uint32_t i;
-+
-+	for (i = 0; i < num_syncobjs; i++) {
-+		if (tl_out->syncobjs)
-+			drm_syncobj_put(tl_out->syncobjs[i]);
-+		if (tl_out->chains)
-+			dma_fence_chain_free(tl_out->chains[i]);
-+	}
-+
-+	kfree(tl_out->timeline_points);
-+	kfree(tl_out->syncobjs);
-+	kfree(tl_out->chains);
-+}
-+
- static int
- amdgpu_gem_update_timeline_node(struct drm_file *filp,
- 				uint32_t syncobj_handle,
-@@ -982,7 +1100,7 @@ int amdgpu_gem_va_ioctl(struct drm_device *dev, void *data,
- 
- 	/* Add input syncobj fences (if any) for synchronization. */
- 	r = amdgpu_gem_add_input_fence(filp, &update_ctx,
--				       args->input_fence_syncobj_handles,
-+				       args->input_fence_syncobj_handles, 0,
- 				       args->num_syncobj_handles);
- 	if (r)
- 		goto error_put_gobj;
-@@ -1100,6 +1218,232 @@ int amdgpu_gem_va_ioctl(struct drm_device *dev, void *data,
- 	return r;
- }
- 
-+int amdgpu_gem_va2_ioctl(struct drm_device *dev, void *data,
-+			 struct drm_file *filp)
-+{
-+	struct drm_amdgpu_gem_va2 *args = data;
-+	struct amdgpu_device *adev = drm_to_adev(dev);
-+	struct amdgpu_fpriv *fpriv = filp->driver_priv;
-+	struct drm_amdgpu_gem_va_mapping *mappings;
-+	struct amdgpu_gem_timeline_out tl_out;
-+	struct amdgpu_vm_update_ctx update_ctx;
-+	struct drm_gem_object *gobj;
-+	struct amdgpu_bo_va *bo_va;
-+	struct drm_exec exec;
-+	bool delay = false;
-+	u32 i;
-+	int r;
-+
-+	mappings = vmemdup_array_user(u64_to_user_ptr(args->mappings),
-+				      args->num_mappings,
-+				      sizeof(struct drm_amdgpu_gem_va_mapping));
-+	if (IS_ERR(mappings))
-+		return PTR_ERR(mappings);
-+
-+	r = amdgpu_gem_prepare_timeline_nodes(filp, args->syncobjs_out,
-+					      args->timeline_points_out,
-+					      args->num_syncobjs_out, &tl_out);
-+	if (r)
-+		goto out_free_mappings;
-+
-+	drm_exec_init(&exec,
-+		      DRM_EXEC_INTERRUPTIBLE_WAIT | DRM_EXEC_IGNORE_DUPLICATES,
-+		      0);
-+	amdgpu_vm_update_ctx_init(&update_ctx, adev, &fpriv->vm);
-+	update_ctx.explicit_sync_unmap = true;
-+
-+	r = amdgpu_gem_add_input_fence(filp, &update_ctx, args->syncobjs_in,
-+				       args->timeline_points_in,
-+				       args->num_syncobjs_in);
-+	if (r)
-+		goto out;
-+
-+	drm_exec_until_all_locked(&exec)
-+	{
-+		r = amdgpu_vm_lock_pd(&fpriv->vm, &exec, 2);
-+		drm_exec_retry_on_contention(&exec);
-+		if (unlikely(r))
-+			goto out;
-+
-+		for (i = 0; i < args->num_mappings; ++i) {
-+			r = amdgpu_gem_va_validate_args(adev, mappings[i].va,
-+							mappings[i].map_size,
-+							mappings[i].flags);
-+			if (r)
-+				goto out;
-+
-+			mappings[i].va &= AMDGPU_GMC_HOLE_MASK;
-+
-+			if (mappings[i].flags & AMDGPU_VM_DELAY_UPDATE) {
-+				/* Can't delay if we're supposed to signal fences */
-+				if (args->num_syncobjs_out) {
-+					r = -EINVAL;
-+					goto out;
-+				}
-+				/* If one mapping is delayed, all mappings must be delayed */
-+				if (i && !delay) {
-+					r = -EINVAL;
-+					goto out;
-+				}
-+			} else if (delay) {
-+				/* If one mapping is not delayed, no mappings may be delayed */
-+				r = -EINVAL;
-+				goto out;
-+			}
-+
-+			if ((mappings[i].operation != AMDGPU_VA_OP_CLEAR) &&
-+			    !(mappings[i].flags & AMDGPU_VM_PAGE_PRT)) {
-+				gobj = drm_gem_object_lookup(
-+					filp, mappings[i].handle);
-+				if (gobj == NULL) {
-+					r = -ENOENT;
-+					goto out;
-+				}
-+				bo_va = amdgpu_vm_bo_find(
-+					&fpriv->vm, gem_to_amdgpu_bo(gobj));
-+				if (!bo_va) {
-+					drm_gem_object_put(gobj);
-+					r = -ENOENT;
-+					goto out;
-+				}
-+			} else {
-+				gobj = NULL;
-+				bo_va = mappings[i].operation !=
-+							AMDGPU_VA_OP_CLEAR ?
-+						fpriv->prt_va :
-+						NULL;
-+			}
-+
-+			if (gobj) {
-+				r = drm_exec_lock_obj(&exec, gobj);
-+				if (drm_exec_is_contended(&exec))
-+					amdgpu_vm_update_ctx_rollback(
-+						&update_ctx);
-+				drm_exec_retry_on_contention(&exec);
-+				if (unlikely(r))
-+					goto out;
-+			}
-+
-+			switch (mappings[i].operation) {
-+			case AMDGPU_VA_OP_MAP:
-+				r = amdgpu_vm_bo_map(&update_ctx, bo_va,
-+						     mappings[i].va,
-+						     mappings[i].offset_in_bo,
-+						     mappings[i].map_size,
-+						     mappings[i].flags);
-+				break;
-+			case AMDGPU_VA_OP_UNMAP:
-+				r = amdgpu_vm_bo_unmap(&update_ctx, bo_va,
-+						       mappings[i].flags);
-+				break;
-+
-+			case AMDGPU_VA_OP_CLEAR:
-+				r = amdgpu_vm_bo_clear_mappings(
-+					&update_ctx, mappings[i].va,
-+					mappings[i].map_size);
-+				break;
-+			case AMDGPU_VA_OP_REPLACE:
-+				r = amdgpu_vm_bo_replace_map(
-+					&update_ctx, bo_va, mappings[i].va,
-+					mappings[i].offset_in_bo,
-+					mappings[i].map_size,
-+					mappings[i].flags);
-+				break;
-+			default:
-+				r = -EINVAL;
-+				break;
-+			}
-+
-+			/* It's fine to put our reference here, exec still holds one */
-+			drm_gem_object_put(gobj);
-+
-+			if (r)
-+				goto out;
-+		}
-+	}
-+
-+	r = amdgpu_vm_update_ctx_execute_replace(&update_ctx);
-+	if (r)
-+		goto out;
-+
-+	amdgpu_vm_update_ctx_commit(&update_ctx);
-+
-+	if (!delay && (!adev->debug_vm || args->num_syncobjs_out)) {
-+		struct dma_fence *fence, *merged;
-+
-+		if (!amdgpu_vm_ready(&fpriv->vm)) {
-+			fence = dma_fence_get_stub();
-+			goto insert_fence;
-+		}
-+
-+		r = amdgpu_vm_clear_freed(&update_ctx, &fpriv->vm.last_update);
-+		if (r) {
-+			drm_err(adev_to_drm(adev),
-+				"Could not clear freed PT entries: %d\n", r);
-+			goto insert_fence;
-+		}
-+
-+		fence = dma_fence_get(fpriv->vm.last_update);
-+
-+		list_for_each_entry(bo_va, &update_ctx.dirty_bo_vas,
-+				    update_link) {
-+			r = amdgpu_vm_bo_update(&update_ctx, bo_va, false);
-+			if (r) {
-+				drm_err(adev_to_drm(adev),
-+					"Could not update BO PT entries: %d\n", r);
-+				goto insert_fence;
-+			}
-+		}
-+
-+		list_for_each_entry(bo_va, &update_ctx.dirty_bo_vas,
-+				    update_link) {
-+			if (!amdgpu_vm_is_bo_always_valid(&fpriv->vm,
-+							  bo_va->base.bo)) {
-+				dma_fence_put(bo_va->last_pt_update);
-+				bo_va->last_pt_update = dma_fence_get(fence);
-+			}
-+		}
-+
-+		/* Always update PDEs after we touched the mappings. */
-+		r = amdgpu_vm_update_pdes(adev, &fpriv->vm, false);
-+		if (r)
-+			goto insert_fence;
-+
-+		merged = dma_fence_unwrap_merge(fence, fpriv->vm.last_update);
-+		if (!merged) {
-+			/* As fallback in OOM situations */
-+			dma_fence_wait(fpriv->vm.last_update, false);
-+			dma_fence_wait(fence, false);
-+			merged = dma_fence_get_stub();
-+		}
-+		fence = merged;
-+
-+insert_fence:
-+		for (i = 0; i < args->num_syncobjs_out; ++i) {
-+			if (!tl_out.timeline_points[i]) {
-+				/* Replace the existing fence when no point is given. */
-+				drm_syncobj_replace_fence(tl_out.syncobjs[i],
-+							  fence);
-+			} else {
-+				/* Attach the last-update fence at a specific point. */
-+				drm_syncobj_add_point(
-+					tl_out.syncobjs[i], tl_out.chains[i],
-+					fence, tl_out.timeline_points[i]);
-+				tl_out.chains[i] = NULL;
-+			}
-+		}
-+		dma_fence_put(fence);
-+	}
-+
-+out:
-+	amdgpu_vm_update_ctx_fini(&update_ctx);
-+	drm_exec_fini(&exec);
-+	amdgpu_gem_timeline_out_fini(&tl_out, args->num_syncobjs_out);
-+out_free_mappings:
-+	kvfree(mappings);
-+	return r;
-+}
-+
- int amdgpu_gem_op_ioctl(struct drm_device *dev, void *data,
- 			struct drm_file *filp)
- {
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_gem.h b/drivers/gpu/drm/amd/amdgpu/amdgpu_gem.h
-index b558336bc4c6c..38fafc978c834 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_gem.h
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_gem.h
-@@ -65,6 +65,8 @@ int amdgpu_gem_wait_idle_ioctl(struct drm_device *dev, void *data,
- 			      struct drm_file *filp);
- int amdgpu_gem_va_ioctl(struct drm_device *dev, void *data,
- 			  struct drm_file *filp);
-+int amdgpu_gem_va2_ioctl(struct drm_device *dev, void *data,
-+			 struct drm_file *filp);
- int amdgpu_gem_op_ioctl(struct drm_device *dev, void *data,
- 			struct drm_file *filp);
- int amdgpu_gem_list_handles_ioctl(struct drm_device *dev, void *data,
-diff --git a/include/uapi/drm/amdgpu_drm.h b/include/uapi/drm/amdgpu_drm.h
-index 29009f6aabde9..c9e52bfa7d028 100644
---- a/include/uapi/drm/amdgpu_drm.h
-+++ b/include/uapi/drm/amdgpu_drm.h
-@@ -60,6 +60,7 @@ extern "C" {
- #define DRM_AMDGPU_GEM_LIST_HANDLES	0x19
- #define DRM_AMDGPU_PROC_OPTIONS		0x1A
- #define DRM_AMDGPU_UALINK_HANDLE	0x1B
-+#define DRM_AMDGPU_GEM_VA2		0x1C
- 
- #define DRM_IOCTL_AMDGPU_GEM_CREATE	DRM_IOWR(DRM_COMMAND_BASE + DRM_AMDGPU_GEM_CREATE, union drm_amdgpu_gem_create)
- #define DRM_IOCTL_AMDGPU_GEM_MMAP	DRM_IOWR(DRM_COMMAND_BASE + DRM_AMDGPU_GEM_MMAP, union drm_amdgpu_gem_mmap)
-@@ -83,6 +84,7 @@ extern "C" {
- #define DRM_IOCTL_AMDGPU_GEM_LIST_HANDLES DRM_IOWR(DRM_COMMAND_BASE + DRM_AMDGPU_GEM_LIST_HANDLES, struct drm_amdgpu_gem_list_handles)
- #define DRM_IOCTL_AMDGPU_PROC_OPTIONS	DRM_IOWR(DRM_COMMAND_BASE + DRM_AMDGPU_PROC_OPTIONS, struct drm_amdgpu_proc_options)
- #define DRM_IOCTL_AMDGPU_UALINK_HANDLE DRM_IOWR(DRM_COMMAND_BASE + DRM_AMDGPU_UALINK_HANDLE, union drm_amdgpu_ualink_handle)
-+#define DRM_IOCTL_AMDGPU_GEM_VA2	DRM_IOW(DRM_COMMAND_BASE + DRM_AMDGPU_GEM_VA2, struct drm_amdgpu_gem_va)
- 
- /**
-  * DOC: memory domains
-@@ -945,6 +947,50 @@ struct drm_amdgpu_gem_va {
- 	__u64 input_fence_syncobj_handles;
- };
- 
-+struct drm_amdgpu_gem_va_mapping {
-+	/** GEM object handle */
-+	__u32 handle;
-+	/** AMDGPU_VA_OP_* */
-+	__u32 operation;
-+	/** AMDGPU_VM_PAGE_* */
-+	__u32 flags;
-+	__u32 _pad;
-+
-+	/** virtual address to assign . Must be correctly aligned.*/
-+	__u64 va;
-+	/** Specify offset inside of BO to assign. Must be correctly aligned.*/
-+	__u64 offset_in_bo;
-+	/** Specify mapping size. Must be correctly aligned. */
-+	__u64 map_size;
-+};
-+
-+struct drm_amdgpu_gem_va2 {
-+	/** Number of mapping ops in @mappings */
-+	__u32 num_mappings;
-+	__u32 _pad;
-+	/** Pointer to array of struct drm_amdgpu_gem_va_mapping */
-+	__u64 mappings;
-+
-+	/** Number of elements in @syncobjs_in and @timeline_points_in */
-+	__u32 num_syncobjs_in;
-+	/** Number of elements in @syncobjs_out and @timeline_points_out */
-+	__u32 num_syncobjs_out;
-+	/** Array of u32 syncobj handles to wait for before mapping */
-+	__u64 syncobjs_in;
-+	/**
-+	 * Array of timeline points, one for each object in @syncobjs_in.
-+	 * If the syncobj is binary, its corrensponding timeline point must be 0.
-+	 */
-+	__u64 timeline_points_in;
-+	/** Array of u32 syncobj handles to signal after mapping */
-+	__u64 syncobjs_out;
-+	/**
-+	 * Array of timeline points, one for each object in @syncobjs_out.
-+	 * If the syncobj is binary, its corrensponding timeline point must be 0.
-+	 */
-+	__u64 timeline_points_out;
-+};
-+
- #define AMDGPU_HW_IP_GFX          0
- #define AMDGPU_HW_IP_COMPUTE      1
- #define AMDGPU_HW_IP_DMA          2
+Changes in v6:
+- Drop virtme-ng wrappers
+- Build the helper out of tree, drop CONFIG_DMEM_SELFTEST
+- Rename charge/uncharge to alloc/free
+- Add KB() in cgroup_util.h
+- Use cg_read_key_long(), ARRAY_SIZE(), and KB()/MB() size literals
+- Drop test_dmem_min/low
+- Check dmem.current for exact equality
+- stat() the helper once in main() instead of per-subtest
+- Link to v5: https://lore.kernel.org/r/20260706-kunit_cgroups-v5-0-6c42c8753468@redhat.com
 
--- 
-2.56.1
+Changes in v5:
+- Change parse_first_region() by find_selftest_region to scan
+  dmem.capacity lines
+- Use exact equality for limit readback, not values_close()
+- Write VM tempfile to $SCRIPT_DIR
+- Fix KTAP by dropping outer framing in test_dmem
+- Use array for optional vng args to handle paths with spaces
+- Respect O=/KBUILD_OUTPUT= when building, per bpf/vmtest.sh convention
+- Link to v4: https://lore.kernel.org/r/20260519-kunit_cgroups-v4-0-f6c2f498fae4@redhat.com
+
+Changes in v4:
+- Fix charged_pool leak in dmem_selftest_init()
+- Replace ssh-based VM approach in vmtest-dmem.sh with vng --exec
+- Add main() wrapper to vmtest-dmem.sh
+- Other small fixes suggested by Sashiko
+- Link to v3: https://lore.kernel.org/r/20260504-kunit_cgroups-v3-0-4eac90b76f91@redhat.com
+
+Changes in v3:
+- Set charged flag on unexpected over-limit charge success.
+- Add CONFIG_DMEM_SELFTEST=m to selftest config.
+- Simplify -v to a boolean; single -v was a no-op.
+- Unquote kernel_opt to avoid empty-string arg to vng.
+- Document -b in usage() output.
+- Link to v2: https://lore.kernel.org/r/20260421-kunit_cgroups-v2-0-bb6675d8249c@redhat.com
+
+Changes in v2:
+- Fix debugfs_create_dir() error check
+- Fix module teardown race: call dmem_selftest_remove() before
+  uncharging so debugfs files are torn down
+- Use IS_ERR_OR_NULL() in selftest() sanity check
+- Add CONFIG_CGROUP_DMEM=y to the cgroup selftest config
+- Replace config-file parsing in check_guest_requirements() with
+  a direct check of /sys/fs/cgroup/cgroup.controllers
+- Add new patch 4 (from Eric Chanudet): vmtest-dmem.sh -b flag
+  to configure and build a local kernel tree
+- Link to v1: https://lore.kernel.org/r/20260327-kunit_cgroups-v1-0-971b3c739a00@redhat.com
+
+---
+Albert Esteve (3):
+      selftests: cgroup: Add dmem_selftest helper module
+      selftests: cgroup: Add KB() helper
+      selftests: cgroup: Add dmem selftest coverage
+
+ tools/testing/selftests/cgroup/.gitignore          |   1 +
+ tools/testing/selftests/cgroup/Makefile            |   3 +
+ tools/testing/selftests/cgroup/config              |   1 +
+ .../selftests/cgroup/lib/include/cgroup_util.h     |   1 +
+ tools/testing/selftests/cgroup/test_dmem.c         | 314 +++++++++++++++++++++
+ .../testing/selftests/cgroup/test_modules/Makefile |  17 ++
+ .../selftests/cgroup/test_modules/dmem_selftest.c  | 146 ++++++++++
+ 7 files changed, 483 insertions(+)
+---
+base-commit: 666539eecdf4db623f5e3c3e55cf9f2dfad24aa4
+change-id: 20260318-kunit_cgroups-7fb0b9e64017
+
+Best regards,
+--  
+Albert Esteve <aesteve@redhat.com>
 
