@@ -2,45 +2,45 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D43C0606A32A
-	for <dri-devel@archiver.kernel.org>; Tue, 17 Nov 2026 15:25:41 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6EDA9606A339
+	for <dri-devel@archiver.kernel.org>; Tue, 17 Nov 2026 15:25:44 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=akJKf4vk
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=kMScttj5
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id EA7FD10E633;
-	Tue, 17 Nov 2026 15:25:35 +0000 (UTC)
-Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 36C9E10E632;
+	by gabe.freedesktop.org (Postfix) with ESMTP id E848A10E635;
+	Tue, 17 Nov 2026 15:25:36 +0000 (UTC)
+Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 6C9AE10E633;
  Tue, 17 Nov 2026 15:25:30 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by tor.source.kernel.org (Postfix) with ESMTP id 642F4635AD;
+ by sea.source.kernel.org (Postfix) with ESMTP id 26DA0408AA;
+ Tue, 17 Nov 2026 15:25:30 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 92D051F000C5;
  Tue, 17 Nov 2026 15:25:29 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9FE9B1F000C7;
- Tue, 17 Nov 2026 15:25:28 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1794929129;
- bh=geAZF0Il5WD1+26bR5uT5bi5MaP/KecTvi/DYJOMYhE=;
+ s=k20260515; t=1794929130;
+ bh=bafEnHj9OQp2os8W30yYIs+yQ2nbAuaGSL1q+Ya78F4=;
  h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
- b=akJKf4vkqfnvJ5nLABh28AJjppT5zPwlLXoXjZQB/2wXkKK4pB8bQUdHm8STv03w2
- v5x2dHdQszcgDmB2oabeMJALqxf0f2VyWG8bpxGzpFr+hskhv12JpBI7BKlsXcsjGX
- 8e2nkqOgP6TX6bFXvqLEEKhIzUiL7UmgMpLnDsaL9c+jVZyknVNz00Y7tUtCI98DHE
- WcuE8fpSI3e5Zvbsj2hE1Pt7Hk/vt8UnlBgl+Ys9QUFb/stbOWK965mTMusgbm5xl9
- QeIzgxmhoDStywlrGlJPhfmvcsG8w060cX+mRuD4VnD5AZ9iOnJuWY0CWqVqHwANjx
- 1jpS9XNscsKPg==
-Message-ID: <sashiko-outbox-219062@kernel.org>
+ b=kMScttj50pgYGX4tOqXNqQxBd14vvfsQSvpxUJxIyXUsxkpzfQGWZIr0cscd0qvto
+ gT+R3gWwCzzJQA67X5fOYCjp2EP2k/ry806XWY3RacEvaiB7/uwm3KdH9ybfnROD5W
+ BDJH3wKectxTh4DNlslQFwJqDLHzR2KjxF98wOwKaaZQx9xL7snwWjwmEpMoIRexVw
+ BTy7GZQg2jsisz14TT8XNU9xjSkHzrX0HSU8iilG89Vj+H8V25rUVnyxUeH9c7MCmM
+ L8fg8kiH86uvVraA0q+HIag+smt1jTCNYbxa9FIaKvr0Sz5K8aGfIhDqRnoxvhorwM
+ jpidpahhrSJCQ==
+Message-ID: <sashiko-outbox-219063@kernel.org>
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v2 1/2] PM: runtime: fix stub pm_runtime_get_if_active()
+Subject: Re: [PATCH v2 2/2] PM: runtime: fix stub pm_runtime_get_if_in_use()
  for !CONFIG_PM
 To: Frank.Li@oss.nxp.com
-Cc: linux-usb@vger.kernel.org, dri-devel@lists.freedesktop.org,
- intel-gfx@lists.freedesktop.org, intel-xe@lists.freedesktop.org,
- linux-hwmon@vger.kernel.org, imx@lists.linux.dev, Frank.Li@kernel.org,
- media-ci@linuxtv.org
-In-Reply-To: <20261116152513.2676573-1-Frank.Li@oss.nxp.com>
+Cc: dri-devel@lists.freedesktop.org, intel-gfx@lists.freedesktop.org,
+ intel-xe@lists.freedesktop.org, linux-sound@vger.kernel.org,
+ imx@lists.linux.dev, Frank.Li@kernel.org, media-ci@linuxtv.org
+In-Reply-To: <20261116152513.2676573-2-Frank.Li@oss.nxp.com>
 References: <20261116152513.2676573-1-Frank.Li@oss.nxp.com>
+ <20261116152513.2676573-2-Frank.Li@oss.nxp.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Tue, 17 Nov 2026 15:25:28 +0000
+Date: Tue, 17 Nov 2026 15:25:29 +0000
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -63,117 +63,119 @@ X-Archived-By: <archiver.kernel.org>
 
 Thank you for your contribution! Sashiko AI review found 1 potential
 issue to consider:
-- [Low] PM: runtime: inaccurate Fixes trailers and caller analysis in
+- [Low] PM: runtime: inaccurate Fixes trailers and caller notes in
   commit message
 --
 
-commit ef3656b915b0fdf6f58ce6d87b9638c3f1514d1a
+commit 48057d65d03972fb7f912d84a7a35bf1b15bba82
 Author: Frank Li <Frank.Li@nxp.com>
 
-> PM: runtime: fix stub pm_runtime_get_if_active() for !CONFIG_PM
+> PM: runtime: fix stub pm_runtime_get_if_in_use() for !CONFIG_PM
 >
-> When CONFIG_PM is not enabled, should be treated as if runtime PM were
-> enabled for the device and the runtime status is active.
+> The stub for pm_runtime_get_if_in_use() under !CONFIG_PM currently
+> returns -EINVAL.  The real implementation returns:
+>   1  - device is active and its usage counter is non-zero (bumped)
+>   0  - device is not in use or not active (counter not bumped)
+>  -EINVAL - runtime PM disabled for this device
 >
-> It's a subtle distinction but the previous behavior returned -EINVAL, whi=
-ch
-> means "runtime PM is disabled for the device"
+> When CONFIG_PM is not set every device is permanently "active" and
+> always considered "in use", so the stub must return 1, mirroring
+> __pm_runtime_resume() which already returns 1 in the same build.
 >
-> __pm_runtime_resume() returns 1 (called by pm_runtime_get()).
-> pm_runtime_get_if_active() is the try-and-get version of pm_runtime_get().
-> stub pm_runtime_active() also returns true. So pm_runtime_get_if_active()
-> should return the same value as the stub pm_runtime_get(), which is 1.
+> Returning -EINVAL breaks callers that test the return value with
+> comparisons other than "!=3D 0 / =3D=3D 0":
 >
-> Analysis of all callers and their behavior with old (-EINVAL) vs new (1):
+> drivers/gpu/drm/i915/intel_runtime_pm.c:
+>   if (intel_runtime_pm_get_if_in_use(rpm))
+>   which wraps to: ret =3D pm_runtime_get_if_in_use(); return ret > 0;
+>   With -EINVAL the wrapper returns false, causing an incorrect error
+>   path in the GT fence revocation code.
 >
-> Pattern A: if (!pm_runtime_get_if_active(dev)) -- no impact
->   Both -EINVAL and 1 are non-zero, so !ret is false in both cases.
->   Callers: drivers/accel/ethosu/ethosu_perfmon.c,
->            drivers/gpu/drm/msm/adreno/a6xx_gmu.c,
->            drivers/gpu/drm/msm/msm_perfcntr.c,
->            drivers/gpu/drm/v3d/v3d_mmu.c,
->            drivers/gpu/drm/v3d/v3d_perfmon.c (x4),
->            drivers/media/i2c/gc08a3.c gc05a2.c og0ve1b.c ov6211.c,
->            drivers/media/i2c/ccs/ccs-core.c s5kjn1.c lm3560.c (x2),
->            drivers/media/i2c/s5k3m5.c thp7312.c imx283.c ov64a40.c,
->            drivers/media/pci/intel/ipu6/ipu6-buttress.c,
->            sound/hda/core/device.c
+> drivers/gpu/drm/xe/xe_pm.c:
+>   if (pm_runtime_get_if_in_use(xe->drm.dev) > 0)
+>   With -EINVAL the condition is false; xe_pm_runtime_get_if_in_use()
+>   returns false, so callers believe the device is not usable.
 >
-> Pattern B: if (!ret) after get -- no impact
->   Both -EINVAL and 1 are non-zero, !ret is false in both cases.
->   drivers/gpu/drm/amd/pm/amdgpu_pm.c (comment says "allow access"
->     in kernels without CONFIG_PM), drivers/pci/pci.c
+> drivers/gpu/drm/gma500/power.c:
+>   return pm_runtime_get_if_in_use(dev) =3D=3D 1;
+>   -EINVAL !=3D 1, so the helper always returns false when !CONFIG_PM.
 >
-> Pattern C: ret > 0 / ret <=3D 0 / ret !=3D 1 checks -- FIXED
->   drivers/usb/core/offload.c: checks (!=3D 1), old -EINVAL caused
->     -EBUSY even with !CONFIG_PM. Fixed: now returns 1, proceeds.
->   drivers/accel/ivpu/ivpu_job.c: drm_WARN_ON(<=3D 0), old -EINVAL
->     spuriously triggered WARN. Fixed: 1 > 0, no warn.
->   drivers/gpu/drm/i915/intel_runtime_pm.c: checks (<=3D 0), old
->     -EINVAL triggered error path. Fixed: 1 > 0, correct path.
->   drivers/accel/ivpu/ivpu_sysfs.c: (> 0), old skipped freq read.
->     Fixed: proceeds correctly without CONFIG_PM.
->   drivers/gpu/drm/xe/xe_pm.c: wraps (> 0), all xe callers
->     (xe_bo.c, xe_shrinker.c, xe_vsec.c, xe_ggtt.c, xe_guc_ct.c,
->     xe_pxp.c) now correctly treat !CONFIG_PM as active.
->   drivers/net/ipa/ipa_smp2p.c: power_on =3D (> 0), now correctly true.
->   drivers/iommu/arm/arm-smmu/arm-smmu-qcom.c: (> 0), now correctly
->     executes stall register update.
->   drivers/staging/media/ipu7/ipu7-buttress.c: active (<=3D 0) early
->     return now skipped, correctly proceeds.
+> drivers/gpu/drm/imagination/pvr_power.c:
+>   if (pm_runtime_get_if_in_use(...) <=3D 0)
+>   -EINVAL <=3D 0 is true, so the driver always takes the "requeue" error
+>   path instead of proceeding with the active device.
 >
-> Pattern D: explicit -EINVAL check
->   drivers/hwmon/prom21-xhci.c: checks (> 0) then (=3D=3D -EINVAL).
->     Old: took -EINVAL fallback. New: takes (> 0) fast path.
->     Both succeed when CONFIG_PM is disabled; functionally equivalent.
->   drivers/hwmon/eic7700-pvt.c: call is guarded by IS_ENABLED(CONFIG_PM),
->     stub is never reached. No impact.
+> sound/soc/sof/debug.c:
+>   if (pm_runtime_get_if_in_use(sdev->dev) =3D=3D 1)
+>   -EINVAL !=3D 1, so d3_prevented is never set, corrupting exception
+>   debug accounting.
 >
-> Fixes: bd3d245b0fef5 ("usb: core: use dedicated spinlock for offload stat=
-e")
-> Fixes: 7806bad76ac39 ("accel/ivpu: Prevent runtime suspend during context=
- abort work")
-> Fixes: 9d58aa46291d4 ("drm/i915: Fix the GT fence revocation runtime PM l=
-ogic")
-> Fixes: 1524c28b99527 ("accel/ivpu: Show NPU frequency in sysfs")
-> Fixes: 30c399529f4c6 ("drm/xe: Document Xe PM component")
-> Fixes: 0d08026ac6099 ("net: ipa: kill ipa_clock_get_additional()")
-> Fixes: 70892277ca2db ("iommu/arm-smmu-qcom: Make set_stall work when the =
-device is on")
-> Fixes: 9ad65684b9285 ("media: staging/ipu7: Ignore interrupts when device=
- is suspended")
-> Acked-by: Alex Elder <elder@riscstar.com>
+> drivers/iommu/mtk_iommu.c:
+>   if (pm_runtime_get_if_in_use(dom->plat_dev->dev) <=3D 0)
+>   -EINVAL <=3D 0 skips the TLB flush, leaving stale IOMMU mappings.
+>
+> drivers/iommu/rockchip-iommu.c:
+>   Three call sites use WARN_ON_ONCE(err < 0) or similar patterns.
+>   -EINVAL < 0 triggers a spurious WARNING on every call.
+>
+> drivers/media/i2c/isl7998x.c:
+>   if (pm_runtime_get_if_in_use(dev) <=3D 0)  (two call sites)
+>   -EINVAL <=3D 0 causes the driver to always skip register programming
+>   when !CONFIG_PM.
+>
+> drivers/media/platform/rockchip/rkisp1/rkisp1-debug.c:
+>   if (pm_runtime_get_if_in_use(dev) <=3D 0)  (two call sites)
+>   -EINVAL <=3D 0 prevents any debug statistics from being collected.
+>
+> Fixes: 9d58aa46291d ("drm/i915: Fix the GT fence revocation runtime PM lo=
+gic")
+> Fixes: cbb6a7413b17 ("drm/xe: Introduce xe_pm_runtime_get_noresume for in=
+ner callers")
+> Fixes: 672c473576ca ("drm/gma500: Rewrite power management code")
+> Fixes: 727538a4bbff ("drm/imagination: Implement power management")
+> Fixes: b30289e7fa92 ("ASoC: SOF: Fix runtime pm usage counter balance aft=
+er fw exception")
+> Fixes: c0b57581b73b ("iommu/mediatek: Add power-domain operation")
+> Fixes: 0f181d3cf7d9 ("iommu/rockchip: Add runtime PM support")
+> Fixes: 51ef2be546e2 ("media: i2c: isl7998x: Add driver for Intersil ISL79=
+98x")
+> Fixes: cbb819c363c5 ("media: rkisp1: debug: Collect input status by sampl=
+ing ISP_FLAGS_SHD")
 > Signed-off-by: Frank Li <Frank.Li@nxp.com>
 
 [Severity: Low]
-Are some of the Fixes: tags and caller notes in the commit message
-pointing to the wrong commits or config guards?
+Are the Fixes tags and caller descriptions in the commit message accurate?
 
-The !CONFIG_PM stub for pm_runtime_get_if_active() was introduced
-returning -EINVAL in c111566bea7c ("PM: runtime: Add
-pm_runtime_get_if_active()") and updated in c0ef3df8dbae ("PM: runtime:
-Simplify pm_runtime_get_if_active() usage"), neither of which is listed in
-Fixes:.
+The !CONFIG_PM stub for pm_runtime_get_if_in_use() returning -EINVAL was
+introduced in a436b6a19f57 ("PM / runtime: Add new helper for conditional
+usage count incrementation"), which is missing from the Fixes tags.
 
-For the caller-specific tags and descriptions:
+For i915, __intel_runtime_pm_get_if_active() guards the call to
+pm_runtime_get_if_in_use() with if (IS_ENABLED(CONFIG_PM)), so the
+!CONFIG_PM stub is never called there, and 9d58aa46291d ("drm/i915: Fix the
+GT fence revocation runtime PM logic") switched i915_vma_revoke_fence() to
+with_intel_runtime_pm_if_active, which calls pm_runtime_get_if_active().
 
-- 30c399529f4c ("drm/xe: Document Xe PM component") only touched kernel-doc
-  comments; the > 0 check in xe_pm_runtime_get_if_active() came from
-  46edb0a3eb16 ("drm/xe: Fix xe_pm_runtime_get_if_active return").
+For imagination, DRM_POWERVR in drivers/gpu/drm/imagination/Kconfig has
+"depends on PM" (added in 727538a4bbff ("drm/imagination: Implement power
+management")), so pvr_power.c cannot be built with !CONFIG_PM.
 
-- In __intel_runtime_pm_get_if_active() in
-  drivers/gpu/drm/i915/intel_runtime_pm.c, the pm_runtime_get_if_active()
-  call is guarded by if (IS_ENABLED(CONFIG_PM)), so the !CONFIG_PM stub is
-  never reached there and 9d58aa46291d ("drm/i915: Fix the GT fence
-  revocation runtime PM logic") was not affected.  Similarly,
-  snd_hdac_keep_power_up() in sound/hda/core/device.c is inside #ifdef
-  CONFIG_PM and also checks if (ret < 0).
-
-- 0d08026ac609 ("net: ipa: kill ipa_clock_get_additional()") only inlined
-  ipa_clock_get_additional() into ipa_smp2p_notify(); the
-  pm_runtime_get_if_active() > 0 check was introduced in a71aeff3dd0a
-  ("net: ipa: kill IPA clock reference count").
+Also, several of the remaining Fixes tags do not point to the commits that
+introduced the affected checks:
+- In drivers/gpu/drm/xe/xe_pm.c, the pm_runtime_get_if_in_use() > 0 check
+  in xe_pm_runtime_get_if_in_use() was added by 3b85b7bcccf4 ("drm/xe: Fix
+  display runtime_pm handling"), whereas cbb6a7413b17 ("drm/xe: Introduce
+  xe_pm_runtime_get_noresume for inner callers") only added a caller.
+- In drivers/iommu/rockchip-iommu.c, 0f181d3cf7d9 ("iommu/rockchip: Add
+  runtime PM support") used boolean checks where -EINVAL evaluated to true;
+  the WARN_ON_ONCE() checks on negative or non-positive returns were added
+  by 3fc7c5c0cff3 ("iommu/rockchip: Handle errors returned from PM
+  framework").
+- In drivers/media/platform/rockchip/rkisp1/rkisp1-debug.c, the first
+  pm_runtime_get_if_in_use() <=3D 0 check in rkisp1_debug_dump_regs() was
+  added earlier by 2a6b586035ec ("media: rkisp1: debug: Add debugfs files
+  to dump core and ISP registers").
 
 --=20
 Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261116152513.2676=
-573-1-Frank.Li@oss.nxp.com?part=3D1
+573-1-Frank.Li@oss.nxp.com?part=3D2
