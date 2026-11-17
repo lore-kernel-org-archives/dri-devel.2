@@ -2,150 +2,53 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F079A606A31C
-	for <dri-devel@archiver.kernel.org>; Tue, 17 Nov 2026 07:39:28 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2B2CA606A323
+	for <dri-devel@archiver.kernel.org>; Tue, 17 Nov 2026 07:55:00 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.a=rsa-sha256 header.s=susede2_rsa header.b=HxbcUCWa;
-	dkim=pass header.d=suse.de header.i=@suse.de header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=jxYj9cNa;
-	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.a=rsa-sha256 header.s=susede2_rsa header.b=H0o5dT4A;
-	dkim=neutral header.d=suse.de header.i=@suse.de header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=U1Z/wiFj
+	dkim=pass (1024-bit key) header.d=ideasonboard.com header.i=@ideasonboard.com header.a=rsa-sha256 header.s=mail header.b=YRFQs9Vc
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 2E93E10E9B0;
-	Tue, 17 Nov 2026 07:39:18 +0000 (UTC)
-Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.223.131])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 29E0D10E9B0
- for <dri-devel@lists.freedesktop.org>; Tue, 17 Nov 2026 07:39:06 +0000 (UTC)
-Received: from imap1.dmz-prg2.suse.org (imap1.dmz-prg2.suse.org
- [IPv6:2a07:de40:b281:104:10:150:64:97])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
- (No client certificate requested)
- by smtp-out2.suse.de (Postfix) with ESMTPS id B95A21F395;
- Tue, 17 Nov 2026 07:39:03 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
- t=1794901144; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
- bh=ko8kK8CK0AxEYTo307S41GIHG82nmMlZKPRgZvR+tJA=;
- b=HxbcUCWa5BF3Gl7WeR+GvZczVOqzdlc1ZrFnM1B+esPXchkt2AinzJiJM6/I5JhP4ztS7D
- BIGZcdcSnBwNIWBJFSHbhLX3TekiGgO5+1h48o74Vz8DkHL7v2xjaBljYo/dd3srftb/O1
- SRtopC4ipukD/Llv7RHfjTHxOPL+gcE=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_ed25519; t=1794901144;
- h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
- bh=ko8kK8CK0AxEYTo307S41GIHG82nmMlZKPRgZvR+tJA=;
- b=jxYj9cNaw1j62xfLj+7znbSPGaaSnY3c2aXrkFvlnNZVHcBhzMNflAXMqy742nJTztjxMN
- MjmehHIY163IH0AQ==
-Authentication-Results: smtp-out2.suse.de;
- dkim=pass header.d=suse.de header.s=susede2_rsa header.b=H0o5dT4A;
- dkim=pass header.d=suse.de header.s=susede2_ed25519 header.b="U1Z/wiFj"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
- t=1794901143; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
- bh=ko8kK8CK0AxEYTo307S41GIHG82nmMlZKPRgZvR+tJA=;
- b=H0o5dT4A2znxpcZNgpXJhHL5Pq0ns9NSvtQsbjVKz6ZZPm8QTClRGG7OXfgE/CLqcX/t5A
- mgUp5/wai03HioVURmR4/G8fxGUSbz9Jllnvc7fJTK9ouwy7prErjbR/1KmLxz8L0ZhSrc
- LP5GcpQJAHy6g098Ql/Qpw9ooZVU31A=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_ed25519; t=1794901143;
- h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
- bh=ko8kK8CK0AxEYTo307S41GIHG82nmMlZKPRgZvR+tJA=;
- b=U1Z/wiFjN43DTbD4Gq25eW7zOzKtSzB/rf7eWsGa3TF6nAlnBHdfh6n1BiyWR0iN+xjffo
- BBCRtE/5DKl06DDw==
-Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
- (No client certificate requested)
- by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 44EAA13302;
- Tue, 17 Nov 2026 07:39:03 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
- by imap1.dmz-prg2.suse.org with ESMTPSA id hkRCOZYE/GpXDgAAD6G6ig
- (envelope-from <tzimmermann@suse.de>); Tue, 17 Nov 2026 07:39:03 +0000
-Message-ID: <4404265c-ae14-4d17-82ad-46ed6c123c6b@suse.de>
-Date: Tue, 17 Nov 2026 08:39:02 +0100
+	by gabe.freedesktop.org (Postfix) with ESMTP id 6381810E17E;
+	Tue, 17 Nov 2026 07:54:54 +0000 (UTC)
+Received: from perceval.ideasonboard.com (perceval.ideasonboard.com
+ [213.167.242.64])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id B9A0810EE6C
+ for <dri-devel@lists.freedesktop.org>; Tue, 17 Nov 2026 07:54:47 +0000 (UTC)
+Received: from [192.168.88.20] (91-158-153-178.elisa-laajakaista.fi
+ [91.158.153.178])
+ by perceval.ideasonboard.com (Postfix) with ESMTPSA id 37C2D177;
+ Tue, 17 Nov 2026 08:52:18 +0100 (CET)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=ideasonboard.com;
+ s=mail; t=1794901939;
+ bh=Rs2TZRDYMtfEO5dZ9Ed294/LGxR/gQNKjwq+FdxuUqY=;
+ h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
+ b=YRFQs9VcmKm2vUqPqdHinkvhqFfhMK1skDzco9OpBxUGc9aO6y+RSj4tgwtU8en3s
+ tGqWeGMSOAPTuZ4hysCFFqeYwC7DzIdXmERcGlCQCDj+3t+lipZfhZMnVRLTGsXla5
+ JJw/yvLKh1dbb9IJfbWdsm9M+U6jwvy2YEgYCFaM=
+Message-ID: <16f237de-d223-470d-915b-0542c263bd52@ideasonboard.com>
+Date: Tue, 17 Nov 2026 09:54:42 +0200
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 2/4] drm/verisilicon: nuke planes' atomic_enable hooks
-To: Icenowy Zheng <zhengxingda@iscas.ac.cn>,
+Subject: Re: [PATCH v5 00/15] drm/tidss: Add BeagleY-AI display support (and
+ some more)
+To: dri-devel@lists.freedesktop.org
+Cc: devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+ linux-arm-kernel@lists.infradead.org, Jayesh Choudhary <j-choudhary@ti.com>,
+ Aradhya Bhatia <a-bhatia1@ti.com>, Andrew Davis <afd@ti.com>,
  Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>
-Cc: David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>,
- Joey Lu <a0987203069@gmail.com>, Han Gao <gaohan@iscas.ac.cn>,
- dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org
-References: <20261102075710.1286456-1-zhengxingda@iscas.ac.cn>
- <20261102075710.1286456-3-zhengxingda@iscas.ac.cn>
- <8e3b36c6-e2d8-4746-aefe-462bba1a4b05@suse.de>
- <5830251f1420c152b2efc2ee37248057bdfc901d.camel@iscas.ac.cn>
- <55991183-ab5f-4445-afce-37a79310ef27@suse.de>
- <83aa9fb5be26fb407c7f1393bc01099d374cf51f.camel@iscas.ac.cn>
- <7e4b4fd185f47404bb5f18e7c2c8086d24e673f4.camel@iscas.ac.cn>
- <a96e7813-6918-44f5-82e2-ca40051abea0@suse.de>
- <73f4e371c37c36581240ff355fef3de2afaaa033.camel@iscas.ac.cn>
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>, Lee Jones <lee@kernel.org>,
+ Aradhya Bhatia <aradhya.bhatia@linux.dev>, Nishanth Menon <nm@ti.com>,
+ Vignesh Raghavendra <vigneshr@ti.com>, Swamil Jain <s-jain1@ti.com>,
+ Devarsh Thakkar <devarsht@ti.com>, Louis Chauvet <louis.chauvet@bootlin.com>
+References: <20261103-beagley-ai-display-v5-0-f1c8d0e52bb4@ideasonboard.com>
+From: Tomi Valkeinen <tomi.valkeinen@ideasonboard.com>
 Content-Language: en-US
-From: Thomas Zimmermann <tzimmermann@suse.de>
-Autocrypt: addr=tzimmermann@suse.de; keydata=
- xsBNBFs50uABCADEHPidWt974CaxBVbrIBwqcq/WURinJ3+2WlIrKWspiP83vfZKaXhFYsdg
- XH47fDVbPPj+d6tQrw5lPQCyqjwrCPYnq3WlIBnGPJ4/jreTL6V+qfKRDlGLWFjZcsrPJGE0
- BeB5BbqP5erN1qylK9i3gPoQjXGhpBpQYwRrEyQyjuvk+Ev0K1Jc5tVDeJAuau3TGNgah4Yc
- hdHm3bkPjz9EErV85RwvImQ1dptvx6s7xzwXTgGAsaYZsL8WCwDaTuqFa1d1jjlaxg6+tZsB
- 9GluwvIhSezPgnEmimZDkGnZRRSFiGP8yjqTjjWuf0bSj5rUnTGiyLyRZRNGcXmu6hjlABEB
- AAHNJ1Rob21hcyBaaW1tZXJtYW5uIDx0emltbWVybWFubkBzdXNlLmRlPsLAjgQTAQgAOAIb
- AwULCQgHAgYVCgkICwIEFgIDAQIeAQIXgBYhBHIX+6yM6c9jRKFo5WgNwR1TC3ojBQJftODH
- AAoJEGgNwR1TC3ojx1wH/0hKGWugiqDgLNXLRD/4TfHBEKmxIrmfu9Z5t7vwUKfwhFL6hqvo
- lXPJJKQpQ2z8+X2vZm/slsLn7J1yjrOsoJhKABDi+3QWWSGkaGwRJAdPVVyJMfJRNNNIKwVb
- U6B1BkX2XDKDGffF4TxlOpSQzdtNI/9gleOoUA8+jy8knnDYzjBNOZqLG2FuTdicBXblz0Mf
- vg41gd9kCwYXDnD91rJU8tzylXv03E75NCaTxTM+FBXPmsAVYQ4GYhhgFt8S2UWMoaaABLDe
- 7l5FdnLdDEcbmd8uLU2CaG4W2cLrUaI4jz2XbkcPQkqTQ3EB67hYkjiEE6Zy3ggOitiQGcqp
- j//OwE0EWznS4AEIAMYmP4M/V+T5RY5at/g7rUdNsLhWv1APYrh9RQefODYHrNRHUE9eosYb
- T6XMryR9hT8XlGOYRwKWwiQBoWSDiTMo/Xi29jUnn4BXfI2px2DTXwc22LKtLAgTRjP+qbU6
- 3Y0xnQN29UGDbYgyyK51DW3H0If2a3JNsheAAK+Xc9baj0LGIc8T9uiEWHBnCH+RdhgATnWW
- GKdDegUR5BkDfDg5O/FISymJBHx2Dyoklv5g4BzkgqTqwmaYzsl8UxZKvbaxq0zbehDda8lv
- hFXodNFMAgTLJlLuDYOGLK2AwbrS3Sp0AEbkpdJBb44qVlGm5bApZouHeJ/+n+7r12+lqdsA
- EQEAAcLAdgQYAQgAIAIbDBYhBHIX+6yM6c9jRKFo5WgNwR1TC3ojBQJftOH6AAoJEGgNwR1T
- C3ojVSkIALpAPkIJPQoURPb1VWjh34l0HlglmYHvZszJWTXYwavHR8+k6Baa6H7ufXNQtThR
- yIxJrQLW6rV5lm7TjhffEhxVCn37+cg0zZ3j7zIsSS0rx/aMwi6VhFJA5hfn3T0TtrijKP4A
- SAQO9xD1Zk9/61JWk8OysuIh7MXkl0fxbRKWE93XeQBhIJHQfnc+YBLprdnxR446Sh8Wn/2D
- Ya8cavuWf2zrB6cZurs048xe0UbSW5AOSo4V9M0jzYI4nZqTmPxYyXbm30Kvmz0rYVRaitYJ
- 4kyYYMhuULvrJDMjZRvaNe52tkKAvMevcGdt38H4KSVXAylqyQOW5zvPc4/sq9c=
-In-Reply-To: <73f4e371c37c36581240ff355fef3de2afaaa033.camel@iscas.ac.cn>
+In-Reply-To: <20261103-beagley-ai-display-v5-0-f1c8d0e52bb4@ideasonboard.com>
 Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
-X-Spamd-Result: default: False [-13.50 / 50.00]; SUSE_INTERNAL_BYPASS(-9.00)[];
- BAYES_HAM(-3.00)[100.00%]; NEURAL_HAM_LONG(-1.00)[-1.000];
- R_DKIM_ALLOW(-0.20)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
- NEURAL_HAM_SHORT(-0.20)[-1.000]; MIME_GOOD(-0.10)[text/plain];
- XM_UA_NO_VERSION(0.01)[]; MX_GOOD(-0.01)[];
- DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
- URIBL_BLOCKED(0.00)[imap1.dmz-prg2.suse.org:rdns,imap1.dmz-prg2.suse.org:helo,bootlin.com:url,suse.de:dkim,suse.com:url];
- MIME_TRACE(0.00)[0:+]; TO_MATCH_ENVRCPT_ALL(0.00)[];
- ARC_NA(0.00)[];
- RBL_SPAMHAUS_BLOCKED_OPENRESOLVER(0.00)[2a07:de40:b281:104:10:150:64:97:from]; 
- FREEMAIL_ENVRCPT(0.00)[gmail.com]; RCVD_TLS_ALL(0.00)[];
- TO_DN_SOME(0.00)[]; RCVD_COUNT_TWO(0.00)[2];
- FROM_EQ_ENVFROM(0.00)[]; FROM_HAS_DN(0.00)[];
- FREEMAIL_CC(0.00)[gmail.com,ffwll.ch,oss.qualcomm.com,iscas.ac.cn,lists.freedesktop.org,vger.kernel.org];
- MID_RHS_MATCH_FROM(0.00)[];
- RECEIVED_SPAMHAUS_BLOCKED_OPENRESOLVER(0.00)[2a07:de40:b281:106:10:150:64:167:received];
- RCPT_COUNT_SEVEN(0.00)[10]; DKIM_TRACE(0.00)[suse.de:+];
- RCVD_VIA_SMTP_AUTH(0.00)[];
- DBL_BLOCKED_OPENRESOLVER(0.00)[imap1.dmz-prg2.suse.org:rdns,
- imap1.dmz-prg2.suse.org:helo, bootlin.com:url, suse.de:dkim, suse.com:url]
-X-Rspamd-Server: rspamd1.dmz-prg2.suse.org
-X-Rspamd-Action: no action
-X-Spam-Score: -13.50
-X-Spam-Level: 
-X-Rspamd-Queue-Id: B95A21F395
+Content-Transfer-Encoding: 7bit
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -158,226 +61,140 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 X-Spam-Status: No, score=-12.3 required=3.0 tests=BAYES_00,DKIM_SIGNED,
-	DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_PATCH,
-	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,USER_AGENT_SANE_1
-	autolearn=unavailable autolearn_force=no version=4.0.1
+	DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
+	INCLUDES_CR_TRAILER,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,
+	USER_AGENT_SANE_1 autolearn=unavailable autolearn_force=no
+	version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-Hi
+Hi,
 
-Am 17.11.26 um 08:34 schrieb Icenowy Zheng:
-> 在 2026-11-17二的 08:25 +0100，Thomas Zimmermann写道：
->> Hi
->>
->> Am 17.11.26 um 06:19 schrieb Icenowy Zheng:
->> [...]
->>>>> Sure, but is that a problem for this hardware?
->>>> For the cursor plane, the unchecked coordinate might be improper
->>>> for
->>>> the registers.
->>>>
->>>> For the primary plane, if the plane is found to be totally off by
->>>> drm_atomic_helper_check_plane_state(), the check for
->>>> can_position,
->>>> which is below the code snippet I referenced, would be bypassed,
->>>> and
->>>> such plane would be programmed to be visible by the atomic_update
->>>> hook
->>>> even if it shouldn't be visible.
->>> Well I am now thinking that bound-but-invisible situation is
->>> commonly
->>> ignored by drivers.
->>>
->>> For drm/verisilicon, maybe I'd remove both atomic_disable and
->>> atomic_enable; however I think the atomic helpers may need some
->>> flag to
->>> consider bound-but-invisible planes when calling
->>> atomic_{dis,en}able.
->> I don't think I really understand what you're up to, but it seems
->> you're
->> overthinking the whole thing. Other drivers only care about plane
->> on/off
-> Well I don't know whether I am overthinking...
->
-> Enabled but invisible planes are explicitly allowed in
-> drm_atomic_helper_check_plane_state(), and even the can_position check
-> is bypassed in such case (so such a configuration can even appear on
-> primary planes). In addition, in most implementations for atomic_check,
-> the invisible situations have the validity check explicitly skipped, so
-> just disallow enabled-but-invisible planes in atomic_check would make
-> the behavior quite different with most drivers.
->
-> Maybe I should craft some "evil" programs to check for this situation.
+On 03/11/2026 13:34, Tomi Valkeinen wrote:
+> This series aims to add display support for all display interfaces on
+> BeagleY-AI board. More generally, it adds display support for TI AM62P,
+> J722S, and related SoCs.
+> 
+> The main topics to highlight:
+> 
+> - The data and sync signal polarities require accessing a register
+>    (DPI0_CLK_CTRL) in the CTRL_MMR block. This has already been discussed
+>    e.g. in
+>    https://lore.kernel.org/all/20250730-fix-edge-handling-v1-0-1bdfb3fe7922%40bootlin.com/.
+>    This topic is still open, and it also touches already upstreamed SoCs
+>    with DSS (AM625). In other words, with this series, we don't have full
+>    polarity support, and DPI works exactly like upstream AM625's does.
+> 
+> - In the SoC, the two OLDI TX instances are shared between the two DSS
+>    instances. This has been a bit tricky to solve neatly. In this series
+>    the result is that in the DT we have three OLDI TX nodes, two under
+>    DSS0, one under DSS1, representing the OLDIs that the DSS instance
+>    can use.
+> 
+> - I'm no audio expert, but based on the original dts from Robert Nelson,
+>    I did get HDMI audio working, but I see "davinci-mcasp
+>    2b10000.audio-controller: Sample-rate is off by 400 PPM".
+> 
+> With this series one can use the HDMI output on BeagleY-AI. I have also
+> tested the DSI output with Raspberry Pi's 7" DSI display, and OLDI
+> output with an oscilloscope (I don't have a suitable OLDI panel) with
+> extra DT overlays.
+> 
+>   Tomi
+> 
+> Signed-off-by: Tomi Valkeinen <tomi.valkeinen@ideasonboard.com>
+> ---
+> Changes in v5:
+> - Add Rb tags from Aradhya
+> - New cleanup patch: "drm/tidss: Use the AM625 features for AM62A7"
+> - Ensure tidss_oldi_create_pd_devs() is only called for primary OLDI
+> - Add missing cbass ranges for DSS1 and DSI (DSS was already there) to k3-am62p.dtsi
+> - Link to v4: https://patch.msgid.link/20261029-beagley-ai-display-v4-0-dc7f2b532478@ideasonboard.com
+> 
+> Changes in v4:
+> - Based on today's drm-misc-next
+> - Dropped the CTRL MMR related code. This means the DPI polarities are
+>    not quite right (the same as AM625)
+> - Dropped the commit to convert OLDI to an aux driver. This version uses
+>    a new (unmerged) PM dev_pm_domain_attach_by_node() to manage the OLDI
+>    power domains.
+> - Dropped a bunch of commits which were merged via "[PATCH 00/10]
+>    drm/tidss: Preparation for AM62P and BeagleY-AI display support"
+>    series.
+> - Dropped tested-by tags, as the series has changed quite a bit.
+> - Includes new fixes and cleanup patches:
+>    - vp_bus_type removal:
+>      - "Add helper to identify the AM65x OLDI video port"
+>      - "Stop using vp_bus_type for directly connected panels"
+>      - "Drop the tied off video port check from mode validation"
+>      - "Remove the unused vp_bus_type feat"
+>    - OLDI:
+>      - "Drop unnecessary forward declaration"
+>      - "Fix wrong return value from tidss_oldi_mode_valid()"
+>      - "Fix serial clock reference leak"
+>      - "Fix cleanup on a failed init"
+>      - "Move the setup of one OLDI TX to its own function"
+>      - "Add power domain support"
+> - Link to v3: https://patch.msgid.link/20260529-beagley-ai-display-v3-0-7fefdc5d1adf@ideasonboard.com
+> 
+> Changes in v3:
+> - Base on "[PATCH 0/6] arm64: ti: Use syscon for the Control Module"
+> - Drop quotation marks from Rb tags
+> - Drop Tested-by tags for the bindings patches
+> - "drm/tidss: Add external data and sync signal edge configuration": Fix
+>    error handling
+> - "drm/tidss: Add support for DPIENABLE bit": set/unset DPIENABLE in
+>    prepare/unprepare
+> - "drm/tidss: oldi: Convert OLDI to an aux driver": Improve cleanups
+>    (of_node_put, clk_put, device_link_del)
+> - Dropped "arm64: dts: ti: k3-am62p-j722s-common-main: Make main_conf a syscon"
+> - "arm64: dts: ti: k3-am62p-j722s-common-main: Add support for DSS": Add
+>    missing clocks and ti,oldi-io-ctrl for oldi1 node. Drop unused
+>    main-gpio0-ioexp-intr-default-pins node. Fix MCASP1_AXR0 pin
+>    direction. Fix DSS videoport numbering.
+> - Link to v2: https://lore.kernel.org/r/20260513-beagley-ai-display-v2-0-9e9bcefde6bc@ideasonboard.com
+> 
+> Changes in v2:
+> - Add Rb and Tb tags
+> - Drop "dt-bindings: mfd: syscon: Add ti,am625-dss-dpi0-clk-ctrl
+>    compatible", which is now implemented with the below changes.
+> - New patch "dt-bindings: display: ti,am65x-dss: Add ti,dpi-io-ctrl"
+> - Modify "drm/tidss: Add external data and sync signal edge
+>    configuration" to use the 'ti,dpi-io-ctrl' with offset.
+> - New patch "arm64: dts: ti: k3-am62p-j722s-common-main: Make main_conf
+>    a syscon".
+> - Modify "arm64: dts: ti: k3-am62p-j722s-common-main: Add support for
+>    DSS" to set 'ti,dpi-io-ctrl' properties
+> - Drop generic desc in DT bindings for power-domains property
+> - Fix pm_runtime_get_sync() return value check
+> - Link to v1: https://lore.kernel.org/r/20260420-beagley-ai-display-v1-0-f628543dfd14@ideasonboard.com
+> 
+> ---
+> Andrew Davis (1):
+>        arm64: dts: ti: beagley-ai: Enable HDMI display and audio
+> 
+> Jayesh Choudhary (1):
+>        arm64: dts: ti: k3-am62p-j722s-common-main: Add support for DSS
+> 
+> Swamil Jain (1):
+>        drm/tidss: Add support for AM62P display subsystem
+> 
+> Tomi Valkeinen (12):
+>        dt-bindings: display: ti,am65x-dss: Add AM62P DSS
+>        drm/tidss: Add helper to identify the AM65x OLDI video port
+>        drm/tidss: Stop using vp_bus_type for directly connected panels
+>        drm/tidss: Drop the tied off video port check from mode validation
+>        drm/tidss: Remove the unused vp_bus_type feat
+>        drm/tidss: Use the AM625 features for AM62A7
+>        drm/tidss: oldi: Drop unnecessary forward declaration
+>        drm/tidss: oldi: Fix wrong return value from tidss_oldi_mode_valid()
+>        drm/tidss: oldi: Fix serial clock reference leak
+>        drm/tidss: oldi: Fix cleanup on a failed init
+>        drm/tidss: oldi: Move the setup of one OLDI TX to its own function
+>        drm/tidss: oldi: Add power domain support
 
-If you can make an igt test case for broken plane coordinates, go for it.
+I'll pick patches 2-11 (inclusive) to drm-misc-next. They stand alone 
+and do not depend on the PD change we need for the oldi.
 
-Best regards
-Thomas
-
->
-> Thanks,
-> Icenowy
->
->> and the contained image. That's also what the 3 callbacks are for. It
->> usually works nicely. Hence me asking. But maybe verisilicon is
->> different, IDK.
->>
->> My suggestion is therefore to remove _enable and _disable and keep
->> all
->> logic in _update.
->>
->> atomic_update()
->> {
->>       if (plane_state->visible) {
->>           // do update
->>           // enable hw plane
->>       } else {
->>           // disable hw plane
->>       }
->> }
->>
->> If you have any special cases where you want visible to be false (or
->> true), detect them in atomic_check and set the flags accordingly.
->>
->> atomic_check()
->> {
->> drm_atomic_helper_check_plane_state()     if (awkward coords)
->>            plane_state->visible = false;
->> }
->>
->> Best regards
->> Thomas
->>
->>> Thanks,
->>> Icenowy
->>>
->>>> Thanks,
->>>> Icenowy
->>>>
->>>>> Best regards
->>>>> Thomas
->>>>>
->>>>>> The end of drm_atomic_helper_check_plane_state() says:
->>>>>>
->>>>>> ```
->>>>>> 	if (!plane_state->visible)
->>>>>> 		/*
->>>>>> 		 * Plane isn't visible; some drivers can
->>>>>> handle
->>>>>> this
->>>>>> 		 * so we just return success here.  Drivers
->>>>>> that
->>>>>> can't
->>>>>> 		 * (including those that use the primary
->>>>>> plane
->>>>>> helper's
->>>>>> 		 * update function) will return an error
->>>>>> from
->>>>>> their
->>>>>> 		 * update_plane handler.
->>>>>> 		 */
->>>>>> 		return 0;
->>>>>> ```
->>>>>>
->>>>>> Thanks,
->>>>>> Icenowy
->>>>>>
->>>>>>> [1]
->>>>>>> https://elixir.bootlin.com/linux/v7.3.1/source/drivers/gpu/drm/drm_atomic_helper.c#L3030
->>>>>>>
->>>>>>> Best regards
->>>>>>> Thomas
->>>>>>>
->>>>>>>>      };
->>>>>>>>      
->>>>>>>> diff --git
->>>>>>>> a/drivers/gpu/drm/verisilicon/vs_primary_plane.c
->>>>>>>> b/drivers/gpu/drm/verisilicon/vs_primary_plane.c
->>>>>>>> index 8e94491693019..fca692f4f7d5c 100644
->>>>>>>> --- a/drivers/gpu/drm/verisilicon/vs_primary_plane.c
->>>>>>>> +++ b/drivers/gpu/drm/verisilicon/vs_primary_plane.c
->>>>>>>> @@ -59,25 +59,6 @@ static void
->>>>>>>> vs_primary_plane_commit(struct
->>>>>>>> vs_dc
->>>>>>>> *dc, unsigned int output)
->>>>>>>>      			VSDC_FB_CONFIG_EX_COMMIT);
->>>>>>>>      }
->>>>>>>>      
->>>>>>>> -static void vs_primary_plane_atomic_enable(struct
->>>>>>>> drm_plane
->>>>>>>> *plane,
->>>>>>>> -					   struct
->>>>>>>> drm_atomic_commit *atomic_state)
->>>>>>>> -{
->>>>>>>> -	struct drm_plane_state *state =
->>>>>>>> drm_atomic_get_new_plane_state(atomic_state,
->>>>>>>> -
->>>>>>>> 							
->>>>>>>> 	       plane);
->>>>>>>> -	struct drm_crtc *crtc = state->crtc;
->>>>>>>> -	struct vs_crtc *vcrtc =
->>>>>>>> drm_crtc_to_vs_crtc(crtc);
->>>>>>>> -	unsigned int output = vcrtc->id;
->>>>>>>> -	struct vs_dc *dc = vcrtc->dc;
->>>>>>>> -
->>>>>>>> -	regmap_set_bits(dc->regs,
->>>>>>>> VSDC_FB_CONFIG_EX(output),
->>>>>>>> -			VSDC_FB_CONFIG_EX_FB_EN);
->>>>>>>> -	regmap_update_bits(dc->regs,
->>>>>>>> VSDC_FB_CONFIG_EX(output),
->>>>>>>> -			
->>>>>>>> VSDC_FB_CONFIG_EX_DISPLAY_ID_MASK,
->>>>>>>> -			
->>>>>>>> VSDC_FB_CONFIG_EX_DISPLAY_ID(output));
->>>>>>>> -
->>>>>>>> -	vs_primary_plane_commit(dc, output);
->>>>>>>> -}
->>>>>>>> -
->>>>>>>>      static void vs_primary_plane_atomic_disable(struct
->>>>>>>> drm_plane
->>>>>>>> *plane,
->>>>>>>>      					    struct
->>>>>>>> drm_atomic_commit *atomic_state)
->>>>>>>>      {
->>>>>>>> @@ -144,13 +125,18 @@ static void
->>>>>>>> vs_primary_plane_atomic_update(struct drm_plane *plane,
->>>>>>>>      	regmap_write(dc->regs,
->>>>>>>> VSDC_FB_BLEND_CONFIG(output),
->>>>>>>>      		
->>>>>>>> VSDC_FB_BLEND_CONFIG_BLEND_DISABLE);
->>>>>>>>      
->>>>>>>> +	regmap_set_bits(dc->regs,
->>>>>>>> VSDC_FB_CONFIG_EX(output),
->>>>>>>> +			VSDC_FB_CONFIG_EX_FB_EN);
->>>>>>>> +	regmap_update_bits(dc->regs,
->>>>>>>> VSDC_FB_CONFIG_EX(output),
->>>>>>>> +			
->>>>>>>> VSDC_FB_CONFIG_EX_DISPLAY_ID_MASK,
->>>>>>>> +			
->>>>>>>> VSDC_FB_CONFIG_EX_DISPLAY_ID(output));
->>>>>>>> +
->>>>>>>>      	vs_primary_plane_commit(dc, output);
->>>>>>>>      }
->>>>>>>>      
->>>>>>>>      static const struct drm_plane_helper_funcs
->>>>>>>> vs_primary_plane_helper_funcs = {
->>>>>>>>      	.atomic_check	= vs_primary_plane_atomic_check,
->>>>>>>>      	.atomic_update	=
->>>>>>>> vs_primary_plane_atomic_update,
->>>>>>>> -	.atomic_enable	=
->>>>>>>> vs_primary_plane_atomic_enable,
->>>>>>>>      	.atomic_disable	=
->>>>>>>> vs_primary_plane_atomic_disable,
->>>>>>>>      };
->>>>>>>>      
-
--- 
---
-Thomas Zimmermann
-Graphics Driver Developer
-SUSE Software Solutions Germany GmbH
-Frankenstr. 146, 90461 Nürnberg, Germany, www.suse.com
-GF: Stefan Gaiser, Jochen Jaser, Abhinav Puri, (HRB 36809, AG Nürnberg)
-
+  Tomi
 
