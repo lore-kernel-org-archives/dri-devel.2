@@ -2,65 +2,79 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A144A606A32A
-	for <dri-devel@archiver.kernel.org>; Tue, 17 Nov 2026 14:21:50 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 057C460A2608
+	for <dri-devel@archiver.kernel.org>; Tue, 17 Nov 2026 14:23:21 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=collabora.com header.i=@collabora.com header.a=rsa-sha256 header.s=mail header.b=ajYCL367
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Ms4TEX+3
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 182C310F795;
-	Tue, 17 Nov 2026 14:21:44 +0000 (UTC)
-Received: from bali.collaboradmins.com (bali.collaboradmins.com
- [148.251.105.195])
- by gabe.freedesktop.org (Postfix) with ESMTPS id BB62F10F77B
- for <dri-devel@lists.freedesktop.org>; Tue, 17 Nov 2026 14:21:37 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
- s=mail; t=1794925296;
- bh=eTx+m5M3eFCbXDGOYEw1mPbbOX2QC6ej+9qJUtLPPPA=;
- h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
- b=ajYCL367ISKImGmT25/L/sEItav5F0loEo2zyWlbjMcNCm8/aFlaOJtx6jqxsOVYu
- QSufOBlmADseEIEA/29cEP+xsToNNMpfcp6vKJyDNxi4Vt7is00vCP7ABY7HDPBMZ3
- MoJMUoisEmhnxCs/ibMCfZfMXllR0Z7TJ/eC180yjahuFUqQQrwZDUWL0iFXL32O3D
- j5QZi3w4vL3s9hVJS+D0O5gKAvGjsU4bedEcCxzHk4ImnU7UDN+eAjitlObb6+QTma
- gHRGYxCzx6Q5FZ6qTVB9jp3sxTyMmu+xSTtY7+PnIpnlSS7pLI7+ozXD2rFkal2dR4
- o7EOcHtoGf8EQ==
-Received: from [100.64.1.21] (unknown [100.64.1.21])
- (using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
- key-exchange x25519) (No client certificate requested)
- (Authenticated sender: kholk11)
- by bali.collaboradmins.com (Postfix) with ESMTPSA id 6C0BF17E0069;
- Tue, 17 Nov 2026 15:21:35 +0100 (CET)
-Message-ID: <63da5790-984b-4760-8e92-85b5d2269b30@collabora.com>
-Date: Tue, 17 Nov 2026 15:21:35 +0100
-X-Archived-By: <archiver.kernel.org>
-MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 4/4] arm64: dts: mediatek: mt8167: Add DRM nodes
-To: Krzysztof Kozlowski <krzk@kernel.org>,
- Luca Leonardo Scorcia <l.scorcia@gmail.com>,
- linux-mediatek@lists.infradead.org
-Cc: Chun-Kuang Hu <chunkuang.hu@kernel.org>,
- Philipp Zabel <p.zabel@pengutronix.de>, David Airlie <airlied@gmail.com>,
- Simona Vetter <simona@ffwll.ch>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>, Matthias Brugger
- <matthias.bgg@gmail.com>, CK Hu <ck.hu@mediatek.com>,
- Jitao shi <jitao.shi@mediatek.com>, dri-devel@lists.freedesktop.org,
- devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
- linux-arm-kernel@lists.infradead.org
-References: <20260921113914.779393-1-l.scorcia@gmail.com>
- <20260921113914.779393-5-l.scorcia@gmail.com>
- <bbefcf0b-b31e-4f74-bf79-b0ccc983f62b@kernel.org>
- <200ef6c1-eced-4c36-832d-3fb409aac866@collabora.com>
- <5715e9e5-857d-4104-aedd-9662da0fc0ab@kernel.org>
- <911e4163-8a2c-4ca2-8903-8d3ddb7266e8@collabora.com>
- <600165c4-eaa7-4b1e-806c-63d3b97d5064@kernel.org>
-From: AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>
-Content-Language: en-US
-In-Reply-To: <600165c4-eaa7-4b1e-806c-63d3b97d5064@kernel.org>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+	by gabe.freedesktop.org (Postfix) with ESMTP id 3AF5510E8F2;
+	Tue, 17 Nov 2026 14:23:15 +0000 (UTC)
+Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 3461210E8F2
+ for <dri-devel@lists.freedesktop.org>; Tue, 17 Nov 2026 14:23:09 +0000 (UTC)
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+ by sea.source.kernel.org (Postfix) with ESMTP id B153441999;
+ Tue, 17 Nov 2026 14:23:08 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 87E9B1F000C8;
+ Tue, 17 Nov 2026 14:23:02 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+ s=k20260515; t=1794925388;
+ bh=1v3XDaIPsn+JJltQ44/B7GYW4pMWHo/jyhLjp2tXhpU=;
+ h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+ b=Ms4TEX+35GlVZDWxtFrKHXCEGtiwtf31X5SUg8Rgxfe9VPX1jDQW0/Og//0X0wDmk
+ I9MBNEYvG3eyERN88hZmPsTUdvizD6YaKHRnRh7ce3+vpkmakqbx2/k1M3K8WPtlAM
+ d55iB8zUE+ZCUuKf409Cqx9uTzXVD3rBgWL9o9jOCKYNH1qZ/qpDDYdJj8vzeVUGfN
+ 8rjbHYLe1Ak0daACyU18m/Cqw+KrkKBXBwPxXxcFQfKm5jRz6fmZ5nHp5wqFQaVNF5
+ ZNohBWGVtYRBmBA1kLVGKZhNDZPJTdLoDa4ocqQt5LtsXYH1lLrakqxKTEFzfSRGG5
+ vTlyhXL4TjQ+A==
+Message-ID: <sashiko-outbox-218957@kernel.org>
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v22 5/5] rust: Add `OwnableIntoShared` and
+ `OwnableTryFromShared`
+To: "Andreas Hindborg" <a.hindborg@kernel.org>,
+ "Danilo Krummrich" <dakr@kernel.org>, "Lorenzo
+ Stoakes" <ljs@kernel.org>, "Vlastimil Babka" <vbabka@kernel.org>, "Liam R.
+ Howlett" <liam@infradead.org>, "Uladzislau Rezki" <urezki@gmail.com>, "Miguel
+ Ojeda" <ojeda@kernel.org>, "Boqun Feng" <boqun@kernel.org>,
+ "Gary Guo" <gary@garyguo.net>, 
+ =?utf-8?b?QmrDtnJuIFJveSBCYXJvbg==?= <bjorn3_gh@protonmail.com>, "Benno
+ Lossin" <lossin@kernel.org>, "Alice Ryhl" <aliceryhl@google.com>, "Trevor
+ Gross" <tmgross@umich.edu>, "Daniel Almeida" <daniel.almeida@collabora.com>,
+ "Tamir
+ Duberstein" <tamird@kernel.org>, "Alexandre Courbot" <acourbot@nvidia.com>,
+ =?utf-8?b?T251ciDDlnprYW4=?= <work@onurozkan.dev>,
+ "Lyude Paul" <lyude@redhat.com>, "Greg
+ Kroah-Hartman" <gregkh@linuxfoundation.org>,
+ "Christian Brauner" <brauner@kernel.org>, "Rafael
+ J. Wysocki" <rafael@kernel.org>, "Dave Ertman" <david.m.ertman@intel.com>,
+ "Leon
+ Romanovsky" <leon@kernel.org>, "Paul Moore" <paul@paul-moore.com>, "Serge
+ Hallyn" <sergeh@kernel.org>, "David Airlie" <airlied@gmail.com>, "Simona
+ Vetter" <simona@ffwll.ch>, "Alexander Viro" <viro@zeniv.linux.org.uk>, "Jan
+ Kara" <jack@suse.cz>, "Igor Korotin" <igor.korotin@linux.dev>, "Viresh
+ Kumar" <vireshk@kernel.org>, "Nishanth Menon" <nm@ti.com>,
+ "Stephen Boyd" <sboyd@kernel.org>, "Bjorn Helgaas" <bhelgaas@google.com>,
+ =?utf-8?b?S3J6eXN6dG9mIFdpbGN6ecWEc2tp?= <kwilczynski@kernel.org>, "Pavel
+ Tikhomirov" <ptikhomirov@virtuozzo.com>,
+ "Michal Wilczynski" <m.wilczynski@samsung.com>, "Ira
+ Weiny" <iweiny@kernel.org>, "Matthew Brost" <matthew.brost@intel.com>,
+ =?utf-8?b?VGhvbWFzIEhlbGxzdHLDtm0=?= <thomas.hellstrom@linux.intel.com>, "Johan
+ Hovold" <johan@kernel.org>, "Sumit Semwal" <sumit.semwal@linaro.org>,
+ =?utf-8?b?Q2hyaXN0aWFuIEvDtm5pZw==?= <christian.koenig@amd.com>, "Dave
+ Jiang" <dave.jiang@intel.com>, "Jason Gunthorpe" <jgg@ziepe.ca>, "Saeed
+ Mahameed" <saeedm@nvidia.com>, "Zhi Wang" <zhiw@nvidia.com>, "Jonathan
+ Cameron" <jic23@kernel.org>, "Markus Probst" <markus.probst@posteo.de>
+Cc: "Philipp Stanner" <phasta@kernel.org>, linux-mm@kvack.org,
+ linux-security-module@vger.kernel.org, dri-devel@lists.freedesktop.org,
+ linux-pci@vger.kernel.org, linux-usb@vger.kernel.org,
+ linux-serial@vger.kernel.org, "Oliver
+ Mangold" <oliver.mangold@pm.me>, media-ci@linuxtv.org
+In-Reply-To: <20261116-unique-ref-v22-5-12029383206d@kernel.org>
+References: <20261116-unique-ref-v22-0-12029383206d@kernel.org>
+ <20261116-unique-ref-v22-5-12029383206d@kernel.org>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Tue, 17 Nov 2026 14:23:02 +0000
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -71,136 +85,69 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
+Reply-To: sashiko-reviews@lists.linux.dev
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-17.3 required=3.0 tests=BAYES_00,DKIM_SIGNED,
-	DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
-	INCLUDES_CR_TRAILER,INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,
-	SPF_PASS,USER_AGENT_SANE_1 autolearn=unavailable autolearn_force=no
-	version=4.0.1
+X-Spam-Status: No, score=-10.8 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
+	DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
+	INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS autolearn=ham
+	autolearn_force=no version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
+X-Archived-By: <archiver.kernel.org>
 
-On 11/17/26 14:12, Krzysztof Kozlowski wrote:
-> On 17/11/2026 14:00, AngeloGioacchino Del Regno wrote:
->> On 11/17/26 13:55, Krzysztof Kozlowski wrote:
->>> On 17/11/2026 13:53, AngeloGioacchino Del Regno wrote:
->>>> On 11/17/26 13:35, Krzysztof Kozlowski wrote:
->>>>> On 21/09/2026 13:38, Luca Leonardo Scorcia wrote:
->>>>>> Add all the DRM nodes required to get DSI and DPI to work on MT8167 SoC.
->>>>>>
->>>>>> Signed-off-by: Luca Leonardo Scorcia <l.scorcia@gmail.com>
->>>>>> Reviewed-by: AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>
->>>>>> ---
->>>>>>     arch/arm64/boot/dts/mediatek/mt8167.dtsi | 369 +++++++++++++++++++++++
->>>>>>     1 file changed, 369 insertions(+)
->>>>>>
->>>>>> diff --git a/arch/arm64/boot/dts/mediatek/mt8167.dtsi b/arch/arm64/boot/dts/mediatek/mt8167.dtsi
->>>>>> index 27cf32d7ae35..a50bae4307c1 100644
->>>>>> --- a/arch/arm64/boot/dts/mediatek/mt8167.dtsi
->>>>>> +++ b/arch/arm64/boot/dts/mediatek/mt8167.dtsi
->>>>>> @@ -16,6 +16,22 @@
->>>>>>     / {
->>>>>>     	compatible = "mediatek,mt8167";
->>>>>>     
->>>>>> +	aliases {
->>>>>> +		aal0 = &aal;
->>>>>> +		ccorr0 = &ccorr;
->>>>>> +		color0 = &color;
->>>>>> +		dither0 = &dither;
->>>>>> +		dpi0 = &dpi0;
->>>>>> +		dpi1 = &dpi1;
->>>>>> +		dsi0 = &dsi;
->>>>>> +		gamma0 = &gamma;
->>>>>> +		ovl0 = &ovl0;
->>>>>> +		pwm0 = &disp_pwm;
->>>>>> +		rdma0 = &rdma0;
->>>>>> +		rdma1 = &rdma1;
->>>>>> +		wdma0 = &wdma;
->>>>>
->>>>> Folks, what is happening here? Why Mediatek is adding bunch of
->>>>> undocumented aliases? This should have never been accepted to Mediatek SoC.
->>>>>
->>>>
->>>> It's always been like this on MediaTek from day 1, what's up with that!?
->>>
->>> I wrote what is wrong - they are undocumented. You were never allowed to
->>> add undocumented ABI, never. Even 10 years ago.
->>>
->>
->> Well, that's right.
->>
->>> I don't know what is day 1 in this context, but for a few (5-8 years?)
->>> we do not allow more custom aliases. Neither new DTS users of these.
->>>
->>
->> That actually poses a severe issue, as mediatek-drm relies on aliases to find out
->> the instance number of the display controller components, on all SoCs.
-> 
-> If someone sent these for DT maintainers review, we would provide review
-> telling they are not allowed and you need to use other methods. The
-> problem is that someone sneaked undocumented ABI.
-> 
-> Instance IDs are not allowed in DT - neither as aliases nor as properties.
-> 
+Thank you for your contribution! Sashiko AI review found 1 potential
+issue to consider:
+- [Low] rust: separate use blocks instead of single vertical import
+  block
+--
 
-Okay.
+commit eb9ded53e4184ea08932194e99ba6dc1bce8d3eb
+Author: Oliver Mangold <oliver.mangold@pm.me>
 
-> If the graph topology or phandles do not point to proper relation
-> between components, then the recommended way I know (happy to learn more
-> myself) is to map instances to IDs in the drivers. For example
-> Qualcomm/MSM is doing that.
-> 
+rust: Add `OwnableIntoShared` and `OwnableTryFromShared`
 
-They do point to proper relation between components, but connecting one IP to
-another is one thing, knowing the fixed hardware instance number (so how many of
-those hardware IPs are there, and which one is that exact one) is another.
+This commit introduces the OwnableIntoShared and OwnableTryFromShared
+traits to support converting between Owned<T> and ARef<T>.
 
->>
->> Any advice on how to possibly resolve this without rewriting the entire thing?
->>
->> Mapping that by mmio address in the driver seems too stupid/dirty/bad/etc.
-> 
-> Driver needs that, so why exactly stupid?
+> diff --git a/rust/kernel/owned.rs b/rust/kernel/owned.rs
+> index bfc52bc7f6451..5b71d264477ef 100644
+> --- a/rust/kernel/owned.rs
+> +++ b/rust/kernel/owned.rs
+> @@ -14,6 +14,10 @@
+>      pin::Pin,
+>      ptr::NonNull, //
+>  };
+> +use kernel::{
+> +    sync::aref::ARef,
+> +    types::RefCounted, //
+> +};
+> =20
+>  use kernel::types::ForeignOwnable;
 
-Really feels like going back to the days when devicetree was not a thing and all of
-the MMIOs (on ARM at least) were added into a mach file.
+[ ... ]
 
- >
-> You do not represent any
-> actual hardware information in DT with these aliases.
+> diff --git a/rust/kernel/sync/aref.rs b/rust/kernel/sync/aref.rs
+> index 6bc58aae38ed9..8a029d124fa31 100644
+> --- a/rust/kernel/sync/aref.rs
+> +++ b/rust/kernel/sync/aref.rs
+> @@ -23,6 +23,10 @@
+>      ops::Deref,
+>      ptr::NonNull, //
+>  };
+> +use kernel::types::{
+> +    OwnableIntoShared,
+> +    Owned, //
+> +};
+> =20
+>  use crate::{
+>      prelude::*,
 
-That depends on how you see it (as in, on the point of view), really, because well
-technically the second ReadDMA IP is ... not the ... primary, as it's the secondary
-one - as much as the third DPI is not the primary one (even though DRM can make it
-so that it can be used as a primary output, but that's a software thing, not HW).
+[Severity: Low]
+This isn't a bug, but both files add a separate use block instead of
+merging the new imports into the existing kernel/crate vertical import
+blocks (grouping ForeignOwnable with RefCounted in owned.rs, and
+OwnableIntoShared and Owned under crate::types in aref.rs).
 
-So... well, with that point of view... those aliases *are* representing information
-about the hardware.
-
-But I know that you're not complaining just about this, and this reply is not a way
-to argue all that much, just a bit of thinking out loud.
-
- >
-> You want to tell
-> drivers how drivers should behave - that's not a job for DT,
-
-I want to tell drivers what is the first or the second or the third hardware
-instance of the same IP, I don't want to tell drivers how drivers should behave
-from devicetree.
-The drivers are behaving differently with different hardware (read as: hardware
-that is *physically* located in front of something else, or somewhere else anyway)
-as in with different hardware instances.
-
-> that's job
-> for driver data. Of course if there is smarter way than MMIO->ID, I am
-> all in.
-
-You can't imagine how much I was hoping for you to say something about an
-alternative solution to that.
-
-As I said, it feels a bit like pre-DT times, but what I get from you is that this
-is cleaner than just adding information about the real hardware instance number in
-devicetree (no that's not just MediaTek, qcom also had similar issues as you said).
-
-Cheers,
-Angelo
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261116-unique-ref=
+-v22-0-12029383206d@kernel.org?part=3D5
