@@ -2,62 +2,62 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6FBF5606A330
-	for <dri-devel@archiver.kernel.org>; Tue, 17 Nov 2026 21:44:50 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9E299606A32C
+	for <dri-devel@archiver.kernel.org>; Tue, 17 Nov 2026 21:44:56 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=qyTbe6qK
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=VlA+jYUP
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id D3EF110F987;
-	Tue, 17 Nov 2026 21:44:44 +0000 (UTC)
-Received: from mail-wm1-f42.google.com (mail-wm1-f42.google.com
- [209.85.128.42])
- by gabe.freedesktop.org (Postfix) with ESMTPS id E180D10F97C
- for <dri-devel@lists.freedesktop.org>; Tue, 17 Nov 2026 21:44:37 +0000 (UTC)
-Received: by mail-wm1-f42.google.com with SMTP id
- 5b1f17b1804b1-4a5b2be99a8so3249095e9.2
- for <dri-devel@lists.freedesktop.org>; Tue, 17 Nov 2026 13:44:37 -0800 (PST)
+	by gabe.freedesktop.org (Postfix) with ESMTP id B214510F980;
+	Tue, 17 Nov 2026 21:44:50 +0000 (UTC)
+Received: from mail-wm1-f52.google.com (mail-wm1-f52.google.com
+ [209.85.128.52])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 493E010F979
+ for <dri-devel@lists.freedesktop.org>; Tue, 17 Nov 2026 21:44:44 +0000 (UTC)
+Received: by mail-wm1-f52.google.com with SMTP id
+ 5b1f17b1804b1-4bb64ef5a14so3425025e9.1
+ for <dri-devel@lists.freedesktop.org>; Tue, 17 Nov 2026 13:44:44 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20260707; t=1794951876; x=1795556676; darn=lists.freedesktop.org;
+ d=gmail.com; s=20260707; t=1794951883; x=1795556683; darn=lists.freedesktop.org;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:from:to:cc:subject:date
  :message-id:reply-to:content-type;
- bh=nw08AhRQS1eFzAKtcGRxJRAZrCmSi0ARu0NkX4yj1hM=;
- b=qyTbe6qKddiVdyIr72d/Nrh0YmmiOP4bQoI0aELPTwd9j3BTSSUEgkA9BTIzZGaVxR
- HC7/hJYMVp9qm0LO9II0qiK6nVPxvjj4kZgLw1ZicVz5XD9qd9iHKqgNr0y1Nbl5SSyi
- T4kWQgCe1O6VYndI4ypS9dlv9wWyeCRwLynN78zF+pdUkChEVeMhI9r1d1lUM0eYNVeJ
- qmh9npp3BLvE+6DyR+Ts16P8Fc5mXow+8Zs754/JAvj94bypDGKNvcpsSJxL6KuxWgOq
- TJVfrsNsFXY8zSXHYc6DJ1kk9Po3ozRL9nzmRLNx+tBR8USV+iFbC3Fg87NJBRGRRS8s
- nmtQ==
+ bh=DOc7qs5gpmxDny1UvV4waZXrE2n/TMggor9dB+wdMFA=;
+ b=VlA+jYUPzmjbKrTUARdcEPztuOpLt7jsAtDNreq5Va3VXdLNuOZFxeoIz9fq645hcr
+ 3snq0nfz+kVCY18kD6R4ZLwcZMnUcRplbIQ6l/mxWYBWdmGI5owLCXiZPQOzE8GIKm6l
+ lnRATCnQIwSoEcRMc7SjSm/aoWTe32zWtpkobXPaJX3mC8LZ2SImfZXd7mkgda4DhBEW
+ fkHyYmbIrwTB5k+M06eHEDvrfCsVYeGbWuP8ZljLLXnUjP4WLYbm6gjKsM5RUYYFTo3J
+ 5UUECQT/I7q6H0PQFuEQo6suwJbxOsW78VBQKTquyF+q4iUxOVhJpuyupcZs6Q6Ev4Bz
+ DAUg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20260707; t=1794951876; x=1795556676;
+ d=1e100.net; s=20260707; t=1794951883; x=1795556683;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
  :to:cc:subject:date:message-id:reply-to:content-type;
- bh=nw08AhRQS1eFzAKtcGRxJRAZrCmSi0ARu0NkX4yj1hM=;
- b=vlxqAEXK8IsHjFpvRLdb+434QvPhuOONwJOrmyd3dHpwfSNRbNxECb3QeLsXhVJqdj
- hWZMiBH5AfOSYIk0KlxDVJKcm6glOFMpwPezx2YKSBisA1TafR8dr36Xxp8ylbpR0KIV
- ec/ycHJcubImh/nNs7qSwVcApjRMTE0vHEu+nxJ//h9Z4/9fUBpdhDdpaPtcXelGYKZX
- LKuyktpshHny69L+8ZbVV8sFBQu+Dfb73a9xMAw1i+yITYYG552NcyYCzjtpjM8PCfwo
- KOV4CaXUuXWhfUcEeEH4AOplevlHAzDrTcL1BWiIcTarKLql2esxRghlFIJCKBuVBYEo
- gQEw==
-X-Gm-Message-State: APuU4Z880KCxYDHByTeinMrNLfm4K0l5qjivZZao8AmZhV6VNzcmI9Yk
- 9w6a2gbhSxveTDwg5pm9BHDQgGJvWcpa8VLiLKgmkx3ppO02TbZWLKvO
-X-Gm-Gg: AYBFou2QMoNev27etugxBG+sZmMV2u6kvpon0ldsrhKrioFhEgjGiabzRRN40nvkWmE
- udB4MOFzj+x/Z0tVCte8B9SYUdrQLrRuxj0uywMDoDJeE1nao/eN9SoA4IrHAmsNBQIMq9l6VMR
- +d7OBxanhD4yNH1stDKZ250bJUMZJlEL0b6S1mjXrlZ2ljOIUchupM7wu/0Zd5sM32AQEg7Rnr8
- mPTrwvNPfIsDM/KJvf+LDyp+nBYoSWGzb+WEeZaO0bG3MqEvUksSSK7c7AgShhObb8mYJxLDFvL
- +y1JgAbjR/aLUPdWwt4Dy66TSz+SGJJTTLxws08I8fEteYemypqRDTf4+6+AunQaPQorV/nCi78
- AU3yztxbadGVsP6FV0DtBaMP6Mji6rIoYfF8ZssTeusFLMh9Bhh5NVLWlwHh1BvZtDfOUHqmo0V
- X3C58PCcCEu+hhyWlQr4B32eKD83UMIEFXv2ZeiWCV+rjWDawYFSGxCIvGmsZOEZT9QxgTkmWKA
- Vx/As1sal/U3qxdgvAmlOxr36n0CelWNNPUumTDjp6q+2Yy67Eq52cqON6c9SiZeVEkeP2s0VlD
- 6rY9DIEj1hm0EELIXaD9sNRD5TYRDYB4DVBveR0XaU+HQCUsMrysyBtStMFZ1w==
-X-Received: by 2002:a05:600c:4fc5:b0:4a2:392:9de2 with SMTP id
- 5b1f17b1804b1-4bb7da3ad9fmr9007535e9.28.1794951876264; 
- Tue, 17 Nov 2026 13:44:36 -0800 (PST)
+ bh=DOc7qs5gpmxDny1UvV4waZXrE2n/TMggor9dB+wdMFA=;
+ b=hiiXdu5USKgZ6JcQ2Sg+pYevuboA12STGXQ62WZK+mSKtmiSnr4TAuV0sF2KB//Uae
+ 3xaB9k5pXAoUPx/WoAIPn8DsA4ZVNBZP3TL5bswkDBdFZQ9YbQ8hA5Sl/JO9nEkuydVA
+ KGNpnhWe0oe8uoCHyQ5XoAokJi6iC/RNsQsH2lwc2KytNzVRkasU+NWb9Z7CJD0ueaXr
+ vjV5O/qdPeLOj9jFMRzJmVlLPN8BgxXBelIQB3RmhsLy0DtGcDH32kbzQh7itgLJIO3L
+ opI8l01ncire36YHRzwpNNCRYkuWpfTSNHtXFpoyEI/ZcQ5jixQoCXTlu2ghYmbtw8UB
+ sUfg==
+X-Gm-Message-State: APuU4Z/6dYHHulbHZWQHOAlvDkAP7Cd4UpPtiMIjwaVu8ci7KQLrFSz/
+ nWAm5GBUQs8W1r5IIoTVJ1bKSyfaG0Ws0qET4aNmr1dqmSNP7CZbQ5xU
+X-Gm-Gg: AYBFou2LbVeQ97qXXVUj1DIe6+q7PkTJOya21YueSoqA2QuJSUU6TY7I6U3mYU9bMgA
+ yINJ5SP9iN0zmIkXClAwFcFfBJUxmPCT6Kp5t1hK+935aKgx0OItUh+ohdoTTz3EX7Vytk3GVBJ
+ tTj6vqQKD6wqQb79N/Ea4gSnC9rRxqaD1+793xIZR5uHwV+nAPdiLC24V3rgVBnHESRtfTadcJJ
+ kKplaFkNfVCpNZQp1yYmMIVcjh4/BUK8dvXjjDqPmTtvR3c9h+uSub1I3xFgxFFb+PZ9jf9tu87
+ Pf3UjJoL+JU8G/zIDM15oBhdW+Pz3WtNIG+V0yVdr3ki1aAfkWTwJO5s+nHzyXIhg7Ln84ggtmw
+ MaXZKZJBW2WcwS/FbgjSqpckUWQw7sATzudAWtqGAUS9nugTF2WI1lLdVckHHxyWSSh1dc6/ozv
+ cnc7FUB2t9qO0OYOGpHm3ZHZVqn1PDwFbT2h8dean+BIY4FgErccaYlUL5PCYxl8lmFjRT5fskW
+ XZpP/MJCShg7xy2fbuoSXef50G6+JPUNwO/t/SzjtAtIU3e94aheTFVGIJ1KdUkQ8yNlmDZzhxf
+ m6IPKmJShHCGj5HWjjmmxvhnnFCH7Mv/+IsHUaeNWfcXV2LPSC1A7S+gQfxCcw==
+X-Received: by 2002:a05:600c:608c:b0:4b6:267a:dd6e with SMTP id
+ 5b1f17b1804b1-4bb7da44047mr9350665e9.28.1794951882663; 
+ Tue, 17 Nov 2026 13:44:42 -0800 (PST)
 Received: from fedora ([94.200.248.157]) by smtp.gmail.com with ESMTPSA id
- 5b1f17b1804b1-4bb784231basm95069675e9.11.2026.11.17.13.44.32
+ 5b1f17b1804b1-4bb784231basm95069675e9.11.2026.11.17.13.44.38
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Tue, 17 Nov 2026 13:44:35 -0800 (PST)
+ Tue, 17 Nov 2026 13:44:41 -0800 (PST)
 From: Mohamed Ahmed <mohamedahmedegypt2001@gmail.com>
 To: linux-kernel@vger.kernel.org
 Cc: dri-devel@lists.freedesktop.org, Lyude Paul <lyude@redhat.com>,
@@ -69,10 +69,10 @@ Cc: dri-devel@lists.freedesktop.org, Lyude Paul <lyude@redhat.com>,
  nouveau@lists.freedesktop.org,
  Mohamed Ahmed <mohamedahmedegypt2001@gmail.com>,
  Thomas Andersen <phomes@gmail.com>
-Subject: [PATCH 2/3] drm/nouveau/bar: take the GSP-RM flush pointer from the
- BAR2 io_mapping
-Date: Wed, 18 Nov 2026 01:43:51 +0400
-Message-ID: <20261117214352.337961-3-mohamedahmedegypt2001@gmail.com>
+Subject: [PATCH 3/3] drm/nouveau/instmem: map only the part of BAR2 that is
+ used
+Date: Wed, 18 Nov 2026 01:43:52 +0400
+Message-ID: <20261117214352.337961-4-mohamedahmedegypt2001@gmail.com>
 X-Mailer: git-send-email 2.56.1
 In-Reply-To: <20261117214352.337961-1-mohamedahmedegypt2001@gmail.com>
 References: <20261117214352.337961-1-mohamedahmedegypt2001@gmail.com>
@@ -98,169 +98,59 @@ X-Spam-Status: No, score=-15.8 required=3.0 tests=BAYES_00,DKIM_SIGNED,
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-r535_bar_new_() maps the first page of BAR2 with ioremap(), to flush
-BAR2 writes with a read while flushFBZero is not mapped. On x86 with
-PAT, a mapping that overlaps an existing one gets its type. The instmem
-io_mapping is created later, so with GSP-RM it is also mapped UC- and
-its writes are not write-combined.
+The io_mapping covers the whole BAR2 resource. With GSP-RM and with
+NvBar2Halve the BAR2 address space covers only its lower half. The
+driver maps nothing in the upper half, and a mapping that already
+exists there would give the io_mapping its type.
 
-Take the flush pointer from the io_mapping. A new bar2.oneinit hook
-sets it up once the BAR2 page tables are bootstrapped and the
-io_mapping exists.
+Size the io_mapping to the BAR2 address space. The range does not
+change where BAR2 is not halved.
 
 Fixes: 34e27b90552a ("nouveau/instmem: use iomapping interface for instmem handling")
 Signed-off-by: Mohamed Ahmed <mohamedahmedegypt2001@gmail.com>
 Tested-by: Thomas Andersen <phomes@gmail.com>
 ---
- .../gpu/drm/nouveau/nvkm/subdev/bar/gf100.c   |  6 ++++
- .../gpu/drm/nouveau/nvkm/subdev/bar/priv.h    |  1 +
- .../drm/nouveau/nvkm/subdev/gsp/rm/r535/bar.c | 32 ++++++++++++++-----
- .../drm/nouveau/nvkm/subdev/instmem/nv50.c    |  8 +++++
- .../drm/nouveau/nvkm/subdev/instmem/priv.h    |  3 ++
- 5 files changed, 42 insertions(+), 8 deletions(-)
+ drivers/gpu/drm/nouveau/nvkm/subdev/instmem/nv50.c | 11 ++++++-----
+ 1 file changed, 6 insertions(+), 5 deletions(-)
 
-diff --git a/drivers/gpu/drm/nouveau/nvkm/subdev/bar/gf100.c b/drivers/gpu/drm/nouveau/nvkm/subdev/bar/gf100.c
-index a1fa1b0c8954..6950801d2e03 100644
---- a/drivers/gpu/drm/nouveau/nvkm/subdev/bar/gf100.c
-+++ b/drivers/gpu/drm/nouveau/nvkm/subdev/bar/gf100.c
-@@ -133,6 +133,12 @@ gf100_bar_oneinit(struct nvkm_bar *base)
- 		if (ret)
- 			return ret;
- 
-+		if (bar->base.func->bar2.oneinit) {
-+			ret = bar->base.func->bar2.oneinit(&bar->base);
-+			if (ret)
-+				return ret;
-+		}
-+
- 		bar->base.subdev.oneinit = true;
- 		nvkm_bar_bar2_init(bar->base.subdev.device);
- 	}
-diff --git a/drivers/gpu/drm/nouveau/nvkm/subdev/bar/priv.h b/drivers/gpu/drm/nouveau/nvkm/subdev/bar/priv.h
-index d0168e0b78fb..5774bfa8d96d 100644
---- a/drivers/gpu/drm/nouveau/nvkm/subdev/bar/priv.h
-+++ b/drivers/gpu/drm/nouveau/nvkm/subdev/bar/priv.h
-@@ -16,6 +16,7 @@ struct nvkm_bar_func {
- 	void (*init)(struct nvkm_bar *);
- 
- 	struct {
-+		int (*oneinit)(struct nvkm_bar *);
- 		void (*init)(struct nvkm_bar *);
- 		void (*fini)(struct nvkm_bar *);
- 		void (*wait)(struct nvkm_bar *);
-diff --git a/drivers/gpu/drm/nouveau/nvkm/subdev/gsp/rm/r535/bar.c b/drivers/gpu/drm/nouveau/nvkm/subdev/gsp/rm/r535/bar.c
-index fae08ac3b18c..9b907d9e80af 100644
---- a/drivers/gpu/drm/nouveau/nvkm/subdev/gsp/rm/r535/bar.c
-+++ b/drivers/gpu/drm/nouveau/nvkm/subdev/gsp/rm/r535/bar.c
-@@ -24,9 +24,11 @@
- #include <core/mm.h>
- #include <subdev/fb.h>
- #include <subdev/gsp.h>
--#include <subdev/instmem.h>
-+#include <subdev/instmem/priv.h>
- #include <subdev/mmu/vmm.h>
- 
-+#include <linux/io-mapping.h>
-+
- #include "nvrm/bar.h"
- #include "nvrm/rpcfn.h"
- 
-@@ -65,6 +67,25 @@ r535_bar_bar2_update_pde(struct nvkm_gsp *gsp, u8 page_shift, u64 pdbe)
- 	return nvkm_gsp_rpc_wr(gsp, rpc, NVKM_GSP_RPC_REPLY_RECV);
- }
- 
-+static int
-+r535_bar_bar2_oneinit(struct nvkm_bar *bar)
-+{
-+	struct io_mapping *iomap = nv50_instmem_bar2_iomap(bar->subdev.device->imem);
-+
-+	if (!iomap)
-+		return -ENOMEM;
-+
-+	/* BAR2 writes are flushed by a read. While flushFBZero is not mapped,
-+	 * read the first page of the BAR2 io_mapping.
-+	 */
-+	bar->flushBAR2PhysMode = io_mapping_map_wc(iomap, 0, PAGE_SIZE);
-+	if (!bar->flushBAR2PhysMode)
-+		return -ENOMEM;
-+
-+	bar->flushBAR2 = bar->flushBAR2PhysMode;
-+	return 0;
-+}
-+
- static void
- r535_bar_bar2_fini(struct nvkm_bar *bar)
- {
-@@ -155,7 +176,7 @@ r535_bar_dtor(struct nvkm_bar *bar)
- 	nvkm_memory_unref(&bar->flushFBZero);
- 
- 	if (bar->flushBAR2PhysMode)
--		iounmap(bar->flushBAR2PhysMode);
-+		io_mapping_unmap(bar->flushBAR2PhysMode);
- 
- 	kfree(bar->func);
- 	return data;
-@@ -178,6 +199,7 @@ r535_bar_new_(const struct nvkm_bar_func *hw, struct nvkm_device *device,
- 	rm->bar1.fini = r535_bar_bar1_fini;
- 	rm->bar1.wait = r535_bar_bar1_wait;
- 	rm->bar1.vmm = hw->bar1.vmm;
-+	rm->bar2.oneinit = r535_bar_bar2_oneinit;
- 	rm->bar2.init = r535_bar_bar2_init;
- 	rm->bar2.fini = r535_bar_bar2_fini;
- 	rm->bar2.wait = r535_bar_bar2_wait;
-@@ -191,12 +213,6 @@ r535_bar_new_(const struct nvkm_bar_func *hw, struct nvkm_device *device,
- 	}
- 	*pbar = bar;
- 
--	bar->flushBAR2PhysMode = ioremap(device->func->resource_addr(device, NVKM_BAR2_INST), PAGE_SIZE);
--	if (!bar->flushBAR2PhysMode)
--		return -ENOMEM;
--
--	bar->flushBAR2 = bar->flushBAR2PhysMode;
--
- 	gf100_bar(*pbar)->bar2_halve = true;
- 	return 0;
- }
 diff --git a/drivers/gpu/drm/nouveau/nvkm/subdev/instmem/nv50.c b/drivers/gpu/drm/nouveau/nvkm/subdev/instmem/nv50.c
-index 22b0fde6ba34..1b4be4b1f0bb 100644
+index 1b4be4b1f0bb..1e7d439c2d59 100644
 --- a/drivers/gpu/drm/nouveau/nvkm/subdev/instmem/nv50.c
 +++ b/drivers/gpu/drm/nouveau/nvkm/subdev/instmem/nv50.c
-@@ -436,6 +436,14 @@ nv50_instmem_dtor(struct nvkm_instmem *base)
- 	return imem;
+@@ -191,16 +191,17 @@ nv50_instobj_map(struct nvkm_memory *memory, u64 offset, struct nvkm_vmm *vmm,
  }
  
-+struct io_mapping *
-+nv50_instmem_bar2_iomap(struct nvkm_instmem *base)
-+{
-+	struct nv50_instmem *imem = nv50_instmem(base);
-+
-+	return imem->iomap.size ? &imem->iomap : NULL;
-+}
-+
- static const struct nvkm_instmem_func
- nv50_instmem = {
- 	.dtor = nv50_instmem_dtor,
-diff --git a/drivers/gpu/drm/nouveau/nvkm/subdev/instmem/priv.h b/drivers/gpu/drm/nouveau/nvkm/subdev/instmem/priv.h
-index b423f01f5fcd..88990adda766 100644
---- a/drivers/gpu/drm/nouveau/nvkm/subdev/instmem/priv.h
-+++ b/drivers/gpu/drm/nouveau/nvkm/subdev/instmem/priv.h
-@@ -4,6 +4,8 @@
- #define nvkm_instmem(p) container_of((p), struct nvkm_instmem, subdev)
- #include <subdev/instmem.h>
+ static bool
+-check_io_mapping(struct nv50_instmem *imem)
++check_io_mapping(struct nv50_instmem *imem, struct nvkm_vmm *vmm)
+ {
+ 	struct nvkm_device *device = imem->base.subdev.device;
  
-+struct io_mapping;
-+
- struct nvkm_instmem_func {
- 	void *(*dtor)(struct nvkm_instmem *);
- 	int (*oneinit)(struct nvkm_instmem *);
-@@ -27,6 +29,7 @@ int nv50_instobj_new(struct nvkm_instmem *, u32 size, u32 align, bool zero,
- int nv50_instobj_wrap(struct nvkm_instmem *, struct nvkm_memory *vram,
- 		      struct nvkm_memory **bar2);
- void *nv50_instmem_dtor(struct nvkm_instmem *base);
-+struct io_mapping *nv50_instmem_bar2_iomap(struct nvkm_instmem *base);
+ 	if (imem->iomap.size)
+ 		return true;
  
- void nvkm_instmem_ctor(const struct nvkm_instmem_func *, struct nvkm_device *,
- 		       enum nvkm_subdev_type, int, struct nvkm_instmem *);
++	/* Map the part of BAR2 that its address space covers. */
+ 	return io_mapping_init_wc(&imem->iomap,
+ 				  device->func->resource_addr(device, NVKM_BAR2_INST),
+-				  device->func->resource_size(device, NVKM_BAR2_INST)) != NULL;
++				  vmm->limit - vmm->start) != NULL;
+ }
+ 
+ static void
+@@ -293,10 +294,10 @@ nv50_instobj_boot(struct nvkm_memory *memory, struct nvkm_vmm *vmm)
+ 	}
+ 
+ 	/*
+-	 * boot is only called on BAR2, if we can't remap the complete
+-	 * BAR it's unlikely things are functioning well.
++	 * boot is only called on BAR2. If we can't map it, it's unlikely
++	 * things are functioning well.
+ 	 */
+-	if (check_io_mapping(iobj->imem))
++	if (check_io_mapping(iobj->imem, vmm))
+ 		nv50_instobj_kmap(iobj, vmm);
+ 	nvkm_instmem_boot(imem);
+ 	mutex_unlock(&imem->mutex);
 -- 
 2.56.1
 
