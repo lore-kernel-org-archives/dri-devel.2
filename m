@@ -2,58 +2,92 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D4D80606A31C
-	for <dri-devel@archiver.kernel.org>; Wed, 18 Nov 2026 08:23:32 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CBE79606A31C
+	for <dri-devel@archiver.kernel.org>; Wed, 18 Nov 2026 08:23:33 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=qq.com header.i=@qq.com header.a=rsa-sha256 header.s=s201512 header.b=X8gqm0S4
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=HkBcN455
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 6149910EBA3;
+	by gabe.freedesktop.org (Postfix) with ESMTP id E604110EBC6;
 	Wed, 18 Nov 2026 08:23:23 +0000 (UTC)
-Received: from out203-205-221-240.mail.qq.com (out203-205-221-240.mail.qq.com
- [203.205.221.240])
- by gabe.freedesktop.org (Postfix) with ESMTPS id ECAD310E1E7
- for <dri-devel@lists.freedesktop.org>; Wed, 18 Nov 2026 08:11:10 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qq.com; s=s201512;
- t=1794989468; bh=fNgBE2B2tf0kAWAtLKUdmZCH3D2stuwlS4hvQYwPVYo=;
- h=From:To:Cc:Subject:Date;
- b=X8gqm0S4cQV1dgA8wbNJljZ6nZV6QfhK50buoH+2DdI30Q+ZPo+FmBYPWy45xeYNX
- udk6WqCXPnM2w8diZCCH/ABsMPKdRyXjW22TRNV7U/GGOHj6SoSl6S+It4VHasDReu
- BdWKn2gegKK9uKJXjtbBeQ+tJONCFTzByVf6NWBs=
-Received: from pjhArchLinux ([211.64.159.150])
- by newxmesmtplogicsvrszb51-0.qq.com (NewEsmtp) with SMTP
- id EC246C4; Wed, 18 Nov 2026 16:03:44 +0800
-X-QQ-mid: xmsmtpt1794989024txq51cicx
-Message-ID: <tencent_57158E41575923FECD5D1E091356C6B9410A@qq.com>
-X-QQ-XMAILINFO: NcJw5CIirWgGYX1NvdLOhbG5veffgDsa3Id119NDlBsGsh5L4Ir+byxkIrJBBD
- iR7d+a2jWiIc29T2nMXgwS0YUjTo55p7oZprGhEOQdGtddvofCu1TecsWyaf+9K+TH0c1pCabhjf
- b8OENfmCYHMjF6omVIvwIeRuaA5eXetFP6UsgAB0aJyDIFpMGRZ+AZKRf2YyAkRKLHM4x6a+XIms
- j6AHpkwxpYWvLZsCYMrE/8yYbyDZQlWmnvPoYpdd22TLwc5NWb5YEOXZbvF0BIDDWJfNxhwTSscV
- EJxuw3T6RdBSua1LyZU3fHftGtVz2oruJbSJPnMDatzXARiiQgpd0gSi/WDWmvIm8iIJDgVuO4db
- JAcBjzFNRZIVencyLWpxoOSP+JKGzsA5zdAVq3CqHTCfKvdIfDTOWr827cDajHguxn0Hrn+1lvUl
- JW4ytvY3hvEvlopOF4AcRngWaT1kflpoegELjvdkeBTehTbi1bxGRMuXBxYxwRJ60uyYKXvBAO7C
- /KYmQF2RFmMCrlwlTBy7yn04DFefk7+ErgumdbEdpP0zKT3E7+wjWiIPsvuvcG198DoUvU0ZjXKj
- IybRvXjuJgaf3KYsJ9LwoTMpRj0do+dGCqm/HuqwvAYywQyF8QcWk3MHx2wq+tB0KalIaZpO9iIJ
- W/KQHBTSfELp2fBo0iYbAPEQV5LOSq3kG7jN34kr3UXMzOwCjJawB/qaM1Gk8vHRVGgfPSPr6Cyi
- iqNH3UH32A0Gz+0zxlhVHH7E0RG0YnvHrXz9YNMt4rEQn8ZoU5wbmYq75B5viP0jmMbCmh81gqgG
- M137FlBHntCJfI31AOZwfBPETWG557xrD4rXmEmPxmwIM1q3s5JaUy+YSnPRMSOGFqTzu3QOldBc
- XX3B6hy28X7Uu+0wwp0V+awgaSxKDk0T6qHYb/Zqt20NAnpyqkhrPtDJZhpY215zh/GKFOYnPb5A
- XLjZqjSj1digUbl+FgfA4G5o5T8+ij+26TaMLeRH3UXIBCIFU6cDrjJujmKOCJMFIDXJtBLgDmim
- IocZS7v6zyumhp8A6UpA+ZSDMZ748KeFHZ7C9YqQ==
-X-QQ-XMRINFO: Nq+8W0+stu50tPAe92KXseR0ZZmBTk3gLg==
-From: pjh456 <147148383@qq.com>
-To: Neil Armstrong <neil.armstrong@linaro.org>
-Cc: dri-devel@lists.freedesktop.org, Jessica Zhang <jesszhan0024@gmail.com>,
- Maxime Ripard <mripard@kernel.org>, Rob Herring <robh@kernel.org>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>
-Subject: [PATCH 0/2] drm/panel: ilitek-ili9881c: add Industio Purple Pi OH
- panel
-Date: Wed, 18 Nov 2026 16:03:36 +0800
-X-OQ-MSGID: <20261118080338.523572-1-147148383@qq.com>
-X-Mailer: git-send-email 2.56.1
+Received: from mail-dy1-f170.google.com (mail-dy1-f170.google.com
+ [74.125.82.170])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id C699610E70E
+ for <dri-devel@lists.freedesktop.org>; Tue, 17 Nov 2026 23:51:37 +0000 (UTC)
+Received: by mail-dy1-f170.google.com with SMTP id
+ 5a478bee46e88-33fb4680717so961678eec.1
+ for <dri-devel@lists.freedesktop.org>; Tue, 17 Nov 2026 15:51:37 -0800 (PST)
+ARC-Seal: i=1; a=rsa-sha256; t=1794959497; cv=none;
+ d=google.com; s=arc-20260327;
+ b=fbmdGhT7NnxP3lb87IWulF4bIbc7vqvMQY37uqfLVNQFMvNxCXEOE0mpk8nfqx6wI7
+ laUBTQmx33q8EBm7mYtghYrf7yFk+VFvFxggwyLg88r9XzxHIHX5ThH9lSzgJMim15Qe
+ M+1X6KwAqWixlYAGh8xzweByiFbVnUgKwnLpCLMScytSHAzz8B8zKKnPoNOxSuwq54a3
+ mNuNwHAIAKDZPK1wMCMJYDhJXh4As36I6+0mq4S2KPr3rBhs96IUOglNAhxHaW31gK9w
+ l+0WXQesg6BinnIHVriMJ4P4cYwAZ9GvjHjhyg9YSNA7+fvnEQ3kznxIMeJBCRAa9f0R
+ 3HBQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com;
+ s=arc-20260327; 
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:dkim-signature;
+ bh=tj4WV4vIcKzSpCk7dHTQCpUn+mLl32o1qUnDLoMnN/M=;
+ fh=bN3WHTlzXcVIr2RkgMpk3NXK/DwXOefqRaFpMbeYf7s=;
+ b=q/YHEbWbBJxH3nDWLkouSOlvIdabUH+HoNtwZjBTPhPjkbK3Qwh8vRccn7Wo4MBrm5
+ nZNW91RIXsFrmFxQyO/wwOB6fogR/Sa4L37XFP0ddf5CyWPx2mCPm6dBo8g9qKyGMy7B
+ UU8hdfF9hCIXYtJKu3vo1o9CDRcWBYbrQsLYef9FaD1fwVCY+SZ+hCBrvWc/90tEamD4
+ nSpPPm2NMncxjuJaCSvYA8187ZOjTPTP+Z1+DuRQCOWMdlD6xzSly1K+3iFHFLSWS4Ed
+ itxfXuwnlmSCvVkSVqphQiQl59YUju5WZv7Y/tkqolG27GaQatQXDCjYuQNAgCa/T1oa
+ s52w==; darn=lists.freedesktop.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20260707; t=1794959497; x=1795564297; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:content-type:cc:to:subject:message-id
+ :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+ :date:message-id:reply-to:content-type;
+ bh=tj4WV4vIcKzSpCk7dHTQCpUn+mLl32o1qUnDLoMnN/M=;
+ b=HkBcN4558uhycflz/7s5MOXvJFT2L4V9vkVFTFxlAVX37wEJmOJ2f7CAXu2crJOZKz
+ qPa2IwmQ28kpBusKcQn9cHMxN/2bmH5or9sYelTmrdaHgvOdM/NWnyspYNCn7Pn1w96o
+ OnXbMl+UUCpwC8YH+sM3o1YDdkaZxXYYDX3u8wcC5Bb5t0nqDInCCGy9dn8oaB0KRDq4
+ o4+ec6fKLqHL5LH2wAvZMAXeXMkifhBu13vT75gufcTHhWeBNPf1fxgrNoRUQAV8zBCs
+ jrkj8tqD3DplFcvd+iPkw/YBomDsKFu1C4xVqQ+NBkcnq0layIUnrfH5Bj3GhU7ng4w9
+ t5/w==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20260707; t=1794959497; x=1795564297;
+ h=content-transfer-encoding:content-type:cc:to:subject:message-id
+ :date:from:in-reply-to:references:mime-version:x-gm-gg
+ :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+ :content-type;
+ bh=tj4WV4vIcKzSpCk7dHTQCpUn+mLl32o1qUnDLoMnN/M=;
+ b=sDkN5XQ6wfvQWfG3sXtQ/iaG2+klIDOzXfzWWsmpozo8riHQXVRWj58XHRavYPlytb
+ Aiz3psQjtb9zvJFC9/hKgqWS5N13yzoLekYZ9r2dZebfqwpPVBCHlRCq0jh+ZbmNP032
+ AIbvCNpbCityk/uD9N9moHpplwvfnQxO8jynpD5vO/FaBYfR7X+VpZcu6U6vKgc03kbZ
+ q6NCLPrAzRITb1qpPxX0mLXTlXx7kiyfLzpDkiyIhN43UIZShONRJORYjvufaRV8stxJ
+ NbWohKWQEXzXT7q02RLZgqvH93TsIzyPMX3ljloWFBBYBWmX5zQDe2HdtnLM0VB44+Dw
+ mURw==
+X-Gm-Message-State: APuU4Z8V1PP0vT5VOjriLEkzIrXMHAtkeKyf4wkXhmgxwEl5El37xOaa
+ JA3Gxi6lALvGQUcr7N2ftJvsnzjm8DHldzfVxQiIDoYbJaf0bJLZO7ckW5OHm1ZTU4TalOzogPs
+ W8o/wSakQNB2zYjIzQNAocW+RNbo2tRjmmhDs
+X-Gm-Gg: AZFdTZd5NyDPL4nCzIP3ya0L0mSPoeYbIdUEP4raN57i5VNRY918vrSxPUrGXvoVoWf
+ 7JAOOmxHoVYBuwtUDXrjVIR3adm9u0BgASQCSlcSnG9qFfxkVp6dYqZZGxvkM+BoZ6iRluE017I
+ sDT5gVE8wiK6gF8na4LGBsQiMBsNq9d1TCAUO53ZKM2Z3egQxfhAEHAX6BhF7npeAY1zWkuuAbi
+ sAi7fH+KEqYBWzOkTrzhvUHp4NKMYbvssumi/3PniNRC6N5dVh7jKdJqNOTX7k4x7a77LdDEcOf
+ kjSMcDmp1U1MJP/5DBR8eupZEMfQETEQzum+qWN8tubnrpTP/eNfnGxHzY/V/qv5vP51aGAC6ej
+ Z77ilBAl8Y81OLR2uGqW+HEw19Ss7Th9XhY634DP99m657NUdEeuZZOaTdrdL
+X-Received: by 2002:a05:693c:8946:10b0:370:1652:5ff4 with SMTP id
+ 5a478bee46e88-3827f5ad382mr930583eec.6.1794959497041; Tue, 17 Nov 2026
+ 15:51:37 -0800 (PST)
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+References: <20261117205902.1293962-1-henryzhang62@gmail.com>
+ <sashiko-outbox-219679@kernel.org>
+In-Reply-To: <sashiko-outbox-219679@kernel.org>
+From: Henry Zhang <henryzhang62@gmail.com>
+Date: Tue, 17 Nov 2026 15:51:25 -0800
+X-Gm-Features: Aa3M54qqTmOUkotRAt37uoUQQWDtU-BVQrOf2bvJF2uRaw79Y05rSNpAac70J38
+Message-ID: <CANTW0yqbWZjvzf9pKETu5x5vAC6FtMMBLpRi11yGXg=w=so54A@mail.gmail.com>
+Subject: Re: [PATCH] drm/vc4: dsi: Allocate the encoder per DRM device
+To: sashiko-reviews@lists.linux.dev
+Cc: dri-devel@lists.freedesktop.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 X-Mailman-Approved-At: Wed, 18 Nov 2026 08:23:05 +0000
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -66,45 +100,26 @@ List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-10.8 required=3.0 tests=BAYES_00,DKIM_SIGNED,
+X-Spam-Status: No, score=-2.8 required=3.0 tests=BAYES_00,DKIM_SIGNED,
 	DKIM_VALID,DKIM_VALID_AU,FREEMAIL_FORGED_FROMDOMAIN,FREEMAIL_FROM,
-	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_PATCH,MAILING_LIST_MULTI,
-	SPF_HELO_NONE,SPF_PASS,USER_AGENT_GIT autolearn=ham autolearn_force=no
-	version=4.0.1
+	HEADER_FROM_DIFFERENT_DOMAINS,MAILING_LIST_MULTI,SPF_HELO_NONE,
+	SPF_PASS autolearn=no autolearn_force=no version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-This series adds support for the 7-inch 800x1280 ILI9881C panel used on
-the Industio Purple Pi OH (RK3566).
+On Tue, Nov 17, 2026 at 1:14=E2=80=AFPM <sashiko-bot@kernel.org> wrote:
+> [Severity: Critical]
+> This problem wasn't introduced by this patch, but does
+> vc4_dsi_init_phy_clocks() just above this hunk leave a dangling OF clock
+> provider behind [1] when vc4_dsi_bind() later fails or the component
+> is unbound?
+Thanks. This is pre-existing and independent of this patch; I sent a
+  separate fix:
 
-The module is marked ZC-700010BH and has a 94x151 mm active area.  The
-vendor device tree only describes it as a generic "simple-panel-dsi",
-so no panel-vendor compatible is known; patch 1 adds a board-specific
-compatible with ilitek,ili9881c as the fallback.
+    [PATCH] drm/vc4: dsi: Register the PHY clock provider with devm
+    https://lore.kernel.org/all/20261117234107.1298575-1-henryzhang62@gmail=
+.com/
 
-Patch 2 adds a dedicated driver entry with the vendor initialisation
-sequence.  The existing am8001280g entry (another 7-inch 800x1280
-ILI9881C panel) was tested on this hardware and only lights the
-backlight without a picture, so the vendor sequence is required.
-
-The panel is reset through GPIO0_D6 and its backlight is driven by PWM4.
-On hardware, the panel probes as DSI-1 94x151, modetest reports the
-expected mode, and the geometry test pattern is correct.
-
-The board DTS that uses this compatible is part of a separate Purple Pi
-OH board series.  AI assistance is disclosed in the commit trailers.
-
-pjh456 (2):
-  dt-bindings: display: panel: ilitek,ili9881c: add Industio Purple Pi
-    OH panel
-  drm/panel: ilitek-ili9881c: add Industio Purple Pi OH panel
-
- .../display/panel/ilitek,ili9881c.yaml        |   3 +
- drivers/gpu/drm/panel/panel-ilitek-ili9881c.c | 222 ++++++++++++++++++
- 2 files changed, 225 insertions(+)
-
-
-base-commit: 7e1392a42ea288d70a266f6553fe06f57f8647ea
--- 
-2.56.1
-
+  It confirms the stale provider after unbind and after a failed bind at
+  runtime; the use-after-free lookup itself was not reproduced on my
+  Pi 4, since no clock lookup on the DSI node happened in the tests.
