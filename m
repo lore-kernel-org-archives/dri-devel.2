@@ -2,133 +2,82 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 62AEF606A32F
-	for <dri-devel@archiver.kernel.org>; Tue, 17 Nov 2026 16:43:54 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2B0AE606A31C
+	for <dri-devel@archiver.kernel.org>; Tue, 17 Nov 2026 16:43:55 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.a=rsa-sha256 header.s=selector1-NXP1-onmicrosoft-com header.b=gBXmYVrB
+	dkim=pass (2048-bit key) header.d=baylibre.com header.i=@baylibre.com header.a=rsa-sha256 header.s=google header.b=DseH5NgM
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id AE1FD10EBCE;
+	by gabe.freedesktop.org (Postfix) with ESMTP id C105110F753;
 	Tue, 17 Nov 2026 16:43:48 +0000 (UTC)
-Received: from OSPPR02CU001.outbound.protection.outlook.com
- (mail-norwayeastazon11013042.outbound.protection.outlook.com [40.107.159.42])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 43A6E10EBC1
- for <dri-devel@lists.freedesktop.org>; Tue, 17 Nov 2026 16:14:04 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=D+uf5bdPsY8vGHxdeQnHYQiy9Z8RFuA7vzKkUy3e86PHif/slF5M+ZICw9Z+XqbJ+9DUBDLsM5AxucGIRlYaCawJp0jYNpl0/xPkvbIKHRt/7ORuecJ3kuuDao2psRHKuhpMN6uhokOT5nJ8Fk4gluY2sAp2VNWdzKEYcumecq3efQv/cEzutW7R8MzYETbcGAlDhTzZsQoRfuQlQAUo+ZPCGBBLgJFriQiVAWIFX6lrtTeuSCeTsQPtdrttrYHwz8VaieE5NepL9Oql6ZsNrwAqtFlnm98b++/Eyo/fXdkwpd5gv8q4P5mCqCuVCtBZdt5uI9lyoyvHboCZBQ+LkQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=TmIWIwzpvVPW5qWTRBA8J9URBFsswe1CcGXepVcKOrs=;
- b=a2lBdXDPEoTrTohGsXwGPmK2+rKU0K/CvLzxPsUIwucnVlPnzHadXE5OUqBpRAHJokvsnWz27g7+U09MaLJyX/TfNjSDEtttyCiiaMJyuoyucTurbzo1zJAiSHLJradnKD3GfTAcd9QtVf8DAI/RCSyDojaSqK3JMjTyMMYGvhW1XBCpLK4UmJ+qJEx/f6vFT7MoEJLNTPsMLvUnTpEnPIZPrl3DuyMkmu8KbyVfAIDRsDgtoC0VbhBWypyu4MOf28SugpagkDqI5b4ohy9PxetMnlWeilRB9zmuYgSQBJ0h8gekV3z3P/VRvN68aXrecQAi6MKqLot7POToezVjgA==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=oss.nxp.com; dmarc=pass action=none header.from=oss.nxp.com;
- dkim=pass header.d=oss.nxp.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=NXP1.onmicrosoft.com; 
- s=selector1-NXP1-onmicrosoft-com;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=TmIWIwzpvVPW5qWTRBA8J9URBFsswe1CcGXepVcKOrs=;
- b=gBXmYVrB77uV8DzTYJ9OiblmleUPQFksHcmpR3ao4KEpij46Y1GykIfqJryY4mkLBbVfF2daoY+MhwN+Cso1QKnk4LBOfnYxN542BnQ4WagTA8G4bbIDuBV5iiE+Chpn1vcMPTGd0YHjeJVEXL7GrnECxxOYOXt8Kw4hLxvIszKxpEMorEdwAjOKz826ny+7z5WqnoB6gTL8hrw8WwwY/L+wsROQUkxpvgJPgGCfMlERLoWpKdlmP1GpPp7H1YWgFYNaz/Tz/0qbTdpqZZ+znx4eBA2q+x2XHwBKdLcTVoO/ST7oSVAwicYToANTDKSNgVnYyR9o38nJ5usI8I02jQ==
-Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=oss.nxp.com;
-Received: from GV2PR04MB12318.eurprd04.prod.outlook.com
- (2603:10a6:150:32b::19) by VI2PR04MB10114.eurprd04.prod.outlook.com
- (2603:10a6:800:22d::15) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.615.14; Tue, 17 Nov
- 2026 16:13:59 +0000
-Received: from GV2PR04MB12318.eurprd04.prod.outlook.com
- ([fe80::a498:2b5a:cbdb:d6fa]) by GV2PR04MB12318.eurprd04.prod.outlook.com
- ([fe80::a498:2b5a:cbdb:d6fa%3]) with mapi id 15.21.0615.013; Tue, 17 Nov 2026
- 16:13:59 +0000
-From: Laurentiu Palcu <laurentiu.palcu@oss.nxp.com>
-To: Laurentiu Palcu <laurentiu.palcu@oss.nxp.com>, 
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
- Frank Li <Frank.Li@nxp.com>, Sascha Hauer <s.hauer@pengutronix.de>, 
- laixiangwu <laixiangwu@cmss.chinamobile.com>
-Cc: Lucas Stach <l.stach@pengutronix.de>, 
- Pengutronix Kernel Team <kernel@pengutronix.de>, 
- Fabio Estevam <festevam@gmail.com>, dri-devel@lists.freedesktop.org, 
- imx@lists.linux.dev, linux-arm-kernel@lists.infradead.org, 
- linux-kernel@vger.kernel.org
-In-Reply-To: <20261030111304.2205-1-laixiangwu@cmss.chinamobile.com>
-References: <20261030111304.2205-1-laixiangwu@cmss.chinamobile.com>
-Subject: Re: [PATCH v2] drm/imx/dcss: Fix clock leak on blkctl init failure
-Message-Id: <179493203722.1421468.4624148645241955168.b4-ty@b4>
-Date: Tue, 17 Nov 2026 18:13:57 +0200
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-X-Mailer: b4 0.16.0
-X-ClientProxiedBy: AM0PR02CA0158.eurprd02.prod.outlook.com
- (2603:10a6:20b:28d::25) To GV2PR04MB12318.eurprd04.prod.outlook.com
- (2603:10a6:150:32b::19)
+Received: from mail-wm1-f47.google.com (mail-wm1-f47.google.com
+ [209.85.128.47])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 7612410EE90
+ for <dri-devel@lists.freedesktop.org>; Tue, 17 Nov 2026 14:08:13 +0000 (UTC)
+Received: by mail-wm1-f47.google.com with SMTP id
+ 5b1f17b1804b1-4a1b07c3c5fso53226535e9.1
+ for <dri-devel@lists.freedesktop.org>; Tue, 17 Nov 2026 06:08:13 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=baylibre.com; s=google; t=1794924492; x=1795529292;
+ darn=lists.freedesktop.org; 
+ h=content-transfer-encoding:content-type:in-reply-to:from
+ :content-language:references:cc:to:subject:user-agent:mime-version
+ :date:message-id:from:to:cc:subject:date:message-id:reply-to
+ :content-type; bh=v76ViL/fPpH3DxoDiLBNNmIXt8842BqFIg5AT4VdEnI=;
+ b=DseH5NgMcVlpiy92yo63uT47zOTB/JkipKfKpK/eguf1jz83d5IKTuHg3BwbPgjjKW
+ h8zdkEwEFlyE1wRIKSaMwJwZOD0fJImK0HjbOAuiGfLXFHhbCfZpmgMZGaneRjMmRZM+
+ p8way3sArAWpuAzfXsxhmHLlEf8G9UCAZlpoVwskdn8V8IhUH6ABHf1j/KsrUWy6OG92
+ 1A1HhZtHnGKwgJmUhny1plLoaSjYuU0rPMvKHRIKL7jNJaoJrElSIQBYghrm9nzBl8yQ
+ sah5b1+7jDTeQLEAxdRtyCj3A6MMFFAzMTqLSP5QLvgUPcoLur50VwWU++wodOTVF/nl
+ IXtQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20260707; t=1794924492; x=1795529292;
+ h=content-transfer-encoding:content-type:in-reply-to:from
+ :content-language:references:cc:to:subject:user-agent:mime-version
+ :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+ :message-id:reply-to:content-type;
+ bh=v76ViL/fPpH3DxoDiLBNNmIXt8842BqFIg5AT4VdEnI=;
+ b=Y+5ePf3ng3hk9jV4jkhC1Jb80f249NYclkKJHDpgtERfm/FFQ4qxWPMXsfF/IKFm6n
+ /Ac2NFEozfM021C9AoTkv79pVr57GWM1R1i1+j/fX51lINKZZMWYfTH/Gfx6ks/wAX/1
+ FqA64sJF0kQzRwW7++0PF2Tj9gXK1hjqgU3nFsm+8t56oNSSkYS7fKDzFMePsbS9f0Rd
+ iev+yJHOQ3uJ9f8QAkdWLXYqbTw+NuKrbi3rdea1cNFgSogRVQsm3AAcjdIRqySXbxn+
+ j4J7dqACuRVHFO4LL3G4byxnoCBHHuft269S7IC3yJiJIwuCcd9dnL2Dn/RTj1xiGugy
+ GOUw==
+X-Gm-Message-State: APuU4Z/0ftPNV3IkkUDlT4FRZFI8iu8I9EoBsG2o0mmDLIv0m1K4vRy/
+ rXPhgIaKpAmyrFThSzG1t9bvVeDyk1gJU/SPtzx9R7AZPq9Z4OLxrpsj/dwPEF495dM=
+X-Gm-Gg: AYBFou2LcUcIWyQpCA/JH8QPcL0/pebG4r2V2iYq01yMXlRON9QCR4YScpio14O/VoK
+ Ocl4RXBTIdMKtmQ+7Rgg7W5rUhhGdiLXo3sMiK2/Gqy4kbCM9Br7xF5qhHpuEvj3BLIhmOA1SLi
+ KtJhjaay4MuDxYYL5Slep5kGzu7fvdHYCHLCpo+27yRplqqAZomVzzGLaRE3YQT2yHnddu7WyGO
+ pJSXzPYVIUVmgg7EUALR/kQnEUehTBxFJGZX65q+6ormPGJ0/qZORTO9pP9ATorOrGv0qlom4VI
+ TxqxhWDmKP/+OnQcg1HKUb8yUQHqTUs8EfYeV8RWMyghO8jMy4Vc8+h0wXiKrSSkuKKMTpM/QxD
+ fw6VGnxkOYuZjquFHU1aVR/en1UaIuLpLgnQgbcENpS9wgIMPEhW8mYHkrtIYuUvCVkZKicERWW
+ bMXUPWRUajYWm2cwSarws84E4QYkMFp16JX33dYnW9dNKmEnIHtpinzejyXVnSozMJqDt6hJISD
+ fpzgSQjHq8PHG/XT2a/RxHfVh5/vxmpZ5eRpL8hbdUEMkt67VOsLhPZ9HGk0UiJ986masUhvPVF
+ EhauiRR2Ul+fhBtWBjimTpjlfz5OGVQ7mgKCse+ia4w59FlgqOPArRyLGQ36j+vnajiAAjLyXPV
+ 2Sw==
+X-Received: by 2002:a05:600c:1daa:b0:4a1:d087:f6ab with SMTP id
+ 5b1f17b1804b1-4bb55a4ea8emr285441765e9.18.1794924491662; 
+ Tue, 17 Nov 2026 06:08:11 -0800 (PST)
+Received: from ?IPV6:2001:8a0:d6cd:9000:86f4:4e71:9fc8:3183?
+ ([2001:8a0:d6cd:9000:86f4:4e71:9fc8:3183])
+ by smtp.gmail.com with ESMTPSA id
+ 5b1f17b1804b1-4bb69ac4e16sm187624005e9.0.2026.11.17.06.08.10
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Tue, 17 Nov 2026 06:08:11 -0800 (PST)
+Message-ID: <13cf246c-2fc9-4076-92b3-fd953337099e@baylibre.com>
+Date: Tue, 17 Nov 2026 14:08:10 +0000
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
-X-MS-Exchange-MessageSentRepresentingType: 1
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: GV2PR04MB12318:EE_|VI2PR04MB10114:EE_
-X-MS-Office365-Filtering-Correlation-Id: b599c1e4-a183-4edf-77f2-08df44c5c98c
-X-MS-Exchange-SharedMailbox-RoutingAgent-Processed: True
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
- ARA:13230040|366016|376014|7416014|1800799024|19092799006|23010399003|18002099003|261009223027099003|22082099003|261022105027099003|261022075727099003|261028144727099003|261026140227099003|56012099006|11063799006|10067099003;
-X-Microsoft-Antispam-Message-Info: kn6Ga5ZDz92fArhWSXSPykmJz5DUS6lhG+FYRaH4asjctDp0s4osOerlLZXbVH0Oo9Ju6/Fo+y9aTvBb1nX4FkjYdFKlRIRgty1wcWgDXfOrfdCR0J0yAA6AVFlmLMrLJ5TMvvyN/STebOji4yrudSCYqaM306ANW4laIsgD+/ivoj6J7MsKe2Az9jIDMnjFH4j3F/OEOReWoY5WK2O1D8YyaYMv12RySLpkj5X+hageonKvmizNNVFLm47MQZcPW1qaDufquajLEN0W52qLGXv4LmC3m7Zk/khxysW+tYja+TcbNkoHsp6r9xVGqOOG7l8ZT3VK74rnsNKr6UgtxbvvXxp965+/O+Qu8wUM/VQnAgoKYpmjYOMjXdst/mkgA/AQVYSZ39OiJTly7gB1Xc31WiEg8zxVV1tZZrx4zd1AQe7HlFGgoC5fNgmrjFr8mZl03QkjFb7cJHDhlMZ5YE65EMjut79/NpI4fQ5kLkC9wdEIUi+MgH+1AQYeEmXY8R/WKR5nU9ohegyTpuEE5VTaP7eu8Ij5HVZJb00imlCkIUDFRLTuIeniMCLvn3HiUHg7/sOQnztQvoma+g7dUX3Ih9wPExNhOydEp7gVQZ4YK4DYylvNcA3q2TR5RjXhVgZCgdkXepSO7xPN34S404Zdl4cymy1ixxnbAaalQm0=
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:GV2PR04MB12318.eurprd04.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(366016)(376014)(7416014)(1800799024)(19092799006)(23010399003)(18002099003)(261009223027099003)(22082099003)(261022105027099003)(261022075727099003)(261028144727099003)(261026140227099003)(56012099006)(11063799006)(10067099003);
- DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?ZlBJNEhtTi9BUHRmRVdHY1ZtcGpick5UQzErbWVEMjJWQ3dUb3pXWURHTkhJ?=
- =?utf-8?B?T1VlWXRlZUk0dTJLZytOeWd4RURyeVhXVDUxWjFrWEw2T3hwd2wwenFlbGtl?=
- =?utf-8?B?NWVyakp1dks3NkdBZVNEcUROU3ovM3JKcjVsb3FXdGxlNUR1cTl6YnlmeHVl?=
- =?utf-8?B?L0IzZnBod0lxaEZWS0tRMFR4NHJKSDluQ1NZNzdvS25ibDlzbmxNZWxhNUM1?=
- =?utf-8?B?azBYemVIWXBBVmkzZnpNWkRhOXY3Q0pyZVN6bEt6R0JNTnovNXl0dGRaVkgx?=
- =?utf-8?B?UlV0VGxETXUrRmN3T1pGZkE0c2liMnRGY25lSWRuMnUyL1F4QURWSytMczJu?=
- =?utf-8?B?bnRhODlvcTVISmw5b3p5MWRoRk5zOFhXM0NNRFdvWCtDK1Via0pqdFVhWk1O?=
- =?utf-8?B?YXEvUkYvaTZlSFIyTWc5dzZ4NGhoNXFDUkgxZFFVSmt5dUE0MEs2ajlZdE8z?=
- =?utf-8?B?bDhQd0x0U0orWHIwMG80NC9uUXE5T0J2eGE4eGhNVmF6ZTVhMFRORy9ZaU9w?=
- =?utf-8?B?UVdKQkF2UDhWUEpsYTd6NVdxTlAzTGVDQmhvSFFJcUU1b29OelNvT245WE5K?=
- =?utf-8?B?UGhRNCsweWV4SGcxdVg0ejlPdFZ4cFZMVittLys4emYrZ3NYcGFLTzByOUVp?=
- =?utf-8?B?KzNEK3cvNEgyNGJYZlEweVVSQVBnRGQ5VFRSTEpmTS9kaVNlOXF3OUNmeWll?=
- =?utf-8?B?Qjl4Z1k2NkhzUWp1c2YyK2hQcW5sKzVYTFk1SDM1UXhNd1lUUks4cE5NZklN?=
- =?utf-8?B?YnJkWWlBU2czSkZsVHM1b3kyeHhRdmxYMVR4b2o0TWJScEJZdDRaaElESXNZ?=
- =?utf-8?B?MDZkVHlVUGVybnFOSksyVTVBcVFZc0JHNnNRNm5ONWFOeUQrQkJhZElodWRX?=
- =?utf-8?B?Q1hDTWpxY3VLbkllUDZCeGdQTTkwQVVod2ZKekV4YWhJUStCWmhPd1FUS01E?=
- =?utf-8?B?VkFldGQzVlJEYktjcHMzdVlRRU92T0xFbUpmaXdjUVBQUDQyQWRZYjJPelE2?=
- =?utf-8?B?VG51ZmdqVnFVTjZudmpDYU1LeFlKWDRNa0JQY0xoaTJnR0RSUmlkbVJRalJB?=
- =?utf-8?B?bDFleDJQNEcwaTYzWFhtbVFOOWFZSFE2S25hSDBsekZqV2IzQmprdTRPZUtO?=
- =?utf-8?B?bE9SRjE0U25JNCs1YStvOEVsMnFOVHF6Tk5WWkI1azRCMmVicFQ3YlBSYnNk?=
- =?utf-8?B?ZWpGNkxuNkJJcFVjZ0ZkYzdudDFNdDNONWROcW9CcURXbTJ2QkovWjlObVNR?=
- =?utf-8?B?ejZxNHVhQ2VtUVFCT1U5Vmo5T0hxQWIvd0ZHeDlUNEJUQjJFVzVqUWNoY2hl?=
- =?utf-8?B?MDNscnBNMmVSUStOYksvTVJqbkJESmNSNHJYalJmYXF0TkkySDM5aEY1MUNz?=
- =?utf-8?B?c2tOOERlQ1lpeHhQbTMxOUJMVkFYRkJaWnBrcHorSGJqL01sNGFoMHA3UU5Q?=
- =?utf-8?B?bGM2dVdNeTlZQ3l6ckJmSEd6NXRYWWFPUHFiSVNIemVqeHk4SE41dmFuOHZx?=
- =?utf-8?B?VUVWQStVNHB0OXN6am9EOFB3R21lNGlxZXYwYW1VdkY1bnF1UDFzL1hUeTZv?=
- =?utf-8?B?ZVpSVmNob3dmbFFibDVLUHY2Zjh3V1lNaU04eXY0ZUxTVWFyUGtUYTdhTk5M?=
- =?utf-8?B?THlrUFUwUWtlUUtzdGRMVGtPN0FOTHNWcXBYWTdHbHlNdUdBOWVGSXoyeTRr?=
- =?utf-8?B?T3l5N09vVWJaSmVmN2ZnRmcraFJGeGY5aFNCWUQ4UWVaNjl3L2tuM0h6bGtW?=
- =?utf-8?B?TUIxTHZOWEw3WWlYSHpiL2grWVVMNVVHUzNnU2xLTEgzb1BHRlR4TWxQMlJy?=
- =?utf-8?B?TE9INnlMckRmK01ySXVBMEtkUUZIMXBDcHh6QVh3dGxzclZ4dEpJbmEveENq?=
- =?utf-8?B?RENRNXpuSzVEVncwUjJCTzBrYUp3T1ZiMXM3eUxWMzhlallkT0IrbFpNejJ1?=
- =?utf-8?B?RGxvRFdPZFVQNnRWd0o0RjNvblgrL0g1aTNjZ0FQUzVVRXg1THJvcCsrMm5r?=
- =?utf-8?B?R25tSDJBdlFxcUI2ajFCUXZZR1ZSWEl1ZzJlTFlMUGJneXhNQUtBMDNuVGxJ?=
- =?utf-8?B?ME5STTcvSjNmSnU1c3BRVWlNQjlWUVdsN3NPUkNwUzAreFRvRWpWOVZ2RitU?=
- =?utf-8?B?T0ZyL1dzcUpyU2tlN20zZWhCWWZ2MGo0c3lmZGZqNmltcXNUaXNOS0dNM2sw?=
- =?utf-8?B?UDFYeXpTSWsvbGJFVllSTld0ek5NV05JZ3ZTRktZcjl4ZXJkTVRZQmcvVE8x?=
- =?utf-8?B?czVVaE1mUm8yR2s4Y2lIZWFvUVlWbkRta0t4eTF4VjZwblZERzNNQjdtQWVq?=
- =?utf-8?B?aWlHY0Rxand4bHh6aHNMc3locEZSRzRYTGNScGpicmgzUS9PUHVoVFE1aE9K?=
- =?utf-8?Q?GbQSQxpa9AAXQpQI=3D?=
-X-OriginatorOrg: oss.nxp.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: b599c1e4-a183-4edf-77f2-08df44c5c98c
-X-MS-Exchange-CrossTenant-AuthSource: GV2PR04MB12318.eurprd04.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 17 Nov 2026 16:13:59.4464 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: HELt5Bbl+RByI9XchWPbSQsESV47Ts/biSeuG5+kLkfm4gkAMUZMrMhX+MfoXrIQb3nIkJBO7e9kx5x08cluYg==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: VI2PR04MB10114
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 3/3] accel/rocket: fix NULL derefs and missing error check
+To: Ali Khaledi <ali.khaledi1989@gmail.com>, tomeu@tomeuvizoso.net,
+ ogabbay@kernel.org
+Cc: dri-devel@lists.freedesktop.org
+References: <20260301182428.82981-1-ali.khaledi1989@gmail.com>
+Content-Language: en-US
+From: Daniel Drake <ddrake@baylibre.com>
+In-Reply-To: <20260301182428.82981-1-ali.khaledi1989@gmail.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 X-Mailman-Approved-At: Tue, 17 Nov 2026 16:43:43 +0000
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -141,32 +90,108 @@ List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-6.8 required=3.0 tests=BAYES_00,DKIM_SIGNED,
-	DKIM_VALID,HEADER_FROM_DIFFERENT_DOMAINS,MAILING_LIST_MULTI,
-	SPF_HELO_NONE,SPF_PASS,USER_AGENT_GIT autolearn=no autolearn_force=no
+X-Spam-Status: No, score=-17.3 required=3.0 tests=BAYES_00,DKIM_SIGNED,
+	DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
+	INCLUDES_CR_TRAILER,INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,
+	SPF_PASS,USER_AGENT_SANE_1 autolearn=ham autolearn_force=no
 	version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
+Hi,
 
-On Fri, 30 Oct 2026 19:13:03 +0800, laixiangwu wrote:
-> dcss_submodules_init() enables the DCSS clocks before initializing the
-> submodules, but if the first submodule (blkctl) fails to initialize the
-> function returns directly, without disabling the clocks again. All the
-> later error paths already jump to err_clocks, which calls
-> dcss_clocks_disable().
+The subject says 3/3 but I only see one patch submitted.
+
+On 01/03/2026 18:24, Ali Khaledi wrote:
+> Fix several issues in the rocket accelerator driver:
 > 
-> Since the clocks are only devm-managed for their reference (devm_clk_get),
-> a blkctl init failure leaves all five DCSS clocks prepared and enabled.
+> rocket_gem.c: Add missing error check after
+> drm_mm_insert_node_generic(). The return value was silently
+> overwritten by iommu_map_sgtable(), causing DMA mapping to use
+> an uninitialized IOVA on MM insertion failure.
 > 
-> [...]
+> rocket_job.c: Add missing NULL check after kvmalloc_array() in
+> rocket_job_push(). A large job can trigger allocation failure,
+> leading to NULL pointer dereference in the following memcpy.
+> 
+> rocket_job.c: Add missing NULL check after kmalloc_objs() in
+> rocket_job_open(). Also fix memory leak of the scheds array
+> when drm_sched_entity_init() fails.
 
-Applied, thanks!
+You could reduce the verbosity of this commit message - no need to show 
+filenames, and you can limit it just to pointing out what is not obvious 
+from the code change itself.
 
-[1/1] drm/imx/dcss: Fix clock leak on blkctl init failure
-      commit: 18e73878de68302508dbddbafeb5aef508640588
+> Found by AI-assisted code review (Claude Opus 4.6, Anthropic)
+> in collaboration with Ali Khaledi.
 
-Best regards,
--- 
-Laurentiu Palcu <laurentiu.palcu@oss.nxp.com>
+No need for this statement; if you understand the code and your proposed 
+changes, then submit it without crediting an agent. If you don't 
+understand it, then refrain from submitting until you personally can 
+stand behind your contribution.
+
+> Signed-off-by: Ali Khaledi <ali.khaledi1989@gmail.com>
+> ---
+>   drivers/accel/rocket/rocket_gem.c | 2 ++
+>   drivers/accel/rocket/rocket_job.c | 9 ++++++++-
+>   2 files changed, 10 insertions(+), 1 deletion(-)
+> 
+> diff --git a/drivers/accel/rocket/rocket_gem.c b/drivers/accel/rocket/rocket_gem.c
+> index b6a385d2e..7212edc3f 100644
+> --- a/drivers/accel/rocket/rocket_gem.c
+> +++ b/drivers/accel/rocket/rocket_gem.c
+> @@ -95,6 +95,8 @@ int rocket_ioctl_create_bo(struct drm_device *dev, void *data, struct drm_file *
+>   					 rkt_obj->size, PAGE_SIZE,
+>   					 0, 0);
+>   	mutex_unlock(&rocket_priv->mm_lock);
+> +	if (ret)
+> +		goto err;
+>   
+>   	ret = iommu_map_sgtable(rocket_priv->domain->domain,
+>   				rkt_obj->mm.start,
+> diff --git a/drivers/accel/rocket/rocket_job.c b/drivers/accel/rocket/rocket_job.c
+> index ac51bff39..6502b7148 100644
+> --- a/drivers/accel/rocket/rocket_job.c
+> +++ b/drivers/accel/rocket/rocket_job.c
+> @@ -192,6 +192,8 @@ static int rocket_job_push(struct rocket_job *job)
+>   
+>   	bos = kvmalloc_array(job->in_bo_count + job->out_bo_count, sizeof(void *),
+>   			     GFP_KERNEL);
+> +	if (!bos)
+> +		return -ENOMEM;
+>   	memcpy(bos, job->in_bos, job->in_bo_count * sizeof(void *));
+>   	memcpy(&bos[job->in_bo_count], job->out_bos, job->out_bo_count * sizeof(void *));
+
+These two have already been fixed in other commits.
+
+> @@ -501,6 +503,9 @@ int rocket_job_open(struct rocket_file_priv *rocket_priv)
+>   	unsigned int core;
+>   	int ret;
+>   
+> +	if (!scheds)
+> +		return -ENOMEM;
+> +
+>   	for (core = 0; core < rdev->num_cores; core++)
+>   		scheds[core] = &rdev->cores[core].sched;
+>   
+> @@ -508,8 +513,10 @@ int rocket_job_open(struct rocket_file_priv *rocket_priv)
+>   				    DRM_SCHED_PRIORITY_NORMAL,
+>   				    scheds,
+>   				    rdev->num_cores, NULL);
+> -	if (WARN_ON(ret))
+> +	if (WARN_ON(ret)) {
+> +		kfree(scheds);
+>   		return ret;
+> +	}
+>   
+>   	return 0;
+>   }
+
+This issue still stands but I would encourage you to do a deeper fix if 
+continuing your work here. Even in the non-error path if num_cores is 1 
+for any reason, it looks like drm will not set sched_list, so the memory 
+will be leaked there too. I think we need a better strategy for handling 
+the scheds.
+
+Daniel
 
