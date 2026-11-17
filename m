@@ -2,43 +2,104 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2843A606A31C
-	for <dri-devel@archiver.kernel.org>; Tue, 17 Nov 2026 15:06:45 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CE1FC606A32C
+	for <dri-devel@archiver.kernel.org>; Tue, 17 Nov 2026 15:09:54 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=kgn0KcS7
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=nU+uJ0Kr
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 61EFF10E431;
-	Tue, 17 Nov 2026 15:06:37 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 4591D10E1D8;
+	Tue, 17 Nov 2026 15:09:49 +0000 (UTC)
 Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 2CAB910E19B;
- Tue, 17 Nov 2026 15:06:31 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 140B710E1D8
+ for <dri-devel@lists.freedesktop.org>; Tue, 17 Nov 2026 15:09:43 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by tor.source.kernel.org (Postfix) with ESMTP id 65022635BF;
- Tue, 17 Nov 2026 15:06:30 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id E74771F000C7;
- Tue, 17 Nov 2026 15:06:29 +0000 (UTC)
+ by tor.source.kernel.org (Postfix) with ESMTP id 3205A61EF0;
+ Tue, 17 Nov 2026 15:09:42 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 69EC71F000C4;
+ Tue, 17 Nov 2026 15:09:37 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1794927990;
- bh=w/mdGnCHRu6CoYOAy/uAzQ0WBxxu5KKBMGLflrKoquo=;
- h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
- b=kgn0KcS7fY2nTGLNpYj9mMDHSBNr2tJ2TkMcLGrmDpswXevXJW5mnYTTyaZ4rwuNY
- JTriOirv/ZpFsMaCfpc4REKfven7k4k/l7dN9q8SPyrUkreZt7VgLij+ijrNVIgje9
- TmbQh6Xc7HGcmvDMrjF0oSR+vOAKpW+pXbIGW0hk2dnvCgT6VL41OnmCV34yRGC6wo
- 4iJf1IfqDx+lihFB6PsZNekU+zrnKwM7S1c2qZ2FWXBfIQCs+cqzXWwkO3BNRJWotO
- g3kmxTYakJ+I4P7XKbgFKS9nedSxkHbNDUAOw59r1wn6WUZFk55swy9tYqVYQ4x24d
- fMsmxalTzCxCg==
-Message-ID: <sashiko-outbox-219018@kernel.org>
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v2 08/10] drm/amdgpu: Only reject conflicting mappings
- if they are not cleared
-To: "Natalie Vock" <nat@pixelcluster.dev>
-Cc: amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org
-In-Reply-To: <20261117-prt-explicit-sync-v2-8-bb3851cb6a0c@pixelcluster.dev>
-References: <20261117-prt-explicit-sync-v2-0-bb3851cb6a0c@pixelcluster.dev>
- <20261117-prt-explicit-sync-v2-8-bb3851cb6a0c@pixelcluster.dev>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Tue, 17 Nov 2026 15:06:29 +0000
+ s=k20260515; t=1794928181;
+ bh=0sIqEz1LaF2+KzKunroBAMsjb5ekTIA0W1B9PutTqFc=;
+ h=Date:Subject:To:Cc:References:From:In-Reply-To;
+ b=nU+uJ0Krv/p0zWWmbRGyr1cPRYUXNvjVxk5FBIqRmMr8PQf7JbrD3NugbmbwUvj7o
+ oY3tq8uk4EIvesVz5P4WZFmIWC13vtmkuD/qiH1SMu2Rh/+AdT0fOCA+ldPuFH8a/h
+ WIBmH/4LtxT/Fhnn2gEAqF7m4Y/RQXKH3uHLsWkJcqPP43Bh3TY3IdeSh7YEhRUoUL
+ 2Kxl8N5om3m/klIYFP+K68MrfRDpPv4dxpZHH4qPsApOrh9drc2S3hzza9iue/8UiN
+ imdSMvgmyWtOzsAXTNUgWqJfOGgGA00oFWZuBN1twaWfVpEbCfCibZc5wprRCerWyf
+ fO3yHxVFLPUFw==
+Message-ID: <53298044-3595-4231-a498-d78052799727@kernel.org>
+Date: Tue, 17 Nov 2026 16:09:35 +0100
+X-Archived-By: <archiver.kernel.org>
+MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2 1/4] dt-bindings: display: mediatek: dpi: Add
+ compatible for mt8167
+To: Luca Leonardo Scorcia <l.scorcia@gmail.com>
+Cc: linux-mediatek@lists.infradead.org,
+ AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>,
+ Chun-Kuang Hu <chunkuang.hu@kernel.org>,
+ Philipp Zabel <p.zabel@pengutronix.de>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>, Matthias Brugger
+ <matthias.bgg@gmail.com>, CK Hu <ck.hu@mediatek.com>,
+ Jitao shi <jitao.shi@mediatek.com>, dri-devel@lists.freedesktop.org,
+ devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+ linux-arm-kernel@lists.infradead.org
+References: <20260921113914.779393-1-l.scorcia@gmail.com>
+ <20260921113914.779393-2-l.scorcia@gmail.com>
+ <3701981f-cdda-46a7-8079-de5479ae9c27@kernel.org>
+ <CAORyz2+wF=VDTFkRFU7jBu-zNTW7T8mnPrJZAj8ZVD-Yyr2b6A@mail.gmail.com>
+From: Krzysztof Kozlowski <krzk@kernel.org>
+Content-Language: en-US
+Autocrypt: addr=krzk@kernel.org; keydata=
+ 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
+In-Reply-To: <CAORyz2+wF=VDTFkRFU7jBu-zNTW7T8mnPrJZAj8ZVD-Yyr2b6A@mail.gmail.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -49,173 +110,43 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
-Reply-To: sashiko-reviews@lists.linux.dev
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-10.8 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
+X-Spam-Status: No, score=-7.3 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
 	DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
-	INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS
-	autolearn=unavailable autolearn_force=no version=4.0.1
+	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,USER_AGENT_SANE_1
+	autolearn=no autolearn_force=no version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
-X-Archived-By: <archiver.kernel.org>
 
-Thank you for your contribution! Sashiko AI review found 5 potential
-issues to consider:
-- [Critical] drm/amdgpu: amdgpu_vm_update_ctx_rollback() fails to unlink
-  ctx->cleared
-- [High] drm/amdgpu: missing interval tree iteration in
-  amdgpu_vm_bo_map()
-- [High] drm/amdgpu: amdgpu_vm_bo_map() ignores conflicts on partially
-  cleared ranges
-- [High] drm/amdgpu: amdgpu_vm_update_ctx_rollback() leaks ctx->new
-  mappings
-- [High] drm/amdgpu: missing amdgpu_vm_update_ctx_commit() in
-  unmap_bo_from_gpuvm()
---
+On 17/11/2026 14:26, Luca Leonardo Scorcia wrote:
+>> Turns out you bring here undocumented ABI. NAK.
+> 
+> Hi, I'm sorry but I don't see the relation between this commit you
+> just NAKed and the bigger issue about mediatek-drm alias usage. It's
+> not like I'm introducing anything new in these DPI specific patches
+> and the individual display block drivers do not depend on the aliases
+> (they're used by mediatek-drm for building the pipeline).
 
-commit 4bdb539ca2c3dc59efa5a70eaf09b4e87c351cb1
-Author: Natalie Vock <nat@pixelcluster.dev>
+To clarify: you do introduce a new compatible here and in the DTS. Here
+it is documented. This is correct.
 
-drm/amdgpu: Only reject conflicting mappings if they are not cleared
+However your DTS introduces also new usage of the ABI - aliases - and
+that part is not documented. New DTS cannot use undocumented ABI. This
+means that the binding was not complete. There is a mismatch or missing
+pieces between the binding and DTS.
 
-This commit updates amdgpu_vm_bo_map() to only reject an overlapping
-mapping in the VM interval tree when its pending_list is empty.
+> 
+> I understand why the commit to the dtsi that includes the aliases is
+> NAKed, and the eventual fix is going to require a change in all of
+> Mediatek SoCs dtsi. I am fine with the dtsi changes being blocked
+> until an appropriate solution is found. I just don't understand the
+> NAKs on the DPI components.
 
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c b/drivers/gpu/drm/amd=
-/amdgpu/amdgpu_vm.c
-> index ac4a1ed9b1196..491f4b50f7602 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c
-> @@ -2241,7 +2241,7 @@ int amdgpu_vm_bo_map(struct amdgpu_vm_update_ctx *c=
-tx,
->  	eaddr =3D saddr + (size - 1) / AMDGPU_GPU_PAGE_SIZE;
-> =20
->  	tmp =3D amdgpu_vm_it_iter_first(&vm->va, saddr, eaddr);
-> -	if (tmp) {
-> +	if (tmp && list_empty(&tmp->pending_list)) {
->  		/* bo and tmp overlap, invalid addr */
->  		dev_err(ctx->adev->dev,
->  			"bo %p va 0x%010Lx-0x%010Lx conflict with "
+Because this binding in relation to your DTS is incomplete. Of course if
+you drop the aliases from your DTS and this will be your final and
+working solution (bindings and DTS should be complete) then this NAK is
+not relevant and can be ignored. But in current form your bindings are
+incomplete and DTS after correcting won't work...
 
-[Severity: High]
-Can amdgpu_vm_bo_map() miss a conflict when [saddr, eaddr] overlaps more
-than one mapping in vm->va?
-
-If the first node returned by amdgpu_vm_it_iter_first() has a non-empty
-pending_list (because it was unmapped or cleared earlier in the same
-update context) and a subsequent overlapping node in [saddr, eaddr] is
-still active with an empty pending_list, amdgpu_vm_bo_map() never walks
-the remaining nodes via amdgpu_vm_it_iter_next().
-amdgpu_vm_update_ctx_commit() then inserts the new mapping into vm->va on
-top of the active mapping.
-
-Should this loop with amdgpu_vm_it_iter_next(tmp, saddr, eaddr) over all
-overlapping nodes in [saddr, eaddr] and reject the map if any node has an
-empty pending_list?
-
-[Severity: High]
-Does checking list_empty(&tmp->pending_list) also allow mapping over the
-uncleared portion of a partially cleared mapping?
-
-When amdgpu_vm_bo_clear_mappings() partially clears an existing mapping
-tmp, it adds the entire unsplit mapping to ctx->cleared via
-tmp->pending_list while recording only the cleared sub-range in
-ctx->cleared_ranges:
-
-drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c:amdgpu_vm_bo_clear_mappings() {
-	...
-	tmp =3D amdgpu_vm_it_iter_first(&ctx->vm->va, saddr, eaddr);
-	while (tmp) {
-		amdgpu_vm_update_ctx_add_replaced_mapping(ctx, tmp);
-		tmp =3D amdgpu_vm_it_iter_next(tmp, saddr, eaddr);
-	}
-
-	cleared_range->start =3D saddr;
-	cleared_range->last =3D eaddr;
-	interval_tree_insert(cleared_range, &ctx->cleared_ranges);
-	...
-}
-
-Because list_empty(&tmp->pending_list) is false across all of
-[tmp->start, tmp->last], a subsequent amdgpu_vm_bo_map() overlapping the
-still-active part of tmp is not rejected here.  If a later clear in the
-same update context covers that remaining range,
-amdgpu_vm_update_ctx_execute_replace() produces no gap mapping to collide
-with ctx->pending_maps, so the invalid map succeeds without ever reporting
-a conflict.
-
-[Severity: Critical]
-What happens to tmp->pending_list when an update context is rolled back
-after staging cleared mappings on ctx->cleared?
-
-In commit "drm/amdgpu: Add function to roll back a VM update ctx",
-amdgpu_vm_update_ctx_rollback() unlinks ctx->new and ctx->deleted, but
-does not unlink ctx->cleared:
-
-drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c:amdgpu_vm_update_ctx_rollback() {
-	...
-	list_for_each_entry_safe(mapping, next, &ctx->new, pending_list)
-		list_del_init(&mapping->pending_list);
-	list_for_each_entry_safe(mapping, next, &ctx->deleted, pending_list)
-		list_del_init(&mapping->pending_list);
-	...
-}
-
-If an operation rolls back after amdgpu_vm_bo_clear_mappings() or
-amdgpu_vm_bo_replace_map() has placed a live mapping onto ctx->cleared,
-that mapping stays in vm->va with mapping->pending_list pointing into the
-expired stack-allocated update_ctx.cleared head.  Because
-list_empty(&mapping->pending_list) then remains false, this check in
-amdgpu_vm_bo_map() treats the live mapping as cleared and allows
-conflicting mappings over it.  In addition,
-amdgpu_vm_update_ctx_add_freed_mapping() skips any mapping whose
-pending_list is not empty, so amdgpu_vm_bo_del() frees bo_va while leaving
-its mapping in vm->va with a dangling bo_va pointer, leading to a
-use-after-free on later VM interval tree walks.
-
-[Severity: High]
-Does rolling back a context after amdgpu_vm_bo_map() queues a new mapping
-leak the mapping allocation?
-
-amdgpu_vm_bo_map() allocates mapping with kmalloc_obj(*mapping) and
-queues it on ctx->new via amdgpu_vm_update_ctx_add_new_mapping(), only
-inserting it into vm->va and bo_va->invalids when
-amdgpu_vm_update_ctx_commit() runs.  When a later step fails (such as
-amdgpu_vm_update_ctx_execute_replace() after mapping over a partially
-cleared range) or hits lock contention, amdgpu_vm_update_ctx_rollback()
-calls list_del_init(&mapping->pending_list) on each entry in ctx->new
-without freeing mapping.
-
-[Severity: High]
-In commit "drm/amdgpu: Make removed/cleared mappings pending per update
-context", does unmap_bo_from_gpuvm() also miss a call to
-amdgpu_vm_update_ctx_commit() before clearing freed mappings?
-
-drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gpuvm.c:unmap_bo_from_gpuvm() {
-	...
-	amdgpu_vm_update_ctx_init(&update_ctx, adev, vm);
-
-	(void)amdgpu_vm_bo_unmap(&update_ctx, bo_va, entry->va);
-
-	/* VM entity stopped if process killed, don't clear freed pt bo */
-	if (!amdgpu_vm_ready(vm))
-		goto out;
-
-	(void)amdgpu_vm_clear_freed(&update_ctx, &bo_va->last_pt_update);
-
-	(void)amdgpu_sync_fence(sync, bo_va->last_pt_update, GFP_KERNEL);
-
-out:
-	amdgpu_vm_update_ctx_fini(&update_ctx);
-	return 0;
-}
-
-Because amdgpu_vm_bo_unmap() only stages the mapping on
-update_ctx.deleted until amdgpu_vm_update_ctx_commit() moves it to
-update_ctx.freed and removes it from vm->va, amdgpu_vm_clear_freed() sees
-an empty freed list and amdgpu_vm_update_ctx_fini() rolls the unmap back,
-leaving the mapping active in vm->va.
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261117-prt-explic=
-it-sync-v2-0-bb3851cb6a0c@pixelcluster.dev?part=3D8
+Best regards,
+Krzysztof
