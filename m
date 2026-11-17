@@ -2,61 +2,52 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AC873606A886
-	for <dri-devel@archiver.kernel.org>; Tue, 17 Nov 2026 11:19:33 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6D1A4606A329
+	for <dri-devel@archiver.kernel.org>; Tue, 17 Nov 2026 11:25:05 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=DhgxR9Wo
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 1231510F62F;
-	Tue, 17 Nov 2026 11:19:33 +0000 (UTC)
-Received: from cstnet.cn (smtp21.cstnet.cn [159.226.251.21])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 5012610E5A9
- for <dri-devel@lists.freedesktop.org>; Tue, 17 Nov 2026 11:19:31 +0000 (UTC)
-Received: from edelgard.fodlan.icenowy.me (unknown [112.94.102.23])
- by APP-01 (Coremail) with SMTP id qwCowABHcfs7OPxq1lQrAQ--.668S2;
- Tue, 17 Nov 2026 19:19:24 +0800 (CST)
-Message-ID: <22329b456927eb2dc37c2fa2503761dcf0923d9e.camel@iscas.ac.cn>
-Subject: Re: [PATCH v2 2/4] drm/verisilicon: nuke planes' atomic_enable hooks
-From: Icenowy Zheng <zhengxingda@iscas.ac.cn>
-To: Thomas Zimmermann <tzimmermann@suse.de>, Maarten Lankhorst
- <maarten.lankhorst@linux.intel.com>, Maxime Ripard <mripard@kernel.org>
-Cc: David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
- Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>, Joey Lu
- <a0987203069@gmail.com>, Han Gao <gaohan@iscas.ac.cn>, 
- dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org
-Date: Tue, 17 Nov 2026 19:19:23 +0800
-In-Reply-To: <4404265c-ae14-4d17-82ad-46ed6c123c6b@suse.de>
-References: <20261102075710.1286456-1-zhengxingda@iscas.ac.cn>
- <20261102075710.1286456-3-zhengxingda@iscas.ac.cn>
- <8e3b36c6-e2d8-4746-aefe-462bba1a4b05@suse.de>
- <5830251f1420c152b2efc2ee37248057bdfc901d.camel@iscas.ac.cn>
- <55991183-ab5f-4445-afce-37a79310ef27@suse.de>
- <83aa9fb5be26fb407c7f1393bc01099d374cf51f.camel@iscas.ac.cn>
- <7e4b4fd185f47404bb5f18e7c2c8086d24e673f4.camel@iscas.ac.cn>
- <a96e7813-6918-44f5-82e2-ca40051abea0@suse.de>
- <73f4e371c37c36581240ff355fef3de2afaaa033.camel@iscas.ac.cn>
- <4404265c-ae14-4d17-82ad-46ed6c123c6b@suse.de>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-User-Agent: Evolution 3.58.3 
+	by gabe.freedesktop.org (Postfix) with ESMTP id 88D3610E32C;
+	Tue, 17 Nov 2026 11:24:59 +0000 (UTC)
+Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 987A410E32C
+ for <dri-devel@lists.freedesktop.org>; Tue, 17 Nov 2026 11:24:53 +0000 (UTC)
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+ by tor.source.kernel.org (Postfix) with ESMTP id 8B5E4601BE;
+ Tue, 17 Nov 2026 11:24:52 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id AE1B91F000C4;
+ Tue, 17 Nov 2026 11:24:51 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+ s=k20260515; t=1794914692;
+ bh=vWOxMHWlcWtp27VVdwB8K8C+YGb+xa1iSkIZnmlgfTA=;
+ h=Date:From:To:Cc:Subject:References:In-Reply-To;
+ b=DhgxR9Wo+dUuqkYWxNm8rH7ej9OWfhE/Xv8DnoobJmZZLPkYsdBJo5fCkCZJFSl4t
+ gwGGW5A9I9pO32K4YLEJ21S1X1QscsjDvk9tYDpyVp11eavqV0M+giyonO4WQ9luHS
+ 5AElNQ21OYGOL+Scg06kyjBswlpqwU2uTVobkQZKp/xMBI0CqlAb18JPvqRawXRLFp
+ frySI+jf1vEbDNQ7Y7x75M3uceernjmsj2cRQuY0uX1RHS+OYO9MOFD75qofuEO9AU
+ UUoIry2Wm88kf3dDuVi67A1d0DM7gEyQwu0X5yMLyoIdz5Getfbw0SIvcyO35O7Rh8
+ sTzKdEBXgCMLQ==
+Date: Tue, 17 Nov 2026 12:24:49 +0100
+From: Thierry Reding <thierry.reding@kernel.org>
+To: Maxime Ripard <mripard@kernel.org>
+Cc: David Airlie <airlied@gmail.com>, 
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Simona Vetter <simona@ffwll.ch>, 
+ Thomas Zimmermann <tzimmermann@suse.de>, dri-devel@lists.freedesktop.org, 
+ Jonathan Hunter <jonathanh@nvidia.com>, Mikko Perttunen <mperttunen@nvidia.com>,
+ linux-tegra@vger.kernel.org
+Subject: Re: [PATCH RESEND 53/83] drm/tegra: Switch to
+ drm_mode_config_create_initial_state
+Message-ID: <avw5LNHICh6OHpqs@orome>
+References: <20261105-drm-no-more-config-reset-v1-0-1f58d1e33380@kernel.org>
+ <20261105-drm-no-more-config-reset-v1-53-1f58d1e33380@kernel.org>
+ <auyjMrCi8trUahdB@orome> <avNBTIciv6QlEp9a@houat>
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
-X-CM-TRANSID: qwCowABHcfs7OPxq1lQrAQ--.668S2
-X-Coremail-Antispam: 1UD129KBjvJXoW3XFWfXrWxur4kGr1fWFW7Jwb_yoWxKw15pr
- ykJFyUKrWrXry8JryUtw1Dta43tr47t347Xr1UJF1UXr1Dtr1qgF18XrnF9F1kXr48G3Wx
- Jw17AF9rZr18AF7anT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
- 9KBjDU0xBIdaVrnRJUUUvqb7Iv0xC_Kw4lb4IE77IF4wAFF20E14v26r4j6ryUM7CY07I2
- 0VC2zVCF04k26cxKx2IYs7xG6rWj6s0DM7CIcVAFz4kK6r1j6r18M28lY4IEw2IIxxk0rw
- A2F7IY1VAKz4vEj48ve4kI8wA2z4x0Y4vE2Ix0cI8IcVAFwI0_JFI_Gr1l84ACjcxK6xII
- jxv20xvEc7CjxVAFwI0_Gr0_Cr1l84ACjcxK6I8E87Iv67AKxVW0oVCq3wA2z4x0Y4vEx4
- A2jsIEc7CjxVAFwI0_GcCE3s1le2I262IYc4CY6c8Ij28IcVAaY2xG8wAqx4xG64xvF2IE
- w4CE5I8CrVC2j2WlYx0E2Ix0cI8IcVAFwI0_Jr0_Jr4lYx0Ex4A2jsIE14v26r1j6r4UMc
- vjeVCFs4IE7xkEbVWUJVW8JwACjcxG0xvEwIxGrwACI402YVCY1x02628vn2kIc2xKxwCY
- 1x0262kKe7AKxVWUtVW8ZwCF04k20xvY0x0EwIxGrwCFx2IqxVCFs4IE7xkEbVWUJVW8Jw
- C20s026c02F40E14v26r1j6r18MI8I3I0E7480Y4vE14v26r106r1rMI8E67AF67kF1VAF
- wI0_Jw0_GFylIxkGc2Ij64vIr41lIxAIcVC0I7IYx2IY67AKxVWUJVWUCwCI42IY6xIIjx
- v20xvEc7CjxVAFwI0_Jr0_Gr1lIxAIcVCF04k26cxKx2IYs7xG6r1j6r1xMIIF0xvEx4A2
- jsIE14v26r1j6r4UMIIF0xvEx4A2jsIEc7CjxVAFwI0_Gr0_Gr1UYxBIdaVFxhVjvjDU0x
- ZFpf9x07betCcUUUUU=
-X-CM-SenderInfo: x2kh0wp0lqwv3d6l2u1dvotugofq/
+Content-Type: multipart/signed; micalg=pgp-sha512;
+ protocol="application/pgp-signature"; boundary="zcuoxflydzito32u"
+Content-Disposition: inline
+In-Reply-To: <avNBTIciv6QlEp9a@houat>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -68,256 +59,88 @@ List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-8.8 required=3.0 tests=BAYES_00,
-	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_PATCH,MAILING_LIST_MULTI,
-	SPF_HELO_NONE,SPF_PASS autolearn=ham autolearn_force=no version=4.0.1
+X-Spam-Status: No, score=-15.8 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
+	DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
+	INCLUDES_CR_TRAILER,INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,
+	SPF_PASS autolearn=ham autolearn_force=no version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-=E5=9C=A8 2026-11-17=E4=BA=8C=E7=9A=84 08:39 +0100=EF=BC=8CThomas Zimmerman=
-n=E5=86=99=E9=81=93=EF=BC=9A
-> Hi
+
+--zcuoxflydzito32u
+Content-Type: text/plain; protected-headers=v1; charset=us-ascii
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
+Subject: Re: [PATCH RESEND 53/83] drm/tegra: Switch to
+ drm_mode_config_create_initial_state
+MIME-Version: 1.0
+
+On Tue, Nov 10, 2026 at 05:10:01PM +0100, Maxime Ripard wrote:
+> Hi Thierry,
 >=20
-> Am 17.11.26 um 08:34 schrieb Icenowy Zheng:
-> > =E5=9C=A8 2026-11-17=E4=BA=8C=E7=9A=84 08:25 +0100=EF=BC=8CThomas Zimme=
-rmann=E5=86=99=E9=81=93=EF=BC=9A
-> > > Hi
+> On Thu, Nov 05, 2026 at 04:51:46PM +0100, Thierry Reding wrote:
+> > On Thu, Nov 05, 2026 at 04:30:02PM +0100, Maxime Ripard wrote:
+> > > drm_mode_config_reset() has a dual role: it creates the initial KMS
+> > > state at probe time, and resets hardware and software state during
+> > > suspend/resume cycles.
 > > >=20
-> > > Am 17.11.26 um 06:19 schrieb Icenowy Zheng:
-> > > [...]
-> > > > > > Sure, but is that a problem for this hardware?
-> > > > > For the cursor plane, the unchecked coordinate might be
-> > > > > improper
-> > > > > for
-> > > > > the registers.
-> > > > >=20
-> > > > > For the primary plane, if the plane is found to be totally
-> > > > > off by
-> > > > > drm_atomic_helper_check_plane_state(), the check for
-> > > > > can_position,
-> > > > > which is below the code snippet I referenced, would be
-> > > > > bypassed,
-> > > > > and
-> > > > > such plane would be programmed to be visible by the
-> > > > > atomic_update
-> > > > > hook
-> > > > > even if it shouldn't be visible.
-> > > > Well I am now thinking that bound-but-invisible situation is
-> > > > commonly
-> > > > ignored by drivers.
-> > > >=20
-> > > > For drm/verisilicon, maybe I'd remove both atomic_disable and
-> > > > atomic_enable; however I think the atomic helpers may need some
-> > > > flag to
-> > > > consider bound-but-invisible planes when calling
-> > > > atomic_{dis,en}able.
-> > > I don't think I really understand what you're up to, but it seems
-> > > you're
-> > > overthinking the whole thing. Other drivers only care about plane
-> > > on/off
-> > Well I don't know whether I am overthinking...
+> > > Since the two roles need different behaviors (notably for objects like
+> > > drm_private_obj that must persist across suspend/resume),
+> > > drm_mode_config_create_initial_state() was introduced to handle only
+> > > the initial state creation at probe time.
+> > >=20
+> > > Switch to drm_mode_config_create_initial_state().
+> > >=20
+> > > Signed-off-by: Maxime Ripard <mripard@kernel.org>
+> > > ---
+> > > Cc: Jonathan Hunter <jonathanh@nvidia.com>
+> > > Cc: Mikko Perttunen <mperttunen@nvidia.com>
+> > > Cc: Thierry Reding <thierry.reding@kernel.org>
+> > > Cc: linux-tegra@vger.kernel.org
+> > > ---
+> > >  drivers/gpu/drm/tegra/drm.c | 4 +++-
+> > >  1 file changed, 3 insertions(+), 1 deletion(-)
 > >=20
-> > Enabled but invisible planes are explicitly allowed in
-> > drm_atomic_helper_check_plane_state(), and even the can_position
-> > check
-> > is bypassed in such case (so such a configuration can even appear
-> > on
-> > primary planes). In addition, in most implementations for
-> > atomic_check,
-> > the invisible situations have the validity check explicitly
-> > skipped, so
-> > just disallow enabled-but-invisible planes in atomic_check would
-> > make
-> > the behavior quite different with most drivers.
+> > I'd have to check more closely since it's been a while, but I think we
+> > might depend on the reset hooks getting called during probe.
 > >=20
-> > Maybe I should craft some "evil" programs to check for this
-> > situation.
+> > Looking at the implementation of drm_mode_config_create_initial_state(),
+> > it ends up calling drm_mode_config_connector_create_state(), which
+> > silently exists if the connector doesn't implement atomic_create_state,
+> > which none of the Tegra connectors do, so wouldn't that lead to a NULL
+> > pointer dereference at some point?
 >=20
-> If you can make an igt test case for broken plane coordinates, go for
-> it.
-
-It seems that all plane tests in i-g-t require pipe crc support, which
-I didn't find on verisilicon hardwares.
-
-Maybe I'd do the test with some modification on modetest and then
-eyeball.
-
-Thanks,
-Icenowy
-
+> AFAIK, all tegra connectors have now been converted to
+> atomic_create_state instead of reset (commits c5c0e4821938 and
+> f808d9f8e5a3 in drm-misc-next) so it shouldn't have any reset specific
+> behaviour at all and the transition to
+> drm_mode_config_create_initial_state().
 >=20
-> Best regards
-> Thomas
->=20
-> >=20
-> > Thanks,
-> > Icenowy
-> >=20
-> > > and the contained image. That's also what the 3 callbacks are
-> > > for. It
-> > > usually works nicely. Hence me asking. But maybe verisilicon is
-> > > different, IDK.
-> > >=20
-> > > My suggestion is therefore to remove _enable and _disable and
-> > > keep
-> > > all
-> > > logic in _update.
-> > >=20
-> > > atomic_update()
-> > > {
-> > > =C2=A0=C2=A0=C2=A0 =C2=A0 if (plane_state->visible) {
-> > > =C2=A0=C2=A0=C2=A0 =C2=A0 =C2=A0 =C2=A0 // do update
-> > > =C2=A0=C2=A0=C2=A0 =C2=A0 =C2=A0 =C2=A0 // enable hw plane
-> > > =C2=A0=C2=A0=C2=A0 =C2=A0 } else {
-> > > =C2=A0=C2=A0=C2=A0 =C2=A0 =C2=A0 =C2=A0 // disable hw plane
-> > > =C2=A0=C2=A0=C2=A0 =C2=A0 }
-> > > }
-> > >=20
-> > > If you have any special cases where you want visible to be false
-> > > (or
-> > > true), detect them in atomic_check and set the flags accordingly.
-> > >=20
-> > > atomic_check()
-> > > {
-> > > drm_atomic_helper_check_plane_state() =C2=A0 =C2=A0 if (awkward coord=
-s)
-> > > =C2=A0=C2=A0=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0plane_state->visible =
-=3D false;
-> > > }
-> > >=20
-> > > Best regards
-> > > Thomas
-> > >=20
-> > > > Thanks,
-> > > > Icenowy
-> > > >=20
-> > > > > Thanks,
-> > > > > Icenowy
-> > > > >=20
-> > > > > > Best regards
-> > > > > > Thomas
-> > > > > >=20
-> > > > > > > The end of drm_atomic_helper_check_plane_state() says:
-> > > > > > >=20
-> > > > > > > ```
-> > > > > > > 	if (!plane_state->visible)
-> > > > > > > 		/*
-> > > > > > > 		 * Plane isn't visible; some drivers can
-> > > > > > > handle
-> > > > > > > this
-> > > > > > > 		 * so we just return success here.=C2=A0
-> > > > > > > Drivers
-> > > > > > > that
-> > > > > > > can't
-> > > > > > > 		 * (including those that use the primary
-> > > > > > > plane
-> > > > > > > helper's
-> > > > > > > 		 * update function) will return an error
-> > > > > > > from
-> > > > > > > their
-> > > > > > > 		 * update_plane handler.
-> > > > > > > 		 */
-> > > > > > > 		return 0;
-> > > > > > > ```
-> > > > > > >=20
-> > > > > > > Thanks,
-> > > > > > > Icenowy
-> > > > > > >=20
-> > > > > > > > [1]
-> > > > > > > > https://elixir.bootlin.com/linux/v7.3.1/source/drivers/gpu/=
-drm/drm_atomic_helper.c#L3030
-> > > > > > > >=20
-> > > > > > > > Best regards
-> > > > > > > > Thomas
-> > > > > > > >=20
-> > > > > > > > > =C2=A0=C2=A0=C2=A0=C2=A0 };
-> > > > > > > > > =C2=A0=C2=A0=C2=A0=C2=A0=20
-> > > > > > > > > diff --git
-> > > > > > > > > a/drivers/gpu/drm/verisilicon/vs_primary_plane.c
-> > > > > > > > > b/drivers/gpu/drm/verisilicon/vs_primary_plane.c
-> > > > > > > > > index 8e94491693019..fca692f4f7d5c 100644
-> > > > > > > > > --- a/drivers/gpu/drm/verisilicon/vs_primary_plane.c
-> > > > > > > > > +++ b/drivers/gpu/drm/verisilicon/vs_primary_plane.c
-> > > > > > > > > @@ -59,25 +59,6 @@ static void
-> > > > > > > > > vs_primary_plane_commit(struct
-> > > > > > > > > vs_dc
-> > > > > > > > > *dc, unsigned int output)
-> > > > > > > > > =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0			VSDC_FB_CONFIG_EX_COMMIT=
-);
-> > > > > > > > > =C2=A0=C2=A0=C2=A0=C2=A0 }
-> > > > > > > > > =C2=A0=C2=A0=C2=A0=C2=A0=20
-> > > > > > > > > -static void vs_primary_plane_atomic_enable(struct
-> > > > > > > > > drm_plane
-> > > > > > > > > *plane,
-> > > > > > > > > -					=C2=A0=C2=A0 struct
-> > > > > > > > > drm_atomic_commit *atomic_state)
-> > > > > > > > > -{
-> > > > > > > > > -	struct drm_plane_state *state =3D
-> > > > > > > > > drm_atomic_get_new_plane_state(atomic_state,
-> > > > > > > > > -
-> > > > > > > > > 					=09
-> > > > > > > > > =09
-> > > > > > > > > 	=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 plane);
-> > > > > > > > > -	struct drm_crtc *crtc =3D state->crtc;
-> > > > > > > > > -	struct vs_crtc *vcrtc =3D
-> > > > > > > > > drm_crtc_to_vs_crtc(crtc);
-> > > > > > > > > -	unsigned int output =3D vcrtc->id;
-> > > > > > > > > -	struct vs_dc *dc =3D vcrtc->dc;
-> > > > > > > > > -
-> > > > > > > > > -	regmap_set_bits(dc->regs,
-> > > > > > > > > VSDC_FB_CONFIG_EX(output),
-> > > > > > > > > -			VSDC_FB_CONFIG_EX_FB_EN);
-> > > > > > > > > -	regmap_update_bits(dc->regs,
-> > > > > > > > > VSDC_FB_CONFIG_EX(output),
-> > > > > > > > > -		=09
-> > > > > > > > > VSDC_FB_CONFIG_EX_DISPLAY_ID_MASK,
-> > > > > > > > > -		=09
-> > > > > > > > > VSDC_FB_CONFIG_EX_DISPLAY_ID(output));
-> > > > > > > > > -
-> > > > > > > > > -	vs_primary_plane_commit(dc, output);
-> > > > > > > > > -}
-> > > > > > > > > -
-> > > > > > > > > =C2=A0=C2=A0=C2=A0=C2=A0 static void
-> > > > > > > > > vs_primary_plane_atomic_disable(struct
-> > > > > > > > > drm_plane
-> > > > > > > > > *plane,
-> > > > > > > > > =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0					=C2=A0=C2=A0=C2=A0 str=
-uct
-> > > > > > > > > drm_atomic_commit *atomic_state)
-> > > > > > > > > =C2=A0=C2=A0=C2=A0=C2=A0 {
-> > > > > > > > > @@ -144,13 +125,18 @@ static void
-> > > > > > > > > vs_primary_plane_atomic_update(struct drm_plane
-> > > > > > > > > *plane,
-> > > > > > > > > =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0	regmap_write(dc->regs,
-> > > > > > > > > VSDC_FB_BLEND_CONFIG(output),
-> > > > > > > > > =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0	=09
-> > > > > > > > > VSDC_FB_BLEND_CONFIG_BLEND_DISABLE);
-> > > > > > > > > =C2=A0=C2=A0=C2=A0=C2=A0=20
-> > > > > > > > > +	regmap_set_bits(dc->regs,
-> > > > > > > > > VSDC_FB_CONFIG_EX(output),
-> > > > > > > > > +			VSDC_FB_CONFIG_EX_FB_EN);
-> > > > > > > > > +	regmap_update_bits(dc->regs,
-> > > > > > > > > VSDC_FB_CONFIG_EX(output),
-> > > > > > > > > +		=09
-> > > > > > > > > VSDC_FB_CONFIG_EX_DISPLAY_ID_MASK,
-> > > > > > > > > +		=09
-> > > > > > > > > VSDC_FB_CONFIG_EX_DISPLAY_ID(output));
-> > > > > > > > > +
-> > > > > > > > > =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0	vs_primary_plane_commit(dc=
-, output);
-> > > > > > > > > =C2=A0=C2=A0=C2=A0=C2=A0 }
-> > > > > > > > > =C2=A0=C2=A0=C2=A0=C2=A0=20
-> > > > > > > > > =C2=A0=C2=A0=C2=A0=C2=A0 static const struct drm_plane_he=
-lper_funcs
-> > > > > > > > > vs_primary_plane_helper_funcs =3D {
-> > > > > > > > > =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0	.atomic_check	=3D
-> > > > > > > > > vs_primary_plane_atomic_check,
-> > > > > > > > > =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0	.atomic_update	=3D
-> > > > > > > > > vs_primary_plane_atomic_update,
-> > > > > > > > > -	.atomic_enable	=3D
-> > > > > > > > > vs_primary_plane_atomic_enable,
-> > > > > > > > > =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0	.atomic_disable	=3D
-> > > > > > > > > vs_primary_plane_atomic_disable,
-> > > > > > > > > =C2=A0=C2=A0=C2=A0=C2=A0 };
-> > > > > > > > > =C2=A0=C2=A0=C2=A0=C2=A0=20
+> Am I missing something?
 
+Ah, I don't think they were in linux-next (which is what I was looking
+at) yet when I replied. Looks like it should be fine now:
+
+Acked-by: Thierry Reding <treding@nvidia.com>
+
+--zcuoxflydzito32u
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iQIzBAABCgAdFiEEiOrDCAFJzPfAjcif3SOs138+s6EFAmr8OYEACgkQ3SOs138+
+s6HwgQ/9F/dU5Fwj1VmRt0XTem4o41tqgkGUsXzETd3U/l9jBb8BRnZCRYtlml/R
+oT62Ai/D0zJkNBKKhjlykcGYDf4vTd47uor5P6/VgBHbuAfJBOmsRD944bL6Mi5t
+crpiyXqWQGbzFxz+We9vGBbI6KdE6czvrb/jU8SJ2gzWMHltmP3/n++F2FOL3WHf
+yAB79ZWQYEXNgoMsC+Q8uvs2KEANEPgjZ9HNLsq4EcP8bqfPFf86DSQn/oe5Fio0
+MYrmlYsVm4qGiFHQwNVtage4A6d8djYn2szn/3D3nHvLyj4cGnsxI68XZ5tjSRAc
+rhv/pl3QgbatOqJcP4m4aNK8/adgzV+iR0s/tAB4ET3uuyL4NjFtr9rCukIo34Gq
++6okBMrL7D0NDOTV6zgJufjcWYkTmylhWu4EjYYiros9gTzCkpcJH68qkNjN8VLF
+dwVB9iz2KOEWyCXny7bbInyp/TyUq2gQRFAYW3XrG4WI4LZFyNO/qUNE63MY9+ut
+OjhX3R7XpuSBRHJNEfQEvcbDNoiOiVdyU/MXvu8TrFLUjF5auQ4NEijJ3aLIf58M
+XAquAAilfek9lTtxHMkbvdnLwQH8ib1EcctBBx8heJRLytrcwGiWIlejoT0N1JGv
+Nsen3WczV/1YgYc6RLUc/fN9URshi5H1zm/WlH559Sk5UDGNMPc=
+=tQ8v
+-----END PGP SIGNATURE-----
+
+--zcuoxflydzito32u--
