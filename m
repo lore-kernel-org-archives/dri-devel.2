@@ -2,119 +2,92 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 456A9606A31C
-	for <dri-devel@archiver.kernel.org>; Tue, 17 Nov 2026 06:13:15 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=Nvidia.com header.i=@Nvidia.com header.a=rsa-sha256 header.s=selector2 header.b=tHBa9/a9
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C4CF4606A31C
+	for <dri-devel@archiver.kernel.org>; Tue, 17 Nov 2026 06:46:01 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id A88BA10E1BE;
-	Tue, 17 Nov 2026 06:13:09 +0000 (UTC)
-Received: from CY7PR03CU001.outbound.protection.outlook.com
- (mail-westcentralusazon11010040.outbound.protection.outlook.com
- [40.93.198.40])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 9ABF810E1BE
- for <dri-devel@lists.freedesktop.org>; Tue, 17 Nov 2026 06:13:02 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 198CC10E00C;
+	Tue, 17 Nov 2026 06:46:01 +0000 (UTC)
+Received: from TYDPR03CU002.outbound.protection.outlook.com
+ (mail-japaneastazon11023124.outbound.protection.outlook.com [52.101.127.124])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id F11DC10E00C
+ for <dri-devel@lists.freedesktop.org>; Tue, 17 Nov 2026 06:45:59 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=l3J1BOqILyaQho/WARl+ZMQvCOP5MXVO08z4yBjz48xy+fcJt7sqfiDi7GgBLkjI8KKxK7RdKf+ICBpfgR/3HKGsFZPsV90nyHXusWzv30ASv/5PZNWt/0W0soXJ5g+ztU1dvkR4HvhFenOqbgAyymZ6ZsEjsEJA/CatNeX6UjCoZnj0D32RBu2YGxObpDpiqHVk0EmfE2nU06yriJ82TVJScKs0SmoP2SJPv0/8aBepe9gNaQCjIGfuGkPt1rnzhtpj5rENDqOXMIiO6MGJCrrAGl8yhvECtylzx100xv/X6Rxiy8a6p77nW+V9YfJykHgx3hEiAw8nkgM1hMm+SQ==
+ b=nUa3u+Q/D6z6wgFonkKxcoerOkkdc5wh+TgvUq6KEErX5koUjF9MPXemrAYY418wBxeJ5kWG0EViHf/LPQrwfa+88Q8ljLUKzO3i/DxogDivFxB274dl1mx6cWSEARg0Yx62itvlVutMPFs67QbLyMRlWijsJUuagqHauHUAlq2l5KKykVWC0A09UP1495rLhF0hJOh3HuadSk2eswnw3XQieUdDFejpMCybcTlWBHmMKXDocYqfbMgmQKz/ttkuADoANOIFwgxOWIACx5kz+exTprqLEZW12HrlO7Ojl4YcHgwODqQyt2keTuYn5hetdRqhiINHEoqeKkcGQNJ+Vg==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=oshRBGc50irQGUtCxuAmm5ga3T4vXJR1vl5q0c78OsQ=;
- b=pLnDic+0Fi4OOeG/s1pIJRiqcZwuCMMgIxJO3SO0Ij72MR6yrQmmzeiqHUdm2rE6CzDr9Jw67qwfTo8SIlsLns9H98ikDN8/MJdthjFHx5TmDfNTnUyh6cPt3sh3mUCNdiNxL1sqhdnzPrPQrxDSjBXtx7/9MvS5RkeZQ4KxiajAbuPOnqtMxr0ppuNTNCaYraB33q1pz4Xc+4lC72qOmZbRTBQ6TZqGvXaylHKewP9iED6xBjFBgoWFJ2V6roCh/mosRF6uuRscxc0rxHiHu5pf9NlbpR1v13hQLeXDcIyfetq4eKk0dYaEydL3VIOby6iLoZ66ZFSEr87YoQPPxQ==
+ bh=25Ko08uJ2oaZ6RdGr4pw+6a6N3d7d4Pf7+rWmh7ePzw=;
+ b=UL72f8/P7a9tD19pguA/aElooVXCRfH9erY1as0OjwsA1UMDwAx16qSgCyEj+XSxVPYPVFFfyesP+opV9jy5pNpJDIJmol1LCfFdbmjTw53nIQKZMUnw50fiM3A1H9vcnQdhIltUXlmBdYo4v9u8HxoUfKKqF5mmYZYRePVylr0k79gee5pMpVUwGIvVq/xJcxSHTyfJWwsZRBs9tmXhPzlrMu+jGmXq4rn0mmqtY+XN9JZj5r4vEzlov6sJgn+jG5dVEdW9kMNeMBQonxksrPk8afzIh/kPP5Mwdl7J8mLO4YgHfacXQrTsmn6gxC3uEtgkhCIrpMR2QnYUisuZCA==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 216.228.117.161) smtp.rcpttodomain=kernel.org smtp.mailfrom=nvidia.com;
- dmarc=pass (p=reject sp=reject pct=100) action=none header.from=nvidia.com;
- dkim=none (message not signed); arc=none (0)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
- s=selector2;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=oshRBGc50irQGUtCxuAmm5ga3T4vXJR1vl5q0c78OsQ=;
- b=tHBa9/a9aYU6Ycpt+NoHpA/jcYlTHCDF3ypeZO4071kA/uIB9qs7mT4PqJBemmsJl9/lnP54FTcPmrP34kltZ7wZoWpUiI7/K2SEtKl2ikMDpULQkLniAyMGWzLGPXmFkUJEFjXdSvpWmYzZJBvwJQnM12pbwQJSIvVdJ0Mso1S3HDfzYgQ3JiThkRVlPncMfzJEtoZdqWDLBgz4wVENPhLWLFAqJaXOGnl9mWPXNLWnFtWnxS89BqYVXMW2CTiwZZky9DvuTmw2HLueHwb0bIqdGntkE4U/Ko9Csoctv5f/R5jo9xrJ4xHIm5+qA7CiyUiutDIfwR+2c/Nxt+EcLQ==
-Received: from DM6PR02CA0116.namprd02.prod.outlook.com (2603:10b6:5:1b4::18)
- by DM6PR12MB4340.namprd12.prod.outlook.com (2603:10b6:5:2a8::7) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.615.14; Tue, 17 Nov
- 2026 06:12:54 +0000
-Received: from DS4PEPF000001C1.namprd21.prod.outlook.com
- (2603:10b6:5:1b4:cafe::26) by DM6PR02CA0116.outlook.office365.com
- (2603:10b6:5:1b4::18) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.21.615.10 via Frontend Transport; Tue,
- 17 Nov 2026 06:12:54 +0000
+ 222.71.101.198) smtp.rcpttodomain=cixtech.com smtp.mailfrom=cixtech.com;
+ dmarc=bestguesspass action=none header.from=cixtech.com; dkim=none (message
+ not signed); arc=none (0)
+Received: from PS2PR02CA0072.apcprd02.prod.outlook.com (2603:1096:300:5a::36)
+ by KL1PR0601MB5677.apcprd06.prod.outlook.com (2603:1096:820:9d::7)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.639.8; Tue, 17 Nov
+ 2026 06:45:55 +0000
+Received: from TY2PEPF0000AB86.apcprd03.prod.outlook.com
+ (2603:1096:300:5a:cafe::83) by PS2PR02CA0072.outlook.office365.com
+ (2603:1096:300:5a::36) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.21.615.13 via Frontend Transport; Tue,
+ 17 Nov 2026 06:45:55 +0000
 X-MS-Exchange-Authentication-Results: mx.microsoft.com 1; spf=pass (sender IP
- is 216.228.117.161)
- smtp.mailfrom=nvidia.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=nvidia.com;
-Received-SPF: Pass (protection.outlook.com: domain of nvidia.com designates
- 216.228.117.161 as permitted sender) receiver=protection.outlook.com;
- client-ip=216.228.117.161; helo=mail.nvidia.com; pr=C
-Received: from mail.nvidia.com (216.228.117.161) by
- DS4PEPF000001C1.mail.protection.outlook.com (10.167.23.167) with Microsoft
+ is 222.71.101.198)
+ smtp.mailfrom=cixtech.com; dkim=none (message not signed)
+ header.d=none;dmarc=bestguesspass action=none header.from=cixtech.com;
+Received-SPF: Pass (protection.outlook.com: domain of cixtech.com designates
+ 222.71.101.198 as permitted sender) receiver=protection.outlook.com;
+ client-ip=222.71.101.198; helo=smtprelay.cixcomputing.com; pr=C
+Received: from smtprelay.cixcomputing.com (222.71.101.198) by
+ TY2PEPF0000AB86.mail.protection.outlook.com (10.167.253.10) with Microsoft
  SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.662.0 via Frontend Transport; Tue, 17 Nov 2026 06:12:53 +0000
-Received: from rnnvmail201.nvidia.com (10.129.68.8) by mail.nvidia.com
- (10.129.200.67) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.56; Mon, 16 Nov
- 2026 22:12:35 -0800
-Received: from kalok-SPC741D16QM3.nvidia.com (10.126.230.37) by
- rnnvmail201.nvidia.com (10.129.68.8) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.56; Mon, 16 Nov 2026 22:12:21 -0800
-From: Alok Kumar <alkumar@nvidia.com>
-To: <dakr@kernel.org>, <acourbot@nvidia.com>, <kvm@vger.kernel.org>,
- <rust-for-linux@vger.kernel.org>, <nova-gpu@lists.linux.dev>,
- <linux-pci@vger.kernel.org>
-CC: <alex@shazbot.org>, <jgg@nvidia.com>, <yishaih@nvidia.com>,
- <skolothumtho@nvidia.com>, <kevin.tian@intel.com>, <airlied@gmail.com>,
- <simona@ffwll.ch>, <ojeda@kernel.org>, <alex.gaynor@gmail.com>,
- <boqun.feng@gmail.com>, <gary@garyguo.net>, <bjorn3_gh@protonmail.com>,
- <lossin@kernel.org>, <a.hindborg@kernel.org>, <aliceryhl@google.com>,
- <tmgross@umich.edu>, <markus.probst@posteo.de>, <jhubbard@nvidia.com>,
- <apopple@nvidia.com>, <joelagnelf@nvidia.com>, <ecourtney@nvidia.com>,
- <cjia@nvidia.com>, <smitra@nvidia.com>, <kjaju@nvidia.com>,
- <alkumar@nvidia.com>, <ankita@nvidia.com>, <aniketa@nvidia.com>,
- <kwankhede@nvidia.com>, <targupta@nvidia.com>,
- <linux-kernel@vger.kernel.org>, <zhiwang@kernel.org>, <zhiw@nvidia.com>,
- <boqun@kernel.org>, <daniel.almeida@collabora.com>, <tamird@kernel.org>,
- <work@onurozkan.dev>, <jgg@ziepe.ca>, <bhelgaas@google.com>,
- <kwilczynski@kernel.org>, <dri-devel@lists.freedesktop.org>,
- <peter@colberg.org>, <xinmengs@nvidia.com>
-Subject: [PATCH 1/1] gpu: nova-core: send GPU timeout defaults in GSP_INIT
-Date: Tue, 17 Nov 2026 11:40:53 +0530
-Message-ID: <20261117061053.915254-2-alkumar@nvidia.com>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20261117061053.915254-1-alkumar@nvidia.com>
-References: <20261117061053.915254-1-alkumar@nvidia.com>
+ 15.21.639.5 via Frontend Transport; Tue, 17 Nov 2026 06:45:54 +0000
+Received: from localhost.localdomain (unknown [172.16.66.33])
+ by smtprelay.cixcomputing.com (Postfix) with ESMTPSA id B99D4427EFC6;
+ Tue, 17 Nov 2026 14:45:52 +0800 (CST)
+From: Luo Liu <Luo.Liu@cixtech.com>
+To: maarten.lankhorst@linux.intel.com, mripard@kernel.org, tzimmermann@suse.de,
+ robh@kernel.org, krzk+dt@kernel.org, conor+dt@kernel.org
+Cc: dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org,
+ Luo.Liu@cixtech.com, wuyi.shen@cixtech.com, cix-kernel-upstream@cixtech.com
+Subject: [PATCH v2 1/2] dt-bindings: display: add CIX Sky1 DisplayPort
+ transmitter
+Date: Tue, 17 Nov 2026 14:45:51 +0800
+Message-Id: <20261117064552.85256-2-Luo.Liu@cixtech.com>
+X-Mailer: git-send-email 2.25.1
+In-Reply-To: <20261117064552.85256-1-Luo.Liu@cixtech.com>
+References: <20261117064552.85256-1-Luo.Liu@cixtech.com>
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-ClientProxiedBy: rnnvmail202.nvidia.com (10.129.68.7) To
- rnnvmail201.nvidia.com (10.129.68.8)
 X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: DS4PEPF000001C1:EE_|DM6PR12MB4340:EE_
-X-MS-Office365-Filtering-Correlation-Id: 8e6fce42-5d26-4940-a35a-08df4471d113
+X-MS-TrafficTypeDiagnostic: TY2PEPF0000AB86:EE_|KL1PR0601MB5677:EE_
+Content-Type: text/plain
+X-MS-Office365-Filtering-Correlation-Id: d64cc436-7a7f-4168-4174-08df44766d92
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
- ARA:13230040|36860700016|23010399003|82310400026|1800799024|376014|7416014|261022105027099003|261102123227099003|261028144727099003|261021121427099003|261026121527099003|261026140227099003|11063799006|56012099006|10067099003|18002099003|22082099003|261009223027099003|3023799007;
-X-Microsoft-Antispam-Message-Info: OF1W6w0wKfwvDf04qtwSLnrWWEOvQMMi0x5cP1qCV8k3QnImPnEkurEUiVOnwH8GJPBf3a+0HDKn3ABfuQPdIJpGrXxd4W3ZavoUT1wzFi9zSb8wMEINR5nvwJIyliDAmIuT7gfmeX7ZG29O3w+kJQLmKM0ebHl9IOEqaBYjmOsaa1K4fmMlkfuC483MoE52Cwb+Nfxmpd+kJLZroW2AVXh2fcqPFjPvrErQ+KxkpNQueuHkX6ebHzPKklP/ZfUmvxqDimDnnrJ3RguY6dpsnkm0XszndiTl5SSjjvFYQ9NJhC9iKLBsPggHz/Y8u1en4teW4PDUVRDmCWj3JT0RD72jYazKQaspFOtaaFu301LHEDBU/tcrNP5P4I9J/63jxMwploenOvT24sCq6BJAkKa3zBVHBkL56WXdwbwQgTyP5KjGcYZ2//Zx8TzYVWz6Mxf3T4NKPgMez+iJ6CoKDHZnPm1yqs6gc41yxj6Xw/Ajn46Mg0incm78sfqaBzVQylsUdzrPSFuWOhv0nsSxY7nBNxmThIXiNmnWOMgN9kyB1YhL8PUgbkQhzvvGWGOj
-X-Forefront-Antispam-Report: CIP:216.228.117.161; CTRY:US; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:mail.nvidia.com; PTR:dc6edge2.nvidia.com; CAT:NONE;
- SFS:(13230040)(36860700016)(23010399003)(82310400026)(1800799024)(376014)(7416014)(261022105027099003)(261102123227099003)(261028144727099003)(261021121427099003)(261026121527099003)(261026140227099003)(11063799006)(56012099006)(10067099003)(18002099003)(22082099003)(261009223027099003)(3023799007);
- DIR:OUT; SFP:1101; 
+ ARA:13230040|82310400026|1800799024|376014|36860700016|42112799006|23010399003|6133799003|261009223027099003|22082099003|18002099003|3023799007|261026121527099003|261026140227099003|261021135927099003|261028144727099003|261102123227099003|261022105027099003|261021121427099003|56012099006|10067099003;
+X-Microsoft-Antispam-Message-Info: yWhdrX4I0B7ElS85WazSfxPL/v76BB/BcWb4uokkXF5heRECAsAlgWwD71twlzdJTqRWVP0cNsiveLAIDUbuLuds8fnBb9tpZf+l06Z7knhRK0DbZVFwTQiwLwzkIaURSdBfQ1KktWM0wMvOlT54eHr4rQrMuce0/I64zi57lyqed8RiKpc6x0T5zCWFpEAvCoNb3U+esthp6Ulla4FWcR0A7y5VR2x91haPuzU6/ZYDJL0THgv3EVx0IIj9c2YYAp5/cLxrpHaqEop2O2/YkMA0SrATW4EE/T+QXfu6sv5btSPLo/rxEIabKd9TK1tlnHoaj2H0gemOcCjXHybzpVQ48zmgulNGzSQGEdRNL+08coTqaiOAkqW6vhkfUkmgg0C5RQPhhqr84TjP56GhAw5Zu96+eENXtgF3yW8FDgEpvrGcYi465WiFT/7fa+d8QQHRYFTCqkGYy444XbxT2egun77M0pH80OxhFUuRo1JLlHNtwptshedGG4QjTzmJ+gOlSWpANnq1LRM1qnl6YmShIoPrMsHjhaMKgUdb+fGBPetK2Te6KbQPY3ZzdwnbOY9r9gTytbx0oN7heCGQ4CvUvfV7kLdiNe7mceQ/H0fIJ4oCEDEtP8yvp43Ak1UukgizDNL3CvQpkoXo67RyJA==
+X-Forefront-Antispam-Report: CIP:222.71.101.198; CTRY:CN; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:smtprelay.cixcomputing.com; PTR:InfoDomainNonexistent;
+ CAT:NONE;
+ SFS:(13230040)(82310400026)(1800799024)(376014)(36860700016)(42112799006)(23010399003)(6133799003)(261009223027099003)(22082099003)(18002099003)(3023799007)(261026121527099003)(261026140227099003)(261021135927099003)(261028144727099003)(261102123227099003)(261022105027099003)(261021121427099003)(56012099006)(10067099003);
+ DIR:OUT; SFP:1102; 
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: WD4g8uYQrZgi7Uw5hbmFaVikTmbsZ+1SyVE9iNFtHiYlw7h3T5PkY40akJHodA1gv1vRk5KpMeT7Pe9PnmBCa0Fv+tSM+FVvM72Rlvc64mN2jCaPDlycQCOvN7ziLgJ2DN1z5XRCuUNz9/bPjBg7jhRSMr5vc70kciP+ixulCoLNIfqGvML18iJ6TNPL/KwlMgHgtoUomg7C0A4jqUiemrJoshdfASYneyufoyjMApZdxY/uWRj6T6vQvXCnxiOng/CNAO3W6NVk7+Eeq9eWblfF4HRr/m1XbJVd6vuDG0aie0iQ2N38PNOkOsfDtwH2UTAzMhE70+eQflSryPxH8K+G3V9hJke7r1AJjzrbYWTosxtoyFfq08M72BlfddEhR50BykuyrCkhG4I2vPWOTH3AVez/OIPyzo8xjn2jHA41GgXpCYKwdmtPEUnuO+Yu
-X-OriginatorOrg: Nvidia.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 17 Nov 2026 06:12:53.8664 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 8e6fce42-5d26-4940-a35a-08df4471d113
-X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=43083d15-7273-40c1-b7db-39efd9ccc17a; Ip=[216.228.117.161];
- Helo=[mail.nvidia.com]
-X-MS-Exchange-CrossTenant-AuthSource: DS4PEPF000001C1.namprd21.prod.outlook.com
+X-MS-Exchange-AntiSpam-MessageData-0: 9mnB/br/LCu440e+zN4k3MDoLlM3ADyYI88EzK+w7Q3AC8fSmv7Y3OLoJaJL7ZHgE3IvCzQ0labFhp/lGOI/dANbhGealqNDzKkLFavXJ60nH0IVC7eWiqGsSyUDW2bdFgL5Zei7CM8AzPMOrce7igLrYNv2jrTPRaB81kVCIdmnGUqqaDCTO4okbRQ3NNqTFAS5c1++kX5O4X5ZHYsrIw7iRsVN5GZQBYNfPtNwfrB8BbFc/565uey8oo+eWPLF+4hEW2kVLo3k3BVA/B8529VxV/dpNIf52O5mQdnbovJQ4a+dSiwKx3MH2UMGqiITtK8+o3s1H2JBovVjj6ePKuKeaLanuINFW7efgfyDSKEbCChURc2Gac0m0e+hI3PEuvT2Js/agTpzMQ8EhSbFWlonf6MjeGJ4qWa9Pkw8SztTlin8TmyusyFjzIffDR1D
+X-OriginatorOrg: cixtech.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 17 Nov 2026 06:45:54.2782 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: d64cc436-7a7f-4168-4174-08df44766d92
+X-MS-Exchange-CrossTenant-Id: 0409f77a-e53d-4d23-943e-ccade7cb4811
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=0409f77a-e53d-4d23-943e-ccade7cb4811; Ip=[222.71.101.198];
+ Helo=[smtprelay.cixcomputing.com]
+X-MS-Exchange-CrossTenant-AuthSource: TY2PEPF0000AB86.apcprd03.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Anonymous
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM6PR12MB4340
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: KL1PR0601MB5677
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -126,63 +99,152 @@ List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-18.8 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
-	DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
-	INCLUDES_CR_TRAILER,INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,
-	SPF_PASS,USER_AGENT_GIT autolearn=unavailable autolearn_force=no
-	version=4.0.1
+X-Spam-Status: No, score=-16.8 required=3.0 tests=BAYES_00,
+	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
+	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,USER_AGENT_GIT
+	autolearn=unavailable autolearn_force=no version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-GSP firmware requires a nonzero vGPU timeout in GSP_INIT.
+Document the CIX Sky1 DisplayPort transmitter. Each instance sits
+between one of the SoC display pipelines and a DisplayPort PHY, and
+exposes the DP register block together with the RCSU block used for the
+link setup.
 
-Populate the NVKV keys as u32 values:
+The USB-C transmitters and the native DP/eDP transmitter use different
+RCSU layouts, described by "cix,sky1-usbdp" and "cix,sky1-dp". The
+controller is a DRM bridge. Its video input is linked through the OF
+graph, and the DisplayPort PHY is referenced through the generic PHY
+framework.
 
-  0xA0: vGPU timeout,          1,800,000 us
-  0xA1: graphics-mode timeout, 4,000,000 us
-  0xA2: compute-mode timeout,  30,000,000 us
-
-Signed-off-by: Alok Kumar <alkumar@nvidia.com>
+Signed-off-by: Luo Liu <Luo.Liu@cixtech.com>
 ---
- drivers/gpu/nova-core/gsp/fw/commands.rs | 11 +++++++++++
- 1 file changed, 11 insertions(+)
+ .../bindings/display/cix,sky1-dp.yaml         | 99 +++++++++++++++++++
+ MAINTAINERS                                   |  8 ++
+ 2 files changed, 107 insertions(+)
+ create mode 100644 Documentation/devicetree/bindings/display/cix,sky1-dp.yaml
 
-diff --git a/drivers/gpu/nova-core/gsp/fw/commands.rs b/drivers/gpu/nova-core/gsp/fw/commands.rs
-index 08798f150ad7..adb0b1f29ceb 100644
---- a/drivers/gpu/nova-core/gsp/fw/commands.rs
-+++ b/drivers/gpu/nova-core/gsp/fw/commands.rs
-@@ -192,6 +192,9 @@ pub(crate) struct GspInitRequest {
-         pci_config_mirror_base: Key<u32, 0x0010>,
-         pci_config_mirror_size: Key<u32, 0x0011>,
-         host_arch: Key<HostArch, 0x0070, u32>,
-+        default_timeout_us_vgpu: Key<u32, 0x00a0>,
-+        default_timeout_us_graphics_mode: Key<u32, 0x00a1>,
-+        default_timeout_us_compute_mode: Key<u32, 0x00a2>,
-         bus_device_func: Key<u64, 0x1020>,
-         regkeys: KVVec<RegKey>,
-         vf_info: Option<VfInfo>,
-@@ -230,6 +233,11 @@ struct DomainBusDevice(u64) {
- ];
- 
- impl GspInitRequest {
-+    // GPU timeout defaults in microseconds. All three values must be nonzero in GSP_INIT.
-+    const DEFAULT_TIMEOUT_US_VGPU: u32 = 1_800_000;
-+    const DEFAULT_TIMEOUT_US_GRAPHICS_MODE: u32 = 4_000_000;
-+    const DEFAULT_TIMEOUT_US_COMPUTE_MODE: u32 = 30_000_000;
+diff --git a/Documentation/devicetree/bindings/display/cix,sky1-dp.yaml b/Documentation/devicetree/bindings/display/cix,sky1-dp.yaml
+new file mode 100644
+index 000000000000..ec6d02989b58
+--- /dev/null
++++ b/Documentation/devicetree/bindings/display/cix,sky1-dp.yaml
+@@ -0,0 +1,99 @@
++# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
 +
-     fn build_vf_info(ctx: &GspBootContext<'_, '_>) -> Result<Option<VfInfo>> {
-         let total_vfs = match *ctx.vgpu_state {
-             VgpuState::Disabled => return Ok(None),
-@@ -300,6 +308,9 @@ pub(crate) fn new(ctx: &GspBootContext<'_, '_>) -> Result<Self> {
-             pci_config_mirror_base: mirror.start.into(),
-             pci_config_mirror_size: (mirror.end - mirror.start).into(),
-             host_arch: HostArch::host().into(),
-+            default_timeout_us_vgpu: Self::DEFAULT_TIMEOUT_US_VGPU.into(),
-+            default_timeout_us_graphics_mode: Self::DEFAULT_TIMEOUT_US_GRAPHICS_MODE.into(),
-+            default_timeout_us_compute_mode: Self::DEFAULT_TIMEOUT_US_COMPUTE_MODE.into(),
-             bus_device_func: u64::from(bus_device_func).into(),
-             regkeys,
-             vf_info: Self::build_vf_info(ctx)?,
--- 
-2.53.0
-
++%YAML 1.2
++---
++$id: http://devicetree.org/schemas/display/cix,sky1-dp.yaml#
++$schema: http://devicetree.org/meta-schemas/core.yaml#
++
++title: CIX Sky1 Trilinear DisplayPort Transmitter
++
++maintainers:
++  - Luo Liu <Luo.Liu@cixtech.com>
++
++description:
++  Trilinear DisplayPort transmitter on CIX Sky1. The USB-C transmitters
++  and the native DP/eDP transmitter use different RCSU video-adapter
++  register offsets and bit layouts, so each has its own compatible.
++
++properties:
++  compatible:
++    oneOf:
++      - description: USB-C DisplayPort transmitter
++        const: cix,sky1-usbdp
++      - description: Native DP/eDP transmitter
++        const: cix,sky1-dp
++
++  reg:
++    items:
++      - description: DisplayPort transmitter registers.
++      - description: RCSU video adapter registers used for link setup.
++
++  reg-names:
++    items:
++      - const: dp
++      - const: rcsu
++
++  interrupts:
++    maxItems: 1
++
++  clocks:
++    items:
++      - description: APB clock of the controller.
++      - description: Video clock of stream 0.
++      - description: Video clock of stream 1.
++
++  clock-names:
++    items:
++      - const: apb
++      - const: vid0
++      - const: vid1
++
++  resets:
++    maxItems: 1
++    description: DisplayPort controller reset.
++
++  phys:
++    maxItems: 1
++    description: DisplayPort PHY the controller transmits through.
++
++  port:
++    $ref: /schemas/graph.yaml#/properties/port
++    description:
++      Video input from the Mali D71 display pipeline (Komeda) that drives
++      this controller. The link to the sink is through phys (USB-C combo PHY
++      or the native DP PHY), not a second OF graph port on the DPTX.
++
++required:
++  - compatible
++  - reg
++  - reg-names
++  - interrupts
++  - clocks
++  - clock-names
++  - resets
++  - phys
++  - port
++
++additionalProperties: false
++
++examples:
++  - |
++    #include <dt-bindings/interrupt-controller/arm-gic.h>
++
++    dp0: dp@14064000 {
++        compatible = "cix,sky1-usbdp";
++        reg = <0x14064000 0x4000>,
++              <0x14050000 0x400>;
++        reg-names = "dp", "rcsu";
++        interrupts = <GIC_SPI 332 IRQ_TYPE_LEVEL_HIGH>;
++        clocks = <&dpc0_apb>, <&dpc0_vid0>, <&dpc0_vid1>;
++        clock-names = "apb", "vid0", "vid1";
++        resets = <&dpc0_rst>;
++        phys = <&usbc0_dp_phy>;
++
++        port {
++            dp0_0_in: endpoint {
++                remote-endpoint = <&dpu0_pipe0_out>;
++            };
++        };
++    };
+diff --git a/MAINTAINERS b/MAINTAINERS
+index 93abbb315065..e3557e931c94 100644
+--- a/MAINTAINERS
++++ b/MAINTAINERS
+@@ -6522,6 +6522,14 @@ M:	Satish Kharat <satishkh@cisco.com>
+ S:	Supported
+ F:	drivers/infiniband/hw/usnic/
+ 
++CIX SKY1 DISPLAYPORT TRANSMITTER DRIVER
++M:	Luo Liu <Luo.Liu@cixtech.com>
++M:	Wuyi Shen <wuyi.shen@cixtech.com>
++R:	CIX Linux Kernel Upstream Group <cix-kernel-upstream@cixtech.com>
++L:	dri-devel@lists.freedesktop.org
++S:	Maintained
++F:	Documentation/devicetree/bindings/display/cix,sky1-dp.yaml
++
+ CLANG CONTEXT ANALYSIS
+ M:	Marco Elver <elver@google.com>
+ R:	Bart Van Assche <bvanassche@acm.org>
