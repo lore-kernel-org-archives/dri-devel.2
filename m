@@ -2,76 +2,76 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4797A606A32F
-	for <dri-devel@archiver.kernel.org>; Tue, 17 Nov 2026 21:46:13 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6B219606A31C
+	for <dri-devel@archiver.kernel.org>; Tue, 17 Nov 2026 21:47:36 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=baylibre.com header.i=@baylibre.com header.a=rsa-sha256 header.s=google header.b=do7okyF5
+	dkim=pass (2048-bit key) header.d=baylibre.com header.i=@baylibre.com header.a=rsa-sha256 header.s=google header.b=Z4wFvFR/
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id AF06A10E6AC;
-	Tue, 17 Nov 2026 21:46:07 +0000 (UTC)
-Received: from mail-wm1-f54.google.com (mail-wm1-f54.google.com
- [209.85.128.54])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 3DE7810E6AC
- for <dri-devel@lists.freedesktop.org>; Tue, 17 Nov 2026 21:46:01 +0000 (UTC)
-Received: by mail-wm1-f54.google.com with SMTP id
- 5b1f17b1804b1-4a9a8d6cea8so1654655e9.1
- for <dri-devel@lists.freedesktop.org>; Tue, 17 Nov 2026 13:46:01 -0800 (PST)
+	by gabe.freedesktop.org (Postfix) with ESMTP id D74B110E5C5;
+	Tue, 17 Nov 2026 21:47:30 +0000 (UTC)
+Received: from mail-wr1-f48.google.com (mail-wr1-f48.google.com
+ [209.85.221.48])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 53B1D10E5C5
+ for <dri-devel@lists.freedesktop.org>; Tue, 17 Nov 2026 21:47:24 +0000 (UTC)
+Received: by mail-wr1-f48.google.com with SMTP id
+ ffacd0b85a97d-48e46e449e8so150036f8f.3
+ for <dri-devel@lists.freedesktop.org>; Tue, 17 Nov 2026 13:47:24 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=baylibre.com; s=google; t=1794951960; x=1795556760;
+ d=baylibre.com; s=google; t=1794952043; x=1795556843;
  darn=lists.freedesktop.org; 
  h=content-transfer-encoding:content-type:in-reply-to:from
  :content-language:references:cc:to:subject:user-agent:mime-version
  :date:message-id:from:to:cc:subject:date:message-id:reply-to
- :content-type; bh=e/0455aVSKf4ZqTvdu8SIA7Syq8Dck34mc+Lxs2NK9Q=;
- b=do7okyF56PZkkzEy9J4cUwgo4Rq3O50Ydb68pTm5qSMWPY74+aUC9J3fCKNPnGdDoC
- 63U6rgtkqiJYIKw7psRcMnSVo4hphfYogvptrSiiunE+L2ncC7AfsYCpU6UtlNEyGHya
- 9q1fPemsQiQlHnTDH+CZOEi36/gnmAWoCOyfvtYSyhn50FdTsGSxhO9kf7bk4/JW1tJs
- sEp7iIS/bKnVgewVzDfrp36AASiR2tr5RAxcWHe4yhYozfWWuctg71JurPwNS2ZFRU7p
- 7r36XzWSewzgPsxsTsPQCSv+ZBvBDgBK58NbScJwUp9bLOCfsFrYM1m8beVhKU8O/q1Z
- bCpg==
+ :content-type; bh=gIwiNUiHWgzvyXGdgc8knRbhVSBtepqYaXTWRnw+kyM=;
+ b=Z4wFvFR/p8L/jaQxoL/QpBSKoGIYNEnwTFo5gW5NIXHLqULgu3f/kyUkFDNDJYHM7t
+ e0LYEQ0fCu5m+s5KgHFbG6ag175pHk0TtLwFOTYGb3L7dBDOuE6xNrXiqNNKU1/XawGW
+ uEojwBn91J32vybR9nTu9AHcVH3lyMJOlC6+QC3s2mGnIomoDzJRwoDYvAWD/vMupVm7
+ HuEgFT9AF5aw5KFL/sIhyFt+Zj4SAI3g9mrjCUh+7xMQXDe3ronLC/ZzBIXFe/NpG1E3
+ Mxj2P3hWI9LDR6X2ZQf53BoJbiRmMjvDc40v5I2gbtBveOv5dxiK8BBSXhbJB00Gm3CJ
+ QLnA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20260707; t=1794951960; x=1795556760;
+ d=1e100.net; s=20260707; t=1794952043; x=1795556843;
  h=content-transfer-encoding:content-type:in-reply-to:from
  :content-language:references:cc:to:subject:user-agent:mime-version
  :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
  :message-id:reply-to:content-type;
- bh=e/0455aVSKf4ZqTvdu8SIA7Syq8Dck34mc+Lxs2NK9Q=;
- b=bKljLzdfWVO/W9+I9G1ZHgOHdBLqCBZZ7qmRA9MdmfNjXvJdLCqvhGNCyHDFOERZrp
- c8XiL7pZIiGOdpNV6muWlWBINdqpwXPXBJiufxnWmh4qHvabeILxamwsTLemmEVDIO0E
- YRnXDZi98hNlJeMTNlxjqQ8XTPrQaxSTwDI7rXdHA5Ez1gVMhPXGNfRCgHi5EnwFVycg
- sLLN0OT+w6qBsufig0qaFWJVkEI8VdyU+kn87d4KBxZ0KEttaxMVsEOLh3i5ootafSRx
- r58Ygcl4YZh4xjFbebhlgi0x6nxXtvn4lkjaG6sF+okRcO1mNfSWAGMu0cgMob5Ka7IH
- 6RcA==
+ bh=gIwiNUiHWgzvyXGdgc8knRbhVSBtepqYaXTWRnw+kyM=;
+ b=y3/MDCH4QwL0oKG3X+TQQmE57lZhMUVKSgAtMBiSP2UAXKm49C8BE2aySHtD138UQk
+ IRHGpRfuu7YLXDCLuli32juNbbQglVX3Aahi4GN5ufS2Mr7oLbkQ6BEYs62C7QhgTOU/
+ hmPz8kbxDg5ieMr6QGKa2zsQ9bEnczP4i6I/HSQcVEDMgXKDe1VMu45c2VsfswZGRK1J
+ 1/OG2KaOvyX/3g7glMY/Xshm1Cy+yvyEb3WDI1yzbyn+M0YtrgZ9makkltIVTaafT1OO
+ QAX0/Jv1SkW9e6c6HZKsjCbUbqSH0nBFBLHuRc8AcDSSXRW1RJAq7QlE78TZnrXixRz4
+ FRjA==
 X-Forwarded-Encrypted: i=1;
- AL+hErF9ZNCa9iS8CGjH73fmFU+D0E+SfpNRBNnbHTnnM/jbu5aJsFmuiMqkHGsGwhmDYZoF4X3MgOUJ12k=@lists.freedesktop.org
-X-Gm-Message-State: APuU4Z842TVpfWEcKjOjE0XlZk6Q2GolPEUyPXpMm0Dv1sghuP1iQlnM
- UXywTip4WXhe701tOq3GcFA1yEUPFrJ2uh4yzyAHAbeWZZRVxzeYdw247Whc4xFA6bc=
-X-Gm-Gg: AYBFou3kZNFhXd15NwQzPDgSg7G9GbBDw5MoW3ynzjvYrkXlEBoVMjjBHSUYEEhZWDq
- B5DC/IIhsxitZq/UtCAbMPOpxisX0i9+C10zW1fsE5W07bg3dst6Ozy90BUAa37jcsr5t0VJXXh
- 5mjSFpjaoi0nISryWdQL35RnBdOZFYBnWGnfHCH4Od3WBl4HBujJYRqpKq6OcBrsYfHnyFrVsx5
- aG/Mf/JdLfqmxnQMEvFVlX6yCPFQwfV7hOdntDD7XcPPoLRwNX665R+VKAYGPeNzaYqql425WvX
- BDQ9f3R8z42XVgHjWvYZ1kxNH/o0Pg4pgndlMgen7+sI4SY8JRHBDsJpijdMr/jXciKgXGvLDkt
- OMpFatgdP1xacsKjkNOoYnwxJpnmcNjRunvZ0H5kQke5Yv+M4P/wB5uKjHFTKu/SCN1RHNaBdgn
- e7Ac4Oc2q5lpqPvzfDaVai/YIRowqBsKLPZdGO2csTEv3QXJ8kw2G8VVrNXzG5n7hR4hrqHLTsE
- pcfXcx/AqL4iddTmLVDlFgOn8nePPyaYveIDzRHGgTb4FVJ7Scgkyxtme2FYUwAXgnHNdQQM2ZH
- p/yOXoeRrsg8/QrMwBh1wsnGwxXrDRDW9+VFj+sMZLcGal2xfOeql2liidJ1165Si5G/Uqu05Kb
- yeGM=
-X-Received: by 2002:a05:600c:a54:b0:4bb:5fd1:92aa with SMTP id
- 5b1f17b1804b1-4bb7da30033mr10977415e9.15.1794951959287; 
- Tue, 17 Nov 2026 13:45:59 -0800 (PST)
+ AL+hErEeGpuXRe0ppdf4TktJsHiQOLRkBhrOefDbIe+6q2Z5UUghfmLqy7edohcMoO+UvVef2LK5Ofiamvo=@lists.freedesktop.org
+X-Gm-Message-State: APuU4Z+pnjBOk8StwcpPTSyLRrUPCpYQOice28BoWL749YtEkrq4tZSP
+ XAOBMf6PN0d3icdASxxTjznrz5rD4Y4Ry6+ThyTqP/GxHX1+ent9QYQa7kjB02/yejQ=
+X-Gm-Gg: AYBFou0R2jdSDhU7yEmr3Ic2E2UI4pM531pLTJc+xYKIKUD1ma1bWudg4h+DKWlivRZ
+ UVw8bfFCWtveYPeC8al60GaFDHHXxwo5YRNbO+4CwgQ8f7PP0+idADq+aQzrMAQXv0p4ICZPD+2
+ 6tDzlzctuOa/MGRVpmWf+ZazYoe2rSertTZdVACYl4SN5rF+Hxq1tHhJErHzVafLg/bKtEhdkzf
+ VGa5dNL0p//Bssg4rEzKEWjyoP7RagpWl5wyE/k6P8ycYM/uiSP1hSTYhdchYpD3P5bAAXoq2vg
+ nI5u+w6YilK1rLf6ceHk4LuArbUs9SETZ8bES2F1OK4iVLtRbLkcw3q5fIjuBYqcRXvWNh1HNJY
+ ukbaRb9oE7XrC2ja5k9iNWS7Fkwu0esgXet+gJGcitq0HmYDlFeyi1DoyoNVShSoLXp8zyhdryF
+ uQ5XX2trm7T6qJHDMp1NqHDygF8/hUbDh1KBn5rkbXCLVWvGMnSfTZMnhL8yMYNyQrjPTxETMMM
+ Kft9Fojx5cwPFUHhVKIuCyLMpASPz90yVf10ZdXaQ5McAQOs4G13+ucCq7rU7Uvzrwj7ODTLE4M
+ b1vMsquv3N4+Wmvr1d7XGoUll58WArjMyt6uL34KdR7zNsSuPTAyLTxwGHB+/pp4kedrhtbxRSz
+ sAg==
+X-Received: by 2002:a05:600c:34d2:b0:4a1:6992:f861 with SMTP id
+ 5b1f17b1804b1-4bb7d6d1f21mr10057405e9.1.1794952042780; 
+ Tue, 17 Nov 2026 13:47:22 -0800 (PST)
 Received: from ?IPV6:2001:8a0:d6cd:9000:86f4:4e71:9fc8:3183?
  ([2001:8a0:d6cd:9000:86f4:4e71:9fc8:3183])
  by smtp.gmail.com with ESMTPSA id
- 5b1f17b1804b1-4bb7d28ec3asm15648465e9.0.2026.11.17.13.45.58
+ 5b1f17b1804b1-4bb7d256f64sm14409575e9.1.2026.11.17.13.47.21
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Tue, 17 Nov 2026 13:45:58 -0800 (PST)
-Message-ID: <39614a57-c375-4bee-bcea-f0ebd2d0b572@baylibre.com>
-Date: Tue, 17 Nov 2026 21:45:57 +0000
+ Tue, 17 Nov 2026 13:47:22 -0800 (PST)
+Message-ID: <f68008ab-e743-4859-9b33-a88fc1e4b855@baylibre.com>
+Date: Tue, 17 Nov 2026 21:47:21 +0000
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 1/4] accel/rocket: Fix the IOMMU domain leak in
- rocket_ioctl_create_bo
+Subject: Re: [PATCH 2/4] accel/rocket: Fix the panic in
+ rocket_iommu_domain_put when the domain is NULL
 To: Chaoyi Chen <kernel@airkyi.com>, Tomeu Vizoso <tomeu@tomeuvizoso.net>,
  Oded Gabbay <ogabbay@kernel.org>, Heiko Stuebner <heiko@sntech.de>,
  Jeff Hugo <jeff.hugo@oss.qualcomm.com>
@@ -79,10 +79,10 @@ Cc: linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org,
  linux-rockchip@lists.infradead.org, linux-arm-kernel@lists.infradead.org,
  Chaoyi Chen <chaoyi.chen@rock-chips.com>
 References: <20260814022453.437-1-kernel@airkyi.com>
- <20260814022453.437-2-kernel@airkyi.com>
+ <20260814022453.437-3-kernel@airkyi.com>
 Content-Language: en-US
 From: Daniel Drake <ddrake@baylibre.com>
-In-Reply-To: <20260814022453.437-2-kernel@airkyi.com>
+In-Reply-To: <20260814022453.437-3-kernel@airkyi.com>
 Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 7bit
 X-BeenThere: dri-devel@lists.freedesktop.org
@@ -104,14 +104,19 @@ X-Spam-Status: No, score=-12.3 required=3.0 tests=BAYES_00,DKIM_SIGNED,
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-
 On 14/08/2026 03:24, Chaoyi Chen wrote:
 > From: Chaoyi Chen <chaoyi.chen@rock-chips.com>
 > 
-> When rocket_ioctl_create_bo fails, rocket_iommu_domain_put should be
-> called to avoid an IOMMU domain leak.
+> In rocket_ioctl_submit_job(), since the domain is assigned last, an
+> error before that triggers rocket_job_put() -> rocket_job_cleanup()
+> -> rocket_iommu_domain_put() with the domain still NULL,
+> causing a panic in that function.
+> 
+> Therefore, the input parameters should be validated.
 > 
 > Fixes: 658ebeac3351 ("accel/rocket: Add IOCTL for BO creation")
 > Signed-off-by: Chaoyi Chen <chaoyi.chen@rock-chips.com>
-Reviewed-by: Daniel Drake <ddrake@baylibre.com>
+This issue was already fixed in commit 
+70e6a33d68a9b03335c5426332666e52d07f45d6.
+This patch is not needed.
 
