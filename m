@@ -2,98 +2,105 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 89C27606A331
-	for <dri-devel@archiver.kernel.org>; Tue, 17 Nov 2026 05:14:26 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 161F0606A330
+	for <dri-devel@archiver.kernel.org>; Tue, 17 Nov 2026 05:14:31 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=broadcom.com header.i=@broadcom.com header.a=rsa-sha256 header.s=google header.b=Z+zEPo7u
+	dkim=pass (1024-bit key) header.d=broadcom.com header.i=@broadcom.com header.a=rsa-sha256 header.s=google header.b=M2GPKORH
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id CF47310E3F1;
-	Tue, 17 Nov 2026 05:14:20 +0000 (UTC)
-Received: from mail-pj1-f100.google.com (mail-pj1-f100.google.com
- [209.85.216.100])
- by gabe.freedesktop.org (Postfix) with ESMTPS id EC0C410E3F1
- for <dri-devel@lists.freedesktop.org>; Tue, 17 Nov 2026 05:14:13 +0000 (UTC)
-Received: by mail-pj1-f100.google.com with SMTP id
- 98e67ed59e1d1-3ac78f4c10bso2208204a91.1
- for <dri-devel@lists.freedesktop.org>; Mon, 16 Nov 2026 21:14:13 -0800 (PST)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 6845210E46E;
+	Tue, 17 Nov 2026 05:14:25 +0000 (UTC)
+Received: from mail-ua1-f98.google.com (mail-ua1-f98.google.com
+ [209.85.222.98])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 10EE810E46E
+ for <dri-devel@lists.freedesktop.org>; Tue, 17 Nov 2026 05:14:19 +0000 (UTC)
+Received: by mail-ua1-f98.google.com with SMTP id
+ a1e0cc1a2514c-99e156fe905so339957241.1
+ for <dri-devel@lists.freedesktop.org>; Mon, 16 Nov 2026 21:14:19 -0800 (PST)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20260707; t=1794892453; x=1795497253;
+ d=1e100.net; s=20260707; t=1794892458; x=1795497258;
  h=content-transfer-encoding:mime-version:content-type:references
  :in-reply-to:message-id:date:subject:cc:to:from:dkim-signature
  :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
  :reply-to:content-type;
  bh=SCfz1f0OOAQVJN2xpcPcFGbJPw3mdu0gWKPmT7oxwLI=;
- b=ClEDRLuzt0R4i5esAmNbtQOj5jSHsZ6Nqx/6WfVClpifeVrxlrm8mQTepREjxSHcRK
- uf/AZM8jV/QQqXYCTaylA5TXJp9ESy0ZsJN5d9oIqiUnCKdJpJB+qWKIHmdidmRXbkwg
- 5NYcusV6pZEUiS9TkkvwSyRj2JrHU3N9T1aVzQK531j7SHfbvORKj0fOoiKjGnBkPrad
- auIgxOMWI8B3lCGjotcSXrNttNO17w0tnOrBQ2h1IepKRG4wYYc7K6Fgf/TdB0gsVHjV
- zKW8luHdx8RmPKoYQ40YcfN2rIAUfQjzf+qe2qXmdmy0+v23w2NPPk8jDNCyQ+xn1eXt
- P7Dg==
+ b=mj1aDMHc3GE0wU1DsIP1PfaexidA2lCD5GrsR7T4k++DQ8Ck+ABNFkJq54pCK0LPAk
+ R/LjlNlBrlJE+wxkXWgQ1JAru4KU/gAvKBPEjbLQo64PAF5FPPJBg08cWC1y26y1Tk+X
+ GIk0A0zkVZAeEy0q9xMhHWPyluGNpD5xl9Dd4LG2p4Ynvs5y3jzrFJuclSLrFzy8VdnS
+ oXDGpkbOBKfGMyXJR4OWrgLIEit0beezNAAjSrT+1KwDaYi626gJj/naoQtPjOK697E+
+ W2onYZFWshAjq1E+9shH5DntWOpzyz56LKbnLWx5zE4KLICHT8rYAkGT8cWhHvT+CD2c
+ AxBQ==
 X-Forwarded-Encrypted: i=1;
- AL+hErE06JUlDbWR0zui8eFnLUoFEfLggFAtQvZhLryk2L0Re9knjVDQGqtyuUMswbWT91i5b+wZjgQUaiM=@lists.freedesktop.org
-X-Gm-Message-State: APuU4Z/KiCqXtD6yIny/TU2y52L6gWbgDQLTdasobFFfVbzKhVEb9gUH
- p56uSNNEzoYvq5DKlwTKYnVPtZEttyYBhWXhC3MPW5k6Huw5U+D+x/8kWvkceKiO/EohirBBhjQ
- dPMTIGW+NUahVX3eO/JatABeuatlK2PdGHn3sSLTXWu4tjVZPsydAqJnWSu8VFLmZUcy59R5FlK
- oIL+aa1BTHc+K2U+nVzE7iSDXKafBqCp4q6Ug0LTYhbqB+KFqYt+gRnSlOuL5+9X+DOST8/hSs7
- Mhrr5ip8klz3ic67fqe
-X-Gm-Gg: AZFdTZcQnd65w+yEkNOxLtzahIQ4qgNSnSWGtYvvnqDE2EaD2sx8YzpeAueOSGHX7ic
- LjoxjWBOrONQg2L4H9d4JRPMK9M0uEpVY4Q5qoopX4dKmyQyIpeL3VQei1Tx1OxG+biRT4Fzm8k
- Gp2D9OO2cu9XUNHjXRYPypf4YF2QvoO77cyToIE9HosImaGAHNmVfOpmNJeKwRwXETA+2rgi9H1
- XSWuhK8uabL1pFORCpPwLj/pEBJG1Xj62M9T5EgS/7AyIL1P8aflOt6/MoYuonXAICqHIaT5fx+
- RADbVrRlj+p+B0K1IE+KZYsy5HPbeGGL3+yGDQqzt5fEe0GWiyO6eh3CBym+0RKgan1a8CRkrax
- Uz/ppJZCq51aLToum63ZfjGd8q2vQvzZGRjZAd+QdX70xxvduDhSYGp4Uw5vafg4s7lduFXvq/h
- J7ru0ShAqRXf/b7x8c9dmHvdiWwdyS36L+
-X-Received: by 2002:a17:90b:5110:b0:3ab:1b1c:8a70 with SMTP id
- 98e67ed59e1d1-3b1b0b68e6cmr11813316a91.38.1794892453360; 
- Mon, 16 Nov 2026 21:14:13 -0800 (PST)
+ AL+hErFw6iphQleua5TWFZ7bSdzTmR80iXHWDyUCuXYUKClnrzbR6rI0O9utDSz4uKtAkhyhLrt4nuPhptw=@lists.freedesktop.org
+X-Gm-Message-State: APuU4Z+a6ErRpNb43wvklMlfLbyfrH0vJKhawwPwSMByPG2wF4zD35zn
+ I8+/sr87BnWrg1qR3th9xZo9VL9+x8gFE8p6/bLbp998NiD2AruGf68g6/YKGttZeNM4Sjym/fe
+ GOd4jxtR5exYXl5HEdzfseBPAzeGM0lOxnEaqTtptgXZUbz0feiYdCxZ4k95RyhGGFaGonHUwJk
+ fv56dr3m+PMpbbwxPEhlmJMoDwJnNH2Sk90PKB9KIurWmgjsCCbOxkzJQlgw62sWKdn2qcgb6k0
+ OqUo37GDgC7uUGGfNwy
+X-Gm-Gg: AYBFou1YE7OvJr0VybRa0WtnzcdZDpoyDcfHOfPdnDmmQ9i8tkHrRf6vEuFNe0rWq5g
+ o2xgd4H5s5njEKXZugsrHr436yYcbvXj0UG2oxY1PROcV9EGCefBdyud/H5dxjdR75omzv9Jzl4
+ Pg93xT7MYXhLMys6ax5EgdBNlxmdKeqGQnAen8g5qRnV2zlBGsQMML1GuKSIDrqN/RNLBcpOLV5
+ e0JL+S9SFc3OFgzohvUKjABTR12BBum7T/500AbTy7gjOBZSZ9baIUfsdAK7KiPthaPjJX6xn4e
+ GCLmcNgILjwDgUTZAzLxbIsgX7NETfgpdr67CgmZT+Afl7GNKpZzpAUp3gh0Fbp/U0ZW7ox5FtK
+ 9I/VMKDhPmV9GTXtXcrsL63j0+J9JDPWI3oAKqfA/BLpJ+MG0NxRTRZQ/nGDzwcQKfYMKF1AU1K
+ sMjyW5sFUyNo4gzup1fRpWbUPO1ZCANi9P
+X-Received: by 2002:a05:6102:54ab:b0:7d2:d876:fb3c with SMTP id
+ ada2fe7eead31-7d69f8593fdmr418756137.35.1794892457548; 
+ Mon, 16 Nov 2026 21:14:17 -0800 (PST)
 Received: from smtp-us-east1-p01-i01-si01.dlp.protect.broadcom.com
  (address-144-49-247-28.dlp.protect.broadcom.com. [144.49.247.28])
  by smtp-relay.gmail.com with ESMTPS id
- 98e67ed59e1d1-3b3af69e8d4sm346981a91.2.2026.11.16.21.14.12
+ a1e0cc1a2514c-99e335cf5e0sm228689241.1.2026.11.16.21.14.17
  for <dri-devel@lists.freedesktop.org>
  (version=TLS1_2 cipher=ECDHE-ECDSA-AES128-GCM-SHA256 bits=128/128);
- Mon, 16 Nov 2026 21:14:13 -0800 (PST)
+ Mon, 16 Nov 2026 21:14:17 -0800 (PST)
 X-Relaying-Domain: broadcom.com
 X-CFilter-Loop: Reflected
 Received: by mail-pj1-f71.google.com with SMTP id
- 98e67ed59e1d1-3b3b0ebd98cso376256a91.2
- for <dri-devel@lists.freedesktop.org>; Mon, 16 Nov 2026 21:14:12 -0800 (PST)
+ 98e67ed59e1d1-3aed37745bcso480131a91.1
+ for <dri-devel@lists.freedesktop.org>; Mon, 16 Nov 2026 21:14:17 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=broadcom.com; s=google; t=1794892451; x=1795497251;
+ d=broadcom.com; s=google; t=1794892456; x=1795497256;
  darn=lists.freedesktop.org; 
  h=content-transfer-encoding:mime-version:content-type:references
  :in-reply-to:message-id:date:subject:cc:to:from:from:to:cc:subject
  :date:message-id:reply-to:content-type;
  bh=SCfz1f0OOAQVJN2xpcPcFGbJPw3mdu0gWKPmT7oxwLI=;
- b=Z+zEPo7usbkpX16Jhre2wN2MfesCKouHi2hh9SUTM6nytQE/FIBcBSvDhosHdpDT/R
- JIpDO2Y5QZlKsc4BdlpzCniF6K7s6xgHhHO49eoezI2SvO6abpFwi+iGbvrYgkK4CSgr
- ZeAy+l1k4WLJKfZV8Sc7ZVKma4l1oKR/AVkyY=
+ b=M2GPKORHbTwjF/c5CmGQqGGoMc29nVpxtz+niTx0F+8dVWuUuhrEARj/f8sS4xMDOP
+ FomI/MNTSDsvxUylnemXr+4UPwhZeqiGUMPBuFjKwTbS82apOgae+XelUYdVIfAPBPcm
+ c/1gF5dW4caX1HDJyQeQGPo6lrbvent07FoLs=
 X-Forwarded-Encrypted: i=1;
- AL+hErFgu9XiYhkoUkQ0++E27fkL0lMcGWevE6Ix8XK7Oqh7LdDr8rqiOWlE6pW7DiAbsibes+n7n5PhQrk=@lists.freedesktop.org
-X-Received: by 2002:a17:90b:4b12:b0:3ac:9d14:feb1 with SMTP id
- 98e67ed59e1d1-3b1b0b87a53mr12408135a91.43.1794892451143; 
- Mon, 16 Nov 2026 21:14:11 -0800 (PST)
-X-Received: by 2002:a17:90b:4b12:b0:3ac:9d14:feb1 with SMTP id
- 98e67ed59e1d1-3b1b0b87a53mr12408109a91.43.1794892450642; 
- Mon, 16 Nov 2026 21:14:10 -0800 (PST)
+ AL+hErGZCIBzz+lP9NUsYuiJLta0gtGkAafHGaCsqv0nXAnZzskwzSZVLDzWBJ/tOFDIxrKyNCoSoPmecNI=@lists.freedesktop.org
+X-Received: by 2002:a17:90b:48cd:b0:3a0:e568:ed63 with SMTP id
+ 98e67ed59e1d1-3b3abaf90ffmr845995a91.8.1794892456179; 
+ Mon, 16 Nov 2026 21:14:16 -0800 (PST)
+X-Received: by 2002:a17:90b:48cd:b0:3a0:e568:ed63 with SMTP id
+ 98e67ed59e1d1-3b3abaf90ffmr845973a91.8.1794892455435; 
+ Mon, 16 Nov 2026 21:14:15 -0800 (PST)
 Received: from vertex.localdomain
  (pool-173-49-113-140.phlapa.fios.verizon.net. [173.49.113.140])
  by smtp.gmail.com with ESMTPSA id
- 98e67ed59e1d1-3b3ac2550e1sm2060878a91.3.2026.11.16.21.14.06
+ 98e67ed59e1d1-3b3ab9f3c5dsm2158002a91.0.2026.11.16.21.14.12
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Mon, 16 Nov 2026 21:14:07 -0800 (PST)
+ Mon, 16 Nov 2026 21:14:14 -0800 (PST)
 From: Zack Rusin <zack.rusin@broadcom.com>
-To: Aldo Ariel Panzardo <qwe.aldo@gmail.com>
-Cc: bcm-kernel-feedback-list@broadcom.com, dri-devel@lists.freedesktop.org,
+To: Vladimir Popov <popov.nkv@gmail.com>
+Cc: bcm-kernel-feedback-list@broadcom.com,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>,
+ Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>,
+ Simona Vetter <simona@ffwll.ch>, Sumit Semwal <sumit.semwal@linaro.org>,
  =?utf-8?q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>,
- linux-kernel@vger.kernel.org
-Subject: Re: [PATCH] drm/vmwgfx: do not hand the embedded sg_table to the
- PRIME core
-Date: Tue, 17 Nov 2026 00:14:05 -0500
-Message-ID: <179487959551.2515856.12728307164349809612@broadcom.com>
+ Deepak Rawat <drawat@vmware.com>, Sinclair Yeh <syeh@vmware.com>,
+ Thomas Hellstrom <thellstrom@vmware.com>, dri-devel@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org, linux-media@vger.kernel.org,
+ linaro-mm-sig@lists.linaro.org, lvc-project@linuxtesting.org
+Subject: Re: [PATCH 15901/15901] drm/vmwgfx: fix NULL pointer dereference in
+ vmw_validation_bo_fence()
+Date: Tue, 17 Nov 2026 00:14:10 -0500
+Message-ID: <179487959552.2515856.5690215138822621209@broadcom.com>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20260923122601.438892-1-qwe.aldo@gmail.com>
-References: <20260923122601.438892-1-qwe.aldo@gmail.com>
+In-Reply-To: <20260414105529.9883-1-popov.nkv@gmail.com>
+References: <20260414105529.9883-1-popov.nkv@gmail.com>
 Content-Type: text/plain; charset="utf-8"
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
