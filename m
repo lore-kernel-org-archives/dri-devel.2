@@ -2,56 +2,132 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 92476606A338
-	for <dri-devel@archiver.kernel.org>; Tue, 17 Nov 2026 20:50:24 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DB945606A31C
+	for <dri-devel@archiver.kernel.org>; Tue, 17 Nov 2026 20:52:39 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=GDodQr/W
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=nuf+3lpz;
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=UXXgwFdq
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id EC81C10E6BA;
-	Tue, 17 Nov 2026 20:50:18 +0000 (UTC)
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.8])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 9EE6510E6C9
- for <dri-devel@lists.freedesktop.org>; Tue, 17 Nov 2026 20:50:12 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1794948613; x=1826484613;
- h=from:to:cc:subject:date:message-id:mime-version:
- content-transfer-encoding;
- bh=RQG1R6O6OcGnhuYpHYi36G2u7+nWRZka4jaWOhFri5Y=;
- b=GDodQr/Wy8RFCF+C2kBzWGD8N/XfXACgwsRBOlG8cfZ2eSakA0WS37hL
- tC+EuTm0fSyKdqSOvq/14bmg3AYhfm1z2xPvd1j2aRGdEbyI5eo0D1rdS
- m0xieCFRs5UO9c5YtknNz6jnXnPikZPQ3K3pSIXAqV66govlqr13ckrMF
- r7ILhM4u3XkV+/p9AaWHPN+Gr6HpiRsBmYvpmOTOWCzDK9JcYPtwRuo3y
- hO8qr9+SycBKhkUGM8Sm1gLwAssns7mo5jaQ4Q11IhpDiM6x4YLhlQcsA
- m2Uzn5rxjROri+UzdwL130KB1GDbWi5xNDLt1H9mfOH4k1Zbkyd3xipvF w==;
-X-CSE-ConnectionGUID: e170N+WnR/iszsiHLO+DZA==
-X-CSE-MsgGUID: BOkRU6n5Rcmmnc4piLhHOg==
-X-IronPort-AV: E=McAfee;i="6800,10657,11969"; a="3633655"
-X-IronPort-AV: E=Sophos;i="6.27,218,1787036400"; 
-   d="scan'208";a="3633655"
-Received: from fmviesa007.fm.intel.com ([10.60.135.147])
- by fmvoesa102.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 17 Nov 2026 12:50:12 -0800
-X-CSE-ConnectionGUID: DuZIbWrmTR6uBSdS4ugSaA==
-X-CSE-MsgGUID: AjAovy6wSK2AQh4SKPWBFw==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,218,1787036400"; d="scan'208";a="10310718"
-Received: from akacprow-dev3.igk.intel.com ([10.91.220.47])
- by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 17 Nov 2026 12:50:11 -0800
-From: Andrzej Kacprowski <andrzej.kacprowski@linux.intel.com>
-To: dri-devel@lists.freedesktop.org
-Cc: oded.gabbay@gmail.com, jeff.hugo@oss.qualcomm.com,
- karol.wachowski@linux.intel.com, lizhi.hou@amd.com,
- dawid.osuchowski@linux.intel.com,
- Andrzej Kacprowski <andrzej.kacprowski@linux.intel.com>
-Subject: [PATCH v2] accel/ivpu: Remove sched_mode module parameter
-Date: Tue, 17 Nov 2026 21:44:19 +0100
-Message-ID: <20261117204419.2841928-1-andrzej.kacprowski@linux.intel.com>
-X-Mailer: git-send-email 2.43.0
+	by gabe.freedesktop.org (Postfix) with ESMTP id 4E29710E4EE;
+	Tue, 17 Nov 2026 20:52:29 +0000 (UTC)
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com
+ [205.220.168.131])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 7B99F10E4EE
+ for <dri-devel@lists.freedesktop.org>; Tue, 17 Nov 2026 20:52:17 +0000 (UTC)
+Received: from pps.filterd (m0279863.ppops.net [127.0.0.1])
+ by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id
+ 6AHKfXnu1627439
+ for <dri-devel@lists.freedesktop.org>; Tue, 17 Nov 2026 20:52:17 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+ cc:content-transfer-encoding:content-type:date:from:in-reply-to
+ :message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+ fyuxCpKp26itAp4jBe23EHobgug2KOZQvZvYqOY5OLI=; b=nuf+3lpzUGHLeYQq
+ 51pBS/GTWnGLUpcbweZqsJi9gQmwQjFtSiCb0tE4k5r16lTD+G6KgFYzBJtPN1Py
+ siIy8UNPVpwqAICA7j5MBNDOcTzalNlyGLC6shwyZBl2XDrLGL/nxJg/3AmNgRVN
+ oJUJOihy62qtzdg7TzrY+UX6yI1mvc+kiVmo/tSOfYfseiGnsviuQoluX3zKaYyi
+ v6NgeFm6LgWTvjvRtjzQkzYwYJ7hBsv0ZlYBPfVpolXGq1Oexb4lWbWUU418Vyqy
+ 4w2cQlyztqV6p3g1u6FqW9J3J5FpRbyD4Xl+DqzwnP9dIg8LZR6LOpooABYnooEu
+ EJ8hnQ==
+Received: from mail-dy1-f198.google.com (mail-dy1-f198.google.com
+ [74.125.82.198])
+ by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4j0qms21te-1
+ (version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+ for <dri-devel@lists.freedesktop.org>; Tue, 17 Nov 2026 20:52:16 +0000 (GMT)
+Received: by mail-dy1-f198.google.com with SMTP id
+ 5a478bee46e88-375f0fd31f4so345371eec.0
+ for <dri-devel@lists.freedesktop.org>; Tue, 17 Nov 2026 12:52:16 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=oss.qualcomm.com; s=google; t=1794948736; x=1795553536;
+ darn=lists.freedesktop.org; 
+ h=content-transfer-encoding:content-type:in-reply-to:from
+ :content-language:references:cc:to:subject:user-agent:mime-version
+ :date:message-id:from:to:cc:subject:date:message-id:reply-to
+ :content-type; bh=fyuxCpKp26itAp4jBe23EHobgug2KOZQvZvYqOY5OLI=;
+ b=UXXgwFdquLsM7sog9ARyNtYfQTAGO6ewWv0ATVm81aKcghK1Equ/qB/8GicqWRrJK1
+ a/95H1JNnoQll5H7usKy5vk1gbOi37cYW8aB03yyiMPfiRiLvC4Xl1MleIY5NaAb43D0
+ TUqcsMYxk9X3ZW00iK56mHFDD4JwsKSvPZO3DScZJyjAxJEb6nVSAw6q7T1RrWI13iHU
+ gkgm11MnMLuLjbeDWePWbEfVrB5F2RNXIZ38vQjixDUB0oPAWUvtJOVlGtm6aQgxjunw
+ B77f0No1FNWDfokGRG8YnmX5xTQSMYfvuCS1tSBJ0iajdRjP7fVk0Ft3odzvopDvb1JR
+ oMtA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20260707; t=1794948736; x=1795553536;
+ h=content-transfer-encoding:content-type:in-reply-to:from
+ :content-language:references:cc:to:subject:user-agent:mime-version
+ :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+ :message-id:reply-to:content-type;
+ bh=fyuxCpKp26itAp4jBe23EHobgug2KOZQvZvYqOY5OLI=;
+ b=QrNOe9vQ+OgTnZPMlq4QfXdyjkKIO3tCxyuUjzu/vDdRjqiC1NUucujVrM7Pj7fEZ5
+ VkTYZRI30xfGu4IGCQBj1IJqid2F9XtMZvlUyclaMyETtOejrT12b7JsxFsx5RPXDc49
+ K8iTi7DEpuhrrvS4fcceIU8SzpWHBZYf0056yJPcna2b3g3xbQzwdZ9ljDybuyF/LCgf
+ pTo2iuxHUXPSl3oOrdjp0F4Bc9Q9v+2VRZQEy/CjsjYaoI5izoD3Srv2YuSt11P4yqtF
+ bQmz0itAKp/Kh29oJeHWimS/zl32xb/es+3XnCyBOo7f3j79XFwbmXFsdlmucLkd3xSV
+ GrmQ==
+X-Forwarded-Encrypted: i=1;
+ AL+hErGA4yU/+HPCn35zMmTeFiZgvjuOEI8aaBqooys0ojwQ2puGMc0juaEccfkpX1lm0zCp+K+MdzmFE1c=@lists.freedesktop.org
+X-Gm-Message-State: APuU4Z88cZrcbFfLx5OLFM8WDqJ8d3WfvkhjV2RMp19GEB4iUfaiVWDn
+ 8GBcq+pS/gRRz6NaWkkboOJ9tYZGxUg0jGdo1eIvBfqvWutrJxV+PUFQQfAqBfCYmKGTzQn7tw6
+ OpYFIcjcynuY0028eTUEsr2YvRROiczF7dRczm+GGWGbzbtijGZy4aFWq2RUZnXWndVnv7RY=
+X-Gm-Gg: AZFdTZeS6J+2hWjUT/6G9/tIySWef8ZH7/MsGq3tf/IUKhF4VkxXZWCsQhNWQSw/6Yt
+ VjQWyvrhCMUWLRE4qfzmYL8qq20r/vb6TRUW/jiDfHCet3AS5U7298+ijB/pZEvOSEn14NxW1/W
+ Y4UrK6WONZQ3Dx8iQ+oonAm0XqaLnlfkvpabDFy4ZsrCYMYupRh1ZlIlyOpA0YIw5rSXwjOV0EE
+ +t8LpQ37W/o9t2n0x7T9/wo0CierWHL4NykV8ZarTNFEQDRZ5Y1kBvDXBE4/MkeIjCK3w4F18Nr
+ DruW6BeuM+qhB/pUNA8t6ozy7RRqqps1y3NHeuVDvTDmw8V8ZSVNCb/7/WybQSUm5khn7UGo49V
+ DgBVHEIV40fwyyWIt+sqP4B6AV+xnlbeboz5lmuA13B4MrlPNwTw8IZ89/ldJgWp6hOayP/85H0
+ sL0fOE/0ycNU0fCz1OIgauAAk=
+X-Received: by 2002:a05:7300:7314:b0:381:1580:cb4c with SMTP id
+ 5a478bee46e88-38281023cfemr702066eec.24.1794948735896; 
+ Tue, 17 Nov 2026 12:52:15 -0800 (PST)
+X-Received: by 2002:a05:7300:7314:b0:381:1580:cb4c with SMTP id
+ 5a478bee46e88-38281023cfemr702042eec.24.1794948735366; 
+ Tue, 17 Nov 2026 12:52:15 -0800 (PST)
+Received: from [10.226.59.182] (Global_NAT1.qualcomm.com. [129.46.96.20])
+ by smtp.gmail.com with ESMTPSA id
+ 5a478bee46e88-382a76d70fasm484255eec.22.2026.11.17.12.52.14
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Tue, 17 Nov 2026 12:52:15 -0800 (PST)
+Message-ID: <2f3d94d3-1f9d-4a88-b500-ce42ff85949d@oss.qualcomm.com>
+Date: Tue, 17 Nov 2026 13:52:14 -0700
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2] accel/ivpu: Remove sched_mode module parameter
+To: Andrzej Kacprowski <andrzej.kacprowski@linux.intel.com>,
+ dri-devel@lists.freedesktop.org
+Cc: oded.gabbay@gmail.com, karol.wachowski@linux.intel.com, lizhi.hou@amd.com, 
+ dawid.osuchowski@linux.intel.com
+References: <20261117204419.2841928-1-andrzej.kacprowski@linux.intel.com>
+Content-Language: en-US
+From: Jeff Hugo <jeff.hugo@oss.qualcomm.com>
+In-Reply-To: <20261117204419.2841928-1-andrzej.kacprowski@linux.intel.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMTE3MDA4MyBTYWx0ZWRfX1RziIQCqBSjH
+ v3CisOhMiNWiVJtN3NgaMz2BkOIjyi/8QGEVScCWXlEQl8pMovHA3vvIsSvwO53urygxyMm0UPr
+ KSUoME3m2OpvuGYddbEGHpHiRnSdEE8=
+X-Proofpoint-ORIG-GUID: t0ygGNgaKd9FE4mK6NDHM-_BSM2u1OFf
+X-Proofpoint-GUID: t0ygGNgaKd9FE4mK6NDHM-_BSM2u1OFf
+X-Authority-Analysis: v=2.4 cv=BIEmP1QG c=1 sm=1 tr=0 ts=6afcbe80 cx=c_pps
+ a=wEP8DlPgTf/vqF+yE6f9lg==:117 a=ouPCqIW2jiPt+lZRy3xVPw==:17
+ a=IkcTkHD0fZMA:10 a=zJRp6_cAMcgA:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=yOCtJkima9RkubShWh1s:22
+ a=QyXUC8HyAAAA:8 a=EUspDBNiAAAA:8 a=gYI55yF0lsxZyhDyjH8A:9 a=QEXdDO2ut3YA:10
+ a=bBxd6f-gb0O0v-kibOvt:22
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMTE3MDA4MyBTYWx0ZWRfX5NIds8W7IMAP
+ nRd60r3dvITcUXXmvMgC7Lf8Vb+nHL+rrJKiXoqo5JStP/NesdEE1dV7Z7/C3qC3KdPlpgINfp1
+ wQRqwEfM7Xhdj88PQ4AORw1XDSHEonu1o0flpZOto7OqkGvso1jHAt5xc1exgVLBjUDhoHpDeEu
+ HgCeeKqGFm1kB/5JQdcVj6290phQ6e87n4YdPOpDDvvk5Ln069cADVfhyF+9e4tGn92d/xa8nC/
+ kelqkV/c/JXDDtL33AqaDIF7EJ0vyDk82467rJH6p5NYAe3PcpLYqB9t1sgKsCSbYtDVCBjlHHd
+ 9jo8406FJWOC6w+CmwO4RncwXn1ZIVUPOkze63G+Y4CtUqLfStDMz92K66MNS0gDvwARA6dkrvk
+ HbGK548WnEe8NtQL+O1Rsf3Yn2bRMnG74iLR+EeZIUtwEismtAI1+iT0Uw3T3qOIIpYN9YDjVkd
+ d0TMv9OmaE8dwFn3sEw==
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
+ definitions=2026-11-17_04,2026-11-16_01,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ priorityscore=1501 adultscore=0 bulkscore=0 clxscore=1015 malwarescore=0
+ phishscore=0 spamscore=0 impostorscore=0 lowpriorityscore=0 suspectscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2611040001 definitions=main-2611170083
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -63,222 +139,31 @@ List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-16.8 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
-	DKIM_SIGNED,DKIM_VALID,HEADER_FROM_DIFFERENT_DOMAINS,
-	INCLUDES_CR_TRAILER,INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,
-	SPF_PASS,USER_AGENT_GIT autolearn=ham autolearn_force=no version=4.0.1
+X-Spam-Status: No, score=-12.3 required=3.0 tests=BAYES_00,DKIM_SIGNED,
+	DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
+	INCLUDES_CR_TRAILER,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,
+	USER_AGENT_SANE_1 autolearn=ham autolearn_force=no version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-OS scheduling supports only a limited subset of NPU functionality and
-is not intended for production use. However, the sched_mode module
-parameter exposes it as a regular configuration option, and the driver
-silently falls back to it when the firmware JSM API is older than 3.24.
-
-Make hardware scheduling the only production mode:
-- remove the sched_mode module parameter,
-- require BOOT API 3.17 and JSM API 3.24 or newer, and fail probe with
-  a message requesting a firmware update otherwise,
-- allow OS scheduling on pre-60XX devices only through the
-  IVPU_TEST_MODE_HWS_DISABLE test_mode bit, for debugging.
-
-The initial 37xx and 40xx firmware added to linux-firmware in March 2025
-reports BOOT and JSM APIs 3.27, meeting both minimum requirements.
-
-Extend IVPU_FW_CHECK_API_COMPAT() to accept minimum major and minor
-versions so both API requirements can be checked explicitly.
-
-Signed-off-by: Andrzej Kacprowski <andrzej.kacprowski@linux.intel.com>
----
-Change in v2
-- Resent the patch from the @linux.intel.com address, the @intel.com
-  account adds a confidentiality notice.
-
- drivers/accel/ivpu/ivpu_drv.c |  4 --
- drivers/accel/ivpu/ivpu_drv.h |  4 +-
- drivers/accel/ivpu/ivpu_fw.c  | 84 ++++++++++++++++-------------------
- 3 files changed, 39 insertions(+), 53 deletions(-)
-
-diff --git a/drivers/accel/ivpu/ivpu_drv.c b/drivers/accel/ivpu/ivpu_drv.c
-index 28cb18dcfa9b..2c761a6aa6ca 100644
---- a/drivers/accel/ivpu/ivpu_drv.c
-+++ b/drivers/accel/ivpu/ivpu_drv.c
-@@ -55,10 +55,6 @@ u8 ivpu_pll_max_ratio = U8_MAX;
- module_param_named(pll_max_ratio, ivpu_pll_max_ratio, byte, 0644);
- MODULE_PARM_DESC(pll_max_ratio, "Maximum PLL ratio used to set NPU frequency");
- 
--int ivpu_sched_mode = IVPU_SCHED_MODE_AUTO;
--module_param_named(sched_mode, ivpu_sched_mode, int, 0444);
--MODULE_PARM_DESC(sched_mode, "Scheduler mode: -1 - Use default scheduler, 0 - Use OS scheduler (supported on 27XX - 50XX), 1 - Use HW scheduler");
--
- bool ivpu_disable_mmu_cont_pages;
- module_param_named(disable_mmu_cont_pages, ivpu_disable_mmu_cont_pages, bool, 0444);
- MODULE_PARM_DESC(disable_mmu_cont_pages, "Disable MMU contiguous pages optimization");
-diff --git a/drivers/accel/ivpu/ivpu_drv.h b/drivers/accel/ivpu/ivpu_drv.h
-index fe8b66e779a7..9b24d6c9d864 100644
---- a/drivers/accel/ivpu/ivpu_drv.h
-+++ b/drivers/accel/ivpu/ivpu_drv.h
-@@ -56,8 +56,6 @@
- #define IVPU_PLATFORM_HSLE    4
- #define IVPU_PLATFORM_INVALID 8
- 
--#define IVPU_SCHED_MODE_AUTO -1
--
- #define IVPU_DBG_REG	 BIT(0)
- #define IVPU_DBG_IRQ	 BIT(1)
- #define IVPU_DBG_MMU	 BIT(2)
-@@ -224,7 +222,6 @@ struct ivpu_file_priv {
- extern int ivpu_dbg_mask;
- extern u8 ivpu_pll_min_ratio;
- extern u8 ivpu_pll_max_ratio;
--extern int ivpu_sched_mode;
- extern bool ivpu_disable_mmu_cont_pages;
- extern bool ivpu_force_snoop;
- 
-@@ -233,6 +230,7 @@ extern bool ivpu_force_snoop;
- #define IVPU_TEST_MODE_NULL_SUBMISSION    BIT(2)
- #define IVPU_TEST_MODE_FREQ_CHANGE_ENABLE BIT(3)
- #define IVPU_TEST_MODE_MIP_DISABLE        BIT(6)
-+#define IVPU_TEST_MODE_HWS_DISABLE        BIT(7)
- #define IVPU_TEST_MODE_DISABLE_TIMEOUTS   BIT(8)
- #define IVPU_TEST_MODE_TURBO_ENABLE       BIT(9)
- #define IVPU_TEST_MODE_TURBO_DISABLE      BIT(10)
-diff --git a/drivers/accel/ivpu/ivpu_fw.c b/drivers/accel/ivpu/ivpu_fw.c
-index 6607a5da1934..eaf7a193e305 100644
---- a/drivers/accel/ivpu/ivpu_fw.c
-+++ b/drivers/accel/ivpu/ivpu_fw.c
-@@ -33,15 +33,11 @@
- #define ADDR_TO_L2_CACHE_CFG(addr) ((addr) >> 31)
- 
- /* Check if FW API is compatible with the driver */
--#define IVPU_FW_CHECK_API_COMPAT(vdev, name, min_major) \
-+#define IVPU_FW_CHECK_API_COMPAT(vdev, name, min_major, min_minor) \
- 	ivpu_fw_check_api(vdev, #name, \
- 			  VPU_##name##_API_VER_INDEX, \
- 			  VPU_##name##_API_VER_MAJOR, \
--			  VPU_##name##_API_VER_MINOR, min_major)
--
--/* Check if API version is lower that the given version */
--#define IVPU_FW_CHECK_API_VER_LT(vdev, name, major, minor) \
--	ivpu_fw_check_api_ver_lt(vdev, #name, VPU_##name##_API_VER_INDEX, major, minor)
-+			  VPU_##name##_API_VER_MINOR, min_major, min_minor)
- 
- #define IVPU_FOCUS_PRESENT_TIMER_MS 1000
- 
-@@ -97,28 +93,6 @@ static int ivpu_fw_request(struct ivpu_device *vdev)
- 	return ret;
- }
- 
--static int
--ivpu_fw_check_api(struct ivpu_device *vdev, const char *str, int index, u16 expected_major,
--		  u16 expected_minor, u16 min_major)
--{
--	u16 major = (u16)(vdev->fw->api_version[index] >> 16);
--	u16 minor = (u16)(vdev->fw->api_version[index]);
--
--	if (major < min_major) {
--		ivpu_err(vdev, "Incompatible FW %s API version: %d.%d, required %d.0 or later\n",
--			 str, major, minor, min_major);
--		return -EINVAL;
--	}
--	if (major != expected_major) {
--		ivpu_warn(vdev, "Major FW %s API version different: %d.%d (expected %d.%d)\n",
--			  str, major, minor, expected_major, expected_minor);
--	}
--	ivpu_dbg(vdev, FW_BOOT, "FW %s API version: %d.%d (expected %d.%d)\n",
--		 str, major, minor, expected_major, expected_minor);
--
--	return 0;
--}
--
- static bool
- ivpu_fw_check_api_ver_lt(struct ivpu_device *vdev, const char *str, int index, u16 major, u16 minor)
- {
-@@ -131,6 +105,29 @@ ivpu_fw_check_api_ver_lt(struct ivpu_device *vdev, const char *str, int index, u
- 	return false;
- }
- 
-+static int
-+ivpu_fw_check_api(struct ivpu_device *vdev, const char *str, int index, u16 drv_major,
-+		  u16 drv_minor, u16 min_major, u16 min_minor)
-+{
-+	u16 fw_major = (u16)(vdev->fw->api_version[index] >> 16);
-+	u16 fw_minor = (u16)(vdev->fw->api_version[index]);
-+
-+	if (ivpu_fw_check_api_ver_lt(vdev, str, index, min_major, min_minor)) {
-+		ivpu_err(vdev, "Firmware %s API version %u.%u is too old; minimum supported version is %u.%u\n",
-+			 str, fw_major, fw_minor, min_major, min_minor);
-+		ivpu_err(vdev, "Update firmware %s before using this device\n", vdev->fw->name);
-+		return -EINVAL;
-+	}
-+	if (fw_major != drv_major) {
-+		ivpu_warn(vdev, "Major %s API version different: firmware %u.%u, driver %u.%u\n",
-+			  str, fw_major, fw_minor, drv_major, drv_minor);
-+	}
-+	ivpu_dbg(vdev, FW_BOOT, "%s API version: firmware %u.%u, driver %u.%u\n",
-+		 str, fw_major, fw_minor, drv_major, drv_minor);
-+
-+	return 0;
-+}
-+
- bool ivpu_is_within_range(u64 addr, size_t size, struct ivpu_addr_range *range)
- {
- 	u64 addr_end;
-@@ -144,22 +141,18 @@ bool ivpu_is_within_range(u64 addr, size_t size, struct ivpu_addr_range *range)
- 	return true;
- }
- 
--static u32
--ivpu_fw_sched_mode_select(struct ivpu_device *vdev)
-+static void ivpu_fw_sched_mode_init(struct ivpu_device *vdev)
- {
--	if (ivpu_hw_ip_gen(vdev) >= IVPU_HW_IP_60XX &&
--	    ivpu_sched_mode == VPU_SCHEDULING_MODE_OS) {
--		ivpu_warn(vdev, "OS sched mode is not supported, using HW mode\n");
--		return VPU_SCHEDULING_MODE_HW;
-+	if (ivpu_test_mode & IVPU_TEST_MODE_HWS_DISABLE) {
-+		if (ivpu_hw_ip_gen(vdev) < IVPU_HW_IP_60XX) {
-+			vdev->fw->sched_mode = VPU_SCHEDULING_MODE_OS;
-+			ivpu_warn(vdev, "OS scheduling mode enabled. Use for debug only!\n");
-+			return;
-+		}
-+		ivpu_warn(vdev, "OS scheduling mode is not supported, using HW mode\n");
- 	}
--
--	if (ivpu_sched_mode != IVPU_SCHED_MODE_AUTO)
--		return ivpu_sched_mode;
--
--	if (IVPU_FW_CHECK_API_VER_LT(vdev, JSM, 3, 24))
--		return VPU_SCHEDULING_MODE_OS;
--
--	return VPU_SCHEDULING_MODE_HW;
-+	vdev->fw->sched_mode = VPU_SCHEDULING_MODE_HW;
-+	ivpu_dbg(vdev, FW_BOOT, "Scheduling mode: HW\n");
- }
- 
- static void
-@@ -306,9 +299,9 @@ static int ivpu_fw_parse(struct ivpu_device *vdev)
- 
- 	memcpy(fw->api_version, fw_hdr->api_version, sizeof(fw->api_version));
- 
--	if (IVPU_FW_CHECK_API_COMPAT(vdev, BOOT, 3))
-+	if (IVPU_FW_CHECK_API_COMPAT(vdev, BOOT, 3, 17))
- 		return -EINVAL;
--	if (IVPU_FW_CHECK_API_COMPAT(vdev, JSM, 3))
-+	if (IVPU_FW_CHECK_API_COMPAT(vdev, JSM, 3, 24))
- 		return -EINVAL;
- 
- 	fw->boot_params_addr = boot_params_addr;
-@@ -322,8 +315,7 @@ static int ivpu_fw_parse(struct ivpu_device *vdev)
- 	fw->shave_nn_size = PAGE_ALIGN(fw_hdr->shave_nn_fw_size);
- 	fw->cold_boot_entry_point = fw_hdr->entry_point;
- 
--	fw->sched_mode = ivpu_fw_sched_mode_select(vdev);
--	ivpu_info(vdev, "Scheduler mode: %s\n", fw->sched_mode ? "HW" : "OS");
-+	ivpu_fw_sched_mode_init(vdev);
- 
- 	ivpu_preemption_config_parse(vdev, fw_hdr);
- 
--- 
-2.43.0
-
+On 11/17/2026 1:44 PM, Andrzej Kacprowski wrote:
+> OS scheduling supports only a limited subset of NPU functionality and
+> is not intended for production use. However, the sched_mode module
+> parameter exposes it as a regular configuration option, and the driver
+> silently falls back to it when the firmware JSM API is older than 3.24.
+> 
+> Make hardware scheduling the only production mode:
+> - remove the sched_mode module parameter,
+> - require BOOT API 3.17 and JSM API 3.24 or newer, and fail probe with
+>    a message requesting a firmware update otherwise,
+> - allow OS scheduling on pre-60XX devices only through the
+>    IVPU_TEST_MODE_HWS_DISABLE test_mode bit, for debugging.
+> 
+> The initial 37xx and 40xx firmware added to linux-firmware in March 2025
+> reports BOOT and JSM APIs 3.27, meeting both minimum requirements.
+> 
+> Extend IVPU_FW_CHECK_API_COMPAT() to accept minimum major and minor
+> versions so both API requirements can be checked explicitly.
+> 
+> Signed-off-by: Andrzej Kacprowski <andrzej.kacprowski@linux.intel.com>
+Reviewed-by: Jeff Hugo <jeff.hugo@oss.qualcomm.com>
