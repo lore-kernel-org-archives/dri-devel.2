@@ -2,73 +2,43 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7D64F606A323
-	for <dri-devel@archiver.kernel.org>; Tue, 17 Nov 2026 13:28:30 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 63789606A31C
+	for <dri-devel@archiver.kernel.org>; Tue, 17 Nov 2026 13:34:01 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=mimecast20190719 header.b=OddVzm32
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=CRNJpT6n
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id D541E10F72E;
-	Tue, 17 Nov 2026 13:28:24 +0000 (UTC)
-Received: from us-smtp-delivery-124.mimecast.com
- (us-smtp-delivery-124.mimecast.com [170.10.129.124])
- by gabe.freedesktop.org (Postfix) with ESMTPS id CA37A10F6F5
- for <dri-devel@lists.freedesktop.org>; Tue, 17 Nov 2026 13:28:13 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
- s=mimecast20190719; t=1794922093;
- h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
- to:to:cc:cc:mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references;
- bh=nWfT+TkPmcOCNK9Mn78Al4VOB4gVYxq/KkmumWJeJfw=;
- b=OddVzm32EDHFsT1BW1eyG3H5c6uVSK+QkSI+kgDwHAkayXiehAJ5SNolRuvuPPraZgIZfW
- IjSsPIIDNNw9Lb86O86UJRWrKfg6lp8DptAGJI7Hc6AQ03U/jFw4Dcd2CZJA0juO50f8L7
- 3/3KTtKDW9G+IIcrNZh7oZnBgakwk/E=
-Received: from mx-prod-mc-06.mail-002.prod.us-west-2.aws.redhat.com
- (ec2-35-165-154-97.us-west-2.compute.amazonaws.com [35.165.154.97]) by
- relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.3,
- cipher=TLS_AES_256_GCM_SHA384) id us-mta-393-oRL3huSHNtmKoM-8-njT1w-1; Tue,
- 17 Nov 2026 08:28:05 -0500
-X-MC-Unique: oRL3huSHNtmKoM-8-njT1w-1
-X-Mimecast-MFC-AGG-ID: oRL3huSHNtmKoM-8-njT1w_1794922083
-Received: from mx-prod-int-05.mail-002.prod.us-west-2.aws.redhat.com
- (mx-prod-int-05.mail-002.prod.us-west-2.aws.redhat.com [10.30.177.17])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
- (No client certificate requested)
- by mx-prod-mc-06.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS
- id 880311800540; Tue, 17 Nov 2026 13:28:02 +0000 (UTC)
-Received: from aesteve-thinkpadp1gen8.rmtes.csb
- (headnet04.pony-001.prod.iad2.dc.redhat.com [10.2.32.116])
- by mx-prod-int-05.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS
- id 957B7195B3C5; Tue, 17 Nov 2026 13:27:58 +0000 (UTC)
-From: Albert Esteve <aesteve@redhat.com>
-Date: Tue, 17 Nov 2026 14:27:46 +0100
-Subject: [PATCH v7 1/3] selftests: cgroup: Add dmem_selftest helper module
-X-Archived-By: <archiver.kernel.org>
-MIME-Version: 1.0
-Message-Id: <20261117-kunit_cgroups-v7-1-5bcbfe17f323@redhat.com>
+	by gabe.freedesktop.org (Postfix) with ESMTP id AB94810E577;
+	Tue, 17 Nov 2026 13:33:55 +0000 (UTC)
+Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 6668010E577
+ for <dri-devel@lists.freedesktop.org>; Tue, 17 Nov 2026 13:33:49 +0000 (UTC)
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+ by tor.source.kernel.org (Postfix) with ESMTP id 5D4E5605FF;
+ Tue, 17 Nov 2026 13:33:48 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id BFF801F000C4;
+ Tue, 17 Nov 2026 13:33:47 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+ s=k20260515; t=1794922428;
+ bh=sQci8fzg9/W/FSNsMklQmdlz69zG/Vmgg7GDCI5lbf4=;
+ h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+ b=CRNJpT6n5Jrivo4cHxaQBu51PO15iItl3rPq1h8MKq3KwraUQr3CgCB+L2echStR3
+ qVThpc84xpuUkBbFGLaEF12ZoXftNdLgkkygYSIMrV/diOjx9Ie9SOR4+ooAB/OpK2
+ n1IPYcT2krH9yJi/S6wCJ3pfgScbD+hRmwuoj4KkAVSZQKQ23ICiaHNarvmwoWkCoE
+ lIWf9WboesT67mn6lbIhBZoaiLr7iltWqwuxx5NQwikQY+hpp3/vkflnk2DQiXmeAw
+ L/GNLOB2WWtT7FR0EcXbKD8YbXrQcUOh4DrnA67u0pABTIDvVL/tzBmkBbTjCY04pF
+ LiWXr9c/d04jQ==
+Message-ID: <sashiko-outbox-218882@kernel.org>
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v7 3/3] selftests: cgroup: Add dmem selftest coverage
+To: "Albert Esteve" <aesteve@redhat.com>
+Cc: dri-devel@lists.freedesktop.org, tj@kernel.org, hannes@cmpxchg.org,
+ mkoutny@suse.com
+In-Reply-To: <20261117-kunit_cgroups-v7-3-5bcbfe17f323@redhat.com>
 References: <20261117-kunit_cgroups-v7-0-5bcbfe17f323@redhat.com>
-In-Reply-To: <20261117-kunit_cgroups-v7-0-5bcbfe17f323@redhat.com>
-To: Tejun Heo <tj@kernel.org>, Johannes Weiner <hannes@cmpxchg.org>, 
- =?utf-8?q?Michal_Koutn=C3=BD?= <mkoutny@suse.com>, 
- Shuah Khan <shuah@kernel.org>, Maarten Lankhorst <dev@lankhorst.se>, 
- Natalie Vock <nat@pixelcluster.dev>
-Cc: linux-kernel@vger.kernel.org, cgroups@vger.kernel.org, 
- linux-kselftest@vger.kernel.org, dri-devel@lists.freedesktop.org, 
- Albert Esteve <aesteve@redhat.com>, echanude@redhat.com, mripard@kernel.org, 
- R Nageswara Sastry <rnsastry@linux.ibm.com>
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1794922072; l=7355;
- i=aesteve@redhat.com; s=20260827; h=from:subject:message-id;
- bh=cOJrMzEzabCnmqM+iZPp7QVb9cB4mcTN/+vMCh+ZR1g=;
- b=McXDMPtuiFBJtpWy/5Ppc8N3VAWSTTpaNSTkQaNGteufdBfLNyQRYh5OGbtnOQdL/CdIHU+HP
- hyqpI2B8DBpAMXiHx93S01HSAYgmkZDn3LSaHWH1Vu76mKWRX3MjmWI
-X-Developer-Key: i=aesteve@redhat.com; a=ed25519;
- pk=zI2RBeZgocwYm3AkJW4CtjoJnKoDZrfBl1xe5Ed6h+U=
-X-Scanned-By: MIMEDefang 3.0 on 10.30.177.17
-X-Mimecast-MFC-PROC-ID: OaQVNr4n88fM9-a3eMuWk2l0nMqZxvWcbNAXvp6B538_1794922083
-X-Mimecast-Originator: redhat.com
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
+ <20261117-kunit_cgroups-v7-3-5bcbfe17f323@redhat.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Tue, 17 Nov 2026 13:33:47 +0000
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -79,248 +49,86 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
+Reply-To: sashiko-reviews@lists.linux.dev
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-15.8 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
+X-Spam-Status: No, score=-10.8 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
 	DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
-	INCLUDES_CR_TRAILER,INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,
-	SPF_PASS autolearn=unavailable autolearn_force=no version=4.0.1
+	INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS autolearn=ham
+	autolearn_force=no version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
+X-Archived-By: <archiver.kernel.org>
 
-Currently, dmem charging is driver-driven through direct
-calls to dmem_cgroup_try_charge() (for example TTM).
-That does not give cgroup selftests a generic way to
-trigger alloc/free paths from userspace in a chosen
-cgroup, so coverage of nested dmem.max still
-needs a synthetic region.
+Thank you for your contribution! Sashiko AI review found 1 potential
+issue to consider:
+- [Medium] selftests: cgroup: test_dmem always skips under kselftest
+  runner
+--
 
-Add tools/testing/selftests/cgroup/test_modules/dmem_selftest.c
-as an OOT helper, built like other test_modules (no extra
-Kconfig needed). Tests can insmod the .ko module to register a
-"dmem_selftest" region.
+commit b1601ac573b3434d7a724ddf07cd272e92c72579
+Author: Albert Esteve <aesteve@redhat.com>
 
-Module parameters drive a single outstanding allocation against
-the calling task's cgroup:
+selftests: cgroup: Add dmem selftest coverage
 
-  /sys/module/dmem_selftest/parameters/alloc
-  /sys/module/dmem_selftest/parameters/free
+This commit adds the test_dmem selftest to verify dmem.max enforcement and
+byte-granularity accounting using the dmem_selftest kernel module.
 
-Writing a size to alloc triggers dmem_cgroup_try_charge() for
-the calling task's cgroup. Writing to free with no argument
-releases the outstanding charge via dmem_cgroup_uncharge().
-Only a single outstanding charge is supported.
+> diff --git a/tools/testing/selftests/cgroup/Makefile b/tools/testing/self=
+tests/cgroup/Makefile
+> index a08661320a07c..d01e8eb1ead2d 100644
+> --- a/tools/testing/selftests/cgroup/Makefile
+> +++ b/tools/testing/selftests/cgroup/Makefile
+> @@ -11,6 +11,7 @@ TEST_GEN_MODS_DIR :=3D test_modules
+>  TEST_GEN_PROGS  =3D test_core
+>  TEST_GEN_PROGS +=3D test_cpu
+>  TEST_GEN_PROGS +=3D test_cpuset
+> +TEST_GEN_PROGS +=3D test_dmem
+>  TEST_GEN_PROGS +=3D test_freezer
+>  TEST_GEN_PROGS +=3D test_hugetlb_memcg
+>  TEST_GEN_PROGS +=3D test_kill
+[ ... ]
+> diff --git a/tools/testing/selftests/cgroup/test_dmem.c b/tools/testing/s=
+elftests/cgroup/test_dmem.c
+> new file mode 100644
+> index 0000000000000..3793664678b91
+> --- /dev/null
+> +++ b/tools/testing/selftests/cgroup/test_dmem.c
+[ ... ]
+> +int main(int argc, char **argv)
+> +{
+> +	char root[PATH_MAX];
+> +	struct stat st;
+> +	int i;
+> +
+> +	ksft_print_header();
+> +
+> +	if (cg_find_unified_root(root, sizeof(root), NULL))
+> +		ksft_exit_skip("cgroup v2 isn't mounted\n");
+> +
+> +	if (cg_read_strstr(root, "cgroup.controllers", "dmem"))
+> +		ksft_exit_skip("dmem controller isn't available (CONFIG_CGROUP_DMEM?)\=
+n");
+> +
+> +	if (cg_read_strstr(root, "cgroup.subtree_control", "dmem"))
+> +		if (cg_write(root, "cgroup.subtree_control", "+dmem"))
+> +			ksft_exit_skip("Failed to enable dmem controller\n");
+> +
+> +	if (stat(DM_SELFTEST_ALLOC, &st) < 0)
+> +		ksft_exit_skip(
+> +			"dmem_selftest helper not loaded (insmod test_modules/dmem_selftest.k=
+o)\n");
 
-This provides a deterministic, driver-independent mechanism
-for exercising dmem accounting paths in selftests.
+[Severity: Medium]
+Will test_dmem always be skipped when run via the standard kselftest runner
+(make run_tests or run_kselftest.sh)?
 
-Tested-by: R Nageswara Sastry <rnsastry@linux.ibm.com>
-Signed-off-by: Albert Esteve <aesteve@redhat.com>
----
- tools/testing/selftests/cgroup/Makefile            |   1 +
- tools/testing/selftests/cgroup/config              |   1 +
- .../testing/selftests/cgroup/test_modules/Makefile |  17 +++
- .../selftests/cgroup/test_modules/dmem_selftest.c  | 146 +++++++++++++++++++++
- 4 files changed, 165 insertions(+)
+The kselftest framework builds and installs modules in TEST_GEN_MODS_DIR,
+but runner.sh executes TEST_GEN_PROGS directly without loading those
+modules first.  Unless test_dmem loads and unloads
+test_modules/dmem_selftest.ko itself (for example via finit_module() and
+delete_module()) or is invoked through a wrapper script in TEST_PROGS,
+automated kselftest runs will never execute these tests.
 
-diff --git a/tools/testing/selftests/cgroup/Makefile b/tools/testing/selftests/cgroup/Makefile
-index e01584c2189a..a08661320a07 100644
---- a/tools/testing/selftests/cgroup/Makefile
-+++ b/tools/testing/selftests/cgroup/Makefile
-@@ -6,6 +6,7 @@ all: ${HELPER_PROGS}
- TEST_FILES     := with_stress.sh
- TEST_PROGS     := test_stress.sh test_cpuset_prs.sh test_cpuset_v1_hp.sh
- TEST_GEN_FILES := wait_inotify
-+TEST_GEN_MODS_DIR := test_modules
- # Keep the lists lexicographically sorted
- TEST_GEN_PROGS  = test_core
- TEST_GEN_PROGS += test_cpu
-diff --git a/tools/testing/selftests/cgroup/config b/tools/testing/selftests/cgroup/config
-index 39f979690dd3..2ee0488c3d65 100644
---- a/tools/testing/selftests/cgroup/config
-+++ b/tools/testing/selftests/cgroup/config
-@@ -1,5 +1,6 @@
- CONFIG_CGROUPS=y
- CONFIG_CGROUP_CPUACCT=y
-+CONFIG_CGROUP_DMEM=y
- CONFIG_CGROUP_FREEZER=y
- CONFIG_CGROUP_SCHED=y
- CONFIG_MEMCG=y
-diff --git a/tools/testing/selftests/cgroup/test_modules/Makefile b/tools/testing/selftests/cgroup/test_modules/Makefile
-new file mode 100644
-index 000000000000..dd8a17313cec
---- /dev/null
-+++ b/tools/testing/selftests/cgroup/test_modules/Makefile
-@@ -0,0 +1,17 @@
-+# SPDX-License-Identifier: GPL-2.0
-+TESTMODS_DIR := $(realpath $(dir $(abspath $(lastword $(MAKEFILE_LIST)))))
-+KDIR ?= /lib/modules/$(shell uname -r)/build
-+
-+obj-m += dmem_selftest.o
-+
-+# Ensure that KDIR exists, otherwise skip the compilation
-+modules:
-+ifneq ("$(wildcard $(KDIR))", "")
-+	$(Q)$(MAKE) -C $(KDIR) modules KBUILD_EXTMOD=$(TESTMODS_DIR)
-+endif
-+
-+# Ensure that KDIR exists, otherwise skip the clean target
-+clean:
-+ifneq ("$(wildcard $(KDIR))", "")
-+	$(Q)$(MAKE) -C $(KDIR) clean KBUILD_EXTMOD=$(TESTMODS_DIR)
-+endif
-diff --git a/tools/testing/selftests/cgroup/test_modules/dmem_selftest.c b/tools/testing/selftests/cgroup/test_modules/dmem_selftest.c
-new file mode 100644
-index 000000000000..a763a156f13f
---- /dev/null
-+++ b/tools/testing/selftests/cgroup/test_modules/dmem_selftest.c
-@@ -0,0 +1,146 @@
-+// SPDX-License-Identifier: GPL-2.0
-+/*
-+ * Kselftest helper for the dmem cgroup controller.
-+ *
-+ * Registers a synthetic dmem region so tests can trigger allocations
-+ * from the calling task's cgroup via module parameters:
-+ *   /sys/module/dmem_selftest/parameters/alloc
-+ *   /sys/module/dmem_selftest/parameters/free
-+ */
-+
-+#define pr_fmt(fmt) KBUILD_MODNAME ": " fmt
-+
-+#include <linux/cgroup_dmem.h>
-+#include <linux/kernel.h>
-+#include <linux/module.h>
-+#include <linux/moduleparam.h>
-+#include <linux/mutex.h>
-+#include <linux/panic.h>
-+#include <linux/sysfs.h>
-+
-+#define DM_SELFTEST_REGION_NAME	"dmem_selftest"
-+#define DM_SELFTEST_REGION_SIZE	(256ULL * 1024 * 1024)
-+
-+static struct dmem_cgroup_region *selftest_region;
-+static struct dmem_cgroup_pool_state *alloc_pool;
-+static u64 alloc_size;
-+static DEFINE_MUTEX(alloc_lock);
-+
-+static int param_set_alloc(const char *val, const struct kernel_param *kp)
-+{
-+	struct dmem_cgroup_pool_state *pool = NULL, *limit = NULL;
-+	u64 size;
-+	int ret;
-+
-+	if (!selftest_region)
-+		return -ENODEV;
-+
-+	ret = kstrtou64(val, 0, &size);
-+	if (ret)
-+		return ret;
-+	if (!size || size > DM_SELFTEST_REGION_SIZE)
-+		return -EINVAL;
-+
-+	mutex_lock(&alloc_lock);
-+	if (alloc_pool) {
-+		mutex_unlock(&alloc_lock);
-+		return -EBUSY;
-+	}
-+
-+	ret = dmem_cgroup_try_charge(selftest_region, size, &pool, &limit);
-+	if (ret == -EAGAIN && limit)
-+		dmem_cgroup_pool_state_put(limit);
-+	if (ret) {
-+		mutex_unlock(&alloc_lock);
-+		return ret;
-+	}
-+
-+	alloc_pool = pool;
-+	alloc_size = size;
-+	mutex_unlock(&alloc_lock);
-+	return 0;
-+}
-+
-+static int param_get_alloc(char *buffer, const struct kernel_param *kp)
-+{
-+	u64 size;
-+
-+	mutex_lock(&alloc_lock);
-+	size = alloc_size;
-+	mutex_unlock(&alloc_lock);
-+	return sysfs_emit(buffer, "%llu\n", size);
-+}
-+
-+static const struct kernel_param_ops alloc_ops = {
-+	.set = param_set_alloc,
-+	.get = param_get_alloc,
-+};
-+
-+module_param_cb(alloc, &alloc_ops, NULL, 0644);
-+MODULE_PARM_DESC(alloc, "Allocate (charge) SIZE bytes against the calling task's dmem cgroup");
-+
-+static int param_set_free(const char *val, const struct kernel_param *kp)
-+{
-+	mutex_lock(&alloc_lock);
-+	if (!alloc_pool) {
-+		mutex_unlock(&alloc_lock);
-+		return -EINVAL;
-+	}
-+
-+	dmem_cgroup_uncharge(alloc_pool, alloc_size);
-+	alloc_pool = NULL;
-+	alloc_size = 0;
-+	mutex_unlock(&alloc_lock);
-+	return 0;
-+}
-+
-+static const struct kernel_param_ops free_ops = {
-+	.flags = KERNEL_PARAM_OPS_FL_NOARG,
-+	.set = param_set_free,
-+};
-+
-+module_param_cb(free, &free_ops, NULL, 0200);
-+MODULE_PARM_DESC(free, "Free the outstanding dmem selftest allocation");
-+
-+static int __init dmem_selftest_init(void)
-+{
-+	static const struct dmem_cgroup_init init = {
-+		.size = DM_SELFTEST_REGION_SIZE,
-+	};
-+
-+	selftest_region = dmem_cgroup_register_region(&init, DM_SELFTEST_REGION_NAME);
-+	if (IS_ERR(selftest_region))
-+		return PTR_ERR(selftest_region);
-+	if (!selftest_region)
-+		return -EINVAL;
-+
-+	add_taint(TAINT_TEST, LOCKDEP_STILL_OK);
-+	pr_info("region '%s' registered; parameters alloc/free\n",
-+		DM_SELFTEST_REGION_NAME);
-+	return 0;
-+}
-+
-+static void __exit dmem_selftest_exit(void)
-+{
-+	mutex_lock(&alloc_lock);
-+	if (alloc_pool) {
-+		dmem_cgroup_uncharge(alloc_pool, alloc_size);
-+		alloc_pool = NULL;
-+		alloc_size = 0;
-+	}
-+	mutex_unlock(&alloc_lock);
-+
-+	if (selftest_region) {
-+		dmem_cgroup_unregister_region(selftest_region);
-+		selftest_region = NULL;
-+	}
-+	pr_info("unloaded.\n");
-+}
-+
-+module_init(dmem_selftest_init);
-+module_exit(dmem_selftest_exit);
-+
-+MODULE_AUTHOR("Albert Esteve <aesteve@redhat.com>");
-+MODULE_DESCRIPTION("Kselftest helper for cgroup dmem controller");
-+MODULE_LICENSE("GPL");
-+MODULE_INFO(test, "Y");
-
--- 
-2.55.0
-
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261117-kunit_cgro=
+ups-v7-0-5bcbfe17f323@redhat.com?part=3D3
