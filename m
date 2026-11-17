@@ -2,127 +2,55 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1594C606A8A4
-	for <dri-devel@archiver.kernel.org>; Tue, 17 Nov 2026 14:55:43 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9CDC7606A33A
+	for <dri-devel@archiver.kernel.org>; Tue, 17 Nov 2026 15:03:10 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=amd.com header.i=@amd.com header.a=rsa-sha256 header.s=selector1 header.b=c3kTp4Nc
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=jI0TxUOT
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 74F1D10E405;
-	Tue, 17 Nov 2026 14:55:37 +0000 (UTC)
-Received: from BYAPR05CU005.outbound.protection.outlook.com
- (mail-westusazon11010051.outbound.protection.outlook.com [52.101.85.51])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 1322F10E405
- for <dri-devel@lists.freedesktop.org>; Tue, 17 Nov 2026 14:55:31 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=W2+Ny66FRkrWBF9e7iaePzUaNWpWpPqtFVLc+A3qQcIeuSvnruye5rc3P0WpKrne+cHOZ1SP9dIjOhMZ1lF5Yio3DM3mwGmwOh8oipsV1O7e3+dphlkDp+VmcyhUqZKvPrg06uZE5c4CINk66I8qxrKq7x6BGdhVzS/U6uiV+WzYB+TbygFM8FHS69LK3eHBAfUvxBjooayCWZVklkcrqIRyN0rsKlQLu477GeN9nocOQStfKUE3eDRrhORDZx8Dd/96/kAqKZEyf/ZzCZzjIQbVZbosU7K7yRSsSosWAq6YA1p8cZ/DMCSaLbHMD221ZoqnhNURoPbl6qIiWBpjBA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=fsboG2mhQ8Bs8gKCnM/fcad38tCKQhkoW7tEGPb1fzo=;
- b=zILwNiaKV3GTRmRieHt85a1Z8WxHiq+1sekCRUmt/Vfw6cEQ1ITQhPxQVldC5DRQyK125UYZWYx+IXSFcqTUlKCfFZDdGbvcgrNkg2dZo4qWzT3lmD4WY1BK07I5Yr8eN+pdWeWj9GLsFefD9vd20tRJ3qQKlwkhalo2yqRJ7LMGt7bQpp4VqYMBE2izZiekfGt7FYoCLnc+Z2rSXDGGJswwMU/a8OFzu5basmzjiejPiRH9KZrkGXdYJV5AgJIkk0Sf97lhGyzUJiKCANtwXfcQ3xn2dUKTuKhGJfAYejI6/kpaCGuC4HJ7NJ+3vUq2klI/IfyskIQ/QhuWiHkq4g==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=fsboG2mhQ8Bs8gKCnM/fcad38tCKQhkoW7tEGPb1fzo=;
- b=c3kTp4NcCmL+k5juXel3URtGHJ11vh1JlYnxc4oxNEPWtkTlPWCXmTZMYKeIO6jpUIr7gACKObTpWa7IIs01OQSke9dRL2evDuXe51HgBH73hElikGYsLfb33wjxMbwi73j5t9JA4RZYVFVgcON+n+kbSprY43gVWxFkbf88TTE=
-Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-Received: from PH7PR12MB5685.namprd12.prod.outlook.com (2603:10b6:510:13c::22)
- by SJ1PR12MB6145.namprd12.prod.outlook.com (2603:10b6:a03:45c::12)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.615.14; Tue, 17 Nov
- 2026 14:55:24 +0000
-Received: from PH7PR12MB5685.namprd12.prod.outlook.com
- ([fe80::ce69:cfae:774d:a65c]) by PH7PR12MB5685.namprd12.prod.outlook.com
- ([fe80::ce69:cfae:774d:a65c%3]) with mapi id 15.21.0615.013; Tue, 17 Nov 2026
- 14:55:24 +0000
-Message-ID: <efce5fe0-6e7d-417c-93a3-35247b431448@amd.com>
-Date: Tue, 17 Nov 2026 15:55:07 +0100
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] dma-buf/dma-fence: Prevent misordering for error checks
-To: Philipp Stanner <phasta@kernel.org>,
- Sumit Semwal <sumit.semwal@linaro.org>,
- Simona Vetter <simona.vetter@ffwll.ch>,
- Chris Wilson <chris@chris-wilson.co.uk>, Danilo Krummrich <dakr@kernel.org>,
- Gary Guo <gary@garyguo.net>, Alice Ryhl <aliceryhl@google.com>,
- Daniel Almeida <daniel.almeida@collabora.com>
-Cc: linux-media@vger.kernel.org, dri-devel@lists.freedesktop.org,
- linux-kernel@vger.kernel.org, stable@vger.kernel.org
-References: <20261117090144.581909-2-phasta@kernel.org>
-Content-Language: en-US
-From: =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>
-In-Reply-To: <20261117090144.581909-2-phasta@kernel.org>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: FR4P281CA0166.DEUP281.PROD.OUTLOOK.COM
- (2603:10a6:d10:b7::17) To PH7PR12MB5685.namprd12.prod.outlook.com
- (2603:10b6:510:13c::22)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 194D610E297;
+	Tue, 17 Nov 2026 15:03:05 +0000 (UTC)
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.14])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id E518410E0F9;
+ Tue, 17 Nov 2026 15:02:58 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1794927779; x=1826463779;
+ h=from:to:cc:subject:date:message-id:mime-version:
+ content-transfer-encoding;
+ bh=+J6AwQl1G0XFy3ZeXCW20mtiW0I+Uvvod3rmP12KMZw=;
+ b=jI0TxUOTfgMtqYkTHrCZkcdkbJ8ewlmgXLut657HbVJxloKEEuuwfbys
+ 7wiQFfwQNwxG/u77jhsPHbipz81hx0SVdBqtK7eUP+S7t6iBNd2ktSgYg
+ cEMN5ru4gz2FXDndktEF5TU3zvv1oWIs/pb3ZegwoHKhPIL/zemfsXHQK
+ rhK5yRX5iz4xY0qyJEFhNKOeSaDbJviiisTWiNzMNPXNiS07ldzkQcM/B
+ 67wtleNUAsOhqoVaPlchV568aH7B2Ks+0zXjeHr1jHfQsiIPIp/zA4AfS
+ 1NVe6ZXBfUVsoOrp42p90vjz4bUDMoKW2RYNiye19CQqA89hjSwQJTnyy A==;
+X-CSE-ConnectionGUID: kcocZ4h+TvCZKVhFgRZJaw==
+X-CSE-MsgGUID: Ws9kJNbvSd6UNBtQTpN6/w==
+X-IronPort-AV: E=McAfee;i="6800,10657,11969"; a="3593412"
+X-IronPort-AV: E=Sophos;i="6.27,218,1787036400"; 
+   d="scan'208";a="3593412"
+Received: from orviesa006.jf.intel.com ([10.64.159.146])
+ by fmvoesa108.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 17 Nov 2026 07:02:59 -0800
+X-CSE-ConnectionGUID: fvwQIlTsSqyeiaig7/TVaA==
+X-CSE-MsgGUID: QWRhJusLRLWn860MQZK4EQ==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,218,1787036400"; 
+   d="scan'208";a="9859846"
+Received: from yadavs-z690i-a-ultra-plus.iind.intel.com ([10.190.216.90])
+ by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 17 Nov 2026 07:02:57 -0800
+From: Sanjay Yadav <sanjay.kumar.yadav@intel.com>
+To: dri-devel@lists.freedesktop.org
+Cc: intel-xe@lists.freedesktop.org
+Subject: [PATCH v5 0/1] gpu/buddy: Fix quadratic cost of range-biased
+ allocation
+Date: Tue, 17 Nov 2026 20:24:36 +0530
+Message-ID: <20261117145435.1629839-3-sanjay.kumar.yadav@intel.com>
+X-Mailer: git-send-email 2.52.0
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: PH7PR12MB5685:EE_|SJ1PR12MB6145:EE_
-X-MS-Office365-Filtering-Correlation-Id: a9717fbd-cf72-426f-2dd7-08df44bacf68
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
- ARA:13230040|23010399003|366016|376014|1800799024|7416014|18002099003|22082099003|261009223027099003|11063799006|56012099006|261028144727099003|261022105027099003|261026140227099003|261026121527099003|261021121427099003|261021123027099003|261102123227099003|10067099003;
-X-Microsoft-Antispam-Message-Info: 3AIaR8n8DjXJtpdw7nEFf+/PEXcaeNiqi4aw/lP3xHr1ldcURnzgvVOS/Hc3zDaZTwPkaN6aSXqTTmFGGaWoqLfLdR4Xz8TQetkP2UDhIJ2PaN6LUGaekaWwplw5486bW2dWrw7xiYQrwegdyz2zcEBg0IEtyledlM/goVDWxC6pHJSU23GT0fnNuvilFAQoEXcvxDT9eNvIlSrElZm9LuL3IiDUiaBkWQj2X7eguAoNx0El7qTriTnoNpfQBj5KjIBMoInUqYyb2HE2s+jEawwWsM2SD34bMmXw5XIi/kkaoxmF/ACJHTNWGKIVuSZPgqKR5+z6jF/BBYpOUuNnzIdfY7kqkijq5Znatqq3gTV8wNPfmh1nxye6UjynYbkq11Fpdy0pSUwNDu7G6LS/ctvm7NJiqBRSlyr849nC4l4qYV1f3hN1X46k7dxYWpAgHr0ffV75k+CyEXrSxlbWINccMvMSPNLvlx3/j7UTlSDMs5AOhsA65C0latLzKSP8pJ94UP17QaBd4yPCIrb6gMtypSpxAtUrPfte8UgOeq6t+65k4E5ss/RcOzdVuxG6hWCt1is3DyMqT4nvcvF2Gm5gd4uOpgVu3wqaQdxQNiR2t2Htiyd6EHh7uJbjTAnFOkNOWnpy0XwydhxLQhuPJnJObTs1mtCvVvAhICNrDh4=
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:PH7PR12MB5685.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(23010399003)(366016)(376014)(1800799024)(7416014)(18002099003)(22082099003)(261009223027099003)(11063799006)(56012099006)(261028144727099003)(261022105027099003)(261026140227099003)(261026121527099003)(261021121427099003)(261021123027099003)(261102123227099003)(10067099003);
- DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?U0x2WnBoaG5jVklDUmR4VEZhTFdLdEdTa3c1cyt3SkZ2RjI0LzRqYkxlcENE?=
- =?utf-8?B?cUxrU1dXUUlLTWFmTjlPMjA2WWM1Rk9yZHNaMFZrS1FiR0ExWHRmdm9oVC9U?=
- =?utf-8?B?Qlg1eGN5c1dsYUxFeFAwWTlHejBtUWJ6dGhOWm5PNzREWmVPbEY5bzVHNjFt?=
- =?utf-8?B?SU9PaVNiRVVhWS9jb2FMTEwyMWlJK3hpTlhGZkV1bmJJcFBDUFNuQ2xPTWVu?=
- =?utf-8?B?c2VpY2FTTVVaTld0Tlk0NUNLQkhjb0gzSnNWSlk0VW1WSUhYdG9rUUZ2Q3Ja?=
- =?utf-8?B?QWVoaFNkTERVdHpuUEZQc08rZ0MzUkhmcEl1V3NZcldTRVQwUFBaNUNCaHRm?=
- =?utf-8?B?elB6Y0tYak0vZHFYK1U4bVkwc3greWNPUmtJY1B6TXVQaHIwS0x6bjFzMnZ6?=
- =?utf-8?B?dWR1N0pxMHNETGx6eXRIRm1wMVZwcnE3SSt5VDRaYlRXTVM3RDBEQUd0MmdS?=
- =?utf-8?B?Ykk4S3lJSXUrN3VsV2ZhaGFSUkJMK3cwaU9hOVVYS1FzcWFPRlM0cERQangv?=
- =?utf-8?B?NlNUaWNCblhWMEVFUWJIWnVtdXdWS2lCODhGeXQ0d3hORlpGYlQ3WUFJYXBu?=
- =?utf-8?B?a1cvbXc0c0g2aGgvNnY1VlhWdUcxUTVKWmdsMS9hOERCVnZPRFowNXpVcHJN?=
- =?utf-8?B?eSt3RWRPaXc2ZU1WSjhKUGdxUTJlWG9CcWpPWDJSRG52dXlBQjYrN0JoMnNn?=
- =?utf-8?B?OXhEd1ZTQStLRERMR0dzMkphZUZzUXhwVVRRSXR3WlBuVk1raTJRS2swMVQy?=
- =?utf-8?B?bWF4cXFUL1k0RjdydVY4Z2JENEl2NlFYYmo3RklPY1h1b2orVWJSaTBTS240?=
- =?utf-8?B?OEtvSks3emZQSVJNemllVnk1dVRzSjMrUXowdUd3V2FxUVVSREZyUHBmOU9m?=
- =?utf-8?B?b3NpSnJ1bXlya3lBaTRwaWgxa1JhZWxUemFEU3owaGF3MXFzRFE1UTBvdHpI?=
- =?utf-8?B?eFlENUZlYUpjU09iOXBJTS8zTlpVeUwyLzFBQjlIWXhRcGk3S1ZxemxKRUV3?=
- =?utf-8?B?dkJmYThuYUV1RHhkdUNwK1ptUmpUQ0d1ZG5tZTJUS2xNTlVDQ0xLSXpqblRK?=
- =?utf-8?B?TUdsUmRuZ2ZlTUlVb2Nadk8rRitIWWwvcExEYjBPeExZd3JCV0hZWmZMRUJh?=
- =?utf-8?B?dmU1UllTbHoxc0F6SDNXYjF1aGxqdXRxTG11WmVGVDNrbldZZ0VycHZ6TkNv?=
- =?utf-8?B?TW9IM2VmNmIwWlVBSWhmVUwyT2VaektEY0lBTWQ0MFRMWktCWWxsQ3NvbHl5?=
- =?utf-8?B?ZXdqbUNqa1VKYm9BMnBIaFBVelp5NGdHd0VHdFgrSnErU0lGb25wdjlCZHVy?=
- =?utf-8?B?QXcwam1zR0poWllhSFlNbEZtL0JQcnNYWEliTGpibk1Xc3EwN0pSby92UkpY?=
- =?utf-8?B?eEc3QTlkaVkvcU5TajVCYkFKS1plNjhwQzUyVFg0bnF2SEdmRFFLYjQyVDk4?=
- =?utf-8?B?Q3diSy81VEdTVnFhbGl1ay9Bc2huVW8wMXpIczRMRmphMFVLcTIwN2NlVkZy?=
- =?utf-8?B?emZ2ZUVuT0Mvb3p4TXFxb1I5QWt6Y3VicklRNXV5dEhNSytxOUJpUTd1aVVa?=
- =?utf-8?B?Z0xVNG9PSGNoZTl1QlBHNzdaZFYvOXhjWm43REZvTWJ4b1NsRlJoc2t2UzVE?=
- =?utf-8?B?UndzSTlVZm1FUitwYVdpZFptWWdlaTB6TnpnMnF3TnhaNDI4VmJpbE5jd2JP?=
- =?utf-8?B?djFyNEZCd3ZKOGoreGIrcW8vZHJka1JkTTZNRHozYy9CNDNJL3ZidDZBUTBu?=
- =?utf-8?B?Y0pMeE5Tb2Y2OGtHbkRQK1Z6NEFVYzZrYlJLSzdiSEp5a1FIYnR4NnBUU2sy?=
- =?utf-8?B?ay9WRmFBVTB3M01ySitoWGV6U25OSnJjejNhNDE3dTFWY2JLT3hodWZpVjFC?=
- =?utf-8?B?Z055enFGbE4yMzkzL1N1SnlyU3ZFUDh4a09DVUU4ekxrRWNQVXZoNWhaZmFD?=
- =?utf-8?B?TVp2TGtDS250cFQ5WnNHQnd1azdvUCtNR0lYZTNuQ1M2REpIREFsMy9JQWYz?=
- =?utf-8?B?Z0tYQmZ0V1dvQ0p6MFhBUEhKa1NiOFRESG9VU2FveFNrdEJyOFltRkZRZE5w?=
- =?utf-8?B?R0dQWE5CWWZmZXdiS1hHSlhOMW5HTVFsMU1VRU1xZTJPWHZ6WXluOEMzaEZJ?=
- =?utf-8?B?TVpRcmhnT29lZktEV0ZyQ0lQQlVabTBCWXBtOUsrOWVpYm91ODlwL2FsaWlP?=
- =?utf-8?B?TmpQRVNjd01KQmZ6ajVhSGswM1RJd3ROZ0d4VEU0YTZYZG9QTllCVTkzWnAy?=
- =?utf-8?B?WFJWaytubm40TlN6Z2U5d0I1d3lzb2p5anFSR2JtWWs0SmhEd3ErOUNvY1RH?=
- =?utf-8?Q?hRmnP6TIB5zej3CJR0?=
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: a9717fbd-cf72-426f-2dd7-08df44bacf68
-X-MS-Exchange-CrossTenant-AuthSource: PH7PR12MB5685.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 17 Nov 2026 14:55:24.8036 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: SvvUnrAXiLapzqnvdcTvDSlvWSeOna//VG+WgMFLRzSAv0vWabhB0UHPBkECpWy2
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SJ1PR12MB6145
+Content-Transfer-Encoding: 8bit
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -134,80 +62,100 @@ List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-17.3 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
+X-Spam-Status: No, score=-13.8 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
 	DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
-	INCLUDES_CR_TRAILER,INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,
-	SPF_PASS,USER_AGENT_SANE_1 autolearn=unavailable autolearn_force=no
-	version=4.0.1
+	INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,
+	USER_AGENT_GIT autolearn=unavailable autolearn_force=no version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-On 11/17/26 10:01, Philipp Stanner wrote:
-> Many users of dma_fence do things like:
-> 
-> // Thread A
-> dma_fence_set_error(f, -EINVAL);
-> dma_fence_signal(f); // <- Takes lock, which orders against the above.
-> 
-> // Thread B
-> if (dma_fence_is_signaled(f)) // <- Does test_bit(), no ordering.
-> 	pr_info("err: %i\n", f->error); // <- Can be loaded first.
-> 
-> There is no memory ordering between reading of the signaled-bit and
-> reading of the error code. This can result in outdated, wrong error
-> codes being evaluated by the user.
-> 
-> Though dma_fence_get_status() does take the fence lock, it is equally
-> broken because the misordering can simply happen within the critical
-> section.
-> 
-> It's not entirely clear since when this bug exists, but at least since
-> dma_fence_get_status() was added, which is why its birth commit is
-> marked as the Fixes commit here.
-> 
-> Ensure ordering for everyone evaluating the error code centrally by
-> using test_bit_acquire() in dma_fence_test_signaled_flag().
-> 
-> Cc: stable@vger.kernel.org
-> Fixes: d6c99f4bf093 ("dma-fence: Wrap querying the fence->status")
-> Signed-off-by: Philipp Stanner <phasta@kernel.org>
-> ---
-> Changes since the RFC:
->   - Order with test_bit_acquire(). (Gary)
->   - ^ also makes it easy to backport this for now.
->   - Try to document roughly what is even going on.
-> ---
->  include/linux/dma-fence.h | 11 ++++++++++-
->  1 file changed, 10 insertions(+), 1 deletion(-)
-> 
-> diff --git a/include/linux/dma-fence.h b/include/linux/dma-fence.h
-> index dd07d128adc3..a8d23fed70b9 100644
-> --- a/include/linux/dma-fence.h
-> +++ b/include/linux/dma-fence.h
-> @@ -496,7 +496,16 @@ const char __rcu *dma_fence_timeline_name(struct dma_fence *fence);
->  static inline bool
->  dma_fence_test_signaled_flag(struct dma_fence *fence)
->  {
-> -	return test_bit(DMA_FENCE_FLAG_SIGNALED_BIT, &fence->flags);
-> +	// Best-effort ordering of the locklessly evaluated signaled-bit,
-> +	// especially so that reads of fence->error are not misordered.
-> +	//
-> +	// The release counterpart is typically ensured like this:
-> +	//   a) Error codes must only be set before a fence signals and
-> +	//   b) The fence's spinlock's barriers effective in dma_fence_signal()
-> +	//      ensure ordering.
-> +	//   c) For users of dma_fence_signal_locked(), the barrier implied in
-> +	//      test_and_set_bit() should do the trick.
+Range-restricted allocations (GPU_BUDDY_RANGE_ALLOCATION) go through
+__alloc_range_bias(), a depth-first walk over the buddy tree that visits
+the higher-address child first. It skips blocks that are too small,
+outside the range or ALLOCATED, but always descends SPLIT blocks, even
+when nothing below them is free. Range allocations are placed top-down,
+so they pack below the range end and each new allocation walks over all
+blocks already allocated there: O(N) per allocation, O(N^2) in total,
+under the driver's allocator lock.
 
-That should probably be a C comment, e.g. /* ... */.
+This is a property of the range-biased allocation algorithm rather than
+of any particular memory configuration. Any driver that repeatedly
+restricts placement to a window can encounter this behavior once enough
+small allocations accumulate in that window.
 
-Apart from that really good catch.
+One configuration where the problem becomes particularly visible is a
+small-BAR system. Drivers restrict every CPU-visible allocation to that
+window with a range placement (fpfn = 0, lpfn = BAR size).
 
-Regards,
-Christian.
+xe_pat@pt-caching-random-offsets does about 130k 4K range allocations
+and hit the CI 180s inactivity timeout on a debug kernel inside
+gpu_buddy_alloc_blocks(). With the full VRAM visible the same test does
+not use the range path.
 
-> +	return test_bit_acquire(DMA_FENCE_FLAG_SIGNALED_BIT, &fence->flags);
->  }
->  
->  /**
+<6> [59.436001] [IGT] xe_pat: starting subtest pt-caching-random-offsets
+<6> [239.585293] task:xe_pat          state:R  running task     stack:0
+pid:3700  tgid:3700  ppid:1957   task_flags:0x400100 flags:0x00000020
+<6> [239.585304] Call Trace:
+<6> [239.585307]  <TASK>
+<6> [239.585309]  ? irqentry_exit+0x2a2/0x8d0
+<6> [239.585314]  ? trace_hardirqs_off_finish+0xc7/0xe0
+<6> [239.585320]  ? sysvec_apic_timer_interrupt+0x57/0xc0
+<6> [239.585326]  ? asm_sysvec_apic_timer_interrupt+0x1b/0x20
+<6> [239.585334]  ? gpu_buddy_alloc_blocks+0x442/0xec0
+<6> [239.585341]  ? gpu_buddy_alloc_blocks+0xa37/0xec0
+<6> [239.585353]  ? xe_ttm_vram_mgr_new+0x1c7/0x340 [xe]
+<6> [239.585506]  ? ttm_resource_alloc+0x50/0xd0 [ttm]
+<6> [239.585518]  ? ttm_bo_alloc_at_place+0x84/0x180 [ttm]
+<6> [239.585527]  ? ttm_bo_alloc_resource+0x115/0x5e0 [ttm]
+<6> [239.585538]  ? ttm_bo_validate+0x94/0x1c0 [ttm]
+<6> [239.585546]  ? lock_is_held_type+0xa3/0x130
+<6> [239.585552]  ? ttm_bo_init_reserved+0xa5/0x1f0 [ttm]
+<6> [239.585560]  ? xe_bo_init_locked+0x20a/0x650 [xe]
+<6> [239.585616]  ? __pfx_xe_ttm_bo_destroy+0x10/0x10 [xe]
+<6> [239.585672]  ? stack_depot_save_flags+0x28/0x960
+<6> [239.585679]  ? __xe_bo_create_locked+0xb1/0xa20 [xe]
+<6> [239.585733]  ? _raw_spin_unlock_irqrestore+0x52/0x80
+<6> [239.585743]  ? __create_object+0x67/0xe0
+<6> [239.585747]  ? trace_hardirqs_on+0x22/0xe0
+<6> [239.585753]  ? _raw_spin_unlock_irqrestore+0x52/0x80
+<6> [239.585760]  ? xe_bo_create_pin_map_at_aligned+0x51/0x1f0 [xe]
+<6> [239.585813]  ? __kmalloc_cache_noprof+0x494/0x670
+<6> [239.585819]  ? xe_bo_create_pin_map+0x1f/0x40 [xe]
+<6> [239.585870]  ? xe_pt_create+0xb5/0x430 [xe]
+
+The patch tracks, per block, the largest order of any FREE block in its
+subtree and lets __alloc_range_bias() skip subtrees that cannot satisfy
+the request. Skipped subtrees contain nothing the old walk could split
+or return, and the remaining blocks are visited in the same order, so
+the selected block and placement are unchanged. The new s8 field uses
+existing tail padding.
+
+Results
+  n_alloc     avg_blocks_visited        avg_allocation_time
+              without fix  with fix     without fix  with fix
+     4096          4141        46          10.7 us    0.293 us
+    65536        127041        48           536 us    0.259 us
+   126976        249911        47          1.46 ms    0.283 us
+
+v2:
+- Reword cover letter and commit message to describe this as a general
+  fix for the algorithmic cost of range-biased allocation rather than a
+  small-BAR specific issue (Matt A)
+- No code changes
+
+v3: (Sashiko)
+- Use div_u64() in the KUnit test to fix the 32-bit build
+
+v4: (Matt A)
+- Drop the KUnit tests
+
+Sanjay Yadav (1):
+  gpu/buddy: Prune exhausted subtrees in range-biased allocation
+
+ drivers/gpu/buddy.c       | 56 +++++++++++++++++++++++++++------------
+ include/linux/gpu_buddy.h |  7 +++++
+ 2 files changed, 46 insertions(+), 17 deletions(-)
+
+-- 
+2.52.0
 
