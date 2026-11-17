@@ -2,67 +2,48 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B8E1A606A336
-	for <dri-devel@archiver.kernel.org>; Tue, 17 Nov 2026 08:08:41 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 78013606A329
+	for <dri-devel@archiver.kernel.org>; Tue, 17 Nov 2026 08:08:44 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=uniontech.com header.i=@uniontech.com header.a=rsa-sha256 header.s=onoh2408 header.b=S/6DBJIQ
+	dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.a=rsa-sha256 header.s=s110527 header.b=AAl5RpHA
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id B3A7A10EF14;
-	Tue, 17 Nov 2026 08:08:31 +0000 (UTC)
-X-Greylist: delayed 2987 seconds by postgrey-1.36 at gabe;
- Tue, 17 Nov 2026 03:17:49 UTC
-Received: from smtpbguseast3.qq.com (smtpbguseast3.qq.com [54.243.244.52])
- by gabe.freedesktop.org (Postfix) with ESMTPS id A0DD710E3AE
- for <dri-devel@lists.freedesktop.org>; Tue, 17 Nov 2026 03:17:48 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=uniontech.com;
- s=onoh2408; t=1794885457;
- bh=XEX/B5fm61cWurYTFjfzhFA0YSoedPa2iWt3d/nCGIw=;
- h=From:To:Subject:Date:Message-Id:MIME-Version;
- b=S/6DBJIQH+3DNa+hl5t3xxhlx0Jdf4a18F9ouPJpD6AsGVWppLRx3SCLQfl9KWXu0
- 3aQ38NcT+hgXHrF02hCdUva1j/4xkcRZ0hdqnF4cE2LeY9KVDAezkVxWkjERLBwtKu
- IU0UG/h0mawXl97RctjQ4yLqKa7JJTRduLoO625I=
-X-QQ-mid: esmtpsz10t1794885451t44789937
-X-QQ-Originating-IP: yzdTpx+SJXNUOYYrApmlvTnIUsqXyeyb1ObAEMRP0rY=
-Received: from localhost.localdomain ( [1.202.39.170])
- by bizesmtp.qq.com (ESMTP) with 
- id ; Tue, 17 Nov 2026 11:17:23 +0800 (CST)
-X-QQ-SSF: 0000000000000000000000000000000
-X-QQ-GoodBg: 1
-X-BIZMAIL-ID: 18232043476698029590
-From: Xue Haolin <xuehaolin@uniontech.com>
-To: deller@gmx.de
-Cc: linux-fbdev@vger.kernel.org, dri-devel@lists.freedesktop.org,
- stable@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: [PATCH v2] fbdev: sstfb: Error out if pixclock equals zero
-Date: Tue, 17 Nov 2026 11:17:14 +0800
-Message-Id: <20261117031714.259053-1-xuehaolin@uniontech.com>
-X-Mailer: git-send-email 2.20.1
-In-Reply-To: <20261117022031.252357-1-xuehaolin@uniontech.com>
-References: <20261117022031.252357-1-xuehaolin@uniontech.com>
+	by gabe.freedesktop.org (Postfix) with ESMTP id 15E0C10EF16;
+	Tue, 17 Nov 2026 08:08:38 +0000 (UTC)
+X-Greylist: delayed 386 seconds by postgrey-1.36 at gabe;
+ Tue, 17 Nov 2026 06:46:57 UTC
+Received: from mail-proxy25256.mail.163.com (mail-proxy25256.mail.163.com
+ [103.129.252.56])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 9153110E4AD;
+ Tue, 17 Nov 2026 06:46:57 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=163.com;
+ s=s110527; h=From:To:Subject:Date:Message-ID:Content-Type:
+ MIME-Version; bh=6B+7GGPKPoceIm1D3QKyG/IV+mDK3ymAMTmo9dWxDOQ=;
+ b=AAl5RpHAnvmUk/YsouV9rC2pAVzJUZJqFyveKhbm8wiyzoUZmgnUVkgilj5jl+
+ JFYaJLrpoy5sCwcnt8YmLLXSbynhCsnGYeVbnnSh5+6JJNFtPh1n4dIabb+Rg0MQ
+ nXx3ad7zpBpvnqbw7fvT2uuAEU4bYBxFxMJv/i9bh2KlQ=
+From: Kean Ren <rh_king@163.com>
+To: Bjorn Helgaas <helgaas@kernel.org>
+Cc: linux-pci@vger.kernel.org, linux-kernel@vger.kernel.org,
+ Ryan Brue <ryanbrue.dev@gmail.com>,
+ Derek J. Clark <derekjohn.clark@gmail.com>,
+ Mark Pearson <mpearson-lenovo@squebb.ca>, dri-devel@lists.freedesktop.org,
+ nouveau@lists.freedesktop.org
+Subject: Re: [PATCH v3] PCI: Disable spurious s2idle wake from the NVMe root
+ port on ThinkPad P1 Gen 9
+In-Reply-To: <20261116202943.GA204660@bhelgaas>
+References: <20261116202943.GA204660@bhelgaas>
+Date: Tue, 17 Nov 2026 14:37:24 +0800
+Message-ID: <179489744422.381071.5186601861347774408@163.com>
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-QQ-SENDSIZE: 520
-Feedback-ID: esmtpsz:uniontech.com:qybglogicsvrgz:qybglogicsvrgz6b-0
-X-QQ-XMAILINFO: M6x2tnEVru4e7GBRUJQEC7FKeapgacBqX6rElXPVDGi2MWqDBI+0Sbdt
- 1abI+CFtrobSXlj6X529C80d26SKma1p7SUs/ePSfVxkRJRMuyz7uHQa5gu1mQs+vWcq2MC
- aPDPF0Qm7smp5jfO1/33K5HleQ4dElzcyOHlEamMQdKNig8Xc01zAZbzb+LdaIaJXfhUfKU
- 084BxXj9k6X40tCxxBDjOhSFEgWsiweqCP2qevBMSB0/+jaRLTzWpIzrUgotEgSNltxoqIT
- YC085xYb63Qnrs9BzVT4cQ1Ew7RscFI9bZ6hzzSRE6AvbM5M0W9M/dBHkBcpcm8NnPwxjpN
- 8r2BNdQSwau0o2jjulsvYbPoI5M59MztiloVl+yDdMNy5vYnzq7f7pwfoaG4sXAQgKCRzvx
- JbRxz+6c2dindBKG8RgfeBbbW6aCDw5iBOM3RfPzZYM23m2pNlzAqN2umNmUlhMadc2FP14
- f6Q6qCNEH5cCLDbOmsapk+RNwwtLdpdHY36qOyfsqcpPCH/JhirlN4mSEJmbIayZF2a3Y88
- 9Pjw+P1jXa3VezUK1bgStmaFIUxN26WvhjVFM1JvEfgiYqPF2mADA3tBpoR69OzEjuRNCp/
- vkbN9etDVuuR2ny57eYEvoKDbmaFz9BtgQYVof54mBn2+5289x0H2yJXMIAj4/tF7x7izmo
- K0MPP4gjgmp0ldGsSxAzlinQ0sJujGkbarjpRkAMBro1Zv9FumQhp6fO7I9PO2NBJwUc4Kv
- 0zM9TdAndC4CQW76AFEiCqXvVlxP8bV4RivoR6rwM+TXPTRn4RS920eh/OItPqIMgODrDpC
- YUovNyYp1LKPmsb5S67VRhrbsExFr9QguTYZVAQSXt55aQ6L7tE/FN8MFAdOASRh7vr/bEI
- ZYqtSilG8EMqSgQG/9aSV7ppMHnEJGOgGIL7OYCdG/tWiD8l2a2yZQj0I40DHTPl4FGQJyx
- IICfUBuk1b5BI1HJkED6hAKNKPovTPs/nIUdCa/bzmy7yJ/qcjn1g7sLuP3jisdGkxMrosC
- EDgZt4UZPPZ+OPyof7Pf0bRQfrrwdqzbuka4C21aSd944rSSHQCBW7Eqhub72VZnBC7LPKc
- w==
-X-QQ-XMRINFO: NS+P29fieYNwqS3WCnRCOn9D1NpZuCnCRA==
-X-QQ-RECHKSPAM: 0
+X-CM-TRANSID: _____wD3vxwv9vtqkkWkIA--.34054S2
+X-Coremail-Antispam: 1Uf129KBjvJXoW7Kw18uF4rGF4kJFW7Gr45Jrb_yoW8WrWfpr
+ WvgFWYg3WkCFy0v39rXw4UJFZ3Zr1Sk3yfGF97t3s2y3Z8JrWfGrW3trn8ua48Ar1kWay2
+ qw4Iya47Z3yUJaDanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
+ 9KBjDUYxBIdaVFxhVjvjDU0xZFpf9x07UfMa5UUUUU=
+X-CM-SenderInfo: 5ukbyxlqj6il2tof0z/xtbC-BJjEmr79jKObAAA3o
 X-Mailman-Approved-At: Tue, 17 Nov 2026 08:07:19 +0000
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -75,53 +56,39 @@ List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-18.8 required=3.0 tests=BAYES_00,DKIM_SIGNED,
-	DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
-	INCLUDES_CR_TRAILER,INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,
-	SPF_PASS,USER_AGENT_GIT autolearn=unavailable autolearn_force=no
-	version=4.0.1
+X-Spam-Status: No, score=-2.8 required=3.0 tests=BAYES_00,DKIM_SIGNED,
+	DKIM_VALID,DKIM_VALID_AU,FREEMAIL_FORGED_FROMDOMAIN,FREEMAIL_FROM,
+	HEADER_FROM_DIFFERENT_DOMAINS,MAILING_LIST_MULTI,SPF_HELO_NONE,
+	SPF_PASS autolearn=no autolearn_force=no version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-The userspace program could pass any values to the driver through
-ioctl() interface. If the driver doesn't check the value of pixclock,
-it may cause divide-by-zero error.
+Hi Bjorn,
+Thanks — and thanks for Cc'ing the Legion folks.
+I don't think it is the same bug, although the pattern is similar.
+Both cases are firmware firing a GPE on the parent PCIe port of a device
+that is entering a low-power state, and both workarounds target the parent
+port's wake handling.  The details differ:
+ - Legion: the trigger is the NVIDIA dGPU entering D3cold during runtime
+   suspend; the port (and then the GPU) is immediately woken again, in a
+   loop.  The v4 patch removes the ACPI PM notifier from the parent port's
+   ACPI device, which turns the GPE handling into a no-op.
+ - ThinkPad P1 Gen 9 (21UF): the trigger is the primary NVMe SSD entering
+   D3 during system suspend (s2idle).  Firmware leaves RP05's _PRW
+   enabled; the spurious PME sets GPE 0x6F, and the SCI arrives during the
+   noirq suspend phase and aborts s2idle after ~150 us.  The quirk disables
+   wakeup on RP05 at late_initcall, so the port is not armed as a wake
+   source at suspend time.  On this machine, masking GPE 0x6F or disabling
+   RP05 via /proc/acpi/wakeup keeps s2idle asleep; without the quirk every
+   suspend wakes after ~2.5 s.
+So the two quirks are DMI/device specific and target different sleep paths
+(runtime PM vs system s2idle).  I think they should stay separate; I can add
+a Link: to the Legion series in the changelog if you prefer a
+cross-reference.
+For the Legion folks: does acpi_remove_pm_notifier() also keep the port from
+being armed as a wake source for system suspend, or does it only make the
+runtime-PM GPE handling a no-op?  In my case I don't think a notifier-only
+change would have prevented the s2idle abort.
+Thanks,
+Kean
 
-sstfb_check_var() calls PICOS2KHZ(var->pixclock) which expands to
-1000000000UL / var->pixclock. If var->pixclock is zero, this causes
-a divide-by-zero exception.
-
-Fix this by checking whether pixclock is zero at the beginning of
-sstfb_check_var(), before it is used as a divisor.
-
-This is similar to CVE-2022-3061 in i740fb which was fixed by
-commit 15cf0b82271b ("video: fbdev: i740fb: Error out if
-'pixclock' equals zero"), and the fix in savagefb by
-commit 04e5eac8f3ab ("fbdev: savage: Error out if pixclock equals zero").
-
-Fixes: 1da177e4c3f4 ("Linux-2.6.12-rc2")
-Cc: stable@vger.kernel.org
-Signed-off-by: Xue Haolin <xuehaolin@uniontech.com>
----
-Changes in v2:
-- Fix sign-off to use real name "Xue Haolin" to satisfy DCO.
-
- drivers/video/fbdev/sstfb.c | 3 +++
- 1 file changed, 3 insertions(+)
-
-diff --git a/drivers/video/fbdev/sstfb.c b/drivers/video/fbdev/sstfb.c
-index 8e2c2421028d..de0769eb4a2f 100644
---- a/drivers/video/fbdev/sstfb.c
-+++ b/drivers/video/fbdev/sstfb.c
-@@ -359,6 +359,9 @@ static int sstfb_check_var(struct fb_var_screeninfo *var,
- 	int tiles_in_X, real_length;
- 	unsigned int freq;
- 
-+	if (!var->pixclock)
-+		return -EINVAL;
-+
- 	if (sst_calc_pll(PICOS2KHZ(var->pixclock), &freq, &par->pll)) {
- 		printk(KERN_ERR "sstfb: Pixclock at %ld KHZ out of range\n",
- 				PICOS2KHZ(var->pixclock));
--- 
-2.43.0
