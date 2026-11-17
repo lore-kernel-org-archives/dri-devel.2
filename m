@@ -2,91 +2,81 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A3282606A31C
-	for <dri-devel@archiver.kernel.org>; Tue, 17 Nov 2026 11:31:34 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 54DC1606A329
+	for <dri-devel@archiver.kernel.org>; Tue, 17 Nov 2026 11:32:44 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=fairphone.com header.i=@fairphone.com header.a=rsa-sha256 header.s=fair header.b=1tZjsmie
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=A/aMTSCe
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id B53AE10F282;
-	Tue, 17 Nov 2026 11:31:28 +0000 (UTC)
-Received: from mail-ed1-f45.google.com (mail-ed1-f45.google.com
- [209.85.208.45])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 3D1E710F282
- for <dri-devel@lists.freedesktop.org>; Tue, 17 Nov 2026 11:31:23 +0000 (UTC)
-Received: by mail-ed1-f45.google.com with SMTP id
- 4fb4d7f45d1cf-6b167ffd132so7628442a12.1
- for <dri-devel@lists.freedesktop.org>; Tue, 17 Nov 2026 03:31:23 -0800 (PST)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 9701E10E562;
+	Tue, 17 Nov 2026 11:32:38 +0000 (UTC)
+Received: from mail-wm1-f41.google.com (mail-wm1-f41.google.com
+ [209.85.128.41])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id A809D10E576
+ for <dri-devel@lists.freedesktop.org>; Tue, 17 Nov 2026 11:32:32 +0000 (UTC)
+Received: by mail-wm1-f41.google.com with SMTP id
+ 5b1f17b1804b1-4a140e7405dso46639925e9.3
+ for <dri-devel@lists.freedesktop.org>; Tue, 17 Nov 2026 03:32:32 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=fairphone.com; s=fair; t=1794915081; x=1795519881; darn=lists.freedesktop.org;
- h=in-reply-to:references:from:subject:cc:to:message-id:date
- :content-type:content-transfer-encoding:mime-version:from:to:cc
- :subject:date:message-id:reply-to:content-type;
- bh=37F/rQXOY5cbeWkahN1eco01zCL7u1ct5LuaDA+efic=;
- b=1tZjsmie1xH2ONn6jIW8RglZ1P4vv5Yp2v/P3ezuPEtEyX+2dM3E7MpulJhl1HUmAe
- OjNRED95oouXGOktWCyMKy8ZwD6OIz/n8qjTNdUGNdlRP42xfoeuxScR/G03rdYKXHIq
- E9R0ZPMewBRZz8Q+EloHMaVglPPkw1K/wnTvn0lDodyUulQ2gviBYqc4VEkqgxsGV/7N
- +gFK9nr2LmOFvdY4JCea8ZAjpdkva7VqoLKwoUkbk+1anqot41y2EG2280BvG7P0juv2
- yKjZeeDiO0lgnVkV/FNLevdmUfIsqK8ZKFh/nwfT5aVGbC0/+BA0SYWroB762QViH6h4
- vsTA==
+ d=gmail.com; s=20260707; t=1794915151; x=1795519951; darn=lists.freedesktop.org;
+ h=cc:to:message-id:content-transfer-encoding:content-type
+ :mime-version:subject:date:from:from:to:cc:subject:date:message-id
+ :reply-to:content-type;
+ bh=ah0q/JTuhX4xDVOrwkG1t5tUQwpt5YsuBa7AH/Yk8Vk=;
+ b=A/aMTSCe/NeC2lXSdMeCjv4Eo0//qFZEu7PtMP6Q66LzqFKlnaMXBixxOwGB/XCTJx
+ wSm7rTwYM7iKVwiheUbqmZyyzaVG+JLpspZXkOkgHPq93W4/Gj58zrB3rwqFiCfggea/
+ 5rUTz6g3OeVeumlYyjd2k+TqCFNLTRc9Yw77izHuZZ47KuqOQIeYNdZIU6WQi73b7EFP
+ n2y2WnbhBi8CX4oZXn/ho4LnGuB5zcakMSGmAE4bV95vVZrRWPc0Vi4fp91pNTBCEqmp
+ n2aR9nzhdkhpjPYbUr7BDv0QAAuYzvyaXhnC2CyK24JdQ7WXXtgNpqoUAX2QYssMS96D
+ UlZg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20260707; t=1794915081; x=1795519881;
- h=in-reply-to:references:from:subject:cc:to:message-id:date
- :content-type:content-transfer-encoding:mime-version:x-gm-gg
- :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
- :content-type;
- bh=37F/rQXOY5cbeWkahN1eco01zCL7u1ct5LuaDA+efic=;
- b=LDsIg7J/R8ZQSplefU7tz+C/y4cAm505Z/fy2rP7wLsd1BRrt7B0TdW0NaTQs3KBG4
- wiX4VRRr4Mdb04FQviuy0gHg5FLfVXeE79PB7rlRrC+LKXJNk/YBDU7q6FUvbKndEHPV
- po9lgMu98hE8TvYEcFlxBeo+A+mtMpGyV3vSkYPjKvEKuaOuHh/N0qYM+SF1CAgA5//d
- qCfdqt811X55FqkTsNPQsn7XsViT7mpguMpsqOllM/3IB028qzrUNySJhYimNpvFtJBI
- /0NY7PVc1jzg0FH1DIhVGQv7ySePjFBpn/RafnwkD6KX1jIxAdtt6AOa6z5TO+7PsJ42
- uAxw==
-X-Forwarded-Encrypted: i=1;
- AL+hErEkvVmgPbv3zGHXlzo7Op62C3X0GuoaSlI6ufEBjrhAI+0NYXbi9AahqqxhSNorjmXmkRll+HklGJE=@lists.freedesktop.org
-X-Gm-Message-State: APuU4Z+0lcU4AB94Dp1oGYOviCamz5y+fZ0M28DOMaKVPIRgqawwqHhS
- VhvxToVJlkXc2q3Xly7q5ThaEq/x7ZgcHuy9rwMzhyTEtb9U4QGW6w9px0ihGAk+ZDc=
-X-Gm-Gg: AYBFou2mD/N0KY+0Twy8QwueaiLf7QCKB05Yz+lP/bMsD0wTQx4SDa333Wd5rf1D7dS
- CjdY/35yjG7EDI02Y+RadZsW2oZLKuWzEOxFT0ZBQTM5LAy7Tstg6lL2AkiQpXtbF8CFBDPWL9O
- 0ftZq/JkXv21VHqzU4/NQ9RuXg6GwvQrzJaCvlHCez1DQwpFGiYwATA4VBdgmFb3YVj2RAeL2sZ
- rg/ExqWQX4L1JhJCkgngTxp1GV1Q43y9Zm5R2/KJIr+pEsxwuO3FbzK8OHy3We1KduDboTeKReO
- z/UEO1O+t2Nk5qG1BS2yamZJqTUDSbveza9KrCYdkAPFnmxi/L1Pgr/F6bjnYha44kpEJQu1CCr
- N5dhrT8yglE8wr6pgFLIaNc6Zo2d9RBi5z0IJBb0Qyv9WpUmaj4Lg7RZ8MtQwUIRMv9OB40sxNz
- 35AizDtIYDrnXZZWGdM5UHc5b2h+yJv5MeaxJna717fjzhK2VThOITnLBcBFvqGDnqterLZ1X18
- 2ERnXJDsWGFM/iYARkucHrhQ6dHftHxt8euRePZBj1dKFn8waO7znu0SRkhM9tB0laGrgK7oacq
- 3pt3kkUn7t2by30qyX0ETt25CyWJJwgEdhZ4qZ5kXY+Ck/QTW19kKwAdbzNIuK34PMdrfVmQcQ=
- =
-X-Received: by 2002:a17:906:dc89:b0:c26:1648:a06b with SMTP id
- a640c23a62f3a-c509642fa78mr1153445566b.38.1794915081033; 
- Tue, 17 Nov 2026 03:31:21 -0800 (PST)
-Received: from localhost (144-178-202-142.static.ef-service.nl.
- [144.178.202.142]) by smtp.gmail.com with ESMTPSA id
- a640c23a62f3a-c5095b79146sm519632666b.68.2026.11.17.03.31.20
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Tue, 17 Nov 2026 03:31:20 -0800 (PST)
+ d=1e100.net; s=20260707; t=1794915151; x=1795519951;
+ h=cc:to:message-id:content-transfer-encoding:content-type
+ :mime-version:subject:date:from:x-gm-gg:x-gm-message-state:from:to
+ :cc:subject:date:message-id:reply-to:content-type;
+ bh=ah0q/JTuhX4xDVOrwkG1t5tUQwpt5YsuBa7AH/Yk8Vk=;
+ b=kdRFzff4S+uqAaxnWXs6awkxpFukZinPITDiftoHkL5qTnySqDj4BqA6+xve5Vz/Tg
+ /WONHKLJBDzoi0FcvgyM3PN78ovnAgqjMfNGAUdj456H+EA9louk88esXwvuCtkGHLdV
+ t9h31kVFTWtiS1AvBery2GZd9ya6zvFVLPp2gimOEI+UPS522ycrcyxeZnjY51RSIv7D
+ n11ndkAj/iIO7kJFsH8Z2zfJ3szfSUnKt8CzVrksjT4oc9l3Gd1nh4idWhfQbADKd5Au
+ P7mL+2QsH0VuunBCIQOQwTiC3N52y9f8pAIjHCkZOnBVfO/7RxRFbYhmBta4Hroj6yVO
+ cE0w==
+X-Gm-Message-State: APuU4Z/fjnHUIu0eZ5hWZUoSSzeUfAQsYM4XdnKzPE1p07SYwckPKZnG
+ jc7ngvy8BMH846LEpcxHOadjbkKwzKUeHx6vtfVi6TfcNIuyBPk7YgtX
+X-Gm-Gg: AYBFou29ZazIfij53EA2TrttFyyZ6AWOVGLqYlCXRsW9II8sWPEbrz6j3Wqck7py1fM
+ uaYAARmSJRPfGlqTGU2eMWJRAhAIz3yxmg3Ul2aRuSy0pTR7+zyEWbo4Slthl5R3Lbt7qciQN1Z
+ aOlYlxioBxThaoUMk7s77rOwZPo5Tsiy6ZmqJ3w5kN+51sDXYgZA5fIlHfZA4rQ1MB49igm/g/e
+ FNDrQ6N9iXGcqevHNcQZm7ztEcTcz2zyHOmvaBN304HWwv7Um589Xo/8NFiVnApf3oy3FgYh2jj
+ Ww0hBqcTRScsyySNUmIATl+WtbXc45zFcp3qOMTrKw9fvZeqBVMvk74g/IbaQQ7cw+NfTLnDud4
+ tYjsqJSIQGuXM4QlacCrT3nLelmYzcrGIq4PowLN62DbF02iJooTV+kNggcLX2WW/R1CUmnxj9t
+ WCyCqzB1xs0eN2Tblu2+uLmmgvtkfYfIIuWk0MY04/Xd/ZspM3YcAkNV5NU+CKc/SgMtP6hK0LQ
+ EgVcCORy4Fx2TvXyjM+N/5fmJfdupVGXo3Kxl9cAtCw/UqL/EeHv9ZZMpc+OvjWcHSf3RkYcnib
+ vBCsPbzdse22bpmWHTLWfexNfpkdn+FPdHfJ1k4xfQ==
+X-Received: by 2002:a05:600c:8b34:b0:4a2:1364:252a with SMTP id
+ 5b1f17b1804b1-4bb559f7039mr282186425e9.3.1794915150911; 
+ Tue, 17 Nov 2026 03:32:30 -0800 (PST)
+Received: from [10.111.176.198] ([2001:19f0:6c01:2c43:5400:5ff:fef6:1b30])
+ by smtp.gmail.com with ESMTPSA id
+ ffacd0b85a97d-4a4de4cb1b6sm1908215f8f.3.2026.11.17.03.32.27
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Tue, 17 Nov 2026 03:32:30 -0800 (PST)
+From: Oarora Etimis <oaroraetimis@gmail.com>
+Date: Tue, 17 Nov 2026 12:32:19 +0100
+Subject: [PATCH] drm/fixed: use fls64() in drm_fixp_msbset()
 X-Archived-By: <archiver.kernel.org>
-Mime-Version: 1.0
-Content-Transfer-Encoding: quoted-printable
-Content-Type: text/plain; charset=UTF-8
-Date: Tue, 17 Nov 2026 12:31:19 +0100
-Message-Id: <DMXGAKCZ1Y9L.3IO6O895BMH6@fairphone.com>
-To: "erebion" <erebion@erebion.eu>, "Neil Armstrong"
- <neil.armstrong@linaro.org>, "Jessica Zhang" <jesszhan0024@gmail.com>,
- "Maarten Lankhorst" <maarten.lankhorst@linux.intel.com>, "Maxime Ripard"
- <mripard@kernel.org>, "Thomas Zimmermann" <tzimmermann@suse.de>, "David
- Airlie" <airlied@gmail.com>, "Simona Vetter" <simona@ffwll.ch>, "Bjorn
- Andersson" <andersson@kernel.org>, "Konrad Dybcio"
- <konradybcio@kernel.org>, "Rob Herring" <robh@kernel.org>, "Krzysztof
- Kozlowski" <krzk+dt@kernel.org>, "Conor Dooley" <conor+dt@kernel.org>
-Cc: <linux-kernel@vger.kernel.org>, <dri-devel@lists.freedesktop.org>,
- <linux-arm-msm@vger.kernel.org>, <devicetree@vger.kernel.org>,
- <phone-devel@vger.kernel.org>
-Subject: Re: [PATCH v5 04/12] arm64: dts: qcom: sm6350-lena: Enable ADSP,
- CDSP, IPA & MPSS
-From: "Luca Weiss" <luca.weiss@fairphone.com>
-X-Mailer: aerc 0.22.0-0-gc2f86b7abde3-dirty
-References: <20261116-pdx213-upstream-3-v5-0-7318a19806eb@erebion.eu>
- <20261116-pdx213-upstream-3-v5-4-7318a19806eb@erebion.eu>
-In-Reply-To: <20261116-pdx213-upstream-3-v5-4-7318a19806eb@erebion.eu>
+MIME-Version: 1.0
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20261117-fixp-msbset-v1-1-60526519ae2d@gmail.com>
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/yXM2wpAUBCF4VfRXNtlnIpXkQuzDUY5tAcpeXcbl
+ 1+r9V+g7IQVyuACx4eoLLMHhgHYoZl7NtJ6QxzFOSImppNzNZOS8mayIs8spmSpIPCP1bGfv1p
+ V/9adRrbbm4D7fgCm7wGSbwAAAA==
+X-Change-ID: 20261113-fixp-msbset-5965c14bcb9b
+To: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>
+Cc: dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org, 
+ Oarora Etimis <oaroraetimis@gmail.com>
+X-Mailer: b4 0.15.2
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -99,73 +89,75 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 X-Spam-Status: No, score=-15.8 required=3.0 tests=BAYES_00,DKIM_SIGNED,
-	DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
-	INCLUDES_CR_TRAILER,INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,
-	SPF_PASS autolearn=unavailable autolearn_force=no version=4.0.1
+	DKIM_VALID,DKIM_VALID_AU,FREEMAIL_FORGED_FROMDOMAIN,FREEMAIL_FROM,
+	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
+	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,USER_AGENT_GIT
+	autolearn=unavailable autolearn_force=no version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-On Mon Nov 16, 2026 at 11:50 PM CET, erebion wrote:
-> Enable the ADSP, CDSP, IPA and MPSS (Modem) nodes for the Xperia 10 III.
->
+Replace the loop with fls64() on the value with the sign folded away.
 
-Reviewed-by: Luca Weiss <luca.weiss@fairphone.com>
+Output is unchanged. The loop runs once per bit it has to skip, so a
+channel value takes it about 47 iterations and 347 executed
+instructions. The replacement is 6, and the work is one bit scan: bsr on
+x86-64, two bsrl on i386, clz on arm and riscv.
 
-> Signed-off-by: erebion <erebion@erebion.eu>
-> ---
->  .../dts/qcom/sm6350-sony-xperia-lena-pdx213.dts    | 24 ++++++++++++++++=
-++++++
->  1 file changed, 24 insertions(+)
->
-> diff --git a/arch/arm64/boot/dts/qcom/sm6350-sony-xperia-lena-pdx213.dts =
-b/arch/arm64/boot/dts/qcom/sm6350-sony-xperia-lena-pdx213.dts
-> index a393b7533ccbf..e8808865bf6fa 100644
-> --- a/arch/arm64/boot/dts/qcom/sm6350-sony-xperia-lena-pdx213.dts
-> +++ b/arch/arm64/boot/dts/qcom/sm6350-sony-xperia-lena-pdx213.dts
-> @@ -68,6 +68,12 @@ memory@fe901000 {
->  	};
->  };
-> =20
-> +&adsp {
-> +	firmware-name =3D "qcom/sm6350/Sony/lena/adsp.mbn";
-> +
-> +	status =3D "okay";
-> +};
-> +
->  &apps_rsc {
->  	regulators-0 {
->  		compatible =3D "qcom,pm6350-rpmh-regulators";
-> @@ -291,6 +297,12 @@ pm6150l_bob: bob {
->  	};
->  };
-> =20
-> +&cdsp {
-> +	firmware-name =3D "qcom/sm6350/Sony/lena/cdsp.mbn";
-> +
-> +	status =3D "okay";
-> +};
-> +
->  &gpi_dma0 {
->  	status =3D "okay";
->  };
-> @@ -316,6 +328,18 @@ touchscreen@48 {
->  	};
->  };
-> =20
-> +&ipa {
-> +	firmware-name =3D "qcom/sm6350/Sony/lena/ipa_fws.mbn";
-> +
-> +	status =3D "okay";
-> +};
-> +
-> +&mpss {
-> +	firmware-name =3D "qcom/sm6350/Sony/lena/modem.mbn";
-> +
-> +	status =3D "okay";
-> +};
-> +
->  &pm6150l_flash {
->  	status =3D "okay";
-> =20
+Signed-off-by: Oarora Etimis <oaroraetimis@gmail.com>
+---
+drm_fixp_msbset() walks from bit 62 down, one bit at a time, to find the
+highest bit that differs from the sign bit. fls64() returns the same
+value in one step.
 
+In the other users it is only called a few times, so the loop does not
+show. In vkms it runs for every channel of every pixel of every frame,
+and a channel value is 16 bits wide, so each run starts 47 compares from
+its answer.
+
+  Link: https://lore.kernel.org/20261108-lut-v1-0-f762d70ae4cd@gmail.com
+
+Fold the sign away and let the CPU find the highest set bit. The range
+drm_fixp_div() shifts by is unchanged, and the output is bit-identical.
+
+Counted with callgrind, gcc 16.2.1 at -O2 on x86-64, function body only.
+---
+ include/drm/drm_fixed.h | 9 +++------
+ 1 file changed, 3 insertions(+), 6 deletions(-)
+
+diff --git a/include/drm/drm_fixed.h b/include/drm/drm_fixed.h
+index 21d822aeed55..7dbe89ca30c6 100644
+--- a/include/drm/drm_fixed.h
++++ b/include/drm/drm_fixed.h
+@@ -28,6 +28,7 @@
+ #include <linux/math64.h>
+ #include <linux/types.h>
+ #include <linux/wordpart.h>
++#include <linux/bitops.h>
+ 
+ typedef union dfixed {
+ 	u32 full;
+@@ -121,13 +122,9 @@ static inline int drm_fixp2int_ceil(s64 a)
+ 
+ static inline unsigned drm_fixp_msbset(s64 a)
+ {
+-	unsigned shift, sign = (a >> 63) & 1;
++	u64 v = (a < 0) ? ~(u64)a : (u64)a;
+ 
+-	for (shift = 62; shift > 0; --shift)
+-		if (((a >> shift) & 1) != sign)
+-			return shift;
+-
+-	return 0;
++	return fls64(v | 1) - 1;
+ }
+ 
+ static inline s64 drm_fixp_mul(s64 a, s64 b)
+
+---
+base-commit: fc72cd52fb284f3707fa36a68ea5a22543a51d71
+change-id: 20261113-fixp-msbset-5965c14bcb9b
+
+Best regards,
+--  
+Oarora Etimis <oaroraetimis@gmail.com>
 
