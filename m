@@ -2,51 +2,44 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CD674606A323
-	for <dri-devel@archiver.kernel.org>; Tue, 17 Nov 2026 13:04:15 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0BCAD606A31C
+	for <dri-devel@archiver.kernel.org>; Tue, 17 Nov 2026 13:04:33 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=huawei.com header.i=@huawei.com header.a=rsa-sha256 header.s=dkim header.b=5pWdZoEl
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=bE5J5D0S
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 3CD3510F6E2;
-	Tue, 17 Nov 2026 13:04:10 +0000 (UTC)
-Received: from canpmsgout06.his.huawei.com (canpmsgout06.his.huawei.com
- [113.46.200.221])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 134BE10F6E3
- for <dri-devel@lists.freedesktop.org>; Tue, 17 Nov 2026 13:04:03 +0000 (UTC)
-dkim-signature: v=1; a=rsa-sha256; d=huawei.com; s=dkim;
- c=relaxed/relaxed; q=dns/txt; h=From;
- bh=SHJZaWrKHNhHUqos5xpllk63Yn/OQUNoxKtkvNvJ2EE=;
- b=5pWdZoEltFxbPMoef/xATCGqmi8k3EEg2rfUtIrPI+OOlZLeirFHp/bDmS4djZZ9hnHU/g8xZ
- 3JGhomXimyWBJ+DtzU4m1B3KenAr+nNEkhzZNpKFRfTj3j6M6Z0xvCJOxn7fgvfjgAJHSKnAzEy
- KcBPB26EM95gPqgrJYhS8Yw=
-Received: from mail.maildlp.com (unknown [172.19.163.0])
- by canpmsgout06.his.huawei.com (SkyGuard) with ESMTPS id 4jTQ0H62HSzRhTB;
- Tue, 17 Nov 2026 21:03:43 +0800 (CST)
-Received: from kwepemk200005.china.huawei.com (unknown [7.202.194.71])
- by mail.maildlp.com (Postfix) with ESMTPS id E0AB140561;
- Tue, 17 Nov 2026 21:03:57 +0800 (CST)
-Received: from [10.159.167.44] (10.159.167.44) by
- kwepemk200005.china.huawei.com (7.202.194.71) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.45; Tue, 17 Nov 2026 21:03:57 +0800
-Message-ID: <fd6919ff-393a-4d07-a138-e0d6d7ab0cdc@huawei.com>
-Date: Tue, 17 Nov 2026 21:03:55 +0800
-X-Archived-By: <archiver.kernel.org>
-MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH for drm-misc-fixes v4 2/2] drm/hisilicon/hibmc: Add a flag
- to indicate whether the OS-side driver has been loaded
-To: "sashiko-reviews@lists.linux.dev" <sashiko-reviews@lists.linux.dev>
-CC: "dri-devel@lists.freedesktop.org" <dri-devel@lists.freedesktop.org>
-References: <20261026060303.289737-1-shiyongbang@huawei.com>
- <20261026060303.289737-3-shiyongbang@huawei.com>
- <sashiko-outbox-184838@kernel.org>
-From: Yongbang Shi <shiyongbang@huawei.com>
-In-Reply-To: <sashiko-outbox-184838@kernel.org>
-Content-Type: text/plain; charset="UTF-8"; format=flowed
-Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: kwepems200001.china.huawei.com (7.221.188.67) To
- kwepemk200005.china.huawei.com (7.202.194.71)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 5EF3C10F6DF;
+	Tue, 17 Nov 2026 13:04:27 +0000 (UTC)
+Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id D09AA10F6DF
+ for <dri-devel@lists.freedesktop.org>; Tue, 17 Nov 2026 13:04:21 +0000 (UTC)
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+ by tor.source.kernel.org (Postfix) with ESMTP id 0E0FF601DD;
+ Tue, 17 Nov 2026 13:04:21 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5B07B1F000C4;
+ Tue, 17 Nov 2026 13:04:20 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+ s=k20260515; t=1794920660;
+ bh=nI2cgsAmA/JuxQGnB2pVceabASOqqzEJlK87ic5E+LQ=;
+ h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+ b=bE5J5D0SENvHxZUjar42icMfJylTWccN+96DT2vYPDxWEG9NlR8qjClXJFACvmnGi
+ fgjGACxXJVBqsx/AxBYf/LwcE8xZTGbrX7NrUnL5aJ7n3b27Gnop9sQ7ehOkjWmrbb
+ ZzxnQPoleqkW0MddXPVrfBkwFCYhkEKk7HUk59iNK4zmbe042+MaarV/Ja6t3hwzV3
+ 1YbG8nzBrG0hVwuCBM7ImUiMYz1pE2HD1SUK2UGLPh2NeCISjiV6HNUzKWSQJ9v8DS
+ C0OUB9RvT6TxBbT8CoMi2kHPi4/+MdowfkTVOz7AyeEBvkdDAPQIFZlWNMxy+xt5SC
+ 0TnCoG6aHhSDg==
+Message-ID: <sashiko-outbox-218833@kernel.org>
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v1 05/11] drm/panel: add LG SW43103 panel driver
+To: rofikkerneldev <rofikcoga@gmail.com>
+Cc: devicetree@vger.kernel.org, dri-devel@lists.freedesktop.org,
+ linux-input@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org,
+ dmitry.torokhov@gmail.com
+In-Reply-To: <20261117123946.668557-6-rofikcoga@gmail.com>
+References: <20261117123946.668557-1-rofikcoga@gmail.com>
+ <20261117123946.668557-6-rofikcoga@gmail.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Tue, 17 Nov 2026 13:04:19 +0000
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -57,85 +50,163 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
+Reply-To: sashiko-reviews@lists.linux.dev
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-12.3 required=3.0 tests=BAYES_00,DKIM_SIGNED,
-	DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_PATCH,
-	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,USER_AGENT_SANE_1
-	autolearn=unavailable autolearn_force=no version=4.0.1
+X-Spam-Status: No, score=-15.8 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
+	DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
+	INCLUDES_CR_TRAILER,INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,
+	SPF_PASS autolearn=ham autolearn_force=no version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
+X-Archived-By: <archiver.kernel.org>
 
-> Thank you for your contribution! Sashiko AI review found 1 potential issue(s) to consider:
-> - [High] drm/hisilicon/hibmc: unconditional enable flag set when DP init fails
-> --
-> 
-> commit 9960ec3a8f045c4b7198b1788310aca553de0cc3
-> Author: Lin He <helin52@huawei.com>
-> 
-> drm/hisilicon/hibmc: Add a flag to indicate whether the OS-side driver has been loaded
-> 
-> This commit adds a hardware register flag (HIBMC_ENABLE_STATE in
-> HIBMC_ENABLE_FLAG) to notify the BMC when the OS-side driver is loaded and
-> unloaded, preventing the BMC from enabling DP and triggering unhandled
-> interrupts before the driver is ready. It also introduces a spinlock to
-> serialize read-modify-write operations on the shared register.
-> 
->> diff --git a/drivers/gpu/drm/hisilicon/hibmc/hibmc_drm_drv.c b/drivers/gpu/drm/hisilicon/hibmc/hibmc_drm_drv.c
->> index df4501bb076bc..15583a2d1c6fd 100644
->> --- a/drivers/gpu/drm/hisilicon/hibmc/hibmc_drm_drv.c
->> +++ b/drivers/gpu/drm/hisilicon/hibmc/hibmc_drm_drv.c
-> 
-> [ ... ]
-> 
->> @@ -460,6 +486,8 @@ static int hibmc_pci_probe(struct pci_dev *pdev,
->>   		goto err_return;
->>   	}
->>   
->> +	hibmc_set_enable_flag(priv);
-> 
-> [Severity: High]
-> Should hibmc_set_enable_flag() be called unconditionally here if DP
-> initialization failed or if fewer than two MSI vectors were allocated?
-> 
-> In drivers/gpu/drm/hisilicon/hibmc/hibmc_drm_drv.c, hibmc_kms_init() treats
-> hibmc_dp_init() failures as non-fatal so that VDAC can still function:
-> 
-> 	ret = readl(priv->mmio + HIBMC_DP_HOST_SERDES_CTRL);
-> 	if (ret) {
-> 		ret = hibmc_dp_init(priv);
-> 		if (ret)
-> 			drm_err(dev, "failed to init dp: %d\n", ret);
-> 	}
-> 
-> Meanwhile, hibmc_msi_init() either allocates 2 MSI vectors and registers
-> hibmc_dp_interrupt and hibmc_dp_hpd_isr unconditionally, or succeeds with
-> HIBMC_MIN_VECTORS (1) without registering the DP interrupt handler at all.
-> 
-> If hibmc_set_enable_flag() is called unconditionally in hibmc_pci_probe()
-> and the BMC subsequently enables DP and triggers a DP interrupt:
-> 
-> 1. If hibmc_dp_init() failed before allocating priv->dp.dp_dev (or failed
->     in hibmc_dp_serdes_init() before clearing HIBMC_DP_INTR_ENABLE),
->     hibmc_dp_interrupt() calls hibmc_dp_get_hpd_status(&priv->dp), which
->     dereferences a NULL dp->dp_dev pointer in hard IRQ context.
-> 
-> 2. If hibmc_dp_init() failed during encoder or connector initialization,
->     priv->dp.connector.dev remains NULL, and the threaded handler
->     hibmc_dp_hpd_isr() calls drm_connector_helper_hpd_irq_event(),
->     dereferencing NULL.
-> 
-> 3. If pci_alloc_irq_vectors() only allocated 1 MSI vector, the DP interrupt
->     has no handler registered.
-> 
-> Would it be safer to only set HIBMC_ENABLE_STATE when DP has been
-> successfully initialized and its MSI vector is registered?
-> 
+Thank you for your contribution! Sashiko AI review found 4 potential
+issues to consider:
+- [High] drm/panel: username handle used instead of real name in DCO and
+  authorship
+- [Medium] drm/panel: sw43103_remove() calls sw43103_unprepare()
+  unconditionally
+- [Medium] drm/panel: sw43103: unsynchronized DSI transfers in
+  sw43103_backlight_update_status()
+- [Low] drm/panel: sw43103_enable() hardcodes full brightness before
+  backlight_enable()
+--
 
-Okay, I will add a new state to record the DP initialization status and check
-it when setting the flag.
+commit c8fd387b550027d7b2fde8a05702145f363e56ba
+Author: rofikkerneldev <rofikcoga@gmail.com>
 
-Thanks,
-Yongbang
+> drm/panel: add LG SW43103 panel driver
+>
+> Add support for the 1080x2460 SW43103 AMOLED panel. Handle power and
+> reset sequencing, DCS backlight control, and the DSC configuration
+> required by the panel.
+>
+> Signed-off-by: rofikkerneldev <rofikcoga@gmail.com>
 
+[Severity: High]
+Under Documentation/process/submitting-patches.rst and the Developer
+Certificate of Origin, patches must use a real human name rather than a
+username handle (rofikkerneldev) in the commit author, Signed-off-by tag,
+maintainer entry, and module author macro.
 
+> diff --git a/drivers/gpu/drm/panel/panel-lg-sw43103.c b/drivers/gpu/drm/p=
+anel/panel-lg-sw43103.c
+> new file mode 100644
+> index 0000000000000..caab54e0d1153
+> --- /dev/null
+> +++ b/drivers/gpu/drm/panel/panel-lg-sw43103.c
+[ ... ]
+> +static int sw43103_enable(struct drm_panel *panel)
+> +{
+> +	struct sw43103_panel *sw43103 =3D to_panel_info(panel);
+> +	struct mipi_dsi_multi_context ctx =3D { .dsi =3D sw43103->link };
+> +
+> +	/* Display On */
+> +	mipi_dsi_dcs_set_display_on_multi(&ctx);
+> +	mipi_dsi_msleep(&ctx, 20);
+> +
+> +	/* Enable display backlight control and full brightness */
+> +	mipi_dsi_dcs_write_seq_multi(&ctx, MIPI_DCS_WRITE_CONTROL_DISPLAY, 0x2c=
+);
+> +	mipi_dsi_dcs_write_seq_multi(&ctx, MIPI_DCS_SET_DISPLAY_BRIGHTNESS, 0x0=
+7, 0xff);
+> +
+> +	return ctx.accum_err;
+> +}
 
+[Severity: Low]
+Should sw43103_enable() leave brightness programming to the backlight
+device?
+
+drm_panel_enable() calls backlight_enable(panel->backlight) right after
+panel->funcs->enable(panel), which invokes sw43103_backlight_update_status()
+to write the control display register and the configured brightness
+(defaulting to 1024).  Hardcoding 0x07ff (2047) here duplicates those
+transfers and briefly flashes the panel at maximum brightness whenever the
+display is enabled at a lower brightness level.
+
+[ ... ]
+
+> +static int sw43103_backlight_update_status(struct backlight_device *bl)
+> +{
+> +	struct mipi_dsi_device *dsi =3D bl_get_data(bl);
+> +	u16 brightness =3D backlight_get_brightness(bl);
+> +	u8 ctrl =3D 0x2c;
+> +	int ret;
+> +
+> +	dsi->mode_flags &=3D ~MIPI_DSI_MODE_LPM;
+> +
+> +	ret =3D mipi_dsi_dcs_write(dsi, MIPI_DCS_WRITE_CONTROL_DISPLAY, &ctrl, =
+sizeof(ctrl));
+> +	if (ret < 0)
+> +		goto out;
+> +
+> +	ret =3D mipi_dsi_dcs_set_display_brightness_large(dsi, brightness);
+> +
+> +out:
+> +	dsi->mode_flags |=3D MIPI_DSI_MODE_LPM;
+> +
+> +	return ret < 0 ? ret : 0;
+> +}
+
+[Severity: Medium]
+Can a sysfs brightness write race with panel preparation or issue transfers
+while the panel is powered off?
+
+sw43103_backlight_init() registers the backlight device during probe, and
+backlight_device_set_brightness() calls sw43103_backlight_update_status()
+under only bd->ops_lock and bd->update_lock.  If userspace writes to sysfs
+while the panel is unprepared, mipi_dsi_dcs_write() runs while the panel is
+in reset or powered down.  If it writes during sw43103_prepare(), it also
+races on dsi->mode_flags:
+
+CPU0                              CPU1
+sw43103_prepare()
+  sw43103_program()
+    sw43103_init_sequence()
+                                  backlight_device_set_brightness()
+                                    sw43103_backlight_update_status()
+                                      dsi->mode_flags &=3D ~...
+    mipi_dsi_dcs_write_seq_multi()
+      /* sent in high-speed mode instead of low-power mode */
+
+Conversely, restoring the low-power mode flag at the end of
+sw43103_backlight_update_status() while sw43103_program() is sending the
+picture parameter set forces mipi_dsi_picture_parameter_set_multi() into
+low-power mode.
+
+[ ... ]
+
+> +static void sw43103_remove(struct mipi_dsi_device *dsi)
+> +{
+> +	struct sw43103_panel *ctx =3D mipi_dsi_get_drvdata(dsi);
+> +	int ret;
+> +
+> +	ret =3D sw43103_unprepare(&ctx->base);
+> +	if (ret < 0)
+> +		dev_err(&dsi->dev, "failed to unprepare panel: %d\n", ret);
+> +
+> +	ret =3D mipi_dsi_detach(dsi);
+> +	if (ret < 0)
+> +		dev_err(&dsi->dev, "failed to detach from DSI host: %d\n", ret);
+> +
+> +	drm_panel_remove(&ctx->base);
+> +}
+
+[Severity: Medium]
+Does calling sw43103_unprepare() directly in sw43103_remove() underflow the
+regulator enable counts?
+
+sw43103_unprepare() unconditionally calls regulator_bulk_disable() without
+checking or updating ctx->base.prepared.  If the panel is not prepared when
+the driver is unbound, regulator_bulk_disable() triggers an unbalanced
+regulator disable warning and returns -EIO; if the panel is prepared,
+powering it off before mipi_dsi_detach() and drm_panel_remove() leaves
+ctx->base.prepared set, causing modeset teardown to access an unpowered
+panel and disable the supplies a second time.  Removing the manual
+sw43103_unprepare() call lets the modeset driver tear the panel down
+cleanly.
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261117123946.6685=
+57-1-rofikcoga@gmail.com?part=3D5
