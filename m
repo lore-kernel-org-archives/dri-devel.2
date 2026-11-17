@@ -2,93 +2,133 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3D857606A32F
-	for <dri-devel@archiver.kernel.org>; Tue, 17 Nov 2026 16:43:50 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 62AEF606A32F
+	for <dri-devel@archiver.kernel.org>; Tue, 17 Nov 2026 16:43:54 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=baylibre.com header.i=@baylibre.com header.a=rsa-sha256 header.s=google header.b=mT7pcXVj
+	dkim=pass (2048-bit key) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.a=rsa-sha256 header.s=selector1-NXP1-onmicrosoft-com header.b=gBXmYVrB
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 9FB4D10E1E9;
-	Tue, 17 Nov 2026 16:43:44 +0000 (UTC)
-Received: from mail-yw1-f178.google.com (mail-yw1-f178.google.com
- [209.85.128.178])
- by gabe.freedesktop.org (Postfix) with ESMTPS id A9DA510E4E7
- for <dri-devel@lists.freedesktop.org>; Tue, 17 Nov 2026 13:39:56 +0000 (UTC)
-Received: by mail-yw1-f178.google.com with SMTP id
- 00721157ae682-8b30cbfa628so37046187b3.0
- for <dri-devel@lists.freedesktop.org>; Tue, 17 Nov 2026 05:39:56 -0800 (PST)
-ARC-Seal: i=1; a=rsa-sha256; t=1794922795; cv=none;
- d=google.com; s=arc-20260327;
- b=HJVpte4QBpr0X5CKJUWV6QlloWVFzBG65Xdod6BoSZdF3m4T26X94n96khVypek9In
- 3HkpfHgRmYPZ2cFO7brOW3N/pVu/vOxFkF4qdTr4oaytLRY/DuBkV+ptCTcguWl8Hg63
- Q/NzeFNP7yfSNMLkeTihEjeR0MM36GmMG2qqCDKuxT4iZyEhWIvzLg30uSyepIH1Fe1T
- 2wWli26Wit3mKwGzH6MMduf5b/07w6qJ/CTJ7A5EQzwcNGpGCwLR2lePWATVdqwfCL8l
- G7iiIdQXnzbXa5ktoC+mN6k7WrfNDeAngTwltgSEuN03aGde8gYwEF3fv8s+mKhlJSCh
- gXrg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com;
- s=arc-20260327; 
- h=cc:to:subject:message-id:date:from:in-reply-to:references
- :mime-version:dkim-signature;
- bh=XEzhtKNrfCwbhrVqfalLIfid6v0x/h6uA3CCCETLY9s=;
- fh=pxlLrVIc4sLR4KAm4EuYBq13sgawtemFVd5Eqtdoh2c=;
- b=Z12iwjUjxuFeCRScr0IHYBH/1MXx4nE07Ci81WhffWtwWgrJlu+RGUG5E+aNCyJJew
- av/8hmDirze7N7GmmlRrlUgfvzF2M6zZBcyFsQOC7zwiPtGWmXvMIkzHZxi+VpbMHEgK
- i3kIokYey8EQyV76x5AuaeXWZImIvVdD3HHS87WATDEhTBfzQLRtgFUdZd2pO4mLZU1I
- 6P43o8Ifv+g2dVXY3JRP5qaXMOUKJlK/jmC5NoVteI47ky4QdrovD4HlXMI586ZRyvtk
- kosglroYjf1aER2BktEop53MJMpIM/ecWT7AXU+uStoAJdBU5Z9hzmzd77sqKFR5LstU
- ADKg==; darn=lists.freedesktop.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=baylibre.com; s=google; t=1794922795; x=1795527595;
- darn=lists.freedesktop.org; 
- h=content-type:cc:to:subject:message-id:date:from:in-reply-to
- :references:mime-version:from:to:cc:subject:date:message-id:reply-to
- :content-type; bh=XEzhtKNrfCwbhrVqfalLIfid6v0x/h6uA3CCCETLY9s=;
- b=mT7pcXVjBhYNU4NUTpOnYJbiDsNAsDK8AybIZxOU6RiulZl3rWLfMkdSd3DY/DVlT0
- yLSYtbytgu4dMIu0Om8UnUPQmTU/Yr2hdo01ItTCo0ShGT8khL96CpmrifVQBdAoo1W1
- mZ2ACvLrUKT8IZ57pmE38wJklft2UTVGUKZiGAPFw0d+aFPH0hmIy5C6I76+B+qW2Nyz
- dwzWv/iDW7fWqPNyKxiVnGRmLff2y3gc5lfBVtBPz8Zay9grhwO7WO2QOOWlf0ZuNich
- xLGAPl4DkdwXDEIWqgaKz0EyWUSn2btz7P74Th738khQH4WcXbgbaVNj8AIOgUVq5g82
- dFiQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20260707; t=1794922795; x=1795527595;
- h=content-type:cc:to:subject:message-id:date:from:in-reply-to
- :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
- :subject:date:message-id:reply-to:content-type;
- bh=XEzhtKNrfCwbhrVqfalLIfid6v0x/h6uA3CCCETLY9s=;
- b=izmJfOYOYaaL33sKTbA+dfIZzUd3dvga3Wv2F4LFt2EgA9evD9HyhwxrS8Havjs5yj
- CSodR56LRASFvrgnfX3EOWh+FdS3BEZE8sFAnwHZNMSEs+BCL5qBxjaF9j0m200s1kaE
- sbmTPK4Dx1ot5JQJXQLu026O0/h74nuX5d6yVVhkNaDjDV4j5fxK08T7nfZ760YgGXd1
- G12bYix5OWZXbqPd2m2fWKEqrzEIufE7BiIPYiNt3ALy/46671LYdnkd9kznDb3lfeyG
- HhUwtzmcML0E4jrB02t33yeZL0+0HQxpPDqmrjgYoz8v2+uqA/OH15VlTQxZ0SoJECT0
- 5pFA==
-X-Forwarded-Encrypted: i=1;
- AL+hErFejNq9CSScQCSB0IzMlc16oqX7ZAwgp+Az/jqM809CmTjQ9es+JahxUHnNO+T4HREQblMAJmv6DBo=@lists.freedesktop.org
-X-Gm-Message-State: APuU4Z/L9RXQ3zpuNcB8LbPpCzjeF7BeZyt8fa21GwwizsepHij/Lzmk
- zua0s4bTJ4nuPn/o0pfZdteZP8rLvmdxxdUiY/VQV7eriEgq9TRjNowf+bBofgDpSxzIeNV9gr9
- Wc1WGEHtx4Y5NE8Ebe/48ikKYn6eEDmzZYuJ2nxGxAw==
-X-Gm-Gg: AZFdTZdK89Zh8e4/bhREeaM6H/zmZ9hWVdVTGtgjmD6tVGILd4Rw5vd2ZOe+9cOyO2b
- 5YmVH39Prl90jQdnET+OJ4GUoyadTXIc2kPN9XQMLlAyq7rUGzX0rXvQ8hA2i5uLVJMmE7rWXd3
- /7Za0xla97X87sgSOLNBPUGy9Lu/fW7nDVnPQslAZ3PXiP3itXjoqOK7K2i17wcjRQUGthuJ/SP
- qavAFaUyByMD1TRwPcUwPYf+oB+l4yUmBN7VnPxsuiGVV7n5UvMAJZjibbayNbQsvQOkJH34ODa
- ZC+jJizVz/0yDRs0c64ILwjT0ZJ7Yg/SiDggIGuL79g97RSoFknD9rt77m+8/LoexvoV9CvdHIE
- 4Le1l9fgCyVOS9IbUpcj/gryYNAxEArCGLkBYP7CfJ74uTvS+MFVuwtbYNxdCZmu9lkLsUQ==
-X-Received: by 2002:a05:690c:7487:b0:8b4:e258:408 with SMTP id
- 00721157ae682-8b4e25815d4mr25624007b3.58.1794922795328; Tue, 17 Nov 2026
- 05:39:55 -0800 (PST)
+	by gabe.freedesktop.org (Postfix) with ESMTP id AE1FD10EBCE;
+	Tue, 17 Nov 2026 16:43:48 +0000 (UTC)
+Received: from OSPPR02CU001.outbound.protection.outlook.com
+ (mail-norwayeastazon11013042.outbound.protection.outlook.com [40.107.159.42])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 43A6E10EBC1
+ for <dri-devel@lists.freedesktop.org>; Tue, 17 Nov 2026 16:14:04 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=D+uf5bdPsY8vGHxdeQnHYQiy9Z8RFuA7vzKkUy3e86PHif/slF5M+ZICw9Z+XqbJ+9DUBDLsM5AxucGIRlYaCawJp0jYNpl0/xPkvbIKHRt/7ORuecJ3kuuDao2psRHKuhpMN6uhokOT5nJ8Fk4gluY2sAp2VNWdzKEYcumecq3efQv/cEzutW7R8MzYETbcGAlDhTzZsQoRfuQlQAUo+ZPCGBBLgJFriQiVAWIFX6lrtTeuSCeTsQPtdrttrYHwz8VaieE5NepL9Oql6ZsNrwAqtFlnm98b++/Eyo/fXdkwpd5gv8q4P5mCqCuVCtBZdt5uI9lyoyvHboCZBQ+LkQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=TmIWIwzpvVPW5qWTRBA8J9URBFsswe1CcGXepVcKOrs=;
+ b=a2lBdXDPEoTrTohGsXwGPmK2+rKU0K/CvLzxPsUIwucnVlPnzHadXE5OUqBpRAHJokvsnWz27g7+U09MaLJyX/TfNjSDEtttyCiiaMJyuoyucTurbzo1zJAiSHLJradnKD3GfTAcd9QtVf8DAI/RCSyDojaSqK3JMjTyMMYGvhW1XBCpLK4UmJ+qJEx/f6vFT7MoEJLNTPsMLvUnTpEnPIZPrl3DuyMkmu8KbyVfAIDRsDgtoC0VbhBWypyu4MOf28SugpagkDqI5b4ohy9PxetMnlWeilRB9zmuYgSQBJ0h8gekV3z3P/VRvN68aXrecQAi6MKqLot7POToezVjgA==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=oss.nxp.com; dmarc=pass action=none header.from=oss.nxp.com;
+ dkim=pass header.d=oss.nxp.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=NXP1.onmicrosoft.com; 
+ s=selector1-NXP1-onmicrosoft-com;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=TmIWIwzpvVPW5qWTRBA8J9URBFsswe1CcGXepVcKOrs=;
+ b=gBXmYVrB77uV8DzTYJ9OiblmleUPQFksHcmpR3ao4KEpij46Y1GykIfqJryY4mkLBbVfF2daoY+MhwN+Cso1QKnk4LBOfnYxN542BnQ4WagTA8G4bbIDuBV5iiE+Chpn1vcMPTGd0YHjeJVEXL7GrnECxxOYOXt8Kw4hLxvIszKxpEMorEdwAjOKz826ny+7z5WqnoB6gTL8hrw8WwwY/L+wsROQUkxpvgJPgGCfMlERLoWpKdlmP1GpPp7H1YWgFYNaz/Tz/0qbTdpqZZ+znx4eBA2q+x2XHwBKdLcTVoO/ST7oSVAwicYToANTDKSNgVnYyR9o38nJ5usI8I02jQ==
+Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=oss.nxp.com;
+Received: from GV2PR04MB12318.eurprd04.prod.outlook.com
+ (2603:10a6:150:32b::19) by VI2PR04MB10114.eurprd04.prod.outlook.com
+ (2603:10a6:800:22d::15) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.615.14; Tue, 17 Nov
+ 2026 16:13:59 +0000
+Received: from GV2PR04MB12318.eurprd04.prod.outlook.com
+ ([fe80::a498:2b5a:cbdb:d6fa]) by GV2PR04MB12318.eurprd04.prod.outlook.com
+ ([fe80::a498:2b5a:cbdb:d6fa%3]) with mapi id 15.21.0615.013; Tue, 17 Nov 2026
+ 16:13:59 +0000
+From: Laurentiu Palcu <laurentiu.palcu@oss.nxp.com>
+To: Laurentiu Palcu <laurentiu.palcu@oss.nxp.com>, 
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
+ Frank Li <Frank.Li@nxp.com>, Sascha Hauer <s.hauer@pengutronix.de>, 
+ laixiangwu <laixiangwu@cmss.chinamobile.com>
+Cc: Lucas Stach <l.stach@pengutronix.de>, 
+ Pengutronix Kernel Team <kernel@pengutronix.de>, 
+ Fabio Estevam <festevam@gmail.com>, dri-devel@lists.freedesktop.org, 
+ imx@lists.linux.dev, linux-arm-kernel@lists.infradead.org, 
+ linux-kernel@vger.kernel.org
+In-Reply-To: <20261030111304.2205-1-laixiangwu@cmss.chinamobile.com>
+References: <20261030111304.2205-1-laixiangwu@cmss.chinamobile.com>
+Subject: Re: [PATCH v2] drm/imx/dcss: Fix clock leak on blkctl init failure
+Message-Id: <179493203722.1421468.4624148645241955168.b4-ty@b4>
+Date: Tue, 17 Nov 2026 18:13:57 +0200
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-Mailer: b4 0.16.0
+X-ClientProxiedBy: AM0PR02CA0158.eurprd02.prod.outlook.com
+ (2603:10a6:20b:28d::25) To GV2PR04MB12318.eurprd04.prod.outlook.com
+ (2603:10a6:150:32b::19)
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
-References: <20260301090411.171060-1-alok.a.tiwari@oracle.com>
-In-Reply-To: <20260301090411.171060-1-alok.a.tiwari@oracle.com>
-From: Daniel Drake <ddrake@baylibre.com>
-Date: Tue, 17 Nov 2026 13:39:18 +0000
-X-Gm-Features: AclHuK-xJBKk8oIlagpZz9dMYDJfPzx0wYA0Je59VMlIM_ymfYG-hgnFUEOhHWY
-Message-ID: <CAPGwodorzbF3YnCmdaPhK9JG+a1ioPda=qnh+r8H5JtigFQAQA@mail.gmail.com>
-Subject: Re: [PATCH] accel/ethosu propagate devm_drm_dev_alloc() error code
-To: Alok Tiwari <alok.a.tiwari@oracle.com>
-Cc: robh@kernel.org, tomeu@tomeuvizoso.net, ogabbay@kernel.org, 
- tzimmermann@suse.de, Frank.Li@nxp.com, dri-devel@lists.freedesktop.org, 
- alok.a.tiwarilinux@gmail.com
-Content-Type: text/plain; charset="UTF-8"
+X-MS-Exchange-MessageSentRepresentingType: 1
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: GV2PR04MB12318:EE_|VI2PR04MB10114:EE_
+X-MS-Office365-Filtering-Correlation-Id: b599c1e4-a183-4edf-77f2-08df44c5c98c
+X-MS-Exchange-SharedMailbox-RoutingAgent-Processed: True
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+ ARA:13230040|366016|376014|7416014|1800799024|19092799006|23010399003|18002099003|261009223027099003|22082099003|261022105027099003|261022075727099003|261028144727099003|261026140227099003|56012099006|11063799006|10067099003;
+X-Microsoft-Antispam-Message-Info: kn6Ga5ZDz92fArhWSXSPykmJz5DUS6lhG+FYRaH4asjctDp0s4osOerlLZXbVH0Oo9Ju6/Fo+y9aTvBb1nX4FkjYdFKlRIRgty1wcWgDXfOrfdCR0J0yAA6AVFlmLMrLJ5TMvvyN/STebOji4yrudSCYqaM306ANW4laIsgD+/ivoj6J7MsKe2Az9jIDMnjFH4j3F/OEOReWoY5WK2O1D8YyaYMv12RySLpkj5X+hageonKvmizNNVFLm47MQZcPW1qaDufquajLEN0W52qLGXv4LmC3m7Zk/khxysW+tYja+TcbNkoHsp6r9xVGqOOG7l8ZT3VK74rnsNKr6UgtxbvvXxp965+/O+Qu8wUM/VQnAgoKYpmjYOMjXdst/mkgA/AQVYSZ39OiJTly7gB1Xc31WiEg8zxVV1tZZrx4zd1AQe7HlFGgoC5fNgmrjFr8mZl03QkjFb7cJHDhlMZ5YE65EMjut79/NpI4fQ5kLkC9wdEIUi+MgH+1AQYeEmXY8R/WKR5nU9ohegyTpuEE5VTaP7eu8Ij5HVZJb00imlCkIUDFRLTuIeniMCLvn3HiUHg7/sOQnztQvoma+g7dUX3Ih9wPExNhOydEp7gVQZ4YK4DYylvNcA3q2TR5RjXhVgZCgdkXepSO7xPN34S404Zdl4cymy1ixxnbAaalQm0=
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:GV2PR04MB12318.eurprd04.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230040)(366016)(376014)(7416014)(1800799024)(19092799006)(23010399003)(18002099003)(261009223027099003)(22082099003)(261022105027099003)(261022075727099003)(261028144727099003)(261026140227099003)(56012099006)(11063799006)(10067099003);
+ DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?ZlBJNEhtTi9BUHRmRVdHY1ZtcGpick5UQzErbWVEMjJWQ3dUb3pXWURHTkhJ?=
+ =?utf-8?B?T1VlWXRlZUk0dTJLZytOeWd4RURyeVhXVDUxWjFrWEw2T3hwd2wwenFlbGtl?=
+ =?utf-8?B?NWVyakp1dks3NkdBZVNEcUROU3ovM3JKcjVsb3FXdGxlNUR1cTl6YnlmeHVl?=
+ =?utf-8?B?L0IzZnBod0lxaEZWS0tRMFR4NHJKSDluQ1NZNzdvS25ibDlzbmxNZWxhNUM1?=
+ =?utf-8?B?azBYemVIWXBBVmkzZnpNWkRhOXY3Q0pyZVN6bEt6R0JNTnovNXl0dGRaVkgx?=
+ =?utf-8?B?UlV0VGxETXUrRmN3T1pGZkE0c2liMnRGY25lSWRuMnUyL1F4QURWSytMczJu?=
+ =?utf-8?B?bnRhODlvcTVISmw5b3p5MWRoRk5zOFhXM0NNRFdvWCtDK1Via0pqdFVhWk1O?=
+ =?utf-8?B?YXEvUkYvaTZlSFIyTWc5dzZ4NGhoNXFDUkgxZFFVSmt5dUE0MEs2ajlZdE8z?=
+ =?utf-8?B?bDhQd0x0U0orWHIwMG80NC9uUXE5T0J2eGE4eGhNVmF6ZTVhMFRORy9ZaU9w?=
+ =?utf-8?B?UVdKQkF2UDhWUEpsYTd6NVdxTlAzTGVDQmhvSFFJcUU1b29OelNvT245WE5K?=
+ =?utf-8?B?UGhRNCsweWV4SGcxdVg0ejlPdFZ4cFZMVittLys4emYrZ3NYcGFLTzByOUVp?=
+ =?utf-8?B?KzNEK3cvNEgyNGJYZlEweVVSQVBnRGQ5VFRSTEpmTS9kaVNlOXF3OUNmeWll?=
+ =?utf-8?B?Qjl4Z1k2NkhzUWp1c2YyK2hQcW5sKzVYTFk1SDM1UXhNd1lUUks4cE5NZklN?=
+ =?utf-8?B?YnJkWWlBU2czSkZsVHM1b3kyeHhRdmxYMVR4b2o0TWJScEJZdDRaaElESXNZ?=
+ =?utf-8?B?MDZkVHlVUGVybnFOSksyVTVBcVFZc0JHNnNRNm5ONWFOeUQrQkJhZElodWRX?=
+ =?utf-8?B?Q1hDTWpxY3VLbkllUDZCeGdQTTkwQVVod2ZKekV4YWhJUStCWmhPd1FUS01E?=
+ =?utf-8?B?VkFldGQzVlJEYktjcHMzdVlRRU92T0xFbUpmaXdjUVBQUDQyQWRZYjJPelE2?=
+ =?utf-8?B?VG51ZmdqVnFVTjZudmpDYU1LeFlKWDRNa0JQY0xoaTJnR0RSUmlkbVJRalJB?=
+ =?utf-8?B?bDFleDJQNEcwaTYzWFhtbVFOOWFZSFE2S25hSDBsekZqV2IzQmprdTRPZUtO?=
+ =?utf-8?B?bE9SRjE0U25JNCs1YStvOEVsMnFOVHF6Tk5WWkI1azRCMmVicFQ3YlBSYnNk?=
+ =?utf-8?B?ZWpGNkxuNkJJcFVjZ0ZkYzdudDFNdDNONWROcW9CcURXbTJ2QkovWjlObVNR?=
+ =?utf-8?B?ejZxNHVhQ2VtUVFCT1U5Vmo5T0hxQWIvd0ZHeDlUNEJUQjJFVzVqUWNoY2hl?=
+ =?utf-8?B?MDNscnBNMmVSUStOYksvTVJqbkJESmNSNHJYalJmYXF0TkkySDM5aEY1MUNz?=
+ =?utf-8?B?c2tOOERlQ1lpeHhQbTMxOUJMVkFYRkJaWnBrcHorSGJqL01sNGFoMHA3UU5Q?=
+ =?utf-8?B?bGM2dVdNeTlZQ3l6ckJmSEd6NXRYWWFPUHFiSVNIemVqeHk4SE41dmFuOHZx?=
+ =?utf-8?B?VUVWQStVNHB0OXN6am9EOFB3R21lNGlxZXYwYW1VdkY1bnF1UDFzL1hUeTZv?=
+ =?utf-8?B?ZVpSVmNob3dmbFFibDVLUHY2Zjh3V1lNaU04eXY0ZUxTVWFyUGtUYTdhTk5M?=
+ =?utf-8?B?THlrUFUwUWtlUUtzdGRMVGtPN0FOTHNWcXBYWTdHbHlNdUdBOWVGSXoyeTRr?=
+ =?utf-8?B?T3l5N09vVWJaSmVmN2ZnRmcraFJGeGY5aFNCWUQ4UWVaNjl3L2tuM0h6bGtW?=
+ =?utf-8?B?TUIxTHZOWEw3WWlYSHpiL2grWVVMNVVHUzNnU2xLTEgzb1BHRlR4TWxQMlJy?=
+ =?utf-8?B?TE9INnlMckRmK01ySXVBMEtkUUZIMXBDcHh6QVh3dGxzclZ4dEpJbmEveENq?=
+ =?utf-8?B?RENRNXpuSzVEVncwUjJCTzBrYUp3T1ZiMXM3eUxWMzhlallkT0IrbFpNejJ1?=
+ =?utf-8?B?RGxvRFdPZFVQNnRWd0o0RjNvblgrL0g1aTNjZ0FQUzVVRXg1THJvcCsrMm5r?=
+ =?utf-8?B?R25tSDJBdlFxcUI2ajFCUXZZR1ZSWEl1ZzJlTFlMUGJneXhNQUtBMDNuVGxJ?=
+ =?utf-8?B?ME5STTcvSjNmSnU1c3BRVWlNQjlWUVdsN3NPUkNwUzAreFRvRWpWOVZ2RitU?=
+ =?utf-8?B?T0ZyL1dzcUpyU2tlN20zZWhCWWZ2MGo0c3lmZGZqNmltcXNUaXNOS0dNM2sw?=
+ =?utf-8?B?UDFYeXpTSWsvbGJFVllSTld0ek5NV05JZ3ZTRktZcjl4ZXJkTVRZQmcvVE8x?=
+ =?utf-8?B?czVVaE1mUm8yR2s4Y2lIZWFvUVlWbkRta0t4eTF4VjZwblZERzNNQjdtQWVq?=
+ =?utf-8?B?aWlHY0Rxand4bHh6aHNMc3locEZSRzRYTGNScGpicmgzUS9PUHVoVFE1aE9K?=
+ =?utf-8?Q?GbQSQxpa9AAXQpQI=3D?=
+X-OriginatorOrg: oss.nxp.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: b599c1e4-a183-4edf-77f2-08df44c5c98c
+X-MS-Exchange-CrossTenant-AuthSource: GV2PR04MB12318.eurprd04.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 17 Nov 2026 16:13:59.4464 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: HELt5Bbl+RByI9XchWPbSQsESV47Ts/biSeuG5+kLkfm4gkAMUZMrMhX+MfoXrIQb3nIkJBO7e9kx5x08cluYg==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: VI2PR04MB10114
 X-Mailman-Approved-At: Tue, 17 Nov 2026 16:43:43 +0000
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -101,20 +141,32 @@ List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-10.8 required=3.0 tests=BAYES_00,DKIM_SIGNED,
-	DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
-	INCLUDES_CR_TRAILER,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS
-	autolearn=ham autolearn_force=no version=4.0.1
+X-Spam-Status: No, score=-6.8 required=3.0 tests=BAYES_00,DKIM_SIGNED,
+	DKIM_VALID,HEADER_FROM_DIFFERENT_DOMAINS,MAILING_LIST_MULTI,
+	SPF_HELO_NONE,SPF_PASS,USER_AGENT_GIT autolearn=no autolearn_force=no
+	version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-On Tue, 17 Nov 2026 at 13:35, Alok Tiwari <alok.a.tiwari@oracle.com> wrote:
->
-> devm_drm_dev_alloc() returns an ERR_PTR() on failure. Use PTR_ERR() rather
-> than always returning -ENOMEM so the probe path propagates the real error
-> code such as -ENOMEM, -EINVAL, and -ENODEV.
->
-> Fixes: 5a5e9c0228e6 ("accel: Add Arm Ethos-U NPU driver")
-> Signed-off-by: Alok Tiwari <alok.a.tiwari@oracle.com>
 
-Reviewed-by: Daniel Drake <ddrake@baylibre.com>
+On Fri, 30 Oct 2026 19:13:03 +0800, laixiangwu wrote:
+> dcss_submodules_init() enables the DCSS clocks before initializing the
+> submodules, but if the first submodule (blkctl) fails to initialize the
+> function returns directly, without disabling the clocks again. All the
+> later error paths already jump to err_clocks, which calls
+> dcss_clocks_disable().
+> 
+> Since the clocks are only devm-managed for their reference (devm_clk_get),
+> a blkctl init failure leaves all five DCSS clocks prepared and enabled.
+> 
+> [...]
+
+Applied, thanks!
+
+[1/1] drm/imx/dcss: Fix clock leak on blkctl init failure
+      commit: 18e73878de68302508dbddbafeb5aef508640588
+
+Best regards,
+-- 
+Laurentiu Palcu <laurentiu.palcu@oss.nxp.com>
+
