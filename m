@@ -2,110 +2,43 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A91D2606A337
-	for <dri-devel@archiver.kernel.org>; Tue, 17 Nov 2026 14:19:57 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 39B50606A329
+	for <dri-devel@archiver.kernel.org>; Tue, 17 Nov 2026 14:20:10 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=fail reason="signature verification failed" (2048-bit key, unprotected) header.d=lechnology.com header.i=@lechnology.com header.a=rsa-sha256 header.s=default header.b=giCppwEF
+	dkim=fail reason="signature verification failed" (1024-bit key, unprotected) header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=BTBY2ZI5
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 91A6310F770;
-	Tue, 17 Nov 2026 14:19:51 +0000 (UTC)
-X-Greylist: delayed 989 seconds by postgrey-1.36 at gabe;
- Tue, 17 Nov 2026 14:19:44 UTC
-Received: from galaxy.gendns.com (galaxy.gendns.com [66.235.175.158])
- by gabe.freedesktop.org (Postfix) with ESMTPS id CEB8310F770
- for <dri-devel@lists.freedesktop.org>; Tue, 17 Nov 2026 14:19:44 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
- d=lechnology.com; s=default; h=Content-Transfer-Encoding:Content-Type:
- In-Reply-To:From:References:Cc:To:Subject:MIME-Version:Date:Message-ID:Sender
- :Reply-To:Content-ID:Content-Description:Resent-Date:Resent-From:
- Resent-Sender:Resent-To:Resent-Cc:Resent-Message-ID:List-Id:List-Help:
- List-Unsubscribe:List-Unsubscribe-Post:List-Subscribe:List-Post:List-Owner:
- List-Archive; bh=39rzAj/4pDYeQ2JH2iJHlSA0Dd//BUihQPwg2DX0n+4=; b=giCppwEFe7Lx
- YHKJYWhS6Xeo4iRMruc/1vL/9JXAAHkBn1craJpk1zaMqiM+4Pb2Pcyz0XyOxeM/9pNE0R1Teoso+
- tAHuO1Hel5jduXD9AR06rW7ktyawi8J3wmMBS0pMjKlOGR+EumxUalE/+elhd9uEYqQ5+Rhmci1A3
- ZFTDLI1Z9/H9/OZU/lv0LJSH/Xo1F9cUI/96EjPJnrQQufo/+qlLNWCB5fXpBfFWT4cnTvK44Wvl3
- TAQyb+Aatkic5+mEmQk/0ih3kcKAJAf1IK3Q3sGNPg19N5hGNIpnC8P68P11RhypJxtuyszQ+bkdW
- TJOV5xawNDgiyv6KqeXVLA==;
-Received: from ip98-183-112-25.ok.ok.cox.net ([98.183.112.25]:36628
- helo=[192.168.1.143])
- by galaxy.gendns.com with essmtpa  (TLS1.3) tls TLS_AES_128_GCM_SHA256
- (Exim 4.100.1) (envelope-from <david@lechnology.com>)
- id 1xTJmP-00000006u7X-061l; Tue, 17 Nov 2026 09:03:23 -0500
-Message-ID: <50cc4581-3717-4d64-bbe0-5d75bb6c1463@lechnology.com>
-Date: Tue, 17 Nov 2026 08:03:23 -0600
-X-Archived-By: <archiver.kernel.org>
-MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 30/64] drm/st7735r: Switch to
- drm_mode_config_create_initial_state
-To: Maxime Ripard <mripard@kernel.org>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+	by gabe.freedesktop.org (Postfix) with ESMTP id 4F68010F77A;
+	Tue, 17 Nov 2026 14:20:04 +0000 (UTC)
+Received: from mta0.migadu.com (out-195.mta0.migadu.com [91.218.175.195])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 284DF10F77A
+ for <dri-devel@lists.freedesktop.org>; Tue, 17 Nov 2026 14:19:56 +0000 (UTC)
+X-Envelope-To: dri-devel@lists.freedesktop.org
+DKIM-Signature: a=rsa-sha256; bh=jpoUrqEhZGtO1voo/V91CLK+zaKFJAgHFOTKKalt7GE=; 
+ c=simple/simple; d=linux.dev;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1794925195; v=1; x=1795529995;
+ b=BTBY2ZI5MqtapREnrmOO9d5EU3PgXaLjvspbG3UiNjxfZ2cV2lq2qA4gofBpodRIvWh4sjpl
+ 8ECTZtpZULbyIrBnRMBpyg3/wQR2apPv4kPwGmzXOVC6Py8NGvj2HpWGRcvHyTn2jvNl1P8wlz8
+ oV4tUlgDr6sU9Qqkpd97AyqE=
+X-Envelope-To: dri-devel@lists.freedesktop.org
+Received: by smtp.migadu.com with ESMTPS id 2adbb1d648220a4f;
+ Tue, 17 Nov 2026 14:19:55 +0000
+X-Mizu-Trace-ID: 2adbb1d648220a4f
+X-Migadu-Flow: FLOW_OUT
+From: Ruben Wauters <ruben.wauters@linux.dev>
+To: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>,
  Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>,
  Simona Vetter <simona@ffwll.ch>
-Cc: dri-devel@lists.freedesktop.org
-References: <20261116-drm-no-more-config-reset-v2-0-0bb471f4d1e0@kernel.org>
- <20261116-drm-no-more-config-reset-v2-30-0bb471f4d1e0@kernel.org>
-From: David Lechner <david@lechnology.com>
-Content-Language: en-US
-Autocrypt: addr=david@lechnology.com; keydata=
- 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
-In-Reply-To: <20261116-drm-no-more-config-reset-v2-30-0bb471f4d1e0@kernel.org>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-X-AntiAbuse: This header was added to track abuse,
- please include it with any abuse report
-X-AntiAbuse: Primary Hostname - galaxy.gendns.com
-X-AntiAbuse: Original Domain - lists.freedesktop.org
-X-AntiAbuse: Originator/Caller UID/GID - [47 12] / [47 12]
-X-AntiAbuse: Sender Address Domain - lechnology.com
-X-Get-Message-Sender-Via: galaxy.gendns.com: authenticated_id:
- davidmain+lechnology.com/only user confirmed/virtual account not confirmed
-X-Authenticated-Sender: galaxy.gendns.com: davidmain@lechnology.com
-X-Source: 
-X-Source-Args: 
-X-Source-Dir: 
+Cc: Ruben Wauters <ruben.wauters@linux.dev>, dri-devel@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org
+Subject: [PATCH] drm/gud: fix potential divide error due to optimisation
+Date: Tue, 17 Nov 2026 14:17:51 +0000
+Message-ID: <20261117141943.10540-1-ruben.wauters@linux.dev>
+X-Mailer: git-send-email 2.56.1
+X-Archived-By: <archiver.kernel.org>
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -117,19 +50,39 @@ List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-10.1 required=3.0 tests=BAYES_00,DKIM_INVALID,
+X-Spam-Status: No, score=-16.6 required=3.0 tests=BAYES_00,DKIM_INVALID,
 	DKIM_SIGNED,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,
-	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,USER_AGENT_SANE_1
-	autolearn=ham autolearn_force=no version=4.0.1
+	INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,
+	USER_AGENT_GIT autolearn=unavailable autolearn_force=no version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-On 11/16/26 4:30 AM, Maxime Ripard wrote:
-> drm_mode_config_reset() has a dual role: it creates the initial KMS
-> state at probe time, and resets hardware and software state during
-> suspend/resume cycles.
-> 
+Compilers can potentially optmise the read of gdrm->stats_actual_length
+to two separate reads. As flagged by sashiko, when the rect is flushed
+the stats_actual_length can reset to zero. If this was to occur between
+the two reads, the divide error can still be triggered (albeit rarely).
 
-Acked-by: David Lechner <david@lechnology.com>
+Fix this by adding a READ_ONCE around the gdrm->stats_actual_length
 
+Fixes: 431c2dffd2b7 ("drm/gud: avoid divide error in gud_stats_debugfs")
+Signed-off-by: Ruben Wauters <ruben.wauters@linux.dev>
+---
+ drivers/gpu/drm/gud/gud_drv.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/drivers/gpu/drm/gud/gud_drv.c b/drivers/gpu/drm/gud/gud_drv.c
+index cec5d64e152b..4854b30ea5ba 100644
+--- a/drivers/gpu/drm/gud/gud_drv.c
++++ b/drivers/gpu/drm/gud/gud_drv.c
+@@ -329,7 +329,7 @@ static int gud_stats_debugfs(struct seq_file *m, void *data)
+ 	seq_puts(m, "\n");
+ 
+ 	if (gdrm->compression) {
+-		u64 actual_length = gdrm->stats_actual_length;
++		u64 actual_length = READ_ONCE(gdrm->stats_actual_length);
+ 		u64 remainder;
+ 		u64 ratio, ratio_frac;
+ 
+-- 
+2.56.1
 
