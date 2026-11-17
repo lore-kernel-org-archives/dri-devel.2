@@ -2,79 +2,71 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EC4E6606A31C
-	for <dri-devel@archiver.kernel.org>; Wed, 18 Nov 2026 08:23:30 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DDCC8606A31C
+	for <dri-devel@archiver.kernel.org>; Wed, 18 Nov 2026 08:23:31 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=Nt3PK++7
+	dkim=pass header.d=erebion.eu header.i=@erebion.eu header.a=ed25519-sha256 header.s=202508e header.b=sz3wKmQ+;
+	dkim=pass (2048-bit key) header.d=erebion.eu header.i=@erebion.eu header.a=rsa-sha256 header.s=202508r header.b=GgEId5a1
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 5799310EBA7;
+	by gabe.freedesktop.org (Postfix) with ESMTP id C722110EBC2;
 	Wed, 18 Nov 2026 08:23:18 +0000 (UTC)
-Received: from mail-dy1-f172.google.com (mail-dy1-f172.google.com
- [74.125.82.172])
- by gabe.freedesktop.org (Postfix) with ESMTPS id E6B9010F9D9
- for <dri-devel@lists.freedesktop.org>; Tue, 17 Nov 2026 23:41:45 +0000 (UTC)
-Received: by mail-dy1-f172.google.com with SMTP id
- 5a478bee46e88-33bf40b0c8bso1158509eec.0
- for <dri-devel@lists.freedesktop.org>; Tue, 17 Nov 2026 15:41:45 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20260707; t=1794958905; x=1795563705; darn=lists.freedesktop.org;
- h=content-transfer-encoding:mime-version:message-id:date:subject:cc
- :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
- bh=m1Cjer+iNpU1iImlMMK+vYAvWTpXzGaSEtw1yB5pZVQ=;
- b=Nt3PK++7Cd/pKxzip3h5Dn8PDa+WS7L+wkqhPEKQGu79IKMXkMpAR7gAgqQkNLk1Iz
- cw1O8ppR7EhaJ88fNBOoEp2viwuWMsPRB3T1OIWTx9YHK/6y55UO1RhJdTM18ZC0hGJl
- /+elc881+IWhAtPorutd6RUDJ1jx8t8T88WCPLOArXhGbKfNDW5B6qxzGUKD856IGN6U
- /9c8syUu5pcdPjm9bG5V19s5vjzW7ItqEL0dFvfnfi3cd81Zs7eASmJg6XDzq38V8X8P
- HurwGO9Bq4i5EKHsI3q8T6w5F18ikhPfb6DKuOhGFbL0vqA5Kv4WFZKO44psZ0BGELBY
- H09A==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20260707; t=1794958905; x=1795563705;
- h=content-transfer-encoding:mime-version:message-id:date:subject:cc
- :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
- :message-id:reply-to:content-type;
- bh=m1Cjer+iNpU1iImlMMK+vYAvWTpXzGaSEtw1yB5pZVQ=;
- b=g8BSqA/Gi9JxEKTayGSHb2YVfgDxxxLXL3nHzVRkkvEQSYHPbssKhHChtBm7AtD47D
- 2bxfFbCGhAndMKkPR2GJKrmUwRNxpPxT3JC5sqhijGIv1dkD+h/nlb96CbbpxCd7KIBg
- oLMi92WMw7RZoYaT6RqPwfVuRQZw6wDeA4YCxsrM8Amwsp1oc7JSGrTXAV/F9uJ5xMvY
- FaElpVekXB1KBGJZnBS5oP4jNl+fQhmxI+mD0WjxlcdfkO53zuJSuvscpifhYlfs+eA+
- La9mgxFOKJyaPxhKr5Hi+hbpJV+zigBE7gv9f2F7640uoWCiqtVCEFf3F39WhD3UmqW6
- M/sQ==
-X-Forwarded-Encrypted: i=1;
- AL+hErEW5yRTfc5YyeVuwOm/Z1ETpr/Alfe1sN+9sUvxhAxaMqx6XdUqEOE+74xcLYPpmpgpLITlWIDDBRU=@lists.freedesktop.org
-X-Gm-Message-State: APuU4Z/IuRVeECklymCfoIkgAXindzqXNXjI50iZ01DF2iZ57tW7IPNW
- 0Wd/fXsS+aDWhgxsAJdKdi6MKC1jM/jaImZ6rMbBC7WOcPF86G5tukrPYhWcjU3W
-X-Gm-Gg: AYBFou13odJpcZRLiy3TGXrg5/59ShRNiugY9b4H/mxI7tzKAh9qTQZmUGitOhYLGxK
- +ZzHn6TbgZdWoIqCRsfvBuqrM/9XUI7AVWqrcnfdGLJIyObYyXwc9gBtY4alhAyH03WZx+v5LyN
- JOkghC5jGOTZ2bzY3gk+MriA7UIe9A7mI7a+iH8AdKe71sJplTdraO+9JiuRzEsA30dHtmbCyWe
- 4OXTl3gmKKie9CKgE+Ho3/LGnoIIIeel7oirbnRWSYLKjFI6RKQymOj9bdH5Pbei1mSUO2BXgj3
- qY4jiQZRbeyHqsnvjX5yjVciRRUCAaevLvblNL4qkA1dCzdrc/X+phfQS0qtCbuAC5GqzY2SzJr
- nc1QXJevC166wX+hgVN1J4i5oRZZ2HVnHZ9ZdfLB7tT7HroPRIuIusMzNjjxmfxMQbokQbXN01v
- i3rXoGMSfG5g0OFMS+Kpdoz8kxu9/7FfsVzQKmCMr1OIZnNFGKBiTt0RNHrI/2Uv13YJB1GvE0g
- YRhir/4Pz2ev4s43AJS+yjrJ0MRBEeJbihIh4a5rTbQbcqi/xk3y0R0SQ5BR8h+w+wg1RlkrvXn
- 1qitRfrtGymf9vb6XnLa4FpdXSd20fOTY477Dk3Tz0RgNdPH7NI2ond4lM7VoaBukUSemYY=
-X-Received: by 2002:a05:7022:7e83:b0:1b5:23c0:4f15 with SMTP id
- a92af1059eb24-1b543c3fd9amr1080809c88.39.1794958904954; 
- Tue, 17 Nov 2026 15:41:44 -0800 (PST)
-Received: from localhost.localdomain ([136.126.251.209])
- by smtp.gmail.com with ESMTPSA id
- a92af1059eb24-1b5447dc5e9sm2095199c88.11.2026.11.17.15.41.43
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Tue, 17 Nov 2026 15:41:44 -0800 (PST)
-From: Henry Zhang <henryzhang62@gmail.com>
-To: mripard@kernel.org,
-	dave.stevenson@raspberrypi.com,
-	mcanal@igalia.com
-Cc: kernel-list@raspberrypi.com, maarten.lankhorst@linux.intel.com,
- tzimmermann@suse.de, airlied@gmail.com, simona@ffwll.ch,
- dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
- henryzhang62@gmail.com
-Subject: [PATCH] drm/vc4: dsi: Register the PHY clock provider with devm
-Date: Tue, 17 Nov 2026 15:41:07 -0800
-Message-ID: <20261117234107.1298575-1-henryzhang62@gmail.com>
-X-Mailer: git-send-email 2.47.3
+Authentication-Results: gabe.freedesktop.org;
+	dkim=permerror (0-bit key) header.d=erebion.eu header.i=@erebion.eu header.b="sz3wKmQ+";
+	dkim=temperror (0-bit key) header.d=erebion.eu header.i=@erebion.eu header.b="GgEId5a1";
+	dkim-atps=neutral
+Received: from erebion.eu (erebion.eu [142.132.183.134])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 8995610E62D
+ for <dri-devel@lists.freedesktop.org>; Tue, 17 Nov 2026 18:16:36 +0000 (UTC)
+DKIM-Signature: v=1; a=ed25519-sha256; s=202508e; d=erebion.eu;
+ c=relaxed/relaxed; r=y; 
+ h=From:To:Subject:Date:Message-ID; t=1794939390; bh=tAFphuNZhSMbXbrfeyiF5cR
+ g1vQ1G5E1UchQJDp49uM=; b=sz3wKmQ+4jyhpUeg8eBoRjZrUVtKSlSbP4ku5TcA8jfrDe7AXn
+ IAd8CTJ0Y1DixtC0fQp3rhKkAi8iUzjfU3DQ==;
+DKIM-Signature: v=1; a=rsa-sha256; s=202508r; d=erebion.eu; c=relaxed/relaxed;
+ r=y; 
+ h=From:To:Subject:Date:Message-ID; t=1794939390; bh=tAFphuNZhSMbXbrfeyiF5cR
+ g1vQ1G5E1UchQJDp49uM=; b=GgEId5a1Mn8eD2a2afWfliHlYTqly+FWA4sHjHZj8Z7xNlyw3z
+ UsaGDphUM1pVQUZ830/KWZdO8FHJRqWAU66/v1tCrSeQv+t4Spezrx81vc7M1T2mWx2OFXAr5jI
+ PX+qX0jElWKpRXaK4T7j42yTGJpCYlKjPw+hjm7MuW2F+ZIRrbE1DWjT1AjmB5BzSsbbyX6jgrx
+ TpaFMo7dbKUHIhyWTkEgO4n4e0FrzGppISM8cUhH6w6YvsFwXGhvgti4Xypbo9MZq+MAuNS+AB3
+ 3yGJO8Tx4zUfg7DAxebZgV1PNGo48ErkHzKfczGxd2dtZt5J+NE2ondo7wUufDpXWMg==;
+Message-ID: <4f63673e-67c8-4f68-b3f5-82a0579e2b49@erebion.eu>
+Date: Tue, 17 Nov 2026 19:16:29 +0100
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v5 12/12] arm64: dts: qcom: sm6350-lena: enable remaining
+ i2c busses
+Content-Language: en-GB
+To: Luca Weiss <luca.weiss@fairphone.com>,
+ Neil Armstrong <neil.armstrong@linaro.org>,
+ Jessica Zhang <jesszhan0024@gmail.com>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ Bjorn Andersson <andersson@kernel.org>,
+ Konrad Dybcio <konradybcio@kernel.org>, Rob Herring <robh@kernel.org>,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>
+Cc: linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org,
+ linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org,
+ phone-devel@vger.kernel.org, Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
+References: <20261116-pdx213-upstream-3-v5-0-7318a19806eb@erebion.eu>
+ <20261116-pdx213-upstream-3-v5-12-7318a19806eb@erebion.eu>
+ <DMXH52GLPXUT.236KX5W7LSRY7@fairphone.com>
+From: erebion <erebion@erebion.eu>
+Autocrypt: addr=erebion@erebion.eu; keydata=
+ xjMEY7S2FRYJKwYBBAHaRw8BAQdAUf0YlT6sBQSunZeO44bgAPe+ndqTifGaNjw7vzJ2KPHN
+ HGVyZWJpb24gPGVyZWJpb25AZXJlYmlvbi5ldT7CjwQTFggANxYhBJyMprURw7/YpjH7646v
+ QDJuAq59BQJpWnovBQkHhhzbAhsDBAsJCAcFFQgJCgsFFgIDAQAACgkQjq9AMm4Crn057AEA
+ j3didUIhbtAoppk2eNu6CbtMvkDisHWHVLaWF8YC1VsA/1P0ngBoVghELMachirfTinwBplJ
+ qP7GGlSGRqSfnlAKzjgEY7S2FRIKKwYBBAGXVQEFAQEHQN6NPWcyqKdecGU1vN8FVXBwYEUd
+ OAhF5jpmd7M0Ybx8AwEIB8J+BBgWCAAmFiEEnIymtRHDv9imMfvrjq9AMm4Crn0FAmlaei8F
+ CQeGHNsCGwwACgkQjq9AMm4Crn075QEAoDqfm4OeAEQWMgfQ496u2S3rWJw1EMgTOP51FQbX
+ rY4BAKn6AhEBh605uas3OTVtcwNIAJn1sHTA7HqqWniUe9sP
+In-Reply-To: <DMXH52GLPXUT.236KX5W7LSRY7@fairphone.com>
+Content-Type: multipart/signed; micalg=pgp-sha256;
+ protocol="application/pgp-signature";
+ boundary="------------IZh0FgOC0Mzl8kpWZefDdfl9"
 X-Mailman-Approved-At: Wed, 18 Nov 2026 08:23:05 +0000
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -87,81 +79,76 @@ List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-15.8 required=3.0 tests=BAYES_00,DKIM_SIGNED,
-	DKIM_VALID,DKIM_VALID_AU,FREEMAIL_FORGED_FROMDOMAIN,FREEMAIL_FROM,
-	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
-	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,USER_AGENT_GIT
-	autolearn=unavailable autolearn_force=no version=4.0.1
+X-Spam-Status: No, score=-12.3 required=3.0 tests=BAYES_00,DKIM_SIGNED,
+	DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
+	INCLUDES_CR_TRAILER,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,
+	USER_AGENT_SANE_1 autolearn=unavailable autolearn_force=no
+	version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-vc4_dsi_init_phy_clocks() is called from the component bind. It
-allocates the clock data with devm_kzalloc() and registers the clocks
-with devm_clk_hw_register(), so both are released with the devres group
-that the component framework opens for the bind, when the bind fails
-later or the component is unbound. The OF clock provider that points at
-that data is added with of_clk_add_hw_provider() and never removed:
-after an unbind it stays registered with the freed data, and each new
-bind adds another provider for the same node. A later lookup of one of
-these clocks, such as <&dsi1 0>, would call of_clk_hw_onecell_get() on
-freed memory.
+This is an OpenPGP/MIME signed message (RFC 4880 and 3156)
+--------------IZh0FgOC0Mzl8kpWZefDdfl9
+Content-Type: multipart/mixed; boundary="------------sDXDqMcp6Uq300MvD41ZVktY";
+ protected-headers="v1"; hp="clear"
+Message-ID: <4f63673e-67c8-4f68-b3f5-82a0579e2b49@erebion.eu>
+Date: Tue, 17 Nov 2026 19:16:29 +0100
+MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v5 12/12] arm64: dts: qcom: sm6350-lena: enable remaining
+ i2c busses
+Content-Language: en-GB
+To: Luca Weiss <luca.weiss@fairphone.com>,
+ Neil Armstrong <neil.armstrong@linaro.org>,
+ Jessica Zhang <jesszhan0024@gmail.com>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ Bjorn Andersson <andersson@kernel.org>,
+ Konrad Dybcio <konradybcio@kernel.org>, Rob Herring <robh@kernel.org>,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>
+Cc: linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org,
+ linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org,
+ phone-devel@vger.kernel.org, Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
+References: <20261116-pdx213-upstream-3-v5-0-7318a19806eb@erebion.eu>
+ <20261116-pdx213-upstream-3-v5-12-7318a19806eb@erebion.eu>
+ <DMXH52GLPXUT.236KX5W7LSRY7@fairphone.com>
+From: erebion <erebion@erebion.eu>
+Autocrypt: addr=erebion@erebion.eu; keydata=
+ xjMEY7S2FRYJKwYBBAHaRw8BAQdAUf0YlT6sBQSunZeO44bgAPe+ndqTifGaNjw7vzJ2KPHN
+ HGVyZWJpb24gPGVyZWJpb25AZXJlYmlvbi5ldT7CjwQTFggANxYhBJyMprURw7/YpjH7646v
+ QDJuAq59BQJpWnovBQkHhhzbAhsDBAsJCAcFFQgJCgsFFgIDAQAACgkQjq9AMm4Crn057AEA
+ j3didUIhbtAoppk2eNu6CbtMvkDisHWHVLaWF8YC1VsA/1P0ngBoVghELMachirfTinwBplJ
+ qP7GGlSGRqSfnlAKzjgEY7S2FRIKKwYBBAGXVQEFAQEHQN6NPWcyqKdecGU1vN8FVXBwYEUd
+ OAhF5jpmd7M0Ybx8AwEIB8J+BBgWCAAmFiEEnIymtRHDv9imMfvrjq9AMm4Crn0FAmlaei8F
+ CQeGHNsCGwwACgkQjq9AMm4Crn075QEAoDqfm4OeAEQWMgfQ496u2S3rWJw1EMgTOP51FQbX
+ rY4BAKn6AhEBh605uas3OTVtcwNIAJn1sHTA7HqqWniUe9sP
+In-Reply-To: <DMXH52GLPXUT.236KX5W7LSRY7@fairphone.com>
 
-Use devm_of_clk_add_hw_provider(), so that the provider is removed with
-the same devres group, before the clocks and their data.
+--------------sDXDqMcp6Uq300MvD41ZVktY
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: base64
 
-The analysis, this change and this description were prepared with the
-help of an AI coding assistant (Claude Code).
+T24gMTEvMTcvMjYgMTM6MTEsIEx1Y2EgV2Vpc3Mgd3JvdGU6DQo+IElmIHlvdSByZXNlbmQs
+IGFkZCBhIG5ld2xpbmUgYmVmb3JlICdzdGF0dXMnLCBhbHNvIHdpdGggaTJjMTANCj4gDQo+
+IFJldmlld2VkLWJ5OiBMdWNhIFdlaXNzIDxsdWNhLndlaXNzQGZhaXJwaG9uZS5jb20+DQpU
+aGFua3MsIHdpbGwgYWxzbyBkbyB0aGF0IHdpdGggaTJjOC4NCg0KLS0gDQplcmViaW9uDQoN
+ClhNUFA6IGVyZWJpb25AZXJlYmlvbi5ldQ0KDQpBY2NlcHRlZCBsYW5ndWFnZXM6IEdlcm1h
+biwgRW5nbGlzaCwgU3dlZGlzaCwgTm9yd2VnaWFuLCBEYW5pc2gNCg0K
 
-Fixes: 4078f5757144 ("drm/vc4: Add DSI driver")
-Signed-off-by: Henry Zhang <henryzhang62@gmail.com>
----
-Found by the Sashiko review of
-<20261117205902.1293962-1-henryzhang62@gmail.com>; independent of that
-patch.
+--------------sDXDqMcp6Uq300MvD41ZVktY--
 
-Testing:
+--------------IZh0FgOC0Mzl8kpWZefDdfl9
+Content-Type: application/pgp-signature; name="OpenPGP_signature.asc"
+Content-Description: OpenPGP digital signature
+Content-Disposition: attachment; filename="OpenPGP_signature.asc"
 
-- On this base (drm-misc-next 467ac0b56aeb): arm64, DRM_VC4=m, W=1, no
-  new warnings.
+-----BEGIN PGP SIGNATURE-----
 
-- On a Raspberry Pi 4 with a downstream 6.18.34 kernel and an
-  out-of-tree modular DSI panel driver, with kprobes on the provider
-  functions, reloading the panel driver (which unbinds and binds vc4):
-  - without the change, each bind adds a provider for the DSI node and
-    nothing removes it;
-  - with the change, each unbind removes it (from devres_release_group()
-    in component_unbind()), each bind adds one, and the DSI PHY clocks
-    are back after each bind;
-  - a bind that fails after the provider is added (with the old DRM
-    device held open, on a kernel that also has a backport of "drm/vc4:
-    dsi: Allocate the encoder per DRM device", where the bind fails in
-    drm_bridge_attach()) removes it again (devres_release_group() in
-    component_bind_all()), and binding again after the old DRM device is
-    closed works.
-  No warnings. In these tests no clock lookup went to the DSI node, so a
-  lookup on a stale provider was not reproduced.
+wnsEABYIACMWIQScjKa1EcO/2KYx++uOr0AybgKufQUCavyZ/QUDAAAAAAAKCRCOr0AybgKufZVv
+AP44LNpwUJ4lzteMf21W5HgTm9u1oF/uAYdWgeHUv075HAD/WfEs1NmlCuXud45L6MnvzXwZ8RdY
+ASC3DDAvI4RpzQU=
+=hO4x
+-----END PGP SIGNATURE-----
 
- drivers/gpu/drm/vc4/vc4_dsi.c | 5 ++---
- 1 file changed, 2 insertions(+), 3 deletions(-)
-
-diff --git a/drivers/gpu/drm/vc4/vc4_dsi.c b/drivers/gpu/drm/vc4/vc4_dsi.c
-index ec008f766..ed99cec9f 100644
---- a/drivers/gpu/drm/vc4/vc4_dsi.c
-+++ b/drivers/gpu/drm/vc4/vc4_dsi.c
-@@ -1592,9 +1592,8 @@ vc4_dsi_init_phy_clocks(struct vc4_dsi *dsi)
- 		dsi->clk_onecell->hws[i] = &fix->hw;
- 	}
- 
--	return of_clk_add_hw_provider(dev->of_node,
--				      of_clk_hw_onecell_get,
--				      dsi->clk_onecell);
-+	return devm_of_clk_add_hw_provider(dev, of_clk_hw_onecell_get,
-+					   dsi->clk_onecell);
- }
- 
- static void vc4_dsi_dma_mem_release(void *ptr)
-
-base-commit: 467ac0b56aebc804360f276feffbc9032c265a6e
--- 
-2.47.3
-
+--------------IZh0FgOC0Mzl8kpWZefDdfl9--
