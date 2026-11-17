@@ -2,43 +2,108 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A1523606A336
-	for <dri-devel@archiver.kernel.org>; Tue, 17 Nov 2026 14:28:29 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B2B07606A331
+	for <dri-devel@archiver.kernel.org>; Tue, 17 Nov 2026 14:30:20 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ZOssXA88
+	dkim=fail reason="signature verification failed" (2048-bit key) header.d=lechnology.com header.i=@lechnology.com header.a=rsa-sha256 header.s=default header.b=FwC/WrNw
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id C6D7110F781;
-	Tue, 17 Nov 2026 14:28:23 +0000 (UTC)
-Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id BE14710F781;
- Tue, 17 Nov 2026 14:28:17 +0000 (UTC)
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id 4A0C240E58;
- Tue, 17 Nov 2026 14:28:17 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id F01811F000C4;
- Tue, 17 Nov 2026 14:28:16 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1794925697;
- bh=MA0c4cOneuLD32OwZl6gBBL6dzZ926okDKSMQXY4r58=;
- h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
- b=ZOssXA888MLYjaeNsORoNLErnOWOfwdXcJSpUOOWAK4mCYDPpUjCQeYd22zON1yo3
- Aou7QF9GFQhHr9hWZ/qdjKexyb/IOT6PD0sZKXdcaH3fL89vl7451yhDid1p5UoUQW
- JWpuTXHFai3v9W3OdfdD9fI5u3ytCouh/7eihXO6y0u5cQjVX359kabzTnOxt7CxtO
- bM5gSC0z0lVZdzBn5PUy6nSf9gCWLZfLaQXwjMQjnjJUw6CXkr1tI+upP4hBmekoSr
- pub95e1YyGhjwFiFDNZDs1F2nQ09FazDHAN7jfAy9pMez75aQ5CpH/IS90DrC+Ioy+
- MhN6bqy0TfH2g==
-Message-ID: <sashiko-outbox-218965@kernel.org>
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v2 05/10] drm/amdgpu: Track dirty bo_va structures in
- update ctx
-To: "Natalie Vock" <nat@pixelcluster.dev>
-Cc: amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org
-In-Reply-To: <20261117-prt-explicit-sync-v2-5-bb3851cb6a0c@pixelcluster.dev>
-References: <20261117-prt-explicit-sync-v2-0-bb3851cb6a0c@pixelcluster.dev>
- <20261117-prt-explicit-sync-v2-5-bb3851cb6a0c@pixelcluster.dev>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Tue, 17 Nov 2026 14:28:16 +0000
+	by gabe.freedesktop.org (Postfix) with ESMTP id F083010F79F;
+	Tue, 17 Nov 2026 14:30:14 +0000 (UTC)
+Received: from galaxy.gendns.com (galaxy.gendns.com [66.235.175.158])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 7D59110F79F
+ for <dri-devel@lists.freedesktop.org>; Tue, 17 Nov 2026 14:30:08 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+ d=lechnology.com; s=default; h=Content-Transfer-Encoding:Content-Type:
+ In-Reply-To:From:References:Cc:To:Subject:MIME-Version:Date:Message-ID:Sender
+ :Reply-To:Content-ID:Content-Description:Resent-Date:Resent-From:
+ Resent-Sender:Resent-To:Resent-Cc:Resent-Message-ID:List-Id:List-Help:
+ List-Unsubscribe:List-Unsubscribe-Post:List-Subscribe:List-Post:List-Owner:
+ List-Archive; bh=NEXSRuHtRJ7xS7JVBJqm6ipPUfTuNazZ6S5c2YlaCF4=; b=FwC/WrNwUdPR
+ g9IMM6dIAKs66vKvqcGXh9EUoQYHpc32K1B3kBUiG4NBfUyEq58zQ1HdzCu6RdJPsp7kBpaeGt6NB
+ XpkA2ybafMqzH6reIbKMuUtT9gpUQpCJBrwrtawIo+jqjtv5wGPStEVEdJZR5t6aU9TRQgEsIZRMT
+ x5Dx7ncg8y5p70bTeECRso1h1ECn8mazd7h1Udbc8meSVcW4xpGrJvNkxu+WxKdhfLQMDc33WRJGM
+ ynk9ZWdJUVuOu3j7ZBRHFp8A6ApG+DpruosKa73L0qmOj/0X7vpRubpqJZZNkOjGZavsqVAHPvqAK
+ +wdgzhIh1fvQLBhfqDrJ/g==;
+Received: from ip98-183-112-25.ok.ok.cox.net ([98.183.112.25]:33000
+ helo=[192.168.1.143])
+ by galaxy.gendns.com with essmtpa  (TLS1.3) tls TLS_AES_128_GCM_SHA256
+ (Exim 4.100.1) (envelope-from <david@lechnology.com>)
+ id 1xTJmY-00000006uDN-3QBr; Tue, 17 Nov 2026 09:03:33 -0500
+Message-ID: <70214fa3-2781-412f-bf43-4a2c88bbc8c3@lechnology.com>
+Date: Tue, 17 Nov 2026 08:03:33 -0600
+X-Archived-By: <archiver.kernel.org>
+MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2 50/64] drm/ili9225: Switch to
+ drm_mode_config_create_initial_state
+To: Maxime Ripard <mripard@kernel.org>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>,
+ Simona Vetter <simona@ffwll.ch>
+Cc: dri-devel@lists.freedesktop.org
+References: <20261116-drm-no-more-config-reset-v2-0-0bb471f4d1e0@kernel.org>
+ <20261116-drm-no-more-config-reset-v2-50-0bb471f4d1e0@kernel.org>
+From: David Lechner <david@lechnology.com>
+Content-Language: en-US
+Autocrypt: addr=david@lechnology.com; keydata=
+ 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
+In-Reply-To: <20261116-drm-no-more-config-reset-v2-50-0bb471f4d1e0@kernel.org>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+X-AntiAbuse: This header was added to track abuse,
+ please include it with any abuse report
+X-AntiAbuse: Primary Hostname - galaxy.gendns.com
+X-AntiAbuse: Original Domain - lists.freedesktop.org
+X-AntiAbuse: Originator/Caller UID/GID - [47 12] / [47 12]
+X-AntiAbuse: Sender Address Domain - lechnology.com
+X-Get-Message-Sender-Via: galaxy.gendns.com: authenticated_id:
+ davidmain+lechnology.com/only user confirmed/virtual account not confirmed
+X-Authenticated-Sender: galaxy.gendns.com: davidmain@lechnology.com
+X-Source: 
+X-Source-Args: 
+X-Source-Dir: 
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -49,158 +114,18 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
-Reply-To: sashiko-reviews@lists.linux.dev
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-10.8 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
-	DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
-	INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS
-	autolearn=unavailable autolearn_force=no version=4.0.1
+X-Spam-Status: No, score=-10.1 required=3.0 tests=BAYES_00,DKIM_INVALID,
+	DKIM_SIGNED,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,
+	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,USER_AGENT_SANE_1
+	autolearn=ham autolearn_force=no version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
-X-Archived-By: <archiver.kernel.org>
 
-Thank you for your contribution! Sashiko AI review found 3 potential
-issues to consider:
-- [High] drm/amdgpu: UAF on bo_va in amdgpu_vm_update_ctx_fini() after
-  amdgpu_vm_bo_del()
-- [High] drm/amdgpu: skipped delete in
-  amdgpu_vm_update_ctx_add_freed_mapping()
-- [Low] drm/amdgpu: update_link placed under wrong lock comment in
-  amdgpu_bo_va
---
+On 11/16/26 4:31 AM, Maxime Ripard wrote:
+> drm_mode_config_reset() has a dual role: it creates the initial KMS
+> state at probe time, and resets hardware and software state during
+> suspend/resume cycles.
+> 
 
-commit 3f1753904c640653510160bf642992a7a55fbc3d
-Author: Natalie Vock <nat@pixelcluster.dev>
-
-drm/amdgpu: Track dirty bo_va structures in update ctx
-
-This commit adds an update_link list head to struct amdgpu_bo_va and tracks
-modified bo_va structures in a dirty_bo_vas list on struct amdgpu_vm_update=
-_ctx.
-
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_object.h b/drivers/gpu/drm=
-/amd/amdgpu/amdgpu_object.h
-> index e0090dc10682f..068c57ed537fd 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_object.h
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_object.h
-> @@ -80,6 +80,8 @@ struct amdgpu_bo_va {
->  	/* protected by bo being reserved */
->  	unsigned			ref_count;
-> =20
-> +	struct list_head		update_link;
-> +
->  	/* all other members protected by the VM PD being reserved */
->  	struct dma_fence	        *last_pt_update;
-> =20
-
-[Severity: Low]
-Should update_link be placed below the "all other members protected by the =
-VM
-PD being reserved" comment?  It is modified by the update_ctx helpers while
-only the VM PD reservation lock is held, including when the individual BO is
-NULL (such as fpriv->prt_va) or not reserved (when clearing overlapping
-mappings of other BOs in the VM).
-
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c b/drivers/gpu/drm/amd=
-/amdgpu/amdgpu_vm.c
-> index 1e2d45979efdb..330c288053352 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c
-
-[ ... ]
-
-> @@ -1733,8 +1735,10 @@ static void
->  amdgpu_vm_update_ctx_add_freed_mapping(struct amdgpu_vm_update_ctx *ctx,
->  				       struct amdgpu_bo_va_mapping *mapping)
->  {
-> -	WARN_ON(!list_empty(&mapping->pending_list));
-> -	list_add(&mapping->pending_list, &ctx->deleted);
-> +	if (list_empty(&mapping->bo_va->update_link))
-> +		list_add(&mapping->bo_va->update_link, &ctx->dirty_bo_vas);
-> +	if (list_empty(&mapping->pending_list))
-> +		list_add(&mapping->pending_list, &ctx->deleted);
->  }
-
-[Severity: High]
-Can skipping list_add(&mapping->pending_list, &ctx->deleted) when
-mapping->pending_list is non-empty leave freed mappings in vm->va?
-
-Within one update_ctx, amdgpu_vm_bo_clear_mappings() and
-amdgpu_vm_bo_replace_map() put overlapping mappings onto ctx->cleared via
-mapping->pending_list; if amdgpu_vm_bo_unmap() is then called on that mappi=
-ng
-in the same context, amdgpu_vm_update_ctx_add_freed_mapping() leaves it on
-ctx->cleared instead of moving it to ctx->deleted, so
-amdgpu_vm_update_ctx_execute_replace() re-inserts any non-cleared remainder.
-
-Furthermore, if an update_ctx is aborted before
-amdgpu_vm_update_ctx_execute_replace() finishes processing ctx->cleared (for
-example, if amdgpu_vm_bo_replace_map() fails in
-amdgpu_vm_update_ctx_add_new_mapping()), neither amdgpu_vm_update_ctx_fini()
-here nor amdgpu_vm_update_ctx_rollback() in commit "drm/amdgpu: Add functio=
-n to
-roll back a VM update ctx" unlinks entries from ctx->cleared.  When the BO =
-is
-later removed in amdgpu_vm_bo_del(), amdgpu_vm_update_ctx_add_freed_mapping=
-()
-silently skips adding the mapping to update_ctx.deleted and kfree(bo_va) fr=
-ees
-bo_va while the mapping remains in vm->va with a dangling mapping->bo_va
-pointer, causing a use-after-free on subsequent vm->va traversals.
-
->  int amdgpu_vm_update_ctx_execute_replace(struct amdgpu_vm_update_ctx *ct=
-x)
-
-[ ... ]
-
-> @@ -1878,10 +1883,16 @@ void amdgpu_vm_update_ctx_init(struct amdgpu_vm_u=
-pdate_ctx *ctx,
->  void amdgpu_vm_update_ctx_fini(struct amdgpu_vm_update_ctx *ctx)
->  {
->  	struct interval_tree_node *node, *next_node;
-> +	struct amdgpu_bo_va *bo_va, *next_bo_va;
-> =20
->  	list_splice(&ctx->freed, &ctx->vm->delayed_freed);
->  	amdgpu_sync_free(&ctx->sync);
-> =20
-> +	list_for_each_entry_safe(bo_va, next_bo_va, &ctx->dirty_bo_vas,
-> +				 update_link) {
-> +		list_del_init(&bo_va->update_link);
-> +	}
-
-[Severity: High]
-Does this cause a use-after-free on bo_va when a caller unmaps and deletes a
-bo_va before finalizing update_ctx?
-
-In amdgpu_unmap_static_csa(), amdgpu_vm_bo_unmap() adds bo_va->update_link =
-to
-update_ctx.dirty_bo_vas, and amdgpu_vm_bo_del() then frees bo_va before
-amdgpu_vm_update_ctx_fini() runs:
-
-drivers/gpu/drm/amd/amdgpu/amdgpu_csa.c:amdgpu_unmap_static_csa() {
-    ...
-	r =3D amdgpu_vm_bo_unmap(&update_ctx, bo_va, csa_addr);
-	if (r) {
-		drm_err(adev_to_drm(adev),
-			"failed to do bo_unmap on static CSA, err=3D%d\n", r);
-		goto error_ctx;
-	}
-	amdgpu_vm_update_ctx_commit(&update_ctx);
-
-	amdgpu_vm_bo_del(adev, bo_va);
-
-error_ctx:
-	amdgpu_vm_update_ctx_fini(&update_ctx);
-    ...
-}
-
-Because amdgpu_vm_bo_del() calls kfree(bo_va) without unlinking
-bo_va->update_link from the outer update_ctx.dirty_bo_vas,
-amdgpu_vm_update_ctx_fini() executes list_del_init(&bo_va->update_link) on =
-the
-freed bo_va.  Unlinking bo_va->update_link in amdgpu_vm_bo_del() before
-kfree(bo_va) would avoid this.
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261117-prt-explic=
-it-sync-v2-0-bb3851cb6a0c@pixelcluster.dev?part=3D5
+Acked-by: David Lechner <david@lechnology.com>
