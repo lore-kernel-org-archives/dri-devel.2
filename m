@@ -2,59 +2,116 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E98B4606A882
-	for <dri-devel@archiver.kernel.org>; Tue, 17 Nov 2026 05:21:09 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 452F5606A32A
+	for <dri-devel@archiver.kernel.org>; Tue, 17 Nov 2026 06:12:59 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=mail.ustc.edu.cn header.i=@mail.ustc.edu.cn header.a=rsa-sha256 header.s=dkim header.b=oujcYxKu
+	dkim=pass (2048-bit key, unprotected) header.d=Nvidia.com header.i=@Nvidia.com header.a=rsa-sha256 header.s=selector2 header.b=KWIcfaqG
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 503FB10E505;
-	Tue, 17 Nov 2026 05:21:04 +0000 (UTC)
-Received: from ustc.edu.cn (smtp.ustc.edu.cn [202.38.64.46])
- by gabe.freedesktop.org (Postfix) with ESMTP id CE60410E4F2;
- Tue, 17 Nov 2026 05:20:53 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=mail.ustc.edu.cn; s=dkim; h=Received:From:To:Cc:Subject:Date:
- Message-ID:MIME-Version:Content-Transfer-Encoding; bh=IGKqXNviSd
- nE1JEAROZtoIrf8JiCirVKpAZGPhHSSQQ=; b=oujcYxKurHufQ0N7XDuQyidmPo
- S/yxU8QC3lXbcOWrLquEY29Ue47BMLP0D96kSYqtLLkF7poILP7PfzuUmPRrY+wS
- XeVIAWyz6DxhD7wMIIwX5cRd7QvVTQRf9rEibYL0Zlm8/SDuyDB1IJCkcoILNeL8
- tekqd6tslyNDqp3Cs=
-Received: from xuqianhui.ustc.edu.cn (unknown [114.214.190.181])
- by mailimap2024 (Coremail) with SMTP id 3pYKCgB37DAw5PtqGULLAA--.217S2;
- Tue, 17 Nov 2026 13:20:48 +0800 (CST)
-From: Qianhui Xu <xiaqinghuan@mail.ustc.edu.cn>
-To: linux-arm-msm@vger.kernel.org,
-	dri-devel@lists.freedesktop.org
-Cc: freedreno@lists.freedesktop.org, linux-kernel@vger.kernel.org,
- robin.clark@oss.qualcomm.com, lumag@kernel.org, abhinav.kumar@linux.dev,
- jesszhan0024@gmail.com, sean@poorly.run, marijn.suijten@somainline.org,
- dmitry.baryshkov@oss.qualcomm.com
-Subject: [PATCH v2] drm/msm/dsi/phy: program PLL_SYSTEM_MUXES on the first PHY
- enable
-Date: Tue, 17 Nov 2026 13:20:47 +0800
-Message-ID: <20261117052047.32129-1-xiaqinghuan@mail.ustc.edu.cn>
+	by gabe.freedesktop.org (Postfix) with ESMTP id 81FD510E045;
+	Tue, 17 Nov 2026 06:12:53 +0000 (UTC)
+Received: from BL0PR03CU003.outbound.protection.outlook.com
+ (mail-eastusazon11012019.outbound.protection.outlook.com [52.101.53.19])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 8822310E045
+ for <dri-devel@lists.freedesktop.org>; Tue, 17 Nov 2026 06:12:46 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=XQCUd6nrhRUK8wPiBJpSc6Yb6bm+trbCq5ZjaMzSMNqMwixq71NyJnmz/fYFXfd7QUhET5TAcCZ3GNoA/92nQynEKQDCurbX2ES1OXDpczcQU1RZ/PvxfKq/TGGFdGdyrvQHmekhn5OX39dO3ajeDSeIFU77tt7mynWYmr56h1uPWwWuHLjQO41JP5LxDllSquVP7m+pNEneFnwRAFkc/OH5VWHEYwT8LDK/IDZQHnaONerA1RaCmU23fvrYEDrufNpHgTi2sp95sz6nG+ely4lcprkLpIt2ToznJWK2c/YWk5hlrjGFHUpXwy/iwHyRE8eRndtBuv0SMjusLl/zdQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=DtZLIZlfdmxHK2Na4B1jKjJX8sygZ3NTY2gzlbaQTK4=;
+ b=dFNv5V6l1fExOFsLbwn1UuL32jnTX7ce8B+QSQ1pEvVE/b9QVhQuNN5LgmWmym++IFThm1SYmzygZJWLrClCQ526Pc4/F2RJn8lrVyXef1YBwrqDy9d01h5Aadksfj9NFg4jpQ22/NIUaeoYwuA9R3wTg0vSUzPhqYMxhAs8gQYpbYwfc+l0DMUAYXRU2yxf7MK15AvaSw4ZlDfyH9ebwMzTyRNdwceWi1DVcCz9HpzXRZ6IjtdssEt7nGYxciTJAH7Tv09dm15nd5myPy/TUEmbV96e+Fu1PY2UHGX0uTo5agzalocpf6Bi34+HFOdcTmdPPqMu8VVyMELfAGAsAA==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 216.228.117.160) smtp.rcpttodomain=kernel.org smtp.mailfrom=nvidia.com;
+ dmarc=pass (p=reject sp=reject pct=100) action=none header.from=nvidia.com;
+ dkim=none (message not signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
+ s=selector2;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=DtZLIZlfdmxHK2Na4B1jKjJX8sygZ3NTY2gzlbaQTK4=;
+ b=KWIcfaqG6/Oi4KNtie0oxFTFnUEGt4ZqJ/nNHKHEFJZi2Ft9BUfRPDnopuIQw7FB5s0NflbyoBMClmJlzcGeH5lXE5LxXYuZ0D3kRk2NjZhuKFSkONf0TRpfeUcKM6F1U7rVyn/7yx3HBFSqqaRFfxAg3CmzGbIm5QM9zSTIl8NgId6ZopQaZRnK7VOsukhEQNrz+Zua581oa9QRGdp0+c+nIpd8bA8GmT0+xxhLrhPVlw2M96Ovu5yBViN8QTFUy1XzVGqv6kiBktm+NJHMSL1r/+f95F/EqKrwV7nN0Ra4Hlz0QmshYkVz6NMIYpRT9GB/tqF4O4ixcXUNPuQ/kQ==
+Received: from CH0P220CA0021.NAMP220.PROD.OUTLOOK.COM (2603:10b6:610:ef::11)
+ by PH0PR12MB7792.namprd12.prod.outlook.com (2603:10b6:510:281::21) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.615.10; Tue, 17 Nov
+ 2026 06:12:33 +0000
+Received: from CH01EPF000BE941.namprd02.prod.outlook.com
+ (2603:10b6:610:ef:cafe::31) by CH0P220CA0021.outlook.office365.com
+ (2603:10b6:610:ef::11) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.21.615.9 via Frontend Transport; Tue, 17
+ Nov 2026 06:12:33 +0000
+X-MS-Exchange-Authentication-Results: mx.microsoft.com 1; spf=pass (sender IP
+ is 216.228.117.160)
+ smtp.mailfrom=nvidia.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=nvidia.com;
+Received-SPF: Pass (protection.outlook.com: domain of nvidia.com designates
+ 216.228.117.160 as permitted sender) receiver=protection.outlook.com;
+ client-ip=216.228.117.160; helo=mail.nvidia.com; pr=C
+Received: from mail.nvidia.com (216.228.117.160) by
+ CH01EPF000BE941.mail.protection.outlook.com (10.167.244.133) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.21.615.4 via Frontend Transport; Tue, 17 Nov 2026 06:12:33 +0000
+Received: from rnnvmail201.nvidia.com (10.129.68.8) by mail.nvidia.com
+ (10.129.200.66) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.57; Mon, 16 Nov
+ 2026 22:12:21 -0800
+Received: from kalok-SPC741D16QM3.nvidia.com (10.126.230.37) by
+ rnnvmail201.nvidia.com (10.129.68.8) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.56; Mon, 16 Nov 2026 22:12:07 -0800
+From: Alok Kumar <alkumar@nvidia.com>
+To: <dakr@kernel.org>, <acourbot@nvidia.com>, <kvm@vger.kernel.org>,
+ <rust-for-linux@vger.kernel.org>, <nova-gpu@lists.linux.dev>,
+ <linux-pci@vger.kernel.org>
+CC: <alex@shazbot.org>, <jgg@nvidia.com>, <yishaih@nvidia.com>,
+ <skolothumtho@nvidia.com>, <kevin.tian@intel.com>, <airlied@gmail.com>,
+ <simona@ffwll.ch>, <ojeda@kernel.org>, <alex.gaynor@gmail.com>,
+ <boqun.feng@gmail.com>, <gary@garyguo.net>, <bjorn3_gh@protonmail.com>,
+ <lossin@kernel.org>, <a.hindborg@kernel.org>, <aliceryhl@google.com>,
+ <tmgross@umich.edu>, <markus.probst@posteo.de>, <jhubbard@nvidia.com>,
+ <apopple@nvidia.com>, <joelagnelf@nvidia.com>, <ecourtney@nvidia.com>,
+ <cjia@nvidia.com>, <smitra@nvidia.com>, <kjaju@nvidia.com>,
+ <alkumar@nvidia.com>, <ankita@nvidia.com>, <aniketa@nvidia.com>,
+ <kwankhede@nvidia.com>, <targupta@nvidia.com>,
+ <linux-kernel@vger.kernel.org>, <zhiwang@kernel.org>, <zhiw@nvidia.com>,
+ <boqun@kernel.org>, <daniel.almeida@collabora.com>, <tamird@kernel.org>,
+ <work@onurozkan.dev>, <jgg@ziepe.ca>, <bhelgaas@google.com>,
+ <kwilczynski@kernel.org>, <dri-devel@lists.freedesktop.org>,
+ <peter@colberg.org>, <xinmengs@nvidia.com>
+Subject: [PATCH 0/1] gpu: nova-core: populate GSP_INIT timeout defaults
+Date: Tue, 17 Nov 2026 11:40:52 +0530
+Message-ID: <20261117061053.915254-1-alkumar@nvidia.com>
 X-Mailer: git-send-email 2.53.0
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-X-CM-TRANSID: 3pYKCgB37DAw5PtqGULLAA--.217S2
-X-Coremail-Antispam: 1UD129KBjvJXoWxAF45Cr1DAr1rXrWxZr47urg_yoW5Kr4fpr
- W5tw1a9rWDtrWxXws7X3W5u348Cwsaqw4akFnrKas5uan8XFy8XFyxK3WagFyUCrnaqw1Y
- vFnayFyDZry5ArJanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
- 9KBjDU0xBIdaVrnRJUUU9vb7Iv0xC_Kw4lb4IE77IF4wAFF20E14v26r4j6ryUM7CY07I2
- 0VC2zVCF04k26cxKx2IYs7xG6rWj6s0DM7CIcVAFz4kK6r1j6r18M28lY4IEw2IIxxk0rw
- A2F7IY1VAKz4vEj48ve4kI8wA2z4x0Y4vE2Ix0cI8IcVAFwI0_Xr0_Ar1l84ACjcxK6xII
- jxv20xvEc7CjxVAFwI0_Cr0_Gr1UM28EF7xvwVC2z280aVAFwI0_GcCE3s1l84ACjcxK6I
- 8E87Iv6xkF7I0E14v26rxl6s0DM2AIxVAIcxkEcVAq07x20xvEncxIr21l5I8CrVACY4xI
- 64kE6c02F40Ex7xfMcIj6xIIjxv20xvE14v26r1Y6r17McIj6I8E87Iv67AKxVWUJVW8Jw
- Am72CE4IkC6x0Yz7v_Jr0_Gr1lF7xvr2IYc2Ij64vIr41lFIxGxcIEc7CjxVA2Y2ka0xkI
- wI1lc7CjxVAaw2AFwI0_Jw0_GFylc2xSY4AK67AK6r4rMxAIw28IcxkI7VAKI48JMxC20s
- 026xCaFVCjc4AY6r1j6r4UMI8I3I0E5I8CrVAFwI0_Jr0_Jr4lx2IqxVCjr7xvwVAFwI0_
- JrI_JrWlx4CE17CEb7AF67AKxVWUtVW8ZwCIc40Y0x0EwIxGrwCI42IY6xIIjxv20xvE14
- v26r1j6r1xMIIF0xvE2Ix0cI8IcVCY1x0267AKxVW8JVWxJwCI42IY6xAIw20EY4v20xva
- j40_Jr0_JF4lIxAIcVC2z280aVAFwI0_Jr0_Gr1lIxAIcVC2z280aVCY1x0267AKxVW8JV
- W8JrUvcSsGvfC2KfnxnUUI43ZEXa7IU5q2MUUUUUU==
-X-CM-SenderInfo: 50ld1x5qjk3t3q6ptxnoox23vfohv3gofq/1tbiAREOB2r7WdojVwANsy
+Content-Type: text/plain
+X-ClientProxiedBy: rnnvmail202.nvidia.com (10.129.68.7) To
+ rnnvmail201.nvidia.com (10.129.68.8)
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: CH01EPF000BE941:EE_|PH0PR12MB7792:EE_
+X-MS-Office365-Filtering-Correlation-Id: 1af5b2f7-97e0-41b6-e047-08df4471c4ae
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+ ARA:13230040|1800799024|82310400026|7416014|376014|23010399003|36860700016|18002099003|3023799007|13003099007|5023799004|11063799006|56012099006|261028144727099003|261026140227099003|10067099003|261021121427099003|261022105027099003|261009223027099003|261102123227099003;
+X-Microsoft-Antispam-Message-Info: yCWHsYMntZB8cpQHzQIdsPIxf6Pg2ZM+ALYS6ClZySSVR6iNx3BmbvzmgJQoh2vrVUirmpg7d0AZcKeQHgy1VLtiwNsxAcRFDdRokyO7D5/2bX3ICGRK9LHT4GbfikmVAr3FH6lEaCtRQXETOhvM6FWvC/puPH8+27OkL06F1qgCqCRSOCZNnJ7L38uF3ov5yZ/MFVAAeqAUKwQtl+WivMBW2oTT1UhsfK4zUPG0GJ9lXu12rmeCPonNi5S+sJuT79Wk6MT9OKe28kehNEEseo95JJec8TwrRCl7ZiAWhMd36HBszHkmomtRHeFLq/UwWNj699qQZKPCBi4ump68B5Jwk/5CBaFE1YhM7dZJ5ELDR2lK1Hltce8BRbpcAyhrjHAuV7aUQPJ8hdXFYJoSXaKxsRwjAk4bei0yXD4/VCENDUSDBKW8WQquKQdMu0MKw+HeXadSg/c+TzrNETDR8UEswjb5W26Dm8Sdqevvk4V6p3cYnGivW23MFMa3BoDWI8PKTVQ8DMZYcicBwHjUAImhTvkN3YEo9u1IwQG4CILhBJBdoohe4tZWEyfHCoBdTD5J/rLj7Eyg7TdEIcAPNgVLsbmq5j24BjjNzjgAVko6cvTIL/8mXJTGA15yvFi45AmgEOJOslGb+PAsuY6UXyyBYYTigE+1NbyEfQrHF5XRapxxmHrzrfNDgcEcxMnF8IjD0WGj2heTiso/XZeYmQ==
+X-Forefront-Antispam-Report: CIP:216.228.117.160; CTRY:US; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:mail.nvidia.com; PTR:dc6edge1.nvidia.com; CAT:NONE;
+ SFS:(13230040)(1800799024)(82310400026)(7416014)(376014)(23010399003)(36860700016)(18002099003)(3023799007)(13003099007)(5023799004)(11063799006)(56012099006)(261028144727099003)(261026140227099003)(10067099003)(261021121427099003)(261022105027099003)(261009223027099003)(261102123227099003);
+ DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: jld0/2Fj/g6QqRa2UQ8NR79Jn/C01wqzaO81n/z4ThWVMFUP/B3H37gXyJOO14R1waRzgzpC8owrLkz1EeVNEk9JE9MqLIDhGAYU24fL0+qVopxbU8fzUVL5bDaJWIFuVV/IAgGIp/djyE5r/+SJIWllaptrnu1hUH/BiVzacb4Fh9PzSS4jGQ/uwqHA4svD22Mv5m8JZSOKwa0kBl96S2XHqJi95wAdMDv9Vky63Rqp2A1Dex54Qm6E31PSn3Ksf6vL/MYaV+tzqWIYJMCqaDIdRYosMxV45OaMkBQaugW+GQiOUmQpYG1jtwUuwUqngsgnQ8wW1bnuMDfvKfdm0l3R1wAtF84L+/WWgtv4dga5y8Zx4qUoY565l5Mqw/sGNgD7j36ACRNoevFcTxDPSNAANg89e9SdFqiD972eizjc8B/g0rcQkiwDTG/2v0zT
+X-OriginatorOrg: Nvidia.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 17 Nov 2026 06:12:33.0572 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 1af5b2f7-97e0-41b6-e047-08df4471c4ae
+X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=43083d15-7273-40c1-b7db-39efd9ccc17a; Ip=[216.228.117.160];
+ Helo=[mail.nvidia.com]
+X-MS-Exchange-CrossTenant-AuthSource: CH01EPF000BE941.namprd02.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH0PR12MB7792
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -66,81 +123,40 @@ List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-18.8 required=3.0 tests=BAYES_00,DKIM_SIGNED,
-	DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
-	INCLUDES_CR_TRAILER,INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,
+X-Spam-Status: No, score=-18.8 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
+	DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
+	INCLUDES_PATCH,MAILING_LIST_MULTI,MENTIONS_GIT_HOSTING,SPF_HELO_NONE,
 	SPF_PASS,USER_AGENT_GIT autolearn=unavailable autolearn_force=no
 	version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-From: Xu Qianhui <xiaqinghuan@mail.ustc.edu.cn>
+Populate the GSP_INIT request with nonzero default timeouts for vGPU.
 
-dsi_7nm_phy_enable() pre-seeds pll_enable_cnt to 1 while de-asserting
-DIGTOP_PWRDN_B and PLL_SHUTDOWNB, and dsi_pll_enable_pll_bias() returns
-early whenever the counter is already non-zero.  On the first PHY
-bring-up the bias helper therefore never reaches its
-PLL_SYSTEM_MUXES = 0xc0 write, and nothing else programs that register
-before the panel is powered up: PLL_SYSTEM_MUXES keeps 0x0, the locked
-PLL outputs are not routed to the lanes, and a panel wired for bonded
-DSI comes up with the backlight on and no image.
+The patch encodes the following keys as u32 values in microseconds:
 
-The combination is old.  commit cb55f39bf7b1 ("drm/msm/dsi/phy: Fix
-reading zero as PLL rates when unprepared") introduced both the counter
-and the pre-seed.  commit 93c97bc8d85d ("drm/msm: dsi: fix PLL init in
-bonded mode") briefly dropped the pre-seed, which made the write
-reachable again.  Its revert,
+  0xA0: vGPU timeout             1,800,000 us
+  0xA1: graphics-mode timeout    4,000,000 us
+  0xA2: compute-mode timeout    30,000,000 us
 
-commit 44784327815b ("Revert "drm/msm: dsi: fix PLL init in bonded mode"")
+This series is based on:
+    [PATCH 0/5] Transition nova-core to use TLV variables for heap sizes [1]
 
-restored both sides, so on current master the muxes are once more never
-programmed during the first bring-up.
+The complete integration tree, including the prerequisites and the
+companion VFIO driver, is available at:
 
-Program PLL_SYSTEM_MUXES in dsi_7nm_phy_enable() next to the CTRL_0
-write that powers the PHY up, while the same lock is held.  This only
-adds a register write to a path that already programs CTRL_0: no
-existing write moves, and the counter, the locking and the order of the
-rest of the PHY programming are untouched, so the byte-clock regression
-that led to the revert cannot come back through this path.  The bias
-helper keeps its own write for the paths that raise the counter from
-zero.
+    https://github.com/alokk-nvidia/nova-core/tree/nova-vgpu-wip-20261113
 
-Measured on a Lenovo Y700 Gen4 tablet (SM8750P, bonded dual-DSI CSOT
-PP8807HB1-1 panel, "novatek,nt36536"): without this change
-PLL_SYSTEM_MUXES reads 0x0 at panel bring-up and the panel stays dark;
-with it the register reads back 0xc0, the panel initialises and the DSI
-host starts receiving interrupts (41 in /proc/interrupts, 0 before).
+[1] https://lore.kernel.org/nova-gpu/f1f132172061996beb4b5d64ebc68e4a6bb0a1e2.camel@nvidia.com/
 
-Fixes: cb55f39bf7b1 ("drm/msm/dsi/phy: Fix reading zero as PLL rates when unprepared")
-Signed-off-by: Xu Qianhui <xiaqinghuan@mail.ustc.edu.cn>
----
+Alok Kumar (1):
+  gpu: nova-core: send GPU timeout defaults in GSP_INIT
 
-Note: an earlier copy of this mail went out a few minutes earlier with a
-wrong subject prefix ([PATCH] instead of [PATCH v2]); content is identical,
-ignore that one.
+ drivers/gpu/nova-core/gsp/fw/commands.rs | 11 +++++++++++
+ 1 file changed, 11 insertions(+)
 
-Changes in v2: move the explanation out of the source comment and into the
-commit message, as requested; the code delta is the same single writel().
-Fixes: is re-pointed at cb55f39bf7b1, which introduced both the counter and
-the pre-seed, instead of at the revert that restored them.
 
-Link: https://lore.kernel.org/all/20261019130041.305805-1-xiaqinghuan@mail.ustc.edu.cn/
-Link: https://lore.kernel.org/all/e4ul4zxjta4oyo5fpjjzwkykb4gicztcn7yrgjw7aer6bqowkw@6nx2arhvmyca/
- drivers/gpu/drm/msm/dsi/phy/dsi_phy_7nm.c | 1 +
- 1 file changed, 1 insertion(+)
-
-diff --git a/drivers/gpu/drm/msm/dsi/phy/dsi_phy_7nm.c b/drivers/gpu/drm/msm/dsi/phy/dsi_phy_7nm.c
-index ce86dbf618..98df2d994a 100644
---- a/drivers/gpu/drm/msm/dsi/phy/dsi_phy_7nm.c
-+++ b/drivers/gpu/drm/msm/dsi/phy/dsi_phy_7nm.c
-@@ -1096,6 +1096,7 @@ static int dsi_7nm_phy_enable(struct msm_dsi_phy *phy,
- 	data = DSI_7nm_PHY_CMN_CTRL_0_DIGTOP_PWRDN_B |
- 	       DSI_7nm_PHY_CMN_CTRL_0_PLL_SHUTDOWNB;
- 	writel(data, base + REG_DSI_7nm_PHY_CMN_CTRL_0);
-+	writel(0xc0, pll->phy->pll_base + REG_DSI_7nm_PHY_PLL_SYSTEM_MUXES);
- 	spin_unlock_irqrestore(&pll->pll_enable_lock, flags);
- 
- 	/* Assert PLL core reset */
+base-commit: d1046d643c171875d6d350dcacbee89f56c7272a
 -- 
 2.53.0
 
