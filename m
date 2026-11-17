@@ -2,49 +2,83 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 812B1606A33F
-	for <dri-devel@archiver.kernel.org>; Tue, 17 Nov 2026 13:05:14 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E7016606A88A
+	for <dri-devel@archiver.kernel.org>; Tue, 17 Nov 2026 13:05:43 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=igalia.com header.i=@igalia.com header.a=rsa-sha256 header.s=20170329 header.b=pu+Mir/Y
+	dkim=pass (2048-bit key) header.d=tomeuvizoso-net.20260707.gappssmtp.com header.i=@tomeuvizoso-net.20260707.gappssmtp.com header.a=rsa-sha256 header.s=20260707 header.b=C3ghXM04
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id D5EB210F6E9;
-	Tue, 17 Nov 2026 13:05:08 +0000 (UTC)
-Received: from fanzine2.igalia.com (fanzine2.igalia.com [213.97.179.56])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 610D010F6E8;
- Tue, 17 Nov 2026 13:05:02 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com; 
- s=20170329;
- h=Content-Transfer-Encoding:Content-Type:From:Cc:To:Subject:
- MIME-Version:Date:Message-ID:From:Reply-To;
- bh=n6HkqSF10bURKOsP5CULCmCv2THN5gLbHs22Jjv2txE=; t=1794920702; x=2110280702; 
- b=pu+Mir/Y3txcd0phioFrzqOlvraBRBgH4y8+8sSHblIBhkWo5FS2zwdTzZSMtFASDlsDLAzREMA
- Ov4HhpHWqIfSLfCVwG4li9fzTj7BjIZ0ABpljM82AluDxA7Gxip2WoEAyAbtKJb2T7vV59iFSRnpY
- 233XpL7HzdDBW5fWATB1/19U1VTMndOZBiXBuuknUpj/dJyJQmo1LNxcoCcf0dPS14OlrqUmPdQwN
- MtTtGkXJuxtL1Dp9DQ/QYzrRpDf8927q063Oj2tEz53AmhNI8/MqjuJgpT7Qa6njReXOdnrVWmce7
- ymHSI9BlIvcvEsfjIs0cTNCza6H8cKSSKTKg==;
-Received: from [81.79.79.1] (helo=[192.168.0.116])
- by fanzine2.igalia.com with esmtpsa 
- (Cipher TLS1.3:ECDHE_X25519__RSA_PSS_RSAE_SHA256__AES_128_GCM:128) (Exim)
- id 1xTIrs-00000000ayW-1VNp; Tue, 17 Nov 2026 14:05:00 +0100
-Message-ID: <91f421df-4753-4e63-8bc6-daea85c6bb35@igalia.com>
-Date: Tue, 17 Nov 2026 13:04:59 +0000
+	by gabe.freedesktop.org (Postfix) with ESMTP id 2E26710F6EA;
+	Tue, 17 Nov 2026 13:05:38 +0000 (UTC)
+Received: from mail-ej1-f46.google.com (mail-ej1-f46.google.com
+ [209.85.218.46])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 3569410F6EA
+ for <dri-devel@lists.freedesktop.org>; Tue, 17 Nov 2026 13:05:32 +0000 (UTC)
+Received: by mail-ej1-f46.google.com with SMTP id
+ a640c23a62f3a-c50aaad19fbso377288866b.0
+ for <dri-devel@lists.freedesktop.org>; Tue, 17 Nov 2026 05:05:32 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=tomeuvizoso-net.20260707.gappssmtp.com; s=20260707; t=1794920730;
+ x=1795525530; darn=lists.freedesktop.org; 
+ h=content-transfer-encoding:content-type:mime-version:references
+ :in-reply-to:message-id:date:subject:to:from:from:to:cc:subject:date
+ :message-id:reply-to:content-type;
+ bh=/q1oWTkjbDNHWQAuk2EDeZ6imnt0CDYY6KeOw9zQ30c=;
+ b=C3ghXM045ViecRcRPHDuFH0jNWYVJHyuVuHKw+BQNtetUrd0e7vdEM0ZR7AMmY8CGV
+ yFJ4mGTin4sPCQ5IRh4uacfRFLrPh4tw194GZUHDfDK7W1BgMxb4GCA1Y8nu+Ljl5IQh
+ ZpsyUfUjdOrWPc1jvzSxZYz+XIvTEWHGZnUaUP62fFidRnGzd0bnRVQSfqzNBH1IETMF
+ hkNbxy5Od+JaUUpVDCLRBnkWnUj/6PIxA1bROzM2OXwSp23mquMcftYfRSSejg0oFuEd
+ ZSZ34EZEcGAR6aRbjtOnBbvhJQqXNd+Xsit9r98r3ZqvwZcY0xdmp3A/UtQbNdzAkUSi
+ z67Q==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20260707; t=1794920730; x=1795525530;
+ h=content-transfer-encoding:content-type:mime-version:references
+ :in-reply-to:message-id:date:subject:to:from:x-gm-gg
+ :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+ :content-type;
+ bh=/q1oWTkjbDNHWQAuk2EDeZ6imnt0CDYY6KeOw9zQ30c=;
+ b=J7DOylnP129QwnaHF1wVwox4khsEZs8ZxPhYlwViBiGq9KRB1o/97OLumdyR9Rso4n
+ In/1pdUrh9hE4TJEbV4HsWJuooQcjfDRvhw8KHgkbxpHNIWSf1jUTt5Pt+Q8ym+B48yC
+ 5gWoMm+pUMSpmz5YwQMXUo8dolw3S9O7QjhvWimh1myzbiNP0sPMeTAI2Hrbqs4wCSxZ
+ eW+htHZpPT5uffiwwPOXkswbpIYAa8wnW5XB3Evu7Fqk/hwNbmP/JDcJ9hS6n+AT/T4d
+ rz3+oXSYaTE1TNkn3c9FvqUSf0I6Mnv0VDUFXzQNLqcpsBN7t0iNzr0O6KAFg0E9L51K
+ s92A==
+X-Forwarded-Encrypted: i=1;
+ AL+hErH4ZdAn4rgsWm9i3nJnFDOStId8E6lQOAKIPLIW3D1o9Kz5jboGh0VCbsSK1lfPDnFhWEG9/PIjB2c=@lists.freedesktop.org
+X-Gm-Message-State: APuU4Z+izDI+NnJB8gkIL1AIKYFbp8AoyauG3YQgy30xhTmylNkwsLfi
+ ZOQA5hi22m7Y4/pYJoysjkjCkwVzIHcb5asKu3UavSLo7/k4fY02O7YPp2FlGF9TT8cikxSqJCf
+ qnTLffcuRmg==
+X-Gm-Gg: AYBFou1bkxnAOidmMmRb3LRHha5/0xBxuxpBs0h4LnQ9MJnVUOeDXOJ7muC0ZtdBfiM
+ fVvgqDBTwAt+AQqLRgRW5w45lyoRVZZ7VJJ6hzc3m+/Pq+V2VznSYhh1avhnzJaXFVntc6a4Ore
+ FeLYTcaadyjesJslmjVCY3cInG1x7glYm8sbnIpzEurV0eBzpyQsuWYeZIkK4ipzdHlle17ysAE
+ pDhGt/IVA1xDnhkAUdeAVZ+6+CQOklEPmOnwS86uIpg9NRp+LOlnjgzae2bu8TAYK7ywOkxXLlU
+ dShc2dAUfAXmsv+1LpPqTgfYHvW+IlwDNOhvIvZAkE5mbqO1BZMdEVfJbORfzzpdUW7qiyr14aG
+ VOa0f53Qfv2PX9AgnboJMK3wkGCN2QIWplmIeg6UKqdfLOuDcH+jmcjFnyl3/6gNrkLttsn4S7i
+ +ZRivVp3U8ygjIV7IjAshbRSME+yZdBxB0NhmVT3w7kUej4cgMErYx+3djDha/SPEMlMNcq0BOJ
+ /WvTj1B+KOMp49K5wNvxuts9NxQmUTa8JzEG2rt7Slz+aExr2kIdgyguPYes/Fluy8xphL4tBKV
+ Wn3GHYY/Yl+6uIK5+0dsu6uywvroRp+dKTci8qtsEBgp8dCl9MxOp9M0O6C6hMQ5Z3QrI1gszn3
+ 3MTBIfAWtrnvwC3vBTk1dpktn4pXnrCyX8PHTOVv82HiDXLK5hQ==
+X-Received: by 2002:a17:907:8e08:b0:c2a:ad55:b3fa with SMTP id
+ a640c23a62f3a-c50961d1e39mr1302474166b.7.1794920730419; 
+ Tue, 17 Nov 2026 05:05:30 -0800 (PST)
+Received: from alcachofa.home (cst-prg-52-235.cust.vodafone.cz.
+ [46.135.52.235]) by smtp.gmail.com with ESMTPSA id
+ ffacd0b85a97d-49d69c21a17sm22827961f8f.50.2026.11.17.05.05.29
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Tue, 17 Nov 2026 05:05:29 -0800 (PST)
+From: Tomeu Vizoso <tomeu@tomeuvizoso.net>
+To: Oded Gabbay <ogabbay@kernel.org>, Jeff Hugo <jeff.hugo@oss.qualcomm.com>,
+ dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
+ Guangshuo Li <lgs201920130244@gmail.com>
+Subject: Re: [PATCH] accel/rocket: put IOMMU domain on BO creation failure
+Date: Tue, 17 Nov 2026 14:04:56 +0100
+Message-ID: <179490829259.50223.3008700255330714647.b4-ty@b4>
+X-Mailer: git-send-email 2.54.0
+In-Reply-To: <20260708114354.753817-1-lgs201920130244@gmail.com>
+References: <20260708114354.753817-1-lgs201920130244@gmail.com>
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 2/4] drm/sched: Ignore stopped entity attempt to change
- its run-queue
-To: phasta@kernel.org, dri-devel@lists.freedesktop.org
-Cc: amd-gfx@lists.freedesktop.org, kernel-dev@igalia.com,
- =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>,
- Danilo Krummrich <dakr@kernel.org>, Matthew Brost <matthew.brost@intel.com>
-References: <20261117100654.8593-1-tvrtko.ursulin@igalia.com>
- <20261117100654.8593-3-tvrtko.ursulin@igalia.com>
- <fd86312b062767e3434573064aeb267721c7a4f6.camel@mailbox.org>
-Content-Language: en-GB
-From: Tvrtko Ursulin <tvrtko.ursulin@igalia.com>
-In-Reply-To: <fd86312b062767e3434573064aeb267721c7a4f6.camel@mailbox.org>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -56,33 +90,31 @@ List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-6.3 required=3.0 tests=BAYES_00,DKIM_SIGNED,
-	DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,HK_RANDOM_FROM,
-	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,USER_AGENT_SANE_1
-	autolearn=no autolearn_force=no version=4.0.1
+X-Spam-Status: No, score=-6.8 required=3.0 tests=BAYES_00,DKIM_SIGNED,
+	DKIM_VALID,HEADER_FROM_DIFFERENT_DOMAINS,MAILING_LIST_MULTI,
+	SPF_HELO_NONE,SPF_PASS,USER_AGENT_GIT autolearn=no autolearn_force=no
+	version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
 
-On 17/11/2026 11:53, Philipp Stanner wrote:
-> On Tue, 2026-11-17 at 10:06 +0000, Tvrtko Ursulin wrote:
->> Jobs submitted to a stopped entity do not go anywhere due how they are
->> handled in drm_sched_rq_add_entity() so there is no point to allow them
->> to change their run-queue.
+On Wed, 08 Jul 2026 19:43:54 +0800, Guangshuo Li wrote:
+> rocket_ioctl_create_bo() takes an IOMMU domain reference for each newly
+> created BO.
 > 
-> Who stops an entity?
-> Who submits to a stopped entity?
-> Isn't entity_select_rq only called for drm_sched_job_arm()?
-> Who's arming jobs for an entity that he has stopped himself?
+> The normal GEM object release path drops that reference from
+> rocket_gem_bo_free(). However, the BO creation error paths free the
+> object with drm_gem_shmem_object_free(), which bypasses the driver's GEM
+> .free callback. Those paths therefore release the shmem object without
+> dropping the IOMMU domain reference.
+> 
+> [...]
 
-I extracted this change as separate patch on your request during a 
-conversation back in June.
+Applied, thanks!
 
-But it is not really required, even less so since I abandoned the 
-removal of entity_idle. The only way race could happen if it drivers did 
-crazy things.
+[1/1] accel/rocket: put IOMMU domain on BO creation failure
+      commit: 90035d3f26e011e16fcf9c5071571f0d956b5219
 
-I can drop it no problem.
-
-Tvrtko
-
+Best regards,
+-- 
+Tomeu Vizoso <tomeu@tomeuvizoso.net>
