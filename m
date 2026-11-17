@@ -2,49 +2,70 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3A4A8606A31C
-	for <dri-devel@archiver.kernel.org>; Tue, 17 Nov 2026 09:02:32 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A03C5606A31C
+	for <dri-devel@archiver.kernel.org>; Tue, 17 Nov 2026 09:11:32 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=J3d5D6n6
+	dkim=pass (1024-bit key) header.d=ideasonboard.com header.i=@ideasonboard.com header.a=rsa-sha256 header.s=mail header.b=MMjHPJxO
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 88FE410F423;
-	Tue, 17 Nov 2026 09:02:26 +0000 (UTC)
-Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id CF0A910E54A
- for <dri-devel@lists.freedesktop.org>; Tue, 17 Nov 2026 09:02:19 +0000 (UTC)
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by tor.source.kernel.org (Postfix) with ESMTP id 10C1D63284;
- Tue, 17 Nov 2026 09:02:19 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0C10D1F000C4;
- Tue, 17 Nov 2026 09:02:15 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1794906138;
- bh=Oc7JaEjK7wSuv1BcORZ/w1L9V0je8YNCe6SbYieskA0=;
- h=From:To:Cc:Subject:Date;
- b=J3d5D6n6QVbrWgy7xyIl+z6FZghP6lKKgRSkK+w7+ZqUYCDnYlpEp7G3lSlP+TE8Q
- NmYk9iGSBX7AV1dF+gospoTwm6GS+1OQfjebtA3LQl8XY6Qvs10sHrLGTCzEjIt8EM
- 9VD/SAORPr7yoW8RRm/CwErAWBrWnKFdtkKzeSL9NS4k/Rz+NqZz2S7zMOYACCdfhv
- u0gHk86ion/xeM91zVqs5Mdx0XLNBgHrmRWiOmoKLQxaaTlVTEJfIAjRikeHZ7+p/6
- Sdd3q9RMOlI1z87BuESCTPo7u9JG3XvFOFFKDgDcmnsqNSilCmCXEktxQpXWmoEml0
- K/UgtZiSTvmZg==
-From: Philipp Stanner <phasta@kernel.org>
-To: Sumit Semwal <sumit.semwal@linaro.org>,
- =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
- Philipp Stanner <phasta@kernel.org>,
- Simona Vetter <simona.vetter@ffwll.ch>,
- Chris Wilson <chris@chris-wilson.co.uk>,
- Danilo Krummrich <dakr@kernel.org>, Gary Guo <gary@garyguo.net>,
- Alice Ryhl <aliceryhl@google.com>,
- Daniel Almeida <daniel.almeida@collabora.com>
-Cc: linux-media@vger.kernel.org, dri-devel@lists.freedesktop.org,
- linux-kernel@vger.kernel.org, stable@vger.kernel.org
-Subject: [PATCH] dma-buf/dma-fence: Prevent misordering for error checks
-Date: Tue, 17 Nov 2026 10:01:45 +0100
-Message-ID: <20261117090144.581909-2-phasta@kernel.org>
-X-Mailer: git-send-email 2.56.0
+	by gabe.freedesktop.org (Postfix) with ESMTP id D3E3710E568;
+	Tue, 17 Nov 2026 09:11:26 +0000 (UTC)
+Received: from perceval.ideasonboard.com (perceval.ideasonboard.com
+ [213.167.242.64])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id EBC6A10E568;
+ Tue, 17 Nov 2026 09:11:20 +0000 (UTC)
+Received: from killaraus.ideasonboard.com
+ (2001-14ba-7086-3000--a06.rev.dnainternet.fi [IPv6:2001:14ba:7086:3000::a06])
+ by perceval.ideasonboard.com (Postfix) with ESMTPSA id 9A3F4177;
+ Tue, 17 Nov 2026 10:08:51 +0100 (CET)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=ideasonboard.com;
+ s=mail; t=1794906531;
+ bh=KUFK5SRjTDmkX8fMf4Me0mjN4nDeO27cOzJsCIsYw84=;
+ h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+ b=MMjHPJxOkzofEgWsMCPdy/py0r8ulpcFPYc3Vf1zCCbf94cGuQ3E7X7zWdPJN+D/A
+ xxtRpjF8XOMaDz50oyN+eqb0dVyddYDrKLByR1wSBMIxqd1zsvek/BZGwibYGcZ9kg
+ Ytz9zPftXJccBUr6hhs+/CgwTeplKuEwVXE4F6NU=
+Date: Tue, 17 Nov 2026 11:11:17 +0200
+From: Laurent Pinchart <laurent.pinchart@ideasonboard.com>
+To: Kory Maincent <kory.maincent@bootlin.com>
+Cc: Jani Nikula <jani.nikula@linux.intel.com>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>,
+ Thomas Zimmermann <tzimmermann@suse.de>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ Rodrigo Vivi <rodrigo.vivi@intel.com>,
+ Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
+ Tvrtko Ursulin <tursulin@ursulin.net>,
+ Andrzej Hajda <andrzej.hajda@intel.com>,
+ Neil Armstrong <neil.armstrong@linaro.org>,
+ Robert Foss <rfoss@kernel.org>, Jonas Karlman <jonas@kwiboo.se>,
+ Jernej Skrabec <jernej.skrabec@gmail.com>,
+ Luca Ceresoli <luca.ceresoli@bootlin.com>,
+ Chun-Kuang Hu <chunkuang.hu@kernel.org>,
+ Philipp Zabel <p.zabel@pengutronix.de>,
+ Matthias Brugger <matthias.bgg@gmail.com>,
+ AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>,
+ Dmitry Baryshkov <lumag@kernel.org>, Daniel Stone <daniels@collabora.com>,
+ Manasi Navare <navaremanasi@google.com>,
+ Thomas Petazzoni <thomas.petazzoni@bootlin.com>,
+ Mark Yacoub <markyacoub@google.com>, Sean Paul <seanpaul@google.com>,
+ Drew Davenport <ddavenport@google.com>,
+ Louis Chauvet <louis.chauvet@bootlin.com>,
+ dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
+ intel-gfx@lists.freedesktop.org, intel-xe@lists.freedesktop.org,
+ linux-mediatek@lists.infradead.org, linux-arm-kernel@lists.infradead.org
+Subject: Re: [PATCH RFC v3 0/8] Add support for DisplayPort link training
+ information report
+Message-ID: <20261117091117.GA1851633@killaraus.ideasonboard.com>
+References: <20261012-feat_link_cap-v3-0-7517f4aba0f3@bootlin.com>
+ <51ec15feef9a88e460ab6fefc48b5b982f4857c0@intel.com>
+ <dfe3ce17-8153-4cd1-b9df-fe0d61cec9c4@bootlin.com>
+ <20261116154931.GA1763340@killaraus.ideasonboard.com>
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
+In-Reply-To: <20261116154931.GA1763340@killaraus.ideasonboard.com>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -56,72 +77,125 @@ List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-18.8 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
-	DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
-	INCLUDES_CR_TRAILER,INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,
-	SPF_PASS,USER_AGENT_GIT autolearn=ham autolearn_force=no version=4.0.1
+X-Spam-Status: No, score=-5.8 required=3.0 tests=BAYES_00,DKIM_SIGNED,
+	DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
+	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS autolearn=no
+	autolearn_force=no version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-Many users of dma_fence do things like:
+On Mon, Nov 16, 2026 at 05:49:31PM +0200, Laurent Pinchart wrote:
+> On Mon, Nov 16, 2026 at 04:13:52PM +0100, Kory Maincent wrote:
+> > On 11/16/26 14:10, Jani Nikula wrote:
+> > > On Mon, 12 Oct 2026, Kory Maincent <kory.maincent@bootlin.com> wrote:
+> > >> DisplayPort link training negotiates the physical-layer parameters needed
+> > >> for a reliable connection: lane count, link rate, and optionally Display
+> > >> Stream Compression (DSC). Currently, each driver exposes this state in
+> > >> its own way, often through driver-specific debugfs entries, with no
+> > >> standard interface for userspace diagnostic and monitoring tools.
+> > >>
+> > >> This series introduces generic helpers, for exposing DP link capabilities
+> > >> and state as standard sysfs entries.
+> > > 
+> > > So how did we end up with sysfs here?
+> > 
+> > In the first RFC it was in DRM properties. I presented it in the display 
+> > hackfest in Nice last years. People suggested to use sysfs instead but 
+> > if the need appears later in the development move back to DRM 
+> > properties. I first though DRM properties seems better as it is the user 
+> > interface used by distros but I had no strong argument about the change 
+> > to sysfs, so I moved on to it.
+> > 
+> > >> The aim of such development is to guide users to select the most suitable
+> > >> DisplayPort connector for their needs. For example, if you have a USB-C
+> > >> hub with lesser capabilities than your computer’s native DisplayPort
+> > >> connector (such as HBR2 versus HBR3 support), the system could recommend
+> > >> connecting high-resolution displays directly to the computer’s port
+> > >> instead of through the hub to ensure optimal performance.
+> > > 
+> > > I do wonder how all this is supposed to work in more complex real world
+> > > scenarios, though.
+> > > 
+> > > I believe the user primarily cares about *modes*. Which display modes
+> > > can be used with each display/connector pair.
+> > > 
+> > > With the low level link information, are you proposing to compute the
+> > > required bandwidth for modes in userspace? I think it's going to be a
+> > > lot of work to compute the bandwidth requirements, taking into account
+> > > DP SST vs. MST vs. UHBR and DSC and bit depth and everything, and you'll
+> > > still miss any driver/GPU specific contraints. Or are you just proposing
+> > > to match the physical characteristics only?
+> > 
+> > This is a requirement from Google, yes they want to compute the 
+> > bandwidth for modes in the userspace side.
+> > @Manasi could describe in detail how would you implement it?
+> > 
+> > > Given all the connectors and displays and their modes on a system, you
+> > > could estimate a) for each display, what modes could be used on each
+> > > connector, and b) for each connector, what modes could be used on a
+> > > display, if connected. From the user POV, they could be shown why some
+> > > display mode is not available on the current connector, and crucially,
+> > > on which connector it could be available.
+> > > 
+> > > In general, I'm wondering if you're really after higher level
+> > > information, something like "connector max available bandwidth
+> > > with/without DSC", that would more directly map to the user needs as I
+> > > see them than low level link details.
+> > > 
+> > > Do you have the userspace somewhere? That's needed for merging UABI
+> > > anyway [1].
+> > > 
+> > > [1] https://docs.kernel.org/gpu/drm-uapi.html#open-source-userspace-requirements
+> > 
+> > I wanted to add it to IGT GPU tools, but I was hopping for community 
+> > review on this RFC before the IGT development.
+> 
+> Note the following requirement:
+> 
+>   The open-source userspace must not be a toy/test application, but the
+>   real thing. Specifically it needs to handle all the usual error and
+>   corner cases. These are often the places where new uAPI falls apart
+>   and hence essential to assess the fitness of a proposed interface.
+> 
+> I think think IGT qualifies. An implementation in a desktop environment
 
-// Thread A
-dma_fence_set_error(f, -EINVAL);
-dma_fence_signal(f); // <- Takes lock, which orders against the above.
+I meant I *don't* think IGT qualifies.
 
-// Thread B
-if (dma_fence_is_signaled(f)) // <- Does test_bit(), no ordering.
-	pr_info("err: %i\n", f->error); // <- Can be loaded first.
+> would likely be needed.
+> 
+> > >> The new drm_dp_source_set_caps and drm_dp_sink_set_caps helper expose
+> > >> source and sink training capabilities to userspace via sysfs attributes
+> > >> under dp_link. Finally drm_dp_set_cur_link_params helper is provided to
+> > >> report current link information at runtime.
+> > >>
+> > >> Three drivers are updated as reference implementations: i915 (direct
+> > >> connector path), ANX7625 and MediaTek (via the bridge connector framework
+> > >> using a new DRM_BRIDGE_OP_DP flag).
+> > >>
+> > >> Here is a sysfs example:
+> > >>
+> > >> cur_link_info_dsc            sink_link_caps_nlanes
+> > >> cur_link_info_link_rate      source_link_caps_dsc
+> > >> cur_link_info_nlanes         source_link_caps_link_rates
+> > >> sink_link_caps_dsc           source_link_caps_nlanes
+> > >> sink_link_caps_link_rates
+> > >>
+> > >> 1620000 2160000 2700000 3240000 4320000 5400000
+> > >>
+> > >> 1620000 2700000 5400000 10000000 20000000
+> > >>
+> > >> 5400000
+> > >>
+> > >> This series is rebased on top of drm-misc and may conflict with the
+> > >> current state of the drm i915 tree. Which tree should pick this up,
+> > >> given that it mixes core development with driver changes?
+> > > 
+> > > For development, please just base your work on top of drm-tip, and the
+> > > tree(s) will be sorted out later.
+> > 
+> > Oh, ok, thanks you.
 
-There is no memory ordering between reading of the signaled-bit and
-reading of the error code. This can result in outdated, wrong error
-codes being evaluated by the user.
-
-Though dma_fence_get_status() does take the fence lock, it is equally
-broken because the misordering can simply happen within the critical
-section.
-
-It's not entirely clear since when this bug exists, but at least since
-dma_fence_get_status() was added, which is why its birth commit is
-marked as the Fixes commit here.
-
-Ensure ordering for everyone evaluating the error code centrally by
-using test_bit_acquire() in dma_fence_test_signaled_flag().
-
-Cc: stable@vger.kernel.org
-Fixes: d6c99f4bf093 ("dma-fence: Wrap querying the fence->status")
-Signed-off-by: Philipp Stanner <phasta@kernel.org>
----
-Changes since the RFC:
-  - Order with test_bit_acquire(). (Gary)
-  - ^ also makes it easy to backport this for now.
-  - Try to document roughly what is even going on.
----
- include/linux/dma-fence.h | 11 ++++++++++-
- 1 file changed, 10 insertions(+), 1 deletion(-)
-
-diff --git a/include/linux/dma-fence.h b/include/linux/dma-fence.h
-index dd07d128adc3..a8d23fed70b9 100644
---- a/include/linux/dma-fence.h
-+++ b/include/linux/dma-fence.h
-@@ -496,7 +496,16 @@ const char __rcu *dma_fence_timeline_name(struct dma_fence *fence);
- static inline bool
- dma_fence_test_signaled_flag(struct dma_fence *fence)
- {
--	return test_bit(DMA_FENCE_FLAG_SIGNALED_BIT, &fence->flags);
-+	// Best-effort ordering of the locklessly evaluated signaled-bit,
-+	// especially so that reads of fence->error are not misordered.
-+	//
-+	// The release counterpart is typically ensured like this:
-+	//   a) Error codes must only be set before a fence signals and
-+	//   b) The fence's spinlock's barriers effective in dma_fence_signal()
-+	//      ensure ordering.
-+	//   c) For users of dma_fence_signal_locked(), the barrier implied in
-+	//      test_and_set_bit() should do the trick.
-+	return test_bit_acquire(DMA_FENCE_FLAG_SIGNALED_BIT, &fence->flags);
- }
- 
- /**
 -- 
-2.56.0
+Regards,
 
+Laurent Pinchart
