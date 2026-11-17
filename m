@@ -2,50 +2,59 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 15224606A31C
-	for <dri-devel@archiver.kernel.org>; Tue, 17 Nov 2026 07:25:55 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=ideasonboard.com header.i=@ideasonboard.com header.a=rsa-sha256 header.s=mail header.b=lrmbIHHs
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0B974606A31C
+	for <dri-devel@archiver.kernel.org>; Tue, 17 Nov 2026 07:34:13 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 4B6AE10EABF;
-	Tue, 17 Nov 2026 07:25:49 +0000 (UTC)
-Received: from perceval.ideasonboard.com (perceval.ideasonboard.com
- [213.167.242.64])
- by gabe.freedesktop.org (Postfix) with ESMTPS id EFBEC10EABF
- for <dri-devel@lists.freedesktop.org>; Tue, 17 Nov 2026 07:25:42 +0000 (UTC)
-Received: from [192.168.88.20] (91-158-153-178.elisa-laajakaista.fi
- [91.158.153.178])
- by perceval.ideasonboard.com (Postfix) with ESMTPSA id DA733E4E;
- Tue, 17 Nov 2026 08:23:13 +0100 (CET)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=ideasonboard.com;
- s=mail; t=1794900194;
- bh=qkKRy2LjXRv1NsXd/bizCc9huz674Yo2speAYeGcyjA=;
- h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
- b=lrmbIHHsE7oaZmVetovLOltXR258Wo7VcP8QRNnad+/H9HY/Cjtq60KGL9EUBTQHF
- a1GQz0OqyMk+a0ErJ45MX10J5dyke3oDSXypj/0X+B0f3A+ad4a+mskYe1rhe8tEX5
- 22AGfAmxjIX68ptp1M3h5LAKI5WV4VZa0sW3gQgw=
-Message-ID: <c9f69e4b-5e6e-40fc-b84e-b7cc92963247@ideasonboard.com>
-Date: Tue, 17 Nov 2026 09:25:38 +0200
+	by gabe.freedesktop.org (Postfix) with ESMTP id 15FAB10E522;
+	Tue, 17 Nov 2026 07:34:12 +0000 (UTC)
+Received: from cstnet.cn (smtp81.cstnet.cn [159.226.251.81])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 7824310E522
+ for <dri-devel@lists.freedesktop.org>; Tue, 17 Nov 2026 07:34:10 +0000 (UTC)
+Received: from edelgard.fodlan.icenowy.me (unknown [112.94.102.23])
+ by APP-03 (Coremail) with SMTP id rQCowAAXJpdqA_xqqn83AQ--.27001S2;
+ Tue, 17 Nov 2026 15:34:04 +0800 (CST)
+Message-ID: <73f4e371c37c36581240ff355fef3de2afaaa033.camel@iscas.ac.cn>
+Subject: Re: [PATCH v2 2/4] drm/verisilicon: nuke planes' atomic_enable hooks
+From: Icenowy Zheng <zhengxingda@iscas.ac.cn>
+To: Thomas Zimmermann <tzimmermann@suse.de>, Maarten Lankhorst
+ <maarten.lankhorst@linux.intel.com>, Maxime Ripard <mripard@kernel.org>
+Cc: David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
+ Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>, Joey Lu
+ <a0987203069@gmail.com>, Han Gao <gaohan@iscas.ac.cn>, 
+ dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org
+Date: Tue, 17 Nov 2026 15:34:02 +0800
+In-Reply-To: <a96e7813-6918-44f5-82e2-ca40051abea0@suse.de>
+References: <20261102075710.1286456-1-zhengxingda@iscas.ac.cn>
+ <20261102075710.1286456-3-zhengxingda@iscas.ac.cn>
+ <8e3b36c6-e2d8-4746-aefe-462bba1a4b05@suse.de>
+ <5830251f1420c152b2efc2ee37248057bdfc901d.camel@iscas.ac.cn>
+ <55991183-ab5f-4445-afce-37a79310ef27@suse.de>
+ <83aa9fb5be26fb407c7f1393bc01099d374cf51f.camel@iscas.ac.cn>
+ <7e4b4fd185f47404bb5f18e7c2c8086d24e673f4.camel@iscas.ac.cn>
+ <a96e7813-6918-44f5-82e2-ca40051abea0@suse.de>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+User-Agent: Evolution 3.58.3 
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v8 33/39] drm/tidss: dispc: Improve mode checking logs
-To: Maxime Ripard <mripard@kernel.org>
-Cc: Devarsh Thakkar <devarsht@ti.com>, dri-devel@lists.freedesktop.org,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>,
- Simona Vetter <simona@ffwll.ch>, Andrzej Hajda <andrzej.hajda@intel.com>,
- Neil Armstrong <neil.armstrong@linaro.org>, Robert Foss <rfoss@kernel.org>,
- Laurent Pinchart <Laurent.pinchart@ideasonboard.com>,
- Jonas Karlman <jonas@kwiboo.se>, Jernej Skrabec <jernej.skrabec@gmail.com>,
- Jyri Sarha <jyri.sarha@iki.fi>
-References: <20261106-drm-state-readout-v8-0-cbe78624e1bc@kernel.org>
- <20261106-drm-state-readout-v8-33-cbe78624e1bc@kernel.org>
-From: Tomi Valkeinen <tomi.valkeinen@ideasonboard.com>
-Content-Language: en-US
-In-Reply-To: <20261106-drm-state-readout-v8-33-cbe78624e1bc@kernel.org>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+X-CM-TRANSID: rQCowAAXJpdqA_xqqn83AQ--.27001S2
+X-Coremail-Antispam: 1UD129KBjvJXoW3XFWDuF1kCF4DGr4UKF15urg_yoWxGr1kpr
+ WktFy8Kr4rXrykJr9rtw4qqayagr47t347Xr1UJF1UXrn8trnrW3W0qrnruF4kXr48G3Wx
+ Jw12yF9rZr18AF7anT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
+ 9KBjDU0xBIdaVrnRJUUUvqb7Iv0xC_Kw4lb4IE77IF4wAFF20E14v26r4j6ryUM7CY07I2
+ 0VC2zVCF04k26cxKx2IYs7xG6rWj6s0DM7CIcVAFz4kK6r1j6r18M28lY4IEw2IIxxk0rw
+ A2F7IY1VAKz4vEj48ve4kI8wA2z4x0Y4vE2Ix0cI8IcVAFwI0_Xr0_Ar1l84ACjcxK6xII
+ jxv20xvEc7CjxVAFwI0_Gr0_Cr1l84ACjcxK6I8E87Iv67AKxVW0oVCq3wA2z4x0Y4vEx4
+ A2jsIEc7CjxVAFwI0_GcCE3s1le2I262IYc4CY6c8Ij28IcVAaY2xG8wAqx4xG64xvF2IE
+ w4CE5I8CrVC2j2WlYx0E2Ix0cI8IcVAFwI0_Jr0_Jr4lYx0Ex4A2jsIE14v26r1j6r4UMc
+ vjeVCFs4IE7xkEbVWUJVW8JwACjcxG0xvEwIxGrwACI402YVCY1x02628vn2kIc2xKxwCY
+ 1x0262kKe7AKxVWUtVW8ZwCF04k20xvY0x0EwIxGrwCFx2IqxVCFs4IE7xkEbVWUJVW8Jw
+ C20s026c02F40E14v26r1j6r18MI8I3I0E7480Y4vE14v26r106r1rMI8E67AF67kF1VAF
+ wI0_Jw0_GFylIxkGc2Ij64vIr41lIxAIcVC0I7IYx2IY67AKxVWUJVWUCwCI42IY6xIIjx
+ v20xvEc7CjxVAFwI0_Jr0_Gr1lIxAIcVCF04k26cxKx2IYs7xG6r1j6r1xMIIF0xvEx4A2
+ jsIE14v26r1j6r4UMIIF0xvEx4A2jsIEc7CjxVAFwI0_Gr0_Gr1UYxBIdaVFxhVjvjDU0x
+ ZFpf9x07betCcUUUUU=
+X-CM-SenderInfo: x2kh0wp0lqwv3d6l2u1dvotugofq/
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -57,138 +66,215 @@ List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-17.3 required=3.0 tests=BAYES_00,DKIM_SIGNED,
-	DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
-	INCLUDES_CR_TRAILER,INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,
-	SPF_PASS,USER_AGENT_SANE_1 autolearn=ham autolearn_force=no
-	version=4.0.1
+X-Spam-Status: No, score=-8.8 required=3.0 tests=BAYES_00,
+	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_PATCH,MAILING_LIST_MULTI,
+	SPF_HELO_NONE,SPF_PASS autolearn=ham autolearn_force=no version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-Hi,
+=E5=9C=A8 2026-11-17=E4=BA=8C=E7=9A=84 08:25 +0100=EF=BC=8CThomas Zimmerman=
+n=E5=86=99=E9=81=93=EF=BC=9A
+> Hi
+>=20
+> Am 17.11.26 um 06:19 schrieb Icenowy Zheng:
+> [...]
+> > > > Sure, but is that a problem for this hardware?
+> > > For the cursor plane, the unchecked coordinate might be improper
+> > > for
+> > > the registers.
+> > >=20
+> > > For the primary plane, if the plane is found to be totally off by
+> > > drm_atomic_helper_check_plane_state(), the check for
+> > > can_position,
+> > > which is below the code snippet I referenced, would be bypassed,
+> > > and
+> > > such plane would be programmed to be visible by the atomic_update
+> > > hook
+> > > even if it shouldn't be visible.
+> > Well I am now thinking that bound-but-invisible situation is
+> > commonly
+> > ignored by drivers.
+> >=20
+> > For drm/verisilicon, maybe I'd remove both atomic_disable and
+> > atomic_enable; however I think the atomic helpers may need some
+> > flag to
+> > consider bound-but-invisible planes when calling
+> > atomic_{dis,en}able.
+>=20
+> I don't think I really understand what you're up to, but it seems
+> you're=20
+> overthinking the whole thing. Other drivers only care about plane
+> on/off=20
 
-On 06/11/2026 15:14, Maxime Ripard wrote:
-> The dispc_vp_mode_valid() function checks whether a mode can be handled
-> by the display controller.
-> 
-> There's a whole bunch of criteria, and it's not clear when a rejection
-> happens why it did. Add logs on each rejection criterion to make it
-> clearer.
-> 
-> Reviewed-by: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>
-> Signed-off-by: Maxime Ripard <mripard@kernel.org>
-> ---
->   drivers/gpu/drm/tidss/tidss_dispc.c | 45 +++++++++++++++++++++++++++++--------
->   1 file changed, 36 insertions(+), 9 deletions(-)
-> 
-> diff --git a/drivers/gpu/drm/tidss/tidss_dispc.c b/drivers/gpu/drm/tidss/tidss_dispc.c
-> index e516f493d6d9..b5fb296fddcc 100644
-> --- a/drivers/gpu/drm/tidss/tidss_dispc.c
-> +++ b/drivers/gpu/drm/tidss/tidss_dispc.c
-> @@ -1318,4 +1318,6 @@ static int check_pixel_clock(struct dispc_device *dispc, u32 hw_videoport,
->   			     unsigned long clock)
->   {
-> +	struct tidss_device *tidss = dispc->tidss;
-> +	struct drm_device *dev = &tidss->ddev;
->   	unsigned long round_clock;
->   
-> @@ -1332,6 +1334,9 @@ static int check_pixel_clock(struct dispc_device *dispc, u32 hw_videoport,
->   	 * use the same 5% check here.
->   	 */
-> -	if (dispc_pclk_diff(clock, round_clock) > 5)
-> +	if (dispc_pclk_diff(clock, round_clock) > 5) {
-> +		drm_dbg(dev, "Pixel clock %lu differs from rounded clock %lu by more than 5%%.",
-> +			clock, round_clock);
->   		return -EINVAL;
-> +	}
+Well I don't know whether I am overthinking...
 
-Thanks, I'll pick this up to drm-misc-next, but I'll drop the ending 
-dots and add linefeeds when applying.
+Enabled but invisible planes are explicitly allowed in
+drm_atomic_helper_check_plane_state(), and even the can_position check
+is bypassed in such case (so such a configuration can even appear on
+primary planes). In addition, in most implementations for atomic_check,
+the invisible situations have the validity check explicitly skipped, so
+just disallow enabled-but-invisible planes in atomic_check would make
+the behavior quite different with most drivers.
 
-  Tomi
+Maybe I should craft some "evil" programs to check for this situation.
 
+Thanks,
+Icenowy
 
->   
->   	return 0;
-> @@ -1342,4 +1347,6 @@ enum drm_mode_status dispc_vp_mode_valid(struct dispc_device *dispc,
->   					 const struct drm_display_mode *mode)
->   {
-> +	struct tidss_device *tidss = dispc->tidss;
-> +	struct drm_device *dev = &tidss->ddev;
->   	u32 hsw, hfp, hbp, vsw, vfp, vbp;
->   	enum dispc_vp_bus_type bus_type;
-> @@ -1347,12 +1354,18 @@ enum drm_mode_status dispc_vp_mode_valid(struct dispc_device *dispc,
->   	bus_type = dispc->feat->vp_bus_type[hw_videoport];
->   
-> -	if (WARN_ON(bus_type == DISPC_VP_TIED_OFF))
-> +	if (WARN_ON(bus_type == DISPC_VP_TIED_OFF)) {
-> +		drm_dbg(dev, "Invalid bus type.");
->   		return MODE_BAD;
-> +	}
->   
-> -	if (mode->hdisplay > 4096)
-> +	if (mode->hdisplay > 4096) {
-> +		drm_dbg(dev, "Number of active horizontal pixels above hardware limits.");
->   		return MODE_BAD;
-> +	}
->   
-> -	if (mode->vdisplay > 4096)
-> +	if (mode->vdisplay > 4096) {
-> +		drm_dbg(dev, "Number of active vertical lines above hardware limits.");
->   		return MODE_BAD;
-> +	}
->   
->   	if (check_pixel_clock(dispc, hw_videoport, mode->clock * 1000))
-> @@ -1360,6 +1373,8 @@ enum drm_mode_status dispc_vp_mode_valid(struct dispc_device *dispc,
->   
->   	/* TODO: add interlace support */
-> -	if (mode->flags & DRM_MODE_FLAG_INTERLACE)
-> +	if (mode->flags & DRM_MODE_FLAG_INTERLACE) {
-> +		drm_dbg(dev, "Interlace modes not supported.");
->   		return MODE_NO_INTERLACE;
-> +	}
->   
->   	/*
-> @@ -1371,6 +1386,8 @@ enum drm_mode_status dispc_vp_mode_valid(struct dispc_device *dispc,
->   	 * But for simplicity we enforce that always.
->   	 */
-> -	if ((mode->hdisplay % 2) != 0)
-> +	if ((mode->hdisplay % 2) != 0) {
-> +		drm_dbg(dev, "Number of active horizontal pixels must be even.");
->   		return MODE_BAD_HVALUE;
-> +	}
->   
->   	hfp = mode->hsync_start - mode->hdisplay;
-> @@ -1384,10 +1401,18 @@ enum drm_mode_status dispc_vp_mode_valid(struct dispc_device *dispc,
->   	if (hsw < 1 || hsw > 256 ||
->   	    hfp < 1 || hfp > 4096 ||
-> -	    hbp < 1 || hbp > 4096)
-> +	    hbp < 1 || hbp > 4096) {
-> +		drm_dbg(dev,
-> +			"Horizontal blanking or sync outside of hardware limits (fp: %u, sw: %u, bp: %u).",
-> +			hfp, hsw, hbp);
->   		return MODE_BAD_HVALUE;
-> +	}
->   
->   	if (vsw < 1 || vsw > 256 ||
-> -	    vfp > 4095 || vbp > 4095)
-> +	    vfp > 4095 || vbp > 4095) {
-> +		drm_dbg(dev,
-> +			"Vertical blanking or sync outside of hardware limits (fp: %u, sw: %u, bp: %u).",
-> +			vfp, vsw, vbp);
->   		return MODE_BAD_VVALUE;
-> +	}
->   
->   	if (dispc->memory_bandwidth_limit) {
-> @@ -1399,6 +1424,8 @@ enum drm_mode_status dispc_vp_mode_valid(struct dispc_device *dispc,
->   		bandwidth = div_u64(bandwidth, mode->htotal * mode->vtotal);
->   
-> -		if (dispc->memory_bandwidth_limit < bandwidth)
-> +		if (dispc->memory_bandwidth_limit < bandwidth) {
-> +			drm_dbg(dev, "Required memory bandwidth outside of hardware limits.");
->   			return MODE_BAD;
-> +		}
->   	}
->   
-> 
+> and the contained image. That's also what the 3 callbacks are for. It
+> usually works nicely. Hence me asking. But maybe verisilicon is=20
+> different, IDK.
+>=20
+> My suggestion is therefore to remove _enable and _disable and keep
+> all=20
+> logic in _update.
+>=20
+> atomic_update()
+> {
+> =C2=A0=C2=A0 =C2=A0 if (plane_state->visible) {
+> =C2=A0=C2=A0 =C2=A0 =C2=A0 =C2=A0 // do update
+> =C2=A0=C2=A0 =C2=A0 =C2=A0 =C2=A0 // enable hw plane
+> =C2=A0=C2=A0 =C2=A0 } else {
+> =C2=A0=C2=A0 =C2=A0 =C2=A0 =C2=A0 // disable hw plane
+> =C2=A0=C2=A0 =C2=A0 }
+> }
+>=20
+> If you have any special cases where you want visible to be false (or=20
+> true), detect them in atomic_check and set the flags accordingly.
+>=20
+> atomic_check()
+> {
+> drm_atomic_helper_check_plane_state() =C2=A0 =C2=A0 if (awkward coords)
+> =C2=A0=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0plane_state->visible =3D false;
+> }
+>=20
+> Best regards
+> Thomas
+>=20
+> >=20
+> > Thanks,
+> > Icenowy
+> >=20
+> > > Thanks,
+> > > Icenowy
+> > >=20
+> > > > Best regards
+> > > > Thomas
+> > > >=20
+> > > > > The end of drm_atomic_helper_check_plane_state() says:
+> > > > >=20
+> > > > > ```
+> > > > > 	if (!plane_state->visible)
+> > > > > 		/*
+> > > > > 		 * Plane isn't visible; some drivers can
+> > > > > handle
+> > > > > this
+> > > > > 		 * so we just return success here.=C2=A0 Drivers
+> > > > > that
+> > > > > can't
+> > > > > 		 * (including those that use the primary
+> > > > > plane
+> > > > > helper's
+> > > > > 		 * update function) will return an error
+> > > > > from
+> > > > > their
+> > > > > 		 * update_plane handler.
+> > > > > 		 */
+> > > > > 		return 0;
+> > > > > ```
+> > > > >=20
+> > > > > Thanks,
+> > > > > Icenowy
+> > > > >=20
+> > > > > > [1]
+> > > > > > https://elixir.bootlin.com/linux/v7.3.1/source/drivers/gpu/drm/=
+drm_atomic_helper.c#L3030
+> > > > > >=20
+> > > > > > Best regards
+> > > > > > Thomas
+> > > > > >=20
+> > > > > > > =C2=A0=C2=A0=C2=A0 };
+> > > > > > > =C2=A0=C2=A0=C2=A0=20
+> > > > > > > diff --git
+> > > > > > > a/drivers/gpu/drm/verisilicon/vs_primary_plane.c
+> > > > > > > b/drivers/gpu/drm/verisilicon/vs_primary_plane.c
+> > > > > > > index 8e94491693019..fca692f4f7d5c 100644
+> > > > > > > --- a/drivers/gpu/drm/verisilicon/vs_primary_plane.c
+> > > > > > > +++ b/drivers/gpu/drm/verisilicon/vs_primary_plane.c
+> > > > > > > @@ -59,25 +59,6 @@ static void
+> > > > > > > vs_primary_plane_commit(struct
+> > > > > > > vs_dc
+> > > > > > > *dc, unsigned int output)
+> > > > > > > =C2=A0=C2=A0=C2=A0=C2=A0			VSDC_FB_CONFIG_EX_COMMIT);
+> > > > > > > =C2=A0=C2=A0=C2=A0 }
+> > > > > > > =C2=A0=C2=A0=C2=A0=20
+> > > > > > > -static void vs_primary_plane_atomic_enable(struct
+> > > > > > > drm_plane
+> > > > > > > *plane,
+> > > > > > > -					=C2=A0=C2=A0 struct
+> > > > > > > drm_atomic_commit *atomic_state)
+> > > > > > > -{
+> > > > > > > -	struct drm_plane_state *state =3D
+> > > > > > > drm_atomic_get_new_plane_state(atomic_state,
+> > > > > > > -
+> > > > > > > 						=09
+> > > > > > > 	=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 plane);
+> > > > > > > -	struct drm_crtc *crtc =3D state->crtc;
+> > > > > > > -	struct vs_crtc *vcrtc =3D
+> > > > > > > drm_crtc_to_vs_crtc(crtc);
+> > > > > > > -	unsigned int output =3D vcrtc->id;
+> > > > > > > -	struct vs_dc *dc =3D vcrtc->dc;
+> > > > > > > -
+> > > > > > > -	regmap_set_bits(dc->regs,
+> > > > > > > VSDC_FB_CONFIG_EX(output),
+> > > > > > > -			VSDC_FB_CONFIG_EX_FB_EN);
+> > > > > > > -	regmap_update_bits(dc->regs,
+> > > > > > > VSDC_FB_CONFIG_EX(output),
+> > > > > > > -		=09
+> > > > > > > VSDC_FB_CONFIG_EX_DISPLAY_ID_MASK,
+> > > > > > > -		=09
+> > > > > > > VSDC_FB_CONFIG_EX_DISPLAY_ID(output));
+> > > > > > > -
+> > > > > > > -	vs_primary_plane_commit(dc, output);
+> > > > > > > -}
+> > > > > > > -
+> > > > > > > =C2=A0=C2=A0=C2=A0 static void vs_primary_plane_atomic_disabl=
+e(struct
+> > > > > > > drm_plane
+> > > > > > > *plane,
+> > > > > > > =C2=A0=C2=A0=C2=A0=C2=A0					=C2=A0=C2=A0=C2=A0 struct
+> > > > > > > drm_atomic_commit *atomic_state)
+> > > > > > > =C2=A0=C2=A0=C2=A0 {
+> > > > > > > @@ -144,13 +125,18 @@ static void
+> > > > > > > vs_primary_plane_atomic_update(struct drm_plane *plane,
+> > > > > > > =C2=A0=C2=A0=C2=A0=C2=A0	regmap_write(dc->regs,
+> > > > > > > VSDC_FB_BLEND_CONFIG(output),
+> > > > > > > =C2=A0=C2=A0=C2=A0=C2=A0		=C2=A0=C2=A0=C2=A0=C2=A0
+> > > > > > > VSDC_FB_BLEND_CONFIG_BLEND_DISABLE);
+> > > > > > > =C2=A0=C2=A0=C2=A0=20
+> > > > > > > +	regmap_set_bits(dc->regs,
+> > > > > > > VSDC_FB_CONFIG_EX(output),
+> > > > > > > +			VSDC_FB_CONFIG_EX_FB_EN);
+> > > > > > > +	regmap_update_bits(dc->regs,
+> > > > > > > VSDC_FB_CONFIG_EX(output),
+> > > > > > > +		=09
+> > > > > > > VSDC_FB_CONFIG_EX_DISPLAY_ID_MASK,
+> > > > > > > +		=09
+> > > > > > > VSDC_FB_CONFIG_EX_DISPLAY_ID(output));
+> > > > > > > +
+> > > > > > > =C2=A0=C2=A0=C2=A0=C2=A0	vs_primary_plane_commit(dc, output);
+> > > > > > > =C2=A0=C2=A0=C2=A0 }
+> > > > > > > =C2=A0=C2=A0=C2=A0=20
+> > > > > > > =C2=A0=C2=A0=C2=A0 static const struct drm_plane_helper_funcs
+> > > > > > > vs_primary_plane_helper_funcs =3D {
+> > > > > > > =C2=A0=C2=A0=C2=A0=C2=A0	.atomic_check	=3D vs_primary_plane_a=
+tomic_check,
+> > > > > > > =C2=A0=C2=A0=C2=A0=C2=A0	.atomic_update	=3D
+> > > > > > > vs_primary_plane_atomic_update,
+> > > > > > > -	.atomic_enable	=3D
+> > > > > > > vs_primary_plane_atomic_enable,
+> > > > > > > =C2=A0=C2=A0=C2=A0=C2=A0	.atomic_disable	=3D
+> > > > > > > vs_primary_plane_atomic_disable,
+> > > > > > > =C2=A0=C2=A0=C2=A0 };
+> > > > > > > =C2=A0=C2=A0=C2=A0=20
 
