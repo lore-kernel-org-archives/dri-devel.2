@@ -2,61 +2,66 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D3EB3606A32F
-	for <dri-devel@archiver.kernel.org>; Tue, 17 Nov 2026 08:08:40 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B8E1A606A336
+	for <dri-devel@archiver.kernel.org>; Tue, 17 Nov 2026 08:08:41 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=uniontech.com header.i=@uniontech.com header.a=rsa-sha256 header.s=onoh2408 header.b=ES/qqLct
+	dkim=pass (1024-bit key) header.d=uniontech.com header.i=@uniontech.com header.a=rsa-sha256 header.s=onoh2408 header.b=S/6DBJIQ
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 499A710EED8;
-	Tue, 17 Nov 2026 08:08:30 +0000 (UTC)
-Received: from bg1.exmail.qq.com (bg1.exmail.qq.com [114.132.67.179])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 1900F10EADD
- for <dri-devel@lists.freedesktop.org>; Tue, 17 Nov 2026 02:28:04 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id B3A7A10EF14;
+	Tue, 17 Nov 2026 08:08:31 +0000 (UTC)
+X-Greylist: delayed 2987 seconds by postgrey-1.36 at gabe;
+ Tue, 17 Nov 2026 03:17:49 UTC
+Received: from smtpbguseast3.qq.com (smtpbguseast3.qq.com [54.243.244.52])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id A0DD710E3AE
+ for <dri-devel@lists.freedesktop.org>; Tue, 17 Nov 2026 03:17:48 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=uniontech.com;
- s=onoh2408; t=1794882478;
- bh=YFEMt68OTUAuLc8xbBf8qhNhrtZH4z9jKejIQ0be8PA=;
+ s=onoh2408; t=1794885457;
+ bh=XEX/B5fm61cWurYTFjfzhFA0YSoedPa2iWt3d/nCGIw=;
  h=From:To:Subject:Date:Message-Id:MIME-Version;
- b=ES/qqLctPecyl6Qm4ltPhJVTDibqXSXODRdx/bQCVmUPK5zhQIw62qRv5NRm5MEMF
- eyPazDT5CoYS7vChOcTLHwOlLJ5K1/zYtOKs3TasucoXiauNrxLEhJOJ36vvLP7L1Q
- gfXLNxeF7OYa3+M6Gs6KI9fDQkOVBzxur//Sv2zw=
-X-QQ-mid: zesmtpgz6t1794882123t8dfc0e95
-X-QQ-Originating-IP: sQqB+ujerewejO2er3hRMdg9WLwDzslkW/qZ6voe2Yc=
+ b=S/6DBJIQH+3DNa+hl5t3xxhlx0Jdf4a18F9ouPJpD6AsGVWppLRx3SCLQfl9KWXu0
+ 3aQ38NcT+hgXHrF02hCdUva1j/4xkcRZ0hdqnF4cE2LeY9KVDAezkVxWkjERLBwtKu
+ IU0UG/h0mawXl97RctjQ4yLqKa7JJTRduLoO625I=
+X-QQ-mid: esmtpsz10t1794885451t44789937
+X-QQ-Originating-IP: yzdTpx+SJXNUOYYrApmlvTnIUsqXyeyb1ObAEMRP0rY=
 Received: from localhost.localdomain ( [1.202.39.170])
  by bizesmtp.qq.com (ESMTP) with 
- id ; Tue, 17 Nov 2026 10:20:42 +0800 (CST)
+ id ; Tue, 17 Nov 2026 11:17:23 +0800 (CST)
 X-QQ-SSF: 0000000000000000000000000000000
 X-QQ-GoodBg: 1
-X-BIZMAIL-ID: 4569123318179278308
+X-BIZMAIL-ID: 18232043476698029590
 From: Xue Haolin <xuehaolin@uniontech.com>
 To: deller@gmx.de
 Cc: linux-fbdev@vger.kernel.org, dri-devel@lists.freedesktop.org,
  stable@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: [PATCH] fbdev: sstfb: Error out if pixclock equals zero
-Date: Tue, 17 Nov 2026 10:20:31 +0800
-Message-Id: <20261117022031.252357-1-xuehaolin@uniontech.com>
+Subject: [PATCH v2] fbdev: sstfb: Error out if pixclock equals zero
+Date: Tue, 17 Nov 2026 11:17:14 +0800
+Message-Id: <20261117031714.259053-1-xuehaolin@uniontech.com>
 X-Mailer: git-send-email 2.20.1
+In-Reply-To: <20261117022031.252357-1-xuehaolin@uniontech.com>
+References: <20261117022031.252357-1-xuehaolin@uniontech.com>
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 X-QQ-SENDSIZE: 520
-Feedback-ID: zesmtpgz:uniontech.com:qybglogicsvrgz:qybglogicsvrgz6b-0
-X-QQ-XMAILINFO: OE2SNMSfMbmOkbcXtbV6xEXhgffGg4Q6JEDvh2xvbnjUCoAQJRu9zYX/
- slXsqg46L7AOvOhu/Wd6LqcjwlSObMfkM96Zg7sbL7GqWZYQDDUL/+0AgL7yeSMq0Kw9qjI
- xZldi5hM4ODMHlCTDJ05IqN7RSbv3eB+gwp2/crzE/aZvFrd7rcOLgLWhOAO09GDNAPNCql
- TRhJGmKLXfJ99JK9TzROCK39G35FqoSZ2CbrkS9C9vm5ETopPAWD59CL6PtZvzIIvn89IAn
- MCh2ToWnMhZVFQXOizzq8tLm8ywGjL7z/Jc8N4o6FsCPDCJuNtE+mrNhNVyEYVEDmnBKpau
- 0pDbw0IS7V/VGLYaVrKqr4BHuSve2DmMbXjB5Lt7ll4CJz7GUuG41SnKt9W7k38u2MWErL+
- Qz1rxHd66FslN9Ry2I6TFSaH71JkCU5JM4vuokxZrokbHbcH3CetvZN5rLLU+5YIjgj/xH+
- 00HtH9VglGojgUjxLaTcwXpm15DjgxwXjWHD9gX+VRz+rFbDaYZInRJFKyt6iFdzGj8eqiM
- Fc84ayzivAC73O2ArQ6Csr6QKYpB9D+k11b3dEQzPWJpjwSuttdR4XnV0IgIYXbhIp2tp1J
- dEdSZxmXPDUoLsjWfPhRAfzwyWjQS/8hP+xWTR9IyEHlz4KMO67ylIYhuprlbl8+9/g0ATM
- gX/e5PwTvKk3Ea+rj+Tm3FLE/ttTP6A+Y8wmTIqHgACUYKto9JltECaeHSBFsp7ULgLdBtL
- cuGN+uicz4r+SSYuaEcOMtyPskEPgHI9kiFSPXaYdO+MZJpz8kWGZGyh+SYhHW8BZ++irTS
- 0pTVckcpPeAmEpJpwVa8+VxpIfdnj7DSX7M/4aQc+C7DatkgQHxlaReoWaUlSmacQYd8MRs
- YQGAK1uY+I/D/q+gSgX9O7kaYv9ZQcemL/RYELkyKf+99Z3HlQZlE3uwoixBpzjddsJqfTz
- ISSHan7jJDzv9edlPdqeFIqYFXayeEVEwzxDwMC7P/Js0+ltwZOQQFXGv2wHMjVD5yl/ly+
- g0dE3OvHTnn0gCgxUtKhp2OBk3hQgUq15vgu3evQ==
-X-QQ-XMRINFO: OD9hHCdaPRBwH5bRRRw8tsiH4UAatJqXfg==
+Feedback-ID: esmtpsz:uniontech.com:qybglogicsvrgz:qybglogicsvrgz6b-0
+X-QQ-XMAILINFO: M6x2tnEVru4e7GBRUJQEC7FKeapgacBqX6rElXPVDGi2MWqDBI+0Sbdt
+ 1abI+CFtrobSXlj6X529C80d26SKma1p7SUs/ePSfVxkRJRMuyz7uHQa5gu1mQs+vWcq2MC
+ aPDPF0Qm7smp5jfO1/33K5HleQ4dElzcyOHlEamMQdKNig8Xc01zAZbzb+LdaIaJXfhUfKU
+ 084BxXj9k6X40tCxxBDjOhSFEgWsiweqCP2qevBMSB0/+jaRLTzWpIzrUgotEgSNltxoqIT
+ YC085xYb63Qnrs9BzVT4cQ1Ew7RscFI9bZ6hzzSRE6AvbM5M0W9M/dBHkBcpcm8NnPwxjpN
+ 8r2BNdQSwau0o2jjulsvYbPoI5M59MztiloVl+yDdMNy5vYnzq7f7pwfoaG4sXAQgKCRzvx
+ JbRxz+6c2dindBKG8RgfeBbbW6aCDw5iBOM3RfPzZYM23m2pNlzAqN2umNmUlhMadc2FP14
+ f6Q6qCNEH5cCLDbOmsapk+RNwwtLdpdHY36qOyfsqcpPCH/JhirlN4mSEJmbIayZF2a3Y88
+ 9Pjw+P1jXa3VezUK1bgStmaFIUxN26WvhjVFM1JvEfgiYqPF2mADA3tBpoR69OzEjuRNCp/
+ vkbN9etDVuuR2ny57eYEvoKDbmaFz9BtgQYVof54mBn2+5289x0H2yJXMIAj4/tF7x7izmo
+ K0MPP4gjgmp0ldGsSxAzlinQ0sJujGkbarjpRkAMBro1Zv9FumQhp6fO7I9PO2NBJwUc4Kv
+ 0zM9TdAndC4CQW76AFEiCqXvVlxP8bV4RivoR6rwM+TXPTRn4RS920eh/OItPqIMgODrDpC
+ YUovNyYp1LKPmsb5S67VRhrbsExFr9QguTYZVAQSXt55aQ6L7tE/FN8MFAdOASRh7vr/bEI
+ ZYqtSilG8EMqSgQG/9aSV7ppMHnEJGOgGIL7OYCdG/tWiD8l2a2yZQj0I40DHTPl4FGQJyx
+ IICfUBuk1b5BI1HJkED6hAKNKPovTPs/nIUdCa/bzmy7yJ/qcjn1g7sLuP3jisdGkxMrosC
+ EDgZt4UZPPZ+OPyof7Pf0bRQfrrwdqzbuka4C21aSd944rSSHQCBW7Eqhub72VZnBC7LPKc
+ w==
+X-QQ-XMRINFO: NS+P29fieYNwqS3WCnRCOn9D1NpZuCnCRA==
 X-QQ-RECHKSPAM: 0
 X-Mailman-Approved-At: Tue, 17 Nov 2026 08:07:19 +0000
 X-BeenThere: dri-devel@lists.freedesktop.org
@@ -78,8 +83,6 @@ X-Spam-Status: No, score=-18.8 required=3.0 tests=BAYES_00,DKIM_SIGNED,
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-From: xuehaolin <xuehaolin@uniontech.com>
-
 The userspace program could pass any values to the driver through
 ioctl() interface. If the driver doesn't check the value of pixclock,
 it may cause divide-by-zero error.
@@ -98,8 +101,11 @@ commit 04e5eac8f3ab ("fbdev: savage: Error out if pixclock equals zero").
 
 Fixes: 1da177e4c3f4 ("Linux-2.6.12-rc2")
 Cc: stable@vger.kernel.org
-Signed-off-by: xuehaolin <xuehaolin@uniontech.com>
+Signed-off-by: Xue Haolin <xuehaolin@uniontech.com>
 ---
+Changes in v2:
+- Fix sign-off to use real name "Xue Haolin" to satisfy DCO.
+
  drivers/video/fbdev/sstfb.c | 3 +++
  1 file changed, 3 insertions(+)
 
