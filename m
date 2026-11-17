@@ -2,92 +2,81 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AB4B9606A32F
-	for <dri-devel@archiver.kernel.org>; Tue, 17 Nov 2026 01:01:25 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D7237606A323
+	for <dri-devel@archiver.kernel.org>; Tue, 17 Nov 2026 01:01:34 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=broadcom.com header.i=@broadcom.com header.a=rsa-sha256 header.s=google header.b=SWEUROTc
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=CkVsmv8H
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 138C310EAC9;
-	Tue, 17 Nov 2026 01:01:20 +0000 (UTC)
-Received: from mail-pg1-f226.google.com (mail-pg1-f226.google.com
- [209.85.215.226])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 2468410EAC9
- for <dri-devel@lists.freedesktop.org>; Tue, 17 Nov 2026 01:01:14 +0000 (UTC)
-Received: by mail-pg1-f226.google.com with SMTP id
- 41be03b00d2f7-cc758830601so3793529a12.2
- for <dri-devel@lists.freedesktop.org>; Mon, 16 Nov 2026 17:01:14 -0800 (PST)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20260707; t=1794877273; x=1795482073;
- h=content-transfer-encoding:mime-version:reply-to:message-id:date
- :subject:cc:to:from:dkim-signature:x-gm-gg:x-gm-message-state:from
- :to:cc:subject:date:message-id:reply-to:content-type;
- bh=CZVthfNBde5H7x9qVsFoduK9N4Ncht4h6sscBCrv0NM=;
- b=AX1jtPfFq3Ayl9Jekqyt2uwy9Yy+PuXqNsvTZ8AqvzFad4CB5ou2oUKcKCpd0dnvTJ
- regDK4+9UIRcqk5FsPvhZzlFsKvjTOtBxC4TcskFZeItCKS/0R4a235JUhpBsRI5Xw+H
- 1/fUAIQ9IiSpZiy9n/HHnwpKTZIJX23AwosCGf/KUEe125hhswa9KE2aFXhggZLJNW5U
- Be+XEX/tqJRhM2yPFWRrMXOzp0SpUUMGYOa7iLDcbYTfHex6fDXTrccgkxSva6eefsSk
- BNg9lXxMEBoihzMTLGWHCvA6dGNyQkJ4YQDfvFy6w9yNdlEzCgclAslo8Lgs+uN9o46Y
- x0Og==
-X-Gm-Message-State: APuU4Z+fCvO9tPRuIyZ5WS6yer2n/Yby+N6wTvUlfNfhrKDBeeZhhgre
- +62Q0wLcyUto8UWd2JB3j8c5rao3clF/2m9LJRjaieYHWT4ZHZX0AcA2pl6ECXkyojcggflCZCu
- rx3iarwRo0FxAz7tPuTlKnmJIblZktT8x8Q8vlktShGV2GiDmhjGD3dWcMFJNeP+gNZEEpyjHu+
- GvZIgwWd8kEvxBxNF71mgbSQUkXJX4mUSm2Nn36N7CyL7P25vOHBGwhMbTca8Mdop0+W2YUYMFp
- PyAem+yR+5OcRXsyHo5WUEp3EjP
-X-Gm-Gg: AZFdTZfsOCz48V61lxGo4Thpa5Ug17V1bsj2IifggzHRTdjedU9xotmkZgHpkhjeTdK
- FfthlrPNKZSp3S3w0+OvApDKWpgVNiCUbLi1XB3twm9r5Ssd+8ncNtUcqfj4i7+X/08/kO18EZ+
- dw0gOEte9peG9QhTytlJNyJZxRyUwedPVhKtAgy7JtdF80JmBuMNgcPSr1w3epE1LG8u5iOfENA
- zrGiJadixLuIgKxOH7UJZbnfoejKK5FMPCMLNrGgPQRs1jDCOGsHVNzRfR1xt265Acct51ejP0r
- g9Ip+fSb+scefPKq2p9AIbSLtoYXoCXUX/ULl9E2tgruGgUA0ItF5/buucYwqM4gsT8ycOvaJle
- RedPY/PF0uB8/zhxHK0xqGGRJ4/t1fhtvd32zwEIwinhvciDvwZmp4ubO/7BKBM0Ojs0e/j6oR/
- FNAtZ1XqwLh6bApWakYhtt85XonYTJUTX3zqkVWPRn
-X-Received: by 2002:a17:90a:ec86:b0:3ac:7377:fd48 with SMTP id
- 98e67ed59e1d1-3b1b0d228a2mr12010975a91.56.1794877273501; 
- Mon, 16 Nov 2026 17:01:13 -0800 (PST)
-Received: from smtp-us-east1-p01-i01-si01.dlp.protect.broadcom.com
- (address-144-49-247-28.dlp.protect.broadcom.com. [144.49.247.28])
- by smtp-relay.gmail.com with ESMTPS id
- 98e67ed59e1d1-3b3ab9f98bdsm771520a91.0.2026.11.16.17.01.13
- for <dri-devel@lists.freedesktop.org>
- (version=TLS1_2 cipher=ECDHE-ECDSA-AES128-GCM-SHA256 bits=128/128);
- Mon, 16 Nov 2026 17:01:13 -0800 (PST)
-X-Relaying-Domain: broadcom.com
-X-CFilter-Loop: Reflected
-Received: by mail-dy1-f200.google.com with SMTP id
- 5a478bee46e88-370230d93efso4492210eec.1
- for <dri-devel@lists.freedesktop.org>; Mon, 16 Nov 2026 17:01:12 -0800 (PST)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 5858A10EAD5;
+	Tue, 17 Nov 2026 01:01:29 +0000 (UTC)
+Received: from mail-dl1-f53.google.com (mail-dl1-f53.google.com [74.125.82.53])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 8E37E10EAD0
+ for <dri-devel@lists.freedesktop.org>; Tue, 17 Nov 2026 01:01:22 +0000 (UTC)
+Received: by mail-dl1-f53.google.com with SMTP id
+ a92af1059eb24-15ea896ddc8so6374208c88.0
+ for <dri-devel@lists.freedesktop.org>; Mon, 16 Nov 2026 17:01:22 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=broadcom.com; s=google; t=1794877272; x=1795482072;
- darn=lists.freedesktop.org; 
- h=content-transfer-encoding:mime-version:reply-to:message-id:date
- :subject:cc:to:from:from:to:cc:subject:date:message-id:reply-to
- :content-type; bh=CZVthfNBde5H7x9qVsFoduK9N4Ncht4h6sscBCrv0NM=;
- b=SWEUROTc/1RWkMpACHG3g4CrCyIeTdbYeGJZHEwUSfetLCHMxtZzj4NLVG7rdWMNGT
- mA4C2VA1YA1DFQhF8FdaDXYm7CdAYE+a59QpBRXfaSCgowRU48n5ysCQQEoUsDvBabgB
- jvPPk++ishM00uKD94TwMdaO3iDY3QMVfCbrk=
-X-Received: by 2002:a05:693c:8105:b0:36a:1d6f:917c with SMTP id
- 5a478bee46e88-3796731337bmr13130695eec.22.1794877271299; 
- Mon, 16 Nov 2026 17:01:11 -0800 (PST)
-X-Received: by 2002:a05:693c:8105:b0:36a:1d6f:917c with SMTP id
- 5a478bee46e88-3796731337bmr13130623eec.22.1794877269849; 
- Mon, 16 Nov 2026 17:01:09 -0800 (PST)
-Received: from mombasawalam-Precision-5820-Tower.cap.broadcom.net
- ([192.19.50.250]) by smtp.gmail.com with ESMTPSA id
- 5a478bee46e88-379508762a5sm37576219eec.0.2026.11.16.17.01.08
+ d=gmail.com; s=20260707; t=1794877282; x=1795482082; darn=lists.freedesktop.org;
+ h=in-reply-to:content-disposition:content-type:mime-version
+ :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+ :date:message-id:reply-to:content-type;
+ bh=vzqoAyjUokJZqlOT6Q8pZfCZ/k/84aYSFWealQEk2eE=;
+ b=CkVsmv8HYjh5Tu+080Xa7GoHFGFbQXpOXyN6ISgnMxmTm8QR2EzDyI7G2DpiffwhzM
+ qODiW5rhgSDPbVsZK6FxnHx1x0ZQi0Ky6SgX2Hj9DSuVcAwWydFUNxutzNe11gWzL34l
+ 2W7/TPwF3TmMzpi4gdQOymSd/97Rf2xcRXgl2ps1iJ9j7qkDue4/nCLeSU+Pj56KdK6S
+ Iop9yCbsEty+uwrKoyV6micRFzME/exOlSzaSYsrvF1IUmDSfoPwhjhGsv78PSdL60Qp
+ 0TcIScPEn1nx8xt/uoyfV0rw49TRUl/1E7GUCHIkLXAv+u9eqYZppVT37laiksZGCNfS
+ NhxA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20260707; t=1794877282; x=1795482082;
+ h=in-reply-to:content-disposition:content-type:mime-version
+ :references:message-id:subject:cc:to:from:date:x-gm-gg
+ :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+ :content-type;
+ bh=vzqoAyjUokJZqlOT6Q8pZfCZ/k/84aYSFWealQEk2eE=;
+ b=MGlfnUv3iXDW/8XhggyM4xhAbvg7k2uUtS8zoHnvMpOTHySKWot5lG0L3id4PHQNed
+ 0ygmiviP3zizw8h/Fo6GKdYRaszj7tqmYJNQU0tDs+HP1RDGc+6Icd2yRtyxH6xdZpjz
+ /dPe536SkkIXmB7P+wGgsXzk8ESRhg49lIdFH2p1se8VPzdyfp1d40OzQZN2VhbdNB2r
+ LV1jY/ZpCnWrqDbamzae40fXBiXNxEXynDx51hAn05f3+KEoEiKjLGoD6RW7BR7TuZG9
+ 4JMd+pFVcuMDtvNYWuhhWrGJdNKEO4CQDFyksxXCi/eL2wbPvreDxmZu/Pa1rgvKkQDK
+ UW8Q==
+X-Forwarded-Encrypted: i=1;
+ AL+hErE2NMHXW0lUSzFXcJEK9KKHlLCNziQfnlJwnXYMNqL9sCqCbZEW3yAwhOGbdIMM4e4XEkJez3/h2Sc=@lists.freedesktop.org
+X-Gm-Message-State: APuU4Z/6ahfxJpZVcXXGLl2m6aSVwbCfPZ1Kpjj1ZgGmWIBvTmDjl+Pk
+ eGWIK2XWYpcVMLhDe88lNzMb3SPX/XsPjf0CmLvmFzq0gEP9HUS5prsv
+X-Gm-Gg: AYBFou3wEBFfq3PuuTQC5hd7MMr8UxmIshW6d6GncfH8tbQQI4EurtwsNQjSqNFUK1R
+ W7fYLMW2ACeWwea5x11MHbeFseiAW6K8paGo7rv9sLJuQZtK9xkIUZWm/grLe39wiMjGkQpTohC
+ +2BGDp4noeTJsz5KHcVxCMD4ma1IyN18OWLtaJqfuVdJ62RJUAEdjzgM5H8aHmn0WunZZYxnfNF
+ Cmk3HsRDtwYKQaESaRJOV4bcRkMQBWQ63UNrJCmilUixvZ1NJ1Q7zkjyj0qVc4BshkPMSJ24KCi
+ eTwfpiu82nPpKid6rUPDcU7XFviVHvEiP3zLnjyB4pAkD8CFOMeK6MxbGML9hCv8Ixms+CwSADN
+ gzaTgkYMeJYqxAPIdQh7utCi1J7ebjaJs79EeHVEDjPWQhmd7b+39tF7+qb0G+KAkX/mZIn2SMr
+ zwH3qT7E3fV0P805WXLe6GQXFo2rZqTIQ0NZuY9MqGpKtLq5plqzMeDC+gkLPQzh9oEd8TNIVCs
+ nTQQubKiihOd/59L0+8lpqz63HO0FEXrfnVg004Ta/7fzqmha/mM653ZopqUGTxN55ulYOL+XE0
+ WcaiW5DsytKV4K8wFE+5uWzxQdMSxninReAoHapKkh5TOJwaZOnLNAiX
+X-Received: by 2002:a05:7022:290:b0:1b3:a881:4d9f with SMTP id
+ a92af1059eb24-1b5030ad209mr10751139c88.20.1794877281631; 
+ Mon, 16 Nov 2026 17:01:21 -0800 (PST)
+Received: from localhost ([2400:2650:24e0:bf00:cc77:213f:afc3:65e2])
+ by smtp.gmail.com with ESMTPSA id
+ a92af1059eb24-1b50309b2b5sm30987948c88.1.2026.11.16.17.01.18
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Mon, 16 Nov 2026 17:01:09 -0800 (PST)
-From: Maaz Mombasawala <maaz.mombasawala@broadcom.com>
-To: dri-devel@lists.freedesktop.org
-Cc: bcm-kernel-feedback-list@broadcom.com, ian.forbes@broadcom.com,
- zack.rusin@broadcom.com, Maaz Mombasawala <maaz.mombasawala@broadcom.com>
-Subject: [PATCH v7] drm/vmwgfx: Add some checks to
- vmw_cursor_plane_atomic_update
-Date: Mon, 16 Nov 2026 17:02:45 -0800
-Message-ID: <20261117010244.807279-2-maaz.mombasawala@broadcom.com>
-X-Mailer: git-send-email 2.56.1
+ Mon, 16 Nov 2026 17:01:20 -0800 (PST)
+Date: Tue, 17 Nov 2026 10:01:16 +0900
+From: Zhenyu Wang <zhenyuw.linux@gmail.com>
+To: Tuo Li <islituo@gmail.com>
+Cc: zhi.wang.linux@gmail.com, jani.nikula@linux.intel.com,
+ joonas.lahtinen@linux.intel.com, rodrigo.vivi@intel.com,
+ tursulin@ursulin.net, airlied@gmail.com, simona@ffwll.ch,
+ ankit.k.nautiyal@intel.com, intel-gfx@lists.freedesktop.org,
+ dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH] drm/i915/gvt: Fix NULL pointer dereference in slot switch
+Message-ID: <avunXOrG8wfAI2cR@dell-wzy>
+References: <20261112155822.1336713-1-islituo@gmail.com>
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-DetectorID-Processed: b00c1d49-9d2e-4205-b15f-d015386d3d5e
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261112155822.1336713-1-islituo@gmail.com>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -98,69 +87,57 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
-Reply-To: Maaz Mombasawala <maaz.mombasawala@broadcom.com>
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-18.8 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
-	DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
-	INCLUDES_CR_TRAILER,INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,
-	SPF_PASS,USER_AGENT_GIT autolearn=ham autolearn_force=no version=4.0.1
+X-Spam-Status: No, score=-12.8 required=3.0 tests=BAYES_00,DKIM_SIGNED,
+	DKIM_VALID,DKIM_VALID_AU,FREEMAIL_FORGED_FROMDOMAIN,FREEMAIL_FROM,
+	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
+	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS autolearn=unavailable
+	autolearn_force=no version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-In cases where old_state may not be present we hit a null dereference.
-Get display unit from cursor plane instead to fix this and also do an
-early return if there is no new_state since there is nothing to do in
-that case.
-This fixes igt test kms_cursor_legacy@torture-bo.
+On Thu, Nov 12, 2026 at 11:58:22PM +0800, Tuo Li wrote:
+> The running slot is updated to the pending slot before updating the running
+> context. However, the condition checks the old running context instead of
+> the newly assigned running slot.
+> 
+> When no pending slot exists, running_slot becomes NULL. If the previous
+> running_context is non-NULL, the code attempts to access
+> running_slot->ctx[0], resulting in a NULL pointer dereference.
+> 
+> To fix this possible NULL pointer dereference, check running_slot instead
+> to ensure that running_context is updated only when a valid slot is
+> available.
 
-Fixes: 965544150d1c ("drm/vmwgfx: Refactor cursor handling")
-Cc: Zack Rusin <zack.rusin@broadcom.com>
-Cc: Broadcom internal kernel review list <bcm-kernel-feedback-list@broadcom.com>
-Cc: dri-devel@lists.freedesktop.org
-Signed-off-by: Maaz Mombasawala <maaz.mombasawala@broadcom.com>
----
- drivers/gpu/drm/vmwgfx/vmwgfx_cursor_plane.c | 18 +++++++++++-------
- 1 file changed, 11 insertions(+), 7 deletions(-)
+Well, just AI generated static check but without any runtime analysis,
+again...and can't even show kernel oops of this, as it simply can't happen..
 
-diff --git a/drivers/gpu/drm/vmwgfx/vmwgfx_cursor_plane.c b/drivers/gpu/drm/vmwgfx/vmwgfx_cursor_plane.c
-index b678e5b68db7..16e6635ef4ce 100644
---- a/drivers/gpu/drm/vmwgfx/vmwgfx_cursor_plane.c
-+++ b/drivers/gpu/drm/vmwgfx/vmwgfx_cursor_plane.c
-@@ -22,6 +22,9 @@
- #define VMW_CURSOR_SNOOP_WIDTH 64
- #define VMW_CURSOR_SNOOP_HEIGHT 64
- 
-+#define vmw_cursor_to_du(cursor_plane) \
-+	container_of(cursor_plane, struct vmw_display_unit, cursor.base)
-+
- struct vmw_svga_fifo_cmd_define_cursor {
- 	u32 cmd;
- 	SVGAFifoCmdDefineAlphaCursor cursor;
-@@ -866,16 +869,17 @@ void
- vmw_cursor_plane_atomic_update(struct drm_plane *plane,
- 			       struct drm_atomic_commit *state)
- {
--	struct drm_plane_state *new_state =
--		drm_atomic_get_new_plane_state(state, plane);
--	struct drm_plane_state *old_state =
--		drm_atomic_get_old_plane_state(state, plane);
--	struct drm_crtc *crtc = new_state->crtc ?: old_state->crtc;
-+	struct drm_plane_state *new_state;
- 	struct vmw_private *dev_priv = vmw_priv(plane->dev);
--	struct vmw_display_unit *du = vmw_crtc_to_du(crtc);
--	struct vmw_plane_state *vps = vmw_plane_state_to_vps(new_state);
-+	struct vmw_display_unit *du = vmw_cursor_to_du(plane);
-+	struct vmw_plane_state *vps;
- 	s32 hotspot_x, hotspot_y, cursor_x, cursor_y;
- 
-+	new_state = drm_atomic_get_new_plane_state(state, plane);
-+	if (!new_state)
-+		return;
-+	vps = vmw_plane_state_to_vps(new_state);
-+
- 	/*
- 	 * Hide the cursor if the new bo is null
- 	 */
--- 
-2.56.1
+> 
+> Fixes: 8453d674ae7e ("drm/i915/gvt: vGPU execlist virtualization")
+> Signed-off-by: Tuo Li <islituo@gmail.com>
+> ---
+>  drivers/gpu/drm/i915/gvt/execlist.c | 2 +-
+>  1 file changed, 1 insertion(+), 1 deletion(-)
+> 
+> diff --git a/drivers/gpu/drm/i915/gvt/execlist.c b/drivers/gpu/drm/i915/gvt/execlist.c
+> index 29147a9f162e..763c310f2aaf 100644
+> --- a/drivers/gpu/drm/i915/gvt/execlist.c
+> +++ b/drivers/gpu/drm/i915/gvt/execlist.c
+> @@ -73,7 +73,7 @@ static void switch_virtual_execlist_slot(struct intel_vgpu_execlist *execlist)
+>  
+>  	execlist->running_slot = execlist->pending_slot;
+>  	execlist->pending_slot = NULL;
+> -	execlist->running_context = execlist->running_context ?
+> +	execlist->running_context = execlist->running_slot ?
+>  		&execlist->running_slot->ctx[0] : NULL;
+>
 
+Current code calls this switch in case whenever running_slot is
+available, so it won't have null ptr reference. But code looks a
+little weird, as current code tried to assign running_context in other
+place e.g when new request happened, or even it might seem to miss
+when enter execlist idle state...but it is still valid in switch
+call. So I think this is just harmless. If you'd like for further
+cleanup, that needs testing result for sure.
+
+Thanks.
