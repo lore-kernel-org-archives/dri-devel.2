@@ -2,38 +2,37 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2E4A3606A31C
-	for <dri-devel@archiver.kernel.org>; Tue, 17 Nov 2026 10:24:54 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B787C606A323
+	for <dri-devel@archiver.kernel.org>; Tue, 17 Nov 2026 10:25:21 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=bt5z6Z9q
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=d5mkTgNk
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 80B1510E37F;
-	Tue, 17 Nov 2026 10:24:48 +0000 (UTC)
-Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id E4F1210E501
- for <dri-devel@lists.freedesktop.org>; Tue, 17 Nov 2026 10:24:42 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 1F93310E5B8;
+	Tue, 17 Nov 2026 10:25:16 +0000 (UTC)
+Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 6963410E5B8
+ for <dri-devel@lists.freedesktop.org>; Tue, 17 Nov 2026 10:25:09 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id 7B14C408FE;
- Tue, 17 Nov 2026 10:24:42 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 903781F000C4;
- Tue, 17 Nov 2026 10:24:36 +0000 (UTC)
+ by tor.source.kernel.org (Postfix) with ESMTP id 6575262D65;
+ Tue, 17 Nov 2026 10:25:08 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2B78E1F000C4;
+ Tue, 17 Nov 2026 10:25:00 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1794911082;
- bh=XfB5B52dyRgHhh4XLOsPPMRBRcmUL0nbC6YT+G0tvD0=;
+ s=k20260515; t=1794911108;
+ bh=Q2znK6jCcwZIL5Nn3GHQNM4P89lE7lhD6CjXDpbVY7E=;
  h=Date:Subject:To:Cc:References:From:In-Reply-To;
- b=bt5z6Z9qAIHck9s6Z9YBZ6Zky/qSjwuhm5MTYTtCvkbtB6EtaaIsuAS8HByVm1Pt7
- rhlslJwscU26ScWpndfeX5lLxHIsCnJUZVNspLNJrh4sf2t/RfWhu/8PsgTahBAncD
- 9/o5++v3iEUwTEUxlASDeMRcGtzRvsOQDysYf27OViR/fCE6sBx1QH2P6MIpdxY+EK
- 8M27dZnOhiA5qF8Pv8eI5waL687rv/tMZwDy0/UH/HOQZ+NiIhr8VS2+mQZNAQailz
- bNz1LM6YzjclXcBLNxlOg4fk1YhDNp8ebRDrNlpyZzuceT6LC7KYkw+GQB9yGrpI5w
- +W6ozZkpTWr+Q==
-Message-ID: <357f0fcb-792b-4b40-84d2-cdfd05ca05eb@kernel.org>
-Date: Tue, 17 Nov 2026 11:24:34 +0100
+ b=d5mkTgNkXq2Ra7mECq7+jIONDntWjpK4VgFPrMvM8V/RHynNrD3wjqdssecPVtdFB
+ 1JLwOZdgWWruCHaHITxCzsnnkq0aBHys3vl8yrti55f+V2Wfkra9qdY+FPiRo1Kxa6
+ 8zZwEN1VLYMNMdCQl+/uFArRFin3Y4mb9+WMMIBUsm5wHcMPswnLsXGoJZTJz+Tvha
+ f2bRtkjMppMJZJC9mI4EB4C4T1tD1a7cf65Shdt23C6V5K5emlOugLYciAfN+ftkiN
+ qGIMLtmhahp02bhV3Hkx5dZ5z9vDVKKT/qwIIQkqbhzSfxj24C4O3F1nkeGfb0gxaE
+ c9HQr+7BgkGJQ==
+Message-ID: <a1b8888b-0a30-4537-a7ea-d0798c7f7d7a@kernel.org>
+Date: Tue, 17 Nov 2026 11:24:58 +0100
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 0/4] Add Parade PS195 bridge support to enable HDMI on
- Glymur/Mahua/Kalambo CRDs
+Subject: Re: [PATCH v2 3/4] arm64: defconfig: Enable the Parade PS195 bridge
 To: Nabige Aala <nabige.aala@oss.qualcomm.com>,
  Mahadevan P <mahadevan.p@oss.qualcomm.com>,
  Andrzej Hajda <andrzej.hajda@intel.com>,
@@ -50,6 +49,7 @@ To: Nabige Aala <nabige.aala@oss.qualcomm.com>,
 Cc: dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org,
  linux-kernel@vger.kernel.org, linux-arm-msm@vger.kernel.org
 References: <20261116-mahua-hdmi-v2-0-0b5af6bf9e70@oss.qualcomm.com>
+ <20261116-mahua-hdmi-v2-3-0b5af6bf9e70@oss.qualcomm.com>
 From: Krzysztof Kozlowski <krzk@kernel.org>
 Content-Language: en-US
 Autocrypt: addr=krzk@kernel.org; keydata=
@@ -95,9 +95,9 @@ Autocrypt: addr=krzk@kernel.org; keydata=
  K9bCVaboTA2T77QYkRcRJYSsO1alGX0ome/hMLD1daXlkrNUp1HWa3K4iytLRXjCSIorWiGs
  n+q3krnpXu3TFkA8qtOFZMdnIiFuiq1yLT8hptsV5xh1TA2nsVvSYiaCr3q4s4BKjS/KrLDb
  qoxzw8ISjdUp4pA85vb6YLCmb39NgidD+7PmAr65lBNveIFynTgsja1rRQ4=
-In-Reply-To: <20261116-mahua-hdmi-v2-0-0b5af6bf9e70@oss.qualcomm.com>
+In-Reply-To: <20261116-mahua-hdmi-v2-3-0b5af6bf9e70@oss.qualcomm.com>
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+Content-Transfer-Encoding: 7bit
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -109,37 +109,28 @@ List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-7.3 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
+X-Spam-Status: No, score=-17.3 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
 	DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
-	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,USER_AGENT_SANE_1
-	autolearn=no autolearn_force=no version=4.0.1
+	INCLUDES_CR_TRAILER,INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,
+	SPF_PASS,USER_AGENT_SANE_1 autolearn=ham autolearn_force=no
+	version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
 On 16/11/2026 12:34, Nabige Aala wrote:
-> This series adds initial Linux support for the Parade PS195 DP-to-HDMI
-> bridge and uses it to enable HDMI on the Qualcomm Glymur CRD family
-> (Glymur CoB/SiP, Mahua, and Kalambo).
+> From: Mahadevan P <mahadevan.p@oss.qualcomm.com>
 > 
-> The PS195 operates autonomously using firmware loaded from external
-> SPI flash — it handles link training, EDID access, and hotplug detection
-> without host register intervention at runtime, so no existing bridge
-> driver fits its power-sequencing and reset model.
+> Enable the PS195 bridge driver as a module for HDMI output on
+> Qualcomm Glymur CRDs family (Glymur/Mahua/Kalambo).
 > 
-> It introduces:
-> 
-> - a DT binding for PS195 (supplies, optional reset GPIO, and port graph),
-> - a DRM bridge driver that implements PS195 power sequencing and PM handling, and
-> - arm64 integration (defconfig + shared glymur-crd.dtsi wiring) so all three
->   variants can route DP over USB2 QMP combo PHY to HDMI through PS195.
-> 
-> Deps:
-> PHY PLL change: https://lore.kernel.org/all/20261028-glymur-phy-v3-v6-0-1f1d2e565a66@oss.qualcomm.com/
-> Glymur commonize change for regulator: https://lore.kernel.org/all/20261106-topic-sip_cob-v3-0-52cd3826ab49@oss.qualcomm.com/
+> Signed-off-by: Mahadevan P <mahadevan.p@oss.qualcomm.com>
+> Signed-off-by: Nabige Aala <nabige.aala@oss.qualcomm.com>
+> ---
+>  arch/arm64/configs/defconfig | 1 +
+>  1 file changed, 1 insertion(+)
 
-So this cannot be merged. DTS cannot depend on drivers patchset. We
-talked about this multiple times already, please do not couple
-unnecessary dependencies.
+
+Reviewed-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
 
 Best regards,
 Krzysztof
