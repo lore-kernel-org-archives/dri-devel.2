@@ -2,81 +2,64 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 54DC1606A329
-	for <dri-devel@archiver.kernel.org>; Tue, 17 Nov 2026 11:32:44 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 86E7F606A31C
+	for <dri-devel@archiver.kernel.org>; Tue, 17 Nov 2026 11:46:05 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=A/aMTSCe
+	dkim=fail reason="signature verification failed" (1024-bit key, unprotected) header.d=zohomail.in header.i=@zohomail.in header.a=rsa-sha256 header.s=zoho header.b=HwbSgQT5
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 9701E10E562;
-	Tue, 17 Nov 2026 11:32:38 +0000 (UTC)
-Received: from mail-wm1-f41.google.com (mail-wm1-f41.google.com
- [209.85.128.41])
- by gabe.freedesktop.org (Postfix) with ESMTPS id A809D10E576
- for <dri-devel@lists.freedesktop.org>; Tue, 17 Nov 2026 11:32:32 +0000 (UTC)
-Received: by mail-wm1-f41.google.com with SMTP id
- 5b1f17b1804b1-4a140e7405dso46639925e9.3
- for <dri-devel@lists.freedesktop.org>; Tue, 17 Nov 2026 03:32:32 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20260707; t=1794915151; x=1795519951; darn=lists.freedesktop.org;
- h=cc:to:message-id:content-transfer-encoding:content-type
- :mime-version:subject:date:from:from:to:cc:subject:date:message-id
- :reply-to:content-type;
- bh=ah0q/JTuhX4xDVOrwkG1t5tUQwpt5YsuBa7AH/Yk8Vk=;
- b=A/aMTSCe/NeC2lXSdMeCjv4Eo0//qFZEu7PtMP6Q66LzqFKlnaMXBixxOwGB/XCTJx
- wSm7rTwYM7iKVwiheUbqmZyyzaVG+JLpspZXkOkgHPq93W4/Gj58zrB3rwqFiCfggea/
- 5rUTz6g3OeVeumlYyjd2k+TqCFNLTRc9Yw77izHuZZ47KuqOQIeYNdZIU6WQi73b7EFP
- n2y2WnbhBi8CX4oZXn/ho4LnGuB5zcakMSGmAE4bV95vVZrRWPc0Vi4fp91pNTBCEqmp
- n2aR9nzhdkhpjPYbUr7BDv0QAAuYzvyaXhnC2CyK24JdQ7WXXtgNpqoUAX2QYssMS96D
- UlZg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20260707; t=1794915151; x=1795519951;
- h=cc:to:message-id:content-transfer-encoding:content-type
- :mime-version:subject:date:from:x-gm-gg:x-gm-message-state:from:to
- :cc:subject:date:message-id:reply-to:content-type;
- bh=ah0q/JTuhX4xDVOrwkG1t5tUQwpt5YsuBa7AH/Yk8Vk=;
- b=kdRFzff4S+uqAaxnWXs6awkxpFukZinPITDiftoHkL5qTnySqDj4BqA6+xve5Vz/Tg
- /WONHKLJBDzoi0FcvgyM3PN78ovnAgqjMfNGAUdj456H+EA9louk88esXwvuCtkGHLdV
- t9h31kVFTWtiS1AvBery2GZd9ya6zvFVLPp2gimOEI+UPS522ycrcyxeZnjY51RSIv7D
- n11ndkAj/iIO7kJFsH8Z2zfJ3szfSUnKt8CzVrksjT4oc9l3Gd1nh4idWhfQbADKd5Au
- P7mL+2QsH0VuunBCIQOQwTiC3N52y9f8pAIjHCkZOnBVfO/7RxRFbYhmBta4Hroj6yVO
- cE0w==
-X-Gm-Message-State: APuU4Z/fjnHUIu0eZ5hWZUoSSzeUfAQsYM4XdnKzPE1p07SYwckPKZnG
- jc7ngvy8BMH846LEpcxHOadjbkKwzKUeHx6vtfVi6TfcNIuyBPk7YgtX
-X-Gm-Gg: AYBFou29ZazIfij53EA2TrttFyyZ6AWOVGLqYlCXRsW9II8sWPEbrz6j3Wqck7py1fM
- uaYAARmSJRPfGlqTGU2eMWJRAhAIz3yxmg3Ul2aRuSy0pTR7+zyEWbo4Slthl5R3Lbt7qciQN1Z
- aOlYlxioBxThaoUMk7s77rOwZPo5Tsiy6ZmqJ3w5kN+51sDXYgZA5fIlHfZA4rQ1MB49igm/g/e
- FNDrQ6N9iXGcqevHNcQZm7ztEcTcz2zyHOmvaBN304HWwv7Um589Xo/8NFiVnApf3oy3FgYh2jj
- Ww0hBqcTRScsyySNUmIATl+WtbXc45zFcp3qOMTrKw9fvZeqBVMvk74g/IbaQQ7cw+NfTLnDud4
- tYjsqJSIQGuXM4QlacCrT3nLelmYzcrGIq4PowLN62DbF02iJooTV+kNggcLX2WW/R1CUmnxj9t
- WCyCqzB1xs0eN2Tblu2+uLmmgvtkfYfIIuWk0MY04/Xd/ZspM3YcAkNV5NU+CKc/SgMtP6hK0LQ
- EgVcCORy4Fx2TvXyjM+N/5fmJfdupVGXo3Kxl9cAtCw/UqL/EeHv9ZZMpc+OvjWcHSf3RkYcnib
- vBCsPbzdse22bpmWHTLWfexNfpkdn+FPdHfJ1k4xfQ==
-X-Received: by 2002:a05:600c:8b34:b0:4a2:1364:252a with SMTP id
- 5b1f17b1804b1-4bb559f7039mr282186425e9.3.1794915150911; 
- Tue, 17 Nov 2026 03:32:30 -0800 (PST)
-Received: from [10.111.176.198] ([2001:19f0:6c01:2c43:5400:5ff:fef6:1b30])
- by smtp.gmail.com with ESMTPSA id
- ffacd0b85a97d-4a4de4cb1b6sm1908215f8f.3.2026.11.17.03.32.27
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Tue, 17 Nov 2026 03:32:30 -0800 (PST)
-From: Oarora Etimis <oaroraetimis@gmail.com>
-Date: Tue, 17 Nov 2026 12:32:19 +0100
-Subject: [PATCH] drm/fixed: use fls64() in drm_fixp_msbset()
+	by gabe.freedesktop.org (Postfix) with ESMTP id 6452E10E077;
+	Tue, 17 Nov 2026 11:45:59 +0000 (UTC)
+Received: from sender-pp-o91.zoho.in (sender-pp-o91.zoho.in [103.117.158.91])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 8C0A510E53E;
+ Tue, 17 Nov 2026 08:00:43 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; t=1794902425; cv=none; d=zohomail.in; s=zohoarc; 
+ b=AgsbymWTlSHa8QCVJ9C4dlFXwNfBr00OTo6cjb7oWbohYX1PZsfAIkC4E2tytbiI0cNicbtKShhYr2l0l86qdeGk6pbrh719H9b+bYX1utoqUQdHNV5Wig6a7yNzJpNSQSUBGzcw729wwJqOxRDQ2YjghyMK2u+lX7pQLxlJ4hc=
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.in;
+ s=zohoarc; t=1794902425;
+ h=Content-Type:Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:Subject:Subject:To:To:Message-Id:Reply-To;
+ bh=7URRG9JImOynmwbw8ccE41h3MMYLK0ullK2SAwBmlS4=; 
+ b=Pi8v7ynYHEnK2vG9/MjIwgpor6WT9R5hVdxqCisaOb6HrWOGCHkSGJ3lp900hE+meoYyeUhpam8Zxy14ibe0ghECX53eY/bMfSFVtZEs5Ptyouupp8nRsCMlwuPgu0uIHEEs64fOOXacYSWnIykYG2Kly8eEWb1YcxRVuK6kKw0=
+ARC-Authentication-Results: i=1; mx.zohomail.in;
+ dkim=pass  header.i=zohomail.in;
+ spf=pass  smtp.mailfrom=shivamkalra98@zohomail.in;
+ dmarc=pass header.from=<shivamkalra98@zohomail.in>
+DKIM-Signature: a=rsa-sha256;
+ b=HwbSgQT50o7AhF9B8QFV8DLt4v6+QRQxC+Pz1ndpJUSvO/0D4BqjG3wL13AJ0YDZ5Mn0qomaKErUE45tZFHHT88IA92myqaR+caban3GbzzbU5G+uSImdY4O7XNcf140YZtPhsLCp90/dt38dWx8kjPc8PR+Fj9kmG61UrZdIN8=;
+ c=relaxed/relaxed; s=zoho; d=zohomail.in; v=1;
+ bh=7URRG9JImOynmwbw8ccE41h3MMYLK0ullK2SAwBmlS4=;
+ h=Content-Description:Content-ID:Content-Type:Content-Transfer-Encoding:Cc:Date:From:In-Reply-To:List-Subscribe:List-Post:List-Owner:List-Id:List-Archive:List-Help:List-Unsubscribe:MIME-Version:Message-ID:Resent-Sender:Resent-Cc:Resent-Date:Resent-To:Reply-To:Resent-Message-ID:Resent-From:Sender:Subject:To:Date:From:Message-Id:Reply-To:Subject:To:Cc;
+Received: by smtp.zoho.in with SMTPS id 17949024245771010.9301360744533;
+ Tue, 17 Nov 2026 13:30:24 +0530 (IST)
+Message-ID: <be487787-e342-418e-a5a3-5770ee816e7c@zohomail.in>
+Date: Tue, 17 Nov 2026 13:30:22 +0530
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v3 0/6] drm/amd/display: Commit panel_power_savings writes
+ from the kernel
+To: hugo@hsal.es, Harry Wentland <harry.wentland@amd.com>,
+ Leo Li <sunpeng.li@amd.com>, Rodrigo Siqueira <siqueira@igalia.com>,
+ Alex Deucher <alexander.deucher@amd.com>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
+ Jonathan Corbet <corbet@lwn.net>, Shuah Khan <skhan@linuxfoundation.org>
+Cc: Mario Limonciello <mario.limonciello@amd.com>, Ray Wu <ray.wu@amd.com>,
+ Alex Hung <alex.hung@amd.com>, Bhawanpreet Lakha
+ <bhawanpreet.lakha@amd.com>, Ivan Lipski <ivan.lipski@amd.com>,
+ Chenyu Chen <chen-yu.chen@amd.com>, David Weber <weber.aulendorf@gmail.com>,
+ Hamza Mahfooz <hamzamahfooz@linux.microsoft.com>,
+ =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
+ linux-doc@vger.kernel.org, linux-kernel@vger.kernel.org
+References: <20261116-abm-sysfs-commit-v3-0-7a3d84a5328e@hsal.es>
+Content-Language: en-US
+From: Shivam Kalra <shivamkalra98@zohomail.in>
+In-Reply-To: <20261116-abm-sysfs-commit-v3-0-7a3d84a5328e@hsal.es>
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 7bit
-Message-Id: <20261117-fixp-msbset-v1-1-60526519ae2d@gmail.com>
-X-B4-Tracking: v=1; b=H4sIAAAAAAAC/yXM2wpAUBCF4VfRXNtlnIpXkQuzDUY5tAcpeXcbl
- 1+r9V+g7IQVyuACx4eoLLMHhgHYoZl7NtJ6QxzFOSImppNzNZOS8mayIs8spmSpIPCP1bGfv1p
- V/9adRrbbm4D7fgCm7wGSbwAAAA==
-X-Change-ID: 20261113-fixp-msbset-5965c14bcb9b
-To: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>
-Cc: dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org, 
- Oarora Etimis <oaroraetimis@gmail.com>
-X-Mailer: b4 0.15.2
+X-ZohoMailClient: External
+X-Mailman-Approved-At: Tue, 17 Nov 2026 11:45:58 +0000
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -88,76 +71,173 @@ List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-15.8 required=3.0 tests=BAYES_00,DKIM_SIGNED,
-	DKIM_VALID,DKIM_VALID_AU,FREEMAIL_FORGED_FROMDOMAIN,FREEMAIL_FROM,
-	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
-	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,USER_AGENT_GIT
-	autolearn=unavailable autolearn_force=no version=4.0.1
+X-Spam-Status: No, score=-15.1 required=3.0 tests=BAYES_00,DKIM_INVALID,
+	DKIM_SIGNED,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,
+	INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,
+	USER_AGENT_SANE_1 autolearn=unavailable autolearn_force=no
+	version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-Replace the loop with fls64() on the value with the sign folded away.
+On 16/11/26 19:31, Hugo Sales via B4 Relay wrote:
+> A write to panel_power_savings stores the ABM level and sends a hotplug
+> uevent, but the level reaches the hardware only on the next atomic commit
+> that includes the eDP connector. Hyprland adds the connector to a commit
+> only on a modeset or when a connector property it sets changes, so on my
+> laptop the file read back the new level and the backlight never changed.
+> power-profiles-daemon writes this file on every profile, AC and battery
+> change, so none of its ABM changes applied
+> 
+> This shouldn't need a fix in every compositor. The file is for writers
+> that aren't the DRM master, like power-profiles-daemon, and they can't
+> commit anything themselves. Today they depend on the master taking a
+> generic hotplug uevent as a cue to commit the connector again. Nothing
+> documents that, and a compositor has no reason to read a hotplug event as
+> "a property you never touched has changed". A compositor that wants to own
+> ABM sets the 'adaptive backlight modulation' property, and from then on
+> the file returns -EBUSY. The file has to work without the master's help.
+> The backlight device already does: a brightness write goes straight to DC,
+> with no commit at all
+> 
+> This series makes the write commit the level itself:
+> 
+>    1. Render the existing kernel-doc, which no rst file included
+>    2. Add the CRTC's planes to a commit that changes the ABM level, which
+>       the forced modeset used to do. With VRR active, such a commit would
+>       otherwise carry only the primary plane
+>    3. Stop forcing a modeset when the connector's ABM level changes. DM
+>       already sends a new level as a stream update, and the commit that
+>       added the modeset flag also added the CRTC, which is all that update
+>       needs
+>    4. Move the store tests onto a full pipe the store can commit to
+>    5. Commit the level from the store through a duplicated connector
+>       state. The write returns the commit's error and no longer sends a
+>       uevent
+>    6. KUnit cases for a connector with the CRTC on, off and failing
+>       atomic check
+> 
+> Patch 3 also asks, below its cut, whether scaling can leave the same
+> check
+> 
+>  From my reading, other commits that add the CRTC but no planes, like a
+> change of the HDR metadata, can drop an overlay the same way while VRR is
+> active. That needs a fix in the CRTC check that pulls in only the primary
+> plane, which I'll send as a separate series
+> 
+> Hamza's v1 of the 2024 patch that added this file had no flush [1], and
+> Mario found that the level only took effect on the next modeset [2].
+> That patch's v2 changelog says "force an atomic commit" [3], but what
+> was merged, commit 63d0b87213a0 ("drm/amd/display: add
+> panel_power_savings sysfs entry to eDP connectors"), sends a hotplug
+> event instead
+> 
+> Commit 8d20a066fa9b ("drm/amd/display: change the panel power savings
+> level without a modeset") later applied the level outside atomic. It
+> broke igt abm_gradual, and commit 95aaa207e9ef ("Revert "drm/amd/display:
+> change the panel power savings level without a modeset"") reverted it.
+> The objections back then were to sysfs overriding the DRM master at all
+> [4], which the property above now covers. I didn't find any discussion
+> that rejects an internal atomic commit
+> 
+> A write now returns the commit's error instead of storing a level the
+> hardware may never get. power-profiles-daemon logs the error and tries
+> again on its next profile, AC or battery change. Nothing I found reads
+> the uevent for more than a cue to commit the connector, which the kernel
+> now does itself
+> 
+> The commit is blocking, so a write can hold the CRTC locks for up to a
+> frame while a compositor commit waits
+> 
+> Tested on my laptop (ASUS ROG Flow X13 GV301QH, DCN 2.1) with v3 on
+> 7.3.4, under Hyprland with no modeset during the run:
+> 
+>    - 25 writes cycling levels 0 to 4 all succeeded and read back, with
+>      nothing in the kernel log. A write sends no uevent
+>    - I wrote 4, 0, 4, 0, 2 and 0 six seconds apart and read
+>      amdgpu_current_backlight_pwm and amdgpu_target_backlight_pwm every
+>      half second. After each 0, the backlight was back at full PWM by the
+>      next sample. After each 4 or 2, the target dropped, to 25% of full at
+>      4 and 52% at 2, and the backlight ramped down to it
+>    - This series on top of "drm/amd/display: Leave self-refresh before an
+>      ABM level update", with the panel in self-refresh before each write:
+>      all five writes that changed the level took the panel out of
+>      self-refresh for the update
+>    - Writes of the current level return without a commit, so they leave
+>      the panel in self-refresh
+> 
+> On a text console, igt amd_abm passed all five subtests. I also ran an
+> IGT test that puts an overlay plane over the primary plane and turns VRR
+> on, so the CRTC idles at the panel's 40 Hz minimum. On v2, a write took
+> the overlay off the screen until the next flip. With v3, the overlay
+> stayed. With VRR off, it stayed on both
+> 
+> [1] https://lore.kernel.org/amd-gfx/20240126222300.119292-1-hamza.mahfooz@amd.com/
+> [2] https://lore.kernel.org/amd-gfx/1162e59e-3f53-4c84-b186-bb2f4642216b@amd.com/
+> [3] https://lore.kernel.org/amd-gfx/20240202152837.7388-1-hamza.mahfooz@amd.com/
+> [4] https://lore.kernel.org/amd-gfx/b117ccc0-6569-4753-9cb9-c304f9e50d30@amd.com/
+> 
+> Changes in v3:
+> - New patch 2: add the CRTC's planes to a commit that changes the
+>    level. Without the modeset, such a commit with VRR active carried only
+>    the primary plane, and DC dropped an active overlay until the next
+>    flip. Sashiko's finding, reproduced on v2
+> - Patch 3: credit David Weber, who sent the same condition change in
+>    August (Chenyu)
+> - Patch 5: say that a compositor commit waits for the write instead of
+>    failing with -EBUSY, in the kernel-doc and below the cut (Chenyu)
+> - Link to v2: https://lore.kernel.org/r/20261113-abm-sysfs-commit-v2-0-5808d17a7e89@hsal.es
+> 
+> Changes in v2:
+> - Patch 3 (v2's 2): name commit b05e2c5e81f9 ("drm/amd/display: Update
+>    ABM crtc state on non-modeset") as the one that lets the non-modeset
+>    path carry the level, say the KMS property loses its modeset too, and
+>    say "drm/amd/display: Leave self-refresh before an ABM level update"
+>    has to go first
+> - Patch 4 (v2's 3): set level 2 before the test that writes 0, so the
+>    write changes the level
+> - Patch 5 (v2's 4): return without a commit when the level doesn't
+>    change (Harry). A write that changes nothing, or that the DRM master
+>    forbids, no longer wakes the GPU. A write that a signal interrupts
+>    restarts instead of failing with -EINTR
+> - Patch 6 (v2's 5): test a write of the current level, check that it and
+>    a forbidden write leave a runtime-suspended GPU suspended, and fold
+>    the CRTC on and off cases into one parameterised test
+> - Link to v1: https://lore.kernel.org/r/20261102-abm-sysfs-commit-v1-0-e5addfd9539a@hsal.es
+> 
+> ---
+> Hugo Sales (6):
+>        drm/amd/display: Render the panel power savings kernel-doc
+>        drm/amd/display: Add the CRTC's planes when the ABM level changes
+>        drm/amd/display: Don't force a modeset when the ABM level changes
+>        drm/amd/display: Give the panel_power_savings store tests a full pipe
+>        drm/amd/display: Commit panel_power_savings writes from the kernel
+>        drm/amd/display: Test panel_power_savings commits
+> 
+>   .../gpu/amdgpu/display/display-manager.rst         |   3 +
+>   drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c  |  17 +-
+>   .../amd/display/amdgpu_dm/amdgpu_dm_backlight.c    | 118 ++++++++-
+>   .../amdgpu_dm/tests/amdgpu_dm_backlight_test.c     | 271 ++++++++++++++++++++-
+>   4 files changed, 390 insertions(+), 19 deletions(-)
+> ---
+> base-commit: ba496bb837882eb1af58f41572fc289e46c77b8c
+> change-id: 20261101-abm-sysfs-commit-96a38de1ac66
+> prerequisite-change-id: 20261113-amdgpu-psr-abm-update-next-de20bc23b12c:v2
+> prerequisite-patch-id: c6cbeb4671914753ab7526369c2612039ae16504
+> prerequisite-patch-id: efc64b5a0a1bc2d46494d4797b0d25447b174076
+> prerequisite-patch-id: 496307c9687a947cfbfdcf1b6d0ad6ba1b6d4089
+> 
+> Best regards,
+> --
+> Hugo Sales <hugo@hsal.es>
+> 
+> 
+Hi Hugo,
 
-Output is unchanged. The loop runs once per bit it has to skip, so a
-channel value takes it about 47 iterations and 347 executed
-instructions. The replacement is 6, and the work is one bit scan: bsr on
-x86-64, two bsrl on i386, clz on arm and riscv.
+Tested this v3 series on top of your self-refresh v2 series on Rembrandt
+(DCN 3.1.2), running 7.1.0-hugo-abm. All five amd_abm subtests, including
+abm_gradual, passed on A/C.
 
-Signed-off-by: Oarora Etimis <oaroraetimis@gmail.com>
----
-drm_fixp_msbset() walks from bit 62 down, one bit at a time, to find the
-highest bit that differs from the sign bit. fls64() returns the same
-value in one step.
+My panel reports Sink support: no and Driver support: no [0xffffffff],
+so I couldn't exercise the PSR-active case Chenyu requested.
 
-In the other users it is only called a few times, so the loop does not
-show. In vkms it runs for every channel of every pixel of every frame,
-and a channel value is 16 bits wide, so each run starts 47 compares from
-its answer.
-
-  Link: https://lore.kernel.org/20261108-lut-v1-0-f762d70ae4cd@gmail.com
-
-Fold the sign away and let the CPU find the highest set bit. The range
-drm_fixp_div() shifts by is unchanged, and the output is bit-identical.
-
-Counted with callgrind, gcc 16.2.1 at -O2 on x86-64, function body only.
----
- include/drm/drm_fixed.h | 9 +++------
- 1 file changed, 3 insertions(+), 6 deletions(-)
-
-diff --git a/include/drm/drm_fixed.h b/include/drm/drm_fixed.h
-index 21d822aeed55..7dbe89ca30c6 100644
---- a/include/drm/drm_fixed.h
-+++ b/include/drm/drm_fixed.h
-@@ -28,6 +28,7 @@
- #include <linux/math64.h>
- #include <linux/types.h>
- #include <linux/wordpart.h>
-+#include <linux/bitops.h>
- 
- typedef union dfixed {
- 	u32 full;
-@@ -121,13 +122,9 @@ static inline int drm_fixp2int_ceil(s64 a)
- 
- static inline unsigned drm_fixp_msbset(s64 a)
- {
--	unsigned shift, sign = (a >> 63) & 1;
-+	u64 v = (a < 0) ? ~(u64)a : (u64)a;
- 
--	for (shift = 62; shift > 0; --shift)
--		if (((a >> shift) & 1) != sign)
--			return shift;
--
--	return 0;
-+	return fls64(v | 1) - 1;
- }
- 
- static inline s64 drm_fixp_mul(s64 a, s64 b)
-
----
-base-commit: fc72cd52fb284f3707fa36a68ea5a22543a51d71
-change-id: 20261113-fixp-msbset-5965c14bcb9b
-
-Best regards,
---  
-Oarora Etimis <oaroraetimis@gmail.com>
-
+Tested-by: Shivam Kalra <shivamkalra98@zohomail.in>
