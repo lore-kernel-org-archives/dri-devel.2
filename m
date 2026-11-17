@@ -2,95 +2,83 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E3D3A606A325
-	for <dri-devel@archiver.kernel.org>; Wed, 18 Nov 2026 08:23:20 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CB9EB606A325
+	for <dri-devel@archiver.kernel.org>; Wed, 18 Nov 2026 08:23:21 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=timdoug.com header.i=@timdoug.com header.a=rsa-sha256 header.s=fm3 header.b=RU747gsO;
-	dkim=pass (2048-bit key, unprotected) header.d=messagingengine.com header.i=@messagingengine.com header.a=rsa-sha256 header.s=fm3 header.b=bfFWz0bD
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=QQprugyh
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id C662910EA58;
-	Wed, 18 Nov 2026 08:23:06 +0000 (UTC)
-Received: from fout-a8-smtp.messagingengine.com
- (fout-a8-smtp.messagingengine.com [103.168.172.151])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 9485510E708
- for <dri-devel@lists.freedesktop.org>; Wed, 18 Nov 2026 01:26:00 +0000 (UTC)
-Received: from phl-compute-02.internal (phl-compute-02.internal [10.202.2.42])
- by mailfout.phl.internal (Postfix) with ESMTP id DDB51EC087A
- for <dri-devel@lists.freedesktop.org>; Tue, 17 Nov 2026 20:25:59 -0500 (EST)
-Received: from phl-frontend-03 ([10.202.2.162])
- by phl-compute-02.internal (MEProxy); Tue, 17 Nov 2026 20:25:59 -0500
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=timdoug.com; h=
- cc:cc:content-transfer-encoding:content-type:date:date:from:from
- :in-reply-to:message-id:mime-version:reply-to:subject:subject:to
- :to; s=fm3; t=1794965159; x=1795051559; bh=V1hKfhmnnJW04pZBP599z
- W5HZ4qCTwkqtrvykmPMZq0=; b=RU747gsOaY1rrQrmPOd0GyiVb/9frpE21rXCs
- u6g1vgBE6nynj7vLEG/8Eh0pl0yDeL1IXmtlGTm77J+7KDYNnf7xi62aAWrFSsrn
- fXY8KBVgGY6fqvdq3mIie0OvwYlpH07VhiNAxX7ACmtrHej8qJx2I3RjRxgDalqY
- kJBMj9dWyZj4jZPS8GpZRJRyABJ8n3XDHJV5OKHrcHyMcAv2EaT47CAqBccmhcPN
- aujZYHNE/JHseFpFhD9OJ7eDqzqCK/oEyskb0beEXm4lo5up55diQWAq9MVWtnpA
- wfmeE3OsP5omr8avILfqO3S1wKRpC51EtdoHlLarTTAV1Skug==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
- messagingengine.com; h=cc:cc:content-transfer-encoding
- :content-type:date:date:feedback-id:feedback-id:from:from
- :in-reply-to:message-id:mime-version:reply-to:subject:subject:to
- :to:x-me-proxy:x-me-sender:x-me-sender:x-sasl-enc; s=fm3; t=
- 1794965159; x=1795051559; bh=V1hKfhmnnJW04pZBP599zW5HZ4qCTwkqtrv
- ykmPMZq0=; b=bfFWz0bDRtF/Q7U1AOAPOk5KWx5k846vmk18Sb4+v98iJqezZwa
- FeOln7z2PoKbFzsptLojTxmElUPl8AYgx/kfhzkVCn4GMVacLzW3FSM++XfX8m7r
- Yt4LUVPq6X9hbyF+mTtxmpPy0bBO5pcJXqrb0WJrBcqLwyvbI/OFufuvzvyqiYJb
- lZRmtVf6GHj9hM21qMRiEsRueHcqQNwyF40Ec1vfXrzcvMCHQE3Ic7kAEKaDCtyg
- XxPRy+H2qWv5H0F4g2jODefIHKFi2hUq4NrnB6uu/pQs6J3H47oYdrO2voriEQkM
- EB2Sk/RWsM3QDix7XjbNrgS9GkxYKXOg2LQ==
-X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-09;
- repo=github.com/dkim2wg/interop; date=2026-11-03; sw=lmtpprox;
- action=sign d=timdoug.com a=rsa-sha256;
-DKIM2-Signature: i=1; m=1; t=1794965159; d=timdoug.com;
- mf=PG1lQHRpbWRvdWcuY29tPg==;
- rt=PGRyaS1kZXZlbEBsaXN0cy5mcmVlZGVza3RvcC5vcmc+;
- s=fm3:rsa-sha256:S60heW33xwe8PwiAaboWaZNQIH5kSjZdfRkOmr0pe5OC4Tn
- 7rPcYWStlHS2YuP5oyDTqPIhD5P5mKQi3J0L/Mem2aiK0mwijGxzxFJDmVbitx7p
- d1IzwYpgX7gyjxEXDlstx68yFZuGvroteLPsAxS7CB37vHrO8gJpu9UNTtj3lNGh
- bHN58O1k6Z/oy/B25NsFOiq1vfAl9j58SirukVZ3oYFfm7S/FGJAw+nvLxdvK3kM
- iTAbbO5Md+lEKqEiWHXhZ/kFcGCoGWl076jC/byei2/WFOlkX+YFNAEf9MZIIOnI
- g29CaYKtNh7ujzImbPDZYbv8G+zTMPCOtKkxuXA==;
-X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-09;
- repo=github.com/dkim2wg/interop; date=2026-11-03; sw=lmtpprox;
- action=mi-m=1; hc=9;
- hn=cc,content-transfer-encoding,date,feedback-id,from,
- message-id,mime-version,subject,to;
-Message-Instance: m=1;
- h=sha256:bFVWRwZ60VfMatr1Orbc8eKiAyY7rTsF9KUbBWBNOEQ=:CPje0uR992FUBO4z3Opk1Q8PCdb1C3Ri59egfWzKny4=;
-X-ME-Sender: <xms:p_78ai-uCSyR0PYgY6btYczQBTyfRsJKrKWRk18_M9GZbC95qu7pew>
- <xme:p_78auKxhxYgAR9Q_HEBSnkM-dOf7_vQl3QyNRucICrrpK9aZqYWF4aia0UWIPCkv
- pd5NkPuEpyPrV9aXDZkBtlJAPMmJ0I0VC17JdD0uV9xNY-KyZc-nA>
-X-ME-Received: <xmr:p_78arjc2gF5Rx63a-heuL4ozbJ2bD9mEI_LtoT4VMfHtwDnp3t2PnZb0L3d>
-X-ME-Proxy-Cause: dmFkZTEKT77cM9davhckAK3Z4/jhSI5D2dnaIj5jXAkpPjrx7VpnkZCtRyAVHRQWnuum13
- 8Qd400MJoky3xnskuDztTavCwCQpMN+udMGKjW7kb0s4GyqTer5K5ph8rtNevsEdY0JzKB
- CkyF3OzC9HKM7vgXPxvshuTLiZMSqTm7fWfTrQGuN+tEDvv5E2lR1IL2XNElMevqEsAvad
- f4QIP9cm3+nMVC5nBzD3KW44Pd337lwAeocRejOB73SHHyjG3gX+4EvK8UEvz074W6pz2f
- 7EDTUZqUJca36lO/dZlJqSG0uFvdyzuS4qpXEwiXlbpWEqJH+UaPHdWWArj9SwJ5JYvTMA
- iP9XaDn/k09JapVlQCnSZAz7aA+niD4wcpCn9Y4MRaMC4Jmm5P6E48jDswaSGcMf5JXuZA
- gDUzbYz2Z45Z1RTKXXsTx78+fChEbxAe4zWHwY0tj9RsRvO3eSGqFh567mBhDqKXfhkx4F
- W+TRXtLgEdq7XdW6ael9Qw/CUCPvXRkehsZhZOuKPpeOzwDsR1Sdsv8PhK98u8EXKjopHM
- xni9wzRIffiLksHVA4n0K/K04NMV3Scxg8WllTQ3r4Ioa9E4DKVRm5ZoBXTpmNc5ZY9+2G
- GEpfGEzREdzrr+ZVkq35O6AUTFscaw7y3gAl38JA+8F1al9ImYOs+K9DaT4A
-X-ME-Proxy: <xmx:p_78au4wSpHdisGSzZ650E-ncOn3l0RQXAqedLtzbjQfbTfvvoVcVg>
- <xmx:p_78ajY8B6eCchKd7O_OscDCg-es4hqK00MzreyqHfmrRQGS7GT5Kg>
- <xmx:p_78aj5Rlnmsj3hTehm50__N-yCZ9wvFOEVeI_YaEeV8axl1b-MwQA>
- <xmx:p_78amAIPLCLhZeEZX2q9KYrpn0g9GVgllI6Qq_BIJBBs-9-YvBWxQ>
- <xmx:p_78ag-YIM58ipz3EXcYhZmYs2__Op45CrpY5in0gwZyWlCxdDiD25TO>
-Feedback-ID: i12bc4175:Fastmail
-Received: by mail.messagingengine.com (Postfix) with ESMTPA; Tue,
- 17 Nov 2026 20:25:59 -0500 (EST)
-From: Tim Douglas <me@timdoug.com>
-To: deller@gmx.de
-Cc: linux-fbdev@vger.kernel.org, dri-devel@lists.freedesktop.org,
- linux-kernel@vger.kernel.org
-Subject: [PATCH] fbdev: macmodes: compare the pixel clock of each candidate
- mode
-Date: Tue, 17 Nov 2026 20:25:57 -0500
-Message-ID: <20261118012557.79419-1-me@timdoug.com>
-X-Mailer: git-send-email 2.54.0
+	by gabe.freedesktop.org (Postfix) with ESMTP id 3813C10E38B;
+	Wed, 18 Nov 2026 08:23:12 +0000 (UTC)
+Received: from mail-wm1-f54.google.com (mail-wm1-f54.google.com
+ [209.85.128.54])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id DFE1910F6BB
+ for <dri-devel@lists.freedesktop.org>; Tue, 17 Nov 2026 12:39:58 +0000 (UTC)
+Received: by mail-wm1-f54.google.com with SMTP id
+ 5b1f17b1804b1-4a2d6d01ecbso29230805e9.0
+ for <dri-devel@lists.freedesktop.org>; Tue, 17 Nov 2026 04:39:58 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20260707; t=1794919197; x=1795523997; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:mime-version:references:in-reply-to
+ :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+ :message-id:reply-to:content-type;
+ bh=/HMGwwhGC6wtM16fz47LMMhy0kaE1LvMkOQV7+Ogndc=;
+ b=QQprugyhfyet2qrZ9yASS6ljiboyYr6hv5HNmDncE5ZQDA9S2pDHvIIZ72yFGHGm7S
+ l63HJnhd1dWX/xrRhApOL0jGCR9QTYdYGSalpV99GDdMaAcxVK8nff9Dka+MxrmsJhCQ
+ BIHBjKI/ALsiqwebQO4Ay1K/p3ZK4/je0LYFie7NM1q/dk0WPjjEywJrxCVFyOb/uyXF
+ nSCE9JAW16xqIkh6GfBCArvPoJtpgm6wmc11ySoHiDEPBQDRii/50DaWCcsJHXDsDiLW
+ 6QkO894vri939MTq6BkmUCgpd/G5sowVl1wF1rX+USgbyxJ4XUFnzKcmAQd7Qjuum/Bp
+ LR+w==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20260707; t=1794919197; x=1795523997;
+ h=content-transfer-encoding:mime-version:references:in-reply-to
+ :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+ :to:cc:subject:date:message-id:reply-to:content-type;
+ bh=/HMGwwhGC6wtM16fz47LMMhy0kaE1LvMkOQV7+Ogndc=;
+ b=quLO32ctYpKSTBpjlTgrsVFi9BKNIusZHXckS4Lp++WEjLo09tFHI/XDKCFr3zcBFo
+ T84CQtFYbuMN46TN4rA66fK0cCdw5s33DtU8CkNDNLNkjQiH/rxfSY0YMvCYE+xSVkht
+ WgksTof1RJYxWgKozpWUqswNXCj009hJoRiJhxKZXL2zbOurVsf9ePUf9D1tkTlj9r4w
+ UmKI3h6ukzVAIfM9B25ULBhsveUSXv51TjomCQG2pg0aDem8LZBkn5UX94bDeFTSDh3u
+ tlrrWTC7UDz2546xWIPT4SAWA/jWpffzjstCiNZ1a2nqFDMNWoJaIfGl0FQjGhKZ/jul
+ xDow==
+X-Forwarded-Encrypted: i=1;
+ AL+hErFAeaDnzUXNxIRfJaC5qZu+UXzw/YZB7RRYWy5cCdm5peqS9eyOCLyx9J7BSZ9gn2hTHEGeuVdqHww=@lists.freedesktop.org
+X-Gm-Message-State: APuU4Z9oezmKgfoRX254/UsiFU24aSYxT+Z0hfSKBpWlfBPnmL/r9oMs
+ JAYihb609jVBfO5jaaGcrBuV/nQoxgUvYFaY59rFWOL2+K0ZsUBeyo38
+X-Gm-Gg: AYBFou1xOEfg2amUIwTtrhWvM+X/WzED51QG//mXSbDeEkq9j+LyofzXMpZCsrIOSEv
+ +gRimVUyGZugNcS5kXQ+dI6EBZVKdMhy+3/pXETJq50G8cmBz2VT6as3Q1w2esaw6jhg4J2WIO7
+ rqDolgUFGtKTm/qa9Uio4KS0U41JbMRfh/05o2Tbop8qdObzRnoBVFQWXpVRYSZr1IIilYJEmq2
+ Eg3dIB6K3/OaDF56vnr2ly/QH8q4avDBJTsN1yDnMQwziBUrRBDPObD+6Kb8FlHL0vys9q9X+vU
+ fOsbILPtF7yU2AhsHFvxQVWRgmsX0wCzxaZC3n9DpJz71URvE8uhDpEMsrrdMvbE7RSi0TD5m/B
+ v1m+7bAFJVoaBuAhj4csMIowfVbK12vuSs7oOfrKtoYqiyTP0AZhn0yvzYqCd5+FRrdQTaGQQzE
+ 4vrrGaQaTxikp4WWf0Qvgyt5Ppq1GULR4eDukNfrsZ811H3M6nNdCXmyEE3Cdbs6cdX/Gc2cMSQ
+ GoDbDb4+qsJ9aVEjn2Z5YJdybrSWKEnsjGo67LeoFvx5W4uFw8KdZDCEBs//sWby3KSb4J8yNL6
+ aQh/NR0YQX7XyruA9SmaUtXWo6MHCqGyr8cyuiN8hcAcvxverwWsS+l4LNPoWqchqJN3hw==
+X-Received: by 2002:a05:600c:670b:b0:4bb:7987:fbbc with SMTP id
+ 5b1f17b1804b1-4bb7987fdc3mr32412055e9.1.1794919197198; 
+ Tue, 17 Nov 2026 04:39:57 -0800 (PST)
+Received: from DESKTOP-BJ3EVC4.lan (94-21-223-203.pool.digikabel.hu.
+ [94.21.223.203]) by smtp.gmail.com with ESMTPSA id
+ 5b1f17b1804b1-4bb783f8154sm71474905e9.4.2026.11.17.04.39.56
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Tue, 17 Nov 2026 04:39:56 -0800 (PST)
+From: rofikkerneldev <rofikcoga@gmail.com>
+To: linux-arm-msm@vger.kernel.org
+Cc: devicetree@vger.kernel.org, dri-devel@lists.freedesktop.org,
+ linux-input@vger.kernel.org, linux-kernel@vger.kernel.org,
+ Bjorn Andersson <andersson@kernel.org>,
+ Konrad Dybcio <konradybcio@kernel.org>, Rob Herring <robh@kernel.org>,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>,
+ Neil Armstrong <neil.armstrong@linaro.org>,
+ Dmitry Torokhov <dmitry.torokhov@gmail.com>,
+ rofikkerneldev <rofikcoga@gmail.com>
+Subject: [PATCH v1 08/11] arm64: dts: qcom: sm8250-lge-timelm: enable SW43103
+ panel
+Date: Tue, 17 Nov 2026 13:39:43 +0100
+Message-Id: <20261117123946.668557-9-rofikcoga@gmail.com>
+X-Mailer: git-send-email 2.39.5
+In-Reply-To: <20261117123946.668557-1-rofikcoga@gmail.com>
+References: <20261117123946.668557-1-rofikcoga@gmail.com>
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
@@ -106,49 +94,69 @@ List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-18.8 required=3.0 tests=BAYES_00,DKIM_SIGNED,
-	DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
-	INCLUDES_CR_TRAILER,INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,
-	SPF_PASS,USER_AGENT_GIT autolearn=unavailable autolearn_force=no
-	version=4.0.1
+X-Spam-Status: No, score=-15.8 required=3.0 tests=BAYES_00,DKIM_SIGNED,
+	DKIM_VALID,DKIM_VALID_AU,FREEMAIL_FORGED_FROMDOMAIN,FREEMAIL_FROM,
+	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
+	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,USER_AGENT_GIT
+	autolearn=unavailable autolearn_force=no version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-In the second pass through the mode table in mac_var_to_vmode(),
-the requested pixel clock period was compared with the first mode's
-period at every step. The last mode at that resolution was therefore
-returned even when its period was too short. Compare against the
-current candidate's period.
+Enable DISPCC, MDSS, DSI0, and its PHY. Attach the SW43103 panel with
+its power rails, reset GPIO, and four-lane DSI link.
 
-Tested on a Performa 6200CD using a kernel with local platform
-support. With video=valkyriefb:vmode:10 (800x600 at 60 Hz), the
-measured refresh rate was about 72 Hz before the fix and 60 Hz
-afterward. At 640x480, 67 Hz was also selected for a 60 Hz request
-before the fix.
-
-AI assistance was used to investigate the mode-table walk and draft
-the fix.
-
-Signed-off-by: Tim Douglas <me@timdoug.com>
+Signed-off-by: rofikkerneldev <rofikcoga@gmail.com>
 ---
- drivers/video/fbdev/macmodes.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+ .../arm64/boot/dts/qcom/sm8250-lge-timelm.dts | 39 +++++++++++++++++++
+ 1 file changed, 39 insertions(+)
 
-diff --git a/drivers/video/fbdev/macmodes.c b/drivers/video/fbdev/macmodes.c
-index b16a9d9be..7ea40fd34 100644
---- a/drivers/video/fbdev/macmodes.c
-+++ b/drivers/video/fbdev/macmodes.c
-@@ -342,7 +342,7 @@ int mac_var_to_vmode(const struct fb_var_screeninfo *var, int *vmode,
- 
- 	    if (mode->xres != clk_mode->xres || mode->yres != clk_mode->yres)
- 		break;
--	    if (var->pixclock > mode->pixclock)
-+	    if (var->pixclock > clk_mode->pixclock)
- 	        break;
- 	    if (mode->vmode != clk_mode->vmode)
- 		continue;
-
-base-commit: aebb7274476403040d582c61478df8f4a7bf9cd3
+diff --git a/arch/arm64/boot/dts/qcom/sm8250-lge-timelm.dts b/arch/arm64/boot/dts/qcom/sm8250-lge-timelm.dts
+index ecbff27976fc2..fca48472f5dfe 100644
+--- a/arch/arm64/boot/dts/qcom/sm8250-lge-timelm.dts
++++ b/arch/arm64/boot/dts/qcom/sm8250-lge-timelm.dts
+@@ -557,3 +557,42 @@ &usb_1_qmpphy {
+ 	vdda-phy-supply = <&vreg_l9a_1p2>;
+ 	vdda-pll-supply = <&vreg_l18a_0p9>;
+ };
++
++&dispcc {
++	status = "okay";
++};
++
++&mdss {
++	status = "okay";
++};
++
++&mdss_dsi0 {
++	vdda-supply = <&vreg_l9a_1p2>;
++	status = "okay";
++
++	panel@0 {
++		compatible = "lg,sw43103";
++		reg = <0>;
++
++		vddi-supply = <&vreg_l14a_1p8>;
++		vpnl-supply = <&vreg_l11c_3p0>;
++		reset-gpios = <&tlmm 75 GPIO_ACTIVE_LOW>;
++
++		port {
++			panel_in_0: endpoint {
++				remote-endpoint = <&mdss_dsi0_out>;
++			};
++		};
++	};
++};
++
++&mdss_dsi0_out {
++	data-lanes = <0 1 2 3>;
++	remote-endpoint = <&panel_in_0>;
++};
++
++&mdss_dsi0_phy {
++	vdds-supply = <&vreg_l5a_0p88>;
++	phy-type = <PHY_TYPE_DPHY>;
++	status = "okay";
++};
 -- 
 2.39.5
 
