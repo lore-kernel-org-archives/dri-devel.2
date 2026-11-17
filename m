@@ -2,45 +2,45 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8D1C6606A31C
-	for <dri-devel@archiver.kernel.org>; Tue, 17 Nov 2026 13:12:30 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BA065606A31C
+	for <dri-devel@archiver.kernel.org>; Tue, 17 Nov 2026 13:12:48 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=in01Ju3q
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=CTfP8oKv
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id BC19610F700;
-	Tue, 17 Nov 2026 13:12:24 +0000 (UTC)
-Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 7685910F701
- for <dri-devel@lists.freedesktop.org>; Tue, 17 Nov 2026 13:12:15 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 1C69D10F704;
+	Tue, 17 Nov 2026 13:12:43 +0000 (UTC)
+Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 16ADD10F70F
+ for <dri-devel@lists.freedesktop.org>; Tue, 17 Nov 2026 13:12:37 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by tor.source.kernel.org (Postfix) with ESMTP id EF43C6347B;
- Tue, 17 Nov 2026 13:12:14 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 184881F000C5;
- Tue, 17 Nov 2026 13:12:14 +0000 (UTC)
+ by sea.source.kernel.org (Postfix) with ESMTP id D8F4043A76;
+ Tue, 17 Nov 2026 13:12:36 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6C4F81F000C4;
+ Tue, 17 Nov 2026 13:12:36 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1794921134;
- bh=iJBQqRQzoXZT7PfdBPjYwSNCpOqgJZva0MpxKAl1fCE=;
+ s=k20260515; t=1794921156;
+ bh=MdVqw0F5CfoMgltcebKZnz2NwUzBuH6PWbQR6PRHA8w=;
  h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
- b=in01Ju3qLR3T6hfnJlSnS+nq81QNlcX84Wzx8Go2ErJtbvaZUQ6bmlXQ2T01ZBFdG
- QZpIMKm8dyI06357sBFbLPeqJqg3Qhq06xkxjg3ZqYQNOfzE9BGccdIStUAar0pA+4
- a5RtOYHLlWAYtupOEfLENgoeYagaNibuOHs0BIDX38P/MGGw+BbSg8/QjqQKgaqimj
- SxcFQn11xs65WLPrQoYIFzPNXeBCOvf/7ya+FESQmZuDZsw+J0vRgqsueT4u61risS
- 6x+A+legurLCCLSlsc4brtpJZgCmEt7qQuLbU0hPcbforWolfe+vcB0JfBZHuskvzr
- ic9TWTz9T9l0Q==
-Message-ID: <sashiko-outbox-218843@kernel.org>
+ b=CTfP8oKvQiGbvvW8+dwm34sXTVzlnAdMybf9ixbWZHqnXLu926UDeXWb9bepTvgaz
+ qND2/U1G1We7VZDgvq9ea/4XG34Cpl5ikgycFCaxYunknd+Irm8FoGUcpgHXMWXDtS
+ RFqEVgwTbp67qQdNC94v6vvd738SKj66o5TRvuFBO3Y1AMi06v/jf7AR4mPhIrYe2Z
+ fVRh+qehQg344DuzFylDMY2X89OImK2lhskqa+zNynBirMCZ0/OAO4hdE3DQEGn1uA
+ 1nL+c879a4q3LaqqtP7j5r30Fp0P51Bw7GTFw6jIBQ9yrjYwFaP3dPN22L+bauIcfa
+ zArAAfyzZY8Kg==
+Message-ID: <sashiko-outbox-218846@kernel.org>
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v1 10/11] arm64: dts: qcom: sm8250-lge-timelm: enable
- USB Type-C
+Subject: Re: [PATCH v1 08/11] arm64: dts: qcom: sm8250-lge-timelm: enable
+ SW43103 panel
 To: rofikkerneldev <rofikcoga@gmail.com>
 Cc: devicetree@vger.kernel.org, dri-devel@lists.freedesktop.org,
  linux-input@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org,
  dmitry.torokhov@gmail.com
-In-Reply-To: <20261117123946.668557-11-rofikcoga@gmail.com>
+In-Reply-To: <20261117123946.668557-9-rofikcoga@gmail.com>
 References: <20261117123946.668557-1-rofikcoga@gmail.com>
- <20261117123946.668557-11-rofikcoga@gmail.com>
+ <20261117123946.668557-9-rofikcoga@gmail.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Tue, 17 Nov 2026 13:12:13 +0000
+Date: Tue, 17 Nov 2026 13:12:36 +0000
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -61,126 +61,129 @@ X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 X-Archived-By: <archiver.kernel.org>
 
-Thank you for your contribution! Sashiko AI review found 4 potential
+Thank you for your contribution! Sashiko AI review found 5 potential
 issues to consider:
-- [High] arm64: dts: qcom: username handle used in Signed-off-by trailer
-- [High] arm64: dts: qcom: sm8250-lge-timelm: missing OF graph ports in
-  usb-c-connector
-- [High] arm64: dts: qcom: sm8250-lge-timelm: PDO_BATT in sink-pdos
-  breaks 9V PD current
-- [Medium] arm64: dts: qcom: sm8250-lge-timelm: swapped supplies in
-  usb_1_qmpphy
+- [High] arm64: dts: qcom: Signed-off-by and Author use handle
+  rofikkerneldev
+- [High] arm64: dts: qcom: enabling mdss with gmu disabled breaks
+  a6xx_gmu_init()
+- [Medium] arm64: dts: qcom: missing enable-gpios in sm8250-lge-timelm
+  panel@0 node
+- [Medium] drm/panel: sw43103_remove() calls sw43103_unprepare()
+  unconditionally
+- [Low] arm64: dts: qcom: redundant dispcc status and unsorted mdss
+  nodes
 --
 
-commit 81ec31057ff34acf5ea3063aab5a376e5f194531
+commit 3038d85d6373aad3b6104c371b0b0d8abde1a320
 Author: rofikkerneldev <rofikcoga@gmail.com>
 
-> arm64: dts: qcom: sm8250-lge-timelm: enable USB Type-C
->
-> Enable the PM8150B Type-C controller as a sink-only port. Keep the
-> primary DWC3 controller in peripheral mode for now; host mode and VBUS
-> sourcing can be enabled after OTG power delivery is validated.
->
+> arm64: dts: qcom: sm8250-lge-timelm: enable SW43103 panel
+>=20
+> Enable DISPCC, MDSS, DSI0, and its PHY. Attach the SW43103 panel with
+> its power rails, reset GPIO, and four-lane DSI link.
+>=20
 > Signed-off-by: rofikkerneldev <rofikcoga@gmail.com>
 
 [Severity: High]
-Under Documentation/process/submitting-patches.rst, the Developer's
-Certificate of Origin requires a real human name rather than an account
-handle in the Author header and Signed-off-by trailer.
+The Author header and Signed-off-by trailer use an account handle
+(rofikkerneldev) instead of a real human name, which does not meet the
+Developer Certificate of Origin requirements in
+Documentation/process/submitting-patches.rst.
 
 > diff --git a/arch/arm64/boot/dts/qcom/sm8250-lge-timelm.dts b/arch/arm64/=
 boot/dts/qcom/sm8250-lge-timelm.dts
-> index a094aa81ad225..6b57c658cf918 100644
+> index ecbff27976fc2..fca48472f5dfe 100644
 > --- a/arch/arm64/boot/dts/qcom/sm8250-lge-timelm.dts
 > +++ b/arch/arm64/boot/dts/qcom/sm8250-lge-timelm.dts
-> @@ -535,6 +535,24 @@ &sdhc_2 {
->  	no-mmc;
+> @@ -557,3 +557,42 @@ &usb_1_qmpphy {
+>  	vdda-phy-supply =3D <&vreg_l9a_1p2>;
+>  	vdda-pll-supply =3D <&vreg_l18a_0p9>;
 >  };
-> =20
-> +&pm8150b_typec {
+> +
+> +&dispcc {
 > +	status =3D "okay";
+> +};
+
+[Severity: Low]
+This isn't a bug, but dispcc in arch/arm64/boot/dts/qcom/sm8250.dtsi is
+already enabled by default, so this status override is redundant.  Also,
+board-level label overrides in Qualcomm device trees are sorted
+alphabetically, so the &mdss* nodes below belong between &gpu and
+&pm8150_gpios rather than after &usb_1_qmpphy.
+
 > +
-> +	vdd-pdphy-supply =3D <&vreg_l2a_3p1>;
-> +
-> +	connector {
-> +		compatible =3D "usb-c-connector";
-> +
-> +		power-role =3D "sink";
-> +		data-role =3D "device";
-> +		self-powered;
-> +
-> +		op-sink-microwatt =3D <15000000>;
-> +		sink-pdos =3D <PDO_FIXED(5000, 3000, PDO_FIXED_USB_COMM)
-> +			     PDO_BATT(5000, 9000, 15000)>;
-
-[Severity: High]
-Should the second entry in sink-pdos use PDO_VAR() or PDO_FIXED() instead
-of PDO_BATT()?
-
-PDO_BATT(5000, 9000, 15000) encodes 15000 mW in bits [9:0] in 250 mW units
-(value 60).  When connected to a standard USB-PD adapter advertising a 9V
-PDO_TYPE_FIXED source PDO, tcpm_pd_select_pdo() matches that 9V source PDO
-against this sink PDO by voltage range, and tcpm_pd_build_request() then
-checks the source PDO type:
-
-drivers/usb/typec/tcpm/tcpm.c:tcpm_pd_build_request() {
-	...
-	type =3D pdo_type(pdo);
-	...
-	if (type =3D=3D PDO_TYPE_BATT) {
-		mw =3D min_power(pdo, matching_snk_pdo);
-		ma =3D 1000 * mw / mv;
-	} else {
-		ma =3D min_current(pdo, matching_snk_pdo);
-		mw =3D ma * mv / 1000;
-	}
-}
-
-Because the source PDO is PDO_TYPE_FIXED, min_current() calls
-pdo_max_current(matching_snk_pdo), which interprets bits [9:0] in 10 mA
-units.  That clamps the requested current at 9V to 600 mA (5.4 W instead
-of 15 W) and sets RDO_CAP_MISMATCH.
-
-> +	};
+> +&mdss {
+> +	status =3D "okay";
 > +};
 
 [Severity: High]
-Is the connector node missing its ports subnode linking port@0 to
-usb_1_dwc3_hs_out and port@1 to usb_1_qmpphy_out (along with the matching
-remote-endpoint properties on those nodes)?
+Does enabling &mdss fail to bind the DRM device because &gmu is still
+disabled?
 
-In qcom_pmic_typec_port_set_polarity(), the PM8150B TCPC driver does not
-program SuperSpeed lane polarity itself and leaves orientation switching to
-usb_1_qmpphy, which registers a Type-C orientation switch and mux in
-qmp_combo_probe().  Without the OF graph endpoints under connector,
-fwnode_typec_switch_get(), fwnode_typec_mux_get() and
-fwnode_usb_role_switch_get() find no matches and return NULL.  When a
-Type-C cable is plugged in with reversed (CC2) orientation,
-typec_set_orientation() is a no-op and usb_1_qmpphy stays stuck in
-TYPEC_ORIENTATION_NORMAL, breaking SuperSpeed USB.  Omitting port@0 also
-violates Documentation/devicetree/bindings/connector/usb-connector.yaml.
+In sm8250-lge-timelm.dts, &gpu is enabled, while gmu in sm8250.dtsi
+defaults to status =3D "disabled" and is never enabled by the board DTS.
+When dpu_dev_probe() calls msm_drv_probe(), add_gpu_components() includes
+the GPU in the DRM component master match list alongside mdss_dsi0.
+During component_bind_all() in msm_drm_init(), adreno_bind() ->
+a6xx_gpu_init() -> a6xx_gmu_init() looks up the GMU platform device via
+of_find_device_by_node(), which returns NULL because the gmu node is
+disabled.  a6xx_gmu_init() returns -ENODEV, aborting component_bind_all()
+and preventing both the display controller and the SW43103 panel from
+initializing unless &gmu is also enabled.
 
 > +
->  &usb_1 {
->  	status =3D "okay";
->  };
+> +&mdss_dsi0 {
+> +	vdda-supply =3D <&vreg_l9a_1p2>;
+> +	status =3D "okay";
+> +
+> +	panel@0 {
+> +		compatible =3D "lg,sw43103";
 
 [Severity: Medium]
-Just below &usb_1, are vdda-phy-supply and vdda-pll-supply swapped in
-&usb_1_qmpphy (introduced earlier in this series in commit "arm64: dts:
-qcom: add LG V60 ThinQ 5G (timelm) support")?
+Does instantiating "lg,sw43103" expose an unbalanced regulator disable in
+sw43103_remove() on driver unbind or module unload?
 
-&usb_1_qmpphy currently sets:
+drivers/gpu/drm/panel/panel-lg-sw43103.c:sw43103_remove() {
+	ret =3D sw43103_unprepare(&ctx->base);
+	if (ret < 0)
+		dev_err(&dsi->dev, "failed to unprepare panel: %d\n", ret);
 
-	vdda-phy-supply =3D <&vreg_l9a_1p2>;
-	vdda-pll-supply =3D <&vreg_l18a_0p9>;
+	ret =3D mipi_dsi_detach(dsi);
+	if (ret < 0)
+		dev_err(&dsi->dev, "failed to detach from DSI host: %d\n", ret);
 
-On SM8250 QMP PHYs, vdda-phy-supply is the 0.9V core rail (vreg_l18a_0p9)
-and vdda-pll-supply is the 1.2V PLL rail (vreg_l9a_1p2).  Because
-qmp_phy_vreg_l in drivers/phy/qualcomm/phy-qcom-qmp-combo.c requests
-21800 uA on vdda-phy and 36000 uA on vdda-pll, swapping the supplies
-programs inverted load votes on the two LDOs when &usb_1 brings the PHY up.
+	drm_panel_remove(&ctx->base);
+}
+
+Calling the raw sw43103_unprepare() callback directly bypasses
+drm_panel_unprepare() and ctx->base.prepared tracking, unconditionally
+calling regulator_bulk_disable() on vddi and vpnl.  If the panel is
+already unprepared, this underflows the regulator enable count and
+triggers a WARN in _regulator_disable().  If the panel is prepared and
+enabled, sw43103_unprepare() asserts reset and cuts power while
+ctx->base.prepared remains true, before mipi_dsi_detach() triggers DRM
+atomic shutdown to send MIPI DSI commands and call drm_panel_unprepare()
+a second time.
+
+> +		reg =3D <0>;
+> +
+> +		vddi-supply =3D <&vreg_l14a_1p8>;
+> +		vpnl-supply =3D <&vreg_l11c_3p0>;
+> +		reset-gpios =3D <&tlmm 75 GPIO_ACTIVE_LOW>;
+
+[Severity: Medium]
+Should this panel node also specify enable-gpios =3D <&pm8150l_gpios 4
+GPIO_ACTIVE_HIGH>?
+
+The binding example for the timelm panel in
+Documentation/devicetree/bindings/display/panel/lg,sw43103.yaml specifies
+that GPIO alongside the same vddi-supply, vpnl-supply, and reset-gpios.
+Without enable-gpios here, devm_gpiod_get_optional(dev, "enable",
+GPIOD_OUT_LOW) in panel-lg-sw43103 returns NULL, and sw43103_prepare() and
+sw43103_unprepare() never toggle the panel's PM8150L GPIO 4 enable line
+across display power cycles.
 
 --=20
 Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261117123946.6685=
-57-1-rofikcoga@gmail.com?part=3D10
+57-1-rofikcoga@gmail.com?part=3D8
