@@ -2,81 +2,49 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E2D9F606A32A
-	for <dri-devel@archiver.kernel.org>; Tue, 17 Nov 2026 15:13:01 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4365B606A32C
+	for <dri-devel@archiver.kernel.org>; Tue, 17 Nov 2026 15:15:11 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=b9Shf1KY
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 5390E10E3BD;
-	Tue, 17 Nov 2026 15:13:01 +0000 (UTC)
-Received: from mail-vk1-f171.google.com (mail-vk1-f171.google.com
- [209.85.221.171])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 7A31610E3BD
- for <dri-devel@lists.freedesktop.org>; Tue, 17 Nov 2026 15:12:59 +0000 (UTC)
-Received: by mail-vk1-f171.google.com with SMTP id
- 71dfb90a1353d-5eafb65e169so3721760e0c.1
- for <dri-devel@lists.freedesktop.org>; Tue, 17 Nov 2026 07:12:59 -0800 (PST)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20260707; t=1794928378; x=1795533178;
- h=content-transfer-encoding:content-type:cc:to:subject:message-id
- :date:from:in-reply-to:references:mime-version:x-gm-gg
- :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
- :content-type;
- bh=lXzAHAHuyb7ljn+BW0UDmcAkjyTtMTKu31hzJUVD5x8=;
- b=ZE8fPuYpoR9lKJy8Wz05QNYVkCDWRtXjlrdn+DmAhhooMvV1mWLMpeN31BQRxGdvdA
- LkGELzCG00CiNqLr15Zh1yj2B9sI3jBaqgo87D7LHg59bl+0yww4yJFhiHhQ4AYEZk9q
- yMQ/UBdWQcyjir7vnRYmAfKqDYDbTCVXjKguLwrpmTdYfQW2YZVAz5/IdU/gO3t2dcbY
- LH/jOgk9qmfUuWuYwWeW/u4xZ68shVUD1Lw1dLfkdiExPQugumOyQ4FSd/UQKWuWjR4a
- drEOYHYi1zyOUPKQuheg/ygO4H14jqpFNqjC/Tu2pAa0GTUPr1tOU/nrGd2lrmfl3l50
- y5Sg==
-X-Forwarded-Encrypted: i=1;
- AL+hErGUsi6ahYyt39sxfrQcowJTwbq4cGEZJ2g590t8f8fW/hJ4ge4ocjKyZ/rSJtlCyhFn822TfcoyZaQ=@lists.freedesktop.org
-X-Gm-Message-State: APuU4Z9snnyEhp+vwuwvmji6bwNNFgzI/X71D+NSn/qB/8Tea2ysCME8
- csRJ3J6oACgTaiUlGu3rCzvrADcboK2V/ywTvgIaCkn6/rNFnmuJok+Abp9Fte0H
-X-Gm-Gg: AYBFou3G/WRHYBNdoYCPZuRb7autBUwwSpmR8JXImbQr0rrHD5xMjPhkE4vtCFv3KKY
- VNDeGJUwfIAmhJNeiEXxxL/jGts45FO8K2c1XnvR/YUN+B3oOOXbq5SMb86jEUfoOkfI3RAS9gH
- aJ/iZ16l+MAKwVonCdW3MVJ/dDXk2TNaxdrunXeMxp+lRzlt+hg8bFq6l49Dkzx3ZLUWQdNbmg3
- W0EydVJ19tNdEiLJ8ln/xTG0LDq0OlHX/DWg+JHCbt++bwzXJyXXBYHmgmHbCwdxk7fQpcGbmmZ
- 8ZxFOtk36YAwbCku7xRBpu5LslSuJrx1D4SqCrD256iappskfLwA66M4xIKetptG/zRDT+d2eVW
- nPbfGr5w8985fm3VZUGuo2E+ncP6+3+qYjeCvUOia6AqEgoCWji7zLOLJzSKisKYEdFfXoAR5NV
- NFdCORNMIER6wbRV5AtfRKnehrAWI7Loja2vnCM51ltu6sYvQKU+YjkaxJG2jnUHxU4tTlTjF+P
- Sf5smifWKwpQ9+nXvzezqyuJ16Vm+0ftmrJjjNe2RtrPDO2OpFyFKrANplXyZR2+vha7SeQSdj+
- XeBqjHkBdKB/LqtQxYW4+9fa73vOmHNAoiy9PbxmITyP3LOQ/oNb1eLYWfQNi8gudsA=
-X-Received: by 2002:a05:6123:2e9:b0:5ea:c722:b3a with SMTP id
- 71dfb90a1353d-5ee34a62054mr6227672e0c.7.1794928378251; 
- Tue, 17 Nov 2026 07:12:58 -0800 (PST)
-Received: from mail-ua1-f54.google.com (mail-ua1-f54.google.com.
- [209.85.222.54]) by smtp.gmail.com with ESMTPSA id
- 71dfb90a1353d-5ee34e67eeesm8373691e0c.10.2026.11.17.07.12.56
- for <dri-devel@lists.freedesktop.org>
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Tue, 17 Nov 2026 07:12:56 -0800 (PST)
-Received: by mail-ua1-f54.google.com with SMTP id
- a1e0cc1a2514c-996eeadfbeaso3443767241.3
- for <dri-devel@lists.freedesktop.org>; Tue, 17 Nov 2026 07:12:56 -0800 (PST)
-X-Forwarded-Encrypted: i=1;
- AL+hErGdAzPZZyPXpR0msJfNpakUNlejiGeB0btg1v6e6OTNRiAPn9Q7spJzXKzfPEUWz+XsXz6W640Gk0E=@lists.freedesktop.org
-X-Received: by 2002:a05:6122:4202:b0:5ec:c180:e1a1 with SMTP id
- 71dfb90a1353d-5ee3468bc3dmr6118113e0c.2.1794928376130; Tue, 17 Nov 2026
- 07:12:56 -0800 (PST)
+	by gabe.freedesktop.org (Postfix) with ESMTP id A5B6C10E626;
+	Tue, 17 Nov 2026 15:15:05 +0000 (UTC)
+Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 562AC10E601;
+ Tue, 17 Nov 2026 15:14:59 +0000 (UTC)
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+ by tor.source.kernel.org (Postfix) with ESMTP id 72E8560DF5;
+ Tue, 17 Nov 2026 15:14:58 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5C9DE1F000C5;
+ Tue, 17 Nov 2026 15:14:56 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+ s=k20260515; t=1794928498;
+ bh=O9xAKWwBB7u9FKZ3TGuNVV0f8tMOj2I6ZH8LKxjW0FY=;
+ h=Date:From:To:Cc:Subject;
+ b=b9Shf1KY/a3fy+Jqg/5hTSPi5h3cjvmI+TiUWZF5zxzV6N+GW9t4yHO3hlaF9pnS4
+ GJTngcyjdzLwyXy7EjMEYGW+g9NErsM0/KTKwkdRn22xEkv2OU3eZ/ZlhHAly8Q6Zz
+ Q92suuQZOHu3FiKx6T4zH+0bMBB3pAemRMb2+sc/WM1dWRLuUX2i3i+2Po/A5z1NSt
+ 94/4ny2QJdlEhrLbZeQf0fKARqwqGo3M7NHh0B1FR4G0oGw2vkmpKt5ZZuf95pWp5m
+ lo8tuH5FU4t4emLw0LQSagbgPqI+XDO5+TrLiXbVzwCcdXnP8SuBpb8Jli2gboLnfI
+ KTgSasnWHJY8w==
+Date: Tue, 17 Nov 2026 15:14:53 +0000
+From: Mark Brown <broonie@kernel.org>
+To: Simona Vetter <simona.vetter@ffwll.ch>,
+ Intel Graphics <intel-gfx@lists.freedesktop.org>,
+ DRI <dri-devel@lists.freedesktop.org>
+Cc: Christian =?iso-8859-1?Q?K=F6nig?= <christian.koenig@amd.com>,
+ Fei Yu <fei.yu@intel.com>, Kees Cook <kees@kernel.org>,
+ Kees Cook <kees+treewide@kernel.org>,
+ Linux Kernel Mailing List <linux-kernel@vger.kernel.org>,
+ Linux Next Mailing List <linux-next@vger.kernel.org>
+Subject: linux-next: manual merge of the drm-misc-fixes tree with the origin
+ tree
+Message-ID: <avxvbWBvcToSp_t4@sirena.org.uk>
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
-References: <20261112-b4-tm-pm-du-v1-1-507474331137@bp.renesas.com>
-In-Reply-To: <20261112-b4-tm-pm-du-v1-1-507474331137@bp.renesas.com>
-From: Geert Uytterhoeven <geert@linux-m68k.org>
-Date: Tue, 17 Nov 2026 16:12:43 +0100
-X-Gmail-Original-Message-ID: <CAMuHMdXQjm9rqmKn35G9-CqGSuMO9nirDw2GmFfF2PBfsCvH_Q@mail.gmail.com>
-X-Gm-Features: Aa3M54ptylXmhL6SzM56Sx5LCXa21m2jXwzZpxrJX2kGuRvWvlxVM_ksOElm6ig
-Message-ID: <CAMuHMdXQjm9rqmKn35G9-CqGSuMO9nirDw2GmFfF2PBfsCvH_Q@mail.gmail.com>
-Subject: Re: [PATCH] drm: renesas: rz-du: Add suspend/resume support
-To: Tommaso Merciai <tommaso.merciai.xr@bp.renesas.com>
-Cc: Biju Das <biju.das.jz@bp.renesas.com>, 
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>, 
- Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>,
- Simona Vetter <simona@ffwll.ch>, 
- dri-devel@lists.freedesktop.org, linux-renesas-soc@vger.kernel.org, 
- linux-kernel@vger.kernel.org, tomm.merciai@gmail.com
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Type: multipart/signed; micalg=pgp-sha512;
+ protocol="application/pgp-signature"; boundary="/t8F7wjVNMCsMgCV"
+Content-Disposition: inline
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -88,76 +56,95 @@ List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-13.8 required=3.0 tests=BAYES_00,
-	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
-	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS autolearn=unavailable
-	autolearn_force=no version=4.0.1
+X-Spam-Status: No, score=-10.8 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
+	DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
+	INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS
+	autolearn=unavailable autolearn_force=no version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-Hi Tommaso,
 
-On Thu, 12 Nov 2026 at 09:31, Tommaso Merciai
-<tommaso.merciai.xr@bp.renesas.com> wrote:
-> Add suspend/resume support to the RZ/G2L DU driver.
->
-> Signed-off-by: Tommaso Merciai <tommaso.merciai.xr@bp.renesas.com>
+--/t8F7wjVNMCsMgCV
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
 
-Thanks for your patch!
+Hi all,
 
-> --- a/drivers/gpu/drm/renesas/rz-du/rzg2l_du_drv.c
-> +++ b/drivers/gpu/drm/renesas/rz-du/rzg2l_du_drv.c
-> @@ -140,6 +140,27 @@ static const struct drm_driver rzg2l_du_driver =3D {
->         .minor                  =3D 0,
->  };
->
-> +/* ---------------------------------------------------------------------=
---------
-> + * Power management
-> + */
-> +
-> +static int rzg2l_du_pm_suspend(struct device *dev)
-> +{
-> +       struct rzg2l_du_device *rcdu =3D dev_get_drvdata(dev);
-> +
-> +       return drm_mode_config_helper_suspend(&rcdu->ddev);
+Today's linux-next merge of the drm-misc-fixes tree got a conflict in:
 
-error: passing argument 1 of =E2=80=98drm_mode_config_helper_suspend=E2=80=
-=99 from
-incompatible pointer type [-Werror=3Dincompatible-pointer-types]
+  drivers/gpu/drm/drm_syncobj.c
 
-The "&" should be dropped...
+between commit:
 
-> +}
-> +
-> +static int rzg2l_du_pm_resume(struct device *dev)
-> +{
-> +       struct rzg2l_du_device *rcdu =3D dev_get_drvdata(dev);
-> +
-> +       return drm_mode_config_helper_resume(&rcdu->ddev);
+  0af298e62e5cf ("treewide: refresh kmalloc_obj() conversions")
 
-... likewise.
+=66rom the origin tree and commit:
 
-> +}
-> +
-> +static DEFINE_SIMPLE_DEV_PM_OPS(rzg2l_du_pm_ops,
-> +                               rzg2l_du_pm_suspend, rzg2l_du_pm_resume);
-> +
->  /* ---------------------------------------------------------------------=
---------
->   * Platform driver
->   */
+  6ca87397aeebc ("drm/syncobj: Limit the number of handles and use kvmalloc=
+ for user-sized arrays")
 
-Gr{oetje,eeting}s,
+=66rom the drm-misc-fixes tree.
 
-                        Geert
+I fixed it up (see below) and can carry the fix as necessary. This
+is now fixed as far as linux-next is concerned, but any non trivial
+conflicts should be mentioned to your upstream maintainer when your tree
+is submitted for merging.  You may also want to consider cooperating
+with the maintainer of the conflicting tree to minimise any particularly
+complex conflicts.
 
---=20
-Geert Uytterhoeven -- There's lots of Linux beyond ia32 -- geert@linux-m68k=
-.org
+diff --cc drivers/gpu/drm/drm_syncobj.c
+index 137397972a98a,c8a8c49d12fb2..0000000000000
+--- a/drivers/gpu/drm/drm_syncobj.c
++++ b/drivers/gpu/drm/drm_syncobj.c
+@@@ -1051,7 -1062,7 +1062,7 @@@ static signed long drm_syncobj_array_wa
+  		lockdep_assert_none_held_once();
+  	}
+ =20
+- 	points =3D kmalloc_objs(*points, count);
+ -	points =3D kvmalloc_array(count, sizeof(*points), GFP_KERNEL);
+++	points =3D kvmalloc_objs(*points, count);
+  	if (points =3D=3D NULL)
+  		return -ENOMEM;
+ =20
+@@@ -1238,7 -1249,10 +1249,10 @@@ static int drm_syncobj_array_find(struc
+  	struct drm_syncobj **syncobjs;
+  	int ret;
+ =20
+- 	handles =3D kmalloc_objs(*handles, count_handles);
++ 	if (count_handles > DRM_SYNCOBJ_MAX_HANDLES)
++ 		return -EINVAL;
++=20
+ -	handles =3D kvmalloc_array(count_handles, sizeof(*handles), GFP_KERNEL);
+++	handles =3D kvmalloc_objs(*handles, count_handles);
+  	if (handles =3D=3D NULL)
+  		return -ENOMEM;
+ =20
+@@@ -1572,7 -1586,8 +1586,7 @@@ drm_syncobj_timeline_signal_ioctl(struc
+  	if (ret < 0)
+  		return ret;
+ =20
+- 	points =3D kmalloc_objs(*points, args->count_handles);
+ -	points =3D kvmalloc_array(args->count_handles, sizeof(*points),
+ -				GFP_KERNEL);
+++	points =3D kvmalloc_objs(*points, args->count_handles);
+  	if (!points) {
+  		ret =3D -ENOMEM;
+  		goto out;
 
-In personal conversations with technical people, I call myself a hacker. Bu=
-t
-when I'm talking to journalists I just say "programmer" or something like t=
-hat.
-                                -- Linus Torvalds
+--/t8F7wjVNMCsMgCV
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmr8b20ACgkQJNaLcl1U
+h9BEMQf/UETYc/GVfeKWjN70UYgneG1M5PaaR5xgxRmr1Igtg1qSNC5wTqsDsWNq
+KaxZ97lg1C8Ji9qUrNHyAphP2gu6jekd82ULMaPQ/WvIbRFs/v6P6yJN3ztdN/SV
+VnL6Q+oAdntNFALJEJvcYPtpcQenF5NkTH/j7BjEzfYT6L5a3DTrCtVgTzRw55li
+BnLhGlVAeWrzGkrHKl7J5A7ImWKEzzTO4ljzcFCOQb5WK5XJgOXva7ed8c94cgvT
++fvch0krinQf5BNljg5yUnsSMxCnJP1cXCbFSBiZkjIxHJs583ubmO1BZ7y1ymur
+Kxc+1LqzXjn5w+cSYRTawVs+GlyG9A==
+=LSLI
+-----END PGP SIGNATURE-----
+
+--/t8F7wjVNMCsMgCV--
