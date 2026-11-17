@@ -2,69 +2,62 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D104E606A330
-	for <dri-devel@archiver.kernel.org>; Tue, 17 Nov 2026 08:22:27 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 63986606A8B3
+	for <dri-devel@archiver.kernel.org>; Tue, 17 Nov 2026 08:24:35 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=itJSOg8A
+	dkim=pass (2048-bit key) header.d=mailbox.org header.i=@mailbox.org header.a=rsa-sha256 header.s=mail20150812 header.b=viAmOPoL
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 41D3210EA99;
-	Tue, 17 Nov 2026 08:22:22 +0000 (UTC)
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.16])
- by gabe.freedesktop.org (Postfix) with ESMTPS id C556110EA99;
- Tue, 17 Nov 2026 08:22:15 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1794903736; x=1826439736;
- h=mime-version:content-transfer-encoding:in-reply-to:
- references:subject:from:cc:to:date:message-id;
- bh=oDBWfWxuyuXCs7svJ3CMQY+hoTNFGtkSXN+3KpjIDic=;
- b=itJSOg8A8j2MbO2Seec1ecku5wltac3zmt/G6TYYfg8OhS+QxWSs2uaM
- NrDLCuNwWA3wYw1D4L8dXWxObUZmUz1FW0nZ6xIS3CdTXGy3ojT6Si788
- cKgEnD6grMJkk3RTEevRaLDZ4SoQjljNIqfMJRUjp6z6nqS9rsikR7d+e
- xENtoFc7fp+dzgDCEQi0u03C3f+SWafFoplyhRdWyWGIvfCFbWU34CBSU
- zq5mfayIFXWAxeAUpPYgJvH/VNAd43aK9eJ/GogjK03M7TrFUjXfQMHht
- cH/1HDoYcM40KIv2aDSZNdZ4F9tgW7h3OTzSzGMtQEgi/h5kF15fFxAyc w==;
-X-CSE-ConnectionGUID: iEGJKoZUQFWKtDi0WnEgbw==
-X-CSE-MsgGUID: zoYTOuQiQTy/tYuEus/UkQ==
-X-IronPort-AV: E=McAfee;i="6800,10657,11968"; a="3701175"
-X-IronPort-AV: E=Sophos;i="6.27,218,1787036400"; 
-   d="scan'208";a="3701175"
-Received: from fmviesa003.fm.intel.com ([10.60.135.143])
- by fmvoesa110.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 17 Nov 2026 00:20:42 -0800
-X-CSE-ConnectionGUID: 4KmUuLCjTM+rIDZU49LxUQ==
-X-CSE-MsgGUID: lcn6PfM5Qx+zmu3znnkgSg==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,218,1787036400"; 
-   d="scan'208";a="9906183"
-Received: from ettammin-mobl3.ger.corp.intel.com (HELO localhost)
- ([10.245.244.6])
- by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 17 Nov 2026 00:20:37 -0800
-Content-Type: text/plain; charset="utf-8"
+	by gabe.freedesktop.org (Postfix) with ESMTP id B74CA10E698;
+	Tue, 17 Nov 2026 08:24:29 +0000 (UTC)
+Received: from mout-p-101.mailbox.org (mout-p-101.mailbox.org [80.241.56.151])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id E35D010E698
+ for <dri-devel@lists.freedesktop.org>; Tue, 17 Nov 2026 08:24:23 +0000 (UTC)
+Received: from smtp1.mailbox.org (smtp1.mailbox.org
+ [IPv6:2001:67c:2050:b231:465::1])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519MLKEM768 server-signature RSA-PSS (4096 bits) server-digest
+ SHA256) (No client certificate requested)
+ by mout-p-101.mailbox.org (Postfix) with ESMTPS id 4jTHnw6RQrz8vZ0;
+ Tue, 17 Nov 2026 09:24:20 +0100 (CET)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=mailbox.org;
+ s=mail20150812; 
+ t=1794903860; h=from:from:reply-to:reply-to:subject:subject:date:date:
+ message-id:message-id:to:to:cc:cc:mime-version:mime-version:
+ content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references;
+ bh=/6sFeeE2v8KqdFq9cTEUeg70JLLH5Ub+A5TKvYvbkqk=;
+ b=viAmOPoLWB08TuLkaRTRWKL6GyzdUBMkIZGZKpWCg514qs4PCgGVwTqmLELQKYiqolqJux
+ 1syhU90LBtUOMuJxDDFMfpT9/yn1kSRfPGz4KASVfgnpO/llrM4bxjafkYy6LYmIpjpS5r
+ 3F1jOHaiCRP4Sx/43hXl3wXSL67x0OFlZPtybtdcMzIsqKyPQyvW8/IbiWC1F6rLKgZVDA
+ /agbHLLcXTcRopPmiQ7E0m8FhcG3p76i5l4q1Wj6ha5k5FOMd4Q/f/3RD89CZm30Fzq4wA
+ Q4bhBTPzdMQxkvH4pUi80XrjBBqedsIlNteTrQK1Odt1ZSxdQJXeYsKrZk2s9g==
+Message-ID: <49298d3a328c1695ea27993f714c20b8a1c05f32.camel@mailbox.org>
+Subject: Re: [PATCH] rust: DamFence: Remove warning about unsignaled drop
+From: Philipp Stanner <phasta@mailbox.org>
+To: Christian =?ISO-8859-1?Q?K=F6nig?= <christian.koenig@amd.com>, Philipp
+ Stanner <phasta@kernel.org>, Sumit Semwal <sumit.semwal@linaro.org>, Danilo
+ Krummrich	 <dakr@kernel.org>, Alice Ryhl <aliceryhl@google.com>, Miguel
+ Ojeda	 <ojeda@kernel.org>, Boqun Feng <boqun@kernel.org>, Gary Guo
+ <gary@garyguo.net>,  =?ISO-8859-1?Q?Bj=F6rn?= Roy Baron	
+ <bjorn3_gh@protonmail.com>, Benno Lossin <lossin@kernel.org>, Andreas
+ Hindborg	 <a.hindborg@kernel.org>, Trevor Gross <tmgross@umich.edu>, Daniel
+ Almeida	 <daniel.almeida@collabora.com>, Tamir Duberstein
+ <tamird@kernel.org>,  Alexandre Courbot <acourbot@nvidia.com>, Onur
+ =?ISO-8859-1?Q?=D6zkan?= <work@onurozkan.dev>
+Cc: linux-media@vger.kernel.org, dri-devel@lists.freedesktop.org, 
+ rust-for-linux@vger.kernel.org, linux-kernel@vger.kernel.org
+Date: Tue, 17 Nov 2026 09:24:15 +0100
+In-Reply-To: <5d466f7c-2e70-4011-be04-9ffdf877b915@amd.com>
+References: <20261112101015.528127-2-phasta@kernel.org>
+ <5d466f7c-2e70-4011-be04-9ffdf877b915@amd.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+User-Agent: Evolution 3.60.2 (3.60.2-3.fc44) 
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: quoted-printable
-In-Reply-To: <e97d0efc-a6de-4060-be48-c2ca128461b1@amd.com>
-References: <20261109135549.4128280-1-mika.kuoppala@linux.intel.com>
- <20261109135549.4128280-15-mika.kuoppala@linux.intel.com>
- <e97d0efc-a6de-4060-be48-c2ca128461b1@amd.com>
-Subject: Re: [PATCH 14/20] drm/xe/eudebug: Add userptr vm pread/pwrite
-From: Joonas Lahtinen <joonas.lahtinen@linux.intel.com>
-Cc: simona.vetter@ffwll.ch, matthew.brost@intel.com,
- thomas.hellstrom@linux.intel.com, gustavo.sousa@intel.com,
- jan.maslak@intel.com, dominik.karol.piatkowski@intel.com,
- rodrigo.vivi@intel.com, andrzej.hajda@intel.com, matthew.auld@intel.com,
- maciej.patelczyk@intel.com, gwan-gyeong.mun@intel.com,
- michal.wajdeczko@intel.com, dri-devel@lists.freedesktop.org,
- Simona Vetter <simona@ffwll.ch>,
- Dominik Grzegorzek <dominik.grzegorzek@intel.com>
-To: Christian =?utf-8?q?K=C3=B6nig?= <christian.koenig@amd.com>,
- David Airlie <airlied@gmail.com>,
- Mika Kuoppala <mika.kuoppala@linux.intel.com>, intel-xe@lists.freedesktop.org
-Date: Tue, 17 Nov 2026 10:20:34 +0200
-Message-ID: <179490363459.14567.17741084775869143840@jlahtine-mobl>
-User-Agent: alot/0.13.dev2+g40c57d620
+X-MBO-RS-ID: 46dd5544d1dd3ff66d6
+X-MBO-RS-META: 7sk9otwyp8ik8zrdho6idfnnx6ekyr8w
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -75,104 +68,59 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
+Reply-To: phasta@kernel.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-3.8 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
-	DKIM_SIGNED,DKIM_VALID,HEADER_FROM_DIFFERENT_DOMAINS,
+X-Spam-Status: No, score=-5.8 required=3.0 tests=BAYES_00,DKIM_SIGNED,
+	DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
 	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS autolearn=no
 	autolearn_force=no version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-Quoting Christian K=C3=B6nig (2026-11-16 15:17:02)
-> On 11/9/26 14:55, Mika Kuoppala wrote:
-> > Implement debugger vm access for userptrs.
-> >=20
-> > When bind is done, take a ref to the current task so that
-> > we know from which vm the address was bound. Then during
-> > debugger pread/pwrite we use this target task as
-> > parameter to access the debuggee vm with access_process_vm().
-> >=20
-> > This is based on suggestions from Simona, Thomas and Joonas.
+On Thu, 2026-11-12 at 11:29 +0100, Christian K=C3=B6nig wrote:
+> On 11/12/26 11:10, Philipp Stanner wrote:
+> > DriverFence::drop() contains a pr_warn!() for when the fence drops
+> > unsignaled. This warning gets into the way of canonical teardown in
+> > Rust: when you drop a lock, it unlocks itself, when you drop a KBox, it
+> > frees itself etc. Congruently, users should be able to tear down fences
+> > they don't care about anymore with ECANCELED, which is already the
+> > default error code.
 >=20
-> At AMD we had a legthly discussion if such an interface would be necessar=
-y for AMDs debugger interface and came to the conclusion that it is *NOT* a=
- good idea to have this.
+> Well a dma_fence should never automatically signal when the last
+> reference drops.
+>=20
+> Leaving it unsignaled is the most defensive path we can go. That can
+> lead to deadlocks but it can at least not lead to memory corruption.
 
-I'd like to refer to our 2024 December discussion on review of v3 of
-this series[1].
+True, you choose between the Unholy Trinity of DRM: deadlocks, UAF and
+memory corruption :]
 
-Quoting myself from the end:
+In this particular case, however, Rust does not allow for preventing
+the user from signaling "forgotten" fences anyways, no matter how we
+write the fence core:
 
-	"It seems like the peek/poke access to userptr is the big remaining open
-	where opinions differ, so maybe we should first focus on aligning on it.
-	It impacts both core dumping and interactive debugging."
+struct DriverFoo {
+	f: DriverFence<()>,
+}
 
-Then from same series review, we took Sima's suggestions[2] to be
-implemented. About one year later in 2025 December we got your
-review comments[3] for series v6:
+impl Drop for Driver Foo {
+	pub fn drop(&mut self) {
+		// Signals fence implicitly & automatically.
+		self.f.signal(ECANCELED);
+	}
+}
 
-	"But from a ten mile high view it looks sane to me now."
 
-And quoting myself:
+So we decided to die this death because this way we get rid of the two
+of the three problems that *can* be solved in the API.
 
-	"Understandable and thanks for the high level check, we'll continue with t=
-he
-	current direction then."
 
-So given v4 (which you gave above "looks sane to me" included pretty much
-exactly this patch [4], I'm bit surprised to be starting to reiterate what
-feels like our discussion from [1].
+But it will please you to hear that all users of drm::JobQueue do not
+have access to fences directly anyways, they can only signal them
+through JobQueue. Thus, they can also not forget them (signaled or
+unsignaled), because they would have to forget / leak the entire
+JobQueue as a whole, so effectively forgetting also their GPU ring. If
+that would happen, the driver would be broken beyond repair anyways.
 
-I'm hoping we can agree to a disagree here. ROCm maybe doesn't need
-interface like this due to requirement of ptrace_attach(), GPU address
-=3D=3D CPU address and no kernel initiated core dumps. We want to avoid
-those limitations in our architecture as discussed in [1].
-
-After you very much seemed to agree in the direction on [3], we've
-spent 2 years incrementally addressing all the other comments in 7 new
-series versions. Thus I'm not really a big fan of reiterating the original
-discussion, so excuse me for being bit irritated here.
-
-> process_vm_readv() and process_vm_writev() interfaces already allow a deb=
-ugger to access userptr resources completely without the need of PTRACE_ATT=
-ACH.
-
-That is correct. However as discussed earlier the access implemented
-here is for reading memory from ppGTT, not the CPU address space. For
-readv/writev userspace driver would have to maintain all ppGTT layouts
-in CPU address space and that'll simply not fit as discussed in [1]
-amongst the other reasons.
-
-This exact same access will be needed when doing core dumps and capturing
-the ppGTT contents during crash by kernel, when there is no GDB involved.
-I don't see any value in diverging the memory access path for interactive
-debug and core dumps.
-
-I don't know if ROCm has plans for supporting core dumps without GDB
-involved, but we definitely want to have that ability. And in [1] we
-seemed to agree on the usefulness.
-
-> Especially since this interface here allows to bypass all the extra secur=
-ity checks otherwise applied to such an action it should probably not be so=
-mething allowed upstream.
-
-To recap. No security is bypassed, access happens as if GPU did the
-access. If the address is not in ppGTT, there's no access to it. So
-access given here is equal to access gained submitting a blitter copy
-command to copy the data using a context with the same ppGTT. Code
-comments were added to explain to eliminate Sashiko false positives.
-
-Unfortunately, we can't actually rely on the RCS/CCS/BCS engines
-making forward progress on current gen hardware as hardware may be
-stalled due to numerous pending page-faults. Especially when doing
-core dumps.
-
-Regards, Joonas
-
-[1] https://lore.kernel.org/intel-xe/173392197322.40386.1225274149499860645=
-3@jlahtine-mobl.ger.corp.intel.com/
-[2] https://lore.kernel.org/intel-xe/Z1q3F81k2TkUzKW7@phenom.ffwll.local/
-[3] https://lore.kernel.org/intel-xe/176520185138.24350.8954844301177099832=
-@jlahtine-mobl/
-[4] https://lore.kernel.org/intel-xe/20250808104356.3294210-11-mika.kuoppal=
-a@linux.intel.com/
+Regards
+P.
