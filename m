@@ -2,51 +2,51 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 82C2E606A333
-	for <dri-devel@archiver.kernel.org>; Tue, 17 Nov 2026 20:03:31 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1DF26606A32F
+	for <dri-devel@archiver.kernel.org>; Tue, 17 Nov 2026 20:03:33 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=RYVCiPJI
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=Xeh59mDk
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 89C4310F919;
-	Tue, 17 Nov 2026 20:03:25 +0000 (UTC)
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.10])
- by gabe.freedesktop.org (Postfix) with ESMTPS id DF17910F922;
- Tue, 17 Nov 2026 20:03:13 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 5CB6010F92F;
+	Tue, 17 Nov 2026 20:03:27 +0000 (UTC)
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.17])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 607E410F92D;
+ Tue, 17 Nov 2026 20:03:19 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1794945795; x=1826481795;
+ t=1794945800; x=1826481800;
  h=from:to:cc:subject:date:message-id:in-reply-to:
  references:mime-version:content-transfer-encoding;
- bh=w4f9rRztSEUh6UoR9+HXvON4CHs/9DGTezgik+/LdSA=;
- b=RYVCiPJI4q3K+xbs5r/W0EoVTPRSpz2yzapHa4PSxm3ka1Vjskl/RD2x
- i8iM0/tVIXZ4++74SuAF0k2M9Iw0Lf3LLW+ScPNcusaivjephEto0B9nt
- aa8W1f5Gcgwabz+LAQZzxqoOBz3jlKS+BMqRkjku1j7lB21xjhvBNB4yh
- FwCtIDKgAK/gyCEoQmTXr5TuHkRfTQWLXad/v1+tLbFYRo+TcLGSB3fBT
- tXGQwf2JuzOII/evjrW/nymXYXs0MiJb1qbWraA7nKoM2HHQlqiW+2NmU
- outLjPdaxKpVegb7WGFRs49QgwqXmVC25emoAckTRMQ42bsHDe0nIFnMh g==;
-X-CSE-ConnectionGUID: Jgce26VqQvmYsoBPyke64w==
-X-CSE-MsgGUID: Ubw9FIIyRlCy4z4dwxQIQA==
-X-IronPort-AV: E=McAfee;i="6800,10657,11969"; a="3656017"
+ bh=NgjjT+4GI5Vd+T2mjSD6OnKg9oK/aNcxarP8Qg0FtaI=;
+ b=Xeh59mDkAf8gvzB4rxzQUqxq8qG0hyxXk6/f4BcuOqMBW2GrZ3AlOkOW
+ XGZVdxxcTy2RU/7n70j9EmbTi6jBPflzmMd6tgPKeeBa8bFc+VIwMjz7Y
+ SctBUxBHpPkbz5n38BlxbyN2YMp+ypWFBd3ZPqvOp5rnffbT+feikfaRT
+ h05FkxI0/DG3RqaphkFv7ZXfuP3U6ZD/Dam3sm7i9rdhQrJkSQG+rrB9j
+ FhLFlU+4n8OeQ8WEkdHT0tj/CkuCTptAeEL1xmeWt3QrnhzcdSP0BH0sY
+ ryuq+6ZtokV6f8cH9cK2zjMFcOn2xRFxTPMc4hscrifZxe/KNz6V5Mm2l Q==;
+X-CSE-ConnectionGUID: l9rAwVQ+Sn2icboSGIMFVw==
+X-CSE-MsgGUID: SXD05B+lSY6Rf+zPBhPG7Q==
+X-IronPort-AV: E=McAfee;i="6800,10657,11969"; a="3724355"
 X-IronPort-AV: E=Sophos;i="6.27,218,1787036400"; 
-   d="scan'208";a="3656017"
-Received: from orviesa009.jf.intel.com ([10.64.159.149])
- by orvoesa102.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 17 Nov 2026 12:03:14 -0800
-X-CSE-ConnectionGUID: w4xIvxpvSd67HmU6FUBIfw==
-X-CSE-MsgGUID: HHO2W6sETviEi4yBBfXeKw==
+   d="scan'208";a="3724355"
+Received: from orviesa001.jf.intel.com ([10.64.159.141])
+ by fmvoesa111.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 17 Nov 2026 12:03:20 -0800
+X-CSE-ConnectionGUID: jDx2UbEjSACBmIEaFFQorQ==
+X-CSE-MsgGUID: rCKHq4WsTYu1/YxczjInvQ==
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,218,1787036400"; d="scan'208";a="10173556"
+X-IronPort-AV: E=Sophos;i="6.27,218,1787036400"; d="scan'208";a="10002021"
 Received: from abityuts-desk1.ger.corp.intel.com (HELO localhost)
  ([10.245.244.117])
  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 17 Nov 2026 12:03:13 -0800
+ 17 Nov 2026 12:03:18 -0800
 From: Ville Syrjala <ville.syrjala@linux.intel.com>
 To: dri-devel@lists.freedesktop.org
 Cc: intel-gfx@lists.freedesktop.org, intel-xe@lists.freedesktop.org,
  Maarten Lankhorst <maarten.lankhorst@linux.intel.com>
-Subject: [PATCH 3/6] drm/tests: Test fake_commit->flip_done completion
-Date: Tue, 17 Nov 2026 22:02:50 +0200
-Message-ID: <20261117200253.27078-4-ville.syrjala@linux.intel.com>
+Subject: [PATCH 4/6] drm/atomic: Store the device in drm_crtc_commit
+Date: Tue, 17 Nov 2026 22:02:51 +0200
+Message-ID: <20261117200253.27078-5-ville.syrjala@linux.intel.com>
 X-Mailer: git-send-email 2.56.0
 In-Reply-To: <20261117200253.27078-1-ville.syrjala@linux.intel.com>
 References: <20261117200253.27078-1-ville.syrjala@linux.intel.com>
@@ -77,158 +77,125 @@ X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 
 From: Ville Syrjälä <ville.syrjala@linux.intel.com>
 
-Check that the fake commit has flip_done completed by
-drm_atomic_helper_setup_commit(), with hw_done left pending, and that a
-nonblocking commit touching an unbound plane is not rejected with
--EBUSY because of the previous commit's fake commit.
+drm_crtc_commit_wait() gets the device for its timeout messages from
+commit->crtc, which is NULL for the fake commit that tracks unbound
+planes and connectors. If waiting for the fake commit's hw_done ever
+times out we oops instead of printing the message.
+
+Store the device in the commit and use it for the messages instead,
+and also print the CRTC when there is one so the messages say which
+commit timed out. Document that drm_crtc_commit.crtc is NULL for the
+fake commit.
 
 Cc: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>
 Signed-off-by: Ville Syrjälä <ville.syrjala@linux.intel.com>
 ---
- .../gpu/drm/tests/drm_atomic_commit_test.c    | 116 +++++++++++++++++-
- 1 file changed, 115 insertions(+), 1 deletion(-)
+ drivers/gpu/drm/drm_atomic.c        | 14 ++++++++++++--
+ drivers/gpu/drm/drm_atomic_helper.c |  8 +++++---
+ include/drm/drm_atomic.h            |  9 ++++++++-
+ 3 files changed, 25 insertions(+), 6 deletions(-)
 
-diff --git a/drivers/gpu/drm/tests/drm_atomic_commit_test.c b/drivers/gpu/drm/tests/drm_atomic_commit_test.c
-index 6ccb001f6264..a549be9f21eb 100644
---- a/drivers/gpu/drm/tests/drm_atomic_commit_test.c
-+++ b/drivers/gpu/drm/tests/drm_atomic_commit_test.c
-@@ -10,6 +10,7 @@
- #include <drm/drm_atomic_uapi.h>
- #include <drm/drm_kunit_helpers.h>
- #include <drm/drm_probe_helper.h>
-+#include <linux/workqueue.h>
+diff --git a/drivers/gpu/drm/drm_atomic.c b/drivers/gpu/drm/drm_atomic.c
+index 81591173265d..ec5a8f32a0b0 100644
+--- a/drivers/gpu/drm/drm_atomic.c
++++ b/drivers/gpu/drm/drm_atomic.c
+@@ -136,6 +136,16 @@ void __drm_crtc_commit_free(struct kref *kref)
+ }
+ EXPORT_SYMBOL(__drm_crtc_commit_free);
  
- #define DRM_TEST_ENC_0 BIT(0)
- #define DRM_TEST_ENC_1 BIT(1)
-@@ -391,6 +392,118 @@ static struct kunit_case drm_in_clone_mode_check_test[] = {
- 	{}
- };
- 
-+/*
-+ * Test that the commit used for planes which are not bound to any CRTC has
-+ * flip_done completed already by drm_atomic_helper_setup_commit(), since there
-+ * is no flip to wait for, while hw_done is left for the commit to complete.
-+ */
-+static void drm_test_fake_commit_flip_done(struct kunit *test)
++static void drm_crtc_commit_wait_timeout(struct drm_crtc_commit *commit,
++					 const char *what)
 +{
-+	struct drm_atomic_test_priv *priv;
-+	struct drm_modeset_acquire_ctx ctx;
-+	struct drm_atomic_commit *state;
-+	struct drm_plane_state *plane_state;
-+	int ret;
-+
-+	priv = drm_atomic_test_init_drm_components(test, false);
-+	KUNIT_ASSERT_NOT_NULL(test, priv);
-+
-+	drm_modeset_acquire_init(&ctx, 0);
-+
-+	state = drm_kunit_helper_atomic_state_alloc(test, &priv->drm, &ctx);
-+	KUNIT_ASSERT_NOT_ERR_OR_NULL(test, state);
-+
-+	plane_state = drm_atomic_get_plane_state(state, priv->plane);
-+	KUNIT_ASSERT_NOT_ERR_OR_NULL(test, plane_state);
-+	KUNIT_ASSERT_NULL(test, plane_state->crtc);
-+	KUNIT_ASSERT_NULL(test, priv->plane->state->crtc);
-+
-+	ret = drm_atomic_helper_setup_commit(state, false);
-+	KUNIT_ASSERT_EQ(test, ret, 0);
-+
-+	KUNIT_ASSERT_NOT_NULL(test, state->fake_commit);
-+	KUNIT_EXPECT_PTR_EQ(test, plane_state->commit, state->fake_commit);
-+	KUNIT_EXPECT_TRUE(test, try_wait_for_completion(&state->fake_commit->flip_done));
-+	KUNIT_EXPECT_FALSE(test, try_wait_for_completion(&state->fake_commit->hw_done));
-+
-+	drm_atomic_commit_clear(state);
-+	drm_modeset_drop_locks(&ctx);
-+	drm_modeset_acquire_fini(&ctx);
++	if (commit->crtc)
++		drm_err(commit->dev, "[CRTC:%d:%s] %s timed out\n",
++			commit->crtc->base.id, commit->crtc->name, what);
++	else
++		drm_err(commit->dev, "fake commit %s timed out\n", what);
 +}
 +
-+struct drm_test_hw_done_work {
-+	struct delayed_work work;
-+	struct drm_crtc_commit *commit;
-+};
-+
-+static void drm_test_hw_done_work_func(struct work_struct *work)
-+{
-+	struct drm_test_hw_done_work *w =
-+		container_of(work, struct drm_test_hw_done_work, work.work);
-+
-+	complete_all(&w->commit->hw_done);
-+}
-+
-+/*
-+ * Test that a nonblocking commit does not fail with -EBUSY just because the
-+ * previous commit that touched the same unbound plane is still in flight, ie.
-+ * its hw_done is yet to complete. It should instead wait for the hw_done, so
-+ * that userspace can not get arbitrarily far ahead of the commit work.
-+ */
-+static void drm_test_fake_commit_not_busy(struct kunit *test)
-+{
-+	struct drm_atomic_test_priv *priv;
-+	struct drm_modeset_acquire_ctx ctx;
-+	struct drm_atomic_commit *state, *prev;
-+	struct drm_test_hw_done_work w;
-+	int ret;
-+
-+	priv = drm_atomic_test_init_drm_components(test, false);
-+	KUNIT_ASSERT_NOT_NULL(test, priv);
-+
-+	drm_modeset_acquire_init(&ctx, 0);
-+
-+	/* The previous commit, which became the plane's current state */
-+	prev = drm_kunit_helper_atomic_state_alloc(test, &priv->drm, &ctx);
-+	KUNIT_ASSERT_NOT_ERR_OR_NULL(test, prev);
-+	KUNIT_ASSERT_NOT_ERR_OR_NULL(test, drm_atomic_get_plane_state(prev, priv->plane));
-+	ret = drm_atomic_helper_setup_commit(prev, true);
-+	KUNIT_ASSERT_EQ(test, ret, 0);
-+	KUNIT_ASSERT_NOT_NULL(test, prev->fake_commit);
-+	priv->plane->state->commit = drm_crtc_commit_get(prev->fake_commit);
-+
-+	state = drm_kunit_helper_atomic_state_alloc(test, &priv->drm, &ctx);
-+	KUNIT_ASSERT_NOT_ERR_OR_NULL(test, state);
-+	KUNIT_ASSERT_NOT_ERR_OR_NULL(test, drm_atomic_get_plane_state(state, priv->plane));
-+
-+	w.commit = prev->fake_commit;
-+	INIT_DELAYED_WORK_ONSTACK(&w.work, drm_test_hw_done_work_func);
-+	schedule_delayed_work(&w.work, msecs_to_jiffies(20));
-+
-+	ret = drm_atomic_helper_setup_commit(state, true);
-+	KUNIT_EXPECT_EQ(test, ret, 0);
-+	KUNIT_EXPECT_TRUE(test, try_wait_for_completion(&prev->fake_commit->hw_done));
-+
-+	flush_delayed_work(&w.work);
-+	destroy_delayed_work_on_stack(&w.work);
-+
-+	drm_atomic_commit_clear(state);
-+	drm_atomic_commit_clear(prev);
-+	drm_modeset_drop_locks(&ctx);
-+	drm_modeset_acquire_fini(&ctx);
-+}
-+
-+static struct kunit_case drm_fake_commit_tests[] = {
-+	KUNIT_CASE(drm_test_fake_commit_flip_done),
-+	KUNIT_CASE(drm_test_fake_commit_not_busy),
-+	{}
-+};
-+
-+static struct kunit_suite drm_fake_commit_test_suite = {
-+	.name = "drm_atomic_fake_commit",
-+	.test_cases = drm_fake_commit_tests,
-+};
-+
- static struct kunit_suite drm_test_check_modeset_test_suite = {
- 	.name = "drm_validate_modeset",
- 	.test_cases = drm_test_check_modeset_test,
-@@ -402,7 +515,8 @@ static struct kunit_suite drm_in_clone_mode_check_test_suite = {
- };
+ /**
+  * drm_crtc_commit_wait - Waits for a commit to complete
+  * @commit: &drm_crtc_commit to wait for
+@@ -156,7 +166,7 @@ int drm_crtc_commit_wait(struct drm_crtc_commit *commit)
  
- kunit_test_suites(&drm_in_clone_mode_check_test_suite,
--		  &drm_test_check_modeset_test_suite);
-+		  &drm_test_check_modeset_test_suite,
-+		  &drm_fake_commit_test_suite);
+ 	ret = wait_for_completion_timeout(&commit->hw_done, timeout);
+ 	if (!ret) {
+-		drm_err(commit->crtc->dev, "hw_done timed out\n");
++		drm_crtc_commit_wait_timeout(commit, "hw_done");
+ 		return -ETIMEDOUT;
+ 	}
  
- MODULE_AUTHOR("Jessica Zhang <quic_jesszhan@quicinc.com");
- MODULE_DESCRIPTION("Test cases for the drm_atomic_helper functions");
+@@ -166,7 +176,7 @@ int drm_crtc_commit_wait(struct drm_crtc_commit *commit)
+ 	 */
+ 	ret = wait_for_completion_timeout(&commit->flip_done, timeout);
+ 	if (!ret) {
+-		drm_err(commit->crtc->dev, "flip_done timed out\n");
++		drm_crtc_commit_wait_timeout(commit, "flip_done");
+ 		return -ETIMEDOUT;
+ 	}
+ 
+diff --git a/drivers/gpu/drm/drm_atomic_helper.c b/drivers/gpu/drm/drm_atomic_helper.c
+index 1ef1bc06ad5c..72aa0be5622c 100644
+--- a/drivers/gpu/drm/drm_atomic_helper.c
++++ b/drivers/gpu/drm/drm_atomic_helper.c
+@@ -2462,13 +2462,15 @@ static void release_crtc_commit(struct completion *completion)
+ 	drm_crtc_commit_put(commit);
+ }
+ 
+-static void init_commit(struct drm_crtc_commit *commit, struct drm_crtc *crtc)
++static void init_commit(struct drm_crtc_commit *commit, struct drm_device *dev,
++			struct drm_crtc *crtc)
+ {
+ 	init_completion(&commit->flip_done);
+ 	init_completion(&commit->hw_done);
+ 	init_completion(&commit->cleanup_done);
+ 	INIT_LIST_HEAD(&commit->commit_entry);
+ 	kref_init(&commit->ref);
++	commit->dev = dev;
+ 	commit->crtc = crtc;
+ }
+ 
+@@ -2488,7 +2490,7 @@ crtc_or_fake_commit(struct drm_atomic_commit *state, struct drm_crtc *crtc)
+ 		if (!state->fake_commit)
+ 			return NULL;
+ 
+-		init_commit(state->fake_commit, NULL);
++		init_commit(state->fake_commit, state->dev, NULL);
+ 
+ 		/*
+ 		 * There is no event nor flip for the fake commit, so
+@@ -2569,7 +2571,7 @@ int drm_atomic_helper_setup_commit(struct drm_atomic_commit *state,
+ 		if (!commit)
+ 			return -ENOMEM;
+ 
+-		init_commit(commit, crtc);
++		init_commit(commit, state->dev, crtc);
+ 
+ 		new_crtc_state->commit = commit;
+ 
+diff --git a/include/drm/drm_atomic.h b/include/drm/drm_atomic.h
+index 5d075763c445..b5bd7d75bc82 100644
+--- a/include/drm/drm_atomic.h
++++ b/include/drm/drm_atomic.h
+@@ -70,10 +70,17 @@
+  * See also drm_crtc_commit_wait().
+  */
+ struct drm_crtc_commit {
++	/**
++	 * @dev:
++	 *
++	 * DRM device for this commit.
++	 */
++	struct drm_device *dev;
++
+ 	/**
+ 	 * @crtc:
+ 	 *
+-	 * DRM CRTC for this commit.
++	 * DRM CRTC for this commit. NULL for &drm_atomic_commit.fake_commit.
+ 	 */
+ 	struct drm_crtc *crtc;
+ 
 -- 
 2.56.0
 
