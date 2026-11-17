@@ -2,68 +2,67 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E4274606A31C
-	for <dri-devel@archiver.kernel.org>; Tue, 17 Nov 2026 01:21:54 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 036F0606A31C
+	for <dri-devel@archiver.kernel.org>; Tue, 17 Nov 2026 01:22:01 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=AyZUPf5J
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=NKt0Hj8r
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 13D8F10E0AE;
-	Tue, 17 Nov 2026 01:21:49 +0000 (UTC)
-Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id BE1D510F587
- for <dri-devel@lists.freedesktop.org>; Tue, 17 Nov 2026 01:21:38 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id BFCD010F57C;
+	Tue, 17 Nov 2026 01:21:54 +0000 (UTC)
+Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 319F810F588
+ for <dri-devel@lists.freedesktop.org>; Tue, 17 Nov 2026 01:21:39 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id 9CD884647B;
+ by tor.source.kernel.org (Postfix) with ESMTP id 023516110D;
  Tue, 17 Nov 2026 01:21:38 +0000 (UTC)
 Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
 ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
- t=1794878498;
- b=mwVJsbvE7OSxuxMoa/G1O3KS30aSQWb64py9z4lsT2yS91MPI6kpBo0Drua0vDgphrrv
- 66mk2c1w4ZarAw47WM7Pun6EzdmFMJmC18g2p1uuEoioPrJ/zZZVkrbGU5QHvGanoV+0t
- UINXIUc1SfGzSuvJ0CO9Y3s4fJcsl0fGDp61Sbdp5mcYhb2jbv1N3GOF9OdyvpRRmeOAh
- hmuM8jHVSf/370rb27tyAuvpGGMqC1h+ORHz9ITbkd6LvuI0lUEAXlaOA39y99PtWVzEx
- 67ULEM1Fb3ofmS98GgWtzmyEOgVPb94VEMOgJtIzjfwDALSZsSgTWEF3U5mupSfo50A==
+ t=1794878497;
+ b=tUOBOR1GjFBim4j31TZOSLBH9NmTGZgnyaDxJg17r+GQVltgl16VIg7TDmCwtRFflAR/
+ 4OS0K5E9uzRNfLYKDVzKFClqt9DQivYJ8eTWR8alZ4ZTqI83pko3lemoWzjGMT8yeqiQK
+ 6gwVh9yVUPozrbflCQC5xofDZmsyTg6lpGZpg/o4oKinXTLybJFnbWzjYVvp9OHoRiimD
+ RAAgNyYqMbUjJ2dRTXEMPqvFhJxyrRbNHR7KmG6JxnO5YHjCi58qBq5xk43sAllLhuGsc
+ 0+siF3TD5BernkXvq8VcyoPP2bQbJNTrF/blHX+RjXn27pCLX1DOmfYA2uIRHGuh8Cw==
 ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
- c=relaxed/relaxed; t=1794878498;
+ c=relaxed/relaxed; t=1794878497;
  h=DKIM-Signature:Received:From:Date:Subject:MIME-Version:Content-Type:
  Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
  X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
  X-Original-From:Reply-To:Content-Transfer-Encoding;
- bh=KdiKKEv64MBnyXMWUmh7FQYtdBo5fQdakg9q84b44AE=;
- b=h2JsSabhcnHMXyXk5qCIyeVhPJJVqVltuCiv9pd8ZNBJf0UKOI8YcPeivVDBITlFmNrs
- SheI2K7znwHgLVv5aKBxQCuGB/6u/xGulW34lCtF10dcq9o2cm12yyNTycGmy5euTVq3U
- KuWwI1mVuvjsjCnSGVK6O5nT7kKhWNyM8KK1t09GK5w8M/9Lv+rpCBlZnWBzIOGTcJeFw
- 9jZtfblsqifwlSoLcj6y1K+y83BgP5wxYfp8waHcfQubLLqANAJIsLQ/vkAvRCQKj3GjS
- jhXylDx2Drpt6xlPU6tODz2qQe5LKQ/YWFrUpvKjR9HIr8BaiHitt652AwwIP8RII2Q==
+ bh=+NEqIzO4lVYZKsrLNCtEbMrhik/O8EWaQEFpZTHO4Sw=;
+ b=U2rzyhMaR8Bdt4dhoVtvJjK1zbbZtTcgjYJTdG4vZNIcpNk6OIc3t1SMtxNjYQppH1yZ
+ Ji8rZAUMjiz+7jsQ+NJQxuNlCD66SOttZH3D3SkaKdHD1gcM6wR8KO5dGN31d7Cv4klYS
+ fMAGOa1pjv9h6rDtXrWClERSNlfG8rB0HVyba0TXg3LW4NSXx8kvB5/Fu/ZBC7BsYAHgh
+ sIuoggRzTUDFu//b+GTmG8Uv3PH2HCyUGg0ryUSdy6gpmBgLbci1KHLWVKLjco4iCov6k
+ hMnM99p67mJeAbwG8xUPP5H4ytEsPLZEQ9Aa7y2xIH6qoOBxXHQyzSOLty0S4pVbYuw==
 ARC-Authentication-Results: i=1; smtp.kernel.org; 
  arc=none smtp.remote-ip=100.80.115.77
 Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
  (No client certificate requested)
- by smtp.kernel.org (Postfix) with ESMTPS id C11A31F000C7;
+ by smtp.kernel.org (Postfix) with ESMTPS id 9EED01F000C4;
  Tue, 17 Nov 2026 01:21:36 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1794878498;
- bh=KdiKKEv64MBnyXMWUmh7FQYtdBo5fQdakg9q84b44AE=;
+ s=k20260515; t=1794878497;
+ bh=+NEqIzO4lVYZKsrLNCtEbMrhik/O8EWaQEFpZTHO4Sw=;
  h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To;
- b=AyZUPf5JXGr/vrE+qbj0OrZpMH4AKLPKP2ohg5knul+ZI3CKd95LeGJ2Rkrm3Fte7
- prPp+v18TM7J4LkxkPRbVbonv6g3iDu/J9xBIkImxpYTE2DPdWAMaLrtTFMcheNC2j
- VHlUJXdO9mEhYuQ63+JeJfwi/S4kkjIPG2tPc7MkJ/V1D8c7W/wa4zlbuh/x0i6BY6
- eboUiakLwyZmMkqPr8TWDPgNJFi0Sh4YlGtELKjROuuruefWYPEgfKUZcYgax/hhqG
- v73QaRXZkci9N41SLmDe8Che8z9LzHC6NOEJGjvqcX3TvNGUssnTcw+MrnQST7m7oC
- 4+YBA/YEFM+sw==
+ b=NKt0Hj8r0w5LG1pezooafXYLTK4Dah7cb8erDTbSAmvBldXA4Wjap2mFRpS0lY9QV
+ NEaNPuXIHbH3XVRSs7x0t108IT2KtYhU7igkI7vFkyWMPyxxjUGG7a22eSXaDAV2yF
+ utGErXQbiOvBzbjwBQhCYzXHOZ8OfaMg5hNgPFGnAHZS3NBe8WyOqHlH8gMPSZQxEr
+ n4WiUelXshOJz8qN2Bb3tif1Wq0UW+5ClKr1DXuB1qKDDIgF6BBVoHJyQM32+yv3IS
+ oipKCZJ4RodFW1zzDfMIbtvp7uFkwxrddbX79ddT27R1xirRq9dgpmUmCtKrxcFnGq
+ aPZZp4OhKWOFA==
 Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
- by lkml.kernel.org (Postfix) with ESMTP id 4BDB94A66E;
+ by lkml.kernel.org (Postfix) with ESMTP id 1AE554A65D;
  Tue, 17 Nov 2026 01:21:36 +0000 (UTC)
 From: Sidharth Saha via B4 Relay <devnull+ssaha2000.gmail.com@kernel.org>
-Date: Mon, 16 Nov 2026 18:21:34 -0700
-Subject: [PATCH 3/5] drm/vkms: Add KUnit tests for RGB332 and BGR233 read
- conversion
+Date: Mon, 16 Nov 2026 18:21:32 -0700
+Subject: [PATCH 1/5] drm/vkms: Add KUnit test for RGB565 writeback conversion
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
-Message-Id: <20261116-rgb565-test-v1-3-27f49c1aa694@gmail.com>
+Message-Id: <20261116-rgb565-test-v1-1-27f49c1aa694@gmail.com>
 References: <20261116-rgb565-test-v1-0-27f49c1aa694@gmail.com>
 In-Reply-To: <20261116-rgb565-test-v1-0-27f49c1aa694@gmail.com>
 To: Louis Chauvet <louis.chauvet@bootlin.com>, 
@@ -75,11 +74,11 @@ To: Louis Chauvet <louis.chauvet@bootlin.com>,
 Cc: dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org, 
  Sidharth Saha <40047656+Sidharth-Saha@users.noreply.github.com>
 X-Mailer: b4 0.16.0
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1794878495; l=5355;
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1794878495; l=4548;
  i=ssaha2000@gmail.com; s=20261116; h=from:subject:message-id;
- bh=BzzSS01lRRAORcGhyQ44tyFvKj+4xyy3eKNDBMTs5Y0=;
- b=XOEwGPLUrfmGnzNQ8xD2l/PV0UVQlhyTzzJRcpGH+1ZJ+KUA8j7I+UgBboMzpNB/Ncgep7WYt
- HFBT6nIUhxrAPwxqFaYQYTWRuA0f51WKskP+IqjN+bGQNa+zqYSCtCL
+ bh=O4oCx5AVv4hw3TWfDUOkN6pr1WzBeONVMnkcYKgeUH4=;
+ b=MJ11pi2eRZ7b71iwFlTOwgt0+haFEbdRh4RXrvssD92e6jGdROeJFOqffEsjOT20mlsigyfxF
+ 9t28QHgWgDQCXjZurmMaxb+Spxo9euLS3gjmquIWDBR+bXIIzqjUXol
 X-Developer-Key: i=ssaha2000@gmail.com; a=ed25519;
  pk=wMWW9xOklVZkO7Yh4yIXvhVVRs/3ROsqgjTt8XBGybI=
 X-Endpoint-Received: by B4 Relay for ssaha2000@gmail.com/20261116 with
@@ -108,122 +107,107 @@ X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 
 From: Sidharth Saha <ssaha2000@gmail.com>
 
-Test argb_u16_from_RGB332() and argb_u16_from_BGR233(), which expand
-3/3/2-bit channels to 16 bits. Each case holds the same color packed
-both ways, with expected values computed by hand, including channel
-values 4-6, where the result must be rounded up.
+argb_u16_to_RGB565() reduces each 16-bit channel to 5 or 6 bits. Its
+rounding was fixed in commit ab87f558dcfb ("drm/vkms: Fix RGB565 pixel
+conversion"), lost again in commit cc4fd2934d41 ("drm/vkms: Isolate
+writeback pixel conversion functions"), and restored by "drm/vkms: make
+argb_u16_to_RGB565 round resulting values". Add a KUnit test so it can't
+silently regress again.
 
-Make both functions visible to KUnit so the tests can call them.
+The test checks hand-computed values for zero, maximum, the 0x8000
+midpoint, inputs on either side of the first rounding step, and distinct
+per-channel values to catch channel placement errors.
+
+Make argb_u16_to_RGB565() visible to KUnit so the test can call it.
 
 Signed-off-by: Sidharth Saha <40047656+Sidharth-Saha@users.noreply.github.com>
 ---
- drivers/gpu/drm/vkms/tests/vkms_format_test.c | 49 +++++++++++++++++++++++++++
- drivers/gpu/drm/vkms/vkms_formats.c           |  6 ++--
- drivers/gpu/drm/vkms/vkms_formats.h           |  4 +++
- 3 files changed, 57 insertions(+), 2 deletions(-)
+ drivers/gpu/drm/vkms/tests/vkms_format_test.c | 38 ++++++++++++++++++++++++++-
+ drivers/gpu/drm/vkms/vkms_formats.c           |  3 ++-
+ drivers/gpu/drm/vkms/vkms_formats.h           |  1 +
+ 3 files changed, 40 insertions(+), 2 deletions(-)
 
 diff --git a/drivers/gpu/drm/vkms/tests/vkms_format_test.c b/drivers/gpu/drm/vkms/tests/vkms_format_test.c
-index e7836664c788..ab95d6c3d2d5 100644
+index bbb1ad18c99f..a8ef93b9c806 100644
 --- a/drivers/gpu/drm/vkms/tests/vkms_format_test.c
 +++ b/drivers/gpu/drm/vkms/tests/vkms_format_test.c
-@@ -315,10 +315,59 @@ static void vkms_format_test_argb_u16_to_BGR565(struct kunit *test)
- 	KUNIT_EXPECT_EQ(test, (v >> 11) & 0x1f, c->b);	/* blue: high bits */
- }
+@@ -265,9 +265,45 @@ KUNIT_ARRAY_PARAM(yuv_u16_to_argb_u16, yuv_u16_to_argb_u16_cases,
+ 		  vkms_format_test_yuv_u16_to_argb_u16_case_desc
+ );
  
-+struct u8_read_case {
++struct rgb565_case {
 +	const char *name;
-+	u8 rgb332, bgr233;	/* the same color packed both ways */
-+	u16 r, g, b;		/* expected 16-bit outputs */
++	struct pixel_argb_u16 in;
++	u16 r, g, b;		/* expected 5/6/5-bit outputs */
 +};
 +
-+static struct u8_read_case u8_read_cases[] = {
-+	/*  name          RGB332 BGR233   r       g       b     */
-+	{ "zero",         0x00,  0x00,    0,      0,      0     },
-+	{ "max",          0xff,  0xff,    65535,  65535,  65535 },
-+	{ "red-only",     0xe0,  0x07,    65535,  0,      0     },
-+	{ "green-only",   0x1c,  0x38,    0,      65535,  0     },
-+	{ "blue-only",    0x03,  0xc0,    0,      0,      65535 },
-+	{ "low-steps",    0x29,  0x51,    9362,   18724,  21845 },  /* r=1 g=2 b=1 */
-+	{ "round-up",     0x96,  0xac,    37449,  46811,  43690 },  /* r=4 g=5 b=2 */
-+	{ "mixed",        0xcc,  0x1e,    56173,  28086,  0     },  /* r=6 g=3 b=0 */
++static struct rgb565_case rgb565_cases[] = {
++	{ "zero",       { .a = 0xffff, .r = 0,      .g = 0,      .b = 0      },  0,  0,  0 },
++	{ "max",        { .a = 0xffff, .r = 0xffff, .g = 0xffff, .b = 0xffff }, 31, 63, 31 },
++	{ "midpoint",   { .a = 0xffff, .r = 0x8000, .g = 0x8000, .b = 0x8000 }, 16, 32, 16 },
++	{ "below-step", { .a = 0xffff, .r = 1057,   .g = 0,      .b = 0      },  0,  0,  0 },
++	{ "above-step", { .a = 0xffff, .r = 1058,   .g = 0,      .b = 0      },  1,  0,  0 },
++	{ "distinct",   { .a = 0xffff, .r = 0xffff, .g = 0x8000, .b = 0      }, 31, 32,  0 },
 +};
 +
-+static void vkms_format_test_u8_read_case_desc(struct u8_read_case *t, char *desc)
++static void vkms_format_test_rgb565_case_desc(struct rgb565_case *t, char *desc)
 +{
 +	snprintf(desc, KUNIT_PARAM_DESC_SIZE, "%s", t->name);
 +}
 +
-+KUNIT_ARRAY_PARAM(u8_read, u8_read_cases, vkms_format_test_u8_read_case_desc);
++KUNIT_ARRAY_PARAM(rgb565, rgb565_cases, vkms_format_test_rgb565_case_desc);
 +
-+static void vkms_format_test_argb_u16_from_RGB332(struct kunit *test)
++static void vkms_format_test_argb_u16_to_RGB565(struct kunit *test)
 +{
-+	const struct u8_read_case *c = test->param_value;
-+	struct pixel_argb_u16 out = argb_u16_from_RGB332(c->rgb332);
++	const struct rgb565_case *c = test->param_value;
++	__le16 out;
++	u16 v;
 +
-+	KUNIT_EXPECT_EQ(test, out.r, c->r);
-+	KUNIT_EXPECT_EQ(test, out.g, c->g);
-+	KUNIT_EXPECT_EQ(test, out.b, c->b);
-+	KUNIT_EXPECT_EQ(test, out.a, 0xffff);	/* no alpha channel: always opaque */
-+}
++	argb_u16_to_RGB565((u8 *)&out, &c->in);
++	v = le16_to_cpu(out);
 +
-+static void vkms_format_test_argb_u16_from_BGR233(struct kunit *test)
-+{
-+	const struct u8_read_case *c = test->param_value;
-+	struct pixel_argb_u16 out = argb_u16_from_BGR233(c->bgr233);
-+
-+	KUNIT_EXPECT_EQ(test, out.r, c->r);
-+	KUNIT_EXPECT_EQ(test, out.g, c->g);
-+	KUNIT_EXPECT_EQ(test, out.b, c->b);
-+	KUNIT_EXPECT_EQ(test, out.a, 0xffff);
++	KUNIT_EXPECT_EQ(test, (v >> 11) & 0x1f, c->r);
++	KUNIT_EXPECT_EQ(test, (v >> 5) & 0x3f, c->g);
++	KUNIT_EXPECT_EQ(test, v & 0x1f, c->b);
 +}
 +
  static struct kunit_case vkms_format_test_cases[] = {
  	KUNIT_CASE_PARAM(vkms_format_test_yuv_u16_to_argb_u16, yuv_u16_to_argb_u16_gen_params),
- 	KUNIT_CASE_PARAM(vkms_format_test_argb_u16_to_RGB565, rgb565_gen_params),
- 	KUNIT_CASE_PARAM(vkms_format_test_argb_u16_to_BGR565, rgb565_gen_params),
-+	KUNIT_CASE_PARAM(vkms_format_test_argb_u16_from_RGB332, u8_read_gen_params),
-+	KUNIT_CASE_PARAM(vkms_format_test_argb_u16_from_BGR233, u8_read_gen_params),
+-	{}
++	KUNIT_CASE_PARAM(vkms_format_test_argb_u16_to_RGB565, rgb565_gen_params),
  };
  
  static struct kunit_suite vkms_format_test_suite = {
 diff --git a/drivers/gpu/drm/vkms/vkms_formats.c b/drivers/gpu/drm/vkms/vkms_formats.c
-index 7950751c4890..eccca25f51d4 100644
+index b0078d6efb90..c5ee2d6a920f 100644
 --- a/drivers/gpu/drm/vkms/vkms_formats.c
 +++ b/drivers/gpu/drm/vkms/vkms_formats.c
-@@ -267,17 +267,19 @@ static struct pixel_argb_u16 argb_u16_from_BGR565(const __le16 *pixel)
- 				    (bgr_565 >> 11) & 0x1f, 0xffff, 5, 6, 5, 0);
+@@ -685,7 +685,7 @@ static void argb_u16_to_channels(u16 *out_r, u16 *out_g, u16 *out_b, u16 *out_a,
+ 		*out_a = u16_to_channel(a_size, in_pixel->a);
  }
  
--static struct pixel_argb_u16 argb_u16_from_RGB332(u8 pixel)
-+VISIBLE_IF_KUNIT struct pixel_argb_u16 argb_u16_from_RGB332(u8 pixel)
+-static void argb_u16_to_RGB565(u8 *out_pixel, const struct pixel_argb_u16 *in_pixel)
++VISIBLE_IF_KUNIT void argb_u16_to_RGB565(u8 *out_pixel, const struct pixel_argb_u16 *in_pixel)
  {
- 	return channels_to_argb_u16((pixel >> 5) & 0x7, (pixel >> 2) & 0x7,
- 				    pixel & 0x3, 0xffff, 3, 3, 2, 0);
- }
-+EXPORT_SYMBOL_IF_KUNIT(argb_u16_from_RGB332);
+ 	__le16 *pixel = (__le16 *)out_pixel;
+ 	u16 r, g, b;
+@@ -694,6 +694,7 @@ static void argb_u16_to_RGB565(u8 *out_pixel, const struct pixel_argb_u16 *in_pi
  
--static struct pixel_argb_u16 argb_u16_from_BGR233(u8 pixel)
-+VISIBLE_IF_KUNIT struct pixel_argb_u16 argb_u16_from_BGR233(u8 pixel)
- {
- 	return channels_to_argb_u16(pixel & 0x7, (pixel >> 3) & 0x7,
- 				    (pixel >> 6) & 0x3, 0xffff, 3, 3, 2, 0);
+ 	*pixel = cpu_to_le16(r << 11 | g << 5 | b);
  }
-+EXPORT_SYMBOL_IF_KUNIT(argb_u16_from_BGR233);
++EXPORT_SYMBOL_IF_KUNIT(argb_u16_to_RGB565);
  
- static struct pixel_argb_u16 argb_u16_from_gray8(u8 gray)
+ static void argb_u16_to_BGR565(u8 *out_pixel, const struct pixel_argb_u16 *in_pixel)
  {
 diff --git a/drivers/gpu/drm/vkms/vkms_formats.h b/drivers/gpu/drm/vkms/vkms_formats.h
-index 135bb60a554b..90006325a87e 100644
+index d969cc669a5e..2b8a1c4a5d46 100644
 --- a/drivers/gpu/drm/vkms/vkms_formats.h
 +++ b/drivers/gpu/drm/vkms/vkms_formats.h
-@@ -18,6 +18,10 @@ struct pixel_argb_u16 argb_u16_from_yuv161616(const struct conversion_matrix *ma
+@@ -16,6 +16,7 @@ void get_conversion_matrix_to_argb_u16(u32 format, enum drm_color_encoding encod
+ #if IS_ENABLED(CONFIG_KUNIT)
+ struct pixel_argb_u16 argb_u16_from_yuv161616(const struct conversion_matrix *matrix,
  					      u16 y, u16 channel_1, u16 channel_2);
- void argb_u16_to_RGB565(u8 *out_pixel, const struct pixel_argb_u16 *in_pixel);
- void argb_u16_to_BGR565(u8 *out_pixel, const struct pixel_argb_u16 *in_pixel);
 +void argb_u16_to_RGB565(u8 *out_pixel, const struct pixel_argb_u16 *in_pixel);
-+void argb_u16_to_BGR565(u8 *out_pixel, const struct pixel_argb_u16 *in_pixel);
-+struct pixel_argb_u16 argb_u16_from_RGB332(u8 pixel);
-+struct pixel_argb_u16 argb_u16_from_BGR233(u8 pixel);
  #endif
  
  #endif /* _VKMS_FORMATS_H_ */
