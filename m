@@ -2,96 +2,86 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AFA0D606A325
-	for <dri-devel@archiver.kernel.org>; Wed, 18 Nov 2026 08:23:22 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CE907606A31C
+	for <dri-devel@archiver.kernel.org>; Wed, 18 Nov 2026 08:23:23 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=OYP89+E9
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=fGTpC7AN
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 5ACD110E0D7;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 64AF110E77B;
 	Wed, 18 Nov 2026 08:23:12 +0000 (UTC)
-Received: from mail-yw1-f170.google.com (mail-yw1-f170.google.com
- [209.85.128.170])
- by gabe.freedesktop.org (Postfix) with ESMTPS id F419A10E4EE
- for <dri-devel@lists.freedesktop.org>; Tue, 17 Nov 2026 20:51:48 +0000 (UTC)
-Received: by mail-yw1-f170.google.com with SMTP id
- 00721157ae682-8b4f4095a7aso2076477b3.0
- for <dri-devel@lists.freedesktop.org>; Tue, 17 Nov 2026 12:51:48 -0800 (PST)
+Received: from mail-wm1-f46.google.com (mail-wm1-f46.google.com
+ [209.85.128.46])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 48AE510E5C4
+ for <dri-devel@lists.freedesktop.org>; Tue, 17 Nov 2026 12:40:02 +0000 (UTC)
+Received: by mail-wm1-f46.google.com with SMTP id
+ 5b1f17b1804b1-4a1b07c3c5fso52102695e9.1
+ for <dri-devel@lists.freedesktop.org>; Tue, 17 Nov 2026 04:40:02 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20260707; t=1794948708; x=1795553508; darn=lists.freedesktop.org;
- h=mime-version:content-transfer-encoding:content-type:references
- :in-reply-to:subject:cc:to:from:message-id:date:from:to:cc:subject
- :date:message-id:reply-to:content-type;
- bh=H3h9IxdpOr+oov0x9AuL8BUQNJ9C7SGtsH7YFmYPEqA=;
- b=OYP89+E9Eo4iZ4puXnIJVbbyIml2x/DYNCSJ9Hltd+NF9aJC0ImwU9aiYx9n3lmSbc
- 8egHEZOAH/wfWy7et0RVjVOHXvtcpC/Bk+h/47ngxy4yej1XkWOVf6NxXJ8h3fd1jK4F
- m3grqtdSITRIg6CplV1fLWisQD0DK4bmC9gKcFT2uV4QX/a49PwGkYieKkyPPTxVoZ4I
- VU6aw6POcDS7zhUq2lYymnLOcIaooka09zXgyaNQQ119IswzrhnliKFQnN/TRiTTCkA3
- 6n75yg0n5PBvk5p4rV7jj1uHXrXNQ+m6fxA8mfaK9XLnFLqixbI+rUL65ZmARyQS+q20
- RR7Q==
+ d=gmail.com; s=20260707; t=1794919201; x=1795524001; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:mime-version:references:in-reply-to
+ :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+ :message-id:reply-to:content-type;
+ bh=eH7GNmtkSKP2fzAXhmpuBWSGX/FXkIALtIPPfHtDiis=;
+ b=fGTpC7ANc9z9U0j9oNWFHmMQz8hoJQ1feBuJp+8MIQT9aDMH8rwdPxOlvAwIap+WRu
+ HQRdxlYbK4Q2Z8NQBX5+tltrJlwK8GjyEofgg+YgV8s9tamoI6dP3CcKBO5Ggy/ANCKx
+ BualFDvT8uLLRr+lQq97P2K51qE4fPgsvkb+RKjvla6zfFYerdmKbbGwqkWDNY27mCQF
+ 3UAp7ZwlKPMvuy/NoTEy9cjpQthpyVSJlaouqT2c3FrIkYY/mrWzpdQkGwgDX2vAmul6
+ pS6+mVETzVI8m7vVuCV0w0e3YcsN+vT4Js7/lQbopATTrD1PEJtakEOIQCLLF8uY2sqp
+ NqjA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20260707; t=1794948708; x=1795553508;
- h=mime-version:content-transfer-encoding:content-type:references
- :in-reply-to:subject:cc:to:from:message-id:date:x-gm-gg
- :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
- :content-type;
- bh=H3h9IxdpOr+oov0x9AuL8BUQNJ9C7SGtsH7YFmYPEqA=;
- b=abVKwiiSc+7iXS6ZljhujxeUREpbCAprYaYHPN7FXJGIqNFHS1q9W/CVxbVULKpzmQ
- 56grcD9OHc8aPv4H4uuHpddSWOstmCGK83FkG1firrA6yv6lbFBIeyYf5hS4Po03T2lJ
- 2EjSzKyF5zz2SAHIAA0y4Tip6ki9lzpqwv/vPrNUxtiUJbjJ7vIkm1FZRxhqzkgKW8Ht
- Xa5i3bIAOepixMFYRR8zFqgyRY6Ivzhntg8dFVAyfBAF2wTRoYhKPvIQjQEfwAYpPJYO
- i5lDQLyxPw+FB8LaHr1uTjLq+PJ7I08knY/MjiQZpCPnC1QyTpccAuIRIKs0/f0i26wh
- f+5A==
+ d=1e100.net; s=20260707; t=1794919201; x=1795524001;
+ h=content-transfer-encoding:mime-version:references:in-reply-to
+ :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+ :to:cc:subject:date:message-id:reply-to:content-type;
+ bh=eH7GNmtkSKP2fzAXhmpuBWSGX/FXkIALtIPPfHtDiis=;
+ b=YdJZkHNOmFASFmHU95Cb8MS94eXAl7Ng4iJ4+Xv5PSZlQt1Hn130MnicLUv/iSU4X4
+ jfNY8EbdDwNupoqC6S2b1t2jxs/oOXHwSt0h0RBweCAmXXFha8NztYifLHIJ7aB6bGsH
+ DiMjBUYqDcl5dRvwSveRrZe9Nb/Wi5+xSr1TG7wY6C/sycjmqyjSLRqZGP0EDXtTH3r7
+ MBH3J3OyTjAKPBZl/sTe4HhHfz30dQ992v6xnnKi3YqRc/Eakanij1MpkCy8yehfd3u0
+ /95CG5xqvuyYaiXQa8CXSoxZ7/HPpSyVPpa9fF2KOOGFzpvaPthf1O7FCFgJV8pKwEE6
+ unnQ==
 X-Forwarded-Encrypted: i=1;
- AL+hErFSLE5wEcUfMcHmAkvu65lZvlnap1I4JdglX0AZTwixu0fvQ/+3UFNJgy2Kxw2e9XpjR9hirILH37s=@lists.freedesktop.org
-X-Gm-Message-State: APuU4Z8oSGDaCamUv9szEE0B/nddxJM6Ks07tCQe0n70FhG6yBKgm+BN
- Icc0SEWEfaFN1jxP+P54HN57yI2Xpr/VK1RzxAirwUy6KpClhI73a5cw
-X-Gm-Gg: AZFdTZfWnjvCn875oKlftExEojq/awWK/IeCZZYEMCKmfEXKOcfx02vFtE8yGgstFhw
- fQmiRVFGqL767BTNuTcOv6wdnoze0/gYB2mziBi1vl4uYuBoLTse+R1i745eMLaXp9sXVGfMOsy
- x1pfcPX8QbYMG+ue5REn1x3gnN/ETd37w/jmBGsF+EMKYRtgSa0tr9nDqtuhfIP8aCKc1tO0+Hm
- yNfHNNBjo+6/O/0COHjHo/C5+wjg2P+Q2LXevmxKkj+SE8gLZmpX5HLdCutI0R5PkElDX0nprnp
- 8oqO7M50zN4TmW12GY3nkI6atvvkTdRlivEtymdKof9EnmF7u99gXawoAdnW1VBWgmZrHl0iPeY
- YoiSfOgCIQXBVHhAj9olMke+HmbMmU0L1TDlj0deFEuFp8Wa9KIIiUUorFZ0Gzhqne2560WTN55
- 3BKddpDh54fdUJ2nmFJ9oYUAxfMMqCEpbXaS2mdsoNmi7M2K+Qnk0OSks1a5qdE8qrNHlaNfZcf
- xWHH/q3a1RYgmFbhp4smRhk8s5qRajum8o9N19r6YNsjwHFIGHmWNF8uy7v22IdR1k8FCf1IVST
- v1jEAEWuDvLZ3nY6xDfZwX45
-X-Received: by 2002:a05:690c:306:b0:8b0:e479:6872 with SMTP id
- 00721157ae682-8b4fed09583mr3173897b3.17.1794948707375; 
- Tue, 17 Nov 2026 12:51:47 -0800 (PST)
-Received: from localhost ([120.244.9.31]) by smtp.gmail.com with ESMTPSA id
- 00721157ae682-8b4fe057c1esm6086647b3.20.2026.11.17.12.51.46
+ AL+hErE7SRlhOM6YZXb1ZFrOTFRXE9rK++nMg8ilW/WwC3p5sTGleszD9RENnwNRun9RIZmRiAJ8sp5JTBY=@lists.freedesktop.org
+X-Gm-Message-State: APuU4Z/1dnHf5ViVIv7R42RoXSlPFBlEFBv/DFeX1DXlnwhLN8bzUF6+
+ VSZ6kG9hcBCQGxX2mnV+zTluGtK3N1GsAwj/SctetTKiPQ331m3SwYLQ
+X-Gm-Gg: AYBFou2lsGIZXCwd5sxBK3rGoCKKIpoCm21xVFabN390/W+n9jJ7wCSPDSLvUYMGlur
+ T7+9pe3311zax1KjM748MThUpqRoHUjT0TWj7PrZURhGOGm7WWsh/OyOtUePb8kd83TjFxAnqdl
+ 0Qm9z6mcvI3QA/kIsQk89LouX9CYvbe4VDPgTk1udMednNgGruMFmfVNIFqtDN4HLdaYAFmWSXe
+ CnOH1FqtG1TS9yV3H7SydzCUko9LbydYeBrlyZfuwy7C57Zli3GRCrZVmIKtDJg1uKNJc80yoEy
+ 2arW25aWvo4x90N8VNtwMlt/LAffgrc8VrPnaR4b2ExmFH7CKysckvrugTGsbvHZhm1Q/EgJzT2
+ 1j9+SNFcvkhn1ft5+SXIQ1Bpu2iU8msEtOf6NFDkZFczjKUGgyfH2eBbsnquO+NWFJYzlPSAjj5
+ dbo96wD8pD0KqRFEGFvnDbL/entJG1pU9vuQDJbdEZ8LplH+BD4k+WbojT8OhmPXqZ7n84z8tCR
+ U16MVe6ldkEdGiPRQ2mRob+BHXfGBpujK6OgVTOat3Fg6bMQns4dxqeyufB62NIahLY/MMzqbrY
+ NXwrvr/po9HaD7xVdjY07hm6Uxu1FGTSpyu1BoOqbD6MEb8PHWK3iRfS9fLa53eGIpixtw==
+X-Received: by 2002:a05:600c:8189:b0:4a3:598e:e7a8 with SMTP id
+ 5b1f17b1804b1-4bb559f72b1mr298144455e9.4.1794919200559; 
+ Tue, 17 Nov 2026 04:40:00 -0800 (PST)
+Received: from DESKTOP-BJ3EVC4.lan (94-21-223-203.pool.digikabel.hu.
+ [94.21.223.203]) by smtp.gmail.com with ESMTPSA id
+ 5b1f17b1804b1-4bb783f8154sm71474905e9.4.2026.11.17.04.39.59
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Tue, 17 Nov 2026 12:51:46 -0800 (PST)
-Date: Tue, 17 Nov 2026 15:51:42 -0500
-Message-ID: <f4b8c87eb0676500661ebea67363ac27.docular.xu@gmail.com>
-From: Guodong Xu <docular.xu@gmail.com>
-To: Icenowy Zheng <uwu@icenowy.me>
-Cc: Cody Kang <codykang.hk@gmail.com>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>, Yixun Lan <dlan@kernel.org>,
- Vinod Koul <vkoul@kernel.org>, Neil Armstrong <neil.armstrong@linaro.org>,
- Haylen Chu <heylenay@4d2.org>, Michael Turquette <mturquette@baylibre.com>,
- Stephen Boyd <sboyd@kernel.org>, Brian Masney <bmasney@redhat.com>,
- Philipp Zabel <p.zabel@pengutronix.de>, Paul Walmsley <pjw@kernel.org>,
- Palmer Dabbelt <palmer@dabbelt.com>, Albert Ou <aou@eecs.berkeley.edu>,
- Alexandre Ghiti <alex@ghiti.fr>, Yao Zi <me@ziyao.cc>,
- Uwe =?utf-8?q?Kleine-K=C3=B6nig?= <u.kleine-koenig@baylibre.com>,
- dri-devel@lists.freedesktop.org,
- linux-riscv@lists.infradead.org, devicetree@vger.kernel.org,
- spacemit@lists.linux.dev, linux-kernel@vger.kernel.org,
- linux-phy@lists.infradead.org, linux-clk@vger.kernel.org
-Subject: Re: [PATCH v2 15/17] riscv: dts: spacemit: k3-pico-itx: enable the
- DisplayPort output
-In-Reply-To: <576146d4f2752c3c3f6ec6c42812cb9956406383.camel@icenowy.me>
-References: <20260809-k3-display-v2-0-327d7910bf71@gmail.com>
- <20260809-k3-display-v2-15-327d7910bf71@gmail.com>
- <576146d4f2752c3c3f6ec6c42812cb9956406383.camel@icenowy.me>
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
+ Tue, 17 Nov 2026 04:40:00 -0800 (PST)
+From: rofikkerneldev <rofikcoga@gmail.com>
+To: linux-arm-msm@vger.kernel.org
+Cc: devicetree@vger.kernel.org, dri-devel@lists.freedesktop.org,
+ linux-input@vger.kernel.org, linux-kernel@vger.kernel.org,
+ Bjorn Andersson <andersson@kernel.org>,
+ Konrad Dybcio <konradybcio@kernel.org>, Rob Herring <robh@kernel.org>,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>,
+ Neil Armstrong <neil.armstrong@linaro.org>,
+ Dmitry Torokhov <dmitry.torokhov@gmail.com>,
+ rofikkerneldev <rofikcoga@gmail.com>
+Subject: [PATCH v1 11/11] arm64: dts: qcom: sm8250-lge-timelm: add QCA6390
+ Bluetooth
+Date: Tue, 17 Nov 2026 13:39:46 +0100
+Message-Id: <20261117123946.668557-12-rofikcoga@gmail.com>
+X-Mailer: git-send-email 2.39.5
+In-Reply-To: <20261117123946.668557-1-rofikcoga@gmail.com>
+References: <20261117123946.668557-1-rofikcoga@gmail.com>
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
 X-Mailman-Approved-At: Wed, 18 Nov 2026 08:23:05 +0000
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -104,30 +94,140 @@ List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-2.8 required=3.0 tests=BAYES_00,DKIM_SIGNED,
+X-Spam-Status: No, score=-15.8 required=3.0 tests=BAYES_00,DKIM_SIGNED,
 	DKIM_VALID,DKIM_VALID_AU,FREEMAIL_FORGED_FROMDOMAIN,FREEMAIL_FROM,
-	HEADER_FROM_DIFFERENT_DOMAINS,MAILING_LIST_MULTI,SPF_HELO_NONE,
-	SPF_PASS autolearn=no autolearn_force=no version=4.0.1
+	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
+	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,USER_AGENT_GIT
+	autolearn=unavailable autolearn_force=no version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-Hi Icenowy,
+Describe the QCA6390 power sequencer and its PMU regulators. Enable the
+Bluetooth HCI controller on GENI UART6 with the supplies provided by the
+PMU.
 
-On Thu, 03 Sep 2026 20:09:42 +0800, Icenowy Zheng wrote:
-> The connector available on the Pico-ITX mainboard isn't a DisplayPort
-> port -- it's a USB Type-C port instead.
+Signed-off-by: rofikkerneldev <rofikcoga@gmail.com>
+---
+ .../arm64/boot/dts/qcom/sm8250-lge-timelm.dts | 92 +++++++++++++++++++
+ 1 file changed, 92 insertions(+)
 
-Right, it is a Type-C receptacle, and the commit message should say
-so.
+diff --git a/arch/arm64/boot/dts/qcom/sm8250-lge-timelm.dts b/arch/arm64/boot/dts/qcom/sm8250-lge-timelm.dts
+index 6b57c658cf918..38816268fcf53 100644
+--- a/arch/arm64/boot/dts/qcom/sm8250-lge-timelm.dts
++++ b/arch/arm64/boot/dts/qcom/sm8250-lge-timelm.dts
+@@ -95,6 +95,67 @@ key-assistant {
+ 		};
+ 	};
+ 
++	qca6390-pmu {
++		compatible = "qcom,qca6390-pmu";
++
++		pinctrl-names = "default";
++		pinctrl-0 = <&bt_en_state>, <&wlan_en_state>;
++
++		vddaon-supply = <&vreg_s6a_0p6>;
++		vddpmu-supply = <&vreg_s6a_0p6>;
++		vddrfa0p95-supply = <&vreg_s6a_0p6>;
++		vddrfa1p3-supply = <&vreg_s8c_1p2>;
++		vddrfa1p9-supply = <&vreg_s5a_1p9>;
++		vddpcie1p3-supply = <&vreg_s8c_1p2>;
++		vddpcie1p9-supply = <&vreg_s5a_1p9>;
++		vddio-supply = <&vreg_s4a_1p8>;
++
++		wlan-enable-gpios = <&tlmm 20 GPIO_ACTIVE_HIGH>;
++		bt-enable-gpios = <&tlmm 21 GPIO_ACTIVE_HIGH>;
++
++		regulators {
++			vreg_pmu_rfa_cmn: ldo0 {
++				regulator-name = "vreg_pmu_rfa_cmn";
++			};
++
++			vreg_pmu_aon_0p59: ldo1 {
++				regulator-name = "vreg_pmu_aon_0p59";
++			};
++
++			vreg_pmu_wlcx_0p8: ldo2 {
++				regulator-name = "vreg_pmu_wlcx_0p8";
++			};
++
++			vreg_pmu_wlmx_0p85: ldo3 {
++				regulator-name = "vreg_pmu_wlmx_0p85";
++			};
++
++			vreg_pmu_btcmx_0p85: ldo4 {
++				regulator-name = "vreg_pmu_btcmx_0p85";
++			};
++
++			vreg_pmu_rfa_0p8: ldo5 {
++				regulator-name = "vreg_pmu_rfa_0p8";
++			};
++
++			vreg_pmu_rfa_1p2: ldo6 {
++				regulator-name = "vreg_pmu_rfa_1p2";
++			};
++
++			vreg_pmu_rfa_1p7: ldo7 {
++				regulator-name = "vreg_pmu_rfa_1p7";
++			};
++
++			vreg_pmu_pcie_0p9: ldo8 {
++				regulator-name = "vreg_pmu_pcie_0p9";
++			};
++
++			vreg_pmu_pcie_1p8: ldo9 {
++				regulator-name = "vreg_pmu_pcie_1p8";
++			};
++		};
++	};
++
+ 	reserved-memory {
+ 		ramoops: ramoops@b0000000 {
+ 			compatible = "ramoops";
+@@ -506,6 +567,21 @@ &uart12 {
+ 	status = "okay";
+ };
+ 
++&uart6 {
++	status = "okay";
++
++	bluetooth {
++		compatible = "qcom,qca6390-bt";
++
++		vddrfacmn-supply = <&vreg_pmu_rfa_cmn>;
++		vddaon-supply = <&vreg_pmu_aon_0p59>;
++		vddbtcmx-supply = <&vreg_pmu_btcmx_0p85>;
++		vddrfa0p8-supply = <&vreg_pmu_rfa_0p8>;
++		vddrfa1p2-supply = <&vreg_pmu_rfa_1p2>;
++		vddrfa1p7-supply = <&vreg_pmu_rfa_1p7>;
++	};
++};
++
+ &ufs_mem_hc {
+ 	status = "okay";
+ 
+@@ -636,6 +712,22 @@ touchscreen@28 {
+ };
+ 
+ &tlmm {
++	bt_en_state: bt-enable-state {
++		pins = "gpio21";
++		function = "gpio";
++		drive-strength = <2>;
++		bias-disable;
++		output-low;
++	};
++
++	wlan_en_state: wlan-enable-state {
++		pins = "gpio20";
++		function = "gpio";
++		drive-strength = <16>;
++		bias-pull-up;
++		output-low;
++	};
++
+ 	touch_reset_default: touch-reset-default-state {
+ 		pins = "gpio38";
+ 		function = "gpio";
+-- 
+2.39.5
 
-> I think you need to model the Type-C port and alt functions of it.
-
-I am not sure that can be done on this board. The redriver/mux in
-front of the receptacle and the PD controller that steers it both
-sit on the EC's own I2C bus, and their interrupt goes to the EC too.
-The SoC has no bus to either chip; all it gets from that side is the
-DP1 HPD line.
-
-So a usb-c-connector node would have nothing to link to here.
-
-Guodong
