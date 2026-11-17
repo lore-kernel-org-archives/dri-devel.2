@@ -2,43 +2,42 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DBBA0606A331
-	for <dri-devel@archiver.kernel.org>; Tue, 17 Nov 2026 19:22:36 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0853C606A88E
+	for <dri-devel@archiver.kernel.org>; Tue, 17 Nov 2026 19:22:42 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=amd.com header.i=@amd.com header.a=rsa-sha256 header.s=selector1 header.b=SFpJpgcu
+	dkim=pass (1024-bit key, unprotected) header.d=amd.com header.i=@amd.com header.a=rsa-sha256 header.s=selector1 header.b=1YnCqm9D
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 235E310E5D6;
-	Tue, 17 Nov 2026 19:22:31 +0000 (UTC)
-Received: from CY7PR03CU001.outbound.protection.outlook.com
- (mail-westcentralusazon11010043.outbound.protection.outlook.com
- [40.93.198.43])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 9883D10E092
- for <dri-devel@lists.freedesktop.org>; Tue, 17 Nov 2026 19:22:24 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 45DFD10E092;
+	Tue, 17 Nov 2026 19:22:36 +0000 (UTC)
+Received: from BL2PR02CU003.outbound.protection.outlook.com
+ (mail-eastusazon11011067.outbound.protection.outlook.com [52.101.52.67])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id B9AA010F89D
+ for <dri-devel@lists.freedesktop.org>; Tue, 17 Nov 2026 19:22:29 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=ZE8AaA4bmquVh5voLD+I7vse1YaBbdCFWxsEKQuPZOv9oD8c/WUWudS7JVycRRht9bbC+Kg3QU92zgVJTD8C0lbjviqjJmQkPd5rKKNzjoD246ylyJ9bDXXpCeyZE6LmxOe/yS3jwsr5/JRQyplU1yCroxdi7AICUEP+P9qA3SqFqiUFtDBRI/fA4eQrv+oAH9m/jGCyEqIgmeGtLw+CdvnqDjdboxmRHd3Tg2Tx1+VHrPdPFqke/BKjOSSQlyQ52qwpngXgrIeozB3Uc7EWcAII6vXpUZYDGqSIchmyWpWmRJxX1IH1iySYczkKLwRaYgCtqOu9SwRt9yzG6mJ7NA==
+ b=NUcEHB/FR/MkrIZ0RyHpvTUpTEdW52tKE75Uj4sADEQc/Zr+WFa5SewIyujhK1DgtbTzRCxxEGMWdSpb7NUf79GAeCWFIk1GiHaiepL3KlOruaII5JmslmAvr4mOkOUAyI1ABAaQjt84pVmyx5HXaKk02lpYHAReA8CLP9LGbPQ2TLf6IhwVraPI+b4JLvZcoJtWFXxvsEtpcTSrj8x9jL5mDmnv1RNvYtgCji+d7EOYq8vSZ6X1C4XLslbPtUMgsSnQp/uA4GvPTlDo6SlzQu4K+PdLtxOozDHWMFZLz1HmFoFIJHhZih1/a4UyGOpW64+jqz3i9JMW2ZVE/S+tsw==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=rq4Rp5EzhMSsqJ3fR2k7VFIwpTFwZJmjS2pXkHGfHYE=;
- b=QFBuRy3ncD6tLdnFLZCbx58gqtB3iGjN8RDWjB1/VxeM+DUCPfhjowVOLU/UlLZh6k8dtwMUHF60brdhMGrG/xlMRFiP3FANv4bx7qKy1/zTD4V5UrFVqtBiIsYvUsib9m8T4na+q5F2ix3GnMF5N7ZJcVL893g2EeeYng4+1TZhov1/saG6zkCyn/e+1NI3IEeOTBZUH6txDOiF3y9mYM3S3nkFhh/RVpwnpo2aGlE34rrQu8bnoNLoqsldn4svgi2n6eNhjkF/e0mVWfywrpVjggRJdsIdepllzbuzo+tmaSwoPqKicFZMI0GFt84fwgrOBm7ydu5EyHRDp/38DQ==
+ bh=MoAM/xXTlPmIRxbSvvKKF+dsS0OxFzgkCaPWclY5MNw=;
+ b=sxD9w7hD7XBn7XATdJ9alD8Spe9cBB65DyTU7996Cv5re5XPsm/T8dHgLZhevqRrzZ9RYcfqEiNVdyydiDfzRAPqf25HS70bZScUUD+fB8nLemV7rq8XVpFLJ/E0kUr8E8vZY132o1KM8NNaCJrXVC9kBVFt75jJ3xT6e7iRKHBITk2WsaanTFTS8BKE36Od1Use4bzc85AmF965h9TbJtRW9DLgnXcdVm/tRzFwV4KmDSGw1BQmk+TMiCqG8/NV1zvtmr0bLVV0nmrFbVPn02WRsvN2fXU8YB5HBXSzDiJj0OAK+G+IqedagBqIH5O8S5SMVWCTC7muZiYBfNcfqg==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
  165.204.84.17) smtp.rcpttodomain=kernel.org smtp.mailfrom=amd.com; dmarc=pass
  (p=quarantine sp=quarantine pct=100) action=none header.from=amd.com;
  dkim=none (message not signed); arc=none (0)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=rq4Rp5EzhMSsqJ3fR2k7VFIwpTFwZJmjS2pXkHGfHYE=;
- b=SFpJpgcu+/EL7jg2E+9KjrquBPycG4b9NIuC8XGOmyl34t4cUM51QxFrXqfoUMH4ZtZSR8QSLgXptwa5wvlCN/krEPaC3T0aiht80syVb9UlZclo1b4hRfC7Ca6J3umpp+j2Qk3nR+b+2yfH9cs5lWhyx8Ie/LbiYyJNxUDDREw=
-Received: from MN2PR08CA0012.namprd08.prod.outlook.com (2603:10b6:208:239::17)
- by SA0PR12MB4414.namprd12.prod.outlook.com (2603:10b6:806:9a::11)
+ bh=MoAM/xXTlPmIRxbSvvKKF+dsS0OxFzgkCaPWclY5MNw=;
+ b=1YnCqm9Dg99SFvEO4m+UKI0udXyrrniXixPcYoAq1hBK1Xl3kEgVMeR9CbzWCxwH/1su0T4rjNjqgWRtwiVpghNKFfn3czsTZBg7MmS76RZAFrktk9I34qBDUyifLAEFjQaBScksusPl0ecLT1mJQ3Z22YmI1DRdKVedWIjvO5o=
+Received: from MN2PR08CA0004.namprd08.prod.outlook.com (2603:10b6:208:239::9)
+ by PH0PR12MB5679.namprd12.prod.outlook.com (2603:10b6:510:14f::6)
  with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.615.14; Tue, 17 Nov
- 2026 19:22:19 +0000
+ 2026 19:22:18 +0000
 Received: from BN7PEPF00000095.namprd03.prod.outlook.com
- (2603:10b6:208:239:cafe::8b) by MN2PR08CA0012.outlook.office365.com
- (2603:10b6:208:239::17) with Microsoft SMTP Server (version=TLS1_3,
+ (2603:10b6:208:239:cafe::4) by MN2PR08CA0004.outlook.office365.com
+ (2603:10b6:208:239::9) with Microsoft SMTP Server (version=TLS1_3,
  cipher=TLS_AES_256_GCM_SHA384) id 15.21.615.13 via Frontend Transport; Tue,
- 17 Nov 2026 19:22:19 +0000
+ 17 Nov 2026 19:22:11 +0000
 X-MS-Exchange-Authentication-Results: mx.microsoft.com 1; spf=pass (sender IP
  is 165.204.84.17) smtp.mailfrom=amd.com;
  dkim=none (message not signed)
@@ -49,11 +48,11 @@ Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
 Received: from satlexmb07.amd.com (165.204.84.17) by
  BN7PEPF00000095.mail.protection.outlook.com (10.167.245.73) with Microsoft
  SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.639.5 via Frontend Transport; Tue, 17 Nov 2026 19:22:19 +0000
+ 15.21.639.5 via Frontend Transport; Tue, 17 Nov 2026 19:22:10 +0000
 Received: from satlexmb07.amd.com (10.181.42.216) by satlexmb07.amd.com
  (10.181.42.216) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.57; Tue, 17 Nov
- 2026 13:22:11 -0600
+ 2026 13:22:10 -0600
 Received: from xsjlizhih51.xilinx.com (10.180.168.240) by satlexmb07.amd.com
  (10.181.42.216) with Microsoft SMTP Server id 15.2.2562.57 via Frontend
  Transport; Tue, 17 Nov 2026 13:22:10 -0600
@@ -63,42 +62,40 @@ To: <ogabbay@kernel.org>, <quic_jhugo@quicinc.com>,
  <karol.wachowski@linux.intel.com>, <max.zhen@amd.com>
 CC: Lizhi Hou <lizhi.hou@amd.com>, <linux-kernel@vger.kernel.org>,
  <sonal.santan@amd.com>
-Subject: [PATCH V1 2/2] accel/amdxdna: Abort jobs when the firmware context is
- gone
-Date: Tue, 17 Nov 2026 11:21:57 -0800
-Message-ID: <20261117192157.154516-2-lizhi.hou@amd.com>
+Subject: [PATCH V1 1/2] accel/amdxdna: Check the fence error after waiting for
+ a driver command
+Date: Tue, 17 Nov 2026 11:21:56 -0800
+Message-ID: <20261117192157.154516-1-lizhi.hou@amd.com>
 X-Mailer: git-send-email 2.34.1
-In-Reply-To: <20261117192157.154516-1-lizhi.hou@amd.com>
-References: <20261117192157.154516-1-lizhi.hou@amd.com>
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 Content-Type: text/plain
 X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: BN7PEPF00000095:EE_|SA0PR12MB4414:EE_
-X-MS-Office365-Filtering-Correlation-Id: c0c395ee-a6fa-4349-aec3-08df44e01909
+X-MS-TrafficTypeDiagnostic: BN7PEPF00000095:EE_|PH0PR12MB5679:EE_
+X-MS-Office365-Filtering-Correlation-Id: a44348d5-3bf4-4aef-0eca-08df44e01414
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
- ARA:13230040|23010399003|82310400026|36860700016|376014|1800799024|18002099003|22082099003|261009223027099003|3023799007|11063799006|56012099006|261028144727099003|261022075727099003|261022105027099003|261021123027099003|261026140227099003|261021121427099003|261102123227099003|10067099003;
-X-Microsoft-Antispam-Message-Info: LTB2Z4yRt6dc+657vkq8pLmgi4Tiic/jdFHFomBKuW+uwSO+zNfz9l8ubIoyF7/PBLDqv0RYci1Eu/OyNw1XqaFMc7sj1RMqUpaFhuNLo0UkNLn9R8GIbZZAG28DmzwguVIAiXunF0m8F8gPbD6ndDoOWUl5Dk9esPx4ZE1Mra/R6gjO/DkA27/jk0YCC+nuDSLiwnGL0glNOVL3NSURjeIZvVQfQLIQakLQzQBkPmprMdikTJbrVZSCmd2Iz54/3cnUylHnQwptpWDDCDgyetnvD1PazSUHjSsx7enaCWxrNas3XMLoAGphclN4ovgqiOnBtkT76hHYmTM2N62au/jia9QIpKjpnE7yctUDYJdT+6aENUjGFravfqlrFTwnvR41GXZmfQhn2GIwq8PjcVQ9mFS5Ii+D3h2OkIob0vEarjvFzySJuYYPWEBn5b0szGa+fiSmF+srE5e9tPxTzoV1jtgTEer8BXq++AGRl2G1ZVFEqHUD/AqUP1K+U7eFG4tPGmEoHSblWK9PINaxTUw7WFQ7nHtLW/DxoP1e1pKUyEG9HA4Yp4VPXT5ZaAjbTcCxLDvIs3pynTP2TCbDWarcb32BlSlz7nsePJN935U253Y6LZOX6Ebr+N7kqt8F+uCnwkTQDcGawi8dkcLplE0VagAKM8jgAIOk5icTIqnnziTn1n+Sn9LTur7TQ1XiIDNY1Zc12UxKnzUjXKQdIA==
+ ARA:13230040|36860700016|82310400026|1800799024|376014|23010399003|18002099003|261009223027099003|11063799006|56012099006|261102123227099003|261028144727099003|10067099003|261026140227099003|261021121427099003|261022075727099003|261022105027099003|261021123027099003;
+X-Microsoft-Antispam-Message-Info: JikjYR2Ox/qAM75+A/NGs+rCPYTucGGqJga5zK+IT+pHME9C+fYTf4DYd5Sb6T2lYQ4izDfOAPOZGT6NbxwQDDa4jmX320mZuRdjvwuJoYpdMghdtwtVw+11IbQBh5yJ+dd83MdkFeMViH0ICJk3nDE7i85FIXTiM0I+b6x52ZJWvT6lAfwhWqcDuxSBcXWcGSXUW1RkzquEUloUmjjLHwr5oTncuHEgVose4Hv85iqbMrp+iTnFpXDIsBcLw3JICTk9f5l8Ic5dFcYyzEBoez0NrdqSh7ajWoVwNP87n5U6EhUGSjfRNFa72SVunDULlY+4uUYJbjvPk1jUmr63X0nudwKvQsiVd6Hh1oi112gk9KbLfybV9VWSIuiEX4c8MV3//9W1UwB+Hn/eon9ewNLd2EmqjTtNRAeIrYsV6S+mPQ3Fo0e6gFNUCWG/Wm7ENe4P2r4n2wc3ix4kfu9rP35fXbAInQPuLWTyGp4WrCDowV8azTmcMaiHnpaTVP/aNyyjsTREL8oelbyEsU2uAZOdwE8sd3q98F/zf7EdZ0HvNyBhK7S3Tifnld4HNP0CpYfyWZuxxbcbXE7ORILSQjEap0CDPWLa8RB/sJ9WVhx7S2GRWBtvtk+GkpSFzh1BNqHVHvAu3lNlyerGwWNhSBYWCY5DA4ilLjujxnYafvLd9u7ZgSq4ZS+0OezDr15TUZhjwpvyBhCA1PuZionWJQ==
 X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
  IPV:NLI; SFV:NSPM; H:satlexmb07.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230040)(23010399003)(82310400026)(36860700016)(376014)(1800799024)(18002099003)(22082099003)(261009223027099003)(3023799007)(11063799006)(56012099006)(261028144727099003)(261022075727099003)(261022105027099003)(261021123027099003)(261026140227099003)(261021121427099003)(261102123227099003)(10067099003);
+ SFS:(13230040)(36860700016)(82310400026)(1800799024)(376014)(23010399003)(18002099003)(261009223027099003)(11063799006)(56012099006)(261102123227099003)(261028144727099003)(10067099003)(261026140227099003)(261021121427099003)(261022075727099003)(261022105027099003)(261021123027099003);
  DIR:OUT; SFP:1101; 
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: 7CPhiMz7O69GoUVLG3UJLSZ5K/Ecdui+zr8OUZGxkYoDf/VAFztd92iTz8QiMIQ9hEfSlSeKGOKbmGZdNRNGvQN7ETkKkfQOwgvSFWsmw6Ghfp8Rnh32v47b236S5ATkBkY1dv1wfam4qLATsHhSNHKTcxgHgFClYCXWaCmpwEq39lKP8EhkBMgtI5vYpT8kkj2ZYcP0qJHvHFMuOmEhOeWyNqS15bnTN+zufGjW31HefvrKysGNdDPaQYqvmQne+OqZEp0E6uZS01GZEp4WXXSFB4f8XKb3db3CMC4+Y+fi69e0t0nu+/hjKMrIwBhlgE9fVSoJ10Z++8qd+Hoba3VpWguWOJEYB8ZTmTc5YBd8dtVFfX61eEN5EjyouGRWfAnmjDcq7bQ9CqPWaJCIjh0I6/PgQdHsdh1DzsJYJtBDCaUoOr9sLU9fdR+0ePDE
+X-MS-Exchange-AntiSpam-MessageData-0: pRXDk1zb/9eJ1Vc5H5J4EebHIHVcAUfbJeu2VfwnhJq1Ps6Cmjt6wltDejpyDaOBjdDbppFV3WBOvghBcaQ2NEHe/iB/S5pwMqyncOEocoCr5GMqMNZIQKg6BqqpP71dz/0ZWZ+I9JM3u8PGBLWALoG7Dpr6iGTfc6zYs8yDbLd+ca5zyJwkxeBs9s7TFWeiZuj6QIE0cn1QxuwLAJ59d5+pbQSmE8pD6sU7090VaQ+a2UtfWge+i9MGT5rRNa4Z/eHIodzQpV9hR/QoMpIA84niRuIwtcG0S4oHC9Ls66eNTnMlNBDCAGkNXl6l46bgY38nCSDjM4sPC94LpkHxhj9ImWyL1OohQQFH/uz+MPxm4GV7aAtHIkbQzW4kEX1Ln90AGEJ7lQHOtxbB5qyjoN7A8q42QSYJH/Kbaef8fOARQs3PeNT7OpWuMNXsrHmC
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 17 Nov 2026 19:22:19.2891 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: c0c395ee-a6fa-4349-aec3-08df44e01909
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 17 Nov 2026 19:22:10.9728 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: a44348d5-3bf4-4aef-0eca-08df44e01414
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
  Helo=[satlexmb07.amd.com]
 X-MS-Exchange-CrossTenant-AuthSource: BN7PEPF00000095.namprd03.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Anonymous
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SA0PR12MB4414
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH0PR12MB5679
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -118,44 +115,94 @@ X-Spam-Status: No, score=-18.8 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-aie2_sched_job_run() returned NULL when the firmware context is gone
-(mbox_chann pointer is NULL). The DRM scheduler treats a NULL return as
-a job that completed without an error.
+aie2_cmd_wait() discarded the result of the wait, and both callers,
+aie2_hwctx_cfg_debug_bo() and aie2_hwctx_sync_debug_bo(), decided
+success solely from cmd->result.
 
-Return ERR_PTR(-ECANCELED) so the error is recorded on the fence, and mark
-the command BO aborted.
+cmd->result is only written by aie2_sched_drvcmd_resp_handler(), which
+runs when firmware responds. If the job fails before it reaches
+firmware, for example aie2_sync_bo() or aie2_config_debug_bo() fail to
+send the mailbox message, the error is recorded on the fence and no
+response handler runs. cmd is zero allocated, so cmd->result stays 0 and
+the caller treats the failed command as successful.
+aie2_hwctx_cfg_debug_bo() then goes on to update abo->assigned_hwctx.
 
-Fixes: 6b13cb8f48a4 ("accel/amdxdna: Fix runtime suspend deadlock when there is pending job")
+Return the fence error from aie2_cmd_wait() and check it in both
+callers. This also covers a fence errored after the command was posted,
+and the case where aie2_cmd_get_out_fence() finds no fence at all, which
+previously fell through to the same false success.
+
+Fixes: 7ea046838021 ("accel/amdxdna: Support firmware debug buffer")
 Signed-off-by: Lizhi Hou <lizhi.hou@amd.com>
 ---
- drivers/accel/amdxdna/aie2_ctx.c | 14 ++++++++++++--
- 1 file changed, 12 insertions(+), 2 deletions(-)
+ drivers/accel/amdxdna/aie2_ctx.c | 28 ++++++++++++++++++++++++----
+ 1 file changed, 24 insertions(+), 4 deletions(-)
 
 diff --git a/drivers/accel/amdxdna/aie2_ctx.c b/drivers/accel/amdxdna/aie2_ctx.c
-index 0a1914f0f1c0..3b898c05513e 100644
+index 11f5421e497a..0a1914f0f1c0 100644
 --- a/drivers/accel/amdxdna/aie2_ctx.c
 +++ b/drivers/accel/amdxdna/aie2_ctx.c
-@@ -404,8 +404,18 @@ aie2_sched_job_run(struct drm_sched_job *sched_job)
- 	trace_xdna_job(sched_job, hwctx->name, "job run",
- 		       job->seq, job->drv_cmd ? job->drv_cmd->opcode : DEFAULT_IO);
+@@ -984,20 +984,30 @@ static int aie2_hwctx_cu_config(struct amdxdna_hwctx *hwctx, void *buf, u32 size
+ 	return ret;
+ }
  
--	if (!hwctx->priv->mbox_chann)
--		return NULL;
+-static void aie2_cmd_wait(struct amdxdna_hwctx *hwctx, u64 seq)
++static int aie2_cmd_wait(struct amdxdna_hwctx *hwctx, u64 seq)
+ {
+ 	struct dma_fence *out_fence = aie2_cmd_get_out_fence(hwctx, seq);
+ 	struct amdxdna_dev *xdna = hwctx->client->xdna;
++	int ret;
+ 
+ 	if (!out_fence) {
+ 		XDNA_ERR(xdna, "Failed to get fence");
+-		return;
++		return -EINVAL;
+ 	}
+ 
+ 	mutex_unlock(&xdna->dev_lock);
+ 	dma_fence_wait_timeout(out_fence, false, MAX_SCHEDULE_TIMEOUT);
+ 	mutex_lock(&xdna->dev_lock);
 +	/*
-+	 * The firmware context is gone, but the scheduler keeps draining the
-+	 * entity, for example from drm_sched_entity_destroy(). Returning NULL
-+	 * would make the DRM scheduler signal the job fence without an error
-+	 * and user space would see the command as successfully completed.
-+	 * Abort the job instead. Driver internal commands have no command BO.
++	 * The job may never reach firmware, for example the submission to
++	 * the mailbox failed. In that case there is no response and
++	 * cmd->result stays untouched, so the fence error is the only way
++	 * to tell the command did not complete.
 +	 */
-+	if (!hwctx->priv->mbox_chann) {
-+		if (cmd_abo)
-+			amdxdna_cmd_set_state(cmd_abo, ERT_CMD_STATE_ABORT);
-+		return ERR_PTR(-ECANCELED);
-+	}
++	ret = out_fence->error;
+ 	dma_fence_put(out_fence);
++
++	return ret;
+ }
  
- 	if (!mmget_not_zero(job->mm))
- 		return ERR_PTR(-ESRCH);
+ static int aie2_hwctx_cfg_debug_bo(struct amdxdna_hwctx *hwctx, u32 bo_hdl,
+@@ -1044,7 +1054,12 @@ static int aie2_hwctx_cfg_debug_bo(struct amdxdna_hwctx *hwctx, u32 bo_hdl,
+ 		goto put_cmd;
+ 	}
+ 
+-	aie2_cmd_wait(hwctx, seq);
++	ret = aie2_cmd_wait(hwctx, seq);
++	if (ret) {
++		XDNA_ERR(xdna, "Command failed, ret %d", ret);
++		goto put_cmd;
++	}
++
+ 	if (cmd->result) {
+ 		XDNA_ERR(xdna, "Response failure 0x%x", cmd->result);
+ 		ret = -EINVAL;
+@@ -1104,7 +1119,12 @@ int aie2_hwctx_sync_debug_bo(struct amdxdna_hwctx *hwctx, u32 debug_bo_hdl)
+ 		goto put_cmd;
+ 	}
+ 
+-	aie2_cmd_wait(hwctx, seq);
++	ret = aie2_cmd_wait(hwctx, seq);
++	if (ret) {
++		XDNA_ERR(xdna, "Command failed, ret %d", ret);
++		goto put_cmd;
++	}
++
+ 	if (cmd->result) {
+ 		XDNA_ERR(xdna, "Response failure 0x%x", cmd->result);
+ 		ret = -EINVAL;
 -- 
 2.34.1
 
