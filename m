@@ -2,45 +2,127 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C4358606A31C
-	for <dri-devel@archiver.kernel.org>; Tue, 17 Nov 2026 17:50:45 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E97E2606A31C
+	for <dri-devel@archiver.kernel.org>; Tue, 17 Nov 2026 17:53:09 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux.microsoft.com header.i=@linux.microsoft.com header.a=rsa-sha256 header.s=default header.b=SroCFnag
+	dkim=pass (2048-bit key, unprotected) header.d=outlook.com header.i=@outlook.com header.a=rsa-sha256 header.s=selector1 header.b=aTv3VpRo
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 24FCE10F85B;
-	Tue, 17 Nov 2026 17:50:40 +0000 (UTC)
-Received: from linux.microsoft.com (linux.microsoft.com [13.77.154.182])
- by gabe.freedesktop.org (Postfix) with ESMTP id 0222010F85B
- for <dri-devel@lists.freedesktop.org>; Tue, 17 Nov 2026 17:50:33 +0000 (UTC)
-Received: by linux.microsoft.com (Postfix, from userid 1127)
- id 6CB0720B716A; Tue, 17 Nov 2026 09:50:33 -0800 (PST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 linux.microsoft.com 6CB0720B716A
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linux.microsoft.com;
- s=default; t=1794937833;
- bh=QSfDtUjV5sqY0+clyuRqoFT0vPZQTGXQ5UrYyD4RvTg=;
- h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
- b=SroCFnagoyusRmhlZo6m9GftCHWq+YhL/E79SWH/qWGYRAQED7VT3/q+1x5LEAcM5
- oJ+LKM91Ab05v6Lc9L2L49kvxk72M9ryYm+Dqwf4BCWuur+irnO9FkSOoOl2u4gVbN
- 2I+jWmMF5VkZsgLFY1eXHjoLJdspUrPZflR97op8=
-Date: Tue, 17 Nov 2026 09:50:33 -0800
-From: Saurabh Singh Sengar <ssengar@linux.microsoft.com>
+	by gabe.freedesktop.org (Postfix) with ESMTP id 5FD2610F87B;
+	Tue, 17 Nov 2026 17:53:04 +0000 (UTC)
+Received: from BN8PR05CU002.outbound.protection.outlook.com
+ (mail-eastus2azolkn19011030.outbound.protection.outlook.com [52.103.12.30])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id A222410F87B
+ for <dri-devel@lists.freedesktop.org>; Tue, 17 Nov 2026 17:52:57 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=ZFKsGkz2yWVyLLQPR4heSooOJoaCujUiht/nnGY2eEmhhPkaQeBRXw/mK7TSs/KsVcedyA1yDJCEV+V+t2ximdmSohc8cHRoMaLrqQjdCVglmOSMEVODnv6hrNouhppt7stfq55fIcGLPNxUjExiqTcfrci1n1L3P60N/F0y0SDjCwAWsc9C5TjcjaECYXbYtkBvJ+OLuM9rz/lanX3Xp2npf+nW+Lj8d3Dxn81jGA94iVG0n672UzS4EerkB+fUKNwPMirzuv2Lm0F0CQ5klYbLjtMzCwDbR1DKBC+CzvHxJPN18z8lW1J/iGujpS/RBIs3yu9T+8wmauCPNgGmEQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=aKj4Yp6ZMcXIFKcF7ldAXsKrzwvF+LlcgdBu3WLvyI8=;
+ b=BWCz1Jb9EWSMIee+X6wWQeb8vpWmzK+nDDb8fTsqjImGTD1gnHUuf3Kcxc8Ra7MVeICqU415ji0j9vWNfyPNyndXDEuEmSp4tH4/KNUl+CRwAOO70k4RZcSIwEJJz0VGG68VfMk9qNC0OatWNeM/a+FH7yvc24bSDo/Nul7FTh3I0ig+AofvzZFVpnJOrpDHLewUVZ21eVvuJYYvY3AeoxJ0hv/11iIUQndVtSmbrae8BlqkzQbfEwylSMMC/HY5L3Dr7nZSCtRpPMSt0I86GaeFvXqPGeNrEdTeSxrULNON3ReObo3+byDj//hm91wRFTSAnIq9ncVYhr8Dwg9e4Q==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=none; dmarc=none;
+ dkim=none; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=outlook.com;
+ s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=aKj4Yp6ZMcXIFKcF7ldAXsKrzwvF+LlcgdBu3WLvyI8=;
+ b=aTv3VpRobyv/1xnr2RSo4wEw4uuweu/cXSgVi/9xUJsfDzPlu0jnuSP0RQ3TlT/Dbq5KYr8+XZNSjVltuyXoiTak0lyCyyuF4Pk1vxi9dCYI+y6VJjOHCVusYi8NbpIAdBsSOtXeyRVWwkZ11kEK4qZtoEf2RrlX4B/J/gx5d8jrAxMDpJ1KxEyp54bGEqFCblnjiYEDqALy6Qe7Ywse21Sn71yaBHwFKg4jILbhbaaBywqb9jzabBp8J29/vNYWBKUHFoJRz9wq7OUM3ltcBMx5JmU1xsC/4K5OFtMahbe2vknwW1OdMdgPyGzrI6M5u6Y99cBYTFwcsc8nCFaxvw==
+Received: from MN2PR02MB6863.namprd02.prod.outlook.com (2603:10b6:208:1d7::20)
+ by DS2PR02MB877199.namprd02.prod.outlook.com (2603:10b6:8:35b::11)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.615.14; Tue, 17 Nov
+ 2026 17:52:55 +0000
+Received: from MN2PR02MB6863.namprd02.prod.outlook.com
+ ([fe80::da67:fd0f:d96d:ac53]) by MN2PR02MB6863.namprd02.prod.outlook.com
+ ([fe80::da67:fd0f:d96d:ac53%4]) with mapi id 15.21.0615.013; Tue, 17 Nov 2026
+ 17:52:55 +0000
+From: Michael Kelley <mhklinux@outlook.com>
 To: Hamza Mahfooz <hamzamahfooz@linux.microsoft.com>
-Cc: dri-devel@lists.freedesktop.org, Dexuan Cui <decui@microsoft.com>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>,
- Thomas Zimmermann <tzimmermann@suse.de>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- linux-hyperv@vger.kernel.org, stable@vger.kernel.org
-Subject: Re: [PATCH] drm/hyperv: wait for flip_done instead of vblanks in
- commit tail
-Message-ID: <avyT6Zop6s5G5qwu@linuxonhyperv3.guj3yctzbm1etfxqx2vob5hsef.xx.internal.cloudapp.net>
-References: <20261112184553.1595055-1-hamzamahfooz@linux.microsoft.com>
+CC: "dri-devel@lists.freedesktop.org" <dri-devel@lists.freedesktop.org>,
+ Dexuan Cui <decui@microsoft.com>, Saurabh Sengar
+ <ssengar@linux.microsoft.com>, Maarten Lankhorst
+ <maarten.lankhorst@linux.intel.com>, Maxime Ripard <mripard@kernel.org>,
+ Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>,
+ Simona Vetter <simona@ffwll.ch>, Kees Cook <kees@kernel.org>, "Gustavo A. R.
+ Silva" <gustavoars@kernel.org>, "linux-hyperv@vger.kernel.org"
+ <linux-hyperv@vger.kernel.org>, "linux-hardening@vger.kernel.org"
+ <linux-hardening@vger.kernel.org>
+Subject: RE: [PATCH 0/2] drm/hyperv: address worthwhile gaps
+Thread-Topic: [PATCH 0/2] drm/hyperv: address worthwhile gaps
+Thread-Index: AQHdc7o9SPo9iNf6wUKOy98JYWtdm7ct1BpwgAL7cICAAcG5EA==
+Date: Tue, 17 Nov 2026 17:52:54 +0000
+Message-ID: <MN2PR02MB68636BC62D2EC02F94B60E80D47B2@MN2PR02MB6863.namprd02.prod.outlook.com>
+References: <20261113215843.1939889-1-hamzamahfooz@linux.microsoft.com>
+ <MN2PR02MB68638ED8E06516AFFAE4B218D47E2@MN2PR02MB6863.namprd02.prod.outlook.com>
+ <avsbBTsIoo09yr9L@linuxonhyperv3.guj3yctzbm1etfxqx2vob5hsef.xx.internal.cloudapp.net>
+In-Reply-To: <avsbBTsIoo09yr9L@linuxonhyperv3.guj3yctzbm1etfxqx2vob5hsef.xx.internal.cloudapp.net>
+Accept-Language: en-US
+Content-Language: en-US
+X-MS-Has-Attach: 
+X-MS-TNEF-Correlator: 
+x-ms-publictraffictype: Email
+x-ms-traffictypediagnostic: MN2PR02MB6863:EE_|DS2PR02MB877199:EE_
+x-ms-office365-filtering-correlation-id: 3744d67c-e1a4-4a59-6969-08df44d39ba3
+x-microsoft-antispam: BCL:0;
+ ARA:14566002|37011999003|13091999003|15080799012|55001999006|24021099003|31061999003|25010399006|19110799012|8062599012|41001999006|8060799015|51005399006|440099028|3412199025|102099032|56899033|40105399003;
+x-microsoft-antispam-message-info: =?us-ascii?Q?JEgLO9Jkwij2ZJpupgXSVguo6UJGvADL4EgNrEMFAtZ7H5KMGOdCCYxupera?=
+ =?us-ascii?Q?8ciuK3V9zEXBpix6Ny213U23nV6BY7vocButxjqJIKZxEgbsBGrE7KhDYXVo?=
+ =?us-ascii?Q?CdDigR9SsnK/zFHCP1FewejM1Lwvq+QyAiUfxrlCKVtjL5unpEBVlwH2VtCw?=
+ =?us-ascii?Q?dxK3AmU/YBZxv2BF1yGAfeC5mpbTNFgdLNwAkSav4gKzXjzfcRK2BhK66aWa?=
+ =?us-ascii?Q?QGS6bCbRM3kVZ/q48yx8H0qF5DNtKUmKsuBZ2Q2pw2awf6jxGhUwlCJtggc5?=
+ =?us-ascii?Q?CA1YjY1OJ+wN5GbHKHlO1IIhAjND27K+S4hwWSdiCsgEycC8NQFvlm5kO56V?=
+ =?us-ascii?Q?bvJvO2hHpRmIkoAkQ/WN73ZmIgommrzcwmO+K7ltf+jaDZE1M908xheVM2NJ?=
+ =?us-ascii?Q?7ZViV84et+SqyafbtHzmUuuwV4F411tAwnYXNiZORFJqzWv734XfCCpw8rCq?=
+ =?us-ascii?Q?Ob5zrl1DcGVTlINnTdLOcomXI+gAyuhSavJOwWaYMyIfp/J8MVFHDcSVxo4n?=
+ =?us-ascii?Q?x8I282E3Xzo+txi7KX8FruVVTtm1dZI6o4LI7QIeBo7ZGZ9TG3g7lAxhPuSI?=
+ =?us-ascii?Q?8M3PM6Mb88dBTBnkfsbkLzQky/S5/Z8Y/esAkokiat/4JiygNr1EtIkyiKuA?=
+ =?us-ascii?Q?NLpw7Dzn+TTlmNPXCUU9CobO2MpZzTtQmj2RW69NVrKhK59eHUMoHWghLP+7?=
+ =?us-ascii?Q?CffGxxq3AaGe+4wVqg6VbqmjDVyE9Q2ufl0IPBRjiWcIvet4ngIKY1fnEBJh?=
+ =?us-ascii?Q?4m20YJ2d8wPwjlXQdIi5N7WtkrlnoSBu8zSrzn6u591FXarc2oLniw0QZV0l?=
+ =?us-ascii?Q?7VtU3EipXvzYCHWbdgC8FwXdvdG4BmQrXyde/ZTA5CL2ZtEEgRxjlNPyFXUS?=
+ =?us-ascii?Q?u1JnRjtVlATBOOKU8ktBQHBc7V8WDdxWfdhENySLZMY8p/K+jnC42k/rlKAl?=
+ =?us-ascii?Q?fOqYBzEnDU+OlDL3YT9euijFfUW5kl9TNw25/Zvldp7a0zsTdtyyiVXe2dZv?=
+ =?us-ascii?Q?VESGoKW6CV9MyE7TLxWgwjhf28gfRwdS1+GcT40rXUhg7+FRBPBnNzApkAA/?=
+ =?us-ascii?Q?DGpu6+Xo?=
+x-ms-exchange-antispam-messagedata-chunkcount: 1
+x-ms-exchange-antispam-messagedata-0: =?us-ascii?Q?Dl780Y3VBuhtINDBBmF1eVySOtr71wGAkctihvL6hBDUDBgjZgS2tYMM00sK?=
+ =?us-ascii?Q?4UQtA/+/G8VAqQpBHDpRm3G7q58mfz0/IJBEWREfdQUoR7g0zWN4BsU8oBLL?=
+ =?us-ascii?Q?A29bIzkZdHwsadKtDnrz0cXCTxbEmgDWsOU+IL3tu04A81tOdir+ed9eTwel?=
+ =?us-ascii?Q?kpe8bjcPKjMDStrMlUuzNa+34RDm968WuSl92N0G4L8cUKHk0oGHHq/phYlD?=
+ =?us-ascii?Q?qw6IbJ/MX4Q8aREQwLNEN1bkAfB/mORl1XsvuS1grsFBKeelw2PyweOWsmdw?=
+ =?us-ascii?Q?BQheTb3wSMFs2ksJ2xyE8jf2hIDs51jSy9olpp3ITDoOUtOCoTtFvQYqTEop?=
+ =?us-ascii?Q?78yHON1+aVWV/XCbXKP0r3l6aRyYFdve7oLHuz3XDBYLPqR2ebw+u7kYIQ5M?=
+ =?us-ascii?Q?xkttXpE8b5DyziVGO6MBazkRdLNtDlSMq02w4vo7eiIP5d/Ve2tmiz/xiSuX?=
+ =?us-ascii?Q?QNZtsVP7Ysm7PIUtn3+tJN+jEoBaxfgIConsnk/40qK3b0GjT9yH8fCePoC9?=
+ =?us-ascii?Q?777qItJbZZKuAL7UzPvmruJzzx9TAC7EmnOZ36CvkrJgAkRN5uvx4nUvu4Pm?=
+ =?us-ascii?Q?ctpc0CThZG6S5l8ShMzmdom1VqKrj3TRPRVNdpKgX9mIbovGfvMOyYWOmr8C?=
+ =?us-ascii?Q?94r5//HnFumxOenMe6msTb0Gw0A+kmRT0AjVZ6I6w1W8/v96z9AsiH3EIH3m?=
+ =?us-ascii?Q?oYy08DiOCqzUtggtkLFreciEfafGc9XuVasfq2uisgU5f2SbHL5/hkjQldEy?=
+ =?us-ascii?Q?rgR0bSgiplo8yHEf/WF4ATJ4KclH0/4Af1/ejD5B1EoQQy7MoOZxS6gXdwf5?=
+ =?us-ascii?Q?WIXKo2hoeIRk14THVldQxr78YY6gdDBQbSzPPw/NDIJCCqkuMwcrVRHFFnOD?=
+ =?us-ascii?Q?u1x5Djb910mZTWhhZB8o1tbGNXndr/FGAfC+h5NmW7lhcJi/dknOplOBUAGz?=
+ =?us-ascii?Q?v521iabE1NSMuX4etuzmeP8Y/y+DAvkJA01Fv9mzzfkeaxucz8Lw8Mmskrie?=
+ =?us-ascii?Q?Z9dZq5kuzXGIabxNKFt3hnfEqqwufYmJHxSSU4IG1ofRE1A0gyWYtMXEKw6A?=
+ =?us-ascii?Q?pm8MIS48ES1KVJ16+UQ4ZEa/qeYx3hji/P58wD7zZadJ2cxj7viJwTbPhlSW?=
+ =?us-ascii?Q?raAP6i0aonTtkxdVVqhP5PE9Fv4QkU5LqY15HfMB57ZA1IHHnJ1OcF4L9FXl?=
+ =?us-ascii?Q?+rSf8Ov79FNgR6pd1tZnLoGgoQ4Q5fL+8/HtPl9KMthtMT+e3fAy2xb3GeDb?=
+ =?us-ascii?Q?HIqT5ZYHiv5FSJHvz8th66LNt09qPANrzJw+Rv7WU8CxbiSBTEwdVqFFwfyY?=
+ =?us-ascii?Q?JAumwMa7VJE1YAObpZjTfpgJNXBYjs9sSHUd0Y/4I+e/eJGVLAR1KBUSTmTC?=
+ =?us-ascii?Q?YoaxxTE=3D?=
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: quoted-printable
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha256;
- protocol="application/pgp-signature"; boundary="f/9VFZI3/4cqostW"
-Content-Disposition: inline
-In-Reply-To: <20261112184553.1595055-1-hamzamahfooz@linux.microsoft.com>
+X-OriginatorOrg: outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-AuthSource: MN2PR02MB6863.namprd02.prod.outlook.com
+X-MS-Exchange-CrossTenant-RMS-PersistedConsumerOrg: 00000000-0000-0000-0000-000000000000
+X-MS-Exchange-CrossTenant-Network-Message-Id: 3744d67c-e1a4-4a59-6969-08df44d39ba3
+X-MS-Exchange-CrossTenant-originalarrivaltime: 17 Nov 2026 17:52:54.9674 (UTC)
+X-MS-Exchange-CrossTenant-fromentityheader: Hosted
+X-MS-Exchange-CrossTenant-id: 84df9e7f-e9f6-40af-b435-aaaaaaaaaaaa
+X-MS-Exchange-CrossTenant-rms-persistedconsumerorg: 00000000-0000-0000-0000-000000000000
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DS2PR02MB877199
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -52,136 +134,71 @@ List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-20.8 required=3.0 tests=BAYES_00,DKIM_SIGNED,
-	DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
-	INCLUDES_CR_TRAILER,INCLUDES_PATCH,MAILING_LIST_MULTI,
-	MENTIONS_GIT_HOSTING,SPF_HELO_NONE,SPF_PASS autolearn=unavailable
-	autolearn_force=no version=4.0.1
+X-Spam-Status: No, score=-7.8 required=3.0 tests=BAYES_00,DKIM_SIGNED,
+	DKIM_VALID,DKIM_VALID_AU,FREEMAIL_FORGED_FROMDOMAIN,FREEMAIL_FROM,
+	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_PATCH,MAILING_LIST_MULTI,
+	SPF_HELO_NONE,SPF_PASS autolearn=no autolearn_force=no version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-
---f/9VFZI3/4cqostW
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
-
-On Thu, Nov 12, 2026 at 01:45:53PM -0500, Hamza Mahfooz wrote:
-> Since commit 52e6b1988334 ("drm/hypervdrm: Use vblank timer"), the
-> driver's vblanks are generated by an hrtimer, and the default commit
-> tail waits in drm_atomic_helper_wait_for_vblanks() for that timer to
-> fire. In a VM, a timer can fire arbitrarily late, for instance when the
-> host does not run the vCPU that the timer is queued on while the
-> committing task keeps running on another vCPU. If the delay exceeds the
-> helper's timeout, it warns, even though the display works fine:
+From: Hamza Mahfooz <hamzamahfooz@linux.microsoft.com> Sent: Monday, Novemb=
+er 16, 2026 7:02 AM
 >=20
->   [CRTC:35:crtc-0] vblank wait timed out
->   WARNING: drivers/gpu/drm/drm_atomic_helper.c:1921 at drm_atomic_helper_=
-wait_for_vblanks.part.0+0x212/0x230, CPU#30: setfont/559
->   Call Trace:
->    drm_atomic_helper_commit_tail
->    commit_tail
->    drm_atomic_helper_commit
->    drm_atomic_commit
->    drm_client_modeset_commit_atomic
->    drm_client_modeset_commit_locked
->    drm_fb_helper_pan_display
->    fb_pan_display
->    bit_update_start
->    fbcon_switch
->    redraw_screen
->    fbcon_do_set_font
->    fbcon_set_font
->    con_font_op
->    vt_ioctl
+> On Sat, Nov 14, 2026 at 05:43:06PM +0000, Michael Kelley wrote:
+> > From: Hamza Mahfooz <hamzamahfooz@linux.microsoft.com> Sent: Friday,
+> November 13, 2026 1:59 PM
+> > >
+> > > I was doing a deep dive into the host spec and noticed some gaps. So,
+> > > I went ahead and hacked together the patches in this series for items
+> > > that seemed worthwhile to address.
+> >
+> > Are you (or someone on the Microsoft side) testing these changes
+> > in a Generation 1 VM, as well as on back revs of the Hyper-V host?
 >=20
-> This was seen intermittently on Azure VMs during boot, when setfont
-> redraws the console right after hyperv_drm has taken it over.
+> Ya, I have smoke tested all of these patches on WS2016 (both gen1 and
+> gen2). Also, I have it on good authority that they should be good at
+> least as far back as VMBus v3.0, so it should cover everything that
+> is currently supported.
+
+Excellent.  Thanks.
+
+Michael
+
 >=20
-> Cc: stable@vger.kernel.org
-> Fixes: 52e6b1988334 ("drm/hypervdrm: Use vblank timer")
-> Signed-off-by: Hamza Mahfooz <hamzamahfooz@linux.microsoft.com>
-> ---
-> This is inspired by VKMS (which also uses DRM's vblank timer), wait for
-> the commit's flip_done instead. It completes once the vblank event that
-> drm_crtc_vblank_atomic_flush() armed has been sent on the next timer
-> tick.
-> ---
->  drivers/gpu/drm/hyperv/hyperv_drm_modeset.c | 24 +++++++++++++++++++++
->  1 file changed, 24 insertions(+)
->=20
-> diff --git a/drivers/gpu/drm/hyperv/hyperv_drm_modeset.c b/drivers/gpu/dr=
-m/hyperv/hyperv_drm_modeset.c
-> index cc5c5fbc8..8e5036051 100644
-> --- a/drivers/gpu/drm/hyperv/hyperv_drm_modeset.c
-> +++ b/drivers/gpu/drm/hyperv/hyperv_drm_modeset.c
-> @@ -504,6 +504,29 @@ static const struct drm_mode_config_funcs hv_drm_mod=
-e_config_funcs =3D {
->  	.atomic_commit =3D drm_atomic_helper_commit,
->  };
-> =20
-> +/*
-> + * Like drm_atomic_helper_commit_tail(), but wait for the commit's vblank
-> + * events rather than for the vblank counter to advance. The host can de=
-lay
-> + * the vblank timer for longer than drm_atomic_helper_wait_for_vblanks()
-> + * waits before warning.
-> + */
-> +static void hv_drm_atomic_commit_tail(struct drm_atomic_commit *state)
-> +{
-> +	struct drm_device *dev =3D state->dev;
-> +
-> +	drm_atomic_helper_commit_modeset_disables(dev, state);
-> +	drm_atomic_helper_commit_planes(dev, state, 0);
-> +	drm_atomic_helper_commit_modeset_enables(dev, state);
-> +	drm_atomic_helper_fake_vblank(state);
-> +	drm_atomic_helper_commit_hw_done(state);
-> +	drm_atomic_helper_wait_for_flip_done(dev, state);
-
-Thanks for the patch. Below are my thoughts:
-
-Since flip_done is normally signalled through the same vblank timer,
-this change does not remove the dependency on that timer. However,
-drm_atomic_helper_wait_for_vblanks() has a 1-second timeout, whereas
-drm_atomic_helper_wait_for_flip_done() waits up to 10 seconds.
-Could you clarify whether the change resolves the reported case because
-of the longer timeout, or because it avoids waiting for another vblank
-after the commit's event has already completed ?
-
-This seems relevant to other timer-backed virtual DRM drivers as well.
-The older wait_for_vblanks helper also predates flip_done tracking and
-has previously been described as an interim solution [1].
-
-We already have a vblank timeout increase [2], and Thomas's timer
-reliability series [3] also discusses delayed vblank handling triggering
-DRM checks, although it is not clear whether those changes address this
-particular case.
-
-Using flip_done is consistent with VKMS and seems reasonable. However,
-rather than duplicating the default commit tail in each affected driver,
-could we consider a common DRM solution for all ?
-
-It would help to identify the precise condition causing the hyperv_drm
-warning and explain why the existing generic timeout increase is
-insufficient. If this is needed as a targeted stable fix, please document
-this in the commit message and as a comment in code.
-
-[1] https://patchwork.freedesktop.org/patch/318967/
-[2] https://git.kernel.org/linus/79ae8510b5b81b9500370f89c619b50ca9c0990f
-[3] https://lore.kernel.org/dri-devel/20260601141922.91498-1-tzimmermann@su=
-se.de/
-
-- Saurabh
-
---f/9VFZI3/4cqostW
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iHUEABYIAB0WIQSOqWrMiH3/c1LKmklbHLbp+maJpgUCavyTqgAKCRBbHLbp+maJ
-ptX+AQCvqs8s3A/QiOZyMW2rQ0axdEX4xRC69UVxuJY95Ybr1wEAvwl8h2YH2o8b
-8BdsJIyonDy+BrA6EAXg95J+LL58cg4=
-=bI4E
------END PGP SIGNATURE-----
-
---f/9VFZI3/4cqostW--
+> > Testing should go back to Windows Server 2016/Windows 10 for
+> > both Gen1 and Gen2.
+> >
+> > Same questions apply to your earlier cursor plane support. I just
+> > did basic smoke testing of the cursor plane support on both Gen1
+> > and Gen2 VMs using vmconnect.exe on an up-to-date Windows 11
+> > host -- no obvious problems. But I don't have access to older hosts
+> > like WS2016/Win10 to do the back rev testing.
+> >
+> > There are multiple frame buffer differences in Gen1 and Gen2 VMs,
+> > but most (or all?) are in the lowest layer in how the frame buffer is
+> > allocated and mapped. Hopefully these higher-level changes you are
+> > making are agnostic of the VM generation, but thoroughness would
+> > dictate testing both.
+> >
+> > I'm less sure about what might have changed in current Hyper-V
+> > versions and WS2016 from 10 years ago. My general impression is
+> > that very little, if anything, has changed in the Hyper-V frame buffer
+> > support, but again it would be better to not get a bad surprise after
+> > the code has gone in.
+> >
+> > Michael
+> >
+> > >
+> > > Hamza Mahfooz (2):
+> > >   drm/hyperv: add modes for all resolutions offered by the host
+> > >   drm/hyperv: batch dirty rectangles
+> > >
+> > >  drivers/gpu/drm/hyperv/hyperv_drm.h         | 15 ++++
+> > >  drivers/gpu/drm/hyperv/hyperv_drm_drv.c     |  4 ++
+> > >  drivers/gpu/drm/hyperv/hyperv_drm_modeset.c | 32 ++++++++-
+> > >  drivers/gpu/drm/hyperv/hyperv_drm_proto.c   | 79 ++++++++++++++++---=
+--
+> > >  4 files changed, 110 insertions(+), 20 deletions(-)
+> > >
+> > > --
+> > > 2.56.0
