@@ -2,141 +2,145 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B72B6606A8A2
-	for <dri-devel@archiver.kernel.org>; Tue, 17 Nov 2026 14:09:44 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 02589606A8A3
+	for <dri-devel@archiver.kernel.org>; Tue, 17 Nov 2026 14:12:44 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=Nvidia.com header.i=@Nvidia.com header.a=rsa-sha256 header.s=selector2 header.b=Cspv4sm2
+	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.a=rsa-sha256 header.s=susede2_rsa header.b=KRtMxwYJ;
+	dkim=pass header.d=suse.de header.i=@suse.de header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=aGbYyFCe;
+	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.a=rsa-sha256 header.s=susede2_rsa header.b=KRtMxwYJ;
+	dkim=neutral header.d=suse.de header.i=@suse.de header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=aGbYyFCe
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 030EE10F74D;
-	Tue, 17 Nov 2026 14:09:39 +0000 (UTC)
-Received: from PH8PR06CU001.outbound.protection.outlook.com
- (mail-westus3azon11012002.outbound.protection.outlook.com [40.107.209.2])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 66B0E10F74D;
- Tue, 17 Nov 2026 14:09:32 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=c0nTgxW6ThVyTtD2DdqQc6s4mELkC0l9KEFTxcnO3BhJcrWD87Gz74hQmJ1MhzUvNmfxZCoYbpZGwavJXBDEpDrMddbzxn3qtmCMIT6klek1J+315oX+Gz7tyRxYco3RFFmEh/EucuEU3vKdKRbLJDdVOXlN3HecXV1+ZfQxavZbAp/8wk65qdFWntt6zlmkEsW7MgIA9WxMQAsnMGHkNBEIiMoo6qk3EOgk92c5U3D6MQGZcH5FftIJIvVJ85hpYTo/z0pevjo2fOjIwr5lRXbE/RSoZv25MB976wAMfMhKbtgpLx+ge8+0uexpr7RVDCP40bLiuM002bwpoeY8wQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=c3Vx7uevgbBvBijXPW7Cqn2bU92ncp7Zx4VTRQ/H8GI=;
- b=MoRDf3YTMreTAKMRLBjAlAWosJcwcTU97fIRnsmWCZRhehZhzF0HS+3LdCvSa2LjydYvJEfRbUmEk6cf563Quu2D0PjqPmDOFOcrTWEw/YhJN18ffi87LykZ0ao4cvrQ7euMcUieKL67iiwEvarqAj6L+YphE5pxzhaz2M5wKmLAvddmGoi48qEmuwY4PWd3y8Cltj68wxaoeuoqY1NvABS4XqDRvAnz+dxlnOW3AqJ4U5V0j5Rej4n1RKhHaHMsl5E89F8piBeW4L0YXBA/ADyHf/Xabr0ddK4nSEIhOcD/1PH6rGgjB5tfxKizFRgjBP/eIUc7nisj71ieWz4v7g==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
- dkim=pass header.d=nvidia.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
- s=selector2;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=c3Vx7uevgbBvBijXPW7Cqn2bU92ncp7Zx4VTRQ/H8GI=;
- b=Cspv4sm2niLKkt0o8j7zNfh29H/1T1FBtbCe2tCEGJR5rOHWnm13Cu4J/5rCoIeFGT+KZtnfozZ4wVeEmEf2haNZUFv00mmMFPUORtImfJjJv9nsYfRhKKZyVdAg7G2Q9PD7QfMzLk/Ueu6x8aLk70FupDbckDu7y9MS06jTcZCIpu1ZB+XXPk6oZYEhWH7fwGvJldUVB2zTD68MAIpbo1BC5juxNrc4uqHd+ZYS3JiCRIZu58K4eBUkiD58eKC8/oou9ntcbcy2kubZ+LyG9UXHnRPvXQITs6UBpu1nKbFMe0ABe7mZV8b4V7S5bzrU8C7hsB/iky1hkPrRCFzfXA==
-Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=nvidia.com;
-Received: from DS0PR12MB6413.namprd12.prod.outlook.com (2603:10b6:8:ce::10) by
- MW6PR12MB8949.namprd12.prod.outlook.com (2603:10b6:303:248::11) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.615.14; Tue, 17 Nov
- 2026 14:09:23 +0000
-Received: from DS0PR12MB6413.namprd12.prod.outlook.com
- ([fe80::e82a:6673:4142:37fa]) by DS0PR12MB6413.namprd12.prod.outlook.com
- ([fe80::e82a:6673:4142:37fa%5]) with mapi id 15.21.0615.009; Tue, 17 Nov 2026
- 14:09:23 +0000
-Content-Transfer-Encoding: quoted-printable
-Content-Type: text/plain; charset=UTF-8
-Date: Tue, 17 Nov 2026 23:09:18 +0900
-Message-Id: <DMXJNIU3BIOR.3K9YLK44LPFDY@nvidia.com>
-Cc: "Alice Ryhl" <aliceryhl@google.com>, "Burak Emir"
- <burak.emir@gmail.com>, "Yury Norov" <yury.norov@gmail.com>, "Miguel Ojeda"
- <ojeda@kernel.org>, "Boqun Feng" <boqun@kernel.org>, "Gary Guo"
- <gary@garyguo.net>, =?utf-8?q?Bj=C3=B6rn_Roy_Baron?=
- <bjorn3_gh@protonmail.com>, "Benno Lossin" <lossin@kernel.org>, "Andreas
- Hindborg" <a.hindborg@kernel.org>, "Trevor Gross" <tmgross@umich.edu>,
- "Danilo Krummrich" <dakr@kernel.org>, "Daniel Almeida"
- <daniel.almeida@collabora.com>, "Tamir Duberstein" <tamird@kernel.org>,
- =?utf-8?q?Onur_=C3=96zkan?= <work@onurozkan.dev>, "David Airlie"
- <airlied@gmail.com>, "Simona Vetter" <simona@ffwll.ch>, "Greg
- Kroah-Hartman" <gregkh@linuxfoundation.org>, "John Hubbard"
- <jhubbard@nvidia.com>, "Alistair Popple" <apopple@nvidia.com>, "Timur Tabi"
- <ttabi@nvidia.com>, "Zhi Wang" <zhiw@nvidia.com>,
- <rust-for-linux@vger.kernel.org>, <linux-kernel@vger.kernel.org>,
- <nova-gpu@lists.linux.dev>, <dri-devel@lists.freedesktop.org>, "dri-devel"
- <dri-devel-bounces@lists.freedesktop.org>
-Subject: Re: [PATCH v12 2/2] gpu: nova-core: add ChannelIdPool
-From: "Eliot Courtney" <ecourtney@nvidia.com>
-To: "Alexandre Courbot" <acourbot@nvidia.com>, "Eliot Courtney"
- <ecourtney@nvidia.com>
-X-Mailer: aerc 0.22.0-0-gc2f86b7abde3
-References: <20261112-chid-v12-0-49ad43286dad@nvidia.com>
- <20261112-chid-v12-2-49ad43286dad@nvidia.com>
- <DMXJHYY9ZTRO.3G2LTK1PPDIV7@nvidia.com>
-In-Reply-To: <DMXJHYY9ZTRO.3G2LTK1PPDIV7@nvidia.com>
-X-ClientProxiedBy: TYWPR01CA0046.jpnprd01.prod.outlook.com
- (2603:1096:400:17f::10) To DS0PR12MB6413.namprd12.prod.outlook.com
- (2603:10b6:8:ce::10)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 6368610E09C;
+	Tue, 17 Nov 2026 14:12:33 +0000 (UTC)
+Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.223.130])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id F28DC10EA4A
+ for <dri-devel@lists.freedesktop.org>; Tue, 17 Nov 2026 14:12:21 +0000 (UTC)
+Received: from imap1.dmz-prg2.suse.org (imap1.dmz-prg2.suse.org
+ [IPv6:2a07:de40:b281:104:10:150:64:97])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+ (No client certificate requested)
+ by smtp-out1.suse.de (Postfix) with ESMTPS id 2A1EA22332;
+ Tue, 17 Nov 2026 14:12:20 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+ t=1794924740; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
+ bh=E1rpCg/mdCPU4ibpgl6ymngQ0xz55vtdC2LIFM0C9o0=;
+ b=KRtMxwYJ27tr4UJPkx/ebO04RhPYlhsN17dfk9Tql+fwIw6rXPlyo8I7hIWtLxs6rALZP4
+ QnPTmBXjAuzwH+mI70N2FLK0wA06QROf7Yz73T1hbGwcN+4yMANJmuHA3bBfTOWmA4bdW7
+ GTuSN0gDXmJaJlXOlccQUoHVn8sH8cQ=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+ s=susede2_ed25519; t=1794924740;
+ h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
+ bh=E1rpCg/mdCPU4ibpgl6ymngQ0xz55vtdC2LIFM0C9o0=;
+ b=aGbYyFCewDa/pzJS5vAXP/lHFcilOMhHpUdFpojELE9Uq0ZkifmoYR3iChlB5+YYB3zylm
+ 5440qcUt8osAeHBg==
+Authentication-Results: smtp-out1.suse.de;
+ dkim=pass header.d=suse.de header.s=susede2_rsa header.b=KRtMxwYJ;
+ dkim=pass header.d=suse.de header.s=susede2_ed25519 header.b=aGbYyFCe
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+ t=1794924740; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
+ bh=E1rpCg/mdCPU4ibpgl6ymngQ0xz55vtdC2LIFM0C9o0=;
+ b=KRtMxwYJ27tr4UJPkx/ebO04RhPYlhsN17dfk9Tql+fwIw6rXPlyo8I7hIWtLxs6rALZP4
+ QnPTmBXjAuzwH+mI70N2FLK0wA06QROf7Yz73T1hbGwcN+4yMANJmuHA3bBfTOWmA4bdW7
+ GTuSN0gDXmJaJlXOlccQUoHVn8sH8cQ=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+ s=susede2_ed25519; t=1794924740;
+ h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
+ bh=E1rpCg/mdCPU4ibpgl6ymngQ0xz55vtdC2LIFM0C9o0=;
+ b=aGbYyFCewDa/pzJS5vAXP/lHFcilOMhHpUdFpojELE9Uq0ZkifmoYR3iChlB5+YYB3zylm
+ 5440qcUt8osAeHBg==
+Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+ (No client certificate requested)
+ by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 8749C13302;
+ Tue, 17 Nov 2026 14:12:19 +0000 (UTC)
+Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
+ by imap1.dmz-prg2.suse.org with ESMTPSA id F9FyDcNg/Gp9KgAAD6G6ig
+ (envelope-from <tzimmermann@suse.de>); Tue, 17 Nov 2026 14:12:19 +0000
+Message-ID: <273ce275-4e40-48e8-8788-86d590081420@suse.de>
+Date: Tue, 17 Nov 2026 15:12:18 +0100
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: DS0PR12MB6413:EE_|MW6PR12MB8949:EE_
-X-MS-Office365-Filtering-Correlation-Id: 01168e5e-f7f6-4be5-5432-08df44b4613c
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
- ARA:13230040|23010399003|10070799003|1800799024|366016|376014|7416014|261026121527099003|261022113327099003|261022075727099003|4143699003|11063799006|56012099006|10067099003|18002099003|261009223027099003|22082099003;
-X-Microsoft-Antispam-Message-Info: XNFVY6rQVhc6B1kulN7vXlZe7JrVb93M3x3p/e4ubwqfBN3quVOzonbiwUhcZDqcgzqJWCW7wzboTBxzV3+nMvz0cFWxSMMeEcNPKhR6cFIqPOS/yOnd4hgNhWfLCBl9z13hH205OYjfTDNqU++rzDY+cmzmMGan+ptmI1/VtEZnL2ikf1MRdIDcPWApfBvZXqhY8XOg8ZY81zJyJHXa9aXerQ65kaFrwYBfM5XJj2q5H7/nsnjnPMe+HRbD8JQo1XN09JWvwwQMJFZkbuviI7S9fGvnIcyzLNDSYf8ZE1SnFeIe81VEExeH4fVvybRrQbctqyOLic8HsoTUEfHG4AH15eLcrZSsay07DRAaQ1jNh3K8EozTXulpow7v335z1zKniYGYTzZHedmFEQEqLsrW8cQ4Hkv3p3DOLoSciAg59mVL5454wVelJSv7DYpGzEMAmf7nFV00HPvxIqzk1Tvm+chMazM0CfQhUfQcnhZIM3+hRHiedz2uXTkvEsLn2hdrx+QiIDM8iRjKUp/daFsa//IDGBjcvpeaAAPEFwqzxY383x0sdPttO4lvQNhcazZ2sPKk4590FYQWM/6Lab7E2Mx72YmX9mSAzumA96q+QJVjNVP7eEy2y32luaKrdadf3RyjLAqb1mi9c9cvcbtd1H8td6soFATE+6bB1BY=
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:DS0PR12MB6413.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(23010399003)(10070799003)(1800799024)(366016)(376014)(7416014)(261026121527099003)(261022113327099003)(261022075727099003)(4143699003)(11063799006)(56012099006)(10067099003)(18002099003)(261009223027099003)(22082099003);
- DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 2
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?cC9mMDRUUEFZNmlKMGZPdy9Ndmdwdm03VnNrS2hGRjRvMGhmNTNIUENxa0s5?=
- =?utf-8?B?NjRxUE41WkpyNW9ydXkyQkM0V1hQdnU3Yi9ORkxtVStxZW9lOWlGajM2TitF?=
- =?utf-8?B?eC83cEtXbDh4bFAxZjZOVGc3YzU1Y0tlNlg1eFZjVU9lek5oUEV6anp4Z1Rz?=
- =?utf-8?B?ZzRiejA4RkJKc0duVDlra2txN3RISU9IUUVhRFV1Y3FubENiV3lKZDdOekhr?=
- =?utf-8?B?NHVGMU9EamVHanZtQmowT1lPSCtxNzhZaHdSN0x0TTdmaENnbmVRSXQxUUhp?=
- =?utf-8?B?Z1hsTW5hWUFZT1dRbWtxY3k3am1IVnNsQ0JTNEpuMkpvL3gySFNTV0VvaFJj?=
- =?utf-8?B?YTdmL2tDdXJ0RE5EcjVtTk03WTg4Y0hSMFFxUG43cjhuUkdNMFlYTzZZM3Y2?=
- =?utf-8?B?Sml0MndpNVd6b3lyazBKaWFIM2FaUUJKZ2FwUCtEdW1EUlhCYm44REpuMmlW?=
- =?utf-8?B?ZHZYOU5PaFBwOHVXSVkxM0x2Y2dLQWRLWXgyWHlRWktIZTZMaDFOaDJZVzlE?=
- =?utf-8?B?bW9YZm1JQWxpS0huTmQ2ZGdVTHhFMm9KT0dJNlR5MXp0MDIweVBOOU9jWlNW?=
- =?utf-8?B?cll4RmxxQmhKdGdrSTVuNXp0UXZybjNkaGxxMldGbG1vSkMvMFIzWklVYWVs?=
- =?utf-8?B?cHYvNzlqV1NCTmtaWDY2VWtYTjFZTWVhYS9SdTg5T3p6Ukl6RHNYNENDUjhF?=
- =?utf-8?B?OXZJV1RmeE1TV0l4NWRHNXZNaEh0M2x5Qm1KV291QW93VnJIdEVDQUpSWjRt?=
- =?utf-8?B?UWJnRHdrVDhob1hPdjY0MDVvWHQ4NlZDejd3R3VUaDZXMTdXT3p3OVRnemFi?=
- =?utf-8?B?TEdmbnVTMDlwcnhhM1FNQ1JzYkNrNXhqWWtrYlEvV3gxUUozSDZuWVpzWXRy?=
- =?utf-8?B?Wm9CRi9GamR0NklDUnQ0UDlsOTA3Z3VPbTJ2cEVNaGE5azFya1hzOHRhNW4r?=
- =?utf-8?B?b3R3YTMraERLQnZadFEybllORGRMUGx3NEVXOFJrRk1QR0kwdHFCWWZLU2pL?=
- =?utf-8?B?Vi96MEhYc0Nqa1oySDR4eEw1VTNlNDBYaXhLVlA2RElLR1lXdDF2aVI3OGpM?=
- =?utf-8?B?eXlUQTZWK1F2emsyaWRHTVRuaElqeHN0ZVdZOS9kK1pEVFdQSStDeXJTYmRN?=
- =?utf-8?B?eFJ5MzFJMS8yRFV6aGhBbzB3UmVIUUxJK1BBWHZXaHdXYU5wb05JZWpIRFdM?=
- =?utf-8?B?bTBBN3h1T0VqaHFEcTFWZThXRVFmamhkb0NZME0ySTAvZjZTUkZ2aWljRE15?=
- =?utf-8?B?cEF2SWZVU1podEVYOVg0TGgyaVZlMkNia3J0VnRaUzZvMnJXNThxVGZsMmRF?=
- =?utf-8?B?OHFkNnN0Q2JabDlxMFVGckZkb1FDcFBwanhVRmpmWEFoazZSc0ZCdUlFR2Zq?=
- =?utf-8?B?UXhGcXJObUNnZld0Y0szUVdaSDh4U3ZTZFBHTDJCS0l4dTdrR2sxTEVaTVFT?=
- =?utf-8?B?NDJyWldXZlBOVnFHMTlpWEVsQld5Rjh2SjA0czZsUmFHWFBPaVgvSE0xajEv?=
- =?utf-8?B?bDlEZnpiaW1tcHdyajArKzhvNnBqNkxWTmp4OVB3eTZpSmlyUm5ZRWx3OXIw?=
- =?utf-8?B?TExGS3dXR1BkR0g5TllIUk1MVEF3b1V3K2dOV3IxSVVOeGJ2MExpNzczeW54?=
- =?utf-8?B?QXlSY1U2bnQ1QXcyUWhKTlF4Z2dQVlFJTWpwdENmTWdFcStPT1JmblI1ZjF3?=
- =?utf-8?B?YzF1NVZYbTdBU0JRa3p0SXR6SWNqZjREVEc4d2wyVnpnZmtIZXlUY1lXNFJR?=
- =?utf-8?B?Nk5JQ2llUmk0dkNzWjJUTDBoOUhjMi96YTV6amRWWHF0UGJrY2cwNVNyZTdo?=
- =?utf-8?B?enViNUJCeVRpem10N0l4NVlsUGtQcVo5MExscGhYNWVnQnVRMm83MkxONEhW?=
- =?utf-8?B?ZnJ6QzhtdzZUam1QRDRXNkFOZ1FpR1Y2cHJTK1ZQT2lpRmhweXNWc2lhTysv?=
- =?utf-8?B?bVQwc3o5V21RdGQ1MG83Y3Jtd2dpUGxHaDJVUjREd3BURHphKzhHMzUwdkpw?=
- =?utf-8?B?MVRXZ1hZalNHQTc5RURncklDYnc1SDFER2tkQmJUZDAvR2NLTHV3U2wzdk1C?=
- =?utf-8?B?TDg3TE9xNjcwZzRTSG0rdythYU0vZ01HNHpxV0JYbzRQNU9sb242U2NzZ2RL?=
- =?utf-8?B?bFV6TkZYOVlZeVA5dXl4ZWZac0dicjVKTWorcEdlR2FPNDBPZEh5YWQxdldV?=
- =?utf-8?B?Q1RSTGk5TWhsSmEwc3ZUb0dJR0E5dzBiZXV0TFl6b1pCdFdiTWhJTzlmNFp3?=
- =?utf-8?B?Rm1HM2FzWVJOMXJwYzRJNWlzcU5kY0s2ZVBFRG5xZlJCcFFMT2d6bHpPcWZ0?=
- =?utf-8?B?NkZYZTFacEh3UTF5ajBQcjJsTUVld1JlQTY3Tm14aUR3cmFFMHJ5dmJiZm1N?=
- =?utf-8?Q?A2r/9cBrpYz1cm1qndzPx86Dri31rDaq67TU/eieUhJ5M?=
-X-MS-Exchange-AntiSpam-MessageData-1: iUUxO814XlA3Aw==
-X-OriginatorOrg: Nvidia.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 01168e5e-f7f6-4be5-5432-08df44b4613c
-X-MS-Exchange-CrossTenant-AuthSource: DS0PR12MB6413.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 17 Nov 2026 14:09:23.0482 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: i6gVLSMAxy+54kiVClbAF+X1UbHx2WxQE2XZPBYQPJE0JCkywP3Y4TEeROSbFYR6Uo/VpU/wGaa9DpvMrXFgIA==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: MW6PR12MB8949
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH for drm-misc-fixes v5 1/2] drm/hisilicon/hibmc: Modify the
+ method of obtaining the hpd_status
+To: Yongbang Shi <shiyongbang@huawei.com>, dmitry.baryshkov@oss.qualcomm.com, 
+ tiantao6@hisilicon.com, maarten.lankhorst@linux.intel.com,
+ mripard@kernel.org, airlied@gmail.com, daniel@ffwll.ch,
+ kong.kongxinwei@hisilicon.com
+Cc: liangjian010@huawei.com, shuliubin@huawei.com, chenjianmin@huawei.com,
+ fengsheng5@huawei.com, helin52@h-partners.com, shenjian15@huawei.com,
+ shaojijie@huawei.com, dri-devel@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org
+References: <20261117130056.272609-1-shiyongbang@huawei.com>
+ <20261117130056.272609-2-shiyongbang@huawei.com>
+Content-Language: en-US
+From: Thomas Zimmermann <tzimmermann@suse.de>
+Autocrypt: addr=tzimmermann@suse.de; keydata=
+ xsBNBFs50uABCADEHPidWt974CaxBVbrIBwqcq/WURinJ3+2WlIrKWspiP83vfZKaXhFYsdg
+ XH47fDVbPPj+d6tQrw5lPQCyqjwrCPYnq3WlIBnGPJ4/jreTL6V+qfKRDlGLWFjZcsrPJGE0
+ BeB5BbqP5erN1qylK9i3gPoQjXGhpBpQYwRrEyQyjuvk+Ev0K1Jc5tVDeJAuau3TGNgah4Yc
+ hdHm3bkPjz9EErV85RwvImQ1dptvx6s7xzwXTgGAsaYZsL8WCwDaTuqFa1d1jjlaxg6+tZsB
+ 9GluwvIhSezPgnEmimZDkGnZRRSFiGP8yjqTjjWuf0bSj5rUnTGiyLyRZRNGcXmu6hjlABEB
+ AAHNJ1Rob21hcyBaaW1tZXJtYW5uIDx0emltbWVybWFubkBzdXNlLmRlPsLAjgQTAQgAOAIb
+ AwULCQgHAgYVCgkICwIEFgIDAQIeAQIXgBYhBHIX+6yM6c9jRKFo5WgNwR1TC3ojBQJftODH
+ AAoJEGgNwR1TC3ojx1wH/0hKGWugiqDgLNXLRD/4TfHBEKmxIrmfu9Z5t7vwUKfwhFL6hqvo
+ lXPJJKQpQ2z8+X2vZm/slsLn7J1yjrOsoJhKABDi+3QWWSGkaGwRJAdPVVyJMfJRNNNIKwVb
+ U6B1BkX2XDKDGffF4TxlOpSQzdtNI/9gleOoUA8+jy8knnDYzjBNOZqLG2FuTdicBXblz0Mf
+ vg41gd9kCwYXDnD91rJU8tzylXv03E75NCaTxTM+FBXPmsAVYQ4GYhhgFt8S2UWMoaaABLDe
+ 7l5FdnLdDEcbmd8uLU2CaG4W2cLrUaI4jz2XbkcPQkqTQ3EB67hYkjiEE6Zy3ggOitiQGcqp
+ j//OwE0EWznS4AEIAMYmP4M/V+T5RY5at/g7rUdNsLhWv1APYrh9RQefODYHrNRHUE9eosYb
+ T6XMryR9hT8XlGOYRwKWwiQBoWSDiTMo/Xi29jUnn4BXfI2px2DTXwc22LKtLAgTRjP+qbU6
+ 3Y0xnQN29UGDbYgyyK51DW3H0If2a3JNsheAAK+Xc9baj0LGIc8T9uiEWHBnCH+RdhgATnWW
+ GKdDegUR5BkDfDg5O/FISymJBHx2Dyoklv5g4BzkgqTqwmaYzsl8UxZKvbaxq0zbehDda8lv
+ hFXodNFMAgTLJlLuDYOGLK2AwbrS3Sp0AEbkpdJBb44qVlGm5bApZouHeJ/+n+7r12+lqdsA
+ EQEAAcLAdgQYAQgAIAIbDBYhBHIX+6yM6c9jRKFo5WgNwR1TC3ojBQJftOH6AAoJEGgNwR1T
+ C3ojVSkIALpAPkIJPQoURPb1VWjh34l0HlglmYHvZszJWTXYwavHR8+k6Baa6H7ufXNQtThR
+ yIxJrQLW6rV5lm7TjhffEhxVCn37+cg0zZ3j7zIsSS0rx/aMwi6VhFJA5hfn3T0TtrijKP4A
+ SAQO9xD1Zk9/61JWk8OysuIh7MXkl0fxbRKWE93XeQBhIJHQfnc+YBLprdnxR446Sh8Wn/2D
+ Ya8cavuWf2zrB6cZurs048xe0UbSW5AOSo4V9M0jzYI4nZqTmPxYyXbm30Kvmz0rYVRaitYJ
+ 4kyYYMhuULvrJDMjZRvaNe52tkKAvMevcGdt38H4KSVXAylqyQOW5zvPc4/sq9c=
+In-Reply-To: <20261117130056.272609-2-shiyongbang@huawei.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
+X-Spamd-Result: default: False [-13.50 / 50.00]; SUSE_INTERNAL_BYPASS(-9.00)[];
+ BAYES_HAM(-3.00)[100.00%]; NEURAL_HAM_LONG(-1.00)[-1.000];
+ R_DKIM_ALLOW(-0.20)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
+ NEURAL_HAM_SHORT(-0.20)[-1.000]; MIME_GOOD(-0.10)[text/plain];
+ XM_UA_NO_VERSION(0.01)[]; MX_GOOD(-0.01)[];
+ DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
+ FREEMAIL_TO(0.00)[huawei.com,oss.qualcomm.com,hisilicon.com,linux.intel.com,kernel.org,gmail.com,ffwll.ch];
+ RBL_SPAMHAUS_BLOCKED_OPENRESOLVER(0.00)[2a07:de40:b281:104:10:150:64:97:from]; 
+ RCPT_COUNT_TWELVE(0.00)[17];
+ URIBL_BLOCKED(0.00)[imap1.dmz-prg2.suse.org:rdns,imap1.dmz-prg2.suse.org:helo,suse.com:url,suse.de:dkim,huawei.com:email];
+ MIME_TRACE(0.00)[0:+]; ARC_NA(0.00)[];
+ FREEMAIL_ENVRCPT(0.00)[gmail.com]; RCVD_TLS_ALL(0.00)[];
+ TO_DN_SOME(0.00)[]; RCVD_COUNT_TWO(0.00)[2];
+ FROM_EQ_ENVFROM(0.00)[]; FROM_HAS_DN(0.00)[];
+ TO_MATCH_ENVRCPT_ALL(0.00)[]; MID_RHS_MATCH_FROM(0.00)[];
+ RECEIVED_SPAMHAUS_BLOCKED_OPENRESOLVER(0.00)[2a07:de40:b281:106:10:150:64:167:received];
+ DWL_DNSWL_BLOCKED(0.00)[suse.de:dkim];
+ DKIM_TRACE(0.00)[suse.de:+]; RCVD_VIA_SMTP_AUTH(0.00)[];
+ DBL_BLOCKED_OPENRESOLVER(0.00)[suse.de:dkim, suse.com:url, bootlin.com:url,
+ imap1.dmz-prg2.suse.org:rdns, imap1.dmz-prg2.suse.org:helo]
+X-Rspamd-Server: rspamd1.dmz-prg2.suse.org
+X-Rspamd-Action: no action
+X-Spam-Score: -13.50
+X-Spam-Level: 
+X-Rspamd-Queue-Id: 2A1EA22332
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -148,96 +152,347 @@ List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-10.8 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
-	DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
-	INCLUDES_CR_TRAILER,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS
-	autolearn=unavailable autolearn_force=no version=4.0.1
+X-Spam-Status: No, score=-17.3 required=3.0 tests=BAYES_00,DKIM_SIGNED,
+	DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
+	INCLUDES_CR_TRAILER,INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,
+	SPF_PASS,USER_AGENT_SANE_1 autolearn=ham autolearn_force=no
+	version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-On Tue Nov 17, 2026 at 11:02 PM JST, Alexandre Courbot wrote:
-> On Thu Nov 12, 2026 at 9:37 PM JST, Eliot Courtney wrote:
->> Add `ChannelIdPool` which adds automatic tracking and releasing of
->> channel IDs on top of `IdPool`. This is necessary for apportioning
->> ranges of channel IDs to be used in e.g. vGPU.
->>
->> Channel IDs are allocated as a contiguous sequence with a specific
->> length and sometimes a specific alignment [1] for vGPU. The ID space is
->> small (limited to 2048) and allocation is not on a hot path, so a
->> bitmap-backed `IdPool` is a better fit than IDA/xarray (which allocate a
->> single ID within a range, not a contiguous sequence) or a maple tree
->> (where aligned allocation needs an alloc_range()+erase() retry loop that
->> essentially reimplements bitmap_find_next_zero_area()) [2]. It is
->> also faster than maple tree [3].
->>
->> Link: https://lore.kernel.org/all/84bc8bd2-e292-4b84-9580-a1b5df4c5bdc@n=
-vidia.com/ # [1]
->> Link: https://lore.kernel.org/all/20260710-chid-maple-v1-1-4ee869055268@=
-nvidia.com/ # [2]
->> Link: https://lore.kernel.org/all/20260717053241.916441-1-ynorov@nvidia.=
-com/ # [3]
->> Reviewed-by: Alice Ryhl <aliceryhl@google.com>
->> Signed-off-by: Eliot Courtney <ecourtney@nvidia.com>
->
-> Reviewed-by: Alexandre Courbot <acourbot@nvidia.com>
->
-> This series looks ready to apply, but one question below:
->
->> +#[kunit_tests(nova_core_channel)]
->> +mod tests {
->> +    use super::*;
->> +    use kernel::sizes::SizeConstants;
->> +
->> +    #[test]
->> +    fn chid_reservation() -> Result {
->> +        let pool =3D KBox::pin_init(ChannelIdPool::new(cv!(2048)), GFP_=
-KERNEL)?;
->> +
->> +        let first =3D pool.reserve_ids(cv!(48), Alignment::SZ_1)?;
->> +        assert_eq!(0, first.start);
->> +        assert_eq!(48, first.len());
->> +        assert_eq!(48, first.end);
->
-> I could simplify this into
->
->     assert_eq!(0..48, *first);
->
->> +
->> +        let second =3D pool.reserve_ids(cv!(48), Alignment::SZ_1)?;
->> +        assert!(first.end <=3D second.start || second.end <=3D first.st=
-art);
->> +
->> +        let first_start =3D first.start;
->> +        drop(first);
->> +        assert_eq!(
->> +            first_start,
->> +            pool.reserve_ids(cv!(48), Alignment::SZ_1)?.start
->> +        );
->> +        Ok(())
->> +    }
->> +
->> +    #[test]
->> +    fn chid_reservation_drop() -> Result {
->> +        let pool =3D KBox::pin_init(ChannelIdPool::new(cv!(8)), GFP_KER=
-NEL)?;
->> +
->> +        let a =3D pool.reserve_ids(cv!(3), Alignment::SZ_1)?;
->> +        let b =3D pool.reserve_ids(cv!(3), Alignment::SZ_1)?;
->> +        let c =3D pool.reserve_ids(cv!(2), Alignment::SZ_1)?;
->> +        assert_eq!(0, a.start);
->> +        assert_eq!(3, b.start);
->> +        assert_eq!(6, c.start);
->
-> And these ones into:
->
->     assert_eq!(0..3, *a);
->     assert_eq!(3..6, *b);
->     assert_eq!(6..8, *c);
->
-> Most of the tests could be changed to be done on ranges, which have the
-> benefit of checking the first and last indices, as well as the length in
-> one go and provide better coverage. I have done the change locally and
-> checked that it worked. Would you be ok if I converted all the relevant
-> `assert_eq!` statements upon applying?
+Hi
 
-Yes absolutely no worries. Thanks!
+Am 17.11.26 um 14:00 schrieb Yongbang Shi:
+> From: Lin He <helin52@huawei.com>
+>
+> To more accurately determine whether the current HPD status matches the
+> interrupt status, the polling mechanism in the lower half of the HPD
+> interrupt (via hibmc_dp_check_hpd_status) has been replaced with directly
+> retrieving the interrupt status in the upper half of the interrupt (via
+> hibmc_dp_get_hpd_status).
+>
+> * Connector detection is skipped when hpd_status is not HPD_IN.
+>
+> * Set the initial status of hpd_status to HPD_OUT.
+>
+> * Wait 100 ms after enabling the DP block, so a sink that is already
+>    connected can latch its HPD interrupt before the first detect.
+>
+> * Invalidate the link as soon as an unplug is sampled in the hardirq,
+>    so an unplug that is followed by a plug before the threaded handler
+>    runs is not lost.
+>
+> Fixes: 3906e7a3b26d ("drm/hisilicon/hibmc: fix dp probabilistical detect errors after HPD irq")
+> Fixes: b11bc1ae4658 ("drm/hisilicon/hibmc: Add MSI irq getting and requesting for HPD")
+> Signed-off-by: Lin He <helin52@huawei.com>
+> Signed-off-by: Yongbang Shi <shiyongbang@huawei.com>
+> ---
+> ChangeLog:
+> v4 -> v5:
+>    - Invalidate the link in the hardirq when an unplug is sampled, and
+>      stop clearing the latched HPD status in hibmc_dp_hpd_cfg().
+>      (sashiko-bot)
+>    - Serialize a whole AUX transfer with hibmc_dp_hpd_cfg().
+>      (sashiko-bot)
+>    - Append HIBMC_HPD_UNKNOWN to the enum instead of prepending it, so
+>      the existing HIBMC_HPD_OUT/HIBMC_HPD_IN values do not change.
+> v3 -> v4:
+>    - Fix the data race on hpd_status between hardirq and process
+>      contexts with WRITE_ONCE()/READ_ONCE(). (sashiko-bot)
+>    - Delete the HPD_IN early return in encoder_enable that breaks KMS
+>      forced modesets. (sashiko-bot)
+> v2 -> v3:
+>    - Delete irq_status and use hpd_status directly for hotplug
+>      detection. (sashiko-bot)
+>    - Add debug logs when hpd_status is not HPD_IN in detect and
+>      encoder_enable.
+> v1 -> v2:
+>    - More states in HIBMC_DP_HPD_STATUS are added to the
+>      'hibmc_dp_get_hpd_status'.
+> ---
+>   drivers/gpu/drm/hisilicon/hibmc/dp/dp_aux.c   | 11 ++++-
+>   drivers/gpu/drm/hisilicon/hibmc/dp/dp_comm.h  |  2 +-
+>   drivers/gpu/drm/hisilicon/hibmc/dp/dp_hw.c    | 40 ++++++++++++-------
+>   drivers/gpu/drm/hisilicon/hibmc/dp/dp_hw.h    |  5 ++-
+>   .../gpu/drm/hisilicon/hibmc/hibmc_drm_dp.c    | 31 +++++++-------
+>   .../gpu/drm/hisilicon/hibmc/hibmc_drm_drv.c   |  9 ++++-
+>   6 files changed, 63 insertions(+), 35 deletions(-)
+>
+> diff --git a/drivers/gpu/drm/hisilicon/hibmc/dp/dp_aux.c b/drivers/gpu/drm/hisilicon/hibmc/dp/dp_aux.c
+> index 8732cd1d8cb6..ef068cc52641 100644
+> --- a/drivers/gpu/drm/hisilicon/hibmc/dp/dp_aux.c
+> +++ b/drivers/gpu/drm/hisilicon/hibmc/dp/dp_aux.c
+> @@ -131,6 +131,8 @@ static ssize_t hibmc_dp_aux_xfer(struct drm_dp_aux *aux, struct drm_dp_aux_msg *
+>   	int ret;
+>   	u32 val; /* val will be assigned at the beginning of readl_poll_timeout function */
+>   
+> +	mutex_lock(&dp->aux_lock);
+
+I would recommend using a lock guard here an below. See [1]
+
+[1] 
+https://elixir.bootlin.com/linux/v7.3.1/source/include/linux/cleanup.h#L10
+
+Best regards
+Thomas
+
+> +
+>   	writel(0, dp->base + HIBMC_DP_AUX_WR_DATA0);
+>   	writel(0, dp->base + HIBMC_DP_AUX_WR_DATA1);
+>   	writel(0, dp->base + HIBMC_DP_AUX_WR_DATA2);
+> @@ -147,10 +149,15 @@ static ssize_t hibmc_dp_aux_xfer(struct drm_dp_aux *aux, struct drm_dp_aux_msg *
+>   				 !(val & HIBMC_DP_CFG_AUX_REQ), 50, 5000);
+>   	if (ret) {
+>   		hibmc_dp_aux_reset(dp);
+> -		return ret;
+> +		goto out_unlock;
+>   	}
+>   
+> -	return hibmc_dp_aux_parse_xfer(dp, msg);
+> +	ret = hibmc_dp_aux_parse_xfer(dp, msg);
+> +
+> +out_unlock:
+> +	mutex_unlock(&dp->aux_lock);
+> +
+> +	return ret;
+>   }
+>   
+>   void hibmc_dp_aux_init(struct hibmc_dp *dp)
+> diff --git a/drivers/gpu/drm/hisilicon/hibmc/dp/dp_comm.h b/drivers/gpu/drm/hisilicon/hibmc/dp/dp_comm.h
+> index f53dac256ee0..e56bfca886cb 100644
+> --- a/drivers/gpu/drm/hisilicon/hibmc/dp/dp_comm.h
+> +++ b/drivers/gpu/drm/hisilicon/hibmc/dp/dp_comm.h
+> @@ -38,12 +38,12 @@ struct hibmc_dp_dev {
+>   	struct drm_device *dev;
+>   	void __iomem *base;
+>   	struct mutex lock; /* protects concurrent RW in hibmc_dp_reg_write_field() */
+> +	struct mutex aux_lock; /* serializes AUX transfers with hpd_cfg() */
+>   	struct hibmc_dp_link link;
+>   	u8 dpcd[DP_RECEIVER_CAP_SIZE];
+>   	u8 downstream_ports[DP_MAX_DOWNSTREAM_PORTS];
+>   	struct drm_dp_desc desc;
+>   	bool is_branch;
+> -	int hpd_status;
+>   	void __iomem *serdes_base;
+>   };
+>   
+> diff --git a/drivers/gpu/drm/hisilicon/hibmc/dp/dp_hw.c b/drivers/gpu/drm/hisilicon/hibmc/dp/dp_hw.c
+> index d5bd3c45649b..8922a4f5b4ec 100644
+> --- a/drivers/gpu/drm/hisilicon/hibmc/dp/dp_hw.c
+> +++ b/drivers/gpu/drm/hisilicon/hibmc/dp/dp_hw.c
+> @@ -162,6 +162,7 @@ int hibmc_dp_hw_init(struct hibmc_dp *dp)
+>   		return -ENOMEM;
+>   
+>   	mutex_init(&dp_dev->lock);
+> +	mutex_init(&dp_dev->aux_lock);
+>   
+>   	dp->dp_dev = dp_dev;
+>   
+> @@ -191,6 +192,10 @@ int hibmc_dp_hw_init(struct hibmc_dp *dp)
+>   	writel(HIBMC_DP_HDCP, dp_dev->base + HIBMC_DP_HDCP_CFG);
+>   	/* clock enable */
+>   	writel(HIBMC_DP_CLK_EN, dp_dev->base + HIBMC_DP_DPTX_CLK_CTRL);
+> +	/* To latch the HPD interrupt, ensuring that DP can support more modes
+> +	 * within the fbcon framework when connected alone.
+> +	 */
+> +	msleep(100);
+>   
+>   	return 0;
+>   }
+> @@ -214,15 +219,16 @@ void hibmc_dp_hpd_cfg(struct hibmc_dp *dp)
+>   {
+>   	struct hibmc_dp_dev *dp_dev = dp->dp_dev;
+>   
+> +	mutex_lock(&dp_dev->aux_lock);
+> +
+>   	hibmc_dp_reg_write_field(dp_dev, HIBMC_DP_AUX_REQ, HIBMC_DP_CFG_AUX_SYNC_LEN_SEL, 0x0);
+>   	hibmc_dp_reg_write_field(dp_dev, HIBMC_DP_AUX_REQ, HIBMC_DP_CFG_AUX_TIMER_TIMEOUT, 0x1);
+>   	hibmc_dp_reg_write_field(dp->dp_dev, HIBMC_DP_AUX_REQ, HIBMC_DP_CFG_AUX_MIN_PULSE_NUM, 0x9);
+>   	writel(HIBMC_DP_HDCP, dp_dev->base + HIBMC_DP_HDCP_CFG);
+> -	writel(0, dp_dev->base + HIBMC_DP_INTR_ENABLE);
+> -	writel(HIBMC_DP_INT_RST, dp_dev->base + HIBMC_DP_INTR_ORIGINAL_STATUS);
+> -	writel(HIBMC_DP_INT_ENABLE, dp_dev->base + HIBMC_DP_INTR_ENABLE);
+>   	writel(HIBMC_DP_DPTX_RST, dp_dev->base + HIBMC_DP_DPTX_RST_CTRL);
+>   	writel(HIBMC_DP_CLK_EN, dp_dev->base + HIBMC_DP_DPTX_CLK_CTRL);
+> +
+> +	mutex_unlock(&dp_dev->aux_lock);
+>   }
+>   
+>   void hibmc_dp_display_en(struct hibmc_dp *dp, bool enable)
+> @@ -322,20 +328,26 @@ void hibmc_dp_set_cbar(struct hibmc_dp *dp, const struct hibmc_dp_cbar_cfg *cfg)
+>   	writel(HIBMC_DP_SYNC_EN_MASK, dp_dev->base + HIBMC_DP_TIMING_SYNC_CTRL);
+>   }
+>   
+> -bool hibmc_dp_check_hpd_status(struct hibmc_dp *dp, int exp_status)
+> +int hibmc_dp_get_hpd_status(struct hibmc_dp *dp)
+>   {
+> +	int hpd_status = HIBMC_HPD_UNKNOWN;
+>   	u32 status;
+> -	int ret;
+>   
+> -	ret = readl_poll_timeout(dp->dp_dev->base + HIBMC_DP_HPD_STATUS, status,
+> -				 FIELD_GET(HIBMC_DP_HPD_CUR_STATE, status) == exp_status,
+> -				 1000, 100000); /* DP spec says 100ms */
+> -	if (ret) {
+> -		drm_dbg_dp(dp->drm_dev, "wait hpd status timeout");
+> -		return false;
+> +	status = FIELD_GET(HIBMC_DP_HPD_CUR_STATE,
+> +			   readl(dp->dp_dev->base + HIBMC_DP_HPD_STATUS));
+> +	switch (status) {
+> +	case 0: /* idle */
+> +	case 3: /* unplug */
+> +	case 4: /* unplug intermediate */
+> +		hpd_status = HIBMC_HPD_OUT;
+> +		break;
+> +	case 1: /* plug */
+> +	case 2: /* plug intermediate */
+> +		hpd_status = HIBMC_HPD_IN;
+> +		break;
+> +	default:
+> +		break;
+>   	}
+>   
+> -	dp->dp_dev->hpd_status = exp_status;
+> -
+> -	return true;
+> +	return hpd_status;
+>   }
+> diff --git a/drivers/gpu/drm/hisilicon/hibmc/dp/dp_hw.h b/drivers/gpu/drm/hisilicon/hibmc/dp/dp_hw.h
+> index 0f3662d8737e..84faa1a7439d 100644
+> --- a/drivers/gpu/drm/hisilicon/hibmc/dp/dp_hw.h
+> +++ b/drivers/gpu/drm/hisilicon/hibmc/dp/dp_hw.h
+> @@ -17,6 +17,7 @@ struct hibmc_dp_dev;
+>   enum hibmc_hpd_status {
+>   	HIBMC_HPD_OUT,
+>   	HIBMC_HPD_IN,
+> +	HIBMC_HPD_UNKNOWN,
+>   };
+>   
+>   enum hibmc_dp_cbar_pattern {
+> @@ -54,7 +55,7 @@ struct hibmc_dp {
+>   	void __iomem *mmio;
+>   	struct drm_dp_aux aux;
+>   	struct hibmc_dp_cbar_cfg cfg;
+> -	u32 irq_status;
+> +	int hpd_status;
+>   	int phys_status;
+>   };
+>   
+> @@ -66,7 +67,7 @@ void hibmc_dp_reset_link(struct hibmc_dp *dp);
+>   void hibmc_dp_hpd_cfg(struct hibmc_dp *dp);
+>   void hibmc_dp_enable_int(struct hibmc_dp *dp);
+>   void hibmc_dp_disable_int(struct hibmc_dp *dp);
+> -bool hibmc_dp_check_hpd_status(struct hibmc_dp *dp, int exp_status);
+> +int hibmc_dp_get_hpd_status(struct hibmc_dp *dp);
+>   u8 hibmc_dp_get_link_rate(struct hibmc_dp *dp);
+>   u8 hibmc_dp_get_lanes(struct hibmc_dp *dp);
+>   
+> diff --git a/drivers/gpu/drm/hisilicon/hibmc/hibmc_drm_dp.c b/drivers/gpu/drm/hisilicon/hibmc/hibmc_drm_dp.c
+> index 2e9403b8bf3c..6ea70c31d1a9 100644
+> --- a/drivers/gpu/drm/hisilicon/hibmc/hibmc_drm_dp.c
+> +++ b/drivers/gpu/drm/hisilicon/hibmc/hibmc_drm_dp.c
+> @@ -15,8 +15,6 @@
+>   #include "dp/dp_comm.h"
+>   #include "dp/dp_config.h"
+>   
+> -#define DP_MASKED_SINK_HPD_PLUG_INT	BIT(2)
+> -
+>   static int hibmc_dp_connector_get_modes(struct drm_connector *connector)
+>   {
+>   	const struct drm_edid *drm_edid;
+> @@ -61,13 +59,13 @@ static int hibmc_dp_detect(struct drm_connector *connector,
+>   {
+>   	struct hibmc_dp *dp = to_hibmc_dp(connector);
+>   	struct hibmc_dp_dev *dp_dev = dp->dp_dev;
+> +	int hpd_status = READ_ONCE(dp->hpd_status);
+>   	int ret = connector_status_disconnected;
+>   
+> -	if (dp->irq_status) {
+> -		if (dp_dev->hpd_status != HIBMC_HPD_IN) {
+> -			ret = connector_status_disconnected;
+> -			goto exit;
+> -		}
+> +	if (hpd_status != HIBMC_HPD_IN) {
+> +		drm_dbg_dp(dp->drm_dev, "dp detect skipped, hpd (%d)\n",
+> +			   hpd_status);
+> +		goto exit;
+>   	}
+>   
+>   	if (!hibmc_dp_get_dpcd(dp_dev)) {
+> @@ -189,24 +187,26 @@ irqreturn_t hibmc_dp_hpd_isr(int irq, void *arg)
+>   {
+>   	struct drm_device *dev = (struct drm_device *)arg;
+>   	struct hibmc_drm_private *priv = to_hibmc_drm_private(dev);
+> -	int idx, exp_status;
+> +	int status = READ_ONCE(priv->dp.hpd_status);
+> +	int idx;
+>   
+>   	if (!drm_dev_enter(dev, &idx))
+>   		return -ENODEV;
+>   
+> -	if (priv->dp.irq_status & DP_MASKED_SINK_HPD_PLUG_INT) {
+> +	if (status == HIBMC_HPD_IN) {
+> +		/* Plug takes aux_lock, so it must run in the thread. */
+>   		drm_dbg_dp(&priv->dev, "HPD IN isr occur!\n");
+>   		hibmc_dp_hpd_cfg(&priv->dp);
+> -		exp_status = HIBMC_HPD_IN;
+> -	} else {
+> +	} else if (status == HIBMC_HPD_OUT) {
+>   		drm_dbg_dp(&priv->dev, "HPD OUT isr occur!\n");
+> -		hibmc_dp_reset_link(&priv->dp);
+> -		exp_status = HIBMC_HPD_OUT;
+> +	} else {
+> +		drm_err(&priv->dev, "HPD status (%d) error\n", status);
+> +		goto exit;
+>   	}
+>   
+> -	if (hibmc_dp_check_hpd_status(&priv->dp, exp_status))
+> -		drm_connector_helper_hpd_irq_event(&priv->dp.connector);
+> +	drm_connector_helper_hpd_irq_event(&priv->dp.connector);
+>   
+> +exit:
+>   	drm_dev_exit(idx);
+>   
+>   	return IRQ_HANDLED;
+> @@ -223,6 +223,7 @@ int hibmc_dp_init(struct hibmc_drm_private *priv)
+>   
+>   	dp->mmio = priv->mmio;
+>   	dp->drm_dev = dev;
+> +	dp->hpd_status = HIBMC_HPD_OUT;
+>   
+>   	ret = hibmc_dp_hw_init(&priv->dp);
+>   	if (ret) {
+> diff --git a/drivers/gpu/drm/hisilicon/hibmc/hibmc_drm_drv.c b/drivers/gpu/drm/hisilicon/hibmc/hibmc_drm_drv.c
+> index 4d85c89f3f88..7920f03895fe 100644
+> --- a/drivers/gpu/drm/hisilicon/hibmc/hibmc_drm_drv.c
+> +++ b/drivers/gpu/drm/hisilicon/hibmc/hibmc_drm_drv.c
+> @@ -58,11 +58,18 @@ static irqreturn_t hibmc_dp_interrupt(int irq, void *arg)
+>   {
+>   	struct drm_device *dev = (struct drm_device *)arg;
+>   	struct hibmc_drm_private *priv = to_hibmc_drm_private(dev);
+> +	int hpd_status;
+>   	u32 status;
+>   
+>   	status = readl(priv->mmio + HIBMC_DP_INTSTAT);
+>   	if (status) {
+> -		priv->dp.irq_status = status;
+> +		hpd_status = hibmc_dp_get_hpd_status(&priv->dp);
+> +		WRITE_ONCE(priv->dp.hpd_status, hpd_status);
+> +
+> +		/* Reset here so a later plug cannot hide this unplug. */
+> +		if (hpd_status == HIBMC_HPD_OUT)
+> +			hibmc_dp_reset_link(&priv->dp);
+> +
+>   		writel(status, priv->mmio + HIBMC_DP_INTCLR);
+>   		return IRQ_WAKE_THREAD;
+>   	}
+
+-- 
+--
+Thomas Zimmermann
+Graphics Driver Developer
+SUSE Software Solutions Germany GmbH
+Frankenstr. 146, 90461 Nürnberg, Germany, www.suse.com
+GF: Stefan Gaiser, Jochen Jaser, Abhinav Puri, (HRB 36809, AG Nürnberg)
+
+
