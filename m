@@ -2,81 +2,79 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5D8DB60A2622
-	for <dri-devel@archiver.kernel.org>; Tue, 17 Nov 2026 19:32:47 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 76DC560A263C
+	for <dri-devel@archiver.kernel.org>; Tue, 17 Nov 2026 19:32:52 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=M1PmQFxV
+	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=cpzaLalg
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 970E810E61A;
-	Tue, 17 Nov 2026 19:32:41 +0000 (UTC)
-Received: from mail-wr1-f71.google.com (mail-wr1-f71.google.com
- [209.85.221.71])
- by gabe.freedesktop.org (Postfix) with ESMTPS id B1CEA10E61A
- for <dri-devel@lists.freedesktop.org>; Tue, 17 Nov 2026 19:32:35 +0000 (UTC)
-Received: by mail-wr1-f71.google.com with SMTP id
- ffacd0b85a97d-48e1d839ddaso57702f8f.3
- for <dri-devel@lists.freedesktop.org>; Tue, 17 Nov 2026 11:32:35 -0800 (PST)
+	by gabe.freedesktop.org (Postfix) with ESMTP id ABC4110F7CD;
+	Tue, 17 Nov 2026 19:32:46 +0000 (UTC)
+Received: from mail-wr1-f69.google.com (mail-wr1-f69.google.com
+ [209.85.221.69])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id D3E5C10E69C
+ for <dri-devel@lists.freedesktop.org>; Tue, 17 Nov 2026 19:32:37 +0000 (UTC)
+Received: by mail-wr1-f69.google.com with SMTP id
+ ffacd0b85a97d-4923b9fdd43so129829f8f.3
+ for <dri-devel@lists.freedesktop.org>; Tue, 17 Nov 2026 11:32:37 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=google.com; s=20260707; t=1794943954; x=1795548754;
+ d=google.com; s=20260707; t=1794943956; x=1795548756;
  darn=lists.freedesktop.org; 
- h=content-type:cc:to:from:subject:message-id:mime-version:date:from
- :to:cc:subject:date:message-id:reply-to:content-type;
- bh=CWEIybWOyPQ+4rZV05KjYSAVt6nHfWxtoLBA9Fvcf20=;
- b=M1PmQFxVJe4jwdGc4SNmfSsiP88mPmr4Hgt2fkwgEOwUralDRY7hey7QHAVUEigC8K
- DNfgWM1MadmTRLi0GMsydmaNf7UCev3x+i01cxbbKFUyWS9pjolo0R68V23nBwWJ+5kj
- OYFgpflQlzpt5/35oLrmL5+FJvTyggtEi7w1ZPXvnX9w7S97GYl6/3K4oXZT7JRhJkd8
- fb0UqidTf9bCkc3qpNi5c6d/T+4+1HmkKD7+YobxKmpEL93Omb02RGLsMAD+qIlWYA/L
- TDNj/nsa/hy7uLa/SjdteeFqfrOhwY4dvQNcP4XMamPuUScmk0bqouBa9Uc3EsVUtRlH
- Lonw==
+ h=content-type:cc:to:from:subject:message-id:references:mime-version
+ :in-reply-to:date:from:to:cc:subject:date:message-id:reply-to
+ :content-type; bh=+0+txM7MPeyJRwa0Sn9PNj0P/voFCRRCRvjyl+hjpB4=;
+ b=cpzaLalgRjIOfTxCE7T5V/1pbUwbXNPAosr+Qrd5ldOtHP0E7kpFa+PmLURKw4HEMw
+ cmqUHbl/tR09cD0Gz0IMUCMijxifJtg51epDB9ap+jHsQgPEZt9Eo4ArQ3mqU0jRF+B7
+ iI2levRAZylclglpbmTDJeUXs5v8AuvraheQxOtK0OCmGm7c/Yr72ZwjNNO7McAlqsYq
+ 1xshHiGzRoj/LR0Wn011uY+BqvPs2flxiOw2o8hof1a1sym3lJNWAbN5bMi05cj5RI61
+ UtWthrEFCSUyE5vbPB2S2ZlVLUQHtGbe2SQb7p7ySCj+frIp9FlTTDMgShKgU7xUFRmQ
+ jsMw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20260707; t=1794943954; x=1795548754;
- h=content-type:cc:to:from:subject:message-id:mime-version:date
- :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
- :content-type;
- bh=CWEIybWOyPQ+4rZV05KjYSAVt6nHfWxtoLBA9Fvcf20=;
- b=bV1qK6s2KOac0P6xCtCuuOGvGnO9le5OiilicJAGQBdZqNTTsNzzD0B4o9ys3uoFAV
- fylkv++soSa5EA1O5VsE7HC1z6C14JBmvRZ0r8bLTWP6FTnS8fnJMWFM/99kOqi4lb7T
- vngY1UQkJ7fS66fZup13UVqo3pGhlF3q9jYfbQV/AQNn2zKWgKqjxmEnSc24ShvQwGrp
- 7/a+e5OIYWE9PnIBhGL5Q8fOUvWyqgfxZuLSr+x38u/XxnQSsnRAMsRHmiP3WD87RN0O
- JCsw+3fRANdFMXVGvV9HiKRCYMXobjTO0BEnqRi3n2iq4F0J1/t2CRjkYpNOL9vKSz31
- mZZw==
+ d=1e100.net; s=20260707; t=1794943956; x=1795548756;
+ h=content-type:cc:to:from:subject:message-id:references:mime-version
+ :in-reply-to:date:x-gm-message-state:from:to:cc:subject:date
+ :message-id:reply-to:content-type;
+ bh=+0+txM7MPeyJRwa0Sn9PNj0P/voFCRRCRvjyl+hjpB4=;
+ b=omktbvBanwv7DZydMVhv8kos1aXmYRdQ+FffqMZcTc8IIbEEflkHX6Vq99R3xzT4ba
+ fXM5EvJLvyC8Lc6StKv1h+jIT1zqdM6Gq1uf65utRv3SAlD5PRGJh3K0HHdgMqkQ9V/R
+ fwQtvLKRQe5cTc2tgRdjzJqISlhKLrswVwXXZqhwrHkaUsPSov6M/s8H4rhztfmkXXYA
+ CE/MbO2V7jRM8PRLcQB784kl52qMQXzig+pNfEVrOICsAIttK8WxJv6h8B5dc7PKq2/I
+ hEAQ0pbNmEixRZEDrc11oAo/6t3XNBjyNJyDn7xs7BUnxmjYM2313iuoVKaIHvuZPNmr
+ 4Vqg==
 X-Forwarded-Encrypted: i=1;
- AL+hErF+DRpeHHxiDKsetej0hPglvVhVNd7BYwZTaeEBI2KwE2q2YClPwxEQQGmTN0uCCVhvQBOTmU0gZ2Y=@lists.freedesktop.org
-X-Gm-Message-State: APuU4Z+XXMHabRtNQfF6Wbbvk35UAowF3qWjYCIeE1gGzSKb1nxIyU+b
- aElbvoYV3peOLm3dLXTcXzQJTglEmkWkoaEseSdu3YR48AktA0eJHgm7LTsVzEsJ3agk+z5YnHH
- BU+ii87m1qHb3ChMGPw==
-X-Received: from wrno8.prod.google.com ([2002:adf:eac8:0:b0:4a3:4620:1d69])
+ AL+hErGAA7S92Ll7fNYYbwFyCUKTXg3lEDU81UwZwAzly6mA7klBZgD/ujcQCuFV0lDPF/lrIzp8wS9T6Ac=@lists.freedesktop.org
+X-Gm-Message-State: APuU4Z/Lsx+vS2omiW3cOFWqlhANDFAo4kGeivNMvzNSaxs9JKRKXiaJ
+ MTRxRMAJPomqJccYHo8Mh0DwIqrCZuHpTMoiHOGHf2GLKWLX+na6OwLe7KqYi7XVfkhL1jPKzJE
+ qtHT6kL2VWF2t7bCpRg==
+X-Received: from wrnb4.prod.google.com ([2002:adf:e644:0:b0:4a4:9fcb:c0d2])
  (user=aliceryhl job=prod-delivery.src-stubby-dispatcher) by
- 2002:adf:e193:0:b0:48e:4300:c6d8 with SMTP id
- ffacd0b85a97d-4a63de52730mr1008245f8f.35.1794943953550; 
- Tue, 17 Nov 2026 11:32:33 -0800 (PST)
-Date: Tue, 17 Nov 2026 19:32:17 +0000
+ 2002:a05:6000:983:b0:492:820d:107e with SMTP id
+ ffacd0b85a97d-4a63cd0eb78mr804149f8f.47.1794943955847; 
+ Tue, 17 Nov 2026 11:32:35 -0800 (PST)
+Date: Tue, 17 Nov 2026 19:32:18 +0000
+In-Reply-To: <20261117-tyr-remap-2mb-v1-0-2a8efd4c8180@google.com>
 X-Archived-By: <archiver.kernel.org>
 Mime-Version: 1.0
-X-B4-Tracking: v=1; b=H4sIAMKr/GoC/6tWKk4tykwtVrJSqFYqSi3LLM7MzwNyDHUUlJIzE
- vPSU3UzU4B8JSMDIzNDQ0Mz3ZLKIt2i1NzEAl2j3CRd80RT4yQLE3PT5LRkJaCegqLUtMwKsHn
- RsbW1AOkuzV5fAAAA
-X-Change-Id: 20261116-tyr-remap-2mb-7a53b8475cfc
+References: <20261117-tyr-remap-2mb-v1-0-2a8efd4c8180@google.com>
 X-Developer-Key: i=aliceryhl@google.com; a=openpgp;
  fpr=49F6C1FAA74960F43A5B86A1EE7A392FDE96209F
-X-Developer-Signature: v=1; a=openpgp-sha256; l=1679; i=aliceryhl@google.com; 
+X-Developer-Signature: v=1; a=openpgp-sha256; l=1205; i=aliceryhl@google.com; 
  h=from:subject:message-id;
- bh=vSb8dcnD2eG8K9E1baNk0JXzV820WUHmszz9zfbL9p4=; 
- b=owEBbQKS/ZANAwAKAQRYvu5YxjlGAcsmYgBq/KvIxRmUX8ES1X5aoMSyIxD/DGyKY46COBIZk
- l3WJbGYM6KJAjMEAAEKAB0WIQSDkqKUTWQHCvFIvbIEWL7uWMY5RgUCavyryAAKCRAEWL7uWMY5
- RlBYD/9LZxWa1EOICrXfCQo6+2FEaGCBTsGLsBCGNZt1aDkE705pnOcpv89yKcb61oL5jKTgTnW
- xpQGfS8/AHinHSIETT2reeDB4YrpfzKFFlHy+s5uCvqaMrDkS0xGr3eeSsaIDFJWASvdkEippTS
- 96axYSKcL7IFwFLAmgcG6sX6tc0b5GG6YfPj75KMsMDqJ3kzAy4GDySRre+ze+MkIPI5rPoSdlC
- bDZ1yQZ+MrXVRxE2tuP33TmNT2izHdDsTxsdkPvzk7AGQ+oihOvv6lzCMkGxAhW+iBy91sIchkX
- /ewCL9ObYoq8wv3Fo0015JzMRoffi43yZVGOgl2jWFo/tAfMB0Q9JHTVRlIC6z2Mqwx6cGSbLJq
- 2y2G/r950f+7EEb0Sk8FQDfRZbzval9lsEozVfD+HmJhsjPsowLG2Ts6hYCYggj1F6apuPx05oK
- bGAWMT2i3wIdIs47VBY+0nGf7hM4dTIQ8gTLYTtEEv3Uqup3mp+APnE3UgC20V73mFjgF+a+bd0
- ct/HDow4DEd8WlnxgPELic8aqxm7FxfePM7Mmc0Z9EsXXPs5ntYG4v696CXy794wL5Ab7FxxOSq
- vghzvQB8amoJ5I6nF85Ee23Zss/K18MPB4vI9M4+qLYN2grL4wfzZKk3nCZkI9DsMoWR6CGB/8j
- /nHigx3AoV+EAnA==
+ bh=qullzfbasZ1PBAiwmelJR8Wu/8Cq09DzJ4AhkY0NXXE=; 
+ b=owEBbQKS/ZANAwAKAQRYvu5YxjlGAcsmYgBq/KvQhhfo/i3hpH5lFbOyDEwYbHCYaKQPRqu7h
+ BvCnbobi0mJAjMEAAEKAB0WIQSDkqKUTWQHCvFIvbIEWL7uWMY5RgUCavyr0AAKCRAEWL7uWMY5
+ RojaD/92+hR/vatJndmWWwF1FE/2fpo442zd/mWkRgzBkO4VFIAIzF35Ckwt+5scDlitsJkhc4o
+ 7T+bS69Ze3KLWfegrGht24waHlj7oB6wbMYYWLuZPB4utAyG5ljJC0mvJ1qATyBmphbuTCBLuFi
+ 5wHzxgysG3H0vwDgykoqSpqhIhuDKyYQFHTOa+gQZhI/xcR0TLOEx0Dfw6zILOQX17t8WJz345G
+ KDFh2xc0uqfU3sV8o9EcmfTo6F1641JtsXVIZY+Oc8yCAv826HzwsxKkFFYyfjlic3zEblEubUV
+ xhxRwbdq76B9Xmq0i9Y1COm6pHZb9KUaT+yeeYxGUEamZwGS/M5a1palNLRGlKuWT8AOfxIiWcx
+ x/w6kfDtP2nKNMYdbIFzkDF78wkZAsanc9VJOAca1Zotbxsz7w0NKQNoYgUV6WrYcbUQ/PVupF/
+ g+6zuUAwfP1uey0kc0/sMvH3qwmkT0hHalKomEES5QimHuMCP738vgMWnft4jczbjNevxCtr7CT
+ 6vrskXM6peY7eqcGV+YNA7uCIc8fRk5XD+IXrNInmibFCEIe8m7qUPHjcOL28p7WLdh42VO/4Cq
+ vXfm9Xij3ONUlRy/h4Vdizgeo4bpmukCIFSSZnsdGDujDlDMIDbMcpZ1cibReJ/j390RfadZalx
+ zRc6pYOXWN28N3w==
 X-Mailer: b4 0.14.3
-Message-ID: <20261117-tyr-remap-2mb-v1-0-2a8efd4c8180@google.com>
-Subject: [PATCH 0/4] drm/tyr: fix partial 2MB block unmaps on GPUVM remap
+Message-ID: <20261117-tyr-remap-2mb-v1-1-2a8efd4c8180@google.com>
+Subject: [PATCH 1/4] rust: drm/gpuvm: add GpuVa::data_ref accessor
 From: Alice Ryhl <aliceryhl@google.com>
 To: Daniel Almeida <daniel.almeida@collabora.com>, 
  Deborah Brouwer <deborah.brouwer@collabora.com>,
@@ -116,42 +114,38 @@ X-Spam-Status: No, score=-26.3 required=3.0 tests=BAYES_00,DKIMWL_WL_MED,
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-Tyr configures its ARM64 LPAE page tables with 4KB and 2MB block sizes,
-but arm-lpae rejects unmapping part of a 2MB block. As a result, a
-partial unmap or overlapping remap that splits a 2MB block in
-GpuVmData::sm_step_remap() fails in __arm_lpae_unmap().
+From: Sami Tolvanen <samitolvanen@google.com>
 
-This series ports the remap fix and supporting accessors from tyr-dev
-onto drm-rust-next, along with a defensive bounds check in pt_unmap():
+Tyr's VM_BIND remap path rebuilds page-table mappings for the fragments
+that survive a split, and those fragments must keep the protection flags
+of the original mapping. Add GpuVa::data_ref() so the remap step can
+read the VaData of an existing mapping.
 
-1. Add the GpuVa::data_ref() accessor.
-2. Add the IoPageTable::iova_to_phys() accessor.
-3. Expand sub-block unmaps in sm_step_remap() to 2MB boundaries when
-   the swept head/tail fragment is physically contiguous, widen the AS
-   lock over the expanded range, rebuild the surviving fragments, and
-   take the preallocated GPUVAs before mutating page tables.
-4. Check the remaining-length subtraction in pt_unmap() against
-   underflow.
-
+Signed-off-by: Sami Tolvanen <samitolvanen@google.com>
+[aliceryhl: split into separate gpuvm and iommu commits]
 Signed-off-by: Alice Ryhl <aliceryhl@google.com>
 ---
-Sami Tolvanen (4):
-      rust: drm/gpuvm: add GpuVa::data_ref accessor
-      rust: iommu: pgtable: add iova_to_phys
-      drm/tyr: vm: expand sub-block unmaps to 2MB boundaries on remap
-      drm/tyr: vm: check the remaining length in pt_unmap()
+ rust/kernel/drm/gpuvm/va.rs | 6 ++++++
+ 1 file changed, 6 insertions(+)
 
- drivers/gpu/drm/tyr/mmu.rs               |  13 +++
- drivers/gpu/drm/tyr/mmu/address_space.rs |  29 ++++++
- drivers/gpu/drm/tyr/vm.rs                | 152 ++++++++++++++++++++++++++++---
- rust/kernel/drm/gpuvm/va.rs              |   6 ++
- rust/kernel/iommu/pgtable.rs             |  23 +++++
- 5 files changed, 209 insertions(+), 14 deletions(-)
----
-base-commit: 8045d0e7d208ad389a387f1407ce0db9070805af
-change-id: 20261116-tyr-remap-2mb-7a53b8475cfc
+diff --git a/rust/kernel/drm/gpuvm/va.rs b/rust/kernel/drm/gpuvm/va.rs
+index 46493f0ec5a6..f81302faba61 100644
+--- a/rust/kernel/drm/gpuvm/va.rs
++++ b/rust/kernel/drm/gpuvm/va.rs
+@@ -87,6 +87,12 @@ pub fn obj(&self) -> &T::Object {
+         unsafe { <T::Object as IntoGEMObject>::from_raw((*self.as_raw()).gem.obj) }
+     }
+ 
++    /// Access the driver-private [`VaData`](DriverGpuVm::VaData) associated with this mapping.
++    #[inline]
++    pub fn data_ref(&self) -> &T::VaData {
++        &self.data
++    }
++
+     /// Returns the underlying [`GpuVmBo`] object that backs this [`GpuVa`].
+     #[inline]
+     pub fn vm_bo(&self) -> &GpuVmBo<T> {
 
-Best regards,
 -- 
-Alice Ryhl <aliceryhl@google.com>
+2.56.1.703.gf848ed807c-goog
 
