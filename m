@@ -2,88 +2,57 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A7CCF606A32C
-	for <dri-devel@archiver.kernel.org>; Tue, 17 Nov 2026 17:41:26 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8E220606A882
+	for <dri-devel@archiver.kernel.org>; Tue, 17 Nov 2026 17:47:25 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=h5gkaqT8
+	dkim=pass (2048-bit key) header.d=mailbox.org header.i=@mailbox.org header.a=rsa-sha256 header.s=mail20150812 header.b=RYTOeDst
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 68B1710F872;
-	Tue, 17 Nov 2026 17:41:20 +0000 (UTC)
-Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id EFAE410F871
- for <dri-devel@lists.freedesktop.org>; Tue, 17 Nov 2026 17:41:09 +0000 (UTC)
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id C48554148A;
- Tue, 17 Nov 2026 17:41:09 +0000 (UTC)
-Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
-ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
- t=1794937269;
- b=ApNr+YRjWjs6/aAtd6211n1+7XACOp5k9JfCazDT4LQGRMVLLZOMmAbxqbePsZGdSWNA
- Q2akWXTCUgwMZw249DbE9fzht56cXmTTq11A3apvnz8c5A2tnSmJxIJ/j4yuXL3HW7nVr
- S6EBZRoP7Md6ZdzEHs/cG2MKVf2Smnl2EmdgjFymboA7Ch4eHn6mzCXDMrNKKF1Gr+/LG
- T0YPfUwt7fu/hpf5iUq1DnoHg4SXq08Fl36niiEfSZ1SftrWqrqYZOCA55DzhToOkiJVh
- 7gNwdieyWU4PwkPPYVkRnAUYyQwgCyxM0bOUe49cEMQ5BppODmMVaQxSH13mcBGF0Nw==
-ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
- c=relaxed/relaxed; t=1794937269;
- h=DKIM-Signature:Received:From:Date:Subject:MIME-Version:Content-Type:
- Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
- X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
- X-Original-From:Reply-To:Content-Transfer-Encoding;
- bh=ppyqVBFv/K6NEphnd837iinHXAyuUDMGYOowkO+mkO4=;
- b=udbe1mVRyqZcp7KhDYe+7Xhk1noMK6HQVkb/No02DbhgRc/ZvwtUQp9u2d9I1BdcF59C
- I11UATFhg84AKFN6Suj5YsAGzfRBvp24fKfksKHH4zfQe9fxDpGazV6QT27FRllpnx1XY
- BLm+CoNZ8QN3rZtpfTztATcIY4oaMHu3RD1MBXCIkkvHwcTid5ZAfM/xhzMjYD8/HBMHM
- yBDqZogErWmWQYnLgNykESCr1L6gRARA0UlT6gjdY99NT++eiFnXPzgwog0rdX0pITUpS
- 3eYQs/GqJC+ZMWwttOJ3dCICs8om+/cyan4QbDBkgF8Fru3cpR1I/B4cJ1cHrYtZ1Dg==
-ARC-Authentication-Results: i=1; smtp.kernel.org; 
- arc=none smtp.remote-ip=100.80.115.77
-Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
+	by gabe.freedesktop.org (Postfix) with ESMTP id 0103010F851;
+	Tue, 17 Nov 2026 17:47:20 +0000 (UTC)
+Received: from mout-p-101.mailbox.org (mout-p-101.mailbox.org [80.241.56.151])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id E3C4010F85B
+ for <dri-devel@lists.freedesktop.org>; Tue, 17 Nov 2026 17:47:13 +0000 (UTC)
+Received: from smtp2.mailbox.org (smtp2.mailbox.org
+ [IPv6:2001:67c:2050:b231:465::2])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
- (No client certificate requested)
- by smtp.kernel.org (Postfix) with ESMTPS id 1066E1F000C8;
- Tue, 17 Nov 2026 17:41:09 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1794937269;
- bh=ppyqVBFv/K6NEphnd837iinHXAyuUDMGYOowkO+mkO4=;
- h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To;
- b=h5gkaqT8Q+QiuPOdpMYrtg2a9IvjJU+QlsBxvDtw+8ttXRttXgkhbOGaLeA4J5CGS
- YjUE582RakokHY1xbOcjPnqxzauokhPpxeP4KNVKwdWdM4eJVtSa0CfZt/0FUY/E4I
- ebq5Hj8RuJgshGGVMiQk0auXehCc2uW9B63OSUh0b6lphWyYIUiG1CkOreuMAb6z0K
- j2gAid2TfAAkhnZNcBIfZSvbN72LiO37hyg5afgENrpe8ZqBc/CASKpAY5JockMcxc
- RKwPU/ajIe4NBqG4EhpG3YbabSzKY3ptI7ICdHDDc9v3WnRWb20aYGqjvoNha16OyM
- V7wd3Tyv6JQBg==
-Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
- by lkml.kernel.org (Postfix) with ESMTP id 9030D4A9E0;
- Tue, 17 Nov 2026 17:41:08 +0000 (UTC)
-From: Roman Vivchar via B4 Relay <devnull+rva333.protonmail.com@kernel.org>
-Date: Tue, 17 Nov 2026 19:40:58 +0200
-Subject: [PATCH v3 1/2] dt-bindings: leds: backlight: add Kinetic KTD3137
+ key-exchange X25519MLKEM768 server-signature RSA-PSS (4096 bits) server-digest
+ SHA256) (No client certificate requested)
+ by mout-p-101.mailbox.org (Postfix) with ESMTPS id 4jTXHL4Pwcz8v5T;
+ Tue, 17 Nov 2026 18:47:10 +0100 (CET)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=mailbox.org;
+ s=mail20150812; 
+ t=1794937630; h=from:from:reply-to:reply-to:subject:subject:date:date:
+ message-id:message-id:to:to:cc:cc:mime-version:mime-version:
+ content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references;
+ bh=/lX51Mfz1mJ4y/S3UG7mwW4k5DzJAY1kWSKMs4mbXKg=;
+ b=RYTOeDstKKPOhsZfw9LnuApiBQ0YwHDBumHIFGRDBY1WybOVpRVW4hgychjVPHh/UKowN7
+ X4flyauLehyoqxmP1gIB+N5QX+s/lTn5WTNQR3S/P1am1iCxZk/Wo+VbmMlaiTlkMw4c4r
+ re+Z/B1DR2mzn+GYWbPnfgPMhLJDf3A6d49/FNQIfz2VngzfL8++OTAFZEh9wqqYEoSjGi
+ /sRxZzEhFLobgp/+moiCkLBQuyj8rsSF/fh1eFmUFwcL21WoYr8fBkhsrjOBIavBiYWKoH
+ EzMlxnG8EX3BtgpgYCrhbD1IrLE8+ISllrHU1c/dMSwwrs384zMb15+vIuK5RQ==
+Message-ID: <3005c4692d538785e225f9372e4a261dc457edb2.camel@mailbox.org>
+Subject: Re: [PATCH] dma-buf/dma-fence: Prevent misordering for error checks
+From: Philipp Stanner <phasta@mailbox.org>
+To: Christian =?ISO-8859-1?Q?K=F6nig?= <christian.koenig@amd.com>, Philipp
+ Stanner <phasta@kernel.org>, Sumit Semwal <sumit.semwal@linaro.org>, Simona
+ Vetter	 <simona.vetter@ffwll.ch>, Chris Wilson <chris@chris-wilson.co.uk>,
+ Danilo Krummrich <dakr@kernel.org>, Gary Guo <gary@garyguo.net>, Alice Ryhl
+ <aliceryhl@google.com>, Daniel Almeida <daniel.almeida@collabora.com>
+Cc: linux-media@vger.kernel.org, dri-devel@lists.freedesktop.org, 
+ linux-kernel@vger.kernel.org, stable@vger.kernel.org
+Date: Tue, 17 Nov 2026 18:47:08 +0100
+In-Reply-To: <efce5fe0-6e7d-417c-93a3-35247b431448@amd.com>
+References: <20261117090144.581909-2-phasta@kernel.org>
+ <efce5fe0-6e7d-417c-93a3-35247b431448@amd.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+User-Agent: Evolution 3.60.2 (3.60.2-3.fc44) 
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Message-Id: <20261117-6768-ktd3137-v3-1-b4fd957e3b00@protonmail.com>
-References: <20261117-6768-ktd3137-v3-0-b4fd957e3b00@protonmail.com>
-In-Reply-To: <20261117-6768-ktd3137-v3-0-b4fd957e3b00@protonmail.com>
-To: Lee Jones <lee@kernel.org>, Daniel Thompson <danielt@kernel.org>, 
- Jingoo Han <jingoohan1@gmail.com>, Pavel Machek <pavel@kernel.org>, 
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>, Helge Deller <deller@gmx.de>
-Cc: dri-devel@lists.freedesktop.org, linux-leds@vger.kernel.org, 
- devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
- linux-fbdev@vger.kernel.org, Roman Vivchar <rva333@protonmail.com>
-X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1794937267; l=2713;
- i=rva333@protonmail.com; s=20260510; h=from:subject:message-id;
- bh=pDM+rGPXIE2Yxr4m0AujuxyA6pI+AXeeqaEO+1/IX5I=;
- b=lRk4ur1Kybvlb1eJxV5XXPq1Kirw6HYBmLH+xQfuFyhR32msgoWa0/A+8xK1OPkhVI1rE+b0r
- ho4Z47d519VCYH/YsbySzDEt0r+ly1a3t95IeJDh1+5k0om+eExvoge
-X-Developer-Key: i=rva333@protonmail.com; a=ed25519;
- pk=zww/nWjBGoQ4POXCG0BV6fx2iuXK6jx77rsKPA5YK5Y=
-X-Endpoint-Received: by B4 Relay for rva333@protonmail.com/20260510 with
- auth_id=777
-X-Original-From: Roman Vivchar <rva333@protonmail.com>
-Content-Transfer-Encoding: 7bit
+X-MBO-RS-ID: ecb0f878edf8740d1a6
+X-MBO-RS-META: hx6d7wgupk6yr6hyqbay1awpyj4e9j6c
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -94,117 +63,54 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
-Reply-To: rva333@protonmail.com
+Reply-To: phasta@kernel.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-16.8 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
-	DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,FREEMAIL_REPLYTO_END_DIGIT,
-	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
-	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,USER_AGENT_GIT autolearn=ham
+X-Spam-Status: No, score=-5.8 required=3.0 tests=BAYES_00,DKIM_SIGNED,
+	DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
+	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS autolearn=no
 	autolearn_force=no version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-From: Roman Vivchar <rva333@protonmail.com>
+On Tue, 2026-11-17 at 15:55 +0100, Christian K=C3=B6nig wrote:
+> On 11/17/26 10:01, Philipp Stanner wrote:
+> > Many users of dma_fence do things like:
+> >=20
+> > // Thread A
+> > dma_fence_set_error(f, -EINVAL);
+> > dma_fence_signal(f); // <- Takes lock, which orders against the above.
+> >=20
+> > // Thread B
+> > if (dma_fence_is_signaled(f)) // <- Does test_bit(), no ordering.
+> > 	pr_info("err: %i\n", f->error); // <- Can be loaded first.
 
-Kinetic KTD3137 is an LED IC, used in various mobile devices for the
-display backlight. Add devicetree bindings documentation for this chip.
+[=E2=80=A6]
 
-Datasheet: https://www.kinet-ic.com/uploads/KTD3137-04a.pdf
+> > +	//=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 test_and_set_bit() should do the tri=
+ck.
+>=20
+> That should probably be a C comment, e.g. /* ... */.
 
-Signed-off-by: Roman Vivchar <rva333@protonmail.com>
----
- .../bindings/leds/backlight/kinetic,ktd3137.yaml   | 64 ++++++++++++++++++++++
- MAINTAINERS                                        |  5 ++
- 2 files changed, 69 insertions(+)
+huh, how did that happen=E2=80=A6
+-ETOOMUCHRUST
 
-diff --git a/Documentation/devicetree/bindings/leds/backlight/kinetic,ktd3137.yaml b/Documentation/devicetree/bindings/leds/backlight/kinetic,ktd3137.yaml
-new file mode 100644
-index 000000000000..987f73b2c2cf
---- /dev/null
-+++ b/Documentation/devicetree/bindings/leds/backlight/kinetic,ktd3137.yaml
-@@ -0,0 +1,64 @@
-+# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
-+%YAML 1.2
-+---
-+$id: http://devicetree.org/schemas/leds/backlight/kinetic,ktd3137.yaml#
-+$schema: http://devicetree.org/meta-schemas/core.yaml#
-+
-+title: Kinetic Technologies KTD3137 LED Backlight
-+
-+maintainers:
-+  - Roman Vivchar <rva333@protonmail.com>
-+
-+description:
-+  The Kinetic Technologies KTD3137 is an I2C LED backlight driver for medium
-+  to large size LCD panels.
-+
-+allOf:
-+  - $ref: common.yaml#
-+
-+properties:
-+  compatible:
-+    const: kinetic,ktd3137
-+
-+  reg:
-+    maxItems: 1
-+
-+  default-brightness:
-+    maximum: 2047
-+    default: 2047
-+
-+  enable-gpios:
-+    maxItems: 1
-+    description: GPIO connected to the HWEN pin.
-+
-+  led-max-microamp:
-+    minimum: 5000
-+    maximum: 29800
-+    default: 20200
-+
-+  vin-supply: true
-+
-+required:
-+  - compatible
-+  - reg
-+  - vin-supply
-+
-+unevaluatedProperties: false
-+
-+examples:
-+  - |
-+    #include <dt-bindings/gpio/gpio.h>
-+
-+    i2c {
-+        #address-cells = <1>;
-+        #size-cells = <0>;
-+
-+        backlight@36 {
-+            compatible = "kinetic,ktd3137";
-+            reg = <0x36>;
-+            enable-gpios = <&pio 160 GPIO_ACTIVE_HIGH>;
-+            default-brightness = <2047>;
-+            led-max-microamp = <20200>;
-+            vin-supply = <&vsys>;
-+        };
-+    };
-diff --git a/MAINTAINERS b/MAINTAINERS
-index 15c7dc516f7c..24dd5b43f167 100644
---- a/MAINTAINERS
-+++ b/MAINTAINERS
-@@ -14618,6 +14618,11 @@ S:	Maintained
- F:	Documentation/devicetree/bindings/leds/backlight/kinetic,ktd2801.yaml
- F:	drivers/video/backlight/ktd2801-backlight.c
- 
-+KTD3137 BACKLIGHT DRIVER
-+M:	Roman Vivchar <rva333@protonmail.com>
-+S:	Maintained
-+F:	Documentation/devicetree/bindings/leds/backlight/kinetic,ktd3137.yaml
-+
- KTEST
- M:	Steven Rostedt <rostedt@goodmis.org>
- M:	John Hawley <warthog9@eaglescrag.net>
+I provide a v2
 
--- 
-2.56.1
+> Apart from that really good catch.
 
+Found without any LLM 8-)
 
+I saw it while reworking Rust-fence to force users to always evaluate a
+fence's error code, i.e., you can only check whether a fence is
+signaled when you also check for the error.
+
+dma_fence_is_signaled() incentivizes wrong behavior.
+
+But btw. we really want to carefully rethink our beloved signaled-bit
+and its semantics. Mind all our past discussions about it.
+
+This patch is more like a temporary hotfix. Much of our API is quite
+fragile.
+
+Regards
+Philipp
