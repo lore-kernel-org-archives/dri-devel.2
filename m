@@ -2,86 +2,87 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5AC1D606A31C
-	for <dri-devel@archiver.kernel.org>; Tue, 17 Nov 2026 00:59:03 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AB4B9606A32F
+	for <dri-devel@archiver.kernel.org>; Tue, 17 Nov 2026 01:01:25 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=broadcom.com header.i=@broadcom.com header.a=rsa-sha256 header.s=google header.b=CsyHdCyc
+	dkim=pass (1024-bit key) header.d=broadcom.com header.i=@broadcom.com header.a=rsa-sha256 header.s=google header.b=SWEUROTc
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 8DCE710E3F4;
-	Tue, 17 Nov 2026 00:58:57 +0000 (UTC)
-Received: from mail-pj1-f97.google.com (mail-pj1-f97.google.com
- [209.85.216.97])
- by gabe.freedesktop.org (Postfix) with ESMTPS id B7BF210E3F4
- for <dri-devel@lists.freedesktop.org>; Tue, 17 Nov 2026 00:58:51 +0000 (UTC)
-Received: by mail-pj1-f97.google.com with SMTP id
- 98e67ed59e1d1-3b09c07b3d2so2593136a91.3
- for <dri-devel@lists.freedesktop.org>; Mon, 16 Nov 2026 16:58:51 -0800 (PST)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 138C310EAC9;
+	Tue, 17 Nov 2026 01:01:20 +0000 (UTC)
+Received: from mail-pg1-f226.google.com (mail-pg1-f226.google.com
+ [209.85.215.226])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 2468410EAC9
+ for <dri-devel@lists.freedesktop.org>; Tue, 17 Nov 2026 01:01:14 +0000 (UTC)
+Received: by mail-pg1-f226.google.com with SMTP id
+ 41be03b00d2f7-cc758830601so3793529a12.2
+ for <dri-devel@lists.freedesktop.org>; Mon, 16 Nov 2026 17:01:14 -0800 (PST)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20260707; t=1794877131; x=1795481931;
+ d=1e100.net; s=20260707; t=1794877273; x=1795482073;
  h=content-transfer-encoding:mime-version:reply-to:message-id:date
  :subject:cc:to:from:dkim-signature:x-gm-gg:x-gm-message-state:from
  :to:cc:subject:date:message-id:reply-to:content-type;
- bh=/3+pirkV4hU8kigPdQ2cmat+uB7P3s7EMoAEVIGakSQ=;
- b=udwzTk6gG013yAnWbd9CIlP1yajawTjdMe7n+iat1M5ee359TIrmYcOeemtlSEhOtz
- CW+E2spbmGPSKW/Uv5cGbqaA2Nsuw7sVWGYpQ91ZF+NeWcnSdIpI8quCQCIWlyR4/zdN
- 0t+zjcx8i5+GXMs0GxhiWyke4VxUKfGgNC5++RG92FEDesSg5R3J5dx3MknJkGhv6tNz
- RXwuMHxpgjxdR9/XYuGjHru5JARBTPyNXNOWQbujagk1Qxa3IwUxdKK9BbTtllZ1BvgC
- e2wwlxvEqYsaGpUUXhk5j45nE5VK3GbULrwBdt06tIBDCOiQiRkrJ6opQNA1Twt5DVYB
- Yh5A==
-X-Gm-Message-State: APuU4Z+2XlgkhyB9y9VI30TXJFnb8czLoImKZ8HDW0b77/eYNHKIB2IQ
- o/mO+onwSzIaIPPWMSbCVvdJLb2YZtgCJev0lEkjdj+8d7aoWqK4IFGhry7hZuKy/ulucv5qaZ/
- qNzby94C/l7kPxfkXAm1mWYkITJblKlF4wrQZVrCVWoT+0niAYklYRrRgTSUqLuSli98pOtVm2L
- 24/241PD5da0q3pdjG94t5lnIph4qNCzPORAw5YWBfAMC3LynVtnzQ3A8db33V2zCY0MTHxeqQA
- PYdgCkMPAxg9Mju2FADIZ4sOMmp
-X-Gm-Gg: AZFdTZeuJeUV8H0cGTktuQbgowpUqbUPDXrkCpsZJdD6EsnlAA9u9sIoKghv1iFBX3A
- suxDKrSwoYuCgM3r2Vafr7+UjivnA06IUdoMfcAnLU0h5c7RulGAt0E6fPK8QFiCaH34KrqvHmQ
- RXdoNOW04Q2A01ADEkIsrTccuQCtE7StmG8/eZf6P0DXL5wNwFxtDrD34WVtBiHhCDsTXD4IjIi
- YO5e2BckDzO+FXmAhnbIV+5uy24sgVUnnBP1nr6pvOoRfTjvgvzw07HseZ54ZVeP4e9p/fJK2R3
- Wer12tgqgOsalChrALFpb3GKa8UaKiLTvQ1PPmNqAb3fmRdi7wPwwgRxiCOMe2OxIaEEXzAfd5n
- OZ6Zz6jFbB19hjFYqSqDeP1M7EMpmquA5vjyRN8NHePkd8aCnBrArx0fr0MixtPsd2gZY0ErUmH
- whB4v/fKZWZVUH3+H4sb6eQx1TNDd6JFeGQ9XnI6gb
-X-Received: by 2002:a17:90b:3eca:b0:3b0:b64e:1e34 with SMTP id
- 98e67ed59e1d1-3b1b0ba6480mr10969837a91.51.1794877130989; 
- Mon, 16 Nov 2026 16:58:50 -0800 (PST)
+ bh=CZVthfNBde5H7x9qVsFoduK9N4Ncht4h6sscBCrv0NM=;
+ b=AX1jtPfFq3Ayl9Jekqyt2uwy9Yy+PuXqNsvTZ8AqvzFad4CB5ou2oUKcKCpd0dnvTJ
+ regDK4+9UIRcqk5FsPvhZzlFsKvjTOtBxC4TcskFZeItCKS/0R4a235JUhpBsRI5Xw+H
+ 1/fUAIQ9IiSpZiy9n/HHnwpKTZIJX23AwosCGf/KUEe125hhswa9KE2aFXhggZLJNW5U
+ Be+XEX/tqJRhM2yPFWRrMXOzp0SpUUMGYOa7iLDcbYTfHex6fDXTrccgkxSva6eefsSk
+ BNg9lXxMEBoihzMTLGWHCvA6dGNyQkJ4YQDfvFy6w9yNdlEzCgclAslo8Lgs+uN9o46Y
+ x0Og==
+X-Gm-Message-State: APuU4Z+fCvO9tPRuIyZ5WS6yer2n/Yby+N6wTvUlfNfhrKDBeeZhhgre
+ +62Q0wLcyUto8UWd2JB3j8c5rao3clF/2m9LJRjaieYHWT4ZHZX0AcA2pl6ECXkyojcggflCZCu
+ rx3iarwRo0FxAz7tPuTlKnmJIblZktT8x8Q8vlktShGV2GiDmhjGD3dWcMFJNeP+gNZEEpyjHu+
+ GvZIgwWd8kEvxBxNF71mgbSQUkXJX4mUSm2Nn36N7CyL7P25vOHBGwhMbTca8Mdop0+W2YUYMFp
+ PyAem+yR+5OcRXsyHo5WUEp3EjP
+X-Gm-Gg: AZFdTZfsOCz48V61lxGo4Thpa5Ug17V1bsj2IifggzHRTdjedU9xotmkZgHpkhjeTdK
+ FfthlrPNKZSp3S3w0+OvApDKWpgVNiCUbLi1XB3twm9r5Ssd+8ncNtUcqfj4i7+X/08/kO18EZ+
+ dw0gOEte9peG9QhTytlJNyJZxRyUwedPVhKtAgy7JtdF80JmBuMNgcPSr1w3epE1LG8u5iOfENA
+ zrGiJadixLuIgKxOH7UJZbnfoejKK5FMPCMLNrGgPQRs1jDCOGsHVNzRfR1xt265Acct51ejP0r
+ g9Ip+fSb+scefPKq2p9AIbSLtoYXoCXUX/ULl9E2tgruGgUA0ItF5/buucYwqM4gsT8ycOvaJle
+ RedPY/PF0uB8/zhxHK0xqGGRJ4/t1fhtvd32zwEIwinhvciDvwZmp4ubO/7BKBM0Ojs0e/j6oR/
+ FNAtZ1XqwLh6bApWakYhtt85XonYTJUTX3zqkVWPRn
+X-Received: by 2002:a17:90a:ec86:b0:3ac:7377:fd48 with SMTP id
+ 98e67ed59e1d1-3b1b0d228a2mr12010975a91.56.1794877273501; 
+ Mon, 16 Nov 2026 17:01:13 -0800 (PST)
 Received: from smtp-us-east1-p01-i01-si01.dlp.protect.broadcom.com
- (address-144-49-247-26.dlp.protect.broadcom.com. [144.49.247.26])
+ (address-144-49-247-28.dlp.protect.broadcom.com. [144.49.247.28])
  by smtp-relay.gmail.com with ESMTPS id
- 98e67ed59e1d1-3b1b24cf7ecsm6428616a91.2.2026.11.16.16.58.50
+ 98e67ed59e1d1-3b3ab9f98bdsm771520a91.0.2026.11.16.17.01.13
  for <dri-devel@lists.freedesktop.org>
  (version=TLS1_2 cipher=ECDHE-ECDSA-AES128-GCM-SHA256 bits=128/128);
- Mon, 16 Nov 2026 16:58:50 -0800 (PST)
+ Mon, 16 Nov 2026 17:01:13 -0800 (PST)
 X-Relaying-Domain: broadcom.com
 X-CFilter-Loop: Reflected
 Received: by mail-dy1-f200.google.com with SMTP id
- 5a478bee46e88-36a3451ea93so4131029eec.1
- for <dri-devel@lists.freedesktop.org>; Mon, 16 Nov 2026 16:58:50 -0800 (PST)
+ 5a478bee46e88-370230d93efso4492210eec.1
+ for <dri-devel@lists.freedesktop.org>; Mon, 16 Nov 2026 17:01:12 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=broadcom.com; s=google; t=1794877129; x=1795481929;
+ d=broadcom.com; s=google; t=1794877272; x=1795482072;
  darn=lists.freedesktop.org; 
  h=content-transfer-encoding:mime-version:reply-to:message-id:date
  :subject:cc:to:from:from:to:cc:subject:date:message-id:reply-to
- :content-type; bh=/3+pirkV4hU8kigPdQ2cmat+uB7P3s7EMoAEVIGakSQ=;
- b=CsyHdCycEcovfw9+Ck5SAy+yQSlO/Q5HEE2z3SfsAU2W07vze0cbGfC2X38UOmqwKh
- vOKM5tz7Z5ORcu2dVjyUTBSb5ExQPKphHzNLpwlDJV5WROglwoWAkrbRAud1jCp4tT2L
- M2nZs1jBfjnlHXP0e6GIcJ77ot0EQEAERURh8=
-X-Received: by 2002:a05:7300:c88:b0:36d:7f5f:7e97 with SMTP id
- 5a478bee46e88-37967dd734emr17153077eec.40.1794877129296; 
- Mon, 16 Nov 2026 16:58:49 -0800 (PST)
-X-Received: by 2002:a05:7300:c88:b0:36d:7f5f:7e97 with SMTP id
- 5a478bee46e88-37967dd734emr17153021eec.40.1794877128298; 
- Mon, 16 Nov 2026 16:58:48 -0800 (PST)
+ :content-type; bh=CZVthfNBde5H7x9qVsFoduK9N4Ncht4h6sscBCrv0NM=;
+ b=SWEUROTc/1RWkMpACHG3g4CrCyIeTdbYeGJZHEwUSfetLCHMxtZzj4NLVG7rdWMNGT
+ mA4C2VA1YA1DFQhF8FdaDXYm7CdAYE+a59QpBRXfaSCgowRU48n5ysCQQEoUsDvBabgB
+ jvPPk++ishM00uKD94TwMdaO3iDY3QMVfCbrk=
+X-Received: by 2002:a05:693c:8105:b0:36a:1d6f:917c with SMTP id
+ 5a478bee46e88-3796731337bmr13130695eec.22.1794877271299; 
+ Mon, 16 Nov 2026 17:01:11 -0800 (PST)
+X-Received: by 2002:a05:693c:8105:b0:36a:1d6f:917c with SMTP id
+ 5a478bee46e88-3796731337bmr13130623eec.22.1794877269849; 
+ Mon, 16 Nov 2026 17:01:09 -0800 (PST)
 Received: from mombasawalam-Precision-5820-Tower.cap.broadcom.net
  ([192.19.50.250]) by smtp.gmail.com with ESMTPSA id
- 5a478bee46e88-379563e6b6dsm69147547eec.21.2026.11.16.16.58.47
+ 5a478bee46e88-379508762a5sm37576219eec.0.2026.11.16.17.01.08
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Mon, 16 Nov 2026 16:58:47 -0800 (PST)
+ Mon, 16 Nov 2026 17:01:09 -0800 (PST)
 From: Maaz Mombasawala <maaz.mombasawala@broadcom.com>
 To: dri-devel@lists.freedesktop.org
 Cc: bcm-kernel-feedback-list@broadcom.com, ian.forbes@broadcom.com,
  zack.rusin@broadcom.com, Maaz Mombasawala <maaz.mombasawala@broadcom.com>
-Subject: [PATCH v7] drm/vmwgfx: Reserve ttm object before resv usage
-Date: Mon, 16 Nov 2026 16:59:46 -0800
-Message-ID: <20261117005945.806941-2-maaz.mombasawala@broadcom.com>
+Subject: [PATCH v7] drm/vmwgfx: Add some checks to
+ vmw_cursor_plane_atomic_update
+Date: Mon, 16 Nov 2026 17:02:45 -0800
+Message-ID: <20261117010244.807279-2-maaz.mombasawala@broadcom.com>
 X-Mailer: git-send-email 2.56.1
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
@@ -106,41 +107,60 @@ X-Spam-Status: No, score=-18.8 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-We hit dma_resv_assert_held warnings, reserve the ttm base object when it's
-being used to avoid them.
+In cases where old_state may not be present we hit a null dereference.
+Get display unit from cursor plane instead to fix this and also do an
+early return if there is no new_state since there is nothing to do in
+that case.
+This fixes igt test kms_cursor_legacy@torture-bo.
 
+Fixes: 965544150d1c ("drm/vmwgfx: Refactor cursor handling")
+Cc: Zack Rusin <zack.rusin@broadcom.com>
+Cc: Broadcom internal kernel review list <bcm-kernel-feedback-list@broadcom.com>
+Cc: dri-devel@lists.freedesktop.org
 Signed-off-by: Maaz Mombasawala <maaz.mombasawala@broadcom.com>
 ---
- drivers/gpu/drm/vmwgfx/vmwgfx_vkms.c | 8 ++++++++
- 1 file changed, 8 insertions(+)
+ drivers/gpu/drm/vmwgfx/vmwgfx_cursor_plane.c | 18 +++++++++++-------
+ 1 file changed, 11 insertions(+), 7 deletions(-)
 
-diff --git a/drivers/gpu/drm/vmwgfx/vmwgfx_vkms.c b/drivers/gpu/drm/vmwgfx/vmwgfx_vkms.c
-index 3d0d5dfa869f..ef163d4b64d1 100644
---- a/drivers/gpu/drm/vmwgfx/vmwgfx_vkms.c
-+++ b/drivers/gpu/drm/vmwgfx/vmwgfx_vkms.c
-@@ -131,6 +131,7 @@ crc_generate_worker(struct work_struct *work)
- 	spin_unlock_irq(&du->vkms.crc_state_lock);
+diff --git a/drivers/gpu/drm/vmwgfx/vmwgfx_cursor_plane.c b/drivers/gpu/drm/vmwgfx/vmwgfx_cursor_plane.c
+index b678e5b68db7..16e6635ef4ce 100644
+--- a/drivers/gpu/drm/vmwgfx/vmwgfx_cursor_plane.c
++++ b/drivers/gpu/drm/vmwgfx/vmwgfx_cursor_plane.c
+@@ -22,6 +22,9 @@
+ #define VMW_CURSOR_SNOOP_WIDTH 64
+ #define VMW_CURSOR_SNOOP_HEIGHT 64
  
- 	if (surf) {
-+		int ret;
- 		if (vmw_surface_sync(vmw, surf)) {
- 			drm_warn(
- 				crtc->dev,
-@@ -138,7 +139,14 @@ crc_generate_worker(struct work_struct *work)
- 			return;
- 		}
++#define vmw_cursor_to_du(cursor_plane) \
++	container_of(cursor_plane, struct vmw_display_unit, cursor.base)
++
+ struct vmw_svga_fifo_cmd_define_cursor {
+ 	u32 cmd;
+ 	SVGAFifoCmdDefineAlphaCursor cursor;
+@@ -866,16 +869,17 @@ void
+ vmw_cursor_plane_atomic_update(struct drm_plane *plane,
+ 			       struct drm_atomic_commit *state)
+ {
+-	struct drm_plane_state *new_state =
+-		drm_atomic_get_new_plane_state(state, plane);
+-	struct drm_plane_state *old_state =
+-		drm_atomic_get_old_plane_state(state, plane);
+-	struct drm_crtc *crtc = new_state->crtc ?: old_state->crtc;
++	struct drm_plane_state *new_state;
+ 	struct vmw_private *dev_priv = vmw_priv(plane->dev);
+-	struct vmw_display_unit *du = vmw_crtc_to_du(crtc);
+-	struct vmw_plane_state *vps = vmw_plane_state_to_vps(new_state);
++	struct vmw_display_unit *du = vmw_cursor_to_du(plane);
++	struct vmw_plane_state *vps;
+ 	s32 hotspot_x, hotspot_y, cursor_x, cursor_y;
  
-+		ret = ttm_bo_reserve(&surf->res.guest_memory_bo->tbo, false, false, NULL);
-+		if (ret != 0) {
-+			drm_warn(&vmw->drm, "%s: failed reserve\n", __func__);
-+			goto done;
-+		}
- 		compute_crc(crtc, surf, &crc32);
-+		ttm_bo_unreserve(&surf->res.guest_memory_bo->tbo);
-+done:
- 		vmw_surface_unreference(&surf);
- 	}
- 
++	new_state = drm_atomic_get_new_plane_state(state, plane);
++	if (!new_state)
++		return;
++	vps = vmw_plane_state_to_vps(new_state);
++
+ 	/*
+ 	 * Hide the cursor if the new bo is null
+ 	 */
 -- 
 2.56.1
 
