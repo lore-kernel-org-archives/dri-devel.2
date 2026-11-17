@@ -2,111 +2,103 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 832D0606A32C
-	for <dri-devel@archiver.kernel.org>; Tue, 17 Nov 2026 19:12:56 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DBBA0606A331
+	for <dri-devel@archiver.kernel.org>; Tue, 17 Nov 2026 19:22:36 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=raspberrypi.com header.i=@raspberrypi.com header.a=rsa-sha256 header.s=google header.b=f61ap+t/
+	dkim=pass (1024-bit key, unprotected) header.d=amd.com header.i=@amd.com header.a=rsa-sha256 header.s=selector1 header.b=SFpJpgcu
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id AD6E910F892;
-	Tue, 17 Nov 2026 19:12:50 +0000 (UTC)
-Received: from mail-oo1-f44.google.com (mail-oo1-f44.google.com
- [209.85.161.44])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 0219C10E658
- for <dri-devel@lists.freedesktop.org>; Tue, 17 Nov 2026 19:12:44 +0000 (UTC)
-Received: by mail-oo1-f44.google.com with SMTP id
- 006d021491bc7-717080a2d50so160464eaf.0
- for <dri-devel@lists.freedesktop.org>; Tue, 17 Nov 2026 11:12:44 -0800 (PST)
-ARC-Seal: i=1; a=rsa-sha256; t=1794942764; cv=none;
- d=google.com; s=arc-20260327;
- b=nQqcEB0nbPnC3GojfgbnJjGZncy2JkaLpuyxnn3Ywv9gokTB3RaCN+fxbYxQyZS3t8
- 1r53Ic1qblfHmu832DESBiYnyb2YxeYYrER7zZ7uTdrakEnO8YX8uknoHzojwnUYAwi0
- MN1CS+7b+DRihqe1ji+qq1Wph7JSS3M2raTFlr2HQKPb4oTHiAxca1iXkgg99vis709l
- 2cXkQoZ6mcMSz8W6jXOPMYHb61kKrjG93CKfUJkXpKLD8oYbsThliunnyhxP75tsuDhu
- v1ClsMVAVcdD8Qi3Gb0uEu5HXfFLUTkWjc/VekVL6n98uudjuwXyRRhcbNxEFZ6NgKL+
- cYFg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com;
- s=arc-20260327; 
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:dkim-signature;
- bh=kYPA8tarVAEw5Z9vFPCpKVSX5tG6DYwzNUtP3jq7kk4=;
- fh=Ot0hICSwdkSDnz9EfJZesRajefBoGCNsssF+tLG/eCM=;
- b=p2fGm6vzN8s/JXpkgrbs/xwmwaCtpn2E4aBh1pSii6BMvYPz7QkwTCoG5GiWY3Kxdn
- XPIYYf0f1KpAcMcjK3Qa+6aOevh7XYXFIg+nAVBbydITibTcr3MVwFGFX1XfgwSXvSw6
- qcnd8cJcxgU0fGPxKg52a4YBmmPj/skFoAhckCcQLwMfCHWkynU9aPE3aaFQAyKA4Cb4
- mu1v+stRQhGL2dq4aaitQIVPpwxjSP8Q4ZfTq+ZP2W9me5GvQeYDnHJSjVxZoCrH/1vF
- /uqIu4DdP3hRd/04mLIEj5awarFry/e4nmHNNALclQTPw4i2mZcM1uMwHI/K95Tkq8IL
- tHpw==; darn=lists.freedesktop.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=raspberrypi.com; s=google; t=1794942764; x=1795547564;
- darn=lists.freedesktop.org; 
- h=content-transfer-encoding:content-type:cc:to:subject:message-id
- :date:from:in-reply-to:references:mime-version:from:to:cc:subject
- :date:message-id:reply-to:content-type;
- bh=kYPA8tarVAEw5Z9vFPCpKVSX5tG6DYwzNUtP3jq7kk4=;
- b=f61ap+t/b4VRRU3zr34jzV8XiZB5uDf5eB51AYFydtGwcrHIrNOLE86EfjkNJq/9Hv
- TBRUSd9+YR5NC8+V4qctKGZF2agJP8rQkLArYLNyjOSbrFX+Di7joK6FuRjg4CyzzUb0
- bHhPAaGfkNlblrlLNcZRTXd4YZ8i4fjXFtl14wP/OeygXCvDqSnQgjfwIsvL5eRQ+7vZ
- geGYOK7lJ10OjVSeMU0BvMLEC1IQ5OtTqUOdiLkhlGNenJ2zGBed9GMOG/aqfO+ZJBLp
- s1X5fRfz/3G8+4CdS7NslD6KQIeuPiYMdGJVXQv0B2CFFcAZZGFuRqJEo9KAbMtcsYQE
- zJ+Q==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20260707; t=1794942764; x=1795547564;
- h=content-transfer-encoding:content-type:cc:to:subject:message-id
- :date:from:in-reply-to:references:mime-version:x-gm-gg
- :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
- :content-type;
- bh=kYPA8tarVAEw5Z9vFPCpKVSX5tG6DYwzNUtP3jq7kk4=;
- b=BMzkjwfG9QDjRHzXs7cLv6A8bO2b41cmyLlcxzH0BsVLFbixxADYw5EgFlmAcOd374
- lt8O5HkNc8KUWVfHNciZF2T8TD5dpeYSnMjOHkyyD8kfGqxdwNvpy0cUbKqhKqbzOWzz
- pArCPt+N3zNRQAQtSu/oXMIFeKrQyT6p/QinJ0SvKASdp4a2tEJ4TAjpEmDz3esao2mv
- MPvbuooxyj3PwaaDnbT0X3MPSKSYwwIluaT0zm/bcIsot/cGInIA7Xx+OSbQ11SRMJcA
- +TJ+Lazk4FtgKr+ghxAl8MfoHGCNLJE14v6FcAwFJXUMVq29LwNVAuRXF2NSgwnpDO1v
- z9Xw==
-X-Forwarded-Encrypted: i=1;
- AL+hErEIdX85BLE7Z6ipqFNexV2gY/fFc2cGuv49OiLmcJDUHITVbT4oEGK+0wdelF2/Qkcfk/ZHIVCUPiA=@lists.freedesktop.org
-X-Gm-Message-State: APuU4Z8kvPV05PUl0leqchhnWokgQlMxWnqFnOAbnmMqdACoLPBqKIDc
- qOpjArS8bN59GGErT7qWKtwoI9B72sqnAfw+hpScIGAGnHW0orqgHHZU/GJq7j59YoAqLuzzeW3
- XGix14qcQDJswQGMXiYdtlyfFfFlKQOeXaL1IB7NzuA==
-X-Gm-Gg: AYBFou1bhptQe2Jy5hYVpe1a8MHE0ZaRTNJWPuN5ZOSgXHEawHdpkGN0+93UD8SVAbr
- e0RVBwE/m+TlYkkl6iqcbDGMp7lR1h1M6gwjXLZ2uBvcI5EbaEP6b6cpikCzGuwHzgnK1ogMUwD
- fGOmRSBq4RU2ygXv0jW7CqjVOkWPR8WRqcW3hZkVnEWXeymdOIjDX12hX9uCYhUdPyx/UPcvz/n
- 5rtMEGJPJyQuXk3xbXd96zKaAuUlXeXkX+CBksgsT+kC8EyTA/UKJfDYOuxluV5DcqCVD5bz7KT
- wMtghR2BRSZtH3WEouUWkTjSVmGXMwWLh3Sn1ewVQ0DQD+z0vtiJaqGhqd0wt99uIvEyC31g1Vl
- sF8+mv9lBqY5m1dq1tLEyr/gaDtCyOtKyGUgIPHJtWi6Z1Ux2BuM98yvukhTdKkdjJgzeNC9pK6
- 8892lOYiXwmZx5ZDKH9uD5A/G6/yBueVrlEqbr6190LHicssfadD6LzQ==
-X-Received: by 2002:a05:6820:55d5:20b0:71a:fb4b:a988 with SMTP id
- 006d021491bc7-71b184ed86emr177842eaf.47.1794942763873; Tue, 17 Nov 2026
- 11:12:43 -0800 (PST)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 235E310E5D6;
+	Tue, 17 Nov 2026 19:22:31 +0000 (UTC)
+Received: from CY7PR03CU001.outbound.protection.outlook.com
+ (mail-westcentralusazon11010043.outbound.protection.outlook.com
+ [40.93.198.43])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 9883D10E092
+ for <dri-devel@lists.freedesktop.org>; Tue, 17 Nov 2026 19:22:24 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=ZE8AaA4bmquVh5voLD+I7vse1YaBbdCFWxsEKQuPZOv9oD8c/WUWudS7JVycRRht9bbC+Kg3QU92zgVJTD8C0lbjviqjJmQkPd5rKKNzjoD246ylyJ9bDXXpCeyZE6LmxOe/yS3jwsr5/JRQyplU1yCroxdi7AICUEP+P9qA3SqFqiUFtDBRI/fA4eQrv+oAH9m/jGCyEqIgmeGtLw+CdvnqDjdboxmRHd3Tg2Tx1+VHrPdPFqke/BKjOSSQlyQ52qwpngXgrIeozB3Uc7EWcAII6vXpUZYDGqSIchmyWpWmRJxX1IH1iySYczkKLwRaYgCtqOu9SwRt9yzG6mJ7NA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=rq4Rp5EzhMSsqJ3fR2k7VFIwpTFwZJmjS2pXkHGfHYE=;
+ b=QFBuRy3ncD6tLdnFLZCbx58gqtB3iGjN8RDWjB1/VxeM+DUCPfhjowVOLU/UlLZh6k8dtwMUHF60brdhMGrG/xlMRFiP3FANv4bx7qKy1/zTD4V5UrFVqtBiIsYvUsib9m8T4na+q5F2ix3GnMF5N7ZJcVL893g2EeeYng4+1TZhov1/saG6zkCyn/e+1NI3IEeOTBZUH6txDOiF3y9mYM3S3nkFhh/RVpwnpo2aGlE34rrQu8bnoNLoqsldn4svgi2n6eNhjkF/e0mVWfywrpVjggRJdsIdepllzbuzo+tmaSwoPqKicFZMI0GFt84fwgrOBm7ydu5EyHRDp/38DQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=kernel.org smtp.mailfrom=amd.com; dmarc=pass
+ (p=quarantine sp=quarantine pct=100) action=none header.from=amd.com;
+ dkim=none (message not signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=rq4Rp5EzhMSsqJ3fR2k7VFIwpTFwZJmjS2pXkHGfHYE=;
+ b=SFpJpgcu+/EL7jg2E+9KjrquBPycG4b9NIuC8XGOmyl34t4cUM51QxFrXqfoUMH4ZtZSR8QSLgXptwa5wvlCN/krEPaC3T0aiht80syVb9UlZclo1b4hRfC7Ca6J3umpp+j2Qk3nR+b+2yfH9cs5lWhyx8Ie/LbiYyJNxUDDREw=
+Received: from MN2PR08CA0012.namprd08.prod.outlook.com (2603:10b6:208:239::17)
+ by SA0PR12MB4414.namprd12.prod.outlook.com (2603:10b6:806:9a::11)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.615.14; Tue, 17 Nov
+ 2026 19:22:19 +0000
+Received: from BN7PEPF00000095.namprd03.prod.outlook.com
+ (2603:10b6:208:239:cafe::8b) by MN2PR08CA0012.outlook.office365.com
+ (2603:10b6:208:239::17) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.21.615.13 via Frontend Transport; Tue,
+ 17 Nov 2026 19:22:19 +0000
+X-MS-Exchange-Authentication-Results: mx.microsoft.com 1; spf=pass (sender IP
+ is 165.204.84.17) smtp.mailfrom=amd.com;
+ dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=satlexmb07.amd.com; pr=C
+Received: from satlexmb07.amd.com (165.204.84.17) by
+ BN7PEPF00000095.mail.protection.outlook.com (10.167.245.73) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.21.639.5 via Frontend Transport; Tue, 17 Nov 2026 19:22:19 +0000
+Received: from satlexmb07.amd.com (10.181.42.216) by satlexmb07.amd.com
+ (10.181.42.216) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.57; Tue, 17 Nov
+ 2026 13:22:11 -0600
+Received: from xsjlizhih51.xilinx.com (10.180.168.240) by satlexmb07.amd.com
+ (10.181.42.216) with Microsoft SMTP Server id 15.2.2562.57 via Frontend
+ Transport; Tue, 17 Nov 2026 13:22:10 -0600
+From: Lizhi Hou <lizhi.hou@amd.com>
+To: <ogabbay@kernel.org>, <quic_jhugo@quicinc.com>,
+ <dri-devel@lists.freedesktop.org>, <mario.limonciello@amd.com>,
+ <karol.wachowski@linux.intel.com>, <max.zhen@amd.com>
+CC: Lizhi Hou <lizhi.hou@amd.com>, <linux-kernel@vger.kernel.org>,
+ <sonal.santan@amd.com>
+Subject: [PATCH V1 2/2] accel/amdxdna: Abort jobs when the firmware context is
+ gone
+Date: Tue, 17 Nov 2026 11:21:57 -0800
+Message-ID: <20261117192157.154516-2-lizhi.hou@amd.com>
+X-Mailer: git-send-email 2.34.1
+In-Reply-To: <20261117192157.154516-1-lizhi.hou@amd.com>
+References: <20261117192157.154516-1-lizhi.hou@amd.com>
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
-References: <20261116-drm-reset-state-flag-v11-0-378b3f7bef32@kernel.org>
- <20261116-drm-reset-state-flag-v11-6-378b3f7bef32@kernel.org>
-In-Reply-To: <20261116-drm-reset-state-flag-v11-6-378b3f7bef32@kernel.org>
-From: Dave Stevenson <dave.stevenson@raspberrypi.com>
-Date: Tue, 17 Nov 2026 19:12:27 +0000
-X-Gm-Features: Aa3M54rMdloF5GPfjbPDu5yqWWdIpGB-WDV67sxUG3_26RmcuUfnvJjLKvmFoZI
-Message-ID: <CAPY8ntCyverGKsrzGVAnSeVokVFF4wxBVvuj1Cx178GctPtWwQ@mail.gmail.com>
-Subject: Re: [PATCH v11 6/9] drm/vc4: Carry the HVS channel over to created
- CRTC states
-To: Maxime Ripard <mripard@kernel.org>
-Cc: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
- Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>,
- Simona Vetter <simona@ffwll.ch>, 
- Louis Chauvet <louis.chauvet@bootlin.com>,
- Haneen Mohammed <hamohammed.sa@gmail.com>, 
- Melissa Wen <melissa.srw@gmail.com>, Daniel Stone <daniels@collabora.com>, 
- Harry Wentland <harry.wentland@amd.com>, Jocelyn Falempe <jfalempe@redhat.com>,
- =?UTF-8?B?Sm9uYXMgw4VkYWhs?= <jadahl@redhat.com>, 
- =?UTF-8?Q?Michel_D=C3=A4nzer?= <mdaenzer@redhat.com>, 
- Pekka Paalanen <pekka.paalanen@collabora.com>,
- Sebastian Wick <sebastian.wick@redhat.com>, 
- Simon Ser <contact@emersion.fr>, Victoria Brekenfeld <victoria@system76.com>, 
- Xaver Hugl <xaver.hugl@kde.org>, dri-devel@lists.freedesktop.org, 
- linux-kernel@vger.kernel.org, =?UTF-8?B?TWHDrXJhIENhbmFs?= <mcanal@igalia.com>,
- Raspberry Pi Kernel Maintenance <kernel-list@raspberrypi.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: BN7PEPF00000095:EE_|SA0PR12MB4414:EE_
+X-MS-Office365-Filtering-Correlation-Id: c0c395ee-a6fa-4349-aec3-08df44e01909
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+ ARA:13230040|23010399003|82310400026|36860700016|376014|1800799024|18002099003|22082099003|261009223027099003|3023799007|11063799006|56012099006|261028144727099003|261022075727099003|261022105027099003|261021123027099003|261026140227099003|261021121427099003|261102123227099003|10067099003;
+X-Microsoft-Antispam-Message-Info: LTB2Z4yRt6dc+657vkq8pLmgi4Tiic/jdFHFomBKuW+uwSO+zNfz9l8ubIoyF7/PBLDqv0RYci1Eu/OyNw1XqaFMc7sj1RMqUpaFhuNLo0UkNLn9R8GIbZZAG28DmzwguVIAiXunF0m8F8gPbD6ndDoOWUl5Dk9esPx4ZE1Mra/R6gjO/DkA27/jk0YCC+nuDSLiwnGL0glNOVL3NSURjeIZvVQfQLIQakLQzQBkPmprMdikTJbrVZSCmd2Iz54/3cnUylHnQwptpWDDCDgyetnvD1PazSUHjSsx7enaCWxrNas3XMLoAGphclN4ovgqiOnBtkT76hHYmTM2N62au/jia9QIpKjpnE7yctUDYJdT+6aENUjGFravfqlrFTwnvR41GXZmfQhn2GIwq8PjcVQ9mFS5Ii+D3h2OkIob0vEarjvFzySJuYYPWEBn5b0szGa+fiSmF+srE5e9tPxTzoV1jtgTEer8BXq++AGRl2G1ZVFEqHUD/AqUP1K+U7eFG4tPGmEoHSblWK9PINaxTUw7WFQ7nHtLW/DxoP1e1pKUyEG9HA4Yp4VPXT5ZaAjbTcCxLDvIs3pynTP2TCbDWarcb32BlSlz7nsePJN935U253Y6LZOX6Ebr+N7kqt8F+uCnwkTQDcGawi8dkcLplE0VagAKM8jgAIOk5icTIqnnziTn1n+Sn9LTur7TQ1XiIDNY1Zc12UxKnzUjXKQdIA==
+X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:satlexmb07.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
+ SFS:(13230040)(23010399003)(82310400026)(36860700016)(376014)(1800799024)(18002099003)(22082099003)(261009223027099003)(3023799007)(11063799006)(56012099006)(261028144727099003)(261022075727099003)(261022105027099003)(261021123027099003)(261026140227099003)(261021121427099003)(261102123227099003)(10067099003);
+ DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: 7CPhiMz7O69GoUVLG3UJLSZ5K/Ecdui+zr8OUZGxkYoDf/VAFztd92iTz8QiMIQ9hEfSlSeKGOKbmGZdNRNGvQN7ETkKkfQOwgvSFWsmw6Ghfp8Rnh32v47b236S5ATkBkY1dv1wfam4qLATsHhSNHKTcxgHgFClYCXWaCmpwEq39lKP8EhkBMgtI5vYpT8kkj2ZYcP0qJHvHFMuOmEhOeWyNqS15bnTN+zufGjW31HefvrKysGNdDPaQYqvmQne+OqZEp0E6uZS01GZEp4WXXSFB4f8XKb3db3CMC4+Y+fi69e0t0nu+/hjKMrIwBhlgE9fVSoJ10Z++8qd+Hoba3VpWguWOJEYB8ZTmTc5YBd8dtVFfX61eEN5EjyouGRWfAnmjDcq7bQ9CqPWaJCIjh0I6/PgQdHsdh1DzsJYJtBDCaUoOr9sLU9fdR+0ePDE
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 17 Nov 2026 19:22:19.2891 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: c0c395ee-a6fa-4349-aec3-08df44e01909
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
+ Helo=[satlexmb07.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource: BN7PEPF00000095.namprd03.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SA0PR12MB4414
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -118,233 +110,52 @@ List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-15.8 required=3.0 tests=BAYES_00,DKIM_SIGNED,
-	DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
+X-Spam-Status: No, score=-18.8 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
+	DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
 	INCLUDES_CR_TRAILER,INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,
-	SPF_PASS autolearn=unavailable autolearn_force=no version=4.0.1
+	SPF_PASS,USER_AGENT_GIT autolearn=unavailable autolearn_force=no
+	version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-On Mon, 16 Nov 2026 at 10:17, Maxime Ripard <mripard@kernel.org> wrote:
->
-> drm_atomic_commit_fill_with_defaults() builds its commits out of
-> states created through atomic_create_state() instead of duplicating
-> the current state. A created CRTC state comes with its
-> assigned_channel left to VC4_HVS_CHANNEL_DISABLED, while a duplicated
-> state carries the channel currently in use.
->
-> vc4_pv_muxing_atomic_check() skips the CRTCs whose enablement doesn't
-> change, so a CRTC that stays enabled with a created state keeps its
-> channel unset, and vc4_core_clock_atomic_check() then indexes
-> hvs_new_state->fifo_state[] with VC4_HVS_CHANNEL_DISABLED (-1U), far
-> outside of the array.
->
-> Copy the channel of the current state over in the skip branch, like a
-> duplicated state would have carried it. This is a no-op for duplicated
-> states, which already have the channel set.
->
-> Add a KUnit test that enables an output, fills a state with defaults
-> and re-applies the same configuration, and checks that the CRTC kept
-> its channel.
->
-> Signed-off-by: Maxime Ripard <mripard@kernel.org>
+aie2_sched_job_run() returned NULL when the firmware context is gone
+(mbox_chann pointer is NULL). The DRM scheduler treats a NULL return as
+a job that completed without an error.
 
-Acked-by: Dave Stevenson <dave.stevenson@raspberrypi.com>
+Return ERR_PTR(-ECANCELED) so the error is recorded on the fence, and mark
+the command BO aborted.
 
->
-> ---
->
-> To: Dave Stevenson <dave.stevenson@raspberrypi.com>
-> To: Ma=C3=ADra Canal <mcanal@igalia.com>
-> Cc: Raspberry Pi Kernel Maintenance <kernel-list@raspberrypi.com>
-> ---
->  drivers/gpu/drm/vc4/tests/vc4_test_pv_muxing.c | 105 +++++++++++++++++++=
-++++++
->  drivers/gpu/drm/vc4/vc4_kms.c                  |  16 +++-
->  2 files changed, 119 insertions(+), 2 deletions(-)
->
-> diff --git a/drivers/gpu/drm/vc4/tests/vc4_test_pv_muxing.c b/drivers/gpu=
-/drm/vc4/tests/vc4_test_pv_muxing.c
-> index 7a54f46acff9..c868d2cd1b3d 100644
-> --- a/drivers/gpu/drm/vc4/tests/vc4_test_pv_muxing.c
-> +++ b/drivers/gpu/drm/vc4/tests/vc4_test_pv_muxing.c
-> @@ -1119,14 +1119,119 @@ drm_test_vc5_pv_muxing_bugs_subsequent_crtc_enab=
-le_too_many_crtc_state(struct ku
->
->         drm_modeset_drop_locks(&ctx);
->         drm_modeset_acquire_fini(&ctx);
->  }
->
-> +/*
-> + * Test that a CRTC that stays enabled with a state created through
-> + * atomic_create_state(), like the ones drm_atomic_commit_fill_with_defa=
-ults()
-> + * builds for a reset, keeps the HVS channel it was assigned:
-> + * vc4_pv_muxing_atomic_check() skips the CRTCs whose enablement doesn't
-> + * change, so their new state has to carry the channel over from the
-> + * current state, the way a duplicated state would, for
-> + * vc4_core_clock_atomic_check() to see a valid channel.
-> + */
-> +static void
-> +drm_test_vc5_pv_muxing_bugs_created_state_keeps_channel(struct kunit *te=
-st)
-> +{
-> +       struct drm_modeset_acquire_ctx ctx;
-> +       struct drm_atomic_commit *state;
-> +       struct vc4_crtc_state *new_vc4_crtc_state;
-> +       struct drm_device *drm;
-> +       struct vc4_dev *vc4;
-> +       unsigned int old_channel;
-> +       int ret;
-> +
-> +       vc4 =3D vc5_mock_device(test);
-> +       KUNIT_ASSERT_NOT_ERR_OR_NULL(test, vc4);
-> +
-> +       drm_modeset_acquire_init(&ctx, 0);
-> +
-> +       drm =3D &vc4->base;
-> +retry_first:
-> +       state =3D drm_kunit_helper_atomic_state_alloc(test, drm, &ctx);
-> +       KUNIT_ASSERT_NOT_ERR_OR_NULL(test, state);
-> +
-> +       ret =3D vc4_mock_atomic_add_output(test, state, VC4_ENCODER_TYPE_=
-HDMI0);
-> +       if (ret =3D=3D -EDEADLK) {
-> +               drm_atomic_commit_clear(state);
-> +               ret =3D drm_modeset_backoff(&ctx);
-> +               if (!ret)
-> +                       goto retry_first;
-> +       }
-> +       KUNIT_ASSERT_EQ(test, ret, 0);
-> +
-> +       ret =3D drm_atomic_check_only(state);
-> +       if (ret =3D=3D -EDEADLK) {
-> +               drm_atomic_commit_clear(state);
-> +               ret =3D drm_modeset_backoff(&ctx);
-> +               if (!ret)
-> +                       goto retry_first;
-> +       }
-> +       KUNIT_ASSERT_EQ(test, ret, 0);
-> +
-> +       new_vc4_crtc_state =3D get_vc4_crtc_state_for_encoder(test, state=
-,
-> +                                                           VC4_ENCODER_T=
-YPE_HDMI0);
-> +       KUNIT_ASSERT_NOT_NULL(test, new_vc4_crtc_state);
-> +
-> +       old_channel =3D new_vc4_crtc_state->assigned_channel;
-> +       KUNIT_ASSERT_NE(test, old_channel, VC4_HVS_CHANNEL_DISABLED);
-> +
-> +       /* Make the enabled state the current one */
-> +       ret =3D drm_atomic_helper_swap_state(state, false);
-> +       KUNIT_ASSERT_EQ(test, ret, 0);
-> +
-> +retry_second:
-> +       state =3D drm_kunit_helper_atomic_state_alloc(test, drm, &ctx);
-> +       KUNIT_ASSERT_NOT_ERR_OR_NULL(test, state);
-> +
-> +       /*
-> +        * Fill the state with defaults, like a DRM_MODE_ATOMIC_RESET
-> +        * commit would, then re-apply the exact same configuration.
-> +        */
-> +       ret =3D drm_atomic_commit_fill_with_defaults(NULL, state);
-> +       if (ret =3D=3D -EDEADLK) {
-> +               drm_atomic_commit_clear(state);
-> +               ret =3D drm_modeset_backoff(&ctx);
-> +               if (!ret)
-> +                       goto retry_second;
-> +       }
-> +       KUNIT_ASSERT_EQ(test, ret, 0);
-> +
-> +       ret =3D vc4_mock_atomic_add_output(test, state, VC4_ENCODER_TYPE_=
-HDMI0);
-> +       if (ret =3D=3D -EDEADLK) {
-> +               drm_atomic_commit_clear(state);
-> +               ret =3D drm_modeset_backoff(&ctx);
-> +               if (!ret)
-> +                       goto retry_second;
-> +       }
-> +       KUNIT_ASSERT_EQ(test, ret, 0);
-> +
-> +       ret =3D drm_atomic_check_only(state);
-> +       if (ret =3D=3D -EDEADLK) {
-> +               drm_atomic_commit_clear(state);
-> +               ret =3D drm_modeset_backoff(&ctx);
-> +               if (!ret)
-> +                       goto retry_second;
-> +       }
-> +       KUNIT_ASSERT_EQ(test, ret, 0);
-> +
-> +       new_vc4_crtc_state =3D get_vc4_crtc_state_for_encoder(test, state=
-,
-> +                                                           VC4_ENCODER_T=
-YPE_HDMI0);
-> +       KUNIT_ASSERT_NOT_NULL(test, new_vc4_crtc_state);
-> +
-> +       KUNIT_EXPECT_EQ(test, new_vc4_crtc_state->assigned_channel, old_c=
-hannel);
-> +
-> +       drm_modeset_drop_locks(&ctx);
-> +       drm_modeset_acquire_fini(&ctx);
-> +}
-> +
->  static struct kunit_case vc5_pv_muxing_bugs_tests[] =3D {
->         KUNIT_CASE(drm_test_vc5_pv_muxing_bugs_subsequent_crtc_enable),
->         KUNIT_CASE(drm_test_vc5_pv_muxing_bugs_subsequent_crtc_enable_too=
-_many_crtc_state),
->         KUNIT_CASE(drm_test_vc5_pv_muxing_bugs_stable_fifo),
-> +       KUNIT_CASE(drm_test_vc5_pv_muxing_bugs_created_state_keeps_channe=
-l),
->         {}
->  };
->
->  static struct kunit_suite vc5_pv_muxing_bugs_test_suite =3D {
->         .name =3D "vc5-pv-muxing-bugs",
-> diff --git a/drivers/gpu/drm/vc4/vc4_kms.c b/drivers/gpu/drm/vc4/vc4_kms.=
-c
-> index ab551eb2da50..562f2d1f45a4 100644
-> --- a/drivers/gpu/drm/vc4/vc4_kms.c
-> +++ b/drivers/gpu/drm/vc4/vc4_kms.c
-> @@ -970,15 +970,27 @@ static int vc4_pv_muxing_atomic_check(struct drm_de=
-vice *dev,
->
->                 drm_dbg(dev, "%s: Trying to find a channel.\n", crtc->nam=
-e);
->
->                 /* Nothing to do here, let's skip it */
->                 if (old_crtc_state->enable =3D=3D new_crtc_state->enable)=
- {
-> -                       if (new_crtc_state->enable)
-> +                       /*
-> +                        * A CRTC that stays enabled keeps its channel. A
-> +                        * duplicated state carries it over, but a state
-> +                        * created through atomic_create_state() comes wi=
-th
-> +                        * the channel unset, so copy it from the current
-> +                        * state to make sure the core clock check and th=
-e
-> +                        * commit see the channel in use.
-> +                        */
-> +                       if (new_crtc_state->enable) {
-> +                               new_vc4_crtc_state->assigned_channel =3D
-> +                                       old_vc4_crtc_state->assigned_chan=
-nel;
-> +
->                                 drm_dbg(dev, "%s: Already enabled, reusin=
-g channel %d.\n",
->                                         crtc->name, new_vc4_crtc_state->a=
-ssigned_channel);
-> -                       else
-> +                       } else {
->                                 drm_dbg(dev, "%s: Disabled, ignoring.\n",=
- crtc->name);
-> +                       }
->
->                         continue;
->                 }
->
->                 /* Muxing will need to be modified, mark it as such */
->
-> --
-> 2.56.1
->
+Fixes: 6b13cb8f48a4 ("accel/amdxdna: Fix runtime suspend deadlock when there is pending job")
+Signed-off-by: Lizhi Hou <lizhi.hou@amd.com>
+---
+ drivers/accel/amdxdna/aie2_ctx.c | 14 ++++++++++++--
+ 1 file changed, 12 insertions(+), 2 deletions(-)
+
+diff --git a/drivers/accel/amdxdna/aie2_ctx.c b/drivers/accel/amdxdna/aie2_ctx.c
+index 0a1914f0f1c0..3b898c05513e 100644
+--- a/drivers/accel/amdxdna/aie2_ctx.c
++++ b/drivers/accel/amdxdna/aie2_ctx.c
+@@ -404,8 +404,18 @@ aie2_sched_job_run(struct drm_sched_job *sched_job)
+ 	trace_xdna_job(sched_job, hwctx->name, "job run",
+ 		       job->seq, job->drv_cmd ? job->drv_cmd->opcode : DEFAULT_IO);
+ 
+-	if (!hwctx->priv->mbox_chann)
+-		return NULL;
++	/*
++	 * The firmware context is gone, but the scheduler keeps draining the
++	 * entity, for example from drm_sched_entity_destroy(). Returning NULL
++	 * would make the DRM scheduler signal the job fence without an error
++	 * and user space would see the command as successfully completed.
++	 * Abort the job instead. Driver internal commands have no command BO.
++	 */
++	if (!hwctx->priv->mbox_chann) {
++		if (cmd_abo)
++			amdxdna_cmd_set_state(cmd_abo, ERT_CMD_STATE_ABORT);
++		return ERR_PTR(-ECANCELED);
++	}
+ 
+ 	if (!mmget_not_zero(job->mm))
+ 		return ERR_PTR(-ESRCH);
+-- 
+2.34.1
+
