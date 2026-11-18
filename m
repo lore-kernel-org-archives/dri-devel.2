@@ -2,54 +2,171 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B518E606A31C
-	for <dri-devel@archiver.kernel.org>; Wed, 18 Nov 2026 12:37:25 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C8252606A336
+	for <dri-devel@archiver.kernel.org>; Wed, 18 Nov 2026 12:38:13 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=ideasonboard.com header.i=@ideasonboard.com header.a=rsa-sha256 header.s=mail header.b=wLlkl+OD
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=O3elm7Gj;
+	dkim=pass (1024-bit key, unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=selector1 header.b=edrTfRx3
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 1861C10E444;
-	Wed, 18 Nov 2026 12:37:20 +0000 (UTC)
-Received: from perceval.ideasonboard.com (perceval.ideasonboard.com
- [213.167.242.64])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 3B89410E444
- for <dri-devel@lists.freedesktop.org>; Wed, 18 Nov 2026 12:37:14 +0000 (UTC)
-Received: from [192.168.88.20] (91-158-153-178.elisa-laajakaista.fi
- [91.158.153.178])
- by perceval.ideasonboard.com (Postfix) with ESMTPSA id 4D3F363C;
- Wed, 18 Nov 2026 13:34:43 +0100 (CET)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=ideasonboard.com;
- s=mail; t=1795005284;
- bh=ll6996UDsuF7w8pITuDox1RaFVgxbc6j0tUmNVtfLDQ=;
- h=Date:Subject:From:To:Cc:References:In-Reply-To:From;
- b=wLlkl+OD/EP/pi/S9jdKU7kPUNmIRRRNfdU3OBqzEwHnh3HaglXMrzna+z2o0s06T
- 5QAzC7pmKXnoAktW6qpEFDnBvG1NEBVwierPsKMulXxlCsGCldY6+b3W1UT0CJ8xfO
- hqXHkFtN5R7A7pJAyzglrcOs1j55COBncKxMn7H4=
-Message-ID: <c9c78db9-6b3b-41d8-9880-8b137bdbdd38@ideasonboard.com>
-Date: Wed, 18 Nov 2026 14:37:08 +0200
+	by gabe.freedesktop.org (Postfix) with ESMTP id 2703610E769;
+	Wed, 18 Nov 2026 12:38:03 +0000 (UTC)
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.9])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id EAAD610E769;
+ Wed, 18 Nov 2026 12:37:51 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1795005472; x=1826541472;
+ h=from:to:cc:subject:date:message-id:references:
+ in-reply-to:content-id:content-transfer-encoding: mime-version;
+ bh=pukie6f6bBm/YGWJgUrIHDPCwBmgxNAfjGVgK2l0lc0=;
+ b=O3elm7GjfpZxc68w3IOMWGS7iTlOu/N9PrZQ0+9Qw6cFD45+JebgXUip
+ QO7X6n4nDRxuzxuX5p2NCkvJph6ivzjYRJQZM6z5l9W80S83Op1iX2r7Q
+ CFVv/jkB1XRR7Ej6a8goR251vyzyTV61vSJ/C3xUxwXIK8PCUNnqEi5k8
+ yQRJmNiHeclv2BKECI0F713fxjBBmj+ATWoDuvLYFqUf8L5Odel9RaBHs
+ ROwFGJ/FPzsxCbTmbo/C+bfjWqnA5lJVifFPK0PP+i2DVPwjZZyFhJDVX
+ jlOQ3LrBi/jmdZ7e1S28yWb8OtRHWujsvT9JN0J9zZZV3tV4C/jK9XmV2 g==;
+X-CSE-ConnectionGUID: eKpAVVXmTeecJEAcxyApcA==
+X-CSE-MsgGUID: U3xvd97/ReK/Bgzmj/H6HA==
+X-IronPort-AV: E=McAfee;i="6800,10657,11969"; a="3693225"
+X-IronPort-AV: E=Sophos;i="6.27,219,1787036400"; 
+   d="scan'208";a="3693225"
+Received: from fmviesa007.fm.intel.com ([10.60.135.147])
+ by fmvoesa103.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 18 Nov 2026 04:37:52 -0800
+X-CSE-ConnectionGUID: JV+xnt/DTvS7CG4hUHIzQQ==
+X-CSE-MsgGUID: hU/eTXJoSdyaSI2oIJKYLw==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,219,1787036400"; d="scan'208";a="10531614"
+Received: from fmsmsx902.amr.corp.intel.com ([10.18.126.91])
+ by fmviesa007.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 18 Nov 2026 04:37:52 -0800
+Received: from FMSMSX902.amr.corp.intel.com (10.18.126.91) by
+ fmsmsx902.amr.corp.intel.com (10.18.126.91) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.56; Wed, 18 Nov 2026 04:37:51 -0800
+Received: from fmsedg902.ED.cps.intel.com (10.1.192.144) by
+ FMSMSX902.amr.corp.intel.com (10.18.126.91) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.56 via Frontend Transport; Wed, 18 Nov 2026 04:37:51 -0800
+Received: from CH5PR02CU005.outbound.protection.outlook.com (40.107.200.22) by
+ edgegateway.intel.com (192.55.55.82) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.56; Wed, 18 Nov 2026 04:37:51 -0800
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=q4RGmz3csxVrUYYiR0oIbQW7rmTkWDrHIXj2sJBjnvAZ6Max1zyeXJ5psUiBDjNZ/a71ZI7G8rCCMoCCtC0ofghIIr5tZlCaonbkrWd+C00+87FchlZ/xcTiPYnCMxCBAgl42uGd+tH4MLt7mOPm7S4WcB7BEXVnSVm/dH78xbh5gCJJYJ0HltHhAuMeEKNiD9/RpAxKk/+9KmRLwEX2v8mFZImBATyA8Z3npqvTQyB+jNX70y4N9i2JF22yO7qnXT6Wb5z2LDo10dYS6y6PEgz1C+dtFP2Kdq+Hu2+A/Sd4KxUIezkHGnHhDTuPT2CxeEN1UGl0E0DZOMgNpHcIvg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=pukie6f6bBm/YGWJgUrIHDPCwBmgxNAfjGVgK2l0lc0=;
+ b=ErIiCwZJ88xLxT74TpaQWbNZaJMp7qSJTc45MoaHIaLHe6u9YHIDNIqlisQIdU0IjvGG7uA216tGUWkKPtpXxlbDUxAHzqItlO9HRXo9A63WR8YDgDghVkdvxJcyIFlFo7UasPCHwZH0WXziNXNX52PhXKAuSkez823z2sJsqxG+fBlvYH7eOfQ/AZD8fnIg/FHpi0i2ByBuygT6R2Hwq6Bc0qdMyxSUfV1yMCPGpbp9luOUnIpZJUQQKLFvLM1uCfYkaH7YFB1w8bV8eE6ICmeOvJxRAI8/xLGDB5glDb0nvNduWlArmGBi92bVxeSmJlmirkMczaUrA8YtIOsUnQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=intel.com; dmarc=pass action=none header.from=intel.com;
+ dkim=pass header.d=intel.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=intel.com; s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=pukie6f6bBm/YGWJgUrIHDPCwBmgxNAfjGVgK2l0lc0=;
+ b=edrTfRx3xpWHzoz5vh5OtnCCEcrVeGsXgrHLecWXNPCkXBloFlz9Wf2i42DulRr0PdEAxR21gunlR+7FD/d04s6ZwNZ0sRkg5F2ZUX6ji0jzC8Qy12UzU9KyK8oul8EHTosXgrJ94fmNknojwDETJhAfhYEgQFNvof6sOcoe4Ds=
+Received: from LV2PR11MB6024.namprd11.prod.outlook.com (2603:10b6:408:17a::16)
+ by BL1PR11MB6004.namprd11.prod.outlook.com (2603:10b6:208:390::13)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.615.14; Wed, 18 Nov
+ 2026 12:35:47 +0000
+Received: from LV2PR11MB6024.namprd11.prod.outlook.com
+ ([fe80::38ad:3190:bbb2:412b]) by LV2PR11MB6024.namprd11.prod.outlook.com
+ ([fe80::38ad:3190:bbb2:412b%6]) with mapi id 15.21.0615.013; Wed, 18 Nov 2026
+ 12:35:47 +0000
+From: "Hogander, Jouni" <jouni.hogander@intel.com>
+To: "intel-xe@lists.freedesktop.org" <intel-xe@lists.freedesktop.org>,
+ "dri-devel@lists.freedesktop.org" <dri-devel@lists.freedesktop.org>, "Manna,
+ Animesh" <animesh.manna@intel.com>, "intel-gfx@lists.freedesktop.org"
+ <intel-gfx@lists.freedesktop.org>
+CC: "Kandpal, Suraj" <suraj.kandpal@intel.com>, "Nikula, Jani"
+ <jani.nikula@intel.com>
+Subject: Re: [PATCH v7 13/20] drm/i915/alpm: Program LTTPR count for DP 2.1
+ ALPM
+Thread-Topic: [PATCH v7 13/20] drm/i915/alpm: Program LTTPR count for DP 2.1
+ ALPM
+Thread-Index: AQHdZQyUw07JkJdk6UqJync1mejcQrcz6JCA
+Date: Wed, 18 Nov 2026 12:35:46 +0000
+Message-ID: <29afc763f4bf8e9b44eac7bfb1e4c77c2c8d3a4b.camel@intel.com>
+References: <20261026054001.799894-1-animesh.manna@intel.com>
+ <20261026054001.799894-14-animesh.manna@intel.com>
+In-Reply-To: <20261026054001.799894-14-animesh.manna@intel.com>
+Accept-Language: en-US
+Content-Language: en-US
+X-MS-Has-Attach: 
+X-MS-TNEF-Correlator: 
+authentication-results: mx.microsoft.com 1; dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=intel.com;
+x-ms-publictraffictype: Email
+x-ms-traffictypediagnostic: LV2PR11MB6024:EE_|BL1PR11MB6004:EE_
+x-ms-office365-filtering-correlation-id: fe30704e-7153-4669-224e-08df45707884
+x-ms-exchange-senderadcheck: 1
+x-ms-exchange-antispam-relay: 0
+x-microsoft-antispam: BCL:0;
+ ARA:13230040|376014|366016|1800799024|23010399003|261102123227099003|38070700021|56012099006|4143699003|11063799006|261026140227099003|10067099003|261028144727099003|261021123027099003|261022105027099003|261022075727099003|261021121427099003|261009223027099003|18002099003|22082099003;
+x-microsoft-antispam-message-info: RrL/2kK/JfcjsQ/DiFW8VH2723KiZsZEwaVar2n/ccCZz7+VK+0N7T2VpLus9iTwwne0poHo/qFkTj55EI9OvnnpsGxgj0ui+11fUUAB4VjJJFe34zp6IzvCu/J/TT4qew8NwfcTr111kMszOP6KKBNceUe/xKl4xKZCM0bMuRaqmndUzqeupUEDPvAlfgpGCtT2z3+Daoephcsd1275HA+vYDN9S+v2wYILjKbdmLldnuUd0KMJtaVgdtWp+T+ds0vaTlwR/+VCAUF+ir85mDsxNZqBDT5cFm6C3yu3aajnCKZNds8wE4nvUKi85KqlDc7ccRiH0qraSa9gqA+LNLMWXhdAmxoSnv9LQdVOykYB80XB7C4jamvpaBhm02qOkSo98fbTHM9tTf4TM8YOGsDBUEld/54eECx7C3wHkGI/N7aWPBeWYB4Z0mZBExJ/MS1js98+EGcYyRMkrpJttC2Ko0e0y5R7r0ZrFJaZ/3aJ0OKZhTGZPvr2ETxSQSvS3m13dNvr5c7JyQpuQECllEg8FSYXjCjzut/oOBKLUS/RY64xPWMhwOoMVfdzAIBVRwjif+9kXQEDExYoXH3pibwfSgXADkRG3q8y1mtmq0T9rXRzMVFDIYO9JbRFyl0NA93ALDXmHu3S/cbxZ3VsskGFmCfmlGUfm0Zg1dQuuPOOdjBDWN7X4xqEMcVNPXF5rRIY7xFpS6RMjKnpeA/Dc1YtjcJjawPUsTOx3qMjHaI=
+x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:LV2PR11MB6024.namprd11.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230040)(376014)(366016)(1800799024)(23010399003)(261102123227099003)(38070700021)(56012099006)(4143699003)(11063799006)(261026140227099003)(10067099003)(261028144727099003)(261021123027099003)(261022105027099003)(261022075727099003)(261021121427099003)(261009223027099003)(18002099003)(22082099003);
+ DIR:OUT; SFP:1101; 
+x-ms-exchange-antispam-messagedata-chunkcount: 1
+x-ms-exchange-antispam-messagedata-0: =?utf-8?B?OXZOd3c3cXZ2OFFvaWIvM1ptMVgvN0NpUVZOSWN5NFpGT3hWWS9CSFJXMW4v?=
+ =?utf-8?B?YnR3ajRQTUxtZzY0Sm1xVlBaaVhkaTRzdVcrcU5VQnJNdjNYRHQ1QTVrQVVN?=
+ =?utf-8?B?VmFXUmE0TUlNYWNZdStYUmhpN1Vpc1BpU1ZFSHBJUHJ2NThzd0FjeHBIY2s0?=
+ =?utf-8?B?WURXRm5qbFB2Yk0yTkdkRXBmYzRsTVBCTkE1TjF6U3d2V0VmeldIVHNYNjBX?=
+ =?utf-8?B?aGp6SlhtNWlPakc2Mzl4bE9BMnJXdFRVenkvMzF6QmJXVi9nWnRySDh1QXpC?=
+ =?utf-8?B?RG1RRERGdkp5YlBNTjFXOWt1ejBRQmlsMjFwa2JteHVTT0ZTSThyL2xUajll?=
+ =?utf-8?B?KytycFE5MUZwQ3Jrcm9XOHRhRWZoNGU3SHVwbkRiV2hJOVlydW9RZU1zK1E5?=
+ =?utf-8?B?c01vdWtKZHFZb0NtVnhOVlBwajFzbzJSSFgvanpXTnUzUE8zNjRQL3RNcGhT?=
+ =?utf-8?B?TUtHZXZVRHZLWEZKQTd4QXcxUWV4YmxiOGhKazRtK2dsVnNLdlJzUTc1WDVm?=
+ =?utf-8?B?ZzBaUmhpTE1HUVhJRjl0ejRYY3U3WmZWVkUzazZOU1NGRXQ4bEIwemdiSElj?=
+ =?utf-8?B?dHpyTmo1eDUxNVZxV2lFa3lGR2VzR2xoWWwvd01OUEZScjNCRUVZNXBBUkJM?=
+ =?utf-8?B?bytraWI3bjdPbi96L3JnZDNvVERBUWNwakZvaTFkVEl0WG5ndVZZbzF6RjNv?=
+ =?utf-8?B?S01EYkFHREpYcWJCSWc4QUpMT3lxVWt4TFdlV2VWTFVnQTJSZ2t0SWhzd0dP?=
+ =?utf-8?B?K0lsMThReTdiU0w4eUhzNEx1dUx0eXBQeCtXVHk5aGIzQkhJRFRUVXNqK0RV?=
+ =?utf-8?B?MStQUFVVN1V0QURGQ3c2RkNSNGpQcTEybmhWWDZvWXA0STJyUEF5aEU5S2RB?=
+ =?utf-8?B?bnRyYWJqcGNVUkh3Nm44ZU5Ia2twRC82Ym5jdzFWUWpFV1JrS0VlUlBxQ2hG?=
+ =?utf-8?B?RU1hZFJ6OUMxUkdYa1grL2ljV3QwTTZQQ0xjK0tHdWZyWExXOWNDR0R5Wit2?=
+ =?utf-8?B?TUg0WUJTUlVmMEVZWDlHV1d4Wko1TzNEK1Yzd3dPT2cvUlpMNkZ4V0dnSVNy?=
+ =?utf-8?B?REdoeUxldEFDbUFzQ2d4M2tNRm1yZExEcmhFbDI2Y1NOLzIvL3JyNTBBZlBG?=
+ =?utf-8?B?T2psOE01U002eGZGa3ROSW50ZGM2SHVQNGNKR3Q0VlRQRlpVMWJKWFFYdmVo?=
+ =?utf-8?B?R0FuWmV5WTFncUpXNUhqb21OdFpYdTZ5NThEQTlwK1VuNFVzY05NdzYrd3BD?=
+ =?utf-8?B?b3JBeWYrRE5MM0s1MEl4TStqV1lNb2xldGE5R29TZ2RZWVRpeTdVZWNPYWh0?=
+ =?utf-8?B?QmJKbnEyNGovMTBpa3RFR0NHTllVaFVnODQrOWFUbjJhV2VUNUJhbUZpOGNk?=
+ =?utf-8?B?VXp0NW9kdG00NWxCZ0had0l5Zkt3bkpYVzluM1hvcHl6dy94dHE0ZE9aUzZm?=
+ =?utf-8?B?MDl1WlR6ckJEVDIzclJPYkZEUUJkRjVyeDQxU2FRUmd5YlozVGE2ZVBVTTZN?=
+ =?utf-8?B?VGFmSnVXbGlWdzBCZE5yeWZ2TXVKVEN3OFI5OFVFVjBkZlEyUG5jaVQwUDVz?=
+ =?utf-8?B?RnNRTzlScG9OSnF2Rkg2QVdxb0cxcHhwbHlsZWlyUUZ6VDZITUJFTy85aXhh?=
+ =?utf-8?B?UnpxVlhHWHdZc01BNUtNL1pERlA0TU5XWk1ncHVXcW8zd1dPME9samZmZ3Fi?=
+ =?utf-8?B?RWpTOU9ndEQ0ai93Z3RBUGZhNjVFamhvZ3VkSWVhSld0ell6TGtHcjR1c0NE?=
+ =?utf-8?B?cjNtaGk2SzBHQktCajBvUVFwTXV6aENUS25FTWRLeDVCSzJ0SGs5bHJxNTR6?=
+ =?utf-8?B?bDY2QWpnRTRlV0xFZkljbFBqWDdnVWZKWWl3YnpEQWwzZ0xkUEM1SUFvRS9R?=
+ =?utf-8?B?SjVyTUZwS3hvUGozc2VvMk1icFdaaytPUU0zQ2laY29OMW43NzROTFE3YU93?=
+ =?utf-8?B?MHFna3JEVFdBdEpSZWhULzNzcUUxcjVCb0ZKejUwZUlvcDMzTW9HVGNPeERH?=
+ =?utf-8?B?SC8vVjkwNHg4MVdTUldmZ2U4a3crSVBCQUlUT04xT2MyTVJsSUlMaXRNUmxN?=
+ =?utf-8?B?M0pWYUkrWVNLRUlrejdTZ0hvZzJJM1pRWTByWWNucUxScjd4aE1ld0l5OTE0?=
+ =?utf-8?B?T01NNTBraEsvTnRYSUxlMHZDaEI0Nkp5a2VvWENXa1NQWWlTU28xb2l1MEEr?=
+ =?utf-8?B?dDJvWWhyTnY3UWxkeEN3M3RsN0h4TkVjTTdEdFBuTnJsaGh2aG42VUpucnh4?=
+ =?utf-8?B?YmxtUmwwM0w3anNLTmsxZHRONkluaFE5bWZ0R1dDaHc3Z1pZb0FNWnFpdTlq?=
+ =?utf-8?B?SDRjSDZCc1Npcy9sLzlHYWwzZ0hJMStGZVE1MGM4d0QzakJHNkMvVzZDaDda?=
+ =?utf-8?Q?wjtB4GrvDar/J8TA=3D?=
+Content-Type: text/plain; charset="utf-8"
+Content-ID: <16234B901B100C4BA335AE935C3471DA@namprd11.prod.outlook.com>
+Content-Transfer-Encoding: base64
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v8 00/39] drm: Implement state readout support
-From: Tomi Valkeinen <tomi.valkeinen@ideasonboard.com>
-To: Maxime Ripard <mripard@kernel.org>
-Cc: Devarsh Thakkar <devarsht@ti.com>, dri-devel@lists.freedesktop.org,
- Paul Cercueil <paul@crapouillou.net>,
- Luca Ceresoli <luca.ceresoli@bootlin.com>,
- Jocelyn Falempe <jfalempe@redhat.com>, Simona Vetter
- <simona.vetter@ffwll.ch>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>,
- Simona Vetter <simona@ffwll.ch>, Andrzej Hajda <andrzej.hajda@intel.com>,
- Neil Armstrong <neil.armstrong@linaro.org>, Robert Foss <rfoss@kernel.org>,
- Laurent Pinchart <Laurent.pinchart@ideasonboard.com>,
- Jonas Karlman <jonas@kwiboo.se>, Jernej Skrabec <jernej.skrabec@gmail.com>,
- Jyri Sarha <jyri.sarha@iki.fi>
-References: <20261106-drm-state-readout-v8-0-cbe78624e1bc@kernel.org>
- <ff10a7e1-3a5d-4e0f-be4b-aba3d05de1cd@ideasonboard.com>
-Content-Language: en-US
-In-Reply-To: <ff10a7e1-3a5d-4e0f-be4b-aba3d05de1cd@ideasonboard.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+X-Exchange-RoutingPolicyChecked: xNnADm94KFslk3ByCPCQTLSffKrl44i9teyHgt78Yw+S0Mq/6oPMReGGiH28Au3lZb9QWgBPqIh86Hl4aLkyhpCge52RsiojpFDKHKAK1vfcKB0WezbCfK9BAyeNYxczznG54ItQKxOhadna0rjUMhKY5sI9mOghSlmmb0nTBDqLkQhA18FncWWpcY0VngLRVzQuhlPTzn55jWdAsPJuK3ioPdYCOu+POKQKwD9FQsxjiXv+yxlPVz4MejTEJp00quid9fPbe0+owEXeTMCXsaSciCSXyZBgtwbkAKNi2XbZpplHRHQ++CTCNjhSki/v2wai4KxQKN5XJHGfvOzpug==
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-AuthSource: LV2PR11MB6024.namprd11.prod.outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: fe30704e-7153-4669-224e-08df45707884
+X-MS-Exchange-CrossTenant-originalarrivaltime: 18 Nov 2026 12:35:47.0102 (UTC)
+X-MS-Exchange-CrossTenant-fromentityheader: Hosted
+X-MS-Exchange-CrossTenant-id: 46c98d88-e344-4ed4-8496-4ed7712e255d
+X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
+X-MS-Exchange-CrossTenant-userprincipalname: OPuJt2UB5Q17lRT29mpWgLLb3lTtGGHbhdC6uBKxu90EPfmcA+MXpMZgrwb7dI/+SZSYWjP0Hj+AYN5dwKuw+uFwVxUiUPowrRA8I/PjXXw=
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: BL1PR11MB6004
+X-OriginatorOrg: intel.com
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -61,189 +178,79 @@ List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-12.3 required=3.0 tests=BAYES_00,DKIM_SIGNED,
-	DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
-	MAILING_LIST_MULTI,MENTIONS_GIT_HOSTING,SPF_HELO_NONE,SPF_PASS,
-	USER_AGENT_SANE_1 autolearn=ham autolearn_force=no version=4.0.1
+X-Spam-Status: No, score=-15.8 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
+	DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
+	INCLUDES_CR_TRAILER,INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,
+	SPF_PASS autolearn=ham autolearn_force=no version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-Hi,
-
-On 17/11/2026 17:17, Tomi Valkeinen wrote:
-> Hi,
-> 
-> On 06/11/2026 15:14, Maxime Ripard wrote:
->> Hi,
->>
->> Here's a series that implement what i915 calls "fastboot", ie,
->> initializing the initial KMS state from the hardware state at boot, to
->> skip the first modeset if the firmware already set up the display.
->>
->> This series creates the infrastructure in KMS to create that state by
->> relying on driver specific hooks. It also implements some infrastructure
->> to check during non-blocking commits that the readout helpers work
->> properly by reading out the state that was just committed and comparing
->> it to what was supposed to be committed.
->>
->> This relies on another set of driver hooks to compare the entities
->> states, with helpers providing the default implementation.
->>
->> It then implements the readout support in the TIDSS driver, and was
->> tested with the SK-AM62 board. This board in particular is pretty
->> interesting, since it relies on an DPI to HDMI bridge, and uses the
->> drm_bridge_connector infrastructure.
->>
->> So the readout works with the current state of the art on embedded-ish
->> platforms.
->>
->> Unlike the earlier RFCs, it now works fine: the state is picked up
->> properly, doesn't trigger a modeset if what was programmed is the one
->> the first modeset tries to pick as well, will switch properly if it
->> isn't, etc.
-> Sorry for taking so long with this, even if I said already a long time 
-> back that I have additional patches for you. I now finally managed to 
-> get them into some kind of order, and I have pushed a branch to:
-> 
-> git://git.kernel.org/pub/scm/linux/kernel/git/tomba/linux.git ti/boot- 
-> splash-v8.5
-> 
-> It's based on today's drm-misc-next, with the following posted series on 
-> top:
-> 
-> - [PATCH RESEND 00/83] drm: Switch drivers to 
-> drm_mode_config_create_initial_state
-> - [PATCH v8 00/39] drm: Implement state readout support
-> 
-> However, from the SRO series, I dropped all the tidss patches. It was 
-> getting so difficult to make my changes at changes on top, so I decided 
-> to just make fresh clean ones. I've tried to keep authorship where 
-> applicable, but I could have missed some.
-> 
-> After the SRO series, I have a pile of patches on top. It starts with 
-> tidss patches that are not quite SRO related, but fix things or change 
-> the structure so that SRO gets easier to add:
-> 
-> drm/tidss: Fix the plane staying disabled after a CRTC off and on
-> drm/tidss: Remove the unused 'is_enabled'
-> drm/tidss: Split requesting the interrupt from enabling it
-> drm/tidss: Split dispc_init_hw() into steps called from probe
-> drm/tidss: Reset the DSS after the probe steps that can defer
-> drm/tidss: Keep the DSS enabled from the reset to the end of probe
-> 
-> Then I have some non-tidss patches. Some of these, I think, you already 
-> had in a local tree or were posted in the tilcdc series. The panel side 
-> is lacking, so I labeled those as hacks. I'm not quite sure how to 
-> correctly implement that.
-> 
-> drm/atomic_sro: Do not compare the plane zpos
-> drm/atomic_sro: Do not compare planes on an inactive CRTC
-> drm/atomic_sro: Add a device-level atomic_sro_install_state hook
-> drm/bridge: Add an atomic_sro_install_state hook for bridges
-> HACK: drm/bridge: panel: Prepare and enable the panel when installing 
-> the state
-> HACK: drm/panel: simple: Set the sync polarities of Microtips 
-> MF-101HIEBCAF0
-> 
-> Then I have tidss SRO patches. Many of these are based on yours, but 
-> there are plenty of details that have changed, fixing issues I found 
-> when testing different combinations.
-> 
-> drm/tidss: Implement .hw_reset hook
-> drm/tidss: Reset the DISPC at runtime suspend if probe did not reset it
-> drm/tidss: dispc: Add helpers for the state readout
-> drm/tidss: encoder: Implement atomic_sro_get_current_crtc
-> drm/tidss: oldi: Implement hw readout support
-> drm/tidss: dispc: Keep DPIENABLE of an active VP in dispc_vp_init()
-> drm/tidss: crtc: Implement hw readout support
-> drm/tidss: plane: Implement hw readout support
-> drm/tidss: encoder: Implement bridge state readout
-> drm/tidss: Implement hw readout support
-> 
-> I have been testing these with AM62-SK, HDMI and OLDI, with all the 
-> different combinations I've come up with. However, I realized just today 
-> that the bootloader could still do things a bit differently, which 
-> wouldn't work with the current patches. I decided to ignore that for now.
-> 
-> I also need to test all this on other TI boards, without SRO, or perhaps 
-> adding SRO if it's easy-ish.
-> 
-> So... Again, thanks Maxime for the great work you've done here, I really 
-> like this series. It's annoyingly complicated to get to work reliably, 
-> though, but maybe we'll get there =). With all my tests now working, 
-> I'll try to find the time to actually review the series.
-> 
-> Feel free to use, abuse, or not use the commits from my branch in any 
-> way you want.
-A few more issues I found while testing.
-
-The SRO can never fully recover the state we have on the SW side. One 
-particular case is the fb/plane sizes and offsets. E.g.
-
-kmstest -c lvds -p 1:800x800 -f 2000x2000 -v 10,10-800x800
-
-*ERROR* plane-1 configuration mismatch in src_x expected 10.000000, got 
-0.000000
-*ERROR* plane-1 configuration mismatch in src.x1 expected 655360, got 0
-[PLANE:45:plane-1] Committed and Readout PLANE state don't match
-
-There's no offset in the HW, so the SRO just gives 0. Another with the 
-width and height:
-
-kmstest -c lvds -p 1:800x800 -f 1200x1200 -v 0,0-900x900
-
-*ERROR* framebuffer configuration mismatch in width expected 1200, got 900
-*ERROR* framebuffer configuration mismatch in height expected 1200, got 900
-[PLANE:45:plane-1] Committed and Readout PLANE state don't match
-
-I think we can fix the fb width, at least for tidss, as we should be 
-able to read out the stride. But for fb height, there's nothing in the HW.
-
-Another, tidss specific one, is when we downscale enough, and the driver 
-switches to decimating. We don't do a proper readout for that.
-
-Then a possibly wider issue: with two displays, the driver assigns the 
-planes as primary planes for each display. If the bootloader has 
-configured the planes on two displays the other way, we run into trouble 
-with legacy modesetting. In my case the bootloader sets up plane 0 on 
-HDMI, plane 1 on LVDS. The driver's init configures plane 1 as the 
-primary plane for HDMI, and plane 0 for LVDS. If I then do:
-
-KMSXX_DISABLE_ATOMIC=1 kmstest -c hdmi
-
-it fails.
-
-Another, perhaps tidss related issue is with bus formats & flags. 
-Changing them doesn't cause a full modeset, so if the bootloader e.g. 
-sets up DE to active high, but the kernel wants to use a different 
-value, and we have a connector related commit that's not a modeset:
-
-import kms
-card = kms.Card()
-conn = next(c for c in card.connectors if c.fullname == 'LVDS-1')
-req = kms.AtomicReq(card)
-req.add(conn, 'CRTC_ID', conn.get_prop_value('CRTC_ID'))
-req.commit_sync(allow_modeset=False)
-
-results in:
-
-*ERROR* crtc-0 configuration mismatch in bus_flags expected 0000008a, 
-got 00000086
-[CRTC:42:crtc-0] Committed and Readout CRTC state don't match
-*ERROR* bridge-30200000.dss configuration mismatch in 
-input_bus_cfg.flags expected 0000008a, got 00000086
-*ERROR* bridge-30200000.dss configuration mismatch in 
-output_bus_cfg.flags expected 0000008a, got 00000086
-Committed and Readout private object state don't match
-*ERROR* bridge-30200000.dss configuration mismatch in 
-input_bus_cfg.flags expected 0000008a, got 00000089
-*ERROR* bridge-30200000.dss configuration mismatch in 
-output_bus_cfg.flags expected 00000002, got 00000001
-Committed and Readout private object state don't match
-
-
-I don't have proper fixes for these yet, but SRO does bring out all 
-kinds of interest corner cases =).
-
-  Tomi
-
+T24gTW9uLCAyMDI2LTEwLTI2IGF0IDExOjA5ICswNTMwLCBBbmltZXNoIE1hbm5hIHdyb3RlOg0K
+PiBJc3N1ZSBhIEFVWCB3cml0ZSB0cmFuc2FjdGlvbiB0byBEUENEIERQX1RPVEFMX0xUVFBSX0NO
+VCAoMHhmMDAwYSkNCj4gd2l0aCB0b3RhbCBudW1iZXIgb2YgTFRUUFIgYmVmb3JlIGxpbmsgdHJh
+aW5pbmcuDQo+IA0KPiB2MjogQ29zbWV0aWMgY2hhbmdlcy4gW1N1cmFqXQ0KPiB2MzoNCj4gLSBV
+c2Ugc2FtZSBlbmNvZGluZyBmb3JtYXQgZm9yIGx0dHByX2NvdW50LiBbSm91bmldDQo+IC0gQXZv
+aWQgcmVhZGluZyBhbHBtX2N0bDIgcmVnaXN0ZXIuIFtKb3VuaV0NCj4gdjQ6DQo+IC0gUHJvZ3Jh
+bSBEUF9UT1RBTF9MVFRQUl9DTlQgb25seSBmb3IgRFAsIG5vdCBlRFAuIFtKb3VuaSwgc2FzaGlr
+b10NCj4gLSBEcm9wIHJlZHVuZGFudCBsdHRwcl9jb3VudCBjaGVjay4gW0pvdW5pLCBzYXNoaWtv
+XQ0KPiAtIENoZWNrIGRybV9kcF9sdHRwcl9jb3VudCgpIHJldHVybiB2YWx1ZSBiZWZvcmUgcHJv
+Z3JhbW1pbmcNCj4gwqAgQUxQTV9DVEwyLiBbSm91bmksIHNhc2hpa29dDQo+IC0gRml4IExUVFBS
+IHJldmlzaW9uIGNoZWNrIHRvIG1hdGNoIHRoZSBjb21tZW50LiBbc2FzaGlrb10NCj4gLSBVc2Ug
+ZHJtX2RwX2RwY2Rfd3JpdGVfYnl0ZSgpLiBbSmFuaV0NCj4gDQo+IENjOiBKb3VuaSBIw7ZnYW5k
+ZXIgPGpvdW5pLmhvZ2FuZGVyQGludGVsLmNvbT4NCj4gQ2M6IEphbmkgTmlrdWxhIDxqYW5pLm5p
+a3VsYUBpbnRlbC5jb20+DQo+IFNpZ25lZC1vZmYtYnk6IEFuaW1lc2ggTWFubmEgPGFuaW1lc2gu
+bWFubmFAaW50ZWwuY29tPg0KDQpSZXZpZXdlZC1ieTogSm91bmkgSMO2Z2FuZGVyIDxqb3VuaS5o
+b2dhbmRlckBpbnRlbC5jb20+DQoNCj4gLS0tDQo+IMKgZHJpdmVycy9ncHUvZHJtL2k5MTUvZGlz
+cGxheS9pbnRlbF9hbHBtLmPCoMKgwqDCoCB8IDEwICsrKysrKysrKy0NCj4gwqAuLi4vZHJtL2k5
+MTUvZGlzcGxheS9pbnRlbF9kcF9saW5rX3RyYWluaW5nLmMgfCAyMA0KPiArKysrKysrKysrKysr
+KysrKysrDQo+IMKgMiBmaWxlcyBjaGFuZ2VkLCAyOSBpbnNlcnRpb25zKCspLCAxIGRlbGV0aW9u
+KC0pDQo+IA0KPiBkaWZmIC0tZ2l0IGEvZHJpdmVycy9ncHUvZHJtL2k5MTUvZGlzcGxheS9pbnRl
+bF9hbHBtLmMNCj4gYi9kcml2ZXJzL2dwdS9kcm0vaTkxNS9kaXNwbGF5L2ludGVsX2FscG0uYw0K
+PiBpbmRleCBmM2MwODg0OTg5Y2UuLjgzMWRmYTVlNjc3YiAxMDA2NDQNCj4gLS0tIGEvZHJpdmVy
+cy9ncHUvZHJtL2k5MTUvZGlzcGxheS9pbnRlbF9hbHBtLmMNCj4gKysrIGIvZHJpdmVycy9ncHUv
+ZHJtL2k5MTUvZGlzcGxheS9pbnRlbF9hbHBtLmMNCj4gQEAgLTY4Nyw3ICs2ODcsOCBAQCBzdGF0
+aWMgdm9pZCBsbmxfYWxwbV9jb25maWd1cmUoc3RydWN0IGludGVsX2RwDQo+ICppbnRlbF9kcCwN
+Cj4gwqB7DQo+IMKgCXN0cnVjdCBpbnRlbF9kaXNwbGF5ICpkaXNwbGF5ID0gdG9faW50ZWxfZGlz
+cGxheShpbnRlbF9kcCk7DQo+IMKgCWVudW0gdHJhbnNjb2RlciBjcHVfdHJhbnNjb2RlciA9IGNy
+dGNfc3RhdGUtPmNwdV90cmFuc2NvZGVyOw0KPiAtCXUzMiBhbHBtX2N0bDsNCj4gKwl1MzIgYWxw
+bV9jdGwsIGFscG1fY3RsMjsNCj4gKwlpbnQgbHR0cHJfY291bnQ7DQo+IMKgDQo+IMKgCWlmIChE
+SVNQTEFZX1ZFUihkaXNwbGF5KSA8IDIwIHx8DQo+ICghaW50ZWxfcHNyX25lZWRzX2FscG0oaW50
+ZWxfZHAsIGNydGNfc3RhdGUpICYmDQo+IMKgCQkJCQnCoCAhY3J0Y19zdGF0ZS0+aGFzX2xvYmYp
+KQ0KPiBAQCAtNzI1LDYgKzcyNiwxMyBAQCBzdGF0aWMgdm9pZCBsbmxfYWxwbV9jb25maWd1cmUo
+c3RydWN0IGludGVsX2RwDQo+ICppbnRlbF9kcCwNCj4gwqANCj4gwqAJYWxwbV9jdGwgfD0gQUxQ
+TV9DVExfQUxQTV9FTlRSWV9DSEVDSyhjcnRjX3N0YXRlLQ0KPiA+YWxwbV9zdGF0ZS5jaGVja19l
+bnRyeV9saW5lcyk7DQo+IMKgDQo+ICsJbHR0cHJfY291bnQgPSBkcm1fZHBfbHR0cHJfY291bnQo
+aW50ZWxfZHAtDQo+ID5sdHRwcl9jb21tb25fY2Fwcyk7DQo+ICsJaWYgKGx0dHByX2NvdW50IDwg
+MCkNCj4gKwkJbHR0cHJfY291bnQgPSAwOw0KPiArDQo+ICsJYWxwbV9jdGwyID0gQUxQTV9DVEwy
+X05VTUJFUl9PRl9MVFRQUihsdHRwcl9jb3VudCk7DQo+ICsNCj4gKwlpbnRlbF9kZV93cml0ZShk
+aXNwbGF5LCBBTFBNX0NUTDIoZGlzcGxheSwgY3B1X3RyYW5zY29kZXIpLA0KPiBhbHBtX2N0bDIp
+Ow0KPiDCoAlpbnRlbF9kZV93cml0ZShkaXNwbGF5LCBBTFBNX0NUTChkaXNwbGF5LCBjcHVfdHJh
+bnNjb2RlciksDQo+IGFscG1fY3RsKTsNCj4gwqAJbXV0ZXhfdW5sb2NrKCZpbnRlbF9kcC0+YWxw
+bS5sb2NrKTsNCj4gwqB9DQo+IGRpZmYgLS1naXQgYS9kcml2ZXJzL2dwdS9kcm0vaTkxNS9kaXNw
+bGF5L2ludGVsX2RwX2xpbmtfdHJhaW5pbmcuYw0KPiBiL2RyaXZlcnMvZ3B1L2RybS9pOTE1L2Rp
+c3BsYXkvaW50ZWxfZHBfbGlua190cmFpbmluZy5jDQo+IGluZGV4IGFjMWFmZjZlZGYwNS4uMGRi
+YzYxNzRjNDAyIDEwMDY0NA0KPiAtLS0gYS9kcml2ZXJzL2dwdS9kcm0vaTkxNS9kaXNwbGF5L2lu
+dGVsX2RwX2xpbmtfdHJhaW5pbmcuYw0KPiArKysgYi9kcml2ZXJzL2dwdS9kcm0vaTkxNS9kaXNw
+bGF5L2ludGVsX2RwX2xpbmtfdHJhaW5pbmcuYw0KPiBAQCAtMjI3MSw2ICsyMjcxLDI0IEBAIGlu
+dGVsX2RwXzEyOGIxMzJiX2xpbmtfdHJhaW4oc3RydWN0IGludGVsX2RwDQo+ICppbnRlbF9kcCwN
+Cj4gwqAJcmV0dXJuIHBhc3NlZDsNCj4gwqB9DQo+IMKgDQo+ICtzdGF0aWMgdm9pZCBpbnRlbF9k
+cF91cGRhdGVfbHR0cHJfY291bnQoc3RydWN0IGludGVsX2RwICppbnRlbF9kcCkNCj4gK3sNCj4g
+Kwl1OCB2YWw7DQo+ICsNCj4gKwkvKg0KPiArCSAqIFByb2dyYW0gb25seSBmb3IgRFAgYW5kIHJl
+dHVybiBpZiBMVFRQUiByZXZpc2lvbiBpcyBsZXNzDQo+IHRoYW4gMHgyMA0KPiArCSAqIHdoZXJl
+IDA6MyByZXByZXNlbnRzIG1pbm9yIHJldiBhbmQgNDo3IHJlcHJlc2VudCBtYWpvcg0KPiByZXYN
+Cj4gKwkgKi8NCj4gKwlpZiAoaW50ZWxfZHBfaXNfZWRwKGludGVsX2RwKSB8fA0KPiArCcKgwqDC
+oCBpbnRlbF9kcC0+bHR0cHJfY29tbW9uX2NhcHNbMF0gPCAweDIwKQ0KPiArCQlyZXR1cm47DQo+
+ICsNCj4gKwl2YWwgPSBpbnRlbF9kcC0+bHR0cHJfY29tbW9uX2NhcHNbRFBfUEhZX1JFUEVBVEVS
+X0NOVCAtDQo+ICsJCQkJCcKgDQo+IERQX0xUX1RVTkFCTEVfUEhZX1JFUEVBVEVSX0ZJRUxEX0RB
+VEFfU1RSVUNUVVJFX1JFVl07DQo+ICsJaWYgKGRybV9kcF9kcGNkX3dyaXRlX2J5dGUoJmludGVs
+X2RwLT5hdXgsDQo+IERQX1RPVEFMX0xUVFBSX0NOVCwgdmFsKSA8IDApDQo+ICsJCWx0X2RiZyhp
+bnRlbF9kcCwgRFBfUEhZX0RQUlgsICJGYWlsZWQgdG8gd3JpdGUgdG90YWwNCj4gTFRUUFIgY291
+bnRcbiIpOw0KPiArfQ0KPiArDQo+IMKgLyoqDQo+IMKgICogaW50ZWxfZHBfc3RhcnRfbGlua190
+cmFpbiAtIHN0YXJ0IGxpbmsgdHJhaW5pbmcNCj4gwqAgKiBAc3RhdGU6IEF0b21pYyBzdGF0ZQ0K
+PiBAQCAtMjMxMCw2ICsyMzI4LDggQEAgdm9pZCBpbnRlbF9kcF9zdGFydF9saW5rX3RyYWluKHN0
+cnVjdA0KPiBpbnRlbF9hdG9taWNfc3RhdGUgKnN0YXRlLA0KPiDCoA0KPiDCoAlpbnRlbF9kcF9w
+cmVwYXJlX2xpbmtfdHJhaW4oaW50ZWxfZHAsIGNydGNfc3RhdGUpOw0KPiDCoA0KPiArCWludGVs
+X2RwX3VwZGF0ZV9sdHRwcl9jb3VudChpbnRlbF9kcCk7DQo+ICsNCj4gwqAJaWYgKGludGVsX2Rw
+X2lzX3VoYnIoY3J0Y19zdGF0ZSkpDQo+IMKgCQlwYXNzZWQgPSBpbnRlbF9kcF8xMjhiMTMyYl9s
+aW5rX3RyYWluKGludGVsX2RwLA0KPiBjcnRjX3N0YXRlLCBsdHRwcl9jb3VudCk7DQo+IMKgCWVs
+c2UNCg==
