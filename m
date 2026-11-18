@@ -2,52 +2,51 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CDE39606A32C
-	for <dri-devel@archiver.kernel.org>; Wed, 18 Nov 2026 21:45:50 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4E7ED606A320
+	for <dri-devel@archiver.kernel.org>; Wed, 18 Nov 2026 21:45:57 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=hiO31FJr
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=AdhEYihb
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 290F710EC87;
-	Wed, 18 Nov 2026 21:45:45 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 9EFF3112042;
+	Wed, 18 Nov 2026 21:45:51 +0000 (UTC)
 Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.19])
- by gabe.freedesktop.org (Postfix) with ESMTPS id E8A3010EC87
- for <dri-devel@lists.freedesktop.org>; Wed, 18 Nov 2026 21:45:37 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 8E21E112048
+ for <dri-devel@lists.freedesktop.org>; Wed, 18 Nov 2026 21:45:42 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1795038338; x=1826574338;
+ t=1795038343; x=1826574343;
  h=from:to:cc:subject:date:message-id:in-reply-to:
  references:mime-version:content-transfer-encoding;
- bh=+fY/5xKLQJdAX9XjUoK4MFkwzUeU0EW/+pnSjLjv6T0=;
- b=hiO31FJreUvg72E9cLmROKtNpCSKeLtCmegPAJSywbcR2PThcH5I/6Mc
- 1RJ/9LT3euc886UEa8fgSRTgJeCTKhBr98w7yvDO1RNaj1w+5BbzcSdeP
- 6fmZceawJEKo+260laCRHEOEBzLZjeSICCCnlgbIq1LaDrDgXkNMVjiIC
- PaBBSbUm6Sc2w5hwtzxZ1MK74Shy/A8QcDlDvWp/KCa2Nuel9rSEMMI0K
- RTRiGkfAIppQAjPq8W5/s4RKUFD2uh74/cIkNVDtpUHIQIV8ZYgNo7w3s
- XfQcZJptfWVQRMIbeAG0RB7q2Rs8PtgFIYxUaD8RsPQAPB6A156fcj7Yc w==;
-X-CSE-ConnectionGUID: OMGSDVYpR0udQvol8HOWxQ==
-X-CSE-MsgGUID: mGE12qeXQ4+06sgaYRJilw==
-X-IronPort-AV: E=McAfee;i="6800,10657,11970"; a="3915791"
+ bh=Xe/gllvGRjhcPxAkyrjE/xDnvKPLSAJiXK5l6Ug3n8Y=;
+ b=AdhEYihbfGXYDQDCIKlqwy1NWueLNW3l8mR871mhhj0O2QnYvTknpU3q
+ q6OqWvT77KKDkO9hDQ03/RJMIld182XT2HzgeAUHcpN9+oNOHSztjmMKI
+ r7R8n2OALhvThYhGAcXcQSqwhMYwlpbGdZDbsumFcsoChdmNW3W+TRWak
+ k9UsFW+fXtYe4/uaMFU5G0+5HcYUKf155/iM50vlBQf0rgxuazNpGOb5+
+ s1oRqXoTxQXtHXTc2S6pisPSiEfA1VuFc/gASy1pIl217BdsgTFr8andV
+ MhSFtaracXiimTDZHV0KhcuecZ7wnYiattWpw9m3IYCg4PP91QPfyG087 w==;
+X-CSE-ConnectionGUID: KR2NPgWhRB+p0qxyotomDg==
+X-CSE-MsgGUID: vvufq6eLQ86RindqdWr3xA==
+X-IronPort-AV: E=McAfee;i="6800,10657,11970"; a="3915800"
 X-IronPort-AV: E=Sophos;i="6.27,219,1787036400"; 
-   d="scan'208";a="3915791"
+   d="scan'208";a="3915800"
 Received: from fmviesa005.fm.intel.com ([10.60.135.145])
  by orvoesa111.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 18 Nov 2026 13:45:38 -0800
-X-CSE-ConnectionGUID: WcQLlMz4SpWD6cKvDHfoLA==
-X-CSE-MsgGUID: FfBPAAXmSrmjHM0D/MX8mA==
+ 18 Nov 2026 13:45:43 -0800
+X-CSE-ConnectionGUID: 67HYeFy5SxKA1RHTubZp+g==
+X-CSE-MsgGUID: HYRShVUaQSKPkqRSUa0iRg==
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,219,1787036400"; d="scan'208";a="10340779"
+X-IronPort-AV: E=Sophos;i="6.27,219,1787036400"; d="scan'208";a="10340790"
 Received: from klitkey1-mobl1.ger.corp.intel.com (HELO localhost)
  ([10.245.245.16])
  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 18 Nov 2026 13:45:36 -0800
+ 18 Nov 2026 13:45:41 -0800
 From: Ville Syrjala <ville.syrjala@linux.intel.com>
 To: dri-devel@lists.freedesktop.org
 Cc: Jyri Sarha <jyri.sarha@iki.fi>,
  Tomi Valkeinen <tomi.valkeinen@ideasonboard.com>
-Subject: [PATCH v4 02/20] drm/tilcdc: Drop volatile from the mmio pointer in
- tilcdc_write64()
-Date: Wed, 18 Nov 2026 23:44:59 +0200
-Message-ID: <20261118214518.29317-3-ville.syrjala@linux.intel.com>
+Subject: [PATCH v4 03/20] drm/tilcdc: Use __le64 for the fallback 64bit write
+Date: Wed, 18 Nov 2026 23:45:00 +0200
+Message-ID: <20261118214518.29317-4-ville.syrjala@linux.intel.com>
 X-Mailer: git-send-email 2.56.0
 In-Reply-To: <20261118214518.29317-1-ville.syrjala@linux.intel.com>
 References: <20261118214518.29317-1-ville.syrjala@linux.intel.com>
@@ -77,15 +76,11 @@ X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 
 From: Ville Syrjälä <ville.syrjala@linux.intel.com>
 
-The address is passed to iowrite64() when the architecture provides
-a native one. On some architectures (eg. alpha and parisc) that
-takes a plain void __iomem *, so passing a volatile qualified
-pointer discards the qualifier. This triggers -Wdiscarded-qualifiers
-from gcc and a "different modifiers" warning from sparse. It is not
-visible on ARM or arm64, where iowrite64() takes a volatile pointer.
-
-The volatile on the pointer variable is not needed. The fallback
-path already uses an explicit volatile cast for the actual access.
+The fallback path in tilcdc_write64() stores the result of
+__cpu_to_le64() through a volatile u64 pointer. That assigns a
+__le64 to a plain u64 and makes sparse complain about the differing
+base types. Use a volatile __le64 pointer for the store instead, so
+the types match.
 
 Cc: Jyri Sarha <jyri.sarha@iki.fi>
 Cc: Tomi Valkeinen <tomi.valkeinen@ideasonboard.com>
@@ -95,18 +90,18 @@ Signed-off-by: Ville Syrjälä <ville.syrjala@linux.intel.com>
  1 file changed, 1 insertion(+), 1 deletion(-)
 
 diff --git a/drivers/gpu/drm/tilcdc/tilcdc_regs.h b/drivers/gpu/drm/tilcdc/tilcdc_regs.h
-index 55fe598fe770..23746b134c42 100644
+index 23746b134c42..9dc3e1b9e20e 100644
 --- a/drivers/gpu/drm/tilcdc/tilcdc_regs.h
 +++ b/drivers/gpu/drm/tilcdc/tilcdc_regs.h
-@@ -120,7 +120,7 @@ static inline void tilcdc_write(struct drm_device *dev, u32 reg, u32 data)
- static inline void tilcdc_write64(struct drm_device *dev, u32 reg, u64 data)
- {
- 	struct tilcdc_drm_private *priv = ddev_to_tilcdc_priv(dev);
--	volatile void __iomem *addr = priv->mmio + reg;
-+	void __iomem *addr = priv->mmio + reg;
+@@ -130,7 +130,7 @@ static inline void tilcdc_write64(struct drm_device *dev, u32 reg, u64 data)
+ 	__iowmb();
+ #endif
+ 	/* This compiles to strd (=64-bit write) on ARM7 */
+-	*(volatile u64 __force *)addr = __cpu_to_le64(data);
++	*(volatile __le64 __force *)addr = __cpu_to_le64(data);
+ #endif
+ }
  
- #if defined(iowrite64) && !defined(iowrite64_is_nonatomic)
- 	iowrite64(data, addr);
 -- 
 2.56.0
 
