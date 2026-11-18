@@ -2,94 +2,44 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3ACA9606A333
-	for <dri-devel@archiver.kernel.org>; Wed, 18 Nov 2026 15:55:50 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 175FA60A260A
+	for <dri-devel@archiver.kernel.org>; Wed, 18 Nov 2026 16:02:53 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=fAtDFwpB
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=P5HPGoTC
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id A890110E541;
-	Wed, 18 Nov 2026 15:55:44 +0000 (UTC)
-Received: from mail-wr1-f53.google.com (mail-wr1-f53.google.com
- [209.85.221.53])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 4C62510EC36
- for <dri-devel@lists.freedesktop.org>; Wed, 18 Nov 2026 15:55:38 +0000 (UTC)
-Received: by mail-wr1-f53.google.com with SMTP id
- ffacd0b85a97d-492690dd5daso934409f8f.1
- for <dri-devel@lists.freedesktop.org>; Wed, 18 Nov 2026 07:55:38 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20260707; t=1795017336; x=1795622136; darn=lists.freedesktop.org;
- h=in-reply-to:content-disposition:content-type:mime-version
- :references:message-id:subject:cc:to:from:date:from:to:cc:subject
- :date:message-id:reply-to:content-type;
- bh=opiYjd9kyePy56Loel5UjRPuD8cH7yPxU8I5WOGrYBw=;
- b=fAtDFwpBoD3H8Lg2nhzwXirg9Akwm5KnztZBNbOH195Zv6D8DAELbHYAAMGr6VEH0X
- gFde5DmzSgORh7u8B/EScNlHBkyayVDCfXN6kr88ZMMftEJiG1nmR2VIfjJjtLIX4wjR
- v0IZ/AFZyZVCKh6MPNNpmPFUqlO14A/TeKf+pr6D2XlxrxM+j2voDRDMza20nep8vtyE
- oUWcTAxRtSy7/sxrR4hwSdcpn4PK+4XtM7V9beDSDtykyl0902iyUOIxfPZvRC/ArDst
- 62kqZQpMJrIghvtC7wgzDR0ATz8Cu0I75eCEXocKOLIMQvyCjy5RXVSoIogI5YxNjcri
- Oafw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20260707; t=1795017336; x=1795622136;
- h=in-reply-to:content-disposition:content-type:mime-version
- :references:message-id:subject:cc:to:from:date:x-gm-gg
- :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
- :content-type;
- bh=opiYjd9kyePy56Loel5UjRPuD8cH7yPxU8I5WOGrYBw=;
- b=be7ws/jhQsa/3wkfxitBes2KXMHjE7A7sHQPmxIHXakaWLxEw0GvDi1HTl1DynPW/u
- FONxOrE8QYwbk/EepX/N0kwlVPFgz+u6U1UY+5IDqcfF8/R0BaTFn66KG1ZV904tjhaO
- W4uZxIyiw7OhuQR+GaEixFv8ONco4ueWx7vX/fUyTviYBEW+gj1l8NS6miqDxZXmO2xs
- Iega7or29eeNn2PTjMh1oLDoWy3tkJ+GpSqJRqzZXJDy20MGW8zvlNJ8o0O2eUGDUM5C
- ZbVWPVaXceUphfP1YKL5yuWSBvzQVcwJ27YDXYpMhGg0WosE0wLBYod0kaE9kjv6Gaa0
- 8xLA==
-X-Forwarded-Encrypted: i=1;
- AL+hErFmcbCj9/BevO/EHzu6YuVHN4JRD44HcQyKdhLxO9bycGWZMhxQJHu9/zrGs52gtCFp6s2S3NfuhK0=@lists.freedesktop.org
-X-Gm-Message-State: APuU4Z9FW0c1qqN21o9JjGV6e3Af39Hezf9u516sAcTZFD6pEGnR2yjH
- QeabW46ZzzPxuJlGSQZRQna19uEGv+7G8cPzGu2uNvDHyWa9g/B5FHgd
-X-Gm-Gg: AZFdTZc6J63DW6aVJTQxHtRChB9KFHaHpdNsaIiDqTZkk46iaLJl1aFE0kSbnb1KV2o
- D7K1ovrJdgSYYRz/O/QTj/kpgkqm3UFXOjE6TAkCz3r544sE+141GMBfHxzFy52cB6TEy0KhMKG
- W/1ydLkw4XTpDDehYm57nDUqpA3D3qi9ddt7Y1AR/TdDps+lNV/C9Qxh4OqAdtO6DPOr4yZLgK0
- 3bHMoXp3KLqqw6VuEzuIHeIpv3uasW8PgTwk4NzQ7Fbl17tpM/M5PQlAtspguIP28WNN0FyKM7f
- OeQpNvw+5Bgld2ONZmLereLnxxeVfAf/7gyuKi/ybZb5gPI2l9a3r8hg1z0t5/eakf7DCjJukCI
- QolTIUMQXxnu85cHYcSMe4Q5uahyAYe+8TO9+4eq2yjXUaRwMu+Awv2buVlBCIGQu/6WuPl5cBZ
- 6wkindWyH16zmRw2tiRcnTBcqpVUzxAfK4il12jsnY0mgyW202WENjYp36vqfyOQnPGihJZWg1j
- 6OyOFd/2rpZEW3yRi0K8nGTqbLX3gvZkoYIoMNSRzKFbvEMAKIZDLjs0CHz7J5hickD//3VWCfU
- DddDPT/YYYzcn7uRVSxBxgUuPb7NuEA1o8FbDyrOnH4g3aCDpouac4nJGPO60AGwgrcz7V3ezUG
- YK/ql8jE4pyYVm0zXe2qBJLkzAcuP8OmkxAGHNo5AW6YnmHQqKtH4Zt/DBibs1vHjnwBPAjSAVZ
- np
-X-Received: by 2002:a05:6000:4102:b0:48e:3bc4:a367 with SMTP id
- ffacd0b85a97d-4a639ff61aemr5650397f8f.33.1795017336371; 
- Wed, 18 Nov 2026 07:55:36 -0800 (PST)
-Received: from C422HJQPQG-Fractile
- (cmbg-18-b2-v4wan-168328-cust3701.vm17.cable.virginm.net. [80.5.206.118])
- by smtp.gmail.com with ESMTPSA id
- ffacd0b85a97d-4a654a8c406sm5490881f8f.14.2026.11.18.07.55.35
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Wed, 18 Nov 2026 07:55:36 -0800 (PST)
-Date: Wed, 18 Nov 2026 15:55:33 +0000
-From: "Vishal Moola (Fractile)" <vishal.moola@gmail.com>
-To: Alice Ryhl <aliceryhl@google.com>
-Cc: Danilo Krummrich <dakr@kernel.org>, David Airlie <airlied@gmail.com>,
- Simona Vetter <simona@ffwll.ch>, Miguel Ojeda <ojeda@kernel.org>,
- Boqun Feng <boqun@kernel.org>, Gary Guo <gary@garyguo.net>,
- =?iso-8859-1?Q?Bj=F6rn?= Roy Baron <bjorn3_gh@protonmail.com>,
- Benno Lossin <lossin@kernel.org>, Andreas Hindborg <a.hindborg@kernel.org>,
- Trevor Gross <tmgross@umich.edu>,
- Daniel Almeida <daniel.almeida@collabora.com>,
- Tamir Duberstein <tamird@kernel.org>,
- Alexandre Courbot <acourbot@nvidia.com>,
- Onur =?iso-8859-1?Q?=D6zkan?= <work@onurozkan.dev>,
- Asahi Lina <lina+kernel@asahilina.net>,
- Lyude Paul <lyude@redhat.com>, dri-devel@lists.freedesktop.org,
- rust-for-linux@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH] rust: drm: ioctl: fix call to unsafe function
-Message-ID: <av3KdRxCJsek49L7@C422HJQPQG-Fractile>
-References: <20261118133232.48603-1-vishal.moola@gmail.com>
- <20261118152901.788942-1-aliceryhl@google.com>
-X-Archived-By: <archiver.kernel.org>
-MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261118152901.788942-1-aliceryhl@google.com>
+	by gabe.freedesktop.org (Postfix) with ESMTP id 78AA810FE21;
+	Wed, 18 Nov 2026 16:02:47 +0000 (UTC)
+Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 9BCF010FDF9
+ for <dri-devel@lists.freedesktop.org>; Wed, 18 Nov 2026 16:02:41 +0000 (UTC)
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+ by sea.source.kernel.org (Postfix) with ESMTP id 56C194006B;
+ Wed, 18 Nov 2026 16:02:41 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id CC53A1F000C7;
+ Wed, 18 Nov 2026 16:02:40 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+ s=k20260515; t=1795017761;
+ bh=QwBKZBhqRAe39+88zv0TUkAs/LK0TPgu//N+wd/gzuo=;
+ h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+ b=P5HPGoTCSggtGUTnsuPjPdhQaQpmAmODSCopLVRSuEkXD8eRE72t/sVaqdqPy1DRM
+ bKAqY+OQ4N7OVoBca2/a6vwHMVgLvoVWR7BVL7vHU6ij7N53fgAYgGEuVDi9p0v5d/
+ M4ofzvFVpUTSxm2QMjHTdrB/2Om1t+2DdsrsmZiyo6dnZzvnxPNwtr7AhvRc+Jcav/
+ /tdlRUJpEwGW8q2ftJs5NWVE8tDY4/96q086R7g5rH79pOw0MQFdhXf12ll0yaOChE
+ bMsuCurZpWbFikN/1TugZC0d937EqtzggGHtqaaLPM1xWajgypQL45JPNhTBJuyjKR
+ uwfoPhLh1zMWw==
+Message-ID: <sashiko-outbox-221406@kernel.org>
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v12 2/5] drm/imx: Add support for i.MX94 DCIF
+To: "Laurentiu Palcu" <laurentiu.palcu@oss.nxp.com>
+Cc: linux-clk@vger.kernel.org, imx@lists.linux.dev, devicetree@vger.kernel.org,
+ dri-devel@lists.freedesktop.org, robh@kernel.org, conor+dt@kernel.org,
+ Frank.Li@kernel.org
+In-Reply-To: <20261118-dcif-upstreaming-v12-2-29b35e27a1cc@oss.nxp.com>
+References: <20261118-dcif-upstreaming-v12-0-29b35e27a1cc@oss.nxp.com>
+ <20261118-dcif-upstreaming-v12-2-29b35e27a1cc@oss.nxp.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Wed, 18 Nov 2026 16:02:40 +0000
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -100,31 +50,210 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
+Reply-To: sashiko-reviews@lists.linux.dev
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-7.8 required=3.0 tests=BAYES_00,DKIM_SIGNED,
-	DKIM_VALID,DKIM_VALID_AU,FREEMAIL_FORGED_FROMDOMAIN,FREEMAIL_FROM,
-	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,MAILING_LIST_MULTI,
-	SPF_HELO_NONE,SPF_PASS autolearn=no autolearn_force=no version=4.0.1
+X-Spam-Status: No, score=-10.8 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
+	DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
+	INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS autolearn=ham
+	autolearn_force=no version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
+X-Archived-By: <archiver.kernel.org>
 
-On Wed, Nov 18, 2026 at 03:29:01PM +0000, Alice Ryhl wrote:
-> On Wed, Nov 18, 2026 at 01:32:32PM +0000, Vishal Moola (Fractile) wrote:
-> > Fixes: 9a69570682b1 ("rust: drm: ioctl: Add DRM ioctl abstraction")
-> > Signed-off-by: Vishal Moola (Fractile) <vishal.moola@gmail.com>
-> > 
-> > --------------------
-> > Based on drm-rust-next.
-> 
-> Note that patch commentary needs to go after a three-dash `---` line
-> rather than `--------------------`, otherwise `git am` / `b4` includes
-> everything above `---` in the commit message. No need to resend just for
-> that as we can strip it when applying.
+Thank you for your contribution! Sashiko AI review found 3 potential
+issues to consider:
+- [Medium] drm/imx/dcif: unclocked MMIO access when runtime PM resume
+  fails
+- [Medium] drm/imx: dcif: unbalanced clock disable if
+  dcif_runtime_resume() fails
+- [Low] drm/imx/dcif: missing shadow load and trigger clear in
+  dcif_crc_source_disable()
+--
 
-Ah, I never realized the tools were that particular about exactly three
-dashes. Thanks for pointing that out, I'll keep that in mind for the
-future :).
+commit 373caa0eccbfd7fa4334093ea8869b540640e7ab
+Author: Sandor Yu <sandor.yu@nxp.com>
 
-> Reviewed-by: Alice Ryhl <aliceryhl@google.com>
-> 
-> Alice
+drm/imx: Add support for i.MX94 DCIF
+
+This commit adds a DRM/KMS driver for the NXP i.MX94 Display Control
+Interface (DCIF), supporting primary and overlay planes, YCbCr-to-RGB CSC
+on layer 0, and frame/ROI CRC generation.
+
+> diff --git a/drivers/gpu/drm/imx/dcif/dcif-crc.c b/drivers/gpu/drm/imx/dc=
+if/dcif-crc.c
+> new file mode 100644
+> index 0000000000000..ad94b458a6c59
+> --- /dev/null
+> +++ b/drivers/gpu/drm/imx/dcif/dcif-crc.c
+[ ... ]
+> +void dcif_crc_source_enable(struct dcif_dev *dcif, enum dcif_crc_source =
+source,
+> +			    struct drm_rect *roi, int ncrc)
+> +{
+> +	int ret;
+> +
+> +	if (ncrc >=3D MAX_DCIF_CRC_NUM)
+> +		return;
+> +
+> +	if (source =3D=3D DCIF_CRC_SRC_NONE)
+> +		return;
+> +
+> +	if (dcif->crc_is_enabled)
+> +		return;
+> +
+> +	ret =3D drm_crtc_vblank_get(&dcif->crtc);
+> +	if (ret) {
+> +		drm_err(&dcif->drm, "Could not get vblank reference: %d\n", ret);
+> +		return;
+> +	}
+> +
+> +	dcif_crc_config(dcif, roi, ncrc);
+> +
+> +	regmap_set_bits(dcif->regmap, DCIF_CRC_CTRL,
+> +			DCIF_CRC_CTRL_CRC_MODE | DCIF_CRC_CTRL_CRC_SHADOW_LOAD_EN |
+> +			DCIF_CRC_CTRL_CRC_TRIG);
+> +
+> +	scoped_guard(spinlock_irqsave, &dcif->drm.event_lock)
+> +		dcif->crc_is_enabled =3D true;
+> +}
+> +
+> +void dcif_crc_source_disable(struct dcif_dev *dcif, int ncrc)
+> +{
+> +	if (!dcif->crc_is_enabled)
+> +		return;
+> +
+> +	if (ncrc >=3D MAX_DCIF_CRC_NUM)
+> +		return;
+> +
+> +	regmap_clear_bits(dcif->regmap, DCIF_CRC_CTRL, DCIF_CRC_CTRL_CRC_EN(ncr=
+c));
+
+[Severity: Low]
+Should dcif_crc_source_disable() also clear DCIF_CRC_CTRL_CRC_TRIG and set
+DCIF_CRC_CTRL_CRC_SHADOW_LOAD_EN when disabling CRC on an active CRTC?
+
+Clearing only DCIF_CRC_CTRL_CRC_EN(ncrc) leaves the disabled state
+unlatched, and if DCIF_CRC_CTRL_CRC_MODE, DCIF_CRC_CTRL_CRC_SHADOW_LOAD_EN
+and DCIF_CRC_CTRL_CRC_TRIG stay set in DCIF_CRC_CTRL, a later
+dcif_crc_source_enable() call via regmap_set_bits() will see no bit changes
+and skip writing the register.
+
+[ ... ]
+
+> diff --git a/drivers/gpu/drm/imx/dcif/dcif-crtc.c b/drivers/gpu/drm/imx/d=
+cif/dcif-crtc.c
+> new file mode 100644
+> index 0000000000000..233e149929964
+> --- /dev/null
+> +++ b/drivers/gpu/drm/imx/dcif/dcif-crtc.c
+[ ... ]
+> +static void dcif_crtc_atomic_enable(struct drm_crtc *crtc,
+> +				    struct drm_atomic_commit *state)
+> +{
+> +	struct drm_crtc_state *crtc_state =3D drm_atomic_get_new_crtc_state(sta=
+te, crtc);
+> +	struct dcif_crtc_state *dcif_crtc_state =3D to_dcif_crtc_state(crtc_sta=
+te);
+> +	struct drm_display_mode *adj =3D &crtc_state->adjusted_mode;
+> +	struct dcif_dev *dcif =3D crtc_to_dcif_dev(crtc);
+> +	struct drm_device *drm =3D crtc->dev;
+> +	int ret;
+> +
+> +	dev_dbg(drm->dev, "mode " DRM_MODE_FMT "\n", DRM_MODE_ARG(adj));
+> +
+> +	/* enable power when we start to set mode for CRTC */
+> +	ret =3D pm_runtime_resume_and_get(drm->dev);
+> +	if (ret < 0) {
+> +		drm_err(drm, "failed to resume DCIF, ret =3D %d\n", ret);
+> +		return;
+> +	}
+> +	dcif->crtc_pm_enabled =3D true;
+[ ... ]
+> +static void dcif_crtc_atomic_disable(struct drm_crtc *crtc,
+> +				     struct drm_atomic_commit *state)
+> +{
+> +	struct dcif_dev *dcif =3D crtc_to_dcif_dev(crtc);
+> +	struct drm_device *drm =3D crtc->dev;
+> +
+> +	if (dcif->has_crc)
+> +		dcif_crc_source_disable(dcif, 0);
+> +
+> +	dcif_disable_controller(dcif);
+> +	dcif_disable_plane_panic(dcif);
+> +
+> +	drm_crtc_vblank_off(crtc);
+> +
+> +	if (dcif->crtc_pm_enabled) {
+> +		dcif->crtc_pm_enabled =3D false;
+> +		pm_runtime_put_sync(drm->dev);
+> +	}
+
+[Severity: Medium]
+Can a failure in pm_runtime_resume_and_get() lead to MMIO register accesses
+while the DCIF clocks are disabled?
+
+If pm_runtime_resume_and_get() fails in dcif_crtc_atomic_enable(),
+dcif->crtc_pm_enabled remains false, but crtc_state->active is still true.
+In the same commit tail, drm_atomic_helper_commit_planes() still calls
+dcif_plane_atomic_update() and dcif_crtc_atomic_flush(), and a later
+dcif_crtc_atomic_disable() calls dcif_crc_source_disable(),
+dcif_disable_controller(), and dcif_disable_plane_panic() before checking
+dcif->crtc_pm_enabled.  Accessing DCIF registers while the block is
+unclocked can cause an external abort or bus hang on i.MX94.
+
+[ ... ]
+
+> diff --git a/drivers/gpu/drm/imx/dcif/dcif-drv.c b/drivers/gpu/drm/imx/dc=
+if/dcif-drv.c
+> new file mode 100644
+> index 0000000000000..80b554f1b6843
+> --- /dev/null
+> +++ b/drivers/gpu/drm/imx/dcif/dcif-drv.c
+[ ... ]
+> +static int dcif_suspend(struct device *dev)
+> +{
+> +	struct dcif_dev *dcif =3D dev_get_drvdata(dev);
+> +	int ret;
+> +
+> +	ret =3D drm_mode_config_helper_suspend(&dcif->drm);
+> +	if (ret < 0)
+> +		return ret;
+> +
+> +	if (pm_runtime_suspended(dev))
+> +		return 0;
+> +
+> +	return dcif_runtime_suspend(dev);
+> +}
+> +
+> +static int dcif_resume(struct device *dev)
+> +{
+> +	struct dcif_dev *dcif =3D dev_get_drvdata(dev);
+> +	int ret;
+> +
+> +	if (!pm_runtime_suspended(dev)) {
+> +		ret =3D dcif_runtime_resume(dev);
+> +		if (ret < 0)
+> +			return ret;
+> +	}
+> +
+> +	return drm_mode_config_helper_resume(&dcif->drm);
+> +}
+
+[Severity: Medium]
+Can a failure in dcif_runtime_resume() during system resume cause an
+unbalanced clk_bulk_disable_unprepare()?
+
+When the CRTC is active entering system suspend, the PM core's
+device_prepare() holds a runtime PM reference, so the pm_runtime_put_sync()
+in dcif_crtc_atomic_disable() leaves the device's runtime PM status as
+RPM_ACTIVE.  dcif_suspend() then calls dcif_runtime_suspend() directly,
+disabling clocks without updating runtime_status.  If dcif_runtime_resume()
+fails in dcif_resume(), clocks remain disabled while runtime_status is
+still RPM_ACTIVE, and device_complete() -> pm_runtime_put() will invoke
+dcif_runtime_suspend() a second time.  Using pm_runtime_force_suspend() and
+pm_runtime_force_resume() would keep runtime_status aligned with the clock
+state.
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261118-dcif-upstr=
+eaming-v12-0-29b35e27a1cc@oss.nxp.com?part=3D2
