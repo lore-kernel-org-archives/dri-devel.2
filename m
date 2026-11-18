@@ -2,71 +2,58 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DDCC8606A31C
-	for <dri-devel@archiver.kernel.org>; Wed, 18 Nov 2026 08:23:31 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D4D80606A31C
+	for <dri-devel@archiver.kernel.org>; Wed, 18 Nov 2026 08:23:32 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass header.d=erebion.eu header.i=@erebion.eu header.a=ed25519-sha256 header.s=202508e header.b=sz3wKmQ+;
-	dkim=pass (2048-bit key) header.d=erebion.eu header.i=@erebion.eu header.a=rsa-sha256 header.s=202508r header.b=GgEId5a1
+	dkim=pass (1024-bit key) header.d=qq.com header.i=@qq.com header.a=rsa-sha256 header.s=s201512 header.b=X8gqm0S4
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id C722110EBC2;
-	Wed, 18 Nov 2026 08:23:18 +0000 (UTC)
-Authentication-Results: gabe.freedesktop.org;
-	dkim=permerror (0-bit key) header.d=erebion.eu header.i=@erebion.eu header.b="sz3wKmQ+";
-	dkim=temperror (0-bit key) header.d=erebion.eu header.i=@erebion.eu header.b="GgEId5a1";
-	dkim-atps=neutral
-Received: from erebion.eu (erebion.eu [142.132.183.134])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 8995610E62D
- for <dri-devel@lists.freedesktop.org>; Tue, 17 Nov 2026 18:16:36 +0000 (UTC)
-DKIM-Signature: v=1; a=ed25519-sha256; s=202508e; d=erebion.eu;
- c=relaxed/relaxed; r=y; 
- h=From:To:Subject:Date:Message-ID; t=1794939390; bh=tAFphuNZhSMbXbrfeyiF5cR
- g1vQ1G5E1UchQJDp49uM=; b=sz3wKmQ+4jyhpUeg8eBoRjZrUVtKSlSbP4ku5TcA8jfrDe7AXn
- IAd8CTJ0Y1DixtC0fQp3rhKkAi8iUzjfU3DQ==;
-DKIM-Signature: v=1; a=rsa-sha256; s=202508r; d=erebion.eu; c=relaxed/relaxed;
- r=y; 
- h=From:To:Subject:Date:Message-ID; t=1794939390; bh=tAFphuNZhSMbXbrfeyiF5cR
- g1vQ1G5E1UchQJDp49uM=; b=GgEId5a1Mn8eD2a2afWfliHlYTqly+FWA4sHjHZj8Z7xNlyw3z
- UsaGDphUM1pVQUZ830/KWZdO8FHJRqWAU66/v1tCrSeQv+t4Spezrx81vc7M1T2mWx2OFXAr5jI
- PX+qX0jElWKpRXaK4T7j42yTGJpCYlKjPw+hjm7MuW2F+ZIRrbE1DWjT1AjmB5BzSsbbyX6jgrx
- TpaFMo7dbKUHIhyWTkEgO4n4e0FrzGppISM8cUhH6w6YvsFwXGhvgti4Xypbo9MZq+MAuNS+AB3
- 3yGJO8Tx4zUfg7DAxebZgV1PNGo48ErkHzKfczGxd2dtZt5J+NE2ondo7wUufDpXWMg==;
-Message-ID: <4f63673e-67c8-4f68-b3f5-82a0579e2b49@erebion.eu>
-Date: Tue, 17 Nov 2026 19:16:29 +0100
+	by gabe.freedesktop.org (Postfix) with ESMTP id 6149910EBA3;
+	Wed, 18 Nov 2026 08:23:23 +0000 (UTC)
+Received: from out203-205-221-240.mail.qq.com (out203-205-221-240.mail.qq.com
+ [203.205.221.240])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id ECAD310E1E7
+ for <dri-devel@lists.freedesktop.org>; Wed, 18 Nov 2026 08:11:10 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qq.com; s=s201512;
+ t=1794989468; bh=fNgBE2B2tf0kAWAtLKUdmZCH3D2stuwlS4hvQYwPVYo=;
+ h=From:To:Cc:Subject:Date;
+ b=X8gqm0S4cQV1dgA8wbNJljZ6nZV6QfhK50buoH+2DdI30Q+ZPo+FmBYPWy45xeYNX
+ udk6WqCXPnM2w8diZCCH/ABsMPKdRyXjW22TRNV7U/GGOHj6SoSl6S+It4VHasDReu
+ BdWKn2gegKK9uKJXjtbBeQ+tJONCFTzByVf6NWBs=
+Received: from pjhArchLinux ([211.64.159.150])
+ by newxmesmtplogicsvrszb51-0.qq.com (NewEsmtp) with SMTP
+ id EC246C4; Wed, 18 Nov 2026 16:03:44 +0800
+X-QQ-mid: xmsmtpt1794989024txq51cicx
+Message-ID: <tencent_57158E41575923FECD5D1E091356C6B9410A@qq.com>
+X-QQ-XMAILINFO: NcJw5CIirWgGYX1NvdLOhbG5veffgDsa3Id119NDlBsGsh5L4Ir+byxkIrJBBD
+ iR7d+a2jWiIc29T2nMXgwS0YUjTo55p7oZprGhEOQdGtddvofCu1TecsWyaf+9K+TH0c1pCabhjf
+ b8OENfmCYHMjF6omVIvwIeRuaA5eXetFP6UsgAB0aJyDIFpMGRZ+AZKRf2YyAkRKLHM4x6a+XIms
+ j6AHpkwxpYWvLZsCYMrE/8yYbyDZQlWmnvPoYpdd22TLwc5NWb5YEOXZbvF0BIDDWJfNxhwTSscV
+ EJxuw3T6RdBSua1LyZU3fHftGtVz2oruJbSJPnMDatzXARiiQgpd0gSi/WDWmvIm8iIJDgVuO4db
+ JAcBjzFNRZIVencyLWpxoOSP+JKGzsA5zdAVq3CqHTCfKvdIfDTOWr827cDajHguxn0Hrn+1lvUl
+ JW4ytvY3hvEvlopOF4AcRngWaT1kflpoegELjvdkeBTehTbi1bxGRMuXBxYxwRJ60uyYKXvBAO7C
+ /KYmQF2RFmMCrlwlTBy7yn04DFefk7+ErgumdbEdpP0zKT3E7+wjWiIPsvuvcG198DoUvU0ZjXKj
+ IybRvXjuJgaf3KYsJ9LwoTMpRj0do+dGCqm/HuqwvAYywQyF8QcWk3MHx2wq+tB0KalIaZpO9iIJ
+ W/KQHBTSfELp2fBo0iYbAPEQV5LOSq3kG7jN34kr3UXMzOwCjJawB/qaM1Gk8vHRVGgfPSPr6Cyi
+ iqNH3UH32A0Gz+0zxlhVHH7E0RG0YnvHrXz9YNMt4rEQn8ZoU5wbmYq75B5viP0jmMbCmh81gqgG
+ M137FlBHntCJfI31AOZwfBPETWG557xrD4rXmEmPxmwIM1q3s5JaUy+YSnPRMSOGFqTzu3QOldBc
+ XX3B6hy28X7Uu+0wwp0V+awgaSxKDk0T6qHYb/Zqt20NAnpyqkhrPtDJZhpY215zh/GKFOYnPb5A
+ XLjZqjSj1digUbl+FgfA4G5o5T8+ij+26TaMLeRH3UXIBCIFU6cDrjJujmKOCJMFIDXJtBLgDmim
+ IocZS7v6zyumhp8A6UpA+ZSDMZ748KeFHZ7C9YqQ==
+X-QQ-XMRINFO: Nq+8W0+stu50tPAe92KXseR0ZZmBTk3gLg==
+From: pjh456 <147148383@qq.com>
+To: Neil Armstrong <neil.armstrong@linaro.org>
+Cc: dri-devel@lists.freedesktop.org, Jessica Zhang <jesszhan0024@gmail.com>,
+ Maxime Ripard <mripard@kernel.org>, Rob Herring <robh@kernel.org>,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>
+Subject: [PATCH 0/2] drm/panel: ilitek-ili9881c: add Industio Purple Pi OH
+ panel
+Date: Wed, 18 Nov 2026 16:03:36 +0800
+X-OQ-MSGID: <20261118080338.523572-1-147148383@qq.com>
+X-Mailer: git-send-email 2.56.1
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v5 12/12] arm64: dts: qcom: sm6350-lena: enable remaining
- i2c busses
-Content-Language: en-GB
-To: Luca Weiss <luca.weiss@fairphone.com>,
- Neil Armstrong <neil.armstrong@linaro.org>,
- Jessica Zhang <jesszhan0024@gmail.com>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- Bjorn Andersson <andersson@kernel.org>,
- Konrad Dybcio <konradybcio@kernel.org>, Rob Herring <robh@kernel.org>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>
-Cc: linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org,
- linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org,
- phone-devel@vger.kernel.org, Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
-References: <20261116-pdx213-upstream-3-v5-0-7318a19806eb@erebion.eu>
- <20261116-pdx213-upstream-3-v5-12-7318a19806eb@erebion.eu>
- <DMXH52GLPXUT.236KX5W7LSRY7@fairphone.com>
-From: erebion <erebion@erebion.eu>
-Autocrypt: addr=erebion@erebion.eu; keydata=
- xjMEY7S2FRYJKwYBBAHaRw8BAQdAUf0YlT6sBQSunZeO44bgAPe+ndqTifGaNjw7vzJ2KPHN
- HGVyZWJpb24gPGVyZWJpb25AZXJlYmlvbi5ldT7CjwQTFggANxYhBJyMprURw7/YpjH7646v
- QDJuAq59BQJpWnovBQkHhhzbAhsDBAsJCAcFFQgJCgsFFgIDAQAACgkQjq9AMm4Crn057AEA
- j3didUIhbtAoppk2eNu6CbtMvkDisHWHVLaWF8YC1VsA/1P0ngBoVghELMachirfTinwBplJ
- qP7GGlSGRqSfnlAKzjgEY7S2FRIKKwYBBAGXVQEFAQEHQN6NPWcyqKdecGU1vN8FVXBwYEUd
- OAhF5jpmd7M0Ybx8AwEIB8J+BBgWCAAmFiEEnIymtRHDv9imMfvrjq9AMm4Crn0FAmlaei8F
- CQeGHNsCGwwACgkQjq9AMm4Crn075QEAoDqfm4OeAEQWMgfQ496u2S3rWJw1EMgTOP51FQbX
- rY4BAKn6AhEBh605uas3OTVtcwNIAJn1sHTA7HqqWniUe9sP
-In-Reply-To: <DMXH52GLPXUT.236KX5W7LSRY7@fairphone.com>
-Content-Type: multipart/signed; micalg=pgp-sha256;
- protocol="application/pgp-signature";
- boundary="------------IZh0FgOC0Mzl8kpWZefDdfl9"
+Content-Transfer-Encoding: 8bit
 X-Mailman-Approved-At: Wed, 18 Nov 2026 08:23:05 +0000
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -79,76 +66,45 @@ List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-12.3 required=3.0 tests=BAYES_00,DKIM_SIGNED,
-	DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
-	INCLUDES_CR_TRAILER,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,
-	USER_AGENT_SANE_1 autolearn=unavailable autolearn_force=no
+X-Spam-Status: No, score=-10.8 required=3.0 tests=BAYES_00,DKIM_SIGNED,
+	DKIM_VALID,DKIM_VALID_AU,FREEMAIL_FORGED_FROMDOMAIN,FREEMAIL_FROM,
+	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_PATCH,MAILING_LIST_MULTI,
+	SPF_HELO_NONE,SPF_PASS,USER_AGENT_GIT autolearn=ham autolearn_force=no
 	version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-This is an OpenPGP/MIME signed message (RFC 4880 and 3156)
---------------IZh0FgOC0Mzl8kpWZefDdfl9
-Content-Type: multipart/mixed; boundary="------------sDXDqMcp6Uq300MvD41ZVktY";
- protected-headers="v1"; hp="clear"
-Message-ID: <4f63673e-67c8-4f68-b3f5-82a0579e2b49@erebion.eu>
-Date: Tue, 17 Nov 2026 19:16:29 +0100
-MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v5 12/12] arm64: dts: qcom: sm6350-lena: enable remaining
- i2c busses
-Content-Language: en-GB
-To: Luca Weiss <luca.weiss@fairphone.com>,
- Neil Armstrong <neil.armstrong@linaro.org>,
- Jessica Zhang <jesszhan0024@gmail.com>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- Bjorn Andersson <andersson@kernel.org>,
- Konrad Dybcio <konradybcio@kernel.org>, Rob Herring <robh@kernel.org>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>
-Cc: linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org,
- linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org,
- phone-devel@vger.kernel.org, Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
-References: <20261116-pdx213-upstream-3-v5-0-7318a19806eb@erebion.eu>
- <20261116-pdx213-upstream-3-v5-12-7318a19806eb@erebion.eu>
- <DMXH52GLPXUT.236KX5W7LSRY7@fairphone.com>
-From: erebion <erebion@erebion.eu>
-Autocrypt: addr=erebion@erebion.eu; keydata=
- xjMEY7S2FRYJKwYBBAHaRw8BAQdAUf0YlT6sBQSunZeO44bgAPe+ndqTifGaNjw7vzJ2KPHN
- HGVyZWJpb24gPGVyZWJpb25AZXJlYmlvbi5ldT7CjwQTFggANxYhBJyMprURw7/YpjH7646v
- QDJuAq59BQJpWnovBQkHhhzbAhsDBAsJCAcFFQgJCgsFFgIDAQAACgkQjq9AMm4Crn057AEA
- j3didUIhbtAoppk2eNu6CbtMvkDisHWHVLaWF8YC1VsA/1P0ngBoVghELMachirfTinwBplJ
- qP7GGlSGRqSfnlAKzjgEY7S2FRIKKwYBBAGXVQEFAQEHQN6NPWcyqKdecGU1vN8FVXBwYEUd
- OAhF5jpmd7M0Ybx8AwEIB8J+BBgWCAAmFiEEnIymtRHDv9imMfvrjq9AMm4Crn0FAmlaei8F
- CQeGHNsCGwwACgkQjq9AMm4Crn075QEAoDqfm4OeAEQWMgfQ496u2S3rWJw1EMgTOP51FQbX
- rY4BAKn6AhEBh605uas3OTVtcwNIAJn1sHTA7HqqWniUe9sP
-In-Reply-To: <DMXH52GLPXUT.236KX5W7LSRY7@fairphone.com>
+This series adds support for the 7-inch 800x1280 ILI9881C panel used on
+the Industio Purple Pi OH (RK3566).
 
---------------sDXDqMcp6Uq300MvD41ZVktY
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: base64
+The module is marked ZC-700010BH and has a 94x151 mm active area.  The
+vendor device tree only describes it as a generic "simple-panel-dsi",
+so no panel-vendor compatible is known; patch 1 adds a board-specific
+compatible with ilitek,ili9881c as the fallback.
 
-T24gMTEvMTcvMjYgMTM6MTEsIEx1Y2EgV2Vpc3Mgd3JvdGU6DQo+IElmIHlvdSByZXNlbmQs
-IGFkZCBhIG5ld2xpbmUgYmVmb3JlICdzdGF0dXMnLCBhbHNvIHdpdGggaTJjMTANCj4gDQo+
-IFJldmlld2VkLWJ5OiBMdWNhIFdlaXNzIDxsdWNhLndlaXNzQGZhaXJwaG9uZS5jb20+DQpU
-aGFua3MsIHdpbGwgYWxzbyBkbyB0aGF0IHdpdGggaTJjOC4NCg0KLS0gDQplcmViaW9uDQoN
-ClhNUFA6IGVyZWJpb25AZXJlYmlvbi5ldQ0KDQpBY2NlcHRlZCBsYW5ndWFnZXM6IEdlcm1h
-biwgRW5nbGlzaCwgU3dlZGlzaCwgTm9yd2VnaWFuLCBEYW5pc2gNCg0K
+Patch 2 adds a dedicated driver entry with the vendor initialisation
+sequence.  The existing am8001280g entry (another 7-inch 800x1280
+ILI9881C panel) was tested on this hardware and only lights the
+backlight without a picture, so the vendor sequence is required.
 
---------------sDXDqMcp6Uq300MvD41ZVktY--
+The panel is reset through GPIO0_D6 and its backlight is driven by PWM4.
+On hardware, the panel probes as DSI-1 94x151, modetest reports the
+expected mode, and the geometry test pattern is correct.
 
---------------IZh0FgOC0Mzl8kpWZefDdfl9
-Content-Type: application/pgp-signature; name="OpenPGP_signature.asc"
-Content-Description: OpenPGP digital signature
-Content-Disposition: attachment; filename="OpenPGP_signature.asc"
+The board DTS that uses this compatible is part of a separate Purple Pi
+OH board series.  AI assistance is disclosed in the commit trailers.
 
------BEGIN PGP SIGNATURE-----
+pjh456 (2):
+  dt-bindings: display: panel: ilitek,ili9881c: add Industio Purple Pi
+    OH panel
+  drm/panel: ilitek-ili9881c: add Industio Purple Pi OH panel
 
-wnsEABYIACMWIQScjKa1EcO/2KYx++uOr0AybgKufQUCavyZ/QUDAAAAAAAKCRCOr0AybgKufZVv
-AP44LNpwUJ4lzteMf21W5HgTm9u1oF/uAYdWgeHUv075HAD/WfEs1NmlCuXud45L6MnvzXwZ8RdY
-ASC3DDAvI4RpzQU=
-=hO4x
------END PGP SIGNATURE-----
+ .../display/panel/ilitek,ili9881c.yaml        |   3 +
+ drivers/gpu/drm/panel/panel-ilitek-ili9881c.c | 222 ++++++++++++++++++
+ 2 files changed, 225 insertions(+)
 
---------------IZh0FgOC0Mzl8kpWZefDdfl9--
+
+base-commit: 7e1392a42ea288d70a266f6553fe06f57f8647ea
+-- 
+2.56.1
+
