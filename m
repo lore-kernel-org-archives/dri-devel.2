@@ -2,52 +2,55 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 010A2606A33B
-	for <dri-devel@archiver.kernel.org>; Wed, 18 Nov 2026 14:27:03 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D74CF606A325
+	for <dri-devel@archiver.kernel.org>; Wed, 18 Nov 2026 14:31:16 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=YkG45L2L
+	dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.a=rsa-sha256 header.s=dkim header.b=Ew2XsXLk
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 6A61E10E7EF;
-	Wed, 18 Nov 2026 14:26:57 +0000 (UTC)
-Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 3C1AB10E7EF;
- Wed, 18 Nov 2026 14:26:51 +0000 (UTC)
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id 0C45D44DEC;
- Wed, 18 Nov 2026 14:26:51 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6210A1F000C5;
- Wed, 18 Nov 2026 14:26:50 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1795012010;
- bh=paST2r9B7lYr/U+Ug8HSKC2nKjDGI2/u6pguTLjby80=;
- h=Date:Subject:To:Cc:References:From:In-Reply-To;
- b=YkG45L2LBlsNeuUcP7X8Vj3f7ISeqpEVXBovAD42O5TVWsKiThIxEXr5/a7LC4v+t
- jhmF929/DNRZsqxm8bMf2fRrlA/F5T7R6HomOKtOrONUZbvu3Hl5zgUJ2DUSRYPQoY
- dHQYFxrWj/zluZQKk6JUDVTxnbpeou072MKgTwRy+EMPYDbEFsNqFP3Gf/3nNLaThf
- P31YsHXPsHP4uS77QJzTcqTQny1F6XffPPPyPMieQr9A2ogjWcpB6SCVRwVt3Q3BmO
- X0oHr1/ynt+4JYoLpMq9v9WekQUB1RYU1y7La3MBtKQVeNnYTZVqGjtBKEFoOAHyBG
- JnCGarKCiQgVQ==
-Message-ID: <5386db0f-e9b3-4c62-bb2b-392cca4d761a@kernel.org>
-Date: Wed, 18 Nov 2026 08:26:48 -0600
+	by gabe.freedesktop.org (Postfix) with ESMTP id 475F810FD17;
+	Wed, 18 Nov 2026 14:31:11 +0000 (UTC)
+Received: from smtpout-04.galae.net (smtpout-04.galae.net [185.171.202.116])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id E5B0510FD17
+ for <dri-devel@lists.freedesktop.org>; Wed, 18 Nov 2026 14:31:04 +0000 (UTC)
+Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
+ by smtpout-04.galae.net (Postfix) with ESMTPS id 12B37C4CBDA;
+ Wed, 18 Nov 2026 14:31:07 +0000 (UTC)
+Received: from mail.galae.net (mail.galae.net [212.83.136.155])
+ by smtpout-01.galae.net (Postfix) with ESMTPS id 2C79D5FE9B;
+ Wed, 18 Nov 2026 14:31:02 +0000 (UTC)
+Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon)
+ with ESMTPSA id 5D73911BC1D28; Wed, 18 Nov 2026 15:30:51 +0100 (CET)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
+ t=1795012256; h=from:subject:date:message-id:to:cc:mime-version:content-type:
+ content-transfer-encoding:content-language:in-reply-to:references;
+ bh=392Hdswd6RPVgoARz97n2rCwM4IdCSNMtjJg6BE/bLM=;
+ b=Ew2XsXLkqtUOpCPT12pc1hvd84aXYM7wHSOTaA+EnsN0dNFY3Ua2doiE0ZnT3/UMkbkIPE
+ H1jB6j9Php5QHjUMbNW0pUBIx3QVZBlHFCWxIke3VinNVOJhoDfe9aUgbhd75IJfBBU0LN
+ TBNmaFLMOWHoy02XumJqjJNTlxGk8PKr6CUNoLchmsl39lHvnqmF+gQ7aduTJmQ8Bw5AY5
+ pSb4V4gvxIVY3rGJAAWcyOGqAoyUAnP4MtXuHSASvcjDRxKEzX7iyb4EFmp52iNpahDQvN
+ io7gsIQses3V8zw4i8cjH8zrcQbeXMhat7BBtn62CrJT2tsWaaQZ40jIjx9mRA==
+Message-ID: <a520c744-3578-4d2d-8d88-72cd4facab7b@bootlin.com>
+Date: Wed, 18 Nov 2026 15:30:50 +0100
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2] drm/amd/display: Route connector DDC over AUX for
- native DP sinks
+Subject: Re: [PATCH v2 01/12] drm/vkms: rename VKMS_LUT_SIZE to
+ VKMS_GAMMA_LUT_SIZE
+To: Leandro Ribeiro <leandro.ribeiro@collabora.com>
+Cc: airlied@gmail.com, alex.hung@amd.com, daniel@fooishbar.org,
+ hamohammed.sa@gmail.com, harry.wentland@amd.com,
+ maarten.lankhorst@linux.intel.com, melissa.srw@gmail.com,
+ mripard@kernel.org, pekka.paalanen@collabora.com,
+ robert.mader@collabora.com, simona@ffwll.ch, tzimmermann@suse.de,
+ dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org
+References: <20261106201813.129911-1-leandro.ribeiro@collabora.com>
+ <20261106201813.129911-2-leandro.ribeiro@collabora.com>
+From: Louis Chauvet <louis.chauvet@bootlin.com>
 Content-Language: en-US
-To: =?UTF-8?Q?Eren_=C3=96zen?= <erenozen@protonmail.com>
-Cc: simonit.orig@gmail.com, Richard Hughes <richard@hughsie.com>,
- Harry Wentland <harry.wentland@amd.com>, Leo Li <sunpeng.li@amd.com>,
- Alex Deucher <alexander.deucher@amd.com>, dri-devel@lists.freedesktop.org,
- Wayne Lin <Wayne.Lin@amd.com>, amd-gfx@lists.freedesktop.org
-References: <20261103-superm1-amdgpu-ddc-v2-1-7bde6d004382@kernel.org>
- <20261115082042.1902826-1-Wayne.Lin@amd.com>
- <c6d79680-1fd2-4e71-9d00-616010b7727c@kernel.org>
- <QU464501lRPW3X8es-jXBFOvvwqS3eKR3HRS33U6x6o5eYC6h5AKV7f3ZXRCaU7-sEcupJMHereqyDUsUSG_fsOMNwvGO_CcZRKsz1AgObk=@protonmail.com>
-From: Mario Limonciello <superm1@kernel.org>
-In-Reply-To: <QU464501lRPW3X8es-jXBFOvvwqS3eKR3HRS33U6x6o5eYC6h5AKV7f3ZXRCaU7-sEcupJMHereqyDUsUSG_fsOMNwvGO_CcZRKsz1AgObk=@protonmail.com>
+In-Reply-To: <20261106201813.129911-2-leandro.ribeiro@collabora.com>
 Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
+Content-Transfer-Encoding: 7bit
+X-Last-TLS-Session-Version: TLSv1.3
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -59,62 +62,76 @@ List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-7.3 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
-	DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
-	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,USER_AGENT_SANE_1
-	autolearn=no autolearn_force=no version=4.0.1
+X-Spam-Status: No, score=-17.3 required=3.0 tests=BAYES_00,DKIM_SIGNED,
+	DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
+	INCLUDES_CR_TRAILER,INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,
+	SPF_PASS,USER_AGENT_SANE_1 autolearn=unavailable autolearn_force=no
+	version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-On 11/18/26 06:46, Eren Özen wrote:
-> Hi Wayne, Mario,
-> 
-> 48b8c06b05ad ("drm/amd/display: Route connector DDC over AUX for native
-> DP sinks") in amd-staging-drm-next is v2 of this patch, not v3 [1].
-> 
-> v3 added a NULL check on ddc_service->link. Without it, the existing
-> KUnit test dm_test_i2c_xfer_no_ddc_pin(), whose ddc_service has no link,
-> dereferences a NULL link and panics the UML kernel. sashiko-bot pointed
-> this out on v2 [2]. It reproduces on amd-staging-drm-next 8dd68a79583a:
-> 
->    RIP: 0033:amdgpu_dm_i2c_xfer+0x52/0x210
->    Kernel panic - not syncing: Segfault with no mm
->    ...
->    dm_test_i2c_xfer_no_ddc_pin+0xaf/0x1e0
-> 
-> Only 670 of the 1931 amdgpu_dm tests get to run.
-> 
-> I don't think picking up v3 instead is the answer, though. From reading
-> the code, sashiko-bot's DP++ concern on v3 [3] looks right:
-> link->aux_mode is only written in detect_link_and_local_sink() after
-> detect_dp(), and nothing clears it on unplug. After a native DP monitor
-> is swapped for a passive DP++ HDMI adapter, the adapter ID read in
-> dp_passive_dongle_detection() would go over AUX. v2 doesn't have that
-> problem, because link_disconnect_sink() clears local_sink before
-> detect_dp().
-> 
-> In the driver, a non-OEM adapter always has ddc_service->link set
-> (amdgpu_dm_create_i2c() already dereferences it), so I think only the
-> test needs fixing. I can send a test-only patch that gives the test a
-> zeroed dc_link. With it, all three i2c_xfer tests pass and the suite
-> runs to the end again. Mario, if you'd rather fold it into a driver
-> follow-up, I'm happy to test that instead.
-> 
-> [1] https://lore.kernel.org/all/20261110-superm1-amdgpu-ddc-v3-1-9436b04d1e31@kernel.org/
-> [2] https://lore.kernel.org/all/sashiko-outbox-195461@kernel.org/
-> [3] https://lore.kernel.org/all/sashiko-outbox-207767@kernel.org/
-> 
-> Thanks,
-> Eren
 
-Eren,
 
-Really appreciate the feedback.  If you want to share your test patch 
-I'll fold it into what's currently v3 and give you a C-d-b tag for v4.
+On 11/6/26 21:18, Leandro Ribeiro wrote:
+> This is the size of the CRTC gamma LUT size. So let's specify this
+> in the name.
+> 
+> Reviewed-by: Robert Mader <robert.mader@collabora.com>
+> Tested-by: Robert Mader <robert.mader@collabora.com>
+> Signed-off-by: Leandro Ribeiro <leandro.ribeiro@collabora.com>
 
-Simon,
+Reviewed-by: Louis Chauvet <louis.chauvet@bootlin.com>
 
-But I still need testing this actually works for the issue originally 
-raised on real hardware.
+> ---
+>   drivers/gpu/drm/vkms/vkms_crtc.c | 4 ++--
+>   drivers/gpu/drm/vkms/vkms_drv.c  | 2 +-
+>   drivers/gpu/drm/vkms/vkms_drv.h  | 2 +-
+>   3 files changed, 4 insertions(+), 4 deletions(-)
+> 
+> diff --git a/drivers/gpu/drm/vkms/vkms_crtc.c b/drivers/gpu/drm/vkms/vkms_crtc.c
+> index fe17f49305a9..019d7bc90cdc 100644
+> --- a/drivers/gpu/drm/vkms/vkms_crtc.c
+> +++ b/drivers/gpu/drm/vkms/vkms_crtc.c
+> @@ -222,13 +222,13 @@ struct vkms_output *vkms_crtc_init(struct drm_device *dev, struct drm_plane *pri
+>   
+>   	drm_crtc_helper_add(crtc, &vkms_crtc_helper_funcs);
+>   
+> -	ret = drm_mode_crtc_set_gamma_size(crtc, VKMS_LUT_SIZE);
+> +	ret = drm_mode_crtc_set_gamma_size(crtc, VKMS_GAMMA_LUT_SIZE);
+>   	if (ret) {
+>   		DRM_ERROR("Failed to set gamma size\n");
+>   		return ERR_PTR(ret);
+>   	}
+>   
+> -	drm_crtc_enable_color_mgmt(crtc, 0, false, VKMS_LUT_SIZE);
+> +	drm_crtc_enable_color_mgmt(crtc, 0, false, VKMS_GAMMA_LUT_SIZE);
+>   
+>   	drm_crtc_attach_background_color_property(crtc);
+>   
+> diff --git a/drivers/gpu/drm/vkms/vkms_drv.c b/drivers/gpu/drm/vkms/vkms_drv.c
+> index 5a640b531d88..86a8a95694fd 100644
+> --- a/drivers/gpu/drm/vkms/vkms_drv.c
+> +++ b/drivers/gpu/drm/vkms/vkms_drv.c
+> @@ -113,7 +113,7 @@ static int vkms_atomic_check(struct drm_device *dev, struct drm_atomic_commit *s
+>   			continue;
+>   
+>   		if (new_crtc_state->gamma_lut->length / sizeof(struct drm_color_lut *)
+> -		    > VKMS_LUT_SIZE)
+> +		    > VKMS_GAMMA_LUT_SIZE)
+>   			return -EINVAL;
+>   	}
+>   
+> diff --git a/drivers/gpu/drm/vkms/vkms_drv.h b/drivers/gpu/drm/vkms/vkms_drv.h
+> index dea6cad3f1b9..34b855431af3 100644
+> --- a/drivers/gpu/drm/vkms/vkms_drv.h
+> +++ b/drivers/gpu/drm/vkms/vkms_drv.h
+> @@ -25,7 +25,7 @@
+>   
+>   #define NUM_OVERLAY_PLANES 8
+>   
+> -#define VKMS_LUT_SIZE 256
+> +#define VKMS_GAMMA_LUT_SIZE 256
+>   
+>   /**
+>    * struct vkms_frame_info - Structure to store the state of a frame
 
-These unit test issues are just noise "for that purpose".
