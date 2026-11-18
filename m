@@ -2,83 +2,77 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6286F606A31C
-	for <dri-devel@archiver.kernel.org>; Wed, 18 Nov 2026 08:23:16 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 90ED1606A31C
+	for <dri-devel@archiver.kernel.org>; Wed, 18 Nov 2026 08:23:18 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=FfZH5qyD
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=F71prr9R
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id BE56110EA53;
-	Wed, 18 Nov 2026 08:23:06 +0000 (UTC)
-Received: from mail-wm1-f48.google.com (mail-wm1-f48.google.com
- [209.85.128.48])
- by gabe.freedesktop.org (Postfix) with ESMTPS id ADC2010E5C4
- for <dri-devel@lists.freedesktop.org>; Tue, 17 Nov 2026 12:39:56 +0000 (UTC)
-Received: by mail-wm1-f48.google.com with SMTP id
- 5b1f17b1804b1-4a9a8d6cea8so11252765e9.1
- for <dri-devel@lists.freedesktop.org>; Tue, 17 Nov 2026 04:39:56 -0800 (PST)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 9703310EB20;
+	Wed, 18 Nov 2026 08:23:07 +0000 (UTC)
+Received: from mail-pg1-f172.google.com (mail-pg1-f172.google.com
+ [209.85.215.172])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 2A7CE10E2F6
+ for <dri-devel@lists.freedesktop.org>; Wed, 18 Nov 2026 07:24:56 +0000 (UTC)
+Received: by mail-pg1-f172.google.com with SMTP id
+ 41be03b00d2f7-cddee4abc57so201316a12.0
+ for <dri-devel@lists.freedesktop.org>; Tue, 17 Nov 2026 23:24:56 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20260707; t=1794919195; x=1795523995; darn=lists.freedesktop.org;
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:date:subject:cc:to:from:from:to:cc:subject:date
- :message-id:reply-to:content-type;
- bh=acRH3NbgLkYCK5iiPRFwHw3LXKQX8KfNDsHlQP+4/XA=;
- b=FfZH5qyDIAKB+CXJ0lTx0VBYbBFy6a0SF4EFq79vY9p6dZFhbVEzHXZcPPGNUaNkXP
- W/IpMVugpQLP4yZTyAtD2geusQuOPTO6/V7Zh9HonFWpnPFIMnASO4udpLokdPZN91xX
- 1/SIl1AESz1O0QbrY3dVs3QP3AdlMnRa2/SkrknqxLuSKk9RJOd37fucb+1UeOmynkNM
- q9h2+cvYEI0CaTzcePZucCHh0znxJyhB5gAR+knLSGt4JdE35stJS7ugcebrtZxOeaQ4
- D1RbHBRF56RPg4nLbtsTEUNktVjA4T1dzNktt3c4MtKg5/EKcHIrUdJEVGPOfRm/fSit
- JOCg==
+ d=gmail.com; s=20260707; t=1794986696; x=1795591496; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+ bh=bsjzF6TvIUuw+1BiWPKqYlHDsaiLhXoBbNKg0Yd1gBs=;
+ b=F71prr9RA1/h4JfZ8TIUiqBiRzmbMO7lnbRfmAXTIvCxtnqrWRgjo4RoTg6G5oDaas
+ k1cjgJXzUnA6IP/qQ+w8v4H/GgqSLa0b4OlI07WQhoMFNDCVYkIUv8NJ1AFu0TRK51d8
+ iGbRC0ki49/DB28ERCc6LX3qxXY+KaHzK5I7xyRCMrYqElWBpE4ta6YX9jeKpL8fPdIP
+ wqd1zpPtSW8U0qcEpYzuyQkCjcpW9EI4US1e4dexsJsfnHkLUSd72hb1BJhJuQlAGxJG
+ oQnd1aXAdVSCMu2avogHY4+1Al8gUkQr0mnfWU7by5kdBR/dOI1Xa76LgV8ZWrVBNvAs
+ /6/g==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20260707; t=1794919195; x=1795523995;
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
- :to:cc:subject:date:message-id:reply-to:content-type;
- bh=acRH3NbgLkYCK5iiPRFwHw3LXKQX8KfNDsHlQP+4/XA=;
- b=T9UEm2gJmC+5gXppbN/ZJI2zhRGOoyEhMFgdr/ewfOlqCsdhXuz4nQpbU9HGaRkEA8
- juE8TpVL4Ua3Fjbm7XuSG8ma/yKFt49yrCJ5f4vulSUgiJZ24sWym4qouy+lh+1k2y8u
- t0bZMRe8ELc7SYqeh1OGXeaNn9IhclQV1CPOugLo1VQwfvWoVCnmoPv2qhnqCe7k5cNj
- w59mpaEbBGOYMcv9V30wP0rAOCbKqtN/W6sTBjSTpPDMRDY02NJGcpzElLN62wpULret
- t4qR1emXNMkZj1scxKX1VeoYFIhJpSxyGwIsYlQNYW4Lqpn4x4X6FwnJ2fl0+3EzMr8y
- 5ktA==
+ d=1e100.net; s=20260707; t=1794986696; x=1795591496;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+ :message-id:reply-to:content-type;
+ bh=bsjzF6TvIUuw+1BiWPKqYlHDsaiLhXoBbNKg0Yd1gBs=;
+ b=H2YaGvisq46s3/tJ8aul+lKelqaS0WOlqhTeRfDtIo3+pKpHL0dh+nxoqDuIQISxCT
+ /BRgE4DsCOf6glo2P0rQUShq0WC/syTYg6iJPemaffAhUv4Wmrr/xEuE8mOuatPSNbRR
+ TnnTnUb3U+nby4P/hjL8OgVuP9tRt0HwokOO05Es0HkL1Z8QVppp4SJ1BwtPo3lnc7kZ
+ ROGzakW8da8BqMTc32NUGUTjGscUPOlIIWnO6JnYmEMprrO+gtkBBWuVl09Gq/409nQG
+ A1lJDwosvBPly7z3mAq2rFRh1kC5wq9cDFDBx5FeXQPLzTj0Oqv2WBsrwrTjQrQeOk+y
+ 5iOA==
 X-Forwarded-Encrypted: i=1;
- AL+hErGG0+VlO8uBnQ6yTAHpFc+Fz7YP9ZyzAfPW7Yi8a3iat7xNIEW1OtB+VRF0CcFwIfFeY9c+DRAVhME=@lists.freedesktop.org
-X-Gm-Message-State: APuU4Z+MxlL3Er4iqw9LYHxTlIMiEj7aelAIYgsbhxBFEjpCEtuyPbpu
- dd71GiTbnIz/IRgtwsRJGi4k+dcXwMa4lqJYGRdxfNGLPDfUISXK1mZR
-X-Gm-Gg: AYBFou1PUuGDPD+DkqsLc7zhEbRJaRqXhviUuRCaexmpropqmul/43vkbi0aWVt80X8
- oNBec63zAa80BwS/68Qi9GRP9LZzfkoFtnOo5E2dxk2458+55RCI/GbPctcpJ2ZElfl3aLEDl/t
- ZytpsKCcdLcroSrB5L+K39u+1Xgtfw/rmf68ho4yvmdJ2e0gYDnHbS8g4jOqp3avIds7HU3SNds
- vNmrpx9k9Z8SMuAEEVNttyrLoqvJsXbdIjO2StPzlCdNKWGBqiIMUdSR0EbI2nC7o8ps38EddGa
- DvC20IUSW+GWI6fMJtF9XBA2O+cMZaMmiJxb1aTiRucruu/4h06oVATkzYMlJXKSBe8pEda5bK1
- X11+uLPQFht6UwE3DqHXGdRkgFdwd8pQ5iI92NBxyGHMwWtvTqBp8QllE58PftP2QbF42pL2YDb
- H33EcCd+01YDA+yNnLxKWSHV7V381QzgVOqEbcliqTWg/BQvjnjXMlC2cJlqDsbQFxIJEohUSDU
- WW+BOY7BNfXu4g5HUUY2QEB1rD3JA35ufSDyk1Y9kyQCWYMulTNZEdtTwoySBr6m27A9FDSbxyv
- texU7JszmQUWGIXAcBEq11Q1aKBiyHsczb0RpaMioANNW0fIGCQ7HOjiPf7dB6bKIStsWg==
-X-Received: by 2002:a05:600c:5012:b0:4b4:a551:681a with SMTP id
- 5b1f17b1804b1-4bb7837264cmr55075555e9.3.1794919194974; 
- Tue, 17 Nov 2026 04:39:54 -0800 (PST)
-Received: from DESKTOP-BJ3EVC4.lan (94-21-223-203.pool.digikabel.hu.
- [94.21.223.203]) by smtp.gmail.com with ESMTPSA id
- 5b1f17b1804b1-4bb783f8154sm71474905e9.4.2026.11.17.04.39.54
+ AL+hErHkGshse1OT+dhIrWLd7t9/j5VzdqZsGi3s2FuagbWfhYp+0Ybb1kjj8wKwRTSXu/8VJ56hpIjKxtc=@lists.freedesktop.org
+X-Gm-Message-State: APuU4Z9UfsgIpjKif8sG7le7UVuFn35NtXdAi3v0KrH51/TiMtdwGO7G
+ b39VwKR+f7zK9uusmiYdg4VC6thaklqouYk/OH6ncLLsGYc0v9C/vHrQ
+X-Gm-Gg: AZFdTZcv5vc4Bv7FrU8RLrjlqoMV5IJLXtLRVxKXIQwhF6TcEr6CnFCE5xk2FsyW1zu
+ 2Kqlv8f00AZWKMLLaep0qA2ufQ9V3M7HBNcnzYNFgEnB5Z5mQS0yWQ7I9u6RiEar6SX3E9tZi+0
+ 1P5J7P0dxElCpiigWC/hBkJIbdhNafBy46d8M8tURX/FOBXdgELFm6Khj6f32wRLGuRv5Zrhrsa
+ /GBgRBLBt+5dk7orrKMTxhfk+X2DRL1l+5RTC8kaVuzn6kDpN2yAfgbSQby0Q38oZbybnZjSXdD
+ Zfs1ahCxfT0cnp3JxquGNfOZ3cdk3nv+QbHlZhji1WZB010sSWI1aIIPxna1fdQZeznN9SSOZpB
+ 9poq1WYGLpMlsrsmeFqXXjZc/IPyc9g4zgNZXLqzCc/Sqpw1asLY05+/lJ6x/FvfbVUccAw+Zoj
+ vypN1o3veOwJLL5ZF1uuDtOhH3mZwkBxhD+/WlDk1qtFg8R5a/OwR+dsLD6fPDYXoEzMXLbXOy7
+ Q6MjO86p3+XqeSZGSbYdpCzMuEMEgJL0jyDyQu9+zDKB0q8UE6E0fGQCrfze1do0pXyDf7bpfIe
+ N95h9LDv7PG5zYL+6zgLZiOnWog2fMw9bwNzFA/Kbg2iLbuz1zE5c6K3IDLk3oiLqBIgWGhu2qi
+ Js9/fYwcazxKNR1np90k5LT0vanncuZpJZVEKoGLi0yHLHdiJwr9sqkUfXkyZNw==
+X-Received: by 2002:a17:90a:d44b:b0:3ab:884b:65ab with SMTP id
+ 98e67ed59e1d1-3b3d07c2479mr1638407a91.55.1794986695524; 
+ Tue, 17 Nov 2026 23:24:55 -0800 (PST)
+Received: from lwq-System-Product-Name.. ([2602:feda:30:cafe:ec49:29ac:0:f6])
+ by smtp.gmail.com with ESMTPSA id
+ 98e67ed59e1d1-3b3d56ee297sm934947a91.4.2026.11.17.23.24.51
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Tue, 17 Nov 2026 04:39:54 -0800 (PST)
-From: rofikkerneldev <rofikcoga@gmail.com>
-To: linux-arm-msm@vger.kernel.org
-Cc: devicetree@vger.kernel.org, dri-devel@lists.freedesktop.org,
- linux-input@vger.kernel.org, linux-kernel@vger.kernel.org,
- Bjorn Andersson <andersson@kernel.org>,
- Konrad Dybcio <konradybcio@kernel.org>, Rob Herring <robh@kernel.org>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>,
- Neil Armstrong <neil.armstrong@linaro.org>,
- Dmitry Torokhov <dmitry.torokhov@gmail.com>,
- rofikkerneldev <rofikcoga@gmail.com>
-Subject: [PATCH v1 06/11] dt-bindings: input: touchscreen: add Silicon Works
- SW42902
-Date: Tue, 17 Nov 2026 13:39:41 +0100
-Message-Id: <20261117123946.668557-7-rofikcoga@gmail.com>
-X-Mailer: git-send-email 2.39.5
-In-Reply-To: <20261117123946.668557-1-rofikcoga@gmail.com>
-References: <20261117123946.668557-1-rofikcoga@gmail.com>
+ Tue, 17 Nov 2026 23:24:55 -0800 (PST)
+From: Yaohan Li <shunsheng1218@gmail.com>
+To: jeff.hugo@oss.qualcomm.com,
+	ogabbay@kernel.org
+Cc: carl.vanderlip@oss.qualcomm.com, linux-arm-msm@vger.kernel.org,
+ dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
+ jacek.lawrynowicz@linux.intel.com, quic_pkanojiy@quicinc.com,
+ stanislaw.gruszka@linux.intel.com
+Subject: [PATCH] accel/qaic: drain the control workqueue before the device is
+ freed
+Date: Wed, 18 Nov 2026 15:24:48 +0800
+Message-Id: <20261118072448.1259909-1-shunsheng1218@gmail.com>
+X-Mailer: git-send-email 2.34.1
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
@@ -102,113 +96,57 @@ X-Spam-Status: No, score=-15.8 required=3.0 tests=BAYES_00,DKIM_SIGNED,
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-Document the I2C touchscreen and its interrupt, reset, power-enable,
-and panel-size properties.
+qaic_pci_remove() tears the MHI controller down and destroys the DRM
+device, but nothing drains qdev->cntl_wq.  qdev itself is allocated with
+devm_kzalloc_flex() and is freed as soon as the PCI device is unbound,
+while cntl_wq is a DRM-managed resource that survives until the last
+open file drops its reference to the DRM device.
 
-Signed-off-by: rofikkerneldev <rofikcoga@gmail.com>
+resp_work is queued from qaic_mhi_dl_xfer_cb() and resp_worker()
+dereferences qdev, so a work item that is still queued, or still
+running, when the driver instance goes away touches freed memory.
+
+mhi_power_down() moves the controller to the shutdown state, disables
+the interrupt and flushes the state worker that destroys the channel
+devices, and mhi_unregister_controller() removes the controller, so no
+data event can reach qaic_mhi_dl_xfer_cb() once
+qaic_mhi_free_controller() has returned.  Flushing the workqueue after
+it therefore covers every work item that can still be queued.
+
+Fixes: c501ca23a6a3 ("accel/qaic: Add uapi and core driver file")
+Signed-off-by: Yaohan Li <shunsheng1218@gmail.com>
 ---
- .../input/touchscreen/lg,sw42902.yaml         | 74 +++++++++++++++++++
- MAINTAINERS                                   |  6 ++
- 2 files changed, 80 insertions(+)
- create mode 100644 Documentation/devicetree/bindings/input/touchscreen/lg,sw42902.yaml
+Prepared against v7.4-rc1-1969-g666539eecdf4.
 
-diff --git a/Documentation/devicetree/bindings/input/touchscreen/lg,sw42902.yaml b/Documentation/devicetree/bindings/input/touchscreen/lg,sw42902.yaml
-new file mode 100644
-index 0000000000000..c56cfb8530eeb
---- /dev/null
-+++ b/Documentation/devicetree/bindings/input/touchscreen/lg,sw42902.yaml
-@@ -0,0 +1,74 @@
-+# SPDX-License-Identifier: GPL-2.0-only OR BSD-2-Clause
-+%YAML 1.2
-+---
-+$id: http://devicetree.org/schemas/input/touchscreen/lg,sw42902.yaml#
-+$schema: http://devicetree.org/meta-schemas/core.yaml#
-+
-+title: Silicon Works SW42902 touchscreen
-+
-+maintainers:
-+  - rofikkerneldev <rofikcoga@gmail.com>
-+
-+description: |
-+  I2C touchscreen used in the LG V60 timelm JP DCM. The controller boots
-+  its existing flash firmware; the enable GPIOs switch its 3.3 V and
-+  1.8 V power rails.
-+
-+allOf:
-+  - $ref: touchscreen.yaml#
-+
-+properties:
-+  compatible:
-+    const: lg,sw42902
-+
-+  reg:
-+    maxItems: 1
-+
-+  interrupts:
-+    maxItems: 1
-+
-+  reset-gpios:
-+    maxItems: 1
-+    description: Active-low controller reset
-+
-+  vcl-gpios:
-+    maxItems: 1
-+    description: Active-high enable for the 3.3 V rail
-+
-+  vdd-gpios:
-+    maxItems: 1
-+    description: Active-high enable for the 1.8 V rail
-+
-+required:
-+  - compatible
-+  - reg
-+  - interrupts
-+  - reset-gpios
-+  - vcl-gpios
-+  - vdd-gpios
-+  - touchscreen-size-x
-+  - touchscreen-size-y
-+
-+unevaluatedProperties: false
-+
-+examples:
-+  - |
-+    #include <dt-bindings/gpio/gpio.h>
-+    #include <dt-bindings/interrupt-controller/irq.h>
-+
-+    i2c {
-+        #address-cells = <1>;
-+        #size-cells = <0>;
-+
-+        touchscreen@28 {
-+            compatible = "lg,sw42902";
-+            reg = <0x28>;
-+            interrupt-parent = <&tlmm>;
-+            interrupts = <39 IRQ_TYPE_LEVEL_LOW>;
-+            reset-gpios = <&tlmm 38 GPIO_ACTIVE_LOW>;
-+            vcl-gpios = <&tlmm 67 GPIO_ACTIVE_HIGH>;
-+            vdd-gpios = <&tlmm 68 GPIO_ACTIVE_HIGH>;
-+            touchscreen-size-x = <1080>;
-+            touchscreen-size-y = <2460>;
-+        };
-+    };
-diff --git a/MAINTAINERS b/MAINTAINERS
-index abdaabe16ed53..f4c54d7d86bd8 100644
---- a/MAINTAINERS
-+++ b/MAINTAINERS
-@@ -25835,6 +25835,12 @@ S:	Maintained
- F:	Documentation/fb/sm712fb.rst
- F:	drivers/video/fbdev/sm712*
+AI assistance: the analysis, the change and its review notes were
+prepared with Claude (Anthropic) as a coding assistant.  The author
+reviewed the reasoning and takes responsibility for the content.
+
+Testing: compile tested only (arm64, gcc 11.4).  No QAIC hardware was
+available, so the teardown race was not run.
+ drivers/accel/qaic/qaic_drv.c | 9 +++++++++
+ 1 file changed, 9 insertions(+)
+
+diff --git a/drivers/accel/qaic/qaic_drv.c b/drivers/accel/qaic/qaic_drv.c
+index 90c0d31e414a..c4c3f450e67b 100644
+--- a/drivers/accel/qaic/qaic_drv.c
++++ b/drivers/accel/qaic/qaic_drv.c
+@@ -625,6 +625,15 @@ static void qaic_pci_remove(struct pci_dev *pdev)
  
-+SILICON WORKS SW42902 TOUCHSCREEN DRIVER
-+M:	rofikkerneldev <rofikcoga@gmail.com>
-+L:	linux-input@vger.kernel.org
-+S:	Maintained
-+F:	Documentation/devicetree/bindings/input/touchscreen/lg,sw42902.yaml
+ 	qaic_dev_reset_clean_local_state(qdev);
+ 	qaic_mhi_free_controller(qdev->mhi_cntrl, link_up);
 +
- SILVACO I3C DUAL-ROLE MASTER
- M:	Miquel Raynal <miquel.raynal@bootlin.com>
- M:	Frank Li <Frank.Li@nxp.com>
++	/*
++	 * The control channel is gone, so nothing can queue resp_work any
++	 * more.  Drain it before qdev is freed: the workqueue belongs to the
++	 * DRM device and may outlive this driver instance, and resp_worker()
++	 * dereferences qdev.
++	 */
++	flush_workqueue(qdev->cntl_wq);
++
+ 	qaic_destroy_drm_device(qdev, QAIC_NO_PARTITION);
+ }
+ 
 -- 
-2.39.5
+2.34.1
 
