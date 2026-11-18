@@ -2,46 +2,214 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AAD20606A325
-	for <dri-devel@archiver.kernel.org>; Wed, 18 Nov 2026 18:13:07 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5F51860A262D
+	for <dri-devel@archiver.kernel.org>; Wed, 18 Nov 2026 18:17:24 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ealm2dAJ
+	dkim=pass (2048-bit key) header.d=gmx.de header.i=deller@gmx.de header.a=rsa-sha256 header.s=s31663417 header.b=N08A494f
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 1252D10EC37;
-	Wed, 18 Nov 2026 18:13:02 +0000 (UTC)
-Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 881AC10EC37
- for <dri-devel@lists.freedesktop.org>; Wed, 18 Nov 2026 18:12:56 +0000 (UTC)
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id 55EC144F48;
- Wed, 18 Nov 2026 18:12:56 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4F1F01F000C4;
- Wed, 18 Nov 2026 18:12:52 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1795025576;
- bh=QwgpircG35eCtvMz6oMeaILv9jzCPrAXDg7hzUVK4Ho=;
- h=From:To:Cc:Subject:Date;
- b=ealm2dAJoXXZpZN4OCx1x80exfqr1VQt4qAIHNwmFSxdJmOFsVdzOtAiykFLfdRiT
- 855jhLIGfCBChLG8SS80NhZ7+9zz7NslKnGyDlAbpydtLE05RUxutp2INYX+LYT+Ch
- E6JQXaHflaZ85nH6aXfeUECMP4kEHWgTxjIalvB+lDc4FKSUCCNBs7MGPmgjwAUMiC
- i5mlOl8CWaqLAn3U7enuF3WVLhzjzXFOnbVESSIYamTcAy7AzY4XxSHPFYVEF/ErAX
- IMuvXw3/ebfysEnBahQyT1lxIBJP3JxYdEMAtgbNdD6s5HTOGzTPP2L8gqS+8Zjp2V
- 3LVwogsNs6KTg==
-From: Danilo Krummrich <dakr@kernel.org>
-To: dakr@kernel.org, aliceryhl@google.com, airlied@gmail.com, simona@ffwll.ch,
- daniel.almeida@collabora.com, ojeda@kernel.org, boqun@kernel.org,
- gary@garyguo.net, bjorn3_gh@protonmail.com, lossin@kernel.org,
- a.hindborg@kernel.org, tmgross@umich.edu, tamird@kernel.org,
- acourbot@nvidia.com, work@onurozkan.dev
-Cc: nova-gpu@lists.linux.dev, dri-devel@lists.freedesktop.org,
- linux-kernel@vger.kernel.org, rust-for-linux@vger.kernel.org
-Subject: [PATCH] rust: drm: remove DRM device private data
-Date: Wed, 18 Nov 2026 19:07:35 +0100
-Message-ID: <20261118181245.2583303-1-dakr@kernel.org>
-X-Mailer: git-send-email 2.56.1
+	by gabe.freedesktop.org (Postfix) with ESMTP id D47A010E533;
+	Wed, 18 Nov 2026 18:17:18 +0000 (UTC)
+Received: from mout.gmx.net (mout.gmx.net [212.227.15.15])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id AAA3F10FF1D
+ for <dri-devel@lists.freedesktop.org>; Wed, 18 Nov 2026 18:17:11 +0000 (UTC)
+DKIM2-Signature: i=1; m=1; t=1795025830; mf=PGRlbGxlckBnbXguZGU+;
+ rt=PGRyaS1kZXZlbEBsaXN0cy5mcmVlZGVza3RvcC5vcmc+; d=gmx.de;
+ s=s31663417:rsa-sha256:e5djZ69tGHNkwfjjraaDqtg8XUcX
+ /ex5Vh8CxOfEGwMfD0qqHxr4kY2FFTVKa0VjFIGrAaA+RvvTRL1Kwh283quiJqtILg75V19VAlM
+ LXw6Es0bsx449kF2VufA26HfaTHRfw43hy8Ne6vPpdZ8OI00CUXXXBlnr/hvl1aX+e6/EGlq/kM
+ hLMbMxSF349sWkC9K7F+OGBGFGXG1ep+drFc4bF80fen5ZJ2/INMR93W0Tfgg7m474QPTcCVDNl
+ IVwJpb3KI36JTfNaV4WCVrP8f2jrjWeU4CBoRsjlK8E5Ix/lTE4gtbvdRXebkQuynPC0dmPkaKU
+ ImbbLFk2mak8+A==;
+Message-Instance: m=1; h=sha256: AtvjaJLVSj1u+nnLcAE8ZSsIz0xw0AwmAGhLu+Wjb/o=:
+ QFi6ON0IVPesKyoOed28jaNLBYpzvgql4GXNjTa8VZQ=, sha512:
+ rDoxJZdkihihxGyaE5Y/FDUQDmDoDJ2b8Md9BPfdEMhDxWxF2Exm/U1sAAk4aNizApAw21fqfQ31E3ml/AGilQ==:
+ 4p5bRxj8Iy3V5IHtHEGpVwBuGlnuCRcQTHNnxUxG36pc6zWBgoAXz4Mvz4zjz5ZQlHMfi1g2z/cXsHYjKwvDQw==;
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmx.de;
+ s=s31663417; t=1795025830; x=1795630630; i=deller@gmx.de;
+ bh=QFi6ON0IVPesKyoOed28jaNLBYpzvgql4GXNjTa8VZQ=;
+ h=X-UI-Sender-Class:Message-ID:Date:MIME-Version:Subject:To:Cc:
+ References:From:In-Reply-To:Content-Type:
+ Content-Transfer-Encoding:cc:content-transfer-encoding:
+ content-type:date:from:message-id:mime-version:reply-to:subject:
+ to;
+ b=N08A494fPdj9jI6fDSMMHNTMnGVUYr5RofYMpzW/hpUyNS3e6Fs2fLgh5RJlUdOe
+ kCPhqZF2zOgyOlPzWREbzg5quraeQqgZXmzZrMa/7u0FvONP26EBragSk0e6EOrQW
+ uXm7ga22aT3FX3nMMoUMMsv1HSkx0xVIsLijgHyFB/OZqSTFw0q6cqBA4BzSeCiMJ
+ LhZlSOyLzc4J/VuZ66G91kXKJeuA7y0bhBHv+3ippXkUsU+FLFC+rT9raCCwTzPXK
+ C8/msfW2rK+Bp3ZAWngJj12P1teowj4IUfWUIeSo55+nCybyuXkqjmwixTtf2jiDe
+ KaZnjtTTHySGQ9L6aA==
+X-UI-Sender-Class: 724b4f7f-cbec-4199-ad4e-598c01a50d3a
+Received: from client.hidden.invalid by mail.gmx.net (mrgmx004
+ [212.227.17.190]) with ESMTPSA (Nemesis) id 1Mplc7-1wdc0x0LxV-00jtjh; Wed, 18
+ Nov 2026 19:17:10 +0100
+Message-ID: <4fba8bdb-de77-4418-8ffc-7ad6982e8027@gmx.de>
+Date: Wed, 18 Nov 2026 19:17:08 +0100
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] fbdev: s3c-fb: Fix potential registration corruption on
+ probe failure
+To: Guangshuo Li <liguangshuo@mail.sdu.edu.cn>,
+ Jingoo Han <jingoohan1@gmail.com>
+Cc: linux-fbdev@vger.kernel.org, dri-devel@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org, stable@vger.kernel.org
+References: <20261118-324f82bd41-fbdev-0@mail.sdu.edu.cn>
+Content-Language: en-US
+From: Helge Deller <deller@gmx.de>
+Autocrypt: addr=deller@gmx.de; keydata=
+ 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
+In-Reply-To: <20261118-324f82bd41-fbdev-0@mail.sdu.edu.cn>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: quoted-printable
+X-Provags-ID: V03:K1:CS5thO9Vz7ncrpzF4u+A0XsRZT1JUgMDZIqig++ovEyZ32z6ph4
+ kyQ445WwQiOfCrjXvcU7mZty8ZbCTIi6gP27Yfkvu4s4izE2D2AwZfCDiH5oEbTenVMGz71
+ es283fAO9oDwaiwivSo1uA9hESRutCrfaFIe7xuiZ/lCp6O2h9oSeZPiplQpkWdS4AuIXUh
+ WTfBiTGEHeYmrOc/JnUsA==
+UI-OutboundReport: notjunk:1;M01:P0:Wd92r12GhO0=;xUzwAbIVCtbpM8Pnl9dY8shBWDz
+ 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
+ 5LJ3C+LMxY4k34Ct0qk5IM5Ogdf31rK7MIT5Q==
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -53,327 +221,26 @@ List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-18.8 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
-	DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
-	INCLUDES_CR_TRAILER,INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,
-	SPF_PASS,USER_AGENT_GIT autolearn=ham autolearn_force=no version=4.0.1
+X-Spam-Status: No, score=-4.2 required=3.0 tests=BAYES_00,DKIM_SIGNED,
+	DKIM_VALID,DKIM_VALID_AU,FREEMAIL_FORGED_FROMDOMAIN,FREEMAIL_FROM,
+	HEADER_FROM_DIFFERENT_DOMAINS,MAILING_LIST_MULTI,SPF_HELO_NONE,
+	SPF_PASS,USER_AGENT_SANE_1 autolearn=no autolearn_force=no
+	version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-Driver::Data is owned by the reference-counted drm::Device and can
-outlive device unregistration and driver unbind. Driver state belongs in
-RegistrationData, whose lifetime ends with registration teardown.
+On 11/18/26 15:22, Guangshuo Li wrote:
+> Probe failure cleanup calls unregister_framebuffer() even when the
+> window has not been registered. Its zero-initialized node can then
+> remove another framebuffer from registered_fb[0].
+>=20
+> Track successful registration and only unregister those framebuffers.
+> Also skip empty window slots while unwinding a failed probe.
+>=20
+> This issue was found by our static analysis tool under development.
 
-The intended model is that, after drm_dev_unplug(), surviving DRM
-objects (e.g. through remaining userspace handles) no longer require
-access to the driver state. Thus Driver::RegistrationData is available
-(and sufficient) for all DRM callbacks into the driver.
+I think s3c_fb_probe_win() needs to clean up when some things
+like cmap fail to be allocated.
+Your patch seems to just work around one of the possible pitfalls.
 
-Remove Driver::Data, its storage and Deref implementation, and the
-unused workqueue implementations that depend on it. Drop the data
-initializer argument from UnregisteredDevice::new() and update its
-callers.
-
-Signed-off-by: Danilo Krummrich <dakr@kernel.org>
----
- drivers/gpu/drm/nova/driver.rs |   3 +-
- drivers/gpu/drm/tyr/driver.rs  |   3 +-
- rust/kernel/drm/device.rs      | 128 ++-------------------------------
- rust/kernel/drm/driver.rs      |   3 -
- rust/kernel/drm/gem/shmem.rs   |   6 +-
- 5 files changed, 9 insertions(+), 134 deletions(-)
-
-diff --git a/drivers/gpu/drm/nova/driver.rs b/drivers/gpu/drm/nova/driver.rs
-index 44a52e60b3c7..df3f37d06861 100644
---- a/drivers/gpu/drm/nova/driver.rs
-+++ b/drivers/gpu/drm/nova/driver.rs
-@@ -71,7 +71,7 @@ fn probe<'bound>(
-     ) -> impl PinInit<Self::Data<'bound>, Error> + 'bound {
-         try_pin_init!(Self::Data {
-             reg <- {
--                let drm = drm::UnregisteredDevice::<Self>::new(adev, Ok(()))?;
-+                let drm = drm::UnregisteredDevice::<Self>::new(adev)?;
- 
-                 let reg_data = DrmRegData {
-                     api: NovaCoreApi::of(adev)?,
-@@ -88,7 +88,6 @@ fn probe<'bound>(
- 
- #[vtable]
- impl drm::Driver for NovaDriver {
--    type Data = ();
-     type RegistrationData<'a> = DrmRegData<'a>;
-     type File = File;
-     type Object = gem::Object<NovaObject>;
-diff --git a/drivers/gpu/drm/tyr/driver.rs b/drivers/gpu/drm/tyr/driver.rs
-index c2b99d67369f..9caedd0fd130 100644
---- a/drivers/gpu/drm/tyr/driver.rs
-+++ b/drivers/gpu/drm/tyr/driver.rs
-@@ -148,7 +148,7 @@ fn probe<'bound>(
-             // other threads of execution.
-             unsafe { pdev.dma_set_mask_and_coherent(DmaMask::try_new(pa_bits)?)? };
- 
--            let unreg_dev = drm::UnregisteredDevice::<TyrDrmDriver>::new(pdev, Ok(()))?;
-+            let unreg_dev = drm::UnregisteredDevice::<TyrDrmDriver>::new(pdev)?;
- 
-             let mmu = Mmu::new(pdev.as_ref(), iomem.as_arc_borrow(), &gpu_info)?;
- 
-@@ -207,7 +207,6 @@ fn drop(self: Pin<&mut Self>) {}
- 
- #[vtable]
- impl drm::Driver for TyrDrmDriver {
--    type Data = ();
-     type RegistrationData<'drm> = TyrDrmRegistrationData<'drm>;
-     type File = TyrDrmFileData;
-     type Object = Bo;
-diff --git a/rust/kernel/drm/device.rs b/rust/kernel/drm/device.rs
-index 6b88ade28e24..774db3acb15a 100644
---- a/rust/kernel/drm/device.rs
-+++ b/rust/kernel/drm/device.rs
-@@ -22,12 +22,6 @@
-     types::{
-         NotThreadSafe,
-         Opaque, //
--    },
--    workqueue::{
--        HasDelayedWork,
--        HasWork,
--        Work,
--        WorkItem, //
-     }, //
- };
- use core::{
-@@ -36,10 +30,7 @@
-     marker::PhantomData,
-     mem,
-     ops::Deref,
--    ptr::{
--        self,
--        NonNull, //
--    },
-+    ptr::NonNull, //
- };
- 
- #[cfg(CONFIG_DRM_LEGACY)]
-@@ -167,7 +158,7 @@ const fn compute_features() -> u32 {
-         open: Some(drm::File::<T::File>::open_callback),
-         postclose: Some(drm::File::<T::File>::postclose_callback),
-         unload: None,
--        release: Some(Device::<T>::release),
-+        release: None,
-         master_set: None,
-         master_drop: None,
-         debugfs_init: None,
-@@ -201,28 +192,18 @@ const fn compute_features() -> u32 {
-     /// Create a new `UnregisteredDevice` for a `drm::Driver`.
-     ///
-     /// This can be used to create a [`Registration`](kernel::drm::Registration).
--    pub fn new(
--        dev: &T::ParentDevice<device::Bound>,
--        data: impl PinInit<T::Data, Error>,
--    ) -> Result<Self> {
-+    pub fn new(dev: &T::ParentDevice<device::Bound>) -> Result<Self> {
-         // `__drm_dev_alloc` uses `kmalloc()` to allocate memory, hence ensure a `kmalloc()`
-         // compatible `Layout`.
-         let layout = Kmalloc::aligned_layout(Layout::new::<Device<T, Normal>>());
- 
--        // Use a temporary vtable without a `release` callback until `data` is initialized, so
--        // init failure can release the DRM device without dropping uninitialized fields.
--        let alloc_vtable = bindings::drm_driver {
--            release: None,
--            ..Self::VTABLE
--        };
--
-         // SAFETY:
--        // - `alloc_vtable` reference remains valid until no longer used,
--        // - `dev` is valid by its type invarants,
-+        // - The vtable has static storage duration.
-+        // - `dev` is valid by its type invariants.
-         let raw_drm: *mut Device<T, Normal> = unsafe {
-             bindings::__drm_dev_alloc(
-                 dev.as_ref().as_raw(),
--                &alloc_vtable,
-+                const { &Self::VTABLE },
-                 layout.size(),
-                 mem::offset_of!(Device<T, Normal>, dev),
-             )
-@@ -230,25 +211,6 @@ pub fn new(
-         .cast();
-         let raw_drm = NonNull::new(from_err_ptr(raw_drm)?).ok_or(ENOMEM)?;
- 
--        // SAFETY: `raw_drm` is a valid pointer to `Self`, given that `__drm_dev_alloc` was
--        // successful.
--        let drm_dev = unsafe { Device::into_drm_device(raw_drm) };
--
--        // SAFETY: `raw_drm` is a valid pointer to `Self`.
--        let raw_data = unsafe { ptr::addr_of_mut!((*raw_drm.as_ptr()).data) };
--
--        // SAFETY:
--        // - `raw_data` is a valid pointer to uninitialized memory.
--        // - `raw_data` will not move until it is dropped.
--        unsafe { pin_init::raw_try_init(raw_data, data) }.inspect_err(|_| {
--            // SAFETY: `__drm_dev_alloc()` was successful, hence `drm_dev` must be valid and the
--            // refcount must be non-zero.
--            unsafe { bindings::drm_dev_put(drm_dev) };
--        })?;
--
--        // SAFETY: `drm_dev` is still private to this function.
--        unsafe { (*drm_dev).driver = const { &Self::VTABLE } };
--
-         // SAFETY: `raw_drm` is valid; no concurrent access before registration.
-         unsafe { (*raw_drm.as_ptr()).registration_data = UnsafeCell::new(NonNull::dangling()) };
- 
-@@ -274,7 +236,6 @@ pub fn new(
- #[repr(C)]
- pub struct Device<T: drm::Driver, C: DeviceContext = Normal> {
-     dev: Opaque<bindings::drm_device>,
--    data: T::Data,
-     pub(super) registration_data: UnsafeCell<NonNull<T::RegistrationData<'static>>>,
-     _ctx: PhantomData<C>,
- }
-@@ -322,16 +283,6 @@ pub unsafe fn from_raw<'a>(ptr: *const bindings::drm_device) -> &'a Self {
-         unsafe { &*ptr.cast() }
-     }
- 
--    extern "C" fn release(ptr: *mut bindings::drm_device) {
--        // SAFETY: `ptr` is a valid pointer to a `struct drm_device` and embedded in `Self`.
--        let this = unsafe { Self::from_drm_device(ptr) };
--
--        // SAFETY:
--        // - When `release` runs it is guaranteed that there is no further access to `this`.
--        // - `this` is valid for dropping.
--        unsafe { core::ptr::drop_in_place(this) };
--    }
--
-     /// Change the [`DeviceContext`] for a [`Device`].
-     ///
-     /// # Safety
-@@ -448,14 +399,6 @@ fn drop(&mut self) {
-     }
- }
- 
--impl<T: drm::Driver> Deref for Device<T> {
--    type Target = T::Data;
--
--    fn deref(&self) -> &Self::Target {
--        &self.data
--    }
--}
--
- impl<T: drm::Driver> Deref for Device<T, Registered> {
-     type Target = Device<T>;
- 
-@@ -527,62 +470,3 @@ unsafe impl<T: drm::Driver, C: DeviceContext> Send for Device<T, C> {}
- // SAFETY: A `drm::Device` can be shared among threads because all immutable methods are protected
- // by the synchronization in `struct drm_device`.
- unsafe impl<T: drm::Driver, C: DeviceContext> Sync for Device<T, C> {}
--
--impl<T: drm::Driver, const ID: u64> WorkItem<ID> for Device<T>
--where
--    T::Data: WorkItem<ID, Pointer = ARef<Self>>,
--    T::Data: HasWork<Self, ID>,
--{
--    type Pointer = ARef<Self>;
--
--    fn run(ptr: ARef<Self>) {
--        T::Data::run(ptr);
--    }
--}
--
--// SAFETY:
--//
--// - `raw_get_work` and `work_container_of` return valid pointers by relying on
--// `T::Data::raw_get_work` and `container_of`. In particular, `T::Data` is
--// stored inline in `drm::Device`, so the `container_of` call is valid.
--//
--// - The two methods are true inverses of each other: given `ptr: *mut
--// Device<T, C>`, `raw_get_work` will return a `*mut Work<Device<T, C>, ID>` through
--// `T::Data::raw_get_work` and given a `ptr: *mut Work<Device<T, C>, ID>`,
--// `work_container_of` will return a `*mut Device<T, C>` through `container_of`.
--unsafe impl<T, C, const ID: u64> HasWork<Self, ID> for Device<T, C>
--where
--    T: drm::Driver,
--    T::Data: HasWork<Self, ID>,
--    C: DeviceContext,
--{
--    unsafe fn raw_get_work(ptr: *mut Self) -> *mut Work<Self, ID> {
--        // SAFETY: The caller promises that `ptr` points to a valid `Device<T, C>`.
--        let data_ptr = unsafe { &raw mut (*ptr).data };
--
--        // SAFETY: `data_ptr` is a valid pointer to `T::Data`.
--        unsafe { T::Data::raw_get_work(data_ptr) }
--    }
--
--    unsafe fn work_container_of(ptr: *mut Work<Self, ID>) -> *mut Self {
--        // SAFETY: The caller promises that `ptr` points at a `Work` field in
--        // `T::Data`.
--        let data_ptr = unsafe { T::Data::work_container_of(ptr) };
--
--        // SAFETY: `T::Data` is stored as the `data` field in `Device<T, C>`.
--        unsafe { crate::container_of!(data_ptr, Self, data) }
--    }
--}
--
--// SAFETY: Our `HasWork<T, ID>` implementation returns a `work_struct` that is
--// stored in the `work` field of a `delayed_work` with the same access rules as
--// the `work_struct` owing to the bound on `T::Data: HasDelayedWork<Device<T, C>,
--// ID>`, which requires that `T::Data::raw_get_work` return a `work_struct` that
--// is inside a `delayed_work`.
--unsafe impl<T, C, const ID: u64> HasDelayedWork<Self, ID> for Device<T, C>
--where
--    T: drm::Driver,
--    T::Data: HasDelayedWork<Self, ID>,
--    C: DeviceContext,
--{
--}
-diff --git a/rust/kernel/drm/driver.rs b/rust/kernel/drm/driver.rs
-index f6db91e81e79..7b76e6abed9f 100644
---- a/rust/kernel/drm/driver.rs
-+++ b/rust/kernel/drm/driver.rs
-@@ -106,9 +106,6 @@ pub trait AllocImpl: super::private::Sealed + drm::gem::IntoGEMObject {
- /// drm_driver` to be registered in the DRM subsystem.
- #[vtable]
- pub trait Driver {
--    /// Context data associated with the DRM driver
--    type Data: Sync + Send;
--
-     /// Data owned by the [`Registration`] and accessible within a
-     /// [`RegistrationGuard`](drm::RegistrationGuard) critical section via
-     /// [`Device::registration_data_with()`](drm::Device::registration_data_with).
-diff --git a/rust/kernel/drm/gem/shmem.rs b/rust/kernel/drm/gem/shmem.rs
-index ed13e21d06cf..3a72fb21eeaa 100644
---- a/rust/kernel/drm/gem/shmem.rs
-+++ b/rust/kernel/drm/gem/shmem.rs
-@@ -589,8 +589,6 @@ mod tests {
- 
-     // The bare minimum needed to create a fake drm driver for kunit
- 
--    #[pin_data]
--    struct KunitData {}
-     struct KunitDriver;
-     struct KunitFile;
-     #[pin_data]
-@@ -627,7 +625,6 @@ fn new(
- 
-     #[vtable]
-     impl drm::Driver for KunitDriver {
--        type Data = KunitData;
-         type RegistrationData<'a> = ();
-         type File = KunitFile;
-         type Object = Object<KunitObject>;
-@@ -639,10 +636,9 @@ impl drm::Driver for KunitDriver {
- 
-     fn create_drm_dev() -> Result<(faux::Registration, UnregisteredDevice<KunitDriver>)> {
-         // Create a faux DRM device so we can test gem object creation.
--        let data = try_pin_init!(KunitData {});
-         let reg = faux::Registration::new(c"Kunit", None)?;
-         let fdev = reg.as_ref();
--        let drm = UnregisteredDevice::new(fdev, data)?;
-+        let drm = UnregisteredDevice::new(fdev)?;
- 
-         Ok((reg, drm))
-     }
-
-base-commit: e55a991e09e3b44f0b0d8206bb523dc57c086341
--- 
-2.56.1
-
+Helge
