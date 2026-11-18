@@ -2,99 +2,146 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 87BB1606A335
-	for <dri-devel@archiver.kernel.org>; Wed, 18 Nov 2026 18:43:16 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3ED3B60A261D
+	for <dri-devel@archiver.kernel.org>; Wed, 18 Nov 2026 18:45:07 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=raspberrypi.com header.i=@raspberrypi.com header.a=rsa-sha256 header.s=google header.b=a+s9XuSs
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=N10e3bat;
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=OQ6chrN2
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id E7F5110FF59;
-	Wed, 18 Nov 2026 18:43:10 +0000 (UTC)
-Received: from mail-oo1-f43.google.com (mail-oo1-f43.google.com
- [209.85.161.43])
- by gabe.freedesktop.org (Postfix) with ESMTPS id C488610FF46
- for <dri-devel@lists.freedesktop.org>; Wed, 18 Nov 2026 18:43:04 +0000 (UTC)
-Received: by mail-oo1-f43.google.com with SMTP id
- 006d021491bc7-6b19e291cc6so1139273eaf.2
- for <dri-devel@lists.freedesktop.org>; Wed, 18 Nov 2026 10:43:04 -0800 (PST)
-ARC-Seal: i=1; a=rsa-sha256; t=1795027384; cv=none;
- d=google.com; s=arc-20260327;
- b=qupSzHidfVSwxltGYLtZRp28LJ+qRPu/op3uAmd15/HhaIou2RzMdsCatKDlu60qnf
- yx6O8eZ5cPH4ewh7Yw4raGJq+qzXQS8BVwQwAms+G3QiAYJkTNf2OkISzCK+Pzq8rxN0
- mjLiDlCuzpImY70+1Ln2xW2zmHLeELVbIEcye0xcPxIEZB4GZj/Ly0ayuMaOGZ3MkWZt
- 4i8RhHQjm/ySnXLJHJNK9VCpDnOAuZb7j+OVntNdqPCINrNV7OJBbOA1RIE2Ri3bOwKd
- RaP3yU4BZQRk3iI9bVGE6aqNLrAhrrzVbQVr/UTaBMXlaKgDLDWh78mvOhtv49t2T1Rk
- GEUg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com;
- s=arc-20260327; 
- h=cc:to:subject:message-id:date:from:in-reply-to:references
- :mime-version:dkim-signature;
- bh=EcjARjGr/IicDiXvqUvCDlSEccrqjBL8eJv0mQLCiyE=;
- fh=XOlYPM6X8cGqNrS5ew+pse7JpQVMVtR/XIRQsXXNSTU=;
- b=IdqAUDYEGq2aETmE5CNzJHQjB3OYb4VMRaZpzyJ2LUg84tsjtTCEe1WpkYoI1HiCc7
- 9e7efhk9yPhNTCWjGKpRLBrc4HIdq2e77+5UgTiKLB+nIHya8a1pOZUa59rKLOnk90jq
- ixBP66Cl9+/azIUSayym4qN/A3vKk2CbikSmQbxFCDCVBPwlK1Ho+VcKcOnfpQDEx8WF
- hFYfcLWbf4XqJRkEgJkTnsxFccYazGPEulodqV9iErGdY7Dy1Ev8rb8oPqRm3xh4LrOM
- vJL//uH4yfo6oL9T3N5qA0vA3mlYosgOCSgGm3SzkiJ0OqvCMc+b8xzaTtJBtcGLC7aa
- kTjA==; darn=lists.freedesktop.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
+	by gabe.freedesktop.org (Postfix) with ESMTP id 7A78F10FF4A;
+	Wed, 18 Nov 2026 18:44:56 +0000 (UTC)
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com
+ [205.220.168.131])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 081C410FF46
+ for <dri-devel@lists.freedesktop.org>; Wed, 18 Nov 2026 18:44:45 +0000 (UTC)
+Received: from pps.filterd (m0279867.ppops.net [127.0.0.1])
+ by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id
+ 6AIHGkno1155236
+ for <dri-devel@lists.freedesktop.org>; Wed, 18 Nov 2026 18:44:44 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+ cc:content-transfer-encoding:content-type:date:from:in-reply-to
+ :message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+ a/1FJMohcTZY+9QiEVW33qHS2hIU0UKeXROf1tu+3XU=; b=N10e3batxmo44iLK
+ e0ggGLrFGUVup8oItqLUH94w7nY6RAHtXIuHt9Unc2uY6AcvHHLBiPdFxWNULtPg
+ j6Sc4+X/SyXwh7OlgxOem2VHCJRbZ6VxZy7hDxiSaMRRA4SpjTfNT/yk9hCRW5/s
+ 1wKHdF3HQEdHFh2vixpA1/iCP7JOKCLnAuE1nrKpJ5XBbJpzdqDF4YExSah1eLwl
+ ke/XIvT82L7xdeTB31pxziL+/qvoAYbvilwRs9t43KVum3xyHgI6IGJXazuY24LP
+ A8vD7V0pC4GZDlTfulL91iLC38KbVNCbcLV2Odpo0M1x7s3iwO7MBDzEUdJSGfLP
+ M6HrBw==
+Received: from mail-pl1-f200.google.com (mail-pl1-f200.google.com
+ [209.85.214.200])
+ by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4j1g9egd3m-1
+ (version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+ for <dri-devel@lists.freedesktop.org>; Wed, 18 Nov 2026 18:44:44 +0000 (GMT)
+Received: by mail-pl1-f200.google.com with SMTP id
+ d9443c01a7336-2ed05b3eaecso10547495ad.1
+ for <dri-devel@lists.freedesktop.org>; Wed, 18 Nov 2026 10:44:44 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=raspberrypi.com; s=google; t=1795027384; x=1795632184;
+ d=oss.qualcomm.com; s=google; t=1795027483; x=1795632283;
  darn=lists.freedesktop.org; 
- h=content-type:cc:to:subject:message-id:date:from:in-reply-to
- :references:mime-version:from:to:cc:subject:date:message-id:reply-to
- :content-type; bh=EcjARjGr/IicDiXvqUvCDlSEccrqjBL8eJv0mQLCiyE=;
- b=a+s9XuSsQgOPguYRX+h8YT8hnolEEvGcWMTD8aC75n3jVDcHPFUnAhUJi/e8+f/9cT
- CZAxBgMlQS3ewiPida7HQy8+UF63d5/CCg1d8cRnraPtGkIZoNYPDxAOTWZ5ylUR3br9
- i5zTkYakgMnO6O2Xee3oSNSHcG79N9faa/2Siu89N8tFiu6fthC2/Tpmlo8EaTpBFgyB
- ZWngQF5vyqX7yV05ngUB5RFdYH3C8wijzLTdWuKmh238lItrsIbVp8Kt4WrHrHqv0ZN1
- 0Ybz64myJDpORbNdriqCS3e3JT0qc8M+m6CcTzkUb5mq7EwLUMMMcPeTmWBR8eHOdt0H
- 6SxQ==
+ h=content-transfer-encoding:content-type:in-reply-to:from
+ :content-language:references:cc:to:subject:user-agent:mime-version
+ :date:message-id:from:to:cc:subject:date:message-id:reply-to
+ :content-type; bh=a/1FJMohcTZY+9QiEVW33qHS2hIU0UKeXROf1tu+3XU=;
+ b=OQ6chrN2jIPfZeF6yWZ8PMTcEgo4pc98hjWJWswT2JmJAgwyHVsAIbl8PoCwz/4fsT
+ QWqCoq3EkBkvDrrVDci4EOzF7q1AETbFYnTTinVJR/tSfrwbjqOqySYgKOU3KeLcitZB
+ 3MEgjO2QC1CtUbX2ACui9CVgxas/mjLGeGEoUI3Ntl0mlSB1rGX05IBTPQ/ODY8oz0x/
+ 0G2LzZ19zoivpkCmtwQ66tNk4FeiX8iHRwPnDMl4xs/zk8nKbjHXzQD5GCzqx6LJe7dO
+ qBmHKCjqDaFystWuNN8+Fg+wVnWZWWcqU+InF/HklNkyByjLzWEK9odE+4kFyTuLJZD5
+ 0iUQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20260707; t=1795027384; x=1795632184;
- h=content-type:cc:to:subject:message-id:date:from:in-reply-to
- :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
- :subject:date:message-id:reply-to:content-type;
- bh=EcjARjGr/IicDiXvqUvCDlSEccrqjBL8eJv0mQLCiyE=;
- b=BdYnx1pzIPh5CVCjPiIAvJXc08DmDRd8AVkBuewsZukdWnUIAl2AYGl6J9j7q7I4np
- LwBX3e9qYsJvYjRyLzcGiObMwbCL0YcXhHPlLceO2ADWj5Zied9Wp+g9npEK8uwu+18G
- Icovk4r2SbOcQOpAzQpW07Vfr9rXlbCUggnG5R5jsicHTyPT02vM9TAML+18nuFjp6GD
- 0TbCACGBH45x3I7ZsQjxMIdAdwIgfO0yhmX7BJuWnoqGLMy2QI5BeHc8BctgclA2nQP5
- s64G1LogkY4iGURInlbx1fRvGlBLINmlvS1ReuMRDZSPj1d9uje5QnHllAhAs+E1Gp3i
- A+lw==
+ d=1e100.net; s=20260707; t=1795027483; x=1795632283;
+ h=content-transfer-encoding:content-type:in-reply-to:from
+ :content-language:references:cc:to:subject:user-agent:mime-version
+ :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+ :message-id:reply-to:content-type;
+ bh=a/1FJMohcTZY+9QiEVW33qHS2hIU0UKeXROf1tu+3XU=;
+ b=aYFHnitxtVY3LJm2gAd+y78wPllqiXtoJSaMfiC4WBELBqQrcAWNQ69yDTv1GGGtID
+ gMKurSGAOtf7WPDyeiQoAaRmSG2p2VigtOnVa8UP1UzKNdf1lDmYkDsdmmBexHoxnCf1
+ Wm323RAQ+ghskE4CL0UlPaUIhyhWMjl5dAf183hncUpJe01tR8wGGx9uwvSqLS/JWac7
+ Ln8WiXu1rh83VHcpLomYa+RuS2Xua3NfZKOIBHR3l5W8BRwCzrNJsxM5v7+WHock/GHV
+ v92M3uUWDvv2Jxi2ml9z+9LWYC4r+7KB/DRqOs/Kmsk/Sq4V4V5lkIJloTuF0Qy+UpGH
+ ISQw==
 X-Forwarded-Encrypted: i=1;
- AL+hErGn18lCtGvSZUnINiYlOQetpy45x3USqHcElcLIeQDeJO/wyAzTg4C1rjNbZNScHhQtlbkQAx9yX4E=@lists.freedesktop.org
-X-Gm-Message-State: APuU4Z8Y6VkPry9wG86TpVvzIeZ0I9bK02KWsQwwwlUppr1MSbwGKUR1
- HZozahXFx5+FM9xSaU/It/1sDBWTxHgsKG++9JmobUhh9xaJzBUe2Vgespb1j+fuBaRujJc/cdm
- vpGp2bSntOeOIcnih2oJiMoa3xlbg9xJ2OFc2CxVx2A==
-X-Gm-Gg: AYBFou12lUR6XFgXo28gNNbVaK1+m1w2iT/FX0VVT/jEnfQBYRxrhGANap5zJyW3tGu
- rbEjryKuSlGN84EbbGn2bHPVb1HGfCszJWqbEDVwJjexZfC2QqsuKXBDl+FjgLy5sKCQZrTaTFz
- zdR4SHzhxZANwbwg7pMh9NudLkKwm5Ckp709Ol6YBSG0rk1db2XhJqq+8RjTMGO26sxSwHFVVd6
- fBvjPdGVwNIPzEujP6/XWsRD8mxZaZLp+5+F/QJgIlnsURumxrkwwPC37zPgaK8Ae4gzTzPE6VS
- jxO9iNbLLVsbJksZkPR4Mnl7sKFxyNwqMAB338CiqB/APxhgROEvC8deGK2d5offm1h2O9VQn/b
- 9u8YGbbL+prM9aXeDZ/JAT3kHsGuAUxsdSul1N5ccIYOAUEz9fCEClIdACCSq0JxqLDxqufl9B1
- VAQ+lRqqb5IKwPTwrOI3ONNE7qXsaygMaGtngioxqLfCsApjltdPLDCQ==
-X-Received: by 2002:a05:6820:a789:b0:702:dd8d:316e with SMTP id
- 006d021491bc7-71b18567b6emr1905469eaf.25.1795027383749; Wed, 18 Nov 2026
- 10:43:03 -0800 (PST)
+ AL+hErER/JT0/aKRFN7Ol/8dPyLLYenuF0D5aU4uGudP6qw+JyCAzj+2fN4TLZZs39TDSQJlMCCD5hvl02Q=@lists.freedesktop.org
+X-Gm-Message-State: APuU4Z+Rd/N/hyopZzJ6mNuBSTg3fUPKnETAmCsDFULNgoUz2TlgTO2h
+ 3oe66qjIe9xhRAvBKWuEjb3L1XdofjGxbQbkHI67NarUOXFFFs3pPPQuKHBjmmBbyDETw5DZwWc
+ /4vITQZnhiq3FkMRicyyTLzYM+1iu2I8xGd3T66PT2zOw2e/BVzaqTQ7BSNAoXHEs2rGGQCo=
+X-Gm-Gg: AZFdTZf3wtiz5nm+WfqgkIy8DFcXEXsNnskhHTstwUlvNSlA6Cik0WJfD5cj+fXkufk
+ qce4TMgRtpq3gBs3pzVwmAPwm/T71lr7QtRRVl9qHF5xQbYLoAQeCYPWsPruPZhyvJ9qpqTYMce
+ 5XOBdWF/YKzT/OjKRKtiSi64NzZdu5LLOYwohFPtDux67jcURsdC6uEzdbSqF28nL+3ShMjdA5D
+ a5IkBgIMRx4kuYMr3STiA7WNVpxGLxzhpy03yKVVKYJwKD8xZPWw1lNbcv+RX300jcSQz7eWvcA
+ GEqiyPCnOU0YhvD44kNlU1XhS8qh3vwNi/rP5VhCOEOigTaoHK3ySplQWY9VL1zmFgGd16jLAJi
+ vlohEIQ2rtgCiwaQx+RyF4X1xxAgPW9LZDDFl2M0pQDfc1hX84Ye6oxaT0eOHZT2N6F8JrZKmKw
+ ==
+X-Received: by 2002:a17:903:32c1:b0:2ed:1b26:2bf2 with SMTP id
+ d9443c01a7336-2eff7100c7bmr32660415ad.3.1795027483414; 
+ Wed, 18 Nov 2026 10:44:43 -0800 (PST)
+X-Received: by 2002:a17:903:32c1:b0:2ed:1b26:2bf2 with SMTP id
+ d9443c01a7336-2eff7100c7bmr32660205ad.3.1795027482912; 
+ Wed, 18 Nov 2026 10:44:42 -0800 (PST)
+Received: from [10.204.104.211] ([202.46.23.25])
+ by smtp.gmail.com with ESMTPSA id
+ d9443c01a7336-2eff6115f28sm18076975ad.19.2026.11.18.10.44.36
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Wed, 18 Nov 2026 10:44:42 -0800 (PST)
+Message-ID: <069c590a-7b30-4985-ab83-56150efc8009@oss.qualcomm.com>
+Date: Thu, 19 Nov 2026 00:14:34 +0530
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
-References: <20261028164539.3471833-1-henryzhang62@gmail.com>
- <20261028164539.3471833-5-henryzhang62@gmail.com>
-In-Reply-To: <20261028164539.3471833-5-henryzhang62@gmail.com>
-From: Dave Stevenson <dave.stevenson@raspberrypi.com>
-Date: Wed, 18 Nov 2026 18:42:47 +0000
-X-Gm-Features: AclHuK_8CSqY4sWJhVcrZV2Foot33L1p_hxdBf1gCfb__EBplFVm726JFlspi5I
-Message-ID: <CAPY8ntAXPpJbid2LXc6r0g-sr95uQ3hckxVqa09qPNMi5JSp6g@mail.gmail.com>
-Subject: Re: [PATCH v4 4/5] drm/vc4: dsi: Serialize host transfers
-To: Henry Zhang <henryzhang62@gmail.com>
-Cc: Maxime Ripard <mripard@kernel.org>,
- =?UTF-8?B?TWHDrXJhIENhbmFs?= <mcanal@igalia.com>, 
- Raspberry Pi Kernel Maintenance <kernel-list@raspberrypi.com>, 
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Thomas Zimmermann <tzimmermann@suse.de>, 
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 2/6] drm/msm/a6xx: Don't fail GMU resume if the GPU init
+ regs SCM call is absent
+To: Puranam V G Tejaswi <puranam.tejaswi@oss.qualcomm.com>,
+ Bjorn Andersson <andersson@kernel.org>,
+ Konrad Dybcio <konradybcio@kernel.org>, Abel Vesa <abelvesa@kernel.org>,
+ Rob Clark <robin.clark@oss.qualcomm.com>, Sean Paul <sean@poorly.run>,
+ Dmitry Baryshkov <lumag@kernel.org>, Abhinav Kumar
+ <abhinav.kumar@linux.dev>, Jessica Zhang <jesszhan0024@gmail.com>,
+ Marijn Suijten <marijn.suijten@somainline.org>,
  David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>,
+ Thomas Zimmermann <tzimmermann@suse.de>, Rob Herring <robh@kernel.org>,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>
+Cc: linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org,
+ freedreno@lists.freedesktop.org, devicetree@vger.kernel.org,
+ linux-kernel@vger.kernel.org
+References: <20261118-adreno-scm-fallback-v1-0-e99cdbf3121d@oss.qualcomm.com>
+ <20261118-adreno-scm-fallback-v1-2-e99cdbf3121d@oss.qualcomm.com>
+Content-Language: en-US
+From: Akhil P Oommen <akhilpo@oss.qualcomm.com>
+In-Reply-To: <20261118-adreno-scm-fallback-v1-2-e99cdbf3121d@oss.qualcomm.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMTE4MDA3NCBTYWx0ZWRfXw6gNsLwvsgG9
+ H0C7OQGMY09FS7B63xcaNHYwoHZs11/NvVnMJ49x4fMxSIPsU0XyNK802zPw8pO0pPNZMyORILt
+ BZTYWIXaGPZusjDDkrjJIxELNHDpd0ceNEmIexoJ1kBSLEouH52A2ncoc5SaAfApZVU3I/GylX8
+ ewR6P7/w6Y+hrmKOzxRnAjtDA7coVVBrryAQuxwpsMxQaX5V2KeY7pnq4yYofEY66DuWWKxAhHM
+ OtIdNQ7yR7DPSWbdWddFBQJipY7YZ2h2VBMTggNLvgCS4SQZq3UjVvdzBrnU/8zIyUAf4UxpXpQ
+ z4bQRbsUbgGCPCM1Eip7defs7qgP3ar3g2dY5LUgPsRMJENfybIXQWuGnMTYu1WihEcmU54wq9r
+ PizQvQCZP7vam0j2ti5jUOZvAc/OTg/WiwaLXvz6oVPb2BK9BrAT4YfijOyXFpcsE5oWMoJ14KX
+ 29HG05R5vLWzNttr76Q==
+X-Authority-Analysis: v=2.4 cv=QO391QLL c=1 sm=1 tr=0 ts=6afdf21c cx=c_pps
+ a=IZJwPbhc+fLeJZngyXXI0A==:117 a=ZePRamnt/+rB5gQjfz0u9A==:17
+ a=IkcTkHD0fZMA:10 a=zJRp6_cAMcgA:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=eoimf2acIAo5FJnRuUoq:22
+ a=EUspDBNiAAAA:8 a=xDuVsFAvjFWeh2iC3aIA:9 a=QEXdDO2ut3YA:10
+ a=uG9DUKGECoFWVXl0Dc02:22
+X-Proofpoint-ORIG-GUID: 2jLaHC68x-saa2oJDXsFO_LDkqdEZSxI
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMTE4MDA3NCBTYWx0ZWRfX2vThT/PZd8up
+ G7/ZzxqldoqOJnuzTMGC6/F6qHNn/KiLNStPLgjZwMv4wv9o+CzP8X85BO0HHjULH39RXCsm/Eg
+ OmfcmHNof2AoJh++9z/nSfuFasNk2gw=
+X-Proofpoint-GUID: 2jLaHC68x-saa2oJDXsFO_LDkqdEZSxI
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
+ definitions=2026-11-18_05,2026-11-16_01,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ priorityscore=1501 suspectscore=0 spamscore=0 bulkscore=0 clxscore=1015
+ adultscore=0 lowpriorityscore=0 phishscore=0 impostorscore=0 malwarescore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2611040001 definitions=main-2611180074
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -106,145 +153,89 @@ List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-15.8 required=3.0 tests=BAYES_00,DKIM_SIGNED,
+X-Spam-Status: No, score=-17.3 required=3.0 tests=BAYES_00,DKIM_SIGNED,
 	DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
 	INCLUDES_CR_TRAILER,INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,
-	SPF_PASS autolearn=unavailable autolearn_force=no version=4.0.1
+	SPF_PASS,USER_AGENT_SANE_1 autolearn=unavailable autolearn_force=no
+	version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-Hi Henry
 
-On Wed, 28 Oct 2026 at 16:46, Henry Zhang <henryzhang62@gmail.com> wrote:
->
-> vc4_dsi_host_transfer() fills the command FIFOs and the TXPKT registers
-> and waits on a single completion without any locking. Two callers
-> sending at the same time, for example a panel driver and a backlight
-> update, can overwrite each other's packets. Nothing keeps a transfer
-> from running while the bridge callbacks reprogram the block either,
-> for example while pre_enable sets up the PHY timings.
->
-> Add a mutex and hold it for the whole host transfer and in the bridge
-> pre_enable, enable, disable and post_disable callbacks. None of these
-> callbacks calls into the DSI device, so the lock is never taken
-> recursively.
 
-I'll agree that there's an issue, but as it will affect all DSI host
-controllers it feels like it should be handled centrally in the core
-mipi_dsi_device_transfer rather in all the drivers.
+On 11/18/2026 6:38 PM, Puranam V G Tejaswi wrote:
+> On A750, A753 and A8xx, a6xx_gmu_secure_init() asks the secure world to
+> program CX_MISC_SW_FUSE_VALUE through qcom_scm_gpu_init_regs(), and
+> aborts the GMU resume if that call fails.
+> 
+> Some platforms have a secure world that does not implement this call.
+> The call fails every time and the GPU never powers up. The fuse
+> register is still protected from the kernel, so the driver cannot
+> program it directly either.
+> 
+> If the secure world does not support the call, skip it, but still read
+> the fuse register back. An earlier boot stage may have programmed it,
+> and the features it enables, such as raytracing, are then reported
+> correctly. If nothing programmed it, they stay disabled. Log once when
+> the call is skipped.
+> 
+> Signed-off-by: Puranam V G Tejaswi <puranam.tejaswi@oss.qualcomm.com>
 
-One for the core DRM maintainers to comment on. A quick check says it
-would affect at least vc4_dsi, mtk_dsi, mcde_dsi, and cdns-dsi-core.
+Maybe shorten the subject a bit. Say "Make gpu reg init SCM call optional".
 
-And your use case is genuine as panel-jdi-lt070me050000.c does exactly
-what you describe with the backlight functions are controlled via DCS
-commands. It would take quite exact timings to update the backlight
-from userspace at the same time it sends the power on init sequence
-though.
+Either way:
 
-> Signed-off-by: Henry Zhang <henryzhang62@gmail.com>
+Reviewed-by: Akhil P Oommen <akhilpo@oss.qualcomm.com>
+
+-Akhil.
 > ---
->  drivers/gpu/drm/vc4/vc4_dsi.c | 20 ++++++++++++++++++++
->  1 file changed, 20 insertions(+)
->
-> diff --git a/drivers/gpu/drm/vc4/vc4_dsi.c b/drivers/gpu/drm/vc4/vc4_dsi.c
-> index be9caaf50..3ee6e8e86 100644
-> --- a/drivers/gpu/drm/vc4/vc4_dsi.c
-> +++ b/drivers/gpu/drm/vc4/vc4_dsi.c
-> @@ -25,6 +25,7 @@
->  #include <linux/dma-mapping.h>
->  #include <linux/dmaengine.h>
->  #include <linux/io.h>
-> +#include <linux/mutex.h>
->  #include <linux/of.h>
->  #include <linux/of_address.h>
->  #include <linux/platform_device.h>
-> @@ -595,6 +596,11 @@ struct vc4_dsi {
->          */
->         struct clk *pixel_clock;
->
-> +       /*
-> +        * Serializes host transfers against each other and against the
-> +        * bridge enable/disable paths, which reprogram the block.
-> +        */
-> +       struct mutex transfer_lock;
->         struct completion xfer_completion;
->         int xfer_result;
->
-> @@ -805,6 +811,8 @@ static void vc4_dsi_bridge_disable(struct drm_bridge *bridge,
->         struct vc4_dsi *dsi = bridge_to_vc4_dsi(bridge);
->         u32 disp0_ctrl;
->
-> +       guard(mutex)(&dsi->transfer_lock);
+>  drivers/gpu/drm/msm/adreno/a6xx_gmu.c | 27 ++++++++++++++++++---------
+>  1 file changed, 18 insertions(+), 9 deletions(-)
+> 
+> diff --git a/drivers/gpu/drm/msm/adreno/a6xx_gmu.c b/drivers/gpu/drm/msm/adreno/a6xx_gmu.c
+> index 0fa2d2091f3e..95636dabee38 100644
+> --- a/drivers/gpu/drm/msm/adreno/a6xx_gmu.c
+> +++ b/drivers/gpu/drm/msm/adreno/a6xx_gmu.c
+> @@ -1249,22 +1249,31 @@ static int a6xx_gmu_secure_init(struct a6xx_gpu *a6xx_gpu)
+>  			goto done;
+>  		}
+>  
+> -		u32 gpu_req = QCOM_SCM_GPU_ALWAYS_EN_REQ | QCOM_SCM_GPU_TSENSE_EN_REQ;
+> +		/*
+> +		 * Some secure world implementations do not provide this call.
+> +		 * Skip it then. An earlier boot stage may still have
+> +		 * programmed the fuse register, so read it back either way.
+> +		 */
+> +		if (qcom_scm_gpu_init_regs_is_available()) {
+> +			u32 gpu_req = QCOM_SCM_GPU_ALWAYS_EN_REQ |
+> +				      QCOM_SCM_GPU_TSENSE_EN_REQ;
+>  
+> -		if (adreno_gpu->info->a6xx->clx_tbl)
+> -			gpu_req |= QCOM_SCM_GPU_CLX_EN_REQ;
+> +			if (adreno_gpu->info->a6xx->clx_tbl)
+> +				gpu_req |= QCOM_SCM_GPU_CLX_EN_REQ;
+>  
+> -		ret = qcom_scm_gpu_init_regs(gpu_req);
+> -		if (ret) {
+> -			dev_warn_once(gpu->dev->dev,
+> -				"SCM call failed\n");
+> -			return ret;
+> +			ret = qcom_scm_gpu_init_regs(gpu_req);
+> +			if (ret) {
+> +				dev_warn_once(gpu->dev->dev, "SCM call failed\n");
+> +				return ret;
+> +			}
+> +		} else {
+> +			dev_info_once(gpu->dev->dev, "GPU init regs SCM call not available, skipping\n");
+>  		}
+>  
+>  		/*
+>  		 * On A7XX_GEN3 and newer, raytracing may be disabled by the
+>  		 * firmware, find out whether that's the case. The scm call
+> -		 * above sets the fuse register.
+> +		 * above, or an earlier boot stage, sets the fuse register.
+>  		 */
+>  		fuse_val = a6xx_cx_misc_read(a6xx_gpu,
+>  					 REG_A7XX_CX_MISC_SW_FUSE_VALUE);
+> 
 
-Do we need to take the mutex in any of these functions except
-vc4_dsi_host_transfer?
-This driver will misbehave if you request a host transfer before
-pre_enable or after post_disable. It's been on my list for a while to
-look into that one.
-But I don't believe there is anything in these functions that would
-interrupt a transfer, hence they wouldn't need the mutex.
-
-  Dave
-
-> +
->         disp0_ctrl = DSI_PORT_READ(DISP0_CTRL);
->         disp0_ctrl &= ~DSI_DISP0_ENABLE;
->         DSI_PORT_WRITE(DISP0_CTRL, disp0_ctrl);
-> @@ -816,6 +824,8 @@ static void vc4_dsi_bridge_post_disable(struct drm_bridge *bridge,
->         struct vc4_dsi *dsi = bridge_to_vc4_dsi(bridge);
->         struct device *dev = &dsi->pdev->dev;
->
-> +       guard(mutex)(&dsi->transfer_lock);
-> +
->         clk_disable_unprepare(dsi->pll_phy_clock);
->         clk_disable_unprepare(dsi->escape_clock);
->         clk_disable_unprepare(dsi->pixel_clock);
-> @@ -891,6 +901,8 @@ static void vc4_dsi_bridge_pre_enable(struct drm_bridge *bridge,
->         unsigned long phy_clock;
->         int ret;
->
-> +       guard(mutex)(&dsi->transfer_lock);
-> +
->         ret = pm_runtime_resume_and_get(dev);
->         if (ret) {
->                 drm_err(bridge->dev, "Failed to runtime PM enable on DSI%d\n", dsi->variant->port);
-> @@ -1148,6 +1160,8 @@ static void vc4_dsi_bridge_enable(struct drm_bridge *bridge,
->         bool debug_dump_regs = false;
->         u32 disp0_ctrl;
->
-> +       guard(mutex)(&dsi->transfer_lock);
-> +
->         disp0_ctrl = DSI_PORT_READ(DISP0_CTRL);
->         disp0_ctrl |= DSI_DISP0_ENABLE;
->         DSI_PORT_WRITE(DISP0_CTRL, disp0_ctrl);
-> @@ -1181,6 +1195,8 @@ static ssize_t vc4_dsi_host_transfer(struct mipi_dsi_host *host,
->         bool is_long = mipi_dsi_packet_format_is_long(msg->type);
->         u32 cmd_fifo_len = 0, pix_fifo_len = 0;
->
-> +       guard(mutex)(&dsi->transfer_lock);
-> +
->         mipi_dsi_create_packet(&packet, msg);
->
->         pkth |= VC4_SET_FIELD(packet.header[0], DSI_TXPKT1H_BC_DT);
-> @@ -1807,6 +1823,7 @@ static int vc4_dsi_dev_probe(struct platform_device *pdev)
->  {
->         struct device *dev = &pdev->dev;
->         struct vc4_dsi *dsi;
-> +       int ret;
->
->         dsi = devm_drm_bridge_alloc(&pdev->dev, struct vc4_dsi, bridge, &vc4_dsi_bridge_funcs);
->         if (IS_ERR(dsi))
-> @@ -1814,6 +1831,9 @@ static int vc4_dsi_dev_probe(struct platform_device *pdev)
->         dev_set_drvdata(dev, dsi);
->
->         dsi->pdev = pdev;
-> +       ret = devm_mutex_init(dev, &dsi->transfer_lock);
-> +       if (ret)
-> +               return ret;
->  #ifdef CONFIG_OF
->         dsi->bridge.of_node = dev->of_node;
->  #endif
-> --
-> 2.47.3
->
