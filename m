@@ -2,125 +2,81 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 81815606A31C
-	for <dri-devel@archiver.kernel.org>; Wed, 18 Nov 2026 07:18:56 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3247C606A31C
+	for <dri-devel@archiver.kernel.org>; Wed, 18 Nov 2026 07:26:27 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=amd.com header.i=@amd.com header.a=rsa-sha256 header.s=selector1 header.b=5WFO7tIU
+	dkim=pass (2048-bit key) header.d=fu-berlin.de header.i=@fu-berlin.de header.a=rsa-sha256 header.s=fub01 header.b=It3CPMWW
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id A4DAA10E599;
-	Wed, 18 Nov 2026 07:18:50 +0000 (UTC)
-Received: from DM5PR21CU001.outbound.protection.outlook.com
- (mail-centralusazon11011070.outbound.protection.outlook.com [52.101.62.70])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 96C0910E599;
- Wed, 18 Nov 2026 07:18:43 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=ET6vWB6hZy+N+TUC/ZdiS+bNgvu4zRH6B685Kud+nzz2UJR1TgEb8ajliBkfPiuuKQpaTwxSJma7uIU3zxVyZW+xqfbopx/4Q5Sp2NO/wBPKiQVJuxJdNEHlU9ACiApqK/E7iC7oTfbWpdTRupDebF/JviXZa5SJGQy9IYYh+8uuAKgdoZGGxg5QEXRMrNI3W0RWQg7GmIpv1WduCEnlki0v4kaBVtWM+vzzb290HADIvGFRK58G7lMDtCpXTIdwoZftNYvcmnddNiy5WHek+J//LB/GE7nD5+/+/2JibVXVx2HuFlKv+H5gjC3bWeRdwGgZKQAn/Rxjz96mdsxcgQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=ZfN+thO3PKORBMfHFxGjU+YT5w5QaVCKVMGwEN9IRp4=;
- b=J/C3F8UU40bEhN/75IfIa6zQZUX47ffXcij6/Ir1D4ubd/ZSYypMAjJRDkAzYqtC8gi290w1YXw0qLH6BzHUiBtHf3uFJti1CACn7UDa5m7otznReBHIACcNw1a438VGdObK7B50rWVDQ6Uhvedvkz3QbC18w63RN+sphIdZD1zptShXRUNknEHcS+q2njlXaRxSJQncdZRVbS/myoevONQllsl87k8nq/L8b54xsgH3RSYenOR3B4sGMuJmH+xeIqq1yej9/joBPrDvViNXwlOouhVSuQE9JtQnT3KPFko9g724nKtreRQL5vWq+5+M+LGw7arTMbGg7Z1lmINbNg==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=ZfN+thO3PKORBMfHFxGjU+YT5w5QaVCKVMGwEN9IRp4=;
- b=5WFO7tIU6VhLsVpG8Pzw71l8/nY1bTp7ZhUOErSFNXmizILglqgzUvt8QKkaFiP0zQlVDYqdqzIV6hmMEhFtaKv89CZaksyW4fZXH0FTTjWq1Y57pVBwI0WcmFW+o7o39YIHR1aTAs8hRdn0kZV1l1Z6GLlXrzBGab1dU7MZgY8=
-Received: from MW4SPRMB0025.namprd12.prod.outlook.com (2603:10b6:303:18f::13)
- by MN2PR12MB4454.namprd12.prod.outlook.com (2603:10b6:208:26c::18)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.615.14; Wed, 18 Nov
- 2026 07:18:03 +0000
-Received: from MW4SPRMB0025.namprd12.prod.outlook.com
- ([fe80::8743:fbd4:589c:9ed3]) by MW4SPRMB0025.namprd12.prod.outlook.com
- ([fe80::8743:fbd4:589c:9ed3%6]) with mapi id 15.21.0615.013; Wed, 18 Nov 2026
- 07:18:03 +0000
-From: "Liang, Prike" <Prike.Liang@amd.com>
-To: "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>,
- "dri-devel@lists.freedesktop.org" <dri-devel@lists.freedesktop.org>,
- "tzimmermann@suse.de" <tzimmermann@suse.de>
-CC: "Deucher, Alexander" <Alexander.Deucher@amd.com>, "Koenig, Christian"
- <Christian.Koenig@amd.com>, "Wentland, Harry" <Harry.Wentland@amd.com>, "Li,
- Sun peng (Leo)" <Sunpeng.Li@amd.com>
-Subject: RE: [PATCH RESEND 1/5] drm/client: Make the FBIO_WAITFORVSYNC vblank
- wait interruptible
-Thread-Topic: [PATCH RESEND 1/5] drm/client: Make the FBIO_WAITFORVSYNC vblank
- wait interruptible
-Thread-Index: AQHdcbp2eCQ9pcVOVEmMkpLxfd2LXLczc9ZQ
-Date: Wed, 18 Nov 2026 07:18:03 +0000
-Message-ID: <MW4SPRMB00253DCE1D485B12CBA61A6DFB7A2@MW4SPRMB0025.namprd12.prod.outlook.com>
-References: <20261111085534.514957-1-Prike.Liang@amd.com>
-In-Reply-To: <20261111085534.514957-1-Prike.Liang@amd.com>
-Accept-Language: en-US
-Content-Language: en-US
-X-Mentions: tzimmermann@suse.de
-X-MS-Has-Attach: 
-X-MS-TNEF-Correlator: 
-msip_labels: MSIP_Label_198e8dea-a4f3-4850-b16a-fd6d2b1302b4_Enabled=True;
- MSIP_Label_198e8dea-a4f3-4850-b16a-fd6d2b1302b4_SiteId=3dd8961f-e488-4e60-8e11-a82d994e183d;
- MSIP_Label_198e8dea-a4f3-4850-b16a-fd6d2b1302b4_SetDate=2026-11-18T07:08:44.0000000Z;
- MSIP_Label_198e8dea-a4f3-4850-b16a-fd6d2b1302b4_Name=AMD General
- v26; MSIP_Label_198e8dea-a4f3-4850-b16a-fd6d2b1302b4_ContentBits=3;
- MSIP_Label_198e8dea-a4f3-4850-b16a-fd6d2b1302b4_Method=Standard
-authentication-results: mx.microsoft.com 1; dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-x-ms-publictraffictype: Email
-x-ms-traffictypediagnostic: MW4SPRMB0025:EE_|MN2PR12MB4454:EE_
-x-ms-office365-filtering-correlation-id: 9cbae5ba-fff6-41b0-3cf7-08df454415a6
-x-ms-exchange-senderadcheck: 1
-x-ms-exchange-antispam-relay: 0
-x-microsoft-antispam: BCL:0;
- ARA:13230040|366016|376014|1800799024|23010399003|38070700021|261102123227099003|10067099003|5023799004|11063799006|56012099006|261021123027099003|261026140227099003|261021121427099003|261026121527099003|261022105027099003|261022115727099003|261022075727099003|261102130727099003|261028144727099003|261009220027099003|261009221227099003|261009221727099003|261009223027099003|261009223327099003|22082099003|18002099003;
-x-microsoft-antispam-message-info: Mh3ofgO/LB2t7qaWhQz+CAR0/fdkfBtuyKPUIq20k6vN7p5G/B4OPym+x9VBXAtDe7gMI8u2+lJ4+ff9dpX/V7PJObFJVPdPKUCNGznf/BZbUujPiec7COaxzMoomScWZ66Pzqqa00FtUlurfW4jvl0jSjUbGQy3Ldd5KlwbN+kFZayf9x47PLfT0Eyo2kLdmguRzPPpHWT48gw9KozpW5NzR54yJn1nrObbO5FqnJjC4s1LKmmcJWB9h8hdq7zeu5ml5BEKyI8TKP/W7VymZx3YLCoSePjcO1j2P8rd0FOD8ufls8++EcLoXn4hexJVDfkPmCk2oQreqMGI0MpS9RHQooo/PKh2XPN9db4OnF8jlFL6Mk3dQ3uEf8LAUfoAVvGwGlvEftLsOQvNzBawHMh6wqjVkL2E7ht+j2c9kHCtaWvKMN8jVnBsF2kXPondI13/q04Np4+KOFj22NxuHKs5OIK54bGgEpV+//YFm4Nu6b4gzupN0y56yk7hWX2GTQlwD8KtBGjss/da/0FFlPbTkE5LcQukRDtnS9pwVvPAn+zgHDzct7crhcDhd6vqwJPXicMmz46z6TqyH44ThxE4CpvNjE86QqfnVEvDkUmQ+xAFq6O1x7q70uvsNnxmo1K74p3oFXUnhyL5QCGmdUg4C76rgwCsTN8KkQ5OcAlDV8C0pfBOIjVkHwNF6sMGS6+YfNwuUrO0JLh7maS/0Us5Ujq+FZe4UlPOggYGrHk=
-x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:MW4SPRMB0025.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(366016)(376014)(1800799024)(23010399003)(38070700021)(261102123227099003)(10067099003)(5023799004)(11063799006)(56012099006)(261021123027099003)(261026140227099003)(261021121427099003)(261026121527099003)(261022105027099003)(261022115727099003)(261022075727099003)(261102130727099003)(261028144727099003)(261009220027099003)(261009221227099003)(261009221727099003)(261009223027099003)(261009223327099003)(22082099003)(18002099003);
- DIR:OUT; SFP:1101; 
-x-ms-exchange-antispam-messagedata-chunkcount: 1
-x-ms-exchange-antispam-messagedata-0: =?us-ascii?Q?4vZLyzf9qH9tAxWwVUYLSwOP6Ok2G1+Jqwh0i/eHX5GK3tQbbRe6VvpObWCB?=
- =?us-ascii?Q?uws5MUl91t1V+kPamphLINEc+Jxb5gBFFRsJMxAe5bH/+pedeBOrTPjTQYar?=
- =?us-ascii?Q?ejRcE6hSunVyUD5no/VCrZMTgJriemomG+yPdwdlK8MzeZs+lsWzDvnbjP35?=
- =?us-ascii?Q?KgNeAlEMn3Q/CVNfrIT/AB/KBICmVxFpO0nynRdr0xBjygl+NQ2ksyCaYoPd?=
- =?us-ascii?Q?PZ/Fl/P9rpNXsrXlOLK/Zko5/9kuWJDenJza0Nh6BevZBQBDMIi+KSbL5ltx?=
- =?us-ascii?Q?ywMZSbSWiH9eXYNphNHt7OwCF+tpXUBysonypqIRYGIoUUm1C/bWtAS0DYKq?=
- =?us-ascii?Q?Qsib82ylaNIHf3yt3EIwHmmrbb+naGxKRbvTCS0IbG+OyK59HIvgWKk53GBw?=
- =?us-ascii?Q?Anf98BgWlB8K65WvQUQ85yaAq7SuF6Hc6x0qsBbkbIZTCD5hxUcjZ8jUkNvs?=
- =?us-ascii?Q?Yf47Eg2L1Aeg05+B9jJGHuGBb+utdpHCkn6i8ZjSNd0Vz+QS8BKqwJg3aBBA?=
- =?us-ascii?Q?uJBgF1lokRYePcxDHFOAXTT4dOrsL+NsbZhj11boRDDaBKwMKFcAIkXoLw1w?=
- =?us-ascii?Q?qMsiQU73oXZwqTsWogAubeOqo6DbExFdSmuUlwFlNXQyEq4nXkXQMrI03RKU?=
- =?us-ascii?Q?uII5xpFTjC0PpVn+WNKNKxWpBBGaukTb6Pe6Ur1YtLGi2VKjdYD1aOGTTeXr?=
- =?us-ascii?Q?/JsirhT0m9a4eZ/uI9I5XuDcIJHk4CBAfhztNHMUqeeJZKSsWM6s+y99ADUM?=
- =?us-ascii?Q?BTi8IoYUjJCcEaaUDiTzdtNJPP8ulLxpE9ZAf3F6P/DHoYbtnzPsQEI0FNkV?=
- =?us-ascii?Q?ojbHdmuy54C3r6xOCS6JJFkPaga97F2pTgfS4GO7DY4hNurG8OU9BrZ1TDjb?=
- =?us-ascii?Q?lFlyMt9tKTyDgvAX2objDmKWzNEOvUv+nO2pyu656IySy2zxeBOa41BFQ0pM?=
- =?us-ascii?Q?i9/lHcSbZNc5lKWWBHk4YgNS+0Fu1ItmLg6QH1UrTL9HTVBkJ8pdx2z5jPkd?=
- =?us-ascii?Q?qd2k8ZXFplfb5gTFSoUJg1f4rUm/C3hAAFxtD0SjQ/FeqZp7HtOzW3KjL/ee?=
- =?us-ascii?Q?gVXBq8/e4liXzOtWCjjB+4XgzJds8vFz86Uq9YmkP6q5eGh4O4gPftZW0gul?=
- =?us-ascii?Q?8qYL4cCbiTfUD9taT6eyEjrOo0iH+DURrb2XBokBEc4I6HsiKIR4zJPlIh6e?=
- =?us-ascii?Q?krUTehDIiXvedEKxZz39KP1naQMuqO1jvySFu+68GjHajB/atgUU3ChqyNx7?=
- =?us-ascii?Q?m+8+o+PrTupuMDlL8HWGj07JfrVPhmTbUx9Ag57Bp5hcRShq8uxfWQTclWo8?=
- =?us-ascii?Q?IPduk+o2FjmuSVdVNyOSboyLj4Z0mn1EkYSaZZ50zSgVFmN+CE2iZJX/bX0u?=
- =?us-ascii?Q?zCtV2GAyk+/FoYAL7qGWeZDY/GVFC7vlIUU36zTaBfIQsqNn+0/CZki4ecHG?=
- =?us-ascii?Q?ejE1M4nSYYQcyR5F6mmoUTi/6RDKPWXJVkxvRzdzeBXjEUQscx3Mv9xc3DYZ?=
- =?us-ascii?Q?0E8SuUSPaaQgUzl3RWaaYxbuT7MbUGbF7BNQiwHYx8/st5rpzZ4L5psIZ6zA?=
- =?us-ascii?Q?JAG7iq7BmRTfLRDnnLQ4NxC9WjvRrQoIMvJmtl7lwKmUhajTEi6HSgmSqoSP?=
- =?us-ascii?Q?B7qQ07tLNoAAGRtPpHn+rwqSM8ln6o7bXrkZ2yo2InS/xUXmRxm19iii3O+s?=
- =?us-ascii?Q?sOf2O/Hvfrqyamges/E3xw8zBxexHQL+VRXKFfQPaBGunSJB?=
-Content-Type: text/plain; charset="us-ascii"
+	by gabe.freedesktop.org (Postfix) with ESMTP id 7B74210E2F6;
+	Wed, 18 Nov 2026 07:26:21 +0000 (UTC)
+X-Greylist: delayed 356 seconds by postgrey-1.36 at gabe;
+ Wed, 18 Nov 2026 07:26:15 UTC
+Received: from outpost1.zedat.fu-berlin.de (outpost1.zedat.fu-berlin.de
+ [130.133.4.66])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 81D8010E2F6;
+ Wed, 18 Nov 2026 07:26:15 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+ d=fu-berlin.de; s=fub01; h=MIME-Version:Content-Transfer-Encoding:
+ Content-Type:References:In-Reply-To:Date:Cc:To:From:Subject:Message-ID:From:
+ Reply-To:Subject:Date:Message-ID:To:Cc:MIME-Version:Content-Type:
+ Content-Transfer-Encoding:Content-ID:Content-Description:In-Reply-To:
+ References; bh=BP5uJPFEij5TgQlQa0MnVpdjGYnsN3jkV0Ck605J8vA=; t=1794986775;
+ x=1795591575; b=It3CPMWWgUlr79GyrOqohEDfLJ0LM6TtYQHzhd4MzNh8U4e4pfZXtGuPUv5Vz
+ CeQrvH9yAyWbcuh/SNNwWOIYFu3nf0zkuC5XYV0EyzCdkhejIXYMGbHYPEwc5kNJpwCJIgnxTdB5g
+ R+wYCdV9L9hnz2cWFK/XrfhDQSTGAbakMs44TrC4tGfonOCf1U89a0zPou6ZfxjYx7L7LmAWDsmFX
+ zuBmTdQ3nFTGotYh/uFy97W1x/PZHwZqd4t+y7XnCuN7fcad9KXXvHqmdq6k2MfdvOUXkvQTBcpEC
+ 87TC8loKaWoxmwZIF34btya/3KHxxPJAJVrATVvkNfyBxwHcFQ==;
+Received: from inpost2.zedat.fu-berlin.de ([130.133.4.69])
+ by outpost.zedat.fu-berlin.de (Exim 4.100) with esmtps (TLS1.3)
+ tls TLS_AES_256_GCM_SHA384
+ (envelope-from <glaubitz@zedat.fu-berlin.de>)
+ id 1xTZxc-00000000Itt-3izf; Wed, 18 Nov 2026 08:20:04 +0100
+Received: from p57bd95b5.dip0.t-ipconnect.de ([87.189.149.181]
+ helo=[192.168.178.61]) by inpost2.zedat.fu-berlin.de (Exim 4.100)
+ with esmtpsa (TLS1.3) tls TLS_AES_256_GCM_SHA384
+ (envelope-from <glaubitz@physik.fu-berlin.de>)
+ id 1xTZxc-00000000GfQ-25vy; Wed, 18 Nov 2026 08:20:04 +0100
+Message-ID: <88645597bb3aeae8d36a7b5c499a0a6d74b4acc4.camel@physik.fu-berlin.de>
+Subject: Re: [PATCH v3 3/9] sh: sq: Add missing kobject release callback to
+ ktype_percpu_entry
+From: John Paul Adrian Glaubitz <glaubitz@physik.fu-berlin.de>
+To: Ian Rogers <irogers@google.com>, Danilo Krummrich <dakr@kernel.org>, 
+ Greg Kroah-Hartman <gregkh@linuxfoundation.org>, Kees Cook
+ <kees@kernel.org>, Miguel Ojeda <ojeda@kernel.org>, "Rafael J . Wysocki"
+ <rafael@kernel.org>
+Cc: Madhavan Srinivasan <maddy@linux.ibm.com>, Michael Ellerman	
+ <mpe@ellerman.id.au>, Nicholas Piggin <npiggin@gmail.com>, Christophe Leroy
+ <chleroy@kernel.org>, Nayna Jain <nayna@linux.ibm.com>, Srish Srinivasan	
+ <ssrish@linux.ibm.com>, Mimi Zohar <zohar@linux.ibm.com>, Yoshinori Sato	
+ <ysato@users.sourceforge.jp>, Rich Felker <dalias@libc.org>, Juergen Gross	
+ <jgross@suse.com>, Stefano Stabellini <sstabellini@kernel.org>, Oleksandr
+ Tyshchenko <oleksandr_tyshchenko@epam.com>, Nathan Chancellor
+ <nathan@kernel.org>, Nick Desaulniers	 <ndesaulniers@google.com>, Viresh
+ Kumar <viresh.kumar@linaro.org>, Zhongqiu Han	
+ <zhongqiu.han@oss.qualcomm.com>, Alexander Aring <aahringo@redhat.com>, 
+ Felix Kuehling <felix.kuehling@amd.com>, Christian =?ISO-8859-1?Q?K=F6nig?=
+ <christian.koenig@amd.com>,  Zhihao Cheng <chengzhihao1@huawei.com>,
+ Sumanth Korikkar <sumanthk@linux.ibm.com>, Bill Wendling	
+ <morbo@google.com>, Justin Stitt <justinstitt@google.com>, 
+ driver-core@lists.linux.dev, llvm@lists.linux.dev, 
+ linux-hardening@vger.kernel.org, linux-fsdevel@vger.kernel.org, 
+ linux-doc@vger.kernel.org, linux-acpi@vger.kernel.org,
+ linux-pm@vger.kernel.org, 	linuxppc-dev@lists.ozlabs.org,
+ linux-sh@vger.kernel.org, 	linux-s390@vger.kernel.org,
+ gfs2@lists.linux.dev, xen-devel@lists.xenproject.org, 
+ linux-mtd@lists.infradead.org, amd-gfx@lists.freedesktop.org, 
+ dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org
+Date: Wed, 18 Nov 2026 08:20:02 +0100
+In-Reply-To: <20261108223913.3624571-4-irogers@google.com>
+References: <20261108223913.3624571-1-irogers@google.com>
+ <20261108223913.3624571-4-irogers@google.com>
+Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
+User-Agent: Evolution 3.62.1 
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: MW4SPRMB0025.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 9cbae5ba-fff6-41b0-3cf7-08df454415a6
-X-MS-Exchange-CrossTenant-originalarrivaltime: 18 Nov 2026 07:18:03.2602 (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: laSmQl1icEqjnZ7TVLHwDAa1qB85GiWEjQ4FXfypYR1JfJZR9jfEtSmmCggt7WWc
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: MN2PR12MB4454
+X-Original-Sender: glaubitz@physik.fu-berlin.de
+X-ZEDAT-Hint: PO
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -132,226 +88,56 @@ List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-15.8 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
-	DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
-	INCLUDES_CR_TRAILER,INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,
-	SPF_PASS autolearn=unavailable autolearn_force=no version=4.0.1
+X-Spam-Status: No, score=-13.8 required=3.0 tests=BAYES_00,DKIM_SIGNED,
+	DKIM_VALID,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,
+	INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS
+	autolearn=unavailable autolearn_force=no version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-AMD General
+Hi Ian,
 
-Hi @tzimmermann@suse.de
-
-This patch is based on your suggestion to make drm_crtc_wait_one_vblank() i=
-nterruptible to address the vblank blocking issue.
-
-To minimize side effects, this version restricts the interruptible wait spe=
-cifically to the FBIO_WAITFORVSYNC ioctl path, keeping all other callers un=
-interrupted as before.
-
-Could you please take another look and share your thoughts?
-
-Regards,
-      Prike
-
-> -----Original Message-----
-> From: Liang, Prike <Prike.Liang@amd.com>
-> Sent: Wednesday, November 11, 2026 4:56 PM
-> To: amd-gfx@lists.freedesktop.org; dri-devel@lists.freedesktop.org
-> Cc: Deucher, Alexander <Alexander.Deucher@amd.com>; Koenig, Christian
-> <Christian.Koenig@amd.com>; Wentland, Harry <Harry.Wentland@amd.com>; Li,
-> Sun peng (Leo) <Sunpeng.Li@amd.com>; tzimmermann@suse.de; Liang, Prike
-> <Prike.Liang@amd.com>
-> Subject: [PATCH RESEND 1/5] drm/client: Make the FBIO_WAITFORVSYNC
-> vblank wait interruptible
->
-> FBIO_WAITFORVSYNC calls drm_client_modeset_wait_for_vblank(), which waits
-> with drm_crtc_wait_one_vblank(). That wait is uninterruptible and only gi=
-ves up after
-> one second. If no vblank interrupt arrives, for example while the driver =
-resets the
-> display hardware, the caller sleeps in D state for the whole second and c=
-an't be
-> interrupted, not even by SIGKILL.
->
-> DRM_IOCTL_WAIT_VBLANK waits interruptibly, and so do fbdev drivers that
-> implement FBIO_WAITFORVSYNC themselves, such as atyfb and matroxfb.
->
-> Add drm_crtc_wait_one_vblank_interruptible(), a DRM-internal variant of
-> drm_crtc_wait_one_vblank() that a signal can interrupt, and use it in
-> drm_client_modeset_wait_for_vblank(). Return -ERESTARTSYS when a signal
-> interrupts the wait, so that the ioctl returns to userspace or is restart=
-ed. Timeouts and
-> disabled CRTCs are still not reported.
->
-> The fbdev damage worker also calls drm_client_modeset_wait_for_vblank(),
-> but it runs in a kernel thread, which doesn't receive signals, so its wai=
-t doesn't
-> change. Drivers keep using drm_crtc_wait_one_vblank().
->
-> Cc: Thomas Zimmermann <tzimmermann@suse.de>
-> Assisted-by: Copilot:claude-opus-5.5
-> Signed-off-by: Prike Liang <Prike.Liang@amd.com>
+On Sun, 2026-11-08 at 14:39 -0800, Ian Rogers wrote:
+> In sq_dev_add(), sq_kobject[cpu] is dynamically allocated with
+> kzalloc_obj() and initialized with ktype_percpu_entry. When
+> sq_dev_remove() calls kobject_put(kobj), the kobject is never freed
+> because ktype_percpu_entry lacks a .release callback.
+>=20
+> Provide a sq_kobj_release() callback that calls kfree(kobj).
+>=20
+> Fixes: d7c30c682a27 ("sh: Store Queue API rework.")
+> Signed-off-by: Ian Rogers <irogers@google.com>
 > ---
->  drivers/gpu/drm/drm_client_modeset.c | 10 +++--
->  drivers/gpu/drm/drm_internal.h       |  1 +
->  drivers/gpu/drm/drm_vblank.c         | 60 ++++++++++++++++++++--------
->  3 files changed, 51 insertions(+), 20 deletions(-)
->
-> diff --git a/drivers/gpu/drm/drm_client_modeset.c
-> b/drivers/gpu/drm/drm_client_modeset.c
-> index 0080a8e9556a..b475b8dbdb17 100644
-> --- a/drivers/gpu/drm/drm_client_modeset.c
-> +++ b/drivers/gpu/drm/drm_client_modeset.c
-> @@ -1301,10 +1301,11 @@ EXPORT_SYMBOL(drm_client_modeset_dpms);
->   *
->   * Block the caller until the given CRTC has seen a VBLANK. Do nothing
->   * if the CRTC is disabled. If there's another DRM master present, fail
-> - * with -EBUSY.
-> + * with -EBUSY. A signal interrupts the wait.
->   *
->   * Returns:
-> - * 0 on success, or negative error code otherwise.
-> + * 0 on success, -ERESTARTSYS if a signal interrupted the wait, or
-> + * negative error code otherwise.
->   */
->  int drm_client_modeset_wait_for_vblank(struct drm_client_dev *client, un=
-signed int
-> crtc_index)  { @@ -1328,13 +1329,14 @@ int
-> drm_client_modeset_wait_for_vblank(struct drm_client_dev *client, unsigne=
-d i
->        */
->       ret =3D drm_crtc_vblank_get(crtc);
->       if (!ret) {
-> -             drm_crtc_wait_one_vblank(crtc);
-> +             ret =3D drm_crtc_wait_one_vblank_interruptible(crtc);
->               drm_crtc_vblank_put(crtc);
->       }
->
->       drm_master_internal_release(dev);
->
-> -     return 0;
-> +     /* Only report interruption by a signal, not timeouts. */
-> +     return ret =3D=3D -ERESTARTSYS ? ret : 0;
->  }
->  EXPORT_SYMBOL(drm_client_modeset_wait_for_vblank);
->
-> diff --git a/drivers/gpu/drm/drm_internal.h b/drivers/gpu/drm/drm_interna=
-l.h index
-> f893b1e3a596..2be21c20eb78 100644
-> --- a/drivers/gpu/drm/drm_internal.h
-> +++ b/drivers/gpu/drm/drm_internal.h
-> @@ -115,6 +115,7 @@ void drm_vblank_disable_and_save(struct drm_device
-> *dev, unsigned int pipe);  int drm_vblank_get(struct drm_device *dev, uns=
-igned int
-> pipe);  void drm_vblank_put(struct drm_device *dev, unsigned int pipe);
->  u64 drm_vblank_count(struct drm_device *dev, unsigned int pipe);
-> +int drm_crtc_wait_one_vblank_interruptible(struct drm_crtc *crtc);
->
->  /* drm_vblank_work.c */
->  static inline void drm_vblank_flush_worker(struct drm_vblank_crtc *vblan=
-k) diff --git
-> a/drivers/gpu/drm/drm_vblank.c b/drivers/gpu/drm/drm_vblank.c index
-> f90fb2d13e42..c3c9afc08ed2 100644
-> --- a/drivers/gpu/drm/drm_vblank.c
-> +++ b/drivers/gpu/drm/drm_vblank.c
-> @@ -1297,21 +1297,12 @@ void drm_crtc_vblank_put(struct drm_crtc *crtc)  =
-}
-> EXPORT_SYMBOL(drm_crtc_vblank_put);
->
-> -/**
-> - * drm_crtc_wait_one_vblank - wait for one vblank
-> - * @crtc: DRM crtc
-> - *
-> - * This waits for one vblank to pass on @crtc, using the irq driver inte=
-rfaces.
-> - * It is a failure to call this when the vblank irq for @crtc is disable=
-d, e.g.
-> - * due to lack of driver support or because the crtc is off.
-> - *
-> - * Returns: 0 on success, negative error on failures.
-> - */
-> -int drm_crtc_wait_one_vblank(struct drm_crtc *crtc)
-> +static int __drm_crtc_wait_one_vblank(struct drm_crtc *crtc, bool
-> +interruptible)
->  {
->       struct drm_device *dev =3D crtc->dev;
->       int pipe =3D drm_crtc_index(crtc);
->       struct drm_vblank_crtc *vblank =3D drm_crtc_vblank_crtc(crtc);
-> +     long timeout =3D msecs_to_jiffies(1000);
->       int ret;
->       u64 last;
->
-> @@ -1322,18 +1313,55 @@ int drm_crtc_wait_one_vblank(struct drm_crtc *crt=
-c)
->
->       last =3D drm_vblank_count(dev, pipe);
->
-> -     ret =3D wait_event_timeout(vblank->queue,
-> -                              last !=3D drm_vblank_count(dev, pipe),
-> -                              msecs_to_jiffies(1000));
-> +     if (interruptible)
-> +             timeout =3D wait_event_interruptible_timeout(vblank->queue,
-> +                                                        last !=3D drm_vb=
-lank_count(dev,
-> pipe),
-> +                                                        timeout);
-> +     else
-> +             timeout =3D wait_event_timeout(vblank->queue,
-> +                                          last !=3D drm_vblank_count(dev=
-, pipe),
-> +                                          timeout);
->
-> -     drm_WARN(dev, ret =3D=3D 0, "vblank wait timed out on crtc %i\n", p=
-ipe);
-> +     drm_WARN(dev, timeout =3D=3D 0, "vblank wait timed out on crtc %i\n=
-",
-> +pipe);
->
->       drm_vblank_put(dev, pipe);
->
-> -     return ret ? 0 : -ETIMEDOUT;
-> +     if (timeout < 0)
-> +             return timeout;
-> +
-> +     return timeout ? 0 : -ETIMEDOUT;
+>  arch/sh/kernel/cpu/sh4/sq.c | 6 ++++++
+>  1 file changed, 6 insertions(+)
+>=20
+> diff --git a/arch/sh/kernel/cpu/sh4/sq.c b/arch/sh/kernel/cpu/sh4/sq.c
+> index 908a8e09113b..f33864958487 100644
+> --- a/arch/sh/kernel/cpu/sh4/sq.c
+> +++ b/arch/sh/kernel/cpu/sh4/sq.c
+> @@ -331,7 +331,13 @@ static const struct sysfs_ops sq_sysfs_ops =3D {
+>  =09.store=09=3D sq_sysfs_store,
+>  };
+> =20
+> +static void sq_kobj_release(struct kobject *kobj)
+> +{
+> +=09kfree(kobj);
 > +}
 > +
-> +/**
-> + * drm_crtc_wait_one_vblank - wait for one vblank
-> + * @crtc: DRM crtc
-> + *
-> + * This waits for one vblank to pass on @crtc, using the irq driver inte=
-rfaces.
-> + * It is a failure to call this when the vblank irq for @crtc is disable=
-d, e.g.
-> + * due to lack of driver support or because the crtc is off.
-> + *
-> + * Returns: 0 on success, negative error on failures.
-> + */
-> +int drm_crtc_wait_one_vblank(struct drm_crtc *crtc) {
-> +     return __drm_crtc_wait_one_vblank(crtc, false);
->  }
->  EXPORT_SYMBOL(drm_crtc_wait_one_vblank);
->
-> +/**
-> + * drm_crtc_wait_one_vblank_interruptible - wait for one vblank,
-> +interruptibly
-> + * @crtc: DRM crtc
-> + *
-> + * Like drm_crtc_wait_one_vblank(), but a signal interrupts the wait.
-> + *
-> + * Returns: 0 on success, -ERESTARTSYS if a signal interrupted the
-> +wait,
-> + * negative error on other failures.
-> + */
-> +int drm_crtc_wait_one_vblank_interruptible(struct drm_crtc *crtc) {
-> +     return __drm_crtc_wait_one_vblank(crtc, true); }
-> +
->  /**
->   * drm_crtc_vblank_off - disable vblank events on a CRTC
->   * @crtc: CRTC in question
-> --
-> 2.34.1
+>  static struct kobj_type ktype_percpu_entry =3D {
+> +=09.release=09=3D sq_kobj_release,
+>  =09.sysfs_ops=09=3D &sq_sysfs_ops,
+>  =09.default_groups=09=3D sq_sysfs_groups,
+>  };
 
+Looks good to me, thanks!
+
+Acked-by: John Paul Adrian Glaubitz <glaubitz@physik.fu-berlin.de>
+
+Adrian
+
+--=20
+ .''`.  John Paul Adrian Glaubitz
+: :' :  Debian Developer
+`. `'   Physicist
+  `-    GPG: 62FF 8A75 84E0 2956 9546  0006 7426 3B37 F5B5 F913
