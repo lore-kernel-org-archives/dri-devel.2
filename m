@@ -2,47 +2,53 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 98AF1606C39C
-	for <dri-devel@archiver.kernel.org>; Wed, 18 Nov 2026 12:07:44 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1C28860A2601
+	for <dri-devel@archiver.kernel.org>; Wed, 18 Nov 2026 12:08:39 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=h8VjTIFs
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=FzNjTayr
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 0344910FB79;
-	Wed, 18 Nov 2026 12:07:39 +0000 (UTC)
-Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id F028B10FB7C;
- Wed, 18 Nov 2026 12:07:32 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 7C94010FB7E;
+	Wed, 18 Nov 2026 12:08:33 +0000 (UTC)
+Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 35F5910FB7E
+ for <dri-devel@lists.freedesktop.org>; Wed, 18 Nov 2026 12:08:27 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id 945DA46036;
- Wed, 18 Nov 2026 12:07:32 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 093BD1F000C5;
- Wed, 18 Nov 2026 12:07:31 +0000 (UTC)
+ by tor.source.kernel.org (Postfix) with ESMTP id DD908602BA;
+ Wed, 18 Nov 2026 12:08:25 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 25EA01F000C4;
+ Wed, 18 Nov 2026 12:08:20 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1795003652;
- bh=TrVpSbuxTvABMzXsIM2kgbpc7Uu8nxzZKXRdWBcBCd8=;
- h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
- b=h8VjTIFsCUB/EpHOkH4qUs/GoCsirEPVJD6AP20cS9vUJ7MLK9giCoFxIsCI/4m+v
- HaWoHsexGNqYWzw2DytzdYAgcC4KJK6J93WL0diLEbdimdjzR3gelRsGSz5sANO9Uv
- FYYw4vtwDTaEMaxwTpTZkkEdH91fn7bSMhtDGlRE2NOhJUvHCiLOZom5XhRhqIpskf
- YIlS6G+VLXycYbwHq9rwp92Z4kiJyMVaqLkqM7Ev+FauCPgDVKZzmwuhheGEGeKmUG
- ySNn5LhF1SPW8Y+vidvzjW3Caj90hMh68BGm5SjVT/9WKsPNA1mF+hbG9y7yo3XJ9C
- 7hI/KAEQWTtnA==
-Message-ID: <sashiko-outbox-220875@kernel.org>
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v4 1/2] overflow: Add offsetofend() variant of
- struct_offset()
-To: "Bence Csokas" <bence.csokas@arm.com>
-Cc: dri-devel@lists.freedesktop.org, intel-gfx@lists.freedesktop.org,
- linux-rdma@vger.kernel.org, linux-hyperv@vger.kernel.org,
- linux-scsi@vger.kernel.org, bpf@vger.kernel.org,
- linux-security-module@vger.kernel.org, linux-sound@vger.kernel.org,
- media-ci@linuxtv.org
-In-Reply-To: <20261118-offsetof-v4-1-95b385c10b22@arm.com>
-References: <20261118-offsetof-v4-0-95b385c10b22@arm.com>
- <20261118-offsetof-v4-1-95b385c10b22@arm.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Wed, 18 Nov 2026 12:07:31 +0000
+ s=k20260515; t=1795003705;
+ bh=05Nm6HzmdIZXjFb2zu8EqHf0YxdihZclsdnjfiwF+TU=;
+ h=From:To:Cc:Subject:Date;
+ b=FzNjTayrwOoCN1PjGWNbdV6fBFqeU+ib/IZaJwhEAy+P5ituS/39Bti3QCbmoRl0Q
+ OVCIRXzGlbL5PkPZhqwZWT+8orOza+uiCKHxYjU7c05AN+JEQ9vA3H1BXJTFpTqW76
+ mg3nbSsYC0dTwVoAxbXOdQu44t3ObaEs42HPnM+EikKx4X0ULYBf+f4UbKp29wHq5j
+ 7vhww0tHNf+yO1za975kQwbuOqe5zzM1GS2u3OOEf/CV4MKXKrWbCVeWqSVMMBs5UB
+ g5g5jPDgL999QweAexDTD8F44UdNMzdFxYpv20VNgN7tmXKY0SrniP/7O3dgncKx0a
+ C5GfrjKounpFw==
+From: Philipp Stanner <phasta@kernel.org>
+To: Sumit Semwal <sumit.semwal@linaro.org>,
+ =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
+ Philipp Stanner <phasta@kernel.org>, Danilo Krummrich <dakr@kernel.org>,
+ Alice Ryhl <aliceryhl@google.com>, Miguel Ojeda <ojeda@kernel.org>,
+ Boqun Feng <boqun@kernel.org>, Gary Guo <gary@garyguo.net>,
+ =?UTF-8?q?Bj=C3=B6rn=20Roy=20Baron?= <bjorn3_gh@protonmail.com>,
+ Benno Lossin <lossin@kernel.org>, Andreas Hindborg <a.hindborg@kernel.org>,
+ Trevor Gross <tmgross@umich.edu>,
+ Daniel Almeida <daniel.almeida@collabora.com>,
+ Tamir Duberstein <tamird@kernel.org>,
+ Alexandre Courbot <acourbot@nvidia.com>,
+ =?UTF-8?q?Onur=20=C3=96zkan?= <work@onurozkan.dev>
+Cc: linux-media@vger.kernel.org, dri-devel@lists.freedesktop.org,
+ rust-for-linux@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: [PATCH v2] rust: DamFence: Remove warning about unsignaled drop
+Date: Wed, 18 Nov 2026 13:08:14 +0100
+Message-ID: <20261118120813.1539288-2-phasta@kernel.org>
+X-Mailer: git-send-email 2.56.0
+X-Archived-By: <archiver.kernel.org>
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -53,66 +59,56 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
-Reply-To: sashiko-reviews@lists.linux.dev
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-10.8 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
+X-Spam-Status: No, score=-18.8 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
 	DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
-	INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS
-	autolearn=unavailable autolearn_force=no version=4.0.1
+	INCLUDES_CR_TRAILER,INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,
+	SPF_PASS,USER_AGENT_GIT autolearn=ham autolearn_force=no version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
-X-Archived-By: <archiver.kernel.org>
 
-Thank you for your contribution! Sashiko AI review found 1 potential
-issue to consider:
-- [Low] coccinelle: struct_offsetof.cocci requires parentheses around
-  ptr
---
+DriverFence::drop() contains a pr_warn!() for when the fence drops
+unsignaled. This warning gets into the way of canonical teardown in
+Rust: when you drop a lock, it unlocks itself, when you drop a KBox, it
+frees itself etc. Congruently, users should be able to tear down fences
+they don't care about anymore with ECANCELED, which is already the
+default error code.
 
-commit bd704e7223e04b0fb7bb740d9f758d180e12c2d8
-Author: Bence Csokas <bence.csokas@arm.com>
+Remove the warning.
 
-overflow: Add offsetofend() variant of struct_offset()
+Suggested-by: Danilo Krummrich <dakr@kernel.org>
+Signed-off-by: Philipp Stanner <phasta@kernel.org>
+---
+Changes in v2:
+  - Also update the documentation accordingly.
+---
+ rust/kernel/dma_buf/dma_fence.rs | 6 +++---
+ 1 file changed, 3 insertions(+), 3 deletions(-)
 
-This commit adds the struct_offsetofend() helper macro and a Coccinelle
-semantic patch to convert offsetof(typeof(*ptr), member) and
-offsetofend(typeof(*ptr), member) calls.
+diff --git a/rust/kernel/dma_buf/dma_fence.rs b/rust/kernel/dma_buf/dma_fence.rs
+index a1d851656562..01a7ae807273 100644
+--- a/rust/kernel/dma_buf/dma_fence.rs
++++ b/rust/kernel/dma_buf/dma_fence.rs
+@@ -631,8 +631,9 @@ struct DriverFenceData<'a, T: Send + Sync + FenceContextOps> {
+ /// It is crucial that a [`DriverFence`] always correctly represents the state
+ /// of the associated job on the hardware. Especially, it is strictly necessary
+ /// that the owner ensures that all [`DriverFence`]s eventually get signaled.
+-/// As a last resort, a [`DriverFence`] will signal itself if it drops
+-/// unsignaled and print a warning.
++///
++/// A [`DriverFence`] that drops unsignaled will signal itself with the error
++/// code ECANCELED.
+ ///
+ /// This design intends to implement the [`bindings::dma_fence_ops`] in such a
+ /// way that the driver-data necessary to implement the callback's functionality
+@@ -942,7 +943,6 @@ fn drop(&mut self) {
+         // SAFETY: `guard` is valid until the `call_rcu()` below.
+         let signaled: bool = unsafe { bindings::dma_fence_test_signaled_flag(guard.as_raw()) };
+         if !signaled {
+-            pr_err!("DriverFence drops unsignaled. Danger of memory corruption!\n");
+             // SAFETY: `guard` is valid until the `call_rcu()` below. The fence
+             // must not have been signaled yet, which we check directly above.
+             unsafe { bindings::dma_fence_set_error(guard.as_raw(), ECANCELED.to_errno()) };
+-- 
+2.56.0
 
-> diff --git a/scripts/coccinelle/api/struct_offsetof.cocci b/scripts/cocci=
-nelle/api/struct_offsetof.cocci
-> new file mode 100644
-> index 0000000000000..5a30647d37872
-> --- /dev/null
-> +++ b/scripts/coccinelle/api/struct_offsetof.cocci
-> @@ -0,0 +1,18 @@
-> +// SPDX-License-Identifier: GPL-2.0-only
-> +/// Use struct_offset() family of macros
-> +///
-> +// Confidence: High
-> +// Options: --no-includes --ignore ./tools/
-> +
-> +virtual patch
-> +
-> +@offsetof depends on patch@
-> +expression ptr, member;
-> +@@
-> +- offsetof(typeof(*(ptr)), member)
-> ++ struct_offset(ptr, member)
-> +@offsetofend depends on patch@
-> +expression ptr, member;
-> +@@
-> +- offsetofend(typeof(*(ptr)), member)
-> ++ struct_offsetofend(ptr, member)
-
-[Severity: Low]
-Do the inner parentheses in typeof(*(ptr)) prevent these rules from
-matching unparenthesized typeof(*ptr) call sites?
-
-In Coccinelle, the paren isomorphism expands E to (E) in one direction,
-so matching typeof(*(ptr)) requires explicit parentheses around ptr in
-the C source.  Writing typeof(*ptr) matches both typeof(*ptr) and
-typeof(*(ptr)).
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261118-offsetof-v=
-4-0-95b385c10b22@arm.com?part=3D1
