@@ -2,74 +2,101 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7D775606A320
-	for <dri-devel@archiver.kernel.org>; Thu, 19 Nov 2026 07:49:14 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4A762606A320
+	for <dri-devel@archiver.kernel.org>; Thu, 19 Nov 2026 07:49:15 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=PJsyC+I0
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=OPgYBcR9
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 91B2110FCE1;
+	by gabe.freedesktop.org (Postfix) with ESMTP id E3A3910FCE6;
 	Thu, 19 Nov 2026 07:48:53 +0000 (UTC)
-Received: from mail-dy1-f182.google.com (mail-dy1-f182.google.com
- [74.125.82.182])
- by gabe.freedesktop.org (Postfix) with ESMTPS id E932110E664
- for <dri-devel@lists.freedesktop.org>; Thu, 19 Nov 2026 02:36:12 +0000 (UTC)
-Received: by mail-dy1-f182.google.com with SMTP id
- 5a478bee46e88-36eb1cb7aabso2627353eec.0
- for <dri-devel@lists.freedesktop.org>; Wed, 18 Nov 2026 18:36:12 -0800 (PST)
+Received: from mail-dy1-f173.google.com (mail-dy1-f173.google.com
+ [74.125.82.173])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 58D0E10E5CB
+ for <dri-devel@lists.freedesktop.org>; Wed, 18 Nov 2026 23:55:31 +0000 (UTC)
+Received: by mail-dy1-f173.google.com with SMTP id
+ 5a478bee46e88-33bf40b0c8bso3767247eec.0
+ for <dri-devel@lists.freedesktop.org>; Wed, 18 Nov 2026 15:55:31 -0800 (PST)
+ARC-Seal: i=1; a=rsa-sha256; t=1795046130; cv=none;
+ d=google.com; s=arc-20260327;
+ b=qQ+B5a+Hc3YQpD3GWLrcpLsZ8/QwSJEZjBqCyVP9rka9PpMn40WHaRIeT2wtjfR1j3
+ r8QS6toLcnzlOHbNEqwq13f4uUAv2PpHM37RuDPOtamQMdC09cDGuJRhqWzIFH6a1ipB
+ 1yEmkpRUTK56nNsp/zDT60NUbdP48peKtJ0DMk5ECqRVAyIVAAnsgAVQh2eSIu3nbXO3
+ 1lNR6A8jkQzdTRI4DiZexSGHZfpptwXdPP5iM4T33I4JQd/hkPLBLmIR7JQLaHGUGopC
+ IMXj0Cvb+kFWSJ0TaA5/I3hbK1IgZIKdog7eESX/17lUsozsj5WMDE8kMy1r4W5SJDv3
+ iy+g==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com;
+ s=arc-20260327; 
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:dkim-signature;
+ bh=63Ce5k5KgJ7kCxdquHv1PxDcyB7zPmX8ddeWZ4cRjbg=;
+ fh=JWjEjSWP3YJvq6VSG93ZZZGGa9nGmI8nn+a5XGW3bxs=;
+ b=PmVjZGFXqQUM84vZ1zuOBLTCQzM/8tjCTtUVwzkssFDr5fm1DFesOI9AwGZ36OvLWb
+ qyRotzPZoZ1FgEQGERUFea4YWHat4WyBtIxY18430EzwW7lkMuj4z1QtKjyiW2QKaoKu
+ 4mS/NAM5k0X1lYlYOo/t1am7DgJVPB7UxcYTdSgcggByjcwGn0x6XGZHU/OZ8uDaK2JS
+ twVj/z6LuoTfMdkX+mhAiazoaM4pbyRUrUJrPOe1XdQbpa6Tb+czSKxrqSqP441MDKEI
+ l9qg22lLD6bruAXXsyy2wjFpifnc600XDS6JKsjo8cjXQLuvmwy27D6oVZTrsQaxuv6U
+ 1Lfw==; darn=lists.freedesktop.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20260707; t=1795055772; x=1795660572; darn=lists.freedesktop.org;
- h=content-transfer-encoding:mime-version:message-id:date:subject:cc
- :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
- bh=r5vcTKCKH8w1c2blCWgaYBVv/4WCN3dPU6fSMD6S8fk=;
- b=PJsyC+I0Krn9JcjIdUmaUeexTDRaypwuLT9uvlmCY4nVB2BGrYo0CggufLonXXjIby
- znuzRq7mVbmKukwtRWbknMGbKb7e2lCn0I7gxa40qXGuZkaHbKyRESf+b4NL8KGflpTz
- VDJtPviix1Wao3EFStQN+nSw0qjLK5gYXB5gZL6Y3SPu89VWwPcpYn4IimZg0qGuYOSM
- rVBf1LI3nbb1g35UQzKuCXy+uZuY3Hrk34dOO0wFtcNE+Ev6zyCsMB/VYW5yBMFRiIgE
- 3AYX9hDF4OcEWg/21AO487hLUsLVeOmKnssUJrIzTOZMHAjK/c8sQtZbx8YLw5WHotec
- Xppw==
+ d=gmail.com; s=20260707; t=1795046130; x=1795650930; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:content-type:cc:to:subject:message-id
+ :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+ :date:message-id:reply-to:content-type;
+ bh=63Ce5k5KgJ7kCxdquHv1PxDcyB7zPmX8ddeWZ4cRjbg=;
+ b=OPgYBcR9kIuvX3hL7Jif5YgICFehN7PcMA9s9MYCGLEkNpJWeHKtq2scoSU5IAN98a
+ uA+tmOHy8w44oT8XiACu5XdnCbiyzIa8ES9MAeZ/srr8/yme7xlS0VURiYrGyi/hPjxS
+ Ej2ZfeTPjZe+BrNnGHpdT58jUxa7I3VMJED1UN3S/Hn67X2N32j85wezWqmJWxCsZ/6C
+ Sx2WonaFbVZrjFEK1HYxQnGzd9yfZ4XhCj1Cg4RlHzSh/bCHK2LwhnpughT0RbIaiGvy
+ bVCQYczAid+R1/AXHmUPZSgK34uEpJ0MCRLFmkZUzNlQ/xmmkKpDNjDRrZdE/V6ih702
+ CC0A==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20260707; t=1795055772; x=1795660572;
- h=content-transfer-encoding:mime-version:message-id:date:subject:cc
- :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
- :message-id:reply-to:content-type;
- bh=r5vcTKCKH8w1c2blCWgaYBVv/4WCN3dPU6fSMD6S8fk=;
- b=YXBNU194kshlHMLpswmVHorveagtx/YaMdaHnJxc/a7GcAC2Hz83ZOf4AZ+grbP60R
- m06pQDlDmsGecX0D50L+R0UXtlxN8M/4LiCDh8ML20Df6TQGwThc1V2IKmud0N9Hf5uj
- TuA5ctBm5RddiLeHnQj4zgoMAE06UcUPzLlsBfLh+xm+QPT2zuDPpAIsG32UFrqtHpJ9
- LqXk9474FbfkrJR+5yehagdJ1+AJID2R1J+20efg8eNPwZYD3AraVT79R67Lb7VD5hh4
- Ej7invfhjfbfzd1aX4YFYFy5iZf6opzM2Tm53/o0wQKSImOIa40Aj6Tc+qq7XegzcS5x
- fTxw==
-X-Gm-Message-State: APuU4Z+B6YpFguE31XwcVRisaTfLYZ/Yl7rnaFc7LklfCKqzW6Zm26RR
- Vx7h1Sh6tPCGsQm9pFUqQKX3NX6/AgvdsS6JluhJX3ZoXTo6egih/lPe
-X-Gm-Gg: AZFdTZcqpZoEfmayXMECoDpaiQrjZItjddn9VhKrrojAqbPIkQJXs7IgrHVD70c5qwK
- fcw1WXqJkTt+hNUGP/cedrauVEZtB26HimQCWKubmlsnJ2QHfvGTESaRg0r8C2nIw4VZK9JhZdR
- 071srlw3JItwU+PPhyVohKRUyIYFaU2dHITnEs3kQYMwUR/NozMvTJ/cMpiFfQlaLgCvVs6/uS1
- 0+Mc2yswl2tv38wWW8MgkOjWWqVW0f9neqd45rHuF506j/9rtxLcc/ZhyyEqcEd4HC090BvsQkB
- Vxj/meoi19SPnZuIhHpwUmPsevJpWVsSRMLoNRcn2e0D0b8/mXHc1F7W3c0tX+NSD2dtXp5T6gU
- Ps+9VvnBi1mhvYQExG1/3xfSc+LT2OJn4Je6enyZVujcd+jhxICyl6+BwtBOvbeuO6VYnymDZCL
- 2ePrm9yqH39Zp4ovVhwIxzS8loK0x2xm0OmdDEMcQE8v1adZMa/ra7P890sLxnaKTNFVlEtnP6I
- cAT61xlO65fczvWql5bnb7nEzt83rSm4UsoUTownXMSBJdtl8gOPTqaCuaBa6R1CG6AB2Q0WivA
- cFv+4V16jO8YUhb1DjP7WdZcKgNpSSee3ZYRpZNDwylEw42oeYGRS0oiJXapZQaXr4T4c+3oTMZ
- 4FWSlfly0l0zoIgs80ZMMecQCtoFXwvsWyp4eA2R4
-X-Received: by 2002:a05:7301:9e08:b0:379:7bb6:9c4b with SMTP id
- 5a478bee46e88-38281bfc037mr3868548eec.39.1795055771985; 
- Wed, 18 Nov 2026 18:36:11 -0800 (PST)
-Received: from lwq-System-Product-Name.. ([2602:feda:30:cafe:ec49:38a8:0:f6])
- by smtp.gmail.com with ESMTPSA id
- 5a478bee46e88-382a80bc19bsm12160265eec.29.2026.11.18.18.36.07
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Wed, 18 Nov 2026 18:36:11 -0800 (PST)
-From: Yaohan Li <shunsheng1218@gmail.com>
-To: maarten.lankhorst@linux.intel.com, mripard@kernel.org, tzimmermann@suse.de
-Cc: dri-devel@lists.freedesktop.org, hjc@rock-chips.com, heiko@sntech.de,
- andyshrk@163.com, linux-kernel@vger.kernel.org
-Subject: [RFC PATCH] drm/flip: drain the flip work on cleanup
-Date: Thu, 19 Nov 2026 10:36:04 +0800
-Message-Id: <20261119023604.1495603-1-shunsheng1218@gmail.com>
-X-Mailer: git-send-email 2.34.1
+ d=1e100.net; s=20260707; t=1795046130; x=1795650930;
+ h=content-transfer-encoding:content-type:cc:to:subject:message-id
+ :date:from:in-reply-to:references:mime-version:x-gm-gg
+ :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+ :content-type;
+ bh=63Ce5k5KgJ7kCxdquHv1PxDcyB7zPmX8ddeWZ4cRjbg=;
+ b=xRtkyA53p13aSIEBbkUoFgmPsV4Nf9v8zyM90VyR0fePUpyTpxRYprl3SWnaJjORld
+ cEgKkqnqZTtO6J2onlNrdkekb+OWfffKI8Jddaf6SEFFmJEvJoBF459c+m/OsYg42DIu
+ joCUI5dMsf9vcOxNQsNdoUkCph2MXngMtBBqLfOg11T6DM7SWeN+R79kWlnhHUOBMPPq
+ 2nw+wRhixuxRwG7gAE2mWpt62IOoMQYaHXBa+Kq3GtRT60yw7wrO0JsSKKUt9xfSOfEY
+ vAo9SlEGt4WxNUt+yhhNoxM3bJZDGmsYi0NyUhvEFRCr5bLfs9+rnAHc6kd++NSCig4O
+ 8ZnA==
+X-Forwarded-Encrypted: i=1;
+ AL+hErH6vu+ngELYeoYBsjydaOKw77gc57kyT55K/c6F2ktuK3vagBuycBNxMnOSc5F3rwW9SEshEOil9Dg=@lists.freedesktop.org
+X-Gm-Message-State: APuU4Z9CyvHZ1cV99K/wVisEOS+/BSv/vQ0ze3jm8u+WZn4HJ12peLVW
+ +DAAmRBQnrknIXzQ1nrOabDHadlL5vvUhYn9lsG1SB/G4w2JKgu2DDwQwuhBAhRQcWcFfdr+MgL
+ hj0540AVUZGmpOLZPHb2dAr8M90uU4w8=
+X-Gm-Gg: AZFdTZcTGHK7CVn8hve5WXSdYRIO0nL6D6Qi50R8hLm83glad/YHvxdf/u7SPQR95Fj
+ XV51OUAy9m0zLEwWaru2uC/bnVVJd/kbQCsVaozY9oGljdMtWmTgZKiz8szz9pO6BWmib6X9Cz5
+ 88kb80FZrQavJxHtAj7sLZQkMnRlCRndebq5Sdq3h8XzY1dniFre2wSsivgvB6K+i5KFxjIaKpN
+ HMcJl+ExWlEQbtS8hFPtnMK7+iUbLBWxcg1x8wQqWd9sOpDOA/zGVhBju8qLLBUpUcuuoUEX5rY
+ JOeOgHSGFarhCuGr9hBy6bfM38q9ZfB09DSg0iplUB/B0JdJhguYo1YrbaBX6DTOhmz0+ZLRrsP
+ FaQK9UZvfIMNSmw4nPQHKker3lmFikPKmmx+DQXMZHAyhoxpU71fv+u/rc5N+
+X-Received: by 2002:a05:7301:32cd:b0:375:c862:34e with SMTP id
+ 5a478bee46e88-3828093e35cmr3846344eec.20.1795046130285; Wed, 18 Nov 2026
+ 15:55:30 -0800 (PST)
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+References: <20261028164539.3471833-1-henryzhang62@gmail.com>
+ <20261028164539.3471833-6-henryzhang62@gmail.com>
+ <CAPY8ntD7UqYwGfSOp4XW5V6574e7o_bq_hnzNfVoq8y92-3awA@mail.gmail.com>
+In-Reply-To: <CAPY8ntD7UqYwGfSOp4XW5V6574e7o_bq_hnzNfVoq8y92-3awA@mail.gmail.com>
+From: Henry Zhang <henryzhang62@gmail.com>
+Date: Wed, 18 Nov 2026 15:55:19 -0800
+X-Gm-Features: Aa3M54q8rC9hdRr05t6wi4III9tiHqZZwbdjk1rChRebknqJVFK6FeLFd7oXKKg
+Message-ID: <CANTW0yq8H8WO4kg3kZru7oZ58wnd0go=8F+RtSi4GL3SsXW8Dg@mail.gmail.com>
+Subject: Re: [PATCH v4 5/5] drm/vc4: dsi: Recover from a timed-out transfer
+To: Dave Stevenson <dave.stevenson@raspberrypi.com>
+Cc: Maxime Ripard <mripard@kernel.org>,
+ =?UTF-8?B?TWHDrXJhIENhbmFs?= <mcanal@igalia.com>, 
+ Raspberry Pi Kernel Maintenance <kernel-list@raspberrypi.com>, 
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Thomas Zimmermann <tzimmermann@suse.de>, 
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 X-Mailman-Approved-At: Thu, 19 Nov 2026 07:48:39 +0000
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -82,127 +109,56 @@ List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-15.8 required=3.0 tests=BAYES_00,DKIM_SIGNED,
+X-Spam-Status: No, score=-2.8 required=3.0 tests=BAYES_00,DKIM_SIGNED,
 	DKIM_VALID,DKIM_VALID_AU,FREEMAIL_FORGED_FROMDOMAIN,FREEMAIL_FROM,
-	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
-	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,USER_AGENT_GIT
-	autolearn=unavailable autolearn_force=no version=4.0.1
+	HEADER_FROM_DIFFERENT_DOMAINS,MAILING_LIST_MULTI,SPF_HELO_NONE,
+	SPF_PASS autolearn=no autolearn_force=no version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-drm_flip_work_cleanup() only warns when the queued or the committed list
-is not empty.  Nothing cancels the worker and nothing runs the tasks
-that are still queued, so the caller silently leaks whatever the tasks
-hold (framebuffer references, vblank references, ...) and, if the
-worker is still pending, it can run after the structure embedding the
-flip work has been freed.
+On Wed, Nov 18, 2026 at 1:11=E2=80=AFPM Dave Stevenson
+<dave.stevenson@raspberrypi.com> wrote:
+> Whilst it's a belt and braces approach to work around the issue, I'll
+> have a dig next week to see if I can reproduce it and see what is
+> going on.
 
-Cancel the worker and run the remaining tasks from
-drm_flip_work_cleanup().  The work item is the only producer of the
-committed list, so after cancel_work_sync() the two lists can be
-spliced out and iterated without holding the lock.
+Thanks, that would help. In case it saves you time, this is how we hit
+it, on a Pi 4 with the panel on DSI1 in video mode, display on:
 
-The helper only drains the work items that exist when it is called, so
-the callers have to make sure that no new item can be queued.  Both
-in-tree callers already do:
+- It starts with a DCS read whose bus turnaround the peripheral does
+  not complete, so the read gets the LP receive timeout.
+- From then on, every transfer times out with no interrupt and STAT
+  reading back 0, writes included, until the next modeset.
 
- - Rockchip VOP: rockchip_drm_unbind() runs drm_atomic_helper_shutdown()
-   before component_unbind_all(), and vop_unbind() calls
-   pm_runtime_disable() before vop_destroy_crtc().  The CRTC is disabled
-   and the device cannot be resumed when the cleanup runs, so neither
-   vop_plane_atomic_update() nor vop_crtc_atomic_flush() can queue a new
-   item, and vop_isr() returns early because
-   pm_runtime_get_if_in_use() fails.
+I don't have a reliable way to trigger the first failed read. I have
+not tried a peripheral that never answers a read, so I don't know if
+that alone is enough to get the block stuck.
 
- - MSM mdp4/mdp5: msm_drm_uninit() destroys the KMS, which releases the
-   interrupt, before drm_dev_put() runs the drmm actions.  The flip
-   cleanup action is registered after drmm_crtc_alloc_with_planes(), so
-   it runs before drmm_crtc_cleanup() and after the vblank interrupt
-   that commits the work is gone.
+> There are very few use cases that have a need for sending DCS commands
+> whilst transmitting video, so it's a bit niche. The reset stopping
+> video isn't nice although I guess it should be fairly brief.
 
-Rockchip VOP called drm_flip_work_cleanup() after drm_crtc_cleanup(),
-which memsets the CRTC.  Its worker calls drm_crtc_vblank_put() on that
-CRTC, so the drain has to happen before the CRTC is cleaned up.
+I understand it is niche in general, but for us it is a requirement: we
+need reads (with the bus turnaround) in both video mode and command
+mode. In video mode our test tools read panel registers only when no
+video content is being played, but the display is still on, so the
+host is still sending video frames during the reads. The same reads
+have to work with the panel in command mode. So a stuck block hurts us
+in either mode.
 
-Signed-off-by: Yaohan Li <shunsheng1218@gmail.com>
+I checked both today, on our downstream kernel with this series and
+some local changes: 1000 reads in video mode (display on, static
+picture) and 1000 in command mode all completed. We did not reproduce a
+timeout in this run, so it did not exercise the recovery. That does not
+change the failure described above, which we did capture earlier; we
+still have no reliable way to trigger it.
 
----
-Prepared against v7.4-rc1-1969-g666539eecdf4.
+I haven't measured how long video stops during the reset. It is only
+done after a timeout, when the link is already unusable for commands.
 
-Compile tested only: arm64 with aarch64-linux-gnu-gcc 11.4
-and CONFIG_DRM_ROCKCHIP=m, CONFIG_DRM_MSM=m.  The affected hardware was not
-available, so the teardown path was not exercised and no fault or
-race injection was run.
+If you find the cause and a fix that avoids the stuck state, I am happy
+to drop this patch, or rework it, and test whatever you have on our
+setup. Until then I'll hold 5/5 in v5 as it is.
 
-AI assistance: the analysis, the change and its review notes were
-prepared with Claude (Anthropic) as a coding assistant.  The author
-reviewed the reasoning and takes responsibility for the content.
----
- drivers/gpu/drm/drm_flip_work.c             | 23 +++++++++++++++++++--
- drivers/gpu/drm/rockchip/rockchip_drm_vop.c |  9 +++++++-
- 2 files changed, 29 insertions(+), 3 deletions(-)
-
-diff --git a/drivers/gpu/drm/drm_flip_work.c b/drivers/gpu/drm/drm_flip_work.c
-index 52c437746d48..b8ce3966fa9a 100644
---- a/drivers/gpu/drm/drm_flip_work.c
-+++ b/drivers/gpu/drm/drm_flip_work.c
-@@ -149,10 +149,29 @@ EXPORT_SYMBOL(drm_flip_work_init);
-  * drm_flip_work_cleanup - cleans up flip-work
-  * @work: the flip-work to cleanup
-  *
-- * Destroy resources allocated for the flip-work
-+ * Cancel the worker and run the tasks that are still queued, so that the
-+ * resources they hold are released even if the work never made it to the
-+ * workqueue.  Must be called before the object embedding @work is freed and
-+ * after the driver has stopped the code that calls drm_flip_work_queue()
-+ * and drm_flip_work_commit(): only the work items that exist when this
-+ * function is called are drained.
-  */
- void drm_flip_work_cleanup(struct drm_flip_work *work)
- {
--	WARN_ON(!list_empty(&work->queued) || !list_empty(&work->commited));
-+	struct drm_flip_task *task, *tmp;
-+	LIST_HEAD(tasks);
-+	unsigned long flags;
-+
-+	cancel_work_sync(&work->worker);
-+
-+	spin_lock_irqsave(&work->lock, flags);
-+	list_splice_tail_init(&work->queued, &tasks);
-+	list_splice_tail_init(&work->commited, &tasks);
-+	spin_unlock_irqrestore(&work->lock, flags);
-+
-+	list_for_each_entry_safe(task, tmp, &tasks, node) {
-+		work->func(work, task->data);
-+		kfree(task);
-+	}
- }
- EXPORT_SYMBOL(drm_flip_work_cleanup);
-diff --git a/drivers/gpu/drm/rockchip/rockchip_drm_vop.c b/drivers/gpu/drm/rockchip/rockchip_drm_vop.c
-index 69e72727da24..38935ef08b70 100644
---- a/drivers/gpu/drm/rockchip/rockchip_drm_vop.c
-+++ b/drivers/gpu/drm/rockchip/rockchip_drm_vop.c
-@@ -1990,12 +1990,19 @@ static void vop_destroy_crtc(struct vop *vop)
- 				 head)
- 		drm_plane_cleanup(plane);
- 
-+	/*
-+	 * The flip work drops the vblank reference taken when the framebuffer
-+	 * was queued, so it has to be drained while the CRTC is still valid.
-+	 * The CRTC has been shut down and runtime PM disabled by the time this
-+	 * runs, so no new work item can be queued anymore.
-+	 */
-+	drm_flip_work_cleanup(&vop->fb_unref_work);
-+
- 	/*
- 	 * Destroy CRTC after vop_plane_destroy() since vop_disable_plane()
- 	 * references the CRTC.
- 	 */
- 	drm_crtc_cleanup(crtc);
--	drm_flip_work_cleanup(&vop->fb_unref_work);
- }
- 
- static int vop_initial(struct vop *vop)
--- 
-2.34.1
-
+Thanks,
+Henry
