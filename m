@@ -2,42 +2,42 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EDE5360A6F57
-	for <dri-devel@archiver.kernel.org>; Wed, 18 Nov 2026 16:53:02 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 72458606B5A2
+	for <dri-devel@archiver.kernel.org>; Wed, 18 Nov 2026 16:53:14 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.a=rsa-sha256 header.s=dkim header.b=WTG9wZ4V
+	dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.a=rsa-sha256 header.s=dkim header.b=nlzPAAzK
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 31E6510FE8C;
-	Wed, 18 Nov 2026 16:52:57 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id B175210FE93;
+	Wed, 18 Nov 2026 16:53:08 +0000 (UTC)
 Received: from smtpout-04.galae.net (smtpout-04.galae.net [185.171.202.116])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 2CEE410FE8D
- for <dri-devel@lists.freedesktop.org>; Wed, 18 Nov 2026 16:52:45 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 25D0C10FE94
+ for <dri-devel@lists.freedesktop.org>; Wed, 18 Nov 2026 16:53:02 +0000 (UTC)
 Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
- by smtpout-04.galae.net (Postfix) with ESMTPS id C46BEC4F77E;
- Wed, 18 Nov 2026 16:52:48 +0000 (UTC)
+ by smtpout-04.galae.net (Postfix) with ESMTPS id BFC90C4F77B;
+ Wed, 18 Nov 2026 16:53:05 +0000 (UTC)
 Received: from mail.galae.net (mail.galae.net [212.83.136.155])
- by smtpout-01.galae.net (Postfix) with ESMTPS id DB1E55FE9B;
- Wed, 18 Nov 2026 16:52:43 +0000 (UTC)
+ by smtpout-01.galae.net (Postfix) with ESMTPS id D843C5FE9B;
+ Wed, 18 Nov 2026 16:53:00 +0000 (UTC)
 Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon)
- with ESMTPSA id 0E2CA11BC28EE; Wed, 18 Nov 2026 17:52:36 +0100 (CET)
+ with ESMTPSA id 7D93A11BC28EE; Wed, 18 Nov 2026 17:52:52 +0100 (CET)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
- t=1795020762; h=from:subject:date:message-id:to:cc:mime-version:content-type:
+ t=1795020778; h=from:subject:date:message-id:to:cc:mime-version:content-type:
  content-transfer-encoding:in-reply-to:references;
- bh=WjS1TnU5G3NX36BJmuETJgLua1a34Ccm5l9F2qAupl8=;
- b=WTG9wZ4VyVIGQ4UVZlXnb2w4efL7atDAKfqbP6xwYOhTVsEM6/Ftdd8i3cuRRR3J0vtEyQ
- 4M633/W4wxKOISwgz9uQ1U+euEtb9PZljkIJDeqseRGvX4HzZsYdZ4+FCSkn8yCsmrGJXy
- z4jifcUUx95b388z+pbsyXZOzU9n4pCPwowHpekULkh5mTt28DmxsLAyPSpUMcu5jddSwx
- N1D/+Eyzka/W9W2BuORGq/XdBF1mG2lSw9UboJ4xoPF9kAqPNt8cYS9iijKgjZarRQfd+3
- 7v1Jsc7ognwPhOcE9aVErcqsGC6RHV9cv3IN98veu1CeZcvASMI+vExX/jJqnA==
+ bh=qEXY815K3czAZD0w1DbKowETMw8pki3I34kxi7YffyU=;
+ b=nlzPAAzKTeecGqjp3FQ5HbH5c98OKdqg+fGn5IHEMBYahN+cJJt34qGQMjXYuwQbBd/qIi
+ a0Bng8ScR1RpOXJBJhqWnK89KP1Wy4bcXeyqQzYdXmx8tLxaYt3XORS9yc8iR2h2RINOAk
+ inxbmJqLBV1jIMLXE0cRfjQmB2EPGe8GXE2DtdVvb4Esc1iplcqO317UOIPYF5OuLYBEWK
+ b7DDfdJO69OJlCQi4aMT2khhTbdKBp1I841R7CaRFXqBw8eQN18gpr29NAT+18gtPsnDCF
+ SFf5hyLM+5qojmx2TPYZmWmj2O5gsUq+VgBpDT2SYgRAS+I3Z0087k3AUiwPOA==
 From: Luca Ceresoli <luca.ceresoli@bootlin.com>
-Date: Wed, 18 Nov 2026 17:50:07 +0100
-Subject: [PATCH RFC v3 24/31] drm/bridge: samsung-dsim: implement
- .get_next_bridge
+Date: Wed, 18 Nov 2026 17:50:10 +0100
+Subject: [PATCH RFC v3 27/31] drm/tests: atomic: add tests for
+ drm_atomic_shutdown_encoder()
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20261118-drm-bridge-hotplug-v3-24-44bb3b4a828f@bootlin.com>
+Message-Id: <20261118-drm-bridge-hotplug-v3-27-44bb3b4a828f@bootlin.com>
 References: <20261118-drm-bridge-hotplug-v3-0-44bb3b4a828f@bootlin.com>
 In-Reply-To: <20261118-drm-bridge-hotplug-v3-0-44bb3b4a828f@bootlin.com>
 To: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
@@ -81,52 +81,252 @@ X-Spam-Status: No, score=-18.8 required=3.0 tests=BAYES_00,DKIM_SIGNED,
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-Add get_next_callback func to expose the next bridge.
+Add KUnit tests to exercise the newly added drm_atomic_shutdown_encoder(),
+including in the case of a card with multiple CRTCs.
 
 Signed-off-by: Luca Ceresoli <luca.ceresoli@bootlin.com>
 
 ---
 
-Changes in v3:
-- add missing drm_bridge_get
+New patch in v3
 ---
- drivers/gpu/drm/bridge/samsung-dsim.c | 9 +++++++++
- 1 file changed, 9 insertions(+)
+ drivers/gpu/drm/tests/drm_bridge_test.c | 209 ++++++++++++++++++++++++++++++++
+ 1 file changed, 209 insertions(+)
 
-diff --git a/drivers/gpu/drm/bridge/samsung-dsim.c b/drivers/gpu/drm/bridge/samsung-dsim.c
-index ad595c749957..230ac7b13a17 100644
---- a/drivers/gpu/drm/bridge/samsung-dsim.c
-+++ b/drivers/gpu/drm/bridge/samsung-dsim.c
-@@ -1821,6 +1821,13 @@ static void samsung_dsim_mode_set(struct drm_bridge *bridge,
- 	drm_mode_copy(&dsi->mode, adjusted_mode);
- }
+diff --git a/drivers/gpu/drm/tests/drm_bridge_test.c b/drivers/gpu/drm/tests/drm_bridge_test.c
+index 15583ade8494..ee10c8801fb1 100644
+--- a/drivers/gpu/drm/tests/drm_bridge_test.c
++++ b/drivers/gpu/drm/tests/drm_bridge_test.c
+@@ -5,6 +5,7 @@
+ #include <linux/cleanup.h>
+ #include <linux/media-bus-format.h>
  
-+static struct drm_bridge *samsung_dsim_get_next_bridge(struct drm_bridge *bridge)
-+{
-+	struct samsung_dsim *dsi = bridge_to_dsi(bridge);
++#include <drm/drm_atomic.h>
+ #include <drm/drm_atomic_helper.h>
+ #include <drm/drm_atomic_state_helper.h>
+ #include <drm/drm_atomic_uapi.h>
+@@ -945,6 +946,213 @@ static struct kunit_suite drm_bridge_alloc_test_suite = {
+ 	.test_cases = drm_bridge_alloc_tests,
+ };
+ 
++/*
++ * Two CRTC/encoder/bridge/connector pipelines on the same DRM device, to
++ * check that drm_atomic_shutdown_encoder() only stops one.
++ */
++struct drm_bridge_two_priv {
++	struct drm_device drm;
++	struct drm_plane *plane[2];
++	struct drm_crtc *crtc[2];
++	struct drm_encoder encoder[2];
++	struct drm_bridge_priv *bridge[2];
++	struct drm_connector *connector[2];
++};
 +
-+	return dsi->bridge.next_bridge ? drm_bridge_get(dsi->bridge.next_bridge) : ERR_PTR(-ENODEV);
++static const struct drm_bridge_funcs drm_test_bridge_atomic_no_destroy_funcs = {
++	.atomic_enable		= drm_test_bridge_atomic_enable,
++	.atomic_disable		= drm_test_bridge_atomic_disable,
++	.atomic_destroy_state	= drm_atomic_helper_bridge_destroy_state,
++	.atomic_duplicate_state	= drm_atomic_helper_bridge_duplicate_state,
++	.atomic_create_state	= drm_atomic_helper_bridge_create_state,
++};
++
++static struct drm_bridge_two_priv *
++drm_test_bridge_two_init(struct kunit *test)
++{
++	struct drm_bridge_two_priv *priv;
++	struct drm_device *drm;
++	struct device *dev;
++	int i, ret;
++
++	dev = drm_kunit_helper_alloc_device(test);
++	if (IS_ERR(dev))
++		return ERR_CAST(dev);
++
++	priv = drm_kunit_helper_alloc_drm_device(test, dev, struct drm_bridge_two_priv,
++						 drm, DRIVER_MODESET | DRIVER_ATOMIC);
++	if (IS_ERR(priv))
++		return priv;
++
++	drm = &priv->drm;
++
++	for (i = 0; i < 2; i++) {
++		priv->bridge[i] = devm_drm_bridge_alloc(dev, struct drm_bridge_priv, bridge,
++							&drm_test_bridge_atomic_no_destroy_funcs);
++		if (IS_ERR(priv->bridge[i]))
++			return ERR_CAST(priv->bridge[i]);
++
++		priv->plane[i] = drm_kunit_helper_create_primary_plane(test, drm,
++								       NULL, NULL, NULL, 0, NULL);
++		if (IS_ERR(priv->plane[i]))
++			return ERR_CAST(priv->plane[i]);
++
++		priv->crtc[i] = drm_kunit_helper_create_crtc(test, drm,
++							     priv->plane[i], NULL, NULL, NULL);
++		if (IS_ERR(priv->crtc[i]))
++			return ERR_CAST(priv->crtc[i]);
++
++		ret = drmm_encoder_init(drm, &priv->encoder[i], NULL, DRM_MODE_ENCODER_TMDS, NULL);
++		if (ret)
++			return ERR_PTR(ret);
++
++		priv->encoder[i].possible_crtcs = drm_crtc_mask(priv->crtc[i]);
++
++		priv->bridge[i]->bridge.type = DRM_MODE_CONNECTOR_VIRTUAL;
++
++		ret = drm_kunit_bridge_add(test, &priv->bridge[i]->bridge);
++		if (ret)
++			return ERR_PTR(ret);
++
++		ret = drm_bridge_attach(&priv->encoder[i], &priv->bridge[i]->bridge, NULL, 0);
++		if (ret)
++			return ERR_PTR(ret);
++
++		priv->connector[i] = drm_bridge_connector_init(drm, &priv->encoder[i]);
++		if (IS_ERR(priv->connector[i]))
++			return ERR_CAST(priv->connector[i]);
++	}
++
++	drm_mode_config_reset(drm);
++
++	return priv;
 +}
 +
- static int samsung_dsim_attach(struct drm_bridge *bridge,
- 			       struct drm_encoder *encoder,
- 			       enum drm_bridge_attach_flags flags)
-@@ -1832,6 +1839,7 @@ static int samsung_dsim_attach(struct drm_bridge *bridge,
- }
++static int drm_test_enable_pipeline(struct kunit *test,
++				    struct drm_device *drm,
++				    struct drm_crtc *crtc,
++				    struct drm_connector *connector,
++				    const struct drm_display_mode *mode)
++{
++	struct drm_modeset_acquire_ctx ctx;
++	int ret;
++
++	drm_modeset_acquire_init(&ctx, 0);
++
++retry:
++	ret = drm_kunit_helper_enable_crtc_connector(test, drm, crtc, connector, mode, &ctx);
++	if (ret == -EDEADLK) {
++		drm_modeset_backoff(&ctx);
++		goto retry;
++	}
++
++	drm_modeset_drop_locks(&ctx);
++	drm_modeset_acquire_fini(&ctx);
++
++	return ret;
++}
++
++/*
++ * Test that drm_atomic_shutdown_encoder() disables the CRTC feeding the
++ * encoder and detaches its connector.
++ */
++static void drm_test_drm_atomic_shutdown_encoder(struct kunit *test)
++{
++	struct drm_bridge_init_priv *priv;
++	struct drm_display_mode *mode;
++	struct drm_bridge_priv *bridge_priv;
++	int ret;
++
++	priv = drm_test_bridge_init(test, &drm_test_bridge_atomic_funcs);
++	KUNIT_ASSERT_NOT_ERR_OR_NULL(test, priv);
++
++	mode = drm_kunit_display_mode_from_cea_vic(test, &priv->drm, 16);
++	KUNIT_ASSERT_NOT_ERR_OR_NULL(test, mode);
++
++	ret = drm_test_enable_pipeline(test, &priv->drm, priv->crtc, priv->connector, mode);
++	KUNIT_ASSERT_EQ(test, ret, 0);
++
++	bridge_priv = priv->test_bridge;
++	KUNIT_ASSERT_EQ(test, bridge_priv->enable_count, 1);
++	KUNIT_ASSERT_EQ(test, bridge_priv->disable_count, 0);
++	KUNIT_ASSERT_PTR_EQ(test, priv->connector->state->crtc, priv->crtc);
++
++	drm_atomic_shutdown_encoder(&priv->encoder);
++
++	KUNIT_EXPECT_EQ(test, bridge_priv->disable_count, 1);
++	KUNIT_EXPECT_NULL(test, priv->connector->state->crtc);
++	KUNIT_EXPECT_FALSE(test, priv->crtc->state->active);
++}
++
++/*
++ * Test that drm_atomic_shutdown_encoder() is a no-op when the encoder is not
++ * driving any output.
++ */
++static void drm_test_drm_atomic_shutdown_encoder_disabled(struct kunit *test)
++{
++	struct drm_bridge_init_priv *priv;
++	struct drm_bridge_priv *bridge_priv;
++
++	priv = drm_test_bridge_init(test, &drm_test_bridge_atomic_funcs);
++	KUNIT_ASSERT_NOT_ERR_OR_NULL(test, priv);
++
++	bridge_priv = priv->test_bridge;
++
++	drm_atomic_shutdown_encoder(&priv->encoder);
++
++	KUNIT_EXPECT_EQ(test, bridge_priv->enable_count, 0);
++	KUNIT_EXPECT_EQ(test, bridge_priv->disable_count, 0);
++	KUNIT_EXPECT_NULL(test, priv->connector->state->crtc);
++}
++
++/*
++ * Test that drm_atomic_shutdown_encoder() only stops the pipeline of the
++ * given encoder and leaves the other CRTC untouched.
++ */
++static void drm_test_drm_atomic_shutdown_encoder_two_crtcs(struct kunit *test)
++{
++	struct drm_bridge_two_priv *priv;
++	struct drm_display_mode *mode;
++	int ret;
++
++	priv = drm_test_bridge_two_init(test);
++	KUNIT_ASSERT_NOT_ERR_OR_NULL(test, priv);
++
++	mode = drm_kunit_display_mode_from_cea_vic(test, &priv->drm, 16);
++	KUNIT_ASSERT_NOT_ERR_OR_NULL(test, mode);
++
++	ret = drm_test_enable_pipeline(test, &priv->drm, priv->crtc[0], priv->connector[0], mode);
++	KUNIT_ASSERT_EQ(test, ret, 0);
++
++	ret = drm_test_enable_pipeline(test, &priv->drm, priv->crtc[1], priv->connector[1], mode);
++	KUNIT_ASSERT_EQ(test, ret, 0);
++
++	KUNIT_ASSERT_EQ(test, priv->bridge[0]->enable_count, 1);
++	KUNIT_ASSERT_EQ(test, priv->bridge[1]->enable_count, 1);
++
++	drm_atomic_shutdown_encoder(&priv->encoder[0]);
++
++	KUNIT_EXPECT_EQ(test, priv->bridge[0]->disable_count, 1);
++	KUNIT_EXPECT_NULL(test, priv->connector[0]->state->crtc);
++	KUNIT_EXPECT_FALSE(test, priv->crtc[0]->state->active);
++
++	KUNIT_EXPECT_EQ(test, priv->bridge[1]->disable_count, 0);
++	KUNIT_EXPECT_PTR_EQ(test, priv->connector[1]->state->crtc, priv->crtc[1]);
++	KUNIT_EXPECT_TRUE(test, priv->crtc[1]->state->active);
++}
++
++static struct kunit_case drm_atomic_shutdown_encoder_tests[] = {
++	KUNIT_CASE(drm_test_drm_atomic_shutdown_encoder),
++	KUNIT_CASE(drm_test_drm_atomic_shutdown_encoder_disabled),
++	KUNIT_CASE(drm_test_drm_atomic_shutdown_encoder_two_crtcs),
++	{ }
++};
++
++static struct kunit_suite drm_atomic_shutdown_encoder_test_suite = {
++	.name = "drm_atomic_shutdown_encoder",
++	.test_cases = drm_atomic_shutdown_encoder_tests,
++};
++
+ /**
+  * drm_test_bridge_chain_verify_fmt - Verify bridge chain format selection
+  * @test: pointer to KUnit test object
+@@ -1375,6 +1583,7 @@ kunit_test_suites(
+ 	&drm_bridge_get_current_state_test_suite,
+ 	&drm_bridge_helper_reset_crtc_test_suite,
+ 	&drm_bridge_alloc_test_suite,
++	&drm_atomic_shutdown_encoder_test_suite,
+ 	&drm_bridge_bus_fmt_test_suite,
+ );
  
- static const struct drm_bridge_funcs samsung_dsim_bridge_funcs = {
-+	.get_next_bridge		= samsung_dsim_get_next_bridge,
- 	.atomic_duplicate_state		= drm_atomic_helper_bridge_duplicate_state,
- 	.atomic_destroy_state		= drm_atomic_helper_bridge_destroy_state,
- 	.atomic_create_state			= drm_atomic_helper_bridge_create_state,
-@@ -2204,6 +2212,7 @@ int samsung_dsim_probe(struct platform_device *pdev)
- 
- 	dsi->bridge.of_node = dev->of_node;
- 	dsi->bridge.type = DRM_MODE_CONNECTOR_DSI;
-+	dsi->bridge.ops = DRM_BRIDGE_OP_GET_NEXT_BRIDGE;
- 
- 	/* DE_LOW: i.MX8M Mini/Nano LCDIF-DSIM glue logic inverts HS/VS/DE */
- 	if (dsi->plat_data->hw_type == DSIM_TYPE_IMX8MM)
 
 -- 
 2.56.1
