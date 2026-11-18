@@ -2,48 +2,61 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 27B16606A31C
-	for <dri-devel@archiver.kernel.org>; Wed, 18 Nov 2026 14:53:48 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=TSKty5/x
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CB36B606A32F
+	for <dri-devel@archiver.kernel.org>; Wed, 18 Nov 2026 14:55:03 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 56FD210FD6C;
-	Wed, 18 Nov 2026 14:53:42 +0000 (UTC)
-Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 9E28010FD82;
- Wed, 18 Nov 2026 14:53:36 +0000 (UTC)
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id 593D741AA7;
- Wed, 18 Nov 2026 14:53:36 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7CF1D1F000C4;
- Wed, 18 Nov 2026 14:53:34 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1795013616;
- bh=Vq6Uc4LoemS8TszUP6FSImYRhqqMJpFIYXQIww4FHYQ=;
- h=Date:From:To:Cc:Subject;
- b=TSKty5/xPEdFYYn23XD33khOaGLNsuxdO5s689SWSKMnEexyMc0RMCARtWFKOz3I4
- kO3VbCUKI/m5gp8eXTkn18Q9MkoV3L8aXVLawK/DMfuj+SkDOGdyqsZDKwcSZrcmQ7
- 3tNjB4JD7wV6zO9O5kCPmxkFUCDjR5hbRdoSBDkjGhs7+wy6B2Ri6RAFtFS6h/XcOB
- pANtf+prZftG3l4FZ8enauKf1jAk+yNGK/rGpysocTse6v+TpMyF9+eD3EsG84EqeV
- UgOgUyaPK3oEuZVuidm+rH0v0q2cG54hjPDDewdmXB/LG0Hl3TCu2Xk51Wd9LDmoaD
- L7OzoUW9/dwmQ==
-Date: Wed, 18 Nov 2026 14:53:32 +0000
-From: Mark Brown <broonie@kernel.org>
-To: Dave Airlie <airlied@redhat.com>, DRI <dri-devel@lists.freedesktop.org>
-Cc: Heiko Stuebner <heiko@sntech.de>,
- Intel Graphics <intel-gfx@lists.freedesktop.org>,
- Linux Kernel Mailing List <linux-kernel@vger.kernel.org>,
- Linux Next Mailing List <linux-next@vger.kernel.org>,
- Simona Vetter <simona.vetter@ffwll.ch>,
- Tomeu Vizoso <tomeu@tomeuvizoso.net>,
- Triet Hoang <triet.hoang.dev@gmail.com>
-Subject: linux-next: manual merge of the drm tree with the drm-misc-fixes tree
-Message-ID: <av27642L7XkY-L2E@sirena.org.uk>
+	by gabe.freedesktop.org (Postfix) with ESMTP id 93E9C10FDA2;
+	Wed, 18 Nov 2026 14:55:02 +0000 (UTC)
+Received: from cstnet.cn (smtp25.cstnet.cn [159.226.251.25])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id B972210FD7F
+ for <dri-devel@lists.freedesktop.org>; Wed, 18 Nov 2026 14:54:59 +0000 (UTC)
+Received: from edelgard.fodlan.icenowy.me (unknown [112.94.102.23])
+ by APP-05 (Coremail) with SMTP id zQCowAAXrrM7vP1q8AppAQ--.6503S2;
+ Wed, 18 Nov 2026 22:54:51 +0800 (CST)
+Message-ID: <14e5c5d17414562b36b1650955dc440a68a83e71.camel@iscas.ac.cn>
+Subject: Re: [PATCH v2 2/4] drm/verisilicon: nuke planes' atomic_enable hooks
+From: Icenowy Zheng <zhengxingda@iscas.ac.cn>
+To: Thomas Zimmermann <tzimmermann@suse.de>, Maarten Lankhorst
+ <maarten.lankhorst@linux.intel.com>, Maxime Ripard <mripard@kernel.org>
+Cc: David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
+ Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>, Joey Lu
+ <a0987203069@gmail.com>, Han Gao <gaohan@iscas.ac.cn>, 
+ dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org
+Date: Wed, 18 Nov 2026 22:54:50 +0800
+In-Reply-To: <4404265c-ae14-4d17-82ad-46ed6c123c6b@suse.de>
+References: <20261102075710.1286456-1-zhengxingda@iscas.ac.cn>
+ <20261102075710.1286456-3-zhengxingda@iscas.ac.cn>
+ <8e3b36c6-e2d8-4746-aefe-462bba1a4b05@suse.de>
+ <5830251f1420c152b2efc2ee37248057bdfc901d.camel@iscas.ac.cn>
+ <55991183-ab5f-4445-afce-37a79310ef27@suse.de>
+ <83aa9fb5be26fb407c7f1393bc01099d374cf51f.camel@iscas.ac.cn>
+ <7e4b4fd185f47404bb5f18e7c2c8086d24e673f4.camel@iscas.ac.cn>
+ <a96e7813-6918-44f5-82e2-ca40051abea0@suse.de>
+ <73f4e371c37c36581240ff355fef3de2afaaa033.camel@iscas.ac.cn>
+ <4404265c-ae14-4d17-82ad-46ed6c123c6b@suse.de>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+User-Agent: Evolution 3.58.3 
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
- protocol="application/pgp-signature"; boundary="KLNgp1zSBCEYXc2u"
-Content-Disposition: inline
+X-CM-TRANSID: zQCowAAXrrM7vP1q8AppAQ--.6503S2
+X-Coremail-Antispam: 1UD129KBjvJXoW3XFWfXrWxur4kGr1fWFW7Jwb_yoWfKFyxpr
+ WktF18KrWrXry8Jry7tw4jyFWaqr4Ut347Xr15JF1jqrn0krnrWF18trnruF48Xr48G3Wx
+ Jr47AF9rZr18AF7anT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
+ 9KBjDU0xBIdaVrnRJUUUvSb7Iv0xC_Kw4lb4IE77IF4wAFF20E14v26r4j6ryUM7CY07I2
+ 0VC2zVCF04k26cxKx2IYs7xG6rWj6s0DM7CIcVAFz4kK6r1j6r18M28lY4IEw2IIxxk0rw
+ A2F7IY1VAKz4vEj48ve4kI8wA2z4x0Y4vE2Ix0cI8IcVAFwI0_JFI_Gr1l84ACjcxK6xII
+ jxv20xvEc7CjxVAFwI0_Gr0_Cr1l84ACjcxK6I8E87Iv67AKxVW0oVCq3wA2z4x0Y4vEx4
+ A2jsIEc7CjxVAFwI0_GcCE3s1le2I262IYc4CY6c8Ij28IcVAaY2xG8wAqx4xG64xvF2IE
+ w4CE5I8CrVC2j2WlYx0E2Ix0cI8IcVAFwI0_Jr0_Jr4lYx0Ex4A2jsIE14v26r1j6r4UMc
+ vjeVCFs4IE7xkEbVWUJVW8JwACjcxG0xvEwIxGrwACI402YVCY1x02628vn2kIc2xKxwCY
+ 1x0262kKe7AKxVWUtVW8ZwCF04k20xvY0x0EwIxGrwCFx2IqxVCFs4IE7xkEbVWUJVW8Jw
+ C20s026c02F40E14v26r1j6r18MI8I3I0E7480Y4vE14v26r106r1rMI8E67AF67kF1VAF
+ wI0_Jw0_GFylIxkGc2Ij64vIr41lIxAIcVC0I7IYx2IY67AKxVWUJVWUCwCI42IY6xIIjx
+ v20xvEc7CjxVAFwI0_Jr0_Gr1lIxAIcVCF04k26cxKx2IYs7xG6r1j6r1xMIIF0xvEx4A2
+ jsIE14v26r1j6r4UMIIF0xvEx4A2jsIEc7CjxVAFwI0_Jr0_GrUvcSsGvfC2KfnxnUUI43
+ ZEXa7IU56yI5UUUUU==
+X-CM-SenderInfo: x2kh0wp0lqwv3d6l2u1dvotugofq/
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -55,280 +68,309 @@ List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-10.8 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
-	DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
-	INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS autolearn=ham
-	autolearn_force=no version=4.0.1
+X-Spam-Status: No, score=-8.8 required=3.0 tests=BAYES_00,
+	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_PATCH,MAILING_LIST_MULTI,
+	SPF_HELO_NONE,SPF_PASS autolearn=ham autolearn_force=no version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
+=E5=9C=A8 2026-11-17=E4=BA=8C=E7=9A=84 08:39 +0100=EF=BC=8CThomas Zimmerman=
+n=E5=86=99=E9=81=93=EF=BC=9A
+> Hi
+>=20
+> Am 17.11.26 um 08:34 schrieb Icenowy Zheng:
+> > =E5=9C=A8 2026-11-17=E4=BA=8C=E7=9A=84 08:25 +0100=EF=BC=8CThomas Zimme=
+rmann=E5=86=99=E9=81=93=EF=BC=9A
+> > > Hi
+> > >=20
+> > > Am 17.11.26 um 06:19 schrieb Icenowy Zheng:
+> > > [...]
+> > > > > > Sure, but is that a problem for this hardware?
+> > > > > For the cursor plane, the unchecked coordinate might be
+> > > > > improper
+> > > > > for
+> > > > > the registers.
+> > > > >=20
+> > > > > For the primary plane, if the plane is found to be totally
+> > > > > off by
+> > > > > drm_atomic_helper_check_plane_state(), the check for
+> > > > > can_position,
+> > > > > which is below the code snippet I referenced, would be
+> > > > > bypassed,
+> > > > > and
+> > > > > such plane would be programmed to be visible by the
+> > > > > atomic_update
+> > > > > hook
+> > > > > even if it shouldn't be visible.
+> > > > Well I am now thinking that bound-but-invisible situation is
+> > > > commonly
+> > > > ignored by drivers.
+> > > >=20
+> > > > For drm/verisilicon, maybe I'd remove both atomic_disable and
+> > > > atomic_enable; however I think the atomic helpers may need some
+> > > > flag to
+> > > > consider bound-but-invisible planes when calling
+> > > > atomic_{dis,en}able.
+> > > I don't think I really understand what you're up to, but it seems
+> > > you're
+> > > overthinking the whole thing. Other drivers only care about plane
+> > > on/off
+> > Well I don't know whether I am overthinking...
+> >=20
+> > Enabled but invisible planes are explicitly allowed in
+> > drm_atomic_helper_check_plane_state(), and even the can_position
+> > check
+> > is bypassed in such case (so such a configuration can even appear
+> > on
+> > primary planes). In addition, in most implementations for
+> > atomic_check,
+> > the invisible situations have the validity check explicitly
+> > skipped, so
+> > just disallow enabled-but-invisible planes in atomic_check would
+> > make
+> > the behavior quite different with most drivers.
+> >=20
+> > Maybe I should craft some "evil" programs to check for this
+> > situation.
+>=20
+> If you can make an igt test case for broken plane coordinates, go for
+> it.
 
---KLNgp1zSBCEYXc2u
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
+Well the behavior here is possible to be examined with modetest.
 
-Hi all,
+My conclusion is that off-screen plane coordinates is really something
+needed to be handled. I think I am not overthinking, but I will drop
+both atomic_enable and atomic_disable for symmetry in the next revision
+of this patchset.
 
-Today's linux-next merge of the drm tree got a conflict in:
+In the following tests, connector 48 is connected to a HDMI sink (a
+capture card) with a preferred mode at 1280x720@60, CRTC 46 is second
+CRTC (which is hardwired to the HDMI connector), plane 41 is the
+primary plane of CRTC 46 and plane 43 is the cursor plane of CRTC 46.
 
-  drivers/accel/rocket/rocket_job.c
+`modetest -s 48:1280x720 -P 43@46:64x64+200+200@AR24` properly creates
+a 64x64 overlay at (200, 200).
 
-between commits:
+`modetest -s 48:1280x720 -P=C2=A041@46:1280x720@XR24` changes the whole
+primary plane to a overlay pattern.
 
-  9bca2b5f1a4fa ("accel/rocket: Keep scheduler allocation in rocket_file_pr=
-iv")
-  d341ef030f3ce ("accel/rocket: Check allocations before use")
+`modetest -s 48:1280x720 -P 41@46:1280x720+200+200@XR24` displays SMPTE
+pattern (instead of overlay pattern) on the primary plane, and the
+plane operation fails with `failed to enable plane: Invalid argument`
+error message (which means an offseted position of the primary plane is
+rejected).
 
-=66rom the drm-misc-fixes tree and commits:
+With no patch applied to v7.4-rc3 drm/verisilicon:
 
-  be22e979c18f5 ("accel/rocket: Check allocations before use")
-  91c7da1f42cad ("drm/rocket: Keep scheduler allocation in rocket_file_priv=
-")
+`modetest -s 48:1280x720 -P 43@46:64x64+2000+2000@AR24` crashes the
+kernel with NULL pointer dereference caused by
+vs_cursor_plane_atomic_disable() called by
+vs_cursor_plane_atomic_update().
 
-=66rom the drm tree.
+With vs_cursor_plane_atomic_disable() call removed from
+vs_cursor_plane_atomic_update():
 
-I fixed it up (see below) and can carry the fix as necessary. This
-is now fixed as far as linux-next is concerned, but any non trivial
-conflicts should be mentioned to your upstream maintainer when your tree
-is submitted for merging.  You may also want to consider cooperating
-with the maintainer of the conflicting tree to minimise any particularly
-complex conflicts.
+`modetest -s 48:1280x720 -P 43@46:64x64+2000+2000@AR24` leaves dirty
+state in the cursor configuration registers, and the cursor is fully
+visible when it shouldn't (when running after setting the cursor at
+(200, 200), the cursor is left at (200, 200) instead of being hidden).
 
-diff --combined drivers/accel/rocket/rocket_job.c
-index 7b798a90bc492,b2a00992c8894..0000000000000
---- a/drivers/accel/rocket/rocket_job.c
-+++ b/drivers/accel/rocket/rocket_job.c
-@@@ -201,13 -201,12 +201,13 @@@ static int rocket_acquire_object_fences
- =20
-  static void rocket_attach_object_fences(struct drm_gem_object **bos,
-  					int bo_count,
- -					struct dma_fence *fence)
- +					struct dma_fence *fence,
- +					enum dma_resv_usage usage)
-  {
-  	int i;
- =20
-  	for (i =3D 0; i < bo_count; i++)
- -		dma_resv_add_fence(bos[i]->resv, fence, DMA_RESV_USAGE_WRITE);
- +		dma_resv_add_fence(bos[i]->resv, fence, usage);
-  }
- =20
-  static int rocket_job_push(struct rocket_job *job)
-@@@ -215,7 -214,7 +215,7 @@@
-  	struct rocket_device *rdev =3D job->rdev;
-  	struct drm_gem_object **bos;
-  	struct ww_acquire_ctx acquire_ctx;
-- 	u32 bo_count;
-+ 	int bo_count;
-  	int ret =3D 0;
- =20
-  	if (check_add_overflow(job->in_bo_count, job->out_bo_count, &bo_count))
-@@@ -231,28 -230,27 +231,30 @@@
-  	if (ret)
-  		goto err;
- =20
-+ 	ret =3D rocket_acquire_object_fences(job->in_bos, job->in_bo_count,
-+ 					   &job->base, false);
-+ 	if (ret)
-+ 		goto err_unlock;
-+=20
-+ 	ret =3D rocket_acquire_object_fences(job->out_bos, job->out_bo_count,
-+ 					   &job->base, true);
-+ 	if (ret)
-+ 		goto err_unlock;
-+=20
-  	scoped_guard(mutex, &rdev->sched_lock) {
-  		drm_sched_job_arm(&job->base);
- =20
-  		job->inference_done_fence =3D dma_fence_get(&job->base.s_fence->finishe=
-d);
- =20
-- 		ret =3D rocket_acquire_object_fences(job->in_bos, job->in_bo_count, &jo=
-b->base, false);
-- 		if (ret)
-- 			goto err_unlock;
--=20
-- 		ret =3D rocket_acquire_object_fences(job->out_bos, job->out_bo_count, &=
-job->base, true);
-- 		if (ret)
-- 			goto err_unlock;
--=20
-  		kref_get(&job->refcount); /* put by scheduler job completion */
- =20
-  		drm_sched_entity_push_job(&job->base);
-  	}
- =20
- -	rocket_attach_object_fences(job->out_bos, job->out_bo_count, job->infere=
-nce_done_fence);
- +	rocket_attach_object_fences(job->in_bos, job->in_bo_count,
- +				    job->inference_done_fence, DMA_RESV_USAGE_READ);
- +	rocket_attach_object_fences(job->out_bos, job->out_bo_count,
- +				    job->inference_done_fence, DMA_RESV_USAGE_WRITE);
- =20
-  err_unlock:
-  	drm_gem_unlock_reservations(bos, bo_count, &acquire_ctx);
-@@@ -268,7 -266,7 +270,7 @@@ static void rocket_job_cleanup(struct k
-  						refcount);
-  	unsigned int i;
- =20
- -	rocket_iommu_domain_put(job->domain);
- +	rocket_vm_put(job->vm);
- =20
-  	dma_fence_put(job->done_fence);
-  	dma_fence_put(job->inference_done_fence);
-@@@ -349,7 -347,7 +351,7 @@@ static struct dma_fence *rocket_job_run
-  	if (ret < 0)
-  		goto err_put_fences;
- =20
- -	ret =3D iommu_attach_group(job->domain->domain, core->iommu_group);
- +	ret =3D iommu_attach_group(job->vm->domain, core->iommu_group);
-  	if (ret < 0)
-  		goto err_put_pm;
- =20
-@@@ -373,56 -371,39 +375,56 @@@ static void rocket_job_handle_irq(struc
-  {
-  	pm_runtime_mark_last_busy(core->dev);
- =20
- -	rocket_pc_writel(core, OPERATION_ENABLE, 0x0);
- -	rocket_pc_writel(core, INTERRUPT_CLEAR, 0x1ffff);
- +	scoped_guard(mutex, &core->job_lock) {
- +		/*
- +		 * Stopping the block belongs under the lock. hw_submit() writes
- +		 * OPERATION_ENABLE too, and outside the lock this zero can land
- +		 * after that one and stop a task that has only just started.
- +		 */
- +		rocket_pc_writel(core, OPERATION_ENABLE, 0x0);
- +		rocket_pc_writel(core, INTERRUPT_CLEAR, 0x1ffff);
- =20
- -	scoped_guard(mutex, &core->job_lock)
-  		if (core->in_flight_job) {
-  			if (core->in_flight_job->next_task_idx < core->in_flight_job->task_cou=
-nt) {
-  				rocket_job_hw_submit(core, core->in_flight_job);
-  				return;
-  			}
- =20
- -			iommu_detach_group(NULL, iommu_group_get(core->dev));
- +			iommu_detach_group(NULL, core->iommu_group);
-  			dma_fence_signal(core->in_flight_job->done_fence);
-  			pm_runtime_put_autosuspend(core->dev);
-  			core->in_flight_job =3D NULL;
-  		}
- +	}
-  }
- =20
-  static void
-  rocket_reset(struct rocket_core *core, struct drm_sched_job *bad)
-  {
- +	bool put_job_ref;
- +
-  	if (!atomic_read(&core->reset.pending))
-  		return;
- =20
-  	drm_sched_stop(&core->sched, bad);
- =20
- +	scoped_guard(mutex, &core->job_lock) {
- +		if (pm_runtime_get_if_active(core->dev) > 0) {
- +			rocket_pc_writel(core, INTERRUPT_MASK, 0x0);
- +			rocket_pc_writel(core, INTERRUPT_CLEAR, 0x1ffff);
- +			pm_runtime_put_autosuspend(core->dev);
- +		}
- +	}
- +
- +	synchronize_irq(core->irq);
- +
-  	/*
-  	 * Remaining interrupts have been handled, but we might still have
-  	 * stuck jobs. Let's make sure the PM counters stay balanced by
- -	 * manually calling pm_runtime_put_noidle().
- +	 * dropping the job's reference once the core has been reset.
-  	 */
-  	scoped_guard(mutex, &core->job_lock) {
- -		if (core->in_flight_job)
- -			pm_runtime_put_noidle(core->dev);
- +		put_job_ref =3D core->in_flight_job;
- =20
-  		iommu_detach_group(NULL, core->iommu_group);
- =20
-@@@ -432,9 -413,6 +434,9 @@@
-  	/* Proceed with reset now. */
-  	rocket_core_reset(core);
- =20
- +	if (put_job_ref)
- +		pm_runtime_put_autosuspend(core->dev);
- +
-  	/* NPU has been reset, we can clear the reset pending bit. */
-  	atomic_set(&core->reset.pending, 0);
- =20
-@@@ -572,7 -550,7 +574,7 @@@ int rocket_job_open(struct rocket_file_
-  				    DRM_SCHED_PRIORITY_NORMAL,
-  				    scheds,
-  				    rdev->num_cores, NULL);
-- 	if (WARN_ON(ret))
-+ 	if (ret)
-  		kfree(scheds);
-  	else
-  		rocket_priv->scheds =3D scheds;
-@@@ -584,8 -562,8 +586,8 @@@ void rocket_job_close(struct rocket_fil
-  {
-  	struct drm_sched_entity *entity =3D &rocket_priv->sched_entity;
- =20
-- 	kfree(rocket_priv->scheds);
-  	drm_sched_entity_destroy(entity);
-+ 	kfree(rocket_priv->scheds);
-  }
- =20
-  int rocket_job_is_idle(struct rocket_core *core)
-@@@ -608,6 -586,11 +610,11 @@@ static int rocket_ioctl_submit_job(stru
-  	if (job->task_count =3D=3D 0)
-  		return -EINVAL;
- =20
-+ 	/* GEM lookup takes a signed object count. */
-+ 	if (job->in_bo_handle_count > INT_MAX ||
-+ 	    job->out_bo_handle_count > INT_MAX)
-+ 		return -EINVAL;
-+=20
-  	rjob =3D kzalloc_obj(*rjob);
-  	if (!rjob)
-  		return -ENOMEM;
-@@@ -615,7 -598,7 +622,7 @@@
-  	kref_init(&rjob->refcount);
- =20
-  	rjob->rdev =3D rdev;
- -	rjob->domain =3D rocket_iommu_domain_get(file_priv);
- +	rjob->vm =3D rocket_vm_get(file_priv);
- =20
-  	ret =3D drm_sched_job_init(&rjob->base,
-  				 &file_priv->sched_entity,
-@@@ -691,8 -674,11 +698,11 @@@ int rocket_ioctl_submit(struct drm_devi
-  	}
- =20
- =20
-- 	for (i =3D 0; i < args->job_count; i++)
-- 		rocket_ioctl_submit_job(dev, file, &jobs[i]);
-+ 	for (i =3D 0; i < args->job_count; i++) {
-+ 		ret =3D rocket_ioctl_submit_job(dev, file, &jobs[i]);
-+ 		if (ret)
-+ 			goto exit;
-+ 	}
- =20
-  exit:
-  	kvfree(jobs);
+Even `modetest -s 48:1280x720 -P 43@46:40x64+2000+2000@AR24` in this
+case shows the cursor plane despite the hardware only accepts squared
+cursors because of the validity check of off-screen planes is skipped
+(which means programming registers in atomic_update callback is now not
+safe).
 
---KLNgp1zSBCEYXc2u
-Content-Type: application/pgp-signature; name="signature.asc"
+Then, with PATCH v2 3/4 from this patchset applied:
 
------BEGIN PGP SIGNATURE-----
+`modetest -s 48:1280x720 -P 41@46:1280x720+2000+2000@XR24` leaves a
+black screen, without any error message (because the off-screen
+position of the primary plane isn't rejected and makes the plane
+invisible).
 
-iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmr9u+sACgkQJNaLcl1U
-h9BW0Qf/VsJcaTY8Psv1i1TYBMay9B0cQYxYvz+PaGwb32ZHSoyGHPsS5PdwTjXp
-iVzmjIUaR27P/cp1AX+1hLV2x0LqxsTEVAO1wPaVOotVYIIR3axubnliqHNHwpB+
-RvINw4b5oMZdfhl/HdVFahprpXdcPBfAJF+vnbTWDzDLRwkYzEUUclix+IlrYvIe
-Idn26zDGcosHS13PjyBCJSyXU0eu0YvfX896oeh8Ij+JSYB4Y/HeqEWzgT77OQEh
-lehoxdYs+nGClfu2L1YJcRXMNx5fqGnf8HRPSjDGDwarAQjJEHOywxJ1BMOTlay7
-XeRoYe5lKlUXxwxEHLxSOlSvy38tjQ==
-=VPdv
------END PGP SIGNATURE-----
+Then, with vs_primary_plane_atomic_disable() call removed from
+vs_primary_plane_atomic_update():
 
---KLNgp1zSBCEYXc2u--
+`modetest -s 48:1280x720 -P 41@46:1280x720+2000+2000@XR24` displays
+SMPTE pattern (instead of overlay pattern) on the primary plane, and no
+error message is shown.
+
+Thanks,
+Icenowy
+
+>=20
+> Best regards
+> Thomas
+>=20
+> >=20
+> > Thanks,
+> > Icenowy
+> >=20
+> > > and the contained image. That's also what the 3 callbacks are
+> > > for. It
+> > > usually works nicely. Hence me asking. But maybe verisilicon is
+> > > different, IDK.
+> > >=20
+> > > My suggestion is therefore to remove _enable and _disable and
+> > > keep
+> > > all
+> > > logic in _update.
+> > >=20
+> > > atomic_update()
+> > > {
+> > > =C2=A0=C2=A0=C2=A0 =C2=A0 if (plane_state->visible) {
+> > > =C2=A0=C2=A0=C2=A0 =C2=A0 =C2=A0 =C2=A0 // do update
+> > > =C2=A0=C2=A0=C2=A0 =C2=A0 =C2=A0 =C2=A0 // enable hw plane
+> > > =C2=A0=C2=A0=C2=A0 =C2=A0 } else {
+> > > =C2=A0=C2=A0=C2=A0 =C2=A0 =C2=A0 =C2=A0 // disable hw plane
+> > > =C2=A0=C2=A0=C2=A0 =C2=A0 }
+> > > }
+> > >=20
+> > > If you have any special cases where you want visible to be false
+> > > (or
+> > > true), detect them in atomic_check and set the flags accordingly.
+> > >=20
+> > > atomic_check()
+> > > {
+> > > drm_atomic_helper_check_plane_state() =C2=A0 =C2=A0 if (awkward coord=
+s)
+> > > =C2=A0=C2=A0=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0plane_state->visible =
+=3D false;
+> > > }
+> > >=20
+> > > Best regards
+> > > Thomas
+> > >=20
+> > > > Thanks,
+> > > > Icenowy
+> > > >=20
+> > > > > Thanks,
+> > > > > Icenowy
+> > > > >=20
+> > > > > > Best regards
+> > > > > > Thomas
+> > > > > >=20
+> > > > > > > The end of drm_atomic_helper_check_plane_state() says:
+> > > > > > >=20
+> > > > > > > ```
+> > > > > > > 	if (!plane_state->visible)
+> > > > > > > 		/*
+> > > > > > > 		 * Plane isn't visible; some drivers can
+> > > > > > > handle
+> > > > > > > this
+> > > > > > > 		 * so we just return success here.=C2=A0
+> > > > > > > Drivers
+> > > > > > > that
+> > > > > > > can't
+> > > > > > > 		 * (including those that use the primary
+> > > > > > > plane
+> > > > > > > helper's
+> > > > > > > 		 * update function) will return an error
+> > > > > > > from
+> > > > > > > their
+> > > > > > > 		 * update_plane handler.
+> > > > > > > 		 */
+> > > > > > > 		return 0;
+> > > > > > > ```
+> > > > > > >=20
+> > > > > > > Thanks,
+> > > > > > > Icenowy
+> > > > > > >=20
+> > > > > > > > [1]
+> > > > > > > > https://elixir.bootlin.com/linux/v7.3.1/source/drivers/gpu/=
+drm/drm_atomic_helper.c#L3030
+> > > > > > > >=20
+> > > > > > > > Best regards
+> > > > > > > > Thomas
+> > > > > > > >=20
+> > > > > > > > > =C2=A0=C2=A0=C2=A0=C2=A0 };
+> > > > > > > > > =C2=A0=C2=A0=C2=A0=C2=A0=20
+> > > > > > > > > diff --git
+> > > > > > > > > a/drivers/gpu/drm/verisilicon/vs_primary_plane.c
+> > > > > > > > > b/drivers/gpu/drm/verisilicon/vs_primary_plane.c
+> > > > > > > > > index 8e94491693019..fca692f4f7d5c 100644
+> > > > > > > > > --- a/drivers/gpu/drm/verisilicon/vs_primary_plane.c
+> > > > > > > > > +++ b/drivers/gpu/drm/verisilicon/vs_primary_plane.c
+> > > > > > > > > @@ -59,25 +59,6 @@ static void
+> > > > > > > > > vs_primary_plane_commit(struct
+> > > > > > > > > vs_dc
+> > > > > > > > > *dc, unsigned int output)
+> > > > > > > > > =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0			VSDC_FB_CONFIG_EX_COMMIT=
+);
+> > > > > > > > > =C2=A0=C2=A0=C2=A0=C2=A0 }
+> > > > > > > > > =C2=A0=C2=A0=C2=A0=C2=A0=20
+> > > > > > > > > -static void vs_primary_plane_atomic_enable(struct
+> > > > > > > > > drm_plane
+> > > > > > > > > *plane,
+> > > > > > > > > -					=C2=A0=C2=A0 struct
+> > > > > > > > > drm_atomic_commit *atomic_state)
+> > > > > > > > > -{
+> > > > > > > > > -	struct drm_plane_state *state =3D
+> > > > > > > > > drm_atomic_get_new_plane_state(atomic_state,
+> > > > > > > > > -
+> > > > > > > > > 					=09
+> > > > > > > > > =09
+> > > > > > > > > 	=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 plane);
+> > > > > > > > > -	struct drm_crtc *crtc =3D state->crtc;
+> > > > > > > > > -	struct vs_crtc *vcrtc =3D
+> > > > > > > > > drm_crtc_to_vs_crtc(crtc);
+> > > > > > > > > -	unsigned int output =3D vcrtc->id;
+> > > > > > > > > -	struct vs_dc *dc =3D vcrtc->dc;
+> > > > > > > > > -
+> > > > > > > > > -	regmap_set_bits(dc->regs,
+> > > > > > > > > VSDC_FB_CONFIG_EX(output),
+> > > > > > > > > -			VSDC_FB_CONFIG_EX_FB_EN);
+> > > > > > > > > -	regmap_update_bits(dc->regs,
+> > > > > > > > > VSDC_FB_CONFIG_EX(output),
+> > > > > > > > > -		=09
+> > > > > > > > > VSDC_FB_CONFIG_EX_DISPLAY_ID_MASK,
+> > > > > > > > > -		=09
+> > > > > > > > > VSDC_FB_CONFIG_EX_DISPLAY_ID(output));
+> > > > > > > > > -
+> > > > > > > > > -	vs_primary_plane_commit(dc, output);
+> > > > > > > > > -}
+> > > > > > > > > -
+> > > > > > > > > =C2=A0=C2=A0=C2=A0=C2=A0 static void
+> > > > > > > > > vs_primary_plane_atomic_disable(struct
+> > > > > > > > > drm_plane
+> > > > > > > > > *plane,
+> > > > > > > > > =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0					=C2=A0=C2=A0=C2=A0 str=
+uct
+> > > > > > > > > drm_atomic_commit *atomic_state)
+> > > > > > > > > =C2=A0=C2=A0=C2=A0=C2=A0 {
+> > > > > > > > > @@ -144,13 +125,18 @@ static void
+> > > > > > > > > vs_primary_plane_atomic_update(struct drm_plane
+> > > > > > > > > *plane,
+> > > > > > > > > =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0	regmap_write(dc->regs,
+> > > > > > > > > VSDC_FB_BLEND_CONFIG(output),
+> > > > > > > > > =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0	=09
+> > > > > > > > > VSDC_FB_BLEND_CONFIG_BLEND_DISABLE);
+> > > > > > > > > =C2=A0=C2=A0=C2=A0=C2=A0=20
+> > > > > > > > > +	regmap_set_bits(dc->regs,
+> > > > > > > > > VSDC_FB_CONFIG_EX(output),
+> > > > > > > > > +			VSDC_FB_CONFIG_EX_FB_EN);
+> > > > > > > > > +	regmap_update_bits(dc->regs,
+> > > > > > > > > VSDC_FB_CONFIG_EX(output),
+> > > > > > > > > +		=09
+> > > > > > > > > VSDC_FB_CONFIG_EX_DISPLAY_ID_MASK,
+> > > > > > > > > +		=09
+> > > > > > > > > VSDC_FB_CONFIG_EX_DISPLAY_ID(output));
+> > > > > > > > > +
+> > > > > > > > > =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0	vs_primary_plane_commit(dc=
+, output);
+> > > > > > > > > =C2=A0=C2=A0=C2=A0=C2=A0 }
+> > > > > > > > > =C2=A0=C2=A0=C2=A0=C2=A0=20
+> > > > > > > > > =C2=A0=C2=A0=C2=A0=C2=A0 static const struct drm_plane_he=
+lper_funcs
+> > > > > > > > > vs_primary_plane_helper_funcs =3D {
+> > > > > > > > > =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0	.atomic_check	=3D
+> > > > > > > > > vs_primary_plane_atomic_check,
+> > > > > > > > > =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0	.atomic_update	=3D
+> > > > > > > > > vs_primary_plane_atomic_update,
+> > > > > > > > > -	.atomic_enable	=3D
+> > > > > > > > > vs_primary_plane_atomic_enable,
+> > > > > > > > > =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0	.atomic_disable	=3D
+> > > > > > > > > vs_primary_plane_atomic_disable,
+> > > > > > > > > =C2=A0=C2=A0=C2=A0=C2=A0 };
+> > > > > > > > > =C2=A0=C2=A0=C2=A0=C2=A0=20
+
