@@ -2,55 +2,73 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B84BD606A32A
-	for <dri-devel@archiver.kernel.org>; Wed, 18 Nov 2026 14:45:08 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A29D660A262C
+	for <dri-devel@archiver.kernel.org>; Wed, 18 Nov 2026 14:47:43 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.a=rsa-sha256 header.s=dkim header.b=fwCrutfr
+	dkim=fail reason="signature verification failed" (1024-bit key, unprotected) header.d=collabora.com header.i=@collabora.com header.a=rsa-sha256 header.s=zohomail header.b=EdUk8q0V
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id C1CDA10E766;
-	Wed, 18 Nov 2026 14:45:02 +0000 (UTC)
-Received: from smtpout-03.galae.net (smtpout-03.galae.net [185.246.85.4])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 5483010E766
- for <dri-devel@lists.freedesktop.org>; Wed, 18 Nov 2026 14:44:56 +0000 (UTC)
-Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
- by smtpout-03.galae.net (Postfix) with ESMTPS id 25D0F4E40B00;
- Wed, 18 Nov 2026 14:44:55 +0000 (UTC)
-Received: from mail.galae.net (mail.galae.net [212.83.136.155])
- by smtpout-01.galae.net (Postfix) with ESMTPS id DEF625FE9B;
- Wed, 18 Nov 2026 14:44:54 +0000 (UTC)
-Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon)
- with ESMTPSA id 96F2B11BC22E9; Wed, 18 Nov 2026 15:44:47 +0100 (CET)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
- t=1795013089; h=from:subject:date:message-id:to:cc:mime-version:content-type:
- content-transfer-encoding:content-language:in-reply-to:references;
- bh=a+x1/c9WXV+iW4qvMYQqYnNelxitH7p/E+9HgmQlRn0=;
- b=fwCrutfr5vVeuRZ/8Zs+QY4fx/3ikoIb7X06p1iZG3NgatPLGs1fYxfnmAWrdH0B0gcufQ
- dtdpctYWeRka399Nqrx1oXcOj8KErMDBBjUkH5nALL2o8HXcgXUE9alrAopW9nb/0iDefv
- 7BTs/pqmqA959eY53M2VjcOB4vNfNioxMS+OQ3NpjOPxOzght0Mksfex6wm+spp/xgX7Xm
- 6TnDqO5znD/6zMUNJZJFPY7d8pfa8zH7ME4WBbczWltxlgyTYI1sNEhqyBG7hVTZYULmE5
- Dx/rpXPmxBrvv87oFynEDG60Vj/aecqNRAGLD58XAhf6seSEY7RM36WDdvTs4Q==
-Message-ID: <6c9dcddb-6ae9-4b90-968b-79c81f7e75f9@bootlin.com>
-Date: Wed, 18 Nov 2026 15:44:46 +0100
+	by gabe.freedesktop.org (Postfix) with ESMTP id DD7C310E7F7;
+	Wed, 18 Nov 2026 14:47:37 +0000 (UTC)
+Received: from sender6-op-o11.zoho.com (sender6-op-o11.zoho.com
+ [165.173.180.11])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 11CF610E825
+ for <dri-devel@lists.freedesktop.org>; Wed, 18 Nov 2026 14:47:31 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; t=1795013248; cv=none; 
+ d=zohomail.com; s=zohoarc; 
+ b=OosozSG/m/6BH6LExb9WEQA9mQQDkOxmd2Y8kPDeXNAZWleSLQhMtNY2+uI8KhawaXUHYr47f8oAZn0N964ZgBYyXGCiT02s/Z74UIIxHA+2ECCTad4PExBsP1KYPsM1p9d/LWebw8uDaFCDFSfC3n7dR4fPjhnjaVOjF4NtA3U=
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com;
+ s=zohoarc; t=1795013248;
+ h=Content-Type:Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:Subject:Subject:To:To:Message-Id:Reply-To;
+ bh=6zB/RMHWdIa7W8+VTnT+QTtr7Bbpj33D57C4R1EDlas=; 
+ b=cqe8Ny8ZQEg4ksL1wtnrt586k9283grpoxwjSmD4McSWu3wPIRDkuHOA1YRK5ZfamqOnqyNI78DibXRqLPs819yV6gD11Jo/arIUzj9zNJTH1COBGfE2j8gwXErFqQhmzCI9MFRRYLnAAbL6QecoLNE8t7leM49RtAMFWWbX1HM=
+ARC-Authentication-Results: i=1; mx.zohomail.com;
+ dkim=pass  header.i=collabora.com;
+ spf=pass  smtp.mailfrom=daniel.almeida@collabora.com;
+ dmarc=pass header.from=<daniel.almeida@collabora.com>
+DKIM-Signature: a=rsa-sha256;
+ b=EdUk8q0VINosLxs21gOjRZn+nKLBqNq/iD5Npp0a0jH8Z7xTEQiaI5c3FegTTZMmf/wb4MixKQZxLGUPje7g1RDUnmXE3pAolvscDKNbqpVN641LJ1RB8Sh+t8DmYbQwsHocvRaTHw2a1WuFiaFP/IhlYOQog8lN6H29wfWIJUM=;
+ c=relaxed/relaxed; s=zohomail; d=collabora.com; v=1;
+ bh=6zB/RMHWdIa7W8+VTnT+QTtr7Bbpj33D57C4R1EDlas=;
+ h=Content-Description:Content-ID:Content-Type:Content-Transfer-Encoding:Cc:Date:From:In-Reply-To:List-Subscribe:List-Post:List-Owner:List-Id:List-Archive:List-Help:List-Unsubscribe:MIME-Version:Message-ID:Resent-Sender:Resent-Cc:Resent-Date:Resent-To:Reply-To:Resent-Message-ID:Resent-From:Sender:Subject:To:Date:From:Message-Id:Reply-To:Subject:To:Cc;
+Received: by smtp.zohomail.com with SMTPS id 1795013246789416.0565019034008;
+ Wed, 18 Nov 2026 06:47:26 -0800 (PST)
+Content-Type: text/plain;
+	charset=utf-8
 X-Archived-By: <archiver.kernel.org>
-MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 08/12] drm/vkms: rename get_lut_index() to
- get_uniform_lut_index()
-To: Leandro Ribeiro <leandro.ribeiro@collabora.com>
-Cc: airlied@gmail.com, alex.hung@amd.com, daniel@fooishbar.org,
- hamohammed.sa@gmail.com, harry.wentland@amd.com,
- maarten.lankhorst@linux.intel.com, melissa.srw@gmail.com,
- mripard@kernel.org, pekka.paalanen@collabora.com,
- robert.mader@collabora.com, simona@ffwll.ch, tzimmermann@suse.de,
- dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org
-References: <20261106201813.129911-1-leandro.ribeiro@collabora.com>
- <20261106201813.129911-9-leandro.ribeiro@collabora.com>
-From: Louis Chauvet <louis.chauvet@bootlin.com>
-Content-Language: en-US
-In-Reply-To: <20261106201813.129911-9-leandro.ribeiro@collabora.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-X-Last-TLS-Session-Version: TLSv1.3
+Mime-Version: 1.0 (Mac OS X Mail 16.0 \(3901.200.71.1.16\))
+Subject: Re: [PATCH v6 5/7] rust: clk: add devres-managed clks
+From: Daniel Almeida <daniel.almeida@collabora.com>
+In-Reply-To: <DMYELN5M09W3.1SYPKW7DZ70E1@garyguo.net>
+Date: Wed, 18 Nov 2026 11:47:04 -0300
+Cc: "Rafael J. Wysocki" <rafael@kernel.org>,
+ Viresh Kumar <viresh.kumar@linaro.org>, Danilo Krummrich <dakr@kernel.org>,
+ Alice Ryhl <aliceryhl@google.com>, David Airlie <airlied@gmail.com>,
+ Simona Vetter <simona@ffwll.ch>,
+ Michal Wilczynski <m.wilczynski@samsung.com>,
+ Drew Fustini <fustini@kernel.org>, Guo Ren <guoren@kernel.org>,
+ Fu Wei <wefu@redhat.com>,
+ =?utf-8?Q?Uwe_Kleine-K=C3=B6nig?= <ukleinek@kernel.org>,
+ Stephen Boyd <sboyd@kernel.org>, Brian Masney <bmasney+clk@redhat.com>,
+ Jerome Brunet <jbrunet+clk@baylibre.com>, Miguel Ojeda <ojeda@kernel.org>,
+ Boqun Feng <boqun@kernel.org>,
+ =?utf-8?Q?Bj=C3=B6rn_Roy_Baron?= <bjorn3_gh@protonmail.com>,
+ Benno Lossin <lossin@kernel.org>, Andreas Hindborg <a.hindborg@kernel.org>,
+ Trevor Gross <tmgross@umich.edu>, Tamir Duberstein <tamird@kernel.org>,
+ Alexandre Courbot <acourbot@nvidia.com>, linux-pm@vger.kernel.org,
+ linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org,
+ linux-riscv@lists.infradead.org, linux-pwm@vger.kernel.org,
+ linux-clk@vger.kernel.org, rust-for-linux@vger.kernel.org,
+ Boris Brezillon <boris.brezillon@collabora.com>,
+ =?utf-8?Q?Onur_=C3=96zkan?= <work@onurozkan.dev>,
+ Maurice Hieronymus <mhi@mailbox.org>
+Content-Transfer-Encoding: quoted-printable
+Message-Id: <189F36A9-D1C1-478A-A195-F94D037E4376@collabora.com>
+References: <20261013-clk-type-state-v6-0-a5e9977b3509@collabora.com>
+ <20261013-clk-type-state-v6-5-a5e9977b3509@collabora.com>
+ <DMYELN5M09W3.1SYPKW7DZ70E1@garyguo.net>
+To: Gary Guo <gary@garyguo.net>
+X-Mailer: Apple Mail (2.3901.200.71.1.16)
+X-ZohoMailClient: External
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -62,128 +80,46 @@ List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-17.3 required=3.0 tests=BAYES_00,DKIM_SIGNED,
-	DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
-	INCLUDES_CR_TRAILER,INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,
-	SPF_PASS,USER_AGENT_SANE_1 autolearn=unavailable autolearn_force=no
-	version=4.0.1
+X-Spam-Status: No, score=-8.6 required=3.0 tests=BAYES_00,DKIM_INVALID,
+	DKIM_SIGNED,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,
+	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS autolearn=ham
+	autolearn_force=no version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
 
 
-On 11/6/26 21:18, Leandro Ribeiro wrote:
-> In the next commits we'll add non-uniform LUTs, and this function will
-> be used exclusively by uniform LUTs. So rename it to make this clearer.
-> 
-> Reviewed-by: Robert Mader <robert.mader@collabora.com>
-> Tested-by: Robert Mader <robert.mader@collabora.com>
-> Signed-off-by: Leandro Ribeiro <leandro.ribeiro@collabora.com>
+> On 18 Nov 2026, at 11:24, Gary Guo <gary@garyguo.net> wrote:
+>=20
+> On Tue Oct 13, 2026 at 6:07 PM BST, Daniel Almeida wrote:
+>> Many drivers only need a clock running for as long as the device is
+>> bound and never touch it afterwards. In C, devm_clk_get_enabled() and
+>> devm_clk_get_optional_enabled() cover this case.
+>>=20
+>> Add devm_enable(), devm_enable_optional() and
+>> devm_enable_optional_with_rate(), which wrap the C helpers. They =
+return
+>> no handle, so the driver keeps nothing in its data and cannot change =
+the
+>> state of the clock. The clock is disabled, unprepared and put when =
+the
+>> device is unbound.
+>>=20
+>> This mirrors regulator::devm_enable() and devm_enable_optional().
+>>=20
+>> Reviewed-by: Alexandre Courbot <acourbot@nvidia.com>
+>> Signed-off-by: Daniel Almeida <daniel.almeida@collabora.com>
+>=20
+> Given all the device resource lifetime changes, do we still need this =
+now, or
+> would putting a guard in driver private data to be dropped =
+automatically upon
+> unbind be sufficient?
 
-Reviewed-by: Louis Chauvet <louis.chauvet@bootlin.com>
+I think we should still provide this. Many drivers only care that the =
+clock be
+enabled at a given rate, and do not care about the handle. I think this =
+has
+little to do with C or Rust and should be supported in Rust too.
 
-> ---
->   drivers/gpu/drm/vkms/tests/vkms_color_test.c | 28 ++++++++++----------
->   drivers/gpu/drm/vkms/vkms_composer.c         |  6 ++---
->   drivers/gpu/drm/vkms/vkms_composer.h         |  2 +-
->   3 files changed, 18 insertions(+), 18 deletions(-)
-> 
-> diff --git a/drivers/gpu/drm/vkms/tests/vkms_color_test.c b/drivers/gpu/drm/vkms/tests/vkms_color_test.c
-> index c223797a542a..06cec3591c5c 100644
-> --- a/drivers/gpu/drm/vkms/tests/vkms_color_test.c
-> +++ b/drivers/gpu/drm/vkms/tests/vkms_color_test.c
-> @@ -86,31 +86,31 @@ static const struct vkms_color_lut test_linear_lut = {
->   	.channel_value2index_ratio = 0xf000fll
->   };
->   
-> -static void vkms_color_test_get_lut_index(struct kunit *test)
-> +static void vkms_color_test_get_uniform_lut_index(struct kunit *test)
->   {
->   	s64 lut_index;
->   	int i;
->   
-> -	lut_index = get_lut_index(&test_linear_lut, test_linear_array[0].red);
-> +	lut_index = get_uniform_lut_index(&test_linear_lut, test_linear_array[0].red);
->   	KUNIT_EXPECT_EQ(test, drm_fixp2int(lut_index), 0);
->   
->   	for (i = 0; i < test_linear_lut.lut_length; i++) {
-> -		lut_index = get_lut_index(&test_linear_lut, test_linear_array[i].red);
-> +		lut_index = get_uniform_lut_index(&test_linear_lut, test_linear_array[i].red);
->   		KUNIT_EXPECT_EQ(test, drm_fixp2int_ceil(lut_index), i);
->   	}
->   
-> -	KUNIT_EXPECT_EQ(test, drm_fixp2int(get_lut_index(&srgb_eotf, 0x0)), 0x0);
-> -	KUNIT_EXPECT_EQ(test, drm_fixp2int_ceil(get_lut_index(&srgb_eotf, 0x0)), 0x0);
-> -	KUNIT_EXPECT_EQ(test, drm_fixp2int_ceil(get_lut_index(&srgb_eotf, 0x101)), 0x1);
-> -	KUNIT_EXPECT_EQ(test, drm_fixp2int_ceil(get_lut_index(&srgb_eotf, 0x202)), 0x2);
-> +	KUNIT_EXPECT_EQ(test, drm_fixp2int(get_uniform_lut_index(&srgb_eotf, 0x0)), 0x0);
-> +	KUNIT_EXPECT_EQ(test, drm_fixp2int_ceil(get_uniform_lut_index(&srgb_eotf, 0x0)), 0x0);
-> +	KUNIT_EXPECT_EQ(test, drm_fixp2int_ceil(get_uniform_lut_index(&srgb_eotf, 0x101)), 0x1);
-> +	KUNIT_EXPECT_EQ(test, drm_fixp2int_ceil(get_uniform_lut_index(&srgb_eotf, 0x202)), 0x2);
->   
-> -	KUNIT_EXPECT_EQ(test, drm_fixp2int(get_lut_index(&srgb_inv_eotf, 0x0)), 0x0);
-> -	KUNIT_EXPECT_EQ(test, drm_fixp2int_ceil(get_lut_index(&srgb_inv_eotf, 0x0)), 0x0);
-> -	KUNIT_EXPECT_EQ(test, drm_fixp2int_ceil(get_lut_index(&srgb_inv_eotf, 0x101)), 0x1);
-> -	KUNIT_EXPECT_EQ(test, drm_fixp2int_ceil(get_lut_index(&srgb_inv_eotf, 0x202)), 0x2);
-> +	KUNIT_EXPECT_EQ(test, drm_fixp2int(get_uniform_lut_index(&srgb_inv_eotf, 0x0)), 0x0);
-> +	KUNIT_EXPECT_EQ(test, drm_fixp2int_ceil(get_uniform_lut_index(&srgb_inv_eotf, 0x0)), 0x0);
-> +	KUNIT_EXPECT_EQ(test, drm_fixp2int_ceil(get_uniform_lut_index(&srgb_inv_eotf, 0x101)), 0x1);
-> +	KUNIT_EXPECT_EQ(test, drm_fixp2int_ceil(get_uniform_lut_index(&srgb_inv_eotf, 0x202)), 0x2);
->   
-> -	KUNIT_EXPECT_EQ(test, drm_fixp2int_ceil(get_lut_index(&srgb_eotf, 0xfefe)), 0xfe);
-> -	KUNIT_EXPECT_EQ(test, drm_fixp2int_ceil(get_lut_index(&srgb_eotf, 0xffff)), 0xff);
-> +	KUNIT_EXPECT_EQ(test, drm_fixp2int_ceil(get_uniform_lut_index(&srgb_eotf, 0xfefe)), 0xfe);
-> +	KUNIT_EXPECT_EQ(test, drm_fixp2int_ceil(get_uniform_lut_index(&srgb_eotf, 0xffff)), 0xff);
->   }
->   
->   static void vkms_color_test_lerp(struct kunit *test)
-> @@ -392,7 +392,7 @@ static void vkms_color_ctm_3x4_bt709(struct kunit *test)
->   }
->   
->   static struct kunit_case vkms_color_test_cases[] = {
-> -	KUNIT_CASE(vkms_color_test_get_lut_index),
-> +	KUNIT_CASE(vkms_color_test_get_uniform_lut_index),
->   	KUNIT_CASE(vkms_color_test_lerp),
->   	KUNIT_CASE(vkms_color_test_linear),
->   	KUNIT_CASE(vkms_color_srgb_inv_srgb),
-> diff --git a/drivers/gpu/drm/vkms/vkms_composer.c b/drivers/gpu/drm/vkms/vkms_composer.c
-> index 640a1a03f06f..faf4515f024c 100644
-> --- a/drivers/gpu/drm/vkms/vkms_composer.c
-> +++ b/drivers/gpu/drm/vkms/vkms_composer.c
-> @@ -93,19 +93,19 @@ static inline u16 lut_channel_value(const struct drm_color_lut *lut,
->   	return 0;
->   }
->   
-> -VISIBLE_IF_KUNIT s64 get_lut_index(const struct vkms_color_lut *lut, u16 channel_value)
-> +VISIBLE_IF_KUNIT s64 get_uniform_lut_index(const struct vkms_color_lut *lut, u16 channel_value)
->   {
->   	s64 color_channel_fp = drm_int2fixp(channel_value);
->   
->   	return drm_fixp_mul(color_channel_fp, lut->channel_value2index_ratio);
->   }
-> -EXPORT_SYMBOL_IF_KUNIT(get_lut_index);
-> +EXPORT_SYMBOL_IF_KUNIT(get_uniform_lut_index);
->   
->   VISIBLE_IF_KUNIT u16 apply_lut_to_channel_value(const struct vkms_color_lut *lut, u16 channel_value,
->   						enum lut_channel channel)
->   {
->   	const struct drm_color_lut *lut_y_floor, *lut_y_ceil;
-> -	s64 lut_index = get_lut_index(lut, channel_value);
-> +	s64 lut_index = get_uniform_lut_index(lut, channel_value);
->   	u16 floor_channel_value, ceil_channel_value;
->   
->   	/*
-> diff --git a/drivers/gpu/drm/vkms/vkms_composer.h b/drivers/gpu/drm/vkms/vkms_composer.h
-> index 04dd5646f672..fa003af12f85 100644
-> --- a/drivers/gpu/drm/vkms/vkms_composer.h
-> +++ b/drivers/gpu/drm/vkms/vkms_composer.h
-> @@ -19,7 +19,7 @@ enum lut_channel {
->   
->   #if IS_ENABLED(CONFIG_KUNIT)
->   u16 lerp_u16(u16 a, u16 b, s64 t);
-> -s64 get_lut_index(const struct vkms_color_lut *lut, u16 channel_value);
-> +s64 get_uniform_lut_index(const struct vkms_color_lut *lut, u16 channel_value);
->   u16 apply_lut_to_channel_value(const struct vkms_color_lut *lut, u16 channel_value,
->   			       enum lut_channel channel);
->   void apply_3x4_matrix(struct pixel_argb_s32 *pixel, const struct drm_color_ctm_3x4 *matrix);
-
+=E2=80=94 Daniel=
