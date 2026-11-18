@@ -2,42 +2,42 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 51D2060A261B
-	for <dri-devel@archiver.kernel.org>; Wed, 18 Nov 2026 16:52:00 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 93C4A60A2634
+	for <dri-devel@archiver.kernel.org>; Wed, 18 Nov 2026 16:52:14 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.a=rsa-sha256 header.s=dkim header.b=A7Kx9TT1
+	dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.a=rsa-sha256 header.s=dkim header.b=W+mKfVC1
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id C98B810FE8F;
-	Wed, 18 Nov 2026 16:51:53 +0000 (UTC)
-Received: from smtpout-04.galae.net (smtpout-04.galae.net [185.171.202.116])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 31CCA10FE7D
- for <dri-devel@lists.freedesktop.org>; Wed, 18 Nov 2026 16:51:31 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id BE06810E802;
+	Wed, 18 Nov 2026 16:52:08 +0000 (UTC)
+Received: from smtpout-02.galae.net (smtpout-02.galae.net [185.246.84.56])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 6FA0E10FE7D
+ for <dri-devel@lists.freedesktop.org>; Wed, 18 Nov 2026 16:52:00 +0000 (UTC)
 Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
- by smtpout-04.galae.net (Postfix) with ESMTPS id C6191C4F77B;
- Wed, 18 Nov 2026 16:51:34 +0000 (UTC)
+ by smtpout-02.galae.net (Postfix) with ESMTPS id 3CD261A16CA;
+ Wed, 18 Nov 2026 16:51:59 +0000 (UTC)
 Received: from mail.galae.net (mail.galae.net [212.83.136.155])
- by smtpout-01.galae.net (Postfix) with ESMTPS id DEFC35FE9B;
- Wed, 18 Nov 2026 16:51:29 +0000 (UTC)
+ by smtpout-01.galae.net (Postfix) with ESMTPS id EF3775FE9B;
+ Wed, 18 Nov 2026 16:51:58 +0000 (UTC)
 Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon)
- with ESMTPSA id DD33F11BC27C2; Wed, 18 Nov 2026 17:51:23 +0100 (CET)
+ with ESMTPSA id E764511BC28D2; Wed, 18 Nov 2026 17:51:51 +0100 (CET)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
- t=1795020687; h=from:subject:date:message-id:to:cc:mime-version:content-type:
+ t=1795020717; h=from:subject:date:message-id:to:cc:mime-version:content-type:
  content-transfer-encoding:in-reply-to:references;
- bh=iHS1CP9tSXe3fyN73BGrE3K8GQSmYW6v05x00gz8hDQ=;
- b=A7Kx9TT1tx1v7xnjVIVqScxdjU6vfofBonPi+8rfV09BF7rP5dVeHL9aQPpdOKQZ+fKCLM
- JBgraxfuQipCB9fgw5EdNhbp++9FwBmzSag++L5aGseLjVWj0KutbIRkjM7Y/Yid20bpck
- YUP28BT8jlNRXEdc3QG2VwtcnPCQaoNRGjLR+PkbjCtLvZW375ZUC3JCAZTIR7ARXv4GHO
- mM5Fe/DTX6Z8dC41rM0nZvHbPXwfTIGFi6u0BwFUAMTyC4/BWm1nOHVHbjwm8XFD5lr61u
- lTLviEri//6K68J7+qnwd0UM7LmW44m1PwJQ2gkgGTJKgfLhzIfzWGAYBDNKPg==
+ bh=eocEYsU9h/jwR33n/5xfCsJpDlX1NehsHZ0nbPGW/CI=;
+ b=W+mKfVC11JBGEkMq8G9bOcxsUP1/xM0k3Bqwf99ObkK8MmefP6O6q1FNUGHnJDyGTj5Z9e
+ WxRD2lrFOy17nR+Thfshj4WGouWlQ4E5RslCOj0K14ruRp42Zcib9gi9wTzqpIvdrQLV02
+ tZVQeX0B1ecL3Zgg2XLXY7bGs6x4D2+jOZkeQ9997du7PXNInvogPw0WBdHAN5/8pmaZ+j
+ wHR/JEhk+1TbtsxxCbHA1VQWmNMSV3Asp6bUOI/OfRTSAd75hjuStPv7BSsiGpJ5Fjtt4D
+ Y9UQmZNGj2cyPMu24G9+mOBv4EycxgC1w8rcQ9TvmDjpsZfFHcTApVvt+5DRrw==
 From: Luca Ceresoli <luca.ceresoli@bootlin.com>
-Date: Wed, 18 Nov 2026 17:49:56 +0100
-Subject: [PATCH RFC v3 13/31] drm/bridge: initialize chain_node list head
- on detach and attach errors
+Date: Wed, 18 Nov 2026 17:50:00 +0100
+Subject: [PATCH RFC v3 17/31] drm/bridge: notify about added and detached
+ bridges
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20261118-drm-bridge-hotplug-v3-13-44bb3b4a828f@bootlin.com>
+Message-Id: <20261118-drm-bridge-hotplug-v3-17-44bb3b4a828f@bootlin.com>
 References: <20261118-drm-bridge-hotplug-v3-0-44bb3b4a828f@bootlin.com>
 In-Reply-To: <20261118-drm-bridge-hotplug-v3-0-44bb3b4a828f@bootlin.com>
 To: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
@@ -81,44 +81,63 @@ X-Spam-Status: No, score=-18.8 required=3.0 tests=BAYES_00,DKIM_SIGNED,
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-When a bridge is detached it is removed from the encoder bridge_chain list,
-but the bridge::chain_node list head is not cleared. This is going to be
-problematic with the upcoming hotplug bridge support because if a bridge is
-detached from the encoder chain but not yet removed, when later detaching
-it the encoder code may think it is still attached, thus trying to detach
-it twice.
-
-Avoid this by clearing the list head on detach, so there's a clear and
-simple way to know when a bridge is not attached anymore.
-
-Do the same in the error management code in drm_bridge_attach(), so that
-chain_node is always empty [as in list_empty()] when it is not
-(yet|anymore) in the bridge chain.
+In preparation to support DRM bridge hotplug, let the drm_bridge code emit
+an event when a bridge is added and when it is detached, so that this event
+can trigger the actions needed to (de)configure the pipeline and
+(un)register the connector as appropriate.
 
 Signed-off-by: Luca Ceresoli <luca.ceresoli@bootlin.com>
----
- drivers/gpu/drm/drm_bridge.c | 4 ++--
- 1 file changed, 2 insertions(+), 2 deletions(-)
 
+---
+
+Changes in v3:
+- also notify on added bridges (for non-DSI bridges)
+- use new v3 notifier API name
+---
+ drivers/gpu/drm/Kconfig      | 1 +
+ drivers/gpu/drm/drm_bridge.c | 6 ++++++
+ 2 files changed, 7 insertions(+)
+
+diff --git a/drivers/gpu/drm/Kconfig b/drivers/gpu/drm/Kconfig
+index 5268bf47b2e3..105dd46a0a45 100644
+--- a/drivers/gpu/drm/Kconfig
++++ b/drivers/gpu/drm/Kconfig
+@@ -17,6 +17,7 @@ menuconfig DRM
+ # device and dmabuf fd. Let's make sure that is available for our userspace.
+ 	select KCMP
+ 	select VIDEO
++	select DRM_HOTPLUG_EVENT_NOTIFIER
+ 	help
+ 	  Kernel-level support for the Direct Rendering Infrastructure (DRI)
+ 	  introduced in XFree86 4.0. If you say Y here, you need to select
 diff --git a/drivers/gpu/drm/drm_bridge.c b/drivers/gpu/drm/drm_bridge.c
-index f1a88c8c75af..d54245f3c4d3 100644
+index d54245f3c4d3..bcf65cddbd6e 100644
 --- a/drivers/gpu/drm/drm_bridge.c
 +++ b/drivers/gpu/drm/drm_bridge.c
-@@ -664,7 +664,7 @@ int drm_bridge_attach(struct drm_encoder *encoder, struct drm_bridge *bridge,
- 	bridge->dev = NULL;
- 	bridge->encoder = NULL;
- 	mutex_lock(&encoder->bridge_chain_mutex);
--	list_del(&bridge->chain_node);
-+	list_del_init(&bridge->chain_node);
- 	mutex_unlock(&encoder->bridge_chain_mutex);
+@@ -34,6 +34,7 @@
+ #include <drm/drm_debugfs.h>
+ #include <drm/drm_edid.h>
+ #include <drm/drm_encoder.h>
++#include <drm/drm_hotplug_event_notifier.h>
+ #include <drm/drm_file.h>
+ #include <drm/drm_of.h>
+ #include <drm/drm_print.h>
+@@ -475,6 +476,8 @@ void drm_bridge_add(struct drm_bridge *bridge)
+ 	mutex_lock(&bridge_lock);
+ 	list_add_tail(&bridge->list, &bridge_list);
+ 	mutex_unlock(&bridge_lock);
++
++	drm_hotplug_event_notifier_notify(DRM_BRIDGE_ADDED, bridge);
+ }
+ EXPORT_SYMBOL(drm_bridge_add);
  
- 	if (ret == -EPROBE_DEFER)
-@@ -694,7 +694,7 @@ void drm_bridge_detach(struct drm_bridge *bridge)
- 	if (bridge->funcs->detach)
+@@ -695,6 +698,9 @@ void drm_bridge_detach(struct drm_bridge *bridge)
  		bridge->funcs->detach(bridge);
  
--	list_del(&bridge->chain_node);
-+	list_del_init(&bridge->chain_node);
+ 	list_del_init(&bridge->chain_node);
++
++	drm_hotplug_event_notifier_notify(DRM_BRIDGE_DETACHED, bridge);
++
  	bridge->dev = NULL;
  	drm_bridge_put(bridge);
  }
