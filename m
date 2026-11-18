@@ -2,31 +2,31 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9DDB8606A7CC
-	for <dri-devel@archiver.kernel.org>; Wed, 18 Nov 2026 16:32:44 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3D46B606A7C0
+	for <dri-devel@archiver.kernel.org>; Wed, 18 Nov 2026 16:32:45 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=fePfAb5m
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=AMFUCMwp
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id C73F110E7E5;
-	Wed, 18 Nov 2026 16:32:38 +0000 (UTC)
-Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 1D15410E5B2
- for <dri-devel@lists.freedesktop.org>; Wed, 18 Nov 2026 16:32:33 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 2F8D910EC44;
+	Wed, 18 Nov 2026 16:32:39 +0000 (UTC)
+Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 2F12E10E5B2
+ for <dri-devel@lists.freedesktop.org>; Wed, 18 Nov 2026 16:32:27 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by tor.source.kernel.org (Postfix) with ESMTP id 93D5B6297A;
- Wed, 18 Nov 2026 16:32:32 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6E0571F000C6;
+ by sea.source.kernel.org (Postfix) with ESMTP id 1790D46399;
  Wed, 18 Nov 2026 16:32:27 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1E50D1F000C7;
+ Wed, 18 Nov 2026 16:32:21 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1795019552;
- bh=jsFRaKTpseLdw35R+S4C20jdTfDiax1ohIgt3pWo0XM=;
+ s=k20260515; t=1795019547;
+ bh=xk+TZUF1TRmt+f+C/QPA3J720VtA09DDpLZ7FCFd5EA=;
  h=From:To:Cc:Subject:Date:In-Reply-To:References;
- b=fePfAb5mNj84YDnRL6GHEgaa7pYeJrgPQMW+BRi5p7uFuJop/6jb3ExaD7QauT07O
- bYdzi/oAfnE/Pkd8z1DaqAaNlZmQRpmf1qU0uB3LOfcm3mpiYxprndDbgCiMMwj/gI
- 5MaqqdZ4VrjY/3PvBI+T3hMgPTr6Rc3K4wA6Z6q7VRXwW9if+Y8gQ8Q6hTqDIDwtN7
- a4tiN0JxSmmPJ7Gle+dhyEWvdbXpHoxgiWNufg/tXtvYplV1G+9NlHgF3LL25t1lQk
- Oy5+IyVcb0eCfgcJAaH4Q114Nay/6Zf93f+Zxxl3YuQaG8hpX68ivnCAElfbcMyTDm
- jK/gx3u+by+Iw==
+ b=AMFUCMwpmKeo7mfnNhAhB2/2s/eeAPSqbqk4ahoJ6gTtmxUVl90WdOhZcdmKstqeU
+ vA8MmamLudMvT7lAq+NAyfUJlc0MySY07sioXKSKjKg7gTnswNb4HSpRymOfuC0scK
+ 59BIjgz8bFhgjB0XxETRkajVRK1hVWVGg4bdaGYrMdZP4Ly9GyjweU2pDLv/KXwfsb
+ 7DTItFEiNPvTpfAhy5hUOUDkZBVnHqKjQbIe90vxWrvVKK1+eeX8/mDv+YM8d23ymi
+ HIx0uKaqAolvVjkC/dy72Nmgrp0qobjah01Zhk0H7v9qbAydxL+S6ZAvcJ22F8r1uv
+ SQG6Wcv2R0fCw==
 From: Danilo Krummrich <dakr@kernel.org>
 To: dakr@kernel.org, aliceryhl@google.com, acourbot@nvidia.com,
  daniel.almeida@collabora.com, ojeda@kernel.org, boqun@kernel.org,
@@ -37,9 +37,9 @@ To: dakr@kernel.org, aliceryhl@google.com, acourbot@nvidia.com,
  laura.nao@collabora.com, beata.michalska@arm.com
 Cc: nova-gpu@lists.linux.dev, dri-devel@lists.freedesktop.org,
  rust-for-linux@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: [PATCH v3 4/7] rust: fs: add iminor() helper
-Date: Wed, 18 Nov 2026 17:29:45 +0100
-Message-ID: <20261118163203.2483856-5-dakr@kernel.org>
+Subject: [PATCH v3 3/7] rust: drm: move file_operations from gem to device
+Date: Wed, 18 Nov 2026 17:29:44 +0100
+Message-ID: <20261118163203.2483856-4-dakr@kernel.org>
 X-Mailer: git-send-email 2.56.1
 In-Reply-To: <20261118163203.2483856-1-dakr@kernel.org>
 References: <20261118163203.2483856-1-dakr@kernel.org>
@@ -64,31 +64,84 @@ X-Spam-Status: No, score=-18.8 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-Add a Rust helper for iminor(), which extracts the minor number from a
-struct inode. This is a static inline function in the C headers, so
-bindgen does not generate a binding for it.
+Move the file_operations definition from drm::gem::create_fops() into
+UnregisteredDevice in drm::device. This is the file_operations of the
+DRM minor device, set through the drm_driver struct. It is not specific
+to GEM.
 
 Reviewed-by: Alice Ryhl <aliceryhl@google.com>
 Reviewed-by: Daniel Almeida <daniel.almeida@collabora.com>
 Reviewed-by: Gary Guo <gary@garyguo.net>
 Signed-off-by: Danilo Krummrich <dakr@kernel.org>
 ---
- rust/helpers/fs.c | 5 +++++
- 1 file changed, 5 insertions(+)
+ rust/kernel/drm/device.rs  | 23 ++++++++++++++++++++---
+ rust/kernel/drm/gem/mod.rs | 20 --------------------
+ 2 files changed, 20 insertions(+), 23 deletions(-)
 
-diff --git a/rust/helpers/fs.c b/rust/helpers/fs.c
-index 789d60fb8908..d6f9782db178 100644
---- a/rust/helpers/fs.c
-+++ b/rust/helpers/fs.c
-@@ -10,3 +10,8 @@ __rust_helper struct file *rust_helper_get_file(struct file *f)
- {
- 	return get_file(f);
- }
+diff --git a/rust/kernel/drm/device.rs b/rust/kernel/drm/device.rs
+index dd1c83fef323..3340fa0dc46b 100644
+--- a/rust/kernel/drm/device.rs
++++ b/rust/kernel/drm/device.rs
+@@ -195,11 +195,28 @@ const fn compute_features() -> u32 {
+         driver_features: Self::compute_features(),
+         ioctls: T::IOCTLS.as_ptr(),
+         num_ioctls: T::IOCTLS.len() as i32,
+-        fops: &Self::GEM_FOPS,
++        fops: &Self::FOPS,
+     };
+ 
+-    const GEM_FOPS: bindings::file_operations =
+-        drm::gem::create_fops(crate::module::this_module::<T::OwnerModule>().as_ptr());
++    const FOPS: bindings::file_operations = {
++        let mut fops: bindings::file_operations = pin_init::zeroed();
 +
-+__rust_helper unsigned int rust_helper_iminor(const struct inode *inode)
-+{
-+	return iminor(inode);
-+}
++        fops.owner = crate::module::this_module::<T::OwnerModule>().as_ptr();
++        fops.open = Some(bindings::drm_open);
++        fops.release = Some(bindings::drm_release);
++        fops.unlocked_ioctl = Some(bindings::drm_ioctl);
++        #[cfg(CONFIG_COMPAT)]
++        {
++            fops.compat_ioctl = Some(bindings::drm_compat_ioctl);
++        }
++        fops.poll = Some(bindings::drm_poll);
++        fops.read = Some(bindings::drm_read);
++        fops.llseek = Some(bindings::noop_llseek);
++        fops.mmap = Some(bindings::drm_gem_mmap);
++        fops.fop_flags = bindings::FOP_UNSIGNED_OFFSET;
++
++        fops
++    };
+ 
+     /// Create a new `UnregisteredDevice` for a `drm::Driver`.
+     ///
+diff --git a/rust/kernel/drm/gem/mod.rs b/rust/kernel/drm/gem/mod.rs
+index 94355081edab..260f36817f96 100644
+--- a/rust/kernel/drm/gem/mod.rs
++++ b/rust/kernel/drm/gem/mod.rs
+@@ -388,23 +388,3 @@ impl<T: DriverObject, Ctx: DeviceContext> AllocImpl for Object<T, Ctx> {
+         dumb_map_offset: None,
+     };
+ }
+-
+-pub(super) const fn create_fops(owner: *mut bindings::module) -> bindings::file_operations {
+-    let mut fops: bindings::file_operations = pin_init::zeroed();
+-
+-    fops.owner = owner;
+-    fops.open = Some(bindings::drm_open);
+-    fops.release = Some(bindings::drm_release);
+-    fops.unlocked_ioctl = Some(bindings::drm_ioctl);
+-    #[cfg(CONFIG_COMPAT)]
+-    {
+-        fops.compat_ioctl = Some(bindings::drm_compat_ioctl);
+-    }
+-    fops.poll = Some(bindings::drm_poll);
+-    fops.read = Some(bindings::drm_read);
+-    fops.llseek = Some(bindings::noop_llseek);
+-    fops.mmap = Some(bindings::drm_gem_mmap);
+-    fops.fop_flags = bindings::FOP_UNSIGNED_OFFSET;
+-
+-    fops
+-}
 -- 
 2.56.1
 
