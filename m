@@ -2,66 +2,71 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E1D60606D664
-	for <dri-devel@archiver.kernel.org>; Wed, 18 Nov 2026 23:32:58 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C2C76606D66A
+	for <dri-devel@archiver.kernel.org>; Wed, 18 Nov 2026 23:33:00 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=amd.com header.i=@amd.com header.a=rsa-sha256 header.s=selector1 header.b=zVPtcJYY
+	dkim=pass (1024-bit key, unprotected) header.d=amd.com header.i=@amd.com header.a=rsa-sha256 header.s=selector1 header.b=TSnNu+2k
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id D0C8A10EC7A;
-	Wed, 18 Nov 2026 23:32:52 +0000 (UTC)
-Received: from PH7PR06CU001.outbound.protection.outlook.com
- (mail-westus3azon11010060.outbound.protection.outlook.com [52.101.201.60])
- by gabe.freedesktop.org (Postfix) with ESMTPS id DC44C10E46D
- for <dri-devel@lists.freedesktop.org>; Wed, 18 Nov 2026 23:32:41 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 10B9810EC71;
+	Wed, 18 Nov 2026 23:32:55 +0000 (UTC)
+Received: from CY3PR05CU001.outbound.protection.outlook.com
+ (mail-westcentralusazon11013017.outbound.protection.outlook.com
+ [40.93.201.17])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 303B410EC71
+ for <dri-devel@lists.freedesktop.org>; Wed, 18 Nov 2026 23:32:49 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=YzJnmBDurk+k/4HLDGSIgpayOtLh/nTJ/jSP/+RxeWB0m2HSvgM9aRGb6S7ezwaH1GC2hIiSkpi1KnzpKzij5dZFGx7qzh4jLtvrKELv5sNe1QnQkZNysYDD85N+O7UxdbKCQNQnGJD0m/oEigAUymPN/BLJf2BhbI7meV8zptVKI6fKz2VFIWVLhQjLneC2zqapIl065rwVzs3lw9wQlaQ04PWGYWw0auTCQHvTzkUtInzoz+4YRmTagRKz6rQKjqNhHoCjLTd5GWeVD2neMAxnmPrJEzJETyFgZQTYOwUbbSlQUZ82sqNcir9Z4UU8X7gFpU//FovfXm4PVvp5cg==
+ b=wcrf/JZ7y9vuPTqWqlO5sq1qIYU9VMvRbu48Y6RYuvp8oPEnYHo5+oqYpMbYWa7jnhUHafPsDF4MoIqcQs+5xlLWvzZr3x2aH7lOoJACYiewJXhsV+aZR8+MLIb0RRSSgQlfsPWuQ7dQrsliNDh/n9P+MS9wack1K/SFW0aRSztc2IEBqeTM8YxWraZvyzbK+gFtcvfRIaEFSRIv+uiroDrQM8z6HpJcUAvZnYXmU+LITcQHmm32oJXMGHqLRaJTjVuWDAlLr54jvb2x6qWS6NOPka1JmfhX3Da3jL6Zbaybl+VCxa4Fger5AzPVM7M7R1iz6psNeiz5gaqfkvlSLg==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=/kOor3iSONH2/y4lGYexkCSVix3HVZloanguX0Na05U=;
- b=fz15gQS4WenDuxIDCssA7z65MT4AdIhC84/QVi/zLGIc72gCv2XyOGu48BsAQvtT4fh9XzTebIM/VEMm4InV2PhVmt+INQKIsxDnL9UvXqLt4d9i7byzt0xvG2iA/uSN6FNeewcNo+GSfMqDy363o9MkGVvK9A461uqQih7L3u0B/NxJIfWjvsLSjpTe6EzOr2p6q9y2YmfdjX+LA0VHpESuZiWTRd4KVQRb18Puo42lC/+gbeEpX/9RWLnBdLNUoiX3azDHlMbs8A4X6O53r3AlZavM/0SfXmArZ7ffcZ0HjTkBIprNaaQJo3lEQ6wtEjA2AdxKznhH/eOMD5OHTA==
+ bh=NH99dfoG6hKdTlQnZB+tmXtdz76WkigJYBvld/rezs8=;
+ b=GZde3WWBhNWr4MRMiUAGHV7EHuxabGdNivxKKHFs9kqcOglCwfvJ+BOW4tlnveITIc37FmBRFF87DgJFgNk6O8oJ4gAZjtV8Jfrlp/HsM8+TJK4w8k/aHw++Yi7ftNMg+EAYSl8Ua6KAwzqaEPeB+g8Kbw+XB5U3cyeTlIRpwGZ09f2VBSqyot3JYB8hHb1DM3KtTqVartGgyjlAebY32/CN8cAFN/E0pKkzvm0fwb34oELY+2BSNHVgUmnvQPzIYEvpzvrWE/EOWZPTt1AfKLlz22vrkYfSptCre4Ag95b0b3+KMvg6i8UCYbhHQP8TxeNZoJiKfU92rEkhMpX4KQ==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
  165.204.84.17) smtp.rcpttodomain=kernel.org smtp.mailfrom=amd.com; dmarc=pass
  (p=quarantine sp=quarantine pct=100) action=none header.from=amd.com;
  dkim=none (message not signed); arc=none (0)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=/kOor3iSONH2/y4lGYexkCSVix3HVZloanguX0Na05U=;
- b=zVPtcJYYICvHStz82HZUPFkq9K1g9Us4/GSWJZU6XT5dLIodQc5nwZCPdNNYQcGOCQZEoVpZjufol1yXA0Seqfr9BKlJHduzKmKuXV6F/iTwDgiIQEU4rxY41M+1rm1HeEsuja7o62FgXuKe+bQgu8oL0BOK6pLx+YhdMNj8eSY=
-Received: from IA1P220CA0015.NAMP220.PROD.OUTLOOK.COM (2603:10b6:208:464::15)
- by DSWPR12MB999175.namprd12.prod.outlook.com (2603:10b6:8:36f::6)
+ bh=NH99dfoG6hKdTlQnZB+tmXtdz76WkigJYBvld/rezs8=;
+ b=TSnNu+2kwkcLrWat3SxEaL/D6ml8OwMnRqwwB++H1JZBTrOtMQRnDbQwWydoB0Ew+QBQTtdIg1gmEEyi+2Lb/yXyMzMb0cOw1aRA5eFqLJI9SwUA7JMmnbUYPS9r4mdijAdTmNr+J7oE00gq1Ac0dqZhNrCaKaiO1Nor/2ZnR1I=
+Received: from CH5P220CA0012.NAMP220.PROD.OUTLOOK.COM (2603:10b6:610:1ef::24)
+ by MW4PR12MB7240.namprd12.prod.outlook.com (2603:10b6:303:226::17)
  with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.615.14; Wed, 18 Nov
- 2026 23:32:36 +0000
-Received: from IA0PEPF00000037.namprd03.prod.outlook.com
- (2603:10b6:208:464:cafe::62) by IA1P220CA0015.outlook.office365.com
- (2603:10b6:208:464::15) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.21.615.14 via Frontend Transport; Wed,
- 18 Nov 2026 23:32:36 +0000
+ 2026 23:32:43 +0000
+Received: from CH3PEPF00024580.namprd04.prod.outlook.com
+ (2603:10b6:610:1ef:cafe::c) by CH5P220CA0012.outlook.office365.com
+ (2603:10b6:610:1ef::24) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.21.615.10 via Frontend Transport; Wed,
+ 18 Nov 2026 23:32:42 +0000
 X-MS-Exchange-Authentication-Results: mx.microsoft.com 1; spf=pass (sender IP
  is 165.204.84.17) smtp.mailfrom=amd.com;
  dkim=none (message not signed)
  header.d=none;dmarc=pass action=none header.from=amd.com;
 Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
  165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=satlexmb08.amd.com; pr=C
-Received: from satlexmb08.amd.com (165.204.84.17) by
- IA0PEPF00000037.mail.protection.outlook.com (10.167.249.68) with Microsoft
+ client-ip=165.204.84.17; helo=satlexmb07.amd.com; pr=C
+Received: from satlexmb07.amd.com (165.204.84.17) by
+ CH3PEPF00024580.mail.protection.outlook.com (10.167.252.26) with Microsoft
  SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.615.4 via Frontend Transport; Wed, 18 Nov 2026 23:32:35 +0000
-Received: from satlexmb07.amd.com (10.181.42.216) by satlexmb08.amd.com
- (10.181.42.217) with Microsoft SMTP Server (version=TLS1_2,
+ 15.21.615.4 via Frontend Transport; Wed, 18 Nov 2026 23:32:42 +0000
+Received: from Satlexmb09.amd.com (10.181.42.218) by satlexmb07.amd.com
+ (10.181.42.216) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.57; Wed, 18 Nov
- 2026 17:32:33 -0600
+ 2026 17:32:42 -0600
+Received: from satlexmb07.amd.com (10.181.42.216) by satlexmb09.amd.com
+ (10.181.42.218) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.57; Wed, 18 Nov
+ 2026 17:32:42 -0600
 Received: from xsjgregoryw50.xilinx.com (10.180.168.240) by satlexmb07.amd.com
  (10.181.42.216) with Microsoft SMTP Server id 15.2.2562.57 via
- Frontend Transport; Wed, 18 Nov 2026 17:32:33 -0600
+ Frontend Transport; Wed, 18 Nov 2026 17:32:41 -0600
 From: Gregory Williams <gregory.williams@amd.com>
 To: Oded Gabbay <ogabbay@kernel.org>
 CC: <linux-kernel@vger.kernel.org>, <dri-devel@lists.freedesktop.org>
-Subject: [PATCH 12/15] accel/amd-ai-engine: Add AMD AI Engine device driver
-Date: Wed, 18 Nov 2026 15:32:08 -0800
-Message-ID: <20261118233211.4121361-13-gregory.williams@amd.com>
+Subject: [PATCH 15/15] accel/amd-ai-engine: Add reset operations
+Date: Wed, 18 Nov 2026 15:32:11 -0800
+Message-ID: <20261118233211.4121361-16-gregory.williams@amd.com>
 X-Mailer: git-send-email 2.34.1
 In-Reply-To: <20261118233211.4121361-1-gregory.williams@amd.com>
 References: <20261118233211.4121361-1-gregory.williams@amd.com>
@@ -71,29 +76,29 @@ Content-Transfer-Encoding: 8bit
 Content-Type: text/plain
 X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: IA0PEPF00000037:EE_|DSWPR12MB999175:EE_
-X-MS-Office365-Filtering-Correlation-Id: 2ab3dea7-0b36-4f39-cbe6-08df45cc3a16
+X-MS-TrafficTypeDiagnostic: CH3PEPF00024580:EE_|MW4PR12MB7240:EE_
+X-MS-Office365-Filtering-Correlation-Id: 649d40e1-250f-4281-b404-08df45cc3e33
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
- ARA:13230040|36860700016|82310400026|1800799024|23010399003|376014|261102123227099003|261102130727099003|261022105027099003|261021123027099003|261021121427099003|261022075727099003|261026121527099003|261028144727099003|5023799004|11063799006|261026140227099003|56012099006|10067099003|18002099003|22082099003|6133799003|20046099003|261009223027099003|13003099007;
-X-Microsoft-Antispam-Message-Info: D/BBJ9Qqq+j2HCe05XLGkBdB8IW6+g7SzGF3+KRBuV0k2lF52GjB1wjOeQpmGOn6dTbab/W8uKQ1stXlbqG+c1inPB06HKp5EylSud8mXwKGnWBW45agMYPl0VC6NVywrxqvOm+INUYgWCIVa1EyTrLeqms7aMuD+jN51JEXj2wHuFGWyy0dFnUnj2FpfFuhpVbE3EA95y17N9JiiGsDrYrUGrllyaW69ZF5AdlZ+qT4/gBe2WrST0X5RWf7fG7iCUvYSw6xW+dFNO+Oj/yGnoxeeXLv75kGb7bdsJqTGTb8fYY/8TCVEXdblg2TtiuFtIhCBZniSbC9130G45bloUNMD2f93S6obWFjdgFSsWCc3cwLmU//d03qut4O9IUBliHUBkw4OALzxRFxpRyN8bVkAgUn8+VIgDHlDsCjJ98QRdBhS4/D/Z95R+iqXP75U70tDSAwe1L92SDB0R6gD2nZTd3NGgcWFJ2P4qxrk+DG2PVh7q0r3KSgP2cHvi0fWMjiVKuO9e6nWzBCsxdt1PgZsUStQozKREZwKkIv9ID9sfz+mjF87kkALnbsiP7U8jho7lAA8MUKuT9BpVUr7EgfxaQaCYztiChrs9SjSCAuqRDZZh4ycRk4+TzlhC7qbeFXRV6qVZ5GsyDvpR1mXRhV8si99Wna+Z2dHEWAKZ4=
+ ARA:13230040|376014|23010399003|82310400026|1800799024|36860700016|261102123227099003|10067099003|261021121427099003|56012099006|11063799006|261021123027099003|261026121527099003|261026140227099003|261022105027099003|261028144727099003|261102130727099003|261022075727099003|261009223027099003|22082099003|6133799003|18002099003;
+X-Microsoft-Antispam-Message-Info: GPsCY12bU7T+s9T1qmgZY+c6YaOBL2eoX/sUP6/EjIEChCSWew7nve7FJe1rD4jeIVNFChygitrvcP7mL89py4BkVNzIpMfpc507xFD2QCoSjPps3yLe2Kw3JsRMydD3lZy+tPkYlAL/0Rn/aYaQCpVXdTc1Ct6EuK3OXg/YIlflFEksvMfNhV0VL5I7PtT0eBmzGxFdHEln6gEXKw1Ze97ukicIcCDuO6F0EHHnblsUyAHIW3onJs2zN/RpUsWCzb9QhZAS9GusAflJFG78MsENGsOb4Sl1dSK6BQAKJzhPRpL86AuWSHaAogr5+wSN0uDjEm+u5YeKUnAB2FDBh5UE4zPUBElWvHoHQ5BkQVeCXoi5YJxsX5q5aXmW66VIfc5hPk5DcCs6WtXc0LsgcO2d6i4yqEpLH2+Vc7y5xfi/XDx460LZtSVaqL0Bi2SU9H6bmyoKQcu0Y6+GzOPS6TKuO9C5GdZtGI0DIXCe0HSw3Or5QxguFXZu2QT/drFdsgD4jraBWx8C4PtbkF+EHKARTDh0DVHpQDhTvqPJosuvlwbLuPM40v/SoiQpFslukCvhfIm2PiFlY2i1qu7ysFHjO7a4gNeUWCkaXPdWDoeJZ2bF3QTAVeqfhaK3p9t2zkmw3gtUzpABu+lE2U//nrzwBu0oNqHjGTDUyh4wzvAF/JWkeYCrpn0dsPkGC58w6oLnEkoOBAUuWejWCQGBWg==
 X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:satlexmb08.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230040)(36860700016)(82310400026)(1800799024)(23010399003)(376014)(261102123227099003)(261102130727099003)(261022105027099003)(261021123027099003)(261021121427099003)(261022075727099003)(261026121527099003)(261028144727099003)(5023799004)(11063799006)(261026140227099003)(56012099006)(10067099003)(18002099003)(22082099003)(6133799003)(20046099003)(261009223027099003)(13003099007);
+ IPV:NLI; SFV:NSPM; H:satlexmb07.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
+ SFS:(13230040)(376014)(23010399003)(82310400026)(1800799024)(36860700016)(261102123227099003)(10067099003)(261021121427099003)(56012099006)(11063799006)(261021123027099003)(261026121527099003)(261026140227099003)(261022105027099003)(261028144727099003)(261102130727099003)(261022075727099003)(261009223027099003)(22082099003)(6133799003)(18002099003);
  DIR:OUT; SFP:1101; 
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: Ri0g60M4/Z1HB2XNq9kLhvN21hu4wLspmpgSmPAhcUwemsvTJnWwtBPYxNjzxxo+sb3tH/IcBDpbmcW3C5eerP+Qtkv8mAaj1RXGqbNsrvKA3WTQ8ALGSG8sFnwWCuRdj/4wpmZ34hP/ePhLRgriSXwOwrrHHf6XFmambdye3kDc4exUW3IdSuXPx1PnucTUunYasHT4VCary7P3+fmTHTwuCFu+i3wncDElbuoU4Ln+A0mEyZ5KQ3Id9cihNQN+ULDmZCJoBEtMe1gTZdjgg8dw5wyolsQ4WbVrXqSy6ctJ5M9wMxgeXiz4TdyTsTnr+Pn8VuE9Qk+mShPTQAheB/liEeuXr+F34LT3TVxdHIHYuF2KceD5Wxr4D2Jfw1pOp9TK3piFcRZY0+4+tVd/3Tt7KaX8ggEp+VIu84gYxwM8jA2b/GWHKCw6qCZjGWGn
+X-MS-Exchange-AntiSpam-MessageData-0: hzsk1rzLQ6cfBm5uKkGLFv579idOVSme4GUWxB0gEBTXCiRM32RWtW102OO4YHOl/jEMvM0m6tFEpk+Xh05ZsmcIsS1tpQ5FvgJmqBasUqpwq6B2NKm3JJU5QsguTzvkdwx62TbGKtaPcrSg+DdjhKSGIyzIipNRnCC++nDeNsZvq75HAA1Aw2JLxF3HbbAjAzyiImVL1UioP6MtYb+q6rL2mtmuLHD4FxnJSlI7D+fwstBp9G+ndl/C9LEybQe2KELvhzW8t6fDHb7Jfofq2qml0B3N9PDqUOnqI4vnzA9iZZf6D4HKqyAoFsY/+QnnmW9eJyIM2gRYJ9SOik9vEX/OPOfIxES0/4qUxmhQs3buC5RiUQR5XUYHyygJoEMrLOzJvr2TOiDQl1fruyVYYf1kVKz1a0K98iADy2d7sqoskqXks/Qm+qr0dkx4c8Nl
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 18 Nov 2026 23:32:35.9760 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 2ab3dea7-0b36-4f39-cbe6-08df45cc3a16
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 18 Nov 2026 23:32:42.8576 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 649d40e1-250f-4281-b404-08df45cc3e33
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
- Helo=[satlexmb08.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: IA0PEPF00000037.namprd03.prod.outlook.com
+ Helo=[satlexmb07.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource: CH3PEPF00024580.namprd04.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Anonymous
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DSWPR12MB999175
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: MW4PR12MB7240
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -113,873 +118,524 @@ X-Spam-Status: No, score=-18.8 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-Add support for AMD AI Engine on AMD Versal devices. AMD AI Engine is a
-tile array based accelerator for applications like beamforming and machine
-learning inference [1].
+Add reset operations partition initialize/teardown.
+aie_partition_initialize should be called before application start,
+aie_partition_teardown should be called after application has finished.
 
-AI Engine device driver is responsible for the management of AI engine
-partitions (groups of AI engine columns). At runtime applications request
-a partition from the AI engine device. Applications use the partition
-handle for application setup and control.
+Initialize will reset the device configuration, clear memories, enable
+clocks of used tiles, configure hardware error reporting and NMUs, and
+will enable ECC scrubbing.
 
-The driver architecture:
-  +-------------------------------------------+
-  |                 AIE Device                |
-  | +----------------+     +----------------+ |
-  | |   partition_0  | ... |   partition_X  | |
-  | +----------------+     +----------------+ |
-  +-------------------------------------------+
-
-The driver provides the following functionality:
-- AI Engine device probe
-- Partition request and release
-
-[1] https://www.amd.com/en/products/adaptive-socs-and-fpgas/technologies/ai-engine.html
+Teardown will clear tile memories and disable tile clocks.
 
 Signed-off-by: Gregory Williams <gregory.williams@amd.com>
 ---
- MAINTAINERS                                   |   9 +
- drivers/accel/Kconfig                         |   1 +
- drivers/accel/Makefile                        |   3 +-
- drivers/accel/amd-ai-engine/Kconfig           |  15 ++
- drivers/accel/amd-ai-engine/Makefile          |  11 +
- .../accel/amd-ai-engine/ai-engine-aiemlv2.c   |  47 ++++
- drivers/accel/amd-ai-engine/ai-engine-dev.c   | 244 ++++++++++++++++++
- .../accel/amd-ai-engine/ai-engine-internal.h  | 160 ++++++++++++
- drivers/accel/amd-ai-engine/ai-engine-part.c  |  77 ++++++
- drivers/accel/amd-ai-engine/ai-engine-res.c   | 112 ++++++++
- include/linux/amd-ai-engine.h                 |  59 +++++
- 11 files changed, 737 insertions(+), 1 deletion(-)
- create mode 100644 drivers/accel/amd-ai-engine/Kconfig
- create mode 100644 drivers/accel/amd-ai-engine/Makefile
- create mode 100644 drivers/accel/amd-ai-engine/ai-engine-aiemlv2.c
- create mode 100644 drivers/accel/amd-ai-engine/ai-engine-dev.c
- create mode 100644 drivers/accel/amd-ai-engine/ai-engine-internal.h
- create mode 100644 drivers/accel/amd-ai-engine/ai-engine-part.c
- create mode 100644 drivers/accel/amd-ai-engine/ai-engine-res.c
- create mode 100644 include/linux/amd-ai-engine.h
+ drivers/accel/amd-ai-engine/Makefile          |   3 +-
+ .../accel/amd-ai-engine/ai-engine-aiemlv2.c   | 244 ++++++++++++++++++
+ .../accel/amd-ai-engine/ai-engine-internal.h  |   8 +
+ drivers/accel/amd-ai-engine/ai-engine-part.c  |  32 +++
+ drivers/accel/amd-ai-engine/ai-engine-res.c   |  16 ++
+ drivers/accel/amd-ai-engine/ai-engine-reset.c |  69 +++++
+ include/linux/amd-ai-engine.h                 |  16 ++
+ 7 files changed, 387 insertions(+), 1 deletion(-)
+ create mode 100644 drivers/accel/amd-ai-engine/ai-engine-reset.c
 
-diff --git a/MAINTAINERS b/MAINTAINERS
-index bcade5bfbafe..d8bfa7cbf8f6 100644
---- a/MAINTAINERS
-+++ b/MAINTAINERS
-@@ -1080,6 +1080,15 @@ L:	linux-sound@vger.kernel.org
- S:	Supported
- F:	sound/soc/amd/
- 
-+AMD AI ENGINE DRIVER
-+M:	Gregory Williams <gregory.williams@amd.com>
-+L:	dri-devel@lists.freedesktop.org
-+S:	Maintained
-+T:	git https://gitlab.freedesktop.org/drm/misc/kernel.git
-+F:	Documentation/devicetree/bindings/soc/xilinx/xlnx,ai-engine.yaml
-+F:	drivers/accel/amd-ai-engine/
-+F:	include/linux/amd-ai-engine.h
-+
- AMD AXI I3C MASTER DRIVER
- M:	Shubhrajyoti Datta <shubhrajyoti.datta@amd.com>
- M:	Shubham Patil <shubhamsanjay.patil@amd.com>
-diff --git a/drivers/accel/Kconfig b/drivers/accel/Kconfig
-index bdf48ccafcf2..b20a1445629d 100644
---- a/drivers/accel/Kconfig
-+++ b/drivers/accel/Kconfig
-@@ -24,6 +24,7 @@ menuconfig DRM_ACCEL
- 	  different device files, called accel/accel* (in /dev, sysfs
- 	  and debugfs).
- 
-+source "drivers/accel/amd-ai-engine/Kconfig"
- source "drivers/accel/amdxdna/Kconfig"
- source "drivers/accel/ethosu/Kconfig"
- source "drivers/accel/habanalabs/Kconfig"
-diff --git a/drivers/accel/Makefile b/drivers/accel/Makefile
-index 1d3a7251b950..f0f09f3b6a56 100644
---- a/drivers/accel/Makefile
-+++ b/drivers/accel/Makefile
-@@ -1,8 +1,9 @@
- # SPDX-License-Identifier: GPL-2.0-only
- 
-+obj-$(CONFIG_DRM_ACCEL_AMDAIE)		+= amd-ai-engine/
- obj-$(CONFIG_DRM_ACCEL_AMDXDNA)		+= amdxdna/
- obj-$(CONFIG_DRM_ACCEL_ARM_ETHOSU)	+= ethosu/
- obj-$(CONFIG_DRM_ACCEL_HABANALABS)	+= habanalabs/
- obj-$(CONFIG_DRM_ACCEL_IVPU)		+= ivpu/
- obj-$(CONFIG_DRM_ACCEL_QAIC)		+= qaic/
--obj-$(CONFIG_DRM_ACCEL_ROCKET)		+= rocket/
-\ No newline at end of file
-+obj-$(CONFIG_DRM_ACCEL_ROCKET)		+= rocket/
-diff --git a/drivers/accel/amd-ai-engine/Kconfig b/drivers/accel/amd-ai-engine/Kconfig
-new file mode 100644
-index 000000000000..7f32928cb20f
---- /dev/null
-+++ b/drivers/accel/amd-ai-engine/Kconfig
-@@ -0,0 +1,15 @@
-+# SPDX-License-Identifier: GPL-2.0-only
-+
-+config DRM_ACCEL_AMDAIE
-+	tristate "AMD Versal AI Engine"
-+	depends on ARM64 || COMPILE_TEST
-+	depends on ZYNQMP_FIRMWARE
-+	depends on DRM_ACCEL
-+	help
-+	  This option enables support for the AMD AI engine driver.
-+	  One AMD AI engine device can have multiple partitions (groups of
-+	  AI engine tiles). AMD AI engine device driver instance manages
-+	  AI engine partitions. Applications access its partitions through
-+	  AI engine partition device instance.
-+
-+	  If unsure, say N.
 diff --git a/drivers/accel/amd-ai-engine/Makefile b/drivers/accel/amd-ai-engine/Makefile
-new file mode 100644
-index 000000000000..cb456ee7ec37
---- /dev/null
+index c6d090257d6e..d5b6ccde0a35 100644
+--- a/drivers/accel/amd-ai-engine/Makefile
 +++ b/drivers/accel/amd-ai-engine/Makefile
-@@ -0,0 +1,11 @@
-+# SPDX-License-Identifier: GPL-2.0-only
-+#
-+# Makefile for AMD AI engine device driver
-+
-+obj-$(CONFIG_DRM_ACCEL_AMDAIE)	+= amd-aie.o
-+
-+amd-aie-$(CONFIG_DRM_ACCEL_AMDAIE) := \
-+	ai-engine-aiemlv2.o	\
-+	ai-engine-dev.o		\
-+	ai-engine-part.o	\
-+	ai-engine-res.o
+@@ -10,4 +10,5 @@ amd-aie-$(CONFIG_DRM_ACCEL_AMDAIE) := \
+ 	ai-engine-clock.o	\
+ 	ai-engine-part.o	\
+ 	ai-engine-pm.o		\
+-	ai-engine-res.o
++	ai-engine-res.o		\
++	ai-engine-reset.o
 diff --git a/drivers/accel/amd-ai-engine/ai-engine-aiemlv2.c b/drivers/accel/amd-ai-engine/ai-engine-aiemlv2.c
-new file mode 100644
-index 000000000000..0c9c7ccdd54e
---- /dev/null
+index 26dd1d726bfa..910a9bda2305 100644
+--- a/drivers/accel/amd-ai-engine/ai-engine-aiemlv2.c
 +++ b/drivers/accel/amd-ai-engine/ai-engine-aiemlv2.c
-@@ -0,0 +1,47 @@
-+// SPDX-License-Identifier: GPL-2.0
-+/*
-+ * AMD AI Engine driver AIEMLv2 device specific implementation
-+ *
-+ * Copyright(C) 2026 Advanced Micro Devices, Inc. All rights reserved.
-+ */
-+
-+#include <linux/amd-ai-engine.h>
-+
-+#include "ai-engine-internal.h"
-+
-+#define AIEMLV2_ARRAY_SHIFT		32U
-+#define AIEMLV2_COL_SHIFT		25U
-+#define AIEMLV2_ROW_SHIFT		20U
-+
-+static u32 aiemlv2_get_tile_type(struct aie_device *adev, struct aie_location *loc)
+@@ -16,12 +16,16 @@
+ /*
+  * Register offsets
+  */
++#define AIEMLV2_SHIMNOC_AXI_OUTSTANDING_TX_REGOFF	0x00002120U
+ #define AIEMLV2_SHIMPL_COLCLOCK_CTRL_REGOFF		0x0007FF20U
++#define AIEMLV2_SHIMUC_AXI_OUTSTANDING_TX_REGOFF	0x000C0024U
+ 
+ /*
+  * Register masks
+  */
++#define AIEMLV2_SHIMNOC_AXI_OUTSTANDING_TX_MASK		BIT(0)
+ #define AIEMLV2_SHIMPL_COLCLOCK_CTRL_MASK		GENMASK(1, 0)
++#define AIEMLV2_SHIMUC_AXI_OUTSTANDING_TX_MASK		GENMASK(1, 0)
+ 
+ static u32 aiemlv2_get_tile_type(struct aie_device *adev, struct aie_location *loc)
+ {
+@@ -173,10 +177,250 @@ static int aiemlv2_set_part_clocks(struct aie_partition *apart)
+ 	return aie_part_pm_ops_flush(apart);
+ }
+ 
++static int aiemlv2_maskpoll_uc_outstanding_aximm_txn(struct aie_partition *apart)
 +{
-+	u8 num_mem_rows = adev->ttype_attr[AIE_TILE_TYPE_MEMORY].num_rows;
++	u32 end_col = apart->range.start.col + apart->range.size.col;
++	struct aie_location loc = {.row = 0};
++	int ret = 0;
++	u32 regoff;
 +
-+	if (loc->row > num_mem_rows)
-+		return AIE_TILE_TYPE_TILE;
-+	if (loc->row)
-+		return AIE_TILE_TYPE_MEMORY;
-+
-+	return AIE_TILE_TYPE_SHIMNOC;
-+}
-+
-+static const struct aie_tile_operations aiemlv2_ops = {
-+	.get_tile_type = aiemlv2_get_tile_type,
-+};
-+
-+/**
-+ * aiemlv2_device_init() - Initialize AI engine device struct AIEMLV2 specific
-+ * @adev: AI engine device
-+ *
-+ * This function initialize the AI engine device structure device version
-+ * specific elements such as register addressing related array shift,
-+ * column shift, and row shift; AIEMLV2 device specific device operations, device
-+ * columns resource.
-+ */
-+void aiemlv2_device_init(struct aie_device *adev)
-+{
-+	adev->array_shift = AIEMLV2_ARRAY_SHIFT;
-+	adev->col_shift = AIEMLV2_COL_SHIFT;
-+	adev->row_shift = AIEMLV2_ROW_SHIFT;
-+	adev->ops = &aiemlv2_ops;
-+}
-diff --git a/drivers/accel/amd-ai-engine/ai-engine-dev.c b/drivers/accel/amd-ai-engine/ai-engine-dev.c
-new file mode 100644
-index 000000000000..7dad3004e30a
---- /dev/null
-+++ b/drivers/accel/amd-ai-engine/ai-engine-dev.c
-@@ -0,0 +1,244 @@
-+// SPDX-License-Identifier: GPL-2.0
-+/*
-+ * AMD AI Engine device driver
-+ *
-+ * Copyright(C) 2026 Advanced Micro Devices, Inc. All rights reserved.
-+ */
-+
-+#include <linux/amd-ai-engine.h>
-+#include <linux/clk.h>
-+#include <linux/device.h>
-+#include <linux/io.h>
-+#include <linux/list.h>
-+#include <linux/mutex.h>
-+#include <linux/of.h>
-+#include <linux/of_platform.h>
-+#include <linux/platform_device.h>
-+
-+#include "ai-engine-internal.h"
-+
-+/**
-+ * aie_partition_request() - Request an AI engine partition
-+ * @dev: AI engine device pointer
-+ * @req: AI engine partition request arguments
-+ *
-+ * Return: pointer to the AI engine partition device, error pointer value for
-+ *	   failure.
-+ */
-+struct device *aie_partition_request(struct device *dev, struct aie_partition_req *req)
-+{
-+	struct aie_device *adev = dev_get_drvdata(dev);
-+	struct aie_partition *apart = NULL;
-+	u8 start_col, num_col, end_col;
-+	int ret;
-+
-+	if (!req)
-+		return ERR_PTR(-EINVAL);
-+
-+	start_col = aie_part_id_get_start_col(req->partition_id);
-+	num_col = aie_part_id_get_num_cols(req->partition_id);
-+	if (num_col == 0) {
-+		start_col = adev->range.start.col;
-+		num_col = adev->range.size.col;
++	for (loc.col = apart->range.start.col; loc.col < end_col; loc.col++) {
++		regoff = aie_cal_regoff(apart->adev, loc,
++					AIEMLV2_SHIMUC_AXI_OUTSTANDING_TX_REGOFF);
++		ret = aie_part_maskpoll_register(apart, regoff, 0x0,
++						 AIEMLV2_SHIMUC_AXI_OUTSTANDING_TX_MASK,
++						 2000000);
++		if (ret < 0) {
++			dev_err(&apart->dev,
++				"failed due to outstanding UC AXIMM transactions!\n");
++			return ret;
++		}
 +	}
 +
-+	end_col = start_col + num_col - 1;
-+	if (start_col < adev->range.start.col ||
-+	    end_col >= (adev->range.start.col + adev->range.size.col)) {
-+		dev_err(adev->dev, "partition is outside of device range\n");
-+		return ERR_PTR(-ERANGE);
-+	}
-+
-+	mutex_lock(&adev->mlock);
-+	ret = aie_resource_get_region(&adev->cols_res,
-+				      start_col - adev->range.start.col,
-+				      num_col);
-+	if (ret != (u32)start_col - adev->range.start.col) {
-+		/* column range returned is not what user requested */
-+		if (ret > 0)
-+			aie_resource_put_region(&adev->cols_res, ret, num_col);
-+		mutex_unlock(&adev->mlock);
-+		dev_err(adev->dev, "partition requested is busy\n");
-+		return ERR_PTR(-EBUSY);
-+	}
-+
-+	apart = aie_part_create(adev, start_col, num_col);
-+	if (IS_ERR(apart)) {
-+		aie_resource_put_region(&adev->cols_res, ret, num_col);
-+		ret = PTR_ERR(apart);
-+		mutex_unlock(&adev->mlock);
-+		dev_err(adev->dev, "failed to create partition\n");
-+		return ERR_PTR(ret);
-+	}
-+
-+	list_add_tail(&apart->node, &adev->partitions);
-+	mutex_unlock(&adev->mlock);
-+	dev_dbg(adev->dev, "Partition (%u, %u) created successfully.\n",
-+		apart->range.start.col, apart->range.size.col);
-+
-+	return &apart->dev;
-+}
-+EXPORT_SYMBOL_GPL(aie_partition_request);
-+
-+/**
-+ * aie_partition_release() - Release the AI engine partition
-+ * @dev: AI engine partition device pointer
-+ */
-+void aie_partition_release(struct device *dev)
-+{
-+	struct aie_partition *apart = dev_to_aiepart(dev);
-+
-+	mutex_lock(&apart->adev->mlock);
-+	aie_part_release(apart);
-+	mutex_unlock(&apart->adev->mlock);
-+}
-+EXPORT_SYMBOL_GPL(aie_partition_release);
-+
-+static int amd_ai_engine_probe(struct platform_device *pdev)
-+{
-+	const struct aie_device_cfg *match;
-+	struct aie_device *adev;
-+	u32 pm_reg;
-+	int ret;
-+
-+	adev = devm_kzalloc(&pdev->dev, sizeof(*adev), GFP_KERNEL);
-+	if (!adev)
-+		return -ENOMEM;
-+
-+	platform_set_drvdata(pdev, adev);
-+	INIT_LIST_HEAD(&adev->partitions);
-+	mutex_init(&adev->mlock);
-+
-+	match = of_device_get_match_data(&pdev->dev);
-+	if (!match) {
-+		dev_err(&pdev->dev, "Failed to find aie device configuration\n");
-+		return -ENODEV;
-+	}
-+
-+	/* setup device layout configuration */
-+	adev->dev = &pdev->dev;
-+	adev->range.start.col = 0;
-+	adev->range.size.col = match->num_columns;
-+	adev->range.start.row = 0;
-+	adev->range.size.row = match->mem_num_row + match->core_num_row + 1;
-+	adev->ttype_attr[AIE_TILE_TYPE_SHIMPL].start_row = 0;
-+	adev->ttype_attr[AIE_TILE_TYPE_SHIMPL].num_rows = 1;
-+	adev->ttype_attr[AIE_TILE_TYPE_SHIMNOC].start_row = 0;
-+	adev->ttype_attr[AIE_TILE_TYPE_SHIMNOC].num_rows = 0;
-+	adev->ttype_attr[AIE_TILE_TYPE_TILE].start_row = match->core_start_row;
-+	adev->ttype_attr[AIE_TILE_TYPE_TILE].num_rows = match->core_num_row;
-+	adev->ttype_attr[AIE_TILE_TYPE_MEMORY].start_row = match->mem_start_row;
-+	adev->ttype_attr[AIE_TILE_TYPE_MEMORY].num_rows = match->mem_num_row;
-+
-+	adev->dev_gen = match->aie_gen;
-+	if (adev->dev_gen == AIE_DEVICE_GEN_AIEMLV2) {
-+		aiemlv2_device_init(adev);
-+	} else {
-+		dev_err(&pdev->dev, "Device generation not supported\n");
-+		return -EINVAL;
-+	}
-+
-+	/*
-+	 * AI Engine platform management node ID is required for requesting
-+	 * services from firmware driver.
-+	 */
-+	ret = of_property_read_u32(pdev->dev.of_node, "xlnx,firmware-device-id",
-+				   &pm_reg);
-+	if (ret < 0) {
-+		dev_err(&pdev->dev,
-+			"Failed to read power management information\n");
-+		return ret;
-+	}
-+	adev->fw_dev_id = pm_reg;
-+
-+	adev->clk = devm_clk_get(&pdev->dev, "aclk0");
-+	if (IS_ERR(adev->clk)) {
-+		dev_err(&pdev->dev, "Failed to get device clock.\n");
-+		return PTR_ERR(adev->clk);
-+	}
-+
-+	adev->base = devm_platform_ioremap_resource(pdev, 0);
-+	if (IS_ERR(adev->base)) {
-+		dev_err(&pdev->dev, "Failed to map IO resources\n");
-+		return PTR_ERR(adev->base);
-+	}
-+
-+	/*
-+	 * Initialize columns resource map to remember which columns have been
-+	 * assigned. Used for partition management.
-+	 */
-+	ret = aie_resource_initialize(&adev->cols_res,
-+				      adev->range.size.col);
-+	if (ret) {
-+		dev_err(&pdev->dev, "failed to initialize columns resource.\n");
-+		return ret;
-+	}
-+
-+	dev_dbg(&pdev->dev,
-+		"AMD AI Engine device probed. Device generation: %u. Clock frequency: %luHz.\n",
-+		adev->dev_gen, clk_get_rate(adev->clk));
-+	dev_dbg(&pdev->dev,
-+		"AI engine cols(%u, %u) aie_tile_rows(%u, %u) memory_tile_rows(%u, %u)\n",
-+		adev->range.start.col, adev->range.size.col,
-+		adev->ttype_attr[AIE_TILE_TYPE_TILE].start_row,
-+		adev->ttype_attr[AIE_TILE_TYPE_TILE].num_rows,
-+		adev->ttype_attr[AIE_TILE_TYPE_MEMORY].start_row,
-+		adev->ttype_attr[AIE_TILE_TYPE_MEMORY].num_rows);
 +	return 0;
 +}
 +
-+static void amd_ai_engine_remove(struct platform_device *pdev)
++static int aiemlv2_maskpoll_noc_outstanding_aximm_txn(struct aie_partition *apart)
 +{
-+	struct aie_device *adev = platform_get_drvdata(pdev);
-+	struct aie_partition *apart, *lapart;
++	u32 end_col = apart->range.start.col + apart->range.size.col;
++	struct aie_location loc = {.row = 0};
++	int ret = 0;
++	u32 regoff;
 +
-+	mutex_lock(&adev->mlock);
-+	list_for_each_entry_safe(apart, lapart, &adev->partitions, node)
-+		aie_part_release(apart);
-+	mutex_unlock(&adev->mlock);
-+
-+	aie_resource_uninitialize(&adev->cols_res);
-+}
-+
-+static const struct aie_device_cfg versal2_aieml = {
-+	.num_columns = 32,
-+	.mem_start_row = 1,
-+	.mem_num_row = 2,
-+	.core_start_row = 3,
-+	.core_num_row = 4,
-+	.aie_gen = AIE_DEVICE_GEN_AIEMLV2,
-+};
-+
-+static const struct of_device_id amd_ai_engine_of_match[] = {
-+	{
-+		.compatible = "xlnx,versal2-aieml",
-+		.data = &versal2_aieml,
-+	},
-+	{ /* end of table */ },
-+};
-+MODULE_DEVICE_TABLE(of, amd_ai_engine_of_match);
-+
-+static struct platform_driver amd_ai_engine_driver = {
-+	.probe			= amd_ai_engine_probe,
-+	.remove			= amd_ai_engine_remove,
-+	.driver			= {
-+		.name		= "amd-ai-engine",
-+		.of_match_table	= amd_ai_engine_of_match,
-+	},
-+};
-+
-+static int __init amd_ai_engine_init(void)
-+{
-+	return platform_driver_register(&amd_ai_engine_driver);
-+}
-+module_init(amd_ai_engine_init);
-+
-+static void __exit amd_ai_engine_exit(void)
-+{
-+	platform_driver_unregister(&amd_ai_engine_driver);
-+}
-+module_exit(amd_ai_engine_exit);
-+
-+MODULE_AUTHOR("Advanced Micro Devices, Inc.");
-+MODULE_DESCRIPTION("AMD Versal AI Engine driver");
-+MODULE_LICENSE("GPL");
-diff --git a/drivers/accel/amd-ai-engine/ai-engine-internal.h b/drivers/accel/amd-ai-engine/ai-engine-internal.h
-new file mode 100644
-index 000000000000..61ebd7f4b3d1
---- /dev/null
-+++ b/drivers/accel/amd-ai-engine/ai-engine-internal.h
-@@ -0,0 +1,160 @@
-+/* SPDX-License-Identifier: GPL-2.0-only */
-+/*
-+ * AMD AI Engine driver internal header
-+ *
-+ * Copyright(C) 2026 Advanced Micro Devices, Inc. All rights reserved.
-+ */
-+
-+#ifndef AIE_INTERNAL_H
-+#define AIE_INTERNAL_H
-+
-+#include <linux/amd-ai-engine.h>
-+#include <linux/clk.h>
-+#include <linux/device.h>
-+#include <linux/io.h>
-+#include <linux/list.h>
-+#include <linux/mutex.h>
-+#include <linux/of.h>
-+#include <linux/of_platform.h>
-+#include <linux/platform_device.h>
-+
-+#define AIE_DEVICE_GEN_AIEMLV2	3U
-+
-+/*
-+ * Macros for AI engine tile type
-+ */
-+enum aie_tile_type {
-+	AIE_TILE_TYPE_TILE,
-+	AIE_TILE_TYPE_SHIMPL,
-+	AIE_TILE_TYPE_SHIMNOC,
-+	AIE_TILE_TYPE_MEMORY,
-+	AIE_TILE_TYPE_MAX
-+};
-+
-+struct aie_device;
-+struct aie_partition;
-+
-+/**
-+ * struct aie_tile_operations - AI engine device operations
-+ * @get_tile_type: get type of tile based on tile operation
-+ * Different AI engine device version has its own device
-+ * operation.
-+ */
-+struct aie_tile_operations {
-+	u32 (*get_tile_type)(struct aie_device *adev, struct aie_location *loc);
-+};
-+
-+/**
-+ * struct aie_resource - AI engine resource structure
-+ * @bitmap: resource bitmap
-+ * @total: total number of resource
-+ */
-+struct aie_resource {
-+	unsigned long *bitmap;
-+	u32 total;
-+};
-+
-+/**
-+ * struct aie_range - AIE range information
-+ * @start: start tile location
-+ * @size: size of the range, number of columns and rows
-+ */
-+struct aie_range {
-+	struct aie_location start;
-+	struct aie_location size;
-+};
-+
-+/**
-+ * struct aie_tile_attr - AI engine device tile type attributes
-+ * @start_row: start row
-+ * @num_rows: number of rows
-+ */
-+struct aie_tile_attr {
-+	u8 start_row;
-+	u8 num_rows;
-+};
-+
-+/**
-+ * struct aie_device - AI engine device structure
-+ * @partitions: list of partitions
-+ * @dev: device pointer for the AI engine device
-+ * @mlock: protection for AI engine device operations
-+ * @clk: AI engine device clock
-+ * @base: AI engine base virtual address
-+ * @ops: tile operations
-+ * @cols_res: AI engine columns resources to indicate
-+ *	      while columns are occupied by partitions.
-+ * @ttype_attr: tile type attributes
-+ * @range: range of whole AI engine
-+ * @array_shift: array address shift
-+ * @col_shift: column address shift
-+ * @row_shift: row address shift
-+ * @dev_gen: aie hardware device generation
-+ * @fw_dev_id: AI Engine firmware device ID
-+ */
-+struct aie_device {
-+	struct list_head partitions;
-+	struct device *dev;
-+	struct mutex mlock;
-+	struct clk *clk;
-+	void __iomem *base;
-+	const struct aie_tile_operations *ops;
-+	struct aie_resource cols_res;
-+	struct aie_tile_attr ttype_attr[AIE_TILE_TYPE_MAX];
-+	struct aie_range range;
-+	u32 array_shift;
-+	u32 col_shift;
-+	u32 row_shift;
-+	u32 dev_gen;
-+	u32 fw_dev_id;
-+};
-+
-+/**
-+ * struct aie_partition - AI engine partition structure
-+ * @node: list node
-+ * @dev: AI Engine partition device
-+ * @adev: pointer to AI device instance
-+ * @range: range of partition
-+ * @mlock: protection for AI engine partition operations
-+ */
-+struct aie_partition {
-+	struct list_head node;
-+	struct device dev;
-+	struct aie_device *adev;
-+	struct aie_range range;
-+	struct mutex mlock;
-+};
-+
-+/**
-+ * struct aie_device_cfg - AI engine device configuration and layout
-+ * @num_columns: number of columns in the device
-+ * @mem_start_row: start row index for memory tiles
-+ * @mem_num_row: number of memory tile rows
-+ * @core_start_row: start row index for core tiles
-+ * @core_num_row: number of core tile rows
-+ * @aie_gen: AI Engine generation
-+ */
-+struct aie_device_cfg {
-+	u8 num_columns;
-+	u8 mem_start_row;
-+	u8 mem_num_row;
-+	u8 core_start_row;
-+	u8 core_num_row;
-+	u8 aie_gen;
-+};
-+
-+#define dev_to_aiepart(_dev) container_of((_dev), struct aie_partition, dev)
-+
-+void aiemlv2_device_init(struct aie_device *adev);
-+struct aie_partition *aie_part_create(struct aie_device *adev,
-+				      u8 start_col, u8 num_col);
-+void aie_part_release(struct aie_partition *apart);
-+int aie_resource_initialize(struct aie_resource *res, int count);
-+void aie_resource_uninitialize(struct aie_resource *res);
-+int aie_resource_check_region(struct aie_resource *res, u32 start,
-+			      u32 count);
-+int aie_resource_get_region(struct aie_resource *res, u32 start,
-+			    u32 count);
-+void aie_resource_put_region(struct aie_resource *res, int start, u32 count);
-+
-+#endif /* AIE_INTERNAL_H */
-diff --git a/drivers/accel/amd-ai-engine/ai-engine-part.c b/drivers/accel/amd-ai-engine/ai-engine-part.c
-new file mode 100644
-index 000000000000..f80a6fa433aa
---- /dev/null
-+++ b/drivers/accel/amd-ai-engine/ai-engine-part.c
-@@ -0,0 +1,77 @@
-+// SPDX-License-Identifier: GPL-2.0
-+/*
-+ * AMD AI Engine partition implementation
-+ *
-+ * Copyright(C) 2026 Advanced Micro Devices, Inc. All rights reserved.
-+ */
-+
-+#include <linux/amd-ai-engine.h>
-+#include <linux/device.h>
-+#include <linux/list.h>
-+#include <linux/mutex.h>
-+
-+#include "ai-engine-internal.h"
-+
-+/**
-+ * aie_part_release() - release an AI engine partition instance
-+ * @apart: AI engine partition device
-+ */
-+void aie_part_release(struct aie_partition *apart)
-+{
-+	struct aie_device *adev = apart->adev;
-+
-+	list_del(&apart->node);
-+	aie_resource_put_region(&adev->cols_res,
-+				apart->range.start.col -
-+				adev->range.start.col,
-+				apart->range.size.col);
-+	device_unregister(&apart->dev);
-+}
-+
-+static void aie_part_release_device(struct device *dev)
-+{
-+	(void)dev;
-+}
-+
-+/**
-+ * aie_part_create() - create AI engine partition instance
-+ * @adev: AI engine device
-+ * @start_col: start column of AI engine partition
-+ * @num_col: number of columns of AI engine partition
-+ *
-+ * Return: created AI engine partition pointer for success, and PTR_ERR
-+ *	   for failure.
-+ */
-+struct aie_partition *aie_part_create(struct aie_device *adev,
-+				      u8 start_col, u8 num_col)
-+{
-+	struct aie_partition *apart;
-+	struct device *dev;
-+
-+	apart = devm_kzalloc(adev->dev, sizeof(*apart), GFP_KERNEL);
-+	if (!apart)
-+		return ERR_PTR(-ENOMEM);
-+
-+	apart->adev = adev;
-+	mutex_init(&apart->mlock);
-+	apart->range.start.col = start_col;
-+	apart->range.size.col = num_col;
-+	apart->range.start.row = adev->range.start.row;
-+	apart->range.size.row = adev->range.size.row;
-+
-+	/* create partition device */
-+	dev = &apart->dev;
-+	dev->parent = apart->adev->dev;
-+	dev_set_name(dev, "aiepart_%u_%u", apart->range.start.col,
-+		     apart->range.size.col);
-+	dev_set_drvdata(dev, apart);
-+	dev->release = aie_part_release_device;
-+
-+	if (device_register(&apart->dev)) {
-+		dev_err(adev->dev, "failed to register partition device\n");
-+		put_device(dev);
-+		return ERR_PTR(-ENODEV);
++	for (loc.col = apart->range.start.col; loc.col < end_col; loc.col++) {
++		regoff = aie_cal_regoff(apart->adev, loc,
++					AIEMLV2_SHIMNOC_AXI_OUTSTANDING_TX_REGOFF);
++		ret = aie_part_maskpoll_register(apart, regoff, 0x0,
++						 AIEMLV2_SHIMNOC_AXI_OUTSTANDING_TX_MASK,
++						 2000000);
++		if (ret < 0) {
++			dev_err(&apart->dev,
++				"failed due to outstanding NoC AXIMM transactions!\n");
++			return ret;
++		}
 +	}
 +
-+	return apart;
++	return 0;
++}
++
++static int aiemlv2_part_init(struct aie_partition *apart,
++			     struct aie_partition_init_args *args)
++{
++	u32 opts;
++	int ret;
++
++	mutex_lock(&apart->mlock);
++	opts = AIE_PART_INIT_OPT_ENB_UC_DMA_PAUSE | AIE_PART_INIT_OPT_ENB_NOC_DMA_PAUSE;
++	ret = aie_part_pm_ops(apart, NULL, opts, apart->range, 1);
++	if (ret)
++		goto out;
++
++	ret = aiemlv2_maskpoll_noc_outstanding_aximm_txn(apart);
++	if (ret)
++		goto out;
++
++	ret = aiemlv2_maskpoll_uc_outstanding_aximm_txn(apart);
++	if (ret)
++		goto out;
++
++	aie_resource_clear_all(&apart->tiles_inuse);
++	aie_resource_clear_all(&apart->cores_clk_state);
++
++	/* First lets send non-data aie_op_type_len ops */
++	opts = 0;
++	/* This operation will do first 4 steps of sequence */
++	opts |= (args->init_opts & AIE_PART_INIT_OPT_COLUMN_RST);
++	opts |= (args->init_opts & AIE_PART_INIT_OPT_SHIM_RST);
++	opts |= (args->init_opts & AIE_PART_INIT_OPT_BLOCK_NOCAXIMMERR);
++	opts |= (args->init_opts & AIE_PART_INIT_OPT_ENB_COLCLK_BUFF);
++
++	/*
++	 * push opts to pm and flush, these ops need to be completed before we
++	 * call the next ones
++	 */
++	ret = aie_part_pm_ops(apart, NULL, opts, apart->range, 1);
++	if (ret) {
++		dev_err(&apart->dev, "pm ops: 0x%x failed: %d\n", opts, ret);
++		goto out;
++	}
++
++	if (args->init_opts & AIE_PART_INIT_OPT_ZEROIZEMEM) {
++		opts |= AIE_PART_INIT_OPT_ZEROIZEMEM;
++		ret = aie_part_pm_ops(apart, NULL, AIE_PART_INIT_OPT_ZEROIZEMEM,
++				      apart->range, 1);
++		if (ret)
++			goto out;
++	}
++
++	if (args->init_opts & AIE_PART_INIT_OPT_UC_ZEROIZATION) {
++		u16 data = 0x6;
++
++		opts |= AIE_PART_INIT_OPT_UC_ZEROIZATION;
++		ret = aie_part_pm_ops(apart, &data, AIE_PART_INIT_OPT_UC_ZEROIZATION,
++				      apart->range, 1);
++		if (ret)
++			goto out;
++	}
++
++	if (args->init_opts & AIE_PART_INIT_OPT_NMU_CONFIG) {
++		struct aie_range range = {0};
++
++		opts |= AIE_PART_INIT_OPT_NMU_CONFIG;
++		if (apart->range.start.col == 0) {
++			range.size.col = 2;
++			ret = aie_part_pm_ops(apart, NULL, AIE_PART_INIT_OPT_NMU_CONFIG,
++					      range, 0);
++			if (ret)
++				goto out;
++		}
++	}
++
++	if (args->init_opts & AIE_PART_INIT_OPT_HW_ERR_INT) {
++		u16 data = 0;
++
++		opts |= AIE_PART_INIT_OPT_HW_ERR_INT;
++		ret = aie_part_pm_ops(apart, &data, AIE_PART_INIT_OPT_HW_ERR_INT,
++				      apart->range, 0);
++		if (ret)
++			goto out;
++	}
++
++	if (args->init_opts & AIE_PART_INIT_OPT_HW_ERR_MASK) {
++		u16 data = 0x2;
++
++		opts |= AIE_PART_INIT_OPT_HW_ERR_MASK;
++		ret = aie_part_pm_ops(apart, &data, AIE_PART_INIT_OPT_HW_ERR_MASK,
++				      apart->range, 0);
++		if (ret)
++			goto out;
++	}
++
++	if (args->init_opts & AIE_PART_INIT_OPT_SET_ECC_SCRUB_PERIOD) {
++		u16 data;
++
++		if (args->ecc_scrub > U16_MAX) {
++			ret = -EINVAL;
++			goto out;
++		}
++
++		data = args->ecc_scrub;
++		opts |= AIE_PART_INIT_OPT_SET_ECC_SCRUB_PERIOD;
++		ret = aie_part_pm_ops(apart, &data,
++				      AIE_PART_INIT_OPT_SET_ECC_SCRUB_PERIOD,
++				      apart->range, 0);
++		if (ret)
++			goto out;
++	}
++
++	if (args->init_opts & AIE_PART_INIT_OPT_UC_ENB_MEM_PRIV) {
++		opts |= AIE_PART_INIT_OPT_UC_ENB_MEM_PRIV;
++
++		ret = aie_part_pm_ops(apart, NULL, AIE_PART_INIT_OPT_UC_ENB_MEM_PRIV,
++				      apart->range, 0);
++		if (ret)
++			goto out;
++	}
++
++	/* Request tile locations */
++	ret = aie_part_request_tiles(apart, args->num_tiles, args->locs);
++	if (ret)
++		goto out;
++
++	if (args->init_opts & AIE_PART_INIT_OPT_DIS_TLAST_ERROR) {
++		u16 data = 0;
++
++		opts |= AIE_PART_INIT_OPT_DIS_TLAST_ERROR;
++		ret = aie_part_pm_ops(apart, &data,
++				      AIE_PART_INIT_OPT_DIS_TLAST_ERROR,
++				      apart->range, 1);
++		if (ret)
++			goto out;
++	}
++
++	if (opts != args->init_opts)
++		dev_warn(&apart->dev, "Invalid init_opts: 0x%x\n", opts ^ args->init_opts);
++
++out:
++	mutex_unlock(&apart->mlock);
++	return ret;
++}
++
++static int aiemlv2_part_teardown(struct aie_partition *apart)
++{
++	u32 opts;
++	u16 data;
++	int ret;
++
++	mutex_lock(&apart->mlock);
++
++	opts = AIE_PART_INIT_OPT_ENB_UC_DMA_PAUSE | AIE_PART_INIT_OPT_ENB_NOC_DMA_PAUSE;
++	ret = aie_part_pm_ops(apart, NULL, opts, apart->range, 1);
++	if (ret)
++		goto out;
++
++	ret = aiemlv2_maskpoll_noc_outstanding_aximm_txn(apart);
++	if (ret)
++		goto out;
++
++	ret = aiemlv2_maskpoll_uc_outstanding_aximm_txn(apart);
++	if (ret)
++		goto out;
++
++	opts = AIE_PART_INIT_OPT_COLUMN_RST |
++	       AIE_PART_INIT_OPT_SHIM_RST |
++	       AIE_PART_INIT_OPT_ZEROIZEMEM;
++	ret = aie_part_pm_ops(apart, NULL, opts, apart->range, 0);
++	if (ret)
++		goto out;
++
++	/* Zeroizes the uc-DM and uc shared DM */
++	data = 0x6;
++	ret = aie_part_pm_ops(apart, &data, AIE_PART_INIT_OPT_UC_ZEROIZATION, apart->range, 1);
++	if (ret)
++		goto out;
++	ret = aie_part_pm_ops(apart, NULL, AIE_PART_INIT_OPT_DIS_COLCLK_BUFF, apart->range, 0);
++	if (ret)
++		goto out;
++	ret = aie_part_pm_ops_flush(apart);
++	if (ret)
++		goto out;
++
++	/* Clear resources */
++	aie_resource_clear_all(&apart->tiles_inuse);
++	aie_resource_clear_all(&apart->cores_clk_state);
++
++out:
++	mutex_unlock(&apart->mlock);
++
++	return ret;
++}
++
+ static const struct aie_tile_operations aiemlv2_ops = {
+ 	.get_tile_type = aiemlv2_get_tile_type,
+ 	.scan_part_clocks = aiemlv2_scan_part_clocks,
+ 	.set_part_clocks = aiemlv2_set_part_clocks,
++	.part_init = aiemlv2_part_init,
++	.part_teardown = aiemlv2_part_teardown,
+ };
+ 
+ /**
+diff --git a/drivers/accel/amd-ai-engine/ai-engine-internal.h b/drivers/accel/amd-ai-engine/ai-engine-internal.h
+index 572476c97aad..64691223ff9c 100644
+--- a/drivers/accel/amd-ai-engine/ai-engine-internal.h
++++ b/drivers/accel/amd-ai-engine/ai-engine-internal.h
+@@ -49,6 +49,8 @@ struct aie_partition;
+  *		     caller to apply partition lock before calling this
+  *		     function. The caller function will need to set the bitmap
+  *		     on which tiles are required to be clocked on.
++ * @part_init: initialize partition with user options.
++ * @part_teardown: teardown partition
+  * Different AI engine device version has its own device
+  * operation.
+  */
+@@ -56,6 +58,9 @@ struct aie_tile_operations {
+ 	u32 (*get_tile_type)(struct aie_device *adev, struct aie_location *loc);
+ 	int (*scan_part_clocks)(struct aie_partition *apart);
+ 	int (*set_part_clocks)(struct aie_partition *apart);
++	int (*part_init)(struct aie_partition *apart,
++			 struct aie_partition_init_args *args);
++	int (*part_teardown)(struct aie_partition *apart);
+ };
+ 
+ /**
+@@ -360,10 +365,13 @@ int aie_resource_get_region(struct aie_resource *res, u32 start,
+ void aie_resource_put_region(struct aie_resource *res, int start, u32 count);
+ int aie_resource_set(struct aie_resource *res, u32 start, u32 count);
+ int aie_resource_clear(struct aie_resource *res, u32 start, u32 count);
++int aie_resource_clear_all(struct aie_resource *res);
+ bool aie_resource_testbit(struct aie_resource *res, u32 bit);
+ int aie_part_pm_ops_create(struct aie_partition *apart);
+ void aie_part_pm_ops_destroy(struct aie_partition *apart);
+ int aie_part_pm_ops_flush(struct aie_partition *apart);
+ int aie_part_pm_ops(struct aie_partition *apart, void *data, u32 type,
+ 		    struct aie_range range, bool flush);
++int aie_part_maskpoll_register(struct aie_partition *apart, u32 offset, u32 data,
++			       u32 mask, u32 timeout);
+ #endif /* AIE_INTERNAL_H */
+diff --git a/drivers/accel/amd-ai-engine/ai-engine-part.c b/drivers/accel/amd-ai-engine/ai-engine-part.c
+index 35451d1ed88a..2cd93c02246e 100644
+--- a/drivers/accel/amd-ai-engine/ai-engine-part.c
++++ b/drivers/accel/amd-ai-engine/ai-engine-part.c
+@@ -6,6 +6,7 @@
+  */
+ 
+ #include <linux/amd-ai-engine.h>
++#include <linux/delay.h>
+ #include <linux/device.h>
+ #include <linux/list.h>
+ #include <linux/mutex.h>
+@@ -106,3 +107,34 @@ struct aie_partition *aie_part_create(struct aie_device *adev,
+ 	device_unregister(&apart->dev);
+ 	return ERR_PTR(ret);
+ }
++
++/**
++ * aie_part_maskpoll_register() - Mask polls an address for a data in a partition.
++ * @apart: AI engine partition.
++ * @offset: AI engine register offset.
++ * @data: data to poll.
++ * @mask: if it is non 0, it is mask read.
++ * @timeout: Timeout in microseconds.
++ *
++ * Return: zero for success, or -EBUSY for failure
++ */
++int aie_part_maskpoll_register(struct aie_partition *apart, u32 offset, u32 data,
++			       u32 mask, u32 timeout)
++{
++	u32 usleep_time = 10;
++	u32 value;
++	u32 i;
++
++	for (i = 0; i < timeout; i += usleep_time) {
++		value = readl(apart->adev->base + offset);
++		if ((value & mask) == data)
++			return 0;
++		usleep_range(usleep_time, usleep_time + 10);
++	}
++
++	value = readl(apart->adev->base + offset);
++	if ((value & mask) == data)
++		return 0;
++
++	return -EBUSY;
 +}
 diff --git a/drivers/accel/amd-ai-engine/ai-engine-res.c b/drivers/accel/amd-ai-engine/ai-engine-res.c
-new file mode 100644
-index 000000000000..62df26edf87d
---- /dev/null
+index 45b9447d896f..d35c27141cdd 100644
+--- a/drivers/accel/amd-ai-engine/ai-engine-res.c
 +++ b/drivers/accel/amd-ai-engine/ai-engine-res.c
-@@ -0,0 +1,112 @@
+@@ -151,6 +151,22 @@ int aie_resource_clear(struct aie_resource *res, u32 start, u32 count)
+ 	return 0;
+ }
+ 
++/**
++ * aie_resource_clear_all() - clear all the AI engine resource bits
++ * @res: pointer to AI engine resource
++ * @return: 0 for success and negative value for failure
++ *
++ * This function clears all the bits in the resource.
++ */
++int aie_resource_clear_all(struct aie_resource *res)
++{
++	if (!res || !res->bitmap)
++		return -EINVAL;
++
++	bitmap_clear(res->bitmap, 0, res->total);
++	return 0;
++}
++
+ /**
+  * aie_resource_testbit() - test if a bit is set in a AI engine resource
+  * @res: pointer to AI engine resource
+diff --git a/drivers/accel/amd-ai-engine/ai-engine-reset.c b/drivers/accel/amd-ai-engine/ai-engine-reset.c
+new file mode 100644
+index 000000000000..f34d8d687d0e
+--- /dev/null
++++ b/drivers/accel/amd-ai-engine/ai-engine-reset.c
+@@ -0,0 +1,69 @@
 +// SPDX-License-Identifier: GPL-2.0
 +/*
-+ * AMD AI Engine resource implementation
++ * AMD AI Engine device driver reset implementation
 + *
-+ * Copyright(C) 2026 Advanced Micro Devices, Inc. All rights reserved.
++ * Copyright (C) 2025 Advanced Micro Devices, Inc.
 + */
 +
-+#include <linux/bitmap.h>
++#include <linux/amd-ai-engine.h>
++#include <linux/firmware/xlnx-zynqmp.h>
++#include <linux/io.h>
++#include <linux/mutex.h>
 +
 +#include "ai-engine-internal.h"
 +
 +/**
-+ * aie_resource_initialize() - initialize AI engine resource
-+ * @res: pointer to AI engine resource
-+ * @count: total number of element of this resource
++ * aie_partition_initialize() - AI engine partition initialization
++ * @dev: AI engine partition device
++ * @args: User initialization options
 + *
-+ * Return: 0 for success, negative value for failure.
++ * Return: 0 for success and negative value for failure
 + *
-+ * This function will initialize the data structure for the
-+ * resource.
++ * Based on user passed options this function will:
++ * - enable column and shim reset
++ * - ungate all columns
++ * - disable column reset
++ * - zeroize memories
++ * - setup NMU traffic and hardware error reporting
 + */
-+int aie_resource_initialize(struct aie_resource *res, int count)
++int aie_partition_initialize(struct device *dev,
++			     struct aie_partition_init_args *args)
 +{
-+	res->bitmap = bitmap_zalloc(count, GFP_KERNEL);
-+	if (!res->bitmap)
-+		return -ENOMEM;
-+	res->total = count;
++	struct aie_partition *apart;
 +
-+	return 0;
-+}
-+
-+/**
-+ * aie_resource_uninitialize() - uninitialize AI engine resource
-+ * @res: pointer to AI engine resource
-+ *
-+ * This function will release the AI engine resource data members.
-+ */
-+void aie_resource_uninitialize(struct aie_resource *res)
-+{
-+	res->total = 0;
-+	if (res->bitmap)
-+		bitmap_free(res->bitmap);
-+}
-+
-+/**
-+ * aie_resource_check_region() - check availability of requested resource
-+ * @res: pointer to AI engine resource to check
-+ * @start: start index of the required resource
-+ * @count: number of requested element
-+ *
-+ * Return: start resource id if the requested number of resources are available
-+ *	   It will return negative value of errors.
-+ *
-+ * This function will check the availability. It will return start resource id
-+ * if the requested number of resources are available.
-+ */
-+int aie_resource_check_region(struct aie_resource *res,
-+			      u32 start, u32 count)
-+{
-+	unsigned long id;
-+
-+	if (!res || !res->bitmap || !count)
++	if (!dev || !args)
 +		return -EINVAL;
-+	id = bitmap_find_next_zero_area(res->bitmap, res->total, start,
-+					count, 0);
-+	if (id >= res->total)
-+		return -ERANGE;
 +
-+	return (int)id;
++	apart = dev_to_aiepart(dev);
++	if (apart->adev->ops->part_init)
++		return apart->adev->ops->part_init(apart, args);
++
++	return -EINVAL;
 +}
++EXPORT_SYMBOL_GPL(aie_partition_initialize);
 +
 +/**
-+ * aie_resource_get_region() - get requested AI engine resource
-+ * @res: pointer to AI engine resource to check
-+ * @start: start index of the required resource
-+ * @count: number of requested element
++ * aie_partition_teardown() - AI engine partition teardown
++ * @dev: AI engine partition device
 + *
-+ * Return: start resource id for success, and negative value for failure.
++ * Return: 0 for success and negative value for failure
 + *
-+ * This function check if the requested AI engine resource is available.
-+ * If it is available, mark it used and return the start resource id.
++ * This function will:
++ * - reset columns and shim
++ * - zeroize memories
++ * - gate all columns
 + */
-+int aie_resource_get_region(struct aie_resource *res, u32 start, u32 count)
++int aie_partition_teardown(struct device *dev)
 +{
-+	unsigned long off;
++	struct aie_partition *apart;
 +
-+	if (!res || !res->bitmap || !count)
++	if (!dev)
 +		return -EINVAL;
-+	off = bitmap_find_next_zero_area(res->bitmap, res->total, start,
-+					 count, 0);
-+	if (off >= res->total)
-+		return -ERANGE;
 +
-+	bitmap_set(res->bitmap, off, count);
++	apart = dev_to_aiepart(dev);
++	if (apart->adev->ops->part_teardown)
++		return apart->adev->ops->part_teardown(apart);
 +
-+	return (int)off;
++	return -EINVAL;
 +}
-+
-+/**
-+ * aie_resource_put_region() - release requested AI engine resource
-+ * @res: pointer to AI engine resource to check
-+ * @start: start index of the resource to release
-+ * @count: number of elements to release
-+ *
-+ * This function release the requested AI engine resource.
-+ */
-+void aie_resource_put_region(struct aie_resource *res, int start, u32 count)
-+{
-+	if (!res || !count)
-+		return;
-+	bitmap_clear(res->bitmap, start, count);
-+}
++EXPORT_SYMBOL_GPL(aie_partition_teardown);
 diff --git a/include/linux/amd-ai-engine.h b/include/linux/amd-ai-engine.h
-new file mode 100644
-index 000000000000..f5750d219e21
---- /dev/null
+index 229434372fc0..95884b782742 100644
+--- a/include/linux/amd-ai-engine.h
 +++ b/include/linux/amd-ai-engine.h
-@@ -0,0 +1,59 @@
-+/* SPDX-License-Identifier: GPL-2.0-or-later */
+@@ -94,6 +94,22 @@ struct aie_op_handshake_data {
+ 	struct aie_location loc;
+ };
+ 
 +/*
-+ * amd-ai-engine.h - AMD AI engine external interface
-+ *
-+ * Copyright(C) 2026 Advanced Micro Devices, Inc. All rights reserved.
++ * struct aie_partition_init_args - AIE partition initialization arguments
++ * @locs: Allocated array of tile locations that will be used
++ * @num_tiles: Number of tiles to use
++ * @init_opts: Partition initialization options
++ * @ecc_scrub: ecc_scrub period.
 + */
-+
-+#ifndef _AMD_AI_ENGINE_H_
-+#define _AMD_AI_ENGINE_H_
-+
-+#include <linux/device.h>
-+#include <linux/list.h>
-+#include <linux/mutex.h>
-+
-+#define AIE_PART_ID_START_COL_SHIFT	0U
-+#define AIE_PART_ID_NUM_COLS_SHIFT	8U
-+#define AIE_PART_ID_START_COL_MASK	(0xFFU << AIE_PART_ID_START_COL_SHIFT)
-+#define AIE_PART_ID_NUM_COLS_MASK	(0xFFU << AIE_PART_ID_NUM_COLS_SHIFT)
-+
-+#define aie_part_id_get_val(part_id, F) \
-+	(((part_id) & AIE_PART_ID_##F ##_MASK) >> AIE_PART_ID_##F ##_SHIFT)
-+#define aie_part_id_get_start_col(part_id) \
-+	aie_part_id_get_val((part_id), START_COL)
-+#define aie_part_id_get_num_cols(part_id) \
-+	aie_part_id_get_val((part_id), NUM_COLS)
-+#define aie_calc_part_id(start_col, num_col) \
-+	(((start_col) << AIE_PART_ID_START_COL_SHIFT) + \
-+	 ((num_col) << AIE_PART_ID_NUM_COLS_SHIFT))
-+
-+/**
-+ * struct aie_partition_req - AIE request partition arguments
-+ * @partition_id: partition node id. It is used to identify the AI engine
-+ *		  partition. Its format is:
-+ *		  Reserved_16bits | start_col_8bits | num_cols_8bits
-+ * @meta_data: meta data to indicate which resources used by application.
-+ * @flag: used for application to indicate particular driver requirements
-+ *	  application wants to have for the partition. e.g. do not clean
-+ *	  resource when closing the partition.
-+ */
-+struct aie_partition_req {
-+	u32 partition_id;
-+	u64 meta_data;
-+	u32 flag;
++struct aie_partition_init_args {
++	struct aie_location *locs;
++	u32 num_tiles;
++	u32 init_opts;
++	u32 ecc_scrub;
 +};
 +
-+/**
-+ * struct aie_location - AIE location information
-+ * @col: column id
-+ * @row: row id
-+ */
-+struct aie_location {
-+	u32 col;
-+	u32 row;
-+};
-+
-+struct device *aie_partition_request(struct device *dev, struct aie_partition_req *req);
-+void aie_partition_release(struct device *dev);
-+
-+#endif
+ struct device *aie_partition_request(struct device *dev, struct aie_partition_req *req);
+ void aie_partition_release(struct device *dev);
++int aie_partition_initialize(struct device *dev, struct aie_partition_init_args *args);
++int aie_partition_teardown(struct device *dev);
+ #endif
 -- 
 2.34.1
 
