@@ -2,71 +2,65 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 85CC4606A32C
-	for <dri-devel@archiver.kernel.org>; Wed, 18 Nov 2026 13:46:55 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=c+HPaTxE
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D2554606A31C
+	for <dri-devel@archiver.kernel.org>; Wed, 18 Nov 2026 13:47:09 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id B19C310FC3F;
-	Wed, 18 Nov 2026 13:46:49 +0000 (UTC)
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.17])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 52E2D10FCB6
- for <dri-devel@lists.freedesktop.org>; Wed, 18 Nov 2026 13:46:43 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1795009604; x=1826545604;
- h=from:to:cc:subject:in-reply-to:references:date:
- message-id:mime-version;
- bh=2nnrO4vW63S4GPqF/HfHgssdOyQWdoQo7DzmIusuWfA=;
- b=c+HPaTxEsNoLs28n8g1ouM/f1382um3gFBDANvHcB4zVM7qe4kNp3Cwd
- V0tz0jzY3eeSdpCwOs1EuK1d95B6V0cy7WVeeqMyh+gQOrXhJ5K+MpBoD
- uFaoaoIap+75EytyNVsT8Y84+cwOu0sd1Uv/ZOwZKlKcLLQocIz6TvJeG
- NsVEolmxbyFHgkdMCGf3IkeDcZeyOONJORpqcEduxWFtHb8I/XpwoLizV
- ysLQs4vJpX3BniEkr5zTMxZpjsZ2A32NsW4EoIPDs0gHYd63kLQiBhJsV
- NW9T2MQgOCgl6CzeSvMjC4fxH4C3ADZZB7C8m8Sd0WoqQzWlQgszxCI6g A==;
-X-CSE-ConnectionGUID: LDYP9dCcRxm3VXiPiER1Ug==
-X-CSE-MsgGUID: 2qoxeuO7SUm+kCky1S/2hQ==
-X-IronPort-AV: E=McAfee;i="6800,10657,11969"; a="3832562"
-X-IronPort-AV: E=Sophos;i="6.27,219,1787036400"; 
-   d="scan'208";a="3832562"
-Received: from fmviesa003.fm.intel.com ([10.60.135.143])
- by orvoesa109.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 18 Nov 2026 05:46:43 -0800
-X-CSE-ConnectionGUID: +4Irg2mMRy+xLgtdAm7AVg==
-X-CSE-MsgGUID: FTsun9RMTbO3UigHOLuUAQ==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,219,1787036400"; d="scan'208";a="10287359"
-Received: from mkosciow-mobl1.ger.corp.intel.com (HELO localhost)
- ([10.245.244.187])
- by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 18 Nov 2026 05:46:38 -0800
-From: Jani Nikula <jani.nikula@linux.intel.com>
-To: Xin Ji <xji@analogixsemi.com>, Xin Ji
- <anx-upstream@analogixsemi.com.cn>, Andrzej Hajda
- <andrzej.hajda@intel.com>, Neil Armstrong <neil.armstrong@linaro.org>,
- Robert Foss <rfoss@kernel.org>, Laurent Pinchart
- <Laurent.pinchart@ideasonboard.com>, Jonas Karlman <jonas@kwiboo.se>,
- Jernej Skrabec <jernej.skrabec@gmail.com>, Luca Ceresoli
- <luca.ceresoli@bootlin.com>, Maarten Lankhorst
- <maarten.lankhorst@linux.intel.com>, Maxime Ripard <mripard@kernel.org>,
- Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>,
- Simona Vetter <simona@ffwll.ch>
-Cc: Bernie Liang <bliang@analogixsemi.com>, Qilin Wen
- <qwen@analogixsemi.com>, "fshao@chromium.org" <fshao@chromium.org>,
- "dri-devel@lists.freedesktop.org" <dri-devel@lists.freedesktop.org>,
- "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>
-Subject: RE: [PATCH] drm/bridge: anx7625: switch to drm_edid_read_custom()
-In-Reply-To: <DM6PR04MB697059DAFCE167EB7CAE9B43C77C2@DM6PR04MB6970.namprd04.prod.outlook.com>
-Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park,
- 6 krs Bertel Jungin Aukio 5, 02600 Espoo, Finland
-References: <20261116023740.2257699-1-anx-upstream@analogixsemi.com.cn>
- <d1553faf45c5651feefd667a3decb454fc596415@intel.com>
- <DM6PR04MB697059DAFCE167EB7CAE9B43C77C2@DM6PR04MB6970.namprd04.prod.outlook.com>
-Date: Wed, 18 Nov 2026 15:46:36 +0200
-Message-ID: <6fab6bf1beef0c38b95f0b3e628237ef2142f5b8@intel.com>
+	by gabe.freedesktop.org (Postfix) with ESMTP id D8BA910FC68;
+	Wed, 18 Nov 2026 13:47:08 +0000 (UTC)
+Received: from mail-dy2-f4.google.com (mail-dy2-f4.google.com [74.125.229.4])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 22A4410F77B
+ for <dri-devel@lists.freedesktop.org>; Wed, 18 Nov 2026 09:47:49 +0000 (UTC)
+Received: by mail-dy2-f4.google.com with SMTP id
+ 5a478bee46e88-36f2f262b19so270498eec.1
+ for <dri-devel@lists.freedesktop.org>; Wed, 18 Nov 2026 01:47:49 -0800 (PST)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20260707; t=1794995268; x=1795600068;
+ h=content-transfer-encoding:mime-version:references:in-reply-to
+ :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+ :to:cc:subject:date:message-id:reply-to:content-type;
+ bh=KM7bxNDm4tFHwlDQNyh8RZa9Lttc4laoB3Fany5rano=;
+ b=tnSpkTvHJZqr7N9n/gYQkXqIOBTGAwdIOXpsgMFlFPY/9yT0stkOKvn8SRB6ePPlSf
+ y8iDmS5KXOYSFwbeDpGvhTNIZcxeMt1SgC9J0+YiAfitkq8hKdL3DqiyzbXuwNA+ZDrf
+ EWvXYbtNa72+IZFj9V4SFoL9t+hpXM7GeBaAPYUJOOAFaI7A9ZQ2aoDuFF99dpR17L5i
+ plEfyZ34CAwwN15vGkqja0OZwq0s3BI4NC6QaK7XRi5IQBiyKBiFdgiXCm3+GyBTofNW
+ T3OHqY6U/Y7dzZCxVZfsOyq36PxnqGmm4WzIbtGxfdXYYI/e8jFhK50190BZMKKgAfNA
+ StWg==
+X-Gm-Message-State: APuU4Z8fzCLSemQ1EaDsI8aNBwFzHsmeFtkNi8zts6C30ImTxvq6RJvY
+ 2L6yWi2cPueIOe2ZO2ctemP2eLjmaXwo05UumvLTYVrMOd+/KHmuvp0w
+X-Gm-Gg: AYBFou1HpDCoJfPHD+chAj8ouMxGlDwR4dGUpLa+A142scy3KD219toIoC1EwLNjSvY
+ VQeyPN/Y9XH+6YhwECGrfjIi0OTvZCYaIXWzHznJKCwBusXNTa3Z0oc3Jj/hK6dlfQfJZBM8Jog
+ 5yp0V0fFY51XKaHQ4LHmPkb1UbjxH68t1S+FEgKE5n1WTYcv87HwXcluZeyUvJKwlphU0JXYR+m
+ lRZM7dBBugzxcEV0tx+7P+Q2wR2tRLMOd4F2BVkAo8hP9HcbhPl6CdohHjKZRUFrzpTRKN7qTOH
+ l/rqLey1tkLWCHUN2uaoO8W79orPECAp7guv239Z2YuaxwKv07GTcotycnRyRNho+COAUgLbEBk
+ 55cwhXLFUpAmneIxtm8/qa00FLO5OqvGrYhinV4HJrt28Yio9yODGHVHILV/juicb+NMEqS2NAb
+ KAPqhdMJNxtsGe69CO4rI5GMYnM1O6d28MoJLqxDJitkK8j+qvRiKnauYHK3tN/vayArhn3be0E
+ z40EKpgDMTQaov1FULafXNQ3VE6BBasBoKbNUNrFxw3hgzZFkZ9B/CHEZy4RMjqTXqaPRjgpuY/
+ lRt1fmAiz0H2Xqor6VrKBXZV2BTIkWepvx2n0Ai6kwD549s=
+X-Received: by 2002:a05:701b:21d3:10b0:1b4:fa58:9d3 with SMTP id
+ a92af1059eb24-1b543cebc62mr2083348c88.24.1794995268266; 
+ Wed, 18 Nov 2026 01:47:48 -0800 (PST)
+Received: from pjhArchLinux ([199.102.217.182])
+ by smtp.gmail.com with ESMTPSA id
+ a92af1059eb24-1b544784017sm5326510c88.4.2026.11.18.01.47.45
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Wed, 18 Nov 2026 01:47:47 -0800 (PST)
+From: pjh456 <147148383@qq.com>
+To: Neil Armstrong <neil.armstrong@linaro.org>
+Cc: dri-devel@lists.freedesktop.org, Jessica Zhang <jesszhan0024@gmail.com>,
+ Maxime Ripard <mripard@kernel.org>, Rob Herring <robh@kernel.org>,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>
+Subject: [PATCH v2 3/3] drm/panel: ilitek-ili9881c: add Industio Purple Pi OH
+ panel
+Date: Wed, 18 Nov 2026 17:47:20 +0800
+Message-ID: <20261118094720.110127-4-147148383@qq.com>
+X-Mailer: git-send-email 2.56.1
+In-Reply-To: <20261118094720.110127-1-147148383@qq.com>
+References: <20261118094720.110127-1-147148383@qq.com>
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain
+Content-Transfer-Encoding: 8bit
+X-Mailman-Approved-At: Wed, 18 Nov 2026 13:47:08 +0000
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -78,315 +72,286 @@ List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-13.8 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
-	DKIM_SIGNED,DKIM_VALID,HEADER_FROM_DIFFERENT_DOMAINS,
+X-Spam-Status: No, score=-13.8 required=3.0 tests=BAYES_00,
+	FREEMAIL_FORGED_FROMDOMAIN,FREEMAIL_FROM,HEADER_FROM_DIFFERENT_DOMAINS,
 	INCLUDES_CR_TRAILER,INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,
-	SPF_PASS autolearn=unavailable autolearn_force=no version=4.0.1
+	SPF_PASS,USER_AGENT_GIT autolearn=ham autolearn_force=no version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-On Mon, 16 Nov 2026, Xin Ji <xji@analogixsemi.com> wrote:
->> > From: Xin Ji <xji@analogixsemi.com>
->> >
->> > Currently, sp_tx_get_edid_block() only reads the base block extension
->> > count at 0x7e and ignores CTA-861 HF-EEODB overrides in block 1. On
->> > displays using HF-EEODB, the driver only reads 2 blocks, which
->> > drm_edid_valid() then rejects due to the size mismatch.
->> > Switch to drm_edid_read_custom() with a per-block read callback so DRM
->> > core handles block count discovery (including HF-EEODB and >4 blocks)
->> > and validation automatically.
->> 
->> Yay!
->> 
->> It warms my heart that the work I put in drm_edid.c to handle HF-EEODB still
->> keeps paying off, and people can enable the complexity of it by
->> *simplifying* the driver code. :)
->
-> Yes, thanks! The HF-EEODB handling in drm_edid.c has been very helpful.
-> It's great to see it paying off.
->
->> 
->> > Signed-off-by: Xin Ji <xji@analogixsemi.com>
->> > ---
->> >  drivers/gpu/drm/bridge/analogix/anx7625.c | 172 +++++-----------------
->> >  drivers/gpu/drm/bridge/analogix/anx7625.h |   4 -
->> >  2 files changed, 33 insertions(+), 143 deletions(-)
->> >
->> > diff --git a/drivers/gpu/drm/bridge/analogix/anx7625.c
->> > b/drivers/gpu/drm/bridge/analogix/anx7625.c
->> > index c3af88e14f8b..eb503be005e0 100644
->> > --- a/drivers/gpu/drm/bridge/analogix/anx7625.c
->> > +++ b/drivers/gpu/drm/bridge/analogix/anx7625.c
->> > @@ -1022,27 +1022,6 @@ static int sp_tx_aux_rd(struct anx7625_data *ctx,
->> u8 len_cmd)
->> >       return (ret | wait_aux_op_finish(ctx));  }
->> >
->> > -static int sp_tx_get_edid_block(struct anx7625_data *ctx) -{
->> > -     int c = 0;
->> > -     struct device *dev = ctx->dev;
->> > -
->> > -     sp_tx_aux_wr(ctx, 0x7e);
->> > -     sp_tx_aux_rd(ctx, 0x01);
->> > -     c = anx7625_reg_read(ctx, ctx->i2c.rx_p0_client, AP_AUX_BUFF_START);
->> > -     if (c < 0) {
->> > -             DRM_DEV_ERROR(dev, "IO error : access AUX BUFF.\n");
->> > -             return -EIO;
->> > -     }
->> > -
->> > -     DRM_DEV_DEBUG_DRIVER(dev, " EDID Block = %d\n", c + 1);
->> > -
->> > -     if (c > MAX_EDID_BLOCK)
->> > -             c = 1;
->> > -
->> > -     return c;
->> > -}
->> > -
->> >  static int edid_read(struct anx7625_data *ctx,
->> >                    u8 offset, u8 *pblock_buf)  { @@ -1123,18 +1102,16
->> > @@ static int segments_edid_read(struct anx7625_data *ctx,
->> >       return ret;
->> >  }
->> >
->> > -static int sp_tx_edid_read(struct anx7625_data *ctx,
->> > -                        u8 *pedid_blocks_buf)
->> > +static int anx7625_get_edid_block(void *data, u8 *buf, unsigned int
->> > +block, size_t len)
->> >  {
->> > +     struct anx7625_data *ctx = data;
->> >       u8 offset;
->> > -     int edid_pos;
->> > -     int count, blocks_num;
->> > -     u8 pblock_buf[MAX_DPCD_BUFFER_SIZE];
->> > -     u8 i, j;
->> > -     int g_edid_break = 0;
->> > -     int ret;
->> > +     int ret, i;
->> >       struct device *dev = ctx->dev;
->> >
->> > +     if (len != EDID_LENGTH || block > 255)
->> > +             return -EINVAL;
->> > +
->> >       /* Address initial */
->> >       ret = anx7625_reg_write(ctx, ctx->i2c.rx_p0_client,
->> >                               AP_AUX_ADDR_7_0, 0x50); @@ -1147,85
->> > +1124,18 @@ static int sp_tx_edid_read(struct anx7625_data *ctx,
->> >               return -EIO;
->> >       }
->> >
->> > -     blocks_num = sp_tx_get_edid_block(ctx);
->> > -     if (blocks_num < 0)
->> > -             return blocks_num;
->> > -
->> > -     count = 0;
->> > -
->> > -     do {
->> > -             switch (count) {
->> > -             case 0:
->> > -             case 1:
->> > -                     for (i = 0; i < 8; i++) {
->> > -                             offset = (i + count * 8) * MAX_DPCD_BUFFER_SIZE;
->> > -                             g_edid_break = edid_read(ctx, offset,
->> > -                                                      pblock_buf);
->> > -
->> > -                             if (g_edid_break < 0)
->> > -                                     break;
->> > -
->> > -                             memcpy(&pedid_blocks_buf[offset],
->> > -                                    pblock_buf,
->> > -                                    MAX_DPCD_BUFFER_SIZE);
->> > -                     }
->> > -
->> > -                     break;
->> > -             case 2:
->> > -                     offset = 0x00;
->> > -
->> > -                     for (j = 0; j < 8; j++) {
->> > -                             edid_pos = (j + count * 8) *
->> > -                                     MAX_DPCD_BUFFER_SIZE;
->> > -
->> > -                             if (g_edid_break == 1)
->> > -                                     break;
->> > -
->> > -                             ret = segments_edid_read(ctx, count / 2,
->> > -                                                      pblock_buf, offset);
->> > -                             if (ret < 0)
->> > -                                     return ret;
->> > -
->> > -                             memcpy(&pedid_blocks_buf[edid_pos],
->> > -                                    pblock_buf,
->> > -                                    MAX_DPCD_BUFFER_SIZE);
->> > -                             offset = offset + 0x10;
->> > -                     }
->> > -
->> > -                     break;
->> > -             case 3:
->> > -                     offset = 0x80;
->> > -
->> > -                     for (j = 0; j < 8; j++) {
->> > -                             edid_pos = (j + count * 8) *
->> > -                                     MAX_DPCD_BUFFER_SIZE;
->> > -                             if (g_edid_break == 1)
->> > -                                     break;
->> > -
->> > -                             ret = segments_edid_read(ctx, count / 2,
->> > -                                                      pblock_buf, offset);
->> > -                             if (ret < 0)
->> > -                                     return ret;
->> > -
->> > -                             memcpy(&pedid_blocks_buf[edid_pos],
->> > -                                    pblock_buf,
->> > -                                    MAX_DPCD_BUFFER_SIZE);
->> > -                             offset = offset + 0x10;
->> > -                     }
->> > -
->> > -                     break;
->> > -             default:
->> > -                     break;
->> > -             }
->> > -
->> > -             count++;
->> > +     DRM_DEV_DEBUG_DRIVER(dev, "Read EDID block %u, len %zu\n",
->> > + block, len);
->> >
->> > -     } while (blocks_num >= count);
->> > +     for (i = 0; i < len; i += MAX_DPCD_BUFFER_SIZE) {
->> > +             offset = (block & 1) * EDID_LENGTH + i;
->> > +             if (block < 2)
->> > +                     ret = edid_read(ctx, offset, &buf[i]);
->> > +             else
->> > +                     ret = segments_edid_read(ctx, block / 2, &buf[i],
->> > +                                              offset);
->> >
->> > -     /* Check edid data */
->> > -     if (!drm_edid_is_valid((struct edid *)pedid_blocks_buf)) {
->> > -             DRM_DEV_ERROR(dev, "WARNING! edid check fail!\n");
->> > -             return -EINVAL;
->> > +             if (ret < 0)
->> > +                     return -EIO;
->> >       }
->> >
->> >       /* Reset aux channel */
->> > @@ -1235,7 +1145,7 @@ static int sp_tx_edid_read(struct anx7625_data
->> *ctx,
->> >               return ret;
->> >       }
->> >
->> > -     return (blocks_num + 1);
->> > +     return 0;
->> >  }
->> >
->> >  static void anx7625_power_on(struct anx7625_data *ctx) @@ -1958,37
->> > +1868,6 @@ static ssize_t anx7625_aux_transfer(struct drm_dp_aux *aux,
->> >       return ret;
->> >  }
->> >
->> > -static const struct drm_edid *anx7625_edid_read(struct anx7625_data
->> > *ctx) -{
->> > -     struct device *dev = ctx->dev;
->> > -     u8 *edid_buf;
->> > -     int edid_num;
->> > -
->> > -     if (ctx->cached_drm_edid)
->> > -             goto out;
->> > -
->> > -     edid_buf = kmalloc(FOUR_BLOCK_SIZE, GFP_KERNEL);
->> > -     if (!edid_buf)
->> > -             return NULL;
->> > -
->> > -     pm_runtime_get_sync(dev);
->> > -     _anx7625_hpd_polling(ctx, 5000 * 100);
->> > -     edid_num = sp_tx_edid_read(ctx, edid_buf);
->> > -     pm_runtime_put_sync(dev);
->> > -
->> > -     if (edid_num < 1) {
->> > -             DRM_DEV_ERROR(dev, "Fail to read EDID: %d\n", edid_num);
->> > -             kfree(edid_buf);
->> > -             return NULL;
->> > -     }
->> > -
->> > -     ctx->cached_drm_edid = drm_edid_alloc(edid_buf, edid_num *
->> ONE_BLOCK_SIZE);
->> > -     kfree(edid_buf);
->> > -
->> > -out:
->> > -     return drm_edid_dup(ctx->cached_drm_edid);
->> > -}
->> > -
->> >  static enum drm_connector_status anx7625_sink_detect(struct
->> > anx7625_data *ctx)  {
->> >       struct device *dev = ctx->dev;
->> > @@ -2647,10 +2526,25 @@ static const struct drm_edid
->> > *anx7625_bridge_edid_read(struct drm_bridge *bridge  {
->> >       struct anx7625_data *ctx = bridge_to_anx7625(bridge);
->> >       struct device *dev = ctx->dev;
->> > +     const struct drm_edid *drm_edid;
->> >
->> >       DRM_DEV_DEBUG_DRIVER(dev, "drm bridge get edid\n");
->> >
->> > -     return anx7625_edid_read(ctx);
->> > +     if (ctx->cached_drm_edid)
->> > +             return drm_edid_dup(ctx->cached_drm_edid);
->
-> The patch will return with drm_edid_dup() if ctx->cached_drm_edid is not null.
->
->> > +
->> > +     pm_runtime_get_sync(dev);
->> > +     _anx7625_hpd_polling(ctx, 5000 * 100);
->> > +     ctx->cached_drm_edid = drm_edid_read_custom(connector,
->> > +                                                 anx7625_get_edid_block,
->> > +                                                 ctx);
->> > +     drm_edid = drm_edid_dup(ctx->cached_drm_edid);
->> 
->> Consider deduplicating?
->
-> No need to check it again as the patch checked it before.
+Add support for the 7-inch 800x1280 MIPI-DSI panel found on the Industio
+Purple Pi OH (RK3566).  It is a 4-lane ILI9881C panel whose
+initialisation sequence was taken from the vendor device tree.  The
+module is marked ZC-700010BH and the vendor DTB only describes it as a
+generic "simple-panel-dsi", so the init sequence is its only
+provenance.
 
-Obviously you'd remove the check before. Point is, you'd only have *one*
-instance of drm_edid_dup(ctx->cached_drm_edid); and use it on both code
-paths.
+The existing am8001280g entry (another 7-inch 800x1280 ILI9881C panel)
+was tested on this hardware and only lights the backlight without a
+picture, so a dedicated entry with the vendor sequence is required.
 
+The panel is reset through GPIO0_D6 and its backlight is driven by
+PWM4.
 
->
->> 
->>         if (!ctx->cached_drm_edid) {
->>                 // ...
->>                 ctx->cached_drm_edid = drm_edid_read_custom();
->>                 // ...
->>         }
->> 
->>         drm_edid = drm_edid_dup(ctx->cached_drm_edid);
->> 
->> 
->> BR,
->> Jani.
->> 
->> > +     pm_runtime_put_sync(dev);
->> > +
->> > +     if (!drm_edid)
->> > +             DRM_DEV_ERROR(dev, "Fail to read EDID\n");
->> > +
->> > +     return drm_edid;
->> >  }
->> >
->> >  static void anx7625_bridge_hpd_enable(struct drm_bridge *bridge) diff
->> > --git a/drivers/gpu/drm/bridge/analogix/anx7625.h
->> > b/drivers/gpu/drm/bridge/analogix/anx7625.h
->> > index 957d234ec07c..55615ad274f2 100644
->> > --- a/drivers/gpu/drm/bridge/analogix/anx7625.h
->> > +++ b/drivers/gpu/drm/bridge/analogix/anx7625.h
->> > @@ -424,10 +424,6 @@ enum audio_wd_len {
->> >
->> >  #define MAX_DPCD_BUFFER_SIZE 16
->> >
->> > -#define ONE_BLOCK_SIZE      128
->> > -#define FOUR_BLOCK_SIZE     (128 * 4)
->> > -
->> > -#define MAX_EDID_BLOCK       3
->> >  #define EDID_TRY_CNT 3
->> >  #define SUPPORT_PIXEL_CLOCK  300000
->> 
->> --
->> Jani Nikula, Intel
+Signed-off-by: pjh456 <147148383@qq.com>
+---
+ drivers/gpu/drm/panel/panel-ilitek-ili9881c.c | 222 ++++++++++++++++++
+ 1 file changed, 222 insertions(+)
 
+diff --git a/drivers/gpu/drm/panel/panel-ilitek-ili9881c.c b/drivers/gpu/drm/panel/panel-ilitek-ili9881c.c
+index 7bf38e96678a..5f1270d78082 100644
+--- a/drivers/gpu/drm/panel/panel-ilitek-ili9881c.c
++++ b/drivers/gpu/drm/panel/panel-ilitek-ili9881c.c
+@@ -1424,6 +1424,201 @@ static const struct ili9881c_instr am8001280g_init[] = {
+ 	ILI9881C_COMMAND_INSTR(MIPI_DCS_WRITE_POWER_SAVE, 0x00),
+ };
+ 
++static const struct ili9881c_instr ppoh_init[] = {
++	ILI9881C_SWITCH_PAGE_INSTR(0x03),
++	ILI9881C_COMMAND_INSTR(0x01, 0x00),
++	ILI9881C_COMMAND_INSTR(0x02, 0x00),
++	ILI9881C_COMMAND_INSTR(0x03, 0x73),
++	ILI9881C_COMMAND_INSTR(0x04, 0x13),
++	ILI9881C_COMMAND_INSTR(0x05, 0x00),
++	ILI9881C_COMMAND_INSTR(0x06, 0x0a),
++	ILI9881C_COMMAND_INSTR(0x07, 0x05),
++	ILI9881C_COMMAND_INSTR(0x08, 0x00),
++	ILI9881C_COMMAND_INSTR(0x09, 0x28),
++	ILI9881C_COMMAND_INSTR(0x0a, 0x00),
++	ILI9881C_COMMAND_INSTR(0x0b, 0x00),
++	ILI9881C_COMMAND_INSTR(0x0c, 0x00),
++	ILI9881C_COMMAND_INSTR(0x0d, 0x28),
++	ILI9881C_COMMAND_INSTR(0x0e, 0x00),
++	ILI9881C_COMMAND_INSTR(0x0f, 0x28),
++	ILI9881C_COMMAND_INSTR(0x10, 0x28),
++	ILI9881C_COMMAND_INSTR(0x11, 0x00),
++	ILI9881C_COMMAND_INSTR(0x12, 0x00),
++	ILI9881C_COMMAND_INSTR(0x13, 0x00),
++	ILI9881C_COMMAND_INSTR(0x14, 0x00),
++	ILI9881C_COMMAND_INSTR(0x15, 0x00),
++	ILI9881C_COMMAND_INSTR(0x16, 0x00),
++	ILI9881C_COMMAND_INSTR(0x17, 0x00),
++	ILI9881C_COMMAND_INSTR(0x18, 0x00),
++	ILI9881C_COMMAND_INSTR(0x19, 0x00),
++	ILI9881C_COMMAND_INSTR(0x1a, 0x00),
++	ILI9881C_COMMAND_INSTR(0x1b, 0x00),
++	ILI9881C_COMMAND_INSTR(0x1c, 0x00),
++	ILI9881C_COMMAND_INSTR(0x1d, 0x00),
++	ILI9881C_COMMAND_INSTR(0x1e, 0x40),
++	ILI9881C_COMMAND_INSTR(0x1f, 0x80),
++	ILI9881C_COMMAND_INSTR(0x20, 0x06),
++	ILI9881C_COMMAND_INSTR(0x21, 0x01),
++	ILI9881C_COMMAND_INSTR(0x22, 0x00),
++	ILI9881C_COMMAND_INSTR(0x23, 0x00),
++	ILI9881C_COMMAND_INSTR(0x24, 0x00),
++	ILI9881C_COMMAND_INSTR(0x25, 0x00),
++	ILI9881C_COMMAND_INSTR(0x26, 0x00),
++	ILI9881C_COMMAND_INSTR(0x27, 0x00),
++	ILI9881C_COMMAND_INSTR(0x28, 0x33),
++	ILI9881C_COMMAND_INSTR(0x29, 0x33),
++	ILI9881C_COMMAND_INSTR(0x2a, 0x00),
++	ILI9881C_COMMAND_INSTR(0x2b, 0x00),
++	ILI9881C_COMMAND_INSTR(0x2c, 0x04),
++	ILI9881C_COMMAND_INSTR(0x2d, 0x04),
++	ILI9881C_COMMAND_INSTR(0x2e, 0x05),
++	ILI9881C_COMMAND_INSTR(0x2f, 0x05),
++	ILI9881C_COMMAND_INSTR(0x30, 0x00),
++	ILI9881C_COMMAND_INSTR(0x31, 0x00),
++	ILI9881C_COMMAND_INSTR(0x32, 0x31),
++	ILI9881C_COMMAND_INSTR(0x33, 0x00),
++	ILI9881C_COMMAND_INSTR(0x34, 0x00),
++	ILI9881C_COMMAND_INSTR(0x35, 0x0a),
++	ILI9881C_COMMAND_INSTR(0x36, 0x00),
++	ILI9881C_COMMAND_INSTR(0x37, 0x08),
++	ILI9881C_COMMAND_INSTR(0x38, 0x00),
++	ILI9881C_COMMAND_INSTR(0x39, 0x00),
++	ILI9881C_COMMAND_INSTR(0x3a, 0x00),
++	ILI9881C_COMMAND_INSTR(0x3b, 0x00),
++	ILI9881C_COMMAND_INSTR(0x3c, 0x00),
++	ILI9881C_COMMAND_INSTR(0x3d, 0x00),
++	ILI9881C_COMMAND_INSTR(0x3e, 0x00),
++	ILI9881C_COMMAND_INSTR(0x3f, 0x00),
++	ILI9881C_COMMAND_INSTR(0x40, 0x00),
++	ILI9881C_COMMAND_INSTR(0x41, 0x00),
++	ILI9881C_COMMAND_INSTR(0x42, 0x00),
++	ILI9881C_COMMAND_INSTR(0x43, 0x08),
++	ILI9881C_COMMAND_INSTR(0x44, 0x00),
++	ILI9881C_COMMAND_INSTR(0x50, 0x01),
++	ILI9881C_COMMAND_INSTR(0x51, 0x23),
++	ILI9881C_COMMAND_INSTR(0x52, 0x44),
++	ILI9881C_COMMAND_INSTR(0x53, 0x67),
++	ILI9881C_COMMAND_INSTR(0x54, 0x89),
++	ILI9881C_COMMAND_INSTR(0x55, 0xab),
++	ILI9881C_COMMAND_INSTR(0x56, 0x01),
++	ILI9881C_COMMAND_INSTR(0x57, 0x23),
++	ILI9881C_COMMAND_INSTR(0x58, 0x45),
++	ILI9881C_COMMAND_INSTR(0x59, 0x67),
++	ILI9881C_COMMAND_INSTR(0x5a, 0x89),
++	ILI9881C_COMMAND_INSTR(0x5b, 0xab),
++	ILI9881C_COMMAND_INSTR(0x5c, 0xcd),
++	ILI9881C_COMMAND_INSTR(0x5d, 0xef),
++	ILI9881C_COMMAND_INSTR(0x5e, 0x11),
++	ILI9881C_COMMAND_INSTR(0x5f, 0x02),
++	ILI9881C_COMMAND_INSTR(0x60, 0x08),
++	ILI9881C_COMMAND_INSTR(0x61, 0x0e),
++	ILI9881C_COMMAND_INSTR(0x62, 0x0f),
++	ILI9881C_COMMAND_INSTR(0x63, 0x0c),
++	ILI9881C_COMMAND_INSTR(0x64, 0x0d),
++	ILI9881C_COMMAND_INSTR(0x65, 0x17),
++	ILI9881C_COMMAND_INSTR(0x66, 0x01),
++	ILI9881C_COMMAND_INSTR(0x67, 0x01),
++	ILI9881C_COMMAND_INSTR(0x68, 0x02),
++	ILI9881C_COMMAND_INSTR(0x69, 0x02),
++	ILI9881C_COMMAND_INSTR(0x6a, 0x00),
++	ILI9881C_COMMAND_INSTR(0x6b, 0x00),
++	ILI9881C_COMMAND_INSTR(0x6c, 0x02),
++	ILI9881C_COMMAND_INSTR(0x6d, 0x02),
++	ILI9881C_COMMAND_INSTR(0x6e, 0x16),
++	ILI9881C_COMMAND_INSTR(0x6f, 0x16),
++	ILI9881C_COMMAND_INSTR(0x70, 0x06),
++	ILI9881C_COMMAND_INSTR(0x71, 0x06),
++	ILI9881C_COMMAND_INSTR(0x72, 0x07),
++	ILI9881C_COMMAND_INSTR(0x73, 0x07),
++	ILI9881C_COMMAND_INSTR(0x74, 0x02),
++	ILI9881C_COMMAND_INSTR(0x75, 0x02),
++	ILI9881C_COMMAND_INSTR(0x76, 0x08),
++	ILI9881C_COMMAND_INSTR(0x77, 0x0e),
++	ILI9881C_COMMAND_INSTR(0x78, 0x0f),
++	ILI9881C_COMMAND_INSTR(0x79, 0x0c),
++	ILI9881C_COMMAND_INSTR(0x7a, 0x0d),
++	ILI9881C_COMMAND_INSTR(0x7b, 0x17),
++	ILI9881C_COMMAND_INSTR(0x7c, 0x01),
++	ILI9881C_COMMAND_INSTR(0x7d, 0x01),
++	ILI9881C_COMMAND_INSTR(0x7e, 0x02),
++	ILI9881C_COMMAND_INSTR(0x7f, 0x02),
++	ILI9881C_COMMAND_INSTR(0x80, 0x00),
++	ILI9881C_COMMAND_INSTR(0x81, 0x00),
++	ILI9881C_COMMAND_INSTR(0x82, 0x02),
++	ILI9881C_COMMAND_INSTR(0x83, 0x02),
++	ILI9881C_COMMAND_INSTR(0x84, 0x16),
++	ILI9881C_COMMAND_INSTR(0x85, 0x16),
++	ILI9881C_COMMAND_INSTR(0x86, 0x06),
++	ILI9881C_COMMAND_INSTR(0x87, 0x06),
++	ILI9881C_COMMAND_INSTR(0x88, 0x07),
++	ILI9881C_COMMAND_INSTR(0x89, 0x07),
++	ILI9881C_COMMAND_INSTR(0x8a, 0x02),
++	ILI9881C_SWITCH_PAGE_INSTR(0x04),
++	ILI9881C_COMMAND_INSTR(0x6e, 0x1a),
++	ILI9881C_COMMAND_INSTR(0x6f, 0x37),
++	ILI9881C_COMMAND_INSTR(0x3a, 0xa4),
++	ILI9881C_COMMAND_INSTR(0x8d, 0x1f),
++	ILI9881C_COMMAND_INSTR(0x87, 0xba),
++	ILI9881C_COMMAND_INSTR(0xb2, 0xd1),
++	ILI9881C_COMMAND_INSTR(0x88, 0x0b),
++	ILI9881C_COMMAND_INSTR(0x38, 0x01),
++	ILI9881C_COMMAND_INSTR(0x39, 0x00),
++	ILI9881C_COMMAND_INSTR(0xb5, 0x02),
++	ILI9881C_COMMAND_INSTR(0x31, 0x25),
++	ILI9881C_COMMAND_INSTR(0x3b, 0x98),
++	ILI9881C_SWITCH_PAGE_INSTR(0x01),
++	ILI9881C_COMMAND_INSTR(0x22, 0x0a),
++	ILI9881C_COMMAND_INSTR(0x31, 0x00),
++	ILI9881C_COMMAND_INSTR(0x53, 0x5a),
++	ILI9881C_COMMAND_INSTR(0x55, 0x3d),
++	ILI9881C_COMMAND_INSTR(0x50, 0x9e),
++	ILI9881C_COMMAND_INSTR(0x51, 0x99),
++	ILI9881C_COMMAND_INSTR(0x60, 0x06),
++	ILI9881C_COMMAND_INSTR(0x62, 0x20),
++	ILI9881C_COMMAND_INSTR(0xa0, 0x00),
++	ILI9881C_COMMAND_INSTR(0xa1, 0x17),
++	ILI9881C_COMMAND_INSTR(0xa2, 0x26),
++	ILI9881C_COMMAND_INSTR(0xa3, 0x13),
++	ILI9881C_COMMAND_INSTR(0xa4, 0x16),
++	ILI9881C_COMMAND_INSTR(0xa5, 0x29),
++	ILI9881C_COMMAND_INSTR(0xa6, 0x1e),
++	ILI9881C_COMMAND_INSTR(0xa7, 0x1f),
++	ILI9881C_COMMAND_INSTR(0xa8, 0x8b),
++	ILI9881C_COMMAND_INSTR(0xa9, 0x1d),
++	ILI9881C_COMMAND_INSTR(0xaa, 0x2a),
++	ILI9881C_COMMAND_INSTR(0xab, 0x7b),
++	ILI9881C_COMMAND_INSTR(0xac, 0x1a),
++	ILI9881C_COMMAND_INSTR(0xad, 0x19),
++	ILI9881C_COMMAND_INSTR(0xae, 0x4e),
++	ILI9881C_COMMAND_INSTR(0xaf, 0x24),
++	ILI9881C_COMMAND_INSTR(0xb0, 0x29),
++	ILI9881C_COMMAND_INSTR(0xb1, 0x4f),
++	ILI9881C_COMMAND_INSTR(0xb2, 0x5c),
++	ILI9881C_COMMAND_INSTR(0xb3, 0x23),
++	ILI9881C_COMMAND_INSTR(0xc0, 0x00),
++	ILI9881C_COMMAND_INSTR(0xc1, 0x17),
++	ILI9881C_COMMAND_INSTR(0xc2, 0x26),
++	ILI9881C_COMMAND_INSTR(0xc3, 0x13),
++	ILI9881C_COMMAND_INSTR(0xc4, 0x16),
++	ILI9881C_COMMAND_INSTR(0xc5, 0x29),
++	ILI9881C_COMMAND_INSTR(0xc6, 0x1e),
++	ILI9881C_COMMAND_INSTR(0xc7, 0x1f),
++	ILI9881C_COMMAND_INSTR(0xc8, 0x8b),
++	ILI9881C_COMMAND_INSTR(0xc9, 0x1d),
++	ILI9881C_COMMAND_INSTR(0xca, 0x2a),
++	ILI9881C_COMMAND_INSTR(0xcb, 0x7b),
++	ILI9881C_COMMAND_INSTR(0xcc, 0x1a),
++	ILI9881C_COMMAND_INSTR(0xcd, 0x19),
++	ILI9881C_COMMAND_INSTR(0xce, 0x4e),
++	ILI9881C_COMMAND_INSTR(0xcf, 0x24),
++	ILI9881C_COMMAND_INSTR(0xd0, 0x29),
++	ILI9881C_COMMAND_INSTR(0xd1, 0x4f),
++	ILI9881C_COMMAND_INSTR(0xd2, 0x5c),
++	ILI9881C_COMMAND_INSTR(0xd3, 0x23),
++	ILI9881C_SWITCH_PAGE_INSTR(0x00),
++	ILI9881C_COMMAND_INSTR(0x35, 0x00),
++};
++
+ static const struct ili9881c_instr rpi_5inch_init[] = {
+ 	ILI9881C_SWITCH_PAGE_INSTR(3),
+ 	ILI9881C_COMMAND_INSTR(0x01, 0x00),
+@@ -2425,6 +2620,23 @@ static const struct drm_display_mode am8001280g_default_mode = {
+ 	.height_mm	= 151,
+ };
+ 
++static const struct drm_display_mode ppoh_default_mode = {
++	.clock		= 73400,
++
++	.hdisplay	= 800,
++	.hsync_start	= 800 + 52,
++	.hsync_end	= 800 + 52 + 4,
++	.htotal		= 800 + 52 + 4 + 12,
++
++	.vdisplay	= 1280,
++	.vsync_start	= 1280 + 60,
++	.vsync_end	= 1280 + 60 + 18,
++	.vtotal		= 1280 + 60 + 18 + 50,
++
++	.width_mm	= 94,
++	.height_mm	= 151,
++};
++
+ static const struct drm_display_mode rpi_5inch_default_mode = {
+ 	.clock		= 83333,
+ 
+@@ -2664,6 +2876,15 @@ static const struct ili9881c_desc am8001280g_desc = {
+ 		      MIPI_DSI_CLOCK_NON_CONTINUOUS | MIPI_DSI_MODE_LPM,
+ };
+ 
++static const struct ili9881c_desc ppoh_desc = {
++	.init = ppoh_init,
++	.init_length = ARRAY_SIZE(ppoh_init),
++	.mode = &ppoh_default_mode,
++	.lanes = 4,
++	.mode_flags = MIPI_DSI_MODE_VIDEO | MIPI_DSI_MODE_VIDEO_BURST |
++		      MIPI_DSI_MODE_NO_EOT_PACKET | MIPI_DSI_MODE_LPM,
++};
++
+ static const struct ili9881c_desc rpi_5inch_desc = {
+ 	.init = rpi_5inch_init,
+ 	.init_length = ARRAY_SIZE(rpi_5inch_init),
+@@ -2708,6 +2929,7 @@ static const struct of_device_id ili9881c_of_match[] = {
+ 	{ .compatible = "wanchanglong,w552946aba", .data = &w552946aba_desc },
+ 	{ .compatible = "waveshare,7.0-dsi-touch-a", .data = &waveshare_7inch_a_desc },
+ 	{ .compatible = "ampire,am8001280g", .data = &am8001280g_desc },
++	{ .compatible = "industio,purple-pi-oh-panel", .data = &ppoh_desc },
+ 	{ .compatible = "raspberrypi,dsi-5inch", &rpi_5inch_desc },
+ 	{ .compatible = "raspberrypi,dsi-7inch", &rpi_7inch_desc },
+ 	{ }
 -- 
-Jani Nikula, Intel
+2.56.1
+
