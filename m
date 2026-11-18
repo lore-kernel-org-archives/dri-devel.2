@@ -2,77 +2,76 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C16E360A260D
-	for <dri-devel@archiver.kernel.org>; Wed, 18 Nov 2026 12:28:08 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 16AEE606A332
+	for <dri-devel@archiver.kernel.org>; Wed, 18 Nov 2026 12:28:19 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=baylibre.com header.i=@baylibre.com header.a=rsa-sha256 header.s=google header.b=mBiVimyn
+	dkim=pass (2048-bit key) header.d=baylibre.com header.i=@baylibre.com header.a=rsa-sha256 header.s=google header.b=mDfsPJxQ
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 35C9D10FBD3;
-	Wed, 18 Nov 2026 12:28:03 +0000 (UTC)
-Received: from mail-wr1-f44.google.com (mail-wr1-f44.google.com
- [209.85.221.44])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 1D91510FB73
- for <dri-devel@lists.freedesktop.org>; Wed, 18 Nov 2026 12:27:57 +0000 (UTC)
-Received: by mail-wr1-f44.google.com with SMTP id
- ffacd0b85a97d-491846221ffso726028f8f.3
- for <dri-devel@lists.freedesktop.org>; Wed, 18 Nov 2026 04:27:57 -0800 (PST)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 6F8C110FB73;
+	Wed, 18 Nov 2026 12:28:13 +0000 (UTC)
+Received: from mail-wr1-f41.google.com (mail-wr1-f41.google.com
+ [209.85.221.41])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 0F17F10FB73
+ for <dri-devel@lists.freedesktop.org>; Wed, 18 Nov 2026 12:28:07 +0000 (UTC)
+Received: by mail-wr1-f41.google.com with SMTP id
+ ffacd0b85a97d-4a5506f09f5so545882f8f.0
+ for <dri-devel@lists.freedesktop.org>; Wed, 18 Nov 2026 04:28:06 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=baylibre.com; s=google; t=1795004875; x=1795609675;
+ d=baylibre.com; s=google; t=1795004885; x=1795609685;
  darn=lists.freedesktop.org; 
  h=content-transfer-encoding:content-type:in-reply-to:content-language
  :references:cc:to:subject:from:user-agent:mime-version:date
  :message-id:from:to:cc:subject:date:message-id:reply-to:content-type;
- bh=pWhnfvWenZjOfquzYUSnlcmZobUEBcHEFf7Qs3x3jIo=;
- b=mBiVimynjSyzB6ft1Z3t2/nLVoONZeurh7D9XKV09fr31fKWcqbPehViIbRfARRHWA
- iTSeOXUOzeXbtviKBoSZs5cH2zYXrNslYRbBnWakc56W2M82mGySVne5VWSPbq6Es3IJ
- G8+sUtZ7kOOLGxfHeK1kCBuuP5T6i7ky5wBBvBPB5NKRMkVV9wmA50GEd2Y9gmT88c++
- fRDIaYWddBgAocfi/CHirjJ8xggmxKWLphvuaH4QvRmAKFbgUHYB8cn1TRU3ybAmrZ07
- mmBy7x3aOCL7aFLQyE5mfxMhr6oDbdu94s/4etVmSF4fstxDjfTAIc+LNqF1h9YzDc8B
- 56Ng==
+ bh=8ByWoUJOn8xt5bIjc/DgDVb/Znhr0IJHP27C3VPG/e4=;
+ b=mDfsPJxQn/pcgLbUuuEZCyWWexK6MQR/Nk6Nbi3qYMvH6gBv1XSdMK3+aC665JMSz2
+ qX2P3079gFbE+nBUko85AlS5RBYHAXbvHPxEhWKB3LFyISIXHZRpD9YxhA23ITw8ERZ7
+ jnOouTNAxhZ7zCqTTfqVTYd+ciPwN4tWtUCj+GetOSM5PeyafiQjMCK6LJk0EDYIQKyw
+ ocfPUkM7sKx/05tXYwuFzNPgWjeSRQAc2al0dw7D8avuf8yfRsquX6dXUhmWJXUYoCFb
+ IVPCOx4QchSsnd6WxTMXmCnf89SUAcJqefo4keSYgRIJyVM81AGFL2WbeORCi/FK2Qdo
+ K6cg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20260707; t=1795004875; x=1795609675;
+ d=1e100.net; s=20260707; t=1795004885; x=1795609685;
  h=content-transfer-encoding:content-type:in-reply-to:content-language
  :references:cc:to:subject:from:user-agent:mime-version:date
  :message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
  :message-id:reply-to:content-type;
- bh=pWhnfvWenZjOfquzYUSnlcmZobUEBcHEFf7Qs3x3jIo=;
- b=UsxaWPU5SdqyzSv6aJZyflX+GoLfi1/TElpxQGI5/KgY4Cbg88rB0C7oj0B8OlxcIv
- uN9PNjXSTUa+BpyzZ0ehBMzBvQ8py/WIcGU41uvFtLMkxzlvd2S/UqC6jJYn2/+GUYkf
- hMsGqk4wnWEYfUj+Z3Ntu+Lei9kJxvc+s1OEU+98RcqvyXPhYD3bM+i6gA5KvdhGgMt5
- Ipy4INCtdGo6XsarHOBpLbv37UXDRar9+op5UYs47tQ5cSAT9BgpQTtywxr8GsbJIuRd
- 3JBua9hjhGFBCfaaFtlbqOexnlCcj1714Bhl8+ffDC6FQ6q5ME2SIvfWruyHwPj8Y4P0
- US2w==
+ bh=8ByWoUJOn8xt5bIjc/DgDVb/Znhr0IJHP27C3VPG/e4=;
+ b=JMOtVSgnRQvcobvJd+fByGGUfqqJSZh4f8lp7hvXrloEkz+Q7L91AzyJodi5SutkUZ
+ dFgl+QwrA+tRrnlf2v6o/NiJTPzQyZIHo6logubU9Gc8y0uurjpdhqp3LV7ra1kC2dnN
+ kue9ZWqtG6922EqZHeg1LuzVLL+jDq93O6rGa7kiwHSOidXWEIa9x8E/4f6JOGivcBYT
+ cVQO5JJylx6z7IOTvI1VbAprl4ajcPonN1MrD6nX1qcdfT6xtLZVqByx48ywb+EmghHr
+ nxkLm4Vmkc5M/gOW0BwfF4CrYLDqNAkTBQ3kMkxEwZIwvtPaSKGgvHeuFyr4HKUAnTvs
+ G2hg==
 X-Forwarded-Encrypted: i=1;
- AL+hErHnqeYuHC7DidlXQnsTDc5ZGTs86JBad5KnTsl+XeCQhyqOxYsVkm11pZ9gyZebwsJE4PrIxZyXwWU=@lists.freedesktop.org
-X-Gm-Message-State: APuU4Z9VFH9omE6CNtiSAkF7jWUOkeoP+98TJvSGekpFP2/fRUgJy5nz
- Ru4CN6OAJ+VOZgO2nt18Io76ytwWLeYnzV09Lnorcu6GTDL2MR/nalSlu+l684qShPI=
-X-Gm-Gg: AZFdTZcwx3xSRqBJb1HFkIZNhe/IqJ6SIU+tTixJ/2eWkbeirKfST6WhGRMd3vMU/DA
- Q86zpeGfF/xuqes1PHT3Lx4cKIGXd/CZ8dXMzHEeR61OqG1pW+oraDX+uh9YEN51/l+wVPxtjH/
- PiOqrNkOyfYAn90i2/Zc702Y2VKQX8/yyNZl22enoyQ3Tc994DJddsWvSGAuUhWiFMGAMBnqris
- Ey1Azm+QnhkEiy092LkVSEvHm/3gkBM2BsCaZHl3gj1xrRyiPQkjArEzWslkA1txcS8Xk9V6uWi
- dzzPo5bdvJJkYMcU7NJixKZIeb58+yHrTRtw+U7Fi5GU/lcmQMWw67icTl+U2R7lyLFT/8AiTWY
- 3OJbY0mJx0+rAVal0BgAc+DwtgLhecuU+gr3p5gRWA+2Iaeij99RemY/WiUUo0Y3c++AqGkeN76
- a6aJC4w7t7xT9Kg02y0Rr5LFFJm8bTJcZ4nMfmDy0dNEFwrvJohQoX9d66NnY6KBoI1CGrChy4u
- FH0sn85c63Muh2d3hx4j7gDP5L4FPjpqfBOq0NnMKYr+0kmb8sbcboWzpT36xAJ8QihucIU7l1w
- rTQosDpPd5dPgTLWrE/djW6BXqMzzW7oeI8fm4E0/k6E3Jl5nyXK/vp7dTK6q4WQDAR/TL0TqgL
- O5GNh9BUKbpPpnWTvK8zyk+o=
-X-Received: by 2002:a5d:5d0f:0:b0:4a7:9630:7b32 with SMTP id
- ffacd0b85a97d-4a7963080d9mr2359433f8f.46.1795004875475; 
- Wed, 18 Nov 2026 04:27:55 -0800 (PST)
+ AL+hErE4GMEwCU2fTCcvTEK2uPpv3AlYtoLHIPLGZlDivRwkW0Vk/Jaaf/K1YoI9ndS5fXKf7TXUhWVS26w=@lists.freedesktop.org
+X-Gm-Message-State: APuU4Z/MJkRMFaAa1jIz/ba+r/0yiKa/4nGx0daJNYivAS3ZQPrr2FjT
+ Urp+xNo4wIJOrOeneh5dj09ntAXIEAU84cyYsRjsksw851uaNHEpSh2vpaAZ1CUoiWU=
+X-Gm-Gg: AZFdTZelxJXzGuLCNv52OiiS2eCRpZCTeu+jODetdl+d4ZpKXs9ckByIIEfQ0y2+AfZ
+ D/LJ1ITDCoPUfyh/b3vLUJd71SABO+zFz6kxTjNarD1pO+J4h6TO+Y6vPg8kVruq1eJNzcZkwDJ
+ MFWUPFCaX2HHVUNhJWtK4pe32iNkrwEONPHA0SB0wUbhNXAe5JCpIFR+5Extuis/QmPy7yyfK3m
+ cfGik3grvC7h6AThleTs7sjtnnLUwpCTPKkSXJQ+7BFNvkYe6ptI2kGdZLy9geAmiGVODKqEHsX
+ o+C+Nsn0RNQwPAhfSN3w8ip4KTWfC0CPtfTKX0IJ8uISv1Y6HbTdMfRm/2e1zE4+/HCDU2c3yQB
+ 3LCNt4PEORhKRODd11r33Ulg+ncBipqQeMxbN5LYheJHClDPrJTSYjyw7S+cQfJqqLsssXfCAtU
+ mX/BTpU4a7qApsZAQxhvi1JdVte1HH5AAqnCXgtv7GWnlZtNKDHLfHbWQZtbOaDPF94ITFeqZB2
+ c49jnZAIb+ifGv2XfcBb7spUAg9FEhgi2mo8yHXkKH6NWw8IsqOiy1XEh/7XjAKaBH+Ix+JuaxZ
+ BsC4lCNcqQ5JkkJg3ZfTmL+aCFCBUet4Q+0MpNXwK2sSLrp8MQdGoISUDSwuo6VXYqOXIYMW8UE
+ xzw==
+X-Received: by 2002:a05:6000:2608:b0:4a6:8012:198 with SMTP id
+ ffacd0b85a97d-4a6801202dbmr3938687f8f.31.1795004885474; 
+ Wed, 18 Nov 2026 04:28:05 -0800 (PST)
 Received: from ?IPV6:2001:8a0:d6cd:9000:86f4:4e71:9fc8:3183?
  ([2001:8a0:d6cd:9000:86f4:4e71:9fc8:3183])
  by smtp.gmail.com with ESMTPSA id
- ffacd0b85a97d-4a655f9f4a7sm4675322f8f.34.2026.11.18.04.27.53
+ ffacd0b85a97d-4a654a8c23bsm4011448f8f.12.2026.11.18.04.28.03
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Wed, 18 Nov 2026 04:27:55 -0800 (PST)
-Message-ID: <0bcd84bb-6a87-453f-9b68-04dfa95f34a4@baylibre.com>
-Date: Wed, 18 Nov 2026 12:27:53 +0000
+ Wed, 18 Nov 2026 04:28:05 -0800 (PST)
+Message-ID: <c5068359-e155-4374-9f3a-1b89106c6fb4@baylibre.com>
+Date: Wed, 18 Nov 2026 12:28:02 +0000
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
 From: Daniel Drake <ddrake@baylibre.com>
-Subject: Re: [PATCH v17 08/12] accel/rocket: select the per-core clock and
- reset counts from match data
+Subject: Re: [PATCH v17 09/12] accel/rocket: add RK3576 NPU (RKNN) support
 To: Jiaxing Hu <gahing@gahingwoo.com>, tomeu@tomeuvizoso.net,
  heiko@sntech.de, robh@kernel.org, krzk+dt@kernel.org, conor+dt@kernel.org,
  joro@8bytes.org, will@kernel.org, robin.murphy@arm.com,
@@ -88,9 +87,9 @@ Cc: royalnet026@gmail.com, ulf.hansson@oss.qualcomm.com,
  devicetree@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
  linux-kernel@vger.kernel.org
 References: <cover.1794615324.git.gahing@gahingwoo.com>
- <fcdd7117d3d7fe99ea1658c39b6d1a05428823f4.1794615323.git.gahing@gahingwoo.com>
+ <57874e7459ed84ad47b2e31a62871ff535da249b.1794615323.git.gahing@gahingwoo.com>
 Content-Language: en-US
-In-Reply-To: <fcdd7117d3d7fe99ea1658c39b6d1a05428823f4.1794615323.git.gahing@gahingwoo.com>
+In-Reply-To: <57874e7459ed84ad47b2e31a62871ff535da249b.1794615323.git.gahing@gahingwoo.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 X-BeenThere: dri-devel@lists.freedesktop.org
@@ -104,43 +103,65 @@ List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-7.3 required=3.0 tests=BAYES_00,DKIM_SIGNED,
-	DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
+X-Spam-Status: No, score=-12.3 required=3.0 tests=BAYES_00,DKIM_SIGNED,
+	DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_PATCH,
 	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,USER_AGENT_SANE_1
-	autolearn=no autolearn_force=no version=4.0.1
+	autolearn=unavailable autolearn_force=no version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
+Hi,
+
 On 14/11/2026 03:05, Jiaxing Hu wrote:
-> The RK3576 and the RK3588 use the same NPU block, but with different
-> numbers of clocks and resets.
-> 
-> Take the number of clocks and resets for each core from soc_data in the
-> match data, so the driver uses the right count on each SoC.
+> # Conflicts:
+> #	drivers/accel/rocket/rocket_core.c
+> #	drivers/accel/rocket/rocket_core.h
+
+This needs to be removed from the commit message.
 
 
-Rather than these clock and reset count rules via soc_data here, can we
-just rely on the DT validation that is almost equivalent?
+> diff --git a/drivers/accel/rocket/rocket_device.c b/drivers/accel/rocket/rocket_device.c
+> index db137e2ec15e..868af86d00ce 100644
+> --- a/drivers/accel/rocket/rocket_device.c
+> +++ b/drivers/accel/rocket/rocket_device.c
+> @@ -9,6 +9,7 @@
+>  #include <linux/of.h>
+>  
+>  #include "rocket_device.h"
+> +#include "rocket_drv.h"
+>  
+>  struct rocket_device *rocket_device_init(struct platform_device *pdev,
+>  					 const struct drm_driver *rocket_drm_driver)
+> @@ -27,7 +28,7 @@ struct rocket_device *rocket_device_init(struct platform_device *pdev,
+>  	ddev = &rdev->ddev;
+>  	dev_set_drvdata(dev, rdev);
+>  
+> -	for_each_compatible_node(core_node, NULL, "rockchip,rk3588-rknn-core")
+> +	for_each_matching_node(core_node, rocket_dt_match)
+>  		if (of_device_is_available(core_node))
+>  			num_cores++;
 
-Then we can use devm_clk_bulk_get_all() and
-devm_reset_control_array_get_exclusive() and not worry about checking
-counts and names within the driver.
+I think it would be a little cleaner to do the counting in rocket_drv.c,
+and pass it in as a parameter to rocket_device_init().
+Then you don't need to share the dt_match over two files.
 
-dtbs_check will already catch cases where the wrong number of clocks or
-resets is provided, or where the names don't match the ones expected in
-the bindings.
+> diff --git a/drivers/accel/rocket/rocket_job.c b/drivers/accel/rocket/rocket_job.c
+> index 68df1596014e..59a6f548e108 100644
+> --- a/drivers/accel/rocket/rocket_job.c
+> +++ b/drivers/accel/rocket/rocket_job.c
+> @@ -31,6 +31,11 @@
+>  /* Bits 3:0 of PC_BASE_ADDRESS hold the mode selection bit and reserved bits */
+>  #define ROCKET_REGCMD_ALIGN	16
+>  
+> +#define RK3576_PC_TASK_CON_TASK_NUMBER(n)	((n) & 0xffff)
+> +#define RK3576_PC_TASK_CON_PP_EN		BIT(16)
+> +#define RK3576_PC_TASK_CON_COUNT_CLEAR		BIT(17)
+> +#define RK3576_PC_TASK_CON_LAST_LAYER_CLEAR	BIT(18)
 
->   static int rocket_probe(struct platform_device *pdev)
->   {
-> +	const struct rocket_soc_data *soc = of_device_get_match_data(&pdev->dev);
->   	int ret;
->   
-> +	if (!soc) {
-> +		dev_err(&pdev->dev, "no match data for this device\n");
-> +		return -ENODEV;
-> +	}
+This introduces an inconsistency in the way registers are handled. All
+other reg definitions are in rocket_registers.h (originating from mesa
+xml) but this one is placed here.
 
-
-Since this would only be caused by a programming error, no print is
-necessary.
+I think you should add it to mesa as some kind of register variant, and
+then regenerate rocket_registers.h
 
