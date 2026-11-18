@@ -2,43 +2,45 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9349F606A320
-	for <dri-devel@archiver.kernel.org>; Wed, 18 Nov 2026 10:46:09 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 142D6606A31C
+	for <dri-devel@archiver.kernel.org>; Wed, 18 Nov 2026 10:52:15 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=IZ5Jxm6G
+	dkim=pass (2048-bit key) header.d=sntech.de header.i=@sntech.de header.a=rsa-sha256 header.s=gloria202408 header.b=zYkl0DE+
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id AE4AE10E7CA;
-	Wed, 18 Nov 2026 10:46:02 +0000 (UTC)
-Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 6AA8D10E53B;
- Wed, 18 Nov 2026 10:45:56 +0000 (UTC)
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by tor.source.kernel.org (Postfix) with ESMTP id 594E7620D7;
- Wed, 18 Nov 2026 10:45:55 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id D3A101F000C4;
- Wed, 18 Nov 2026 10:45:54 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1794998755;
- bh=YDSF4vMnZxyCsRB/mXgxAU9tjokM+Rr45Uv6HTlpgb0=;
- h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
- b=IZ5Jxm6GDwN9SauXSocsxFt4WrGBsXgXqdOd7/AEzxMjHCnD8TzTeyWOKiCMlwTFT
- mH9nEYi9gUfnCRRjzmyrbvO3R4kBvPgdFrXW9/MI2tZGxbIIUUnBrqy+BKXYa6aJqE
- Qxt1LSzyO274UewCixWmpF1D5naTuBqR2nbZ9cp0yG3BFdnnstVMt1ZM/DA9D/dBbq
- Jj+9ppOqTtaj/L66PUI1IU6Nj9RS8GjGK/zI7+OOzlMDDrdvAu4PV6XwA2JrYyxp8o
- QwRmaXMtvVrbzb0K6UTavTAetq1CPnNzI5tkYAI/UyazHqQ1yEtlxIhMtt0Ett1LHY
- VOL6R194Azc7g==
-Message-ID: <sashiko-outbox-220741@kernel.org>
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH 8/8] drm: Move DSC capability reading helper out of i915
-To: "Kory Maincent" <kory.maincent@bootlin.com>
-Cc: dri-devel@lists.freedesktop.org, intel-gfx@lists.freedesktop.org,
- intel-xe@lists.freedesktop.org
-In-Reply-To: <20261118-feat_move_i915_helper-v1-8-652177f3107a@bootlin.com>
-References: <20261118-feat_move_i915_helper-v1-0-652177f3107a@bootlin.com>
- <20261118-feat_move_i915_helper-v1-8-652177f3107a@bootlin.com>
-Content-Type: text/plain; charset=utf-8
+	by gabe.freedesktop.org (Postfix) with ESMTP id 7B22110E0E7;
+	Wed, 18 Nov 2026 10:52:09 +0000 (UTC)
+Received: from gloria.sntech.de (gloria.sntech.de [185.11.138.130])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 3C75C10FAF2
+ for <dri-devel@lists.freedesktop.org>; Wed, 18 Nov 2026 10:52:03 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=sntech.de; 
+ s=gloria202408;
+ h=Content-Type:Content-Transfer-Encoding:MIME-Version:
+ References:In-Reply-To:Message-ID:Date:Subject:Cc:To:From:Reply-To;
+ bh=6V3F/TSXzJ1yFzQQyqbXX2wh+A56YFrKNfrIyDrkHyU=; b=zYkl0DE+BVYT/mUnLuS3fQ6W70
+ t/AyqNTeS/4GSW+JIuxVvD3nUaGdWQBC42zY9ZUplSWYj3d74AQ1N9/8bvKVYIa7ZQQzSn4t8H/5L
+ wxpNTybpbCgzNVuyep6yi1Gp1f+ICVX/CUsMscDnot7QOPkT2btd+xjeVwGVJrdwggM2S+sDYmqmT
+ WqwZEantW8hLovgBZl4ODBLBwajCPq+kUaMkSrno+ri8sALz+VSUCcA+q7CNk/i+QLvWRF2XM9A1C
+ 8toJHpiEJOCMUr4LFfe9oLei4Nu2bLH30d7gUyqt/zD+FrnnXrfuJst/TEHAVIkb7VQgMxUsuA0u3
+ pQOS5u5Q==;
+From: Heiko =?UTF-8?B?U3TDvGJuZXI=?= <heiko@sntech.de>
+To: Oded Gabbay <ogabbay@kernel.org>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
+ Tomeu Vizoso <tomeu@tomeuvizoso.net>
+Cc: David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ Triet Hoang <triet.hoang.dev@gmail.com>,
+ Sidong Yang <sidong.yang@furiosa.ai>, Igor Paunovic <royalnet026@gmail.com>,
+ dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH] accel/rocket: Fix up sched array handling on open and
+ close
+Date: Wed, 18 Nov 2026 11:51:52 +0100
+Message-ID: <wyynHb1JRJGu60KFW3VQvQ@sntech.de>
+In-Reply-To: <20261118101901.253550-1-tomeu@tomeuvizoso.net>
+References: <20261118101901.253550-1-tomeu@tomeuvizoso.net>
+X-Archived-By: <archiver.kernel.org>
+MIME-Version: 1.0
 Content-Transfer-Encoding: quoted-printable
-Date: Wed, 18 Nov 2026 10:45:54 +0000
+Content-Type: text/plain; charset="utf-8"
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -49,58 +51,76 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
-Reply-To: sashiko-reviews@lists.linux.dev
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-10.8 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
-	DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
-	INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS
-	autolearn=unavailable autolearn_force=no version=4.0.1
+X-Spam-Status: No, score=-15.8 required=3.0 tests=BAYES_00,DKIM_SIGNED,
+	DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
+	INCLUDES_CR_TRAILER,INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,
+	SPF_PASS autolearn=unavailable autolearn_force=no version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
-X-Archived-By: <archiver.kernel.org>
 
-Thank you for your contribution! Sashiko AI review found 1 potential
-issue to consider:
-- [Low] drm/dp: kernel-doc function name mismatch for
-  drm_dp_dsc_read_dpcd()
---
-
-commit 383d83dc14220cf2fa31928b2396a83fa5b46bff
-Author: Kory Maincent <kory.maincent@bootlin.com>
-
-drm: Move DSC capability reading helper out of i915
-
-This commit moves the DSC DPCD capability reading helper from the i915
-driver into the generic DRM DisplayPort helpers as drm_dp_dsc_read_dpcd().
-
-> diff --git a/drivers/gpu/drm/display/drm_dp_helper.c b/drivers/gpu/drm/di=
-splay/drm_dp_helper.c
-> index fc3d4db1c7639..06bf7a6ec8934 100644
-> --- a/drivers/gpu/drm/display/drm_dp_helper.c
-> +++ b/drivers/gpu/drm/display/drm_dp_helper.c
-> @@ -5144,3 +5144,33 @@ int drm_dp_read_edp_sink_rates(struct drm_dp_aux *=
-aux, u8 edp_dpcd_rev,
->  	return num_sink_rates;
+Am Mittwoch, 18. November 2026, 11:18:58 Mitteleurop=C3=A4ische Normalzeit =
+schrieb Tomeu Vizoso:
+> Don't WARN when drm_sched_entity_init() fails in rocket_job_open().
+> It can return -ENOMEM, which is an allocation failure and not a
+> driver bug, so it doesn't deserve a stack trace.
+>=20
+> Also free the scheduler array in rocket_job_close() only after the entity
+> has been destroyed, so that entity->sched_list never points to freed
+> memory.
+>=20
+> Fixes: d341ef030f3c ("accel/rocket: Check allocations before use")
+> Fixes: 9bca2b5f1a4f ("accel/rocket: Keep scheduler allocation in rocket_f=
+ile_priv")
+> Suggested-by: Sidong Yang <sidong.yang@furiosa.ai>
+> Signed-off-by: Tomeu Vizoso <tomeu@tomeuvizoso.net>
+> Link: https://lore.kernel.org/all/20260826113538.42111-1-sidong.yang@furi=
+osa.ai/
+> Link: https://lore.kernel.org/all/20260826113538.42111-2-sidong.yang@furi=
+osa.ai/
+> ---
+>=20
+> This addresses a mistake I made when I missed the v6 of the
+> "accel/rocket: Fix allocation handling and scheduler array leak" series
+> and pushed v5 to drm-misc-fixes.
+>=20
+> With these changes, both drm-misc-fixes and drm-misc-next contain the
+> same code in these functions and there should be no conflict when the
+> two are merged.
+>=20
+> This is to apply to drm-misc-fixes only.
+>=20
+> ---
+>  drivers/accel/rocket/rocket_job.c | 4 ++--
+>  1 file changed, 2 insertions(+), 2 deletions(-)
+>=20
+> diff --git a/drivers/accel/rocket/rocket_job.c b/drivers/accel/rocket/roc=
+ket_job.c
+> index 7b798a90bc49..454d465a39e3 100644
+> --- a/drivers/accel/rocket/rocket_job.c
+> +++ b/drivers/accel/rocket/rocket_job.c
+> @@ -572,7 +572,7 @@ int rocket_job_open(struct rocket_file_priv *rocket_p=
+riv)
+>  				    DRM_SCHED_PRIORITY_NORMAL,
+>  				    scheds,
+>  				    rdev->num_cores, NULL);
+> -	if (WARN_ON(ret))
+> +	if (ret)
+>  		kfree(scheds);
+>  	else
+>  		rocket_priv->scheds =3D scheds;
+> @@ -584,8 +584,8 @@ void rocket_job_close(struct rocket_file_priv *rocket=
+_priv)
+>  {
+>  	struct drm_sched_entity *entity =3D &rocket_priv->sched_entity;
+> =20
+> -	kfree(rocket_priv->scheds);
+>  	drm_sched_entity_destroy(entity);
+> +	kfree(rocket_priv->scheds);
 >  }
->  EXPORT_SYMBOL_GPL(drm_dp_read_edp_sink_rates);
-> +
-> +/**
-> + * drm_dp_read_dsc_dpcd() - read the DSC capabilities from the DPCD
-> + * @aux: DisplayPort AUX channel
-> + * @dsc_dpcd: Buffer to store the DSC capabilities read from the DPCD
-> + *
-> + * Attempts to read the sink DSC capabilities from the DPCD of @aux.
-> + *
-> + * Returns: 0 on success or a negative error code on failure.
-> + */
-> +int drm_dp_dsc_read_dpcd(struct drm_dp_aux *aux,
-> +			 u8 dsc_dpcd[DP_DSC_RECEIVER_CAP_SIZE])
 
-[Severity: Low]
-Should the kernel-doc header name drm_dp_dsc_read_dpcd() instead of
-drm_dp_read_dsc_dpcd() to match the function definition and avoid a W=3D1 /
-htmldocs kernel-doc warning?
+Reviewed-by: Heiko Stuebner <heiko@sntech.de>
 
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261118-feat_move_=
-i915_helper-v1-0-652177f3107a@bootlin.com?part=3D8
+
+
+
