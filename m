@@ -2,96 +2,64 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3F86D606A31C
-	for <dri-devel@archiver.kernel.org>; Wed, 18 Nov 2026 04:25:22 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3908F606A31C
+	for <dri-devel@archiver.kernel.org>; Wed, 18 Nov 2026 04:38:48 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=chromium.org header.i=@chromium.org header.a=rsa-sha256 header.s=google header.b=g9mPXJDa
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=Y6IEx5ou
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id EE89C10E105;
-	Wed, 18 Nov 2026 04:25:15 +0000 (UTC)
-Received: from mail-ed1-f41.google.com (mail-ed1-f41.google.com
- [209.85.208.41])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 89F5410E105
- for <dri-devel@lists.freedesktop.org>; Wed, 18 Nov 2026 04:25:09 +0000 (UTC)
-Received: by mail-ed1-f41.google.com with SMTP id
- 4fb4d7f45d1cf-6b2237b596cso1373925a12.0
- for <dri-devel@lists.freedesktop.org>; Tue, 17 Nov 2026 20:25:09 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=chromium.org; s=google; t=1794975908; x=1795580708;
- darn=lists.freedesktop.org; 
- h=content-transfer-encoding:content-type:cc:to:subject:message-id
- :date:from:in-reply-to:references:mime-version:from:to:cc:subject
- :date:message-id:reply-to:content-type;
- bh=g/y0SanlVtgObYSEwLsEUV68JNF5YijD2dEdh3NZmus=;
- b=g9mPXJDaP+l7m5oZ9S3nhkJfF1D7seB18RQxNfKPKVPDJ3NJAolpmdNEYwF4P93gJh
- zumRm2/N8D2CwJ80ahhxPZj7rKqmzUiYWcf465Uq9UHR5We+42I9OJ1pb9SuW9UnTQ8c
- HNaEGai4zj19Fj70JI/vlpkjW38jNZZgqpcPo=
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20260707; t=1794975908; x=1795580708;
- h=content-transfer-encoding:content-type:cc:to:subject:message-id
- :date:from:in-reply-to:references:mime-version:x-gm-gg
- :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
- :content-type;
- bh=g/y0SanlVtgObYSEwLsEUV68JNF5YijD2dEdh3NZmus=;
- b=zG9ScR/GYKEUwdlUVWVsnpnUv99FSMjDdGxRq5H0Rpdnn9XyRixBqX4EV5MaU3IXmW
- xNSPGG8ei9DKHEsdSp0AqONNVRlt5DGhbJgFQyVw10dVk/LbQGA40ISDS9mPmcNSVdbY
- IJbgfbiRhmDv+hkZ3IJNOPgnUr0ChvWQ0BJCkpuhsOAZOaCymgFr/YG5A2wdQziY4uZO
- lL1LzzRjQphz0XFljvK1iJ/AjdgAw1SL4pzmEacxdRkHt/ATzxVZwCPR+BYCqBeVRBgX
- 6s1ZB6MwTOTEc45H+c/jL1/nS1tSZqm9qb0h66eokvzbxd/2Q8MakpAuRTuPDvVj4rn9
- Aiag==
-X-Forwarded-Encrypted: i=1;
- AL+hErGAl2cuaUmC/WMDziQ8Ax7XPadqv2qoB0KOJTUn6B5I+7gBQjuQV5S0KIz+ec5qJZzNnc5m2eqP/hQ=@lists.freedesktop.org
-X-Gm-Message-State: APuU4Z8RRZCgELo6YDwLtFfvq2w2em+OV1NIxc+w4TfQGV/yYtiGrygr
- paybGapwzyZe1YsNYQCLeHTybRncyX2aREKJspCSJdtgJXddPebXL8DCh2rVQtMi/qARuWiZWwO
- 2JzDXIFsn
-X-Gm-Gg: AYBFou1dE8TsQAZjzBDA43z4EdYQkBaJwczrlrlX6nemFSPQq0B5gSIiR4bBJJVcJzh
- N8X2ugf9HwDECZbi/qEwF/fvDB0BeNa0X8MubwqC6lEO1P/0XyObBiaOQfIIGFIvDJ/iqxun6/0
- mYdu0ZbLeFsrFtFHT11wci35vNILseJxjBKF+tGNDNng5JnaUrJKjexURbfZPYKtoeMNk/SxZbJ
- nmwE+GS46r8hBVPOxzdS1XJjHHDL6APoi+6hOZtJmy52gW/5bByTXv3qZo5O51xlfGCzCTaQnvO
- 8DtTepZj09ewXUQ7qxBu7PNjYWFUaWTTfcEZtC+Vvu5bIWFJ5FRx5W9GvQJQZ1dS2qMl7R7B+Bl
- S5kK1EVrletw+szX/hMF74nBhzGBWkLSyTzPvpXzEVSiAX1wzRQwIPY2Rbp6mpoi5GKslLflPNg
- 300BIm3MTNMy/CG9hu6zGBjEM0ZlbnynPora4UDZHCmu8s23dGbx2gUwrs0VWC9RmAWVVYJ48ms
- 34rwG0ret4gTO8yuqANJSvrMrWEfNewHnZ8Mlt7w7s+0isMt71mv0CXtsy0bgDhbHOG/KqHsRkC
- 1dqbSasTtQ7hChiTVgm4haRvu4cOIRZXbSvEEdvm14RFuQ0oGXpASjfMAXIKt8/uKexH
-X-Received: by 2002:a05:6402:2812:b0:6b8:8167:733e with SMTP id
- 4fb4d7f45d1cf-6b887e516a6mr1047723a12.11.1794975908017; 
- Tue, 17 Nov 2026 20:25:08 -0800 (PST)
-Received: from mail-wm1-f45.google.com (mail-wm1-f45.google.com.
- [209.85.128.45]) by smtp.gmail.com with ESMTPSA id
- 4fb4d7f45d1cf-6b889c2379asm545891a12.17.2026.11.17.20.25.06
- for <dri-devel@lists.freedesktop.org>
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Tue, 17 Nov 2026 20:25:07 -0800 (PST)
-Received: by mail-wm1-f45.google.com with SMTP id
- 5b1f17b1804b1-49d05d51553so3294745e9.2
- for <dri-devel@lists.freedesktop.org>; Tue, 17 Nov 2026 20:25:06 -0800 (PST)
-X-Forwarded-Encrypted: i=1;
- AL+hErELEiMkP0OR3QFGbnnhWoxkYKl2ypaeIH9OSF+BjZP+joSbc5BtF/T/VC0eAGs7WMnwZBSdxIRDg9I=@lists.freedesktop.org
-X-Received: by 2002:a05:600c:a303:b0:4a2:84c:52f3 with SMTP id
- 5b1f17b1804b1-4bb7da13acdmr20021395e9.6.1794975905159; Tue, 17 Nov 2026
- 20:25:05 -0800 (PST)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 65F1210E4F8;
+	Wed, 18 Nov 2026 04:38:42 +0000 (UTC)
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.20])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 9FA4D10E271;
+ Wed, 18 Nov 2026 04:38:30 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1794976710; x=1826512710;
+ h=date:from:to:cc:subject:message-id:references:
+ mime-version:content-transfer-encoding:in-reply-to;
+ bh=lEGmLiFPnr7cPZZSIE7NpgVKa/gGgyiJ8eU6d3Z1uXE=;
+ b=Y6IEx5ouniEAethKLLn1hjofRtC3kjX16ofdYLiRxQqSetpvODUgRePO
+ dZNmXU6FoTMiKqZiaTI/TP/xE9Iq517rHMt9yfJnYzhoeycrr5t2D2Tj7
+ 7G3NX8z4OmFjkm2cKtgDzmmxO5KC2oYCTAYk+4G1kOPbKvQHO9EvkVLJv
+ 5Zai1INW3rje5EXNbtkd7+olJrqunBJwJQjcwd5ufd+8RTHObl15W51Ki
+ 9fonjA+FFMBLNCtYF1k6KMsIF7S8bJm/O7yrB/Ub5PqKdFkKdXVAcuV0h
+ VGPEWOdkwAYhv1ftvSZ3WPK7kCJZ6DSCcqUn4nO9ItejyKJlBXylAVC9z w==;
+X-CSE-ConnectionGUID: Y+iqbKhJRt2+uQWJCwQiQQ==
+X-CSE-MsgGUID: fV2jROzZSsuHKTtXTCmO1A==
+X-IronPort-AV: E=McAfee;i="6800,10657,11969"; a="3812805"
+X-IronPort-AV: E=Sophos;i="6.27,219,1787036400"; 
+   d="scan'208";a="3812805"
+Received: from orviesa003.jf.intel.com ([10.64.159.143])
+ by orvoesa112.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 17 Nov 2026 20:38:30 -0800
+X-CSE-ConnectionGUID: oiHqSbkXR5uTXEKfPj2y5g==
+X-CSE-MsgGUID: De7/jgGqQ8yWL3TmwBeqvg==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,219,1787036400"; 
+   d="scan'208";a="9893993"
+Received: from abityuts-desk1.ger.corp.intel.com (HELO localhost)
+ ([10.245.244.117])
+ by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 17 Nov 2026 20:38:28 -0800
+Date: Wed, 18 Nov 2026 06:38:24 +0200
+From: Ville =?iso-8859-1?Q?Syrj=E4l=E4?= <ville.syrjala@linux.intel.com>
+To: Hanson Wang <hanson.wang@ugreen.com>
+Cc: intel-gfx@lists.freedesktop.org, jani.nikula@linux.intel.com,
+ rodrigo.vivi@intel.com, joonas.lahtinen@linux.intel.com,
+ tursulin@ursulin.net, intel-xe@lists.freedesktop.org,
+ dri-devel@lists.freedesktop.org
+Subject: Re: [PATCH] drm/i915/bw: sync global BW after non-atomic plane disable
+Message-ID: <av0rwG6o5gzMXGDB@intel.com>
+References: <20261118033312.902366-1-hanson.wang@ugreen.com>
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
-References: <20260716132334.1565183-1-johan@kernel.org>
- <anx_MPm2Y0RVwZ9h@hovoldconsulting.com>
- <avw_XKo3EzosfyIh@hovoldconsulting.com>
-In-Reply-To: <avw_XKo3EzosfyIh@hovoldconsulting.com>
-From: Doug Anderson <dianders@chromium.org>
-Date: Tue, 17 Nov 2026 20:24:53 -0800
-X-Gmail-Original-Message-ID: <CAD=FV=X5DTqanxUBt9KoVh_93u9EUQm8_B2mnej=+-nxpA81gw@mail.gmail.com>
-X-Gm-Features: Aa3M54og-zJOYzu0vMfj1XrR0iPAewvsqdZk6M931gUhwaCa4nfWXvCzQ92vVVo
-Message-ID: <CAD=FV=X5DTqanxUBt9KoVh_93u9EUQm8_B2mnej=+-nxpA81gw@mail.gmail.com>
-Subject: Re: [PATCH] drm/panel-simple: take i2c adapter module reference
-To: Johan Hovold <johan@kernel.org>
-Cc: Neil Armstrong <neil.armstrong@linaro.org>,
- Jessica Zhang <jesszhan0024@gmail.com>, 
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>, 
- Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>,
- Simona Vetter <simona@ffwll.ch>, 
- dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=iso-8859-1
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <20261118033312.902366-1-hanson.wang@ugreen.com>
+X-Patchwork-Hint: comment
+Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
+ krs Bertel Jungin Aukio 5, 02600 Espoo, Finland
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -103,48 +71,196 @@ List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-10.8 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
-	DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
-	INCLUDES_CR_TRAILER,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS
-	autolearn=unavailable autolearn_force=no version=4.0.1
+X-Spam-Status: No, score=-13.8 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
+	DKIM_SIGNED,DKIM_VALID,HEADER_FROM_DIFFERENT_DOMAINS,
+	INCLUDES_CR_TRAILER,INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,
+	SPF_PASS autolearn=unavailable autolearn_force=no version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-Hi,
+On Wed, Nov 18, 2026 at 11:33:12AM +0800, Hanson Wang wrote:
+> Hardware readout copies the firmware plane configuration into the
+> global bandwidth state. skl_dbuf_sanitize() may then disable those
+> planes through intel_plane_disable_noatomic(), which clears the
+> CRTC-local active_planes, data_rate and DDB entries but does not
+> update the global state.
+> 
+> A later atomic modeset sees both the old and new per-CRTC bandwidth
+> as zero and skips the global update. The sanitized pipe therefore
+> keeps contributing a phantom data rate and an active plane to the
+> QGV check.
+> 
+> Do not force !hw.active to zero. A logically enabled but inactive CRTC
+> must retain its bandwidth reservation so that reactivating it cannot
+> fail due to insufficient bandwidth. After the non-atomic disable,
+> recompute the global intel_bw_state and the separate dbuf bandwidth
+> state from the updated CRTC-local plane and DDB state.
+> 
+> Reproduced on two N5105 systems from different board vendors running
+> 6.18.15. After DBUF sanitization, pipe B retained 196000 kB/s and one
+> plane in the global BW state despite its local plane state being
+> cleared and the pipe subsequently being disabled.
+> 
+> With the corresponding fix backported to 6.18.15 on one system, the
+> same sanitization path updated the global accounting to 0 kB/s and
+> zero planes. Subsequent QGV checks no longer included the stale
+> bandwidth.
 
-On Tue, Nov 17, 2026 at 3:49=E2=80=AFAM Johan Hovold <johan@kernel.org> wro=
-te:
->
-> On Wed, Aug 12, 2026 at 04:12:00PM +0200, Johan Hovold wrote:
-> > On Thu, Jul 16, 2026 at 03:23:34PM +0200, Johan Hovold wrote:
-> > > The i2c subsystem currently blocks during adapter deregistration
-> > > whenever there are consumers holding a reference.
-> > >
-> > > Switch to using of_get_i2c_adapter_by_node() which also takes a
-> > > reference to the adapter module so that an attempt to unload the modu=
-le
-> > > while in use fails gracefully instead of blocking uninterruptibly.
-> > >
-> > > Signed-off-by: Johan Hovold <johan@kernel.org>
-> >
-> > Can this one be picked up for 7.3-rc1?
->
-> This one is still not in linux-next. Can I get one more ack or whatever
-> is needed for this to move forward?
->
-> Also adding Doug who merged a corresponding patch for panel-edp back in
-> July. [1]
->
-> Johan
->
->
-> [1] https://lore.kernel.org/all/20260717143119.1815106-1-johan@kernel.org=
-/
+I think what we might want to do is add a new
+intel_display_update_hw_state() wrapper that calls all the
+intel_foo_update_hw_state() functions. Then we just call that
+after any disable_noatomic() stuff is done. Not sure if a single
+call would be sufficient once we've sanitized everything, or if
+we'd need to do a few extra calls during the sanitization
+sequence.
 
-I took a quick gander. One thing I notice is that earlier in the
-thread there is a Sashiko review [1]. It seems to point out a valid
-problem here. I'd imagine that if I land this patch, I'll get a
-nastygram from Arnd and his RANDCONFIG testing. Am I confused? Is
-Sashiko wrong in its analysis?
+And if we're missing any intel_foo_update_hw_state()
+implementations then we should just add them.
 
-[1] http://lore.kernel.org/r/20260716134901.05E221F00A3E@smtp.kernel.org
+> 
+> Link: https://lore.kernel.org/intel-gfx/20261016014704.3876294-1-hanson.wang@ugreen.com
+> 
+> Signed-off-by: Hanson Wang <hanson.wang@ugreen.com>
+> ---
+> Testing:
+> - The corresponding 6.18.15 backport was tested on one N5105 system.
+> - This mainline version has not been runtime-tested.
+> - The original high-bandwidth application failure was not replayed.
+> 
+> diff --git a/drivers/gpu/drm/i915/display/intel_bw.c b/drivers/gpu/drm/i915/display/intel_bw.c
+> index 99fd84a5ac13..84fe1f68e312 100644
+> --- a/drivers/gpu/drm/i915/display/intel_bw.c
+> +++ b/drivers/gpu/drm/i915/display/intel_bw.c
+> @@ -1444,6 +1444,20 @@ static void intel_bw_crtc_update(struct intel_bw_state *bw_state,
+>  		    bw_state->num_active_planes[crtc->pipe]);
+>  }
+>  
+> +void intel_bw_crtc_update_noatomic(struct intel_crtc *crtc)
+> +{
+> +	struct intel_display *display = to_intel_display(crtc);
+> +	struct intel_bw_state *bw_state =
+> +		to_intel_bw_state(display->bw.obj.state);
+> +	const struct intel_crtc_state *crtc_state =
+> +		to_intel_crtc_state(crtc->base.state);
+> +
+> +	if (DISPLAY_VER(display) < 11)
+> +		return;
+> +
+> +	intel_bw_crtc_update(bw_state, crtc_state);
+> +}
+> +
+>  void intel_bw_update_hw_state(struct intel_display *display)
+>  {
+>  	struct intel_bw_state *bw_state =
+> @@ -1456,12 +1470,9 @@ void intel_bw_update_hw_state(struct intel_display *display)
+>  	bw_state->pipe_sagv_reject = 0;
+>  
+>  	for_each_intel_crtc(display, crtc) {
+> -		const struct intel_crtc_state *crtc_state =
+> -			to_intel_crtc_state(crtc->base.state);
+>  		enum pipe pipe = crtc->pipe;
+>  
+> -		if (DISPLAY_VER(display) >= 11)
+> -			intel_bw_crtc_update(bw_state, crtc_state);
+> +		intel_bw_crtc_update_noatomic(crtc);
+>  
+>  		/* initially SAGV has been forced off */
+>  		bw_state->pipe_sagv_reject |= BIT(pipe);
+> diff --git a/drivers/gpu/drm/i915/display/intel_bw.h b/drivers/gpu/drm/i915/display/intel_bw.h
+> index 99b447388245..41ace27608dc 100644
+> --- a/drivers/gpu/drm/i915/display/intel_bw.h
+> +++ b/drivers/gpu/drm/i915/display/intel_bw.h
+> @@ -30,6 +30,7 @@ void intel_bw_init_hw(struct intel_display *display);
+>  int intel_bw_init(struct intel_display *display);
+>  int intel_bw_atomic_check(struct intel_atomic_state *state);
+>  void intel_bw_update_hw_state(struct intel_display *display);
+> +void intel_bw_crtc_update_noatomic(struct intel_crtc *crtc);
+>  void intel_bw_crtc_disable_noatomic(struct intel_crtc *crtc);
+>  
+>  bool intel_bw_pmdemand_needs_update(struct intel_atomic_state *state);
+> diff --git a/drivers/gpu/drm/i915/display/intel_dbuf_bw.c b/drivers/gpu/drm/i915/display/intel_dbuf_bw.c
+> index 6cf674c586dc..453ceaa52e26 100644
+> --- a/drivers/gpu/drm/i915/display/intel_dbuf_bw.c
+> +++ b/drivers/gpu/drm/i915/display/intel_dbuf_bw.c
+> @@ -226,21 +226,29 @@ int intel_dbuf_bw_calc_min_cdclk(struct intel_atomic_state *state,
+>  	return 0;
+>  }
+>  
+> -void intel_dbuf_bw_update_hw_state(struct intel_display *display)
+> +void intel_dbuf_bw_crtc_update_noatomic(struct intel_crtc *crtc)
+>  {
+> +	struct intel_display *display = to_intel_display(crtc);
+>  	struct intel_dbuf_bw_state *dbuf_bw_state =
+>  		to_intel_dbuf_bw_state(display->dbuf_bw.obj.state);
+> -	struct intel_crtc *crtc;
+> +	const struct intel_crtc_state *crtc_state =
+> +		to_intel_crtc_state(crtc->base.state);
+>  
+>  	if (DISPLAY_VER(display) < 9)
+>  		return;
+>  
+> -	for_each_intel_crtc(display, crtc) {
+> -		const struct intel_crtc_state *crtc_state =
+> -			to_intel_crtc_state(crtc->base.state);
+> +	skl_crtc_calc_dbuf_bw(&dbuf_bw_state->dbuf_bw[crtc->pipe], crtc_state);
+> +}
+>  
+> -		skl_crtc_calc_dbuf_bw(&dbuf_bw_state->dbuf_bw[crtc->pipe], crtc_state);
+> -	}
+> +void intel_dbuf_bw_update_hw_state(struct intel_display *display)
+> +{
+> +	struct intel_crtc *crtc;
+> +
+> +	if (DISPLAY_VER(display) < 9)
+> +		return;
+> +
+> +	for_each_intel_crtc(display, crtc)
+> +		intel_dbuf_bw_crtc_update_noatomic(crtc);
+>  }
+>  
+>  void intel_dbuf_bw_crtc_disable_noatomic(struct intel_crtc *crtc)
+> diff --git a/drivers/gpu/drm/i915/display/intel_dbuf_bw.h b/drivers/gpu/drm/i915/display/intel_dbuf_bw.h
+> index 61875b9d5969..434f3c605995 100644
+> --- a/drivers/gpu/drm/i915/display/intel_dbuf_bw.h
+> +++ b/drivers/gpu/drm/i915/display/intel_dbuf_bw.h
+> @@ -32,6 +32,7 @@ int intel_dbuf_bw_calc_min_cdclk(struct intel_atomic_state *state,
+>  int intel_dbuf_bw_min_cdclk(struct intel_display *display,
+>  			    const struct intel_dbuf_bw_state *dbuf_bw_state);
+>  void intel_dbuf_bw_update_hw_state(struct intel_display *display);
+> +void intel_dbuf_bw_crtc_update_noatomic(struct intel_crtc *crtc);
+>  void intel_dbuf_bw_crtc_disable_noatomic(struct intel_crtc *crtc);
+>  
+>  #endif /* __INTEL_DBUF_BW_H__ */
+> diff --git a/drivers/gpu/drm/i915/display/intel_display.c b/drivers/gpu/drm/i915/display/intel_display.c
+> index b897678a93c0..b81d8f288810 100644
+> --- a/drivers/gpu/drm/i915/display/intel_display.c
+> +++ b/drivers/gpu/drm/i915/display/intel_display.c
+> @@ -67,6 +67,7 @@
+>  #include "intel_cursor.h"
+>  #include "intel_cursor_regs.h"
+>  #include "intel_cx0_phy.h"
+> +#include "intel_dbuf_bw.h"
+>  #include "intel_ddi.h"
+>  #include "intel_de.h"
+>  #include "intel_dip.h"
+> @@ -679,6 +680,14 @@ void intel_plane_disable_noatomic(struct intel_crtc *crtc,
+>  
+>  	skl_wm_plane_disable_noatomic(crtc, plane);
+>  
+> +	/*
+> +	 * Keep the global bandwidth states in sync with the updated
+> +	 * CRTC-local plane and DDB state. Otherwise a later atomic check
+> +	 * may skip the update when its old and new inputs are identical.
+> +	 */
+> +	intel_bw_crtc_update_noatomic(crtc);
+> +	intel_dbuf_bw_crtc_update_noatomic(crtc);
+> +
+>  	if ((crtc_state->active_planes & ~BIT(PLANE_CURSOR)) == 0 &&
+>  	    hsw_ips_disable(crtc_state)) {
+>  		crtc_state->ips_enabled = false;
+> -- 
+> 2.34.1
+
+-- 
+Ville Syrjälä
+Intel
