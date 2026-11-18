@@ -2,103 +2,101 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CAB5B606A334
-	for <dri-devel@archiver.kernel.org>; Wed, 18 Nov 2026 12:08:49 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 105AC606A330
+	for <dri-devel@archiver.kernel.org>; Wed, 18 Nov 2026 12:08:59 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=baylibre.com header.i=@baylibre.com header.a=rsa-sha256 header.s=google header.b=aPjmoR59
+	dkim=pass (2048-bit key) header.d=baylibre.com header.i=@baylibre.com header.a=rsa-sha256 header.s=google header.b=JBms0MKe
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 3233410FB97;
-	Wed, 18 Nov 2026 12:08:44 +0000 (UTC)
-Received: from mail-wm1-f44.google.com (mail-wm1-f44.google.com
- [209.85.128.44])
- by gabe.freedesktop.org (Postfix) with ESMTPS id D5D9F10FB9D
- for <dri-devel@lists.freedesktop.org>; Wed, 18 Nov 2026 12:08:37 +0000 (UTC)
-Received: by mail-wm1-f44.google.com with SMTP id
- 5b1f17b1804b1-4a140e7405dso8536235e9.3
- for <dri-devel@lists.freedesktop.org>; Wed, 18 Nov 2026 04:08:37 -0800 (PST)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 4905510FBA6;
+	Wed, 18 Nov 2026 12:08:53 +0000 (UTC)
+Received: from mail-wr1-f50.google.com (mail-wr1-f50.google.com
+ [209.85.221.50])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 283C310FB99
+ for <dri-devel@lists.freedesktop.org>; Wed, 18 Nov 2026 12:08:45 +0000 (UTC)
+Received: by mail-wr1-f50.google.com with SMTP id
+ ffacd0b85a97d-49a92144733so370176f8f.0
+ for <dri-devel@lists.freedesktop.org>; Wed, 18 Nov 2026 04:08:45 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=baylibre.com; s=google; t=1795003716; x=1795608516;
+ d=baylibre.com; s=google; t=1795003723; x=1795608523;
  darn=lists.freedesktop.org; 
  h=content-transfer-encoding:content-type:mime-version:references
  :in-reply-to:message-id:date:subject:cc:to:from:from:to:cc:subject
  :date:message-id:reply-to:content-type;
- bh=SjNyonqAa0eE7Fx/cbQ4HwCRl3zwHsHy92B2Dcu4U+k=;
- b=aPjmoR597ZpGIS+0Hrn1NQ0KWozAsrCvleXqw1WEh5x74ENyX3zdQE8qrUNiySnKQT
- xohM81wmf0hwgVgboDCDrrEuhDZsJcD8y77lyD/GDfrmMMkvtkSiabzJQSXuhOnQnPqo
- k/Mf/8TuvNy9gPUnhZis6xEAM3u3L4oeT/uZFjT3WfZ1ZhOp7baWdhtePJ+t5xFOS+tm
- t+SDgvfHIBqUm5OjaFXePfzzShxiqBGIY/ffGLwsHyuxUiV+27UbJVFEjPCyqTGyPffM
- aXknWEYmVm67xNDmurLLnyc3G+d05eSDcNKC/ahObJcqtOseOMw/lukbewLn0lYoqkTu
- /nDQ==
+ bh=I0MHFtYg7sE1F1vIvy43zcgj8YN/1frwYJLkdDo9QaA=;
+ b=JBms0MKe/w4UiKyyIl7eTxESdCIr5EhQSQ4tYIV/+uHT86qew6fgbiRC3zn+Wb/3js
+ hu7UA4J1pW+Cg045UKZe9lbPrz1k0vKnz6wAh5bWtjqCCSifzHcf2vMThOVnU2aCv/3Z
+ ZclH4+gCf6VayPw2v1fgFD+A3WWK0a1E3FajRRav/e1U8au1Y0XaJUMGAddtcXbGas6n
+ TFpvwF9IER2efEAL+lAPnzrGbStaDoffKU6KvLqRxPV+dGAtOzQvX90qIV2s9tWNYWfV
+ 38qSQp0ktk2ehvLhVqPDFLIqpZcEmtkgX1RTcst3zQdTCiF0+2pdQO1D298uYwxDRzp4
+ UPzw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20260707; t=1795003716; x=1795608516;
+ d=1e100.net; s=20260707; t=1795003723; x=1795608523;
  h=content-transfer-encoding:content-type:mime-version:references
  :in-reply-to:message-id:date:subject:cc:to:from:x-gm-gg
  :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
  :content-type;
- bh=SjNyonqAa0eE7Fx/cbQ4HwCRl3zwHsHy92B2Dcu4U+k=;
- b=pHQtwDZF17UccYOdrMVOM7Zuo+NOkbI7JccGa0rTpNegyCNIHJH9AuQh8WHiWPpciX
- w9jnsWjj2sTqjRFi1Nk6IN2Vn3sVfnq+UA0hjKtAGcVrzhpC2Jo7mwSb5NfwVWeAIzRm
- 8+yIm5kvJAUKekWMV4nEETDVjUaCXih57WNenKK9zvyZEAd09TYm9xlvbNL/16a5ub88
- FLMa2JZgPQZZo1Qlw0SzzO4TaMKDqPBkP0/Zr9yM6iPK40l5DP6eoJRJz2hLeF+mdmq5
- xT4gc72i0l5N/rppyaOBzejtBGj7Kh9yaqn7Bxf25OCZ3yx34QZUs/bAhzqJVu9ntp2V
- 2xOw==
+ bh=I0MHFtYg7sE1F1vIvy43zcgj8YN/1frwYJLkdDo9QaA=;
+ b=dWWWCVKoC6BUaIEhlM7vNXD1Ibg1OFeqokj911KwnSlawZ7fIF9xpr9+6WOnWTSpJq
+ ocjzWesQW81C6SwSZvEWoa+0tSigh0j8cUvAkkFE230m0ESzGvDDiGYlIBhVlEvINnqo
+ VDADn5ZFJuYT1fdQtSKFlzzA7jCtfXhGxNhqz1nMYpyIed4fBlr794bXSutKM3myz+HC
+ Du1f1Asagai8W+g6PpgwYZV+MVajf+9IQEJ5xQzJ9b3LNtuSlScMZMIvhwm+1YGyLNO1
+ EjXDuYUSCnlxC6VhlKwnrtw1oDfIL8hF40IrFqxQx5HxaSIUcb7ab4lw2JxyyaYZ6Uji
+ YXqg==
 X-Forwarded-Encrypted: i=1;
- AL+hErGDoNKAz/lieQaCZq7fJFziPQ6gUv2EmOZUz8IE22b9QEDPL5rnkZ62xngCGqRVxaNBMHiBzVI4Zsg=@lists.freedesktop.org
-X-Gm-Message-State: APuU4Z+guggqdd4cXY+YUPYD296Rv7VoY3F3q54tdmTNum4l19XPWGKU
- zrlGB3zBXD5eTjtgwIpTJO/0OJjNmyTT1HaK+H5CYAOXuGBLPLNBMXngNFMuzN0kDEY=
-X-Gm-Gg: AYBFou1BTQcE0NuIOjFaiolIcSmJWLU69fkwmUXVJkH27tmexzezBrWpuis1wq7B+Sf
- 4qXRVGVp0CYC103A4NDCQu2Lf5PcMVL1aiSkKqnuEz2NmdH3gXox3HVIQZMA6f5K4Vhi4fa8ZMU
- lJBcaWje3PDGPJv7kHC5WqxYizxexC9Qm5suKsnRxY2ponb7PsIUPdLi/iSOX0JDzCSHDqsOfQK
- rr/BteWqXEOTXwh9yCDa4zoQUVDSozv9KIFo5gVTh1Ek1fhlDPIcf6v86l6PXtFTuzo+DCOfUS9
- /Vz3BSDRj80rQA8DmWWYkY5nwhFLLxpxttw9o+C04EfK4lqBcbXSCcGBxqKn3t4ngdRW1EvxZxM
- hzGXL3CHaelkfPqXttutr/dVHSz4Fklg3UnwJEO6U6CAlCepC5ngZMOOgdUIwlvK06AU5h6UTUq
- DviOOlqMcD+IUwNTm2JvBn3Ziw5bd78vsFMv3xumaQ75G8BEY407k7oEZ+sBNfGbMApmdxxt4Dc
- oHKECnPY5kYBoi8TeI+uEu7GFgotT0H47IVqYpiA72OZSvrV7SQ672A9zHNZn2v6vIVDsxSP4mx
- Ky+DMMlW+600ceBQPmR0GNn4jg6i9q0F7wkO0eC1dsDgg46+RJTk9QFWP54J0ZOuI2MxszB/lwB
- zia77M0N7NSVfKoLlthN9RqTNRQJL07j1gW+t
-X-Received: by 2002:a05:600c:1d0f:b0:4bb:56bb:1196 with SMTP id
- 5b1f17b1804b1-4bb7da349e2mr45108555e9.23.1795003716150; 
- Wed, 18 Nov 2026 04:08:36 -0800 (PST)
+ AL+hErEuPcZjPhRrbJVs+9YGfU3RTbQ3dEyG125DmGHTIiCGpq4xxlbZn0NPaj+mOLogydANhEAwzZNzV6c=@lists.freedesktop.org
+X-Gm-Message-State: APuU4Z9SUTlSFdTMiS2wVXKleicnxizG9fdsV9ITrNWI68O/kS/9ImV1
+ Scb5jgGVLe2KdcN7ALpb/e3ag0fkvHn/AVan/9N3iTOM1mHeRGiRT8mtJ2Q16iqFbnk=
+X-Gm-Gg: AZFdTZdD+TpBMx/yrikIRIPovQy0jm5a83nPvY15s5i8w0wsydPnyBEKENrT0U/JwOw
+ gd5Mb71wCqGaqEfGw9D38Ubh/ylEmXJsgjIetlfEwK9KnZc5G3YS5jE2H0xttezlKx3FJhuD+iM
+ Nt2kebLAtw0v+9GFIoBFxegC48yj7KlQa/pZFILDreONmUSiE7UoESO40VcH5JjxpX1yhNEDw4l
+ uElpO/NiJaIN8LrkiLLXvJNw2zXHJ0CvR8OLQMWy0wQ2tn7NUPADatnPCaG2juZamIDqNVI+g8D
+ gw9ETaKW+/EjcE2Pb4ktT7ws9gkHao7p7H8LMPKUIWavCJjDU2UqL1awokF+Z6bM6xATuDFyrG8
+ O6zqLn19Kra1vEYxwnQQ+QREDRqPWKbJhh9eKuHTX4rFYv1TWoeQy5nn/fe6rknW+kQ/t8j2vza
+ IwIC+lKLarbHL3XB0SGdODIpVxX+aXznnG7VWi9zTRJI41Dsl13TZmOBBCsZIDxub56CQ6/giYB
+ aH8oZ5fe+tu7MqnyDHj+z3mQDwn/z8dPtxfebJvKVYA8Qrh1yKC/CylpldG5tRalqZ472RKP9gn
+ ShbSEWGNmZld9Si4AfgZAYUjDxO+ZvUyTw9SMuo1/KOh/EMm43QqXJ/Fg+njEagyd90IDwrfm+2
+ 7j1dG8Mku0vmdsmk=
+X-Received: by 2002:a05:6000:1865:b0:48e:5444:a1d3 with SMTP id
+ ffacd0b85a97d-4a638bd6badmr5586622f8f.11.1795003723550; 
+ Wed, 18 Nov 2026 04:08:43 -0800 (PST)
 Received: from localhost
  (p200300f65f19a904dea20c2220232395.dip0.t-ipconnect.de.
  [2003:f6:5f19:a904:dea2:c22:2023:2395])
  by smtp.gmail.com with UTF8SMTPSA id
- 5b1f17b1804b1-4bb783f8154sm152043755e9.4.2026.11.18.04.08.35
+ ffacd0b85a97d-4a65560882asm4774987f8f.27.2026.11.18.04.08.42
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Wed, 18 Nov 2026 04:08:35 -0800 (PST)
+ Wed, 18 Nov 2026 04:08:43 -0800 (PST)
 From: =?UTF-8?q?Uwe=20Kleine-K=C3=B6nig?= <u.kleine-koenig@baylibre.com>
 To: David Airlie <airlied@gmail.com>,
 	Simona Vetter <simona@ffwll.ch>
-Cc: Alex Deucher <alexander.deucher@amd.com>,
- =?utf-8?q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>,
- Lijo Lazar <lijo.lazar@amd.com>,
- Mario Limonciello <mario.limonciello@amd.com>,
- "Mario Limonciello (AMD)" <superm1@kernel.org>,
- "Yo-Jung Leo Lin (AMD)" <Leo.Lin@amd.com>, Hugo Sales <hugo@hsal.es>,
- Wentao Liang <vulab@iscas.ac.cn>, Zhigang Luo <Zhigang.Luo@amd.com>,
- Srinivasan Shanmugam <srinivasan.shanmugam@amd.com>,
- amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
+Cc: Dave Airlie <airlied@redhat.com>, Thomas Zimmermann <tzimmermann@suse.de>,
+ Jocelyn Falempe <jfalempe@redhat.com>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>, Yongbang Shi <shiyongbang@huawei.com>,
+ Tian Tao <tiantao6@hisilicon.com>,
+ Xinwei Kong <kong.kongxinwei@hisilicon.com>,
+ dri-devel@lists.freedesktop.org,
  Pawel Zalewski <pzalewski@thegoodpenguin.co.uk>
-Subject: [PATCH v1 1/9] drm/amdgpu: Use named initializer for acpi_device_id
- array
-Date: Wed, 18 Nov 2026 13:08:08 +0100
-Message-ID: <cfcf58f6b8db7fb0c16af561d88392ded6b90eed.1795002467.git.ukleinek@kernel.org>
+Subject: [PATCH v1 7/9] drm: Use an empty initializer as pci_device_id array
+ terminator
+Date: Wed, 18 Nov 2026 13:08:14 +0100
+Message-ID: <dc6562a484bbb7fe91d5d5c081ab86505eec9662.1795002467.git.ukleinek@kernel.org>
 X-Mailer: git-send-email 2.47.3
 In-Reply-To: <cover.1795002467.git.ukleinek@kernel.org>
 References: <cover.1795002467.git.ukleinek@kernel.org>
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=UTF-8
-X-Developer-Signature: v=1; a=openpgp-sha256; l=944;
+X-Developer-Signature: v=1; a=openpgp-sha256; l=1334;
  i=u.kleine-koenig@baylibre.com; h=from:subject:message-id;
- bh=ft4/rQdu1reKvgKzxrhOmRdN8khYNFEACBZQSNlOECo=;
- b=owEBbQGS/pANAwAKAY+A+1h9Ev5OAcsmYgBq/ZUqx7zRoE1U/CjdK6gW/uFoej0jZtQ514rvH
- Y4soQkxgHKJATMEAAEKAB0WIQQ/gaxpOnoeWYmt/tOPgPtYfRL+TgUCav2VKgAKCRCPgPtYfRL+
- TvqKB/97EpSLsgyWyjP60niPUZXPhxY+yNQ0hauypRH8ipaVtk//TURgf1RIWnZMvCharRF6kwd
- Pzdc/HLFchkMd9Gu6EQ3z0CLlHC8hKqJNMIYCXiDVXB/6Qdu71zACkVF0v5C9xFjWXIEkkeiW+d
- Fn6c/Jj9M3D73qb1ycxy5HbLvlhzAfJCJ0XfYBEa5ULg48NPCIgGnwRWe7KwYYJ/livSbuqmuxo
- sju/HBd6ocNUpkA5v0AHhEkXVnB3gJDpdF8wBDqWoJhC7Lc8HsoMUbVi4fC0HDEzR/aw2bes1Wm
- ZpW+htrkPaKtNzD3PlfW3L5s2gk/G1v03kc1PB5Ou8ibj/0J
+ bh=8gR79g7fiC68voxSNKR3RR0KczXakdzvIV8MeFQvtn4=;
+ b=owEBbQGS/pANAwAKAY+A+1h9Ev5OAcsmYgBq/ZU47cToFxrVACTYLmaod/+jUC3yHiJb1f5ZM
+ 9OFjPNDfKqJATMEAAEKAB0WIQQ/gaxpOnoeWYmt/tOPgPtYfRL+TgUCav2VOAAKCRCPgPtYfRL+
+ Ti7HB/0WB8bTRddWPanDvCE7i75M5DEgfWFUdTYhqVB9jXxq1UCgo/BW05vioYOQokw5/ps70Bs
+ DTI2DyUlwp6I9NvhTz/ia4m7YNbEjngMT/EPfXA6Kc5DgfiCwJLBOd5Ico0qed+pC3juf4SZa9R
+ usp0HXL3ekiTRstFhQsvsngIJB0EaSOdOPT6c58UGnKeQSaGyF1FaT/f7bsMl7Aq+Cs7BG5Wmie
+ bUKu7fyKs33R6tfGURnu4wv3PIRTP532skB5vEntmW3/ctkgbrPu3AenUHvmYy57LEe6V9Oo+Iu
+ d8pa4LIl2JWkPY/faOfHDKgWJQTmHV0r35brWmrEZTGhVv2y
 X-Developer-Key: i=u.kleine-koenig@baylibre.com; a=openpgp;
  fpr=0D2511F322BFAB1C1580266BE2DCDD9132669BD6
 Content-Transfer-Encoding: 8bit
@@ -120,29 +118,41 @@ X-Spam-Status: No, score=-18.8 required=3.0 tests=BAYES_00,DKIM_SIGNED,
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-Named initializers are better readable and more robust to changes of the
-struct definition. This change isn't needed for the planned change to
-struct acpi_device_id replacing .driver_data by an anonymous union but
-aligns this driver to the common style to define such arrays.
+Rely on the default initialisation provided by the compiler instead of
+explicitly assigning zeros.
 
 Signed-off-by: Uwe Kleine-König <u.kleine-koenig@baylibre.com>
 ---
- drivers/gpu/drm/amd/amdgpu/amdgpu_acpi.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+ drivers/gpu/drm/ast/ast_drv.c                   | 2 +-
+ drivers/gpu/drm/hisilicon/hibmc/hibmc_drm_drv.c | 2 +-
+ 2 files changed, 2 insertions(+), 2 deletions(-)
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_acpi.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_acpi.c
-index 4874ee864b80..9175680b6a81 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_acpi.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_acpi.c
-@@ -1729,7 +1729,7 @@ bool amdgpu_acpi_is_s0ix_active(struct amdgpu_device *adev)
- 
- #if IS_ENABLED(CONFIG_DRM_AMD_ISP)
- static const struct acpi_device_id isp_sensor_ids[] = {
--	{ "OMNI5C10" },
-+	{ .id = "OMNI5C10" },
- 	{ }
+diff --git a/drivers/gpu/drm/ast/ast_drv.c b/drivers/gpu/drm/ast/ast_drv.c
+index ba6cf5fa901c..effe289a6921 100644
+--- a/drivers/gpu/drm/ast/ast_drv.c
++++ b/drivers/gpu/drm/ast/ast_drv.c
+@@ -186,7 +186,7 @@ static const struct drm_driver ast_driver = {
+ static const struct pci_device_id ast_pciidlist[] = {
+ 	AST_VGA_DEVICE(PCI_CHIP_AST2000, NULL),
+ 	AST_VGA_DEVICE(PCI_CHIP_AST2100, NULL),
+-	{0, 0, 0},
++	{ }
  };
  
+ MODULE_DEVICE_TABLE(pci, ast_pciidlist);
+diff --git a/drivers/gpu/drm/hisilicon/hibmc/hibmc_drm_drv.c b/drivers/gpu/drm/hisilicon/hibmc/hibmc_drm_drv.c
+index 602930964e93..b80f1d4e83b4 100644
+--- a/drivers/gpu/drm/hisilicon/hibmc/hibmc_drm_drv.c
++++ b/drivers/gpu/drm/hisilicon/hibmc/hibmc_drm_drv.c
+@@ -491,7 +491,7 @@ static void hibmc_pci_shutdown(struct pci_dev *pdev)
+ 
+ static const struct pci_device_id hibmc_pci_table[] = {
+ 	{ PCI_VDEVICE(HUAWEI, 0x1711) },
+-	{0,}
++	{ }
+ };
+ 
+ static struct pci_driver hibmc_pci_driver = {
 -- 
 2.56.0.rc1
 
