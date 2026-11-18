@@ -2,39 +2,39 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 953D3606A32F
-	for <dri-devel@archiver.kernel.org>; Wed, 18 Nov 2026 21:48:09 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4B571606A320
+	for <dri-devel@archiver.kernel.org>; Wed, 18 Nov 2026 21:48:15 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=igalia.com header.i=@igalia.com header.a=rsa-sha256 header.s=20170329 header.b=GUh0hZ12
+	dkim=pass (2048-bit key) header.d=igalia.com header.i=@igalia.com header.a=rsa-sha256 header.s=20170329 header.b=TV7Sdxs5
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id E942410FDE7;
-	Wed, 18 Nov 2026 21:48:03 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 6BE7111206A;
+	Wed, 18 Nov 2026 21:48:09 +0000 (UTC)
 Received: from fanzine2.igalia.com (fanzine2.igalia.com [213.97.179.56])
- by gabe.freedesktop.org (Postfix) with ESMTPS id A9FFF112066
- for <dri-devel@lists.freedesktop.org>; Wed, 18 Nov 2026 21:47:48 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id B50A6112066
+ for <dri-devel@lists.freedesktop.org>; Wed, 18 Nov 2026 21:47:56 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com; 
  s=20170329;
  h=Cc:To:Message-Id:Content-Transfer-Encoding:Content-Type:
  MIME-Version:Subject:Date:From:From:Reply-To;
- bh=Y9z0INQnIrxBLi0ItJauMKa1CNAGPzWxvkQC64eLAXI=; t=1795038468; x=2110398468; 
- b=GUh0hZ12BT2Otl5c1WMu6HwXjaayexacbNBQNxI49BteXYOKv8Qkm/mhdNrc4YxC48dH/Q22p2v
- oVYPLNWPMHfHJhRdpHu4PKvho1PkmIZy4kmFoWumCez1u7xnfjLC8/60xvZ85Aktnzn7nrnqeSvBw
- 7MZRwjDQgRduIdFxZ9n04ICTy8iInb4U3N3Sg+vh80EZ++SDKYbjnASiuxJjnrSd/zEWKOOEUXNFY
- 7JVNAc8bblDkboKNMAhakFZMD+nMJK1Rw6gVQ0TQcArb3Pr/Abg+3UJ3wqtOzPkXS+G13yHid0dbp
- Ps7yCRmMJ0/96poIztUSOZyRIGM03oYlpB3w==;
+ bh=8hwxCT8J6T3J+VUZm9acnDT4rPprAYYlG8dk+lTP2CE=; t=1795038476; x=2110398476; 
+ b=TV7Sdxs5vONd5GlaDC0Ag8KzJfJcpku70q8PuLt35xLe5zi/ukcUcSK9A7kUgFAmJKP7oP6Ufy6
+ qRSHPSC2LulV/IMR95mnOEHr66YKf4OOOW8LJ+rnUiSifgDhdERDBTD9B64sril8cpYRul/gUXO0/
+ BKRw3/AX0VMnNj0Rrk1pr3LxN8xEYHxIvLGGRzy/hc/izEqnz97SGu7yenZq/1yC4gv83Xm4shsN5
+ xNBnZ9V9m7DpV6StgmCIxymhH1ttjvK4x3OiDpUQPEZDjxkU3f5lOYtqoj01J7asA5G3zu/apsWIl
+ b9Ccb3vU71aFk/+v74Osx5GcE8FLAR9Wj1yw==;
 Received: from [179.105.94.163] (helo=[10.0.0.1])
  by fanzine2.igalia.com with esmtpsa 
  (Cipher TLS1.3:ECDHE_X25519__RSA_PSS_RSAE_SHA256__AES_256_GCM:256) (Exim)
- id 1xTnVK-00000001DOD-1atu; Wed, 18 Nov 2026 22:47:46 +0100
+ id 1xTnVS-00000001DOD-1YrF; Wed, 18 Nov 2026 22:47:54 +0100
 From: =?utf-8?q?Ma=C3=ADra_Canal?= <mcanal@igalia.com>
-Date: Wed, 18 Nov 2026 18:47:29 -0300
-Subject: [PATCH 2/4] drm/vc4: Check for a validated shader before reading
- its thread mode
+Date: Wed, 18 Nov 2026 18:47:31 -0300
+Subject: [PATCH 4/4] drm/vc4: Clear the slice caches before resetting a
+ stalled GPU
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
-Message-Id: <20261118-vc4-icache-workaround-v1-2-5b8adc2c84fe@igalia.com>
+Message-Id: <20261118-vc4-icache-workaround-v1-4-5b8adc2c84fe@igalia.com>
 References: <20261118-vc4-icache-workaround-v1-0-5b8adc2c84fe@igalia.com>
 In-Reply-To: <20261118-vc4-icache-workaround-v1-0-5b8adc2c84fe@igalia.com>
 To: Iago Toral <itoral@igalia.com>, 
@@ -46,15 +46,15 @@ To: Iago Toral <itoral@igalia.com>,
 Cc: kernel-dev@igalia.com, dri-devel@lists.freedesktop.org, 
  stable@vger.kernel.org, =?utf-8?q?Ma=C3=ADra_Canal?= <mcanal@igalia.com>
 X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=openpgp-sha256; l=2021; i=mcanal@igalia.com;
- h=from:subject:message-id; bh=BSFhiqKTk4diCGnaXJLGBu8mlHmWK2u9FvoYgucdTZ8=;
- b=owEBbQGS/pANAwAKAT/zDop2iPqqAcsmYgBq/hz221sfFJT2BawEtvEsuwBAjv/xZAhIeiAEB
- cF+RxceqY2JATMEAAEKAB0WIQT45F19ARZ3Bymmd9E/8w6Kdoj6qgUCav4c9gAKCRA/8w6Kdoj6
- qjnPCADVzoZl8ywOqRQPPY3qUJX1tfbxYYwIZU+DyxrHJ4HNiTICiOcHvPbGsaMzKC+YHHQed9m
- JPEAfOyqPmnud3wjsANZxg1Q7AAfJQyVXIs1vuUJg2fADcQ/DTmVYNyKeBGrkAyN2cpnezgS9J4
- ZxIKUWT6fMj8SoskSSWwXH3FVAOqxpyp21+1IvymQnhq7GaLod3EGcf2cleba3NEMLDrh8Gi/ug
- CcJnen28Y/tnYxUuf3kBeJmVrsAxVWD/y3ZDMixcvAWxA5jgb562feoXOoZlXwdIVgsd9UJWgd0
- 0dMZhaEk6NwLtBlJwikVWpHcpu0z1N7irmlYE8K1pfLAPZ4S
+X-Developer-Signature: v=1; a=openpgp-sha256; l=3218; i=mcanal@igalia.com;
+ h=from:subject:message-id; bh=9zffzSXj5cLqRqPiTxaIkEmj8QnZEXnsu3xIIn9DrVM=;
+ b=owEBbQGS/pANAwAKAT/zDop2iPqqAcsmYgBq/hz2fLhHihYkBlYSAhnyUlGgi7iZke7zOs4Vs
+ 9JJnupRMiSJATMEAAEKAB0WIQT45F19ARZ3Bymmd9E/8w6Kdoj6qgUCav4c9gAKCRA/8w6Kdoj6
+ qqYZCACt4a0s9dGJaRujPek0YJ3j91vzQax2ccDNTOQVlBf2EjpVrjP4C7om7yfnCJ6OQ+/vWp4
+ +Zc2ggP4I8fFSmoU144RNcx+nhvjc/o8owtsm9K6dUWVLwyT3kzLukkFNNUFHwaun8l0qkHHLO5
+ EPqk+vV/dl41aCSMJE8eppB9wkVPOq/ymgGDCEZR1QFQQKlhxd1zoNIIb13dh9NlklV+rOVtoRk
+ hYV5518TEfwKT9fyLbr4OVq6p+bJhJ4eGKoAdYWAI0RJtq+DBTV39p77JgVpA2d840+2ILMdSaD
+ g2Lemh9iCZJUX5dkPwpoWFTPkn5iCFmrN14t76AR2WR8Fvx1
 X-Developer-Key: i=mcanal@igalia.com; a=openpgp;
  fpr=F8E45D7D0116770729A677D13FF30E8A7688FAAA
 X-BeenThere: dri-devel@lists.freedesktop.org
@@ -76,57 +76,95 @@ X-Spam-Status: No, score=-18.8 required=3.0 tests=BAYES_00,DKIM_SIGNED,
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-validate_gl_shader_rec() reads the thread mode from the validated_shader
-of the FS, VS and CS BOs before checking it for NULL. A shader record
-pointing at a BO not created by DRM_IOCTL_VC4_CREATE_SHADER_BO has no
-validated_shader, so userspace can trigger a NULL pointer dereference.
+Starting shader code at varying offsets makes the GFXH-16 icache livelock
+unlikely, but not impossible. When the livelock happens, the QPUs make no
+progress and the hangcheck resets the GPU, losing the job.
 
-Check that every shader BO has a validated shader before using it.
+When the hangcheck finds no progress, clear the slice instruction and
+uniforms caches and check again before resetting. If the stall is a
+livelock, clearing the caches can break it and let the job continue.
+
+Drop round_jiffies_up() from the hangcheck timer, so checks run every
+100 ms instead of at the next whole second. This shortens the screen
+freeze before the caches are cleared. Long jobs are unaffected: while the
+control lists advance, the hangcheck won't clear the caches or reset the
+GPU.
 
 Cc: stable@vger.kernel.org
-Fixes: c778cc5df944 ("drm/vc4: Add fragment shader threading support")
+Fixes: d5b1a78a772f ("drm/vc4: Add support for drawing 3D frames.")
+Closes: https://gitlab.freedesktop.org/mesa/mesa/-/issues/16652
 Signed-off-by: Maíra Canal <mcanal@igalia.com>
 ---
- drivers/gpu/drm/vc4/vc4_validate.c | 12 +++++++-----
- 1 file changed, 7 insertions(+), 5 deletions(-)
+ drivers/gpu/drm/vc4/vc4_drv.h |  5 +++++
+ drivers/gpu/drm/vc4/vc4_gem.c | 20 ++++++++++++++++++--
+ 2 files changed, 23 insertions(+), 2 deletions(-)
 
-diff --git a/drivers/gpu/drm/vc4/vc4_validate.c b/drivers/gpu/drm/vc4/vc4_validate.c
-index 0d2b08abf1ad..240786e7dcd5 100644
---- a/drivers/gpu/drm/vc4/vc4_validate.c
-+++ b/drivers/gpu/drm/vc4/vc4_validate.c
-@@ -830,6 +830,11 @@ validate_gl_shader_rec(struct drm_device *dev,
- 			return -EINVAL;
+diff --git a/drivers/gpu/drm/vc4/vc4_drv.h b/drivers/gpu/drm/vc4/vc4_drv.h
+index 62ce83322d1b..dae325a3854d 100644
+--- a/drivers/gpu/drm/vc4/vc4_drv.h
++++ b/drivers/gpu/drm/vc4/vc4_drv.h
+@@ -218,6 +218,11 @@ struct vc4_dev {
+ 	struct {
+ 		struct timer_list timer;
+ 		struct work_struct reset_work;
++
++		/* The instruction and uniforms caches were cleared at the
++		 * last check that found no progress.
++		 */
++		bool caches_cleared;
+ 	} hangcheck;
+ 
+ 	struct drm_modeset_lock ctm_state_lock;
+diff --git a/drivers/gpu/drm/vc4/vc4_gem.c b/drivers/gpu/drm/vc4/vc4_gem.c
+index 956be198f8a7..9898eb1ef077 100644
+--- a/drivers/gpu/drm/vc4/vc4_gem.c
++++ b/drivers/gpu/drm/vc4/vc4_gem.c
+@@ -43,8 +43,7 @@ vc4_queue_hangcheck(struct drm_device *dev)
+ {
+ 	struct vc4_dev *vc4 = to_vc4_dev(dev);
+ 
+-	mod_timer(&vc4->hangcheck.timer,
+-		  round_jiffies_up(jiffies + msecs_to_jiffies(100)));
++	mod_timer(&vc4->hangcheck.timer, jiffies + msecs_to_jiffies(100));
+ }
+ 
+ struct vc4_hang_state {
+@@ -355,6 +354,7 @@ vc4_hangcheck_elapsed(struct timer_list *t)
+ 
+ 	/* If idle, we can stop watching for hangs. */
+ 	if (!bin_exec && !render_exec) {
++		vc4->hangcheck.caches_cleared = false;
+ 		spin_unlock_irqrestore(&vc4->job_lock, irqflags);
+ 		return;
+ 	}
+@@ -371,11 +371,27 @@ vc4_hangcheck_elapsed(struct timer_list *t)
+ 			bin_exec->last_ct0ca = ct0ca;
+ 		if (render_exec)
+ 			render_exec->last_ct1ca = ct1ca;
++
++		vc4->hangcheck.caches_cleared = false;
++
+ 		spin_unlock_irqrestore(&vc4->job_lock, irqflags);
+ 		vc4_queue_hangcheck(dev);
+ 		return;
  	}
  
-+	for (i = 0; i < shader_reloc_count; i++) {
-+		if (!to_vc4_bo(&bo[i]->base)->validated_shader)
-+			return -EINVAL;
++	/* Clear the slice caches to workaround GFXH-16 */
++	if (!vc4->hangcheck.caches_cleared) {
++		V3D_WRITE(V3D_SLCACTL, VC4_SET_FIELD(0xf, V3D_SLCACTL_ICC) |
++			  VC4_SET_FIELD(0xf, V3D_SLCACTL_UCC));
++
++		vc4->hangcheck.caches_cleared = true;
++		spin_unlock_irqrestore(&vc4->job_lock, irqflags);
++		vc4_queue_hangcheck(dev);
++		return;
 +	}
 +
- 	if (((*(uint16_t *)pkt_u & VC4_SHADER_FLAG_FS_SINGLE_THREAD) == 0) !=
- 	    to_vc4_bo(&bo[0]->base)->validated_shader->is_threaded) {
- 		DRM_DEBUG("Thread mode of CL and FS do not match\n");
-@@ -843,7 +848,8 @@ validate_gl_shader_rec(struct drm_device *dev,
- 	}
++	vc4->hangcheck.caches_cleared = false;
++
+ 	spin_unlock_irqrestore(&vc4->job_lock, irqflags);
  
- 	for (i = 0; i < shader_reloc_count; i++) {
--		struct vc4_validated_shader_info *validated_shader;
-+		struct vc4_validated_shader_info *validated_shader =
-+			to_vc4_bo(&bo[i]->base)->validated_shader;
- 		uint32_t o = shader_reloc_offsets[i];
- 		uint32_t src_offset = *(uint32_t *)(pkt_u + o);
- 		uint32_t *texture_handles_u;
-@@ -858,10 +864,6 @@ validate_gl_shader_rec(struct drm_device *dev,
- 			return -EINVAL;
- 		}
- 
--		validated_shader = to_vc4_bo(&bo[i]->base)->validated_shader;
--		if (!validated_shader)
--			return -EINVAL;
--
- 		if (validated_shader->uniforms_src_size >
- 		    exec->uniforms_size) {
- 			DRM_DEBUG("Uniforms src buffer overflow\n");
+ 	/* We've gone too long with no progress, reset.  This has to
 
 -- 
 2.56.0
