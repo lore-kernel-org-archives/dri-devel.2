@@ -2,44 +2,43 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3E0DA606A335
-	for <dri-devel@archiver.kernel.org>; Wed, 18 Nov 2026 10:37:01 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D386D606A325
+	for <dri-devel@archiver.kernel.org>; Wed, 18 Nov 2026 10:37:07 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.a=rsa-sha256 header.s=dkim header.b=NFhLKn7j
+	dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.a=rsa-sha256 header.s=dkim header.b=C5CPUmss
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id A524610FAAD;
-	Wed, 18 Nov 2026 10:36:55 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id BCEA410FAD4;
+	Wed, 18 Nov 2026 10:37:01 +0000 (UTC)
 Received: from smtpout-02.galae.net (smtpout-02.galae.net [185.246.84.56])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 95A7710E375
- for <dri-devel@lists.freedesktop.org>; Wed, 18 Nov 2026 10:36:49 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 9B9E510FAB5;
+ Wed, 18 Nov 2026 10:36:52 +0000 (UTC)
 Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
- by smtpout-02.galae.net (Postfix) with ESMTPS id 0D2511A16D0;
- Wed, 18 Nov 2026 10:36:48 +0000 (UTC)
+ by smtpout-02.galae.net (Postfix) with ESMTPS id 6E01F1A16D1;
+ Wed, 18 Nov 2026 10:36:51 +0000 (UTC)
 Received: from mail.galae.net (mail.galae.net [212.83.136.155])
- by smtpout-01.galae.net (Postfix) with ESMTPS id C60DE5FE9B;
- Wed, 18 Nov 2026 10:36:47 +0000 (UTC)
+ by smtpout-01.galae.net (Postfix) with ESMTPS id 41D235FE9B;
+ Wed, 18 Nov 2026 10:36:51 +0000 (UTC)
 Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon)
- with ESMTPSA id 0959311BC0992; Wed, 18 Nov 2026 11:36:40 +0100 (CET)
+ with ESMTPSA id 8764211BC106E; Wed, 18 Nov 2026 11:36:46 +0100 (CET)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
- t=1794998206; h=from:subject:date:message-id:to:cc:mime-version:content-type:
- content-transfer-encoding; bh=iS0ExTTKsu8lUPXOUm11HT3TtWCRfZencH+aQEOFXn0=;
- b=NFhLKn7jMrTiXiqy2JjfbDyvwTsq7MjWzKxBorR46cZABRZVGhrY6er5irNuk/zWp0cXfp
- zRY8sPiBM02CfnDkaTU+7n8XdKpvGCQOnmCI/iYh0HDvKgUkFAD9097MCrYk/83tch7fqs
- i2BFcj2KKmJQXQbVITZ4TZqeoK+NnnuJOthOZx4dqgStQHh5G5lFHyXedRrEt5OaWuZewZ
- fux1+05qti9sVc/4pwOr4YVKy7EBcKB17sduBuloq9vK7nd0m5s55xEz1CYHzi+K1LP7K9
- tpPGRnqclq8TlGfc1DEOQpmrAbHUvrtgKBkBs4gmak2lfknYzJhBR3NOL73vrw==
+ t=1794998209; h=from:subject:date:message-id:to:cc:mime-version:content-type:
+ content-transfer-encoding:in-reply-to:references;
+ bh=+3kyzjg3dtcYpCdDljWXckSn2UKrKCqRAGKJNdgkqoM=;
+ b=C5CPUmsstGoDbtYuaYFDxgrJrTaQqtB6k3DI5LuQlItKm9YgAXWhv8bkpxmfxDo7sAql+1
+ LXPOJptscYYFhRx3kdwsEE3bzO4fDYQfaJwALQN8LTy1G5zEZdMZEmYZWLHZYKo3QXVmYR
+ QL94fa7s3f+U6c+OtvQqcYMFffUHjcwJ74Vf8E66npIbuRkeoYmT2fP87TpCO4WPujbRFa
+ rBG/B4S4kj8pcgFrojQRImDhP5MZtSxa1c9v9EP0OFHTdGJFQrMifPw1cfB8h411/9acfp
+ kAOl2YC12Z8glwCN5/Nv0YkTszLUKm8rULP40foP7HT3WRTkbogb/KBWAZ3G6A==
 From: Kory Maincent <kory.maincent@bootlin.com>
-Subject: [PATCH 0/8] Move DRM helpers out of i915 driver
-Date: Wed, 18 Nov 2026 11:36:27 +0100
-Message-Id: <20261118-feat_move_i915_helper-v1-0-652177f3107a@bootlin.com>
+Date: Wed, 18 Nov 2026 11:36:28 +0100
+Subject: [PATCH 1/8] drm/dp: Move max DPRX link rate helper out of i915
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
-X-B4-Tracking: v=1; b=H4sIAKx//WoC/yXMQQ6CMBBG4auQWduk0yJEr2JMU+sPjFEgLRITw
- t2psPwW7y2UEAWJrsVCEbMkGfoMPhUUOt+3UPLMJqNNxcyVauAn9xlmOLnw2XV4j4hK21BqW8M
- bbSm3Y0Qjv/17ux9O38cLYfrPaF03odAEK3kAAAA=
-X-Change-ID: 20261116-feat_move_i915_helper-03c4037ea203
+Content-Transfer-Encoding: 7bit
+Message-Id: <20261118-feat_move_i915_helper-v1-1-652177f3107a@bootlin.com>
+References: <20261118-feat_move_i915_helper-v1-0-652177f3107a@bootlin.com>
+In-Reply-To: <20261118-feat_move_i915_helper-v1-0-652177f3107a@bootlin.com>
 To: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
  Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
  David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
@@ -76,41 +75,129 @@ X-Spam-Status: No, score=-18.8 required=3.0 tests=BAYES_00,DKIM_SIGNED,
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-This series moves several helpers from the i915 driver into the DRM
-core helpers.
+Move the drm_dprx_max_rate() helper from the i915 driver into the
+generic DRM helpers. It returns the maximum DPRX link rate, either from
+the DP tunnel capabilities when bandwidth allocation is enabled or from
+the DPCD DP_MAX_LINK_RATE register.
 
-These helpers were first sent as a preparation for new DRM features in
-the following patch series:
-https://patch.msgid.link/20261022-feat_link_cap-v4-0-a4f3f6e8cad9@bootlin.com
-
-However, as these features will take time to be discussed and accepted,
-the preparation patches have been advised to be sent independently of
-the original series.
+Keep the Intel eDP HBR2 limitation quirk handling in the driver.
 
 Signed-off-by: Kory Maincent <kory.maincent@bootlin.com>
 ---
-Kory Maincent (8):
-      drm/dp: Move max DPRX link rate helper out of i915
-      drm/dp: Move DPRX 128b/132b link rates helper out of i915
-      drm/dp: Move DPRX 128b/132b support helper out of i915
-      drm/dp: Move supported 128b/132b link rates helper out of i915
-      drm/dp: Move DP sink link rates reading helper out of i915
-      drm/dp: Make the DPRX link rates helpers static
-      drm/dp: Move eDP sink link rates reading helper out of i915
-      drm: Move DSC capability reading helper out of i915
+ drivers/gpu/drm/display/drm_dp_helper.c | 11 +++++++++++
+ drivers/gpu/drm/i915/display/intel_dp.c | 35 +++++++++++----------------------
+ include/drm/display/drm_dp_helper.h     |  4 ++++
+ 3 files changed, 27 insertions(+), 23 deletions(-)
 
- drivers/gpu/drm/display/drm_dp_helper.c | 260 ++++++++++++++++++++++++++++++++
- drivers/gpu/drm/i915/display/intel_dp.c | 211 ++++----------------------
- include/drm/display/drm_dp.h            |   3 +
- include/drm/display/drm_dp_helper.h     |  13 ++
- 4 files changed, 308 insertions(+), 179 deletions(-)
----
-base-commit: d5a6e2921e68b0cc42812376ca6c8095b6c941a2
-change-id: 20261116-feat_move_i915_helper-03c4037ea203
+diff --git a/drivers/gpu/drm/display/drm_dp_helper.c b/drivers/gpu/drm/display/drm_dp_helper.c
+index 2b6ce05556b0d..e58dabdad1f39 100644
+--- a/drivers/gpu/drm/display/drm_dp_helper.c
++++ b/drivers/gpu/drm/display/drm_dp_helper.c
+@@ -37,6 +37,7 @@
+ 
+ #include <drm/display/drm_dp_helper.h>
+ #include <drm/display/drm_dp_mst_helper.h>
++#include <drm/display/drm_dp_tunnel.h>
+ #include <drm/drm_edid.h>
+ #include <drm/drm_fixed.h>
+ #include <drm/drm_print.h>
+@@ -4914,3 +4915,13 @@ int drm_dp_max_dprx_data_rate(int max_link_rate, int max_lanes)
+ 				  1000000 * 8);
+ }
+ EXPORT_SYMBOL(drm_dp_max_dprx_data_rate);
++
++int drm_dprx_max_rate(const struct drm_dp_tunnel *tunnel,
++		      const u8 dpcd[DP_RECEIVER_CAP_SIZE])
++{
++	if (tunnel && drm_dp_tunnel_bw_alloc_is_enabled(tunnel))
++		return drm_dp_tunnel_max_dprx_rate(tunnel);
++	else
++		return drm_dp_bw_code_to_link_rate(dpcd[DP_MAX_LINK_RATE]);
++}
++EXPORT_SYMBOL_GPL(drm_dprx_max_rate);
+diff --git a/drivers/gpu/drm/i915/display/intel_dp.c b/drivers/gpu/drm/i915/display/intel_dp.c
+index ef164a7976187..96379c18b8cd4 100644
+--- a/drivers/gpu/drm/i915/display/intel_dp.c
++++ b/drivers/gpu/drm/i915/display/intel_dp.c
+@@ -159,28 +159,6 @@ int intel_dp_link_symbol_clock(int rate)
+ 	return DIV_ROUND_CLOSEST(rate * 10, intel_dp_link_symbol_size(rate));
+ }
+ 
+-static int max_dprx_rate(struct intel_dp *intel_dp)
+-{
+-	struct intel_display *display = to_intel_display(intel_dp);
+-	int max_rate;
+-
+-	if (intel_dp_tunnel_bw_alloc_is_enabled(intel_dp))
+-		max_rate = drm_dp_tunnel_max_dprx_rate(intel_dp->tunnel);
+-	else
+-		max_rate = drm_dp_bw_code_to_link_rate(intel_dp->dpcd[DP_MAX_LINK_RATE]);
+-
+-	/*
+-	 * Some platforms + eDP panels may not reliably support HBR3
+-	 * due to signal integrity limitations, despite advertising it.
+-	 * Cap the link rate to HBR2 to avoid unstable configurations for the
+-	 * known machines.
+-	 */
+-	if (intel_dp_is_edp(intel_dp) && intel_has_quirk(display, QUIRK_EDP_LIMIT_RATE_HBR2))
+-		max_rate = min(max_rate, 540000);
+-
+-	return max_rate;
+-}
+-
+ static int max_dprx_lane_count(struct intel_dp *intel_dp)
+ {
+ 	if (intel_dp_tunnel_bw_alloc_is_enabled(intel_dp))
+@@ -221,6 +199,7 @@ static u8 dprx_128b132b_link_rates(struct intel_dp *intel_dp, u8 no_bwa_rates)
+ /* update sink rates from dpcd */
+ static void intel_dp_set_dpcd_sink_rates(struct intel_dp *intel_dp)
+ {
++	struct intel_display *display = to_intel_display(intel_dp);
+ 	static const int dp_rates[] = {
+ 		162000, 270000, 540000, 810000
+ 	};
+@@ -241,7 +220,17 @@ static void intel_dp_set_dpcd_sink_rates(struct intel_dp *intel_dp)
+ 	/*
+ 	 * Sink rates for 8b/10b.
+ 	 */
+-	max_rate = max_dprx_rate(intel_dp);
++	max_rate = drm_dprx_max_rate(intel_dp->tunnel, intel_dp->dpcd);
++
++	/*
++	 * Some platforms + eDP panels may not reliably support HBR3
++	 * due to signal integrity limitations, despite advertising it.
++	 * Cap the link rate to HBR2 to avoid unstable configurations for the
++	 * known machines.
++	 */
++	if (intel_dp_is_edp(intel_dp) && intel_has_quirk(display, QUIRK_EDP_LIMIT_RATE_HBR2))
++		max_rate = min(max_rate, 540000);
++
+ 	max_lttpr_rate = drm_dp_lttpr_max_link_rate(intel_dp->lttpr_common_caps);
+ 	if (max_lttpr_rate)
+ 		max_rate = min(max_rate, max_lttpr_rate);
+diff --git a/include/drm/display/drm_dp_helper.h b/include/drm/display/drm_dp_helper.h
+index f497c9f3a5504..fe08a66f2bb1e 100644
+--- a/include/drm/display/drm_dp_helper.h
++++ b/include/drm/display/drm_dp_helper.h
+@@ -33,6 +33,7 @@ struct drm_device;
+ struct drm_dp_aux;
+ struct drm_panel;
+ struct drm_printer;
++struct drm_dp_tunnel;
+ 
+ bool drm_dp_channel_eq_ok(const u8 link_status[DP_LINK_STATUS_SIZE],
+ 			  int lane_count);
+@@ -701,6 +702,9 @@ static inline int drm_dp_dpcd_write_byte(struct drm_dp_aux *aux,
+ int drm_dp_read_dpcd_caps(struct drm_dp_aux *aux,
+ 			  u8 dpcd[DP_RECEIVER_CAP_SIZE]);
+ 
++int drm_dprx_max_rate(const struct drm_dp_tunnel *tunnel,
++		      const u8 dpcd[DP_RECEIVER_CAP_SIZE]);
++
+ int drm_dp_dpcd_read_link_status(struct drm_dp_aux *aux,
+ 				 u8 status[DP_LINK_STATUS_SIZE]);
+ 
 
-Best regards,
---  
-Köry Maincent, Bootlin
-Embedded Linux and kernel engineering
-https://bootlin.com
+-- 
+2.43.0
 
