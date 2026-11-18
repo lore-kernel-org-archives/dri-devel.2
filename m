@@ -2,71 +2,104 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C2F92606A32F
-	for <dri-devel@archiver.kernel.org>; Wed, 18 Nov 2026 14:01:05 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9FE3A606A31C
+	for <dri-devel@archiver.kernel.org>; Wed, 18 Nov 2026 14:06:57 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=igalia.com header.i=@igalia.com header.a=rsa-sha256 header.s=20170329 header.b=paWptVzZ
+	dkim=pass (2048-bit key) header.d=baylibre.com header.i=@baylibre.com header.a=rsa-sha256 header.s=google header.b=I2c9NUvq
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 2FB0E10FCE7;
-	Wed, 18 Nov 2026 14:01:00 +0000 (UTC)
-Received: from fanzine2.igalia.com (fanzine2.igalia.com [213.97.179.56])
- by gabe.freedesktop.org (Postfix) with ESMTPS id CC86D10FCE7
- for <dri-devel@lists.freedesktop.org>; Wed, 18 Nov 2026 14:00:53 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com; 
- s=20170329;
- h=Content-Transfer-Encoding:Content-Type:From:Cc:To:Subject:
- MIME-Version:Date:Message-ID:From:Reply-To;
- bh=r927fCsu5OYlKQKCmEL8H5aMGocn+zYem10GOxKtVfQ=; t=1795010453; x=2110370453; 
- b=paWptVzZsVsmeTOHIHi7lw5PGkq/HreU+VQM1n/Cv/zeXXZu5Avae3VQGsEWOXs6wykn93j6cuh
- Kx0Zy3BmZ8hb0Ry8MS1IJa/vgxG3NYElBt5UGl4djBnM34ju43QhJHZIx2Gkf/Oy+O7dCKNfglg10
- uuxVoNwtG97EzNyaQIZMAvVry3VN1xktjbUTjjus4B/s3uhxnGb7e2WbnRGnjzqNJIh/c+uoGqjEA
- jIGBUIJoaezQwOclP2RhIpWe4C7n67lkhOJPeiDNw1W3UxwAzuL/AA0HH9xvtgo55l5x4+TeIPFi0
- 7xVAgtdLKA4Payqx4Jy5ixadAN1yPFM8VXPg==;
-Received: from [179.105.94.163] (helo=[192.168.0.4])
- by fanzine2.igalia.com with esmtpsa 
- (Cipher TLS1.3:ECDHE_X25519__RSA_PSS_RSAE_SHA256__AES_128_GCM:128) (Exim)
- id 1xTgDQ-0000000127X-2lH7; Wed, 18 Nov 2026 15:00:49 +0100
-Message-ID: <bd7812ad-3eb6-49a1-bd22-b4252c09ac00@igalia.com>
-Date: Wed, 18 Nov 2026 11:00:43 -0300
+	by gabe.freedesktop.org (Postfix) with ESMTP id E234110E4DE;
+	Wed, 18 Nov 2026 14:06:51 +0000 (UTC)
+Received: from mail-wm1-f47.google.com (mail-wm1-f47.google.com
+ [209.85.128.47])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id EBD7310FD02
+ for <dri-devel@lists.freedesktop.org>; Wed, 18 Nov 2026 14:06:45 +0000 (UTC)
+Received: by mail-wm1-f47.google.com with SMTP id
+ 5b1f17b1804b1-4bb69f5b161so6631605e9.0
+ for <dri-devel@lists.freedesktop.org>; Wed, 18 Nov 2026 06:06:45 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=baylibre.com; s=google; t=1795010804; x=1795615604;
+ darn=lists.freedesktop.org; 
+ h=in-reply-to:content-disposition:content-type:mime-version
+ :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+ :date:message-id:reply-to:content-type;
+ bh=O8kUxWwNMGGKdJF+2JBGIvhWCx8VFS9Gq0fs2XPEP3c=;
+ b=I2c9NUvq+C5FWl6oDgcyVl2svEUbTiDltKnvnXOJUTtS5VF8lE4PF4TXnpIfmKhhLc
+ FePg2dHSUPMK1ZfSD2kd42QnFIq0u0XYarUdIiwFma6iJF4p7lt1no6qF0A1CODDLXrH
+ VCfGF4h8mlr2vkDNeRdryTV2j8W245lGCJlr+4ZCDUaolWRTZLANpx1Gt9a8lzqbVeWx
+ oNgmr4XPecY3ySeavDFfDyMc8mKcP050Q3WCxdLiklx2DRMGDHYrxxr14kI2XXmCxxfs
+ 92bwsUeDezBQsgUGfwY8TR+fvQ/Hn87fwEIk9OWrAdPaTjSc2o8MwjvEo3nbnm0DJ0w6
+ ZXLg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20260707; t=1795010804; x=1795615604;
+ h=in-reply-to:content-disposition:content-type:mime-version
+ :references:message-id:subject:cc:to:from:date:x-gm-gg
+ :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+ :content-type;
+ bh=O8kUxWwNMGGKdJF+2JBGIvhWCx8VFS9Gq0fs2XPEP3c=;
+ b=C77lE14q19g8FTA704upBiU2hpeLAiPz+VKnWmIlsItYVCVnYVDXNoX7LLluJ12Ezi
+ T4MOHAh06jg5zHxZwGHwO4sNoyrU1eKE91Ahv5Mxifz1ojiY6HnPh4nHbVmdl3zulz7w
+ 1/0zOocFw784LFJelgb+CmI4tAkTPGJqmDmf4psIwmBd2ennJ1hpLL5a2wU1OElhHaF5
+ K3BKjlLCCCqoxR0y9Hj6IeRJm/YTXLxv0la8GTgWja1GBYgy8OOZrca+xgLOnuIg3+fC
+ n4OjrVqCO2KlUO5q3TOdGy6CZN/nIle+zazOu83KouQ1pc+yz9XHBMVgRyYjNCpvDbRm
+ BbwQ==
+X-Forwarded-Encrypted: i=1;
+ AL+hErFbnijolC//bijd2KOEAMXNPG7fE3aej7nXayGMJUmJRlcH9XhXrM1mBNpe2/ExRhMBT3auA9ckrYo=@lists.freedesktop.org
+X-Gm-Message-State: APuU4Z9ghiGZiBROLKKk9vhnoShCSIV/d4pbhIfK5q1eZN6sZy1ug9Yu
+ j/no1vmAlMjAjV0Po9UIDDIM9J8FYf7bKlmlrRcyHePYpOnO//n4dvPqrC8vcEVy+/Q=
+X-Gm-Gg: AYBFou2Wti4qYdzgMAZVO9McbjCe83osRzNEv7s8IMhhoqQhW84Ri8a9dsXbSW2KhoC
+ tYj8kGrCBIthjUi1wq1aoRGD0XOE6ppsmpMDdAQ6sBo7Z+cRiGE2Im7zPJ2S20TUCd2RPM68y5r
+ 5YmVeZgf2G4chdUvB5UWQBQFzYeHUy8gUA4RNsGgDDLpXgB//RZW58sSVcAQnM6P64zvdUYwgkB
+ r9sYx0ASV/tb+z14192HLxe8AuUKhImaBC7A83DEKYmieizMwG00DyfOIGd13mUjXdeDcB6rW4D
+ ZzAyyapJNJHlI4Z7QSVVNfCjMuWSjA1XjT5c6PMR9dDzfW5MmzaG2X0lN/MmlOk65ys9L84/saI
+ kuKlbAba0Qu2I0+j7/uEotETi8zcggoQ1wsl5Z6N4g9+YSlfDPHOXG/uzeyqCT0X4nIZ8DV4Q2M
+ IVx3DfQ/EY4KWL3uEFYV+Jk+RntN0lxXrnKbIXI0vaWjUXN4Dlqnf5GMjxMlP8/ndaUzk653/T8
+ 6aJaR/ZM577JVqhl9Mpe9lSh4/Yzf5UUObVXv1gnPJmOF7whD2J8eINyRM5WULA9F4JYkYuBsbt
+ NRmJSWM5vdrjG3Umiv66vR76swNtyWhHtm0=
+X-Received: by 2002:a05:600c:3509:b0:4bb:68b9:f610 with SMTP id
+ 5b1f17b1804b1-4bb7da03954mr52120315e9.9.1795010803953; 
+ Wed, 18 Nov 2026 06:06:43 -0800 (PST)
+Received: from localhost ([2a02:8071:56d1:2de0:1d24:d58d:2b65:c291])
+ by smtp.gmail.com with UTF8SMTPSA id
+ 5b1f17b1804b1-4bb7d256f64sm61534715e9.1.2026.11.18.06.06.42
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Wed, 18 Nov 2026 06:06:43 -0800 (PST)
+Date: Wed, 18 Nov 2026 15:06:41 +0100
+From: Uwe =?utf-8?Q?Kleine-K=C3=B6nig?= <u.kleine-koenig@baylibre.com>
+To: Jani Nikula <jani.nikula@linux.intel.com>
+Cc: David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
+ Sasha Finkelstein <k@chaosmail.tech>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
+ Andrzej Hajda <andrzej.hajda@intel.com>,
+ Neil Armstrong <neil.armstrong@linaro.org>, 
+ Robert Foss <rfoss@kernel.org>, dri-devel@lists.freedesktop.org,
+ asahi@lists.linux.dev, 
+ linux-aspeed@lists.ozlabs.org, linux-arm-kernel@lists.infradead.org,
+ imx@lists.linux.dev, 
+ linux-riscv@lists.infradead.org, etnaviv@lists.freedesktop.org,
+ linux-samsung-soc@vger.kernel.org, 
+ intel-gfx@lists.freedesktop.org, intel-xe@lists.freedesktop.org, 
+ imagination@lists.freedesktop.org, linux-mips@vger.kernel.org,
+ lima@lists.freedesktop.org, 
+ linux-mediatek@lists.infradead.org, linux-kernel@vger.kernel.org,
+ linux-amlogic@lists.infradead.org, 
+ linux-arm-msm@vger.kernel.org, freedreno@lists.freedesktop.org,
+ nouveau@lists.freedesktop.org, 
+ virtualization@lists.linux.dev, spice-devel@lists.freedesktop.org, 
+ linux-renesas-soc@vger.kernel.org, linux-rockchip@lists.infradead.org, 
+ linux-stm32@st-md-mailman.stormreply.com, linux-sunxi@lists.linux.dev,
+ linux-tegra@vger.kernel.org
+Subject: Re: [PATCH v1 9/9] drm: Unify coding style for *_device_id arrays
+Message-ID: <av2rKJQ0AKU9CFZI@monoceros>
+References: <cover.1795002467.git.ukleinek@kernel.org>
+ <a2d5ce256b8ec150de4a6494c177b19693a33222.1795002467.git.ukleinek@kernel.org>
+ <7692c160e418e7ad0528739fcc879b11fbac8ab0@intel.com>
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] drm/vc4: dsi: Allocate the encoder per DRM device
-To: Henry Zhang <henryzhang62@gmail.com>, mripard@kernel.org,
- dave.stevenson@raspberrypi.com
-Cc: kernel-list@raspberrypi.com, maarten.lankhorst@linux.intel.com,
- tzimmermann@suse.de, airlied@gmail.com, simona@ffwll.ch,
- dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org
-References: <20261117205902.1293962-1-henryzhang62@gmail.com>
-From: =?UTF-8?Q?Ma=C3=ADra_Canal?= <mcanal@igalia.com>
-Content-Language: en-US
-Autocrypt: addr=mcanal@igalia.com; keydata=
- xsBNBGcCwywBCADgTji02Sv9zjHo26LXKdCaumcSWglfnJ93rwOCNkHfPIBll85LL9G0J7H8
- /PmEL9y0LPo9/B3fhIpbD8VhSy9Sqz8qVl1oeqSe/rh3M+GceZbFUPpMSk5pNY9wr5raZ63d
- gJc1cs8XBhuj1EzeE8qbP6JAmsL+NMEmtkkNPfjhX14yqzHDVSqmAFEsh4Vmw6oaTMXvwQ40
- SkFjtl3sr20y07cJMDe++tFet2fsfKqQNxwiGBZJsjEMO2T+mW7DuV2pKHr9aifWjABY5EPw
- G7qbrh+hXgfT+njAVg5+BcLz7w9Ju/7iwDMiIY1hx64Ogrpwykj9bXav35GKobicCAwHABEB
- AAHNIE1hw61yYSBDYW5hbCA8bWNhbmFsQGlnYWxpYS5jb20+wsCRBBMBCAA7FiEE+ORdfQEW
- dwcppnfRP/MOinaI+qoFAmcCwywCGwMFCwkIBwICIgIGFQoJCAsCBBYCAwECHgcCF4AACgkQ
- P/MOinaI+qoUBQgAqz2gzUP7K3EBI24+a5FwFlruQGtim85GAJZXToBtzsfGLLVUSCL3aF/5
- O335Bh6ViSBgxmowIwVJlS/e+L95CkTGzIIMHgyUZfNefR2L3aZA6cgc9z8cfow62Wu8eXnq
- GM/+WWvrFQb/dBKKuohfBlpThqDWXxhozazCcJYYHradIuOM8zyMtCLDYwPW7Vqmewa+w994
- 7Lo4CgOhUXVI2jJSBq3sgHEPxiUBOGxvOt1YBg7H9C37BeZYZxFmU8vh7fbOsvhx7Aqu5xV7
- FG+1ZMfDkv+PixCuGtR5yPPaqU2XdjDC/9mlRWWQTPzg74RLEw5sz/tIHQPPm6ROCACFls7A
- TQRnAsMsAQgAxTU8dnqzK6vgODTCW2A6SAzcvKztxae4YjRwN1SuGhJR2isJgQHoOH6oCItW
- Xc1CGAWnci6doh1DJvbbB7uvkQlbeNxeIz0OzHSiB+pb1ssuT31Hz6QZFbX4q+crregPIhr+
- 0xeDi6Mtu+paYprI7USGFFjDUvJUf36kK0yuF2XUOBlF0beCQ7Jhc+UoI9Akmvl4sHUrZJzX
- LMeajARnSBXTcig6h6/NFVkr1mi1uuZfIRNCkxCE8QRYebZLSWxBVr3h7dtOUkq2CzL2kRCK
- T2rKkmYrvBJTqSvfK3Ba7QrDg3szEe+fENpL3gHtH6h/XQF92EOulm5S5o0I+ceREwARAQAB
- wsB2BBgBCAAgFiEE+ORdfQEWdwcppnfRP/MOinaI+qoFAmcCwywCGwwACgkQP/MOinaI+qpI
- zQf+NAcNDBXWHGA3lgvYvOU31+ik9bb30xZ7IqK9MIi6TpZqL7cxNwZ+FAK2GbUWhy+/gPkX
- it2gCAJsjo/QEKJi7Zh8IgHN+jfim942QZOkU+p/YEcvqBvXa0zqW0sYfyAxkrf/OZfTnNNE
- Tr+uBKNaQGO2vkn5AX5l8zMl9LCH3/Ieaboni35qEhoD/aM0Kpf93PhCvJGbD4n1DnRhrxm1
- uEdQ6HUjWghEjC+Jh9xUvJco2tUTepw4OwuPxOvtuPTUa1kgixYyG1Jck/67reJzMigeuYFt
- raV3P8t/6cmtawVjurhnCDuURyhUrjpRhgFp+lW8OGr6pepHol/WFIOQEg==
-In-Reply-To: <20261117205902.1293962-1-henryzhang62@gmail.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
+Content-Type: multipart/signed; micalg=pgp-sha512;
+ protocol="application/pgp-signature"; boundary="5c6ped4sw6nigwko"
+Content-Disposition: inline
+In-Reply-To: <7692c160e418e7ad0528739fcc879b11fbac8ab0@intel.com>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -78,179 +111,100 @@ List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-17.3 required=3.0 tests=BAYES_00,DKIM_SIGNED,
-	DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
-	INCLUDES_CR_TRAILER,INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,
-	SPF_PASS,USER_AGENT_SANE_1 autolearn=unavailable autolearn_force=no
-	version=4.0.1
+X-Spam-Status: No, score=-10.8 required=3.0 tests=BAYES_00,DKIM_SIGNED,
+	DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_PATCH,
+	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS autolearn=unavailable
+	autolearn_force=no version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-Hi Henry,
 
-On 17/11/26 17:59, Henry Zhang wrote:
-> The DSI encoder is embedded in struct vc4_dsi, which lives as long as
-> the DSI platform device, but it is initialised with drmm_encoder_init()
-> and so is only cleaned up when the DRM device is released. The DRM
-> device can outlive the unbind of the vc4 components: unloading the DSI
-> panel driver detaches from the DSI host, which deletes the DSI component
-> and unbinds the whole vc4 DRM device, but a compositor that keeps the
-> DRM device open keeps it alive.
-> 
-> If the panel driver is loaded again before that, the new DRM device
-> binds the DSI component and calls drmm_encoder_init() on the encoder
-> that is still on the old DRM device's encoder list. The old device's
-> release later cleans it up from under the new one. On a Raspberry Pi 4
-> with a 6.18-based kernel, closing the old DRM device then gave:
-> 
->    WARNING: drivers/gpu/drm/drm_encoder.c:214 at drmm_encoder_alloc_release+0x30/0x40 [drm]
->    Call trace: drmm_encoder_alloc_release <- drm_dev_put <- drm_gem_dmabuf_release <- __fput
->    Unable to handle kernel NULL pointer dereference at virtual address 0000000000000008
->    pc : drm_mode_config_cleanup+0x5c/0x2f0 [drm]
->    Call trace: drm_mode_config_cleanup <- drm_managed_release <- drm_dev_put
+--5c6ped4sw6nigwko
+Content-Type: text/plain; protected-headers=v1; charset=us-ascii
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
+Subject: Re: [PATCH v1 9/9] drm: Unify coding style for *_device_id arrays
+MIME-Version: 1.0
 
-Could you reproduce this issue on top of drm-misc-next? The downstream
-kernel differs from upstream in several ways. If you are able to
-reproduce it, could you please provide the full call trace?
+Hello Jani,
 
-Best regards,
-- Maíra
+On Wed, Nov 18, 2026 at 03:27:40PM +0200, Jani Nikula wrote:
+> > [...]
+> >  drivers/gpu/ipu-v3/ipu-common.c               |   8 +-
+> >  drivers/gpu/ipu-v3/ipu-pre.c                  |   4 +-
+> >  drivers/gpu/ipu-v3/ipu-prg.c                  |   4 +-
+> >  254 files changed, 1155 insertions(+), 940 deletions(-)
+>=20
+> How do you expect a patch of this size be merged?
 
-> 
-> Allocate the encoder in bind with drmm_encoder_alloc(), so each DRM
-> device has its own and releases only its own. The DSI bridge is still
-> shared: while the old DRM device holds it, drm_bridge_attach() in the
-> new bind fails with -EBUSY, so binding again before the old DRM device
-> is released now fails cleanly instead of corrupting both devices.
-> 
-> The analysis, this change and this description were prepared with the
-> help of an AI coding assistant (Claude Code).
-> 
-> Fixes: 6f0ca506c30e ("drm/vc4: dsi: Switch to DRM-managed encoder initialization")
-> Signed-off-by: Henry Zhang <henryzhang62@gmail.com>
-> ---
-> Testing:
-> 
-> - On this base (drm-misc-next 467ac0b56aeb): compile-tested only,
->    arm64 defconfig with DRM_VC4=m, W=1, no new warnings.
-> 
-> - A backport to a downstream Raspberry Pi 6.18.34 kernel, on a
->    Raspberry Pi 4 with an out-of-tree modular DSI panel driver: with the
->    compositor stopped and a process holding /dev/dri/card1 open, unload
->    the panel driver and load it again. The bind now fails cleanly:
-> 
->      vc4-drm gpu: failed to bind fe700000.dsi (ops vc4_dsi_ops [vc4]): -16
->      vc4-drm gpu: adev bind failed: -16
-> 
->    the panel probe fails with -16, and there is no warning or oops,
->    also when the holder then closes the old DRM device. Unloading and
->    loading the panel driver again after that brings back the display
->    and the compositor. Without the change, the same kernel gave the
->    warning and oops above. The backport differs from this patch in two
->    ways: that kernel still gets the panel bridge with
->    drmm_of_get_bridge(), which has a use-after-free of its own in this
->    sequence, so the test kernel used devm_drm_of_get_bridge() instead
->    (not needed here, where the panel bridge is refcounted); and a
->    downstream DSI restart worker that used the embedded encoder now
->    follows a pointer to the current one.
-> 
-> The -EBUSY is final: the panel probe is not retried when the old DRM
-> device goes away, so the panel driver has to be loaded again. Would you
-> prefer the DSI host to wait for the old DRM device to be released
-> before adding its component again, or a bridge allocated per bind?
-> 
-> Not addressed: a connector probe that is already running when the
-> panel is removed can still call into the panel driver.
-> 
-> This applies to drm-misc-next on its own. It also applies on top of my
-> "drm/vc4: dsi: Serialize register writes through the DMA workaround",
-> and it does not touch the code changed by my vc4 DSI series
-> <20261028164539.3471833-1-henryzhang62@gmail.com>.
-> 
-> Tools: Claude Code (an AI coding assistant) analysed the crash logs and
-> the vc4/DRM lifetimes, located the introducing commit, wrote the change
-> and this description, built and checkpatch-checked it, and ran the
-> backport test on the board, at my request.
-> 
->   drivers/gpu/drm/vc4/vc4_dsi.c | 35 +++++++++++++++++++++++------------
->   1 file changed, 23 insertions(+), 12 deletions(-)
-> 
-> diff --git a/drivers/gpu/drm/vc4/vc4_dsi.c b/drivers/gpu/drm/vc4/vc4_dsi.c
-> index ec008f766..5bd8f579b 100644
-> --- a/drivers/gpu/drm/vc4/vc4_dsi.c
-> +++ b/drivers/gpu/drm/vc4/vc4_dsi.c
-> @@ -546,9 +546,18 @@ struct vc4_dsi_variant {
->   
->   };
->   
-> +/*
-> + * The encoder of one DRM device. The DRM device can outlive the unbind of
-> + * this component, so a later bind must not reuse the encoder of an earlier
-> + * one: allocate one per bind, managed by the DRM device.
-> + */
-> +struct vc4_dsi_encoder {
-> +	struct vc4_encoder base;
-> +	struct vc4_dsi *dsi;
-> +};
-> +
->   /* General DSI hardware state. */
->   struct vc4_dsi {
-> -	struct vc4_encoder encoder;
->   	struct mipi_dsi_host dsi_host;
->   
->   	struct platform_device *pdev;
-> @@ -601,7 +610,7 @@ struct vc4_dsi {
->   	container_of_const(host, struct vc4_dsi, dsi_host)
->   
->   #define to_vc4_dsi(_encoder)					\
-> -	container_of_const(_encoder, struct vc4_dsi, encoder.base)
-> +	(container_of_const(_encoder, struct vc4_dsi_encoder, base.base)->dsi)
->   
->   #define bridge_to_vc4_dsi(_bridge)				\
->   	container_of_const(_bridge, struct vc4_dsi, bridge)
-> @@ -1626,7 +1635,8 @@ static int vc4_dsi_bind(struct device *dev, struct device *master, void *data)
->   	struct platform_device *pdev = to_platform_device(dev);
->   	struct drm_device *drm = dev_get_drvdata(master);
->   	struct vc4_dsi *dsi = dev_get_drvdata(dev);
-> -	struct drm_encoder *encoder = &dsi->encoder.base;
-> +	struct vc4_dsi_encoder *dsi_encoder;
-> +	struct drm_encoder *encoder;
->   	int ret;
->   
->   	drm_bridge_get(&dsi->bridge);
-> @@ -1637,9 +1647,6 @@ static int vc4_dsi_bind(struct device *dev, struct device *master, void *data)
->   
->   	dsi->variant = of_device_get_match_data(dev);
->   
-> -	dsi->encoder.type = dsi->variant->port ?
-> -		VC4_ENCODER_TYPE_DSI1 : VC4_ENCODER_TYPE_DSI0;
-> -
->   	dsi->regs = vc4_ioremap_regs(pdev, 0);
->   	if (IS_ERR(dsi->regs))
->   		return PTR_ERR(dsi->regs);
-> @@ -1758,12 +1765,16 @@ static int vc4_dsi_bind(struct device *dev, struct device *master, void *data)
->   	if (ret)
->   		return ret;
->   
-> -	ret = drmm_encoder_init(drm, encoder,
-> -				&vc4_dsi_encoder_funcs,
-> -				DRM_MODE_ENCODER_DSI,
-> -				NULL);
-> -	if (ret)
-> -		return ret;
-> +	dsi_encoder = drmm_encoder_alloc(drm, struct vc4_dsi_encoder, base.base,
-> +					 &vc4_dsi_encoder_funcs,
-> +					 DRM_MODE_ENCODER_DSI, NULL);
-> +	if (IS_ERR(dsi_encoder))
-> +		return PTR_ERR(dsi_encoder);
-> +
-> +	dsi_encoder->dsi = dsi;
-> +	dsi_encoder->base.type = dsi->variant->port ?
-> +		VC4_ENCODER_TYPE_DSI1 : VC4_ENCODER_TYPE_DSI0;
-> +	encoder = &dsi_encoder->base.base;
->   
->   	ret = devm_pm_runtime_enable(dev);
->   	if (ret)
-> 
-> base-commit: 467ac0b56aebc804360f276feffbc9032c265a6e
+Using b4 am :-) Honestly, in the cover letter I wrote about an immutable
+branch and offered to rebase to 7.4-rc1. When trying to apply this
+series on top ov 7.4-rc1 there are only 6 conflicts (1x modify/delete
+and 5x content); these are all not so hard to resolve (and even dropping
+the respective hunks (i.e. resolving using `git checkout HEAD`) is fine
+for me.)
 
+> > diff --git a/drivers/gpu/drm/i915/i915_pci.c b/drivers/gpu/drm/i915/i91=
+5_pci.c
+> > index 84a7dc6ab5db..faceb3de4fa3 100644
+> > --- a/drivers/gpu/drm/i915/i915_pci.c
+> > +++ b/drivers/gpu/drm/i915/i915_pci.c
+> > @@ -870,7 +870,7 @@ static const struct pci_device_id pciidlist[] =3D {
+> >  	INTEL_ATS_M_IDS(INTEL_VGA_DEVICE, &ats_m_info),
+> >  	INTEL_ARL_IDS(INTEL_VGA_DEVICE, &mtl_info),
+> >  	INTEL_MTL_IDS(INTEL_VGA_DEVICE, &mtl_info),
+> > -	{}
+> > +	{ }
+>=20
+> Personally, I would *always* use {} instead of { }, and would rather not
+> change.
+>=20
+> Across the tree, {} is slightly more common than { }. IMO changing them
+> is pointless churn.
+
+It depends on how you count. My statistic looks as follows (on top of
+next-20261117):
+
+	$ git grep -l device_id | xargs -n 1 perl -g -n -e 'print "$1\n" if m/devi=
+ce_id\s*[a-zA-Z_0-9]*\[\]\s*=3D\s*{(?:\s*{[^}]*},\s*({\s*}))/' | sort | uni=
+q -c
+	      2 	}
+	      2 {
+	      6 {  }
+	   2598 { }
+	   1262 {}
+
+So over all *_device_id { } is more common by a factor of > 2. This
+series fixes one {  } and reduces the number of {} by 37. For only
+pci_device_id it's:
+
+	$ git grep -l pci_device_id | xargs -n 1 perl -g -n -e 'print "$1\n" if m/=
+pci_device_id\s*[a-zA-Z_0-9]*\[\]\s*=3D\s*{(?:\s*{[^}]*},\s*({\s*}))/' | so=
+rt | uniq -c
+	    159 { }
+	     32 {}
+
+Without the context of an array initializer there are many empty
+code blocks (function bodys or `do {} while (0)`), empty dt nodes, and
+{} in Rust code, which IMHO have to be considered off-topic for this
+statistic.
+
+Best regards
+Uwe
+
+--5c6ped4sw6nigwko
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iQEzBAABCgAdFiEEP4GsaTp6HlmJrf7Tj4D7WH0S/k4FAmr9sOcACgkQj4D7WH0S
+/k4vggf+PQfM4MkbLgaQRCdXRWWsc4/Fa0tTMBQAl4gjx2p5NE/N7TDUO571o3+N
+oWcelzY5O1uRcc2qHZVnu3vAxFqzk4YHfGjsbGHsxQAibxnIFW7ttYTzt0w5a9NH
+v65V6+sebCdwLrPVE5ilcqzFFSgmnv1wTNm2vCEUxdKGacifySaGRmg4+ax+fLb1
+CL+RS7fM2EkQxG1k4iDEPv1Onrm9S4DtwTts0wxkK780rWYD9FoSLjHyX/x21Y8x
+SZKaXeNZlxtHJpQLq8ub8AL/t6k82nC020wYZOUbUmvPyqxhNoUuuS0/RVlz9xT6
+kXiliIwWzcMtAKt4ik8nbTRO5JERhQ==
+=0alU
+-----END PGP SIGNATURE-----
+
+--5c6ped4sw6nigwko--
