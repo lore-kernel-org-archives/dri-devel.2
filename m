@@ -2,127 +2,131 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8EB12606A325
-	for <dri-devel@archiver.kernel.org>; Wed, 18 Nov 2026 18:07:19 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D0C26606A320
+	for <dri-devel@archiver.kernel.org>; Wed, 18 Nov 2026 18:09:24 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=Nvidia.com header.i=@Nvidia.com header.a=rsa-sha256 header.s=selector2 header.b=Sg6SYXcd
+	dkim=fail reason="signature verification failed" (1024-bit key, unprotected) header.d=bp.renesas.com header.i=@bp.renesas.com header.a=rsa-sha256 header.s=selector1 header.b=fCLiAGuy
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id E66AB10EC61;
-	Wed, 18 Nov 2026 18:07:13 +0000 (UTC)
-Received: from MW6PR02CU001.outbound.protection.outlook.com
- (mail-westus2azon11012061.outbound.protection.outlook.com [52.101.48.61])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 78FA910EC61
- for <dri-devel@lists.freedesktop.org>; Wed, 18 Nov 2026 18:07:08 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 327C110FF07;
+	Wed, 18 Nov 2026 18:09:19 +0000 (UTC)
+Received: from TY3P286CU002.outbound.protection.outlook.com
+ (mail-japaneastazon11010044.outbound.protection.outlook.com [52.101.229.44])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 2C54010FF07
+ for <dri-devel@lists.freedesktop.org>; Wed, 18 Nov 2026 18:09:13 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=V72AzXY55QhlYXyTdu1GDAG0nDBU4JUZQiWVguvRygAQg9l/KPKxxD/pXUNG+HvTtqzzPgpPv7J8xN82872K0NyafNDkZ14zj3BSBtzFgGLa0JtMRX7X17vlbZ/XBUQgLgmaygYlm+xGRmekS1QUKHE+o0wlm/nD8mCNfc6MRN+nOFP4U7zGo3TU+qvxEniNo6kPy5O4M9ZIwoF0ocIcQ68Kbirg3A4qTzMI0WQriBuXo91qi+TEtEA/Q7Nh/YetJHBGchQXHWp5CQzgSYkU/AbdH2wyEBOY6JhcjGzMEmysWox3ZAK7tQHHSKpT+t47J/dHP9zKTzCYqdnH5Me/cg==
+ b=e0RyIZZoMhfuOZ1arP123x9gopcaoR4pFKI5VzvLmpb8BqdLj17i/zU/wOxs6sADAqpuxzaIDEaXBxX7gc6zoklhQQqiKET1qKlk/W25tttUdis6sou1mPDZrlYNtQJZVqGzMOL9n7Ambs7Nf0pzsA4C/vN79jAVpLvZR0cvWGVYw3JiEDS7grxI2dwGOXWF0U+rZKpnuuW9GDIaJzYumJrJZOh6D7x5B8JrYAD9r0gwnfrsCGy7hZniCWrk1/dSI8Dpw8gfRp9TZdGF3iSc7TLgJIk1FCqNjkzJ3dUoSfH36P9qG54X09E4i2JlDsVg3fOKbx4MV0fkdR3bhjBV/w==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=2G1U2zVeKSuKE+J3Aiabjx6y35FJ1RFEgckcOHaqURU=;
- b=iN4M1n1OOSc8qs6PdcFKgdLyRo8J5w/gbR25x/j2z89k8z6homR5PB7LOC3rHNS9l0jXYO4GvJ/UUkTAOIFycEZhmSMvaC2j0FZPgpbsa1vQLovehSqh4HKhqIxtqqpFdPnF4P62w7cO28AkrvlNNOTso3qODKFV2AHrTUzmHJ6WhIQqRT+muP182VdOIVBBCOlrHKuLADurdco9CpLCHrQmfYdgH5GRM5veRtfYtvBPPyk6qr4nBqPDQicF7NZ5ArQGVqOVI0XKMBUyUjq9yNKAea55koUiskaYO2Yfps6hiUyCCl+fRfmY+tUd7lbeRJhRdch+umOJEPz5nAIdOQ==
+ bh=I4mjS6swHLil1koYiGg+E8dqAAlup9uFy1Jm33fP1rI=;
+ b=t6gffs+6DsDygaoJNmcpWtz68L1NLOd3XY//my+So8WrgImwAtFS28IwmC3HyeG51tz1ShIJcHe2BKKieaTZUNXky+hOyKUSAmyIKZOdRwDqIQjmuou7aCR5e4fh0yH4OXT7PQ8nu0Jy8CvQVLYxRnLPM174MFA389qQHBwQ2q69noaXMZ7LxMjy3T+pg9HHdX7yh6OjWUPXCZ5eW7XYr1v7G5cP4rYPjq9M3iUr2QAnAL/QQOqsbkeJYR/wXYS9RUKMqASS2gfeA4vGAVP+ARjdfpD89bLgjlgEZgSvpFiCrKAe7j2c5oB9DvJY8eawnS0gxMgoVrVV8Ry3m6M4/Q==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
- dkim=pass header.d=nvidia.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
- s=selector2;
+ smtp.mailfrom=bp.renesas.com; dmarc=pass action=none
+ header.from=bp.renesas.com; dkim=pass header.d=bp.renesas.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bp.renesas.com;
+ s=selector1;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=2G1U2zVeKSuKE+J3Aiabjx6y35FJ1RFEgckcOHaqURU=;
- b=Sg6SYXcds3+BMHuA/VRRH+lD4Hd8qIqQ6SrX5TgQyLlaFdOV964tM2/bWGPtkCf2Z5jsnGULHQLTFFYEZJssmKdLyMrTXYB7pPTEO1h47govVxhR2/h6+8Iw5frTdunUPVEV0BZcCmm+1t+zF2ouDK+7fhW1UsJLCJv5oH4NHVkSC8M/ZuNCWxgWSqz4nUGxkb7YB2dywfPfHWjdYUcefiRpDC+SgelhnuJk4LxFLtyluFTXS8RhqWojv05y1EoK0yw96U2aJ8qaIjxE1QCBdWuMOAGzO6W+9PQGlaLGlPuBjsBOUDqvi5mRxgAfGIJXCvuRQCdsd6laSUSZCLl4zg==
+ bh=I4mjS6swHLil1koYiGg+E8dqAAlup9uFy1Jm33fP1rI=;
+ b=fCLiAGuylwi2TU6rB+2az9iz70Mf4V9eCITV1NU3JBufDzhn+G1lWOBGuoQpi51/9tdXrgtLnpBdEPEnSuyds+ZFJtLe7LCfZPn8DjcsYZwtLMGZTHq3uRIImFphYvDHHC1la0Yv3DoD3XyrLM5EEX+euPcT6pTnt5hbUawvwdM=
 Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=nvidia.com;
-Received: from LV3PR12MB9356.namprd12.prod.outlook.com (2603:10b6:408:20c::21)
- by DS7PR12MB6237.namprd12.prod.outlook.com (2603:10b6:8:97::18) with
- Microsoft SMTP Server (version=TLS1_2,
+ header.d=none;dmarc=none action=none header.from=bp.renesas.com;
+Received: from OSOPR01MB295138.jpnprd01.prod.outlook.com
+ (2603:1096:604:521::15) by TYKPR01MB236482.jpnprd01.prod.outlook.com
+ (2603:1096:403:900::20) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.615.14; Wed, 18 Nov
- 2026 18:06:59 +0000
-Received: from LV3PR12MB9356.namprd12.prod.outlook.com
- ([fe80::1c36:31b4:c420:6286]) by LV3PR12MB9356.namprd12.prod.outlook.com
- ([fe80::1c36:31b4:c420:6286%4]) with mapi id 15.21.0615.012; Wed, 18 Nov 2026
- 18:06:58 +0000
-Date: Wed, 18 Nov 2026 13:06:55 -0500
-From: Yury Norov <ynorov@nvidia.com>
-To: Eliot Courtney <ecourtney@nvidia.com>
-Cc: Alice Ryhl <aliceryhl@google.com>, Burak Emir <burak.emir@gmail.com>,
- Yury Norov <yury.norov@gmail.com>, Miguel Ojeda <ojeda@kernel.org>,
- Boqun Feng <boqun@kernel.org>, Gary Guo <gary@garyguo.net>,
- =?iso-8859-1?Q?Bj=F6rn?= Roy Baron <bjorn3_gh@protonmail.com>,
- Benno Lossin <lossin@kernel.org>, Andreas Hindborg <a.hindborg@kernel.org>,
- Trevor Gross <tmgross@umich.edu>, Danilo Krummrich <dakr@kernel.org>,
- Daniel Almeida <daniel.almeida@collabora.com>,
- Tamir Duberstein <tamird@kernel.org>,
- Alexandre Courbot <acourbot@nvidia.com>,
- Onur =?iso-8859-1?Q?=D6zkan?= <work@onurozkan.dev>,
+ 2026 18:09:09 +0000
+Received: from OSOPR01MB295138.jpnprd01.prod.outlook.com
+ ([fe80::4f0e:fd0e:ff2b:b180]) by OSOPR01MB295138.jpnprd01.prod.outlook.com
+ ([fe80::4f0e:fd0e:ff2b:b180%7]) with mapi id 15.21.0615.013; Wed, 18 Nov 2026
+ 18:09:09 +0000
+Date: Wed, 18 Nov 2026 19:08:50 +0100
+From: Tommaso Merciai <tommaso.merciai.xr@bp.renesas.com>
+To: Biju Das <biju.das.jz@bp.renesas.com>
+Cc: Tommaso Merciai <tomm.merciai@gmail.com>,
+ Prabhakar Mahadev Lad <prabhakar.mahadev-lad.rj@bp.renesas.com>,
+ "linux-renesas-soc@vger.kernel.org" <linux-renesas-soc@vger.kernel.org>,
  David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
- John Hubbard <jhubbard@nvidia.com>,
- Alistair Popple <apopple@nvidia.com>, Timur Tabi <ttabi@nvidia.com>,
- Zhi Wang <zhiw@nvidia.com>, rust-for-linux@vger.kernel.org,
- linux-kernel@vger.kernel.org, nova-gpu@lists.linux.dev,
- dri-devel@lists.freedesktop.org
-Subject: Re: [PATCH v12 0/2] rust: Add support for reserving of ranges of IDs
-Message-ID: <av3pKdesSwpPYnnq@yury>
-References: <20261112-chid-v12-0-49ad43286dad@nvidia.com>
-Content-Type: text/plain; charset=us-ascii
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>,
+ Thomas Zimmermann <tzimmermann@suse.de>, Rob Herring <robh@kernel.org>,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>,
+ Geert Uytterhoeven <geert+renesas@glider.be>,
+ "magnus.damm" <magnus.damm@gmail.com>,
+ Laurent Pinchart <laurent.pinchart+renesas@ideasonboard.com>,
+ "dri-devel@lists.freedesktop.org" <dri-devel@lists.freedesktop.org>,
+ "devicetree@vger.kernel.org" <devicetree@vger.kernel.org>,
+ "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>
+Subject: Re: [PATCH v10 02/12] drm: renesas: rz-du: vsp: Keep the planes in
+ the VSP
+Message-ID: <av3psmZ6rK8td1yx@tom-desktop>
+References: <cover.1794502191.git.tommaso.merciai.xr@bp.renesas.com>
+ <6e420483129b494a4522c952de593b8082b9510a.1794502191.git.tommaso.merciai.xr@bp.renesas.com>
+ <TYYPR01MB66036E5E97AD52E68DE078AE867A2@TYYPR01MB6603.jpnprd01.prod.outlook.com>
+Content-Type: text/plain; charset=iso-8859-1
 Content-Disposition: inline
-In-Reply-To: <20261112-chid-v12-0-49ad43286dad@nvidia.com>
-X-ClientProxiedBy: BN9PR03CA0080.namprd03.prod.outlook.com
- (2603:10b6:408:fc::25) To LV3PR12MB9356.namprd12.prod.outlook.com
- (2603:10b6:408:20c::21)
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <TYYPR01MB66036E5E97AD52E68DE078AE867A2@TYYPR01MB6603.jpnprd01.prod.outlook.com>
+X-ClientProxiedBy: FR0P281CA0163.DEUP281.PROD.OUTLOOK.COM
+ (2603:10a6:d10:b3::17) To OSOPR01MB295138.jpnprd01.prod.outlook.com
+ (2603:1096:604:521::15)
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: LV3PR12MB9356:EE_|DS7PR12MB6237:EE_
-X-MS-Office365-Filtering-Correlation-Id: ac085a08-20a4-4729-3411-08df459ebc75
+X-MS-TrafficTypeDiagnostic: OSOPR01MB295138:EE_|TYKPR01MB236482:EE_
+X-MS-Office365-Filtering-Correlation-Id: 05c96d9e-3417-49ef-7d94-08df459f0af3
+X-LD-Processed: 53d82571-da19-47e4-9cb4-625a166a4a2a,ExtAddr
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
- ARA:13230040|23010399003|1800799024|10070799003|366016|376014|7416014|18002099003|261009223027099003|22082099003|261021121427099003|11063799006|56012099006|261028144727099003|261022075727099003|261022105027099003|261026140227099003|261026121527099003|261021123027099003|261022113327099003|10067099003|261102123227099003;
-X-Microsoft-Antispam-Message-Info: +Fq8dVT2hQ4zEU4/QyQzeGArPUTuIfl3Pe0e0ypthXpOUiuVI8zSE40hndRX5hm3IWsXKa80Vp6gt4ueBjrRRySPkPmHIkCSOhXoU8TQLMlhOxfVKId0aydOaN5isAScyutLJvqVWbKnLz6LqeLaWszUZMgSiVgi0CSr0d0oHBSdBNyN9RFZncdnfJfLkpjAiW+1tg1z5T/NzIPBG3hsNSFaJxlifQSiTYemDMt6SEMELkwgtf4iccTBtxZUIlKbxwgyj66JaAjhsQ/9L2jG0aeYinakgNoO19GuUWTixmeqa1LjEwT2I0hlMd+HFF1ku4ikdKlGrp1QoVpIalr9Nk/zuSKdlWG83KWcRY/OCn4Ol9lrLRGbGVZSmMDKxn3KzvhC+FWi79AN5mVaBS2ZBPhZtVLDosoMEg3rXcalDWohAt3Zbzncq4iWhxfpZItLs30hPHYwXsRhFoQdq6fZ2EJIlWlX2NUzsis/8yiD/+9esy4+EslKoqLchfEV9d0TvkAZbiVMxwU8K0qlA2OKRsjWZ4SuY7yKa0LLomIS3kaVYH/VK3YBS74Ym2ANexohFgObasmuk2tzxe1muEddZx7KtWlqUP53Xoi2KhA3EKG6y0OYI6pcQgGnKfQeKNBatQjGX6h9DJ27iWrwirkX1KvI36x2103Etn9M1Yghqjc=
+ ARA:13230040|23010399003|366016|52116014|1800799024|7416014|376014|18002099003|22082099003|261009223027099003|4143699003|11063799006|261026121527099003|56012099006|261026140227099003|261102123227099003|261028144727099003|261021121427099003|261021123027099003|261022075727099003|261022105027099003|38350700014|10067099003;
+X-Microsoft-Antispam-Message-Info: mIr/DWJsZhZkpUNFwiMS8VTz1rOSjgBOLPHEAk16DeqcBD8IeRSTU3QQP8sWcid7mrQji8NyRvbUGuszSumDiSrSOTtgbkVOPFTmO/nQJfyA90C973UrZMKPiNBU6PXv3oR9tk30a3F5okJeUBxEcXds+R3CbA/wmo3lhreAyPXxZ8oRm2BJKh4hCzsn/OMwBky1vzw6/NT8qRX4iOiqVYPqK7vfiiKnTsjZSB76qUcTakPGv5QvN6jmwx4ANHsxTINFEPAVjqr2XKYyckCsa6fxD2fLgbvCf5IuLuWy5OzshI58/DRqLjpsEEznF0XPWuywjWST/OvZsY/8E51NXxQaLvKXPFX1dqV2kPtetQGCLSFwyhF/a5J6WX+ucdZ52YlZxPaTRouU9+fj5IjRgoPJYfM4Mf9usGveaeoEMErJL3w4FT88kwXrcWkvyWaFIZ4uTN/tXLGjqqIlEnh9oWDVo4U7NX1bnHF2JRKRpZdkSCnkLx1DE/hMSgGyL7hhdYBVxgWfGMzKefkvqA+WXOYFLH0IjbF5wTAKRWM6mX9QrlRfRYntY0JkA3R6WwxYT8b96GumbFw1Oes+krmdDyRRdeXfceHHLWKi8eC52ogrAerF7JXuyoWUMWsksq+HPOPDylkuu2UusOIycWMxinUBGZnwI9xiSKkb44DTg0cyuTT25yF5/NlUosMUsaHJrAlNK6+9AdA/198SgfiBsg==
 X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:LV3PR12MB9356.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(23010399003)(1800799024)(10070799003)(366016)(376014)(7416014)(18002099003)(261009223027099003)(22082099003)(261021121427099003)(11063799006)(56012099006)(261028144727099003)(261022075727099003)(261022105027099003)(261026140227099003)(261026121527099003)(261021123027099003)(261022113327099003)(10067099003)(261102123227099003);
+ IPV:NLI; SFV:NSPM; H:OSOPR01MB295138.jpnprd01.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230040)(23010399003)(366016)(52116014)(1800799024)(7416014)(376014)(18002099003)(22082099003)(261009223027099003)(4143699003)(11063799006)(261026121527099003)(56012099006)(261026140227099003)(261102123227099003)(261028144727099003)(261021121427099003)(261021123027099003)(261022075727099003)(261022105027099003)(38350700014)(10067099003);
  DIR:OUT; SFP:1101; 
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?us-ascii?Q?G1Y/iYoVHhKpU8kDYKYjhh+nbnLdBq7DhkixyOuI++rtnhdbeTpVcsJJceCv?=
- =?us-ascii?Q?dpmrqYLsEKMTBQthRsR1s/njMRUevYszK8qHsg9tS9Q3jfYot3+smPYNAhT+?=
- =?us-ascii?Q?xYGlEIvPMzOJtGPqhruKShGabP32XgHXt5f/i5s5l7uGmNvVpnePFei6EQil?=
- =?us-ascii?Q?W9OJ5XA8WZELru8NwFo+OB5XH3C+gdMYUrA13a6ftsw9rbYic7snUyNhmces?=
- =?us-ascii?Q?MOaP9DbcGLqN9nNwMJkrvu5eC/FSLv8FOeu4joC4YK7c3ZPpbciZkpmbAII2?=
- =?us-ascii?Q?Mo7Kkj5fpJKxwArU+tkZuYaNT4pWFp4UddxS4vvItMzYWp7ARiQgYXc6cjD+?=
- =?us-ascii?Q?lkj7PbWp9bbSoo70Awtu+rCqdqbE8bwfPQqQHIQkU0JyKdCU8pPl/4HkfMq3?=
- =?us-ascii?Q?XPUI/wTlJDOfQ5SVYE5tAXtrUJh088nrq9fRrVj5ouJ1tUVjcH1D+N16b6l+?=
- =?us-ascii?Q?mkT2ida8a6KURFfcjYpnSWvc5zsd9DfVf+i1Ih16vMmUKSoZQI0cocCBes/E?=
- =?us-ascii?Q?T19tKMkzA/OKlmUO4KhZtRDuxO/tuImRwgEQUtCQlMWtY0wRS5y8tOUkt7dA?=
- =?us-ascii?Q?EvteWWIsUF+T6xI2LitLJqw+cLi4VFAUO0gkHaI0oKUP0WGicyp/8kUpj3mq?=
- =?us-ascii?Q?W5z9QyVwXXc04PmMqf+XGLnjcXVlTOJs3hoOr92sFPKtQ7dpduFyRiLA8t6O?=
- =?us-ascii?Q?b4R8MbFpUtS3JpU2o3MWj6+nehg+J+hw4hFaFzjwHBnFog4gTxDnGkunMVCh?=
- =?us-ascii?Q?FkJDkVyasUVCgG8nxbLLlZTiVmjqFRV6EPJsMN+MBLUfBnCe+A/31vViUemY?=
- =?us-ascii?Q?2X9v8Jvcw9Hmvj9LDq6JeLZ2Pu07m/d2waMRxetGTUb+8fkPP+HCblgDTIvx?=
- =?us-ascii?Q?NNySxEsriLE3ZjRPBfvcFULtgT85kOs95x2BpeZ3twlZ6CbXYF6Zb1274t4S?=
- =?us-ascii?Q?1MwVg3/NXfc8rABUhTdleTkfaapdMka1voQZOusbB9pvZTg3Wi0Er2WWmmmj?=
- =?us-ascii?Q?RgSG9Z/KHJL7OFrZ8F/I9Os/JGGZMhvPYMozUdEOgWoT9XFHxyFJcmEE2fIo?=
- =?us-ascii?Q?7s8kRH7e6fl/gNIIlEhfw9BTlEEmWh1VvEK5+CObyyPmnYQL/2bCNEaQR+1t?=
- =?us-ascii?Q?I8/+LTDveoICdAnSvSDGNAMggFmXMVxTZhuVip+XZ2LZXQay/FFDmyilaueh?=
- =?us-ascii?Q?kaaOS1Exe8pCePfo7pYGV2LXbvsav+oGukSH2dEgBhEYuqK/YAFlkgEmk8G7?=
- =?us-ascii?Q?RZD6k4og/vyaTbLR32TjmA5GU6iLxSBFpUgFd9nGKh1z8I6Xd5cm0/fRMZD6?=
- =?us-ascii?Q?bS2Xq7jI9vyTS3Ls2L6q2JYQWWQhmThDgMkYEaWjfwzANZKq52tSjUBqVZKH?=
- =?us-ascii?Q?l5Dw7ZWa6nFLCCAlHW+J3xeNK0VFKO0Ae5SFpsSyzobSng7NkiJ3q7ITOOEQ?=
- =?us-ascii?Q?t2ULn+kIt/DWy0teKwSKTJmY30MEukw+lT7cX+gL9KZbqgLt+btALNiW2ICV?=
- =?us-ascii?Q?u5CTSjvUX2tTPvfVJOMnjVAy8tX5a2OdUr7QXFG/6vHeSCQcwlelqAlCDHrl?=
- =?us-ascii?Q?61H9YjkU39KHZ4qh9HmWzY0KzO4/6WfGcm1LRoUTSeQ7xkRJ3d3SoHOSP4/i?=
- =?us-ascii?Q?0bIWG99vJbAGMLCt9NiuGdAdoi0Qsvfmqg+kuZD+2lJsvNr3SWcLJwvRds0I?=
- =?us-ascii?Q?d0yu2s9duoewsnPjLnOSeWyqit1nPE8RRILYYFJg0y9jXoDsov/7j8RuAt0D?=
- =?us-ascii?Q?ar49hEYsh5QewCxoLLSm2Joi6fE2bGSmvxpRObV+hhzFrER0PPBf?=
-X-OriginatorOrg: Nvidia.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: ac085a08-20a4-4729-3411-08df459ebc75
-X-MS-Exchange-CrossTenant-AuthSource: LV3PR12MB9356.namprd12.prod.outlook.com
+X-MS-Exchange-AntiSpam-MessageData-0: =?iso-8859-1?Q?m2+wlCvlzow8KM03VOt1Q1dL/kCoPkQLf8gfBslfIsk3CXIFLYbJjRE8gz?=
+ =?iso-8859-1?Q?4MCvNahZMb9+IEZ50edH2zmoYsmPvfEmdiexI4RflPUrsIzHfCiK3b8ywq?=
+ =?iso-8859-1?Q?SHRUvKx4fpCQ5CkgK2Z3HCPgw6TcCbSl2nQDvNRMxCYkEMoZeErsnu1Tel?=
+ =?iso-8859-1?Q?q/amOFBZWhPt3KqW0S3aAdgQlimqO0DzFqknVzIEXm8FqSUgN9hCrcDvUo?=
+ =?iso-8859-1?Q?uDBMlrIZyudD3E+Ps3M+JdEGMlTFD6YWaV8k9QYg8+q0KdJhMwene3YOqk?=
+ =?iso-8859-1?Q?OyjFGdY6PG+CGuWZClNeDTBZvbhHN/BeXPSofKNd+2ZuOku7yVaVfVQSvu?=
+ =?iso-8859-1?Q?hUBmL2SCPbe2MnmECi7Gp0RIbLse2wrXluPLk2DuHSr9yKjB7rLEn/oeLG?=
+ =?iso-8859-1?Q?nt2nWW62c1TfaiL7S7F0yt9NKI59PTALeOQWqYp7IDVqF/sVIrAfAkEgnU?=
+ =?iso-8859-1?Q?m/BEx11n2w6yjCI4hvRFOxkYPinOFz32FJqgi7xWh+/ADqvGElfx6zQZjq?=
+ =?iso-8859-1?Q?4L0fF9DXUJhdHE2VmRcE0pQ8X0w4nolHLLXeSOdaBZ0D+kOmJ46nEfETFY?=
+ =?iso-8859-1?Q?+MEHgCfh7pl3w1k7NVHp3OeVWtn2sTxHSUy6lUJYl/oAUCMomlIKjgkYBP?=
+ =?iso-8859-1?Q?f5Ju0faiY5QEoKlURq1ImYzY2ajJvXfscbzUwZvIeE1qmPL7kpVbZ1SuZO?=
+ =?iso-8859-1?Q?9UmknDD0/CZ+IT/baYBIMfpNjZhcSCrB7lVP2vekIYUuWOzUOymgihPoiS?=
+ =?iso-8859-1?Q?Ka7004R9GeJaY2i2/puGYFeQmTtzyxQ/UkHDNvOamQw0WEDJjOeA3E+YOL?=
+ =?iso-8859-1?Q?hqOFzI1db62koMnAEXQcAeds+RRJXu3v2fgOpqAVhE4vcrV9OvUjIQkbdd?=
+ =?iso-8859-1?Q?DnRkAJw7giTqfTI19JqeN5+ePL2VaY3cjoMWdEnxDr5JIUO6kcO5xPllBA?=
+ =?iso-8859-1?Q?9p5PfeP9nGKWZVTKNeqfUNLGta16LWVKn6kMNd/CIkui3mWWGRYJdbMDmA?=
+ =?iso-8859-1?Q?HXfF3yzSLRMRgRvaq8LmZ4BcwUuUkBeQi0PB/G0VeOlIQia7Y0deH3T4Pz?=
+ =?iso-8859-1?Q?l5qCswnOOhdfkNdqJc7AsgPO+QKfyulpYUC4qTHOsgqClU9pxo/sSPFVNx?=
+ =?iso-8859-1?Q?lsKR6waf3AY1bMBmp/P33vl9BkC++PmGIPo0+DNIo6ZtxvginiqPFEaogb?=
+ =?iso-8859-1?Q?ovHn5vlUE+mkcz2R0vHmgjkSB62HtfMUqTR6IdbILTPANKy/2xqK7t6/l2?=
+ =?iso-8859-1?Q?njgaZv6scFRGfHk0qI4lsCEzwJXd3h7CXoQyeQ+UFSOnOtHdqwm1mEeFG7?=
+ =?iso-8859-1?Q?rj0NT0/40W2TU4paQTx0JgPzvVzyzGLiQP3dMz8XaOFXP/CvfOtCOnStVY?=
+ =?iso-8859-1?Q?KpW5pu6k7lqaYW91LgObXLEiXuQXG6iTq/D1O0auIgk/NK2F8jStblynrJ?=
+ =?iso-8859-1?Q?+veX1w2fROd9yNP4uOObVfvaUSr1zZqh/KrCmh6W1EAdsksDXLIx4Wt0u0?=
+ =?iso-8859-1?Q?YxE5mkIZ8hs+IlBiCpEGpnZYhTBf9ohrPjv1n32QVCnCNVvPTVjhSbzjBs?=
+ =?iso-8859-1?Q?hEXMarRJl0VT84zLA21RaWJU0ivKHJcBy//sok9nIC4K3nYv5XIwrCEq4l?=
+ =?iso-8859-1?Q?XLFsrcn7woy5lkCjuV+SJUDCv2wBqkPOedFUcgR4U4W6zlQ9r7emTiNTsW?=
+ =?iso-8859-1?Q?zxPHyh7YQgvafyShoBO7Rm7YRS6xF4KitWacCin9IYxf7ULrnMSlja/mN7?=
+ =?iso-8859-1?Q?dKNDWeDdTbbOTGxdzkOCY06uI43/f6h7KrNzep79t0SJZ6tjX/hBRPfci0?=
+ =?iso-8859-1?Q?stEaKR+bHAvPZx98DYSP/1+eHhYrMUS4L49yUp/2YUANPfARRsjS?=
+X-OriginatorOrg: bp.renesas.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 05c96d9e-3417-49ef-7d94-08df459f0af3
+X-MS-Exchange-CrossTenant-AuthSource: OSOPR01MB295138.jpnprd01.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 18 Nov 2026 18:06:58.2966 (UTC)
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 18 Nov 2026 18:09:09.8706 (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
+X-MS-Exchange-CrossTenant-Id: 53d82571-da19-47e4-9cb4-625a166a4a2a
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: e7FIaVcNRwbM1a6i/oaGljjtyNMvDLJBkh5SN6bRanKf8e5rEJW8qh5BEANUYoPrPIbfkJMurtGUQ3T2dHgp2A==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DS7PR12MB6237
+X-MS-Exchange-CrossTenant-UserPrincipalName: Mk7H2gjN9ZGKH+J6oeuUZpRpr51LAuVa2e0acABAiUStN3ETBGjPq+0Vt/52i/OOGwrGLftLnSpORJy/prkHtFStz+yuBmpX+wI5zHoMOimdZhbcur+MdJhplJGgPN+G
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: TYKPR01MB236482
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -134,150 +138,182 @@ List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-15.8 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
-	DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
-	INCLUDES_CR_TRAILER,INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,
-	SPF_PASS autolearn=unavailable autolearn_force=no version=4.0.1
+X-Spam-Status: No, score=-13.6 required=3.0 tests=BAYES_00,DKIM_INVALID,
+	DKIM_SIGNED,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,
+	INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS
+	autolearn=unavailable autolearn_force=no version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-On Thu, Nov 12, 2026 at 09:37:11PM +0900, Eliot Courtney wrote:
-> Add support for reserving of ranges of IDs, with a usage in nova-core
-> for channel IDs.
-> 
-> The bitmap and `IdPool` parts from earlier versions are in v7.4-rc1
-> now, and this version has the remaining patches: exact `IdPool`
-> capacities and `ChannelIdPool`.
-> 
-> Channel ID tracking is needed for allotting ranges of channel IDs to
-> vGPU guests, and later for regular host channel ID reservation.
-> nova-core needs allocation of a contiguous sequence of IDs with a
-> specific length and sometimes a specific alignment [1].
-> 
-> About the tradeoffs between different data structures:
-> - IDA/xarray do not support allocating a contiguous sequence of IDs
->   (ida_alloc_range() allocates a single ID within a range, not a contiguous
->   sequence).
-> - A maple tree works, but is not as good a fit. The ID space is small
->   (limited to 2048) and aligned allocation needs an alloc_range()+erase() retry
->   loop (plus a Mutex around it, or new mas_empty_area() bindings) that
->   essentially reimplements bitmap_find_next_zero_area(). See the maple tree
->   version at [2]. For 2048 IDs a bitmap is also considerably faster and smaller
->   [3].
-> - The bitmap API natively supports aligned contiguous area allocation
->   (bitmap_find_next_zero_area()).
-> 
-> This is based on drm-rust-next.
+Hi Biju,
+Thanks for your review.
 
-Reviewed-by: Yury Norov <ynorov@nvidia.com>
- 
-> [1]: https://lore.kernel.org/all/84bc8bd2-e292-4b84-9580-a1b5df4c5bdc@nvidia.com/
-> [2]: https://lore.kernel.org/all/20260710-chid-maple-v1-1-4ee869055268@nvidia.com/
-> [3]: https://lore.kernel.org/all/20260717053241.916441-1-ynorov@nvidia.com/
+On Wed, Nov 18, 2026 at 02:09:38PM +0000, Biju Das wrote:
+> Hi Tommaso,
+> 
+> Thanks for the patch.
+> 
+> > -----Original Message-----
+> > From: Tommaso Merciai <tommaso.merciai.xr@bp.renesas.com>
+> > Sent: 13 November 2026 12:20
+> > Subject: [PATCH v10 02/12] drm: renesas: rz-du: vsp: Keep the planes in the VSP
+> > 
+> > Each VSP numbers its planes from zero, so the device-wide search in
+> > rzg2l_du_vsp_get_drm_plane() picks the wrong plane as soon as a SoC has more than one VSP: the primary
+> > plane of the second CRTC is looked up on the first VSP, whose possible_crtcs mask does not cover that
+> > CRTC.
+> > 
+> > In preparation for supporting RZ/G3E, store the planes in the VSP that owns them and index the per-VSP
+> > array directly from rzg2l_du_crtc_create(), as the R-Car DU driver does, and drop the now unused
+> > search helper.
+> > 
+> > No functional change intended.
+> > 
+> > Signed-off-by: Tommaso Merciai <tommaso.merciai.xr@bp.renesas.com>
+> > ---
+> > v9->v10:
+> >  - No changes.
+> > 
+> > v8->v9:
+> >  - Dropped the vsp_pipe bounds check in rzg2l_du_crtc_create() and the
+> >    now unused num_planes field, aligning with rcar_du_crtc_create().
+> >  - Updated commit message accordingly.
+> > 
+> > v7->v8:
+> >  - New patch.
+> > 
+> >  drivers/gpu/drm/renesas/rz-du/rzg2l_du_crtc.c |  4 +---  drivers/gpu/drm/renesas/rz-du/rzg2l_du_vsp.c
+> > | 19 ++-----------------  drivers/gpu/drm/renesas/rz-du/rzg2l_du_vsp.h  | 10 +++-------
+> >  3 files changed, 6 insertions(+), 27 deletions(-)
+> > 
+> > diff --git a/drivers/gpu/drm/renesas/rz-du/rzg2l_du_crtc.c b/drivers/gpu/drm/renesas/rz-
+> > du/rzg2l_du_crtc.c
+> > index ab2f24cc7683..c57884ab5b9b 100644
+> > --- a/drivers/gpu/drm/renesas/rz-du/rzg2l_du_crtc.c
+> > +++ b/drivers/gpu/drm/renesas/rz-du/rzg2l_du_crtc.c
+> > @@ -409,9 +409,7 @@ int rzg2l_du_crtc_create(struct rzg2l_du_device *rcdu)
+> >  	init_waitqueue_head(&rcrtc->flip_wait);
+> >  	rcrtc->dev = rcdu;
+> > 
+> > -	primary = rzg2l_du_vsp_get_drm_plane(rcrtc, rcrtc->vsp_pipe);
+> > -	if (IS_ERR(primary))
+> > -		return PTR_ERR(primary);
+> > +	primary = &rcrtc->vsp->planes[rcrtc->vsp_pipe]->plane;
+> 
+> The bounds check on vsp_pipe  is dropped.  planes[vsp_pipe] is now indexed directly into a 2-entry array,
+> so a bad DT value oopses.
+> 
+> > 
+> >  	ret = drmm_crtc_init_with_planes(&rcdu->ddev, crtc, primary, NULL,
+> >  					 &crtc_funcs_rz, NULL);
+> > diff --git a/drivers/gpu/drm/renesas/rz-du/rzg2l_du_vsp.c b/drivers/gpu/drm/renesas/rz-
+> > du/rzg2l_du_vsp.c
+> > index 944bc9ac9589..12fe35740c62 100644
+> > --- a/drivers/gpu/drm/renesas/rz-du/rzg2l_du_vsp.c
+> > +++ b/drivers/gpu/drm/renesas/rz-du/rzg2l_du_vsp.c
+> > @@ -71,22 +71,6 @@ void rzg2l_du_vsp_atomic_flush(struct rzg2l_du_crtc *crtc)
+> >  	vsp1_du_atomic_flush(crtc->vsp->vsp, crtc->vsp_pipe, &cfg);  }
+> > 
+> > -struct drm_plane *rzg2l_du_vsp_get_drm_plane(struct rzg2l_du_crtc *crtc,
+> > -					     unsigned int pipe_index)
+> > -{
+> > -	struct rzg2l_du_device *rcdu = crtc->vsp->dev;
+> > -	struct drm_plane *plane = NULL;
+> > -
+> > -	drm_for_each_plane(plane, &rcdu->ddev) {
+> > -		struct rzg2l_du_vsp_plane *vsp_plane = to_rzg2l_vsp_plane(plane);
+> > -
+> > -		if (vsp_plane->index == pipe_index)
+> > -			break;
+> 
+> Do you need to remove this function? 
+> as plane has vsp and index information.
+> 
+> plane->vsp = vsp; 
+> plane->index = i;
 
-Maybe add this links in the commit message too?
+I think we can keep this function adding vsp_plane->index check:
+	
+	if (vsp_plane->vsp == crtc->vsp &&
+	    vsp_plane->index == pipe_index)
+	
+While at it I notice that rzg2l_du_vsp_get_drm_plane() 
+never return ERR_PTR(-EINVAL) because plane == NULL can't happens.
 
-> Signed-off-by: Eliot Courtney <ecourtney@nvidia.com>
-> ---
-> Changes in v12:
-> - Drop the patches that were applied to drm-rust-next and driver-core
-> - Rebase on drm-rust-next
-> - Drop the zero capacity part of the patch #1 commit message (Yury)
-> - Add reviewed-by tags
-> - Link to v11: https://patch.msgid.link/20261109-chid-v11-0-082aa9bf5a91@nvidia.com
+Will address also this into the next iteration.
+
+Kind regards,
+Tommaso
+
 > 
-> Changes in v11:
-> - Rebase on drm-rust-next (pre-reqs are merged now)
-> - Split patch #1 by subsystem (Danilo). Just splitting with no actual
->   changes, so I kept the reviewed-by tags on the new patches
-> - Add reviewed-by tags
-> - Link to v10: https://patch.msgid.link/20261019-chid-v10-0-67de9180b4ed@nvidia.com
+> Cheers,
+> Biju
 > 
-> Changes in v10:
-> - Drop the patches that were applied to rust-next
-> - Rebase on drm-rust-next (plus pre-reqs)
-> - Use a capacity of 1 instead of 0 in the grow_request() example in
->   patch #2 (Yury)
-> - Convert the remaining Alignment::new() users in nova-core in patch #1
-> - Link to v9: https://patch.msgid.link/20260930-chid-v9-0-0d6cca376cff@nvidia.com
+> > -	}
+> > -
+> > -	return plane ? plane : ERR_PTR(-EINVAL);
+> > -}
+> > -
+> >  static const u32 rzg2l_du_vsp_formats[] = {
+> >  	DRM_FORMAT_RGB332,
+> >  	DRM_FORMAT_ARGB4444,
+> > @@ -303,7 +287,7 @@ int rzg2l_du_vsp_init(struct rzg2l_du_vsp *vsp, struct device_node *np,
+> >  	struct rzg2l_du_device *rcdu = vsp->dev;
+> >  	struct platform_device *pdev;
+> >  	unsigned int num_crtcs = hweight32(crtcs);
+> > -	unsigned int num_planes = 2;
+> > +	unsigned int num_planes = RZG2L_DU_VSP_MAX_PLANES;
+> >  	unsigned int i;
+> >  	int ret;
+> > 
+> > @@ -350,6 +334,7 @@ int rzg2l_du_vsp_init(struct rzg2l_du_vsp *vsp, struct device_node *np,
+> > 
+> >  		plane->vsp = vsp;
+> >  		plane->index = i;
+> > +		vsp->planes[i] = plane;
+> > 
+> >  		drm_plane_helper_add(&plane->plane,
+> >  				     &rzg2l_du_vsp_plane_helper_funcs);
+> > diff --git a/drivers/gpu/drm/renesas/rz-du/rzg2l_du_vsp.h b/drivers/gpu/drm/renesas/rz-
+> > du/rzg2l_du_vsp.h
+> > index a22aaf0843ed..acb41d343297 100644
+> > --- a/drivers/gpu/drm/renesas/rz-du/rzg2l_du_vsp.h
+> > +++ b/drivers/gpu/drm/renesas/rz-du/rzg2l_du_vsp.h
+> > @@ -27,11 +27,14 @@ struct rzg2l_du_vsp_plane {
+> >  	unsigned int index;
+> >  };
+> > 
+> > +#define RZG2L_DU_VSP_MAX_PLANES		2
+> > +
+> >  struct rzg2l_du_vsp {
+> >  	unsigned int index;
+> >  	struct device *vsp;
+> >  	struct device_link *link;
+> >  	struct rzg2l_du_device *dev;
+> > +	struct rzg2l_du_vsp_plane *planes[RZG2L_DU_VSP_MAX_PLANES];
+> >  };
+> > 
+> >  static inline struct rzg2l_du_vsp_plane *to_rzg2l_vsp_plane(struct drm_plane *p) @@ -62,8 +65,6 @@
+> > int rzg2l_du_vsp_init(struct rzg2l_du_vsp *vsp, struct device_node *np,  void
+> > rzg2l_du_vsp_enable(struct rzg2l_du_crtc *crtc);  void rzg2l_du_vsp_disable(struct rzg2l_du_crtc
+> > *crtc);  void rzg2l_du_vsp_atomic_flush(struct rzg2l_du_crtc *crtc); -struct drm_plane
+> > *rzg2l_du_vsp_get_drm_plane(struct rzg2l_du_crtc *crtc,
+> > -					     unsigned int pipe_index);
+> >  #else
+> >  static inline int rzg2l_du_vsp_init(struct rzg2l_du_vsp *vsp, struct device_node *np,
+> >  				    unsigned int crtcs)
+> > @@ -74,11 +75,6 @@ static inline int rzg2l_du_vsp_init(struct rzg2l_du_vsp *vsp, struct device_node
+> > static inline void rzg2l_du_vsp_enable(struct rzg2l_du_crtc *crtc) { };  static inline void
+> > rzg2l_du_vsp_disable(struct rzg2l_du_crtc *crtc) { };  static inline void
+> > rzg2l_du_vsp_atomic_flush(struct rzg2l_du_crtc *crtc) { }; -static inline struct drm_plane
+> > *rzg2l_du_vsp_get_drm_plane(struct rzg2l_du_crtc *crtc,
+> > -							   unsigned int pipe_index)
+> > -{
+> > -	return ERR_PTR(-ENXIO);
+> > -}
+> >  #endif
+> > 
+> >  #endif /* __RZG2L_DU_VSP_H__ */
+> > --
+> > 2.54.0
 > 
-> Changes in v9:
-> - Rebase on drm-rust-next
-> - Moved cv! to a separate series which this now depends on
-> - Reference Link: tag from the text + indent code in patch #4 commit
->   message (Miguel)
-> - Add reviewed-by tags
-> - Link to v8: https://patch.msgid.link/20260827-chid-v8-0-bc74c77d0214@nvidia.com
-> 
-> Changes in v8:
-> - Clarify overflow cases in patch #2 (Alex)
-> - Replace nz! with generalized cv! macro (Gary)
-> - Add cv! macro to prelude
-> - Split SizeConstants and adding new constants patch (Alex)
-> - Move alignment size constants conersions patch (Alex)
-> - Drop NonZero on IdPool, fix grow_request instead (Alice, Alex)
-> - Add shrink/grow doctests (Burak)
-> - Link to v7: https://patch.msgid.link/20260817-chid-v7-0-a5872e64d8f4@nvidia.com
-> 
-> Changes in v7:
-> - Add nz! macro for compile time NonZero
-> - Implement SizeConstants for Alignment + add sub 1k size constants
-> - Use Alignment constants + nz! in this series
-> - Add final patch converting existing callers to use Alignment constants
-> - Rename alloc_area/release_area -> reserve_ids / release_ids
-> - Link to v6: https://patch.msgid.link/20260813-chid-v6-0-160be5dfb5bd@nvidia.com
-> 
-> Changes in v6:
-> - Take a NonZero nbits in `next_zero_area_off`, `set` and `clear` (Yury)
-> - Remove `UnusedArea`, `IdPool::alloc_area` now allocates directly (Yury)
-> - Add patch: take a NonZero capacity in `IdPool::with_capacity()`
-> - Add patch: do not round the capacity up to `BitmapVec::MAX_INLINE_LEN`,
->   which also removes the bounds check in `ChannelIdPool::alloc_area`
-> - Add more testing of Drop for `ChannelIdPool` (Yury)
-> - Link to v5: https://patch.msgid.link/20260812-chid-v5-0-6c767770b3f4@nvidia.com
-> 
-> Changes in v5:
-> - `bitmap_assert!` i32::MAX length for Bitmap::from_raw* (Yury)
-> - Only run overflow check on 32-bit (Yury)
-> - Link to v4: https://patch.msgid.link/20260810-chid-v4-0-c9f206fdcb97@nvidia.com
-> 
-> Changes in v4:
-> - Add `next_zero_area_off` to match C code (Yury)
-> - Replace overflow checks to match C code in bitmap-for-next.
-> - Tighten `Bitmap` unsafe contract to disallow Bitmaps larger than i32::MAX
-> - Link to v3: https://patch.msgid.link/20260729-chid-v3-0-20cc08032bbc@nvidia.com
-> 
-> Changes in v3:
-> - Use `Alignment` type in id_pool and bitmap (Alice)
-> - Remove hang check on the basis that it's extraordinarily rare.
-> - Link to v2: https://patch.msgid.link/20260723-chid-v2-0-c35e5e9fb3d9@nvidia.com
-> 
-> Changes in v2:
-> - Collected Alice's Reviewed-by on patch 1.
-> - Address Yury's comments w.r.t. using __bitmap_set etc directly.
-> - Address Yury's comments w.r.t. following the C names
-> - Additionally check for an overflow case that causes a hang
-> - Added more info to cover letter + patch 4 w.r.t. channel ID allottment
->   requirements
-> - Add align parameter to ChannelIdPool::alloc_area() plus an aligned
->   allocation test
-> - Add missing INVARIANT comment when constructing UnusedArea
-> - Link to v1:
->   https://patch.msgid.link/20260703-chid-v1-0-84fe8259e46e@nvidia.com
-> 
-> ---
-> Eliot Courtney (2):
->       rust: id_pool: do not round capacity up to BitmapVec::MAX_INLINE_LEN
->       gpu: nova-core: add ChannelIdPool
-> 
->  drivers/gpu/nova-core/gpu.rs         |   2 +
->  drivers/gpu/nova-core/gpu/channel.rs | 198 +++++++++++++++++++++++++++++++++++
->  rust/kernel/id_pool.rs               |  38 +++++--
->  3 files changed, 232 insertions(+), 6 deletions(-)
-> ---
-> base-commit: 6e557330b874b0e1fdd03e8fe4c438f36c93eefa
-> change-id: 20260608-chid-18fa943c6d6c
-> 
-> Best regards,
-> --  
-> Eliot Courtney <ecourtney@nvidia.com>
