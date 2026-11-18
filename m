@@ -2,74 +2,54 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2E5F8606A336
-	for <dri-devel@archiver.kernel.org>; Wed, 18 Nov 2026 14:35:35 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 84AD4606A32A
+	for <dri-devel@archiver.kernel.org>; Wed, 18 Nov 2026 14:37:54 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=igalia.com header.i=@igalia.com header.a=rsa-sha256 header.s=20170329 header.b=QpkweQYH
+	dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.a=rsa-sha256 header.s=dkim header.b=Is++7Tbx
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 381B810FD47;
-	Wed, 18 Nov 2026 14:35:29 +0000 (UTC)
-Received: from fanzine2.igalia.com (fanzine2.igalia.com [213.97.179.56])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 035C210FD2D
- for <dri-devel@lists.freedesktop.org>; Wed, 18 Nov 2026 14:35:23 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com; 
- s=20170329;
- h=Content-Transfer-Encoding:Content-Type:From:Cc:To:Subject:
- MIME-Version:Date:Message-ID:From:Reply-To;
- bh=yUUBSOMNf2pSRnTYBHgO3x2ZaLH0HZLt7CrBGuzO0KE=; t=1795012522; x=2110372522; 
- b=QpkweQYHVGRtpVZAvSVV/B9KRVsyM3RmEEFImnv5N0QcfLKLFEpQ+lqZnn25XolMV+8VfjSZM/T
- bMZtEjEIvraTGStiqzh1nvZQZKdyk2WoKQET7L3mXDEuCxWmnEhOgZk0ogAvna/ouvxPkP4Fubmip
- RFzuWr3xTk6e3WMhgimh+KFVJosjHkiAHDTIsKiT/wifIB9+QCBW82Ga4VoneQtLJgf8xGv7ZNJ1w
- cOFNwlwKM+ibIoSIjlWmaXcAcYyAzqbM/JzKF51gCj6ztdeKoJHUtjItGx0k6WMXWW6sl8yXfZ+gR
- Sa+nnYR2cYNUC6ajTx6gioKYACrSN863aw3g==;
-Received: from [179.105.94.163] (helo=[192.168.0.4])
- by fanzine2.igalia.com with esmtpsa 
- (Cipher TLS1.3:ECDHE_X25519__RSA_PSS_RSAE_SHA256__AES_128_GCM:128) (Exim)
- id 1xTgko-000000012ui-1Vhc; Wed, 18 Nov 2026 15:35:18 +0100
-Message-ID: <d76571d7-6c5e-4a36-85e3-db5a5b0cc2aa@igalia.com>
-Date: Wed, 18 Nov 2026 11:35:12 -0300
+	by gabe.freedesktop.org (Postfix) with ESMTP id B14FD10E80D;
+	Wed, 18 Nov 2026 14:37:48 +0000 (UTC)
+Received: from smtpout-04.galae.net (smtpout-04.galae.net [185.171.202.116])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 5E9C710E80D
+ for <dri-devel@lists.freedesktop.org>; Wed, 18 Nov 2026 14:37:42 +0000 (UTC)
+Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
+ by smtpout-04.galae.net (Postfix) with ESMTPS id B3BB1C4F77E;
+ Wed, 18 Nov 2026 14:37:45 +0000 (UTC)
+Received: from mail.galae.net (mail.galae.net [212.83.136.155])
+ by smtpout-01.galae.net (Postfix) with ESMTPS id D14A75FE9B;
+ Wed, 18 Nov 2026 14:37:40 +0000 (UTC)
+Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon)
+ with ESMTPSA id 4AD0D11BC229E; Wed, 18 Nov 2026 15:37:35 +0100 (CET)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
+ t=1795012659; h=from:subject:date:message-id:to:cc:mime-version:content-type:
+ content-transfer-encoding:content-language:in-reply-to:references;
+ bh=lpqeT2rigFPgFS9l60+27LVDzSLTb24mL7bP9ItOtmo=;
+ b=Is++7Tbxm0I5ZC1ofAck6n/JkeCBbgnUtBxLtSfqcfIvQ5BXw1Z7Fk0jIQ9g3pd+ZsSGzK
+ Ntcvs8pmJuEduYUMwxzl6+Q+qpWQ3SnhNIydJ+mwZFqhwdYWcL06lKcwpUt9Vqgd/ZJftU
+ PRinGuTry9s13+tBmsFqAeveDXYexMV+lanMDqWxBlTz2KQVZE4n3G9XQAlOvUCjNWtdu3
+ +fAVBjHrBjQxSTMZkPzIoQQd6GcehGwf+6ZRAKXpHWxxDu1/H1hACblsaGVacoNvkm9VtH
+ znsp3hOsIjRuAOUVkw6yUaLAnoc4++hpQvEG71lUQ4p+hlYGhFF1SdYJ4umu7A==
+Message-ID: <af11c394-5cff-495f-82d5-c4cd6dd9b218@bootlin.com>
+Date: Wed, 18 Nov 2026 15:37:34 +0100
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v4 0/5] drm/vc4: dsi: Make failed reads visible and
- recoverable
-To: Henry Zhang <henryzhang62@gmail.com>, Maxime Ripard <mripard@kernel.org>, 
- Dave Stevenson <dave.stevenson@raspberrypi.com>
-Cc: Raspberry Pi Kernel Maintenance <kernel-list@raspberrypi.com>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>,
- Simona Vetter <simona@ffwll.ch>, dri-devel@lists.freedesktop.org,
- linux-kernel@vger.kernel.org
-References: <20261028164539.3471833-1-henryzhang62@gmail.com>
-From: =?UTF-8?Q?Ma=C3=ADra_Canal?= <mcanal@igalia.com>
+Subject: Re: [PATCH v2 04/12] drm/vkms: remove TEST_LUT_SIZE
+To: Leandro Ribeiro <leandro.ribeiro@collabora.com>
+Cc: airlied@gmail.com, alex.hung@amd.com, daniel@fooishbar.org,
+ hamohammed.sa@gmail.com, harry.wentland@amd.com,
+ maarten.lankhorst@linux.intel.com, melissa.srw@gmail.com,
+ mripard@kernel.org, pekka.paalanen@collabora.com,
+ robert.mader@collabora.com, simona@ffwll.ch, tzimmermann@suse.de,
+ dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org
+References: <20261106201813.129911-1-leandro.ribeiro@collabora.com>
+ <20261106201813.129911-5-leandro.ribeiro@collabora.com>
+From: Louis Chauvet <louis.chauvet@bootlin.com>
 Content-Language: en-US
-Autocrypt: addr=mcanal@igalia.com; keydata=
- xsBNBGcCwywBCADgTji02Sv9zjHo26LXKdCaumcSWglfnJ93rwOCNkHfPIBll85LL9G0J7H8
- /PmEL9y0LPo9/B3fhIpbD8VhSy9Sqz8qVl1oeqSe/rh3M+GceZbFUPpMSk5pNY9wr5raZ63d
- gJc1cs8XBhuj1EzeE8qbP6JAmsL+NMEmtkkNPfjhX14yqzHDVSqmAFEsh4Vmw6oaTMXvwQ40
- SkFjtl3sr20y07cJMDe++tFet2fsfKqQNxwiGBZJsjEMO2T+mW7DuV2pKHr9aifWjABY5EPw
- G7qbrh+hXgfT+njAVg5+BcLz7w9Ju/7iwDMiIY1hx64Ogrpwykj9bXav35GKobicCAwHABEB
- AAHNIE1hw61yYSBDYW5hbCA8bWNhbmFsQGlnYWxpYS5jb20+wsCRBBMBCAA7FiEE+ORdfQEW
- dwcppnfRP/MOinaI+qoFAmcCwywCGwMFCwkIBwICIgIGFQoJCAsCBBYCAwECHgcCF4AACgkQ
- P/MOinaI+qoUBQgAqz2gzUP7K3EBI24+a5FwFlruQGtim85GAJZXToBtzsfGLLVUSCL3aF/5
- O335Bh6ViSBgxmowIwVJlS/e+L95CkTGzIIMHgyUZfNefR2L3aZA6cgc9z8cfow62Wu8eXnq
- GM/+WWvrFQb/dBKKuohfBlpThqDWXxhozazCcJYYHradIuOM8zyMtCLDYwPW7Vqmewa+w994
- 7Lo4CgOhUXVI2jJSBq3sgHEPxiUBOGxvOt1YBg7H9C37BeZYZxFmU8vh7fbOsvhx7Aqu5xV7
- FG+1ZMfDkv+PixCuGtR5yPPaqU2XdjDC/9mlRWWQTPzg74RLEw5sz/tIHQPPm6ROCACFls7A
- TQRnAsMsAQgAxTU8dnqzK6vgODTCW2A6SAzcvKztxae4YjRwN1SuGhJR2isJgQHoOH6oCItW
- Xc1CGAWnci6doh1DJvbbB7uvkQlbeNxeIz0OzHSiB+pb1ssuT31Hz6QZFbX4q+crregPIhr+
- 0xeDi6Mtu+paYprI7USGFFjDUvJUf36kK0yuF2XUOBlF0beCQ7Jhc+UoI9Akmvl4sHUrZJzX
- LMeajARnSBXTcig6h6/NFVkr1mi1uuZfIRNCkxCE8QRYebZLSWxBVr3h7dtOUkq2CzL2kRCK
- T2rKkmYrvBJTqSvfK3Ba7QrDg3szEe+fENpL3gHtH6h/XQF92EOulm5S5o0I+ceREwARAQAB
- wsB2BBgBCAAgFiEE+ORdfQEWdwcppnfRP/MOinaI+qoFAmcCwywCGwwACgkQP/MOinaI+qpI
- zQf+NAcNDBXWHGA3lgvYvOU31+ik9bb30xZ7IqK9MIi6TpZqL7cxNwZ+FAK2GbUWhy+/gPkX
- it2gCAJsjo/QEKJi7Zh8IgHN+jfim942QZOkU+p/YEcvqBvXa0zqW0sYfyAxkrf/OZfTnNNE
- Tr+uBKNaQGO2vkn5AX5l8zMl9LCH3/Ieaboni35qEhoD/aM0Kpf93PhCvJGbD4n1DnRhrxm1
- uEdQ6HUjWghEjC+Jh9xUvJco2tUTepw4OwuPxOvtuPTUa1kgixYyG1Jck/67reJzMigeuYFt
- raV3P8t/6cmtawVjurhnCDuURyhUrjpRhgFp+lW8OGr6pepHol/WFIOQEg==
-In-Reply-To: <20261028164539.3471833-1-henryzhang62@gmail.com>
+In-Reply-To: <20261106201813.129911-5-leandro.ribeiro@collabora.com>
 Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
+Content-Transfer-Encoding: 7bit
+X-Last-TLS-Session-Version: TLSv1.3
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -81,35 +61,62 @@ List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-7.3 required=3.0 tests=BAYES_00,DKIM_SIGNED,
+X-Spam-Status: No, score=-17.3 required=3.0 tests=BAYES_00,DKIM_SIGNED,
 	DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
-	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,USER_AGENT_SANE_1
-	autolearn=no autolearn_force=no version=4.0.1
+	INCLUDES_CR_TRAILER,INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,
+	SPF_PASS,USER_AGENT_SANE_1 autolearn=unavailable autolearn_force=no
+	version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
 
 
-On 28/10/26 13:45, Henry Zhang wrote:
-> DSI reads on the Raspberry Pi 4 (vc4, DSI1) can fail in two ways that
-> the caller cannot handle:
+On 11/6/26 21:18, Leandro Ribeiro wrote:
+> This can be replaced by ARRAY_SIZE(), so drop it.
 > 
-> - A peripheral that detected an error answers a read with an
->    Acknowledge and Error Report. vc4 copies its two bytes into the
->    caller's buffer and returns success, so the error bits look like
->    register contents (patch 2). An HSTX timeout can be reported as a
->    success as well (patch 1).
-> 
-> - After a read whose bus turnaround times out, every following DSI
->    transfer times out as well, until the display is switched off and on
->    (patch 5).
-> 
-> [...]
-Applied the first patch (1/5) to drm-misc-fixes, thanks!
+> Reviewed-by: Robert Mader <robert.mader@collabora.com>
+> Tested-by: Robert Mader <robert.mader@collabora.com>
+> Signed-off-by: Leandro Ribeiro <leandro.ribeiro@collabora.com>
 
-I'll leave the review of the rest of the patches for Dave, as he has
-more expertise on the DSI side. Anyway, you should consider addressing
-Sashiko's comment on 4/5.
+Reviewed-by: Louis Chauvet <louis.chauvet@bootlin.com>
 
-Best regards,
-- Maíra
+> ---
+>   drivers/gpu/drm/vkms/tests/vkms_color_test.c | 8 +++-----
+>   1 file changed, 3 insertions(+), 5 deletions(-)
+> 
+> diff --git a/drivers/gpu/drm/vkms/tests/vkms_color_test.c b/drivers/gpu/drm/vkms/tests/vkms_color_test.c
+> index 18e73a8a5c31..3489513af352 100644
+> --- a/drivers/gpu/drm/vkms/tests/vkms_color_test.c
+> +++ b/drivers/gpu/drm/vkms/tests/vkms_color_test.c
+> @@ -8,11 +8,9 @@
+>   #include "../vkms_drv.h"
+>   #include "../vkms_luts.h"
+>   
+> -#define TEST_LUT_SIZE 16
+> -
+>   MODULE_IMPORT_NS("EXPORTED_FOR_KUNIT_TESTING");
+>   
+> -static struct drm_color_lut test_linear_array[TEST_LUT_SIZE] = {
+> +static struct drm_color_lut test_linear_array[] = {
+>   	{ 0x0, 0x0, 0x0, 0 },
+>   	{ 0x1111, 0x1111, 0x1111, 0 },
+>   	{ 0x2222, 0x2222, 0x2222, 0 },
+> @@ -84,7 +82,7 @@ static const struct vkms_color_test_lerp_params color_test_lerp_cases[] = {
+>   
+>   static const struct vkms_color_lut test_linear_lut = {
+>   	.base = test_linear_array,
+> -	.lut_length = TEST_LUT_SIZE,
+> +	.lut_length = ARRAY_SIZE(test_linear_array),
+>   	.channel_value2index_ratio = 0xf000fll
+>   };
+>   
+> @@ -96,7 +94,7 @@ static void vkms_color_test_get_lut_index(struct kunit *test)
+>   	lut_index = get_lut_index(&test_linear_lut, test_linear_array[0].red);
+>   	KUNIT_EXPECT_EQ(test, drm_fixp2int(lut_index), 0);
+>   
+> -	for (i = 0; i < TEST_LUT_SIZE; i++) {
+> +	for (i = 0; i < test_linear_lut.lut_length; i++) {
+>   		lut_index = get_lut_index(&test_linear_lut, test_linear_array[i].red);
+>   		KUNIT_EXPECT_EQ(test, drm_fixp2int_ceil(lut_index), i);
+>   	}
+
