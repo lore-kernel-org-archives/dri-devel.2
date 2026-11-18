@@ -2,42 +2,42 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8C0D3606A320
-	for <dri-devel@archiver.kernel.org>; Wed, 18 Nov 2026 23:46:07 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 984DF606A320
+	for <dri-devel@archiver.kernel.org>; Wed, 18 Nov 2026 23:46:51 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=VRGYCugk
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=NOlvp1jA
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id B7E5D10E54D;
-	Wed, 18 Nov 2026 23:46:01 +0000 (UTC)
-Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id E2D4310E54D
- for <dri-devel@lists.freedesktop.org>; Wed, 18 Nov 2026 23:45:54 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 8391D10ECE6;
+	Wed, 18 Nov 2026 23:46:45 +0000 (UTC)
+Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id CF99210ECE7
+ for <dri-devel@lists.freedesktop.org>; Wed, 18 Nov 2026 23:46:39 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by tor.source.kernel.org (Postfix) with ESMTP id 16457642F7;
- Wed, 18 Nov 2026 23:45:54 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9B6EB1F000CA;
- Wed, 18 Nov 2026 23:45:53 +0000 (UTC)
+ by sea.source.kernel.org (Postfix) with ESMTP id 99E4E43772;
+ Wed, 18 Nov 2026 23:46:39 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 562971F000C5;
+ Wed, 18 Nov 2026 23:46:39 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1795045553;
- bh=525xpOc+MNjdMiMGdoDEn/uRURItOu5YR9dnZDJsb6U=;
+ s=k20260515; t=1795045599;
+ bh=E7EoscQ8NNxdCdmjdhVVaNgCM3N3qjsFw/VwaEOvtYQ=;
  h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
- b=VRGYCugkl3eRQ/CE1463FA7h8ABBQVvLbfwuMwkTLM0y1ecZsCqT1+DcseMx0JfcH
- UD13NxUr3T2JBBH1EvvPKXw/dI2Z5FrPFRcoLMhLwqLyFXZVmj3kLpVQq9FVvS3dv2
- OE5Xx14wXrZ84NMOdv3MuuX0lCO9l9O7yfqh0v+eZCVGh18+aIvu6J/YkALnCfg1lW
- VmnaWeuRcvBpYtwIJ3hgd8GW5c0kMzno2zXqUwHV1it9ppHEahVf/SM/iElDG2Xfok
- cYwG6/CzBYcZX+pBJySgQTYNmigO/rSogwq2HZyAsAbokEBUTLNYdfzvIBEOHRTjRc
- N8WfUVaMHQRGw==
-Message-ID: <sashiko-outbox-222210@kernel.org>
+ b=NOlvp1jAYgNM8uAwwOjQyuuprBWKjJ9WAKvG4JQPy9yeokJbcQHD/hPUsTlox2ZEf
+ RvTiZOhx2cntHTqkQNFqrhfe0EsEIki/ORGnHOJTm2XMPMnGkY42G+A/PaURdQH7jm
+ IvPca19tv4xupH9bkRkAmzaT5qbgdpu1F8/XgUD06EMWVFG6+FvsonHcrjb03LfHFX
+ jG9niOaYIOEG9m+rTrQ1gRdTGcvOuGl6nDjc7U5/vjmapDBhFdHZxszUkq166I5jZr
+ HfQxSv5MHAnCtsSJgQaRGnT7IEmVsNb3VPcqeVCyMHbAh6ltiALXtotSqqfoz9y0MX
+ UK4XRdAsId2RQ==
+Message-ID: <sashiko-outbox-222211@kernel.org>
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH 12/15] accel/amd-ai-engine: Add AMD AI Engine device driver
+Subject: Re: [PATCH 13/15] accel/amd-ai-engine: Add pm ops for firmware calls
 To: "Gregory Williams" <gregory.williams@amd.com>
 Cc: dri-devel@lists.freedesktop.org
-In-Reply-To: <20261118233211.4121361-13-gregory.williams@amd.com>
+In-Reply-To: <20261118233211.4121361-14-gregory.williams@amd.com>
 References: <20261118233211.4121361-1-gregory.williams@amd.com>
- <20261118233211.4121361-13-gregory.williams@amd.com>
+ <20261118233211.4121361-14-gregory.williams@amd.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Wed, 18 Nov 2026 23:45:53 +0000
+Date: Wed, 18 Nov 2026 23:46:38 +0000
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -58,149 +58,187 @@ X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 X-Archived-By: <archiver.kernel.org>
 
-Thank you for your contribution! Sashiko AI review found 2 potential
+Thank you for your contribution! Sashiko AI review found 3 potential
 issues to consider:
-- [High] accel/amd-ai-engine: memory leak and lifetime bug in
-  aie_part_create()
-- [Low] accel/amd-ai-engine: dead code, unused exports, and missing
-  accel integration
+- [Medium] accel/amd-ai-engine: spurious goto again after flush in
+  aie_part_pm_ops()
+- [Low] accel/amd-ai-engine: missing @loc kernel-doc in
+  aie_op_handshake_data
+- [Low] accel/amd-ai-engine: 32-bit shift overflow on dma_addr_t in
+  aie_part_pm_ops()
 --
 
-commit 9d0271621aaf2e78655cf01aa521aa41dffc506a
+commit d2e06ea50ba27d65c500c4af65cd1c3eb56d05cf
 Author: Gregory Williams <gregory.williams@amd.com>
 
-accel/amd-ai-engine: Add AMD AI Engine device driver
+accel/amd-ai-engine: Add pm ops for firmware calls
 
-This commit adds the initial AMD Versal AI Engine platform driver under
-drivers/accel/amd-ai-engine, including device probing, column resource
-tracking, and partition request and release APIs.
+This commit adds platform management operation structures and helpers to
+pack and flush privileged AI Engine register operations to trusted
+firmware via coherent DMA buffers.
 
-> diff --git a/drivers/accel/amd-ai-engine/Kconfig b/drivers/accel/amd-ai-e=
-ngine/Kconfig
+> diff --git a/drivers/accel/amd-ai-engine/ai-engine-pm.c b/drivers/accel/a=
+md-ai-engine/ai-engine-pm.c
 > new file mode 100644
-> index 0000000000000..7f32928cb20f2
+> index 0000000000000..103879456f520
 > --- /dev/null
-> +++ b/drivers/accel/amd-ai-engine/Kconfig
-> @@ -0,0 +1,15 @@
-> +# SPDX-License-Identifier: GPL-2.0-only
+> +++ b/drivers/accel/amd-ai-engine/ai-engine-pm.c
+> @@ -0,0 +1,472 @@
+
+[ ... ]
+
+> +int aie_part_pm_ops(struct aie_partition *apart, void *data, u32 type,
+> +		    struct aie_range range, bool flush)
+> +{
+> +	struct aie_pm_ops *pm_ops =3D &apart->pm_ops;
+> +	struct aie_op_start_num_col *op_range;
+> +	ssize_t end;
+> +	int ret =3D 0;
 > +
-> +config DRM_ACCEL_AMDAIE
-> +	tristate "AMD Versal AI Engine"
-> +	depends on ARM64 || COMPILE_TEST
-> +	depends on ZYNQMP_FIRMWARE
-> +	depends on DRM_ACCEL
-> +	help
-> +	  This option enables support for the AMD AI engine driver.
-> +	  One AMD AI engine device can have multiple partitions (groups of
-> +	  AI engine tiles). AMD AI engine device driver instance manages
-> +	  AI engine partitions. Applications access its partitions through
-> +	  AI engine partition device instance.
+> +again:
+> +	op_range =3D pm_ops->op_range;
+> +	if (!op_range ||
+> +	    op_range->num_col !=3D range.size.col ||
+> +	    op_range->start_col !=3D range.start.col) {
+> +		if (check_add_overflow(pm_ops->offset, sizeof(*op_range), &end) ||
+> +		    end >=3D pm_ops->size) {
+> +			ret =3D aie_part_pm_ops_flush(apart);
+> +			if (ret)
+> +				return ret;
+> +		}
+> +		pm_ops->op_range =3D pm_ops->pkt_va + pm_ops->offset;
+> +		pm_ops->offset +=3D sizeof(*pm_ops->op_range);
+> +		op_range =3D pm_ops->op_range;
+> +		op_range->type =3D XILINX_AIE_OPS_START_NUM_COL;
+> +		op_range->start_col =3D range.start.col;
+> +		op_range->num_col =3D range.size.col;
+> +		op_range->len =3D sizeof(*op_range);
+> +	}
+
+[ ... ]
+
+> +	if (type & AIE_PART_INIT_OPT_HW_ERR_STS) {
+> +		struct aie_op_hw_err *op;
 > +
-> +	  If unsure, say N.
+> +		if (check_add_overflow(pm_ops->offset, sizeof(*op), &end) ||
+> +		    end >=3D pm_ops->size) {
+> +			ret =3D aie_part_pm_ops_flush(apart);
+> +			if (ret)
+> +				return ret;
+> +			goto again;
+> +		}
+> +		type &=3D ~AIE_PART_INIT_OPT_HW_ERR_STS;
+> +		op =3D pm_ops->pkt_va + pm_ops->offset;
+> +		pm_ops->offset +=3D sizeof(*op);
+> +		op->type =3D XILINX_AIE_OPS_CLR_HW_ERR_STS;
+> +		op->len =3D sizeof(*op);
+> +		op->val =3D *((u16 *)data);
+> +		ret =3D aie_part_pm_ops_flush(apart);
+> +		if (ret)
+> +			return ret;
+> +		goto again;
+> +	}
+> +	if (type & AIE_PART_INIT_OPT_DIS_TLAST_ERROR) {
+> +		struct aie_op_tlast *op;
+> +
+> +		if (check_add_overflow(pm_ops->offset, sizeof(*op), &end) ||
+> +		    end >=3D pm_ops->size) {
+> +			ret =3D aie_part_pm_ops_flush(apart);
+> +			if (ret)
+> +				return ret;
+> +			goto again;
+> +		}
+> +		type &=3D ~AIE_PART_INIT_OPT_DIS_TLAST_ERROR;
+> +		op =3D pm_ops->pkt_va + pm_ops->offset;
+> +		pm_ops->offset +=3D sizeof(*op);
+> +		op->type =3D XILINX_AIE_OPS_CTRL_PKT_TLAST_ERR;
+> +		op->len =3D sizeof(*op);
+> +		op->state =3D *((u16 *)data);
+> +	}
+> +	if (type & AIE_PART_INIT_OPT_HANDSHAKE) {
+> +		struct aie_op_handshake *op;
+> +		struct aie_op_handshake_addr *hs_addr =3D data;
+> +
+> +		if (check_add_overflow(pm_ops->offset, sizeof(*op), &end) ||
+> +		    end >=3D pm_ops->size) {
+> +			ret =3D aie_part_pm_ops_flush(apart);
+> +			if (ret)
+> +				return ret;
+> +			goto again;
+> +		}
+> +
+> +		type &=3D ~AIE_PART_INIT_OPT_HANDSHAKE;
+> +		op =3D pm_ops->pkt_va + pm_ops->offset;
+> +		pm_ops->offset +=3D sizeof(*op);
+> +		op->type =3D XILINX_AIE_OPS_HANDSHAKE;
+> +		op->len =3D sizeof(*op) + hs_addr->size;
+> +		op->offset =3D hs_addr->offset;
+> +		op->low_addr =3D hs_addr->hs_dma & 0xFFFFFFFFULL;
+> +		op->high_addr =3D hs_addr->hs_dma >> 32;
 
 [Severity: Low]
-Why is this driver placed under drivers/accel/ with a dependency on
-DRM_ACCEL when it does not register a drm_device with DRIVER_COMPUTE_ACCEL
-or expose any userspace interface across the series?
+Can shifting hs_addr->hs_dma by 32 bits trigger a -Wshift-count-overflow
+warning on 32-bit COMPILE_TEST builds?
 
-Also, aie_partition_request() and aie_partition_release() in
-ai-engine-dev.c are exported with EXPORT_SYMBOL_GPL() without any in-tree
-callers in the series, and aie_resource_check_region() in ai-engine-res.c
-is never called.
+hs_dma has type dma_addr_t, which is 32 bits wide when
+CONFIG_ARCH_DMA_ADDR_T_64BIT is disabled.  Using lower_32_bits() and
+upper_32_bits() as in aie_part_pm_ops_flush() avoids the shift overflow.
 
-> diff --git a/drivers/accel/amd-ai-engine/ai-engine-part.c b/drivers/accel=
-/amd-ai-engine/ai-engine-part.c
-> new file mode 100644
-> index 0000000000000..f80a6fa433aa1
-> --- /dev/null
-> +++ b/drivers/accel/amd-ai-engine/ai-engine-part.c
-
-[ ... ]
-
-> @@ -0,0 +1,77 @@
-
-[ ... ]
-
-> +void aie_part_release(struct aie_partition *apart)
-> +{
-> +	struct aie_device *adev =3D apart->adev;
+> +		if (flush)
+> +			ret =3D aie_part_pm_ops_flush(apart);
 > +
-> +	list_del(&apart->node);
-> +	aie_resource_put_region(&adev->cols_res,
-> +				apart->range.start.col -
-> +				adev->range.start.col,
-> +				apart->range.size.col);
-> +	device_unregister(&apart->dev);
-> +}
-> +
-> +static void aie_part_release_device(struct device *dev)
-> +{
-> +	(void)dev;
-> +}
-> +
-> +/**
-> + * aie_part_create() - create AI engine partition instance
-> + * @adev: AI engine device
-> + * @start_col: start column of AI engine partition
-> + * @num_col: number of columns of AI engine partition
-> + *
-> + * Return: created AI engine partition pointer for success, and PTR_ERR
-> + *	   for failure.
-> + */
-> +struct aie_partition *aie_part_create(struct aie_device *adev,
-> +				      u8 start_col, u8 num_col)
-> +{
-> +	struct aie_partition *apart;
-> +	struct device *dev;
-> +
-> +	apart =3D devm_kzalloc(adev->dev, sizeof(*apart), GFP_KERNEL);
-> +	if (!apart)
-> +		return ERR_PTR(-ENOMEM);
-> +
-> +	apart->adev =3D adev;
-> +	mutex_init(&apart->mlock);
-> +	apart->range.start.col =3D start_col;
-> +	apart->range.size.col =3D num_col;
-> +	apart->range.start.row =3D adev->range.start.row;
-> +	apart->range.size.row =3D adev->range.size.row;
-> +
-> +	/* create partition device */
-> +	dev =3D &apart->dev;
-> +	dev->parent =3D apart->adev->dev;
-> +	dev_set_name(dev, "aiepart_%u_%u", apart->range.start.col,
-> +		     apart->range.size.col);
-> +	dev_set_drvdata(dev, apart);
-> +	dev->release =3D aie_part_release_device;
-> +
-> +	if (device_register(&apart->dev)) {
-> +		dev_err(adev->dev, "failed to register partition device\n");
-> +		put_device(dev);
-> +		return ERR_PTR(-ENODEV);
+> +		if (ret)
+> +			return ret;
+> +		goto again;
 > +	}
 > +
-> +	return apart;
+> +	if (type)
+> +		dev_warn(&apart->dev, "Unknown ops type: 0x%x\n", type);
+> +
+> +	if (flush)
+> +		ret =3D aie_part_pm_ops_flush(apart);
+> +
+> +	return ret;
 > +}
 
-[Severity: High]
-Does allocating apart with devm_kzalloc(adev->dev, ...) and using a no-op
-dev->release callback leak struct aie_partition across runtime partition
-request and release cycles?
+[Severity: Medium]
+Why do the AIE_PART_INIT_OPT_HW_ERR_STS and AIE_PART_INIT_OPT_HANDSHAKE
+branches flush and jump back to again after queuing their operation?
 
-Every call to aie_partition_release() (as well as the device_register()
-error path in aie_part_create()) drops the reference on apart->dev without
-freeing apart, leaving it allocated on adev->dev's devres list until the
-parent driver unbinds.  In addition, tying a structure that embeds a
-reference-counted struct device to parent devres frees apart on parent
-unbind even if external references to apart->dev are still held, causing a
-use-after-free when the last reference is dropped.
+Jumping to again after aie_part_pm_ops_flush() resets pm_ops->op_range to
+NULL causes a new XILINX_AIE_OPS_START_NUM_COL range header to be written
+into pm_ops->pkt_va even when no bits remain in type.  When flush is
+true, the function then flushes a second time at the end; when flush is
+false with AIE_PART_INIT_OPT_HW_ERR_STS (which also ignores the flush
+parameter), an empty range header is left in pm_ops->pkt_va and will not
+be stripped by aie_part_pm_ops_flush() if the next call uses a different
+column range.
 
-Allocating apart with kzalloc() and freeing it with kfree() in
-aie_part_release_device() would tie its lifetime to apart->dev;
-aie_partition_release() in ai-engine-dev.c would then also need to save
-apart->adev in a local variable before calling aie_part_release(apart) so
-that mutex_unlock(&adev->mlock) does not dereference apart after
-device_unregister(&apart->dev) frees it.
+> diff --git a/include/linux/amd-ai-engine.h b/include/linux/amd-ai-engine.h
+> index f5750d219e211..9df3463985afd 100644
+> --- a/include/linux/amd-ai-engine.h
+> +++ b/include/linux/amd-ai-engine.h
+
+[ ... ]
+
+> +/**
+> + * struct aie_op_handshake_data - AI engine uc handshake region informat=
+ion
+> + * @addr: handshake data address from where the data needs to be copied.
+> + * @size: handshake data size.
+> + * @offset: offset for handshake region update.
+> + */
+> +struct aie_op_handshake_data {
+> +	void *addr;
+> +	size_t size;
+> +	size_t offset;
+> +	struct aie_location loc;
+> +};
+
+[Severity: Low]
+The kernel-doc comment for struct aie_op_handshake_data is missing an
+entry for @loc, which will trigger a kernel-doc warning under W=3D1.
 
 --=20
 Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261118233211.4121=
-361-1-gregory.williams@amd.com?part=3D12
+361-1-gregory.williams@amd.com?part=3D13
