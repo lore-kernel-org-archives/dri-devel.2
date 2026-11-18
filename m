@@ -2,67 +2,71 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E1D63606A320
-	for <dri-devel@archiver.kernel.org>; Wed, 18 Nov 2026 13:46:27 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 85CC4606A32C
+	for <dri-devel@archiver.kernel.org>; Wed, 18 Nov 2026 13:46:55 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Et88hbJB
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=c+HPaTxE
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id A15CF10FC31;
-	Wed, 18 Nov 2026 13:46:21 +0000 (UTC)
-Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 8887210FCC8;
- Wed, 18 Nov 2026 13:46:12 +0000 (UTC)
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id 6C5C0446F3;
- Wed, 18 Nov 2026 13:46:12 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7A8611F000CB;
- Wed, 18 Nov 2026 13:46:04 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1795009572;
- bh=sDJGspNFkUyu8KxOLu1jE5eutQREHyym7I9CvkghZBo=;
- h=From:To:Cc:Subject:Date:In-Reply-To:References;
- b=Et88hbJBRGxCGoNpGGEEpOInHeVF2PPHct24eJZfCN58VJ/QUk+bBjz3PPlnEHEvv
- M/k+Fv5cuwhXXOdab4BEWxpbTB2zijxONxjiWc2NSqpr7OTQNPjsZsJkQGrr98tOlN
- 5TJOosp3QtfF8xTFqjhlYrFmpjf1n40YXxV3QNy8PVqvcf2SOWWbNA7+roaW7ADmBZ
- 8jmwTNoTugKWl4srTRmwRr7XJjCN3IsPtBZ4Vsl+aKdEirLZV14I7EDGTXNJXGzwFG
- 4FvZTeDqbELFlCPM9+s3QaDV3x1yATofQTzCdGz6u6TkbTKA6SPE8UWti/RbKP5JQG
- Jz6zt5eJMdsVw==
-From: Philipp Stanner <phasta@kernel.org>
-To: Sumit Semwal <sumit.semwal@linaro.org>,
- =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
- Philipp Stanner <phasta@kernel.org>,
- Alex Deucher <alexander.deucher@amd.com>, David Airlie <airlied@gmail.com>,
- Simona Vetter <simona@ffwll.ch>, Sunil Khatri <sunil.khatri@amd.com>,
- Vitaly Prosyak <vitaly.prosyak@amd.com>, Prike Liang <Prike.Liang@amd.com>,
- =?UTF-8?q?Thomas=20Hellstr=C3=B6m?= <thomas.hellstrom@linux.intel.com>,
- Tvrtko Ursulin <tvrtko.ursulin@igalia.com>,
- David Rosca <david.rosca@amd.com>,
- =?UTF-8?q?Timur=20Krist=C3=B3f?= <timur.kristof@gmail.com>,
- Maxime Ripard <mripard@kernel.org>,
- Dave Stevenson <dave.stevenson@raspberrypi.com>,
- =?UTF-8?q?Ma=C3=ADra=20Canal?= <mcanal@igalia.com>,
- Raspberry Pi Kernel Maintenance <kernel-list@raspberrypi.com>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Thomas Zimmermann <tzimmermann@suse.de>
-Cc: dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
- linux-media@vger.kernel.org, amd-gfx@lists.freedesktop.org,
- etnaviv@lists.freedesktop.org, intel-gfx@lists.freedesktop.org,
- imagination@lists.freedesktop.org, lima@lists.freedesktop.org,
- linux-arm-msm@vger.kernel.org, freedreno@lists.freedesktop.org,
- nouveau@lists.freedesktop.org, virtualization@lists.linux.dev,
- spice-devel@lists.freedesktop.org, intel-xe@lists.freedesktop.org,
- linux-tegra@vger.kernel.org, linux-iio@vger.kernel.org,
- linux-usb@vger.kernel.org, rust-for-linux@vger.kernel.or
-Subject: [PATCH v2 3/3] dma-buf: dma-fence: Remove dma_fence_init64()
-Date: Wed, 18 Nov 2026 14:45:23 +0100
-Message-ID: <20261118134522.1646892-5-phasta@kernel.org>
-X-Mailer: git-send-email 2.56.0
-In-Reply-To: <20261118134522.1646892-2-phasta@kernel.org>
-References: <20261118134522.1646892-2-phasta@kernel.org>
+	by gabe.freedesktop.org (Postfix) with ESMTP id B19C310FC3F;
+	Wed, 18 Nov 2026 13:46:49 +0000 (UTC)
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.17])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 52E2D10FCB6
+ for <dri-devel@lists.freedesktop.org>; Wed, 18 Nov 2026 13:46:43 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1795009604; x=1826545604;
+ h=from:to:cc:subject:in-reply-to:references:date:
+ message-id:mime-version;
+ bh=2nnrO4vW63S4GPqF/HfHgssdOyQWdoQo7DzmIusuWfA=;
+ b=c+HPaTxEsNoLs28n8g1ouM/f1382um3gFBDANvHcB4zVM7qe4kNp3Cwd
+ V0tz0jzY3eeSdpCwOs1EuK1d95B6V0cy7WVeeqMyh+gQOrXhJ5K+MpBoD
+ uFaoaoIap+75EytyNVsT8Y84+cwOu0sd1Uv/ZOwZKlKcLLQocIz6TvJeG
+ NsVEolmxbyFHgkdMCGf3IkeDcZeyOONJORpqcEduxWFtHb8I/XpwoLizV
+ ysLQs4vJpX3BniEkr5zTMxZpjsZ2A32NsW4EoIPDs0gHYd63kLQiBhJsV
+ NW9T2MQgOCgl6CzeSvMjC4fxH4C3ADZZB7C8m8Sd0WoqQzWlQgszxCI6g A==;
+X-CSE-ConnectionGUID: LDYP9dCcRxm3VXiPiER1Ug==
+X-CSE-MsgGUID: 2qoxeuO7SUm+kCky1S/2hQ==
+X-IronPort-AV: E=McAfee;i="6800,10657,11969"; a="3832562"
+X-IronPort-AV: E=Sophos;i="6.27,219,1787036400"; 
+   d="scan'208";a="3832562"
+Received: from fmviesa003.fm.intel.com ([10.60.135.143])
+ by orvoesa109.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 18 Nov 2026 05:46:43 -0800
+X-CSE-ConnectionGUID: +4Irg2mMRy+xLgtdAm7AVg==
+X-CSE-MsgGUID: FTsun9RMTbO3UigHOLuUAQ==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,219,1787036400"; d="scan'208";a="10287359"
+Received: from mkosciow-mobl1.ger.corp.intel.com (HELO localhost)
+ ([10.245.244.187])
+ by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 18 Nov 2026 05:46:38 -0800
+From: Jani Nikula <jani.nikula@linux.intel.com>
+To: Xin Ji <xji@analogixsemi.com>, Xin Ji
+ <anx-upstream@analogixsemi.com.cn>, Andrzej Hajda
+ <andrzej.hajda@intel.com>, Neil Armstrong <neil.armstrong@linaro.org>,
+ Robert Foss <rfoss@kernel.org>, Laurent Pinchart
+ <Laurent.pinchart@ideasonboard.com>, Jonas Karlman <jonas@kwiboo.se>,
+ Jernej Skrabec <jernej.skrabec@gmail.com>, Luca Ceresoli
+ <luca.ceresoli@bootlin.com>, Maarten Lankhorst
+ <maarten.lankhorst@linux.intel.com>, Maxime Ripard <mripard@kernel.org>,
+ Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>,
+ Simona Vetter <simona@ffwll.ch>
+Cc: Bernie Liang <bliang@analogixsemi.com>, Qilin Wen
+ <qwen@analogixsemi.com>, "fshao@chromium.org" <fshao@chromium.org>,
+ "dri-devel@lists.freedesktop.org" <dri-devel@lists.freedesktop.org>,
+ "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>
+Subject: RE: [PATCH] drm/bridge: anx7625: switch to drm_edid_read_custom()
+In-Reply-To: <DM6PR04MB697059DAFCE167EB7CAE9B43C77C2@DM6PR04MB6970.namprd04.prod.outlook.com>
+Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park,
+ 6 krs Bertel Jungin Aukio 5, 02600 Espoo, Finland
+References: <20261116023740.2257699-1-anx-upstream@analogixsemi.com.cn>
+ <d1553faf45c5651feefd667a3decb454fc596415@intel.com>
+ <DM6PR04MB697059DAFCE167EB7CAE9B43C77C2@DM6PR04MB6970.namprd04.prod.outlook.com>
+Date: Wed, 18 Nov 2026 15:46:36 +0200
+Message-ID: <6fab6bf1beef0c38b95f0b3e628237ef2142f5b8@intel.com>
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -74,78 +78,315 @@ List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-18.8 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
-	DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
+X-Spam-Status: No, score=-13.8 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
+	DKIM_SIGNED,DKIM_VALID,HEADER_FROM_DIFFERENT_DOMAINS,
 	INCLUDES_CR_TRAILER,INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,
-	SPF_PASS,USER_AGENT_GIT autolearn=unavailable autolearn_force=no
-	version=4.0.1
+	SPF_PASS autolearn=unavailable autolearn_force=no version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-All users of dma_fence_init64() have been removed. They now use the
-respective initialization flag in dma_fence_init().
+On Mon, 16 Nov 2026, Xin Ji <xji@analogixsemi.com> wrote:
+>> > From: Xin Ji <xji@analogixsemi.com>
+>> >
+>> > Currently, sp_tx_get_edid_block() only reads the base block extension
+>> > count at 0x7e and ignores CTA-861 HF-EEODB overrides in block 1. On
+>> > displays using HF-EEODB, the driver only reads 2 blocks, which
+>> > drm_edid_valid() then rejects due to the size mismatch.
+>> > Switch to drm_edid_read_custom() with a per-block read callback so DRM
+>> > core handles block count discovery (including HF-EEODB and >4 blocks)
+>> > and validation automatically.
+>> 
+>> Yay!
+>> 
+>> It warms my heart that the work I put in drm_edid.c to handle HF-EEODB still
+>> keeps paying off, and people can enable the complexity of it by
+>> *simplifying* the driver code. :)
+>
+> Yes, thanks! The HF-EEODB handling in drm_edid.c has been very helpful.
+> It's great to see it paying off.
+>
+>> 
+>> > Signed-off-by: Xin Ji <xji@analogixsemi.com>
+>> > ---
+>> >  drivers/gpu/drm/bridge/analogix/anx7625.c | 172 +++++-----------------
+>> >  drivers/gpu/drm/bridge/analogix/anx7625.h |   4 -
+>> >  2 files changed, 33 insertions(+), 143 deletions(-)
+>> >
+>> > diff --git a/drivers/gpu/drm/bridge/analogix/anx7625.c
+>> > b/drivers/gpu/drm/bridge/analogix/anx7625.c
+>> > index c3af88e14f8b..eb503be005e0 100644
+>> > --- a/drivers/gpu/drm/bridge/analogix/anx7625.c
+>> > +++ b/drivers/gpu/drm/bridge/analogix/anx7625.c
+>> > @@ -1022,27 +1022,6 @@ static int sp_tx_aux_rd(struct anx7625_data *ctx,
+>> u8 len_cmd)
+>> >       return (ret | wait_aux_op_finish(ctx));  }
+>> >
+>> > -static int sp_tx_get_edid_block(struct anx7625_data *ctx) -{
+>> > -     int c = 0;
+>> > -     struct device *dev = ctx->dev;
+>> > -
+>> > -     sp_tx_aux_wr(ctx, 0x7e);
+>> > -     sp_tx_aux_rd(ctx, 0x01);
+>> > -     c = anx7625_reg_read(ctx, ctx->i2c.rx_p0_client, AP_AUX_BUFF_START);
+>> > -     if (c < 0) {
+>> > -             DRM_DEV_ERROR(dev, "IO error : access AUX BUFF.\n");
+>> > -             return -EIO;
+>> > -     }
+>> > -
+>> > -     DRM_DEV_DEBUG_DRIVER(dev, " EDID Block = %d\n", c + 1);
+>> > -
+>> > -     if (c > MAX_EDID_BLOCK)
+>> > -             c = 1;
+>> > -
+>> > -     return c;
+>> > -}
+>> > -
+>> >  static int edid_read(struct anx7625_data *ctx,
+>> >                    u8 offset, u8 *pblock_buf)  { @@ -1123,18 +1102,16
+>> > @@ static int segments_edid_read(struct anx7625_data *ctx,
+>> >       return ret;
+>> >  }
+>> >
+>> > -static int sp_tx_edid_read(struct anx7625_data *ctx,
+>> > -                        u8 *pedid_blocks_buf)
+>> > +static int anx7625_get_edid_block(void *data, u8 *buf, unsigned int
+>> > +block, size_t len)
+>> >  {
+>> > +     struct anx7625_data *ctx = data;
+>> >       u8 offset;
+>> > -     int edid_pos;
+>> > -     int count, blocks_num;
+>> > -     u8 pblock_buf[MAX_DPCD_BUFFER_SIZE];
+>> > -     u8 i, j;
+>> > -     int g_edid_break = 0;
+>> > -     int ret;
+>> > +     int ret, i;
+>> >       struct device *dev = ctx->dev;
+>> >
+>> > +     if (len != EDID_LENGTH || block > 255)
+>> > +             return -EINVAL;
+>> > +
+>> >       /* Address initial */
+>> >       ret = anx7625_reg_write(ctx, ctx->i2c.rx_p0_client,
+>> >                               AP_AUX_ADDR_7_0, 0x50); @@ -1147,85
+>> > +1124,18 @@ static int sp_tx_edid_read(struct anx7625_data *ctx,
+>> >               return -EIO;
+>> >       }
+>> >
+>> > -     blocks_num = sp_tx_get_edid_block(ctx);
+>> > -     if (blocks_num < 0)
+>> > -             return blocks_num;
+>> > -
+>> > -     count = 0;
+>> > -
+>> > -     do {
+>> > -             switch (count) {
+>> > -             case 0:
+>> > -             case 1:
+>> > -                     for (i = 0; i < 8; i++) {
+>> > -                             offset = (i + count * 8) * MAX_DPCD_BUFFER_SIZE;
+>> > -                             g_edid_break = edid_read(ctx, offset,
+>> > -                                                      pblock_buf);
+>> > -
+>> > -                             if (g_edid_break < 0)
+>> > -                                     break;
+>> > -
+>> > -                             memcpy(&pedid_blocks_buf[offset],
+>> > -                                    pblock_buf,
+>> > -                                    MAX_DPCD_BUFFER_SIZE);
+>> > -                     }
+>> > -
+>> > -                     break;
+>> > -             case 2:
+>> > -                     offset = 0x00;
+>> > -
+>> > -                     for (j = 0; j < 8; j++) {
+>> > -                             edid_pos = (j + count * 8) *
+>> > -                                     MAX_DPCD_BUFFER_SIZE;
+>> > -
+>> > -                             if (g_edid_break == 1)
+>> > -                                     break;
+>> > -
+>> > -                             ret = segments_edid_read(ctx, count / 2,
+>> > -                                                      pblock_buf, offset);
+>> > -                             if (ret < 0)
+>> > -                                     return ret;
+>> > -
+>> > -                             memcpy(&pedid_blocks_buf[edid_pos],
+>> > -                                    pblock_buf,
+>> > -                                    MAX_DPCD_BUFFER_SIZE);
+>> > -                             offset = offset + 0x10;
+>> > -                     }
+>> > -
+>> > -                     break;
+>> > -             case 3:
+>> > -                     offset = 0x80;
+>> > -
+>> > -                     for (j = 0; j < 8; j++) {
+>> > -                             edid_pos = (j + count * 8) *
+>> > -                                     MAX_DPCD_BUFFER_SIZE;
+>> > -                             if (g_edid_break == 1)
+>> > -                                     break;
+>> > -
+>> > -                             ret = segments_edid_read(ctx, count / 2,
+>> > -                                                      pblock_buf, offset);
+>> > -                             if (ret < 0)
+>> > -                                     return ret;
+>> > -
+>> > -                             memcpy(&pedid_blocks_buf[edid_pos],
+>> > -                                    pblock_buf,
+>> > -                                    MAX_DPCD_BUFFER_SIZE);
+>> > -                             offset = offset + 0x10;
+>> > -                     }
+>> > -
+>> > -                     break;
+>> > -             default:
+>> > -                     break;
+>> > -             }
+>> > -
+>> > -             count++;
+>> > +     DRM_DEV_DEBUG_DRIVER(dev, "Read EDID block %u, len %zu\n",
+>> > + block, len);
+>> >
+>> > -     } while (blocks_num >= count);
+>> > +     for (i = 0; i < len; i += MAX_DPCD_BUFFER_SIZE) {
+>> > +             offset = (block & 1) * EDID_LENGTH + i;
+>> > +             if (block < 2)
+>> > +                     ret = edid_read(ctx, offset, &buf[i]);
+>> > +             else
+>> > +                     ret = segments_edid_read(ctx, block / 2, &buf[i],
+>> > +                                              offset);
+>> >
+>> > -     /* Check edid data */
+>> > -     if (!drm_edid_is_valid((struct edid *)pedid_blocks_buf)) {
+>> > -             DRM_DEV_ERROR(dev, "WARNING! edid check fail!\n");
+>> > -             return -EINVAL;
+>> > +             if (ret < 0)
+>> > +                     return -EIO;
+>> >       }
+>> >
+>> >       /* Reset aux channel */
+>> > @@ -1235,7 +1145,7 @@ static int sp_tx_edid_read(struct anx7625_data
+>> *ctx,
+>> >               return ret;
+>> >       }
+>> >
+>> > -     return (blocks_num + 1);
+>> > +     return 0;
+>> >  }
+>> >
+>> >  static void anx7625_power_on(struct anx7625_data *ctx) @@ -1958,37
+>> > +1868,6 @@ static ssize_t anx7625_aux_transfer(struct drm_dp_aux *aux,
+>> >       return ret;
+>> >  }
+>> >
+>> > -static const struct drm_edid *anx7625_edid_read(struct anx7625_data
+>> > *ctx) -{
+>> > -     struct device *dev = ctx->dev;
+>> > -     u8 *edid_buf;
+>> > -     int edid_num;
+>> > -
+>> > -     if (ctx->cached_drm_edid)
+>> > -             goto out;
+>> > -
+>> > -     edid_buf = kmalloc(FOUR_BLOCK_SIZE, GFP_KERNEL);
+>> > -     if (!edid_buf)
+>> > -             return NULL;
+>> > -
+>> > -     pm_runtime_get_sync(dev);
+>> > -     _anx7625_hpd_polling(ctx, 5000 * 100);
+>> > -     edid_num = sp_tx_edid_read(ctx, edid_buf);
+>> > -     pm_runtime_put_sync(dev);
+>> > -
+>> > -     if (edid_num < 1) {
+>> > -             DRM_DEV_ERROR(dev, "Fail to read EDID: %d\n", edid_num);
+>> > -             kfree(edid_buf);
+>> > -             return NULL;
+>> > -     }
+>> > -
+>> > -     ctx->cached_drm_edid = drm_edid_alloc(edid_buf, edid_num *
+>> ONE_BLOCK_SIZE);
+>> > -     kfree(edid_buf);
+>> > -
+>> > -out:
+>> > -     return drm_edid_dup(ctx->cached_drm_edid);
+>> > -}
+>> > -
+>> >  static enum drm_connector_status anx7625_sink_detect(struct
+>> > anx7625_data *ctx)  {
+>> >       struct device *dev = ctx->dev;
+>> > @@ -2647,10 +2526,25 @@ static const struct drm_edid
+>> > *anx7625_bridge_edid_read(struct drm_bridge *bridge  {
+>> >       struct anx7625_data *ctx = bridge_to_anx7625(bridge);
+>> >       struct device *dev = ctx->dev;
+>> > +     const struct drm_edid *drm_edid;
+>> >
+>> >       DRM_DEV_DEBUG_DRIVER(dev, "drm bridge get edid\n");
+>> >
+>> > -     return anx7625_edid_read(ctx);
+>> > +     if (ctx->cached_drm_edid)
+>> > +             return drm_edid_dup(ctx->cached_drm_edid);
+>
+> The patch will return with drm_edid_dup() if ctx->cached_drm_edid is not null.
+>
+>> > +
+>> > +     pm_runtime_get_sync(dev);
+>> > +     _anx7625_hpd_polling(ctx, 5000 * 100);
+>> > +     ctx->cached_drm_edid = drm_edid_read_custom(connector,
+>> > +                                                 anx7625_get_edid_block,
+>> > +                                                 ctx);
+>> > +     drm_edid = drm_edid_dup(ctx->cached_drm_edid);
+>> 
+>> Consider deduplicating?
+>
+> No need to check it again as the patch checked it before.
 
-Remove dma_fence_init64().
+Obviously you'd remove the check before. Point is, you'd only have *one*
+instance of drm_edid_dup(ctx->cached_drm_edid); and use it on both code
+paths.
 
-Signed-off-by: Philipp Stanner <phasta@kernel.org>
-Reviewed-by: Timur Kristóf <timur.kristof@gmail.com>
-Reviewed-by: Christian König <christian.koenig@amd.com>
----
- drivers/dma-buf/dma-fence.c | 27 ---------------------------
- include/linux/dma-fence.h   |  2 --
- 2 files changed, 29 deletions(-)
 
-diff --git a/drivers/dma-buf/dma-fence.c b/drivers/dma-buf/dma-fence.c
-index 7bc925793e24..0776ca7c795e 100644
---- a/drivers/dma-buf/dma-fence.c
-+++ b/drivers/dma-buf/dma-fence.c
-@@ -1139,33 +1139,6 @@ dma_fence_init(struct dma_fence *fence, const struct dma_fence_ops *ops,
- }
- EXPORT_SYMBOL(dma_fence_init);
- 
--/**
-- * dma_fence_init64 - Initialize a custom fence with 64-bit seqno support.
-- * @fence: the fence to initialize
-- * @ops: the dma_fence_ops for operations on this fence
-- * @lock: optional irqsafe spinlock to use for locking this fence
-- * @context: the execution context this fence is run on
-- * @seqno: a linear increasing sequence number for this context
-- *
-- * Initializes an allocated fence, the caller doesn't have to keep its
-- * refcount after committing with this fence, but it will need to hold a
-- * refcount again if &dma_fence_ops.enable_signaling gets called.
-- *
-- * Context and seqno are used for easy comparison between fences, allowing
-- * to check which fence is later by simply using dma_fence_later().
-- *
-- * New users MUST NOT use external locks. Check the documentation in
-- * dma_fence_init() to understand the motives behind the legacy use cases.
-- */
--void
--dma_fence_init64(struct dma_fence *fence, const struct dma_fence_ops *ops,
--		 spinlock_t *lock, u64 context, u64 seqno)
--{
--	__dma_fence_init(fence, ops, lock, context, seqno,
--			 BIT(DMA_FENCE_FLAG_SEQNO64_BIT));
--}
--EXPORT_SYMBOL(dma_fence_init64);
--
- /**
-  * dma_fence_driver_name - Access the driver name
-  * @fence: the fence to query
-diff --git a/include/linux/dma-fence.h b/include/linux/dma-fence.h
-index 6f5c245d89ec..56c4e5beaafe 100644
---- a/include/linux/dma-fence.h
-+++ b/include/linux/dma-fence.h
-@@ -288,8 +288,6 @@ struct dma_fence_ops {
- void dma_fence_init(struct dma_fence *fence, const struct dma_fence_ops *ops,
- 		    spinlock_t *lock, u64 context, u64 seqno,
- 		    unsigned long flags);
--void dma_fence_init64(struct dma_fence *fence, const struct dma_fence_ops *ops,
--		      spinlock_t *lock, u64 context, u64 seqno);
- void dma_fence_release(struct kref *kref);
- void dma_fence_free(struct dma_fence *fence);
- void dma_fence_describe(struct dma_fence *fence, struct seq_file *seq);
+>
+>> 
+>>         if (!ctx->cached_drm_edid) {
+>>                 // ...
+>>                 ctx->cached_drm_edid = drm_edid_read_custom();
+>>                 // ...
+>>         }
+>> 
+>>         drm_edid = drm_edid_dup(ctx->cached_drm_edid);
+>> 
+>> 
+>> BR,
+>> Jani.
+>> 
+>> > +     pm_runtime_put_sync(dev);
+>> > +
+>> > +     if (!drm_edid)
+>> > +             DRM_DEV_ERROR(dev, "Fail to read EDID\n");
+>> > +
+>> > +     return drm_edid;
+>> >  }
+>> >
+>> >  static void anx7625_bridge_hpd_enable(struct drm_bridge *bridge) diff
+>> > --git a/drivers/gpu/drm/bridge/analogix/anx7625.h
+>> > b/drivers/gpu/drm/bridge/analogix/anx7625.h
+>> > index 957d234ec07c..55615ad274f2 100644
+>> > --- a/drivers/gpu/drm/bridge/analogix/anx7625.h
+>> > +++ b/drivers/gpu/drm/bridge/analogix/anx7625.h
+>> > @@ -424,10 +424,6 @@ enum audio_wd_len {
+>> >
+>> >  #define MAX_DPCD_BUFFER_SIZE 16
+>> >
+>> > -#define ONE_BLOCK_SIZE      128
+>> > -#define FOUR_BLOCK_SIZE     (128 * 4)
+>> > -
+>> > -#define MAX_EDID_BLOCK       3
+>> >  #define EDID_TRY_CNT 3
+>> >  #define SUPPORT_PIXEL_CLOCK  300000
+>> 
+>> --
+>> Jani Nikula, Intel
+
 -- 
-2.56.0
-
+Jani Nikula, Intel
