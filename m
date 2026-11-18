@@ -2,42 +2,41 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C41F860A5BC2
-	for <dri-devel@archiver.kernel.org>; Wed, 18 Nov 2026 16:52:52 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7ED3160A6F6D
+	for <dri-devel@archiver.kernel.org>; Wed, 18 Nov 2026 16:53:02 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.a=rsa-sha256 header.s=dkim header.b=z6U8OeUG
+	dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.a=rsa-sha256 header.s=dkim header.b=h0MjVZZX
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id DEDFA10FE92;
-	Wed, 18 Nov 2026 16:52:46 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id AE6BE10FE7A;
+	Wed, 18 Nov 2026 16:52:56 +0000 (UTC)
 Received: from smtpout-04.galae.net (smtpout-04.galae.net [185.171.202.116])
- by gabe.freedesktop.org (Postfix) with ESMTPS id AA63610FE8D
- for <dri-devel@lists.freedesktop.org>; Wed, 18 Nov 2026 16:52:39 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 4BD3610FE8C
+ for <dri-devel@lists.freedesktop.org>; Wed, 18 Nov 2026 16:52:50 +0000 (UTC)
 Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
- by smtpout-04.galae.net (Postfix) with ESMTPS id 4318BC4F77B;
- Wed, 18 Nov 2026 16:52:43 +0000 (UTC)
+ by smtpout-04.galae.net (Postfix) with ESMTPS id E2BF9C4F77B;
+ Wed, 18 Nov 2026 16:52:53 +0000 (UTC)
 Received: from mail.galae.net (mail.galae.net [212.83.136.155])
- by smtpout-01.galae.net (Postfix) with ESMTPS id 5A4805FE9B;
- Wed, 18 Nov 2026 16:52:38 +0000 (UTC)
+ by smtpout-01.galae.net (Postfix) with ESMTPS id 082095FE9B;
+ Wed, 18 Nov 2026 16:52:49 +0000 (UTC)
 Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon)
- with ESMTPSA id 01C3311BC28D2; Wed, 18 Nov 2026 17:52:31 +0100 (CET)
+ with ESMTPSA id 8522911BC28D2; Wed, 18 Nov 2026 17:52:42 +0100 (CET)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
- t=1795020756; h=from:subject:date:message-id:to:cc:mime-version:content-type:
+ t=1795020766; h=from:subject:date:message-id:to:cc:mime-version:content-type:
  content-transfer-encoding:in-reply-to:references;
- bh=UQW0nXrPyYbjo4S1oXxussje5vbJBtGNzCRcDY+IPUI=;
- b=z6U8OeUGx24j59DLc4w+fnKkcOO7UM0k0NqgdPg8ADQXR+N0kViIqu/euZ9VUAU8EzzzOi
- 7syx7sE/CELspN/0yfv4xCc9SRR2TcOsJa+E5u/kUm7xDbTR63n+k9fX9rd2nF7dyXEmNS
- q/fauQM+zzPPnzPQ73YLJhLVjbNz98dj/JQbq9z6Fz/QUcPq+u7YXLiN2WN9p9SzMeqSyW
- lG/hDiSpAsTM7cO9toOKTE85BDfvXVyie/f7YeAiSWzBMR169iErk6xtwbgLB47On1BCns
- fNC/E5+Xk1NIvQQdsTYVj0NkG7fekzFrwXg+zrxJF8SAMq1zNQOfwRxYM3u4MA==
+ bh=El3w/0saMJR4Cg0hO6gP7gJK+ccnbO/QuF06gZeD5gI=;
+ b=h0MjVZZXVSczLoEXHDNG3wv+jntZZsmqbMQV5jBo6uI8eRFlz5sndqOdPK4kKU6Ue+f6Fh
+ JxYrfzYmg6VNPoEt6s38Ry/wxRhUzwwbEP3/1vE/eGe++RGMgwkv+rHByW84P/+LFw84ua
+ oY2DtjeJeroIo4O7eEwaC4uoPkmNkp3bZKfCwlZRkMzwbn+qlMhp3Q9sV3hVN/MssZegBd
+ IEVHZQM7kPXOMz+3eiE5m8wYjZk1QCVk+GzMwh5JZUC4f/ZN56beIr9R3lOkMowUqU8LYx
+ f92ZVmsXnNkndD9dJUfzLdo8sXT7Fb15JlEYYX1bs2y2P9/7kui2ySka3dsK4g==
 From: Luca Ceresoli <luca.ceresoli@bootlin.com>
-Date: Wed, 18 Nov 2026 17:50:06 +0100
-Subject: [PATCH RFC v3 23/31] drm/bridge: ti-sn65dsi86: implement
- .get_next_bridge
+Date: Wed, 18 Nov 2026 17:50:08 +0100
+Subject: [PATCH RFC v3 25/31] drm/bridge: add drm_bridge_detach_from()
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20261118-drm-bridge-hotplug-v3-23-44bb3b4a828f@bootlin.com>
+Message-Id: <20261118-drm-bridge-hotplug-v3-25-44bb3b4a828f@bootlin.com>
 References: <20261118-drm-bridge-hotplug-v3-0-44bb3b4a828f@bootlin.com>
 In-Reply-To: <20261118-drm-bridge-hotplug-v3-0-44bb3b4a828f@bootlin.com>
 To: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
@@ -73,63 +72,79 @@ List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-14.8 required=3.0 tests=BAYES_00,DKIM_SIGNED,
+X-Spam-Status: No, score=-18.8 required=3.0 tests=BAYES_00,DKIM_SIGNED,
 	DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
 	INCLUDES_CR_TRAILER,INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,
-	SPF_PASS,UNWANTED_LANGUAGE_BODY,USER_AGENT_GIT autolearn=unavailable
-	autolearn_force=no version=4.0.1
+	SPF_PASS,USER_AGENT_GIT autolearn=unavailable autolearn_force=no
+	version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-Add get_next_callback func to expose the next bridge.
+Supporting bridge hotplug requires the ability to detach all bridges from
+the one that got removed to the end of the pipeline. Add a function for
+this.
+
+Take care to not try detaching non-attached bridges. This is needed because
+when two or more bridges are removed not in the backwards order,
+drm_encoder_cleanup_from() is called more than once for bridges closer to
+the panel.
 
 Signed-off-by: Luca Ceresoli <luca.ceresoli@bootlin.com>
 
 ---
 
-Changes in v3:
-- add missing drm_bridge_get
+This replaces "drm/encoder: add drm_encoder_cleanup_from()" from v2 as
+discussed with Maxime in v1:
+https://lore.kernel.org/all/20260609-hypnotic-honeybee-of-adventure-d89b7c@houat/
 ---
- drivers/gpu/drm/bridge/ti-sn65dsi86.c | 11 ++++++++++-
- 1 file changed, 10 insertions(+), 1 deletion(-)
+ drivers/gpu/drm/drm_bridge.c | 34 ++++++++++++++++++++++++++++++++++
+ 1 file changed, 34 insertions(+)
 
-diff --git a/drivers/gpu/drm/bridge/ti-sn65dsi86.c b/drivers/gpu/drm/bridge/ti-sn65dsi86.c
-index 75e36bf261b0..637e4f4076eb 100644
---- a/drivers/gpu/drm/bridge/ti-sn65dsi86.c
-+++ b/drivers/gpu/drm/bridge/ti-sn65dsi86.c
-@@ -768,6 +768,13 @@ static int ti_sn_attach_host(struct auxiliary_device *adev, struct ti_sn65dsi86
- 	return devm_mipi_dsi_attach(&adev->dev, dsi);
+diff --git a/drivers/gpu/drm/drm_bridge.c b/drivers/gpu/drm/drm_bridge.c
+index e0a1e016b37c..a29f3e60bb24 100644
+--- a/drivers/gpu/drm/drm_bridge.c
++++ b/drivers/gpu/drm/drm_bridge.c
+@@ -504,6 +504,40 @@ int devm_drm_bridge_add(struct device *dev, struct drm_bridge *bridge)
  }
+ EXPORT_SYMBOL(devm_drm_bridge_add);
  
-+static struct drm_bridge *sn65dsi86_get_next_bridge(struct drm_bridge *bridge)
++/**
++ * drm_bridge_detach_from - detach a given bridge and all the following
++ *                          from an encoder chain
++ * @bridge: first bridge to remove
++ *
++ * Removes from an encoder all the bridges starting with a given bridge
++ * and until the end of the chain.
++ *
++ * Does nothing if the bridge is not attached to an encoder chain.
++ */
++static void drm_bridge_detach_from(struct drm_bridge *bridge)
 +{
-+	struct ti_sn65dsi86 *pdata = bridge_to_ti_sn65dsi86(bridge);
++	struct drm_encoder *encoder = bridge->encoder;
++	struct drm_bridge *next;
++	LIST_HEAD(tmplist);
 +
-+	return pdata->next_bridge ? drm_bridge_get(pdata->next_bridge) : ERR_PTR(-ENODEV);
++	/*
++	 * We need the bridge_chain_mutex to modify the chain, but
++	 * drm_bridge_detach() will call DRM_MODESET_LOCK_ALL_BEGIN() (in
++	 * drm_modeset_lock_fini()), resulting in a possible ABBA circular
++	 * deadlock. Avoid it by first moving all the bridges to a
++	 * temporary list holding the lock, and then calling
++	 * drm_bridge_detach() without the lock.
++	 */
++	mutex_lock(&encoder->bridge_chain_mutex);
++	if (!list_empty(&bridge->chain_node))
++		list_for_each_entry_safe_from(bridge, next, &encoder->bridge_chain, chain_node)
++			list_move_tail(&bridge->chain_node, &tmplist);
++	mutex_unlock(&encoder->bridge_chain_mutex);
++
++	while (!list_empty(&tmplist))
++		drm_bridge_detach(list_first_entry(&tmplist, struct drm_bridge, chain_node));
 +}
 +
- static int ti_sn_bridge_attach(struct drm_bridge *bridge,
- 			       struct drm_encoder *encoder,
- 			       enum drm_bridge_attach_flags flags)
-@@ -1374,6 +1381,7 @@ static void ti_sn_bridge_hpd_disable(struct drm_bridge *bridge)
- }
- 
- static const struct drm_bridge_funcs ti_sn_bridge_funcs = {
-+	.get_next_bridge = sn65dsi86_get_next_bridge,
- 	.attach = ti_sn_bridge_attach,
- 	.detach = ti_sn_bridge_detach,
- 	.mode_valid = ti_sn_bridge_mode_valid,
-@@ -1512,8 +1520,9 @@ static int ti_sn_bridge_probe(struct auxiliary_device *adev,
- 	pdata->bridge.type = pdata->next_bridge->type == DRM_MODE_CONNECTOR_DisplayPort
- 			   ? DRM_MODE_CONNECTOR_DisplayPort : DRM_MODE_CONNECTOR_eDP;
- 
-+	pdata->bridge.ops = DRM_BRIDGE_OP_GET_NEXT_BRIDGE;
- 	if (pdata->bridge.type == DRM_MODE_CONNECTOR_DisplayPort) {
--		pdata->bridge.ops = DRM_BRIDGE_OP_EDID | DRM_BRIDGE_OP_DETECT;
-+		pdata->bridge.ops |= DRM_BRIDGE_OP_EDID | DRM_BRIDGE_OP_DETECT;
- 		if (client->irq)
- 			pdata->bridge.ops |= DRM_BRIDGE_OP_HPD;
- 		/*
+ /**
+  * drm_bridge_remove - unregister a bridge
+  *
 
 -- 
 2.56.1
