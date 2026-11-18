@@ -2,42 +2,42 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D3D1060A2629
-	for <dri-devel@archiver.kernel.org>; Wed, 18 Nov 2026 16:52:43 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7026160A5BD5
+	for <dri-devel@archiver.kernel.org>; Wed, 18 Nov 2026 16:52:51 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.a=rsa-sha256 header.s=dkim header.b=ICktNj0O
+	dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.a=rsa-sha256 header.s=dkim header.b=xqh/9ZIM
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id EBE2D10FE90;
-	Wed, 18 Nov 2026 16:52:37 +0000 (UTC)
-Received: from smtpout-04.galae.net (smtpout-04.galae.net [185.171.202.116])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 8C3B710FE7A
- for <dri-devel@lists.freedesktop.org>; Wed, 18 Nov 2026 16:52:25 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 8FE6C10FE8E;
+	Wed, 18 Nov 2026 16:52:45 +0000 (UTC)
+Received: from smtpout-03.galae.net (smtpout-03.galae.net [185.246.85.4])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id EAB7510FE8C
+ for <dri-devel@lists.freedesktop.org>; Wed, 18 Nov 2026 16:52:34 +0000 (UTC)
 Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
- by smtpout-04.galae.net (Postfix) with ESMTPS id 0A046C4F77B;
- Wed, 18 Nov 2026 16:52:29 +0000 (UTC)
+ by smtpout-03.galae.net (Postfix) with ESMTPS id 9A9C74E40546;
+ Wed, 18 Nov 2026 16:52:33 +0000 (UTC)
 Received: from mail.galae.net (mail.galae.net [212.83.136.155])
- by smtpout-01.galae.net (Postfix) with ESMTPS id 228145FE9B;
- Wed, 18 Nov 2026 16:52:24 +0000 (UTC)
+ by smtpout-01.galae.net (Postfix) with ESMTPS id 641765FE9B;
+ Wed, 18 Nov 2026 16:52:33 +0000 (UTC)
 Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon)
- with ESMTPSA id BA55211BC28D2; Wed, 18 Nov 2026 17:52:13 +0100 (CET)
+ with ESMTPSA id B313E11BC27F3; Wed, 18 Nov 2026 17:52:22 +0100 (CET)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
- t=1795020738; h=from:subject:date:message-id:to:cc:mime-version:content-type:
+ t=1795020747; h=from:subject:date:message-id:to:cc:mime-version:content-type:
  content-transfer-encoding:in-reply-to:references;
- bh=PcycRmA0N7JwWG8IrfXbNLId07ZHA9iVWljKGyKyKAA=;
- b=ICktNj0OSa7aBFs7JNXrKsaVqoQllu4RRlLBKR6V7YXZjCe2+VTPd6UA9fab87prOFn/P1
- tZ3W5ZLA+hCFuHadhuqkn7f/LWmS2/AzuebHduciomiFXXEn+ONm7lRZXlc6kIBLIfje27
- 71GaeAqBRMApmD957KJxSMMNoMZp7sWi+/yg+uGlKlC8i2ma1BPtOC44BBOQ9yoePvBew7
- gU+/psnY2o72LTz/AURjxXlWRSEWJ9B5fXjFyY6SyGmspsekeZ1kXOlZ/lQL/RVq5fvoKT
- R0py6dAnPDYizcbJuV4szv1tNXYz2fGmuWX7gQeGX7sAUnLTUJu0k3HyYt1sJQ==
+ bh=79krwX+yyeP5wQB3giUSTaFzi+h4xK2ZzarDncWghUM=;
+ b=xqh/9ZIMDEnNJlnXR28jZ8B7RiXCisq0/9o/SsyTbxfcQXhcv3xUjmG3ZfcSuw6CLqUONi
+ 3lsGQQqpIlPXeGFH5LawVMXehMbvHv3N9/t5T+ASzengvdaUHvYR22Gsy3vUs0oODbR8SI
+ 4rWsQtM1GdeKED8/AMFIUz5vVa7zFWS6sRGa+EEIGJ/X70NYJdJSZ0q/2iM7aD4HLUkBVO
+ Z+Uwdg/RdFEw0ynP9RycrVUcz3XoMict7cXi3QeN/sH0tDVtfIHlFWwS3ia9OWi/x/KDor
+ kmQd1df1wvyfIeHIga462ANGQwOvYBA+13zkY2bifDi0sQR3Kq0HD3eR5iZ5PQ==
 From: Luca Ceresoli <luca.ceresoli@bootlin.com>
-Date: Wed, 18 Nov 2026 17:50:04 +0100
-Subject: [PATCH RFC v3 21/31] drm/bridge: display-connector: implement
+Date: Wed, 18 Nov 2026 17:50:05 +0100
+Subject: [PATCH RFC v3 22/31] drm/bridge: ti-sn65dsi83: implement
  .get_next_bridge
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20261118-drm-bridge-hotplug-v3-21-44bb3b4a828f@bootlin.com>
+Message-Id: <20261118-drm-bridge-hotplug-v3-22-44bb3b4a828f@bootlin.com>
 References: <20261118-drm-bridge-hotplug-v3-0-44bb3b4a828f@bootlin.com>
 In-Reply-To: <20261118-drm-bridge-hotplug-v3-0-44bb3b4a828f@bootlin.com>
 To: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
@@ -81,46 +81,52 @@ X-Spam-Status: No, score=-18.8 required=3.0 tests=BAYES_00,DKIM_SIGNED,
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-This bridge never has a next bridge. Add get_next_callback func to expose
-this.
+Add get_next_callback func to expose the next bridge.
 
 Signed-off-by: Luca Ceresoli <luca.ceresoli@bootlin.com>
----
- drivers/gpu/drm/bridge/display-connector.c | 7 +++++++
- 1 file changed, 7 insertions(+)
 
-diff --git a/drivers/gpu/drm/bridge/display-connector.c b/drivers/gpu/drm/bridge/display-connector.c
-index eb3412ec30a0..8b16ad89c7f1 100644
---- a/drivers/gpu/drm/bridge/display-connector.c
-+++ b/drivers/gpu/drm/bridge/display-connector.c
-@@ -36,6 +36,11 @@ to_display_connector(struct drm_bridge *bridge)
- 	return container_of(bridge, struct display_connector, bridge);
+---
+
+Changes in v3:
+- add missing drm_bridge_get
+---
+ drivers/gpu/drm/bridge/ti-sn65dsi83.c | 9 +++++++++
+ 1 file changed, 9 insertions(+)
+
+diff --git a/drivers/gpu/drm/bridge/ti-sn65dsi83.c b/drivers/gpu/drm/bridge/ti-sn65dsi83.c
+index 525cddc57876..3886dafae6d7 100644
+--- a/drivers/gpu/drm/bridge/ti-sn65dsi83.c
++++ b/drivers/gpu/drm/bridge/ti-sn65dsi83.c
+@@ -295,6 +295,13 @@ static struct sn65dsi83 *bridge_to_sn65dsi83(struct drm_bridge *bridge)
+ 	return container_of(bridge, struct sn65dsi83, bridge);
  }
  
-+static struct drm_bridge *display_connector_get_next_bridge(struct drm_bridge *bridge)
++static struct drm_bridge *sn65dsi83_get_next_bridge(struct drm_bridge *bridge)
 +{
-+	return NULL;
++	struct sn65dsi83 *ctx = bridge_to_sn65dsi83(bridge);
++
++	return ctx->panel_bridge ? drm_bridge_get(ctx->panel_bridge) : ERR_PTR(-ENODEV);
 +}
 +
- static int display_connector_attach(struct drm_bridge *bridge,
- 				    struct drm_encoder *encoder,
- 				    enum drm_bridge_attach_flags flags)
-@@ -214,6 +219,7 @@ static u32 *display_connector_get_input_bus_fmts(struct drm_bridge *bridge,
+ static int sn65dsi83_attach(struct drm_bridge *bridge,
+ 			    struct drm_encoder *encoder,
+ 			    enum drm_bridge_attach_flags flags)
+@@ -795,6 +802,7 @@ sn65dsi83_atomic_get_input_bus_fmts(struct drm_bridge *bridge,
  }
  
- static const struct drm_bridge_funcs display_connector_bridge_funcs = {
-+	.get_next_bridge = display_connector_get_next_bridge,
- 	.attach = display_connector_attach,
- 	.destroy = display_connector_destroy,
- 	.detect = display_connector_bridge_detect,
-@@ -412,6 +418,7 @@ static int display_connector_probe(struct platform_device *pdev)
+ static const struct drm_bridge_funcs sn65dsi83_funcs = {
++	.get_next_bridge	= sn65dsi83_get_next_bridge,
+ 	.attach			= sn65dsi83_attach,
+ 	.detach			= sn65dsi83_detach,
+ 	.atomic_enable		= sn65dsi83_atomic_enable,
+@@ -1065,6 +1073,7 @@ static int sn65dsi83_probe(struct i2c_client *client)
+ 	ctx->bridge.of_node = dev->of_node;
+ 	ctx->bridge.pre_enable_prev_first = true;
+ 	ctx->bridge.type = DRM_MODE_CONNECTOR_LVDS;
++	ctx->bridge.ops = DRM_BRIDGE_OP_GET_NEXT_BRIDGE;
+ 	drm_bridge_add(&ctx->bridge);
  
- 	conn->bridge.of_node = pdev->dev.of_node;
- 
-+	conn->bridge.ops = DRM_BRIDGE_OP_GET_NEXT_BRIDGE;
- 	if (conn->bridge.ddc)
- 		conn->bridge.ops |= DRM_BRIDGE_OP_EDID
- 				 |  DRM_BRIDGE_OP_DETECT;
+ 	ret = sn65dsi83_host_attach(ctx);
 
 -- 
 2.56.1
