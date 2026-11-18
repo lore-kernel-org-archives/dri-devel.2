@@ -2,60 +2,59 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7E861606A320
-	for <dri-devel@archiver.kernel.org>; Wed, 18 Nov 2026 22:28:43 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 96F61606A320
+	for <dri-devel@archiver.kernel.org>; Wed, 18 Nov 2026 22:30:29 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=badxh/+D
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=Vf4k2Iib
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id E17F610ECC9;
-	Wed, 18 Nov 2026 22:28:37 +0000 (UTC)
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.10])
- by gabe.freedesktop.org (Postfix) with ESMTPS id DA21B10ECC9
- for <dri-devel@lists.freedesktop.org>; Wed, 18 Nov 2026 22:28:31 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 0498F112099;
+	Wed, 18 Nov 2026 22:30:24 +0000 (UTC)
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.14])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id C1B7E10ECE4
+ for <dri-devel@lists.freedesktop.org>; Wed, 18 Nov 2026 22:30:17 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1795040912; x=1826576912;
+ t=1795041018; x=1826577018;
  h=date:from:to:cc:subject:message-id:references:
  mime-version:content-transfer-encoding:in-reply-to;
- bh=ZtRJ9VUBqowhR7H8EyZuNy6+UQZ80k9gz9GHbW1SFUo=;
- b=badxh/+DXR2Y0/RViXnMfB++QiCUjf9xIslnDXr53dxO7SkQL95uEbdB
- Brj4vDR5hDKfAuSoCtb6PjDVgfLUswbCtQL0tKaBfj4fdxDUewsqIfiT6
- AK9nvDMRmgEbaMN0s3x7nsc4/mQtZHOFxa82IVzP4+XJNi0coucmvUA/E
- 7Mb1F/09XvrtU3+BD+6aYOnbfHh2YlYMAsg6t3xYDCLjmPWWTBQ28XLLw
- L1c4taL4SrLLxnItzuLuW1Wb5jriF8K9nbjwlLs0hcmiS2ASbd986UtoG
- uBiuZvKX7outH/2y3762rD65v/DitYUvUiDquZEjj7I3uYyP8tVrI0QH7 w==;
-X-CSE-ConnectionGUID: tfPNgfyBRkGQmeMRoEZKag==
-X-CSE-MsgGUID: sy4SfvrDRLSDCiurvi515Q==
-X-IronPort-AV: E=McAfee;i="6800,10657,11970"; a="3767633"
+ bh=ocEOxHCjUhjEJmQBGAqGWjok2uOvMot+WMkADqoKh4c=;
+ b=Vf4k2Iibfm1e451i+/6EkrF1BI4/L9h92tTa+Xl7AXSUwu+e2R038vKW
+ H3eM6kMTYfltjBsXE/U8a0NJb03/K9+Vq1io7pIP1m/7shY8vzLWdC7MC
+ AGhf9hvYnJCptRLK3/KUaZocNy9pDA6sDuuR0QEXY0rJy9qBT6t8x2Nu1
+ bL/wr/K9GivV1eB7D3s8eoQEc7oePj5z9t9DvQ5H8q6QVpGxb/2VL57zl
+ g1WchEBd6nqImtl0mekLCDiGgrnD4btk81akloKFbq4XIv3Sy9PVnwPW7
+ Oz50Ut+DIkOvREgYO8poW9VAT2erpB5LUL4GMezl364kuBVtA4umKcwnI Q==;
+X-CSE-ConnectionGUID: QyRudUzTR7iYWRw1aPLdBA==
+X-CSE-MsgGUID: QvBR2k1/R/2ekISsL1jAfw==
+X-IronPort-AV: E=McAfee;i="6800,10657,11970"; a="3761561"
 X-IronPort-AV: E=Sophos;i="6.27,219,1787036400"; 
-   d="scan'208";a="3767633"
-Received: from orviesa004.jf.intel.com ([10.64.159.144])
- by fmvoesa104.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 18 Nov 2026 14:28:32 -0800
-X-CSE-ConnectionGUID: wZUMpexdTWmXChSZPIe9VA==
-X-CSE-MsgGUID: RnSFZeoPRxGY5TBS8DOBBg==
+   d="scan'208";a="3761561"
+Received: from orviesa008.jf.intel.com ([10.64.159.148])
+ by orvoesa106.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 18 Nov 2026 14:30:18 -0800
+X-CSE-ConnectionGUID: R9wJBnM6QC+cEolqJxOFNw==
+X-CSE-MsgGUID: pm4VkU3BQrWx4621eXC6Xw==
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,219,1787036400"; d="scan'208";a="10134787"
+X-IronPort-AV: E=Sophos;i="6.27,219,1787036400"; d="scan'208";a="10064331"
 Received: from klitkey1-mobl1.ger.corp.intel.com (HELO localhost)
  ([10.245.245.16])
  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 18 Nov 2026 14:28:31 -0800
-Date: Thu, 19 Nov 2026 00:28:26 +0200
+ 18 Nov 2026 14:30:16 -0800
+Date: Thu, 19 Nov 2026 00:30:12 +0200
 From: Ville =?iso-8859-1?Q?Syrj=E4l=E4?= <ville.syrjala@linux.intel.com>
 To: sashiko-reviews@lists.linux.dev
 Cc: dri-devel@lists.freedesktop.org
-Subject: Re: [PATCH v4 19/20] drm/nouveau: Allow platform driver build with
- COMPILE_TEST=y
-Message-ID: <av4miu_2zQEDnBJx@intel.com>
+Subject: Re: [PATCH v4 15/20] drm/imagination: Allow build with COMPILE_TEST=y
+Message-ID: <av4m9D2pDH9ufbcM@intel.com>
 References: <20261118214518.29317-1-ville.syrjala@linux.intel.com>
- <20261118214518.29317-20-ville.syrjala@linux.intel.com>
- <sashiko-outbox-222062@kernel.org>
+ <20261118214518.29317-16-ville.syrjala@linux.intel.com>
+ <sashiko-outbox-222063@kernel.org>
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=iso-8859-1
 Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
-In-Reply-To: <sashiko-outbox-222062@kernel.org>
+In-Reply-To: <sashiko-outbox-222063@kernel.org>
 X-Patchwork-Hint: comment
 Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
  krs Bertel Jungin Aukio 5, 02600 Espoo, Finland
@@ -77,65 +76,49 @@ X-Spam-Status: No, score=-8.8 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-On Wed, Nov 18, 2026 at 09:57:31PM +0000, sashiko-bot@kernel.org wrote:
+On Wed, Nov 18, 2026 at 09:58:47PM +0000, sashiko-bot@kernel.org wrote:
 > Thank you for your contribution! Sashiko AI review found 1 potential
 > issue to consider:
-> - [Medium] drm/nouveau: build failure in nouveau_platform_resume() when
->   PM_DEVFREQ=n
+> - [Medium] drm/imagination: COMPILE_TEST build failure on 64-bit
+>   8KB/32KB page configs
 > --
 > 
-> commit 7f3a768f8ef913fb90efb9c01241f3d8714fc297
+> commit 3a0a5d98906b6758538e2c13acfa780422a1a949
 > Author: Ville Syrjälä <ville.syrjala@linux.intel.com>
 > 
-> drm/nouveau: Allow platform driver build with COMPILE_TEST=y
+> drm/imagination: Allow build with COMPILE_TEST=y
 > 
-> This commit allows NOUVEAU_PLATFORM_DRIVER to be enabled when COMPILE_TEST=y
-> even on non-Tegra architectures.
+> This commit allows DRM_POWERVR to be built on any 64-bit architecture when
+> COMPILE_TEST is enabled.
 > 
-> > diff --git a/drivers/gpu/drm/nouveau/Kconfig b/drivers/gpu/drm/nouveau/Kconfig
-> > index 3b5757aed9c84..d7b432c839e5f 100644
-> > --- a/drivers/gpu/drm/nouveau/Kconfig
-> > +++ b/drivers/gpu/drm/nouveau/Kconfig
-> > @@ -34,7 +34,7 @@ config DRM_NOUVEAU
+> > diff --git a/drivers/gpu/drm/imagination/Kconfig b/drivers/gpu/drm/imagination/Kconfig
+> > index 1fd4c635c2c96..a048d3c859385 100644
+> > --- a/drivers/gpu/drm/imagination/Kconfig
+> > +++ b/drivers/gpu/drm/imagination/Kconfig
+> > @@ -3,7 +3,8 @@
 > >  
-> >  config NOUVEAU_PLATFORM_DRIVER
-> >  	bool "Nouveau (NVIDIA) SoC GPUs"
-> > -	depends on DRM_NOUVEAU && ARCH_TEGRA
-> > +	depends on DRM_NOUVEAU && (ARCH_TEGRA || COMPILE_TEST)
-> >  	default y
-> >  	help
-> >  	  Support for Nouveau platform driver, used for SoC GPUs as found
+> >  config DRM_POWERVR
+> >  	tristate "Imagination Technologies PowerVR (Series 6 and later) & IMG Graphics"
+> > -	depends on (ARM64 || RISCV && 64BIT)
+> > +	depends on ARM64 || RISCV || COMPILE_TEST
+> > +	depends on 64BIT
+> >  	depends on DRM
+> >  	depends on MMU
+> >  	depends on PM
 > 
 > [Severity: Medium]
-> Does this break the build in nouveau_platform_resume() when
-> CONFIG_PM_SLEEP=y and CONFIG_PM_DEVFREQ=n?
+> Does enabling DRM_POWERVR under COMPILE_TEST && 64BIT break the build on
+> 64-bit targets with 8KiB or 32KiB pages (such as sparc64, alpha, or 64-bit
+> mips with PAGE_SIZE_8KB/PAGE_SIZE_32KB)?
 > 
-> DRM_NOUVEAU only has "select PM_DEVFREQ if ARCH_TEGRA", so when
-> ARCH_TEGRA=n and COMPILE_TEST=y, CONFIG_PM_DEVFREQ can remain disabled.
-> The fallback stub for gk20a_devfreq_resume() in
-> drivers/gpu/drm/nouveau/nvkm/subdev/clk/gk20a_devfreq.h is missing the
-> pointer asterisk on its parameter:
-> 
-> drivers/gpu/drm/nouveau/nvkm/subdev/clk/gk20a_devfreq.h:
->     #if defined(CONFIG_PM_DEVFREQ)
->     int gk20a_devfreq_init(struct nvkm_clk *base, struct gk20a_devfreq **devfreq);
->     int gk20a_devfreq_resume(struct device *dev);
->     int gk20a_devfreq_suspend(struct device *dev);
->     #else
->     static inline int gk20a_devfreq_init(struct nvkm_clk *base, struct gk20a_devfreq **devfreq)
->     {
->     	return 0;
->     }
-> 
->     static inline int gk20a_devfreq_resume(struct device dev) { return 0; }
->     static inline int gk20a_devfreq_suspend(struct device *dev) { return 0; }
->     #endif
-> 
-> Passing struct device *dev from nouveau_platform_resume() to
-> gk20a_devfreq_resume() then fails to compile with an incompatible type
-> error.
+> drivers/gpu/drm/imagination/pvr_mmu.h defines PVR_DEVICE_PAGE_SIZE as
+> PAGE_SIZE, and drivers/gpu/drm/imagination/pvr_mmu.c only supports 4KiB,
+> 16KiB, 64KiB, 256KiB, 1MiB, and 2MiB pages, failing with an #error on any
+> other host page size.  Should DRM_POWERVR also depend on !PAGE_SIZE_8KB &&
+> !PAGE_SIZE_32KB (or restrict to supported page sizes)?
 
-Ack. Fix is now on my local branch. I'll include it if/when I resend.
+I suppose. I might have to install a few more cross compilers and set
+Claude to work with them.
 
 -- 
 Ville Syrjälä
