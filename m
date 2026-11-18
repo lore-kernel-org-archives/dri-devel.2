@@ -2,52 +2,103 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8ADED606A31C
-	for <dri-devel@archiver.kernel.org>; Wed, 18 Nov 2026 03:58:10 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A3959606A31C
+	for <dri-devel@archiver.kernel.org>; Wed, 18 Nov 2026 03:59:55 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=rock-chips.com header.i=@rock-chips.com header.a=rsa-sha256 header.s=default header.b=QQB35mp6
+	dkim=pass (1024-bit key) header.d=chromium.org header.i=@chromium.org header.a=rsa-sha256 header.s=google header.b=m+Dq0sq+
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id E51D510E0E0;
-	Wed, 18 Nov 2026 03:58:04 +0000 (UTC)
-X-Greylist: delayed 303 seconds by postgrey-1.36 at gabe;
- Wed, 18 Nov 2026 03:57:58 UTC
-Received: from mail-m8119.xmail.ntesmail.com (mail-m8119.xmail.ntesmail.com
- [156.224.81.19])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 9807910E0E0
- for <dri-devel@lists.freedesktop.org>; Wed, 18 Nov 2026 03:57:58 +0000 (UTC)
-Received: from [172.16.12.90] (unknown [61.154.14.86])
- by smtp.qiye.163.com (Hmail) with ESMTP id 5513be7dc;
- Wed, 18 Nov 2026 11:52:51 +0800 (GMT+08:00)
-Message-ID: <538ff4a1-b50a-47a7-a3ba-ecb0ec3c0666@rock-chips.com>
-Date: Wed, 18 Nov 2026 11:52:49 +0800
+	by gabe.freedesktop.org (Postfix) with ESMTP id 0C32110E377;
+	Wed, 18 Nov 2026 03:59:50 +0000 (UTC)
+Received: from mail-ej1-f49.google.com (mail-ej1-f49.google.com
+ [209.85.218.49])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 0FF7C10E377
+ for <dri-devel@lists.freedesktop.org>; Wed, 18 Nov 2026 03:59:44 +0000 (UTC)
+Received: by mail-ej1-f49.google.com with SMTP id
+ a640c23a62f3a-c50933bdf4bso110192866b.1
+ for <dri-devel@lists.freedesktop.org>; Tue, 17 Nov 2026 19:59:43 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=chromium.org; s=google; t=1794974382; x=1795579182;
+ darn=lists.freedesktop.org; 
+ h=content-transfer-encoding:content-type:cc:to:subject:message-id
+ :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+ :date:message-id:reply-to:content-type;
+ bh=IOskFv7B1qRwSI1xnDutWFbR8KW2ByneEJ1ja9wWCsE=;
+ b=m+Dq0sq++Q2OoIlM2wcbLpek4rQ5Ou++JhHf++lCfesgE95h9gazonQ/pOZvuODtNw
+ Oo2hu9CV8ODsPehpdhUyKJ56uwlNOy6uwRCZ//SP/17iLGCGsSYaQA2ch45P7Rf2dF30
+ DT0r2I5Kb2fVBKy43/OkOjzhBtbp4RzOEVZS4=
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20260707; t=1794974382; x=1795579182;
+ h=content-transfer-encoding:content-type:cc:to:subject:message-id
+ :date:from:in-reply-to:references:mime-version:x-gm-gg
+ :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+ :content-type;
+ bh=IOskFv7B1qRwSI1xnDutWFbR8KW2ByneEJ1ja9wWCsE=;
+ b=pP6OUd6x1rSM7ZGxN/Moerp4y35RgR5BWuMqWxlIkhirQgVH0butoQYsniNBr58YkG
+ 7yFObfvYsDslI3hSd0sHE/WGJnXVT7o1prqSSgDws3Jun/UoFuOSEgC+J9ijMhSrxR4r
+ u0s3jsqbnCrRG3qfX6KziqA+cl5f4n6KhqQQxxDKY/WoTJ53MaGtwSHRxonouDAX4KUV
+ bXCPDlFXz5kTGp7jxyVYxMs8kKPdVPK52hKlBIQHaPCoIM7IfHapNYAVF45VpMMujvmL
+ 5oSFBoqGDObFl/YYat3iK5hqUXJ+tchtRePmKwhrGkdg2pstnV7Ybg0xCv2sshJnY52Q
+ bWcg==
+X-Forwarded-Encrypted: i=1;
+ AL+hErGG8sWLdImFXumB3SS1ZrCPU7zsKk309+iyq3fKTRwykYAQJ7rErzqvC5hCTX3FS5ro4K6qhK7l9CM=@lists.freedesktop.org
+X-Gm-Message-State: APuU4Z9w6MfOVZlAnBUc4jPzP/B1ikU8NWqHgRH6Cme2BLeT+CDaspM1
+ tWjhClYYtY+INf8zsMtzC1ifbRVdNF00LJ98dkd9kYLnAAZ9VJ0t3eza3TDE5jnOl+3vZmvroMl
+ C+Y7tOft6
+X-Gm-Gg: AYBFou1OjCuZgWgacJ0zM/yRRp+sIGYYImuKfGFcCdrnJpedc4v4UKMV+uEwast1zwi
+ L3/ytQ4tlL5ewRGg2486LLO7mo1SrR8vRFummhKkBtY/YMRhI2Y/AhV3av+zU7oI5qj4LWtC9j6
+ rI9F4VgM0oNyVQ3VQF3FeC6VAJQgaQyNsxkdhgx2rRgh90cyYM52C1GWeOUavEsISDE7KthTKOf
+ 1LRnbzGnmNL/Gefd6VivKFMFJwrGItXSO5SNhzoB9xW+6Qlr/jiQfhd8aXGU4YoAn4CEBMmLQMI
+ zRqzv72z28A3NCVvswS3BnYgKahLGa9H9gWQcRPIrTHKhZan86wim+rApHjBSJnbN9kdtgqnG67
+ RM+Pxm4NMBvdcGm9H9F6V7A1xs4GROz8WgpmWLfeINmalcqpa+CEJd5oiLXEPmgb1sC/b5gVijK
+ 7I8oFfV6nWE3A9THTu3wqXkJMAtyiGh0NkRgAdu2ffQ94eS0D9kU6dZAWT0GR1aBxEV78CfMBYz
+ uF3qYt/7pvpzNo3ItQiMbwMElVQTH8FMgb+rCQGY5KipbHtJKzLJVjk+OBBIwx9qRbLOqasnsT8
+ ZaSrgEIBAPBjyEchcfbcVrkElCk8Zi92K/EvrgKFnMc2Ywl2g2IjT40n1A2m+QP0swgj
+X-Received: by 2002:a17:907:7b8c:b0:c4d:7d2c:c350 with SMTP id
+ a640c23a62f3a-c50f320a6a1mr428695666b.1.1794974382124; 
+ Tue, 17 Nov 2026 19:59:42 -0800 (PST)
+Received: from mail-ed1-f41.google.com (mail-ed1-f41.google.com.
+ [209.85.208.41]) by smtp.gmail.com with ESMTPSA id
+ a640c23a62f3a-c510cab3962sm50876966b.57.2026.11.17.19.59.41
+ for <dri-devel@lists.freedesktop.org>
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Tue, 17 Nov 2026 19:59:41 -0800 (PST)
+Received: by mail-ed1-f41.google.com with SMTP id
+ 4fb4d7f45d1cf-6b87a1a2babso1794399a12.0
+ for <dri-devel@lists.freedesktop.org>; Tue, 17 Nov 2026 19:59:41 -0800 (PST)
+X-Forwarded-Encrypted: i=1;
+ AL+hErHcwgPU6FuWUtu0tQsq3wgPj/it5NVqmiPA2/Rwz9IbqHUTe0eSuOkMNiSbrfferQJzFpQeFcMv5Wg=@lists.freedesktop.org
+X-Received: by 2002:a05:6000:2893:b0:498:364d:7509 with SMTP id
+ ffacd0b85a97d-4a3774cbbbamr10035694f8f.24.1794974022637; Tue, 17 Nov 2026
+ 19:53:42 -0800 (PST)
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 2/2] drm/cix: add Sky1 DisplayPort transmitter driver
-To: Luo Liu <Luo.Liu@cixtech.com>
-Cc: maarten.lankhorst@linux.intel.com, mripard@kernel.org,
- tzimmermann@suse.de, robh@kernel.org, krzk+dt@kernel.org,
- conor+dt@kernel.org, dri-devel@lists.freedesktop.org,
- devicetree@vger.kernel.org, wuyi.shen@cixtech.com,
- cix-kernel-upstream@cixtech.com
-References: <20261117064552.85256-1-Luo.Liu@cixtech.com>
- <20261117064552.85256-3-Luo.Liu@cixtech.com>
-Content-Language: en-US
-From: Chaoyi Chen <chaoyi.chen@rock-chips.com>
-In-Reply-To: <20261117064552.85256-3-Luo.Liu@cixtech.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-X-HM-Tid: 0aa1ecc934f703a7kunm9194bfba6181c2
-X-HM-MType: 1
-X-HM-Spam-Status: e1kfGhgUHx5ZQUpXWQgPGg8OCBgUHx5ZQUlOS1dZFg8aDwILHllBWSg2Ly
- tZV1koWUFITzdXWRgWCB1ZQUpXWS1ZQUlXWQ8JGhUIEh9ZQVlDGE8dVkIdT0pOSElMHkIZHVYVFA
- kWGhdVEwETFhoSFyQUDg9ZV1kYEgtZQVlNSlVKTk9VSk9VQ01ZV1kWGg8SFR0UWUFZT0tIVUpLSE
- pKQkxVSktLVUpCS0tZBg++
-DKIM-Signature: a=rsa-sha256;
- b=QQB35mp6g1xmfPP/VDFMCjMHDqFzBueNW5lapXcf3/g5KiCtGSKyvReiiy14o+WgE8AKKqTjLONDA4iB7Cx7spGwOQv0C7EVygQxsmB9k9wqZgL+dZAiK7RefKI4Ggt9GcOKQScujqOUWDBJFCvxkq8LJLQjPgBiFmQibnvk1M0=;
- s=default; c=relaxed/relaxed; d=rock-chips.com; v=1; 
- bh=FFbYvwJylowvATKKMyhGAeQ1YJ7gYnu+kU9DLvDCkGU=;
- h=date:mime-version:subject:message-id:from;
+References: <20261116-reform2-internal-panel-v1-0-765cf8d5ff4f@igalia.com>
+ <20261116-reform2-internal-panel-v1-1-765cf8d5ff4f@igalia.com>
+In-Reply-To: <20261116-reform2-internal-panel-v1-1-765cf8d5ff4f@igalia.com>
+From: Doug Anderson <dianders@chromium.org>
+Date: Tue, 17 Nov 2026 19:53:31 -0800
+X-Gmail-Original-Message-ID: <CAD=FV=XQ0Nw6tuUjr_pC_DQnWQZ0XD=jH+_djvbduQSd3XSrcg@mail.gmail.com>
+X-Gm-Features: Aa3M54pcJVKrzVh9hl7PlSfdr6bBBDt4Ls2uHxZOi9oF_y8egwxD6E6UxsIqAlM
+Message-ID: <CAD=FV=XQ0Nw6tuUjr_pC_DQnWQZ0XD=jH+_djvbduQSd3XSrcg@mail.gmail.com>
+Subject: Re: [PATCH 1/2] drm/panel-edp: Fix Innolux N125HCE-GN1 mode
+To: Christian Gmeiner <christian.gmeiner@gmail.com>,
+ Lucas Stach <dev@lynxeye.de>
+Cc: Neil Armstrong <neil.armstrong@linaro.org>,
+ Jessica Zhang <jesszhan0024@gmail.com>, 
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>, 
+ Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>,
+ Simona Vetter <simona@ffwll.ch>, 
+ Sam Ravnborg <sam@ravnborg.org>, "Lukas F. Hartmann" <lukas@mntre.com>,
+ Rob Herring <robh@kernel.org>, 
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>,
+ Frank Li <Frank.Li@nxp.com>, Sascha Hauer <s.hauer@pengutronix.de>,
+ Pengutronix Kernel Team <kernel@pengutronix.de>, 
+ Fabio Estevam <festevam@gmail.com>, dri-devel@lists.freedesktop.org, 
+ linux-kernel@vger.kernel.org, devicetree@vger.kernel.org, imx@lists.linux.dev, 
+ linux-arm-kernel@lists.infradead.org, Christian Gmeiner <cgmeiner@igalia.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -59,356 +110,57 @@ List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-17.3 required=3.0 tests=BAYES_00,DKIM_SIGNED,
-	DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
+X-Spam-Status: No, score=-15.8 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
+	DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
 	INCLUDES_CR_TRAILER,INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,
-	SPF_PASS,USER_AGENT_SANE_1 autolearn=unavailable autolearn_force=no
-	version=4.0.1
+	SPF_PASS autolearn=unavailable autolearn_force=no version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
 Hi,
 
-On 11/17/2026 2:45 PM, Luo Liu wrote:
-> Add a DRM bridge driver for the CIX Sky1 DisplayPort transmitter. The
-> controller implements the DP link training and the source side of the
-> DisplayPort protocol, and is fed by one of the SoC display pipelines.
-> 
-> The transmitter is exposed as a DRM bridge. The Komeda display pipeline
-> (ARM Mali DPU on Sky1) that feeds these outputs is not part of this
-> series. Komeda calls drm_bridge_attach() with attach flags 0 and does
-> not register a connector, so this driver registers a DisplayPort
-> drm_connector from .attach(). That matches how Sky1 is integrated today
-> and gives userspace a connector on the encoder.
-> 
-> The connector reads EDID, validates modes against link bandwidth,
-> supports YCbCr 4:2:0 and signals hotplug through
-> drm_helper_hpd_irq_event().
-> 
-> The DisplayPort PHY is driven through the generic PHY API: link-rate and
-> voltage-swing updates are forwarded to the PHY and the link is retrained
-> when the sink requests it. Audio and DSC are not supported yet.
-> 
-> Signed-off-by: Luo Liu <Luo.Liu@cixtech.com>
+On Mon, Nov 16, 2026 at 4:11=E2=80=AFAM Christian Gmeiner
+<christian.gmeiner@gmail.com> wrote:
+>
+> From: Christian Gmeiner <cgmeiner@igalia.com>
+>
+> The mode has a pixel clock of 162 MHz, which is 70 Hz. The EDID of the
+> panel only has 60 Hz and 40 Hz. Output of edid-decode:
+>
+>   DTD 1:  1920x1080   60.001038 Hz  16:9     66.721 kHz    138.780000 MHz
+>                Hfront   46 Hsync  30 Hback   84 Hpol P
+>                Vfront    2 Vsync   4 Vback   26 Vpol N
+>   DTD 2:  1920x1080   40.000692 Hz  16:9     44.481 kHz     92.520000 MHz
+>                Hfront   46 Hsync  30 Hback   84 Hpol P
+>                Vfront    2 Vsync   4 Vback   26 Vpol N
+>
+> On the MNT Reform 2 with i.MX8MQ the picture flickers at 70 Hz. Use the
+> 60 Hz timing from the EDID.
+>
+> Fixes: a14c6b0eef77 ("panel-simple: add Innolux N125HCE-GN1")
+> Signed-off-by: Christian Gmeiner <cgmeiner@igalia.com>
 > ---
->  MAINTAINERS                             |    1 +
->  drivers/gpu/drm/Kconfig                 |    1 +
->  drivers/gpu/drm/Makefile                |    1 +
->  drivers/gpu/drm/cix/Kconfig             |    3 +
->  drivers/gpu/drm/cix/Makefile            |    3 +
->  drivers/gpu/drm/cix/dptx/Kconfig        |   17 +
->  drivers/gpu/drm/cix/dptx/Makefile       |    4 +
->  drivers/gpu/drm/cix/dptx/cix_dptx.c     | 2434 +++++++++++++++++++++++
->  drivers/gpu/drm/cix/dptx/cix_dptx.h     |  408 ++++
->  drivers/gpu/drm/cix/dptx/cix_dptx_drm.c |  771 +++++++
->  drivers/gpu/drm/cix/dptx/cix_dptx_drm.h |   16 +
->  11 files changed, 3659 insertions(+)
->  create mode 100644 drivers/gpu/drm/cix/Kconfig
->  create mode 100644 drivers/gpu/drm/cix/Makefile
->  create mode 100644 drivers/gpu/drm/cix/dptx/Kconfig
->  create mode 100644 drivers/gpu/drm/cix/dptx/Makefile
->  create mode 100644 drivers/gpu/drm/cix/dptx/cix_dptx.c
->  create mode 100644 drivers/gpu/drm/cix/dptx/cix_dptx.h
->  create mode 100644 drivers/gpu/drm/cix/dptx/cix_dptx_drm.c
->  create mode 100644 drivers/gpu/drm/cix/dptx/cix_dptx_drm.h
+>  drivers/gpu/drm/panel/panel-edp.c | 15 ++++++++-------
+>  1 file changed, 8 insertions(+), 7 deletions(-)
 
-This patch is too large. At least consider splitting it into two parts: 
-cix_dptx_drm.c and cix_dptx.c.
+Hmmm, this worries me a little bit. I know that on some boards people
+purposely set a clock rate that didn't match the EDID because it was
+the only rate achievable with the PLLs available. It kinda seems like
+that's the case for at least one user of this board. In commit
+eb893e34309c ("arm64: dts: mnt-reform2: add internal display
+support"), for instance, I see:
 
-> 
-> diff --git a/MAINTAINERS b/MAINTAINERS
-> index e3557e931c94..3cc8c8865793 100644
-> --- a/MAINTAINERS
-> +++ b/MAINTAINERS
-> @@ -6529,6 +6529,7 @@ R:	CIX Linux Kernel Upstream Group <cix-kernel-upstream@cixtech.com>
->  L:	dri-devel@lists.freedesktop.org
->  S:	Maintained
->  F:	Documentation/devicetree/bindings/display/cix,sky1-dp.yaml
-> +F:	drivers/gpu/drm/cix/dptx/
-> +
-> +/*
+> Clocking
+> is derived from a system PLL, which provides quite good rate matching
+> for the single supported display mode and keeps the video PLL free for
+> usage with the external display, which isn't supported yet.
 
-[...]
+By picking a different rate here, you might break someone's setup.
+...or is that your setup?
 
-> +/*
-> + * USB-C combo PHY only. Its HPD pin is not wired to this controller, so a
-> + * sink that was plugged in before the connector existed never raises
-> + * HPD_EVENT. Replay that plug once the PHY is already in DP mode and AUX
-> + * answers.
-> + *
-> + * A native DP port wires HPD to the controller and leaves the PHY mode at
-> + * PHY_MODE_INVALID, so the checks below skip it. That port is reported by
-> + * the HPD interrupt instead.
-> + */
-> +static void cix_dp_replay_deferred_hotplug(struct cix_dp *dp)
-> +{
-> +	struct phy *phy = dp->phy;
-> +	union phy_configure_opts opts = { 0 };
-> +	u8 dpcd_rev;
-> +	ssize_t ret;
-> +	bool hpd;
-> +
-> +	cix_dp_session_lock(dp);
-> +	if (!cix_dp_regs_accessible(dp) ||
-> +	    dp->force_hpd != connector_status_unknown) {
-> +		cix_dp_session_unlock(dp);
-> +		return;
-> +	}
-> +	hpd = cix_dp_get_hpd_state(dp);
-> +	cix_dp_session_unlock(dp);
-> +	if (hpd) {
-> +		/*
-> +		 * Native HPD may have fired before the connector existed.
-> +		 * Read the DPCD from the work now that it does.
-> +		 */
-> +		schedule_delayed_work(&dp->hpd_event_work, 0);
-> +		return;
-> +	}
-> +
-> +	phy_validate(phy, PHY_MODE_DP, 0, &opts);
-> +	if (phy_get_mode(phy) != PHY_MODE_DP)
-> +		return;
-> +
-> +	/*
-> +	 * The combo PHY is already muxed to DP, so the sink may have been
-> +	 * plugged in before the connector existed. HPD is unwired here, so
-> +	 * admit this one AUX transaction before force_hpd is set.
-> +	 */
-> +	cix_dp_session_lock(dp);
-> +	if (!cix_dp_regs_accessible(dp) ||
-> +	    dp->force_hpd != connector_status_unknown) {
-> +		cix_dp_session_unlock(dp);
-> +		return;
-> +	}
-> +	dp->aux_ignore_hpd = true;
-> +	cix_dp_session_unlock(dp);
-> +
-> +	ret = drm_dp_dpcd_readb(&dp->aux, DP_DPCD_REV, &dpcd_rev);
-> +
-> +	cix_dp_session_lock(dp);
-> +	dp->aux_ignore_hpd = false;
-> +	if (ret < 0 || !cix_dp_regs_accessible(dp)) {
-> +		cix_dp_session_unlock(dp);
-> +		return;
-> +	}
-> +	dp->force_hpd = connector_status_connected;
-> +	dp->status = connector_status_unknown;
-> +	cix_dp_session_unlock(dp);
-> +
-> +	schedule_delayed_work(&dp->hpd_event_work, 0);
-> +}
-> +
-> +static void cix_dp_hpd_event_work_func(struct work_struct *work)
-> +{
-> +	struct cix_dp *dp = container_of(work, struct cix_dp,
-> +					 hpd_event_work.work);
-> +	struct phy *phy = dp->phy;
-> +	union phy_configure_opts opts = { 0 };
-> +	enum drm_connector_status old_status;
-> +	enum drm_connector_status status;
-> +	enum phy_mode mode;
-> +	bool hpd;
-> +	int i;
-> +
-> +	WRITE_ONCE(dp->hpd_worker, current);
-> +
-> +	if (READ_ONCE(dp->hpd_stopped) || !dp->dp_panel.connector)
-> +		goto out;
-> +
-> +	/*
-> +	 * Sample before the PHY wait. A probe during that wait updates
-> +	 * dp->status, and reading it afterwards drops the hotplug uevent.
-> +	 */
-> +	cix_dp_session_lock(dp);
-> +	old_status = dp->status;
-> +	if (READ_ONCE(dp->hpd_stopped) || !dp->dp_panel.connector ||
-> +	    !cix_dp_regs_accessible(dp)) {
-> +		cix_dp_session_unlock(dp);
-> +		goto out;
-> +	}
-> +	hpd = cix_dp_get_hpd_state(dp);
-> +	cix_dp_session_unlock(dp);
-> +
-> +	/*
-> +	 * On a USB-C DP alt-mode PHY the hotplug only becomes valid once the
-> +	 * PHY has been switched to DP mode, so wait for the mode change.
-> +	 * A native DP PHY has no ->set_mode() operation, which leaves the
-> +	 * mode at PHY_MODE_INVALID forever; there is nothing to wait for.
-> +	 */
-> +	if (hpd && phy_get_mode(phy) != PHY_MODE_INVALID) {
-> +		for (i = 0; i < DP_HPD_MAX_TRIES; i++) {
-> +			phy_validate(phy, PHY_MODE_DP, 0, &opts);
-> +			mode = phy_get_mode(phy);
-> +			if (mode == PHY_MODE_DP)
-> +				break;
-> +			msleep(100);
-> +		}
-> +	}
+FWIW, it would be better to change how the panel is expressed in the
+device tree rather than changing this mode. Can you change to using
+the generic "edp-panel" under the AUX bus? Then everything just comes
+from the EDID anyway.
 
-It seems you've used quite a few tricks for USB-C Alt-mode. Both the 
-deferred_hotplug above and the polling here to wait for the PHY status
-to become ready. 
-
-Given that, why not consider using DRM's native bridge notifications to
-accomplish this? Please take a look at aux-hpd-bridge.c.
-
-> +
-> +	cix_dp_session_lock(dp);
-> +	if (READ_ONCE(dp->hpd_stopped) || !dp->dp_panel.connector ||
-> +	    !cix_dp_regs_accessible(dp)) {
-> +		cix_dp_session_unlock(dp);
-> +		goto out;
-> +	}
-> +	cix_dp_session_unlock(dp);
-> +
-> +	drm_helper_probe_detect(&dp->connector.base, NULL, false);
-> +
-> +	cix_dp_session_lock(dp);
-> +	status = dp->status;
-> +	if (READ_ONCE(dp->hpd_stopped) || !dp->dp_panel.connector ||
-> +	    !cix_dp_regs_accessible(dp)) {
-> +		cix_dp_session_unlock(dp);
-> +		goto out;
-> +	}
-> +	if (status == connector_status_connected)
-> +		cix_dp_handle_connect_locked(dp);
-> +	else
-> +		cix_dp_handle_disconnect_locked(dp);
-> +	cix_dp_session_unlock(dp);
-> +
-> +	if (old_status != status && dp->drm)
-> +		drm_helper_hpd_irq_event(dp->drm);
-> +out:
-> +	WRITE_ONCE(dp->hpd_worker, NULL);
-> +}
-> +
-> +static void cix_dp_hpd_irq_work_func(struct work_struct *work)
-> +{
-> +	struct cix_dp *dp = container_of(work, struct cix_dp,
-> +					 hpd_irq_work.work);
-> +	u8 status[DP_LINK_STATUS_SIZE + 2];
-> +	int ret;
-> +
-> +	cix_dp_session_lock(dp);
-> +
-> +	if (READ_ONCE(dp->hpd_stopped) ||
-> +	    !cix_dp_regs_accessible(dp) ||
-> +	    !(dp->state & DPTX_STATE_ENABLED) ||
-> +	    !cix_dp_get_hpd_state(dp))
-> +		goto end;
-> +
-> +	ret = drm_dp_dpcd_read(&dp->aux, DP_SINK_COUNT, status,
-> +			       DP_LINK_STATUS_SIZE + 2);
-> +	if (ret < 0)
-> +		goto end;
-> +
-> +	if (drm_dp_clock_recovery_ok(&status[2], dp->mode.lane_cnt) &&
-> +	    drm_dp_channel_eq_ok(&status[2], dp->mode.lane_cnt))
-> +		goto end;
-> +
-> +	cix_dp_train_loop(dp);
-> +
-> +end:
-> +	cix_dp_session_unlock(dp);
-> +}
-> +
-
-[...]
-
-> +
-> +static int cix_dptx_probe(struct platform_device *pdev)
-> +{
-> +	struct device *dev = &pdev->dev;
-> +	const struct cix_dp_soc_data *soc_data;
-> +	struct cix_dp *dp;
-> +	int ret;
-> +
-> +	soc_data = of_device_get_match_data(dev);
-> +	if (!soc_data)
-> +		return -ENODEV;
-> +
-> +	dp = cix_dp_bridge_alloc(dev);
-> +	if (IS_ERR(dp))
-> +		return PTR_ERR(dp);
-> +
-> +	dp->dev = dev;
-> +	dp->native_dp = soc_data->native_dp;
-> +	dp->ops = &cix_dp_hw_ops;
-> +	dp->status = connector_status_unknown;
-> +	dp->force_hpd = connector_status_unknown;
-> +	dp->num_lanes = CIX_DPTX_MAX_LANES;
-> +	dp->max_rate = CIX_DP_LINK_RATE_HBR2;
-> +	dp->max_streams = DPTX_MST_SOURCE_NUMBER;
-> +	dp->dp_panel.source_id = 0;
-> +	dp->state = DPTX_STATE_DISCONNECTED;
-> +	dp->pixel_per_cycle = 1;
-> +
-> +	ret = cix_dp_parse_dt(dp);
-> +	if (ret)
-> +		return ret;
-> +
-> +	dp->link_config.max_lanes = dp->num_lanes;
-> +	dp->link_config.max_rate = dp->max_rate;
-> +
-> +	ret = cix_dp_init(dp);
-> +	if (ret)
-> +		return ret;
-> +
-> +	ret = devm_add_action_or_reset(dev, cix_dptx_dev_release, dp);
-> +	if (ret)
-> +		return ret;
-> +
-> +	dev_set_drvdata(dev, dp);
-> +
-> +	dp->bridge.of_node = dev->of_node;
-> +
-> +	drm_bridge_add(&dp->bridge);
-> +
-> +	return 0;
-> +}
-
-It looks like this part is platform-specific, so I think Andy's suggestion
-to split it out into a bridge from the beginning is reasonable.
-
-https://lore.kernel.org/all/15d12979.26c5.1a1d9c981a5.Coremail.andyshrk@163.com/
-
-> +
-> +static void cix_dptx_remove(struct platform_device *pdev)
-> +{
-> +	struct cix_dp *dp = dev_get_drvdata(&pdev->dev);
-> +
-> +	if (!dp)
-> +		return;
-> +
-> +	drm_bridge_remove(&dp->bridge);
-> +}
-> +
-
-[...]
-
-> +
-> +static int cix_dp_bridge_attach(struct drm_bridge *bridge,
-> +				struct drm_encoder *encoder,
-> +				enum drm_bridge_attach_flags flags)
-> +{
-> +	struct cix_dp *dp = bridge_to_dp(bridge);
-> +	int ret;
-> +
-> +	dp->drm = bridge->dev;
-> +	WRITE_ONCE(dp->hpd_stopped, false);
-> +
-> +	ret = dp->ops->aux_register(dp);
-> +	if (ret)
-> +		goto err_clear_drm;
-> +
-> +	/*
-> +	 * Komeda (ARM Mali DPU on Sky1, not in this series) calls
-> +	 * drm_bridge_attach() with attach flags 0 and does not register a
-> +	 * connector; create one here so userspace gets a DP output.
-> +	 */
-
-Please drop this comment.
-
--- 
-Best, 
-Chaoyi
+-Doug
