@@ -2,69 +2,69 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 284E6606A31C
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 55BC7606A32A
 	for <dri-devel@archiver.kernel.org>; Wed, 18 Nov 2026 12:11:17 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=DWZGifkD
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=f5OtvTNh
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 7926010FBB0;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 99F2610FBB1;
 	Wed, 18 Nov 2026 12:11:11 +0000 (UTC)
 Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 3639A10FBA8;
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 5924510FBAD;
  Wed, 18 Nov 2026 12:10:56 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by tor.source.kernel.org (Postfix) with ESMTP id 752D662178;
+ by tor.source.kernel.org (Postfix) with ESMTP id D0FA26217B;
  Wed, 18 Nov 2026 12:10:55 +0000 (UTC)
 Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
 ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
  t=1795003855;
- b=OBuYx+XfEWXzbrRjx15E3VtLw3rHb2Qr27SN9hJYsa/80FQlkEnyH+N9muTiRGQL7O1C
- Z5n2mOt6XmGPl2ac/WGGwWc/Au98bkb4AoJm45+ghkd1i3g1uJKnvCE7umfTGsfa5wggL
- Xir2gANhqxk67iHd5mEOXhoy853dUtGRb7Og/1q0FKkgKKPfsrm9wdKKjLQ8++iPHZN7+
- vtEIdiGua1ckf3xMoeUMycPXQrpKR+dkpaleWvA5wb8ocv4Huh1GUWSUsuEfNh4oKjNaR
- uarDUjcAOnJr2T8LFO96CNjDOUku0/oJG9rBBFEOr+Df+QWywilL+VKgWnZKMKpnmgQ==
+ b=dl3oznjNxGN+842jxUFa+pnhu7eqGEw4+9zq3G8f5OoLvlUpubNszDjtcWsDk3C7QKjE
+ l5X+icCe3rg8CAE+2GxhYJqXCUXsZwK7+eVkmnfvCRZ3Tx/y0rlOKhjbr9sj0rvh2TepY
+ 1ePkn6F88i50Vpu4OW8Qi/oGYt6etGtRkO4FePdx7dDbLDf7ULwDaNEFrg/drQGMxYln6
+ x27s7rYlJiQ3H6vRcmM5gRm8K0nPmiX0oTgwMnt/xoIWyMXFBq5FKkXkk3zsbUATkl+Kg
+ oN0sm3bqolw2jpr+U6JTFzeyrJkmI5ZE04sm1WAGsr+dbUZ93jrj47L+ZSIYkfaizcA==
 ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
  c=relaxed/relaxed; t=1795003855;
  h=DKIM-Signature:Received:From:Date:Subject:MIME-Version:Content-Type:
  Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
  X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
  X-Original-From:Reply-To:Content-Transfer-Encoding;
- bh=LZzgzzaHQ8VpP9EIkNbz5F4GKJmJYu2uBy96I/8F2vA=;
- b=Vj0yf5Tq0IHLtBVaPChhAMTkRpA7gsDOnjq9t96DFrhIE5wJoW6S1G+jmUWUuTnlLL3p
- VzhOG/R59csuPT5NOTNEpDYgNhsudZPR2XbDzLuXc5g8oS/FP0Qtj0Hr/+fOo9poaVqa7
- vSN22npmN7ob6ekLUnWuR7IESsgAmEaK6GC//G9RGlAS7dts9ToBv0dEzhpwft4r6EMIQ
- ib+4zZ1bUhrAKTUAx2wToyLp+qumcF6WyaWOSBRVAclPYLFqNbVAgmwarKcK6GYG6BfOq
- DSOZnbriMmY3AcD/5nlZbbPnJsMc+R0mYpf5/J/RlNcN//HH8IvKb5ZD+6/9xqO0sIw==
+ bh=IDEsysbOUOCoyzVbk5RHA2xjeTM8D1r4H21fp3dFxwQ=;
+ b=BazWJzbE+KDXrT+ooO17ACQfFBoRRr19dV0p2RFY+Xwg4P3TYGrnpjz37AqmDfNd+l6k
+ S6MZvqn68tNT+EW42szx/LtGnqb9R46M40MD7ajGCGad6rZq3Snky7tgYFmNpoKf6vFy7
+ mP4SKMVMmV8BLYuvO3KkKWuhj3sPUP5/E+Ws8wbDZWqqdzUULqrE7jdb0j1VMKaYJnZPr
+ zSuct9x9gmDAbv0tib2YzyCu2d4fEQ3MchYo9NJWuEavPkFKJeq2Qc8cOkSdaqXBDDsZt
+ aLQvY3L0teq8yyr75MfVALWLG6NnNnbKI1o8NtV+A3I0HHFUpqFga6jjNPagXNmqovQ==
 ARC-Authentication-Results: i=1; smtp.kernel.org; 
  arc=none smtp.remote-ip=100.80.115.77
 Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
  (No client certificate requested)
- by smtp.kernel.org (Postfix) with ESMTPS id 2F4811F000C6;
+ by smtp.kernel.org (Postfix) with ESMTPS id 65DF71F000CA;
  Wed, 18 Nov 2026 12:10:54 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
  s=k20260515; t=1795003855;
- bh=LZzgzzaHQ8VpP9EIkNbz5F4GKJmJYu2uBy96I/8F2vA=;
+ bh=IDEsysbOUOCoyzVbk5RHA2xjeTM8D1r4H21fp3dFxwQ=;
  h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To;
- b=DWZGifkDX1zIznYlWWS0gWJ2tq/hwwR5UuZNACjSl6CFmUxKspDgHt4oV26vUgfRW
- TQ6af15H/3fH8oTw44ynp630nh1zwaaLWmnpMameII4x4QqpwOnXdMb4SeK0bxVBdK
- A1DN8wjNT+nfJ3Bzgm+RVTacU2xlvG+7yW9IsR+f4G3/EAZlnki6233HF+gvIYdbPy
- Tzj4KSmd9H+gx6DUiw3y8asQOWuurh1RJmowAh/zea2XN7+eaHphvZcNvb8sxSJqhR
- BucMdbePc/envq4QN6+Yb9YCoDpcA7DYuk82Pp/pP4zqVTCZnjNPxvOem9HfQqY7aq
- AgcaDJpJQepQQ==
+ b=f5OtvTNh6L21HLgacs8LGUHn2OafeO4XuBJhiSfG4SQT07sy1F3Ql8H0zG+2WudPm
+ 482Evid7cm9dJb6Cj20PvG+3iMKtDHqO01EsqZkk5OQ0/bjsnKZvNiv0F7nkLdxxYA
+ txckg6VCI3dOFAQ8VJlG5nasl+gcMhYIRCXm56PCLOW9BQIdAfHDZ3xhHllqYwxs4v
+ iHr0SDwTGowvldse0TbJXGvrEeDnGixLdV/CRtWtXWuqQA3zDUNmBUUXXx9Z2xHedE
+ pZFOEEJJB3JfbA6cfoWkROGD0G9EeF2DuMz/TYHnzifBz81BnbzLx8ogQ4KlF5f6Hv
+ ks88U4GN4rPhQ==
 Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
- by lkml.kernel.org (Postfix) with ESMTP id B8D0F4AD43;
+ by lkml.kernel.org (Postfix) with ESMTP id EF4AF4AD63;
  Wed, 18 Nov 2026 12:10:53 +0000 (UTC)
 From: =?utf-8?q?Eren_=C3=96zen_via_B4_Relay?=
  <devnull+erenozen.protonmail.com@kernel.org>
-Date: Wed, 18 Nov 2026 15:10:52 +0300
-Subject: [PATCH v2 1/3] drm/amd/display: Initialize FRL status polling work
- once at DM init
+Date: Wed, 18 Nov 2026 15:10:54 +0300
+Subject: [PATCH v2 3/3] drm/amd/display: Test connector init with FRL
+ status polling pending
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
-Message-Id: <20261118-frl-polling-wq-teardown-v2-1-957e61c0b698@protonmail.com>
+Message-Id: <20261118-frl-polling-wq-teardown-v2-3-957e61c0b698@protonmail.com>
 References: <20261118-frl-polling-wq-teardown-v2-0-957e61c0b698@protonmail.com>
 In-Reply-To: <20261118-frl-polling-wq-teardown-v2-0-957e61c0b698@protonmail.com>
 To: Harry Wentland <harry.wentland@amd.com>, Leo Li <sunpeng.li@amd.com>, 
@@ -81,11 +81,11 @@ Cc: Wayne Lin <Wayne.Lin@amd.com>,
  linux-kernel@vger.kernel.org, 
  =?utf-8?q?Eren_=C3=96zen?= <erenozen@protonmail.com>
 X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1795003852; l=3225;
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1795003852; l=3475;
  i=erenozen@protonmail.com; s=20261110; h=from:subject:message-id;
- bh=acr9azNHV4DrR5AOD/x83axcCIQ8+yKBRupLY4OPr38=;
- b=QwOf7v5a8WSFCoej3uB8MXnl8fZP6UenjHa4qtEEAeDHvZhKMP1RuR3QmToxu6G90Zt8q9Izz
- 9QyqH/JsQjwCJN+uTziUFTTrykKCkSiLBgO+O6hED1ZXYXqjkmOZ/DV
+ bh=kRz6sTM7utoa2NOF2uowuuqvgRr6QvFl4fMYSUZAY+Q=;
+ b=TeJT27I2ea5k85PobNZ37mhldRdA5V1rvCsBKLnEAgFInpHi3UPjfMWbmWnkAApYSEOFngEVy
+ Sy8cr0kwv9MA7wM5GeQCqnAZ5+REtkxAdPKVwaL/XRU3tP11a/Pac75
 X-Developer-Key: i=erenozen@protonmail.com; a=ed25519;
  pk=tPAwfVmIbYF3QziJ3LcoTIZDU12BsjVK+EkAB9nN1gA=
 X-Endpoint-Received: by B4 Relay for erenozen@protonmail.com/20261110 with
@@ -114,66 +114,79 @@ X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 
 From: Eren Özen <erenozen@protonmail.com>
 
-hdmi_frl_status_polling_work is a single delayed work item shared by the
-whole display manager, but it is initialized from
-amdgpu_dm_connector_init_helper(), which runs once for every connector.
-That helper is also called at runtime from dm_dp_add_mst_connector()
-when a DisplayPort MST branch device is plugged in. If an HDMI FRL
-stream is active at that moment, the polling work is queued and
-re-arming itself every 200ms, and INIT_DELAYED_WORK() on it
-reinitializes the timer and work entry of a pending item, which can
-corrupt the timer and workqueue state.
+Add a KUnit test for the problem fixed by "drm/amd/display: Initialize
+FRL status polling work once at DM init". When an MST branch device is
+plugged in, amdgpu_dm_connector_init_helper() runs for each new
+connector while the display manager's FRL status polling work may be
+pending, and it must not re-initialize that work.
 
-The work item belongs to the display manager, not to a connector, so
-initialize it, along with its polling delay, once in amdgpu_dm_init()
-next to the workqueue it runs on.
+The test queues the work with a long delay, runs the helper for a
+DisplayPort connector below an MST root, and checks that the work and
+its timer are still pending and that the polling delay is unchanged.
 
-This also keeps the work valid on the amdgpu_dm_init() error path.
-Commit 8bcad6d7acbb ("drm/amd/display: Stop HDMI FRL status polling on
-fini") cancels the work in amdgpu_dm_fini() whenever the workqueue
-exists. The workqueue is created before amdgpu_dm_initialize_drm_device(),
-but the work was only initialized when the first connector was set up.
-If amdgpu_dm_init() failed in between, for example when allocating
-dmub_notify or delayed_hpd_wq, the cancel ran on a work item that was
-never initialized and hit WARN_ON(!work->func) in __flush_work(). With
-the work initialized first, it is valid whenever the workqueue exists.
+Without that fix the test fails: the helper re-initializes the work,
+which drops its pending bit and its timer while the timer is still
+queued, and with CONFIG_DEBUG_OBJECTS_TIMERS the kernel reports
+"ODEBUG: init active ... object type: timer_list".
 
-Fixes: 0e967e086e75 ("drm/amd/display: Extract connector and encoder code to amdgpu_dm_connector")
 Assisted-by: Claude:claude-opus-5-5
 Signed-off-by: Eren Özen <erenozen@protonmail.com>
 ---
- drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c           | 4 ++++
- drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_connector.c | 2 --
- 2 files changed, 4 insertions(+), 2 deletions(-)
+ .../amdgpu_dm/tests/amdgpu_dm_connector_test.c     | 34 ++++++++++++++++++++++
+ 1 file changed, 34 insertions(+)
 
-diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-index 3d2201285888..af7acfbbf9e0 100644
---- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-+++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-@@ -773,6 +773,10 @@ static int amdgpu_dm_init(struct amdgpu_device *adev)
+diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/tests/amdgpu_dm_connector_test.c b/drivers/gpu/drm/amd/display/amdgpu_dm/tests/amdgpu_dm_connector_test.c
+index 33082a674d9e..bac147717e41 100644
+--- a/drivers/gpu/drm/amd/display/amdgpu_dm/tests/amdgpu_dm_connector_test.c
++++ b/drivers/gpu/drm/amd/display/amdgpu_dm/tests/amdgpu_dm_connector_test.c
+@@ -9624,6 +9624,39 @@ static void dm_test_init_helper_hpd_debounce_disabled(struct kunit *test)
+ 	KUNIT_EXPECT_EQ(test, ctx->aconnector->hdmi_hpd_debounce_delay_ms, 0);
+ }
  
- 		dc_init_callbacks(adev->dm.dc, &init_params);
- 	}
++/**
++ * dm_test_init_helper_keeps_pending_frl_poll - Test a new connector leaves FRL polling alone
++ * @test: The KUnit test context
++ *
++ * The FRL status polling work belongs to the display manager and may be
++ * pending when an MST branch device is plugged in and a new connector is set
++ * up at runtime. Setting up that connector must not re-initialize the pending
++ * work or change its polling delay.
++ */
++static void dm_test_init_helper_keeps_pending_frl_poll(struct kunit *test)
++{
++	struct dm_test_init_helper_ctx *ctx =
++		dm_test_init_helper_ctx_alloc(test, DRM_MODE_CONNECTOR_DisplayPort);
++	struct delayed_work *dwork = &ctx->dm->hdmi_frl_status_polling_work;
 +
-+	adev->dm.hdmi_frl_status_polling_delay_ms = 200;
-+	INIT_DELAYED_WORK(&adev->dm.hdmi_frl_status_polling_work,
-+			  hdmi_frl_status_polling_work);
- 	if (adev->dm.dc->caps.max_links > 0) {
- 		adev->dm.hdmi_frl_status_polling_wq =
- 			create_singlethread_workqueue("hdmi_frl_status_polling_wq");
-diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_connector.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_connector.c
-index 1bc8547d5777..35d975262114 100644
---- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_connector.c
-+++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_connector.c
-@@ -3331,8 +3331,6 @@ void amdgpu_dm_connector_init_helper(struct amdgpu_display_manager *dm,
- 		aconnector->hdmi_hpd_debounce_delay_ms = 0;
- 	}
++	INIT_DELAYED_WORK(dwork, hdmi_frl_status_polling_work);
++	ctx->dm->hdmi_frl_status_polling_delay_ms = 100000;
++	ctx->aconnector->mst_root = ctx->aconnector;
++
++	/* Long delay: the work must stay pending and never run in this test. */
++	KUNIT_ASSERT_TRUE(test, queue_delayed_work(system_wq, dwork,
++						   msecs_to_jiffies(100000)));
++
++	amdgpu_dm_connector_init_helper(ctx->dm, ctx->aconnector,
++					DRM_MODE_CONNECTOR_DisplayPort, ctx->link, 0);
++
++	KUNIT_EXPECT_TRUE(test, delayed_work_pending(dwork));
++	KUNIT_EXPECT_TRUE(test, timer_pending(&dwork->timer));
++	KUNIT_EXPECT_EQ(test, ctx->dm->hdmi_frl_status_polling_delay_ms, 100000);
++
++	KUNIT_EXPECT_TRUE(test, cancel_delayed_work_sync(dwork));
++}
++
+ /* Tests for amdgpu_dm_initialize_hdmi_connector() */
  
--	dm->hdmi_frl_status_polling_delay_ms = 200;
--	INIT_DELAYED_WORK(&dm->hdmi_frl_status_polling_work, hdmi_frl_status_polling_work);
- 	/*
- 	 * configure support HPD hot plug connector_>polled default value is 0
- 	 * which means HPD hot plug not supported
+ /**
+@@ -10803,6 +10836,7 @@ static struct kunit_case amdgpu_dm_connector_tests[] = {
+ 	KUNIT_CASE(dm_test_init_helper_edp),
+ 	KUNIT_CASE(dm_test_init_helper_hdcp_property),
+ 	KUNIT_CASE(dm_test_init_helper_hpd_debounce_disabled),
++	KUNIT_CASE(dm_test_init_helper_keeps_pending_frl_poll),
+ 	/* amdgpu_dm_initialize_hdmi_connector */
+ 	KUNIT_CASE(dm_test_initialize_hdmi_cec_registers),
+ 	/* amdgpu_dm_update_freesync_caps */
 
 -- 
 2.56.0
