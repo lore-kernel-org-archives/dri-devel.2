@@ -2,51 +2,52 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4E7ED606A320
-	for <dri-devel@archiver.kernel.org>; Wed, 18 Nov 2026 21:45:57 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CAE32606A32F
+	for <dri-devel@archiver.kernel.org>; Wed, 18 Nov 2026 21:46:02 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=AdhEYihb
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=LA7u/YdS
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 9EFF3112042;
-	Wed, 18 Nov 2026 21:45:51 +0000 (UTC)
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.19])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 8E21E112048
- for <dri-devel@lists.freedesktop.org>; Wed, 18 Nov 2026 21:45:42 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 18CC610ECA1;
+	Wed, 18 Nov 2026 21:45:57 +0000 (UTC)
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.16])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 7825B11201C
+ for <dri-devel@lists.freedesktop.org>; Wed, 18 Nov 2026 21:45:49 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1795038343; x=1826574343;
+ t=1795038350; x=1826574350;
  h=from:to:cc:subject:date:message-id:in-reply-to:
  references:mime-version:content-transfer-encoding;
- bh=Xe/gllvGRjhcPxAkyrjE/xDnvKPLSAJiXK5l6Ug3n8Y=;
- b=AdhEYihbfGXYDQDCIKlqwy1NWueLNW3l8mR871mhhj0O2QnYvTknpU3q
- q6OqWvT77KKDkO9hDQ03/RJMIld182XT2HzgeAUHcpN9+oNOHSztjmMKI
- r7R8n2OALhvThYhGAcXcQSqwhMYwlpbGdZDbsumFcsoChdmNW3W+TRWak
- k9UsFW+fXtYe4/uaMFU5G0+5HcYUKf155/iM50vlBQf0rgxuazNpGOb5+
- s1oRqXoTxQXtHXTc2S6pisPSiEfA1VuFc/gASy1pIl217BdsgTFr8andV
- MhSFtaracXiimTDZHV0KhcuecZ7wnYiattWpw9m3IYCg4PP91QPfyG087 w==;
-X-CSE-ConnectionGUID: KR2NPgWhRB+p0qxyotomDg==
-X-CSE-MsgGUID: vvufq6eLQ86RindqdWr3xA==
-X-IronPort-AV: E=McAfee;i="6800,10657,11970"; a="3915800"
+ bh=g0x1eUpRSLT7tYD76as1N+sEWuL7d7ZItGLzBsuMCxo=;
+ b=LA7u/YdSM4usNHtJQzFAzOgAbmfCDS7v+twAojFEnlSKd/bmmMEhLGvy
+ KlgQxf//mG5wmIt0ynTdyjMV5XHFxs/TAwzgKgcDSKrJdSySqY22iZYfS
+ Pf4vxiJKHvjc4vjAhqtgftuqu2YSrm9IezO02bbju7xwae6TynGrSbx2q
+ z6rJGFyJvwg0ysZznBwVdUlGUWDu9C67ppNxHvy2SWuuYWIGuut6v7Q5q
+ VTfGKiRxvdSPdYzd1xdgEkAoKA05o5sEaYbrVhxDzOAEXYG8bEeziaBXz
+ j+SUqeoX04G6ABJtfbaC8tdzphLg43fhm0HCL81RGp63j3d+vGZy2QFN5 w==;
+X-CSE-ConnectionGUID: 41FDPQjrQJS5wttkCwGJGQ==
+X-CSE-MsgGUID: 4YBg1dWlSEOfVSHueyuK2A==
+X-IronPort-AV: E=McAfee;i="6800,10657,11970"; a="3862560"
 X-IronPort-AV: E=Sophos;i="6.27,219,1787036400"; 
-   d="scan'208";a="3915800"
-Received: from fmviesa005.fm.intel.com ([10.60.135.145])
- by orvoesa111.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 18 Nov 2026 13:45:43 -0800
-X-CSE-ConnectionGUID: 67HYeFy5SxKA1RHTubZp+g==
-X-CSE-MsgGUID: HYRShVUaQSKPkqRSUa0iRg==
+   d="scan'208";a="3862560"
+Received: from fmviesa003.fm.intel.com ([10.60.135.143])
+ by orvoesa108.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 18 Nov 2026 13:45:50 -0800
+X-CSE-ConnectionGUID: L7AubnnqS1OMvRIi3N6fZw==
+X-CSE-MsgGUID: zLwjF3SmRnu/UaPVjuSDEA==
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,219,1787036400"; d="scan'208";a="10340790"
+X-IronPort-AV: E=Sophos;i="6.27,219,1787036400"; d="scan'208";a="10390723"
 Received: from klitkey1-mobl1.ger.corp.intel.com (HELO localhost)
  ([10.245.245.16])
  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 18 Nov 2026 13:45:41 -0800
+ 18 Nov 2026 13:45:47 -0800
 From: Ville Syrjala <ville.syrjala@linux.intel.com>
 To: dri-devel@lists.freedesktop.org
-Cc: Jyri Sarha <jyri.sarha@iki.fi>,
+Cc: Kory Maincent <kory.maincent@bootlin.com>, Jyri Sarha <jyri.sarha@iki.fi>,
  Tomi Valkeinen <tomi.valkeinen@ideasonboard.com>
-Subject: [PATCH v4 03/20] drm/tilcdc: Use __le64 for the fallback 64bit write
-Date: Wed, 18 Nov 2026 23:45:00 +0200
-Message-ID: <20261118214518.29317-4-ville.syrjala@linux.intel.com>
+Subject: [PATCH v4 04/20] drm/tilcdc: Fix endpoint node names in the legacy
+ panel overlay
+Date: Wed, 18 Nov 2026 23:45:01 +0200
+Message-ID: <20261118214518.29317-5-ville.syrjala@linux.intel.com>
 X-Mailer: git-send-email 2.56.0
 In-Reply-To: <20261118214518.29317-1-ville.syrjala@linux.intel.com>
 References: <20261118214518.29317-1-ville.syrjala@linux.intel.com>
@@ -76,32 +77,54 @@ X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 
 From: Ville Syrjälä <ville.syrjala@linux.intel.com>
 
-The fallback path in tilcdc_write64() stores the result of
-__cpu_to_le64() through a volatile u64 pointer. That assigns a
-__le64 to a plain u64 and makes sparse complain about the differing
-base types. Use a volatile __le64 pointer for the store instead, so
-the types match.
+The overlay names its two graph endpoints "endpoint@0" but gives them
+no reg property, so dtc complains with W=1:
 
+  Warning (unit_address_vs_reg): .../endpoint@0: node has a unit name,
+  but no reg or ranges property
+
+There is only one endpoint per port, and the overlay refers to the
+nodes through the panel_in and lcd_0 labels, not by name. Use plain
+"endpoint" for the node names, which is the usual form for a single
+endpoint, and drop the bogus unit address. The remote-endpoint
+phandle links between the two nodes are unchanged.
+
+Fixes: 0ff223d99147 ("drm/tilcdc: Convert legacy panel binding via DT overlay at boot time")
+Cc: Kory Maincent <kory.maincent@bootlin.com>
 Cc: Jyri Sarha <jyri.sarha@iki.fi>
 Cc: Tomi Valkeinen <tomi.valkeinen@ideasonboard.com>
 Signed-off-by: Ville Syrjälä <ville.syrjala@linux.intel.com>
 ---
- drivers/gpu/drm/tilcdc/tilcdc_regs.h | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+Caveat! I really have no clue about DT, so this was pretty
+much all Claude's idea how to fix the warning. I'd buy what
+it's selling, but can't really judge it one way or the other.
+Nor can I actually test this.
 
-diff --git a/drivers/gpu/drm/tilcdc/tilcdc_regs.h b/drivers/gpu/drm/tilcdc/tilcdc_regs.h
-index 23746b134c42..9dc3e1b9e20e 100644
---- a/drivers/gpu/drm/tilcdc/tilcdc_regs.h
-+++ b/drivers/gpu/drm/tilcdc/tilcdc_regs.h
-@@ -130,7 +130,7 @@ static inline void tilcdc_write64(struct drm_device *dev, u32 reg, u64 data)
- 	__iowmb();
- #endif
- 	/* This compiles to strd (=64-bit write) on ARM7 */
--	*(volatile u64 __force *)addr = __cpu_to_le64(data);
-+	*(volatile __le64 __force *)addr = __cpu_to_le64(data);
- #endif
- }
+ drivers/gpu/drm/tilcdc/tilcdc_panel_legacy.dtso | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
+
+diff --git a/drivers/gpu/drm/tilcdc/tilcdc_panel_legacy.dtso b/drivers/gpu/drm/tilcdc/tilcdc_panel_legacy.dtso
+index ae71d10f5ec1..ca82f3bed15c 100644
+--- a/drivers/gpu/drm/tilcdc/tilcdc_panel_legacy.dtso
++++ b/drivers/gpu/drm/tilcdc/tilcdc_panel_legacy.dtso
+@@ -13,7 +13,7 @@
+ 	tilcdc-panel-dpi {
+ 		compatible = "panel-dpi";
+ 		port {
+-			panel_in: endpoint@0 {
++			panel_in: endpoint {
+ 				remote-endpoint = <&lcd_0>;
+ 			};
+ 		};
+@@ -22,7 +22,7 @@ panel_in: endpoint@0 {
  
+ &lcdc {
+ 	port {
+-		lcd_0: endpoint@0 {
++		lcd_0: endpoint {
+ 			remote-endpoint = <&panel_in>;
+ 		};
+ 	};
 -- 
 2.56.0
 
