@@ -2,63 +2,63 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 65F54606A31C
-	for <dri-devel@archiver.kernel.org>; Wed, 18 Nov 2026 13:48:56 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 225DE606A31C
+	for <dri-devel@archiver.kernel.org>; Wed, 18 Nov 2026 13:48:57 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=K6Cu0DQS
+	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=QhHb88Bm
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id A660110FCE0;
+	by gabe.freedesktop.org (Postfix) with ESMTP id EA1C710FCDF;
 	Wed, 18 Nov 2026 13:48:49 +0000 (UTC)
-Received: from mail-wr1-f71.google.com (mail-wr1-f71.google.com
- [209.85.221.71])
- by gabe.freedesktop.org (Postfix) with ESMTPS id D0F0410FCDA
- for <dri-devel@lists.freedesktop.org>; Wed, 18 Nov 2026 13:47:53 +0000 (UTC)
-Received: by mail-wr1-f71.google.com with SMTP id
- ffacd0b85a97d-4925ef75fc4so786617f8f.1
- for <dri-devel@lists.freedesktop.org>; Wed, 18 Nov 2026 05:47:53 -0800 (PST)
+Received: from mail-wr1-f69.google.com (mail-wr1-f69.google.com
+ [209.85.221.69])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 79DB910FCDC
+ for <dri-devel@lists.freedesktop.org>; Wed, 18 Nov 2026 13:47:58 +0000 (UTC)
+Received: by mail-wr1-f69.google.com with SMTP id
+ ffacd0b85a97d-48fbcf023dcso466597f8f.2
+ for <dri-devel@lists.freedesktop.org>; Wed, 18 Nov 2026 05:47:58 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=google.com; s=20260707; t=1795009672; x=1795614472;
+ d=google.com; s=20260707; t=1795009677; x=1795614477;
  darn=lists.freedesktop.org; 
  h=content-type:cc:to:from:subject:message-id:references:mime-version
  :in-reply-to:date:from:to:cc:subject:date:message-id:reply-to
- :content-type; bh=zquXBrMDSkgmhzVSBU9n1JfbEE6tjoTWMroKtZE+aJ8=;
- b=K6Cu0DQSqp6IToEpLvaepHvLzBI5PAYB/YVPiGiBZy9k/zipiXndpUOWv82wGtTL9x
- 7vyjIQG9mSFezl0DLJtI1nzf5V5kRqYkQFQRjF03OkwQY/4T+22pKmav3fKP/Deto4qn
- qVHymwYp6Tlqy7hKs5RmoLX62Jd16tQB0tbvf6BRidbl4dN9oIsj5JP8M35tit+S4eeT
- NCIwEGd98Y0y6glmNst8sSQGOmqznXFf1DeNjnEqaEjGbY9dyYkeIb1P7UBqi5wMJYuw
- hK8J8Bi9XdPi0vKlFFHKjU4WCKHOhqg2KhftRwKxNCpNDcKwwdB8E3tKbUZAM+QYFmEQ
- XMeg==
+ :content-type; bh=fp5kGNyd0eTmZJulttSFuV08XJjVgnvokjb06RGq2vw=;
+ b=QhHb88BmtVAc2OF1b1uyP3SdaX0REwM5hCbpxdx66RSmc2Zutp50YzSakMZnoGL+Pz
+ pQ+1VDmxEPs1g82TOMQf14TQyZwrHsy5l7WfiR8g0OfTtpILq2cw28dWwS+hk/ZdPo32
+ DzDwHXB1fswFFezgUVXqVZTpPsc9NIu0exF6K1tcKvuPnrElDORqIk81p55X8U7QdEe2
+ Vplz/Kur6hAPBGAqq7elJYPCuihOeEconaTF9vgl6U95C/iedjVreso1eaakEr4M1Fmu
+ Rco9UgoVpWLKvVHBGQWyqvrF91q31egmsSo2Trh7WDYCyx23yFCUVX9XNKgFbUcmlwNO
+ sXNg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20260707; t=1795009672; x=1795614472;
+ d=1e100.net; s=20260707; t=1795009677; x=1795614477;
  h=content-type:cc:to:from:subject:message-id:references:mime-version
  :in-reply-to:date:x-gm-message-state:from:to:cc:subject:date
  :message-id:reply-to:content-type;
- bh=zquXBrMDSkgmhzVSBU9n1JfbEE6tjoTWMroKtZE+aJ8=;
- b=y1y6xWz/sdJDBMjLnrBDMlyc3bKdCLW4XqhsCVfYGqYdusD9Zya0MW9Ex7xzjfJ1Dg
- sFwQCN/u+pcY5d1WXRTc1uWik+b2qCDA+iaAbPdm5FVsnYo3QrYTZIBb8u4iLcS1U6xl
- OF/HNW2aUfuxuKFuGdGQoPTVZq666RfuOJ5caEBdfrMdc02LR7CmcG6GoxN+lGwrs38U
- zS68R1UzutkEylxriIA2u5XwsL93Yk1UpFoD9qUjedidPXuuzj0wBYNKK+aBX9mMWnxB
- ndJ4qXj1QYTmllXb2ctY+nPX+blgzrfruqLCDIsoyQMXzqKhge7wDcyx+6811D4azwnl
- 7B0w==
+ bh=fp5kGNyd0eTmZJulttSFuV08XJjVgnvokjb06RGq2vw=;
+ b=pAu5ZT3IAVx054T805UstVoSnZd9c0K/eKJQ1d8dI98TkAen1P4yCIQIgj4cCW1IQD
+ 4XWRfN6yBId+UzCQTliAPznVGsQGAAHtDXGOcWDiJTzJYbJLKah+sn38mUpTSvrbDof2
+ FyFqBQSEHXbUVUwJsk6qQYW+JTESd7bF7dzWheOidoKib6dtSsFKxtuOCWuVFC41zJE8
+ ltfGg3ncmIYuN/iabLu4HrmM9gcKLQMPgOJMxax7c0xxyWF0GqsiUY3cEuKrdoCf7Gpy
+ HZFFVAXb6OCbELu6cwu4GCX32LoEv2pa2p9VBI+lftcAIXIpGy1rulMM+zQ+qffNHnLh
+ dB7g==
 X-Forwarded-Encrypted: i=1;
- AL+hErE3cxGQwJWs8ZChHyOXcV4Ch3bmj1ydfyznCd20+4Uk+SyPxk3QuK8NdmtdYEvvzWsLO9k8UN6G7mQ=@lists.freedesktop.org
-X-Gm-Message-State: APuU4Z/1LUd9lQjSQx3leDfLDTn0V1rl68JveQ9qpePnXs8mYQCOPO7+
- kknb4+YTw2xH1UJ0Oq8koJp9zzOWBa0IQ4QTuoK6EbwXWwa5+xSy7HHWv0Md55F+EKxwrCimqaD
- RyHRt/meE+Vgqe6svYg==
-X-Received: from wrqt12.prod.google.com ([2002:a5d:460c:0:b0:4a4:28a2:fcf9])
+ AL+hErFlfToTN82H/8dVU8r/HWpo1N5LeA74xjm5ak8eyoALNIohFJDT1Ue8EPUlfb6CgakmkWkO2nQwrGw=@lists.freedesktop.org
+X-Gm-Message-State: APuU4Z/xv+ben0Yn4yN1n4jM1XCEzkhYd8FdTJFx1Rfy4F1Q+PArcIGV
+ 9TJrkT2FoEH855D2FZoVfvoZpJ62Ai+6yZYEVts558g6JSCzs+Rd6T38utzP//tJCrMhI9I99c4
+ 07TACbhJD801BSWgtaQ==
+X-Received: from wrbay30.prod.google.com ([2002:a5d:6f1e:0:b0:49b:ed87:ac7b])
  (user=aliceryhl job=prod-delivery.src-stubby-dispatcher) by
- 2002:a5d:5d84:0:b0:4a7:150e:cfe5 with SMTP id
- ffacd0b85a97d-4a7150ef4dcmr3970052f8f.42.1795009671601; 
- Wed, 18 Nov 2026 05:47:51 -0800 (PST)
-Date: Wed, 18 Nov 2026 13:47:50 +0000
-In-Reply-To: <20261013-clk-type-state-v6-3-a5e9977b3509@collabora.com>
+ 2002:adf:e002:0:20b0:4a1:a2ed:bc1d with SMTP id
+ ffacd0b85a97d-4a63b6fbe61mr4560158f8f.43.1795009676739; 
+ Wed, 18 Nov 2026 05:47:56 -0800 (PST)
+Date: Wed, 18 Nov 2026 13:47:55 +0000
+In-Reply-To: <20261013-clk-type-state-v6-5-a5e9977b3509@collabora.com>
 X-Archived-By: <archiver.kernel.org>
 Mime-Version: 1.0
 References: <20261013-clk-type-state-v6-0-a5e9977b3509@collabora.com>
- <20261013-clk-type-state-v6-3-a5e9977b3509@collabora.com>
+ <20261013-clk-type-state-v6-5-a5e9977b3509@collabora.com>
 X-Mailer: git-send-email 2.56.1.703.gf848ed807c-goog
-Message-ID: <20261118134750.658250-1-aliceryhl@google.com>
-Subject: Re: [PATCH v6 3/7] rust: clk: use the type-state pattern
+Message-ID: <20261118134755.658603-1-aliceryhl@google.com>
+Subject: Re: [PATCH v6 5/7] rust: clk: add devres-managed clks
 From: Alice Ryhl <aliceryhl@google.com>
 To: Daniel Almeida <daniel.almeida@collabora.com>
 Cc: Alice Ryhl <aliceryhl@google.com>, "Rafael J. Wysocki" <rafael@kernel.org>,
@@ -102,22 +102,21 @@ X-Spam-Status: No, score=-21.3 required=3.0 tests=BAYES_00,DKIMWL_WL_MED,
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-On Tue, Oct 13, 2026 at 02:07:42PM -0300, Daniel Almeida wrote:
-> +    /// Drivers that need to change a clock's state at runtime (for example to
-> +    /// enable it on resume and disable it on suspend) can keep it in an enum
-> +    /// and move between the variants:
-> +    ///
-> +    /// ```
-> +    /// use kernel::clk::{Clk, Enabled, Prepared};
-> +    /// use kernel::error::Result;
-> +    ///
-> +    /// enum DeviceClk {
-> +    ///     Suspended(Clk<Prepared>),
-> +    ///     Resumed(Clk<Enabled>),
-> +    /// }
-
-Nit: looks like this doctest missed the vertical import style from patch 1
-(and `Result` is already in the prelude).
+On Tue, Oct 13, 2026 at 02:07:44PM -0300, Daniel Almeida wrote:
+> Many drivers only need a clock running for as long as the device is
+> bound and never touch it afterwards. In C, devm_clk_get_enabled() and
+> devm_clk_get_optional_enabled() cover this case.
+>
+> Add devm_enable(), devm_enable_optional() and
+> devm_enable_optional_with_rate(), which wrap the C helpers. They return
+> no handle, so the driver keeps nothing in its data and cannot change the
+> state of the clock. The clock is disabled, unprepared and put when the
+> device is unbound.
+>
+> This mirrors regulator::devm_enable() and devm_enable_optional().
+>
+> Reviewed-by: Alexandre Courbot <acourbot@nvidia.com>
+> Signed-off-by: Daniel Almeida <daniel.almeida@collabora.com>
 
 Reviewed-by: Alice Ryhl <aliceryhl@google.com>
 
