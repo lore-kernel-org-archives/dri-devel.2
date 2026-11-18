@@ -2,31 +2,31 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7ED6F60A260B
-	for <dri-devel@archiver.kernel.org>; Wed, 18 Nov 2026 15:20:02 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EAAB9606A31C
+	for <dri-devel@archiver.kernel.org>; Wed, 18 Nov 2026 15:21:22 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=WhY5kEms
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=AhFelVEj
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 7438410FDC2;
-	Wed, 18 Nov 2026 15:19:56 +0000 (UTC)
-Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id B841F10FDC2;
- Wed, 18 Nov 2026 15:19:49 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 26BE310FDC9;
+	Wed, 18 Nov 2026 15:21:17 +0000 (UTC)
+Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 306D810FDC4;
+ Wed, 18 Nov 2026 15:21:10 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by tor.source.kernel.org (Postfix) with ESMTP id 1489962353;
- Wed, 18 Nov 2026 15:19:49 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id B2AF61F000C4;
- Wed, 18 Nov 2026 15:19:32 +0000 (UTC)
+ by sea.source.kernel.org (Postfix) with ESMTP id C75DF4387A;
+ Wed, 18 Nov 2026 15:21:09 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id DE1F51F000C5;
+ Wed, 18 Nov 2026 15:20:57 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1795015188;
- bh=LeU/DxXcV0ry5yYe0LgqD+dUS+pwnrp+dk5INqwKWBw=;
+ s=k20260515; t=1795015269;
+ bh=1shZqnP71Ukitlfj99kedJcZBJQFJWYHeZCXEuiVk/I=;
  h=From:To:Cc:In-Reply-To:References:Subject:Date;
- b=WhY5kEmsWtbqCPSBFQ2nQaxXboUG96EQPOcrbrxf3sO4BB8Tm19kr7KE+iG4TB6T7
- PIfvCftf6yhI0z/gSSuVSWelQ+KcojCemjhXmawQHN4M8lm9G59rJWiePg41ZCfjrN
- PTiXDg0szsr0RvvEzTrfcZRDRdJB+saYvIzHKu+1KiMaphpaZRxL/B8C17nK4lXIND
- 5W5iL5YyG94DwOrXeT6A6n1Sje0lSSyR5xqPs+kpFEYkwTWmDT12f9kXD3kAkufpQI
- 6gnmw6UhyvmYKom5DY7ECNpupaFbP0vtsHy/hz2LwtgAFS8e/x4LMVKaqoN8FbGJ3G
- dYN3/OHJyRueA==
+ b=AhFelVEjfmme1YPI9SS+ALRaQvFt+2IMeiCSN+WgOjeEnv+/SuTNf01cZy6ptDUYR
+ qv/tiHy46NDQyvohLFArJuLSsfy6vAVfAjVqoLBPTlszEbf04FN8CMxzRsJ9d1yi7R
+ brtXqyu94yBnimenwmhETIFopB0rebgPYtlPWVNdluMDvPyVu17HWeotXEe7kmazyQ
+ HNRJ/F03FfU1PSeSYm1vlKEpMz6j4DKS/RCdxpK0FURFwbqKlYl3v8M1e9YzI023ra
+ ifwZgVYhoaeH5afzbCuCVdd7EprCvOeqhwy3A/kfibbP3cMGU1Y7oDipu3gRnSFzLC
+ 3i7iv0Q6NGlsg==
 From: David Hildenbrand <david@kernel.org>
 To: Andrew Morton <akpm@linux-foundation.org>, 
  Mike Rapoport <rppt@kernel.org>, Peter Xu <peterx@redhat.com>, 
@@ -65,8 +65,8 @@ Cc: linux-mm@kvack.org, linux-kernel@vger.kernel.org,
 In-Reply-To: <20261117-uffd-state-fixes-v3-0-b617009d1a4a@columbia.edu>
 References: <20261117-uffd-state-fixes-v3-0-b617009d1a4a@columbia.edu>
 Subject: Re: (subset) [PATCH v3 0/9] userfaultfd: assorted fixes (part 1)
-Message-Id: <179501517242.13206.4721668826806594112.b4-ty@b4>
-Date: Wed, 18 Nov 2026 16:19:32 +0100
+Message-Id: <179501525761.13527.5348420494097607881.b4-ty@b4>
+Date: Wed, 18 Nov 2026 16:20:57 +0100
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
@@ -108,7 +108,7 @@ On Tue, 17 Nov 2026 23:28:40 -0500, Tal Zussman wrote:
 Applied, thanks!
 
 tree: mm/core.git
-branch: migrate-7.5.misc
+branch: thp-7.5.misc
 
 Applied patches will appear soon in mm-next, followed by linux-next.
 
@@ -123,8 +123,8 @@ Note that commit hashes shown below are subject to change due to rebase,
 trailer updates or similar. Further, this is not a guarantee that the
 patches will go upstream. If in doubt, please check the listed branch.
 
-[4/9] mm/migrate: warn on a writable migration entry with the uffd bit set
-      https://git.kernel.org/mm/core/c/ec53fccd
+[6/9] mm/huge_memory: build the moved huge zero PMD from the destination VMA
+      https://git.kernel.org/mm/core/c/ec36bf72
 
 -- 
 Cheers,
