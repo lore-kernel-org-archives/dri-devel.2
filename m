@@ -2,64 +2,132 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3908F606A31C
-	for <dri-devel@archiver.kernel.org>; Wed, 18 Nov 2026 04:38:48 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E5798606A335
+	for <dri-devel@archiver.kernel.org>; Wed, 18 Nov 2026 04:39:00 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=Y6IEx5ou
+	dkim=pass (2048-bit key, unprotected) header.d=Nvidia.com header.i=@Nvidia.com header.a=rsa-sha256 header.s=selector2 header.b=XDmwknaa
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 65F1210E4F8;
-	Wed, 18 Nov 2026 04:38:42 +0000 (UTC)
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.20])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 9FA4D10E271;
- Wed, 18 Nov 2026 04:38:30 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1794976710; x=1826512710;
- h=date:from:to:cc:subject:message-id:references:
- mime-version:content-transfer-encoding:in-reply-to;
- bh=lEGmLiFPnr7cPZZSIE7NpgVKa/gGgyiJ8eU6d3Z1uXE=;
- b=Y6IEx5ouniEAethKLLn1hjofRtC3kjX16ofdYLiRxQqSetpvODUgRePO
- dZNmXU6FoTMiKqZiaTI/TP/xE9Iq517rHMt9yfJnYzhoeycrr5t2D2Tj7
- 7G3NX8z4OmFjkm2cKtgDzmmxO5KC2oYCTAYk+4G1kOPbKvQHO9EvkVLJv
- 5Zai1INW3rje5EXNbtkd7+olJrqunBJwJQjcwd5ufd+8RTHObl15W51Ki
- 9fonjA+FFMBLNCtYF1k6KMsIF7S8bJm/O7yrB/Ub5PqKdFkKdXVAcuV0h
- VGPEWOdkwAYhv1ftvSZ3WPK7kCJZ6DSCcqUn4nO9ItejyKJlBXylAVC9z w==;
-X-CSE-ConnectionGUID: Y+iqbKhJRt2+uQWJCwQiQQ==
-X-CSE-MsgGUID: fV2jROzZSsuHKTtXTCmO1A==
-X-IronPort-AV: E=McAfee;i="6800,10657,11969"; a="3812805"
-X-IronPort-AV: E=Sophos;i="6.27,219,1787036400"; 
-   d="scan'208";a="3812805"
-Received: from orviesa003.jf.intel.com ([10.64.159.143])
- by orvoesa112.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 17 Nov 2026 20:38:30 -0800
-X-CSE-ConnectionGUID: oiHqSbkXR5uTXEKfPj2y5g==
-X-CSE-MsgGUID: De7/jgGqQ8yWL3TmwBeqvg==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,219,1787036400"; 
-   d="scan'208";a="9893993"
-Received: from abityuts-desk1.ger.corp.intel.com (HELO localhost)
- ([10.245.244.117])
- by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 17 Nov 2026 20:38:28 -0800
-Date: Wed, 18 Nov 2026 06:38:24 +0200
-From: Ville =?iso-8859-1?Q?Syrj=E4l=E4?= <ville.syrjala@linux.intel.com>
-To: Hanson Wang <hanson.wang@ugreen.com>
-Cc: intel-gfx@lists.freedesktop.org, jani.nikula@linux.intel.com,
- rodrigo.vivi@intel.com, joonas.lahtinen@linux.intel.com,
- tursulin@ursulin.net, intel-xe@lists.freedesktop.org,
- dri-devel@lists.freedesktop.org
-Subject: Re: [PATCH] drm/i915/bw: sync global BW after non-atomic plane disable
-Message-ID: <av0rwG6o5gzMXGDB@intel.com>
-References: <20261118033312.902366-1-hanson.wang@ugreen.com>
+	by gabe.freedesktop.org (Postfix) with ESMTP id 2427410E60D;
+	Wed, 18 Nov 2026 04:38:55 +0000 (UTC)
+Received: from BYAPR05CU005.outbound.protection.outlook.com
+ (mail-westusazon11010070.outbound.protection.outlook.com [52.101.85.70])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id D83E610E70F;
+ Wed, 18 Nov 2026 04:38:48 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=ON1Rv2RnRXg+gdbiL/34PZ1EkR5sUBoK3zI+zHI6vryJrsdofHgsqBmwisOXE3m8HO+2eqAjUm8rCXtyXp3DrbWDTOJd+jep+6AYTQJozKOKazEWC1/JfY60mprotXPOLtTckQ/DIbW71DNpOvNvZlAXxG6ZBiTFi0lhlSlDU0dJdeSq5xHnFwxS0ywqekWw85iEM3XAba6Xo0p60bIZMSd5yJnPg3fCOBrJLbs6Y4Vz4InLuTNPGWNyR3Wy0VgalnU8BvTvv4OOp32WhiPt941SHYBztGck2IBPxtmXj8YQ9Wge7rAdeHNSyHfe1c846uW9s6XIHRs61Wpk+u5GMQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=gip4o+Nr+9/TDdW3MEs2uxDKq1ONGg8t0KGMuS0pH7U=;
+ b=B4YbOSkWCU14ZP+GWS+i7oBAzHDP5PB6OaOz+th5XhYWZaQlG4g7QG3s7yBtGdWuyTOVKrakgP/yQNOqF0CEN4Xpg97Cs2KTgaFS0OGYzzESAbpxXZPKnbvrUQks6gHzK5s/qJ4gJ9ReBFESObzNt0Tbq9N/8R7H0kuHskpjUHvBf7ApxD36r8R3zf+ILMQlnNmaqU5+MWGJiffcLkvndPhMZhUkA9LhISEt1qLdEqo+HqMh/oofAKeNTl1lOj2mfQy+9KqJrXZImEd8gmJfh2KD8OAHcjZa6EukUhJMXLD1ULqaB3hYjz6+eFqUTv6b9jMtxZ6dymMfbKbQIpBJKA==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
+ dkim=pass header.d=nvidia.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
+ s=selector2;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=gip4o+Nr+9/TDdW3MEs2uxDKq1ONGg8t0KGMuS0pH7U=;
+ b=XDmwknaaT0ONfPp+S9GSS6x51+oYzSm/Ar3xXN3xe+PAnos7+aWsWO5kPFk5OuzcBRMpry+frxu+DqqvxInlvw0mzbhuToszeosE+D5lz5j5rMXVIt+J8DPZEXIQlllN9gHW1xFq8GABFy68qEsPs3sJfES5OTETjqJj6r5dpxieirwTSJKcWwZTxDgp4c129xmPqy9YmifpBeSXp/3NIrfGsMZCkUr0FXmlA1yfamjBiKx33PVUuvS4+Pm5zunGOk+An9HnmWUGB5ztDXGm2jI19tRXXBtlCnoD/dLg0R/I6vWiisxZ1Z1y/i//ylMmLKIHWpDQzW0y4qAtKkY9eA==
+Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=nvidia.com;
+Received: from DS0PR12MB6413.namprd12.prod.outlook.com (2603:10b6:8:ce::10) by
+ SA3PR12MB177419.namprd12.prod.outlook.com (2603:10b6:806:53f::24)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.615.14; Wed, 18 Nov
+ 2026 04:38:46 +0000
+Received: from DS0PR12MB6413.namprd12.prod.outlook.com
+ ([fe80::e82a:6673:4142:37fa]) by DS0PR12MB6413.namprd12.prod.outlook.com
+ ([fe80::e82a:6673:4142:37fa%5]) with mapi id 15.21.0615.009; Wed, 18 Nov 2026
+ 04:38:46 +0000
+Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=UTF-8
+Date: Wed, 18 Nov 2026 13:38:42 +0900
+Message-Id: <DMY256F5KDHV.3LW9NKCD2HB54@nvidia.com>
+From: "Eliot Courtney" <ecourtney@nvidia.com>
+To: "Alexandre Courbot" <acourbot@nvidia.com>, "Danilo Krummrich"
+ <dakr@kernel.org>, "Alice Ryhl" <aliceryhl@google.com>, "David Airlie"
+ <airlied@gmail.com>, "Simona Vetter" <simona@ffwll.ch>
+Cc: "John Hubbard" <jhubbard@nvidia.com>, "Alistair Popple"
+ <apopple@nvidia.com>, "Timur Tabi" <ttabi@nvidia.com>, "Eliot Courtney"
+ <ecourtney@nvidia.com>, "Zhi Wang" <zhiw@nvidia.com>,
+ <nova-gpu@lists.linux.dev>, <dri-devel@lists.freedesktop.org>,
+ <linux-kernel@vger.kernel.org>, "dri-devel"
+ <dri-devel-bounces@lists.freedesktop.org>
+Subject: Re: [PATCH 1/2] gpu: nova-core: gsp: cmdq: let GMC commands set
+ their completion timeout
+X-Mailer: aerc 0.22.0-0-gc2f86b7abde3
+References: <20261117-cmdq-timeout-v1-0-4b50d0be335e@nvidia.com>
+ <20261117-cmdq-timeout-v1-1-4b50d0be335e@nvidia.com>
+In-Reply-To: <20261117-cmdq-timeout-v1-1-4b50d0be335e@nvidia.com>
+X-ClientProxiedBy: TY4PR01CA0069.jpnprd01.prod.outlook.com
+ (2603:1096:405:370::12) To DS0PR12MB6413.namprd12.prod.outlook.com
+ (2603:10b6:8:ce::10)
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=iso-8859-1
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <20261118033312.902366-1-hanson.wang@ugreen.com>
-X-Patchwork-Hint: comment
-Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
- krs Bertel Jungin Aukio 5, 02600 Espoo, Finland
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: DS0PR12MB6413:EE_|SA3PR12MB177419:EE_
+X-MS-Office365-Filtering-Correlation-Id: f0efda94-9c82-4d01-f89b-08df452dd4ee
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+ ARA:13230040|376014|366016|10070799003|1800799024|23010399003|10067099003|56012099006|11063799006|4143699003|261026140227099003|261028144727099003|261022105027099003|261021121427099003|261102123227099003|18002099003|22082099003|3023799007;
+X-Microsoft-Antispam-Message-Info: N9EyHDruU6UtGdkY+4o7Gobremp7rCG4fk69hkmV1xakIXjH5PY6Iv6xA3N2i8ir5boPGeW5eX/U8nTHWrFoR0MgB1lZhWFwgzzHrWTrS174I2A0gx83aC/Dhg5eWI1F8TU8XT6L9oBu0e33e7Fgc63scfXcqh4D243XeLYKNx9zzOsd3XJg2L+Q8saPESd8Q3hIQdR7bvIsOfSOt9bZ2IYcUiu6JccFLbG9fz0xu31REDgJ6eScF+ATo12ykBA0txSYNg9tbWml6jwzURA3egk0MnE4LK53DIHb8ZkS2Wek2q9Tb9l2vyM9hFOibvy4Zf9Ew6wIJmNoWW0jN3JShX7dfdznUiXlMmCwRyQSrGfeK/4Ui5Z3buWQMO5VuoB+eq8Vn/MVTZjOpAgWTy1WjbXlV9UdfOpU39zfJFPJ585Dt9N8UO41d6dttFwrXA9KQatynW/m+ETEGmbf8fuoZvUkGB7NAZsxJTzfTdJjvC7/LXt4yEQzT6maBjwLJSht2a06cA1hRXi6lSk1R+CFQauchiVsUgMxm3k3LMCnDY6sZ3l6+ns/OPy/wDbcFctwThqA24I3dAqq6SYxe7YLQkfqTXw2WcoD7OG/oL8CwPbZc+jW8VYkS/ncHac93p/0Zh+8dx4vmIXpwnI2pzxjngB8HNddsJvsDbHi2PHa0Zs=
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:DS0PR12MB6413.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230040)(376014)(366016)(10070799003)(1800799024)(23010399003)(10067099003)(56012099006)(11063799006)(4143699003)(261026140227099003)(261028144727099003)(261022105027099003)(261021121427099003)(261102123227099003)(18002099003)(22082099003)(3023799007);
+ DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 2
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?azV1M1NWWWMyd2VtUnM0dUhyRVZNY0VoRlVabWtIR2hsaVNrd3RXOUsyZXJl?=
+ =?utf-8?B?MXpwYkplRHJGdENzWHV4VFpkNGd4ajJrNE8ydXlBajFLNFFJYTJqckIxb0V1?=
+ =?utf-8?B?V2djbm5uWmdtek81bkFrMWVidnNNZjUyaHVzcDBXcG92bmF6Ty90QVhWR05P?=
+ =?utf-8?B?QVlBRnJTZGcrUGo4TWV0QnRaWEhpYWg0U0xXVVRRTHlIRTR3Y2xwVE52UXkw?=
+ =?utf-8?B?M0taOGFNRVZtb3I0Z3ZDM3V3NVJsbFVUaFJ1aFlUYUhMNkwrandFSE1hTVRT?=
+ =?utf-8?B?OXUwZWdDcHFzMWdUSEo0SHMvZzgzem96S0dXWFVIVGovK2dROHRESkE5eTlm?=
+ =?utf-8?B?MVg5N0Z4bFV0TCt5TkVPaXFJSEl1S29vTnRRK1FDY1lldythMTA4TTZFWTVZ?=
+ =?utf-8?B?a2laZFh6eHlsbEZKV05qRUxTaVRQd2dWcjNBT0pzWkFyK0ZGeTR6UjU1aHcz?=
+ =?utf-8?B?K3REVzhxcDBWN0FCT1ZuNVZQYml2UXR3VERMaG55eEpUV1B2WUt3WXhiS1Q3?=
+ =?utf-8?B?S0RNeDJPb0ZPOXl4ekNVWjJrVHc1SjBnTUczYWR5clM3dHZCR2ZOODdwc3hM?=
+ =?utf-8?B?ZzZCNFdyQUNZUkE2SzNVYlQya1ZUNTdHSnFmZDhFSnFVc1BOc1JlMVNJaUwz?=
+ =?utf-8?B?SXVQT3hPdE40V3A3YjRGVC9OZ0hXRkJBN05WcVY4NkY3VmoyVWdLMTdOdGpZ?=
+ =?utf-8?B?M0xQeDFkVmdORjVlTnk3aWVZcDBwWUxSdlVmRGFvTEdyUHM3MDNmTUt4ZEFI?=
+ =?utf-8?B?MjYrRWpzMGRGV3Bod0JqRHBlamVMM21lb2Y3cjE5SXFaQmVhaDBWeC9yRFhY?=
+ =?utf-8?B?Z0dJSHpJMFZNYWp5N3dTbC9mRElhM3JRMDk3aUNLYndZdWlCVkxaTHYwWlBZ?=
+ =?utf-8?B?KzZxaExkcW9RaWJLcFZ6b1dxeVVTd2t6VkJzV21UWHVxRy96R3FxNktZQUp0?=
+ =?utf-8?B?TjUwVlBVM1NZKzVLZm9CR1VYcDdWRFBIa0NwOUhsSGtiZnRiM0dhckpBYW16?=
+ =?utf-8?B?TTNrWGhWd1NOSFl0OGZVRWxkSm9BeGZCeDRoVGRHMGFmVkVmTU5YbGJhWEdX?=
+ =?utf-8?B?b2FkejM0cWpOYTRxT0JWVDB5V0syWlRUVUNYTUdUY1VhMC9CT1BBcWtmcXgz?=
+ =?utf-8?B?NmV0eS9pa0UvWnM3WGlabnh0bWN0YzNKeU40MWxRVjV6SWVmMzdPUWg3dXIv?=
+ =?utf-8?B?ekwrbkJoOHlBS0h5QVdCdWFIUFpBUTlhTnoydnBFa3htTWNmbUM5VFI2VitX?=
+ =?utf-8?B?Tm5rRjgxclRpVUYzbENabVp5SXEvdDgxNHo2dkh0SHdpU2FUSGRmV1RzMDFq?=
+ =?utf-8?B?TVJpRFZnUy9kL3JDR3lCZDZYQ0JDb2t4VUdMM3F4Um9mTVhPSmxIN3dyRy9t?=
+ =?utf-8?B?Y3FMeUpRRnVWTURyUGlqczNDSW5IVVhMTVoxRjR3Y3JmZkdaS0FPUktkTXp6?=
+ =?utf-8?B?cjlxRkQrWFhsMlN0UjBlaEVkbnBWQ2lGeVhuYWkvYUJRSWk0NnVzSnUyUS8x?=
+ =?utf-8?B?TkpjM0hSQ3kxeTF0M3pkUi9sNG1HaktmMnVrcjVicDAxdHZ0RndzYnNObjZn?=
+ =?utf-8?B?VktBM2ZOcC9FNUU5QS90dnF2MWRubU9uczZzZHZJelZjUDVydE5MemhrRnpV?=
+ =?utf-8?B?VDZBb1RpZ0M0b05ZN2k1dmlZNFNmaEJkTjYyUFRsOE5Qajg1QlJtcHkrNXJC?=
+ =?utf-8?B?a1gzSlFQWEVxTXhLTDFYYWtDaFJ5L1VmVWVJUjN4SmN1YzVLaC9SczdUOGFs?=
+ =?utf-8?B?aWVWanhEeDB1UTNiaTRqK2xLK3FESG5xd2NJNGJIcGd5RHRWa2dwbTJ1YTlU?=
+ =?utf-8?B?dVhvOUhuejdLTC9aL2tCbmwvYTJ4bk4rc0p3S1RNck9Gb3ltWU15blFwQjhO?=
+ =?utf-8?B?RE0rVFdZbWNyWG9mWWtxUFRRWldzREp3R3dHT3d0UWV3Q3Q1elJWQVFGclNS?=
+ =?utf-8?B?cXBMYTU3RW9CWVZueHpCTHdFWG1zSG5RdTdXVGxrMmw5R1BjYTJjYWZrdW84?=
+ =?utf-8?B?S1JaNEhqZWdvTEp3NndCbTcyVnBXUGw4Umc0YXVVZUc2NVg4R056K3NOcCtq?=
+ =?utf-8?B?eUdXQnAvSzVCZHI5Rit3K1QzUVdNYytTNmZQM2ExNE5oNkJ4RmtNVmZYQ3Bq?=
+ =?utf-8?B?MVRsd3U4ZmtVNkdzR0JFcWVIc3ZUMWZ0KzFYUU04YXRZYStKZTcveU03SEhT?=
+ =?utf-8?B?THZCc1NtMUkvd3JRVnk3QTBLaEFRakRFcmErREdzTE9rNGNxRytja3FQaEk3?=
+ =?utf-8?B?UFBZZXlWMXo4R1JFNVhTRFQva2prWndZRW1teGp2anZRbkFVTVRTVThvQ3M0?=
+ =?utf-8?B?eUZEVUFDMnNYWXBRelZqUERmVmFwNlNIaENBLy9CT2pKMFhvTXRxRnh6NmFC?=
+ =?utf-8?Q?zMyt5ngVbTILcHtn7kXHl/Wm1kejBXGnpHKHd/mLeIun6?=
+X-MS-Exchange-AntiSpam-MessageData-1: 8REr5F/Ft/3auA==
+X-OriginatorOrg: Nvidia.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: f0efda94-9c82-4d01-f89b-08df452dd4ee
+X-MS-Exchange-CrossTenant-AuthSource: DS0PR12MB6413.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 18 Nov 2026 04:38:46.0712 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: zF0s3et0m0khYCjpZxVfkvP2CJA4zDCyeT2OlkluNrzSpwcs0QS2zDE5LJAJMOd5t37V3KnfDjxfEGXsR67RPA==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SA3PR12MB177419
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -71,196 +139,27 @@ List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-13.8 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
-	DKIM_SIGNED,DKIM_VALID,HEADER_FROM_DIFFERENT_DOMAINS,
-	INCLUDES_CR_TRAILER,INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,
-	SPF_PASS autolearn=unavailable autolearn_force=no version=4.0.1
+X-Spam-Status: No, score=-10.8 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
+	DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
+	INCLUDES_CR_TRAILER,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS
+	autolearn=unavailable autolearn_force=no version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-On Wed, Nov 18, 2026 at 11:33:12AM +0800, Hanson Wang wrote:
-> Hardware readout copies the firmware plane configuration into the
-> global bandwidth state. skl_dbuf_sanitize() may then disable those
-> planes through intel_plane_disable_noatomic(), which clears the
-> CRTC-local active_planes, data_rate and DDB entries but does not
-> update the global state.
-> 
-> A later atomic modeset sees both the old and new per-CRTC bandwidth
-> as zero and skips the global update. The sanitized pipe therefore
-> keeps contributing a phantom data rate and an active plane to the
-> QGV check.
-> 
-> Do not force !hw.active to zero. A logically enabled but inactive CRTC
-> must retain its bandwidth reservation so that reactivating it cannot
-> fail due to insufficient bandwidth. After the non-atomic disable,
-> recompute the global intel_bw_state and the separate dbuf bandwidth
-> state from the updated CRTC-local plane and DDB state.
-> 
-> Reproduced on two N5105 systems from different board vendors running
-> 6.18.15. After DBUF sanitization, pipe B retained 196000 kB/s and one
-> plane in the global BW state despite its local plane state being
-> cleared and the pipe subsequently being disabled.
-> 
-> With the corresponding fix backported to 6.18.15 on one system, the
-> same sanitization path updated the global accounting to 0 kB/s and
-> zero planes. Subsequent QGV checks no longer included the stale
-> bandwidth.
-
-I think what we might want to do is add a new
-intel_display_update_hw_state() wrapper that calls all the
-intel_foo_update_hw_state() functions. Then we just call that
-after any disable_noatomic() stuff is done. Not sure if a single
-call would be sufficient once we've sanitized everything, or if
-we'd need to do a few extra calls during the sanitization
-sequence.
-
-And if we're missing any intel_foo_update_hw_state()
-implementations then we should just add them.
-
-> 
-> Link: https://lore.kernel.org/intel-gfx/20261016014704.3876294-1-hanson.wang@ugreen.com
-> 
-> Signed-off-by: Hanson Wang <hanson.wang@ugreen.com>
+On Tue Nov 17, 2026 at 12:06 AM JST, Alexandre Courbot wrote:
+> Every wait on the message queue uses `Cmdq::RECEIVE_TIMEOUT`, but some
+> GMC commands (notably r000's GSP_INIT, and a few vGPU commands) might
+> take longer to complete.
+>
+> Make the timeout a parameter of `await_msg_with`, and take it from a new
+> `CommandToGsp::COMPLETION_TIMEOUT` associated constant when waiting for
+> the reply to a GMC command. The constant defaults to
+> `Cmdq::RECEIVE_TIMEOUT`, so existing commands are unaffected.
+>
+> No functional change intended.
+>
+> Signed-off-by: Alexandre Courbot <acourbot@nvidia.com>
 > ---
-> Testing:
-> - The corresponding 6.18.15 backport was tested on one N5105 system.
-> - This mainline version has not been runtime-tested.
-> - The original high-bandwidth application failure was not replayed.
-> 
-> diff --git a/drivers/gpu/drm/i915/display/intel_bw.c b/drivers/gpu/drm/i915/display/intel_bw.c
-> index 99fd84a5ac13..84fe1f68e312 100644
-> --- a/drivers/gpu/drm/i915/display/intel_bw.c
-> +++ b/drivers/gpu/drm/i915/display/intel_bw.c
-> @@ -1444,6 +1444,20 @@ static void intel_bw_crtc_update(struct intel_bw_state *bw_state,
->  		    bw_state->num_active_planes[crtc->pipe]);
->  }
->  
-> +void intel_bw_crtc_update_noatomic(struct intel_crtc *crtc)
-> +{
-> +	struct intel_display *display = to_intel_display(crtc);
-> +	struct intel_bw_state *bw_state =
-> +		to_intel_bw_state(display->bw.obj.state);
-> +	const struct intel_crtc_state *crtc_state =
-> +		to_intel_crtc_state(crtc->base.state);
-> +
-> +	if (DISPLAY_VER(display) < 11)
-> +		return;
-> +
-> +	intel_bw_crtc_update(bw_state, crtc_state);
-> +}
-> +
->  void intel_bw_update_hw_state(struct intel_display *display)
->  {
->  	struct intel_bw_state *bw_state =
-> @@ -1456,12 +1470,9 @@ void intel_bw_update_hw_state(struct intel_display *display)
->  	bw_state->pipe_sagv_reject = 0;
->  
->  	for_each_intel_crtc(display, crtc) {
-> -		const struct intel_crtc_state *crtc_state =
-> -			to_intel_crtc_state(crtc->base.state);
->  		enum pipe pipe = crtc->pipe;
->  
-> -		if (DISPLAY_VER(display) >= 11)
-> -			intel_bw_crtc_update(bw_state, crtc_state);
-> +		intel_bw_crtc_update_noatomic(crtc);
->  
->  		/* initially SAGV has been forced off */
->  		bw_state->pipe_sagv_reject |= BIT(pipe);
-> diff --git a/drivers/gpu/drm/i915/display/intel_bw.h b/drivers/gpu/drm/i915/display/intel_bw.h
-> index 99b447388245..41ace27608dc 100644
-> --- a/drivers/gpu/drm/i915/display/intel_bw.h
-> +++ b/drivers/gpu/drm/i915/display/intel_bw.h
-> @@ -30,6 +30,7 @@ void intel_bw_init_hw(struct intel_display *display);
->  int intel_bw_init(struct intel_display *display);
->  int intel_bw_atomic_check(struct intel_atomic_state *state);
->  void intel_bw_update_hw_state(struct intel_display *display);
-> +void intel_bw_crtc_update_noatomic(struct intel_crtc *crtc);
->  void intel_bw_crtc_disable_noatomic(struct intel_crtc *crtc);
->  
->  bool intel_bw_pmdemand_needs_update(struct intel_atomic_state *state);
-> diff --git a/drivers/gpu/drm/i915/display/intel_dbuf_bw.c b/drivers/gpu/drm/i915/display/intel_dbuf_bw.c
-> index 6cf674c586dc..453ceaa52e26 100644
-> --- a/drivers/gpu/drm/i915/display/intel_dbuf_bw.c
-> +++ b/drivers/gpu/drm/i915/display/intel_dbuf_bw.c
-> @@ -226,21 +226,29 @@ int intel_dbuf_bw_calc_min_cdclk(struct intel_atomic_state *state,
->  	return 0;
->  }
->  
-> -void intel_dbuf_bw_update_hw_state(struct intel_display *display)
-> +void intel_dbuf_bw_crtc_update_noatomic(struct intel_crtc *crtc)
->  {
-> +	struct intel_display *display = to_intel_display(crtc);
->  	struct intel_dbuf_bw_state *dbuf_bw_state =
->  		to_intel_dbuf_bw_state(display->dbuf_bw.obj.state);
-> -	struct intel_crtc *crtc;
-> +	const struct intel_crtc_state *crtc_state =
-> +		to_intel_crtc_state(crtc->base.state);
->  
->  	if (DISPLAY_VER(display) < 9)
->  		return;
->  
-> -	for_each_intel_crtc(display, crtc) {
-> -		const struct intel_crtc_state *crtc_state =
-> -			to_intel_crtc_state(crtc->base.state);
-> +	skl_crtc_calc_dbuf_bw(&dbuf_bw_state->dbuf_bw[crtc->pipe], crtc_state);
-> +}
->  
-> -		skl_crtc_calc_dbuf_bw(&dbuf_bw_state->dbuf_bw[crtc->pipe], crtc_state);
-> -	}
-> +void intel_dbuf_bw_update_hw_state(struct intel_display *display)
-> +{
-> +	struct intel_crtc *crtc;
-> +
-> +	if (DISPLAY_VER(display) < 9)
-> +		return;
-> +
-> +	for_each_intel_crtc(display, crtc)
-> +		intel_dbuf_bw_crtc_update_noatomic(crtc);
->  }
->  
->  void intel_dbuf_bw_crtc_disable_noatomic(struct intel_crtc *crtc)
-> diff --git a/drivers/gpu/drm/i915/display/intel_dbuf_bw.h b/drivers/gpu/drm/i915/display/intel_dbuf_bw.h
-> index 61875b9d5969..434f3c605995 100644
-> --- a/drivers/gpu/drm/i915/display/intel_dbuf_bw.h
-> +++ b/drivers/gpu/drm/i915/display/intel_dbuf_bw.h
-> @@ -32,6 +32,7 @@ int intel_dbuf_bw_calc_min_cdclk(struct intel_atomic_state *state,
->  int intel_dbuf_bw_min_cdclk(struct intel_display *display,
->  			    const struct intel_dbuf_bw_state *dbuf_bw_state);
->  void intel_dbuf_bw_update_hw_state(struct intel_display *display);
-> +void intel_dbuf_bw_crtc_update_noatomic(struct intel_crtc *crtc);
->  void intel_dbuf_bw_crtc_disable_noatomic(struct intel_crtc *crtc);
->  
->  #endif /* __INTEL_DBUF_BW_H__ */
-> diff --git a/drivers/gpu/drm/i915/display/intel_display.c b/drivers/gpu/drm/i915/display/intel_display.c
-> index b897678a93c0..b81d8f288810 100644
-> --- a/drivers/gpu/drm/i915/display/intel_display.c
-> +++ b/drivers/gpu/drm/i915/display/intel_display.c
-> @@ -67,6 +67,7 @@
->  #include "intel_cursor.h"
->  #include "intel_cursor_regs.h"
->  #include "intel_cx0_phy.h"
-> +#include "intel_dbuf_bw.h"
->  #include "intel_ddi.h"
->  #include "intel_de.h"
->  #include "intel_dip.h"
-> @@ -679,6 +680,14 @@ void intel_plane_disable_noatomic(struct intel_crtc *crtc,
->  
->  	skl_wm_plane_disable_noatomic(crtc, plane);
->  
-> +	/*
-> +	 * Keep the global bandwidth states in sync with the updated
-> +	 * CRTC-local plane and DDB state. Otherwise a later atomic check
-> +	 * may skip the update when its old and new inputs are identical.
-> +	 */
-> +	intel_bw_crtc_update_noatomic(crtc);
-> +	intel_dbuf_bw_crtc_update_noatomic(crtc);
-> +
->  	if ((crtc_state->active_planes & ~BIT(PLANE_CURSOR)) == 0 &&
->  	    hsw_ips_disable(crtc_state)) {
->  		crtc_state->ips_enabled = false;
-> -- 
-> 2.34.1
 
--- 
-Ville Syrjälä
-Intel
+Reviewed-by: Eliot Courtney <ecourtney@nvidia.com>
+
