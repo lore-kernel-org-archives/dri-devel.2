@@ -2,31 +2,31 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6B47F606A32A
-	for <dri-devel@archiver.kernel.org>; Wed, 18 Nov 2026 23:38:11 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 78F5060A2605
+	for <dri-devel@archiver.kernel.org>; Wed, 18 Nov 2026 23:38:17 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=oL2HLxjN
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=FhIgaoUg
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 662DB1120D0;
-	Wed, 18 Nov 2026 23:38:05 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 7D43E1120CF;
+	Wed, 18 Nov 2026 23:38:11 +0000 (UTC)
 Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id CAA4A1120CD
- for <dri-devel@lists.freedesktop.org>; Wed, 18 Nov 2026 23:37:56 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 0AC9A1120CD
+ for <dri-devel@lists.freedesktop.org>; Wed, 18 Nov 2026 23:38:05 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id 985B6431E0;
- Wed, 18 Nov 2026 23:37:56 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id E2DF61F000C4;
- Wed, 18 Nov 2026 23:37:52 +0000 (UTC)
+ by sea.source.kernel.org (Postfix) with ESMTP id E5E904243A;
+ Wed, 18 Nov 2026 23:38:04 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 05BF61F000C4;
+ Wed, 18 Nov 2026 23:38:00 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1795045076;
- bh=+LKHbm/MJJ4OH4+MNuXcJRoFW26TR+G93lGGnClo71g=;
+ s=k20260515; t=1795045084;
+ bh=ib5I5MU9U2dx9AKOKxzo3p5UBRpPpSLOp77gYWySKQQ=;
  h=From:To:Cc:Subject:Date:In-Reply-To:References;
- b=oL2HLxjNtmbhGxaNfxqhuyyNUBnyo3hp7vo/6XpmRT/gGgGMbT8QHawB+J6/KOM2W
- g5yZn6M8FgU8cYEUXyNlNXmls5aYiAmZX7fZUMJaORuvTy5eaXfBmmfiAYhUv5CjAR
- BhoFqlicXzrOQgZPJf4Ulbcz6YrxFs+i2APgSeOrmYKdDiWR8ggAN71xg58M51hd/g
- Tu46LvzF7EZvJeRebBJa5NFOJeANoZ86tmt7pSSx3Q/6nlTTp/o0fUG6ltMBLH8mp3
- in4yLZkpQq2Hj3l/7w/GHsQdU9xywrJ36d27Taw2lbyw8o1qack48O+vMYQQEpW9Il
- ZWffGabUBSKgg==
+ b=FhIgaoUgmfy0i8qseK8P9v0BlAgMeYl3Rn69fhAbxgx/i2w7AR4qkbgUk8w4J8mao
+ +ubUrCjpDe/wgC0Qjhwuv3yDDD8g38uC7lGPOejDyJJ1nUsH/zBYs2l9FnNl1ZXK6k
+ rTT41oIvW4kAbtNJ2z6oV0JLUljd7/Be02trfyRbU74O6xgo0mKlYS/hBNDKdBrQEP
+ s/iz2qz5FzCOx1C0s8W4TgNeIoRSJ4fPN097yqG91vt2RFXdgScE/1xgmmubUmzpMc
+ 0j3Ac9VlWhu7Ro9KAXeBmIZUa5dv8ZCAIg/rrdzYLYD/QsdGwPkwFEc/+FLGVXawMg
+ TjIIQGz+a3omg==
 From: Danilo Krummrich <dakr@kernel.org>
 To: dakr@kernel.org, aliceryhl@google.com, daniel.almeida@collabora.com,
  airlied@gmail.com, simona@ffwll.ch, lossin@kernel.org, gary@garyguo.net,
@@ -35,9 +35,9 @@ To: dakr@kernel.org, aliceryhl@google.com, daniel.almeida@collabora.com,
  acourbot@nvidia.com, work@onurozkan.dev
 Cc: dri-devel@lists.freedesktop.org, rust-for-linux@vger.kernel.org,
  linux-kernel@vger.kernel.org
-Subject: [PATCH 1/4] drm/tyr: name resource lifetimes after their types
-Date: Thu, 19 Nov 2026 00:37:02 +0100
-Message-ID: <20261118233727.3147222-2-dakr@kernel.org>
+Subject: [PATCH 3/4] drm/tyr: use pin-init self-referential support
+Date: Thu, 19 Nov 2026 00:37:04 +0100
+Message-ID: <20261118233727.3147222-4-dakr@kernel.org>
 X-Mailer: git-send-email 2.56.1
 In-Reply-To: <20261118233727.3147222-1-dakr@kernel.org>
 References: <20261118233727.3147222-1-dakr@kernel.org>
@@ -62,401 +62,718 @@ X-Spam-Status: No, score=-18.8 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-The firmware, buffer, VM and MMU types use 'drm for their resource
-lifetimes, even though each parameter is local to its type.
+Now that pin-init supports self-referential structs, Arc is no longer
+needed just to share resources whose lifetimes are bounded by their
+owners.
 
-Rename these parameters to reflect the respective type's scope in
-preparation for converting the resource ownership to self-referential
-pin-init.
+Use pin-init's self-referential support to share the MMIO mapping, MMU
+and firmware VM through borrows instead of Arc, avoiding their separate
+allocations and reference counts.
 
+Hide the invariant resource lifetime shared by the VM and its sections
+behind an existential lifetime that outlives 'fw, so Firmware only needs
+a single lifetime parameter.
+
+Cc: Gary Guo <gary@garyguo.net>
 Signed-off-by: Danilo Krummrich <dakr@kernel.org>
 ---
- drivers/gpu/drm/tyr/fw.rs                | 26 +++++++--------
- drivers/gpu/drm/tyr/gem.rs               |  8 ++---
- drivers/gpu/drm/tyr/mmu.rs               | 24 +++++++-------
- drivers/gpu/drm/tyr/mmu/address_space.rs | 30 ++++++++---------
- drivers/gpu/drm/tyr/vm.rs                | 42 ++++++++++++------------
- 5 files changed, 65 insertions(+), 65 deletions(-)
+ drivers/gpu/drm/tyr/driver.rs            |  38 +++---
+ drivers/gpu/drm/tyr/fw.rs                | 152 ++++++++++++-----------
+ drivers/gpu/drm/tyr/gem.rs               |  15 +--
+ drivers/gpu/drm/tyr/mmu.rs               |  36 +++---
+ drivers/gpu/drm/tyr/mmu/address_space.rs |  14 +--
+ drivers/gpu/drm/tyr/vm.rs                | 119 +++++++++---------
+ 6 files changed, 187 insertions(+), 187 deletions(-)
 
+diff --git a/drivers/gpu/drm/tyr/driver.rs b/drivers/gpu/drm/tyr/driver.rs
+index c2b99d67369f..8deb60f507da 100644
+--- a/drivers/gpu/drm/tyr/driver.rs
++++ b/drivers/gpu/drm/tyr/driver.rs
+@@ -29,7 +29,7 @@
+     regulator::Regulator,
+     sizes::SZ_2M,
+     sync::{
+-        Arc,
++        aref::ARef,
+         Mutex, //
+     },
+     time, //
+@@ -71,7 +71,14 @@ pub(crate) struct TyrDrmRegistrationData<'drm> {
+     pub(crate) pdev: &'drm platform::Device<Bound>,
+ 
+     /// Firmware sections.
+-    pub(crate) fw: Firmware<'drm>,
++    #[pin]
++    #[uses('mmu: invariant)]
++    pub(crate) fw: Firmware<'mmu>,
++
++    /// MMU shared by the firmware and its buffer objects.
++    #[pin]
++    #[uses('iomem: invariant)]
++    mmu: Mmu<'iomem>,
+ 
+     #[pin]
+     clks: Mutex<Clocks>,
+@@ -80,7 +87,7 @@ pub(crate) struct TyrDrmRegistrationData<'drm> {
+     regulators: Mutex<Regulators>,
+ 
+     /// GPU MMIO register mapping.
+-    pub(crate) iomem: Arc<IoMem<'drm>>,
++    pub(crate) iomem: IoMem<'drm>,
+ 
+     /// GPU information read from hardware during probe.
+     pub(crate) gpu_info: GpuInfo,
+@@ -132,7 +139,7 @@ fn probe<'bound>(
+ 
+             let request = pdev.io_request_by_index(0).ok_or(ENODEV)?;
+ 
+-            let iomem = Arc::new(request.iomap_sized::<SZ_2M>()?, GFP_KERNEL)?;
++            let iomem = request.iomap_sized::<SZ_2M>()?;
+ 
+             issue_soft_reset(pdev.as_ref(), &iomem)?;
+             gpu::l2_power_on(pdev.as_ref(), &iomem)?;
+@@ -149,18 +156,7 @@ fn probe<'bound>(
+             unsafe { pdev.dma_set_mask_and_coherent(DmaMask::try_new(pa_bits)?)? };
+ 
+             let unreg_dev = drm::UnregisteredDevice::<TyrDrmDriver>::new(pdev, Ok(()))?;
+-
+-            let mmu = Mmu::new(pdev.as_ref(), iomem.as_arc_borrow(), &gpu_info)?;
+-
+-            let firmware = Firmware::new(
+-                pdev.as_ref(),
+-                iomem.clone(),
+-                &unreg_dev,
+-                mmu.as_arc_borrow(),
+-                &gpu_info,
+-            )?;
+-
+-            firmware.boot()?;
++            let ddev = ARef::from(&*unreg_dev);
+ 
+             Ok(try_pin_init!(TyrPlatformDriverData {
+                 // SAFETY: `_reg` is stored in `TyrPlatformDriverData` and dropped when the
+@@ -168,9 +164,13 @@ fn probe<'bound>(
+                 _reg <- unsafe { drm::Registration::new(
+                     pdev.as_ref(),
+                     unreg_dev,
+-                    pin_init!(TyrDrmRegistrationData {
++                    try_pin_init!(TyrDrmRegistrationData {
++                        iomem,
++                        gpu_info,
++                        mmu <- Mmu::new(pdev.as_ref(), iomem, gpu_info),
++                        fw <- Firmware::new(pdev.as_ref(), iomem, &ddev, mmu.get_ref(), gpu_info),
++                        _: { fw.boot()?; },
+                         pdev,
+-                        fw: firmware,
+                         clks <- new_mutex!(Clocks {
+                             core: core_clk,
+                             stacks: stacks_clk,
+@@ -180,8 +180,6 @@ fn probe<'bound>(
+                             _mali: mali_regulator,
+                             _sram: sram_regulator,
+                         }),
+-                        iomem,
+-                        gpu_info,
+                     }),
+                 )},
+                 _: { dev_dbg!(pdev, "Tyr initialized correctly.") },
 diff --git a/drivers/gpu/drm/tyr/fw.rs b/drivers/gpu/drm/tyr/fw.rs
-index aea151ff1f93..16c6aca3d3f1 100644
+index 16c6aca3d3f1..bd377875778b 100644
 --- a/drivers/gpu/drm/tyr/fw.rs
 +++ b/drivers/gpu/drm/tyr/fw.rs
-@@ -131,7 +131,7 @@ fn try_from_fw(value: u32) -> Result<Self> {
+@@ -29,10 +29,6 @@
+     num::Bounded,
+     prelude::*,
+     str::CString,
+-    sync::{
+-        Arc,
+-        ArcBorrow, //
+-    },
+     time, //
+ };
+ 
+@@ -131,7 +127,7 @@ fn try_from_fw(value: u32) -> Result<Self> {
  }
  
  /// A parsed section of the firmware binary.
--struct Section<'drm> {
-+struct Section<'sec> {
+-struct Section<'sec> {
++struct Section<'sec, 'res> {
      // Raw firmware section data for reset purposes
      #[expect(dead_code)]
      data: KVec<u8>,
-@@ -139,23 +139,23 @@ struct Section<'drm> {
+@@ -139,34 +135,41 @@ struct Section<'sec> {
      // Keep the BO backing this firmware section so that both the
      // GPU mapping and CPU mapping remain valid until the Section is dropped.
      #[expect(dead_code)]
--    mem: gem::KernelBo<'drm>,
-+    mem: gem::KernelBo<'sec>,
+-    mem: gem::KernelBo<'sec>,
++    mem: gem::KernelBo<'sec, 'res>,
  }
  
  /// Loaded firmware with sections mapped into MCU VM.
--pub(crate) struct Firmware<'drm> {
-+pub(crate) struct Firmware<'fw> {
+-pub(crate) struct Firmware<'fw> {
++#[pin_data(PinnedDrop)]
++pub(crate) struct Firmware<'fw>
++where
++    exists<'res>: 'fw,
++{
      /// Iomem need to access registers.
--    iomem: Arc<IoMem<'drm>>,
-+    iomem: Arc<IoMem<'fw>>,
- 
-     /// MCU VM.
--    vm: Arc<Vm<'drm>>,
-+    vm: Arc<Vm<'fw>>,
+-    iomem: Arc<IoMem<'fw>>,
+-
+-    /// MCU VM.
+-    vm: Arc<Vm<'fw>>,
++    iomem: &'fw IoMem<'fw>,
  
      /// List of firmware sections.
-     #[expect(dead_code)]
--    sections: KVec<Section<'drm>>,
-+    sections: KVec<Section<'fw>>,
+-    #[expect(dead_code)]
+-    sections: KVec<Section<'fw>>,
++    #[uses('res: invariant)]
++    sections: KVec<Section<'vm, 'res>>,
++
++    /// MCU VM.
++    #[pin]
++    #[uses('res: invariant)]
++    vm: Vm<'fw, 'res>,
  }
  
--impl<'drm> Drop for Firmware<'drm> {
-+impl<'fw> Drop for Firmware<'fw> {
-     fn drop(&mut self) {
+-impl<'fw> Drop for Firmware<'fw> {
+-    fn drop(&mut self) {
++#[pinned_drop]
++impl PinnedDrop for Firmware<'_> {
++    fn drop(self: Pin<&mut Self>) {
          // Stop the MCU before releasing its firmware mappings and memory.
          let _ = self.stop();
-@@ -165,8 +165,8 @@ fn drop(&mut self) {
+ 
+         // AS slots retain a VM ref, we need to kill the circular ref manually.
+-        self.vm.kill();
++        self.with_vm(|vm| vm.kill());
      }
  }
  
--impl<'drm> Firmware<'drm> {
--    fn init_section_mem(dev: &Device, mem: &mut KernelBo<'drm>, data: &KVec<u8>) -> Result {
-+impl<'fw> Firmware<'fw> {
-+    fn init_section_mem(dev: &Device, mem: &mut KernelBo<'fw>, data: &KVec<u8>) -> Result {
+ impl<'fw> Firmware<'fw> {
+-    fn init_section_mem(dev: &Device, mem: &mut KernelBo<'fw>, data: &KVec<u8>) -> Result {
++    fn init_section_mem(dev: &Device, mem: &mut KernelBo<'_, '_>, data: &KVec<u8>) -> Result {
          if data.is_empty() {
              return Ok(());
          }
-@@ -213,12 +213,12 @@ fn load(
+@@ -212,62 +215,65 @@ fn load(
+     }
  
      /// Load firmware and map sections into MCU VM.
-     pub(crate) fn new(
--        dev: &'drm Device<Bound>,
--        iomem: Arc<IoMem<'drm>>,
-+        dev: &'fw Device<Bound>,
-+        iomem: Arc<IoMem<'fw>>,
-         ddev: &TyrDrmDevice,
--        mmu: ArcBorrow<'_, Mmu<'drm>>,
-+        mmu: ArcBorrow<'_, Mmu<'fw>>,
-         gpu_info: &GpuInfo,
--    ) -> Result<Firmware<'drm>> {
-+    ) -> Result<Firmware<'fw>> {
-         let vm = Vm::new(dev, ddev, mmu, gpu_info)?;
-         vm.activate()?;
+-    pub(crate) fn new(
+-        dev: &'fw Device<Bound>,
+-        iomem: Arc<IoMem<'fw>>,
+-        ddev: &TyrDrmDevice,
+-        mmu: ArcBorrow<'_, Mmu<'fw>>,
+-        gpu_info: &GpuInfo,
+-    ) -> Result<Firmware<'fw>> {
+-        let vm = Vm::new(dev, ddev, mmu, gpu_info)?;
+-        vm.activate()?;
+-
+-        let result = (|| {
+-            let (fw, parsed_sections) = Self::load(dev, ddev, gpu_info)?;
+-            let mut sections = KVec::new();
+-            for parsed in parsed_sections {
+-                let size = u64::from(parsed.va.end.checked_sub(parsed.va.start).ok_or(EINVAL)?);
+-
+-                let va = u64::from(parsed.va.start);
+-
+-                let mut mem = KernelBo::new(
+-                    ddev,
+-                    vm.clone(),
+-                    size,
+-                    KernelBoVaAlloc::Explicit(va),
+-                    parsed.vm_map_flags,
+-                )?;
+-
+-                let section_start = parsed.data_range.start as usize;
+-                let section_end = parsed.data_range.end as usize;
+-                let mut data = KVec::new();
+-
+-                // Ensure that the firmware slice is not out of bounds.
+-                let fw_data = fw.data();
+-                let bytes = fw_data.get(section_start..section_end).ok_or(EINVAL)?;
+-                data.extend_from_slice(bytes, GFP_KERNEL)?;
+-
+-                Self::init_section_mem(dev, &mut mem, &data)?;
+-
+-                sections.push(Section { data, mem }, GFP_KERNEL)?;
+-            }
+-
+-            Ok(Firmware {
+-                iomem,
+-                vm: vm.clone(),
+-                sections,
+-            })
+-        })();
+-
+-        if result.is_err() {
+-            vm.kill();
+-        }
+-
+-        result
++    pub(crate) fn new<'a, 'res>(
++        dev: &'res Device<Bound>,
++        iomem: &'fw IoMem<'fw>,
++        ddev: &'a TyrDrmDevice,
++        mmu: &'fw Mmu<'res>,
++        gpu_info: &'a GpuInfo,
++    ) -> impl PinInit<Self, Error> + use<'a, 'fw, 'res> {
++        try_pin_init!(Self {
++            iomem,
++            vm <- Vm::new(dev, ddev, mmu, gpu_info),
++            sections: {
++                let vm = vm.get_ref();
++                vm.activate()?;
++
++                let result: Result<_> = (|| {
++                    let (fw, parsed_sections) = Self::load(dev, ddev, gpu_info)?;
++                    let mut sections = KVec::new();
++                    for parsed in parsed_sections {
++                        let size =
++                            u64::from(parsed.va.end.checked_sub(parsed.va.start).ok_or(EINVAL)?);
++
++                        let va = u64::from(parsed.va.start);
++
++                        let mut mem = KernelBo::new(
++                            ddev,
++                            vm,
++                            size,
++                            KernelBoVaAlloc::Explicit(va),
++                            parsed.vm_map_flags,
++                        )?;
++
++                        let section_start = parsed.data_range.start as usize;
++                        let section_end = parsed.data_range.end as usize;
++                        let mut data = KVec::new();
++
++                        // Ensure that the firmware slice is not out of bounds.
++                        let fw_data = fw.data();
++                        let bytes = fw_data.get(section_start..section_end).ok_or(EINVAL)?;
++                        data.extend_from_slice(bytes, GFP_KERNEL)?;
++
++                        Self::init_section_mem(dev, &mut mem, &data)?;
++
++                        sections.push(Section { data, mem }, GFP_KERNEL)?;
++                    }
++
++                    Ok(sections)
++                })();
++
++                if result.is_err() {
++                    vm.kill();
++                }
++
++                result?
++            },
++        })
+     }
  
+     pub(crate) fn boot(&self) -> Result {
+-        let io = &self.iomem;
++        let io = self.iomem;
+ 
+         // Discard any stale global interrupt.
+         io.write_reg(JOB_IRQ_CLEAR::zeroed().with_glb(true));
+@@ -284,7 +290,7 @@ pub(crate) fn boot(&self) -> Result {
+         ) {
+             let status = io.read(MCU_STATUS);
+             dev_err!(
+-                self.vm.dev(),
++                self.with_vm(|vm| vm.dev()),
+                 "MCU failed to boot, status: {:?}",
+                 status.value()
+             );
+@@ -297,7 +303,7 @@ pub(crate) fn boot(&self) -> Result {
+     }
+ 
+     fn stop(&self) -> Result {
+-        let io = &self.iomem;
++        let io = self.iomem;
+         io.write_reg(MCU_CONTROL::zeroed().with_req(McuControlMode::Disable));
+ 
+         if let Err(e) = poll::read_poll_timeout(
+@@ -308,7 +314,7 @@ fn stop(&self) -> Result {
+         ) {
+             let status = io.read(MCU_STATUS);
+             dev_err!(
+-                self.vm.dev(),
++                self.with_vm(|vm| vm.dev()),
+                 "MCU failed to stop, status: {:?}",
+                 status.value()
+             );
 diff --git a/drivers/gpu/drm/tyr/gem.rs b/drivers/gpu/drm/tyr/gem.rs
-index 3bf3787f5c3f..0439bf96467f 100644
+index 0439bf96467f..05965a9135b7 100644
 --- a/drivers/gpu/drm/tyr/gem.rs
 +++ b/drivers/gpu/drm/tyr/gem.rs
-@@ -82,16 +82,16 @@ pub(crate) enum KernelBoVaAlloc {
+@@ -12,10 +12,7 @@
+         shmem, //
+     },
+     prelude::*,
+-    sync::{
+-        aref::ARef,
+-        Arc, //
+-    }, //
++    sync::aref::ARef, //
+ };
+ 
+ use crate::{
+@@ -82,16 +79,16 @@ pub(crate) enum KernelBoVaAlloc {
  /// a GEM object with automatic GPU virtual address (VA) space mapping and cleanup.
  ///
  /// When dropped, the buffer is automatically unmapped from the GPU VA space.
--pub(crate) struct KernelBo<'drm> {
-+pub(crate) struct KernelBo<'bo> {
+-pub(crate) struct KernelBo<'bo> {
++pub(crate) struct KernelBo<'bo, 'res> {
      /// The underlying GEM buffer object.
      bo: ARef<Bo>,
      /// The GPU VM this buffer is mapped into.
--    vm: Arc<Vm<'drm>>,
-+    vm: Arc<Vm<'bo>>,
+-    vm: Arc<Vm<'bo>>,
++    vm: &'bo Vm<'bo, 'res>,
      /// The GPU VA range occupied by this buffer.
      va_range: Range<u64>,
  }
  
--impl<'drm> KernelBo<'drm> {
-+impl<'bo> KernelBo<'bo> {
+-impl<'bo> KernelBo<'bo> {
++impl<'bo, 'res> KernelBo<'bo, 'res> {
      /// Creates a new kernel-owned buffer object and maps it into GPU VA space.
      ///
      /// This function allocates a new shmem-backed GEM object and immediately maps
-@@ -99,7 +99,7 @@ impl<'drm> KernelBo<'drm> {
+@@ -99,7 +96,7 @@ impl<'bo> KernelBo<'bo> {
      /// cleaned up when the [`KernelBo`] is dropped.
      pub(crate) fn new(
          ddev: &TyrDrmDevice,
--        vm: Arc<Vm<'drm>>,
-+        vm: Arc<Vm<'bo>>,
+-        vm: Arc<Vm<'bo>>,
++        vm: &'bo Vm<'bo, 'res>,
          size: u64,
          va_alloc: KernelBoVaAlloc,
          flags: VmMapFlags,
+@@ -138,7 +135,7 @@ pub(crate) fn bo(&self) -> &Bo {
+     }
+ }
+ 
+-impl Drop for KernelBo<'_> {
++impl Drop for KernelBo<'_, '_> {
+     fn drop(&mut self) {
+         let va = self.va_range.start;
+         let size = self.va_range.end - self.va_range.start;
 diff --git a/drivers/gpu/drm/tyr/mmu.rs b/drivers/gpu/drm/tyr/mmu.rs
-index 5e88c9e6a4cd..b64c5bba0e8f 100644
+index b64c5bba0e8f..70662c953d7e 100644
 --- a/drivers/gpu/drm/tyr/mmu.rs
 +++ b/drivers/gpu/drm/tyr/mmu.rs
-@@ -43,23 +43,23 @@
- 
- pub(crate) mod address_space;
- 
--pub(crate) type AsSlotManager<'drm> = SlotManager<AddressSpaceManager<'drm>, MAX_AS>;
-+pub(crate) type AsSlotManager<'as_mgr> = SlotManager<AddressSpaceManager<'as_mgr>, MAX_AS>;
- 
- /// Locked wrapper for carrying out virtual memory (VM) operations on the MMU.
- #[pin_data]
--pub(crate) struct Mmu<'drm> {
-+pub(crate) struct Mmu<'mmu> {
-     /// Slot Manager instance used to allocate hardware slots and write to MMU registers.
-     #[pin]
--    pub(crate) as_manager: Mutex<AsSlotManager<'drm>>,
-+    pub(crate) as_manager: Mutex<AsSlotManager<'mmu>>,
- }
- 
--impl<'drm> Mmu<'drm> {
-+impl<'mmu> Mmu<'mmu> {
+@@ -21,7 +21,6 @@
+     new_mutex,
+     prelude::*,
+     sync::{
+-        Arc,
+         ArcBorrow,
+         Mutex, //
+     }, //
+@@ -57,26 +56,27 @@ impl<'mmu> Mmu<'mmu> {
      /// Create an MMU component for this device.
      pub(crate) fn new(
--        dev: &'drm Device<Bound>,
--        iomem: ArcBorrow<'_, IoMem<'drm>>,
-+        dev: &'mmu Device<Bound>,
-+        iomem: ArcBorrow<'_, IoMem<'mmu>>,
+         dev: &'mmu Device<Bound>,
+-        iomem: ArcBorrow<'_, IoMem<'mmu>>,
++        iomem: &'mmu IoMem<'mmu>,
          gpu_info: &GpuInfo,
--    ) -> Result<Arc<Mmu<'drm>>> {
-+    ) -> Result<Arc<Mmu<'mmu>>> {
+-    ) -> Result<Arc<Mmu<'mmu>>> {
++    ) -> impl PinInit<Self, Error> + 'mmu {
          let present = AS_PRESENT::from_raw(gpu_info.as_present).present().get();
-         let slot_count = present.count_ones().try_into()?;
+-        let slot_count = present.count_ones().try_into()?;
++        try_pin_init!(Self {
++            as_manager <- {
++                let slot_count = present.count_ones().try_into()?;
  
-@@ -81,17 +81,17 @@ pub(crate) fn new(
+-        let address_space_manager = AddressSpaceManager::new(dev, iomem.into(), present)?;
+-        let as_slot_manager =
+-            SlotManager::new(address_space_manager, slot_count).inspect_err(|e| {
+-                dev_err!(
+-                    dev,
+-                    "Failed to initialize MMU slot manager with {} slots: {:?}",
+-                    slot_count,
+-                    e
+-                );
+-            })?;
+-        let mmu_init = try_pin_init!(Self{
+-            as_manager <- new_mutex!(as_slot_manager),
+-        });
+-        Arc::pin_init(mmu_init, GFP_KERNEL)
++                let address_space_manager = AddressSpaceManager::new(dev, iomem, present)?;
++                let as_slot_manager =
++                    SlotManager::new(address_space_manager, slot_count).inspect_err(|e| {
++                        dev_err!(
++                            dev,
++                            "Failed to initialize MMU slot manager with {} slots: {:?}",
++                            slot_count,
++                            e
++                        );
++                    })?;
++                new_mutex!(as_slot_manager)
++            },
++        })
+     }
  
      /// Assign a VM to an AS slot, provide a translation table,
-     /// and update the MMU to make the VM resident.
--    pub(crate) fn activate_vm(&self, vm_as_data: ArcBorrow<'_, VmAsData<'drm>>) -> Result {
-+    pub(crate) fn activate_vm(&self, vm_as_data: ArcBorrow<'_, VmAsData<'mmu>>) -> Result {
-         self.as_manager.lock().activate_vm(vm_as_data)
-     }
- 
-     /// Evict a VM from its AS slot and flush the MMU.
--    pub(crate) fn deactivate_vm(&self, vm_as_data: &VmAsData<'drm>) -> Result {
-+    pub(crate) fn deactivate_vm(&self, vm_as_data: &VmAsData<'mmu>) -> Result {
-         self.as_manager.lock().deactivate_vm(vm_as_data)
-     }
- 
-     /// Flush MMU translation caches after a VM update.
--    pub(crate) fn flush_vm(&self, vm_as_data: &VmAsData<'drm>) -> Result {
-+    pub(crate) fn flush_vm(&self, vm_as_data: &VmAsData<'mmu>) -> Result {
-         self.as_manager.lock().flush_vm(vm_as_data)
-     }
- 
-@@ -103,7 +103,7 @@ pub(crate) fn flush_vm(&self, vm_as_data: &VmAsData<'drm>) -> Result {
-     /// If the VM is not resident, this is a NOP.
-     pub(crate) fn start_vm_update(
-         &self,
--        vm_as_data: &VmAsData<'drm>,
-+        vm_as_data: &VmAsData<'mmu>,
-         region: &Range<u64>,
-     ) -> Result {
-         self.as_manager.lock().start_vm_update(vm_as_data, region)
-@@ -114,7 +114,7 @@ pub(crate) fn start_vm_update(
-     /// If the VM is resident, this will let GPU accesses on the updated
-     /// range go through, in case any of them were blocked.
-     /// If the VM is not resident, this is a NOP.
--    pub(crate) fn end_vm_update(&self, vm_as_data: &VmAsData<'drm>) -> Result {
-+    pub(crate) fn end_vm_update(&self, vm_as_data: &VmAsData<'mmu>) -> Result {
-         self.as_manager.lock().end_vm_update(vm_as_data)
-     }
- }
 diff --git a/drivers/gpu/drm/tyr/mmu/address_space.rs b/drivers/gpu/drm/tyr/mmu/address_space.rs
-index 76e3d2df6afd..4cb582f98852 100644
+index 4cb582f98852..0330cf514269 100644
 --- a/drivers/gpu/drm/tyr/mmu/address_space.rs
 +++ b/drivers/gpu/drm/tyr/mmu/address_space.rs
-@@ -147,27 +147,27 @@ fn as_config(&self) -> Result<AddressSpaceConfig> {
- 
- /// Coordinates all hardware-level address space operations through MMIO register
- /// operations including enabling, disabling, flushing, and updating address spaces.
--pub(crate) struct AddressSpaceManager<'drm> {
-+pub(crate) struct AddressSpaceManager<'as_mgr> {
-     /// Parent device used for logging.
--    dev: &'drm Device<Bound>,
-+    dev: &'as_mgr Device<Bound>,
+@@ -152,7 +152,7 @@ pub(crate) struct AddressSpaceManager<'as_mgr> {
+     dev: &'as_mgr Device<Bound>,
  
      /// Memory-mapped I/O region for GPU register access.
--    iomem: Arc<IoMem<'drm>>,
-+    iomem: Arc<IoMem<'as_mgr>>,
+-    iomem: Arc<IoMem<'as_mgr>>,
++    iomem: &'as_mgr IoMem<'as_mgr>,
  
      /// Bitmask of present address space slots from GPU_AS_PRESENT register.
      as_present: u32,
- }
- 
--impl<'drm> AddressSpaceManager<'drm> {
-+impl<'as_mgr> AddressSpaceManager<'as_mgr> {
-     /// Creates a new address space manager.
-     ///
-     /// Initializes the manager with references to the platform device and
+@@ -165,7 +165,7 @@ impl<'as_mgr> AddressSpaceManager<'as_mgr> {
      /// I/O memory region, along with the bitmask of available AS slots.
      pub(super) fn new(
--        dev: &'drm Device<Bound>,
--        iomem: Arc<IoMem<'drm>>,
-+        dev: &'as_mgr Device<Bound>,
-+        iomem: Arc<IoMem<'as_mgr>>,
+         dev: &'as_mgr Device<Bound>,
+-        iomem: Arc<IoMem<'as_mgr>>,
++        iomem: &'as_mgr IoMem<'as_mgr>,
          as_present: u32,
--    ) -> Result<AddressSpaceManager<'drm>> {
-+    ) -> Result<AddressSpaceManager<'as_mgr>> {
+     ) -> Result<AddressSpaceManager<'as_mgr>> {
          if as_present.trailing_ones() != as_present.count_ones() {
-             dev_err!(
-                 dev,
-@@ -436,9 +436,9 @@ fn as_flush(&mut self, as_nr: usize) -> Result {
-     }
- }
+@@ -216,7 +216,7 @@ fn validate_as_slot(&self, as_nr: usize) -> Result {
+     ///
+     /// Returns an error if polling times out after 10ms or if register access fails.
+     fn as_wait_ready(&self, as_nr: usize) -> Result {
+-        let io = &*self.iomem;
++        let io = self.iomem;
+         let op = || {
+             let status_reg = STATUS::try_at(as_nr).ok_or(EINVAL)?;
+             Ok(io.read(status_reg))
+@@ -232,7 +232,7 @@ fn as_wait_ready(&self, as_nr: usize) -> Result {
+     /// Returns an error if waiting for ready times out or if register write fails.
+     fn as_send_cmd(&mut self, as_nr: usize, cmd: MmuCommand) -> Result {
+         self.as_wait_ready(as_nr)?;
+-        let io = &*self.iomem;
++        let io = self.iomem;
+         let command_reg = COMMAND::try_at(as_nr).ok_or(EINVAL)?;
+         io.write(command_reg, COMMAND::zeroed().with_command(cmd));
+         Ok(())
+@@ -253,7 +253,7 @@ fn as_send_cmd_and_wait(&mut self, as_nr: usize, cmd: MmuCommand) -> Result {
+     fn as_enable(&mut self, as_nr: usize, as_config: &AddressSpaceConfig) -> Result {
+         self.validate_as_slot(as_nr)?;
  
--impl<'drm> SlotOperations<MAX_AS> for AddressSpaceManager<'drm> {
-+impl<'as_mgr> SlotOperations<MAX_AS> for AddressSpaceManager<'as_mgr> {
-     /// VM address space data associated with a hardware slot.
--    type SlotData = Arc<VmAsData<'drm>>;
-+    type SlotData = Arc<VmAsData<'as_mgr>>;
+-        let io = &*self.iomem;
++        let io = self.iomem;
  
-     fn seat(slot_data: &Self::SlotData) -> &LockedSeat<Self, MAX_AS> {
-         &slot_data.as_seat
-@@ -458,11 +458,11 @@ fn evict(&mut self, slot_idx: usize, _slot_data: &Self::SlotData) -> Result {
-     }
- }
+         let transtab = as_config.transtab;
+         io.write(
+@@ -299,7 +299,7 @@ fn as_disable(&mut self, as_nr: usize) -> Result {
+         // Flush AS before disabling
+         self.as_send_cmd_and_wait(as_nr, MmuCommand::FlushMem)?;
  
--impl<'drm> AsSlotManager<'drm> {
-+impl<'as_mgr> AsSlotManager<'as_mgr> {
-     /// Locks a region for translation table updates if the VM has an active slot.
-     pub(super) fn start_vm_update(
-         &mut self,
--        vm_as_data: &VmAsData<'drm>,
-+        vm_as_data: &VmAsData<'as_mgr>,
-         region: &Range<u64>,
-     ) -> Result {
-         let seat = vm_as_data.as_seat.access(self);
-@@ -476,7 +476,7 @@ pub(super) fn start_vm_update(
-     }
+-        let io = &*self.iomem;
++        let io = self.iomem;
  
-     /// Completes translation table updates and unlocks the region.
--    pub(super) fn end_vm_update(&mut self, vm_as_data: &VmAsData<'drm>) -> Result {
-+    pub(super) fn end_vm_update(&mut self, vm_as_data: &VmAsData<'as_mgr>) -> Result {
-         let seat = vm_as_data.as_seat.access(self);
-         match seat.slot() {
-             Some(slot) => {
-@@ -488,7 +488,7 @@ pub(super) fn end_vm_update(&mut self, vm_as_data: &VmAsData<'drm>) -> Result {
-     }
+         io.write(
+             TRANSTAB_LO::try_at(as_nr).ok_or(EINVAL)?,
+@@ -394,7 +394,7 @@ fn as_start_update(&mut self, as_nr: usize, region: &Range<u64>) -> Result {
+         // because log2(32 KiB) = 15.
+         let lockaddr_size = lock_region_log2 - 1;
  
-     /// Flushes the translation table cache if the VM has an active slot.
--    pub(super) fn flush_vm(&mut self, vm_as_data: &VmAsData<'drm>) -> Result {
-+    pub(super) fn flush_vm(&mut self, vm_as_data: &VmAsData<'as_mgr>) -> Result {
-         let seat = vm_as_data.as_seat.access(self);
-         match seat.slot() {
-             Some(slot) => {
-@@ -500,12 +500,12 @@ pub(super) fn flush_vm(&mut self, vm_as_data: &VmAsData<'drm>) -> Result {
-     }
+-        let io = &*self.iomem;
++        let io = self.iomem;
  
-     /// Activates a VM by assigning it to a hardware slot.
--    pub(super) fn activate_vm(&mut self, vm_as_data: ArcBorrow<'_, VmAsData<'drm>>) -> Result {
-+    pub(super) fn activate_vm(&mut self, vm_as_data: ArcBorrow<'_, VmAsData<'as_mgr>>) -> Result {
-         self.activate(vm_as_data.into())
-     }
- 
-     /// Deactivates a VM by evicting it from its hardware slot.
--    pub(super) fn deactivate_vm(&mut self, vm_as_data: &VmAsData<'drm>) -> Result {
-+    pub(super) fn deactivate_vm(&mut self, vm_as_data: &VmAsData<'as_mgr>) -> Result {
-         self.evict(&vm_as_data.as_seat)
-     }
- }
+         // The LOCKADDR base field stores address bits 63:12, so remove the low 12 bits
+         // before passing this value to the register macro helper.
 diff --git a/drivers/gpu/drm/tyr/vm.rs b/drivers/gpu/drm/tyr/vm.rs
-index 1dd11b2b1253..2557d6517ca3 100644
+index 2557d6517ca3..4f3dbeec37a2 100644
 --- a/drivers/gpu/drm/tyr/vm.rs
 +++ b/drivers/gpu/drm/tyr/vm.rs
-@@ -316,34 +316,34 @@ pub(crate) struct GpuVmData<'drm> {
+@@ -50,7 +50,6 @@
+     sync::{
+         aref::ARef,
+         Arc,
+-        ArcBorrow,
+         Mutex, //
+     },
+     uapi, //
+@@ -316,80 +315,80 @@ pub(crate) struct GpuVmData<'drm> {
  ///
  /// Each VM can be mapped into a hardware address space slot.
  #[pin_data]
--pub(crate) struct Vm<'drm> {
-+pub(crate) struct Vm<'vm> {
+-pub(crate) struct Vm<'vm> {
++pub(crate) struct Vm<'vm, 'res> {
      /// Data referenced by an AS when the VM is active
--    as_data: Arc<VmAsData<'drm>>,
-+    as_data: Arc<VmAsData<'vm>>,
+-    as_data: Arc<VmAsData<'vm>>,
++    as_data: Arc<VmAsData<'res>>,
      /// MMU manager.
--    mmu: Arc<Mmu<'drm>>,
-+    mmu: Arc<Mmu<'vm>>,
+-    mmu: Arc<Mmu<'vm>>,
++    mmu: &'vm Mmu<'res>,
      /// Parent device used for DMA mapping and page-table operations.
--    dev: &'drm Device<Bound>,
-+    dev: &'vm Device<Bound>,
+-    dev: &'vm Device<Bound>,
++    dev: &'res Device<Bound>,
      /// DRM GPUVM core for managing virtual address space.
      #[pin]
--    gpuvm_unique: Mutex<UniqueRefGpuVm<GpuVmData<'drm>>>,
-+    gpuvm_unique: Mutex<UniqueRefGpuVm<GpuVmData<'vm>>>,
+-    gpuvm_unique: Mutex<UniqueRefGpuVm<GpuVmData<'vm>>>,
++    gpuvm_unique: Mutex<UniqueRefGpuVm<GpuVmData<'res>>>,
      /// Non-core part of the GPUVM. Can be used for stuff that doesn't modify the
      /// internal mapping tree, like GpuVm::obtain()
--    gpuvm: ARef<GpuVm<GpuVmData<'drm>>>,
-+    gpuvm: ARef<GpuVm<GpuVmData<'vm>>>,
+-    gpuvm: ARef<GpuVm<GpuVmData<'vm>>>,
++    gpuvm: ARef<GpuVm<GpuVmData<'res>>>,
      /// VA range for this VM.
      va_range: Range<u64>,
  }
  
--impl<'drm> Vm<'drm> {
-+impl<'vm> Vm<'vm> {
+-impl<'vm> Vm<'vm> {
++impl<'vm, 'res> Vm<'vm, 'res> {
      /// Creates a new GPU virtual address space.
      ///
      /// The VM is initialized with a page table configured according to the GPU's
      /// address translation capabilities and registered with the GPUVM framework.
-     pub(crate) fn new(
--        dev: &'drm Device<Bound>,
-+        dev: &'vm Device<Bound>,
-         ddev: &TyrDrmDevice,
--        mmu: ArcBorrow<'_, Mmu<'drm>>,
-+        mmu: ArcBorrow<'_, Mmu<'vm>>,
-         gpu_info: &GpuInfo,
--    ) -> Result<Arc<Vm<'drm>>> {
-+    ) -> Result<Arc<Vm<'vm>>> {
-         let mmu_features = MMU_FEATURES::from_raw(gpu_info.mmu_features);
-         let va_bits = mmu_features.va_bits().get();
-         let pa_bits = mmu_features.pa_bits().get();
-@@ -362,7 +362,7 @@ pub(crate) fn new(
-             &*dummy_obj,
-             range.clone(),
-             reserve_range,
--            GpuVmData::<'drm> {
-+            GpuVmData::<'vm> {
-                 _phantom: PhantomData::<&()>,
-             },
-         )
-@@ -389,7 +389,7 @@ pub(crate) fn new(
+-    pub(crate) fn new(
+-        dev: &'vm Device<Bound>,
+-        ddev: &TyrDrmDevice,
+-        mmu: ArcBorrow<'_, Mmu<'vm>>,
+-        gpu_info: &GpuInfo,
+-    ) -> Result<Arc<Vm<'vm>>> {
+-        let mmu_features = MMU_FEATURES::from_raw(gpu_info.mmu_features);
+-        let va_bits = mmu_features.va_bits().get();
+-        let pa_bits = mmu_features.pa_bits().get();
+-
+-        let range = 0..(1u64 << va_bits);
+-        let reserve_range = 0..0u64;
+-
+-        // dummy_obj is used to initialize the GPUVM tree.
+-        let dummy_obj = gem::new_dummy_object(ddev).inspect_err(|e| {
+-            dev_err!(dev, "Failed to create dummy GEM object: {:?}", e);
+-        })?;
++    pub(crate) fn new<'a>(
++        dev: &'res Device<Bound>,
++        ddev: &'a TyrDrmDevice,
++        mmu: &'vm Mmu<'res>,
++        gpu_info: &'a GpuInfo,
++    ) -> impl PinInit<Self, Error> + 'a
++    where
++        'vm: 'a,
++    {
++        pin_init::pin_init_scope(move || {
++            let mmu_features = MMU_FEATURES::from_raw(gpu_info.mmu_features);
++            let va_bits = mmu_features.va_bits().get();
++            let pa_bits = mmu_features.pa_bits().get();
++
++            let range = 0..(1u64 << va_bits);
++            let reserve_range = 0..0u64;
++
++            // dummy_obj is used to initialize the GPUVM tree.
++            let dummy_obj = gem::new_dummy_object(ddev).inspect_err(|e| {
++                dev_err!(dev, "Failed to create dummy GEM object: {:?}", e);
++            })?;
+ 
+-        let gpuvm_unique = GpuVm::new::<Error, _>(
+-            c"Tyr::GpuVm",
+-            ddev,
+-            &*dummy_obj,
+-            range.clone(),
+-            reserve_range,
+-            GpuVmData::<'vm> {
+-                _phantom: PhantomData::<&()>,
+-            },
+-        )
+-        .inspect_err(|e| {
+-            dev_err!(dev, "Failed to create GpuVm: {:?}", e);
+-        })?;
+-        let gpuvm = ARef::from(&*gpuvm_unique);
++            let gpuvm_unique = GpuVm::new::<Error, _>(
++                c"Tyr::GpuVm",
++                ddev,
++                &*dummy_obj,
++                range.clone(),
++                reserve_range,
++                GpuVmData::<'res> {
++                    _phantom: PhantomData::<&()>,
++                },
++            )
++            .inspect_err(|e| {
++                dev_err!(dev, "Failed to create GpuVm: {:?}", e);
++            })?;
++            let gpuvm = ARef::from(&*gpuvm_unique);
+ 
+-        let as_data = Arc::pin_init(VmAsData::new(&mmu, dev, va_bits, pa_bits), GFP_KERNEL)?;
++            let as_data = Arc::pin_init(VmAsData::new(mmu, dev, va_bits, pa_bits), GFP_KERNEL)?;
+ 
+-        let vm = Arc::pin_init(
+-            pin_init!(Self{
++            Ok(try_pin_init!(Self {
+                 as_data,
+                 dev,
+-                mmu: mmu.into(),
++                mmu,
+                 gpuvm,
+                 gpuvm_unique <- new_mutex!(gpuvm_unique),
+                 va_range: range,
+-            }),
+-            GFP_KERNEL,
+-        )?;
+-
+-        Ok(vm)
++            }))
++        })
      }
  
      /// Returns the parent device used by this VM for DMA mapping and page-table operations.
--    pub(crate) fn dev(&self) -> &'drm Device<Bound> {
-+    pub(crate) fn dev(&self) -> &'vm Device<Bound> {
+-    pub(crate) fn dev(&self) -> &'vm Device<Bound> {
++    pub(crate) fn dev(&self) -> &'res Device<Bound> {
          self.dev
      }
  
-@@ -426,9 +426,9 @@ pub(crate) fn kill(&self) {
+@@ -426,9 +425,9 @@ pub(crate) fn kill(&self) {
      /// GPUVM framework and the hardware page table.
      fn exec_op<'a>(
          &self,
--        gpuvm_unique: &mut UniqueRefGpuVm<GpuVmData<'drm>>,
--        req: VmOpRequest<'drm>,
--        resources: &'a mut VmOpResources<'drm>,
-+        gpuvm_unique: &mut UniqueRefGpuVm<GpuVmData<'vm>>,
-+        req: VmOpRequest<'vm>,
-+        resources: &'a mut VmOpResources<'vm>,
+-        gpuvm_unique: &mut UniqueRefGpuVm<GpuVmData<'vm>>,
+-        req: VmOpRequest<'vm>,
+-        resources: &'a mut VmOpResources<'vm>,
++        gpuvm_unique: &mut UniqueRefGpuVm<GpuVmData<'res>>,
++        req: VmOpRequest<'res>,
++        resources: &'a mut VmOpResources<'res>,
      ) -> Result {
          let pt = &self.as_data.page_table;
  
-@@ -524,9 +524,9 @@ pub(crate) fn map_bo_range(
+@@ -437,7 +436,7 @@ fn exec_op<'a>(
+                 let mut pt_upd = PtUpdateContext::new(
+                     self.dev,
+                     pt,
+-                    &self.mmu,
++                    self.mmu,
+                     &self.as_data,
+                     req.region,
+                     PtOpType::Map(PtMapArgs {
+@@ -459,7 +458,7 @@ fn exec_op<'a>(
+                 let mut pt_upd = PtUpdateContext::new(
+                     self.dev,
+                     pt,
+-                    &self.mmu,
++                    self.mmu,
+                     &self.as_data,
+                     req.region,
+                     PtOpType::Unmap,
+@@ -524,9 +523,9 @@ pub(crate) fn map_bo_range(
          };
          let mut resources = VmOpResources {
              preallocated_gpuvas: [
--                Some(GpuVaAlloc::<GpuVmData<'drm>>::new(GFP_KERNEL)?),
--                Some(GpuVaAlloc::<GpuVmData<'drm>>::new(GFP_KERNEL)?),
--                Some(GpuVaAlloc::<GpuVmData<'drm>>::new(GFP_KERNEL)?),
-+                Some(GpuVaAlloc::<GpuVmData<'vm>>::new(GFP_KERNEL)?),
-+                Some(GpuVaAlloc::<GpuVmData<'vm>>::new(GFP_KERNEL)?),
-+                Some(GpuVaAlloc::<GpuVmData<'vm>>::new(GFP_KERNEL)?),
+-                Some(GpuVaAlloc::<GpuVmData<'vm>>::new(GFP_KERNEL)?),
+-                Some(GpuVaAlloc::<GpuVmData<'vm>>::new(GFP_KERNEL)?),
+-                Some(GpuVaAlloc::<GpuVmData<'vm>>::new(GFP_KERNEL)?),
++                Some(GpuVaAlloc::<GpuVmData<'res>>::new(GFP_KERNEL)?),
++                Some(GpuVaAlloc::<GpuVmData<'res>>::new(GFP_KERNEL)?),
++                Some(GpuVaAlloc::<GpuVmData<'res>>::new(GFP_KERNEL)?),
              ],
          };
          let result = {
-@@ -577,9 +577,9 @@ pub(crate) fn unmap_range(&self, va: u64, size: u64) -> Result {
+@@ -577,9 +576,9 @@ pub(crate) fn unmap_range(&self, va: u64, size: u64) -> Result {
                  [None, None, None]
              } else {
                  [
--                    Some(GpuVaAlloc::<GpuVmData<'drm>>::new(GFP_KERNEL)?),
--                    Some(GpuVaAlloc::<GpuVmData<'drm>>::new(GFP_KERNEL)?),
--                    Some(GpuVaAlloc::<GpuVmData<'drm>>::new(GFP_KERNEL)?),
-+                    Some(GpuVaAlloc::<GpuVmData<'vm>>::new(GFP_KERNEL)?),
-+                    Some(GpuVaAlloc::<GpuVmData<'vm>>::new(GFP_KERNEL)?),
-+                    Some(GpuVaAlloc::<GpuVmData<'vm>>::new(GFP_KERNEL)?),
+-                    Some(GpuVaAlloc::<GpuVmData<'vm>>::new(GFP_KERNEL)?),
+-                    Some(GpuVaAlloc::<GpuVmData<'vm>>::new(GFP_KERNEL)?),
+-                    Some(GpuVaAlloc::<GpuVmData<'vm>>::new(GFP_KERNEL)?),
++                    Some(GpuVaAlloc::<GpuVmData<'res>>::new(GFP_KERNEL)?),
++                    Some(GpuVaAlloc::<GpuVmData<'res>>::new(GFP_KERNEL)?),
++                    Some(GpuVaAlloc::<GpuVmData<'res>>::new(GFP_KERNEL)?),
                  ]
              },
          };
