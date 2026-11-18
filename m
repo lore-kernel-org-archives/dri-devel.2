@@ -2,41 +2,42 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 30B8760A2625
-	for <dri-devel@archiver.kernel.org>; Wed, 18 Nov 2026 16:53:26 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 852BE606A33F
+	for <dri-devel@archiver.kernel.org>; Wed, 18 Nov 2026 16:53:30 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.a=rsa-sha256 header.s=dkim header.b=Pg2rL2aQ
+	dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.a=rsa-sha256 header.s=dkim header.b=Wjyl9hRE
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 526D510FE96;
-	Wed, 18 Nov 2026 16:53:20 +0000 (UTC)
-Received: from smtpout-03.galae.net (smtpout-03.galae.net [185.246.85.4])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 3E64910FE91
- for <dri-devel@lists.freedesktop.org>; Wed, 18 Nov 2026 16:52:55 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id B111510FE94;
+	Wed, 18 Nov 2026 16:53:24 +0000 (UTC)
+Received: from smtpout-04.galae.net (smtpout-04.galae.net [185.171.202.116])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id BA1C710FE94
+ for <dri-devel@lists.freedesktop.org>; Wed, 18 Nov 2026 16:53:16 +0000 (UTC)
 Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
- by smtpout-03.galae.net (Postfix) with ESMTPS id 09DC14E40546;
- Wed, 18 Nov 2026 16:52:54 +0000 (UTC)
+ by smtpout-04.galae.net (Postfix) with ESMTPS id 60C85C4F77B;
+ Wed, 18 Nov 2026 16:53:20 +0000 (UTC)
 Received: from mail.galae.net (mail.galae.net [212.83.136.155])
- by smtpout-01.galae.net (Postfix) with ESMTPS id CC8635FE9B;
- Wed, 18 Nov 2026 16:52:53 +0000 (UTC)
+ by smtpout-01.galae.net (Postfix) with ESMTPS id 7B7A95FE9B;
+ Wed, 18 Nov 2026 16:53:15 +0000 (UTC)
 Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon)
- with ESMTPSA id 5D05F11BC2905; Wed, 18 Nov 2026 17:52:47 +0100 (CET)
+ with ESMTPSA id 69E0D11BC2904; Wed, 18 Nov 2026 17:53:04 +0100 (CET)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
- t=1795020772; h=from:subject:date:message-id:to:cc:mime-version:content-type:
+ t=1795020789; h=from:subject:date:message-id:to:cc:mime-version:content-type:
  content-transfer-encoding:in-reply-to:references;
- bh=/HnlVAW6G7yyYKcY/kk5wSZriSWdbWjxLxb+Nwookac=;
- b=Pg2rL2aQgEgUYYgGfbvY/vb4l3thejC0dtg0+91G50Zki/FTEo1py6ZaBw/e329vfbsW7Q
- fhle3MUb18uSM8tzAVe0BKfEfGN2KEP3HAVMSzVH9LEwbl2RcHAuzHtrASE/2nJrV+SfH9
- cfR/dtROk8avGiZdrdOl8I1JPgvOn4w/WKFqCg5Z71WG16qvyFQMxYcvp4o82XCNpzLsaK
- Ox6OZ+DVYOFBQ1iZquvq4htdzdAwz/pN2Isls0+exSd2UtFWe0bYMgt5gc6R3nZsaNoGga
- /3AzVGOGjGV8caWVFdP/+7JdNBDPcjF8pBDEtCbM0i9B5iDCXSrZc46nZCxvnA==
+ bh=iAGzeSzQwFqFiRrdmKxP4pGyOW++Nadr+7x8PnEbmSQ=;
+ b=Wjyl9hREMsVMqqx8rCv7E+eKTYNGdme+CXHkd+Ur19lrSkXoO2ThBhZcJ2lyIs8SzB/ENw
+ 5CDky1x7oVwGE+vZsdE0JmKyWqYkTOdrO7ZjjlylRmaqAiiM4FyWSkUnwGli7DTpA1tXkA
+ MdS1BV8nhaBY8zBkX/9QSv3YHV9zL1Al4qsMERa3Mx2qBYpS0Bo1R9+Gu4j+jGFpjtAmAy
+ JI/JxB37auZtFDTLLezPIFumutGvWlhvcSWViXkVFjRUtSELI9l/5pYHiGokcFYZq7bELg
+ WJZX7xHCWRg2XqVzTL2ZC8pfGPTWPX3R674Me9Wy2T0vemWo4mVdLPVTKxFBYg==
 From: Luca Ceresoli <luca.ceresoli@bootlin.com>
-Date: Wed, 18 Nov 2026 17:50:09 +0100
-Subject: [PATCH RFC v3 26/31] drm/atomic: add drm_atomic_shutdown_encoder()
+Date: Wed, 18 Nov 2026 17:50:12 +0100
+Subject: [PATCH RFC v3 29/31] drm/bridge: shutdown encoder and detach
+ downstream bridges on bridge unplug
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20261118-drm-bridge-hotplug-v3-26-44bb3b4a828f@bootlin.com>
+Message-Id: <20261118-drm-bridge-hotplug-v3-29-44bb3b4a828f@bootlin.com>
 References: <20261118-drm-bridge-hotplug-v3-0-44bb3b4a828f@bootlin.com>
 In-Reply-To: <20261118-drm-bridge-hotplug-v3-0-44bb3b4a828f@bootlin.com>
 To: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
@@ -80,195 +81,52 @@ X-Spam-Status: No, score=-18.8 required=3.0 tests=BAYES_00,DKIM_SIGNED,
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-To support bridge hotplug we need to stop the components of a card that are
-affected by the removal of a bridge: the connector, the encoder and
-possibly the CRTC (unless it is still in use after the removal due to
-cloning).
-
-drm_atomic_helper_shutdown() does it, but it disables the entire card,
-including unrelated CRTCs for multi-CRTC cards. Moreover it is in the
-drm_kms_helper module, which makes it unaccessible from the core code where
-we need this.
-
-Add drm_atomic_shutdown_encoder() to drm_atomic code, doing what we need.
+With the upcoming support for DRM bridge hot(un)plugging, bridges can be
+removed at any time. When this happens, shutdown the affected pipeline
+components and detach from the encoder chain the bridge being removed along
+with all the following ones.
 
 Signed-off-by: Luca Ceresoli <luca.ceresoli@bootlin.com>
 
 ---
 
-New patch in v3
+changes in v3:
+- do not shutdown the whole card
+- adapt to use drm_bridge_detach_from()
 ---
- drivers/gpu/drm/drm_atomic.c | 145 +++++++++++++++++++++++++++++++++++++++++++
- include/drm/drm_atomic.h     |   1 +
- 2 files changed, 146 insertions(+)
+ drivers/gpu/drm/drm_bridge.c | 9 +++++++++
+ 1 file changed, 9 insertions(+)
 
-diff --git a/drivers/gpu/drm/drm_atomic.c b/drivers/gpu/drm/drm_atomic.c
-index ad2099b4dffd..7015ee18462c 100644
---- a/drivers/gpu/drm/drm_atomic.c
-+++ b/drivers/gpu/drm/drm_atomic.c
-@@ -2148,6 +2148,151 @@ int __drm_atomic_helper_set_config(struct drm_mode_set *set,
- }
- EXPORT_SYMBOL(__drm_atomic_helper_set_config);
+diff --git a/drivers/gpu/drm/drm_bridge.c b/drivers/gpu/drm/drm_bridge.c
+index ea7ed2c3bece..0c2295c8137b 100644
+--- a/drivers/gpu/drm/drm_bridge.c
++++ b/drivers/gpu/drm/drm_bridge.c
+@@ -29,6 +29,7 @@
+ #include <linux/mutex.h>
+ #include <linux/srcu.h>
  
-+static int drm_atomic_disable_encoder(struct drm_device *drm,
-+				      struct drm_encoder *encoder,
-+				      struct drm_modeset_acquire_ctx *ctx)
-+{
-+	struct drm_connector_list_iter conn_iter;
-+	struct drm_connector *connector;
-+	struct drm_crtc *crtc = NULL;
-+	struct drm_atomic_commit *commit;
-+	struct drm_crtc_state *crtc_state;
-+	bool crtc_still_used = false;
-+	int ret;
-+
-+	drm_connector_list_iter_begin(drm, &conn_iter);
-+	drm_for_each_connector_iter(connector, &conn_iter) {
-+		if (!connector->state ||
-+		    connector->state->best_encoder != encoder ||
-+		    !connector->state->crtc)
-+			continue;
-+
-+		crtc = connector->state->crtc;
-+		break;
-+	}
-+	drm_connector_list_iter_end(&conn_iter);
-+
-+	if (!crtc)
-+		return 0;
-+
-+	commit = drm_atomic_commit_alloc(drm);
-+	if (!commit)
-+		return -ENOMEM;
-+
-+	commit->acquire_ctx = ctx;
-+
-+	crtc_state = drm_atomic_get_crtc_state(commit, crtc);
-+	if (IS_ERR(crtc_state)) {
-+		ret = PTR_ERR(crtc_state);
-+		goto free;
-+	}
-+
-+	drm_connector_list_iter_begin(drm, &conn_iter);
-+	drm_for_each_connector_iter(connector, &conn_iter) {
-+		struct drm_connector_state *conn_state;
-+
-+		if (!connector->state || connector->state->crtc != crtc)
-+			continue;
-+
-+		if (connector->state->best_encoder != encoder) {
-+			crtc_still_used = true;
-+			continue;
-+		}
-+
-+		conn_state = drm_atomic_get_connector_state(commit, connector);
-+		if (IS_ERR(conn_state)) {
-+			ret = PTR_ERR(conn_state);
-+			drm_connector_list_iter_end(&conn_iter);
-+			goto free;
-+		}
-+	}
-+	drm_connector_list_iter_end(&conn_iter);
-+
-+	if (crtc_still_used) {
-+		struct drm_connector_state *conn_state;
-+		int i;
-+
-+		/* Some connector still uses @crtc, keep it and its planes enabled */
-+		for_each_new_connector_in_state(commit, connector, conn_state, i) {
-+			ret = drm_atomic_set_crtc_for_connector(conn_state, NULL);
-+			if (ret < 0)
-+				goto free;
-+		}
-+	} else {
-+		struct drm_connector_state *conn_state;
-+		struct drm_plane_state *plane_state;
-+		struct drm_plane *plane;
-+		int i;
-+
-+		crtc_state->active = false;
-+
-+		ret = drm_atomic_set_mode_prop_for_crtc(crtc_state, NULL);
-+		if (ret < 0)
-+			goto free;
-+
-+		ret = drm_atomic_add_affected_planes(commit, crtc);
-+		if (ret < 0)
-+			goto free;
-+
-+		ret = drm_atomic_add_affected_connectors(commit, crtc);
-+		if (ret < 0)
-+			goto free;
-+
-+		for_each_new_connector_in_state(commit, connector, conn_state, i) {
-+			ret = drm_atomic_set_crtc_for_connector(conn_state, NULL);
-+			if (ret < 0)
-+				goto free;
-+		}
-+
-+		for_each_new_plane_in_state(commit, plane, plane_state, i) {
-+			ret = drm_atomic_set_crtc_for_plane(plane_state, NULL);
-+			if (ret < 0)
-+				goto free;
-+
-+			drm_atomic_set_fb_for_plane(plane_state, NULL);
-+		}
-+	}
-+
-+	ret = drm_atomic_commit(commit);
-+free:
-+	drm_atomic_commit_put(commit);
-+	return ret;
-+}
-+
-+/**
-+ * drm_atomic_shutdown_encoder - shutdown the pipeline behind an encoder
-+ * @encoder: encoder whose pipeline should be shut down
++#include <drm/drm_atomic.h>
+ #include <drm/drm_atomic_state_helper.h>
+ #include <drm/drm_bridge.h>
+ #include <drm/drm_debugfs.h>
+@@ -547,9 +548,17 @@ static void drm_bridge_detach_from(struct drm_bridge *bridge)
+  * it won't be found by users via of_drm_find_and_get_bridge(), and add it
+  * to the lingering bridge list, to keep track of it until its allocated
+  * memory is eventually freed.
 + *
-+ * Stop the output currently driven by @encoder. Also shutdown the
-+ * connected CRTC unless other connectors are still attached to it
-+ * (e.g. cloning).
-+ */
-+void drm_atomic_shutdown_encoder(struct drm_encoder *encoder)
-+{
-+	struct drm_modeset_acquire_ctx ctx;
-+	struct drm_device *dev;
-+	int ret;
-+
-+	if (!encoder)
-+		return;
-+
-+	dev = encoder->dev;
-+	if (!dev)
-+		return;
-+
-+	if (!drm_drv_uses_atomic_modeset(dev))
-+		return;
-+
-+	DRM_MODESET_LOCK_ALL_BEGIN(dev, ctx, 0, ret);
-+
-+	ret = drm_atomic_disable_encoder(dev, encoder, &ctx);
-+	if (ret)
-+		drm_err(dev, "Disabling CRTC for encoder %s failed with %i\n", encoder->name, ret);
-+
-+	DRM_MODESET_LOCK_ALL_END(dev, ctx, ret);
-+}
-+EXPORT_SYMBOL(drm_atomic_shutdown_encoder);
-+
- static void drm_atomic_private_obj_print_state(struct drm_printer *p,
- 					       const struct drm_private_state *state)
++ * If the bridge is currently attached, also shut down the encoder pipeline
++ * and detach this bridge and the following ones.
+  */
+ void drm_bridge_remove(struct drm_bridge *bridge)
  {
-diff --git a/include/drm/drm_atomic.h b/include/drm/drm_atomic.h
-index 3ae35b09c0cf..5b6d5e8423a5 100644
---- a/include/drm/drm_atomic.h
-+++ b/include/drm/drm_atomic.h
-@@ -1409,5 +1409,6 @@ drm_atomic_get_old_bridge_state(const struct drm_atomic_commit *state,
- struct drm_bridge_state *
- drm_atomic_get_new_bridge_state(const struct drm_atomic_commit *state,
- 				struct drm_bridge *bridge);
-+void drm_atomic_shutdown_encoder(struct drm_encoder *encoder);
- 
- #endif /* DRM_ATOMIC_H_ */
++	if (bridge->encoder) {
++		drm_atomic_shutdown_encoder(bridge->encoder);
++		drm_bridge_detach_from(bridge);
++	}
++
+ 	mutex_lock(&bridge_lock);
+ 	list_move_tail(&bridge->list, &bridge_lingering_list);
+ 	mutex_unlock(&bridge_lock);
 
 -- 
 2.56.1
