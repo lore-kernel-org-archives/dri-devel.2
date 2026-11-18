@@ -2,24 +2,24 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 93D9F606A31C
-	for <dri-devel@archiver.kernel.org>; Wed, 18 Nov 2026 15:19:00 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6400C606A32F
+	for <dri-devel@archiver.kernel.org>; Wed, 18 Nov 2026 15:19:01 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=foss.st.com header.i=@foss.st.com header.a=rsa-sha256 header.s=selector2 header.b=PQ/QDH99
+	dkim=pass (2048-bit key, unprotected) header.d=foss.st.com header.i=@foss.st.com header.a=rsa-sha256 header.s=selector2 header.b=E+W595a/
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 9B0B710FDB9;
-	Wed, 18 Nov 2026 15:18:54 +0000 (UTC)
-Received: from AS8PR04CU009.outbound.protection.outlook.com
- (mail-westeuropeazon11011027.outbound.protection.outlook.com [52.101.70.27])
- by gabe.freedesktop.org (Postfix) with ESMTPS id C5E3A10FDA3
- for <dri-devel@lists.freedesktop.org>; Wed, 18 Nov 2026 15:18:14 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 1D2E210FDBB;
+	Wed, 18 Nov 2026 15:18:55 +0000 (UTC)
+Received: from DUZPR83CU001.outbound.protection.outlook.com
+ (mail-northeuropeazon11012000.outbound.protection.outlook.com [52.101.66.0])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 0315610FDA9
+ for <dri-devel@lists.freedesktop.org>; Wed, 18 Nov 2026 15:18:07 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=J2EJ4kWRj8DMJikgyyaNDRaHLozRI7YObzOuYbbV7ITkLZIybweS2SSv6ll/VQm2wz1QIlOG+P+u3506TKLjvHnLfOlEaYWTdXJsqealKtiudw3gLKR++RY95P/btPJNnmwziNpueFSnDJxcmDPUEKNeOWK+OC07a7ZAm+TFUGE3wjDZURxo8eYSKEcF/o7M6jpjPyrVnjk14+iXRsyEJKHE45KZAWZwkrK03SqViP01DeCpHroTHdtATllqqa6dujqlVDhFYKOAtdUMOfoWIRP/c3SqxWmTfBnC/VGpXTpspYYiWUOojTxJgoqdkQpyaRmY2jYwjQR8pJuQj76fAw==
+ b=y+87gKyhkZku4qUemYTMziW7zc2GGJwRHTP2UpKe9QgsPKNersvnozgIQI+MaMOv2HTNXFYaYR06AdzfmBFHdTfvGUFe52YZZzHk/AImO7RkGHE7h4KZG7r2Wd++Y+w1YFI6TwD8RL6kCdRjsSM2eanBct95IMmaoDxFVWy8Eu7fRp2BtBoyGOmae/A0TxLJeY6Xy2LL76KuVR7YQPJs6evPtTowmWNUNByyMTA2sM4bqnk/WqrOPsWFvJluTi12zVXlBBPfm0CEVRn6wgU1dFwQrWkOnyYFylEaN5+DUSA5n0U+IA6HatzkW51qkHdUW25hRtUMkLDJ0OmBeKRedA==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=7uVQ7qqfJ/7RyrM2bKIbbkMHCXj9eIKqWisz8mKJsyw=;
- b=wLlLEfoEvtV4yogY/I+IsCd4dnwWPhHJFTp1ePcDZBnjtmWSmZe3IN7f3LAP4wXylijZeFVRc3etOP//14G5YsSX9MZdML9qP4lKAdP3m0Uh3MlbfovSYx7IXufd0jZ22yv26yCDx60T3J9c5yXXsLDj6T3MD0YYnR2Bnk3EFCl5P1PFIIiS0+luV8AAfKIiZnLp25IwRWbpEWM7lW4MisSfiNhLDNiUz5+9G/j8AZAGmR6bFsBqQySo5j75qd1dkMdcQeXz9UskQ50EcsJmuo96mVaTDmxFENVJrDUWRcuiSg9LQQLDFNiSTNicNH7gNO/R2521aX02Vn0vPx5POg==
+ bh=e3Tbz3OqGoB1JDSg00/T9UbvXiLM4AtiVRmzqYryQQA=;
+ b=hzyX8zJ6V+qSQh4n1HbQduwfBVz11g0LNQDspham8IipsZOntLwPDyi9fVpoRfjWfiQooH73vXoDYOPx3DZ32rF/mOj1/uO0+RK4Sk8lFrwUBNWjS32K0KnMHV9GxpZGpjAUqvQfO+PSYTtOP55DBO5hCt1zK3v1ECRVWZbOtpTHe1yB/lpfJQfhT1jrcO1bVGHnGaspvTLizq49mfbd1Zw1kZHuiXojKYsDxhpi+/QyHH9ipQeSi4B3+kT8aIHubf1zwlsc8Oiivxp7OVj+ZJgKB0wwYbCRkWAUCW4/EuXYd6uqaHijhjc4d5Ag5zp3lASKnQV+0EtAq4dCj7YnAA==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=fail (sender ip is
  164.130.1.60) smtp.rcpttodomain=amd.com smtp.mailfrom=foss.st.com; dmarc=fail
  (p=none sp=none pct=100) action=none header.from=foss.st.com; dkim=none
@@ -27,18 +27,18 @@ ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=fail (sender ip is
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=foss.st.com;
  s=selector2;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=7uVQ7qqfJ/7RyrM2bKIbbkMHCXj9eIKqWisz8mKJsyw=;
- b=PQ/QDH99jXBKehQCwkZ3yjFdnfXUBdP5T2aqsgg31Qrc4+4kjzer+w1W/kVSJSPG7z9yAGiQUnqoPLeWWy99wIcYgvJew9tQRwz0ytGLQEqb5sUvMj8biZp9a1pojaxMJgdCdCZ4RcVQBTlTaSkRwvG4VK+yfnZFuY1OVIe6duUu4jGnlkCSbKjKeogts+C74CQ3y11nCKiASglIUb6ukAaj3rzWee6HFF2tzI2dUF1Ne9Ba/lE0yS4jvXxSSxi9B22bpfJDGWeqO2IBjWmdf8wmTcO8MHIy2kasdeXEcey4n6xbcvvjepUkNtAHCRJJ+YaZTQURF9kvTnK/qAM8Zw==
-Received: from DB8PR06CA0062.eurprd06.prod.outlook.com (2603:10a6:10:120::36)
- by DU0PR10MB6250.EURPRD10.PROD.OUTLOOK.COM (2603:10a6:10:3ed::15)
- with Microsoft SMTP Server (version=TLS1_2,
+ bh=e3Tbz3OqGoB1JDSg00/T9UbvXiLM4AtiVRmzqYryQQA=;
+ b=E+W595a/7FLGHpfiWqqMMSDAgMMQXSLsHw4Cz0Zj2P1FEU8MPqaEDqsuOf8O09RQcIw/Wvswpxjx5q4erpwnSZat8uv7In7BXk5y5L8Cl5Qey7q5/HxwHiMis4w79EI8gR1Xxy3kx6PYarPyGYEFgF+vewgAajqpGQXk7dl5tC25prZzE7MHmf2ICH2BdapZFmi7G5+WmC88n8NFo1BkADSrUuOJaNMjBAvWVXwWF9OegodztRO6N9KMTBIFVrm34tjr4oGlXjaVHbZufOIV5TyAsZ09jMQQv6gvaWAwlsNUcwUgzLoFwMG4L9GxjNVEp7NV1EnMxgUsUUgaBXpNQA==
+Received: from DUZPR01CA0025.eurprd01.prod.exchangelabs.com
+ (2603:10a6:10:46b::13) by PA4PR10MB5587.EURPRD10.PROD.OUTLOOK.COM
+ (2603:10a6:102:261::19) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.639.8; Wed, 18 Nov
- 2026 15:18:08 +0000
-Received: from MA3PEPF00000409.eurprd04.prod.outlook.com
- (2603:10a6:10:120:cafe::6b) by DB8PR06CA0062.outlook.office365.com
- (2603:10a6:10:120::36) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.21.615.8 via Frontend Transport; Wed, 18
- Nov 2026 15:18:07 +0000
+ 2026 15:18:01 +0000
+Received: from MA3PEPF00000408.eurprd04.prod.outlook.com
+ (2603:10a6:10:46b:cafe::7f) by DUZPR01CA0025.outlook.office365.com
+ (2603:10a6:10:46b::13) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.21.615.14 via Frontend Transport; Wed,
+ 18 Nov 2026 15:18:01 +0000
 X-MS-Exchange-Authentication-Results: mx.microsoft.com 1; spf=fail (sender IP
  is 164.130.1.60)
  smtp.mailfrom=foss.st.com; dkim=none (message not signed)
@@ -47,28 +47,29 @@ Received-SPF: Fail (protection.outlook.com: domain of foss.st.com does not
  designate 164.130.1.60 as permitted sender) receiver=protection.outlook.com;
  client-ip=164.130.1.60; helo=smtpO365.st.com;
 Received: from smtpO365.st.com (164.130.1.60) by
- MA3PEPF00000409.mail.protection.outlook.com (10.167.241.154) with Microsoft
+ MA3PEPF00000408.mail.protection.outlook.com (10.167.241.153) with Microsoft
  SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.615.4 via Frontend Transport; Wed, 18 Nov 2026 15:18:07 +0000
+ 15.21.615.4 via Frontend Transport; Wed, 18 Nov 2026 15:18:00 +0000
 Received: from STKDAG1NODE2.st.com (10.75.128.133) by smtpO365.st.com
  (10.250.44.72) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.56; Wed, 18 Nov
- 2026 16:19:08 +0100
+ 2026 16:19:00 +0100
 Received: from localhost (10.252.16.78) by STKDAG1NODE2.st.com (10.75.128.133)
  with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.46; Wed, 18 Nov
- 2026 16:18:06 +0100
+ 2026 16:17:58 +0100
 From: Olivier Moysan <olivier.moysan@foss.st.com>
-Date: Wed, 18 Nov 2026 16:17:53 +0100
-Subject: [PATCH v2 08/11] iio: adc: stm32-mdf: add dma buffered acquisition
- support
+Subject: [PATCH v2 00/11] iio: adc: stm32: add mdf support for stm32mp2
+Date: Wed, 18 Nov 2026 16:17:45 +0100
+Message-ID: <20261118-upstream_mdf_v2-v2-0-7939d3c3720a@foss.st.com>
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-ID: <20261118-upstream_mdf_v2-v2-8-7939d3c3720a@foss.st.com>
-References: <20261118-upstream_mdf_v2-v2-0-7939d3c3720a@foss.st.com>
-In-Reply-To: <20261118-upstream_mdf_v2-v2-0-7939d3c3720a@foss.st.com>
+X-B4-Tracking: v=1; b=H4sIAJnB/WoC/6tWKk4tykwtVrJSqFYqSi3LLM7MzwNyjHQUlJIzE
+ vPSU3UzU4B8JSMDIzNDQ0Mj3dKC4pKi1MTc+NyUtPgyI11zMwMTgxRLS0Nji1QloK6CotS0zAq
+ widGxtbUADFPvYWEAAAA=
+X-Change-ID: 20261112-upstream_mdf_v2-76040d99138e
 To: Jonathan Cameron <jic23@kernel.org>, David Lechner
  <dlechner@baylibre.com>, =?utf-8?q?Nuno_S=C3=A1?= <nuno.sa@analog.com>, "Andy
  Shevchenko" <andy@kernel.org>, Rob Herring <robh@kernel.org>, "Krzysztof
@@ -92,29 +93,29 @@ X-ClientProxiedBy: STKCAS1NODE1.st.com (10.75.128.134) To STKDAG1NODE2.st.com
  (10.75.128.133)
 X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: MA3PEPF00000409:EE_|DU0PR10MB6250:EE_
-X-MS-Office365-Filtering-Correlation-Id: ef9f05b1-7120-4080-0d64-08df45872639
+X-MS-TrafficTypeDiagnostic: MA3PEPF00000408:EE_|PA4PR10MB5587:EE_
+X-MS-Office365-Filtering-Correlation-Id: e50d67df-9264-41e8-5d8c-08df45872233
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
- ARA:13230040|23010399003|36860700016|7416014|376014|1800799024|82310400026|921020|10067099003|11063799006|56012099006|261022075727099003|261021123027099003|261102123227099003|261021121427099003|261009223027099003|261028144727099003|261026140227099003|261022105027099003|261026121527099003|22082099003|18002099003|6133799003;
-X-Microsoft-Antispam-Message-Info: 4Qxy09djiP/aj4wxfbqEWT4QSu0U8oSw0wZZuUqgmz+pEWp8sWqkuCIpAk6VUDhVK9hdtxFSPc4+CySDMyEVu4XhTRhzaVM4dIK98pgzMbZsV9+n+AzthjV92cCX3d6uKHcyaXvOqfgvFxu4Z+LYcuh0XqTopVxFgUseYNkfSk9FVXPrRKEnET1m9S+KtkSnBFWjZwvYpvg39XO5tNnQVWgXyuypOrz0fBzZVhCG9aw8NtZg7RiKDmVJ+YXYDEWmOeuiPQjeBpCzGmJG5hEXxQARh0/fG8Ndhx5xZR3aBZ1wtI3l4gVBUhPSVKyHsdvaaEbnc0ffrUBjIgKoVmPMXceHEYdR9KYDi2NQ+fkp4dJsNm4ulrwNiRjC1mAckx5HrNupKg5o27gF+xucBDaiWypHuPHpn4QPVpzwnUQ6TJ0U+wbQ0Zk3vKdhn/R2tbAQuo9Jl2x2iPZSGQu0R037FUGUULy/ugmYwtUuGcKathr5YovDu9MgLmV9e3tYAchmIohIeXcBc6sNvIJGvHo2UwjBIXZ6dtsyv0/CGuvbyi+3Pih+/rCIMJjwwsKFpUyHsVGysPQnR+nHeXO3y3N099N/6Q7qm3k+7Ws2mjRLlw+lSdjUHyk1T9cCfmK3ZcPgoIVuujpBgO2ITUb+iWJUbWrRc9pAtGbKl8HKU4EiUs2WWiOANBAtLmdZkWN/7/PBJzbhdEOcJj2lepOLsT0MFrb+FAdksZ6tHgERqAd488ed5FxedHH2gp5JedL6lB2Q
+ ARA:13230040|36860700016|23010399003|82310400026|1800799024|376014|7416014|261028144727099003|261102123227099003|261102130727099003|261021135927099003|261021123027099003|261021121427099003|261021130227099003|261026140227099003|261026121527099003|261022115727099003|261022075727099003|921020|11063799006|261026130827099003|261022113327099003|56012099006|10067099003|261022105027099003|18002099003|6133799003|261009221227099003|261009223027099003|13003099007|3023799007;
+X-Microsoft-Antispam-Message-Info: 0VNCwyNBkK8hflG+yFL/FXEl06eQdRzwUYClVn0XCkfaGsweLbuuDsEvnyhyBMjk7TlLkN4aaaC+1ImvPXbp1uCXc4jzwuoIV+EhBbdzJ2z9sXfB4jmle6EI9NXZvHbn66kjh6ipDHKma4e1BFjqKBoDR1P0hmzdImrvfiDKH14COoM6laOysjjQeLoRgkdzSZLVZbuwvD9+qKOoRFhzlJMrD+r6OGBAMFZDbzlCvRSeSIuTvxqb0w0+eGsRjiow6dZ60RMcUFOU61kpbt/4dWiQhUSjjpjuIozPed9bES6rHTBH2VNjABW7oRYo6geimXwxNG1T3ZkhHTNSClN0zVe4LEql8GSGnykuOc32K4Cwaaih4KRAN+2TyTi2CvTofo+tatOSAv4+0syODhtq9PS3AM28MuK3tRNA+JenFldlME1ryz4zNISwWZCZIvLADe3C9020WUVDxLS2kuyd7bPgSpDs0WAvgcKBfwmV/x+9NxVGOjEwWl/UYTTwfPIoq/aVuIvt6WoevZGfttzk90skBCw0GuOkhwUY3FkDk/X76DV9gjApFeAhvaNhqIk3um2RtxG92pjeIyw6Rw8I99oBi6n3cepZDIUyoYxSR83KbMNEwGj3wt135Gjx7Qs1EVhChrVuqkfgF49Wqr7SDabNASnH9AUpu+uoZLBYnbDpPuedLp9FdEhY0+Im1CLPUQQujtDcyVAtfF/244l3sw==
 X-Forefront-Antispam-Report: CIP:164.130.1.60; CTRY:IT; LANG:en; SCL:1; SRV:;
  IPV:CAL; SFV:NSPM; H:smtpO365.st.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230040)(23010399003)(36860700016)(7416014)(376014)(1800799024)(82310400026)(921020)(10067099003)(11063799006)(56012099006)(261022075727099003)(261021123027099003)(261102123227099003)(261021121427099003)(261009223027099003)(261028144727099003)(261026140227099003)(261022105027099003)(261026121527099003)(22082099003)(18002099003)(6133799003);
+ SFS:(13230040)(36860700016)(23010399003)(82310400026)(1800799024)(376014)(7416014)(261028144727099003)(261102123227099003)(261102130727099003)(261021135927099003)(261021123027099003)(261021121427099003)(261021130227099003)(261026140227099003)(261026121527099003)(261022115727099003)(261022075727099003)(921020)(11063799006)(261026130827099003)(261022113327099003)(56012099006)(10067099003)(261022105027099003)(18002099003)(6133799003)(261009221227099003)(261009223027099003)(13003099007)(3023799007);
  DIR:OUT; SFP:1101; 
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: Hq7nV/uX4vVVi6Eo/b/NQXeG972/hI0cv8RpNO2brRld9aIMa4MVxBxUjOjjUuwSnILnI3TlA0SRr6kodRPnhXYD93XXcN+ySNONBfITIHsH0KORhisQtJV1JhKxJOk6JbknQHrPz2mIczLHW2nAnUUCxtxFZwwsttI9QoqxYeFtndu9bqWzrl861Zc6VSbIu5WzKgIwiX5L0TWhtILEBe2LWMJEDT12yEewh1VU05uoVq0vHFaemXqhfdHQQkrQW9dgcIxj0evCVoNbRYQgugzOmqU+744FVusvsG48yt1Zoq9upLHe9z05QACrWBDoX/pPoq8wjID5twMjtBLmpfA3OcTNWGEcdoF9Qv/qhyJEHZHLfyAKyd/o3cmBt+uV3FyDBGHeH7wEdY8lr41nLaMUCOaiy8Ql6EGkTKUbIvb+m+Ecmzz/o71A3UWSCA+G
+X-MS-Exchange-AntiSpam-MessageData-0: WAOWp0D/K0DrHpsfg/3tc+yCCvrXJ71zz3+OK8Cg/Aukt8vmTj3G2DP7VD93vA7vcB2V9klO5XFKz6gwYU3LmSNWwJFn7xeWGcoPTFT19OtH+D/FhZg/gMJOkMQJpcykMpZrEN/ho/i7pm3PbIEhRSKvE0ObExDLO17lbxVdnxFE1W9CKV252vz/H5IExa1+LrATGI+cVYQwFgHeZZO1Y5GUltgtZBzV2SX6odvZZD3l0x3fkZUEb/IB1K6/+6pc0MOksZSTGVbemdrIbktsWgxFLYUZE/lTxn35KzfN8q/cMqs+DMC8I6Sb3EWAXmJXuNvNjG66tV9Aahsf7O8G36u1ENFlxFMHRfCep0N5hiv1U9TZsf1dvFM5e2cfETEclmRweIMktljmJOp9WsqBzkCNZs7/0x2viWFx7dH4A+vWHt37hG4cvXzCbQe54Zkm
 X-OriginatorOrg: foss.st.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 18 Nov 2026 15:18:07.2976 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: ef9f05b1-7120-4080-0d64-08df45872639
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 18 Nov 2026 15:18:00.5456 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: e50d67df-9264-41e8-5d8c-08df45872233
 X-MS-Exchange-CrossTenant-Id: 75e027c9-20d5-47d5-b82f-77d7cd041e8f
 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=75e027c9-20d5-47d5-b82f-77d7cd041e8f; Ip=[164.130.1.60];
  Helo=[smtpO365.st.com]
-X-MS-Exchange-CrossTenant-AuthSource: MA3PEPF00000409.eurprd04.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthSource: MA3PEPF00000408.eurprd04.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Anonymous
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DU0PR10MB6250
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: PA4PR10MB5587
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -134,415 +135,154 @@ X-Spam-Status: No, score=-18.8 required=3.0 tests=BAYES_00,DKIM_SIGNED,
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-Add optional cyclic DMA acquisition with buffer enable and disable
-operations. Push completed DMA scans to the IIO buffer or deliver periods
-to a registered consumer callback.
+This series adds support for the STM32 Multi-function Digital Filter
+(MDF) found on STM32MP2 SoCs. MDF converts bitstreams from external
+sigma-delta modulators and PDM microphones into samples for IIO and
+ASoC consumers.
 
-Add the buffer watermark callback to size a cyclic DMA buffer with two
-periods. Limit the requested watermark to the available buffer capacity
-and reject invalid scan sizes.
+The drivers support direct IIO conversions, cyclic DMA acquisition,
+CIC configuration and scaling, synchronized and interleaved filters,
+and external timer triggers. An ASoC DAI provides PDM microphone capture.
 
-Set up analog IIO buffers when DMA is available, retaining direct-only
-operation without DMA. Keep internal TRGO triggering for synchronized
-and interleaved acquisition.
+This revision addresses the v1 review comments listed below and splits
+the driver patch into smaller functional patches for readability.
+It retains the existing IIO backend interface for external sigma-delta
+modulators, pending agreement on the preferred abstraction.
 
-Stop active buffers during system suspend and restore their configuration
-and acquisition on resume. External timer trigger support follows in a
-separate commit.
+These changes do not resolve all v1 review comments. In particular, the
+frontend/backend architecture, DT child-node model and complete clock
+topology remain open discussion points.
+
+* Open questions: MDF topology (backend/frontend)
+
+In Analog Devices use of the IIO backend framework, the AXI ADC is a
+hardware backend, while the AD9467 is a hardware frontend. The external
+sigma-delta modulator is actually a hardware frontend in the MDF signal
+chain. The difference from the AD9467 use case is which driver owns the
+aggregate IIO device.
+
+Option 1:
+One option would be to generalize the existing backend abstraction to
+represent components contributing to an aggregate IIO device,
+independently of their position in the signal chain.
+
+The existing framework appears to provide the required mechanisms. None
+of these mechanisms inherently requires the provider to be a hardware backend.
+A generic component/provider model would support both topologies without
+duplicating interfaces or requiring reciprocal dependencies. The key
+point here is to preserve the compatibility of APIs and DT bindings.
+
+Option 2:
+Alternatively, if the backend abstraction should retain its hardware
+meaning, we could introduce an explicit frontend-provider abstraction
+sharing the existing infrastructure. Frontend operations would cover
+analog-side control and conversion parameters.
+
+Would generalizing the existing abstraction be acceptable, or would a
+separate frontend interface built on shared infrastructure be preferred?
+
+Option 3:
+An aggregate IIO device based on the component framework, as discussed
+in previous threads, could also be considered. I currently regard this
+as a fallback solution:
+https://lore.kernel.org/all/ec411432-4b77-4410-b0aa-b29f73b82c84@foss.st.com/
+
+* Driver implementation
+
+Serial interfaces (SITF) are shared resources managed directly by the
+MDF core and no longer have separate platform devices. This revision
+retains their DT nodes to describe configuration and clock connections,
+and to allow filters to reference their input bitstreams without
+duplicating shared settings.
+
+This revision also retains a platform device for each MDF filter, as
+each filter manages its own registers, interrupt, DMA channel and IIO
+acquisition state, with a separate suspend/resume lifecycle.
+
+* Clock management
+
+Several clock-management review comments are addressed in this revision:
+- The provider-side clock-frequency property has been removed. Consumers
+  request CCK rates through assigned-clocks and assigned-clock-rates.
+- The clock-names property has been removed. The core acquires its single
+  input clock by index, and CCK gating uses regmap-based clock operations.
+- Remove the unused clock-ranges property, as the core now explicitly
+  shares the kernel clock with the serial interfaces and filters instead
+  of relying on parent clock lookup.
+
+Clock topology point remains open, awaiting clarification of the MDF topology.
+
+Changes since v1:
+- Split the large IIO driver patch into smaller functional patches.
+- Replace provider-side clock-frequency with consumer-assigned CCK rates
+  through the common clock framework.
+- Remove the platform devices for serial interfaces.
+- Replace the interleave phandle list with a filter count, covering
+  consecutive filters starting at filter 0.
+- Simplify clock-output-names, remove clock-names, reset-names and
+  filter-level clock properties, and move mdf-dai into an explicit
+  property outside the conditional schema.
+- Rename the binding to match the STM32MP25 compatible, sort compatible
+  entries, and simplify the binding patch subject.
+- Use unsigned long for match data, improve probe error reporting and
+  wrapping, remove a probe-success debug message, and add kernel-doc for
+  exported core functions.
+- Use scoped spinlock guards.
+- Remove empty serial-interface runtime-PM callbacks.
+- Remove the redundant ASoC platform module alias.
+
+Additional fixes since v1 (following Sashiko review):
+- Compute the settling-time discard count with 64-bit arithmetic.
+- Size cyclic DMA periods in complete scans and validate buffer and
+  period alignment before starting DMA.
+- Fix backend-enable rollback so backend zero is disabled as well.
+- Use managed allocation for the conversion buffer and managed IIO
+  triggered-buffer setup.
+- Release temporary synchronization and serial-interface firmware-node
+  references. Replacing interleave phandles also removes the associated
+  stored node references.
+- Avoid unregistering secondary interleaved filters that were never
+  registered as IIO devices.
+- Use managed acquisition of the optional serial clock.
+- Replace the GCD-based CCK divider selection with a search for the
+  largest valid divisor, allowing non-power-of-two divider values.
+- Remove the selection of the undefined COMMON_CLK_REGMAP symbol.
+
+Previous discussion:
+https://lore.kernel.org/all/20261001145702.2628429-1-olivier.moysan@foss.st.com/
 
 Signed-off-by: Olivier Moysan <olivier.moysan@foss.st.com>
 ---
- drivers/iio/adc/Kconfig         |   1 +
- drivers/iio/adc/stm32-mdf-adc.c | 315 +++++++++++++++++++++++++++++++++++++++-
- 2 files changed, 315 insertions(+), 1 deletion(-)
+Olivier Moysan (11):
+      dt-bindings: iio: adc: add stm32mp2 mdf filter
+      iio: adc: stm32-mdf: add core registration
+      iio: adc: stm32-mdf: add cck clocks provider
+      iio: adc: stm32-mdf: add serial interfaces support
+      iio: adc: stm32-mdf: add digital filter device support
+      iio: adc: stm32-mdf: configure cic filters and sample rates
+      iio: adc: stm32-mdf: add direct iio conversion support
+      iio: adc: stm32-mdf: add dma buffered acquisition support
+      iio: adc: stm32-mdf: add external timer trigger support
+      iio: adc: stm32-mdf: add dmic audio filter support
+      ASoC: stm32: add mdf dai support
 
-diff --git a/drivers/iio/adc/Kconfig b/drivers/iio/adc/Kconfig
-index c3e9885af22d..f9fce54f8627 100644
---- a/drivers/iio/adc/Kconfig
-+++ b/drivers/iio/adc/Kconfig
-@@ -1760,6 +1760,7 @@ config STM32_MDF_ADC
- 	select STM32_MDF_CORE
- 	select IIO_BUFFER
- 	select IIO_BUFFER_HW_CONSUMER
-+	select IIO_TRIGGERED_BUFFER
- 	select IIO_BACKEND
- 	help
- 	  Select this option to support ADCSigma delta modulator for
-diff --git a/drivers/iio/adc/stm32-mdf-adc.c b/drivers/iio/adc/stm32-mdf-adc.c
-index 7361ce6182be..046ca3943a39 100644
---- a/drivers/iio/adc/stm32-mdf-adc.c
-+++ b/drivers/iio/adc/stm32-mdf-adc.c
-@@ -823,6 +823,243 @@ static void stm32_mdf_adc_stop_conv(struct iio_dev *indio_dev)
- 	stm32_mdf_sitf_stop(adc->sitf);
- }
- 
-+static unsigned int stm32_mdf_adc_dma_residue(struct stm32_mdf_adc *adc)
-+{
-+	struct dma_tx_state state;
-+	enum dma_status status;
-+
-+	status = dmaengine_tx_status(adc->dma_chan, adc->dma_chan->cookie, &state);
-+	if (status == DMA_IN_PROGRESS) {
-+		/* Residue is size in bytes from end of buffer */
-+		unsigned int i = adc->buf_sz - state.residue;
-+		unsigned int size;
-+
-+		/* Return available bytes */
-+		if (i >= adc->bufi)
-+			size = i - adc->bufi;
-+		else
-+			size = adc->buf_sz + i - adc->bufi;
-+
-+		return size;
-+	}
-+
-+	return 0;
-+}
-+
-+static void stm32_mdf_adc_dma_buffer_done(void *data)
-+{
-+	struct iio_dev *indio_dev = data;
-+	struct stm32_mdf_adc *adc = iio_priv(indio_dev);
-+	int available = stm32_mdf_adc_dma_residue(adc);
-+	size_t old_pos;
-+
-+	dev_dbg(&indio_dev->dev, "pos = %d, available = %d\n", adc->bufi, available);
-+	old_pos = adc->bufi;
-+
-+	while (available >= indio_dev->scan_bytes) {
-+		s32 *buffer = (s32 *)&adc->rx_buf[adc->bufi];
-+
-+		adc->bufi += indio_dev->scan_bytes;
-+		if (adc->bufi >= adc->buf_sz) {
-+			if (adc->cb)
-+				adc->cb(&adc->rx_buf[old_pos], adc->buf_sz - old_pos, adc->cb_priv);
-+			adc->bufi = 0;
-+			old_pos = 0;
-+		}
-+		if (adc->dev_data->type == STM32_MDF_IIO)
-+			iio_push_to_buffers(indio_dev, buffer);
-+		available -= indio_dev->scan_bytes;
-+	}
-+	if (adc->cb)
-+		adc->cb(&adc->rx_buf[old_pos], adc->bufi - old_pos, adc->cb_priv);
-+}
-+
-+static int stm32_mdf_adc_dma_start(struct iio_dev *indio_dev)
-+{
-+	struct stm32_mdf_adc *adc = iio_priv(indio_dev);
-+	struct dma_slave_config config = {
-+		.src_addr = (dma_addr_t)adc->phys_addr + MDF_DFLTDR_REG,
-+		.src_addr_width = DMA_SLAVE_BUSWIDTH_4_BYTES,
-+	};
-+	struct dma_async_tx_descriptor *desc;
-+	int ret;
-+
-+	if (!adc->dma_chan)
-+		return -EINVAL;
-+
-+	if (!indio_dev->scan_bytes || !adc->buf_sz ||
-+	    (adc->buf_sz / 2) % indio_dev->scan_bytes)
-+		return -EINVAL;
-+
-+	dev_dbg(&indio_dev->dev, "size=%d watermark=%d\n", adc->buf_sz, adc->buf_sz / 2);
-+
-+	ret = dmaengine_slave_config(adc->dma_chan, &config);
-+	if (ret)
-+		return ret;
-+
-+	/* Prepare a DMA cyclic transaction */
-+	desc = dmaengine_prep_dma_cyclic(adc->dma_chan, adc->dma_buf,
-+					 adc->buf_sz, adc->buf_sz / 2,
-+					 DMA_DEV_TO_MEM, DMA_PREP_INTERRUPT);
-+	if (!desc)
-+		return -EBUSY;
-+
-+	desc->callback = stm32_mdf_adc_dma_buffer_done;
-+	desc->callback_param = indio_dev;
-+
-+	ret = dma_submit_error(dmaengine_submit(desc));
-+	if (ret)
-+		goto err_stop_dma;
-+
-+	/* Issue pending DMA requests */
-+	dma_async_issue_pending(adc->dma_chan);
-+
-+	/* Enable regular DMA transfer*/
-+	ret = regmap_set_bits(adc->regmap, MDF_DFLTCR_REG, MDF_DFLTCR_DMAEN);
-+	if (ret < 0)
-+		goto err_stop_dma;
-+
-+	return 0;
-+
-+err_stop_dma:
-+	dmaengine_terminate_sync(adc->dma_chan);
-+
-+	return ret;
-+}
-+
-+static void stm32_mdf_adc_dma_stop(struct iio_dev *indio_dev)
-+{
-+	struct stm32_mdf_adc *adc = iio_priv(indio_dev);
-+
-+	if (!adc->dma_chan)
-+		return;
-+
-+	regmap_clear_bits(adc->regmap, MDF_DFLTCR_REG, MDF_DFLTCR_DMAEN);
-+
-+	dmaengine_terminate_sync(adc->dma_chan);
-+}
-+
-+static int stm32_mdf_adc_postenable(struct iio_dev *indio_dev)
-+{
-+	struct stm32_mdf_adc *adc = iio_priv(indio_dev);
-+	int i = 0;
-+	int ret;
-+
-+	/* Reset adc buffer index */
-+	adc->bufi = 0;
-+
-+	while (i < indio_dev->num_channels && adc->channels[i].backend) {
-+		ret = iio_backend_enable(adc->channels[i].backend);
-+		if (ret < 0) {
-+			while (i > 0)
-+				iio_backend_disable(adc->channels[--i].backend);
-+
-+			return ret;
-+		}
-+		i++;
-+	}
-+
-+	ret = stm32_mdf_adc_start_mdf(indio_dev);
-+	if (ret < 0)
-+		goto err_start;
-+
-+	stm32_mdf_adc_filter_set_mode(adc, true);
-+
-+	regmap_clear_bits(adc->regmap, MDF_DFLTISR_REG,
-+			  MDF_DFLTISR_DOVRF_MASK | MDF_DFLTISR_SATF_MASK);
-+
-+	regmap_set_bits(adc->regmap, MDF_DFLTIER_REG,
-+			MDF_DFLTIER_DOVRIE_MASK | MDF_DFLTIER_SATIE_MASK);
-+
-+	ret = stm32_mdf_adc_dma_start(indio_dev);
-+	if (ret) {
-+		dev_err(&indio_dev->dev, "Can't start DMA\n");
-+		goto err_dma;
-+	}
-+
-+	ret = stm32_mdf_adc_start_conv(indio_dev);
-+	if (ret) {
-+		dev_err(&indio_dev->dev, "Can't start conversion\n");
-+		goto err_conv;
-+	}
-+
-+	return 0;
-+
-+err_conv:
-+	stm32_mdf_adc_dma_stop(indio_dev);
-+err_dma:
-+	stm32_mdf_adc_stop_mdf(indio_dev);
-+err_start:
-+	i = 0;
-+	while (i < indio_dev->num_channels && adc->channels[i].backend) {
-+		iio_backend_disable(adc->channels[i].backend);
-+		i++;
-+	}
-+
-+	return ret;
-+}
-+
-+static int stm32_mdf_adc_predisable(struct iio_dev *indio_dev)
-+{
-+	struct stm32_mdf_adc *adc = iio_priv(indio_dev);
-+	int i = 0;
-+
-+	stm32_mdf_adc_stop_conv(indio_dev);
-+
-+	stm32_mdf_adc_dma_stop(indio_dev);
-+
-+	regmap_clear_bits(adc->regmap, MDF_DFLTIER_REG,
-+			  MDF_DFLTIER_DOVRIE_MASK | MDF_DFLTIER_SATIE_MASK);
-+
-+	stm32_mdf_adc_stop_mdf(indio_dev);
-+
-+	while (i < indio_dev->num_channels && adc->channels[i].backend) {
-+		iio_backend_disable(adc->channels[i].backend);
-+		i++;
-+	}
-+
-+	return 0;
-+}
-+
-+static const struct iio_buffer_setup_ops stm32_mdf_buffer_setup_ops = {
-+	.postenable = &stm32_mdf_adc_postenable,
-+	.predisable = &stm32_mdf_adc_predisable,
-+};
-+
-+static void stm32_mdf_dma_release(struct iio_dev *indio_dev)
-+{
-+	struct stm32_mdf_adc *adc = iio_priv(indio_dev);
-+
-+	if (adc && adc->dma_chan) {
-+		dma_free_coherent(adc->dma_chan->device->dev,
-+				  MDF_DMA_BUFFER_SIZE, adc->rx_buf, adc->dma_buf);
-+		dma_release_channel(adc->dma_chan);
-+	}
-+}
-+
-+static int stm32_mdf_dma_request(struct device *dev, struct iio_dev *indio_dev)
-+{
-+	struct stm32_mdf_adc *adc = iio_priv(indio_dev);
-+	struct dma_chan *dma_chan;
-+
-+	dma_chan = dma_request_chan(dev, "rx");
-+	if (IS_ERR(dma_chan))
-+		return PTR_ERR(dma_chan) ? PTR_ERR(dma_chan) : -ENODEV;
-+	adc->dma_chan = dma_chan;
-+
-+	adc->rx_buf = dma_alloc_coherent(adc->dma_chan->device->dev,
-+					 MDF_DMA_BUFFER_SIZE, &adc->dma_buf, GFP_KERNEL);
-+	if (!adc->rx_buf) {
-+		dma_release_channel(adc->dma_chan);
-+		return -ENOMEM;
-+	}
-+
-+	indio_dev->modes |= INDIO_BUFFER_SOFTWARE;
-+	indio_dev->setup_ops = &stm32_mdf_buffer_setup_ops;
-+
-+	return 0;
-+}
-+
- static int stm32_mdf_channel_parse_of(struct iio_dev *indio_dev, struct fwnode_handle *node,
- 				      struct iio_chan_spec *ch)
- {
-@@ -932,6 +1169,27 @@ static int stm32_mdf_adc_chan_init(struct iio_dev *indio_dev, struct iio_chan_sp
- 	return chan_idx;
- }
- 
-+static int stm32_mdf_set_watermark(struct iio_dev *indio_dev, unsigned int val)
-+{
-+	struct stm32_mdf_adc *adc = iio_priv(indio_dev);
-+	unsigned int scan_bytes = indio_dev->scan_bytes;
-+	unsigned int watermark;
-+
-+	/*
-+	 * DMA cyclic transfers are used, buffer is split into two periods.
-+	 * There should be :
-+	 * - always one buffer (period) DMA is working on
-+	 * - one buffer (period) driver pushed to ASoC side.
-+	 */
-+	if (!val || !scan_bytes || scan_bytes > MDF_DMA_BUFFER_SIZE / 2)
-+		return -EINVAL;
-+
-+	watermark = min(val, MDF_DMA_BUFFER_SIZE / (2 * scan_bytes));
-+	adc->buf_sz = 2 * watermark * scan_bytes;
-+
-+	return 0;
-+}
-+
- static int stm32_mdf_adc_single_conv(struct iio_dev *indio_dev,
- 				     const struct iio_chan_spec *chan, int *res)
- {
-@@ -1115,6 +1373,7 @@ static int stm32_mdf_adc_read_label(struct iio_dev *indio_dev, const struct iio_
- }
- 
- static const struct iio_info stm32_mdf_info_adc = {
-+	.hwfifo_set_watermark = stm32_mdf_set_watermark,
- 	.write_raw = stm32_mdf_adc_write_raw,
- 	.read_raw = stm32_mdf_adc_read_raw,
- 	.read_label = stm32_mdf_adc_read_label,
-@@ -1208,6 +1467,24 @@ static int stm32_mdf_adc_init(struct device *dev, struct iio_dev *indio_dev)
- 
- 	init_completion(&adc->completion);
- 
-+	/* Optionally request DMA */
-+	ret = stm32_mdf_dma_request(dev, indio_dev);
-+	if (ret) {
-+		if (ret != -ENODEV)
-+			return dev_err_probe(dev, ret, "DMA channel request failed with\n");
-+
-+		dev_dbg(dev, "No DMA support\n");
-+		return 0;
-+	}
-+
-+	ret = devm_iio_triggered_buffer_setup(dev, indio_dev,
-+					      &iio_pollfunc_store_time, NULL,
-+					      &stm32_mdf_buffer_setup_ops);
-+	if (ret) {
-+		stm32_mdf_dma_release(indio_dev);
-+		return dev_err_probe(dev, ret, "Buffer setup failed\n");
-+	}
-+
- 	return 0;
- }
- 
-@@ -1460,12 +1737,14 @@ static int stm32_mdf_adc_probe(struct platform_device *pdev)
- 		ret = iio_device_register(iio);
- 		if (ret < 0) {
- 			dev_err_probe(dev, ret, "Failed to register IIO device: %d\n", ret);
--			goto err_clean_list;
-+			goto err_cleanup;
- 		}
- 	}
- 
- 	return 0;
- 
-+err_cleanup:
-+	stm32_mdf_dma_release(iio);
- err_clean_list:
- 	list_del(&adc->entry);
- 
-@@ -1479,14 +1758,48 @@ static void stm32_mdf_adc_remove(struct platform_device *pdev)
- 
- 	if (!MDF_IS_INTERLEAVED_FILT_NOT_0(adc))
- 		iio_device_unregister(indio_dev);
-+	stm32_mdf_dma_release(indio_dev);
- 
- 	list_del(&adc->entry);
- }
- 
-+static int stm32_mdf_adc_suspend(struct device *dev)
-+{
-+	struct iio_dev *indio_dev = dev_get_drvdata(dev);
-+	struct stm32_mdf_adc *adc = iio_priv(indio_dev);
-+	int ret = 0;
-+
-+	if (iio_buffer_enabled(indio_dev))
-+		ret = stm32_mdf_adc_predisable(indio_dev);
-+
-+	regcache_cache_only(adc->regmap, true);
-+	regcache_mark_dirty(adc->regmap);
-+
-+	return ret;
-+}
-+
-+static int stm32_mdf_adc_resume(struct device *dev)
-+{
-+	struct iio_dev *indio_dev = dev_get_drvdata(dev);
-+	struct stm32_mdf_adc *adc = iio_priv(indio_dev);
-+	int ret;
-+
-+	regcache_cache_only(adc->regmap, false);
-+	ret = regcache_sync(adc->regmap);
-+
-+	if (!ret && iio_buffer_enabled(indio_dev))
-+		ret = stm32_mdf_adc_postenable(indio_dev);
-+
-+	return ret;
-+}
-+
-+static SIMPLE_DEV_PM_OPS(stm32_mdf_adc_pm_ops, stm32_mdf_adc_suspend, stm32_mdf_adc_resume);
-+
- static struct platform_driver stm32_mdf_adc_driver = {
- 	.driver = {
- 		.name = "stm32-mdf-adc",
- 		.of_match_table = stm32_mdf_adc_match,
-+		.pm = &stm32_mdf_adc_pm_ops,
- 	},
- 	.probe = stm32_mdf_adc_probe,
- 	.remove = stm32_mdf_adc_remove,
+ .../bindings/iio/adc/st,stm32mp25-mdf.yaml         |  341 ++++
+ drivers/iio/adc/Kconfig                            |   29 +
+ drivers/iio/adc/Makefile                           |    3 +
+ drivers/iio/adc/stm32-mdf-adc.c                    | 2080 ++++++++++++++++++++
+ drivers/iio/adc/stm32-mdf-core.c                   |  899 +++++++++
+ drivers/iio/adc/stm32-mdf-serial.c                 |  223 +++
+ drivers/iio/adc/stm32-mdf.h                        |  275 +++
+ include/linux/iio/adc/stm32-mdf-adc.h              |   19 +
+ sound/soc/stm/Kconfig                              |   15 +
+ sound/soc/stm/Makefile                             |    3 +
+ sound/soc/stm/stm32_amdf.c                         |  375 ++++
+ 11 files changed, 4262 insertions(+)
+---
+base-commit: d922ed738439e1d5b4701df7f4cdd49a09925624
+change-id: 20261112-upstream_mdf_v2-76040d99138e
 
--- 
-2.43.0
+Best regards,
+--  
+Olivier Moysan <olivier.moysan@foss.st.com>
 
