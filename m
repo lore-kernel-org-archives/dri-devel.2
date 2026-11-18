@@ -2,42 +2,41 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6095D606A31C
-	for <dri-devel@archiver.kernel.org>; Wed, 18 Nov 2026 10:37:24 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C9C96606A325
+	for <dri-devel@archiver.kernel.org>; Wed, 18 Nov 2026 10:37:29 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.a=rsa-sha256 header.s=dkim header.b=JR950Io7
+	dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.a=rsa-sha256 header.s=dkim header.b=ShNdJBQj
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 37E7A10FAE6;
-	Wed, 18 Nov 2026 10:37:18 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id A9EEB10FAED;
+	Wed, 18 Nov 2026 10:37:23 +0000 (UTC)
 Received: from smtpout-02.galae.net (smtpout-02.galae.net [185.246.84.56])
- by gabe.freedesktop.org (Postfix) with ESMTPS id E19EC10FAE5;
- Wed, 18 Nov 2026 10:37:11 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 78CD910FADF;
+ Wed, 18 Nov 2026 10:37:14 +0000 (UTC)
 Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
- by smtpout-02.galae.net (Postfix) with ESMTPS id B63FA1A16D0;
- Wed, 18 Nov 2026 10:37:10 +0000 (UTC)
+ by smtpout-02.galae.net (Postfix) with ESMTPS id 4912F1A16D1;
+ Wed, 18 Nov 2026 10:37:13 +0000 (UTC)
 Received: from mail.galae.net (mail.galae.net [212.83.136.155])
- by smtpout-01.galae.net (Postfix) with ESMTPS id 8C0955FE9B;
- Wed, 18 Nov 2026 10:37:10 +0000 (UTC)
+ by smtpout-01.galae.net (Postfix) with ESMTPS id 17D6D5FE9B;
+ Wed, 18 Nov 2026 10:37:13 +0000 (UTC)
 Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon)
- with ESMTPSA id A08BE11BC10FF; Wed, 18 Nov 2026 11:37:05 +0100 (CET)
+ with ESMTPSA id C945611BC1111; Wed, 18 Nov 2026 11:37:08 +0100 (CET)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
- t=1794998228; h=from:subject:date:message-id:to:cc:mime-version:content-type:
+ t=1794998231; h=from:subject:date:message-id:to:cc:mime-version:content-type:
  content-transfer-encoding:in-reply-to:references;
- bh=mtYzpJ24rhMVmapecTwlgUQZoZ29m3Kp8hKu07EX+/M=;
- b=JR950Io72DZ0wCXBTYbH/WRCce/IgwxCsADnVItmHWPOGMOX4Xfre+WsJ9EK0TU2shoOyr
- 9+RPQjn0tfqo+Y7tymFUZi2GJpZN11W24raXFOTGnmH0iA1vHoejbi9ucbbuNmds545Nyx
- 3CY4pJMIlKJgRb/H/5Gj5DM2ImJKK4HTquOkYJ9QGWPh46ON1k7HqzBoXPveh53aJVlp88
- LI2Q1WMW6lGdBXGNvecVCSYLRolqUt2z53OUHShQfMXc7/hqDeDeQ3kbjiptCICHGpMm44
- OzoCj4H9+1bEcqp5o6KovapUWG4EG84xwtQmtQrCI2D4ibz4fcs4NclUVEc+Hw==
+ bh=BD/7dGjF7sMoB/d2IGhZU+budae+csrWSO8oga6hhcQ=;
+ b=ShNdJBQjsk3N/eIlJbui5qaasE+DZP66AZcJQcb+sGL2SJhJzj/VbK17EyGoQoMSQ/wclT
+ e9OXCaom+l3C0auwmarGtLqbhsZe/hUpZoPCm6Tzodmr0R0aiHxAmMjyuffCx7ViVWoJ9b
+ Yr7fM8zN+93xBhkCEzxg5gAJFdRzDEuDKELauoklKaqcrZBnb6b6bvk62O+HQB+w+V1iL9
+ tugW1mbOsthJ42Pcchl1YcE5X3DOy6MWmOFvu5Flc2T9+4w+l3TyCemXZfDMRn+rhyo8BD
+ IWmFbsdXf/QcYbcJik3epFP9Zdqwu+/RCFzg8VInFqkQzZowIVkpx+I9LLyXNA==
 From: Kory Maincent <kory.maincent@bootlin.com>
-Date: Wed, 18 Nov 2026 11:36:34 +0100
-Subject: [PATCH 7/8] drm/dp: Move eDP sink link rates reading helper out of
- i915
+Date: Wed, 18 Nov 2026 11:36:35 +0100
+Subject: [PATCH 8/8] drm: Move DSC capability reading helper out of i915
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20261118-feat_move_i915_helper-v1-7-652177f3107a@bootlin.com>
+Message-Id: <20261118-feat_move_i915_helper-v1-8-652177f3107a@bootlin.com>
 References: <20261118-feat_move_i915_helper-v1-0-652177f3107a@bootlin.com>
 In-Reply-To: <20261118-feat_move_i915_helper-v1-0-652177f3107a@bootlin.com>
 To: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
@@ -76,175 +75,121 @@ X-Spam-Status: No, score=-18.8 required=3.0 tests=BAYES_00,DKIM_SIGNED,
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-Move the eDP sink link rates reading function out of the i915 driver
-into the generic DRM helpers. The helper reads the rates from the DPCD
-DP_SUPPORTED_LINK_RATES registers, available on eDP 1.4 and later
-sinks.
+Move the DSC capability reading helper out of the i915 driver into the
+generic DRM helpers.
 
 No functional change intended.
 
 Signed-off-by: Kory Maincent <kory.maincent@bootlin.com>
 ---
- drivers/gpu/drm/display/drm_dp_helper.c | 58 +++++++++++++++++++++++++++++++++
- drivers/gpu/drm/i915/display/intel_dp.c | 51 +++++------------------------
+ drivers/gpu/drm/display/drm_dp_helper.c | 30 ++++++++++++++++++++++++++++++
+ drivers/gpu/drm/i915/display/intel_dp.c | 27 ++++-----------------------
  include/drm/display/drm_dp_helper.h     |  2 ++
- 3 files changed, 68 insertions(+), 43 deletions(-)
+ 3 files changed, 36 insertions(+), 23 deletions(-)
 
 diff --git a/drivers/gpu/drm/display/drm_dp_helper.c b/drivers/gpu/drm/display/drm_dp_helper.c
-index 30935d3ae0055..fc3d4db1c7639 100644
+index fc3d4db1c7639..06bf7a6ec8934 100644
 --- a/drivers/gpu/drm/display/drm_dp_helper.c
 +++ b/drivers/gpu/drm/display/drm_dp_helper.c
-@@ -4916,6 +4916,32 @@ int drm_dp_max_dprx_data_rate(int max_link_rate, int max_lanes)
+@@ -5144,3 +5144,33 @@ int drm_dp_read_edp_sink_rates(struct drm_dp_aux *aux, u8 edp_dpcd_rev,
+ 	return num_sink_rates;
  }
- EXPORT_SYMBOL(drm_dp_max_dprx_data_rate);
- 
-+/**
-+ * drm_dp_read_dpcd_supported_link_rates() - read DPCD supported link rates
-+ * @aux: DisplayPort AUX channel
-+ * @link_rates: Buffer to store the resulting link rates supported
-+ *
-+ * Attempts to read the DPCD supported link rates for @aux.
-+ *
-+ * Returns: The number or supported link rates, negative error code otherwise.
-+ */
-+static int drm_dp_read_dpcd_supported_link_rates(struct drm_dp_aux *aux,
-+						 int link_rates[DP_MAX_SUPPORTED_RATES])
-+{
-+	__le16 dpcd_link_rates[DP_MAX_SUPPORTED_RATES] = {0};
-+	int ret, i;
-+
-+	ret = drm_dp_dpcd_read_data(aux, DP_SUPPORTED_LINK_RATES,
-+				    dpcd_link_rates, sizeof(dpcd_link_rates));
-+	if (ret < 0)
-+		return ret;
-+
-+	for (i = 0; i < ARRAY_SIZE(dpcd_link_rates) && dpcd_link_rates[i]; i++)
-+		link_rates[i] = le16_to_cpu(dpcd_link_rates[i]) * 20;
-+
-+	return i;
-+}
-+
- static int drm_dprx_max_rate(const struct drm_dp_tunnel *tunnel,
- 			     const u8 dpcd[DP_RECEIVER_CAP_SIZE])
- {
-@@ -5086,3 +5112,35 @@ int drm_dp_read_dpcd_sink_rates(struct drm_dp_aux *aux,
- 	return i;
- }
- EXPORT_SYMBOL_GPL(drm_dp_read_dpcd_sink_rates);
+ EXPORT_SYMBOL_GPL(drm_dp_read_edp_sink_rates);
 +
 +/**
-+ * drm_dp_read_edp_sink_rates() - read the sink rates from the eDP DPCD
++ * drm_dp_read_dsc_dpcd() - read the DSC capabilities from the DPCD
 + * @aux: DisplayPort AUX channel
-+ * @edp_dpcd_rev: eDP DPCD revision of the sink
-+ * @sink_rates: Array of DP_MAX_SUPPORTED_RATES entries to store the sink rates
++ * @dsc_dpcd: Buffer to store the DSC capabilities read from the DPCD
 + *
-+ * Read the link rates supported by an eDP sink from the DPCD
-+ * DP_SUPPORTED_LINK_RATES registers, available on eDP 1.4 and later sinks.
++ * Attempts to read the sink DSC capabilities from the DPCD of @aux.
 + *
-+ * Returns: The number of supported sink rates, 0 if the sink does not support
-+ * the DP_SUPPORTED_LINK_RATES register.
++ * Returns: 0 on success or a negative error code on failure.
 + */
-+int drm_dp_read_edp_sink_rates(struct drm_dp_aux *aux, u8 edp_dpcd_rev,
-+			       int sink_rates[DP_MAX_SUPPORTED_RATES])
++int drm_dp_dsc_read_dpcd(struct drm_dp_aux *aux,
++			 u8 dsc_dpcd[DP_DSC_RECEIVER_CAP_SIZE])
 +{
-+	int num_sink_rates;
++	int ret;
 +
-+	if (edp_dpcd_rev < DP_EDP_14)
-+		return 0;
-+
-+	num_sink_rates = drm_dp_read_dpcd_supported_link_rates(aux, sink_rates);
-+	if (num_sink_rates < 0) {
++	ret = drm_dp_dpcd_read_data(aux, DP_DSC_SUPPORT, dsc_dpcd,
++				    DP_DSC_RECEIVER_CAP_SIZE);
++	if (ret < 0) {
 +		drm_dbg_kms(aux->drm_dev,
-+			    "%s: Unable to read eDP supported link rates (%d)\n",
-+			    aux->name, num_sink_rates);
-+		return 0;
++			    "Could not read DSC DPCD register 0x%x Error: %pe\n",
++			    DP_DSC_SUPPORT, ERR_PTR(ret));
++		return ret;
 +	}
 +
-+	return num_sink_rates;
++	drm_dbg_kms(aux->drm_dev, "DSC DPCD: %*ph\n",
++		    DP_DSC_RECEIVER_CAP_SIZE,
++		    dsc_dpcd);
++	return 0;
 +}
-+EXPORT_SYMBOL_GPL(drm_dp_read_edp_sink_rates);
++EXPORT_SYMBOL_GPL(drm_dp_dsc_read_dpcd);
 diff --git a/drivers/gpu/drm/i915/display/intel_dp.c b/drivers/gpu/drm/i915/display/intel_dp.c
-index 8fee2d195c944..225f6ed8c32d8 100644
+index 225f6ed8c32d8..b103d3b87607c 100644
 --- a/drivers/gpu/drm/i915/display/intel_dp.c
 +++ b/drivers/gpu/drm/i915/display/intel_dp.c
-@@ -4815,56 +4815,21 @@ static void
- intel_edp_set_sink_rates(struct intel_dp *intel_dp)
- {
- 	struct intel_display *display = to_intel_display(intel_dp);
-+	int num_sink_rates;
+@@ -4572,25 +4572,6 @@ static bool intel_dp_get_sst_split_sdp_status(u8 dprx)
+ 	return dprx & DP_SST_SPLIT_SDP_CAP;
+ }
  
--	intel_dp->num_sink_rates = 0;
+-static int intel_dp_read_dsc_dpcd(struct drm_dp_aux *aux,
+-				  u8 dsc_dpcd[DP_DSC_RECEIVER_CAP_SIZE])
+-{
+-	int ret;
 -
--	if (intel_dp->edp_dpcd[0] >= DP_EDP_14) {
--		__le16 sink_rates[DP_MAX_SUPPORTED_RATES];
--		int ret;
--		int i;
--
--		ret = drm_dp_dpcd_read_data(&intel_dp->aux,
--					    DP_SUPPORTED_LINK_RATES,
--					    sink_rates, sizeof(sink_rates));
--		if (ret < 0) {
--			drm_dbg_kms(display->drm,
--				    "Unable to read eDP supported link rates, using default rates\n");
--			memset(sink_rates, 0, sizeof(sink_rates));
--		}
--
--		for (i = 0; i < ARRAY_SIZE(sink_rates); i++) {
--			int rate;
--
--			/* Value read multiplied by 200kHz gives the per-lane
--			 * link rate in kHz. The source rates are, however,
--			 * stored in terms of LS_Clk kHz. The full conversion
--			 * back to symbols is
--			 * (val * 200kHz)*(8/10 ch. encoding)*(1/8 bit to Byte)
--			 */
--			rate = le16_to_cpu(sink_rates[i]) * 200 / 10;
--
--			if (rate == 0)
--				break;
--
--			/*
--			 * Some platforms cannot reliably drive HBR3 rates due to PHY limitations,
--			 * even if the sink advertises support. Reject any sink rates above HBR2 on
--			 * the known machines for stable output.
--			 */
--			if (rate > 540000 &&
--			    intel_has_quirk(display, QUIRK_EDP_LIMIT_RATE_HBR2))
--				break;
-+	num_sink_rates = drm_dp_read_edp_sink_rates(&intel_dp->aux,
-+						    intel_dp->edp_dpcd[0],
-+						    intel_dp->sink_rates);
-+	if (num_sink_rates < 0)
-+		num_sink_rates = 0;
- 
--			intel_dp->sink_rates[i] = rate;
--		}
--		intel_dp->num_sink_rates = i;
+-	ret = drm_dp_dpcd_read_data(aux, DP_DSC_SUPPORT, dsc_dpcd, DP_DSC_RECEIVER_CAP_SIZE);
+-	if (ret < 0) {
+-		drm_dbg_kms(aux->drm_dev,
+-			    "Could not read DSC DPCD register 0x%x Error: %pe\n",
+-			    DP_DSC_SUPPORT, ERR_PTR(ret));
+-		return ret;
 -	}
-+	intel_dp->num_sink_rates = num_sink_rates;
+-
+-	drm_dbg_kms(aux->drm_dev, "DSC DPCD: %*ph\n",
+-		    DP_DSC_RECEIVER_CAP_SIZE,
+-		    dsc_dpcd);
+-	return 0;
+-}
+-
+ static void init_dsc_overall_throughput_limits(struct intel_connector *connector, bool is_branch)
+ {
+ 	u8 branch_caps[DP_DSC_BRANCH_CAP_SIZE];
+@@ -4641,8 +4622,8 @@ void intel_dp_get_dsc_sink_cap(u8 dpcd_rev,
+ 	if (dpcd_rev < DP_DPCD_REV_14)
+ 		return;
  
- 	/*
- 	 * Use DP_LINK_RATE_SET if DP_SUPPORTED_LINK_RATES are available,
- 	 * default to DP_MAX_LINK_RATE and DP_LINK_BW_SET otherwise.
- 	 */
--	if (intel_dp->num_sink_rates)
-+	if (num_sink_rates)
- 		intel_dp->use_rate_select = true;
- 	else
- 		intel_dp_set_sink_rates(intel_dp);
+-	ret = intel_dp_read_dsc_dpcd(connector->dp.dsc_decompression_aux,
+-				     connector->dp.dsc_dpcd);
++	ret = drm_dp_dsc_read_dpcd(connector->dp.dsc_decompression_aux,
++				   connector->dp.dsc_dpcd);
+ 	if (ret < 0)
+ 		return;
+ 
+@@ -4676,8 +4657,8 @@ static void intel_edp_get_dsc_sink_cap(u8 edp_dpcd_rev, struct intel_connector *
+ 	if (edp_dpcd_rev < DP_EDP_14)
+ 		return;
+ 
+-	if (intel_dp_read_dsc_dpcd(connector->dp.dsc_decompression_aux,
+-				   connector->dp.dsc_dpcd) < 0)
++	if (drm_dp_dsc_read_dpcd(connector->dp.dsc_decompression_aux,
++				 connector->dp.dsc_dpcd) < 0)
+ 		return;
+ 
+ 	if (connector->dp.dsc_dpcd[0] & DP_DSC_DECOMPRESSION_IS_SUPPORTED)
 diff --git a/include/drm/display/drm_dp_helper.h b/include/drm/display/drm_dp_helper.h
-index dd4c4a6ff17d1..81fe87ad47050 100644
+index 81fe87ad47050..4e2762d493bf3 100644
 --- a/include/drm/display/drm_dp_helper.h
 +++ b/include/drm/display/drm_dp_helper.h
-@@ -709,6 +709,8 @@ int drm_dp_read_dpcd_sink_rates(struct drm_dp_aux *aux,
- 				const struct drm_dp_desc *desc,
- 				const struct drm_dp_tunnel *tunnel,
- 				int sink_rates[DP_MAX_SUPPORTED_RATES]);
-+int drm_dp_read_edp_sink_rates(struct drm_dp_aux *aux, u8 edp_dpcd_rev,
-+			       int sink_rates[DP_MAX_SUPPORTED_RATES]);
+@@ -216,6 +216,8 @@ drm_dp_is_branch(const u8 dpcd[DP_RECEIVER_CAP_SIZE])
+ }
  
- int drm_dp_dpcd_read_link_status(struct drm_dp_aux *aux,
- 				 u8 status[DP_LINK_STATUS_SIZE]);
+ /* DP/eDP DSC support */
++int drm_dp_dsc_read_dpcd(struct drm_dp_aux *aux,
++			 u8 dsc_dpcd[DP_DSC_RECEIVER_CAP_SIZE]);
+ u8 drm_dp_dsc_sink_bpp_incr(const u8 dsc_dpcd[DP_DSC_RECEIVER_CAP_SIZE]);
+ u32 drm_dp_dsc_slice_count_to_mask(int slice_count);
+ u32 drm_dp_dsc_sink_slice_count_mask(const u8 dsc_dpcd[DP_DSC_RECEIVER_CAP_SIZE],
 
 -- 
 2.43.0
