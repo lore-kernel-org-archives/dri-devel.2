@@ -2,73 +2,99 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A29D660A262C
-	for <dri-devel@archiver.kernel.org>; Wed, 18 Nov 2026 14:47:43 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F21D7606A320
+	for <dri-devel@archiver.kernel.org>; Wed, 18 Nov 2026 14:50:27 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=fail reason="signature verification failed" (1024-bit key, unprotected) header.d=collabora.com header.i=@collabora.com header.a=rsa-sha256 header.s=zohomail header.b=EdUk8q0V
+	dkim=pass (1024-bit key, unprotected) header.d=amd.com header.i=@amd.com header.a=rsa-sha256 header.s=selector1 header.b=5C6Hft2H
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id DD7C310E7F7;
-	Wed, 18 Nov 2026 14:47:37 +0000 (UTC)
-Received: from sender6-op-o11.zoho.com (sender6-op-o11.zoho.com
- [165.173.180.11])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 11CF610E825
- for <dri-devel@lists.freedesktop.org>; Wed, 18 Nov 2026 14:47:31 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; t=1795013248; cv=none; 
- d=zohomail.com; s=zohoarc; 
- b=OosozSG/m/6BH6LExb9WEQA9mQQDkOxmd2Y8kPDeXNAZWleSLQhMtNY2+uI8KhawaXUHYr47f8oAZn0N964ZgBYyXGCiT02s/Z74UIIxHA+2ECCTad4PExBsP1KYPsM1p9d/LWebw8uDaFCDFSfC3n7dR4fPjhnjaVOjF4NtA3U=
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com;
- s=zohoarc; t=1795013248;
- h=Content-Type:Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:Subject:Subject:To:To:Message-Id:Reply-To;
- bh=6zB/RMHWdIa7W8+VTnT+QTtr7Bbpj33D57C4R1EDlas=; 
- b=cqe8Ny8ZQEg4ksL1wtnrt586k9283grpoxwjSmD4McSWu3wPIRDkuHOA1YRK5ZfamqOnqyNI78DibXRqLPs819yV6gD11Jo/arIUzj9zNJTH1COBGfE2j8gwXErFqQhmzCI9MFRRYLnAAbL6QecoLNE8t7leM49RtAMFWWbX1HM=
-ARC-Authentication-Results: i=1; mx.zohomail.com;
- dkim=pass  header.i=collabora.com;
- spf=pass  smtp.mailfrom=daniel.almeida@collabora.com;
- dmarc=pass header.from=<daniel.almeida@collabora.com>
-DKIM-Signature: a=rsa-sha256;
- b=EdUk8q0VINosLxs21gOjRZn+nKLBqNq/iD5Npp0a0jH8Z7xTEQiaI5c3FegTTZMmf/wb4MixKQZxLGUPje7g1RDUnmXE3pAolvscDKNbqpVN641LJ1RB8Sh+t8DmYbQwsHocvRaTHw2a1WuFiaFP/IhlYOQog8lN6H29wfWIJUM=;
- c=relaxed/relaxed; s=zohomail; d=collabora.com; v=1;
- bh=6zB/RMHWdIa7W8+VTnT+QTtr7Bbpj33D57C4R1EDlas=;
- h=Content-Description:Content-ID:Content-Type:Content-Transfer-Encoding:Cc:Date:From:In-Reply-To:List-Subscribe:List-Post:List-Owner:List-Id:List-Archive:List-Help:List-Unsubscribe:MIME-Version:Message-ID:Resent-Sender:Resent-Cc:Resent-Date:Resent-To:Reply-To:Resent-Message-ID:Resent-From:Sender:Subject:To:Date:From:Message-Id:Reply-To:Subject:To:Cc;
-Received: by smtp.zohomail.com with SMTPS id 1795013246789416.0565019034008;
- Wed, 18 Nov 2026 06:47:26 -0800 (PST)
-Content-Type: text/plain;
-	charset=utf-8
+	by gabe.freedesktop.org (Postfix) with ESMTP id 22DEB10FD76;
+	Wed, 18 Nov 2026 14:50:22 +0000 (UTC)
+Received: from DM1PR04CU001.outbound.protection.outlook.com
+ (mail-centralusazon11010067.outbound.protection.outlook.com [52.101.61.67])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id AEF6D10FD56;
+ Wed, 18 Nov 2026 14:50:16 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=ytAaxHV09biIlRddyG1gADAgzLqrV0YVN6zKP73rextPWekW3ZgVozgMXZO71w6aRuxwuN1z1zbOh5IWKac5PsqWiOqFCnumPPHyY8OOC92mmwHlP4GOKrkAyaDU3+WpFlk3rsDwDEV+fqHvG5vlSHN6pABp/ogs1/VKn8guKS4daVpnMVqHfDglS+KAoBY9Uz/D0S0uB84u75I8FkKVKHTTP40QBLucx5gACpqvG6KteEuJp/AP1QHdpl2Gx8jl8JYw1tWARXVhIGgrkgdAnAkJ0tqkxR5YPHjeVsSuBtnlrfo6ADOddyplJhP5EXxKX8yEwnw9oQJO4pfEIsXviw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=VlKg3D4fFbSwzdyJI9bQLHAmJpxgP2OcFfGXBZsm5/w=;
+ b=JIzQ+CJr/wToyJNWIB39OXkq5knTWfpvQpasWpPpnGqU3phLWE5lfPmtEWH54+z84fJvouEBIAq102BzSUAqyFpIGyDkIkC5kYBWwXP0tv73jsfuKeGcchXkRGlCiePoGC8SXkeNl+9ixaQzLS/N7u5pzAy9/qXDb8EFuvd5JHxSfMOJ7BGYyzdGIFQXIpaj0YV9LOkOzl7cwfJohI/B7R4CSDvEFJXKYzZ9Ku1O62w49+QMKVjB2Xu0zWXfA+IGJdfmsFauzbiJg/nh4buiBZDe0zMSDXyyUEZMRkG6zwRuhxAnDSdoHsYpGaCu7PK3t6YrNirjh6GVGXlPvA5udw==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=gmail.com smtp.mailfrom=amd.com; dmarc=pass
+ (p=quarantine sp=quarantine pct=100) action=none header.from=amd.com;
+ dkim=none (message not signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=VlKg3D4fFbSwzdyJI9bQLHAmJpxgP2OcFfGXBZsm5/w=;
+ b=5C6Hft2HACtcY56roNBFlvlekeSnizEeMiQHJKNhzl2HYM6kAU4DxQJO/hT7ueglORgTD0Y4sqf9DKPk+n91e1rh9uOxcSX/ADztwWUp3s9iMAamJ0z+eXMOr1oIi2b+/8S3hv1xW/CdqiIeI2DF1FP6yV1GYBORsE9V/uuS9XY=
+Received: from DS7P220CA0122.NAMP220.PROD.OUTLOOK.COM (2603:10b6:8:25f::6) by
+ DM4PR12MB6010.namprd12.prod.outlook.com (2603:10b6:8:6a::7) with
+ Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.21.615.14; Wed, 18 Nov 2026 14:49:43 +0000
+Received: from CH2PEPF000166BC.namprd04.prod.outlook.com
+ (2603:10b6:8:25f:cafe::2e) by DS7P220CA0122.outlook.office365.com
+ (2603:10b6:8:25f::6) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.21.615.14 via Frontend Transport; Wed,
+ 18 Nov 2026 14:49:43 +0000
+X-MS-Exchange-Authentication-Results: mx.microsoft.com 1; spf=pass (sender IP
+ is 165.204.84.17) smtp.mailfrom=amd.com;
+ dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=satlexmb07.amd.com; pr=C
+Received: from satlexmb07.amd.com (165.204.84.17) by
+ CH2PEPF000166BC.mail.protection.outlook.com (10.167.252.6) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.21.615.4 via Frontend Transport; Wed, 18 Nov 2026 14:49:43 +0000
+Received: from FRAPPELLOUX01-WSLPUB.amd.com (10.180.168.240) by
+ satlexmb07.amd.com (10.181.42.216) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.57; Wed, 18 Nov 2026 08:49:41 -0600
+From: Pierre-Eric Pelloux-Prayer <pierre-eric.pelloux-prayer@amd.com>
+To: Alex Deucher <alexander.deucher@amd.com>,
+ =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>, David Airlie
+ <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>
+CC: Pierre-Eric Pelloux-Prayer <pierre-eric.pelloux-prayer@amd.com>,
+ <amd-gfx@lists.freedesktop.org>, <dri-devel@lists.freedesktop.org>,
+ <linux-kernel@vger.kernel.org>
+Subject: [PATCH v1] drm/amdgpu: use a single clear entity on some chips
+Date: Wed, 18 Nov 2026 15:49:22 +0100
+Message-ID: <20261118144923.1100-1-pierre-eric.pelloux-prayer@amd.com>
+X-Mailer: git-send-email 2.43.0
 X-Archived-By: <archiver.kernel.org>
-Mime-Version: 1.0 (Mac OS X Mail 16.0 \(3901.200.71.1.16\))
-Subject: Re: [PATCH v6 5/7] rust: clk: add devres-managed clks
-From: Daniel Almeida <daniel.almeida@collabora.com>
-In-Reply-To: <DMYELN5M09W3.1SYPKW7DZ70E1@garyguo.net>
-Date: Wed, 18 Nov 2026 11:47:04 -0300
-Cc: "Rafael J. Wysocki" <rafael@kernel.org>,
- Viresh Kumar <viresh.kumar@linaro.org>, Danilo Krummrich <dakr@kernel.org>,
- Alice Ryhl <aliceryhl@google.com>, David Airlie <airlied@gmail.com>,
- Simona Vetter <simona@ffwll.ch>,
- Michal Wilczynski <m.wilczynski@samsung.com>,
- Drew Fustini <fustini@kernel.org>, Guo Ren <guoren@kernel.org>,
- Fu Wei <wefu@redhat.com>,
- =?utf-8?Q?Uwe_Kleine-K=C3=B6nig?= <ukleinek@kernel.org>,
- Stephen Boyd <sboyd@kernel.org>, Brian Masney <bmasney+clk@redhat.com>,
- Jerome Brunet <jbrunet+clk@baylibre.com>, Miguel Ojeda <ojeda@kernel.org>,
- Boqun Feng <boqun@kernel.org>,
- =?utf-8?Q?Bj=C3=B6rn_Roy_Baron?= <bjorn3_gh@protonmail.com>,
- Benno Lossin <lossin@kernel.org>, Andreas Hindborg <a.hindborg@kernel.org>,
- Trevor Gross <tmgross@umich.edu>, Tamir Duberstein <tamird@kernel.org>,
- Alexandre Courbot <acourbot@nvidia.com>, linux-pm@vger.kernel.org,
- linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org,
- linux-riscv@lists.infradead.org, linux-pwm@vger.kernel.org,
- linux-clk@vger.kernel.org, rust-for-linux@vger.kernel.org,
- Boris Brezillon <boris.brezillon@collabora.com>,
- =?utf-8?Q?Onur_=C3=96zkan?= <work@onurozkan.dev>,
- Maurice Hieronymus <mhi@mailbox.org>
-Content-Transfer-Encoding: quoted-printable
-Message-Id: <189F36A9-D1C1-478A-A195-F94D037E4376@collabora.com>
-References: <20261013-clk-type-state-v6-0-a5e9977b3509@collabora.com>
- <20261013-clk-type-state-v6-5-a5e9977b3509@collabora.com>
- <DMYELN5M09W3.1SYPKW7DZ70E1@garyguo.net>
-To: Gary Guo <gary@garyguo.net>
-X-Mailer: Apple Mail (2.3901.200.71.1.16)
-X-ZohoMailClient: External
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-ClientProxiedBy: satlexmb08.amd.com (10.181.42.217) To satlexmb07.amd.com
+ (10.181.42.216)
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: CH2PEPF000166BC:EE_|DM4PR12MB6010:EE_
+X-MS-Office365-Filtering-Correlation-Id: 9d22a2a8-1d78-4973-deb0-08df45832e97
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+ ARA:13230040|36860700016|376014|23010399003|82310400026|1800799024|11063799006|56012099006|261026140227099003|261028144727099003|261022105027099003|10067099003|261021121427099003|261102123227099003|261009223027099003|18002099003;
+X-Microsoft-Antispam-Message-Info: ExuoEjkwjvjxJMhtMxewxKsmnnAr5HLfypeu7SEffG08Lvzfq2WUvl5r3vaNiG94PKlyHPwLM44JzDhCgpXlCYt6hcTto9BMja+HAtG6IxEQIkE04zO9sKXONNkYqnY+ypEDgLidsV++fWuQt7WjjLjLickGPC5PK4zAK0rmlEUWlbyyHcgmjJ4osh10ZwvBK5bSkaxYN3dFjgBdgKZixK3iqEHX711beYO0hROQUZeB99PTFRryfsjuJCoj+PF4SlX9wD+BnCYIFBRdPZThQ21CuEom1/D78PwIDeXIUrRwznGcslhXREi6Wgvo0TO6Iz+RqlzFKHl4tdDUskTkg/gxkW3ulW8PPDpV9S1Cff0ki1A01Ykt3RM8bQ0+EQ5c0j+EWP68N9E1xRJskemqqmpCr+aTxSVm8r4UlJxsn/3Yttl0rZV7gfjpk4Z4CadgNpAcDskmXmk+hDrnkzRzQp6FEEgVqmUAK6Y6h7oyirzQq+EHbyWeIXEPuk4tHIi070MAaZvwVcEkYXlcuJtMkz27GAW3EWBXqvxwKCkNcgT7pgJu5Q/RBaqBa7wiLv/5pe78g2M78lqMpdZAqR6bwdQPdzFRKsbDqnkF72nALPuINiEb/RY8gsVQGjvbxyDu3gADbsL5IXKwFt9aCwsx7wX3c4w82YtHg/2FXyPi+O8egRHjVcbiF8CV7St4WqEI0bxFZ1cmdR+ncHscJLgTSQ==
+X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:satlexmb07.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
+ SFS:(13230040)(36860700016)(376014)(23010399003)(82310400026)(1800799024)(11063799006)(56012099006)(261026140227099003)(261028144727099003)(261022105027099003)(10067099003)(261021121427099003)(261102123227099003)(261009223027099003)(18002099003);
+ DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: aUCoUb8yhcH7AZYJ1H2M2zoWHr+Jb8mEbMicax5EGDAly7c6tDmSMOP/JWjKNyFd5PjpE8mCrfCYGT+jwxWWqwnYtftvJKUr4nepZShaTSe0X6vXaAqoCKw60vZfat9AogQnLAVc7lk38SkdHtjyLHRAcra5CqVRaxKd/AYwXGohqVOSEdtLhOXiA/E+bxh9cLG2NrmvvyaiM35LaoL1jzAOgj0Xjvd47M+6mF7R2ztyGVI64rb97rOsqncjP9Kurv2qWs2edzMuHPndkzLMVgPJgCWFw7VQzbO0104sUTSDDVCZ3DKZqJItDqxpV5YaqOXnboPdRR38iz+YdqyPws8T4nimVplVfVjGug0Z2vqhZvscIB9dzGlnRG0HGyzLc1wxCJWy36XF5hN1A81hDDrli9NpvuuYfsJPNl+lcl+btWuyZmWiZ+hQ1xbMgTMu
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 18 Nov 2026 14:49:43.4044 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 9d22a2a8-1d78-4973-deb0-08df45832e97
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
+ Helo=[satlexmb07.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource: CH2PEPF000166BC.namprd04.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM4PR12MB6010
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -80,46 +106,40 @@ List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-8.6 required=3.0 tests=BAYES_00,DKIM_INVALID,
-	DKIM_SIGNED,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,
-	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS autolearn=ham
-	autolearn_force=no version=4.0.1
+X-Spam-Status: No, score=-18.8 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
+	DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
+	INCLUDES_CR_TRAILER,INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,
+	SPF_PASS,USER_AGENT_GIT autolearn=unavailable autolearn_force=no
+	version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
+Workaround to fix failing tests until the root cause is
+understood and fixed.
 
+Signed-off-by: Pierre-Eric Pelloux-Prayer <pierre-eric.pelloux-prayer@amd.com>
+---
+ drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c | 7 +++++++
+ 1 file changed, 7 insertions(+)
 
-> On 18 Nov 2026, at 11:24, Gary Guo <gary@garyguo.net> wrote:
->=20
-> On Tue Oct 13, 2026 at 6:07 PM BST, Daniel Almeida wrote:
->> Many drivers only need a clock running for as long as the device is
->> bound and never touch it afterwards. In C, devm_clk_get_enabled() and
->> devm_clk_get_optional_enabled() cover this case.
->>=20
->> Add devm_enable(), devm_enable_optional() and
->> devm_enable_optional_with_rate(), which wrap the C helpers. They =
-return
->> no handle, so the driver keeps nothing in its data and cannot change =
-the
->> state of the clock. The clock is disabled, unprepared and put when =
-the
->> device is unbound.
->>=20
->> This mirrors regulator::devm_enable() and devm_enable_optional().
->>=20
->> Reviewed-by: Alexandre Courbot <acourbot@nvidia.com>
->> Signed-off-by: Daniel Almeida <daniel.almeida@collabora.com>
->=20
-> Given all the device resource lifetime changes, do we still need this =
-now, or
-> would putting a guard in driver private data to be dropped =
-automatically upon
-> unbind be sufficient?
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c
+index 8dfa92967b63..d5c1d044403e 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c
+@@ -2411,6 +2411,13 @@ void amdgpu_ttm_enable_buffer_funcs(struct amdgpu_device *adev)
+ 	sdma_ip_version = amdgpu_ip_version(adev, SDMA0_HWIP, 0);
+ 	if (sdma_ip_version == IP_VERSION(7, 0, 0) || sdma_ip_version == IP_VERSION(7, 0, 1))
+ 		num_move_entities = 1;
++	if (amdgpu_ip_version(adev, GC_HWIP, 0) == IP_VERSION(9, 4, 1) ||
++	    amdgpu_ip_version(adev, GC_HWIP, 0) == IP_VERSION(9, 4, 2) ||
++	    amdgpu_ip_version(adev, GC_HWIP, 0) == IP_VERSION(9, 4, 3) ||
++	    amdgpu_ip_version(adev, GC_HWIP, 0) == IP_VERSION(9, 4, 4) ||
++	    amdgpu_ip_version(adev, GC_HWIP, 0) == IP_VERSION(9, 5, 0) ||
++	    amdgpu_ip_version(adev, GC_HWIP, 0) == IP_VERSION(12, 1, 0))
++		num_clear_entities = 1;
+ 
+ 	adev->mman.clear_entities = kcalloc(num_clear_entities,
+ 						sizeof(struct amdgpu_ttm_buffer_entity),
+-- 
+2.43.0
 
-I think we should still provide this. Many drivers only care that the =
-clock be
-enabled at a given rate, and do not care about the handle. I think this =
-has
-little to do with C or Rust and should be supported in Rust too.
-
-=E2=80=94 Daniel=
