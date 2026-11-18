@@ -2,54 +2,82 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 15ADD606A325
-	for <dri-devel@archiver.kernel.org>; Wed, 18 Nov 2026 01:52:34 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9A905606A32A
+	for <dri-devel@archiver.kernel.org>; Wed, 18 Nov 2026 02:07:38 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=GgCgaVpC
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=urnxwq5n
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 62AEA10E6E9;
-	Wed, 18 Nov 2026 01:52:28 +0000 (UTC)
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.17])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 89E7810E6E9;
- Wed, 18 Nov 2026 01:52:21 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1794966742; x=1826502742;
- h=from:to:cc:subject:date:message-id:mime-version:
- content-transfer-encoding;
- bh=JzvAYy+mMgwCByAroYj9N8rDne/Z6sbblIq4Fe1MpRs=;
- b=GgCgaVpC8IFJbkd8qYEHQJJbBdx4ERZk00zupOrrH2ZeN9qOgpz0MnH1
- tBAjnee40gFiA8bgRTzY3YxOAPuy9go0quHLxRs6QQOMASpaXev5x/MBH
- NhOY6XvnuHfz6HXbzfB+Knn6/kvo3CuX5dmV3TncLMjav7l5LjGisofiG
- 3/CPvaMmskLfZMHRpAo8tEIts3QgnXqKvUcYctB6c2LTI+BTzY+CHN5Ti
- A4k6Oj9rsQgqhsMT6LZL7reRn+Q2f9SksIqvTzzXTwJ79FDI0QZ5HMm5L
- wK8Cte6LRFfl6G/CR8/H9lmxlP5RTmh7q9nARW2z9zo1JFHulqx28oMse Q==;
-X-CSE-ConnectionGUID: XVn+2jaFRdyLPrijQFl53A==
-X-CSE-MsgGUID: YhRKKBAnQACGn+ozAigBLw==
-X-IronPort-AV: E=McAfee;i="6800,10657,11969"; a="3777424"
-X-IronPort-AV: E=Sophos;i="6.27,219,1787036400"; 
-   d="scan'208";a="3777424"
-Received: from fmviesa002.fm.intel.com ([10.60.135.142])
- by orvoesa109.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 17 Nov 2026 17:52:21 -0800
-X-CSE-ConnectionGUID: IHmTfrMeRRGkZVF1+ha2cg==
-X-CSE-MsgGUID: /vNDjvkrTpyMqpQemnh5+Q==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,219,1787036400"; d="scan'208";a="10172462"
-Received: from fred-panther-lake-client-platform.sh.intel.com
- ([10.239.144.227])
- by fmviesa002.fm.intel.com with ESMTP; 17 Nov 2026 17:52:18 -0800
-From: Fred Gao <fred.gao@intel.com>
-To: intel-gfx@lists.freedesktop.org
-Cc: intel-xe@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
- linux-kernel@vger.kernel.org, jani.nikula@linux.intel.com,
- rodrigo.vivi@intel.com, joonas.lahtinen@linux.intel.com,
- tursulin@ursulin.net, ville.syrjala@linux.intel.com,
- Fred Gao <fred.gao@intel.com>, Chenchen Wang <chenchen.wang@intel.com>
-Subject: [PATCH v2] drm/i915/panel: Restrict highest mode to DRRS-compatible
- modes
-Date: Wed, 18 Nov 2026 09:49:49 +0800
-Message-ID: <20261118014949.399026-1-fred.gao@intel.com>
+	by gabe.freedesktop.org (Postfix) with ESMTP id B8B4C10E15E;
+	Wed, 18 Nov 2026 02:07:32 +0000 (UTC)
+Received: from mail-dy1-f180.google.com (mail-dy1-f180.google.com
+ [74.125.82.180])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 27CC710E54B
+ for <dri-devel@lists.freedesktop.org>; Wed, 18 Nov 2026 02:07:27 +0000 (UTC)
+Received: by mail-dy1-f180.google.com with SMTP id
+ 5a478bee46e88-376a4059061so58312eec.1
+ for <dri-devel@lists.freedesktop.org>; Tue, 17 Nov 2026 18:07:27 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20260707; t=1794967646; x=1795572446; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+ bh=i45bHZiP3wEgcVETQzoa65BO2wkAbHlegiGhDqMSTjc=;
+ b=urnxwq5nHL/axMyLiEyRISKlypD+UrT8oM7Ni1tEKXoy/h+xvJzPFdx7GyHwQXPABZ
+ loRXa/Mk2lrg7asbYDft9paUq3ArH0d4F1BUxVPjBHepMSza8AGZKKR8+pTeBsfl3F6v
+ PYhY3KX3/u0Z8bY+gkHs3u0GZ6M7Yl5KCCbfj6P0a24kmGdTd4BgRN9goCvsRKjZKXTP
+ Dgpln7Ue2jfIzApK3GOs6BQS4methlB9pLUr8qdJJcbKji850MCkrSgv1dngx+r/8fFN
+ cOycbNpeWw2iZJ0aMdi5BgZdlCOGwSNuLzHaQDJMWZfVmG6Ry6sy1uddzEgio4YE7wn2
+ 3T6A==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20260707; t=1794967646; x=1795572446;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+ :message-id:reply-to:content-type;
+ bh=i45bHZiP3wEgcVETQzoa65BO2wkAbHlegiGhDqMSTjc=;
+ b=UBbRwh3pX+sq00D809RoR8mOTwNl/coWLPxbMLM3UHItRisCq/wNXdS/163oa3Dd/2
+ 9sWnAsy/ianjWujuML37glce6I8IUdiXXsoNF6WPcC0/MTFPFanOphlUhKPpJqxgDfGj
+ 9iLAcO7DLEE3aXScohcA9aYyEYI0qg1BSFxbVlf+w79cLM8byYzsNDq/c7nB2LHeQrtc
+ mfhf2XyZ0lBD8RTS9AaP/7cMHkHc1/KoyBPfy57ACWvaeRJz2ZuBXuS7ZQh2qkpV+U/p
+ eTvMN+XSRf+vPT1OI49ObzxJOqMRQYgxnWOaOuo4Z7R6WoWMbWimdmhlwxGovAlsiREd
+ verg==
+X-Forwarded-Encrypted: i=1;
+ AL+hErFiIPhKfSzooPxLZnPf5c/w7wkTwcDf47xzCE62/FKJb8ReNFBBq9UDJPUMnfQnIie0w4kalqegEtw=@lists.freedesktop.org
+X-Gm-Message-State: APuU4Z+kLbBaM2oFnnyD+8zQV+TeDSKFu8NOJCYjIuMt4vQxnXpdaWSP
+ KRmnk2o3KoSvcXyJpZn2hxzXUmt7MhR4/xP1ySueIWFa7lLYj3L/47il
+X-Gm-Gg: AYBFou1BAYbjeYVe7i8s4pvRJyl0DwuVaCQGVRi4MdjmP9V3nZDOojRpO8hzTa8QXrl
+ 8tkq4qSoIGZjx3awOHRXsPPAGFfoLD7FDeflfpHREU99GWvuWmiBonlJGKljqbz4WxHNpF1RhdX
+ JbA4QCvyArQGEeszG9i1H8vvheJwYHLpX3+kCOGjLLzDsoL6co0Gsh6k7NAOTCreSBcANkFe176
+ d02w+MOwECfbi4tDw7MlcqL1BiyVxS5hr4NkOgQOuwvKyZrcWsVg8rsOq9SC+kuYvHRw3p6sFUg
+ SbRpCfJGZLMO9VShHCYrQTMFziAbrK+RuKZeurO99id17pY3b055U/eY4DjqE77y2DMrJEgDvsg
+ HV88vPlcL55ga6Z3BjFDIH4O2K3aHSDDAfE/m96E4q30GYGsosx5tcAGq9vOZXXuovwwSNyuRVM
+ 0n0wkTEnSl5ibh2cZX7Tbqg0Ib5UIHN/eHHREyusQQCqVDI5aPzSGv9pziR9M0R45BDtXAJvEle
+ 7OQBpBfd0skpp3vLjViWhuH21kbBR7CEnAesSUPnybOjZzC2ok982+umZJ3VBQ7jydXM6+SHdhb
+ 5efgMlziGaz5HaD+CPV7a02VAeoD+3CZk5NzkAD322ui/Nr/6sUlBwrB6H68jLwbxQ8LyUidd0L
+ nPMlDSW8=
+X-Received: by 2002:a05:701a:cc8f:20b0:1b5:4596:8371 with SMTP id
+ a92af1059eb24-1b54596847cmr617949c88.0.1794967645989; 
+ Tue, 17 Nov 2026 18:07:25 -0800 (PST)
+Received: from DESKTOP-CJ1L666.dankook.ac.kr ([220.149.255.57])
+ by smtp.gmail.com with ESMTPSA id
+ a92af1059eb24-1b544784008sm2862327c88.5.2026.11.17.18.07.20
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Tue, 17 Nov 2026 18:07:25 -0800 (PST)
+From: Jiwoo Kim <arpe1618@gmail.com>
+To: Rob Clark <robin.clark@oss.qualcomm.com>,
+ Dmitry Baryshkov <lumag@kernel.org>
+Cc: Akhil P Oommen <akhilpo@oss.qualcomm.com>,
+ Konrad Dybcio <konradybcio@kernel.org>,
+ Anna Maniscalco <anna.maniscalco2000@gmail.com>,
+ Julius Bairaktaris <julius@bairaktaris.de>,
+ Abhinav Kumar <abhinav.kumar@linux.dev>,
+ Jessica Zhang <jesszhan0024@gmail.com>, Sean Paul <sean@poorly.run>,
+ Marijn Suijten <marijn.suijten@somainline.org>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org,
+ freedreno@lists.freedesktop.org, linux-kernel@vger.kernel.org,
+ stable@vger.kernel.org
+Subject: [PATCH v4 0/5] drm/msm: Fix VM_BIND job, queue and entity lifetimes
+Date: Wed, 18 Nov 2026 11:07:11 +0900
+Message-ID: <20261118020716.1698-1-arpe1618@gmail.com>
 X-Mailer: git-send-email 2.43.0
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
@@ -65,61 +93,83 @@ List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-18.8 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
-	DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
-	INCLUDES_CR_TRAILER,INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,
-	SPF_PASS,USER_AGENT_GIT autolearn=unavailable autolearn_force=no
-	version=4.0.1
+X-Spam-Status: No, score=-10.8 required=3.0 tests=BAYES_00,DKIM_SIGNED,
+	DKIM_VALID,DKIM_VALID_AU,FREEMAIL_FORGED_FROMDOMAIN,FREEMAIL_FROM,
+	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_PATCH,MAILING_LIST_MULTI,
+	SPF_HELO_NONE,SPF_PASS,USER_AGENT_GIT autolearn=unavailable
+	autolearn_force=no version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-intel_dp_mode_clock() uses intel_panel_highest_mode() when seamless M/N
-updates are supported so the link configuration can accommodate every
-seamless DRRS refresh rate.
+These fix what happens to VM_BIND jobs, queues and entities when the
+file or a VM_BIND queue is closed while jobs are still pending, and
+make the VM unusable when VM_BIND jobs of different queues apply an
+unmap before the map that it undoes.
 
-The panel fixed mode list can also contain modes with the same active
-size but different blanking timings. Such modes require a full modeset
-and cannot participate in a seamless M/N switch. Letting them affect the
-highest clock can unnecessarily reduce the selected bpp.
+Patch 1 makes msm_gem_vm_close() wait for VM_BIND jobs, as it does for
+submits. Patch 2 handles an unmap that finds part of its range not
+mapped, or that comes before the map it undoes, like a failed map.
+Patch 3 makes a VM_BIND job that the scheduler kills before it runs
+apply its queued unmaps before it drops its references to the unmapped
+objects, release its BO pins, and mark the VM unusable.
+Patch 4 destroys the VM_BIND entity when its queue is closed, instead
+of on the final put, which can come after the VM's scheduler has been
+torn down. Patch 5 puts the queue last when a job is freed, as the
+queue may hold the last reference to the VM.
 
-On a 5120x2160 panel, the preferred DisplayID mode uses 717260 kHz, while a
-CTA mode with different blanking uses 742500 kHz. HBR2 x4 can carry the
-preferred mode at 24 bpp, but not the CTA clock. The latter therefore makes
-the link configuration fall back to 18 bpp. The firmware state is 24 bpp,
-so the mismatch forces a full modeset and an eDP backlight and panel power
-cycle during driver takeover.
+Changes in v4:
+- New patch 1, as Rob suggested: VM_BIND jobs add their fences to
+  vm->last_fence, keeping the previous fence if the merge fails. Patch
+  4 is still needed for killed jobs, which the scheduler frees only
+  after it has signalled their fences.
+- New patch 2, for the ordering problem across VM_BIND queues that
+  Sashiko found in v3 patch 2, and that v3 patch 1 also made reachable
+  through killed jobs. Unmap errors are now handled like map errors, as
+  Rob suggested, and so is an unmap that comes before the map it undoes.
+  A job that fails in the ioctl after updating the VMAs now marks the
+  VM unusable as well.
+- Patch 3 (v3 patch 1): uses the checks of patch 2, and describes the
+  window that Sashiko pointed out in v3, where a job that waits for a
+  killed job applies its updates before the killed job's unmaps.
+- Patch 4 (v3 patch 2): changelog updated for patch 1, and a second
+  Fixes tag, for the commit that added VM_BIND jobs.
 
-Use is_alt_drrs_mode() to consider only fixed modes whose timings and flags
-match the adjusted mode. This preserves bandwidth reservation for genuine
-seamless DRRS alternatives while excluding modes that would require a full
-modeset.
+Changes in v3:
+- Patch 1: only apply the queued ops of a job that the scheduler frees
+  after killing it, once its dependencies and the previous job of its
+  entity are done. The error path of msm_ioctl_vm_bind() frees the job
+  right away, so v2 could apply its unmaps too early and out of order
+  (Sashiko). That path is left as it is in mainline, and the title now
+  says which jobs the patch is about.
+- Patch 3: rebased on patch 1, title adjusted.
 
-Fixes: 74d6f31fa427 ("drm/i915: Add intel_panel_highest_mode()")
-Signed-off-by: Fred Gao <fred.gao@intel.com>
-Reviewed-by: Chenchen Wang <chenchen.wang@intel.com>
----
-v2:
- - Resubmit as requested by the CI team to trigger a fresh CI run.
-   No code changes. The previous IGT failures were caused by unrelated
-   patches.
+Changes in v2:
+- New patch 1, for an issue that Sashiko reported on v1 patch 1, which
+  that patch makes easier to hit.
+- Patch 2: changelog refers to patch 1.
 
- drivers/gpu/drm/i915/display/intel_panel.c | 3 ++-
- 1 file changed, 2 insertions(+), 1 deletion(-)
+Review of v2 by Rob:
+https://lore.kernel.org/r/CACSVV00ZppfBKwsHJ+NBYBB7a2f3g1O=6J4Gt1m_A74fudZQoQ@mail.gmail.com
 
-diff --git a/drivers/gpu/drm/i915/display/intel_panel.c b/drivers/gpu/drm/i915/display/intel_panel.c
-index 81e638d0c7b3..e82082adb4c0 100644
---- a/drivers/gpu/drm/i915/display/intel_panel.c
-+++ b/drivers/gpu/drm/i915/display/intel_panel.c
-@@ -192,7 +192,8 @@ intel_panel_highest_mode(struct intel_connector *connector,
- 
- 	/* pick the fixed_mode that has the highest clock */
- 	list_for_each_entry(fixed_mode, &connector->panel.fixed_modes, head) {
--		if (fixed_mode->clock > best_mode->clock)
-+		if (is_alt_drrs_mode(fixed_mode, adjusted_mode) &&
-+		    fixed_mode->clock > best_mode->clock)
- 			best_mode = fixed_mode;
- 	}
- 
+v3: https://lore.kernel.org/r/20261114141851.134290-1-arpe1618@gmail.com
+v2: https://lore.kernel.org/r/20261114081902.1669-1-arpe1618@gmail.com
+v1: https://lore.kernel.org/r/20261114062541.2001-1-arpe1618@gmail.com
+
+Jiwoo Kim (5):
+  drm/msm: Wait for VM_BIND jobs in msm_gem_vm_close()
+  drm/msm: Mark the VM unusable on out-of-order VM_BIND unmaps
+  drm/msm: Release the pins and ops of a killed VM_BIND job
+  drm/msm: Destroy the VM_BIND entity when its queue is closed
+  drm/msm: Put the VM_BIND queue last when freeing a VM_BIND job
+
+ drivers/gpu/drm/msm/msm_gem.h         |   7 +
+ drivers/gpu/drm/msm/msm_gem_vma.c     | 242 ++++++++++++++++++++++++--
+ drivers/gpu/drm/msm/msm_gpu.h         |   6 +
+ drivers/gpu/drm/msm/msm_submitqueue.c |  50 ++++--
+ 4 files changed, 272 insertions(+), 33 deletions(-)
+
+
+base-commit: 1e59855738454b14021b64115f0090eafc7526ae
 -- 
 2.43.0
 
