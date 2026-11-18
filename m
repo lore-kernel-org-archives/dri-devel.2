@@ -2,89 +2,86 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B7326606A31C
-	for <dri-devel@archiver.kernel.org>; Wed, 18 Nov 2026 04:17:19 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F2EF9606A31C
+	for <dri-devel@archiver.kernel.org>; Wed, 18 Nov 2026 04:17:42 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=chromium.org header.i=@chromium.org header.a=rsa-sha256 header.s=google header.b=b60z4efO
+	dkim=pass (1024-bit key) header.d=chromium.org header.i=@chromium.org header.a=rsa-sha256 header.s=google header.b=Pu0zJ3PW
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id EF62C10E22F;
-	Wed, 18 Nov 2026 04:17:13 +0000 (UTC)
-Received: from mail-ed1-f41.google.com (mail-ed1-f41.google.com
- [209.85.208.41])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 6DF8F10E22F
- for <dri-devel@lists.freedesktop.org>; Wed, 18 Nov 2026 04:17:08 +0000 (UTC)
-Received: by mail-ed1-f41.google.com with SMTP id
- 4fb4d7f45d1cf-6b8a2518f7cso18638a12.2
- for <dri-devel@lists.freedesktop.org>; Tue, 17 Nov 2026 20:17:08 -0800 (PST)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 3E95A10E441;
+	Wed, 18 Nov 2026 04:17:37 +0000 (UTC)
+Received: from mail-ej1-f53.google.com (mail-ej1-f53.google.com
+ [209.85.218.53])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 453D110E441
+ for <dri-devel@lists.freedesktop.org>; Wed, 18 Nov 2026 04:17:31 +0000 (UTC)
+Received: by mail-ej1-f53.google.com with SMTP id
+ a640c23a62f3a-c4cb6834eaaso62179166b.2
+ for <dri-devel@lists.freedesktop.org>; Tue, 17 Nov 2026 20:17:31 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=chromium.org; s=google; t=1794975427; x=1795580227;
+ d=chromium.org; s=google; t=1794975450; x=1795580250;
  darn=lists.freedesktop.org; 
  h=content-transfer-encoding:content-type:cc:to:subject:message-id
  :date:from:in-reply-to:references:mime-version:from:to:cc:subject
  :date:message-id:reply-to:content-type;
- bh=ObB5BTr7jsOYIDsOdgn4jADX1XWHHDmb0QljBTUzZvs=;
- b=b60z4efOS3KoMEUk4v8aAkbQ/gh9l74v8YijSE6VxaChsz0DbvYQk+dk8IPvk3GDlT
- SIdiIdnJxB+/Ey1RsSz1rJkhi7Jy5AKCaKZe4waHYdxQsB1d2fks42YfgHUIwSHi5wyk
- /koZTNb2lOTEBFnEb8/Wpj0ppKaxI/XtCmlyc=
+ bh=+jujJ243QVTrYG17pj7lkbHGYx3SfvWrc0zUwmud3CM=;
+ b=Pu0zJ3PWmVEw5tgmQeVHUVLibwO1JxUQb2HiEkstKyhqDu9likxo9LpuDD+xWTBAAx
+ 0D5Evisah3R1VCuG9cyOQd2uyvSAcxpOd+xrecQPdX6bhGDYg5nlTzZJdbZroPnNb2bT
+ 55YG4of35ddgFNehGxF4NiVfAbF/N3Pdc6FrQ=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20260707; t=1794975427; x=1795580227;
+ d=1e100.net; s=20260707; t=1794975450; x=1795580250;
  h=content-transfer-encoding:content-type:cc:to:subject:message-id
  :date:from:in-reply-to:references:mime-version:x-gm-gg
  :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
  :content-type;
- bh=ObB5BTr7jsOYIDsOdgn4jADX1XWHHDmb0QljBTUzZvs=;
- b=q2fdqpMvsjahY0557GZE0lSr3sL+VjMLznQbKwly5aBMlryLvi82FTkQR000ImSfJe
- K5wpbtm6P470EZgwTLmMm20MsLDQvbLcz17gKj1/Q/BzUMf93l61gl2QQAsoKqZyYmre
- g+bwS/4IYEwPqE5JgAADBv6Hg/YNc8zMuNwg6JHl7UxWR7Kr8W59+7rZQ/ieWcsAElUx
- d6jMArJ23orf4X4bm+NjC74nJr7zJbFNFkvjBFd3AuClf87j7Ip6OXx8SraP5T3XU9pd
- xeFZnCuur+CbzKTi1MvlSgzE+ejrDTZWf+lGfNy3tjZy0lQLutoduqKEevQeO59UtGsf
- ueeQ==
+ bh=+jujJ243QVTrYG17pj7lkbHGYx3SfvWrc0zUwmud3CM=;
+ b=sv3Hs4PJBYdQ4Vp8m3rczi+73lj7Sj8n/xtsV0pTTR3kCxqzn6Uu5o1RhMe2TD2F4C
+ RDXE+38R3zu8DWltNh5zAUcuid/YqI70x/DZT5aEWKKR79sCwAac5Epa7aGu+UQEUYty
+ 1fwLpiLyiPPe8sKehlauU2bqZw9UZ2Nqe98oLBJpOV8GlqyIST3c7673cioJnX9Q3ytn
+ jxjo7y5ybXJlh5l/W22uUOfikHDBPSQZmK2IePpUH68LOqzXKF5H+Hhw7GaVFeeIc9NA
+ wl38wdkwWWXNmQigd3GuGl5jh84qjXuBFxwjSFQyfsApF5nQKy70TNIFiNNR6OCEOsII
+ FXVg==
 X-Forwarded-Encrypted: i=1;
- AL+hErFZz3c3l1da29kBNR531xB6lWEQVV1OQuWGE73QUJXopThO6zFhe7SoTe1/NXxQQBhi/QqRYSJvq3Y=@lists.freedesktop.org
-X-Gm-Message-State: APuU4Z8hwPOsx3BzgzwXMdo/XwbSyr9TwDFi0CGR1uvJ0fX7HC4Wkavn
- og8i+y0tA2Sm1iOQZhMn8dXK5ti+O/462nNQz99N1S2RcqxqosICGrP+bHDwje/Z7aqaC3ouWS2
- oivAZQ15F
-X-Gm-Gg: AYBFou2+f80/6srnrWRWkBE/8r3NS3Da70INhr1CxNiprbPfCLIr8hEIlpHRu5z20Tu
- XwcL49uIKH2y+7K1sEQ/Z3/s+mX2I2FLX1cowb0yYLkL3NunPZbQVtgVeVM0GqCOkfBKoBgidp1
- ft2ouCzc0wg9xCNGQQBLiHAp63mIDisrECSknjkqicwQ59P6dALr9N9p5UmuSZOquxr1FOt8h+S
- dvu20J4OybyhZFy5Ivypr9qzNIOWCDlc2u1Zu8CuszS3sEFICwXRfzegdf/Cn5m1nsD/+kIwr7O
- RAgy+5zyLMSo+A9fDGJPyOx7sl9dO1mLG1KfTQNNExxyV/T78WAd88VRoVPlFLlxubuANSLWF77
- Pyfmg2HHgNElu2pVYrLOc/Mhhn3haAWWFJYfFrktW4vhK2ZFt4COX7gdxCwSFKjlRYbLE2VrJ3O
- MlkxwmO1vUGnQ9mtUsHwnbqlbaYgPJNyLBt5cZz135wifD5DorVIShNOWtgKUq55eeEf25uMFmf
- mT7JjDxfmr3RkHpsoo0nSCny5eNFSWRHy/kBcTZASl6AQjXKPY4r3RDFXH3FOAeV54odHBXBVoq
- UeFCvY8nR4up5XPKW6VRqDyTGXSYXwDXWSBg9L76uwan3JHOUZHrsLbq3YhxEEcfV2YSKW4aoZP
- 2DNMI5Gn/nB4k+Mw=
-X-Received: by 2002:a05:6402:3991:b0:6b7:dc8:c824 with SMTP id
- 4fb4d7f45d1cf-6b887f1633cmr918581a12.42.1794975426734; 
- Tue, 17 Nov 2026 20:17:06 -0800 (PST)
-Received: from mail-wm1-f48.google.com (mail-wm1-f48.google.com.
- [209.85.128.48]) by smtp.gmail.com with ESMTPSA id
- 4fb4d7f45d1cf-6b88a22e1b4sm554954a12.31.2026.11.17.20.17.04
+ AL+hErG9zoVwoDreiFSJIBTwT3ZT0SNWMi/Zqs5JZ5unyjGcjHg8ryNzHij5AzkdQZkYBR7vY8VvLadf2+E=@lists.freedesktop.org
+X-Gm-Message-State: APuU4Z+N3qRes1AnsnfA1uZQNCdCMhgY0C/6H1F+TC3qjBsZejNcSuqH
+ gF+Sj+lwoGJx59Qtd6w26Kkp9g++i0YKRBnfMKtmb4L9AwHipu7j2UozLDOH0OnEYZcfzk11F1W
+ 0aAgV4lLl
+X-Gm-Gg: AYBFou2O73/SFFtZwgBX0/rJ/sRTR782Ea+Vdf1IO5oYsS6gABCkOwdJ9Qjjqt9aCHo
+ P00k2LNvMlRtqMTQzmgtyG9ji5lzwY7eB9vNrSy5jx7+PnFJeEZNsN1UA7bSdSbZTnodZOmU0O1
+ MexVFZVg0uhGSM2YI8BZqyoNR+5ULd+qfyDV3pp5+7S0fmqTl96HmsbOk9MMagXmKin6/jS9APZ
+ iDroZ97jSviHQnNNL0l0VDSgDcRNmIFs+FAU9e/iAI5jzN1kO3h5OmXVuZyWkV3Kxi0Y8QEnQdq
+ LcvX4NAxrPS8BWEJyBcP5Loy22PgYBjDPECk9EL9eDn8vK+hrxWBzf54VdZ2YOnEPPQgfajbXrD
+ pEbyVl2HQlSfXURq966/BF/N3tWi26OFiTTxPT7EUfhj9i/kMlumLiSkO1mbIgKTC0PIOthIyt6
+ v6FolBPQ3NMDd6HwLblDzY6dxRuq4gMA/jEcDMx+JrDX7GTbfNX7i4E+lRNxZdkTZO5kg9fRSDO
+ dRocb2EKGcx4WoLCybEeSHahhk7sZAVtGIkYWkA0DXcVTNNaagiAJC9w3sg54EL9vWnqNaT0Vfh
+ QLV1vaMyZ8fhz8Vn3hkLCN4NuUXg+LYUkTTmCYOmygKGl9iVBcPmBu0g4bx6pNIoQJko
+X-Received: by 2002:a17:907:6095:b0:c51:908:fe70 with SMTP id
+ a640c23a62f3a-c510e4c4f7amr91022266b.43.1794975449651; 
+ Tue, 17 Nov 2026 20:17:29 -0800 (PST)
+Received: from mail-wr1-f50.google.com (mail-wr1-f50.google.com.
+ [209.85.221.50]) by smtp.gmail.com with ESMTPSA id
+ a640c23a62f3a-c510ca61d97sm52279466b.40.2026.11.17.20.17.28
  for <dri-devel@lists.freedesktop.org>
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Tue, 17 Nov 2026 20:17:05 -0800 (PST)
-Received: by mail-wm1-f48.google.com with SMTP id
- 5b1f17b1804b1-4bb6c7b6dbdso8336535e9.0
- for <dri-devel@lists.freedesktop.org>; Tue, 17 Nov 2026 20:17:04 -0800 (PST)
+ Tue, 17 Nov 2026 20:17:29 -0800 (PST)
+Received: by mail-wr1-f50.google.com with SMTP id
+ ffacd0b85a97d-4919a880834so238503f8f.0
+ for <dri-devel@lists.freedesktop.org>; Tue, 17 Nov 2026 20:17:28 -0800 (PST)
 X-Forwarded-Encrypted: i=1;
- AL+hErH4tdp/L+PrLe21pbXtjKHNFJH3QiedtN2cQmGdNGIqx74qqdyORK7h5l06HAH+t5RKa/m1DAxZTXI=@lists.freedesktop.org
-X-Received: by 2002:a05:600c:3b0e:b0:4ba:73f:ef5 with SMTP id
- 5b1f17b1804b1-4bb7da5e261mr24365865e9.34.1794975423253; Tue, 17 Nov 2026
- 20:17:03 -0800 (PST)
+ AL+hErGEZlqeTWeWo5Usa/0TOTWabvIG9ClNenC4yHFBL52R7yGdInIer8Oubjod38P26Kd6acTz22U3FtM=@lists.freedesktop.org
+X-Received: by 2002:adf:e00b:0:20b0:490:7fb3:cb41 with SMTP id
+ ffacd0b85a97d-4a63d2cfb02mr1975853f8f.24.1794975447625; Tue, 17 Nov 2026
+ 20:17:27 -0800 (PST)
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
-References: <20261114135251.32775-1-architmore303@gmail.com>
-In-Reply-To: <20261114135251.32775-1-architmore303@gmail.com>
+References: <20261113-sp11-panel-lgd0779-v1-1-1020a0f2f83d@gmail.com>
+In-Reply-To: <20261113-sp11-panel-lgd0779-v1-1-1020a0f2f83d@gmail.com>
 From: Doug Anderson <dianders@chromium.org>
-Date: Tue, 17 Nov 2026 20:16:51 -0800
-X-Gmail-Original-Message-ID: <CAD=FV=WrvpqkEeR8a0AypUZe24GABVXztAsDUSX_eGdX-mVi8Q@mail.gmail.com>
-X-Gm-Features: Aa3M54p2JFOXsxd40N6OC1_2keDGa2qbupiaZ8BvzYKarZyYBxstOB6amzQmF6U
-Message-ID: <CAD=FV=WrvpqkEeR8a0AypUZe24GABVXztAsDUSX_eGdX-mVi8Q@mail.gmail.com>
-Subject: Re: [PATCH] drm/panel: newvision-nv3051d: Propagate init sequence
- errors to prepare()
-To: Archit More <architmore303@gmail.com>
+Date: Tue, 17 Nov 2026 20:17:16 -0800
+X-Gmail-Original-Message-ID: <CAD=FV=WYhz_DoF5B-fJ77FYjPR=7+db1dgUsm3mmSKfFd47fEg@mail.gmail.com>
+X-Gm-Features: Aa3M54qamHxziF6HUYxZrhm7gL8MsYoWo8lFKfy-Evpfhj64S9u9ILsI_5O3Rbc
+Message-ID: <CAD=FV=WYhz_DoF5B-fJ77FYjPR=7+db1dgUsm3mmSKfFd47fEg@mail.gmail.com>
+Subject: Re: [PATCH] drm/panel-edp: Add LG LP129WT332166 panel
+To: jimmie.lin@gmail.com
 Cc: Neil Armstrong <neil.armstrong@linaro.org>,
- Chris Morgan <macromorgan@hotmail.com>, 
  Jessica Zhang <jesszhan0024@gmail.com>, 
  Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
  Maxime Ripard <mripard@kernel.org>, 
@@ -113,42 +110,64 @@ X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 
 Hi,
 
-On Sat, Nov 14, 2026 at 5:54=E2=80=AFAM Archit More <architmore303@gmail.co=
-m> wrote:
+On Fri, Nov 13, 2026 at 7:05=E2=80=AFPM Haipeng Lin via B4 Relay
+<devnull+jimmie.lin.gmail.com@kernel.org> wrote:
 >
-> In commit 3944ca3e6b7d ("drm/panel: newvision-nv3051d: Use
-> mipi_dsi_*_multi(); fix minor bugs"), prepare() and unprepare() were
-> converted to use mipi_dsi_*_multi() helpers, but
-> panel_nv3051d_init_sequence() continued using its own local struct
-> mipi_dsi_multi_context and unconditionally returned 0. Consequently,
-> errors encountered during the panel init sequence were discarded and
-> never reached prepare().
+> From: Haipeng Lin <jimmie.lin@gmail.com>
 >
-> Convert panel_nv3051d_init_sequence() to take struct
-> mipi_dsi_multi_context * directly from prepare() so all DCS commands
-> share the same context. Referred to panel-elida-kd35t133 to solve
-> the issue.
+> Add an entry for the eDP LG LP129WT332166 panel used in the Microsoft
+> Surface Pro 11 (LCD variant).
 >
-> Signed-off-by: Archit More <architmore303@gmail.com>
+> No datasheet available. Delays were not derived from ACPI or firmware
+> tables. delay_200_500_e200_d200 was copied from the entry for the
+> closely related LG LP129WT232166 (LGD 0x06b2, Surface Pro 9 5G) which
+> most LGD entries also use.
+>
+> Tested on Surface Pro 11 with ftrace (function_graph on
+> msm_dp_wait_hpd_asserted and gpio events for panel power).
+> Tested 22 cycles DPMS off/on, suspend/resume successfully with no prep-
+> are retries. HPD asserts 179-182 ms after panel power-on within the
+> 200 ms hpd_absent.
+>
+> Cross-checked that the Windows display driver qcdxkmext8380_DENidp.bin
+> waits 500 ms after power-off, which agrees with the 500 ms unprepare
+> delay.
+>
+> edid-decode (hex):
+>
+> 00 ff ff ff ff ff ff 00 30 e4 79 07 a1 21 00 12
+> 00 21 01 04 b5 1b 12 78 03 f0 70 aa 50 4e a8 26
+> 0e 4f 53 00 00 00 01 01 01 01 01 01 01 01 01 01
+> 01 01 01 01 01 01 00 00 00 00 00 00 00 00 00 00
+> 00 00 00 00 00 00 00 00 00 00 00 fd 00 18 78 f0
+> f0 48 01 0a 20 20 20 20 20 20 00 00 00 fe 00 4c
+> 47 44 5f 44 56 31 2e 30 5f 0a 20 20 00 00 00 fe
+> 00 4c 50 31 32 39 57 54 33 33 32 31 36 36 01 48
+>
+> 70 20 79 02 00 20 00 19 3c e6 24 79 07 a1 21 00
+> 12 00 17 0d 4c 50 31 32 39 57 54 33 33 32 31 36
+> 36 21 00 1d b4 0a 26 07 40 0b 80 07 00 ac aa 50
+> e1 f4 a7 62 e2 0e f2 f4 52 b0 60 b0 60 99 35 13
+> 78 26 00 09 06 00 00 00 00 00 40 00 00 22 00 28
+> c0 e9 0a 84 3f 0b 63 00 07 80 1f 00 7f 07 4f 00
+> 41 00 07 00 c0 e9 0a 04 3f 0b 63 00 07 80 1f 00
+> 7f 07 1f 08 41 00 07 00 00 00 00 00 00 00 d1 90
+>
+> Assisted-by: LLM
+> Signed-off-by: Haipeng Lin <jimmie.lin@gmail.com>
 > ---
->  .../gpu/drm/panel/panel-newvision-nv3051d.c   | 383 +++++++++---------
->  1 file changed, 187 insertions(+), 196 deletions(-)
-
-When applying, `b4` added the "Fixes:" tag that sashiko mentioned.
-With the tag added:
+> This adds LGD 0x0779 panel based on similar entries for the SP9 LCD
+> panel (the datasheet is unavailable) and live testing based on a
+> v7.2.11 downstream kernel for the Surface Pro 11 with this patch.
+>
+> Thanks,
+> ---
+>  drivers/gpu/drm/panel/panel-edp.c | 1 +
+>  1 file changed, 1 insertion(+)
 
 Reviewed-by: Douglas Anderson <dianders@chromium.org>
 
-I'll also note that on some similar drivers we've also had a followup
-patch to change hex numbers to lowercase (0xAB to 0xab, for example).
-If you feel like another small cleanup, I wouldn't oppose seeing that.
-
-Given that this was found by code inspection, I don't feel this is
-critical enough for drm-misc-fixes, so I'm putting it in
-drm-misc-next.
-
 Pushed to drm-misc-next:
 
-[1/1] drm/panel: newvision-nv3051d: Propagate init sequence errors to prepa=
-re()
-      commit: a3621d124f7b1c4d6d31a68fe096d287b52bbdae
+[1/1] drm/panel-edp: Add LG LP129WT332166 panel
+      commit: 742f7adf11338f41fb171180638b1d10a69b7014
