@@ -2,55 +2,50 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8A246606A333
-	for <dri-devel@archiver.kernel.org>; Wed, 18 Nov 2026 11:08:16 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 26E8A606A31C
+	for <dri-devel@archiver.kernel.org>; Wed, 18 Nov 2026 11:09:44 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=rock-chips.com header.i=@rock-chips.com header.a=rsa-sha256 header.s=default header.b=dRStX11h
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=S5dRIAt5
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id CBDD710FAC9;
-	Wed, 18 Nov 2026 11:08:10 +0000 (UTC)
-Received: from mail-m1602365386.xmail.ntesmail.com
- (mail-m1602365386.xmail.ntesmail.com [160.236.53.86])
- by gabe.freedesktop.org (Postfix) with ESMTPS id A500E10FAC9
- for <dri-devel@lists.freedesktop.org>; Wed, 18 Nov 2026 11:08:04 +0000 (UTC)
-Received: from [172.16.12.74] (unknown [61.154.14.86])
- by smtp.qiye.163.com (Hmail) with ESMTP id 5523317e8;
- Wed, 18 Nov 2026 19:08:00 +0800 (GMT+08:00)
-Message-ID: <0cd86b2b-004b-4a36-ab8e-fd3b50960413@rock-chips.com>
-Date: Wed, 18 Nov 2026 19:07:59 +0800
+	by gabe.freedesktop.org (Postfix) with ESMTP id 8008910FAE9;
+	Wed, 18 Nov 2026 11:09:38 +0000 (UTC)
+Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id EFBD910FAE9
+ for <dri-devel@lists.freedesktop.org>; Wed, 18 Nov 2026 11:09:32 +0000 (UTC)
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+ by sea.source.kernel.org (Postfix) with ESMTP id 7A89444898;
+ Wed, 18 Nov 2026 11:09:32 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 255611F000C4;
+ Wed, 18 Nov 2026 11:09:28 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+ s=k20260515; t=1795000172;
+ bh=2r4uDbTO5b1ExxzqtmXHm/o8aZPr6mw3/GIXTKP7B9I=;
+ h=From:To:Cc:Subject:Date;
+ b=S5dRIAt5qwBtGu9sLynNj1ue2gSnNUi3qQxYNtq9CfPuguy487isOOrZE7uhXpbi+
+ rodELKLsisj0lLLegSbkWLK8zbbSltNAq3shMzpVrl2leWwADCLISjIRLqBZiuy0Hp
+ aADmEdvx0RMRPBHGOBrS+ltfgpL2D8+T9KbEK8kfV2l032iB3kdZb64T+a92eIiHcv
+ TdwTqlaV30aVHlwuOkMVrpecY4aimC/5d2fA3Bo12lmNw3P1WjudRY140qm0PvlJdA
+ xMNWDw6etnwlp7m5ngLhwLS0PtLzv6kDuAkikbxQTYL9i6gliTUu5tmhAoW57u/M1m
+ 5N2YjUDZNRBkQ==
+From: Philipp Stanner <phasta@kernel.org>
+To: Sumit Semwal <sumit.semwal@linaro.org>,
+ =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
+ Philipp Stanner <phasta@kernel.org>,
+ Simona Vetter <simona.vetter@ffwll.ch>,
+ Chris Wilson <chris@chris-wilson.co.uk>,
+ Danilo Krummrich <dakr@kernel.org>, Gary Guo <gary@garyguo.net>,
+ Alice Ryhl <aliceryhl@google.com>,
+ Daniel Almeida <daniel.almeida@collabora.com>,
+ Tvrtko Ursulin <tvrtko.ursulin@igalia.com>
+Cc: linux-media@vger.kernel.org, dri-devel@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org, stable@vger.kernel.org
+Subject: [PATCH v2] dma-buf/dma-fence: Prevent misordering for error checks
+Date: Wed, 18 Nov 2026 12:09:15 +0100
+Message-ID: <20261118110914.1471416-2-phasta@kernel.org>
+X-Mailer: git-send-email 2.56.0
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v3 5/8] drm/rockchip: vop2: Only accept AFBC YTR for 8 bit
- RGB on RK3588
-To: aiyengar1990@gmail.com, Sandy Huang <hjc@rock-chips.com>,
- =?UTF-8?Q?Heiko_St=C3=BCbner?= <heiko@sntech.de>, Andy Yan
- <andyshrk@163.com>, Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- Sascha Hauer <s.hauer@pengutronix.de>
-Cc: Piotr Zalewski <pZ010001011111@proton.me>,
- Chaoyi Chen <chaoyi.chen@rock-chips.com>, dri-devel@lists.freedesktop.org,
- linux-rockchip@lists.infradead.org, linux-arm-kernel@lists.infradead.org,
- linux-kernel@vger.kernel.org
-References: <20261113-vop2-fixes-v3-0-08ae37e83b5c@gmail.com>
- <20261113-vop2-fixes-v3-5-08ae37e83b5c@gmail.com>
-Content-Language: en-US
-From: Damon Ding <damon.ding@rock-chips.com>
-In-Reply-To: <20261113-vop2-fixes-v3-5-08ae37e83b5c@gmail.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-X-HM-Tid: 0aa1ee57974103a8kunm31e77375358449
-X-HM-MType: 1
-X-HM-Spam-Status: e1kfGhgUHx5ZQUpXWQgPGg8OCBgUHx5ZQUlOS1dZFg8aDwILHllBWSg2Ly
- tZV1koWUFITzdXWRgWCB1ZQUpXWS1ZQUlXWQ8JGhUIEh9ZQVkaGEpLVkgYHUMZT0tPSU9KTFYVFA
- kWGhdVEwETFhoSFyQUDg9ZV1kYEgtZQVlNSlVKTk9VSk9VQ01ZV1kWGg8SFR0UWUFZT0tIVUpLSU
- 9PT0hVSktLVUpCS0tZBg++
-DKIM-Signature: a=rsa-sha256;
- b=dRStX11hKIKXImeBPSFSnbL4EsfI4ippAvDWiIMjgZwMZsNT/qSSdtmiAfpCFt89dJ4cV435LnMtrQE35l6abkTOSitQjAvB++qhkLwniOfRYGWOa7YzW9QPxuBS9iSdHbj+zvbil7mXmytF+itkskDXYcYyHHEY34tnh6X3yiM=;
- s=default; c=relaxed/relaxed; d=rock-chips.com; v=1; 
- bh=5Z5/zjedC8T+CAY4SMgSU23abppwtiRyhcMgN9UWEQ0=;
- h=date:mime-version:subject:message-id:from;
+Content-Transfer-Encoding: 8bit
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -62,56 +57,72 @@ List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-17.3 required=3.0 tests=BAYES_00,DKIM_SIGNED,
-	DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
+X-Spam-Status: No, score=-18.8 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
+	DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
 	INCLUDES_CR_TRAILER,INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,
-	SPF_PASS,USER_AGENT_SANE_1 autolearn=unavailable autolearn_force=no
-	version=4.0.1
+	SPF_PASS,USER_AGENT_GIT autolearn=ham autolearn_force=no version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-Hi Arun,
+Many users of dma_fence do things like:
 
-On 11/14/2026 12:39 AM, Arun Iyengar via B4 Relay wrote:
-> From: Arun Iyengar <aiyengar1990@gmail.com>
-> 
-> According to the TRM, the AFBC decoder of the RK3588 Cluster windows
-> supports the lossless colour transform (YTR) only for the 8 bit RGB
-> formats. An RGB565 buffer with YTR gives a black picture and
-> POST_BUF_EMPTY, while the same buffer without YTR displays fine.
-> 
-> Don't accept YTR for any other format on RK3588.
-> 
-> Fixes: 5a028e8f062f ("drm/rockchip: vop2: Add support for rk3588")
-> Signed-off-by: Arun Iyengar <aiyengar1990@gmail.com>
-> ---
->   drivers/gpu/drm/rockchip/rockchip_drm_vop2.c | 5 +++++
->   1 file changed, 5 insertions(+)
-> 
-> diff --git a/drivers/gpu/drm/rockchip/rockchip_drm_vop2.c b/drivers/gpu/drm/rockchip/rockchip_drm_vop2.c
-> index e8ef83d6924b..de3da292b05a 100644
-> --- a/drivers/gpu/drm/rockchip/rockchip_drm_vop2.c
-> +++ b/drivers/gpu/drm/rockchip/rockchip_drm_vop2.c
-> @@ -404,6 +404,11 @@ static bool rockchip_vop2_mod_supported(struct drm_plane *plane, u32 format,
->   	if (vop2_convert_afbc_format(format) == VOP2_AFBC_FMT_INVALID)
->   		return false;
->   
-> +	if (vop2->version == VOP_VERSION_RK3588 && (modifier & AFBC_FORMAT_MOD_YTR) &&
-> +	    vop2_convert_afbc_format(format) != VOP2_AFBC_FMT_ARGB8888 &&
-> +	    vop2_convert_afbc_format(format) != VOP2_AFBC_FMT_RGB888)
-> +		return false;
-> +
->   	/* Different windows have different format/modifier support */
->   	for (i = 0; i < plane->modifier_count; i++) {
->   		if (plane->modifiers[i] == modifier)
-> 
+// Thread A
+dma_fence_set_error(f, -EINVAL);
+dma_fence_signal(f); // <- Takes lock, which orders against the above.
 
-Yes, RK3588 only supports VOP2_AFBC_FMT_ARGB8888/VOP2_AFBC_FMT_RGB888 
-with AFBC_FORMAT_MOD_YTR.
+// Thread B
+if (dma_fence_is_signaled(f)) // <- Does test_bit(), no ordering.
+	pr_info("err: %i\n", f->error); // <- Can be loaded first.
 
-Shall we move this new check a bit earlier, right after the RK3588 10bpc 
-formats check? Also add a comment and a drm_dbg_kms trace for it.
+There is no memory ordering between reading of the signaled-bit and
+reading of the error code. This can result in outdated, wrong error
+codes being evaluated by the user.
 
-Best regards,
-Damon
+Though dma_fence_get_status() does take the fence lock, it is equally
+broken because the misordering can simply happen within the critical
+section.
+
+It's not entirely clear since when this bug exists, but at least since
+dma_fence_get_status() was added, which is why its birth commit is
+marked as the Fixes commit here.
+
+Ensure ordering for everyone evaluating the error code centrally by
+using test_bit_acquire() in dma_fence_test_signaled_flag().
+
+Cc: stable@vger.kernel.org
+Fixes: d6c99f4bf093 ("dma-fence: Wrap querying the fence->status")
+Signed-off-by: Philipp Stanner <phasta@kernel.org>
+---
+Changes in v2:
+  - Use classic C style comments. (Christian)
+---
+ include/linux/dma-fence.h | 13 ++++++++++++-
+ 1 file changed, 12 insertions(+), 1 deletion(-)
+
+diff --git a/include/linux/dma-fence.h b/include/linux/dma-fence.h
+index dd07d128adc3..a3fa1341765e 100644
+--- a/include/linux/dma-fence.h
++++ b/include/linux/dma-fence.h
+@@ -496,7 +496,18 @@ const char __rcu *dma_fence_timeline_name(struct dma_fence *fence);
+ static inline bool
+ dma_fence_test_signaled_flag(struct dma_fence *fence)
+ {
+-	return test_bit(DMA_FENCE_FLAG_SIGNALED_BIT, &fence->flags);
++	/*
++	 * Best-effort ordering of the locklessly evaluated signaled-bit,
++	 * especially so that reads of fence->error are not misordered.
++	 *
++	 * The release counterpart is typically ensured like this:
++	 *   a) Error codes must only be set before a fence signals and
++	 *   b) The fence's spinlock's barriers effective in dma_fence_signal()
++	 *      ensure ordering.
++	 *   c) For users of dma_fence_signal_locked(), the barrier implied in
++	 *      test_and_set_bit() should do the trick.
++	 */
++	return test_bit_acquire(DMA_FENCE_FLAG_SIGNALED_BIT, &fence->flags);
+ }
+ 
+ /**
+-- 
+2.56.0
 
