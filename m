@@ -2,46 +2,48 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8F459606A320
-	for <dri-devel@archiver.kernel.org>; Thu, 19 Nov 2026 07:49:23 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A3275606A320
+	for <dri-devel@archiver.kernel.org>; Thu, 19 Nov 2026 07:49:24 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=mail.sdu.edu.cn header.i=@mail.sdu.edu.cn header.a=rsa-sha256 header.s=default header.b=SmyYMa2e
+	dkim=pass (1024-bit key, unprotected) header.d=yandex.com header.i=@yandex.com header.a=rsa-sha256 header.s=mail header.b=BadVSQLR
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id BA3C710FD23;
-	Thu, 19 Nov 2026 07:48:59 +0000 (UTC)
-X-Greylist: delayed 304 seconds by postgrey-1.36 at gabe;
- Wed, 18 Nov 2026 14:20:37 UTC
-Received: from mail-m49198.qiye.163.com (mail-m49198.qiye.163.com
- [45.254.49.198])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 3CD4D10E7EA
- for <dri-devel@lists.freedesktop.org>; Wed, 18 Nov 2026 14:20:36 +0000 (UTC)
-Received: from lgs.. (unknown [101.76.249.61])
- by smtp.qiye.163.com (Hmail) with ESMTP id 5526d7883;
- Wed, 18 Nov 2026 22:15:27 +0800 (GMT+08:00)
-From: Guangshuo Li <liguangshuo@mail.sdu.edu.cn>
-To: Anitha Chrisanthus <anitha.chrisanthus@intel.com>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>
-Cc: dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
- stable@vger.kernel.org
-Subject: [PATCH] drm/kmb: Fix potential invalid free of plane objects
-Date: Wed, 18 Nov 2026 22:15:26 +0800
-Message-ID: <20261118-324f82bd41-drm-kmb-0@mail.sdu.edu.cn>
-X-Mailer: git-send-email 2.43.0
+	by gabe.freedesktop.org (Postfix) with ESMTP id 121E810FD3B;
+	Thu, 19 Nov 2026 07:49:00 +0000 (UTC)
+Received: from forward102d.mail.yandex.net (forward102d.mail.yandex.net
+ [51.250.60.162])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 499BF10FEA7;
+ Wed, 18 Nov 2026 16:54:14 +0000 (UTC)
+Received: from mail-nwsmtp-smtp-production-main-94
+ (mail-nwsmtp-smtp-production-main-94.yp-c.yandex.net)
+ by forward102d.mail.yandex.net (postfix) with ESMTPS id C9819C00C6;
+ Wed, 18 Nov 2026 19:54:11 +0300 (MSK)
+Received: by mail-nwsmtp-smtp-production-main-94 with ESMTPSA id
+ 6sdtri0d1Ko0-vPZdlYXj; Wed, 18 Nov 2026 19:54:11 +0300
+X-Yandex-Fwd: 1
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=yandex.com; s=mail;
+ t=1795020851; bh=yD1/OR6ajdIF7WPOaJ7OQK9lcxiyH/vK4kcEYe1fozU=;
+ h=Message-ID:Date:In-Reply-To:Cc:Subject:References:To:From;
+ b=BadVSQLR+kBn5498Kt1JFpF1P9/hCWn312ACxj1yA1JxmYjRVTBPBOe9cuZqQAuHy
+ yHX048ViUFKo72m+HcxA+EUoyExYlmEyhScZc0Naj5D0ZQEy85Ty85BpJEI/yWIv0s
+ oVrViHJ0AEgbHEpoEbQ5FpENkKkaLvc/6KAAeiBI=
+Authentication-Results: mail-nwsmtp-smtp-production-main-94;
+ dkim=pass header.i=@yandex.com
+From: Alex <xnderv@yandex.com>
+To: Lyude Paul <lyude@redhat.com>,
+	Danilo Krummrich <dakr@kernel.org>
+Cc: dri-devel@lists.freedesktop.org, nouveau@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org, Martin Roukala <martin.roukala@mupuf.org>,
+ stable@vger.kernel.org, xnderv@yandex.com
+Subject: Re: [PATCH v2] drm/nouveau/therm: mask the update bit when reading
+ back the fan PWM duty
+Date: Wed, 18 Nov 2026 19:54:02 +0300
+Message-ID: <20261118165402.53610-1-xnderv@yandex.com>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <20261029130012.21738-1-xnderv@yandex.com>
+References: <20261029130012.21738-1-xnderv@yandex.com>
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-X-HM-Tid: 0aa1ef03375c03a1kunmf02206921a0da2
-X-HM-MType: 10
-X-HM-Spam-Status: e1kfGhgUHx5ZQUpXWQgPGg8OCBgUHx5ZQUlOS1dZFg8aDwILHllBWSg2Ly
- tZV1koWUFITzdXWRgWCB1ZQUpXWS1ZQUlXWQ8JGhUIEh9ZQVkZGkkeVhoeHUhDSEJNSx5PSFYeHw
- 5VEwETFhoSFyQUDg9ZV1kYEgtZQVlKS0pVTE1VSU9CVU1KWVdZFhoPEhUdFFlBWU9LSFVKS0lCQ0
- NMVUpLS1VLWQY+
-DKIM-Signature: a=rsa-sha256;
- b=SmyYMa2eaOOKt127Z8E+MLPCx/gtttlYtf0pf1yUTPtnkCyFu5MLnw5UhDsKWQ7BJP8RKhlvfIKXJu+toF2+8zgwo5zo77f2NoP2up4CWuDEjriNJ0J+Ov969V0qc7LGEnXwMz72xjgrxTS5Rc49BpK0ap8bMcAkfa9kHg3m+3A=;
- c=relaxed/relaxed; s=default; d=mail.sdu.edu.cn; v=1; 
- bh=12YV6/V7BYzKRbyPF82dcu8rx/sOSfpIw5BrRnj5HIQ=;
- h=date:mime-version:subject:message-id:from;
 X-Mailman-Approved-At: Thu, 19 Nov 2026 07:48:39 +0000
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -54,50 +56,19 @@ List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-18.8 required=3.0 tests=BAYES_00,DKIM_SIGNED,
-	DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
-	INCLUDES_CR_TRAILER,INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,
-	SPF_PASS,USER_AGENT_GIT autolearn=unavailable autolearn_force=no
-	version=4.0.1
+X-Spam-Status: No, score=-5.7 required=3.0 tests=BAYES_00,DKIM_SIGNED,
+	DKIM_VALID,DKIM_VALID_AU,FREEMAIL_FORGED_FROMDOMAIN,FREEMAIL_FROM,
+	HEADER_FROM_DIFFERENT_DOMAINS,MAILING_LIST_MULTI,SPF_HELO_NONE,
+	SPF_PASS,UNPARSEABLE_RELAY,USER_AGENT_GIT autolearn=no
+	autolearn_force=no version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-Plane objects use drmm_kzalloc() but their destroy callback frees them
-with kfree(). The managed allocation can also be released before mode
-configuration cleanup accesses the embedded plane.
+Hi,
 
-Use ordinary allocations, matching the existing plane destroy callback.
+Gentle ping on this one. v2 trims the commit message as Martin asked
+and carries his Acked-by. It still applies cleanly to current mainline
+(checked today, 2026-11-18).
 
-This issue was found by our static analysis tool under development.
-
-Fixes: 7f7b96a8a0a1 ("drm/kmb: Add support for KeemBay Display")
-Cc: stable@vger.kernel.org
-Signed-off-by: Guangshuo Li <liguangshuo@mail.sdu.edu.cn>
----
- drivers/gpu/drm/kmb/kmb_plane.c | 4 ++--
- 1 file changed, 2 insertions(+), 2 deletions(-)
-
-diff --git a/drivers/gpu/drm/kmb/kmb_plane.c b/drivers/gpu/drm/kmb/kmb_plane.c
-index 1742c2c6dfd8..7c908ca23e5b 100644
---- a/drivers/gpu/drm/kmb/kmb_plane.c
-+++ b/drivers/gpu/drm/kmb/kmb_plane.c
-@@ -581,7 +581,7 @@ struct kmb_plane *kmb_plane_init(struct drm_device *drm)
- 				  BIT(DRM_MODE_BLEND_COVERAGE);
- 
- 	for (i = 0; i < KMB_MAX_PLANES; i++) {
--		plane = drmm_kzalloc(drm, sizeof(*plane), GFP_KERNEL);
-+		plane = kzalloc_obj(*plane);
- 
- 		if (!plane) {
- 			drm_err(drm, "Failed to allocate plane\n");
-@@ -636,6 +636,6 @@ struct kmb_plane *kmb_plane_init(struct drm_device *drm)
- 
- 	return primary;
- cleanup:
--	drmm_kfree(drm, plane);
-+	kfree(plane);
- 	return ERR_PTR(ret);
- }
--- 
-2.43.0
-
+Thanks,
+Alex
