@@ -2,121 +2,45 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2BCEB606A31C
-	for <dri-devel@archiver.kernel.org>; Wed, 18 Nov 2026 12:34:41 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 85FC0606A31C
+	for <dri-devel@archiver.kernel.org>; Wed, 18 Nov 2026 12:36:41 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.a=rsa-sha256 header.s=google header.b=qmt7auRW
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=h1ujNcTh
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 8A33610E7D6;
-	Wed, 18 Nov 2026 12:34:35 +0000 (UTC)
-Received: from mail-wm1-f53.google.com (mail-wm1-f53.google.com
- [209.85.128.53])
- by gabe.freedesktop.org (Postfix) with ESMTPS id B201610FBDA
- for <dri-devel@lists.freedesktop.org>; Wed, 18 Nov 2026 12:34:28 +0000 (UTC)
-Received: by mail-wm1-f53.google.com with SMTP id
- 5b1f17b1804b1-4a2000d5fb1so4985565e9.1
- for <dri-devel@lists.freedesktop.org>; Wed, 18 Nov 2026 04:34:28 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=linaro.org; s=google; t=1795005267; x=1795610067; darn=lists.freedesktop.org;
- h=content-transfer-encoding:content-type:in-reply-to:organization
- :autocrypt:content-language:references:cc:to:subject:reply-to:from
- :user-agent:mime-version:date:message-id:from:to:cc:subject:date
- :message-id:reply-to:content-type;
- bh=nvPt3fCk+CsXSOqBkgE7UtRZc1xZmTaUxS/+53ef6bE=;
- b=qmt7auRWpTOWVWSMTb7j7L0WDl6/DwZlZ2MqAL01oetoBtyDzKeo+GFcH98UO4G0kl
- SF4zdvyXnPAUxChRvpanq3+5I4HZDESvftgMK4mWzRUccTCMwUEuAIs5JbPlA1Zza01E
- rMGJdaPS/k9mXCVFIOYmlVt4/GHD6n6yNIuFttpUw2sf5tRIEfl4cHWVguqpczI//spN
- /kJuCP0ccRB24+CMi6FeX8HSJn8OvagMRp1NMzL9keVwiQ/Uv1LMFeIEqhk+rLR5hQpF
- csSjairmzzNsSq/OenIQ7m6dmmG/NcLQVD1FQymgBfe7xI4zUMW6aGNhr3O6ZT9GWAuK
- S/3Q==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20260707; t=1795005267; x=1795610067;
- h=content-transfer-encoding:content-type:in-reply-to:organization
- :autocrypt:content-language:references:cc:to:subject:reply-to:from
- :user-agent:mime-version:date:message-id:x-gm-gg:x-gm-message-state
- :from:to:cc:subject:date:message-id:reply-to:content-type;
- bh=nvPt3fCk+CsXSOqBkgE7UtRZc1xZmTaUxS/+53ef6bE=;
- b=bToSYkPwn4nALROp/sUJl6ULATi95EoS+MyjqhL51oqqVxrGTt1K2ZWniLIMiNTI06
- 4lSV5RhtrY0AQB5aBssEp5Pu0HvB1qoTYTSYEoH+F8ztUvM63Z0r6ClVHytOoi70bQid
- s5GJLHMyI4dyamMnbiLwh/g6Q9wLmA+d9WFaVVDpToQS7scRa4RI/73sGyMDBprdwAq0
- QsiceIJsn6TWqvBqH/LtS6PejDmg4eJ/OtQ7GtqyCHMnZUDIDWSgcAUpNarSA1MpaqgD
- vR1mvHBNK9MY9R7WTON6R0udN+NGwyI/W8+WnM4CFBRRy86newz8wFnkqalDTFkQVNND
- rvTg==
-X-Forwarded-Encrypted: i=1;
- AL+hErG9/0bOperKKAxxblNCHc2jfUEd/ibx8t21F1MlR4tUkSWzMf+5rkK/kr16Fx2kHyWNnJGfE/hbgtk=@lists.freedesktop.org
-X-Gm-Message-State: APuU4Z9FYHhAj4/PGEV6f2a1QE+KPjNVMdSz6KPlfAF2tQtaiIlPxyjB
- 7s6ECrtY9uFFbCUUQaouJXE2cZHYlQyc6ylVbXyb7UKLTCmoL8u9kYfBBT8QurBEXoDn9aXL73H
- vxuARhItReg==
-X-Gm-Gg: AYBFou1zri72P6R2cw1MoBDJ0REG0sZOLIwjBJ3WuutMZBRaioqdYb3+7jdCeN6iwaN
- 8NV182PSjQNTrR76hb6s62XcubWHcqMQpn7Yrx2Fa4T3egZxVlJLqjAVNHRR6TtNI5rEBBcVXyV
- MFWVuKMWsJ8uFuhgdo5YcwpgBpqu1pb9Qrbdm5/R7ag3UUvmuEiYxcYiHs0t/RANybebOMcxTqD
- Xw4tPiTMP3nGbStLi4CFR9GmEO3AfyNY8hWoTtXuoLAxz3w3kCNwO/Q2zK89TOTFQ3ajANDgfVz
- aIwYu4IpmzMCKty24GW+GyiCWjnv8P6qkwralzyZ9W4neIQhKaGcKuh+Su6txp2f2Vlhx73tlnQ
- mAwFE/CTk0InhY8RR1SquVfKj5FXcJpSY6IsyclplhR9b2kp6Gvalc76N3QA7FNpTWUtUz65RiZ
- 5A6pxb/5NL5BUyCbmSSHKjqIT9Wk1I9YTd637Vd4M7Yu2QjbuaKuy2jIAw9Vm16TX4KuNdsXO+U
- M7g2eJO9DrCgB9I2/WZtqTAuIm0VDktTuTlsO7/iGpINqbwpb5OoIMV28c2ZEc24h1MkGTbd8rb
- u9u5YsYP7hZmD/oPJVep6tsRI7rb/PwpbhEs5sDtw/SLdGgqNk5QniLCU7Jlj4DNvEhLRTJev9q
- rWJBhaqh5
-X-Received: by 2002:a05:600c:1d06:b0:4bb:6a5a:783d with SMTP id
- 5b1f17b1804b1-4bb7da25158mr46260185e9.18.1795005266845; 
- Wed, 18 Nov 2026 04:34:26 -0800 (PST)
-Received: from ?IPV6:2a01:e0a:106d:1080:6ca2:2772:9e53:115b?
- ([2a01:e0a:106d:1080:6ca2:2772:9e53:115b])
- by smtp.gmail.com with ESMTPSA id
- 5b1f17b1804b1-4bb7e57664esm26749835e9.1.2026.11.18.04.34.25
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Wed, 18 Nov 2026 04:34:26 -0800 (PST)
-Message-ID: <3e82658f-1152-4c98-b996-242abc203f74@linaro.org>
-Date: Wed, 18 Nov 2026 13:34:25 +0100
-X-Archived-By: <archiver.kernel.org>
-MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-From: Neil Armstrong <neil.armstrong@linaro.org>
-Subject: Re: [PATCH 05/10] dt-bindings: display: amlogic,meson-dw-hdmi: Add
- phys and phy-names
-To: linux-kernel-dev@aliel.fr, Rob Herring <robh@kernel.org>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
- <conor+dt@kernel.org>, Kevin Hilman <khilman@baylibre.com>,
- Jerome Brunet <jbrunet@baylibre.com>,
- Martin Blumenstingl <martin.blumenstingl@googlemail.com>,
- Vinod Koul <vkoul@kernel.org>, Manivannan Sadhasivam <mani@kernel.org>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>
-Cc: devicetree@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
- linux-amlogic@lists.infradead.org, linux-kernel@vger.kernel.org,
- linux-phy@lists.infradead.org, dri-devel@lists.freedesktop.org
-References: <20261117-meson-drm-create-hdmitx-phy-v1-0-9e0ac931381c@aliel.fr>
- <20261117-meson-drm-create-hdmitx-phy-v1-5-9e0ac931381c@aliel.fr>
-Content-Language: en-US, fr
-Autocrypt: addr=neil.armstrong@linaro.org; keydata=
- xsBNBE1ZBs8BCAD78xVLsXPwV/2qQx2FaO/7mhWL0Qodw8UcQJnkrWmgTFRobtTWxuRx8WWP
- GTjuhvbleoQ5Cxjr+v+1ARGCH46MxFP5DwauzPekwJUD5QKZlaw/bURTLmS2id5wWi3lqVH4
- BVF2WzvGyyeV1o4RTCYDnZ9VLLylJ9bneEaIs/7cjCEbipGGFlfIML3sfqnIvMAxIMZrvcl9
- qPV2k+KQ7q+aXavU5W+yLNn7QtXUB530Zlk/d2ETgzQ5FLYYnUDAaRl+8JUTjc0CNOTpCeik
- 80TZcE6f8M76Xa6yU8VcNko94Ck7iB4vj70q76P/J7kt98hklrr85/3NU3oti3nrIHmHABEB
- AAHNKk5laWwgQXJtc3Ryb25nIDxuZWlsLmFybXN0cm9uZ0BsaW5hcm8ub3JnPsLAkQQTAQoA
- OwIbIwULCQgHAwUVCgkICwUWAgMBAAIeAQIXgBYhBInsPQWERiF0UPIoSBaat7Gkz/iuBQJk
- Q5wSAhkBAAoJEBaat7Gkz/iuyhMIANiD94qDtUTJRfEW6GwXmtKWwl/mvqQtaTtZID2dos04
- YqBbshiJbejgVJjy+HODcNUIKBB3PSLaln4ltdsV73SBcwUNdzebfKspAQunCM22Mn6FBIxQ
- GizsMLcP/0FX4en9NaKGfK6ZdKK6kN1GR9YffMJd2P08EO8mHowmSRe/ExAODhAs9W7XXExw
- UNCY4pVJyRPpEhv373vvff60bHxc1k/FF9WaPscMt7hlkbFLUs85kHtQAmr8pV5Hy9ezsSRa
- GzJmiVclkPc2BY592IGBXRDQ38urXeM4nfhhvqA50b/nAEXc6FzqgXqDkEIwR66/Gbp0t3+r
- yQzpKRyQif3OwE0ETVkGzwEIALyKDN/OGURaHBVzwjgYq+ZtifvekdrSNl8TIDH8g1xicBYp
- QTbPn6bbSZbdvfeQPNCcD4/EhXZuhQXMcoJsQQQnO4vwVULmPGgtGf8PVc7dxKOeta+qUh6+
- SRh3vIcAUFHDT3f/Zdspz+e2E0hPV2hiSvICLk11qO6cyJE13zeNFoeY3ggrKY+IzbFomIZY
- 4yG6xI99NIPEVE9lNBXBKIlewIyVlkOaYvJWSV+p5gdJXOvScNN1epm5YHmf9aE2ZjnqZGoM
- Mtsyw18YoX9BqMFInxqYQQ3j/HpVgTSvmo5ea5qQDDUaCsaTf8UeDcwYOtgI8iL4oHcsGtUX
- oUk33HEAEQEAAcLAXwQYAQIACQUCTVkGzwIbDAAKCRAWmrexpM/4rrXiB/sGbkQ6itMrAIfn
- M7IbRuiSZS1unlySUVYu3SD6YBYnNi3G5EpbwfBNuT3H8//rVvtOFK4OD8cRYkxXRQmTvqa3
- 3eDIHu/zr1HMKErm+2SD6PO9umRef8V82o2oaCLvf4WeIssFjwB0b6a12opuRP7yo3E3gTCS
- KmbUuLv1CtxKQF+fUV1cVaTPMyT25Od+RC1K+iOR0F54oUJvJeq7fUzbn/KdlhA8XPGzwGRy
- 4zcsPWvwnXgfe5tk680fEKZVwOZKIEuJC3v+/yZpQzDvGYJvbyix0lHnrCzq43WefRHI5XTT
- QbM0WUIBIcGmq38+OgUsMYu4NzLu7uZFAcmp6h8g
-Organization: Linaro
-In-Reply-To: <20261117-meson-drm-create-hdmitx-phy-v1-5-9e0ac931381c@aliel.fr>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+	by gabe.freedesktop.org (Postfix) with ESMTP id D754510E1CD;
+	Wed, 18 Nov 2026 12:36:35 +0000 (UTC)
+Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 999EA10FB6B
+ for <dri-devel@lists.freedesktop.org>; Wed, 18 Nov 2026 12:36:29 +0000 (UTC)
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+ by sea.source.kernel.org (Postfix) with ESMTP id 69ED3406C5;
+ Wed, 18 Nov 2026 12:36:29 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id E5BFF1F000C4;
+ Wed, 18 Nov 2026 12:36:28 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+ s=k20260515; t=1795005389;
+ bh=1eNcJwo2E7LTdexS+CZsvtImmjxHxDOzOBiWc5uB548=;
+ h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+ b=h1ujNcThk8/H5Ge9XBxWFalVldtuE8wTpsBAB4vTYvTny5GNzWi1qkMCQgNFX6RJ0
+ 2pZhhi2ApvRt2/rNzePNJ8oty7eB2cQt4cEWbhjZDDg0msmGuI0Toxltg9We+3T7es
+ ZKlzbBXLxygFmcuADhSqz2H0SqeQ4ceNi1FCsG5bcAICu2SvZb85Xquip1CHt23f86
+ KVY7SiiCoix/R5WSdZijnKgr6gK1HOF2LQfQZwutzXxcnqiPXeUVFxkdhbp/x0A7Rz
+ OYNf3aVTDANOek/9IXYfBWXR36tXd9D0bvXGDxzFsE68Z2HwNy2IICLsK7Cv0OsOse
+ mYhC3RZo1YAkg==
+Message-ID: <sashiko-outbox-220917@kernel.org>
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v2 02/10] arm64: dts: qcom: add LG V60 ThinQ 5G (timelm)
+ support
+To: "Abdur Rofik" <rofikcoga@gmail.com>
+Cc: devicetree@vger.kernel.org, dri-devel@lists.freedesktop.org,
+ linux-input@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org,
+ dmitry.torokhov@gmail.com
+In-Reply-To: <20261118120714.31505-3-rofikcoga@gmail.com>
+References: <20261118120714.31505-1-rofikcoga@gmail.com>
+ <20261118120714.31505-3-rofikcoga@gmail.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Wed, 18 Nov 2026 12:36:28 +0000
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -127,63 +51,184 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
-Reply-To: Neil Armstrong <neil.armstrong@linaro.org>
+Reply-To: sashiko-reviews@lists.linux.dev
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-17.3 required=3.0 tests=BAYES_00,DKIM_SIGNED,
-	DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
-	INCLUDES_CR_TRAILER,INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,
-	SPF_PASS,USER_AGENT_SANE_1 autolearn=unavailable autolearn_force=no
-	version=4.0.1
+X-Spam-Status: No, score=-10.8 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
+	DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
+	INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS autolearn=ham
+	autolearn_force=no version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
+X-Archived-By: <archiver.kernel.org>
 
-On 11/17/26 20:33, Ronald Claveau via B4 Relay wrote:
-> From: Ronald Claveau <linux-kernel-dev@aliel.fr>
-> 
-> The HDMI TX PHY now has its own binding and driver. Describe the link
-> between the HDMI TX controller and its PHY with a "phys" property
-> holding a single phandle, named "hdmi" through "phy-names", and update
-> the example accordingly.
-> 
-> The properties are optional so that existing DT, which do not describe
-> the PHY, keep validating; the driver falls back to creating the PHY
-> itself in that case.
-> 
-> Signed-off-by: Ronald Claveau <linux-kernel-dev@aliel.fr>
-> ---
->   .../devicetree/bindings/display/amlogic,meson-dw-hdmi.yaml        | 8 ++++++++
->   1 file changed, 8 insertions(+)
-> 
-> diff --git a/Documentation/devicetree/bindings/display/amlogic,meson-dw-hdmi.yaml b/Documentation/devicetree/bindings/display/amlogic,meson-dw-hdmi.yaml
-> index 416fe263ac92..5a033fec21b0 100644
-> --- a/Documentation/devicetree/bindings/display/amlogic,meson-dw-hdmi.yaml
-> +++ b/Documentation/devicetree/bindings/display/amlogic,meson-dw-hdmi.yaml
-> @@ -108,6 +108,12 @@ properties:
->   
->     sound-name-prefix: true
->   
-> +  phys:
-> +    maxItems: 1
+Thank you for your contribution! Sashiko AI review found 5 potential
+issues to consider:
+- [High] arm64: dts: qcom: invalid smps6 in regulators-1 aborts
+  rpmh_regulator_probe()
+- [Medium] arm64: dts: qcom: conflicting reg and memory-region on
+  simple-framebuffer
+- [Medium] arm64: dts: qcom: missing board-specific firmware-name on
+  cdsp and gpu_zap_shader
+- [Low] arm64: dts: qcom: duplicate sdc2_sleep_state node and redundant
+  pon status
+- [Low] arm64: dts: qcom: non-power-of-two pmsg-size in ramoops is
+  rounded down
+--
+
+commit 3fe02ddb83035271fb02be5f0c325bb78269f75e
+Author: Abdur Rofik <rofikcoga@gmail.com>
+
+arm64: dts: qcom: add LG V60 ThinQ 5G (timelm) support
+
+This commit adds the initial device tree and MAINTAINERS entry for the
+SM8250-based LG V60 ThinQ 5G (timelm) smartphone.
+
+> diff --git a/arch/arm64/boot/dts/qcom/sm8250-lg-timelm.dts b/arch/arm64/b=
+oot/dts/qcom/sm8250-lg-timelm.dts
+> new file mode 100644
+> index 0000000000000..1b2b67486fee7
+> --- /dev/null
+> +++ b/arch/arm64/boot/dts/qcom/sm8250-lg-timelm.dts
+> @@ -0,0 +1,615 @@
+[ ... ]
+> +	chosen {
+> +		stdout-path =3D "serial0:115200n8";
+> +		#address-cells =3D <2>;
+> +		#size-cells =3D <2>;
+> +		ranges;
 > +
-> +  phy-names:
-> +    const: hdmi
+> +		framebuffer@9c000000 {
+> +			compatible =3D "simple-framebuffer";
+> +			reg =3D <0x0 0x9c000000 0x0 (1080 * 2460 * 4)>;
+> +			width =3D <1080>;
+> +			height =3D <2460>;
+> +			stride =3D <(1080 * 4)>;
+> +			format =3D "a8r8g8b8";
+> +			memory-region =3D <&cont_splash_mem>;
+> +		};
+> +	};
 
-I don't think phys-name is necessary here.
+[Severity: Medium]
+Should framebuffer@9c000000 drop memory-region (or drop reg and the unit
+address) instead of specifying both?
 
-Neil
+When both properties are present, simplefb_get_memory_of() in simpledrm
+and simplefb_parse_dt() in simplefb emit a boot warning ("preferring
+"memory-region" over "reg" property") and ignore the exact framebuffer
+size in reg in favor of the full 0x1200000-byte cont_splash_mem region,
+allowing fb_mmap() on /dev/fb0 to map the trailing reserved memory beyond
+the framebuffer.
 
+[ ... ]
+
+> +		ramoops: ramoops@b0000000 {
+> +			compatible =3D "ramoops";
+> +			reg =3D <0x0 0xb0000000 0x0 0x280000>;
+> +			record-size =3D <0x40000>;
+> +			console-size =3D <0x40000>;
+> +			ftrace-size =3D <0x40000>;
+> +			pmsg-size =3D <0x1c0000>;
+> +			no-map;
+> +		};
+
+[Severity: Low]
+Is pmsg-size =3D <0x1c0000> intended here?  ramoops_probe() requires
+pmsg_size to be a power of two and rounds 0x1c0000 down to 0x100000 via
+rounddown_pow_of_two(), shifting the buffer offsets and leaving the
+remaining 0xc0000 bytes to dump_mem_sz.
+
+[ ... ]
+
+> +	regulators-1 {
+> +		compatible =3D "qcom,pm8150l-rpmh-regulators";
+> +		qcom,pmic-id =3D "c";
+[ ... ]
+> +		vreg_bob: bob {
+> +			regulator-name =3D "vreg_bob";
+> +			regulator-min-microvolt =3D <3008000>;
+> +			regulator-max-microvolt =3D <4000000>;
+> +			regulator-initial-mode =3D <RPMH_REGULATOR_MODE_AUTO>;
+> +		};
 > +
->   required:
->     - compatible
->     - reg
-> @@ -136,6 +142,8 @@ examples:
->           power-domains = <&pd_vpu>;
->           #address-cells = <1>;
->           #size-cells = <0>;
-> +        phys = <&hdmi_tx_phy>;
-> +        phy-names = "hdmi";
->   
->           /* VPU VENC Input */
->           hdmi_tx_venc_port: port@0 {
-> 
+> +		vreg_s6c_0p88: smps6 {
+> +			regulator-name =3D "vreg_s6c_0p88";
+> +			regulator-min-microvolt =3D <348000>;
+> +			regulator-max-microvolt =3D <1000000>;
+> +			regulator-initial-mode =3D <RPMH_REGULATOR_MODE_HPM>;
+> +		};
 
+[Severity: High]
+Does defining smps6 under regulators-1 cause rpmh_regulator_probe() to
+fail with -ENODEV?
+
+On SM8250 with PM8150L (qcom,pmic-id =3D "c"), SMPS6C is an ARC level
+resource (ebi.lvl) rather than a VRM resource, so cmd_db_read_addr() in
+rpmh_regulator_init_vreg() returns 0 for "smpc6" and aborts probing
+regulators-1 before smps8 (vreg_s8c_1p35) and ldo1..ldo11 are registered.
+That leaves the parent supplies for PM8150 and PM8009 LDOs as well as the
+UFS, SDHC2, and USB PHY rails unregistered.
+
+As on other SM8250 boards, vreg_s6c_0p88 should be a top-level
+regulator-fixed node at 880000 uV, and the 348000..1000000 uV rail under
+regulators-1 should be smps7 (vreg_s7c_0p35).
+
+[ ... ]
+
+> +&cdsp {
+> +	status =3D "okay";
+> +};
+[ ... ]
+> +&gpu {
+> +	status =3D "okay";
+> +
+> +	zap-shader {
+> +		firmware-name =3D "qcom/sm8250/a650_zap.mbn";
+> +	};
+> +};
+
+[Severity: Medium]
+Should &cdsp and the GPU zap-shader specify board-specific firmware-name
+paths?
+
+Enabling &cdsp without firmware-name causes qcom_pas_probe() to fall back
+to bare "cdsp.mdt", and using the generic reference-board path
+"qcom/sm8250/a650_zap.mbn" fails PAS authentication on fused retail
+devices that require OEM-signed firmware (and zap-shader can be referenced
+directly via &gpu_zap_shader).
+
+[ ... ]
+
+> +&pon {
+> +	status =3D "okay";
+> +};
+[ ... ]
+> +	sdc2_sleep_state: sdc2-sleep-state {
+> +		clk-pins {
+> +			pins =3D "sdc2_clk";
+> +			drive-strength =3D <2>;
+> +			bias-disable;
+> +		};
+> +
+> +		cmd-pins {
+> +			pins =3D "sdc2_cmd";
+> +			drive-strength =3D <2>;
+> +			bias-pull-up;
+> +		};
+> +
+> +		data-pins {
+> +			pins =3D "sdc2_data";
+> +			drive-strength =3D <2>;
+> +			bias-pull-up;
+> +		};
+> +	};
+
+[Severity: Low]
+This isn't a bug, but sdc2_sleep_state duplicates the identical node
+already defined in sm8250.dtsi, and &pon is already enabled in
+pm8150.dtsi.  Also, the commit message mentions "High-Speed USB on
+PM8150B", whereas &usb_1_hsphy is the SoC-internal HS PHY supplied by
+PM8150.
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261118120714.3150=
+5-1-rofikcoga@gmail.com?part=3D2
