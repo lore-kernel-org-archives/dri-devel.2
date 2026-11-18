@@ -2,31 +2,31 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3D46B606A7C0
-	for <dri-devel@archiver.kernel.org>; Wed, 18 Nov 2026 16:32:45 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A7031606A7CB
+	for <dri-devel@archiver.kernel.org>; Wed, 18 Nov 2026 16:32:56 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=AMFUCMwp
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=JA+xHdLt
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 2F8D910EC44;
-	Wed, 18 Nov 2026 16:32:39 +0000 (UTC)
-Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 2F12E10E5B2
- for <dri-devel@lists.freedesktop.org>; Wed, 18 Nov 2026 16:32:27 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id BE98610EC57;
+	Wed, 18 Nov 2026 16:32:50 +0000 (UTC)
+Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 9307E10E5B2
+ for <dri-devel@lists.freedesktop.org>; Wed, 18 Nov 2026 16:32:38 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id 1790D46399;
- Wed, 18 Nov 2026 16:32:27 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1E50D1F000C7;
- Wed, 18 Nov 2026 16:32:21 +0000 (UTC)
+ by tor.source.kernel.org (Postfix) with ESMTP id EE32062987;
+ Wed, 18 Nov 2026 16:32:37 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id C01C51F000CA;
+ Wed, 18 Nov 2026 16:32:32 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1795019547;
- bh=xk+TZUF1TRmt+f+C/QPA3J720VtA09DDpLZ7FCFd5EA=;
+ s=k20260515; t=1795019557;
+ bh=FU9I4h5VPSFm2UUsPs50K/BUB1ZDNdMz2E1Ufcl88ww=;
  h=From:To:Cc:Subject:Date:In-Reply-To:References;
- b=AMFUCMwpmKeo7mfnNhAhB2/2s/eeAPSqbqk4ahoJ6gTtmxUVl90WdOhZcdmKstqeU
- vA8MmamLudMvT7lAq+NAyfUJlc0MySY07sioXKSKjKg7gTnswNb4HSpRymOfuC0scK
- 59BIjgz8bFhgjB0XxETRkajVRK1hVWVGg4bdaGYrMdZP4Ly9GyjweU2pDLv/KXwfsb
- 7DTItFEiNPvTpfAhy5hUOUDkZBVnHqKjQbIe90vxWrvVKK1+eeX8/mDv+YM8d23ymi
- HIx0uKaqAolvVjkC/dy72Nmgrp0qobjah01Zhk0H7v9qbAydxL+S6ZAvcJ22F8r1uv
- SQG6Wcv2R0fCw==
+ b=JA+xHdLt98qFeU2PPmetVpefyTy/a4X6I5Ug0ffOPgzjWZwbDV9SQ+W6HrCdzmneu
+ i/dU4br1GFUI37ZlN5xV96rdHRrowZnd4AiLLtI5UEv0KfPR/0B3ptdjALdKH+fQhH
+ PPFmQLUABz65BxmzwdkDcfS6U5usmZC8sAlpakQwwWWYQ23OrI3s/c1iPB264LmwNB
+ LDu5DrxTTJX2dCA5hUoL83NG2zV2BKrHY9OL7g92Lp+TQYCWPu212MdrT+qi50ZWFl
+ mciBzcNzNuonioZmekWVJVq6EDfD3n/CbzlBMotSVgV2/xibTsXIGSrof4Xke3aZ4c
+ EfVayYrDWJLgQ==
 From: Danilo Krummrich <dakr@kernel.org>
 To: dakr@kernel.org, aliceryhl@google.com, acourbot@nvidia.com,
  daniel.almeida@collabora.com, ojeda@kernel.org, boqun@kernel.org,
@@ -37,9 +37,9 @@ To: dakr@kernel.org, aliceryhl@google.com, acourbot@nvidia.com,
  laura.nao@collabora.com, beata.michalska@arm.com
 Cc: nova-gpu@lists.linux.dev, dri-devel@lists.freedesktop.org,
  rust-for-linux@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: [PATCH v3 3/7] rust: drm: move file_operations from gem to device
-Date: Wed, 18 Nov 2026 17:29:44 +0100
-Message-ID: <20261118163203.2483856-4-dakr@kernel.org>
+Subject: [PATCH v3 5/7] rust: drm: wrap fops open with RegistrationGuard
+Date: Wed, 18 Nov 2026 17:29:46 +0100
+Message-ID: <20261118163203.2483856-6-dakr@kernel.org>
 X-Mailer: git-send-email 2.56.1
 In-Reply-To: <20261118163203.2483856-1-dakr@kernel.org>
 References: <20261118163203.2483856-1-dakr@kernel.org>
@@ -64,84 +64,107 @@ X-Spam-Status: No, score=-18.8 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-Move the file_operations definition from drm::gem::create_fops() into
-UnregisteredDevice in drm::device. This is the file_operations of the
-DRM minor device, set through the drm_driver struct. It is not specific
-to GEM.
+Add a Minor abstraction with RAII release and a fops_open() wrapper that
+holds a RegistrationGuard (drm_dev_enter / drm_dev_exit) across the
+entire drm_open() call.
+
+This guarantees that drm_dev_unplug() in Registration::drop() waits for
+the full open sequence to complete, so all files are visible in the
+filelist when iterating for cleanup.
 
 Reviewed-by: Alice Ryhl <aliceryhl@google.com>
 Reviewed-by: Daniel Almeida <daniel.almeida@collabora.com>
 Reviewed-by: Gary Guo <gary@garyguo.net>
 Signed-off-by: Danilo Krummrich <dakr@kernel.org>
 ---
- rust/kernel/drm/device.rs  | 23 ++++++++++++++++++++---
- rust/kernel/drm/gem/mod.rs | 20 --------------------
- 2 files changed, 20 insertions(+), 23 deletions(-)
+ rust/kernel/drm/device.rs | 63 ++++++++++++++++++++++++++++++++++++++-
+ 1 file changed, 62 insertions(+), 1 deletion(-)
 
 diff --git a/rust/kernel/drm/device.rs b/rust/kernel/drm/device.rs
-index dd1c83fef323..3340fa0dc46b 100644
+index 3340fa0dc46b..b8444499b39c 100644
 --- a/rust/kernel/drm/device.rs
 +++ b/rust/kernel/drm/device.rs
-@@ -195,11 +195,28 @@ const fn compute_features() -> u32 {
-         driver_features: Self::compute_features(),
-         ioctls: T::IOCTLS.as_ptr(),
-         num_ioctls: T::IOCTLS.len() as i32,
--        fops: &Self::GEM_FOPS,
-+        fops: &Self::FOPS,
+@@ -42,6 +42,42 @@
+     },
+ };
+ 
++/// A reference to a `struct drm_minor` with RAII release.
++struct Minor(NonNull<bindings::drm_minor>);
++
++// Methods use `#[inline(never)]` to prevent the unexported `drm_minor_acquire()` /
++// `drm_minor_release()` symbols from being inlined into driver modules.
++impl Minor {
++    /// Acquire a minor by ID. Increments the underlying device's refcount.
++    #[inline(never)]
++    fn acquire(minor_id: u32) -> Result<Self> {
++        // SAFETY: `drm_minors_xa` is a valid global xarray; any `minor_id` is safe to
++        // look up (returns ERR_PTR on failure).
++        let ptr =
++            unsafe { bindings::drm_minor_acquire(&raw mut bindings::drm_minors_xa, minor_id) };
++        Ok(Self(NonNull::new(from_err_ptr(ptr)?).ok_or(ENODEV)?))
++    }
++
++    /// Returns a reference to the DRM device for this minor.
++    ///
++    /// # Safety
++    ///
++    /// The caller must ensure that the minor belongs to a `Device<T>`.
++    unsafe fn device<T: drm::Driver>(&self) -> &Device<T, Userspace> {
++        // SAFETY: The minor is valid (from `drm_minor_acquire()`) and `minor->dev`
++        // is a valid `drm_device`. The caller guarantees it is a `Device<T>`.
++        unsafe { Device::from_raw((*self.0.as_ptr()).dev) }
++    }
++}
++
++impl Drop for Minor {
++    #[inline(never)]
++    fn drop(&mut self) {
++        // SAFETY: `self.0` came from `drm_minor_acquire()` and has not been released yet.
++        unsafe { bindings::drm_minor_release(self.0.as_ptr()) }
++    }
++}
++
+ #[cfg(CONFIG_DRM_LEGACY)]
+ macro_rules! drm_legacy_fields {
+     ( $($field:ident: $val:expr),* $(,)? ) => {
+@@ -198,11 +234,36 @@ const fn compute_features() -> u32 {
+         fops: &Self::FOPS,
      };
  
--    const GEM_FOPS: bindings::file_operations =
--        drm::gem::create_fops(crate::module::this_module::<T::OwnerModule>().as_ptr());
-+    const FOPS: bindings::file_operations = {
-+        let mut fops: bindings::file_operations = pin_init::zeroed();
++    /// Wrapper for `fops.open` that holds a [`RegistrationGuard`] across the entire `drm_open()`
++    /// call. This guarantees that `drm_dev_unplug()` in `Registration::drop()` waits for the full
++    /// open sequence.
++    extern "C" fn fops_open(inode: *mut bindings::inode, filp: *mut bindings::file) -> c_int {
++        let f = || -> Result<c_int> {
++            // SAFETY: `inode` is valid.
++            let minor_id = unsafe { bindings::iminor(inode) };
++            let minor = Minor::acquire(minor_id)?;
 +
-+        fops.owner = crate::module::this_module::<T::OwnerModule>().as_ptr();
-+        fops.open = Some(bindings::drm_open);
-+        fops.release = Some(bindings::drm_release);
-+        fops.unlocked_ioctl = Some(bindings::drm_ioctl);
-+        #[cfg(CONFIG_COMPAT)]
-+        {
-+            fops.compat_ioctl = Some(bindings::drm_compat_ioctl);
++            // SAFETY: `fops_open` is only installed for devices of type `T` (via `FOPS`).
++            let _guard = (unsafe { minor.device::<T>() })
++                .registration_guard()
++                .ok_or(ENODEV)?;
++
++            // SAFETY: `inode` and `filp` are valid. The RegistrationGuard ensures the entire
++            // `drm_open()` runs within the SRCU critical section.
++            Ok(unsafe { bindings::drm_open(inode, filp) })
++        };
++
++        match f() {
++            Ok(ret) => ret,
++            Err(e) => e.to_errno(),
 +        }
-+        fops.poll = Some(bindings::drm_poll);
-+        fops.read = Some(bindings::drm_read);
-+        fops.llseek = Some(bindings::noop_llseek);
-+        fops.mmap = Some(bindings::drm_gem_mmap);
-+        fops.fop_flags = bindings::FOP_UNSIGNED_OFFSET;
++    }
 +
-+        fops
-+    };
+     const FOPS: bindings::file_operations = {
+         let mut fops: bindings::file_operations = pin_init::zeroed();
  
-     /// Create a new `UnregisteredDevice` for a `drm::Driver`.
-     ///
-diff --git a/rust/kernel/drm/gem/mod.rs b/rust/kernel/drm/gem/mod.rs
-index 94355081edab..260f36817f96 100644
---- a/rust/kernel/drm/gem/mod.rs
-+++ b/rust/kernel/drm/gem/mod.rs
-@@ -388,23 +388,3 @@ impl<T: DriverObject, Ctx: DeviceContext> AllocImpl for Object<T, Ctx> {
-         dumb_map_offset: None,
-     };
- }
--
--pub(super) const fn create_fops(owner: *mut bindings::module) -> bindings::file_operations {
--    let mut fops: bindings::file_operations = pin_init::zeroed();
--
--    fops.owner = owner;
--    fops.open = Some(bindings::drm_open);
--    fops.release = Some(bindings::drm_release);
--    fops.unlocked_ioctl = Some(bindings::drm_ioctl);
--    #[cfg(CONFIG_COMPAT)]
--    {
--        fops.compat_ioctl = Some(bindings::drm_compat_ioctl);
--    }
--    fops.poll = Some(bindings::drm_poll);
--    fops.read = Some(bindings::drm_read);
--    fops.llseek = Some(bindings::noop_llseek);
--    fops.mmap = Some(bindings::drm_gem_mmap);
--    fops.fop_flags = bindings::FOP_UNSIGNED_OFFSET;
--
--    fops
--}
+         fops.owner = crate::module::this_module::<T::OwnerModule>().as_ptr();
+-        fops.open = Some(bindings::drm_open);
++        fops.open = Some(Self::fops_open);
+         fops.release = Some(bindings::drm_release);
+         fops.unlocked_ioctl = Some(bindings::drm_ioctl);
+         #[cfg(CONFIG_COMPAT)]
 -- 
 2.56.1
 
