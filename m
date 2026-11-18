@@ -2,75 +2,50 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 00BFA60A260B
-	for <dri-devel@archiver.kernel.org>; Wed, 18 Nov 2026 17:39:27 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 21947606A31C
+	for <dri-devel@archiver.kernel.org>; Wed, 18 Nov 2026 17:44:15 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=igalia.com header.i=@igalia.com header.a=rsa-sha256 header.s=20170329 header.b=XcDQ3xHb
+	dkim=fail reason="signature verification failed" (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=HXWG0hcP
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 4FD2B10E128;
-	Wed, 18 Nov 2026 17:39:22 +0000 (UTC)
-Received: from fanzine2.igalia.com (fanzine2.igalia.com [213.97.179.56])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 2360410E128
- for <dri-devel@lists.freedesktop.org>; Wed, 18 Nov 2026 17:39:16 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com; 
- s=20170329;
- h=Content-Transfer-Encoding:Content-Type:From:Cc:To:Subject:
- MIME-Version:Date:Message-ID:From:Reply-To;
- bh=xAcgPMTJEReMCd2gp7JdMZhRq7Vy/sK0KQgL6Ave2gA=; t=1795023556; x=2110383556; 
- b=XcDQ3xHbjfY12aRfsvE9H+I3OMQT6miyOAZ7VFUnUQdGcwQO8zgUMEoyCUX24i8y8TIU8+H7c6v
- VDAX+jz2PJeGpNVEX68P5zhHowGm5PNQDFp+cMJtQEzXqYsTJXQrFhI3997FDpQE+KDsHDWkJ+YgF
- 94JYe3Abm+CbOoQvqcwO10fZnZ2FmvP4SNEUFuSOBzwXSOu7cotfofgvUgOuceFC+yWSi2Ea/OVSJ
- I79jGH3mE4WvhjnfPYbqaAjWaCsnFzaInDdBEr/rRajA5i4+Idn3G41q6+SZ6ppryYBbE2/NLbV8e
- eCYHP2ruB9jnrb19pvkYS4rgo5IhFI+CQ2IQ==;
-Received: from [179.105.94.163] (helo=[192.168.0.4])
- by fanzine2.igalia.com with esmtpsa 
- (Cipher TLS1.3:ECDHE_X25519__RSA_PSS_RSAE_SHA256__AES_128_GCM:128) (Exim)
- id 1xTjcl-000000017le-0NqJ; Wed, 18 Nov 2026 18:39:11 +0100
-Message-ID: <1b78ef4b-011e-4174-800e-425c94fddf3a@igalia.com>
-Date: Wed, 18 Nov 2026 14:39:05 -0300
+	by gabe.freedesktop.org (Postfix) with ESMTP id 7BE9910E112;
+	Wed, 18 Nov 2026 17:44:09 +0000 (UTC)
+Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id AB37910E112
+ for <dri-devel@lists.freedesktop.org>; Wed, 18 Nov 2026 17:44:03 +0000 (UTC)
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+ by tor.source.kernel.org (Postfix) with ESMTP id 824196121B;
+ Wed, 18 Nov 2026 17:44:02 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 963C71F000C5;
+ Wed, 18 Nov 2026 17:44:00 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+ s=k20260515; t=1795023842;
+ bh=9utLSuKm5nNEmffDdFwJgwnJ/+R0ezxr8iyL18d71Jc=;
+ h=Date:From:To:Cc:Subject:References:In-Reply-To;
+ b=HXWG0hcPbMCxJ915vxAGOhqL2u4fKPK5bk49qM9mmFFFJ9oaLNBxCfE3jzR4Ot0KT
+ db2uL73mpuVonGev8OB3ODmhd5ZktIjN7m97qUg9ZyY1iVtNVu1iE/CCuCsvwLbTf/
+ TITCl9FpL1bKeg5sFm5s3TRXijv7g34+oKjPrM1k0HPcltLpFBuyB/ewxkfSZhvtOn
+ lJcGDnnzS9lXKT4Fz2EkzwAF4kihqvwbh0hHr7yQD8txVbaZq9W3PEC5q+wk7q2Pzs
+ +eDipNWIcpdVObj8gfv4hONjP8ywz+SkKyKGj0v5mxZgs9AQsmUQNmkOvF1NxR0021
+ Dh75l5rv+lUWQ==
+Date: Wed, 18 Nov 2026 17:43:58 +0000
+From: Conor Dooley <conor@kernel.org>
+To: pjh456 <pengjunhao409@gmail.com>
+Cc: Neil Armstrong <neil.armstrong@linaro.org>,
+ dri-devel@lists.freedesktop.org, Jessica Zhang <jesszhan0024@gmail.com>,
+ Maxime Ripard <mripard@kernel.org>, Rob Herring <robh@kernel.org>,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>
+Subject: Re: [PATCH v3 2/3] dt-bindings: display: panel: ilitek, ili9881c: add
+ Industio Purple Pi OH panel
+Message-ID: <20261118-flattop-crane-25acbbab9b14@spud>
+References: <20261118095905.127658-1-pengjunhao409@gmail.com>
+ <20261118095905.127658-3-pengjunhao409@gmail.com>
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v5 1/2] drm/sched: Add drm_sched_entity_get_runtime()
-To: phasta@kernel.org, Sidong Yang <sidong.yang@furiosa.ai>,
- Tomeu Vizoso <tomeu@tomeuvizoso.net>, Oded Gabbay <ogabbay@kernel.org>,
- Danilo Krummrich <dakr@kernel.org>, Matthew Brost <matthew.brost@intel.com>,
- ckoenig.leichtzumerken@gmail.com
-Cc: Tvrtko Ursulin <tursulin@ursulin.net>, Heiko Stuebner <heiko@sntech.de>,
- Gyeyoung Baek <gye976@gmail.com>, dri-devel@lists.freedesktop.org,
- linux-doc@vger.kernel.org, linux-kernel@vger.kernel.org
-References: <20261112171144.3151554-1-sidong.yang@furiosa.ai>
- <20261112171144.3151554-2-sidong.yang@furiosa.ai>
- <34494226eb920bdbd7f3257ef6f9b20f4e8ffd6a.camel@mailbox.org>
-From: =?UTF-8?Q?Ma=C3=ADra_Canal?= <mcanal@igalia.com>
-Content-Language: en-US
-Autocrypt: addr=mcanal@igalia.com; keydata=
- xsBNBGcCwywBCADgTji02Sv9zjHo26LXKdCaumcSWglfnJ93rwOCNkHfPIBll85LL9G0J7H8
- /PmEL9y0LPo9/B3fhIpbD8VhSy9Sqz8qVl1oeqSe/rh3M+GceZbFUPpMSk5pNY9wr5raZ63d
- gJc1cs8XBhuj1EzeE8qbP6JAmsL+NMEmtkkNPfjhX14yqzHDVSqmAFEsh4Vmw6oaTMXvwQ40
- SkFjtl3sr20y07cJMDe++tFet2fsfKqQNxwiGBZJsjEMO2T+mW7DuV2pKHr9aifWjABY5EPw
- G7qbrh+hXgfT+njAVg5+BcLz7w9Ju/7iwDMiIY1hx64Ogrpwykj9bXav35GKobicCAwHABEB
- AAHNIE1hw61yYSBDYW5hbCA8bWNhbmFsQGlnYWxpYS5jb20+wsCRBBMBCAA7FiEE+ORdfQEW
- dwcppnfRP/MOinaI+qoFAmcCwywCGwMFCwkIBwICIgIGFQoJCAsCBBYCAwECHgcCF4AACgkQ
- P/MOinaI+qoUBQgAqz2gzUP7K3EBI24+a5FwFlruQGtim85GAJZXToBtzsfGLLVUSCL3aF/5
- O335Bh6ViSBgxmowIwVJlS/e+L95CkTGzIIMHgyUZfNefR2L3aZA6cgc9z8cfow62Wu8eXnq
- GM/+WWvrFQb/dBKKuohfBlpThqDWXxhozazCcJYYHradIuOM8zyMtCLDYwPW7Vqmewa+w994
- 7Lo4CgOhUXVI2jJSBq3sgHEPxiUBOGxvOt1YBg7H9C37BeZYZxFmU8vh7fbOsvhx7Aqu5xV7
- FG+1ZMfDkv+PixCuGtR5yPPaqU2XdjDC/9mlRWWQTPzg74RLEw5sz/tIHQPPm6ROCACFls7A
- TQRnAsMsAQgAxTU8dnqzK6vgODTCW2A6SAzcvKztxae4YjRwN1SuGhJR2isJgQHoOH6oCItW
- Xc1CGAWnci6doh1DJvbbB7uvkQlbeNxeIz0OzHSiB+pb1ssuT31Hz6QZFbX4q+crregPIhr+
- 0xeDi6Mtu+paYprI7USGFFjDUvJUf36kK0yuF2XUOBlF0beCQ7Jhc+UoI9Akmvl4sHUrZJzX
- LMeajARnSBXTcig6h6/NFVkr1mi1uuZfIRNCkxCE8QRYebZLSWxBVr3h7dtOUkq2CzL2kRCK
- T2rKkmYrvBJTqSvfK3Ba7QrDg3szEe+fENpL3gHtH6h/XQF92EOulm5S5o0I+ceREwARAQAB
- wsB2BBgBCAAgFiEE+ORdfQEWdwcppnfRP/MOinaI+qoFAmcCwywCGwwACgkQP/MOinaI+qpI
- zQf+NAcNDBXWHGA3lgvYvOU31+ik9bb30xZ7IqK9MIi6TpZqL7cxNwZ+FAK2GbUWhy+/gPkX
- it2gCAJsjo/QEKJi7Zh8IgHN+jfim942QZOkU+p/YEcvqBvXa0zqW0sYfyAxkrf/OZfTnNNE
- Tr+uBKNaQGO2vkn5AX5l8zMl9LCH3/Ieaboni35qEhoD/aM0Kpf93PhCvJGbD4n1DnRhrxm1
- uEdQ6HUjWghEjC+Jh9xUvJco2tUTepw4OwuPxOvtuPTUa1kgixYyG1Jck/67reJzMigeuYFt
- raV3P8t/6cmtawVjurhnCDuURyhUrjpRhgFp+lW8OGr6pepHol/WFIOQEg==
-In-Reply-To: <34494226eb920bdbd7f3257ef6f9b20f4e8ffd6a.camel@mailbox.org>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
+Content-Type: multipart/signed; micalg=pgp-sha512;
+ protocol="application/pgp-signature"; boundary="n8iH9ulcLLghpic8"
+Content-Disposition: inline
+In-Reply-To: <20261118095905.127658-3-pengjunhao409@gmail.com>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -82,64 +57,29 @@ List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-12.3 required=3.0 tests=BAYES_00,DKIM_SIGNED,
-	DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
-	INCLUDES_CR_TRAILER,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,
-	USER_AGENT_SANE_1 autolearn=unavailable autolearn_force=no
-	version=4.0.1
+X-Spam-Status: No, score=-8.6 required=3.0 tests=BAYES_00,DKIM_INVALID,
+	DKIM_SIGNED,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,
+	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS autolearn=ham
+	autolearn_force=no version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
+--n8iH9ulcLLghpic8
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
 
+Acked-by: Conor Dooley <conor.dooley@microchip.com>
+pw-bot: not-applicable
 
-On 18/11/26 14:13, Philipp Stanner wrote:
-> On Fri, 2026-11-13 at 02:11 +0900, Sidong Yang wrote:
->> The scheduler accumulates the time each entity's jobs spend on the
->> hardware for the fair policy, but drivers cannot read it. Export it so
->> drivers can report per-client engine time through fdinfo without
->> keeping their own counter.
->>
->> The stats object is refcounted and held by the entity and its jobs, so
->> unlike commit df622729ddbf ("drm/scheduler: track GPU active time per
->> entity"), which was reverted, accounting a job does not touch the
->> entity.
-> 
-> In general looks good to me, no objections.
-> 
-> But a question below:
-> 
->>
->> Suggested-by: Tvrtko Ursulin <tursulin@ursulin.net>
->> Signed-off-by: Sidong Yang <sidong.yang@furiosa.ai>
-> 
-> 
->> +u64 drm_sched_entity_get_runtime(struct drm_sched_entity *entity)
->> +{
->> +	struct drm_sched_entity_stats *stats = entity->stats;
->> +	ktime_t runtime;
->> +
->> +	spin_lock(&stats->lock);
->> +	runtime = stats->runtime;
->> +	spin_unlock(&stats->lock);
->> +
->> +	return ktime_to_ns(runtime);
-> 
-> Why not return it as ktime_t?
-> 
-> ktime_t, I suppose, is the universal time unit in the kernel, and the
-> user can use one of the converters to turn it into whatever is desired.
-> 
-> With ns you would have to write the converters yourself.
+--n8iH9ulcLLghpic8
+Content-Type: application/pgp-signature; name=signature.asc
 
-Considering that the main use of this function by the drivers would be
-fdinfo, I believe that ns makes more sense. Otherwise, all drivers would
-need to convert to ns locally.
+-----BEGIN PGP SIGNATURE-----
 
-Maybe we could name it drm_sched_entity_get_runtime_ns()?
+iHUEABYKAB0WIQRh246EGq/8RLhDjO14tDGHoIJi0gUCav3j3gAKCRB4tDGHoIJi
+0h82AP92QBXpHuHXrUwCudydjX/rSTGytlz3ETzAnAKFg2JwhgD/XThP0378nO3w
+A9g/IWa9DrgZoYd7F3hqhoiD55x8AAs=
+=T7oF
+-----END PGP SIGNATURE-----
 
-Best regards,
-- Maíra
-
-> 
-> P.
-
+--n8iH9ulcLLghpic8--
