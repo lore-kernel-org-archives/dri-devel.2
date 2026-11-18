@@ -2,129 +2,95 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2A1F0606A320
-	for <dri-devel@archiver.kernel.org>; Thu, 19 Nov 2026 07:53:12 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6A681606A320
+	for <dri-devel@archiver.kernel.org>; Thu, 19 Nov 2026 07:53:13 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=fail reason="signature verification failed" (2048-bit key) header.d=infradead.org header.i=@infradead.org header.a=rsa-sha256 header.s=casper.20170209 header.b=cMpbmfZ0
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=za/Wl4Ma
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 8B5C310FEA1;
-	Thu, 19 Nov 2026 07:53:03 +0000 (UTC)
-Received: from casper.infradead.org (casper.infradead.org [90.155.50.34])
- by gabe.freedesktop.org (Postfix) with ESMTPS id DDD2310E7F3;
- Wed, 18 Nov 2026 14:05:23 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
- d=infradead.org; s=casper.20170209; h=In-Reply-To:Content-Type:MIME-Version:
- References:Message-ID:Subject:Cc:To:From:Date:Sender:Reply-To:
- Content-Transfer-Encoding:Content-ID:Content-Description;
- bh=foydl+Nk9ZmJviej/30gV1cygoCTSVCceGPI7w/fow0=; b=cMpbmfZ0BwP5BHLVj+ahy7474K
- 9jQVZUTYDPRWMmNInqlwq3Il9TbgjATQK7ing2WRUOh+0zkz6gdJ06IIlFf0kAgGCezCNZYU5YvcV
- DMbIAtPVR4KGaM4r0jjXRWj63/NGqk/VvxCuqWAyU7vg3ueZRkWC1YrlwedfaaaTLZgXVm9MNV/Z+
- bTtoazxVy81wDZTODobdzyYIrGH5ns62eNNCyuU1UQhxdkcuIdhm0K7+sUgro43CUTcrfkfggiZtG
- JRC/pLl0dPHJoH0LTcq4Cat0YqPdDv0VykNQ/LGugccBVDJEpbAxIr1vdePSum1wbi1k+DVWpC2D2
- 2sm77DEQ==;
-Received: from 77-249-17-252.cable.dynamic.v4.ziggo.nl ([77.249.17.252]
- helo=noisy.programming.kicks-ass.net)
- by casper.infradead.org with esmtpsa (Exim 4.100.1 #2 (Red Hat Linux))
- id 1xTgHi-0000000E2Nt-35pT; Wed, 18 Nov 2026 14:05:15 +0000
-Received: by noisy.programming.kicks-ass.net (Postfix, from userid 1000)
- id E2EC13005AF; Wed, 18 Nov 2026 15:05:13 +0100 (CET)
-Date: Wed, 18 Nov 2026 15:05:13 +0100
-From: Peter Zijlstra <peterz@infradead.org>
-To: Bence Csokas <bence.csokas@arm.com>
-Cc: Kees Cook <kees@kernel.org>, "Gustavo A. R. Silva" <gustavoars@kernel.org>,
- Marcel Holtmann <marcel@holtmann.org>,
- Luiz Augusto von Dentz <luiz.dentz@gmail.com>,
- Sumit Semwal <sumit.semwal@linaro.org>,
- Christian =?iso-8859-1?Q?K=F6nig?= <christian.koenig@amd.com>,
- Philipp Stanner <phasta@kernel.org>,
- Sudeep Holla <sudeep.holla@kernel.org>,
- Cristian Marussi <cristian.marussi@arm.com>,
+	by gabe.freedesktop.org (Postfix) with ESMTP id 2C81D10FF5B;
+	Thu, 19 Nov 2026 07:53:04 +0000 (UTC)
+Received: from mail-pj2-f10.google.com (mail-pj2-f10.google.com
+ [74.125.227.138])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id D2D5410ECC8
+ for <dri-devel@lists.freedesktop.org>; Wed, 18 Nov 2026 22:08:37 +0000 (UTC)
+Received: by mail-pj2-f10.google.com with SMTP id
+ 98e67ed59e1d1-3b3f3ac0f88so91098a91.0
+ for <dri-devel@lists.freedesktop.org>; Wed, 18 Nov 2026 14:08:37 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20260707; t=1795039717; x=1795644517; darn=lists.freedesktop.org;
+ h=mime-version:content-transfer-encoding:content-type:references
+ :in-reply-to:subject:cc:to:from:message-id:date:from:to:cc:subject
+ :date:message-id:reply-to:content-type;
+ bh=48GpV2tL7XVTAarQnrcMPM8Usr/dY/fptCTJVKAYBQY=;
+ b=za/Wl4MasV+Jj3XbMM98ZyonHg6qdrvjbkdBXdtKF2RQzHi4CcG+OMJB1m8yOaabvs
+ kpy/Cijd7TxmbiwcqAzZbI8rJP/MTMTCKcThhbyAa2oRjBHj8GFYl27+IrLS1csuYBux
+ gz+3ZXrBy+a1KRt+KgqMcbfnCuz/38o3pPYvprrHiSeXm191C8RDiMfTNp/8jGSrpD/2
+ 5DkEo2cVZKPF66SUYWKTxtOU+0iLTiVhahDE2Rm9wsZ2oSb5Tg4kiKKnDLZmjVZIGE2H
+ uzMCj7iaoEbk4X20DUOESgvUYlbivWnYi7468sWgnKXE0sOFIHXxy7IsNuUIa2aC4yLj
+ 22Hw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20260707; t=1795039717; x=1795644517;
+ h=mime-version:content-transfer-encoding:content-type:references
+ :in-reply-to:subject:cc:to:from:message-id:date:x-gm-gg
+ :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+ :content-type;
+ bh=48GpV2tL7XVTAarQnrcMPM8Usr/dY/fptCTJVKAYBQY=;
+ b=Wz1p+3+wuEcjaC5wSPSdgQ8qL7d5VwpVfPY4c+ch91FBTPSMXNdWw6sajuD07cyXWn
+ Hbs9HYsAp8mGCxltkFtPn6dMSJjwlEOgPRwneai708JzW94Pi4Ejsm4A5Jdcwzw8uUC3
+ OtWriXOMmXLhhaZ97WzI0O2ec4WBHH+VrfJ8Cwh5twwoqE9cSsWqlZIh3GnLlNjIaiPp
+ apZBsk3TpsYbBsNwBGMeY6PMq7RjY4Smq1ViCvWazFhbdrIEV/hC7D30f0c9Vssoc1Qs
+ pkspfx2LWLlPI+gmJEd2pw3Db1+ywOEbhcd82MoJTz1rGkA3P9V5CR1GzurUgz33zamr
+ kCJA==
+X-Forwarded-Encrypted: i=1;
+ AL+hErF1uxkGd9+5DrTn9ZstZg/BpgR6Ocx1iN3LyYKLQu5tn5SEUNudjIiDtX+F74X8Xa/7TPtpkCo5AFM=@lists.freedesktop.org
+X-Gm-Message-State: APuU4Z8fHzTJ3+NCyxjJ1XL101Yjk118Q1LigTVUHh5Wwxr9fXOGbwsw
+ Hd4Te4hqQpDhrMlpjN7s4VreTlpGHJz01n74Vubk6NX4ZzrMThmJ5Aot
+X-Gm-Gg: AZFdTZeuTK/0uIBDjp4ggK9Pwprr8XJIdG9JPtFtCtzMqTFY449DdB6I4ufY8OIfonx
+ YKBcHGmNj9cmrZKPNjxOcEffJ3yqJ7HwFd++sAFuJAyBQd/WzI5IGPUlf29fQHFV4KqYT7azrR7
+ p3RJaS0ZtckiycCaEVi4DeuJs0mBalNbry/aTPZ70476U+iI/aq/l1C9DYmbdwi+p2HnT17aKY4
+ ppRQPggPHpB00P6tuZv3dxuMM9/4I/rtudvk0tq8s5IoDrTFmxym46JL80AXP/vPTbtdh9r4Ke4
+ Bz4E9wirEh0ipLSkDCxa4WiudzGwuUyqg6LA6v2lY/6+kwOZTJ9YaLhZsBqoiDnfhRHaCq11CkV
+ WL/mI/uxv+o0krJnt9iuUeBQeDfnTnSY6bfsa+7Bs/3u/g54E0PkCw7rgGWsR4N88dBUSeUhs0U
+ nK6zBD+g2E734bd6nc7hYKUM+D7QiJREvyzMuFnHQYOR/WgE0XJvRCRbAUvyvLtaa9aqvF2AQaD
+ AY7SJ5zfne1yGGnv/jtzPgUP32nspa1b+bxitIwkqtew3k4O5XFnlcEozIN0BZdI1NDD9B7rX8c
+ baw=
+X-Received: by 2002:a17:90b:2ccf:b0:3b3:cb22:72d0 with SMTP id
+ 98e67ed59e1d1-3b3d07656e8mr4366165a91.29.1795039717105; 
+ Wed, 18 Nov 2026 14:08:37 -0800 (PST)
+Received: from localhost ([2403:2c80:6::107b])
+ by smtp.gmail.com with ESMTPSA id
+ 98e67ed59e1d1-3b3fe09df73sm93624a91.9.2026.11.18.14.08.33
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Wed, 18 Nov 2026 14:08:35 -0800 (PST)
+Date: Thu, 19 Nov 2026 06:08:29 +0800
+Message-ID: <aef6553f89eba87f753b048a87e3080e.codykang.hk@gmail.com>
+From: Cody Kang <codykang.hk@gmail.com>
+To: Thomas Zimmermann <tzimmermann@suse.de>
+Cc: David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
  Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>,
- Thomas Zimmermann <tzimmermann@suse.de>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- Jani Nikula <jani.nikula@linux.intel.com>,
- Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
- Rodrigo Vivi <rodrigo.vivi@intel.com>,
- Tvrtko Ursulin <tursulin@ursulin.net>,
- Lyude Paul <lyude@redhat.com>, Danilo Krummrich <dakr@kernel.org>,
- Zack Rusin <zack.rusin@broadcom.com>,
- Broadcom internal kernel review list <bcm-kernel-feedback-list@broadcom.com>, 
- Selvin Xavier <selvin.xavier@broadcom.com>,
- Kalesh AP <kalesh-anakkur.purayil@broadcom.com>,
- Jason Gunthorpe <jgg@ziepe.ca>, Leon Romanovsky <leon@kernel.org>,
- Chengchang Tang <tangchengchang@huawei.com>,
- Junxian Huang <huangjunxian6@hisilicon.com>,
- Laurent Pinchart <laurent.pinchart@ideasonboard.com>,
- Hans de Goede <hansg@kernel.org>,
- Mauro Carvalho Chehab <mchehab@kernel.org>,
- Haiyang Zhang <haiyangz@microsoft.com>,
- Wei Liu <wei.liu@kernel.org>, Dexuan Cui <decui@microsoft.com>,
- Andrew Lunn <andrew+netdev@lunn.ch>,
- "David S. Miller" <davem@davemloft.net>,
- Eric Dumazet <edumazet@kernel.org>,
- Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
- Miri Korenblit <miriam.rachel.korenblit@intel.com>,
- Jes Sorensen <Jes.Sorensen@gmail.com>, Ping-Ke Shih <pkshih@realtek.com>,
- Johannes Berg <johannes@sipsolutions.net>,
- Benson Leung <bleung@chromium.org>, Tzung-Bi Shih <tzungbi@kernel.org>,
- Guenter Roeck <groeck@chromium.org>, Nilesh Javali <njavali@marvell.com>,
- GR-QLogic-Storage-Upstream@marvell.com,
- "James E.J. Bottomley" <James.Bottomley@hansenpartnership.com>,
- "Martin K. Petersen" <mkp@kernel.org>,
- Julia Lawall <Julia.Lawall@inria.fr>,
- Nicolas Palix <nicolas.palix@imag.fr>,
- Alexander Viro <viro@zeniv.linux.org.uk>,
- Christian Brauner <brauner@kernel.org>, Jan Kara <jack@suse.cz>,
- Paulo Alcantara <pc@manguebit.org>, Namjae Jeon <linkinjeon@kernel.org>,
- Ronnie Sahlberg <ronniesahlberg@gmail.com>,
- Shyam Prasad N <sprasad@microsoft.com>, Tom Talpey <tom@talpey.com>,
- Bharath SM <bharathsm@microsoft.com>,
- Carlos Maiolino <cem@kernel.org>, Thomas Gleixner <tglx@kernel.org>,
- Ingo Molnar <mingo@redhat.com>, Darren Hart <dvhart@infradead.org>,
- Davidlohr Bueso <dave@stgolabs.net>,
- =?iso-8859-1?Q?Andr=E9?= Almeida <andrealmeid@igalia.com>,
- Alexei Starovoitov <ast@kernel.org>,
- Daniel Borkmann <daniel@iogearbox.net>,
- Andrii Nakryiko <andrii@kernel.org>, Eduard Zingerman <eddyz87@gmail.com>,
- Kumar Kartikeya Dwivedi <memxor@gmail.com>,
- Martin KaFai Lau <martin.lau@linux.dev>, Song Liu <song@kernel.org>,
- Yonghong Song <yonghong.song@linux.dev>, Jiri Olsa <jolsa@kernel.org>,
- Emil Tsalapatis <emil@etsalapatis.com>,
- Ihor Solodrai <ihor.solodrai@linux.dev>,
- Simon Horman <horms@kernel.org>, David Ahern <dsahern@kernel.org>,
- Ido Schimmel <idosch@nvidia.com>,
- Willem de Bruijn <willemdebruijn.kernel@gmail.com>,
- Steffen Klassert <steffen.klassert@secunet.com>,
- Herbert Xu <herbert@gondor.apana.org.au>,
- =?iso-8859-1?Q?Micka=EBl_Sala=FCn?= <mic@digikod.net>,
- =?iso-8859-1?Q?G=FCnther?= Noack <gnoack@google.com>,
- Paul Moore <paul@paul-moore.com>, James Morris <jmorris@namei.org>,
- "Serge E. Hallyn" <serge@hallyn.com>,
- "Geoffrey D. Bennett" <g@b4.vu>, Jaroslav Kysela <perex@perex.cz>,
- Takashi Iwai <tiwai@suse.com>, linux-hardening@vger.kernel.org,
- linux-kernel@vger.kernel.org, linux-bluetooth@vger.kernel.org,
- linux-media@vger.kernel.org, dri-devel@lists.freedesktop.org,
- linaro-mm-sig@lists.linaro.org, arm-scmi@vger.kernel.org,
- linux-arm-kernel@lists.infradead.org,
- intel-gfx@lists.freedesktop.org, nouveau@lists.freedesktop.org,
- linux-rdma@vger.kernel.org, linux-hyperv@vger.kernel.org,
- netdev@vger.kernel.org, linux-wireless@vger.kernel.org,
- chrome-platform@lists.linux.dev, linux-scsi@vger.kernel.org,
- cocci@inria.fr, linux-fsdevel@vger.kernel.org,
- linux-cifs@vger.kernel.org, samba-technical@lists.samba.org,
- linux-xfs@vger.kernel.org, bpf@vger.kernel.org,
- ipsec@lists.linux.dev, linux-security-module@vger.kernel.org,
- linux-sound@vger.kernel.org
-Subject: Re: [PATCH v4 2/2] treewide: Use struct_offset()
-Message-ID: <20261118140513.GO1813469@noisy.programming.kicks-ass.net>
-References: <20261118-offsetof-v4-0-95b385c10b22@arm.com>
- <20261118-offsetof-v4-2-95b385c10b22@arm.com>
+ Maxime Ripard <mripard@kernel.org>, Rob Herring <robh@kernel.org>,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
+ Yixun Lan <dlan@kernel.org>, Vinod Koul <vkoul@kernel.org>,
+ Neil Armstrong <neil.armstrong@linaro.org>, Haylen Chu <heylenay@4d2.org>,
+ Michael Turquette <mturquette@baylibre.com>, Stephen Boyd <sboyd@kernel.org>, 
+ Brian Masney <bmasney@redhat.com>, Philipp Zabel <p.zabel@pengutronix.de>,
+ Paul Walmsley <pjw@kernel.org>, Palmer Dabbelt <palmer@dabbelt.com>,
+ Albert Ou <aou@eecs.berkeley.edu>, Alexandre Ghiti <alex@ghiti.fr>,
+ Yao Zi <me@ziyao.cc>,
+ Uwe =?utf-8?q?Kleine-K=C3=B6nig?= <u.kleine-koenig@baylibre.com>,
+ Guodong Xu <docular.xu@gmail.com>, dri-devel@lists.freedesktop.org,
+ linux-riscv@lists.infradead.org, devicetree@vger.kernel.org,
+ spacemit@lists.linux.dev, linux-kernel@vger.kernel.org,
+ linux-phy@lists.infradead.org, linux-clk@vger.kernel.org
+Subject: Re: [PATCH v2 10/17] drm/spacemit: add Saturn DPU KMS pipeline
+In-Reply-To: <f0b2beb9-d0ad-4870-812a-fef530a964c3@suse.de>
+References: <20260809-k3-display-v2-0-327d7910bf71@gmail.com>
+ <20260809-k3-display-v2-10-327d7910bf71@gmail.com>
+ <f0b2beb9-d0ad-4870-812a-fef530a964c3@suse.de>
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261118-offsetof-v4-2-95b385c10b22@arm.com>
 X-Mailman-Approved-At: Thu, 19 Nov 2026 07:53:02 +0000
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -137,16 +103,241 @@ List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-3.6 required=3.0 tests=BAYES_00,DKIM_INVALID,
-	DKIM_SIGNED,HEADER_FROM_DIFFERENT_DOMAINS,MAILING_LIST_MULTI,
-	SPF_HELO_NONE,SPF_PASS autolearn=no autolearn_force=no version=4.0.1
+X-Spam-Status: No, score=-2.8 required=3.0 tests=BAYES_00,DKIM_SIGNED,
+	DKIM_VALID,DKIM_VALID_AU,FREEMAIL_FORGED_FROMDOMAIN,FREEMAIL_FROM,
+	HEADER_FROM_DIFFERENT_DOMAINS,MAILING_LIST_MULTI,SPF_HELO_NONE,
+	SPF_PASS autolearn=no autolearn_force=no version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-On Wed, Nov 18, 2026 at 12:50:09PM +0100, Bence Csokas wrote:
-> Generated with a simple Coccinelle patch found in
-> scripts/coccinelle/api/struct_offsetof.cocci
+Hi Thomas,
 
-I think this is a good example of why we don't need this. It adds yet
-another macro to remember, and doesn't actually save many characters at
-all.
+On Mon, 14 Sep 2026 15:58:39 +0200, Thomas Zimmermann wrote:
+> Hi,
+>
+> please find a review below.  I've only mentioned most issues once, they 
+> are usually throughout the code. Please fix all instances then.
+
+Thanks for the review. Will fix all instances.
+
+> Am 09.08.26 um 15:14 schrieb Cody Kang via B4 Relay:
+[...]
+> > +	drm_atomic_crtc_state_for_each_plane_state(plane, pstate, crtc_state) {
+> > +		u32 rdma_id = to_spacemit_plane_state(pstate)->rdma_id;
+> > +		u32 layer_fbcmem_size =
+> > +				to_spacemit_plane_state(pstate)->fbcmem_size;
+>
+> If you need to check plane state, please do this in the plane's 
+> atomic_check. For atomic commits that only change plane state, the 
+> CRTC's atomic_check might not run, I think.
+
+Will do; the check moves into the plane's atomic_check.
+
+> It looks like this code allocates memory. This is is something that 
+> should be done globally.
+
+It does not allocate memory: it partitions the on-chip line buffer.
+With one plane per CRTC nothing is shared between planes, so the
+plane's own check is enough.
+
+[...]
+> > +	if (!drm_dev_enter(crtc->dev, &idx))
+> > +		return;
+>
+> drm_dev_enter() and drm_dev_exit() protect hardware access. Given hat 
+> you have a tracepoint below, you certainly don't want to return here. 
+> It's is better to write code like this
+>
+> atomic_enable() {
+>
+>    if (drm_dev_enter()) {
+>
+>        // do HW access
+>        drm_dev_exit()
+>    }
+>
+> }
+>
+> although not many drivers do this.
+
+Will do.
+
+> > +
+> > +	trace_spacemit_crtc_atomic_enable(a_crtc->dev_id);
+>
+> Why is your modesetting code is filled with tracepoints? Most other 
+> drivers don't need them. There is debugging infrastructure available in DRM.
+
+Will drop them.
+
+[...]
+> > +		ret = reset_control_bulk_assert(ARRAY_SIZE(priv->pipe_resets),
+> > +						priv->pipe_resets);
+> > +		if (ret)
+> > +			dev_warn(a_crtc->dev,
+> > +				 "failed to assert resets: %d\n", ret);
+> > +		usleep_range(10000, 20000);
+> > +		a_crtc->first_modeset = false;
+> > +	}
+>
+> Just no. This code belongs into driver or platform init. It is 
+> definitely not for mode setting.
+
+Will do; it moves to probe.
+
+[...]
+> > +		usleep_range(10000, 20000);
+> > +	}
+> > +
+> > +	drm_crtc_vblank_on(&a_crtc->crtc);
+>
+> I'd say you want to enable vblanking after programming the display mode. (?)
+
+Will do.
+
+> > +
+> > +	spacemit_crtc_init(a_crtc);
+>
+> The code is full of these tiny helpers. Please inline them. And please 
+> also avoid the callbacks that these tiny helpers invoke.  The DRM 
+> interfaces are your abstraction interface. Please don't introduce 
+> another one.
+
+Will do.
+
+[...]
+> > +	/*
+> > +	 * MMIO on a clock-gated DPU stalls the bus, so an in-flight handler
+> > +	 * must finish its status reads before dpu_pm_suspend() gates the
+> > +	 * clocks.
+> > +	 */
+> > +	if (a_crtc->irq_online > 0)
+> > +		synchronize_irq(a_crtc->irq_online);
+>
+> This irq is unrelated to vblanking, I presume?
+
+It is the vblank interrupt as well: the one line carries the DPU's
+vsync, config-ready and underrun status. The synchronize_irq() is not
+about vblank, though. A register read on a clock-gated DPU stalls the
+bus, so a handler that is already running has to finish before the
+clocks stop. With the move to runtime PM (next point) the call will
+sit in the runtime suspend callback, ahead of the clock gating.
+
+> > +	timer_delete_sync(&a_crtc->cfg_rdy_timer);
+> > +
+> > +	/* Close the ISR's MMIO gate before the clocks actually stop. */
+> > +	a_crtc->clocks_on = false;
+> > +	dpu_pm_suspend(a_crtc->dev);
+>
+> This whole DPU PM stuff doesn't seem to belong here.  There's are 
+> device-PM ops for controlling power management.  It might happen that 
+> compositors disable the CRTC for simple mode setting. This should not 
+> suspend the whole device.
+
+Will do; it moves to runtime PM.
+
+> > +	spin_lock_irq(&drm->event_lock);
+> > +	if (crtc->state->event) {
+> > +		drm_crtc_send_vblank_event(crtc, crtc->state->event);
+> > +		crtc->state->event = NULL;
+> > +	}
+> > +	spin_unlock_irq(&drm->event_lock);
+>
+> You need set up the vblank machinery to send the event on the next 
+> vblank irq. See [1] for a simple example.
+>
+> [1] 
+> https://elixir.bootlin.com/linux/v7.2.5/source/drivers/gpu/drm/drm_vblank_helper.c#L51
+
+Will do. The event will be armed from the config-ready interrupt
+rather than in atomic_flush, since the next commit must not start
+before the hardware has taken the current command lists.
+
+[...]
+> > +	trace_spacemit_crtc_atomic_check(a_crtc->dev_id);
+>
+> Please don't add your own tracepoints.
+
+Will do.
+
+> > +	ret = spacemit_crtc_atomic_check_fbmem(crtc, state);
+> > +	if (ret) {
+> > +		drm_dbg_kms(crtc->dev,
+> > +			    "failed to satisfy fbcmem size for all rdmas\n");
+>
+> Drivers should only use drm_dbg().  drm_dbg_kms() et al are for DRM core 
+> and helpers.
+
+Will do.
+
+[...]
+> > +	if (WARN_ON(!crtc->state))
+>
+> There are helpers like drm_WARN_ON() et al. Please prefer them over 
+> WARN_ON() and other non-DRM counterparts.
+
+Will do.
+
+[...]
+> > +	ret = drm_vblank_init(drm, drm->mode_config.num_crtc);
+> > +	if (ret) {
+> > +		dev_err(dev, "failed to initialize vblank\n");
+> > +		goto err_unbind_all;
+> > +	}
+>
+> Better do this after running drm_mode_config_reset().
+
+Will do.
+
+[...]
+> > +	/* The programming paths use the raw rectangles, so refuse to clip. */
+> > +	if ((state->src.x1 >> 16) != src_x || (state->src.y1 >> 16) != src_y ||
+> > +	    (drm_rect_width(&state->src) >> 16) != src_w ||
+> > +	    (drm_rect_height(&state->src) >> 16) != src_h ||
+> > +	    state->dst.x1 != state->crtc_x || state->dst.y1 != state->crtc_y ||
+> > +	    drm_rect_width(&state->dst) != crtc_w ||
+> > +	    drm_rect_height(&state->dst) != crtc_h) {
+> > +		drm_dbg_kms(plane->dev,
+> > +			    "clipped plane rectangles not supported\n");
+> > +		return -EINVAL;
+> > +	}
+>
+> What's the matter with this code?
+>
+> Allocated buffers can be larger than the display mode. If the hardware 
+> cannot handle this, it might become a problem in some setups.
+
+It worked around the driver programming the unclipped rectangles.
+Will fix.
+
+> > +	/* One-dimensional sources are invalid (only 0x0 = constant fill) */
+> > +	if ((src_w == 0) != (src_h == 0)) {
+> > +		drm_dbg_kms(plane->dev, "unsupported src_w %d src_h %d\n",
+> > +			    src_w, src_h);
+> > +		return -EINVAL;
+> > +	}
+>
+> I'm not aware of any driver testing this. The above calculation of 
+> state->visible should have detected this case.
+
+Will do.
+
+[...]
+> > +		cur_state->mmu_tbl.size =
+> > +			((PAGE_ALIGN(fb->obj[0]->size) >> PAGE_SHIFT) +
+> > +			 HW_ALIGN_TTB_NUM) * 4;
+> > +		cur_state->mmu_tbl.va =
+> > +			dma_alloc_coherent(a_crtc->dev, cur_state->mmu_tbl.size,
+> > +					   &cur_state->mmu_tbl.pa,
+> > +					   GFP_KERNEL | __GFP_ZERO);
+> > +		if (!cur_state->mmu_tbl.va)
+> > +			return -ENOMEM;
+>
+> Resource allocation/deallocation like this should better be done in 
+> begin_fb_access/end_fb_access when you need them for the commit. 
+> User-space compositors might send in a large number of states only for 
+> atomic_check'ing. There's no point in allocating actual memory then.
+
+Will move the allocation to prepare_fb.
+
+Cody
