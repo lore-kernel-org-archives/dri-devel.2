@@ -2,121 +2,64 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 16B09606A32C
-	for <dri-devel@archiver.kernel.org>; Wed, 18 Nov 2026 13:44:31 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7629C606A320
+	for <dri-devel@archiver.kernel.org>; Wed, 18 Nov 2026 13:45:59 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=Nvidia.com header.i=@Nvidia.com header.a=rsa-sha256 header.s=selector2 header.b=MXla+GDc
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=UnAsgjRT
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 4E93A10E7EE;
-	Wed, 18 Nov 2026 13:44:25 +0000 (UTC)
-Received: from PH8PR06CU001.outbound.protection.outlook.com
- (mail-westus3azon11012056.outbound.protection.outlook.com [40.107.209.56])
- by gabe.freedesktop.org (Postfix) with ESMTPS id B2EEB10E7EE
- for <dri-devel@lists.freedesktop.org>; Wed, 18 Nov 2026 13:44:18 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=V70HxrqBZSg4T3tsrGEvzVxjuAS7O3agDjuCiAfcpeYPfbcnDSuwgPQTF+gmGNNvVpJRQS3StNdeRQNVLIrFP0bqpJwLjW8hqdq9bAo7qRz0BQCDzZgeyWyIsfWEgTOYB75vAbIfjc9tQ1vve3MWXaLpawjaynsQyXZG04Fr2sq/WicmBtjNB6pgvsV95244nbiaZ+UxepT7+TzxjMhbADuGDXp1aDQTmpR2zJiVm1SXFCaLJEoLTWLW/gzUQrbi84BTV/e1frNmZtXX/kQx+DUXHdNuZQ8xo8tbkVdaPNH7Etr54vIY8UdxVPtjm6ROD9QZJowJOO5ZuSMzOSDL1w==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=uNkMTuaSQqHlv9kJR+lu/tlRR8pqPKsgALZ9qTWDsbw=;
- b=HRFI/0gA1KHey4YfBHZ7rgTaPZx66fMkkZOc/FtD3M2O/aBi69PCdYQur03byIIz2xWCT65ifzIjsR2k+n0GFfZI/cwVCFbP69dTGeqJSM0xrrL56He4T+5NmSNhWMVWRY/ppOxel6HDqFfOfwmkebq/1uPdKBmVw/OeEpWGLMjP5/zLCcbOOtQqpEgnDD18O45jQz97n7XJjPHxlWGENjINVxs/M6njZoOSVpHouIZUpAY1H8Xd/R5fiX+L64p/JfvXkUXHikk7OG3ptdBVJIcmI8rwM3cTEEHILvibvUjO8s0SEyWIqPTwyD7VfP1fOHh1hXVq8TPdNA/6QxZtFg==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
- dkim=pass header.d=nvidia.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
- s=selector2;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=uNkMTuaSQqHlv9kJR+lu/tlRR8pqPKsgALZ9qTWDsbw=;
- b=MXla+GDcDlEnZReYZSl1wuV8i5PM9gm2UudoWSUWEN7QPi8x/PKXEF70QyZY6Z6wvHt5mo2HBHzMRru/q+oZQ7ibeQXq4MMrc/X/T25lYoKAyIEkKAK2yMZUBRn9d+PiTLtCyi95WK8qVp4rXcb1o9DdppG8ZPErrKcPCQ291QMtp+MN9L4L1oRSOaKQ7oSCum43cAx/N9dGoqvd71mQ0tzPWvDYu98KVagPQuSYFW9ry1XJtZEVrWYD3KOo08QNjXcDuP7pSkcGkJ8rzZ9w0ULQopUA0IwlwTiLeouEU9K/ciLXjGn9BHbi2rS9+koPIPDm9Yqy8wDDaHWMZeu8kw==
-Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=nvidia.com;
-Received: from CHBPR12MB731189.namprd12.prod.outlook.com
- (2603:10b6:610:33d::12) by MN2PR12MB4333.namprd12.prod.outlook.com
- (2603:10b6:208:1d3::23) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.615.14; Wed, 18 Nov
- 2026 13:44:12 +0000
-Received: from CHBPR12MB731189.namprd12.prod.outlook.com
- ([fe80::b0e5:123d:fe06:e10d]) by CHBPR12MB731189.namprd12.prod.outlook.com
- ([fe80::b0e5:123d:fe06:e10d%6]) with mapi id 15.21.0615.013; Wed, 18 Nov 2026
- 13:44:12 +0000
-Date: Wed, 18 Nov 2026 09:44:11 -0400
-From: Jason Gunthorpe <jgg@nvidia.com>
-To: Ying Xiao <eagleshaw@google.com>,
- "Aneesh Kumar K.V (Arm)" <aneesh.kumar@kernel.org>
-Cc: Sumit Semwal <sumit.semwal@linaro.org>,
- "T . J . Mercier" <tjmercier@google.com>, Jiri Pirko <jiri@nvidia.com>,
- Marek Szyprowski <m.szyprowski@samsung.com>,
- Benjamin Gaignard <benjamin.gaignard@collabora.com>,
- Brian Starkey <Brian.Starkey@arm.com>, John Stultz <jstultz@google.com>,
- Christian =?utf-8?B?S8O2bmln?= <christian.koenig@amd.com>,
+	by gabe.freedesktop.org (Postfix) with ESMTP id 97DCE10FA50;
+	Wed, 18 Nov 2026 13:45:53 +0000 (UTC)
+Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 9FC1410FA50;
+ Wed, 18 Nov 2026 13:45:47 +0000 (UTC)
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+ by sea.source.kernel.org (Postfix) with ESMTP id 4193144E88;
+ Wed, 18 Nov 2026 13:45:47 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 337C41F000C5;
+ Wed, 18 Nov 2026 13:45:39 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+ s=k20260515; t=1795009547;
+ bh=6cCL93ssdEirtEIN7IN1AXWvsFJlWDaYl18DuhqCOQs=;
+ h=From:To:Cc:Subject:Date;
+ b=UnAsgjRTHy0X5p6+yQJK1J7Ig6nX5Irnk6nGzKNbeg36UPsZaYClq6NCtB6/N5WD4
+ k1P+gLlIbKTDTx0Dja5qIrmXbuB01KxoalS9L381uKEW4sjsbG9LWJWJF+6I0ewgb0
+ srQzRqHUN6vavVY9eU3eoednEHrkmEEMLcP4N45Qztet6mF+tPtjWkEfrXCkQb6kCe
+ skH45IXlffpjzwSPTOH6AeTFX/YVvTMlnRUUrLSWf3uy+5YDAZU6iMm9R85Sv2D5oy
+ PYCKr/ezc9EO8vagVPtUbzsWH2NigoK9xyJQF7nNXAELRH6UPxyNq/PcrYq5wJazuO
+ jwgYcnLh6RBYQ==
+From: Philipp Stanner <phasta@kernel.org>
+To: Sumit Semwal <sumit.semwal@linaro.org>,
+ =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
  Philipp Stanner <phasta@kernel.org>,
- Jacob Moroni <jmoroni@google.com>, Xuehao Hu <xuehaohu@google.com>,
- dri-devel@lists.freedesktop.org, linux-media@vger.kernel.org,
- linaro-mm-sig@lists.linaro.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH] dma-buf: heaps: system: zero pages after
- set_memory_decrypted()
-Message-ID: <20261118134411.GQ2245175@nvidia.com>
-References: <20261117155431.1654298-1-eagleshaw@google.com>
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261117155431.1654298-1-eagleshaw@google.com>
-X-ClientProxiedBy: IA4P221CA0001.NAMP221.PROD.OUTLOOK.COM
- (2603:10b6:208:559::16) To CHBPR12MB731189.namprd12.prod.outlook.com
- (2603:10b6:610:33d::12)
+ Alex Deucher <alexander.deucher@amd.com>, David Airlie <airlied@gmail.com>,
+ Simona Vetter <simona@ffwll.ch>, Sunil Khatri <sunil.khatri@amd.com>,
+ Vitaly Prosyak <vitaly.prosyak@amd.com>, Prike Liang <Prike.Liang@amd.com>,
+ =?UTF-8?q?Thomas=20Hellstr=C3=B6m?= <thomas.hellstrom@linux.intel.com>,
+ Tvrtko Ursulin <tvrtko.ursulin@igalia.com>,
+ David Rosca <david.rosca@amd.com>,
+ =?UTF-8?q?Timur=20Krist=C3=B3f?= <timur.kristof@gmail.com>,
+ Maxime Ripard <mripard@kernel.org>,
+ Dave Stevenson <dave.stevenson@raspberrypi.com>,
+ =?UTF-8?q?Ma=C3=ADra=20Canal?= <mcanal@igalia.com>,
+ Raspberry Pi Kernel Maintenance <kernel-list@raspberrypi.com>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Thomas Zimmermann <tzimmermann@suse.de>
+Cc: dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
+ linux-media@vger.kernel.org, amd-gfx@lists.freedesktop.org,
+ etnaviv@lists.freedesktop.org, intel-gfx@lists.freedesktop.org,
+ imagination@lists.freedesktop.org, lima@lists.freedesktop.org,
+ linux-arm-msm@vger.kernel.org, freedreno@lists.freedesktop.org,
+ nouveau@lists.freedesktop.org, virtualization@lists.linux.dev,
+ spice-devel@lists.freedesktop.org, intel-xe@lists.freedesktop.org,
+ linux-tegra@vger.kernel.org, linux-iio@vger.kernel.org,
+ linux-usb@vger.kernel.org, rust-for-linux@vger.kernel.or
+Subject: [PATCH v2 0/3] dma-buf: dma-fence: Remove dma_fence_init64()
+Date: Wed, 18 Nov 2026 14:45:20 +0100
+Message-ID: <20261118134522.1646892-2-phasta@kernel.org>
+X-Mailer: git-send-email 2.56.0
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: CHBPR12MB731189:EE_|MN2PR12MB4333:EE_
-X-MS-Office365-Filtering-Correlation-Id: 4db172a0-62a7-4e40-bfb4-08df457a07a2
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
- ARA:13230040|23010399003|376014|7416014|366016|1800799024|261021123027099003|261022075727099003|11063799006|56012099006|261026140227099003|261028144727099003|10067099003|261021121427099003|261022105027099003|261102123227099003|261009223027099003|22082099003|18002099003|3023799007;
-X-Microsoft-Antispam-Message-Info: X5sEkDv/cxbkQcrBxlzApwoSITt5UF2z+LiZ7JKIdx8i8FpIXizo0CZLXFwUX5IrPtPacw4tYBaE34HqmjlGmSda5zJvzC9v1iZ+8YBWnj4YiDZW4rPtIcGrS3RpEMAhUf3uq7Rn9mNEj8QcUfx1l3q4muh2ggk005gq1GhhWqdnSsKcOdLwINrnKzvysbo9h0600IxFBFHQCreX5/OefUTU45KpUr1cXHzXna4vZ06icFAqxDQ+tJvtxuFeBsCYG9MZ3KP+90UYwB9qmriXZKTaD0AEWDLYOyXzCg9Pe/mgU/UQZHba4X+4lZ98JVK2hienPC38RW7OjZSb8laVb/sGLqmi7Gy/SF84LwhN9Myegps1cHKNVhWOBLpz3rf6h3FN79vdm4x3qjHbpza9COs7jSQoKdUYI51KCOZdakur6OIkfap40JbeDmSide8plg+IEuKzm6ClVw7b/kga6BsexKgmExEFUdZP/XJvPI348hDp/NOkDtTxH6TVSRf/6aDFWbuSSpqmulf94jssa/J8PRsJFGxRcovaSges+kHta4kZCbkDDmNRspqNAc9O+5j07g41Qu0pdDIEwMZ60IepffpySzeA6CTVg0EpaGxNwoDlyP8WgX1jy3/0tpt1CoUYAmKBBn6mOHCjkwcKNa4Oz2hdW2gjsjvzEnQ2hpc=
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:CHBPR12MB731189.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(23010399003)(376014)(7416014)(366016)(1800799024)(261021123027099003)(261022075727099003)(11063799006)(56012099006)(261026140227099003)(261028144727099003)(10067099003)(261021121427099003)(261022105027099003)(261102123227099003)(261009223027099003)(22082099003)(18002099003)(3023799007);
- DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?us-ascii?Q?4R9UVkw7s9anewa2RMzIJ8JHBmY4zKumvGFJnzXak0jC4i4qKh+x8VTkkDGl?=
- =?us-ascii?Q?p3Dujp3iHcOm+EedQldOiru2OsV0zZjYYphmX98MLKJtDMwRHyVvLUKvzCha?=
- =?us-ascii?Q?7YrPuO6yH6VOpvFKwkdh0GU000C8+04fSW7cEJ8zgXJlxYojQyle1TLDD9Kp?=
- =?us-ascii?Q?/O9B/6ilSLW86ZIqvAiDpZFWQ+hTmMNfBqaXNSM7rf1WgyYJgh+bmwKBPhAP?=
- =?us-ascii?Q?DjPrsBMJOMNS1KRg2+6F4gF38J/gUk2T2tC2M5cMxU379Wj3UXyiYIpwOIaR?=
- =?us-ascii?Q?WloM3ZhAAUO86ljQeL4wRN9krCgiyxiVmIDkP2CzvubddGgpWmYddz1x9ICf?=
- =?us-ascii?Q?3aewbhbdwFfFTRk2IQ/wN/jJUEZaJCZzFZ4PDMiGXHXj2v+WcU9TonspYdtI?=
- =?us-ascii?Q?VvM77Ddl6nWa+cADet+75ufRdXazQxPnuKTdBnznswdpo89ti650JtxZ3Vda?=
- =?us-ascii?Q?jUF/uq7dp1zquXeCjrxGYCYndZoGmG+HB0Zs926za3xuR5mmelS2RXRiOzZu?=
- =?us-ascii?Q?4TUTaO9w6vQtrD0Viei5o6yq4kfz0WBuXaHKQyDyl9odWCYH51IEawoSRGlz?=
- =?us-ascii?Q?JqiRslaC3miMC6bAzoN53sRDZc+/gH4Uqt9EK5w8H8wep64U4HnbtpXKbBng?=
- =?us-ascii?Q?eKU6jxZzWPLMEjivWkJdIaaBKbompgpZTJDxfBlPDadgwrr7wg/IkxMPj81r?=
- =?us-ascii?Q?EfpvFiAbDxiSbZQHwCQaesIoxXFjSptAIwTH7cEDla9k0bu8XkNcnT+f3sng?=
- =?us-ascii?Q?iNweIK+dXtlV7nJpxZmiGKPlDY1jjNAcIzLJ6xlPWFCbrgBVWloNqyoX6qf4?=
- =?us-ascii?Q?AtK0TQYnqBPWepdKWiJl/Ho9CWMHTGHC20yOtD96bznE90aGqgxzgxyP7DzJ?=
- =?us-ascii?Q?QzzKm4UMjVU13KkbEJqkEgrtYPucBPxJnmhrXje8oj24ZngTXz29+W2Pj3cW?=
- =?us-ascii?Q?C7fcGv4FdO2ulJzmGy8aIz0sGd4Qr2/kA7nR3Ef9kcm8rEigGhv/QY/VSvGT?=
- =?us-ascii?Q?fXeXq6qk8VCVahRoqrmN0ivjJIJXZYWHBivALWz789DWYuiTXIO6Otp5bdbK?=
- =?us-ascii?Q?gX2lZRVvm5VDc5jfIyc9YV20gMY9TbUn/dcYgJvUA7iWlr7FBFRKpYB1yvb8?=
- =?us-ascii?Q?RuQvAVR4EGCqgTVIOc0/RJzq5WPKmrkqOCPxQOjyD5+aClornAjIyAfB6IMc?=
- =?us-ascii?Q?xAyG/Qav30RD8Ry/PWOrYxjUY6Pk4X8g4xuyu0ugQHn/yyEqGOrgjs80+6Ig?=
- =?us-ascii?Q?mWe6X6RR+AAk9likuu211tfORJK8jvtH3Qwrv841PeFq8loliRqMmDqgIiqM?=
- =?us-ascii?Q?UZRZOGRUzumbsdrj2LuRK7b0t3u9eWXLhyfcwVu0NtNoP3ucZ8pVhBq+LGzj?=
- =?us-ascii?Q?3mikGYA/1BHVUgHhxYmgvbFNX5FjtOzOzeT4LW3c+Kl0o87rluak488PWuIn?=
- =?us-ascii?Q?JtOHk8nHCmaHuz2u90SkYd50SJtkegy8a1A+UJ81lpRV5tetWNTplcD9ckHl?=
- =?us-ascii?Q?rFCiM1y67brxga72W77L4TPcV9mSQ6LfdHZsSjVTgC/CZ5p63c3iHEl/4z7m?=
- =?us-ascii?Q?CaC98b25YfVmQGz8mp3guALnKCGtLGUGIZHOdA4hRcCT//O+uk2+zS4mvdIs?=
- =?us-ascii?Q?UdQtMLWBVfKXCHXh7BK6VdqNeWNE1Nb1XUVgLEONd1Ba9iyn9p2wb5snTCLN?=
- =?us-ascii?Q?e2bOXW542NeeuCcxkf/S6zxdVfOpUxVobJqUQuQKS+60tLWn?=
-X-OriginatorOrg: Nvidia.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 4db172a0-62a7-4e40-bfb4-08df457a07a2
-X-MS-Exchange-CrossTenant-AuthSource: CHBPR12MB731189.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 18 Nov 2026 13:44:12.7254 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: dyodtXRXl6qC991S4Kw5Ig7HB5nPIi1Log8gitr4K0n9vm+zSxoJ/k/K9SMgG74Z
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: MN2PR12MB4333
+Content-Transfer-Encoding: 8bit
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -128,34 +71,101 @@ List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-15.8 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
+X-Spam-Status: No, score=-13.8 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
 	DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
-	INCLUDES_CR_TRAILER,INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,
-	SPF_PASS autolearn=unavailable autolearn_force=no version=4.0.1
+	INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,
+	USER_AGENT_GIT autolearn=ham autolearn_force=no version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-On Tue, Nov 17, 2026 at 03:54:31PM +0000, Ying Xiao wrote:
-> system_heap_allocate() allocates pages via order_flags[] with __GFP_ZERO
-> while the direct map still has the memory encryption bit set. For the
-> system_cc_shared heap, set_memory_decrypted() subsequently clears the
-> encryption bit without re-zeroing, leaving ciphertext in DRAM on
-> confidential computing (CoCo) guests instead of plaintext zeros.
-> 
-> Skip __GFP_ZERO during alloc_pages() for cc_shared allocations, and zero
-> the pages once in system_heap_set_page_decrypted() after
-> set_memory_decrypted() succeeds.
-> 
-> Fixes: 78b30c50a7ac ("dma-buf: heaps: system: add system_cc_shared heap for explicitly shared memory")
-> Reviewed-by: Jacob Moroni <jmoroni@google.com>
-> Signed-off-by: Ying Xiao <eagleshaw@google.com>
-> ---
->  drivers/dma-buf/heaps/system_heap.c | 24 ++++++++++++++++++++----
->  1 file changed, 20 insertions(+), 4 deletions(-)
+(Only adding vc4 and dma-fence folks to Cc to avoid noise)
 
-This seems fine, but Aneesh is fixing this in a more complete way with
-this other series.
+Changes in v2:
+  - Rebase due to conflict in drm/vc4
+  - Change dma_fence_flags_invalid() to dma_fence_flags_valid()
+    (Christian)
 
-Reviewed-by: Jason Gunthorpe <jgg@nvidia.com>
+We recently had a discussion about reworking dma_fence init to close a
+race-window [1].
 
-Jason
+The community agreement seems to have been that we can get rid of
+dma_fence_init64(), so let's do that already. In the meantime we can
+continue our discussions regarding the race in [1].
+
+This also touches the Rust dma_fence, which actually should use 64-bit
+seqnos (was forgotten so far). Rust fence has no users currently, so
+needs no backporting, so I would like to address that in a distinct
+patch.
+
+Tested on Nouveau with and without the SEQNO64 flag. Nouveau also uses
+the USER flag, so I hope we're fine.
+
+
+P.
+
+[1] https://lore.kernel.org/dri-devel/20261029095542.1526750-3-phasta@kernel.org/
+
+Philipp Stanner (3):
+  dma-buf: dma-fence: Add flags parameter to dma_fence_init()
+  dma-buf: Port users of dma_fence_init64()
+  dma-buf: dma-fence: Remove dma_fence_init64()
+
+ drivers/accel/amdxdna/amdxdna_ctx.c           |  2 +-
+ drivers/accel/ethosu/ethosu_job.c             |  2 +-
+ drivers/accel/ivpu/ivpu_job.c                 |  2 +-
+ drivers/accel/rocket/rocket_job.c             |  2 +-
+ drivers/dma-buf/dma-fence-array.c             |  2 +-
+ drivers/dma-buf/dma-fence-chain.c             |  4 +-
+ drivers/dma-buf/dma-fence.c                   | 57 +++++++++----------
+ drivers/dma-buf/st-dma-fence-chain.c          |  2 +-
+ drivers/dma-buf/st-dma-fence-unwrap.c         |  2 +-
+ drivers/dma-buf/st-dma-fence.c                |  2 +-
+ drivers/dma-buf/st-dma-resv.c                 |  2 +-
+ drivers/dma-buf/sw_sync.c                     |  2 +-
+ .../gpu/drm/amd/amdgpu/amdgpu_amdkfd_fence.c  |  2 +-
+ .../drm/amd/amdgpu/amdgpu_eviction_fence.c    |  7 ++-
+ drivers/gpu/drm/amd/amdgpu/amdgpu_fence.c     |  2 +-
+ .../gpu/drm/amd/amdgpu/amdgpu_userq_fence.c   |  5 +-
+ .../gpu/drm/amd/amdgpu/amdgpu_vm_tlb_fence.c  |  5 +-
+ drivers/gpu/drm/drm_crtc.c                    |  2 +-
+ drivers/gpu/drm/drm_writeback.c               |  2 +-
+ drivers/gpu/drm/etnaviv/etnaviv_gpu.c         |  2 +-
+ drivers/gpu/drm/i915/gem/i915_gem_ttm_move.c  |  2 +-
+ drivers/gpu/drm/i915/i915_request.c           |  2 +-
+ drivers/gpu/drm/i915/i915_sw_fence_work.c     |  2 +-
+ drivers/gpu/drm/i915/i915_vma_resource.c      |  2 +-
+ .../gpu/drm/i915/selftests/i915_sw_fence.c    |  2 +-
+ drivers/gpu/drm/imagination/pvr_ccb.c         |  2 +-
+ drivers/gpu/drm/imagination/pvr_queue.c       |  2 +-
+ drivers/gpu/drm/lima/lima_sched.c             |  2 +-
+ drivers/gpu/drm/msm/msm_fence.c               |  2 +-
+ drivers/gpu/drm/nouveau/nouveau_fence.c       |  4 +-
+ drivers/gpu/drm/panfrost/panfrost_job.c       |  2 +-
+ drivers/gpu/drm/panthor/panthor_sched.c       |  2 +-
+ drivers/gpu/drm/qxl/qxl_release.c             |  2 +-
+ drivers/gpu/drm/radeon/radeon_fence.c         |  2 +-
+ drivers/gpu/drm/scheduler/sched_fence.c       |  4 +-
+ .../gpu/drm/scheduler/tests/mock_scheduler.c  |  2 +-
+ drivers/gpu/drm/ttm/tests/ttm_bo_test.c       |  2 +-
+ .../gpu/drm/ttm/tests/ttm_bo_validate_test.c  |  2 +-
+ drivers/gpu/drm/v3d/v3d_fence.c               |  2 +-
+ drivers/gpu/drm/vc4/vc4_gem.c                 |  2 +-
+ drivers/gpu/drm/vgem/vgem_fence.c             |  2 +-
+ drivers/gpu/drm/virtio/virtgpu_fence.c        |  2 +-
+ drivers/gpu/drm/vmwgfx/vmwgfx_fence.c         |  2 +-
+ drivers/gpu/drm/xe/xe_hw_fence.c              |  2 +-
+ drivers/gpu/drm/xe/xe_oa.c                    |  2 +-
+ drivers/gpu/drm/xe/xe_preempt_fence.c         |  2 +-
+ drivers/gpu/drm/xe/xe_tlb_inval.c             |  2 +-
+ drivers/gpu/host1x/fence.c                    |  2 +-
+ drivers/iio/industrialio-buffer.c             |  2 +-
+ drivers/usb/gadget/function/f_fs.c            |  2 +-
+ include/linux/dma-fence.h                     | 14 +++--
+ rust/kernel/dma_buf/dma_fence.rs              |  2 +-
+ 52 files changed, 95 insertions(+), 93 deletions(-)
+
+
+base-commit: 17a180572ca50c8d38f3aa47d6fc81ce7c5594da
+-- 
+2.56.0
+
