@@ -2,93 +2,124 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 40C86606A31C
-	for <dri-devel@archiver.kernel.org>; Wed, 18 Nov 2026 11:22:30 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0ED12606A320
+	for <dri-devel@archiver.kernel.org>; Wed, 18 Nov 2026 11:32:54 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=CFAzoWNv
+	dkim=pass (1024-bit key, unprotected) header.d=bp.renesas.com header.i=@bp.renesas.com header.a=rsa-sha256 header.s=selector1 header.b=mdtoSfER
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 986C110E753;
-	Wed, 18 Nov 2026 11:22:24 +0000 (UTC)
-Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id DE39510E753;
- Wed, 18 Nov 2026 11:22:18 +0000 (UTC)
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by tor.source.kernel.org (Postfix) with ESMTP id 0D14A6210B;
- Wed, 18 Nov 2026 11:22:18 +0000 (UTC)
-Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
-ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
- t=1795000937;
- b=HkZFGepzG7sYDpqAQN6z+vAJMoi6fARoCkYQN6vEYxU1zFZi57nulN3obdBtU2yaUALZ
- udzuM40z+3CT1DFaYOkCpcs1AoqWo9hvmub9gjwAuwRfzJe670F2PnTwuFoT1yNMg0tyW
- 4mCRFKDgT7g/9jnq4OFb7EmbTih48UoPT4a5BgbnoKID9rC2TIbGdapcwn7hAx7dopKOW
- mOuqs4BdvUrxgNPjGFuLnJqpebpF7g+alGwgzpxegQjC7OulVDihAp+8tdM5+rjEBd0S/
- 68+qWofb5pw7bDHMnlptAfbmHpllGs8+eiEnaMB35Ly7U1d1mmgf6XDNEDlPB6w/DdA==
-ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
- c=relaxed/relaxed; t=1795000937;
- h=DKIM-Signature:Received:From:Date:Subject:MIME-Version:Content-Type:
- Message-Id:X-B4-Tracking:X-Change-ID:To:Cc:X-Mailer:
- X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
- X-Original-From:Reply-To:Content-Transfer-Encoding;
- bh=/slPLuuOGpjZxlHeqCUZuJEP0s/i1Y4YG9OBMWWFjyE=;
- b=eEiZj9AnUyyNmUyjpfRbXij8ztAyQJmw23DFnIadaWtpa6DMGDOwiLtNI/TfFdcffkhq
- YJLHoNyOx4WrDN2CzYRP9tlMzQpyq53uxAHBG7LrNps9Ozj418SABGSibgAH1HTiNSym5
- kmw7l+prz02XmKN3HRh/cqcfyuuIPoX2mAm1vd5SjcPkih5kGDwgoiKLV+UOqtd95fgO6
- Pa/G+Tvf1jWoRVSq5ht0VN6+sQIbmo+D9ehBd75aat2mLs+H8gUwUbu6MRdKVaphICOei
- Xv7VBLMdvxjKXsAYv9xYH7j2VfFSIQLfZPtjvkwbg/nFtGE4w7lQh1UlJOXUP0M3kRw==
-ARC-Authentication-Results: i=1; smtp.kernel.org; 
- arc=none smtp.remote-ip=100.80.115.77
-Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
- (No client certificate requested)
- by smtp.kernel.org (Postfix) with ESMTPS id E8E491F000C5;
- Wed, 18 Nov 2026 11:22:16 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1795000937;
- bh=/slPLuuOGpjZxlHeqCUZuJEP0s/i1Y4YG9OBMWWFjyE=;
- h=From:Date:Subject:To:Cc:Reply-To;
- b=CFAzoWNvQbv84VbQNxFromCDANAygq+P1exLhltfsAox2crJCp65MqGEXtCVWxvbX
- XaJPGFND2cOBRQf0v3oeQPPJOL2i9afywRXI3ykHzyuc7rO5677tkaRedDjJOEFcmo
- M18sBco0c1VsN7uNBktAKyYN0Gli0GsDKah1AQhTajIJuW07pMihj7/uWnyxS4PCiz
- ICoFSHjufhVLVgfJZGGNG/owch8v11ARBinHWC7JoaFbN9lDUpQaTVYj9+x0SubKWf
- KgEKMwGNqSPCbBrI9VmYdthuWqjsSZiJHx6E638Pl9ynDX1eQVzeoZh4Aawefqgjmb
- B+i2ilVqQte8Q==
-Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
- by lkml.kernel.org (Postfix) with ESMTP id 463824AD32;
- Wed, 18 Nov 2026 11:22:16 +0000 (UTC)
-From: Shivam Kalra via B4 Relay <devnull+shivamkalra98.zohomail.in@kernel.org>
-Date: Wed, 18 Nov 2026 16:52:09 +0530
-Subject: [PATCH v2] drm/amdgpu: Don't report stale or empty vm_fault info
- in devcoredump
+	by gabe.freedesktop.org (Postfix) with ESMTP id 4443610FAFC;
+	Wed, 18 Nov 2026 11:32:48 +0000 (UTC)
+Received: from TYVP286CU001.outbound.protection.outlook.com
+ (mail-japaneastazon11011037.outbound.protection.outlook.com [52.101.125.37])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id D1D4110FAFC
+ for <dri-devel@lists.freedesktop.org>; Wed, 18 Nov 2026 11:32:42 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=GwV3RraRLbl92F670jsLOIFi51Ys7/jL1WHBgGM40VL/3JergYsi6qXjTgLxxM7vqqa0SnCCYOnnSKWRCfNNze7KXBcqBrlcseHyAjqGi2CllbdIe0maimmGxyRVv9bWml0Yn43RoYxX5RdVr2r37kwaXMfN5p43ARinalVXAMmxypzCHoJ5SqUBWxjk1WDJ7FVQNWc8q0R+j1WeQuMYoy2cSy5Y+BJtbnRdub5VneF148GZIp9llVfwQDCqcskm0XiFsc+oXOqm5D0ldVASeuYtzdrKowqEvIbROqbATFGaUW6YG0pfnODjlKv74UVH0HFmXULFaE7BG4d/SsIP/g==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=Hoj5qt17qPUO2u38kfoTe1lXyHM2UrTPLO8LUlwRt60=;
+ b=glyDJ/D0w/lBfKkYqn6k5HzFdTD3rHpPjM5EKnyhceW8+g8mFWWwu6qJtSwlKAAGInYg0aQhNnPmIIbKGz/6dCEBZ2TGjijaZ3qXQwYuip2/rHHZTMJ0ZTpbVTDaDONleG6De6x7EdGOx91LlcVnwCv9BtxkPG8vzXLygnTbFLr/3mVoxS/nuiAF/57ycpISQLC5PQOoORQQqmehfVEBVh+zF7t0bIsnzMoXyG3OetOJF1Yi51GQL+8plClhumNKy6A5jtW2cbYxNKOqnCKGX6cMr1+GdajLZG1KMm5whqYAqe7xqEDuMyVLhWwgN+Li8diwNB+VQ733NtSLLd3dZg==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=bp.renesas.com; dmarc=pass action=none
+ header.from=bp.renesas.com; dkim=pass header.d=bp.renesas.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bp.renesas.com;
+ s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=Hoj5qt17qPUO2u38kfoTe1lXyHM2UrTPLO8LUlwRt60=;
+ b=mdtoSfER5GtD4+wANw4g3UI81johY8t0dSl4AyceOS5N0a+wl2yB7AKJF9pKO/z7HYoCgXEzwePxom5H3iGzUZkAydwAceoo/XcIwDMcy1OzqvLthkWuroGi4LizSlV9LqO76Fb3tIdoVshhjwkiNsgs+n4nikYRODCN5r/ariM=
+Received: from TYYPR01MB6603.jpnprd01.prod.outlook.com (2603:1096:400:e0::9)
+ by TY4PR01MB13334.jpnprd01.prod.outlook.com (2603:1096:405:1df::11) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.615.14; Wed, 18 Nov
+ 2026 11:32:39 +0000
+Received: from TYYPR01MB6603.jpnprd01.prod.outlook.com
+ ([fe80::145b:b854:162:2e7f]) by TYYPR01MB6603.jpnprd01.prod.outlook.com
+ ([fe80::145b:b854:162:2e7f%5]) with mapi id 15.21.0615.013; Wed, 18 Nov 2026
+ 11:32:39 +0000
+From: Biju Das <biju.das.jz@bp.renesas.com>
+To: Prabhakar <prabhakar.csengg@gmail.com>, Maarten Lankhorst
+ <maarten.lankhorst@linux.intel.com>, Maxime Ripard <mripard@kernel.org>,
+ Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>,
+ Simona Vetter <simona@ffwll.ch>
+CC: "dri-devel@lists.freedesktop.org" <dri-devel@lists.freedesktop.org>,
+ "linux-renesas-soc@vger.kernel.org" <linux-renesas-soc@vger.kernel.org>,
+ "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>, Prabhakar
+ <prabhakar.csengg+renesas@gmail.com>, Fabrizio Castro
+ <fabrizio.castro.jz@renesas.com>, Prabhakar Mahadev Lad
+ <prabhakar.mahadev-lad.rj@bp.renesas.com>
+Subject: RE: [PATCH v4] drm: renesas: rzg2l_mipi_dsi: Remove redundant driver
+ data assignment
+Thread-Topic: [PATCH v4] drm: renesas: rzg2l_mipi_dsi: Remove redundant driver
+ data assignment
+Thread-Index: AQHdcdBrFezFhKtrAk+SFSHFEH4RkbczvUMg
+Date: Wed, 18 Nov 2026 11:32:39 +0000
+Message-ID: <TYYPR01MB66030BB631C572023F80568B867A2@TYYPR01MB6603.jpnprd01.prod.outlook.com>
+References: <20261111113259.3334619-1-prabhakar.mahadev-lad.rj@bp.renesas.com>
+In-Reply-To: <20261111113259.3334619-1-prabhakar.mahadev-lad.rj@bp.renesas.com>
+Accept-Language: en-GB, en-US
+Content-Language: en-US
+X-MS-Has-Attach: 
+X-MS-TNEF-Correlator: 
+authentication-results: mx.microsoft.com 1; dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=bp.renesas.com;
+x-ms-publictraffictype: Email
+x-ms-traffictypediagnostic: TYYPR01MB6603:EE_|TY4PR01MB13334:EE_
+x-ms-office365-filtering-correlation-id: 9726f421-7dfc-4a06-1876-08df4567a6b6
+x-ms-exchange-senderadcheck: 1
+x-ms-exchange-antispam-relay: 0
+x-microsoft-antispam: BCL:0;
+ ARA:13230040|7416014|1800799024|366016|376014|23010399003|22082099003|18002099003|261009223027099003|261022075727099003|261022105027099003|261021123027099003|261026140227099003|261028144727099003|56012099006|11063799006|10067099003|38070700021;
+x-microsoft-antispam-message-info: IPrtkF49fCV6JkRbPsEUsdWdjhOyjEJSi7QypiWshHnGLvSmocgg9lrG5Wt7UIoy9h6RHYBEvcA1Vr5JWjtRdDluVXvb14XbXJP/8oChl84AHB7N6ob3NTM7xGg+TkSzagGS/2etAGNcNmyhz+3LlQGKdrACnZQxgWhkdKltVKxRlTJdLKIP3EPyRZ+v9HLmi3nuF5LkSgKteZAHXk5uXnfGcokx3BHPqnLXaN6IxMpVge/+pPO4SU7PmgGfDlnc/ZZXNFXYMp0+VBOl6iuPEQ83GDGic32hfWvIush9gWyiRJYc724lPn4gTCNm3pmwsxAQWO9M+ZqZSW0hUTIg3E3mDjwJn9V3kLxM4g7fUt78t8pyQKDg7YWCvG17jI1WqjR3wh1MMuKQekJLtvhaxWgFDbSaPq6VqgWb7ksYTDqO1Lwz/sr4BsI85wYiiBCem9j29OrKMV3c/e5SmVz1Nn8aOvOJGorOxqZCE68OmH4GEAEontYP0AY84BJyi7SWAq1zqkZIS3UD9BXvOQsPdGJCdkfExw7rX2DVE1AomanyDRSefeuHecGyfmPbdS5hM4d7hn1HdnLfb2pyHAWaKZNK8pXfPI9xwLPgb+SO+BKMHjHDx3ObTOqDKKjsqKareUh1Bgb3CHZPktUGUMGeDrhYPxK5gj57j5sJl3HtZDQ=
+x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:TYYPR01MB6603.jpnprd01.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230040)(7416014)(1800799024)(366016)(376014)(23010399003)(22082099003)(18002099003)(261009223027099003)(261022075727099003)(261022105027099003)(261021123027099003)(261026140227099003)(261028144727099003)(56012099006)(11063799006)(10067099003)(38070700021);
+ DIR:OUT; SFP:1101; 
+x-ms-exchange-antispam-messagedata-chunkcount: 1
+x-ms-exchange-antispam-messagedata-0: =?us-ascii?Q?ZeAekfsyN4mu5dnp1Ia558+rmBJPqWvgWcXQxBrMf+56CaLxqkOrsqx57jDm?=
+ =?us-ascii?Q?+uIsXB9q1ZVZ5t+gZt4148VGYLzkYI+CuXe2k95Hy/uzuyJ1MhhXxk0WifVp?=
+ =?us-ascii?Q?2nv0BjQmXXrMJCIBEjuAlTG9aJAONRWe0Z/D41/gDo2mnurdMKkjQtIQaR49?=
+ =?us-ascii?Q?W9AIx6VBExxiH2Gg1ZIUQpJLqlzfPjZKf4WoZSAOoHE3P0hUChXAwtrLXhTf?=
+ =?us-ascii?Q?B1dBoCUCIXv3tuMhdcEVBYWJGI15CB3wttWbFQ1DYUqUpZLLNKx3XLGKCGhZ?=
+ =?us-ascii?Q?x7nTj4gE7z5ve1E8XtmqRarmJ1i7pFewTsn1U4oJZ6Ercr+Z2v9Wt3WtZFAW?=
+ =?us-ascii?Q?b8C5/S1F7b4ukw/FBLzM5SeEQb/Fp4F2jTX/c1Pmy9crscpF4yulGFRsOA+0?=
+ =?us-ascii?Q?Y06Y4SFwCuWpO/3jQYuJOt0yq+Kc60GWTAVhveYU0uLxZZjZGw22tI2ECzsd?=
+ =?us-ascii?Q?KPWbT27FqGjwoDT2On0Nw70ebOwFWfZuR86XkobJuSbfswbQKfgwSB96nRc+?=
+ =?us-ascii?Q?F+kUdi51cuVANJE7bitIYnHZLlmEQhHOz8OVJeC+4o5rqEBAhQZLJpOOcsAc?=
+ =?us-ascii?Q?3R7DiX7qFugRoOIzac+ZLFlj6HNa3tre1v+WFFJorkZcuvkFXxgeOj9c72zn?=
+ =?us-ascii?Q?NC4H/BFjnvc2dqt0gWMXRoyEsGps93bZMPrwaNLxfYV169wA9kgrUHo3eHaV?=
+ =?us-ascii?Q?k50bCmuEbdc7ETCKfoKKA0LDXjQv5fky2jjWAtbyakxeW55p6r/xbAsRjtS8?=
+ =?us-ascii?Q?Rzl9bp5yvi9H83DeiTSV7RDne0Q2AzNvwsfHuASxPPZmc+qmPV1WA6tA2NZh?=
+ =?us-ascii?Q?ap7oA7x+mDuBoLJfdjLg+pl3I4MVs9bJbJSRzOEEaG9IEWfkPFygZlCqxhE+?=
+ =?us-ascii?Q?43tnSDQggAoxbhLr15WOSRDf3R8jvJsFtxE2T+KGpBZrmrdQ9bQ7M1FzVRZC?=
+ =?us-ascii?Q?35dU9n5j6BlkNV7nI3s9nWzVQ2ZXHrhXNJ9h0dkJj7A0AL6IJ7Kz1lEqOpEv?=
+ =?us-ascii?Q?wOcZ1eo4XXjVbJiL3dyA7oIhGr1+/E5wlrac2/VYKhPVfRaQ96KdoPq7/7FN?=
+ =?us-ascii?Q?yzlYESYKOE1AqJDiEY9k/vEQJgVOWOdAanxV4vXkc5mOYOTREhaxSMpFq4SJ?=
+ =?us-ascii?Q?rvRDdF5abATRYSDEqsSl0Bip2BYmWniJhcAym5KuiLHE5rFGwWCFAACafEiw?=
+ =?us-ascii?Q?gBhBfn1NTLjUtNpUylGagIBD3QwpV52oS2TlpAU3RlEmHlLUPL1YLVMgv85h?=
+ =?us-ascii?Q?PXg93yoFZvdBOJ4FOyT9T/TdvqlR0JA1o6l+tiq1ObF7crEPvTcvO9efBqHn?=
+ =?us-ascii?Q?y4TLkOgnTLqVyEZzEFJ3pxY2M6Zl2wYDVx8tdk+8le+1oXOydB5fWprg02Bu?=
+ =?us-ascii?Q?HqZoBfsa9R+gDZblPMZnCJLutDQZ0E1KCnK0grD0hQ1nGs80U7F9hyi11ziU?=
+ =?us-ascii?Q?3Wl1nDHpZ0j3FH/PfxLldfJMRodZnL2nsKLOmifmn0nhnjarxmUeaEiMiTSd?=
+ =?us-ascii?Q?0QflCFt6KFC+Z/AbxyazTlrf9VqZej6MeQ1xvo6Drxyjhg/TL6mKGTYTaZnO?=
+ =?us-ascii?Q?UMrFNrbYzwoSoTToeKpJDdZr5e6IE20gRniv+deJCk+VDJuLtZhaByf7jx2s?=
+ =?us-ascii?Q?Pl0ebOBVC4z4Omq0JRjRNBXx/NEbColQxMK77rpJFNa6LgFB7Dz8iAkpjOu2?=
+ =?us-ascii?Q?0GiSYAqyVjYvIXbPa2KyrBkqf0hpu29WV1uhtcXhvcBso4HaPxFl9WS2meVW?=
+ =?us-ascii?Q?1mHkfvrSEg=3D=3D?=
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: quoted-printable
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Message-Id: <20261118-amdgpu-devcoredump-fault-info-v2-1-7691d78e84fb@zohomail.in>
-X-B4-Tracking: v=1; b=H4sIAGCK/WoC/42OQQ6CMBBFr0K6dgxtLKIr72FYlHYKY6QlLW1Uw
- t0FvIDLl7y8/2cWMRBGdi1mFjBTJO9WEIeC6V65DoHMykyUouK8lKAG040JDGbtA5o0jGBVek5
- Aznqw+lK3J5QcpWBrYwxo6bX3782PY2ofqKctuhk9xcmH934g8837dytz4CDOuuaVbK0y6vbxv
- R8UPY/kWLMsyxfHz/ng3gAAAA==
-X-Change-ID: 20261105-amdgpu-devcoredump-fault-info-fc98b4e51e52
-To: Alex Deucher <alexander.deucher@amd.com>, 
- =?utf-8?q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>, 
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>
-Cc: amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org, 
- linux-kernel@vger.kernel.org, 
- Pierre-Eric Pelloux-Prayer <pierre-eric.pelloux-prayer@amd.com>, 
- Shivam Kalra <shivamkalra98@zohomail.in>, 
- =?utf-8?q?Timur_Krist=C3=B3f?= <timur.kristof@gmail.com>
-X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1795000935; l=9725;
- i=shivamkalra98@zohomail.in; s=20260402; h=from:subject:message-id;
- bh=CWGXGZ+hzPQB5SI2iVtuFE6GCgosZa3S1wO3WxPBGSU=;
- b=U/79Ovrfx+VUXUM09J7mMoYcp5CKQh2Lp7iXCKW2nJYa+KbZ9Q7ZO/3daj5P3Vn0Kx96ZZ5Jp
- CKVvougZn/4B5ANe38pkBZB3LbtMnidyEjj7wd/poMUnHNAl2i26GzM
-X-Developer-Key: i=shivamkalra98@zohomail.in; a=ed25519;
- pk=U8kQSxcte8P8iZ6zB7phIj+Yl+i/5ntifBGuclgypx8=
-X-Endpoint-Received: by B4 Relay for shivamkalra98@zohomail.in/20260402
- with auth_id=716
-X-Original-From: Shivam Kalra <shivamkalra98@zohomail.in>
-Content-Transfer-Encoding: 8bit
+X-OriginatorOrg: bp.renesas.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-AuthSource: TYYPR01MB6603.jpnprd01.prod.outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 9726f421-7dfc-4a06-1876-08df4567a6b6
+X-MS-Exchange-CrossTenant-originalarrivaltime: 18 Nov 2026 11:32:39.0523 (UTC)
+X-MS-Exchange-CrossTenant-fromentityheader: Hosted
+X-MS-Exchange-CrossTenant-id: 53d82571-da19-47e4-9cb4-625a166a4a2a
+X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
+X-MS-Exchange-CrossTenant-userprincipalname: 2SV0bhKlXSM6u1g4HmYxuHFV99NZKH2liXWX13gdtwV38+70DYQ/dqWN4kP8AjN3zxMilifdZw4MAUolgc6Fznkg1zpYNXa13+r/n40oXWo=
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: TY4PR01MB13334
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -99,244 +130,65 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
-Reply-To: shivamkalra98@zohomail.in
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-18.8 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
-	DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
+X-Spam-Status: No, score=-15.8 required=3.0 tests=BAYES_00,DKIM_SIGNED,
+	DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
 	INCLUDES_CR_TRAILER,INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,
-	SPF_PASS,USER_AGENT_GIT autolearn=ham autolearn_force=no version=4.0.1
+	SPF_PASS autolearn=unavailable autolearn_force=no version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-From: Shivam Kalra <shivamkalra98@zohomail.in>
+Hi,
 
-amdgpu_devcoredump_format() reads adev->vm_manager.fault_info unlocked
-from the deferred worker and prints the page fault section
-unconditionally. This races with new faults, emits a misleading address
-0x0 / status 0x0 block when no fault occurred, and repeats stale faults
-on subsequent non-fault timeouts.
+> -----Original Message-----
+> From: Prabhakar <prabhakar.csengg@gmail.com>
+> Sent: 11 November 2026 11:33
+> Subject: [PATCH v4] drm: renesas: rzg2l_mipi_dsi: Remove redundant driver=
+ data assignment
+>=20
+> From: John Madieu <john.madieu.xa@bp.renesas.com>
+>=20
+> rzg2l_mipi_dsi_probe() calls platform_set_drvdata() twice with the same
+> arguments: once immediately after devm_drm_bridge_alloc() succeeds and ag=
+ain after the DCS buffer has
+> been allocated.
+>=20
+> Drop the first call and keep the second one, as it is closer to where the=
+ platform data is actually
+> used.
+>=20
+> Signed-off-by: John Madieu <john.madieu.xa@bp.renesas.com>
+> Signed-off-by: Lad Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>
+> ---
+> v3->v4:
+>  - Updated commit message
+>  - Dropped the first driver data assignment in rzg2l_mipi_dsi_probe()
+>  v3: https://lore.kernel.org/all/20261110114622.229608-1-prabhakar.mahade=
+v-lad.rj@bp.renesas.com/
+>  v2: https://lore.kernel.org/all/20260501080818.955914-1-john.madieu.xa@b=
+p.renesas.com/
+>  v1: https://lore.kernel.org/all/20260425022857.2382603-1-john.madieu.xa@=
+bp.renesas.com/
+>  ---
+>  drivers/gpu/drm/renesas/rz-du/rzg2l_mipi_dsi.c | 1 -
+>  1 file changed, 1 deletion(-)
+>=20
+> diff --git a/drivers/gpu/drm/renesas/rz-du/rzg2l_mipi_dsi.c b/drivers/gpu=
+/drm/renesas/rz-
+> du/rzg2l_mipi_dsi.c
+> index 5b257f5adf06..65f26f889a67 100644
+> --- a/drivers/gpu/drm/renesas/rz-du/rzg2l_mipi_dsi.c
+> +++ b/drivers/gpu/drm/renesas/rz-du/rzg2l_mipi_dsi.c
+> @@ -1532,7 +1532,6 @@ static int rzg2l_mipi_dsi_probe(struct platform_dev=
+ice *pdev)
+>  	if (IS_ERR(dsi))
+>  		return PTR_ERR(dsi);
+>=20
+> -	platform_set_drvdata(pdev, dsi);
+>  	dsi->dev =3D &pdev->dev;
+>=20
+>  	dsi->info =3D of_device_get_match_data(&pdev->dev);
+> --
+> 2.56.1
 
-Add amdgpu_vm_take_fault_info() to atomically snapshot and clear the
-global fault cache under amdgpu_pasid_lock(). Call it before the slow
-dump_ip_state() loop in amdgpu_job_do_core_dump() (or in
-amdgpu_coredump() for non-job resets), store the snapshot in struct
-amdgpu_coredump_info, and only print the fault section when
-fault_info.status != 0.
-
-Link: https://lore.kernel.org/amd-gfx/20250521094912.6714-2-pierre-eric.pelloux-prayer@amd.com/
-Suggested-by: Pierre-Eric Pelloux-Prayer <pierre-eric.pelloux-prayer@amd.com>
-Signed-off-by: Shivam Kalra <shivamkalra98@zohomail.in>
----
-This follows Christian König's feedback on Pierre-Eric's earlier
-patch [1] to capture the fault information earlier and while holding
-a lock.
-
-Tested on Rembrandt / Yellow Carp (gfx1033) using IGT amd_deadlock:
-
-1. amdgpu-gfx-illegal-reg-access (no VM fault): no fault block emitted
-2. amdgpu-gfx-illegal-mem-access (VM fault): fault emitted (status 0x640c51)
-3. amdgpu-gfx-illegal-reg-access (post-fault): stale fault cleared, no fault emitted
-
-Note: Captures and clears fault_info under amdgpu_pasid_lock() before 
-dump_ip_state() per Christian Konig's review on v1.
-
-[1] https://lore.kernel.org/all/1ad1b3ea-e825-45d1-ae4d-914f1623d5e2@amd.com/
----
-Changes in v2:
-- Rebase onto amd-staging-drm-next 
-- Link to v1: https://patch.msgid.link/20261105-amdgpu-devcoredump-fault-info-v1-1-27c8165bfada@zohomail.in
-
-To: Alex Deucher <alexander.deucher@amd.com>
-To: Christian König <christian.koenig@amd.com>
-To: David Airlie <airlied@gmail.com>
-To: Simona Vetter <simona@ffwll.ch>
-Cc: amd-gfx@lists.freedesktop.org
-Cc: dri-devel@lists.freedesktop.org
-Cc: linux-kernel@vger.kernel.org
-Cc: Timur Kristóf <timur.kristof@gmail.com>
----
- drivers/gpu/drm/amd/amdgpu/amdgpu_dev_coredump.c | 24 +++++++++++++++++-------
- drivers/gpu/drm/amd/amdgpu/amdgpu_dev_coredump.h |  4 +++-
- drivers/gpu/drm/amd/amdgpu/amdgpu_device.c       |  3 ++-
- drivers/gpu/drm/amd/amdgpu/amdgpu_job.c          |  9 ++++++++-
- drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c           | 22 ++++++++++++++++++++++
- drivers/gpu/drm/amd/amdgpu/amdgpu_vm.h           |  2 ++
- 6 files changed, 54 insertions(+), 10 deletions(-)
-
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_dev_coredump.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_dev_coredump.c
-index 2d3fb87af00a..a396295fb949 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_dev_coredump.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_dev_coredump.c
-@@ -30,7 +30,8 @@
- 
- #ifndef CONFIG_DEV_COREDUMP
- void amdgpu_coredump(struct amdgpu_device *adev, bool skip_vram_check,
--		     bool vram_lost, struct amdgpu_job *job)
-+		     bool vram_lost, struct amdgpu_job *job,
-+		     const struct amdgpu_vm_fault_info *fault_info)
- {
- }
- void amdgpu_coredump_init(struct amdgpu_device *adev)
-@@ -418,11 +419,15 @@ amdgpu_devcoredump_format(char *buffer, size_t count, struct amdgpu_coredump_inf
- 	}
- 
- 	/* Add page fault information */
--	fault_info = &coredump->adev->vm_manager.fault_info;
--	drm_printf(&p, "\n[%s] Page fault observed\n",
--		   fault_info->vmhub ? "mmhub" : "gfxhub");
--	drm_printf(&p, "Faulty page starting at address: 0x%016llx\n", fault_info->addr);
--	drm_printf(&p, "Protection fault status register: 0x%x\n\n", fault_info->status);
-+	fault_info = &coredump->fault_info;
-+	if (fault_info->status != 0) {
-+		drm_printf(&p, "\n[%s] Page fault observed\n",
-+			   fault_info->vmhub ? "mmhub" : "gfxhub");
-+		drm_printf(&p, "Faulty page starting at address: 0x%016llx\n",
-+			   fault_info->addr);
-+		drm_printf(&p, "Protection fault status register: 0x%x\n\n",
-+			   fault_info->status);
-+	}
- 
- 	/* dump the ip state for each ip */
- 	drm_printf(&p, "IP Dump\n");
-@@ -542,7 +547,8 @@ static void amdgpu_devcoredump_deferred_work(struct work_struct *work)
- }
- 
- void amdgpu_coredump(struct amdgpu_device *adev, bool skip_vram_check,
--		     bool vram_lost, struct amdgpu_job *job)
-+		     bool vram_lost, struct amdgpu_job *job,
-+		     const struct amdgpu_vm_fault_info *fault_info)
- {
- 	struct drm_device *dev = adev_to_drm(adev);
- 	struct amdgpu_coredump_info *coredump;
-@@ -565,6 +571,10 @@ void amdgpu_coredump(struct amdgpu_device *adev, bool skip_vram_check,
- 
- 	coredump->skip_vram_check = skip_vram_check;
- 	coredump->reset_vram_lost = vram_lost;
-+	if (fault_info)
-+		coredump->fault_info = *fault_info;
-+	else
-+		amdgpu_vm_take_fault_info(adev, &coredump->fault_info);
- 
- 	if (job && job->pasid) {
- 		struct amdgpu_task_info *ti;
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_dev_coredump.h b/drivers/gpu/drm/amd/amdgpu/amdgpu_dev_coredump.h
-index cb874d8c3394..85d476828473 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_dev_coredump.h
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_dev_coredump.h
-@@ -50,6 +50,7 @@ struct amdgpu_coredump_info {
- 
- 	bool                            skip_vram_check;
- 	bool                            reset_vram_lost;
-+	struct amdgpu_vm_fault_info     fault_info;
- 	struct amdgpu_ring              *ring;
- 
- 	struct amdgpu_coredump_ring	*rings;
-@@ -69,7 +70,8 @@ struct amdgpu_coredump_info {
- #endif
- 
- void amdgpu_coredump(struct amdgpu_device *adev, bool skip_vram_check,
--		     bool vram_lost, struct amdgpu_job *job);
-+		     bool vram_lost, struct amdgpu_job *job,
-+		     const struct amdgpu_vm_fault_info *fault_info);
- void amdgpu_coredump_init(struct amdgpu_device *adev);
- void amdgpu_coredump_fini(struct amdgpu_device *adev);
- #endif
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
-index 5251ce727317..49f06fe08322 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
-@@ -5246,7 +5246,8 @@ int amdgpu_device_reinit_after_reset(struct amdgpu_reset_context *reset_context)
- 				vram_lost = amdgpu_device_check_vram_lost(tmp_adev);
- 
- 				if (!test_bit(AMDGPU_SKIP_COREDUMP, &reset_context->flags))
--					amdgpu_coredump(tmp_adev, false, vram_lost, reset_context->job);
-+					amdgpu_coredump(tmp_adev, false, vram_lost,
-+							reset_context->job, NULL);
- 
- 				if (vram_lost) {
- 					dev_info(
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_job.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_job.c
-index 8689a3c933b2..502bfd633ae8 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_job.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_job.c
-@@ -36,8 +36,15 @@
- static void amdgpu_job_do_core_dump(struct amdgpu_device *adev,
- 				    struct amdgpu_job *job)
- {
-+	struct amdgpu_vm_fault_info fault_info;
- 	int i;
- 
-+	/*
-+	 * The IP state dump below can take seconds.  Take the snapshot before
-+	 * it, while holding the same lock as the interrupt handler.
-+	 */
-+	amdgpu_vm_take_fault_info(adev, &fault_info);
-+
- 	dev_info(adev->dev, "Dumping IP State\n");
- 	for (i = 0; i < adev->num_ip_blocks; i++)
- 		if (adev->ip_blocks[i].version->funcs->dump_ip_state)
-@@ -45,7 +52,7 @@ static void amdgpu_job_do_core_dump(struct amdgpu_device *adev,
- 				->dump_ip_state((void *)&adev->ip_blocks[i]);
- 	dev_info(adev->dev, "Dumping IP State Completed\n");
- 
--	amdgpu_coredump(adev, true, false, job);
-+	amdgpu_coredump(adev, true, false, job, &fault_info);
- }
- 
- static void amdgpu_job_core_dump(struct amdgpu_device *adev,
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c
-index 6b4dc0276e27..2aadac8792a8 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c
-@@ -3335,6 +3335,28 @@ void amdgpu_vm_update_fault_cache(struct amdgpu_device *adev,
- 	amdgpu_pasid_unlock(flags);
- }
- 
-+/**
-+ * amdgpu_vm_take_fault_info - snapshot and clear the global fault cache
-+ * @adev: amdgpu device pointer
-+ * @fault_info: destination for the fault information
-+ *
-+ * The fault cache is updated by amdgpu_vm_update_fault_cache() under the
-+ * PASID lock.  Take the snapshot and clear the cache in the same critical
-+ * section so that a fault arriving after the snapshot is not overwritten,
-+ * and a consumed fault is not reported again in a later timeout.
-+ */
-+void amdgpu_vm_take_fault_info(struct amdgpu_device *adev,
-+			       struct amdgpu_vm_fault_info *fault_info)
-+{
-+	unsigned long flags;
-+
-+	amdgpu_pasid_lock(&flags);
-+	*fault_info = adev->vm_manager.fault_info;
-+	memset(&adev->vm_manager.fault_info, 0,
-+	       sizeof(adev->vm_manager.fault_info));
-+	amdgpu_pasid_unlock(flags);
-+}
-+
- void amdgpu_vm_print_task_info(struct amdgpu_device *adev,
- 			       struct amdgpu_task_info *task_info)
- {
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.h b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.h
-index f6285a9d9e98..e4a21f16e43b 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.h
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.h
-@@ -577,6 +577,8 @@ void amdgpu_vm_update_fault_cache(struct amdgpu_device *adev,
- 				  uint64_t addr,
- 				  uint32_t status,
- 				  unsigned int vmhub);
-+void amdgpu_vm_take_fault_info(struct amdgpu_device *adev,
-+			       struct amdgpu_vm_fault_info *fault_info);
- void amdgpu_vm_tlb_fence_create(struct amdgpu_device *adev,
- 				struct amdgpu_vm *vm,
- 				struct dma_fence *dep,
-
----
-base-commit: 8dd68a79583aaf6df6fe4feea3ee9e9f26b02993
-change-id: 20261105-amdgpu-devcoredump-fault-info-fc98b4e51e52
-
-Best regards,
---  
-Shivam Kalra <shivamkalra98@zohomail.in>
-
-
+Applied to next.
