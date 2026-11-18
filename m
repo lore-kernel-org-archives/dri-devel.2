@@ -2,101 +2,132 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BE6B3606A32F
-	for <dri-devel@archiver.kernel.org>; Wed, 18 Nov 2026 20:18:39 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C3381606A331
+	for <dri-devel@archiver.kernel.org>; Wed, 18 Nov 2026 20:23:16 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=amd.com header.i=@amd.com header.a=rsa-sha256 header.s=selector1 header.b=ZFPH0wkt
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=kaPwNDLP;
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=finWIGqq
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id EECD010FFFC;
-	Wed, 18 Nov 2026 20:18:33 +0000 (UTC)
-Received: from DM1PR04CU001.outbound.protection.outlook.com
- (mail-centralusazon11010062.outbound.protection.outlook.com [52.101.61.62])
- by gabe.freedesktop.org (Postfix) with ESMTPS id E076A112017;
- Wed, 18 Nov 2026 20:18:27 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=YHrhapG3tEz6bqgaEF64n81MPvfUndeGAR94oxGeU5fjBYyp7aYew+5xa+3zUIP5t9eQoNzti1+HdbtWRw72u3bYMzKc6idQhrYISwQv2FbXWFveGcqPWnJWWk3DO+aZieMGLJx7ebXSBzMp1zDWDta3pv9dVKDXLw6ayKJLqpllotyN9RluUXYL61jd7SnJXiyxbboGJu9XxBFlTfe9llDmX0CxNdy8L2hNKyO3A7ELNWiknAzfmeDzIpdwe6FE46T2zYCd9CpqEKt2SUolIQ7nxV4g3Cn9m++Propwp8g3ymXRkYvVppP2+pQIjzwU7FdtfW1jG7b44x1cpxeycw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=3GjZz7RMv6jAMV1iUvSRQa+mfDWDGZyhkh147lyQTVo=;
- b=nBq0mx0mBou8TG3IXSIdiyFpiYeajrDMkcC+Z3ZSyWWQ3fEC/X6AAZhdycSrteGB3WPPGKGr+VEWuTCkYE/167rtekUf70Gmf2kXl4hqaRBe2zgUm3axVy34eIOVRPmZQasfmZUOrTQAV3qefPabJjv0uY5jkiDrxPise5mRE3QBC+uG3SZ9xWQZWLO/9OsuRcNnOhsVLgRdwBvOO0tIqbJ+vyc3KHTj+oWJyVxNP9WaVckSsCx3gKsALZx8N5twGHf5rg6T9ev9km6kVqupOwr+FF/e/cyQ3HBU3TDOrp6eiuEoR6+NExnvQ8sN3Y9K4FH/Po8Gi6iLPM/FG1tfeQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
- dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
- header.from=amd.com; dkim=none (message not signed); arc=none (0)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=3GjZz7RMv6jAMV1iUvSRQa+mfDWDGZyhkh147lyQTVo=;
- b=ZFPH0wktaG9lss0Tv7GmLr25d4TWUbE0r330ouDLIFoz2MIU02TElK448n7KJwSxZaegL+Ra8id310LBN76lJLb50BuQz5wj8aEmrThXcn38baQP/y2VXbMIRRMDPstvEuQ90avcjBi49U0BzifvqvBoYAcps8MM7iRKQ1eGxtk=
-Received: from CH0PR03CA0394.namprd03.prod.outlook.com (2603:10b6:610:11b::28)
- by SA1PR12MB6871.namprd12.prod.outlook.com (2603:10b6:806:25f::22)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.615.14; Wed, 18 Nov
- 2026 20:17:21 +0000
-Received: from CH2PEPF000166BF.namprd04.prod.outlook.com
- (2603:10b6:610:11b:cafe::30) by CH0PR03CA0394.outlook.office365.com
- (2603:10b6:610:11b::28) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.21.615.13 via Frontend Transport; Wed,
- 18 Nov 2026 20:17:19 +0000
-X-MS-Exchange-Authentication-Results: mx.microsoft.com 1; spf=pass (sender IP
- is 165.204.84.17) smtp.mailfrom=amd.com;
- dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=amd.com;
-Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
- 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=satlexmb07.amd.com; pr=C
-Received: from satlexmb07.amd.com (165.204.84.17) by
- CH2PEPF000166BF.mail.protection.outlook.com (10.167.252.9) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.615.4 via Frontend Transport; Wed, 18 Nov 2026 20:17:18 +0000
-Received: from alysaliu-dev.amd.com (10.180.168.240) by satlexmb07.amd.com
- (10.181.42.216) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.57; Wed, 18 Nov
- 2026 14:17:18 -0600
-From: William Palacek <William.Palacek@amd.com>
-To: <dri-devel@lists.freedesktop.org>
-CC: <intel-xe@lists.freedesktop.org>, Matthew Auld <matthew.auld@intel.com>,
- Arunpravin Paneer Selvam <Arunpravin.PaneerSelvam@amd.com>, Sanjay Yadav
- <sanjay.kumar.yadav@intel.com>, Joel Fernandes <joelagnelf@nvidia.com>,
- =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
- <linux-kernel@vger.kernel.org>, William Palacek <William.Palacek@amd.com>
-Subject: [PATCH v4 3/3] gpu/tests/buddy: add range-biased allocation tests
-Date: Wed, 18 Nov 2026 15:17:01 -0500
-Message-ID: <d13ac667cfd4b3d5c8557b0cdbec33f11877453b.1795032989.git.William.Palacek@amd.com>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <cover.1795032989.git.William.Palacek@amd.com>
-References: <cover.1795032989.git.William.Palacek@amd.com>
+	by gabe.freedesktop.org (Postfix) with ESMTP id 085ED112009;
+	Wed, 18 Nov 2026 20:23:06 +0000 (UTC)
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com
+ [205.220.180.131])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 77983112009
+ for <dri-devel@lists.freedesktop.org>; Wed, 18 Nov 2026 20:22:54 +0000 (UTC)
+Received: from pps.filterd (m0279873.ppops.net [127.0.0.1])
+ by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id
+ 6AIJM4u72732945
+ for <dri-devel@lists.freedesktop.org>; Wed, 18 Nov 2026 20:22:53 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+ cc:content-type:date:from:in-reply-to:message-id:mime-version
+ :references:subject:to; s=qcppdkim1; bh=hoK2xbseLTh4OhPRbFIj6Mws
+ srqKcQWeYmF4tQfdihw=; b=kaPwNDLPYUD+g4X5/1zBy0pInHs/A4pMFq8vSiNq
+ S6XhA71bUvcv+BbIwpEHARbDQiMSQIj2Z1AIc2mWFkIPNQO0mJN8HBO5ZkdPe2N/
+ rKwIdLKNvAOvqoW1iUWKm4tCxLi6Wyi+i34qSmKsAMq9e35bG343wc8aICAuXn23
+ EK5e/c14RCXoOW+bFF1MecPHT6etI8JBMrmZeYvmgxnOLv/J1f9pPl6FuV5MjqOw
+ NPpvjYFpHv8SBxuYcHat6VNq/pf8Zavi6TxiiAkMAzHawZKUDCURXxMFxXHZd7YE
+ stY9IAGTaV+9Xyj90pgbSQPYMITPdozkdFDMEYBS3h8XmQ==
+Received: from mail-qk1-f197.google.com (mail-qk1-f197.google.com
+ [209.85.222.197])
+ by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4j1g3b8uen-1
+ (version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+ for <dri-devel@lists.freedesktop.org>; Wed, 18 Nov 2026 20:22:53 +0000 (GMT)
+Received: by mail-qk1-f197.google.com with SMTP id
+ af79cd13be357-94970ad532bso240759985a.0
+ for <dri-devel@lists.freedesktop.org>; Wed, 18 Nov 2026 12:22:53 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=oss.qualcomm.com; s=google; t=1795033373; x=1795638173;
+ darn=lists.freedesktop.org; 
+ h=in-reply-to:content-disposition:content-type:mime-version
+ :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+ :date:message-id:reply-to:content-type;
+ bh=hoK2xbseLTh4OhPRbFIj6MwssrqKcQWeYmF4tQfdihw=;
+ b=finWIGqqePpY7k1lcf2ET57WMKvM3O4sQsWMg2Og1phq1+ag3DJM1G5NR+KsRwr3sM
+ O5RFYkFIp5Qxog9McysilV9kM2U0F6xDxuFEfLXo2ZyuQRq3BOcVCxFC+9v+3SJWnt3n
+ S8Cok1Ctti0pFZLleM81T1cxO8G+swiAqrA/U6HEqqFXWzxxrlpfcWjMEyAL7nVjvjj7
+ CNytfFoVOmMaP/2RQiyFnbvQl9YDj33qCaMqSe8Nsm77lm3A/X1b3+Y83Qb7Llbj8hQX
+ VgW65TaoX5q5Lha+POoDp9TrcDwvhmTfpfOvZloSFqQgeLY+r6e2KGS2ie7qyN3EBKsn
+ uULA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20260707; t=1795033373; x=1795638173;
+ h=in-reply-to:content-disposition:content-type:mime-version
+ :references:message-id:subject:cc:to:from:date:x-gm-gg
+ :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+ :content-type;
+ bh=hoK2xbseLTh4OhPRbFIj6MwssrqKcQWeYmF4tQfdihw=;
+ b=gkPvV3f+9GU97g2+SDxM/hATt2rYZY87ZRnDYTKU1C8iPB3EFap3QnigDCOZqhom1v
+ EpcD1niPZik8cUOD8izhyXH3XvuACphcXqyLsQAoe1YXV2mnj6KuMMuq0nexgDJIh8Zz
+ kG+WMLTjZO2k7h3B2qpQg9veIDEHTa5fe7gkpqJvnmt3NFTiNj05Aj32ACj9TAfEF4mx
+ rwXUIEhamVH9E1nOB3+tHbwFaQhUGDScw16VBwIosjkmPRKj1MjjGG67S6+BUE2TFY/6
+ OdfSH6y4ZC+1wSOfEOu4/h0Bvo18ijlvoPdI1WS945MVQ+62NSbpuPpPurOU4RHOkbSh
+ L+3Q==
+X-Forwarded-Encrypted: i=1;
+ AL+hErFY+JJlUhh4iVzhi9IHIE+3BMNA9W+jbtUjjSbgR+wQekK4HUD1pV8bAXGWos3bgHe1YRgIYpe3yc4=@lists.freedesktop.org
+X-Gm-Message-State: APuU4Z+xrNdtZ5TPUHIHtW0AiNeVQxdvS245hFHKVcUXaeGIvrb4iLPK
+ jy1w851UBqGOePtuDFcm/TLbXG9+QoG4jhBfugylHCbpnfvDdaGb1Zz/7ycFJsB6YGg+1yfVvUR
+ lkxEW66yJk/z62K88O6obWyAsWlgrSQdB1Vgtk+iLDB0PTkt44U29TK7ZrEQry+2nPyONh/8=
+X-Gm-Gg: AYBFou3CJKLWfTcWcLzlrEbfZK9gD154c/IGusTbNP9AHOVS+pAW5jq0TrEHiXyl4zD
+ AS9qks/4QUMxU3yTS5/wg86YWIu4oSefKpU2TeJSe7xuKWjSG8a/XiV6TZBnYp7z+Wn/eU88cWJ
+ UqMUDWqk07048d+45XeqycdXx+Kpq1l7QLRJaHxOgHbZti4fyKz6xsvZ98pVSmglydPQtpD2Lpi
+ +hHKZP++QMhFxvRuHCmPRlfXBULNoyBTq/n1ZoKP1VE9OUTn94h3Yv/5B5/7Nke90tFISrGxWf8
+ IzFtilKEzgNElGQMxYGdjKYU9yLhFd64S/UH7U5DyqcxXKl6jIPncjj79JyHOrg1vrH71ogx7ry
+ q2sCnslP3Pvx7SEbXtWJmaGDXC94ipH0IpUv3lizADxSgn19X0TYi7oq5+SNlkjko1ywybKTbzV
+ PDHu/U4yeQFHqo1Aj1VWW673FD+tH9pcd33B2dcIg34aFaFXkK4fE9jmNo5aaReQ==
+X-Received: by 2002:a05:620a:270d:b0:949:7bb1:ac62 with SMTP id
+ af79cd13be357-9499965a4c3mr611765185a.25.1795033372746; 
+ Wed, 18 Nov 2026 12:22:52 -0800 (PST)
+X-Received: by 2002:a05:620a:270d:b0:949:7bb1:ac62 with SMTP id
+ af79cd13be357-9499965a4c3mr611762285a.25.1795033372290; 
+ Wed, 18 Nov 2026 12:22:52 -0800 (PST)
+Received: from umbar.lan
+ (2001-14ba-a073-af00-264b-feff-fe8b-be8a.rev.dnainternet.fi.
+ [2001:14ba:a073:af00:264b:feff:fe8b:be8a])
+ by smtp.gmail.com with ESMTPSA id
+ 38308e7fff4ca-3ae6ebe874bsm2924491fa.34.2026.11.18.12.22.49
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Wed, 18 Nov 2026 12:22:51 -0800 (PST)
+Date: Wed, 18 Nov 2026 22:22:48 +0200
+From: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
+To: Erik Tagirov <erik@tagirov.ch>
+Cc: robin.clark@oss.qualcomm.com, lumag@kernel.org, abhinav.kumar@linux.dev,
+ jesszhan0024@gmail.com, sean@poorly.run, marijn.suijten@somainline.org,
+ airlied@gmail.com, simona@ffwll.ch, linux-arm-msm@vger.kernel.org,
+ dri-devel@lists.freedesktop.org, freedreno@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org
+Subject: Re: [RFC] drm/msm/dpu: set possible_crtcs on cursor planes
+Message-ID: <7jyydebmplngfnie7sfidwkeomi4xrgaytey6522q7qqsybg47@obppph6ea4ta>
+References: <av4OfY5sML97l2F_@oasis>
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-ClientProxiedBy: satlexmb07.amd.com (10.181.42.216) To satlexmb07.amd.com
- (10.181.42.216)
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: CH2PEPF000166BF:EE_|SA1PR12MB6871:EE_
-X-MS-Office365-Filtering-Correlation-Id: 90ce7a38-4214-4387-897d-08df45b0f234
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
- ARA:13230040|36860700016|23010399003|376014|82310400026|1800799024|261028144727099003|261102123227099003|261026140227099003|261026121527099003|5023799004|261022105027099003|261021121427099003|261021123027099003|56012099006|11063799006|10067099003|22082099003|18002099003|261009223027099003;
-X-Microsoft-Antispam-Message-Info: Kn+9P977IrJ88Hz7qULwByZODnIvvPfY9A9fDW82C2KqmzKDcW8ZyOSonBS8lg0xZHz/Uh0ffWQMCUfw3xsQDI1o1NK0ljSF4M6LJTqhkdtf+UbuQCqnTpbjgPc3D8WxTU/gdh6l1umEXIAPhc8DgTPKXOB6ipCiYBDFBkk+R6yeChViliA2G+hSz+FVVXzTwT6xt8loN5KKTEnAL7aqTvknT274jsWe/bKmAI/FVZ3jV1aGoSAGkGWTzd3D3qzLdJpdJZxxy79jyN8zdSJL4BcAeKkJcRPKLnmn4teBNz8TS2dU+Bhn1LJhjcdAj8E+VCmgb/u1VV3FlLDNlPsYWho+2BKRJsf6b+cQAGKshbNIPQPcr1QIyndvaYNGk4VN/nrkHqyO0wzQmLkSspSxUc6mdpKmWnp0DHG2Up0GVfR2a3hDggooNk2g7AyoXhATiu93cYk3DRD8zafmVrGnXN4harYiOjG6SVSwpucvhGq/1gDwCDJlZD0iewIFpAETRe6zHjIFVOXgPOyzhhVsDsxsTtO+IpQiOe5EsJtz0NziC1OSjX+QPI/ZC8C6ZxPQEH7uvWm5ORnG8BTh+PnFMi489dulIE4x0EP7kT6a31hKr/1eCsRAWBiKP5IATxnW38SCwetvOnXRS+tDK+FlqAEFHjfjLMzW76XesY8j7zkSypVbS6oIFX+6XjvLP4I4tZXCBdPP7M7TzwMcKszeoA==
-X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:satlexmb07.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230040)(36860700016)(23010399003)(376014)(82310400026)(1800799024)(261028144727099003)(261102123227099003)(261026140227099003)(261026121527099003)(5023799004)(261022105027099003)(261021121427099003)(261021123027099003)(56012099006)(11063799006)(10067099003)(22082099003)(18002099003)(261009223027099003);
- DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: Y3h+4bUG2HSFweoACa8njZuNsh/zoBXLY0aYhqVLzU7JqXWbBdDSfHNl/m3ZkV3d2wbKIwkc7Afk9WJnBpe6w4xpG3lJecMhAr+AL+zOjHSqei5ro4r1of5+ZfGD5kietps2CjLvtm0ShLV5LXHiHpIQVUsiznKMM9y5s4LfMkFUetnDPIHrTx7+wIZ4VDFaG7wByjaE1ol+V7nNWPUfkxCAs6JSKxIr7KBUEvTG4g5QBMmh4c7wJS++6u2OcxfZfMh4fAQAR7oE8jx8dm7SQq247q1vR0STOCouKXqqzAiUnZ7rBRRY6tZVk5XE6mdWr4NqK1hA+c4/+Tyl6xnvJdrgDO+W7FUW4XCRKI9+zVFJJWw5IaeSzzA1siAM9T2WXQfT4ZV7tmotI5Iqx4UkFR2MUIxRydtYQUFLflvFd1IavnCfAQs7NgghuPFSsbxT
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 18 Nov 2026 20:17:18.9445 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 90ce7a38-4214-4387-897d-08df45b0f234
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
- Helo=[satlexmb07.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: CH2PEPF000166BF.namprd04.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SA1PR12MB6871
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <av4OfY5sML97l2F_@oasis>
+X-Proofpoint-ORIG-GUID: 47K_ee3hWCWY8Ot5iJC6Se7SDL3D_OHD
+X-Proofpoint-GUID: 47K_ee3hWCWY8Ot5iJC6Se7SDL3D_OHD
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMTE4MDA3NyBTYWx0ZWRfX1N1hikyZ4wRQ
+ zYDvmcbdSFZNPxphQ/e6Dj8YLr2xzI66jjB/Z/b3fUX2P1Y22BpuZLYnT+1qAfrI6GB/b3H0Rx2
+ Oh4mVyoQKhXdBtaRG6/bXckt/t331fo=
+X-Authority-Analysis: v=2.4 cv=dZQVTnXe c=1 sm=1 tr=0 ts=6afe091d cx=c_pps
+ a=50t2pK5VMbmlHzFWWp8p/g==:117 a=xqWC_Br6kY4A:10 a=kj9zAlcOel0A:10
+ a=zJRp6_cAMcgA:10 a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22
+ a=u7WPNUs3qKkmUXheDGA7:22 a=rJkE3RaqiGZ5pbrm-msn:22 a=lh5ckT7KmLwKjNu5S8MA:9
+ a=CjuIK1q_8ugA:10 a=IoWCM6iH3mJn3m4BftBB:22
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMTE4MDA3NyBTYWx0ZWRfXw/sfTHM7sRTO
+ qpEOZcT2U0tU1Hmr/0QOD16HQEvhq6NgyeHFk24CSQw5Mfaj8zzFk6yk4Lpy7o+IHrmIa8bZw3+
+ 5+fw9T6U8Ig1rhaICKlUgy6ghdxdr9kUqcNQnJwq/E5VWZIxeu3BR90sfnPEo+n1JBpBnTIieGv
+ 2wjrLZvvXJo/ArhODcoq2Y9Ro2MGwrMv0sNPEUnqBh6QxqlGQaXzUb9GUvSkXV/sHK6ZuHjxxYG
+ BvPeQanO+Ng9D5I7/2/LZcFrycJYLv0q4JPuCmz/XWvAairKHBCXMlxD567ZA/m5tj7smYjSfT1
+ TnMbzrxbr5r0DTghO2OlUexjxxjUmjy/WqexLB1gIsMyQ4I8znSz3BTB5ROIsBatJMDu5L1uEbI
+ pTISz526R8tEpw3o1B+GHXiW6Vozj+DjWTogcQ9LKy3m896mB04Jgd3PA0s1Y+paP/dGAM4QVHk
+ ZWUT3QEoMC35aeei2bQ==
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
+ definitions=2026-11-18_06,2026-11-16_01,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ phishscore=0 lowpriorityscore=0 spamscore=0 suspectscore=0 priorityscore=1501
+ impostorscore=0 bulkscore=0 clxscore=1015 malwarescore=0 adultscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2611040001 definitions=main-2611180077
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -108,136 +139,59 @@ List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-18.8 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
-	DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
-	INCLUDES_CR_TRAILER,INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,
-	SPF_PASS,USER_AGENT_GIT autolearn=unavailable autolearn_force=no
-	version=4.0.1
+X-Spam-Status: No, score=-10.8 required=3.0 tests=BAYES_00,DKIM_SIGNED,
+	DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_PATCH,
+	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS autolearn=unavailable
+	autolearn_force=no version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-Check that a range-biased allocation with start > end fails with
--ENOSPC.
+On Wed, Nov 18, 2026 at 09:47:42PM +0100, Erik Tagirov wrote:
+> I am using a lesser known wayland compositor that uses the possible_crtcs field of a plane to detect
+> which one to use for the cursor. On the Lenovo T14s two cursor planes are created, each with possible_crtcs set
+> to 0xff. Which from my understanding means that they can be used with any crtc.
+> 
+> However, the compositor picks the wrong cursor plane which results in a lag of ~17ms
+> on each DRM_IOCTL_MODE_SETPLANE call. Making the cursor movements sluggish.
+> 
+> After some investigation, I found out that this is due to the legacy_cursor_update flag not being set
+> in drm_atomic_helper_update_plane() which has an impact in msm_atomic_commit_tail() where the fallback branch
+> is taken.
+> 
+> The lag is solved with the patch below.
+> 
+> Best regards
+> - Erik Tagirov
+> 
+> The cursor plane must be used with the correct crtc to ensure an
+> asynchronous commit
+> ---
+>  drivers/gpu/drm/msm/disp/dpu1/dpu_kms.c | 3 +++
+>  1 file changed, 3 insertions(+)
+> 
+> diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_kms.c b/drivers/gpu/drm/msm/disp/dpu1/dpu_kms.c
+> index da3556eb6ecc..4e0e9c2d8062 100644
+> --- a/drivers/gpu/drm/msm/disp/dpu1/dpu_kms.c
+> +++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_kms.c
+> @@ -877,6 +877,9 @@ static int _dpu_kms_drm_obj_init(struct dpu_kms *dpu_kms)
+>  			ret = PTR_ERR(crtc);
+>  			return ret;
+>  		}
+> +		/* Ensure that cursor planes are commited asynchronously */
+> +		if (cursor_planes[i])
+> +			cursor_planes[i]->possible_crtcs = drm_crtc_mask(crtc);
 
-Fill a 1 GiB range of a 4 GiB manager top-down with 64 KiB range-biased
-allocations that request cleared memory, as amdgpu does for KFD VRAM on
-NPS4 partitions, check that each one is placed directly below the
-previous one, and report the time taken.
+Here you are setting that the plane can only be used on a particular
+CRTC. This is not true for these planes (even being cursor, it still can
+be used on all the CRTCs).
 
-Cc: Matthew Auld <matthew.auld@intel.com>
-Cc: Arunpravin Paneer Selvam <Arunpravin.PaneerSelvam@amd.com>
-Signed-off-by: William Palacek <William.Palacek@amd.com>
----
+>  	}
+>  
+>  	/* All CRTCs are compatible with all encoders */
+> -- 
+> 2.49.0
+> 
 
-Notes:
-    v4:
-    - add the start > end test
-    - drop the before/after times; with Sanjay's pruning the old walk is
-      already fast on this test
-    
-    v3:
-    - times for the new base and lookup (1103 ms, 2 ms)
-    
-    v2:
-    - check top-down placement
-
- drivers/gpu/tests/gpu_buddy_test.c | 67 ++++++++++++++++++++++++++++++
- 1 file changed, 67 insertions(+)
-
-diff --git a/drivers/gpu/tests/gpu_buddy_test.c b/drivers/gpu/tests/gpu_buddy_test.c
-index 9aaca2fc6a02..374f576c91f5 100644
---- a/drivers/gpu/tests/gpu_buddy_test.c
-+++ b/drivers/gpu/tests/gpu_buddy_test.c
-@@ -283,6 +283,32 @@ static void gpu_test_buddy_fragmentation_performance(struct kunit *test)
- 	gpu_buddy_fini(&mm);
- }
- 
-+static void gpu_test_buddy_range_bias_performance(struct kunit *test)
-+{
-+	struct gpu_buddy_block *block;
-+	LIST_HEAD(allocated);
-+	struct gpu_buddy mm;
-+	ktime_t t0;
-+	u64 i;
-+
-+	/* Fill one NPS4-like quarter top-down with cleared 64 KiB allocations. */
-+	KUNIT_ASSERT_FALSE(test, gpu_buddy_init(&mm, SZ_4G, SZ_4K));
-+	t0 = ktime_get();
-+	for (i = 1; i <= SZ_1G / SZ_64K; i++) {
-+		KUNIT_ASSERT_FALSE(test, gpu_buddy_alloc_blocks(&mm, SZ_1G, SZ_2G, SZ_64K,
-+								SZ_64K, &allocated,
-+								GPU_BUDDY_RANGE_ALLOCATION |
-+								GPU_BUDDY_CLEAR_ALLOCATION |
-+								GPU_BUDDY_TOPDOWN_ALLOCATION));
-+		block = list_last_entry(&allocated, struct gpu_buddy_block, link);
-+		KUNIT_ASSERT_EQ(test, gpu_buddy_block_offset(block), SZ_2G - i * SZ_64K);
-+	}
-+	kunit_info(test, "Range-biased fill took %lld ms\n",
-+		   ktime_ms_delta(ktime_get(), t0));
-+	gpu_buddy_free_list(&mm, &allocated, 0);
-+	gpu_buddy_fini(&mm);
-+}
-+
- static void gpu_test_buddy_dirty_tracker_performance(struct kunit *test)
- {
- 	struct gpu_buddy_block *block, *tmp;
-@@ -1606,6 +1632,45 @@ static int gpu_buddy_suite_init(struct kunit_suite *suite)
- 	return 0;
- }
- 
-+static void gpu_test_buddy_alloc_range_inverted(struct kunit *test)
-+{
-+	const unsigned long chunk = SZ_1M, mm_size = SZ_4M;
-+	LIST_HEAD(low_dirty);
-+	LIST_HEAD(barrier);
-+	LIST_HEAD(high);
-+	LIST_HEAD(res);
-+	struct gpu_buddy mm;
-+
-+	KUNIT_ASSERT_FALSE_MSG(test, gpu_buddy_init(&mm, mm_size, chunk),
-+			       "buddy_init failed\n");
-+
-+	/*
-+	 *   [0,  1M)   dirty free
-+	 *   [1M, 2M)   allocated
-+	 *   [2M, 4M)   clear free, one order-1 block larger than @end below
-+	 */
-+	KUNIT_ASSERT_FALSE(test, gpu_buddy_alloc_blocks(&mm, 0, chunk, chunk, chunk,
-+							&low_dirty, GPU_BUDDY_RANGE_ALLOCATION));
-+	KUNIT_ASSERT_FALSE(test, gpu_buddy_alloc_blocks(&mm, chunk, 2 * chunk, chunk, chunk,
-+							&barrier, GPU_BUDDY_RANGE_ALLOCATION));
-+	KUNIT_ASSERT_FALSE(test, gpu_buddy_alloc_blocks(&mm, 2 * chunk, mm_size,
-+							2 * chunk, 2 * chunk, &high,
-+							GPU_BUDDY_RANGE_ALLOCATION));
-+	gpu_buddy_free_list(&mm, &low_dirty, 0);
-+	gpu_buddy_free_list(&mm, &high, GPU_BUDDY_CLEARED);
-+
-+	/* start > end: nothing lies in the range, so expect -ENOSPC */
-+	KUNIT_EXPECT_EQ(test, gpu_buddy_alloc_blocks(&mm, 2 * chunk, chunk, chunk, chunk, &res,
-+						     GPU_BUDDY_RANGE_ALLOCATION |
-+						     GPU_BUDDY_CLEAR_ALLOCATION),
-+			-ENOSPC);
-+	KUNIT_EXPECT_TRUE(test, list_empty(&res));
-+
-+	gpu_buddy_free_list(&mm, &res, 0);
-+	gpu_buddy_free_list(&mm, &barrier, 0);
-+	gpu_buddy_fini(&mm);
-+}
-+
- static void gpu_test_buddy_alloc_range_clear_guard(struct kunit *test)
- {
- 	const unsigned long chunk = SZ_1M, mm_size = SZ_4M;
-@@ -1699,8 +1764,10 @@ static struct kunit_case gpu_buddy_tests[] = {
- 	KUNIT_CASE(gpu_test_buddy_alloc_range),
- 	KUNIT_CASE(gpu_test_buddy_alloc_range_bias),
- 	KUNIT_CASE(gpu_test_buddy_alloc_range_clear_guard),
-+	KUNIT_CASE(gpu_test_buddy_alloc_range_inverted),
- 	KUNIT_CASE_SLOW(gpu_test_buddy_fragmentation_performance),
- 	KUNIT_CASE_SLOW(gpu_test_buddy_dirty_tracker_performance),
-+	KUNIT_CASE_SLOW(gpu_test_buddy_range_bias_performance),
- 	KUNIT_CASE(gpu_test_buddy_alloc_exceeds_max_order),
- 	KUNIT_CASE(gpu_test_buddy_offset_aligned_allocation),
- 	KUNIT_CASE(gpu_test_buddy_subtree_offset_alignment_stress),
 -- 
-2.43.0
-
+With best wishes
+Dmitry
