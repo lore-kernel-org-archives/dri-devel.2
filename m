@@ -2,101 +2,84 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 678A8606A324
-	for <dri-devel@archiver.kernel.org>; Thu, 19 Nov 2026 07:48:49 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 59ACD606A325
+	for <dri-devel@archiver.kernel.org>; Thu, 19 Nov 2026 07:48:51 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=vfpxESRG
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=FtXS0vba
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 41C5110FB81;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 77A6710FB85;
 	Thu, 19 Nov 2026 07:48:40 +0000 (UTC)
-Received: from mail-dy1-f177.google.com (mail-dy1-f177.google.com
- [74.125.82.177])
- by gabe.freedesktop.org (Postfix) with ESMTPS id DA0EA10E581
- for <dri-devel@lists.freedesktop.org>; Wed, 18 Nov 2026 19:43:20 +0000 (UTC)
-Received: by mail-dy1-f177.google.com with SMTP id
- 5a478bee46e88-380b40319bdso2159480eec.1
- for <dri-devel@lists.freedesktop.org>; Wed, 18 Nov 2026 11:43:20 -0800 (PST)
-ARC-Seal: i=1; a=rsa-sha256; t=1795031000; cv=none;
- d=google.com; s=arc-20260327;
- b=mKKT0SJluT5a2mBDAX02QdhNaWTfOf+qSXBhEOAVIGygY/9i1Mkng2bpzWFj8qAuQR
- 7eKDw5vxmpc5xS4QhcVNUsuGr/aekrd2VatIIEUEhXTUHXXXg8Z14C64EnAkMl1dh/6m
- m4TRdWtGVCwuNhAkElqC8V7kG240GQzrJ9DfzpmXjGuUveH0eWl/0yb7aL4ANOi5gZX3
- A9DOWqYHBzjUjctpcL26+EsUJdozPRSqcVLYzS6uQEcwTbfcJt1O0sYC7HMvowz+Mbcf
- tKXnYD/JS59Oty+F2CSbmgduptSFE2W6XeGKboyPaCVkKdQ60l3Keh3XTat9unQhxkb7
- VPYQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com;
- s=arc-20260327; 
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:dkim-signature;
- bh=gifZMvAE7DM3i41UajDclxs+czdGYhGHD0kU/nIld8o=;
- fh=GRGly/7UcbQFV7NwhOpAQaRPSSHDvQiok2Rnmxl+dEA=;
- b=cgZZnE8ywBjo5tHAjS+3EgPJtZHQ91DeG8gSlpDVJ3bBwMLnISDJ/wasv3NWm3ZTkA
- 6FepX/ou9cGSX+E0YuFeTrsy/xu/pbYDV8LTWEfab33fG2M2ucr3ft6mmT/GFc2wVgq2
- Iu4wUMdLpMMptYCUCBDfi95gr+E8Cveo3oOAMlkKQFlC+4dMZgOKM6tRooSOjbdf/UJb
- DOjZWBaY2xnmmZScoGIqA8pNkhC2Ru7g+sfV/AVLhXU6EjxvxV6OLBy7XARLyiF1/oDp
- X52BDupSMlzT5OBuX+We4/xD3+H7gSLfenZiRV7oH9YrCEP03vonREkuBzvM0Tq1N5Yw
- DaPg==; darn=lists.freedesktop.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
+Received: from mail-dy1-f179.google.com (mail-dy1-f179.google.com
+ [74.125.82.179])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 66CB410FEBF
+ for <dri-devel@lists.freedesktop.org>; Wed, 18 Nov 2026 17:48:56 +0000 (UTC)
+Received: by mail-dy1-f179.google.com with SMTP id
+ 5a478bee46e88-382f4710a17so1557541eec.0
+ for <dri-devel@lists.freedesktop.org>; Wed, 18 Nov 2026 09:48:56 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20260707; t=1795031000; x=1795635800; darn=lists.freedesktop.org;
- h=content-transfer-encoding:content-type:cc:to:subject:message-id
- :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+ d=gmail.com; s=20260707; t=1795024135; x=1795628935; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:content-type:mime-version:references
+ :in-reply-to:message-id:date:subject:cc:to:from:from:to:cc:subject
  :date:message-id:reply-to:content-type;
- bh=gifZMvAE7DM3i41UajDclxs+czdGYhGHD0kU/nIld8o=;
- b=vfpxESRGZOjrqAGllr72kNcmb/4yzMdt8wPiuNCgK/doRGRbrLnCLe+1xV11NN0vGT
- 1DEo5bDrwQpcfFflzt989Be7gm923cgpcsGBcRgNgG6o2gKEV2aVvKJ00YHsxSqGEOwP
- Mn+CbI1smppSBNv47OmxwVk0ifXb0XG+evzpc7JXZgi6P3d0t0IPZxzMjxPKkURZ/Ldq
- reKCHW//G+hfgVqTf4K6lChS/1c17Q1rflfj3KGFLvURy6x7M04VLUC2Yp6Rw6ZyE9Z0
- kmxXu4nnPmhUNEUQT1YdBLTz3iKdS52yMTBHmxbfZ0pYJYJGmc9c+VPLKnJCviwD29Lg
- s0Ag==
+ bh=wr30cMHonchN/OcY5dnyS3PpKpMRWN/pwwCr/ZBhg8w=;
+ b=FtXS0vbakocBfW2B4tAkTNiFsMglUkSY9TrZJ6A0Y2AKVEO+ky4Ckf48Gl9ZXyHeYz
+ pbSnHhvs8nOVePJ14CFPMa8edO/8p1egH/GtnDLPGj/aNONj7/A4fznik8Y2D7/CQ/jt
+ Xi6DDPkELixF4DtMIKDb8Y1afStQdc2uab0Kl1fv0WeY0YWwbcqhB4Zp1PciTcgG3OFg
+ DzySNM5xRIQumLIIrCHqBiWf/TwbqhAQC+6jHulSGudRPQB5i0bFDCGJticXiwc1E2CW
+ AVWlhSNi4+rj6j5KfcnLLoW0Xz6w0P0pELu0STZ1CbL8cIzT8Z/2t0nttvYJf6ailuOZ
+ 7m+A==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20260707; t=1795031000; x=1795635800;
- h=content-transfer-encoding:content-type:cc:to:subject:message-id
- :date:from:in-reply-to:references:mime-version:x-gm-gg
+ d=1e100.net; s=20260707; t=1795024135; x=1795628935;
+ h=content-transfer-encoding:content-type:mime-version:references
+ :in-reply-to:message-id:date:subject:cc:to:from:x-gm-gg
  :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
  :content-type;
- bh=gifZMvAE7DM3i41UajDclxs+czdGYhGHD0kU/nIld8o=;
- b=X5dBPec+g+7NbtwWeymGE/EDLUDJlCuSMh1ceAEf5ds2qYwbNWpuq8hatSfK8m32Zm
- S0AguUCSgRWwl+acD0INIyEV37bSomg6/p0Ii/L6Qx8Uv8ySEEYnVKHnVSF3b6LdcMXa
- P56AvfceN1fGewWWYVvlsc0m/dnZ7OO4NVpqxMnaSYPijjBluk0uiTWP+Dzpho303Ffc
- FtXwsm14ONkQeVpTcPgvYpfkPRIfavx3iYouwz6qx8vZguweOaLHE10BrHhd9KQFnryV
- iwbhi87aENJKo7FLSuEFfbVDx6uwlKrIxqJypURDgV/p+LKnPK0SLfWFZjS5CSRxwyZ3
- nqdA==
+ bh=wr30cMHonchN/OcY5dnyS3PpKpMRWN/pwwCr/ZBhg8w=;
+ b=Revf8X2G3bbaGrO0jfFDvLKuPruZNJsX5jyQnbFxXCJWVUL0fPMaA/qI6R7gTS/ffT
+ bRYsdW6VswTyUxIcrspYhEfDcHzW7i/chU0GHnc5JbIzA1MOWo2iMNSLvbw7KjjrOogi
+ 0mFdzXB6k/osfe0rTjJVYkN1+Cefil1he0WveuPrdc8FxH3m58+F+mY8WkNGN6WkgQUH
+ KkO5YL2l2eqIxyt5Mdg5jN5O+v953r82BCWu07QstJnjcfGJyXP6cJtl2+Qp4MWs7WOa
+ NEdHjBAxXfxb6HjHtQlnli0NxPrJ1IRYlBE+h5upTWMfPInGx1OHxiECsldbpIxGe+51
+ ED/g==
 X-Forwarded-Encrypted: i=1;
- AL+hErGN6+RvD/DzarBIESEewE9WBxzp/jPNY7jYFah5aXEyWm10KeaytfqJvjv9TopAlxWX8zPdz0zqmJ0=@lists.freedesktop.org
-X-Gm-Message-State: APuU4Z8n+uQHv2iFv8Vd9DOKe8eaM3RRy70rkbSPEVOsMwGwpHfoeqtu
- skR469XeHiKW7EsKS0xWTuIgnOWxPqidSIJgL9vQnGhtOD5qh5hta7AoFENDoLQp3aqMD5DyBM0
- HJuu2/NHJlixaLZgfRXCE69Huhf9nONY=
-X-Gm-Gg: AZFdTZdA/UxZVR5GRR6jpTJYJNMMfnL/Fbpw4SJgslrTPCmRocYJUfMI+0FYpLAtOPK
- RJUbX0xl7ApRclcJ4nN8UJSmQG7/MlumuCq/oTKbviigi7V93HtlPOHxHePLfMOLsvUKQW6fBeP
- VCvuFCczdvS7upE94VYM2S3pT/ZAh9xoMNL1JYJWoWRC18772m2KJxK7B1iAR3YiPQ1ld/kArUM
- C1FBG0jDXPc42T+AZIA/AH5fxYF127ztecrmWlFbuZ5sOpWp7XRsKN2j/BNt/7FWC6uQ2oGsJGV
- jaPIzb2jyx5mQgcCjulSYzlJ9XbxjEE8wj3pIng1bdb36sXv5YZak1XWH9J+CEXi1/j1JigIPG8
- 83LeVrhL2jWxiFWSTmG7Pq/haP//m/Zj6OlufBZ8=
-X-Received: by 2002:a05:7301:70f:b0:383:d3d1:f315 with SMTP id
- 5a478bee46e88-383d3d1f937mr474934eec.19.1795030999696; Wed, 18 Nov 2026
- 11:43:19 -0800 (PST)
+ AL+hErFi9yLWQ88uq8X123tXMsqlz/Is69ribQpk/QQEme8ipdWgVi+5VXHcvedL3x6WNvgZ2un58Wcx1gI=@lists.freedesktop.org
+X-Gm-Message-State: APuU4Z/DOuS55p90zg9oEW9mj5fPvkvVlpLgkBR/eTxV0KPo0kHaPTr2
+ sELECc59BupDYPi6uQCEA48hd8RqZtHPIjWYohxbRXDb35uLYWeYRLSe
+X-Gm-Gg: AZFdTZdzIwQG4QX6LajFfRIHpGWsektKpaHHm+Ov5O/GBMN2aVRew9rcDWUhEAbVW3V
+ Q6xGlJFdDCc4D54CK22qc5GQuKKEucGjOgsAClVpheOM+f4nYJA600VcNJUsNH20yPURs182naO
+ 7pdwrKkPtT02ifotTzaoQNNZH6RbDuceNpyd7l+X6EwxAWsuNYv1//secDWn+s75odO8ZbBIHAo
+ IzlQVZpm/p0A6VqtpSJlG5uZf8NxLl9VzwDSt9ELh19W4/G108Gq99mI1Jg583n7zuExbw6d2e6
+ W2aUXbZ5tJgmpWIfNDAOvI04+1T+dCJRUHkf1peNEg40JJVf97RZ25v9v5P+8CeOx9MIMLpJluQ
+ bIhVHcKBWNG17xSc3QPEXyMmu/CXWzO2HvINHCUlB6i8jM1e2XYgs4prI5O94s9Ik35XMzj++WX
+ jTteu/LJZtjsJKbD2GK+1UqX9Ero45oTX7LW6DD/KERJcSG7IOqhMFce1L8kDmitOE5uGHJrM21
+ 4gDg2KOBHpXV/SS5LqnM8HjCNfD79HE6cnBJcASTEJXoeJa/YrwjTAZagVTmqCcAmmuk6an/buR
+ +fO3iGB5g8nt3xgjF4puzI2zv2+u6pIhvWr8RJtg0iSl8p1jpZkuJnGRmDUdqZmhNzzvjOs=
+X-Received: by 2002:a05:7300:f793:b0:369:daea:812a with SMTP id
+ 5a478bee46e88-3828171b3a5mr2550884eec.30.1795024135142; 
+ Wed, 18 Nov 2026 09:48:55 -0800 (PST)
+Received: from localhost.localdomain ([136.126.251.209])
+ by smtp.gmail.com with ESMTPSA id
+ 5a478bee46e88-382a80bc19bsm9420878eec.29.2026.11.18.09.48.53
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Wed, 18 Nov 2026 09:48:54 -0800 (PST)
+From: Henry Zhang <henryzhang62@gmail.com>
+To: mripard@kernel.org,
+	mcanal@igalia.com
+Cc: dave.stevenson@raspberrypi.com, kernel-list@raspberrypi.com,
+ maarten.lankhorst@linux.intel.com, tzimmermann@suse.de, airlied@gmail.com,
+ simona@ffwll.ch, dri-devel@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org, henryzhang62@gmail.com
+Subject: Re: [PATCH] drm/vc4: dsi: Allocate the encoder per DRM device
+Date: Wed, 18 Nov 2026 09:48:16 -0800
+Message-ID: <20261118174816.1382711-1-henryzhang62@gmail.com>
+X-Mailer: git-send-email 2.47.3
+In-Reply-To: <av11cTfEuyFJW5h8@houat>
+References: <20261117205902.1293962-1-henryzhang62@gmail.com>
+ <av11cTfEuyFJW5h8@houat>
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
-References: <20261028164539.3471833-1-henryzhang62@gmail.com>
- <20261028164539.3471833-5-henryzhang62@gmail.com>
- <CAPY8ntAXPpJbid2LXc6r0g-sr95uQ3hckxVqa09qPNMi5JSp6g@mail.gmail.com>
-In-Reply-To: <CAPY8ntAXPpJbid2LXc6r0g-sr95uQ3hckxVqa09qPNMi5JSp6g@mail.gmail.com>
-From: Henry Zhang <henryzhang62@gmail.com>
-Date: Wed, 18 Nov 2026 11:43:08 -0800
-X-Gm-Features: Aa3M54pTP0o_BnnWER0uO3IDxUQCM8btgNOU7uN-a4NdycqUs6X2Eb-qADeU9BQ
-Message-ID: <CANTW0yo8CSV7StFmb1pB09sSQexJLV38weo5N1G7B8GJEpx7fw@mail.gmail.com>
-Subject: Re: [PATCH v4 4/5] drm/vc4: dsi: Serialize host transfers
-To: Dave Stevenson <dave.stevenson@raspberrypi.com>
-Cc: Maxime Ripard <mripard@kernel.org>,
- =?UTF-8?B?TWHDrXJhIENhbmFs?= <mcanal@igalia.com>, 
- Raspberry Pi Kernel Maintenance <kernel-list@raspberrypi.com>, 
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Thomas Zimmermann <tzimmermann@suse.de>, 
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 X-Mailman-Approved-At: Thu, 19 Nov 2026 07:48:39 +0000
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -109,69 +92,179 @@ List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-2.8 required=3.0 tests=BAYES_00,DKIM_SIGNED,
+X-Spam-Status: No, score=-5.8 required=3.0 tests=BAYES_00,DKIM_SIGNED,
 	DKIM_VALID,DKIM_VALID_AU,FREEMAIL_FORGED_FROMDOMAIN,FREEMAIL_FROM,
 	HEADER_FROM_DIFFERENT_DOMAINS,MAILING_LIST_MULTI,SPF_HELO_NONE,
-	SPF_PASS autolearn=no autolearn_force=no version=4.0.1
+	SPF_PASS,USER_AGENT_GIT autolearn=no autolearn_force=no version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-On Wed, Nov 18, 2026 at 10:43=E2=80=AFAM Dave Stevenson
-<dave.stevenson@raspberrypi.com> wrote:
-> I'll agree that there's an issue, but as it will affect all DSI host
-> controllers it feels like it should be handled centrally in the core
-> mipi_dsi_device_transfer rather in all the drivers.
+On Wed, Nov 18, 2026, Maxime Ripard wrote:
+> On Tue, Nov 17, 2026 at 12:59:02PM -0800, Henry Zhang wrote:
+> > The DSI encoder is embedded in struct vc4_dsi, which lives as long as
+> > the DSI platform device
 >
-> One for the core DRM maintainers to comment on. A quick check says it
-> would affect at least vc4_dsi, mtk_dsi, mcde_dsi, and cdns-dsi-core.
+> That's not true.
+>
+> It's allocated with devm_drm_bridge_alloc() that will *not* free it in
+> remove but give away its reference there.
+>
+> We have another reference taken in vc4_dsi_bind, that is only given up
+> through a drm-managed action and thus will only be freed when the DRM
+> device is destroyed.
 
-Agreed: serializing transfers against each other belongs in the core,
-if the core maintainers want it there. I can look at that as a separate
-patch.
+You're right, thanks. struct vc4_dsi is refcounted through its bridge,
+and the old DRM device keeps it alive. I'll fix that sentence. The
+problem is not that struct vc4_dsi is freed too early, but that the
+encoder embedded in it is used by two DRM devices at the same time.
 
-> And your use case is genuine as panel-jdi-lt070me050000.c does exactly
-> what you describe with the backlight functions are controlled via DCS
-> commands. It would take quite exact timings to update the backlight
-> from userspace at the same time it sends the power on init sequence
-> though.
+> All vc4 components should be tied to the DRM device lifetime so that's
+> not generally correct either. Something might have snuck back in though.
 
-In our case it is easier to hit: our panel driver also lets userspace
-read panel registers over DSI for test tools, so a second thread can
-send at any time, also during a modeset.
+The encoder itself is DRM-managed: it is initialised with
+drmm_encoder_init() and cleaned up when the DRM device is released.
+But it is embedded in struct vc4_dsi, which outlives an unbind and is
+shared by the next DRM device that binds the component. That part is
+not tied to a single DRM device, since 6f0ca506c30e ("drm/vc4: dsi:
+Switch to DRM-managed encoder initialization").
 
-> Do we need to take the mutex in any of these functions except
-> vc4_dsi_host_transfer?
-> This driver will misbehave if you request a host transfer before
-> pre_enable or after post_disable. It's been on my list for a while to
-> look into that one.
-> But I don't believe there is anything in these functions that would
-> interrupt a transfer, hence they wouldn't need the mutex.
+> Also, generally speaking, unloading panel drivers is unsupported at this
+> point. It's a work in progress, but requires more changes to be safe.
 
-For transfer-to-transfer serialization alone, the bridge callback
-locking can be left out of 4/5. I will separate that from the recovery
-requirements in 5/5.
+Understood.
 
-It is 5/5 that needs the bridge callbacks locked. Its recovery runs
-inside vc4_dsi_host_transfer(): it saves DISP0_CTRL, resets the block,
-restores what pre_enable programmed, and writes DISP0_CTRL back.
-Without the lock that could run while post_disable turns the clocks
-off or pre_enable programs the timings, and the restore could undo the
-DISP0_ENABLE change made by enable or disable. The lock also protects
-the enabled flag that 5/5 uses to skip the recovery while the block is
-off.
+> This is surprising though. I'd like to see a detailed analysis of what's
+> actually going on on mainline because it doesn't look right.
 
-Transfers outside the powered/configured interval retain the existing
-behavior; this series does not make them safe. 5/5 skips recovery when
-the enabled flag is false.
+Maíra asked the same, so this answers both. It reproduces on
+drm-misc-next (fb191ef62) on a Raspberry Pi 4, DSI1 in video mode, with
+an out-of-tree DSI panel module and no downstream changes to vc4. The
+compositor is stopped, a process holds /dev/dri/card1 open, the panel
+module is unloaded and loaded again, then the held fd is closed:
 
-For the next revision, I propose moving the bridge callback locking
-into the recovery patch and explaining it there. If serialization is
-handled in the core, the transfer-only patch can be reconsidered. The
-recovery still needs a vc4 lock shared by the transfer and bridge
-callbacks; a core transfer lock alone would not provide that exclusion.
+1. Unloading the panel module detaches from the DSI host, which deletes
+   the DSI component and unbinds vc4. The held fd keeps the old DRM
+   device alive, with dsi->encoder still on its encoder list and the
+   DSI bridge still attached to it.
+2. Loading it again binds a new DRM device. vc4_dsi_bind() calls
+   drmm_encoder_init() on the same dsi->encoder, which links it into
+   the new device's encoder list.
+3. drm_bridge_attach() returns -EBUSY, as the bridge still belongs to
+   the old device, so the bind fails.
+4. The failed bind releases the new DRM device. drm_encoder_cleanup()
+   unlinks dsi->encoder and clears it, but the old device's encoder
+   list still points to it.
+5. Closing the held fd releases the old DRM device, which walks that
+   list: list corruption, the WARN in drmm_encoder_alloc_release() and
+   a NULL pointer dereference in drm_mode_config_cleanup().
 
-I will wait for your review of 5/5 and the core maintainers' feedback
-before respinning the remaining patches, omitting the applied 1/5.
+Kprobes on drmm_encoder_init(), drm_bridge_attach() and
+drm_encoder_cleanup() show it (condensed below). The old DRM device is
+ffff000049249000, the new one ffff000041a79000, dsi->encoder is
+ffff000044138000 and dsi->bridge ffff0000441380f0:
+
+  223.656483 drmm_encoder_init    drm=ffff000041a79000 enc=ffff000044138000
+  223.656520 drm_bridge_attach    enc=ffff000044138000 br=ffff0000441380f0
+  223.656529 drm_bridge_attach    returned -16
+  223.715147 drm_encoder_cleanup  enc=ffff000044138000 dev=ffff000041a79000
+  (held fd closed)
+  233.848952 drm_encoder_cleanup  enc=ffff0000409cca58 dev=ffff000049249000
+
+and the first list_del report shows the cleared dsi->encoder.head
+(ffff000044138008) still linked in the old device's list:
+
+[  233.849039] list_del corruption. prev->next should be ffff0000409cca60, but was 0000000000000000. (prev=ffff000044138008)
+[  233.849099] WARNING: lib/list_debug.c:62 at __list_del_entry_valid_or_report+0x128/0x160, CPU#0: python3/2080
+[  233.849394] CPU: 0 UID: 0 PID: 2080 Comm: python3 Tainted: G         C O        7.4.0-rc2-dmn-test+ #1 PREEMPT(full) 
+[  233.849424] Hardware name: Raspberry Pi 4 Model B Rev 1.5 (DT)
+[  233.849448] pc : __list_del_entry_valid_or_report+0x128/0x160
+[  233.849465] lr : __list_del_entry_valid_or_report+0x128/0x160
+[  233.849734] Call trace:
+[  233.849744]  __list_del_entry_valid_or_report+0x128/0x160 (P)
+[  233.849764]  drm_encoder_cleanup+0xcc/0x150 [drm]
+[  233.849950]  drmm_encoder_alloc_release+0x24/0x40 [drm]
+[  233.850090]  drm_managed_release+0xb0/0x178 [drm]
+[  233.850231]  drm_dev_put.part.0+0x98/0xd0 [drm]
+[  233.850371]  drm_minor_release+0x20/0x50 [drm]
+[  233.850511]  drm_release+0x110/0x148 [drm]
+[  233.850651]  __fput+0xd4/0x300
+[  233.850672]  fput_close_sync+0x48/0x110
+[  233.850690]  filp_close_sync+0x2c/0x48
+[  233.850706]  put_files_struct+0xd4/0x148
+[  233.850723]  exit_files+0x4c/0x70
+[  233.850738]  do_exit+0x25c/0xa20
+[  233.850756]  do_group_exit+0x3c/0xa0
+[  233.850772]  get_signal+0x920/0xa18
+[  233.850791]  arch_do_signal_or_restart+0xa0/0x3f8
+[  233.850808]  exit_to_user_mode_loop+0x100/0x188
+[  233.850825]  el0_svc+0x1cc/0x1d0
+[  233.850845]  el0t_64_sync_handler+0xa0/0xe8
+[  233.850864]  el0t_64_sync+0x198/0x1a0
+[  233.850879] ---[ end trace 0000000000000000 ]---
+[  233.869067] WARNING: drivers/gpu/drm/drm_encoder.c:228 at drmm_encoder_alloc_release+0x30/0x40 [drm], CPU#0: python3/2080
+[  233.869478] CPU: 0 UID: 0 PID: 2080 Comm: python3 Tainted: G        WC O        7.4.0-rc2-dmn-test+ #1 PREEMPT(full) 
+[  233.869506] Hardware name: Raspberry Pi 4 Model B Rev 1.5 (DT)
+[  233.869529] pc : drmm_encoder_alloc_release+0x30/0x40 [drm]
+[  233.869668] lr : drm_managed_release+0xb0/0x178 [drm]
+[  233.870051] Call trace:
+[  233.870059]  drmm_encoder_alloc_release+0x30/0x40 [drm] (P)
+[  233.870201]  drm_dev_put.part.0+0x98/0xd0 [drm]
+[  233.870340]  drm_minor_release+0x20/0x50 [drm]
+[  233.870479]  drm_release+0x110/0x148 [drm]
+[  233.870619]  __fput+0xd4/0x300
+[  233.870639]  fput_close_sync+0x48/0x110
+[  233.870657]  filp_close_sync+0x2c/0x48
+[  233.870672]  put_files_struct+0xd4/0x148
+[  233.870688]  exit_files+0x4c/0x70
+[  233.870703]  do_exit+0x25c/0xa20
+[  233.870721]  do_group_exit+0x3c/0xa0
+[  233.870737]  get_signal+0x920/0xa18
+[  233.870755]  arch_do_signal_or_restart+0xa0/0x3f8
+[  233.870772]  exit_to_user_mode_loop+0x100/0x188
+[  233.870787]  el0_svc+0x1cc/0x1d0
+[  233.870807]  el0t_64_sync_handler+0xa0/0xe8
+[  233.870825]  el0t_64_sync+0x198/0x1a0
+[  233.870839] ---[ end trace 0000000000000000 ]---
+[two more list_del corruption reports with the same call trace cut]
+[  233.875117] Unable to handle kernel NULL pointer dereference at virtual address 0000000000000008
+[  233.875331] Internal error: Oops: 0000000096000004 [#1]  SMP
+[  233.875631] CPU: 0 UID: 0 PID: 2080 Comm: python3 Tainted: G        WC O        7.4.0-rc2-dmn-test+ #1 PREEMPT(full) 
+[  233.875679] Hardware name: Raspberry Pi 4 Model B Rev 1.5 (DT)
+[  233.875717] pc : drm_mode_config_cleanup+0x58/0x320 [drm]
+[  233.875875] lr : drm_mode_config_init_release+0x18/0x30 [drm]
+[  233.876371] Call trace:
+[  233.876383]  drm_mode_config_cleanup+0x58/0x320 [drm] (P)
+[  233.876539]  drm_mode_config_init_release+0x18/0x30 [drm]
+[  233.876692]  drm_managed_release+0xb0/0x178 [drm]
+[  233.876842]  drm_dev_put.part.0+0x98/0xd0 [drm]
+[  233.876998]  drm_minor_release+0x20/0x50 [drm]
+[  233.877149]  drm_release+0x110/0x148 [drm]
+[  233.877299]  __fput+0xd4/0x300
+[  233.877330]  fput_close_sync+0x48/0x110
+[  233.877355]  filp_close_sync+0x2c/0x48
+[  233.877377]  put_files_struct+0xd4/0x148
+[  233.877400]  exit_files+0x4c/0x70
+[  233.877422]  do_exit+0x25c/0xa20
+[  233.877446]  do_group_exit+0x3c/0xa0
+[  233.877469]  get_signal+0x920/0xa18
+[  233.877494]  arch_do_signal_or_restart+0xa0/0x3f8
+[  233.877519]  exit_to_user_mode_loop+0x100/0x188
+[  233.877542]  el0_svc+0x1cc/0x1d0
+[  233.877567]  el0t_64_sync_handler+0xa0/0xe8
+[  233.877593]  el0t_64_sync+0x198/0x1a0
+[  233.877620] Code: eb0102bf 54000160 d1002294 f9404001 (f9400421) 
+[  233.877643] ---[ end trace 0000000000000000 ]---
+
+Additional sanitized trace excerpts are available on request.
+
+With the patch, the same test on the same kernel still fails the bind
+with -EBUSY, but closing the held fd gives no warning or oops, and
+loading the panel module again afterwards brings the display back. This
+was one focused run per build, not a stress test, and the patch does
+not make the rebind succeed while the old device holds the bridge.
+
+Would you prefer a v2 with the corrected description and the mainline
+trace, or should this go with the panel unloading work?
 
 Thanks,
 Henry
