@@ -2,89 +2,54 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 355C6606A32A
-	for <dri-devel@archiver.kernel.org>; Wed, 18 Nov 2026 07:48:39 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BB7D4606A336
+	for <dri-devel@archiver.kernel.org>; Wed, 18 Nov 2026 07:56:01 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=baylibre.com header.i=@baylibre.com header.a=rsa-sha256 header.s=google header.b=CUuzaIcn
+	dkim=pass (1024-bit key) header.d=rock-chips.com header.i=@rock-chips.com header.a=rsa-sha256 header.s=default header.b=RyQFNc4i
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 7B4EF10E6F5;
-	Wed, 18 Nov 2026 07:48:33 +0000 (UTC)
-Received: from mail-wm1-f44.google.com (mail-wm1-f44.google.com
- [209.85.128.44])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 418F410E711
- for <dri-devel@lists.freedesktop.org>; Wed, 18 Nov 2026 07:48:27 +0000 (UTC)
-Received: by mail-wm1-f44.google.com with SMTP id
- 5b1f17b1804b1-4a2153c8525so4642165e9.3
- for <dri-devel@lists.freedesktop.org>; Tue, 17 Nov 2026 23:48:27 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=baylibre.com; s=google; t=1794988105; x=1795592905;
- darn=lists.freedesktop.org; 
- h=in-reply-to:content-disposition:content-type:mime-version
- :references:message-id:subject:cc:to:from:date:from:to:cc:subject
- :date:message-id:reply-to:content-type;
- bh=rfa2Ndd+oOG8KQIoHfUwwZJYDQDCRfNRCZHUN7HT2WM=;
- b=CUuzaIcn1NuS0HLek72VWgiQ9xCoYMFndBcqDbQ82f7URKx8of3M08lO4xvB3gbxET
- tvQvuCAAB9mRQ2ybexZdqNkihcdRoJzIuAUjEv0HfFyE7UX53jzPWPZCzTkXsFAkzzYw
- D1vvYleFTj2ZtE8rQrzeYAYwwTHMc0d74r6xnwkIOzeSLUFDILPL6VW3Eqhr7F3cJ/Gl
- WpUnIDWNNZZuRHi55svDs6oeQb2hXvN1Gj8r38FKL/ndxNLx3lQ9uFSMzIvZWaLA9H5L
- FHX9XFoeVbH7jf6Phi6XUzUQ8elfgVBNCB25GZ7L+Y7Vh9fD+Skv9gQVlywTWY7ZvozT
- XR4Q==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20260707; t=1794988105; x=1795592905;
- h=in-reply-to:content-disposition:content-type:mime-version
- :references:message-id:subject:cc:to:from:date:x-gm-gg
- :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
- :content-type;
- bh=rfa2Ndd+oOG8KQIoHfUwwZJYDQDCRfNRCZHUN7HT2WM=;
- b=MkU9TIw+odOW8szaqqRFXovghrB4vOXh0R4/DgDYNyXtQ2pBQgl3wB3sR+eve2Ev6x
- Cn7zIP9IRoLhf43FcFaJvrxjGPgmF3PwqqjOm6vHkyueUDDPpOwJGhJJLG2EHGITM+XN
- oeQg2s91Ofc6kRBm23LFdevexHJZoLens/Iqb9zIsX1/FRIm9jkxW8dxIeBe28z4+Ofg
- 8yQ9UAwjWbc7Q2ptuP0+rizP+lQxGsikksUySQAAEqgaNvKZkZTBbSBqSk4lbPxo9eua
- XIFtS+z+0+mYy2j1Tvo/eysbDUu6Lhb0Lgsjy6xtFQApDK7VKlvm4IrM0eNCo1tkVwzw
- EGjQ==
-X-Forwarded-Encrypted: i=1;
- AL+hErGEyVsx0mtauNuik+lYqHJ80eK9IZBy1NTNs6ALhEHgwAWI6I/IBGjBb2kF8oKrx53MkQKEGel5DFA=@lists.freedesktop.org
-X-Gm-Message-State: APuU4Z9gY6LMcvRm5ytA/HlK3X9P82dcR8gxlmuiBCtUhiLf8ynTBMFO
- e65Fnc/Sph2YKvnkUxp62LoqI4xm4sLvLYpsZFowYvwyVgUYFA0YiT6bmZ2mlrKaHb0=
-X-Gm-Gg: AYBFou2LbPz2yBoVTtB2cuYDylg+QXAUuG/P1gjwbkCsRAQiTYxFLpQxTsQi6ob07p/
- U4+2D3CVf7jscChPrafBwhvz12oUFg1/Lixd6oq/ZJJUETjCbleqQ2Rxz8wrXE18o77SQo/YZuj
- 4mj78XLttRju5gWpMNQe3Q9/mzo+M/YT6NGAaGQU01D3tskjrI65UdXKAk6Sr3mWKG34roTXcz+
- gx/xU7edvUt61kBak+hZzQ/N6Zt4jWV99BCpJwRClpd/yEv/q60e7VT2Hxjys2DbS1C/kRTHw7O
- yIWcuPKwcuM2+XhLJOYZ1a2XSU9bmlSt3kwKAts3cDZXlDKb6ViaNHbx1N6xuH4xlJoTPp5jga5
- IX4a1C40EZnTEM10T0eblZBTiciNXRm19qbnI+LLD/2HO9PLE7c/b4E3GGr3526yt3jhuJYe5Ex
- 0rIf0dVFkF+lqXW69E9OZHkCAfBoV6ZmavgB1kBFRbHkm2sruXAZ/s1Oo6c9MrbUO4pkrs9EMC6
- LJRrEp3oJTmLnGSWW8X2jLySuV0ZL833uemPeApt5Tz9OJAfI1Sp3QfO3zqt1eeNsUw/K3PshvX
- qZty668t3WOhMNpVz5HkB+/YOm4m8YDSsnc2lrXtrVBeU3T/bmyewWNVAmvhABFze5Nk7vezBzH
- E7Rp0d65+Jus+mGE3ITCcCb4Dh55hMjnEtycc
-X-Received: by 2002:a05:600c:501f:b0:4bb:6f67:ca0b with SMTP id
- 5b1f17b1804b1-4bb7da462b2mr31427555e9.29.1794988105583; 
- Tue, 17 Nov 2026 23:48:25 -0800 (PST)
-Received: from localhost
- (p200300f65f19a904dea20c2220232395.dip0.t-ipconnect.de.
- [2003:f6:5f19:a904:dea2:c22:2023:2395])
- by smtp.gmail.com with UTF8SMTPSA id
- 5b1f17b1804b1-4bb7d001a64sm47962885e9.0.2026.11.17.23.48.23
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Tue, 17 Nov 2026 23:48:24 -0800 (PST)
-Date: Wed, 18 Nov 2026 08:48:23 +0100
-From: Uwe =?utf-8?Q?Kleine-K=C3=B6nig?= <u.kleine-koenig@baylibre.com>
-To: Adil =?utf-8?Q?H=C3=BCsrev?= Tepe <tadilhusrev@gmail.com>
-Cc: neil.armstrong@linaro.org, jesszhan0024@gmail.com, robh@kernel.org, 
- krzk+dt@kernel.org, conor+dt@kernel.org, maarten.lankhorst@linux.intel.com, 
- mripard@kernel.org, tzimmermann@suse.de, airlied@gmail.com, simona@ffwll.ch, 
- dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org,
- linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v3 2/2] drm/panel: add Novatek NT36525 panel driver
-Message-ID: <av1XyXE9VsmDQuyo@monoceros>
-References: <20261116070212.314228-1-tadilhusrev@gmail.com>
- <20261117173319.1852638-1-tadilhusrev@gmail.com>
- <20261117173319.1852638-3-tadilhusrev@gmail.com>
+	by gabe.freedesktop.org (Postfix) with ESMTP id A770610E75F;
+	Wed, 18 Nov 2026 07:55:55 +0000 (UTC)
+Received: from mail-m1287.netease.com (mail-m1287.netease.com [103.209.128.7])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id A4D4A10E733
+ for <dri-devel@lists.freedesktop.org>; Wed, 18 Nov 2026 07:55:49 +0000 (UTC)
+Received: from [172.16.12.74] (unknown [61.154.14.86])
+ by smtp.qiye.163.com (Hmail) with ESMTP id 551bffbb0;
+ Wed, 18 Nov 2026 15:55:45 +0800 (GMT+08:00)
+Message-ID: <8e614b4d-b2be-4da8-8003-de88f22ab7ef@rock-chips.com>
+Date: Wed, 18 Nov 2026 15:55:44 +0800
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
- protocol="application/pgp-signature"; boundary="a4po6jazqfpixeh4"
-Content-Disposition: inline
-In-Reply-To: <20261117173319.1852638-3-tadilhusrev@gmail.com>
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v3 2/8] drm/rockchip: vop2: Don't use uninitialised
+ dividers on RK3588
+To: aiyengar1990@gmail.com, Sandy Huang <hjc@rock-chips.com>,
+ =?UTF-8?Q?Heiko_St=C3=BCbner?= <heiko@sntech.de>, Andy Yan
+ <andyshrk@163.com>, Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ Sascha Hauer <s.hauer@pengutronix.de>
+Cc: Piotr Zalewski <pZ010001011111@proton.me>,
+ Chaoyi Chen <chaoyi.chen@rock-chips.com>, dri-devel@lists.freedesktop.org,
+ linux-rockchip@lists.infradead.org, linux-arm-kernel@lists.infradead.org,
+ linux-kernel@vger.kernel.org
+References: <20261113-vop2-fixes-v3-0-08ae37e83b5c@gmail.com>
+ <20261113-vop2-fixes-v3-2-08ae37e83b5c@gmail.com>
+Content-Language: en-US
+From: Damon Ding <damon.ding@rock-chips.com>
+In-Reply-To: <20261113-vop2-fixes-v3-2-08ae37e83b5c@gmail.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
+X-HM-Tid: 0aa1eda7965b03a8kunm1a1ddd1833dd04
+X-HM-MType: 1
+X-HM-Spam-Status: e1kfGhgUHx5ZQUpXWQgPGg8OCBgUHx5ZQUlOS1dZFg8aDwILHllBWSg2Ly
+ tZV1koWUFITzdXWRgWCB1ZQUpXWS1ZQUlXWQ8JGhUIEh9ZQVlDGR5DVkgeHktKSUlMSx4aTlYVFA
+ kWGhdVEwETFhoSFyQUDg9ZV1kYEgtZQVlNSlVKTk9VSk9VQ01ZV1kWGg8SFR0UWUFZT0tIVUpLSU
+ 9PT0hVSktLVUpCS0tZBg++
+DKIM-Signature: a=rsa-sha256;
+ b=RyQFNc4ij2drw6Fx0nqJbDh+SFPMGM1Pqfbh0IhdR4KcOBgFgAMAIFpF/e2okYwYuUcCAohtps8YxDc0spFY7KMXP83tQQMfG/ESJAeh/zlQa5QQZh4F0HozwlE4sFb7RobNAO+ZD02FwVmFtA6gw0qFMA3yf1x3NBMlsCXp4qI=;
+ s=default; c=relaxed/relaxed; d=rock-chips.com; v=1; 
+ bh=yoojdmS52xksREd25PZVdu2MX9Ot+zg4Wegw5yQYlu4=;
+ h=date:mime-version:subject:message-id:from;
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -96,58 +61,78 @@ List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-5.8 required=3.0 tests=BAYES_00,DKIM_SIGNED,
+X-Spam-Status: No, score=-17.3 required=3.0 tests=BAYES_00,DKIM_SIGNED,
 	DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
-	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS autolearn=no
-	autolearn_force=no version=4.0.1
+	INCLUDES_CR_TRAILER,INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,
+	SPF_PASS,USER_AGENT_SANE_1 autolearn=unavailable autolearn_force=no
+	version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
+On 11/14/2026 12:39 AM, Arun Iyengar via B4 Relay wrote:
+> From: Arun Iyengar <aiyengar1990@gmail.com>
+> 
+> rk3588_calc_cru_cfg() converts all four dividers with ilog2(), but every
+> interface only sets the ones it uses: dclk_out_div is left uninitialised
+> for HDMI, eDP and DPI, if_dclk_div for DP, MIPI and DPI, and
+> if_pixclk_div for DP and DPI. For HDMI and eDP the uninitialised
+> dclk_out_div is then written to RK3588_VP_CLK_CTRL.
+> 
+> Set the dividers an interface doesn't use to 1.
+> 
+> Fixes: 5a028e8f062f ("drm/rockchip: vop2: Add support for rk3588")
+> Suggested-by: Damon Ding <damon.ding@rock-chips.com>
+> Signed-off-by: Arun Iyengar <aiyengar1990@gmail.com>
+> ---
+>   drivers/gpu/drm/rockchip/rockchip_vop2_reg.c | 8 ++++++++
+>   1 file changed, 8 insertions(+)
+> 
+> diff --git a/drivers/gpu/drm/rockchip/rockchip_vop2_reg.c b/drivers/gpu/drm/rockchip/rockchip_vop2_reg.c
+> index c44648e1bc0d..f340aba5bfd1 100644
+> --- a/drivers/gpu/drm/rockchip/rockchip_vop2_reg.c
+> +++ b/drivers/gpu/drm/rockchip/rockchip_vop2_reg.c
+> @@ -1597,6 +1597,7 @@ static unsigned long rk3588_calc_cru_cfg(struct vop2_video_port *vp, int id,
+>   		 */
+>   		*if_pixclk_div = 2;
+>   		*if_dclk_div = 4;
+> +		*dclk_out_div = 1;
+>   	} else if (vop2_output_if_is_edp(id)) {
+>   		/*
+>   		 * edp_pixclk = edp_dclk > dclk_core
+> @@ -1609,6 +1610,7 @@ static unsigned long rk3588_calc_cru_cfg(struct vop2_video_port *vp, int id,
+>   		 */
+>   		*if_pixclk_div = K;
+>   		*if_dclk_div = K;
+> +		*dclk_out_div = 1;
+>   	} else if (vop2_output_if_is_dp(id)) {
+>   		if (output_mode == ROCKCHIP_OUT_MODE_YUV420)
+>   			dclk_out_rate = v_pixclk >> 3;
+> @@ -1622,6 +1624,8 @@ static unsigned long rk3588_calc_cru_cfg(struct vop2_video_port *vp, int id,
+>   			return 0;
+>   		}
+>   		*dclk_out_div = dclk_rate / dclk_out_rate;
+> +		*if_pixclk_div = 1;
+> +		*if_dclk_div = 1;
+>   	} else if (vop2_output_if_is_mipi(id)) {
+>   		if_pixclk_rate = dclk_core_rate / K;
+>   		/*
+> @@ -1643,8 +1647,12 @@ static unsigned long rk3588_calc_cru_cfg(struct vop2_video_port *vp, int id,
+>   		 * mipi pixclk == dclk_out
+>   		 */
+>   		*if_pixclk_div = 1;
+> +		*if_dclk_div = 1;
+>   	} else if (vop2_output_if_is_dpi(id)) {
+>   		dclk_rate = v_pixclk;
+> +		*dclk_out_div = 1;
+> +		*if_pixclk_div = 1;
+> +		*if_dclk_div = 1;
+>   	}
+>   
+>   	*dclk_core_div = dclk_rate / dclk_core_rate;
+> 
 
---a4po6jazqfpixeh4
-Content-Type: text/plain; protected-headers=v1; charset=iso-8859-1
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
-Subject: Re: [PATCH v3 2/2] drm/panel: add Novatek NT36525 panel driver
-MIME-Version: 1.0
+Reviewed-by: Damon Ding <damon.ding@rock-chips.com>
 
-Hello,
+Best regards,
+Damon
 
-On Tue, Nov 17, 2026 at 08:33:19PM +0300, Adil H=FCsrev Tepe wrote:
-> +#include <linux/delay.h>
-> +#include <linux/gpio/consumer.h>
-> +#include <linux/module.h>
-> +#include <linux/mod_devicetable.h>
-> +#include <linux/regulator/consumer.h>
-> +
-> +#include <video/mipi_display.h>
-> +
-> +#include <drm/drm_mipi_dsi.h>
-> +#include <drm/drm_modes.h>
-> +#include <drm/drm_panel.h>
-> +#include <drm/drm_probe_helper.h>
-
-<linux/mod_devicetable.h> doens't only give you a definition of
-of_device_id, but also pulls in a lot of unneeded stuff and thus
-introduces useless build dependencies.
-
-<drm/drm_mipi_dsi.h> already provides of_device_id, so just drop
-<linux/mod_devicetable.h>.
-
-
---a4po6jazqfpixeh4
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iQEzBAABCgAdFiEEP4GsaTp6HlmJrf7Tj4D7WH0S/k4FAmr9WEQACgkQj4D7WH0S
-/k40FAf/TncjaPwzM6TMWHC0aVkQVFbPwvWHgOtKsJALddK9tvV9iUEX/t3z4OYC
-2Pw0xd4BFpl2wkMQ75SUIuvye7326vcAZeDzEtQlPBth9JhC33iVimAMK0FpSsvE
-0/AXXkTDUE/GAKaEvDsQ3bZNimMNNhB5LADAei5yAPmVh4TbBc4QHOP1cH+EtYXq
-8q8BiItYRchUZoLNDWHmjHW4oTYTDLFfPMMmp7hTATYVDcwtjD1RLvwMLpIHqlQY
-NJ50k0zz0HuXn8C//vtaTKTnNgur9aBJzePKuKDs4u6cYqMHewZS7a7MYuj9wTJk
-uitb980Rg5LMsiRY96UDrtZKYIYheg==
-=WQ9s
------END PGP SIGNATURE-----
-
---a4po6jazqfpixeh4--
