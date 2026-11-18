@@ -2,53 +2,45 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2F1CF606A320
-	for <dri-devel@archiver.kernel.org>; Wed, 18 Nov 2026 16:18:00 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9CE51606A330
+	for <dri-devel@archiver.kernel.org>; Wed, 18 Nov 2026 16:19:52 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=f8PZYMun
+	dkim=pass (1024-bit key, unprotected) header.d=163.com header.i=@163.com header.a=rsa-sha256 header.s=s110527 header.b=nZ1MxDru
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 5B36C10E80B;
-	Wed, 18 Nov 2026 16:17:54 +0000 (UTC)
-Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id DF00210E81F
- for <dri-devel@lists.freedesktop.org>; Wed, 18 Nov 2026 16:17:47 +0000 (UTC)
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by tor.source.kernel.org (Postfix) with ESMTP id DDEB66281E;
- Wed, 18 Nov 2026 16:17:46 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id AF10D1F000C5;
- Wed, 18 Nov 2026 16:17:42 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1795018666;
- bh=I3euMsr0R3jsztb6tBx9FVmWbLkOv+l5VRxL2+eRjeE=;
- h=Date:To:From:Subject:Cc:References:In-Reply-To;
- b=f8PZYMunuilXaJTcx8ZrhLeWaXNaLQTyX35hbHY7pCCKA2Twh6JKaXBTb664lnEtK
- WZiRgXI5eYvyj6uEQS3ldceWXYXAB8DXU4dLpF1lw/VrmuqJfil64tbS/Tdjhk3iQm
- GDrk4Nqxl/xyO6Rfq/VXvCezB57ny7QdymCvlgWXvxd1z4ZoZlXQf+I0LRDGPvbMhP
- GagWO7vKstIVbcPAgEGfo9W8Ty4P2jKHP8oAZCiFG6IDK9XntLugEV48XLpuRqVTjv
- x6CvGQ21JzXWXxt6tZ1AmfJlNIfu8ODWussVNXSZwuJZCaC0chRrECTwuFUSa6h1ct
- 0YeX5gjxMt/Jw==
+	by gabe.freedesktop.org (Postfix) with ESMTP id CEB6E10E64D;
+	Wed, 18 Nov 2026 16:19:46 +0000 (UTC)
+X-Greylist: delayed 6890 seconds by postgrey-1.36 at gabe;
+ Wed, 18 Nov 2026 16:19:40 UTC
+Received: from m16.mail.163.com (m16.mail.163.com [220.197.31.4])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 8C7A710E64D
+ for <dri-devel@lists.freedesktop.org>; Wed, 18 Nov 2026 16:19:40 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=163.com;
+ s=s110527; h=From:To:Subject:Date:Message-Id:MIME-Version; bh=rx
+ H4cRTlih2nYqrfKusqL9MuJhz5QOuEx96vGmCTg/E=; b=nZ1MxDruYTpiRv6Taa
+ lw7kkSrSjo66gEswW5Y2FYtbwBpe+nG3z/HapSm7MpYdLBwFVUPShFrwWF875Kfh
+ lKECJtU1+sy9z9obfOo34ouoVkVYUhiQ53DDV+gFHpQB93wci7sh3GcobJRKgXp7
+ bbq/ed7FrzpXPVXhp3AdgmTo4=
+Received: from localhost.localdomain (unknown [])
+ by gzsmtp5 (Coremail) with SMTP id QCgvCgD3WJIJ0P1q3Za9Gg--.25673S2;
+ Thu, 19 Nov 2026 00:19:23 +0800 (CST)
+From: Haoxiang Li <haoxiang_li2024@163.com>
+To: anitha.chrisanthus@intel.com, airlied@gmail.com, simona@ffwll.ch,
+ tzimmermann@suse.de, sam@ravnborg.org
+Cc: dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
+ Haoxiang Li <haoxiang_li2024@163.com>
+Subject: [PATCH] drm/kmb: Uninstall IRQ handler on DRM registration failure
+Date: Thu, 19 Nov 2026 00:19:21 +0800
+Message-Id: <20261118161921.2460608-1-haoxiang_li2024@163.com>
+X-Mailer: git-send-email 2.25.1
 X-Archived-By: <archiver.kernel.org>
-Mime-Version: 1.0
-Content-Transfer-Encoding: quoted-printable
-Content-Type: text/plain; charset=UTF-8
-Date: Wed, 18 Nov 2026 17:17:41 +0100
-Message-Id: <DMYH0CXPUTMP.J3AKN619TL34@kernel.org>
-To: "Vishal Moola (Fractile)" <vishal.moola@gmail.com>
-From: "Danilo Krummrich" <dakr@kernel.org>
-Subject: Re: [PATCH] rust: drm: ioctl: fix call to unsafe function
-Cc: "Alice Ryhl" <aliceryhl@google.com>, "David Airlie" <airlied@gmail.com>,
- "Simona Vetter" <simona@ffwll.ch>, "Miguel Ojeda" <ojeda@kernel.org>,
- "Boqun Feng" <boqun@kernel.org>, "Gary Guo" <gary@garyguo.net>,
- =?utf-8?q?Bj=C3=B6rn_Roy_Baron?= <bjorn3_gh@protonmail.com>, "Benno Lossin"
- <lossin@kernel.org>, "Andreas Hindborg" <a.hindborg@kernel.org>, "Trevor
- Gross" <tmgross@umich.edu>, "Daniel Almeida"
- <daniel.almeida@collabora.com>, "Tamir Duberstein" <tamird@kernel.org>,
- "Alexandre Courbot" <acourbot@nvidia.com>, =?utf-8?q?Onur_=C3=96zkan?=
- <work@onurozkan.dev>, "Asahi Lina" <lina+kernel@asahilina.net>, "Lyude
- Paul" <lyude@redhat.com>, <dri-devel@lists.freedesktop.org>,
- <rust-for-linux@vger.kernel.org>, <linux-kernel@vger.kernel.org>
-References: <20261118133232.48603-1-vishal.moola@gmail.com>
-In-Reply-To: <20261118133232.48603-1-vishal.moola@gmail.com>
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
+X-CM-TRANSID: QCgvCgD3WJIJ0P1q3Za9Gg--.25673S2
+X-Coremail-Antispam: 1Uf129KBjvdXoWrKr43Xr1fWw17urykAr4DXFb_yoWfZrg_WF
+ 12qr4xWrs0kFnxJr129F4a9rW2yF1v9Fs3Gw10ga95K3srZryqvrWq93Z7ZF18uF45AFZ8
+ Gw4jqF4fW347WjkaLaAFLSUrUUUUjb8apTn2vfkv8UJUUUU8Yxn0WfASr-VFAUDa7-sFnT
+ 9fnUUvcSsGvfC2KfnxnUUI43ZEXa7sRiBHq5UUUUU==
+X-CM-SenderInfo: xkdr5xpdqjszblsqjki6rwjhhfrp/xtbC7QtQvmr90AsG0QAA3T
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -60,32 +52,39 @@ List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-10.8 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
-	DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
-	INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS autolearn=ham
-	autolearn_force=no version=4.0.1
+X-Spam-Status: No, score=-15.7 required=3.0 tests=BAYES_00,DKIM_SIGNED,
+	DKIM_VALID,DKIM_VALID_AU,FREEMAIL_FORGED_FROMDOMAIN,FREEMAIL_FROM,
+	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
+	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,UNPARSEABLE_RELAY,
+	USER_AGENT_GIT autolearn=ham autolearn_force=no version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-On Wed Nov 18, 2026 at 2:32 PM CET, Vishal Moola (Fractile) wrote:
-> diff --git a/rust/kernel/drm/ioctl.rs b/rust/kernel/drm/ioctl.rs
-> index 64af9eacc306..5a2e2f4f0e91 100644
-> --- a/rust/kernel/drm/ioctl.rs
-> +++ b/rust/kernel/drm/ioctl.rs
-> @@ -152,7 +152,7 @@ macro_rules! declare_drm_ioctls {
->                              // dev/file match the current driver these i=
-octls are being declared
->                              // for, and it's not clear how to enforce th=
-is within the type system.
->                              let dev: &$crate::drm::device::Device<_, $cr=
-ate::drm::Ioctl> =3D
-> -                                $crate::drm::device::Device::from_raw(ra=
-w_dev);
-> +                                unsafe { $crate::drm::device::Device::fr=
-om_raw(raw_dev) };
+kmb_probe() installs the LCD IRQ handler before calling
+drm_dev_register(). If registration fails, the error path stops
+polling and cleans up the display resources without uninstalling
+the handler.
 
-I remember there has been at least one compiler version in the supported ra=
-nge
-that complained when the safety comment isn't directly above the unsafe blo=
-ck.
-Has this been fixed in the meantime?
+Call kmb_irq_uninstall() in the registration error path
+
+Fixes: 58889cdc39cf ("drm/kmb: Convert to Linux IRQ interfaces")
+Signed-off-by: Haoxiang Li <haoxiang_li2024@163.com>
+---
+ drivers/gpu/drm/kmb/kmb_drv.c | 1 +
+ 1 file changed, 1 insertion(+)
+
+diff --git a/drivers/gpu/drm/kmb/kmb_drv.c b/drivers/gpu/drm/kmb/kmb_drv.c
+index 7c2eb1152fc2..d8e2fc28ee9e 100644
+--- a/drivers/gpu/drm/kmb/kmb_drv.c
++++ b/drivers/gpu/drm/kmb/kmb_drv.c
+@@ -569,6 +569,7 @@ static int kmb_probe(struct platform_device *pdev)
+ 
+  err_register:
+ 	drm_kms_helper_poll_fini(&kmb->drm);
++	kmb_irq_uninstall(&kmb->drm);
+  err_irq:
+ 	pm_runtime_disable(kmb->drm.dev);
+  err_free:
+-- 
+2.25.1
+
