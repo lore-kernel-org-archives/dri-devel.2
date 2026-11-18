@@ -2,58 +2,41 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 26EBE606A325
-	for <dri-devel@archiver.kernel.org>; Wed, 18 Nov 2026 20:55:28 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 62BBF606A320
+	for <dri-devel@archiver.kernel.org>; Wed, 18 Nov 2026 21:02:32 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=b1GmfUUL
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ZwieJpVX
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 5A7A810E192;
-	Wed, 18 Nov 2026 20:55:22 +0000 (UTC)
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.21])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 546C610E192
- for <dri-devel@lists.freedesktop.org>; Wed, 18 Nov 2026 20:55:16 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1795035317; x=1826571317;
- h=from:to:cc:subject:date:message-id:mime-version:
- content-transfer-encoding;
- bh=sPnYH65mssck2MtBxb/kBxgngiYXUbKVObPehxRkItU=;
- b=b1GmfUUL9JCLg1cg+qx8CDMGaZhlAlCBTw8kESsL/M1lrZJqX6/0ZyCE
- avNMhox1kTzR9301v9aVBQo9gkXdLOlIlrwhe9tXLFao1heWvJDY3b5YC
- s9GTwHfeuLC9uGirVWZ5cMSc63rJd9y/si/FhpWHfguBOfis6ibz8cyXI
- vRJ0uFPvfPVBba29f0CLwLws2r5jZcdNbYFTAqADAxEZdtAwX/50jMMuC
- KkGTzq5YPU/fiYrd2N2+K0BQtgrg/pNSowXY6GhP0ro9UJ6bWTBczJSKh
- gWSj76/KdPORTsnWktyeQmHO3ORONuPUwLHErRFCwGTNAjnKk8R8kdKcG Q==;
-X-CSE-ConnectionGUID: j4pIPINPTFulB5nLAaCnBA==
-X-CSE-MsgGUID: 02v7chVhTdu2Ob4sHTNLhQ==
-X-IronPort-AV: E=McAfee;i="6800,10657,11970"; a="3944657"
-X-IronPort-AV: E=Sophos;i="6.27,219,1787036400"; 
-   d="scan'208";a="3944657"
-Received: from fmviesa008.fm.intel.com ([10.60.135.148])
- by orvoesa113.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 18 Nov 2026 12:55:08 -0800
-X-CSE-ConnectionGUID: zhSjrzO7TnOzZLeLtv83tw==
-X-CSE-MsgGUID: pUQnxAA4TFemUJpH5/N/uw==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,219,1787036400"; d="scan'208";a="10483018"
-Received: from klitkey1-mobl1.ger.corp.intel.com (HELO localhost)
- ([10.245.245.16])
- by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 18 Nov 2026 12:55:07 -0800
-From: Ville Syrjala <ville.syrjala@linux.intel.com>
-To: dri-devel@lists.freedesktop.org
-Cc: Thomas Zimmermann <tzimmermann@suse.de>,
- Javier Martinez Canillas <javierm@redhat.com>
-Subject: [PATCH] drm/sysfb: corebootdrm: Fix Kconfig dependency
-Date: Wed, 18 Nov 2026 22:55:03 +0200
-Message-ID: <20261118205503.18924-1-ville.syrjala@linux.intel.com>
-X-Mailer: git-send-email 2.56.0
-X-Archived-By: <archiver.kernel.org>
-MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park,
- 6 krs Bertel Jungin Aukio 5, 02600 Espoo, Finland
-Content-Transfer-Encoding: 8bit
+	by gabe.freedesktop.org (Postfix) with ESMTP id C09B110E551;
+	Wed, 18 Nov 2026 21:02:26 +0000 (UTC)
+Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id F2E3310E551
+ for <dri-devel@lists.freedesktop.org>; Wed, 18 Nov 2026 21:02:20 +0000 (UTC)
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+ by tor.source.kernel.org (Postfix) with ESMTP id 0861D63CAF;
+ Wed, 18 Nov 2026 21:02:20 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 969121F000C5;
+ Wed, 18 Nov 2026 21:02:19 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+ s=k20260515; t=1795035739;
+ bh=U5HknE1giXz0G6i9tNhOVUCkV2gO46kgNWsYccg/n7M=;
+ h=From:Subject:Reply-To:To:In-Reply-To:References:Date;
+ b=ZwieJpVXeYCSoyDuMmVd7qO6M8gS/F6LOLVP0Rib/dmek7KpSxwRvvokiuWVcJntM
+ VtGyFtdFwS5vc1Js75mnAEKD7Jxo60lHiBokOL5mjVRcEbzz9eeAJtXcbND8TaoLHD
+ opcLKu8izTdYbr/OaM6VkHByKeC/s4RFIVLWhkszb/057VItk/RS9ocX7y/+l6jdNv
+ O5/uARCYlU4xT1fcfMlUZkspVLY9eDS0sCOm7cQdiZfNGthPrP7AaEcn+U+IDx1eni
+ b6BvWypeMdIGOaBkm1TmHG1sId44K9NpAdT5HZYcRuswH/8a9JFF9sfL4Wgan3zO0J
+ 9lPAU/txDO8Lw==
+Message-ID: <sashiko-outbox-221965@kernel.org>
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH] drm/sysfb: corebootdrm: Fix Kconfig dependency
+To: "Ville Syrjala" <ville.syrjala@linux.intel.com>,
+ dri-devel@lists.freedesktop.org
+In-Reply-To: <20261118205503.18924-1-ville.syrjala@linux.intel.com>
+References: <20261118205503.18924-1-ville.syrjala@linux.intel.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Wed, 18 Nov 2026 21:02:19 +0000
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -64,45 +47,52 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
+Reply-To: sashiko-reviews@lists.linux.dev
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-16.8 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
-	DKIM_SIGNED,DKIM_VALID,HEADER_FROM_DIFFERENT_DOMAINS,
-	INCLUDES_CR_TRAILER,INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,
-	SPF_PASS,USER_AGENT_GIT autolearn=ham autolearn_force=no version=4.0.1
+X-Spam-Status: No, score=-10.8 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
+	DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
+	INCLUDES_CR_TRAILER,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS
+	autolearn=ham autolearn_force=no version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
+X-Archived-By: <archiver.kernel.org>
 
-From: Ville Syrjälä <ville.syrjala@linux.intel.com>
+Thank you for your contribution! Sashiko AI review found 1 potential
+issue to consider:
+- [Low] drm/sysfb: corebootdrm: Fixes trailer cites wrong introducing
+  commit
+--
 
-DRM_COREBOOTDRM depends on GOOGLE_FRAMEBUFFER_COREBOOT, which is a
-transitional stub symbol that can never be enabled. This makes the
-driver impossible to select. Depend on the real symbol,
-COREBOOT_FRAMEBUFFER, instead.
+commit bff902d09954dd5579fb286ff3723415928aa52a
+Author: Ville Syrj=C3=A4l=C3=A4 <ville.syrjala@linux.intel.com>
 
-Fixes: a29a1f0ec8d6 ("drm/sysfb: corebootdrm: Add DRM driver for coreboot framebuffers")
-Cc: Thomas Zimmermann <tzimmermann@suse.de>
-Cc: Javier Martinez Canillas <javierm@redhat.com>
-Signed-off-by: Ville Syrjälä <ville.syrjala@linux.intel.com>
----
-Claude spotted this while we were looking for extra things to
-enable in my drm-misc kernel build config.
+> drm/sysfb: corebootdrm: Fix Kconfig dependency
+>
+> DRM_COREBOOTDRM depends on GOOGLE_FRAMEBUFFER_COREBOOT, which is a
+> transitional stub symbol that can never be enabled. This makes the
+> driver impossible to select. Depend on the real symbol,
+> COREBOOT_FRAMEBUFFER, instead.
+>
+> Fixes: a29a1f0ec8d6 ("drm/sysfb: corebootdrm: Add DRM driver for coreboot=
+ framebuffers")
+> Cc: Thomas Zimmermann <tzimmermann@suse.de>
+> Cc: Javier Martinez Canillas <javierm@redhat.com>
+> Signed-off-by: Ville Syrj=C3=A4l=C3=A4 <ville.syrjala@linux.intel.com>
 
- drivers/gpu/drm/sysfb/Kconfig | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+[Severity: Low]
+Should the Fixes: tag point to 44e33a5aaa2d ("firmware: Rename google
+firmware directory to coreboot") instead?
 
-diff --git a/drivers/gpu/drm/sysfb/Kconfig b/drivers/gpu/drm/sysfb/Kconfig
-index f7e48178885e..2bfcd59bfe6d 100644
---- a/drivers/gpu/drm/sysfb/Kconfig
-+++ b/drivers/gpu/drm/sysfb/Kconfig
-@@ -10,7 +10,7 @@ config DRM_SYSFB_HELPER
- config DRM_COREBOOTDRM
- 	tristate "Coreboot framebuffer driver"
- 	depends on DRM && MMU
--	depends on GOOGLE_FRAMEBUFFER_COREBOOT
-+	depends on COREBOOT_FRAMEBUFFER
- 	select APERTURE_HELPERS
- 	select DRM_CLIENT_SELECTION
- 	select DRM_GEM_SHMEM_HELPER
--- 
-2.56.0
+When a29a1f0ec8d6 ("drm/sysfb: corebootdrm: Add DRM driver for coreboot
+framebuffers") was added, GOOGLE_FRAMEBUFFER_COREBOOT was the active
+symbol and COREBOOT_FRAMEBUFFER did not exist yet.  44e33a5aaa2d
+("firmware: Rename google firmware directory to coreboot") renamed it to
+COREBOOT_FRAMEBUFFER and turned GOOGLE_FRAMEBUFFER_COREBOOT into a
+promptless transitional stub without updating DRM_COREBOOTDRM, so citing
+a29a1f0ec8d6 ("drm/sysfb: corebootdrm: Add DRM driver for coreboot
+framebuffers") could cause stable backports onto kernels that do not yet
+have COREBOOT_FRAMEBUFFER.
 
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261118205503.1892=
+4-1-ville.syrjala@linux.intel.com?part=3D1
