@@ -2,93 +2,91 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B14FC606A324
-	for <dri-devel@archiver.kernel.org>; Thu, 19 Nov 2026 07:53:16 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9976C606A320
+	for <dri-devel@archiver.kernel.org>; Thu, 19 Nov 2026 07:53:17 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=KVE/4Uld
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=lB9NZMID
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 8BA8A10FE8D;
-	Thu, 19 Nov 2026 07:53:05 +0000 (UTC)
-Received: from mail-pi2-f4.google.com (mail-pi2-f4.google.com [74.125.227.196])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 87CE410EC27
- for <dri-devel@lists.freedesktop.org>; Wed, 18 Nov 2026 15:49:12 +0000 (UTC)
-Received: by mail-pi2-f4.google.com with SMTP id
- 41be03b00d2f7-cdd8c1fdf4aso314144a12.1
- for <dri-devel@lists.freedesktop.org>; Wed, 18 Nov 2026 07:49:12 -0800 (PST)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 23E4B112012;
+	Thu, 19 Nov 2026 07:53:10 +0000 (UTC)
+Received: from mail-pj2-f3.google.com (mail-pj2-f3.google.com [74.125.227.131])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 6D6F510E5F9
+ for <dri-devel@lists.freedesktop.org>; Wed, 18 Nov 2026 21:03:43 +0000 (UTC)
+Received: by mail-pj2-f3.google.com with SMTP id
+ 98e67ed59e1d1-3adc0ac3566so279165a91.1
+ for <dri-devel@lists.freedesktop.org>; Wed, 18 Nov 2026 13:03:43 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20260707; t=1795016952; x=1795621752; darn=lists.freedesktop.org;
+ d=gmail.com; s=20260707; t=1795035823; x=1795640623; darn=lists.freedesktop.org;
  h=mime-version:content-transfer-encoding:content-type:references
  :in-reply-to:subject:cc:to:from:message-id:date:from:to:cc:subject
  :date:message-id:reply-to:content-type;
- bh=cer8YfO6jgJ8rX/jlVTUPHJd3RGw4HKBsstgFxqYGYA=;
- b=KVE/4UldePEs0pWAEoBGc9IVPnRw8RRnyVROR7jtuRooBOnfB7r8K3jYxd6kqpSNOA
- CNCpl7Aasu3cIHHuZoHS5xJa9LuYqCD+Ac0Hz13KjwtUrY7+IXocR2oY8fjzlvzFhCXr
- sM993UKo9Znv6WHVOBIGo5/htkj3341MkM7MEOKI05AFmrsT4pW0jcDEuV5qcyEkQ1VZ
- 8lwp2x2D+ReaprpbtlnFb1f+UunlkUHERnSkO8AgWHD5r52UMZ83PtQSedsquZtcX9Qn
- kQT1ra+4HzwrtJVnho+SPSAf9o0V+RkhtXxyFnhKOfrAdhHcVylXeaKLPhOs3St6LB34
- Oj8A==
+ bh=AOYoHqd+TEhq9YYSZd05JTs9KMcPqQTIbqKvDzsDrNA=;
+ b=lB9NZMID1lkmq+BodC2XVzRrClEKsLZhyjvTrwDD0S8IAn+TKmtTZyVdHVcRMsyVnE
+ qNiDIvv1yISIPmv/Firo3sLPmnQVm+1KUjr9wMClPgdx8WykMqfarIgkmMJXrxUUIZTa
+ nxY75tsle7fh5Tr3NdapF8ZNtLEWegUQJ1A/1XFeBmtv3PkMowQsL7MkDk9ROff8VPs3
+ tSiCvZtZBfDohTyzYYVwG1MuMo+CNOG1lBTvUCGCRssgipHEwecL89w07gaF7AWTy5rf
+ DJMFWX48vw/D6TpO9QBsJVWPdsoLwzJ2A6lFZFTMxt9BxPm1ATvT7QL12jLjy+pe0ih7
+ 5M4w==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20260707; t=1795016952; x=1795621752;
+ d=1e100.net; s=20260707; t=1795035823; x=1795640623;
  h=mime-version:content-transfer-encoding:content-type:references
  :in-reply-to:subject:cc:to:from:message-id:date:x-gm-gg
  :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
  :content-type;
- bh=cer8YfO6jgJ8rX/jlVTUPHJd3RGw4HKBsstgFxqYGYA=;
- b=EbibaZfG8Su+cBd4ZDKfiJGBP1G5NOX/a3fLkN5h83j3u1Du7fnMBo5KNgag2rfn3S
- BhnsYE1BrW3TBe2NNeZvXxnSf2Dy07XI/wmzW+XSNGZv72Z53Pzy8FxcKesSnnv+FCvq
- hQRp2t4g073165cCpMInkdo71ZVJAQDF670OngER3oPieQCuvsxBolGnlEEcAnVrGDF/
- mKFOsO62dUmL9V4LzOIjvdu+To4gCUJi1sSk6nk3SJT1QbQxJqW2b+huNuDv+qJ6i4tU
- hvBDGEOEk49R3xzcwjm7WDsGNhTj4GhcdIkLM6Dh2uSdg9gaN8lkUW5PPTBpOxatPfkN
- b5/g==
+ bh=AOYoHqd+TEhq9YYSZd05JTs9KMcPqQTIbqKvDzsDrNA=;
+ b=QRPmeJ78mT5+lFIIaWS7FO881VBdNd+WeCnkgR7yrPE18PMM0E8k5ngptwwTcYbRX2
+ u5NTdi4MYAT8xZuROswWuWNr0z7vZe2jL3xUfTMKu3qm3toMYYfX1lCGIHkQjz0i12zs
+ idxubhDjB2fyyc2SS0sAdhdHLb0FtEPQ0stScsqv2kV/TQsUeo3vFbJ4xDpb7zrPO1ib
+ UsSACdCi4yNpUb4+so41XWs6s4VvbAIDmbac4KwoEmggh1VcrbI7wOQZINY5PAoQ/fdG
+ QUWhjKGoZ8/APkNJ8TY+CAaQdW4cxu3of/StXMnBiecaaG79RjED+OUD0zsXv5ZPtfo8
+ iEig==
 X-Forwarded-Encrypted: i=1;
- AL+hErGaNszakj/NTWAPDLCvRsfJT18kvPDBAOzTHYzKZR2GmE+Sw7Z3m7TLxvyeP4PlVEYkTs/92s/kyuQ=@lists.freedesktop.org
-X-Gm-Message-State: APuU4Z+GQBLVHJzw6YXfpgAx+yiI6pxxc5ynrcujdiywQdiuF4nxYokl
- iG8croq5ulmeej6XqEQb5p/goJGcBNfIuGA3Kp6osGvmHJzKTfXxZxIv
-X-Gm-Gg: AYBFou1lkHW74l3X+auG9eTzAezd+cEOlJSrmyelAfemXpFgnHNa32/9UDyOpv3oJru
- 6NyzfodxeJGJLWKBd4/kbN/MOwrPe2gnk6yHWNS03RyosHZbrMX+C60LPVsB82n9kkrW+97GzFv
- 8I1o2V61+51x+7uFqShuIyoppGCdX5MV9sJk0uKkPscf8mcJP3cjiVJDsLhi1agzCSI7Enx8f0X
- lnE4rIiHIiUQmfHMs4wF7TXgLoYqPplljuB4ndstae5w7FmFjo3Vd3JwSPZl9XiVSmM4xQiEiIz
- XlhBP1M2MT2XbgZjP0s/jGnKYbFHM18rUfCd1GK7NOBitBefNhHzRVZihnkgvm0LS43PBKf3bsU
- C2I5nSjUcMQYxWzEPP47fa8ONgalIt9cXJRbeQ6dfTHT+ExsEeFAUMbn8EO6nHvOjXosF0791Bx
- 9RTdQjeZ+1zKnLIuTKiz0ejcM98o0F54Lb1gcIsTAKF+7MYFFLiWkoNhfEF8GgRB7BEOboFAOA1
- tzFJsH5kMltstfStwAvbtrQQ91F38aE7Ihis7L8rFuf57iiQ3Eu05T7CqnGx9swsj7E5vkc6C4n
- P48=
-X-Received: by 2002:a05:6a21:6e0c:b0:3e1:bb35:476c with SMTP id
- adf61e73a8af0-3fe8bdd7c38mr2965829637.72.1795016951931; 
- Wed, 18 Nov 2026 07:49:11 -0800 (PST)
+ AL+hErGNqibPeH5yJW225JUqKrliEfpr+fxtdzNW2xknl1REPwF7rL8uzNq2oAWMkO3M0g1s05amTC3Hvco=@lists.freedesktop.org
+X-Gm-Message-State: APuU4Z8EVp/Gu/D8xcIMtk1t1QICRAfjo8/czzG5SGX67lll/ygub3bI
+ Q3v4PR68r0v37i3uefbjNlgHrEeyuSaao6mW6f8TdjCO2ej93WzT8BELgf0ZKUaXGUVihQ==
+X-Gm-Gg: AZFdTZeuguepsZm0TqAxAu04t5r2YsJTiVR3+BfAMF51kwZdCNrtT2HmhMnIGRVhXOv
+ EIkkvhGvOjttxRw/qwW1gWmq8eGwmN0mjSlraH7Hcl+PVAzmECdxEDqXxMivFynZMkOrpZEIAE4
+ m7Wqwag0AUfYk5+dSGZ+adnLe/E8NGQ9Y1j8MfbXPNC+rGSxSxzXFa6+mINJitb/siGdYaXYsYq
+ yPaKSkRcppa6f0kDT9UlFgzdDs7hY3w1ZiCT/+sHODvdzhA1MSr5RpNwsaUPuU7ctL67s6qq3dp
+ oqjfvbIToQQvFE50KJ/rpFnyaBCvjDFeMw1gUwz2ebjw29aDiaBDkF3knvhu08NggcO0XDxUCag
+ /hvLZ8Dj/mzfL2/VNgHgS069u5Y1ebOcRPV/CqiUYyXVvADn1mH7i7olncQXBshb85d0hrgAjd+
+ CJ2tRWEIe9H6mAnp8SKWQPHrbBfPhTS0azz/i001k4VWkSsUhXoIro4dblZ5vVyYb9rLNi0xANu
+ R2ov5d1qZdq9ydaiFcyh2GNDchvsO9Tef6DIo4WIvgsqxJB8pg36SSMLb/xnElsRmRz+0XFODPU
+ uWw=
+X-Received: by 2002:a17:90b:3c81:b0:3ac:80dc:f419 with SMTP id
+ 98e67ed59e1d1-3b3d07aa355mr3694363a91.25.1795035822845; 
+ Wed, 18 Nov 2026 13:03:42 -0800 (PST)
 Received: from localhost ([2403:2c80:6::107b])
  by smtp.gmail.com with ESMTPSA id
- d2e1a72fcca58-8c6660c2e4csm1055183b3a.22.2026.11.18.07.49.10
+ 98e67ed59e1d1-3b3f7066ef3sm865257a91.11.2026.11.18.13.03.41
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Wed, 18 Nov 2026 07:49:11 -0800 (PST)
-Date: Wed, 18 Nov 2026 23:49:05 +0800
-Message-ID: <e4eb5f5b7ed8b3b6bf47d709e4344e0a.codykang.hk@gmail.com>
+ Wed, 18 Nov 2026 13:03:42 -0800 (PST)
+Date: Thu, 19 Nov 2026 05:03:36 +0800
+Message-ID: <5167ad548a578a23ed8d5172196b36f0.codykang.hk@gmail.com>
 From: Cody Kang <codykang.hk@gmail.com>
-To: Icenowy Zheng <uwu@icenowy.me>, Guodong Xu <docular.xu@gmail.com>
+To: Thomas Zimmermann <tzimmermann@suse.de>
 Cc: David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
  Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>, Yixun Lan <dlan@kernel.org>,
- Vinod Koul <vkoul@kernel.org>, Neil Armstrong <neil.armstrong@linaro.org>,
- Haylen Chu <heylenay@4d2.org>, Michael Turquette <mturquette@baylibre.com>,
- Stephen Boyd <sboyd@kernel.org>, Brian Masney <bmasney@redhat.com>,
- Philipp Zabel <p.zabel@pengutronix.de>, Paul Walmsley <pjw@kernel.org>,
- Palmer Dabbelt <palmer@dabbelt.com>, Albert Ou <aou@eecs.berkeley.edu>,
- Alexandre Ghiti <alex@ghiti.fr>, Yao Zi <me@ziyao.cc>,
+ Maxime Ripard <mripard@kernel.org>, Rob Herring <robh@kernel.org>,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
+ Yixun Lan <dlan@kernel.org>, Vinod Koul <vkoul@kernel.org>,
+ Neil Armstrong <neil.armstrong@linaro.org>, Haylen Chu <heylenay@4d2.org>,
+ Michael Turquette <mturquette@baylibre.com>, Stephen Boyd <sboyd@kernel.org>, 
+ Brian Masney <bmasney@redhat.com>, Philipp Zabel <p.zabel@pengutronix.de>,
+ Paul Walmsley <pjw@kernel.org>, Palmer Dabbelt <palmer@dabbelt.com>,
+ Albert Ou <aou@eecs.berkeley.edu>, Alexandre Ghiti <alex@ghiti.fr>,
+ Yao Zi <me@ziyao.cc>,
  Uwe =?utf-8?q?Kleine-K=C3=B6nig?= <u.kleine-koenig@baylibre.com>,
- dri-devel@lists.freedesktop.org,
+ Guodong Xu <docular.xu@gmail.com>, dri-devel@lists.freedesktop.org,
  linux-riscv@lists.infradead.org, devicetree@vger.kernel.org,
  spacemit@lists.linux.dev, linux-kernel@vger.kernel.org,
  linux-phy@lists.infradead.org, linux-clk@vger.kernel.org
-Subject: Re: [PATCH v2 15/17] riscv: dts: spacemit: k3-pico-itx: enable the
- DisplayPort output
-In-Reply-To: <9d97d5dbcc619a9c52904ff8c6704a91fe8351e7.camel@icenowy.me>
+Subject: Re: [PATCH v2 08/17] drm/spacemit: add Saturn DPU core types, cmdlist
+ and display MMU
+In-Reply-To: <0dc12950-68e7-4c30-9138-23539e676e1a@suse.de>
 References: <20260809-k3-display-v2-0-327d7910bf71@gmail.com>
- <20260809-k3-display-v2-15-327d7910bf71@gmail.com>
- <576146d4f2752c3c3f6ec6c42812cb9956406383.camel@icenowy.me>
- <f4b8c87eb0676500661ebea67363ac27.docular.xu@gmail.com>
- <9d97d5dbcc619a9c52904ff8c6704a91fe8351e7.camel@icenowy.me>
+ <20260809-k3-display-v2-8-327d7910bf71@gmail.com>
+ <0dc12950-68e7-4c30-9138-23539e676e1a@suse.de>
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
 X-Archived-By: <archiver.kernel.org>
@@ -112,37 +110,34 @@ X-Spam-Status: No, score=-2.8 required=3.0 tests=BAYES_00,DKIM_SIGNED,
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-Hi Icenowy, Guodong,
+Hi Thomas,
 
-On Wed, 18 Nov 2026 14:25:38 +0800, Icenowy Zheng wrote:
-> 在 2026-11-17二的 15:51 -0500，Guodong Xu写道：
-> > On Thu, 03 Sep 2026 20:09:42 +0800, Icenowy Zheng wrote:
-> > > The connector available on the Pico-ITX mainboard isn't a
-> > > DisplayPort
-> > > port -- it's a USB Type-C port instead.
-> >
-> > Right, it is a Type-C receptacle, and the commit message should say
-> > so.
-
-Agreed; v3 will say Type-C receptacle in the commit message.
-
-> > > I think you need to model the Type-C port and alt functions of it.
-> >
-> > I am not sure that can be done on this board. The redriver/mux in
-> > front of the receptacle and the PD controller that steers it both
-> > sit on the EC's own I2C bus, and their interrupt goes to the EC too.
-> > The SoC has no bus to either chip; all it gets from that side is the
-> > DP1 HPD line.
+On Mon, 14 Sep 2026 16:10:25 +0200, Thomas Zimmermann wrote:
+> Hi
 >
-> The ChromeOS EC firmware exposes some control for a Type-C port, you
-> can search for `google,cros-ec-typec` and `google,extcon-usbc-cros-ec`
-> compatible string in arch/arm64/boot/dts for more details.
+> Am 09.08.26 um 15:14 schrieb Cody Kang via B4 Relay:
+> > From: Cody Kang <codykang.hk@gmail.com>
+> >
+> > Register programming of the Saturn DPU is batched: the driver builds
+> > per-module register lists in memory and the hardware command-list
+> > engine replays them at frame boundaries, while scanout buffers are
+> > mapped through the DPU's private address translation unit (DMMU)
+> > rather than scanned out by physical address.
 >
-> Although the K3 Pico ITX hardware connects the EC to the SoC with some
-> not-so-embedded interface (eSPI), which needs to be handled first.
+> I've looked through the code in patch 10. How does a plane interact with 
+> the hardware? It apparently has its own command list, but there's mostly 
+> code for the CRTC update.
 
-Thanks for the pointers, and thanks both for the review. With that, I
-think in v3 I will leave the dp1_out endpoint unconnected, as it is in
-v2. Let me know if you disagree.
+Thanks for the review. A plane programs the hardware through a
+command list. Its atomic_update fills the list with the registers of
+the plane's read channel, the driver points the command-list engine
+at it, and the hardware replays it once the driver raises
+config-ready.
+
+In v2 the plane only fills its list; sorting the lists and handing
+them to the engine is done in the CRTC update, which is why most of
+the code is there. v3 will move that into the plane: each plane
+builds and submits its own list in atomic_update, and the CRTC flush
+only submits its own list, for the composer, and raises config-ready.
 
 Cody
