@@ -2,56 +2,60 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F2B83606A32F
-	for <dri-devel@archiver.kernel.org>; Wed, 18 Nov 2026 08:01:19 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7F3EC606A31C
+	for <dri-devel@archiver.kernel.org>; Wed, 18 Nov 2026 08:05:16 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=SPvxqWAd
+	dkim=pass (2048-bit key, unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=ef1MtHjR
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 2087010E711;
-	Wed, 18 Nov 2026 08:01:14 +0000 (UTC)
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.10])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 72D0C10E711
- for <dri-devel@lists.freedesktop.org>; Wed, 18 Nov 2026 08:01:07 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id BF17F10E740;
+	Wed, 18 Nov 2026 08:05:10 +0000 (UTC)
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.21])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id D1AD010E76E
+ for <dri-devel@lists.freedesktop.org>; Wed, 18 Nov 2026 08:05:04 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1794988868; x=1826524868;
- h=from:to:cc:subject:date:message-id:in-reply-to:
- references:mime-version:content-transfer-encoding;
- bh=7s1YEUu0h5LWCmwc+9PJTO+WoXjBAvVCtfdBExqnlJU=;
- b=SPvxqWAdNyq/bI0sBtkA61aGOZ2GXskADoxfjzWgoBRUAiRQP+5A6+dB
- 8wIMcrL+YDKy8yXvENNPLjjylyBdlP5TaITvnOn7BeSAkyvjhgzj8802L
- xfdI3CV6E4kxuN/fawuJmyX0qgXSGCU1ejMljHyecrVC47kiFa6KX65Nt
- QAoTY1ESPW0RZUG4VnNz2afHSGFcw7n5iybkHsy6tiNccP5f5cQUOieq9
- ch8r7aQuVEMG8jwf6RBMCl0xcskR9EMXBXpUyf2/Ru00NAqok18u1lBuJ
- Hkb1mKyR1kUw/hCyHiznutXoFKjSiJqXWceWJZBZzDBHVmlcuLzPbZxdw A==;
-X-CSE-ConnectionGUID: w3wrqJNZQdWWZVdilpU3Ag==
-X-CSE-MsgGUID: rjNkk2uYTUqRHZGCnTmD+A==
-X-IronPort-AV: E=McAfee;i="6800,10657,11969"; a="3706669"
+ t=1794989104; x=1826525104;
+ h=message-id:date:mime-version:subject:to:cc:references:
+ from:in-reply-to:content-transfer-encoding;
+ bh=XlKMKL/pYXQeh7adDpDkdCsyRNwSDFhWhUZt0OSipHg=;
+ b=ef1MtHjRZYdGwdETQmZ36TAR8OS7dNN63I6JdkNgf9FQ6JlI4k/FaTIr
+ ZorI/pr+GFFYxTvmOrbitFZhU+PYom2kHdzcMQWiqe3FUO4Ovt+OhX20K
+ ZmrePUWGMZV990VR7yb3vdXwwhm/N9PszK//TVwnYMMLI2AGkTEWyNHQ0
+ 1W9n5g3+6JXl2auOYemw9ZS+652ohkbVfZshIkPtCIfLnMpDWhYjXaBsV
+ H27MSVcjeYL69c0R+Ga9T3GZr9a2WVMT8U5yHMI+5cudtXSpAaYX2trc2
+ DVIHML5YGRqCcgWggquJKdwB+fHB5O2iiO3XG4k794jATDYiOkyqfnazt g==;
+X-CSE-ConnectionGUID: WX+iunWwSWmoDWT0cYZ//w==
+X-CSE-MsgGUID: VDDdpiz5Ql+LmGayQPFsRg==
+X-IronPort-AV: E=McAfee;i="6800,10657,11969"; a="3866205"
 X-IronPort-AV: E=Sophos;i="6.27,219,1787036400"; 
-   d="scan'208";a="3706669"
-Received: from fmviesa010.fm.intel.com ([10.60.135.150])
- by orvoesa102.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 18 Nov 2026 00:00:55 -0800
-X-CSE-ConnectionGUID: lyTRmHbiS6ac+zR6ybOY3g==
-X-CSE-MsgGUID: eiQLTdwBR6GAZSGILnEBIg==
+   d="scan'208";a="3866205"
+Received: from orviesa005.jf.intel.com ([10.64.159.145])
+ by orvoesa113.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 18 Nov 2026 00:04:56 -0800
+X-CSE-ConnectionGUID: CiGSPustT1Cf9l+yJ9HcmA==
+X-CSE-MsgGUID: TNSujRRHRHCfrVoao9YGuQ==
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,219,1787036400"; d="scan'208";a="10599471"
-Received: from yufei-super-server.sh.intel.com ([10.239.92.104])
+X-IronPort-AV: E=Sophos;i="6.27,219,1787036400"; 
+   d="scan'208";a="9956414"
+Received: from unknown (HELO [10.94.255.201]) ([10.94.255.201])
  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 18 Nov 2026 00:00:52 -0800
-From: "Yu, Fei" <fei.yu@intel.com>
-To: tvrtko.ursulin@igalia.com
-Cc: dri-devel@lists.freedesktop.org, kernel-dev@igalia.com, mcanal@igalia.com,
- christian.koenig@amd.com, fei.yu@intel.com
-Subject: Re: [PATCH 3/3] drm/syncobj: Add a fast path to drm_syncobj_array_find
-Date: Wed, 18 Nov 2026 16:06:43 +0800
-Message-ID: <20261118080643.180983-1-fei.yu@intel.com>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20261117103916.9101-4-tvrtko.ursulin@igalia.com>
-References: <20261117103916.9101-4-tvrtko.ursulin@igalia.com>
+ 18 Nov 2026 00:04:55 -0800
+Message-ID: <d87dbef5-e8b1-418c-87c8-e1ba55fb4b68@linux.intel.com>
+Date: Wed, 18 Nov 2026 09:04:52 +0100
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2] accel/ivpu: Remove sched_mode module parameter
+To: Jeff Hugo <jeff.hugo@oss.qualcomm.com>,
+ Andrzej Kacprowski <andrzej.kacprowski@linux.intel.com>,
+ dri-devel@lists.freedesktop.org
+Cc: oded.gabbay@gmail.com, lizhi.hou@amd.com, dawid.osuchowski@linux.intel.com
+References: <20261117204419.2841928-1-andrzej.kacprowski@linux.intel.com>
+ <2f3d94d3-1f9d-4a88-b500-ce42ff85949d@oss.qualcomm.com>
+Content-Language: en-US
+From: Karol Wachowski <karol.wachowski@linux.intel.com>
+In-Reply-To: <2f3d94d3-1f9d-4a88-b500-ce42ff85949d@oss.qualcomm.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -64,49 +68,34 @@ List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-18.8 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
-	DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
-	INCLUDES_CR_TRAILER,INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,
-	SPF_PASS,USER_AGENT_GIT autolearn=ham autolearn_force=no version=4.0.1
+X-Spam-Status: No, score=-10.3 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
+	DKIM_SIGNED,DKIM_VALID,HEADER_FROM_DIFFERENT_DOMAINS,
+	INCLUDES_CR_TRAILER,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,
+	USER_AGENT_SANE_1 autolearn=ham autolearn_force=no version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-From: Fei Yu <fei.yu@intel.com>
+On 17-Nov-26 21:52, Jeff Hugo wrote:
+> On 11/17/2026 1:44 PM, Andrzej Kacprowski wrote:
+>> OS scheduling supports only a limited subset of NPU functionality and
+>> is not intended for production use. However, the sched_mode module
+>> parameter exposes it as a regular configuration option, and the driver
+>> silently falls back to it when the firmware JSM API is older than 3.24.
+>>
+>> Make hardware scheduling the only production mode:
+>> - remove the sched_mode module parameter,
+>> - require BOOT API 3.17 and JSM API 3.24 or newer, and fail probe with
+>>    a message requesting a firmware update otherwise,
+>> - allow OS scheduling on pre-60XX devices only through the
+>>    IVPU_TEST_MODE_HWS_DISABLE test_mode bit, for debugging.
+>>
+>> The initial 37xx and 40xx firmware added to linux-firmware in March 2025
+>> reports BOOT and JSM APIs 3.27, meeting both minimum requirements.
+>>
+>> Extend IVPU_FW_CHECK_API_COMPAT() to accept minimum major and minor
+>> versions so both API requirements can be checked explicitly.
+>>
+>> Signed-off-by: Andrzej Kacprowski <andrzej.kacprowski@linux.intel.com>
+> Reviewed-by: Jeff Hugo <jeff.hugo@oss.qualcomm.com>
 
-On 11/17/26 10:39, Tvrtko Ursulin wrote:
-> Therefore lets add a fast path to bypass the kmalloc_array/kfree and use a
-> pre-allocated stack array for those cases.
-
-Same as in 2/3, it's vmemdup_array_user()/kvmalloc_objs() now.
-
-> @@ -1265,6 +1265,9 @@ static int drm_syncobj_array_wait(struct drm_device *dev,
->  static int drm_syncobj_array_find(struct drm_file *file_private,
->  				  void __user *user_handles,
->  				  uint32_t count_handles,
-> +				  uint32_t *stack_handles,
-> +				  struct drm_syncobj **stack_syncobjs,
-> +				  u32 stack_count,
->  				  struct drm_syncobj ***syncobjs_out)
-
-The handles array is freed before drm_syncobj_array_find() returns,
-so the callers don't need to provide it. A local
-"u32 stack_handles[DRM_SYNCOBJ_FAST_PATH_ENTRIES]" in
-drm_syncobj_array_find() would do, and the six callers would only
-declare and pass stack_syncobjs. Not a must, but it saves some
-boilerplate. (Also u32 vs. uint32_t is mixed here.)
-
-> -	syncobjs = kvmalloc_objs(*syncobjs, count_handles);
-> -	if (syncobjs == NULL) {
-> -		ret = -ENOMEM;
-> -		goto err_free_handles;
-> +		syncobjs = kvmalloc_objs(*syncobjs, count_handles);;
-
-Double semicolon (checkpatch warns).
-
-The DRM_SYNCOBJ_MAX_HANDLES check stays in front of the fast/slow
-split, good. With the ";;" fixed:
-
-Reviewed-by: Fei Yu <fei.yu@intel.com>
-
-Thanks,
-Fei
+Thanks, applied to drm-misc-next.
