@@ -2,82 +2,61 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 426A9606A31C
-	for <dri-devel@archiver.kernel.org>; Wed, 18 Nov 2026 13:47:24 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=S3belS6I
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 15F45606A31C
+	for <dri-devel@archiver.kernel.org>; Wed, 18 Nov 2026 13:47:25 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id E2A9410FCC5;
-	Wed, 18 Nov 2026 13:47:10 +0000 (UTC)
-Received: from mail-wm1-f48.google.com (mail-wm1-f48.google.com
- [209.85.128.48])
- by gabe.freedesktop.org (Postfix) with ESMTPS id D68E110F6A4
- for <dri-devel@lists.freedesktop.org>; Tue, 17 Nov 2026 12:39:55 +0000 (UTC)
-Received: by mail-wm1-f48.google.com with SMTP id
- 5b1f17b1804b1-4a9a8d6cea8so11252395e9.1
- for <dri-devel@lists.freedesktop.org>; Tue, 17 Nov 2026 04:39:55 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20260707; t=1794919194; x=1795523994; darn=lists.freedesktop.org;
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:date:subject:cc:to:from:from:to:cc:subject:date
- :message-id:reply-to:content-type;
- bh=EWIILX83ZCKLQmbiG76q0UMzDBvPWPGt2S4uq8LCJ/Y=;
- b=S3belS6IgcZ7fwjgLurZAnywa0PyEz3sYYFB/tWIB1QaiIianapmpmfmL7lur0LyQB
- t5LwIWbZ3Y2MWnXAGhcR1Y3eC2O/3H4r6GEYVCb6utQt+vqZHJu7lUUHTmb1QmSBg+x4
- Bx50MXhgnwquEfRYijDefLovmYIWgkiJrxL3hUhu4phJklVV1g7xTWr04TtM/If9XSlS
- 7jCkdD72/oQjouHl29qKJI0CBqz3iVryejivQjFoXXZinOBdiRiV8s76lZow4jHI5whI
- OtDab9kPEYXKQ/f0xC2qOyyfOmSVU3wcfQdMqFqiNEJ6cwvwCuR6DM8PVB0E6nxlqgbu
- RBWQ==
+	by gabe.freedesktop.org (Postfix) with ESMTP id B3EC210FCCC;
+	Wed, 18 Nov 2026 13:47:15 +0000 (UTC)
+Received: from mail-dl2-f6.google.com (mail-dl2-f6.google.com [74.125.229.134])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 4F37610F89F
+ for <dri-devel@lists.freedesktop.org>; Wed, 18 Nov 2026 09:47:43 +0000 (UTC)
+Received: by mail-dl2-f6.google.com with SMTP id
+ a92af1059eb24-1b3a6a69818so83525c88.1
+ for <dri-devel@lists.freedesktop.org>; Wed, 18 Nov 2026 01:47:43 -0800 (PST)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20260707; t=1794919194; x=1795523994;
+ d=1e100.net; s=20260707; t=1794995262; x=1795600062;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
  :to:cc:subject:date:message-id:reply-to:content-type;
- bh=EWIILX83ZCKLQmbiG76q0UMzDBvPWPGt2S4uq8LCJ/Y=;
- b=PWbTjcX+KKbyXM9q03Q2T6FsY3eNLNV+Ky5yezNpKiB4h0CI7EExE/acQbLBBbJoQC
- LjS6RzJV9GjDgEFIwzlk1gzrSVhGjZDGp2Qw2ABjectgTXp7QTYB/7v+ftmNlqOKV26L
- JWhLdNdcjovb7xWC2BrZLLy5GM4IhXQBhryJ23o9mxd9rPYTu8NPCIOugPBG8/9WDZvE
- zMKh2T1KhrFdHgfD/kVXHHdE8KjJ7GeyhWlcu1ROoWgpPqxhuCgY/J8je3bulZaTgTCL
- djk0npZnRj6WF3fwNoP0rLZ+5DuMIvXgbpqjFF4T8zxgw4K0BabhzpNcxD6vT7OjvDQO
- yAqA==
-X-Forwarded-Encrypted: i=1;
- AL+hErEODIJ3JYwopqriLTJAc6BdRWhth3KQP0yN0gEpvP9OQStbPcKnFp2AVR8G4tVjmfzgw3O25/svwLk=@lists.freedesktop.org
-X-Gm-Message-State: APuU4Z+uMfD3EFlotR/+/ov3VIvoSnWUNVD9ruNe+/E2gYsQf3CSRxA1
- rE7lMR86D/mrc1honz22IikYssUx2k48oGaHAGtxUN/enjwh/Wk4Paqb
-X-Gm-Gg: AYBFou167dQDbhx9SffeffYM6ylxX/IZQaMtmeM0zwVe8ITkUxwjr4GbJknZ8iMrbKy
- bAjHUEwQJfCRXkDbbBbLxdNdlsJTSQuE0ctrcVLHIE7fxyC6W7W01qkyw4aoZukxi7W1LCBhLzR
- QWtKWdtsDt3e/3weMk0T6AA5dvoa/9bltlQ/hc8Qc5L7ct83K6bgbV1rR1g0COJRGYyEb9J5VFI
- XT+JMbEBLtnt5He4ydGSwnQdBcpoPh5BRE95eSAWwo4h1p4D05i5dRsgOYwXM15we7guJ4z2pq0
- O5+iso9e5W7eQUidYxnKmPWJIZn7IH52Oc8yZNwTlMPD/h5T3RDAS4J1DBNOoW+coZVtpFOrmKJ
- QKLUP5xLAKxqxpnu4lsjWFRBiz8p4mTiHtt/77wCx0X/F93pW6f6rTXwWepIoiDxbA/msVGG4s5
- zUnB9LsYI+/ty4RWssfVLi9WDGjPt4oVO11BGTePFN3HBwSk7+NxjjfeFcLJXlBQmPVhddFN7Vs
- YNFXr1Xvfs6l7FVYb5vtxbcC5qEgZHgDNBV9d32vZSunI2SZoNaVgWJjD/V3I8Z3FASYup6pDTa
- +vvZA2/suLTEBf60Hpu2YeYVtbz0x7y6Ge8x3myEucMxATM19VENyWF68nk+RZ29itFwyg==
-X-Received: by 2002:a05:600c:b99:b0:4bb:5d38:259f with SMTP id
- 5b1f17b1804b1-4bb7838bdaamr53261735e9.12.1794919193994; 
- Tue, 17 Nov 2026 04:39:53 -0800 (PST)
-Received: from DESKTOP-BJ3EVC4.lan (94-21-223-203.pool.digikabel.hu.
- [94.21.223.203]) by smtp.gmail.com with ESMTPSA id
- 5b1f17b1804b1-4bb783f8154sm71474905e9.4.2026.11.17.04.39.52
+ bh=iYdl6eyKs5fIOVCFa3VvRxi3TSrFPXOeEaR5IAbyi34=;
+ b=BfPR6U17w5aNsIJNFKjZLdFi2JtI74WZTKv8L404mwXWg1yAAKcmfPyLn6ClnH1FLw
+ xodgeSp8YhTh6TruwgybFWl+fjeR+ca33DttZsmZcYfoLUqQWtAZyjR6cYAqiJ/xr4Zx
+ /y7/95QGknX7mC0dlzj2FDQRslgZOLVSZQNnZefzn5ZqbetA6nGgFsJYyevp1ItI0i5X
+ As+fo0fBjEvWVTJGl4HZgSaQEl+QzcnDkaTUfdlXh7Cdv8IvshAQF8qgxsJtWnNDSBUy
+ S5R+IWTwjTKiSQ8BSCE6LJtNiabGMpVCgQoilWIzBLDCfk4unv6kCEN4/4rTwU4nxBio
+ a5WQ==
+X-Gm-Message-State: APuU4Z+4IEnZnQiOTYpLc6+otZaoX+k4d6yP1NbH2ktdTxrIawsn1NAP
+ NgXMPVMBDBWCmcjSmel3HKvWQb+Vr/4s+AUs48BM+ahbZzyBTfXKbweX
+X-Gm-Gg: AYBFou2r/cJ83RhbIHACiKCK8zuqQAeT3+2E7gzJrlEEVcGSAe7bmWG7K5r+VVWgPxY
+ udYuleMzOL2HdahSnyVZjfKqwjoJM0TNZC9jiuqQPZ8Q1EsGo+1epVP9BxnJS7RplxLKoMBySdP
+ 9lUvW/WZ1cn+7Vy4+ByrFr14NdDd2Pv48bgu/rGQpucn6WHQYfWCvlTHlDd+fsQgFrqyTEnnK8d
+ V01I4yM/SKbYlky93jnhA1RaR22OtiWoQKgzaw6ytzhICbF8ZS6zhHmkY9A5tOCoxcbTCWiAlNh
+ XpqCkr/uKzEUuTWHFXbob9OIr1kv34vGM/F/Vr5FaZvIHm/xA8JcneJUC7J2qxyzW2GJhR3ajjw
+ mMoz0EehCmFc0HFoR82RbCI12LTlC3jIUp2qjxYycY6PfWpdNyKUkzm4UYkSBTY03calXHPhR/P
+ qvTdm8HS+8ZAbua36d8QYFqxFlOgYgarKzrUrUQTZwzgOD9QDkcrCxH5naH2xAT72ii36A2F47v
+ sIVSAtUVf0JMJ/JqgnHYHpp4YRQIbhJUHm+csZvrMRHT8fWfnrIc30gLecPNjSCLU6jyx/ANowv
+ 5/uoW3ArMjdlAJSbI9AeHAWohw==
+X-Received: by 2002:a05:7022:e803:b0:1b2:490b:6fdd with SMTP id
+ a92af1059eb24-1b543d0db8fmr2322014c88.24.1794995262495; 
+ Wed, 18 Nov 2026 01:47:42 -0800 (PST)
+Received: from pjhArchLinux ([199.102.217.182])
+ by smtp.gmail.com with ESMTPSA id
+ a92af1059eb24-1b544784017sm5326510c88.4.2026.11.18.01.47.40
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Tue, 17 Nov 2026 04:39:53 -0800 (PST)
-From: rofikkerneldev <rofikcoga@gmail.com>
-To: linux-arm-msm@vger.kernel.org
-Cc: devicetree@vger.kernel.org, dri-devel@lists.freedesktop.org,
- linux-input@vger.kernel.org, linux-kernel@vger.kernel.org,
- Bjorn Andersson <andersson@kernel.org>,
- Konrad Dybcio <konradybcio@kernel.org>, Rob Herring <robh@kernel.org>,
+ Wed, 18 Nov 2026 01:47:42 -0800 (PST)
+From: pjh456 <147148383@qq.com>
+To: Neil Armstrong <neil.armstrong@linaro.org>
+Cc: dri-devel@lists.freedesktop.org, Jessica Zhang <jesszhan0024@gmail.com>,
+ Maxime Ripard <mripard@kernel.org>, Rob Herring <robh@kernel.org>,
  Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>,
- Neil Armstrong <neil.armstrong@linaro.org>,
- Dmitry Torokhov <dmitry.torokhov@gmail.com>,
- rofikkerneldev <rofikcoga@gmail.com>
-Subject: [PATCH v1 05/11] drm/panel: add LG SW43103 panel driver
-Date: Tue, 17 Nov 2026 13:39:40 +0100
-Message-Id: <20261117123946.668557-6-rofikcoga@gmail.com>
-X-Mailer: git-send-email 2.39.5
-In-Reply-To: <20261117123946.668557-1-rofikcoga@gmail.com>
-References: <20261117123946.668557-1-rofikcoga@gmail.com>
+ Conor Dooley <conor+dt@kernel.org>
+Subject: [PATCH v2 1/3] dt-bindings: vendor-prefixes: add Shenzhen Industio
+ Technology
+Date: Wed, 18 Nov 2026 17:47:18 +0800
+Message-ID: <20261118094720.110127-2-147148383@qq.com>
+X-Mailer: git-send-email 2.56.1
+In-Reply-To: <20261118094720.110127-1-147148383@qq.com>
+References: <20261118094720.110127-1-147148383@qq.com>
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
@@ -93,675 +72,35 @@ List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-15.8 required=3.0 tests=BAYES_00,DKIM_SIGNED,
-	DKIM_VALID,DKIM_VALID_AU,FREEMAIL_FORGED_FROMDOMAIN,FREEMAIL_FROM,
-	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
-	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,USER_AGENT_GIT
-	autolearn=unavailable autolearn_force=no version=4.0.1
+X-Spam-Status: No, score=-13.8 required=3.0 tests=BAYES_00,
+	FREEMAIL_FORGED_FROMDOMAIN,FREEMAIL_FROM,HEADER_FROM_DIFFERENT_DOMAINS,
+	INCLUDES_CR_TRAILER,INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,
+	SPF_PASS,USER_AGENT_GIT autolearn=ham autolearn_force=no version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-Add support for the 1080x2460 SW43103 AMOLED panel. Handle power and
-reset sequencing, DCS backlight control, and the DSC configuration
-required by the panel.
+Add the "industio" vendor prefix for Shenzhen Industio Technology
+Co., Ltd., whose Purple Pi OH RK3566 board is supported by a
+follow-up patch.
 
-Signed-off-by: rofikkerneldev <rofikcoga@gmail.com>
+Signed-off-by: pjh456 <147148383@qq.com>
 ---
- MAINTAINERS                              |   1 +
- drivers/gpu/drm/panel/Kconfig            |  13 +
- drivers/gpu/drm/panel/Makefile           |   1 +
- drivers/gpu/drm/panel/panel-lg-sw43103.c | 594 +++++++++++++++++++++++
- 4 files changed, 609 insertions(+)
- create mode 100644 drivers/gpu/drm/panel/panel-lg-sw43103.c
+ Documentation/devicetree/bindings/vendor-prefixes.yaml | 2 ++
+ 1 file changed, 2 insertions(+)
 
-diff --git a/MAINTAINERS b/MAINTAINERS
-index bca5065166c25..abdaabe16ed53 100644
---- a/MAINTAINERS
-+++ b/MAINTAINERS
-@@ -15235,6 +15235,7 @@ LG SW43103 PANEL DRIVER
- M:	rofikkerneldev <rofikcoga@gmail.com>
- S:	Maintained
- F:	Documentation/devicetree/bindings/display/panel/lg,sw43103.yaml
-+F:	drivers/gpu/drm/panel/panel-lg-sw43103.c
- 
- LG V60 THINQ 5G (TIMELM) SUPPORT
- M:	rofikkerneldev <rofikcoga@gmail.com>
-diff --git a/drivers/gpu/drm/panel/Kconfig b/drivers/gpu/drm/panel/Kconfig
-index 7a520b4d60fef..e765b9c7b02e6 100644
---- a/drivers/gpu/drm/panel/Kconfig
-+++ b/drivers/gpu/drm/panel/Kconfig
-@@ -540,6 +540,19 @@ config DRM_PANEL_LG_LG4573
- 	  Say Y here if you want to enable support for LG4573 RGB panel.
- 	  To compile this driver as a module, choose M here.
- 
-+config DRM_PANEL_LG_SW43103
-+	tristate "LG / BOE SW43103 panel"
-+	depends on OF
-+	depends on DRM_MIPI_DSI
-+	depends on BACKLIGHT_CLASS_DEVICE
-+	select DRM_DISPLAY_DSC_HELPER
-+	select DRM_DISPLAY_HELPER
-+	help
-+	  Say Y here if you want to enable support for LG / BOE SW43103 panel.
-+	  The panel has a 1080x2460@60Hz resolution and uses DSC command mode.
-+	  It is used on devices such as the LG V60 ThinQ 5G (timelm).
-+	  To compile this driver as a module, choose M here.
-+
- config DRM_PANEL_LG_SW43408
- 	tristate "LG SW43408 panel"
- 	depends on GPIOLIB
-diff --git a/drivers/gpu/drm/panel/Makefile b/drivers/gpu/drm/panel/Makefile
-index da5175909d540..c6f3280cd5828 100644
---- a/drivers/gpu/drm/panel/Makefile
-+++ b/drivers/gpu/drm/panel/Makefile
-@@ -53,6 +53,7 @@ obj-$(CONFIG_DRM_PANEL_LINCOLNTECH_LCD197) += panel-lincolntech-lcd197.o
- obj-$(CONFIG_DRM_PANEL_LG_LB035Q02) += panel-lg-lb035q02.o
- obj-$(CONFIG_DRM_PANEL_LG_LD070WX3) += panel-lg-ld070wx3.o
- obj-$(CONFIG_DRM_PANEL_LG_LG4573) += panel-lg-lg4573.o
-+obj-$(CONFIG_DRM_PANEL_LG_SW43103) += panel-lg-sw43103.o
- obj-$(CONFIG_DRM_PANEL_LG_SW43408) += panel-lg-sw43408.o
- obj-$(CONFIG_DRM_PANEL_LXD_M9189A) += panel-lxd-m9189a.o
- obj-$(CONFIG_DRM_PANEL_MAGNACHIP_D53E6EA8966) += panel-magnachip-d53e6ea8966.o
-diff --git a/drivers/gpu/drm/panel/panel-lg-sw43103.c b/drivers/gpu/drm/panel/panel-lg-sw43103.c
-new file mode 100644
-index 0000000000000..caab54e0d1153
---- /dev/null
-+++ b/drivers/gpu/drm/panel/panel-lg-sw43103.c
-@@ -0,0 +1,594 @@
-+// SPDX-License-Identifier: GPL-2.0+
-+/*
-+ * Copyright (C) 2026 Rofik Kernel <rofikcoga@gmail.com>
-+ * Panel driver for LG / BOE SW43103 FHD+ DSC Command Mode AMOLED panel
-+ * (LG V60 ThinQ 5G - timelm)
-+ */
-+
-+#include <linux/backlight.h>
-+#include <linux/delay.h>
-+#include <linux/gpio/consumer.h>
-+#include <linux/module.h>
-+#include <linux/of.h>
-+#include <linux/regulator/consumer.h>
-+
-+#include <video/mipi_display.h>
-+
-+#include <drm/drm_mipi_dsi.h>
-+#include <drm/drm_panel.h>
-+#include <drm/drm_probe_helper.h>
-+#include <drm/display/drm_dsc.h>
-+#include <drm/display/drm_dsc_helper.h>
-+
-+#define NUM_SUPPLIES 2
-+
-+struct sw43103_panel {
-+	struct drm_panel base;
-+	struct mipi_dsi_device *link;
-+
-+	struct regulator_bulk_data supplies[NUM_SUPPLIES];
-+
-+	struct gpio_desc *reset_gpio;
-+	struct gpio_desc *enable_gpio;
-+
-+	struct drm_dsc_config dsc;
-+};
-+
-+static inline struct sw43103_panel *to_panel_info(struct drm_panel *panel)
-+{
-+	return container_of(panel, struct sw43103_panel, base);
-+}
-+
-+static void sw43103_init_sequence(struct mipi_dsi_multi_context *ctx)
-+{
-+	/* Manufacturer Command Protect Unlock */
-+	mipi_dsi_dcs_write_seq_multi(ctx, 0xb0, 0xa1);
-+
-+	/* Column Address Set: 0 to 1079 (0x0437) */
-+	mipi_dsi_dcs_write_seq_multi(ctx, MIPI_DCS_SET_COLUMN_ADDRESS,
-+				     0x00, 0x00, 0x04, 0x37);
-+
-+	/* Page Address Set: 0 to 2459 (0x099b) */
-+	mipi_dsi_dcs_write_seq_multi(ctx, MIPI_DCS_SET_PAGE_ADDRESS,
-+				     0x00, 0x00, 0x09, 0x9b);
-+
-+	/* HBM Mode2 */
-+	mipi_dsi_dcs_write_seq_multi(ctx, 0x55, 0x08);
-+
-+	/* Partial Address Row Set: 0 to 2459 */
-+	mipi_dsi_dcs_write_seq_multi(ctx, MIPI_DCS_SET_PARTIAL_ROWS,
-+				     0x00, 0x00, 0x09, 0x9b);
-+
-+	/* Partial Address Column Set: 0 to 1079 */
-+	mipi_dsi_dcs_write_seq_multi(ctx, MIPI_DCS_SET_PARTIAL_COLUMNS,
-+				     0x00, 0x00, 0x04, 0x37);
-+
-+	/* Tear Effect On */
-+	mipi_dsi_dcs_set_tear_on_multi(ctx, MIPI_DSI_DCS_TEAR_MODE_VBLANK);
-+
-+	/* Manufacturer Command Protect */
-+	mipi_dsi_dcs_write_seq_multi(ctx, 0xb0, 0xca);
-+
-+	/* Sleep Out */
-+	mipi_dsi_dcs_exit_sleep_mode_multi(ctx);
-+	mipi_dsi_msleep(ctx, 120);
-+
-+	/* MCS Lv1 */
-+	mipi_dsi_dcs_write_seq_multi(ctx, 0xb0, 0xa1);
-+
-+	/* Workaround for AOD VBP Issue */
-+	mipi_dsi_dcs_write_seq_multi(ctx, 0xb3,
-+				     0x91, 0x49, 0x00, 0x0f, 0x0c, 0x00,
-+				     0x0f, 0x0c, 0x28, 0x00, 0x02, 0x14);
-+
-+	/* Global IRC */
-+	mipi_dsi_dcs_write_seq_multi(ctx, 0xb0, 0xa5);
-+	mipi_dsi_dcs_write_seq_multi(ctx, 0xb1,
-+				     0x61, 0xc0, 0x00, 0x00, 0x00, 0x10, 0xff);
-+	mipi_dsi_dcs_write_seq_multi(ctx, 0xb2,
-+				     0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
-+				     0x00, 0xea, 0x6b, 0x60, 0x58, 0x50, 0x49, 0x41,
-+				     0x3a, 0x33, 0x2c, 0x25, 0x1e, 0x17, 0x11, 0x0b,
-+				     0x05, 0x6c, 0x61, 0x58, 0x50, 0x48, 0x40, 0x38,
-+				     0x31, 0x29, 0x22, 0x1b, 0x14, 0x0d, 0x06, 0x00,
-+				     0x62, 0x57, 0x4d, 0x44, 0x3c);
-+	mipi_dsi_dcs_write_seq_multi(ctx, 0xb3,
-+				     0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
-+				     0x00, 0x34, 0x2d, 0x25, 0x1e, 0x16, 0x0f, 0x08,
-+				     0x01, 0x00, 0x57, 0x4c, 0x42, 0x3a, 0x31, 0x29,
-+				     0x22, 0x1a, 0x12, 0x0b, 0x03, 0x00, 0x00, 0x4c,
-+				     0x42, 0x38, 0x2e, 0x26, 0x1e, 0x16, 0x0e, 0x07,
-+				     0x00, 0x00, 0x00, 0x45, 0x39);
-+	mipi_dsi_dcs_write_seq_multi(ctx, 0xb4,
-+				     0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
-+				     0x00, 0x2f, 0x25, 0x1c, 0x14, 0x0c, 0x04, 0x00,
-+				     0x00, 0x00, 0x34, 0x2a, 0x21, 0x19, 0x10, 0x09,
-+				     0x01, 0x00, 0x00, 0x00, 0x2e, 0x23, 0x19, 0x10,
-+				     0x08, 0x00, 0x00, 0x00, 0x00, 0x25, 0x1b, 0x11,
-+				     0x08, 0x00, 0x00, 0x00, 0x00);
-+	mipi_dsi_dcs_write_seq_multi(ctx, 0xb5,
-+				     0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x1f,
-+				     0x13, 0x09, 0x00, 0x00, 0x00, 0x00, 0x16, 0x0c,
-+				     0x03, 0x00, 0x00, 0x00, 0x0e, 0x06, 0x00, 0x00,
-+				     0x00, 0x0b, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
-+				     0x00, 0x00, 0x00);
-+	mipi_dsi_dcs_write_seq_multi(ctx, 0xb6,
-+				     0x44, 0x31, 0x10, 0x00, 0x00, 0x64, 0x00, 0x59,
-+				     0xf3, 0x10, 0x80, 0x30, 0x20, 0x00, 0x00, 0x00,
-+				     0x00, 0x00, 0x00, 0x00, 0x00);
-+
-+	/* Global IRC DCC Control */
-+	mipi_dsi_dcs_write_seq_multi(ctx, 0xd1,
-+				     0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
-+				     0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
-+				     0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
-+				     0x00, 0x00, 0x00, 0x00, 0x00, 0xd0, 0x10, 0x02,
-+				     0x00, 0x00, 0x00);
-+
-+	/* V256 Enable */
-+	mipi_dsi_dcs_write_seq_multi(ctx, 0xb0, 0xa3);
-+	mipi_dsi_dcs_write_seq_multi(ctx, 0xee, 0x02, 0x00, 0x00);
-+
-+	/* Gamma Band 1 */
-+	mipi_dsi_dcs_write_seq_multi(ctx, 0xb8,
-+				     0x00, 0x00, 0x83, 0xff, 0x5c, 0x96, 0xf2, 0x29,
-+				     0x84, 0xb4, 0xd2, 0x77, 0x70, 0xa3, 0xcb, 0xe4);
-+	mipi_dsi_dcs_write_seq_multi(ctx, 0xb9,
-+				     0x00, 0x00, 0x02, 0xff, 0x4d, 0xd7, 0xb4, 0xfe,
-+				     0x66, 0xa0, 0xca, 0x6f, 0x6f, 0xa8, 0xce, 0xe6);
-+	mipi_dsi_dcs_write_seq_multi(ctx, 0xba,
-+				     0x00, 0x00, 0x84, 0xff, 0x89, 0x3d, 0xec, 0x28,
-+				     0x83, 0xae, 0xd2, 0x7e, 0x77, 0xa8, 0xcb, 0xe0);
-+
-+	/* Gamma Band 2 */
-+	mipi_dsi_dcs_write_seq_multi(ctx, 0xbb,
-+				     0x00, 0x13, 0x83, 0xff, 0x61, 0x66, 0xed, 0x24,
-+				     0x81, 0xaf, 0xd4, 0x7b, 0x6b, 0xa8, 0xce, 0xe4);
-+	mipi_dsi_dcs_write_seq_multi(ctx, 0xbc,
-+				     0x00, 0x13, 0x02, 0xff, 0x53, 0xb4, 0xad, 0xf4,
-+				     0x5e, 0x9d, 0xc7, 0x71, 0x68, 0xaa, 0xcf, 0xe6);
-+	mipi_dsi_dcs_write_seq_multi(ctx, 0xbd,
-+				     0x00, 0x13, 0x84, 0xff, 0x8a, 0x05, 0xea, 0x23,
-+				     0x80, 0xaf, 0xd3, 0x82, 0x74, 0xab, 0xce, 0xe3);
-+
-+	/* Gamma Band 3 */
-+	mipi_dsi_dcs_write_seq_multi(ctx, 0xbe,
-+				     0x00, 0x37, 0x83, 0xff, 0x77, 0x5c, 0xdd, 0x15,
-+				     0x79, 0xaf, 0xcf, 0x72, 0x6f, 0xa7, 0xce, 0xe5);
-+	mipi_dsi_dcs_write_seq_multi(ctx, 0xbf,
-+				     0x00, 0x37, 0x02, 0xff, 0x65, 0xaa, 0xa0, 0xe5,
-+				     0x52, 0x96, 0xc4, 0x64, 0x6b, 0xa9, 0xcf, 0xe7);
-+	mipi_dsi_dcs_write_seq_multi(ctx, 0xc0,
-+				     0x00, 0x37, 0x83, 0xff, 0x9d, 0xfd, 0xd8, 0x1c,
-+				     0x7c, 0xac, 0xd0, 0x7b, 0x78, 0xac, 0xce, 0xe4);
-+
-+	/* Gamma Band 4 */
-+	mipi_dsi_dcs_write_seq_multi(ctx, 0xc1,
-+				     0x02, 0x24, 0x82, 0xff, 0x7e, 0xf1, 0xcc, 0x05,
-+				     0x6e, 0xa4, 0xca, 0x6f, 0x6e, 0xab, 0xd2, 0xe8);
-+	mipi_dsi_dcs_write_seq_multi(ctx, 0xc2,
-+				     0x02, 0x24, 0x02, 0xff, 0x6e, 0x58, 0xa3, 0xd5,
-+				     0x3d, 0x8c, 0xbc, 0x59, 0x66, 0xaa, 0xd2, 0xe8);
-+	mipi_dsi_dcs_write_seq_multi(ctx, 0xc3,
-+				     0x02, 0x24, 0x83, 0xff, 0x9e, 0x7e, 0xc5, 0x10,
-+				     0x72, 0xab, 0xcd, 0x78, 0x79, 0xb0, 0xd5, 0xe9);
-+
-+	/* Gamma Band 5 */
-+	mipi_dsi_dcs_write_seq_multi(ctx, 0xc4,
-+				     0x04, 0x0f, 0x02, 0xff, 0x88, 0xa4, 0xc4, 0xe9,
-+				     0x60, 0xa0, 0xc8, 0x64, 0x6b, 0xac, 0xd3, 0xe9);
-+	mipi_dsi_dcs_write_seq_multi(ctx, 0xc5,
-+				     0x04, 0x0f, 0x02, 0xff, 0x7a, 0x20, 0xac, 0xca,
-+				     0x30, 0x7d, 0xb6, 0x4a, 0x5c, 0xa8, 0xd2, 0xe9);
-+	mipi_dsi_dcs_write_seq_multi(ctx, 0xc6,
-+				     0x04, 0x0f, 0x03, 0xff, 0xa8, 0x2e, 0xbd, 0xfa,
-+				     0x65, 0xa3, 0xcc, 0x6e, 0x76, 0xb3, 0xd6, 0xea);
-+
-+	/* Gamma Band 6 */
-+	mipi_dsi_dcs_write_seq_multi(ctx, 0xc7,
-+				     0x06, 0x12, 0x02, 0xff, 0x99, 0x7d, 0xbc, 0xde,
-+				     0x51, 0x8e, 0xc6, 0x58, 0x63, 0xaa, 0xd2, 0xe9);
-+	mipi_dsi_dcs_write_seq_multi(ctx, 0xc8,
-+				     0x06, 0x12, 0x02, 0xff, 0x8d, 0x02, 0x9a, 0xcf,
-+				     0x1e, 0x6b, 0xb0, 0x37, 0x50, 0xa3, 0xd0, 0xe7);
-+	mipi_dsi_dcs_write_seq_multi(ctx, 0xc9,
-+				     0x06, 0x12, 0x03, 0xff, 0xbc, 0x04, 0xb3, 0xdb,
-+				     0x63, 0x8f, 0xc6, 0x67, 0x6f, 0xb1, 0xd5, 0xea);
-+
-+	/* Gamma Band 7 */
-+	mipi_dsi_dcs_write_seq_multi(ctx, 0xca,
-+				     0x08, 0x0a, 0x02, 0xff, 0xa3, 0x44, 0xca, 0xda,
-+				     0x2d, 0x8d, 0xbc, 0x4c, 0x5a, 0xa7, 0xd0, 0xea);
-+	mipi_dsi_dcs_write_seq_multi(ctx, 0xcb,
-+				     0x08, 0x0a, 0x01, 0xff, 0x97, 0xd5, 0xb4, 0xdb,
-+				     0x21, 0x6f, 0xa1, 0x24, 0x42, 0x9d, 0xcd, 0xe7);
-+	mipi_dsi_dcs_write_seq_multi(ctx, 0xcc,
-+				     0x08, 0x0a, 0x02, 0xff, 0xc6, 0xc5, 0xb8, 0xc7,
-+				     0x46, 0x98, 0xbd, 0x5a, 0x68, 0xaf, 0xd4, 0xea);
-+
-+	/* Gamma Band 8 */
-+	mipi_dsi_dcs_write_seq_multi(ctx, 0xcd,
-+				     0x0c, 0x02, 0x01, 0xff, 0xb2, 0xfd, 0xac, 0xd5,
-+				     0x25, 0x6d, 0xb7, 0x3b, 0x45, 0x9e, 0xd0, 0xe6);
-+	mipi_dsi_dcs_write_seq_multi(ctx, 0xce,
-+				     0x0c, 0x02, 0x01, 0xff, 0xa5, 0x9a, 0xac, 0xe2,
-+				     0x31, 0x68, 0xab, 0x0e, 0x2a, 0x90, 0xc9, 0xe3);
-+	mipi_dsi_dcs_write_seq_multi(ctx, 0xcf,
-+				     0x0c, 0x02, 0x02, 0xff, 0xd5, 0x74, 0xad, 0xe6,
-+				     0x2f, 0x7c, 0xbf, 0x43, 0x58, 0xa6, 0xd3, 0xe9);
-+
-+	/* Gamma Band 9 */
-+	mipi_dsi_dcs_write_seq_multi(ctx, 0xd0,
-+				     0x12, 0x00, 0x01, 0xff, 0xc8, 0x97, 0x01, 0xb6,
-+				     0x0b, 0x82, 0xab, 0x0a, 0x26, 0x8d, 0xc7, 0xe4);
-+	mipi_dsi_dcs_write_seq_multi(ctx, 0xd1,
-+				     0x12, 0x00, 0x01, 0xff, 0xbe, 0x4a, 0x01, 0xc0,
-+				     0x44, 0x80, 0xb3, 0x03, 0x06, 0x76, 0xba, 0xde);
-+	mipi_dsi_dcs_write_seq_multi(ctx, 0xd2,
-+				     0x12, 0x00, 0x02, 0xff, 0xf2, 0x00, 0x01, 0xb1,
-+				     0x11, 0x5f, 0xa8, 0x16, 0x30, 0x94, 0xc8, 0xe7);
-+
-+	/* Gamma Band 10 */
-+	mipi_dsi_dcs_write_seq_multi(ctx, 0xd3,
-+				     0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
-+				     0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00);
-+	mipi_dsi_dcs_write_seq_multi(ctx, 0xd4,
-+				     0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
-+				     0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00);
-+	mipi_dsi_dcs_write_seq_multi(ctx, 0xd5,
-+				     0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
-+				     0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00);
-+
-+	mipi_dsi_dcs_write_seq_multi(ctx, 0xb0, 0xa5);
-+	mipi_dsi_dcs_write_seq_multi(ctx, 0xcd,
-+				     0x10, 0x12, 0x01, 0x5a, 0x90, 0x00, 0x00, 0x00,
-+				     0x00, 0x00, 0x5d);
-+
-+	mipi_dsi_dcs_write_seq_multi(ctx, 0xb0, 0xa1);
-+	mipi_dsi_dcs_write_seq_multi(ctx, 0x55,
-+				     0x08, 0x00, 0x82, 0xa8, 0x1c, 0x61, 0x0a, 0x90,
-+				     0x04, 0x00);
-+
-+	/* Dimming Frame Setting */
-+	mipi_dsi_dcs_write_seq_multi(ctx, 0xb0, 0xa3);
-+	mipi_dsi_dcs_write_seq_multi(ctx, 0xb3,
-+				     0x1f, 0x63, 0x00, 0x00, 0x06);
-+
-+	/* Default Color Mode (Natural) */
-+	mipi_dsi_dcs_write_seq_multi(ctx, 0x53, 0x84);
-+	mipi_dsi_dcs_write_seq_multi(ctx, 0xb0, 0xa4);
-+	mipi_dsi_dcs_write_seq_multi(ctx, 0xb4,
-+				     0x00, 0x03, 0x05, 0xaf, 0x03, 0x05, 0xaf, 0x03,
-+				     0x05, 0xaf);
-+	mipi_dsi_dcs_write_seq_multi(ctx, 0xb5,
-+				     0x00, 0xff, 0x94, 0x1f, 0xae, 0x37, 0xae, 0x1f,
-+				     0x94, 0x00, 0xfb, 0x94, 0x1e, 0xad, 0x35, 0xab,
-+				     0x1c, 0x90, 0x00, 0xdd, 0x8f, 0x16, 0x9f, 0x24,
-+				     0x97, 0x04, 0x75);
-+	mipi_dsi_dcs_write_seq_multi(ctx, 0xb7,
-+				     0x80, 0x80, 0x80, 0x80, 0x80, 0x80, 0x80, 0x80,
-+				     0x80, 0x80, 0x80, 0x80);
-+	mipi_dsi_dcs_write_seq_multi(ctx, 0xb8,
-+				     0x80, 0x80, 0x80, 0x80, 0x80, 0x80, 0x80, 0x80,
-+				     0x80, 0x80, 0x80, 0x80);
-+	mipi_dsi_dcs_write_seq_multi(ctx, 0xb9,
-+				     0x35, 0x2d, 0x2d, 0x37, 0x34, 0x35, 0x36, 0x36,
-+				     0x36, 0x2d, 0x35, 0x33);
-+	mipi_dsi_dcs_write_seq_multi(ctx, 0xba,
-+				     0x80, 0x80, 0x80, 0x80, 0x88, 0x80, 0x80, 0x80,
-+				     0x80, 0x80, 0x80, 0x7d);
-+	mipi_dsi_dcs_write_seq_multi(ctx, 0xbb,
-+				     0x80, 0x5a, 0x7b, 0x95, 0x65, 0x70, 0x96, 0x90,
-+				     0x90, 0x90, 0x83, 0x72);
-+
-+	/* DCC(GCC) Off */
-+	mipi_dsi_dcs_write_seq_multi(ctx, 0xb0, 0xa1);
-+	mipi_dsi_dcs_write_seq_multi(ctx, 0xc2,
-+				     0xf3, 0x20, 0x00, 0x00, 0x1d);
-+	mipi_dsi_dcs_write_seq_multi(ctx, 0xb0, 0xa5);
-+	mipi_dsi_dcs_write_seq_multi(ctx, 0xd1,
-+				     0x0a, 0x00, 0x01);
-+	mipi_dsi_msleep(ctx, 20);
-+	mipi_dsi_dcs_write_seq_multi(ctx, 0xd1,
-+				     0x02, 0x00, 0x01);
-+	mipi_dsi_dcs_write_seq_multi(ctx, 0xd1,
-+				     0x00, 0x00, 0x01);
-+}
-+
-+static int sw43103_program(struct drm_panel *panel)
-+{
-+	struct sw43103_panel *sw43103 = to_panel_info(panel);
-+	struct mipi_dsi_multi_context ctx = { .dsi = sw43103->link };
-+	struct drm_dsc_picture_parameter_set pps;
-+
-+	sw43103_init_sequence(&ctx);
-+
-+	/* Transmit PPS in high speed mode */
-+	sw43103->link->mode_flags &= ~MIPI_DSI_MODE_LPM;
-+
-+	drm_dsc_pps_payload_pack(&pps, sw43103->link->dsc);
-+
-+	mipi_dsi_picture_parameter_set_multi(&ctx, &pps);
-+
-+	/* Switch back to low power mode for DSC compression enable */
-+	sw43103->link->mode_flags |= MIPI_DSI_MODE_LPM;
-+
-+	/* Enable DSC compression mode with PPS 0 */
-+	mipi_dsi_compression_mode_ext_multi(&ctx, true,
-+					    MIPI_DSI_COMPRESSION_DSC, 0);
-+
-+	return ctx.accum_err;
-+}
-+
-+static int sw43103_prepare(struct drm_panel *panel)
-+{
-+	struct sw43103_panel *ctx = to_panel_info(panel);
-+	int ret;
-+
-+	ret = regulator_bulk_enable(ARRAY_SIZE(ctx->supplies), ctx->supplies);
-+	if (ret < 0)
-+		return ret;
-+
-+	if (ctx->enable_gpio)
-+		gpiod_set_value_cansleep(ctx->enable_gpio, 1);
-+
-+	usleep_range(5000, 6000);
-+
-+	/* Hardware reset sequence: deassert, assert 2ms, deassert */
-+	gpiod_set_value_cansleep(ctx->reset_gpio, 0);
-+	usleep_range(10000, 11000);
-+	gpiod_set_value_cansleep(ctx->reset_gpio, 1);
-+	usleep_range(2000, 3000);
-+	gpiod_set_value_cansleep(ctx->reset_gpio, 0);
-+	usleep_range(10000, 11000);
-+
-+	ret = sw43103_program(panel);
-+	if (ret)
-+		goto poweroff;
-+
-+	return 0;
-+
-+poweroff:
-+	gpiod_set_value_cansleep(ctx->reset_gpio, 1);
-+	if (ctx->enable_gpio)
-+		gpiod_set_value_cansleep(ctx->enable_gpio, 0);
-+	regulator_bulk_disable(ARRAY_SIZE(ctx->supplies), ctx->supplies);
-+	return ret;
-+}
-+
-+static int sw43103_enable(struct drm_panel *panel)
-+{
-+	struct sw43103_panel *sw43103 = to_panel_info(panel);
-+	struct mipi_dsi_multi_context ctx = { .dsi = sw43103->link };
-+
-+	/* Display On */
-+	mipi_dsi_dcs_set_display_on_multi(&ctx);
-+	mipi_dsi_msleep(&ctx, 20);
-+
-+	/* Enable display backlight control and full brightness */
-+	mipi_dsi_dcs_write_seq_multi(&ctx, MIPI_DCS_WRITE_CONTROL_DISPLAY, 0x2c);
-+	mipi_dsi_dcs_write_seq_multi(&ctx, MIPI_DCS_SET_DISPLAY_BRIGHTNESS, 0x07, 0xff);
-+
-+	return ctx.accum_err;
-+}
-+
-+static int sw43103_disable(struct drm_panel *panel)
-+{
-+	struct sw43103_panel *sw43103 = to_panel_info(panel);
-+	struct mipi_dsi_multi_context ctx = { .dsi = sw43103->link };
-+
-+	/* Display Off (0x28) */
-+	mipi_dsi_dcs_set_display_off_multi(&ctx);
-+	mipi_dsi_msleep(&ctx, 20);
-+
-+	/* Sleep In (0x10) */
-+	mipi_dsi_dcs_enter_sleep_mode_multi(&ctx);
-+	mipi_dsi_msleep(&ctx, 80);
-+
-+	return ctx.accum_err;
-+}
-+
-+static int sw43103_unprepare(struct drm_panel *panel)
-+{
-+	struct sw43103_panel *sw43103 = to_panel_info(panel);
-+
-+	gpiod_set_value_cansleep(sw43103->reset_gpio, 1);
-+	if (sw43103->enable_gpio)
-+		gpiod_set_value_cansleep(sw43103->enable_gpio, 0);
-+
-+	return regulator_bulk_disable(ARRAY_SIZE(sw43103->supplies), sw43103->supplies);
-+}
-+
-+static const struct drm_display_mode sw43103_mode = {
-+	.clock = 179177,
-+	.hdisplay = 1080,
-+	.hsync_start = 1080 + 50,
-+	.hsync_end = 1080 + 50 + 30,
-+	.htotal = 1080 + 50 + 30 + 50,
-+	.vdisplay = 2460,
-+	.vsync_start = 2460 + 4,
-+	.vsync_end = 2460 + 4 + 2,
-+	.vtotal = 2460 + 4 + 2 + 2,
-+	.width_mm = 69,
-+	.height_mm = 158,
-+	.type = DRM_MODE_TYPE_DRIVER | DRM_MODE_TYPE_PREFERRED,
-+};
-+
-+static int sw43103_get_modes(struct drm_panel *panel,
-+			     struct drm_connector *connector)
-+{
-+	return drm_connector_helper_get_modes_fixed(connector, &sw43103_mode);
-+}
-+
-+static int sw43103_backlight_update_status(struct backlight_device *bl)
-+{
-+	struct mipi_dsi_device *dsi = bl_get_data(bl);
-+	u16 brightness = backlight_get_brightness(bl);
-+	u8 ctrl = 0x2c;
-+	int ret;
-+
-+	dsi->mode_flags &= ~MIPI_DSI_MODE_LPM;
-+
-+	ret = mipi_dsi_dcs_write(dsi, MIPI_DCS_WRITE_CONTROL_DISPLAY, &ctrl, sizeof(ctrl));
-+	if (ret < 0)
-+		goto out;
-+
-+	ret = mipi_dsi_dcs_set_display_brightness_large(dsi, brightness);
-+
-+out:
-+	dsi->mode_flags |= MIPI_DSI_MODE_LPM;
-+
-+	return ret < 0 ? ret : 0;
-+}
-+
-+static const struct backlight_ops sw43103_backlight_ops = {
-+	.update_status = sw43103_backlight_update_status,
-+};
-+
-+static int sw43103_backlight_init(struct sw43103_panel *ctx)
-+{
-+	struct device *dev = &ctx->link->dev;
-+	const struct backlight_properties props = {
-+		.type = BACKLIGHT_PLATFORM,
-+		.brightness = 1024,
-+		.max_brightness = 2047,
-+	};
-+
-+	ctx->base.backlight = devm_backlight_device_register(dev, dev_name(dev), dev,
-+							     ctx->link,
-+							     &sw43103_backlight_ops,
-+							     &props);
-+
-+	if (IS_ERR(ctx->base.backlight))
-+		return dev_err_probe(dev, PTR_ERR(ctx->base.backlight),
-+				     "Failed to create backlight\n");
-+
-+	return 0;
-+}
-+
-+static const struct drm_panel_funcs sw43103_funcs = {
-+	.prepare = sw43103_prepare,
-+	.unprepare = sw43103_unprepare,
-+	.enable = sw43103_enable,
-+	.disable = sw43103_disable,
-+	.get_modes = sw43103_get_modes,
-+};
-+
-+static const struct of_device_id sw43103_of_match[] = {
-+	{ .compatible = "lg,sw43103" },
-+	{ .compatible = "boe,sw43103" },
-+	{ /* sentinel */ }
-+};
-+MODULE_DEVICE_TABLE(of, sw43103_of_match);
-+
-+static int sw43103_add(struct sw43103_panel *ctx)
-+{
-+	struct device *dev = &ctx->link->dev;
-+	int ret;
-+
-+	ctx->supplies[0].supply = "vddi"; /* 1.8 V */
-+	ctx->supplies[0].init_load_uA = 62000;
-+	ctx->supplies[1].supply = "vpnl"; /* 3.0 V */
-+	ctx->supplies[1].init_load_uA = 857000;
-+
-+	ret = devm_regulator_bulk_get(dev, ARRAY_SIZE(ctx->supplies),
-+				      ctx->supplies);
-+	if (ret < 0)
-+		return ret;
-+
-+	ctx->reset_gpio = devm_gpiod_get(dev, "reset", GPIOD_OUT_LOW);
-+	if (IS_ERR(ctx->reset_gpio)) {
-+		ret = PTR_ERR(ctx->reset_gpio);
-+		return dev_err_probe(dev, ret, "cannot get reset gpio\n");
-+	}
-+
-+	ctx->enable_gpio = devm_gpiod_get_optional(dev, "enable", GPIOD_OUT_LOW);
-+	if (IS_ERR(ctx->enable_gpio)) {
-+		ret = PTR_ERR(ctx->enable_gpio);
-+		return dev_err_probe(dev, ret, "cannot get enable gpio\n");
-+	}
-+
-+	ret = sw43103_backlight_init(ctx);
-+	if (ret < 0)
-+		return ret;
-+
-+	ctx->base.prepare_prev_first = true;
-+
-+	drm_panel_add(&ctx->base);
-+	return 0;
-+}
-+
-+static int sw43103_probe(struct mipi_dsi_device *dsi)
-+{
-+	struct sw43103_panel *ctx;
-+	int ret;
-+
-+	ctx = devm_drm_panel_alloc(&dsi->dev, __typeof(*ctx), base,
-+				   &sw43103_funcs, DRM_MODE_CONNECTOR_DSI);
-+	if (IS_ERR(ctx))
-+		return PTR_ERR(ctx);
-+
-+	dsi->mode_flags = MIPI_DSI_MODE_LPM;
-+	dsi->format = MIPI_DSI_FMT_RGB888;
-+	dsi->lanes = 4;
-+
-+	ctx->link = dsi;
-+	mipi_dsi_set_drvdata(dsi, ctx);
-+
-+	ret = sw43103_add(ctx);
-+	if (ret < 0)
-+		return ret;
-+
-+	/* The panel works only in DSC mode. Set DSC params. */
-+	ctx->dsc.dsc_version_major = 1;
-+	ctx->dsc.dsc_version_minor = 1;
-+
-+	/* slice_count * slice_width == 2 * 540 = 1080 */
-+	ctx->dsc.pic_width = 1080;
-+	ctx->dsc.pic_height = 2460;
-+	ctx->dsc.slice_height = 60;
-+	ctx->dsc.slice_width = 540;
-+	ctx->dsc.slice_count = 2;
-+	ctx->dsc.slice_chunk_size = 540;
-+	ctx->dsc.bits_per_component = 8;
-+	ctx->dsc.bits_per_pixel = 8 << 4;
-+	ctx->dsc.block_pred_enable = true;
-+
-+	dsi->dsc = &ctx->dsc;
-+
-+	ret = mipi_dsi_attach(dsi);
-+	if (ret)
-+		drm_panel_remove(&ctx->base);
-+
-+	return ret;
-+}
-+
-+static void sw43103_remove(struct mipi_dsi_device *dsi)
-+{
-+	struct sw43103_panel *ctx = mipi_dsi_get_drvdata(dsi);
-+	int ret;
-+
-+	ret = sw43103_unprepare(&ctx->base);
-+	if (ret < 0)
-+		dev_err(&dsi->dev, "failed to unprepare panel: %d\n", ret);
-+
-+	ret = mipi_dsi_detach(dsi);
-+	if (ret < 0)
-+		dev_err(&dsi->dev, "failed to detach from DSI host: %d\n", ret);
-+
-+	drm_panel_remove(&ctx->base);
-+}
-+
-+static struct mipi_dsi_driver sw43103_driver = {
-+	.driver = {
-+		.name = "panel-lg-sw43103",
-+		.of_match_table = sw43103_of_match,
-+	},
-+	.probe = sw43103_probe,
-+	.remove = sw43103_remove,
-+};
-+module_mipi_dsi_driver(sw43103_driver);
-+
-+MODULE_AUTHOR("rofikkerneldev <rofikcoga@gmail.com>");
-+MODULE_DESCRIPTION("LG / BOE SW43103 FHD+ DSC Command Mode AMOLED panel");
-+MODULE_LICENSE("GPL");
+diff --git a/Documentation/devicetree/bindings/vendor-prefixes.yaml b/Documentation/devicetree/bindings/vendor-prefixes.yaml
+index 5471a06f93f1..9c149f327dd3 100644
+--- a/Documentation/devicetree/bindings/vendor-prefixes.yaml
++++ b/Documentation/devicetree/bindings/vendor-prefixes.yaml
+@@ -831,6 +831,8 @@ patternProperties:
+     description: INCOstartec GmbH
+   "^indiedroid,.*":
+     description: Indiedroid
++  "^industio,.*":
++    description: Shenzhen Industio Technology Co., Ltd.
+   "^inet-tek,.*":
+     description: Shenzhen iNet Mobile Internet Technology Co., Ltd
+   "^infineon,.*":
 -- 
-2.39.5
+2.56.1
 
