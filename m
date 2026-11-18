@@ -2,69 +2,109 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B173F606A31C
-	for <dri-devel@archiver.kernel.org>; Wed, 18 Nov 2026 06:26:26 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9DD20606A32C
+	for <dri-devel@archiver.kernel.org>; Wed, 18 Nov 2026 06:40:33 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=fail reason="signature verification failed" (2048-bit key, unprotected) header.d=icenowy.me header.i=@icenowy.me header.a=rsa-sha256 header.s=zmail2 header.b=VVy59VhX
+	dkim=pass (1024-bit key) header.d=broadcom.com header.i=@broadcom.com header.a=rsa-sha256 header.s=google header.b=O2KW/G1K
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 1C46810E52B;
-	Wed, 18 Nov 2026 06:26:21 +0000 (UTC)
-Received: from sender5-op-o15.zoho.com (sender5-op-o15.zoho.com
- [165.173.182.15])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 4CF7710E342
- for <dri-devel@lists.freedesktop.org>; Wed, 18 Nov 2026 06:26:14 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; t=1794983169; cv=none; 
- d=zohomail.com; s=zohoarc; 
- b=II/905t/7s1Bx2boCuHu/7QbYxEz+LgQLzRgga2Y2iNyT2iRlg8cYn/Sh9TeD5z/IL90wCBleYcN4uCdvRRdJWYm0Pe9kseSvuF+VxCLh/PiQIJ2Sop7S61eseKeZAFVwM45ji40cwP5T6E+zjOxc0L0Is0EmgpbeOK80P6RxF8=
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com;
- s=zohoarc; t=1794983169;
- h=Content-Type:Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:Subject:Subject:To:To:Message-Id:Reply-To;
- bh=wChTs17w/kPirEcR5u/gSY+8kUIHSjZ+Ainq8hP8/TU=; 
- b=JHhEy+7gRq7N9dwaoUeNiKRqY0KJCJLsbz8t6/Pe733vDBJY95QQy2YA4pEObW2cVV+hem/rSgnNqxoQREvZkpFCldM9ywDm55k+ifV9oZGcLcKN2B4KTyCnE0vsaJmkZvroWUEUeWnH3UCK6H7cQRIPt3RI4uotr2mnhSuw9+w=
-ARC-Authentication-Results: i=1; mx.zohomail.com;
- dkim=pass  header.i=icenowy.me;
- spf=pass  smtp.mailfrom=uwu@icenowy.me;
- dmarc=pass header.from=<uwu@icenowy.me>
-DKIM-Signature: a=rsa-sha256;
- b=VVy59VhXnd3NmcMyl4P+5fUkpk/NxP74/38dN0hJ+TQz/hJRSel3AlhuVs3d/fK1E2tFmbhkQDSBM1TV4GVn2/7pfJA/9XwedNA79MvxorYEBvSwPUQRCt0ycWmlie/UDgtBmQo33Fen2oDdQlfLCFqZ7AR/7o9x0LVKLGajmZ5aLlMvq6LptGs0TFjZL059B/PhrEN0uOvchMxc4njgNPo79UEfQjr2XHNv2Xk8VOyFVCxGWDWy3iZly+wsvucrZp8+Y43R8s3mVJ8BTti0VsnU+F99NOR7xxRYC7RDwQ85J1Qz/dp0axDxmlGdwmeMTkquFlKPQ1+8/JUes9R34w==;
- c=relaxed/relaxed; s=zmail2; d=icenowy.me; v=1;
- bh=wChTs17w/kPirEcR5u/gSY+8kUIHSjZ+Ainq8hP8/TU=;
- h=Content-Description:Content-ID:Content-Type:Content-Transfer-Encoding:Cc:Date:From:In-Reply-To:List-Subscribe:List-Post:List-Owner:List-Id:List-Archive:List-Help:List-Unsubscribe:MIME-Version:Message-ID:Resent-Sender:Resent-Cc:Resent-Date:Resent-To:Reply-To:Resent-Message-ID:Resent-From:Sender:Subject:To:Date:From:Message-Id:Reply-To:Subject:To:Cc;
-Received: by smtp.zohomail.com with SMTPS id 1794983165898478.8118549869997;
- Tue, 17 Nov 2026 22:26:05 -0800 (PST)
-Message-ID: <9d97d5dbcc619a9c52904ff8c6704a91fe8351e7.camel@icenowy.me>
-Subject: Re: [PATCH v2 15/17] riscv: dts: spacemit: k3-pico-itx: enable the
- DisplayPort output
-From: Icenowy Zheng <uwu@icenowy.me>
-To: Guodong Xu <docular.xu@gmail.com>
-Cc: Cody Kang <codykang.hk@gmail.com>, David Airlie <airlied@gmail.com>, 
- Simona Vetter <simona@ffwll.ch>, Maarten Lankhorst
- <maarten.lankhorst@linux.intel.com>, Maxime Ripard	 <mripard@kernel.org>,
- Thomas Zimmermann <tzimmermann@suse.de>, Rob Herring	 <robh@kernel.org>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley	
- <conor+dt@kernel.org>, Yixun Lan <dlan@kernel.org>, Vinod Koul
- <vkoul@kernel.org>,  Neil Armstrong <neil.armstrong@linaro.org>, Haylen Chu
- <heylenay@4d2.org>, Michael Turquette	 <mturquette@baylibre.com>, Stephen
- Boyd <sboyd@kernel.org>, Brian Masney	 <bmasney@redhat.com>, Philipp Zabel
- <p.zabel@pengutronix.de>, Paul Walmsley	 <pjw@kernel.org>, Palmer Dabbelt
- <palmer@dabbelt.com>, Albert Ou	 <aou@eecs.berkeley.edu>, Alexandre Ghiti
- <alex@ghiti.fr>, Yao Zi <me@ziyao.cc>,  Uwe =?ISO-8859-1?Q?Kleine-K=F6nig?=
- <u.kleine-koenig@baylibre.com>, dri-devel@lists.freedesktop.org, 
- linux-riscv@lists.infradead.org, devicetree@vger.kernel.org, 
- spacemit@lists.linux.dev, linux-kernel@vger.kernel.org, 
- linux-phy@lists.infradead.org, linux-clk@vger.kernel.org
-Date: Wed, 18 Nov 2026 14:25:38 +0800
-In-Reply-To: <f4b8c87eb0676500661ebea67363ac27.docular.xu@gmail.com>
-References: <20260809-k3-display-v2-0-327d7910bf71@gmail.com>
- <20260809-k3-display-v2-15-327d7910bf71@gmail.com>
- <576146d4f2752c3c3f6ec6c42812cb9956406383.camel@icenowy.me>
- <f4b8c87eb0676500661ebea67363ac27.docular.xu@gmail.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-User-Agent: Evolution 3.58.3 
+	by gabe.freedesktop.org (Postfix) with ESMTP id DE01910E4F1;
+	Wed, 18 Nov 2026 06:40:27 +0000 (UTC)
+Received: from mail-ua1-f99.google.com (mail-ua1-f99.google.com
+ [209.85.222.99])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 0A7C110E342
+ for <dri-devel@lists.freedesktop.org>; Wed, 18 Nov 2026 06:40:20 +0000 (UTC)
+Received: by mail-ua1-f99.google.com with SMTP id
+ a1e0cc1a2514c-99c042cee7dso287296241.1
+ for <dri-devel@lists.freedesktop.org>; Tue, 17 Nov 2026 22:40:20 -0800 (PST)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20260707; t=1794984019; x=1795588819;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:dkim-signature:x-gm-gg:x-gm-message-state:from:to:cc
+ :subject:date:message-id:reply-to:content-type;
+ bh=BN2eMBIZKP4IgFzjpmqX87SaP1ERJDhlfNIPjHVFBk4=;
+ b=I/eW0+dxFk05VHDvA1WVFcvdqkBotuWjrD5l1eJ3YNEc7w6EPlNtOdvDq0yiCYg9Bj
+ wxyPBKAkhSo8X4g67NvqCVzXJpteVxI6A3CkrMWseLGVukygslNBlU1ZMjBsvII268xL
+ W0cWp8iFA1WcijEIrWK65kGJ4WQwcrjpAkxMr1JiIZVIHKwNvHyiGYyB5ylkKykF9QoB
+ g4v2BNHgDV3EbPMqt4p8VBOPv4JlcGPIcmHjX5N2NEfTs1QkBytd6psVspPpFpDLIcCe
+ 7CJERrNpg9FEHnp3sR88dosW9qATs4hs1YMe8jTSARe3wgDtJsOW8cE2R+RGAucTVkFL
+ inJg==
+X-Forwarded-Encrypted: i=1;
+ AL+hErHJKSoIkMazLRso+FDcRAojV6zPq5hBexaqQDDCyEq2Ux/rKmbrXDlySEOznntx7cee/PXdciTH2sU=@lists.freedesktop.org
+X-Gm-Message-State: APuU4Z9ok2B2gpxTi1xlDXHSATfeD8oBku/A1gdu3bEokMztcXW/UD/M
+ DO4W6IXDQDPt4IKp4NWXSqyVDmFyx+oxxAVjnhTvE9mavlsGl4UoF5wVNuzRC8JbTrqk5dJWN/G
+ TlGfbzL5/EMfs50/I+sd3m6bOwHHQNfrorsi65JK+exR0uIDzi87XGIevax4wfePWXtzQgVRq5Z
+ M4N55hrIT+92LMUDQlvpEySwaWkmNhF/WSpgfgfo0bCrBDYkNXhbKitoW8RxwXuqHV5XjAFD03c
+ 5HzjSCJROUmYuF1fo8R
+X-Gm-Gg: AYBFou13eGvOwMBm/oHUXvJNI6dGEIu9oZEsTF5lSDytTgRz99MGimT4loaSCpMvWkp
+ q9WRUWjSTplgMjBQDsrRCSuUlDq1+475lygrvHqrUZSmbFOYqz767heJZ5o2/XgsiZiPf5wpvRf
+ R77Q3e0GffcmcrhPom9O9WQhU5G72F2Ayjb0TAo4Y4QjvfoTeZMOrcJJp25UFDynEC15r4OfWkI
+ aAK8U1c2Ybujs3/hYI7vL2HsOs2sE/6cuLlugr16/kUffZ2dPukXxS5zQ5wvTPyW3Tqp9VMPEbN
+ cjoNaB2I7mzQT0YiFSJ5tUP7pvUkuTzpSzZqLlhOnZCTvw0KpTT+CeeWCqTgsVZzUvX0++OjoYv
+ FF1puo36fRi4da7ikJ/oa01bv56IPtY42oBMt0tCBPeD9kXISRzrvYbiNdOWMP1YCfgjyQ3+j9n
+ lFPO460/CJJe3qdn4wgBG6fRXjk5kf4n1z
+X-Received: by 2002:a05:6102:149d:b0:7cc:1045:604 with SMTP id
+ ada2fe7eead31-7d6ba4ca641mr447353137.30.1794984019501; 
+ Tue, 17 Nov 2026 22:40:19 -0800 (PST)
+Received: from smtp-us-east1-p01-i01-si01.dlp.protect.broadcom.com
+ (address-144-49-247-28.dlp.protect.broadcom.com. [144.49.247.28])
+ by smtp-relay.gmail.com with ESMTPS id
+ a1e0cc1a2514c-99e4a4bbc47sm182000241.5.2026.11.17.22.40.18
+ for <dri-devel@lists.freedesktop.org>
+ (version=TLS1_2 cipher=ECDHE-ECDSA-AES128-GCM-SHA256 bits=128/128);
+ Tue, 17 Nov 2026 22:40:19 -0800 (PST)
+X-Relaying-Domain: broadcom.com
+X-CFilter-Loop: Reflected
+Received: by mail-qt1-f197.google.com with SMTP id
+ d75a77b69052e-55b9c13273dso11407831cf.1
+ for <dri-devel@lists.freedesktop.org>; Tue, 17 Nov 2026 22:40:18 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=broadcom.com; s=google; t=1794984018; x=1795588818;
+ darn=lists.freedesktop.org; 
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+ bh=BN2eMBIZKP4IgFzjpmqX87SaP1ERJDhlfNIPjHVFBk4=;
+ b=O2KW/G1KzSEjPomPF6+qkKm/GdizQQnOPO3NoEH8ORz1n11/z4u4YJerKeyf1GXGUc
+ LvB9VdkjRBRefpkr4oce0lsqQsj9rn+7JHdnI2JCQFKMPP0ZMKpRvrw5u+2VJgKykmbk
+ eHachrxbxMNyZsU+v5TO/N4Z9SBqY1jQwo8vg=
+X-Forwarded-Encrypted: i=1;
+ AL+hErF9iww9oIHheW9cgeE/lqnDViWFFxcn2/Vf4PmDdQs+vZpmVRi+YRH2GOJWfqmTioYp0GQN+sGGVd4=@lists.freedesktop.org
+X-Received: by 2002:a05:622a:346:b0:536:7b67:95f7 with SMTP id
+ d75a77b69052e-55d5a7af113mr24847341cf.77.1794984017836; 
+ Tue, 17 Nov 2026 22:40:17 -0800 (PST)
+X-Received: by 2002:a05:622a:346:b0:536:7b67:95f7 with SMTP id
+ d75a77b69052e-55d5a7af113mr24847041cf.77.1794984017277; 
+ Tue, 17 Nov 2026 22:40:17 -0800 (PST)
+Received: from vertex.localdomain
+ (pool-173-49-113-140.phlapa.fios.verizon.net. [173.49.113.140])
+ by smtp.gmail.com with ESMTPSA id
+ d75a77b69052e-55d61cf3b56sm2078141cf.13.2026.11.17.22.40.15
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Tue, 17 Nov 2026 22:40:16 -0800 (PST)
+From: Zack Rusin <zack.rusin@broadcom.com>
+To: Borislav Petkov <bp@alien8.de>, Ajay Kaher <ajay.kaher@broadcom.com>,
+ Alexey Makhalov <alexey.makhalov@broadcom.com>, x86@kernel.org
+Cc: Thomas Gleixner <tglx@kernel.org>, Ingo Molnar <mingo@redhat.com>,
+ Dave Hansen <dave.hansen@linux.intel.com>,
+ "H. Peter Anvin" <hpa@zytor.com>, virtualization@lists.linux.dev,
+ bcm-kernel-feedback-list@broadcom.com, linux-kernel@vger.kernel.org,
+ Linus Torvalds <torvalds@linux-foundation.org>,
+ Peter Zijlstra <peterz@infradead.org>,
+ Josh Poimboeuf <jpoimboe@kernel.org>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>,
+ Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>,
+ Simona Vetter <simona@ffwll.ch>, Kiryl Shutsemau <kas@kernel.org>,
+ Rick Edgecombe <rick.p.edgecombe@intel.com>, linux-coco@lists.linux.dev,
+ kvm@vger.kernel.org, dri-devel@lists.freedesktop.org,
+ Zack Rusin <zack.rusin@broadcom.com>
+Subject: [PATCH v4 0/3] x86/vmware: Clean up the hypercall code
+Date: Wed, 18 Nov 2026 01:40:10 -0500
+Message-ID: <cover.1794206170.git.zack.rusin@broadcom.com>
+X-Mailer: git-send-email 2.53.0
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
-X-ZohoMailClient: External
+Content-Transfer-Encoding: 8bit
+X-DetectorID-Processed: b00c1d49-9d2e-4205-b15f-d015386d3d5e
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -76,43 +116,76 @@ List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-3.6 required=3.0 tests=BAYES_00,DKIM_INVALID,
-	DKIM_SIGNED,HEADER_FROM_DIFFERENT_DOMAINS,MAILING_LIST_MULTI,
-	SPF_HELO_NONE,SPF_PASS autolearn=no autolearn_force=no version=4.0.1
+X-Spam-Status: No, score=-13.8 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
+	DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
+	INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,
+	USER_AGENT_GIT autolearn=unavailable autolearn_force=no version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-=E5=9C=A8 2026-11-17=E4=BA=8C=E7=9A=84 15:51 -0500=EF=BC=8CGuodong Xu=E5=86=
-=99=E9=81=93=EF=BC=9A
-> Hi Icenowy,
->=20
-> On Thu, 03 Sep 2026 20:09:42 +0800, Icenowy Zheng wrote:
-> > The connector available on the Pico-ITX mainboard isn't a
-> > DisplayPort
-> > port -- it's a USB Type-C port instead.
->=20
-> Right, it is a Type-C receptacle, and the commit message should say
-> so.
->=20
-> > I think you need to model the Type-C port and alt functions of it.
->=20
-> I am not sure that can be done on this board. The redriver/mux in
-> front of the receptacle and the PD controller that steers it both
-> sit on the EC's own I2C bus, and their interrupt goes to the EC too.
-> The SoC has no bus to either chip; all it gets from that side is the
-> DP1 HPD line.
+Move VMware hypercall assembly out of vmware.h and select the
+low-bandwidth backend with a static call, following Linus's request:
+https://lore.kernel.org/all/CAHk-=wivx7pi+h+hGmvNFAJm6StQLiQ-b8DdsE5J=LMOWae8Ng@mail.gmail.com/
 
-The ChromeOS EC firmware exposes some control for a Type-C port, you
-can search for `google,cros-ec-typec` and `google,extcon-usbc-cros-ec`
-compatible string in arch/arm64/boot/dts for more details.
+Patch 1 moves the high-bandwidth helpers out of line and removes the
+redundant vmwgfx caller annotations. Patch 2 uses input and result
+structures for the four low-bandwidth backends, selects the backend
+during VMware platform setup, and removes the early dispatcher. Patch 3
+retires the unused VMware feature bits.
 
-Although the K3 Pico ITX hardware connects the EC to the SoC with some
-not-so-embedded interface (eSPI), which needs to be handled first.
+The caller API is unchanged. The I/O-port backdoor remains the initial
+target for early DMI probing. Modules use the exported high-bandwidth
+helpers and static-call trampoline; the static-call key stays private.
 
-Thanks,
-Icenowy
+This series replaces patch 1 of Alexey's v2:
+https://lore.kernel.org/all/20260309235250.2611115-1-alexey.makhalov@broadcom.com/
+Its panic logging patches and steal-time fix were reposted separately:
+https://lore.kernel.org/r/cover.1794201807.git.zack.rusin@broadcom.com
+https://lore.kernel.org/r/cover.1792471114.git.zack.rusin@broadcom.com
 
->=20
-> So a usb-c-connector node would have nothing to link to here.
->=20
-> Guodong
+It is based on v7.4-rc2, which includes the i386 high-bandwidth fix
+this series builds on: e0e022004bbe ("x86/vmware: Fix i386
+high-bandwidth hypercall arguments").
+
+Please route this through tip. As the vmwgfx maintainer, I agree that
+its small annotation removal should go through tip with the assembly
+move. DRM maintainers and dri-devel are copied. I'll make sure there are
+no conflicts in that code while the trees merge.
+
+And yes, this code is a bit like me, meaning it gets on everyone's nerves
+and likely looks awkward in shorts, so we're just trying to make the best
+out of what a politician would call a less-than-ideal situation.
+
+Changes since v3:
+- Forward TDX guests from the backdoor backend to the TDX backend,
+  restoring the pre-series ULONG_MAX return on other hypervisors such
+  as KVM instead of attempting port I/O (reported by Sashiko).
+- Correct patch 2's description of the duplicated assembly.
+- Rebase onto v7.4-rc2.
+
+Changes since v2:
+- Replace the ten-argument backend interface with input/result structures.
+- Move the high-bandwidth assembly out of the header as well.
+- Preserve all low-bandwidth outputs and the backend-specific %dx flags.
+- Export the callable trampoline without exporting its key.
+- Correct the ABI documentation and retire unused feature bits.
+- Keep the backportable i386 fix in its separate posting.
+
+v3:
+https://lore.kernel.org/r/cover.1793685318.git.zack.rusin@broadcom.com
+
+Alexey Makhalov (1):
+  x86/vmware: Route low-bandwidth hypercalls through a static call
+
+Zack Rusin (2):
+  x86/vmware: Move high-bandwidth hypercalls out of line
+  x86/cpufeatures: Remove unused VMware hypercall feature bits
+
+ arch/x86/include/asm/cpufeatures.h  |   4 +-
+ arch/x86/include/asm/vmware.h       | 371 +++++++++++-----------------
+ arch/x86/kernel/cpu/vmware.c        | 307 ++++++++++++++++-------
+ drivers/gpu/drm/vmwgfx/vmwgfx_msg.c |   3 -
+ 4 files changed, 359 insertions(+), 326 deletions(-)
+
+
+base-commit: 7475ea8b58616b33c04afb976cf0fbaad9dd63fb
