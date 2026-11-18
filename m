@@ -2,43 +2,92 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C4934606A31C
-	for <dri-devel@archiver.kernel.org>; Wed, 18 Nov 2026 08:44:15 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 204D4606A32F
+	for <dri-devel@archiver.kernel.org>; Wed, 18 Nov 2026 08:52:48 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=SdbGPkN+
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ODjddvXJ
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 3DF3E10EBF7;
-	Wed, 18 Nov 2026 08:44:10 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 79E3410E704;
+	Wed, 18 Nov 2026 08:52:42 +0000 (UTC)
 Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id C3D6910EBF7
- for <dri-devel@lists.freedesktop.org>; Wed, 18 Nov 2026 08:44:03 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 6749410E704
+ for <dri-devel@lists.freedesktop.org>; Wed, 18 Nov 2026 08:52:36 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by tor.source.kernel.org (Postfix) with ESMTP id 24A6361F8F;
- Wed, 18 Nov 2026 08:44:03 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id B0F6B1F000C5;
- Wed, 18 Nov 2026 08:44:02 +0000 (UTC)
+ by tor.source.kernel.org (Postfix) with ESMTP id 9115B61FDE;
+ Wed, 18 Nov 2026 08:52:35 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 30ACC1F000CA;
+ Wed, 18 Nov 2026 08:52:32 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1794991442;
- bh=zFcd2GZmo28Ue94lMfCwyXqiZG5k5MeVt8meQ8clmgU=;
- h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
- b=SdbGPkN+QZioua221XRDuR1GTuvfVFMPGKULRGZyehFxhbltDy1+x956/HgUdpOo8
- hPZ8zwQUPhnmnQE7dJAUOJJhNvc9XSZ+sOY74jty7Yx8XnHPRZfOkdsu7GV9yjEDQt
- OF36vb8/j/BviyyHqohZ5jJ/qJNm/Oqzhs5exbUb0kP5p2WI4GLaWKV/Kczwgkgn8p
- j1UTC4dr3CZ+XooClFKJZGQwIr6lQq+YVEj+ye8TFVk+NcaLPM0vWOjvu9SZQ70XiM
- bAGefzSQAXpKjTWTakal062vZbtVFQxUkpmoe2KUiUvnkSUPI+XaVjXry6zFRBgW5P
- eR7ACFhrm2Lfg==
-Message-ID: <sashiko-outbox-220483@kernel.org>
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH 2/2] drm/panel: ilitek-ili9881c: add Industio Purple Pi
- OH panel
-To: pjh456 <147148383@qq.com>
-Cc: dri-devel@lists.freedesktop.org
-In-Reply-To: <tencent_4499382AA896319EAA2244D239B92371C207@qq.com>
+ s=k20260515; t=1794991955;
+ bh=InJE0U7fJ195fDkHynj3bIGt0ymgh2ksZj/xLTpgbNo=;
+ h=Date:Subject:To:Cc:References:From:In-Reply-To;
+ b=ODjddvXJ3MnLDpk6T0A088B8FiZsYIRtzGV5C1BJeKIQKF9Ld9ehtjsRRBjfbgeh/
+ gRvlA+3wBERbgaySlhF4wZS4c5dRKUG1ZX2y85/3D21aMnNWKjK/5d3k1mTc/9md+C
+ j6QZ8wGT+C+SYZxBiocFOk2YNojxaojgPzDSE6rCyh01iXkNkl97OmKs13WnkpZSLR
+ d4Lgr5XznWxsspKArGPgj6cBcP5MmblwaDl6S5kWkl9DqbjyRmijB6h03wgx80RC+o
+ YRBPyWcocjmN5Q/A+9fE59PMVg5wbL+He2O3LlqS11/wCYq+Na1cQsWuMfkhwSXjkt
+ +trFTvsDcyKDQ==
+Message-ID: <80b8e4da-45db-4699-be5b-f4ac94d307ee@kernel.org>
+Date: Wed, 18 Nov 2026 09:52:31 +0100
+X-Archived-By: <archiver.kernel.org>
+MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 1/2] dt-bindings: display: panel: ilitek,ili9881c: add
+ Industio Purple Pi OH panel
+To: pjh456 <147148383@qq.com>, Neil Armstrong <neil.armstrong@linaro.org>
+Cc: dri-devel@lists.freedesktop.org, Jessica Zhang <jesszhan0024@gmail.com>,
+ Maxime Ripard <mripard@kernel.org>, Rob Herring <robh@kernel.org>,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>
 References: <20261118080338.523572-1-147148383@qq.com>
- <tencent_4499382AA896319EAA2244D239B92371C207@qq.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Wed, 18 Nov 2026 08:44:02 +0000
+ <tencent_74E280A130C68EAB42115FE6AE8E6809D109@qq.com>
+From: Krzysztof Kozlowski <krzk@kernel.org>
+Content-Language: en-US
+Autocrypt: addr=krzk@kernel.org; keydata=
+ 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
+In-Reply-To: <tencent_74E280A130C68EAB42115FE6AE8E6809D109@qq.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -49,55 +98,36 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
-Reply-To: sashiko-reviews@lists.linux.dev
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-10.8 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
+X-Spam-Status: No, score=-12.3 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
 	DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
-	INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS autolearn=ham
-	autolearn_force=no version=4.0.1
+	INCLUDES_CR_TRAILER,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,
+	USER_AGENT_SANE_1 autolearn=ham autolearn_force=no version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
-X-Archived-By: <archiver.kernel.org>
 
-Thank you for your contribution! Sashiko AI review found 1 potential
-issue to consider:
-- [Low] drm/panel: ilitek-ili9881c: undocumented vendor prefix industio
-  in of_match
---
+On 18/11/2026 09:03, pjh456 wrote:
+> The Purple Pi OH is shipped with an ILI9881C based 800x1280 MIPI-DSI
+> panel.  The module is marked ZC-700010BH and has a 94x151 mm active
+> area; the vendor device tree only describes it as a generic
+> "simple-panel-dsi", so no panel-vendor compatible is known.  Add a
+> board-specific compatible with ilitek,ili9881c as the fallback, and
+> allow the standard width-mm/height-mm properties.
+> 
+> Assisted-by: DeepSeek:deepseek-v4.1-flash
+> Assisted-by: Qwen:Qwen3.8-Flash-Next
+> Signed-off-by: pjh456 <147148383@qq.com>
 
-commit 84f034765df38c524342d56e58717a5a36f868df
-Author: pjh456 <147148383@qq.com>
 
-drm/panel: ilitek-ili9881c: add Industio Purple Pi OH panel
+Same problems as for other patches.
 
-This commit adds an initialization sequence, display mode, and compatible
-string for the 7-inch 800x1280 MIPI-DSI panel used on the Industio Purple
-Pi OH board.
+Additionally, on top of DCO:
 
-> diff --git a/drivers/gpu/drm/panel/panel-ilitek-ili9881c.c b/drivers/gpu/=
-drm/panel/panel-ilitek-ili9881c.c
-> index 7bf38e96678ac..5f1270d780827 100644
-> --- a/drivers/gpu/drm/panel/panel-ilitek-ili9881c.c
-> +++ b/drivers/gpu/drm/panel/panel-ilitek-ili9881c.c
+Please run scripts/checkpatch.pl on the patches and fix reported
+warnings. After that, run also 'scripts/checkpatch.pl --strict' on the
+patches and (probably) fix more warnings. Some warnings can be ignored,
+especially from --strict run, but the code here looks like it needs a
+fix. Feel free to get in touch if the warning is not clear.
 
-[ ... ]
-
-> @@ -2708,6 +2929,7 @@ static const struct of_device_id ili9881c_of_match[=
-] =3D {
->  	{ .compatible =3D "wanchanglong,w552946aba", .data =3D &w552946aba_desc=
- },
->  	{ .compatible =3D "waveshare,7.0-dsi-touch-a", .data =3D &waveshare_7in=
-ch_a_desc },
->  	{ .compatible =3D "ampire,am8001280g", .data =3D &am8001280g_desc },
-> +	{ .compatible =3D "industio,purple-pi-oh-panel", .data =3D &ppoh_desc },
-
-[Severity: Low]
-Should the "industio" vendor prefix be documented in
-Documentation/devicetree/bindings/vendor-prefixes.yaml?  Neither this
-patch nor commit "dt-bindings: display: panel: ilitek, ili9881c: add
-Industio Purple Pi OH panel" adds an entry for it, which triggers a
-checkpatch UNDOCUMENTED_DT_STRING warning and a dt_binding_check failure.
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/tencent_74E280A130C=
-68EAB42115FE6AE8E6809D109@qq.com?part=3D2
+Best regards,
+Krzysztof
