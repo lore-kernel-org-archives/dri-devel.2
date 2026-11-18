@@ -2,95 +2,102 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 62AE260A2603
-	for <dri-devel@archiver.kernel.org>; Wed, 18 Nov 2026 20:10:03 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 86DA2606A331
+	for <dri-devel@archiver.kernel.org>; Wed, 18 Nov 2026 20:17:35 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=broadcom.com header.i=@broadcom.com header.a=rsa-sha256 header.s=google header.b=a20Wmb++
+	dkim=pass (1024-bit key, unprotected) header.d=amd.com header.i=@amd.com header.a=rsa-sha256 header.s=selector1 header.b=JYrTEAiW
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 87B7910FFEB;
-	Wed, 18 Nov 2026 20:09:57 +0000 (UTC)
-Received: from mail-pj1-f100.google.com (mail-pj1-f100.google.com
- [209.85.216.100])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 4400E10FFEB
- for <dri-devel@lists.freedesktop.org>; Wed, 18 Nov 2026 20:09:51 +0000 (UTC)
-Received: by mail-pj1-f100.google.com with SMTP id
- 98e67ed59e1d1-3adac5b29ebso919231a91.2
- for <dri-devel@lists.freedesktop.org>; Wed, 18 Nov 2026 12:09:51 -0800 (PST)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20260707; t=1795032591; x=1795637391;
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:date:subject:cc:to:from:dkim-signature:x-gm-gg
- :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
- :content-type;
- bh=ziOQXduvjKa2Jv0YUc0g84WkcfJmG683K02Srp3e1XM=;
- b=ExrYVjzPU6jmd75FY6TdCG4+lpmtb7PYb9LZuld1iuj+pdPkcH/IYcKX89q44ligk8
- OshYaFPK0TpH4cx5FVkwElHuqVYTpa1fFER82mQmYDCibTU6wdSXVYr2jkTGEOcG82Ln
- EZSaWM25FuQCE+AiTqutd/YQHR7OxYklUIcc3On1YX+kr391PtVwqh1KZMN/3YX1bjXG
- 1YZbR3houSKuCz0+VkdPcaiwDVfYhIfL8klEE+12JQD2+WXBYdMrVVzSsoVVIA6bAzwY
- vLuDjOlBGFgyeiUhPQnnqnSoclgvSeRZ1CqZl0y/cddTMYMEfa6yorXFZaqqr/wDLo3k
- xNXw==
-X-Gm-Message-State: APuU4Z/gfU3X7SEQbgT+xZ6EhWuhqQJc4Hza7QUWDXpmiPIfIUSoLrd3
- 19RBEaIzH6FAi2lW5cs6O8hJTK0QER2ZNUJULAWM4SrK3KHf4PwoZmxD+wPZl9JgDNzS04uzw0i
- fIyXXjQHp0Co0UjktTfThPGmjWN/IifAAsTCLXrddThW+nVxkospy7mZZMYRjSsc45W4BJuQu4Y
- 7HGCRh9Woop0eMNZOeUg3A+z3gjqm047iQ9qcelzatQ/beeZABPUx0cxJnQz6AFIKsa8t3IDTUI
- mpTFnMR+CMjwi4LepJR
-X-Gm-Gg: AZFdTZdfbaSetOVtGD3SZv1YUXK7bmLvyyvIwJlbXa5qMmWKsrLh12vo+e1t7vd6sR0
- s/uq/QXM/zJEdKxzdTTKE4uIEAKpdj1r6DuhkUfKffkmI1Hb/FaRA2HuwlRrE3kf2VEDli3NIRQ
- STdkjTu4a01uYLjzw+sUV6pgC09TY4pAaLb/m6ZTKK3uf+v+K25xQ5Z5A1s+80uBW57uXepjeUt
- YUAiMuFUGhW0Q9aDZDYTyyI1vpNK9BhOrgQTt10wKGED6rk13uwHdela3LsemU+065eBiw+8pqQ
- UmnHrRRn12ftDMDBqqL79VCfFIP9ZDved+9AsF7dqEDaq2/MlINApa2pjKxmTTJVZDUzdfQ2+eX
- 8bThMqO90RO8lFk2VfTbPCqgMIQOLA4gEjxLIjl+ziU5hmtq9iiygJsoSt8jWzvg9Qj7hYQeNj+
- Nh27evx8b9J73xbC3rba5P2uLOzMSohcy+
-X-Received: by 2002:a17:90b:4fc5:b0:3ae:a4fe:7ad4 with SMTP id
- 98e67ed59e1d1-3b3d06417c7mr3624426a91.2.1795032590664; 
- Wed, 18 Nov 2026 12:09:50 -0800 (PST)
-Received: from smtp-us-east1-p01-i01-si01.dlp.protect.broadcom.com
- (address-144-49-247-26.dlp.protect.broadcom.com. [144.49.247.26])
- by smtp-relay.gmail.com with ESMTPS id
- 98e67ed59e1d1-3b3f6e01d7fsm370700a91.3.2026.11.18.12.09.50
- for <dri-devel@lists.freedesktop.org>
- (version=TLS1_2 cipher=ECDHE-ECDSA-AES128-GCM-SHA256 bits=128/128);
- Wed, 18 Nov 2026 12:09:50 -0800 (PST)
-X-Relaying-Domain: broadcom.com
-X-CFilter-Loop: Reflected
-Received: by mail-qk1-f199.google.com with SMTP id
- af79cd13be357-93f26dd2165so383820285a.3
- for <dri-devel@lists.freedesktop.org>; Wed, 18 Nov 2026 12:09:49 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=broadcom.com; s=google; t=1795032589; x=1795637389;
- darn=lists.freedesktop.org; 
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:date:subject:cc:to:from:from:to:cc:subject:date
- :message-id:reply-to:content-type;
- bh=ziOQXduvjKa2Jv0YUc0g84WkcfJmG683K02Srp3e1XM=;
- b=a20Wmb++FpgsFieBhxvXFleyhG9+WPGF8GOdlDVUzV7iOJOTW0VgYu8vlanLZ2GA3a
- HC7zBTx7fIRCwnUV2WZIXOaoqT3IGOVe3vNKZByoKQrXcwQi7ik08mRA0mx3Pa/KHRo/
- cGutjpEpxi2TjpUnbZ2tc3chDOIrXI0BYRwis=
-X-Received: by 2002:a05:620a:2a06:b0:949:6fd4:354d with SMTP id
- af79cd13be357-949994b40f7mr700225585a.8.1795032589368; 
- Wed, 18 Nov 2026 12:09:49 -0800 (PST)
-X-Received: by 2002:a05:620a:2a06:b0:949:6fd4:354d with SMTP id
- af79cd13be357-949994b40f7mr700218485a.8.1795032588707; 
- Wed, 18 Nov 2026 12:09:48 -0800 (PST)
-Received: from plasma.dhcp.broadcom.net ([192.19.144.250])
- by smtp.gmail.com with ESMTPSA id
- af79cd13be357-9499b721861sm262134785a.11.2026.11.18.12.09.47
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Wed, 18 Nov 2026 12:09:48 -0800 (PST)
-From: Ian Forbes <ian.forbes@broadcom.com>
-To: dri-devel@lists.freedesktop.org
-Cc: bcm-kernel-feedback-list@broadcom.com, zack.rusin@broadcom.com,
- maaz.mombasawala@broadcom.com, Ian Forbes <ian.forbes@broadcom.com>
-Subject: [PATCH v2] drm/vmwgfx: Fix Display Unit cleanup
-Date: Wed, 18 Nov 2026 14:08:32 -0600
-Message-ID: <20261118200942.573456-1-ian.forbes@broadcom.com>
-X-Mailer: git-send-email 2.56.1
-In-Reply-To: <20260528162527.1280708-1-ian.forbes@broadcom.com>
-References: <20260528162527.1280708-1-ian.forbes@broadcom.com>
+	by gabe.freedesktop.org (Postfix) with ESMTP id 9D75710E60F;
+	Wed, 18 Nov 2026 20:17:29 +0000 (UTC)
+Received: from SN4PR2101CU001.outbound.protection.outlook.com
+ (mail-southcentralusazon11012036.outbound.protection.outlook.com
+ [40.93.195.36])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 05B1E10E60F;
+ Wed, 18 Nov 2026 20:17:23 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=RzPcD0CwJeaPHQK7RvoE9rgg5Q4edGPlC2Q+qLsZFbXSwj5tkhtdRyJYpWuYg8hf1KHflU23JowVHxhe+BEk1BxM4u4RgvLM98NqaSspbePuyCgmuts0dZGPQfRTBVo3lwhLCgFRhrgpT9hnI7Nna0aRib7Aswk6udMPIp5RD+wf8Dq+sToVw6j2YUFNsHrHiYGP/y+i+UI9XPa79FyLS/1tLwOKkZpvNH5la7G5kk694PUnxeBZTLAdpPSIs1/fer0HBoE4lUK0VvtUtKPgz4cJHre50zRZ6IHe4jtlJhWinSqI0FRNAEFDcir7taijLD7S6vqtPSxFPLQcvYvwBQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=EJbbTcnJeRyIA1O3tjjrikw3WZfNSuheDhVkP9cKOgI=;
+ b=r0Q6vjqsYUWb1IQd1+qCNwCkUgJR09Jt4E8Bxgqs5al5gMl2Tlt6XNRYxvR950Dw6CEFxdTjQQSoObG9VaIl0dAfaTrfArSMOsaiLAUqprwqvcPYnsM8w60dK30CIYROH8GkXGfJtSHBoBIjBXSvr373tdw0b0KPi3fcD2POSoep1QC4X1f5yRE1BxEsoaY+HIbWAdqc7IWtXL4gibn4NJgRYXOia//VkUHBvoEEIEkFyUiZod7O0hgo4rY1X0Srbyw/xzSwZN9NyQCUpCxxwgxFclTU8swSw0+fJx3QsR3ExZR6fYKa6KR1/deLAXE408OdJC2VBRgsgH8UPnfUzQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
+ dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
+ header.from=amd.com; dkim=none (message not signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=EJbbTcnJeRyIA1O3tjjrikw3WZfNSuheDhVkP9cKOgI=;
+ b=JYrTEAiWQhPVgMtfNCBQAEWyBZsiTxSvCYPZqkWP2R0PEPVquTDHNh7LTGPXl6Q4IBXMtshd3G+rbApUnAV9yZxdDhmKamnjlol1EwZ/7IgxOxCbJwSxh0iaM+UwvKNb9ZAqwdY98PcuJ5u0N/wzAHjcZngTPWd7TQwRDRmQI8g=
+Received: from CH0PR03CA0394.namprd03.prod.outlook.com (2603:10b6:610:11b::28)
+ by DM6PR12MB4452.namprd12.prod.outlook.com (2603:10b6:5:2a4::17) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.615.14; Wed, 18 Nov
+ 2026 20:17:18 +0000
+Received: from CH2PEPF000166BF.namprd04.prod.outlook.com
+ (2603:10b6:610:11b:cafe::2f) by CH0PR03CA0394.outlook.office365.com
+ (2603:10b6:610:11b::28) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.21.615.13 via Frontend Transport; Wed,
+ 18 Nov 2026 20:17:18 +0000
+X-MS-Exchange-Authentication-Results: mx.microsoft.com 1; spf=pass (sender IP
+ is 165.204.84.17) smtp.mailfrom=amd.com;
+ dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=satlexmb07.amd.com; pr=C
+Received: from satlexmb07.amd.com (165.204.84.17) by
+ CH2PEPF000166BF.mail.protection.outlook.com (10.167.252.9) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.21.615.4 via Frontend Transport; Wed, 18 Nov 2026 20:17:18 +0000
+Received: from alysaliu-dev.amd.com (10.180.168.240) by satlexmb07.amd.com
+ (10.181.42.216) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.57; Wed, 18 Nov
+ 2026 14:17:17 -0600
+From: William Palacek <William.Palacek@amd.com>
+To: <dri-devel@lists.freedesktop.org>
+CC: <intel-xe@lists.freedesktop.org>, Matthew Auld <matthew.auld@intel.com>,
+ Arunpravin Paneer Selvam <Arunpravin.PaneerSelvam@amd.com>, Sanjay Yadav
+ <sanjay.kumar.yadav@intel.com>, Joel Fernandes <joelagnelf@nvidia.com>,
+ =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
+ <linux-kernel@vger.kernel.org>, William Palacek <William.Palacek@amd.com>
+Subject: [PATCH v4 1/3] gpu/buddy: find range-biased blocks in the free trees
+Date: Wed, 18 Nov 2026 15:16:59 -0500
+Message-ID: <2231189efdaf3e3dc8213d5858c1176fd43b9011.1795032989.git.William.Palacek@amd.com>
+X-Mailer: git-send-email 2.43.0
+In-Reply-To: <cover.1795032989.git.William.Palacek@amd.com>
+References: <cover.1795032989.git.William.Palacek@amd.com>
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-X-DetectorID-Processed: b00c1d49-9d2e-4205-b15f-d015386d3d5e
+Content-Type: text/plain
+X-ClientProxiedBy: satlexmb07.amd.com (10.181.42.216) To satlexmb07.amd.com
+ (10.181.42.216)
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: CH2PEPF000166BF:EE_|DM6PR12MB4452:EE_
+X-MS-Office365-Filtering-Correlation-Id: 18a08ca0-0851-4406-c041-08df45b0f1cf
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+ ARA:13230040|23010399003|82310400026|1800799024|376014|36860700016|261009223027099003|18002099003|22082099003|261022075727099003|261026121527099003|261021123027099003|261021121427099003|261028144727099003|261022105027099003|261102123227099003|56012099006|261026140227099003|10067099003|5023799004|11063799006;
+X-Microsoft-Antispam-Message-Info: QuwGkuZeu0UVrabDC2B6myro41DBFYkHiunGkG+2RY++rTJBgOgLiz7Ps7NU6Z/NZvrk485tGqESkHNBsewh2muSmYYSSRJkddHh4/wJiyNHk54OPiRCZTazsv+KlRg2x0UFSmQpT0m547XIUooKV6NA2G7axnh8zOgRuaQsP3dAgn0QexM2SFoGtuYP93FBfGbTcB+ktfLaoRTR0FiMN11TP5PdLDWjEogtPd+tETxm05MrNW2X/T5qjQIREtTc4N3iAoL1qklzyBWi2QeDmlXyGSQuJWD41N5bwrQM8skFIm8ZJN2/FNj5BpNF0YOh/6O2338fibMOZzZSJ/EWji5zSo9fUhPwhOb/s09PrCcBHn7TV20VWQoYN+ChByDVTcR/PQHw1Hrz5Wr+tDytkKudX+IqOY+Q34OKRimI6jf/z74RfVRXz8pXuRgK7z0hHPEITGYgCVcCgPY4881PdGm9ljVWpPZZBaGxJ+VqkraMFmKPMhZNorNRr3I+O2mLWACsdttPbkl9RoEs64V4CcBYK+AofVtPjng7QenoMInf4/X7fy8sJ+Srkvx7/mkanOfzQUsQqKqPuuVTpMm67GS+1yejAoD8AeYp6P9zb/Ygf8/Kh9fGLYpcGetTWWEEaK4aDiOFae+bDxpAVwLzEoymDFWPicPo1HVWUL3+f84CaH6VZFSr8KShdejsCBoQR+cOgyFic33dgNaiyfeiWQ==
+X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:satlexmb07.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
+ SFS:(13230040)(23010399003)(82310400026)(1800799024)(376014)(36860700016)(261009223027099003)(18002099003)(22082099003)(261022075727099003)(261026121527099003)(261021123027099003)(261021121427099003)(261028144727099003)(261022105027099003)(261102123227099003)(56012099006)(261026140227099003)(10067099003)(5023799004)(11063799006);
+ DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: ltm/69KWlp4NrS4AH6XKGJ3jMhXB/BI0wJxfVDc/LHGBKQURWwev4lWWfKO4z8ONcz/4kcosDm7zeSk+B8ef7BuuMKgKW6XqpAQqBGgE2s/T8JLvJLiChZZfE/t/U9iXA5x8bVHhM8WVul2J/oL4mn5zPhQtMDuK4NxjRNI+ligyRT1JBa22sRauqwYxPTafAdTPdc8chAp9LMTuQm7uhakqoMKNRtkt1FCaX+k1G7HyzN6/wnUNgyHQ4f8VhfoQ6iBzPF0SThnHpEbd4WlcRhrZfKucPZqKhdNgBozt7QZAQSCfKuS4UmwftVePI/3YEKmmLZ/2Jmp4xQrlWcPKftLQ/LVwCz1BR17RW741gC/EdL5TsEZ8lPxDLTIa5NwFY5TNCYvI4dzFN17UYOdCtID5YchSCQyCNt2Uv96t9F398pQRNiqRkBDtkIq6A98M
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 18 Nov 2026 20:17:18.2849 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 18a08ca0-0851-4406-c041-08df45b0f1cf
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
+ Helo=[satlexmb07.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource: CH2PEPF000166BF.namprd04.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM6PR12MB4452
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -105,440 +112,427 @@ Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 X-Spam-Status: No, score=-18.8 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
 	DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
 	INCLUDES_CR_TRAILER,INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,
-	SPF_PASS,USER_AGENT_GIT autolearn=ham autolearn_force=no version=4.0.1
+	SPF_PASS,USER_AGENT_GIT autolearn=unavailable autolearn_force=no
+	version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-Because vmwgfx has no clear delineation between crtcs, connectors, and
-encoders we were destroying and freeing the entire display unit when any
-of these components were destroyed. This breaks the cleanup code in
-drm_mode_config_cleanup which has a specific teardown order and results
-in a use after free and/or nullptr deref.
+__alloc_range_bias() walks the block tree from the roots. Subtrees
+without a free block of the requested order or larger are skipped, but
+the strict pass still descends to every free block of the other class
+in the range: a dirty request in a range holding many free cleared
+blocks visits each of them, and their split ancestors, before it finds
+dirty space. amdgpu takes this path for every VRAM allocation when
+memory is partitioned (NPS2/NPS4), as each BO is restricted to its
+partition's range.
 
-A display unit most closely maps to a CRTC which is destroyed last in
-drm_mode_config_cleanup so all major cleanup related to the DU should be
-done in the crtc_destroy hook.
+The free trees are sorted by offset, so find the block there instead.
+For each order from the requested one up, look up the highest free
+block below the range end, step down the tree to the highest one that
+can hold the request, and split the highest of them down to the
+requested order. The two passes keep the clear/dirty guard: the strict
+pass only takes blocks wholly inside the range whose class suits the
+request, the fallback pass takes either class and may split a block
+straddling the range edge. A clear request without
+GPU_BUDDY_TOPDOWN_ALLOCATION first takes the highest clear block in the
+range, using subtree_block_state to skip subtrees without one; above the
+requested order only wholly-clear blocks are split for it. The walk is
+gone.
 
-Signed-off-by: Ian Forbes <ian.forbes@broadcom.com>
+With 8192 free cleared 64 KiB blocks interleaved with allocated ones in
+the range, 4096 dirty range allocations take 402 to 407 ms before and
+97 to 145 ms after (KUnit, UML, two runs).
+
+Cc: Matthew Auld <matthew.auld@intel.com>
+Cc: Arunpravin Paneer Selvam <Arunpravin.PaneerSelvam@amd.com>
+Cc: Sanjay Yadav <sanjay.kumar.yadav@intel.com>
+Signed-off-by: William Palacek <William.Palacek@amd.com>
 ---
 
-v2:
- - rebase
+Notes:
+    v4:
+    - rebased onto Sanjay's "gpu/buddy: Prune exhausted subtrees in
+      range-biased allocation" (5880b69a0b76); patch 2 drops
+      subtree_max_free_order, which nothing reads after this patch
+    - based on Arun's range guard code: a clear request without
+      GPU_BUDDY_TOPDOWN_ALLOCATION first takes the highest clear block in
+      the range (Arun)
+    - that search stops at the first match instead of scoring every clear
+      block, so rbtree_pick_best_class() goes away (Arun)
+    - drop the subtree_has_dirty augment; dirty requests step down past
+      free clear blocks instead (Arun)
+    - return -ENOSPC for start >= end instead of looking up outside the
+      range (sashiko)
+    - the strict pass always runs, as in Arun's guard code; the one-class
+      shortcut from cb0a63f0c96e is dropped (Arun)
+    
+    v3:
+    - rebased onto the merged clear/dirty guard (cb0a63f0c96e) (Arun)
+    - take Arun's free-tree lookup and drop the walk instead of narrowing it
+      (Arun)
+    - strict pass O(log n) for both classes: subtree_block_state for clear
+      requests, new subtree_has_dirty augment for dirty ones
+    - placement now matches the walk exactly, including the guard
+    
+    v2:
+    - rebased onto drm-misc-next (single free tree) (Arun)
+    - take the highest contained block, keeping top-down placement (Arun)
 
- drivers/gpu/drm/vmwgfx/vmwgfx_kms.c  | 24 ---------
- drivers/gpu/drm/vmwgfx/vmwgfx_kms.h  |  4 --
- drivers/gpu/drm/vmwgfx/vmwgfx_ldu.c  | 41 ++++-----------
- drivers/gpu/drm/vmwgfx/vmwgfx_scrn.c | 40 ++++-----------
- drivers/gpu/drm/vmwgfx/vmwgfx_stdu.c | 75 ++++------------------------
- 5 files changed, 28 insertions(+), 156 deletions(-)
+ drivers/gpu/buddy.c | 295 +++++++++++++++++++++++++++++++++-----------
+ 1 file changed, 220 insertions(+), 75 deletions(-)
 
-diff --git a/drivers/gpu/drm/vmwgfx/vmwgfx_kms.c b/drivers/gpu/drm/vmwgfx/vmwgfx_kms.c
-index fed844ccd789..4613963076f8 100644
---- a/drivers/gpu/drm/vmwgfx/vmwgfx_kms.c
-+++ b/drivers/gpu/drm/vmwgfx/vmwgfx_kms.c
-@@ -34,30 +34,6 @@ void vmw_du_init(struct vmw_display_unit *du)
- 						     BIT(DRM_MODE_BLEND_PREMULTI));
+diff --git a/drivers/gpu/buddy.c b/drivers/gpu/buddy.c
+index a1e9f5ebe05a..26af5428ff76 100644
+--- a/drivers/gpu/buddy.c
++++ b/drivers/gpu/buddy.c
+@@ -628,6 +628,26 @@ rbtree_last_free_block(struct rb_root *root)
+ 	return rbtree_get_free_block(rb_last(root));
  }
  
--void vmw_du_cleanup(struct vmw_display_unit *du)
--{
--	struct vmw_private *dev_priv = vmw_priv(du->primary.dev);
--
--	vmw_vkms_crtc_cleanup(&du->crtc);
--	drm_plane_cleanup(&du->primary);
--	if (vmw_cmd_supported(dev_priv))
--		drm_plane_cleanup(&du->cursor.base);
--
--	drm_connector_unregister(&du->connector);
--	drm_crtc_cleanup(&du->crtc);
--	drm_encoder_cleanup(&du->encoder);
--	drm_connector_cleanup(&du->connector);
--}
--
--
--void vmw_du_primary_plane_destroy(struct drm_plane *plane)
--{
--	drm_plane_cleanup(plane);
--
--	/* Planes are static in our case so we don't free it */
--}
--
--
- /**
-  * vmw_du_plane_unpin_surf - unpins resource associated with a framebuffer surface
-  *
-diff --git a/drivers/gpu/drm/vmwgfx/vmwgfx_kms.h b/drivers/gpu/drm/vmwgfx/vmwgfx_kms.h
-index 5085d8bccf0a..1373003c25d7 100644
---- a/drivers/gpu/drm/vmwgfx/vmwgfx_kms.h
-+++ b/drivers/gpu/drm/vmwgfx/vmwgfx_kms.h
-@@ -348,7 +348,6 @@ struct vmw_display_unit {
-  * Shared display unit functions - vmwgfx_kms.c
-  */
- void vmw_du_init(struct vmw_display_unit *du);
--void vmw_du_cleanup(struct vmw_display_unit *du);
- int vmw_du_crtc_gamma_set(struct drm_crtc *crtc,
- 			   u16 *r, u16 *g, u16 *b,
- 			   uint32_t size,
-@@ -403,9 +402,6 @@ void vmw_guess_mode_timing(struct drm_display_mode *mode);
- void vmw_kms_update_implicit_fb(struct vmw_private *dev_priv);
- void vmw_kms_create_implicit_placement_property(struct vmw_private *dev_priv);
- 
--/* Universal Plane Helpers */
--void vmw_du_primary_plane_destroy(struct drm_plane *plane);
--
- /* Atomic Helpers */
- int vmw_du_primary_plane_atomic_check(struct drm_plane *plane,
- 				      struct drm_atomic_commit *state);
-diff --git a/drivers/gpu/drm/vmwgfx/vmwgfx_ldu.c b/drivers/gpu/drm/vmwgfx/vmwgfx_ldu.c
-index a7828b8ed68e..92080a3b4013 100644
---- a/drivers/gpu/drm/vmwgfx/vmwgfx_ldu.c
-+++ b/drivers/gpu/drm/vmwgfx/vmwgfx_ldu.c
-@@ -60,21 +60,18 @@ struct vmw_legacy_display_unit {
- 	struct list_head active;
- };
- 
--static void vmw_ldu_destroy(struct vmw_legacy_display_unit *ldu)
--{
--	list_del_init(&ldu->active);
--	vmw_du_cleanup(&ldu->base);
--	kfree(ldu);
--}
--
--
- /*
-  * Legacy Display Unit CRTC functions
-  */
- 
- static void vmw_ldu_crtc_destroy(struct drm_crtc *crtc)
- {
--	vmw_ldu_destroy(vmw_crtc_to_ldu(crtc));
-+	struct vmw_legacy_display_unit *ldu = vmw_crtc_to_ldu(crtc);
++/* Return the highest free block with lo <= offset <= hi. */
++static struct gpu_buddy_block *
++rbtree_last_free_block_in(struct rb_root *root, u64 lo, u64 hi)
++{
++	struct gpu_buddy_block *block, *last = NULL;
++	struct rb_node *node = root->rb_node;
 +
-+	list_del_init(&ldu->active);
-+	vmw_vkms_crtc_cleanup(&ldu->base.crtc);
-+	drm_crtc_cleanup(&ldu->base.crtc);
-+	kfree(ldu);
- }
- 
- static int vmw_ldu_commit_list(struct vmw_private *dev_priv)
-@@ -265,29 +262,19 @@ static const struct drm_crtc_funcs vmw_legacy_crtc_funcs = {
-  * Legacy Display Unit encoder functions
-  */
- 
--static void vmw_ldu_encoder_destroy(struct drm_encoder *encoder)
--{
--	vmw_ldu_destroy(vmw_encoder_to_ldu(encoder));
--}
--
- static const struct drm_encoder_funcs vmw_legacy_encoder_funcs = {
--	.destroy = vmw_ldu_encoder_destroy,
-+	.destroy = drm_encoder_cleanup,
- };
- 
- /*
-  * Legacy Display Unit connector functions
-  */
- 
--static void vmw_ldu_connector_destroy(struct drm_connector *connector)
--{
--	vmw_ldu_destroy(vmw_connector_to_ldu(connector));
--}
--
- static const struct drm_connector_funcs vmw_legacy_connector_funcs = {
- 	.dpms = vmw_du_connector_dpms,
- 	.detect = vmw_du_connector_detect,
- 	.fill_modes = drm_helper_probe_single_connector_modes,
--	.destroy = vmw_ldu_connector_destroy,
-+	.destroy = drm_connector_cleanup,
- 	.reset = vmw_du_connector_reset,
- 	.atomic_duplicate_state = vmw_du_connector_duplicate_state,
- 	.atomic_destroy_state = vmw_du_connector_destroy_state,
-@@ -364,7 +351,7 @@ vmw_ldu_primary_plane_atomic_update(struct drm_plane *plane,
- static const struct drm_plane_funcs vmw_ldu_plane_funcs = {
- 	.update_plane = drm_atomic_helper_update_plane,
- 	.disable_plane = drm_atomic_helper_disable_plane,
--	.destroy = vmw_du_primary_plane_destroy,
-+	.destroy = drm_plane_cleanup,
- 	.atomic_create_state = vmw_du_plane_create_state,
- 	.atomic_duplicate_state = vmw_du_plane_duplicate_state,
- 	.atomic_destroy_state = vmw_du_plane_destroy_state,
-@@ -493,18 +480,12 @@ static int vmw_ldu_init(struct vmw_private *dev_priv, unsigned unit)
- 	encoder->possible_crtcs = (1 << unit);
- 	encoder->possible_clones = 0;
- 
--	ret = drm_connector_register(connector);
--	if (ret) {
--		DRM_ERROR("Failed to register connector\n");
--		goto err_free_encoder;
--	}
--
- 	ret = drm_crtc_init_with_planes(dev, crtc, primary,
- 		      vmw_cmd_supported(dev_priv) ? &cursor->base : NULL,
- 		      &vmw_legacy_crtc_funcs, NULL);
- 	if (ret) {
- 		DRM_ERROR("Failed to initialize CRTC\n");
--		goto err_free_unregister;
-+		goto err_free_encoder;
- 	}
- 
- 	drm_crtc_helper_add(crtc, &vmw_ldu_crtc_helper_funcs);
-@@ -527,8 +508,6 @@ static int vmw_ldu_init(struct vmw_private *dev_priv, unsigned unit)
- 
- 	return 0;
- 
--err_free_unregister:
--	drm_connector_unregister(connector);
- err_free_encoder:
- 	drm_encoder_cleanup(encoder);
- err_free_connector:
-diff --git a/drivers/gpu/drm/vmwgfx/vmwgfx_scrn.c b/drivers/gpu/drm/vmwgfx/vmwgfx_scrn.c
-index bc6c200f5129..d286b4841d8d 100644
---- a/drivers/gpu/drm/vmwgfx/vmwgfx_scrn.c
-+++ b/drivers/gpu/drm/vmwgfx/vmwgfx_scrn.c
-@@ -98,20 +98,16 @@ struct vmw_screen_object_unit {
- 	bool defined;
- };
- 
--static void vmw_sou_destroy(struct vmw_screen_object_unit *sou)
--{
--	vmw_du_cleanup(&sou->base);
--	kfree(sou);
--}
--
--
- /*
-  * Screen Object Display Unit CRTC functions
-  */
--
- static void vmw_sou_crtc_destroy(struct drm_crtc *crtc)
- {
--	vmw_sou_destroy(vmw_crtc_to_sou(crtc));
-+	struct vmw_screen_object_unit *sou = vmw_crtc_to_sou(crtc);
++	while (node) {
++		block = rbtree_get_free_block(node);
++		if (gpu_buddy_block_offset(block) > hi) {
++			node = node->rb_left;
++		} else {
++			last = block;
++			node = node->rb_right;
++		}
++	}
 +
-+	vmw_vkms_crtc_cleanup(&sou->base.crtc);
-+	drm_crtc_cleanup(&sou->base.crtc);
-+	kfree(sou);
- }
- 
- /*
-@@ -321,29 +317,19 @@ static const struct drm_crtc_funcs vmw_screen_object_crtc_funcs = {
-  * Screen Object Display Unit encoder functions
-  */
- 
--static void vmw_sou_encoder_destroy(struct drm_encoder *encoder)
--{
--	vmw_sou_destroy(vmw_encoder_to_sou(encoder));
--}
--
- static const struct drm_encoder_funcs vmw_screen_object_encoder_funcs = {
--	.destroy = vmw_sou_encoder_destroy,
-+	.destroy = drm_encoder_cleanup,
- };
- 
- /*
-  * Screen Object Display Unit connector functions
-  */
- 
--static void vmw_sou_connector_destroy(struct drm_connector *connector)
--{
--	vmw_sou_destroy(vmw_connector_to_sou(connector));
--}
--
- static const struct drm_connector_funcs vmw_sou_connector_funcs = {
- 	.dpms = vmw_du_connector_dpms,
- 	.detect = vmw_du_connector_detect,
- 	.fill_modes = drm_helper_probe_single_connector_modes,
--	.destroy = vmw_sou_connector_destroy,
-+	.destroy = drm_connector_cleanup,
- 	.reset = vmw_du_connector_reset,
- 	.atomic_duplicate_state = vmw_du_connector_duplicate_state,
- 	.atomic_destroy_state = vmw_du_connector_destroy_state,
-@@ -757,7 +743,7 @@ vmw_sou_primary_plane_atomic_update(struct drm_plane *plane,
- static const struct drm_plane_funcs vmw_sou_plane_funcs = {
- 	.update_plane = drm_atomic_helper_update_plane,
- 	.disable_plane = drm_atomic_helper_disable_plane,
--	.destroy = vmw_du_primary_plane_destroy,
-+	.destroy = drm_plane_cleanup,
- 	.atomic_create_state = vmw_du_plane_create_state,
- 	.atomic_duplicate_state = vmw_du_plane_duplicate_state,
- 	.atomic_destroy_state = vmw_du_plane_destroy_state,
-@@ -883,18 +869,12 @@ static int vmw_sou_init(struct vmw_private *dev_priv, unsigned unit)
- 	encoder->possible_crtcs = (1 << unit);
- 	encoder->possible_clones = 0;
- 
--	ret = drm_connector_register(connector);
--	if (ret) {
--		DRM_ERROR("Failed to register connector\n");
--		goto err_free_encoder;
--	}
--
- 	ret = drm_crtc_init_with_planes(dev, crtc, primary,
- 					&cursor->base,
- 					&vmw_screen_object_crtc_funcs, NULL);
- 	if (ret) {
- 		DRM_ERROR("Failed to initialize CRTC\n");
--		goto err_free_unregister;
-+		goto err_free_encoder;
- 	}
- 
- 	drm_crtc_helper_add(crtc, &vmw_sou_crtc_helper_funcs);
-@@ -912,8 +892,6 @@ static int vmw_sou_init(struct vmw_private *dev_priv, unsigned unit)
- 
- 	return 0;
- 
--err_free_unregister:
--	drm_connector_unregister(connector);
- err_free_encoder:
- 	drm_encoder_cleanup(encoder);
- err_free_connector:
-diff --git a/drivers/gpu/drm/vmwgfx/vmwgfx_stdu.c b/drivers/gpu/drm/vmwgfx/vmwgfx_stdu.c
-index 08b32babc1cd..422a16c1aea9 100644
---- a/drivers/gpu/drm/vmwgfx/vmwgfx_stdu.c
-+++ b/drivers/gpu/drm/vmwgfx/vmwgfx_stdu.c
-@@ -134,12 +134,6 @@ struct vmw_screen_target_display_unit {
- 	unsigned int cpp;
- };
- 
--
--
--static void vmw_stdu_destroy(struct vmw_screen_target_display_unit *stdu);
--
--
--
- /******************************************************************************
-  * Screen Target Display Unit CRTC Functions
-  *****************************************************************************/
-@@ -151,7 +145,11 @@ static void vmw_stdu_destroy(struct vmw_screen_target_display_unit *stdu);
-  */
- static void vmw_stdu_crtc_destroy(struct drm_crtc *crtc)
- {
--	vmw_stdu_destroy(vmw_crtc_to_stdu(crtc));
-+	struct vmw_screen_target_display_unit *stdu = vmw_crtc_to_stdu(crtc);
++	return last && gpu_buddy_block_offset(last) >= lo ? last : NULL;
++}
 +
-+	vmw_vkms_crtc_cleanup(&stdu->base.crtc);
-+	drm_crtc_cleanup(&stdu->base.crtc);
-+	kfree(stdu);
+ static struct gpu_buddy_block *
+ rbtree_last_clear_free_block(struct rb_root *root,
+ 			     enum gpu_block_state min_block_state)
+@@ -666,6 +686,51 @@ rbtree_last_clear_free_block(struct rb_root *root,
+ 	return block;
  }
  
- /**
-@@ -808,23 +806,8 @@ static const struct drm_crtc_funcs vmw_stdu_crtc_funcs = {
-  * Screen Target Display Unit Encoder Functions
-  *****************************************************************************/
- 
--/**
-- * vmw_stdu_encoder_destroy - cleans up the STDU
-- *
-- * @encoder: used the get the containing STDU
-- *
-- * vmwgfx cleans up crtc/encoder/connector all at the same time so technically
-- * this can be a no-op.  Nevertheless, it doesn't hurt of have this in case
-- * the common KMS code changes and somehow vmw_stdu_crtc_destroy() doesn't
-- * get called.
-- */
--static void vmw_stdu_encoder_destroy(struct drm_encoder *encoder)
--{
--	vmw_stdu_destroy(vmw_encoder_to_stdu(encoder));
--}
--
- static const struct drm_encoder_funcs vmw_stdu_encoder_funcs = {
--	.destroy = vmw_stdu_encoder_destroy,
-+	.destroy = drm_encoder_cleanup,
- };
- 
- 
-@@ -833,21 +816,6 @@ static const struct drm_encoder_funcs vmw_stdu_encoder_funcs = {
-  * Screen Target Display Unit Connector Functions
-  *****************************************************************************/
- 
--/**
-- * vmw_stdu_connector_destroy - cleans up the STDU
-- *
-- * @connector: used to get the containing STDU
-- *
-- * vmwgfx cleans up crtc/encoder/connector all at the same time so technically
-- * this can be a no-op.  Nevertheless, it doesn't hurt of have this in case
-- * the common KMS code changes and somehow vmw_stdu_crtc_destroy() doesn't
-- * get called.
-- */
--static void vmw_stdu_connector_destroy(struct drm_connector *connector)
--{
--	vmw_stdu_destroy(vmw_connector_to_stdu(connector));
--}
--
- static enum drm_mode_status
- vmw_stdu_connector_mode_valid(struct drm_connector *connector,
- 			      const struct drm_display_mode *mode)
-@@ -918,7 +886,7 @@ static const struct drm_connector_funcs vmw_stdu_connector_funcs = {
- 	.dpms = vmw_du_connector_dpms,
- 	.detect = vmw_du_connector_detect,
- 	.fill_modes = drm_helper_probe_single_connector_modes,
--	.destroy = vmw_stdu_connector_destroy,
-+	.destroy = drm_connector_cleanup,
- 	.reset = vmw_du_connector_reset,
- 	.atomic_duplicate_state = vmw_du_connector_duplicate_state,
- 	.atomic_destroy_state = vmw_du_connector_destroy_state,
-@@ -1484,7 +1452,7 @@ vmw_stdu_crtc_atomic_flush(struct drm_crtc *crtc,
- static const struct drm_plane_funcs vmw_stdu_plane_funcs = {
- 	.update_plane = drm_atomic_helper_update_plane,
- 	.disable_plane = drm_atomic_helper_disable_plane,
--	.destroy = vmw_du_primary_plane_destroy,
-+	.destroy = drm_plane_cleanup,
- 	.atomic_create_state = vmw_du_plane_create_state,
- 	.atomic_duplicate_state = vmw_du_plane_duplicate_state,
- 	.atomic_destroy_state = vmw_du_plane_destroy_state,
-@@ -1618,18 +1586,12 @@ static int vmw_stdu_init(struct vmw_private *dev_priv, unsigned unit)
- 	encoder->possible_crtcs = (1 << unit);
- 	encoder->possible_clones = 0;
- 
--	ret = drm_connector_register(connector);
--	if (ret) {
--		DRM_ERROR("Failed to register connector\n");
--		goto err_free_encoder;
--	}
--
- 	ret = drm_crtc_init_with_planes(dev, crtc, primary,
- 					&cursor->base,
- 					&vmw_stdu_crtc_funcs, NULL);
- 	if (ret) {
- 		DRM_ERROR("Failed to initialize CRTC\n");
--		goto err_free_unregister;
-+		goto err_free_encoder;
- 	}
- 
- 	drm_crtc_helper_add(crtc, &vmw_stdu_crtc_helper_funcs);
-@@ -1647,8 +1609,6 @@ static int vmw_stdu_init(struct vmw_private *dev_priv, unsigned unit)
- 
- 	return 0;
- 
--err_free_unregister:
--	drm_connector_unregister(connector);
- err_free_encoder:
- 	drm_encoder_cleanup(encoder);
- err_free_connector:
-@@ -1658,23 +1618,6 @@ static int vmw_stdu_init(struct vmw_private *dev_priv, unsigned unit)
- 	return ret;
++static struct gpu_buddy_block *
++rbtree_range_best_block(struct rb_root *root, u64 lo, u64 hi,
++			enum gpu_block_state min_state)
++{
++	struct rb_node *node = root->rb_node;
++	struct gpu_buddy_block *best = NULL;
++	struct rb_node *prev = NULL;
++
++	while (node) {
++		struct gpu_buddy_block *block = rbtree_get_free_block(node);
++		bool pruned = block->subtree_block_state < min_state;
++		u64 off = gpu_buddy_block_offset(block);
++		bool desc_right = !pruned && off <= hi;
++		bool desc_left = !pruned && off >= lo;
++		struct rb_node *next;
++
++		if (prev == rb_parent(node) && desc_right && node->rb_right) {
++			/* First visit: higher offsets first. */
++			next = node->rb_right;
++		} else if (prev && prev == node->rb_left) {
++			next = rb_parent(node);
++		} else {
++			/* Right subtree done: score this node, then go left. */
++			if (!pruned && off >= lo && off <= hi &&
++			    gpu_block_cached_state(block) >= min_state) {
++				if (gpu_block_cached_state(block) == GPU_BLOCK_CLEAR)
++					return block;
++				/* Highest mixed block; only a clear one beats it. */
++				best = block;
++				min_state = GPU_BLOCK_CLEAR;
++			}
++
++			if (desc_left && node->rb_left)
++				next = node->rb_left;
++			else
++				next = rb_parent(node);
++		}
++
++		prev = node;
++		node = next;
++	}
++
++	return best;
++}
++
+ static void rbtree_insert(struct gpu_buddy *mm,
+ 			  struct gpu_buddy_block *block)
+ {
+@@ -1274,94 +1339,185 @@ static bool block_incompatible(struct gpu_buddy_block *block, unsigned int flags
  }
  
+ static struct gpu_buddy_block *
+-__alloc_range_bias(struct gpu_buddy *mm,
+-		   u64 start, u64 end,
+-		   unsigned int order,
+-		   unsigned long flags,
+-		   bool fallback)
++__alloc_range_clear_block(struct gpu_buddy *mm,
++			  u64 start, u64 end,
++			  unsigned int order,
++			  unsigned long flags)
+ {
+-	u64 req_size = mm->chunk_size << order;
+ 	struct gpu_buddy_block *block;
+-	LIST_HEAD(dfs);
++	unsigned int tmp;
+ 	int err;
+-	int i;
 -
+-	end = end - 1;
+ 
+-	/*
+-	 * This range-constrained search hands back the highest/right-most
+-	 * address that satisfies the request: the roots are seeded high-to-low
+-	 * and the right (higher-address) child is descended first, making
+-	 * top-down the default placement here.
+-	 */
+-	for (i = mm->n_roots - 1; i >= 0; --i)
+-		list_add_tail(&mm->roots[i]->tmp_link, &dfs);
++	/* Only clear, non-top-down requests benefit from class navigation. */
++	if (!(flags & GPU_BUDDY_CLEAR_ALLOCATION) ||
++	    (flags & GPU_BUDDY_TOPDOWN_ALLOCATION))
++		return NULL;
+ 
+-	do {
+-		u64 block_start;
+-		u64 block_end;
++	for (tmp = order; tmp <= mm->max_order; ++tmp) {
++		enum gpu_block_state min_state;
++		u64 size;
+ 
+-		block = list_first_entry_or_null(&dfs,
+-						 struct gpu_buddy_block,
+-						 tmp_link);
+-		if (!block)
++		size = mm->chunk_size << tmp;
++		if (size > end - start)
+ 			break;
+ 
+-		list_del(&block->tmp_link);
++		/*
++		 * At the requested order a clear or mixed block is handed back
++		 * whole (no split). At a higher order only a wholly-clear block
++		 * is accepted, so splitting it down produces clear children and
++		 * never strands a dirty sibling.
++		 */
++		min_state = (tmp == order) ? GPU_BLOCK_MIXED : GPU_BLOCK_CLEAR;
++
++		block = rbtree_range_best_block(&mm->free_tree[tmp],
++						start, end - size, min_state);
++		if (block)
++			goto split_down;
++	}
++
++	return NULL;
++
++split_down:
++	while (gpu_buddy_block_order(block) != order) {
++		err = split_block(mm, block);
++		if (unlikely(err))
++			goto err_undo;
++
++		/*
++		 * The parent is wholly clear above the requested order, so both
++		 * children are clear and fully inside the window; descend the
++		 * higher-address child to match the top-down default placement.
++		 */
++		block = block->right;
++	}
++
++	return block;
++
++err_undo:
++	__gpu_buddy_undo_splits(mm, block);
++	return ERR_PTR(err);
++}
++
++static struct gpu_buddy_block *
++__alloc_range_block(struct gpu_buddy *mm, struct rb_root *root,
++		    u64 start, u64 end, u64 req_size,
++		    bool strict, unsigned long flags,
++		    u64 *out_offset)
++{
++	struct gpu_buddy_block *last = rbtree_last_free_block_in(root, 0, end - 1);
++	struct rb_node *node;
++
++	/* Seek to the highest-offset block below @end, then walk down. */
++	for (node = last ? &last->rb : NULL; node; node = rb_prev(node)) {
++		u64 block_offset, block_end, low, high, offset;
++		struct gpu_buddy_block *block;
++
++		block = rbtree_get_free_block(node);
++		block_offset = gpu_buddy_block_offset(block);
++		block_end = block_offset + gpu_buddy_block_size(mm, block);
++
++		/* Offsets descend; once below the window nothing else fits. */
++		if (block_end <= start)
++			break;
+ 
+-		if (block->subtree_max_free_order < (int)order)
++		if (strict && (block_offset < start || block_end > end))
++			continue;
++		if (strict && block_incompatible(block, flags))
+ 			continue;
+ 
+-		block_start = gpu_buddy_block_offset(block);
+-		block_end = block_start + gpu_buddy_block_size(mm, block) - 1;
++		low = max(block_offset, start);
++		high = min(block_end, end);
++		if (high < req_size)
++			continue;
+ 
+-		if (!overlaps(start, end, block_start, block_end))
++		offset = round_down(high - req_size, req_size);
++		if (offset < low)
+ 			continue;
+ 
+-		if (block_start < start || block_end > end) {
+-			u64 adjusted_start = max(block_start, start);
+-			u64 adjusted_end = min(block_end, end);
++		*out_offset = offset;
++		return block;
++	}
+ 
+-			if (round_down(adjusted_end + 1, req_size) <=
+-			    round_up(adjusted_start, req_size))
+-				continue;
++	return NULL;
++}
+ 
+-			/*
+-			 * Strict pass: don't split a partially-overlapping free
+-			 * block; rejecting its child would strand the split. Let
+-			 * the fallback pass consume it (either class accepted).
+-			 */
+-			if (!fallback && gpu_buddy_block_is_free(block))
+-				continue;
+-		}
++static struct gpu_buddy_block *
++__alloc_range_freetree(struct gpu_buddy *mm,
++		       u64 start, u64 end,
++		       unsigned int order,
++		       unsigned long flags)
++{
++	u64 req_size = mm->chunk_size << order;
++	struct gpu_buddy_block *preferred_block;
++	u64 max_offset = 0;
++	unsigned int pass;
++	int err;
+ 
+-		if (!fallback && block_incompatible(block, flags))
+-			continue;
++	if (start >= end)
++		return ERR_PTR(-ENOSPC);
+ 
+-		/* Not pruned at @order, so this block itself is FREE */
+-		if (contains(start, end, block_start, block_end) &&
+-		    order == gpu_buddy_block_order(block))
+-			return block;
++	/* Clear, non-top-down: try clear space first, then placement. */
++	if ((flags & GPU_BUDDY_CLEAR_ALLOCATION) &&
++	    !(flags & GPU_BUDDY_TOPDOWN_ALLOCATION)) {
++		preferred_block = __alloc_range_clear_block(mm, start, end,
++							    order, flags);
++		if (IS_ERR(preferred_block))
++			return preferred_block;
++		if (preferred_block)
++			return preferred_block;
++	}
+ 
+-		if (!gpu_buddy_block_is_split(block)) {
+-			err = split_block(mm, block);
+-			if (unlikely(err))
+-				goto err_undo;
++	/* Pass 0: strict (contained, class-match); pass 1: fallback (any). */
++	for (pass = 0; pass < 2; pass++) {
++		bool strict = (pass == 0);
++		unsigned int tmp;
++
++		preferred_block = NULL;
++		for (tmp = order; tmp <= mm->max_order; ++tmp) {
++			struct gpu_buddy_block *block;
++			u64 offset;
++
++			block = __alloc_range_block(mm, &mm->free_tree[tmp],
++						    start, end,
++						    req_size, strict,
++						    flags, &offset);
++			if (block &&
++			    (!preferred_block || offset > max_offset)) {
++				preferred_block = block;
++				max_offset = offset;
++			}
+ 		}
+ 
+-		list_add(&block->left->tmp_link, &dfs);
+-		list_add(&block->right->tmp_link, &dfs);
+-	} while (1);
++		if (preferred_block)
++			break;
++	}
+ 
+-	return ERR_PTR(-ENOSPC);
++	if (!preferred_block)
++		return ERR_PTR(-ENOSPC);
+ 
+-err_undo:
+ 	/*
+-	 * We really don't want to leave around a bunch of split blocks, since
+-	 * bigger is better, so make sure we merge everything back before we
+-	 * free the allocated blocks.
++	 * Split @preferred_block down to the order-@order block covering
++	 * @max_offset.
+ 	 */
+-	__gpu_buddy_undo_splits(mm, block);
++	while (gpu_buddy_block_order(preferred_block) != order) {
++		u64 mid_offset;
++
++		err = split_block(mm, preferred_block);
++		if (unlikely(err))
++			goto err_undo;
++
++		mid_offset = gpu_buddy_block_offset(preferred_block) +
++			     (gpu_buddy_block_size(mm, preferred_block) >> 1);
++		if (max_offset >= mid_offset)
++			preferred_block = preferred_block->right;
++		else
++			preferred_block = preferred_block->left;
++	}
++
++	return preferred_block;
++
++err_undo:
++	__gpu_buddy_undo_splits(mm, preferred_block);
+ 	return ERR_PTR(err);
+ }
+ 
+@@ -1371,18 +1527,7 @@ __gpu_buddy_alloc_range_bias(struct gpu_buddy *mm,
+ 			     unsigned int order,
+ 			     unsigned long flags)
+ {
+-	struct gpu_buddy_block *block;
+-	bool fallback;
 -
--/**
-- *  vmw_stdu_destroy - Cleans up a vmw_screen_target_display_unit
-- *
-- *  @stdu:  Screen Target Display Unit to be destroyed
-- *
-- *  Clean up after vmw_stdu_init
-- */
--static void vmw_stdu_destroy(struct vmw_screen_target_display_unit *stdu)
--{
--	vmw_du_cleanup(&stdu->base);
--	kfree(stdu);
--}
+-	fallback = !(gpu_buddy_clear_avail(mm) && mm->dirty.total_dirty);
 -
+-	block = __alloc_range_bias(mm, start, end, order,
+-				   flags, fallback);
+-	if (IS_ERR(block) && !fallback)
+-		return __alloc_range_bias(mm, start, end, order,
+-					  flags, true);
 -
--
- /******************************************************************************
-  * Screen Target Display KMS Functions
-  *
+-	return block;
++	return __alloc_range_freetree(mm, start, end, order, flags);
+ }
+ 
+ /* Return the highest-address free block of at least @order. */
 -- 
-2.56.1
+2.43.0
 
