@@ -2,39 +2,39 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A8E79606A325
-	for <dri-devel@archiver.kernel.org>; Wed, 18 Nov 2026 21:48:04 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 953D3606A32F
+	for <dri-devel@archiver.kernel.org>; Wed, 18 Nov 2026 21:48:09 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=igalia.com header.i=@igalia.com header.a=rsa-sha256 header.s=20170329 header.b=ANQoVM2j
+	dkim=pass (2048-bit key) header.d=igalia.com header.i=@igalia.com header.a=rsa-sha256 header.s=20170329 header.b=GUh0hZ12
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id D9595112068;
-	Wed, 18 Nov 2026 21:47:58 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id E942410FDE7;
+	Wed, 18 Nov 2026 21:48:03 +0000 (UTC)
 Received: from fanzine2.igalia.com (fanzine2.igalia.com [213.97.179.56])
- by gabe.freedesktop.org (Postfix) with ESMTPS id DF952112068
- for <dri-devel@lists.freedesktop.org>; Wed, 18 Nov 2026 21:47:52 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id A9FFF112066
+ for <dri-devel@lists.freedesktop.org>; Wed, 18 Nov 2026 21:47:48 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com; 
  s=20170329;
  h=Cc:To:Message-Id:Content-Transfer-Encoding:Content-Type:
  MIME-Version:Subject:Date:From:From:Reply-To;
- bh=DSiAzRz5MIjqj12rygoWjMUou4UoCjMUOgWeZ1VDPU4=; t=1795038472; x=2110398472; 
- b=ANQoVM2jx12UsILxkdus8KbrGSPDs02t74j3+EnMosbb6+e0/RXQzowCjkCgu9ng+pJ+35FqQ4I
- aq9FifybKL5OTWwfVCuSIU/Y+Gmoa/J51WOo9PNchO2v9LISA8FUx39mek/YNK3BoM01blXU61V8I
- yZI6BnDB6+gtBcRm5MhxZBhARVFyq61XP8NDS/A9mwlXZaPSehhotrUJ7rhXGfW7Xos7eXqGYNGRW
- d/aKdKdYU4YibkTs7QopSxO8yJkGs7trEMPC0tN2tluEfqCOXG9nhjp61deUKQc2e3tJrPH4PQjW1
- 5Qnc9KaJA9aLR/Dl0U7LfscLd6RtLlpcQojg==;
+ bh=Y9z0INQnIrxBLi0ItJauMKa1CNAGPzWxvkQC64eLAXI=; t=1795038468; x=2110398468; 
+ b=GUh0hZ12BT2Otl5c1WMu6HwXjaayexacbNBQNxI49BteXYOKv8Qkm/mhdNrc4YxC48dH/Q22p2v
+ oVYPLNWPMHfHJhRdpHu4PKvho1PkmIZy4kmFoWumCez1u7xnfjLC8/60xvZ85Aktnzn7nrnqeSvBw
+ 7MZRwjDQgRduIdFxZ9n04ICTy8iInb4U3N3Sg+vh80EZ++SDKYbjnASiuxJjnrSd/zEWKOOEUXNFY
+ 7JVNAc8bblDkboKNMAhakFZMD+nMJK1Rw6gVQ0TQcArb3Pr/Abg+3UJ3wqtOzPkXS+G13yHid0dbp
+ Ps7yCRmMJ0/96poIztUSOZyRIGM03oYlpB3w==;
 Received: from [179.105.94.163] (helo=[10.0.0.1])
  by fanzine2.igalia.com with esmtpsa 
  (Cipher TLS1.3:ECDHE_X25519__RSA_PSS_RSAE_SHA256__AES_256_GCM:256) (Exim)
- id 1xTnVO-00000001DOD-2Cqv; Wed, 18 Nov 2026 22:47:50 +0100
+ id 1xTnVK-00000001DOD-1atu; Wed, 18 Nov 2026 22:47:46 +0100
 From: =?utf-8?q?Ma=C3=ADra_Canal?= <mcanal@igalia.com>
-Date: Wed, 18 Nov 2026 18:47:30 -0300
-Subject: [PATCH 3/4] drm/vc4: Start shader code at varying offsets in its
- BO
+Date: Wed, 18 Nov 2026 18:47:29 -0300
+Subject: [PATCH 2/4] drm/vc4: Check for a validated shader before reading
+ its thread mode
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
-Message-Id: <20261118-vc4-icache-workaround-v1-3-5b8adc2c84fe@igalia.com>
+Message-Id: <20261118-vc4-icache-workaround-v1-2-5b8adc2c84fe@igalia.com>
 References: <20261118-vc4-icache-workaround-v1-0-5b8adc2c84fe@igalia.com>
 In-Reply-To: <20261118-vc4-icache-workaround-v1-0-5b8adc2c84fe@igalia.com>
 To: Iago Toral <itoral@igalia.com>, 
@@ -46,15 +46,15 @@ To: Iago Toral <itoral@igalia.com>,
 Cc: kernel-dev@igalia.com, dri-devel@lists.freedesktop.org, 
  stable@vger.kernel.org, =?utf-8?q?Ma=C3=ADra_Canal?= <mcanal@igalia.com>
 X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=openpgp-sha256; l=7331; i=mcanal@igalia.com;
- h=from:subject:message-id; bh=M4tq1OKGXxeOKX3GWqc5ZHUiHKIsKMNHJrbPYz3qbTM=;
- b=owEBbQGS/pANAwAKAT/zDop2iPqqAcsmYgBq/hz2d6kfLe1xpYg2nB1H5F12KmTa4JUFGSfPH
- KXgY5s356mJATMEAAEKAB0WIQT45F19ARZ3Bymmd9E/8w6Kdoj6qgUCav4c9gAKCRA/8w6Kdoj6
- qoD1B/4xFGeZi3VnCwo5Jiol5XNtePzOOLvEMlVN0/ZjO0wF6O0ZaNLR2AXc4tLoMXdjNF0Wn8O
- vqL1c6Q0CasIX2pHoY6xonDWuotga7aJwtcUFH5K0VGrD4oKbpC1BqCb1lJjdWYTKRTRLAwyzXn
- qNEHYAIG1ctpBYLool9DEj1lzr7dgSxIImqDkx8m5CsjdfB2+ZrSTcgjlQnjPkBdSY1H/YjXAQW
- CEtkhqM3n0MuzEYkg+2ZJZBMM0/Gv11iDCNLN6iStD4foMhzrBwjfxMe7EvpLPRloVFeTQ1Zp9J
- 6uPL3VvFMxO4Yd8Hg8AIW5xWlR1upd5nCXr0pPJmXf/dXvxv
+X-Developer-Signature: v=1; a=openpgp-sha256; l=2021; i=mcanal@igalia.com;
+ h=from:subject:message-id; bh=BSFhiqKTk4diCGnaXJLGBu8mlHmWK2u9FvoYgucdTZ8=;
+ b=owEBbQGS/pANAwAKAT/zDop2iPqqAcsmYgBq/hz221sfFJT2BawEtvEsuwBAjv/xZAhIeiAEB
+ cF+RxceqY2JATMEAAEKAB0WIQT45F19ARZ3Bymmd9E/8w6Kdoj6qgUCav4c9gAKCRA/8w6Kdoj6
+ qjnPCADVzoZl8ywOqRQPPY3qUJX1tfbxYYwIZU+DyxrHJ4HNiTICiOcHvPbGsaMzKC+YHHQed9m
+ JPEAfOyqPmnud3wjsANZxg1Q7AAfJQyVXIs1vuUJg2fADcQ/DTmVYNyKeBGrkAyN2cpnezgS9J4
+ ZxIKUWT6fMj8SoskSSWwXH3FVAOqxpyp21+1IvymQnhq7GaLod3EGcf2cleba3NEMLDrh8Gi/ug
+ CcJnen28Y/tnYxUuf3kBeJmVrsAxVWD/y3ZDMixcvAWxA5jgb562feoXOoZlXwdIVgsd9UJWgd0
+ 0dMZhaEk6NwLtBlJwikVWpHcpu0z1N7irmlYE8K1pfLAPZ4S
 X-Developer-Key: i=mcanal@igalia.com; a=openpgp;
  fpr=F8E45D7D0116770729A677D13FF30E8A7688FAAA
 X-BeenThere: dri-devel@lists.freedesktop.org
@@ -76,201 +76,57 @@ X-Spam-Status: No, score=-18.8 required=3.0 tests=BAYES_00,DKIM_SIGNED,
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-VC4 is affected by the HW erratum GFXH-16: the QPUs can get stuck in a
-loop where instruction cache loads are evicted before they are used.
+validate_gl_shader_rec() reads the thread mode from the validated_shader
+of the FS, VS and CS BOs before checking it for NULL. A shader record
+pointing at a BO not created by DRM_IOCTL_VC4_CREATE_SHADER_BO has no
+validated_shader, so userspace can trigger a NULL pointer dereference.
 
-The QPUs of a slice share one instruction cache. Shader BOs are page
-aligned and the code always starts at offset 0, so instructions at the
-same position in different shaders end up mapping to the same cache sets.
-When the four QPUs of a slice run four different shaders, their fills
-evict each other, no instruction executes and the hangcheck resets the
-GPU.
-
-Place each shader's code at one of four offsets, 256 bytes apart, inside
-its BO, and add the offset when relocating the shader record. Shader code
-is position independent, as the validator only accepts relative branches.
-The offsets are tracked per client, so shaders a given client creates in
-sequence (which tend to run together) start in different sets.
-
-Notice that this approach makes the livelock unlikely, but not impossible.
-The next commit will address the remaining cases.
-
-On a Raspberry Pi 3 running the issue's reproducer, GPU resets went from
-dozens in an hour to none.
+Check that every shader BO has a validated shader before using it.
 
 Cc: stable@vger.kernel.org
-Fixes: 463873d57014 ("drm/vc4: Add an API for creating GPU shaders in GEM BOs.")
-Closes: https://gitlab.freedesktop.org/mesa/mesa/-/issues/16652
+Fixes: c778cc5df944 ("drm/vc4: Add fragment shader threading support")
 Signed-off-by: Maíra Canal <mcanal@igalia.com>
 ---
- drivers/gpu/drm/vc4/vc4_bo.c               | 43 +++++++++++++++++++++++-------
- drivers/gpu/drm/vc4/vc4_drv.h              | 10 ++++++-
- drivers/gpu/drm/vc4/vc4_validate.c         |  3 ++-
- drivers/gpu/drm/vc4/vc4_validate_shaders.c |  7 ++---
- 4 files changed, 48 insertions(+), 15 deletions(-)
+ drivers/gpu/drm/vc4/vc4_validate.c | 12 +++++++-----
+ 1 file changed, 7 insertions(+), 5 deletions(-)
 
-diff --git a/drivers/gpu/drm/vc4/vc4_bo.c b/drivers/gpu/drm/vc4/vc4_bo.c
-index da4b11b7ce9f..2ab7c158b7ff 100644
---- a/drivers/gpu/drm/vc4/vc4_bo.c
-+++ b/drivers/gpu/drm/vc4/vc4_bo.c
-@@ -17,6 +17,7 @@
-  */
- 
- #include <linux/dma-buf.h>
-+#include <linux/overflow.h>
- 
- #include <drm/drm_fourcc.h>
- #include <drm/drm_print.h>
-@@ -836,6 +837,19 @@ int vc4_mmap_bo_ioctl(struct drm_device *dev, void *data,
- 	return 0;
- }
- 
-+/*
-+ * QPUs sharing a slice's instruction cache can livelock evicting each
-+ * other's fills. Considering that shader BOs are page aligned, any code
-+ * at offset 0 maps every shader to the same cache sets. This makes a
-+ * livelock more likely to happen due to GFXH-16.
-+ *
-+ * Start each shader at one of four offsets, cycled per client, to spread
-+ * them across sets. The use of four different offsets is motivated by the
-+ * number of QPUs per slice (4 QPUs).
-+ */
-+#define VC4_SHADER_OFFSET_STEP	256
-+#define VC4_SHADER_OFFSET_NUM	4
-+
- int
- vc4_create_shader_bo_ioctl(struct drm_device *dev, void *data,
- 			   struct drm_file *file_priv)
-@@ -844,6 +858,7 @@ vc4_create_shader_bo_ioctl(struct drm_device *dev, void *data,
- 	struct vc4_file *vc4file = file_priv->driver_priv;
- 	struct vc4_dev *vc4 = to_vc4_dev(dev);
- 	struct vc4_bo *bo = NULL;
-+	u32 offset, size;
- 	int ret;
- 
- 	if (WARN_ON_ONCE(vc4->gen > VC4_GEN_4))
-@@ -865,29 +880,37 @@ vc4_create_shader_bo_ioctl(struct drm_device *dev, void *data,
- 		return -EINVAL;
- 	}
- 
-+	offset = ((u32)atomic_inc_return(&vc4file->shader_offset_idx) %
-+		  VC4_SHADER_OFFSET_NUM) * VC4_SHADER_OFFSET_STEP;
-+
-+	if (check_add_overflow(offset, args->size, &size))
-+		return -EINVAL;
-+
- 	ret = vc4_grab_bin_bo(vc4, vc4file);
- 	if (ret)
- 		return ret;
- 
--	bo = vc4_bo_create(dev, args->size, true, VC4_BO_TYPE_V3D_SHADER);
-+	bo = vc4_bo_create(dev, size, true, VC4_BO_TYPE_V3D_SHADER);
- 	if (IS_ERR(bo))
- 		return PTR_ERR(bo);
- 
- 	bo->madv = VC4_MADV_WILLNEED;
-+	bo->shader_offset = offset;
- 
--	if (copy_from_user(bo->base.vaddr,
--			     (void __user *)(uintptr_t)args->data,
--			     args->size)) {
-+	/* Clear the memory around the code, which may come from the BO
-+	 * cache.
-+	 */
-+	memset(bo->base.vaddr, 0, offset);
-+	if (copy_from_user(bo->base.vaddr + offset,
-+			   (void __user *)(uintptr_t)args->data,
-+			   args->size)) {
- 		ret = -EFAULT;
- 		goto fail;
- 	}
--	/* Clear the rest of the memory from allocating from the BO
--	 * cache.
--	 */
--	memset(bo->base.vaddr + args->size, 0,
--	       bo->base.base.size - args->size);
-+	memset(bo->base.vaddr + offset + args->size, 0,
-+	       bo->base.base.size - offset - args->size);
- 
--	bo->validated_shader = vc4_validate_shader(&bo->base);
-+	bo->validated_shader = vc4_validate_shader(&bo->base, offset);
- 	if (!bo->validated_shader) {
- 		ret = -EINVAL;
- 		goto fail;
-diff --git a/drivers/gpu/drm/vc4/vc4_drv.h b/drivers/gpu/drm/vc4/vc4_drv.h
-index f68486be08a6..62ce83322d1b 100644
---- a/drivers/gpu/drm/vc4/vc4_drv.h
-+++ b/drivers/gpu/drm/vc4/vc4_drv.h
-@@ -255,6 +255,9 @@ struct vc4_bo {
- 	 */
- 	struct vc4_validated_shader_info *validated_shader;
- 
-+	/* Byte offset of the shader code in the BO. */
-+	u32 shader_offset;
-+
- 	/* One of enum vc4_kernel_bo_type, or VC4_BO_TYPE_COUNT + i
- 	 * for user-allocated labels.
- 	 */
-@@ -802,6 +805,11 @@ struct vc4_file {
- 	struct xarray perfmons;
- 
- 	bool bin_bo_used;
-+
-+	/* Counter picking the start offset of the next shader BO's code,
-+	 * see vc4_create_shader_bo_ioctl().
-+	 */
-+	atomic_t shader_offset_idx;
- };
- 
- static inline struct vc4_exec_info *
-@@ -1089,7 +1097,7 @@ bool vc4_check_tex_size(struct vc4_exec_info *exec,
- 
- /* vc4_validate_shader.c */
- struct vc4_validated_shader_info *
--vc4_validate_shader(struct drm_gem_dma_object *shader_obj);
-+vc4_validate_shader(struct drm_gem_dma_object *shader_obj, u32 offset);
- 
- /* vc4_perfmon.c */
- void vc4_perfmon_get(struct vc4_perfmon *perfmon);
 diff --git a/drivers/gpu/drm/vc4/vc4_validate.c b/drivers/gpu/drm/vc4/vc4_validate.c
-index 240786e7dcd5..2d3b151263e4 100644
+index 0d2b08abf1ad..240786e7dcd5 100644
 --- a/drivers/gpu/drm/vc4/vc4_validate.c
 +++ b/drivers/gpu/drm/vc4/vc4_validate.c
-@@ -856,7 +856,8 @@ validate_gl_shader_rec(struct drm_device *dev,
- 		void *uniform_data_u;
- 		uint32_t tex, uni;
+@@ -830,6 +830,11 @@ validate_gl_shader_rec(struct drm_device *dev,
+ 			return -EINVAL;
+ 	}
  
--		*(uint32_t *)(pkt_v + o) = bo[i]->dma_addr + src_offset;
-+		*(uint32_t *)(pkt_v + o) = bo[i]->dma_addr + src_offset +
-+					   to_vc4_bo(&bo[i]->base)->shader_offset;
++	for (i = 0; i < shader_reloc_count; i++) {
++		if (!to_vc4_bo(&bo[i]->base)->validated_shader)
++			return -EINVAL;
++	}
++
+ 	if (((*(uint16_t *)pkt_u & VC4_SHADER_FLAG_FS_SINGLE_THREAD) == 0) !=
+ 	    to_vc4_bo(&bo[0]->base)->validated_shader->is_threaded) {
+ 		DRM_DEBUG("Thread mode of CL and FS do not match\n");
+@@ -843,7 +848,8 @@ validate_gl_shader_rec(struct drm_device *dev,
+ 	}
  
- 		if (src_offset != 0) {
- 			DRM_DEBUG("Shaders must be at offset 0 of "
-diff --git a/drivers/gpu/drm/vc4/vc4_validate_shaders.c b/drivers/gpu/drm/vc4/vc4_validate_shaders.c
-index 66502a6a4a8e..a5a1c78eb73d 100644
---- a/drivers/gpu/drm/vc4/vc4_validate_shaders.c
-+++ b/drivers/gpu/drm/vc4/vc4_validate_shaders.c
-@@ -779,7 +779,7 @@ vc4_handle_branch_target(struct vc4_shader_validation_state *validation_state)
- }
+ 	for (i = 0; i < shader_reloc_count; i++) {
+-		struct vc4_validated_shader_info *validated_shader;
++		struct vc4_validated_shader_info *validated_shader =
++			to_vc4_bo(&bo[i]->base)->validated_shader;
+ 		uint32_t o = shader_reloc_offsets[i];
+ 		uint32_t src_offset = *(uint32_t *)(pkt_u + o);
+ 		uint32_t *texture_handles_u;
+@@ -858,10 +864,6 @@ validate_gl_shader_rec(struct drm_device *dev,
+ 			return -EINVAL;
+ 		}
  
- struct vc4_validated_shader_info *
--vc4_validate_shader(struct drm_gem_dma_object *shader_obj)
-+vc4_validate_shader(struct drm_gem_dma_object *shader_obj, u32 offset)
- {
- 	struct vc4_dev *vc4 = to_vc4_dev(shader_obj->base.dev);
- 	bool found_shader_end = false;
-@@ -793,8 +793,9 @@ vc4_validate_shader(struct drm_gem_dma_object *shader_obj)
- 		return NULL;
- 
- 	memset(&validation_state, 0, sizeof(validation_state));
--	validation_state.shader = shader_obj->vaddr;
--	validation_state.max_ip = shader_obj->base.size / sizeof(uint64_t);
-+	validation_state.shader = shader_obj->vaddr + offset;
-+	validation_state.max_ip = (shader_obj->base.size - offset) /
-+				  sizeof(uint64_t);
- 
- 	reset_validation_state(&validation_state);
- 
+-		validated_shader = to_vc4_bo(&bo[i]->base)->validated_shader;
+-		if (!validated_shader)
+-			return -EINVAL;
+-
+ 		if (validated_shader->uniforms_src_size >
+ 		    exec->uniforms_size) {
+ 			DRM_DEBUG("Uniforms src buffer overflow\n");
 
 -- 
 2.56.0
