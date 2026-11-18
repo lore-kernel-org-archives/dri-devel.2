@@ -2,48 +2,68 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 47221606A31C
-	for <dri-devel@archiver.kernel.org>; Wed, 18 Nov 2026 10:10:16 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 20DCB606A31C
+	for <dri-devel@archiver.kernel.org>; Wed, 18 Nov 2026 10:19:25 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=gcu3Bcft
+	dkim=fail reason="signature verification failed" (2048-bit key) header.d=icenowy.me header.i=@icenowy.me header.a=rsa-sha256 header.s=zmail2 header.b=Oi4ByOSX
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id A450510FA73;
-	Wed, 18 Nov 2026 10:10:10 +0000 (UTC)
-Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 0C5B410FA83
- for <dri-devel@lists.freedesktop.org>; Wed, 18 Nov 2026 10:10:04 +0000 (UTC)
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by tor.source.kernel.org (Postfix) with ESMTP id D716F60D39;
- Wed, 18 Nov 2026 10:10:02 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0FA661F000C5;
- Wed, 18 Nov 2026 10:10:01 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1794996602;
- bh=DoMckYoKdu7Z9ax/XsuTtFpypLo4z5isA4l1uBoyPYE=;
- h=Date:From:To:Cc:Subject:References:In-Reply-To;
- b=gcu3Bcftn6dAHbkxIin/4uGPQ01m/VYqdmXFHCvmE6NsWRLnt4SYdeAeQyWrdgZnn
- g/whzo/7xzBvGFK3hK9ejuxPvEV/GBu+RZoBbVGSPCe5UpkXriugdncw0zoZULHhZk
- CFyGPe1E527/xv5Sji4r6US7rxKbgRsrdbIALviDEpaVraq+kiotiVXyM/LRjCyiUr
- NlGvmw64cWWr6rMXfVl6jHDtaUZEBajyK8QpoU8vSBnxr7qjsUthGOLbRuDZGIHpn9
- FulghWf14wMKHWSF8T0nwoCFVkoDss6kdaP5c7uIGxC5GLvyO9lYUQqXQeuvob+wWB
- tVrcle0oQXzvQ==
-Date: Wed, 18 Nov 2026 11:09:59 +0100
-From: Maxime Ripard <mripard@kernel.org>
-To: Henry Zhang <henryzhang62@gmail.com>
-Cc: dave.stevenson@raspberrypi.com, mcanal@igalia.com, 
- kernel-list@raspberrypi.com, maarten.lankhorst@linux.intel.com,
- tzimmermann@suse.de, 
- airlied@gmail.com, simona@ffwll.ch, dri-devel@lists.freedesktop.org, 
- linux-kernel@vger.kernel.org
-Subject: Re: [PATCH] drm/vc4: dsi: Allocate the encoder per DRM device
-Message-ID: <av11cTfEuyFJW5h8@houat>
-References: <20261117205902.1293962-1-henryzhang62@gmail.com>
+	by gabe.freedesktop.org (Postfix) with ESMTP id 807A810EB79;
+	Wed, 18 Nov 2026 10:19:19 +0000 (UTC)
+Received: from sender6-op-o15.zoho.com (sender6-op-o15.zoho.com
+ [165.173.180.15])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 2030010EB79
+ for <dri-devel@lists.freedesktop.org>; Wed, 18 Nov 2026 10:18:36 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; t=1794997111; cv=none; 
+ d=zohomail.com; s=zohoarc; 
+ b=duM/gO9A/sLm4uIjFeWEgFv+8mgswwB0RU3N1Ifzp2Ah6TAeu968wyO74dJF0VYXVz3aleUMsIbdB2IRen5xWjvuSf4dT/68uWQL6NGtg1MUmRz+LM6V78k2Atf1PqxZyXV1JL94kL36cHlI9zB0YQQTY7hS5dZt8UeeHoPlkjQ=
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com;
+ s=zohoarc; t=1794997111;
+ h=Content-Type:Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:Subject:Subject:To:To:Message-Id:Reply-To;
+ bh=mkIlP/VFkdFXEzDXzF49yA7qSDhA59GiLbzlhR/mvdk=; 
+ b=UxNUkRRwALdBIqd+u0/1SRXfSlX+uHGECmIwZzaX1DuSs2pa10TpsUGZHRPbOovb+wmYPA5elYCOsL/zzhj7Ja/70TCDe9GHaSKebPGQ1xW8xDVoRQHqVqjrMJ5ZyDw58na/G9/5HF6c3A/XsCDs6iAkC4ALddga4NTtRLnIVwc=
+ARC-Authentication-Results: i=1; mx.zohomail.com;
+ dkim=pass  header.i=icenowy.me;
+ spf=pass  smtp.mailfrom=uwu@icenowy.me;
+ dmarc=pass header.from=<uwu@icenowy.me>
+DKIM-Signature: a=rsa-sha256;
+ b=Oi4ByOSXHxLX391vOuMr/ZKJCm3wX0/iKuyFiAVU8SQ65OQFej2WozQWNQhfeuQDKv6l7/BbgNydDlEIBiQg74Tb/vXKn31Guesh8GqcgI2stI6Kq1Kb9Ig8qZSjrw/TeDA8bfWI/eUtCnU+lwOcCAVfvSKix2fhpltCrtBzzXj8pu2W1CpFQNXcijLLQgLIu1Mi5Dd8eR4esbk0nYSsFbI3URs5BaQVssiEjjdppL6Y7FWiQSiOc1epm8U5ye3iBb58oenDahc2hdDesBKYIoXQUCPxxSsBJff/KGn94iCE0+QT20jdhbxNSL5wAsi+0SpyMebfRQt8RwGtWvHQrw==;
+ c=relaxed/relaxed; s=zmail2; d=icenowy.me; v=1;
+ bh=mkIlP/VFkdFXEzDXzF49yA7qSDhA59GiLbzlhR/mvdk=;
+ h=Content-Description:Content-ID:Content-Type:Content-Transfer-Encoding:Cc:Date:From:In-Reply-To:List-Subscribe:List-Post:List-Owner:List-Id:List-Archive:List-Help:List-Unsubscribe:MIME-Version:Message-ID:Resent-Sender:Resent-Cc:Resent-Date:Resent-To:Reply-To:Resent-Message-ID:Resent-From:Sender:Subject:To:Date:From:Message-Id:Reply-To:Subject:To:Cc;
+Received: by smtp.zohomail.com with SMTPS id 1794997109359888.2617794708957;
+ Wed, 18 Nov 2026 02:18:29 -0800 (PST)
+Message-ID: <bffbf989f2c99aa8c463719347930aca44962615.camel@icenowy.me>
+Subject: Re: [PATCH v2 07/17] drm/spacemit: add Saturn DPU register model
+From: Icenowy Zheng <uwu@icenowy.me>
+To: Guodong Xu <docular.xu@gmail.com>
+Cc: Cody Kang <codykang.hk@gmail.com>, David Airlie <airlied@gmail.com>, 
+ Simona Vetter <simona@ffwll.ch>, Maarten Lankhorst
+ <maarten.lankhorst@linux.intel.com>, Maxime Ripard	 <mripard@kernel.org>,
+ Thomas Zimmermann <tzimmermann@suse.de>, Rob Herring	 <robh@kernel.org>,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley	
+ <conor+dt@kernel.org>, Yixun Lan <dlan@kernel.org>, Vinod Koul
+ <vkoul@kernel.org>,  Neil Armstrong <neil.armstrong@linaro.org>, Haylen Chu
+ <heylenay@4d2.org>, Michael Turquette	 <mturquette@baylibre.com>, Stephen
+ Boyd <sboyd@kernel.org>, Brian Masney	 <bmasney@redhat.com>, Philipp Zabel
+ <p.zabel@pengutronix.de>, Paul Walmsley	 <pjw@kernel.org>, Palmer Dabbelt
+ <palmer@dabbelt.com>, Albert Ou	 <aou@eecs.berkeley.edu>, Alexandre Ghiti
+ <alex@ghiti.fr>, Yao Zi <me@ziyao.cc>,  Uwe =?ISO-8859-1?Q?Kleine-K=F6nig?=
+ <u.kleine-koenig@baylibre.com>, dri-devel@lists.freedesktop.org, 
+ linux-riscv@lists.infradead.org, devicetree@vger.kernel.org, 
+ spacemit@lists.linux.dev, linux-kernel@vger.kernel.org, 
+ linux-phy@lists.infradead.org, linux-clk@vger.kernel.org
+Date: Wed, 18 Nov 2026 18:18:11 +0800
+In-Reply-To: <19ceb44df3141049a955c2c30fe64766.docular.xu@gmail.com>
+References: <20260809-k3-display-v2-0-327d7910bf71@gmail.com>
+ <20260809-k3-display-v2-7-327d7910bf71@gmail.com>
+ <edd7ae1b38ebc687d0b2bfb2509c40fb8a45e625.camel@icenowy.me>
+ <19ceb44df3141049a955c2c30fe64766.docular.xu@gmail.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+User-Agent: Evolution 3.58.3 
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha384;
- protocol="application/pgp-signature"; boundary="v3jyya4i3brhq7hu"
-Content-Disposition: inline
-In-Reply-To: <20261117205902.1293962-1-henryzhang62@gmail.com>
+X-ZohoMailClient: External
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -55,78 +75,56 @@ List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-5.8 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
-	DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
-	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS autolearn=no
-	autolearn_force=no version=4.0.1
+X-Spam-Status: No, score=-13.6 required=3.0 tests=BAYES_00,DKIM_INVALID,
+	DKIM_SIGNED,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_PATCH,
+	MAILING_LIST_MULTI,MENTIONS_GIT_HOSTING,SPF_HELO_NONE,SPF_PASS
+	autolearn=unavailable autolearn_force=no version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-
---v3jyya4i3brhq7hu
-Content-Type: text/plain; protected-headers=v1; charset=us-ascii
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
-Subject: Re: [PATCH] drm/vc4: dsi: Allocate the encoder per DRM device
-MIME-Version: 1.0
-
-On Tue, Nov 17, 2026 at 12:59:02PM -0800, Henry Zhang wrote:
-> The DSI encoder is embedded in struct vc4_dsi, which lives as long as
-> the DSI platform device
-
-That's not true.
-
-It's allocated with devm_drm_bridge_alloc() that will *not* free it in
-remove but give away its reference there.
-
-We have another reference taken in vc4_dsi_bind, that is only given up
-through a drm-managed action and thus will only be freed when the DRM
-device is destroyed.
-
-> but it is initialised with drmm_encoder_init() and so is only cleaned
-> up when the DRM device is released. The DRM device can outlive the
-> unbind of the vc4 components: unloading the DSI panel driver detaches
-> from the DSI host, which deletes the DSI component and unbinds the
-> whole vc4 DRM device, but a compositor that keeps the DRM device open
-> keeps it alive.
-
-All vc4 components should be tied to the DRM device lifetime so that's
-not generally correct either. Something might have snuck back in though.
-
-Also, generally speaking, unloading panel drivers is unsupported at this
-point. It's a work in progress, but requires more changes to be safe.
-
-> If the panel driver is loaded again before that, the new DRM device
-> binds the DSI component and calls drmm_encoder_init() on the encoder
-> that is still on the old DRM device's encoder list. The old device's
-> release later cleans it up from under the new one. On a Raspberry Pi 4
-> with a 6.18-based kernel, closing the old DRM device then gave:
+=E5=9C=A8 2026-11-17=E4=BA=8C=E7=9A=84 16:48 -0500=EF=BC=8CGuodong Xu=E5=86=
+=99=E9=81=93=EF=BC=9A
+> Hi Icenowy,
 >=20
->   WARNING: drivers/gpu/drm/drm_encoder.c:214 at drmm_encoder_alloc_releas=
-e+0x30/0x40 [drm]
->   Call trace: drmm_encoder_alloc_release <- drm_dev_put <- drm_gem_dmabuf=
-_release <- __fput
->   Unable to handle kernel NULL pointer dereference at virtual address 000=
-0000000000008
->   pc : drm_mode_config_cleanup+0x5c/0x2f0 [drm]
->   Call trace: drm_mode_config_cleanup <- drm_managed_release <- drm_dev_p=
-ut
+> On Thu, 03 Sep 2026 20:08:10 +0800, Icenowy Zheng wrote:
+> > =E5=9C=A8 2026-08-09=E6=97=A5=E7=9A=84 21:14 +0800=EF=BC=8CCody Kang vi=
+a B4 Relay=E5=86=99=E9=81=93=EF=BC=9A
+> > > =C2=A0drivers/gpu/drm/spacemit/dpu/saturn_regs/dpu_int.h |=C2=A0 25 +=
++
+> >=20
+> > Is the slightly different K1 Saturn DPU registers considered?
+>=20
+> I compared them with the K1 BSP you mentioned offline [1]. Judging by
+> the block, field and interrupt macro names, I agree with you that the
+> K1 and the K3 use similar IP. But there are also important
+> differences between the K1 and K3 registers, which is why I would not
+> propose reusing these tables.
+>=20
+> For example, the blocks sit at different addresses, and most fields
+> are at a different word or bit. In dpu_int.h, CFG_RDY_CLR is bit 4 on
+> the K1 and bit 5 on the K3, and the underrun bit is 9 and 8.
 
-This is surprising though. I'd like to see a detailed analysis of what's
-actually going on on mainline because it doesn't look right.
+Yes, this IP weirdly doesn't consider register map compatiblity at all.
 
-Maxime
+>=20
+> IMHO a K1 port should add its own compatible, its own field header
 
---v3jyya4i3brhq7hu
-Content-Type: application/pgp-signature; name="signature.asc"
+Well I don't think field headers would work for a mainlined driver;
+maybe things like regmap_field could be used to mitigate the
+difference.
 
------BEGIN PGP SIGNATURE-----
+Surely a compatible string for K1 would be needed, and it might then
+set a device info structure as match data, containing the device
+capability and regmap_field list.
 
-iJUEABMJAB0WIQTkHFbLp4ejekA/qfgnX84Zoj2+dgUCav15cgAKCRAnX84Zoj2+
-dgkVAYCHfb/2RGAae3Uu+c4hKs/QDoJBDl+iVe0Ls2NpAt7zm/YwOA1ybguZLADC
-NznXLdwBgPsqmB8ZJZA+22TcKbrrv5w5u43mkIGlccrWm53UEOn4mgi3pjqUaUNJ
-VXr5yrCipA==
-=2beH
------END PGP SIGNATURE-----
+Thanks,
+Icenowy
 
---v3jyya4i3brhq7hu--
+> and its own backend file next to the K3 ones. What do you think?
+> Hopefully you agree with me.
+>=20
+> [1]
+> https://github.com/spacemit-com/linux-6.6/tree/k1-bl-v2.2.y/drivers/gpu/d=
+rm/spacemit/dpu/saturn_regs
+>=20
+> Guodong
