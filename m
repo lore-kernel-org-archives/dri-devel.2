@@ -2,70 +2,70 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 812FA606A320
-	for <dri-devel@archiver.kernel.org>; Wed, 18 Nov 2026 12:09:07 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 884B9606A320
+	for <dri-devel@archiver.kernel.org>; Wed, 18 Nov 2026 12:09:08 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=baylibre.com header.i=@baylibre.com header.a=rsa-sha256 header.s=google header.b=F9JfZizZ
+	dkim=pass (2048-bit key) header.d=baylibre.com header.i=@baylibre.com header.a=rsa-sha256 header.s=google header.b=QfcJH3yC
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id CE31310FB98;
-	Wed, 18 Nov 2026 12:09:01 +0000 (UTC)
-Received: from mail-wm1-f44.google.com (mail-wm1-f44.google.com
- [209.85.128.44])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 84D3E10FB9F
- for <dri-devel@lists.freedesktop.org>; Wed, 18 Nov 2026 12:08:41 +0000 (UTC)
-Received: by mail-wm1-f44.google.com with SMTP id
- 5b1f17b1804b1-4bb64ef5a00so6254045e9.3
- for <dri-devel@lists.freedesktop.org>; Wed, 18 Nov 2026 04:08:41 -0800 (PST)
+	by gabe.freedesktop.org (Postfix) with ESMTP id C617610FB96;
+	Wed, 18 Nov 2026 12:09:02 +0000 (UTC)
+Received: from mail-wr1-f51.google.com (mail-wr1-f51.google.com
+ [209.85.221.51])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 61E1A10FB85
+ for <dri-devel@lists.freedesktop.org>; Wed, 18 Nov 2026 12:08:40 +0000 (UTC)
+Received: by mail-wr1-f51.google.com with SMTP id
+ ffacd0b85a97d-48b001cd92bso474824f8f.2
+ for <dri-devel@lists.freedesktop.org>; Wed, 18 Nov 2026 04:08:40 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=baylibre.com; s=google; t=1795003720; x=1795608520;
+ d=baylibre.com; s=google; t=1795003719; x=1795608519;
  darn=lists.freedesktop.org; 
  h=content-transfer-encoding:content-type:mime-version:references
  :in-reply-to:message-id:date:subject:cc:to:from:from:to:cc:subject
  :date:message-id:reply-to:content-type;
- bh=/+YSoU/K5/LTKDH6y6all87vBSBOSKAQSyBbuzFGHbU=;
- b=F9JfZizZX+E/II4jHAtorlT9k3PPsG9ZRLP0HrS+F+GuF74Vk157CJe65XBp/CNkfl
- 4ErB++YIV57z6fKjf+krUkAnMB0wZXBNAO3NbTWBYopIQ2eVWr0GXmH0j52hZq3EOcMA
- tvLwizvCFBf83GEdIICEKaq9ALPe/s2LzC8HPVW0TCw7R9Ndnv06hqr0N0HubGVUpI2y
- 6J+fqW6tHpgsv5VMGYQiCZNZSsbWQnKXdL7HgDOVJsFlGkcK+HTn4DGrqi14n0qKdMS5
- nClnbSrhuGGeD/Hsde/ugeoRs6sAM371UsSQTJD+OS20h0pQMH7C7cenATqbVWxG2934
- Y6lA==
+ bh=Qb0DhuOeuIYbCPnn1NnZBgGt3rjV9F8ddv0EZNRAQzk=;
+ b=QfcJH3yCaDnylhDFm9CHdnl+zV63rq83FK69RiZf/Yfrp0ctUt4NzYfC9Xqf/VDF7m
+ tbRF7mTpcXQumyGs3p8fjpsVj3+RTUNfNyy6vpFBUf78sKvQfuJ8Xreqtd4wVjEkfMPH
+ ZZQWHv8OiHDLDXhkU8NC3k6PbA95DXZ1Io1tV4ibkfbe+HfRgFi3ybgFF8wU7b3IWG7w
+ OKdZYhsZ55K9wMc25La+lQuTIs/Z7FT3DBU71FQx/ZEaAf0aSqV66gk6Gsw6bhbei98x
+ 2tISY4y941q0SLoopxhqoyz5b0OBNHj9svf4muCyGL9iyLTjPbk0OS2Ckt18KnT0+OsN
+ FdJA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20260707; t=1795003720; x=1795608520;
+ d=1e100.net; s=20260707; t=1795003719; x=1795608519;
  h=content-transfer-encoding:content-type:mime-version:references
  :in-reply-to:message-id:date:subject:cc:to:from:x-gm-gg
  :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
  :content-type;
- bh=/+YSoU/K5/LTKDH6y6all87vBSBOSKAQSyBbuzFGHbU=;
- b=KVzYvArQbcJ2S5oh+29rpf9RWM80xNmpVzakdYsq5hzDPpoHA6OveJMJe/iSoywWsb
- w/cwSKQ0ByyoGO/DbKfS1gQnmuB8B9yM43eFu/KMWjlRxaIsX2NpSJqA+4VCrq8Aj8m0
- mxfshqy0Jpw4DH/oSnmOabGyOZNFFqFmCwwK2Emf8hdLhoyfw7Fn1rRAt4j3jon0N6Zg
- 7b0MmCp61FRQiXLSLlM8V/El9veIjEX5x5l4fDg+Hjw3Lz3RHNZCsev34e4VYplkydXA
- v9tHjTOGwI2NMFne414djamTjMmW7F4AjwHEgOyMTYyz898pMr0rJHw+HrvScshxSPDt
- l6Pg==
+ bh=Qb0DhuOeuIYbCPnn1NnZBgGt3rjV9F8ddv0EZNRAQzk=;
+ b=KRPkuiABDXxqjyC+C7QuiszzpXskelozMzcfU6Otfa9vCak+NCxqUaXn6GdNZmVvy9
+ qSXLjMoEmvZQguNjaj54RM9kYbAgn84Vjr9U+W8Y8EV4pCzFh273QmI1HCGrekuDcTKP
+ A4dQgdrQD6Q4F4tepVAsw84FEGoikWS39S6kztKYq/kQYtgStgTHUIfIJ+1ojZ/lHWLD
+ ZeUM7CGPXisRuLG7p0VA5nlUx3Jl9s1c1zB292NHhyCGL1FI3NCWdad2aKzUIwalavWM
+ 9VEfsaW53rh2N6+Ul7IgUQQYRGVLu/yY8jBSMmJIk4/Mpz2qfXVpxP14FP0nGiMKsWRC
+ VWjA==
 X-Forwarded-Encrypted: i=1;
- AL+hErEdNz36zV2uC3IzNzuX1vmNrngIcv81UWxt78CkZ0eWU2i4eFC8F8MYcc62KzAs6W0HBzwBGNDxr44=@lists.freedesktop.org
-X-Gm-Message-State: APuU4Z8k/VlSeR/pTVTwukkmfTFAp/0f6bwKoEYUg+XUoFaZeazNYUcb
- 53zCeAFREYCTGa1FkrrTNyxbmgfdXsspO/uHEnKprXrXM0szTkbN/qLX0n5Ty47Uyac=
-X-Gm-Gg: AYBFou1eAGrQ7pP94dFbx5AhESbTUU4dbEGPvNp8sc/0oywxWkozqdYjCJpk91FwZPp
- JFPfJaQAVRfoTnW49phHbfyL3ZXDHtZtWqlKh9iLETy6EsH1LHdJZKxPa3ugBVv5F3+9VmkYAFz
- IC207LTPu1Y9aJSWQ6YDIJKT5zsTxbBhHARJF0e4kwt4MljBiypgHJZCzldSP8eKH5Ji2EbKDQv
- PW9+J/hjWagT6H1cRDbSmbQx+ycdZa6M9iq0L/8LPDHN3GVvdZqZin0uWevvwnX3z8bm88sQZBc
- USFr+cejVeSSJIbsdVkVM2r1Io0Kod+awZFNDLH2ZebUrmac3nw4rrCR7A28NHDLQC95hKnaOxj
- G+gIRUxFcs24kWLAq43117Ljv2Ljw1YLNgtoyQ5vpPWi6FBuZrTroOD0tQndTgAhZFnRH4PpoXE
- vxSYO4lL8Cwr4u5U+NlJbORHf/K1vGfHCy110jjomN1OKfAR5ExCQ15e93G/BfV7RFcOeRpD55S
- fD2L3OqfU2bsERznbNpNkr5TvuW0IDXG6J0ldWs2JpCBI8uOPOwZ/AR9FWgbD027RjpPoOLJZmD
- hjBR9TG8EUQmmZiSUTN6ZQHMpGfQ70u9o3zYo3coBRqpV2nDTelTla8MkVpV2IXIeaaca2Qs6uo
- KqP2QhVD1thhAvLNCVFXVrvV1Ca2pxu6g4jhX
-X-Received: by 2002:a05:600c:8184:b0:4b7:dc0:89c with SMTP id
- 5b1f17b1804b1-4bb7da51024mr42923945e9.32.1795003719893; 
- Wed, 18 Nov 2026 04:08:39 -0800 (PST)
+ AL+hErEqeT7ux9OJ2cBSpv4u8BvL9Z2DK7QunKxuXUlGK34YYv06bnLwoaITRsZMKVSVdlrXRil8199qs+Y=@lists.freedesktop.org
+X-Gm-Message-State: APuU4Z/PDEWvD4vjOr0EaLLBFMKgx8kas0hdPndfQF6HVhhEBoFAvJUR
+ kasD+TMVF5BKhUV9XGXohobr8ORCMM3963jla1p2paJjXK77ctQHFNY03r4AQ0oJ5mc=
+X-Gm-Gg: AZFdTZd+Uxpn95AVv+eRFYCEknOzzQtWljPb1j7Q/9/IABVXcH4eLZiKIMgTJHEuKLM
+ oWHXLEElnfpHRbTDyI12/6Hwu7AL2XuTNNiXO4pHUh4b6sAGDYdHhparOfpPBjhTSjn+wmnDUot
+ GiuSdKwDb7fk+ptx832yi1J6wL+KLMmmGKMSopa8sdckfUklhmZi9/j2inPiZe4U2n0UCGWIlhv
+ S+w7X68B+k48UoA5BeYmbDAYDbfgBOpHOxGVfGR9ccHdYA++7ealZ12ojFq45/Wk2QBYODawXMm
+ zQYJ+T2vxYj8S54SdRBdDA8UENoHlA8a0uIfyua+54447JDTL+ypR3lutlItX3qv76Pb1Em5p4J
+ iGEj5uKkcwPB0QXGfZQsDvn1YdZv+xBhJ68CUme2LCD+3Y74t7pK7Mz1n6G7u5v7DMXGENmGczM
+ lkh/KPgwQWTEBBtLZN5fK98s6ZMrMiD/YpjS0tiw5KO6tGEqPzZGT4/9X37mVBYKfVN0UHKIutc
+ XC6ipq7IU6KrH4FLWzlKhruFts5MmiT5iXG2axrhVyb9rvTZTpA6MW/3ERdGBLdWcF6IoRKYR5U
+ X7tdDZs/8wJ3Mj23yrjojiK2M92DW+A6JqGFLdcBFZrJbc60wPEBIvIbrruC/uDDp3lObXFrztk
+ mUOOODjPPRUiwHTw=
+X-Received: by 2002:a05:6000:15e4:b0:48e:69ff:ba36 with SMTP id
+ ffacd0b85a97d-4a639d17154mr2861347f8f.28.1795003718597; 
+ Wed, 18 Nov 2026 04:08:38 -0800 (PST)
 Received: from localhost
  (p200300f65f19a904dea20c2220232395.dip0.t-ipconnect.de.
  [2003:f6:5f19:a904:dea2:c22:2023:2395])
  by smtp.gmail.com with UTF8SMTPSA id
- 5b1f17b1804b1-4bb7d2c3c93sm90462525e9.13.2026.11.18.04.08.39
+ ffacd0b85a97d-4a654a8c411sm4553318f8f.16.2026.11.18.04.08.37
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Wed, 18 Nov 2026 04:08:39 -0800 (PST)
+ Wed, 18 Nov 2026 04:08:38 -0800 (PST)
 From: =?UTF-8?q?Uwe=20Kleine-K=C3=B6nig?= <u.kleine-koenig@baylibre.com>
 To: David Airlie <airlied@gmail.com>,
 	Simona Vetter <simona@ffwll.ch>
@@ -73,33 +73,36 @@ Cc: Neil Armstrong <neil.armstrong@linaro.org>,
  Jessica Zhang <jesszhan0024@gmail.com>,
  Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
  Maxime Ripard <mripard@kernel.org>,
- Thomas Zimmermann <tzimmermann@suse.de>, Michael Walle <mwalle@kernel.org>,
- Dario Binacchi <dario.binacchi@amarulasolutions.com>,
- Linus Walleij <linusw@kernel.org>, Jagan Teki <jagan@amarulasolutions.com>,
+ Thomas Zimmermann <tzimmermann@suse.de>,
+ Marcus Folkesson <marcus.folkesson@gmail.com>,
  David Lechner <david@lechnology.com>,
- Iker Pedrosa <ikerpedrosam@gmail.com>,
- Alex Lanzano <lanzano.alex@gmail.com>, dri-devel@lists.freedesktop.org,
+ Kamlesh Gurudasani <kamlesh.gurudasani@gmail.com>,
+ Alex Lanzano <lanzano.alex@gmail.com>,
+ LiangCheng Wang <zaq14760@gmail.com>,
+ Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>,
+ Dave Airlie <airlied@redhat.com>, Jani Nikula <jani.nikula@intel.com>,
+ Kees Cook <kees+treewide@kernel.org>, dri-devel@lists.freedesktop.org,
  Pawel Zalewski <pzalewski@thegoodpenguin.co.uk>
-Subject: [PATCH v1 4/9] drm: Use designated initializers for spi_device_id
- arrays
-Date: Wed, 18 Nov 2026 13:08:11 +0100
-Message-ID: <5486432120db4d9081d1586ac528c41ce16f3cc5.1795002467.git.ukleinek@kernel.org>
+Subject: [PATCH v1 3/9] drm: Drop unused assignment of spi_device_id
+ driver_data
+Date: Wed, 18 Nov 2026 13:08:10 +0100
+Message-ID: <7165f1383f5f195696fc99a0153241c2b7cb5ab0.1795002467.git.ukleinek@kernel.org>
 X-Mailer: git-send-email 2.47.3
 In-Reply-To: <cover.1795002467.git.ukleinek@kernel.org>
 References: <cover.1795002467.git.ukleinek@kernel.org>
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=UTF-8
-X-Developer-Signature: v=1; a=openpgp-sha256; l=11296;
+X-Developer-Signature: v=1; a=openpgp-sha256; l=10219;
  i=u.kleine-koenig@baylibre.com; h=from:subject:message-id;
- bh=5wz6xkSYmr3S0ILgFpUBJJZUitxy7fXd1UUcNadJV5I=;
- b=owEBbQGS/pANAwAKAY+A+1h9Ev5OAcsmYgBq/ZUx2wcqQxEWNz08T4rqJ0mloMAOYEbee/uF5
- rXUH1GWLYSJATMEAAEKAB0WIQQ/gaxpOnoeWYmt/tOPgPtYfRL+TgUCav2VMQAKCRCPgPtYfRL+
- TughB/9KEvzwz4GDZ7LuIR34ijVfWxsb0jfQ/73qo+wEZrZtOskrtjAfylsYAWp+4DtqSHA9FBH
- JJhM+RwGQsQ1Id4uIvr20SPrkDiqqonP9OiOGKmnqKGcuMNLx1Ldhr+MN8uV2ru79Rp9r5dfcoD
- /jtcyQ+ZU+EC/he3nEfSBqNqYl1J0+J6cUk/mDEfBzf6MfKKadewwECorwyHqHHCnXCfVetYHzS
- KNhwq7aDn0+c3vMDrgN0olLt2gbtYjZFgLxjsqT6nTHaQGJs26Ki9EgohI/66+pasaB/P1DTiLc
- NFZDEylMwROAka9tWjRWnr5gGVInEFnDy3v3AjCRDZuCaanG
+ bh=S0hwGGp6w6p91N0QascAuQAryt4p7NZS7/tEvQ61ysE=;
+ b=owEBbQGS/pANAwAKAY+A+1h9Ev5OAcsmYgBq/ZUv8JCOfTHDGiQzJPDuFtFhilIU+HfUcBQBY
+ DzIvlSAwqGJATMEAAEKAB0WIQQ/gaxpOnoeWYmt/tOPgPtYfRL+TgUCav2VLwAKCRCPgPtYfRL+
+ Tp/cB/4o8P2ZEuAaMZwxVK8vApLD7h+2lEuuhKcU/E+vOkQysbFmYdsIoTzgxB8O/BUCHq/dboC
+ SnW+p5xo9Sk67f5CHhDv3V4+TSF8T7zl+BCeX6LPqfQnNjkDt1xj7NR4hJtOLxXeGTd2fdYhjLD
+ B9DdCvceaWwPr1f7Rug2qUG5shVYuLUAM+My7QH9IwotbcnwThQMLvr3DoBe0Ikqou+HS2fAHbw
+ JSIXfBzXuK0s6QBPKZxmQf5k0zxrJk3VmwMrX4f+I9HvViOqK4yTOKVLNyw9aCsM2fNnNLEJxII
+ Mx1XZT08BoGlyhKK/dHGkhT0B2x6fKCSWbFfHjERy629CgEL
 X-Developer-Key: i=u.kleine-koenig@baylibre.com; a=openpgp;
  fpr=0D2511F322BFAB1C1580266BE2DCDD9132669BD6
 Content-Transfer-Encoding: 8bit
@@ -121,249 +124,261 @@ X-Spam-Status: No, score=-18.8 required=3.0 tests=BAYES_00,DKIM_SIGNED,
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-Named initializers are better readable and more robust to changes of the
-struct definition. This robustness is relevant for a planned change to
-struct spi_device_id replacing .driver_data by an anonymous union.
+The driver explicitly sets the .driver_data member of struct
+spi_device_id to zero without relying on that value. Drop this unused
+assignment.
 
 Signed-off-by: Uwe Kleine-König <u.kleine-koenig@baylibre.com>
 ---
- drivers/gpu/drm/panel/panel-auo-a030jtn01.c   |  5 ++++-
- .../gpu/drm/panel/panel-ilitek-ili9806e-spi.c |  2 +-
- .../gpu/drm/panel/panel-newvision-nv3052c.c   |  6 +++---
- .../gpu/drm/panel/panel-orisetech-ota5601a.c  |  2 +-
- drivers/gpu/drm/panel/panel-samsung-db7430.c  |  2 +-
- drivers/gpu/drm/panel/panel-samsung-ld9040.c  |  2 +-
- drivers/gpu/drm/panel/panel-sitronix-st7701.c |  2 +-
- .../gpu/drm/panel/panel-sitronix-st7789v.c    |  8 ++++----
- drivers/gpu/drm/panel/panel-tpo-tpg110.c      |  2 +-
- .../gpu/drm/panel/panel-widechips-ws2401.c    |  2 +-
- drivers/gpu/drm/sitronix/st7735r.c            |  4 ++--
- drivers/gpu/drm/sitronix/st7920.c             |  2 +-
- drivers/gpu/drm/tiny/repaper.c                |  8 ++++----
- drivers/gpu/drm/tiny/sharp-memory.c           | 20 +++++++++----------
- 14 files changed, 35 insertions(+), 32 deletions(-)
+ drivers/gpu/drm/panel/panel-ilitek-ili9341.c        | 2 +-
+ drivers/gpu/drm/panel/panel-lg-lb035q02.c           | 2 +-
+ drivers/gpu/drm/panel/panel-magnachip-d53e6ea8966.c | 2 +-
+ drivers/gpu/drm/panel/panel-nec-nl8048hl11.c        | 2 +-
+ drivers/gpu/drm/panel/panel-sony-acx565akm.c        | 2 +-
+ drivers/gpu/drm/panel/panel-tpo-td028ttec1.c        | 2 +-
+ drivers/gpu/drm/panel/panel-tpo-td043mtea1.c        | 2 +-
+ drivers/gpu/drm/sitronix/st7571-spi.c               | 4 ++--
+ drivers/gpu/drm/sitronix/st7586.c                   | 2 +-
+ drivers/gpu/drm/tiny/hx8357d.c                      | 2 +-
+ drivers/gpu/drm/tiny/ili9163.c                      | 2 +-
+ drivers/gpu/drm/tiny/ili9225.c                      | 2 +-
+ drivers/gpu/drm/tiny/ili9341.c                      | 2 +-
+ drivers/gpu/drm/tiny/ili9486.c                      | 6 +++---
+ drivers/gpu/drm/tiny/mi0283qt.c                     | 2 +-
+ drivers/gpu/drm/tiny/panel-mipi-dbi.c               | 2 +-
+ drivers/gpu/drm/tiny/pixpaper.c                     | 5 ++++-
+ 17 files changed, 23 insertions(+), 20 deletions(-)
 
-diff --git a/drivers/gpu/drm/panel/panel-auo-a030jtn01.c b/drivers/gpu/drm/panel/panel-auo-a030jtn01.c
-index d71850b24ffa..defbb49240c2 100644
---- a/drivers/gpu/drm/panel/panel-auo-a030jtn01.c
-+++ b/drivers/gpu/drm/panel/panel-auo-a030jtn01.c
-@@ -278,7 +278,10 @@ static const struct a030jtn01_info a030jtn01_info = {
- };
+diff --git a/drivers/gpu/drm/panel/panel-ilitek-ili9341.c b/drivers/gpu/drm/panel/panel-ilitek-ili9341.c
+index 0bab6f086717..babbf65ac38b 100644
+--- a/drivers/gpu/drm/panel/panel-ilitek-ili9341.c
++++ b/drivers/gpu/drm/panel/panel-ilitek-ili9341.c
+@@ -565,7 +565,7 @@ static const struct of_device_id ili9341_of_match[] = {
+ MODULE_DEVICE_TABLE(of, ili9341_of_match);
  
- static const struct spi_device_id a030jtn01_id[] = {
--	{ "a030jtn01", (kernel_ulong_t) &a030jtn01_info },
-+	{
-+		.name = "a030jtn01",
-+		.driver_data = (kernel_ulong_t) &a030jtn01_info,
-+	},
- 	{ /* sentinel */ }
- };
- MODULE_DEVICE_TABLE(spi, a030jtn01_id);
-diff --git a/drivers/gpu/drm/panel/panel-ilitek-ili9806e-spi.c b/drivers/gpu/drm/panel/panel-ilitek-ili9806e-spi.c
-index 9271c3c89a7f..86da169431f2 100644
---- a/drivers/gpu/drm/panel/panel-ilitek-ili9806e-spi.c
-+++ b/drivers/gpu/drm/panel/panel-ilitek-ili9806e-spi.c
-@@ -297,7 +297,7 @@ static const struct of_device_id ili9806e_spi_of_match[] = {
- MODULE_DEVICE_TABLE(of, ili9806e_spi_of_match);
- 
- static const struct spi_device_id ili9806e_spi_ids[] = {
--	{ "rk050hr345-ct106a", },
-+	{ .name = "rk050hr345-ct106a" },
- 	{ /* sentinel */ }
- };
- MODULE_DEVICE_TABLE(spi, ili9806e_spi_ids);
-diff --git a/drivers/gpu/drm/panel/panel-newvision-nv3052c.c b/drivers/gpu/drm/panel/panel-newvision-nv3052c.c
-index 18130bc14201..40a0aa35da53 100644
---- a/drivers/gpu/drm/panel/panel-newvision-nv3052c.c
-+++ b/drivers/gpu/drm/panel/panel-newvision-nv3052c.c
-@@ -653,9 +653,9 @@ static const struct nv3052c_panel_info wl_355608_a8_panel_info = {
- };
- 
- static const struct spi_device_id nv3052c_ids[] = {
--	{ "ltk035c5444t", },
--	{ "fs035vg158", },
--	{ "rg35xx-plus-panel", },
-+	{ .name = "ltk035c5444t" },
-+	{ .name = "fs035vg158" },
-+	{ .name = "rg35xx-plus-panel" },
- 	{ /* sentinel */ }
- };
- MODULE_DEVICE_TABLE(spi, nv3052c_ids);
-diff --git a/drivers/gpu/drm/panel/panel-orisetech-ota5601a.c b/drivers/gpu/drm/panel/panel-orisetech-ota5601a.c
-index 8a608972fc41..3e147fe6f272 100644
---- a/drivers/gpu/drm/panel/panel-orisetech-ota5601a.c
-+++ b/drivers/gpu/drm/panel/panel-orisetech-ota5601a.c
-@@ -332,7 +332,7 @@ static const struct ota5601a_panel_info gpt3_info = {
- };
- 
- static const struct spi_device_id gpt3_id[] = {
--	{ "gpt3", (kernel_ulong_t)&gpt3_info },
-+	{ .name = "gpt3", .driver_data = (kernel_ulong_t)&gpt3_info },
- 	{ /* sentinel */ }
- };
- MODULE_DEVICE_TABLE(spi, gpt3_id);
-diff --git a/drivers/gpu/drm/panel/panel-samsung-db7430.c b/drivers/gpu/drm/panel/panel-samsung-db7430.c
-index a97182f3c990..2a1fd9eb4698 100644
---- a/drivers/gpu/drm/panel/panel-samsung-db7430.c
-+++ b/drivers/gpu/drm/panel/panel-samsung-db7430.c
-@@ -327,7 +327,7 @@ static const struct of_device_id db7430_match[] = {
- MODULE_DEVICE_TABLE(of, db7430_match);
- 
- static const struct spi_device_id db7430_ids[] = {
--	{ "lms397kf04" },
-+	{ .name = "lms397kf04" },
- 	{ },
- };
- MODULE_DEVICE_TABLE(spi, db7430_ids);
-diff --git a/drivers/gpu/drm/panel/panel-samsung-ld9040.c b/drivers/gpu/drm/panel/panel-samsung-ld9040.c
-index c7f2241523a0..8589ecb6be86 100644
---- a/drivers/gpu/drm/panel/panel-samsung-ld9040.c
-+++ b/drivers/gpu/drm/panel/panel-samsung-ld9040.c
-@@ -401,7 +401,7 @@ static const struct of_device_id ld9040_of_match[] = {
- MODULE_DEVICE_TABLE(of, ld9040_of_match);
- 
- static const struct spi_device_id ld9040_ids[] = {
--	{ "ld9040", },
-+	{ .name = "ld9040" },
- 	{ /* sentinel */ }
- };
- MODULE_DEVICE_TABLE(spi, ld9040_ids);
-diff --git a/drivers/gpu/drm/panel/panel-sitronix-st7701.c b/drivers/gpu/drm/panel/panel-sitronix-st7701.c
-index 31c56eadda12..0db2018a8018 100644
---- a/drivers/gpu/drm/panel/panel-sitronix-st7701.c
-+++ b/drivers/gpu/drm/panel/panel-sitronix-st7701.c
-@@ -1397,7 +1397,7 @@ static const struct of_device_id st7701_spi_of_match[] = {
- MODULE_DEVICE_TABLE(of, st7701_spi_of_match);
- 
- static const struct spi_device_id st7701_spi_ids[] = {
--	{ "rg28xx-panel" },
-+	{ .name = "rg28xx-panel" },
- 	{ /* sentinel */ }
- };
- MODULE_DEVICE_TABLE(spi, st7701_spi_ids);
-diff --git a/drivers/gpu/drm/panel/panel-sitronix-st7789v.c b/drivers/gpu/drm/panel/panel-sitronix-st7789v.c
-index da6ed31d151e..fb6cd9081d3c 100644
---- a/drivers/gpu/drm/panel/panel-sitronix-st7789v.c
-+++ b/drivers/gpu/drm/panel/panel-sitronix-st7789v.c
-@@ -664,10 +664,10 @@ static void st7789v_remove(struct spi_device *spi)
- }
- 
- static const struct spi_device_id st7789v_spi_id[] = {
--	{ "st7789v", (unsigned long) &default_panel },
--	{ "t28cp45tn89-v17", (unsigned long) &t28cp45tn89_panel },
--	{ "et028013dma", (unsigned long) &et028013dma_panel },
--	{ "jt240mhqs-hwt-ek-e3", (unsigned long) &jt240mhqs_hwt_ek_e3_panel },
-+	{ .name = "st7789v", .driver_data = (unsigned long) &default_panel },
-+	{ .name = "t28cp45tn89-v17", .driver_data = (unsigned long) &t28cp45tn89_panel },
-+	{ .name = "et028013dma", .driver_data = (unsigned long) &et028013dma_panel },
-+	{ .name = "jt240mhqs-hwt-ek-e3", .driver_data = (unsigned long) &jt240mhqs_hwt_ek_e3_panel },
+ static const struct spi_device_id ili9341_id[] = {
+-	{ "sf-tc240t-9370-t", 0 },
++	{ .name = "sf-tc240t-9370-t" },
  	{ }
  };
- MODULE_DEVICE_TABLE(spi, st7789v_spi_id);
-diff --git a/drivers/gpu/drm/panel/panel-tpo-tpg110.c b/drivers/gpu/drm/panel/panel-tpo-tpg110.c
-index 0beba5c08956..8fb3a94f6cd9 100644
---- a/drivers/gpu/drm/panel/panel-tpo-tpg110.c
-+++ b/drivers/gpu/drm/panel/panel-tpo-tpg110.c
-@@ -465,7 +465,7 @@ static const struct of_device_id tpg110_match[] = {
- MODULE_DEVICE_TABLE(of, tpg110_match);
+ MODULE_DEVICE_TABLE(spi, ili9341_id);
+diff --git a/drivers/gpu/drm/panel/panel-lg-lb035q02.c b/drivers/gpu/drm/panel/panel-lg-lb035q02.c
+index b2be6727bf73..30590aabd9d3 100644
+--- a/drivers/gpu/drm/panel/panel-lg-lb035q02.c
++++ b/drivers/gpu/drm/panel/panel-lg-lb035q02.c
+@@ -217,7 +217,7 @@ static const struct of_device_id lb035q02_of_match[] = {
+ MODULE_DEVICE_TABLE(of, lb035q02_of_match);
  
- static const struct spi_device_id tpg110_ids[] = {
--	{ "tpg110" },
-+	{ .name = "tpg110" },
- 	{ },
- };
- MODULE_DEVICE_TABLE(spi, tpg110_ids);
-diff --git a/drivers/gpu/drm/panel/panel-widechips-ws2401.c b/drivers/gpu/drm/panel/panel-widechips-ws2401.c
-index dd74610bd2eb..4430c71feb88 100644
---- a/drivers/gpu/drm/panel/panel-widechips-ws2401.c
-+++ b/drivers/gpu/drm/panel/panel-widechips-ws2401.c
-@@ -425,7 +425,7 @@ static const struct of_device_id ws2401_match[] = {
- MODULE_DEVICE_TABLE(of, ws2401_match);
- 
- static const struct spi_device_id ws2401_ids[] = {
--	{ "lms380kf01" },
-+	{ .name = "lms380kf01" },
- 	{ },
- };
- MODULE_DEVICE_TABLE(spi, ws2401_ids);
-diff --git a/drivers/gpu/drm/sitronix/st7735r.c b/drivers/gpu/drm/sitronix/st7735r.c
-index bd763871dca0..f45bca9f3bc2 100644
---- a/drivers/gpu/drm/sitronix/st7735r.c
-+++ b/drivers/gpu/drm/sitronix/st7735r.c
-@@ -226,8 +226,8 @@ static const struct of_device_id st7735r_of_match[] = {
- MODULE_DEVICE_TABLE(of, st7735r_of_match);
- 
- static const struct spi_device_id st7735r_id[] = {
--	{ "jd-t18003-t01", (uintptr_t)&jd_t18003_t01_cfg },
--	{ "rh128128t", (uintptr_t)&rh128128t_cfg },
-+	{ .name = "jd-t18003-t01", .driver_data = (uintptr_t)&jd_t18003_t01_cfg },
-+	{ .name = "rh128128t", .driver_data = (uintptr_t)&rh128128t_cfg },
- 	{ },
- };
- MODULE_DEVICE_TABLE(spi, st7735r_id);
-diff --git a/drivers/gpu/drm/sitronix/st7920.c b/drivers/gpu/drm/sitronix/st7920.c
-index 2f2c808e783b..1a5250ce45e2 100644
---- a/drivers/gpu/drm/sitronix/st7920.c
-+++ b/drivers/gpu/drm/sitronix/st7920.c
-@@ -224,7 +224,7 @@ MODULE_DEVICE_TABLE(of, st7920_of_match);
-  */
- static const struct spi_device_id st7920_spi_id[] = {
- 	/* st7920 family */
--	{ "st7920",  0 },
-+	{ .name = "st7920" },
+ static const struct spi_device_id lb035q02_ids[] = {
+-	{ "lb035q02", 0 },
++	{ .name = "lb035q02" },
  	{ /* sentinel */ }
  };
- MODULE_DEVICE_TABLE(spi, st7920_spi_id);
-diff --git a/drivers/gpu/drm/tiny/repaper.c b/drivers/gpu/drm/tiny/repaper.c
-index 25e6a7a4affc..cebd48addc40 100644
---- a/drivers/gpu/drm/tiny/repaper.c
-+++ b/drivers/gpu/drm/tiny/repaper.c
-@@ -994,10 +994,10 @@ static const struct of_device_id repaper_of_match[] = {
- MODULE_DEVICE_TABLE(of, repaper_of_match);
  
- static const struct spi_device_id repaper_id[] = {
--	{ "e1144cs021", E1144CS021 },
--	{ "e1190cs021", E1190CS021 },
--	{ "e2200cs021", E2200CS021 },
--	{ "e2271cs021", E2271CS021 },
-+	{ .name = "e1144cs021", .driver_data = E1144CS021 },
-+	{ .name = "e1190cs021", .driver_data = E1190CS021 },
-+	{ .name = "e2200cs021", .driver_data = E2200CS021 },
-+	{ .name = "e2271cs021", .driver_data = E2271CS021 },
+diff --git a/drivers/gpu/drm/panel/panel-magnachip-d53e6ea8966.c b/drivers/gpu/drm/panel/panel-magnachip-d53e6ea8966.c
+index cde168ec631c..e332ec685484 100644
+--- a/drivers/gpu/drm/panel/panel-magnachip-d53e6ea8966.c
++++ b/drivers/gpu/drm/panel/panel-magnachip-d53e6ea8966.c
+@@ -499,7 +499,7 @@ static const struct of_device_id d53e6ea8966_match[] = {
+ MODULE_DEVICE_TABLE(of, d53e6ea8966_match);
+ 
+ static const struct spi_device_id d53e6ea8966_ids[] = {
+-	{ "ams495qa01", 0 },
++	{ .name = "ams495qa01" },
+ 	{ /* sentinel */ },
+ };
+ MODULE_DEVICE_TABLE(spi, d53e6ea8966_ids);
+diff --git a/drivers/gpu/drm/panel/panel-nec-nl8048hl11.c b/drivers/gpu/drm/panel/panel-nec-nl8048hl11.c
+index d5c7210de4af..bbd70572fe0c 100644
+--- a/drivers/gpu/drm/panel/panel-nec-nl8048hl11.c
++++ b/drivers/gpu/drm/panel/panel-nec-nl8048hl11.c
+@@ -227,7 +227,7 @@ static const struct of_device_id nl8048_of_match[] = {
+ MODULE_DEVICE_TABLE(of, nl8048_of_match);
+ 
+ static const struct spi_device_id nl8048_ids[] = {
+-	{ "nl8048hl11", 0 },
++	{ .name = "nl8048hl11" },
+ 	{ /* sentinel */ }
+ };
+ 
+diff --git a/drivers/gpu/drm/panel/panel-sony-acx565akm.c b/drivers/gpu/drm/panel/panel-sony-acx565akm.c
+index fe043de791b0..7e5e69cc9f6e 100644
+--- a/drivers/gpu/drm/panel/panel-sony-acx565akm.c
++++ b/drivers/gpu/drm/panel/panel-sony-acx565akm.c
+@@ -659,7 +659,7 @@ static const struct of_device_id acx565akm_of_match[] = {
+ MODULE_DEVICE_TABLE(of, acx565akm_of_match);
+ 
+ static const struct spi_device_id acx565akm_ids[] = {
+-	{ "acx565akm", 0 },
++	{ .name = "acx565akm" },
+ 	{ /* sentinel */ }
+ };
+ 
+diff --git a/drivers/gpu/drm/panel/panel-tpo-td028ttec1.c b/drivers/gpu/drm/panel/panel-tpo-td028ttec1.c
+index ee86ff20c1bd..48c4cb68da44 100644
+--- a/drivers/gpu/drm/panel/panel-tpo-td028ttec1.c
++++ b/drivers/gpu/drm/panel/panel-tpo-td028ttec1.c
+@@ -364,7 +364,7 @@ static const struct of_device_id td028ttec1_of_match[] = {
+ MODULE_DEVICE_TABLE(of, td028ttec1_of_match);
+ 
+ static const struct spi_device_id td028ttec1_ids[] = {
+-	{ "td028ttec1", 0 },
++	{ .name = "td028ttec1" },
+ 	{ /* sentinel */ }
+ };
+ 
+diff --git a/drivers/gpu/drm/panel/panel-tpo-td043mtea1.c b/drivers/gpu/drm/panel/panel-tpo-td043mtea1.c
+index b18af526b54c..77c5ea2954b8 100644
+--- a/drivers/gpu/drm/panel/panel-tpo-td043mtea1.c
++++ b/drivers/gpu/drm/panel/panel-tpo-td043mtea1.c
+@@ -480,7 +480,7 @@ static const struct of_device_id td043mtea1_of_match[] = {
+ MODULE_DEVICE_TABLE(of, td043mtea1_of_match);
+ 
+ static const struct spi_device_id td043mtea1_ids[] = {
+-	{ "td043mtea1", 0 },
++	{ .name = "td043mtea1" },
+ 	{ /* sentinel */ }
+ };
+ 
+diff --git a/drivers/gpu/drm/sitronix/st7571-spi.c b/drivers/gpu/drm/sitronix/st7571-spi.c
+index 0206e9162f1c..2db85ad78721 100644
+--- a/drivers/gpu/drm/sitronix/st7571-spi.c
++++ b/drivers/gpu/drm/sitronix/st7571-spi.c
+@@ -52,8 +52,8 @@ static const struct of_device_id st7571_of_match[] = {
+ MODULE_DEVICE_TABLE(of, st7571_of_match);
+ 
+ static const struct spi_device_id st7571_spi_id[] = {
+-	{ "st7567", 0 },
+-	{ "st7571", 0 },
++	{ .name = "st7567" },
++	{ .name = "st7571" },
+ 	{ }
+ };
+ MODULE_DEVICE_TABLE(spi, st7571_spi_id);
+diff --git a/drivers/gpu/drm/sitronix/st7586.c b/drivers/gpu/drm/sitronix/st7586.c
+index 28b2245f6b79..0760f771163a 100644
+--- a/drivers/gpu/drm/sitronix/st7586.c
++++ b/drivers/gpu/drm/sitronix/st7586.c
+@@ -352,7 +352,7 @@ static const struct of_device_id st7586_of_match[] = {
+ MODULE_DEVICE_TABLE(of, st7586_of_match);
+ 
+ static const struct spi_device_id st7586_id[] = {
+-	{ "ev3-lcd", 0 },
++	{ .name = "ev3-lcd" },
  	{ },
  };
- MODULE_DEVICE_TABLE(spi, repaper_id);
-diff --git a/drivers/gpu/drm/tiny/sharp-memory.c b/drivers/gpu/drm/tiny/sharp-memory.c
-index b948e44544d6..861dd81a8e5b 100644
---- a/drivers/gpu/drm/tiny/sharp-memory.c
-+++ b/drivers/gpu/drm/tiny/sharp-memory.c
-@@ -420,16 +420,16 @@ static const struct drm_display_mode sharp_memory_ls044q7dh01_mode = {
- };
+ MODULE_DEVICE_TABLE(spi, st7586_id);
+diff --git a/drivers/gpu/drm/tiny/hx8357d.c b/drivers/gpu/drm/tiny/hx8357d.c
+index f942a8d09ff2..9ac21aec01e1 100644
+--- a/drivers/gpu/drm/tiny/hx8357d.c
++++ b/drivers/gpu/drm/tiny/hx8357d.c
+@@ -271,7 +271,7 @@ static const struct of_device_id hx8357d_of_match[] = {
+ MODULE_DEVICE_TABLE(of, hx8357d_of_match);
  
- static const struct spi_device_id sharp_memory_ids[] = {
--	{"ls010b7dh04", (kernel_ulong_t)&sharp_memory_ls010b7dh04_mode},
--	{"ls011b7dh03", (kernel_ulong_t)&sharp_memory_ls011b7dh03_mode},
--	{"ls012b7dd01", (kernel_ulong_t)&sharp_memory_ls012b7dd01_mode},
--	{"ls013b7dh03", (kernel_ulong_t)&sharp_memory_ls013b7dh03_mode},
--	{"ls013b7dh05", (kernel_ulong_t)&sharp_memory_ls013b7dh05_mode},
--	{"ls018b7dh02", (kernel_ulong_t)&sharp_memory_ls018b7dh02_mode},
--	{"ls027b7dh01", (kernel_ulong_t)&sharp_memory_ls027b7dh01_mode},
--	{"ls027b7dh01a", (kernel_ulong_t)&sharp_memory_ls027b7dh01_mode},
--	{"ls032b7dd02", (kernel_ulong_t)&sharp_memory_ls032b7dd02_mode},
--	{"ls044q7dh01", (kernel_ulong_t)&sharp_memory_ls044q7dh01_mode},
-+	{ .name = "ls010b7dh04", .driver_data = (kernel_ulong_t)&sharp_memory_ls010b7dh04_mode },
-+	{ .name = "ls011b7dh03", .driver_data = (kernel_ulong_t)&sharp_memory_ls011b7dh03_mode },
-+	{ .name = "ls012b7dd01", .driver_data = (kernel_ulong_t)&sharp_memory_ls012b7dd01_mode },
-+	{ .name = "ls013b7dh03", .driver_data = (kernel_ulong_t)&sharp_memory_ls013b7dh03_mode },
-+	{ .name = "ls013b7dh05", .driver_data = (kernel_ulong_t)&sharp_memory_ls013b7dh05_mode },
-+	{ .name = "ls018b7dh02", .driver_data = (kernel_ulong_t)&sharp_memory_ls018b7dh02_mode },
-+	{ .name = "ls027b7dh01", .driver_data = (kernel_ulong_t)&sharp_memory_ls027b7dh01_mode },
-+	{ .name = "ls027b7dh01a", .driver_data = (kernel_ulong_t)&sharp_memory_ls027b7dh01_mode },
-+	{ .name = "ls032b7dd02", .driver_data = (kernel_ulong_t)&sharp_memory_ls032b7dd02_mode },
-+	{ .name = "ls044q7dh01", .driver_data = (kernel_ulong_t)&sharp_memory_ls044q7dh01_mode },
- 	{},
+ static const struct spi_device_id hx8357d_id[] = {
+-	{ "yx350hv15", 0 },
++	{ .name = "yx350hv15" },
+ 	{ }
  };
- MODULE_DEVICE_TABLE(spi, sharp_memory_ids);
+ MODULE_DEVICE_TABLE(spi, hx8357d_id);
+diff --git a/drivers/gpu/drm/tiny/ili9163.c b/drivers/gpu/drm/tiny/ili9163.c
+index 8842424504e3..97262ca45734 100644
+--- a/drivers/gpu/drm/tiny/ili9163.c
++++ b/drivers/gpu/drm/tiny/ili9163.c
+@@ -190,7 +190,7 @@ static const struct of_device_id ili9163_of_match[] = {
+ MODULE_DEVICE_TABLE(of, ili9163_of_match);
+ 
+ static const struct spi_device_id ili9163_id[] = {
+-	{ "nhd-1.8-128160EF", 0 },
++	{ .name = "nhd-1.8-128160EF" },
+ 	{ }
+ };
+ MODULE_DEVICE_TABLE(spi, ili9163_id);
+diff --git a/drivers/gpu/drm/tiny/ili9225.c b/drivers/gpu/drm/tiny/ili9225.c
+index 5bf52a8fd75b..970abe1e9096 100644
+--- a/drivers/gpu/drm/tiny/ili9225.c
++++ b/drivers/gpu/drm/tiny/ili9225.c
+@@ -424,7 +424,7 @@ static const struct of_device_id ili9225_of_match[] = {
+ MODULE_DEVICE_TABLE(of, ili9225_of_match);
+ 
+ static const struct spi_device_id ili9225_id[] = {
+-	{ "v220hf01a-t", 0 },
++	{ .name = "v220hf01a-t" },
+ 	{ },
+ };
+ MODULE_DEVICE_TABLE(spi, ili9225_id);
+diff --git a/drivers/gpu/drm/tiny/ili9341.c b/drivers/gpu/drm/tiny/ili9341.c
+index 003381aa22ea..38d5ed9bc0e9 100644
+--- a/drivers/gpu/drm/tiny/ili9341.c
++++ b/drivers/gpu/drm/tiny/ili9341.c
+@@ -227,7 +227,7 @@ static const struct of_device_id ili9341_of_match[] = {
+ MODULE_DEVICE_TABLE(of, ili9341_of_match);
+ 
+ static const struct spi_device_id ili9341_id[] = {
+-	{ "yx240qv29", 0 },
++	{ .name = "yx240qv29" },
+ 	{ }
+ };
+ MODULE_DEVICE_TABLE(spi, ili9341_id);
+diff --git a/drivers/gpu/drm/tiny/ili9486.c b/drivers/gpu/drm/tiny/ili9486.c
+index c945a9144315..a4b82bbf98f8 100644
+--- a/drivers/gpu/drm/tiny/ili9486.c
++++ b/drivers/gpu/drm/tiny/ili9486.c
+@@ -250,9 +250,9 @@ static const struct of_device_id ili9486_of_match[] = {
+ MODULE_DEVICE_TABLE(of, ili9486_of_match);
+ 
+ static const struct spi_device_id ili9486_id[] = {
+-	{ "ili9486", 0 },
+-	{ "rpi-lcd-35", 0 },
+-	{ "piscreen", 0 },
++	{ .name = "ili9486" },
++	{ .name = "rpi-lcd-35" },
++	{ .name = "piscreen" },
+ 	{ }
+ };
+ MODULE_DEVICE_TABLE(spi, ili9486_id);
+diff --git a/drivers/gpu/drm/tiny/mi0283qt.c b/drivers/gpu/drm/tiny/mi0283qt.c
+index b0121e89e2dc..072326ef2e1e 100644
+--- a/drivers/gpu/drm/tiny/mi0283qt.c
++++ b/drivers/gpu/drm/tiny/mi0283qt.c
+@@ -231,7 +231,7 @@ static const struct of_device_id mi0283qt_of_match[] = {
+ MODULE_DEVICE_TABLE(of, mi0283qt_of_match);
+ 
+ static const struct spi_device_id mi0283qt_id[] = {
+-	{ "mi0283qt", 0 },
++	{ .name = "mi0283qt" },
+ 	{ },
+ };
+ MODULE_DEVICE_TABLE(spi, mi0283qt_id);
+diff --git a/drivers/gpu/drm/tiny/panel-mipi-dbi.c b/drivers/gpu/drm/tiny/panel-mipi-dbi.c
+index 3f462d79a6d3..ffff6acf7dea 100644
+--- a/drivers/gpu/drm/tiny/panel-mipi-dbi.c
++++ b/drivers/gpu/drm/tiny/panel-mipi-dbi.c
+@@ -542,7 +542,7 @@ static const struct of_device_id panel_mipi_dbi_spi_of_match[] = {
+ MODULE_DEVICE_TABLE(of, panel_mipi_dbi_spi_of_match);
+ 
+ static const struct spi_device_id panel_mipi_dbi_spi_id[] = {
+-	{ "panel-mipi-dbi-spi", 0 },
++	{ .name = "panel-mipi-dbi-spi" },
+ 	{ },
+ };
+ MODULE_DEVICE_TABLE(spi, panel_mipi_dbi_spi_id);
+diff --git a/drivers/gpu/drm/tiny/pixpaper.c b/drivers/gpu/drm/tiny/pixpaper.c
+index 2a92a28b40f6..456887546034 100644
+--- a/drivers/gpu/drm/tiny/pixpaper.c
++++ b/drivers/gpu/drm/tiny/pixpaper.c
+@@ -1140,7 +1140,10 @@ static void pixpaper_remove(struct spi_device *spi)
+ 	drm_atomic_helper_shutdown(&panel->drm);
+ }
+ 
+-static const struct spi_device_id pixpaper_ids[] = { { "pixpaper", 0 }, {} };
++static const struct spi_device_id pixpaper_ids[] = {
++	{ .name = "pixpaper" },
++	{ }
++};
+ MODULE_DEVICE_TABLE(spi, pixpaper_ids);
+ 
+ static const struct of_device_id pixpaper_dt_ids[] = {
 -- 
 2.56.0.rc1
 
