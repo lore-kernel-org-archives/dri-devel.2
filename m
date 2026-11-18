@@ -2,100 +2,42 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4C12E606A31C
-	for <dri-devel@archiver.kernel.org>; Wed, 18 Nov 2026 18:10:48 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 11CA8606A325
+	for <dri-devel@archiver.kernel.org>; Wed, 18 Nov 2026 18:11:20 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=raspberrypi.com header.i=@raspberrypi.com header.a=rsa-sha256 header.s=google header.b=T9zV66cW
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=YZJVwFq+
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id A684910FF12;
-	Wed, 18 Nov 2026 18:10:42 +0000 (UTC)
-Received: from mail-oo1-f52.google.com (mail-oo1-f52.google.com
- [209.85.161.52])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 72C5410FF12
- for <dri-devel@lists.freedesktop.org>; Wed, 18 Nov 2026 18:10:36 +0000 (UTC)
-Received: by mail-oo1-f52.google.com with SMTP id
- 006d021491bc7-705cb6ceebaso1113144eaf.3
- for <dri-devel@lists.freedesktop.org>; Wed, 18 Nov 2026 10:10:36 -0800 (PST)
-ARC-Seal: i=1; a=rsa-sha256; t=1795025435; cv=none;
- d=google.com; s=arc-20260327;
- b=a3ZzuOqSdECm334wJZwkugt5fe2mKZ/d4ByNtbf7gpwBrrwXrRUDdM6L5zD06YNkKU
- t64rzHjIuAkZMNGmXPct7Mxpo3Cmz1PjAiG2MGNCRnQiu2yO4Y0y92YtGIcKjuYqY6hg
- cWX5No0RRJEBB2wtzW8GQWZ1+jdNNnz85jQO3spXX36fNDml8OORpJi0AyOJOW/Puua0
- 2eZLpp4Sw99uLfWM+X0DzJpPmgw1/hu+b7C6d4pLmUpsLm59Lr1IqBoSt9lyWudsOuAK
- PMzg8zTbRgleSCK9//hVtIFgCNCgMxiRR1mbAuyoux2HroDYiDV/3IPxX8+WzcBBRkcE
- M/Rg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com;
- s=arc-20260327; 
- h=cc:to:subject:message-id:date:from:in-reply-to:references
- :mime-version:dkim-signature;
- bh=uolXzpBiYugNP3qN288JOAr4dwNEE10S3HaS//txyFE=;
- fh=wwjClUP4O120bd60SjOSzjaqbcXhV6cNGMjDVhsuxEo=;
- b=EZ36rk9WyuJtBA1xaxTiPoNW5I68xFFv6a4IiybevS7FJ9wAHUVhbw0Y7Eclnck5TB
- m8V0wKE8q0zRInObZALCt+CopFv+gPDjtQXOZMYVaOWgzuTmi5Q7pcmnKwM6lRVDkYOI
- gmjf+PPD4CjU9Vdp6w1pOA2pNfQw7ygTiHizBI1EWGgqX+WLVRUSwkP7XfR/k2/kv+oY
- 1js5MAN1lQoQW51oAA/ha5qzNvyjiGC78tJb5Akf4Loeapx0ZffFUoPIy3XW6COLJd5a
- eSY68BlkpdOqqqEBKqsud9XvlSx+HkV5X3eW7lFF3m0eZFm3Ya99VP/fDar775ywSqAg
- 5ryQ==; darn=lists.freedesktop.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=raspberrypi.com; s=google; t=1795025435; x=1795630235;
- darn=lists.freedesktop.org; 
- h=content-type:cc:to:subject:message-id:date:from:in-reply-to
- :references:mime-version:from:to:cc:subject:date:message-id:reply-to
- :content-type; bh=uolXzpBiYugNP3qN288JOAr4dwNEE10S3HaS//txyFE=;
- b=T9zV66cWbffqrWPlIJa8Kc0Hruv+2zMc7pbiISblaWRu/NFZJCOKTdBiAb5ON4dHSe
- INeVnYnWZKzOAPw8xBZgchkWqq1BRdUvTfPK799yKzD3GDUSpFyywaux7rcGvGOFV6qy
- edJS96jMDI32AhMTxlVpmiMS3T9Mv8f7F8adnBDs6Z7YCwDiD43aHRsTCoduVQyEZMpV
- V/c7Gtw7fONbZHzChjDg0tsDttWsfBKohSx+pvZzNfE3V+nOExAI/GwxAmSUWcqCNS5p
- CKC+9V/IIP0hhF38U1bJBVjyVwpZOlxPbkByV94IILDl3mPBH9Q5fmUTjXGu8DIOo0LT
- MrnA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20260707; t=1795025435; x=1795630235;
- h=content-type:cc:to:subject:message-id:date:from:in-reply-to
- :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
- :subject:date:message-id:reply-to:content-type;
- bh=uolXzpBiYugNP3qN288JOAr4dwNEE10S3HaS//txyFE=;
- b=DZ58YabuXI32U5//kb4l7+3ydqgUt3Z2C4mMA2JHYNXaA8gEpGo+fYWSPA/oRouQ55
- DvLdbER6sukKWjwV9LHEe//9WIgAvIPxbiwS3UkS4qMfVQ3GHFCfGR+ycAmgDCARSUA4
- vlRnEZfZdBQSJXfnA7aFS5KUJBp2L9nKU49QCK1xwF0tARpjENYvNKtcIVkmzL0P20f1
- J8xpZJ2CRaQP6DMtSrHPC3WJIQp7AY8xJNeqa3xQagPdI0iLLHsXoIjsBJFqWYGaT4qI
- qNxM28l5Y0e3qI2u2HFudZWR1cbegQPl1FwFmCQFb/2SsQxZidNsfcBfyTSyUmMjL3tv
- vI0g==
-X-Forwarded-Encrypted: i=1;
- AL+hErHnbxhg4n8s020OlqMaMJ2ZUCYIoowzrWl7Y0aVckGBmvgOmhG+Vspd81YaDemobcWDfeGW6Gn9yrA=@lists.freedesktop.org
-X-Gm-Message-State: APuU4Z8KDi5ITBRb5/iojgmi2kNu1kGYM8vR1UmkfEdixP51QP/ZpIHY
- z1EatogZGuss/6hl3MCkemobhdr2rRn5VhcN+6/YB1y9EPAFW9Fl6QiA1Gmla1QRYJKExLBmhmQ
- EfyU5KuDHLJFqPMAyhpHeYzbXDRMfhfm4Hg2l1yiK1g==
-X-Gm-Gg: AYBFou23ptCgh3fa6luBhdoOtnQS5FYNBcq/NVBnbAVp1ysO4FQrvgxZ2VwPEhgjTja
- 7DY17LFyNXfqwhpos5cC4rg/a2VyyInWG9OasWiJzDgB5UCQCTeb9ICCnawb5pIZk7+iS5RKLdq
- gJACrltxcGaCHZcJLz4uvk5F8smmuzt0jBNrJZ8aPAxA11VMzTsf3iX1u/hQ270BgPG4HEFa4uR
- ZrDmB4a4OPcDSvCM6CAvz9EvEcpBC++YogBroquVDiJac/cr02OCJMOgT6ESn5IXOlb53t43GVh
- RNIsCrwfw1MhNryl2fxqHLKDRUHA0QGo6jKNOyqBXSYPoLPPYMcfgveYfEN+ijDyU7LHS+T3xkX
- exV9tBoWzBqXCIqbvAmGfXSYiLvW9ZTE7GvEhGasP6R2UIlvXZi33ecZ5NC2hFg2CiFnAb/cFTj
- 0SwXrN/QNWwvRJU2ppJWicqkZeki22SZlIfYKkKwfXn/DBesb6Y2r37w==
-X-Received: by 2002:a05:6820:16a0:b0:71b:187f:1d05 with SMTP id
- 006d021491bc7-71b187f2097mr2537838eaf.68.1795025435512; Wed, 18 Nov 2026
- 10:10:35 -0800 (PST)
-X-Archived-By: <archiver.kernel.org>
-MIME-Version: 1.0
-References: <20261028164539.3471833-1-henryzhang62@gmail.com>
- <20261028164539.3471833-2-henryzhang62@gmail.com>
-In-Reply-To: <20261028164539.3471833-2-henryzhang62@gmail.com>
-From: Dave Stevenson <dave.stevenson@raspberrypi.com>
-Date: Wed, 18 Nov 2026 18:10:18 +0000
-X-Gm-Features: AclHuK-V5dWIJh-3U7G0PyQp4ktkynFwmoHaphdoRy6ojuMQSX3jJwE03wIEwh8
-Message-ID: <CAPY8ntA1CtSqtDzW-eziAzmLPZPbtWGpxBtYv0gCGMPNobcZWQ@mail.gmail.com>
-Subject: Re: [PATCH v4 1/5] drm/vc4: dsi: Set the transfer result before
- completing the transfer
-To: Henry Zhang <henryzhang62@gmail.com>
-Cc: Maxime Ripard <mripard@kernel.org>,
- =?UTF-8?B?TWHDrXJhIENhbmFs?= <mcanal@igalia.com>, 
- Raspberry Pi Kernel Maintenance <kernel-list@raspberrypi.com>, 
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Thomas Zimmermann <tzimmermann@suse.de>, 
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
+	by gabe.freedesktop.org (Postfix) with ESMTP id 6CDF710FF13;
+	Wed, 18 Nov 2026 18:11:14 +0000 (UTC)
+Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 72A1D10FF13
+ for <dri-devel@lists.freedesktop.org>; Wed, 18 Nov 2026 18:11:08 +0000 (UTC)
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+ by sea.source.kernel.org (Postfix) with ESMTP id 2B93B422B1;
+ Wed, 18 Nov 2026 18:11:08 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id DAAF91F000CA;
+ Wed, 18 Nov 2026 18:11:07 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+ s=k20260515; t=1795025468;
+ bh=ZPGYOniFEW8UWdeOVV1k4a5IAhEXjVEKYaRzLZIIGOw=;
+ h=From:Subject:Reply-To:To:In-Reply-To:References:Date;
+ b=YZJVwFq+Jso0iKdhRMRKPvSweAKKWjJJSre0uleo5PI4oBagQvO9/rzGk7VCYbsVv
+ cuZxocUqseHlETftA0czhDmD6gcxkfvJ1tB8/4Bg7BrI9m2aLb1rT6FzO15Kb+SvUy
+ /vv1lQ2ND/Fzi5/i0qr4WGfDPiQ0uNvxLV5bi0vTRRa793u5yz2+fdD7o3m+PR4qp6
+ omyBdWVHjI2F6y5ZKsIkdF3lojrrJw4C+S0YWW1qp8HOuEYXMHSMv9er/FJzTk5DB2
+ MEJPHKh1F23Jh+pxHL4Cp37JtSsJ2X3mW+wAYSWwjgmrCr3J0mZcbf612wY+8Wunk4
+ 13RpZ8LztRffg==
+Message-ID: <sashiko-outbox-221729@kernel.org>
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v3 10/10] drm/panthor: Skip devfreq when no OPP table is
+ present
+To: "Karunika Choo" <karunika.choo@arm.com>, dri-devel@lists.freedesktop.org
+In-Reply-To: <20261118175332.519657-11-karunika.choo@arm.com>
+References: <20261118175332.519657-1-karunika.choo@arm.com>
+ <20261118175332.519657-11-karunika.choo@arm.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Wed, 18 Nov 2026 18:11:07 +0000
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -106,47 +48,82 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
+Reply-To: sashiko-reviews@lists.linux.dev
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-15.8 required=3.0 tests=BAYES_00,DKIM_SIGNED,
-	DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
-	INCLUDES_CR_TRAILER,INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,
-	SPF_PASS autolearn=unavailable autolearn_force=no version=4.0.1
+X-Spam-Status: No, score=-10.8 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
+	DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
+	INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS autolearn=ham
+	autolearn_force=no version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
+X-Archived-By: <archiver.kernel.org>
 
-On Wed, 28 Oct 2026 at 16:46, Henry Zhang <henryzhang62@gmail.com> wrote:
->
-> On an HSTX timeout the interrupt handler completes the transfer and
-> only then sets xfer_result to -ETIMEDOUT. The waiter, which may run on
-> another CPU, can wake up and read xfer_result in between, still 0 from
-> the start of the transfer, and report the timed-out transfer as a
-> success.
->
-> Set xfer_result first. complete() orders the store before the wake-up.
->
-> Fixes: 4078f5757144 ("drm/vc4: Add DSI driver")
-> Signed-off-by: Henry Zhang <henryzhang62@gmail.com>
+Thank you for your contribution! Sashiko AI review found 1 potential
+issue to consider:
+- [Medium] drm/panthor: premature -ENODEV check in
+  panthor_devfreq_init() skips DT OPP table
+--
 
-Reviewed-by: Dave Stevenson <dave.stevenson@raspberrypi.com>
+commit ab9f7c849faad8dd2154fb00865ae2985875a9a7
+Author: Karunika Choo <karunika.choo@arm.com>
 
-> ---
->  drivers/gpu/drm/vc4/vc4_dsi.c | 2 +-
->  1 file changed, 1 insertion(+), 1 deletion(-)
->
-> diff --git a/drivers/gpu/drm/vc4/vc4_dsi.c b/drivers/gpu/drm/vc4/vc4_dsi.c
-> index 5ed3c35ee..aa2b46fb0 100644
-> --- a/drivers/gpu/drm/vc4/vc4_dsi.c
-> +++ b/drivers/gpu/drm/vc4/vc4_dsi.c
-> @@ -1526,8 +1526,8 @@ static irqreturn_t vc4_dsi_irq_handler(int irq, void *data)
->                 complete(&dsi->xfer_completion);
->                 ret = IRQ_HANDLED;
->         } else if (stat & DSI_PORT_BIT(INT_HSTX_TO)) {
-> -               complete(&dsi->xfer_completion);
->                 dsi->xfer_result = -ETIMEDOUT;
-> +               complete(&dsi->xfer_completion);
->                 ret = IRQ_HANDLED;
->         }
->
-> --
-> 2.47.3
->
+drm/panthor: Skip devfreq when no OPP table is present
+
+This commit skips panthor devfreq initialization on Mali v15 AM systems
+when no OPP table is present, guards the devfreq helpers against a NULL
+devfreq pointer, and omits drm-maxfreq-panthor from fdinfo when fast_rate
+is zero.
+
+> diff --git a/drivers/gpu/drm/panthor/panthor_devfreq.c b/drivers/gpu/drm/=
+panthor/panthor_devfreq.c
+> index 2249b41ca4afe..d1814b5197221 100644
+> --- a/drivers/gpu/drm/panthor/panthor_devfreq.c
+> +++ b/drivers/gpu/drm/panthor/panthor_devfreq.c
+> @@ -12,6 +12,7 @@
+> =20
+>  #include "panthor_devfreq.h"
+>  #include "panthor_device.h"
+> +#include "panthor_hw.h"
+> =20
+>  /**
+>   * struct panthor_devfreq - Device frequency management
+> @@ -164,6 +165,19 @@ int panthor_devfreq_init(struct panthor_device *ptde=
+v)
+>  	 */
+>  	table =3D dev_pm_opp_get_opp_table(dev);
+>  	if (IS_ERR_OR_NULL(table)) {
+> +		/*
+> +		 * On v15 GPUs, frequency scaling is handled outside of panthor
+> +		 * by the AM_GOVERNOR block, so the GPU DT node may not provide
+> +		 * an OPP table. In such cases, do not initialize devfreq for
+> +		 * panthor.
+> +		 */
+> +		if (panthor_hw_is_gen5_am(ptdev->base.dev) &&
+> +		    PTR_ERR(table) =3D=3D -ENODEV) {
+> +			drmm_kfree(&ptdev->base, pdevfreq);
+> +			ptdev->devfreq =3D NULL;
+> +			return 0;
+> +		}
+> +
+>  		ret =3D devm_pm_opp_set_regulators(dev, reg_names);
+>  		if (ret && ret !=3D -ENODEV) {
+>  			if (ret !=3D -EPROBE_DEFER)
+
+[Severity: Medium]
+Does checking PTR_ERR(table) =3D=3D -ENODEV right after
+dev_pm_opp_get_opp_table(dev) skip devfreq even when the GPU DT node
+provides an OPP table?
+
+dev_pm_opp_get_opp_table() only searches the in-memory opp_tables list for
+a table already registered (for example by a power domain) and returns
+ERR_PTR(-ENODEV) before devm_pm_opp_of_add_table(dev) has parsed the
+Device Tree.  As a result, on arm,mali-gen5-am systems without a
+pre-registered power-domain OPP table, panthor_devfreq_init() returns
+early before devm_pm_opp_of_add_table(dev) is called, ignoring any OPP
+table in the GPU DT node.  Should the -ENODEV check for
+panthor_hw_is_gen5_am() happen on the return value of
+devm_pm_opp_of_add_table(dev) instead?
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261118175332.5196=
+57-1-karunika.choo@arm.com?part=3D10
