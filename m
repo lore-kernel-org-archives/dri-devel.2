@@ -2,44 +2,55 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0BA16606A31C
-	for <dri-devel@archiver.kernel.org>; Wed, 18 Nov 2026 10:53:40 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8A246606A333
+	for <dri-devel@archiver.kernel.org>; Wed, 18 Nov 2026 11:08:16 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=f+GR9KcG
+	dkim=pass (1024-bit key) header.d=rock-chips.com header.i=@rock-chips.com header.a=rsa-sha256 header.s=default header.b=dRStX11h
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 58C8110FAF2;
-	Wed, 18 Nov 2026 10:53:34 +0000 (UTC)
-Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id E134F10FAF3;
- Wed, 18 Nov 2026 10:53:28 +0000 (UTC)
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by tor.source.kernel.org (Postfix) with ESMTP id 429CF611D9;
- Wed, 18 Nov 2026 10:53:28 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id B728B1F000C4;
- Wed, 18 Nov 2026 10:53:27 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1794999208;
- bh=ObmCS2LpeB6sVWvFmWLETOczR6xRy+N4hpl1ULDye4k=;
- h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
- b=f+GR9KcGNb08AGTd85p6YJBYX5Cu1cUPQimcZllOkArVEwyxgxpPzSg00ChQ8RkeV
- mmIlJJGRWyALHxgS6GHfBPuGu6+4NtOF0JKKTjuDbpfTSsess7dyKpeEaea3bP8RvZ
- t9Cz2EfSGJJX5IcTQlgkmqwCtPPd9WILmOHp1Fh9JoPDVgA1+68XrKQm1tEvQT/lJw
- yFX3Mzp9ghHdBGK2GIeJc+KFQ5RIbjD9H6Cm9R1OtQ8NAp58hrBsDaC+zZvkUB4vrR
- jH7E51pT4T3APFwj0ATAfaGHpuHEHl/d0BmH3CTCWlVzO7qmDLvsQ2ZDLS0Q1tl4ro
- 2COloHk2cAP+w==
-Message-ID: <sashiko-outbox-220759@kernel.org>
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH 7/8] drm/dp: Move eDP sink link rates reading helper out
- of i915
-To: "Kory Maincent" <kory.maincent@bootlin.com>
-Cc: dri-devel@lists.freedesktop.org, intel-gfx@lists.freedesktop.org,
- intel-xe@lists.freedesktop.org
-In-Reply-To: <20261118-feat_move_i915_helper-v1-7-652177f3107a@bootlin.com>
-References: <20261118-feat_move_i915_helper-v1-0-652177f3107a@bootlin.com>
- <20261118-feat_move_i915_helper-v1-7-652177f3107a@bootlin.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Wed, 18 Nov 2026 10:53:27 +0000
+	by gabe.freedesktop.org (Postfix) with ESMTP id CBDD710FAC9;
+	Wed, 18 Nov 2026 11:08:10 +0000 (UTC)
+Received: from mail-m1602365386.xmail.ntesmail.com
+ (mail-m1602365386.xmail.ntesmail.com [160.236.53.86])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id A500E10FAC9
+ for <dri-devel@lists.freedesktop.org>; Wed, 18 Nov 2026 11:08:04 +0000 (UTC)
+Received: from [172.16.12.74] (unknown [61.154.14.86])
+ by smtp.qiye.163.com (Hmail) with ESMTP id 5523317e8;
+ Wed, 18 Nov 2026 19:08:00 +0800 (GMT+08:00)
+Message-ID: <0cd86b2b-004b-4a36-ab8e-fd3b50960413@rock-chips.com>
+Date: Wed, 18 Nov 2026 19:07:59 +0800
+X-Archived-By: <archiver.kernel.org>
+MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v3 5/8] drm/rockchip: vop2: Only accept AFBC YTR for 8 bit
+ RGB on RK3588
+To: aiyengar1990@gmail.com, Sandy Huang <hjc@rock-chips.com>,
+ =?UTF-8?Q?Heiko_St=C3=BCbner?= <heiko@sntech.de>, Andy Yan
+ <andyshrk@163.com>, Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ Sascha Hauer <s.hauer@pengutronix.de>
+Cc: Piotr Zalewski <pZ010001011111@proton.me>,
+ Chaoyi Chen <chaoyi.chen@rock-chips.com>, dri-devel@lists.freedesktop.org,
+ linux-rockchip@lists.infradead.org, linux-arm-kernel@lists.infradead.org,
+ linux-kernel@vger.kernel.org
+References: <20261113-vop2-fixes-v3-0-08ae37e83b5c@gmail.com>
+ <20261113-vop2-fixes-v3-5-08ae37e83b5c@gmail.com>
+Content-Language: en-US
+From: Damon Ding <damon.ding@rock-chips.com>
+In-Reply-To: <20261113-vop2-fixes-v3-5-08ae37e83b5c@gmail.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
+X-HM-Tid: 0aa1ee57974103a8kunm31e77375358449
+X-HM-MType: 1
+X-HM-Spam-Status: e1kfGhgUHx5ZQUpXWQgPGg8OCBgUHx5ZQUlOS1dZFg8aDwILHllBWSg2Ly
+ tZV1koWUFITzdXWRgWCB1ZQUpXWS1ZQUlXWQ8JGhUIEh9ZQVkaGEpLVkgYHUMZT0tPSU9KTFYVFA
+ kWGhdVEwETFhoSFyQUDg9ZV1kYEgtZQVlNSlVKTk9VSk9VQ01ZV1kWGg8SFR0UWUFZT0tIVUpLSU
+ 9PT0hVSktLVUpCS0tZBg++
+DKIM-Signature: a=rsa-sha256;
+ b=dRStX11hKIKXImeBPSFSnbL4EsfI4ippAvDWiIMjgZwMZsNT/qSSdtmiAfpCFt89dJ4cV435LnMtrQE35l6abkTOSitQjAvB++qhkLwniOfRYGWOa7YzW9QPxuBS9iSdHbj+zvbil7mXmytF+itkskDXYcYyHHEY34tnh6X3yiM=;
+ s=default; c=relaxed/relaxed; d=rock-chips.com; v=1; 
+ bh=5Z5/zjedC8T+CAY4SMgSU23abppwtiRyhcMgN9UWEQ0=;
+ h=date:mime-version:subject:message-id:from;
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -50,133 +61,57 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
-Reply-To: sashiko-reviews@lists.linux.dev
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-10.8 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
-	DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
-	INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS autolearn=ham
-	autolearn_force=no version=4.0.1
+X-Spam-Status: No, score=-17.3 required=3.0 tests=BAYES_00,DKIM_SIGNED,
+	DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
+	INCLUDES_CR_TRAILER,INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,
+	SPF_PASS,USER_AGENT_SANE_1 autolearn=unavailable autolearn_force=no
+	version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
-X-Archived-By: <archiver.kernel.org>
 
-Thank you for your contribution! Sashiko AI review found 1 potential
-issue to consider:
-- [Medium] drm/i915/dp: HBR2 quirk in intel_edp_set_sink_rates() skips
-  fallback
---
+Hi Arun,
 
-commit b3bcea937e62f9aba672f8e2782fab0f2b184dbd
-Author: Kory Maincent <kory.maincent@bootlin.com>
+On 11/14/2026 12:39 AM, Arun Iyengar via B4 Relay wrote:
+> From: Arun Iyengar <aiyengar1990@gmail.com>
+> 
+> According to the TRM, the AFBC decoder of the RK3588 Cluster windows
+> supports the lossless colour transform (YTR) only for the 8 bit RGB
+> formats. An RGB565 buffer with YTR gives a black picture and
+> POST_BUF_EMPTY, while the same buffer without YTR displays fine.
+> 
+> Don't accept YTR for any other format on RK3588.
+> 
+> Fixes: 5a028e8f062f ("drm/rockchip: vop2: Add support for rk3588")
+> Signed-off-by: Arun Iyengar <aiyengar1990@gmail.com>
+> ---
+>   drivers/gpu/drm/rockchip/rockchip_drm_vop2.c | 5 +++++
+>   1 file changed, 5 insertions(+)
+> 
+> diff --git a/drivers/gpu/drm/rockchip/rockchip_drm_vop2.c b/drivers/gpu/drm/rockchip/rockchip_drm_vop2.c
+> index e8ef83d6924b..de3da292b05a 100644
+> --- a/drivers/gpu/drm/rockchip/rockchip_drm_vop2.c
+> +++ b/drivers/gpu/drm/rockchip/rockchip_drm_vop2.c
+> @@ -404,6 +404,11 @@ static bool rockchip_vop2_mod_supported(struct drm_plane *plane, u32 format,
+>   	if (vop2_convert_afbc_format(format) == VOP2_AFBC_FMT_INVALID)
+>   		return false;
+>   
+> +	if (vop2->version == VOP_VERSION_RK3588 && (modifier & AFBC_FORMAT_MOD_YTR) &&
+> +	    vop2_convert_afbc_format(format) != VOP2_AFBC_FMT_ARGB8888 &&
+> +	    vop2_convert_afbc_format(format) != VOP2_AFBC_FMT_RGB888)
+> +		return false;
+> +
+>   	/* Different windows have different format/modifier support */
+>   	for (i = 0; i < plane->modifier_count; i++) {
+>   		if (plane->modifiers[i] == modifier)
+> 
 
-drm/dp: Move eDP sink link rates reading helper out of i915
+Yes, RK3588 only supports VOP2_AFBC_FMT_ARGB8888/VOP2_AFBC_FMT_RGB888 
+with AFBC_FORMAT_MOD_YTR.
 
-This commit moves the eDP DP_SUPPORTED_LINK_RATES reading logic from i915
-into a generic drm_dp_read_edp_sink_rates() helper.
+Shall we move this new check a bit earlier, right after the RK3588 10bpc 
+formats check? Also add a comment and a drm_dbg_kms trace for it.
 
-> diff --git a/drivers/gpu/drm/i915/display/intel_dp.c b/drivers/gpu/drm/i9=
-15/display/intel_dp.c
-> index 8fee2d195c944..225f6ed8c32d8 100644
-> --- a/drivers/gpu/drm/i915/display/intel_dp.c
-> +++ b/drivers/gpu/drm/i915/display/intel_dp.c
-> @@ -4815,56 +4815,21 @@ static void
->  intel_edp_set_sink_rates(struct intel_dp *intel_dp)
->  {
->  	struct intel_display *display =3D to_intel_display(intel_dp);
-> +	int num_sink_rates;
-> =20
-> -	intel_dp->num_sink_rates =3D 0;
-> -
-> -	if (intel_dp->edp_dpcd[0] >=3D DP_EDP_14) {
-> -		__le16 sink_rates[DP_MAX_SUPPORTED_RATES];
-> -		int ret;
-> -		int i;
-> -
-> -		ret =3D drm_dp_dpcd_read_data(&intel_dp->aux,
-> -					    DP_SUPPORTED_LINK_RATES,
-> -					    sink_rates, sizeof(sink_rates));
-> -		if (ret < 0) {
-> -			drm_dbg_kms(display->drm,
-> -				    "Unable to read eDP supported link rates, using default rates\n"=
-);
-> -			memset(sink_rates, 0, sizeof(sink_rates));
-> -		}
-> -
-> -		for (i =3D 0; i < ARRAY_SIZE(sink_rates); i++) {
-> -			int rate;
-> -
-> -			/* Value read multiplied by 200kHz gives the per-lane
-> -			 * link rate in kHz. The source rates are, however,
-> -			 * stored in terms of LS_Clk kHz. The full conversion
-> -			 * back to symbols is
-> -			 * (val * 200kHz)*(8/10 ch. encoding)*(1/8 bit to Byte)
-> -			 */
-> -			rate =3D le16_to_cpu(sink_rates[i]) * 200 / 10;
-> -
-> -			if (rate =3D=3D 0)
-> -				break;
-> -
-> -			/*
-> -			 * Some platforms cannot reliably drive HBR3 rates due to PHY limitat=
-ions,
-> -			 * even if the sink advertises support. Reject any sink rates above H=
-BR2 on
-> -			 * the known machines for stable output.
-> -			 */
-> -			if (rate > 540000 &&
-> -			    intel_has_quirk(display, QUIRK_EDP_LIMIT_RATE_HBR2))
-> -				break;
-> +	num_sink_rates =3D drm_dp_read_edp_sink_rates(&intel_dp->aux,
-> +						    intel_dp->edp_dpcd[0],
-> +						    intel_dp->sink_rates);
-> +	if (num_sink_rates < 0)
-> +		num_sink_rates =3D 0;
-> =20
-> -			intel_dp->sink_rates[i] =3D rate;
-> -		}
-> -		intel_dp->num_sink_rates =3D i;
-> -	}
-> +	intel_dp->num_sink_rates =3D num_sink_rates;
-> =20
->  	/*
->  	 * Use DP_LINK_RATE_SET if DP_SUPPORTED_LINK_RATES are available,
->  	 * default to DP_MAX_LINK_RATE and DP_LINK_BW_SET otherwise.
->  	 */
-> -	if (intel_dp->num_sink_rates)
-> +	if (num_sink_rates)
->  		intel_dp->use_rate_select =3D true;
->  	else
->  		intel_dp_set_sink_rates(intel_dp);
+Best regards,
+Damon
 
-[Severity: Medium]
-Can this leave intel_dp->num_sink_rates as 0 on platforms with
-QUIRK_EDP_LIMIT_RATE_HBR2 if DP_SUPPORTED_LINK_RATES only lists rates
-above 540000 kHz?
-
-Previously, rates above 540000 kHz were filtered out before checking
-intel_dp->num_sink_rates, so an empty filtered list fell back to
-intel_dp_set_sink_rates().  Now num_sink_rates is checked before the
-following intel_dp_rate_limit_len() call clamps intel_dp->sink_rates:
-
-drivers/gpu/drm/i915/display/intel_dp.c:intel_edp_set_sink_rates() {
-	...
-	if (num_sink_rates)
-		intel_dp->use_rate_select =3D true;
-	else
-		intel_dp_set_sink_rates(intel_dp);
-	...
-	if (intel_dp->num_sink_rates && intel_has_quirk(display, QUIRK_EDP_LIMIT_R=
-ATE_HBR2))
-		intel_dp->num_sink_rates =3D intel_dp_rate_limit_len(intel_dp->sink_rates,
-								   intel_dp->num_sink_rates,
-								   540000);
-}
-
-When all entries in DP_SUPPORTED_LINK_RATES exceed 540000 kHz, this sets
-intel_dp->use_rate_select to true, skips intel_dp_set_sink_rates(), and
-then reduces intel_dp->num_sink_rates to 0, triggering drm_WARN_ON() in
-intel_dp_get_common_rates() and breaking eDP link training.
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261118-feat_move_=
-i915_helper-v1-0-652177f3107a@bootlin.com?part=3D7
