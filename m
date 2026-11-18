@@ -2,51 +2,119 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 36129606A32A
-	for <dri-devel@archiver.kernel.org>; Wed, 18 Nov 2026 12:32:56 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2BCEB606A31C
+	for <dri-devel@archiver.kernel.org>; Wed, 18 Nov 2026 12:34:41 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=collabora.com header.i=@collabora.com header.a=rsa-sha256 header.s=mail header.b=SvDp+UP5
+	dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.a=rsa-sha256 header.s=google header.b=qmt7auRW
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 8B0EE10E0FD;
-	Wed, 18 Nov 2026 12:32:50 +0000 (UTC)
-Received: from bali.collaboradmins.com (bali.collaboradmins.com
- [148.251.105.195])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 8F55610E0FD
- for <dri-devel@lists.freedesktop.org>; Wed, 18 Nov 2026 12:32:44 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
- s=mail; t=1795005163;
- bh=wteOM9b+zSffSygch8OIiG1KfgGZxZdoiAbmq3MuSjM=;
- h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
- b=SvDp+UP5rJzMgno0Rw8XcbVnIR40+0cLIXqM7U1qt3IvoBBtX2CdwLMBnu/tYrLNF
- mx5GHSS/udI8UNablyDlmu6mItAYAmbSedTYSLBpA/3xLvOHir/ePh2i/u2SpEZrso
- BiEILgdKCWwBVfpFn6xxjHKd6kMNF7/g/h1ozrDySkW9C92m8gPa2piQMIR9Z2u1Vu
- qoKszQboTwJwp+VHzXt36VZQko34CAbrYXI7rcTJatRUlhlSRqqxJJywt6OBYOX4LH
- vBmyoA7V3UtpZ7sAvCkXduXSnEyDUeF9umKgxRLI6uYaYBF1wACIvN1+OLc4gRPK5y
- wnd4uOyXf6swA==
-Received: from [100.64.1.21] (unknown [100.64.1.21])
- (using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
- key-exchange x25519) (No client certificate requested)
- (Authenticated sender: kholk11)
- by bali.collaboradmins.com (Postfix) with ESMTPSA id ADE5E17E052F;
- Wed, 18 Nov 2026 13:32:42 +0100 (CET)
-Message-ID: <675eb0c5-96a1-4254-844e-234fb972d824@collabora.com>
-Date: Wed, 18 Nov 2026 13:32:42 +0100
+	by gabe.freedesktop.org (Postfix) with ESMTP id 8A33610E7D6;
+	Wed, 18 Nov 2026 12:34:35 +0000 (UTC)
+Received: from mail-wm1-f53.google.com (mail-wm1-f53.google.com
+ [209.85.128.53])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id B201610FBDA
+ for <dri-devel@lists.freedesktop.org>; Wed, 18 Nov 2026 12:34:28 +0000 (UTC)
+Received: by mail-wm1-f53.google.com with SMTP id
+ 5b1f17b1804b1-4a2000d5fb1so4985565e9.1
+ for <dri-devel@lists.freedesktop.org>; Wed, 18 Nov 2026 04:34:28 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=linaro.org; s=google; t=1795005267; x=1795610067; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:content-type:in-reply-to:organization
+ :autocrypt:content-language:references:cc:to:subject:reply-to:from
+ :user-agent:mime-version:date:message-id:from:to:cc:subject:date
+ :message-id:reply-to:content-type;
+ bh=nvPt3fCk+CsXSOqBkgE7UtRZc1xZmTaUxS/+53ef6bE=;
+ b=qmt7auRWpTOWVWSMTb7j7L0WDl6/DwZlZ2MqAL01oetoBtyDzKeo+GFcH98UO4G0kl
+ SF4zdvyXnPAUxChRvpanq3+5I4HZDESvftgMK4mWzRUccTCMwUEuAIs5JbPlA1Zza01E
+ rMGJdaPS/k9mXCVFIOYmlVt4/GHD6n6yNIuFttpUw2sf5tRIEfl4cHWVguqpczI//spN
+ /kJuCP0ccRB24+CMi6FeX8HSJn8OvagMRp1NMzL9keVwiQ/Uv1LMFeIEqhk+rLR5hQpF
+ csSjairmzzNsSq/OenIQ7m6dmmG/NcLQVD1FQymgBfe7xI4zUMW6aGNhr3O6ZT9GWAuK
+ S/3Q==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20260707; t=1795005267; x=1795610067;
+ h=content-transfer-encoding:content-type:in-reply-to:organization
+ :autocrypt:content-language:references:cc:to:subject:reply-to:from
+ :user-agent:mime-version:date:message-id:x-gm-gg:x-gm-message-state
+ :from:to:cc:subject:date:message-id:reply-to:content-type;
+ bh=nvPt3fCk+CsXSOqBkgE7UtRZc1xZmTaUxS/+53ef6bE=;
+ b=bToSYkPwn4nALROp/sUJl6ULATi95EoS+MyjqhL51oqqVxrGTt1K2ZWniLIMiNTI06
+ 4lSV5RhtrY0AQB5aBssEp5Pu0HvB1qoTYTSYEoH+F8ztUvM63Z0r6ClVHytOoi70bQid
+ s5GJLHMyI4dyamMnbiLwh/g6Q9wLmA+d9WFaVVDpToQS7scRa4RI/73sGyMDBprdwAq0
+ QsiceIJsn6TWqvBqH/LtS6PejDmg4eJ/OtQ7GtqyCHMnZUDIDWSgcAUpNarSA1MpaqgD
+ vR1mvHBNK9MY9R7WTON6R0udN+NGwyI/W8+WnM4CFBRRy86newz8wFnkqalDTFkQVNND
+ rvTg==
+X-Forwarded-Encrypted: i=1;
+ AL+hErG9/0bOperKKAxxblNCHc2jfUEd/ibx8t21F1MlR4tUkSWzMf+5rkK/kr16Fx2kHyWNnJGfE/hbgtk=@lists.freedesktop.org
+X-Gm-Message-State: APuU4Z9FYHhAj4/PGEV6f2a1QE+KPjNVMdSz6KPlfAF2tQtaiIlPxyjB
+ 7s6ECrtY9uFFbCUUQaouJXE2cZHYlQyc6ylVbXyb7UKLTCmoL8u9kYfBBT8QurBEXoDn9aXL73H
+ vxuARhItReg==
+X-Gm-Gg: AYBFou1zri72P6R2cw1MoBDJ0REG0sZOLIwjBJ3WuutMZBRaioqdYb3+7jdCeN6iwaN
+ 8NV182PSjQNTrR76hb6s62XcubWHcqMQpn7Yrx2Fa4T3egZxVlJLqjAVNHRR6TtNI5rEBBcVXyV
+ MFWVuKMWsJ8uFuhgdo5YcwpgBpqu1pb9Qrbdm5/R7ag3UUvmuEiYxcYiHs0t/RANybebOMcxTqD
+ Xw4tPiTMP3nGbStLi4CFR9GmEO3AfyNY8hWoTtXuoLAxz3w3kCNwO/Q2zK89TOTFQ3ajANDgfVz
+ aIwYu4IpmzMCKty24GW+GyiCWjnv8P6qkwralzyZ9W4neIQhKaGcKuh+Su6txp2f2Vlhx73tlnQ
+ mAwFE/CTk0InhY8RR1SquVfKj5FXcJpSY6IsyclplhR9b2kp6Gvalc76N3QA7FNpTWUtUz65RiZ
+ 5A6pxb/5NL5BUyCbmSSHKjqIT9Wk1I9YTd637Vd4M7Yu2QjbuaKuy2jIAw9Vm16TX4KuNdsXO+U
+ M7g2eJO9DrCgB9I2/WZtqTAuIm0VDktTuTlsO7/iGpINqbwpb5OoIMV28c2ZEc24h1MkGTbd8rb
+ u9u5YsYP7hZmD/oPJVep6tsRI7rb/PwpbhEs5sDtw/SLdGgqNk5QniLCU7Jlj4DNvEhLRTJev9q
+ rWJBhaqh5
+X-Received: by 2002:a05:600c:1d06:b0:4bb:6a5a:783d with SMTP id
+ 5b1f17b1804b1-4bb7da25158mr46260185e9.18.1795005266845; 
+ Wed, 18 Nov 2026 04:34:26 -0800 (PST)
+Received: from ?IPV6:2a01:e0a:106d:1080:6ca2:2772:9e53:115b?
+ ([2a01:e0a:106d:1080:6ca2:2772:9e53:115b])
+ by smtp.gmail.com with ESMTPSA id
+ 5b1f17b1804b1-4bb7e57664esm26749835e9.1.2026.11.18.04.34.25
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Wed, 18 Nov 2026 04:34:26 -0800 (PST)
+Message-ID: <3e82658f-1152-4c98-b996-242abc203f74@linaro.org>
+Date: Wed, 18 Nov 2026 13:34:25 +0100
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2] drm/mediatek: dsi: Don't let a signal cut the IRQ wait
- short
-To: zi-hao.huang@mediatek.com, Chun-Kuang Hu <chunkuang.hu@kernel.org>,
- Philipp Zabel <p.zabel@pengutronix.de>
-Cc: David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- Matthias Brugger <matthias.bgg@gmail.com>,
- shaoming chen <shaoming.chen@mediatek.com>, dri-devel@lists.freedesktop.org,
- linux-mediatek@lists.infradead.org, linux-kernel@vger.kernel.org,
- linux-arm-kernel@lists.infradead.org, CK Hu <ck.hu@mediatek.com>
-References: <20261118-mtk-dsi-irq-wait-v2-1-8bda52993c6f@mediatek.com>
-From: AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>
-Content-Language: en-US
-In-Reply-To: <20261118-mtk-dsi-irq-wait-v2-1-8bda52993c6f@mediatek.com>
+From: Neil Armstrong <neil.armstrong@linaro.org>
+Subject: Re: [PATCH 05/10] dt-bindings: display: amlogic,meson-dw-hdmi: Add
+ phys and phy-names
+To: linux-kernel-dev@aliel.fr, Rob Herring <robh@kernel.org>,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
+ <conor+dt@kernel.org>, Kevin Hilman <khilman@baylibre.com>,
+ Jerome Brunet <jbrunet@baylibre.com>,
+ Martin Blumenstingl <martin.blumenstingl@googlemail.com>,
+ Vinod Koul <vkoul@kernel.org>, Manivannan Sadhasivam <mani@kernel.org>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>
+Cc: devicetree@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
+ linux-amlogic@lists.infradead.org, linux-kernel@vger.kernel.org,
+ linux-phy@lists.infradead.org, dri-devel@lists.freedesktop.org
+References: <20261117-meson-drm-create-hdmitx-phy-v1-0-9e0ac931381c@aliel.fr>
+ <20261117-meson-drm-create-hdmitx-phy-v1-5-9e0ac931381c@aliel.fr>
+Content-Language: en-US, fr
+Autocrypt: addr=neil.armstrong@linaro.org; keydata=
+ xsBNBE1ZBs8BCAD78xVLsXPwV/2qQx2FaO/7mhWL0Qodw8UcQJnkrWmgTFRobtTWxuRx8WWP
+ GTjuhvbleoQ5Cxjr+v+1ARGCH46MxFP5DwauzPekwJUD5QKZlaw/bURTLmS2id5wWi3lqVH4
+ BVF2WzvGyyeV1o4RTCYDnZ9VLLylJ9bneEaIs/7cjCEbipGGFlfIML3sfqnIvMAxIMZrvcl9
+ qPV2k+KQ7q+aXavU5W+yLNn7QtXUB530Zlk/d2ETgzQ5FLYYnUDAaRl+8JUTjc0CNOTpCeik
+ 80TZcE6f8M76Xa6yU8VcNko94Ck7iB4vj70q76P/J7kt98hklrr85/3NU3oti3nrIHmHABEB
+ AAHNKk5laWwgQXJtc3Ryb25nIDxuZWlsLmFybXN0cm9uZ0BsaW5hcm8ub3JnPsLAkQQTAQoA
+ OwIbIwULCQgHAwUVCgkICwUWAgMBAAIeAQIXgBYhBInsPQWERiF0UPIoSBaat7Gkz/iuBQJk
+ Q5wSAhkBAAoJEBaat7Gkz/iuyhMIANiD94qDtUTJRfEW6GwXmtKWwl/mvqQtaTtZID2dos04
+ YqBbshiJbejgVJjy+HODcNUIKBB3PSLaln4ltdsV73SBcwUNdzebfKspAQunCM22Mn6FBIxQ
+ GizsMLcP/0FX4en9NaKGfK6ZdKK6kN1GR9YffMJd2P08EO8mHowmSRe/ExAODhAs9W7XXExw
+ UNCY4pVJyRPpEhv373vvff60bHxc1k/FF9WaPscMt7hlkbFLUs85kHtQAmr8pV5Hy9ezsSRa
+ GzJmiVclkPc2BY592IGBXRDQ38urXeM4nfhhvqA50b/nAEXc6FzqgXqDkEIwR66/Gbp0t3+r
+ yQzpKRyQif3OwE0ETVkGzwEIALyKDN/OGURaHBVzwjgYq+ZtifvekdrSNl8TIDH8g1xicBYp
+ QTbPn6bbSZbdvfeQPNCcD4/EhXZuhQXMcoJsQQQnO4vwVULmPGgtGf8PVc7dxKOeta+qUh6+
+ SRh3vIcAUFHDT3f/Zdspz+e2E0hPV2hiSvICLk11qO6cyJE13zeNFoeY3ggrKY+IzbFomIZY
+ 4yG6xI99NIPEVE9lNBXBKIlewIyVlkOaYvJWSV+p5gdJXOvScNN1epm5YHmf9aE2ZjnqZGoM
+ Mtsyw18YoX9BqMFInxqYQQ3j/HpVgTSvmo5ea5qQDDUaCsaTf8UeDcwYOtgI8iL4oHcsGtUX
+ oUk33HEAEQEAAcLAXwQYAQIACQUCTVkGzwIbDAAKCRAWmrexpM/4rrXiB/sGbkQ6itMrAIfn
+ M7IbRuiSZS1unlySUVYu3SD6YBYnNi3G5EpbwfBNuT3H8//rVvtOFK4OD8cRYkxXRQmTvqa3
+ 3eDIHu/zr1HMKErm+2SD6PO9umRef8V82o2oaCLvf4WeIssFjwB0b6a12opuRP7yo3E3gTCS
+ KmbUuLv1CtxKQF+fUV1cVaTPMyT25Od+RC1K+iOR0F54oUJvJeq7fUzbn/KdlhA8XPGzwGRy
+ 4zcsPWvwnXgfe5tk680fEKZVwOZKIEuJC3v+/yZpQzDvGYJvbyix0lHnrCzq43WefRHI5XTT
+ QbM0WUIBIcGmq38+OgUsMYu4NzLu7uZFAcmp6h8g
+Organization: Linaro
+In-Reply-To: <20261117-meson-drm-create-hdmitx-phy-v1-5-9e0ac931381c@aliel.fr>
 Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 7bit
 X-BeenThere: dri-devel@lists.freedesktop.org
@@ -59,6 +127,7 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
+Reply-To: Neil Armstrong <neil.armstrong@linaro.org>
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 X-Spam-Status: No, score=-17.3 required=3.0 tests=BAYES_00,DKIM_SIGNED,
 	DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
@@ -68,84 +137,53 @@ X-Spam-Status: No, score=-17.3 required=3.0 tests=BAYES_00,DKIM_SIGNED,
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-On 11/18/26 10:33, Zi-Hao Huang via B4 Relay wrote:
-> From: Zi-Hao Huang <zi-hao.huang@mediatek.com>
+On 11/17/26 20:33, Ronald Claveau via B4 Relay wrote:
+> From: Ronald Claveau <linux-kernel-dev@aliel.fr>
 > 
-> mtk_dsi_wait_for_irq_done() waits for the DSI IRQ with
-> wait_event_interruptible_timeout(). If it returns early, for example
-> with -ERESTARTSYS when a signal is pending, both callers still treat the
-> command as done, because they only handle a return value of 0 as a
-> failure.
+> The HDMI TX PHY now has its own binding and driver. Describe the link
+> between the HDMI TX controller and its PHY with a "phys" property
+> holding a single phandle, named "hdmi" through "phy-names", and update
+> the example accordingly.
 > 
-> On an MT8196 board this led to a hard lockup during shutdown. The wait
-> returned before the IRQ arrived, the panel disable sequence went on and
-> restarted video mode, and the late CMD_DONE interrupt was then handled
-> by mtk_dsi_irq().
-
-This happens because of the hacks that you have downstream.
-
-With the restructured mediatek-drm adding proper support for MT8196's Display
-Controller architecture, what you're describing does not happen, because the
-tear down path is correct.
-
-Regards,
-Angelo
-
-> The handler writes RACK and loops until DSI_BUSY
-> clears, but DSI_BUSY stays set while video mode is running, so the CPU
-> never leaves the handler until the watchdog fires. Forcing the wait to
-> return early reproduces the lockup every time, and it no longer
-> happens once the wait cannot return early.
+> The properties are optional so that existing DT, which do not describe
+> the PHY, keep validating; the driver falls back to creating the PHY
+> itself in that case.
 > 
-> The wait synchronises the driver with the hardware, and it is bounded by
-> its timeout. Use wait_event_timeout() so that it only ends on the IRQ or
-> the timeout.
-> 
-> wake_up_interruptible() cannot wake a task in uninterruptible sleep, so
-> switch mtk_dsi_irq() to wake_up(). Without it every wait would last
-> until its timeout.
-> 
-> Fixes: dd5080a54df8 ("drm/mediatek: add dsi interrupt control")
-> Signed-off-by: Zi-Hao Huang <zi-hao.huang@mediatek.com>
-> Reviewed-by: CK Hu <ck.hu@mediatek.com>
+> Signed-off-by: Ronald Claveau <linux-kernel-dev@aliel.fr>
 > ---
-> Changes in v2:
-> - Drop the remark that the wait is not made on behalf of userspace, since
->    a userspace backlight change can reach it (CK)
-> - Collect Reviewed-by
-> - Link to v1: https://lore.kernel.org/r/20261118-mtk-dsi-irq-wait-v1-1-205f25fac8b2@mediatek.com
-> ---
->   drivers/gpu/drm/mediatek/mtk_dsi.c | 7 +++----
->   1 file changed, 3 insertions(+), 4 deletions(-)
+>   .../devicetree/bindings/display/amlogic,meson-dw-hdmi.yaml        | 8 ++++++++
+>   1 file changed, 8 insertions(+)
 > 
-> diff --git a/drivers/gpu/drm/mediatek/mtk_dsi.c b/drivers/gpu/drm/mediatek/mtk_dsi.c
-> index f82506e10fd5..1315dd31a834 100644
-> --- a/drivers/gpu/drm/mediatek/mtk_dsi.c
-> +++ b/drivers/gpu/drm/mediatek/mtk_dsi.c
-> @@ -627,9 +627,8 @@ static s32 mtk_dsi_wait_for_irq_done(struct mtk_dsi *dsi, u32 irq_flag,
->   	unsigned long jiffies = msecs_to_jiffies(timeout);
->   	struct drm_device *drm = dsi->bridge.dev;
+> diff --git a/Documentation/devicetree/bindings/display/amlogic,meson-dw-hdmi.yaml b/Documentation/devicetree/bindings/display/amlogic,meson-dw-hdmi.yaml
+> index 416fe263ac92..5a033fec21b0 100644
+> --- a/Documentation/devicetree/bindings/display/amlogic,meson-dw-hdmi.yaml
+> +++ b/Documentation/devicetree/bindings/display/amlogic,meson-dw-hdmi.yaml
+> @@ -108,6 +108,12 @@ properties:
 >   
-> -	ret = wait_event_interruptible_timeout(dsi->irq_wait_queue,
-> -					       dsi->irq_data & irq_flag,
-> -					       jiffies);
-> +	ret = wait_event_timeout(dsi->irq_wait_queue,
-> +				 dsi->irq_data & irq_flag, jiffies);
->   	if (ret == 0) {
->   		drm_warn(drm, "Wait DSI IRQ(0x%08x) Timeout\n", irq_flag);
+>     sound-name-prefix: true
 >   
-> @@ -656,7 +655,7 @@ static irqreturn_t mtk_dsi_irq(int irq, void *dev_id)
+> +  phys:
+> +    maxItems: 1
+> +
+> +  phy-names:
+> +    const: hdmi
+
+I don't think phys-name is necessary here.
+
+Neil
+
+> +
+>   required:
+>     - compatible
+>     - reg
+> @@ -136,6 +142,8 @@ examples:
+>           power-domains = <&pd_vpu>;
+>           #address-cells = <1>;
+>           #size-cells = <0>;
+> +        phys = <&hdmi_tx_phy>;
+> +        phy-names = "hdmi";
 >   
->   		mtk_dsi_mask(dsi, DSI_INTSTA, status, 0);
->   		mtk_dsi_irq_data_set(dsi, status);
-> -		wake_up_interruptible(&dsi->irq_wait_queue);
-> +		wake_up(&dsi->irq_wait_queue);
->   	}
->   
->   	return IRQ_HANDLED;
+>           /* VPU VENC Input */
+>           hdmi_tx_venc_port: port@0 {
 > 
-> ---
-> base-commit: 067c5c24cef23d913b67eaaf71ae67e7169a6620
-> change-id: 20261118-mtk-dsi-irq-wait-a24712ada627
-> 
-> Best regards,
+
