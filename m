@@ -2,45 +2,51 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 99559606A320
-	for <dri-devel@archiver.kernel.org>; Wed, 18 Nov 2026 16:06:18 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9E361606A32F
+	for <dri-devel@archiver.kernel.org>; Wed, 18 Nov 2026 16:08:10 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=BEsSZ/LL
+	dkim=pass (2048-bit key) header.d=protonmail.com header.i=@protonmail.com header.a=rsa-sha256 header.s=protonmail3 header.b=SN5R+K4C
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 08E3210EC4F;
-	Wed, 18 Nov 2026 16:06:13 +0000 (UTC)
-Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 2BBAB10FE25
- for <dri-devel@lists.freedesktop.org>; Wed, 18 Nov 2026 16:06:06 +0000 (UTC)
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by tor.source.kernel.org (Postfix) with ESMTP id 111BB62755;
- Wed, 18 Nov 2026 16:06:05 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 67D051F000C5;
- Wed, 18 Nov 2026 16:06:04 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1795017964;
- bh=oKFR3bZi6v5pv8+3J77rAPs59izk8whRqH7B/hgm/+g=;
- h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
- b=BEsSZ/LLc9TIpPGshcx6KgoMX0pl9XPhtr9ssiQDYkhcqppT9yve6scnGjYfR4p6T
- FOCyx55/f5kxgz0pBzKGCVysl7A9tRqxWzzT2YJsk16mcLG2fbCfPEiKN5Djvbh+1V
- 9xWL+bACejYse/E/m2vjKyhTRLIPalwtSq14Fwde+i3fSru4GJ6pj4REMMtD7vkEcM
- p18Cw5TkVaKAgERpfFyhB+t+N9z1Tm8wbdUlIy0dBasD2pbGJ2PeThv/ihfOIdYNXV
- DzNKoCUqE08+FYzpyPj1RcIZca8s/LBRB9W+nh62obVoQ4IqzoXIqyjXYN95oypP43
- 8bKLB7MQKmrbw==
-Message-ID: <sashiko-outbox-221421@kernel.org>
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v2 10/11] iio: adc: stm32-mdf: add dmic audio filter
- support
-To: "Olivier Moysan" <olivier.moysan@foss.st.com>
-Cc: devicetree@vger.kernel.org, dri-devel@lists.freedesktop.org,
- linux-sound@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org,
- media-ci@linuxtv.org
-In-Reply-To: <20261118-upstream_mdf_v2-v2-10-7939d3c3720a@foss.st.com>
-References: <20261118-upstream_mdf_v2-v2-0-7939d3c3720a@foss.st.com>
- <20261118-upstream_mdf_v2-v2-10-7939d3c3720a@foss.st.com>
+	by gabe.freedesktop.org (Postfix) with ESMTP id E2D2610FE35;
+	Wed, 18 Nov 2026 16:08:04 +0000 (UTC)
+Received: from mail-24418.protonmail.ch (mail-24418.protonmail.ch
+ [109.224.244.18])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 1593110E0F6
+ for <dri-devel@lists.freedesktop.org>; Wed, 18 Nov 2026 16:07:58 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=protonmail.com;
+ s=protonmail3; t=1795018075; x=1795277275;
+ bh=ybEJ7XjfVIDnUvD/Qb4PwTcaWZ4aLDPGfn9w8FIN+mQ=;
+ h=Date:To:From:Cc:Subject:Message-ID:In-Reply-To:References:
+ Feedback-ID:From:To:Cc:Date:Subject:Reply-To:Feedback-ID:
+ Message-ID:BIMI-Selector;
+ b=SN5R+K4CSOKV3HVq+kcutTcUfZW40LnoOJf/K35SOPiHy8q3/ltb4UKsFk6BmBZ4B
+ uiwNG/3gPYrd01y2JMps5iCzM8+QC4Hn8TSwoqP+yCEgWA+RAjE9WBdsD0WhyYDuNU
+ wwFC8jvVQeWv5DV8mUS4tFSO+b1NBI8VrmmHVbAkZT1cX0gGwsNIBw+3U9p8cKFvD7
+ 3lJzsqsaVa5iILMyYRL/RAa6UdYPTs7QgZvDMXebfYdbvIlaZrmcgwNNslwz/j0zvQ
+ 142J2QX1hYOnBR2pkd5LgMdrgZNFkCY0NWYWl7OPNJNDvlBq906LLjlq5+NDzSF0XU
+ 9nECyRu8AjQNw==
+Date: Wed, 18 Nov 2026 16:07:51 +0000
+To: Mario Limonciello <superm1@kernel.org>
+From: =?utf-8?Q?Eren_=C3=96zen?= <erenozen@protonmail.com>
+Cc: simonit.orig@gmail.com, Richard Hughes <richard@hughsie.com>,
+ Harry Wentland <harry.wentland@amd.com>, Leo Li <sunpeng.li@amd.com>,
+ Alex Deucher <alexander.deucher@amd.com>, dri-devel@lists.freedesktop.org,
+ Wayne Lin <Wayne.Lin@amd.com>, amd-gfx@lists.freedesktop.org
+Subject: Re: [PATCH v2] drm/amd/display: Route connector DDC over AUX for
+ native DP sinks
+Message-ID: <0TqebV7r6TwuSRlaon2zTcY7N7UqY3fhGl1WDQ7U9iw4c_dTzijuuXkEWxUWSCqk2U-Rx7j_vjaXfaKNu0ohsM7esirKVbIOeLrsiuYMsOc=@protonmail.com>
+In-Reply-To: <5386db0f-e9b3-4c62-bb2b-392cca4d761a@kernel.org>
+References: <20261103-superm1-amdgpu-ddc-v2-1-7bde6d004382@kernel.org>
+ <20261115082042.1902826-1-Wayne.Lin@amd.com>
+ <c6d79680-1fd2-4e71-9d00-616010b7727c@kernel.org>
+ <QU464501lRPW3X8es-jXBFOvvwqS3eKR3HRS33U6x6o5eYC6h5AKV7f3ZXRCaU7-sEcupJMHereqyDUsUSG_fsOMNwvGO_CcZRKsz1AgObk=@protonmail.com>
+ <5386db0f-e9b3-4c62-bb2b-392cca4d761a@kernel.org>
+Feedback-ID: 19860221:user:proton
+X-Pm-Message-ID: 173af0e62a884fa30f1323a819f3d01a007a7625
+X-Archived-By: <archiver.kernel.org>
+MIME-Version: 1.0
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Wed, 18 Nov 2026 16:06:03 +0000
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -51,298 +57,91 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
-Reply-To: sashiko-reviews@lists.linux.dev
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-10.8 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
-	DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
-	INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS autolearn=ham
+X-Spam-Status: No, score=-12.8 required=3.0 tests=BAYES_00,DKIM_SIGNED,
+	DKIM_VALID,DKIM_VALID_AU,FREEMAIL_FORGED_FROMDOMAIN,FREEMAIL_FROM,
+	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
+	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS autolearn=unavailable
 	autolearn_force=no version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
-X-Archived-By: <archiver.kernel.org>
 
-Thank you for your contribution! Sashiko AI review found 5 potential
-issues to consider:
-- [High] iio: adc: stm32-mdf: race updating cb and cb_priv in
-  stm32_mdf_get_buff_cb()
-- [Medium] iio: adc: stm32-mdf: out-of-bounds or uninitialized channel
-  in stm32_mdf_audio_init()
-- [Medium] iio: adc: stm32-mdf: unlocked freq reset in
-  stm32_mdf_adc_write_raw()
-- [Medium] iio: stm32-mdf: bad mask and bypass in
-  stm32_mdf_adc_apply_filters_config()
-- [Low] iio: adc: stm32-mdf: inaccurate kernel-doc Return for
-  stm32_mdf_get_sub_channels_nb()
---
+Hi Mario,
 
-commit dd4cd2a4f3dd0be22589f1468dca26c3807bd280
-Author: Olivier Moysan <olivier.moysan@foss.st.com>
+Thanks,  the patch is below.=20
 
-iio: adc: stm32-mdf: add dmic audio filter support
+With v3's ddc_service->link check the test passes even without this
+change, so in v4 it only makes the test set up the adapter the way the
+driver does. I tested it on amd-staging-drm-next 8dd68a79583a, which has
+v2: the three i2c_xfer tests pass and the suite runs to the end again.
+The one remaining failure, dm_test_fs_caps_dp_vsdb_version, is the
+dropped FreeSync hunk I reported on Cooper's thread.
 
-This commit extends the STM32 MDF filter driver to support digital
-microphone audio filters and adds callback and sub-channel helpers for
-audio consumers.
+One thing for v4: if it keeps routing on link->aux_mode, the DP++ case
+from my last mail still applies. Simon's testing probably won't hit it
+unless he swaps a native DP monitor for a passive DP++ HDMI adapter on
+the same port.
 
-> diff --git a/drivers/iio/adc/stm32-mdf-adc.c b/drivers/iio/adc/stm32-mdf-=
-adc.c
-> index 97099b4adffc6..27c47bef71a42 100644
-> --- a/drivers/iio/adc/stm32-mdf-adc.c
-> +++ b/drivers/iio/adc/stm32-mdf-adc.c
-[ ... ]
-> @@ -1128,6 +1129,42 @@ static const struct iio_buffer_setup_ops stm32_mdf=
-_buffer_setup_ops =3D {
->  	.predisable =3D &stm32_mdf_adc_predisable,
->  };
-> =20
-> +/**
-> + * stm32_mdf_get_sub_channels_nb() - Get the number of MDF sub-channels
-> + * @indio_dev: MDF IIO device
-> + *
-> + * Return: 0 on success, or a negative error code on failure.
-> + */
+Thanks,
+Eren
 
-[Severity: Low]
-The Return description in the kernel-doc says this returns 0 on success or
-a negative error code on failure, whereas stm32_mdf_get_sub_channels_nb()
-returns an unsigned int sub-channel count (nb_interleave or 1).
+-- >8 --
+Subject: drm/amd/display: Give the no-DDC-pin i2c_xfer test a dc_link
 
-> +unsigned int stm32_mdf_get_sub_channels_nb(struct iio_dev *indio_dev)
-> +{
-> +	struct stm32_mdf_adc *adc =3D iio_priv(indio_dev);
-> +
-> +	if (MDF_IS_FILTER0(adc) && adc->mdf->nb_interleave)
-> +		return adc->mdf->nb_interleave;
-> +
-> +	return 1;
-> +}
-> +EXPORT_SYMBOL_GPL(stm32_mdf_get_sub_channels_nb);
+Since commit 48b8c06b05ad ("drm/amd/display: Route connector DDC over
+AUX for native DP sinks"), amdgpu_dm_i2c_xfer() reads
+ddc_service->link for every non-OEM adapter before it checks for a DDC
+pin. dm_test_i2c_xfer_no_ddc_pin() builds a ddc_service without a link,
+so the test now dereferences a NULL pointer and panics the UML kernel.
+Only 670 of the 1931 amdgpu_dm tests run.
 
-[Severity: Medium]
-Does stm32_mdf_adc_apply_filters_config() misconfigure MDF_DFLTCICR_REG and
-drop rsflt_bypass on secondary interleaved filters?
+The driver itself never creates a non-OEM adapter without a link:
+amdgpu_dm_create_i2c() already dereferences it. So fix the test rather
+than the driver and give the ddc_service a zeroed dc_link.
 
-drivers/iio/adc/stm32-mdf-adc.c:stm32_mdf_adc_apply_filters_config() {
-	if (MDF_IS_FILTER0(adc) && adc->mdf->nb_interleave) {
-		list_for_each_entry(adc_inter, &adc->mdf->filter_list, entry) {
-			if (MDF_IS_INTERLEAVED_FILT_NOT_0(adc_inter)) {
-				adc_inter->datsrc =3D adc->datsrc;
-				adc_inter->cicmode =3D adc->cicmode;
-				adc_inter->decim_cic =3D adc->decim_cic;
-				adc_inter->nbdis =3D adc->nbdis;
-				adc_inter->hpf_cutoff =3D adc->hpf_cutoff;
+With this change the three i2c_xfer tests pass again and the suite runs
+to the end.
 
-				stm32_mdf_adc_apply_filters_config(adc_inter, scale);
-				cnt++;
-			}
-		}
-    ...
-	/* Configure CICR */
-	msk =3D MDF_SITFCR_SCKSRC_MASK | MDF_DFLTCICR_CICMOD_MASK |
-	      MDF_DFLTCICR_MCICD_MASK | MDF_DFLTCICR_SCALE_MASK;
-	val =3D FIELD_PREP(MDF_SITFCR_SCKSRC_MASK, adc->datsrc) |
-	      FIELD_PREP(MDF_DFLTCICR_CICMOD_MASK, adc->cicmode) |
-	      FIELD_PREP(MDF_DFLTCICR_MCICD_MASK, adc->decim_cic - 1) |
-	      FIELD_PREP(MDF_DFLTCICR_SCALE_MASK, scale);
+Fixes: 48b8c06b05ad ("drm/amd/display: Route connector DDC over AUX for nat=
+ive DP sinks")
+Link: https://lore.kernel.org/all/sashiko-outbox-195461@kernel.org/
+Link: https://lore.kernel.org/all/5386db0f-e9b3-4c62-bb2b-392cca4d761a@kern=
+el.org/
+Assisted-by: Claude:claude-opus-5-5
+Signed-off-by: Eren =C3=96zen <erenozen@protonmail.com>
+---
+ .../amd/display/amdgpu_dm/tests/amdgpu_dm_connector_test.c  | 6 +++++-
+ 1 file changed, 5 insertions(+), 1 deletion(-)
 
-	ret =3D regmap_update_bits(adc->regmap, MDF_DFLTCICR_REG, msk, val);
-}
+diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/tests/amdgpu_dm_connecto=
+r_test.c b/drivers/gpu/drm/amd/display/amdgpu_dm/tests/amdgpu_dm_connector_=
+test.c
+index 33082a674d9e..87dc722715dc 100644
+--- a/drivers/gpu/drm/amd/display/amdgpu_dm/tests/amdgpu_dm_connector_test.=
+c
++++ b/drivers/gpu/drm/amd/display/amdgpu_dm/tests/amdgpu_dm_connector_test.=
+c
+@@ -6455,7 +6455,9 @@ static void dm_test_i2c_func_returns_flags(struct kun=
+it *test)
+  * @test: The KUnit test context
+  *
+  * When the backing ddc_service has no ddc_pin the transfer bails out earl=
+y
+- * with -EIO before touching the message buffers or the dc handle.
++ * with -EIO before touching the message buffers or the dc handle. Non-OEM
++ * adapters always have a link, so the test gives the ddc_service a zeroed
++ * one.
+  */
+ static void dm_test_i2c_xfer_no_ddc_pin(struct kunit *test)
+ {
+@@ -6466,6 +6468,8 @@ static void dm_test_i2c_xfer_no_ddc_pin(struct kunit =
+*test)
+ =09KUNIT_ASSERT_NOT_NULL(test, i2c);
+ =09ddc =3D kunit_kzalloc(test, sizeof(*ddc), GFP_KERNEL);
+ =09KUNIT_ASSERT_NOT_NULL(test, ddc);
++=09ddc->link =3D kunit_kzalloc(test, sizeof(*ddc->link), GFP_KERNEL);
++=09KUNIT_ASSERT_NOT_NULL(test, ddc->link);
+=20
+ =09i2c->ddc_service =3D ddc;
+ =09i2c_set_adapdata(&i2c->base, i2c);
 
-When programming MDF_DFLTCICR_REG, msk and val use MDF_SITFCR_SCKSRC_MASK
-(GENMASK(2, 1)) instead of MDF_DFLTCICR_DATSRC_MASK (GENMASK(1, 0)), which
-shifts adc->datsrc into bits [2:1] and leaves bit 0 untouched.  In
-addition, the interleaved filter loop does not copy adc->rsflt_bypass to
-adc_inter->rsflt_bypass, leaving the reshape filter enabled on secondary
-interleaved filters when filter 0 has st,rs-filter-bypass set.
-
-[ ... ]
-
-> @@ -1474,6 +1514,13 @@ static int stm32_mdf_adc_read_label(struct iio_dev=
- *indio_dev, const struct iio_
->  	return sysfs_emit(label, "%s\n", name);
->  }
-> =20
-> +static const struct iio_info stm32_mdf_info_audio =3D {
-> +	.hwfifo_set_watermark =3D stm32_mdf_set_watermark,
-> +	.write_raw =3D stm32_mdf_adc_write_raw,
-> +	.read_raw =3D stm32_mdf_adc_read_raw,
-> +	.read_label =3D stm32_mdf_adc_read_label,
-> +};
-
-[Severity: Medium]
-Does stm32_mdf_adc_write_raw() reset adc->requested_sample_freq outside
-the direct-mode lock on error?
-
-drivers/iio/adc/stm32-mdf-adc.c:stm32_mdf_adc_write_raw() {
-    ...
-	{
-		IIO_DEV_ACQUIRE_DIRECT_MODE(indio_dev, claim);
-		if (IIO_DEV_ACQUIRE_FAILED(claim))
-			return -EBUSY;
-
-		/* Set requested_sample_freq right now, as used by mdf_adc_set_samp_freq(=
-) */
-		adc->requested_sample_freq =3D val;
-
-		if (adc->dev_data->type =3D=3D STM32_MDF_IIO) {
-			ret =3D stm32_mdf_core_lock_kclk_rate(adc->mdf);
-			if (!ret) {
-				ret =3D mdf_adc_set_samp_freq(indio_dev);
-
-				stm32_mdf_core_unlock_kclk_rate(adc->mdf);
-			}
-		}
-	}
-
-	if (ret)
-		adc->requested_sample_freq =3D 0;
-    ...
-}
-
-The IIO_DEV_ACQUIRE_DIRECT_MODE() guard releases direct mode at the end of
-the inner block, before adc->requested_sample_freq is cleared.  If
-stm32_mdf_core_lock_kclk_rate() or mdf_adc_set_samp_freq() fails, a
-concurrent direct-mode writer or buffer enable can observe the failed
-frequency or have its own valid update overwritten by 0.
-
-> @@ -1530,6 +1577,38 @@ static irqreturn_t stm32_mdf_irq(int irq, void *ar=
-g)
->  	return IRQ_HANDLED;
->  }
-> =20
-> +static int stm32_mdf_audio_init(struct device *dev, struct iio_dev *indi=
-o_dev)
-> +{
-> +	struct stm32_mdf_adc *adc =3D iio_priv(indio_dev);
-> +	struct iio_chan_spec *ch;
-> +	int ret;
-> +
-> +	ch =3D devm_kzalloc(&indio_dev->dev, sizeof(*ch), GFP_KERNEL);
-> +	if (!ch)
-> +		return -ENOMEM;
-> +
-> +	adc->channels =3D devm_kzalloc(&indio_dev->dev, sizeof(*adc->channels),=
- GFP_KERNEL);
-> +	if (!adc->channels)
-> +		return -ENOMEM;
-> +
-> +	ret =3D stm32_mdf_adc_chan_init(indio_dev, ch);
-> +	if (ret < 0)
-> +		return dev_err_probe(dev, ret, "Channels init failed\n");
-> +
-> +	indio_dev->num_channels =3D 1;
-> +	indio_dev->channels =3D ch;
-
-[Severity: Medium]
-Can stm32_mdf_adc_chan_init() write past ch and adc->channels or leave them
-uninitialized here?
-
-stm32_mdf_audio_init() allocates a single element for ch and adc->channels,
-but stm32_mdf_adc_chan_init() loops over every child node without a
-compatible property and indexes channels[chan_idx] and
-adc->channels[chan_idx] without checking the count.  If a dmic node has
-more than one channel child node, stm32_mdf_adc_chan_init_one() writes out
-of bounds on both allocations.  If there are no channel child nodes (such
-as on a secondary interleaved filter), stm32_mdf_adc_chan_init() returns 0,
-leaving indio_dev->num_channels set to 1 with ch[0] and adc->channels[0]
-uninitialized.
-
-[ ... ]
-
-> @@ -1599,11 +1678,77 @@ static const struct stm32_mdf_dev_data stm32h7_md=
-f_adc_data =3D {
->  	.init =3D stm32_mdf_adc_init,
->  };
-> =20
-> +static const struct stm32_mdf_dev_data stm32_mdf_audio_data =3D {
-> +	.type =3D STM32_MDF_AUDIO,
-> +	.init =3D stm32_mdf_audio_init,
-> +};
-> +
-> +/**
-> + * stm32_mdf_get_buff_cb() - register a callback that will be called when
-> + *                           DMA transfer period is achieved.
-> + *
-> + * @iio_dev: Handle to IIO device.
-> + * @cb: Pointer to callback function:
-> + *      - data: pointer to data buffer
-> + *      - size: size in byte of the data buffer
-> + *      - private: pointer to consumer private structure.
-> + * @private: Pointer to consumer private structure.
-> + *
-> + * Return: 0 on success, or a negative error code on failure.
-> + */
-> +int stm32_mdf_get_buff_cb(struct iio_dev *iio_dev,
-> +			  int (*cb)(const void *data, size_t size, void *private), void *priv=
-ate)
-> +{
-> +	struct stm32_mdf_adc *adc;
-> +
-> +	if (!iio_dev)
-> +		return -EINVAL;
-> +	adc =3D iio_priv(iio_dev);
-> +
-> +	if (!adc)
-> +		return -EINVAL;
-> +
-> +	adc->cb =3D cb;
-> +	adc->cb_priv =3D private;
-> +
-> +	return 0;
-> +}
-> +EXPORT_SYMBOL_GPL(stm32_mdf_get_buff_cb);
-> +
-> +/**
-> + * stm32_mdf_release_buff_cb() - Unregister the buffer callback
-> + *
-> + * @iio_dev: Handle to IIO device.
-> + *
-> + * Return: 0 on success, or a negative error code on failure.
-> + */
-> +int stm32_mdf_release_buff_cb(struct iio_dev *iio_dev)
-> +{
-> +	struct stm32_mdf_adc *adc;
-> +
-> +	if (!iio_dev)
-> +		return -EINVAL;
-> +	adc =3D iio_priv(iio_dev);
-> +
-> +	if (!adc)
-> +		return -EINVAL;
-> +
-> +	adc->cb =3D NULL;
-> +	adc->cb_priv =3D NULL;
-> +
-> +	return 0;
-> +}
-> +EXPORT_SYMBOL_GPL(stm32_mdf_release_buff_cb);
-
-[Severity: High]
-Can stm32_mdf_get_buff_cb() and stm32_mdf_release_buff_cb() race with
-stm32_mdf_adc_dma_buffer_done() and cause a NULL pointer dereference?
-
-In the ASoC consumer driver, iio_channel_start_all_cb() is called during
-DAI prepare, which runs stm32_mdf_adc_postenable() and starts cyclic DMA
-before PCM trigger start, keeping it running across trigger stop.  As a
-result, the DMA completion callback stm32_mdf_adc_dma_buffer_done() is
-already running when stm32_mdf_get_buff_cb() and
-stm32_mdf_release_buff_cb() update adc->cb and adc->cb_priv without locking
-or ordering:
-
-CPU0                                  CPU1
-stm32_mdf_get_buff_cb()
-  adc->cb =3D cb;
-                                      stm32_mdf_adc_dma_buffer_done()
-                                        if (adc->cb)
-                                          adc->cb(..., adc->cb_priv);
-                                            <-- cb_priv is still NULL
-  adc->cb_priv =3D private;
-
-Similarly, stm32_mdf_release_buff_cb() clears adc->cb and adc->cb_priv
-without synchronizing with stm32_mdf_adc_dma_buffer_done(), so CPU1 can
-pass a cleared adc->cb_priv or jump through a NULL adc->cb after the
-if (adc->cb) check.
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261118-upstream_m=
-df_v2-v2-0-7939d3c3720a@foss.st.com?part=3D10
