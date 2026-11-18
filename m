@@ -2,53 +2,52 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1FDCF606A325
-	for <dri-devel@archiver.kernel.org>; Wed, 18 Nov 2026 14:31:51 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B0ABA606A320
+	for <dri-devel@archiver.kernel.org>; Wed, 18 Nov 2026 14:33:19 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.a=rsa-sha256 header.s=dkim header.b=2bS1NRVq
+	dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.a=rsa-sha256 header.s=dkim header.b=JeaWx35d
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id B0A8E10EC24;
-	Wed, 18 Nov 2026 14:31:44 +0000 (UTC)
-Received: from smtpout-04.galae.net (smtpout-04.galae.net [185.171.202.116])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 1426E10FD2D
- for <dri-devel@lists.freedesktop.org>; Wed, 18 Nov 2026 14:31:38 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id DE82E10E7C0;
+	Wed, 18 Nov 2026 14:33:13 +0000 (UTC)
+Received: from smtpout-03.galae.net (smtpout-03.galae.net [185.246.85.4])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 2E37310E7C0
+ for <dri-devel@lists.freedesktop.org>; Wed, 18 Nov 2026 14:33:08 +0000 (UTC)
 Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
- by smtpout-04.galae.net (Postfix) with ESMTPS id 993FBC4CBDA;
- Wed, 18 Nov 2026 14:31:41 +0000 (UTC)
+ by smtpout-03.galae.net (Postfix) with ESMTPS id 690144E41635;
+ Wed, 18 Nov 2026 14:33:06 +0000 (UTC)
 Received: from mail.galae.net (mail.galae.net [212.83.136.155])
- by smtpout-01.galae.net (Postfix) with ESMTPS id BDC545FE9B;
- Wed, 18 Nov 2026 14:31:36 +0000 (UTC)
+ by smtpout-01.galae.net (Postfix) with ESMTPS id 361D05FE9B;
+ Wed, 18 Nov 2026 14:33:06 +0000 (UTC)
 Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon)
- with ESMTPSA id D21B711BC2252; Wed, 18 Nov 2026 15:31:27 +0100 (CET)
+ with ESMTPSA id 3478911BC2284; Wed, 18 Nov 2026 15:33:00 +0100 (CET)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
- t=1795012291; h=from:subject:date:message-id:to:cc:mime-version:content-type:
+ t=1795012384; h=from:subject:date:message-id:to:cc:mime-version:content-type:
  content-transfer-encoding:content-language:in-reply-to:references;
- bh=OG9POYdEHH7btivB/AUnbEj4V7CX4w1ygKsa7b09Rk8=;
- b=2bS1NRVqiott42d5kjBK1IWmEAXlK5HVRiIxhtKO2GL5KL8Bwd9qLcDzmK59MHYTCnH6W2
- hufgIAWgP5qqy8KY+m2j6IJPobNdoE0rYsZ0oYw0HH9JlJ5hRJ9q0tu7g+W148pRGmw7Rl
- aro6gB0Ss/fuV+HLq0NyXEYJmZeihvsOYnV0jNbOy+sOTcFidy2qjSH19FRfd+SJYMwHBH
- 2a1gv7pDZxHfmevNaQAz87g4ZJmZLbwOkb3vAEXAOSRo4/xvQ55r6uR6lVXo8j7uD1Y3FV
- YqlKq7UXJtTKjyd05DTqWWQ5/Lz6y1Mmcd6MMDlolqAtmFjW/+6pidVjNFMdXw==
-Message-ID: <f728e984-7808-47a8-b9c5-c915bb785995@bootlin.com>
-Date: Wed, 18 Nov 2026 15:31:27 +0100
+ bh=tTMeQhSvdX0fNW6dC8qjgHVaHCWVFfoA4ZOieZXZKAw=;
+ b=JeaWx35d4EsvtG2vsB+2T470EOI0z5A56NmvPwmNOv/LKd21EMkF2clcxZqcTLZmt7cTYV
+ 3AIXqJq5wDYztvOk0AymKtaXFuFNS68hF2wdlEafBFsRJBz+5xPKzRahIKwqroy9/GLta/
+ UQ4EONX3E68TSJbOLKee+DCo3Of6h14A/Tf1/85Q+IsnE1XD95Gg/NI2RklSzfjaTz+GPy
+ CSE6GGhnlF6qN3H74x5t06AyMzjKRxHlQQg9F9YmOzyJmruCFJvd++/lnUZXgiglc75la+
+ m6cbh+TAyfMBZBV8yjEVy3uvvCNNovsLQyORhrqnVsKXggruPUKRYaHk4vPBlg==
+Message-ID: <eb298f9c-b938-49ef-9040-100a45266765@bootlin.com>
+Date: Wed, 18 Nov 2026 15:32:59 +0100
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 02/12] vkms: properly compute gamma LUT size in
- vkms_atomic_check()
+Subject: Re: [PATCH v2 03/12] drm/vkms: allow color curve LUTs to have
+ different sizes
 To: Leandro Ribeiro <leandro.ribeiro@collabora.com>
 Cc: airlied@gmail.com, alex.hung@amd.com, daniel@fooishbar.org,
  hamohammed.sa@gmail.com, harry.wentland@amd.com,
  maarten.lankhorst@linux.intel.com, melissa.srw@gmail.com,
  mripard@kernel.org, pekka.paalanen@collabora.com,
  robert.mader@collabora.com, simona@ffwll.ch, tzimmermann@suse.de,
- dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
- Sashiko <sashiko-bot@kernel.org>
+ dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org
 References: <20261106201813.129911-1-leandro.ribeiro@collabora.com>
- <20261106201813.129911-3-leandro.ribeiro@collabora.com>
+ <20261106201813.129911-4-leandro.ribeiro@collabora.com>
 From: Louis Chauvet <louis.chauvet@bootlin.com>
 Content-Language: en-US
-In-Reply-To: <20261106201813.129911-3-leandro.ribeiro@collabora.com>
+In-Reply-To: <20261106201813.129911-4-leandro.ribeiro@collabora.com>
 Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 7bit
 X-Last-TLS-Session-Version: TLSv1.3
@@ -74,17 +73,13 @@ X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 
 
 On 11/6/26 21:18, Leandro Ribeiro wrote:
-> Gamma LUT size is being computed wrongly, dividing blob size by
-> sizeof(struct drm_color_lut *). But the blob is an array of struct
-> drm_color_lut.
+> Instead of keeping a hardcoded size that all LUTs representing color
+> curves must use, use ARRAY_SIZE() instead.
 > 
-> Replace sizeof(struct drm_color_lut *) with sizeof(struct
-> drm_color_lut), properly validating the userspace gamma LUT size.
+> Besides making the code clearer, this allows us to create optimal LUTs
+> for each color curve, and each of them can naturally have a different
+> size. In the next commits we introduce these optimal LUTs.
 > 
-> Issue caught by Sashiko bot:
-> https://sashiko.dev/#/patchset/20260804203351.148521-1-leandro.ribeiro@collabora.com?part=1
-> 
-> Reported-by: Sashiko <sashiko-bot@kernel.org>
 > Reviewed-by: Robert Mader <robert.mader@collabora.com>
 > Tested-by: Robert Mader <robert.mader@collabora.com>
 > Signed-off-by: Leandro Ribeiro <leandro.ribeiro@collabora.com>
@@ -92,20 +87,96 @@ On 11/6/26 21:18, Leandro Ribeiro wrote:
 Reviewed-by: Louis Chauvet <louis.chauvet@bootlin.com>
 
 > ---
->   drivers/gpu/drm/vkms/vkms_drv.c | 2 +-
->   1 file changed, 1 insertion(+), 1 deletion(-)
+>   drivers/gpu/drm/vkms/tests/vkms_color_test.c |  4 ++--
+>   drivers/gpu/drm/vkms/vkms_luts.c             | 12 ++++++------
+>   drivers/gpu/drm/vkms/vkms_luts.h             |  2 --
+>   3 files changed, 8 insertions(+), 10 deletions(-)
 > 
-> diff --git a/drivers/gpu/drm/vkms/vkms_drv.c b/drivers/gpu/drm/vkms/vkms_drv.c
-> index 86a8a95694fd..28b99511f186 100644
-> --- a/drivers/gpu/drm/vkms/vkms_drv.c
-> +++ b/drivers/gpu/drm/vkms/vkms_drv.c
-> @@ -112,7 +112,7 @@ static int vkms_atomic_check(struct drm_device *dev, struct drm_atomic_commit *s
->   		if (!new_crtc_state->gamma_lut || !new_crtc_state->color_mgmt_changed)
->   			continue;
+> diff --git a/drivers/gpu/drm/vkms/tests/vkms_color_test.c b/drivers/gpu/drm/vkms/tests/vkms_color_test.c
+> index 1a1c7cac2f15..18e73a8a5c31 100644
+> --- a/drivers/gpu/drm/vkms/tests/vkms_color_test.c
+> +++ b/drivers/gpu/drm/vkms/tests/vkms_color_test.c
+> @@ -128,7 +128,7 @@ static void vkms_color_test_lerp(struct kunit *test)
 >   
-> -		if (new_crtc_state->gamma_lut->length / sizeof(struct drm_color_lut *)
-> +		if (new_crtc_state->gamma_lut->length / sizeof(struct drm_color_lut)
->   		    > VKMS_GAMMA_LUT_SIZE)
->   			return -EINVAL;
->   	}
+>   static void vkms_color_test_linear(struct kunit *test)
+>   {
+> -	for (int i = 0; i < LUT_SIZE; i++) {
+> +	for (int i = 0; i < linear_eotf.lut_length; i++) {
+>   		int linear = apply_lut_to_channel_value(&linear_eotf, i * 0x101, LUT_RED);
+>   
+>   		KUNIT_EXPECT_EQ(test, DIV_ROUND_CLOSEST(linear, 0x101), i);
+> @@ -139,7 +139,7 @@ static void vkms_color_srgb_inv_srgb(struct kunit *test)
+>   {
+>   	u16 srgb, final;
+>   
+> -	for (int i = 0; i < LUT_SIZE; i++) {
+> +	for (int i = 0; i < srgb_eotf.lut_length; i++) {
+>   		srgb = apply_lut_to_channel_value(&srgb_eotf, i * 0x101, LUT_RED);
+>   		final = apply_lut_to_channel_value(&srgb_inv_eotf, srgb, LUT_RED);
+>   
+> diff --git a/drivers/gpu/drm/vkms/vkms_luts.c b/drivers/gpu/drm/vkms/vkms_luts.c
+> index 82cb792f10d8..6dcdef26bda8 100644
+> --- a/drivers/gpu/drm/vkms/vkms_luts.c
+> +++ b/drivers/gpu/drm/vkms/vkms_luts.c
+> @@ -12,7 +12,7 @@
+>    * https://gitlab.freedesktop.org/hwentland/lutgen
+>    */
+>   
+> -static struct drm_color_lut linear_array[LUT_SIZE] = {
+> +static struct drm_color_lut linear_array[] = {
+>   	{ 0x0, 0x0, 0x0, 0 },
+>   	{ 0x101, 0x101, 0x101, 0 },
+>   	{ 0x202, 0x202, 0x202, 0 },
+> @@ -273,12 +273,12 @@ static struct drm_color_lut linear_array[LUT_SIZE] = {
+>   
+>   const struct vkms_color_lut linear_eotf = {
+>   	.base = linear_array,
+> -	.lut_length = LUT_SIZE,
+> +	.lut_length = ARRAY_SIZE(linear_array),
+>   	.channel_value2index_ratio = 0xff00ffll
+>   };
+>   EXPORT_SYMBOL(linear_eotf);
+>   
+> -static struct drm_color_lut srgb_array[LUT_SIZE] = {
+> +static struct drm_color_lut srgb_array[] = {
+>   	{ 0x0, 0x0, 0x0, 0 },
+>   	{ 0x13, 0x13, 0x13, 0 },
+>   	{ 0x27, 0x27, 0x27, 0 },
+> @@ -539,12 +539,12 @@ static struct drm_color_lut srgb_array[LUT_SIZE] = {
+>   
+>   const struct vkms_color_lut srgb_eotf = {
+>   	.base = srgb_array,
+> -	.lut_length = LUT_SIZE,
+> +	.lut_length = ARRAY_SIZE(srgb_array),
+>   	.channel_value2index_ratio = 0xff00ffll
+>   };
+>   EXPORT_SYMBOL(srgb_eotf);
+>   
+> -static struct drm_color_lut srgb_inv_array[LUT_SIZE] = {
+> +static struct drm_color_lut srgb_inv_array[] = {
+>   	{ 0x0, 0x0, 0x0, 0 },
+>   	{ 0xcc2, 0xcc2, 0xcc2, 0 },
+>   	{ 0x15be, 0x15be, 0x15be, 0 },
+> @@ -805,7 +805,7 @@ static struct drm_color_lut srgb_inv_array[LUT_SIZE] = {
+>   
+>   const struct vkms_color_lut srgb_inv_eotf = {
+>   	.base = srgb_inv_array,
+> -	.lut_length = LUT_SIZE,
+> +	.lut_length = ARRAY_SIZE(srgb_inv_array),
+>   	.channel_value2index_ratio = 0xff00ffll
+>   };
+>   EXPORT_SYMBOL(srgb_inv_eotf);
+> diff --git a/drivers/gpu/drm/vkms/vkms_luts.h b/drivers/gpu/drm/vkms/vkms_luts.h
+> index 925a4a7b84e2..8078ab33b83e 100644
+> --- a/drivers/gpu/drm/vkms/vkms_luts.h
+> +++ b/drivers/gpu/drm/vkms/vkms_luts.h
+> @@ -3,8 +3,6 @@
+>   #ifndef _VKMS_LUTS_H_
+>   #define _VKMS_LUTS_H_
+>   
+> -#define LUT_SIZE 256
+> -
+>   extern const struct vkms_color_lut linear_eotf;
+>   extern const struct vkms_color_lut srgb_eotf;
+>   extern const struct vkms_color_lut srgb_inv_eotf;
 
