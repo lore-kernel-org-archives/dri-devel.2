@@ -2,55 +2,42 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6330C606A332
-	for <dri-devel@archiver.kernel.org>; Wed, 18 Nov 2026 09:48:41 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A7D33606A320
+	for <dri-devel@archiver.kernel.org>; Wed, 18 Nov 2026 10:01:41 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=rock-chips.com header.i=@rock-chips.com header.a=rsa-sha256 header.s=default header.b=SD/4ffKk
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=YS+Aa0fj
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id C105F10F9AE;
-	Wed, 18 Nov 2026 09:48:35 +0000 (UTC)
-Received: from mail-m1602365373.xmail.ntesmail.com
- (mail-m1602365373.xmail.ntesmail.com [160.236.53.73])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 1C49810F89F
- for <dri-devel@lists.freedesktop.org>; Wed, 18 Nov 2026 09:48:28 +0000 (UTC)
-Received: from [172.16.12.74] (unknown [61.154.14.86])
- by smtp.qiye.163.com (Hmail) with ESMTP id 5520d7b24;
- Wed, 18 Nov 2026 17:48:24 +0800 (GMT+08:00)
-Message-ID: <abc2d0e2-521c-4ae8-8a8b-e41c8f2bc482@rock-chips.com>
-Date: Wed, 18 Nov 2026 17:48:23 +0800
-X-Archived-By: <archiver.kernel.org>
-MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v3 4/8] drm/rockchip: vop2: Fix the HDMI sync polarity bit
- order on RK3588
-To: aiyengar1990@gmail.com, Sandy Huang <hjc@rock-chips.com>,
- =?UTF-8?Q?Heiko_St=C3=BCbner?= <heiko@sntech.de>, Andy Yan
- <andyshrk@163.com>, Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- Sascha Hauer <s.hauer@pengutronix.de>
-Cc: Piotr Zalewski <pZ010001011111@proton.me>,
- Chaoyi Chen <chaoyi.chen@rock-chips.com>, dri-devel@lists.freedesktop.org,
- linux-rockchip@lists.infradead.org, linux-arm-kernel@lists.infradead.org,
- linux-kernel@vger.kernel.org
-References: <20261113-vop2-fixes-v3-0-08ae37e83b5c@gmail.com>
- <20261113-vop2-fixes-v3-4-08ae37e83b5c@gmail.com>
-Content-Language: en-US
-From: Damon Ding <damon.ding@rock-chips.com>
-In-Reply-To: <20261113-vop2-fixes-v3-4-08ae37e83b5c@gmail.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-X-HM-Tid: 0aa1ee0eb96103a8kunmdffd083c34ef57
-X-HM-MType: 1
-X-HM-Spam-Status: e1kfGhgUHx5ZQUpXWQgPGg8OCBgUHx5ZQUlOS1dZFg8aDwILHllBWSg2Ly
- tZV1koWUFITzdXWRgWCB1ZQUpXWS1ZQUlXWQ8JGhUIEh9ZQVkaSUNJVkhDSk5CTU1KSE0dHlYVFA
- kWGhdVEwETFhoSFyQUDg9ZV1kYEgtZQVlNSlVKTk9VSk9VQ01ZV1kWGg8SFR0UWUFZT0tIVUpLSU
- 9PT0hVSktLVUpCS0tZBg++
-DKIM-Signature: a=rsa-sha256;
- b=SD/4ffKkoOL31/82SahftnhWFXNBC2jzLaHRzM6GbsP7Hbz3SM51Nc/ri1edybUEcvBM1vA6QZGVF2GKQEQxxlf/94JzVNKPVwCz54XpfMjMuHYMB7p5dV1v6A1h3RsDGFwHhPp1FIvUv9mwhNUdb1w6+7TO8NXhAb4sKHf6wsY=;
- s=default; c=relaxed/relaxed; d=rock-chips.com; v=1; 
- bh=/PG22HUnpipGjaN800i0S6Qg/5eh4aaNl1rldurwMEw=;
- h=date:mime-version:subject:message-id:from;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 0591E10E7BF;
+	Wed, 18 Nov 2026 10:01:36 +0000 (UTC)
+Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 12C0010FA76
+ for <dri-devel@lists.freedesktop.org>; Wed, 18 Nov 2026 10:01:30 +0000 (UTC)
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+ by tor.source.kernel.org (Postfix) with ESMTP id 239F96205F;
+ Wed, 18 Nov 2026 10:01:29 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id ADD711F000C4;
+ Wed, 18 Nov 2026 10:01:28 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+ s=k20260515; t=1794996088;
+ bh=74w79Zw/FUDp7uhiM29PNQis4A6RNC87nG2KEIOV2J8=;
+ h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+ b=YS+Aa0fj6eHx7RaeePRuKsOe1qdEvfzKuN/DHLxnbxY1ZWwbdTbitK8I8emLsM3vI
+ WErvJIOYOtNXUBuQp81zTUckJKLYgse1a42Y2r+93+xKqJX9y3qDOVW2iCodq95I7A
+ 1u1qeVtRoJ4Ol+TwHd78pqrho4d/NMGJQDaQFcClZdusXT997o0DoFSGsQzZQ5sq1J
+ fM+I9pGM6MIMnQ3nbBeyidGG6EeVGRit1BglvYVboR93WbIys+6lBgx0UMXl9wkpRa
+ j0km6B0Ek8X12p7aXTNHBHF22Tww656LdXoAxWmehocQ3eYLWWCLJWjuwc+OlUMUqz
+ LHIGFnCNGzR+Q==
+Message-ID: <sashiko-outbox-220650@kernel.org>
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v2] drm/panel: Replace deprecated DCS display-on calls
+To: amit <amittibi123@gmail.com>
+Cc: dri-devel@lists.freedesktop.org
+In-Reply-To: <20261118094800.54292-1-amittibi123@gmail.com>
+References: <1794145178-999776-mlmmj-06e01102@vger.kernel.org>
+ <20261118094800.54292-1-amittibi123@gmail.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Wed, 18 Nov 2026 10:01:28 +0000
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -61,66 +48,122 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
+Reply-To: sashiko-reviews@lists.linux.dev
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-17.3 required=3.0 tests=BAYES_00,DKIM_SIGNED,
-	DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
-	INCLUDES_CR_TRAILER,INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,
-	SPF_PASS,USER_AGENT_SANE_1 autolearn=unavailable autolearn_force=no
-	version=4.0.1
+X-Spam-Status: No, score=-10.8 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
+	DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
+	INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS autolearn=ham
+	autolearn_force=no version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
+X-Archived-By: <archiver.kernel.org>
 
-Hi Arun,
+Thank you for your contribution! Sashiko AI review found 3 potential
+issues to consider:
+- [High] drm/panel: missing Signed-off-by trailer in commit message
+- [Medium] drm/panel: boe_panel_unprepare() skips sleep mode on
+  display-off error
+- [Low] drm/panel: incomplete mipi_dsi_multi_context conversion and
+  duplicate logs
+--
 
-On 11/14/2026 12:39 AM, Arun Iyengar via B4 Relay wrote:
-> From: Arun Iyengar <aiyengar1990@gmail.com>
-> 
-> In GRF_VO1_CON0 the HDMI vsync polarity bit comes before the hsync one
-> (bits 5 and 6 for HDMI0, 7 and 8 for HDMI1), but rk3588_get_hdmi_pol()
-> puts hsync first. Modes with mixed sync polarities go out with both
-> syncs inverted: the HDMI controller sees 1920x1080@144 +HSync -VSync
-> as -HSync +VSync in VIDEO_INTERFACE_STATUS0.
-> 
-> Fixes: 5a028e8f062f ("drm/rockchip: vop2: Add support for rk3588")
-> Signed-off-by: Arun Iyengar <aiyengar1990@gmail.com>
-> ---
->   drivers/gpu/drm/rockchip/rockchip_vop2_reg.c | 6 +++---
->   1 file changed, 3 insertions(+), 3 deletions(-)
-> 
-> diff --git a/drivers/gpu/drm/rockchip/rockchip_vop2_reg.c b/drivers/gpu/drm/rockchip/rockchip_vop2_reg.c
-> index 3e654cb99ddf..6d08988d7007 100644
-> --- a/drivers/gpu/drm/rockchip/rockchip_vop2_reg.c
-> +++ b/drivers/gpu/drm/rockchip/rockchip_vop2_reg.c
-> @@ -1683,13 +1683,13 @@ static u32 rk3588_get_mipi_port_mux(int vp_id)
->   		return 0;
->   }
->   
-> -/* The sync polarity bits in GRF_VO1_CON0 are set for a negative sync */
-> +/* GRF_VO1_CON0: vsync bit below the hsync bit, each set for a negative sync */
->   static u32 rk3588_get_hdmi_pol(u32 polflags)
->   {
->   	u32 val;
->   
-> -	val = (polflags & BIT(HSYNC_POSITIVE)) ? 0 : BIT(HSYNC_POSITIVE);
-> -	val |= (polflags & BIT(VSYNC_POSITIVE)) ? 0 : BIT(VSYNC_POSITIVE);
-> +	val = (polflags & BIT(VSYNC_POSITIVE)) ? 0 : BIT(0);
-> +	val |= (polflags & BIT(HSYNC_POSITIVE)) ? 0 : BIT(1);
->   
->   	return val;
->   }
-> 
+commit 7771574db163ac443f13d706bebea54afbd4c7d9
+Author: amit <amittibi123@gmail.com>
 
-Oh, this is a good catch. I verified the RK3588 HDMI sync polarity bits 
-are arranged differently from other interfaces.
+> drm/panel: Replace deprecated DCS display-on calls
+>
+> Replace deprecated mipi_dsi_dcs_set_display_on() calls with their multi-c=
+ontext equivalents across DRM panel drivers.
+>
+> Use the MIPI DSI multi-context API to handle errors returned by the new h=
+elpers.
 
-Would it make sense to add two macros for these bits under 
-RK3588_GRF_VO1_CON0 in rockchip_drm_vop2.h:
+[Severity: High]
+This commit is missing a Signed-off-by trailer.  In addition, the commit
+message only mentions replacing mipi_dsi_dcs_set_display_on(), while the
+diff also converts mipi_dsi_dcs_write_buffer(),
+mipi_dsi_dcs_set_display_off(), mipi_dsi_dcs_enter_sleep_mode(),
+mipi_dsi_dcs_exit_sleep_mode(), mipi_dsi_dcs_set_column_address(),
+mipi_dsi_dcs_set_page_address(), mipi_dsi_dcs_set_pixel_format() and
+mipi_dsi_dcs_set_tear_on() in panel-boe-himax8279d.c, panel-dsi-cm.c and
+panel-feixin-k101-im2ba02.c.
 
-#define RK3588_HDMI_VSYNC_INVERT	BIT(0)
-#define RK3588_HDMI_HSYNC_INVERT	BIT(1)
+> diff --git a/drivers/gpu/drm/panel/panel-boe-himax8279d.c b/drivers/gpu/d=
+rm/panel/panel-boe-himax8279d.c
+> index 4a8560b4b899a..322f6801e52bd 100644
+> --- a/drivers/gpu/drm/panel/panel-boe-himax8279d.c
+> +++ b/drivers/gpu/drm/panel/panel-boe-himax8279d.c
+[ ... ]
+> @@ -95,15 +99,17 @@ static int boe_panel_disable(struct drm_panel *panel)
+>  static int boe_panel_unprepare(struct drm_panel *panel)
+>  {
+>  	struct panel_info *pinfo =3D to_panel_info(panel);
+> -	int err;
+> +	struct mipi_dsi_multi_context dsi_ctx =3D {
+> +		.dsi =3D pinfo->link,
+> +	};
+> =20
+> -	err =3D mipi_dsi_dcs_set_display_off(pinfo->link);
+> -	if (err < 0)
+> -		dev_err(panel->dev, "failed to set display off: %d\n", err);
+> +	mipi_dsi_dcs_set_display_off_multi(&dsi_ctx);
+> +	if (dsi_ctx.accum_err < 0)
+> +		dev_err(panel->dev, "failed to set display off: %d\n", dsi_ctx.accum_e=
+rr);
+> =20
+> -	err =3D mipi_dsi_dcs_enter_sleep_mode(pinfo->link);
+> -	if (err < 0)
+> -		dev_err(panel->dev, "failed to enter sleep mode: %d\n", err);
+> +	mipi_dsi_dcs_enter_sleep_mode_multi(&dsi_ctx);
+> +	if (dsi_ctx.accum_err < 0)
+> +		dev_err(panel->dev, "failed to enter sleep mode: %d\n", dsi_ctx.accum_=
+err);
 
-rather than using raw BIT(0) and BIT(1)?
+[Severity: Medium]
+Does sharing dsi_ctx here skip entering sleep mode when
+mipi_dsi_dcs_set_display_off_multi() fails?
 
-Best regards,
-Damon
+Previously, boe_panel_unprepare() still sent the enter-sleep-mode command
+even if display-off failed before disable_gpios() cut power.  Because
+mipi_dsi_dcs_enter_sleep_mode_multi() returns early when dsi_ctx.accum_err
+is non-zero, a display-off error now skips the sleep command and triggers
+a false "failed to enter sleep mode" message from the stale accum_err.
 
+> =20
+>  	/* sleep_mode_delay: 1ms - 2ms */
+>  	usleep_range(1000, 2000);
+[ ... ]
+> @@ -178,7 +191,12 @@ static int boe_panel_enable(struct drm_panel *panel)
+> =20
+>  	usleep_range(120000, 121000);
+> =20
+> -	ret =3D mipi_dsi_dcs_set_display_on(pinfo->link);
+> +	struct mipi_dsi_multi_context dsi_ctx =3D {
+> +		.dsi =3D pinfo->link,
+> +	};
+> +
+> +	mipi_dsi_dcs_set_display_on_multi(&dsi_ctx);
+> +	ret =3D dsi_ctx.accum_err;
+>  	if (ret < 0) {
+>  		dev_err(panel->dev, "failed to set display on: %d\n", ret);
+>  		return ret;
+
+[Severity: Low]
+Could these conversions declare dsi_ctx at the top of each function, drop
+the redundant dev_err() calls, and convert the remaining DSI helpers in
+the same functions?
+
+The mipi_dsi_dcs_*_multi() helpers already log an error via dev_err() on
+failure, so keeping the caller dev_err() blocks here and in the other
+touched drivers logs every failure twice.  In addition, declaring dsi_ctx
+mid-function after statements to wrap a single call leaves adjacent
+deprecated DSI calls in the same functions (such as in
+k101_im2ba02_enable(), innolux_panel_prepare(),
+khadas_ts050_panel_prepare(), kingdisplay_panel_prepare(),
+ltk500hd1829_prepare(), panel_nv3051d_prepare(), nt35510_prepare(),
+rad_panel_enable(), rm68200_prepare(), s6e63j0x03_enable() and
+sharp_panel_prepare()) unconverted.
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261118094800.5429=
+2-1-amittibi123@gmail.com?part=3D1
