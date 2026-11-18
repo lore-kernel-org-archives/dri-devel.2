@@ -2,44 +2,45 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 89663606A31C
-	for <dri-devel@archiver.kernel.org>; Wed, 18 Nov 2026 15:51:01 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C01C6606A336
+	for <dri-devel@archiver.kernel.org>; Wed, 18 Nov 2026 15:51:52 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=T9K4hvgD
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Qq4W8QR0
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 06E8D10FDF8;
-	Wed, 18 Nov 2026 15:50:56 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 266C410E824;
+	Wed, 18 Nov 2026 15:51:47 +0000 (UTC)
 Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 5F00510E541
- for <dri-devel@lists.freedesktop.org>; Wed, 18 Nov 2026 15:50:49 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id DCF1110FDD0
+ for <dri-devel@lists.freedesktop.org>; Wed, 18 Nov 2026 15:51:40 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id 169014326A;
- Wed, 18 Nov 2026 15:50:49 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 956AB1F000C4;
- Wed, 18 Nov 2026 15:50:48 +0000 (UTC)
+ by sea.source.kernel.org (Postfix) with ESMTP id BEDEE43BBC;
+ Wed, 18 Nov 2026 15:51:40 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4F6EE1F000C7;
+ Wed, 18 Nov 2026 15:51:40 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1795017049;
- bh=AAxkzsVjNf3VWOtfUEfVk1uLjjf+4Yk6/cUJKimpQdk=;
+ s=k20260515; t=1795017100;
+ bh=Aex+3gN0Z3NwJ0XBJSl1rpMND+szMKApjxoJ1G/Dzz8=;
  h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
- b=T9K4hvgDd9ZQGLThsicHDQKNuslJIxOKpTFNvQV1oIPlCQgcbi2OP1voq/N+nUFfp
- Tw2OgFyOgIHgXIBfzvz7HccJc2Kpnj6zWW/o2XTAyPUm78tGJGoMuvx4dlNnudsfhx
- Oyvgz7CeIjzXY64xyeSV/q2pGwYso7LMnJlaFC8jGW8ECtC4goFoI9u4YY6Hwu/aUV
- lZ0G3lBmoQIbWFR2Ohma0P1VBgTVzmG9AQCytamvj+DigPioodJVWSy9QR+7pEQvNN
- td/GucPTT2Vx62OfoOm+UfA4N0dHGFX5VUG/q9g/NuugxxERuzwGkJdL861mHvxDje
- /8S1HG3h0Hf/g==
-Message-ID: <sashiko-outbox-221378@kernel.org>
+ b=Qq4W8QR0E2vaCBoQa/UHqg/0iW4qCLpmKMn3k8fCKBP/840IBxEbacxQUWsmuzYpL
+ OH8K5zZHKjBtOPq9vl0vHbVpa4tUdM/XqRnOvkWgExQWV8+TaIHugGuyf0Tf9X2HET
+ 0apZ8dmMoR89m+0l9MNhNDTeeh2I8PEDUg+Z+4ihcMngJ5M9YjLrTW1i+7QnSz/SUJ
+ hSZ5PPIQGwJz81LvOYQwa5RfDHiVTc3l4vXkCf8k3dEPJyeAnpNp6fUUshYa8aFvRw
+ 7LcO1z4KVXbw1uHMEuBSyKiy4Jaib4foKNwcLWfv5721NW+W3D6OAyHEzFkyOPcoAA
+ DzplNHzNk6qcQ==
+Message-ID: <sashiko-outbox-221382@kernel.org>
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v2 03/11] iio: adc: stm32-mdf: add cck clocks provider
+Subject: Re: [PATCH v2 07/11] iio: adc: stm32-mdf: add direct iio conversion
+ support
 To: "Olivier Moysan" <olivier.moysan@foss.st.com>
 Cc: devicetree@vger.kernel.org, dri-devel@lists.freedesktop.org,
  linux-sound@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org,
  media-ci@linuxtv.org
-In-Reply-To: <20261118-upstream_mdf_v2-v2-3-7939d3c3720a@foss.st.com>
+In-Reply-To: <20261118-upstream_mdf_v2-v2-7-7939d3c3720a@foss.st.com>
 References: <20261118-upstream_mdf_v2-v2-0-7939d3c3720a@foss.st.com>
- <20261118-upstream_mdf_v2-v2-3-7939d3c3720a@foss.st.com>
+ <20261118-upstream_mdf_v2-v2-7-7939d3c3720a@foss.st.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Wed, 18 Nov 2026 15:50:48 +0000
+Date: Wed, 18 Nov 2026 15:51:39 +0000
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -60,491 +61,603 @@ X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 X-Archived-By: <archiver.kernel.org>
 
-Thank you for your contribution! Sashiko AI review found 6 potential
+Thank you for your contribution! Sashiko AI review found 15 potential
 issues to consider:
-- [High] iio: adc: stm32-mdf: premature rounding in
-  stm32_mdf_core_cck_determine_rate()
-- [High] iio: adc: stm32-mdf: ABBA deadlock between CCF enable_lock and
-  regmap spinlock
-- [High] iio: adc: stm32-mdf: broken onecell indexing and __counted_by
-  in clock provider
-- [Medium] iio: adc: stm32-mdf: unlocked RMW and unchecked read in
-  clk_cckx_gate_ops
-- [Medium] iio: adc: stm32-mdf: static global clk_hw structs and stack
-  init data in probe
-- [Medium] iio: adc: stm32-mdf: unbalanced kclk exclusivity in
-  lock/unlock_kclk_rate()
+- [High] iio: adc: stm32-mdf: divide by zero in stm32_mdf_adc_read_raw()
+  on scale read
+- [High] iio: adc: stm32-mdf: unshifted raw sample in
+  stm32_mdf_adc_single_conv()
+- [High] iio: adc: stm32-mdf: divide by zero in
+  stm32_mdf_adc_check_clock_config()
+- [High] iio: adc: stm32-mdf: wrong regmap and filter order in
+  stm32_mdf_irq()
+- [High] iio: adc: stm32-mdf: wrong consumer device in
+  stm32_mdf_channel_parse_of()
+- [Medium] iio: adc: stm32-mdf: W1C status bits not cleared in
+  stm32_mdf_irq()
+- [Medium] iio: adc: stm32-mdf: divide by zero in
+  mdf_adc_set_samp_freq() on bad rate
+- [Medium] iio: adc: stm32-mdf: out-of-bounds buffer read in
+  stm32_mdf_adc_single_conv()
+- [Medium] iio: adc: stm32-mdf: premature IRQ registration in
+  stm32_mdf_adc_probe()
+- [Medium] iio: adc: stm32-mdf: missing error handling in
+  stm32_mdf_adc_start_filter()
+- [Medium] iio: adc: stm32-mdf: channel count mismatch in
+  stm32_mdf_adc_init()
+- [Medium] iio: adc: stm32-mdf: unlocked requested_sample_freq reset in
+  write_raw()
+- [Medium] iio: adc: stm32-mdf: kclk exclusivity and n_active_ch race
+  across filters
+- [Medium] iio: adc: stm32-mdf: unsynchronized mdf->filter_list access
+  and removal
+- [Medium] iio: adc: stm32-mdf: wrong bitmask for datsrc in
+  apply_filters_config()
 --
 
-commit aeca8d3955d2508e74c0c672d9e5746542fb1914
+commit 2d5ac177e0b4a7ad327bdcde3015713c0361e50e
 Author: Olivier Moysan <olivier.moysan@foss.st.com>
 
-iio: adc: stm32-mdf: add cck clocks provider
+iio: adc: stm32-mdf: add direct iio conversion support
 
-This commit registers the MDF CCK0 and CCK1 clock outputs with the common
-clock framework and adds helpers to lock, unlock, query and restore the
-clock rate.
+This commit adds single-shot IIO direct conversion support, channel and
+backend initialization, interrupt handling, and raw/scale/offset/frequency
+sysfs accessors to the STM32 MDF ADC driver.
 
-> diff --git a/drivers/iio/adc/stm32-mdf-core.c b/drivers/iio/adc/stm32-mdf=
--core.c
-> index ca50ce566a435..4e462c6c42bc8 100644
-> --- a/drivers/iio/adc/stm32-mdf-core.c
-> +++ b/drivers/iio/adc/stm32-mdf-core.c
-[ ... ]
-> @@ -194,6 +210,96 @@ int stm32_mdf_core_trigger(struct stm32_mdf *mdf)
-[ ... ]
-> +int stm32_mdf_core_lock_kclk_rate(struct stm32_mdf *mdf)
+> diff --git a/drivers/iio/adc/stm32-mdf-adc.c b/drivers/iio/adc/stm32-mdf-=
+adc.c
+> index eae7a4fa14851..7361ce6182bec 100644
+> --- a/drivers/iio/adc/stm32-mdf-adc.c
+> +++ b/drivers/iio/adc/stm32-mdf-adc.c
+> @@ -329,6 +329,79 @@ static struct stm32_mdf_adc *stm32_mdf_get_filter_by=
+_handle(struct stm32_mdf *md
+>  	return NULL;
+>  }
+> =20
+> +static int stm32_mdf_adc_start_filter(struct stm32_mdf_adc *adc)
 > +{
-> +	struct stm32_mdf_priv *priv =3D to_stm32_mdf_priv(mdf);
-> +	struct device *dev =3D &priv->pdev->dev;
-> +	int ret;
+> +	struct stm32_mdf_adc *adc_inter;
+> +	struct stm32_mdf *mdf =3D adc->mdf;
+> +	u32 val;
 > +
-> +	if (!atomic_read(&priv->n_active_ch)) {
-> +		/* Request rate exclusivity on kernel clock right now */
-> +		ret =3D clk_rate_exclusive_get(priv->kclk);
-> +		if (ret < 0) {
-> +			dev_err(dev, "Failed to get exclusive rate on kernel clock: [%d]\n", =
-ret);
-> +			return ret;
-> +		}
+> +	if (MDF_IS_FILTER0(adc))
+> +		list_for_each_entry(adc_inter, &mdf->filter_list, entry)
+> +			if (MDF_IS_INTERLEAVED_FILT_NOT_0(adc_inter))
+> +				stm32_mdf_adc_start_filter(adc_inter);
 > +
-> +		priv->exclusive_flg =3D true;
+> +	/* Check filter status. Bypass cache to access volatile MDF_DFLTCR_ACTI=
+VE bit */
+> +	regcache_cache_bypass(adc->regmap, true);
+> +	regmap_read(adc->regmap, MDF_DFLTCR_REG, &val);
+> +	regcache_cache_bypass(adc->regmap, false);
+> +	if (val & MDF_DFLTCR_ACTIVE) {
+> +		dev_err(adc->dev, "Filter [%d] is already running\n", adc->fl_id);
+> +		return -EBUSY;
 > +	}
 > +
-> +	return 0;
+> +	return regmap_set_bits(adc->regmap, MDF_DFLTCR_REG, MDF_DFLTCR_DFLTEN);
 > +}
-> +EXPORT_SYMBOL_GPL(stm32_mdf_core_lock_kclk_rate);
-> +
-> +/**
-> + * stm32_mdf_core_unlock_kclk_rate() - Release the MDF kernel clock rate=
- lock
-> + * @mdf: MDF instance
-> + *
-> + * Release an exclusive rate acquired by stm32_mdf_core_lock_kclk_rate()=
- when
-> + * no MDF channels are active. The lock is retained while channels are a=
-ctive.
-> + */
-> +void stm32_mdf_core_unlock_kclk_rate(struct stm32_mdf *mdf)
-> +{
-> +	struct stm32_mdf_priv *priv =3D to_stm32_mdf_priv(mdf);
-> +
-> +	if (!atomic_read(&priv->n_active_ch)) {
-> +		clk_rate_exclusive_put(priv->kclk);
-> +		priv->exclusive_flg =3D false;
-> +	}
-> +}
-> +EXPORT_SYMBOL_GPL(stm32_mdf_core_unlock_kclk_rate);
 
 [Severity: Medium]
-Can concurrent calls across sibling MDF filter devices unbalance
-clk_rate_exclusive_get() and clk_rate_exclusive_put() on priv->kclk?
+Does stm32_mdf_adc_start_filter() ignore errors from starting interleaved
+filters and leave already-started sibling filters enabled if filter 0 is
+busy?
 
-Neither stm32_mdf_core_lock_kclk_rate() nor
-stm32_mdf_core_unlock_kclk_rate() takes a lock or checks
-priv->exclusive_flg:
+When stm32_mdf_adc_start_conv() sees an error from
+stm32_mdf_adc_start_filter(), it jumps to stop_sitf without stopping any
+secondary interleaved filters that were just enabled.
+stm32_mdf_adc_filter_set_mode() and its caller stm32_mdf_adc_single_conv()
+similarly ignore errors when configuring the filter acquisition mode.
 
-CPU0 (Filter A)                   CPU1 (Filter B)
-stm32_mdf_core_start_mdf()
-  n_active_ch becomes 1
-  clk_rate_exclusive_get()
-  priv->exclusive_flg =3D true
-                                  stm32_mdf_core_lock_kclk_rate()
-                                    /* n_active_ch !=3D 0: does nothing */
-stm32_mdf_core_stop_mdf()
-  n_active_ch becomes 0
-  clk_rate_exclusive_put()
-  priv->exclusive_flg =3D false
-                                  stm32_mdf_core_unlock_kclk_rate()
-                                    /* n_active_ch =3D=3D 0 */
-                                    clk_rate_exclusive_put()  <-- underflow
+> @@ -606,7 +679,7 @@ static int stm32_mdf_adc_check_clock_config(struct st=
+m32_mdf_adc *adc, unsigned
+>  	return ret;
+>  }
+> =20
+> -static int __maybe_unused mdf_adc_set_samp_freq(struct iio_dev *indio_de=
+v)
+> +static int mdf_adc_set_samp_freq(struct iio_dev *indio_dev)
+>  {
+>  	struct stm32_mdf_adc *adc =3D iio_priv(indio_dev);
+>  	struct device *dev =3D &indio_dev->dev;
+> @@ -675,6 +748,483 @@ static int __maybe_unused mdf_adc_set_samp_freq(str=
+uct iio_dev *indio_dev)
+>  	return ret;
+>  }
+> =20
+> +static int stm32_mdf_adc_start_mdf(struct iio_dev *indio_dev)
+> +{
+> +	struct stm32_mdf_adc *adc =3D iio_priv(indio_dev);
+> +	int ret;
+> +
+> +	ret =3D clk_prepare_enable(adc->sitf->sck);
+> +	if (ret < 0) {
+> +		dev_err(&indio_dev->dev, "Failed to enable clock %s\n",
+> +			__clk_get_name(adc->sitf->sck));
+> +		return ret;
+> +	}
+> +
+> +	ret =3D mdf_adc_set_samp_freq(indio_dev);
 
-That extra put triggers WARN_ON(clk->exclusive_count <=3D 0) in
-clk_rate_exclusive_put().  Conversely, if two idle filter devices call
-stm32_mdf_core_lock_kclk_rate() while n_active_ch is 0,
-clk_rate_exclusive_get() runs twice while priv->exclusive_flg only records
-a single boolean; if a channel starts before they unlock,
-stm32_mdf_core_stop_mdf() only puts once and leaks an exclusive reference,
-causing later clk_set_rate() calls in stm32_mdf_core_restore_cck() to fail.
+[Severity: High]
+Does calling mdf_adc_set_samp_freq() divide by zero in
+stm32_mdf_adc_check_clock_config() on the first conversion or sampling
+frequency write?
+
+mdf_adc_set_samp_freq() calls stm32_mdf_adc_check_clock_config() before
+stm32_mdf_adc_set_filters_config() initializes adc->decim_cic:
+
+drivers/iio/adc/stm32-mdf-adc.c:stm32_mdf_adc_check_clock_config() {
+    ...
+	/* RSFLT enabled: check Fproc > 24 * Fsck / (MCICD+1) */
+	cic_ratio =3D DIV_ROUND_CLOSEST(24, adc->decim_cic);
+    ...
+}
+
+On the first call after probe, adc->decim_cic is still 0, triggering a
+divide by zero; on later rate changes, stm32_mdf_adc_check_clock_config()
+checks against the previous stale adc->decim_cic value.
+
+In addition, stm32_mdf_adc_apply_filters_config() (called via
+mdf_adc_set_samp_freq() -> stm32_mdf_adc_set_filters_config()) uses
+MDF_SITFCR_SCKSRC_MASK (GENMASK(2, 1)) instead of MDF_DFLTCICR_DATSRC_MASK
+(GENMASK(1, 0)) when programming adc->datsrc into MDF_DFLTCICR_REG:
+
+drivers/iio/adc/stm32-mdf-adc.c:stm32_mdf_adc_apply_filters_config() {
+    ...
+	/* Configure CICR */
+	msk =3D MDF_SITFCR_SCKSRC_MASK | MDF_DFLTCICR_CICMOD_MASK |
+	      MDF_DFLTCICR_MCICD_MASK | MDF_DFLTCICR_SCALE_MASK;
+	val =3D FIELD_PREP(MDF_SITFCR_SCKSRC_MASK, adc->datsrc) |
+    ...
+}
+
+This shifts datsrc into bits [2:1] and leaves bit 0 unmasked.
 
 [ ... ]
 
-> @@ -223,11 +329,301 @@ int stm32_mdf_core_stop_mdf(struct stm32_mdf *mdf)
->  }
->  EXPORT_SYMBOL_GPL(stm32_mdf_core_stop_mdf);
-> =20
-> +static int stm32_mdf_core_cck_divider_set_rate(struct platform_device *p=
-dev,
-> +					       struct stm32_mdf_priv *priv,
-> +					       unsigned long rate,
-> +					       unsigned long parent_rate)
+> +static int stm32_mdf_channel_parse_of(struct iio_dev *indio_dev, struct =
+fwnode_handle *node,
+> +				      struct iio_chan_spec *ch)
 > +{
-> +	struct device *dev =3D &pdev->dev;
-> +	unsigned long ratio, delta, delta_ppm, procdiv;
-> +	unsigned int cckdiv;
+> +	struct stm32_mdf_adc *adc =3D iio_priv(indio_dev);
+> +	struct iio_backend *backend;
+> +	const char *label =3D fwnode_get_name(node);
 > +	int ret;
+> +	u32 stu =3D 0;
 > +
-> +	if (!rate || rate > STM32_MDF_MAX_CCK_RATE || !parent_rate)
-> +		return -EINVAL;
-> +
-> +	ratio =3D DIV_ROUND_CLOSEST(parent_rate, rate);
-> +	if (!ratio) {
-> +		dev_err(dev, "CCK frequency above kernel frequency\n");
-> +		return -EINVAL;
+> +	ret =3D fwnode_property_read_u32(node, "reg", &ch->channel);
+> +	if (ret < 0) {
+> +		dev_err(&indio_dev->dev, "Failed to read channel index: [%d]\n", ret);
+> +		return ret;
+> +	}
+
+[ ... ]
+
+> +	if (adc->dev_data->type =3D=3D STM32_MDF_IIO) {
+> +		backend =3D devm_iio_backend_fwnode_get(&indio_dev->dev, NULL, node);
+> +		if (IS_ERR(backend))
+> +			return dev_err_probe(&indio_dev->dev, PTR_ERR(backend),
+> +					     "Failed to get backend\n");
+> +		adc->channels[ch->scan_index].backend =3D backend;
 > +	}
 > +
-> +	delta =3D abs(parent_rate - (ratio * rate));
+> +	return ret;
+> +}
+
+[Severity: High]
+Should devm_iio_backend_fwnode_get() (and dev_err_probe(), as well as
+devm_kcalloc() in stm32_mdf_adc_init()) use adc->dev (&pdev->dev) instead
+of &indio_dev->dev?
+
+Passing &indio_dev->dev attaches the DL_FLAG_AUTOREMOVE_CONSUMER
+device_link and the devres release action to the unregistered, driverless
+IIO struct device rather than the platform device.  If a later channel's
+backend defers or probe fails before iio_device_register(),
+device_links_purge(&indio_dev->dev) never runs, so the reference taken by
+device_link_add() pins &indio_dev->dev at refcount 1 and leaks the IIO
+device, its devres allocations, the device_link, and the backend module
+reference.  Even when probe succeeds, &indio_dev->dev has no bound
+device_driver, so the device link stays in DL_STATE_AVAILABLE and
+unbinding the backend supplier driver fails to unbind stm32-mdf-adc and
+triggers a WARN_ON in device_links_driver_cleanup().
+
+[ ... ]
+
+> +static int stm32_mdf_adc_single_conv(struct iio_dev *indio_dev,
+> +				     const struct iio_chan_spec *chan, int *res)
+> +{
+
+[ ... ]
+
+> +	if (MDF_IS_INTERLEAVED_FILT(adc))
+> +		*res =3D adc->buffer[chan->channel];
+> +	else
+> +		*res =3D adc->buffer[0];
+
+[Severity: High]
+Does stm32_mdf_adc_single_conv() return an unshifted 32-bit MDF_DFLTDR_REG
+value instead of the 24-bit signed sample?
+
+The 24-bit sample sits in bits [31:8] of MDF_DFLTDR_REG
+(MDF_DFLTDR_DR_MASK), and IIO_CHAN_INFO_SCALE and IIO_CHAN_INFO_OFFSET in
+stm32_mdf_adc_read_raw() are computed for a 24-bit sample (realbits =3D 24,
+dflt_max).  In the IIO ABI, scan_type.shift (8) is only applied to
+buffered scan elements, never to IIO_CHAN_INFO_RAW, so *res is 256 times
+too large (and retains bits [7:0]) unless it is arithmetic right-shifted
+by 8.
+
+[Severity: Medium]
+Can adc->buffer[chan->channel] also read out of bounds in interleaved
+mode?
+
+adc->buffer is allocated with adc->mdf->nb_interleave elements (which can
+be 2), whereas chan->channel comes directly from the unvalidated DT "reg"
+property (0..7) rather than chan->scan_index.  Also, passing &ch->channel
+(int *) to fwnode_property_read_u32() in stm32_mdf_channel_parse_of()
+passes a signed pointer where u32 * is expected.
+
 > +
-> +	delta_ppm =3D (1000000 * delta) / parent_rate;
-> +	if (delta_ppm > 1000) {
-> +		/* If frequency deviation is higher than 1000 ppm return error */
-> +		dev_dbg(dev, "CCK clock deviation [%lu] ppm too large: [%lu] vs [%lu] =
-Hz\n",
-> +			delta_ppm, DIV_ROUND_CLOSEST(parent_rate, ratio), rate);
-> +		return -EINVAL;
-> +	} else if (delta_ppm) {
-> +		dev_dbg(dev, "CCK clock frequency not accurate: [%lu] ppm deviation\n"=
-, delta_ppm);
-> +	}
+> +stop_conv:
+> +	stm32_mdf_adc_stop_conv(indio_dev);
 > +
-> +	/*
-> +	 * The total divider ratio must be split between proc divider and
-> +	 * cck divider. Try to maximize cck divider first, to help fulfilling
-> +	 * frequency ratio requirements between fproc and fcck.
-> +	 */
-> +	cckdiv =3D min_t(unsigned long, ratio, MDF_CKG_CCKDIV_MAX);
-> +	while (ratio % cckdiv)
-> +		cckdiv--;
-> +	procdiv =3D ratio / cckdiv;
+> +err_conv:
+> +	adc->trgo =3D save_trgo;
 > +
-> +	if (procdiv > MDF_PROCDIV_MAX) {
-> +		dev_err(dev, "Proc divider out of range: %lu > %lu\n", procdiv,
-> +			MDF_PROCDIV_MAX);
-> +		return -EINVAL;
-> +	}
-> +
-> +	priv->mdf.fproc =3D DIV_ROUND_CLOSEST(parent_rate, procdiv);
-> +
-> +	/* Configure CKGCR register */
-> +	dev_dbg(dev, "Set MDF dividers: CCKDIV [%u], PROCDIV [%lu]\n", cckdiv, =
-procdiv);
-> +	ret =3D regmap_update_bits(priv->regmap, MDF_CKGCR_REG,
-> +				 MDF_CKG_CCKDIV_MASK | MDF_CKG_PROCDIV_MASK,
-> +				 FIELD_PREP(MDF_CKG_CCKDIV_MASK, cckdiv - 1) |
-> +				 FIELD_PREP(MDF_CKG_PROCDIV_MASK, procdiv - 1));
-> +	if (!ret)
-> +		priv->cck_freq_actual =3D DIV_ROUND_CLOSEST(parent_rate, ratio);
+> +	stm32_mdf_adc_stop_mdf(indio_dev);
 > +
 > +	return ret;
 > +}
 > +
-> +static int stm32_mdf_core_cck_set_rate(struct clk_hw *hw, unsigned long =
-rate,
-> +				       unsigned long parent_rate)
+> +static int stm32_mdf_adc_write_raw(struct iio_dev *indio_dev, struct iio=
+_chan_spec const *chan,
+> +				   int val, int val2, long mask)
 > +{
-> +	struct clk_mdf_cck *clk =3D to_clk_mdf_cck(hw);
-> +	struct stm32_mdf_priv *priv =3D clk->priv;
+> +	struct stm32_mdf_adc *adc =3D iio_priv(indio_dev);
+> +	int ret =3D 0;
 > +
-> +	return stm32_mdf_core_cck_divider_set_rate(priv->pdev, priv, rate, pare=
-nt_rate);
-> +}
-> +
-> +static int stm32_mdf_core_cck_determine_rate(struct clk_hw *hw,
-> +					     struct clk_rate_request *req)
-> +{
-> +	struct clk_mdf_cck *clk =3D to_clk_mdf_cck(hw);
-> +	struct stm32_mdf_priv *priv =3D clk->priv;
-> +	struct platform_device *pdev =3D priv->pdev;
-> +	unsigned long ratio;
-> +
-> +	if (!req->rate || req->rate > STM32_MDF_MAX_CCK_RATE || !req->best_pare=
-nt_rate)
+> +	if (mask !=3D IIO_CHAN_INFO_SAMP_FREQ || !val)
 > +		return -EINVAL;
+
+[Severity: Medium]
+Can writing a negative value or a frequency greater than 2 * sck_freq to
+in_voltage_sampling_frequency trigger a divide by zero in
+mdf_adc_set_samp_freq()?
+
+Checking !val allows negative signed int values through, which sign-extend
+when assigned to unsigned long adc->requested_sample_freq.  Whenever
+sample_freq > 2 * sck_freq, DIV_ROUND_CLOSEST(sck_freq, sample_freq) in
+mdf_adc_set_samp_freq() evaluates to 0, and the immediately following
+dev_warn() divides by decim_ratio:
+
+drivers/iio/adc/stm32-mdf-adc.c:mdf_adc_set_samp_freq() {
+    ...
+	decim_ratio =3D DIV_ROUND_CLOSEST(sck_freq, sample_freq);
+
+	delta =3D abs(sck_freq - (decim_ratio * sample_freq));
+	delta_ppm =3D (1000000 * delta) / sck_freq;
+	if (delta_ppm > 1000)
+		dev_warn(dev, "Sample rate deviation [%lu] ppm: [%lu] vs [%lu] Hz\n",
+			 delta_ppm, sck_freq / decim_ratio, sample_freq);
+    ...
+}
+
 > +
-> +	ratio =3D DIV_ROUND_CLOSEST(req->best_parent_rate, req->rate);
-> +	if (!ratio) {
-> +		dev_err(&pdev->dev, "CCK frequency above kernel frequency\n");
-> +		return -EINVAL;
+> +	{
+> +		IIO_DEV_ACQUIRE_DIRECT_MODE(indio_dev, claim);
+> +		if (IIO_DEV_ACQUIRE_FAILED(claim))
+> +			return -EBUSY;
+> +
+> +		/* Set requested_sample_freq right now, as used by mdf_adc_set_samp_fr=
+eq() */
+> +		adc->requested_sample_freq =3D val;
+> +
+> +		if (adc->dev_data->type =3D=3D STM32_MDF_IIO) {
+> +			ret =3D stm32_mdf_core_lock_kclk_rate(adc->mdf);
+> +			if (!ret) {
+> +				ret =3D mdf_adc_set_samp_freq(indio_dev);
+> +
+> +				stm32_mdf_core_unlock_kclk_rate(adc->mdf);
+> +			}
+> +		}
 > +	}
 > +
-> +	req->rate =3D DIV_ROUND_CLOSEST(req->best_parent_rate, ratio);
+> +	if (ret)
+> +		adc->requested_sample_freq =3D 0;
+
+[Severity: Medium]
+Does resetting adc->requested_sample_freq =3D 0 outside the
+IIO_DEV_ACQUIRE_DIRECT_MODE scope race with concurrent direct-mode callers
+and discard any previously configured sampling frequency on error?
+
+The inner block releases the direct-mode claim before if (ret) runs, so a
+concurrent reader or writer can observe the failed rate or have its new
+rate overwritten with 0, and any prior valid requested_sample_freq is not
+restored.
+
+[Severity: Medium]
+Can concurrent operations across two filter IIO devices sharing adc->mdf
+cause an unbalanced clk_rate_exclusive_put() on priv->kclk?
+
+Each filter has its own IIO direct-mode lock, while
+stm32_mdf_core_lock_kclk_rate(), stm32_mdf_core_unlock_kclk_rate(),
+stm32_mdf_core_start_mdf(), and stm32_mdf_core_stop_mdf() share
+priv->n_active_ch and priv->exclusive_flg without locking:
+
+CPU0 (Filter A write_raw)         CPU1 (Filter B raw conversion)
+stm32_mdf_core_lock_kclk_rate()
+  /* n_active_ch =3D=3D 1: skips get */
+                                  stm32_mdf_core_stop_mdf()
+                                    atomic_dec_and_test(&n_active_ch)
+                                    clk_rate_exclusive_put(kclk)
+                                    exclusive_flg =3D false
+stm32_mdf_core_unlock_kclk_rate()
+  /* !atomic_read(&n_active_ch) */
+  clk_rate_exclusive_put(kclk)  <-- unbalanced put
+
+Similarly, if two filters call stm32_mdf_core_start_mdf() concurrently from
+0, the second filter sees atomic_inc_return(&priv->n_active_ch) =3D=3D 2 and
+returns 0 before the first filter finishes pm_runtime_resume_and_get() and
+sets MDF_CKG_CKGDEN.
+
 > +
-> +	return 0;
+> +	return ret;
 > +}
-
-[Severity: High]
-Does rounding req->rate in stm32_mdf_core_cck_determine_rate() bypass the
-1000 ppm accuracy check and divider validation in
-stm32_mdf_core_cck_divider_set_rate()?
-
-During clk_set_rate(), clk_calc_new_rates() calls
-stm32_mdf_core_cck_determine_rate() first and stores the rounded req->rate
-in core->new_rate.  clk_change_rate() then passes that already-rounded
-core->new_rate (not the caller's requested rate) to
-stm32_mdf_core_cck_set_rate(), and ignores the return value of
-core->ops->set_rate().  As a result:
-
-- Inside stm32_mdf_core_cck_divider_set_rate(), rate is already
-  DIV_ROUND_CLOSEST(parent_rate, ratio), so delta only measures the integer
-  division remainder rather than the deviation from the requested frequency,
-  defeating the 1000 ppm check.
-- If procdiv > MDF_PROCDIV_MAX, stm32_mdf_core_cck_divider_set_rate()
-  returns -EINVAL, which clk_change_rate() ignores; clk_set_rate() returns
-  0 while MDF_CKGCR_REG and priv->cck_freq_actual remain unconfigured.
-
-Also, in stm32_mdf_core_cck_divider_set_rate(), 1000000 * delta is computed
-in unsigned long and overflows on 32-bit builds when delta >=3D 4295 Hz, and
-priv->mdf.fproc is updated before checking whether regmap_update_bits()
-succeeded.  Should the 1000 ppm and procdiv <=3D MDF_PROCDIV_MAX checks be
-performed in stm32_mdf_core_cck_determine_rate() using 64-bit arithmetic?
+> +
+> +static int stm32_mdf_adc_read_raw(struct iio_dev *indio_dev, struct iio_=
+chan_spec const *chan,
+> +				  int *val, int *val2, long mask)
+> +{
 
 [ ... ]
 
-> +static inline u32 clk_cckx_gate_readl(struct clk_cckx_gate *gate)
-> +{
-> +	u32 val;
+> +	case IIO_CHAN_INFO_SAMP_FREQ:
+> +		*val =3D adc->sample_freq;
 > +
-> +	regmap_read(gate->map, gate->map_offset, &val);
+> +		return IIO_VAL_INT;
 > +
-> +	return val;
-> +}
-> +
-> +static inline void clk_cckx_gate_writel(struct clk_cckx_gate *gate, u32 =
-val)
-> +{
-> +	regmap_write(gate->map, gate->map_offset, val);
-> +}
-> +
-> +static void clk_cckx_gate_endisable(struct clk_hw *hw, int enable)
-> +{
-> +	struct clk_cckx_gate *gate =3D to_clk_cckx_gate(hw);
-> +	unsigned long flags =3D 0;
-> +	u32 reg;
-> +
-> +	if (gate->lock)
-> +		spin_lock_irqsave(gate->lock, flags);
-> +	else
-> +		__acquire(gate->lock);
-> +
-> +	reg =3D clk_cckx_gate_readl(gate);
-> +
-> +	if (enable)
-> +		reg |=3D BIT(gate->bit_idx);
-> +	else
-> +		reg &=3D ~BIT(gate->bit_idx);
-> +
-> +	clk_cckx_gate_writel(gate, reg);
-> +
-> +	if (gate->lock)
-> +		spin_unlock_irqrestore(gate->lock, flags);
-> +	else
-> +		__release(gate->lock);
-> +}
-> +
-> +static int clk_cckx_gate_enable(struct clk_hw *hw)
-> +{
-> +	clk_cckx_gate_endisable(hw, 1);
-> +
-> +	return 0;
-> +}
-> +
-> +static void clk_cckx_gate_disable(struct clk_hw *hw)
-> +{
-> +	clk_cckx_gate_endisable(hw, 0);
-> +}
-> +
-> +static int clk_cckx_gate_is_enabled(struct clk_hw *hw)
-> +{
-> +	struct clk_cckx_gate *gate =3D to_clk_cckx_gate(hw);
-> +	u32 reg;
-> +
-> +	reg =3D clk_cckx_gate_readl(gate);
-> +
-> +	reg &=3D BIT(gate->bit_idx);
-> +
-> +	return reg ? 1 : 0;
-> +}
-
-[Severity: High]
-Can calling regmap_read() and regmap_write() on priv->regmap inside
-clk_cckx_gate_ops cause an ABBA deadlock with the clock framework's
-enable_lock?
-
-priv->regmap uses .fast_io =3D true (map->spinlock) and attaches priv->kclk
-via regmap_mmio_attach_clk() in stm32_mdf_regmap_init().  Every hardware
-access on priv->regmap acquires map->spinlock first and then calls
-clk_enable(ctx->clk) in regmap_mmio_read()/regmap_mmio_write(), which takes
-the CCF global enable_lock.  Conversely, CCF calls .enable, .disable and
-.is_enabled in clk_cckx_gate_ops while already holding enable_lock:
-
-CPU0                              CPU1
-----                              ----
-lock(&map->spinlock)
-                                  lock(&enable_lock)
-                                  lock(&map->spinlock)
-lock(&enable_lock)
-
- *** DEADLOCK ***
-
-CPU0: stm32_mdf_core_trigger() -> regmap_read() -> regmap_mmio_read() ->
-      clk_enable()
-CPU1: clk_enable() -> clk_cckx_gate_enable() -> clk_cckx_gate_endisable() ->
-      regmap_read()
-
-> +static const struct clk_ops clk_cckx_gate_ops =3D {
-> +	.enable =3D clk_cckx_gate_enable,
-> +	.disable =3D clk_cckx_gate_disable,
-> +	.is_enabled =3D clk_cckx_gate_is_enabled,
-> +};
-> +
-> +static struct clk_cckx_gate clk_cck0 =3D {
-> +	.map_offset =3D MDF_CKGCR_REG,
-> +	.bit_idx =3D 1,
-> +};
-> +
-> +static struct clk_cckx_gate clk_cck1 =3D {
-> +	.map_offset =3D MDF_CKGCR_REG,
-> +	.bit_idx =3D 2,
-> +};
-
-[Severity: Medium]
-Does clk_cckx_gate_endisable() perform an unlocked read-modify-write on
-MDF_CKGCR_REG using an unchecked regmap_read()?
-
-clk_cck0.lock and clk_cck1.lock are never initialized, so gate->lock is
-always NULL and no lock is held between clk_cckx_gate_readl() and
-clk_cckx_gate_writel().  A concurrent update to MDF_CKGCR_REG in
-stm32_mdf_core_start_mdf(), stm32_mdf_core_stop_mdf() or
-stm32_mdf_core_cck_divider_set_rate() can be overwritten with stale bits.
-In addition, clk_cckx_gate_readl() leaves val uninitialized on the stack and
-ignores the return value of regmap_read(), which would write uninitialized
-stack data to MDF_CKGCR_REG if the read fails.
-
-> +static int stm32_mdf_core_register_clock_provider(struct platform_device=
- *pdev,
-> +						  struct stm32_mdf_priv *priv)
-> +{
-> +	struct device_node *node =3D pdev->dev.of_node;
-> +	struct device *dev =3D &pdev->dev;
-> +	struct clk_hw_onecell_data *clk_data;
-> +	struct property *prop;
-> +	const char *clk_name;
-> +	u32 ckgcr =3D 0;
-> +	int index =3D 0, ret, clk_id;
-> +	struct clk_hw *mdf_hw[] =3D { &clk_cck0.hw, &clk_cck1.hw };
-> +	struct clk_cckx_gate *gate;
-> +
-> +	clk_cck.hw.init =3D CLK_HW_INIT_PARENTS_DATA("clk_cck", clk_cck_parent_=
-data,
-> +						   &clk_cck_ops, 0);
-> +	clk_cck0.hw.init =3D CLK_HW_INIT_HW(STM32_MDF_CCK0, &clk_cck.hw, &clk_c=
-ckx_gate_ops,
-> +					  CLK_SET_RATE_PARENT | CLK_IGNORE_UNUSED);
-> +	clk_cck1.hw.init =3D CLK_HW_INIT_HW(STM32_MDF_CCK1, &clk_cck.hw, &clk_c=
-ckx_gate_ops,
-> +					  CLK_SET_RATE_PARENT | CLK_IGNORE_UNUSED);
-> +
-> +	clk_cck.priv =3D priv;
-> +
-> +	ret =3D devm_clk_hw_register(dev, &clk_cck.hw);
-> +	if (ret)
-> +		return dev_err_probe(dev, ret, "Failed to register clk_cck");
-> +
-> +	clk_data =3D devm_kzalloc(dev, struct_size(clk_data, hws, STM32_MDF_MAX=
-_CCK), GFP_KERNEL);
-> +	if (!clk_data)
-> +		return -ENOMEM;
-> +
-> +	of_property_for_each_string(node, "clock-output-names", prop, clk_name)=
- {
-> +		if (index >=3D STM32_MDF_MAX_CCK) {
-> +			dev_err(dev, "Too many cck providers defined\n");
-> +			return -EINVAL;
-> +		}
-> +
-> +		if (!strncmp(clk_name, "cck0", 4)) {
-> +			clk_id =3D 0;
-> +		} else if (!strncmp(clk_name, "cck1", 4)) {
-> +			clk_id =3D 1;
-> +		} else {
-> +			dev_err(dev, "Unexpected cck clock provider name [%s]\n", clk_name);
-> +			return -EINVAL;
-> +		}
-> +
-> +		gate =3D to_clk_cckx_gate(mdf_hw[clk_id]);
-> +		gate->map =3D priv->regmap;
-> +
-> +		ret =3D devm_clk_hw_register(dev, mdf_hw[clk_id]);
-
-[Severity: Medium]
-Can static file-scope clk_cck, clk_cck0 and clk_cck1 structures and stack
-compound literals in CLK_HW_INIT_* corrupt state or dereference NULL?
-
-- CLK_HW_INIT_PARENTS_DATA() and CLK_HW_INIT_HW() create compound literal
-  struct clk_init_data objects on stm32_mdf_core_register_clock_provider()'s
-  stack.  __clk_register() only clears hw->init =3D NULL for clocks that are
-  registered, so when clock-output-names lists fewer than two clocks, the
-  unregistered global clk_cck0.hw.init or clk_cck1.hw.init pointer is left
-  dangling into expired stack memory after this function returns.
-- Conversely, if clock-output-names contains duplicate names (such as
-  "cck1", "cck1"), the first devm_clk_hw_register() clears
-  mdf_hw[clk_id]->init =3D NULL and the second call dereferences NULL at
-  hw->init->name in __clk_register().
-- Because clk_cck, clk_cck0 and clk_cck1 are file-scope static globals with
-  fixed clock names, probing a second MDF instance overwrites clk_cck.priv
-  and gate->map of the first instance and fails registration with -EEXIST.
-
-> +		if (ret)
-> +			return dev_err_probe(dev, ret, "Failed to register %s clock provider",
-> +					     clk_name);
-> +
-> +		clk_data->hws[index] =3D mdf_hw[clk_id];
-> +
-> +		/* Configure the CCKx clock as output */
-> +		ckgcr |=3D clk_id ? MDF_CKG_CCK1DIR : MDF_CKG_CCK0DIR;
-> +
-> +		index++;
-> +	}
-> +
-> +	/*
-> +	 * Set num to max number of clock. This allows any clocks indice below =
+> +	case IIO_CHAN_INFO_SCALE:
+> +		/*
+> +		 * Vconv =3D (raw>>shift + offset) * scale.
+> +		 * scale =3D Vref * k / 2^res (denominator is managed through FRACTION=
+AL_LOG2 type)
+> +		 * k correspond to the ratio between max resolution and actual filter =
 maximum
-> +	 * in of_clk_hw_onecell_get, whatever the actual number of providers.
-> +	 */
-> +	clk_data->num =3D STM32_MDF_MAX_CCK;
-> +	ret =3D devm_of_clk_add_hw_provider(dev, of_clk_hw_onecell_get, clk_dat=
-a);
-> +	if (ret) {
-> +		dev_err(dev, "Failed to add %s clock provider: %d\n",
-> +			clk_name ? clk_name : "", ret);
-> +		return ret;
+> +		 * k =3D max / dflt_max
+> +		 * max =3D 2^(res - 1) - 1
+> +		 * max_dflt =3D D^N * gain_lin * gain_rsflt
+> +		 * scale =3D Vref * max / dflt_max
+> +		 */
+> +		if (adc->channels[idx].backend) {
+> +			ret =3D iio_backend_read_scale(adc->channels[idx].backend, chan,
+> +						     &scale, NULL);
+> +			if (ret < 0)
+> +				return ret;
+> +
+> +			*val =3D div_u64((u64)scale * max, adc->dflt_max);
+> +
+> +			*val2 =3D chan->scan_type.realbits;
+> +			if (chan->differential)
+> +				*val *=3D 2;
+> +		} else {
+> +			return -EPERM;
+> +		}
+> +
+> +		return IIO_VAL_FRACTIONAL_LOG2;
+> +
+> +	case IIO_CHAN_INFO_OFFSET:
+> +		if (adc->channels[idx].backend) {
+> +			ret =3D iio_backend_read_offset(adc->channels[idx].backend, chan,
+> +						      &offset, NULL);
+> +			if (ret < 0)
+> +				return ret;
+> +
+> +			*val =3D offset;
+> +			if (!chan->differential)
+> +				*val +=3D adc->dflt_max;
+
+[Severity: High]
+Does reading IIO_CHAN_INFO_SCALE before the first raw conversion or
+sampling_frequency write divide by zero because adc->dflt_max is still 0?
+
+Neither stm32_mdf_adc_probe() nor stm32_mdf_adc_init() calls
+mdf_adc_set_samp_freq() to compute the initial filter parameters, so
+adc->dflt_max and adc->sample_freq remain 0 until a conversion is started
+or IIO_CHAN_INFO_SAMP_FREQ is written.  Reading in_voltageX_scale right
+after probe divides by adc->dflt_max =3D=3D 0, while reading
+in_voltageX_offset or in_voltage_sampling_frequency uses uninitialized 0
+values.
+
+[ ... ]
+
+> +static irqreturn_t stm32_mdf_irq(int irq, void *arg)
+> +{
+> +	struct iio_dev *indio_dev =3D arg;
+> +	struct stm32_mdf_adc *adc =3D iio_priv(indio_dev), *adc_inter;
+> +	struct regmap *regmap =3D adc->regmap;
+> +	u32 *ptr =3D adc->buffer;
+> +	u32 isr, ier, flags;
+> +
+> +	regmap_read(regmap, MDF_DFLTISR_REG, &isr);
+> +	regmap_read(regmap, MDF_DFLTIER_REG, &ier);
+> +
+> +	flags =3D isr & ier;
+> +	if (!flags)
+> +		return IRQ_NONE;
+> +
+> +	if (flags & MDF_DFLTISR_FTHF_MASK) {
+> +		/* Reading the data register clear the IRQ status */
+> +		regmap_read(regmap, MDF_DFLTDR_REG, ptr++);
+> +
+> +		if (MDF_IS_FILTER0(adc))
+> +			list_for_each_entry(adc_inter, &adc->mdf->filter_list, entry)
+> +				if (MDF_IS_INTERLEAVED_FILT_NOT_0(adc_inter))
+> +					regmap_read(regmap, MDF_DFLTDR_REG, ptr++);
+> +
+> +		complete(&adc->completion);
 > +	}
 
 [Severity: High]
-Does writing clk_data->hws[index] before setting clk_data->num violate the
-__counted_by(num) annotation on struct clk_hw_onecell_data and mis-index
-single-clock configurations?
+In the interleaved filter loop, shouldn't regmap_read() read from
+adc_inter->regmap instead of Filter 0's regmap?
 
-struct clk_hw_onecell_data declares hws[] with __counted_by(num), so
-writing to clk_data->hws[index] while clk_data->num is still 0 triggers a
-UBSAN bounds violation when CONFIG_UBSAN_BOUNDS is enabled; clk_data->num
-must be set before accessing clk_data->hws[].
+Passing regmap reads Filter 0's MDF_DFLTDR_REG repeatedly and leaves the
+interleaved filters' data registers unread.  Also, because
+stm32_mdf_adc_parse_of() inserts filters at the head of mdf->filter_list
+with list_add(), iterating mdf->filter_list with ptr++ stores the
+interleaved samples into adc->buffer in reverse probe order.
 
-In addition:
+> +
+> +	if (flags & MDF_DFLTISR_DOVRF_MASK) {
+> +		dev_warn(&indio_dev->dev, "Data overflow detected\n");
+> +		regmap_set_bits(regmap, MDF_DFLTISR_REG, MDF_DFLTISR_DOVRF_MASK);
+> +	}
+> +
+> +	if (flags & MDF_DFLTISR_RFOVRF_MASK) {
+> +		dev_warn(&indio_dev->dev, "Reshape filter overrun detected\n");
+> +		regmap_set_bits(regmap, MDF_DFLTISR_REG, MDF_DFLTISR_RFOVRF_MASK);
+> +	}
+> +
+> +	if (flags & MDF_DFLTISR_SATF_MASK) {
+> +		dev_warn(&indio_dev->dev, "Saturation detected\n");
+> +		regmap_set_bits(regmap, MDF_DFLTISR_REG, MDF_DFLTISR_SATF_MASK);
+> +
+> +		/* Notify only once */
+> +		regmap_clear_bits(adc->regmap, MDF_DFLTIER_REG, MDF_DFLTIER_SATIE_MASK=
+);
+> +	}
 
-- Indexing clk_data->hws[] by sequential loop counter index instead of
-  clk_id places clk_cck1 at hws[0] when clock-output-names only contains
-  "cck1", and leaves unpopulated slots in hws[] as NULL (which
-  of_clk_hw_onecell_get() returns as a dummy NULL clock rather than
-  ERR_PTR(-ENOENT)).
-- The DT binding allows #clock-cells =3D <0> when a single CCK output is
-  used, in which case of_parse_clkspec() parses 0 arguments and
-  of_clk_hw_onecell_get() reads clkspec->args[0] from uninitialized stack
-  memory in of_clk_get_hw().
-- After of_property_for_each_string() finishes, clk_name is always NULL, so
-  the dev_err() message on devm_of_clk_add_hw_provider() failure always
-  prints an empty name.
+[Severity: Medium]
+Does regmap_set_bits() fail to clear the write-1-to-clear status flags in
+MDF_DFLTISR_REG?
+
+MDF_DFLTISR_REG is marked volatile in stm32_mdf_adc_volatile_reg(), and
+regmap_set_bits() calls _regmap_update_bits() with force =3D false.  When an
+interrupt status bit is already 1 in hardware, regmap reads MDF_DFLTISR_REG,
+sees that the bit is already set, and skips the register write, leaving the
+interrupt asserted.  Using regmap_write() with the flag mask will clear the
+W1C bit without accidentally clearing other pending W1C bits via a
+read-modify-write.
+
+> +
+> +	return IRQ_HANDLED;
+> +}
+> +
+> +static int stm32_mdf_adc_init(struct device *dev, struct iio_dev *indio_=
+dev)
+> +{
+> +	struct stm32_mdf_adc *adc =3D iio_priv(indio_dev);
+> +	struct iio_chan_spec *ch =3D NULL;
+> +	unsigned int num_ch;
+> +	int ret;
+> +
+> +	num_ch =3D device_get_child_node_count(indio_dev->dev.parent);
+> +	if (num_ch) {
+> +		/* Filter0 may have several channels in interleaved mode */
+> +		if (num_ch > 1) {
+> +			if (!MDF_IS_FILTER0(adc)) {
+> +				dev_err(dev, "Too many channels for filter [%d]\n", adc->fl_id);
+> +				return -EINVAL;
+> +			} else if (num_ch !=3D adc->mdf->nb_interleave) {
+> +				dev_err(dev, "Unexpected channels number for filter0: [%d]\n",
+> +					num_ch);
+> +				return -EINVAL;
+> +			}
+> +		}
+> +
+> +		ch =3D devm_kcalloc(&indio_dev->dev, num_ch, sizeof(*ch), GFP_KERNEL);
+> +		if (!ch)
+> +			return -ENOMEM;
+> +
+> +		adc->channels =3D devm_kcalloc(&indio_dev->dev, num_ch, sizeof(*adc->c=
+hannels),
+> +					     GFP_KERNEL);
+> +		if (!adc->channels)
+> +			return -ENOMEM;
+> +
+> +		ret =3D stm32_mdf_adc_chan_init(indio_dev, ch);
+> +		if (ret < 0)
+> +			return dev_err_probe(dev, ret, "Channels init failed\n");
+> +	}
+> +
+> +	indio_dev->num_channels =3D num_ch;
+
+[Severity: Medium]
+If any child node has a "compatible" property (which
+stm32_mdf_adc_chan_init() skips), does assigning indio_dev->num_channels =3D
+num_ch instead of the initialized channel count returned in ret leave
+uninitialized trailing entries in indio_dev->channels and adc->channels?
+
+Also, because num_ch !=3D adc->mdf->nb_interleave is only checked when
+num_ch > 1, a Filter 0 configured for interleaved mode
+(adc->mdf->nb_interleave >=3D 2) with only 1 channel node is not rejected.
+
+[ ... ]
+
+> @@ -883,13 +1435,41 @@ static int stm32_mdf_adc_probe(struct platform_dev=
+ice *pdev)
+>  	if (IS_ERR(adc->regmap))
+>  		return dev_err_probe(dev, PTR_ERR(adc->regmap), "Failed to init regmap=
+\n");
+> =20
+> +	irq =3D platform_get_irq(pdev, 0);
+> +	if (irq < 0)
+> +		return dev_err_probe(dev, irq, "Failed to get IRQ\n");
+> +
+> +	ret =3D devm_request_irq(dev, irq, stm32_mdf_irq, 0, pdev->name, iio);
+> +	if (ret < 0)
+> +		return dev_err_probe(dev, ret, "Failed to request IRQ\n");
+> +
+>  	ret =3D stm32_mdf_adc_parse_of(pdev, adc);
+>  	if (ret < 0)
+>  		return ret;
+> =20
+> +	iio->info =3D &stm32_mdf_info_adc;
+> +	iio->name =3D dev_name(&pdev->dev);
+> +
+>  	adc->dev =3D dev;
+> +	adc->dev_data =3D dev_data;
+> +	ret =3D dev_data->init(dev, iio);
+
+[Severity: Medium]
+Can an interrupt firing right after devm_request_irq() dereference a NULL
+adc->buffer or an uninitialized adc->completion in stm32_mdf_irq()?
+
+adc->buffer is only allocated later in stm32_mdf_adc_parse_of(), and
+init_completion(&adc->completion) is only called in dev_data->init().
+Because devres releases resources in reverse order of registration,
+adc->buffer is also freed before the IRQ is freed on teardown.
+
+> +	if (ret < 0)
+> +		goto err_clean_list;
+> +
+> +	if (!MDF_IS_INTERLEAVED_FILT_NOT_0(adc)) {
+> +		ret =3D iio_device_register(iio);
+> +		if (ret < 0) {
+> +			dev_err_probe(dev, ret, "Failed to register IIO device: %d\n", ret);
+> +			goto err_clean_list;
+> +		}
+> +	}
+> =20
+>  	return 0;
+> +
+> +err_clean_list:
+> +	list_del(&adc->entry);
+> +
+> +	return ret;
+>  }
+
+[Severity: Medium]
+What serializes mdf->filter_list modifications in probe/remove against
+Filter 0 traversing mdf->filter_list in process and hardirq contexts?
+
+Filter 0 registers its IIO device as soon as it probes, so conversions and
+stm32_mdf_irq() on Filter 0 can traverse mdf->filter_list while a sibling
+filter device is still probing (calling list_add() in
+stm32_mdf_adc_parse_of() or list_del() on error) or being unbound in
+stm32_mdf_adc_remove(), where the sibling's struct stm32_mdf_adc is also
+freed while Filter 0 remains registered.
 
 --=20
 Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261118-upstream_m=
-df_v2-v2-0-7939d3c3720a@foss.st.com?part=3D3
+df_v2-v2-0-7939d3c3720a@foss.st.com?part=3D7
