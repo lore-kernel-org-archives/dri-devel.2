@@ -2,74 +2,70 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 60859606A325
-	for <dri-devel@archiver.kernel.org>; Thu, 19 Nov 2026 05:22:01 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DB29A606A325
+	for <dri-devel@archiver.kernel.org>; Thu, 19 Nov 2026 05:22:02 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=EMfNNdX6
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=astNp3gr
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 6A38310E671;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 89E0410E6E5;
 	Thu, 19 Nov 2026 05:21:52 +0000 (UTC)
-Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id C3E7F10E54F
+Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id E7B5710E671
  for <dri-devel@lists.freedesktop.org>; Thu, 19 Nov 2026 05:21:45 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id 8DCFE4900C;
+ by tor.source.kernel.org (Postfix) with ESMTP id 4DA7E62133;
  Thu, 19 Nov 2026 05:21:45 +0000 (UTC)
 Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
 ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
  t=1795065705;
- b=WKVKhi8WSMv1ZLe0HCfHm6sPo+n0ADr6JoIU8PL+TdFE+fASmdQWEw2PTD0j/Ri/9Ush
- taHqxp2Sn6/eSPCgayRsF5HNU9Qhcr1qXCme4Dqmfe6UzJcBRHMxYUYNV6anodCVvdJb0
- 03wCwPR1wEQ0iisio5GQhXoDcNWf6QJMWB5XlYwJ6kI/zWFgjvQn3DsY4yAVzQl4RcuaU
- 1A13tIXbNMDEEYgn0ZOvh+fC39xXWNcakT8a9iZG6aHd1YZfVXzgKSBXLRz3heSGvGn06
- P9zEKqm0SE7aqLzGfmzksI/Wd1OOGJNxO0MOfDo1r4VCzm7ds30YEmHNZke1V/GroaQ==
+ b=TlDK4wPEWdoP48QPDgEKNNbJPnBUz6Snt2LH9KryitpbmQCccOsz8HLYRyIphLH8qf3X
+ CwRczhITTBHdc0jwSLfReQyhkuWJod3jzu8cfDpQf47AZAbl9KWuxVsh4gxepmgtBcZyn
+ PXVrY8T+TXP0/LIISxuci9ocCHh3h70+PvROeZch707sljQruFtllb2DX32NlIEolpykH
+ 022j18N0a/HC9Doh5UH2hXC/l0FKUSVHehCwxDafJio9Vev0DPYhDOIjanAJPiVM9e251
+ 1k0SmMvBjzaW6qUKpA/oJlEUUu27nEEdLYqf2DPguS24QVictgqz7QbJ5hrVpwZ0AKw==
 ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
  c=relaxed/relaxed; t=1795065705;
- h=DKIM-Signature:Received:From:Subject:Date:Message-Id:MIME-Version:
- Content-Type:Content-Transfer-Encoding:X-B4-Tracking:X-Change-ID:To:
- Cc:X-Mailer:X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
- X-Original-From:Reply-To;
- bh=yg2ZZU1TweI3/AFMNObAOhY+yoOrP3DdVMXLguoJHt0=;
- b=RicZKRYv/tt6IEO24LCnT3BSLi9/RNCWqRCbNt+VycSqZqSK+Cp/vgCUsNRSAMeV8XXJ
- 8n1SznieYq6969vvqBTMr4GUX5lmIYZ5CGu+CamNGf3PbO6omEA9/PH+pgtdtFRVjnOrB
- zyf1CIMBhCZKLqYQGl0VHx2AfAPX4vv8OfMfTZE2Zdx5ydb0P+l6ez+1iDXxW572BxEis
- CayT+o7naDvUW8Q/6tUVNiG0O0V5O5jLzP7cmxXIwxV8LWIcSIIXhvejjIOlEme4Sz/jB
- dsfzJ4pW31Ni5HN1tYj5zbvVZeLLjJKlVg2iqGjSZ9rY/3kTcMDWFXn39r4p8F1cseg==
+ h=DKIM-Signature:Received:From:Date:Subject:MIME-Version:Content-Type:
+ Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
+ X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
+ X-Original-From:Reply-To:Content-Transfer-Encoding;
+ bh=A/N4Va6GTxIaxciIAUqKko3R3j2OxhnaENL34pkh6n8=;
+ b=rnAzObXwDfACSd9hh7eiofkW4dsYe+k/Dx/fQUvIpJp4gtQPsFKZoWdz6QK7pNo8sniD
+ XshXrseVmIiO0Nz66OVtt8ipbOHvMDK+p6TcOKGAPPihbDb7kxu2jgrcYedOG99sfxY0F
+ 6V2ZDpWwlxPugzeQtTVjk3vHsf9WGTbCT2y0H309spA2ueWxTHkKVDB6OS5vSO3js8U1I
+ GC5zMkP5Oz+rUK44wVo1bmmq/KSUHsZagoi7iu7TFLeCxXrpMqU61Hz/8Rhn113wsdJxQ
+ RIy20ai1dSIIv/cmCQjSlas85/braOxbZnGz+aMsOSDuGucMM3pFsqwqseC6LNW7MlA==
 ARC-Authentication-Results: i=1; smtp.kernel.org; 
  arc=none smtp.remote-ip=100.80.115.77
 Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
  (No client certificate requested)
- by smtp.kernel.org (Postfix) with ESMTPS id D0C061F000C8;
- Thu, 19 Nov 2026 05:21:43 +0000 (UTC)
+ by smtp.kernel.org (Postfix) with ESMTPS id 19B711F000CC;
+ Thu, 19 Nov 2026 05:21:44 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
  s=k20260515; t=1795065705;
- bh=yg2ZZU1TweI3/AFMNObAOhY+yoOrP3DdVMXLguoJHt0=;
- h=From:Subject:Date:To:Cc:Reply-To;
- b=EMfNNdX6t80cbXvcp1C4xIFkYXvYXWnypAy30iZlVeeJeYZv/cRV/05ti6gYTsFiw
- QY7chwvaOFTj2bvXxZBPMfUyAjOL8hiyOAg/eOlVqf/QIeqYUOiLgLM3HLbwn5AQNZ
- 7r2qsw/0TCeDtAcyov+Fvf6Av8iB2xb4YyyJIntViXrTfkN/Wu7gp1MyDcc76WmQ4P
- 0Yr4IT9SkpLL18ckQibzJeV51gutRZZQ9ZzWkcswkAaIwBFQQOGIcL3NSVWjY2Qr+G
- WW/sRbdjzsmJnLk3ucKH//+4HCT2oS3kzhosUim7m2BoTus/TCkpcdlze2ihB6G3EC
- buzHoNTHTv6+A==
+ bh=A/N4Va6GTxIaxciIAUqKko3R3j2OxhnaENL34pkh6n8=;
+ h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To;
+ b=astNp3gr5OuvTjB7bByj01s2ZrXEGgUEzdumbAjB4PgYpMN1dHvAwlvJHDAc2B26I
+ jCvp7q/u1EhTEFI4pNz2tIGLaVIfxS+J5MU3DbQnhGXlsmicKvpuSJ6Al6DGaGZxkK
+ wZ+rSKGiq4q9hjX+BcNcG/4N9vhuN23+stp/ksRT59Zr1pkhTgoIFiEsvDR4MRgIGA
+ M/9WWH8AK403lB2dRxDjUeNaVytC2sYsXUrcYzlzotHUovZDDbfYQtDTyLdHMab0+d
+ VA25GA1tKgobIJEW0gtmgnPiteYLHXriCH2qF34J44qkQV5zxd+kJU+7L0XJQjnYAu
+ OsFePuYhrVbZQ==
 Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
- by lkml.kernel.org (Postfix) with ESMTP id 2B2F74B0FA;
+ by lkml.kernel.org (Postfix) with ESMTP id 96DEA4B105;
  Thu, 19 Nov 2026 05:21:43 +0000 (UTC)
 From: Arun Iyengar via B4 Relay <devnull+aiyengar1990.gmail.com@kernel.org>
-Subject: [PATCH v4 0/8] drm/rockchip: vop2: RK3588 clocking, sync polarity
- and window fixes
-Date: Thu, 19 Nov 2026 05:21:41 +0000
-Message-Id: <20261119-vop2-fixes-v4-0-4b8f5e7148c9@gmail.com>
+Date: Thu, 19 Nov 2026 05:21:45 +0000
+Subject: [PATCH v4 4/8] drm/rockchip: vop2: Fix the HDMI sync polarity bit
+ order on RK3588
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-X-B4-Tracking: v=1; b=H4sIAAAAAAAC/23NTQ6CMBAF4KuQrq3ptPwUV97DuCjtIDVCCcVGQ
- 7i7BTdgXL7M+95MxONg0ZNTMpEBg/XWdTGkh4ToRnU3pNbETDjjOQAwGlzPaW1f6Gmt0gxSXpS
- lBhJBP+B6iP3L9Zv9s7qjHpeFpdFYP7rhvX4LsPT+DgegjBohciyNKZkR51ur7OOoXUuW4cC3l
- O8oj1RykBp0LZWWv1RsqdhRESmTCkWBUlSZ3tJ5nj8H1MxvLAEAAA==
-X-Change-ID: 20261110-vop2-fixes-fa45142799c1
+Message-Id: <20261119-vop2-fixes-v4-4-4b8f5e7148c9@gmail.com>
+References: <20261119-vop2-fixes-v4-0-4b8f5e7148c9@gmail.com>
+In-Reply-To: <20261119-vop2-fixes-v4-0-4b8f5e7148c9@gmail.com>
 To: Sandy Huang <hjc@rock-chips.com>, 
  =?utf-8?q?Heiko_St=C3=BCbner?= <heiko@sntech.de>, 
  Andy Yan <andyshrk@163.com>, 
@@ -81,20 +77,19 @@ Cc: Piotr Zalewski <pZ010001011111@proton.me>,
  Chaoyi Chen <chaoyi.chen@rock-chips.com>, 
  Damon Ding <damon.ding@rock-chips.com>, dri-devel@lists.freedesktop.org, 
  linux-rockchip@lists.infradead.org, linux-arm-kernel@lists.infradead.org, 
- linux-kernel@vger.kernel.org, Arun Iyengar <aiyengar1990@gmail.com>, 
- stable@vger.kernel.org, 
- Cristian Ciocaltea <cristian.ciocaltea@collabora.com>
+ linux-kernel@vger.kernel.org, Arun Iyengar <aiyengar1990@gmail.com>
 X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1795065702; l=2365;
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1795065702; l=2035;
  i=aiyengar1990@gmail.com; s=20261110; h=from:subject:message-id;
- bh=DKrZ8YElBahQy97+zTx5tNNcwtO0wt30KXIKbUCDTYw=;
- b=2jM2Zi1py2UsUHQUdVkIAlqdFMsTjXBj/1UjMtCrB5xm3N6FTGzjOaEBYzzuCTj850TNisq6f
- D2Zn5oaZT6jClH79GzpqahDXk6SQrQXl8M+bwfvnnnNYEpeaOlSQU/u
+ bh=W7Y7lBtSYyb5btdgg00p53tpUWo/IcKqgTwt/QaaHdI=;
+ b=6zCU085P42dAkMTaUg8+8x+PxI1IfDUTstuxRy0xEGgPcmHR5aSXyqMnF8djt7DxYPoFq7JYd
+ 4m2CMZOuOC8C3EuXpg98b82MeALeTSuWNvqEz1FIS2pFWHg+ujpeeQn
 X-Developer-Key: i=aiyengar1990@gmail.com; a=ed25519;
  pk=zXpRgUTrhaFe6jLyPqbBy3ccfkj04w0g2690Wv3mg+0=
 X-Endpoint-Received: by B4 Relay for aiyengar1990@gmail.com/20261110 with
  auth_id=1480
 X-Original-From: Arun Iyengar <aiyengar1990@gmail.com>
+Content-Transfer-Encoding: 7bit
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -115,54 +110,58 @@ X-Spam-Status: No, score=-16.8 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-Fixes for the RK3588 VOP2 found while bringing up HDMI and DisplayPort
-on an Orange Pi 5 (RK3588S).
+From: Arun Iyengar <aiyengar1990@gmail.com>
 
-Tested on an Orange Pi 5 with an HDMI 2.1 TV and a DisplayPort monitor,
-pictures judged with a camera, v7.3 based kernel: VP_CLK_CTRL reads back
-without the garbage divider; the HDMI controller sees the sync polarities
-of +/+ and mixed modes; HDMI from 148.5 to 1188 MHz (TMDS and FRL) and DP
-show a correct picture; RGB565 on the Cluster windows scans out without
-YTR; NV12 in two GEM objects and an AFBC overlay at x=1001 show correctly.
-Not tested: -HSync/-VSync modes (none in the TV's list), BGR565, HDMI1,
-eDP, MIPI DSI and DPI (no hardware).
+In GRF_VO1_CON0 the HDMI vsync polarity bit comes before the hsync one
+(bits 5 and 6 for HDMI0, 7 and 8 for HDMI1), but rk3588_get_hdmi_pol()
+puts hsync first. Modes with mixed sync polarities go out with both
+syncs inverted: the HDMI controller sees 1920x1080@144 +HSync -VSync
+as -HSync +VSync in VIDEO_INTERFACE_STATUS0.
 
-Developed with Claude (Anthropic), which wrote the code and the commit
-messages. I reviewed every change.
+Swap them and name the bits.
 
+Fixes: 5a028e8f062f ("drm/rockchip: vop2: Add support for rk3588")
 Signed-off-by: Arun Iyengar <aiyengar1990@gmail.com>
 ---
-Changes in v4:
-- Patches 1 and 2: Reviewed-by added (Damon Ding).
-- Patch 4: the GRF sync polarity bits get names in rockchip_drm_vop2.h
-  (Damon Ding); comment dropped.
-- Patch 5: check moved after the 10bpc check, with a comment and a
-  drm_dbg_kms() (Damon Ding); it tests drm_is_afbc() there, as it now
-  runs before the linear return.
-- Rebased on drm-misc-next.
-- Link to v3: https://patch.msgid.link/20261113-vop2-fixes-v3-0-08ae37e83b5c@gmail.com
+ drivers/gpu/drm/rockchip/rockchip_drm_vop2.h | 2 ++
+ drivers/gpu/drm/rockchip/rockchip_vop2_reg.c | 5 ++---
+ 2 files changed, 4 insertions(+), 3 deletions(-)
 
----
-Arun Iyengar (8):
-      drm/rockchip: vop2: Take the UV plane address from the second GEM object
-      drm/rockchip: vop2: Don't use uninitialised dividers on RK3588
-      drm/rockchip: vop2: Fix the HDMI sync polarity on RK3588
-      drm/rockchip: vop2: Fix the HDMI sync polarity bit order on RK3588
-      drm/rockchip: vop2: Only accept AFBC YTR for 8 bit RGB on RK3588
-      drm/rockchip: vop2: Find the first mixer of a video port with Esmart3 too
-      drm/rockchip: vop2: Keep the other LUT_PORT_SEL fields on gamma LUT updates
-      drm/rockchip: vop2: Fix the AFBC offsets of a source that starts inside a superblock
+diff --git a/drivers/gpu/drm/rockchip/rockchip_drm_vop2.h b/drivers/gpu/drm/rockchip/rockchip_drm_vop2.h
+index 1c2d7d97a6c2..de325cc50c59 100644
+--- a/drivers/gpu/drm/rockchip/rockchip_drm_vop2.h
++++ b/drivers/gpu/drm/rockchip/rockchip_drm_vop2.h
+@@ -409,6 +409,8 @@ enum dst_factor_mode {
+ #define RK3588_GRF_SOC_CON1			0x0304
+ #define RK3588_GRF_VOP_CON2			0x08
+ #define RK3588_GRF_VO1_CON0			0x00
++#define RK3588_HDMI_VSYNC_INVERT		BIT(0)
++#define RK3588_HDMI_HSYNC_INVERT		BIT(1)
+ 
+ /* System registers definition */
+ #define RK3568_REG_CFG_DONE			0x000
+diff --git a/drivers/gpu/drm/rockchip/rockchip_vop2_reg.c b/drivers/gpu/drm/rockchip/rockchip_vop2_reg.c
+index 3e654cb99ddf..3a95d2f9516c 100644
+--- a/drivers/gpu/drm/rockchip/rockchip_vop2_reg.c
++++ b/drivers/gpu/drm/rockchip/rockchip_vop2_reg.c
+@@ -1683,13 +1683,12 @@ static u32 rk3588_get_mipi_port_mux(int vp_id)
+ 		return 0;
+ }
+ 
+-/* The sync polarity bits in GRF_VO1_CON0 are set for a negative sync */
+ static u32 rk3588_get_hdmi_pol(u32 polflags)
+ {
+ 	u32 val;
+ 
+-	val = (polflags & BIT(HSYNC_POSITIVE)) ? 0 : BIT(HSYNC_POSITIVE);
+-	val |= (polflags & BIT(VSYNC_POSITIVE)) ? 0 : BIT(VSYNC_POSITIVE);
++	val = (polflags & BIT(VSYNC_POSITIVE)) ? 0 : RK3588_HDMI_VSYNC_INVERT;
++	val |= (polflags & BIT(HSYNC_POSITIVE)) ? 0 : RK3588_HDMI_HSYNC_INVERT;
+ 
+ 	return val;
+ }
 
- drivers/gpu/drm/rockchip/rockchip_drm_vop2.c | 27 +++++++++++++++++++--------
- drivers/gpu/drm/rockchip/rockchip_drm_vop2.h |  3 +++
- drivers/gpu/drm/rockchip/rockchip_vop2_reg.c | 16 ++++++++++++----
- 3 files changed, 34 insertions(+), 12 deletions(-)
----
-base-commit: fac7a5f16230779cfb0d50ca49e9467cc94a2ea9
-change-id: 20261110-vop2-fixes-fa45142799c1
-
-Best regards,
---  
-Arun Iyengar <aiyengar1990@gmail.com>
+-- 
+2.55.0
 
 
