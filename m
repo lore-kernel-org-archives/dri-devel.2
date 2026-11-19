@@ -2,51 +2,82 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A16E3606A324
-	for <dri-devel@archiver.kernel.org>; Thu, 19 Nov 2026 16:27:55 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E776B606A320
+	for <dri-devel@archiver.kernel.org>; Thu, 19 Nov 2026 16:28:00 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=seaslug.moe header.i=@seaslug.moe header.a=rsa-sha256 header.s=resend header.b=tburQjA9;
-	dkim=pass (1024-bit key, unprotected) header.d=amazonses.com header.i=@amazonses.com header.a=rsa-sha256 header.s=zh4gjftm6etwoq6afzugpky45synznly header.b=a4ytP4tz
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=hPJXm6Ap
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 1086910E228;
-	Thu, 19 Nov 2026 16:27:45 +0000 (UTC)
-X-Greylist: delayed 374 seconds by postgrey-1.36 at gabe;
- Thu, 19 Nov 2026 10:16:05 UTC
-Received: from e234-55.smtp-out.ap-northeast-1.amazonses.com
- (e234-55.smtp-out.ap-northeast-1.amazonses.com [23.251.234.55])
- by gabe.freedesktop.org (Postfix) with ESMTPS id A631B112259
- for <dri-devel@lists.freedesktop.org>; Thu, 19 Nov 2026 10:16:05 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/simple; s=resend;
- d=seaslug.moe; t=1795082989;
- h=From:To:Cc:Subject:Message-ID:Content-Transfer-Encoding:Date:MIME-Version:Content-Type;
- bh=ErlkRxmFQecr5Uue/oFTaTuv9wsp2Ivgw2iDqEihatc=;
- b=tburQjA9nME2bnM/uFfxSc1ssQL8ysavQ90gBBTvs9cwwtCrzPTg3q8o92fx55qf
- 3k2Rq04XlQPXwjk1tYtTK4Yoeet68St6iuKxEtTahS5+rUQL4KNAsJzRO4Nnd5Hy4fm
- Dls6iAionScmHQlP9aQWR8rq9foFZcxwekmPT2PI=
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/simple;
- s=zh4gjftm6etwoq6afzugpky45synznly; d=amazonses.com; t=1795082989;
- h=From:To:Cc:Subject:Message-ID:Content-Transfer-Encoding:Date:MIME-Version:Content-Type:Feedback-ID;
- bh=ErlkRxmFQecr5Uue/oFTaTuv9wsp2Ivgw2iDqEihatc=;
- b=a4ytP4tz7PPcUdt8G3ZZI0qo0usvyWHNfpvJ6h8OlI5HgiIdDGes7K79il9JavXw
- Ir94wFikDDclmwtn5T4Vru9yOrTxrwq3SpSuKz82ww5F0RFMnQ3dnBfPgJgiPSvrUTr
- zEukJ9ObgHG1Gk0WvigQBu7TNFIhL9zs4A1OAPE4=
-User-Agent: Mozilla Thunderbird
-From: Jiekai He <i@seaslug.moe>
-To: robin.clark@oss.qualcomm.com, lumag@kernel.org
-Cc: abhinav.kumar@linux.dev, jesszhan0024@gmail.com, sean@poorly.run, 
- marijn.suijten@somainline.org, airlied@gmail.com, simona@ffwll.ch, 
- linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org, 
- linux-kernel@vger.kernel.org
-Subject: drm/msm/dsi: LANE_CFG1 hardcoded to 0x84 on a 3-lane C-PHY panel
- (7nm PHY, SM8250)
-Message-ID: <010601a1f348aca6-cb9be5e6-dcc4-4a7a-878c-006ed1cb9079-000000@ap-northeast-1.amazonses.com>
-Content-Transfer-Encoding: 7bit
-Date: Thu, 19 Nov 2026 10:09:48 +0000
+	by gabe.freedesktop.org (Postfix) with ESMTP id 26E9010E6D8;
+	Thu, 19 Nov 2026 16:27:55 +0000 (UTC)
+Received: from mail-dl1-f43.google.com (mail-dl1-f43.google.com [74.125.82.43])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id D72CA10EA54
+ for <dri-devel@lists.freedesktop.org>; Thu, 19 Nov 2026 16:24:20 +0000 (UTC)
+Received: by mail-dl1-f43.google.com with SMTP id
+ a92af1059eb24-1b3acec6677so3496175c88.1
+ for <dri-devel@lists.freedesktop.org>; Thu, 19 Nov 2026 08:24:20 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20260707; t=1795105460; x=1795710260; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+ bh=veD1Lv1Qc2uM/q6Ciz9j8weM3Qao0zuakaCteeqyqzk=;
+ b=hPJXm6ApW+Yi+XOLypRQ/LTEvTLQgwy8+lObXdr5M9M8qlA6UyfshcyBkc6Ys03jim
+ 4yzQU+alATWv8PRsWDPoZjk+jBVC/z8WD14xOLIunYswhtWtnDVMBAs0ufh3fIo9dC5s
+ b57q6H267Ojqu/G4/x2FXyOqzTZbHi1G1SZngvWYI5wzVl53uH5V/UFjGPon9tGcIk+d
+ dNOm1H6bMYoC7nPMiYRfBaQHp49T/njGL5Adrnpcd0sTjtMFjPlMH/8msQSHFo4nnppp
+ BsBeW2ntf93Gq0ablXTb89K1z+YzqbSPRqgh0QaOXnK97tpbgIq+Lu+kUYM5ddbRn5RN
+ N99w==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20260707; t=1795105460; x=1795710260;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+ :message-id:reply-to:content-type;
+ bh=veD1Lv1Qc2uM/q6Ciz9j8weM3Qao0zuakaCteeqyqzk=;
+ b=dEbeK0WKOZSbNovaGDeR1yP2RcRExI29MoCBeZ+YSRKqKMazbE+jCtMDSIxB+BlK8Y
+ zQ3frVNyRmy9tklQfUtEeYZ9IMtdb9R0Ze6ORDu4xD5Rdhk/CjyBlM0gfRVCi/plQ8nb
+ GtKedROA6hxNwtnVNM61ydEHHEPCvkjI5gTonJYcmLIIu/lzoTO1AZT5Hpr3dJikG4UE
+ UQJmIjcwDXutQA75FXdNQaCwIFgqZ1AP4kt++C1gmxY2iIBPFRxEqL0OruZOIifb+02H
+ k3a2paIlO8jUqVU8aRewyz+vaC70APBCpdT3lQ82NLFOOgvcNwWwPLBhUpzCXqVXNywp
+ 7QJw==
+X-Forwarded-Encrypted: i=1;
+ AL+hErGewpJSt7zuy2dlWsdFn4zCaie/ZmlbmJF1VcKrhujg6ytfp3jjU9i1RDVWwOwngpU0ZXv5u5RCQJs=@lists.freedesktop.org
+X-Gm-Message-State: APuU4Z/LPgsGr1MMdUmxu5CvrJHfkOIDExt1/T2oJOCl4RD00T4NHkyN
+ z/hOwvLLCt61YC3tUEZjBBa9VaU73t4prJDCU5KITrGR7dmI4inKuy2Q
+X-Gm-Gg: AYBFou0STR9Kjc7kbtpEGuJVggRhpsfTD7VC298LzIHqWoHL9UhNYzahJMNg0A+kfon
+ T3k54shGXLWNaxBo/4IkDaxcwB6DuFE8G8QYqFUqHy39OKSElGYlOqXaeMnF+5B8qzD7i+LU6ce
+ /R5xS1JXOx+vPcee6Jgi3JS8qBasw+MlE8fhW9JI113O1uR7DK1g18kAIj0bEc9QNLW9e1kKcsY
+ PomVGxgaGX5T6nYrpRe6d3hOsxLIjNPSlrpcIfQ9tLVNhU9uUpuXNsiMtPJyrcIc1r/+UXYbXCC
+ Klp7mc1WlnC9HSn2bgcMcOfGSdayhRiGTzAq7Kg8qm9BCBopnoKwTGBamUpkxXXqIiUScGAbo5n
+ TCK4E21rQVzgo3sHcOjX+dDO0GM/ebcvBS9tBEXsARg7pWjAHsb98mt1ezqHq2zwLAVgFVvWTuT
+ ix9JVzH20TZOUkUaZ7VJsbC1H/TjFWDJptD7E1z8LGEA35D0D9hZXY/3HlfWtOxTjBJEWIx0bh/
+ ruwY7fiL+C4XNo3OIzM2gkaT8/9j/Neb09U4oc7L/opT69vDLtb7Q0Dp5HtD98uoCeXoSRSbgWI
+ ids6krDp/R/ZBkhTRa7f5SuUg9a1j50CEU8XH5n/Z7w3
+X-Received: by 2002:a05:701a:ca09:b0:176:2095:1ac4 with SMTP id
+ a92af1059eb24-1b5568cf673mr130993c88.18.1795105459828; 
+ Thu, 19 Nov 2026 08:24:19 -0800 (PST)
+Received: from evo.www.tendawifi.com ([103.98.7.209])
+ by smtp.gmail.com with ESMTPSA id
+ a92af1059eb24-1b55681301asm302840c88.8.2026.11.19.08.24.15
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Thu, 19 Nov 2026 08:24:19 -0800 (PST)
+From: Archit More <architmore303@gmail.com>
+To: Neil Armstrong <neil.armstrong@linaro.org>,
+ Douglas Anderson <dianders@chromium.org>
+Cc: Akash Sukhavasi <akash.sukhavasi@gmail.com>,
+ Chris Morgan <macromorgan@hotmail.com>,
+ Jessica Zhang <jesszhan0024@gmail.com>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>,
+ Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>,
+ Simona Vetter <simona@ffwll.ch>, dri-devel@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org, Archit More <architmore303@gmail.com>
+Subject: [PATCH 0/3] drm/panel: Use lowercase hex literals in three panel
+ drivers
+Date: Thu, 19 Nov 2026 21:53:50 +0530
+Message-Id: <20261119162353.12962-1-architmore303@gmail.com>
+X-Mailer: git-send-email 2.34.1
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Feedback-ID: :1.ap-northeast-1.ZNuWYJTX3AC0+KBOptCLUmfpt7SHI3IHQOkB5LcUBhBP6cY5WSpWElQ2N5/Rm+HvriE3mnDhS+CVg02tsA3KAKkClMNixvejJkY0vVdjLtRJQuD2EBZHHHT1rD84raItQTVO4CxeNwLsHKoTx4hYfcdB/UVTn0LeTis7osgztBXJRrMsmYLNe50eLAKwP82x:1.ap-northeast-1.tL27A1JIpKR2Y51a8BkHZBekDcSR82jwOhKrSwgRw2U=:AmazonSES
-X-SES-Outgoing: 2026.11.19-23.251.234.55
+Content-Transfer-Encoding: 8bit
 X-Mailman-Approved-At: Thu, 19 Nov 2026 16:27:44 +0000
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -59,93 +90,28 @@ List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-9.9 required=3.0 tests=BAYES_00,DKIM_SIGNED,
-	DKIM_VALID,DKIM_VALID_AU,FORGED_MUA_MOZILLA,
-	HEADER_FROM_DIFFERENT_DOMAINS,MAILING_LIST_MULTI,MENTIONS_GIT_HOSTING,
-	SPF_HELO_NONE,SPF_PASS,USER_AGENT_SANE_1 autolearn=unavailable
+X-Spam-Status: No, score=-10.8 required=3.0 tests=BAYES_00,DKIM_SIGNED,
+	DKIM_VALID,DKIM_VALID_AU,FREEMAIL_FORGED_FROMDOMAIN,FREEMAIL_FROM,
+	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_PATCH,MAILING_LIST_MULTI,
+	SPF_HELO_NONE,SPF_PASS,USER_AGENT_GIT autolearn=unavailable
 	autolearn_force=no version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-Hi all,
+Convert hexadecimal literals in the initialization sequences of
+newvision-nv3051d, kingdisplay-kd097d04, and leadtek-ltk500hd1829 to
+lowercase, as suggested by Douglas Anderson.
 
-I am bringing up mainline on a Lenovo Legion Y700 Gen1 (TB-9707F, SM8250).
-Its panel is a Novatek NT36523 on a 3-lane C-PHY link, dual DSI, and the
-PHY driver is dsi_phy_7nm.c. I would like to ask about the hardcoded
-LANE_CFG1 value in dsi_7nm_phy_enable().
+Archit More (3):
+  drm/panel: newvision-nv3051d: Use lowercase hex literals
+  drm/panel: kingdisplay-kd097d04: Use lowercase hex literals
+  drm/panel: leadtek-ltk500hd1829: Use lowercase hex literals
 
-What I actually know is one number: on this board, LANE_CFG1 = 0x84 leaves
-the panel dark, and 0x04 makes it display. Everything below is context for
-that single observation, not an argument for what the value should be.
+ .../drm/panel/panel-kingdisplay-kd097d04.c    | 242 +++++-----
+ .../drm/panel/panel-leadtek-ltk500hd1829.c    | 426 +++++++++---------
+ .../gpu/drm/panel/panel-newvision-nv3051d.c   | 286 ++++++------
+ 3 files changed, 477 insertions(+), 477 deletions(-)
 
-Method: to read what the bootloader leaves behind I boot with no display
-driver loaded (msm never binds) and read the DSI/PHY registers through
-/dev/mem, so the kernel has not touched them. Everything else below is a
-normal boot with DRM_MSM built in and the panel driver present.
+-- 
+2.34.1
 
-Observations on this board:
-
-  1. Bootloader baseline, panel displaying, no Linux display driver:
-     LANE_CFG1 = 0x04, LANE_ST0 = 0x17, LANE_ST1 = 0x17 (both PHYs).
-
-  2. mainline as-is (0x84): LANE_CFG1 = 0x84, LANE_ST0/LANE_ST1 = 0x1f.
-     The panel does not display.
-
-  3. Writing 0x04 instead (selected by phy->cphy_mode, D-PHY left at 0x84)
-     makes the PHY registers match the bootloader baseline exactly --
-     0x04 / 0x17 / 0x17 on both PHYs -- and the panel displays correctly
-     at 1600x2560.
-
-  4. Reference point: a Lenovo TB321FU, a different 3-lane C-PHY device,
-     runs with the stock 0x84 and displays fine. That comes from an
-     unofficial experimental port (github.com/enij90/armada-tb321fu), which
-     its author marks as unsupported by the Armada project. I have not been
-     able to check that device's registers myself, so all I can say is that
-     the same code path does not break that board.
-
-                  LANE_CFG1 (0x038)  LANE_ST0 (0x148)  LANE_ST1 (0x14c)
-  bootloader             0x04              0x17              0x17
-  mainline (0x84)        0x84              0x1f              0x1f
-  mainline (0x04)        0x04              0x17              0x17
-  TB321FU (port)         0x84              --                --
-
-For context, this board needs a handful of other DSI changes to come up
-(command DMA / read-command path, video mode start ordering, the dispcc
-MDP clock source, the MDSS reset). Those are constant across the comparison
-above: only the LANE_CFG1 writel changes between the two boots that differ.
-
-Questions:
-
-  - LANE_CFG1 is written as 0x84 in both dsi_phy_10nm.c and dsi_phy_7nm.c,
-    with a "TODO: we need to calculate this" comment, and it traces back to
-    dsi_phy_10nm.c in 2018. Is 0x84 intended as a 4-lane D-PHY default that
-    also happens to work for C-PHY, or is it expected to be independent of
-    the lane configuration?
-
-  - Would deriving LANE_CFG1 from the per-SoC cfg table, rather than from a
-    constant in the shared enable function, be a reasonable direction? The
-    2021 C-PHY series left 0x21/0x84 untouched, and at least one other
-    3-lane C-PHY device appears fine with 0x84, so on that hardware the
-    value is either correct or has no effect -- I cannot tell which.
-
-  - dsi_phy_hw_v4_0_lane_settings() still carries "TODO: Support all lane
-    swap configs" and only enables LPRX/CDRX for physical lane 0. I may be
-    misreading the scope of that TODO, but is LANE_CFG1 part of the same
-    unfinished work?
-
-  - The register database added in 2024 lists reg32 0x00034 as LANE_CFG0 and
-    0x00038 as LANE_CFG1, but I found no field layout for either. Is there
-    any public description of the bit fields, or a known reason why the
-    value is a constant rather than derived from a lane map?
-
-Full register dumps for all four DSI/PHY instances available on request.
-
-Disclosure: I am not a native English speaker; the wording of this message
-was improved with the help of an AI assistant. Every register reading, every
-build and every test was done by me on hardware I own, and the observations
-and conclusions are mine.
-
-Please keep me in Cc -- I am not subscribed to these lists.
-
-Thanks,
-Jiekai He
