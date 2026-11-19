@@ -2,89 +2,99 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 95A7F606A320
-	for <dri-devel@archiver.kernel.org>; Thu, 19 Nov 2026 08:23:47 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0420E606A335
+	for <dri-devel@archiver.kernel.org>; Thu, 19 Nov 2026 08:24:53 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (1024-bit key, unprotected) header.d=amd.com header.i=@amd.com header.a=rsa-sha256 header.s=selector1 header.b=0LzyR1Nq
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id BF93D10E222;
-	Thu, 19 Nov 2026 08:23:46 +0000 (UTC)
-Received: from mail-ua1-f54.google.com (mail-ua1-f54.google.com
- [209.85.222.54])
- by gabe.freedesktop.org (Postfix) with ESMTPS id AC6EC10E222
- for <dri-devel@lists.freedesktop.org>; Thu, 19 Nov 2026 08:23:45 +0000 (UTC)
-Received: by mail-ua1-f54.google.com with SMTP id
- a1e0cc1a2514c-9905d61449cso557443241.0
- for <dri-devel@lists.freedesktop.org>; Thu, 19 Nov 2026 00:23:45 -0800 (PST)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20260707; t=1795076624; x=1795681424;
- h=content-transfer-encoding:content-type:cc:to:subject:message-id
- :date:from:in-reply-to:references:mime-version:x-gm-gg
- :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
- :content-type;
- bh=+hfyVl1XUQA6cwLu2cPCDOrlTt5udZgDRMAPyOiNJi0=;
- b=dOnN6oqJkpr6miA+XZTiE6xD+qB3kHYTjY07EklFVwpHNZszY7GT4alIFyjZovIr/R
- 7ZkBf6Op6a5FvAFDMYBWW2kvcl6tHTiEpfNE4tYen7x/Dkhf1HN2DGgPRFwJVYTrW4e+
- tsM4+HxLmwPozZupFLzFinbfF/ciVl94EH7uxxURz0HorAjSJdCCsCk96IIvebhNNhdI
- WL0QSIH3lSdDPaJ+q5FrgrPMxwn7pkX57sW4DcB2hfjyVi5MkP59jRPslj23il7FHIua
- jT5NnfymwHWbuiknE5wc5lbG4TiZqkFMspegw+vNqw8LoUlgX6YuBHzvfjpjwu+pt4/t
- rEXQ==
-X-Forwarded-Encrypted: i=1;
- AL+hErHFVV63v99PGZOq35mhH4DJsWEX+REWpVjng/63DEHIS4zL2p2nhLy3n6eNZ5R0u+5YcZnIJdS8agk=@lists.freedesktop.org
-X-Gm-Message-State: APuU4Z9vN2bGzTy9UCJUWNBeFwASRXTd7Fju86Rf/ZXqTZJh4v8Zevs+
- ne3g+H+JL6YYRpENfSirMVB4anUzMmJik/+pqEyXJc4XhlDHeKhMA3HNUyTUt+WO
-X-Gm-Gg: AYBFou28mNUFezdWTBhv/oEC7RFqRUrPZvdetWPr3QiLG8velP0c8L0MLMSBrlDqZh8
- dkWYadaOywxkBYpnRYA8fvFqPXRVsl3sUSZR3vibWvN8/Nin/j02PHtOQ+WAS0A1/UkLJ94qpOU
- yi5NBFAl66/FcPX+JAemVYnp22BgEvLWn3vRZ+EZx6aAcKrwfA8943D7tb8oX4HMfGhNATavYTj
- JLlEfuldndewQebYsog//w0wi8coVRVs8GCjK+jJAkJaOJifoOcLfj2eCl+h6mxlMHnWZ7i6ZgL
- tr+wYWz9Q9l/DG8u/eFiEm+tjH2ZfgHq9uy1ss8jPlr+hq0K1pEKIt/bJHZXQocn5GMipSxJKHk
- 6mU5tXxH54b6f+khGQd0CNZPWFBPo8n1oo9yLHiMKlN0DLBNnyvZScsBW+JXiifXCO0LlX8iw+2
- qtMg2GIFwGlJ5FCzOIsYTGPj7dELIzuXmJcDK4H5EbgySvtLkhn4G1OzomCnMQDcLIfFqyM4cQI
- msppcxZ1WHYxdPp8507TE0U1Br5YeDseiJiIMC0Ag242njibfSu2hXhSuPP+JZR6q3utPclmLmb
- UXqPT6I4IucCKdhWHry5YT3YND8ejWjtq5hYTJTnh3zRrYLp05cJOXNqzPYdPQzee9nK7NM9tmw
- WGVJZuXww9lRn
-X-Received: by 2002:a05:6102:2906:b0:7b1:6028:5475 with SMTP id
- ada2fe7eead31-7d6ba3953f5mr1904112137.12.1795076624210; 
- Thu, 19 Nov 2026 00:23:44 -0800 (PST)
-Received: from mail-vs1-f54.google.com (mail-vs1-f54.google.com.
- [209.85.217.54]) by smtp.gmail.com with ESMTPSA id
- ada2fe7eead31-7d6b8ea9d2csm3702074137.1.2026.11.19.00.23.43
- for <dri-devel@lists.freedesktop.org>
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Thu, 19 Nov 2026 00:23:43 -0800 (PST)
-Received: by mail-vs1-f54.google.com with SMTP id
- ada2fe7eead31-7d2dc1ac787so616737137.2
- for <dri-devel@lists.freedesktop.org>; Thu, 19 Nov 2026 00:23:43 -0800 (PST)
-X-Forwarded-Encrypted: i=1;
- AL+hErGF+YNUL1NfWJpfQ8wGaGc24suVLYxHPCMontu099u6XZ5ACm0IL4UVWsQwV8p2Oi9tPlS0YC+dB0M=@lists.freedesktop.org
-X-Received: by 2002:a67:e113:0:b0:7d2:a019:b42a with SMTP id
- ada2fe7eead31-7d6ba48d83dmr1658750137.32.1795076623219; Thu, 19 Nov 2026
- 00:23:43 -0800 (PST)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 6608B1120E5;
+	Thu, 19 Nov 2026 08:24:47 +0000 (UTC)
+Received: from SN4PR0501CU005.outbound.protection.outlook.com
+ (mail-southcentralusazon11011015.outbound.protection.outlook.com
+ [40.93.194.15])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id C56231120E6;
+ Thu, 19 Nov 2026 08:24:40 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=CtW40gMorq/793phR5LAtWuBOXhgCacvZzTu8DWvzx0yA/xP38PskU3HgZA+CH41GoBZqRpoQKdR3GATI4UZ+Ftxqf4b6O/l8gCjfsQQHfA2ab4pyQz6JFrXnvjAtIddKBZ5GddYT3XYe9rwcwgoR6goPIg7acCERw6RwC60V6NVCFZh0eaFZUvAmz3flLt01Lt8dgae8JBTYmip+UjhLP12D8ofd1z6TRpYEha6t27LrxYNNEjUkYbuysGm6ArsMq9raMnQYNcxD+BaapAtdNBGrDW3DUhlMsSIY7IxWTV47cHHdKF7292VLBYjKspPz59vIoBTsKk00sAUYIfY1A==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=7jRyfZKq0ouwsQyeEAQGxU1hjzyyI7aXobcq5Gi4viw=;
+ b=sD4TQCzjzujMIdrFKXUVn3yN1L5GnjS7VIYB5G3cZV4nwAT5CJyU+OelFzUBewwhQn27nF61bNSPBMC/iBwqOl2O04GviK14MtYu4yY8bVbTW0Xv3xjjRs5ap1HU2EmYMkQxTnTooB9Y2ANKyB2fmaCtWpgfLEUEml8+stLgdSG4+/jvXedEXyWIjOc5aKLhZsVttHOcRV2oKxTFqmLVP2t1s7OqVhoyzbUgmLai3lxVtHjDqXyt+QuVVRFngEbzgVO6GTsLoHLpH/jP/PdNqfrz0RXWmdYEVKszNare5ej1b1mROZ8bz5Y2dSVSzUEjej6d9YOgbt0gCsEKUktRjg==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
+ dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
+ header.from=amd.com; dkim=none (message not signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=7jRyfZKq0ouwsQyeEAQGxU1hjzyyI7aXobcq5Gi4viw=;
+ b=0LzyR1NqfaOzU5MLFq2+I7mokFCVLSp/ZgKAldfVS/nx8j3ZMDLs3RWJ959JeaF5EPgMrN9rZDBlhlEl9rHaTtEQ5rtXWA3fqRInn0sEhSaW8wqt0sXtioEqXiVjUBKbdwLbggagDm8PJM0w/x7JLPLPVmO5F8lvs1ZHCzZ+Z2c=
+Received: from SN7PR04CA0053.namprd04.prod.outlook.com (2603:10b6:806:120::28)
+ by SAEPR12MB328447.namprd12.prod.outlook.com (2603:10b6:802:209::20)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.615.14; Thu, 19 Nov
+ 2026 08:24:37 +0000
+Received: from SN1PEPF000397B1.namprd05.prod.outlook.com
+ (2603:10b6:806:120:cafe::1b) by SN7PR04CA0053.outlook.office365.com
+ (2603:10b6:806:120::28) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.21.615.13 via Frontend Transport; Thu,
+ 19 Nov 2026 08:24:37 +0000
+X-MS-Exchange-Authentication-Results: mx.microsoft.com 1; spf=pass (sender IP
+ is 165.204.84.17) smtp.mailfrom=amd.com;
+ dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=satlexmb07.amd.com; pr=C
+Received: from satlexmb07.amd.com (165.204.84.17) by
+ SN1PEPF000397B1.mail.protection.outlook.com (10.167.248.55) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.21.615.4 via Frontend Transport; Thu, 19 Nov 2026 08:24:37 +0000
+Received: from prike-code-pc.amd.com (10.180.168.240) by satlexmb07.amd.com
+ (10.181.42.216) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.57; Thu, 19 Nov
+ 2026 02:24:34 -0600
+From: Prike Liang <Prike.Liang@amd.com>
+To: <amd-gfx@lists.freedesktop.org>, <dri-devel@lists.freedesktop.org>
+CC: <Alexander.Deucher@amd.com>, <Christian.Koenig@amd.com>,
+ <Harry.Wentland@amd.com>, <Sunpeng.Li@amd.com>, <tzimmermann@suse.de>,
+ <ville.syrjala@linux.intel.com>, Prike Liang <Prike.Liang@amd.com>
+Subject: [PATCH v2 1/5] drm/vblank: Stop drm_crtc_wait_one_vblank() when
+ vblank is turned off
+Date: Thu, 19 Nov 2026 16:24:20 +0800
+Message-ID: <20261119082424.554841-1-Prike.Liang@amd.com>
+X-Mailer: git-send-email 2.34.1
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
-References: <20261118214518.29317-1-ville.syrjala@linux.intel.com>
- <20261118214518.29317-21-ville.syrjala@linux.intel.com>
- <20261118221114.GI1923307@killaraus.ideasonboard.com>
- <av4nb98f3ewe2rV3@intel.com>
- <20261118223911.GJ1923307@killaraus.ideasonboard.com>
- <av4tQaL6caoqd2w8@intel.com>
- <CAMuHMdWSiwX6AoPoPwF4zrYpO8xdaG=aq7U2JG_RjyS-E5UtcQ@mail.gmail.com>
- <20261119081613.GO1923307@killaraus.ideasonboard.com>
-In-Reply-To: <20261119081613.GO1923307@killaraus.ideasonboard.com>
-From: Geert Uytterhoeven <geert@linux-m68k.org>
-Date: Thu, 19 Nov 2026 09:23:32 +0100
-X-Gmail-Original-Message-ID: <CAMuHMdXvFVhYiT1CSHoe45tUkkDPz=pND6jc0CswQWF3agPC_g@mail.gmail.com>
-X-Gm-Features: Aa3M54qDzVkUx71v61aMc9IrVxbyT9_EmyPnJjNSiSx7Z1-Yks0fKGnCa5fVWic
-Message-ID: <CAMuHMdXvFVhYiT1CSHoe45tUkkDPz=pND6jc0CswQWF3agPC_g@mail.gmail.com>
-Subject: Re: [PATCH v4 20/20] drm/rcar-du: Allow VSP and writeback build with
- COMPILE_TEST=y
-To: Laurent Pinchart <laurent.pinchart@ideasonboard.com>
-Cc: =?UTF-8?B?VmlsbGUgU3lyasOkbMOk?= <ville.syrjala@linux.intel.com>, 
- dri-devel@lists.freedesktop.org, 
- Tomi Valkeinen <tomi.valkeinen+renesas@ideasonboard.com>, 
- Kieran Bingham <kieran.bingham+renesas@ideasonboard.com>, 
- Geert Uytterhoeven <geert+renesas@glider.be>,
- Magnus Damm <magnus.damm@gmail.com>, linux-renesas-soc@vger.kernel.org
 Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 8bit
+X-ClientProxiedBy: satlexmb08.amd.com (10.181.42.217) To satlexmb07.amd.com
+ (10.181.42.216)
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: SN1PEPF000397B1:EE_|SAEPR12MB328447:EE_
+X-MS-Office365-Filtering-Correlation-Id: 3d019a11-f869-4a40-096c-08df46168c9d
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+ ARA:13230040|23010399003|376014|1800799024|82310400026|36860700016|261022075727099003|261021123027099003|10067099003|56012099006|261102130727099003|11063799006|261022115727099003|261026140227099003|261028144727099003|261021121427099003|261022105027099003|261026121527099003|261102123227099003|261009221227099003|261009223027099003|18002099003|13003099007;
+X-Microsoft-Antispam-Message-Info: YuLgyOnNKPManpN9r+jDcwoAz0V3m1GZrPF3+x3EkjzjlVuGDdohIOiaQILnNMQqF2lhkERJHcwh0776weOv2cyo6YRpCoFNBEL8lWXU9lD9FkNPTn2VL5Wt7us5s/yjO79Hq1zFyFYpuKDlbZEj2aWTrNL1s5yfVSwIJxPANGibUvlSkJUEkH3Qo31ZKPTdfUL/eVDAyh7TdwH5qC/KLBbKg0DSVpWMk8Ep0hEo8jdqtW/LOYlFd2gsz4OREcfETubxGy9e3nk4DCmC6PIAEHW/w48gAjdTaAoyT+1097+c6OMpuEMQJ1po/1IxnREAsevyFw8yAgyI/6x3GgIpi5wcnOYXYyWZHhCHAWB+7VcOjdBL9KYjYooUgTZ5Xrws+hc0GCh0ZgC9kYXxxPZ0ohGqhwuvB4ciaPvnkabidkLITdNTdGv+tqsIjxYjbub+Twz8y8YLAGGSoz35eBzN23PMhUlOoEGF5MKtt6eA16swo3ReDWJPFI+fTs5+bWZna8Jnhrpg/r17gtosF5w01hkYZMU2HShJPnizJrwA7oX8L1KW4tAxSrKIWCnOTvVY5Btz07cY+8ySUSb+GQlL6gugtkhes0MPayGNbfDK/h/ocrhHExiButwFPvDxwdxIb5mKy6po7sTM9pLnTSQ7/TbakJ0SD/95Hmrs/85lEk4=
+X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:satlexmb07.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
+ SFS:(13230040)(23010399003)(376014)(1800799024)(82310400026)(36860700016)(261022075727099003)(261021123027099003)(10067099003)(56012099006)(261102130727099003)(11063799006)(261022115727099003)(261026140227099003)(261028144727099003)(261021121427099003)(261022105027099003)(261026121527099003)(261102123227099003)(261009221227099003)(261009223027099003)(18002099003)(13003099007);
+ DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: QavPDZVtAYvt7agDyUYySdQ3/v9FrrgoBQ353/8PvaW7aYn4YMBjfi7+P0JwUGGSiBOt+nz9G+8wG3jrD/JzzXqfHHiNwTWLO/xs/l21VCsNQ76qZdXdMttZhrUzZyFLyhhDGP29zoRZvfH6jUBRTqwezZrk1koSO4Dcopjdl+YAcgL1u8rPwQNqdT4vLhI/vXRH1YAC0jCLm/9lVqBY0KFY9cy7Fy7Q8JnhAaqB/v3gfKiGGNYRb+9O16TQ1tTm+5bTS5uA5kvN3l6CfrNgTpHklkvihjKYFWjVurlID+72PsIxeQ266a6ZSAlV2APHhPvbPfZ9m2Cv1SDEcwF6erm2vZpNAbWUlNWE2AXaOg+acaykhOIdZGMreOM61aFQK+cNnjMznq/49nHovWfaLUjaYThd1xkfb/YWdxkNRWp3s1rYxv/OpT1QagcA0tRO
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 19 Nov 2026 08:24:37.1546 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 3d019a11-f869-4a40-096c-08df46168c9d
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
+ Helo=[satlexmb07.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource: SN1PEPF000397B1.namprd05.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SAEPR12MB328447
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -96,115 +106,91 @@ List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-13.8 required=3.0 tests=BAYES_00,
-	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
-	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS autolearn=unavailable
-	autolearn_force=no version=4.0.1
+X-Spam-Status: No, score=-18.8 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
+	DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
+	INCLUDES_CR_TRAILER,INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,
+	SPF_PASS,USER_AGENT_GIT autolearn=ham autolearn_force=no version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-Hi Laurent,
+drm_crtc_vblank_off() turns off the vblank interrupt even while someone
+holds a vblank reference and waits for a vblank. It then wakes up the
+vblank wait queue. DRM_IOCTL_WAIT_VBLANK stops waiting at this point,
+because its wait condition also checks whether vblank is still enabled.
 
-On Thu, 19 Nov 2026 at 09:16, Laurent Pinchart
-<laurent.pinchart@ideasonboard.com> wrote:
-> On Thu, Nov 19, 2026 at 08:38:21AM +0100, Geert Uytterhoeven wrote:
-> > On Wed, 18 Nov 2026 at 23:57, Ville Syrj=C3=A4l=C3=A4 wrote:
-> > > On Thu, Nov 19, 2026 at 12:39:11AM +0200, Laurent Pinchart wrote:
-> > > > On Thu, Nov 19, 2026 at 12:32:15AM +0200, Ville Syrj=C3=A4l=C3=A4 w=
-rote:
-> > > > > On Thu, Nov 19, 2026 at 12:11:14AM +0200, Laurent Pinchart wrote:
-> > > > > > On Wed, Nov 18, 2026 at 11:45:17PM +0200, Ville Syrjala wrote:
-> > > > > > > From: Ville Syrj=C3=A4l=C3=A4 <ville.syrjala@linux.intel.com>
-> > > > > > >
-> > > > > > > Make DRM_RCAR_VSP selectable with COMPILE_TEST=3Dy, and enabl=
-e the hidden
-> > > > > > > DRM_RCAR_WRITEBACK option by default, so the VSP and writebac=
-k code gets
-> > > > > > > built for greater coverage. Builds fine on x86, x86_64, arm a=
-nd arm64 at
-> > > > > > > least.
-> > > > > >
-> > > > > > Let's see what build bots will report on more exotic architectu=
-res. I
-> > > > > > may volunteer you to send a fix if I'm too busy when the builde=
-rs start
-> > > > > > yelling :-)
-> > > > > >
-> > > > > > > Cc: Laurent Pinchart <laurent.pinchart+renesas@ideasonboard.c=
-om>
-> > > > > > > Cc: Tomi Valkeinen <tomi.valkeinen+renesas@ideasonboard.com>
-> > > > > > > Cc: Kieran Bingham <kieran.bingham+renesas@ideasonboard.com>
-> > > > > > > Cc: Geert Uytterhoeven <geert+renesas@glider.be>
-> > > > > > > Cc: Magnus Damm <magnus.damm@gmail.com>
-> > > > > > > Cc: linux-renesas-soc@vger.kernel.org
-> > > > > > > Signed-off-by: Ville Syrj=C3=A4l=C3=A4 <ville.syrjala@linux.i=
-ntel.com>
-> > > > > > > ---
-> > > > > > >  drivers/gpu/drm/renesas/rcar-du/Kconfig | 4 ++--
-> > > > > > >  1 file changed, 2 insertions(+), 2 deletions(-)
-> > > > > > >
-> > > > > > > diff --git a/drivers/gpu/drm/renesas/rcar-du/Kconfig b/driver=
-s/gpu/drm/renesas/rcar-du/Kconfig
-> > > > > > > index 80bd770ae0f6..5394f131c58f 100644
-> > > > > > > --- a/drivers/gpu/drm/renesas/rcar-du/Kconfig
-> > > > > > > +++ b/drivers/gpu/drm/renesas/rcar-du/Kconfig
-> > > > > > > @@ -76,7 +76,7 @@ config DRM_RCAR_MIPI_DSI
-> > > > > > >         select RESET_CONTROLLER
-> > > > > > >
-> > > > > > >  config DRM_RCAR_VSP
-> > > > > > > -       bool "R-Car DU VSP Compositor Support" if ARM
-> > > > > > > +       bool "R-Car DU VSP Compositor Support" if ARM || COMP=
-ILE_TEST
-> > > > > >
-> > > > > > This will make it possible to disable the option when ARM64 &&
-> > > > > > COMPILE_TEST, which will break operation on Gen3 and up. It wou=
-ld be
-> > > > > > best to avoid that.
-> > > > >
-> > > > > Break operation, as in when running on real hardware?
-> > > > > People actually do that with COMPILE_TEST=3Dy kernels?
-> >
-> > COMPILE_TEST=3Dy kernels should still work.
-> >
-> > > > Hopefully not in production, but that may be the case during develo=
-pment
-> > > > (I don't though, there are enough kernel options to deal with witho=
-ut
-> > > > COMPILE_TEST).
-> > > >
-> > > > This should do:
-> > > >
-> > > >       bool "R-Car DU VSP Compositor Support" if ARM || (COMPILE_TES=
-T && !ARM64)
-> > > >
-> > > > (untested though). Do you think it brings too much complexity ?
-> > >
-> > > Doesn't bother me.
-> >
-> > It does bother me, as it breaks the safeguards encoded in Kconfig rules=
-.
-> > I think it would be better if DRM_RCAR_DU would select DRM_RCAR_VSP
-> > if ARM64, so DRM_RCAR_VSP cannot be disabled where it is needed.
->
-> That's possibly an option too. But does
->
->         bool "R-Car DU VSP Compositor Support" if ARM || (COMPILE_TEST &&=
- !ARM64)
->
-> break the safeguard ?
+drm_crtc_wait_one_vblank() only checks whether the vblank count has
+changed. Once vblank is off, the count doesn't change, so the woken
+waiter sleeps again until the wait times out after one second and warns
+"vblank wait timed out". This happens, for example, when the fbdev
+damage worker or FBIO_WAITFORVSYNC waits for a vblank while the driver
+turns the CRTC off for suspend or a GPU reset.
 
-No it does not. But it is more complicated and less readable.
+Make drm_crtc_wait_one_vblank() also stop waiting when vblank is turned
+off, and return -EINVAL if no vblank passed, the same error that
+drm_vblank_get() returns when vblank is off. The wait condition is
+checked before going to sleep, so this also covers vblank being turned
+off between drm_vblank_get() and the wait. Waits that see a vblank or
+time out behave as before.
 
-Gr{oetje,eeting}s,
+The two cases differ in that drm_crtc_wait_one_vblank() warns "vblank
+not available" if drm_vblank_get() fails, but doesn't warn if
+drm_crtc_vblank_off() ends the wait. That is intentional: it's a
+failure to call the function while vblank is off, but a waiter, such as
+the fbdev damage worker, can't keep the CRTC from being turned off
+meanwhile. The error only tells the caller that no more vblanks are
+coming.
 
-                        Geert
+version update:
+1) https://lists.freedesktop.org/archives/dri-devel/2026-November/616745.html
 
---=20
-Geert Uytterhoeven -- There's lots of Linux beyond ia32 -- geert@linux-m68k=
-.org
+Fixes: e8450f51a4b3 ("drm/irq: Implement a generic vblank_wait function")
+Cc: Thomas Zimmermann <tzimmermann@suse.de>
+Cc: Ville Syrjälä <ville.syrjala@linux.intel.com>
+Assisted-by: Copilot:claude-opus-5.5
+Signed-off-by: Prike Liang <Prike.Liang@amd.com>
+---
+ drivers/gpu/drm/drm_vblank.c | 15 ++++++++++++---
+ 1 file changed, 12 insertions(+), 3 deletions(-)
 
-In personal conversations with technical people, I call myself a hacker. Bu=
-t
-when I'm talking to journalists I just say "programmer" or something like t=
-hat.
-                                -- Linus Torvalds
+diff --git a/drivers/gpu/drm/drm_vblank.c b/drivers/gpu/drm/drm_vblank.c
+index f90fb2d13e42..54118eb1413c 100644
+--- a/drivers/gpu/drm/drm_vblank.c
++++ b/drivers/gpu/drm/drm_vblank.c
+@@ -1303,7 +1303,8 @@ EXPORT_SYMBOL(drm_crtc_vblank_put);
+  *
+  * This waits for one vblank to pass on @crtc, using the irq driver interfaces.
+  * It is a failure to call this when the vblank irq for @crtc is disabled, e.g.
+- * due to lack of driver support or because the crtc is off.
++ * due to lack of driver support or because the crtc is off. The wait also fails
++ * if drm_crtc_vblank_off() disables the vblank irq before a vblank passes.
+  *
+  * Returns: 0 on success, negative error on failures.
+  */
+@@ -1323,14 +1324,22 @@ int drm_crtc_wait_one_vblank(struct drm_crtc *crtc)
+ 	last = drm_vblank_count(dev, pipe);
+ 
+ 	ret = wait_event_timeout(vblank->queue,
+-				 last != drm_vblank_count(dev, pipe),
++				 last != drm_vblank_count(dev, pipe) ||
++				 !READ_ONCE(vblank->enabled),
+ 				 msecs_to_jiffies(1000));
+ 
+ 	drm_WARN(dev, ret == 0, "vblank wait timed out on crtc %i\n", pipe);
+ 
++	if (!ret)
++		ret = -ETIMEDOUT;
++	else if (last == drm_vblank_count(dev, pipe))
++		ret = -EINVAL; /* drm_crtc_vblank_off() ended the wait */
++	else
++		ret = 0;
++
+ 	drm_vblank_put(dev, pipe);
+ 
+-	return ret ? 0 : -ETIMEDOUT;
++	return ret;
+ }
+ EXPORT_SYMBOL(drm_crtc_wait_one_vblank);
+ 
+-- 
+2.34.1
+
