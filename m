@@ -2,62 +2,63 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0DCAE606A333
-	for <dri-devel@archiver.kernel.org>; Thu, 19 Nov 2026 21:51:56 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B05D760A3835
+	for <dri-devel@archiver.kernel.org>; Thu, 19 Nov 2026 21:51:57 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=Nvidia.com header.i=@Nvidia.com header.a=rsa-sha256 header.s=selector2 header.b=g3z3KnlW
+	dkim=pass (2048-bit key, unprotected) header.d=Nvidia.com header.i=@Nvidia.com header.a=rsa-sha256 header.s=selector2 header.b=SHbuLEJ6
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id E220410E26D;
-	Thu, 19 Nov 2026 21:51:49 +0000 (UTC)
-Received: from BL2PR02CU003.outbound.protection.outlook.com
- (mail-eastusazon11011046.outbound.protection.outlook.com [52.101.52.46])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 0C58211225D
+	by gabe.freedesktop.org (Postfix) with ESMTP id 01C0811225D;
+	Thu, 19 Nov 2026 21:51:50 +0000 (UTC)
+Received: from SN4PR2101CU001.outbound.protection.outlook.com
+ (mail-southcentralusazon11012066.outbound.protection.outlook.com
+ [40.93.195.66])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 87DAB112478
  for <dri-devel@lists.freedesktop.org>; Thu, 19 Nov 2026 21:51:42 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=Nu4o9DlRJu6XTD3ANwyK09W/Z1eED4KnX09KFld2rFzltIsqpUO/KNrkjUyNqQL21W6BSVpXEZ5OOq61rKdaoXSxMX8yWgzoKDxIYReUbeHYDf02UIZ0O6CckLIqgvHcJFhgFJoIo0Y9WgoTHJUXjBluHHUEKxQ3Sv5T+7zy2En3/qObgC8SbI0WCzAhk2HUnWX69Sf6AWaUlvbFtGoLIdhdvr5T9+0rn7iaoCunkYaojf8tZG95XOIvKyj8UyPLC4mmDPw7i11rl6rfCXplAEhs9ySAi7jUFVvIfuKC7A92wVEUx8BMLPOGZ4Ujh82kDmN0NLEiqRJBrtWpserWXg==
+ b=v/xen4lkTobKLbQLR+acbHM1yfK7AiMva0K8KbBojPulpJ6jsvjlTF5OPQH2ON82147BHG73hNTvTzlfWHompVqqXJtGUC7mvuZJZabGUXdIMO5+YCEojaFJf6H9RnyytyvlU0p/pm1Zv54rQHXVkqB9okq0RDzfDs0PFcWWF+Gb65xpXkcnXcYebtfFFY2gKLI3DmCp+OCkfRZoKFXCe+WnUcCYBVCagP1mg9F1c6xczAr/kOTzcD1qOoUamSZ/3JOeEpGWGHVM7c8aqnFQqKR/ugaw1k50P1n+4pTVlzgggF4Ug1t10lvXdALf4jdSoCwbF0k/UN/wXWGE7qq/eg==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=OarszyckVqS7Kp7S7t6lpJFY1ygkpPYnPh9tTxa9wB8=;
- b=usFZ6ooKOC/BeklxktyWWSJjMtupboCn06fTJj6gb2DI6Va1vHjCL4ue6zJZhEDUbYCdJep/hJHmgm7myXPj+ZpwnCZzh1vcS87QVDb6PI/KSycYqTtff6XgKnKHeik9UT4EDJqpmZulmteTg3ub/EwDxLwyA8XZUFVLaME3bH0KAqJU0FbGRqSi7ry4k4ZCPtVVRv0CSGdoJMpKsqSPfVy77SAkU4bZpbs0ORae1ypnoAKwygX/F1GbV9QzqSwER6MIvirNJQWmxb9FqW96V59NpWkBSr1sSKIC5xgiEgVWuHOCgwDL+6LFt95R3yGUMFTEBzoFDkRqbikeNs4Sig==
+ bh=AF2nlMmAdDM9BUNsweS02SXLCgKxd9C+JZaknkQxdi4=;
+ b=Ny9KnxECojzTtP6A3U8f5t1nJUIbchzjC7Z0MDE+iidJiheQCCRUB0a1pG3Ni6OZsmCrwwf0KQFHZvF1c3MEQQcKTIOw2wmUoCsxJWTeRAPuCJSo6RmOKYRVTT1OSrObUmRVszjGfW2a8wRkV5Fn5rxEHg5CalnjIqIt0YDPFVOvu5XFiGBNH5+NkQgY7m3WnehLUcAIoNzMPMYw/ANA2EYJPzFrtDAtVEN4g7xjmvboPJnAgT0SRKoOufrkUq3SKns2DrzF8guXBQSTbmYV7HbEwqYsFqjKSQbp3OCJBXOcFy9Lb+Q1c33kjb6bzzvYDXoyz6KMuHGdnSQ/Vi6KLg==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 216.228.117.160) smtp.rcpttodomain=kernel.org smtp.mailfrom=nvidia.com;
+ 216.228.117.161) smtp.rcpttodomain=kernel.org smtp.mailfrom=nvidia.com;
  dmarc=pass (p=reject sp=reject pct=100) action=none header.from=nvidia.com;
  dkim=none (message not signed); arc=none (0)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
  s=selector2;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=OarszyckVqS7Kp7S7t6lpJFY1ygkpPYnPh9tTxa9wB8=;
- b=g3z3KnlWqkupUmqpCmMINgW44C9ITok6hyRLVpg8S2jaY+YoHogXj/BDsXNriNWdiWmsv6bg8G63J9fM4S1jzf+bFPCCzLKfYpZ/ALOig6blLOzSw+E9b3Ls9uOsyGZmQR8zburhYqHqyrSqCHJj/v0JloMI7XHpqAMQYv9VyPhtGsFcgj3stUs1JLIaAxpXyXv+LL1seQbcYy6n0nGr1PpNCjOFH49+bU5gu2+ZiHgNaPvqzgW5PY7IwHfGOfWAdrMvoxHPm8973GoE9EpqtASxhvDQ+yN3/zcDie3W9ZrntVBOUqq8zdgpWWECKEMACgkVhMOTozuLl09HMH0l+Q==
-Received: from BN0PR04CA0106.namprd04.prod.outlook.com (2603:10b6:408:ec::21)
- by CH2PR12MB4118.namprd12.prod.outlook.com (2603:10b6:610:a4::23)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.615.13; Thu, 19 Nov
- 2026 21:51:34 +0000
-Received: from BL4PEPF000003F4.namprd04.prod.outlook.com
- (2603:10b6:408:ec:cafe::17) by BN0PR04CA0106.outlook.office365.com
- (2603:10b6:408:ec::21) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.21.615.10 via Frontend Transport; Thu,
- 19 Nov 2026 21:51:33 +0000
+ bh=AF2nlMmAdDM9BUNsweS02SXLCgKxd9C+JZaknkQxdi4=;
+ b=SHbuLEJ6xrV/IbA+u0D0S96bFArvXnh5j3Xi93uvAgcaFjWbHNMVsFzgT6bfn5ph3m/OTkFF8RB2+HqOUTJKGOiO38uQpwa9Wog94+Z1nlfPQ+ecutStFUvZc02c0XSZg4m6Jz2o/ekKntUTmkfzWv8sf2JpJDdbgG0HZKR5CBMBUbfph7HYtMqm0bz7Brz7FrbPZPsR4ciIhiluNO18oWzJMAWM1O+S7D1o19ZoUm66B5WFFYHjxcSjSp5yUW5SWsgRS6/a+l3rr1HByz727Ig+GTzFc/UpN48Nq7nLGe1k02yrO3DSeCGy8nmCv5G00Ca/lTpztziSO+xxXxWEHQ==
+Received: from MW4PR04CA0232.namprd04.prod.outlook.com (2603:10b6:303:87::27)
+ by DS0PR12MB6557.namprd12.prod.outlook.com (2603:10b6:8:d3::5) with
+ Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.21.615.14; Thu, 19 Nov 2026 21:51:33 +0000
+Received: from MWH0EPF000C6188.namprd02.prod.outlook.com
+ (2603:10b6:303:87:cafe::61) by MW4PR04CA0232.outlook.office365.com
+ (2603:10b6:303:87::27) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.21.615.9 via Frontend Transport; Thu, 19
+ Nov 2026 21:51:32 +0000
 X-MS-Exchange-Authentication-Results: mx.microsoft.com 1; spf=pass (sender IP
- is 216.228.117.160)
+ is 216.228.117.161)
  smtp.mailfrom=nvidia.com; dkim=none (message not signed)
  header.d=none;dmarc=pass action=none header.from=nvidia.com;
 Received-SPF: Pass (protection.outlook.com: domain of nvidia.com designates
- 216.228.117.160 as permitted sender) receiver=protection.outlook.com;
- client-ip=216.228.117.160; helo=mail.nvidia.com; pr=C
-Received: from mail.nvidia.com (216.228.117.160) by
- BL4PEPF000003F4.mail.protection.outlook.com (10.167.249.8) with Microsoft
+ 216.228.117.161 as permitted sender) receiver=protection.outlook.com;
+ client-ip=216.228.117.161; helo=mail.nvidia.com; pr=C
+Received: from mail.nvidia.com (216.228.117.161) by
+ MWH0EPF000C6188.mail.protection.outlook.com (10.167.249.120) with Microsoft
  SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.639.5 via Frontend Transport; Thu, 19 Nov 2026 21:51:33 +0000
+ 15.21.639.5 via Frontend Transport; Thu, 19 Nov 2026 21:51:32 +0000
 Received: from rnnvmail201.nvidia.com (10.129.68.8) by mail.nvidia.com
- (10.129.200.66) with Microsoft SMTP Server (version=TLS1_2,
+ (10.129.200.67) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.57; Thu, 19 Nov
- 2026 13:51:09 -0800
+ 2026 13:51:07 -0800
 Received: from xinmengs-dev-vm-linux.nvidia.com (10.126.230.37) by
  rnnvmail201.nvidia.com (10.129.68.8) with Microsoft SMTP Server
  (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.57; Thu, 19 Nov 2026 13:51:07 -0800
+ 15.2.2562.57; Thu, 19 Nov 2026 13:51:05 -0800
 From: Simon Song <xinmengs@nvidia.com>
 To: <dakr@kernel.org>, <acourbot@nvidia.com>, <kvm@vger.kernel.org>,
  <rust-for-linux@vger.kernel.org>, <nova-gpu@lists.linux.dev>,
@@ -76,9 +77,9 @@ CC: <alex@shazbot.org>, <jgg@nvidia.com>, <yishaih@nvidia.com>,
  <work@onurozkan.dev>, <jgg@ziepe.ca>, <bhelgaas@google.com>,
  <kwilczynski@kernel.org>, <dri-devel@lists.freedesktop.org>,
  <peter@colberg.org>, <xinmengs@nvidia.com>
-Subject: [PATCH v3 2/9] rust: pci: expose the VF index within its PF
-Date: Thu, 19 Nov 2026 13:50:37 -0800
-Message-ID: <20261119215046.2892839-3-xinmengs@nvidia.com>
+Subject: [PATCH v3 1/9] rust: pci: add VFIO override device IDs
+Date: Thu, 19 Nov 2026 13:50:36 -0800
+Message-ID: <20261119215046.2892839-2-xinmengs@nvidia.com>
 X-Mailer: git-send-email 2.43.7
 In-Reply-To: <20261119215046.2892839-1-xinmengs@nvidia.com>
 References: <20261119215046.2892839-1-xinmengs@nvidia.com>
@@ -90,29 +91,29 @@ X-ClientProxiedBy: rnnvmail203.nvidia.com (10.129.68.9) To
  rnnvmail201.nvidia.com (10.129.68.8)
 X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: BL4PEPF000003F4:EE_|CH2PR12MB4118:EE_
-X-MS-Office365-Filtering-Correlation-Id: 5542f6a7-3831-48db-28f4-08df46874729
+X-MS-TrafficTypeDiagnostic: MWH0EPF000C6188:EE_|DS0PR12MB6557:EE_
+X-MS-Office365-Filtering-Correlation-Id: 98a04970-2d27-403a-c4b7-08df4687468f
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
- ARA:13230040|1800799024|7416014|376014|36860700016|23010399003|82310400026|18002099003|22082099003|261009223027099003|6133799003|11063799006|261026140227099003|56012099006|261022105027099003|261021121427099003|10067099003|261028144727099003|261102123227099003;
-X-Microsoft-Antispam-Message-Info: wxpjbISd7W2ROJpey5XV+4TPYH0rQr7biWarvTT9ApC0oL21SCDSKAIIoC6pnufix18a9haGfucV3feFAO8/dEe8bwiC8ATqPSZYtiuLCUQ0jzh2kafXCWqaBobfq7nGndKjvr14psGsZC0dzSv4AqGPeXM+y+3lj4Jx/SqyOwZcCRr8WMjCcja0IOIuN+GDxv6zZQ9Khqr/mnYUEq6orfBezIg+OeziBElENzgMCTCDlDGOnb15Oi00qP7B0lHwKP57DScw/GOVRqMwptT2RAXfgaO3hjZhIgXIHofHHpuHMy9wrPlhigs3p4QT6c3rLCr1maET4UAOVRKAjEuhZwUgqJwHsQv3RY2sHp1hF4Qh2t4rwk5f1yDKewJoXKXU+YTKxLFRL5VYMdFjLKDwqFNLoBQRf7rF4EJqcKUci2zydqQMqpzbCpGXLnppEydw+rGeIoiRujC2QApjiMLtTargEK4tQoczXw9W7CUCD606UNTjpBbPTC9N+grfElqjeDi98EICP9yPl6JQaJtxqZKCEc16+QtBrOXNvSZmW7OY8c7DZuRKSi83jiTtfizt0Fl8kODGW3rufL1aT7HEBwa13taMs8duj/17RWxs5yqMZZrTDezm365TcAHfZ6i5DbAJaRCZrlxupxwUeb+N4BYckAbzTmk+MSCX5X3GIVkpZPMt3v2N6Iqdon41fyC5j1ulZ6VT1xvt39VAHjRFzQ==
-X-Forefront-Antispam-Report: CIP:216.228.117.160; CTRY:US; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:mail.nvidia.com; PTR:dc6edge1.nvidia.com; CAT:NONE;
- SFS:(13230040)(1800799024)(7416014)(376014)(36860700016)(23010399003)(82310400026)(18002099003)(22082099003)(261009223027099003)(6133799003)(11063799006)(261026140227099003)(56012099006)(261022105027099003)(261021121427099003)(10067099003)(261028144727099003)(261102123227099003);
+ ARA:13230040|36860700016|1800799024|82310400026|376014|23010399003|7416014|18002099003|261009223027099003|22082099003|3023799007|11063799006|261026121527099003|56012099006|261021121427099003|10067099003|261102123227099003|261022075727099003;
+X-Microsoft-Antispam-Message-Info: QhIqOPsRdXmfFyL5zroxoKH4ZLd0N3Qn5cYQo4dcz1bJtBsV/FyAsra7dfWdcD5Ne7jM2aAxk4mzQ3x+57GBqV0OwnoJduCoz6z7LiZTA29FaxgVL8F6mevPQ46LNSdg6gYcF4vVJoL+Q3wQ9hMS9UMI44wOnGqrGgdTJNy+eE6pDF6BFw3vQzdHx1Xm/gzMRxW07ZeyGsAqkbJIX3txg56xT/7sLyQCToBrjTi+UIUinXjUjb3Dc8iKwXmIarRiyzb+P2qVcUD3B7GR4AvBEFwjASMoMR1+XHOAVHKVbqWSSD1ak45CiJGZMXgYhJbYM+EHFghXBHq9cdRUfrG86jB9Mdfvw957I4mPkgbDPtudaxEG9+HgHeBWBsCbi7BxsK0p5x9AY3NbKIaA6Nlh6Eq5CkXxwpdmBUqLS6rts2C2xFEC/qgTRIZdC5T0K8ucEOMMUonRH61YOOhYNCUUq2bmIIhUE1np85vGn/hOgqHUjUe3hfcMQUBg1yxNd01UllB5G8nrMXkSzLCs3ez6+gWEFjYrZN3cRcjWoh/BRsdd1Ho0Rn1gBZAqrSd/OKzNQ5yS8Oul+8KUrCyGJl4UoQV5SO/68jBAdxGKKFyH9qJF/XBQOx3p4eoziG/FQ3iNoskMTO/OnF7qqGHiqvgOVii9AEmJvoUs1KojTboj3fpgYo7RZcdTJwxJL8mfrp1VlB2x6fRjwMoQU//9q9e4dA==
+X-Forefront-Antispam-Report: CIP:216.228.117.161; CTRY:US; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:mail.nvidia.com; PTR:dc6edge2.nvidia.com; CAT:NONE;
+ SFS:(13230040)(36860700016)(1800799024)(82310400026)(376014)(23010399003)(7416014)(18002099003)(261009223027099003)(22082099003)(3023799007)(11063799006)(261026121527099003)(56012099006)(261021121427099003)(10067099003)(261102123227099003)(261022075727099003);
  DIR:OUT; SFP:1101; 
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: gjl5WhAtHbuh0gaarXJ5TgaE9Z1yJFkX/89dnva8dHIX4glyDVH7x0+5uGjbT905a/tOMuWzHDZmSf/ZKX0agWYRcJqVKD4NNb4BbG8Z/4Fo9PhFgPU/LfXA2AlBbPbz7WO9QR2wOjXuZipEozj9PtB17iSnjffSvjnRXmQAxomF0HFJeH6wbkY3vEP0pH4Q+jVjlik/86eWgZX2V0zDIqJ0OGa5aNANC62Fc+U/c0O/9N/yWcX8U7ZPxMQ28NfLAIL2z5+x8/HzGqepTXbr5B+ayNEKyc5XmDjJgGetJVAUmzd6U+5pTCUF4dPe9imtOxaCXzGyEw04xGuTrEefQ8HlQak7rkMcqfnyqBS9zMF1TT7yC6QJrO/Kam919BX6qI6zCCmcuO4G3ngFnBA6PkJMDDGv9gSlHhpN2WISWePGHUz0rUmn4Gj37JjWWki2
+X-MS-Exchange-AntiSpam-MessageData-0: mhWmz5CZfo6wm+nDWphTK22lyg/VZxhk3a44yKBXr+5OQ0PPYZ7FAbdMROjAmFwDab/5CzjDYIF95bsSEQmcBf+5jB0iTr3U+p0fAEOVT/uZM1yUwM4Yidv2fmbR+BV5yInn03qmbBAN90h6Ydkm9Om3jUhUq952aHPzAjR4CMLwTWKwNrwfSpCKUrVkQu4Tx0PuXv+f2SzYRKJ7axnV3E0IBr3AJBb7NeYnzFPgbpKmTXR27XSbuUuw1fy/EbMMQJnx/KXTzbZUCD0ZoWTOFCzkxwlT9MuzIf/PS9jn18aE4R2+DK7NqUVh7+A1k/bHhaCJIXZBPM/PmlFJbfUiFgh8ni6vfrI9IS9tzDAQFfBZR7CWyw2+mo/0tyKs2/SA59mnOIcrGy82QMmT3/4ugbZUsOzyee79prPMMLb/4LYSTfDLfydA3O7HdkIkKAoE
 X-OriginatorOrg: Nvidia.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 19 Nov 2026 21:51:33.6935 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 5542f6a7-3831-48db-28f4-08df46874729
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 19 Nov 2026 21:51:32.7606 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 98a04970-2d27-403a-c4b7-08df4687468f
 X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=43083d15-7273-40c1-b7db-39efd9ccc17a; Ip=[216.228.117.160];
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=43083d15-7273-40c1-b7db-39efd9ccc17a; Ip=[216.228.117.161];
  Helo=[mail.nvidia.com]
-X-MS-Exchange-CrossTenant-AuthSource: BL4PEPF000003F4.namprd04.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthSource: MWH0EPF000C6188.namprd02.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Anonymous
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: CH2PR12MB4118
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DS0PR12MB6557
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -134,62 +135,45 @@ X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 
 From: Danilo Krummrich <dakr@kernel.org>
 
-Nova identifies a vGPU instance by the VF's index within its PF. Expose
-pci_iov_vf_id() through Device::vf_id() so a Rust VF driver can obtain
-that index, with an error for devices that are not VFs.
+VFIO variant drivers need override-only IDs and VFIO-specific module
+aliases so userspace can select them for PCI assignment.
 
-Because enabling or disabling SR-IOV can update the PF's VF offset and
-stride, from which the index is computed, restrict vf_id() to bound
-devices, Device<device::Bound>.
+Add a DeviceId constructor equivalent to PCI_DRIVER_OVERRIDE_DEVICE_VFIO,
+matching a vendor and device without restricting the PCI class.
 
-Suggested-by: Danilo Krummrich <dakr@kernel.org>
-Suggested-by: Zhi Wang <zhiw@nvidia.com>
 Signed-off-by: Danilo Krummrich <dakr@kernel.org>
 Signed-off-by: Zhi Wang <zhiw@nvidia.com>
 Signed-off-by: Simon Song <xinmengs@nvidia.com>
 ---
- rust/helpers/pci.c     |  5 +++++
- rust/kernel/pci/iov.rs | 11 +++++++++++
- 2 files changed, 16 insertions(+)
+ rust/kernel/pci.rs | 15 +++++++++++++++
+ 1 file changed, 15 insertions(+)
 
-diff --git a/rust/helpers/pci.c b/rust/helpers/pci.c
-index 57c28ddeeb9b..1e677ebfe0d4 100644
---- a/rust/helpers/pci.c
-+++ b/rust/helpers/pci.c
-@@ -41,6 +41,11 @@ __rust_helper u32 rust_helper_pci_ext_cap_next(u32 header)
- }
+diff --git a/rust/kernel/pci.rs b/rust/kernel/pci.rs
+index 4887052d31b1..fa67f2fc26bf 100644
+--- a/rust/kernel/pci.rs
++++ b/rust/kernel/pci.rs
+@@ -209,6 +209,21 @@ macro_rules! module_pci_driver {
+ impl DeviceId {
+     const PCI_ANY_ID: u32 = !0;
  
- #ifndef CONFIG_PCI_IOV
-+__rust_helper int rust_helper_pci_iov_vf_id(struct pci_dev *pdev)
-+{
-+	return pci_iov_vf_id(pdev);
-+}
-+
- __rust_helper int rust_helper_pci_enable_sriov(struct pci_dev *pdev,
- 					       int nr_virtfn)
- {
-diff --git a/rust/kernel/pci/iov.rs b/rust/kernel/pci/iov.rs
-index d0db9d4a0f9b..5bb1340c9150 100644
---- a/rust/kernel/pci/iov.rs
-+++ b/rust/kernel/pci/iov.rs
-@@ -379,6 +379,17 @@ unsafe impl<F: ForLt> Send for VfRegistration<'_, F> where for<'a> F::Of<'a>: Se
- unsafe impl<F: ForLt> Sync for VfRegistration<'_, F> where for<'a> F::Of<'a>: Send + Sync {}
- 
- impl Device<device::Bound> {
-+    /// Return the zero-based VF index within its PF, or an error for a non-VF device.
++    /// Create a new `pci::DeviceId` for a VFIO driver from a vendor and device ID.
 +    ///
-+    /// Returns [`ENOSYS`] when `CONFIG_PCI_IOV` is disabled.
++    /// The ID matches every device with this vendor and device ID, whatever its class, but only
++    /// once userspace has selected the driver for the device through `driver_override`. The
++    /// driver is never bound to a matching device automatically. The module alias generated for
++    /// the ID has the `vfio_pci:` prefix, which lets userspace find the VFIO driver for a device.
++    ///
++    /// Equivalent to C's `PCI_DRIVER_OVERRIDE_DEVICE_VFIO` macro.
 +    #[inline]
-+    pub fn vf_id(&self) -> Result<u16> {
-+        // SAFETY: `self.as_raw()` points to a live PCI device; the helper checks VF membership.
-+        let id = unsafe { bindings::pci_iov_vf_id(self.as_raw()) };
-+        to_result(id)?;
-+        Ok(id.try_into()?)
++    pub const fn from_id_vfio_override(vendor: Vendor, device: u32) -> Self {
++        let mut id = Self::from_id(vendor, device);
++        id.0.override_only = bindings::PCI_ID_F_VFIO_DRIVER_OVERRIDE;
++        id
 +    }
 +
-     /// Internal helper: reads the `vf_registration_data_rust` pointer from the
-     /// PF, checks the `TypeId`, and returns a pinned reference.
+     /// Equivalent to C's `PCI_DEVICE` macro.
      ///
+     /// Create a new `pci::DeviceId` from a vendor and device ID.
 -- 
 2.43.7
 
