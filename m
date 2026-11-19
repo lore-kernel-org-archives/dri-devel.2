@@ -2,76 +2,47 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AAE95606A325
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 84653606A320
 	for <dri-devel@archiver.kernel.org>; Fri, 20 Nov 2026 16:18:41 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=virtuozzo.com header.i=@virtuozzo.com header.a=rsa-sha256 header.s=relay header.b=QzByG199
+	dkim=fail reason="signature verification failed" (2048-bit key, unprotected) header.d=justthetip.ca header.i=@justthetip.ca header.a=rsa-sha256 header.s=key1 header.b=MxnII4w0
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 05062112BCC;
-	Fri, 20 Nov 2026 16:18:36 +0000 (UTC)
-Received: from relay.virtuozzo.com (relay.virtuozzo.com [130.117.225.111])
- by gabe.freedesktop.org (Postfix) with ESMTPS id E753B112417
- for <dri-devel@lists.freedesktop.org>; Thu, 19 Nov 2026 13:44:51 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
- d=virtuozzo.com; s=relay; h=Message-Id:Content-Type:MIME-Version:Subject:Date
- :From; bh=nbB8McM+pZsP1nWFy++Avpejx7qyy0NzIjLQT0z2hjc=; b=QzByG199OY9wUoYkzrg
- DPhUwBEew+cryv6qFjom7gBw0UeNqytujh+Q+kBpgavYFY3wiqAs7Xun+tveG/sqUEdWKbNSaO6Kw
- N8iJ5bqIMBjyVh17oHXC2E6nJ2PpZqNgZOQLYrrezy93+s89Kr5v4+ASTJfzbS9eWtC7yD5t+zdZU
- keh71avNmAB+GINqp+EVNdq91FtBCDlaWP2CiPH084rjsJRF0rKkDZ8Zbhw4CoXInwxGcX8pt7arx
- UcTFhAIyKP5xltkYIbSAtBfTAoGZHFNwIl9LSKaomb4dUmLHdm5UY1nnFNWFqRpPqC3e2QPkKiHtm
- HegkEpsm4YvT8uw==;
-Received: from ch-demo-asa.virtuozzo.com ([130.117.225.8] helo=f0.sw.ru)
- by relay.virtuozzo.com with esmtp (Exim 4.96)
- (envelope-from <khorenko@virtuozzo.com>) id 1xU2R7-00FBqZ-17;
- Thu, 19 Nov 2026 14:44:25 +0100
-From: Konstantin Khorenko <khorenko@virtuozzo.com>
-Date: Thu, 19 Nov 2026 14:44:04 +0100
-Subject: [PATCH v6 3/4] mm/huge_memory: read a special PMD under the lock
- in copy_huge_pmd()
+	by gabe.freedesktop.org (Postfix) with ESMTP id C434B112BCB;
+	Fri, 20 Nov 2026 16:18:35 +0000 (UTC)
+Received: from mta1.migadu.com (out-55.mta1.migadu.com [95.215.58.55])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 37E1910F0CF
+ for <dri-devel@lists.freedesktop.org>; Thu, 19 Nov 2026 19:10:58 +0000 (UTC)
+X-Envelope-To: dri-devel@lists.freedesktop.org
+DKIM-Signature: a=rsa-sha256; bh=AWOkBBAq/YXJUhDBoogWOzXz+yE7PZKM8xjPAy/bQ9M=; 
+ c=simple/simple; d=justthetip.ca;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1795115456; v=1; x=1795720256;
+ b=MxnII4w0zaxTOJoEonw/Gh62OmKqWz4MsNYCsQtKuW8AszrboA4QWpVidKdKRztIRAwrk3t0
+ bllrPUlnqGkaVYuCU+9drBOg9mTpvUf2zX9WotHe3otMFEcYi8hXOa2z+9huA06OYZp1KhoqH14
+ 4s1iBlYOxXwKCMaNOtVKPCLgUlUsFcgnLPQSfjbulMfovPa17H3B7AC0c0hgcMpyCPy9e5NGX2T
+ uKqVtEXP7+CCUZN401Qe2S5N2PQ9MHkNANSczKhmNxgKfTTxpoHvr2AXc92Tcvc5Kz7vERdmoN9
+ LAO91wrFYY/Epl/RenZYVWRHOetyQ14sQb2UzQsCoyn3w==
+X-Envelope-To: dri-devel@lists.freedesktop.org
+Received: by smtp.migadu.com with ESMTPS id 58450e64729725f2;
+ Thu, 19 Nov 2026 19:10:46 +0000
+X-Mizu-Trace-ID: 58450e64729725f2
+X-Migadu-Flow: FLOW_OUT
+From: Devin Wittmayer <lucid_duck@justthetip.ca>
+To: Jocelyn Falempe <jfalempe@redhat.com>,
+ Javier Martinez Canillas <javierm@redhat.com>
+Cc: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>,
+ Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>,
+ Simona Vetter <simona@ffwll.ch>, dri-devel@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org, desobei <desobei@outlook.com>,
+ luyuantao <luyuantao@kylinos.cn>
+Subject: [PATCH] drm/panic: Bring back the kmsg screen fixes lost in a merge
+Date: Thu, 19 Nov 2026 12:10:38 -0700
+Message-ID: <20261119191038.146963-1-lucid_duck@justthetip.ca>
+X-Mailer: git-send-email 2.56.1
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20261119-b4-prep-vstor-149847-copy_huge_pmd-recheck-special-pmd-v6-3-efa7817a2bb3@virtuozzo.com>
-References: <20261119-b4-prep-vstor-149847-copy_huge_pmd-recheck-special-pmd-v6-0-efa7817a2bb3@virtuozzo.com>
-In-Reply-To: <20261119-b4-prep-vstor-149847-copy_huge_pmd-recheck-special-pmd-v6-0-efa7817a2bb3@virtuozzo.com>
-To: Andrew Morton <akpm@linux-foundation.org>, 
- "David Hildenbrand (Arm)" <david@kernel.org>, Zi Yan <ziy@nvidia.com>, 
- Baolin Wang <baolin.wang@linux.alibaba.com>, 
- "Liam R. Howlett" <liam@infradead.org>, Nico Pache <nico.pache@linux.dev>, 
- Ryan Roberts <ryan.roberts@arm.com>, Dev Jain <dev.jain@arm.com>, 
- Barry Song <baohua@kernel.org>, Lance Yang <lance.yang@linux.dev>, 
- Usama Arif <usama.arif@linux.dev>, Kiryl Shutsemau <kas@kernel.org>, 
- Peter Xu <peterx@redhat.com>
-Cc: Alex Williamson <alex@shazbot.org>, kvm@vger.kernel.org, 
- =?utf-8?q?Lo=C3=AFc_Molinari?= <loic.molinari@collabora.com>, 
- Lorenzo Stoakes <ljs@kernel.org>, Shuah Khan <shuah@kernel.org>, 
- linux-kselftest@vger.kernel.org, dri-devel@lists.freedesktop.org, 
- Madhavan Srinivasan <maddy@linux.ibm.com>, 
- "Ritesh Harjani (IBM)" <ritesh.list@gmail.com>, 
- linuxppc-dev@lists.ozlabs.org, linux-mm@kvack.org, 
- linux-kernel@vger.kernel.org, Konstantin Khorenko <khorenko@virtuozzo.com>, 
- Jason Gunthorpe <jgg@ziepe.ca>, stable@vger.kernel.org, 
- Sashiko <sashiko-bot@kernel.org>, 
- "Jose A. Perez de Azpillaga" <azpijr@gmail.com>
-X-Mailer: b4 0.16.0
-X-Developer-Signature: v=1; a=openpgp-sha256; l=4194;
- i=khorenko@virtuozzo.com; h=from:subject:message-id;
- bh=0KbTMYxwQGgCuwBNwt1Pek/vi+cv68YluLjm3ssgOAk=;
- b=owEBbQKS/ZANAwAKAVGWCkf5YVwqAcsmYgBq/v03feVsR9uS5X8yS8SIHKVuDw/Cs0h9NcRGk
- G1L467BasCJAjMEAAEKAB0WIQRWD23IPcXT0GO9CCxRlgpH+WFcKgUCav79NwAKCRBRlgpH+WFc
- KtsaD/4upDZ3XOtGVuDlVMtEZc6ok0w47ytJX2pe4pZSlEyhwyYu2hNNv7HOVvaTxVdOJwB8t10
- R4bYNeK2RHBH32+UrYqVTMdv4KCU5XtpCW3Dcvv7tKgYraXEO4J3ZchXA9qYonPXblA/Cx2H03w
- l8G6NqMFhFhC0Es4AfG09RdLDoDGT0o73ildtP02dN0HsDsq5tk3IXZc0YFrVEyO2/ubPoR4LgM
- FmyvZSN8S8uaUnA9InrJGifkTJ1p3Hu9lkJ7pSWucQcl8eIPnP2/55JVtx1ZPN1tbDviOBiyopQ
- 1yFbfeGc6aVE6+wRNQjjbbaN7NnNHoNVc4u9uKwRMxc6DpeoHFBb08oTNHaPV4pcXEVe6/2ZAOV
- ihWRAfsHlDC9k8qPXMdM0h1mjo0i70ayiHMbMJYE8m+HPr8Mtt/8HcaDAcDc7HpnUEpnX9+bnLs
- HOx7QnnfgckSuJErP7G26GWKsErWQyc4lDOVQvr3ijPBipiZ6+FH1udhQHUEpBkCK/ilzlG5fCo
- QENePxvVh8xXHLuF0WEy4NIgggm84eK/WNiSyVPvkSDY3aIh9D4+MReR0r3YIXRHA2oByJwPOSp
- apRhB7ACPdHpBkMynndAtijGBWcFBa7CoRRIJZDAX1ufjBJ4HyjIUiQkyk46ISBTz+EuywI4TRS
- TEQ5SXwEBP98vyA==
-X-Developer-Key: i=khorenko@virtuozzo.com; a=openpgp;
- fpr=560F6DC83DC5D3D063BD082C51960A47F9615C2A
+Content-Transfer-Encoding: 8bit
 X-Mailman-Approved-At: Fri, 20 Nov 2026 16:17:37 +0000
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -84,113 +55,77 @@ List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-18.8 required=3.0 tests=BAYES_00,DKIM_SIGNED,
-	DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
-	INCLUDES_CR_TRAILER,INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,
-	SPF_PASS,USER_AGENT_GIT autolearn=unavailable autolearn_force=no
-	version=4.0.1
+X-Spam-Status: No, score=-16.6 required=3.0 tests=BAYES_00,DKIM_INVALID,
+	DKIM_SIGNED,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,
+	INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,
+	USER_AGENT_GIT autolearn=unavailable autolearn_force=no version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-copy_huge_pmd() reads a special PMD without the page table lock and
-copies that value to the child. The mmap write lock held by fork does
-not stop unmap_mapping_range(): it zaps under i_mmap_rwsem and the PMD
-lock.
+Commit b537d87d2632 ("drm/panic: Fix the loop that causes kmsg to not
+display correctly") and commit 1ba640563843 ("drm/panic: Fix kmsg screen
+hang on a long log line") changed the old panic file. By the time they
+reached drm-fixes, that code had moved into the helper library, and the
+merge left the helper as it was.
 
-The zap visits the parent VMA before the child's, as dup_mmap() links
-the child right after the parent in i_mmap. If it clears the parent PMD
-after fork has read it, and passes the child before fork copies it, the
-child keeps a mapping the driver has revoked, for example:
+So the panic screen that prints the kernel log hangs again on a long
+log line, and the machine never reboots. The helper's KUnit suite hangs
+the same way.
 
-- vfio-pci: the child reaches the BAR after the device memory was
-  disabled or the device was reset, instead of getting SIGBUS;
-- panthor: the child maps the pages of an evicted buffer object after
-  the driver has released them.
+Make both changes in the helper.
 
-The same branch deposits no page table under the copy. ppc64 in hash
-mode keeps the hash slot array of every huge PMD in that table, so the
-child dereferences a NULL table on the first hash fault, in
-__hash_page_thp(), and on the zap, in hash__pmdp_huge_get_and_clear().
-
-Take the locks first and let vm_normal_page_pmd() tell a PFN mapping
-from a folio under them, as copy_present_ptes() does with
-vm_normal_page(). The zap clears the parent PMD under the same lock, so
-either fork finds it none and skips it, or the copy is in place before
-the zap reaches the child.
-
-The copy of a PFN mapping then goes through the same tail as a folio:
-
-- it gets a page table where the architecture needs one;
-- in a shared mapping it is marked clean in the child, as a PTE is;
-- in a CoW mapping, which only VM_MIXEDMAP allows, both sides are write
-  protected instead of a warning being printed.
-
-Fixes: bc02afbd4d73 ("mm/fork: accept huge pfnmap entries")
-Fixes: d1503aa9ab80 ("powerpc/64s: Add support for huge pfnmaps")
-Cc: stable@vger.kernel.org
-Reported-by: Sashiko <sashiko-bot@kernel.org>
-Closes: https://sashiko.dev/#/patchset/20261014-b4-prep-vstor-149847-copy_huge_pmd-recheck-special-pmd-v1-1-d225c60bc316@virtuozzo.com?part=1
-Suggested-by: David Hildenbrand (Arm) <david@kernel.org>
-Acked-by: Kiryl Shutsemau (Meta) <kas@kernel.org>
-Acked-by: David Hildenbrand (Arm) <david@kernel.org>
-Reviewed-by: Jose A. Perez de Azpillaga <azpijr@gmail.com>
-Acked-by: Zi Yan <ziy@nvidia.com>
-Tested-by: Ritesh Harjani (IBM) <ritesh.list@gmail.com> #PowerPC
-Signed-off-by: Konstantin Khorenko <khorenko@virtuozzo.com>
+Fixes: 5c3d323984fd ("drm/panic: Move panic display code into helper library")
+Reported-by: desobei <desobei@outlook.com>
+Closes: https://lore.kernel.org/all/PH7PR19MB6658FDBDD012399C6E8D330FAF792@PH7PR19MB6658.namprd19.prod.outlook.com/
+Tested-by: desobei <desobei@outlook.com>
+Cc: luyuantao <luyuantao@kylinos.cn>
+Signed-off-by: Devin Wittmayer <lucid_duck@justthetip.ca>
 ---
- mm/huge_memory.c | 24 +++---------------------
- 1 file changed, 3 insertions(+), 21 deletions(-)
+Both were lost in merge 1c3b1398f1cf. My other fix in that pull, for
+the panic screen setting, made it through.
 
-diff --git a/mm/huge_memory.c b/mm/huge_memory.c
-index 277d27a8a4364..adf3ca088bf41 100644
---- a/mm/huge_memory.c
-+++ b/mm/huge_memory.c
-@@ -1977,25 +1977,6 @@ int copy_huge_pmd(struct mm_struct *dst_mm, struct mm_struct *src_mm,
- 	int ret = -ENOMEM;
- 	bool writable;
- 
--	pmd = pmdp_get_lockless(src_pmd);
--	if (unlikely(pmd_present(pmd) && pmd_special(pmd) &&
--		     !is_huge_zero_pmd(pmd))) {
--		dst_ptl = pmd_lock(dst_mm, dst_pmd);
--		src_ptl = pmd_lockptr(src_mm, src_pmd);
--		spin_lock_nested(src_ptl, SINGLE_DEPTH_NESTING);
--		/*
--		 * No need to recheck the pmd, it can't change with write
--		 * mmap lock held here.
--		 *
--		 * Meanwhile, making sure it's not a CoW VMA with writable
--		 * mapping, otherwise it means either the anon page wrongly
--		 * applied special bit, or we made the PRIVATE mapping be
--		 * able to wrongly write to the backend MMIO.
--		 */
--		VM_WARN_ON_ONCE(vma_is_cow_mapping(src_vma) && pmd_write(pmd));
--		goto set_pmd;
--	}
--
- 	if (vma_is_anonymous(dst_vma) || arch_needs_pgtable_deposit()) {
- 		pgtable = pte_alloc_one(dst_mm);
- 		if (unlikely(!pgtable))
-@@ -2037,7 +2018,9 @@ int copy_huge_pmd(struct mm_struct *dst_mm, struct mm_struct *src_mm,
- 		goto copy_pmd;
- 	}
- 
--	src_page = pmd_page(pmd);
-+	src_page = vm_normal_page_pmd(src_vma, addr, pmd);
-+	if (!src_page)
-+		goto copy_pmd;
- 	VM_BUG_ON_PAGE(!PageHead(src_page), src_page);
- 	src_folio = page_folio(src_page);
- 
-@@ -2088,7 +2071,6 @@ int copy_huge_pmd(struct mm_struct *dst_mm, struct mm_struct *src_mm,
- 	}
- 	if (src_vma->vm_flags & VM_SHARED)
- 		pmd = pmd_mkclean(pmd);
--set_pmd:
- 	pmd = pmd_mkold(pmd);
- 	set_pmd_at(dst_mm, addr, dst_pmd, pmd);
- 
+Panics with a long line in the log, on drm-misc-fixes:
 
+                              without this    with this
+    QEMU, 40 panics           all hang        all reboot
+    AMD mini PC, 8 panics     all hang        all reboot
+
+Panics with nothing long in the log reboot either way.
+
+ drivers/gpu/drm/drm_panic_helper.c | 10 ++++++++--
+ 1 file changed, 8 insertions(+), 2 deletions(-)
+
+diff --git a/drivers/gpu/drm/drm_panic_helper.c b/drivers/gpu/drm/drm_panic_helper.c
+index 8913c3d22e8d..385a07ed314b 100644
+--- a/drivers/gpu/drm/drm_panic_helper.c
++++ b/drivers/gpu/drm/drm_panic_helper.c
+@@ -513,7 +513,8 @@ VISIBLE_IF_KUNIT int drm_panic_helper_draw_screen_kmsg(struct drm_scanout_buffer
+ 	const struct font_desc *font = get_default_font(sb->width, sb->height, NULL, NULL);
+ 	struct drm_rect r_screen = DRM_RECT_INIT(0, 0, sb->width, sb->height);
+ 	struct kmsg_dump_iter iter;
+-	char kmsg_buf[512];
++	/* the size printk formats one record into, too big for the stack */
++	static char kmsg_buf[2048];
+ 	size_t kmsg_len;
+ 	struct drm_panic_line line;
+ 	int yoffset;
+@@ -530,10 +531,15 @@ VISIBLE_IF_KUNIT int drm_panic_helper_draw_screen_kmsg(struct drm_scanout_buffer
+ 	drm_panic_helper_fill(sb, &r_screen, bg_color);
+ 
+ 	kmsg_dump_rewind(&iter);
+-	while (kmsg_dump_get_buffer(&iter, false, kmsg_buf, sizeof(kmsg_buf), &kmsg_len)) {
++	while (yoffset >= 0 && kmsg_dump_get_buffer(&iter, false, kmsg_buf,
++	       sizeof(kmsg_buf), &kmsg_len)) {
+ 		char *start;
+ 		char *end;
+ 
++		/* a record that does not fit comes back empty, every time */
++		if (!kmsg_len)
++			break;
++
+ 		/* ignore terminating NUL and newline */
+ 		start = kmsg_buf + kmsg_len - 2;
+ 		end = kmsg_buf + kmsg_len - 1;
 -- 
-2.43.0
+2.56.1
 
