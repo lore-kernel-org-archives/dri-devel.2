@@ -2,52 +2,48 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0933B606A32C
-	for <dri-devel@archiver.kernel.org>; Thu, 19 Nov 2026 17:28:25 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 77D08606A325
+	for <dri-devel@archiver.kernel.org>; Thu, 19 Nov 2026 17:32:15 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=g8iu34cB
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=HUlUxbux
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 308E810EE0C;
-	Thu, 19 Nov 2026 17:28:19 +0000 (UTC)
-Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 7254F10EE0C
- for <dri-devel@lists.freedesktop.org>; Thu, 19 Nov 2026 17:28:13 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 9F57D10EF0D;
+	Thu, 19 Nov 2026 17:32:09 +0000 (UTC)
+Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 0E28410EF0D
+ for <dri-devel@lists.freedesktop.org>; Thu, 19 Nov 2026 17:32:03 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by tor.source.kernel.org (Postfix) with ESMTP id 5354F618B1;
- Thu, 19 Nov 2026 17:28:12 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9C1761F000C5;
- Thu, 19 Nov 2026 17:28:08 +0000 (UTC)
+ by sea.source.kernel.org (Postfix) with ESMTP id D602841A6D;
+ Thu, 19 Nov 2026 17:32:02 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id E56301F000C5;
+ Thu, 19 Nov 2026 17:32:00 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1795109292;
- bh=MBitJYL2/UcM46VwgXCfRsDu1jd7w3VQLlGcia31y9Y=;
- h=Date:Cc:To:From:Subject:References:In-Reply-To;
- b=g8iu34cBbiseCsOHSffAmyr3qpzB/uHPmPHo58aYmg764mPuvzTUwIwUobNPFVkxw
- 1iroSANozUsXJybkR6WGHaYiD0wLduXLXLbPKpfpErZCb5r6jX49umF6K+3gqko52A
- WLOLTR0A7SNEIAwJVocWWFAWq0t+59MBRachTe219OYADRf0kF12/bnGzY6JRsZpRZ
- 6MbOj4HFxyaEE86OxlGyMRz2iWmb1vO4Jg5jJ2he6Z/QxzxM75+YdnqtrtAevUG3KI
- gxadmmIRjA5mRuLAI+F908piEtCN0qLQkKOGKh+MT7M8X8cSSjB6IR9eMV6imI+Q82
- bpJBp/Mm48fWg==
+ s=k20260515; t=1795109522;
+ bh=dWOqVlQrDMo1jk4gcSOpGcbX7n3Zd69ocOnoUDk8YzI=;
+ h=From:To:Cc:In-Reply-To:References:Subject:Date;
+ b=HUlUxbux7Jbt48w+1T9O49pg9fuSGa7KkSN6Ru2P3XJJQFOiYyS9V2Nt4kfYF0QtT
+ MTCvdl+gQxnAcpUSVq/6Tx9xbIak12AWz+Fepo1XMUGYeA96/V0bz5K2pT2COS4sLS
+ Xm02UOsgVBiSjmDvsjCGHmRyleo+9sNPg2/JXlo0cSAIm1YmFoOVwjjeOyKg3WqzEU
+ Bq4x/lkAVF6wsQ+wf628q1QD0LLotjfpDzcZtlXyw2TQQFVq9LOrUcxDCSgHh5aio0
+ PV6NjSnhDZsww7U/guq5V0I4xZX/t51qkQq28EihT7t2GGXCng+ImHSOaTmBiZDbJR
+ JlGg6OGKJaiXQ==
+From: Lee Jones <lee@kernel.org>
+To: Thomas Richard <thomas.richard@bootlin.com>, Lee Jones <lee@kernel.org>, 
+ Daniel Thompson <danielt@kernel.org>, Jingoo Han <jingoohan1@gmail.com>, 
+ Helge Deller <deller@gmx.de>, Petri Karhula <petri.karhula@novatron.fi>, 
+ Manuel Ebner <manuelebnerli@mailbox.org>
+Cc: dri-devel@lists.freedesktop.org, linux-fbdev@vger.kernel.org, 
+ linux-kernel@vger.kernel.org
+In-Reply-To: <20261113114552.895592-2-manuelebnerli@mailbox.org>
+References: <20261113114552.895592-2-manuelebnerli@mailbox.org>
+Subject: Re: (subset) [PATCH v2] backlight: cgbc_bl: Fix kernel-doc
+Message-Id: <179510952067.85896.410495559913801385.b4-ty@b4>
+Date: Thu, 19 Nov 2026 17:32:00 +0000
 X-Archived-By: <archiver.kernel.org>
-Mime-Version: 1.0
-Content-Transfer-Encoding: quoted-printable
-Content-Type: text/plain; charset=UTF-8
-Date: Thu, 19 Nov 2026 18:28:07 +0100
-Message-Id: <DMZD4TXCZSRX.HN0ETV0FWFIY@kernel.org>
-Cc: "Gary Guo" <gary@garyguo.net>, <airlied@gmail.com>, <simona@ffwll.ch>,
- <daniel.almeida@collabora.com>, <ojeda@kernel.org>, <boqun@kernel.org>,
- <bjorn3_gh@protonmail.com>, <lossin@kernel.org>, <a.hindborg@kernel.org>,
- <tmgross@umich.edu>, <tamird@kernel.org>, <acourbot@nvidia.com>,
- <work@onurozkan.dev>, <nova-gpu@lists.linux.dev>,
- <dri-devel@lists.freedesktop.org>, <linux-kernel@vger.kernel.org>,
- <rust-for-linux@vger.kernel.org>
-To: "Alice Ryhl" <aliceryhl@google.com>
-From: "Danilo Krummrich" <dakr@kernel.org>
-Subject: Re: [PATCH] rust: drm: remove DRM device private data
-References: <20261118181245.2583303-1-dakr@kernel.org>
- <20261119111746.3049044-1-aliceryhl@google.com>
- <DMZ5ER6XTNLG.2ZJOF7F4100XW@garyguo.net>
- <CAH5fLghc63zD9c1F437pQiX+ohgSkYQe4nt3xP4gSTsqAVLzBA@mail.gmail.com>
-In-Reply-To: <CAH5fLghc63zD9c1F437pQiX+ohgSkYQe4nt3xP4gSTsqAVLzBA@mail.gmail.com>
+MIME-Version: 1.0
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
+X-Mailer: b4 0.16-dev-ad80c
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -59,33 +55,24 @@ List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-10.8 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
+X-Spam-Status: No, score=-8.8 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
 	DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
-	INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS autolearn=ham
+	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,USER_AGENT_GIT autolearn=ham
 	autolearn_force=no version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-On Thu Nov 19, 2026 at 12:49 PM CET, Alice Ryhl wrote:
-> Good idea
+On Fri, 13 Nov 2026 12:45:52 +0100, Manuel Ebner wrote:
+> This comment describes a struct as a kernel-doc. Format as such, fixing:
+>   $ ./scripts/kernel-doc --none drivers/video/backlight/cgbc_bl.c
+>   Warning: drivers/video/backlight/cgbc_bl.c:29 This comment starts with '/**', but isn't a kernel-doc comment. Refer to Documentation/doc-guide/kernel-doc.rst
+>    * CGBC backlight driver data
 
-Indeed, what do you think about this?
+Applied, thanks!
 
-diff --git a/rust/kernel/drm/device.rs b/rust/kernel/drm/device.rs
-index 774db3acb15a..8c48dcfdecec 100644
---- a/rust/kernel/drm/device.rs
-+++ b/rust/kernel/drm/device.rs
-@@ -158,7 +158,11 @@ const fn compute_features() -> u32 {
-         open: Some(drm::File::<T::File>::open_callback),
-         postclose: Some(drm::File::<T::File>::postclose_callback),
-         unload: None,
--        release: None,
-+        release: {
-+            // The DRM core frees the device without running a Rust destru=
-ctor.
-+            const_assert!(!mem::needs_drop::<Device<T, Normal>>());
-+            None
-+        },
-         master_set: None,
-         master_drop: None,
-         debugfs_init: None,
+[1/1] backlight: cgbc_bl: Fix kernel-doc
+      commit: 7f124d0893d69cb702b333c47ed56683abec5c6c
+
+--
+Lee Jones [李琼斯]
+
