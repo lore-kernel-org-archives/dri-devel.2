@@ -2,117 +2,53 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BF532606A325
-	for <dri-devel@archiver.kernel.org>; Thu, 19 Nov 2026 21:54:19 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 96184606A320
+	for <dri-devel@archiver.kernel.org>; Thu, 19 Nov 2026 21:57:29 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=Nvidia.com header.i=@Nvidia.com header.a=rsa-sha256 header.s=selector2 header.b=riAMdQGn
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=GC6u7YxK
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id D1080112734;
-	Thu, 19 Nov 2026 21:54:13 +0000 (UTC)
-Received: from DM5PR21CU001.outbound.protection.outlook.com
- (mail-centralusazon11011004.outbound.protection.outlook.com [52.101.62.4])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 006B8112734
- for <dri-devel@lists.freedesktop.org>; Thu, 19 Nov 2026 21:54:06 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=CugFW7Fjtj8p3lkiSZT6paq2yXu8aWrBKY/0wuuqEGiSF5ares02n6jSS4LhR/eEiPEDK9AfwIBg5oQ1wcynYXIzM1RUOBJasXYZml6qABflOQNJus0XSZ8yHasITWfL+E2OXL4m8bkIE+xQU4XsL4ZVlRtnwnt4Bf54wR8EUR7l5o/JfSszzVBtaJaQsjxCJjCCviNEebhoBI+Q6/+DfQYbHfaT0DXwkV1W3R5KqP+XTz1voJmQWIc7Lho0qptx3q+i9Q5CAw9m4iNIAJjjB7PdDeoavuGxV5H+DV3qwTLTSRbHqb44Y6ZHNY7AVGQWpgkRJR4pfDYgIcUNDDvtfQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=6o9bhW8wsOAIhuGp90K6EKBhtONIi3POQwWye2/rpog=;
- b=O0zY4Q7N9tHCUubbSsFeWpP/3vbA86DumZBhS2OzyjSI+KCZkZmiRJTz0Fj3mTBTNJGVkoaByXHl5xGcYoQbkF7XTvUde988mm+2KSW8HTp8laOQrrv/SYvxWwLEHOMyKIE8pfA0d3Js97P1PVrCWkAOIYinqPKfLSjxGyqDEB5L+o34bFAIICdriDiXrAHUAIHrIPZmfxq1OBVsBzZ8jISfHNiULbMX9fsYVzUp1GicHfNWrP9O2tWvZquSGt5MgztLgoER4VuvO9uqNurSbd1YM6jebIYWs/IxzUw6sPE/G0Q3NTKvPK07J3J3gfH1U4Vgsz7li2BkWtTcIZfBQA==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 216.228.117.161) smtp.rcpttodomain=kernel.org smtp.mailfrom=nvidia.com;
- dmarc=pass (p=reject sp=reject pct=100) action=none header.from=nvidia.com;
- dkim=none (message not signed); arc=none (0)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
- s=selector2;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=6o9bhW8wsOAIhuGp90K6EKBhtONIi3POQwWye2/rpog=;
- b=riAMdQGnREZlCJMGrghVnTix1XUa38wvf3X9lLgqqpUtbq1D3qtkggp4CGP0i9VyTaM9Zgczi8WJjx6qQVTBxd7a0NUL6LjN/gr3MnmDBcScWw0CI9E0eSSnkLLh+lMFNFHLnFhy+M4IL4fupcqtIIWQdmLkzUmKrPT7m41T1KG6DMR7yh2ZEus2O9bqeHzh7l6ZlAP82Gn7QHrBQArE+OVnDzBSbALJRIHVJMMCX6zSkP5i0IpE4zGxjkP3lutmugvhfmL/z3iqiCnJKp8Zr058vonrEV3FCuNe0324jNFIw0CT30/ostneJLMHG6OGuWmKHpnVC5qbcv0jbhuGmQ==
-Received: from MW4PR04CA0223.namprd04.prod.outlook.com (2603:10b6:303:87::18)
- by SN7PR12MB7023.namprd12.prod.outlook.com (2603:10b6:806:260::16)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.615.14; Thu, 19 Nov
- 2026 21:51:37 +0000
-Received: from MWH0EPF000C6187.namprd02.prod.outlook.com
- (2603:10b6:303:87:cafe::58) by MW4PR04CA0223.outlook.office365.com
- (2603:10b6:303:87::18) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.21.615.10 via Frontend Transport; Thu,
- 19 Nov 2026 21:51:36 +0000
-X-MS-Exchange-Authentication-Results: mx.microsoft.com 1; spf=pass (sender IP
- is 216.228.117.161)
- smtp.mailfrom=nvidia.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=nvidia.com;
-Received-SPF: Pass (protection.outlook.com: domain of nvidia.com designates
- 216.228.117.161 as permitted sender) receiver=protection.outlook.com;
- client-ip=216.228.117.161; helo=mail.nvidia.com; pr=C
-Received: from mail.nvidia.com (216.228.117.161) by
- MWH0EPF000C6187.mail.protection.outlook.com (10.167.249.119) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.639.5 via Frontend Transport; Thu, 19 Nov 2026 21:51:36 +0000
-Received: from rnnvmail201.nvidia.com (10.129.68.8) by mail.nvidia.com
- (10.129.200.67) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.57; Thu, 19 Nov
- 2026 13:51:11 -0800
-Received: from xinmengs-dev-vm-linux.nvidia.com (10.126.230.37) by
- rnnvmail201.nvidia.com (10.129.68.8) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.57; Thu, 19 Nov 2026 13:51:09 -0800
-From: Simon Song <xinmengs@nvidia.com>
-To: <dakr@kernel.org>, <acourbot@nvidia.com>, <kvm@vger.kernel.org>,
- <rust-for-linux@vger.kernel.org>, <nova-gpu@lists.linux.dev>,
- <linux-pci@vger.kernel.org>
-CC: <alex@shazbot.org>, <jgg@nvidia.com>, <yishaih@nvidia.com>,
- <skolothumtho@nvidia.com>, <kevin.tian@intel.com>, <airlied@gmail.com>,
- <simona@ffwll.ch>, <ojeda@kernel.org>, <alex.gaynor@gmail.com>,
- <boqun.feng@gmail.com>, <gary@garyguo.net>, <bjorn3_gh@protonmail.com>,
- <lossin@kernel.org>, <a.hindborg@kernel.org>, <aliceryhl@google.com>,
- <tmgross@umich.edu>, <jhubbard@nvidia.com>, <ecourtney@nvidia.com>,
- <cjia@nvidia.com>, <smitra@nvidia.com>, <kjaju@nvidia.com>,
- <alkumar@nvidia.com>, <ankita@nvidia.com>, <aniketa@nvidia.com>,
- <kwankhede@nvidia.com>, <targupta@nvidia.com>,
- <linux-kernel@vger.kernel.org>, <zhiwang@kernel.org>, <zhiw@nvidia.com>,
- <boqun@kernel.org>, <daniel.almeida@collabora.com>, <tamird@kernel.org>,
- <work@onurozkan.dev>, <jgg@ziepe.ca>, <bhelgaas@google.com>,
- <kwilczynski@kernel.org>, <dri-devel@lists.freedesktop.org>,
- <peter@colberg.org>, <xinmengs@nvidia.com>
-Subject: [PATCH v3 3/9] rust: pci: allow drivers to manage DMA ownership
-Date: Thu, 19 Nov 2026 13:50:38 -0800
-Message-ID: <20261119215046.2892839-4-xinmengs@nvidia.com>
-X-Mailer: git-send-email 2.43.7
-In-Reply-To: <20261119215046.2892839-1-xinmengs@nvidia.com>
-References: <20261119215046.2892839-1-xinmengs@nvidia.com>
+	by gabe.freedesktop.org (Postfix) with ESMTP id C26BB112737;
+	Thu, 19 Nov 2026 21:57:23 +0000 (UTC)
+Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 536B8112737
+ for <dri-devel@lists.freedesktop.org>; Thu, 19 Nov 2026 21:57:17 +0000 (UTC)
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+ by sea.source.kernel.org (Postfix) with ESMTP id CF303438BA;
+ Thu, 19 Nov 2026 21:57:16 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 525801F000C4;
+ Thu, 19 Nov 2026 21:57:12 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+ s=k20260515; t=1795125436;
+ bh=RcfbHFH01RzSHnJPgcknTLx6N5kKgF6XGMIscWY4ydA=;
+ h=From:To:Cc:Subject:Date:In-Reply-To:References;
+ b=GC6u7YxKJsHQfjm6YLA2+C4TCzramwpUjurE42mn73YzM2q4iiTSl+fGKk9FqWFBE
+ LaXK6V7vXBs/7fpnLdVkfuocbUX+ToQpIT5PeVxUk1uLPs9utrNVak5PUzJUTgjpBn
+ bLsIFOBqvhXRPdLTcedv+m/eXoXfxatEPoQv6c3Hf2J/0bXsdTw5FL5bcbd2/u3pGX
+ hRSE5ghGJC6QrmDdK5MGzfsf1hsiZ6Wg8i6XmiJD+4qvtPu6+FkAEp+9EhXfSZAo8d
+ U+S9ad6q7t0jas8URUV/NPjMnK0on0DINsT5OlHwlos8zpXYj8VNgIuX86YtR6UkW1
+ uURwWuthRnZiw==
+From: Danilo Krummrich <dakr@kernel.org>
+To: Danilo Krummrich <dakr@kernel.org>
+Cc: aliceryhl@google.com, acourbot@nvidia.com, daniel.almeida@collabora.com,
+ ojeda@kernel.org, boqun@kernel.org, gary@garyguo.net,
+ bjorn3_gh@protonmail.com, lossin@kernel.org, a.hindborg@kernel.org,
+ tmgross@umich.edu, tamird@kernel.org, work@onurozkan.dev,
+ brauner@kernel.org, lyude@redhat.com, j@jananu.net, alvin.sun@linux.dev,
+ deborah.brouwer@collabora.com, laura.nao@collabora.com,
+ beata.michalska@arm.com, nova-gpu@lists.linux.dev,
+ dri-devel@lists.freedesktop.org, rust-for-linux@vger.kernel.org,
+ linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v3 0/7] lifetime-parameterized DRM File private data
+Date: Thu, 19 Nov 2026 22:57:09 +0100
+Message-ID: <20261119215709.3691076-1-dakr@kernel.org>
+X-Mailer: git-send-email 2.56.1
+In-Reply-To: <20261118163203.2483856-1-dakr@kernel.org>
+References: <20261118163203.2483856-1-dakr@kernel.org>
+X-Patch-Reply: applied
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-ClientProxiedBy: rnnvmail203.nvidia.com (10.129.68.9) To
- rnnvmail201.nvidia.com (10.129.68.8)
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: MWH0EPF000C6187:EE_|SN7PR12MB7023:EE_
-X-MS-Office365-Filtering-Correlation-Id: 90b591c2-8414-4082-be3c-08df468748c6
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
- ARA:13230040|36860700016|82310400026|1800799024|7416014|376014|23010399003|6133799003|22082099003|18002099003|261009223027099003|261022115727099003|56012099006|11063799006|261102123227099003|261026121527099003|261021130227099003|261028144727099003|261022105027099003|261021121427099003|261026140227099003|261022113327099003|10067099003|261021123027099003;
-X-Microsoft-Antispam-Message-Info: QfnbcTfXAax130Hzz3KUgyBRsLusMkf20Ne6E0A5WRHMV73jiyLhccxR/WpZW52JC4ke3mNEVXYFE6nxlisUeZaBZ+XEdCf8LJ4n7pNo0DlYazrgXJw3vZKet/bVcivfYmLrwmM0lg9zQweFWCCNHdJoKtVV56PLpx5vPgMSU/gqyDLZ0MwGN6tn/Scsqxa8iFqhq/Jia0ljPEs3oPJvmy7uCGZXM7CqQcQLqShyUezfKHrI4DMLYVCKMdx1e4SPiVkfcH0ac7t7t1mUMFWNMsQbsjBPdlyJQ8+Dk/5Hj5OAE6Vi7Q/OjZKxsXWwcysQw5r8eUUMfPGjLbUG4T7hDIDm8nz+iQ1UUgiscnhS+uNXPUfsY+MTUajQZYa/hUOweQmm9x02DDe3HdrxNlTgIdyDbPwpj/BTXujvm0NbLWeTxmUDzYV/gxBxC/QNfWaajLdBhTSIjLM1R/O1dDJXOORjm2st6v4gRW0BlkJE2jypZsjuJZ3g/5moZJgg0KQRjbuy4L2RVQP6e16amqPXVGY8J6g50k8d9m1pNXYs3cVzcKEO7kasrtSwVIrOgL+OYcoVi4FIMIYDS7mXhTztqAHcPbqJGBDHn7cYmDDVCU4Bv67pAJVJ//I1EBRclZ/DRkvllGL0aLg1MFpW21zu/ex23A/ZgzG8qrO9RXscXRjDuJczLXYKITdvVzC+DhW9FCXePxBKc819mt4M4DUGGg==
-X-Forefront-Antispam-Report: CIP:216.228.117.161; CTRY:US; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:mail.nvidia.com; PTR:dc6edge2.nvidia.com; CAT:NONE;
- SFS:(13230040)(36860700016)(82310400026)(1800799024)(7416014)(376014)(23010399003)(6133799003)(22082099003)(18002099003)(261009223027099003)(261022115727099003)(56012099006)(11063799006)(261102123227099003)(261026121527099003)(261021130227099003)(261028144727099003)(261022105027099003)(261021121427099003)(261026140227099003)(261022113327099003)(10067099003)(261021123027099003);
- DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: lcNTWsD4pZnlb+qn/fPRtvrO0cPgn6AhjzEWx/3rUQ/aKR3k/tTJMlgE6S0BOpigDzpoO0hGo0PlhxC6oZg/RGUcJXa2uxAVj/cYar0UHALWQ+e9CI03F2jUpIDohJYcjjVjxMx+GNpCDRCG41o7OlVreoIMFKbxP+s+K6iUjbpkhwfdPk6mmSBNPcWfKg/JhdbUQZGFagABVrJ1aagOyoL9X7Qm+wQNCR0V1lnElYfbqiwVhPiAUAimUoQVQ4/zz9NqR5oGXobgtfXxuYjRasWAGRmyr1sVXJF1OEYeEajBrm9mXSEqr7K9az8jyHF3CuftD0HZoi5aZaI2Tj66ny9V3+GEVujODWd6bCR2UzjQNlKOVYmM05eQ5g8B2egKwg9O4GMDbtOiWLnMCX+1xWpFQILUhuF4fENNeD6d5tffO72ubhCZKNc80TmYrwxe
-X-OriginatorOrg: Nvidia.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 19 Nov 2026 21:51:36.4904 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 90b591c2-8414-4082-be3c-08df468748c6
-X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=43083d15-7273-40c1-b7db-39efd9ccc17a; Ip=[216.228.117.161];
- Helo=[mail.nvidia.com]
-X-MS-Exchange-CrossTenant-AuthSource: MWH0EPF000C6187.namprd02.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SN7PR12MB7023
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -124,77 +60,38 @@ List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-18.8 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
+X-Spam-Status: No, score=-8.8 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
 	DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
-	INCLUDES_CR_TRAILER,INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,
-	SPF_PASS,USER_AGENT_GIT autolearn=unavailable autolearn_force=no
-	version=4.0.1
+	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,USER_AGENT_GIT autolearn=ham
+	autolearn_force=no version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-From: Danilo Krummrich <dakr@kernel.org>
+On Wed, 18 Nov 2026 17:29:41 +0100, Danilo Krummrich wrote:
+> [PATCH v3 0/7] lifetime-parameterized DRM File private data
 
-VFIO manages DMA ownership through the userspace IOMMU interface. Its
-PCI variant drivers must opt out of the driver's default DMA domain.
+Applied, thanks!
 
-Add Driver::DRIVER_MANAGED_DMA and pass it to the PCI core. Make it an
-unsafe marker as suggested, until the DMA setup tokens exist.
+  Branch: drm-rust-next
+  Tree:   https://gitlab.freedesktop.org/drm/rust/kernel.git
 
-Signed-off-by: Danilo Krummrich <dakr@kernel.org>
-Signed-off-by: Zhi Wang <zhiw@nvidia.com>
-Signed-off-by: Simon Song <xinmengs@nvidia.com>
----
- rust/kernel/pci.rs | 23 +++++++++++++++++++++++
- 1 file changed, 23 insertions(+)
+[1/7] rust: drm: rename Ioctl device context to Userspace
+      commit: 69976e5f24ed
+[2/7] rust: drm: gem: gate open/close callbacks with RegistrationGuard
+      commit: 6f90031b5cf9
+[3/7] rust: drm: move file_operations from gem to device
+      commit: acce9c14569d
+[4/7] rust: fs: add iminor() helper
+      commit: d63e44ab58dd
+[5/7] rust: drm: wrap fops open with RegistrationGuard
+      commit: 5a31079c7c5f
+[6/7] rust: drm: return impl PinInit from DriverFile::open()
+      commit: b8ab877d7b44
+[7/7] rust: drm: make Driver::File lifetime-parameterized
+      commit: fed919c71b52
 
-diff --git a/rust/kernel/pci.rs b/rust/kernel/pci.rs
-index fa67f2fc26bf..6013c89bfb5e 100644
---- a/rust/kernel/pci.rs
-+++ b/rust/kernel/pci.rs
-@@ -105,6 +105,7 @@ unsafe fn register(
-             (*pdrv.get()).probe = Some(Self::probe_callback);
-             (*pdrv.get()).remove = Some(Self::remove_callback);
-             (*pdrv.get()).id_table = T::ID_TABLE.as_ptr();
-+            (*pdrv.get()).driver_managed_dma = T::DRIVER_MANAGED_DMA.is_some();
-             if T::HAS_SRIOV_ENABLE {
-                 (*pdrv.get()).sriov_configure = Some(Self::sriov_configure_callback);
-             }
-@@ -293,6 +294,24 @@ unsafe impl RawDeviceIdIndex for DeviceId {
-     const DRIVER_DATA_OFFSET: usize = core::mem::offset_of!(bindings::pci_device_id, driver_data);
- }
- 
-+/// Marker for a driver that manages DMA ownership of its devices by itself.
-+///
-+/// The driver core does not claim the default DMA domain for the devices of such a driver. See
-+/// [`Driver::DRIVER_MANAGED_DMA`].
-+pub struct DriverManagedDma<D: ?Sized>(PhantomData<fn() -> *mut D>);
-+
-+impl<D: ?Sized> DriverManagedDma<D> {
-+    /// Declares that driver `D` manages DMA ownership of its devices by itself.
-+    ///
-+    /// # Safety
-+    ///
-+    /// The caller must ensure that devices bound to `D` are not used for DMA allocations or
-+    /// mappings through the kernel DMA API, directly or through helpers.
-+    pub const unsafe fn new() -> Self {
-+        Self(PhantomData)
-+    }
-+}
-+
- /// `IdTable` type for PCI.
- pub type IdTable<T> = &'static dyn kernel::device_id::IdTable<DeviceId, T>;
- 
-@@ -356,6 +375,10 @@ pub trait Driver {
-     /// The table of device ids supported by the driver.
-     const ID_TABLE: IdTable<Self::IdInfo>;
- 
-+    /// Set if the driver manages DMA ownership of its devices by itself, instead of using the
-+    /// default DMA domain. Construct with [`DriverManagedDma::new`].
-+    const DRIVER_MANAGED_DMA: Option<DriverManagedDma<Self>> = None;
-+
-     /// PCI driver probe.
-     ///
-     /// Called when a new pci device is added or discovered. Implementers should
--- 
-2.43.7
+The patches will appear in the next linux-next integration (typically within 24
+hours on weekdays).
 
+The patches are queued up for the upcoming merge window for the next major
+kernel release.
