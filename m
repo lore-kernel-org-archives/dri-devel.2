@@ -2,94 +2,42 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2D35460A6F45
-	for <dri-devel@archiver.kernel.org>; Thu, 19 Nov 2026 05:36:00 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0374F606AA40
+	for <dri-devel@archiver.kernel.org>; Thu, 19 Nov 2026 05:36:07 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=fail reason="signature verification failed" (2048-bit key) header.d=infradead.org header.i=@infradead.org header.a=rsa-sha256 header.s=bombadil.20210309 header.b=pfPcCYsQ
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=aQXp2N+5
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 57C0510ED19;
-	Thu, 19 Nov 2026 05:35:54 +0000 (UTC)
-Received: from bombadil.infradead.org (bombadil.infradead.org
- [198.137.202.133])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 5A35C10ED19;
- Thu, 19 Nov 2026 05:35:48 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
- d=infradead.org; s=bombadil.20210309; h=Content-Transfer-Encoding:
- MIME-Version:References:In-Reply-To:Message-ID:Date:Subject:Cc:To:From:Sender
- :Reply-To:Content-Type:Content-ID:Content-Description;
- bh=4HnqDLCNCiAOQ9sq1Q6ULWGj/wzn4gKYXx5Raw5Q7fU=; b=pfPcCYsQEwWHQjf5W29Fay/2Uv
- UJCzM/N8GPrKSlfa0kFLlCQSAsxwysOlDXJuf47g1kmF+Z2a4A6aqLLaImJuq+Uw0Pr+eVVIL20WJ
- 0+QsE2toVIUeuAewEy/xGnT7NZ6A5Ekqo5aDPryoX6bp/PFb3d+d1wjBI+Wlyl30Pa2FKn+cnqbDv
- 4+km0I/8557GlM9yhg4WcFnQT9PDGri91LWN2jFxyHexdEYpPDz1TuclUwMaVWFLOsyTLkgl2Bs2+
- gZQ+OUl6AGwuouyQ5KZhilUoxyrUBrMlpuvuiGEbOw7LPa0k+AQixDX+f23ld5jyeNVdBvzyUTiy3
- LAKnDb0w==;
-Received: from [50.53.43.113] (helo=bombadil.infradead.org)
- by bombadil.infradead.org with esmtpsa (Exim 4.100.1 #2 (Red Hat Linux))
- id 1xTuo9-0000000Aufu-0VZ6; Thu, 19 Nov 2026 05:35:41 +0000
-From: Randy Dunlap <rdunlap@infradead.org>
-To: linux-kernel@vger.kernel.org
-Cc: Randy Dunlap <rdunlap@infradead.org>, Jonathan Corbet <corbet@lwn.net>,
- Shuah Khan <skhan@linuxfoundation.org>, linux-doc@vger.kernel.org,
- David Hildenbrand <david@kernel.org>,
- Andrew Morton <akpm@linux-foundation.org>,
- Jason Gunthorpe <jgg@nvidia.com>, Leon Romanovsky <leonro@nvidia.com>,
- linux-mm@kvack.org, Jaroslav Kysela <perex@perex.cz>,
- Takashi Iwai <tiwai@suse.com>, linux-sound@vger.kernel.org,
- Jens Axboe <axboe@kernel.dk>, linux-block@vger.kernel.org,
- Marcel Holtmann <marcel@holtmann.org>,
- Luiz Augusto von Dentz <luiz.dentz@gmail.com>,
- linux-bluetooth@vger.kernel.org,
- Willem de Bruijn <willemdebruijn.kernel@gmail.com>,
- Jason Wang <jasowangio@gmail.com>, David Heidelberg <david@ixit.cz>,
- oe-linux-nfc@lists.linux.dev, Chas Williams <3chas3@gmail.com>,
- "David S. Miller" <davem@davemloft.net>,
- Eric Dumazet <edumazet@kernel.org>, Jakub Kicinski <kuba@kernel.org>,
- Paolo Abeni <pabeni@redhat.com>, netdev@vger.kernel.org,
- Helge Deller <deller@gmx.de>, linux-fbdev@vger.kernel.org,
- dri-devel@lists.freedesktop.org, MPT-FusionLinux.pdl@broadcom.com,
- "James E.J. Bottomley" <James.Bottomley@HansenPartnership.com>,
- "Martin K. Petersen" <mkp@kernel.org>, linux-scsi@vger.kernel.org,
- Miquel Raynal <miquel.raynal@bootlin.com>,
- Richard Weinberger <richard@nod.at>, Vignesh Raghavendra <vigneshr@ti.com>,
- Zhihao Cheng <chengzhihao1@huawei.com>, linux-mtd@lists.infradead.org,
- Neill Kapron <nkapron@google.com>, Andrey Konovalov <andreyknvl@gmail.com>,
- Greg Kroah-Hartman <gregkh@linuxfoundation.org>, linux-usb@vger.kernel.org,
- Juergen Gross <jgross@suse.com>,
- Stefano Stabellini <sstabellini@kernel.org>,
- xen-devel@lists.xenproject.org, Hans de Goede <hansg@kernel.org>,
- Arnd Bergmann <arnd@arndb.de>, "Michael S. Tsirkin" <mst@redhat.com>,
- =?UTF-8?q?Eugenio=20P=C3=A9rez?= <eperezma@redhat.com>,
- Sean Christopherson <seanjc@google.com>,
- Paolo Bonzini <pbonzini@redhat.com>, kvm@vger.kernel.org,
- virtualization@lists.linux.dev, Jan Kara <jack@suse.cz>,
- linux-fsdevel@vger.kernel.org, "Theodore Ts'o" <tytso@mit.edu>,
- linux-ext4@vger.kernel.org, Mike Marshall <hubcap@omnibond.com>,
- devel@lists.orangefs.org, Paulo Alcantara <pc@manguebit.org>,
- Namjae Jeon <linkinjeon@kernel.org>, linux-cifs@vger.kernel.org,
- Jaegeuk Kim <jaegeuk@kernel.org>, Chao Yu <chao@kernel.org>,
- linux-f2fs-devel@lists.sourceforge.net,
- Florian Fainelli <florian.fainelli@broadcom.com>,
- Broadcom internal kernel review list <bcm-kernel-feedback-list@broadcom.com>, 
- Tzung-Bi Shih <tzungbi@kernel.org>, Benson Leung <bleung@chromium.org>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- Alex Deucher <alexander.deucher@amd.com>,
- =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
- amd-gfx@lists.freedesktop.org, Jani Nikula <jani.nikula@linux.intel.com>,
- Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
- Rodrigo Vivi <rodrigo.vivi@intel.com>,
- Tvrtko Ursulin <tursulin@ursulin.net>, intel-gfx@lists.freedesktop.org,
- Matthew Brost <matthew.brost@intel.com>,
- =?UTF-8?q?Thomas=20Hellstr=C3=B6m?= <thomas.hellstrom@linux.intel.com>,
- intel-xe@lists.freedesktop.org
-Subject: [PATCH v2 08/12] docs: ioctl-number: update USB entries
-Date: Wed, 18 Nov 2026 21:35:09 -0800
-Message-ID: <20261119053514.255348-9-rdunlap@infradead.org>
-X-Mailer: git-send-email 2.56.1
-In-Reply-To: <20261119053514.255348-1-rdunlap@infradead.org>
-References: <20261119053514.255348-1-rdunlap@infradead.org>
-X-Archived-By: <archiver.kernel.org>
-MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+	by gabe.freedesktop.org (Postfix) with ESMTP id 07A3F10ED27;
+	Thu, 19 Nov 2026 05:36:01 +0000 (UTC)
+Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 2016210ED1A;
+ Thu, 19 Nov 2026 05:35:51 +0000 (UTC)
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+ by sea.source.kernel.org (Postfix) with ESMTP id C73CB48A17;
+ Thu, 19 Nov 2026 05:35:50 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 79BF41F000C7;
+ Thu, 19 Nov 2026 05:35:50 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+ s=k20260515; t=1795066550;
+ bh=qNhv8f7ztG8ChBHtjnkmQwUUU8sDghC9Duib2Qq/9F0=;
+ h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+ b=aQXp2N+5qsAEyMVGb8vGotDLxaop3mmBEFSP+Vt/koL1VyVKRx6/Ft16nUyZkCR8Y
+ LuQjS/GLsr0xIi7Gbtf1qDW+uKP0NLB+/y9LnY4i4IRyYfRIp1LdrqRrtibbMOVoGo
+ jy0GKEjt5PVxfPoqYI822VUWM7kfMMw9DwZNMkwMtGBIbuRjy1JEUpT+sGIn3p02+N
+ pb227LWZR8m7jztMESpyM1YsZvOpUa7e/ZugtVdNrvYm9qR9nUWZlPs8IkFJlxPlc6
+ XhxYgMMj/19mpjfTDPb23zGSSsFOeK2bi/9pIWqB9DUt6yaoKAg7fOa40/1hgwuh3v
+ y6RBNkHvsFEtw==
+Message-ID: <sashiko-outbox-222493@kernel.org>
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v4] drm/amd/display: Route connector DDC over AUX for
+ native DP sinks
+To: "Mario Limonciello" <superm1@kernel.org>
+Cc: amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org
+In-Reply-To: <20261118-superm1-amdgpu-ddc-v4-1-539eaeb4edd7@kernel.org>
+References: <20261118-superm1-amdgpu-ddc-v4-1-539eaeb4edd7@kernel.org>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Thu, 19 Nov 2026 05:35:50 +0000
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -100,54 +48,94 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
+Reply-To: sashiko-reviews@lists.linux.dev
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-16.6 required=3.0 tests=BAYES_00,DKIM_INVALID,
-	DKIM_SIGNED,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,
-	INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,
-	USER_AGENT_GIT autolearn=unavailable autolearn_force=no version=4.0.1
+X-Spam-Status: No, score=-10.8 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
+	DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
+	INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS
+	autolearn=unavailable autolearn_force=no version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
+X-Archived-By: <archiver.kernel.org>
 
-Update the list of files where USB ioctls are defined.
+Thank you for your contribution! Sashiko AI review found 1 potential
+issue to consider:
+- [High] drm/amd/display: stale link->aux_mode in amdgpu_dm_i2c_xfer()
+  breaks DP++
+--
 
-Signed-off-by: Randy Dunlap <rdunlap@infradead.org>
----
-v2: no change
+commit bd7217b6334d8e26e4a44e7561c8afe2462a790d
+Author: Mario Limonciello <superm1@kernel.org>
 
-[Since having multiple maintainers trying to merge these would
-cause some conflicts, it would be more manageable for Jon to
-take all of these through the docs-next tree.]
+drm/amd/display: Route connector DDC over AUX for native DP sinks
 
-Cc: Jonathan Corbet <corbet@lwn.net>
-Cc: Shuah Khan <skhan@linuxfoundation.org>
-Cc: linux-doc@vger.kernel.org
-Cc: Neill Kapron <nkapron@google.com>
-Cc: Andrey Konovalov <andreyknvl@gmail.com>
-Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-Cc: linux-usb@vger.kernel.org
+This commit routes transfers on a connector's DDC i2c adapter through the
+AUX DDC adapter when link->aux_mode is set so that native DisplayPort, eDP,
+and MST sinks can be reached via the connector's ddc bus.
 
- Documentation/userspace-api/ioctl/ioctl-number.rst |    6 ++++++
- 1 file changed, 6 insertions(+)
+> diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_connector.c =
+b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_connector.c
+> index b498fc5fbb140..f80de9e7f850c 100644
+> --- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_connector.c
+> +++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_connector.c
+> @@ -3373,6 +3373,22 @@ STATIC_IFN_KUNIT int amdgpu_dm_i2c_xfer(struct i2c=
+_adapter *i2c_adap,
+>  	int i;
+>  	int result =3D -EIO;
+> =20
+> +	if (!i2c->oem && ddc_service->link) {
+> +		struct dc_link *link =3D ddc_service->link;
+> +		struct amdgpu_dm_connector *aconnector =3D link->priv;
+> +
+> +		/*
+> +		 * DDC to a native DisplayPort sink (SST, MST or eDP) is
+> +		 * tunneled over the AUX channel; the physical i2c pins only
+> +		 * reach DVI/HDMI sinks (e.g. DP++ with a passive adapter).
+> +		 * Use the same aux_mode selection as the EDID read helpers so
+> +		 * the connector's single "ddc" bus works for either sink.
+> +		 */
+> +		if (aconnector && link->aux_mode &&
+> +		    aconnector->dm_dp_aux.aux.ddc.algo)
+> +			return i2c_transfer(&aconnector->dm_dp_aux.aux.ddc, msgs, num);
+> +	}
 
---- linux-next-20261116.orig/Documentation/userspace-api/ioctl/ioctl-number.rst
-+++ linux-next-20261116/Documentation/userspace-api/ioctl/ioctl-number.rst
-@@ -233,6 +233,9 @@ Code  Seq#    Include File
- 'U'   00-EF  linux/usbdevice_fs.h
- 'U'   C0-CF  drivers/bluetooth/hci_uart.h
- 'U'   00     net/nfc/nci_core.h                                        conflict!
-+'U'   00-0F  linux/usb/raw_gadget.h                                    conflict!
-+'U'   01     linux/usb/g_uvc.h                                         conflict!
-+'U'   64     drivers/usb/misc/usbtest.c                                conflict!
- 'V'   all    linux/vt.h                                                conflict!
- 'V'   all    linux/videodev2.h                                         conflict!
- 'V'   C0     linux/ivtvfb.h                                            conflict!
-@@ -279,6 +282,9 @@ Code  Seq#    Include File
- 'g'   20-2F  linux/usb/g_printer.h
- 'g'   01-0F  mm/gup_test.h                                             conflict!
-                                                                        <mailto:linux-mm@kvack.org>
-+'g'   01-03  linux/usb/functionfs.h                                    conflict!
-+      80-86
-+'g'   41-42  linux/usb/g_hid.h
- 'h'   00-7F                                                            conflict! Charon filesystem
-                                                                        <mailto:zapman@interlan.net>
- 'h'   00-1F  linux/hpet.h                                              conflict!
+[Severity: High]
+As reported by Eren =C3=96zen on v2 [1], can a stale link->aux_mode misrout=
+e the
+passive DP++ dongle identification read over AUX when a native DisplayPort
+sink is unplugged and replaced with a passive DP-to-HDMI adapter on the
+same port?
+
+link->aux_mode is not cleared on disconnect, and
+detect_link_and_local_sink() only updates it after detect_dp() returns:
+
+drivers/gpu/drm/amd/display/dc/link/link_detection.c:detect_link_and_local_=
+sink() {
+	...
+			if (!detect_dp(link, &sink_caps, reason)) {
+	...
+		set_ddc_transaction_type(link->ddc,
+						     sink_caps.transaction_type);
+
+		link->aux_mode =3D
+			link_is_in_aux_transaction_mode(link->ddc);
+	...
+}
+
+During detect_dp(), dp_passive_dongle_detection() ->
+query_dp_dual_mode_adaptor() reads DP_HDMI_DONGLE_ADDRESS (0x40) via
+i2c_read() -> dm_helpers_submit_i2c() -> i2c_transfer(&aconnector->i2c->bas=
+e)
+-> amdgpu_dm_i2c_xfer() while link->aux_mode is still true from the
+previous native DP sink.  Forwarding that read to I2C-over-AUX fails on a
+passive DP++ adapter, causing query_dp_dual_mode_adaptor() to fall back to
+DISPLAY_DONGLE_DP_DVI_DONGLE (SIGNAL_TYPE_DVI_SINGLE_LINK), which caps the
+pixel clock to 165 MHz and disables HDMI audio and infoframes.
+
+[1] https://lore.kernel.org/r/QU464501lRPW3X8es-jXBFOvvwqS3eKR3HRS33U6x6o5e=
+YC6h5AKV7f3ZXRCaU7-sEcupJMHereqyDUsUSG_fsOMNwvGO_CcZRKsz1AgObk=3D@protonmai=
+l.com
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261118-superm1-am=
+dgpu-ddc-v4-1-539eaeb4edd7@kernel.org?part=3D1
