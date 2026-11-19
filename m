@@ -2,72 +2,67 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 39DC9606A325
-	for <dri-devel@archiver.kernel.org>; Thu, 19 Nov 2026 17:07:01 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7947160A2625
+	for <dri-devel@archiver.kernel.org>; Thu, 19 Nov 2026 17:07:20 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=hkzfxyba
+	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=LTxIE/2J
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 52CD810EC73;
-	Thu, 19 Nov 2026 17:06:55 +0000 (UTC)
-Received: from mail-pg1-f197.google.com (mail-pg1-f197.google.com
- [209.85.215.197])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 5485911266F
- for <dri-devel@lists.freedesktop.org>; Thu, 19 Nov 2026 17:06:48 +0000 (UTC)
-Received: by mail-pg1-f197.google.com with SMTP id
- 41be03b00d2f7-cdd48746a49so4489a12.0
- for <dri-devel@lists.freedesktop.org>; Thu, 19 Nov 2026 09:06:48 -0800 (PST)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 8B8AE10F000;
+	Thu, 19 Nov 2026 17:07:14 +0000 (UTC)
+Received: from mail-dy1-f199.google.com (mail-dy1-f199.google.com
+ [74.125.82.199])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id E674E112670
+ for <dri-devel@lists.freedesktop.org>; Thu, 19 Nov 2026 17:07:08 +0000 (UTC)
+Received: by mail-dy1-f199.google.com with SMTP id
+ 5a478bee46e88-383f2d05c73so3881103eec.0
+ for <dri-devel@lists.freedesktop.org>; Thu, 19 Nov 2026 09:07:08 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=google.com; s=20260707; t=1795108008; x=1795712808;
+ d=google.com; s=20260707; t=1795108028; x=1795712828;
  darn=lists.freedesktop.org; 
  h=content-type:cc:to:from:subject:message-id:mime-version:date:from
  :to:cc:subject:date:message-id:reply-to:content-type;
- bh=S+ehNx9nxe0Vbkw2VFM/NtFxwLazlnXEs5+6KOboXyw=;
- b=hkzfxyba70QO4kLQsWcv4QtTQN/IsiXcRgQUJnFFbq/Q9J7V1XdGHb9WjQRpCnw1xe
- O2qnxiuw/WLdJqnwo1WIsrumJ5qYsp3w2M0JLSXhuoW6bazmXdxxtEUzP1dQKgDZRUqr
- dYl5s9fJjKcGNgFdakF8HKQernlVuf/3FcoE6l/UhHn4w2oTWUfjYhzH6gDKQChwQsqL
- g0cIY9ofYcbauhK4WzJCxC5wqpDabAG66XqvQmRNzdfMBRwDXidiq0rHRznpYDaRk1i+
- HK6pWYRlho+nMD/v7TS5VTYZkScORL+Bz6rE+vFWh9ZJgiUTPmWh8jga2clP0RrkwzXA
- /oeg==
+ bh=4HXYvdAAUg6PhdIi6P7o7bJNHIqooKYEpFbbw0vh7ik=;
+ b=LTxIE/2JsH7lz7TfJljoCrWJwcYpH2Q6YYuPG4kQ4vTIB3+3fO7jaRwgWbFLLyAUuZ
+ oyZZwgxt0L7a4WsyaNwocm0vAU8AuRx7IhmFJo5N6SEnh3Vj0tKoTmQH2v1F4yn3tKqS
+ dukFv5SnE7/KIC5Wjt738EFeiONEcFcv2BnWeOPJeklK7btAwOS30AXksR1grm2e6U7o
+ MdQgXotb/1EcgYqYU1uKTBScYeL4c5m3uruMnDKpC7ruH/TJfzqaxuZt6BnoYBDBCAEj
+ k08rQqCEZ5KH4grgoxPRHAE7q2u1bddvFkITj445wBlCRTvHyX0aopYJr2Dqgy6ib/8b
+ sxsw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20260707; t=1795108008; x=1795712808;
+ d=1e100.net; s=20260707; t=1795108028; x=1795712828;
  h=content-type:cc:to:from:subject:message-id:mime-version:date
  :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
  :content-type;
- bh=S+ehNx9nxe0Vbkw2VFM/NtFxwLazlnXEs5+6KOboXyw=;
- b=D0WMs/KsdqDrP+tt82EqeDROHRbjYQGYHHbl1zF40okV81ODRXYhx1x+K4hBswg1vs
- uAlBHtjcadAUUWcSnqqUeiPYlhhtoaRAIktpRl5vsOkVLGQiqdWevYSX9AQUfU1C5R8Y
- oSmvm8Wt1KIcUc292fPhHCS3QXW/zIm209REgf0pinIjPPPuS3bK+k1+s+fozOO/Xcja
- xWmuzMnw8GEExc2qtyGzkLjMLxifZpzY/xFeyooFcKRiiUeojnRlsKdD3j2W77APgkJy
- e1XnE3j3cxAQGIvwPoJZlfSGnCktRpJGeegCIbF06eq1n17dcYKUE1ryZxI+gcToVxAs
- h6Yg==
+ bh=4HXYvdAAUg6PhdIi6P7o7bJNHIqooKYEpFbbw0vh7ik=;
+ b=ly2BMOY/xe8zYNt2VImka2ywxsO3yQzxSrAMD5TchueSC+lsaEv1cUK9z9uM6DCGNQ
+ TEAtFeyLobz9S9wd9G7v/XRXsep0mNRN59xtQBDq6Osr/a165GcFDxph4A/luo09aawo
+ osNIROxHGpsaM++tqN5EYxmBJ155WZSGqzvVxCI40JpOV48XG8oBBJW6Nt9L8fc9PG1Z
+ /ARtWg/oGt0nUQtKQp8UWmvcCQu+qYGBQBLYFg0PZJQxBhCUstlG8NNGg4ph8es/9y0c
+ cDbnKYEJmJ8AZU21iF4FrrGzXuIrPu0rTkShilg/xRIxwBxAFMJRklMZ1ZoR7gt3oH9F
+ T2xQ==
 X-Forwarded-Encrypted: i=1;
- AL+hErFPKWQgVq4HD88L7WKBqMrDhFUkENUvwQC699Dsiiic3qEVjDrhORfuQrOxCUpQxEa2UL7lcCem5/o=@lists.freedesktop.org
-X-Gm-Message-State: APuU4Z+pw6y2J6BMzzKbkF/zhmIGYe9qCzvX2ktVyiGcL7MH8EjnDFYs
- utEN0yAfM7TX3Rz5zgKlgsFqQWl3V//zN7wvDChCfkYZaorsQdt2PgbL3lLgzirzVckQ8weJnkJ
- +tY8P1+k10g==
-X-Received: from pgfv2-n1.prod.google.com
- ([2002:a05:6a02:8742:10b0:cd8:b543:4c4])
+ AL+hErGMoXH5Blp2sAsZdNWljIETl/bLWJbHv6C7V3nr64EP3refw1aob4+bCfHKGz1M9MMyRXlKYpRsg6Y=@lists.freedesktop.org
+X-Gm-Message-State: APuU4Z9SXwxGwyFbjUTxvhBuWdTeoDvH5WuZGG3azqAHiSmDN9zG4PyL
+ xyYNN6aoq37t1SCFsbEm+/EJvCy11ISUgAiOlZSplSd/0Xg2747q6FYcOesN+Oiw8JK3nLE+7MZ
+ 5xPeIOprRjg==
+X-Received: from dycc23.prod.google.com ([2002:a05:693c:60d7:b0:383:9f52:e550])
  (user=irogers job=prod-delivery.src-stubby-dispatcher) by
- 2002:a05:6a20:6a28:b0:3e1:4424:8f72
- with SMTP id adf61e73a8af0-4014d35cae7mr249471637.69.1795108007517; Thu, 19
- Nov 2026 09:06:47 -0800 (PST)
-Date: Thu, 19 Nov 2026 09:06:42 -0800
+ 2002:a05:693c:894c:20b0:381:2f5d:a696
+ with SMTP id 5a478bee46e88-382815231femr6073879eec.34.1795108027821; Thu, 19
+ Nov 2026 09:07:07 -0800 (PST)
+Date: Thu, 19 Nov 2026 09:07:03 -0800
 X-Archived-By: <archiver.kernel.org>
 Mime-Version: 1.0
 X-Mailer: git-send-email 2.56.1.708.g77570a6a1d-goog
-Message-ID: <20261119170642.1521198-1-irogers@google.com>
-Subject: [PATCH] drm/i915/display: Pass crtc->pipe to
- intel_pmdemand_update_port_clock()
+Message-ID: <cover.1795106955.git.irogers@google.com>
+Subject: [PATCH 0/2] drm/amdgpu: Initialize r in VM and TTM buffer helpers
 From: Ian Rogers <irogers@google.com>
-To: Jani Nikula <jani.nikula@linux.intel.com>,
- Rodrigo Vivi <rodrigo.vivi@intel.com>, 
- Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
- Tvrtko Ursulin <tursulin@ursulin.net>, 
+To: Alex Deucher <alexander.deucher@amd.com>, 
+ "=?UTF-8?q?Christian=20K=C3=B6nig?=" <christian.koenig@amd.com>,
  David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>
-Cc: intel-gfx@lists.freedesktop.org, intel-xe@lists.freedesktop.org, 
- dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org, 
- llvm@lists.linux.dev, Elkin Cruz <elkin@google.com>,
- Ian Rogers <irogers@google.com>
+Cc: amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org, 
+ linux-kernel@vger.kernel.org, llvm@lists.linux.dev, 
+ Elkin Cruz <elkin@google.com>, Ian Rogers <irogers@google.com>
 Content-Type: text/plain; charset="UTF-8"
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -80,72 +75,32 @@ List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-26.3 required=3.0 tests=BAYES_00,DKIMWL_WL_MED,
+X-Spam-Status: No, score=-21.3 required=3.0 tests=BAYES_00,DKIMWL_WL_MED,
 	DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
-	INCLUDES_CR_TRAILER,INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,
-	SPF_PASS,USER_AGENT_GIT,USER_IN_DEF_DKIM_WL autolearn=unavailable
-	autolearn_force=no version=4.0.1
+	INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,
+	USER_AGENT_GIT,USER_IN_DEF_DKIM_WL autolearn=ham autolearn_force=no
+	version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-In intel_modeset_readout_hw_state(), 'pipe' is only populated inside the
-earlier for_each_intel_encoder() loop. Later, inside
-for_each_intel_crtc(), intel_pmdemand_update_port_clock() is called with
-'pipe' instead of 'crtc->pipe'.
+Two fixes in drm/amdgpu for uninitialized return-value regressions
+found via Clang -Wconditional-uninitialized on an x86_64
+allyesconfig build:
 
-When the encoder list is empty (for example on headless SKUs or VBT
-configurations with all display outputs disabled), 'pipe' is completely
-uninitialized and indexes out-of-bounds into pmdemand_state->ddi_clocks[].
-Even when encoders are present, every CRTC iteration overwrites the slot
-for the last encoder's pipe rather than updating crtc->pipe.
+1. Initialize r = 0 in amdgpu_vm_bo_update().
+2. Initialize r = 0 in amdgpu_ttm_clear_buffer().
 
-Scope 'pipe' locally to for_each_intel_encoder() and pass crtc->pipe to
-intel_pmdemand_update_port_clock().
+Build-tested with LLVM=1 W=1 (-Werror); not runtime-tested on
+AMDGPU hardware.
 
-Found via an x86_64 LLVM=1 (Clang 21.1.8) allyesconfig audit with
--Wconditional-uninitialized enabled; fix and changelog drafted with an AI
-coding assistant. Build-tested for both i915 and xe under LLVM=1 W=1
-(-Werror) and -Wconditional-uninitialized; not runtime-tested on Intel
-Xe_LPD+ hardware.
+Ian Rogers (2):
+  drm/amdgpu: initialize r in amdgpu_vm_bo_update()
+  drm/amdgpu: initialize r in amdgpu_ttm_clear_buffer()
 
-Fixes: 4c4cc7ac207f ("drm/i915/mtl: Add support for PM DEMAND")
-Signed-off-by: Ian Rogers <irogers@google.com>
----
- drivers/gpu/drm/i915/display/intel_modeset_setup.c | 7 +++----
- 1 file changed, 3 insertions(+), 4 deletions(-)
+ drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c | 2 +-
+ drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c  | 2 +-
+ 2 files changed, 2 insertions(+), 2 deletions(-)
 
-diff --git a/drivers/gpu/drm/i915/display/intel_modeset_setup.c b/drivers/gpu/drm/i915/display/intel_modeset_setup.c
-index 6aed88173770..e5d7c05e006a 100644
---- a/drivers/gpu/drm/i915/display/intel_modeset_setup.c
-+++ b/drivers/gpu/drm/i915/display/intel_modeset_setup.c
-@@ -695,7 +695,6 @@ static void intel_modeset_readout_hw_state(struct intel_display *display)
- {
- 	struct intel_pmdemand_state *pmdemand_state =
- 		to_intel_pmdemand_state(display->pmdemand.obj.state);
--	enum pipe pipe;
- 	struct intel_crtc *crtc;
- 	struct intel_encoder *encoder;
- 	struct intel_connector *connector;
-@@ -726,8 +725,7 @@ static void intel_modeset_readout_hw_state(struct intel_display *display)
- 
- 	for_each_intel_encoder(display->drm, encoder) {
- 		struct intel_crtc_state *crtc_state = NULL;
--
--		pipe = 0;
-+		enum pipe pipe = PIPE_A;
- 
- 		if (encoder->get_hw_state(encoder, &pipe)) {
- 			crtc = intel_crtc_for_pipe(display, pipe);
-@@ -869,7 +867,8 @@ static void intel_modeset_readout_hw_state(struct intel_display *display)
- 		drm_dbg_kms(display->drm, "[CRTC:%d:%s] min_cdclk %d kHz\n",
- 			    crtc->base.base.id, crtc->base.name, crtc_state->min_cdclk);
- 
--		intel_pmdemand_update_port_clock(display, pmdemand_state, pipe,
-+		intel_pmdemand_update_port_clock(display, pmdemand_state,
-+						 crtc->pipe,
- 						 crtc_state->port_clock);
- 	}
- 
 -- 
 2.56.1.708.g77570a6a1d-goog
 
