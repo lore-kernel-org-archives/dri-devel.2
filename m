@@ -2,86 +2,89 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E3A7B606A320
-	for <dri-devel@archiver.kernel.org>; Thu, 19 Nov 2026 08:19:59 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=baylibre.com header.i=@baylibre.com header.a=rsa-sha256 header.s=google header.b=E+P1sIxB
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 95A7F606A320
+	for <dri-devel@archiver.kernel.org>; Thu, 19 Nov 2026 08:23:47 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 502C910E55F;
-	Thu, 19 Nov 2026 08:19:54 +0000 (UTC)
-Received: from mail-wm1-f47.google.com (mail-wm1-f47.google.com
- [209.85.128.47])
- by gabe.freedesktop.org (Postfix) with ESMTPS id D186310E55F
- for <dri-devel@lists.freedesktop.org>; Thu, 19 Nov 2026 08:19:47 +0000 (UTC)
-Received: by mail-wm1-f47.google.com with SMTP id
- 5b1f17b1804b1-4bb5b8ef642so16759805e9.1
- for <dri-devel@lists.freedesktop.org>; Thu, 19 Nov 2026 00:19:47 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=baylibre.com; s=google; t=1795076386; x=1795681186;
- darn=lists.freedesktop.org; 
- h=content-type:mime-version:message-id:date:references:in-reply-to
- :subject:cc:to:from:from:to:cc:subject:date:message-id:reply-to
- :content-type; bh=p+dKc+IASGuU74BQrkjO8c1LFAuMGojRAMZOBhZUcyk=;
- b=E+P1sIxBA5Q3l46a6EGUdEOAr1F/IES6FWyBKgF/Dlc0RZzpwYq/fryTgOrieNRV1x
- Zo1II/3hkl4Wph0A5/1YqYT3fhfcAkbtiEt07LdD5+37XTjeRMJAgSZpSPaTCbV1AOwS
- RxScWhlIXyghNEtJzKB9bY0cR9GifTKPpl3keoJbtYYqV/dyS47RFY4eWYB1FSu0sD/x
- B6MUqkCDpA7rXLlmwNFgQAHoK/GgLZGg8WAi4KI9PW53Q+UMe0Ud9COy7G8X4vWYYk2/
- xACEE3hvO+LriKlI/EDYpGmSHKv7vrWIMLjGLAf6e0KLjp0A8Sg+sC0926DP3EIwTVW6
- MrZQ==
+	by gabe.freedesktop.org (Postfix) with ESMTP id BF93D10E222;
+	Thu, 19 Nov 2026 08:23:46 +0000 (UTC)
+Received: from mail-ua1-f54.google.com (mail-ua1-f54.google.com
+ [209.85.222.54])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id AC6EC10E222
+ for <dri-devel@lists.freedesktop.org>; Thu, 19 Nov 2026 08:23:45 +0000 (UTC)
+Received: by mail-ua1-f54.google.com with SMTP id
+ a1e0cc1a2514c-9905d61449cso557443241.0
+ for <dri-devel@lists.freedesktop.org>; Thu, 19 Nov 2026 00:23:45 -0800 (PST)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20260707; t=1795076386; x=1795681186;
- h=content-type:mime-version:message-id:date:references:in-reply-to
- :subject:cc:to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject
- :date:message-id:reply-to:content-type;
- bh=p+dKc+IASGuU74BQrkjO8c1LFAuMGojRAMZOBhZUcyk=;
- b=FbahD0zlqqUduAxHu/HYOQQ4GWcb0DWAJxf/IAvrK0T2spcGbNXJsPsYt+Vl3INCRT
- zrbm7PcKnDRBpsVUkv+YzB8XMNPK8nS5X6DXjs1NH+ceosWY2YmKnIo70SiL5R6FZZF5
- Kmrfqq9qlFNcvzw3NtH1pKr4NH8BhAj0m5x0jhISZeAmB/rSsmrHySTURwfnhB9ZUEJT
- owll+prv99SNtHkwUg5uv2vss8uj/QbFWy1CDwHmFo6S4HyCg6tSZMmFC/1FKaJbSCsY
- uuHWaDfVsjmT9zMw4UANqjNQmTmyF4E+O+3OX65plG7GTFM5ZY2h0bfuGjPCHjBXX/K7
- i+cw==
+ d=1e100.net; s=20260707; t=1795076624; x=1795681424;
+ h=content-transfer-encoding:content-type:cc:to:subject:message-id
+ :date:from:in-reply-to:references:mime-version:x-gm-gg
+ :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+ :content-type;
+ bh=+hfyVl1XUQA6cwLu2cPCDOrlTt5udZgDRMAPyOiNJi0=;
+ b=dOnN6oqJkpr6miA+XZTiE6xD+qB3kHYTjY07EklFVwpHNZszY7GT4alIFyjZovIr/R
+ 7ZkBf6Op6a5FvAFDMYBWW2kvcl6tHTiEpfNE4tYen7x/Dkhf1HN2DGgPRFwJVYTrW4e+
+ tsM4+HxLmwPozZupFLzFinbfF/ciVl94EH7uxxURz0HorAjSJdCCsCk96IIvebhNNhdI
+ WL0QSIH3lSdDPaJ+q5FrgrPMxwn7pkX57sW4DcB2hfjyVi5MkP59jRPslj23il7FHIua
+ jT5NnfymwHWbuiknE5wc5lbG4TiZqkFMspegw+vNqw8LoUlgX6YuBHzvfjpjwu+pt4/t
+ rEXQ==
 X-Forwarded-Encrypted: i=1;
- AL+hErH7NLAaEcGLzFiL4O9kjC+7iVniiU2Nes38MfEkPOHaZb13nLJgiBBGhr6GmjRZpXT47rcl39gRThE=@lists.freedesktop.org
-X-Gm-Message-State: APuU4Z9cRvda0NW9BUp4yn2dzm+/ET5g8EXWTyp8xKcpChbMyByI9Iip
- Y6xFHC2nlgn/deXAJW2XoOe8jlQcKJ2HA+7mFLZ1RdLB3b8WbsRU0wtmosLL5rpuQfo=
-X-Gm-Gg: AYBFou2LR7/7bmAtFU/eVXRA8GI/GUBmNSOY3KN1kFRgiScK9VfDewHTUFu/miTDxhs
- Mh2WlzRblSIr6nBLihP/5dGSRWNl+KR3g/mhiMskyUFR5bp+ApvJBjldrBbnvVDNHRxZW6fEd84
- 0WcA6CFrHcKfPQvWJ90s29ZFgMHuf/tOTTZShHzpJ4vUrUVCMP9He9XtGg36IKc53cRR+1y1z/G
- C1ZG23vnbO+CxeZGMXRdezd5KaGwmjD3FLcO3J9t8CpHwvmu2FpqAHH/imPmVhf13xKgK9DlMXr
- kc97evYYd0EzmNJiaMhL9ZTxYodjGmJvjAYZ2Yz+3QktCMJznAuYm+MAFNZ2BseHAfLwAdznhXD
- N9X9to/nhh/d+4jlwQGOeT/9WSBA806vN1edukozgiM+nrc0MGMuQdGVbXJ4pWSYs94nqxr7JXZ
- sbkeVc1OO3LDJcU0lDKJUBwmwd2WYcpcQdl53bMudgpGFwGL5DxedlCTG0dQJML2msa0J9pNv+R
- kVNh60Sz32ppxhAXIyHsH4rx4dnrJ7gJC1Hi57KQ8SEm0kzornklxo2OJUfjb9U/5aPEhSPT4Tf
- h7q18iML3s9dYtds762ztkN9dn4jZhZO1UDK+HmEAKHaoEwV
-X-Received: by 2002:a05:600c:8b63:b0:4a7:8fe8:130c with SMTP id
- 5b1f17b1804b1-4bb7da27088mr96761205e9.28.1795076386236; 
- Thu, 19 Nov 2026 00:19:46 -0800 (PST)
-Received: from localhost (82-67-6-57.subs.proxad.net. [82.67.6.57])
- by smtp.gmail.com with ESMTPSA id
- 5b1f17b1804b1-4bb84e5656asm17330585e9.3.2026.11.19.00.19.45
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 19 Nov 2026 00:19:45 -0800 (PST)
-From: Jerome Brunet <jbrunet@baylibre.com>
-To: Gregory Williams <gregory.williams@amd.com>
-Cc: Stephen Boyd <sboyd@kernel.org>, Brian Masney <bmasney+clk@redhat.com>,
- Jerome Brunet <jbrunet+clk@baylibre.com>, Rob Herring <robh@kernel.org>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
- <conor+dt@kernel.org>, Michal Simek <michal.simek@amd.com>, Oded Gabbay
- <ogabbay@kernel.org>, kishore Manne <nava.kishore.manne@amd.com>, Izhar
- Ameer Shaikh <izhar.ameer.shaikh@amd.com>, Greg Kroah-Hartman
- <gregkh@linuxfoundation.org>, Jay Buddhabhatti <jay.buddhabhatti@amd.com>,
- Ronak Jain <ronak.jain@amd.com>, linux-clk@vger.kernel.org,
- devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
- linux-arm-kernel@lists.infradead.org, dri-devel@lists.freedesktop.org
-Subject: Re: [PATCH 00/15] accel: Add AMD Versal AI Engine driver (with
- Versal Gen 2 firmware support)
-In-Reply-To: <20261118233211.4121361-1-gregory.williams@amd.com>
-References: <20261118233211.4121361-1-gregory.williams@amd.com>
-Date: Thu, 19 Nov 2026 09:19:45 +0100
-Message-ID: <1jcxs12py6.fsf@starbuckisacylon.baylibre.com>
+ AL+hErHFVV63v99PGZOq35mhH4DJsWEX+REWpVjng/63DEHIS4zL2p2nhLy3n6eNZ5R0u+5YcZnIJdS8agk=@lists.freedesktop.org
+X-Gm-Message-State: APuU4Z9vN2bGzTy9UCJUWNBeFwASRXTd7Fju86Rf/ZXqTZJh4v8Zevs+
+ ne3g+H+JL6YYRpENfSirMVB4anUzMmJik/+pqEyXJc4XhlDHeKhMA3HNUyTUt+WO
+X-Gm-Gg: AYBFou28mNUFezdWTBhv/oEC7RFqRUrPZvdetWPr3QiLG8velP0c8L0MLMSBrlDqZh8
+ dkWYadaOywxkBYpnRYA8fvFqPXRVsl3sUSZR3vibWvN8/Nin/j02PHtOQ+WAS0A1/UkLJ94qpOU
+ yi5NBFAl66/FcPX+JAemVYnp22BgEvLWn3vRZ+EZx6aAcKrwfA8943D7tb8oX4HMfGhNATavYTj
+ JLlEfuldndewQebYsog//w0wi8coVRVs8GCjK+jJAkJaOJifoOcLfj2eCl+h6mxlMHnWZ7i6ZgL
+ tr+wYWz9Q9l/DG8u/eFiEm+tjH2ZfgHq9uy1ss8jPlr+hq0K1pEKIt/bJHZXQocn5GMipSxJKHk
+ 6mU5tXxH54b6f+khGQd0CNZPWFBPo8n1oo9yLHiMKlN0DLBNnyvZScsBW+JXiifXCO0LlX8iw+2
+ qtMg2GIFwGlJ5FCzOIsYTGPj7dELIzuXmJcDK4H5EbgySvtLkhn4G1OzomCnMQDcLIfFqyM4cQI
+ msppcxZ1WHYxdPp8507TE0U1Br5YeDseiJiIMC0Ag242njibfSu2hXhSuPP+JZR6q3utPclmLmb
+ UXqPT6I4IucCKdhWHry5YT3YND8ejWjtq5hYTJTnh3zRrYLp05cJOXNqzPYdPQzee9nK7NM9tmw
+ WGVJZuXww9lRn
+X-Received: by 2002:a05:6102:2906:b0:7b1:6028:5475 with SMTP id
+ ada2fe7eead31-7d6ba3953f5mr1904112137.12.1795076624210; 
+ Thu, 19 Nov 2026 00:23:44 -0800 (PST)
+Received: from mail-vs1-f54.google.com (mail-vs1-f54.google.com.
+ [209.85.217.54]) by smtp.gmail.com with ESMTPSA id
+ ada2fe7eead31-7d6b8ea9d2csm3702074137.1.2026.11.19.00.23.43
+ for <dri-devel@lists.freedesktop.org>
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Thu, 19 Nov 2026 00:23:43 -0800 (PST)
+Received: by mail-vs1-f54.google.com with SMTP id
+ ada2fe7eead31-7d2dc1ac787so616737137.2
+ for <dri-devel@lists.freedesktop.org>; Thu, 19 Nov 2026 00:23:43 -0800 (PST)
+X-Forwarded-Encrypted: i=1;
+ AL+hErGF+YNUL1NfWJpfQ8wGaGc24suVLYxHPCMontu099u6XZ5ACm0IL4UVWsQwV8p2Oi9tPlS0YC+dB0M=@lists.freedesktop.org
+X-Received: by 2002:a67:e113:0:b0:7d2:a019:b42a with SMTP id
+ ada2fe7eead31-7d6ba48d83dmr1658750137.32.1795076623219; Thu, 19 Nov 2026
+ 00:23:43 -0800 (PST)
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain
+References: <20261118214518.29317-1-ville.syrjala@linux.intel.com>
+ <20261118214518.29317-21-ville.syrjala@linux.intel.com>
+ <20261118221114.GI1923307@killaraus.ideasonboard.com>
+ <av4nb98f3ewe2rV3@intel.com>
+ <20261118223911.GJ1923307@killaraus.ideasonboard.com>
+ <av4tQaL6caoqd2w8@intel.com>
+ <CAMuHMdWSiwX6AoPoPwF4zrYpO8xdaG=aq7U2JG_RjyS-E5UtcQ@mail.gmail.com>
+ <20261119081613.GO1923307@killaraus.ideasonboard.com>
+In-Reply-To: <20261119081613.GO1923307@killaraus.ideasonboard.com>
+From: Geert Uytterhoeven <geert@linux-m68k.org>
+Date: Thu, 19 Nov 2026 09:23:32 +0100
+X-Gmail-Original-Message-ID: <CAMuHMdXvFVhYiT1CSHoe45tUkkDPz=pND6jc0CswQWF3agPC_g@mail.gmail.com>
+X-Gm-Features: Aa3M54qDzVkUx71v61aMc9IrVxbyT9_EmyPnJjNSiSx7Z1-Yks0fKGnCa5fVWic
+Message-ID: <CAMuHMdXvFVhYiT1CSHoe45tUkkDPz=pND6jc0CswQWF3agPC_g@mail.gmail.com>
+Subject: Re: [PATCH v4 20/20] drm/rcar-du: Allow VSP and writeback build with
+ COMPILE_TEST=y
+To: Laurent Pinchart <laurent.pinchart@ideasonboard.com>
+Cc: =?UTF-8?B?VmlsbGUgU3lyasOkbMOk?= <ville.syrjala@linux.intel.com>, 
+ dri-devel@lists.freedesktop.org, 
+ Tomi Valkeinen <tomi.valkeinen+renesas@ideasonboard.com>, 
+ Kieran Bingham <kieran.bingham+renesas@ideasonboard.com>, 
+ Geert Uytterhoeven <geert+renesas@glider.be>,
+ Magnus Damm <magnus.damm@gmail.com>, linux-renesas-soc@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -93,135 +96,115 @@ List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-10.8 required=3.0 tests=BAYES_00,DKIM_SIGNED,
-	DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_PATCH,
+X-Spam-Status: No, score=-13.8 required=3.0 tests=BAYES_00,
+	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
 	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS autolearn=unavailable
 	autolearn_force=no version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-On mer. 18 nov. 2026 at 15:31, Gregory Williams <gregory.williams@amd.com> wrote:
+Hi Laurent,
 
-> This series adds a driver for the AMD AI Engine (AIE) found on Versal
-> devices, together with the firmware changes the driver depends on. AI Engine
-> is a tile array based accelerator used for applications such as beamforming and
-> machine learning inference. Tiles are organised in columns, and groups of
-> columns form partitions that an application requests, initialises and releases.
+On Thu, 19 Nov 2026 at 09:16, Laurent Pinchart
+<laurent.pinchart@ideasonboard.com> wrote:
+> On Thu, Nov 19, 2026 at 08:38:21AM +0100, Geert Uytterhoeven wrote:
+> > On Wed, 18 Nov 2026 at 23:57, Ville Syrj=C3=A4l=C3=A4 wrote:
+> > > On Thu, Nov 19, 2026 at 12:39:11AM +0200, Laurent Pinchart wrote:
+> > > > On Thu, Nov 19, 2026 at 12:32:15AM +0200, Ville Syrj=C3=A4l=C3=A4 w=
+rote:
+> > > > > On Thu, Nov 19, 2026 at 12:11:14AM +0200, Laurent Pinchart wrote:
+> > > > > > On Wed, Nov 18, 2026 at 11:45:17PM +0200, Ville Syrjala wrote:
+> > > > > > > From: Ville Syrj=C3=A4l=C3=A4 <ville.syrjala@linux.intel.com>
+> > > > > > >
+> > > > > > > Make DRM_RCAR_VSP selectable with COMPILE_TEST=3Dy, and enabl=
+e the hidden
+> > > > > > > DRM_RCAR_WRITEBACK option by default, so the VSP and writebac=
+k code gets
+> > > > > > > built for greater coverage. Builds fine on x86, x86_64, arm a=
+nd arm64 at
+> > > > > > > least.
+> > > > > >
+> > > > > > Let's see what build bots will report on more exotic architectu=
+res. I
+> > > > > > may volunteer you to send a fix if I'm too busy when the builde=
+rs start
+> > > > > > yelling :-)
+> > > > > >
+> > > > > > > Cc: Laurent Pinchart <laurent.pinchart+renesas@ideasonboard.c=
+om>
+> > > > > > > Cc: Tomi Valkeinen <tomi.valkeinen+renesas@ideasonboard.com>
+> > > > > > > Cc: Kieran Bingham <kieran.bingham+renesas@ideasonboard.com>
+> > > > > > > Cc: Geert Uytterhoeven <geert+renesas@glider.be>
+> > > > > > > Cc: Magnus Damm <magnus.damm@gmail.com>
+> > > > > > > Cc: linux-renesas-soc@vger.kernel.org
+> > > > > > > Signed-off-by: Ville Syrj=C3=A4l=C3=A4 <ville.syrjala@linux.i=
+ntel.com>
+> > > > > > > ---
+> > > > > > >  drivers/gpu/drm/renesas/rcar-du/Kconfig | 4 ++--
+> > > > > > >  1 file changed, 2 insertions(+), 2 deletions(-)
+> > > > > > >
+> > > > > > > diff --git a/drivers/gpu/drm/renesas/rcar-du/Kconfig b/driver=
+s/gpu/drm/renesas/rcar-du/Kconfig
+> > > > > > > index 80bd770ae0f6..5394f131c58f 100644
+> > > > > > > --- a/drivers/gpu/drm/renesas/rcar-du/Kconfig
+> > > > > > > +++ b/drivers/gpu/drm/renesas/rcar-du/Kconfig
+> > > > > > > @@ -76,7 +76,7 @@ config DRM_RCAR_MIPI_DSI
+> > > > > > >         select RESET_CONTROLLER
+> > > > > > >
+> > > > > > >  config DRM_RCAR_VSP
+> > > > > > > -       bool "R-Car DU VSP Compositor Support" if ARM
+> > > > > > > +       bool "R-Car DU VSP Compositor Support" if ARM || COMP=
+ILE_TEST
+> > > > > >
+> > > > > > This will make it possible to disable the option when ARM64 &&
+> > > > > > COMPILE_TEST, which will break operation on Gen3 and up. It wou=
+ld be
+> > > > > > best to avoid that.
+> > > > >
+> > > > > Break operation, as in when running on real hardware?
+> > > > > People actually do that with COMPILE_TEST=3Dy kernels?
+> >
+> > COMPILE_TEST=3Dy kernels should still work.
+> >
+> > > > Hopefully not in production, but that may be the case during develo=
+pment
+> > > > (I don't though, there are enough kernel options to deal with witho=
+ut
+> > > > COMPILE_TEST).
+> > > >
+> > > > This should do:
+> > > >
+> > > >       bool "R-Car DU VSP Compositor Support" if ARM || (COMPILE_TES=
+T && !ARM64)
+> > > >
+> > > > (untested though). Do you think it brings too much complexity ?
+> > >
+> > > Doesn't bother me.
+> >
+> > It does bother me, as it breaks the safeguards encoded in Kconfig rules=
+.
+> > I think it would be better if DRM_RCAR_DU would select DRM_RCAR_VSP
+> > if ARM64, so DRM_RCAR_VSP cannot be disabled where it is needed.
 >
-> Several registers in the AI Engine array (column and shim resets, memory
-> zeroisation, tile clock gating, NoC and interrupt routing) are privileged
-> and can only be written by the trusted firmware. The driver therefore
-> packs operations into a DMA buffer and hands it to the platform firmware,
-> which executes them in order.
+> That's possibly an option too. But does
 >
-> Firmware patches included
-> -------------------------
-> Patches 1-10 are not part of the AI Engine driver itself, but the driver
-> cannot work without them, so they are included here to keep the series
-> self-contained and reviewable in one place:
+>         bool "R-Car DU VSP Compositor Support" if ARM || (COMPILE_TEST &&=
+ !ARM64)
 >
->   - 1-5:  zynqmp firmware driver refactoring and a va_start()/va_end()
->           fix (patch 2 carries Fixes: tags), preparing for the extended
->           SMCCC call format.
->   - 6-7:  Versal Gen 2 compatible string and firmware support, where all
->           EEMI APIs use the extended SMCCC payload.
->   - 8-9:  Versal Gen 2 clock binding and clk driver match entry.
->   - 10:   firmware IOCTL support for the Versal Gen 2 AIE run time
->           operations, used by the driver.
->
-> I am happy to split out or reorder the firmware and clock patches if the
-> maintainers prefer to take them through their own trees, and would
-> appreciate guidance on how the series should be merged.
+> break the safeguard ?
 
-For the clock, it would defenitely be prefered if you could split out
-clock part, especially if you later need an immutable branch.
+No it does not. But it is more complicated and less readable.
 
-`b4` makes it very easy to handle series deps, please consider using the
-related tags
+Gr{oetje,eeting}s,
 
-https://b4.docs.kernel.org/en/latest/contributor/prep.html#working-with-series-dependencies
+                        Geert
 
->
-> AI Engine driver
-> ----------------
->   - 11:   devicetree binding for the AI Engine.
->   - 12:   driver core: device probe, partition request and release.
->   - 13:   pm ops: building and sending firmware operation packets.
->   - 14:   enabling and disabling tile clocks.
->   - 15:   partition initialize and teardown (reset operations).
->
-> Previous submission
-> -------------------
-> This driver was posted for review a little over a year ago:
->
->   https://lore.kernel.org/dri-devel/20250702155630.1737227-1-gregory.williams@amd.com/
->
-> Since then the scope of what is proposed for upstream has changed, this series
-> is considerably different from that posting, in particular targeting only Versal
-> Gen 2 support. All comments received on the earlier posting have been addressed
-> or in this version.
->
-> Abhyuday Godhasara (1):
->   drivers: firmware: xilinx: Add IOCTL support for the AIE run time
->     operations
->
-> Gregory Williams (5):
->   dt-bindings: soc: xilinx: Add Versal AI Engine DT binding
->   accel/amd-ai-engine: Add AMD AI Engine device driver
->   accel/amd-ai-engine: Add pm ops for firmware calls
->   accel/amd-ai-engine: Add support to enable/disable tile clocks
->   accel/amd-ai-engine: Add reset operations
->
-> Naman Trivedi (1):
->   dt-bindings: clock: versal: add Versal Gen 2 compatible string
->
-> Senthil Nathan Thangaraj (8):
->   firmware: xilinx: Separate TF-A checking
->   firmware: xilinx: Call va_start after pm feature check
->   firmware: xilinx: Add comments about number of arguments
->   firmware: xilinx: Use match data for ZynqMP/Versal
->   firmware: xilinx: Rename zynqmp_pm_invoke_fw_fn()
->   dt-bindings: firmware: xilinx: Add Versal Gen 2 compatible string
->   firmware: xilinx: Add support for Versal Gen 2
->   clk: zynqmp: Add Versal Gen 2 compatible string
->
->  .../bindings/clock/xlnx,versal-clk.yaml       |   5 +-
->  .../firmware/xilinx/xlnx,zynqmp-firmware.yaml |   3 +
->  .../bindings/soc/xilinx/xlnx,ai-engine.yaml   |  61 +++
->  MAINTAINERS                                   |   9 +
->  drivers/accel/Kconfig                         |   1 +
->  drivers/accel/Makefile                        |   3 +-
->  drivers/accel/amd-ai-engine/Kconfig           |  15 +
->  drivers/accel/amd-ai-engine/Makefile          |  14 +
->  .../accel/amd-ai-engine/ai-engine-aiemlv2.c   | 441 ++++++++++++++++
->  drivers/accel/amd-ai-engine/ai-engine-clock.c | 154 ++++++
->  drivers/accel/amd-ai-engine/ai-engine-dev.c   | 255 ++++++++++
->  .../accel/amd-ai-engine/ai-engine-internal.h  | 377 ++++++++++++++
->  drivers/accel/amd-ai-engine/ai-engine-part.c  | 140 ++++++
->  drivers/accel/amd-ai-engine/ai-engine-pm.c    | 472 ++++++++++++++++++
->  drivers/accel/amd-ai-engine/ai-engine-res.c   | 184 +++++++
->  drivers/accel/amd-ai-engine/ai-engine-reset.c |  69 +++
->  drivers/clk/zynqmp/clkc.c                     |   1 +
->  drivers/firmware/xilinx/zynqmp.c              | 340 +++++++++++--
->  include/linux/amd-ai-engine.h                 | 115 +++++
->  include/linux/firmware/xlnx-zynqmp.h          |  65 ++-
->  20 files changed, 2679 insertions(+), 45 deletions(-)
->  create mode 100644 Documentation/devicetree/bindings/soc/xilinx/xlnx,ai-engine.yaml
->  create mode 100644 drivers/accel/amd-ai-engine/Kconfig
->  create mode 100644 drivers/accel/amd-ai-engine/Makefile
->  create mode 100644 drivers/accel/amd-ai-engine/ai-engine-aiemlv2.c
->  create mode 100644 drivers/accel/amd-ai-engine/ai-engine-clock.c
->  create mode 100644 drivers/accel/amd-ai-engine/ai-engine-dev.c
->  create mode 100644 drivers/accel/amd-ai-engine/ai-engine-internal.h
->  create mode 100644 drivers/accel/amd-ai-engine/ai-engine-part.c
->  create mode 100644 drivers/accel/amd-ai-engine/ai-engine-pm.c
->  create mode 100644 drivers/accel/amd-ai-engine/ai-engine-res.c
->  create mode 100644 drivers/accel/amd-ai-engine/ai-engine-reset.c
->  create mode 100644 include/linux/amd-ai-engine.h
->
-> -- 
-> 2.34.1
->
+--=20
+Geert Uytterhoeven -- There's lots of Linux beyond ia32 -- geert@linux-m68k=
+.org
 
--- 
-Jerome
+In personal conversations with technical people, I call myself a hacker. Bu=
+t
+when I'm talking to journalists I just say "programmer" or something like t=
+hat.
+                                -- Linus Torvalds
