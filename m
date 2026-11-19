@@ -2,52 +2,75 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E8E0F606A320
-	for <dri-devel@archiver.kernel.org>; Fri, 20 Nov 2026 16:17:48 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F05B8606A325
+	for <dri-devel@archiver.kernel.org>; Fri, 20 Nov 2026 16:17:49 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=fail reason="signature verification failed" (2048-bit key, unprotected) header.d=performanc.org header.i=@performanc.org header.a=rsa-sha256 header.s=s1228580 header.b=nmoKt3DQ
+	dkim=pass (2048-bit key) header.d=virtuozzo.com header.i=@virtuozzo.com header.a=rsa-sha256 header.s=relay header.b=nJUV7HiT
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id D70FE112BB6;
+	by gabe.freedesktop.org (Postfix) with ESMTP id D1875112BAC;
 	Fri, 20 Nov 2026 16:17:38 +0000 (UTC)
-X-Greylist: delayed 901 seconds by postgrey-1.36 at gabe;
- Thu, 19 Nov 2026 19:25:50 UTC
-Received: from a5i230.smtp2go.com (a5i230.smtp2go.com [170.10.71.230])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 276C01126E8
- for <dri-devel@lists.freedesktop.org>; Thu, 19 Nov 2026 19:25:50 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=performanc.org;
- i=@performanc.org; q=dns/txt; s=s1228580; t=1795115446; h=from :
- subject : to : message-id : date : list-unsubscribe :
- list-unsubscribe-post;
- bh=ulgge/POPns5GuwdKsEodR0EWat9soZYf5RlEilOCYI=;
- b=nmoKt3DQzuPVJYFNB08SNkScK69uuLCXYbMFaygznapxlX1/AThM0hE31xncTd8gdlw5u
- HDDi3etUn4rwllQJafwshShHyTXEafS8OHhCo6ISW9GiRtg8HJ+TqxOMgELvzRHkLLbl47f
- PoTfS06upvLE9v9sEujmYg9mv7V0xlUQCZ8MQo1uJYUjs/XLT89oLPKuThPTY3Pm9V2f/aS
- 9h5vdFm/w6kmkOFiEr0tI1qU23/iWF+MlRRKeB5TrZ08Z/NQ9s6vRUmBOhM2KfUsgRSWTZM
- a3Ss+KGXUPAIsnKQUVkMSd5WE/K+j6rTWqlLKYtg8OORcQ8Yx12XWjfeKSzg==
-Received: from [10.45.250.102] (helo=[192.168.15.8])
- by smtpcorp.com with esmtpsa
- (TLS1.3:ECDHE_X25519__RSA_PSS_RSAE_SHA256__AES_128_GCM:128:X25519)
- (Exim 4.100.1) (envelope-from <pedro@performanc.org>)
- id 1xU7Wr-FnQW0hPr4rj-J4Pf; Thu, 19 Nov 2026 19:10:41 +0000
-Message-ID: <a3b7a3f3-4da6-4a41-b842-cf9778dd7ba1@performanc.org>
-Date: Thu, 19 Nov 2026 16:10:38 -0300
+Received: from relay.virtuozzo.com (relay.virtuozzo.com [130.117.225.111])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 6AEF611241C
+ for <dri-devel@lists.freedesktop.org>; Thu, 19 Nov 2026 13:44:52 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+ d=virtuozzo.com; s=relay; h=Message-Id:Content-Type:MIME-Version:Subject:Date
+ :From; bh=Avwvbw5yVGFVbipl1tuQaWsH+u0bWEZomnuCQzaz/wM=; b=nJUV7HiTdclgnbZnBV+
+ xGN/fk00ik+jXN9tHPLxJfjZW66pMws079Bt37EGbYHTV5T+1BLAZbtosglwm6ghIog/SQaviMf8/
+ +ri0Zw71iVlBcEkSXcpU6cJdX3mWnJ16CXrIv+bsCE6DytUHWo0nNOJ5hHyCtSOVj5vi0ZvHCI1we
+ 580ZgAq14CFZohYZw9Q/8BP7iXXehnCXkAipiYHtZgHEw7DXw7QM/EfKZ9mO9TE/5ZH5/OjO+b+Er
+ EWHkFhwPwdab50WF/GBK7KAU9UdLu+314KuxAnY/FzM/p6YR+jHL2vM/s0UUxXOeuh7ZYgpXzcUEi
+ wmqN1//9ZlaxGhg==;
+Received: from ch-demo-asa.virtuozzo.com ([130.117.225.8] helo=f0.sw.ru)
+ by relay.virtuozzo.com with esmtp (Exim 4.96)
+ (envelope-from <khorenko@virtuozzo.com>) id 1xU2R5-00FBqZ-1q;
+ Thu, 19 Nov 2026 14:44:23 +0100
+From: Konstantin Khorenko <khorenko@virtuozzo.com>
+Date: Thu, 19 Nov 2026 14:44:02 +0100
+Subject: [PATCH v6 1/4] mm/rmap: duplicate a PMD mapping as one in
+ folio_dup_file_rmap_pmd()
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Content-Language: en-US
-From: ThePedroo <pedro@performanc.org>
-Subject: [PATCH] drm/panfrost: fix stuck reset.pending on JOB_BUS_FAULT
-To: dri-devel@lists.freedesktop.org
-Cc: Boris Brezillon <boris.brezillon@collabora.com>,
- Rob Herring <robh@kernel.org>, Steven Price <steven.price@arm.com>,
- =?UTF-8?Q?Adri=C3=A1n_Larumbe?= <adrian.larumbe@collabora.com>,
- linux-kernel@vger.kernel.org
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
-X-Report-Abuse: Please forward a copy of this message, including all headers,
- to <abuse-report@smtp2go.com>
-Feedback-ID: 1228580m:1228580aqfTDtk:1228580ss_2YaxMnk
-X-smtpcorp-track: xkJSa488rcOq.HO9eHC7PWaAU.mkgf5QgAYeA
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20261119-b4-prep-vstor-149847-copy_huge_pmd-recheck-special-pmd-v6-1-efa7817a2bb3@virtuozzo.com>
+References: <20261119-b4-prep-vstor-149847-copy_huge_pmd-recheck-special-pmd-v6-0-efa7817a2bb3@virtuozzo.com>
+In-Reply-To: <20261119-b4-prep-vstor-149847-copy_huge_pmd-recheck-special-pmd-v6-0-efa7817a2bb3@virtuozzo.com>
+To: Andrew Morton <akpm@linux-foundation.org>, 
+ "David Hildenbrand (Arm)" <david@kernel.org>, Zi Yan <ziy@nvidia.com>, 
+ Baolin Wang <baolin.wang@linux.alibaba.com>, 
+ "Liam R. Howlett" <liam@infradead.org>, Nico Pache <nico.pache@linux.dev>, 
+ Ryan Roberts <ryan.roberts@arm.com>, Dev Jain <dev.jain@arm.com>, 
+ Barry Song <baohua@kernel.org>, Lance Yang <lance.yang@linux.dev>, 
+ Usama Arif <usama.arif@linux.dev>, Kiryl Shutsemau <kas@kernel.org>, 
+ Peter Xu <peterx@redhat.com>
+Cc: Alex Williamson <alex@shazbot.org>, kvm@vger.kernel.org, 
+ =?utf-8?q?Lo=C3=AFc_Molinari?= <loic.molinari@collabora.com>, 
+ Lorenzo Stoakes <ljs@kernel.org>, Shuah Khan <shuah@kernel.org>, 
+ linux-kselftest@vger.kernel.org, dri-devel@lists.freedesktop.org, 
+ Madhavan Srinivasan <maddy@linux.ibm.com>, 
+ "Ritesh Harjani (IBM)" <ritesh.list@gmail.com>, 
+ linuxppc-dev@lists.ozlabs.org, linux-mm@kvack.org, 
+ linux-kernel@vger.kernel.org, Konstantin Khorenko <khorenko@virtuozzo.com>, 
+ Jason Gunthorpe <jgg@ziepe.ca>, stable@vger.kernel.org, 
+ "Jose A. Perez de Azpillaga" <azpijr@gmail.com>
+X-Mailer: b4 0.16.0
+X-Developer-Signature: v=1; a=openpgp-sha256; l=1355;
+ i=khorenko@virtuozzo.com; h=from:subject:message-id;
+ bh=+iGJSVU2R69oAcxSbe2V0t1MH5H7H4D9RsN+PXcW2vM=;
+ b=owEBbQKS/ZANAwAKAVGWCkf5YVwqAcsmYgBq/v02Zu43V/DlG+vTb7VK4NcMAFw3SzTFPDVM+
+ +YbLiHc7l+JAjMEAAEKAB0WIQRWD23IPcXT0GO9CCxRlgpH+WFcKgUCav79NgAKCRBRlgpH+WFc
+ KhVUD/4pdhUvXjEatrjVm+jK1BFrSOHbw9X0CfsIn+VWgL6wUjy6J6Enx/FE0MRtjtxUuGSP+rv
+ LOu2pQQpRDBWsLf3rYPh4BaDE0/54hwlCxSOsShmzV/gd73uBUAms0Jtka4TPPqVhWjh52Z/1+2
+ E7gevPrBJBp9AryoT+Uvv6igC2cbUumpyGl2uOtwOiehl9mnYM5hfHDFbNpPUsc2oLHdak53x29
+ UlrTULEEPSZ89r1JWcyJvg4EoHRu5VpRSJLu+N4qrna6LP+7ZRuxUtE5LdvbSGvYaYwAc+iCOVN
+ ZOv8p8SnQbUh7d5Veo+KDj7BdmC4PzAdFaiGj/JoLmT+u2NvA0pSmd/4tPK3B/tVlHh+hbp7lbu
+ Dh2+uejGHvrz03qVU1Fu2XzqbbfDdkDVBSQq2XFOOwXrx1EFSPre+J+lHu6+QHO8MxxlLSAChCQ
+ 94YH9yJItBmMsKQsZM3kZIBkf3rychJwE5pqbSgu3twaI9TsYFliCL0rSdPAmpRvgwb+Tqnr9t3
+ Vy1u/gNh+uXXx3itSQhJP/3RLqQcjIiRO3r1x7uXWqXBhiVgrI5Ff/H90QJpH6DpW1qYwKCf5DL
+ r3FbC7ZmMGqI3wsw7OaKXZipJGYYBkEWj1SwNOTifZdBR2C3HwHqx/Fs4TTFGHUhP48Nj3qJfqT
+ Xzfd0OUXQe+z+dg==
+X-Developer-Key: i=khorenko@virtuozzo.com; a=openpgp;
+ fpr=560F6DC83DC5D3D063BD082C51960A47F9615C2A
 X-Mailman-Approved-At: Fri, 20 Nov 2026 16:17:37 +0000
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -59,56 +82,47 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
-Reply-To: pedro@performanc.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-15.1 required=3.0 tests=BAYES_00,DKIM_INVALID,
-	DKIM_SIGNED,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,
-	INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,
-	USER_AGENT_SANE_1 autolearn=unavailable autolearn_force=no
+X-Spam-Status: No, score=-18.8 required=3.0 tests=BAYES_00,DKIM_SIGNED,
+	DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
+	INCLUDES_CR_TRAILER,INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,
+	SPF_PASS,USER_AGENT_GIT autolearn=unavailable autolearn_force=no
 	version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-From: Pedro Olímpio <pedro@performanc.org>
+folio_dup_file_rmap_pmd() passes PGTABLE_LEVEL_PTE to
+__folio_dup_file_rmap() for HPAGE_PMD_NR pages, so it adds HPAGE_PMD_NR
+PTE mappings to the folio instead of one PMD mapping.
 
-panfrost_job_handle_err() signals job->done_fence and then calls
-drm_sched_fault(), which just queues the scheduler timeout work.
-panfrost_job_timedout() bails with DRM_GPU_SCHED_STAT_NO_HANG when it
-sees the already-signaled fence:
+The helper has no caller yet, the next patch adds the first one. Pass
+PGTABLE_LEVEL_PMD, as folio_try_dup_anon_rmap_pmd() does.
 
-	if (dma_fence_is_signaled(job->done_fence))
-		return DRM_GPU_SCHED_STAT_NO_HANG;
-
-so the reset never runs and reset.pending stays stuck at 1. Every
-later job is then enqueued in pfdev->jobs but never started ian
-panfrost_job_hw_submit(), until it hits the 500ms timeout.
-
-Queue the existing ordered reset work instead, which runs
-panfrost_reset() unconditionally (when pending is set), even though
-the fence was already signaled.
-
-Fixes: 030761e097b4 ("drm/panfrost: Queue jobs on the hardware")
-Signed-off-by: Pedro Olímpio <pedro@performanc.org>
+Fixes: d8ef5e311d7b ("mm/rmap: convert page_dup_file_rmap() to folio_dup_file_rmap_[pte|ptes|pmd]()")
+Cc: stable@vger.kernel.org
+Reviewed-by: Zi Yan <ziy@nvidia.com>
+Reviewed-by: Kiryl Shutsemau (Meta) <kas@kernel.org>
+Acked-by: David Hildenbrand (Arm) <david@kernel.org>
+Reviewed-by: Jose A. Perez de Azpillaga <azpijr@gmail.com>
+Signed-off-by: Konstantin Khorenko <khorenko@virtuozzo.com>
 ---
- drivers/gpu/drm/panfrost/panfrost_job.c | 6 ++----
- 1 file changed, 2 insertions(+), 4 deletions(-)
+ include/linux/rmap.h | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-diff --git a/drivers/gpu/drm/panfrost/panfrost_job.c b/drivers/gpu/drm/panfrost/panfrost_job.c
-index d59b4863b8ad..8c45ffec1107 100644
---- a/drivers/gpu/drm/panfrost/panfrost_job.c
-+++ b/drivers/gpu/drm/panfrost/panfrost_job.c
-@@ -497,10 +497,8 @@ static void panfrost_job_handle_err(struct panfrost_device *pfdev,
- 
- 	pm_runtime_put_autosuspend(pfdev->base.dev);
- 
--	if (panfrost_exception_needs_reset(pfdev, js_status)) {
--		atomic_set(&pfdev->reset.pending, 1);
--		drm_sched_fault(&pfdev->js->queue[js].sched);
--	}
-+	if (panfrost_exception_needs_reset(pfdev, js_status))
-+		panfrost_device_schedule_reset(pfdev);
- }
- 
- static void panfrost_jm_handle_done(struct panfrost_device *pfdev,
+diff --git a/include/linux/rmap.h b/include/linux/rmap.h
+index 52fff8dc74213..9f5bfa317a5cf 100644
+--- a/include/linux/rmap.h
++++ b/include/linux/rmap.h
+@@ -558,7 +558,7 @@ static inline void folio_dup_file_rmap_pmd(struct folio *folio,
+ 		struct page *page, struct vm_area_struct *dst_vma)
+ {
+ #ifdef CONFIG_TRANSPARENT_HUGEPAGE
+-	__folio_dup_file_rmap(folio, page, HPAGE_PMD_NR, dst_vma, PGTABLE_LEVEL_PTE);
++	__folio_dup_file_rmap(folio, page, HPAGE_PMD_NR, dst_vma, PGTABLE_LEVEL_PMD);
+ #else
+ 	WARN_ON_ONCE(true);
+ #endif
+
 -- 
-2.53.0
+2.43.0
+
