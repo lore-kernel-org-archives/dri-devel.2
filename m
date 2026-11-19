@@ -2,90 +2,84 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A1F9A606A325
-	for <dri-devel@archiver.kernel.org>; Thu, 19 Nov 2026 10:06:20 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 888CF606A326
+	for <dri-devel@archiver.kernel.org>; Thu, 19 Nov 2026 10:07:17 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Xo8ZC9XE
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=dMMjkcuT
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id B4AAB10E6CC;
-	Thu, 19 Nov 2026 10:06:13 +0000 (UTC)
-Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 8CA4810E6CC
- for <dri-devel@lists.freedesktop.org>; Thu, 19 Nov 2026 10:06:02 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id D7D0810E822;
+	Thu, 19 Nov 2026 10:07:11 +0000 (UTC)
+Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 1B6E110E822
+ for <dri-devel@lists.freedesktop.org>; Thu, 19 Nov 2026 10:07:05 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by tor.source.kernel.org (Postfix) with ESMTP id 863BE62F35;
- Thu, 19 Nov 2026 10:06:01 +0000 (UTC)
+ by sea.source.kernel.org (Postfix) with ESMTP id F255947A07;
+ Thu, 19 Nov 2026 10:07:04 +0000 (UTC)
 Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
 ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
- t=1795082761;
- b=SE+d8OCuwC3h8WKfrGbFfiX+XRLrKbkUmdyGCw4SE1/wMxiwuCRqND2JwKsIA3Oh97PC
- u7PbdHF8p3lkz4poS+bFJC8jXjpVQZK9DPMxr54TpwPDqp4K2R/ccXW0PLwj3TCki3FgP
- K26t30g1CpOLF8hkEWwYl97QRKwVEBMjvJPH3AmfFgwmlU8BgGPf3+yYtslH2qRU4tb2W
- Ag8sJeB9nIj6VSjGX+PS220uz9cbCoyGi1BeyeDJAMBG/zljpjvXlSlgwmIu08et2tqFt
- LsvoZ1NeAhVs1kypt8QfTZlXPBLPJqx2Aimdyo7/yWrT3psQWeb1SWBmbbulMO5JNNg==
+ t=1795082824;
+ b=AF6m1GpeU3iAb6TtSnuFFpW+qJ3/nW9Qan01muwihq7y/xzwS4dBSat1Umm8ynO/Mfz9
+ C39f8AZLtyN8++fx0dn4MG07V6SpzvK1E7JRHH1HFIV2x0LeNTv42yx3JgY0yg/Gf9Xx0
+ IELcbcX3M4yaY97AdA10+thbn9zJ/fqIth9W+Lps+UtMSHYyM6xGAAzchYwDdPfewWUek
+ ylFezReETCMRe8k2fFKLLr8HWTKaiMJ2Y7f7quzJNV0q1tnjD4w6K0dt8RG5IMdbT7Lx4
+ 5ZfAKgKisKxBR4Q9Ye4+HlMt3eUI1YrkHsR9HNK3TMQm26H4aN+7iUp7N2S5DDzp/ow==
 ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
- c=relaxed/relaxed; t=1795082761;
+ c=relaxed/relaxed; t=1795082824;
  h=DKIM-Signature:Received:From:Date:Subject:MIME-Version:Content-Type:
- Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
+ Message-Id:X-B4-Tracking:X-Change-ID:To:Cc:X-Mailer:
  X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
  X-Original-From:Reply-To:Content-Transfer-Encoding;
- bh=q6/GOlHX/rHWCXwjgQKfv6icGhiILOZa+YGNntlphsc=;
- b=Xsz25k7AdmexmlDQUFO/gekHGqdJyj6repVNTOoPhgRP8Z60++MU2nywUF1O4s53NVAl
- 4A9GITh7JGa6M+6cOHjpVBzOaPqPJhlZdnEwDXQ+3C7hFrT2RGWtuBAOscN9bR0PmqEpq
- gbg4gtbyIEYOaW76sPms5hdDe4pL3CRxahqBask0PXwFB/sb5fvihhgc2J3tQ96fWeF22
- SimPGZmPW+Y4hdRmyhDVpnnqSWWJdq9mWUM3waiwOgMudRCLOdATrdkeEcS6JXIFurdxP
- Ac2pMRd9DIVKkOTh38K8Orw9d5gd6ocEDhVTEMmotvnQ7bUBK6z3bluhNgszlCs6LoQ==
+ bh=1oKOiRCTh1TsF/AMF/cw3jxDUNQB0kFtfdY4lghCc2c=;
+ b=k00Qzfv9/1uPYQX2nlBUVlRIev4nrcj8tdNImDktlgK+n2PaPVAuRTMHcs9jNBXWC/TL
+ RcQLelGsWZEMj47KRIxwctOglCojp8ME2auOiADiWrCwnVXZBkgRKgSRnvmbm81zd2p2v
+ GNJkt7AXbV4KFCi4x+AxwYOUBU5ECrBvMyX+o9EDPW1ckwwyDU6UxUXkMfLkYnxi6obRd
+ k190mKVwRwbm10s/IrY192GiGf+6m3hz4AZKdzm6rbZVh5cPMHSOSnsF08agoOVXNWJQ2
+ f9xAlHIXBY8+VO3fxsnvhU023+EA35DnrMbKizup96a151zE65R9VeBRyW74tQ5Preg==
 ARC-Authentication-Results: i=1; smtp.kernel.org; 
  arc=none smtp.remote-ip=100.80.115.77
 Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
  (No client certificate requested)
- by smtp.kernel.org (Postfix) with ESMTPS id 795311F000CD;
- Thu, 19 Nov 2026 10:06:00 +0000 (UTC)
+ by smtp.kernel.org (Postfix) with ESMTPS id 557C81F000C4;
+ Thu, 19 Nov 2026 10:07:04 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1795082761;
- bh=q6/GOlHX/rHWCXwjgQKfv6icGhiILOZa+YGNntlphsc=;
- h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To;
- b=Xo8ZC9XECwHq72m8tDvyfpWB31wz8tRZdLWwyI5VqGPrvWsNH1U9UVNyLyZlqiPXL
- wYYvgttmFI6gBzsa+WJb6j5Gz0g4+iEH9FPpEiMW3goT0rJpVFhjHpj843RlXeCQzH
- dEFhsQq6qbFuzGLbnChGi2QNCw13b8rMvsirfBS9mb+onxNoZO/raDFOY51Y8rEjuk
- TOgLITuvD3jmfoB8JHGVBHweIiXLWnqbvSAtEpIWA/kN6AmjLuSkC+iCBtxwPgrYdY
- ccxGv3oFJhfWzMaklBBbLBL7bw3fzkr2rZ2TcHGsl9q99WsRCG91PZJ6xUWZscV/O/
- KQ/uBcLXJAFOA==
+ s=k20260515; t=1795082824;
+ bh=1oKOiRCTh1TsF/AMF/cw3jxDUNQB0kFtfdY4lghCc2c=;
+ h=From:Date:Subject:To:Cc:Reply-To;
+ b=dMMjkcuTL/aKAGzvd1gNZo5o2YPB2i4bnre2g/VP57UF5BLXu9tNUezqgJNKeIvTQ
+ D/820eFu1raJxkZeArDNx2RLtSV3Zxr2HRpn+ekD4beuT82oOKpyKr0EZ7HAlwClLu
+ 37G/hoqtVaH2vi85uS1IWx7DKDQBwHEx5qGvWc26usCZGK80mtfU3XdCHlNue7o9Ke
+ aNpZ7GRV7w2wF9lU0WBdxLpPeraHAxib/EDHEyp3rOMXl4yWRyOYp4nOL19WF0/dxT
+ mSQredjIjWVNRwdYGSj4t4hYYKyA3tV1y7dmq/2IXvqIuDTJzqG3dpKTYzEtW+o9Og
+ izyu/liW+yBJQ==
 Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
- by lkml.kernel.org (Postfix) with ESMTP id 0286C4B21A;
- Thu, 19 Nov 2026 10:06:00 +0000 (UTC)
+ by lkml.kernel.org (Postfix) with ESMTP id DB1134B1FE;
+ Thu, 19 Nov 2026 10:07:03 +0000 (UTC)
 From: Arun Iyengar via B4 Relay <devnull+aiyengar1990.gmail.com@kernel.org>
-Date: Thu, 19 Nov 2026 10:06:01 +0000
-Subject: [PATCH 2/2] drm/bridge: synopsys: dw-hdmi-qp: Allow interlaced modes
+Date: Thu, 19 Nov 2026 10:07:04 +0000
+Subject: [PATCH] drm/edid: Add the modes of CTA Type VII video timing data
+ blocks
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
-Message-Id: <20261119-rk3588-interlace-v1-2-993212e389cd@gmail.com>
-References: <20261119-rk3588-interlace-v1-0-993212e389cd@gmail.com>
-In-Reply-To: <20261119-rk3588-interlace-v1-0-993212e389cd@gmail.com>
-To: Sandy Huang <hjc@rock-chips.com>, 
- =?utf-8?q?Heiko_St=C3=BCbner?= <heiko@sntech.de>, 
- Andy Yan <andyshrk@163.com>, Andrzej Hajda <andrzej.hajda@intel.com>, 
- Neil Armstrong <neil.armstrong@linaro.org>, Robert Foss <rfoss@kernel.org>, 
- Laurent Pinchart <Laurent.pinchart@ideasonboard.com>, 
- Jonas Karlman <jonas@kwiboo.se>, Jernej Skrabec <jernej.skrabec@gmail.com>, 
- Luca Ceresoli <luca.ceresoli@bootlin.com>, 
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
+Message-Id: <20261119-edid-t7vtdb-v1-1-d6b8229d2041@gmail.com>
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/yXMQQ5AMBBA0avIrDXRCm1dRSxoB2OBtCUS6d0Vy
+ 7f4/waPjtBDk93g8CRP25rA8wzM3K8TMrLJIApRc841Q0uWBXkGO7BKKCVNqVUhBaRidzjS9d3
+ a7rc/hgVNeBcQ4wNN8JaHbwAAAA==
+X-Change-ID: 20261119-edid-t7vtdb-52887c398072
+To: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
  Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
- Sascha Hauer <s.hauer@pengutronix.de>
-Cc: dri-devel@lists.freedesktop.org, linux-rockchip@lists.infradead.org, 
- linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
- Cristian Ciocaltea <cristian.ciocaltea@collabora.com>, 
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>
+Cc: dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org, 
+ Jani Nikula <jani.nikula@linux.intel.com>, 
  Arun Iyengar <aiyengar1990@gmail.com>
 X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1795082759; l=903;
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1795082823; l=3314;
  i=aiyengar1990@gmail.com; s=20261110; h=from:subject:message-id;
- bh=JdB991WB7QVchwubHLTwNcdcVa5HjMmWEsErXD/u8W4=;
- b=r1/DJHRQSz10f0nFji6A4bZTO3kA+yUy0oqg26h+aDwBGKbD0rsj3WPPSyhvvxyQxwovoRIya
- j5yeRuZ4inLAoHkuHDnBLuPDOaRosszuCF9yE+p8H5r4Py/QfrknRww
+ bh=ScVtHOJIDgPl4/O/zIOpx/r4EUsECXNNFCTxoFJH0aM=;
+ b=0P6zzqbJo5NuJRTPk89GnQsec3NRNlPrNNgLUOrRKeu3N5oa3HbD4o3/o7LvNytREOD5g8bf6
+ v3gigHSBGaWCrzJ5OmZya3++7pxgbh/Jgh+m4jAvYXwpf69Fratuv3z
 X-Developer-Key: i=aiyengar1990@gmail.com; a=ed25519;
  pk=zXpRgUTrhaFe6jLyPqbBy3ccfkj04w0g2690Wv3mg+0=
 X-Endpoint-Received: by B4 Relay for aiyengar1990@gmail.com/20261110 with
@@ -114,28 +108,92 @@ X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 
 From: Arun Iyengar <aiyengar1990@gmail.com>
 
-drm_bridge_connector drops interlaced modes unless every bridge sets
-interlace_allowed. The controller only forwards the CRTC timing, so set it.
+CTA-861-H lets a CTA extension carry DisplayID Type VII timings (T7VTDB,
+extended tag 0x22). HDMI 2.1 TVs list modes such as 3840x2160@144Hz
+there, but only Type VII timings in DisplayID extensions are parsed, so
+these modes are missing. Add them. In a T7VTDB bit 7 of the timing
+flags means YCbCr 4:2:0 support instead of preferred timing, so these
+modes are never marked preferred. The 4:2:0 flag is not used, as 4:2:0
+capable modes are tracked by VIC.
 
 Signed-off-by: Arun Iyengar <aiyengar1990@gmail.com>
 ---
- drivers/gpu/drm/bridge/synopsys/dw-hdmi-qp.c | 1 +
- 1 file changed, 1 insertion(+)
+Tested on an Orange Pi 5 (RK3588S, 7.3-based kernel): the three T7VTDB
+timings of an HDMI 2.1 TV are listed. With an EDID override adding a
+T7VTDB timing with bit 7 set, the mode is listed and not preferred.
 
-diff --git a/drivers/gpu/drm/bridge/synopsys/dw-hdmi-qp.c b/drivers/gpu/drm/bridge/synopsys/dw-hdmi-qp.c
-index 984220928836..75b5adbe8178 100644
---- a/drivers/gpu/drm/bridge/synopsys/dw-hdmi-qp.c
-+++ b/drivers/gpu/drm/bridge/synopsys/dw-hdmi-qp.c
-@@ -1169,6 +1169,7 @@ struct dw_hdmi_qp *dw_hdmi_qp_bind(struct platform_device *pdev,
- 	hdmi->bridge.type = DRM_MODE_CONNECTOR_HDMIA;
- 	hdmi->bridge.vendor = "Synopsys";
- 	hdmi->bridge.product = "DW HDMI QP TX";
-+	hdmi->bridge.interlace_allowed = true;
+Developed with Claude (Anthropic), which wrote the code and the commit
+message. I reviewed every change.
+---
+ drivers/gpu/drm/drm_edid.c | 34 ++++++++++++++++++++++++++++++++++
+ 1 file changed, 34 insertions(+)
+
+diff --git a/drivers/gpu/drm/drm_edid.c b/drivers/gpu/drm/drm_edid.c
+index b8f882a17c8f..ff47b34d4efb 100644
+--- a/drivers/gpu/drm/drm_edid.c
++++ b/drivers/gpu/drm/drm_edid.c
+@@ -4215,6 +4215,7 @@ static int add_detailed_modes(struct drm_connector *connector,
+ #define CTA_EXT_DB_HDR_STATIC_METADATA	6
+ #define CTA_EXT_DB_420_VIDEO_DATA	14
+ #define CTA_EXT_DB_420_VIDEO_CAP_MAP	15
++#define CTA_EXT_DB_T7VTDB		0x22
+ #define CTA_EXT_DB_HF_EEODB		0x78
+ #define CTA_EXT_DB_HF_SCDB		0x79
  
- 	if (hdmi->no_hpd) {
- 		hdmi->bridge.supported_hdmi_ver = HDMI_VERSION_1_4;
+@@ -7206,6 +7207,38 @@ static int add_displayid_detailed_modes(struct drm_connector *connector,
+ 	return num_modes;
+ }
+ 
++/* CTA-861-H T7VTDB: a revision byte, then one DisplayID Type VII timing */
++static int add_cta_t7vtdb_modes(struct drm_connector *connector,
++				const struct drm_edid *drm_edid)
++{
++	const struct displayid_detailed_timings_1 *timings;
++	struct drm_display_mode *newmode;
++	const struct cea_db *db;
++	struct cea_db_iter iter;
++	int num_modes = 0;
++
++	cea_db_iter_edid_begin(drm_edid, &iter);
++	cea_db_iter_for_each(db, &iter) {
++		if (!cea_db_is_extended_tag(db, CTA_EXT_DB_T7VTDB) ||
++		    cea_db_payload_len(db) < 2 + sizeof(*timings))
++			continue;
++
++		timings = (const void *)(cea_db_data(db) + 2);
++		newmode = drm_mode_displayid_detailed(connector->dev, timings, true);
++		if (!newmode)
++			continue;
++
++		/* Bit 7 of the flags is YCbCr 4:2:0 support here, not preferred */
++		newmode->type &= ~DRM_MODE_TYPE_PREFERRED;
++
++		drm_mode_probed_add(connector, newmode);
++		num_modes++;
++	}
++	cea_db_iter_end(&iter);
++
++	return num_modes;
++}
++
+ static int _drm_edid_connector_add_modes(struct drm_connector *connector,
+ 					 const struct drm_edid *drm_edid)
+ {
+@@ -7235,6 +7268,7 @@ static int _drm_edid_connector_add_modes(struct drm_connector *connector,
+ 	num_modes += add_cea_modes(connector, drm_edid);
+ 	num_modes += add_alternate_cea_modes(connector, drm_edid);
+ 	num_modes += add_displayid_detailed_modes(connector, drm_edid);
++	num_modes += add_cta_t7vtdb_modes(connector, drm_edid);
+ 	if (drm_edid->edid->features & DRM_EDID_FEATURE_CONTINUOUS_FREQ)
+ 		num_modes += add_inferred_modes(connector, drm_edid);
+ 
 
--- 
-2.55.0
+---
+base-commit: fac7a5f16230779cfb0d50ca49e9467cc94a2ea9
+change-id: 20261119-edid-t7vtdb-52887c398072
+
+Best regards,
+--  
+Arun Iyengar <aiyengar1990@gmail.com>
 
 
