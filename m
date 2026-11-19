@@ -2,67 +2,68 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 222EE606A324
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 841BD60A2604
 	for <dri-devel@archiver.kernel.org>; Thu, 19 Nov 2026 17:07:34 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=T7dzSWGe
+	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=nvrGHNlS
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 134F7112670;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 3ED8B112671;
 	Thu, 19 Nov 2026 17:07:28 +0000 (UTC)
-Received: from mail-oa1-f70.google.com (mail-oa1-f70.google.com
- [209.85.160.70])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 5C4AD112670
- for <dri-devel@lists.freedesktop.org>; Thu, 19 Nov 2026 17:07:15 +0000 (UTC)
-Received: by mail-oa1-f70.google.com with SMTP id
- 586e51a60fabf-4ae40674bd0so22189fac.2
- for <dri-devel@lists.freedesktop.org>; Thu, 19 Nov 2026 09:07:15 -0800 (PST)
+Received: from mail-dy1-f199.google.com (mail-dy1-f199.google.com
+ [74.125.82.199])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 6C4D0112670
+ for <dri-devel@lists.freedesktop.org>; Thu, 19 Nov 2026 17:07:21 +0000 (UTC)
+Received: by mail-dy1-f199.google.com with SMTP id
+ 5a478bee46e88-33c35f5ca6cso3040016eec.1
+ for <dri-devel@lists.freedesktop.org>; Thu, 19 Nov 2026 09:07:21 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=google.com; s=20260707; t=1795108034; x=1795712834;
+ d=google.com; s=20260707; t=1795108041; x=1795712841;
  darn=lists.freedesktop.org; 
- h=content-type:cc:to:from:subject:message-id:references:mime-version
- :in-reply-to:date:from:to:cc:subject:date:message-id:reply-to
- :content-type; bh=7+8hy451Az1QACplhl6NMxwsBcDH/OzMgfYQcFFvdBo=;
- b=T7dzSWGe/V9sGEW1Ioi0r4jCxBQJAIjpWnuJeoWJxwPZ6XPVPICbDEqUNDqPqhfMqu
- AEsVg7lBKDJwk3eLUNfrUgdJtON6WzMJRgF/bZynj0lCNcxWSYigaJsW1cYeQZvNOf7X
- XhIToUP9PTErlaEgqSY5k0icIcPnNm9BRShIQR8316BIWZezcgpInCS9xGTsn9x0oJFW
- fAMESWCxAilC49d7/VjZMHIx8L0CdN9ZH7ff+RdKgW49uYnzh6CIFfb9veZiNLhG/y+S
- 0xv1LEEItXPbcFLzSIpLHN9rMVjKv77KY+mpOmRTdCQM8HC4IoXpiU2eYD7Z0ftymDX9
- tiDw==
+ h=content-type:cc:to:from:subject:message-id:mime-version:date:from
+ :to:cc:subject:date:message-id:reply-to:content-type;
+ bh=UznqD1ivej2QYO7rN4puPEMrUhaWQ4TH3qb1l1RtxYo=;
+ b=nvrGHNlS6R9ZVh96hDDIODPe7hhVpS5OZreTSGUJjg9kFYplD3DylReZeP7F0Zt2q9
+ XH1io/cQOFKJPSG4bXv9LhJUPJ9RiesDmkCAnOyFNJr1HuGjnMDZQmecwfKucNZ30bQ7
+ Vkvwd0aNaasNI5dxVdUgl6hzXCNgrrWCPLAFNhgNQE+qmIIxooEBbNYm0fb+jgt6V5El
+ nGs/wmHEmcKLc9fT3KK/Yh00aPHsEMIumDAMGctaBXETym4QAjUvHH+leTGKw+Zxm+hq
+ za2Vgsq7Fn0btM/Um1NDLsLgoL+0myZLfJmPiQpCJ6uoQx1MaZ+aMV0sLjfYzgYOwq6+
+ S24g==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20260707; t=1795108034; x=1795712834;
- h=content-type:cc:to:from:subject:message-id:references:mime-version
- :in-reply-to:date:x-gm-message-state:from:to:cc:subject:date
- :message-id:reply-to:content-type;
- bh=7+8hy451Az1QACplhl6NMxwsBcDH/OzMgfYQcFFvdBo=;
- b=T4TeiKs98NfN7gfT7JGQ7l5P1obuHc6N2FIgdH7xdQY22k7P3pkm80ZvBNSiVOpxc3
- oJILPW2Fnl/ZoFUrDvFgyB/EOkwB9Eax4cFatA28oKiREHwtiWOHQGHCLLkegt1gaK/n
- lpNXE1u4YGHymUA4p1sxqIEuewuPGuOeqmsl2woImnSg2ejg7e5qX9Asls+TxI2dZiIL
- RvZ9gdxEeG/269wlRGA4i53cq6fyw5bl9sg/ilIHFAfNFQFj2sKSD4bPMp9/06CyH89N
- SqoXLTqf+FHQuAx6x0RjtuEtAAgctBUxSgNGjf01gqm38lr7OkCtJrwyLjTQW/q73c0l
- 4vTA==
+ d=1e100.net; s=20260707; t=1795108041; x=1795712841;
+ h=content-type:cc:to:from:subject:message-id:mime-version:date
+ :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+ :content-type;
+ bh=UznqD1ivej2QYO7rN4puPEMrUhaWQ4TH3qb1l1RtxYo=;
+ b=JizFzHCRNeu1up8E2FT4zte5omdxBSYLufjY7gkJAqGuh3FWnJXrKQbCgmMZyk5gfa
+ WJ0sq2eyS2tTos6nZiUDycrGpTViXF5zLWZNCtLA22h8NPKQEGwM5weT1RxXmu6Cui9R
+ E4WZaO92o1Hr77cYkqV6ILh5BCUzGo/dYNnPdrnAwr6ERRIhAzqQc+vRd/fIxkftgriT
+ mu3iNzIjXrrw8oHVwPry3PpImq9+FPoBLqAzfvCxQ1ETz4Ku+ToficlM6j66CX3dnDf/
+ WPuqWx6d0cD2RtmO03wS1ZvUDYBf0RIuKhbv/Xq8yQs/kWl9hhW+wpnRWSviVVQnv8ef
+ 8ONg==
 X-Forwarded-Encrypted: i=1;
- AL+hErEFM+G+ugkYvRGhcT1L+eFw7VuXCS2lGTft15RJ6zBrtJ0JQOm/dQ8pjV+V0xwPmsHq6k3l/GuQmkA=@lists.freedesktop.org
-X-Gm-Message-State: APuU4Z+z8dl8ndw+A7dHZVULORuCb9fALIN0tBaNFB7zNLlGzdPC+S3g
- o1mVpiFGhbxZwnAKTkdTz3mIXEb70+JEND1YU6eMq0Wli0VDU7Bb7iPTpXHZ8RU8CY4nnYYHIdF
- k5mt0OxESqw==
-X-Received: from oibkf8.prod.google.com ([2002:a05:6808:4788:b0:4f2:da8a:16de])
+ AL+hErEAjz6bH2XMFAJuh6msQzDdCQVYd5DYT6iz1JF3tOJPtAsJ63aNWSC986/ODq2/7UAwsksV4nRZqBY=@lists.freedesktop.org
+X-Gm-Message-State: APuU4Z//QpItSjAknQJugLJplQwZu8yOLCnZG1flKlclMesrqWy/CIMv
+ T5yVieYeaQVYwwyPIrx84oH1fdpv8YotequZvRPwCJVy7MWjn07ddQgDFkLi+KnMZfrtmxf3xwC
+ Ismtwh3ebRw==
+X-Received: from dyaw1-n1.prod.google.com
+ ([2002:a05:693c:4141:10b0:37a:8a0f:3aba])
  (user=irogers job=prod-delivery.src-stubby-dispatcher) by
- 2002:a05:6808:3503:b0:4f5:eaac:5151
- with SMTP id 5614622812f47-57a0b0414a8mr598706b6e.39.1795108034097; Thu, 19
- Nov 2026 09:07:14 -0800 (PST)
-Date: Thu, 19 Nov 2026 09:07:05 -0800
-In-Reply-To: <cover.1795106955.git.irogers@google.com>
+ 2002:a05:7300:dc05:b0:381:6ecf:5389
+ with SMTP id 5a478bee46e88-38281cf6a20mr8681249eec.41.1795108040312; Thu, 19
+ Nov 2026 09:07:20 -0800 (PST)
+Date: Thu, 19 Nov 2026 09:07:16 -0800
 X-Archived-By: <archiver.kernel.org>
 Mime-Version: 1.0
-References: <cover.1795106955.git.irogers@google.com>
 X-Mailer: git-send-email 2.56.1.708.g77570a6a1d-goog
-Message-ID: <6fcb1e5c7545f8bcfee9ac9a3abd296c475aa1b7.1795106955.git.irogers@google.com>
-Subject: [PATCH 2/2] drm/amdgpu: initialize r in amdgpu_ttm_clear_buffer()
+Message-ID: <20261119170716.1523667-1-irogers@google.com>
+Subject: [PATCH] drm/xe/svm: Initialize xpagemap to NULL in
+ xe_svm_get_pagemaps()
 From: Ian Rogers <irogers@google.com>
-To: Alex Deucher <alexander.deucher@amd.com>, 
- "=?UTF-8?q?Christian=20K=C3=B6nig?=" <christian.koenig@amd.com>,
+To: Matthew Brost <matthew.brost@intel.com>, 
+ "=?UTF-8?q?Thomas=20Hellstr=C3=B6m?=" <thomas.hellstrom@linux.intel.com>,
+ Rodrigo Vivi <rodrigo.vivi@intel.com>, 
  David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>
-Cc: amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org, 
+Cc: intel-xe@lists.freedesktop.org, dri-devel@lists.freedesktop.org, 
  linux-kernel@vger.kernel.org, llvm@lists.linux.dev, 
  Elkin Cruz <elkin@google.com>, Ian Rogers <irogers@google.com>
 Content-Type: text/plain; charset="UTF-8"
@@ -80,43 +81,44 @@ Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 X-Spam-Status: No, score=-26.3 required=3.0 tests=BAYES_00,DKIMWL_WL_MED,
 	DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
 	INCLUDES_CR_TRAILER,INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,
-	SPF_PASS,USER_AGENT_GIT,USER_IN_DEF_DKIM_WL autolearn=ham
+	SPF_PASS,USER_AGENT_GIT,USER_IN_DEF_DKIM_WL autolearn=unavailable
 	autolearn_force=no version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-In amdgpu_ttm_clear_buffer(), 'r' is declared uninitialized. When
-consider_clear_status is true (such as AMDGPU_GEM_CREATE_VRAM_CLEARED
-allocations) and all backing buddy blocks already have DRM_BUDDY_CLEARED
-set, every iteration of the cursor loop hits 'continue' without assigning
-'r', returning uninitialized stack memory to amdgpu_bo_create().
+On integrated Intel Xe GPUs (!IS_DGFX), xe->info.mem_region_mask has no
+per-tile VRAM bits set, so every iteration of for_each_tile() in
+xe_svm_get_pagemaps() hits 'continue' without assigning 'xpagemap'. The
+post-loop IS_ERR(xpagemap) check then evaluates an uninitialized stack
+pointer on every fault/SVM VM creation.
 
-Initialize 'r' to 0.
+Initialize 'xpagemap' to NULL so IS_ERR(xpagemap) evaluates false when no
+VRAM regions exist.
 
 Found via an x86_64 LLVM=1 (Clang 21.1.8) allyesconfig audit with
 -Wconditional-uninitialized enabled; fix and changelog drafted with an AI
 coding assistant. Build-tested under LLVM=1 W=1 (-Werror) and
--Wconditional-uninitialized; not runtime-tested on AMD GPU hardware.
+-Wconditional-uninitialized; not runtime-tested on Intel Xe hardware.
 
-Fixes: 23bd7e67961e ("drm/amdgpu: get rid of amdgpu_ttm_clear_buffer")
+Fixes: 8a52f4d9b1ef ("drm/xe: Use the drm_pagemap cache and shrinker")
 Signed-off-by: Ian Rogers <irogers@google.com>
 ---
- drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c | 2 +-
+ drivers/gpu/drm/xe/xe_svm.c | 2 +-
  1 file changed, 1 insertion(+), 1 deletion(-)
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c
-index 0f86777250fc..280fcdfb9cca 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c
-@@ -2675,7 +2675,7 @@ int amdgpu_ttm_clear_buffer(struct amdgpu_ttm_buffer_entity *entity,
- 	struct dma_fence *fence = NULL;
- 	struct amdgpu_res_cursor dst;
- 	bool vm_needs_flush = false;
--	int r;
-+	int r = 0;
+diff --git a/drivers/gpu/drm/xe/xe_svm.c b/drivers/gpu/drm/xe/xe_svm.c
+index bc6902b5bf57..22cc7ed19d8a 100644
+--- a/drivers/gpu/drm/xe/xe_svm.c
++++ b/drivers/gpu/drm/xe/xe_svm.c
+@@ -2055,7 +2055,7 @@ xe_pagemap_find_or_create(struct xe_device *xe, struct drm_pagemap_cache *cache,
+ static int xe_svm_get_pagemaps(struct xe_vm *vm)
+ {
+ 	struct xe_device *xe = vm->xe;
+-	struct xe_pagemap *xpagemap;
++	struct xe_pagemap *xpagemap = NULL;
+ 	struct xe_tile *tile;
+ 	int id;
  
- 	if (!entity)
- 		return -EINVAL;
 -- 
 2.56.1.708.g77570a6a1d-goog
 
