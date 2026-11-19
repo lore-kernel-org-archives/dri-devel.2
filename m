@@ -2,54 +2,94 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1C2E9606A325
-	for <dri-devel@archiver.kernel.org>; Thu, 19 Nov 2026 05:17:41 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 48B4860A261A
+	for <dri-devel@archiver.kernel.org>; Thu, 19 Nov 2026 05:21:57 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=nNoAY/ln
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=m/K8mWdU
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 73EA310E21F;
-	Thu, 19 Nov 2026 05:17:35 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 68DEF10E54F;
+	Thu, 19 Nov 2026 05:21:51 +0000 (UTC)
 Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 4532B10E775;
- Thu, 19 Nov 2026 05:17:29 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 8E68A10E508
+ for <dri-devel@lists.freedesktop.org>; Thu, 19 Nov 2026 05:21:45 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id E0E2443CA0;
- Thu, 19 Nov 2026 05:17:28 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id B09CA1F000C5;
- Thu, 19 Nov 2026 05:17:27 +0000 (UTC)
+ by sea.source.kernel.org (Postfix) with ESMTP id 327BE42A9B;
+ Thu, 19 Nov 2026 05:21:45 +0000 (UTC)
+Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
+ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
+ t=1795065705;
+ b=jPWeClNTRjBf5tc4gBwgF81C04FxMWckwiaUT71SqNZ0H5OpJEJu2OT40Dq4z+Gg70Vt
+ iAiS2a3jz6Xsk+06orh/cTadGcGcIngoMeVCJgDBqdZPwa7+lrdV0mvb0ViohNR+HnrP5
+ WhskkxGyX8EOzzD47i++iFaY4+Old0f6LR+dMqABthqXYSwx/0Hh94udiZQAD6oUAxNtR
+ LusP4Q87lvYCeQ8Hbnh8YEk+mcpR3xE7VEh5bLDdZ2iXORwp7kkFfhT6aqhjWrULxAFel
+ pAdVgnWl8Vj2XRwoFTnXcXjcpp3wWZEz6yzL1DXMPSxXccYqq1IgSXr3fPxWuWNp0rA==
+ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
+ c=relaxed/relaxed; t=1795065705;
+ h=DKIM-Signature:Received:From:Date:Subject:MIME-Version:Content-Type:
+ Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
+ X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
+ X-Original-From:Reply-To:Content-Transfer-Encoding;
+ bh=rfuxr0B1OpYG5Xm5r5EJeM7X/JS/n7Astd6NNj7X7L0=;
+ b=wrzum+lWoklpTuzy9jDIdyQEtclWo2CrmZbuSaKqaGhl/nkRDQBBj9nP5m64pdP9gHDs
+ 9UNwkABENp4hfXlVugboW/YNZVxk+NC8/nAKEr5Ni0ZDZwvpLC5K87xhAPgCLDbI7mSYw
+ n9GRITpzE2kzx23W837MBmYEZ83BSCtU08hT+MvTIg50nj79qVrXzYq47letSzEsKtPET
+ xs/YJJcfDjtktjinOQWAIOvOr0BJ1fFxpC9k+1p0SKmC3gvUvWtLuaQCMUwsuTbwvZaCj
+ w+DkFm4xfdEu2hWoB4CPN/TfJmOWh9i5hi4TZqLeGXHCGeD1P00xYBO/zzmymIlMQ2Q==
+ARC-Authentication-Results: i=1; smtp.kernel.org; 
+ arc=none smtp.remote-ip=100.80.115.77
+Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+ (No client certificate requested)
+ by smtp.kernel.org (Postfix) with ESMTPS id DA78E1F000CA;
+ Thu, 19 Nov 2026 05:21:43 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1795065448;
- bh=gXpxPMzeoAX9RUKDnfouZnk/t/QyTFIgvcetpcqjXb0=;
- h=From:Date:Subject:To:Cc;
- b=nNoAY/ln4P/m9Z1H1RNktvGZAouxWB14J8peRpSec14XDgvQEs6y1pfIfIxBIT5VB
- rh6shz2oSa8xpF1IhA0usCLQfu+viNi4qzIjd6ooz4bzfS4HSTjRoZsy6fe5afKbiL
- 1I1th3coP+r1yS2dloy0ZZDsp/vbw5+SdTb1irLrt9zQzuh3Z6x60E2zUNjbb5DAQa
- bL3iIrIgVHfu5fhtqfOcXQvZdY49sF1pKzvWhHZfTkObVBeBan9jr018fv2L6k1+BP
- 9pzIbm64gAvTsI6/OgH5Pjb6JmM5ZTkSwNgxm4v7BUtPMuTBIwynFMS4z4WDxqKvYV
- ZOMMGQN+m6RBA==
-From: Mario Limonciello <superm1@kernel.org>
-Date: Wed, 18 Nov 2026 23:17:14 -0600
-Subject: [PATCH v4] drm/amd/display: Route connector DDC over AUX for
- native DP sinks
+ s=k20260515; t=1795065705;
+ bh=rfuxr0B1OpYG5Xm5r5EJeM7X/JS/n7Astd6NNj7X7L0=;
+ h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To;
+ b=m/K8mWdUAIOjTsjFdzRwMqJ+lk2bF4J/IYzvk2QJs7o4aErhhdOPRvdLcfEtO0Uty
+ nOHCS7ElLQzoQ+fHNk/xxwCMNpdtfqDTnem0FExgJidwJfFtkOyT9c0eBv9+1X8aCM
+ paydDLyS2l+J54bVJjtUWEe4mbymwieDmr+35nZCtshAFiwPOEB4KPVj0sYJ6fuSpr
+ ymIqywXeBv2566OC3c/GrxgN7s3M61WVvt+tzHrkDmxSkLoZdClvMnvjiV/KIuiSLn
+ o1Zb09FlvVaWAnSVEYPxF4gJEEdQKwMmJCZxPeRVIqcvr87kt8CeTzUGF6TkGEeqy1
+ C4nySi/1sTw+A==
+Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
+ by lkml.kernel.org (Postfix) with ESMTP id 638C24B0FE;
+ Thu, 19 Nov 2026 05:21:43 +0000 (UTC)
+From: Arun Iyengar via B4 Relay <devnull+aiyengar1990.gmail.com@kernel.org>
+Date: Thu, 19 Nov 2026 05:21:43 +0000
+Subject: [PATCH v4 2/8] drm/rockchip: vop2: Don't use uninitialised
+ dividers on RK3588
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
-Message-Id: <20261118-superm1-amdgpu-ddc-v4-1-539eaeb4edd7@kernel.org>
-X-B4-Tracking: v=1; b=H4sIAAAAAAAC/33OTY7CMAwF4KugrCfIdkJgZsU9RiyaxC0B+qOEV
- iDUu5PABiTE8snPn30TiWPgJP4WNxF5Cin0XQ76ZyHcvuoalsHnLAjIIALJNA4cW5RV65thlN4
- 7aVQNbBEcEIm8OESuw+WB/u+eOY32wO5cpNLYh3Tu4/VxdcLS+3pgQony162c1ZWuDfltHi5d3
- 4rCT/QKqI8AZWBtPRsPoNWGtkeOHZ+WfWyehnoxED4aqjyhlbGgPbLCN2Oe5zsSdrQSTAEAAA=
- =
-X-Change-ID: 20261102-superm1-amdgpu-ddc-63f0eb10c022
-To: Harry Wentland <harry.wentland@amd.com>, Leo Li <sunpeng.li@amd.com>, 
- Alex Deucher <alexander.deucher@amd.com>
-Cc: Richard Hughes <richard@hughsie.com>, amd-gfx@lists.freedesktop.org, 
- dri-devel@lists.freedesktop.org, Wayne Lin <Wayne.Lin@amd.com>, 
- simonit.orig@gmail.com, 
- =?utf-8?q?Eren_=C3=96zen?= <erenozen@protonmail.com>, 
- Mario Limonciello <superm1@kernel.org>
-X-Mailer: b4 0.16.0
+Message-Id: <20261119-vop2-fixes-v4-2-4b8f5e7148c9@gmail.com>
+References: <20261119-vop2-fixes-v4-0-4b8f5e7148c9@gmail.com>
+In-Reply-To: <20261119-vop2-fixes-v4-0-4b8f5e7148c9@gmail.com>
+To: Sandy Huang <hjc@rock-chips.com>, 
+ =?utf-8?q?Heiko_St=C3=BCbner?= <heiko@sntech.de>, 
+ Andy Yan <andyshrk@163.com>, 
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
+ Sascha Hauer <s.hauer@pengutronix.de>
+Cc: Piotr Zalewski <pZ010001011111@proton.me>, 
+ Chaoyi Chen <chaoyi.chen@rock-chips.com>, 
+ Damon Ding <damon.ding@rock-chips.com>, dri-devel@lists.freedesktop.org, 
+ linux-rockchip@lists.infradead.org, linux-arm-kernel@lists.infradead.org, 
+ linux-kernel@vger.kernel.org, Arun Iyengar <aiyengar1990@gmail.com>
+X-Mailer: b4 0.15.2
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1795065702; l=2236;
+ i=aiyengar1990@gmail.com; s=20261110; h=from:subject:message-id;
+ bh=Ze0km6e6xf3MFauTWjdHWZ99JiujLW3xneM4AQe1tWE=;
+ b=+UqdyznPcKcYgRt8RzywfDvjv/VOsLvuOc961gMgxE6mcHvRsoJivL++FDyye0QctGV3M0clJ
+ zJfV+GciK/xBJGuvmPr9Vo2kh45hbtAHFSFBKWRTIbBtCQ9IdaBi1f7
+X-Developer-Key: i=aiyengar1990@gmail.com; a=ed25519;
+ pk=zXpRgUTrhaFe6jLyPqbBy3ccfkj04w0g2690Wv3mg+0=
+X-Endpoint-Received: by B4 Relay for aiyengar1990@gmail.com/20261110 with
+ auth_id=1480
+X-Original-From: Arun Iyengar <aiyengar1990@gmail.com>
+Content-Transfer-Encoding: 7bit
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -60,119 +100,78 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
+Reply-To: aiyengar1990@gmail.com
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-23.8 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
-	DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
-	INCLUDES_CR_TRAILER,INCLUDES_PATCH,MAILING_LIST_MULTI,
-	MENTIONS_GIT_HOSTING,SPF_HELO_NONE,SPF_PASS,USER_AGENT_GIT
-	autolearn=unavailable autolearn_force=no version=4.0.1
+X-Spam-Status: No, score=-16.8 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
+	DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,FREEMAIL_REPLYTO_END_DIGIT,
+	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
+	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,USER_AGENT_GIT autolearn=ham
+	autolearn_force=no version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-On DisplayPort and eDP connectors DDC is tunneled over the AUX channel,
-but the connector's "ddc" adapter ("AMDGPU DM i2c hw bus N") always
-drives the physical i2c pins, which don't reach a native DP sink.  The
-AUX backed adapter ("AMDGPU DM aux hw bus N") does, so userspace such as
-fwupd, which uses the "ddc" sysfs link for DDC/CI, has to work around
-this.
+From: Arun Iyengar <aiyengar1990@gmail.com>
 
-Keep a single i2c bus per connector and pick the transport per transfer
-based on the link's transaction mode (link->aux_mode), as the EDID read
-helpers already do: for native DP/eDP/MST sinks forward the transfer to
-the AUX adapter, otherwise (DVI/HDMI, including DP++ with a passive
-adapter) use the hw i2c engine as before.
+rk3588_calc_cru_cfg() converts all four dividers with ilog2(), but every
+interface only sets the ones it uses: dclk_out_div is left uninitialised
+for HDMI, eDP and DPI, if_dclk_div for DP, MIPI and DPI, and
+if_pixclk_div for DP and DPI. For HDMI and eDP the uninitialised
+dclk_out_div is then written to RK3588_VP_CLK_CTRL.
 
-Reviewed-by: Wayne Lin <Wayne.Lin@amd.com>
-Reported-by: simonit.orig@gmail.com
-Closes: https://github.com/fwupd/fwupd/pull/11308
-Co-developed-by: "Eren Özen" <erenozen@protonmail.com>
-Signed-off-by: "Eren Özen" <erenozen@protonmail.com>
-Signed-off-by: Mario Limonciello <superm1@kernel.org>
+Set the dividers an interface doesn't use to 1.
+
+Fixes: 5a028e8f062f ("drm/rockchip: vop2: Add support for rk3588")
+Suggested-by: Damon Ding <damon.ding@rock-chips.com>
+Reviewed-by: Damon Ding <damon.ding@rock-chips.com>
+Signed-off-by: Arun Iyengar <aiyengar1990@gmail.com>
 ---
-Changes in v4:
-- Add Wayne's tag
-- Fold in Eren's fix for kunit tests
-- Link to v3: https://patch.msgid.link/20261110-superm1-amdgpu-ddc-v3-1-9436b04d1e31@kernel.org
+ drivers/gpu/drm/rockchip/rockchip_vop2_reg.c | 8 ++++++++
+ 1 file changed, 8 insertions(+)
 
-Changes in v3:
-- Select the transport with link->aux_mode instead of
-  link->local_sink->sink_signal, matching the EDID read helpers in
-  amdgpu_dm_helpers.c.  This drops the unlocked local_sink dereference
-  that could race with link detection/hotplug (use-after-free), and it
-  also covers MST links (local_sink is NULL there) and links with
-  force_to_use_aux set.
-- Check ddc_service->link for NULL before dereferencing it, so
-  amdgpu_dm_i2c_xfer() still returns -EIO when there is no ddc_pin
-  (fixes dm_test_i2c_xfer_no_ddc_pin()).
-- Reword the commit message to describe the aux_mode selection.
-- Link to v2: https://patch.msgid.link/20261103-superm1-amdgpu-ddc-v2-1-7bde6d004382@kernel.org
-
-Changes in v2:
-- Check which i2c bus to use on the fly instead of changing static symlink to
-  avoid regressing passive adapters.
-- Link to v1: https://patch.msgid.link/20261102-superm1-amdgpu-ddc-v1-1-9c5cb4a4f62d@amd.com
----
- .../gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_connector.c  | 16 ++++++++++++++++
- .../display/amdgpu_dm/tests/amdgpu_dm_connector_test.c   |  6 +++++-
- 2 files changed, 21 insertions(+), 1 deletion(-)
-
-diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_connector.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_connector.c
-index b498fc5fbb140..f80de9e7f850c 100644
---- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_connector.c
-+++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_connector.c
-@@ -3373,6 +3373,22 @@ STATIC_IFN_KUNIT int amdgpu_dm_i2c_xfer(struct i2c_adapter *i2c_adap,
- 	int i;
- 	int result = -EIO;
+diff --git a/drivers/gpu/drm/rockchip/rockchip_vop2_reg.c b/drivers/gpu/drm/rockchip/rockchip_vop2_reg.c
+index c44648e1bc0d..f340aba5bfd1 100644
+--- a/drivers/gpu/drm/rockchip/rockchip_vop2_reg.c
++++ b/drivers/gpu/drm/rockchip/rockchip_vop2_reg.c
+@@ -1597,6 +1597,7 @@ static unsigned long rk3588_calc_cru_cfg(struct vop2_video_port *vp, int id,
+ 		 */
+ 		*if_pixclk_div = 2;
+ 		*if_dclk_div = 4;
++		*dclk_out_div = 1;
+ 	} else if (vop2_output_if_is_edp(id)) {
+ 		/*
+ 		 * edp_pixclk = edp_dclk > dclk_core
+@@ -1609,6 +1610,7 @@ static unsigned long rk3588_calc_cru_cfg(struct vop2_video_port *vp, int id,
+ 		 */
+ 		*if_pixclk_div = K;
+ 		*if_dclk_div = K;
++		*dclk_out_div = 1;
+ 	} else if (vop2_output_if_is_dp(id)) {
+ 		if (output_mode == ROCKCHIP_OUT_MODE_YUV420)
+ 			dclk_out_rate = v_pixclk >> 3;
+@@ -1622,6 +1624,8 @@ static unsigned long rk3588_calc_cru_cfg(struct vop2_video_port *vp, int id,
+ 			return 0;
+ 		}
+ 		*dclk_out_div = dclk_rate / dclk_out_rate;
++		*if_pixclk_div = 1;
++		*if_dclk_div = 1;
+ 	} else if (vop2_output_if_is_mipi(id)) {
+ 		if_pixclk_rate = dclk_core_rate / K;
+ 		/*
+@@ -1643,8 +1647,12 @@ static unsigned long rk3588_calc_cru_cfg(struct vop2_video_port *vp, int id,
+ 		 * mipi pixclk == dclk_out
+ 		 */
+ 		*if_pixclk_div = 1;
++		*if_dclk_div = 1;
+ 	} else if (vop2_output_if_is_dpi(id)) {
+ 		dclk_rate = v_pixclk;
++		*dclk_out_div = 1;
++		*if_pixclk_div = 1;
++		*if_dclk_div = 1;
+ 	}
  
-+	if (!i2c->oem && ddc_service->link) {
-+		struct dc_link *link = ddc_service->link;
-+		struct amdgpu_dm_connector *aconnector = link->priv;
-+
-+		/*
-+		 * DDC to a native DisplayPort sink (SST, MST or eDP) is
-+		 * tunneled over the AUX channel; the physical i2c pins only
-+		 * reach DVI/HDMI sinks (e.g. DP++ with a passive adapter).
-+		 * Use the same aux_mode selection as the EDID read helpers so
-+		 * the connector's single "ddc" bus works for either sink.
-+		 */
-+		if (aconnector && link->aux_mode &&
-+		    aconnector->dm_dp_aux.aux.ddc.algo)
-+			return i2c_transfer(&aconnector->dm_dp_aux.aux.ddc, msgs, num);
-+	}
-+
- 	if (!ddc_service->ddc_pin)
- 		return result;
- 
-diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/tests/amdgpu_dm_connector_test.c b/drivers/gpu/drm/amd/display/amdgpu_dm/tests/amdgpu_dm_connector_test.c
-index f09e2a72c5346..6564d5d22825c 100644
---- a/drivers/gpu/drm/amd/display/amdgpu_dm/tests/amdgpu_dm_connector_test.c
-+++ b/drivers/gpu/drm/amd/display/amdgpu_dm/tests/amdgpu_dm_connector_test.c
-@@ -6140,7 +6140,9 @@ static void dm_test_i2c_func_returns_flags(struct kunit *test)
-  * @test: The KUnit test context
-  *
-  * When the backing ddc_service has no ddc_pin the transfer bails out early
-- * with -EIO before touching the message buffers or the dc handle.
-+ * with -EIO before touching the message buffers or the dc handle. Non-OEM
-+ * adapters always have a link, so the test gives the ddc_service a zeroed
-+ * one.
-  */
- static void dm_test_i2c_xfer_no_ddc_pin(struct kunit *test)
- {
-@@ -6151,6 +6153,8 @@ static void dm_test_i2c_xfer_no_ddc_pin(struct kunit *test)
- 	KUNIT_ASSERT_NOT_NULL(test, i2c);
- 	ddc = kunit_kzalloc(test, sizeof(*ddc), GFP_KERNEL);
- 	KUNIT_ASSERT_NOT_NULL(test, ddc);
-+	ddc->link = kunit_kzalloc(test, sizeof(*ddc->link), GFP_KERNEL);
-+	KUNIT_ASSERT_NOT_NULL(test, ddc->link);
- 
- 	i2c->ddc_service = ddc;
- 	i2c_set_adapdata(&i2c->base, i2c);
+ 	*dclk_core_div = dclk_rate / dclk_core_rate;
 
----
-base-commit: 7475ea8b58616b33c04afb976cf0fbaad9dd63fb
-change-id: 20261102-superm1-amdgpu-ddc-63f0eb10c022
+-- 
+2.55.0
 
-Best regards,
---  
-Mario Limonciello <superm1@kernel.org>
 
