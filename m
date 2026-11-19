@@ -2,84 +2,118 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0B9C6606A325
-	for <dri-devel@archiver.kernel.org>; Thu, 19 Nov 2026 16:28:01 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7A522606A320
+	for <dri-devel@archiver.kernel.org>; Thu, 19 Nov 2026 16:28:02 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=UYCmuK0k
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=n/jm8GB4
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 2669210E4B1;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 83BA410E6FD;
 	Thu, 19 Nov 2026 16:27:55 +0000 (UTC)
-Received: from mail-dl1-f51.google.com (mail-dl1-f51.google.com [74.125.82.51])
- by gabe.freedesktop.org (Postfix) with ESMTPS id B2CD110EA54
- for <dri-devel@lists.freedesktop.org>; Thu, 19 Nov 2026 16:24:51 +0000 (UTC)
-Received: by mail-dl1-f51.google.com with SMTP id
- a92af1059eb24-1b546061d58so4331174c88.1
- for <dri-devel@lists.freedesktop.org>; Thu, 19 Nov 2026 08:24:51 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20260707; t=1795105491; x=1795710291; darn=lists.freedesktop.org;
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:date:subject:cc:to:from:from:to:cc:subject:date
- :message-id:reply-to:content-type;
- bh=M09KTpdMdYRLP0+ehoUDJXiG7W2eQE6Nu7ZbAla5PVI=;
- b=UYCmuK0k4Y+4ca9TVxHli4nfJ2Sxmc3yonhGellBS2Sy8g6E/yK0TdLH5GF/VMMLPS
- koEs1peX8IHHLtyLR3kM8IFJjTIra3bi37MCzY9uIgalTku/LE3MjchCMkFNjCeCUZ4N
- VJsNxUnpy8G3yXgo8LN1IJFrXJCYGnionrkOqQSDwXEhsN4JiX3iZcONZKtdbw+TlH3A
- ujLbSdZ7WdRD1YM2QiZM3elARR9Fz1w3zNUAuK1XvxUD0Fo0WqbIjdxdI85iek92RR6t
- +wemkGNWoHotqnTK+JBRNKFrNXca3T4DszlpNy+3h0rVwk2HToaaa+Xmoc5dOdTwHi3F
- uz2A==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20260707; t=1795105491; x=1795710291;
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
- :to:cc:subject:date:message-id:reply-to:content-type;
- bh=M09KTpdMdYRLP0+ehoUDJXiG7W2eQE6Nu7ZbAla5PVI=;
- b=0/hYE1zv/sUTTZbMZIZnCuPbgjAsP2v30FYwg1M7KQeHlP9KXoS1W6PMFto55lj5zG
- DowJQj9/L81svWDwDlH/pXuwnzLCYbM5gowUNg4jH8Ccq0rvRXQu1Nt+fNiATrDHh1/i
- Z5+5KmNCfdLduwS8SNVUJb39fLCLsIqBMjyyvzohpS2nt9bO9mhvy39uQU+Ty2V13Cr5
- ZIAq+9IDG9gteaMeyKb1Qmhtp9XU751xndnDN5EB8kR5iDU3jiuKGGMaWNPxVKdgOXZQ
- oBhOnr6PZHdBRJeCQRBJHCB3CHG0/THMY0Io0cZDr/n5/QzhDHwQLV/9vpMT3bZi5WQ0
- ZStg==
-X-Forwarded-Encrypted: i=1;
- AL+hErGiGH3b69PeyYvAeNpq8bBCuWnWbNRu9ycOmAyb75KaW2zEvMIZr0kBZQkg7/LOzp3We2/0u8L7ZRw=@lists.freedesktop.org
-X-Gm-Message-State: APuU4Z8xSRi9bQ0DE/KkH3QWto9ZnaSJcK0xsC6OP5WygSKrKmD9CeDe
- LP2FDz2HrpkBeWbXOMKRfrpLAllTJDQYaDwV6qrOc5c2YMku+9rXIOxF
-X-Gm-Gg: AYBFou2jGUPTxerqY+Gds30WrlM2YrBLvPSZ0PjdEmk9/LJG+gp0woplvYHMje6HiZL
- Vahop44qvRJMRynJMrrEWTW9njldjUH40qG6CfWEbZqgrU/cPlwL+lQkDcM1EQ24VRYGjjxpIDp
- eadCSAF+IL8hq0u7uP/tudX/LTHWEwA06x9MQEB0yxppQpKQ/XEQ47YYoHWQ4jTK0j1vrkymEhE
- kMQVaay/cUG56q9t63QOUg8+hZvZHocIIeptlEItfpJefSuIoiqL7JUh9WUdvGLkLnq/KPPRxXo
- 0GPfEFrLXEwy7UJuarFwoWt32+i71enXENcBMCdHgRZ1LByDqoy1S48GKaCY8CeZGQRmjlNk605
- gzuLhetIYE6eC3jXWlIHGZPhefp0nl9TfwpohWCYsdKwx/0wawenBCoVsryMVygdysEolajm6EN
- MS1z7+q2b/KdVH6ngfnIeBll9YqFVcYTxYXEu27HnqBoUV+iLV4f5A/ZKH5q+IecWxpn0ETa9Jf
- aHRMkzxKnGAMtZC0MwK4CxULhzcYRgF4kJw4evd/3lH2G0GNlxdQAJr60rEYLFUoveIDe3vW5+j
- sShXLesTp3ldEKdHsQP9U4++jszoq0AWzv9TEdpby13z9IJoRXaJmrjt3ykAT7kUXw==
-X-Received: by 2002:a05:701b:2704:b0:1b5:4f6d:8277 with SMTP id
- a92af1059eb24-1b5568e78b1mr155625c88.26.1795105490841; 
- Thu, 19 Nov 2026 08:24:50 -0800 (PST)
-Received: from evo.www.tendawifi.com ([103.98.7.209])
- by smtp.gmail.com with ESMTPSA id
- a92af1059eb24-1b55681301asm302840c88.8.2026.11.19.08.24.46
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 19 Nov 2026 08:24:50 -0800 (PST)
-From: Archit More <architmore303@gmail.com>
-To: Neil Armstrong <neil.armstrong@linaro.org>,
- Douglas Anderson <dianders@chromium.org>
-Cc: Akash Sukhavasi <akash.sukhavasi@gmail.com>,
- Chris Morgan <macromorgan@hotmail.com>,
- Jessica Zhang <jesszhan0024@gmail.com>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>,
+Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 68E4D11241C;
+ Thu, 19 Nov 2026 13:43:08 +0000 (UTC)
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+ by sea.source.kernel.org (Postfix) with ESMTP id 4EFD8418E3;
+ Thu, 19 Nov 2026 13:43:08 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id E7C561F000C4;
+ Thu, 19 Nov 2026 13:43:06 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+ s=k20260515; t=1795095788;
+ bh=CbEg7XvfeDnBQ/K77/dlrEkK7yv8e4LifTJxVZmhLAs=;
+ h=From:To:Cc:Subject:Date:In-Reply-To:References;
+ b=n/jm8GB4oI1ZqtVH3mcxqQUwu9zuKiDu90pq6oKhkRGMpkul9cUzIWyL0OMn9lNiE
+ yBKBsV8prLTEFyx0qEMoD8RpojqItT9dAXuguu1fIPVRXKdIrWHbwCsl9jO+ySa7g7
+ k00W4Ui1/3OvE8DlqLfbOZX3jHIMUSZi3jgQBAE/Cw/9/Zykh9QHw5PS1qgR2i71IR
+ zfO8LeXoviNETRPF0eKG6jI5XGyHA/nbymcYM0a9zYLwrYLw9o5tAXmABdR6mFolMb
+ LOw2bTAgup7y5wAExPZUZs/Z37euTnmiFeLJ23GCI0jxPdlBzRNv8iqF2TPyMS/YJP
+ fqCrH5mGo+kGQ==
+From: Maxime Ripard <mripard@kernel.org>
+To: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
  Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>,
- Simona Vetter <simona@ffwll.ch>, dri-devel@lists.freedesktop.org,
- linux-kernel@vger.kernel.org, Archit More <architmore303@gmail.com>
-Subject: [PATCH 3/3] drm/panel: leadtek-ltk500hd1829: Use lowercase hex
- literals
-Date: Thu, 19 Nov 2026 21:53:53 +0530
-Message-Id: <20261119162353.12962-4-architmore303@gmail.com>
-X-Mailer: git-send-email 2.34.1
-In-Reply-To: <20261119162353.12962-1-architmore303@gmail.com>
-References: <20261119162353.12962-1-architmore303@gmail.com>
+ Simona Vetter <simona@ffwll.ch>, Maxime Ripard <mripard@kernel.org>
+Cc: dri-devel@lists.freedesktop.org, Janne Grunau <j@jannau.net>,
+ Sasha Finkelstein <k@chaosmail.tech>, asahi@lists.linux.dev,
+ =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
+ Alex Deucher <alexander.deucher@amd.com>, amd-gfx@lists.freedesktop.org,
+ sashiko-bot@kernel.org, Liviu Dudau <liviu.dudau@arm.com>,
+ Russell King <linux@armlinux.org.uk>, Dave Airlie <airlied@redhat.com>,
+ Jocelyn Falempe <jfalempe@redhat.com>,
+ Alim Akhtar <alim.akhtar@samsung.com>, Inki Dae <inki.dae@samsung.com>,
+ Krzysztof Kozlowski <krzk@kernel.org>,
+ Kyungmin Park <kyungmin.park@samsung.com>,
+ Peter Griffin <peter.griffin@linaro.org>,
+ Seung-Woo Kim <sw0312.kim@samsung.com>, linux-samsung-soc@vger.kernel.org,
+ Alison Wang <alison.wang@nxp.com>, Stefan Agner <stefan@agner.ch>,
+ Tian Tao <tiantao6@hisilicon.com>,
+ Xinwei Kong <kong.kongxinwei@hisilicon.com>,
+ Yongbang Shi <shiyongbang@huawei.com>, Dexuan Cui <decui@microsoft.com>,
+ Long Li <longli@microsoft.com>,
+ Saurabh Sengar <ssengar@linux.microsoft.com>, linux-hyperv@vger.kernel.org,
+ Fabio Estevam <festevam@gmail.com>, Frank Li <Frank.Li@nxp.com>,
+ Pengutronix Kernel Team <kernel@pengutronix.de>,
+ Philipp Zabel <p.zabel@pengutronix.de>,
+ Sascha Hauer <s.hauer@pengutronix.de>, imx@lists.linux.dev,
+ Paul Cercueil <paul@crapouillou.net>, linux-mips@vger.kernel.org,
+ Anitha Chrisanthus <anitha.chrisanthus@intel.com>,
+ Paul Kocialkowski <paulk@sys-base.io>, Huacai Chen <chenhuacai@kernel.org>,
+ Icenowy Zheng <zhengxingda@iscas.ac.cn>,
+ Jianmin Lv <lvjianmin@loongson.cn>, Mingcong Bai <jeffbai@aosc.io>,
+ Qianhai Wu <wuqianhai@loongson.cn>, Xi Ruoyao <xry111@xry111.site>,
+ AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>,
+ Chun-Kuang Hu <chunkuang.hu@kernel.org>,
+ Matthias Brugger <matthias.bgg@gmail.com>,
+ Abhinav Kumar <abhinav.kumar@linux.dev>,
+ Dmitry Baryshkov <lumag@kernel.org>,
+ Jessica Zhang <jesszhan0024@gmail.com>,
+ Marijn Suijten <marijn.suijten@somainline.org>,
+ Rob Clark <robin.clark@oss.qualcomm.com>, Sean Paul <sean@poorly.run>,
+ freedreno@lists.freedesktop.org, linux-arm-msm@vger.kernel.org,
+ Danilo Krummrich <dakr@kernel.org>, Lyude Paul <lyude@redhat.com>,
+ nouveau@lists.freedesktop.org,
+ Tomi Valkeinen <tomi.valkeinen@ideasonboard.com>,
+ Gerd Hoffmann <kraxel@redhat.com>, spice-devel@lists.freedesktop.org,
+ virtualization@lists.linux.dev,
+ Geert Uytterhoeven <geert+renesas@glider.be>,
+ Kieran Bingham <kieran.bingham+renesas@ideasonboard.com>,
+ Laurent Pinchart <laurent.pinchart+renesas@ideasonboard.com>,
+ Magnus Damm <magnus.damm@gmail.com>,
+ Tomi Valkeinen <tomi.valkeinen+renesas@ideasonboard.com>,
+ linux-renesas-soc@vger.kernel.org, Biju Das <biju.das.jz@bp.renesas.com>,
+ Marcus Folkesson <marcus.folkesson@gmail.com>,
+ David Lechner <david@lechnology.com>,
+ Iker Pedrosa <ikerpedrosam@gmail.com>,
+ Baolin Wang <baolin.wang@linux.alibaba.com>,
+ Chunyan Zhang <zhang.lyra@gmail.com>, Orson Zhai <orsonzhai@gmail.com>,
+ Alexandre Torgue <alexandre.torgue@foss.st.com>,
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+ Philippe Cornu <philippe.cornu@foss.st.com>,
+ Raphael Gallais-Pou <raphael.gallais-pou@foss.st.com>,
+ Yannick Fertre <yannick.fertre@foss.st.com>,
+ Chen-Yu Tsai <wens@kernel.org>, Samuel Holland <samuel@sholland.org>,
+ linux-sunxi@lists.linux.dev, Jonathan Hunter <jonathanh@nvidia.com>,
+ Mikko Perttunen <mperttunen@nvidia.com>,
+ Thierry Reding <thierry.reding@kernel.org>, linux-tegra@vger.kernel.org,
+ Jyri Sarha <jyri.sarha@iki.fi>, Alexey Brodkin <abrodkin@synopsys.com>,
+ Hans de Goede <hansg@kernel.org>,
+ Kamlesh Gurudasani <kamlesh.gurudasani@gmail.com>,
+ Alex Lanzano <lanzano.alex@gmail.com>,
+ LiangCheng Wang <zaq14760@gmail.com>, Chia-I Wu <olvaffe@gmail.com>,
+ Dmitry Osipenko <dmitry.osipenko@collabora.com>,
+ Gurchetan Singh <gurchetansingh@chromium.org>,
+ Broadcom internal kernel review list <bcm-kernel-feedback-list@broadcom.com>, 
+ Zack Rusin <zack.rusin@broadcom.com>,
+ Oleksandr Andrushchenko <oleksandr_andrushchenko@epam.com>,
+ Michal Simek <michal.simek@amd.com>
+Subject: Re: (subset) [PATCH v2 00/64] drm: Switch drivers to
+ drm_mode_config_create_initial_state
+Date: Thu, 19 Nov 2026 14:43:02 +0100
+Message-ID: <179509577844.523497.5498880532220697042.b4-ty@kernel.org>
+X-Mailer: git-send-email 2.56.1
+In-Reply-To: <20261116-drm-no-more-config-reset-v2-0-0bb471f4d1e0@kernel.org>
+References: <20261116-drm-no-more-config-reset-v2-0-0bb471f4d1e0@kernel.org>
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
+Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
 X-Mailman-Approved-At: Thu, 19 Nov 2026 16:27:44 +0000
 X-BeenThere: dri-devel@lists.freedesktop.org
@@ -93,628 +127,43 @@ List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-15.8 required=3.0 tests=BAYES_00,DKIM_SIGNED,
-	DKIM_VALID,DKIM_VALID_AU,FREEMAIL_FORGED_FROMDOMAIN,FREEMAIL_FROM,
-	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
+X-Spam-Status: No, score=-8.8 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
+	DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
 	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,USER_AGENT_GIT
 	autolearn=unavailable autolearn_force=no version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-Convert hexadecimal literals in the LTK500HD1829 initialization sequence
-to lowercase.
+On Mon, 16 Nov 2026 11:30:16 +0100, Maxime Ripard wrote:
+> drm_mode_config_reset() has a dual role: it creates the initial KMS
+> state at probe time, and resets hardware and software state during
+> suspend/resume cycles. However, the two roles need different
+> behaviors, notably for objects like drm_private_obj that must persist
+> across suspend/resume and are excluded from drm_mode_config_reset()
+> by design.
+> 
+> [...]
 
-Suggested-by: Douglas Anderson <dianders@chromium.org>
-Signed-off-by: Archit More <architmore303@gmail.com>
----
- .../drm/panel/panel-leadtek-ltk500hd1829.c    | 426 +++++++++---------
- 1 file changed, 213 insertions(+), 213 deletions(-)
+Applied to misc/kernel.git (drm-misc-next)
 
-diff --git a/drivers/gpu/drm/panel/panel-leadtek-ltk500hd1829.c b/drivers/gpu/drm/panel/panel-leadtek-ltk500hd1829.c
-index ee65506477df..807ecb79d1ed 100644
---- a/drivers/gpu/drm/panel/panel-leadtek-ltk500hd1829.c
-+++ b/drivers/gpu/drm/panel/panel-leadtek-ltk500hd1829.c
-@@ -44,128 +44,128 @@ struct ltk500hd1829 {
- 
- static const struct ltk500hd1829_cmd ltk101b4029w_init[] = {
- 	/* Page0 */
--	{ 0xE0, 0x00 },
-+	{ 0xe0, 0x00 },
- 	/* PASSWORD */
--	{ 0xE1, 0x93 },
--	{ 0xE2, 0x65 },
--	{ 0xE3, 0xF8 },
-+	{ 0xe1, 0x93 },
-+	{ 0xe2, 0x65 },
-+	{ 0xe3, 0xf8 },
- 	{ 0x80, 0x03 }, /* 0X03:4-LANE; 0X02:3-LANE; 0X01:2-LANE */
- 	/* Page1 */
--	{ 0xE0, 0x01 },
-+	{ 0xe0, 0x01 },
- 	/* Set VCOM */
- 	{ 0x00, 0x00 },
--	{ 0x01, 0x6F },
-+	{ 0x01, 0x6f },
- 	/* Set Gamma Power, VGMP,VGMN,VGSP,VGSN */
- 	{ 0x17, 0x00 },
--	{ 0x18, 0xAF }, /* 4.3V */
-+	{ 0x18, 0xaf }, /* 4.3V */
- 	{ 0x19, 0x01 }, /* 0.3V */
--	{ 0x1A, 0x00 },
--	{ 0x1B, 0xAF }, /* 4.3V */
--	{ 0x1C, 0x01 }, /* 0.3V */
-+	{ 0x1a, 0x00 },
-+	{ 0x1b, 0xaf }, /* 4.3V */
-+	{ 0x1c, 0x01 }, /* 0.3V */
- 	/* Set Gate Power */
--	{ 0x1F, 0x3E }, /* VGH_R  = 15V */
-+	{ 0x1f, 0x3e }, /* VGH_R  = 15V */
- 	{ 0x20, 0x28 }, /* VGL_R  = -12V */
- 	{ 0x21, 0x28 }, /* VGL_R2 = -12V */
--	{ 0x22, 0x7E },
-+	{ 0x22, 0x7e },
- 	/* SETPANEL */
- 	{ 0x35, 0x26 },
- 	{ 0x37, 0x09 },
- 	/* SET RGBCYC */
- 	{ 0x38, 0x04 },
- 	{ 0x39, 0x00 },
--	{ 0x3A, 0x01 },
--	{ 0x3C, 0x7C },
--	{ 0x3D, 0xFF },
--	{ 0x3E, 0xFF },
--	{ 0x3F, 0x7F },
-+	{ 0x3a, 0x01 },
-+	{ 0x3c, 0x7c },
-+	{ 0x3d, 0xff },
-+	{ 0x3e, 0xff },
-+	{ 0x3f, 0x7f },
- 	/* Set TCON */
- 	{ 0x40, 0x06 }, /* RSO = 800 RGB */
--	{ 0x41, 0xA0 }, /* LN = 640->1280 line */
-+	{ 0x41, 0xa0 }, /* LN = 640->1280 line */
- 	{ 0x42, 0x81 },
- 	{ 0x43, 0x08 }, /* VFP = 8 */
--	{ 0x44, 0x0B }, /* VBP = 12 */
-+	{ 0x44, 0x0b }, /* VBP = 12 */
- 	{ 0x45, 0x28 }, /* HBP = 40 */
- 	/* power voltage */
--	{ 0x55, 0x0F }, /* DCDCM = 0001, JD PWR_IC */
-+	{ 0x55, 0x0f }, /* DCDCM = 0001, JD PWR_IC */
- 	{ 0x57, 0x69 },
--	{ 0x59, 0x0A }, /* VCL = -2.9V */
--	{ 0x5A, 0x28 }, /* VGH = 15V */
--	{ 0x5B, 0x14 }, /* VGL = -11V */
-+	{ 0x59, 0x0a }, /* VCL = -2.9V */
-+	{ 0x5a, 0x28 }, /* VGH = 15V */
-+	{ 0x5b, 0x14 }, /* VGL = -11V */
- 	/* Gamma */
--	{ 0x5D, 0x7C },
--	{ 0x5E, 0x65 },
--	{ 0x5F, 0x55 },
-+	{ 0x5d, 0x7c },
-+	{ 0x5e, 0x65 },
-+	{ 0x5f, 0x55 },
- 	{ 0x60, 0x47 },
- 	{ 0x61, 0x43 },
- 	{ 0x62, 0x32 },
- 	{ 0x63, 0x34 },
--	{ 0x64, 0x1C },
-+	{ 0x64, 0x1c },
- 	{ 0x65, 0x33 },
- 	{ 0x66, 0x31 },
- 	{ 0x67, 0x30 },
--	{ 0x68, 0x4E },
--	{ 0x69, 0x3C },
--	{ 0x6A, 0x44 },
--	{ 0x6B, 0x35 },
--	{ 0x6C, 0x31 },
--	{ 0x6D, 0x23 },
--	{ 0x6E, 0x11 },
--	{ 0x6F, 0x00 },
--	{ 0x70, 0x7C },
-+	{ 0x68, 0x4e },
-+	{ 0x69, 0x3c },
-+	{ 0x6a, 0x44 },
-+	{ 0x6b, 0x35 },
-+	{ 0x6c, 0x31 },
-+	{ 0x6d, 0x23 },
-+	{ 0x6e, 0x11 },
-+	{ 0x6f, 0x00 },
-+	{ 0x70, 0x7c },
- 	{ 0x71, 0x65 },
- 	{ 0x72, 0x55 },
- 	{ 0x73, 0x47 },
- 	{ 0x74, 0x43 },
- 	{ 0x75, 0x32 },
- 	{ 0x76, 0x34 },
--	{ 0x77, 0x1C },
-+	{ 0x77, 0x1c },
- 	{ 0x78, 0x33 },
- 	{ 0x79, 0x31 },
--	{ 0x7A, 0x30 },
--	{ 0x7B, 0x4E },
--	{ 0x7C, 0x3C },
--	{ 0x7D, 0x44 },
--	{ 0x7E, 0x35 },
--	{ 0x7F, 0x31 },
-+	{ 0x7a, 0x30 },
-+	{ 0x7b, 0x4e },
-+	{ 0x7c, 0x3c },
-+	{ 0x7d, 0x44 },
-+	{ 0x7e, 0x35 },
-+	{ 0x7f, 0x31 },
- 	{ 0x80, 0x23 },
- 	{ 0x81, 0x11 },
- 	{ 0x82, 0x00 },
- 	 /* Page2, for GIP */
--	{ 0xE0, 0x02 },
-+	{ 0xe0, 0x02 },
- 	/* GIP_L Pin mapping */
--	{ 0x00, 0x1E },
--	{ 0x01, 0x1E },
-+	{ 0x00, 0x1e },
-+	{ 0x01, 0x1e },
- 	{ 0x02, 0x41 },
- 	{ 0x03, 0x41 },
- 	{ 0x04, 0x43 },
- 	{ 0x05, 0x43 },
--	{ 0x06, 0x1F },
--	{ 0x07, 0x1F },
-+	{ 0x06, 0x1f },
-+	{ 0x07, 0x1f },
- 	{ 0x08, 0x35 },
--	{ 0x09, 0x1F },
--	{ 0x0A, 0x15 },
--	{ 0x0B, 0x15 },
--	{ 0x0C, 0x1F },
--	{ 0x0D, 0x47 },
--	{ 0x0E, 0x47 },
--	{ 0x0F, 0x45 },
-+	{ 0x09, 0x1f },
-+	{ 0x0a, 0x15 },
-+	{ 0x0b, 0x15 },
-+	{ 0x0c, 0x1f },
-+	{ 0x0d, 0x47 },
-+	{ 0x0e, 0x47 },
-+	{ 0x0f, 0x45 },
- 	{ 0x10, 0x45 },
--	{ 0x11, 0x4B },
--	{ 0x12, 0x4B },
-+	{ 0x11, 0x4b },
-+	{ 0x12, 0x4b },
- 	{ 0x13, 0x49 },
- 	{ 0x14, 0x49 },
--	{ 0x15, 0x1F },
-+	{ 0x15, 0x1f },
- 	/* GIP_R Pin mapping */
--	{ 0x16, 0x1E },
--	{ 0x17, 0x1E },
-+	{ 0x16, 0x1e },
-+	{ 0x17, 0x1e },
- 	{ 0x18, 0x40 },
- 	{ 0x19, 0x40 },
--	{ 0x1A, 0x42 },
--	{ 0x1B, 0x42 },
--	{ 0x1C, 0x1F },
--	{ 0x1D, 0x1F },
--	{ 0x1E, 0x35 },
--	{ 0x1F, 0x1F },
-+	{ 0x1a, 0x42 },
-+	{ 0x1b, 0x42 },
-+	{ 0x1c, 0x1f },
-+	{ 0x1d, 0x1f },
-+	{ 0x1e, 0x35 },
-+	{ 0x1f, 0x1f },
- 	{ 0x20, 0x15 },
- 	{ 0x21, 0x15 },
- 	{ 0x22, 0x1f },
-@@ -173,45 +173,45 @@ static const struct ltk500hd1829_cmd ltk101b4029w_init[] = {
- 	{ 0x24, 0x46 },
- 	{ 0x25, 0x44 },
- 	{ 0x26, 0x44 },
--	{ 0x27, 0x4A },
--	{ 0x28, 0x4A },
-+	{ 0x27, 0x4a },
-+	{ 0x28, 0x4a },
- 	{ 0x29, 0x48 },
--	{ 0x2A, 0x48 },
--	{ 0x2B, 0x1F },
-+	{ 0x2a, 0x48 },
-+	{ 0x2b, 0x1f },
- 	/* GIP Timing */
- 	{ 0x58, 0x40 },
--	{ 0x5B, 0x30 },
--	{ 0x5C, 0x03 },
--	{ 0x5D, 0x30 },
--	{ 0x5E, 0x01 },
--	{ 0x5F, 0x02 },
-+	{ 0x5b, 0x30 },
-+	{ 0x5c, 0x03 },
-+	{ 0x5d, 0x30 },
-+	{ 0x5e, 0x01 },
-+	{ 0x5f, 0x02 },
- 	{ 0x63, 0x14 },
--	{ 0x64, 0x6A },
-+	{ 0x64, 0x6a },
- 	{ 0x67, 0x73 },
- 	{ 0x68, 0x05 },
- 	{ 0x69, 0x14 },
--	{ 0x6A, 0x6A },
--	{ 0x6B, 0x08 },
--	{ 0x6C, 0x00 },
--	{ 0x6D, 0x00 },
--	{ 0x6E, 0x00 },
--	{ 0x6F, 0x88 },
--	{ 0x77, 0xDD },
--	{ 0x79, 0x0E },
--	{ 0x7A, 0x03 },
--	{ 0x7D, 0x14 },
--	{ 0x7E, 0x6A },
-+	{ 0x6a, 0x6a },
-+	{ 0x6b, 0x08 },
-+	{ 0x6c, 0x00 },
-+	{ 0x6d, 0x00 },
-+	{ 0x6e, 0x00 },
-+	{ 0x6f, 0x88 },
-+	{ 0x77, 0xdd },
-+	{ 0x79, 0x0e },
-+	{ 0x7a, 0x03 },
-+	{ 0x7d, 0x14 },
-+	{ 0x7e, 0x6a },
- 	/* Page4 */
--	{ 0xE0, 0x04 },
-+	{ 0xe0, 0x04 },
- 	{ 0x09, 0x11 },
--	{ 0x0E, 0x48 },
--	{ 0x2B, 0x2B },
--	{ 0x2D, 0x03 },
--	{ 0x2E, 0x44 },
-+	{ 0x0e, 0x48 },
-+	{ 0x2b, 0x2b },
-+	{ 0x2d, 0x03 },
-+	{ 0x2e, 0x44 },
- 	/* Page0 */
--	{ 0xE0, 0x00 },
--	{ 0xE6, 0x02 },
--	{ 0xE7, 0x0C },
-+	{ 0xe0, 0x00 },
-+	{ 0xe6, 0x02 },
-+	{ 0xe7, 0x0c },
- };
- 
- static const struct drm_display_mode ltk101b4029w_mode = {
-@@ -239,105 +239,105 @@ static const struct ltk500hd1829_desc ltk101b4029w_data = {
-  * We received them from the vendor, so just use them as is.
-  */
- static const struct ltk500hd1829_cmd ltk500hd1829_init[] = {
--	{ 0xE0, 0x00 },
--	{ 0xE1, 0x93 },
--	{ 0xE2, 0x65 },
--	{ 0xE3, 0xF8 },
-+	{ 0xe0, 0x00 },
-+	{ 0xe1, 0x93 },
-+	{ 0xe2, 0x65 },
-+	{ 0xe3, 0xf8 },
- 	{ 0x80, 0x03 },
--	{ 0xE0, 0x04 },
--	{ 0x2D, 0x03 },
--	{ 0xE0, 0x01 },
-+	{ 0xe0, 0x04 },
-+	{ 0x2d, 0x03 },
-+	{ 0xe0, 0x01 },
- 	{ 0x00, 0x00 },
--	{ 0x01, 0xB6 },
-+	{ 0x01, 0xb6 },
- 	{ 0x03, 0x00 },
--	{ 0x04, 0xC5 },
-+	{ 0x04, 0xc5 },
- 	{ 0x17, 0x00 },
--	{ 0x18, 0xBF },
-+	{ 0x18, 0xbf },
- 	{ 0x19, 0x01 },
--	{ 0x1A, 0x00 },
--	{ 0x1B, 0xBF },
--	{ 0x1C, 0x01 },
--	{ 0x1F, 0x7C },
-+	{ 0x1a, 0x00 },
-+	{ 0x1b, 0xbf },
-+	{ 0x1c, 0x01 },
-+	{ 0x1f, 0x7c },
- 	{ 0x20, 0x26 },
- 	{ 0x21, 0x26 },
--	{ 0x22, 0x4E },
-+	{ 0x22, 0x4e },
- 	{ 0x37, 0x09 },
- 	{ 0x38, 0x04 },
- 	{ 0x39, 0x08 },
--	{ 0x3A, 0x1F },
--	{ 0x3B, 0x1F },
--	{ 0x3C, 0x78 },
--	{ 0x3D, 0xFF },
--	{ 0x3E, 0xFF },
--	{ 0x3F, 0x00 },
-+	{ 0x3a, 0x1f },
-+	{ 0x3b, 0x1f },
-+	{ 0x3c, 0x78 },
-+	{ 0x3d, 0xff },
-+	{ 0x3e, 0xff },
-+	{ 0x3f, 0x00 },
- 	{ 0x40, 0x04 },
--	{ 0x41, 0xA0 },
--	{ 0x43, 0x0F },
--	{ 0x44, 0x0A },
-+	{ 0x41, 0xa0 },
-+	{ 0x43, 0x0f },
-+	{ 0x44, 0x0a },
- 	{ 0x45, 0x24 },
- 	{ 0x55, 0x01 },
- 	{ 0x56, 0x01 },
--	{ 0x57, 0xA5 },
--	{ 0x58, 0x0A },
--	{ 0x59, 0x4A },
--	{ 0x5A, 0x38 },
--	{ 0x5B, 0x10 },
--	{ 0x5C, 0x19 },
--	{ 0x5D, 0x7C },
--	{ 0x5E, 0x64 },
--	{ 0x5F, 0x54 },
-+	{ 0x57, 0xa5 },
-+	{ 0x58, 0x0a },
-+	{ 0x59, 0x4a },
-+	{ 0x5a, 0x38 },
-+	{ 0x5b, 0x10 },
-+	{ 0x5c, 0x19 },
-+	{ 0x5d, 0x7c },
-+	{ 0x5e, 0x64 },
-+	{ 0x5f, 0x54 },
- 	{ 0x60, 0x48 },
- 	{ 0x61, 0x44 },
- 	{ 0x62, 0x35 },
--	{ 0x63, 0x3A },
-+	{ 0x63, 0x3a },
- 	{ 0x64, 0x24 },
--	{ 0x65, 0x3B },
-+	{ 0x65, 0x3b },
- 	{ 0x66, 0x39 },
- 	{ 0x67, 0x37 },
- 	{ 0x68, 0x56 },
- 	{ 0x69, 0x41 },
--	{ 0x6A, 0x47 },
--	{ 0x6B, 0x2F },
--	{ 0x6C, 0x23 },
--	{ 0x6D, 0x13 },
--	{ 0x6E, 0x02 },
--	{ 0x6F, 0x08 },
--	{ 0x70, 0x7C },
-+	{ 0x6a, 0x47 },
-+	{ 0x6b, 0x2f },
-+	{ 0x6c, 0x23 },
-+	{ 0x6d, 0x13 },
-+	{ 0x6e, 0x02 },
-+	{ 0x6f, 0x08 },
-+	{ 0x70, 0x7c },
- 	{ 0x71, 0x64 },
- 	{ 0x72, 0x54 },
- 	{ 0x73, 0x48 },
- 	{ 0x74, 0x44 },
- 	{ 0x75, 0x35 },
--	{ 0x76, 0x3A },
-+	{ 0x76, 0x3a },
- 	{ 0x77, 0x22 },
--	{ 0x78, 0x3B },
-+	{ 0x78, 0x3b },
- 	{ 0x79, 0x39 },
--	{ 0x7A, 0x38 },
--	{ 0x7B, 0x52 },
--	{ 0x7C, 0x41 },
--	{ 0x7D, 0x47 },
--	{ 0x7E, 0x2F },
--	{ 0x7F, 0x23 },
-+	{ 0x7a, 0x38 },
-+	{ 0x7b, 0x52 },
-+	{ 0x7c, 0x41 },
-+	{ 0x7d, 0x47 },
-+	{ 0x7e, 0x2f },
-+	{ 0x7f, 0x23 },
- 	{ 0x80, 0x13 },
- 	{ 0x81, 0x02 },
- 	{ 0x82, 0x08 },
--	{ 0xE0, 0x02 },
-+	{ 0xe0, 0x02 },
- 	{ 0x00, 0x57 },
- 	{ 0x01, 0x77 },
- 	{ 0x02, 0x44 },
- 	{ 0x03, 0x46 },
- 	{ 0x04, 0x48 },
--	{ 0x05, 0x4A },
--	{ 0x06, 0x4C },
--	{ 0x07, 0x4E },
-+	{ 0x05, 0x4a },
-+	{ 0x06, 0x4c },
-+	{ 0x07, 0x4e },
- 	{ 0x08, 0x50 },
- 	{ 0x09, 0x55 },
--	{ 0x0A, 0x52 },
--	{ 0x0B, 0x55 },
--	{ 0x0C, 0x55 },
--	{ 0x0D, 0x55 },
--	{ 0x0E, 0x55 },
--	{ 0x0F, 0x55 },
-+	{ 0x0a, 0x52 },
-+	{ 0x0b, 0x55 },
-+	{ 0x0c, 0x55 },
-+	{ 0x0d, 0x55 },
-+	{ 0x0e, 0x55 },
-+	{ 0x0f, 0x55 },
- 	{ 0x10, 0x55 },
- 	{ 0x11, 0x55 },
- 	{ 0x12, 0x55 },
-@@ -348,12 +348,12 @@ static const struct ltk500hd1829_cmd ltk500hd1829_init[] = {
- 	{ 0x17, 0x77 },
- 	{ 0x18, 0x45 },
- 	{ 0x19, 0x47 },
--	{ 0x1A, 0x49 },
--	{ 0x1B, 0x4B },
--	{ 0x1C, 0x4D },
--	{ 0x1D, 0x4F },
--	{ 0x1E, 0x51 },
--	{ 0x1F, 0x55 },
-+	{ 0x1a, 0x49 },
-+	{ 0x1b, 0x4b },
-+	{ 0x1c, 0x4d },
-+	{ 0x1d, 0x4f },
-+	{ 0x1e, 0x51 },
-+	{ 0x1f, 0x55 },
- 	{ 0x20, 0x53 },
- 	{ 0x21, 0x55 },
- 	{ 0x22, 0x55 },
-@@ -364,13 +364,13 @@ static const struct ltk500hd1829_cmd ltk500hd1829_init[] = {
- 	{ 0x27, 0x55 },
- 	{ 0x28, 0x55 },
- 	{ 0x29, 0x41 },
--	{ 0x2A, 0x55 },
--	{ 0x2B, 0x55 },
--	{ 0x2C, 0x57 },
--	{ 0x2D, 0x77 },
--	{ 0x2E, 0x4F },
--	{ 0x2F, 0x4D },
--	{ 0x30, 0x4B },
-+	{ 0x2a, 0x55 },
-+	{ 0x2b, 0x55 },
-+	{ 0x2c, 0x57 },
-+	{ 0x2d, 0x77 },
-+	{ 0x2e, 0x4f },
-+	{ 0x2f, 0x4d },
-+	{ 0x30, 0x4b },
- 	{ 0x31, 0x49 },
- 	{ 0x32, 0x47 },
- 	{ 0x33, 0x45 },
-@@ -380,28 +380,28 @@ static const struct ltk500hd1829_cmd ltk500hd1829_init[] = {
- 	{ 0x37, 0x55 },
- 	{ 0x38, 0x55 },
- 	{ 0x39, 0x55 },
--	{ 0x3A, 0x55 },
--	{ 0x3B, 0x55 },
--	{ 0x3C, 0x55 },
--	{ 0x3D, 0x55 },
--	{ 0x3E, 0x55 },
--	{ 0x3F, 0x51 },
-+	{ 0x3a, 0x55 },
-+	{ 0x3b, 0x55 },
-+	{ 0x3c, 0x55 },
-+	{ 0x3d, 0x55 },
-+	{ 0x3e, 0x55 },
-+	{ 0x3f, 0x51 },
- 	{ 0x40, 0x55 },
- 	{ 0x41, 0x55 },
- 	{ 0x42, 0x57 },
- 	{ 0x43, 0x77 },
--	{ 0x44, 0x4E },
--	{ 0x45, 0x4C },
--	{ 0x46, 0x4A },
-+	{ 0x44, 0x4e },
-+	{ 0x45, 0x4c },
-+	{ 0x46, 0x4a },
- 	{ 0x47, 0x48 },
- 	{ 0x48, 0x46 },
- 	{ 0x49, 0x44 },
--	{ 0x4A, 0x40 },
--	{ 0x4B, 0x55 },
--	{ 0x4C, 0x52 },
--	{ 0x4D, 0x55 },
--	{ 0x4E, 0x55 },
--	{ 0x4F, 0x55 },
-+	{ 0x4a, 0x40 },
-+	{ 0x4b, 0x55 },
-+	{ 0x4c, 0x52 },
-+	{ 0x4d, 0x55 },
-+	{ 0x4e, 0x55 },
-+	{ 0x4f, 0x55 },
- 	{ 0x50, 0x55 },
- 	{ 0x51, 0x55 },
- 	{ 0x52, 0x55 },
-@@ -412,50 +412,50 @@ static const struct ltk500hd1829_cmd ltk500hd1829_init[] = {
- 	{ 0x57, 0x55 },
- 	{ 0x58, 0x40 },
- 	{ 0x59, 0x00 },
--	{ 0x5A, 0x00 },
--	{ 0x5B, 0x10 },
--	{ 0x5C, 0x09 },
--	{ 0x5D, 0x30 },
--	{ 0x5E, 0x01 },
--	{ 0x5F, 0x02 },
-+	{ 0x5a, 0x00 },
-+	{ 0x5b, 0x10 },
-+	{ 0x5c, 0x09 },
-+	{ 0x5d, 0x30 },
-+	{ 0x5e, 0x01 },
-+	{ 0x5f, 0x02 },
- 	{ 0x60, 0x30 },
- 	{ 0x61, 0x03 },
- 	{ 0x62, 0x04 },
- 	{ 0x63, 0x06 },
--	{ 0x64, 0x6A },
-+	{ 0x64, 0x6a },
- 	{ 0x65, 0x75 },
--	{ 0x66, 0x0F },
--	{ 0x67, 0xB3 },
--	{ 0x68, 0x0B },
-+	{ 0x66, 0x0f },
-+	{ 0x67, 0xb3 },
-+	{ 0x68, 0x0b },
- 	{ 0x69, 0x06 },
--	{ 0x6A, 0x6A },
--	{ 0x6B, 0x10 },
--	{ 0x6C, 0x00 },
--	{ 0x6D, 0x04 },
--	{ 0x6E, 0x04 },
--	{ 0x6F, 0x88 },
-+	{ 0x6a, 0x6a },
-+	{ 0x6b, 0x10 },
-+	{ 0x6c, 0x00 },
-+	{ 0x6d, 0x04 },
-+	{ 0x6e, 0x04 },
-+	{ 0x6f, 0x88 },
- 	{ 0x70, 0x00 },
- 	{ 0x71, 0x00 },
- 	{ 0x72, 0x06 },
--	{ 0x73, 0x7B },
-+	{ 0x73, 0x7b },
- 	{ 0x74, 0x00 },
--	{ 0x75, 0xBC },
-+	{ 0x75, 0xbc },
- 	{ 0x76, 0x00 },
- 	{ 0x77, 0x05 },
--	{ 0x78, 0x2E },
-+	{ 0x78, 0x2e },
- 	{ 0x79, 0x00 },
--	{ 0x7A, 0x00 },
--	{ 0x7B, 0x00 },
--	{ 0x7C, 0x00 },
--	{ 0x7D, 0x03 },
--	{ 0x7E, 0x7B },
--	{ 0xE0, 0x04 },
-+	{ 0x7a, 0x00 },
-+	{ 0x7b, 0x00 },
-+	{ 0x7c, 0x00 },
-+	{ 0x7d, 0x03 },
-+	{ 0x7e, 0x7b },
-+	{ 0xe0, 0x04 },
- 	{ 0x09, 0x10 },
--	{ 0x2B, 0x2B },
--	{ 0x2E, 0x44 },
--	{ 0xE0, 0x00 },
--	{ 0xE6, 0x02 },
--	{ 0xE7, 0x02 },
-+	{ 0x2b, 0x2b },
-+	{ 0x2e, 0x44 },
-+	{ 0xe0, 0x00 },
-+	{ 0xe6, 0x02 },
-+	{ 0xe7, 0x02 },
- 	{ 0x35, 0x00 },
- };
- 
--- 
-2.34.1
+[03/64] drm/hdlcd: Fix drm_atomic_helper_shutdown() on the probe error path
+        commit: e388eae138aa9364caada0a372b5712642188c16
+[11/64] drm/hyperv: Switch to drm_mode_config_create_initial_state
+        commit: 50b11ceaaef03d4062971db173bbddc8ac0df28b
+[25/64] drm/rcar-du: Switch to drm_mode_config_create_initial_state
+        commit: d8b8de5c35983567a7ef78fcd9f75db46d6c26af
+[29/64] drm/st7586: Switch to drm_mode_config_create_initial_state
+        commit: 52eb5b7764084bddd68e77c1c3e62e70ad11828f
+[30/64] drm/st7735r: Switch to drm_mode_config_create_initial_state
+        commit: 28d10bb2421152b650329710183c1f6df1bd056e
+[31/64] drm/st7920: Switch to drm_mode_config_create_initial_state
+        commit: b17f5f1abd5c30875d203d7690c92129d2d814d6
+[35/64] drm/stm: Switch to drm_mode_config_create_initial_state
+        commit: d78ccdcc94eba858fd8386f0da6de4ec4cd44666
+[37/64] drm/tegra: Switch to drm_mode_config_create_initial_state
+        commit: 0c187722c35db771276ee7390454f7de70508833
+[50/64] drm/ili9225: Switch to drm_mode_config_create_initial_state
+        commit: 0fc18dd1409138d88089ecdda5544ea2f8785520
 
+Thanks!
+Maxime
