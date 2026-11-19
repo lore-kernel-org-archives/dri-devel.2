@@ -2,85 +2,125 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 92DFE60A2607
-	for <dri-devel@archiver.kernel.org>; Thu, 19 Nov 2026 11:19:13 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 05459606A325
+	for <dri-devel@archiver.kernel.org>; Thu, 19 Nov 2026 11:19:23 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=w0urtUim
+	dkim=pass (1024-bit key, unprotected) header.d=amd.com header.i=@amd.com header.a=rsa-sha256 header.s=selector1 header.b=iJiwT7hj
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id BAB4F1122B0;
-	Thu, 19 Nov 2026 11:19:07 +0000 (UTC)
-Received: from mail-lf1-f49.google.com (mail-lf1-f49.google.com
- [209.85.167.49])
- by gabe.freedesktop.org (Postfix) with ESMTPS id BC8E91122B0
- for <dri-devel@lists.freedesktop.org>; Thu, 19 Nov 2026 11:19:00 +0000 (UTC)
-Received: by mail-lf1-f49.google.com with SMTP id
- 2adb3069b0e04-5be4fea434bso790486e87.1
- for <dri-devel@lists.freedesktop.org>; Thu, 19 Nov 2026 03:19:00 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20260707; t=1795087139; x=1795691939; darn=lists.freedesktop.org;
- h=content-transfer-encoding:mime-version:message-id:date:subject:cc
- :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
- bh=Zgs6SyHjUqs1Qm+T+oyA24Ly2fWRmc8rFy/5dpxwQdQ=;
- b=w0urtUime7RkVv8Qg7jr1P/CJDG/e7EYwmFISRtez/Qfhd4c3e9Ec+pX7F4E/4mdDq
- wmvUhuTxGQR1qRys21Wq5VgVXqKUisCQ8UnRsfSmK9iFMNrT3ENjhO2I7G6bMAZhdVCn
- +N9Q8+aZojRry5/oRTpZPCAXSwrd0CWZxNngTpypeW3qmoNBRpo80ZU6do7x1u0qrb28
- 2slBX4Hb9SXhpHgDE2P0shy8dsWSWngCFq7xrnXiCE7Zbv8TKuMusLa80f2Nhk+P06yv
- ZylFwkceo5jSFMYirZDIUeXEUBPMk/n2LljcCw85dHvJJeL84bNX5wGVIvCB5d2C3TfN
- 2hQg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20260707; t=1795087139; x=1795691939;
- h=content-transfer-encoding:mime-version:message-id:date:subject:cc
- :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
- :message-id:reply-to:content-type;
- bh=Zgs6SyHjUqs1Qm+T+oyA24Ly2fWRmc8rFy/5dpxwQdQ=;
- b=mDp0+ov5TrZQ88DTLlRMgGJ60VcBsHuZe+HVbuwXcL8iY6sXk+qJN1JmjlfKf3XNQU
- g1/jPWcbCH8odqfH815NmqFiNIV5r59xpZPok1qAX34C4McPk3GzMUsxpGgSpK1StT1N
- VfcJomqBHHMCpFjqP44Xu68TbHM35lXmSEovQ+mJEV7epDpB1vrdZg4QG8WJiUy0BbW3
- IVvHCCvYMZvXaaKZxGvEAgrjQ6Efs57kO8IhNWp1PUM57VQJyptMWxJ+Qnuqw99WtukW
- QnYpaUtMvU5HMK3sOLn2d0HiYqSFyrhzNnpn7QDF0FahekZ2Lb+VLjzBvE9FiuHXebd3
- rq0A==
-X-Forwarded-Encrypted: i=1;
- AL+hErFMQNIvhVA8Ht9EPZkUU46h4ySRcLLqDc3wENy/7oiPEc1PN9XEv7+Zly0cG812DF+rqJTCnVl+XR4=@lists.freedesktop.org
-X-Gm-Message-State: APuU4Z+V9wekb0XG5uQq7Q45Aiu4OIKeUCOh7881aJ8mKn0jHxO6FqIE
- qz17LKnTmX0bZSCUQtkBX7pkD4zcpMFVwVB5D6q2piYxQW7Zd9r/c6oo
-X-Gm-Gg: AYBFou3RM0PhM6/17yd8j9nl/gX0AmlszHN/x85uaTGZKbZTBTzbVI7DZB/gPTVh7rZ
- sV2qYJJ8FBJjLy4tq8/96eJljO1dyxSahpeFQFdmp37UXbSKq6BX5wSQkYdcF7x5YAutAGdZ6BW
- Sza3dJ7zedq+82hWIk39idETdLCoemnEqmkpDJXNzWCyteW9W4jiMtPklLQGHp36ufozlgo+wxn
- uq9Cf81dMP67ZdXmxFjJ5OinMYxLwut+shZ3qrGISuuFW2NmU0Jb+zGQSRbGldnk5lhEMHOiFlg
- GgM6d9vX2xmzNeatMPfoD3j//MaqM5/yMQU0MXg+lH2Hsf1a5BLRkKCxagAemEPafz1zkqZCAKz
- W0ddtYE1rCPvwRx1a8CjSpQpzzswLmYFpfzIpyW6YZ3tE7i8gShO1XNYlebXGRsaqUVjXcEayxa
- pzXxGQMqalcc83KE9tCIPrgeotNPJhkgqXWhpsAo8T0tJlGcgVdnotLkRnSeaJLrrLTTHJK8G3A
- MeTlWTRpu6E3H1pw6YulIsaty/49TrfHHk4H1vTM8RRDVO5FOUGgEdkuFKa59jpTKdS7NdTlOGB
- LkABfaHN26ZlcG86iTFRxjS+CTvCemMMTsd+
-X-Received: by 2002:a05:6512:2354:b0:5c1:56e4:c705 with SMTP id
- 2adb3069b0e04-5c1b79fd08amr335267e87.3.1795087138391; 
- Thu, 19 Nov 2026 03:18:58 -0800 (PST)
-Received: from archlinux ([194.28.181.64]) by smtp.gmail.com with ESMTPSA id
- 2adb3069b0e04-5c1aa8b3c86sm1376278e87.83.2026.11.19.03.18.55
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 19 Nov 2026 03:18:57 -0800 (PST)
-From: Ivan Tverdokhleb <mbkchelofficialdev@gmail.com>
-To: rust-for-linux@vger.kernel.org
-Cc: Danilo Krummrich <dakr@kernel.org>, Alice Ryhl <aliceryhl@google.com>,
- Matthew Auld <matthew.auld@intel.com>,
- Arun Pravin <arunpravin.paneerselvam@amd.com>,
- Joel Fernandes <jfern@kernel.org>, Miguel Ojeda <ojeda@kernel.org>,
- Boqun Feng <boqun@kernel.org>, Gary Guo <gary@garyguo.net>,
- =?UTF-8?q?Bj=C3=B6rn=20Roy=20Baron?= <bjorn3_gh@protonmail.com>,
- Benno Lossin <lossin@kernel.org>, Andreas Hindborg <a.hindborg@kernel.org>,
- Trevor Gross <tmgross@umich.edu>,
- Daniel Almeida <daniel.almeida@collabora.com>,
- Tamir Duberstein <tamird@kernel.org>,
- Alexandre Courbot <acourbot@nvidia.com>,
- =?UTF-8?q?Onur=20=C3=96zkan?= <work@onurozkan.dev>,
- dri-devel@lists.freedesktop.org
-Subject: [PATCH v2] rust: gpu: buddy: store the allocator inside the Mutex
-Date: Thu, 19 Nov 2026 13:18:50 +0200
-Message-ID: <20261119111850.33270-1-mbkchelofficialdev@gmail.com>
-X-Mailer: git-send-email 2.56.1
+	by gabe.freedesktop.org (Postfix) with ESMTP id 289D41122B3;
+	Thu, 19 Nov 2026 11:19:17 +0000 (UTC)
+Received: from SN4PR0501CU005.outbound.protection.outlook.com
+ (mail-southcentralusazon11011014.outbound.protection.outlook.com
+ [40.93.194.14])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 5034C1122B3
+ for <dri-devel@lists.freedesktop.org>; Thu, 19 Nov 2026 11:19:05 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=dYElq3O99O1TjFDgvdnPg0ujQSrEcYh8Rkq/2lSGni89+//9iLCxLO7ZxtnzWUF0Y44ZA37v5TBUaVnd3LUIH52hg9MyXLLFuG6EGkHIJsB81EIcBVzfhN5dhqHuy6Fn036ELRMUOqVmKTG614FGT9JmDLebddyts180EiN5x6wZeBATD1jHbZgdx+isllciO9BZKKZQIl1JPfnq4GOuwIMBbNXadzOmFHJuqbyPXrjgG6sQqF6fiewv+2XMFmoi002nCY9RIFJXJB/ZvoykiEBwg7V+B1DlEC56wtPzqZ9qhbHnfimosiJYYfud+ol10TwaJ1dcBDv4+5hZo/SD+A==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=MAEXMGrb6B4mrOdf7ZW1R2MM8DV5xeASyLEQ+kqIxjY=;
+ b=f5szswHvsNfVT3pJVSfPjwTmQW9Mp726cLg8z2bSlDhLXxSegNujz1QJMbhW3kEDAqlUOXYLxWjXDcm9OMf4KRg+h/dmiUAmTQdYe6Xoe7vMxFQM9kR8Xbtu0887Ajj8Vedqt9h89i2DGQah2q53e32ybKNoxr1JUiDoqKDnBnskfJcb6PQRBEs8DOd5WV09EsZSEKzt9JLkHeE0nZbyA0wvkpk0ErmnmqzMYxb7AuzqxZkzNCVsMnBLw+4hZc4Es4mfHP98hRMz+OFqzIlECZ5dDjEL5gg864Ewj3bCoU3OKDftIaoy4IcnmoybYep3nd213bBkve012CL4G5YZKQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
+ header.d=amd.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=MAEXMGrb6B4mrOdf7ZW1R2MM8DV5xeASyLEQ+kqIxjY=;
+ b=iJiwT7hjlBW8VUgy0x68nCVMs2MZrTrg0HLYwpW1GbFTTgnOoerLpEaV34r5FLtGd+z++vJIOjoWg5TouSulWtVrIHF0hZqrCzh0iUxUyOO8VrIImeHEIOomjCD/vJTvIdySvXTxT7XO+SiWHj+MXsLaqjED9LdS9OY8UdqiOEw=
+Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=amd.com;
+Received: from PH7PR12MB5685.namprd12.prod.outlook.com (2603:10b6:510:13c::22)
+ by CY8PR12MB8195.namprd12.prod.outlook.com (2603:10b6:930:77::17)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.639.10; Thu, 19 Nov
+ 2026 11:19:01 +0000
+Received: from PH7PR12MB5685.namprd12.prod.outlook.com
+ ([fe80::ce69:cfae:774d:a65c]) by PH7PR12MB5685.namprd12.prod.outlook.com
+ ([fe80::ce69:cfae:774d:a65c%3]) with mapi id 15.21.0615.013; Thu, 19 Nov 2026
+ 11:19:01 +0000
+Message-ID: <a8b6f088-9c02-47b7-91b7-5f66c098c078@amd.com>
+Date: Thu, 19 Nov 2026 12:18:54 +0100
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] dma-buf/dma-fence: Remove dma_fence_later()
+To: Philipp Stanner <phasta@kernel.org>,
+ Sumit Semwal <sumit.semwal@linaro.org>,
+ Tvrtko Ursulin <tvrtko.ursulin@igalia.com>
+Cc: linux-media@vger.kernel.org, dri-devel@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org
+References: <20261118145026.1755441-2-phasta@kernel.org>
+Content-Language: en-US
+From: =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>
+In-Reply-To: <20261118145026.1755441-2-phasta@kernel.org>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+X-ClientProxiedBy: MN0PR03CA0019.namprd03.prod.outlook.com
+ (2603:10b6:208:52f::29) To PH7PR12MB5685.namprd12.prod.outlook.com
+ (2603:10b6:510:13c::22)
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: PH7PR12MB5685:EE_|CY8PR12MB8195:EE_
+X-MS-Office365-Filtering-Correlation-Id: bf3d53cb-17b0-410f-0059-08df462ee99a
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+ ARA:13230040|376014|1800799024|366016|23010399003|10067099003|56012099006|11063799006|261021121427099003|261021123027099003|261009223027099003|261102123227099003|261102130727099003|261022105027099003|261026140227099003|261028144727099003|261026121527099003|18002099003|22082099003|6133799003;
+X-Microsoft-Antispam-Message-Info: 2qeNCf6r1j1/CBYWxP1aSo4v615B8S1+tgc8GJPm8JUoARygbu3lgSM5VBhHq5tmoepZLdPFarYou1K3Wcz722oft83XcKBNNlfn9pCPJwj5gJAFCKjwlUbOswV0FvskZ7UbvQd+/YJ7b/k9PJawp/zzgVyw3zLR9lOOgk1gxVKoPioxjkFkB+GX7cMDA3mUv3MrkFmBI8PaYZ7GwRRv6pWRyrJf91hTnUIzPF6rVn0JJDpQ/PoZUooCbar+/rldZ1fUmy1R+NKZTf27lO4PSi3sekS8Tq8falOswx622RXAmzL71J3D4JLWDsisN1bYf8wuDgzxGvopkjzs1SpyfvfBVGC5FoVQJArhnq6d7ib1CS9XodwgFkZK/cjZ+ovmp/LnXiDc6e/l8zqma7WOHdoTo36VId6k4r8gZ6usA6yidWX2rjtWKlq+t73Mk7pag9xx5ryxqf4idtlIYxPiTzIxex2leF3I/2344RCAfGbgbMlsb5PpJFp6/5vgxKCQpCa1PNupQDy+m7UzgVzt41rUvyhtWu1qgx6ZJbePjSpxSO47Nj7sVhuQmw+s2ozTfLZua6Di7HWDbz1A+N4YUnGddZ9ASLQdzyo5URXOUeDV8WPNP/j/sNzPjj2DjUuGJ5qJkZ/yFSDp0Xzi5YVTBlfpVlbV02gTI9SCP6XOK4g=
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:PH7PR12MB5685.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230040)(376014)(1800799024)(366016)(23010399003)(10067099003)(56012099006)(11063799006)(261021121427099003)(261021123027099003)(261009223027099003)(261102123227099003)(261102130727099003)(261022105027099003)(261026140227099003)(261028144727099003)(261026121527099003)(18002099003)(22082099003)(6133799003);
+ DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?SjlKejhSRkkwaVUyd3VKdmtyWGt0cGZjNk1haUo5ZDZjVWxxUnJtNnpHMUxv?=
+ =?utf-8?B?a0pUMnZhYW41MVhabmJ1T3pYdWZmZS9CRlQxc2d0cFVicGdBZjg0NWU3ais0?=
+ =?utf-8?B?UW8xVHUwOCtWN0l0WmM0aUwyV0w5MHl5Y2lONUNEWVl1OXVGMmN1MytTYTZF?=
+ =?utf-8?B?TzFEVEl5aWtBaDdNTW5EZnNSdmtBaitCdFdPcHBLa0dUUit1Smg4QXgxcGlv?=
+ =?utf-8?B?MnZ5K01yZ0RZZ1hPSm82MDE1WHpsNU42RmU5RmlXV1NUR3ZkTkFISEhYQ2dn?=
+ =?utf-8?B?aEU0OHhqb0NMa0x6R0IxZ2JjWDVGd0Fob0ZtTzlmZ1IwQ091U1ZrUHF4STNU?=
+ =?utf-8?B?VmNMWVJDcHA2STJrWW51TktxV3RSOXRZcExadnpyRHVaczgyRmJCdjNOVVZ2?=
+ =?utf-8?B?SFB5ajRCRE1HYjUzcFg2UFNlWjF3Z1R3S0ladmhZdE01SW1oRlV1WGZBRjc2?=
+ =?utf-8?B?YzRJSUplazVBWGt0T1E5SmxDVFJaQno1MWs5dllqcUVhZlVtZ2NTZ0ptWTFZ?=
+ =?utf-8?B?YVAwOUMxS1ZIRWhTVTNVVnI4dFc3dGQ0eHBnbWp2MTNvSkJtbG94MVNuTG03?=
+ =?utf-8?B?MSt0TWdCSEIzWkp5Zmx3b0VXb1N5YmJYcS9Vd1NSM3FGcWI5clY0aDFQWU1O?=
+ =?utf-8?B?c2t3Z2JQTmF6Uk54V0dtdzRNdEhJdjc2bi9WUkt5R1UvOGRqdElCcUNZNElx?=
+ =?utf-8?B?RlYxd3NaM3k4SWdXbWg4MU5XNnlyNHphcWdSMUwwa3FZT3crTEEzK25CczVN?=
+ =?utf-8?B?Z2dlZW1SYzFPMXBXWkJRTTJ5aGM5MzhaS2FBMXlmWVFoVlBvWGFNMVl2NjFs?=
+ =?utf-8?B?QVdWaFIzNThlOHFtcHlaL0ZPMlc4QWNPWnh5VU41WHF4WDhwcmZIWmVjQjhT?=
+ =?utf-8?B?anhrc0NLTGo0bUdzL1ppM1MzT0srdjN3N3RJSlU1QUhGUE5ITndnMlVlMTN2?=
+ =?utf-8?B?WTZwQXJjMm9xSzhzQ1BBVTBBSzhTdjE4Q2M2c0xzNHBSQmorcmJhVGU1YVpC?=
+ =?utf-8?B?TVVrUVAxRVUzRkwwWXFTV05EbjFxVlF6TjhvUGlJV1A0cGtOK1R0bUVWdkdC?=
+ =?utf-8?B?WDUxSTFHckJiMlBkYXV5K0lZeDJESDZ6T25EMlRwN2RPUHEwdkJxTnhPNUFx?=
+ =?utf-8?B?Ukd6K3VzaDhRWmVxT1ByZVNCa1JUNnJnVFVveEFZTUZRVFg0WTUrelRyTWNx?=
+ =?utf-8?B?OHVqQlg4eGNBRytLZlNiU1B5ZGRQVUVQQk9mMUlTdHlDbGxSamswVjA0VEZ0?=
+ =?utf-8?B?bll5VmF1SFpwc3Z5eVZ4SDIvWXJnRWMzV1hZU25rLzJaY0wxQmJNaGYrTVJM?=
+ =?utf-8?B?YmxqSzFJamR1dnRMYXV3ZkZ2VG9iblZ2bUUrSE9WTUF6WHFrc2J0TFVLOUVZ?=
+ =?utf-8?B?Wnh2NzlkRklBU0xmb3lEMXk0VjAzTGVwMXNEaTVyWURSOGpIVVExUlE3Tlpm?=
+ =?utf-8?B?UE9QM2NjRHI0V0pGWHpXSGhmSFowdFMxWHpsb2p1bEY4eDI2TUZ3RXJlWEpZ?=
+ =?utf-8?B?Z2NXbVdGVFlWTVUyMXZGaUhveG9sUVYzb3hLWDcxSXJGc3JrMXUvVGhmZ0FL?=
+ =?utf-8?B?WUo1ODZHWHE3MmJUMTBjQUVjZ1IyU2NyK2srM01ncHZDeVpYWmE5Mk5iMDRj?=
+ =?utf-8?B?VDZXdGh1eE9YYWJoTmpuUDBiaC90eCs3VEFSMHN0d0t4cTJ5OEpjZWVuSzZz?=
+ =?utf-8?B?N2pOZWZpTmJtYnRTTWpGTzVRU3ZXYkR2VjI0Um5DcEh6WUt0WWJaUmcrcUJN?=
+ =?utf-8?B?UkhnNjdndU9ZeFRlUmMxOS9xSXdITmJjNFBsRG00MjhSbUg0TDRweWpnYmVG?=
+ =?utf-8?B?M21Pb3N1S3NIbkJjVUVMZWJLdXpyNmNiNXo1MnMrMFgxV202NnQrYWdRQklR?=
+ =?utf-8?B?RTZrYTR5UDQyaG9tU1QxVmRxUWEzRDBNT3JRL2V2Z0VLYjdEOXQrRHJOYU1j?=
+ =?utf-8?B?SFFCMDRVVUI4dHU4MkU1OHIvcHdSa2Noc0VMcDJZclEzNVZlK2xiTCtCUy9n?=
+ =?utf-8?B?N2txcWpTMWw5ZkZCZSt4ZEdYMWdUNk9FU1I0aHZlM1d6UHNISlBudWRwWUJF?=
+ =?utf-8?B?YmxhZE45c1FNQXc2eFJpRnh1WTQrbnBEVFlWQUsrcTdpVURleVZ5YXlNNEFh?=
+ =?utf-8?B?WWJxN0xtT3NJT3hxNHkrNW5teHVhdUVVWjI2bmVTWjNVdkJXdk9USGQzVGJG?=
+ =?utf-8?B?SVliZ1kwaW5YWG1WU1QxbC9XQTlGd1VPU1d0QTVxQ0ZiQ2l2T25QZ2Rsckxq?=
+ =?utf-8?B?NllZL3B3cGd1V0hLTk5YNk5lbWRsNHF4blBqTWlsKzhYQ1d6UGdOVWpWZVNQ?=
+ =?utf-8?Q?zFoizs+trwlhfOLob5?=
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: bf3d53cb-17b0-410f-0059-08df462ee99a
+X-MS-Exchange-CrossTenant-AuthSource: PH7PR12MB5685.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 19 Nov 2026 11:19:01.4313 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: ecpQkmopikWYXEFngLukH19CUvfmqpuKiJxNOxjabxPUH2Qj05+u8/qmpL/jzIgJ
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: CY8PR12MB8195
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -92,136 +132,105 @@ List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-15.8 required=3.0 tests=BAYES_00,DKIM_SIGNED,
-	DKIM_VALID,DKIM_VALID_AU,FREEMAIL_FORGED_FROMDOMAIN,FREEMAIL_FROM,
-	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
-	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,USER_AGENT_GIT
-	autolearn=unavailable autolearn_force=no version=4.0.1
+X-Spam-Status: No, score=-17.3 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
+	DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
+	INCLUDES_CR_TRAILER,INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,
+	SPF_PASS,USER_AGENT_SANE_1 autolearn=unavailable autolearn_force=no
+	version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-GpuBuddyInner keeps the C gpu_buddy structure next to a separate
-Mutex<()>, so nothing in the type system ties the data to the lock.
-A TODO asked to replace Mutex<()> with Mutex<Opaque<..>> once
-Mutex::new() accepts a fallible initializer.
+On 11/18/26 15:50, Philipp Stanner wrote:
+> dma_fence_later() does not have any in-tree users anymore.
+> dma_fence_is_later() is available as an alternative.
+> 
+> Remove the surplus function.
 
-That is now possible, so put the Opaque<gpu_buddy> directly inside the
-Mutex. The allocator can then only be reached through the lock guard,
-which lets the compiler enforce that the lock is held. This also
-removes the now unneeded `inner` field from GpuBuddyGuard.
+Ah, yes please :)
 
-Update the safety comments that referred to the removed `inner` field.
+> Signed-off-by: Philipp Stanner <phasta@kernel.org>
 
-Signed-off-by: Ivan Tverdokhleb <mbkchelofficialdev@gmail.com>
----
-Changes in v2:
-  - Dropped patch 1/2 ("rust: sync: lock: allow fallible initializers
-    in Lock::new"): the same change is already in linux-next
-    (Philipp Stanner's "rust: sync: Accept errors for Lock payload
-    data"), as Gary pointed out. This patch now depends on it.
-  - Rebased on next-20261118.
-  - Fixed the indentation of the new_mutex!() initializer.
-  - Build-tested on x86_64 (defconfig with CONFIG_RUST=y,
-    CONFIG_GPU_BUDDY=y and CONFIG_NOVA_CORE=y). Not
-    tested at runtime.
+Reviewed-by: Christian König <christian.koenig@amd.com>
 
-v1: https://lore.kernel.org/rust-for-linux/20261114200703.33229-1-mbkchelofficialdev@gmail.com/
+> ---
+> No idea why we have two such functions.
+> 
+> dma_fence_later() seems to be older, coming from a big-bang commit in
+> 2014. Yet Christian added dma_fence_is_later() in 2015.
+> 
+> *shrug*
 
- rust/kernel/gpu/buddy.rs | 26 +++++++++-----------------
- 1 file changed, 9 insertions(+), 17 deletions(-)
+Because we had multiple occasions with dma_fence_later() where people were surprised that they got NULL in return resulting in NULL pointer dereference.
 
-diff --git a/rust/kernel/gpu/buddy.rs b/rust/kernel/gpu/buddy.rs
-index 691bb4062..a85530895 100644
---- a/rust/kernel/gpu/buddy.rs
-+++ b/rust/kernel/gpu/buddy.rs
-@@ -313,16 +313,11 @@ pub struct GpuBuddyParams {
- ///
- /// # Invariants
- ///
--/// The inner [`Opaque`] contains an initialized buddy allocator.
-+/// The `lock` field contains an initialized buddy allocator wrapped in `Opaque`.
- #[pin_data(PinnedDrop)]
- struct GpuBuddyInner {
-     #[pin]
--    inner: Opaque<bindings::gpu_buddy>,
--
--    // TODO: Replace `Mutex<()>` with `Mutex<Opaque<..>>` once `Mutex::new()`
--    // accepts `impl PinInit<T>`.
--    #[pin]
--    lock: Mutex<()>,
-+    lock: Mutex<Opaque<bindings::gpu_buddy>>,
-     /// Cached creation parameters (do not change after init).
-     params: GpuBuddyParams,
- }
-@@ -338,14 +333,13 @@ fn new(params: GpuBuddyParams) -> impl PinInit<Self, Error> {
-         // `gpu_buddy_*` APIs. `try_pin_init!` only completes if all fields succeed,
-         // so the invariant holds when construction finishes.
-         try_pin_init!(Self {
--            inner <- Opaque::try_ffi_init(|ptr| {
-+            lock <- new_mutex!(Opaque::try_ffi_init(|ptr| {
-                 // SAFETY: `ptr` points to valid uninitialized memory from the pin-init
-                 // infrastructure. `gpu_buddy_init` will initialize the structure.
-                 to_result(unsafe {
-                     bindings::gpu_buddy_init(ptr, size, chunk_size.as_usize() as u64)
-                 })
--            }),
--            lock <- new_mutex!(()),
-+            })),
-             params,
-         })
-     }
-@@ -353,7 +347,6 @@ fn new(params: GpuBuddyParams) -> impl PinInit<Self, Error> {
-     /// Lock the mutex and return a guard for accessing the allocator.
-     fn lock(&self) -> GpuBuddyGuard<'_> {
-         GpuBuddyGuard {
--            inner: self,
-             _guard: self.lock.lock(),
-         }
-     }
-@@ -364,7 +357,7 @@ impl PinnedDrop for GpuBuddyInner {
-     fn drop(self: Pin<&mut Self>) {
-         let guard = self.lock();
- 
--        // SAFETY: Per the type invariant, `inner` contains an initialized
-+        // SAFETY: Per the type invariant, `lock` contains an initialized
-         // allocator. `guard` provides exclusive access.
-         unsafe { bindings::gpu_buddy_fini(guard.as_raw()) };
-     }
-@@ -381,14 +374,13 @@ unsafe impl Sync for GpuBuddyInner {}
- ///
- /// The `_guard` holds the lock for the duration of this guard's lifetime.
- struct GpuBuddyGuard<'a> {
--    inner: &'a GpuBuddyInner,
--    _guard: MutexGuard<'a, ()>,
-+    _guard: MutexGuard<'a, Opaque<bindings::gpu_buddy>>,
- }
- 
- impl GpuBuddyGuard<'_> {
-     /// Get a raw pointer to the underlying C `gpu_buddy` structure.
-     fn as_raw(&self) -> *mut bindings::gpu_buddy {
--        self.inner.inner.get()
-+        self._guard.get()
-     }
- }
- 
-@@ -428,7 +420,7 @@ pub fn size(&self) -> u64 {
-     pub fn avail(&self) -> u64 {
-         let guard = self.0.lock();
- 
--        // SAFETY: Per the type invariant, `inner` contains an initialized allocator.
-+        // SAFETY: Per the type invariant, `lock` contains an initialized allocator.
-         // `guard` provides exclusive access.
-         unsafe { (*guard.as_raw()).avail }
-     }
-@@ -463,7 +455,7 @@ pub fn alloc_blocks(
-                 // Lock while allocating to serialize with concurrent frees.
-                 let guard = buddy.lock();
- 
--                // SAFETY: Per the type invariant, `inner` contains an initialized
-+                // SAFETY: Per the type invariant, `lock` contains an initialized
-                 // allocator. `guard` provides exclusive access.
-                 to_result(unsafe {
-                     bindings::gpu_buddy_alloc_blocks(
--- 
-2.56.1
+I wanted to phase out the old function over time but didn't noticed that this is actually finished.
+
+Thanks,
+Christian.
+
+> ---
+>  drivers/dma-buf/dma-fence.c |  6 ------
+>  include/linux/dma-fence.h   | 26 --------------------------
+>  2 files changed, 32 deletions(-)
+> 
+> diff --git a/drivers/dma-buf/dma-fence.c b/drivers/dma-buf/dma-fence.c
+> index bd58688b81a7..2f805b788f8f 100644
+> --- a/drivers/dma-buf/dma-fence.c
+> +++ b/drivers/dma-buf/dma-fence.c
+> @@ -1099,9 +1099,6 @@ __dma_fence_init(struct dma_fence *fence, const struct dma_fence_ops *ops,
+>   * refcount after committing with this fence, but it will need to hold a
+>   * refcount again if &dma_fence_ops.enable_signaling gets called.
+>   *
+> - * context and seqno are used for easy comparison between fences, allowing
+> - * to check which fence is later by simply using dma_fence_later().
+> - *
+>   * External locks are a relic of legacy use cases that needed a shared lock
+>   * to serialize signaling when no out-of-order signaling was possible through
+>   * &dma_fence_ops.signaled. Drivers have abandoned this concept since the
+> @@ -1129,9 +1126,6 @@ EXPORT_SYMBOL(dma_fence_init);
+>   * refcount after committing with this fence, but it will need to hold a
+>   * refcount again if &dma_fence_ops.enable_signaling gets called.
+>   *
+> - * Context and seqno are used for easy comparison between fences, allowing
+> - * to check which fence is later by simply using dma_fence_later().
+> - *
+>   * New users MUST NOT use external locks. Check the documentation in
+>   * dma_fence_init() to understand the motives behind the legacy use cases.
+>   */
+> diff --git a/include/linux/dma-fence.h b/include/linux/dma-fence.h
+> index a3fa1341765e..e11e65b916f1 100644
+> --- a/include/linux/dma-fence.h
+> +++ b/include/linux/dma-fence.h
+> @@ -633,32 +633,6 @@ static inline bool dma_fence_is_later_or_same(struct dma_fence *f1,
+>  	return f1 == f2 || dma_fence_is_later(f1, f2);
+>  }
+>  
+> -/**
+> - * dma_fence_later - return the chronologically later fence
+> - * @f1:	the first fence from the same context
+> - * @f2:	the second fence from the same context
+> - *
+> - * Returns NULL if both fences are signaled, otherwise the fence that would be
+> - * signaled last. Both fences must be from the same context, since a seqno is
+> - * not re-used across contexts.
+> - */
+> -static inline struct dma_fence *dma_fence_later(struct dma_fence *f1,
+> -						struct dma_fence *f2)
+> -{
+> -	if (WARN_ON(f1->context != f2->context))
+> -		return NULL;
+> -
+> -	/*
+> -	 * Can't check just DMA_FENCE_FLAG_SIGNALED_BIT here, it may never
+> -	 * have been set if enable_signaling wasn't called, and enabling that
+> -	 * here is overkill.
+> -	 */
+> -	if (dma_fence_is_later(f1, f2))
+> -		return dma_fence_is_signaled(f1) ? NULL : f1;
+> -	else
+> -		return dma_fence_is_signaled(f2) ? NULL : f2;
+> -}
+> -
+>  /**
+>   * dma_fence_get_status_locked - returns the status upon completion
+>   * @fence: the dma_fence to query
 
