@@ -2,56 +2,64 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8EB4D606A326
-	for <dri-devel@archiver.kernel.org>; Thu, 19 Nov 2026 14:37:53 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 08A06606A320
+	for <dri-devel@archiver.kernel.org>; Thu, 19 Nov 2026 14:40:26 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=MzlTQwVD
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 5B0241124C2;
-	Thu, 19 Nov 2026 14:37:52 +0000 (UTC)
-Received: from cstnet.cn (smtp21.cstnet.cn [159.226.251.21])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 95F8C1124C2
- for <dri-devel@lists.freedesktop.org>; Thu, 19 Nov 2026 14:37:50 +0000 (UTC)
-Received: from edelgard.fodlan.icenowy.me (unknown [112.94.102.23])
- by APP-01 (Coremail) with SMTP id qwCowAD3HvmnCf9qfRVHAQ--.3665S2;
- Thu, 19 Nov 2026 22:37:28 +0800 (CST)
-Message-ID: <74dd76a7dd4fb3e627b22833b19fad70e52bf3e1.camel@iscas.ac.cn>
-Subject: Re: [PATCH] drm/bridge: dw-mipi-dsi: fix cmd mode transition when
- disabling
-From: Icenowy Zheng <zhengxingda@iscas.ac.cn>
-To: Andrzej Hajda <andrzej.hajda@intel.com>, Neil Armstrong	
- <neil.armstrong@linaro.org>, Robert Foss <rfoss@kernel.org>, Laurent
- Pinchart	 <Laurent.pinchart@ideasonboard.com>, Jonas Karlman
- <jonas@kwiboo.se>, Jernej Skrabec <jernej.skrabec@gmail.com>, Luca Ceresoli
- <luca.ceresoli@bootlin.com>, Maarten Lankhorst	
- <maarten.lankhorst@linux.intel.com>, Maxime Ripard <mripard@kernel.org>, 
- Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>,
- Simona Vetter <simona@ffwll.ch>, Ondrej Jirman <megi@xff.cz>
-Cc: dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org
-Date: Thu, 19 Nov 2026 22:37:27 +0800
-In-Reply-To: <20261030055806.4102994-1-zhengxingda@iscas.ac.cn>
-References: <20261030055806.4102994-1-zhengxingda@iscas.ac.cn>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-User-Agent: Evolution 3.58.3 
+	by gabe.freedesktop.org (Postfix) with ESMTP id 5A7BD1124C4;
+	Thu, 19 Nov 2026 14:40:18 +0000 (UTC)
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.8])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id CD4BC1124C5;
+ Thu, 19 Nov 2026 14:40:11 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1795099212; x=1826635212;
+ h=date:from:to:cc:subject:message-id:references:
+ mime-version:content-transfer-encoding:in-reply-to;
+ bh=/yTbx4M89DY7qZV4gtUeaZ6iggWcmFbtE07suT1xHZ0=;
+ b=MzlTQwVDI5Di12Prh3Dn3duj0yNaLCD+sb0lDpYUgoPcnHppqyb1UbVh
+ HURMnZxtQA/UU5T6keBVFFGXj41NfFNweKgjeDpZTMU9u6sLegDGN9Raw
+ YIYzyuO8iMGPH/Pla/eWeR3l7dyz0FDzH9nRwUGgRGOFgGMSTqYEK5p25
+ vBzOP1SZs5hNTwqC7pU7sIVAy515AS1YpDhRX/inuu/OC6UJIyr6eq+sR
+ QUiZRoOFTc8n4Yj54aPYog305lCSW05ozGXReP58TM5zPLAtMlWYCE4Qt
+ ha1J7Lf5QwtMk1Lu90mNF6un6PbM7aPzNae1Fa9K+ZJkw7huFL+ON0olN w==;
+X-CSE-ConnectionGUID: DaaJauKAQXKxHKONtqageQ==
+X-CSE-MsgGUID: JQ18She5SdS1fR4k4Q0EFQ==
+X-IronPort-AV: E=McAfee;i="6800,10657,11971"; a="3849278"
+X-IronPort-AV: E=Sophos;i="6.27,221,1787036400"; 
+   d="scan'208";a="3849278"
+Received: from orviesa002.jf.intel.com ([10.64.159.142])
+ by fmvoesa102.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 19 Nov 2026 06:40:11 -0800
+X-CSE-ConnectionGUID: 6bFkeaCyQfu5UhGog788Yw==
+X-CSE-MsgGUID: wmC7edA+R5aDhOU81ppiYQ==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,221,1787036400"; d="scan'208";a="10479396"
+Received: from ettammin-mobl3.ger.corp.intel.com (HELO localhost)
+ ([10.245.245.54])
+ by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 19 Nov 2026 06:40:08 -0800
+Date: Thu, 19 Nov 2026 16:40:05 +0200
+From: Ville =?iso-8859-1?Q?Syrj=E4l=E4?= <ville.syrjala@linux.intel.com>
+To: Prike Liang <Prike.Liang@amd.com>
+Cc: amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
+ Alexander.Deucher@amd.com, Christian.Koenig@amd.com,
+ Harry.Wentland@amd.com, Sunpeng.Li@amd.com, tzimmermann@suse.de
+Subject: Re: [PATCH v2 3/5] drm/client: Make the FBIO_WAITFORVSYNC vblank
+ wait interruptible
+Message-ID: <av8KRUbu966lGfi_@intel.com>
+References: <20261119082424.554841-1-Prike.Liang@amd.com>
+ <20261119082424.554841-3-Prike.Liang@amd.com>
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
-X-CM-TRANSID: qwCowAD3HvmnCf9qfRVHAQ--.3665S2
-X-Coremail-Antispam: 1UD129KBjvJXoWxZF4fJw4UAry7Kw1rJF4fKrg_yoWrJF1kpF
- W2qw1ftrZ8XF4q9as7uF48Jr15Was8t395tr98G3WIvwnY93WUX3WvkrZ3XFyUWFy8Ar13
- AFn7Jry8Cas7AFDanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
- 9KBjDU0xBIdaVrnRJUUUvqb7Iv0xC_Kw4lb4IE77IF4wAFF20E14v26r4j6ryUM7CY07I2
- 0VC2zVCF04k26cxKx2IYs7xG6rWj6s0DM7CIcVAFz4kK6r1j6r18M28lY4IEw2IIxxk0rw
- A2F7IY1VAKz4vEj48ve4kI8wA2z4x0Y4vE2Ix0cI8IcVAFwI0_JFI_Gr1l84ACjcxK6xII
- jxv20xvEc7CjxVAFwI0_Gr0_Cr1l84ACjcxK6I8E87Iv67AKxVW0oVCq3wA2z4x0Y4vEx4
- A2jsIEc7CjxVAFwI0_GcCE3s1le2I262IYc4CY6c8Ij28IcVAaY2xG8wAqx4xG64xvF2IE
- w4CE5I8CrVC2j2WlYx0E2Ix0cI8IcVAFwI0_Jr0_Jr4lYx0Ex4A2jsIE14v26r1j6r4UMc
- vjeVCFs4IE7xkEbVWUJVW8JwACjcxG0xvEwIxGrwACI402YVCY1x02628vn2kIc2xKxwCY
- 1x0262kKe7AKxVWUtVW8ZwCF04k20xvY0x0EwIxGrwCFx2IqxVCFs4IE7xkEbVWUJVW8Jw
- C20s026c02F40E14v26r1j6r18MI8I3I0E7480Y4vE14v26r106r1rMI8E67AF67kF1VAF
- wI0_Jw0_GFylIxkGc2Ij64vIr41lIxAIcVC0I7IYx2IY67AKxVWUJVWUCwCI42IY6xIIjx
- v20xvEc7CjxVAFwI0_Gr0_Cr1lIxAIcVCF04k26cxKx2IYs7xG6r1j6r1xMIIF0xvEx4A2
- jsIE14v26r1j6r4UMIIF0xvEx4A2jsIEc7CjxVAFwI0_Gr0_Gr1UYxBIdaVFxhVjvjDU0x
- ZFpf9x07betCcUUUUU=
-X-CM-SenderInfo: x2kh0wp0lqwv3d6l2u1dvotugofq/
+Content-Type: text/plain; charset=iso-8859-1
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <20261119082424.554841-3-Prike.Liang@amd.com>
+X-Patchwork-Hint: comment
+Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
+ krs Bertel Jungin Aukio 5, 02600 Espoo, Finland
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -63,104 +71,94 @@ List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-13.8 required=3.0 tests=BAYES_00,
-	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
-	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS autolearn=ham
-	autolearn_force=no version=4.0.1
+X-Spam-Status: No, score=-13.8 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
+	DKIM_SIGNED,DKIM_VALID,HEADER_FROM_DIFFERENT_DOMAINS,
+	INCLUDES_CR_TRAILER,INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,
+	SPF_PASS autolearn=unavailable autolearn_force=no version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-=E5=9C=A8 2026-10-30=E4=BA=94=E7=9A=84 13:58 +0800=EF=BC=8CIcenowy Zheng=E5=
-=86=99=E9=81=93=EF=BC=9A
-> With pre_enable_prev_first flag set, the atomic_post_disable hook of the
-> next bridge (which should be the DSI panel bridge and calls panel
-> unprepare hook) is called before the hook of the DSI controller bridge,
-> which leads to the switch to command mode happening after the panel
-> unprepare. In this case some panels' unprepare hooks sliently fails
-> because they expect the DSI controller to be in command mode.
->=20
-> As the DSI controller atomic_disable hook happens after panel bridge
-> atomic_disable but before panel bridge atomic_post_disable, it seems to
-> be a good position for the transition to the command mode.
->=20
-> Move the mode transition from the atomic_post_disable hook to a newly
-> created atomic_disable hook.
->=20
-> Fixes: 05aa61334592 ("drm: bridge: dw-mipi-dsi: Fix enable/disable of DSI=
- controller")
-> Signed-off-by: Icenowy Zheng <zhengxingda@iscas.ac.cn>
+On Thu, Nov 19, 2026 at 04:24:22PM +0800, Prike Liang wrote:
+> FBIO_WAITFORVSYNC calls drm_client_modeset_wait_for_vblank(), which
+> waits with drm_crtc_wait_one_vblank(). That wait is uninterruptible and
+> only gives up after one second. If no vblank interrupt arrives, for
+> example while the driver resets the display hardware, the caller sleeps
+> in D state for the whole second and can't be interrupted, not even by
+> SIGKILL.
+> 
+> DRM_IOCTL_WAIT_VBLANK waits interruptibly, and so do fbdev drivers that
+> implement FBIO_WAITFORVSYNC themselves, such as atyfb and matroxfb.
 
-Ping, would anyone take a look at this patch?
+So we have precedent. Good.
+
+> 
+> Use drm_crtc_wait_one_vblank_interruptible() in
+> drm_client_modeset_wait_for_vblank(). Return -ERESTARTSYS when a signal
+> interrupts the wait, so that the ioctl returns to userspace or is
+> restarted. Timeouts and disabled CRTCs are still not reported.
+> 
+> The fbdev damage worker also calls drm_client_modeset_wait_for_vblank(),
+> but it runs in a kernel thread, which doesn't receive signals, so its
+> wait doesn't change.
+
+The damage workers recent unilateral use of vblank waits is bugging me.
+Enabling vblanks has hardware side effects on i915/xe that we probably
+don't want there. Need to take a look at demidlayering that at some
+point...
+
+> 
+> Version update:
+> 1) https://lists.freedesktop.org/archives/dri-devel/2026-November/616727.html
+> 
+> Cc: Thomas Zimmermann <tzimmermann@suse.de>
+> Cc: Ville Syrjälä <ville.syrjala@linux.intel.com>
+> Assisted-by: Copilot:claude-opus-5.5
+> Signed-off-by: Prike Liang <Prike.Liang@amd.com>
+
+Reviewed-by: Ville Syrjälä <ville.syrjala@linux.intel.com>
 
 > ---
-> Tested on Lichee Console 4A with a pending glue driver for T-Head TH1520
-> DW MIPI DSI. This device has a always-powered panel (no switchable
-> supply and no reset pin), so correct execution of unprepare commands is
-> critical.
->=20
->  drivers/gpu/drm/bridge/synopsys/dw-mipi-dsi.c | 23 ++++++++++++-------
->  1 file changed, 15 insertions(+), 8 deletions(-)
->=20
-> diff --git a/drivers/gpu/drm/bridge/synopsys/dw-mipi-dsi.c b/drivers/gpu/=
-drm/bridge/synopsys/dw-mipi-dsi.c
-> index 5dd475fcaacf8..49b6228ca69e5 100644
-> --- a/drivers/gpu/drm/bridge/synopsys/dw-mipi-dsi.c
-> +++ b/drivers/gpu/drm/bridge/synopsys/dw-mipi-dsi.c
-> @@ -944,14 +944,6 @@ static void dw_mipi_dsi_bridge_post_atomic_disable(s=
-truct drm_bridge *bridge,
->  	struct dw_mipi_dsi *dsi =3D bridge_to_dsi(bridge);
->  	const struct dw_mipi_dsi_phy_ops *phy_ops =3D dsi->plat_data->phy_ops;
-> =20
-> -	/*
-> -	 * Switch to command mode before panel-bridge post_disable &
-> -	 * panel unprepare.
-> -	 * Note: panel-bridge disable & panel disable has been called
-> -	 * before by the drm framework.
-> -	 */
-> -	dw_mipi_dsi_set_mode(dsi, 0);
-> -
->  	if (phy_ops->power_off)
->  		phy_ops->power_off(dsi->plat_data->priv_data);
-> =20
-> @@ -1058,6 +1050,20 @@ static void dw_mipi_dsi_bridge_atomic_enable(struc=
-t drm_bridge *bridge,
->  		dw_mipi_dsi_set_mode(dsi->slave, MIPI_DSI_MODE_VIDEO);
+>  drivers/gpu/drm/drm_client_modeset.c | 10 ++++++----
+>  1 file changed, 6 insertions(+), 4 deletions(-)
+> 
+> diff --git a/drivers/gpu/drm/drm_client_modeset.c b/drivers/gpu/drm/drm_client_modeset.c
+> index 0080a8e9556a..b475b8dbdb17 100644
+> --- a/drivers/gpu/drm/drm_client_modeset.c
+> +++ b/drivers/gpu/drm/drm_client_modeset.c
+> @@ -1301,10 +1301,11 @@ EXPORT_SYMBOL(drm_client_modeset_dpms);
+>   *
+>   * Block the caller until the given CRTC has seen a VBLANK. Do nothing
+>   * if the CRTC is disabled. If there's another DRM master present, fail
+> - * with -EBUSY.
+> + * with -EBUSY. A signal interrupts the wait.
+>   *
+>   * Returns:
+> - * 0 on success, or negative error code otherwise.
+> + * 0 on success, -ERESTARTSYS if a signal interrupted the wait, or
+> + * negative error code otherwise.
+>   */
+>  int drm_client_modeset_wait_for_vblank(struct drm_client_dev *client, unsigned int crtc_index)
+>  {
+> @@ -1328,13 +1329,14 @@ int drm_client_modeset_wait_for_vblank(struct drm_client_dev *client, unsigned i
+>  	 */
+>  	ret = drm_crtc_vblank_get(crtc);
+>  	if (!ret) {
+> -		drm_crtc_wait_one_vblank(crtc);
+> +		ret = drm_crtc_wait_one_vblank_interruptible(crtc);
+>  		drm_crtc_vblank_put(crtc);
+>  	}
+>  
+>  	drm_master_internal_release(dev);
+>  
+> -	return 0;
+> +	/* Only report interruption by a signal, not timeouts. */
+> +	return ret == -ERESTARTSYS ? ret : 0;
 >  }
-> =20
-> +static void dw_mipi_dsi_bridge_atomic_disable(struct drm_bridge *bridge,
-> +					      struct drm_atomic_commit *state)
-> +{
-> +	struct dw_mipi_dsi *dsi =3D bridge_to_dsi(bridge);
-> +
-> +	/*
-> +	 * Switch to command mode before panel-bridge post_disable &
-> +	 * panel unprepare.
-> +	 * Note: panel-bridge disable & panel disable has been called
-> +	 * before by the drm framework.
-> +	 */
-> +	dw_mipi_dsi_set_mode(dsi, 0);
+>  EXPORT_SYMBOL(drm_client_modeset_wait_for_vblank);
+>  
+> -- 
+> 2.34.1
 
-Sashiko says that the secondary controller needs to be put into command
-mode too, is it the case?
-
-If it is, I would add it to this hunk (although it's previously not
-present).
-
-Thanks,
-Icenowy
-
-> +}
-> +
->  static enum drm_mode_status
->  dw_mipi_dsi_bridge_mode_valid(struct drm_bridge *bridge,
->  			      const struct drm_display_info *info,
-> @@ -1098,6 +1104,7 @@ static const struct drm_bridge_funcs dw_mipi_dsi_br=
-idge_funcs =3D {
->  	.atomic_create_state		=3D drm_atomic_helper_bridge_create_state,
->  	.atomic_pre_enable	=3D dw_mipi_dsi_bridge_atomic_pre_enable,
->  	.atomic_enable		=3D dw_mipi_dsi_bridge_atomic_enable,
-> +	.atomic_disable		=3D dw_mipi_dsi_bridge_atomic_disable,
->  	.atomic_post_disable	=3D dw_mipi_dsi_bridge_post_atomic_disable,
->  	.mode_set		=3D dw_mipi_dsi_bridge_mode_set,
->  	.mode_valid		=3D dw_mipi_dsi_bridge_mode_valid,
-
+-- 
+Ville Syrjälä
+Intel
