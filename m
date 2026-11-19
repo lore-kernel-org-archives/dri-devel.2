@@ -2,63 +2,64 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 54D9D60A2600
-	for <dri-devel@archiver.kernel.org>; Thu, 19 Nov 2026 19:26:10 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7BC02606A334
+	for <dri-devel@archiver.kernel.org>; Thu, 19 Nov 2026 19:26:16 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=RFb3qJ51
+	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=JAgZHoOK
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id AD3131126DE;
-	Thu, 19 Nov 2026 19:26:04 +0000 (UTC)
-Received: from mail-oa1-f69.google.com (mail-oa1-f69.google.com
- [209.85.160.69])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 847E11126E4
- for <dri-devel@lists.freedesktop.org>; Thu, 19 Nov 2026 19:25:54 +0000 (UTC)
-Received: by mail-oa1-f69.google.com with SMTP id
- 586e51a60fabf-47cfa971c9eso1751360fac.0
- for <dri-devel@lists.freedesktop.org>; Thu, 19 Nov 2026 11:25:54 -0800 (PST)
+	by gabe.freedesktop.org (Postfix) with ESMTP id C78D71126E2;
+	Thu, 19 Nov 2026 19:26:10 +0000 (UTC)
+Received: from mail-pf1-f199.google.com (mail-pf1-f199.google.com
+ [209.85.210.199])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 7192C1126E2
+ for <dri-devel@lists.freedesktop.org>; Thu, 19 Nov 2026 19:25:59 +0000 (UTC)
+Received: by mail-pf1-f199.google.com with SMTP id
+ d2e1a72fcca58-8b32efd7ec4so136392b3a.3
+ for <dri-devel@lists.freedesktop.org>; Thu, 19 Nov 2026 11:25:59 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=google.com; s=20260707; t=1795116354; x=1795721154;
+ d=google.com; s=20260707; t=1795116359; x=1795721159;
  darn=lists.freedesktop.org; 
  h=content-type:cc:to:from:subject:message-id:references:mime-version
  :in-reply-to:date:from:to:cc:subject:date:message-id:reply-to
- :content-type; bh=ohgce9vn+z31zJY1A4d/uIcUdw7UhPIFGYmbETxOr2U=;
- b=RFb3qJ51LTDMd9+2zta7vqwfnndABvWj8d1wNWlkfsEJCjMKL5rB08xZxQuYKSrV7X
- l39b+rnAsPcle5xuLr6cqzhwHGnG07hnQtDtOi6fLc+8dzk4fw5PFbY+ycUinhL8/3CN
- /OevryEE06+ugnX6RI310IgA5DJMBaUrhu2k28CPX9u+TvAYpRE/5crlyL94LXj34i3E
- l2BSBSvvZX9nVnECp/U+ppVKUsnHCnrohWVHhkkzcnwADGaSCxE8JYELYPoprQM1dzgO
- 36P4p7b3lmRum4KfGdvPlqx186z9H58GFm0cQBFsC3aq0xX+yW1brgN6wO7RZzucwDXp
- rYUQ==
+ :content-type; bh=MCKguj/vcFyjyUsBFpEVwvA/Ew8DwdobaKTpU+d8I2Y=;
+ b=JAgZHoOKk8otOyIdd/hmhIec7KMolAgapqdGWq1bRxZd7zXzRe8tbkx8y7v/qmD7mV
+ +mVuqGVyXAF/DEKJbr3TBQwS5i2NQu7Ih8EqEE1dJSnDAMQ13GhY9KYoKeYMWnzKb+Wc
+ HlbCJL7zyfkfz0iCCiQlHUD3nVVprys307Pu7Cm8ktD4grBHDpQW3HnYWe8zdSsgdL5s
+ pmjKrWMDnBE40+ZWW+tguzbHGvY7uonCh9zNiGCPCJK6SJXB/iYTMkKu4ez9oD0HrCiA
+ qdzRBkeS1tWTBhcvYYMlO47c+cm5wgWdKrKsK0aEis5bdb9Y9rLYBYScKaJ9J1dKtHMC
+ 4Zhw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20260707; t=1795116354; x=1795721154;
+ d=1e100.net; s=20260707; t=1795116359; x=1795721159;
  h=content-type:cc:to:from:subject:message-id:references:mime-version
  :in-reply-to:date:x-gm-message-state:from:to:cc:subject:date
  :message-id:reply-to:content-type;
- bh=ohgce9vn+z31zJY1A4d/uIcUdw7UhPIFGYmbETxOr2U=;
- b=qaYmsgNwzo/02EKLMSa8FxD9CImmozjiLy9XxRv2sdy9IVpdNdJbtbUTCnXosyoGEM
- u9LSb1xHtTUODX/s4GeH1qSI+fiecUMwXhGa1LnrWV6QGo8Zjg3jnVQ6ZHapI4qvChPy
- YqaKlDeyMynr+ps7CxsLizLzta2BDaas72fGVKd5obfk+MOxQ3UChxCrC+dC4QpmcU50
- c9n58pVFVohyQoieAHcA9+IUXG0iGZ3XdHWfM+L9mJCTR4yWSXELgyc4Jn8atYuKzb13
- hx6PQLVKdfvB2PbZB8eJpBw88iOi5WljRINM/Bwb8Ib46MW6wILqYYgHTow6/NxepAVa
- q7Bg==
+ bh=MCKguj/vcFyjyUsBFpEVwvA/Ew8DwdobaKTpU+d8I2Y=;
+ b=IE4IOBx61gi2Yg67vMt1/3Dn/pYxYi5u2BZnD0ywL6OYWq99JOhzCnohHfzGahotL3
+ 7v1HtfW0obOYxaOXEyDWRKGHIEIUQ2dFarOnJvNSSqbD523/dft3RGVch3Df9z9Wlf4q
+ Bqgyg7Z5DiupWUw/C7LR69KftPedHL+1Aong0P+q1Jzal8qm8V4AxciLJle21vj5AraV
+ YrM1Fz/t8I/jrykou4Cam6gtiq11/nx0MU75bYpA4QU/yr8+PfYPBjpFFGD8VXeARDCG
+ GZU79qqrVKfDUQth+Mu/xUm1SbYAMvDmOwVj5lKQFy9ET6Mr1zKdv/ST/J7PU/fLufr2
+ LscA==
 X-Forwarded-Encrypted: i=1;
- AL+hErEmYRRmzOWiwyo2ifBSSXUja1F+UnuVwhnTOwzxewYV2Nw/z26EXYQaVAbMgCaPI4moEUjHuCQetDU=@lists.freedesktop.org
-X-Gm-Message-State: APuU4Z8oANC3iFyYJESxEPFavt9wWwJ8ZDMywUI/+zwV5lxwiDAHTZfw
- DdmPtfC+i4FyNuIXGFjNOzaCnxrBy322TJfm2o5ky14drkHMjXlTcu1wb4F3kB4V+JYEIyFOulI
- iAj7vGdLlzQ==
-X-Received: from ilbdx27-n1.prod.google.com
- ([2002:a05:6e02:421b:10b0:547:8b66:16bf])
+ AL+hErHTe4nCOQlgE+GkA6pFf5brLoYaDtmDRyyqvFd3RMBf/dLcMqtSuzKJ6yJzOEueNk1qNEymMLw6gMw=@lists.freedesktop.org
+X-Gm-Message-State: APuU4Z/1kYySi4XPJB51mYSds+xJjgl5WwX2tH8HXz2SOjDdhKgFLGls
+ WCGwVG594ENUmmGSId+bnMBKA3xEIW20NTl0clYh1yP0JxR8JFh76/MX01OhnCutZxXClz1tx35
+ 7wQUvfCTnQQ==
+X-Received: from pgjk11-n2.prod.google.com
+ ([2002:a05:6a02:81cb:20b0:cd6:1fc4:6199])
  (user=irogers job=prod-delivery.src-stubby-dispatcher) by
- 2002:a05:6808:2383:b0:572:f8ec:5340
- with SMTP id 5614622812f47-5797dd97e12mr1569173b6e.40.1795116353256; Thu, 19
- Nov 2026 11:25:53 -0800 (PST)
-Date: Thu, 19 Nov 2026 11:25:16 -0800
+ 2002:a05:6a21:9191:b0:3fb:1bfb:ff29
+ with SMTP id adf61e73a8af0-4014e74d624mr589862637.69.1795116358583; Thu, 19
+ Nov 2026 11:25:58 -0800 (PST)
+Date: Thu, 19 Nov 2026 11:25:17 -0800
 In-Reply-To: <20261119192520.1983406-1-irogers@google.com>
 X-Archived-By: <archiver.kernel.org>
 Mime-Version: 1.0
 References: <20261119192520.1983406-1-irogers@google.com>
 X-Mailer: git-send-email 2.56.1.750.gf70dc682cf-goog
-Message-ID: <20261119192520.1983406-6-irogers@google.com>
-Subject: [PATCH v4 5/9] dlm: Wait for kobject release before freeing dlm_ls
+Message-ID: <20261119192520.1983406-7-irogers@google.com>
+Subject: [PATCH v4 6/9] xen/sys-hypervisor: Add release callback to
+ hyp_sysfs_kobj_type
 From: Ian Rogers <irogers@google.com>
 To: Danilo Krummrich <dakr@kernel.org>,
  Greg Kroah-Hartman <gregkh@linuxfoundation.org>, 
@@ -111,134 +112,39 @@ X-Spam-Status: No, score=-26.3 required=3.0 tests=BAYES_00,DKIMWL_WL_MED,
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-struct dlm_ls embeds a struct kobject (ls_kobj), but dlm_ktype lacked a
-.release callback and dlm freed the lockspace structure directly via
-kfree(ls). With CONFIG_DEBUG_KOBJECT_RELEASE=y, freeing ls before the
-delayed kobject release runs causes a use-after-free, and unloading the
-module while the delayed release is pending results in an instruction
-page fault.
+hypervisor_init() in drivers/base/hypervisor.c creates hypervisor_kobj
+with kobject_create_and_add() (which allocates a dynamic kobject using
+dynamic_kobj_ktype), and hypervisor_subsys_init() in
+drivers/xen/sys-hypervisor.c then overwrites hypervisor_kobj->ktype with
+&hyp_sysfs_kobj_type, which had no .release callback.
 
-Add a completion ls_kobj_done and dlm_ls_release() to complete it when
-the last kobject reference is dropped, waiting for it in free_lockspace()
-before kfree(ls) and in the new_lockspace() error path before module_put().
-Also delete the kobject via kobject_del() before stopping dlm_recoverd
-to close the window where concurrent sysfs writes could wake the stopped
-recovery task.
+Add hyp_sysfs_release() calling kfree(kobj) to preserve the dynamic
+kobject release behavior.
 
-Fixes: 8a4cf500f1dd ("dlm: drop kobject release callback handling")
-Acked-by: Alexander Aring <aahringo@redhat.com>
+Fixes: cff7e81b3dd7 ("xen: add /sys/hypervisor support")
+Reviewed-by: Juergen Gross <jgross@suse.com>
 Signed-off-by: Ian Rogers <irogers@google.com>
 ---
- fs/dlm/dlm_internal.h |  1 +
- fs/dlm/lockspace.c    | 26 ++++++++++++++++++++------
- 2 files changed, 21 insertions(+), 6 deletions(-)
+ drivers/xen/sys-hypervisor.c | 6 ++++++
+ 1 file changed, 6 insertions(+)
 
-diff --git a/fs/dlm/dlm_internal.h b/fs/dlm/dlm_internal.h
-index 74c2e77d1b55..95b3bff0cb57 100644
---- a/fs/dlm/dlm_internal.h
-+++ b/fs/dlm/dlm_internal.h
-@@ -576,6 +576,7 @@ struct dlm_ls {
- 	int			ls_create_count; /* create/release refcount */
- 	unsigned long		ls_flags;	/* LSFL_ */
- 	struct kobject		ls_kobj;
-+	struct completion	ls_kobj_done;
- 
- 	struct xarray		ls_lkbxa;
- 	rwlock_t		ls_lkbxa_lock;
-diff --git a/fs/dlm/lockspace.c b/fs/dlm/lockspace.c
-index a9c98b4f378f..2dccd080a10f 100644
---- a/fs/dlm/lockspace.c
-+++ b/fs/dlm/lockspace.c
-@@ -179,7 +179,15 @@ static const struct sysfs_ops dlm_attr_ops = {
- 	.store = dlm_attr_store,
+diff --git a/drivers/xen/sys-hypervisor.c b/drivers/xen/sys-hypervisor.c
+index 91923242a5ae..0e8a2cd69fd6 100644
+--- a/drivers/xen/sys-hypervisor.c
++++ b/drivers/xen/sys-hypervisor.c
+@@ -659,7 +659,13 @@ static const struct sysfs_ops hyp_sysfs_ops = {
+ 	.store = hyp_sysfs_store,
  };
  
-+static void dlm_ls_release(struct kobject *kobj)
++static void hyp_sysfs_release(struct kobject *kobj)
 +{
-+	struct dlm_ls *ls = container_of(kobj, struct dlm_ls, ls_kobj);
-+
-+	complete(&ls->ls_kobj_done);
++	kfree(kobj);
 +}
 +
- static struct kobj_type dlm_ktype = {
-+	.release        = dlm_ls_release,
- 	.default_groups = dlm_groups,
- 	.sysfs_ops     = &dlm_attr_ops,
+ static const struct kobj_type hyp_sysfs_kobj_type = {
++	.release = hyp_sysfs_release,
+ 	.sysfs_ops = &hyp_sysfs_ops,
  };
-@@ -355,6 +363,8 @@ static void free_lockspace(struct work_struct *work)
- 	 */
- 	rhashtable_free_and_destroy(&ls->ls_rsbtbl, rhash_free_rsb, NULL);
- 
-+	kobject_put(&ls->ls_kobj);
-+	wait_for_completion(&ls->ls_kobj_done);
- 	kfree(ls);
- }
- 
-@@ -435,7 +445,10 @@ static int new_lockspace(const char *name, const char *cluster,
- 	ls->ls_lvblen = lvblen;
- 	atomic_set(&ls->ls_count, 0);
- 	init_waitqueue_head(&ls->ls_count_wait);
-+	init_completion(&ls->ls_kobj_done);
- 	ls->ls_flags = 0;
-+	ls->ls_kobj.kset = dlm_kset;
-+	kobject_init(&ls->ls_kobj, &dlm_ktype);
- 
- 	if (ops && dlm_config.ci_recover_callbacks) {
- 		ls->ls_ops = ops;
-@@ -567,9 +580,7 @@ static int new_lockspace(const char *name, const char *cluster,
- 	wait_event(ls->ls_recover_lock_wait,
- 		   test_bit(LSFL_RECOVER_LOCK, &ls->ls_flags));
- 
--	ls->ls_kobj.kset = dlm_kset;
--	error = kobject_init_and_add(&ls->ls_kobj, &dlm_ktype, NULL,
--				     "%s", ls->ls_name);
-+	error = kobject_add(&ls->ls_kobj, NULL, "%s", ls->ls_name);
- 	if (error)
- 		goto out_recoverd;
- 	kobject_uevent(&ls->ls_kobj, KOBJ_ADD);
-@@ -582,7 +593,7 @@ static int new_lockspace(const char *name, const char *cluster,
- 
- 	error = do_uevent(ls, 1, 0);
- 	if (error < 0)
--		goto out_recoverd;
-+		goto out_kobj;
- 
- 	/* wait until recovery is successful or failed */
- 	wait_for_completion(&ls->ls_recovery_done);
-@@ -600,6 +611,8 @@ static int new_lockspace(const char *name, const char *cluster,
- 	do_uevent(ls, 0, 0);
- 	dlm_clear_members(ls);
- 	kfree(ls->ls_node_array);
-+ out_kobj:
-+	kobject_del(&ls->ls_kobj);
-  out_recoverd:
- 	dlm_recoverd_stop(ls);
-  out_callback:
-@@ -615,6 +628,7 @@ static int new_lockspace(const char *name, const char *cluster,
- 	rhashtable_destroy(&ls->ls_rsbtbl);
-  out_lsfree:
- 	kobject_put(&ls->ls_kobj);
-+	wait_for_completion(&ls->ls_kobj_done);
- 	kfree(ls);
-  out:
- 	module_put(THIS_MODULE);
-@@ -740,6 +754,8 @@ static int release_lockspace(struct dlm_ls *ls, unsigned int release_option)
- 	    dlm_user_daemon_available())
- 		do_uevent(ls, 0, (release_option == DLM_RELEASE_RECOVER));
- 
-+	kobject_del(&ls->ls_kobj);
-+
- 	dlm_recoverd_stop(ls);
- 
- 	/* clear the LSFL_RUNNING flag to fast up
-@@ -759,8 +775,6 @@ static int release_lockspace(struct dlm_ls *ls, unsigned int release_option)
- 
- 	dlm_delete_debug_file(ls);
- 
--	kobject_put(&ls->ls_kobj);
--
- 	xa_destroy(&ls->ls_recover_xa);
- 	kfree(ls->ls_recover_buf);
  
 -- 
 2.56.1.708.g77570a6a1d-goog
