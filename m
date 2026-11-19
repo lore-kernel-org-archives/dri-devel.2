@@ -2,72 +2,69 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8187B60A260C
-	for <dri-devel@archiver.kernel.org>; Thu, 19 Nov 2026 19:01:29 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6A1AA606A325
+	for <dri-devel@archiver.kernel.org>; Thu, 19 Nov 2026 19:01:32 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=TkdLZOwC
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ZUDeJw6g
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id AFBF510F0C2;
+	by gabe.freedesktop.org (Postfix) with ESMTP id AB48F10F0AB;
 	Thu, 19 Nov 2026 19:01:23 +0000 (UTC)
 Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 33B2210F0C2
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 3375A10F0AB
  for <dri-devel@lists.freedesktop.org>; Thu, 19 Nov 2026 19:01:17 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id CC59D429D6;
+ by sea.source.kernel.org (Postfix) with ESMTP id E787C437DC;
  Thu, 19 Nov 2026 19:01:16 +0000 (UTC)
 Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
 ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
  t=1795114876;
- b=mnK8h71HQLrP5svwPNGjf/vgu7Dzh60mv1mgb6P8g1j/vkZfn/Wz+7sNjsEnjhTgSeHY
- DEvx8CyN8IPgO+7jC5zLcO7SW1H5P0op7k2Nrgu4ZQ49+Bz/QbX3u9mK8gWeAjO1ZRrnG
- aNk2we+I+E+0D3Y3P/THaXPZmSLXq1WFLDggIfS0x/m6yfl0zdw3ikOoTqsePJ//x7Wvl
- lGQ3d2kDwdnmN3EPvDqMX69yg8/+Cax3SA7WKZYQdNkwmSkguLXTbvi3rCe/XO35neoAj
- Sp2GkJ6CiFUzOvreNfVCQgPP3Z9q8UjAoYYXfm+y7WRowBUlqU0vFbGKrw/OtZcY6ig==
+ b=vPKrw4OqgfgYXw034zo31HVDeLOgVM/l6wtW0uD77ecmHBZaB+8vxeLlzOFeDlguHAtg
+ uH0kEN5gbqzjCs3M8CPFLV/OkG9UhyWuysXe0kXC7Lo1ppPaYeHIG30BhRr02nt9+D7E4
+ Hdx+WCSucZgl/8/WKV/ii8JLS9Xllzs1hrf5xy8jGBBD8bgG2523K0bVvt2CdbCiNZRBe
+ xLG/wsCro89xNQRxwnh3FRXKdHPm2Jwra+mAcdJrYwpz8eth7xihy69JczXMVdSFgbm/j
+ G94rG1DG/rC3LFe48uJWY9oNCw02tcdQaObMbsJgbCnF0hvFjMa+3SfLNitXtS1IxxQ==
 ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
  c=relaxed/relaxed; t=1795114876;
- h=DKIM-Signature:Received:From:Subject:Date:Message-Id:MIME-Version:
- Content-Type:Content-Transfer-Encoding:X-B4-Tracking:X-Change-ID:To:
- Cc:X-Mailer:X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
- X-Original-From:Reply-To;
- bh=/IjHNMkqCvdPyDavBH7Vr7CYFM/uCWorvyQ24nWJdos=;
- b=0aglQpXcp8BKC9Fz0Dc+eCTHx9M/BuBD0D7Kcg/uzYdlADVx5IYwzwBun68IvnbHM3g5
- fn7MOOBtRBW0NS1M58rak7mMgO+WdQWR1QzYLUPJnbtni4Tp8hN2huWWoRJJcsUakcL6Z
- 2n1rU6VKuTbZoAhIYbNH5QHsb+7J6gaTvHrh1dkSZNp7tx0BdKaUooE6qMVIaeH0HVRdw
- GV0nW2HlTiLz/mBkF8LuwGM5wSVTLG+gjl6bP1haLfHe+QOvQ3Zfz8QoMpFp2kfyzjsXj
- TuuZuOp5Xtvr2aN9i05NZn+8KYHYOlTiN8l8/MSqJ1gT62lnKJtNFGajBqwcELvax7Q==
+ h=DKIM-Signature:Received:From:Date:Subject:MIME-Version:Content-Type:
+ Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
+ X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
+ X-Original-From:Reply-To:Content-Transfer-Encoding;
+ bh=VL3of2GZ4aGBezOahQR6AAnHBnjn53yrop77hBWEOUA=;
+ b=qHYVgU6tgAno4VvQE21xpDsrJ0kQs2Jjlvb1tAA34GLub5kn0lAnERdxeKPKjDzBb+7j
+ 83pWCi6vtjfArVJNlVamLOmSwBizH/Wnu2A+cjfzroj1nGwPRhb4VaCPxxVStAuPhGplC
+ z6Tpl8oWxRD0arqsXQ0kKYv4l0OPmbqSnM0rtuGxR2Vab8EMPmkzI+F866+IqRcSm3IYr
+ tIEIDKHY72Tdhh75YtRRWyKveNz2wewCgexaxY0Ej8kFGfCLPH62xXMqCuXNmS7pdz+Wt
+ gEFVe2AGD1jek2i0WJZgY4PC5dW/t1PQFppfhLzDpdAWwhtoFoNQEpIQ2Ooc3vtFc2Q==
 ARC-Authentication-Results: i=1; smtp.kernel.org; 
  arc=none smtp.remote-ip=100.80.115.77
 Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
  (No client certificate requested)
- by smtp.kernel.org (Postfix) with ESMTPS id 1CD8C1F000C4;
+ by smtp.kernel.org (Postfix) with ESMTPS id 3184F1F000C5;
  Thu, 19 Nov 2026 19:01:16 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
  s=k20260515; t=1795114876;
- bh=/IjHNMkqCvdPyDavBH7Vr7CYFM/uCWorvyQ24nWJdos=;
- h=From:Subject:Date:To:Cc:Reply-To;
- b=TkdLZOwCNkfi79qyyM9Wll8Z5Xo+x/2eSAbd49LtK9sA0BbJ6NW7f955/DbvkcmpK
- Yu05A6BcTx4grDEJy8nDFupc4Lol1xWIUc/CpH1Jwwu7mpemfmyrbsH3Af+cxAVVge
- OUEUiW38sv+8rWXNnTfq/LkVIzqWcxP3hnuZwahs/hIJtyB3QUQcxJQKtP7tuZgHlu
- MvpK71r2iV/mEVs0ZIAihP8FBCmrkwkFQyu5IUGqgW1xOtokA/fnDbwxPS8sN83cDh
- dpZ63Kp9YKXg9kyyhkb6GJQLJwKojle4WvIl1RbV6v/5Xo5qdTXsF7CcZTa3Vzy+m4
- kNqLit6J6lafA==
+ bh=VL3of2GZ4aGBezOahQR6AAnHBnjn53yrop77hBWEOUA=;
+ h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To;
+ b=ZUDeJw6g/+bKeO+wFg5dk1e77sSV/najdncPAL051knB0kwgmmBuO46j5l/dB1l8H
+ wY5tXA1AejSLedFvGO00RUik+gvAITFoCQw0zklrKReZoaDVuPP6vgN/ENNPypfNdC
+ k0sHZAbPyZoPcoI57L44mBXbYZCyX5jSoIkKnFUeDuHDYk474xpCRCPLIR7w+3Kl1V
+ fNpUNcAB+wSvW+r8yjcbPOHDId/58QdiJ/XlxqnCO7cQlTApwwseTJPi2mtoIFKeYq
+ p2VJHL888nnb4GNOxr65DYrltlxQlLV7ZcEoF2cT02iycljbRbeoZbtkSXp2Tm4iBU
+ j8ZnkJvpXzVjA==
 Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
- by lkml.kernel.org (Postfix) with ESMTP id 7CAE04B3DE;
+ by lkml.kernel.org (Postfix) with ESMTP id A69E14B3D5;
  Thu, 19 Nov 2026 19:01:15 +0000 (UTC)
 From: Nizat Mikayilli via B4 Relay <devnull+nacht.dxdmail.cc@kernel.org>
-Subject: [PATCH v2 0/3] drm/panel: Add Anapass ANA38407 DDIC
-Date: Thu, 19 Nov 2026 20:01:11 +0100
-Message-Id: <20261119-b4-ana38407-v2-0-bddc251bd43f@dxdmail.cc>
+Date: Thu, 19 Nov 2026 20:01:12 +0100
+Subject: [PATCH v2 1/3] dt-bindings: vendor-prefixes: Add Anapass
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-X-B4-Tracking: v=1; b=H4sIAAAAAAAC/22MOw7CMBBErxJtjZF/wYaKe6AU6w9kJUgiG1lBk
- e+OSU03b0bzNsgxUcxw6TZIsVCmeWogDx34EadHZBQag+TyJAQ3zGmGEyqrW1bi3PfondVooD2
- WFO+07rbb0Hik/J7TZ5cX8Wv/e4pgnHnrlBLatBWvYQ0vpOfRexhqrV+gOTCPpwAAAA==
-X-Change-ID: 20261107-b4-ana38407-31955acb84a7
+Message-Id: <20261119-b4-ana38407-v2-1-bddc251bd43f@dxdmail.cc>
+References: <20261119-b4-ana38407-v2-0-bddc251bd43f@dxdmail.cc>
+In-Reply-To: <20261119-b4-ana38407-v2-0-bddc251bd43f@dxdmail.cc>
 To: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
  Conor Dooley <conor+dt@kernel.org>, 
  Neil Armstrong <neil.armstrong@linaro.org>, 
@@ -79,16 +76,17 @@ Cc: devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
  dri-devel@lists.freedesktop.org, Nizat Mikayilli <nacht@dxdmail.cc>, 
  Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
 X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1795114874; l=1711;
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1795114874; l=864;
  i=nacht@dxdmail.cc; s=20261004; h=from:subject:message-id;
- bh=Gxjj1oEcl9xXswoh+L+3EaxDdop6cBisF4OLFm8PBxw=;
- b=wOSo7HJNMi7LWMB+RqmTmdSRuTNTi0AU8k/qpmErX6tCqmjxONZkL3CifLlJfs5OE4KQWC78A
- iPCbsuAkUlLCR93zJ5YVOzzYYID0vGFUdpGQeH2Kg8Y1ifvnlhQA4Tx
+ bh=71KJwo/U3Etw4IsyPrxttnuaukQ5Gsqk1irCLfj/QNE=;
+ b=klgVonqsiny9q+pQJHnCw+x9mFvazXk/UtvtLvt7puherNw0cddORww0DNUeXOtjCMQw6B1E/
+ pmd9+SCrtBTDUrzA/uIRyS8n0haJDm0hi859zqvDxLU3uXvxOClbW+8
 X-Developer-Key: i=nacht@dxdmail.cc; a=ed25519;
  pk=Kay3P3pOJq5klUD+0/I8QX8JGOh0CeQXEwRVv7CMm4k=
 X-Endpoint-Received: by B4 Relay for nacht@dxdmail.cc/20261004 with
  auth_id=1111
 X-Original-From: Nizat Mikayilli <nacht@dxdmail.cc>
+Content-Transfer-Encoding: 7bit
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -108,45 +106,31 @@ X-Spam-Status: No, score=-18.8 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-This series adds a driver for the Samsung AMSA10FA01, the 2560x1600
-AMOLED panel of the Samsung Galaxy Tab S9 Wi-Fi (SM8550). It is a
-command mode DSI panel with DSC, driven by an Anapass ANA38407 DDIC.
-The binding and driver are named after the DDIC.
+From: Nizat Mikayilli <nacht@dxdmail.cc>
 
-Only the 120 Hz mode of panel revision D is supported. The init
-sequence comes from the vendor panel data, without the
-brightness-dependent gamma, HBM and ELVSS writes. A fixed delay
-replaces the vendor's wait on the TCON_RDY pin.
+Add a vendor prefix for Anapass, Inc., a display driver IC vendor.
 
-Tested on the tablet: cold and warm boot, hand-off from the bootloader
-splash, brightness and blank/unblank. The board DT follows separately.
-
+Acked-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
 Signed-off-by: Nizat Mikayilli <nacht@dxdmail.cc>
 ---
-Changes in v2:
-- Dropped port from the required properties (Krzysztof)
-- Added Krzysztof's Acked-by to the vendor prefix patch
-- Link to v1: https://lore.kernel.org/r/20261107-b4-ana38407-v1-0-c8b33147110a@dxdmail.cc
+ Documentation/devicetree/bindings/vendor-prefixes.yaml | 2 ++
+ 1 file changed, 2 insertions(+)
 
----
-Nizat Mikayilli (3):
-      dt-bindings: vendor-prefixes: Add Anapass
-      dt-bindings: display: panel: Document Anapass ANA38407 DDIC
-      drm/panel: Add driver for Anapass ANA38407 DDIC
+diff --git a/Documentation/devicetree/bindings/vendor-prefixes.yaml b/Documentation/devicetree/bindings/vendor-prefixes.yaml
+index 5471a06f93f1..b117fce91102 100644
+--- a/Documentation/devicetree/bindings/vendor-prefixes.yaml
++++ b/Documentation/devicetree/bindings/vendor-prefixes.yaml
+@@ -136,6 +136,8 @@ patternProperties:
+     description: AMS-Taos Inc.
+   "^analogix,.*":
+     description: Analogix Semiconductor, Inc.
++  "^anapass,.*":
++    description: Anapass, Inc.
+   "^anbernic,.*":
+     description: Anbernic
+   "^andestech,.*":
 
- .../bindings/display/panel/anapass,ana38407.yaml   |  68 +++++
- .../devicetree/bindings/vendor-prefixes.yaml       |   2 +
- MAINTAINERS                                        |   6 +
- drivers/gpu/drm/panel/Kconfig                      |  15 +
- drivers/gpu/drm/panel/Makefile                     |   1 +
- drivers/gpu/drm/panel/panel-anapass-ana38407.c     | 320 +++++++++++++++++++++
- 6 files changed, 412 insertions(+)
----
-base-commit: 6628e7d4c6b25c8d18f1345e3a20d21829aae7e4
-change-id: 20261107-b4-ana38407-31955acb84a7
-
-Best regards,
 -- 
-Nizat Mikayilli <nacht@dxdmail.cc>
+2.56.1
 
 
