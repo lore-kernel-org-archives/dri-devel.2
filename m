@@ -2,42 +2,43 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5303C606A338
-	for <dri-devel@archiver.kernel.org>; Thu, 19 Nov 2026 08:41:18 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4B002606A320
+	for <dri-devel@archiver.kernel.org>; Thu, 19 Nov 2026 08:46:12 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=k6b945BF
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=k35bZQQn
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 9C94111218E;
-	Thu, 19 Nov 2026 08:41:12 +0000 (UTC)
-Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 45ED311218E
- for <dri-devel@lists.freedesktop.org>; Thu, 19 Nov 2026 08:41:06 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id B23FB112195;
+	Thu, 19 Nov 2026 08:46:06 +0000 (UTC)
+Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 52FB2112195
+ for <dri-devel@lists.freedesktop.org>; Thu, 19 Nov 2026 08:46:01 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id 0BA8F47871;
- Thu, 19 Nov 2026 08:41:06 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id BA9441F000C6;
- Thu, 19 Nov 2026 08:41:05 +0000 (UTC)
+ by tor.source.kernel.org (Postfix) with ESMTP id 70C8B6228D;
+ Thu, 19 Nov 2026 08:46:00 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0CE151F000C4;
+ Thu, 19 Nov 2026 08:46:00 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1795077665;
- bh=AV/erBw/k4KzjHXr4eEGKkSKWChH3lqU/mu/W84MX7k=;
+ s=k20260515; t=1795077960;
+ bh=RNoLj4vRV9rtiIve3Nj9O1aBPK6jxMm0GF/j5FT/iKc=;
  h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
- b=k6b945BFGnB7M6Xw8Zebowwp+UaKBVSXHrZGmV4BWJ+jtKzF1KIK4ttIJDHf3sMKz
- egmnUZ0KofOI1ZTmTcPldjpTNnUV5p/GFnJ77bQ8V7G1QvdOOLADa572GoXRkQMxDq
- 5motl2X9iWWIt7pmBF2JoxOyMrpMNhyfa7RqjKpM7JZ730Z+jq2z77iA3zHorjm9m2
- YU1CpO4TuzSkbrsn9gZdmG8QiL6Go9WacA3GYHMewbyEE2muP0oJ+UfbSJOnd7dskU
- Y6wv7QQSpXX5t5C+QuEz1S0NW/VSm1s/DA1XPeIGwNhRwe2bRvqQutL6mC+nrlaVp9
- p38m9trJJs+iQ==
-Message-ID: <sashiko-outbox-222696@kernel.org>
+ b=k35bZQQntsSamfV0k3LHbKJiplMoJYfZF44lCtw81VXrq6/id2/WElUpSBrBhzyUa
+ x+t9/qauI/28y+lW8ENlAWOHc6/42zn0cXd8oFAS8chgG6jpa8DSS5PcIYVKiTRVrU
+ aXBqzVF1UBk/bfvrB5lDJHZF8eVsvTpe9tYjaGYD7ygxFxW9Iqsa5TKpoJUzHW9cL3
+ uARDfTq8WXyDStnGUxfpKwoRXlqAB2s4VIrFja6Lg5LGqJsBnvGbT+4AchGmz9YC+K
+ 5U1fIE+Sm4dEsEvktCktNbNpI0qgSKkVvHAW1mD5YTLIA768+1RhEt8QxyMTCKzgR9
+ 7rZg3aYd55f7w==
+Message-ID: <sashiko-outbox-222706@kernel.org>
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v9 17/29] drm/msm/dp: move link capabilities to dp_link
+Subject: Re: [PATCH v9 20/29] drm/bridge_connector: avoid detect-based HPD
+ notifications for DisplayPort
 To: "Yongxing Mou" <yongxing.mou@oss.qualcomm.com>
 Cc: dri-devel@lists.freedesktop.org
-In-Reply-To: <20261119-msm-dp-mst-v9-17-ca61be4edfc3@oss.qualcomm.com>
+In-Reply-To: <20261119-msm-dp-mst-v9-20-ca61be4edfc3@oss.qualcomm.com>
 References: <20261119-msm-dp-mst-v9-0-ca61be4edfc3@oss.qualcomm.com>
- <20261119-msm-dp-mst-v9-17-ca61be4edfc3@oss.qualcomm.com>
+ <20261119-msm-dp-mst-v9-20-ca61be4edfc3@oss.qualcomm.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Thu, 19 Nov 2026 08:41:05 +0000
+Date: Thu, 19 Nov 2026 08:45:59 +0000
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -60,60 +61,53 @@ X-Archived-By: <archiver.kernel.org>
 
 Thank you for your contribution! Sashiko AI review found 1 potential
 issue to consider:
-- [Medium] drm/msm/dp: msm_dp_display_mode_valid() ignores info for
-  dp->connector
+- [Medium] drm/bridge_connector: check detect->type in
+  drm_bridge_connector_detect_ctx()
 --
 
-commit 9b5a2b4fd3cc486b889af124992a49541fad1c12
+commit c94cf087c06da031558bf281d88106d6134140dc
 Author: Yongxing Mou <yongxing.mou@oss.qualcomm.com>
 
-drm/msm/dp: move link capabilities to dp_link
+drm/bridge_connector: avoid detect-based HPD notifications for DisplayPort
 
-This commit moves link_info (renamed to link_caps) and vsc_sdp_supported
-from struct msm_dp_panel to struct msm_dp_link so that SST and MST panels
-share the physical link capabilities.
+This commit skips calling drm_bridge_connector_hpd_notify() from
+drm_bridge_connector_detect_ctx() for DisplayPort connectors that have an
+HPD bridge.
 
-> diff --git a/drivers/gpu/drm/msm/dp/dp_display.c b/drivers/gpu/drm/msm/dp=
-/dp_display.c
-> index fb72b77e9c95e..a77a286a24629 100644
-> --- a/drivers/gpu/drm/msm/dp/dp_display.c
-> +++ b/drivers/gpu/drm/msm/dp/dp_display.c
-[ ... ]
-> @@ -813,7 +813,7 @@ enum drm_mode_status msm_dp_display_mode_valid(struct=
- msm_dp *dp,
->  	}
+> diff --git a/drivers/gpu/drm/display/drm_bridge_connector.c b/drivers/gpu=
+/drm/display/drm_bridge_connector.c
+> index 1d4502126bff3..dbe874d26911b 100644
+> --- a/drivers/gpu/drm/display/drm_bridge_connector.c
+> +++ b/drivers/gpu/drm/display/drm_bridge_connector.c
+> @@ -315,7 +315,10 @@ static int drm_bridge_connector_detect_ctx(struct dr=
+m_connector *connector,
+>  				return ret;
+>  		}
 > =20
->  	msm_dp_display =3D container_of(dp, struct msm_dp_display_private, msm_=
-dp_display);
-> -	link_info =3D &msm_dp_display->panel->link_info;
-> +	link_info =3D &msm_dp_display->link->link_caps;
-> =20
->  	is_yuv_420 =3D drm_mode_is_420_only(&dp->connector->display_info, mode);
-> =20
-> @@ -821,7 +821,7 @@ enum drm_mode_status msm_dp_display_mode_valid(struct=
- msm_dp *dp,
->  	 * YUV 420 is carried over DP by signalling the colorimetry through a
->  	 * VSC SDP, so a 420-only mode cannot be driven without VSC SDP support.
->  	 */
-> -	if (is_yuv_420 && !msm_dp_display->panel->vsc_sdp_supported)
-> +	if (is_yuv_420 && !msm_dp_display->link->vsc_sdp_supported)
->  		return MODE_NO_420;
-> =20
->  	link_pclk_khz =3D is_yuv_420 ? mode_pclk_khz / 2 : mode_pclk_khz;
+> -		drm_bridge_connector_hpd_notify(connector, status, DRM_CONNECTOR_NO_EX=
+TRA_STATUS);
+> +		if (connector->connector_type !=3D DRM_MODE_CONNECTOR_DisplayPort ||
+> +		    !bridge_connector->bridge_hpd)
+> +			drm_bridge_connector_hpd_notify(connector, status,
+> +							DRM_CONNECTOR_NO_EXTRA_STATUS);
 
 [Severity: Medium]
-Should msm_dp_display_mode_valid() use its info parameter instead of
-dp->connector->display_info when checking drm_mode_is_420_only() and
-reading info->bpc?
+Should this check detect->type !=3D DRM_MODE_CONNECTOR_DisplayPort instead =
+of
+connector->connector_type?
 
-In MST mode, msm_dp_mst_connector_mode_valid() passes the per-port MST
-connector's display_info as info, whereas dp->connector is the root SST
-connector whose EDID is not read for MST sinks.  Using
-dp->connector->display_info causes YUV 4:2:0-only modes on MST sinks to
-go undetected (skipping the vsc_sdp_supported check and failing to halve
-the pixel clock, which can reject valid 4:2:0 modes with MODE_CLOCK_HIGH
-or MODE_BAD) and computes mode_bpp from the wrong connector.
+In drm_bridge_connector_init(), connector->connector_type is taken from the
+last bridge in the chain rather than bridge_connector->bridge_detect.  When
+msm_dp_bridge (detect->type =3D=3D DRM_MODE_CONNECTOR_DisplayPort) is follo=
+wed
+by a Type-C HPD bridge that sets bridge.type =3D DRM_MODE_CONNECTOR_USB (su=
+ch
+as drivers/platform/arm64/acer-aspire1-ec.c), connector->connector_type is
+DRM_MODE_CONNECTOR_USB.  When msm_dp_bridge_detect() returns
+connector_status_disconnected (for example while MST is active),
+drm_bridge_connector_detect_ctx() will still notify the bridge chain and
+tear down the active DP link.
 
 --=20
 Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261119-msm-dp-mst=
--v9-0-ca61be4edfc3@oss.qualcomm.com?part=3D17
+-v9-0-ca61be4edfc3@oss.qualcomm.com?part=3D20
