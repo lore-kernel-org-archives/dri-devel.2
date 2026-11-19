@@ -2,19 +2,19 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A0617606A326
-	for <dri-devel@archiver.kernel.org>; Thu, 19 Nov 2026 13:40:55 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 289C860A2601
+	for <dri-devel@archiver.kernel.org>; Thu, 19 Nov 2026 13:41:02 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id EF4E51123F8;
-	Thu, 19 Nov 2026 13:40:54 +0000 (UTC)
-Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id E460B1123F8
- for <dri-devel@lists.freedesktop.org>; Thu, 19 Nov 2026 13:40:52 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 5570E112400;
+	Thu, 19 Nov 2026 13:41:01 +0000 (UTC)
+Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 5A459112400
+ for <dri-devel@lists.freedesktop.org>; Thu, 19 Nov 2026 13:40:58 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id C30FD41E9A;
+ by tor.source.kernel.org (Postfix) with ESMTP id 72E8E611D5;
+ Thu, 19 Nov 2026 13:40:57 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1C58C1F000C5;
  Thu, 19 Nov 2026 13:40:52 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 93B921F000C6;
- Thu, 19 Nov 2026 13:40:48 +0000 (UTC)
 From: Geert Uytterhoeven <geert+renesas@glider.be>
 To: Aaro Koskinen <aaro.koskinen@iki.fi>,
  Andreas Kemnade <andreas@kemnade.info>,
@@ -29,10 +29,12 @@ Cc: linux-clk@vger.kernel.org, linux-renesas-soc@vger.kernel.org,
  linux-rockchip@lists.infradead.org, linux-omap@vger.kernel.org,
  linux-arm-kernel@lists.infradead.org, dri-devel@lists.freedesktop.org,
  linux-pm@vger.kernel.org, Geert Uytterhoeven <geert+renesas@glider.be>
-Subject: [PATCH 0/6] clk: Improve consumer field in debugfs clk_summary
-Date: Thu, 19 Nov 2026 14:40:33 +0100
-Message-ID: <cover.1795094688.git.geert+renesas@glider.be>
+Subject: [PATCH 1/6] clk: Remove unused clk.dev
+Date: Thu, 19 Nov 2026 14:40:34 +0100
+Message-ID: <a896e5bdb29c7c6de39df9b28b11d55614f2ec2d.1795094688.git.geert+renesas@glider.be>
 X-Mailer: git-send-email 2.43.0
+In-Reply-To: <cover.1795094688.git.geert+renesas@glider.be>
+References: <cover.1795094688.git.geert+renesas@glider.be>
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
@@ -47,81 +49,164 @@ List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-11.8 required=3.0 tests=BAYES_00,
-	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_PATCH,MAILING_LIST_MULTI,
-	SPF_HELO_NONE,SPF_PASS,USER_AGENT_GIT autolearn=ham autolearn_force=no
-	version=4.0.1
+X-Spam-Status: No, score=-16.8 required=3.0 tests=BAYES_00,
+	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
+	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,USER_AGENT_GIT autolearn=ham
+	autolearn_force=no version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-	Hi all,
+This basically reverts commit efa850487a6b6742 ("clk: Inform the core
+about consumer devices").
 
-When a driver uses of_clk_get_from_provider() to obtain clocks, the
-latter show up as "deviceless" in the consumer column of the clk_summary
-file in debugfs.
+This commit added a struct device pointer member to struct clk and a
+parameter to clk_hw_create_clk(), but the new member was never used
+beyond setting.
 
-This patch series aims to improve that, by introducing a new variant
-dev_clk_get_from_provider() that also takes a consumer device.
-When callers provide it, the consumer's name will be shown in the
-clk_summary output.
+Signed-off-by: Geert Uytterhoeven <geert+renesas@glider.be>
+---
+ drivers/clk/clk.c    | 14 +++++---------
+ drivers/clk/clk.h    | 11 ++++-------
+ drivers/clk/clkdev.c | 14 ++++----------
+ 3 files changed, 13 insertions(+), 26 deletions(-)
 
-Sample clk_summary change snippet on R-Car H1 Marzen:
-    - sata 1 1 0 62500000 0 0 50000 Y deviceless    of_clk_get_from_provider
-    + sata 1 1 0 62500000 0 0 50000 Y fc600000.sata dev_clk_get_from_provider
-
-Overview:
-  - The first patch removes the unused "dev" member from struct clk and
-    the "dev" parameter from clk_hw_create_clk(): it felt wrong to add
-    yet another user of clk_hw_create_clk() passing a useless device
-    pointer,
-  - The second patch introduces the new dev_clk_get_from_provider()
-    function,
-  - Patches 3-6 convert users to the new helper:
-      - The Renesas clock patch was tested on R-Car H1 and H3, and
-	should work fine on other Renesas SoCs,
-      - The Rockchip HDMI patch was only compile-tested, but is probably
-	fine, too,
-      - The OMAP2+ patch definitely needs testing,
-      - The Renesas pmdomain patch depends on work in progress.
-
-This series has been tested on R-Car H1, H3, and X5H.
-
-Thanks for your comments!
-
-Geert Uytterhoeven (6):
-  clk: Remove unused clk.dev
-  clk: Add dev_clk_get_from_provider()
-  clk: renesas: Convert to dev_clk_get_from_provider()
-  [RFT] drm/rockchip: dw_hdmi: Convert to dev_clk_get_from_provider()
-  [RFT] ARM: OMAP2+: Convert to dev_clk_get_from_provider()
-  [RFC] pmdomain: renesas: r8a78000: Convert to
-    dev_clk_get_from_provider()
-
- arch/arm/mach-omap2/omap_device.c           |  2 +-
- arch/arm/mach-omap2/omap_hwmod.c            |  3 ++-
- drivers/clk/clk.c                           | 23 ++++++++++-----------
- drivers/clk/clk.h                           | 11 ++++------
- drivers/clk/clkdev.c                        | 14 ++++---------
- drivers/clk/renesas/clk-mstp.c              |  2 +-
- drivers/clk/renesas/r9a06g032-clocks.c      |  2 +-
- drivers/clk/renesas/renesas-cpg-mssr.c      |  2 +-
- drivers/clk/renesas/rzg2l-cpg.c             |  2 +-
- drivers/clk/renesas/rzv2h-cpg.c             |  2 +-
- drivers/gpu/drm/rockchip/dw_hdmi-rockchip.c |  3 ++-
- drivers/pmdomain/renesas/r8a78000-mdlc.c    |  2 +-
- include/linux/clk.h                         | 10 +++++++--
- 13 files changed, 38 insertions(+), 40 deletions(-)
-
+diff --git a/drivers/clk/clk.c b/drivers/clk/clk.c
+index 673eac47450b1e1c..858f4d60ed2d97c4 100644
+--- a/drivers/clk/clk.c
++++ b/drivers/clk/clk.c
+@@ -160,7 +160,6 @@ struct clk_core {
+ 
+ struct clk {
+ 	struct clk_core	*core;
+-	struct device *dev;
+ 	const char *dev_id;
+ 	const char *con_id;
+ 	unsigned long min_rate;
+@@ -4249,7 +4248,6 @@ static void free_clk(struct clk *clk)
+ /**
+  * clk_hw_create_clk: Allocate and link a clk consumer to a clk_core given
+  * a clk_hw
+- * @dev: clk consumer device
+  * @hw: clk_hw associated with the clk being consumed
+  * @dev_id: string describing device name
+  * @con_id: connection ID string on device
+@@ -4259,9 +4257,8 @@ static void free_clk(struct clk *clk)
+  * consumers. It connects a consumer to the clk_core and clk_hw structures
+  * used by the framework and clk provider respectively.
+  */
+-struct clk *clk_hw_create_clk(struct device *dev, struct clk_hw *hw,
+-			      const char *dev_id, const char *con_id,
+-			      struct module *owner)
++struct clk *clk_hw_create_clk(struct clk_hw *hw, const char *dev_id,
++			      const char *con_id, struct module *owner)
+ {
+ 	struct clk *clk;
+ 	struct clk_core *core;
+@@ -4274,7 +4271,6 @@ struct clk *clk_hw_create_clk(struct device *dev, struct clk_hw *hw,
+ 	clk = alloc_clk(core, dev_id, con_id);
+ 	if (IS_ERR(clk))
+ 		return clk;
+-	clk->dev = dev;
+ 
+ 	/*
+ 	 * Pin the provider module only when the consumer lives in a different
+@@ -4303,7 +4299,7 @@ struct clk *__clk_hw_get_clk(struct clk_hw *hw, const char *con_id,
+ 	struct device *dev = hw->core->dev;
+ 	const char *name = dev ? dev_name(dev) : NULL;
+ 
+-	return clk_hw_create_clk(dev, hw, name, con_id, owner);
++	return clk_hw_create_clk(hw, name, con_id, owner);
+ }
+ EXPORT_SYMBOL(__clk_hw_get_clk);
+ 
+@@ -5392,7 +5388,7 @@ struct clk *of_clk_get_from_provider(struct of_phandle_args *clkspec)
+ {
+ 	struct clk_hw *hw = of_clk_get_hw_from_clkspec(clkspec);
+ 
+-	return clk_hw_create_clk(NULL, hw, NULL, __func__, NULL);
++	return clk_hw_create_clk(hw, NULL, __func__, NULL);
+ }
+ EXPORT_SYMBOL_GPL(of_clk_get_from_provider);
+ 
+@@ -5420,7 +5416,7 @@ static struct clk *__of_clk_get(struct device_node *np,
+ {
+ 	struct clk_hw *hw = of_clk_get_hw(np, index, con_id);
+ 
+-	return clk_hw_create_clk(NULL, hw, dev_id, con_id, NULL);
++	return clk_hw_create_clk(hw, dev_id, con_id, NULL);
+ }
+ 
+ struct clk *of_clk_get(struct device_node *np, int index)
+diff --git a/drivers/clk/clk.h b/drivers/clk/clk.h
+index 5009380863a9dc6f..ba23700149de0445 100644
+--- a/drivers/clk/clk.h
++++ b/drivers/clk/clk.h
+@@ -5,8 +5,6 @@
+  */
+ 
+ struct clk_hw;
+-struct device;
+-struct of_phandle_args;
+ 
+ #if defined(CONFIG_OF) && defined(CONFIG_COMMON_CLK)
+ struct clk_hw *of_clk_get_hw(struct device_node *np,
+@@ -22,15 +20,14 @@ static inline struct clk_hw *of_clk_get_hw(struct device_node *np,
+ struct clk_hw *clk_find_hw(const char *dev_id, const char *con_id);
+ 
+ #ifdef CONFIG_COMMON_CLK
+-struct clk *clk_hw_create_clk(struct device *dev, struct clk_hw *hw,
+-			      const char *dev_id, const char *con_id,
+-			      struct module *owner);
++struct clk *clk_hw_create_clk(struct clk_hw *hw, const char *dev_id,
++			      const char *con_id, struct module *owner);
+ void __clk_put(struct clk *clk);
+ #else
+ /* All these casts to avoid ifdefs in clkdev... */
+ static inline struct clk *
+-clk_hw_create_clk(struct device *dev, struct clk_hw *hw, const char *dev_id,
+-		  const char *con_id, struct module *owner)
++clk_hw_create_clk(struct clk_hw *hw, const char *dev_id, const char *con_id,
++		  struct module *owner)
+ {
+ 	return (struct clk *)hw;
+ }
+diff --git a/drivers/clk/clkdev.c b/drivers/clk/clkdev.c
+index 919fc680ae4dd6ec..e963f878290564da 100644
+--- a/drivers/clk/clkdev.c
++++ b/drivers/clk/clkdev.c
+@@ -83,17 +83,11 @@ struct clk_hw *clk_find_hw(const char *dev_id, const char *con_id)
+ 	return hw;
+ }
+ 
+-static struct clk *__clk_get_sys(struct device *dev, const char *dev_id,
+-				 const char *con_id)
++struct clk *clk_get_sys(const char *dev_id, const char *con_id)
+ {
+ 	struct clk_hw *hw = clk_find_hw(dev_id, con_id);
+ 
+-	return clk_hw_create_clk(dev, hw, dev_id, con_id, NULL);
+-}
+-
+-struct clk *clk_get_sys(const char *dev_id, const char *con_id)
+-{
+-	return __clk_get_sys(NULL, dev_id, con_id);
++	return clk_hw_create_clk(hw, dev_id, con_id, NULL);
+ }
+ EXPORT_SYMBOL(clk_get_sys);
+ 
+@@ -105,10 +99,10 @@ struct clk *clk_get(struct device *dev, const char *con_id)
+ 	if (dev && dev->of_node) {
+ 		hw = of_clk_get_hw(dev->of_node, 0, con_id);
+ 		if (!IS_ERR(hw) || PTR_ERR(hw) == -EPROBE_DEFER)
+-			return clk_hw_create_clk(dev, hw, dev_id, con_id, NULL);
++			return clk_hw_create_clk(hw, dev_id, con_id, NULL);
+ 	}
+ 
+-	return __clk_get_sys(dev, dev_id, con_id);
++	return clk_get_sys(dev_id, con_id);
+ }
+ EXPORT_SYMBOL(clk_get);
+ 
 -- 
 2.43.0
 
-Gr{oetje,eeting}s,
-
-						Geert
-
---
-Geert Uytterhoeven -- There's lots of Linux beyond ia32 -- geert@linux-m68k.org
-
-In personal conversations with technical people, I call myself a hacker. But
-when I'm talking to journalists I just say "programmer" or something like that.
-							    -- Linus Torvalds
