@@ -2,42 +2,57 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DC888606A324
-	for <dri-devel@archiver.kernel.org>; Thu, 19 Nov 2026 08:51:02 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B0318606A320
+	for <dri-devel@archiver.kernel.org>; Thu, 19 Nov 2026 08:51:08 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=kDVQ+XpJ
+	dkim=pass (2048-bit key) header.d=collabora.com header.i=@collabora.com header.a=rsa-sha256 header.s=mail header.b=Y0bdvIqm
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 4632D1121AC;
-	Thu, 19 Nov 2026 08:50:57 +0000 (UTC)
-Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id B70771121AC
- for <dri-devel@lists.freedesktop.org>; Thu, 19 Nov 2026 08:50:51 +0000 (UTC)
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by tor.source.kernel.org (Postfix) with ESMTP id 3C4F160F8B;
- Thu, 19 Nov 2026 08:50:51 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id CCA4D1F000C4;
- Thu, 19 Nov 2026 08:50:50 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1795078251;
- bh=ElQ4cGT0/YIxK+/tTJ8fp0m1xIKGMfDLRZwfQjdO5N0=;
- h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
- b=kDVQ+XpJNmBWTwZopAdrPf57EdOM6Uq8ggK4VD2l4Ubg7qL0D85K522mrb5fn9Xxn
- 9shs8Lt2ZVwiDPxqsANdlNmTTPq0II34+CwI3Ei4UcxNcymugeT44ZN9EsVxwFq+Fr
- CCR4ADmaaxb1q+6dc0yTQzq/Ctlp2h319L1caIm6zJuvi4HMl6xEszGvI8N22wU7b2
- ADMK0ltV3QKVSITTOgktt983JXg0bpoudDl4CF2O2lNURvqXjRT/lVdEF/FhmqGJMx
- qzg8JruJKCHB6+epkwBXmSMJLOMBZarxJr8S4pVI7dq9n/s9pauATtI7ACowWjcNwd
- dw1KYBfFYmxxA==
-Message-ID: <sashiko-outbox-222727@kernel.org>
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v9 21/29] drm/msm/dp: add HPD callback for dp MST
-To: "Yongxing Mou" <yongxing.mou@oss.qualcomm.com>
-Cc: dri-devel@lists.freedesktop.org
-In-Reply-To: <20261119-msm-dp-mst-v9-21-ca61be4edfc3@oss.qualcomm.com>
-References: <20261119-msm-dp-mst-v9-0-ca61be4edfc3@oss.qualcomm.com>
- <20261119-msm-dp-mst-v9-21-ca61be4edfc3@oss.qualcomm.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Thu, 19 Nov 2026 08:50:50 +0000
+	by gabe.freedesktop.org (Postfix) with ESMTP id 0A2501121AF;
+	Thu, 19 Nov 2026 08:51:03 +0000 (UTC)
+Received: from bali.collaboradmins.com (bali.collaboradmins.com
+ [148.251.105.195])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 8AD4F1121AE
+ for <dri-devel@lists.freedesktop.org>; Thu, 19 Nov 2026 08:50:52 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
+ s=mail; t=1795078251;
+ bh=t3C0iBCCFtuZQ3rf9c18/aTXJ/Sm+17DkMsX+TVkPhk=;
+ h=Date:From:To:Cc:Subject:In-Reply-To:References:From;
+ b=Y0bdvIqm1Xe26h39NN8buRnMaxlOiyqo+iLCJ0DpnydLsTCsx36X9aE71z5TrOMkr
+ 2ddoP5mpEV8O9xHuYf3P84Ivb531+C62Zm455GB/Q/T9NMik/Q+Ekl2xwquaCK4Ntg
+ 0rij/jva60ChE5BI+uRLtWRKqQqL+pPpGFvSBUH9W5PdebcVmQS4sGHTc+bf41sfK/
+ SRZGUXiPaGuu4835tncyBA7SG5ixSvSfn9/Micp9Nx4QzjxTbE2ZyT6I++8PD7iHYP
+ vUaj9kg2A1ML9KL6QhgJ6h5YhkCak6FlV76O6dvrLJPDbaTk2TRfXmNzNH6mLRqQTP
+ 7yNM8GkOQ6tbA==
+Received: from fedora1.home (unknown [100.64.0.11])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange secp256r1 server-signature RSA-PSS (4096 bits) server-digest
+ SHA256) (No client certificate requested)
+ (Authenticated sender: bbrezillon)
+ by bali.collaboradmins.com (Postfix) with ESMTPSA id 9584E17E0480;
+ Thu, 19 Nov 2026 09:50:50 +0100 (CET)
+Date: Thu, 19 Nov 2026 09:50:45 +0100
+From: Boris Brezillon <boris.brezillon@collabora.com>
+To: Christian Gmeiner <christian.gmeiner@gmail.com>
+Cc: Steven Price <steven.price@arm.com>, Liviu Dudau <liviu.dudau@arm.com>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, Maxime Ripard
+ <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, David Airlie
+ <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, Daniel Almeida
+ <daniel.almeida@collabora.com>, Alice Ryhl <aliceryhl@google.com>, Lukas
+ Zapolskas <lukas.zapolskas@arm.com>, Paul Toadere <paul.toadere@arm.com>,
+ dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
+ rust-for-linux@vger.kernel.org, Christian Gmeiner <cgmeiner@igalia.com>
+Subject: Re: [PATCH v2 1/3] drm/panthor: Report the last VM fault through
+ VM_GET_STATE
+Message-ID: <20261119095045.100699ca@fedora1.home>
+In-Reply-To: <20261104-panthor-fault-info-v2-v2-1-673b31f3840c@igalia.com>
+References: <20261104-panthor-fault-info-v2-v2-0-673b31f3840c@igalia.com>
+ <20261104-panthor-fault-info-v2-v2-1-673b31f3840c@igalia.com>
+Organization: Collabora
+X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; x86_64-redhat-linux-gnu)
+X-Archived-By: <archiver.kernel.org>
+MIME-Version: 1.0
+Content-Type: text/plain; charset=US-ASCII
+Content-Transfer-Encoding: 7bit
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -48,62 +63,185 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
-Reply-To: sashiko-reviews@lists.linux.dev
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-10.8 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
-	DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
-	INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS autolearn=ham
-	autolearn_force=no version=4.0.1
+X-Spam-Status: No, score=-17.3 required=3.0 tests=BAYES_00,DKIM_SIGNED,
+	DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
+	INCLUDES_CR_TRAILER,INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,
+	SPF_PASS,USER_AGENT_SANE_2 autolearn=unavailable autolearn_force=no
+	version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
-X-Archived-By: <archiver.kernel.org>
 
-Thank you for your contribution! Sashiko AI review found 1 potential
-issue to consider:
-- [High] drm/msm/dp: msm_dp_irq_hpd_handle() ignores link status changes
-  in MST mode
---
+On Wed, 04 Nov 2026 08:52:39 +0100
+Christian Gmeiner <christian.gmeiner@gmail.com> wrote:
 
-commit 15b01d9a837796474eb17d695117c65eb5290f5f
-Author: Abhinav Kumar <quic_abhinavk@quicinc.com>
+> From: Christian Gmeiner <cgmeiner@igalia.com>
+> 
+> Keep the raw AS_FAULTSTATUS and AS_FAULTADDRESS of the last fault in
+> the VM and return them through VM_GET_STATE. Userspace decodes the
+> values. No memory is allocated in the fault path.
+> 
+> The MMU irq handler records the fault under the AS slots lock. The
+> ioctl reads it under the same lock. The VM stores the fault as a
+> struct drm_panthor_vm_fault, which is the uAPI struct, so the ioctl
+> can copy it with one assignment.
+> 
+> The unhandled_fault flag is cleared when the VM is re-activated. The
+> stored fault is not. So userspace can still query it after the group
+> that hit the fault was killed.
+> 
+> Old userspace that passes the shorter struct still works, the DRM core
+> zero-fills the missing tail.
+> 
+> Link: https://lore.kernel.org/r/20251215115457.2137485-4-lukas.zapolskas@arm.com
+> Signed-off-by: Christian Gmeiner <cgmeiner@igalia.com>
 
-drm/msm/dp: add HPD callback for dp MST
+Reviewed-by: Boris Brezillon <boris.brezillon@collabora.com>
 
-This commit adds an HPD IRQ handler and poll_hpd_irq topology callback for
-DisplayPort MST, routing IRQ_HPD events to the MST module when MST is
-active.
-
-> diff --git a/drivers/gpu/drm/msm/dp/dp_display.c b/drivers/gpu/drm/msm/dp=
-/dp_display.c
-> index 7bf24cd2bae25..75eaf739b86f0 100644
-> --- a/drivers/gpu/drm/msm/dp/dp_display.c
-> +++ b/drivers/gpu/drm/msm/dp/dp_display.c
-> @@ -529,6 +529,11 @@ static int msm_dp_irq_hpd_handle(struct msm_dp_displ=
-ay_private *dp)
->  			dp->msm_dp_display.connector_type,
->  			dp->link->sink_count);
-> =20
-> +	if (dp->msm_dp_display.mst_active) {
-> +		msm_dp_mst_display_hpd_irq(&dp->msm_dp_display);
-> +		return 0;
-> +	}
+> ---
+>  drivers/gpu/drm/panthor/panthor_drv.c |  2 ++
+>  drivers/gpu/drm/panthor/panthor_mmu.c | 33 +++++++++++++++++++++++++++++++--
+>  drivers/gpu/drm/panthor/panthor_mmu.h |  2 ++
+>  include/uapi/drm/panthor_drm.h        | 22 ++++++++++++++++++++++
+>  4 files changed, 57 insertions(+), 2 deletions(-)
+> 
+> diff --git a/drivers/gpu/drm/panthor/panthor_drv.c b/drivers/gpu/drm/panthor/panthor_drv.c
+> index dc8d0191aef4..7572cd7d6423 100644
+> --- a/drivers/gpu/drm/panthor/panthor_drv.c
+> +++ b/drivers/gpu/drm/panthor/panthor_drv.c
+> @@ -1471,6 +1471,8 @@ static int panthor_ioctl_vm_get_state(struct drm_device *ddev, void *data,
+>  	else
+>  		args->state = DRM_PANTHOR_VM_STATE_USABLE;
+>  
+> +	panthor_vm_get_fault(vm, &args->fault);
 > +
->  	/* check for any test request issued by sink */
->  	rc =3D msm_dp_link_process_request(dp->link);
->  	if (!rc) {
+>  	panthor_vm_put(vm);
+>  	return 0;
+>  }
+> diff --git a/drivers/gpu/drm/panthor/panthor_mmu.c b/drivers/gpu/drm/panthor/panthor_mmu.c
+> index d1c29eec46f2..6fc5f3d381c1 100644
+> --- a/drivers/gpu/drm/panthor/panthor_mmu.c
+> +++ b/drivers/gpu/drm/panthor/panthor_mmu.c
+> @@ -389,6 +389,15 @@ struct panthor_vm {
+>  	 */
+>  	bool unhandled_fault;
+>  
+> +	/**
+> +	 * @fault: Last fault on this VM.
+> +	 *
+> +	 * A new fault overwrites the previous one. Unlike @unhandled_fault,
+> +	 * this is not cleared when the VM is re-activated. Protected by
+> +	 * panthor_mmu::as::slots_lock.
+> +	 */
+> +	struct drm_panthor_vm_fault fault;
+> +
+>  	/** @locked_region: Information about the currently locked region currently. */
+>  	struct {
+>  		/** @locked_region.start: Start of the locked region. */
+> @@ -662,6 +671,19 @@ bool panthor_vm_has_unhandled_faults(struct panthor_vm *vm)
+>  	return vm->unhandled_fault;
+>  }
+>  
+> +/**
+> + * panthor_vm_get_fault() - Get the last fault of a VM
+> + * @vm: VM to query.
+> + * @fault: Returns the last fault, with a zero status if no fault happened.
+> + */
+> +void panthor_vm_get_fault(struct panthor_vm *vm, struct drm_panthor_vm_fault *fault)
+> +{
+> +	struct panthor_device *ptdev = vm->ptdev;
+> +
+> +	guard(mutex)(&ptdev->mmu->as.slots_lock);
+> +	*fault = vm->fault;
+> +}
+> +
+>  /**
+>   * panthor_vm_is_unusable() - Check if the VM is still usable
+>   * @vm: VM to check.
+> @@ -1855,6 +1877,7 @@ static void panthor_mmu_irq_handler(struct panthor_irq *pirq, u32 status)
+>  	while (status) {
+>  		u32 as = ffs(status | (status >> 16)) - 1;
+>  		u32 mask = MMU_INT_AS_FAULT(as);
+> +		struct panthor_vm *vm;
+>  		u64 addr;
+>  		u32 fault_status;
+>  		u32 exception_type;
+> @@ -1895,8 +1918,14 @@ static void panthor_mmu_irq_handler(struct panthor_irq *pirq, u32 status)
+>  		 */
+>  		gpu_write(mmu->irq.iomem, INT_CLEAR, mask);
+>  
+> -		if (ptdev->mmu->as.slots[as].vm)
+> -			ptdev->mmu->as.slots[as].vm->unhandled_fault = true;
+> +		vm = mmu->as.slots[as].vm;
+> +		if (vm) {
+> +			vm->unhandled_fault = true;
+> +			vm->fault = (struct drm_panthor_vm_fault){
+> +				.status = fault_status,
+> +				.address = addr,
+> +			};
+> +		}
+>  
+>  		/* Disable the MMU to kill jobs on this AS. */
+>  		panthor_mmu_as_disable(ptdev, as);
+> diff --git a/drivers/gpu/drm/panthor/panthor_mmu.h b/drivers/gpu/drm/panthor/panthor_mmu.h
+> index abc36e7204be..74f9f5d98c94 100644
+> --- a/drivers/gpu/drm/panthor/panthor_mmu.h
+> +++ b/drivers/gpu/drm/panthor/panthor_mmu.h
+> @@ -11,6 +11,7 @@
+>  struct drm_exec;
+>  struct drm_sched_job;
+>  struct drm_memory_stats;
+> +struct drm_panthor_vm_fault;
+>  struct panthor_gem_object;
+>  struct panthor_heap_pool;
+>  struct panthor_vm;
+> @@ -74,6 +75,7 @@ struct panthor_vm *panthor_vm_pool_get_vm(struct panthor_vm_pool *pool, u32 hand
+>  
+>  bool panthor_vm_has_unhandled_faults(struct panthor_vm *vm);
+>  bool panthor_vm_is_unusable(struct panthor_vm *vm);
+> +void panthor_vm_get_fault(struct panthor_vm *vm, struct drm_panthor_vm_fault *fault);
+>  
+>  /*
+>   * PANTHOR_VM_KERNEL_AUTO_VA: Use this magic address when you want the GEM
+> diff --git a/include/uapi/drm/panthor_drm.h b/include/uapi/drm/panthor_drm.h
+> index a2ff0f4ec691..85e197d7a528 100644
+> --- a/include/uapi/drm/panthor_drm.h
+> +++ b/include/uapi/drm/panthor_drm.h
+> @@ -743,6 +743,20 @@ enum drm_panthor_vm_state {
+>  	DRM_PANTHOR_VM_STATE_UNUSABLE,
+>  };
+>  
+> +/**
+> + * struct drm_panthor_vm_fault - Fault information of a VM.
+> + */
+> +struct drm_panthor_vm_fault {
+> +	/** @status: Raw AS_FAULTSTATUS value, zero if no fault happened. */
+> +	__u32 status;
+> +
+> +	/** @pad: Will be zero on return. */
+> +	__u32 pad;
+> +
+> +	/** @address: Raw AS_FAULTADDRESS value, valid if @status is non-zero. */
+> +	__u64 address;
+> +};
+> +
+>  /**
+>   * struct drm_panthor_vm_get_state - Get VM state.
+>   */
+> @@ -756,6 +770,14 @@ struct drm_panthor_vm_get_state {
+>  	 * Must be one of the enum drm_panthor_vm_state values.
+>  	 */
+>  	__u32 state;
+> +
+> +	/**
+> +	 * @fault: Last fault on this VM.
+> +	 *
+> +	 * A new fault overwrites the previous one. It is not cleared when the
+> +	 * VM is re-activated or after a GPU reset.
+> +	 */
+> +	struct drm_panthor_vm_fault fault;
+>  };
+>  
+>  /**
+> 
 
-[Severity: High]
-Does returning early here skip link status checks and retraining when MST
-is active?
-
-drm_dp_mst_hpd_irq_handle_event() only processes the sink count in esi[0]
-and sideband message readiness (DP_DOWN_REP_MSG_RDY and DP_UP_REQ_MSG_RDY)
-in esi[1].  Because msm_dp_irq_hpd_handle() returns before calling
-msm_dp_link_process_request() and msm_dp_display_handle_irq_hpd(), link
-service events in esi[3] (such as LINK_STATUS_CHANGED) and lane status
-losses reported via IRQ_HPD are ignored, leaving the mainlink untrained
-and MST displays blank if link synchronization is lost.
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261119-msm-dp-mst=
--v9-0-ca61be4edfc3@oss.qualcomm.com?part=3D21
