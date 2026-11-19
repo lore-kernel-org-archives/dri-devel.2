@@ -2,96 +2,56 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9976C606A320
-	for <dri-devel@archiver.kernel.org>; Thu, 19 Nov 2026 07:53:17 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BC64A606A324
+	for <dri-devel@archiver.kernel.org>; Thu, 19 Nov 2026 07:54:00 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=lB9NZMID
+	dkim=pass (2048-bit key) header.d=collabora.com header.i=@collabora.com header.a=rsa-sha256 header.s=mail header.b=Vn+ozZgu
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 23E4B112012;
-	Thu, 19 Nov 2026 07:53:10 +0000 (UTC)
-Received: from mail-pj2-f3.google.com (mail-pj2-f3.google.com [74.125.227.131])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 6D6F510E5F9
- for <dri-devel@lists.freedesktop.org>; Wed, 18 Nov 2026 21:03:43 +0000 (UTC)
-Received: by mail-pj2-f3.google.com with SMTP id
- 98e67ed59e1d1-3adc0ac3566so279165a91.1
- for <dri-devel@lists.freedesktop.org>; Wed, 18 Nov 2026 13:03:43 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20260707; t=1795035823; x=1795640623; darn=lists.freedesktop.org;
- h=mime-version:content-transfer-encoding:content-type:references
- :in-reply-to:subject:cc:to:from:message-id:date:from:to:cc:subject
- :date:message-id:reply-to:content-type;
- bh=AOYoHqd+TEhq9YYSZd05JTs9KMcPqQTIbqKvDzsDrNA=;
- b=lB9NZMID1lkmq+BodC2XVzRrClEKsLZhyjvTrwDD0S8IAn+TKmtTZyVdHVcRMsyVnE
- qNiDIvv1yISIPmv/Firo3sLPmnQVm+1KUjr9wMClPgdx8WykMqfarIgkmMJXrxUUIZTa
- nxY75tsle7fh5Tr3NdapF8ZNtLEWegUQJ1A/1XFeBmtv3PkMowQsL7MkDk9ROff8VPs3
- tSiCvZtZBfDohTyzYYVwG1MuMo+CNOG1lBTvUCGCRssgipHEwecL89w07gaF7AWTy5rf
- DJMFWX48vw/D6TpO9QBsJVWPdsoLwzJ2A6lFZFTMxt9BxPm1ATvT7QL12jLjy+pe0ih7
- 5M4w==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20260707; t=1795035823; x=1795640623;
- h=mime-version:content-transfer-encoding:content-type:references
- :in-reply-to:subject:cc:to:from:message-id:date:x-gm-gg
- :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
- :content-type;
- bh=AOYoHqd+TEhq9YYSZd05JTs9KMcPqQTIbqKvDzsDrNA=;
- b=QRPmeJ78mT5+lFIIaWS7FO881VBdNd+WeCnkgR7yrPE18PMM0E8k5ngptwwTcYbRX2
- u5NTdi4MYAT8xZuROswWuWNr0z7vZe2jL3xUfTMKu3qm3toMYYfX1lCGIHkQjz0i12zs
- idxubhDjB2fyyc2SS0sAdhdHLb0FtEPQ0stScsqv2kV/TQsUeo3vFbJ4xDpb7zrPO1ib
- UsSACdCi4yNpUb4+so41XWs6s4VvbAIDmbac4KwoEmggh1VcrbI7wOQZINY5PAoQ/fdG
- QUWhjKGoZ8/APkNJ8TY+CAaQdW4cxu3of/StXMnBiecaaG79RjED+OUD0zsXv5ZPtfo8
- iEig==
-X-Forwarded-Encrypted: i=1;
- AL+hErGNqibPeH5yJW225JUqKrliEfpr+fxtdzNW2xknl1REPwF7rL8uzNq2oAWMkO3M0g1s05amTC3Hvco=@lists.freedesktop.org
-X-Gm-Message-State: APuU4Z8EVp/Gu/D8xcIMtk1t1QICRAfjo8/czzG5SGX67lll/ygub3bI
- Q3v4PR68r0v37i3uefbjNlgHrEeyuSaao6mW6f8TdjCO2ej93WzT8BELgf0ZKUaXGUVihQ==
-X-Gm-Gg: AZFdTZeuguepsZm0TqAxAu04t5r2YsJTiVR3+BfAMF51kwZdCNrtT2HmhMnIGRVhXOv
- EIkkvhGvOjttxRw/qwW1gWmq8eGwmN0mjSlraH7Hcl+PVAzmECdxEDqXxMivFynZMkOrpZEIAE4
- m7Wqwag0AUfYk5+dSGZ+adnLe/E8NGQ9Y1j8MfbXPNC+rGSxSxzXFa6+mINJitb/siGdYaXYsYq
- yPaKSkRcppa6f0kDT9UlFgzdDs7hY3w1ZiCT/+sHODvdzhA1MSr5RpNwsaUPuU7ctL67s6qq3dp
- oqjfvbIToQQvFE50KJ/rpFnyaBCvjDFeMw1gUwz2ebjw29aDiaBDkF3knvhu08NggcO0XDxUCag
- /hvLZ8Dj/mzfL2/VNgHgS069u5Y1ebOcRPV/CqiUYyXVvADn1mH7i7olncQXBshb85d0hrgAjd+
- CJ2tRWEIe9H6mAnp8SKWQPHrbBfPhTS0azz/i001k4VWkSsUhXoIro4dblZ5vVyYb9rLNi0xANu
- R2ov5d1qZdq9ydaiFcyh2GNDchvsO9Tef6DIo4WIvgsqxJB8pg36SSMLb/xnElsRmRz+0XFODPU
- uWw=
-X-Received: by 2002:a17:90b:3c81:b0:3ac:80dc:f419 with SMTP id
- 98e67ed59e1d1-3b3d07aa355mr3694363a91.25.1795035822845; 
- Wed, 18 Nov 2026 13:03:42 -0800 (PST)
-Received: from localhost ([2403:2c80:6::107b])
- by smtp.gmail.com with ESMTPSA id
- 98e67ed59e1d1-3b3f7066ef3sm865257a91.11.2026.11.18.13.03.41
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Wed, 18 Nov 2026 13:03:42 -0800 (PST)
-Date: Thu, 19 Nov 2026 05:03:36 +0800
-Message-ID: <5167ad548a578a23ed8d5172196b36f0.codykang.hk@gmail.com>
-From: Cody Kang <codykang.hk@gmail.com>
-To: Thomas Zimmermann <tzimmermann@suse.de>
-Cc: David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>, Rob Herring <robh@kernel.org>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
- Yixun Lan <dlan@kernel.org>, Vinod Koul <vkoul@kernel.org>,
- Neil Armstrong <neil.armstrong@linaro.org>, Haylen Chu <heylenay@4d2.org>,
- Michael Turquette <mturquette@baylibre.com>, Stephen Boyd <sboyd@kernel.org>, 
- Brian Masney <bmasney@redhat.com>, Philipp Zabel <p.zabel@pengutronix.de>,
- Paul Walmsley <pjw@kernel.org>, Palmer Dabbelt <palmer@dabbelt.com>,
- Albert Ou <aou@eecs.berkeley.edu>, Alexandre Ghiti <alex@ghiti.fr>,
- Yao Zi <me@ziyao.cc>,
- Uwe =?utf-8?q?Kleine-K=C3=B6nig?= <u.kleine-koenig@baylibre.com>,
- Guodong Xu <docular.xu@gmail.com>, dri-devel@lists.freedesktop.org,
- linux-riscv@lists.infradead.org, devicetree@vger.kernel.org,
- spacemit@lists.linux.dev, linux-kernel@vger.kernel.org,
- linux-phy@lists.infradead.org, linux-clk@vger.kernel.org
-Subject: Re: [PATCH v2 08/17] drm/spacemit: add Saturn DPU core types, cmdlist
- and display MMU
-In-Reply-To: <0dc12950-68e7-4c30-9138-23539e676e1a@suse.de>
-References: <20260809-k3-display-v2-0-327d7910bf71@gmail.com>
- <20260809-k3-display-v2-8-327d7910bf71@gmail.com>
- <0dc12950-68e7-4c30-9138-23539e676e1a@suse.de>
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
+	by gabe.freedesktop.org (Postfix) with ESMTP id 0E15910FE01;
+	Thu, 19 Nov 2026 07:53:55 +0000 (UTC)
+Received: from bali.collaboradmins.com (bali.collaboradmins.com
+ [148.251.105.195])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 7275010FE83
+ for <dri-devel@lists.freedesktop.org>; Thu, 19 Nov 2026 07:53:17 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
+ s=mail; t=1795074796;
+ bh=MUwt9KfpyJd9a2TBoMoV2jG2Vpo8Te/ybW2eWXncKqE=;
+ h=Date:From:To:Cc:Subject:In-Reply-To:References:From;
+ b=Vn+ozZgutN5WDR8GCmpvLL3pVPuV/A0XSubOkLlYwNSurXN8Ju9lV1QLuVmqdNi1R
+ LYjpLeUu3Y/GwkUAkixqWq8KU3CgaWWLKF19aSWSmldiWDkPfQw83UlN7vE12bd2HB
+ DNnDWfKI2ChVHA6PY2iNkUPzt7wRq3srk1+5DUwtpYI6qpvREZZ1IB/793+ONpB2sr
+ LJysqecSZl5KeXp9P/HK1hUKH3wxh4shxL3lp/l5Yt2/PJsVdgHXimEwXhJYZULZNt
+ FZUKO1dXqP5yzqMKHrV69IgoIl6q4TgxbjKTnB3YGRTemTBFNjGPTZrkyYVionn+/a
+ Qw9gA5gumrEjA==
+Received: from fedora1.home (unknown [100.64.0.11])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange secp256r1 server-signature RSA-PSS (4096 bits) server-digest
+ SHA256) (No client certificate requested)
+ (Authenticated sender: bbrezillon)
+ by bali.collaboradmins.com (Postfix) with ESMTPSA id A34FC17E047C;
+ Thu, 19 Nov 2026 08:53:15 +0100 (CET)
+Date: Thu, 19 Nov 2026 08:53:11 +0100
+From: Boris Brezillon <boris.brezillon@collabora.com>
+To: Karunika Choo <karunika.choo@arm.com>
+Cc: dri-devel@lists.freedesktop.org, nd@arm.com, Steven Price
+ <steven.price@arm.com>, Liviu Dudau <liviu.dudau@arm.com>,
+ linux-kernel@vger.kernel.org, Akash Goel <akash.goel@arm.com>, Lukas
+ Zapolskas <lukas.zapolskas@arm.com>, Chris Diamand <chris.diamand@arm.com>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, Maxime Ripard
+ <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, David Airlie
+ <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>
+Subject: Re: [PATCH v3 03/10] drm/panthor: Move register access helpers out
+ of panthor_device.h
+Message-ID: <20261119085311.7a53e88e@fedora1.home>
+In-Reply-To: <20261118175332.519657-4-karunika.choo@arm.com>
+References: <20261118175332.519657-1-karunika.choo@arm.com>
+ <20261118175332.519657-4-karunika.choo@arm.com>
+Organization: Collabora
+X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; x86_64-redhat-linux-gnu)
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
-X-Mailman-Approved-At: Thu, 19 Nov 2026 07:53:02 +0000
+Content-Type: text/plain; charset=US-ASCII
+Content-Transfer-Encoding: 7bit
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -103,41 +63,218 @@ List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-2.8 required=3.0 tests=BAYES_00,DKIM_SIGNED,
-	DKIM_VALID,DKIM_VALID_AU,FREEMAIL_FORGED_FROMDOMAIN,FREEMAIL_FROM,
-	HEADER_FROM_DIFFERENT_DOMAINS,MAILING_LIST_MULTI,SPF_HELO_NONE,
-	SPF_PASS autolearn=no autolearn_force=no version=4.0.1
+X-Spam-Status: No, score=-17.3 required=3.0 tests=BAYES_00,DKIM_SIGNED,
+	DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
+	INCLUDES_CR_TRAILER,INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,
+	SPF_PASS,USER_AGENT_SANE_2 autolearn=unavailable autolearn_force=no
+	version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-Hi Thomas,
+On Wed, 18 Nov 2026 17:53:19 +0000
+Karunika Choo <karunika.choo@arm.com> wrote:
 
-On Mon, 14 Sep 2026 16:10:25 +0200, Thomas Zimmermann wrote:
-> Hi
->
-> Am 09.08.26 um 15:14 schrieb Cody Kang via B4 Relay:
-> > From: Cody Kang <codykang.hk@gmail.com>
-> >
-> > Register programming of the Saturn DPU is batched: the driver builds
-> > per-module register lists in memory and the hardware command-list
-> > engine replays them at frame boundaries, while scanout buffers are
-> > mapped through the DPU's private address translation unit (DMMU)
-> > rather than scanned out by physical address.
->
-> I've looked through the code in patch 10. How does a plane interact with 
-> the hardware? It apparently has its own command list, but there's mostly 
-> code for the CRTC update.
+> Move register access helpers out of panthor_device.h to allow reuse by
+> other panthor drivers that will be added to enable v15 support.
+> 
+> Reviewed-by: Liviu Dudau <liviu.dudau@arm.com>
+> Signed-off-by: Karunika Choo <karunika.choo@arm.com>
 
-Thanks for the review. A plane programs the hardware through a
-command list. Its atomic_update fills the list with the registers of
-the plane's read channel, the driver points the command-list engine
-at it, and the hardware replays it once the driver raises
-config-ready.
+Reviewed-by: Boris Brezillon <boris.brezillon@collabora.com>
 
-In v2 the plane only fills its list; sorting the lists and handing
-them to the engine is done in the CRTC update, which is why most of
-the code is there. v3 will move that into the plane: each plane
-builds and submits its own list in atomic_update, and the CRTC flush
-only submits its own list, for the composer, and raises config-ready.
+> ---
+> v2:
+> - Picked up R-b from Liviu
+> - Fix includes raised by sashiko
+> - Link: https://lore.kernel.org/all/20260922205441.263661F000FF@smtp.kernel.org/
+> v1:
+> - Includes "panthor_device_io.h" directly in "panthor_device.h" instead
+>   of peppering multiple files with the header.
+> 
+>  drivers/gpu/drm/panthor/panthor_device.h    | 73 +-----------------
+>  drivers/gpu/drm/panthor/panthor_device_io.h | 84 +++++++++++++++++++++
+>  2 files changed, 86 insertions(+), 71 deletions(-)
+>  create mode 100644 drivers/gpu/drm/panthor/panthor_device_io.h
+> 
+> diff --git a/drivers/gpu/drm/panthor/panthor_device.h b/drivers/gpu/drm/panthor/panthor_device.h
+> index b55a3f9edd414..4add31b12cfd7 100644
+> --- a/drivers/gpu/drm/panthor/panthor_device.h
+> +++ b/drivers/gpu/drm/panthor/panthor_device.h
+> @@ -19,6 +19,8 @@
+>  #include <drm/gpu_scheduler.h>
+>  #include <drm/panthor_drm.h>
+>  
+> +#include "panthor_device_io.h"
+> +
+>  struct panthor_csf;
+>  struct panthor_csf_ctx;
+>  struct panthor_device;
+> @@ -495,77 +497,6 @@ panthor_exception_is_fault(u32 exception_code)
+>  const char *panthor_exception_name(struct panthor_device *ptdev,
+>  				   u32 exception_code);
+>  
+> -static inline void gpu_write(void __iomem *iomem, u32 reg, u32 data)
+> -{
+> -	writel(data, iomem + reg);
+> -}
+> -
+> -static inline u32 gpu_read(void __iomem *iomem, u32 reg)
+> -{
+> -	return readl(iomem + reg);
+> -}
+> -
+> -static inline u32 gpu_read_relaxed(void __iomem *iomem, u32 reg)
+> -{
+> -	return readl_relaxed(iomem + reg);
+> -}
+> -
+> -static inline void gpu_write64(void __iomem *iomem, u32 reg, u64 data)
+> -{
+> -	gpu_write(iomem, reg, lower_32_bits(data));
+> -	gpu_write(iomem, reg + 4, upper_32_bits(data));
+> -}
+> -
+> -static inline u64 gpu_read64(void __iomem *iomem, u32 reg)
+> -{
+> -	return (gpu_read(iomem, reg) | ((u64)gpu_read(iomem, reg + 4) << 32));
+> -}
+> -
+> -static inline u64 gpu_read64_relaxed(void __iomem *iomem, u32 reg)
+> -{
+> -	return (gpu_read_relaxed(iomem, reg) |
+> -		((u64)gpu_read_relaxed(iomem, reg + 4) << 32));
+> -}
+> -
+> -static inline u64 gpu_read64_counter(void __iomem *iomem, u32 reg)
+> -{
+> -	u32 lo, hi1, hi2;
+> -	do {
+> -		hi1 = gpu_read(iomem, reg + 4);
+> -		lo = gpu_read(iomem, reg);
+> -		hi2 = gpu_read(iomem, reg + 4);
+> -	} while (hi1 != hi2);
+> -	return lo | ((u64)hi2 << 32);
+> -}
+> -
+> -#define gpu_read_poll_timeout(iomem, reg, val, cond, delay_us, timeout_us)	\
+> -	read_poll_timeout(gpu_read, val, cond, delay_us, timeout_us, false,	\
+> -			  iomem, reg)
+> -
+> -#define gpu_read_poll_timeout_atomic(iomem, reg, val, cond, delay_us,		\
+> -				     timeout_us)				\
+> -	read_poll_timeout_atomic(gpu_read, val, cond, delay_us, timeout_us,	\
+> -				 false, iomem, reg)
+> -
+> -#define gpu_read64_poll_timeout(iomem, reg, val, cond, delay_us, timeout_us)	\
+> -	read_poll_timeout(gpu_read64, val, cond, delay_us, timeout_us, false,	\
+> -			  iomem, reg)
+> -
+> -#define gpu_read64_poll_timeout_atomic(iomem, reg, val, cond, delay_us,		\
+> -				       timeout_us)				\
+> -	read_poll_timeout_atomic(gpu_read64, val, cond, delay_us, timeout_us,	\
+> -				 false, iomem, reg)
+> -
+> -#define gpu_read_relaxed_poll_timeout_atomic(iomem, reg, val, cond, delay_us,	\
+> -					     timeout_us)			\
+> -	read_poll_timeout_atomic(gpu_read_relaxed, val, cond, delay_us,		\
+> -				 timeout_us, false, iomem, reg)
+> -
+> -#define gpu_read64_relaxed_poll_timeout(iomem, reg, val, cond, delay_us,	\
+> -					timeout_us)				\
+> -	read_poll_timeout(gpu_read64_relaxed, val, cond, delay_us, timeout_us,	\
+> -			  false, iomem, reg)
+> -
+>  #define INT_RAWSTAT 0x0
+>  #define INT_CLEAR   0x4
+>  #define INT_MASK    0x8
+> diff --git a/drivers/gpu/drm/panthor/panthor_device_io.h b/drivers/gpu/drm/panthor/panthor_device_io.h
+> new file mode 100644
+> index 0000000000000..ce417c64abb44
+> --- /dev/null
+> +++ b/drivers/gpu/drm/panthor/panthor_device_io.h
+> @@ -0,0 +1,84 @@
+> +/* SPDX-License-Identifier: GPL-2.0 or MIT */
+> +/* Copyright 2026 ARM Limited. All rights reserved. */
+> +
+> +#ifndef __PANTHOR_DEVICE_IO_H__
+> +#define __PANTHOR_DEVICE_IO_H__
+> +
+> +#include <linux/io.h>
+> +#include <linux/iopoll.h>
+> +#include <linux/wordpart.h>
+> +
+> +static inline void gpu_write(void __iomem *iomem, u32 reg, u32 data)
+> +{
+> +	writel(data, iomem + reg);
+> +}
+> +
+> +static inline u32 gpu_read(void __iomem *iomem, u32 reg)
+> +{
+> +	return readl(iomem + reg);
+> +}
+> +
+> +static inline u32 gpu_read_relaxed(void __iomem *iomem, u32 reg)
+> +{
+> +	return readl_relaxed(iomem + reg);
+> +}
+> +
+> +static inline void gpu_write64(void __iomem *iomem, u32 reg, u64 data)
+> +{
+> +	gpu_write(iomem, reg, lower_32_bits(data));
+> +	gpu_write(iomem, reg + 4, upper_32_bits(data));
+> +}
+> +
+> +static inline u64 gpu_read64(void __iomem *iomem, u32 reg)
+> +{
+> +	return (gpu_read(iomem, reg) | ((u64)gpu_read(iomem, reg + 4) << 32));
+> +}
+> +
+> +static inline u64 gpu_read64_relaxed(void __iomem *iomem, u32 reg)
+> +{
+> +	return (gpu_read_relaxed(iomem, reg) |
+> +		((u64)gpu_read_relaxed(iomem, reg + 4) << 32));
+> +}
+> +
+> +static inline u64 gpu_read64_counter(void __iomem *iomem, u32 reg)
+> +{
+> +	u32 lo, hi1, hi2;
+> +
+> +	do {
+> +		hi1 = gpu_read(iomem, reg + 4);
+> +		lo = gpu_read(iomem, reg);
+> +		hi2 = gpu_read(iomem, reg + 4);
+> +	} while (hi1 != hi2);
+> +	return lo | ((u64)hi2 << 32);
+> +}
+> +
+> +#define gpu_read_poll_timeout(iomem, reg, val, cond, delay_us, timeout_us)	\
+> +	read_poll_timeout(gpu_read, val, cond, delay_us, timeout_us, false,	\
+> +			  iomem, reg)
+> +
+> +#define gpu_read_poll_timeout_atomic(iomem, reg, val, cond, delay_us,		\
+> +				     timeout_us)				\
+> +	read_poll_timeout_atomic(gpu_read, val, cond, delay_us, timeout_us,	\
+> +				 false, iomem, reg)
+> +
+> +#define gpu_read64_poll_timeout(iomem, reg, val, cond, delay_us, timeout_us)	\
+> +	read_poll_timeout(gpu_read64, val, cond, delay_us, timeout_us, false,	\
+> +			  iomem, reg)
+> +
+> +#define gpu_read64_poll_timeout_atomic(iomem, reg, val, cond, delay_us,		\
+> +				       timeout_us)				\
+> +	read_poll_timeout_atomic(gpu_read64, val, cond, delay_us, timeout_us,	\
+> +				 false, iomem, reg)
+> +
+> +#define gpu_read_relaxed_poll_timeout_atomic(iomem, reg, val, cond, delay_us,	\
+> +					     timeout_us)			\
+> +	read_poll_timeout_atomic(gpu_read_relaxed, val, cond, delay_us,		\
+> +				 timeout_us, false, iomem, reg)
+> +
+> +#define gpu_read64_relaxed_poll_timeout(iomem, reg, val, cond, delay_us,	\
+> +					timeout_us)				\
+> +	read_poll_timeout(gpu_read64_relaxed, val, cond, delay_us, timeout_us,	\
+> +			  false, iomem, reg)
+> +
+> +
+> +#endif /* __PANTHOR_DEVICE_IO_H__ */
 
-Cody
