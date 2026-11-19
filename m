@@ -2,43 +2,61 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 520F4606A325
-	for <dri-devel@archiver.kernel.org>; Thu, 19 Nov 2026 23:53:11 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C58EE606A325
+	for <dri-devel@archiver.kernel.org>; Thu, 19 Nov 2026 23:54:29 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=HY3RwoEk
+	dkim=fail reason="signature verification failed" (1024-bit key, unprotected) header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=q70IX0lu
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id ED8F01127F1;
-	Thu, 19 Nov 2026 23:53:04 +0000 (UTC)
-Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id D58FB10E8C4;
- Thu, 19 Nov 2026 23:52:58 +0000 (UTC)
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by tor.source.kernel.org (Postfix) with ESMTP id D4A1960D15;
- Thu, 19 Nov 2026 23:52:57 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 470F01F000C6;
- Thu, 19 Nov 2026 23:52:57 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1795132377;
- bh=yPlEoirQwo+sW4T3/89p+lafxASWsrn1vq6yh2S649E=;
- h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
- b=HY3RwoEkPqLTILcVt8A1mGwPBfRTuyoqG0gbtDSmQGhXPByfiBbFC87YyMGnQqhup
- JAEutZ+uuy1k3FFET97vn4gBM/A7/jSwSn7aZoiIeYdwlT43PfQGSVMtAQwpt9gKId
- WqsSfEZGmZJztnNaIYfOM8M/quCpYP2lJpcVjGuuRVbmWAHLdawyud/nqbAEl2AJv+
- Bc1YSbNRpufGIMjhzsjhBTiN8Ol/U8jspbot3aaKES+2T0XEw3T/UJxFtV8NeyxQFn
- ojJoPuHHDxF8e9dsMoFsolpWzapqLwLP0j+EzTkYCRDFSC//Tya+kTQaw5LZ74gZ3D
- eZRsP49AjdbEw==
-Message-ID: <sashiko-outbox-224220@kernel.org>
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v12 04/12] drm/amd: add luminance property support
-To: "Mario Limonciello" <mario.limonciello@amd.com>
-Cc: dri-devel@lists.freedesktop.org, amd-gfx@lists.freedesktop.org,
- intel-gfx@lists.freedesktop.org, intel-xe@lists.freedesktop.org
-In-Reply-To: <20261119-superm1-backlight-property-v12-4-89d5217d3618@amd.com>
-References: <20261119-superm1-backlight-property-v12-0-89d5217d3618@amd.com>
- <20261119-superm1-backlight-property-v12-4-89d5217d3618@amd.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Thu, 19 Nov 2026 23:52:56 +0000
+	by gabe.freedesktop.org (Postfix) with ESMTP id 27CF61127FF;
+	Thu, 19 Nov 2026 23:54:24 +0000 (UTC)
+Received: from mta0.migadu.com (out-216.mta0.migadu.com [91.218.175.216])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 41D211127FC
+ for <dri-devel@lists.freedesktop.org>; Thu, 19 Nov 2026 23:54:17 +0000 (UTC)
+X-Envelope-To: dri-devel@lists.freedesktop.org
+DKIM-Signature: a=rsa-sha256; bh=SVZrlJks8sXPVt3xrpYdTAoVZmdk9CSrl7P148bcFmU=; 
+ c=simple/simple; d=linux.dev;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1795132454; v=1; x=1795737254;
+ b=q70IX0luUcbU6FCiJYBpmUfdNrXaCDzDyverVa5nohERhVo++3RcTQWOyKaGqDjVgz3oc5Fx
+ VBY96WxGxsdaNk3gHTfIfp6AF/YK/SO2tPRF0sI/OQFkm0I4B33qwJ5F3URCKw0ij+tnYR3yJa0
+ Gw0mzX4e9eiXeXHZeFdigyFI=
+X-Envelope-To: dri-devel@lists.freedesktop.org
+Received: by smtp.migadu.com with ESMTPS id eca0a2cac3c52e86;
+ Thu, 19 Nov 2026 23:54:14 +0000
+X-Mizu-Trace-ID: eca0a2cac3c52e86
+X-Migadu-Flow: FLOW_OUT
+Message-ID: <1ea66d73-4d40-4d95-855f-4235cbd1d809@linux.dev>
+Date: Fri, 20 Nov 2026 07:53:53 +0800
+X-Archived-By: <archiver.kernel.org>
+MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Cc: cui.tao@linux.dev, akpm@linux-foundation.org, dgilbert@interlog.com,
+ mkp@kernel.org, loberman@redhat.com, jmeneghi@redhat.com, kraxel@redhat.com,
+ vivek.kasireddy@intel.com, jasowangio@gmail.com, eperezma@redhat.com,
+ stefanha@redhat.com, sgarzare@redhat.com, rostedt@goodmis.org,
+ vdonnefort@google.com, mhiramat@kernel.org, jgg@ziepe.ca,
+ kevin.tian@intel.com, axboe@kernel.dk, linux-mm@kvack.org,
+ James.Bottomley@hansenpartnership.com, sumit.semwal@linaro.org,
+ christian.koenig@amd.com, phasta@kernel.org, joro@8bytes.org,
+ will@kernel.org, linux-scsi@vger.kernel.org,
+ dri-devel@lists.freedesktop.org, linux-media@vger.kernel.org,
+ linaro-mm-sig@lists.linaro.org, kvm@vger.kernel.org,
+ virtualization@lists.linux.dev, linux-trace-kernel@vger.kernel.org,
+ iommu@lists.linux.dev, io-uring@vger.kernel.org,
+ linux-kernel@vger.kernel.org, bobbyeshleman@meta.com,
+ mathieu.desnoyers@efficios.com, robin.murphy@arm.com, mason@kernel.org,
+ aesteve@redhat.com, tjmercier@google.com, harry@kernel.org, vbabka@suse.cz,
+ cuitao@kylinos.cn
+Subject: Re: [PATCH 3/7] vhost: account the per-device kernel allocations to
+ memcg
+To: "Michael S. Tsirkin" <mst@redhat.com>
+References: <20261106131829.3228926-1-cui.tao@linux.dev>
+ <20261106131829.3228926-4-cui.tao@linux.dev>
+ <20261119101239-mutt-send-email-mst@kernel.org>
+From: Tao Cui <cui.tao@linux.dev>
+In-Reply-To: <20261119101239-mutt-send-email-mst@kernel.org>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -49,158 +67,167 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
-Reply-To: sashiko-reviews@lists.linux.dev
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-10.8 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
-	DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
-	INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS
-	autolearn=unavailable autolearn_force=no version=4.0.1
+X-Spam-Status: No, score=-15.1 required=3.0 tests=BAYES_00,DKIM_INVALID,
+	DKIM_SIGNED,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,
+	INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,
+	USER_AGENT_SANE_1 autolearn=unavailable autolearn_force=no
+	version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
-X-Archived-By: <archiver.kernel.org>
 
-Thank you for your contribution! Sashiko AI review found 2 potential
-issues to consider:
-- [Medium] drm/amd/display: brightness race in
-  amdgpu_dm_atomic_commit_tail()
-- [Low] drm/amd/display: duplicate drmm_mode_config_init() in backlight
-  KUnit tests
---
+Hello, Michael,
 
-commit 846a4ea0302b706193f324593664f491fbb89bfe
-Author: Mario Limonciello <mario.limonciello@amd.com>
+在 2026/11/19 23:12, Michael S. Tsirkin 写道:
+> On Fri, Nov 06, 2026 at 09:18:25PM +0800, Tao Cui wrote:
+>> From: Tao Cui <cuitao@kylinos.cn>
+>>
+>> Everything except the worker struct is allocated with plain GFP_KERNEL:
+>> the per-vq iovec and log arrays at VHOST_SET_OWNER, the memory table at
+>> VHOST_SET_MEM_TABLE whose size follows the user supplied region count,
+>> the pending message nodes, and the vhost_net/vhost_vsock device structs
+>> with their fallback to vmalloc.  The worker has been accounted since the
+>> vhost_task conversion.
+>>
+>> A container that can open /dev/vhost-net or /dev/vhost-vsock, which
+>> device plugins hand out with passthrough, holds roughly 150KB of
+>> resident kernel memory per device after SET_OWNER.  Charge the rest the
+>> same way the worker already is.
+>>
+>> Signed-off-by: Tao Cui <cuitao@kylinos.cn>
+> 
+> 
+> Acked-by: Michael S. Tsirkin <mst@redhat.com>
+> 
+> should each patch be merged individually?
+> 
+Yes, I think merging them individually is the cleaner path here: the series spans six subsystems, and each maintainer taking their own piece keeps things simple. Jason has already taken patch 5 into iommufd.  Please feel free to take patch 3 through your tree.
 
-drm/amd: add luminance property support
+Thanks,
+Tao
+> 
+>> ---
+>>  drivers/vhost/net.c   | 14 ++++++++------
+>>  drivers/vhost/vhost.c | 16 ++++++++++------
+>>  drivers/vhost/vsock.c |  5 +++--
+>>  3 files changed, 21 insertions(+), 14 deletions(-)
+>>
+>> diff --git a/drivers/vhost/net.c b/drivers/vhost/net.c
+>> index 4570a4ffbab2..bab6597c696d 100644
+>> --- a/drivers/vhost/net.c
+>> +++ b/drivers/vhost/net.c
+>> @@ -249,7 +249,7 @@ vhost_net_ubuf_alloc(struct vhost_virtqueue *vq, bool zcopy)
+>>  	/* No zero copy backend? Nothing to count. */
+>>  	if (!zcopy)
+>>  		return NULL;
+>> -	ubufs = kmalloc_obj(*ubufs);
+>> +	ubufs = kmalloc_obj(*ubufs, GFP_KERNEL_ACCOUNT);
+>>  	if (!ubufs)
+>>  		return ERR_PTR(-ENOMEM);
+>>  	atomic_set(&ubufs->refcount, 1);
+>> @@ -302,7 +302,8 @@ static int vhost_net_set_ubuf_info(struct vhost_net *n)
+>>  		if (!zcopy)
+>>  			continue;
+>>  		n->vqs[i].ubuf_info =
+>> -			kmalloc_objs(*n->vqs[i].ubuf_info, UIO_MAXIOV);
+>> +			kmalloc_objs(*n->vqs[i].ubuf_info, UIO_MAXIOV,
+>> +				     GFP_KERNEL_ACCOUNT);
+>>  		if  (!n->vqs[i].ubuf_info)
+>>  			goto err;
+>>  	}
+>> @@ -1344,17 +1345,18 @@ static int vhost_net_open(struct inode *inode, struct file *f)
+>>  	struct xdp_buff *xdp;
+>>  	int i;
+>>  
+>> -	n = kvmalloc_obj(*n, GFP_KERNEL | __GFP_RETRY_MAYFAIL);
+>> +	n = kvmalloc_obj(*n, GFP_KERNEL | __GFP_RETRY_MAYFAIL |
+>> +			 __GFP_ACCOUNT);
+>>  	if (!n)
+>>  		return -ENOMEM;
+>> -	vqs = kmalloc_objs(*vqs, VHOST_NET_VQ_MAX);
+>> +	vqs = kmalloc_objs(*vqs, VHOST_NET_VQ_MAX, GFP_KERNEL_ACCOUNT);
+>>  	if (!vqs) {
+>>  		kvfree(n);
+>>  		return -ENOMEM;
+>>  	}
+>>  
+>>  	queue = kmalloc_array(VHOST_NET_BATCH, sizeof(void *),
+>> -			      GFP_KERNEL);
+>> +			      GFP_KERNEL_ACCOUNT);
+>>  	if (!queue) {
+>>  		kfree(vqs);
+>>  		kvfree(n);
+>> @@ -1362,7 +1364,7 @@ static int vhost_net_open(struct inode *inode, struct file *f)
+>>  	}
+>>  	n->vqs[VHOST_NET_VQ_RX].rxq.queue = queue;
+>>  
+>> -	xdp = kmalloc_objs(*xdp, VHOST_NET_BATCH);
+>> +	xdp = kmalloc_objs(*xdp, VHOST_NET_BATCH, GFP_KERNEL_ACCOUNT);
+>>  	if (!xdp) {
+>>  		kfree(vqs);
+>>  		kvfree(n);
+>> diff --git a/drivers/vhost/vhost.c b/drivers/vhost/vhost.c
+>> index ea127af58ada..d1274106ad5d 100644
+>> --- a/drivers/vhost/vhost.c
+>> +++ b/drivers/vhost/vhost.c
+>> @@ -526,11 +526,14 @@ static long vhost_dev_alloc_iovecs(struct vhost_dev *dev)
+>>  
+>>  	for (i = 0; i < dev->nvqs; ++i) {
+>>  		vq = dev->vqs[i];
+>> -		vq->indirect = kmalloc_objs(*vq->indirect, UIO_MAXIOV);
+>> -		vq->log = kmalloc_objs(*vq->log, dev->iov_limit);
+>> -		vq->heads = kmalloc_objs(*vq->heads, dev->iov_limit);
+>> +		vq->indirect = kmalloc_objs(*vq->indirect, UIO_MAXIOV,
+>> +					    GFP_KERNEL_ACCOUNT);
+>> +		vq->log = kmalloc_objs(*vq->log, dev->iov_limit,
+>> +				       GFP_KERNEL_ACCOUNT);
+>> +		vq->heads = kmalloc_objs(*vq->heads, dev->iov_limit,
+>> +					 GFP_KERNEL_ACCOUNT);
+>>  		vq->nheads = kmalloc_array(dev->iov_limit, sizeof(*vq->nheads),
+>> -					   GFP_KERNEL);
+>> +					   GFP_KERNEL_ACCOUNT);
+>>  		if (!vq->indirect || !vq->log || !vq->heads || !vq->nheads)
+>>  			goto err_nomem;
+>>  	}
+>> @@ -2053,7 +2056,8 @@ static long vhost_set_memory(struct vhost_dev *d, struct vhost_memory __user *m)
+>>  		return -E2BIG;
+>>  	if (max_iotlb_entries <= 0)
+>>  		return -EINVAL;
+>> -	newmem = kvzalloc_flex(*newmem, regions, mem.nregions);
+>> +	newmem = kvzalloc_flex(*newmem, regions, mem.nregions,
+>> +			       GFP_KERNEL_ACCOUNT);
+>>  	if (!newmem)
+>>  		return -ENOMEM;
+>>  
+>> @@ -3405,7 +3409,7 @@ EXPORT_SYMBOL_GPL(vhost_disable_notify);
+>>  struct vhost_msg_node *vhost_new_msg(struct vhost_virtqueue *vq, int type)
+>>  {
+>>  	/* Make sure all padding within the structure is initialized. */
+>> -	struct vhost_msg_node *node = kzalloc_obj(*node);
+>> +	struct vhost_msg_node *node = kzalloc_obj(*node, GFP_KERNEL_ACCOUNT);
+>>  	if (!node)
+>>  		return NULL;
+>>  
+>> diff --git a/drivers/vhost/vsock.c b/drivers/vhost/vsock.c
+>> index 0cb87971d749..600daeb05e7b 100644
+>> --- a/drivers/vhost/vsock.c
+>> +++ b/drivers/vhost/vsock.c
+>> @@ -721,11 +721,12 @@ static int vhost_vsock_dev_open(struct inode *inode, struct file *file)
+>>  	/* This struct is large and allocation could fail, fall back to vmalloc
+>>  	 * if there is no other way.
+>>  	 */
+>> -	vsock = kvmalloc_obj(*vsock, GFP_KERNEL | __GFP_RETRY_MAYFAIL);
+>> +	vsock = kvmalloc_obj(*vsock, GFP_KERNEL | __GFP_RETRY_MAYFAIL |
+>> +			     __GFP_ACCOUNT);
+>>  	if (!vsock)
+>>  		return -ENOMEM;
+>>  
+>> -	vqs = kmalloc_objs(*vqs, ARRAY_SIZE(vsock->vqs));
+>> +	vqs = kmalloc_objs(*vqs, ARRAY_SIZE(vsock->vqs), GFP_KERNEL_ACCOUNT);
+>>  	if (!vqs) {
+>>  		ret = -ENOMEM;
+>>  		goto out;
+>> -- 
+>> 2.43.0
+> 
 
-This commit exposes the DRM LUMINANCE connector property for internal
-panels when CONFIG_DRM_LUMINANCE is enabled and updates the backlight
-KUnit fixtures.
-
-> diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c b/drivers/=
-gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-> index 56fca4e22df8d..8b5dde608266a 100644
-> --- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-> +++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-[ ... ]
-> @@ -5188,6 +5189,13 @@ static void amdgpu_dm_atomic_commit_tail(struct dr=
-m_atomic_commit *state)
->  		amdgpu_dm_commit_streams(state, dc_state);
->  	}
-> =20
-> +	/*
-> +	 * Apply connector luminance now that the streams are committed. Display
-> +	 * Core resets the panel brightness when it enables a stream, and the
-> +	 * helper reprograms LUMINANCE panels after a modeset.
-> +	 */
-> +	drm_atomic_helper_commit_luminance_enables(state);
-> +
->  	amdgpu_dm_update_hdcp(state);
-> =20
->  	/* Handle connector state changes */
-> @@ -5415,8 +5423,8 @@ static void amdgpu_dm_atomic_commit_tail(struct drm=
-_atomic_commit *state)
-> =20
->  	/* restore the backlight level */
->  	for (i =3D 0; i < dm->num_of_edps; i++) {
-> -		if (dm->backlight_dev[i] &&
-> -		    (dm->actual_brightness[i] !=3D dm->brightness[i]))
-> +		if ((dm->backlight_dev[i] || dm->luminance[i]) &&
-> +		    dm->actual_brightness[i] !=3D dm->brightness[i])
->  			amdgpu_dm_backlight_set_level(dm, i, dm->brightness[i]);
->  	}
-> =20
-
-[Severity: Medium]
-Can the unlocked retry loop at the end of amdgpu_dm_atomic_commit_tail()
-race with a concurrent luminance commit and overwrite a newer brightness
-level with a stale one?
-
-Fast atomic updates on disjoint CRTCs run amdgpu_dm_atomic_commit_tail()
-concurrently without taking the global dm.atomic_obj lock.  Inside
-amdgpu_dm_backlight_set_level(), dm->brightness[bl_idx] is updated before
-acquiring dm->dc_lock, while dm->actual_brightness[bl_idx] is updated only
-after releasing dm->dc_lock:
-
-CPU0 (eDP panel commit)           CPU1 (other CRTC commit)
-amdgpu_dm_atomic_commit_tail()
-  ...
-  amdgpu_dm_backlight_set_level(..., B1)
-    dm->brightness[0] =3D B1;
-    mutex_lock(&dm->dc_lock);
-                                  amdgpu_dm_atomic_commit_tail()
-                                    /* actual_brightness[0] !=3D B1 */
-                                    val =3D dm->brightness[0]; /* B1 */
-    ...
-    mutex_unlock(&dm->dc_lock);
-    dm->actual_brightness[0] =3D B1;
-
-/* next luminance commit B2 on CPU0 */
-amdgpu_dm_atomic_commit_tail()
-  ...
-  amdgpu_dm_backlight_set_level(..., B2)
-    dm->brightness[0] =3D B2;
-    ...
-    dm->actual_brightness[0] =3D B2;
-                                    amdgpu_dm_backlight_set_level(..., B1)
-                                      dm->brightness[0] =3D B1;
-                                        <-- overwrites B2 with stale B1
-
-This leaves the panel hardware brightness and dm->brightness[0] out of
-sync with connector->state->luminance.  In addition, when CPU1 runs
-amdgpu_dm_backlight_set_level() after CPU0 has already finished
-amdgpu_dm_commit_planes(), it re-asserts psr_event_hw_programming and
-replay_event_hw_programming with no subsequent plane flip to clear them,
-keeping PSR and Replay disabled until a later flip.
-
-> diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/tests/amdgpu_dm_backli=
-ght_test.c b/drivers/gpu/drm/amd/display/amdgpu_dm/tests/amdgpu_dm_backligh=
-t_test.c
-> index 8fc1c2f997688..c33c121a19b25 100644
-> --- a/drivers/gpu/drm/amd/display/amdgpu_dm/tests/amdgpu_dm_backlight_tes=
-t.c
-> +++ b/drivers/gpu/drm/amd/display/amdgpu_dm/tests/amdgpu_dm_backlight_tes=
-t.c
-> @@ -37,16 +37,39 @@ static const struct drm_connector_funcs dm_backlight_=
-test_connector_funcs =3D {
-[ ... ]
->  static void setup_test_connector(struct kunit *test,
->  				 struct dm_backlight_connector_fixture *fixture,
->  				 int bl_idx, enum signal_type signal)
->  {
-> -	fixture->adev =3D kunit_kzalloc(test, sizeof(*fixture->adev), GFP_KERNE=
-L);
-> -	fixture->aconnector =3D kunit_kzalloc(test, sizeof(*fixture->aconnector=
-), GFP_KERNEL);
-> +	int ret;
-> +
-> +	fixture->adev =3D dm_kunit_alloc_adev(test);
-> +	ret =3D drmm_mode_config_init(&fixture->adev->ddev);
-> +	KUNIT_ASSERT_EQ(test, ret, 0);
-[ ... ]
-> @@ -483,12 +506,17 @@ static void dm_test_register_backlight_device_succe=
-ss(struct kunit *test)
->  	struct dc_link *link =3D dm_kunit_alloc_link(test);
->  	struct drm_minor *primary;
->  	unsigned int max;
-> +	int ret;
-> +
-> +	ret =3D drmm_mode_config_init(&adev->ddev);
-> +	KUNIT_ASSERT_EQ(test, ret, 0);
-
-[Severity: Low]
-Does calling drmm_mode_config_init() in setup_test_connector() and
-dm_test_register_backlight_device_success() reinitialize mode_config a
-second time and leak the standard DRM properties?
-
-dm_kunit_alloc_adev() allocates the DRM device through
-__drm_kunit_helper_alloc_drm_device() ->
-__drm_kunit_helper_alloc_drm_device_with_driver(), which already calls
-drmm_mode_config_init() when DRIVER_MODESET is set.  Calling
-drmm_mode_config_init() again overwrites mode_config.property_list and
-mode_config.object_idr in place, leaking the standard properties allocated
-by the first call and registering a second drm_mode_config_init_release
-cleanup action.
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261119-superm1-ba=
-cklight-property-v12-0-89d5217d3618@amd.com?part=3D4
