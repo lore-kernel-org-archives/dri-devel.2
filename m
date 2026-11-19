@@ -2,42 +2,97 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7AF25606A334
-	for <dri-devel@archiver.kernel.org>; Thu, 19 Nov 2026 16:30:06 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F19A7606A320
+	for <dri-devel@archiver.kernel.org>; Thu, 19 Nov 2026 16:37:16 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=aliel.fr header.i=@aliel.fr header.a=rsa-sha256 header.s=courrier-s1 header.b=vAWBsD/e
+	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=mgFkhCaG
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 61CDA10EA56;
-	Thu, 19 Nov 2026 16:30:00 +0000 (UTC)
-Received: from courrier.aliel.fr (courrier.aliel.fr [65.21.61.41])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 299AE10EA56
- for <dri-devel@lists.freedesktop.org>; Thu, 19 Nov 2026 16:29:54 +0000 (UTC)
-Message-ID: <8652ae36-7506-4fc2-b8ff-0b05a61dec63@aliel.fr>
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=aliel.fr;
- s=courrier-s1; t=1795105792;
- bh=McqmrGGoBsWtFO9rSLDSWUOXL2yC9fScta0oWrJ5HFE=;
- h=Date:From:Subject:To:Cc:References:In-Reply-To;
- b=vAWBsD/ePEqL301DdsswEq/IJ55Q9aS6ABXHAzDCh/3C+pvw0XpvcS29dDjLwcplb
- hd+k7v1hm1gr9jRkQZ++5bJzAtYbEpgtsEhf/4A2PhL0xMr3fnz9iT7fogwUm0eIvh
- cD2c1SFpljoYu0Acms8xnIjDxltOhLszWv3MK2j8=
-Date: Thu, 19 Nov 2026 17:29:51 +0100
+	by gabe.freedesktop.org (Postfix) with ESMTP id 58A7E10E283;
+	Thu, 19 Nov 2026 16:37:11 +0000 (UTC)
+Received: from mail-wm1-f72.google.com (mail-wm1-f72.google.com
+ [209.85.128.72])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 9802F10E283
+ for <dri-devel@lists.freedesktop.org>; Thu, 19 Nov 2026 16:37:04 +0000 (UTC)
+Received: by mail-wm1-f72.google.com with SMTP id
+ 5b1f17b1804b1-4ba078abd78so18417045e9.1
+ for <dri-devel@lists.freedesktop.org>; Thu, 19 Nov 2026 08:37:04 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=google.com; s=20260707; t=1795106223; x=1795711023;
+ darn=lists.freedesktop.org; 
+ h=content-type:cc:to:from:subject:message-id:mime-version:date:from
+ :to:cc:subject:date:message-id:reply-to:content-type;
+ bh=VESp6hsfsBjU8MDr+X58zX9DGjPHSl10HXSvMJRGh40=;
+ b=mgFkhCaGUO/KAN10kurnPLFHaJiE7TM8kkf7ZbofM1O6YAAC2NWWKNQeGtNZqQkkMb
+ Z62IwrVaNPjZGFIuLVX9lOzVTb2KSuan5+Ifk6txkGzhpZ538TR6oNBc/Rg7Y/0Q0kPM
+ yel08x54j/UgGS7BVHs5nfTc9b0PylYxfNP618tKme9HtYF4CHryINrzGszSePZZ38sc
+ E9VHT6tN6eMQ0OEup3y0jepPBkScNEL9iyc2QV+s5pninVX220O2ecxWgaXV59TmoEMJ
+ uUDYbvG7AcNYFZ+5EzCgHUHlLhzucJUhPNRpAVsHUr+np50yP+lUqU4szy4Drb8jXROa
+ IIhQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20260707; t=1795106223; x=1795711023;
+ h=content-type:cc:to:from:subject:message-id:mime-version:date
+ :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+ :content-type;
+ bh=VESp6hsfsBjU8MDr+X58zX9DGjPHSl10HXSvMJRGh40=;
+ b=mN8fAmGJNG+GbKtiWOjBOOTUHEGtaXjXo5dfGHd0vzVrIAK3XU68THQvg1TCiabsfU
+ DLTgNYH/zWFdjL5VsAE9G4qKa4xTqf5tiDFi1/jGSpdJtWEyk6/UHTIhsnx86jkNDlYJ
+ wUBvR3HlBQ+knvgO9jR5JNB2QMtfZ0ObqYUghwy9x4oAWECeY659SYL6RbSJjXBOGRTR
+ GX7ePkZBvShjqYysfxoWIzUGSjvj7TcZZUCy2UJ4jFuGeEObzTidSVdLUb7zOyGAwzv0
+ Z+q9npOu02Cf9lpJXV3qmJ+5DGBElpMOq5r2HTxKO0gpmjCPNQcLbk3VJSR6BAmB+7er
+ EloA==
+X-Forwarded-Encrypted: i=1;
+ AL+hErEXhedux5ET9UfhClIWFo0c46dD3hFdxzf0nZiGflyY2L7H8HB6QufQEJqgIftf/y6qFBSEmLBUp1Y=@lists.freedesktop.org
+X-Gm-Message-State: APuU4Z/Y8F/34GTS3TkUsOtsdR4lA1qn4NzDdlkoIE7pak+ytENZ8sNj
+ 2WcOJKLKr+4bqpxLvb0PJGy9X5cKAUgqTYj0diKys1OTUkWTpjk51Ga5NUCHHzP6jTeJ6q2f/SS
+ rZvCiE9rAi37vJkXD5A==
+X-Received: from wmsl30.prod.google.com ([2002:a05:600c:1d1e:b0:4a2:df9b:ef74])
+ (user=aliceryhl job=prod-delivery.src-stubby-dispatcher) by
+ 2002:a05:600c:820c:b0:49c:d019:70c5 with SMTP id
+ 5b1f17b1804b1-4bb887876c0mr2867805e9.0.1795106222831; 
+ Thu, 19 Nov 2026 08:37:02 -0800 (PST)
+Date: Thu, 19 Nov 2026 16:36:54 +0000
 X-Archived-By: <archiver.kernel.org>
-MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-From: Ronald Claveau <linux-kernel-dev@aliel.fr>
-Subject: Re: [PATCH 04/10] phy: amlogic: Add Meson HDMI TX PHY driver
-To: sashiko-reviews@lists.linux.dev
-Cc: devicetree@vger.kernel.org, linux-amlogic@lists.infradead.org,
- linux-phy@lists.infradead.org, dri-devel@lists.freedesktop.org,
- robh@kernel.org, conor+dt@kernel.org, neil.armstrong@linaro.org,
- vkoul@kernel.org, olteanv@gmail.com
-References: <20261117-meson-drm-create-hdmitx-phy-v1-0-9e0ac931381c@aliel.fr>
- <20261117-meson-drm-create-hdmitx-phy-v1-4-9e0ac931381c@aliel.fr>
- <sashiko-outbox-219538@kernel.org>
-Content-Language: en-US
-In-Reply-To: <sashiko-outbox-219538@kernel.org>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Mime-Version: 1.0
+X-B4-Tracking: v=1; b=H4sIAKUl/2oC/x3MQQqAIBBG4avErBtIIaGuEi0kf20WWWhFIN09a
+ fkt3iuUkQSZxqZQwi1Z9lih2oaW1cYAFldNutNGKTVwOK57Y2dPywnRbuDFG3ToB6+NododCV6
+ e/znN7/sB9gx+wmMAAAA=
+X-Change-Id: 20261119-gpuvm-data-rename-cf6e0e59f266
+X-Developer-Key: i=aliceryhl@google.com; a=openpgp;
+ fpr=49F6C1FAA74960F43A5B86A1EE7A392FDE96209F
+X-Developer-Signature: v=1; a=openpgp-sha256; l=2803; i=aliceryhl@google.com; 
+ h=from:subject:message-id;
+ bh=9nHlV2IX0ybZW/nMkDdw/FTgCb1QJu3QEYfuNAVRj0A=; 
+ b=owEBbQKS/ZANAwAKAQRYvu5YxjlGAcsmYgBq/yWoV/6pHAaJqRouM2ol6MHJianug+Bx4ROFW
+ +3RUAa1s22JAjMEAAEKAB0WIQSDkqKUTWQHCvFIvbIEWL7uWMY5RgUCav8lqAAKCRAEWL7uWMY5
+ RixkD/9TEsvRdSu4RFQ4gmgUKRWqfYAK20JPBM8Uy3RWetQUpwN0EKmAxE++IZVd7IALAj4yVHh
+ 7QZVfsVeEKA6+p968hukuRdOG2rSeXsYkltoY7d3HDV9H7K1l0D9chzC1+Sit2Hwc6P2c+KC7Zw
+ zXuxCwDij9gtTdeHHgrh0gIU0F29PAvBaD2Vb3UDcFVrEzATP8XmkJqTDkrsvG+9lmpdQWGKT4l
+ 8hs+v/VygwdwAQf/uMa/LQ5VOZ4RW3wQrcJeLTZ14b3dLlTTnsbNAWCZrj5gP0MbVTa/juAl2Hf
+ rrzzTWw/Vbn4352u+sjHziaHvHAmdBqAbgzQCI5F5KyosGOPIYYjvRzIkUDBPNNmLGggimjMTBk
+ /0VF0Ev6rEFJzwhu1ybCBj/QGD79XcHhu4o2vx3ljAW2LqsqsxJcVWLxcCXAbQgR2kRN/t0HMR7
+ /MyBvKSqLW4cFoXd2+nrIkOTL6NwQnYxBLmqQkKwf60LIf+8m6QKs0ZlX686VtLJCiMMNfytrKI
+ 0AawmoOhuZSCS3+KfM55WzY9xyPeDHqMshWIFsW6sTGhPn/sbPCjLLCknfm2KQkv2nXdTG0V8bX
+ hGLtXjOULF4YiVZpbHtN5Bf6Xg+7KKPPaEW+WP+SPqJfSOfGOfu38IxFnQGQdpsfxmw4PM7VcAw
+ NV94UCWU3/05N1A==
+X-Mailer: b4 0.14.3
+Message-ID: <20261119-gpuvm-data-rename-v1-1-8eb773435fde@google.com>
+Subject: [PATCH] rust: drm: gpuvm: rename UniqueRefGpuVm data accessors
+From: Alice Ryhl <aliceryhl@google.com>
+To: Danilo Krummrich <dakr@kernel.org>, Matthew Brost <matthew.brost@intel.com>,
+ "=?utf-8?q?Thomas_Hellstr=C3=B6m?=" <thomas.hellstrom@linux.intel.com>,
+ Miguel Ojeda <ojeda@kernel.org>, 
+ Boqun Feng <boqun@kernel.org>, Gary Guo <gary@garyguo.net>, 
+ "=?utf-8?q?Bj=C3=B6rn_Roy_Baron?=" <bjorn3_gh@protonmail.com>,
+ Benno Lossin <lossin@kernel.org>, 
+ Andreas Hindborg <a.hindborg@kernel.org>, Trevor Gross <tmgross@umich.edu>, 
+ Daniel Almeida <daniel.almeida@collabora.com>,
+ Tamir Duberstein <tamird@kernel.org>, 
+ Alexandre Courbot <acourbot@nvidia.com>,
+ "=?utf-8?q?Onur_=C3=96zkan?=" <work@onurozkan.dev>
+Cc: Sami Tolvanen <samitolvanen@google.com>, dri-devel@lists.freedesktop.org, 
+ rust-for-linux@vger.kernel.org, linux-kernel@vger.kernel.org, 
+ Alice Ryhl <aliceryhl@google.com>
+Content-Type: text/plain; charset="utf-8"
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -49,92 +104,84 @@ List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-12.3 required=3.0 tests=BAYES_00,DKIM_SIGNED,
-	DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_PATCH,
-	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,USER_AGENT_SANE_1
-	autolearn=unavailable autolearn_force=no version=4.0.1
+X-Spam-Status: No, score=-26.3 required=3.0 tests=BAYES_00,DKIMWL_WL_MED,
+	DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
+	INCLUDES_CR_TRAILER,INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,
+	SPF_PASS,USER_AGENT_GIT,USER_IN_DEF_DKIM_WL autolearn=ham
+	autolearn_force=no version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-On 11/17/26 20:58, sashiko-bot@kernel.org wrote:
-> Thank you for your contribution! Sashiko AI review found 1 potential
-> issue to consider:
-> - [Medium] phy: amlogic: broken rate and submode check in
->   meson_hdmi_phy_validate()
-> --
-> 
-> commit 0bf49ea77c864cdcf7af96e59e1ffba5194d9636
-> Author: Ronald Claveau <linux-kernel-dev@aliel.fr>
-> 
-> phy: amlogic: Add Meson HDMI TX PHY driver
-> 
-> This commit adds a generic PHY driver for the HDMI TX PHY on Amlogic GXBB,
-> GXL, GXM, and G12A SoCs, along with a legacy helper for device trees
-> lacking a "phys" property.
-> 
->> diff --git a/drivers/phy/amlogic/phy-meson-hdmi-tx.c b/drivers/phy/amlogic/phy-meson-hdmi-tx.c
->> new file mode 100644
->> index 0000000000000..69833a080dc35
->> --- /dev/null
->> +++ b/drivers/phy/amlogic/phy-meson-hdmi-tx.c
-> [ ... ]
->> +/* GXBB */
->> +static const struct meson_hdmi_phy_rate gxbb_rates[] = {
->> +	/* 5.94Gbps, 3.7125Gbps */
->> +	{ 371250000, 0x33353245, 0x2100115b },
->> +	/* 2.97Gbps */
->> +	{ 297000000, 0x33634283, 0xb000115b },
->> +	/* 1.485Gbps, and below */
->> +	{ 0,         0x33632122, 0x2000115b },
->> +};
-> [ ... ]
->> +static const struct meson_hdmi_phy_rate *
->> +meson_hdmi_phy_find_rate(const struct meson_hdmi_phy_data *data, u64 rate)
->> +{
->> +	unsigned int i;
->> +
->> +	for (i = 0; i < data->num_rates; i++)
->> +		if (rate >= data->rates[i].min_rate)
->> +			return &data->rates[i];
->> +
->> +	return NULL;
->> +}
-> [ ... ]
->> +static int meson_hdmi_phy_validate(struct phy *phy, enum phy_mode mode,
->> +				   int submode, union phy_configure_opts *opts)
->> +{
->> +	struct meson_hdmi_phy *priv = phy_get_drvdata(phy);
->> +
->> +	if (mode != PHY_MODE_HDMI)
->> +		return -EINVAL;
->> +
->> +	if (opts->hdmi.bpc != 8)
->> +		return -EINVAL;
->> +
->> +	if (!meson_hdmi_phy_find_rate(priv->data, opts->hdmi.tmds_char_rate))
->> +		return -EINVAL;
->> +
->> +	return 0;
->> +}
-> 
-> [Severity: Medium]
-> Can meson_hdmi_phy_find_rate() ever return NULL here?
-> 
-> Every per-SoC rate table ends with an entry where min_rate is 0, and rate
-> is an unsigned u64, so rate >= data->rates[i].min_rate is always true on
-> the final entry.  That makes the NULL return and the callers' NULL checks
-> in meson_hdmi_phy_validate() and meson_hdmi_phy_configure() dead code, and
-> meson_hdmi_phy_validate() accepts any tmds_char_rate value (including 0 Hz
-> or rates above the 594 MHz hardware limit).
-> 
-> In addition, meson_hdmi_phy_validate() does not check that submode is
-> PHY_HDMI_MODE_TMDS before reading opts->hdmi.tmds_char_rate, which shares
-> an anonymous union with opts->hdmi.frl when submode is PHY_HDMI_MODE_FRL.
-> 
+`UniqueRefGpuVm` currently names its shared and mutable data accessors
+`data_ref()` and `data()`, unlike `GpuVmBo::data(&self)` and standard
+Rust naming conventions. Thus, rename them to `data(&self)` and
+`data_mut(&mut self)` for consistency.
 
-I will add min_rate 25175000 in table end and a check on max_rate 600MHz
-in v2.
+Link: https://lore.kernel.org/r/20261118111653.448550-1-aliceryhl@google.com
+Signed-off-by: Alice Ryhl <aliceryhl@google.com>
+---
+ rust/kernel/drm/gpuvm/mod.rs    | 4 ++--
+ rust/kernel/drm/gpuvm/sm_ops.rs | 6 +++---
+ 2 files changed, 5 insertions(+), 5 deletions(-)
 
--- 
+diff --git a/rust/kernel/drm/gpuvm/mod.rs b/rust/kernel/drm/gpuvm/mod.rs
+index d9d43d719761..23e73da865fb 100644
+--- a/rust/kernel/drm/gpuvm/mod.rs
++++ b/rust/kernel/drm/gpuvm/mod.rs
+@@ -311,14 +311,14 @@ fn sm_step_remap<'op, 'ctx>(
+ impl<T: DriverGpuVm> UniqueRefGpuVm<T> {
+     /// Access the data owned by this `UniqueRefGpuVm` immutably.
+     #[inline]
+-    pub fn data_ref(&self) -> &T {
++    pub fn data(&self) -> &T {
+         // SAFETY: By the type invariants we may access `data`.
+         unsafe { &*self.0.data.get() }
+     }
+ 
+     /// Access the data owned by this `UniqueRefGpuVm` mutably.
+     #[inline]
+-    pub fn data(&mut self) -> &mut T {
++    pub fn data_mut(&mut self) -> &mut T {
+         // SAFETY: By the type invariants we may access `data`.
+         unsafe { &mut *self.0.data.get() }
+     }
+diff --git a/rust/kernel/drm/gpuvm/sm_ops.rs b/rust/kernel/drm/gpuvm/sm_ops.rs
+index 742c151b2540..9f3fe7c954fb 100644
+--- a/rust/kernel/drm/gpuvm/sm_ops.rs
++++ b/rust/kernel/drm/gpuvm/sm_ops.rs
+@@ -381,7 +381,7 @@ impl<T: DriverGpuVm> GpuVm<T> {
+         match p
+             .sm_data
+             .gpuvm
+-            .data()
++            .data_mut()
+             .sm_step_map(op, p.sm_data.user_context)
+         {
+             Ok(OpMapped { .. }) => 0,
+@@ -402,7 +402,7 @@ impl<T: DriverGpuVm> GpuVm<T> {
+             op: unsafe { &(*op).__bindgen_anon_1.unmap },
+             _invariant: PhantomData,
+         };
+-        match p.gpuvm.data().sm_step_unmap(op, p.user_context) {
++        match p.gpuvm.data_mut().sm_step_unmap(op, p.user_context) {
+             Ok(OpUnmapped { .. }) => 0,
+             Err(err) => err.to_errno(),
+         }
+@@ -421,7 +421,7 @@ impl<T: DriverGpuVm> GpuVm<T> {
+             op: unsafe { &(*op).__bindgen_anon_1.remap },
+             _invariant: PhantomData,
+         };
+-        match p.gpuvm.data().sm_step_remap(op, p.user_context) {
++        match p.gpuvm.data_mut().sm_step_remap(op, p.user_context) {
+             Ok(OpRemapped { .. }) => 0,
+             Err(err) => err.to_errno(),
+         }
+
+---
+base-commit: e55a991e09e3b44f0b0d8206bb523dc57c086341
+change-id: 20261119-gpuvm-data-rename-cf6e0e59f266
+
 Best regards,
-Ronald
+-- 
+Alice Ryhl <aliceryhl@google.com>
+
