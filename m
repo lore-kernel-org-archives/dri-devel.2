@@ -2,42 +2,42 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0F7CD606A331
-	for <dri-devel@archiver.kernel.org>; Thu, 19 Nov 2026 08:25:09 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A0519606A326
+	for <dri-devel@archiver.kernel.org>; Thu, 19 Nov 2026 08:25:08 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=amd.com header.i=@amd.com header.a=rsa-sha256 header.s=selector1 header.b=4B5w7jP9
+	dkim=pass (1024-bit key, unprotected) header.d=amd.com header.i=@amd.com header.a=rsa-sha256 header.s=selector1 header.b=E7d6i6we
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id A9D28112123;
+	by gabe.freedesktop.org (Postfix) with ESMTP id AB7BB112124;
 	Thu, 19 Nov 2026 08:25:02 +0000 (UTC)
-Received: from PH8PR06CU001.outbound.protection.outlook.com
- (mail-westus3azon11012032.outbound.protection.outlook.com [40.107.209.32])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 6B3851120F8;
- Thu, 19 Nov 2026 08:24:49 +0000 (UTC)
+Received: from BN1PR04CU002.outbound.protection.outlook.com
+ (mail-eastus2azon11010066.outbound.protection.outlook.com [52.101.56.66])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 6483E112117;
+ Thu, 19 Nov 2026 08:24:55 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=WPdk/BoXh+2TMKWvZHEzlVGImTLHwvThSMMZRP+yARcKJ4h2NSMopkyo6NrqkeuRPQwAaE2Z5o1fc5qpLceja6mu0AwwhSOrjNOASazwhHbHzFsQD8dzesXUJZpVMqkOdJH47pgfzoYZr1kDpH7vGonA5x7jugz36k/Xjrg00oNjOWXytcbcfS6k+jp0K1AZEcHxLyxySokmtcGzAb9N8oANrhXVlh5OEnajLTwE9mlcF8OHIxVc229NiuPFXejdxEdjMUDV6fQhaROaem8/T9PDDE6AkdmeYi7mtP3z5mBwu2+/fl5cK/2VnjynftRPEh2rnvbn3FRxMhzDCQqmuQ==
+ b=X1yQJKURgHPW1oBQ1TuOrs9T35ftK4NkQIeW26ok8FgkJJfv0g0CNEnc+rpFVMh4d7LIzZfnnG1A3S4qgCynBkWbjiRuep7ndrumTUvVyD4TkT/DRVLhMi3hISU1l7O5gb9UUFMwqIqAhXeF841YoKoQdi0fPkLjXgcx1sq6a1qLugNa0zRrWt6PCtQXEZvWByAWYTSYmPuGIGOlbtlGwKCC2dPcYZa4aQ9PVRJug+XeyVMzKHOUMH3owFpw9/IfBDtXkfvQN8q/FCeFaeAByjTDCoYgz5C28FzAxIMqTSPe1j6BIZ+dJoL50o1hYZmeoD2nIO8TzFEksCxHdLhCaA==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=WHsVjrVn5YL0uSDG0jcVdjYsJtRnV85IexVaJLYScjQ=;
- b=B2XZK4qIGynI93Cp9RqON/9qu+fmmY8pnVbMUsRKPj5xxTMcwtP8fnvyB2M6wQEvdNVlOLK8tnc/rcElsFcHdAAKbEYFXZiazBWwEIu4EZC/bTPXXxqkE+/+xZsEdwWjPwjsvRBnIBbRQVKKTGeVXaN1Zu3dOoIKSrKnTr7Sgyf/SxfeMHtre7NvintbXW02RoXvwqAhntQS8by7PkCbj32AMxm4VGRrrZp5Qn3o7pnUTcmXfNq1H8ZML3qw/MIJw+ihxSEQUt1yuU5QoDzBBoD+pC1DMPrH8Iwl7hmySk3TgxZRbZ3WjXmNMg7bjDuV9ZSC/ZfCMTSZk6HrXYWUSw==
+ bh=Vqhzg2VANxCZFPBRusFRa5QLxiEWrAYOzaWv4yeZa1o=;
+ b=uKv3cVGXUgomLfR0d3Nefi1N49NBN/mEK4EJWnN7BvsdOXBY/kZMnkwVkRkNgJvnGl1CQksB3DIO33z9MgTt9LXPuXwBtnZ063W0boR+8qhKeLx9G1tV1Vlygg/rV03jbOP4Rl35iEUiSYU8krQ5ewdK5xXicUbHEddaluzpaS1B5si4TNQQTW2LmfKkQsRGTSef6NCDNRvQcXY79snh+O5Ov0V+i5BL4gq+AVW/9zZm6RZ64doFqG0Tr0k9QeAZ1XqRkN4n9ZWUUEzy+70EaeSKWPU0nw/YLgzqOr4iIXok04ffhv04faWcojpW0cL681WMkvd7ZLrVMv4/XdVZAw==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
  165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
  dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
  header.from=amd.com; dkim=none (message not signed); arc=none (0)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=WHsVjrVn5YL0uSDG0jcVdjYsJtRnV85IexVaJLYScjQ=;
- b=4B5w7jP9YiDQ8GEJNwKL/ClcS8AEIF/bUk5l8Fq2yMGd64lvHGKs8tZePufhuKlU6C0vyl3hb0QpWQsrALmIYXa9zPYlSpcBrtWnN8WrFk7LaCiQXBoIzXlj6yhFNNqOuY2dw4IuzehwrUU6CaaeJ4zdMga/zkJTKoz/z7NUB2U=
-Received: from SN7P222CA0012.NAMP222.PROD.OUTLOOK.COM (2603:10b6:806:124::26)
- by DS1PR12MB999190.namprd12.prod.outlook.com (2603:10b6:8:495::23)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.639.10; Thu, 19 Nov
- 2026 08:24:46 +0000
+ bh=Vqhzg2VANxCZFPBRusFRa5QLxiEWrAYOzaWv4yeZa1o=;
+ b=E7d6i6weNwtykR8wCC5u12cUSdS30XMzaNim8PUosngIW73b0ZG7LGbXCk4vcV907VEedxA8THkyUCuByYjHnlkVVazWtFmPwRuwuzSnrQSViDg9OYunbg0MOGYDXfQD1PqT3yThgEZNbH156kjz+mAgeLDFt538EPg5jWlYuWY=
+Received: from SN7P222CA0016.NAMP222.PROD.OUTLOOK.COM (2603:10b6:806:124::16)
+ by DM4PR12MB7694.namprd12.prod.outlook.com (2603:10b6:8:102::6) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.615.14; Thu, 19 Nov
+ 2026 08:24:48 +0000
 Received: from SN1PEPF000397B4.namprd05.prod.outlook.com
- (2603:10b6:806:124:cafe::9e) by SN7P222CA0012.outlook.office365.com
- (2603:10b6:806:124::26) with Microsoft SMTP Server (version=TLS1_3,
+ (2603:10b6:806:124:cafe::d) by SN7P222CA0016.outlook.office365.com
+ (2603:10b6:806:124::16) with Microsoft SMTP Server (version=TLS1_3,
  cipher=TLS_AES_256_GCM_SHA384) id 15.21.615.13 via Frontend Transport; Thu,
- 19 Nov 2026 08:24:46 +0000
+ 19 Nov 2026 08:24:48 +0000
 X-MS-Exchange-Authentication-Results: mx.microsoft.com 1; spf=pass (sender IP
  is 165.204.84.17) smtp.mailfrom=amd.com;
  dkim=none (message not signed)
@@ -48,55 +48,57 @@ Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
 Received: from satlexmb07.amd.com (165.204.84.17) by
  SN1PEPF000397B4.mail.protection.outlook.com (10.167.248.58) with Microsoft
  SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.615.4 via Frontend Transport; Thu, 19 Nov 2026 08:24:45 +0000
+ 15.21.615.4 via Frontend Transport; Thu, 19 Nov 2026 08:24:48 +0000
 Received: from prike-code-pc.amd.com (10.180.168.240) by satlexmb07.amd.com
  (10.181.42.216) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.57; Thu, 19 Nov
- 2026 02:24:42 -0600
+ 2026 02:24:44 -0600
 From: Prike Liang <Prike.Liang@amd.com>
 To: <amd-gfx@lists.freedesktop.org>, <dri-devel@lists.freedesktop.org>
 CC: <Alexander.Deucher@amd.com>, <Christian.Koenig@amd.com>,
  <Harry.Wentland@amd.com>, <Sunpeng.Li@amd.com>, <tzimmermann@suse.de>,
  <ville.syrjala@linux.intel.com>, Prike Liang <Prike.Liang@amd.com>, "Harry
- Wentland" <harry.wentland@amd.com>, Leo Li <sunpeng.li@amd.com>
-Subject: [PATCH v2 4/5] drm/amd/display: send the flip event right away if
- vblank is off
-Date: Thu, 19 Nov 2026 16:24:23 +0800
-Message-ID: <20261119082424.554841-4-Prike.Liang@amd.com>
+ Wentland" <harry.wentland@amd.com>, Leo Li <sunpeng.li@amd.com>,
+ =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>, Alex Deucher
+ <alexander.deucher@amd.com>
+Subject: [PATCH v2 5/5] drm/amd/display: turn vblank off in DRM across GPU
+ reset
+Date: Thu, 19 Nov 2026 16:24:24 +0800
+Message-ID: <20261119082424.554841-5-Prike.Liang@amd.com>
 X-Mailer: git-send-email 2.34.1
 In-Reply-To: <20261119082424.554841-1-Prike.Liang@amd.com>
 References: <20261119082424.554841-1-Prike.Liang@amd.com>
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
+Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
 X-ClientProxiedBy: satlexmb08.amd.com (10.181.42.217) To satlexmb07.amd.com
  (10.181.42.216)
 X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: SN1PEPF000397B4:EE_|DS1PR12MB999190:EE_
-X-MS-Office365-Filtering-Correlation-Id: 659e8d31-8bee-4a0e-672b-08df46169192
+X-MS-TrafficTypeDiagnostic: SN1PEPF000397B4:EE_|DM4PR12MB7694:EE_
+X-MS-Office365-Filtering-Correlation-Id: d4341c54-598a-4bd8-27eb-08df4616936f
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
- ARA:13230040|23010399003|82310400026|36860700016|376014|1800799024|18002099003|22082099003|11063799006|260925021311599003|260925021911599003|10067099003|260925022911599003|56012099006|261022105027099003|261026140227099003|261026121527099003|261028144727099003|261021121427099003|261021123027099003|261009223027099003|261102130727099003|261102123227099003;
-X-Microsoft-Antispam-Message-Info: x3o5rH1XqB27nxAOglZM/FafW3W3xLt5vYnhYu452jdhIcShiK5kTZ/FwxocFw77jHLIvsFbazKIKUnn+YHPywlU8tCH3t6q5lqAndEWJx1WfWiP5ElH+JceJ54VNkaIdsIEauvH9+tgOX9XGlBLSt87iiWmK60IXhuuzT9a6tqz3BGv8vSIUIAvWqClUVXMYPSiMbTi3b2P8RXpDwlkJXkIBWhSWI5uD1xkCeNKov/onZ9Ob7Az6ICnyhuODJpaJAZsi8knWMbQLR6xHlNmfi03yQBwIopVUGn7MRWLvenj2hn9xbCdK3EjMhpGr2rBbm3KHSzNUJ56aFTFvtk7mGjxBhcyUWOfk4/CnXVDUJ2wheoROUxRawDYzXY0MCj06l6+nq+dCYlfnvYrO8swB+PL+/1UdyNDIIsAm6+CByJQpvxiVSFb3C0rdNt2A2NS1Ke5YOiSdUiU0XBLEwp/va4dZSdfcJlkAhJfypCw7M/k484wc0uF3VngZB3rNRiEKclno9MVv28KBTJN7hujRhLrF6YTDDgFovl7ciV/4xjjyl6P+9AeuKcxeuzZ+cmnuB4iezljJ5mY0tjg9qHK7NhaHDzQMvtMBXdPabIQagtL8Jsg2DohNGfUw+1xrMapDDVYBkp4l0VJ69TOn0YthtYLAKcJaFtyNJfqcCgWLG7QRYpu2oav9G4aawua36GDCBzYMeVGdN3LOfqZ+676Lw==
+ ARA:13230040|36860700016|376014|1800799024|82310400026|23010399003|261102123227099003|56012099006|261026140227099003|11063799006|261026121527099003|261021123027099003|261021121427099003|261028144727099003|10067099003|261022075727099003|261022105027099003|261022115727099003|261102130727099003|261009221227099003|261009223027099003|6133799003|22082099003|18002099003;
+X-Microsoft-Antispam-Message-Info: TQoZV+zhGEEZWziLumiTa0w09/lT9rxq6xEhRXQEK+zt0FMlHlgLZwzcM3OSVuXfVcFBZ7qFOQs3oOrjO8vscAVsPgpTmdQwMHHB9Wpy62w9jMqLDXu/eqCltR3u8eYM3QswFW+ww85gphup6CBvuFyXRI4GW4uW088akaRV6a8KwpZG9iIl2c8e2zNLVz6fekXndmmuRud6UHKnU4DAWBbYtpijig0fw4O649g6ppMu/zvQLL2P84sxvzELXv3rC9/9UiEbNrSCxqROz0h40mmbt+ERyAVSmovXjZY3S1GB5OpL3WB+w2OBaccNZIfwY1iKv+Vnlyix0f1Dc7fdmjhY4uz90TDAFxX6d3T3vUJO5OMmQ/wUQ8beuenWAq7z2F5aaOmNKdX/0zV6K/BdLMdDPjXQrosU8lyi+vRhwIKmN7KkEo0qNg5jWarih+lo/FThxm1VKIj918M9Lc89fw20ObxVcmWdgGT1OXM64u4u7tSKAG03P/v3gM2x1v37I/oi8eaRePfv5a12wNKnejCRQTkFJ90S9zvZ19MhYhzFqDwhNg0Qf5DsIsqg6L5JzcRbAyjZv466oeoyFkNoQuhRfOVjF/5CrGSeyVqQsJjmufEu9et4LkvB3m6ZiVphbvxz+DimndWW3jD31N8uhvmnd+mCuPs2zf5Qs3biF3DxfluUH3jwCVVEyDVUcm7Y07aHhQdqJWKjLsmB+atqLA==
 X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
  IPV:NLI; SFV:NSPM; H:satlexmb07.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230040)(23010399003)(82310400026)(36860700016)(376014)(1800799024)(18002099003)(22082099003)(11063799006)(260925021311599003)(260925021911599003)(10067099003)(260925022911599003)(56012099006)(261022105027099003)(261026140227099003)(261026121527099003)(261028144727099003)(261021121427099003)(261021123027099003)(261009223027099003)(261102130727099003)(261102123227099003);
+ SFS:(13230040)(36860700016)(376014)(1800799024)(82310400026)(23010399003)(261102123227099003)(56012099006)(261026140227099003)(11063799006)(261026121527099003)(261021123027099003)(261021121427099003)(261028144727099003)(10067099003)(261022075727099003)(261022105027099003)(261022115727099003)(261102130727099003)(261009221227099003)(261009223027099003)(6133799003)(22082099003)(18002099003);
  DIR:OUT; SFP:1101; 
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: 1k+6J+hQM8aimwNSKyQwTHaauev49oFtJpJhciX/nzWM5F10dGgzikD0QYThvwtdbCYS35h++ZpnOlg/HR2Uanjc7ZxrLXgs1mup8tAlgV48YrwtPLAj6HEZ6XM5uondJhaN8wq68+DAM7QOsa1YLhIRlXETozlwFiMBCSTNDa8/mCQZSRvXgqYPMDvSNeYWRSJ6okVEBzvrLsRw9OUsD7mf/8oIjGhbjWP5qEe+aERnF5sgS4Rg6LVk0g5IEa6J3c5LRWhkuZXtC4EMu6fmJWzOIAsH7SDBaw6BAuwiiIPZOwbN/x5qX76oH2SnUDmy8UCr4yF36j573EnJcYgSRkDSh5iowBZn/bDjo0hsDdZ8CShdvgenhpTiSHduQtaol3DL3eq5ASwUST6INHoQ89Ays/UswgtXmOn2+Oy1r5o0Py7LBupeIN7IisNiZQ9A
+X-MS-Exchange-AntiSpam-MessageData-0: KnfkJPzG3jyNaRWOqEuIOHVmUex/g/VUqBU4YLVq4ZTei44iIs/ZxKJfYE1hxWqLRlRedKARCMMbOS/JNclWCzqEwcidJVLS66U0emXlNENxho0jofGFvqh1zk62lAsx+LyiYBO7dqQqi8gyDc1aK3zMtBbKFJ4+Up/eApF7xv8o4cGYnXGnv8acPcG7PFNF96FDI9TK3TB8UdSUXxy646SSRgKAUvFV27qCpmj5V01o5jVE9A5Djbw6rd9Ft9MlK1jWN+RJjt4s9WviusKPavrVt3G6o7+GFKOBczXHGZgRr/A/jg4O99TqpPk60mVHmIRCMZw5G+GrMlkbEydmYbsVoSvesGS8bu6fh94zObqm/spwhqccJT0UIgsWIVFAlE3u6ZFvqY1MJKYvqolLU09NxnY+XZYsbl0e4DG0/v7p8L4+HxwhECAaBc/xaokM
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 19 Nov 2026 08:24:45.4755 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 659e8d31-8bee-4a0e-672b-08df46169192
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 19 Nov 2026 08:24:48.5954 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: d4341c54-598a-4bd8-27eb-08df4616936f
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
  Helo=[satlexmb07.amd.com]
 X-MS-Exchange-CrossTenant-AuthSource: SN1PEPF000397B4.namprd05.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Anonymous
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DS1PR12MB999190
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM4PR12MB7694
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -116,115 +118,289 @@ X-Spam-Status: No, score=-18.8 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-dm_arm_vblank_event_pre_programming() takes a vblank reference for a
-page flip or cursor update that carries an event, and the handler that
-later sends the event drops that reference again. The return value of
-drm_crtc_vblank_get() is ignored, though. If vblank is off, the event
-is armed anyway, and the handler that eventually sends it drops a
-reference that was never taken, which unbalances the vblank refcount.
+For a GPU reset, dm_suspend() stops all streams with
+amdgpu_dm_commit_zero_streams() and toggles the OTG interrupts
+directly, and dm_resume() restores the cached DC state the same way.
+Neither goes through manage_dm_interrupts(), so DRM is never told that
+vblank stops: drm_crtc_vblank_get() keeps succeeding while no vblank
+interrupt can arrive until the streams are back.
 
-That can't happen today: DM only turns vblank off for a CRTC that it
-disables, and a disabled CRTC has no active planes. The next patch also
-turns vblank off while a GPU reset has the streams stopped, though.
-Page flips that don't modify the DC state skip
-amdgpu_dm_commit_streams() and only take dc_lock after this point, so
-they still get here while the reset holds it.
+Since commit ebc3351cc4a9 ("drm/amdgpu: remove suspend/resume DRM
+clients during GPU recovery"), the fbdev client keeps running during
+recovery, and its damage worker rate-limits display updates with
+drm_client_modeset_wait_for_vblank(). Every display update during the
+reset then waits for a vblank that never comes, until the wait times
+out and warns:
 
-Send the event right away when no vblank reference can be taken, like
-drm_crtc_vblank_off() does for queued vblank events. No vblank interrupt
-could deliver it in that case anyway.
+  amdgpu 0000:03:00.0: [drm] vblank wait timed out on crtc 0
+  WARNING: drivers/gpu/drm/drm_vblank.c:1320 at drm_crtc_wait_one_vblank+0x194/0x200
+  Workqueue: events drm_fb_helper_damage_work
+  Call Trace:
+   drm_client_modeset_wait_for_vblank+0x63/0x80
+   drm_fb_helper_damage_work+0x89/0x1a0
 
-Add a KUnit test for it.
+FBIO_WAITFORVSYNC runs into the same timeout, and DRM_IOCTL_WAIT_VBLANK
+sleeps until its own 3 second timeout.
 
+Do what a regular CRTC disable does: call drm_crtc_vblank_off() for the
+CRTCs of the cached DC state before their streams are stopped, and
+drm_crtc_vblank_on_config() with their existing configuration once the
+streams and interrupts are restored. drm_crtc_vblank_get() then fails
+for the duration of the reset, so drm_client_modeset_wait_for_vblank()
+doesn't wait at all, and DRM_IOCTL_WAIT_VBLANK waiters are woken up.
+Page flips that get to amdgpu_dm_commit_planes() meanwhile have their
+event sent right away, see the previous patch.
+
+drm_crtc_vblank_off() also clears the vblank timestamping constants,
+which a modeset sets again before it turns vblank back on. Recompute
+them from the CRTC state after the reset as well; otherwise the vblank
+timestamp query in drm_crtc_vblank_on_config() warns about an
+uninitialized mode.
+
+A modeset that waits for dc_lock during the reset may be turning one of
+these CRTCs off. Leave vblank off for a CRTC that is no longer enabled;
+amdgpu_dm_crtc_set_vblank() would refuse to enable vblank on it anyway.
+
+Neither call can block on the reset: drm_crtc_vblank_off() only takes
+spinlocks and flushes the DRM vblank worker, which DM doesn't use, and
+amdgpu_dm_crtc_set_vblank() doesn't queue vblank_control_work during a
+reset. Unlike suspending the DRM clients, this doesn't make recovery
+wait for anything that may itself depend on the reset.
+
+Add KUnit tests for the new helper.
+
+Fixes: ebc3351cc4a9 ("drm/amdgpu: remove suspend/resume DRM clients during GPU recovery")
 Cc: Harry Wentland <harry.wentland@amd.com>
 Cc: Leo Li <sunpeng.li@amd.com>
+Cc: Christian König <christian.koenig@amd.com>
+Cc: Alex Deucher <alexander.deucher@amd.com>
 Assisted-by: Copilot:claude-opus-5.5
 Signed-off-by: Prike Liang <Prike.Liang@amd.com>
 ---
- .../gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c | 15 ++++++++--
- .../display/amdgpu_dm/tests/amdgpu_dm_test.c  | 29 +++++++++++++++++++
- 2 files changed, 42 insertions(+), 2 deletions(-)
+ .../gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c |  52 ++++++++
+ .../gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.h |   1 +
+ .../display/amdgpu_dm/tests/amdgpu_dm_test.c  | 112 ++++++++++++++++++
+ 3 files changed, 165 insertions(+)
 
 diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-index 3d2201285888..3bf6b407bfdf 100644
+index 3bf6b407bfdf..35bbdbe0ff1d 100644
 --- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
 +++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-@@ -3824,6 +3824,11 @@ EXPORT_IF_KUNIT(dm_arm_vblank_event);
-  * Grab a reference on the vblank counter if a page flip or cursor update is to
-  * be programmed. Do this before programming so the HW is not in any
-  * idle-optimized state (such as PSR).
-+ *
-+ * If vblank is off, no vblank interrupt can deliver the event, and the
-+ * handlers that send it would drop a reference that was never taken. Send
-+ * the event right away instead, like drm_crtc_vblank_off() does for queued
-+ * vblank events.
-  */
- STATIC_IFN_KUNIT void dm_arm_vblank_event_pre_programming(struct amdgpu_crtc *acrtc,
- 							  struct dm_crtc_state *acrtc_state,
-@@ -3835,8 +3840,14 @@ STATIC_IFN_KUNIT void dm_arm_vblank_event_pre_programming(struct amdgpu_crtc *ac
- 	if (!acrtc->base.state->event || acrtc_state->active_planes == 0)
- 		return;
- 
--	if (pflip_update || cursor_update)
--		drm_crtc_vblank_get(&acrtc->base);
-+	if (!pflip_update && !cursor_update)
-+		return;
-+
-+	if (drm_crtc_vblank_get(&acrtc->base)) {
-+		drm_crtc_send_vblank_event(&acrtc->base,
-+					   acrtc->base.state->event);
-+		acrtc->base.state->event = NULL;
-+	}
+@@ -1502,6 +1502,56 @@ STATIC_IFN_KUNIT void dm_gpureset_toggle_interrupts(struct amdgpu_device *adev,
  }
- EXPORT_IF_KUNIT(dm_arm_vblank_event_pre_programming);
- 
-diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/tests/amdgpu_dm_test.c b/drivers/gpu/drm/amd/display/amdgpu_dm/tests/amdgpu_dm_test.c
-index d400a223f1ad..99f2a6a41970 100644
---- a/drivers/gpu/drm/amd/display/amdgpu_dm/tests/amdgpu_dm_test.c
-+++ b/drivers/gpu/drm/amd/display/amdgpu_dm/tests/amdgpu_dm_test.c
-@@ -1813,6 +1813,34 @@ static void dm_test_arm_vblank_pre_programming_update(struct kunit *test)
- 	drm_crtc_vblank_put(&ctx->acrtc->base);
- }
+ EXPORT_IF_KUNIT(dm_gpureset_toggle_interrupts);
  
 +/**
-+ * dm_test_arm_vblank_pre_programming_vblank_off - Test the event is sent with vblank off
-+ * @test: The KUnit test context
++ * dm_gpureset_toggle_vblank() - Turn DRM vblank off or on around a GPU reset
++ * @adev: amdgpu device
++ * @state: DC state whose streams the reset stops and restores
++ * @enable: false before the streams are stopped, true once they are restored
 + *
-+ * No vblank interrupt can deliver the event, and the handlers that send it
-+ * must not drop a vblank reference that was never taken.
++ * The GPU reset path stops and restores the streams through DC directly and
++ * bypasses manage_dm_interrupts(). Turn vblank off in DRM like a CRTC
++ * disable does, so that drm_crtc_vblank_get() fails while no vblank
++ * interrupt can arrive, instead of letting vblank waiters such as the fbdev
++ * damage worker sleep until they time out.
 + */
-+static void dm_test_arm_vblank_pre_programming_vblank_off(struct kunit *test)
++STATIC_IFN_KUNIT void dm_gpureset_toggle_vblank(struct amdgpu_device *adev,
++						struct dc_state *state, bool enable)
 +{
-+	struct dm_test_vblank_ctx *ctx = dm_test_vblank_ctx_alloc(test);
-+	struct drm_vblank_crtc *vblank;
++	struct drm_vblank_crtc_config config;
++	struct amdgpu_crtc *acrtc;
++	int i;
 +
-+	KUNIT_ASSERT_EQ(test, drm_vblank_init(&ctx->adev->ddev, 1), 0);
-+	vblank = drm_crtc_vblank_crtc(&ctx->acrtc->base);
-+	drm_crtc_vblank_off(&ctx->acrtc->base);
++	for (i = 0; i < state->stream_count; i++) {
++		int otg_inst = state->stream_status[i].primary_otg_inst;
 +
-+	/* Sending an event that has no file frees it. */
-+	ctx->acrtc_state->base.event = kzalloc_obj(*ctx->event, GFP_KERNEL);
-+	KUNIT_ASSERT_NOT_NULL(test, ctx->acrtc_state->base.event);
++		acrtc = amdgpu_dm_get_crtc_by_otg_inst(adev, otg_inst);
++		if (!acrtc)
++			continue;
 +
-+	dm_test_arm_vblank_pre_programming(ctx, true, false);
++		if (!enable) {
++			drm_crtc_vblank_off(&acrtc->base);
++			continue;
++		}
 +
-+	KUNIT_EXPECT_NULL(test, ctx->acrtc_state->base.event);
-+	/* Only drm_crtc_vblank_off() holds a reference. */
-+	KUNIT_EXPECT_EQ(test, atomic_read(&vblank->refcount), 1);
-+	kfree(ctx->acrtc_state->base.event);
++		/*
++		 * A modeset waiting for dc_lock may be turning the CRTC off,
++		 * and amdgpu_dm_crtc_set_vblank() refuses to enable vblank on
++		 * it then. Leave its vblank off.
++		 */
++		if (!acrtc->base.enabled)
++			continue;
++
++		/* drm_crtc_vblank_off() cleared the timestamping constants. */
++		drm_calc_timestamping_constants(&acrtc->base,
++						&acrtc->base.state->adjusted_mode);
++
++		/* Keep the off delay that manage_dm_interrupts() configured. */
++		config = drm_crtc_vblank_crtc(&acrtc->base)->config;
++		drm_crtc_vblank_on_config(&acrtc->base, &config);
++	}
++}
++EXPORT_IF_KUNIT(dm_gpureset_toggle_vblank);
++
+ DEFINE_FREE(state_release, struct dc_state *, dc_state_release(_T))
+ 
+ STATIC_IFN_KUNIT enum dc_status amdgpu_dm_commit_zero_streams(struct dc *dc)
+@@ -1636,6 +1686,7 @@ static int dm_suspend(struct amdgpu_ip_block *ip_block)
+ 			return -ENOMEM;
+ 		}
+ 
++		dm_gpureset_toggle_vblank(adev, dm->cached_dc_state, false);
+ 		dm_gpureset_toggle_interrupts(adev, dm->cached_dc_state, false);
+ 
+ 		res = amdgpu_dm_commit_zero_streams(dm->dc);
+@@ -1975,6 +2026,7 @@ static int dm_resume(struct amdgpu_ip_block *ip_block)
+ 		dm_gpureset_commit_state(dm->cached_dc_state, dm);
+ 
+ 		dm_gpureset_toggle_interrupts(adev, dm->cached_dc_state, true);
++		dm_gpureset_toggle_vblank(adev, dm->cached_dc_state, true);
+ 
+ 		dc_state_release(dm->cached_dc_state);
+ 		dm->cached_dc_state = NULL;
+diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.h b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.h
+index c2b6d4abd9c7..75a5c0309998 100644
+--- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.h
++++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.h
+@@ -1354,6 +1354,7 @@ void mmhub_read_system_context(struct amdgpu_device *adev,
+ 			       struct dc_phy_addr_space_config *pa_config);
+ int amdgpu_dm_init_power_module(struct amdgpu_display_manager *dm);
+ void dm_gpureset_toggle_interrupts(struct amdgpu_device *adev, struct dc_state *state, bool enable);
++void dm_gpureset_toggle_vblank(struct amdgpu_device *adev, struct dc_state *state, bool enable);
+ enum dc_status amdgpu_dm_commit_zero_streams(struct dc *dc);
+ int dm_cache_state(struct amdgpu_device *adev);
+ void dm_destroy_cached_state(struct amdgpu_device *adev);
+diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/tests/amdgpu_dm_test.c b/drivers/gpu/drm/amd/display/amdgpu_dm/tests/amdgpu_dm_test.c
+index 99f2a6a41970..2cfdd3a77521 100644
+--- a/drivers/gpu/drm/amd/display/amdgpu_dm/tests/amdgpu_dm_test.c
++++ b/drivers/gpu/drm/amd/display/amdgpu_dm/tests/amdgpu_dm_test.c
+@@ -5415,6 +5415,113 @@ static void dm_test_gpureset_toggle_interrupts_dcn(struct kunit *test)
+ 	dm_gpureset_toggle_interrupts(adev, state, true);
+ }
+ 
++/* Tests for dm_gpureset_toggle_vblank() */
++
++/*
++ * One stream on the OTG of the CRTC from dm_test_irq_mgmt_ctx_alloc(), which
++ * is enabled with a 1080p60 mode and has its vblank set up like on a regular
++ * CRTC enable: timestamping constants first, then manage_dm_interrupts().
++ */
++static struct dc_state *dm_test_gpureset_vblank_state(struct kunit *test,
++						      struct dm_test_irq_mgmt_ctx *ctx)
++{
++	struct drm_display_mode *mode = &ctx->acrtc_state->base.adjusted_mode;
++	struct dc_state *state = dm_kunit_alloc_dc_state(test);
++
++	mode->crtc_clock = 148500;
++	mode->crtc_htotal = 2200;
++	mode->crtc_vtotal = 1125;
++	ctx->acrtc->base.state = &ctx->acrtc_state->base;
++	ctx->acrtc->base.enabled = true;
++	drm_calc_timestamping_constants(&ctx->acrtc->base, mode);
++	ctx->adev->ip_versions[DCE_HWIP][0] = IP_VERSION(3, 1, 2);
++	manage_dm_interrupts(ctx->adev, ctx->acrtc, ctx->acrtc_state);
++
++	state->stream_count = 1;
++	state->stream_status[0].primary_otg_inst = ctx->acrtc->otg_inst;
++
++	return state;
 +}
 +
- /**
-  * dm_test_arm_vblank_event_no_event - Test a commit without an event is a no-op
-  * @test: The KUnit test context
-@@ -5481,6 +5509,7 @@ static struct kunit_case amdgpu_dm_tests[] = {
- 	KUNIT_CASE(dm_test_arm_vblank_pre_programming_no_event),
- 	KUNIT_CASE(dm_test_arm_vblank_pre_programming_no_planes),
- 	KUNIT_CASE(dm_test_arm_vblank_pre_programming_update),
-+	KUNIT_CASE(dm_test_arm_vblank_pre_programming_vblank_off),
- 	/* dm_update_pflip_irq_state */
- 	KUNIT_CASE(dm_test_update_pflip_irq_state_dcn),
- 	KUNIT_CASE(dm_test_update_pflip_irq_state_dce),
++/**
++ * dm_test_gpureset_toggle_vblank_off - Test vblank is off while streams are down
++ * @test: The KUnit test context
++ *
++ * drm_crtc_vblank_get() has to fail, or vblank waiters such as the fbdev
++ * damage worker sleep until they time out.
++ */
++static void dm_test_gpureset_toggle_vblank_off(struct kunit *test)
++{
++	struct dm_test_irq_mgmt_ctx *ctx = dm_test_irq_mgmt_ctx_alloc(test);
++	struct dc_state *state = dm_test_gpureset_vblank_state(test, ctx);
++	struct drm_crtc *crtc = &ctx->acrtc->base;
++
++	KUNIT_ASSERT_EQ(test, drm_crtc_vblank_get(crtc), 0);
++	drm_crtc_vblank_put(crtc);
++
++	dm_gpureset_toggle_vblank(ctx->adev, state, false);
++
++	KUNIT_EXPECT_FALSE(test, ctx->adev->ddev.vblank[0].enabled);
++	KUNIT_EXPECT_EQ(test, drm_crtc_vblank_get(crtc), -EINVAL);
++}
++
++/**
++ * dm_test_gpureset_toggle_vblank_on - Test vblank comes back with its config and mode
++ * @test: The KUnit test context
++ */
++static void dm_test_gpureset_toggle_vblank_on(struct kunit *test)
++{
++	struct dm_test_irq_mgmt_ctx *ctx = dm_test_irq_mgmt_ctx_alloc(test);
++	struct dc_state *state = dm_test_gpureset_vblank_state(test, ctx);
++	struct drm_crtc *crtc = &ctx->acrtc->base;
++
++	dm_gpureset_toggle_vblank(ctx->adev, state, false);
++	dm_gpureset_toggle_vblank(ctx->adev, state, true);
++
++	/* manage_dm_interrupts() derived this off delay from the timing. */
++	KUNIT_EXPECT_EQ(test, ctx->adev->ddev.vblank[0].config.offdelay_ms, 34);
++	/* Vblank timestamps need the mode that drm_crtc_vblank_off() cleared. */
++	KUNIT_EXPECT_EQ(test, ctx->adev->ddev.vblank[0].hwmode.crtc_clock, 148500);
++	KUNIT_ASSERT_EQ(test, drm_crtc_vblank_get(crtc), 0);
++	drm_crtc_vblank_put(crtc);
++}
++
++/**
++ * dm_test_gpureset_toggle_vblank_no_crtc - Test streams without a CRTC are skipped
++ * @test: The KUnit test context
++ */
++static void dm_test_gpureset_toggle_vblank_no_crtc(struct kunit *test)
++{
++	struct dm_test_irq_mgmt_ctx *ctx = dm_test_irq_mgmt_ctx_alloc(test);
++	struct dc_state *state = dm_test_gpureset_vblank_state(test, ctx);
++	struct drm_crtc *crtc = &ctx->acrtc->base;
++
++	state->stream_status[0].primary_otg_inst = ctx->acrtc->otg_inst + 1;
++
++	dm_gpureset_toggle_vblank(ctx->adev, state, false);
++
++	KUNIT_ASSERT_EQ(test, drm_crtc_vblank_get(crtc), 0);
++	drm_crtc_vblank_put(crtc);
++}
++
++/**
++ * dm_test_gpureset_toggle_vblank_crtc_disabled - Test a disabled CRTC stays off
++ * @test: The KUnit test context
++ *
++ * A modeset that waits for the reset to finish may be turning the CRTC off.
++ */
++static void dm_test_gpureset_toggle_vblank_crtc_disabled(struct kunit *test)
++{
++	struct dm_test_irq_mgmt_ctx *ctx = dm_test_irq_mgmt_ctx_alloc(test);
++	struct dc_state *state = dm_test_gpureset_vblank_state(test, ctx);
++
++	dm_gpureset_toggle_vblank(ctx->adev, state, false);
++	ctx->acrtc->base.enabled = false;
++	dm_gpureset_toggle_vblank(ctx->adev, state, true);
++
++	KUNIT_EXPECT_EQ(test, drm_crtc_vblank_get(&ctx->acrtc->base), -EINVAL);
++}
++
+ static struct kunit_case amdgpu_dm_tests[] = {
+ 	/* Simple DM callbacks */
+ 	KUNIT_CASE(dm_test_wait_for_idle),
+@@ -5669,6 +5776,11 @@ static struct kunit_case amdgpu_dm_tests[] = {
+ 	KUNIT_CASE(dm_test_initialize_plane_overlay),
+ 	/* dm_gpureset_toggle_interrupts */
+ 	KUNIT_CASE(dm_test_gpureset_toggle_interrupts_dcn),
++	/* dm_gpureset_toggle_vblank */
++	KUNIT_CASE(dm_test_gpureset_toggle_vblank_off),
++	KUNIT_CASE(dm_test_gpureset_toggle_vblank_on),
++	KUNIT_CASE(dm_test_gpureset_toggle_vblank_no_crtc),
++	KUNIT_CASE(dm_test_gpureset_toggle_vblank_crtc_disabled),
+ 	{}
+ };
+ 
 -- 
 2.34.1
 
