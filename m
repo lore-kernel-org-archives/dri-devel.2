@@ -2,47 +2,84 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6AF7A606A32F
-	for <dri-devel@archiver.kernel.org>; Thu, 19 Nov 2026 16:54:07 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B5019606CA65
+	for <dri-devel@archiver.kernel.org>; Thu, 19 Nov 2026 16:54:36 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=BnrwKGO3
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=b+plolDA
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id CB14D10F00B;
-	Thu, 19 Nov 2026 16:54:01 +0000 (UTC)
-Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 6756610E88E;
- Thu, 19 Nov 2026 16:53:50 +0000 (UTC)
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by tor.source.kernel.org (Postfix) with ESMTP id DC0B56014B;
- Thu, 19 Nov 2026 16:53:49 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 650691F000C5;
- Thu, 19 Nov 2026 16:53:49 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1795107229;
- bh=jlYRN4IDAwWpF0znirb6L6eZ+ybQKX349IWRr+H23P8=;
- h=Date:From:To:Cc:Subject:In-Reply-To;
- b=BnrwKGO35kcG0dSILYcHGYt7cjZRRVlycOBQwAgy+/mOVWG56TQoJGIWKBiUsrSDH
- 8O7cMwwfDjS08pQftM7RP4WY5h6/AKLna7wdjpNEKlxwHxeDcjxvzImzmmKx/7rEOb
- DUFpJMT0Zc+qA7BbMTBs/yy2kVi6wIe3Td8iGPundMq88cWpY3YX9CfJw6TlEO3QVO
- reD0U1hdMD7NpCp0Lrdu4QDSwhL97RxyR6zTxuegGI1/HWspHvORaX76Ba83Od5yAW
- dkgPZJzAM0ljWWS+0srvPCmMZ4+4R5exy1zQRHwqx/DvwPAxQH2yYlZejmTS86hay/
- nsfd9xefzzpoA==
-Date: Thu, 19 Nov 2026 10:53:48 -0600
-From: Bjorn Helgaas <helgaas@kernel.org>
-To: Mario Limonciello <mario.limonciello@amd.com>
-Cc: Alex Deucher <alexander.deucher@amd.com>,
- Christian =?utf-8?B?S8O2bmln?= <christian.koenig@amd.com>,
- Oz Tiram <oz@shift-computing.de>, linux-pci@vger.kernel.org,
- linux-kernel@vger.kernel.org, amd-gfx@lists.freedesktop.org,
- dri-devel@lists.freedesktop.org, Lijo Lazar <lijo.lazar@amd.com>,
- Reza Nikzad Chaleshori <rezanikzadch@gmail.com>
-Subject: Re: [PATCH v7 2/3] drm/amdgpu: Match VFCT using initial PCI bus number
-Message-ID: <20261119165348.GA811401@bhelgaas>
+	by gabe.freedesktop.org (Postfix) with ESMTP id 1E46B10F069;
+	Thu, 19 Nov 2026 16:54:31 +0000 (UTC)
+Received: from mail-wm1-f52.google.com (mail-wm1-f52.google.com
+ [209.85.128.52])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 60D3710F069
+ for <dri-devel@lists.freedesktop.org>; Thu, 19 Nov 2026 16:54:25 +0000 (UTC)
+Received: by mail-wm1-f52.google.com with SMTP id
+ 5b1f17b1804b1-4a5b2be99a8so24461435e9.2
+ for <dri-devel@lists.freedesktop.org>; Thu, 19 Nov 2026 08:54:25 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20260707; t=1795107264; x=1795712064; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+ bh=cL9QLrw802xMK6esPwClrrDVtfE9WjyNqvjQf8BYnaE=;
+ b=b+plolDArUxNcoIIQIQbxJc3tLA7pYYatEFM+nz8fPDmgcmXNGTagr9+A5Ua1eyklb
+ PsxvM941z6yc8N0xg2t7h2U3NyMghGgCFI4wRK8EcyH4O2ryhLo6jPtjKLAoOamsGN7C
+ pRHh9eBcu38Ny4VCMhv5qGV0lfV9PANGvEG9IamJxMDsgQllf65anoH+Xisx1QBvVea2
+ KFxViJcWyL9CspFNcljDihtPQyU1cdUof7ZizCt1UxMoQm5LlemRVVk9v1Lf+XoSIsHm
+ N+dV/Zxed+jIdXPzPqm/E3NygnvXcR9dh1S33JAcWaFZrSNAp5L/4Q5d1S8UmiOdLvqG
+ wh+A==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20260707; t=1795107264; x=1795712064;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+ :message-id:reply-to:content-type;
+ bh=cL9QLrw802xMK6esPwClrrDVtfE9WjyNqvjQf8BYnaE=;
+ b=a0yTsKzhCbEbsZ2L0YInYDVw1vpTn7zYBATMOaznmYsov6AhoBn+FpDeyRmIrp1djk
+ zp++WyqtIYI1g9IFzmv2cMlBKjKAAgTbnQBdLEAnQZ06S1sPNqrI7zFVj+7uTlaB2N63
+ 2KuXqbtjTQTFHdM5kq622rTZWr7IPOqQNHaGRhyO6HoAMYNe5wV0YDRinfzseCNhqVJa
+ iEXDcSdDlTdhTZj3cUQAJ062sq4I3OiLxhMWCrOssKpnWJyZvb4TsXloLylPCMideYxY
+ scM6HS6/cmwof44tzV5wkF/w5JboOC8OETRlTUQpacXlXGlISUMy4tsa34ZHXYIRNAFT
+ 7oLQ==
+X-Forwarded-Encrypted: i=1;
+ AL+hErETkNWgYp8hd5iIuZkcOiOtNgXuZwfg7i9g+gXyXBTE7R/cAm1giL41wWku2vGOwJ1A0bfug6PVaAU=@lists.freedesktop.org
+X-Gm-Message-State: APuU4Z9/sl9BjyKmFAuPRByB7ucNSTTaXq0UUGftq/lNVDvF0ur4oc8o
+ cSBC4u9Kao5e+WQ50djrdGonJOypiCRhTiaV1M9O3nWpFyDer8jICJdH6NdsGEYC
+X-Gm-Gg: AYBFou2o+pEgXBKkPIjhwLRBvnkCkU7gYxHFZmwvx/Lh4b5KohlcwPpP1vYuykqR5iH
+ I3cvpdMo5tRWIkAi9mJKPf/nPvNrJ2TuXXFIWBf7v9I6Y6o6bgE6ox2n2A3tPM8rNFtyfjqGJIS
+ JreXElt8SGXOGSAtb6a7d/gI70R0R+MtFMegonV05GLcRv3uUAHlz+7Y6yVtfJ7n+z2U/T+zHYA
+ 2KNkDRbtLN4X/8hqE/kqPfWLgVYY7zZGQ105jWzfojuw4mPAVR4mxzFDyUytE0SIDjBuHtXiYsj
+ qv5PXmA7I6c5zK85w7c8Iz6I5XI+lCkAWHpuxCP74bNemFBnHkwZdqDKniS1pv1tx5Ya9F8DbRL
+ 1NlqBpCcUHqCqtZMFn1ksu+RQMAifK02DoSk4K36XsAnpoIYbXSE/aT+NwBplNqnRf6ASAG6q35
+ p83HPmUg+mIm1txxKegN3wyukLuRa0fdSya0pg2bjP510vs2tAEktNtUMj0J2iIfWu4xt0BKyaW
+ DO6HFCOGqSYyn5hw3h5XrbZtQ19drG3mbGSYwkE40Dc6hBq5MnzxtQadbVW42z1oRrNmcbPever
+ PZKOs4jilTbY3D4mOQlpcwIBLZ5m+qMC6P/iW0Kzr++o5rTbNH8Owp5GrGw5KmWWyl1x0qEg3kM
+ =
+X-Received: by 2002:a05:600c:1d08:b0:4a2:392:9de2 with SMTP id
+ 5b1f17b1804b1-4bb8882bd7bmr1438135e9.28.1795107263457; 
+ Thu, 19 Nov 2026 08:54:23 -0800 (PST)
+Received: from DESKTOP-BJ3EVC4.lan (178-164-182-185.pool.digikabel.hu.
+ [178.164.182.185]) by smtp.gmail.com with ESMTPSA id
+ 5b1f17b1804b1-4bb88402ce9sm9894555e9.0.2026.11.19.08.54.22
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Thu, 19 Nov 2026 08:54:23 -0800 (PST)
+From: Abdur Rofik <rofikcoga@gmail.com>
+To: linux-arm-msm@vger.kernel.org
+Cc: devicetree@vger.kernel.org, phone-devel@vger.kernel.org,
+ dri-devel@lists.freedesktop.org, linux-input@vger.kernel.org,
+ linux-kernel@vger.kernel.org, Bjorn Andersson <andersson@kernel.org>,
+ Konrad Dybcio <konradybcio@kernel.org>, Rob Herring <robh@kernel.org>,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>,
+ Neil Armstrong <neil.armstrong@linaro.org>,
+ Dmitry Torokhov <dmitry.torokhov@gmail.com>,
+ Ivon Argel <ivonargel13@gmail.com>, Abdur Rofik <rofikcoga@gmail.com>
+Subject: [PATCH v3 00/10] arm64: dts: qcom: add LG V60 ThinQ 5G (timelm)
+ support
+Date: Thu, 19 Nov 2026 17:54:10 +0100
+Message-Id: <20261119165420.24466-1-rofikcoga@gmail.com>
+X-Mailer: git-send-email 2.39.5
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261112-vfct-regression-v7-2-69b1e0cf45c2@amd.com>
+Content-Transfer-Encoding: 8bit
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -54,107 +91,144 @@ List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-15.8 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
-	DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
-	INCLUDES_CR_TRAILER,INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,
-	SPF_PASS autolearn=unavailable autolearn_force=no version=4.0.1
+X-Spam-Status: No, score=-10.8 required=3.0 tests=BAYES_00,DKIM_SIGNED,
+	DKIM_VALID,DKIM_VALID_AU,FREEMAIL_FORGED_FROMDOMAIN,FREEMAIL_FROM,
+	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_PATCH,MAILING_LIST_MULTI,
+	SPF_HELO_NONE,SPF_PASS,USER_AGENT_GIT autolearn=unavailable
+	autolearn_force=no version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-[+cc Lijo]
+This series adds initial mainline device tree and driver support for the
+Qualcomm SM8250-based LG V60 ThinQ 5G (timelm / LM-V600) smartphone.
 
-On Thu, Nov 12, 2026 at 03:54:54PM -0600, Mario Limonciello wrote:
-> VFCT records the PCI bus number from BIOS POST. The current bus number
-> can change after PCI core renumbers the bus, while accepting a mismatch
-> based only on device identity can select the wrong VFCT image when
-> matching devices are present. Compare against the bus number captured
-> from the firmware bus assignment before bridge renumbering.
-> 
-> Reported-by: Reza Nikzad Chaleshori <rezanikzadch@gmail.com>
-> Closes: https://lore.kernel.org/amd-gfx/20261014080523.186533-1-rezanikzadch@gmail.com/
-> Fixes: 11c141672045f ("drm/amdgpu: Fix VFCT bus number matching with soft filter")
-> Signed-off-by: Mario Limonciello <mario.limonciello@amd.com>
-> ---
->  drivers/gpu/drm/amd/amdgpu/amdgpu_bios.c | 23 ++++++++++-------------
->  1 file changed, 10 insertions(+), 13 deletions(-)
-> 
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_bios.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_bios.c
-> index 08ed1eb695586..0ee4c6462c4d0 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_bios.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_bios.c
-> @@ -386,16 +386,17 @@ static bool amdgpu_read_disabled_bios(struct amdgpu_device *adev)
->   * VFCT entries contain the PCI bus number as recorded during BIOS POST.
->   * On systems where the kernel renumbers PCI buses (e.g. pci=realloc or
->   * resource conflicts), the runtime bus number may differ from the POST
-> - * value.  Match by device identity (vendor + device + function) and use
-> - * the bus number as a preference: exact bus match is preferred, but when
-> - * the bus numbers disagree we accept the entry if the device identity
-> - * matches.
-> + * value.  Match using the bus number captured when the device was
-> + * discovered, before any bus renumbering.
->   *
->   * Returns: 0 on match, -ENODEV on no match
->   */
->  static int amdgpu_acpi_vfct_match(struct amdgpu_device *adev,
->  				  VFCT_IMAGE_HEADER *vhdr)
->  {
-> +	struct pci_dev *bridge = adev->pdev->bus->self;
+Hardware features supported in this stage:
+- Base board devicetree (sm8250-lg-timelm.dts)
+- PM8150, PM8150B, PM8150L, and PM8009 PMICs and regulators
+- UFS 3.0 storage and MicroSD card slot
+- GPIO keys (Volume Down, Google Assistant) and PON keys (Power, Volume Up)
+- Simple framebuffer (continuous splash handed off from bootloader)
+- Adreno 650 GPU with GMU and zap shader
+- LG SW43103 1080x2460 DSI command mode AMOLED panel with DSC
+- Silicon Works SW42902 I2C touchscreen controller
+- PM8150B USB Type-C controller in sink mode with USB-PD and
+  orientation switch
+- QCA6390 Bluetooth HCI controller on UART6
 
-pci_upstream_bridge() does this and handles the case where pdev is an
-SR-IOV VF (that case probably never applies here, but we can still
-avoid that assumption).
+Changes in v3:
+- Base Device Tree (arch/arm64/boot/dts/qcom/sm8250-lg-timelm.dts):
+  - Model PM8150L SMPS6 as top-level fixed regulator smpc6-regulator
+    (0.88V) rather than in regulators-1, because PM8150L SMPS6 is an ARC
+    level resource (ebi.lvl) and querying it via VRM causes
+    rpmh_regulator_probe() to fail with -ENODEV.
+  - Drop conflicting memory-region reference from framebuffer@9c000000 to
+    prevent simple-framebuffer/simpledrm driver warning and mapping size
+    mismatch with reserved memory.
+  - Add board-specific firmware paths for CDSP
+    (qcom/sm8250/LG/timelm/cdsp.mbn) and GPU ZAP shader
+    (qcom/sm8250/LG/timelm/a650_zap.mbn).
+  - Drop duplicate sdc2_sleep_state pin configuration from &tlmm (already
+    defined in sm8250.dtsi) and redundant &pon { status = "okay"; }.
+  - Adjust ramoops pmsg-size to 0x100000 (1MB, power-of-two) to prevent
+    kernel round-down.
+  - Drop unused <dt-bindings/phy/phy.h> header.
+- Touchscreen driver (drivers/input/touchscreen/sw42902.c):
+  - Fix potential unbalanced regulator disable in error and unbind paths
+    by registering devm_add_action_or_reset() after sw42902_power_on()
+    succeeds.
+  - Guard sw42902_power_off() when suspended to avoid calling
+    regulator_bulk_disable() while supplies are already turned off.
 
-> +	unsigned char initial_bus;
-> +
->  	/* Vendor and device IDs must always match */
->  	if (vhdr->VendorID != adev->pdev->vendor ||
->  	    vhdr->DeviceID != adev->pdev->device)
-> @@ -405,16 +406,12 @@ static int amdgpu_acpi_vfct_match(struct amdgpu_device *adev,
->  	    vhdr->PCIFunction != PCI_FUNC(adev->pdev->devfn))
->  		return -ENODEV;
->  
-> -	/* Exact bus number match - preferred */
-> -	if (vhdr->PCIBus == adev->pdev->bus->number)
-> -		return 0;
-> +	if (bridge && bridge->fw_sec_bus_valid)
-> +		initial_bus = bridge->fw_sec_busnr;
-> +	else
-> +		initial_bus = adev->pdev->bus->number;
+Changes in v2:
+- General / DCO & Identity:
+  - Replaced account handle "rofikkerneldev" with real name
+    "Abdur Rofik <rofikcoga@gmail.com>" across all commit authors,
+    Signed-off-by trailers, MAINTAINERS entries, and copyright headers
+    per Documentation/process/submitting-patches.rst.
+  - Replaced un-documented "lge" vendor prefix with documented "lg"
+    prefix across devicetree bindings, compatible strings, and dts files.
+- Devicetree bindings:
+  - Added lg,timelm compatible in arm/qcom.yaml.
+  - Added lg,sw43103 panel binding with enable-gpios and
+    vddi/vpnl supplies.
+  - Added lg,sw42902 touchscreen binding with vcl-supply and
+    vdd-supply.
+- Device Tree (arch/arm64/boot/dts/qcom/sm8250-lg-timelm.dts):
+  - Renamed file to sm8250-lg-timelm.dts matching vendor prefix.
+  - Reserved memory: folded cont_splash_mem and log regions into base dts;
+    sorted all nodes by ascending unit-address.
+  - Ramoops: adjusted size allocations ensuring panic dump space is kept.
+  - Regulators: dropped unused LDO4 from PM8009 regulators-2 node,
+    resolving the invalid 1.05V constraint failure.
+  - USB QMP PHY: corrected swapped supplies (vdda-phy to 0.9V l18a_0p9,
+    vdda-pll to 1.2V l9a_1p2).
+  - GPU: enabled &gmu alongside &gpu to ensure MSM DRM component
+    binding succeeds without -ENODEV in a6xx_gmu_init().
+  - SDHC: added complete pinctrl states (sdc2_default_state,
+    sdc2_sleep_state, sdc2_card_det_n) to &sdhc_2.
+  - UFS: added regulator-allow-set-load and regulator-allowed-modes for
+    dynamic load scaling.
+  - Panel: added enable-gpios to panel@0 node; sorted display nodes
+    alphabetically.
+  - Touchscreen: used fixed regulators reg_ts_vcl and reg_ts_vdd for
+    power supplies instead of raw GPIO toggles.
+  - USB Type-C: replaced PDO_BATT with PDO_VAR(5000, 9000, 3000) to
+    ensure valid 9V/3A PD sink requests without clamping to 600mA;
+    added OF graph ports connecting DWC3 HS and SuperSpeed QMP PHY
+    orientation switch.
+  - Bluetooth: corrected QCA6390 PMU voltages by setting smps6 (0.95V)
+    and smps8 (1.35V) constraints.
+  - Cleaned up unused dt-bindings headers and enforced strict alphabetical
+    ordering of all referenced label nodes.
+- Panel driver (drivers/gpu/drm/panel/panel-lg-sw43103.c):
+  - Removed redundant manual unprepare call in sw43103_remove().
+  - Guarded sw43103_backlight_update_status() against execution when
+    unprepared, avoiding unsynchronized DSI DCS writes.
+  - Removed hardcoded full brightness writes in sw43103_enable().
+  - Expanded Kconfig help paragraph to 4 lines.
+- Touchscreen driver (drivers/input/touchscreen/sw42902.c):
+  - Converted GPIO power controls to standard regulator bulk supplies
+    (vcl and vdd).
+  - Pre-scanned for palm touch reports before queueing MT slots.
+  - Used named initializer in struct i2c_device_id table.
+  - Followed input subsystem error naming conventions.
+- MAINTAINERS:
+  - Added entries for LG V60 ThinQ 5G, LG SW43103 panel driver, and
+    Silicon Works SW42902 touchscreen driver in strict alphabetical
+    order.
 
-Why can't we use bridge->fw_sec_busnr unconditionally?  The bus number
-at FW/OS handoff is the only bus number firmware could possibly know
-about.
+---
 
-It seems like this should just be:
+Abdur Rofik (10):
+  dt-bindings: arm: qcom: add LG V60 ThinQ 5G (timelm)
+  arm64: dts: qcom: add LG V60 ThinQ 5G (timelm) support
+  dt-bindings: display: panel: add LG SW43103
+  drm/panel: add LG SW43103 panel driver
+  dt-bindings: input: touchscreen: add Silicon Works SW42902
+  Input: touchscreen: add Silicon Works SW42902 support
+  arm64: dts: qcom: sm8250-lg-timelm: enable SW43103 panel
+  arm64: dts: qcom: sm8250-lg-timelm: add SW42902 touchscreen
+  arm64: dts: qcom: sm8250-lg-timelm: enable USB Type-C
+  arm64: dts: qcom: sm8250-lg-timelm: add QCA6390 Bluetooth
 
-  if (vhdr->PCIBus == bridge->fw_sec_busnr &&
-      vhdr->PCIDevice == PCI_SLOT(adev->pdev->devfn) &&
-      vhdr->PCIFunction == PCI_FUNC(adev->pdev->devfn))
-          return 0;        /* match */
+ .../devicetree/bindings/arm/qcom.yaml         |   1 +
+ .../bindings/display/panel/lg,sw43103.yaml    |  69 ++
+ .../input/touchscreen/lg,sw42902.yaml         |  73 ++
+ MAINTAINERS                                   |  19 +
+ arch/arm64/boot/dts/qcom/Makefile             |   1 +
+ arch/arm64/boot/dts/qcom/sm8250-lg-timelm.dts | 815 ++++++++++++++++++
+ drivers/gpu/drm/panel/Kconfig                 |  13 +
+ drivers/gpu/drm/panel/Makefile                |   1 +
+ drivers/gpu/drm/panel/panel-lg-sw43103.c      | 587 +++++++++++++
+ drivers/input/touchscreen/Kconfig             |  13 +
+ drivers/input/touchscreen/Makefile            |   1 +
+ drivers/input/touchscreen/sw42902.c           | 360 ++++++++
+ 12 files changed, 1953 insertions(+)
+ create mode 100644 Documentation/devicetree/bindings/display/panel/lg,sw43103.yaml
+ create mode 100644 Documentation/devicetree/bindings/input/touchscreen/lg,sw42902.yaml
+ create mode 100644 arch/arm64/boot/dts/qcom/sm8250-lg-timelm.dts
+ create mode 100644 drivers/gpu/drm/panel/panel-lg-sw43103.c
+ create mode 100644 drivers/input/touchscreen/sw42902.c
 
-  return -ENODEV;  /* no match */
-
-It seems like the bus/device/function match should be solid by itself,
-so I don't know why you need to check Vendor/Device IDs (but I don't
-object if you do).
-
-Maybe this boolean style is typical in DRM, and it does match the
-strcmp() style, but it seems weird to me to write
-
-  if (!amdgpu_acpi_vfct_match(...))
-    /* do the matching case */
-
-> -	/* Bus mismatch but device identity matches (PCI renumbering case) */
-> -	dev_notice(adev->dev,
-> -		   "VFCT bus number mismatch: table %u != runtime %u, matching by device identity (vendor 0x%04x device 0x%04x)\n",
-> -		   vhdr->PCIBus, adev->pdev->bus->number,
-> -		   adev->pdev->vendor, adev->pdev->device);
-> -	return 0;
-> +	return vhdr->PCIBus == initial_bus ? 0 : -ENODEV;
->  }
->  
->  static bool amdgpu_acpi_vfct_bios(struct amdgpu_device *adev)
-> 
-> -- 
-> 2.43.0
-> 
+-- 
+2.39.5
