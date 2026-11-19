@@ -2,72 +2,84 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6807D606A320
-	for <dri-devel@archiver.kernel.org>; Thu, 19 Nov 2026 14:56:02 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 042E0606A320
+	for <dri-devel@archiver.kernel.org>; Thu, 19 Nov 2026 15:01:24 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=mailbox.org header.i=@mailbox.org header.a=rsa-sha256 header.s=mail20150812 header.b=DBlKI+Fz
+	dkim=pass (2048-bit key) header.d=icloud.com header.i=@icloud.com header.a=rsa-sha256 header.s=1a1hai header.b=P8OmoFWV
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 0A9F81124F2;
-	Thu, 19 Nov 2026 14:55:56 +0000 (UTC)
-Received: from mout-p-202.mailbox.org (mout-p-202.mailbox.org [80.241.56.172])
- by gabe.freedesktop.org (Postfix) with ESMTPS id CD4F01124F8
- for <dri-devel@lists.freedesktop.org>; Thu, 19 Nov 2026 14:55:48 +0000 (UTC)
-Received: from smtp1.mailbox.org (smtp1.mailbox.org
- [IPv6:2001:67c:2050:b231:465::1])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519MLKEM768 server-signature RSA-PSS (4096 bits) server-digest
- SHA256) (No client certificate requested)
- by mout-p-202.mailbox.org (Postfix) with ESMTPS id 4jVhNd2THPzMlyX;
- Thu, 19 Nov 2026 15:55:45 +0100 (CET)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=mailbox.org;
- s=mail20150812; 
- t=1795100145; h=from:from:reply-to:reply-to:subject:subject:date:date:
- message-id:message-id:to:to:cc:cc:mime-version:mime-version:
- content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references;
- bh=ikfEBgKAQ/w72CS+c61ChZxhzTrU5wLEwfcM5Che0D8=;
- b=DBlKI+Fz+EjeHwYBG7o/+qlCzGZ9/6qJhHumvHeEfu/wpegFlr96QVPRCQoUbzbO9OCZ72
- 1gkyl9pKkyIXvIr8wcTI7GNEzOKZCIQ6nP8e2aZqqReWcu44RikCS344e25+UJ4ts+H1mx
- 9hJrqIwPTj2Lqnw+jGDKB2xpv5NiMrKFQLjghJUVAp1N7fRMUGl00Ww3ffAsJGe251fRTd
- jVXEA7nXlQHwigzaCAiOCvwk1Ln4hkopjgHrPwL51It3TK8iGQKjOv4bi7KfcaM40pxWcg
- anCjgSENQ5CGw+VMyfJkx47TM0pErQzTyWDVa7zl9Rhfx72VpOi4ar2NNqcbbQ==
-Message-ID: <972ba9ddea36c9dc84ce649e2edcf6bde71420d1.camel@mailbox.org>
-Subject: Re: [PATCH] rust: DamFence: Remove warning about unsignaled drop
-From: Philipp Stanner <phasta@mailbox.org>
-To: Christian =?ISO-8859-1?Q?K=F6nig?= <christian.koenig@amd.com>, 
- phasta@kernel.org, Danilo Krummrich <dakr@kernel.org>
-Cc: Sumit Semwal <sumit.semwal@linaro.org>, Alice Ryhl
- <aliceryhl@google.com>,  Miguel Ojeda <ojeda@kernel.org>, Boqun Feng
- <boqun@kernel.org>, Gary Guo <gary@garyguo.net>,  =?ISO-8859-1?Q?Bj=F6rn?=
- Roy Baron	 <bjorn3_gh@protonmail.com>, Benno Lossin <lossin@kernel.org>,
- Andreas Hindborg	 <a.hindborg@kernel.org>, Trevor Gross
- <tmgross@umich.edu>, Daniel Almeida	 <daniel.almeida@collabora.com>, Tamir
- Duberstein <tamird@kernel.org>,  Alexandre Courbot <acourbot@nvidia.com>,
- Onur =?ISO-8859-1?Q?=D6zkan?= <work@onurozkan.dev>, 
- linux-media@vger.kernel.org, dri-devel@lists.freedesktop.org, 
- rust-for-linux@vger.kernel.org, linux-kernel@vger.kernel.org
-Date: Thu, 19 Nov 2026 15:55:42 +0100
-In-Reply-To: <141892f8-180c-4157-8c59-6e69057334f2@amd.com>
-References: <20261112101015.528127-2-phasta@kernel.org>
- <5d466f7c-2e70-4011-be04-9ffdf877b915@amd.com>
- <49298d3a328c1695ea27993f714c20b8a1c05f32.camel@mailbox.org>
- <e2ec8a39-56c3-4274-91ce-60c273904877@amd.com>
- <ab99758408df682c68a3792cc3014b77d6e1c8ab.camel@mailbox.org>
- <c2dd46ea-94d8-4720-af37-897c91809338@amd.com>
- <DMXJ8TBSZJJ4.3HG0OJDI9URTT@kernel.org>
- <8da4a8c0-1740-450c-9cf1-1a7b21d12997@amd.com>
- <DMXMSIQONGUW.1RRNS7I6LACD6@kernel.org>
- <a7f9e0f3-b299-4d40-9230-106003725dc2@amd.com>
- <202dd0c3d515ddfa77a8ec8751badadd31b8a7b0.camel@mailbox.org>
- <141892f8-180c-4157-8c59-6e69057334f2@amd.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-User-Agent: Evolution 3.60.2 (3.60.2-3.fc44) 
+	by gabe.freedesktop.org (Postfix) with ESMTP id BDE1D10ECA8;
+	Thu, 19 Nov 2026 15:01:17 +0000 (UTC)
+X-Greylist: delayed 599 seconds by postgrey-1.36 at gabe;
+ Thu, 19 Nov 2026 15:01:11 UTC
+Received: from outbound.st.icloud.com (st-2002e-snip4-3.eps.apple.com
+ [57.103.78.26])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id C51A610ECA8
+ for <dri-devel@lists.freedesktop.org>; Thu, 19 Nov 2026 15:01:11 +0000 (UTC)
+Received: from outbound.st.icloud.com (unknown [127.0.0.2])
+ by p00-icloudmta-asmtp-us-east-1a-10-percent-1 (Postfix) with ESMTPS id
+ D812D18001F9; Thu, 19 Nov 2026 14:45:11 +0000 (UTC)
+X-ICL-RepId: 01a1f444-cc2c-74b9-92f0-ae69aa4ffd18
+Dkim-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=icloud.com; s=1a1hai;
+ t=1795099512; x=1826635512; bh=yWpn6wUZyW7eL1ZazwGxkqW9lqhzJ/qHY9x9pIW3Z/I=;
+ h=From:To:Subject:Date:Message-ID:MIME-Version:Content-Type:x-icloud-hme;
+ b=P8OmoFWVffAnoYeLG3U+t62HR8+8KcQHTDnLTawn+6NVueiPfAik9we/Jm8fqOV6piy8UHV6SO+KkTWnHss/hw/jSjnXyB9S5AsXLl1YVYAeqedwyTtsO7gxtnBB2vhJkXFtaPzF1xndrSAO/SJ2dEM/iAjkFd/9rMBO7U2PzuCRAHpvK0hm2w7zW2Th21ofbMIjpu0xp+GcJATQFB85JRTDZUgCndXiuVfYwqv6Ib+3tKWhfRPRvHCM924sapk0FMD2WPPctU7a+GAqaQjPptz0rMNnjai4Dokop8Nl/5Wi+DBfIOw4f+kEPK2TXco4sdK7XDWLqMa3JX+3fSYryg==
+mail-alias-created-date: 1440949576000
+Received: from localhost.localdomain (unknown [17.156.216.30])
+ by p00-icloudmta-asmtp-us-east-1a-10-percent-1 (Postfix) with ESMTPSA id
+ 14F341800320; Thu, 19 Nov 2026 14:45:09 +0000 (UTC)
+From: Aleksei Riapolov <tsbol@icloud.com>
+To: mcanal@igalia.com,
+	mwen@igalia.com
+Cc: dri-devel@lists.freedesktop.org,
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH] drm/v3d: Fix double free of the sg_table when a PRIME
+ import fails
+Date: Thu, 19 Nov 2026 18:45:06 +0400
+Message-ID: <20261119144506.44824-1-tsbol@icloud.com>
+X-Mailer: git-send-email 2.54.0
+In-Reply-To: <99676bca-eba1-46e8-a23a-923bffdc574e@igalia.com>
+References: <20261114164451.9222-1-tsbol@icloud.com>
+ <99676bca-eba1-46e8-a23a-923bffdc574e@igalia.com>
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
-X-MBO-RS-META: 1az8ce8au3wj3syybakktcd5manwyxhs
-X-MBO-RS-ID: 7de1ef4fecc2618c8c8
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMTE5MDA1OCBTYWx0ZWRfXwoM+A93uzlif
+ +F9+/0DUBSTk11Qsv+Ek2qAqj8l0dhIkD1K4KIDyfvmnEsWBtEpYJ/Z/ojbkMY0bszCersfH+kB
+ d4I55rFoL08RlPC1n58hIH6hX8EO3VEgZKeKRQ5AtruE/KnLbi0bU5t2mGQsoBQ5/7e2Ps0m46u
+ lutyM3+5qUq6tQpxZa4pUM7LFw9DDBmTsokgPRaWw2WN0M8a4KLQW/RhTM55bU2NBKNUfzgiTuS
+ 1VoWHTA6E9lz2snRG2MILhngJe2wguOhWVClmylYIKJ/++Y0wNcfEn5HscsG9Kum0ZY450FoXIU
+ 7p+ph0wEAeB1G5iwRj3ZDzZQJCv/S8kXsuEs6cEDHZ4pTU9fA/zx14whZZ5zVM=
+X-Proofpoint-ORIG-GUID: 9c9njj2Cs0jDUa8Y_68rF8rbGjBVU_yi
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMTE5MDA1OCBTYWx0ZWRfX2RuqQ02g+Whl
+ GDgsthDIeIRL+opQp58KJi+W8UuakunCRNfer+M++QeJliaZmUfgTSe6BOBrP1JZJ0nUebhVE16
+ tJcgaXDpa4u5OgJrVwl6VEhBuUEf9c0=
+X-Proofpoint-GUID: 9c9njj2Cs0jDUa8Y_68rF8rbGjBVU_yi
+X-Authority-Info-Out: v=2.4 cv=UYPE26SN c=1 sm=1 tr=0 ts=6aff0b78
+ cx=c_apl:c_pps:t_out a=oyWFxbOnq+dmhQrAPgaJYA==:117
+ a=oyWFxbOnq+dmhQrAPgaJYA==:17 a=IkcTkHD0fZMA:10 a=zJRp6_cAMcgA:10
+ a=x7bEGLp0ZPQA:10 a=RjkQatE54OUA:10 a=VkNPw1HP01LnGYTKEx00:22
+ a=c8vfPlyRl1mTKFn8zNL0:22 a=1eZBntpQQtp-Twv6SD3W:22 a=VwQbUJbxAAAA:8
+ a=v3ZZPjhaAAAA:8 a=PV70Iax4a8Ibjzu37M8A:9 a=3ZKOabzyN94A:10 a=QEXdDO2ut3YA:10
+X-JNJ: AAAAAAAB3XJj+RJgUnNZ4zdE3znH65ECpB9r2fIK6v3FH59//VZqS0G0pV8BPdilC1vR6E
+ iciV/VO5maEF6LbAIjhjAKdsbgAlaW+nIu3/CM09+644pwFm6JDMtp8mrDIFNY25MW1aNO
+ fyL4yzRguOzgiOVrggmfMmEySc6hpfBIdayU8ssWhmrjGbLtUjSoGf8RWafATEO0VhLfsF
+ BWiZ0Zvx4N8YFpwjbhcF3ygmfGzH4LTGXbj4J7PdNcmF2ORkIR5Koq2AXssEokWzwJLD1Q
+ ROl9QXs6PNiYhihqpfTrMjALz2essAsD9R9HHDKG3TuF8bwjgzIouvqTK9c7Fgn75/s1PQ
+ BiV34SW3JmTOFcEhoLlG3HHAhLi3XkXJ/R0eYPRbAqVzxTaXNqBF9jmYoGZWKa5rtdOxJh
+ RCJfJpTdnzCH4tjtGW6UV6tQ01rXkGGJ2jSJ/G0qQkcDakKOeEdCqFixO9K0jRgIHEDu7k
+ uaey9Hnl4Epi6W/lsZzCbMDaV9DFFMrPnrIFPlqDemp7rQAij+bwXmCaVjdzXTNAvr9Gs2
+ 7eyFO/yReiHMkeEOVn6rofQj0vyd6NVjTRju/gqe070OwSWqJ8T+z4ovtyRhpPLnutHRL6
+ Vg2+Ful4fdMR+hrDI70RaRXTMAcBLUGTXJ2vfmCLHaq7TmAVBfcpD1Ne10BbkNFxaKh4qh
+ CLM4s62YIaQBK6rpEPjmX1dQdZgoLjjlviDoSoAyGpNnUNdik0yJNyk3WS/W4Zyb31vCBW
+ lm6zWyTbt6ek7F0v9sSwoZQdJ6yr2yLVzaXJzm6IdDuKy7SzEBmCJ8y6hiq3dDi+1mAPlr
+ RiPdcrfRkJqSxJOC6nMXkYr+N9FbIVpR3uL+bgkCFZdb/B4HTkNVPbHwS86y+pm9a2vOqY
+ Gq+RMFKQhCkk1y5JOy4LXjSA/SWJKCDfZj8g/vL4+VeKc1X8BIyz6X8M49hm2sFaUf0F4p
+ RFOZEHjbpSCO6yu25wlr7/Jq0kxS579XwvLyGjnTCF7em8mTufaMJG7EjCRtgEybDctoUO
+ J0Iv7bV3vtolP36G9JrNyXGBEm3wclWeoK1B2muHE7rodh0nypdA8mZ8cAlt08DhxEq+nX
+ yagART/97mOosFMNyvDuxW2IEEE3DqMDlC1/y55r9N7eYRN8u5oN1KfC279zIqhnsSF+H4
+ oOqTvqCygXSPSwHB0Yi79pU1KlTdLhNHLWHT1ThuwgxudcC0NvTI9Ijx+jfCefCB8Ft0iI
+ XDVlkv9Hng==
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -78,103 +90,105 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
-Reply-To: phasta@kernel.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 X-Spam-Status: No, score=-5.8 required=3.0 tests=BAYES_00,DKIM_SIGNED,
-	DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
-	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS autolearn=no
-	autolearn_force=no version=4.0.1
+	DKIM_VALID,DKIM_VALID_AU,FREEMAIL_FORGED_FROMDOMAIN,FREEMAIL_FROM,
+	HEADER_FROM_DIFFERENT_DOMAINS,MAILING_LIST_MULTI,SPF_HELO_NONE,
+	SPF_PASS,USER_AGENT_GIT autolearn=no autolearn_force=no version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-On Thu, 2026-11-19 at 11:47 +0100, Christian K=C3=B6nig wrote:
-> On 11/19/26 10:58, Philipp Stanner wrote:
+Hi Maíra,
 
-> BTW that is the reason why dma_fences are RCU protected as well. That
-> is not because of performance but rather to be able to do a try get
-> on a reference to solve reference direction problems.
+On 18/11/26 09:54, Maíra Canal wrote:
+> The issue you reported is real and makes sense, but your fix only treats
+> the symptom, not the problem.
+>
+> V3D allocates the GPU address inside the gem_prime_import_sg_table()
+> callback, before the core marks the object as imported. No teardown
+> would be correct at that point.
 
-You mean dma_fence_get_rcu()?
+Thanks for the review. v2 moves the allocation out of the callback:
 
-That's simply a workaround for broken refcounting. Either you have a
-reference, then you can increment it. Or you don't, because you stole
-someone else's reference, and now you need a magic RCU delay so that
-the rightful owner of the reference cannot free the memory that you
-illegally occupy.
+  https://lore.kernel.org/all/20261119144339.43896-1-tsbol@icloud.com/
 
+> I'd rather move the allocation after the import completes. Implement
+> .gem_prime_import as a wrapper around drm_gem_prime_import() and call
+> v3d_bo_create_finish() once it returns. At that point import_attach is
+> set, so drm_gem_object_put() takes the regular import teardown path,
+> which unmaps the sg_table once and detaches.
 
-> No it doesn't.
->=20
-> What I want to ensure is that drivers don't come up with funky methods to=
- signal fences.
+v2 follows this and differs from it in two places.
 
-They won't because the only signal mechanisms is our API.
+1. Same-device imports
 
-All the driver needs to do right is to associate the fence container
-with the object associated with the hardware.
+For a dma-buf that this device exported, drm_gem_prime_import() returns
+the BO it was exported from, with one more reference. That BO already
+has its node in v3d->mm, so the wrapper returns it without calling
+v3d_bo_create_finish() again. A compositor importing its clients'
+buffers takes this path: in a glmark2-es2-wayland run under labwc all
+5 calls of the wrapper were same-device imports.
 
->=20
-> The cleanup part you want to have here is clearly good to get that
-> defined as well, but to be honest that is peanuts compared to what
-> you get when you have the dma_fence signaling wrong.
->=20
-> >=20
-> > That's how teardown is done in Rust. You drop the lock, it unlocks
-> > itself. You drop the memory, it frees itself. You drop the fence, it
-> > signals itself.
-> >=20
-> > That's by design because the object lifetime model falls naturally into
-> > place.
-> >=20
-> > > I think the most defensive way would be as last resort scream loud in
-> > > the logs that the driver is somehow buggy and hasn't signaled it's
-> > > fence, wait for a certain amount of time (100ms?) as safeguard and
-> > > then signal the fence with an error.
-> >=20
-> > Now that doesn't make any sense at all, either the hardware is stopped
-> > or it isn't.
->=20
-> There is a huge window of state in between.
->=20
-> > Having some random delay is probably even worse because
-> > the problem is then more difficult to even encounter and thus fix.
->=20
-> Well the whole point of the delay is to at least have some kind of
-> save guard that makes follow up problems less likely to encounter in
-> production.
->=20
-> That the underlying problem is fixed should be triggered by the big
-> warning in the system log and not because I notice that my valuable
-> data is corrupted because a DMA fence signaled to early and caused
-> random corruption.
+2. drm_gem_shmem_free() on failure, not drm_gem_object_put()
 
-Again, if the driver, the only one who understands the hardware, really
-wants to screw up then your system is done anyway.
+drm_gem_object_put() ends in v3d_free_object(), which expects a BO that
+v3d_bo_create_finish() completed. When the node was never inserted,
+node.start is 0, so v3d_mmu_remove_ptes() would clear the page table
+entries from page 0 up to the size of the BO, and those can belong to
+other BOs. bo_stats would be decremented without having been
+incremented, and drm_mm_remove_node() would run on a node that is not
+allocated. With drm_gem_object_put() in the wrapper, the failing import
+oopses on the same board:
 
-Remember my previous example:
+  Unable to handle kernel NULL pointer dereference at virtual address 00000000000000c8
+  pc : drm_mm_remove_node+0x34/0x388
+  lr : v3d_free_object+0x88/0xc0 [v3d]
+  Call trace:
+   drm_mm_remove_node+0x34/0x388 (P)
+   v3d_free_object+0x88/0xc0 [v3d]
+   drm_gem_object_free+0x24/0x40
+   v3d_prime_import+0xc8/0xe0 [v3d]
+   drm_gem_prime_fd_to_handle+0xd4/0x280
 
-// forgets to stop hardware
-dma_fence_signal(f);
-// still forgets to stop hardware
+and bo_stats then counts 14 BOs while 15 are alive. The cleared page
+table entries I did not observe: no other BO was alive in that test.
 
-Your WARN_ON will not trigger. Your sleep/delay would not trigger.
+So the wrapper frees the object the way v3d_bo_create() does when
+v3d_bo_create_finish() fails. With import_attach set,
+drm_gem_shmem_free() goes through drm_prime_gem_destroy(): the sg_table
+is unmapped once, the attachment is detached and the reference on the
+dma-buf is dropped.
 
-> > > Exactly that is what I disagree on.
-> > >=20
-> > > Stopping the HW is what makes fences signal and that is what this
-> > > tear down process should block for.
-> >=20
-> > Our point is that dropping stuff stops the hardware, and *then* signals
-> > the fences. Exactly what you want! :)
->=20
-> No, that is completely backwards.
->=20
-> A dma_fence should *NEVER* signal because you waited for something. Inste=
-ad the dma_fence is what is waited on.
+Would you rather have drm_gem_object_put() there, with v3d_free_object()
+checking drm_mm_node_allocated()?
 
-By whom? And who signals it? It's the party stopping the hardware, no?
-So just like with our design.
+One side effect of moving the allocation: v3d_bo_create_finish() now
+runs after obj->resv has been pointed at the reservation object of the
+dma-buf, so drm_gem_shmem_get_pages_sgt() takes that lock instead of
+the private lock of a new object. It is taken interruptibly, so an
+import can return -EINTR if a signal arrives while it waits. libdrm's
+drmPrimeFDToHandle() retries on EINTR.
 
+Tested on a Raspberry Pi 5, v7.4-rc2 with slub_debug=FZPU:
 
+- the import that exhausts the V3D address space returns -ENOSPC in
+  three consecutive fills, on two boots;
+- after 50 such failures /sys/kernel/debug/dma_buf/bufinfo lists no
+  dma-buf (15 udmabufs attached to v3d while the test holds them);
+- a v3d BO re-imported through a second file is the same BO at the same
+  offset over 1000 iterations, and bo_stats returns to its starting
+  value;
+- a vc4 dumb buffer imported into v3d can be mapped, written, read back
+  and closed;
+- under labwc, glmark2-es2-wayland runs, and mpv playing 4K HEVC from
+  the hardware decoder (--vo=gpu and --vo=dmabuf-wayland, --hwdec=drm)
+  imports the decoder's dma-heap buffers into v3d about 2500 times;
+  none of them is left attached afterwards. The median time of an
+  import and the number of dropped frames are the same as with the
+  unpatched module, with and without slub_debug.
 
-P.
+The kernel log stays clean in all of them. Not tested on other V3D
+generations.
+
+Best regards,
+Aleksei
