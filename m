@@ -2,61 +2,43 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 02CF6606A332
-	for <dri-devel@archiver.kernel.org>; Thu, 19 Nov 2026 23:48:41 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 520F4606A325
+	for <dri-devel@archiver.kernel.org>; Thu, 19 Nov 2026 23:53:11 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=fail reason="signature verification failed" (1024-bit key, unprotected) header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=BoTWH5Fi
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=HY3RwoEk
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 6B5A31127C1;
-	Thu, 19 Nov 2026 23:48:35 +0000 (UTC)
-Received: from mta0.migadu.com (out-174.mta0.migadu.com [91.218.175.174])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 67EBD1127C1
- for <dri-devel@lists.freedesktop.org>; Thu, 19 Nov 2026 23:48:29 +0000 (UTC)
-X-Envelope-To: dri-devel@lists.freedesktop.org
-DKIM-Signature: a=rsa-sha256; bh=6LWaP9a799dRmXjPzl0gkWLih06hsrqQYvPtGBFxEsY=; 
- c=simple/simple; d=linux.dev;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1795132107; v=1; x=1795736907;
- b=BoTWH5Fi1IZExkaX1UVG0UE/sKHeD7yr0JBoEA7pSxpIS9I/AG/d2puwMNbDLQzs2vT11U1s
- vASgSWckzezIb9s1Sd0vB6uxw4uXPLLwr5GKRk1rBj9hLubjulj4/oLYePkSmiMd7yc+crCqZM/
- 4ZhHgjLXJXGKVDcDNMWg5GdI=
-X-Envelope-To: dri-devel@lists.freedesktop.org
-Received: by smtp.migadu.com with ESMTPS id a9882a66356e0e59;
- Thu, 19 Nov 2026 23:48:27 +0000
-X-Mizu-Trace-ID: a9882a66356e0e59
-X-Migadu-Flow: FLOW_OUT
-Message-ID: <583bde38-c84d-41a3-a65c-d1365ea04f07@linux.dev>
-Date: Fri, 20 Nov 2026 07:47:56 +0800
-X-Archived-By: <archiver.kernel.org>
-MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Cc: cui.tao@linux.dev, akpm@linux-foundation.org, dgilbert@interlog.com,
- mkp@kernel.org, loberman@redhat.com, jmeneghi@redhat.com, kraxel@redhat.com,
- vivek.kasireddy@intel.com, mst@redhat.com, jasowangio@gmail.com,
- eperezma@redhat.com, stefanha@redhat.com, sgarzare@redhat.com,
- mhiramat@kernel.org, jgg@ziepe.ca, kevin.tian@intel.com, axboe@kernel.dk,
- linux-mm@kvack.org, James.Bottomley@hansenpartnership.com,
- sumit.semwal@linaro.org, christian.koenig@amd.com, phasta@kernel.org,
- joro@8bytes.org, will@kernel.org, linux-scsi@vger.kernel.org,
- dri-devel@lists.freedesktop.org, linux-media@vger.kernel.org,
- linaro-mm-sig@lists.linaro.org, kvm@vger.kernel.org,
- virtualization@lists.linux.dev, linux-trace-kernel@vger.kernel.org,
- iommu@lists.linux.dev, io-uring@vger.kernel.org,
- linux-kernel@vger.kernel.org, bobbyeshleman@meta.com,
- mathieu.desnoyers@efficios.com, robin.murphy@arm.com, mason@kernel.org,
- aesteve@redhat.com, tjmercier@google.com, harry@kernel.org, vbabka@suse.cz,
- cuitao@kylinos.cn
-Subject: Re: [PATCH 4/7] tracing: account ring buffer pages and trace_array
- metadata to memcg
-To: Steven Rostedt <rostedt@goodmis.org>,
- Vincent Donnefort <vdonnefort@google.com>
-References: <20261106131829.3228926-1-cui.tao@linux.dev>
- <20261106131829.3228926-5-cui.tao@linux.dev> <avScKhR22kFOQ1z4@google.com>
- <20261111181447.3c483a50@fedora>
-From: Tao Cui <cui.tao@linux.dev>
-In-Reply-To: <20261111181447.3c483a50@fedora>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+	by gabe.freedesktop.org (Postfix) with ESMTP id ED8F01127F1;
+	Thu, 19 Nov 2026 23:53:04 +0000 (UTC)
+Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id D58FB10E8C4;
+ Thu, 19 Nov 2026 23:52:58 +0000 (UTC)
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+ by tor.source.kernel.org (Postfix) with ESMTP id D4A1960D15;
+ Thu, 19 Nov 2026 23:52:57 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 470F01F000C6;
+ Thu, 19 Nov 2026 23:52:57 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+ s=k20260515; t=1795132377;
+ bh=yPlEoirQwo+sW4T3/89p+lafxASWsrn1vq6yh2S649E=;
+ h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+ b=HY3RwoEkPqLTILcVt8A1mGwPBfRTuyoqG0gbtDSmQGhXPByfiBbFC87YyMGnQqhup
+ JAEutZ+uuy1k3FFET97vn4gBM/A7/jSwSn7aZoiIeYdwlT43PfQGSVMtAQwpt9gKId
+ WqsSfEZGmZJztnNaIYfOM8M/quCpYP2lJpcVjGuuRVbmWAHLdawyud/nqbAEl2AJv+
+ Bc1YSbNRpufGIMjhzsjhBTiN8Ol/U8jspbot3aaKES+2T0XEw3T/UJxFtV8NeyxQFn
+ ojJoPuHHDxF8e9dsMoFsolpWzapqLwLP0j+EzTkYCRDFSC//Tya+kTQaw5LZ74gZ3D
+ eZRsP49AjdbEw==
+Message-ID: <sashiko-outbox-224220@kernel.org>
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v12 04/12] drm/amd: add luminance property support
+To: "Mario Limonciello" <mario.limonciello@amd.com>
+Cc: dri-devel@lists.freedesktop.org, amd-gfx@lists.freedesktop.org,
+ intel-gfx@lists.freedesktop.org, intel-xe@lists.freedesktop.org
+In-Reply-To: <20261119-superm1-backlight-property-v12-4-89d5217d3618@amd.com>
+References: <20261119-superm1-backlight-property-v12-0-89d5217d3618@amd.com>
+ <20261119-superm1-backlight-property-v12-4-89d5217d3618@amd.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Thu, 19 Nov 2026 23:52:56 +0000
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -67,96 +49,158 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
+Reply-To: sashiko-reviews@lists.linux.dev
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-15.1 required=3.0 tests=BAYES_00,DKIM_INVALID,
-	DKIM_SIGNED,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,
-	INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,
-	USER_AGENT_SANE_1 autolearn=unavailable autolearn_force=no
-	version=4.0.1
+X-Spam-Status: No, score=-10.8 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
+	DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
+	INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS
+	autolearn=unavailable autolearn_force=no version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
+X-Archived-By: <archiver.kernel.org>
 
-Hello, Steven, Vincent,
+Thank you for your contribution! Sashiko AI review found 2 potential
+issues to consider:
+- [Medium] drm/amd/display: brightness race in
+  amdgpu_dm_atomic_commit_tail()
+- [Low] drm/amd/display: duplicate drmm_mode_config_init() in backlight
+  KUnit tests
+--
 
-在 2026/11/12 07:14, Steven Rostedt 写道:
-> On Wed, 11 Nov 2026 16:47:38 +0000
-> Vincent Donnefort <vdonnefort@google.com> wrote:
-> 
->> On Fri, Nov 06, 2026 at 09:18:26PM +0800, Tao Cui wrote:
->>> From: Tao Cui <cuitao@kylinos.cn>
->>>
->>> Creating an instance immediately allocates two full sets of per-cpu
->>> ring buffers, array buffer plus snapshot, about 1.375MB per cpu per set
->>> on the default config, plus the trace_array and its name.  None of it
->>> is charged: neither trace.c nor ring_buffer.c passes __GFP_ACCOUNT,
->>> while user_events in the same directory accounts everything it
->>> allocates.
-> 
-> As the name suggests, "user_events" are for users and are special.
-> 
->>>
->>> Instance creation is currently gated by tracefs file permissions
->>> alone, so a
->>> rootful container with the host tracefs bound in can create instances
->>> until the host runs out of memory.
-> 
-> You mean, "works as expected"?
-> 
->>  Charge the ring buffer pages and
->>> the trace_array metadata to the creating cgroup.
->>>
->>> Signed-off-by: Tao Cui <cuitao@kylinos.cn>
->>> ---
->>>  kernel/trace/ring_buffer.c | 8 +++++++-
->>>  kernel/trace/trace.c       | 6 +++---
->>>  2 files changed, 10 insertions(+), 4 deletions(-)
->>>
->>> diff --git a/kernel/trace/ring_buffer.c b/kernel/trace/ring_buffer.c
->>> index 1fd28a72e6ee..676c059c112c 100644
->>> --- a/kernel/trace/ring_buffer.c
->>> +++ b/kernel/trace/ring_buffer.c
->>> @@ -441,7 +441,13 @@ static struct buffer_data_page *alloc_cpu_data(int cpu, int order)
->>>  	 * gracefully without invoking oom-killer and the system is not
->>>  	 * destabilized.
->>>  	 */
->>> -	mflags = GFP_KERNEL | __GFP_RETRY_MAYFAIL | __GFP_COMP | __GFP_ZERO;
->>> +	/*
->>> +	 * The subbuffers are charged to the memcg of whoever caused the
->>> +	 * allocation: the creator of a trace instance, or root at boot for
->>> +	 * the global trace.
->>> +	 */
->>> +	mflags = GFP_KERNEL | __GFP_RETRY_MAYFAIL | __GFP_COMP | __GFP_ZERO |
->>> +		  __GFP_ACCOUNT;
->>>  
->>>  	page = alloc_pages_node(cpu_to_node(cpu), mflags, order);
->>>  	if (!page)  
->>
->> Hum, by default tracefs is root only. 
->>
->> And even if made accessible to other users: 
->>
->>   1. The life span of a trace instance is not tied to the caller.
->>   2. The ring buffer is shared by multiple users.
-> 
-> Right. Is there a use case out there that allows non-admin to create an
-> instance? Tracing ring buffers can expose a lot and should not be given
-> to unprivileged users.
-> 
-Not that I can point to.  Instances are admin-only by default, and the permission layer is the right place for that.
+commit 846a4ea0302b706193f324593664f491fbb89bfe
+Author: Mario Limonciello <mario.limonciello@amd.com>
 
-> What exactly is this trying to achieve?
->
-The series closes uncharged kernel allocations that scale with user input.  For tracing I misread the tracefs permission check as a gap rather than the intended boundary.  Combined with Vincent's points on lifetime and sharing, I'll drop patch.
- 
-Thanks,
-Tao
-> -- Steve
-> 
-> 
->>
->> Overall I am not convinced charging the creator makes much sense.
->>
->> Eventually a few allocations for iterators could be GFP_ACCOUNT.
->>
-> 
+drm/amd: add luminance property support
 
+This commit exposes the DRM LUMINANCE connector property for internal
+panels when CONFIG_DRM_LUMINANCE is enabled and updates the backlight
+KUnit fixtures.
+
+> diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c b/drivers/=
+gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
+> index 56fca4e22df8d..8b5dde608266a 100644
+> --- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
+> +++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
+[ ... ]
+> @@ -5188,6 +5189,13 @@ static void amdgpu_dm_atomic_commit_tail(struct dr=
+m_atomic_commit *state)
+>  		amdgpu_dm_commit_streams(state, dc_state);
+>  	}
+> =20
+> +	/*
+> +	 * Apply connector luminance now that the streams are committed. Display
+> +	 * Core resets the panel brightness when it enables a stream, and the
+> +	 * helper reprograms LUMINANCE panels after a modeset.
+> +	 */
+> +	drm_atomic_helper_commit_luminance_enables(state);
+> +
+>  	amdgpu_dm_update_hdcp(state);
+> =20
+>  	/* Handle connector state changes */
+> @@ -5415,8 +5423,8 @@ static void amdgpu_dm_atomic_commit_tail(struct drm=
+_atomic_commit *state)
+> =20
+>  	/* restore the backlight level */
+>  	for (i =3D 0; i < dm->num_of_edps; i++) {
+> -		if (dm->backlight_dev[i] &&
+> -		    (dm->actual_brightness[i] !=3D dm->brightness[i]))
+> +		if ((dm->backlight_dev[i] || dm->luminance[i]) &&
+> +		    dm->actual_brightness[i] !=3D dm->brightness[i])
+>  			amdgpu_dm_backlight_set_level(dm, i, dm->brightness[i]);
+>  	}
+> =20
+
+[Severity: Medium]
+Can the unlocked retry loop at the end of amdgpu_dm_atomic_commit_tail()
+race with a concurrent luminance commit and overwrite a newer brightness
+level with a stale one?
+
+Fast atomic updates on disjoint CRTCs run amdgpu_dm_atomic_commit_tail()
+concurrently without taking the global dm.atomic_obj lock.  Inside
+amdgpu_dm_backlight_set_level(), dm->brightness[bl_idx] is updated before
+acquiring dm->dc_lock, while dm->actual_brightness[bl_idx] is updated only
+after releasing dm->dc_lock:
+
+CPU0 (eDP panel commit)           CPU1 (other CRTC commit)
+amdgpu_dm_atomic_commit_tail()
+  ...
+  amdgpu_dm_backlight_set_level(..., B1)
+    dm->brightness[0] =3D B1;
+    mutex_lock(&dm->dc_lock);
+                                  amdgpu_dm_atomic_commit_tail()
+                                    /* actual_brightness[0] !=3D B1 */
+                                    val =3D dm->brightness[0]; /* B1 */
+    ...
+    mutex_unlock(&dm->dc_lock);
+    dm->actual_brightness[0] =3D B1;
+
+/* next luminance commit B2 on CPU0 */
+amdgpu_dm_atomic_commit_tail()
+  ...
+  amdgpu_dm_backlight_set_level(..., B2)
+    dm->brightness[0] =3D B2;
+    ...
+    dm->actual_brightness[0] =3D B2;
+                                    amdgpu_dm_backlight_set_level(..., B1)
+                                      dm->brightness[0] =3D B1;
+                                        <-- overwrites B2 with stale B1
+
+This leaves the panel hardware brightness and dm->brightness[0] out of
+sync with connector->state->luminance.  In addition, when CPU1 runs
+amdgpu_dm_backlight_set_level() after CPU0 has already finished
+amdgpu_dm_commit_planes(), it re-asserts psr_event_hw_programming and
+replay_event_hw_programming with no subsequent plane flip to clear them,
+keeping PSR and Replay disabled until a later flip.
+
+> diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/tests/amdgpu_dm_backli=
+ght_test.c b/drivers/gpu/drm/amd/display/amdgpu_dm/tests/amdgpu_dm_backligh=
+t_test.c
+> index 8fc1c2f997688..c33c121a19b25 100644
+> --- a/drivers/gpu/drm/amd/display/amdgpu_dm/tests/amdgpu_dm_backlight_tes=
+t.c
+> +++ b/drivers/gpu/drm/amd/display/amdgpu_dm/tests/amdgpu_dm_backlight_tes=
+t.c
+> @@ -37,16 +37,39 @@ static const struct drm_connector_funcs dm_backlight_=
+test_connector_funcs =3D {
+[ ... ]
+>  static void setup_test_connector(struct kunit *test,
+>  				 struct dm_backlight_connector_fixture *fixture,
+>  				 int bl_idx, enum signal_type signal)
+>  {
+> -	fixture->adev =3D kunit_kzalloc(test, sizeof(*fixture->adev), GFP_KERNE=
+L);
+> -	fixture->aconnector =3D kunit_kzalloc(test, sizeof(*fixture->aconnector=
+), GFP_KERNEL);
+> +	int ret;
+> +
+> +	fixture->adev =3D dm_kunit_alloc_adev(test);
+> +	ret =3D drmm_mode_config_init(&fixture->adev->ddev);
+> +	KUNIT_ASSERT_EQ(test, ret, 0);
+[ ... ]
+> @@ -483,12 +506,17 @@ static void dm_test_register_backlight_device_succe=
+ss(struct kunit *test)
+>  	struct dc_link *link =3D dm_kunit_alloc_link(test);
+>  	struct drm_minor *primary;
+>  	unsigned int max;
+> +	int ret;
+> +
+> +	ret =3D drmm_mode_config_init(&adev->ddev);
+> +	KUNIT_ASSERT_EQ(test, ret, 0);
+
+[Severity: Low]
+Does calling drmm_mode_config_init() in setup_test_connector() and
+dm_test_register_backlight_device_success() reinitialize mode_config a
+second time and leak the standard DRM properties?
+
+dm_kunit_alloc_adev() allocates the DRM device through
+__drm_kunit_helper_alloc_drm_device() ->
+__drm_kunit_helper_alloc_drm_device_with_driver(), which already calls
+drmm_mode_config_init() when DRIVER_MODESET is set.  Calling
+drmm_mode_config_init() again overwrites mode_config.property_list and
+mode_config.object_idr in place, leaking the standard properties allocated
+by the first call and registering a second drm_mode_config_init_release
+cleanup action.
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261119-superm1-ba=
+cklight-property-v12-0-89d5217d3618@amd.com?part=3D4
