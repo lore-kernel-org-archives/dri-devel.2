@@ -2,45 +2,46 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1693E60A2634
-	for <dri-devel@archiver.kernel.org>; Thu, 19 Nov 2026 15:06:36 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AAC09606CB1A
+	for <dri-devel@archiver.kernel.org>; Thu, 19 Nov 2026 15:06:48 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.a=rsa-sha256 header.s=dkim header.b=J9ZBkyKg
+	dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.a=rsa-sha256 header.s=dkim header.b=lPn+qSfH
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id CFD151124FC;
-	Thu, 19 Nov 2026 15:06:29 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 034B5112508;
+	Thu, 19 Nov 2026 15:06:42 +0000 (UTC)
 Received: from smtpout-02.galae.net (smtpout-02.galae.net [185.246.84.56])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 529991124FC
- for <dri-devel@lists.freedesktop.org>; Thu, 19 Nov 2026 15:06:23 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 8189C112508
+ for <dri-devel@lists.freedesktop.org>; Thu, 19 Nov 2026 15:06:32 +0000 (UTC)
 Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
- by smtpout-02.galae.net (Postfix) with ESMTPS id 5BD791A1710;
- Thu, 19 Nov 2026 15:06:21 +0000 (UTC)
+ by smtpout-02.galae.net (Postfix) with ESMTPS id 4FAE01A1710;
+ Thu, 19 Nov 2026 15:06:31 +0000 (UTC)
 Received: from mail.galae.net (mail.galae.net [212.83.136.155])
- by smtpout-01.galae.net (Postfix) with ESMTPS id 2F6A060237;
- Thu, 19 Nov 2026 15:06:21 +0000 (UTC)
+ by smtpout-01.galae.net (Postfix) with ESMTPS id 1CAEE60237;
+ Thu, 19 Nov 2026 15:06:31 +0000 (UTC)
 Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon)
- with ESMTPSA id AEE9911BC0B70; Thu, 19 Nov 2026 16:06:13 +0100 (CET)
+ with ESMTPSA id 6AA7F11BC0C8B; Thu, 19 Nov 2026 16:06:24 +0100 (CET)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
- t=1795100776; h=from:subject:date:message-id:to:cc:mime-version:content-type:
+ t=1795100786; h=from:subject:date:message-id:to:cc:mime-version:content-type:
  content-transfer-encoding:in-reply-to:references;
- bh=PYdbLxmdk/8qOjG5FWZLrPvxAWLQknGLIEUkZq+DJkg=;
- b=J9ZBkyKgYsXFwUrJWyzw/XKZYLs9EBM3jI29J7vfGjkYNaTJMWHWLK+C4QO+aFDDAlvi1T
- uzQHUNU3mo6HHBtSVqDU4U0W6b6G9F1oR6FoBQJH6jZq6B59rin+WPAas46Dr+4lp4mdBo
- +L5nL7AwqfL4ddZpkPaJQV9tlW4Jmih4o17VBHOQMdXpOO1BhhjTWwakRnPAZBSno/9rGn
- 2MVNV1ueioUjyLGUNhiLEmXnslKvZDvg3v6Y2gFwA9qySCoCph9QEBEN/ydoW/9VGbLon6
- JjmiR0UM+TAmqUW0b11ZdoY34F3TXVrWfeEPtccMbpSJkQ2yMiKNlYe1AvY5tQ==
+ bh=clVRO4n/YgzV7BQnfL/nP3g53VntNfFFRk6rM9i6WUY=;
+ b=lPn+qSfH9qzPIahNDYLH5YwIouK9yKi/FYCKNasW0yZoz/2zH0OnZAf4pLIKGbV0Ozhj8C
+ 2gBBVeWMR6B31/qov6AlFJCYf9r1QCrjUuL4hivpi6c3VglwS9CMzLWRjD3CRyfmb4yxaY
+ zbOao19oDqmpmETUz362stWWYdh109rsNissDA1iocz5eaDin8DgfpK3DtGBriajFRWUxC
+ RgCAPJmPpkeweeySQpTLjHdsSDA15JdkxMK68jnzTf6/VbC4I1GgmKSdc2aOtC7bjtQI2F
+ ZoLICTS27GofQbTOOs9he5sO0WH399jfHS51LkmJeYlLmFa0qUleYop50nS3xg==
 From: Louis Chauvet <louis.chauvet@bootlin.com>
-To: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
+To: Aryan Sinha <sinha.aryan03@gmail.com>
+Cc: Haneen Mohammed <hamohammed.sa@gmail.com>, 
+ Simona Vetter <simona@ffwll.ch>, Melissa Wen <melissa.srw@gmail.com>, 
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
  Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
- Oarora Etimis <oaroraetimis@gmail.com>
-Cc: Melissa Wen <melissa.srw@gmail.com>, 
- Haneen Mohammed <hamohammed.sa@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
- dri-devel@lists.freedesktop.org
-In-Reply-To: <20261116091020.88281-1-oaroraetimis@gmail.com>
-References: <20261116091020.88281-1-oaroraetimis@gmail.com>
-Subject: Re: [PATCH] MAINTAINERS: Add myself as a VKMS reviewer
-Message-Id: <179510077276.1768931.12196809812489564460.b4-ty@b4>
-Date: Thu, 19 Nov 2026 16:06:12 +0100
+ David Airlie <airlied@gmail.com>, dri-devel@lists.freedesktop.org, 
+ linux-kernel@vger.kernel.org
+In-Reply-To: <20261012154449.42015-1-sinha.aryan03@gmail.com>
+References: <20261012154449.42015-1-sinha.aryan03@gmail.com>
+Subject: Re: [PATCH] drm/vkms: Fix kernel-doc parameter and member names
+Message-Id: <179510078399.1769064.18348312937674902862.b4-ty@b4>
+Date: Thu, 19 Nov 2026 16:06:23 +0100
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
@@ -66,21 +67,20 @@ X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
 
-On Mon, 16 Nov 2026 10:10:20 +0100, Oarora Etimis wrote:
-> VKMS has been kinda quiet lately: the last VKMS-specific change is from
-> 14 August, and the commits after that are tree-wide API conversions.
-> There is little review activity on the VKMS patches too.
-> 
-> I would like to try reviewing VKMS patches and help move things along.
-> 
-> Add myself as a reviewer so I get copied on VKMS submissions.
+On Mon, 12 Oct 2026 21:14:47 +0530, Aryan Sinha wrote:
+> A handful of kernel-doc entries name things that do not exist. struct
+> vkms_output documents encoder and connector and misspells wb_connector,
+> struct vkms_connector calls its base member drm, vkms_crtc_init() lists a
+> crtc argument it does not take, the CRTC plane helpers say crtc_config
+> instead of crtc_cfg, and vkms_config_plane_get_type() is written without
+> the get.
 > 
 > [...]
 
 Applied, thanks!
 
-[1/1] MAINTAINERS: Add myself as a VKMS reviewer
-      commit: 2ec7c9c965afaa07fdd88501e8785d840bc2384a
+[1/1] drm/vkms: Fix kernel-doc parameter and member names
+      commit: 55f54b0dc193f4c9a78ae3390e3b0da6b228b4a4
 
 Best regards,
 -- 
