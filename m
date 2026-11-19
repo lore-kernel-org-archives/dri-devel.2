@@ -2,42 +2,41 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 99577606A320
-	for <dri-devel@archiver.kernel.org>; Thu, 19 Nov 2026 02:48:53 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3FDC9606A320
+	for <dri-devel@archiver.kernel.org>; Thu, 19 Nov 2026 02:51:51 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Aa+58N5w
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=QM1nUJG4
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 054F710E072;
-	Thu, 19 Nov 2026 02:48:48 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 9E91010E178;
+	Thu, 19 Nov 2026 02:51:45 +0000 (UTC)
 Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 8CB7C10E072
- for <dri-devel@lists.freedesktop.org>; Thu, 19 Nov 2026 02:48:42 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 87B0810E178
+ for <dri-devel@lists.freedesktop.org>; Thu, 19 Nov 2026 02:51:39 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by tor.source.kernel.org (Postfix) with ESMTP id 0A8D9647C2;
- Thu, 19 Nov 2026 02:48:41 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8FA021F000C7;
- Thu, 19 Nov 2026 02:48:40 +0000 (UTC)
+ by tor.source.kernel.org (Postfix) with ESMTP id B6E58645E8;
+ Thu, 19 Nov 2026 02:51:38 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 471A41F000C4;
+ Thu, 19 Nov 2026 02:51:38 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1795056520;
- bh=lKMGEsxy0Yqj5gmqYGufSdowtCLZLx/KLE+vZiArdIU=;
+ s=k20260515; t=1795056698;
+ bh=1YoF3W75Wki/EmM8xsZykc16EpdiMnyZwX5aXEK1TBo=;
  h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
- b=Aa+58N5wItSPghD0qm1bUC8dSU0v0K4GI0E5f/UpjO7O1PFtzMHZQeP/C1NxpCpy0
- a1V5ReuPQLXgmYLc3XiNG7Y5ORE20OlPAO+f+M2U16yoq27BQTK2lmU2UIxKM/hGZ6
- klpFS7DEP+vghRLN2gidReDK7seLNo3lK+Iq/DY3dSCb0OS4acDJHgCYkIucE7W+md
- gNLI7gRHED0h+KSLwgXWqQsxFJzVHN+QDMLHFjbhXYfrb81utUQNpZ5wM7bssnSwzp
- VG9JG1Bw7lA4gzcwYbcqY92QaTgfL6ci0k/UlzucexVxmZelRHFX7amtlS1Nb4SjaG
- Aqw5kR5j7FEuw==
-Message-ID: <sashiko-outbox-222346@kernel.org>
+ b=QM1nUJG4Lskbn+EeMrarnjyLawWSUh10oPSw5ZCJBbL3NMtSr4POLiezVaXl304c+
+ FMmbYO1DRvyXFrmxVU9lQCJn7NnPAPQeFm0nnyNAlX5nDONiLG4ap+ABfN+IMnaImr
+ nDA+W/OLHhQuyNEoUJBOb58Wl+ADeJWF77l5w2AYfbJxIMKrbJUFK4sUW024Agnqk+
+ l6vD92S8mlPAObD1fgIeJe7o2Ljz2aTdZRjM68LEVmxq69IB+87L401GWXA5Y6hSWC
+ zVA8UMfMkkF8/kQa6vuIJED7CFwfjPymjRHmcGTJf5yKOC2G23MpPqzOIXTxF87LJl
+ B51rKHthla2nQ==
+Message-ID: <sashiko-outbox-222347@kernel.org>
 From: sashiko-bot@kernel.org
-Subject: Re: [RFC PATCH] drm/exynos: queue the IPP cleanup work before
- waking the caller
+Subject: Re: [RFC PATCH] drm/flip: drain the flip work on cleanup
 To: "Yaohan Li" <shunsheng1218@gmail.com>
 Cc: dri-devel@lists.freedesktop.org
-In-Reply-To: <20261119023550.1495565-1-shunsheng1218@gmail.com>
-References: <20261119023550.1495565-1-shunsheng1218@gmail.com>
+In-Reply-To: <20261119023604.1495603-1-shunsheng1218@gmail.com>
+References: <20261119023604.1495603-1-shunsheng1218@gmail.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Thu, 19 Nov 2026 02:48:40 +0000
+Date: Thu, 19 Nov 2026 02:51:37 +0000
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -58,134 +57,142 @@ X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 X-Archived-By: <archiver.kernel.org>
 
-Thank you for your contribution! Sashiko AI review found 3 potential
+Thank you for your contribution! Sashiko AI review found 2 potential
 issues to consider:
-- [High] drm/exynos: early DONE flag in exynos_drm_ipp_task_done() races
-  with waiter
-- [Low] drm/exynos: inaccurate comment and changelog in
-  exynos_drm_ipp_task_done()
-- [Low] drm/exynos: missing Fixes trailer for exynos_drm_ipp_task_done()
-  UAF fix
+- [High] drm/msm: NULL deref and UAF in unref_cursor_worker() on flip
+  cleanup
+- [Low] drm/flip: missing Fixes: trailers on bug-fix commit
 --
 
-commit 358647e37f3b75ba1e0c967389989dcad2ba8a0e
+commit 73632c7ec76b9cf83dec08873d97bb312392eec3
 Author: Yaohan Li <shunsheng1218@gmail.com>
 
-> drm/exynos: queue the IPP cleanup work before waking the caller
+> drm/flip: drain the flip work on cleanup
 >
-> exynos_drm_ipp_task_done() marks the task done, wakes the waiters and only
-> then decides whether the task has to be released by the cleanup work.  A
-> commit ioctl that waits for the task is woken by that wake_up() and frees
-> the task itself as soon as it sees the DONE flag, so the task->flags read
-> that follows touches memory that may already be gone.
+> drm_flip_work_cleanup() only warns when the queued or the committed list
+> is not empty.  Nothing cancels the worker and nothing runs the tasks
+> that are still queued, so the caller silently leaks whatever the tasks
+> hold (framebuffer references, vblank references, ...) and, if the
+> worker is still pending, it can run after the structure embedding the
+> flip work has been freed.
 >
-> Read the flag while the task is still guaranteed to be alive, together
-> with the other task state under ipp->lock, and queue the cleanup work
-> before the wakeup.  A task that is handed to the work is then always
-> queued while it still exists.
+> Cancel the worker and run the remaining tasks from
+> drm_flip_work_cleanup().  The work item is the only producer of the
+> committed list, so after cancel_work_sync() the two lists can be
+> spliced out and iterated without holding the lock.
+>
+> The helper only drains the work items that exist when it is called, so
+> the callers have to make sure that no new item can be queued.  Both
+> in-tree callers already do:
+>
+>  - Rockchip VOP: rockchip_drm_unbind() runs drm_atomic_helper_shutdown()
+>    before component_unbind_all(), and vop_unbind() calls
+>    pm_runtime_disable() before vop_destroy_crtc().  The CRTC is disabled
+>    and the device cannot be resumed when the cleanup runs, so neither
+>    vop_plane_atomic_update() nor vop_crtc_atomic_flush() can queue a new
+>    item, and vop_isr() returns early because
+>    pm_runtime_get_if_in_use() fails.
+>
+>  - MSM mdp4/mdp5: msm_drm_uninit() destroys the KMS, which releases the
+>    interrupt, before drm_dev_put() runs the drmm actions.  The flip
+>    cleanup action is registered after drmm_crtc_alloc_with_planes(), so
+>    it runs before drmm_crtc_cleanup() and after the vblank interrupt
+>    that commits the work is gone.
+>
+> Rockchip VOP called drm_flip_work_cleanup() after drm_crtc_cleanup(),
+> which memsets the CRTC.  Its worker calls drm_crtc_vblank_put() on that
+> CRTC, so the drain has to happen before the CRTC is cleaned up.
 >
 > Signed-off-by: Yaohan Li <shunsheng1218@gmail.com>
 
 [Severity: Low]
-Should this bug fix include a Fixes tag?
+Since this fixes the missing drain in drm_flip_work_cleanup() and the
+cleanup ordering in Rockchip VOP, should it include Fixes: tags?
 
-  Fixes: 9913f74fe157 ("drm/exynos: ipp: Add IPP v2 framework")
+  Fixes: cabaafc78935 ("drm: add flip-work helper")
+  Fixes: 47a7eb459777 ("drm/rockchip: Unreference framebuffers from flip wo=
+rk")
 
-> diff --git a/drivers/gpu/drm/exynos/exynos_drm_ipp.c b/drivers/gpu/drm/ex=
-ynos/exynos_drm_ipp.c
-> index 43bc4f63bb845..49ae8ce9b95a6 100644
-> --- a/drivers/gpu/drm/exynos/exynos_drm_ipp.c
-> +++ b/drivers/gpu/drm/exynos/exynos_drm_ipp.c
-> @@ -764,6 +764,7 @@ void exynos_drm_ipp_task_done(struct exynos_drm_ipp_t=
-ask *task, int ret)
+> diff --git a/drivers/gpu/drm/drm_flip_work.c b/drivers/gpu/drm/drm_flip_w=
+ork.c
+> index 52c437746d483..b8ce3966fa9ab 100644
+> --- a/drivers/gpu/drm/drm_flip_work.c
+> +++ b/drivers/gpu/drm/drm_flip_work.c
+> @@ -149,10 +149,29 @@ EXPORT_SYMBOL(drm_flip_work_init);
+>   * drm_flip_work_cleanup - cleans up flip-work
+>   * @work: the flip-work to cleanup
+>   *
+> - * Destroy resources allocated for the flip-work
+> + * Cancel the worker and run the tasks that are still queued, so that the
+> + * resources they hold are released even if the work never made it to the
+> + * workqueue.  Must be called before the object embedding @work is freed=
+ and
+> + * after the driver has stopped the code that calls drm_flip_work_queue()
+> + * and drm_flip_work_commit(): only the work items that exist when this
+> + * function is called are drained.
+>   */
+>  void drm_flip_work_cleanup(struct drm_flip_work *work)
 >  {
->  	struct exynos_drm_ipp *ipp =3D task->ipp;
->  	unsigned long flags;
-> +	bool async;
-> =20
->  	DRM_DEV_DEBUG_DRIVER(task->dev, "ipp: %d, task %p done: %d\n",
->  			     ipp->id, task, ret);
-> @@ -773,15 +774,22 @@ void exynos_drm_ipp_task_done(struct exynos_drm_ipp=
-_task *task, int ret)
->  		ipp->task =3D NULL;
->  	task->flags |=3D DRM_EXYNOS_IPP_TASK_DONE;
->  	task->ret =3D ret;
-> +	async =3D task->flags & DRM_EXYNOS_IPP_TASK_ASYNC;
->  	spin_unlock_irqrestore(&ipp->lock, flags);
-
-[Severity: High]
-Can a synchronous waiter in exynos_drm_ipp_commit_ioctl() observe
-DRM_EXYNOS_IPP_TASK_DONE and free task before exynos_drm_ipp_task_done()
-finishes writing task->ret and reading DRM_EXYNOS_IPP_TASK_ASYNC?
-
-Neither wait_event_interruptible() nor exynos_drm_ipp_task_cleanup() takes
-ipp->lock:
-
-drivers/gpu/drm/exynos/exynos_drm_ipp.c:exynos_drm_ipp_commit_ioctl() {
-    ...
-		exynos_drm_ipp_schedule_task(ipp, task);
-		ret =3D wait_event_interruptible(ipp->done_wq,
-					task->flags & DRM_EXYNOS_IPP_TASK_DONE);
-		if (ret)
-			exynos_drm_ipp_task_abort(ipp, task);
-		else
-			ret =3D exynos_drm_ipp_task_cleanup(task);
-    ...
-}
-
-Because wait_event_interruptible() checks task->flags locklessly before
-sleeping (or when woken by an earlier task on the shared ipp->done_wq),
-setting DRM_EXYNOS_IPP_TASK_DONE first allows the waiter to run
-exynos_drm_ipp_task_cleanup() concurrently:
-
-CPU0                              CPU1
-exynos_drm_ipp_task_done()        exynos_drm_ipp_commit_ioctl()
-  spin_lock_irqsave(&ipp->lock)
-  task->flags |=3D ..._TASK_DONE;
-                                    wait_event_interruptible()
-                                      sees DRM_EXYNOS_IPP_TASK_DONE
-                                    exynos_drm_ipp_task_cleanup(task)
-                                      ret =3D task->ret;  <-- stale 0
-                                      exynos_drm_ipp_task_free()
-                                        kfree(task)
-  task->ret =3D ret;
-  async =3D task->flags & ...;  <-- use-after-free
-
-Writing task->ret and reading DRM_EXYNOS_IPP_TASK_ASYNC before setting
-DRM_EXYNOS_IPP_TASK_DONE (with release/acquire ordering or under
-ipp->lock on the reader side) would avoid this race.
-
->  	exynos_drm_ipp_next_task(ipp);
-> -	wake_up(&ipp->done_wq);
-> =20
-> -	if (task->flags & DRM_EXYNOS_IPP_TASK_ASYNC) {
-> +	/*
-> +	 * Hand the task over to the cleanup work before a synchronous caller
-> +	 * is woken up: once wake_up() returns, that caller may have released
-> +	 * the task already.
-> +	 */
-> +	if (async) {
->  		INIT_WORK(&task->cleanup_work, exynos_drm_ipp_cleanup_work);
->  		schedule_work(&task->cleanup_work);
->  	}
+> -	WARN_ON(!list_empty(&work->queued) || !list_empty(&work->commited));
+> +	struct drm_flip_task *task, *tmp;
+> +	LIST_HEAD(tasks);
+> +	unsigned long flags;
 > +
-> +	wake_up(&ipp->done_wq);
+> +	cancel_work_sync(&work->worker);
+> +
+> +	spin_lock_irqsave(&work->lock, flags);
+> +	list_splice_tail_init(&work->queued, &tasks);
+> +	list_splice_tail_init(&work->commited, &tasks);
+> +	spin_unlock_irqrestore(&work->lock, flags);
+> +
+> +	list_for_each_entry_safe(task, tmp, &tasks, node) {
+> +		work->func(work, task->data);
+> +		kfree(task);
+> +	}
 >  }
 
-[Severity: Low]
-Is this comment (and the corresponding explanation in the commit message)
-accurate about why async is checked before wake_up()?
+[Severity: High]
+Can calling work->func() here cause a NULL pointer dereference and
+use-after-free in MSM mdp4 and mdp5 when an uncommitted cursor task
+remains in unref_cursor_work.queued at teardown?
 
-DRM_EXYNOS_IPP_TASK_ASYNC is only set for non-blocking commits (which do
-not wait on ipp->done_wq) or in exynos_drm_ipp_task_abort() after
-wait_event_interruptible() was already interrupted by a signal and handed
-ownership of the running task to cleanup_work.  When async is true, no
-synchronous caller will free the task upon wake_up(); when a synchronous
-caller is waiting to free the task, async is false.  What prevents the
-use-after-free is reading DRM_EXYNOS_IPP_TASK_ASYNC before the waiter can
-observe task completion, rather than queuing cleanup_work before
-wake_up().
+In msm_drm_uninit(), KMS is torn down and ddev->dev_private is cleared
+before drm_dev_put() runs the drmm-registered mdp4_crtc_flip_cleanup() /
+mdp5_crtc_flip_cleanup() actions:
+
+drivers/gpu/drm/msm/msm_drv.c:msm_drm_uninit() {
+    ...
+	if (priv->kms)
+		msm_drm_kms_uninit(dev);
+    ...
+	ddev->dev_private =3D NULL;
+	drm_dev_put(ddev);
+}
+
+msm_drm_kms_uninit() flushes kms->wq (which only runs tasks already
+committed by a vblank IRQ) and then calls mdp4_destroy() or
+mdp5_kms_destroy(), which drops kms->vm via drm_gpuvm_put(kms->vm).
+
+If a cursor update was queued via mdp4_crtc_cursor_set() or
+mdp5_crtc_cursor_set() without a subsequent vblank interrupt to commit it,
+the task stays in unref_cursor_work.queued until drm_dev_put() runs
+drm_flip_work_cleanup().  That invokes unref_cursor_worker():
+
+drivers/gpu/drm/msm/disp/mdp5/mdp5_crtc.c:unref_cursor_worker() {
+	struct mdp5_crtc *mdp5_crtc =3D
+		container_of(work, struct mdp5_crtc, unref_cursor_work);
+	struct mdp5_kms *mdp5_kms =3D get_kms(&mdp5_crtc->base);
+	struct msm_kms *kms =3D &mdp5_kms->base.base;
+
+	msm_gem_unpin_iova(val, kms->vm);
+	drm_gem_object_put(val);
+}
+
+get_kms() reads crtc->dev->dev_private (now NULL) and dereferences
+priv->kms, and kms->vm has already been destroyed (along with the
+devm-allocated KMS structures if an open DRM fd delayed the final
+drm_dev_put() past device unbind).
 
 --=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261119023550.1495=
-565-1-shunsheng1218@gmail.com?part=3D1
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261119023604.1495=
+603-1-shunsheng1218@gmail.com?part=3D1
