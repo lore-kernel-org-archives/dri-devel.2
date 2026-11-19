@@ -2,96 +2,53 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2F78560A2610
-	for <dri-devel@archiver.kernel.org>; Thu, 19 Nov 2026 09:35:22 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7768B606A331
+	for <dri-devel@archiver.kernel.org>; Thu, 19 Nov 2026 09:42:44 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.a=rsa-sha256 header.s=dkim header.b=trPf9+9S
+	dkim=pass (1024-bit key) header.d=ideasonboard.com header.i=@ideasonboard.com header.a=rsa-sha256 header.s=mail header.b=noqIS31b
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 8B5731121FF;
-	Thu, 19 Nov 2026 09:35:16 +0000 (UTC)
-Received: from smtpout-04.galae.net (smtpout-04.galae.net [185.171.202.116])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 1ABDC1121FF;
- Thu, 19 Nov 2026 09:35:10 +0000 (UTC)
-Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
- by smtpout-04.galae.net (Postfix) with ESMTPS id 77472C4CBEE;
- Thu, 19 Nov 2026 09:35:13 +0000 (UTC)
-Received: from mail.galae.net (mail.galae.net [212.83.136.155])
- by smtpout-01.galae.net (Postfix) with ESMTPS id 3D57560271;
- Thu, 19 Nov 2026 09:35:08 +0000 (UTC)
-Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon)
- with ESMTPSA id 145C311BC315F; Thu, 19 Nov 2026 10:34:37 +0100 (CET)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
- t=1795080902; h=from:subject:date:message-id:to:cc:mime-version:content-type:
- content-transfer-encoding:in-reply-to:references;
- bh=CQyK9hhzQUtdCIaKwh8qFL6kiw3hBK7e02jXrxk3Q5M=;
- b=trPf9+9SmvXq7f3i06Ocu8PXp2wkKO6ORNKTA4/AjOKcQKVFePqcO/1BhMn+K4JKXgVetW
- 9Yr+85a0u4rw/+pGQPZDRSMsRMDGawEXfnQ9jCtNv2zr3C8ZQd4iUe048cU50ECPRyFurf
- rsmMLyDo3rueQxG7RuwY+EBebjyTZuhqh1PyoyvCDfGRSYoPSTyfx/hwy85QgTWFsAil0Q
- X6TU5TJA2EpRSA3/3QyU7eQBfCRlHqNmOlSA+ByZVazhopQuZSLgxPNhpRVe5QgDh43L/T
- HBMPjxwGs9avJmS68J25IgXRGZqvRkZ+RC3EyDq//xlN7GCwXICCDykv7Bhitw==
-From: Miquel Raynal <miquel.raynal@bootlin.com>
-To: Randy Dunlap <rdunlap@infradead.org>
-Cc: linux-kernel@vger.kernel.org,  Jonathan Corbet <corbet@lwn.net>,  Shuah
- Khan <skhan@linuxfoundation.org>,  linux-doc@vger.kernel.org,  David
- Hildenbrand <david@kernel.org>,  Andrew Morton
- <akpm@linux-foundation.org>,  Jason Gunthorpe <jgg@nvidia.com>,  Leon
- Romanovsky <leonro@nvidia.com>,  linux-mm@kvack.org,  Jaroslav Kysela
- <perex@perex.cz>,  Takashi Iwai <tiwai@suse.com>,
- linux-sound@vger.kernel.org,  Jens Axboe <axboe@kernel.dk>,
- linux-block@vger.kernel.org,  Marcel Holtmann <marcel@holtmann.org>,
- Luiz Augusto von Dentz <luiz.dentz@gmail.com>,
- linux-bluetooth@vger.kernel.org,  Willem de Bruijn
- <willemdebruijn.kernel@gmail.com>,  Jason Wang <jasowangio@gmail.com>,
- David Heidelberg <david@ixit.cz>,  oe-linux-nfc@lists.linux.dev,  Chas
- Williams <3chas3@gmail.com>,  "David S. Miller" <davem@davemloft.net>,
- Eric Dumazet <edumazet@kernel.org>,  Jakub Kicinski <kuba@kernel.org>,
- Paolo Abeni <pabeni@redhat.com>,  netdev@vger.kernel.org,  Helge Deller
- <deller@gmx.de>,  linux-fbdev@vger.kernel.org,
- dri-devel@lists.freedesktop.org,  MPT-FusionLinux.pdl@broadcom.com,
- "James E.J. Bottomley" <James.Bottomley@HansenPartnership.com>,  "Martin
- K. Petersen" <mkp@kernel.org>,  linux-scsi@vger.kernel.org,  Richard
- Weinberger <richard@nod.at>,  Vignesh Raghavendra <vigneshr@ti.com>,
- Zhihao Cheng <chengzhihao1@huawei.com>,  linux-mtd@lists.infradead.org,
- Neill Kapron <nkapron@google.com>,  Andrey Konovalov
- <andreyknvl@gmail.com>,  Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
- linux-usb@vger.kernel.org,  Juergen Gross <jgross@suse.com>,  Stefano
- Stabellini <sstabellini@kernel.org>,  xen-devel@lists.xenproject.org,
- Hans de Goede <hansg@kernel.org>,  Arnd Bergmann <arnd@arndb.de>,
- "Michael S. Tsirkin" <mst@redhat.com>,  Eugenio =?utf-8?Q?P=C3=A9rez?=
- <eperezma@redhat.com>,  Sean Christopherson <seanjc@google.com>,  Paolo
- Bonzini <pbonzini@redhat.com>,  kvm@vger.kernel.org,
- virtualization@lists.linux.dev,  Jan Kara <jack@suse.cz>,
- linux-fsdevel@vger.kernel.org,  "Theodore Ts'o" <tytso@mit.edu>,
- linux-ext4@vger.kernel.org,  Mike Marshall <hubcap@omnibond.com>,
- devel@lists.orangefs.org,  Paulo Alcantara <pc@manguebit.org>,  Namjae
- Jeon <linkinjeon@kernel.org>,  linux-cifs@vger.kernel.org,  Jaegeuk Kim
- <jaegeuk@kernel.org>,  Chao Yu <chao@kernel.org>,
- linux-f2fs-devel@lists.sourceforge.net,  Florian Fainelli
- <florian.fainelli@broadcom.com>,  Broadcom internal kernel review list
- <bcm-kernel-feedback-list@broadcom.com>,  Tzung-Bi Shih
- <tzungbi@kernel.org>,  Benson Leung <bleung@chromium.org>,  David Airlie
- <airlied@gmail.com>,  Simona Vetter <simona@ffwll.ch>,  Alex Deucher
- <alexander.deucher@amd.com>,  Christian =?utf-8?Q?K=C3=B6nig?=
- <christian.koenig@amd.com>, amd-gfx@lists.freedesktop.org,  Jani Nikula
- <jani.nikula@linux.intel.com>,  Joonas Lahtinen
- <joonas.lahtinen@linux.intel.com>,  Rodrigo Vivi <rodrigo.vivi@intel.com>,
- Tvrtko Ursulin <tursulin@ursulin.net>,  intel-gfx@lists.freedesktop.org,
- Matthew Brost <matthew.brost@intel.com>,  Thomas =?utf-8?Q?Hellstr=C3=B6?=
- =?utf-8?Q?m?=
- <thomas.hellstrom@linux.intel.com>,  intel-xe@lists.freedesktop.org
-Subject: Re: [PATCH v2 07/12] docs: ioctl-number: update MTD entries
-In-Reply-To: <20261119053514.255348-8-rdunlap@infradead.org> (Randy Dunlap's
- message of "Wed, 18 Nov 2026 21:35:08 -0800")
-References: <20261119053514.255348-1-rdunlap@infradead.org>
- <20261119053514.255348-8-rdunlap@infradead.org>
-User-Agent: mu4e 1.12.12; emacs 30.2
-Date: Thu, 19 Nov 2026 10:34:37 +0100
-Message-ID: <87bj7lf9le.fsf@bootlin.com>
+	by gabe.freedesktop.org (Postfix) with ESMTP id 03FFE10E21D;
+	Thu, 19 Nov 2026 09:42:39 +0000 (UTC)
+Received: from perceval.ideasonboard.com (perceval.ideasonboard.com
+ [213.167.242.64])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 6DE6610E21D
+ for <dri-devel@lists.freedesktop.org>; Thu, 19 Nov 2026 09:42:32 +0000 (UTC)
+Received: from killaraus.ideasonboard.com
+ (2001-14ba-7086-3000--a06.rev.dnainternet.fi [IPv6:2001:14ba:7086:3000::a06])
+ by perceval.ideasonboard.com (Postfix) with ESMTPSA id C8E2CB1A;
+ Thu, 19 Nov 2026 10:40:01 +0100 (CET)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=ideasonboard.com;
+ s=mail; t=1795081202;
+ bh=Z4P10Q9dDwFCnU5G7tymoEJ4B+zaoqvvG/N6ObBBhpA=;
+ h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+ b=noqIS31bPuaP5hXgjwHj0EOCWfWdWnejv9t+T1pu5mUHu6QQHVyldkxYKovyS+Uro
+ rvL6nzRXKLcDw8yZTzRV8KSk9WWszvq7sDm+GbdHOShO3IQoLYUKvqqIQ8XolsRe33
+ zbF8zoKaYFsjO4Rhn7qvi+HdwENv7D8d090YIqhg=
+Date: Thu, 19 Nov 2026 11:42:29 +0200
+From: Laurent Pinchart <laurent.pinchart@ideasonboard.com>
+To: Marek Szyprowski <m.szyprowski@samsung.com>
+Cc: dri-devel@lists.freedesktop.org, Andrzej Hajda <andrzej.hajda@intel.com>,
+ Neil Armstrong <neil.armstrong@linaro.org>,
+ Robert Foss <rfoss@kernel.org>, Jonas Karlman <jonas@kwiboo.se>,
+ Jernej Skrabec <jernej.skrabec@gmail.com>,
+ Luca Ceresoli <luca.ceresoli@bootlin.com>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>,
+ Thomas Zimmermann <tzimmermann@suse.de>,
+ Damon Ding <damon.ding@rock-chips.com>,
+ Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>,
+ Heiko Stuebner <heiko@sntech.de>, Douglas Anderson <dianders@chromium.org>,
+ Brian Norris <briannorris@chromium.org>
+Subject: Re: [PATCH] drm/bridge: analogix_dp: Hold runtime PM reference in
+ bridge detect
+Message-ID: <20261119094229.GQ1923307@killaraus.ideasonboard.com>
+References: <CGME20261119092907eucas1p2d8c811bd49cf4369d5fc66d052abfcde@eucas1p2.samsung.com>
+ <20261119092857.1158971-1-m.szyprowski@samsung.com>
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-X-Last-TLS-Session-Version: TLSv1.3
+Content-Disposition: inline
+In-Reply-To: <20261119092857.1158971-1-m.szyprowski@samsung.com>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -103,29 +60,67 @@ List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-10.8 required=3.0 tests=BAYES_00,DKIM_SIGNED,
+X-Spam-Status: No, score=-15.8 required=3.0 tests=BAYES_00,DKIM_SIGNED,
 	DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
-	INCLUDES_CR_TRAILER,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS
-	autolearn=unavailable autolearn_force=no version=4.0.1
+	INCLUDES_CR_TRAILER,INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,
+	SPF_PASS autolearn=ham autolearn_force=no version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-Hi Randy,
+On Thu, Nov 19, 2026 at 10:28:55AM +0100, Marek Szyprowski wrote:
+> analogix_dp_bridge_detect() calls analogix_dp_detect_hpd() without
+> holding a runtime PM reference on the DP device. If there is no HPD
+> GPIO, analogix_dp_get_plug_in_status() reads ANALOGIX_DP_SYS_CTL_3 and,
+> with "force-hpd", analogix_dp_force_hpd() also writes to it. When the
+> display is disabled the controller is runtime suspended, so these are
+> accesses to possibly unpowered IP block.
+> 
+> The connector created by drm_bridge_connector is polled because the
+> bridge provides DRM_BRIDGE_OP_DETECT without DRM_BRIDGE_OP_HPD, and
+> userspace may also query the connector state at any time, so this path
+> is regularly executed with the device suspended. It affects only setups
+> without a next bridge or panel (e.g. a DP connector), as otherwise
+> detect returns early.
+> 
+> Take a runtime PM reference around the HPD check, the same way as
+> analogix_dpaux_transfer() and analogix_dpaux_wait_hpd_asserted() do,
+> and report the connector status as unknown if the device cannot be
+> resumed.
+> 
+> Fixes: 2b77a2918c5d ("drm: bridge: analogix/dp: move hpd detect to connector detect function")
+> Closes: https://sashiko.dev/#/bug/linux-ea09d64b-12cd-4301-bd54-12c515b01bde
+> Signed-off-by: Marek Szyprowski <m.szyprowski@samsung.com>
+> ---
+>  drivers/gpu/drm/bridge/analogix/analogix_dp_core.c | 6 ++++++
+>  1 file changed, 6 insertions(+)
+> 
+> diff --git a/drivers/gpu/drm/bridge/analogix/analogix_dp_core.c b/drivers/gpu/drm/bridge/analogix/analogix_dp_core.c
+> index 84951413012b..9b7d770d1fa1 100644
+> --- a/drivers/gpu/drm/bridge/analogix/analogix_dp_core.c
+> +++ b/drivers/gpu/drm/bridge/analogix/analogix_dp_core.c
+> @@ -905,9 +905,15 @@ analogix_dp_bridge_detect(struct drm_bridge *bridge, struct drm_connector *conne
+>  	if (dp->plat_data->next_bridge)
+>  		return connector_status_connected;
+>  
+> +	if (pm_runtime_resume_and_get(dp->dev) < 0)
+> +		return connector_status_unknown;
+> +
+>  	if (!analogix_dp_detect_hpd(dp))
+>  		status = connector_status_connected;
+>  
+> +	pm_runtime_mark_last_busy(dp->dev);
+> +	pm_runtime_put_autosuspend(dp->dev);
 
-On 18/11/2026 at 21:35:08 -08, Randy Dunlap <rdunlap@infradead.org> wrote:
+pm_runtime_put_autosuspend() now includes the
+pm_runtime_mark_last_busy(), see commit b3db492e8335 ("PM: runtime: Mark
+last busy stamp in pm_runtime_put_autosuspend()")
 
-> Update the list of files where MTD ioctls are defined and update
-> the ranges of function numbers that are used.
->
-> Signed-off-by: Randy Dunlap <rdunlap@infradead.org>
+> +
+>  	return status;
+>  }
+>  
 
-Acked-by: Miquel Raynal <miquel.raynal@bootlin.com>
+-- 
+Regards,
 
-> [Since having multiple maintainers trying to merge these would
-> cause some conflicts, it would be more manageable for Jon to
-> take all of these through the docs-next tree.]
-
-Agreed.
-
-Thanks,
-Miqu=C3=A8l
+Laurent Pinchart
