@@ -2,124 +2,93 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 607AF606A320
-	for <dri-devel@archiver.kernel.org>; Thu, 19 Nov 2026 10:58:08 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E4E98606A324
+	for <dri-devel@archiver.kernel.org>; Thu, 19 Nov 2026 10:59:30 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=amd.com header.i=@amd.com header.a=rsa-sha256 header.s=selector1 header.b=noW1YjEv
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=XU8Vv8vz
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 9C2CE10E6A1;
-	Thu, 19 Nov 2026 10:58:02 +0000 (UTC)
-Received: from MW6PR02CU001.outbound.protection.outlook.com
- (mail-westus2azon11012067.outbound.protection.outlook.com [52.101.48.67])
- by gabe.freedesktop.org (Postfix) with ESMTPS id F013310E6A1
- for <dri-devel@lists.freedesktop.org>; Thu, 19 Nov 2026 10:57:55 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=lAam0mPbZ052MtUjU0HsAfssfe7Sci56gzadUIgbnCzsV8b7NODhK9EtxYk3xPOrO4J0z7v5O8JFTzz0yfJ3UTEwcPJ4PCYHwJioptg0ye1NkhfBZt4MDG+RNQTkQkOlxq/DWgF25MBO1DXZq8IVrXb5FirqRIsfpMF3/AXPjj1LIR0BJ/jCa9oNvOG/vnl94Mixx6gS2URTdm7wEmSqUWt03H79Ryowuuw26uoFm5irhCL39/kxe6tFKOpd/gZKI8z3k9z7nsqlo5wfgau25jJkx2m1QErBFGJweZEYU/LwOfXkABrzf/aLfz2gMlEFsOMaSG9r4VYdlpIukq76sQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=xT2ElwEVkKeEqoknKedg4NmpirFzrxdcAJYgypJKpqA=;
- b=LNjUTpkL6M9jRDmo0KqV9qty3QwBB4UJsO2aiQ++9g4aRyDG8/XwodIYAUmptPCXQQiv2IETAeUOKSC4cZTXUEijLs8HzFty6NhjMHOtjqTt234HV/vhumeJjG/y7cdGqLuwnaWmbKlcDdwDihQ6/LjcqAF9mxBsc3zwLViRiUHP05m40aD65hsh2Tre91JEsOm4iuZPTmDffjkiMq+haW+9k2KkrXEDcBaleQdl2WYkW86VNeX1gQVAIqiFKIWmWcLyS5eLdqElnrrXhwzmgE/ipQFIspklRKOBHhoxxzAvZP+you2LbLKXSzTI4a+1kO3TMWOYTGa9tncP1x2Wsg==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=xT2ElwEVkKeEqoknKedg4NmpirFzrxdcAJYgypJKpqA=;
- b=noW1YjEvNHfE1QVoRwJYG/yomDg8RZJPCQq1j23C0Aha856fjhO8xn7QQUKJcGJfzLoyIGeYtvteRW3GwkH6rVNesYkhbWHQPJXWnKoHgua3pT7qLfJqnSlKhvOrPe9U4hgeDb4HjT9l9OaEu9Y4soyXJhG+kl/EMDQdMJC8nHU=
-Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-Received: from PH7PR12MB5685.namprd12.prod.outlook.com (2603:10b6:510:13c::22)
- by DSVPR12MB999174.namprd12.prod.outlook.com (2603:10b6:8:389::5)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.639.10; Thu, 19 Nov
- 2026 10:57:53 +0000
-Received: from PH7PR12MB5685.namprd12.prod.outlook.com
- ([fe80::ce69:cfae:774d:a65c]) by PH7PR12MB5685.namprd12.prod.outlook.com
- ([fe80::ce69:cfae:774d:a65c%3]) with mapi id 15.21.0615.013; Thu, 19 Nov 2026
- 10:57:53 +0000
-Message-ID: <4f507f12-2b1a-4319-93a8-813f35b9da3e@amd.com>
-Date: Thu, 19 Nov 2026 11:57:49 +0100
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 2/3] drm/syncobj: Add a fast path to
- drm_syncobj_array_wait_timeout
-To: Tvrtko Ursulin <tvrtko.ursulin@igalia.com>, dri-devel@lists.freedesktop.org
-Cc: kernel-dev@igalia.com, =?UTF-8?Q?Ma=C3=ADra_Canal?= <mcanal@igalia.com>,
- Fei Yu <fei.yu@intel.com>
-References: <20261117103916.9101-1-tvrtko.ursulin@igalia.com>
- <20261117103916.9101-3-tvrtko.ursulin@igalia.com>
-Content-Language: en-US
-From: =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>
-In-Reply-To: <20261117103916.9101-3-tvrtko.ursulin@igalia.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
-X-ClientProxiedBy: MN2PR01CA0065.prod.exchangelabs.com (2603:10b6:208:23f::34)
- To PH7PR12MB5685.namprd12.prod.outlook.com
- (2603:10b6:510:13c::22)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 27745112292;
+	Thu, 19 Nov 2026 10:59:25 +0000 (UTC)
+Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id E3066112292
+ for <dri-devel@lists.freedesktop.org>; Thu, 19 Nov 2026 10:59:18 +0000 (UTC)
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+ by tor.source.kernel.org (Postfix) with ESMTP id 68825612E9;
+ Thu, 19 Nov 2026 10:59:18 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6927B1F000C5;
+ Thu, 19 Nov 2026 10:59:15 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+ s=k20260515; t=1795085958;
+ bh=4/jVDSwIRAmLCTKaI3UPBWY6GGyvJetwSzEPznuwmkQ=;
+ h=Date:Subject:To:Cc:References:From:In-Reply-To;
+ b=XU8Vv8vz/FPtcTHhw/A1bX2sEY763BsoJfua7tZj4WELvbXJIBq/+hFe9JEaDvYEk
+ wUTZBcCeeQpgYV/sdUEGEm6P1OFCyDdMAseUti4J584m7RW7/ErJ5pR9O85VWceZoj
+ y2UzhN7pcw2rDjptvmnz8VEhKBpn0F+BTQMbcxrVs3Wjv1/VpZhfM7s7NkPIjCHs6d
+ Ox4NQaIz2kL599bZJ6Qux4rqBElMg4C55WoouXurG1h8VNn+BeDy23quv6gbYrr9pL
+ v1n6kUWdRO46i0u92wWIsVRTsRv7OV8EBHuUsmK6vxzucP5dEhmJgIahsZd4nwc25C
+ d8ssnf4+xmsGw==
+Message-ID: <29fc3b0b-1ae8-4939-8d4d-4bcebe80e4cc@kernel.org>
+Date: Thu, 19 Nov 2026 11:59:13 +0100
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: PH7PR12MB5685:EE_|DSVPR12MB999174:EE_
-X-MS-Office365-Filtering-Correlation-Id: 931fa78d-f737-407f-9b02-08df462bf5da
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
- ARA:13230040|23010399003|376014|366016|1800799024|18002099003|22082099003|4143699003|11063799006|5023799004|10067099003|56012099006|261022105027099003|261026140227099003|261026121527099003|261022113327099003|261028144727099003|261021123027099003|261021121427099003|261009221227099003|261009223027099003|261102123227099003;
-X-Microsoft-Antispam-Message-Info: Cg94HL6bdXlbkz2Uh6WCnKEx93cwhjWRldPMxKwYaisgdCq03Wz5YqKKorsxCoyx4d0zAAYMyRt+oZsuKW1HG/sKBwDc8fbpqvdZA/sWE+PIOaJmF5XCDAggXhqMXFMoZcmUfhjE2uAfx6ZYmumpwlEp7DGT0NYQ8QA4jD3dCAvtVUuXbcd6mNKjcpHI1VnfHh6t6+cIpSF86kUQlSYzQkPtex3wmk7YHtKGr1QqbHinTEANGlxiqVvgNUr2teanKIkQFuuK/4gRMe32y1M9VIRzSE1hgALiEfLFH7XKS0WB3QFS3yCK9qhZqx+8jjheQnOE8syfOhRwDjEzRWspglhhE9VKIrDnDwSv8qa8dBnR+ILvgZIZuBVmzHrUmIl1UGb36tmzaBKkVgrPKBx6y6pZKV1Chr39dyuvA8nlk9bX0YeFggcwZosQoDU9/bsmsReOiPLo3Pwj3/oPPjK9gqiFG+FN2QPTmRKvpTzlC5HwXUtCG37Q0JIm+9rKwnwavSKDlc3iSBIUK1Nk7lVckWH5scauGvM+dnwWzjA+1/0aKJTSqhxau8sTOw/X4X5vxa1KKVaYAg8u+Jy7ySnPYmheNDMb3krCVuXO/RYAm47yA2Ci2D9xjDHhBhpqHDEiua6aw7pVuZ12hcUCSXebARqlgb0k4wgkPu1E+5na7rs=
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:PH7PR12MB5685.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(23010399003)(376014)(366016)(1800799024)(18002099003)(22082099003)(4143699003)(11063799006)(5023799004)(10067099003)(56012099006)(261022105027099003)(261026140227099003)(261026121527099003)(261022113327099003)(261028144727099003)(261021123027099003)(261021121427099003)(261009221227099003)(261009223027099003)(261102123227099003);
- DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?WjRmNDVwTWw3YTFNZzR2RmZxMTJ2WEd5Zzl6UTV4NzVqOXJJWGtjTFhCRmha?=
- =?utf-8?B?ZmZjTW83NzZCbkY1aStTUlhOZ1FZVDZvaTNWbXBQY1YyWUNTTXZmOXIvUDZF?=
- =?utf-8?B?U1JGcjE5cE83UzRGdkM5NnQ3b3grS1I5bHQ0MnJ3VkVqWG92bm5SR0RtNjg0?=
- =?utf-8?B?VlViNjZYVENBVmJoZThxWHhobDZuNCtaWm1kNnpyYk9QNlROWGQzMDc0OVV4?=
- =?utf-8?B?YkFJUExGRDYwZkJtUDlGck1ickZnNCtTVmQ4Y3p0SmNXWnZRWG84U1ZQOUVS?=
- =?utf-8?B?Y0QwaTl1SEZoSWxOMnBzc3k2ZGJPaCtOVUZSNTcrYURxdms1SnpDVHhCSUpE?=
- =?utf-8?B?REZoenRrZmtUdWREV0VLaWIvZWhmYm9iTjFhOGgycW5tT1hFNGplR2ZoRVov?=
- =?utf-8?B?NHJVRFNDZlgveEU2ZDJXSHlvb3NpZ1pyWHhKZWE1Sk0vSnVmcVN6R1FIRVo1?=
- =?utf-8?B?Uy9LMVU3VGwzQnlhNFhqT2hOMXROQmF0QllGSE5NMDU2MWdzT3R2ZTNKTUZD?=
- =?utf-8?B?eVZ2M1dXRlpRUHdKV3hIMlRUbVdFbTkzLzJMRGhUdUlHaUFIcm5RdWlBU21o?=
- =?utf-8?B?UlNsdnFEa0VXSXo1Y2hZU0U2MkphWXpXWWl2YWlVR094aFlSWkMzaDRlVzUw?=
- =?utf-8?B?elJlTXZmazhocHh4bEdPUXNDZTNKcnV1NHhVUFYycHJnS0ZlTlc5RHJVelcv?=
- =?utf-8?B?YmRKTjhZK2daZjZFcGZWait4N3h3dGRvL3hhQ015U0h4NFlyM2F5Ulh3Sitp?=
- =?utf-8?B?NnQvYVFrdUpMT2krbHl0OHU1ZjRiTUx3Qm9qNVpjSjVIditSYTdCODJXSXFX?=
- =?utf-8?B?TXY2MEZmeWpBVkd0dWhxMnA2aytzWmpmZHRYWVMxbC9BZng1L0Z1djhaSmxa?=
- =?utf-8?B?MU5td01OdXVnUEtIdHY5MmtCend1ZDVFU053aEtEUnBORWVwd3U4cHJyNysz?=
- =?utf-8?B?MzFCUkIwS3pKaFNUcmRSTEVodHBhS3I1THZ0NmQ4Y2VNbGlGaGc5NkFXNzJY?=
- =?utf-8?B?T093L2phQThNejJERUlKQi9lTWF6TkUwM0pHRUc5cGdBUVl5WTQzY25TVDFW?=
- =?utf-8?B?emNTU1VhbFFRdThNaGIyRnROWFFRMkFuVWt6V0VkeXFoRzk0VUNFV2F6Z056?=
- =?utf-8?B?eVRBcnNTVXA3ZVk0NzVTMHpGbFdPNXdwdDVzanRPb3QxME94S3l4WEcwaFBY?=
- =?utf-8?B?c3F6SktjZEk0aDBLbGZYSWdGQzB6Y1FxMUwraXVzcGJGOHExOVJodGZrUmNm?=
- =?utf-8?B?ajZsaFB1WkNlcExoRnhGMFhYZEVwMHRqc1NjT3AwUFdGNWV4RXorRW5JYThz?=
- =?utf-8?B?UkU0cjF4NlVUa2t0ejhna3VtQVkzT0ZDYW1kdlFHQ29mZytCT3VadnArTUZ1?=
- =?utf-8?B?dHl1Sk5yWG4vSzRLRmpESjVCbS9qMWpaZW9IdDh5MnRpTFZrcXFMT0N5bG1u?=
- =?utf-8?B?OENBTURXMFBpM1lxY3JFcEVTS3JaMkN2QlI0cC9xME5Wci9QYkU4SWlOQ3Vl?=
- =?utf-8?B?cEVsYmtFekV0SU56N1dEcHJGbFRoczlFZUZJZFVlR0kwTXlFaDhaaVlmL2hX?=
- =?utf-8?B?ZHppZ0toSmZPY2hZZnRjdHFNMEpyVTkxVmV0bVo4U1BveURmZGo5OWdBTFZw?=
- =?utf-8?B?bkxYYW1rYW5QVERNSXE5aEhvQVJXZ0tpeTVCdWxOS21FY0VJdzg3RVhtZ2lt?=
- =?utf-8?B?MVdvU0RFWi9hNHpJTFIxanBBRUNPcmZFb0QwZ2h5Nm9ZZm15Lzd5SXJwVXpa?=
- =?utf-8?B?N2VKUzM2NWZFQm1zTkFCaTl2M25SaUJ4NWUrazM1Y2xKMDZUbkNneDBsSncz?=
- =?utf-8?B?dVUzTFkwNDNXWjRNVkU0UFdxc0pGMTliYWo1aW5BWWJuRndZUHJJZ2RramFz?=
- =?utf-8?B?QlZJWnNqQUM2eU5tUnE5QkMyTHBLMWgyUEVtUE0xdE5Nemdoc1lOMGVkbU1y?=
- =?utf-8?B?bWRMelA3QU80T0t6UEVMN2U0bHZLN0FyM3FoaG94NGJCeWtrNVAySktrMlNu?=
- =?utf-8?B?MDl5QWpodkRRUXY3Q1p6dHVRZDh1Vy9UaXhyaDg0UGRtVEZtYkhQZnl2MGxG?=
- =?utf-8?B?SUVMWGxEOTlxR0NoSWZBOFFWaC9xazB3RDlvQXg5RkIxL2tPYitNMUJ2eWg0?=
- =?utf-8?B?OHQxWTRLVU9YZStVL0F6ckZwZmtnVjFQa0ozb3ZQUTQ4WElvTWF2eldPQ3Fx?=
- =?utf-8?B?WU13MVZ0T0NzYUFDN045a3FXSHJCNnAxMkdSUm1GY0JlMFI4SGplN0VhbGh6?=
- =?utf-8?B?ZURqUjlXaVpqN2dDWk9mN3ZrT1dKc3crdlZ5NkFNZlRKQjFUeldMbC9rb2Y4?=
- =?utf-8?Q?0LFtD47NPQ3+357W15?=
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 931fa78d-f737-407f-9b02-08df462bf5da
-X-MS-Exchange-CrossTenant-AuthSource: PH7PR12MB5685.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 19 Nov 2026 10:57:53.3962 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: HaUJYd9qgDfoyltCGeiU4I8SjQIA43BlC31DWmXgSqszZ+ZW5m3ZhdgRWnw9P5oU
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DSVPR12MB999174
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 11/15] dt-bindings: soc: xilinx: Add Versal AI Engine DT
+ binding
+To: Gregory Williams <gregory.williams@amd.com>, Rob Herring
+ <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>, Michal Simek <michal.simek@amd.com>
+Cc: dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org,
+ linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org
+References: <20261118233211.4121361-1-gregory.williams@amd.com>
+ <20261118233211.4121361-12-gregory.williams@amd.com>
+From: Krzysztof Kozlowski <krzk@kernel.org>
+Content-Language: en-US
+Autocrypt: addr=krzk@kernel.org; keydata=
+ xsFNBFVDQq4BEAC6KeLOfFsAvFMBsrCrJ2bCalhPv5+KQF2PS2+iwZI8BpRZoV+Bd5kWvN79
+ cFgcqTTuNHjAvxtUG8pQgGTHAObYs6xeYJtjUH0ZX6ndJ33FJYf5V3yXqqjcZ30FgHzJCFUu
+ JMp7PSyMPzpUXfU12yfcRYVEMQrmplNZssmYhiTeVicuOOypWugZKVLGNm0IweVCaZ/DJDIH
+ gNbpvVwjcKYrx85m9cBVEBUGaQP6AT7qlVCkrf50v8bofSIyVa2xmubbAwwFA1oxoOusjPIE
+ J3iadrwpFvsZjF5uHAKS+7wHLoW9hVzOnLbX6ajk5Hf8Pb1m+VH/E8bPBNNYKkfTtypTDUCj
+ NYcd27tjnXfG+SDs/EXNUAIRefCyvaRG7oRYF3Ec+2RgQDRnmmjCjoQNbFrJvJkFHlPeHaeS
+ BosGY+XWKydnmsfY7SSnjAzLUGAFhLd/XDVpb1Een2XucPpKvt9ORF+48gy12FA5GduRLhQU
+ vK4tU7ojoem/G23PcowM1CwPurC8sAVsQb9KmwTGh7rVz3ks3w/zfGBy3+WmLg++C2Wct6nM
+ Pd8/6CBVjEWqD06/RjI2AnjIq5fSEH/BIfXXfC68nMp9BZoy3So4ZsbOlBmtAPvMYX6U8VwD
+ TNeBxJu5Ex0Izf1NV9CzC3nNaFUYOY8KfN01X5SExAoVTr09ewARAQABzSVLcnp5c3p0b2Yg
+ S296bG93c2tpIDxrcnprQGtlcm5lbC5vcmc+wsGPBBMBCgA5AhsDBgsJCAcDAgYVCAIJCgsE
+ FgIDAQIeAQIXgBYhBJvQfg4MUfjVlne3VBuTQ307QWKbBQJp2mE8AAoJEBuTQ307QWKbeaIP
+ /ihHTkTW4KsN/DQ945JJbyu5tI0J80Wue7QyyLPglyKfhgb5cLLNPpOC8cCIJsc7+W3i2P38
+ s2c1cOH6CYGE7E9ur3Vfme8NW2S2I/Z8VC7bZnzyS23wT17LrsdS/qCpx4o8U+pt/xdXDKph
+ EGRYrIEmMpUWvyYzyYKGIe25FtaayIIKpq8eZYyFcp2f/sG5IkOW5uZzHPMPdcm87jU7fyuQ
+ rAU2vx9r+ulUfQ/q9Z2roC/ode3l7t2pN7BCBCsUDp6JCrUyZrtT1e7EbA0ZRP3aOBNk2P2E
+ DQOgJGjGdO5Yx2Y9LFtltu6JbsBJHi1syGRX3AtQYOMc4Y1WGoeZJmMlvKj2ZqqXNkcWi2DS
+ IQEWB0uW6CqFsBBIMGDa+6OzdaVO/uAVXWDWml02Men3CILdI1MbVjoh8ECqYUY7OQ+JJvNN
+ vnliuq5WM3Ghd3jg/LZZrxXjdIginRHFQCjIJYLKpLZWm1/iDFedcfzqRNYmTtqscdCNHW41
+ oT3Z7BmO9xwdjuwBS6nmS6JJwkbf5Ot2QR4pB/DRU7ZwjT1qHe+9r9gF32wXVQatHNGK/VVu
+ sfwOnkdxCWkp/qb2gdQRmZh+SedStWshigH6sNfuHBloF/q+hjMRc8b2m326OZdrbSHwY1Sz
+ vti8Hn7n8NjdHO9LKB7BIdjkA9DA5WsqOuVCzsFNBFVDXDQBEADNkrQYSREUL4D3Gws46JEo
+ Z9HEQOKtkrwjrzlw/tCmqVzERRPvz2Xg8n7+HRCrgqnodIYoUh5WsU84N03KlLueMNsWLJBv
+ BaubYN4JuJIdRr4dS4oyF1/fQAQPHh8Thpiz0SAZFx6iWKB7Qrz3OrGCjTPcW6eiOMheesVS
+ 5hxietSmlin+SilmIAPZHx7n242u6kdHOh+/SyLImKn/dh9RzatVpUKbv34eP1wAGldWsRxb
+ f3WP9pFNObSzI/Bo3kA89Xx2rO2roC+Gq4LeHvo7ptzcLcrqaHUAcZ3CgFG88CnA6z6lBZn0
+ WyewEcPOPdcUB2Q7D/NiUY+HDiV99rAYPJztjeTrBSTnHeSBPb+qn5ZZGQwIdUW9YegxWKvX
+ XHTwB5eMzo/RB6vffwqcnHDoe0q7VgzRRZJwpi6aMIXLfeWZ5Wrwaw2zldFuO4Dt91pFzBSO
+ IpeMtfgb/Pfe/a1WJ/GgaIRIBE+NUqckM+3zJHGmVPqJP/h2Iwv6nw8U+7Yyl6gUBLHFTg2h
+ YnLFJI4Xjg+AX1hHFVKmvl3VBHIsBv0oDcsQWXqY+NaFahT0lRPjYtrTa1v3tem/JoFzZ4B0
+ p27K+qQCF2R96hVvuEyjzBmdq2esyE6zIqftdo4MOJho8uctOiWbwNNq2U9pPWmu4vXVFBYI
+ GmpyNPYzRm0QPwARAQABwsF2BBgBCgAgAhsMFiEEm9B+DgxR+NWWd7dUG5NDfTtBYpsFAmna
+ YUkACgkQG5NDfTtBYptX+BAApg32CkxwNucNEi8WfWA8oKkW0y8YDuY6ORMo9FWNGiT/OTy0
+ vyJrLocrpn86zwfjVp+eCrssPYh8eqJfnWqmYv6ACQtHPYzPZQ3mSo8H97Z01oUxITzCxpXm
+ ZkLgPIqtDPcC2E3dPM/fVxcyowM8XsaMA9wcsaUYrta8toOq2b9tKcjleKMfMrm0gQ9u7wUc
+ QbLkwj6TCLOwucb07GXzLTNF9PZmaDUpKAZjMjmrW+le+SFvQbhamx0rxLWPR0NWntXpbCn+
+ +ACch03p/JyTBVktxFsFyCt7pTPE1kEaeuXBTe/a2D9iQvRxRW19LvuO2e59/u1wYUiH/orz
+ wbIC2S4dBsPAPihL3ztOU1yE86GPyQtSE0kU+/7snnLt4QGi6PChf3t5gnNjAzjUUovO8rgI
+ c+5yN5heq5loYHgK6OQ9OlHzsPHO9e9MOQcKlFycs1pyijFGzDwdNUm/SchK8iWT2QApTx4A
+ K9bCVaboTA2T77QYkRcRJYSsO1alGX0ome/hMLD1daXlkrNUp1HWa3K4iytLRXjCSIorWiGs
+ n+q3krnpXu3TFkA8qtOFZMdnIiFuiq1yLT8hptsV5xh1TA2nsVvSYiaCr3q4s4BKjS/KrLDb
+ qoxzw8ISjdUp4pA85vb6YLCmb39NgidD+7PmAr65lBNveIFynTgsja1rRQ4=
+In-Reply-To: <20261118233211.4121361-12-gregory.williams@amd.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -139,137 +108,123 @@ X-Spam-Status: No, score=-17.3 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-On 11/17/26 11:39, Tvrtko Ursulin wrote:
-> Running the Cyberpunk 2077 benchmark we can observe that waiting on DRM
-> sycobjs is relatively hot, but the 96% of the calls are for a single
-> object. (~4% for two points, and never more than three points. While
-> a more trivial workload like vkmark under Plasma is even more skewed
-> to single point waits.)
+On 19/11/2026 00:32, Gregory Williams wrote:
+> Add documentation to describe Versal AI Engine device tree bindings. AI
+> Engine is a tile array based processor with many cores and local memory
+> cache. Data routing between the cores is done through internal switches,
+> interface tiles are used to connect to external sources such as memory
+> or PL. Configuration registers of the device are accessed through a
+> memory mapped AXI address space.
 > 
-> Therefore lets add a fast path to bypass the kcalloc/kfree and use a pre-
-> allocated stack array for those cases.
-
-In general it seems valid to optimize that stuff, but I'm a bit concerned about the complexity and opportunity for coding errors which are hard to detect.
-
-How about we have a macro which creates a guarded stack allocation which is either using the stack when it is small enough or kvzalloc_objs() as fallback?
-
-Regards,
-Christian.
-
-> 
-> Signed-off-by: Tvrtko Ursulin <tvrtko.ursulin@igalia.com>
-> Reviewed-by: Maíra Canal <mcanal@igalia.com> # v3
-> Cc: Fei Yu <fei.yu@intel.com>
-> Cc: Christian König <christian.koenig@amd.com>
+> Signed-off-by: Gregory Williams <gregory.williams@amd.com>
 > ---
-> v2:
->  * Document rationale for stack array in a comment.
-> 
-> v3:
->  * Added DRM_SYNCOBJ_FAST_PATH_ENTRIES to avoid hardcoding fast path array
->    size.
-> 
-> v4:
->  * Rebased to be standalone.
-> 
-> v5:
->  * Rebased for kzalloc_objs.
-> 
-> v6:
->  * Rebased for kvmalloc_objs and kvzalloc_objs.
-> ---
->  drivers/gpu/drm/drm_syncobj.c | 44 ++++++++++++++++++++++++++---------
->  1 file changed, 33 insertions(+), 11 deletions(-)
-> 
-> diff --git a/drivers/gpu/drm/drm_syncobj.c b/drivers/gpu/drm/drm_syncobj.c
-> index 663d6cb8dbf8..b76b957b1fff 100644
-> --- a/drivers/gpu/drm/drm_syncobj.c
-> +++ b/drivers/gpu/drm/drm_syncobj.c
-> @@ -248,6 +248,14 @@ static void
->  syncobj_eventfd_entry_func(struct drm_syncobj *syncobj,
->  			   struct syncobj_eventfd_entry *entry);
->  
-> +/*
-> + * Empirically vast majority of ioctls pass in a single syncobj (96%) and never
-> + * more than three points. Therefore implement a fast path with a small stack
-> + * array to avoid going into the allocator sometimes several times per
-> + * userspace rendered frame.
-> + */
-> +#define DRM_SYNCOBJ_FAST_PATH_ENTRIES 4
-> +
->  /**
->   * drm_syncobj_find - lookup and reference a sync object.
->   * @file_private: drm file private pointer
-> @@ -1051,10 +1059,12 @@ static signed long drm_syncobj_array_wait_timeout(struct drm_syncobj **syncobjs,
->  						  uint32_t *idx,
->  						  ktime_t *deadline)
->  {
-> +	struct syncobj_wait_entry stack_entries[DRM_SYNCOBJ_FAST_PATH_ENTRIES];
-> +	u64 stack_points[DRM_SYNCOBJ_FAST_PATH_ENTRIES];
->  	struct syncobj_wait_entry *entries;
->  	struct dma_fence *fence;
-> -	uint64_t *points;
->  	uint32_t signaled_count, i;
-> +	uint64_t *points;
->  
->  	if (flags & (DRM_SYNCOBJ_WAIT_FLAGS_WAIT_FOR_SUBMIT |
->  		     DRM_SYNCOBJ_WAIT_FLAGS_WAIT_AVAILABLE)) {
-> @@ -1062,24 +1072,33 @@ static signed long drm_syncobj_array_wait_timeout(struct drm_syncobj **syncobjs,
->  		lockdep_assert_none_held_once();
->  	}
->  
-> -	points = kvmalloc_objs(*points, count);
-> -	if (points == NULL)
-> -		return -ENOMEM;
-> +	if (count > ARRAY_SIZE(stack_points)) {
-> +		points = kvmalloc_objs(*points, count);
-> +		if (!points)
-> +			return -ENOMEM;
-> +	} else {
-> +		points = stack_points;
-> +	}
->  
->  	if (!user_points) {
->  		memset(points, 0, count * sizeof(uint64_t));
-> -
->  	} else if (copy_from_user(points, user_points,
->  				  sizeof(uint64_t) * count)) {
->  		timeout = -EFAULT;
->  		goto err_free_points;
->  	}
->  
-> -	entries = kvzalloc_objs(*entries, count);
-> -	if (!entries) {
-> -		timeout = -ENOMEM;
-> -		goto err_free_points;
-> +	if (count > ARRAY_SIZE(stack_entries)) {
-> +		entries = kvzalloc_objs(*entries, count);
-> +		if (!entries) {
-> +			timeout = -ENOMEM;
-> +			goto err_free_points;
-> +		}
-> +	} else {
-> +		memset(stack_entries, 0, sizeof(stack_entries));
-> +		entries = stack_entries;
->  	}
-> +
->  	/* Walk the list of sync objects and initialize entries.  We do
->  	 * this up-front so that we can properly return -EINVAL if there is
->  	 * a syncobj with a missing fence and then never have the chance of
-> @@ -1196,10 +1215,13 @@ static signed long drm_syncobj_array_wait_timeout(struct drm_syncobj **syncobjs,
->  						  &entries[i].fence_cb);
->  		dma_fence_put(entries[i].fence);
->  	}
-> -	kvfree(entries);
-> +
-> +	if (entries != stack_entries)
-> +		kvfree(entries);
->  
->  err_free_points:
-> -	kvfree(points);
-> +	if (points != stack_points)
-> +		kvfree(points);
->  
->  	return timeout;
->  }
+>  .../bindings/soc/xilinx/xlnx,ai-engine.yaml   | 61 +++++++++++++++++++
 
+Soc is dumping ground of things which do not have clear function. This
+has a clear function, so place it with other DSP/accel/NPU.
+
+Subject - you almost hit the bingo. Missing only schema and YAML for the
+full one.
+
+A nit, subject: drop second/last, redundant "DT bindings". The
+"dt-bindings" prefix is already stating that these are bindings.
+See also:
+https://elixir.bootlin.com/linux/v7.1-rc7/source/Documentation/devicetree/bindings/submitting-patches.rst#L23
+
+>  1 file changed, 61 insertions(+)
+>  create mode 100644 Documentation/devicetree/bindings/soc/xilinx/xlnx,ai-engine.yaml
+> 
+> diff --git a/Documentation/devicetree/bindings/soc/xilinx/xlnx,ai-engine.yaml b/Documentation/devicetree/bindings/soc/xilinx/xlnx,ai-engine.yaml
+> new file mode 100644
+> index 000000000000..6c97b5f0fb03
+> --- /dev/null
+> +++ b/Documentation/devicetree/bindings/soc/xilinx/xlnx,ai-engine.yaml
+
+Please read writing bindings document. Filename must match compatible.
+
+> @@ -0,0 +1,61 @@
+> +# SPDX-License-Identifier: (GPL-2.0 OR BSD-2-Clause)
+
+Why not using recommended license? Why doing this differently?
+
+> +# Copyright(C) 2026 Advanced Micro Devices, Inc. All rights reserved.
+> +%YAML 1.2
+> +---
+> +$id: http://devicetree.org/schemas/soc/xilinx/xlnx,ai-engine.yaml#
+> +$schema: http://devicetree.org/meta-schemas/core.yaml#
+> +
+> +title: AMD AI Engine for Versal SoCs
+> +
+> +maintainers:
+> +  - Gregory Williams <gregory.williams@amd.com>
+> +
+> +description:
+> +  The AMD AI Engine is a tile processor with many cores (up to 400) that
+> +  can run in parallel with some devices containing local cache (memory tiles).
+> +  The data routing between cores is configured through internal switches, and
+> +  shim tiles interface with external interconnect, such as memory or PL.
+> +
+> +properties:
+> +  compatible:
+> +    enum:
+> +      - xlnx,versal2-aieml
+> +
+> +  reg:
+> +    maxItems: 1
+> +
+> +  clocks:
+> +    maxItems: 1
+> +
+> +  clock-names:
+> +    const: aclk0
+
+Drop clock name. If you have to use output clock name as input name,
+then it's just incorrect or incomplete, thus just drop it.
+
+> +
+> +  xlnx,firmware-device-id:
+
+You don't get device identifiers, sorry. See writing bindings.
+
+> +    description:
+> +      Device identifier as defined by Versal firmware interface. This value is
+> +      passed unchanged to firmware calls.
+> +    $ref: /schemas/types.yaml#/definitions/uint32
+> +
+> +required:
+> +  - compatible
+> +  - reg
+> +  - clocks
+> +  - clock-names
+> +  - xlnx,firmware-device-id
+> +
+> +additionalProperties: false
+> +
+> +examples:
+> +  - |
+> +    soc {
+> +      #address-cells = <2>;
+> +      #size-cells = <2>;
+> +
+> +      ai_engine: ai-engine@20000000000 {
+
+Don't use your own names. It is not an engine.
+
+Node names should be generic. See also an explanation and list of
+examples (not exhaustive) in DT specification:
+https://devicetree-specification.readthedocs.io/en/latest/chapter2-devicetree-basics.html#generic-names-recommendation
+If you cannot find a name matching your device, please check in kernel
+sources for similar cases or you can grow the spec (via pull request to
+DT spec repo).
+
+> +        compatible = "xlnx,versal2-aieml";
+> +        reg = <0x200 0x00 0x01 0x00>;
+> +        clocks = <&aclk0>;
+> +        clock-names = "aclk0";
+> +        xlnx,firmware-device-id = <0x18224072>;
+> +      };
+> +    };
+
+
+Best regards,
+Krzysztof
