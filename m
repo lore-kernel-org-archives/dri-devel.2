@@ -2,67 +2,43 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6A052606A320
-	for <dri-devel@archiver.kernel.org>; Thu, 19 Nov 2026 08:49:44 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6A9AA606A320
+	for <dri-devel@archiver.kernel.org>; Thu, 19 Nov 2026 08:50:37 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=samsung.com header.i=@samsung.com header.a=rsa-sha256 header.s=mail20170921 header.b=OBSYSz/C
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Ye8qBC6a
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id D3AC210E4BF;
-	Thu, 19 Nov 2026 08:49:38 +0000 (UTC)
-Received: from mailout2.w1.samsung.com (mailout2.w1.samsung.com
- [210.118.77.12])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 3C85410E4BF
- for <dri-devel@lists.freedesktop.org>; Thu, 19 Nov 2026 08:49:32 +0000 (UTC)
-Received: from eucas1p2.samsung.com (unknown [182.198.249.207])
- by mailout2.w1.samsung.com (KnoxPortal) with ESMTP id
- 20261119084930euoutp02e0ec6d518b337d3067c9d9a8302ccdb5~pZhXQPwME0282202822euoutp028
- for <dri-devel@lists.freedesktop.org>; Thu, 19 Nov 2026 08:49:30 +0000 (GMT)
-DKIM-Filter: OpenDKIM Filter v2.11.0 mailout2.w1.samsung.com
- 20261119084930euoutp02e0ec6d518b337d3067c9d9a8302ccdb5~pZhXQPwME0282202822euoutp028
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=samsung.com;
- s=mail20170921; t=1795078170;
- bh=wyN3WQJDvJ3eu28smzP2OeR6FzPlvPnryfJGFkh+zQ0=;
- h=From:To:Cc:Subject:Date:References:From;
- b=OBSYSz/CQBZdiWgVn6QVKerViisDjfJVn+DA9SpEGS4Yi4PyY23z8DZI9S2YRZJTa
- T4f8BekR5d2hQpdILYlOleFfkuvkwQVdAH8bK2mcjCzIB9vslFx7WDhtJcWki88XEP
- Wytx6sx/yHV+5SIlBRNr78/yMjwJg1Dl+/4xsQSA=
-Received: from eusmtip1.samsung.com (unknown [203.254.199.221]) by
- eucas1p2.samsung.com (KnoxPortal) with ESMTPA id
- 20261119084929eucas1p26166723765c9707e2e2b81f8ded99da6~pZhWxUrnl1227112271eucas1p2C;
- Thu, 19 Nov 2026 08:49:29 +0000 (GMT)
-Received: from AMDC4653.digital.local (unknown [106.120.51.32]) by
- eusmtip1.samsung.com (KnoxPortal) with ESMTPA id
- 20261119084928eusmtip1da0d6e3b9b83a1e17347e9e3d9b40229~pZhV_3GOw1906719067eusmtip1U;
- Thu, 19 Nov 2026 08:49:28 +0000 (GMT)
-From: Marek Szyprowski <m.szyprowski@samsung.com>
-To: dri-devel@lists.freedesktop.org
-Cc: Marek Szyprowski <m.szyprowski@samsung.com>, Andrzej Hajda
- <andrzej.hajda@intel.com>, Neil Armstrong <neil.armstrong@linaro.org>,
- Robert Foss <rfoss@kernel.org>, Laurent Pinchart
- <Laurent.pinchart@ideasonboard.com>, Jonas Karlman <jonas@kwiboo.se>, Jernej
- Skrabec <jernej.skrabec@gmail.com>, Luca Ceresoli
- <luca.ceresoli@bootlin.com>, Maarten Lankhorst
- <maarten.lankhorst@linux.intel.com>, Maxime Ripard <mripard@kernel.org>,
- Thomas Zimmermann <tzimmermann@suse.de>, Damon Ding
- <damon.ding@rock-chips.com>, Dmitry Baryshkov
- <dmitry.baryshkov@oss.qualcomm.com>, Heiko Stuebner <heiko@sntech.de>,
- Douglas Anderson <dianders@chromium.org>, Brian Norris
- <briannorris@chromium.org>
-Subject: [PATCH] drm/bridge: analogix_dp: Power down synchronously on bridge
- disable
-Date: Thu, 19 Nov 2026 09:49:21 +0100
-Message-ID: <20261119084923.1156243-1-m.szyprowski@samsung.com>
-X-Mailer: git-send-email 2.43.0
-X-Archived-By: <archiver.kernel.org>
-MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-CMS-MailID: 20261119084929eucas1p26166723765c9707e2e2b81f8ded99da6
-X-Msg-Generator: CA
-Content-Type: text/plain; charset="utf-8"
-X-RootMTR: 20261119084929eucas1p26166723765c9707e2e2b81f8ded99da6
-X-EPHeader: CA
-X-CMS-RootMailID: 20261119084929eucas1p26166723765c9707e2e2b81f8ded99da6
-References: <CGME20261119084929eucas1p26166723765c9707e2e2b81f8ded99da6@eucas1p2.samsung.com>
+	by gabe.freedesktop.org (Postfix) with ESMTP id CC3DB10E535;
+	Thu, 19 Nov 2026 08:50:31 +0000 (UTC)
+Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id BD8A610E535
+ for <dri-devel@lists.freedesktop.org>; Thu, 19 Nov 2026 08:50:25 +0000 (UTC)
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+ by tor.source.kernel.org (Postfix) with ESMTP id D352C60F8B;
+ Thu, 19 Nov 2026 08:50:24 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6505A1F000C4;
+ Thu, 19 Nov 2026 08:50:24 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+ s=k20260515; t=1795078224;
+ bh=KrOyKM85njGxEPyZjNXs4ukGaWlvUq3qWU7xKtMt0jo=;
+ h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+ b=Ye8qBC6aAconaLsGGwlLuBxBjCIJUqMCrQrK/oTxIh00Qghfvi8awzT4FgCkGiTJY
+ PHkw3dHiwEJU2pS7GxbWxSSKSo3YSdm+gIcYk9cn1sSRDYHVBytxFuw7g3OML7D9To
+ UyDUhKAGQCzSFDJYdvNz8EiYHmScZoF2brETtqjMQMZxzmJ/zqhEr9wFLI+j1wDOSI
+ lkRqH1KGmEN1ztvgIH0mFC3muLRik17iyj6hdDPbZMr1iW2sc7BJjz3zBPrtFg2wj4
+ 0wqMoAf8XfeJHeyUDtR0TlYIQemFghD3h1V7pvfYi5amDy140A0zll/s8MiXhrjzez
+ pgyPoTm5LJ2qw==
+Message-ID: <sashiko-outbox-222724@kernel.org>
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v9 28/29] drm/msm/dp: select MST stream bpp during
+ atomic check
+To: "Yongxing Mou" <yongxing.mou@oss.qualcomm.com>
+Cc: dri-devel@lists.freedesktop.org
+In-Reply-To: <20261119-msm-dp-mst-v9-28-ca61be4edfc3@oss.qualcomm.com>
+References: <20261119-msm-dp-mst-v9-0-ca61be4edfc3@oss.qualcomm.com>
+ <20261119-msm-dp-mst-v9-28-ca61be4edfc3@oss.qualcomm.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Thu, 19 Nov 2026 08:50:24 +0000
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -73,79 +49,93 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
+Reply-To: sashiko-reviews@lists.linux.dev
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-18.8 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
+X-Spam-Status: No, score=-10.8 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
 	DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
-	INCLUDES_CR_TRAILER,INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,
-	SPF_PASS,USER_AGENT_GIT autolearn=ham autolearn_force=no version=4.0.1
+	INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS autolearn=ham
+	autolearn_force=no version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
+X-Archived-By: <archiver.kernel.org>
 
-The pipe (FIMD -> DP video) clock on Exynos is switched from the
-analogix_dp runtime PM callbacks via plat_data->power_on()/power_off(),
-which require the encoder to be still attached to a CRTC. The driver
-relies on pm_runtime_put_sync() in analogix_dp_bridge_disable() to run
-the runtime suspend callback immediately, while the encoder->crtc link
-is still valid.
+Thank you for your contribution! Sashiko AI review found 1 potential
+issue to consider:
+- [Medium] drm/msm/dp: msm_dp_mst_select_bpp() ignores active link
+  payloads
+--
 
-The device uses autosuspend, so whether put_sync() suspends the device
-right away depends on the last_busy timestamp. Since commit f2b556e3dad6
-("PM: runtime: Update last_busy before calling rpm_suspend() in
-rpm_idle()") last_busy is refreshed in rpm_idle(), so
-pm_runtime_put_sync() now only schedules an autosuspend 100ms later.
-During system suspend this means that the device is runtime suspended
-only by pm_runtime_force_suspend(), when encoder->crtc is already NULL,
-so the FIMD DP clock is never disabled and its cached state gets out of
-sync with the hardware after FIMD loses power. On resume the clock is
-not re-enabled and enabling the bridge fails on Exynos5250 Snow:
+commit 3977050b668a1f08d8d9b23f6fc76eaf2a03455a
+Author: Yongxing Mou <yongxing.mou@oss.qualcomm.com>
 
-  exynos-dp 145b0000.dp-controller: Timeout of slave video streamclk ok
-  exynos-dp 145b0000.dp-controller: unable to config video
-  [drm:analogix_dp_bridge_atomic_enable [analogix_dp]] *ERROR* dp commit error, ret = -110
-  exynos-dp 145b0000.dp-controller: failed to set bridge, retry: 0
-  ...
-  exynos-dp 145b0000.dp-controller: too many times retry set bridge, give it up
+drm/msm/dp: select MST stream bpp during atomic check
 
-Use pm_runtime_put_sync_suspend() in the bridge disable path and in the
-analogix_dp_set_bridge() error path, so the hardware is powered down
-immediately when the display is turned off, regardless of the
-autosuspend delay used for the AUX channel transfers.
+This commit selects the MST stream bpp during atomic check by trying 30,
+24, and 18 bpp against the port PBN and link time slots, storing the
+result in a connector state subclass for commit.
 
-Fixes: f28dd5075675 ("drm/bridge: analogix_dp: Enable autosuspend")
-Signed-off-by: Marek Szyprowski <m.szyprowski@samsung.com>
----
-This patch has been developed with LLM assistance and have been tested
-on the real Exynos5250-based Snow Chromebook device.
+> diff --git a/drivers/gpu/drm/msm/dp/dp_mst_drm.c b/drivers/gpu/drm/msm/dp=
+/dp_mst_drm.c
+> index 2b96e003225d5..a452b3d2ba228 100644
+> --- a/drivers/gpu/drm/msm/dp/dp_mst_drm.c
+> +++ b/drivers/gpu/drm/msm/dp/dp_mst_drm.c
+[ ... ]
+> @@ -142,6 +189,42 @@ static int msm_dp_mst_connector_atomic_check(struct =
+drm_connector *connector,
+>  	return drm_dp_atomic_release_time_slots(state, &mst->mst_mgr, mst_conn-=
+>mst_port);
+>  }
+> =20
+> +static int msm_dp_mst_select_bpp(struct drm_atomic_commit *state,
+> +				 struct msm_dp_mst *mst,
+> +				 const struct drm_dp_mst_topology_state *mst_state,
+> +				 struct drm_dp_mst_port *port,
+> +				 const struct drm_display_mode *mode,
+> +				 u32 max_bpp, u32 *bpp)
+> +{
+> +	static const u32 bpps[] =3D { 30, 24, 18 };
+> +	unsigned int i;
+> +
+> +	for (i =3D 0; i < ARRAY_SIZE(bpps); i++) {
+> +		int pbn, slots;
+> +
+> +		if (bpps[i] > max_bpp)
+> +			continue;
+> +
+> +		pbn =3D drm_dp_calc_pbn_mode(mode->clock, bpps[i] << 4);
+> +		if (pbn > port->full_pbn)
+> +			continue;
+> +
+> +		slots =3D drm_dp_atomic_find_time_slots(state, &mst->mst_mgr, port, pb=
+n);
+> +		if (slots < 0)
+> +			return slots;
+> +
+> +		if (slots <=3D mst_state->total_avail_slots) {
+> +			drm_dbg_kms(mst->msm_dp->drm_dev,
+> +				    "[MST] bpp=3D%u pbn=3D%d slots=3D%d\n",
+> +				    bpps[i], pbn, slots);
+> +			*bpp =3D bpps[i];
+> +			return 0;
+> +		}
+> +	}
+> +
+> +	return -ENOSPC;
+> +}
 
-Best regards
-Marek Szyprowski, PhD
-Samsung R&D Institute Poland
----
- drivers/gpu/drm/bridge/analogix/analogix_dp_core.c | 4 ++--
- 1 file changed, 2 insertions(+), 2 deletions(-)
+[Severity: Medium]
+Does comparing slots against mst_state->total_avail_slots account for time
+slots already used by other active streams on the link?
 
-diff --git a/drivers/gpu/drm/bridge/analogix/analogix_dp_core.c b/drivers/gpu/drm/bridge/analogix/analogix_dp_core.c
-index 8bb4c48aa3b4..022acb962b7c 100644
---- a/drivers/gpu/drm/bridge/analogix/analogix_dp_core.c
-+++ b/drivers/gpu/drm/bridge/analogix/analogix_dp_core.c
-@@ -1021,7 +1021,7 @@ static int analogix_dp_set_bridge(struct analogix_dp_device *dp)
- 	return 0;
- 
- out_dp_init:
--	pm_runtime_put_sync(dp->dev);
-+	pm_runtime_put_sync_suspend(dp->dev);
- 
- 	return ret;
- }
-@@ -1163,7 +1163,7 @@ static void analogix_dp_bridge_disable(struct drm_bridge *bridge)
- 
- 	analogix_dp_set_analog_power_down(dp, POWER_ALL, 1);
- 
--	pm_runtime_put_sync(dp->dev);
-+	pm_runtime_put_sync_suspend(dp->dev);
- 
- 	dp->fast_train_enable = false;
- 	dp->psr_supported = false;
--- 
-2.43.0
+drm_dp_atomic_find_time_slots() returns only the slots required for this
+port, while mst_state->total_avail_slots is the fixed 63-slot capacity of
+the entire link and is not decremented as payloads are added to
+mst_state->payloads.  When another stream is already active on the link,
+msm_dp_mst_select_bpp() will pick 30 or 24 bpp as long as this stream
+alone fits in 63 slots, even if the remaining unallocated slots only have
+room for 24 or 18 bpp, causing drm_dp_mst_atomic_check() to fail the
+modeset with -ENOSPC instead of stepping down to a lower bpp.
 
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261119-msm-dp-mst=
+-v9-0-ca61be4edfc3@oss.qualcomm.com?part=3D28
