@@ -2,48 +2,86 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8131D606A32F
-	for <dri-devel@archiver.kernel.org>; Thu, 19 Nov 2026 08:18:12 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E3A7B606A320
+	for <dri-devel@archiver.kernel.org>; Thu, 19 Nov 2026 08:19:59 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=igalia.com header.i=@igalia.com header.a=rsa-sha256 header.s=20170329 header.b=Jdr2aFT/
+	dkim=pass (2048-bit key) header.d=baylibre.com header.i=@baylibre.com header.a=rsa-sha256 header.s=google header.b=E+P1sIxB
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 052F6112089;
-	Thu, 19 Nov 2026 08:18:07 +0000 (UTC)
-Received: from fanzine2.igalia.com (fanzine2.igalia.com [213.97.179.56])
- by gabe.freedesktop.org (Postfix) with ESMTPS id D1F3011208C
- for <dri-devel@lists.freedesktop.org>; Thu, 19 Nov 2026 08:18:00 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com; 
- s=20170329;
- h=MIME-Version:Content-Transfer-Encoding:Content-Type:Date:Cc:To:
- From:Subject:Message-ID:From:Reply-To;
- bh=cKNnXRxwc7qIR50Hs6GqKcaRO1r0IQSK7B3OlbA6Vhg=; t=1795076280; x=2110436280; 
- b=Jdr2aFT/LyTjwb35Vx1vOgK1cDf8BAGfWGSfKDmlaAkdQcydpzVnFTCvzOdc3ra3dhDDkXtIT1E
- 3APHkBsvWf7JkrRAgXJW7YMDzSP8G1Qtl33vUxemFZZ4tfHCOoebR1Sd02YTTlf/+KEYyPMJ2/R2a
- xMylUXCToEK4KaWYSqdvjw6hoLwKy9eYompbfNpGIokeoxldW7kUTgiLqQYfOr2SNrqaELMpHTlh+
- 2jdDL5VVQNCGfCU0jDuq/RhguHuQc6/hV0XVv5P+oFd02DoxenvDvq/PWWtSFjDd6EKTsfPnqPsn8
- X/rXq/RHxa7V2Vkzdm8McvL8so86ViPsfEXg==;
-Received: from [192.168.12.229] by fanzine2.igalia.com with esmtpsa 
- (Cipher TLS1.3:ECDHE_SECP256R1__RSA_PSS_RSAE_SHA256__AES_256_GCM:256) (Exim)
- id 1xTxLB-00000001MPj-3hij; Thu, 19 Nov 2026 09:17:57 +0100
-Message-ID: <e945bdd00b4eecec4b7e451e35cb39855ad2e0de.camel@igalia.com>
-Subject: Re: [PATCH 0/4] drm/vc4: Work around GFXH-16 instruction cache
- livelock
-From: Iago Toral <itoral@igalia.com>
-To: =?ISO-8859-1?Q?Ma=EDra?= Canal <mcanal@igalia.com>, "Juan A. Suarez
- Romero" <jasuarez@igalia.com>, Dave Stevenson
- <dave.stevenson@raspberrypi.com>, Raspberry Pi Kernel Maintenance
- <kernel-list@raspberrypi.com>, Maxime Ripard <mripard@kernel.org>, David
- Airlie <airlied@gmail.com>,  Simona Vetter <simona@ffwll.ch>
-Cc: kernel-dev@igalia.com, dri-devel@lists.freedesktop.org, 
- stable@vger.kernel.org
-Date: Thu, 19 Nov 2026 09:17:57 +0100
-In-Reply-To: <20261118-vc4-icache-workaround-v1-0-5b8adc2c84fe@igalia.com>
-References: <20261118-vc4-icache-workaround-v1-0-5b8adc2c84fe@igalia.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-User-Agent: Evolution 3.52.3-0ubuntu1.1 
+	by gabe.freedesktop.org (Postfix) with ESMTP id 502C910E55F;
+	Thu, 19 Nov 2026 08:19:54 +0000 (UTC)
+Received: from mail-wm1-f47.google.com (mail-wm1-f47.google.com
+ [209.85.128.47])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id D186310E55F
+ for <dri-devel@lists.freedesktop.org>; Thu, 19 Nov 2026 08:19:47 +0000 (UTC)
+Received: by mail-wm1-f47.google.com with SMTP id
+ 5b1f17b1804b1-4bb5b8ef642so16759805e9.1
+ for <dri-devel@lists.freedesktop.org>; Thu, 19 Nov 2026 00:19:47 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=baylibre.com; s=google; t=1795076386; x=1795681186;
+ darn=lists.freedesktop.org; 
+ h=content-type:mime-version:message-id:date:references:in-reply-to
+ :subject:cc:to:from:from:to:cc:subject:date:message-id:reply-to
+ :content-type; bh=p+dKc+IASGuU74BQrkjO8c1LFAuMGojRAMZOBhZUcyk=;
+ b=E+P1sIxBA5Q3l46a6EGUdEOAr1F/IES6FWyBKgF/Dlc0RZzpwYq/fryTgOrieNRV1x
+ Zo1II/3hkl4Wph0A5/1YqYT3fhfcAkbtiEt07LdD5+37XTjeRMJAgSZpSPaTCbV1AOwS
+ RxScWhlIXyghNEtJzKB9bY0cR9GifTKPpl3keoJbtYYqV/dyS47RFY4eWYB1FSu0sD/x
+ B6MUqkCDpA7rXLlmwNFgQAHoK/GgLZGg8WAi4KI9PW53Q+UMe0Ud9COy7G8X4vWYYk2/
+ xACEE3hvO+LriKlI/EDYpGmSHKv7vrWIMLjGLAf6e0KLjp0A8Sg+sC0926DP3EIwTVW6
+ MrZQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20260707; t=1795076386; x=1795681186;
+ h=content-type:mime-version:message-id:date:references:in-reply-to
+ :subject:cc:to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject
+ :date:message-id:reply-to:content-type;
+ bh=p+dKc+IASGuU74BQrkjO8c1LFAuMGojRAMZOBhZUcyk=;
+ b=FbahD0zlqqUduAxHu/HYOQQ4GWcb0DWAJxf/IAvrK0T2spcGbNXJsPsYt+Vl3INCRT
+ zrbm7PcKnDRBpsVUkv+YzB8XMNPK8nS5X6DXjs1NH+ceosWY2YmKnIo70SiL5R6FZZF5
+ Kmrfqq9qlFNcvzw3NtH1pKr4NH8BhAj0m5x0jhISZeAmB/rSsmrHySTURwfnhB9ZUEJT
+ owll+prv99SNtHkwUg5uv2vss8uj/QbFWy1CDwHmFo6S4HyCg6tSZMmFC/1FKaJbSCsY
+ uuHWaDfVsjmT9zMw4UANqjNQmTmyF4E+O+3OX65plG7GTFM5ZY2h0bfuGjPCHjBXX/K7
+ i+cw==
+X-Forwarded-Encrypted: i=1;
+ AL+hErH7NLAaEcGLzFiL4O9kjC+7iVniiU2Nes38MfEkPOHaZb13nLJgiBBGhr6GmjRZpXT47rcl39gRThE=@lists.freedesktop.org
+X-Gm-Message-State: APuU4Z9cRvda0NW9BUp4yn2dzm+/ET5g8EXWTyp8xKcpChbMyByI9Iip
+ Y6xFHC2nlgn/deXAJW2XoOe8jlQcKJ2HA+7mFLZ1RdLB3b8WbsRU0wtmosLL5rpuQfo=
+X-Gm-Gg: AYBFou2LR7/7bmAtFU/eVXRA8GI/GUBmNSOY3KN1kFRgiScK9VfDewHTUFu/miTDxhs
+ Mh2WlzRblSIr6nBLihP/5dGSRWNl+KR3g/mhiMskyUFR5bp+ApvJBjldrBbnvVDNHRxZW6fEd84
+ 0WcA6CFrHcKfPQvWJ90s29ZFgMHuf/tOTTZShHzpJ4vUrUVCMP9He9XtGg36IKc53cRR+1y1z/G
+ C1ZG23vnbO+CxeZGMXRdezd5KaGwmjD3FLcO3J9t8CpHwvmu2FpqAHH/imPmVhf13xKgK9DlMXr
+ kc97evYYd0EzmNJiaMhL9ZTxYodjGmJvjAYZ2Yz+3QktCMJznAuYm+MAFNZ2BseHAfLwAdznhXD
+ N9X9to/nhh/d+4jlwQGOeT/9WSBA806vN1edukozgiM+nrc0MGMuQdGVbXJ4pWSYs94nqxr7JXZ
+ sbkeVc1OO3LDJcU0lDKJUBwmwd2WYcpcQdl53bMudgpGFwGL5DxedlCTG0dQJML2msa0J9pNv+R
+ kVNh60Sz32ppxhAXIyHsH4rx4dnrJ7gJC1Hi57KQ8SEm0kzornklxo2OJUfjb9U/5aPEhSPT4Tf
+ h7q18iML3s9dYtds762ztkN9dn4jZhZO1UDK+HmEAKHaoEwV
+X-Received: by 2002:a05:600c:8b63:b0:4a7:8fe8:130c with SMTP id
+ 5b1f17b1804b1-4bb7da27088mr96761205e9.28.1795076386236; 
+ Thu, 19 Nov 2026 00:19:46 -0800 (PST)
+Received: from localhost (82-67-6-57.subs.proxad.net. [82.67.6.57])
+ by smtp.gmail.com with ESMTPSA id
+ 5b1f17b1804b1-4bb84e5656asm17330585e9.3.2026.11.19.00.19.45
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Thu, 19 Nov 2026 00:19:45 -0800 (PST)
+From: Jerome Brunet <jbrunet@baylibre.com>
+To: Gregory Williams <gregory.williams@amd.com>
+Cc: Stephen Boyd <sboyd@kernel.org>, Brian Masney <bmasney+clk@redhat.com>,
+ Jerome Brunet <jbrunet+clk@baylibre.com>, Rob Herring <robh@kernel.org>,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
+ <conor+dt@kernel.org>, Michal Simek <michal.simek@amd.com>, Oded Gabbay
+ <ogabbay@kernel.org>, kishore Manne <nava.kishore.manne@amd.com>, Izhar
+ Ameer Shaikh <izhar.ameer.shaikh@amd.com>, Greg Kroah-Hartman
+ <gregkh@linuxfoundation.org>, Jay Buddhabhatti <jay.buddhabhatti@amd.com>,
+ Ronak Jain <ronak.jain@amd.com>, linux-clk@vger.kernel.org,
+ devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+ linux-arm-kernel@lists.infradead.org, dri-devel@lists.freedesktop.org
+Subject: Re: [PATCH 00/15] accel: Add AMD Versal AI Engine driver (with
+ Versal Gen 2 firmware support)
+In-Reply-To: <20261118233211.4121361-1-gregory.williams@amd.com>
+References: <20261118233211.4121361-1-gregory.williams@amd.com>
+Date: Thu, 19 Nov 2026 09:19:45 +0100
+Message-ID: <1jcxs12py6.fsf@starbuckisacylon.baylibre.com>
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
+Content-Type: text/plain
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -55,102 +93,135 @@ List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-15.8 required=3.0 tests=BAYES_00,DKIM_SIGNED,
-	DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
-	INCLUDES_CR_TRAILER,INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,
-	SPF_PASS autolearn=unavailable autolearn_force=no version=4.0.1
+X-Spam-Status: No, score=-10.8 required=3.0 tests=BAYES_00,DKIM_SIGNED,
+	DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_PATCH,
+	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS autolearn=unavailable
+	autolearn_force=no version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-Looks good to me:
-Reviewed-by: Iago Toral Quiroga <itoral@igalia.com>
+On mer. 18 nov. 2026 at 15:31, Gregory Williams <gregory.williams@amd.com> wrote:
 
-I was not aware that hang checks were happening at second boundaries,
-regardless of the time at which the hangcheck was queued, it doesn't
-sound like a good idea, so I think it is good to change that.
+> This series adds a driver for the AMD AI Engine (AIE) found on Versal
+> devices, together with the firmware changes the driver depends on. AI Engine
+> is a tile array based accelerator used for applications such as beamforming and
+> machine learning inference. Tiles are organised in columns, and groups of
+> columns form partitions that an application requests, initialises and releases.
+>
+> Several registers in the AI Engine array (column and shim resets, memory
+> zeroisation, tile clock gating, NoC and interrupt routing) are privileged
+> and can only be written by the trusted firmware. The driver therefore
+> packs operations into a DMA buffer and hands it to the platform firmware,
+> which executes them in order.
+>
+> Firmware patches included
+> -------------------------
+> Patches 1-10 are not part of the AI Engine driver itself, but the driver
+> cannot work without them, so they are included here to keep the series
+> self-contained and reviewable in one place:
+>
+>   - 1-5:  zynqmp firmware driver refactoring and a va_start()/va_end()
+>           fix (patch 2 carries Fixes: tags), preparing for the extended
+>           SMCCC call format.
+>   - 6-7:  Versal Gen 2 compatible string and firmware support, where all
+>           EEMI APIs use the extended SMCCC payload.
+>   - 8-9:  Versal Gen 2 clock binding and clk driver match entry.
+>   - 10:   firmware IOCTL support for the Versal Gen 2 AIE run time
+>           operations, used by the driver.
+>
+> I am happy to split out or reorder the firmware and clock patches if the
+> maintainers prefer to take them through their own trees, and would
+> appreciate guidance on how the series should be merged.
 
-On the other hand, now we rearm the hang check every 100ms instead
-which is a much smaller window. I understand this reduces visible
-impact of the workaround when the issue happens, but I am wondering
-whether this alone has any visible performance impact for the 99% of
-the time we are not hitting the problem, I presume you haven't seen
-any?
+For the clock, it would defenitely be prefered if you could split out
+clock part, especially if you later need an immutable branch.
 
-Iago
+`b4` makes it very easy to handle series deps, please consider using the
+related tags
 
-El mi=C3=A9, 18-11-2026 a las 18:47 -0300, Ma=C3=ADra Canal escribi=C3=B3:
-> Mesa issue #16652 [1] reports GPU resets every few minutes on the
-> Raspberry Pi 3. They happen when text labels are drawn over their
-> shadows:
-> two different threaded fragment shaders, plus untextured single-
-> threaded
-> ones, in the same tiles.
->=20
-> During a hang, the performance counters show four QPUs fetching
-> instructions with 0 cache hits, ~6.5M misses per 100 ms, and 0 valid
-> instructions executed. This matches HW erratum GFXH-16: the QPUs of a
-> slice share one instruction cache and can livelock, evicting each
-> other's
-> fills. Since shader code always starts at offset 0 of a page-aligned
-> BO,
-> every shader competes for the same cache sets.
->=20
-> This series works around it:
->=20
-> =C2=A0 - Patch 3 starts each shader's code at one of four offsets in its
-> BO,
-> =C2=A0=C2=A0=C2=A0 spreading shaders across cache sets.
->=20
-> =C2=A0 - Patch 4 clears the slice instruction and uniforms caches when th=
-e
-> =C2=A0=C2=A0=C2=A0 hangcheck finds no progress, and resets the GPU only i=
-f the stall
-> =C2=A0=C2=A0=C2=A0 persists. It is meant to recover from livelocks the of=
-fsets don't
-> =C2=A0=C2=A0=C2=A0 prevent.
->=20
-> Patches 1 and 2 fix an off-by-one in the shader BO handle check and a
-> NULL pointer dereference in validate_gl_shader_rec(), found while
-> working
-> on patch 3.
->=20
-> Tested on a Raspberry Pi 3B+ with the issue's reproducer, 4 x 15 min
-> runs:
->=20
-> =C2=A0 without the series:=C2=A0 29 GPU resets
-> =C2=A0 with patches 1-3:=C2=A0=C2=A0=C2=A0=C2=A0 0 GPU resets
->=20
-> [1] https://gitlab.freedesktop.org/mesa/mesa/-/issues/16652
->=20
-> Best regards,
-> - Ma=C3=ADra
->=20
-> ---
-> Ma=C3=ADra Canal (4):
-> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 drm/vc4: Fix off-by-one in the shader reco=
-rd BO handle check
-> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 drm/vc4: Check for a validated shader befo=
-re reading its thread
-> mode
-> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 drm/vc4: Start shader code at varying offs=
-ets in its BO
-> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 drm/vc4: Clear the slice caches before res=
-etting a stalled GPU
->=20
-> =C2=A0drivers/gpu/drm/vc4/vc4_bo.c=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
-=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 | 43
-> +++++++++++++++++++++++-------
-> =C2=A0drivers/gpu/drm/vc4/vc4_drv.h=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
-=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 | 15 ++++++++++-
-> =C2=A0drivers/gpu/drm/vc4/vc4_gem.c=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
-=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 | 20 ++++++++++++--
-> =C2=A0drivers/gpu/drm/vc4/vc4_validate.c=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
-=A0=C2=A0=C2=A0 | 17 +++++++-----
-> =C2=A0drivers/gpu/drm/vc4/vc4_validate_shaders.c |=C2=A0 7 ++---
-> =C2=A05 files changed, 79 insertions(+), 23 deletions(-)
-> ---
-> base-commit: 80ac6d197218c3399d66674167a4d7c9051a25e2
-> change-id: 20261112-vc4-icache-workaround-d11b444bc7e8
->=20
->=20
+https://b4.docs.kernel.org/en/latest/contributor/prep.html#working-with-series-dependencies
 
+>
+> AI Engine driver
+> ----------------
+>   - 11:   devicetree binding for the AI Engine.
+>   - 12:   driver core: device probe, partition request and release.
+>   - 13:   pm ops: building and sending firmware operation packets.
+>   - 14:   enabling and disabling tile clocks.
+>   - 15:   partition initialize and teardown (reset operations).
+>
+> Previous submission
+> -------------------
+> This driver was posted for review a little over a year ago:
+>
+>   https://lore.kernel.org/dri-devel/20250702155630.1737227-1-gregory.williams@amd.com/
+>
+> Since then the scope of what is proposed for upstream has changed, this series
+> is considerably different from that posting, in particular targeting only Versal
+> Gen 2 support. All comments received on the earlier posting have been addressed
+> or in this version.
+>
+> Abhyuday Godhasara (1):
+>   drivers: firmware: xilinx: Add IOCTL support for the AIE run time
+>     operations
+>
+> Gregory Williams (5):
+>   dt-bindings: soc: xilinx: Add Versal AI Engine DT binding
+>   accel/amd-ai-engine: Add AMD AI Engine device driver
+>   accel/amd-ai-engine: Add pm ops for firmware calls
+>   accel/amd-ai-engine: Add support to enable/disable tile clocks
+>   accel/amd-ai-engine: Add reset operations
+>
+> Naman Trivedi (1):
+>   dt-bindings: clock: versal: add Versal Gen 2 compatible string
+>
+> Senthil Nathan Thangaraj (8):
+>   firmware: xilinx: Separate TF-A checking
+>   firmware: xilinx: Call va_start after pm feature check
+>   firmware: xilinx: Add comments about number of arguments
+>   firmware: xilinx: Use match data for ZynqMP/Versal
+>   firmware: xilinx: Rename zynqmp_pm_invoke_fw_fn()
+>   dt-bindings: firmware: xilinx: Add Versal Gen 2 compatible string
+>   firmware: xilinx: Add support for Versal Gen 2
+>   clk: zynqmp: Add Versal Gen 2 compatible string
+>
+>  .../bindings/clock/xlnx,versal-clk.yaml       |   5 +-
+>  .../firmware/xilinx/xlnx,zynqmp-firmware.yaml |   3 +
+>  .../bindings/soc/xilinx/xlnx,ai-engine.yaml   |  61 +++
+>  MAINTAINERS                                   |   9 +
+>  drivers/accel/Kconfig                         |   1 +
+>  drivers/accel/Makefile                        |   3 +-
+>  drivers/accel/amd-ai-engine/Kconfig           |  15 +
+>  drivers/accel/amd-ai-engine/Makefile          |  14 +
+>  .../accel/amd-ai-engine/ai-engine-aiemlv2.c   | 441 ++++++++++++++++
+>  drivers/accel/amd-ai-engine/ai-engine-clock.c | 154 ++++++
+>  drivers/accel/amd-ai-engine/ai-engine-dev.c   | 255 ++++++++++
+>  .../accel/amd-ai-engine/ai-engine-internal.h  | 377 ++++++++++++++
+>  drivers/accel/amd-ai-engine/ai-engine-part.c  | 140 ++++++
+>  drivers/accel/amd-ai-engine/ai-engine-pm.c    | 472 ++++++++++++++++++
+>  drivers/accel/amd-ai-engine/ai-engine-res.c   | 184 +++++++
+>  drivers/accel/amd-ai-engine/ai-engine-reset.c |  69 +++
+>  drivers/clk/zynqmp/clkc.c                     |   1 +
+>  drivers/firmware/xilinx/zynqmp.c              | 340 +++++++++++--
+>  include/linux/amd-ai-engine.h                 | 115 +++++
+>  include/linux/firmware/xlnx-zynqmp.h          |  65 ++-
+>  20 files changed, 2679 insertions(+), 45 deletions(-)
+>  create mode 100644 Documentation/devicetree/bindings/soc/xilinx/xlnx,ai-engine.yaml
+>  create mode 100644 drivers/accel/amd-ai-engine/Kconfig
+>  create mode 100644 drivers/accel/amd-ai-engine/Makefile
+>  create mode 100644 drivers/accel/amd-ai-engine/ai-engine-aiemlv2.c
+>  create mode 100644 drivers/accel/amd-ai-engine/ai-engine-clock.c
+>  create mode 100644 drivers/accel/amd-ai-engine/ai-engine-dev.c
+>  create mode 100644 drivers/accel/amd-ai-engine/ai-engine-internal.h
+>  create mode 100644 drivers/accel/amd-ai-engine/ai-engine-part.c
+>  create mode 100644 drivers/accel/amd-ai-engine/ai-engine-pm.c
+>  create mode 100644 drivers/accel/amd-ai-engine/ai-engine-res.c
+>  create mode 100644 drivers/accel/amd-ai-engine/ai-engine-reset.c
+>  create mode 100644 include/linux/amd-ai-engine.h
+>
+> -- 
+> 2.34.1
+>
+
+-- 
+Jerome
