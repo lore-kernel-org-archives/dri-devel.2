@@ -2,96 +2,48 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C7CFB606A32C
-	for <dri-devel@archiver.kernel.org>; Thu, 19 Nov 2026 22:00:56 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 21B11606A33D
+	for <dri-devel@archiver.kernel.org>; Thu, 19 Nov 2026 22:04:51 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=chromium.org header.i=@chromium.org header.a=rsa-sha256 header.s=google header.b=fuJ5DYQc
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=U1JaDGAF
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 9BD89112739;
-	Thu, 19 Nov 2026 22:00:50 +0000 (UTC)
-Received: from mail-lj1-f182.google.com (mail-lj1-f182.google.com
- [209.85.208.182])
- by gabe.freedesktop.org (Postfix) with ESMTPS id F20A2112739
- for <dri-devel@lists.freedesktop.org>; Thu, 19 Nov 2026 22:00:43 +0000 (UTC)
-Received: by mail-lj1-f182.google.com with SMTP id
- 38308e7fff4ca-3ab4354db11so1800391fa.1
- for <dri-devel@lists.freedesktop.org>; Thu, 19 Nov 2026 14:00:43 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=chromium.org; s=google; t=1795125642; x=1795730442;
- darn=lists.freedesktop.org; 
- h=content-transfer-encoding:content-type:cc:to:subject:message-id
- :date:from:in-reply-to:references:mime-version:from:to:cc:subject
- :date:message-id:reply-to:content-type;
- bh=aA7LciJps6ZDvR0//aGq+VpK53nWWFH0Da5N4W303Sc=;
- b=fuJ5DYQcY/QjxLefbdNbSYPeK26QRLDx0UF2C787fobUUVE9dLs6UnIOocXoUC1bLB
- hCDGHym6oWaRHfIW/9Shdzmd/igtAq4dMEkPM5tHak43ultwCMGxRd9NN+eft19tJZgq
- 1rG8rn4w2rig9byb7nVpk1JzB9IPug1Y/EJdo=
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20260707; t=1795125642; x=1795730442;
- h=content-transfer-encoding:content-type:cc:to:subject:message-id
- :date:from:in-reply-to:references:mime-version:x-gm-gg
- :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
- :content-type;
- bh=aA7LciJps6ZDvR0//aGq+VpK53nWWFH0Da5N4W303Sc=;
- b=oQqh8OHA1ZcSPiGzaoGLhUv32Ndn7PB/sJrlPZMQ4vBFzX3VsYXNqhdJDV5RPYeM3k
- bfDtzyOyLflNAH4TV0mbvlV3tV5nqTBN3sgC0914kHh1e6TvwDMorLCwvc8W74RMb1c1
- AchT1fbH+ttFPW26u6bwJhg5RAg3WmgLKZz9YMovCkOcHGRn8+5rV6a/S7hsDGrUm4Bo
- GknDmtiVyp4/YucTqiRM+09F1AnBQUsWD6wxQ4eihF6Hq8CHumN+va8S9QuSO4zSbhhe
- TjjzN+3OCXYGOtr8uNvGmE4ek6+cLDhj05ftpQ3YCxtzGIX5ieMTVPB49Yhb7K57Py1K
- Bb1Q==
-X-Forwarded-Encrypted: i=1;
- AL+hErHKD+P1PoKInQe5SqdYimFQQAoQBLQETW4n7iCeCG66AavWOOcmwMjgmQQMBpkBvd9emSK6SflBUYs=@lists.freedesktop.org
-X-Gm-Message-State: APuU4Z9jWE81zVOx0izvyejjzfSsCQ857goKYlmXVYy/oN0FSD+ejI5U
- ejyVAhje6qd1d2qGRKgHIKFPtIdCdvhX8JfCwAJDedZfaJQdrRwi7XO++k6VS5wvm4UXyxsHNXl
- b0FKPpg==
-X-Gm-Gg: AYBFou2cJxjZwOJdq+MTl8g3p/V+F6kNoPxc8tDWuK7YexvsG4hu3qPjEXOSBfrKyH9
- HGWqGw7uisOPtRLt4e7yddSRR4PNh2RIyESlsHzTm26AVxXz90ilEebG1+gV56lGFx89ttGAePe
- tnOk8GNxNqR9irsa75HEdmxUH0ErIQl7g7CWPS4lJSoXTHUs3cYpqt2sxw8bszLNT6KH9mFzTpv
- J7b6Jnp3Cz2EfoA+wttaYmZG7xYsSfS0oiwgZSNxzxGniHQHrKEpwZZ1eZKVRfAWkOrjaesmTYp
- /+b6tMb008qMr3Nb2g5bdwp5iFPlNHMjgG69GoPPEEfde65YeYJgBFPsdNaBTGgAcnbxXcHqCjv
- +j53xvldlxZnwxa8x8tWpa1IefDT3lTSFfuDuggtpgC5SaVl6MVcm4TEuibb1AgOawBIKVydlkD
- KAAmCAOXd+g0sXtLHP1fBKtU5srVZ3S8pJZslabueH5sxuNIs0qKlkpORF5NXOvAWAuEgJ393YE
- tM8CScIJ+3VKfb1KIopPPUCN/M6SBiYRU3Mh8h7TkN0Jd6Rxy9rN4GctFk09iHoePbngcLDB0jx
- 0/0YVhQmvUEEHiDhATzvu+67M3GMx4NnYCBxgeAwWtuhg0JORzgzUT32iEwbMFMQc6NL
-X-Received: by 2002:a05:6512:ba5:b0:5bf:9f5e:fe0d with SMTP id
- 2adb3069b0e04-5c1bc7b4639mr288464e87.23.1795125641772; 
- Thu, 19 Nov 2026 14:00:41 -0800 (PST)
-Received: from mail-lf1-f54.google.com (mail-lf1-f54.google.com.
- [209.85.167.54]) by smtp.gmail.com with ESMTPSA id
- 38308e7fff4ca-3ae8044e211sm2636671fa.2.2026.11.19.14.00.35
- for <dri-devel@lists.freedesktop.org>
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Thu, 19 Nov 2026 14:00:39 -0800 (PST)
-Received: by mail-lf1-f54.google.com with SMTP id
- 2adb3069b0e04-5c10dc41270so140751e87.2
- for <dri-devel@lists.freedesktop.org>; Thu, 19 Nov 2026 14:00:35 -0800 (PST)
-X-Forwarded-Encrypted: i=1;
- AL+hErEHK0voFNVctHBpcGZf2CWr/t3irHA2jh4YPmvV9RDpZAP11lzilbfQS+7XHT0R+93CGcKt+FlBh8Y=@lists.freedesktop.org
-X-Received: by 2002:a05:6512:b91:b0:5bf:ce1f:674d with SMTP id
- 2adb3069b0e04-5c1bc7b5b0amr294883e87.15.1795125634616; Thu, 19 Nov 2026
- 14:00:34 -0800 (PST)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 14B43112740;
+	Thu, 19 Nov 2026 22:04:45 +0000 (UTC)
+Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 08879112740;
+ Thu, 19 Nov 2026 22:04:39 +0000 (UTC)
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+ by tor.source.kernel.org (Postfix) with ESMTP id 2AB1B6252D;
+ Thu, 19 Nov 2026 22:04:38 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 00FF41F000CA;
+ Thu, 19 Nov 2026 22:04:36 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+ s=k20260515; t=1795125877;
+ bh=PI7G2oNkJyP4qTtg2yF+n/o1C/UwLBkBdnZWxPffPSM=;
+ h=Date:From:To:Cc:Subject:References:In-Reply-To;
+ b=U1JaDGAFwasS7MYay0oPg1k0PaGyii50B2MJqs3mm6k1/gkmRCAeYt+Vx98uWf0RO
+ 0cCL5CkoCcJrS7YB7BwETQC8KYr2rrzxEcBhnHaOxSqs3/7ej/bmwHe+IZgw4dM/0s
+ FEvP7LUrARGVFW/gJ527xrfJ/vbBQamYn/hvm7PXjzhPKQa7T4y5YxPY+hV1S/TTTW
+ 7iGZpbYkSnj+QugGhTABjkE5p8uXqIKEQtj4iXDM6kGk7KYVRuYxSo9/SVfbtPkLw4
+ dFBQKllaYZi6O+uvFIruwlHWUtIS7lBLpQ9E8GXs9hKqigtUz85jQcW2Yb/+K0GJ1t
+ lHsvUtEMlqiHg==
+Date: Thu, 19 Nov 2026 23:04:34 +0100
+From: Andi Shyti <andi.shyti@kernel.org>
+To: Joonas Lahtinen <joonas.lahtinen@linux.intel.com>
+Cc: Haoxiang Li <haoxiang_li2024@163.com>, airlied@gmail.com, 
+ jani.nikula@linux.intel.com, rodrigo.vivi@intel.com, simona@ffwll.ch,
+ tursulin@ursulin.net, 
+ intel-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org
+Subject: Re: [PATCH] drm/i915/vma: Fix a memory leak in i915_vma_pin_ww()
+Message-ID: <av9xxr03wFlfWwhv@zenone.zhora.eu>
+References: <20261118153205.2432736-1-haoxiang_li2024@163.com>
+ <179507544606.16202.12430112951192190652@jlahtine-mobl>
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
-References: <20261119162353.12962-1-architmore303@gmail.com>
-In-Reply-To: <20261119162353.12962-1-architmore303@gmail.com>
-From: Doug Anderson <dianders@chromium.org>
-Date: Thu, 19 Nov 2026 14:00:22 -0800
-X-Gmail-Original-Message-ID: <CAD=FV=VJHHHJ1-YXBrrrcbEo=zh+ieujT6Q2FpQ2gfYoLKo+PQ@mail.gmail.com>
-X-Gm-Features: AclHuK8b5SuMQ1jnVWmU0hGRPWJRjOsQeE75hDNGcjbVc7Sqfy6bSlSaSsLYv4w
-Message-ID: <CAD=FV=VJHHHJ1-YXBrrrcbEo=zh+ieujT6Q2FpQ2gfYoLKo+PQ@mail.gmail.com>
-Subject: Re: [PATCH 0/3] drm/panel: Use lowercase hex literals in three panel
- drivers
-To: Archit More <architmore303@gmail.com>
-Cc: Neil Armstrong <neil.armstrong@linaro.org>,
- Akash Sukhavasi <akash.sukhavasi@gmail.com>, 
- Chris Morgan <macromorgan@hotmail.com>, Jessica Zhang <jesszhan0024@gmail.com>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>, 
- Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>,
- Simona Vetter <simona@ffwll.ch>, 
- dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <179507544606.16202.12430112951192190652@jlahtine-mobl>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -105,37 +57,33 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 X-Spam-Status: No, score=-15.8 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
 	DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
-	INCLUDES_CR_TRAILER,INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,
-	SPF_PASS autolearn=unavailable autolearn_force=no version=4.0.1
+	INCLUDES_CR_TRAILER,MAILING_LIST_MULTI,MENTIONS_GIT_HOSTING,
+	SPF_HELO_NONE,SPF_PASS autolearn=ham autolearn_force=no version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-Hi,
+Hi Joonas,
 
-On Thu, Nov 19, 2026 at 8:24=E2=80=AFAM Archit More <architmore303@gmail.co=
-m> wrote:
->
-> Convert hexadecimal literals in the initialization sequences of
-> newvision-nv3051d, kingdisplay-kd097d04, and leadtek-ltk500hd1829 to
-> lowercase, as suggested by Douglas Anderson.
->
-> Archit More (3):
->   drm/panel: newvision-nv3051d: Use lowercase hex literals
->   drm/panel: kingdisplay-kd097d04: Use lowercase hex literals
->   drm/panel: leadtek-ltk500hd1829: Use lowercase hex literals
->
->  .../drm/panel/panel-kingdisplay-kd097d04.c    | 242 +++++-----
->  .../drm/panel/panel-leadtek-ltk500hd1829.c    | 426 +++++++++---------
->  .../gpu/drm/panel/panel-newvision-nv3051d.c   | 286 ++++++------
->  3 files changed, 477 insertions(+), 477 deletions(-)
+On Thu, Nov 19, 2026 at 10:04:06AM +0200, Joonas Lahtinen wrote:
+> Quoting Haoxiang Li (2026-11-18 17:32:05)
+> > i915_vma_pin_ww() allocates bind work before retrieving the object's
+> > moving fence. If the lookup fails, it jumps to err_rpm, bypassing the
+> > fence commit at err_fence and leaking the work allocation.
+> > 
+> > Jump to err_fence instead so the fence callbacks can release the work.
+> > 
+> > Fixes: 8ec5c0006c50 ("Merge tag 'drm-intel-next-2022-05-20' of git://anongit.freedesktop.org/drm/drm-intel into drm-intel-gt-next")
+> > Signed-off-by: Haoxiang Li <haoxiang_li2024@163.com>
+> 
+> You seem to be spamming the different kernel subsystems with patches and
+> never respond to any feedback, so if you could just stop and do something
+> else.
 
-Reviewed-by: Douglas Anderson <dianders@chromium.org>
+The patch is correct, though, and I'd take it.
 
-These look good and non-controversial. Applying.
+If Haoxiang is not responding to other patches then bad for him
+and I'd give the same suggestion as you did. But if we are not
+taking this patch, then we would remain with a clear known
+liability in our code.
 
-[1/3] drm/panel: newvision-nv3051d: Use lowercase hex literals
-      commit: 758498460e911d51c4dc3d32c925f56cacdb5eb6
-[2/3] drm/panel: kingdisplay-kd097d04: Use lowercase hex literals
-      commit: 4c1ed6ad2d326b73c0a2b5bc00ad76ff90047871
-[3/3] drm/panel: leadtek-ltk500hd1829: Use lowercase hex literals
-      commit: c408466a4dfaee4b12587e926c5b85e68c8b3c40
+Andi
