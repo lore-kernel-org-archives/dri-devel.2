@@ -2,71 +2,219 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 841BD60A2604
-	for <dri-devel@archiver.kernel.org>; Thu, 19 Nov 2026 17:07:34 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D17BD606A32F
+	for <dri-devel@archiver.kernel.org>; Thu, 19 Nov 2026 17:08:26 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=nvrGHNlS
+	dkim=pass (2048-bit key) header.d=gmx.de header.i=deller@gmx.de header.a=rsa-sha256 header.s=s31663417 header.b=Ix7Q8scf
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 3ED8B112671;
-	Thu, 19 Nov 2026 17:07:28 +0000 (UTC)
-Received: from mail-dy1-f199.google.com (mail-dy1-f199.google.com
- [74.125.82.199])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 6C4D0112670
- for <dri-devel@lists.freedesktop.org>; Thu, 19 Nov 2026 17:07:21 +0000 (UTC)
-Received: by mail-dy1-f199.google.com with SMTP id
- 5a478bee46e88-33c35f5ca6cso3040016eec.1
- for <dri-devel@lists.freedesktop.org>; Thu, 19 Nov 2026 09:07:21 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=google.com; s=20260707; t=1795108041; x=1795712841;
- darn=lists.freedesktop.org; 
- h=content-type:cc:to:from:subject:message-id:mime-version:date:from
- :to:cc:subject:date:message-id:reply-to:content-type;
- bh=UznqD1ivej2QYO7rN4puPEMrUhaWQ4TH3qb1l1RtxYo=;
- b=nvrGHNlS6R9ZVh96hDDIODPe7hhVpS5OZreTSGUJjg9kFYplD3DylReZeP7F0Zt2q9
- XH1io/cQOFKJPSG4bXv9LhJUPJ9RiesDmkCAnOyFNJr1HuGjnMDZQmecwfKucNZ30bQ7
- Vkvwd0aNaasNI5dxVdUgl6hzXCNgrrWCPLAFNhgNQE+qmIIxooEBbNYm0fb+jgt6V5El
- nGs/wmHEmcKLc9fT3KK/Yh00aPHsEMIumDAMGctaBXETym4QAjUvHH+leTGKw+Zxm+hq
- za2Vgsq7Fn0btM/Um1NDLsLgoL+0myZLfJmPiQpCJ6uoQx1MaZ+aMV0sLjfYzgYOwq6+
- S24g==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20260707; t=1795108041; x=1795712841;
- h=content-type:cc:to:from:subject:message-id:mime-version:date
- :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
- :content-type;
- bh=UznqD1ivej2QYO7rN4puPEMrUhaWQ4TH3qb1l1RtxYo=;
- b=JizFzHCRNeu1up8E2FT4zte5omdxBSYLufjY7gkJAqGuh3FWnJXrKQbCgmMZyk5gfa
- WJ0sq2eyS2tTos6nZiUDycrGpTViXF5zLWZNCtLA22h8NPKQEGwM5weT1RxXmu6Cui9R
- E4WZaO92o1Hr77cYkqV6ILh5BCUzGo/dYNnPdrnAwr6ERRIhAzqQc+vRd/fIxkftgriT
- mu3iNzIjXrrw8oHVwPry3PpImq9+FPoBLqAzfvCxQ1ETz4Ku+ToficlM6j66CX3dnDf/
- WPuqWx6d0cD2RtmO03wS1ZvUDYBf0RIuKhbv/Xq8yQs/kWl9hhW+wpnRWSviVVQnv8ef
- 8ONg==
-X-Forwarded-Encrypted: i=1;
- AL+hErEAjz6bH2XMFAJuh6msQzDdCQVYd5DYT6iz1JF3tOJPtAsJ63aNWSC986/ODq2/7UAwsksV4nRZqBY=@lists.freedesktop.org
-X-Gm-Message-State: APuU4Z//QpItSjAknQJugLJplQwZu8yOLCnZG1flKlclMesrqWy/CIMv
- T5yVieYeaQVYwwyPIrx84oH1fdpv8YotequZvRPwCJVy7MWjn07ddQgDFkLi+KnMZfrtmxf3xwC
- Ismtwh3ebRw==
-X-Received: from dyaw1-n1.prod.google.com
- ([2002:a05:693c:4141:10b0:37a:8a0f:3aba])
- (user=irogers job=prod-delivery.src-stubby-dispatcher) by
- 2002:a05:7300:dc05:b0:381:6ecf:5389
- with SMTP id 5a478bee46e88-38281cf6a20mr8681249eec.41.1795108040312; Thu, 19
- Nov 2026 09:07:20 -0800 (PST)
-Date: Thu, 19 Nov 2026 09:07:16 -0800
+	by gabe.freedesktop.org (Postfix) with ESMTP id 066A8112674;
+	Thu, 19 Nov 2026 17:08:21 +0000 (UTC)
+Received: from mout.gmx.net (mout.gmx.net [212.227.15.15])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id B8724112674
+ for <dri-devel@lists.freedesktop.org>; Thu, 19 Nov 2026 17:08:14 +0000 (UTC)
+DKIM2-Signature: i=1; m=1; t=1795108093; mf=PGRlbGxlckBnbXguZGU+;
+ rt=PGRyaS1kZXZlbEBsaXN0cy5mcmVlZGVza3RvcC5vcmc+; d=gmx.de;
+ s=s31663417:rsa-sha256:ugYScGFArtbnFtm2auOOE4Xa9ePr
+ RfrRUWIlPXuG9vJEmSNGhgLNFFOugfMDUIlKUhJN2pze2+5RgdEoB7FGRLbCk6Ae05tglGzPaPi
+ BqvzzbcN3Hp/YVijuxov7p+6jlG8Vgg/tx1jkRfDAcC5UVw66VqpwFu9qP0wV3jUqd0KVHMyZMx
+ R/AW1J0Gp27tPR82mEcU6T1tUERNaUW7l9p4lMtuCioIUTeKq1imNi3fyRWeERG9p2/o1B+wSzT
+ YYUUdkm1kAxcCwePDcnwz20z+PEcFUrK6RU6xNZLjfou0AS+rWyFYsW/GqztHnN01i+DNsMpzSZ
+ GX4jhqxlGgXEAA==;
+Message-Instance: m=1; h=sha256: /keZ7M0FYczsNruQciTCQVi/goAQd1G6FnOliPa+L8A=:
+ OXSP4KUFVqvyFbxwbF+XV8f63ESoiSpr7jEXOeobsn0=, sha512:
+ 367jVGINKBOzy7OhDa+eCsZaubzzyHbszPfNmfplAOoAJ4y447y4XOKgmmffjEq5dHQYv2w33LSk9+tMgf4G9Q==:
+ AI3Yw2KF7dDS554c5lTFb5IG8Qn4nIYH+bqUCJNnqlnFt24wUkzau6mP+P5Jlx5dtrUWPR+dAmPUqjy2NHBxwQ==;
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmx.de;
+ s=s31663417; t=1795108078; x=1795712878; i=deller@gmx.de;
+ bh=szr30qfed7aFxjATf+PSRuOQatUbk1IVD8s71KyY62w=;
+ h=X-UI-Sender-Class:Message-ID:Date:MIME-Version:Subject:To:Cc:
+ References:From:In-Reply-To:Content-Type:
+ Content-Transfer-Encoding:cc:content-transfer-encoding:
+ content-type:date:from:message-id:mime-version:reply-to:subject:
+ to;
+ b=Ix7Q8scfljXRZ/Z8qs0OyZfWUQBOeCXhURd8lE6H9OS0mY+ZKGJ1pV/lcfc3u3E5
+ GM60L+2Ei+HCqMZUwbCYO4ci58PTPQpErDMGzyXQudPnuCmGv9F8HO47S4TvAcIcO
+ +Yt9REpGaUI9N20ABNwEYyqGTvhFooJ/UZCRpljLzLkPtHkF4mjJ6oDjuRYKXtEeX
+ CvL5ATD22kJhjyU/Ctq3UoRmMbW1WiLq/2m2/q85N2EJvhE3SjpWjfS8lsCh6a7nE
+ LnKgbTJAQeqdjbV/Ly32jUzaLWWePzfnfmBnOtT+P6wZROrvaTQvRIGe5GdUDy5nO
+ pA1qn8PCZvccr9S4Fw==
+X-UI-Sender-Class: 724b4f7f-cbec-4199-ad4e-598c01a50d3a
+Received: from client.hidden.invalid by mail.gmx.net (mrgmx005
+ [212.227.17.190]) with ESMTPSA (Nemesis) id 1N7zBR-1wPSb03lkh-013xZV; Thu, 19
+ Nov 2026 18:07:57 +0100
+Message-ID: <ccc56bc9-704e-43bd-b284-faf834ec4d10@gmx.de>
+Date: Thu, 19 Nov 2026 18:07:56 +0100
 X-Archived-By: <archiver.kernel.org>
-Mime-Version: 1.0
-X-Mailer: git-send-email 2.56.1.708.g77570a6a1d-goog
-Message-ID: <20261119170716.1523667-1-irogers@google.com>
-Subject: [PATCH] drm/xe/svm: Initialize xpagemap to NULL in
- xe_svm_get_pagemaps()
-From: Ian Rogers <irogers@google.com>
-To: Matthew Brost <matthew.brost@intel.com>, 
- "=?UTF-8?q?Thomas=20Hellstr=C3=B6m?=" <thomas.hellstrom@linux.intel.com>,
- Rodrigo Vivi <rodrigo.vivi@intel.com>, 
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>
-Cc: intel-xe@lists.freedesktop.org, dri-devel@lists.freedesktop.org, 
- linux-kernel@vger.kernel.org, llvm@lists.linux.dev, 
- Elkin Cruz <elkin@google.com>, Ian Rogers <irogers@google.com>
-Content-Type: text/plain; charset="UTF-8"
+MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] fbdev: s3c-fb: Fix potential registration corruption on
+ probe failure
+To: =?UTF-8?B?5p2O5bm/56GV?= <liguangshuo@mail.sdu.edu.cn>
+Cc: Jingoo Han <jingoohan1@gmail.com>, linux-fbdev@vger.kernel.org,
+ dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
+ stable@vger.kernel.org
+References: <20261118-324f82bd41-fbdev-0@mail.sdu.edu.cn>
+ <4fba8bdb-de77-4418-8ffc-7ad6982e8027@gmx.de>
+ <AB2AtQBLLG04vL*MjX4Nuap6.3.1795092368475.Hmail.202321181@mail.sdu.edu.cn>
+Content-Language: en-US
+From: Helge Deller <deller@gmx.de>
+Autocrypt: addr=deller@gmx.de; keydata=
+ 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
+In-Reply-To: <AB2AtQBLLG04vL*MjX4Nuap6.3.1795092368475.Hmail.202321181@mail.sdu.edu.cn>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: quoted-printable
+X-Provags-ID: V03:K1:ll2IOIM/V1nYWbw6D3QjvqxWPKKJ/VkAY5JEZW+8mWionSINDp6
+ aZ2C0ujfZE3nl3p8JKJa2C1sTw6zbGgZ442Ri/+I7VYPcuOMGrRWSFKV9pBpvwiqUTPvotd
+ xUO1nHipR/je84nkd8N9d2o/LvAbiaMHjqCAhYzGTatkLEbKc4q6B7uZ2w531TcScM+PLdV
+ mitlo5ab5bqPmY2+mBq6A==
+UI-OutboundReport: notjunk:1;M01:P0:wh+jUNnLESM=;ip4bcnYeVXk8GLORRfIWEPpGTqB
+ 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
+ +8d5K9TzqA==
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -78,47 +226,56 @@ List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-26.3 required=3.0 tests=BAYES_00,DKIMWL_WL_MED,
-	DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
-	INCLUDES_CR_TRAILER,INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,
-	SPF_PASS,USER_AGENT_GIT,USER_IN_DEF_DKIM_WL autolearn=unavailable
-	autolearn_force=no version=4.0.1
+X-Spam-Status: No, score=-4.2 required=3.0 tests=BAYES_00,DKIM_SIGNED,
+	DKIM_VALID,DKIM_VALID_AU,FREEMAIL_FORGED_FROMDOMAIN,FREEMAIL_FROM,
+	HEADER_FROM_DIFFERENT_DOMAINS,MAILING_LIST_MULTI,SPF_HELO_NONE,
+	SPF_PASS,USER_AGENT_SANE_1 autolearn=no autolearn_force=no
+	version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-On integrated Intel Xe GPUs (!IS_DGFX), xe->info.mem_region_mask has no
-per-tile VRAM bits set, so every iteration of for_each_tile() in
-xe_svm_get_pagemaps() hits 'continue' without assigning 'xpagemap'. The
-post-loop IS_ERR(xpagemap) check then evaluates an uninitialized stack
-pointer on every fault/SVM VM creation.
+On 11/19/26 13:46, =E6=9D=8E=E5=B9=BF=E7=A1=95 wrote:
+>=20
+>=20
+> Hi Helge,
+>=20
+> Thanks for the review.
+>=20
+> From: Helge Deller <deller@gmx.de>
+> Date: 2026-11-19 02:17:08
+> To:  Guangshuo Li <liguangshuo@mail.sdu.edu.cn>,Jingoo Han <jingoohan1@g=
+mail.com>
+> Cc:  linux-fbdev@vger.kernel.org,dri-devel@lists.freedesktop.org,linux-k=
+ernel@vger.kernel.org,stable@vger.kernel.org
+> Subject: Re: [PATCH] fbdev: s3c-fb: Fix potential registration corruptio=
+n on probe failure>On 11/18/26 15:22, Guangshuo Li wrote:
+>>> Probe failure cleanup calls unregister_framebuffer() even when the
+>>> window has not been registered. Its zero-initialized node can then
+>>> remove another framebuffer from registered_fb[0].
+>>>
+>>> Track successful registration and only unregister those framebuffers.
+>>> Also skip empty window slots while unwinding a failed probe.
+>>>
+>>> This issue was found by our static analysis tool under development.
+>>
+>> I think s3c_fb_probe_win() needs to clean up when some things
+>> like cmap fail to be allocated.
+>> Your patch seems to just work around one of the possible pitfalls.
+>>
+>> Helge
+>>
+>=20
+> s3c_fb_probe_win() sets *res early and carries on if fb_alloc_cmap()
+> fails. I think it should unwind the current window on failure and set
+> *res only after register_framebuffer() succeeds. That would leave the
+> caller with just the registered windows to clean up.
+>=20
+> Is that where you'd put the cleanup?
 
-Initialize 'xpagemap' to NULL so IS_ERR(xpagemap) evaluates false when no
-VRAM regions exist.
+Yes, I think s3c_fb_probe_win() should be able to handle every possible
+error inside this function and do nice cleanups if it fails.
 
-Found via an x86_64 LLVM=1 (Clang 21.1.8) allyesconfig audit with
--Wconditional-uninitialized enabled; fix and changelog drafted with an AI
-coding assistant. Build-tested under LLVM=1 W=1 (-Werror) and
--Wconditional-uninitialized; not runtime-tested on Intel Xe hardware.
+> If so, I'll send a v2 without the extra registration flag.
+Thanks!
 
-Fixes: 8a52f4d9b1ef ("drm/xe: Use the drm_pagemap cache and shrinker")
-Signed-off-by: Ian Rogers <irogers@google.com>
----
- drivers/gpu/drm/xe/xe_svm.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
-
-diff --git a/drivers/gpu/drm/xe/xe_svm.c b/drivers/gpu/drm/xe/xe_svm.c
-index bc6902b5bf57..22cc7ed19d8a 100644
---- a/drivers/gpu/drm/xe/xe_svm.c
-+++ b/drivers/gpu/drm/xe/xe_svm.c
-@@ -2055,7 +2055,7 @@ xe_pagemap_find_or_create(struct xe_device *xe, struct drm_pagemap_cache *cache,
- static int xe_svm_get_pagemaps(struct xe_vm *vm)
- {
- 	struct xe_device *xe = vm->xe;
--	struct xe_pagemap *xpagemap;
-+	struct xe_pagemap *xpagemap = NULL;
- 	struct xe_tile *tile;
- 	int id;
- 
--- 
-2.56.1.708.g77570a6a1d-goog
-
+Helge
