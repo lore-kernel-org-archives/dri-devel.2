@@ -2,83 +2,83 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 15FF3606A324
-	for <dri-devel@archiver.kernel.org>; Thu, 19 Nov 2026 14:22:30 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E63F5606A320
+	for <dri-devel@archiver.kernel.org>; Thu, 19 Nov 2026 14:22:36 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.a=rsa-sha256 header.s=susede2_rsa header.b=iRUzcfEC;
-	dkim=pass header.d=suse.de header.i=@suse.de header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=yzwrFknr;
-	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.a=rsa-sha256 header.s=susede2_rsa header.b=iRUzcfEC;
-	dkim=neutral header.d=suse.de header.i=@suse.de header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=yzwrFknr
+	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.a=rsa-sha256 header.s=susede2_rsa header.b=jHZLH9TL;
+	dkim=pass header.d=suse.de header.i=@suse.de header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=UproX6lJ;
+	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.a=rsa-sha256 header.s=susede2_rsa header.b=jHZLH9TL;
+	dkim=neutral header.d=suse.de header.i=@suse.de header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=UproX6lJ
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 20F0B112481;
-	Thu, 19 Nov 2026 14:22:18 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 9535D112473;
+	Thu, 19 Nov 2026 14:22:25 +0000 (UTC)
 Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.223.130])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 50C3D10E87E
- for <dri-devel@lists.freedesktop.org>; Thu, 19 Nov 2026 14:21:55 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 4E619112473
+ for <dri-devel@lists.freedesktop.org>; Thu, 19 Nov 2026 14:22:11 +0000 (UTC)
 Received: from imap1.dmz-prg2.suse.org (imap1.dmz-prg2.suse.org
  [IPv6:2a07:de40:b281:104:10:150:64:97])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
  (No client certificate requested)
- by smtp-out1.suse.de (Postfix) with ESMTPS id 1143F224A8;
+ by smtp-out1.suse.de (Postfix) with ESMTPS id CC7C422481;
  Thu, 19 Nov 2026 14:21:24 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
  t=1795098084; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
  mime-version:mime-version:
  content-transfer-encoding:content-transfer-encoding:
  in-reply-to:in-reply-to:references:references;
- bh=ZCvgNNzNzAU8oVlxPQCllxA4ysYrcHXBADOlpckeK7s=;
- b=iRUzcfEC5Cn4cC1I2fsSJwraRDjhLa5bJOl+fzZU6DDwRKTUvJxzgmUiitiF7NqW935LK+
- KGdRCo1pIhHWZ68olYhJczW37b9TiwnNXwXF/iIbKjj3SqSpUEspuYOYdTMCOD49dosts/
- cnsETlyGAd06sW1rZG/ob+m7GwkzdZw=
+ bh=yPLzsNYWPeXGg/1F+X0Wew3xP/kniKsV2r2RIizBsPI=;
+ b=jHZLH9TLrnxrQSHSrbgVsKPFAGtOfcqFIKlcXHrbHHZdvCOnAp/dmmauYWA/Y/4NLgBYY6
+ 6jcx0xKBXiBNPD8WgfHZrjhqzxLKaDBHRJ4t/Z94dZu3Lz670L0fcRImeC3k7vNWLJVbUv
+ lk7YyPsDAv/jgc4tEv3DBH9Qk9+xOls=
 DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
  s=susede2_ed25519; t=1795098084;
  h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
  mime-version:mime-version:
  content-transfer-encoding:content-transfer-encoding:
  in-reply-to:in-reply-to:references:references;
- bh=ZCvgNNzNzAU8oVlxPQCllxA4ysYrcHXBADOlpckeK7s=;
- b=yzwrFknrlecDI7xEYYF8wIzNV8SqknkVVBIt7vb9089Ypljd7TwxNPC4UxllgwxQNXr89q
- lyW0Ijd+BSUpjkCQ==
+ bh=yPLzsNYWPeXGg/1F+X0Wew3xP/kniKsV2r2RIizBsPI=;
+ b=UproX6lJxA2CrXcCpwoQlyiJwkvCpNacJTk4DceWwFPWtpPU1D1Hixm8IvqNVH1mm4SAEB
+ nDerlgWxSr/o77Cg==
 Authentication-Results: smtp-out1.suse.de;
- dkim=pass header.d=suse.de header.s=susede2_rsa header.b=iRUzcfEC;
- dkim=pass header.d=suse.de header.s=susede2_ed25519 header.b=yzwrFknr
+ dkim=pass header.d=suse.de header.s=susede2_rsa header.b=jHZLH9TL;
+ dkim=pass header.d=suse.de header.s=susede2_ed25519 header.b=UproX6lJ
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
  t=1795098084; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
  mime-version:mime-version:
  content-transfer-encoding:content-transfer-encoding:
  in-reply-to:in-reply-to:references:references;
- bh=ZCvgNNzNzAU8oVlxPQCllxA4ysYrcHXBADOlpckeK7s=;
- b=iRUzcfEC5Cn4cC1I2fsSJwraRDjhLa5bJOl+fzZU6DDwRKTUvJxzgmUiitiF7NqW935LK+
- KGdRCo1pIhHWZ68olYhJczW37b9TiwnNXwXF/iIbKjj3SqSpUEspuYOYdTMCOD49dosts/
- cnsETlyGAd06sW1rZG/ob+m7GwkzdZw=
+ bh=yPLzsNYWPeXGg/1F+X0Wew3xP/kniKsV2r2RIizBsPI=;
+ b=jHZLH9TLrnxrQSHSrbgVsKPFAGtOfcqFIKlcXHrbHHZdvCOnAp/dmmauYWA/Y/4NLgBYY6
+ 6jcx0xKBXiBNPD8WgfHZrjhqzxLKaDBHRJ4t/Z94dZu3Lz670L0fcRImeC3k7vNWLJVbUv
+ lk7YyPsDAv/jgc4tEv3DBH9Qk9+xOls=
 DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
  s=susede2_ed25519; t=1795098084;
  h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
  mime-version:mime-version:
  content-transfer-encoding:content-transfer-encoding:
  in-reply-to:in-reply-to:references:references;
- bh=ZCvgNNzNzAU8oVlxPQCllxA4ysYrcHXBADOlpckeK7s=;
- b=yzwrFknrlecDI7xEYYF8wIzNV8SqknkVVBIt7vb9089Ypljd7TwxNPC4UxllgwxQNXr89q
- lyW0Ijd+BSUpjkCQ==
+ bh=yPLzsNYWPeXGg/1F+X0Wew3xP/kniKsV2r2RIizBsPI=;
+ b=UproX6lJxA2CrXcCpwoQlyiJwkvCpNacJTk4DceWwFPWtpPU1D1Hixm8IvqNVH1mm4SAEB
+ nDerlgWxSr/o77Cg==
 Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
  (No client certificate requested)
- by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 97E8A13510;
- Thu, 19 Nov 2026 14:21:23 +0000 (UTC)
+ by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 576B71342D;
+ Thu, 19 Nov 2026 14:21:24 +0000 (UTC)
 Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
- by imap1.dmz-prg2.suse.org with ESMTPSA id RynyAeAF/2rJfgAAD6G6ig:T10
- (envelope-from <tzimmermann@suse.de>); Thu, 19 Nov 2026 14:21:23 +0000
+ by imap1.dmz-prg2.suse.org with ESMTPSA id RynyAeAF/2rJfgAAD6G6ig:T12
+ (envelope-from <tzimmermann@suse.de>); Thu, 19 Nov 2026 14:21:24 +0000
 From: Thomas Zimmermann <tzimmermann@suse.de>
 To: airlied@redhat.com, sean@poorly.run, tiwai@suse.com,
  patrik.r.jakobsson@gmail.com, maarten.lankhorst@linux.intel.com,
  mripard@kernel.org, airlied@gmail.com, simona@ffwll.ch
 Cc: dri-devel@lists.freedesktop.org, sashiko-reviews@lists.linux.dev,
  Thomas Zimmermann <tzimmermann@suse.de>
-Subject: [PATCH 09/11] drm/udl: Synchronize pending URBs on each frame
-Date: Thu, 19 Nov 2026 15:02:21 +0100
-Message-ID: <20261119142114.152052-10-tzimmermann@suse.de>
+Subject: [PATCH 11/11] drm/udl: Implement URB cache as LIFO stack
+Date: Thu, 19 Nov 2026 15:02:23 +0100
+Message-ID: <20261119142114.152052-12-tzimmermann@suse.de>
 X-Mailer: git-send-email 2.56.0
 In-Reply-To: <20261119142114.152052-1-tzimmermann@suse.de>
 References: <20261119142114.152052-1-tzimmermann@suse.de>
@@ -110,7 +110,7 @@ X-Rspamd-Server: rspamd1.dmz-prg2.suse.org
 X-Rspamd-Action: no action
 X-Spam-Score: -10.51
 X-Spam-Level: 
-X-Rspamd-Queue-Id: 1143F224A8
+X-Rspamd-Queue-Id: CC7C422481
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -130,65 +130,27 @@ X-Spam-Status: No, score=-18.8 required=3.0 tests=BAYES_00,DKIM_SIGNED,
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-Wait for in-flight URBs from the previous frame before sending out
-the current frame. Throttles frame rate to USB limits.
-
-PC display usually runs with a refresh rate of 60 Hz or more. Sending
-out URBs for each frame at this rate easily overloads the USB. This
-results in display lag up to several seconds. Udl currently avoids
-this by limiting the number of URBs to 20 at a time. This prevents
-overloading the USB, but also prevents udl from using all the
-bandwidth available.
-
-Solving this requires more flexibility in the number of in-flight
-URBs. The exact value depends on the framebuffer configuration and
-the available bandwidth on the USB.
-
-Before removing the limit on the URB count, add another means of
-synchronizing the frame rate to the USB. Do this in atomic_begin, so
-that the USB has the maximum time between sending two frames.
+Insert completed URBs at the list head of the URB cache instead of
+the tail. Improves locality in the CPU cache.
 
 Signed-off-by: Thomas Zimmermann <tzimmermann@suse.de>
 ---
- drivers/gpu/drm/udl/udl_modeset.c | 18 ++++++++++++++++++
- 1 file changed, 18 insertions(+)
+ drivers/gpu/drm/udl/udl_main.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-diff --git a/drivers/gpu/drm/udl/udl_modeset.c b/drivers/gpu/drm/udl/udl_modeset.c
-index bbba1dee8e4f..caa0a117e3c2 100644
---- a/drivers/gpu/drm/udl/udl_modeset.c
-+++ b/drivers/gpu/drm/udl/udl_modeset.c
-@@ -329,6 +329,23 @@ static const struct drm_plane_funcs udl_primary_plane_funcs = {
-  * CRTC
-  */
+diff --git a/drivers/gpu/drm/udl/udl_main.c b/drivers/gpu/drm/udl/udl_main.c
+index adddcf4b3451..ab4db42f71f4 100644
+--- a/drivers/gpu/drm/udl/udl_main.c
++++ b/drivers/gpu/drm/udl/udl_main.c
+@@ -305,7 +305,7 @@ void udl_put_urb(struct urb *urb)
+ 	urb->transfer_buffer_length = unode->alloc_size; /* reset to actual */
  
-+static void udl_crtc_helper_atomic_begin(struct drm_crtc *crtc, struct drm_atomic_commit *state)
-+{
-+	struct drm_device *dev = crtc->dev;
-+	struct udl_device *udl = to_udl(dev);
-+	int idx;
-+
-+	if (!drm_dev_enter(dev, &idx))
-+		return;
-+
-+	/*
-+	 * It is acceptable to briefly block in this call, but
-+	 * having it timeout frequently indicates a problem.
-+	 */
-+	udl_sync_pending_urbs(udl);
-+	drm_dev_exit(idx);
-+}
-+
- static void udl_crtc_helper_atomic_enable(struct drm_crtc *crtc, struct drm_atomic_commit *state)
- {
- 	struct drm_device *dev = crtc->dev;
-@@ -395,6 +412,7 @@ static void udl_crtc_helper_atomic_disable(struct drm_crtc *crtc, struct drm_ato
+ 	scoped_guard(spinlock_irqsave, &udl->urbs.lock) {
+-		list_add_tail(&unode->entry, &udl->urbs.list);
++		list_add(&unode->entry, &udl->urbs.list);
  
- static const struct drm_crtc_helper_funcs udl_crtc_helper_funcs = {
- 	.atomic_check = drm_crtc_helper_atomic_check,
-+	.atomic_begin = udl_crtc_helper_atomic_begin,
- 	.atomic_enable = udl_crtc_helper_atomic_enable,
- 	.atomic_disable = udl_crtc_helper_atomic_disable,
- };
+ 		if (!drm_WARN_ON_ONCE(drm, !udl->urbs.in_flight))
+ 			--udl->urbs.in_flight;
 -- 
 2.56.0
 
