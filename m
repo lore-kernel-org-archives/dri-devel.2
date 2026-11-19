@@ -2,64 +2,42 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 08A06606A320
-	for <dri-devel@archiver.kernel.org>; Thu, 19 Nov 2026 14:40:26 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 232A8606A320
+	for <dri-devel@archiver.kernel.org>; Thu, 19 Nov 2026 14:47:30 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=MzlTQwVD
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=W6qG5LM1
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 5A7BD1124C4;
-	Thu, 19 Nov 2026 14:40:18 +0000 (UTC)
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.8])
- by gabe.freedesktop.org (Postfix) with ESMTPS id CD4BC1124C5;
- Thu, 19 Nov 2026 14:40:11 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1795099212; x=1826635212;
- h=date:from:to:cc:subject:message-id:references:
- mime-version:content-transfer-encoding:in-reply-to;
- bh=/yTbx4M89DY7qZV4gtUeaZ6iggWcmFbtE07suT1xHZ0=;
- b=MzlTQwVDI5Di12Prh3Dn3duj0yNaLCD+sb0lDpYUgoPcnHppqyb1UbVh
- HURMnZxtQA/UU5T6keBVFFGXj41NfFNweKgjeDpZTMU9u6sLegDGN9Raw
- YIYzyuO8iMGPH/Pla/eWeR3l7dyz0FDzH9nRwUGgRGOFgGMSTqYEK5p25
- vBzOP1SZs5hNTwqC7pU7sIVAy515AS1YpDhRX/inuu/OC6UJIyr6eq+sR
- QUiZRoOFTc8n4Yj54aPYog305lCSW05ozGXReP58TM5zPLAtMlWYCE4Qt
- ha1J7Lf5QwtMk1Lu90mNF6un6PbM7aPzNae1Fa9K+ZJkw7huFL+ON0olN w==;
-X-CSE-ConnectionGUID: DaaJauKAQXKxHKONtqageQ==
-X-CSE-MsgGUID: JQ18She5SdS1fR4k4Q0EFQ==
-X-IronPort-AV: E=McAfee;i="6800,10657,11971"; a="3849278"
-X-IronPort-AV: E=Sophos;i="6.27,221,1787036400"; 
-   d="scan'208";a="3849278"
-Received: from orviesa002.jf.intel.com ([10.64.159.142])
- by fmvoesa102.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 19 Nov 2026 06:40:11 -0800
-X-CSE-ConnectionGUID: 6bFkeaCyQfu5UhGog788Yw==
-X-CSE-MsgGUID: wmC7edA+R5aDhOU81ppiYQ==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,221,1787036400"; d="scan'208";a="10479396"
-Received: from ettammin-mobl3.ger.corp.intel.com (HELO localhost)
- ([10.245.245.54])
- by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 19 Nov 2026 06:40:08 -0800
-Date: Thu, 19 Nov 2026 16:40:05 +0200
-From: Ville =?iso-8859-1?Q?Syrj=E4l=E4?= <ville.syrjala@linux.intel.com>
-To: Prike Liang <Prike.Liang@amd.com>
-Cc: amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
- Alexander.Deucher@amd.com, Christian.Koenig@amd.com,
- Harry.Wentland@amd.com, Sunpeng.Li@amd.com, tzimmermann@suse.de
-Subject: Re: [PATCH v2 3/5] drm/client: Make the FBIO_WAITFORVSYNC vblank
- wait interruptible
-Message-ID: <av8KRUbu966lGfi_@intel.com>
-References: <20261119082424.554841-1-Prike.Liang@amd.com>
- <20261119082424.554841-3-Prike.Liang@amd.com>
-X-Archived-By: <archiver.kernel.org>
-MIME-Version: 1.0
-Content-Type: text/plain; charset=iso-8859-1
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <20261119082424.554841-3-Prike.Liang@amd.com>
-X-Patchwork-Hint: comment
-Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
- krs Bertel Jungin Aukio 5, 02600 Espoo, Finland
+	by gabe.freedesktop.org (Postfix) with ESMTP id AA5EB1124DC;
+	Thu, 19 Nov 2026 14:47:23 +0000 (UTC)
+Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 1AD071124DC
+ for <dri-devel@lists.freedesktop.org>; Thu, 19 Nov 2026 14:47:17 +0000 (UTC)
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+ by sea.source.kernel.org (Postfix) with ESMTP id ED92E44250;
+ Thu, 19 Nov 2026 14:47:16 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id A7B631F000C7;
+ Thu, 19 Nov 2026 14:47:16 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+ s=k20260515; t=1795099636;
+ bh=5Z/ndMB+b8oYyalCg6KdXYCAkEmWVrgUaaAQQDpOPWQ=;
+ h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+ b=W6qG5LM1hm0w8GBGu0i4x4Y65ehrfsAq1GeAQ+2fNPNMVBIbqURxJdwVKnN15KQR/
+ Pq9QcnILSOomXOMthDQ/Yg4VxR4YITSg6sABi+bFjxb8xXl0PnIz1tfncM8eYq/u7e
+ mPLDLquwi2/VWRzK5w55bx1tHSFK4QXQQD/MTlYrgJxw7Ono9Cp8233umKLWmZTGSa
+ tMdfexjiq+v4sZctpLY6xjmzOvRm8HW4sCPEroBvnvjCMyD5+3CNFnJVhKVYlR0dKs
+ phc5Ws8Imb/e0LtMxoH+BUTwt/7iQ3gL2K+eApe8HrwFnvaEax8KrictJaVW25xfWH
+ q9sR8SwdTw6mQ==
+Message-ID: <sashiko-outbox-223315@kernel.org>
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH 10/11] drm/udl: Allocate URBs on demand
+To: "Thomas Zimmermann" <tzimmermann@suse.de>
+Cc: dri-devel@lists.freedesktop.org
+In-Reply-To: <20261119142114.152052-11-tzimmermann@suse.de>
+References: <20261119142114.152052-1-tzimmermann@suse.de>
+ <20261119142114.152052-11-tzimmermann@suse.de>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Thu, 19 Nov 2026 14:47:16 +0000
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -70,95 +48,116 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
+Reply-To: sashiko-reviews@lists.linux.dev
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-13.8 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
-	DKIM_SIGNED,DKIM_VALID,HEADER_FROM_DIFFERENT_DOMAINS,
-	INCLUDES_CR_TRAILER,INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,
-	SPF_PASS autolearn=unavailable autolearn_force=no version=4.0.1
+X-Spam-Status: No, score=-10.8 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
+	DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
+	INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS autolearn=ham
+	autolearn_force=no version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
+X-Archived-By: <archiver.kernel.org>
 
-On Thu, Nov 19, 2026 at 04:24:22PM +0800, Prike Liang wrote:
-> FBIO_WAITFORVSYNC calls drm_client_modeset_wait_for_vblank(), which
-> waits with drm_crtc_wait_one_vblank(). That wait is uninterruptible and
-> only gives up after one second. If no vblank interrupt arrives, for
-> example while the driver resets the display hardware, the caller sleeps
-> in D state for the whole second and can't be interrupted, not even by
-> SIGKILL.
-> 
-> DRM_IOCTL_WAIT_VBLANK waits interruptibly, and so do fbdev drivers that
-> implement FBIO_WAITFORVSYNC themselves, such as atyfb and matroxfb.
+Thank you for your contribution! Sashiko AI review found 1 potential
+issue to consider:
+- [Medium] drm/udl: missing size fallback and in-flight wait in
+  udl_get_urb()
+--
 
-So we have precedent. Good.
+commit 2b67449c9bc54fc48767cd1733efcaed21d924b2
+Author: Thomas Zimmermann <tzimmermann@suse.de>
 
-> 
-> Use drm_crtc_wait_one_vblank_interruptible() in
-> drm_client_modeset_wait_for_vblank(). Return -ERESTARTSYS when a signal
-> interrupts the wait, so that the ioctl returns to userspace or is
-> restarted. Timeouts and disabled CRTCs are still not reported.
-> 
-> The fbdev damage worker also calls drm_client_modeset_wait_for_vblank(),
-> but it runs in a kernel thread, which doesn't receive signals, so its
-> wait doesn't change.
+drm/udl: Allocate URBs on demand
 
-The damage workers recent unilateral use of vblank waits is bugging me.
-Enabling vblanks has hardware side effects on i915/xe that we probably
-don't want there. Need to take a look at demidlayering that at some
-point...
+This commit removes the fixed upfront allocation of URBs and instead
+allocates URBs on demand in udl_get_urb(), caching them for reuse across
+frames.
 
-> 
-> Version update:
-> 1) https://lists.freedesktop.org/archives/dri-devel/2026-November/616727.html
-> 
-> Cc: Thomas Zimmermann <tzimmermann@suse.de>
-> Cc: Ville Syrjälä <ville.syrjala@linux.intel.com>
-> Assisted-by: Copilot:claude-opus-5.5
-> Signed-off-by: Prike Liang <Prike.Liang@amd.com>
-
-Reviewed-by: Ville Syrjälä <ville.syrjala@linux.intel.com>
-
-> ---
->  drivers/gpu/drm/drm_client_modeset.c | 10 ++++++----
->  1 file changed, 6 insertions(+), 4 deletions(-)
-> 
-> diff --git a/drivers/gpu/drm/drm_client_modeset.c b/drivers/gpu/drm/drm_client_modeset.c
-> index 0080a8e9556a..b475b8dbdb17 100644
-> --- a/drivers/gpu/drm/drm_client_modeset.c
-> +++ b/drivers/gpu/drm/drm_client_modeset.c
-> @@ -1301,10 +1301,11 @@ EXPORT_SYMBOL(drm_client_modeset_dpms);
->   *
->   * Block the caller until the given CRTC has seen a VBLANK. Do nothing
->   * if the CRTC is disabled. If there's another DRM master present, fail
-> - * with -EBUSY.
-> + * with -EBUSY. A signal interrupts the wait.
->   *
->   * Returns:
-> - * 0 on success, or negative error code otherwise.
-> + * 0 on success, -ERESTARTSYS if a signal interrupted the wait, or
-> + * negative error code otherwise.
->   */
->  int drm_client_modeset_wait_for_vblank(struct drm_client_dev *client, unsigned int crtc_index)
->  {
-> @@ -1328,13 +1329,14 @@ int drm_client_modeset_wait_for_vblank(struct drm_client_dev *client, unsigned i
->  	 */
->  	ret = drm_crtc_vblank_get(crtc);
->  	if (!ret) {
-> -		drm_crtc_wait_one_vblank(crtc);
-> +		ret = drm_crtc_wait_one_vblank_interruptible(crtc);
->  		drm_crtc_vblank_put(crtc);
->  	}
->  
->  	drm_master_internal_release(dev);
->  
-> -	return 0;
-> +	/* Only report interruption by a signal, not timeouts. */
-> +	return ret == -ERESTARTSYS ? ret : 0;
+> diff --git a/drivers/gpu/drm/udl/udl_main.c b/drivers/gpu/drm/udl/udl_mai=
+n.c
+> index d0195bd4213df..adddcf4b34518 100644
+> --- a/drivers/gpu/drm/udl/udl_main.c
+> +++ b/drivers/gpu/drm/udl/udl_main.c
+[ ... ]
+> @@ -244,71 +257,16 @@ static void udl_urb_list_release(void *data)
+>  	udl_free_urb_list(udl);
 >  }
->  EXPORT_SYMBOL(drm_client_modeset_wait_for_vblank);
->  
-> -- 
-> 2.34.1
+> =20
+> -static int udl_alloc_urb_list(struct udl_device *udl, int count, size_t =
+size)
+> +static int udl_init_urb_list(struct udl_device *udl)
+>  {
+>  	struct drm_device *drm =3D &udl->drm;
+> -	size_t wanted_size =3D count * size;
+> -	int ret;
+> =20
+>  	spin_lock_init(&udl->urbs.lock);
+>  	INIT_LIST_HEAD(&udl->urbs.list);
+>  	init_waitqueue_head(&udl->urbs.sleep);
+> -	udl->urbs.count =3D 0;
+>  	udl->urbs.in_flight =3D 0;
+> =20
+> -retry:
+> -	while (udl->urbs.count * size < wanted_size) {
+> -		struct urb *urb;
+> -		struct urb_node *unode;
+> -
+> -		urb =3D udl_alloc_bulk_urb(udl, size);
+> -		if (IS_ERR(urb)) {
+> -			if (PTR_ERR(urb) =3D=3D -ENOBUFS && size > PAGE_SIZE) {
+> -				size /=3D 2;
+> -				udl_free_urb_list(udl);
+> -				goto retry;
+> -			}
+> -			break;
+> -		}
+> -		unode =3D urb->context;
+> -
+> -		list_add_tail(&unode->entry, &udl->urbs.list);
+> -
+> -		udl->urbs.count++;
+> -	}
+[ ... ]
+> @@ -321,9 +279,18 @@ struct urb *udl_get_urb(struct udl_device *udl)
+>  			return NULL;
+>  		++udl->urbs.in_flight;
+> =20
+> -		urb =3D udl_get_urb_locked(udl, HZ * 2);
+> -		if (!urb)
+> -			--udl->urbs.in_flight;
+> +		urb =3D __udl_get_cached_urb_locked(udl);
+> +	}
+> +
+> +	if (!urb) {
+> +		urb =3D udl_alloc_bulk_urb(udl, MAX_TRANSFER);
+> +		if (IS_ERR(urb)) {
+> +			scoped_guard(spinlock_irqsave, &udl->urbs.lock) {
+> +				if (udl->urbs.in_flight)
+> +					--udl->urbs.in_flight;
+> +			}
+> +			return NULL;
+> +		}
+>  	}
+> =20
+>  	return urb;
 
--- 
-Ville Syrjälä
-Intel
+[Severity: Medium]
+Should udl_get_urb() fall back to smaller allocation sizes or wait for an
+in-flight URB when udl_alloc_bulk_urb(udl, MAX_TRANSFER) fails?
+
+MAX_TRANSFER is PAGE_SIZE * 16 - BULK_SIZE, which requires an order-4
+contiguous coherent DMA allocation via usb_alloc_coherent().  Previously,
+udl_alloc_urb_list() handled -ENOBUFS by halving the buffer size down to
+PAGE_SIZE (added in 542bb9788a1f ("udl-kms: handle allocation failure")),
+and udl_alloc_bulk_urb() still records unode->alloc_size and returns
+-ENOBUFS for this purpose.
+
+Because URBs are now allocated on demand during modesets and frame updates
+when memory may be fragmented, a single order-4 allocation failure causes
+udl_get_urb() to return NULL immediately (even when other URBs are already
+in flight), aborting udl_crtc_helper_atomic_enable() or udl_handle_damage()
+and leaving the display blank or partially updated.
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261119142114.1520=
+52-1-tzimmermann@suse.de?part=3D10
