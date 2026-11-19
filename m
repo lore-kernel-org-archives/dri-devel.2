@@ -2,121 +2,58 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2C34B606A320
-	for <dri-devel@archiver.kernel.org>; Thu, 19 Nov 2026 07:58:32 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D5A9D606A320
+	for <dri-devel@archiver.kernel.org>; Thu, 19 Nov 2026 08:01:38 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.a=rsa-sha256 header.s=google header.b=NMSuLTRW
+	dkim=pass (2048-bit key) header.d=collabora.com header.i=@collabora.com header.a=rsa-sha256 header.s=mail header.b=pM7ZBE5f
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 607BA10E52E;
-	Thu, 19 Nov 2026 07:58:26 +0000 (UTC)
-Received: from mail-wm1-f44.google.com (mail-wm1-f44.google.com
- [209.85.128.44])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 54C9210E52E
- for <dri-devel@lists.freedesktop.org>; Thu, 19 Nov 2026 07:58:19 +0000 (UTC)
-Received: by mail-wm1-f44.google.com with SMTP id
- 5b1f17b1804b1-4bb55cda775so3989095e9.0
- for <dri-devel@lists.freedesktop.org>; Wed, 18 Nov 2026 23:58:19 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=linaro.org; s=google; t=1795075098; x=1795679898; darn=lists.freedesktop.org;
- h=content-transfer-encoding:content-type:in-reply-to:organization
- :autocrypt:content-language:references:cc:to:subject:reply-to:from
- :user-agent:mime-version:date:message-id:from:to:cc:subject:date
- :message-id:reply-to:content-type;
- bh=pdQlb2CsGbWPGWlbFcx6D3f/AbXcJrTux+zl7o+qrMU=;
- b=NMSuLTRWNjXp0mTCEys+opK0cPRxjIYwDvdT5aptcB0e8TWJCaa1pzodysUNAZUoDP
- HTmEkuQe6OrVqHI9e9m0o7wSwy62NI7acYBElFqmyGlYQNMB1cxKGYwz7SDGxRU3SVei
- N/3LoprB9kDt+RtuM4nUTcSi0G4eAKx2UtL9B1r4o1hyyXegRAJK1DKF4OO0ryz2F85I
- ZjhX0J0FaZvgBLSfz3PxVAXFxInJbud6AuWX16l8rTuZtFzBZ8WvFb1q0u+achtvciLT
- 7kc2P4gO0kBGKn3Ip4ri+76hGI3luiG0jseBC3l1EIiXdsV12kD0rln3CX/AE2pY7Zr0
- BS5Q==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20260707; t=1795075098; x=1795679898;
- h=content-transfer-encoding:content-type:in-reply-to:organization
- :autocrypt:content-language:references:cc:to:subject:reply-to:from
- :user-agent:mime-version:date:message-id:x-gm-gg:x-gm-message-state
- :from:to:cc:subject:date:message-id:reply-to:content-type;
- bh=pdQlb2CsGbWPGWlbFcx6D3f/AbXcJrTux+zl7o+qrMU=;
- b=WknwLyaXiq9fiNnRXC/cB0TjMQlm6aUpEMMmk1F8vXjnF4Jpqi5bNe39jNSiKgEWTJ
- 0YmcbKemGVQ2pcPNdUJLAs4f0EC3dGL83+xj4iOk8wVBuQbaBYwKxIPRuHw6z8JD2rAd
- jg6aKyv/ycJH9cRQY34jTPPW/RmG1/NOKFlv6AToOARHGCw9AJtZqPVoumws8nIClBSA
- ixHjXdpqtYl9QTOnxGrV+doLFsA5mUdlLC/dX8BmhtuSGrCTLEzGWxDupSuIELvjVH6f
- 9vZYJiXGgJ6JztzsaaXwWMtXs2wLr5HhlbZl2poySeQRq17xp7H2qkTTByNW3p8dxC/u
- 1v9g==
-X-Forwarded-Encrypted: i=1;
- AL+hErHbm/bGt7F+upBfPhGVVS2Wb49mc4vCNnmPisOwjO1NU2rItP0q3C3DWofc7vf0cqG663XfqT+R+ZU=@lists.freedesktop.org
-X-Gm-Message-State: APuU4Z9etNSvN6ZQFLXLMUcfmzvLi5AqzHCmdLK6+IaHJP+glgUS6l2Z
- V/P9pEbVzp+f603FapBRmnPQ3swJOshaezG3dgmmvlewONfkpSyuApBgcjLVHnMZdWw=
-X-Gm-Gg: AYBFou1nPYiLANypdU7mlNA5xJIaGvxM/18l0IkMg3/NGz6OW9JbUVA2dEkOTqV1gRo
- YcnY5f7bzQUG7n1vZcCUTKOHzFXxXSpowZtE0aGTlb+duvU8OyxxtQ7DsoJTga6H+XN4S9GbL1F
- SEZy00JuLQ5kYmtk/GnkrH1YIy40jecv71HXcqtYppooK+ojVLvaBCSz0j2fB9lfdf86nY6VrRp
- PbAZKzOZwZt4C2MgrFjTF68RQDIQDlQnyUbVujiv9BfUL+c4aSljCSyk5zWFgPPMNT/Xdb8GsQN
- +afqmqa/jw9cmZeWQfmAxepZ53gZo3J5s6ywDuj1ZkuE1nS9xmTkHiS6cfycMvb2RH7wSia4ZHo
- gU1WTyc/wAbP69rwvOSAfAPcWuvts8KwxyPvSilbPpM+l3ANLdEXDnU7QYrGGZBHEg5hFaJy3cn
- na2FTLisId3ARCWv5ukG98XXMdgO+VO7zE0OGmrqWoaf6TNiNp3orNOZXPOmg79t9AU3P+IAvG+
- /z3WkVhbXuppUA6jrXmz96VcPdUx4+rRiAMaYbm2OmtzH2j5F2r3Wgf8Es9lQGv6oj50Pr3YD9G
- zOZ/ZdtE58g9JcfSIhNKcvyjX1S5geKIJwrIRtz8/0xqj7kzhThYP/1Uq+Qex1tswODlF/1N4yR
- 7SoFSnbkZ
-X-Received: by 2002:a05:600c:4e86:b0:4a2:526b:d40f with SMTP id
- 5b1f17b1804b1-4bb8609ad6dmr6876015e9.0.1795075097389; 
- Wed, 18 Nov 2026 23:58:17 -0800 (PST)
-Received: from ?IPV6:2a01:e0a:106d:1080:3611:76ad:c4e1:77e7?
- ([2a01:e0a:106d:1080:3611:76ad:c4e1:77e7])
- by smtp.gmail.com with ESMTPSA id
- 5b1f17b1804b1-4bb8532f1a9sm15704175e9.3.2026.11.18.23.58.16
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Wed, 18 Nov 2026 23:58:16 -0800 (PST)
-Message-ID: <04447713-32bb-46ff-8dd9-ba00bce186db@linaro.org>
-Date: Thu, 19 Nov 2026 08:58:15 +0100
+	by gabe.freedesktop.org (Postfix) with ESMTP id 09E6810FEBA;
+	Thu, 19 Nov 2026 08:01:33 +0000 (UTC)
+Received: from bali.collaboradmins.com (bali.collaboradmins.com
+ [148.251.105.195])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 9580D10FEBA
+ for <dri-devel@lists.freedesktop.org>; Thu, 19 Nov 2026 08:01:26 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
+ s=mail; t=1795075285;
+ bh=U+zJDv2RH1krYjRA0gD1Ss0nOhlA9746Z2uVecxOVsc=;
+ h=Date:From:To:Cc:Subject:In-Reply-To:References:From;
+ b=pM7ZBE5ffwrhq2/AG2ifVuNp5cQFlQ82UTE21ANjX8vYbbwhwZPQn4EAxWsYkiyKR
+ FXTure8z69jKaQuWW0Av3kI9wtHK1ZIGc0GejSX8ZySjTs1w69ijFl5d7LGijtQ14V
+ My6B6CInQEfuMtycg37+27iQYBiw1nYz0ohyFSQApmJ4QXO4htmJ2zaZIk8sPyXZIX
+ S3n4kJKVnzAeSbiBnrXPUycV/rVBEljp4/mf5fgnQZYpuMJOTtMtKPwJGrkbbsewYk
+ UpJAuVlrMsznAt6jMubZKo4gQp72BJM3SPLV2MKDuueTC27vdUqRQfVLHI/5JfCBTP
+ T4KN9pTH4JZFA==
+Received: from fedora1.home (unknown [100.64.0.11])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange secp256r1 server-signature RSA-PSS (4096 bits) server-digest
+ SHA256) (No client certificate requested)
+ (Authenticated sender: bbrezillon)
+ by bali.collaboradmins.com (Postfix) with ESMTPSA id A51B617E047C;
+ Thu, 19 Nov 2026 09:01:24 +0100 (CET)
+Date: Thu, 19 Nov 2026 09:01:18 +0100
+From: Boris Brezillon <boris.brezillon@collabora.com>
+To: Karunika Choo <karunika.choo@arm.com>
+Cc: dri-devel@lists.freedesktop.org, nd@arm.com, Steven Price
+ <steven.price@arm.com>, Liviu Dudau <liviu.dudau@arm.com>,
+ linux-kernel@vger.kernel.org, Akash Goel <akash.goel@arm.com>, Lukas
+ Zapolskas <lukas.zapolskas@arm.com>, Chris Diamand <chris.diamand@arm.com>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, Maxime Ripard
+ <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, David Airlie
+ <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, Daniel Almeida
+ <daniel.almeida@collabora.com>, Alice Ryhl <aliceryhl@google.com>,
+ rust-for-linux@vger.kernel.org
+Subject: Re: [PATCH v3 05/10] drm/panthor: Add 64-bit GPU_ID decoding for
+ v15 GPUs
+Message-ID: <20261119090118.7cfc417b@fedora1.home>
+In-Reply-To: <20261118175332.519657-6-karunika.choo@arm.com>
+References: <20261118175332.519657-1-karunika.choo@arm.com>
+ <20261118175332.519657-6-karunika.choo@arm.com>
+Organization: Collabora
+X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; x86_64-redhat-linux-gnu)
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-From: Neil Armstrong <neil.armstrong@linaro.org>
-Subject: Re: [PATCH 00/10] phy/drm: amlogic: Extract Meson HDMI TX PHY into a
- dedicated driver
-To: linux-kernel-dev@aliel.fr
-Cc: devicetree@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
- linux-amlogic@lists.infradead.org, linux-kernel@vger.kernel.org,
- linux-phy@lists.infradead.org, dri-devel@lists.freedesktop.org,
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>, Kevin Hilman <khilman@baylibre.com>,
- Jerome Brunet <jbrunet@baylibre.com>,
- Martin Blumenstingl <martin.blumenstingl@googlemail.com>,
- Vinod Koul <vkoul@kernel.org>, Manivannan Sadhasivam <mani@kernel.org>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>
-References: <20261117-meson-drm-create-hdmitx-phy-v1-0-9e0ac931381c@aliel.fr>
- <51831581-525f-418c-86ea-3b5c6a80709b@linaro.org>
- <bb027d3b-6a43-4dd3-9771-3448c86996b5@aliel.fr>
-Content-Language: en-US, fr
-Autocrypt: addr=neil.armstrong@linaro.org; keydata=
- xsBNBE1ZBs8BCAD78xVLsXPwV/2qQx2FaO/7mhWL0Qodw8UcQJnkrWmgTFRobtTWxuRx8WWP
- GTjuhvbleoQ5Cxjr+v+1ARGCH46MxFP5DwauzPekwJUD5QKZlaw/bURTLmS2id5wWi3lqVH4
- BVF2WzvGyyeV1o4RTCYDnZ9VLLylJ9bneEaIs/7cjCEbipGGFlfIML3sfqnIvMAxIMZrvcl9
- qPV2k+KQ7q+aXavU5W+yLNn7QtXUB530Zlk/d2ETgzQ5FLYYnUDAaRl+8JUTjc0CNOTpCeik
- 80TZcE6f8M76Xa6yU8VcNko94Ck7iB4vj70q76P/J7kt98hklrr85/3NU3oti3nrIHmHABEB
- AAHNKk5laWwgQXJtc3Ryb25nIDxuZWlsLmFybXN0cm9uZ0BsaW5hcm8ub3JnPsLAkQQTAQoA
- OwIbIwULCQgHAwUVCgkICwUWAgMBAAIeAQIXgBYhBInsPQWERiF0UPIoSBaat7Gkz/iuBQJk
- Q5wSAhkBAAoJEBaat7Gkz/iuyhMIANiD94qDtUTJRfEW6GwXmtKWwl/mvqQtaTtZID2dos04
- YqBbshiJbejgVJjy+HODcNUIKBB3PSLaln4ltdsV73SBcwUNdzebfKspAQunCM22Mn6FBIxQ
- GizsMLcP/0FX4en9NaKGfK6ZdKK6kN1GR9YffMJd2P08EO8mHowmSRe/ExAODhAs9W7XXExw
- UNCY4pVJyRPpEhv373vvff60bHxc1k/FF9WaPscMt7hlkbFLUs85kHtQAmr8pV5Hy9ezsSRa
- GzJmiVclkPc2BY592IGBXRDQ38urXeM4nfhhvqA50b/nAEXc6FzqgXqDkEIwR66/Gbp0t3+r
- yQzpKRyQif3OwE0ETVkGzwEIALyKDN/OGURaHBVzwjgYq+ZtifvekdrSNl8TIDH8g1xicBYp
- QTbPn6bbSZbdvfeQPNCcD4/EhXZuhQXMcoJsQQQnO4vwVULmPGgtGf8PVc7dxKOeta+qUh6+
- SRh3vIcAUFHDT3f/Zdspz+e2E0hPV2hiSvICLk11qO6cyJE13zeNFoeY3ggrKY+IzbFomIZY
- 4yG6xI99NIPEVE9lNBXBKIlewIyVlkOaYvJWSV+p5gdJXOvScNN1epm5YHmf9aE2ZjnqZGoM
- Mtsyw18YoX9BqMFInxqYQQ3j/HpVgTSvmo5ea5qQDDUaCsaTf8UeDcwYOtgI8iL4oHcsGtUX
- oUk33HEAEQEAAcLAXwQYAQIACQUCTVkGzwIbDAAKCRAWmrexpM/4rrXiB/sGbkQ6itMrAIfn
- M7IbRuiSZS1unlySUVYu3SD6YBYnNi3G5EpbwfBNuT3H8//rVvtOFK4OD8cRYkxXRQmTvqa3
- 3eDIHu/zr1HMKErm+2SD6PO9umRef8V82o2oaCLvf4WeIssFjwB0b6a12opuRP7yo3E3gTCS
- KmbUuLv1CtxKQF+fUV1cVaTPMyT25Od+RC1K+iOR0F54oUJvJeq7fUzbn/KdlhA8XPGzwGRy
- 4zcsPWvwnXgfe5tk680fEKZVwOZKIEuJC3v+/yZpQzDvGYJvbyix0lHnrCzq43WefRHI5XTT
- QbM0WUIBIcGmq38+OgUsMYu4NzLu7uZFAcmp6h8g
-Organization: Linaro
-In-Reply-To: <bb027d3b-6a43-4dd3-9771-3448c86996b5@aliel.fr>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=US-ASCII
+Content-Transfer-Encoding: 7bit
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -127,134 +64,211 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
-Reply-To: Neil Armstrong <neil.armstrong@linaro.org>
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 X-Spam-Status: No, score=-17.3 required=3.0 tests=BAYES_00,DKIM_SIGNED,
 	DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
 	INCLUDES_CR_TRAILER,INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,
-	SPF_PASS,USER_AGENT_SANE_1 autolearn=unavailable autolearn_force=no
+	SPF_PASS,USER_AGENT_SANE_2 autolearn=unavailable autolearn_force=no
 	version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-On 11/18/26 20:35, linux-kernel-dev@aliel.fr wrote:
-> On 11/18/26 13:38, Neil Armstrong wrote:
->> Hi,
->>
->> On 11/17/26 20:33, Ronald Claveau via B4 Relay wrote:
->>> This series moves the Amlogic Meson HDMI TX PHY handling (covering GXBB,
->>> GXL, GXM, and G12A SoCs) out of the meson_dw_hdmi DRM driver and into a
->>> dedicated generic PHY driver.
->>>
->>> Until now, meson_dw_hdmi directly manipulated the HHI system controller
->>> registers (HHI_HDMI_PHY_CNTL0..5) to configure analog parameters, toggle
->>> resets, and manage power states, as well as manually ungating HDMI
->>> clocks and power domains already described in the DT.
->>>
->>> By extracting this logic into a standalone PHY driver under
->>> drivers/phy/amlogic/:
->>> - Hardware representation in the DT is cleaner, modeling the HDMI TX PHY
->>>     as a child node of the HHI syscon referenced via standard "phys" and
->>>     "phy-names" properties.
->>> - The DRM bridge driver relies on the standard generic PHY API
->>>     (phy_init, phy_configure, phy_power_on/off, phy_exit) rather than
->>>     touching syscon registers directly.
->>> - Legacy DTs lacking the "phys" property remain supported via a
->>>     temporary fallback helper (meson_hdmi_phy_create_legacy) to preserve
->>>     backward compatibility to be removed on next phase of component
->>>     removal.
->>>
->>> Overview of the series:
->>> - Patches 1-3: Fix compatible matching in meson-gx-hhi-sysctrl bindings,
->>>     add the new amlogic,meson-hdmi-tx-phy DT schema, and allow the
->>>     "hdmi-phy" child node under the HHI syscon.
->>> - Patch 4: Add the new Meson HDMI TX PHY driver implementing the HDMI
->>>     PHY configuration ops, along with the temporary legacy creation
->>>     helper.
->>> - Patch 5: Document the optional "phys" and "phy-names" properties in
->>>     the amlogic,meson-dw-hdmi binding.
->>> - Patches 6-7: Clean up manual HHI clock/power-domain writes in
->>>     meson_dw_hdmi (relying on runtime PM instead) and convert the driver
->>>     to use the generic PHY framework.
->>> - Patches 8-10: Add the "hdmi-phy" child node and wire up the "phys"
->>>     phandle for G12, GXBB, and GXL Device Trees.
->>>
->>> Tested on:
->>> - Khadas VIM1 (GXL)
->>> - dtbs_check and dt_binding_check run cleanly with no new warnings.
->>>
->>> Signed-off-by: Ronald Claveau <linux-kernel-dev@aliel.fr>
->>> ---
->>> Ronald Claveau (10):
->>>         dt-bindings: soc: amlogic: meson-gx-hhi-sysctrl: Fix compatible
->>> matching in conditionals
->>>         dt-bindings: phy: amlogic: Add Meson HDMI TX PHY binding
->>>         dt-bindings: soc: amlogic: meson-gx-hhi-sysctrl: Add hdmi-phy
->>> child node
->>>         phy: amlogic: Add Meson HDMI TX PHY driver
->>>         dt-bindings: display: amlogic,meson-dw-hdmi: Add phys and phy-
->>> names
->>>         drm/meson: dw-hdmi: Drop manual HHI clock and memory PD setup
->>>         drm/meson: dw-hdmi: Use the generic PHY framework for the HDMI
->>> TX PHY
->>>         arm64: dts: amlogic: Add HDMI TX PHY node for G12
->>>         arm64: dts: amlogic: Add HDMI TX PHY node for GXBB
->>>         arm64: dts: amlogic: Add HDMI TX PHY node for GXL
->>>
->>>    .../bindings/display/amlogic,meson-dw-hdmi.yaml    |   8 +
->>>    .../bindings/phy/amlogic,meson-hdmi-tx-phy.yaml    |  33 +++
->>>    .../soc/amlogic/amlogic,meson-gx-hhi-sysctrl.yaml  |  43 ++-
->>>    arch/arm64/boot/dts/amlogic/meson-g12-common.dtsi  |   7 +
->>>    arch/arm64/boot/dts/amlogic/meson-gxbb.dtsi        |   7 +
->>>    arch/arm64/boot/dts/amlogic/meson-gxl.dtsi         |   7 +
->>>    drivers/gpu/drm/meson/Kconfig                      |   1 +
->>>    drivers/gpu/drm/meson/meson_dw_hdmi.c              | 203 ++++++--------
->>>    drivers/phy/amlogic/Kconfig                        |  11 +
->>>    drivers/phy/amlogic/Makefile                       |   1 +
->>>    drivers/phy/amlogic/phy-meson-hdmi-tx.c            | 309 +++++++++++
->>> ++++++++++
->>>    include/linux/phy/phy-meson-hdmi-tx.h              |  19 ++
->>>    12 files changed, 513 insertions(+), 136 deletions(-)
->>> ---
->>> base-commit: 6d582d78fad9d828e575ca0cdcff8ea47a77220b
->>> change-id: 20261115-meson-drm-create-hdmitx-phy-4ac40a654d09
->>>
->>> Best regards,
->>> -- 
->>> Ronald Claveau <linux-kernel-dev@aliel.fr>
->>
->> Overall it's very good, but I would've prefered a more sequencial move
->> to the PHY driver, with an exact copy of the code and simplification
->> towards the current PHY code.
->>
->> Anyway, the sashiko review comments are good, especially the one on
->> patch 6 to keep the driver working on old DTs, sorry my bad...
->>
->> Neil
+On Wed, 18 Nov 2026 17:53:21 +0000
+Karunika Choo <karunika.choo@arm.com> wrote:
+
+> Mali v15 exposes a 64-bit GPU_ID register with a different field layout
+> from earlier GPUs.
 > 
-> Thanks for your feedback, I am analyzing/testing sashiko feedback.
+> Add the register definitions and decoding helpers for the new format,
+> read GPU_ID_WIDE when the compatibility value indicates a v15 GPU, and
+> populate both the cached GPU_ID fields and the uAPI gpu_id_wide field.
 > 
-> About the suspend/resume unbind/bind, I do not have any issue on my
-> side, but I can change the orders.
+> This allows userspace and the driver to identify v15 GPUs correctly.
 > 
-> About patch 6 and the old DTs, I will reintroduce them with the legacy
-> check. Do you know what would be a good timeline to add a require on
-> those elements and drop the fallback code ?
+> Reviewed-by: Liviu Dudau <liviu.dudau@arm.com>
+> Signed-off-by: Karunika Choo <karunika.choo@arm.com>
+
+Reviewed-by: Boris Brezillon <boris.brezillon@collabora.com>
+
+> ---
+> v3:
+> - Fix the missing blank line after declarations in GPU_ID decoding.
+> v2:
+> - Picked up R-b from Liviu.
+> - Rename the register macro from GPU_WIDE_ID to GPU_ID_WIDE.
+> - Rename the uAPI field from gpu_wide_id to gpu_id_wide.
+> - Print the upper 32 bits of GPU_ID_WIDE as the logged 'id' for v15 and
+>   later GPUs. Keep the existing output for earlier GPUs. Continuation
+>   fix for previous sashiko comment.
+> - Link: https://lore.kernel.org/all/20260922205659.3C4F21F000FF@smtp.kernel.org/
+> v1:
+> - Decode selected GPU_ID format after checking compatibility value.
+> - Document GPU_DISCOVER and GPU_CONTROL register offset differences
+>   between GPUs.
+> - Fix mask generation in panthor_gpu_discover_regs.h
+> 
+>  .../drm/panthor/panthor_gpu_discover_regs.h   | 19 ++++++
+>  drivers/gpu/drm/panthor/panthor_hw.c          | 63 ++++++++++++++-----
+>  include/uapi/drm/panthor_drm.h                | 13 ++++
+>  3 files changed, 81 insertions(+), 14 deletions(-)
+>  create mode 100644 drivers/gpu/drm/panthor/panthor_gpu_discover_regs.h
+> 
+> diff --git a/drivers/gpu/drm/panthor/panthor_gpu_discover_regs.h b/drivers/gpu/drm/panthor/panthor_gpu_discover_regs.h
+> new file mode 100644
+> index 0000000000000..6896c263f76b6
+> --- /dev/null
+> +++ b/drivers/gpu/drm/panthor/panthor_gpu_discover_regs.h
+> @@ -0,0 +1,19 @@
+> +/* SPDX-License-Identifier: GPL-2.0 or MIT */
+> +/* Copyright 2026 ARM Limited. All rights reserved. */
+> +
+> +#ifndef __PANTHOR_GPU_DISCOVER_REGS_H__
+> +#define __PANTHOR_GPU_DISCOVER_REGS_H__
+> +
+> +#include <linux/bits.h>
+> +
+> +#define GPU_ID_WIDE					0x0
+> +#define   GPU_WIDE_COMPAT				0xF
+> +#define   GPU_WIDE_ARCH_MAJOR(x)			(((x) & GENMASK_U64(63, 56)) >> 56)
+> +#define   GPU_WIDE_ARCH_MINOR(x)			(((x) & GENMASK_U64(55, 48)) >> 48)
+> +#define   GPU_WIDE_ARCH_REV(x)				(((x) & GENMASK_U64(47, 40)) >> 40)
+> +#define   GPU_WIDE_PROD_MAJOR(x)			(((x) & GENMASK_U64(39, 32)) >> 32)
+> +#define   GPU_WIDE_VER_MAJOR(x)				(((x) & GENMASK_U64(23, 16)) >> 16)
+> +#define   GPU_WIDE_VER_MINOR(x)				(((x) & GENMASK_U64(15, 8)) >> 8)
+> +#define   GPU_WIDE_VER_STATUS(x)			((x) & GENMASK_U64(7, 0))
+> +
+> +#endif /* __PANTHOR_GPU_DISCOVER_REGS_H__ */
+> diff --git a/drivers/gpu/drm/panthor/panthor_hw.c b/drivers/gpu/drm/panthor/panthor_hw.c
+> index 854874a9f322a..a26fe42e14f78 100644
+> --- a/drivers/gpu/drm/panthor/panthor_hw.c
+> +++ b/drivers/gpu/drm/panthor/panthor_hw.c
+> @@ -3,11 +3,13 @@
+> 
+>  #include <linux/nvmem-consumer.h>
+>  #include <linux/platform_device.h>
+> +#include <linux/wordpart.h>
+> 
+>  #include <drm/drm_print.h>
+> 
+>  #include "panthor_device.h"
+>  #include "panthor_gpu.h"
+> +#include "panthor_gpu_discover_regs.h"
+>  #include "panthor_gpu_regs.h"
+>  #include "panthor_hw.h"
+>  #include "panthor_pwr.h"
+> @@ -238,21 +240,30 @@ static int panthor_gpu_info_init(struct panthor_device *ptdev)
+> 
+>  static int panthor_hw_info_init(struct panthor_device *ptdev)
+>  {
+> -	u32 major, minor, status;
+> +	u32 prod_id, major, minor, status;
+>  	int ret;
+> 
+>  	ret = panthor_gpu_info_init(ptdev);
+>  	if (ret)
+>  		return ret;
+> 
+> +	/*
+> +	 * The logged 'id' contains four 4-bit architecture and product fields
+> +	 * in pre-v15 GPUs. In v15+ GPUs, this is now four 8-bit fields.
+> +	 * Preserve the pre-v15 format for compatibility. Tools decoding these
+> +	 * fields must handle the wider format for v15+ GPUs.
+> +	 */
+> +	if (ptdev->gpu_id.arch_major < 15)
+> +		prod_id = upper_16_bits(ptdev->gpu_info.gpu_id);
+> +	else
+> +		prod_id = upper_32_bits(ptdev->gpu_info.gpu_id_wide);
+> +
+>  	major = ptdev->gpu_id.ver_major;
+>  	minor = ptdev->gpu_id.ver_minor;
+>  	status = ptdev->gpu_id.ver_status;
+> 
+> -	drm_info(&ptdev->base,
+> -		 "%s id 0x%x major 0x%x minor 0x%x status 0x%x",
+> -		 get_gpu_model_name(ptdev), ptdev->gpu_info.gpu_id >> 16,
+> -		 major, minor, status);
+> +	drm_info(&ptdev->base, "%s id 0x%x major 0x%x minor 0x%x status 0x%x",
+> +		 get_gpu_model_name(ptdev), prod_id, major, minor, status);
+> 
+>  	drm_info(&ptdev->base,
+>  		 "Features: L2:%#x Tiler:%#x Mem:%#x MMU:%#x AS:%#x",
+> @@ -296,18 +307,42 @@ static int panthor_hw_bind_device(struct panthor_device *ptdev)
+>  static int panthor_hw_gpu_id_init(struct panthor_device *ptdev)
+>  {
+>  	struct panthor_gpu_id *gpu_id = &ptdev->gpu_id;
+> -	ptdev->gpu_info.gpu_id = gpu_read(ptdev->iomem, GPU_ID);
+> +	u32 gpu_id32 = gpu_read(ptdev->iomem, GPU_ID);
+> 
+> -	if (!ptdev->gpu_info.gpu_id)
+> +	if (!gpu_id32)
+>  		return -ENXIO;
+> 
+> -	gpu_id->arch_major = GPU_ARCH_MAJOR(ptdev->gpu_info.gpu_id);
+> -	gpu_id->arch_minor = GPU_ARCH_MINOR(ptdev->gpu_info.gpu_id);
+> -	gpu_id->arch_rev = GPU_ARCH_REV(ptdev->gpu_info.gpu_id);
+> -	gpu_id->prod_major = GPU_PROD_MAJOR(ptdev->gpu_info.gpu_id);
+> -	gpu_id->ver_major = GPU_VER_MAJOR(ptdev->gpu_info.gpu_id);
+> -	gpu_id->ver_minor = GPU_VER_MINOR(ptdev->gpu_info.gpu_id);
+> -	gpu_id->ver_status = GPU_VER_STATUS(ptdev->gpu_info.gpu_id);
+> +	if (GPU_ARCH_MAJOR(gpu_id32) == GPU_WIDE_COMPAT) {
+> +		/*
+> +		 * GPU_DISCOVER register block always starts at offset zero,
+> +		 * so does the GPU_CONTROL register block on pre-v15 GPUs.
+> +		 */
+> +		void __iomem *discover = ptdev->iomem;
+> +		u64 gpu_id64 = gpu_read64(discover, GPU_ID_WIDE);
+> +
+> +		if (!gpu_id64)
+> +			return -ENXIO;
+> +
+> +		ptdev->gpu_info.gpu_id_wide = gpu_id64;
+> +
+> +		gpu_id->arch_major = GPU_WIDE_ARCH_MAJOR(gpu_id64);
+> +		gpu_id->arch_minor = GPU_WIDE_ARCH_MINOR(gpu_id64);
+> +		gpu_id->arch_rev = GPU_WIDE_ARCH_REV(gpu_id64);
+> +		gpu_id->prod_major = GPU_WIDE_PROD_MAJOR(gpu_id64);
+> +		gpu_id->ver_major = GPU_WIDE_VER_MAJOR(gpu_id64);
+> +		gpu_id->ver_minor = GPU_WIDE_VER_MINOR(gpu_id64);
+> +		gpu_id->ver_status = GPU_WIDE_VER_STATUS(gpu_id64);
+> +	} else {
+> +		ptdev->gpu_info.gpu_id = gpu_id32;
+> +
+> +		gpu_id->arch_major = GPU_ARCH_MAJOR(gpu_id32);
+> +		gpu_id->arch_minor = GPU_ARCH_MINOR(gpu_id32);
+> +		gpu_id->arch_rev = GPU_ARCH_REV(gpu_id32);
+> +		gpu_id->prod_major = GPU_PROD_MAJOR(gpu_id32);
+> +		gpu_id->ver_major = GPU_VER_MAJOR(gpu_id32);
+> +		gpu_id->ver_minor = GPU_VER_MINOR(gpu_id32);
+> +		gpu_id->ver_status = GPU_VER_STATUS(gpu_id32);
+> +	}
+> 
+>  	return 0;
+>  }
+> diff --git a/include/uapi/drm/panthor_drm.h b/include/uapi/drm/panthor_drm.h
+> index a2ff0f4ec6915..09b7f7931e4f4 100644
+> --- a/include/uapi/drm/panthor_drm.h
+> +++ b/include/uapi/drm/panthor_drm.h
+> @@ -376,6 +376,19 @@ struct drm_panthor_gpu_info {
+> 
+>  	/** @gpu_features: Bitmask describing supported GPU-wide features */
+>  	__u64 gpu_features;
+> +
+> +	/**
+> +	 * @gpu_id_wide: 64-bit GPU ID for v15 and later GPUs. @gpu_id is 0 when
+> +	 * this is populated.
+> +	 */
+> +	__u64 gpu_id_wide;
+> +#define DRM_PANTHOR_WIDE_ARCH_MAJOR(x)		(((x) >> 56) & 0xff)
+> +#define DRM_PANTHOR_WIDE_ARCH_MINOR(x)		(((x) >> 48) & 0xff)
+> +#define DRM_PANTHOR_WIDE_ARCH_REV(x)		(((x) >> 40) & 0xff)
+> +#define DRM_PANTHOR_WIDE_PRODUCT_MAJOR(x)	(((x) >> 32) & 0xff)
+> +#define DRM_PANTHOR_WIDE_VERSION_MAJOR(x)	(((x) >> 16) & 0xff)
+> +#define DRM_PANTHOR_WIDE_VERSION_MINOR(x)	(((x) >> 8) & 0xff)
+> +#define DRM_PANTHOR_WIDE_VERSION_STATUS(x)	((x) & 0xff)
+>  };
+> 
+>  /**
+> --
+> 2.43.0
 > 
 
-The problem is not necessarily the kernel DT but the U-Boot DT which
-could be used by the kernel.
-
-The U-Boot DT was using v6.2 before v2024.07 and after it uses the synchronized
-DT from Linux, which coincides with the v6.11 DT which contains the DT clocks
-changes.
-
-It seems most of the SBCs distro uses recent U-Boot versions, and some nice distro
-ships older U-Boot version, so it could break on those if a new kernel was deployed.
-
-But, U-Boot already set HHI_HDMI_CLK_CNTL and HHI_MEM_PD_REG0 when probing dw_hdmi
-since 2019.04 so considering that I thing the risk is super low.
-
-Add this to your commit message and send a v2.
-
-Neil
