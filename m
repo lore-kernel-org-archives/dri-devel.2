@@ -2,63 +2,63 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A837F606A325
-	for <dri-devel@archiver.kernel.org>; Thu, 19 Nov 2026 19:25:53 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6C99A606A332
+	for <dri-devel@archiver.kernel.org>; Thu, 19 Nov 2026 19:25:54 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=ExVTcxTR
+	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=KqqrS4KF
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 180F61126CB;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 73DC31126DF;
 	Thu, 19 Nov 2026 19:25:48 +0000 (UTC)
-Received: from mail-oi1-f200.google.com (mail-oi1-f200.google.com
- [209.85.167.200])
- by gabe.freedesktop.org (Postfix) with ESMTPS id B61F61126DE
- for <dri-devel@lists.freedesktop.org>; Thu, 19 Nov 2026 19:25:38 +0000 (UTC)
-Received: by mail-oi1-f200.google.com with SMTP id
- 5614622812f47-547ae874949so264551b6e.2
- for <dri-devel@lists.freedesktop.org>; Thu, 19 Nov 2026 11:25:38 -0800 (PST)
+Received: from mail-pl1-f198.google.com (mail-pl1-f198.google.com
+ [209.85.214.198])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id E532A1126DF
+ for <dri-devel@lists.freedesktop.org>; Thu, 19 Nov 2026 19:25:41 +0000 (UTC)
+Received: by mail-pl1-f198.google.com with SMTP id
+ d9443c01a7336-2f022026e60so597225ad.0
+ for <dri-devel@lists.freedesktop.org>; Thu, 19 Nov 2026 11:25:41 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=google.com; s=20260707; t=1795116338; x=1795721138;
+ d=google.com; s=20260707; t=1795116341; x=1795721141;
  darn=lists.freedesktop.org; 
  h=content-type:cc:to:from:subject:message-id:references:mime-version
  :in-reply-to:date:from:to:cc:subject:date:message-id:reply-to
- :content-type; bh=rEPVdW1UHjKh7bwOu3YUjmxSg8vF1ESXVYVOzAB45kQ=;
- b=ExVTcxTRUymzjrgvMwVMlydmvwsYEtbjQ0Jffp8NGJZUcI8vvuHIL1PpoK+k0zY3fT
- xK9e8SPc4yH2ExSLf8IdMk650GyX2FKmXTbY8p42KHEcokXyK8L/ub0qBSSvXFZjko89
- G2x/9rEbewmh6LCN5etS7cMGXi0iNRZyUF8mFkrT5rY2XY5Lt2ciB6mcu9/9GzWKczAz
- MseYUwzb2gDzLbJSl1egogCWm9O63CNamkjYOtFKyAjYGX42nuTyu/phXvPBJz0DwPi8
- A5nmF3BSh0CA4xlf5Q7U9HhVRGqWv3W6beRAnHp5OK73pO5dt8nmno9zEBVi+I2oS6L/
- YqnQ==
+ :content-type; bh=ALLBk8MdTkFwcPZqYQO+ZVSicu8jJEanZFGqZFoBPVY=;
+ b=KqqrS4KFlbbGAylVjCsQnj52BXpwldR9nxu1XEXF1lTMgylnSVHg39Kxxabksxs009
+ i+CO8u9+jivpHATu3NSEU7/yiRaBZlx9lfJx5MDAIBRwNtqi6C9QPLpv00aK0HKy8T/J
+ gy8rmiumoWxBOH4zGyPlyhVPt/R6RZK6P56FlK+lcWaB+3brYTzJIznZeN0xVOb97wwk
+ ZLQR1oh9IkdpRYLTm7Eb2Z+fJyL86GQ1+jDLQQSx39worGR/88NHiyshde/8V5guW19q
+ okTJ+rheHr05RmYNwiHvvhcLFoz1jlAQW4sse6fQEOgEwfJKbZvQ4C7FhPdka3QVipWw
+ SOpg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20260707; t=1795116338; x=1795721138;
+ d=1e100.net; s=20260707; t=1795116341; x=1795721141;
  h=content-type:cc:to:from:subject:message-id:references:mime-version
  :in-reply-to:date:x-gm-message-state:from:to:cc:subject:date
  :message-id:reply-to:content-type;
- bh=rEPVdW1UHjKh7bwOu3YUjmxSg8vF1ESXVYVOzAB45kQ=;
- b=IaXXz/+dgM2L7r1bOILgCuW8nhaWxf/hk76v37JI37SkJR4U3tw/SvficH+K4KcyAT
- l4lbVKbA1VmDFTqbRWkbmq8fJF5K0+MwjXYrqveSo/jAVPl9/C6mMCrQpsa1X1YJedgB
- uq7dKJ0hYDYYP9GLeJbccBajDkQ+YxN1kYurstqFpqpN+aBXP5iZBOqeF19Bi4RwkgOL
- D3rOpspDNNLDNlwEfMeIOhHhnpR7HzE/SFh14IQDPFTT9HW3rrjh5lwYp2GL+P52xCJp
- gJSoVHBIK49qxmMXjZoTX87bdihVDxFivzNIMx02gQiF4OAI93JM81x7Qvo+aa3m/GtV
- mleg==
+ bh=ALLBk8MdTkFwcPZqYQO+ZVSicu8jJEanZFGqZFoBPVY=;
+ b=2XqiFdT0Ovi+rke+2p+cR6CXtjibhjYvSFPak4Qv/DVGraP/zIu8lGyG0+u6gxsC1f
+ /Z1KInht5UMZDeVtcCSviMkTgdH1+rTqP6v5ZIoUi8XGpxZU/tMVCmS3NEJpT9VC86yV
+ Zu/biYZVcrgUNhoezkPc7FPJL8aGe8HqOS9VSpfKIqCK3pd86JfcdfLCndZZrjhLnYlJ
+ RxNvUI58ZJOo9YlV+bvkWbi6JjSoYaDXR8fA7SPv0Q2uS3UIMzofxCcfqMoy2bscXn0d
+ vt8iODiyulS/9KRWV7LAjupYin7aooo8DcNHiGYFx6Qsi6xmOdgXnAqEvGusfxCIAPk8
+ SqLw==
 X-Forwarded-Encrypted: i=1;
- AL+hErHqYlg+cibsBfGVekqpPVtvBvLDzGpbcAcrZ0eEoaWEuWBBX5SAx1Koy7c3y//yXsm9WpNQH31klH0=@lists.freedesktop.org
-X-Gm-Message-State: APuU4Z/k81AQQ4au2MkVhqkPCRnM+ZhVukt6PoiUPakfnAjT50TvQk0s
- kHQFIICzw8BpIwyTpnHmlNene6K1266yBifnO1KZr6J3gwxrug20oCS4n2qBDNs0UCPmNEC+y/c
- Ihoia9Bkv5g==
-X-Received: from ilmp8.prod.google.com ([2002:a92:c608:0:b0:51e:1b8:eceb])
+ AL+hErEO2DpstS/rzhxe9oAq/OOZGMqz0qePOGTxUERBuKl6DeVpno61iKpU3tTmStHd5T7Z/F+t3uVYcY8=@lists.freedesktop.org
+X-Gm-Message-State: APuU4Z8ffQSGNi1n2MPW+H8y9frzCrJaf7sWdaPjWUCITtZRlCF7Xxxp
+ 4jtbqLhSor0xQmGQTBmHo9d30AjA3QYMYCozdS7kN1IlIGFVLdIv4V/5lxG3fOalc8Ek/yi7jaO
+ AJPuxfmtlfQ==
+X-Received: from pleu15.prod.google.com ([2002:a17:903:41cf:b0:2ef:d860:1c85])
  (user=irogers job=prod-delivery.src-stubby-dispatcher) by
- 2002:a05:6808:c110:b0:576:4595:9836
- with SMTP id 5614622812f47-57a0ba52419mr994155b6e.40.1795116337420; Thu, 19
- Nov 2026 11:25:37 -0800 (PST)
-Date: Thu, 19 Nov 2026 11:25:13 -0800
+ 2002:a17:902:fda5:b0:2ed:fb0:bfd6
+ with SMTP id d9443c01a7336-2f031e08699mr15736045ad.11.1795116341051; Thu, 19
+ Nov 2026 11:25:41 -0800 (PST)
+Date: Thu, 19 Nov 2026 11:25:14 -0800
 In-Reply-To: <20261119192520.1983406-1-irogers@google.com>
 X-Archived-By: <archiver.kernel.org>
 Mime-Version: 1.0
 References: <20261119192520.1983406-1-irogers@google.com>
 X-Mailer: git-send-email 2.56.1.750.gf70dc682cf-goog
-Message-ID: <20261119192520.1983406-3-irogers@google.com>
-Subject: [PATCH v4 2/9] powerpc/secvar: Add missing kobject release callback
- to secvar_ktype
+Message-ID: <20261119192520.1983406-4-irogers@google.com>
+Subject: [PATCH v4 3/9] sh: sq: Add missing kobject release callback to
+ ktype_percpu_entry
 From: Ian Rogers <irogers@google.com>
 To: Danilo Krummrich <dakr@kernel.org>,
  Greg Kroah-Hartman <gregkh@linuxfoundation.org>, 
@@ -111,40 +111,37 @@ X-Spam-Status: No, score=-26.3 required=3.0 tests=BAYES_00,DKIMWL_WL_MED,
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-In add_var(), a struct kobject is dynamically allocated with
-kzalloc_obj() and initialized with secvar_ktype. If kobject_add() or
-sysfs_create_file() fails, kobject_put(kobj) is called to clean up.
-However, secvar_ktype does not define a .release callback, which results
-in a memory leak of kobj (and a pr_debug warning in kobject_cleanup()
-when CONFIG_DEBUG_KOBJECT_RELEASE is enabled).
+In sq_dev_add(), sq_kobject[cpu] is dynamically allocated with
+kzalloc_obj() and initialized with ktype_percpu_entry. When
+sq_dev_remove() calls kobject_put(kobj), the kobject is never freed
+because ktype_percpu_entry lacks a .release callback.
 
-Provide a secvar_release() callback that calls kfree(kobj).
+Provide a sq_kobj_release() callback that calls kfree(kobj).
 
-Fixes: bd5d9c743d38 ("powerpc: expose secure variables to userspace via sysfs")
-Reviewed-by: Srish Srinivasan <ssrish@linux.ibm.com>
-Acked-by: Madhavan Srinivasan <maddy@linux.ibm.com>
+Fixes: d7c30c682a27 ("sh: Store Queue API rework.")
+Acked-by: John Paul Adrian Glaubitz <glaubitz@physik.fu-berlin.de>
 Signed-off-by: Ian Rogers <irogers@google.com>
 ---
- arch/powerpc/kernel/secvar-sysfs.c | 6 ++++++
+ arch/sh/kernel/cpu/sh4/sq.c | 6 ++++++
  1 file changed, 6 insertions(+)
 
-diff --git a/arch/powerpc/kernel/secvar-sysfs.c b/arch/powerpc/kernel/secvar-sysfs.c
-index 395399bbab2c..f3f6ac25ea78 100644
---- a/arch/powerpc/kernel/secvar-sysfs.c
-+++ b/arch/powerpc/kernel/secvar-sysfs.c
-@@ -126,7 +126,13 @@ static const struct attribute_group secvar_attr_group = {
+diff --git a/arch/sh/kernel/cpu/sh4/sq.c b/arch/sh/kernel/cpu/sh4/sq.c
+index 908a8e09113b..f33864958487 100644
+--- a/arch/sh/kernel/cpu/sh4/sq.c
++++ b/arch/sh/kernel/cpu/sh4/sq.c
+@@ -331,7 +331,13 @@ static const struct sysfs_ops sq_sysfs_ops = {
+ 	.store	= sq_sysfs_store,
  };
- __ATTRIBUTE_GROUPS(secvar_attr);
  
-+static void secvar_release(struct kobject *kobj)
++static void sq_kobj_release(struct kobject *kobj)
 +{
 +	kfree(kobj);
 +}
 +
- static const struct kobj_type secvar_ktype = {
-+	.release	= secvar_release,
- 	.sysfs_ops	= &kobj_sysfs_ops,
- 	.default_groups = secvar_attr_groups,
+ static struct kobj_type ktype_percpu_entry = {
++	.release	= sq_kobj_release,
+ 	.sysfs_ops	= &sq_sysfs_ops,
+ 	.default_groups	= sq_sysfs_groups,
  };
 -- 
 2.56.1.708.g77570a6a1d-goog
