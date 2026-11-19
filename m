@@ -2,78 +2,120 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 833F7606A320
-	for <dri-devel@archiver.kernel.org>; Thu, 19 Nov 2026 07:54:22 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2C34B606A320
+	for <dri-devel@archiver.kernel.org>; Thu, 19 Nov 2026 07:58:32 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=tXyu99QL
+	dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.a=rsa-sha256 header.s=google header.b=NMSuLTRW
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id BE45D10FE9F;
-	Thu, 19 Nov 2026 07:54:16 +0000 (UTC)
-Received: from mail-pf1-f174.google.com (mail-pf1-f174.google.com
- [209.85.210.174])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 3536710FE9F
- for <dri-devel@lists.freedesktop.org>; Thu, 19 Nov 2026 07:54:11 +0000 (UTC)
-Received: by mail-pf1-f174.google.com with SMTP id
- d2e1a72fcca58-8c6c06b3321so994332b3a.3
- for <dri-devel@lists.freedesktop.org>; Wed, 18 Nov 2026 23:54:11 -0800 (PST)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 607BA10E52E;
+	Thu, 19 Nov 2026 07:58:26 +0000 (UTC)
+Received: from mail-wm1-f44.google.com (mail-wm1-f44.google.com
+ [209.85.128.44])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 54C9210E52E
+ for <dri-devel@lists.freedesktop.org>; Thu, 19 Nov 2026 07:58:19 +0000 (UTC)
+Received: by mail-wm1-f44.google.com with SMTP id
+ 5b1f17b1804b1-4bb55cda775so3989095e9.0
+ for <dri-devel@lists.freedesktop.org>; Wed, 18 Nov 2026 23:58:19 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20260707; t=1795074851; x=1795679651; darn=lists.freedesktop.org;
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+ d=linaro.org; s=google; t=1795075098; x=1795679898; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:content-type:in-reply-to:organization
+ :autocrypt:content-language:references:cc:to:subject:reply-to:from
+ :user-agent:mime-version:date:message-id:from:to:cc:subject:date
  :message-id:reply-to:content-type;
- bh=Ru+zngfgoDECA/tIfj0+4KukrDwr8BnCsZQt6lEWRQc=;
- b=tXyu99QLeaKs9G7Qz6Fs0ULAUJKSqaEeK8wJca9jzaLFSIYbpJaxK3cELzhjCFTHKt
- xkwv3F15SGGimK/KP6EL0L+E/HkyZMZf+f/ZBxfYG05xHELk+qRASNhxInu3IVvZhv8a
- mbVhsXsL1oderBRDEXTcwNdGlimVHjWLgZCaj+DWNbhyij91PMI4w6joqx0Q7rmnjl/p
- GCZyXcOpbyLVusJm1rAtZSj+c6JGcdK2tshU5GHBcglg9B+/moo2pqY7/sNaal6rlm11
- XA6BgAMGEvqq/oEDqNa/fWUuLhqoeOREX3K/fHM5ZBJdOJ6clA2pQiQ8uMYuUOYPtH9I
- Yy3g==
+ bh=pdQlb2CsGbWPGWlbFcx6D3f/AbXcJrTux+zl7o+qrMU=;
+ b=NMSuLTRWNjXp0mTCEys+opK0cPRxjIYwDvdT5aptcB0e8TWJCaa1pzodysUNAZUoDP
+ HTmEkuQe6OrVqHI9e9m0o7wSwy62NI7acYBElFqmyGlYQNMB1cxKGYwz7SDGxRU3SVei
+ N/3LoprB9kDt+RtuM4nUTcSi0G4eAKx2UtL9B1r4o1hyyXegRAJK1DKF4OO0ryz2F85I
+ ZjhX0J0FaZvgBLSfz3PxVAXFxInJbud6AuWX16l8rTuZtFzBZ8WvFb1q0u+achtvciLT
+ 7kc2P4gO0kBGKn3Ip4ri+76hGI3luiG0jseBC3l1EIiXdsV12kD0rln3CX/AE2pY7Zr0
+ BS5Q==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20260707; t=1795074851; x=1795679651;
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
- :to:cc:subject:date:message-id:reply-to:content-type;
- bh=Ru+zngfgoDECA/tIfj0+4KukrDwr8BnCsZQt6lEWRQc=;
- b=Q5dwgLLWjFi+XBGN0tF7d8JSPk8D/tQOyPj9Smieq8J8MbzLZCyR5XCHzKObo5hu6Z
- ImQmx9YSWhjY4slmdfsGV9G1nUTTFnUEaTudTqzfrmEk7s/e4HrgR3vCiV++CZxgTgM9
- tLt8FR+cv6E8bN8LtEsRPfb8RlP2mXV817zjRGG9OAuPEZ2N0IWFV7VWzC+OnT7EvjEp
- c+vbY2RMuOu/9DaqQ7+9KUxT5FgqiPgtbrWGswz2vYmmAPncwIouAr+3q5Fhc+FU7TAm
- 7YEu7vkGbAUKe9xuZ+7vG11k3Vc+r2JLiQPVG3gpKRVUbu9GEbcdeOUhKvM1a8d+cn1Z
- 5CAw==
-X-Gm-Message-State: APuU4Z+psTC7T+yNdSxVgDyVwcmeMn/YH1t17Ir1m/PH4vH4S0+8OyIr
- WflHTN3m4UDq9v8LT2MqJ0n6XE+5MdJb2dWvpvd9sfT7IDRKK8EhvTxAiP+HO7Rjaj7Adw==
-X-Gm-Gg: AYBFou0goOpjWMlBfc3mVHclvCFveteCs38E6zThN7oYvv6X1Xgxlmx4sWxBDCzfT1b
- 0kN34qS26nu+kF7kJnhRZjbENMmr1TEOK6TbAyeG4pK34LE5JG/rzxPgpTtD26St3ufQVbvwRAp
- NjfQg39XRft/bLef3lWD74TdeBxW97B92ztykhyscSqBJBZRfyUNJsXFzlu88WLEU5z6KGvEd1L
- FLAwoRt5WESxeqeGHQKmVExT/ApcgX2lJisQxMQwj2tvOkqrkIvuu9pv3FqxqKXF603kHWUkgqZ
- lJtJKWjnaz2vB8qaB5SSr2DSMxuZwLOVfTfIHwFMzZ7HgKtglTqZzliNoGKHeZqCiSyqrl+5nn/
- fTqn6ugIrElx2Ykt+ZXkANIv7hnpMcKkljj06JvJ3qMlow1zK7TRzQ6hZJLWADZ1AohYtrMzdyl
- cWPmD4gZisVOd3bl2yS+KA84S0lIGsWD5Buhgbnup98PEAF65mIiXSV+xLhRgJlVQCiiJMelJou
- Y+p8DdGsv55nSWt+75ARXxJapFhKCRDgDZZGNzDGwt9qjzOEDTrjQfwLu/E/uScSVIhwPbTbD6L
- rPbhiYt137pJMcpKtNX8Y85bcKNMnE7o3QO7VDyShUSf2NSKTuibVAFSgswLcakxOyHZhLu7LOe
- p1OKHdudIzRNgz8CA3ILKaKI30UG28pGwsmU3EWdI0qHGPw==
-X-Received: by 2002:a05:6a00:4390:b0:886:31d3:51a2 with SMTP id
- d2e1a72fcca58-8c5d47e2215mr5130363b3a.39.1795074850480; 
- Wed, 18 Nov 2026 23:54:10 -0800 (PST)
-Received: from lwq-server.tail118c18.ts.net ([74.176.208.23])
+ d=1e100.net; s=20260707; t=1795075098; x=1795679898;
+ h=content-transfer-encoding:content-type:in-reply-to:organization
+ :autocrypt:content-language:references:cc:to:subject:reply-to:from
+ :user-agent:mime-version:date:message-id:x-gm-gg:x-gm-message-state
+ :from:to:cc:subject:date:message-id:reply-to:content-type;
+ bh=pdQlb2CsGbWPGWlbFcx6D3f/AbXcJrTux+zl7o+qrMU=;
+ b=WknwLyaXiq9fiNnRXC/cB0TjMQlm6aUpEMMmk1F8vXjnF4Jpqi5bNe39jNSiKgEWTJ
+ 0YmcbKemGVQ2pcPNdUJLAs4f0EC3dGL83+xj4iOk8wVBuQbaBYwKxIPRuHw6z8JD2rAd
+ jg6aKyv/ycJH9cRQY34jTPPW/RmG1/NOKFlv6AToOARHGCw9AJtZqPVoumws8nIClBSA
+ ixHjXdpqtYl9QTOnxGrV+doLFsA5mUdlLC/dX8BmhtuSGrCTLEzGWxDupSuIELvjVH6f
+ 9vZYJiXGgJ6JztzsaaXwWMtXs2wLr5HhlbZl2poySeQRq17xp7H2qkTTByNW3p8dxC/u
+ 1v9g==
+X-Forwarded-Encrypted: i=1;
+ AL+hErHbm/bGt7F+upBfPhGVVS2Wb49mc4vCNnmPisOwjO1NU2rItP0q3C3DWofc7vf0cqG663XfqT+R+ZU=@lists.freedesktop.org
+X-Gm-Message-State: APuU4Z9etNSvN6ZQFLXLMUcfmzvLi5AqzHCmdLK6+IaHJP+glgUS6l2Z
+ V/P9pEbVzp+f603FapBRmnPQ3swJOshaezG3dgmmvlewONfkpSyuApBgcjLVHnMZdWw=
+X-Gm-Gg: AYBFou1nPYiLANypdU7mlNA5xJIaGvxM/18l0IkMg3/NGz6OW9JbUVA2dEkOTqV1gRo
+ YcnY5f7bzQUG7n1vZcCUTKOHzFXxXSpowZtE0aGTlb+duvU8OyxxtQ7DsoJTga6H+XN4S9GbL1F
+ SEZy00JuLQ5kYmtk/GnkrH1YIy40jecv71HXcqtYppooK+ojVLvaBCSz0j2fB9lfdf86nY6VrRp
+ PbAZKzOZwZt4C2MgrFjTF68RQDIQDlQnyUbVujiv9BfUL+c4aSljCSyk5zWFgPPMNT/Xdb8GsQN
+ +afqmqa/jw9cmZeWQfmAxepZ53gZo3J5s6ywDuj1ZkuE1nS9xmTkHiS6cfycMvb2RH7wSia4ZHo
+ gU1WTyc/wAbP69rwvOSAfAPcWuvts8KwxyPvSilbPpM+l3ANLdEXDnU7QYrGGZBHEg5hFaJy3cn
+ na2FTLisId3ARCWv5ukG98XXMdgO+VO7zE0OGmrqWoaf6TNiNp3orNOZXPOmg79t9AU3P+IAvG+
+ /z3WkVhbXuppUA6jrXmz96VcPdUx4+rRiAMaYbm2OmtzH2j5F2r3Wgf8Es9lQGv6oj50Pr3YD9G
+ zOZ/ZdtE58g9JcfSIhNKcvyjX1S5geKIJwrIRtz8/0xqj7kzhThYP/1Uq+Qex1tswODlF/1N4yR
+ 7SoFSnbkZ
+X-Received: by 2002:a05:600c:4e86:b0:4a2:526b:d40f with SMTP id
+ 5b1f17b1804b1-4bb8609ad6dmr6876015e9.0.1795075097389; 
+ Wed, 18 Nov 2026 23:58:17 -0800 (PST)
+Received: from ?IPV6:2a01:e0a:106d:1080:3611:76ad:c4e1:77e7?
+ ([2a01:e0a:106d:1080:3611:76ad:c4e1:77e7])
  by smtp.gmail.com with ESMTPSA id
- d2e1a72fcca58-8c5ca7aa75esm2373707b3a.15.2026.11.18.23.54.06
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Wed, 18 Nov 2026 23:54:10 -0800 (PST)
-From: Yaohan Li <shunsheng1218@gmail.com>
-To: Inki Dae <inki.dae@samsung.com>, Seung-Woo Kim <sw0312.kim@samsung.com>,
- Kyungmin Park <kyungmin.park@samsung.com>
-Cc: dri-devel@lists.freedesktop.org, Krzysztof Kozlowski <krzk@kernel.org>,
- linux-kernel@vger.kernel.org
-Subject: [RFC PATCH v2] drm/exynos: publish the IPP task completion after the
- last task access
-Date: Thu, 19 Nov 2026 15:54:02 +0800
-Message-Id: <20261119075402.3397371-1-shunsheng1218@gmail.com>
-X-Mailer: git-send-email 2.34.1
-In-Reply-To: <20261119023550.1495565-1-shunsheng1218@gmail.com>
-References: <20261119023550.1495565-1-shunsheng1218@gmail.com>
+ 5b1f17b1804b1-4bb8532f1a9sm15704175e9.3.2026.11.18.23.58.16
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Wed, 18 Nov 2026 23:58:16 -0800 (PST)
+Message-ID: <04447713-32bb-46ff-8dd9-ba00bce186db@linaro.org>
+Date: Thu, 19 Nov 2026 08:58:15 +0100
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+From: Neil Armstrong <neil.armstrong@linaro.org>
+Subject: Re: [PATCH 00/10] phy/drm: amlogic: Extract Meson HDMI TX PHY into a
+ dedicated driver
+To: linux-kernel-dev@aliel.fr
+Cc: devicetree@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
+ linux-amlogic@lists.infradead.org, linux-kernel@vger.kernel.org,
+ linux-phy@lists.infradead.org, dri-devel@lists.freedesktop.org,
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>, Kevin Hilman <khilman@baylibre.com>,
+ Jerome Brunet <jbrunet@baylibre.com>,
+ Martin Blumenstingl <martin.blumenstingl@googlemail.com>,
+ Vinod Koul <vkoul@kernel.org>, Manivannan Sadhasivam <mani@kernel.org>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>
+References: <20261117-meson-drm-create-hdmitx-phy-v1-0-9e0ac931381c@aliel.fr>
+ <51831581-525f-418c-86ea-3b5c6a80709b@linaro.org>
+ <bb027d3b-6a43-4dd3-9771-3448c86996b5@aliel.fr>
+Content-Language: en-US, fr
+Autocrypt: addr=neil.armstrong@linaro.org; keydata=
+ xsBNBE1ZBs8BCAD78xVLsXPwV/2qQx2FaO/7mhWL0Qodw8UcQJnkrWmgTFRobtTWxuRx8WWP
+ GTjuhvbleoQ5Cxjr+v+1ARGCH46MxFP5DwauzPekwJUD5QKZlaw/bURTLmS2id5wWi3lqVH4
+ BVF2WzvGyyeV1o4RTCYDnZ9VLLylJ9bneEaIs/7cjCEbipGGFlfIML3sfqnIvMAxIMZrvcl9
+ qPV2k+KQ7q+aXavU5W+yLNn7QtXUB530Zlk/d2ETgzQ5FLYYnUDAaRl+8JUTjc0CNOTpCeik
+ 80TZcE6f8M76Xa6yU8VcNko94Ck7iB4vj70q76P/J7kt98hklrr85/3NU3oti3nrIHmHABEB
+ AAHNKk5laWwgQXJtc3Ryb25nIDxuZWlsLmFybXN0cm9uZ0BsaW5hcm8ub3JnPsLAkQQTAQoA
+ OwIbIwULCQgHAwUVCgkICwUWAgMBAAIeAQIXgBYhBInsPQWERiF0UPIoSBaat7Gkz/iuBQJk
+ Q5wSAhkBAAoJEBaat7Gkz/iuyhMIANiD94qDtUTJRfEW6GwXmtKWwl/mvqQtaTtZID2dos04
+ YqBbshiJbejgVJjy+HODcNUIKBB3PSLaln4ltdsV73SBcwUNdzebfKspAQunCM22Mn6FBIxQ
+ GizsMLcP/0FX4en9NaKGfK6ZdKK6kN1GR9YffMJd2P08EO8mHowmSRe/ExAODhAs9W7XXExw
+ UNCY4pVJyRPpEhv373vvff60bHxc1k/FF9WaPscMt7hlkbFLUs85kHtQAmr8pV5Hy9ezsSRa
+ GzJmiVclkPc2BY592IGBXRDQ38urXeM4nfhhvqA50b/nAEXc6FzqgXqDkEIwR66/Gbp0t3+r
+ yQzpKRyQif3OwE0ETVkGzwEIALyKDN/OGURaHBVzwjgYq+ZtifvekdrSNl8TIDH8g1xicBYp
+ QTbPn6bbSZbdvfeQPNCcD4/EhXZuhQXMcoJsQQQnO4vwVULmPGgtGf8PVc7dxKOeta+qUh6+
+ SRh3vIcAUFHDT3f/Zdspz+e2E0hPV2hiSvICLk11qO6cyJE13zeNFoeY3ggrKY+IzbFomIZY
+ 4yG6xI99NIPEVE9lNBXBKIlewIyVlkOaYvJWSV+p5gdJXOvScNN1epm5YHmf9aE2ZjnqZGoM
+ Mtsyw18YoX9BqMFInxqYQQ3j/HpVgTSvmo5ea5qQDDUaCsaTf8UeDcwYOtgI8iL4oHcsGtUX
+ oUk33HEAEQEAAcLAXwQYAQIACQUCTVkGzwIbDAAKCRAWmrexpM/4rrXiB/sGbkQ6itMrAIfn
+ M7IbRuiSZS1unlySUVYu3SD6YBYnNi3G5EpbwfBNuT3H8//rVvtOFK4OD8cRYkxXRQmTvqa3
+ 3eDIHu/zr1HMKErm+2SD6PO9umRef8V82o2oaCLvf4WeIssFjwB0b6a12opuRP7yo3E3gTCS
+ KmbUuLv1CtxKQF+fUV1cVaTPMyT25Od+RC1K+iOR0F54oUJvJeq7fUzbn/KdlhA8XPGzwGRy
+ 4zcsPWvwnXgfe5tk680fEKZVwOZKIEuJC3v+/yZpQzDvGYJvbyix0lHnrCzq43WefRHI5XTT
+ QbM0WUIBIcGmq38+OgUsMYu4NzLu7uZFAcmp6h8g
+Organization: Linaro
+In-Reply-To: <bb027d3b-6a43-4dd3-9771-3448c86996b5@aliel.fr>
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -85,155 +127,134 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
+Reply-To: Neil Armstrong <neil.armstrong@linaro.org>
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-15.8 required=3.0 tests=BAYES_00,DKIM_SIGNED,
-	DKIM_VALID,DKIM_VALID_AU,FREEMAIL_FORGED_FROMDOMAIN,FREEMAIL_FROM,
-	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
-	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,USER_AGENT_GIT
-	autolearn=unavailable autolearn_force=no version=4.0.1
+X-Spam-Status: No, score=-17.3 required=3.0 tests=BAYES_00,DKIM_SIGNED,
+	DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
+	INCLUDES_CR_TRAILER,INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,
+	SPF_PASS,USER_AGENT_SANE_1 autolearn=unavailable autolearn_force=no
+	version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-exynos_drm_ipp_task_done() sets DRM_EXYNOS_IPP_TASK_DONE before it
-writes task->ret and reads DRM_EXYNOS_IPP_TASK_ASYNC.  A commit ioctl
-that waits for the task evaluates the DONE flag in
-wait_event_interruptible() without taking ipp->lock, and
-exynos_drm_ipp_task_cleanup() frees the task as soon as it observes it,
-so the completion path can still be writing and reading a task that the
-waiter has already released.
+On 11/18/26 20:35, linux-kernel-dev@aliel.fr wrote:
+> On 11/18/26 13:38, Neil Armstrong wrote:
+>> Hi,
+>>
+>> On 11/17/26 20:33, Ronald Claveau via B4 Relay wrote:
+>>> This series moves the Amlogic Meson HDMI TX PHY handling (covering GXBB,
+>>> GXL, GXM, and G12A SoCs) out of the meson_dw_hdmi DRM driver and into a
+>>> dedicated generic PHY driver.
+>>>
+>>> Until now, meson_dw_hdmi directly manipulated the HHI system controller
+>>> registers (HHI_HDMI_PHY_CNTL0..5) to configure analog parameters, toggle
+>>> resets, and manage power states, as well as manually ungating HDMI
+>>> clocks and power domains already described in the DT.
+>>>
+>>> By extracting this logic into a standalone PHY driver under
+>>> drivers/phy/amlogic/:
+>>> - Hardware representation in the DT is cleaner, modeling the HDMI TX PHY
+>>>     as a child node of the HHI syscon referenced via standard "phys" and
+>>>     "phy-names" properties.
+>>> - The DRM bridge driver relies on the standard generic PHY API
+>>>     (phy_init, phy_configure, phy_power_on/off, phy_exit) rather than
+>>>     touching syscon registers directly.
+>>> - Legacy DTs lacking the "phys" property remain supported via a
+>>>     temporary fallback helper (meson_hdmi_phy_create_legacy) to preserve
+>>>     backward compatibility to be removed on next phase of component
+>>>     removal.
+>>>
+>>> Overview of the series:
+>>> - Patches 1-3: Fix compatible matching in meson-gx-hhi-sysctrl bindings,
+>>>     add the new amlogic,meson-hdmi-tx-phy DT schema, and allow the
+>>>     "hdmi-phy" child node under the HHI syscon.
+>>> - Patch 4: Add the new Meson HDMI TX PHY driver implementing the HDMI
+>>>     PHY configuration ops, along with the temporary legacy creation
+>>>     helper.
+>>> - Patch 5: Document the optional "phys" and "phy-names" properties in
+>>>     the amlogic,meson-dw-hdmi binding.
+>>> - Patches 6-7: Clean up manual HHI clock/power-domain writes in
+>>>     meson_dw_hdmi (relying on runtime PM instead) and convert the driver
+>>>     to use the generic PHY framework.
+>>> - Patches 8-10: Add the "hdmi-phy" child node and wire up the "phys"
+>>>     phandle for G12, GXBB, and GXL Device Trees.
+>>>
+>>> Tested on:
+>>> - Khadas VIM1 (GXL)
+>>> - dtbs_check and dt_binding_check run cleanly with no new warnings.
+>>>
+>>> Signed-off-by: Ronald Claveau <linux-kernel-dev@aliel.fr>
+>>> ---
+>>> Ronald Claveau (10):
+>>>         dt-bindings: soc: amlogic: meson-gx-hhi-sysctrl: Fix compatible
+>>> matching in conditionals
+>>>         dt-bindings: phy: amlogic: Add Meson HDMI TX PHY binding
+>>>         dt-bindings: soc: amlogic: meson-gx-hhi-sysctrl: Add hdmi-phy
+>>> child node
+>>>         phy: amlogic: Add Meson HDMI TX PHY driver
+>>>         dt-bindings: display: amlogic,meson-dw-hdmi: Add phys and phy-
+>>> names
+>>>         drm/meson: dw-hdmi: Drop manual HHI clock and memory PD setup
+>>>         drm/meson: dw-hdmi: Use the generic PHY framework for the HDMI
+>>> TX PHY
+>>>         arm64: dts: amlogic: Add HDMI TX PHY node for G12
+>>>         arm64: dts: amlogic: Add HDMI TX PHY node for GXBB
+>>>         arm64: dts: amlogic: Add HDMI TX PHY node for GXL
+>>>
+>>>    .../bindings/display/amlogic,meson-dw-hdmi.yaml    |   8 +
+>>>    .../bindings/phy/amlogic,meson-hdmi-tx-phy.yaml    |  33 +++
+>>>    .../soc/amlogic/amlogic,meson-gx-hhi-sysctrl.yaml  |  43 ++-
+>>>    arch/arm64/boot/dts/amlogic/meson-g12-common.dtsi  |   7 +
+>>>    arch/arm64/boot/dts/amlogic/meson-gxbb.dtsi        |   7 +
+>>>    arch/arm64/boot/dts/amlogic/meson-gxl.dtsi         |   7 +
+>>>    drivers/gpu/drm/meson/Kconfig                      |   1 +
+>>>    drivers/gpu/drm/meson/meson_dw_hdmi.c              | 203 ++++++--------
+>>>    drivers/phy/amlogic/Kconfig                        |  11 +
+>>>    drivers/phy/amlogic/Makefile                       |   1 +
+>>>    drivers/phy/amlogic/phy-meson-hdmi-tx.c            | 309 +++++++++++
+>>> ++++++++++
+>>>    include/linux/phy/phy-meson-hdmi-tx.h              |  19 ++
+>>>    12 files changed, 513 insertions(+), 136 deletions(-)
+>>> ---
+>>> base-commit: 6d582d78fad9d828e575ca0cdcff8ea47a77220b
+>>> change-id: 20261115-meson-drm-create-hdmitx-phy-4ac40a654d09
+>>>
+>>> Best regards,
+>>> -- 
+>>> Ronald Claveau <linux-kernel-dev@aliel.fr>
+>>
+>> Overall it's very good, but I would've prefered a more sequencial move
+>> to the PHY driver, with an exact copy of the code and simplification
+>> towards the current PHY code.
+>>
+>> Anyway, the sashiko review comments are good, especially the one on
+>> patch 6 to keep the driver working on old DTs, sorry my bad...
+>>
+>> Neil
+> 
+> Thanks for your feedback, I am analyzing/testing sashiko feedback.
+> 
+> About the suspend/resume unbind/bind, I do not have any issue on my
+> side, but I can change the orders.
+> 
+> About patch 6 and the old DTs, I will reintroduce them with the legacy
+> check. Do you know what would be a good timeline to add a require on
+> those elements and drop the fallback code ?
+> 
 
-Settle task->ret and the asynchronous ownership first, and publish DONE
-last with release semantics; read the flag with acquire semantics in the
-waiter.  The flag is the publication point: a waiter that observes it on
-another CPU also observes everything written before it.
+The problem is not necessarily the kernel DT but the U-Boot DT which
+could be used by the kernel.
 
-The completion path does not touch the task after the flag is visible
-any more, except for the hand-over to the cleanup work, which only runs
-for tasks no synchronous caller can release: DRM_EXYNOS_IPP_TASK_ASYNC
-was sampled before the publication and is set either for a non-blocking
-commit, whose ioctl does not wait, or by exynos_drm_ipp_task_abort()
-under ipp->lock.
+The U-Boot DT was using v6.2 before v2024.07 and after it uses the synchronized
+DT from Linux, which coincides with the v6.11 DT which contains the DT clocks
+changes.
 
-The previous comment claimed that queueing the cleanup work before the
-wakeup is what makes the wakeup safe.  That is not the ordering that
-matters: wait_event_interruptible() evaluates its condition without this
-wakeup as well, for instance when another task on the shared ipp->done_wq
-wakes the waiter, so what orders the two sides is the publication of
-DONE.
+It seems most of the SBCs distro uses recent U-Boot versions, and some nice distro
+ships older U-Boot version, so it could break on those if a new kernel was deployed.
 
-Fixes: 9913f74fe157 ("drm/exynos: ipp: Add IPP v2 framework")
-Signed-off-by: Yaohan Li <shunsheng1218@gmail.com>
+But, U-Boot already set HHI_HDMI_CLK_CNTL and HHI_MEM_PD_REG0 when probing dw_hdmi
+since 2019.04 so considering that I thing the risk is super low.
 
----
-Changes in v2:
-  - Publish DRM_EXYNOS_IPP_TASK_DONE last, after task->ret is written and
-    after DRM_EXYNOS_IPP_TASK_ASYNC has been sampled, and do it with
-    smp_store_release(); the waiter reads the flag with smp_load_acquire().
-    A synchronous waiter evaluates the condition without ipp->lock, so
-    moving the wakeup alone does not order the two sides.  Reported by
-    Sashiko.
-  - Rewrite the comment and the commit message: what orders the waiters is
-    the publication of DONE, not the wake_up() call.
-  - Add the Fixes: tag for the IPP v2 framework.
-  - Exercise the publication order and the signal-abort path with a
-    controlled test; the outcome is in the note below.
-Prepared against v7.4-rc1-1969-g666539eecdf4.
+Add this to your commit message and send a v2.
 
-Compile tested: arm64 with aarch64-linux-gnu-gcc 11.4 and
-CONFIG_DRM_EXYNOS=m with the IPP drivers.
-
-The publication order and its interaction with the abort path were
-exercised by a controlled test on a KASAN kernel built from this tree
-(x86_64, QEMU/KVM; 12 checks, all passing).  The test transcribes
-exynos_drm_ipp_task_done() before and after the change and the wait/abort
-part of the commit ioctl, and runs them on the real workqueue, wait and
-signal machinery:
-
- - pre-patch order: the woken waiter releases the task and the completion
-   path then reads task->flags - a KASAN slab-use-after-free;
- - patched order, same window: the completion path does not touch the task
-   after the wakeup, and the waiter reads the result it stored;
- - a wait interrupted by a signal (-ERESTARTSYS) enters the abort path, the
-   task is handed to the cleanup work and released exactly once;
- - a signal that arrives after the completion does not turn the wait into
-   an abort: the waiter takes the success path and releases the task
-   inline, exactly once.
-
-The test does not compile the driver itself, which would need the whole DRM
-device, so no Exynos hardware and no DRM teardown path was exercised, and
-the store-store half of the ordering can only be observed on a weakly
-ordered architecture.
-
-AI assistance: the analysis, the change and its review notes were
-prepared with Claude (Anthropic) as a coding assistant.  The author
-reviewed the reasoning and takes responsibility for the content.
----
- drivers/gpu/drm/exynos/exynos_drm_ipp.c | 30 +++++++++++++++++++++----
- 1 file changed, 26 insertions(+), 4 deletions(-)
-
-diff --git a/drivers/gpu/drm/exynos/exynos_drm_ipp.c b/drivers/gpu/drm/exynos/exynos_drm_ipp.c
-index 43bc4f63bb84..20d3c10872d8 100644
---- a/drivers/gpu/drm/exynos/exynos_drm_ipp.c
-+++ b/drivers/gpu/drm/exynos/exynos_drm_ipp.c
-@@ -764,6 +764,7 @@ void exynos_drm_ipp_task_done(struct exynos_drm_ipp_task *task, int ret)
- {
- 	struct exynos_drm_ipp *ipp = task->ipp;
- 	unsigned long flags;
-+	bool async;
- 
- 	DRM_DEV_DEBUG_DRIVER(task->dev, "ipp: %d, task %p done: %d\n",
- 			     ipp->id, task, ret);
-@@ -771,17 +772,36 @@ void exynos_drm_ipp_task_done(struct exynos_drm_ipp_task *task, int ret)
- 	spin_lock_irqsave(&ipp->lock, flags);
- 	if (ipp->task == task)
- 		ipp->task = NULL;
--	task->flags |= DRM_EXYNOS_IPP_TASK_DONE;
-+
-+	/*
-+	 * A synchronous waiter evaluates DRM_EXYNOS_IPP_TASK_DONE without
-+	 * taking @ipp->lock and frees the task as soon as it observes the
-+	 * flag, so @ret and the decision whether the cleanup work takes the
-+	 * task over have to be settled before it becomes visible.
-+	 */
- 	task->ret = ret;
-+	async = task->flags & DRM_EXYNOS_IPP_TASK_ASYNC;
-+
-+	/* Publish the completion last; the waiter pairs with an acquire. */
-+	smp_store_release(&task->flags,
-+			  task->flags | DRM_EXYNOS_IPP_TASK_DONE);
- 	spin_unlock_irqrestore(&ipp->lock, flags);
- 
- 	exynos_drm_ipp_next_task(ipp);
--	wake_up(&ipp->done_wq);
- 
--	if (task->flags & DRM_EXYNOS_IPP_TASK_ASYNC) {
-+	/*
-+	 * The task is not touched after the flag became visible, except for
-+	 * this hand-over, which only runs for tasks no synchronous caller can
-+	 * release: @async was sampled before the publication, and it is set
-+	 * either for a non-blocking commit, whose ioctl does not wait, or by
-+	 * exynos_drm_ipp_task_abort() under @ipp->lock.
-+	 */
-+	if (async) {
- 		INIT_WORK(&task->cleanup_work, exynos_drm_ipp_cleanup_work);
- 		schedule_work(&task->cleanup_work);
- 	}
-+
-+	wake_up(&ipp->done_wq);
- }
- 
- static void exynos_drm_ipp_next_task(struct exynos_drm_ipp *ipp)
-@@ -929,7 +949,9 @@ int exynos_drm_ipp_commit_ioctl(struct drm_device *dev, void *data,
- 				     ipp->id, task);
- 		exynos_drm_ipp_schedule_task(ipp, task);
- 		ret = wait_event_interruptible(ipp->done_wq,
--					task->flags & DRM_EXYNOS_IPP_TASK_DONE);
-+					/* pairs with the release above */
-+					smp_load_acquire(&task->flags) &
-+					DRM_EXYNOS_IPP_TASK_DONE);
- 		if (ret)
- 			exynos_drm_ipp_task_abort(ipp, task);
- 		else
--- 
-2.34.1
-
+Neil
