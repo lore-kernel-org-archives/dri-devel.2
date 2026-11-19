@@ -2,70 +2,74 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 80C97606A320
-	for <dri-devel@archiver.kernel.org>; Thu, 19 Nov 2026 05:21:59 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 60859606A325
+	for <dri-devel@archiver.kernel.org>; Thu, 19 Nov 2026 05:22:01 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=FRyp7KDS
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=EMfNNdX6
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 5DDC910E5F9;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 6A38310E671;
 	Thu, 19 Nov 2026 05:21:52 +0000 (UTC)
-Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id E222C10E5F9
+Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id C3E7F10E54F
  for <dri-devel@lists.freedesktop.org>; Thu, 19 Nov 2026 05:21:45 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by tor.source.kernel.org (Postfix) with ESMTP id A557661B16;
- Thu, 19 Nov 2026 05:21:44 +0000 (UTC)
+ by sea.source.kernel.org (Postfix) with ESMTP id 8DCFE4900C;
+ Thu, 19 Nov 2026 05:21:45 +0000 (UTC)
 Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
 ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
- t=1795065704;
- b=oilW1udFWAZ5bSa4N/auNXHlyS/UxvLfFlbOKbn4Hznlb2L8nWwDFxmKwr1GVo7l56qH
- bZN0viDy64Kfb+wJIGmyFC9exLWsqjHGrSG+rHKD7I3xkLoKR1JKqpz2t0dzoM2N9ONG8
- bSS46NyHWIp3yBad9Np5pCcK3ZMnfj1euSoryemHyzDqTamJOZl3jd9robNIsXfk31p3a
- hcAc4pLna2BMA1a3YAKQrzO7XDrWxqObY8my1ZrZubWnhgW1QZs3W40aFImX46jaapBQv
- sTyLjIADS4cgVgL6ccjdQ2DFLSDGN1su5fq4TEM8m+GhLRQbET9uRo4LYIuhJzb7VjQ==
+ t=1795065705;
+ b=WKVKhi8WSMv1ZLe0HCfHm6sPo+n0ADr6JoIU8PL+TdFE+fASmdQWEw2PTD0j/Ri/9Ush
+ taHqxp2Sn6/eSPCgayRsF5HNU9Qhcr1qXCme4Dqmfe6UzJcBRHMxYUYNV6anodCVvdJb0
+ 03wCwPR1wEQ0iisio5GQhXoDcNWf6QJMWB5XlYwJ6kI/zWFgjvQn3DsY4yAVzQl4RcuaU
+ 1A13tIXbNMDEEYgn0ZOvh+fC39xXWNcakT8a9iZG6aHd1YZfVXzgKSBXLRz3heSGvGn06
+ P9zEKqm0SE7aqLzGfmzksI/Wd1OOGJNxO0MOfDo1r4VCzm7ds30YEmHNZke1V/GroaQ==
 ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
- c=relaxed/relaxed; t=1795065704;
- h=DKIM-Signature:Received:From:Date:Subject:MIME-Version:Content-Type:
- Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
- X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
- X-Original-From:Reply-To:Content-Transfer-Encoding;
- bh=Lnnp+w9z2htGn+mXW4XMMYZwdUZ4sJhwx11uqDYaPEc=;
- b=V27yOTHJS2FOa2q5jfV/tcPXiMKEcLZGT4iDAQayVMCrERhXFzv3yfEwKiUMp6NtwY1z
- Pb9B3fxNKU+U5XTv5+4Ry3YuKaRuOk84UH+LERJlRVlTBH2LYkpbNSCeGzOV5KLNSkOeb
- 3pYOH7Z/2n6PfJidutJP4FGeBcpwbKxFoStQW8S3+Q0Z+5vXwgsPZYAYkvNrZlp1q2mnT
- TVhma+6Aj/EB8JjUcka8srwKwvQGjrWuAOzEWNxFjI18hF0Q0sD0lhK286kGXb7TqJprj
- TU1LeTsU+fBnH3KS4FBLQQa3b1tR890NZ0EYW1clS3VwaS2GGVV2h2eUJSVzzRan12w==
+ c=relaxed/relaxed; t=1795065705;
+ h=DKIM-Signature:Received:From:Subject:Date:Message-Id:MIME-Version:
+ Content-Type:Content-Transfer-Encoding:X-B4-Tracking:X-Change-ID:To:
+ Cc:X-Mailer:X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
+ X-Original-From:Reply-To;
+ bh=yg2ZZU1TweI3/AFMNObAOhY+yoOrP3DdVMXLguoJHt0=;
+ b=RicZKRYv/tt6IEO24LCnT3BSLi9/RNCWqRCbNt+VycSqZqSK+Cp/vgCUsNRSAMeV8XXJ
+ 8n1SznieYq6969vvqBTMr4GUX5lmIYZ5CGu+CamNGf3PbO6omEA9/PH+pgtdtFRVjnOrB
+ zyf1CIMBhCZKLqYQGl0VHx2AfAPX4vv8OfMfTZE2Zdx5ydb0P+l6ez+1iDXxW572BxEis
+ CayT+o7naDvUW8Q/6tUVNiG0O0V5O5jLzP7cmxXIwxV8LWIcSIIXhvejjIOlEme4Sz/jB
+ dsfzJ4pW31Ni5HN1tYj5zbvVZeLLjJKlVg2iqGjSZ9rY/3kTcMDWFXn39r4p8F1cseg==
 ARC-Authentication-Results: i=1; smtp.kernel.org; 
  arc=none smtp.remote-ip=100.80.115.77
 Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
  (No client certificate requested)
- by smtp.kernel.org (Postfix) with ESMTPS id D0BF11F000C5;
+ by smtp.kernel.org (Postfix) with ESMTPS id D0C061F000C8;
  Thu, 19 Nov 2026 05:21:43 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1795065704;
- bh=Lnnp+w9z2htGn+mXW4XMMYZwdUZ4sJhwx11uqDYaPEc=;
- h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To;
- b=FRyp7KDSlFUaxVajhm0XCl2rl3roYPoDPPhJbZnpKJsStbT5i7rfb7T4m3lBaunho
- WY6g5PTvVFZZFM8MBHVWImJRfCR6D7i7uncseBWk25V3hNL03pOkKI68dSq64TELMt
- Rh4CP+5oyqbocgO2moTbdWfyd34p7dwb7qXVFjroC/9KxeeWPv8TjuG575PyFD5E6P
- NzHWlsKJZfsJ0kQ2uvi5fYyjkSlILFM4gDQ0K0Yf9sIfdStDS3y9oV7d5SB0pqZ9pl
- bsVUOLpKr9dzZFb2u6CwyZWV5XhnTTouiBj1bI+bvbEzUtMuW+i5NTiem5PM0pgMn5
- juLMb8aFcfOnQ==
+ s=k20260515; t=1795065705;
+ bh=yg2ZZU1TweI3/AFMNObAOhY+yoOrP3DdVMXLguoJHt0=;
+ h=From:Subject:Date:To:Cc:Reply-To;
+ b=EMfNNdX6t80cbXvcp1C4xIFkYXvYXWnypAy30iZlVeeJeYZv/cRV/05ti6gYTsFiw
+ QY7chwvaOFTj2bvXxZBPMfUyAjOL8hiyOAg/eOlVqf/QIeqYUOiLgLM3HLbwn5AQNZ
+ 7r2qsw/0TCeDtAcyov+Fvf6Av8iB2xb4YyyJIntViXrTfkN/Wu7gp1MyDcc76WmQ4P
+ 0Yr4IT9SkpLL18ckQibzJeV51gutRZZQ9ZzWkcswkAaIwBFQQOGIcL3NSVWjY2Qr+G
+ WW/sRbdjzsmJnLk3ucKH//+4HCT2oS3kzhosUim7m2BoTus/TCkpcdlze2ihB6G3EC
+ buzHoNTHTv6+A==
 Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
- by lkml.kernel.org (Postfix) with ESMTP id 49CD54B0F0;
+ by lkml.kernel.org (Postfix) with ESMTP id 2B2F74B0FA;
  Thu, 19 Nov 2026 05:21:43 +0000 (UTC)
 From: Arun Iyengar via B4 Relay <devnull+aiyengar1990.gmail.com@kernel.org>
-Date: Thu, 19 Nov 2026 05:21:42 +0000
-Subject: [PATCH v4 1/8] drm/rockchip: vop2: Take the UV plane address from
- the second GEM object
+Subject: [PATCH v4 0/8] drm/rockchip: vop2: RK3588 clocking, sync polarity
+ and window fixes
+Date: Thu, 19 Nov 2026 05:21:41 +0000
+Message-Id: <20261119-vop2-fixes-v4-0-4b8f5e7148c9@gmail.com>
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
-Message-Id: <20261119-vop2-fixes-v4-1-4b8f5e7148c9@gmail.com>
-References: <20261119-vop2-fixes-v4-0-4b8f5e7148c9@gmail.com>
-In-Reply-To: <20261119-vop2-fixes-v4-0-4b8f5e7148c9@gmail.com>
+Content-Transfer-Encoding: 7bit
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/23NTQ6CMBAF4KuQrq3ptPwUV97DuCjtIDVCCcVGQ
+ 7i7BTdgXL7M+95MxONg0ZNTMpEBg/XWdTGkh4ToRnU3pNbETDjjOQAwGlzPaW1f6Gmt0gxSXpS
+ lBhJBP+B6iP3L9Zv9s7qjHpeFpdFYP7rhvX4LsPT+DgegjBohciyNKZkR51ur7OOoXUuW4cC3l
+ O8oj1RykBp0LZWWv1RsqdhRESmTCkWBUlSZ3tJ5nj8H1MxvLAEAAA==
+X-Change-ID: 20261110-vop2-fixes-fa45142799c1
 To: Sandy Huang <hjc@rock-chips.com>, 
  =?utf-8?q?Heiko_St=C3=BCbner?= <heiko@sntech.de>, 
  Andy Yan <andyshrk@163.com>, 
@@ -78,19 +82,19 @@ Cc: Piotr Zalewski <pZ010001011111@proton.me>,
  Damon Ding <damon.ding@rock-chips.com>, dri-devel@lists.freedesktop.org, 
  linux-rockchip@lists.infradead.org, linux-arm-kernel@lists.infradead.org, 
  linux-kernel@vger.kernel.org, Arun Iyengar <aiyengar1990@gmail.com>, 
- stable@vger.kernel.org
+ stable@vger.kernel.org, 
+ Cristian Ciocaltea <cristian.ciocaltea@collabora.com>
 X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1795065702; l=1411;
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1795065702; l=2365;
  i=aiyengar1990@gmail.com; s=20261110; h=from:subject:message-id;
- bh=TOp7ZbibLvqtdCodlqF9JsSFSXjfB2Ipxv2/ACxgEig=;
- b=Yt456vFi1CaR7FWdkfDdK29YEc+AoDzHB0LsnBww2fS3Vc4GyTQ8u8ql2ylHleuCPv7CUiPb/
- bujhI/l9oPhDKy4oWz8Kuu0WNjtwLnh9N7vKufFFnFkSoQaBeJNrlIG
+ bh=DKrZ8YElBahQy97+zTx5tNNcwtO0wt30KXIKbUCDTYw=;
+ b=2jM2Zi1py2UsUHQUdVkIAlqdFMsTjXBj/1UjMtCrB5xm3N6FTGzjOaEBYzzuCTj850TNisq6f
+ D2Zn5oaZT6jClH79GzpqahDXk6SQrQXl8M+bwfvnnnNYEpeaOlSQU/u
 X-Developer-Key: i=aiyengar1990@gmail.com; a=ed25519;
  pk=zXpRgUTrhaFe6jLyPqbBy3ccfkj04w0g2690Wv3mg+0=
 X-Endpoint-Received: by B4 Relay for aiyengar1990@gmail.com/20261110 with
  auth_id=1480
 X-Original-From: Arun Iyengar <aiyengar1990@gmail.com>
-Content-Transfer-Encoding: 7bit
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -111,41 +115,54 @@ X-Spam-Status: No, score=-16.8 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-From: Arun Iyengar <aiyengar1990@gmail.com>
+Fixes for the RK3588 VOP2 found while bringing up HDMI and DisplayPort
+on an Orange Pi 5 (RK3588S).
 
-vop2_plane_atomic_update() takes the chroma plane address from
-fb->obj[0]. The planes of a framebuffer can be in different GEM objects
-(ADDFB2 with two handles, e.g. NV12M from a V4L2 decoder), and the
-window then fetches the chroma plane from the luma buffer.
+Tested on an Orange Pi 5 with an HDMI 2.1 TV and a DisplayPort monitor,
+pictures judged with a camera, v7.3 based kernel: VP_CLK_CTRL reads back
+without the garbage divider; the HDMI controller sees the sync polarities
+of +/+ and mixed modes; HDMI from 148.5 to 1188 MHz (TMDS and FRL) and DP
+show a correct picture; RGB565 on the Cluster windows scans out without
+YTR; NV12 in two GEM objects and an AFBC overlay at x=1001 show correctly.
+Not tested: -HSync/-VSync modes (none in the TV's list), BGR565, HDMI1,
+eDP, MIPI DSI and DPI (no hardware).
 
-Use fb->obj[1] for formats with more than one plane.
+Developed with Claude (Anthropic), which wrote the code and the commit
+messages. I reviewed every change.
 
-Fixes: 604be85547ce ("drm/rockchip: Add VOP2 driver")
-Reported-by: Sashiko <sashiko-bot@kernel.org>
-Closes: https://lore.kernel.org/all/sashiko-outbox-206550@kernel.org/
-Cc: stable@vger.kernel.org
-Reviewed-by: Damon Ding <damon.ding@rock-chips.com>
 Signed-off-by: Arun Iyengar <aiyengar1990@gmail.com>
 ---
- drivers/gpu/drm/rockchip/rockchip_drm_vop2.c | 3 ++-
- 1 file changed, 2 insertions(+), 1 deletion(-)
+Changes in v4:
+- Patches 1 and 2: Reviewed-by added (Damon Ding).
+- Patch 4: the GRF sync polarity bits get names in rockchip_drm_vop2.h
+  (Damon Ding); comment dropped.
+- Patch 5: check moved after the 10bpc check, with a comment and a
+  drm_dbg_kms() (Damon Ding); it tests drm_is_afbc() there, as it now
+  runs before the linear return.
+- Rebased on drm-misc-next.
+- Link to v3: https://patch.msgid.link/20261113-vop2-fixes-v3-0-08ae37e83b5c@gmail.com
 
-diff --git a/drivers/gpu/drm/rockchip/rockchip_drm_vop2.c b/drivers/gpu/drm/rockchip/rockchip_drm_vop2.c
-index 76d151b8bc52..e8ef83d6924b 100644
---- a/drivers/gpu/drm/rockchip/rockchip_drm_vop2.c
-+++ b/drivers/gpu/drm/rockchip/rockchip_drm_vop2.c
-@@ -1369,7 +1369,8 @@ static void vop2_plane_atomic_update(struct drm_plane *plane,
- 		if ((pstate->rotation & DRM_MODE_REFLECT_Y) && !afbc_en)
- 			offset += fb->pitches[1] * ((pstate->src_h >> 16) - 2) / vsub;
- 
--		rk_obj = to_rockchip_obj(fb->obj[0]);
-+		if (fb->format->num_planes > 1)
-+			rk_obj = to_rockchip_obj(fb->obj[1]);
- 		uv_mst = rk_obj->dma_addr + offset + fb->offsets[1];
- 	}
- 
+---
+Arun Iyengar (8):
+      drm/rockchip: vop2: Take the UV plane address from the second GEM object
+      drm/rockchip: vop2: Don't use uninitialised dividers on RK3588
+      drm/rockchip: vop2: Fix the HDMI sync polarity on RK3588
+      drm/rockchip: vop2: Fix the HDMI sync polarity bit order on RK3588
+      drm/rockchip: vop2: Only accept AFBC YTR for 8 bit RGB on RK3588
+      drm/rockchip: vop2: Find the first mixer of a video port with Esmart3 too
+      drm/rockchip: vop2: Keep the other LUT_PORT_SEL fields on gamma LUT updates
+      drm/rockchip: vop2: Fix the AFBC offsets of a source that starts inside a superblock
 
--- 
-2.55.0
+ drivers/gpu/drm/rockchip/rockchip_drm_vop2.c | 27 +++++++++++++++++++--------
+ drivers/gpu/drm/rockchip/rockchip_drm_vop2.h |  3 +++
+ drivers/gpu/drm/rockchip/rockchip_vop2_reg.c | 16 ++++++++++++----
+ 3 files changed, 34 insertions(+), 12 deletions(-)
+---
+base-commit: fac7a5f16230779cfb0d50ca49e9467cc94a2ea9
+change-id: 20261110-vop2-fixes-fa45142799c1
+
+Best regards,
+--  
+Arun Iyengar <aiyengar1990@gmail.com>
 
 
