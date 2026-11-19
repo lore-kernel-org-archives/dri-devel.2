@@ -2,43 +2,49 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C5654606A320
-	for <dri-devel@archiver.kernel.org>; Thu, 19 Nov 2026 08:37:01 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8C75E606A320
+	for <dri-devel@archiver.kernel.org>; Thu, 19 Nov 2026 08:37:23 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=protonmail.com header.i=@protonmail.com header.a=rsa-sha256 header.s=protonmail3 header.b=g+gmFSjz
+	dkim=pass (2048-bit key) header.d=protonmail.com header.i=@protonmail.com header.a=rsa-sha256 header.s=protonmail3 header.b=mCVDZmL+
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 02B06112185;
-	Thu, 19 Nov 2026 08:36:56 +0000 (UTC)
-Received: from mail-244116.protonmail.ch (mail-244116.protonmail.ch
- [109.224.244.116])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 22A89112185
- for <dri-devel@lists.freedesktop.org>; Thu, 19 Nov 2026 08:36:46 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id EF98F11218A;
+	Thu, 19 Nov 2026 08:37:17 +0000 (UTC)
+X-Greylist: delayed 71418 seconds by postgrey-1.36 at gabe;
+ Thu, 19 Nov 2026 08:37:11 UTC
+Received: from mail-43102.protonmail.ch (mail-43102.protonmail.ch
+ [185.70.43.102])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 3ACEE112188
+ for <dri-devel@lists.freedesktop.org>; Thu, 19 Nov 2026 08:37:11 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=protonmail.com;
- s=protonmail3; t=1795077404; x=1795336604;
- bh=OPP1MieS0VNVBINP7zSop94t49ytQI32gCfZ4Nx3mpU=;
+ s=protonmail3; t=1795077429; x=1795336629;
+ bh=xl7rcMmTdkbuwHxBzYDs8H/hB1tr+4M2V6k9uKOsHbU=;
  h=Date:To:From:Cc:Subject:Message-ID:In-Reply-To:References:
  Feedback-ID:From:To:Cc:Date:Subject:Reply-To:Feedback-ID:
  Message-ID:BIMI-Selector;
- b=g+gmFSjze5ZdnsEgVQIiE5jHA1Crp4ZVTj90p4WNknjXVjMcM+w4Z/KjwSUF2ZQdN
- wuUXaDt4EqDpeCkV/GK2YlufFHTeeFf+Jj3RyQQMYcAbDLjRoklo+iUUy+3LzsOkw0
- +bEZBrdINk9WSqetgwAkisC7992CiBTyeD7u/tqRk5j1VVBmA1iapxwELLDXkf+nj7
- kzd2RKXY8VwodNX7qyBVcE76Hb0aLg4KmePBpl077/MnBZo0DAuJO/cNmAI+aBt+h6
- ReN6HNGFpohHJrVJAN2Fjvhks5CyhoRZuuN3RkivUyIifNAxKzJzehErfLG1bqVfEp
- 5quFNPF1ao6Ew==
-Date: Thu, 19 Nov 2026 08:36:40 +0000
-To: Mario Limonciello <superm1@kernel.org>
+ b=mCVDZmL+fy2pFG4vvyjNnh+CdpuVN/gsTVqbJCCqKiobC9JDOmgTzh9J9eJ4dPNV0
+ UdkBOSOSntUrE2nSvPOXzDpJCVNpUjNWaAl+eJLtSKVvGwi/MP1dtXv2cHp/z595MN
+ Z8vrLIOLJwnK2zS/nrgrK8JrMdC6Yhfn3yoPZ+oxCYH8r2oi5AlzKEIcWQjHAWenfK
+ xlvzGhWqrmkzDSSt0iPme8PilxIojjumXroYnYFGegYcv++bpg9W2FsOTJ6Mss+OCh
+ Q0lrMf6IcLhjbPVED8M9i267x2CHRUAKQ9k2PRXCTNJK2U15d4BQkwN02zBLkvuxx+
+ HDTvquVgw58+g==
+Date: Thu, 19 Nov 2026 08:37:03 +0000
+To: Wayne Lin <Wayne.Lin@amd.com>
 From: =?utf-8?Q?Eren_=C3=96zen?= <erenozen@protonmail.com>
-Cc: Harry Wentland <harry.wentland@amd.com>, Leo Li <sunpeng.li@amd.com>,
- Alex Deucher <alexander.deucher@amd.com>, Richard Hughes <richard@hughsie.com>,
- amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
- Wayne Lin <Wayne.Lin@amd.com>, simonit.orig@gmail.com
-Subject: Re: [PATCH v4] drm/amd/display: Route connector DDC over AUX for
- native DP sinks
-Message-ID: <oUnLboT5nQrS84FGA16aamWt5D9VXEosZZdV3BIUQ1cu4drCXXKDR3kPP0vGvglmf0jXGMvoaYLI1jYamvaz4Zdd2D-6BJ-7I9bv3eZylm4=@protonmail.com>
-In-Reply-To: <20261118-superm1-amdgpu-ddc-v4-1-539eaeb4edd7@kernel.org>
-References: <20261118-superm1-amdgpu-ddc-v4-1-539eaeb4edd7@kernel.org>
+Cc: amd-gfx@lists.freedesktop.org, Cooper Morgan <ext-github@cwooper.dev>,
+ Harry Wentland <harry.wentland@amd.com>, Leo Li <sunpeng.li@amd.com>,
+ Rodrigo Siqueira <siqueira@igalia.com>,
+ Alex Deucher <alexander.deucher@amd.com>,
+ =?utf-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ oystersuki <oss@oysterdaisuki.com>, dri-devel@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org
+Subject: Re: [PATCH] drm/amd/display: Store the AMD VSDB version for DP sinks
+ without Replay
+Message-ID: <ja6uA6zTorLKM5Utwn3SZsVJYS6parDKb8I9AwY2t21BGeMYuiVKfTcnUvYaWc0VMU_wZXB9pGX0jZrXyRJVPD7veKcrRrGFyPMB97NgdQE=@protonmail.com>
+In-Reply-To: <20261119032758.3857304-1-Wayne.Lin@amd.com>
+References: <20261119032758.3857304-1-Wayne.Lin@amd.com>
 Feedback-ID: 19860221:user:proton
-X-Pm-Message-ID: 052ffb8e4a2627105944cf75376cb3f46a5557dd
+X-Pm-Message-ID: c508f0d8d8269e25b7a576da45d52801e17f0888
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=utf-8
@@ -54,23 +60,23 @@ List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-2.8 required=3.0 tests=BAYES_00,DKIM_SIGNED,
+X-Spam-Status: No, score=-7.8 required=3.0 tests=BAYES_00,DKIM_SIGNED,
 	DKIM_VALID,DKIM_VALID_AU,FREEMAIL_FORGED_FROMDOMAIN,FREEMAIL_FROM,
-	HEADER_FROM_DIFFERENT_DOMAINS,MAILING_LIST_MULTI,SPF_HELO_NONE,
-	SPF_PASS autolearn=no autolearn_force=no version=4.0.1
+	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,MAILING_LIST_MULTI,
+	SPF_HELO_NONE,SPF_PASS autolearn=no autolearn_force=no version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-Hi Mario,
+Hi Wayne,
 
-Thanks for folding it in and for the credit. My part was written with
-help from an AI assistant, so per Documentation/process/coding-assistants.r=
-st
-as far as I understand, the commit should also carry:
+Thanks for the quick fix. It's the same hunk as in Cooper's v1/v2.
 
-Assisted-by: Claude:claude-opus-5-5
+I ran the amdgpu_dm KUnit suite on amd-staging-drm-next 8dd68a79583a
+with this change plus the i2c_xfer test fix, so the suite runs to the
+end. dm_test_fs_caps_dp_vsdb_version passes again, and all 1931 tests
+pass. I haven't tested it on a DP monitor above 255 Hz.
 
-Could you add it when this gets applied?
+Tested-by: Eren =C3=96zen <erenozen@protonmail.com>
 
 Thanks,
 Eren
