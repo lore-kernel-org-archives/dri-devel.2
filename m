@@ -2,62 +2,65 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 212E1606A320
-	for <dri-devel@archiver.kernel.org>; Thu, 19 Nov 2026 12:35:46 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 16131606A320
+	for <dri-devel@archiver.kernel.org>; Thu, 19 Nov 2026 12:37:34 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=IIHdUJVr
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=Mio3+RxQ
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 93F6C1121C6;
-	Thu, 19 Nov 2026 12:35:40 +0000 (UTC)
-Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 5FC931121C6
- for <dri-devel@lists.freedesktop.org>; Thu, 19 Nov 2026 12:35:34 +0000 (UTC)
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by tor.source.kernel.org (Postfix) with ESMTP id 71A586183D;
- Thu, 19 Nov 2026 12:35:33 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8B7D31F000C4;
- Thu, 19 Nov 2026 12:35:29 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1795091733;
- bh=JZwSzmbpLd5nw3ADrG6ZagdEQ6wcWuReHNoHgHSQPmc=;
- h=Date:From:Subject:Cc:To:References:In-Reply-To;
- b=IIHdUJVromNgk06XuE0ek4z2uYmPDN4cm9kJkOcMLBK+zNb1ZzDQeRC1i8jGYixaQ
- k2sJ8j0ChtKyYbp2/+XognzOqVmK6nZIjIEwF1iUBiwKIfxk1aQyFl2lmYEo9dlYXq
- Rt12i40heUzjSNHvh/nyF6RN3DXMukUjX6e3Okbv6+UeanHgdXJ4iPLndRPB5ZhHLv
- SSySjs2IHmu+ymUI1akKPhKClVipDmn5TC6uqXMud7ExPzUfnoZSl0oCo9iWgJF3e2
- IaP1SwBJtMSip9ZBGtig16CmHQB1/vmWBpr8Xpm32mtTT0xf1VG/UlBzrROzcgmZ9v
- junKwu5ae5aog==
+	by gabe.freedesktop.org (Postfix) with ESMTP id 73B64112383;
+	Thu, 19 Nov 2026 12:37:28 +0000 (UTC)
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.15])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 345AF112372;
+ Thu, 19 Nov 2026 12:37:22 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1795091842; x=1826627842;
+ h=date:from:to:cc:subject:message-id:mime-version:
+ content-transfer-encoding;
+ bh=HouPUWqS3i7sWa+QsRl9tz/BUqeC93diMWRovotdfIA=;
+ b=Mio3+RxQTNGX+J3SXsnZc8rbmmpt+fmrVHgh3zPfqobfvs6RK2XIOYqc
+ HEJi5Sb1odoZeE5cdJ0hsdGQy8sLH0Neq1mPefeH//LC5lfrtojeWCOQP
+ hHOSl8dRmBAE9RlSkzqd5sxh66/0Tx39Swb/EL/50W+y4c4Qevy/ZE+B7
+ OJn7oJh+JqPnk/7KUj/koQlL9CEcCIBnAFATjilGo778TKwIZPBmqkFR+
+ Sg24VKLIXJiXTNL4hujpwTXP0O//38pEEAq8Jt+LwqEF0TQyAlN/OBHOr
+ K+hpl2+R4ClHpWFR4tP22JM7XDjLR92xyKxDjeJNVbYMKNnoYYobQLPFZ Q==;
+X-CSE-ConnectionGUID: uRZ5dsbOSaWDCuuPaPv7mw==
+X-CSE-MsgGUID: KVNqNHlNQi2odiqK/Yn84g==
+X-IronPort-AV: E=McAfee;i="6800,10657,11971"; a="3943115"
+X-IronPort-AV: E=Sophos;i="6.27,220,1787036400"; 
+   d="scan'208";a="3943115"
+Received: from fmviesa009.fm.intel.com ([10.60.135.149])
+ by orvoesa107.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 19 Nov 2026 04:37:22 -0800
+X-CSE-ConnectionGUID: +NMwFF/HSZ2htn3VXm+Jtg==
+X-CSE-MsgGUID: rNvx3RcGTRmpPmAyQ3mRiQ==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,220,1787036400"; d="scan'208";a="10773001"
+Received: from amilburn-desk.amilburn-desk (HELO fedora) ([10.245.245.91])
+ by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 19 Nov 2026 04:37:18 -0800
+Date: Thu, 19 Nov 2026 13:37:03 +0100
+From: Thomas Hellstrom <thomas.hellstrom@linux.intel.com>
+To: Dave Airlie <airlied@gmail.com>, Simona Vetter <simona.vetter@ffwll.ch>
+Cc: Jani Nikula <jani.nikula@linux.intel.com>,
+ Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
+ Tvrtko Ursulin <tursulin@ursulin.net>,
+ Rodrigo Vivi <rodrigo.vivi@intel.com>,
+ Thomas Zimmermann <tzimmermann@suse.de>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>,
+ Matthew Brost <matthew.brost@intel.com>,
+ Thomas =?iso-8859-1?Q?Hellstr=F6m?= <thomas.hellstrom@linux.intel.com>,
+ Oded Gabbay <ogabbay@kernel.org>, dri-devel@lists.freedesktop.org,
+ intel-gfx@lists.freedesktop.org, intel-xe@lists.freedesktop.org,
+ dim-tools@lists.freedesktop.org
+Subject: [PULL] drm-xe-next
+Message-ID: <av7tXyAinG4Pjaua@fedora>
 X-Archived-By: <archiver.kernel.org>
-Mime-Version: 1.0
-Content-Transfer-Encoding: quoted-printable
-Content-Type: text/plain; charset=UTF-8
-Date: Thu, 19 Nov 2026 13:35:28 +0100
-Message-Id: <DMZ6WRFGHVQI.22OJY1Z1QP2MF@kernel.org>
-From: "Danilo Krummrich" <dakr@kernel.org>
-Subject: Re: [PATCH] rust: DamFence: Remove warning about unsignaled drop
-Cc: <phasta@kernel.org>, "Sumit Semwal" <sumit.semwal@linaro.org>, "Alice
- Ryhl" <aliceryhl@google.com>, "Miguel Ojeda" <ojeda@kernel.org>, "Boqun
- Feng" <boqun@kernel.org>, "Gary Guo" <gary@garyguo.net>,
- =?utf-8?q?Bj=C3=B6rn_Roy_Baron?= <bjorn3_gh@protonmail.com>, "Benno Lossin"
- <lossin@kernel.org>, "Andreas Hindborg" <a.hindborg@kernel.org>, "Trevor
- Gross" <tmgross@umich.edu>, "Daniel Almeida"
- <daniel.almeida@collabora.com>, "Tamir Duberstein" <tamird@kernel.org>,
- "Alexandre Courbot" <acourbot@nvidia.com>, =?utf-8?q?Onur_=C3=96zkan?=
- <work@onurozkan.dev>, <linux-media@vger.kernel.org>,
- <dri-devel@lists.freedesktop.org>, <rust-for-linux@vger.kernel.org>,
- <linux-kernel@vger.kernel.org>
-To: =?utf-8?q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>
-References: <20261112101015.528127-2-phasta@kernel.org>
- <5d466f7c-2e70-4011-be04-9ffdf877b915@amd.com>
- <49298d3a328c1695ea27993f714c20b8a1c05f32.camel@mailbox.org>
- <e2ec8a39-56c3-4274-91ce-60c273904877@amd.com>
- <ab99758408df682c68a3792cc3014b77d6e1c8ab.camel@mailbox.org>
- <c2dd46ea-94d8-4720-af37-897c91809338@amd.com>
- <DMXJ8TBSZJJ4.3HG0OJDI9URTT@kernel.org>
- <8da4a8c0-1740-450c-9cf1-1a7b21d12997@amd.com>
- <DMXMSIQONGUW.1RRNS7I6LACD6@kernel.org>
- <a7f9e0f3-b299-4d40-9230-106003725dc2@amd.com>
-In-Reply-To: <a7f9e0f3-b299-4d40-9230-106003725dc2@amd.com>
+MIME-Version: 1.0
+Content-Type: text/plain; charset=iso-8859-1
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -69,155 +72,267 @@ List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-5.8 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
-	DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
-	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS autolearn=no
-	autolearn_force=no version=4.0.1
+X-Spam-Status: No, score=-13.8 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
+	DKIM_SIGNED,DKIM_VALID,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_PATCH,
+	INCLUDES_PULL_REQUEST,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS
+	autolearn=unavailable autolearn_force=no version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-On Thu Nov 19, 2026 at 10:32 AM CET, Christian K=C3=B6nig wrote:
-> On 11/17/26 17:36, Danilo Krummrich wrote:
->> Drivers often reference count representations of hardware resources and =
-hardware
->> states and hence keep them alive beyond what their actual lifetime shoul=
-d be --
->> even beyond driver unbind.
->
-> Yeah, I agree 100% with that. I know why drivers do this and there are un=
-fortunately really good reason for that.
+Hi Dave, Simona!
 
-I don't think there are good reasons for that.
+Here is this week's drm-xe-next PR. Highlights:
 
-Given the below, I assume that you refer to a teardown situation where you
-instruct the hardware to stop and then destroy the representing software
-structure once that actually happened.
+Series
+------
 
-But this can't work without synchronization. Drivers live within a bounded
-lifetime model, where they must not keep device resources alive beyond driv=
-er
-unbind. If they do so regardless, that risks UB.
+- Introduce Xe PCIe FLR
+  10/10 patches pushed
+  Adds PCIe Function Level Reset support to xe. After FLR the driver
+  re-initializes the GT: migrate context, kernel exec queues, BO mappings,
+  GuC submission and firmware, with temporary device wedging and
+  suspend/resume helpers. Documentation for PCI error handling is wired up.
+  (Raag Jadav)
 
-IOW, without synchronization you are trading one potential UB against anoth=
-er.
+- Handle non-fatal errors routed via IRQ
+  8/8 patches pushed
+  Processes, logs and recovers non-fatal errors routed via direct IRQ,
+  including double-bit ECC page offlining, and implements wa_14028434957 on
+  CRI. Handles races with AER-reported errors that require a secondary bus
+  reset, and wedges the device with a bus reset when needed.
+  (Riana Tauro, Raag Jadav)
 
-The solution is not to reference count device resources and potentially kee=
-p
-them alive beyond the kernel's lifetime constraints, but wait for the hardw=
-are
-to stop in your teardown path before destroying device resources.
+- Separate GGTT pools for submissions and VFs provisioning
+  5/5 patches pushed
+  Splits the GGTT into logical usable and shareable pools so driver-owned
+  allocations and VF provisioning can be managed independently. Pools are
+  initialized by SR-IOV mode and covered by new KUnit tests.
+  (Piotr Piórkowski)
 
->> Consequently, it is perfectly reasonable to assume that a driver object =
-that
->> owns device resources (such as DMA memory) will, in its destructor, tear=
- down
->> the hardware to not access any of the resources it owns anymore.
->
-> Exactly that is a pattern I have seen many many times before and I can sa=
-y
-> from experience that it is very prone to human errors as well.
->
-> I have worked extensively with OCaml which to be honest looks like the
-> grandfather of Rust, but Rust does a lot of things better in my opinion.
->
-> See I have like over 30 years of experience with that stuff.
+- drm/xe/display: Transparent fallback from stolen to sysmem
+  4/5 patches pushed
+  Avoids using stolen memory for the framebuffer when a media GT exists,
+  adds sysmem<->stolen copy support in the migrate code, and adds an
+  i915 fbdev BIOS fb takeover helper. Also raises GT frequency slightly
+  earlier. (The "HACK: Always fallback" patch was not pushed.)
+  (Maarten Lankhorst)
 
-[...]
+- Define GuC firmware for CRI and NVL-P
+  2/4 patches pushed
+  Defines the GuC firmware (70.83.0) for CRI and NVL-P. The two for-CI
+  revert patches in the series were not pushed to drm-xe-next.
+  (Daniele Ceraolo Spurio)
 
->> For instance, think about how your logic would apply to e.g. DMA coheren=
-t
->> allocations.
->>=20
->> Those are allocated with e.g. dma::Coherent::zeroed() and are freed on d=
-rop().
->> They are then owned by whatever object represents the lifetime of the HW=
- using
->> this buffer.
->>=20
->> Following your logic, we'd need to conclude that a dma::Coherent allocat=
-ion
->> needs an explicit free() method independent of its destructor as well, a=
-nd have
->> the destructor print a warning and then call free() anyway.
->
-> Yes correct.
+- drm/xe/guc: Fix TLB invalidation WARN when GuC CT is disabled during GT reset
+  2/2 patches pushed
+  Treats a CT-disabled TLB invalidation as cancelled, avoiding a WARN in
+  userptr invalidation during GT reset, and drops a redundant error remap
+  in the GGTT full invalidation path.
+  (Zongyao Bai)
 
-[...]
 
->> Now, eventually drivers would just call free() from the destructor of th=
-e object
->> owning the dma::Coherent allocation, so we wouldn't win anything.
->
-> No, exactly that's incorrect.
->
-> See the problem is that you rarely can tell HW in a linear or synchronous
-> fashion to stop DMA operations.
->
-> What drivers do instead is to send a request to the HW saying "Please sto=
-p the
-> DMA operation" and the HW answering with a response which takes the same =
-path
-> as the DMA operation itself.
->
-> Only this way you can be sure that there are no more DMA operations in fl=
-ight
-> between the HW and system memory.
+Single patches
+--------------
 
-Sure, but then you have to synchronize on the software side, nothing stops =
-you
-to block the teardown until remaining transfers have stopped. And this is
-exactly what should be done.
+- drm/xe/pf: Reset PF scheduling defaults on auto provisioning restore (Rachapalli Bandi Jagadeesh)
+- drm/xe/dma-buf: Validate BOs on export to charge the exporter (Thomas Hellström)
+- drm/xe/lrc: Fix math in LRC offset comments (Matt Roper)
+- drm/xe/cri: Add new PCI IDs (Ranu Maurya)
+- drm/xe/irq: Always free requested IRQs on uninstall (Arvind Yadav)
+- drm/xe/guc: Reset TLB invalidation state in submit fini (Piotr Piórkowski)
+- drm/xe/query: Use ordered clock reads for engine cycles cpu_delta (Sanjay Yadav)
 
-Freeing resources underneath the ownership model from asynchronous scopes i=
-s
-clearly not the solution.
+The following changes since commit be73339dd9d70623b7dbc9c4e3b966824b771069:
 
->> More in general, in Rust the object taking ownership of a device resourc=
-e is
->> responsible to deal with the device related state that makes use of this
->> resource regardless.
->>=20
->> Insisting on an explicit method call is not improving anything in this m=
-odel.
->
-> I'm not insisting on an explicit method call.
->
-> What I'm insisting on is that the response from the HW that the DMA opera=
-tion
-> has stopped is signaling the fence.
+  drm: xe: select configfs (2026-11-11 13:53:05 -0500)
 
-This is reasonable if there is an asynchronous response.
+are available in the Git repository at:
 
-However, note that the destructor of the object representing the HW state h=
-as to
-wait for all this to finish regardless, as it also owns the actual underlyi=
-ng
-device resources.
+  https://gitlab.freedesktop.org/drm/xe/kernel.git tags/drm-xe-next-2026-11-19
 
-There are also cases where there's no asynchronous response; the drivers fo=
-r
-NVIDIA GPUs for instance do synchronous RPCs to tear down runlists, where
-pending jobs don't receive completion events anymore.
+for you to fetch changes up to 72f716775dae43f2f6ea042bc97f6552f5240db7:
 
-(The same is true for cases where jobs are queued in a software queue and n=
-ever
-reached the hardware in the first place.)
+  drm/xe/pf: Reset PF scheduling defaults on auto provisioning restore (2026-11-19 11:21:28 +0100)
 
-I get your point that the DMA fence kinda is the synchronization primitive =
-to
-wait for, but it can't be generalized that way; the producer (which eventua=
-lly
-is the driver that only signals it on behalf of the hardware) can't always =
-rely
-on that.
+----------------------------------------------------------------
+Cross-subsystem Changes:
+- drm/i915: Introduce intel_bo_fbdev_bios_fb_takeover() (Maarten Lankhorst)
 
-> And not that driver tell the HW stop DMA and then continue and dma fence =
-is
-> automatically signaled without explicitly saying that is the signal that =
-DMA
-> operations are stopped.
+Core Changes:
+- drm/xe/cri: Add new PCI IDs (Ranu Maurya)
 
-That's the point, the destructor of an object that holds device resources c=
-an't
-just tell the HW to stop and go ahead without making sure that the HW is
-actually stopped once the destructor returns regardless.
+Driver Changes:
+- drm/xe/pf: Reset PF scheduling defaults on auto provisioning restore (Rachapalli Bandi Jagadeesh)
+- drm/xe/guc: Drop redundant error remap in send_tlb_inval_ggtt_full() (Zongyao Bai)
+- drm/xe/guc: Treat CT-disabled TLB invalidation as cancelled (Zongyao Bai)
+- drm/xe/dma-buf: Validate BOs on export to charge the exporter (Thomas Hellström)
+- drm/xe: Raise gt frequency slightly earlier. (Maarten Lankhorst)
+- drm/xe/migrate: Support copying between sysmem and stolen (Maarten Lankhorst)
+- drm/xe/display: Avoid using stolen memory for framebuffer when media gt exists. (Maarten Lankhorst)
+- drm/xe/lrc: Fix math in LRC offset comments (Matt Roper)
+- drm/xe/irq: Always free requested IRQs on uninstall (Arvind Yadav)
+- drm/xe/ggtt: Add KUnit tests for usable and shareable pools (Piotr Piórkowski)
+- drm/xe/ggtt: Initialize GGTT pools by SR-IOV mode (Piotr Piórkowski)
+- drm/xe/ggtt: Split GGTT into usable and shareable pools (Piotr Piórkowski)
+- drm/xe/ggtt: Introduce full GGTT range size (Piotr Piórkowski)
+- drm/xe/ggtt: Assert lower bound of GGTT PTE address (Piotr Piórkowski)
+- drm/xe/guc: Reset TLB invalidation state in submit fini (Piotr Piórkowski)
+- drm/xe/query: Use ordered clock reads for engine cycles cpu_delta (Sanjay Yadav)
+- drm/xe/doc: Wire up PCI Error Handling (Raag Jadav)
+- drm/xe/pci: Introduce PCIe Function Level Reset (Raag Jadav)
+- drm/xe: Introduce temporary device wedging (Raag Jadav)
+- drm/xe/pm: Introduce xe_device_suspend/resume() (Raag Jadav)
+- drm/xe/migrate: Introduce xe_migrate_reinit() and xe_cpu_bind_reinit() (Raag Jadav)
+- drm/xe/exec_queue: Introduce xe_exec_queue_reinit() (Raag Jadav)
+- drm/xe/bo_evict: Introduce xe_bo_restore_map() (Raag Jadav)
+- drm/xe/gt: Introduce FLR helpers (Raag Jadav)
+- drm/xe/guc_submit: Introduce guc_exec_queue_reinit_kernel() (Raag Jadav)
+- drm/xe/uc_fw: Allow re-initializing firmware (Raag Jadav)
+- drm/xe/guc: Define GuC firmware for NVL-P (Daniele Ceraolo Spurio)
+- drm/xe/guc: Define GuC firmware for CRI (Daniele Ceraolo Spurio)
+- drm/xe/xe_ras: Skip double-bit ECC page offlining on AER path (Riana Tauro)
+- drm/xe: Add support for wa_14028434957 (Riana Tauro)
+- drm/xe/xe_ras: Add a flag for uncorrectable internal error (Riana Tauro)
+- drm/xe/pci: Add upstream switch port lookup helper (Riana Tauro)
+- drm/xe/ras: Treat non-fatal PCIe errors as recovered (Riana Tauro)
+- drm/xe/survivability: Guard runtime survivability enable against unbind (Riana Tauro)
+- drm/xe/hw_error: Initialize hw_error_work per tile (Raag Jadav)
+- drm/xe/hw_error: Reuse CSC worker for generic error handling (Raag Jadav)
+
+----------------------------------------------------------------
+Arvind Yadav (1):
+      drm/xe/irq: Always free requested IRQs on uninstall
+
+Daniele Ceraolo Spurio (2):
+      drm/xe/guc: Define GuC firmware for CRI
+      drm/xe/guc: Define GuC firmware for NVL-P
+
+Maarten Lankhorst (4):
+      drm/xe/display: Avoid using stolen memory for framebuffer when media gt exists.
+      drm/xe/migrate: Support copying between sysmem and stolen
+      drm/xe: Raise gt frequency slightly earlier.
+      drm/i915: Introduce intel_bo_fbdev_bios_fb_takeover()
+
+Matt Roper (1):
+      drm/xe/lrc: Fix math in LRC offset comments
+
+Piotr Piórkowski (6):
+      drm/xe/guc: Reset TLB invalidation state in submit fini
+      drm/xe/ggtt: Assert lower bound of GGTT PTE address
+      drm/xe/ggtt: Introduce full GGTT range size
+      drm/xe/ggtt: Split GGTT into usable and shareable pools
+      drm/xe/ggtt: Initialize GGTT pools by SR-IOV mode
+      drm/xe/ggtt: Add KUnit tests for usable and shareable pools
+
+Raag Jadav (12):
+      drm/xe/hw_error: Reuse CSC worker for generic error handling
+      drm/xe/hw_error: Initialize hw_error_work per tile
+      drm/xe/uc_fw: Allow re-initializing firmware
+      drm/xe/guc_submit: Introduce guc_exec_queue_reinit_kernel()
+      drm/xe/gt: Introduce FLR helpers
+      drm/xe/bo_evict: Introduce xe_bo_restore_map()
+      drm/xe/exec_queue: Introduce xe_exec_queue_reinit()
+      drm/xe/migrate: Introduce xe_migrate_reinit() and xe_cpu_bind_reinit()
+      drm/xe/pm: Introduce xe_device_suspend/resume()
+      drm/xe: Introduce temporary device wedging
+      drm/xe/pci: Introduce PCIe Function Level Reset
+      drm/xe/doc: Wire up PCI Error Handling
+
+Rachapalli Bandi Jagadeesh (1):
+      drm/xe/pf: Reset PF scheduling defaults on auto provisioning restore
+
+Ranu Maurya (1):
+      drm/xe/cri: Add new PCI IDs
+
+Riana Tauro (6):
+      drm/xe/survivability: Guard runtime survivability enable against unbind
+      drm/xe/ras: Treat non-fatal PCIe errors as recovered
+      drm/xe/pci: Add upstream switch port lookup helper
+      drm/xe/xe_ras: Add a flag for uncorrectable internal error
+      drm/xe: Add support for wa_14028434957
+      drm/xe/xe_ras: Skip double-bit ECC page offlining on AER path
+
+Sanjay Yadav (1):
+      drm/xe/query: Use ordered clock reads for engine cycles cpu_delta
+
+Thomas Hellström (1):
+      drm/xe/dma-buf: Validate BOs on export to charge the exporter
+
+Zongyao Bai (2):
+      drm/xe/guc: Treat CT-disabled TLB invalidation as cancelled
+      drm/xe/guc: Drop redundant error remap in send_tlb_inval_ggtt_full()
+
+ Documentation/gpu/xe/index.rst                |   1 +
+ Documentation/gpu/xe/xe_pci_error.rst         |   8 +
+ drivers/gpu/drm/i915/display/intel_bo.c       |   7 +
+ drivers/gpu/drm/i915/display/intel_bo.h       |   1 +
+ drivers/gpu/drm/i915/display/intel_fbdev.c    |  63 ++++-
+ drivers/gpu/drm/i915/i915_bo.c                |  14 +-
+ drivers/gpu/drm/i915/i915_bo.h                |   6 -
+ drivers/gpu/drm/i915/i915_initial_plane.c     |  14 --
+ drivers/gpu/drm/xe/display/xe_display_bo.c    |  70 +++++-
+ drivers/gpu/drm/xe/display/xe_display_bo.h    |   6 -
+ drivers/gpu/drm/xe/display/xe_initial_plane.c |   8 -
+ drivers/gpu/drm/xe/tests/xe_ggtt_kunit.c      | 334 ++++++++++++++++++++++++++
+ drivers/gpu/drm/xe/xe_bo_evict.c              |  43 +++-
+ drivers/gpu/drm/xe/xe_bo_evict.h              |   1 +
+ drivers/gpu/drm/xe/xe_cpu_bind.c              |  11 +
+ drivers/gpu/drm/xe/xe_cpu_bind.h              |   1 +
+ drivers/gpu/drm/xe/xe_device.c                | 161 ++++++++++++-
+ drivers/gpu/drm/xe/xe_device.h                |   2 +
+ drivers/gpu/drm/xe/xe_device_types.h          |   3 +
+ drivers/gpu/drm/xe/xe_device_wa_oob.rules     |   1 +
+ drivers/gpu/drm/xe/xe_dma_buf.c               |  82 ++++---
+ drivers/gpu/drm/xe/xe_exec_queue.c            |  47 +++-
+ drivers/gpu/drm/xe/xe_exec_queue.h            |   1 +
+ drivers/gpu/drm/xe/xe_exec_queue_types.h      |   2 +
+ drivers/gpu/drm/xe/xe_execlist.c              |   6 +
+ drivers/gpu/drm/xe/xe_ggtt.c                  | 297 +++++++++++++++++++----
+ drivers/gpu/drm/xe/xe_ggtt.h                  |   4 +
+ drivers/gpu/drm/xe/xe_gpu_scheduler.c         |  17 ++
+ drivers/gpu/drm/xe/xe_gpu_scheduler.h         |   1 +
+ drivers/gpu/drm/xe/xe_gpu_scheduler_types.h   |   5 +
+ drivers/gpu/drm/xe/xe_gsc.c                   |  14 ++
+ drivers/gpu/drm/xe/xe_gsc.h                   |   1 +
+ drivers/gpu/drm/xe/xe_gt.c                    |  42 ++++
+ drivers/gpu/drm/xe/xe_gt.h                    |   2 +
+ drivers/gpu/drm/xe/xe_gt_sriov_pf_config.c    |   2 +-
+ drivers/gpu/drm/xe/xe_guc.c                   |  29 +++
+ drivers/gpu/drm/xe/xe_guc.h                   |   2 +
+ drivers/gpu/drm/xe/xe_guc_ct.c                |   6 +-
+ drivers/gpu/drm/xe/xe_guc_submit.c            |  11 +
+ drivers/gpu/drm/xe/xe_guc_tlb_inval.c         |  27 +--
+ drivers/gpu/drm/xe/xe_huc.c                   |  14 ++
+ drivers/gpu/drm/xe/xe_huc.h                   |   1 +
+ drivers/gpu/drm/xe/xe_hw_error.c              |  65 ++++-
+ drivers/gpu/drm/xe/xe_hw_error.h              |   1 +
+ drivers/gpu/drm/xe/xe_irq.c                   |   6 +-
+ drivers/gpu/drm/xe/xe_lrc.c                   |  21 +-
+ drivers/gpu/drm/xe/xe_lrc.h                   |   2 +
+ drivers/gpu/drm/xe/xe_migrate.c               | 100 ++++++--
+ drivers/gpu/drm/xe/xe_migrate.h               |   2 +
+ drivers/gpu/drm/xe/xe_pci.c                   |  25 ++
+ drivers/gpu/drm/xe/xe_pci.h                   |   1 +
+ drivers/gpu/drm/xe/xe_pci_error.c             | 199 +++++++++++++--
+ drivers/gpu/drm/xe/xe_pm.c                    | 114 ++-------
+ drivers/gpu/drm/xe/xe_pm.h                    |   1 +
+ drivers/gpu/drm/xe/xe_query.c                 |   6 +-
+ drivers/gpu/drm/xe/xe_ras.c                   |  78 ++++--
+ drivers/gpu/drm/xe/xe_ras.h                   |   2 +
+ drivers/gpu/drm/xe/xe_ras_types.h             |   2 +
+ drivers/gpu/drm/xe/xe_sriov_pf_provision.c    |   7 +
+ drivers/gpu/drm/xe/xe_survivability_mode.c    |  10 +
+ drivers/gpu/drm/xe/xe_tile_types.h            |   4 +-
+ drivers/gpu/drm/xe/xe_uc.c                    |  77 ++++++
+ drivers/gpu/drm/xe/xe_uc.h                    |   2 +
+ drivers/gpu/drm/xe/xe_uc_fw.c                 |  70 ++++++
+ drivers/gpu/drm/xe/xe_uc_fw.h                 |   1 +
+ drivers/gpu/drm/xe/xe_uc_types.h              |  14 ++
+ drivers/gpu/drm/xe/xe_wedge.c                 |  48 +++-
+ drivers/gpu/drm/xe/xe_wedge.h                 |  13 +-
+ drivers/gpu/drm/xe/xe_wedge_types.h           |  13 +-
+ include/drm/intel/display_parent_interface.h  |   1 +
+ include/drm/intel/pciids.h                    |   6 +-
+ 71 files changed, 1911 insertions(+), 348 deletions(-)
+ create mode 100644 Documentation/gpu/xe/xe_pci_error.rst
+ create mode 100644 drivers/gpu/drm/xe/tests/xe_ggtt_kunit.c
