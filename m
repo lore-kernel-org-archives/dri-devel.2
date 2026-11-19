@@ -2,43 +2,43 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4B002606A320
-	for <dri-devel@archiver.kernel.org>; Thu, 19 Nov 2026 08:46:12 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 86F71606A320
+	for <dri-devel@archiver.kernel.org>; Thu, 19 Nov 2026 08:46:19 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=k35bZQQn
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=doZF8mA1
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id B23FB112195;
-	Thu, 19 Nov 2026 08:46:06 +0000 (UTC)
-Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 52FB2112195
- for <dri-devel@lists.freedesktop.org>; Thu, 19 Nov 2026 08:46:01 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id BB033112197;
+	Thu, 19 Nov 2026 08:46:13 +0000 (UTC)
+Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 2217B112197
+ for <dri-devel@lists.freedesktop.org>; Thu, 19 Nov 2026 08:46:07 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by tor.source.kernel.org (Postfix) with ESMTP id 70C8B6228D;
- Thu, 19 Nov 2026 08:46:00 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0CE151F000C4;
- Thu, 19 Nov 2026 08:46:00 +0000 (UTC)
+ by sea.source.kernel.org (Postfix) with ESMTP id E7A864735F;
+ Thu, 19 Nov 2026 08:46:06 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id A43FB1F000C4;
+ Thu, 19 Nov 2026 08:46:06 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1795077960;
- bh=RNoLj4vRV9rtiIve3Nj9O1aBPK6jxMm0GF/j5FT/iKc=;
+ s=k20260515; t=1795077966;
+ bh=gjXfApZMfyDSREVxQkjXfj+N3W1cuJxYu3IOVxSSvLM=;
  h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
- b=k35bZQQntsSamfV0k3LHbKJiplMoJYfZF44lCtw81VXrq6/id2/WElUpSBrBhzyUa
- x+t9/qauI/28y+lW8ENlAWOHc6/42zn0cXd8oFAS8chgG6jpa8DSS5PcIYVKiTRVrU
- aXBqzVF1UBk/bfvrB5lDJHZF8eVsvTpe9tYjaGYD7ygxFxW9Iqsa5TKpoJUzHW9cL3
- uARDfTq8WXyDStnGUxfpKwoRXlqAB2s4VIrFja6Lg5LGqJsBnvGbT+4AchGmz9YC+K
- 5U1fIE+Sm4dEsEvktCktNbNpI0qgSKkVvHAW1mD5YTLIA768+1RhEt8QxyMTCKzgR9
- 7rZg3aYd55f7w==
-Message-ID: <sashiko-outbox-222706@kernel.org>
+ b=doZF8mA1SI5yrvVILId6g/mf9m6aV06PRMCXSjA2L9mM1Lqw1aqKbG5b6ZYigef4k
+ gAwYB49xJK6fPimI0sEpfR4gTkgJm9LeQw6XygpQ7KKnMp9zjuF5DPH9ZwbahG9w8d
+ 4rGZ//W8j2TDd/uGjhmPoiS8I8vIVWaQEegpCtqx/wCr2TPws8Cufflt2Bgy3p9SKA
+ jd2kOOPCfuuogRfO/bX4TRtjzKYa71Lo8jVooiU+mAl9qY+q/f4B2oYYHNn4wZen5u
+ wHXHQjya4boUq1sO43ouODXZxhPeXqEK95IB2IESSK21KUq4BmXN3zfk8MUq0M3qD8
+ Vl593yoPUBRdQ==
+Message-ID: <sashiko-outbox-222707@kernel.org>
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v9 20/29] drm/bridge_connector: avoid detect-based HPD
- notifications for DisplayPort
+Subject: Re: [PATCH v9 23/29] drm/msm/dp: mark the SST bridge disconnected
+ when mst is active
 To: "Yongxing Mou" <yongxing.mou@oss.qualcomm.com>
 Cc: dri-devel@lists.freedesktop.org
-In-Reply-To: <20261119-msm-dp-mst-v9-20-ca61be4edfc3@oss.qualcomm.com>
+In-Reply-To: <20261119-msm-dp-mst-v9-23-ca61be4edfc3@oss.qualcomm.com>
 References: <20261119-msm-dp-mst-v9-0-ca61be4edfc3@oss.qualcomm.com>
- <20261119-msm-dp-mst-v9-20-ca61be4edfc3@oss.qualcomm.com>
+ <20261119-msm-dp-mst-v9-23-ca61be4edfc3@oss.qualcomm.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Thu, 19 Nov 2026 08:45:59 +0000
+Date: Thu, 19 Nov 2026 08:46:05 +0000
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -61,53 +61,66 @@ X-Archived-By: <archiver.kernel.org>
 
 Thank you for your contribution! Sashiko AI review found 1 potential
 issue to consider:
-- [Medium] drm/bridge_connector: check detect->type in
-  drm_bridge_connector_detect_ctx()
+- [Medium] drm/msm/dp: unlocked mst_active check in
+  msm_dp_bridge_detect()
 --
 
-commit c94cf087c06da031558bf281d88106d6134140dc
-Author: Yongxing Mou <yongxing.mou@oss.qualcomm.com>
+commit 1b5162231829036e89b5c051fc2a3d4cb1ae0463
+Author: Abhinav Kumar <quic_abhinavk@quicinc.com>
 
-drm/bridge_connector: avoid detect-based HPD notifications for DisplayPort
+drm/msm/dp: mark the SST bridge disconnected when mst is active
 
-This commit skips calling drm_bridge_connector_hpd_notify() from
-drm_bridge_connector_detect_ctx() for DisplayPort connectors that have an
-HPD bridge.
+This commit skips SST bridge detection in msm_dp_bridge_detect() and returns
+connector_status_disconnected when dp->mst_active is set.
 
-> diff --git a/drivers/gpu/drm/display/drm_bridge_connector.c b/drivers/gpu=
-/drm/display/drm_bridge_connector.c
-> index 1d4502126bff3..dbe874d26911b 100644
-> --- a/drivers/gpu/drm/display/drm_bridge_connector.c
-> +++ b/drivers/gpu/drm/display/drm_bridge_connector.c
-> @@ -315,7 +315,10 @@ static int drm_bridge_connector_detect_ctx(struct dr=
-m_connector *connector,
->  				return ret;
->  		}
+> diff --git a/drivers/gpu/drm/msm/dp/dp_display.c b/drivers/gpu/drm/msm/dp=
+/dp_display.c
+> index 75eaf739b86f0..17487a7900d00 100644
+> --- a/drivers/gpu/drm/msm/dp/dp_display.c
+> +++ b/drivers/gpu/drm/msm/dp/dp_display.c
+> @@ -976,7 +976,11 @@ enum drm_connector_status msm_dp_bridge_detect(struc=
+t drm_bridge *bridge,
 > =20
-> -		drm_bridge_connector_hpd_notify(connector, status, DRM_CONNECTOR_NO_EX=
-TRA_STATUS);
-> +		if (connector->connector_type !=3D DRM_MODE_CONNECTOR_DisplayPort ||
-> +		    !bridge_connector->bridge_hpd)
-> +			drm_bridge_connector_hpd_notify(connector, status,
-> +							DRM_CONNECTOR_NO_EXTRA_STATUS);
+>  	priv =3D container_of(dp, struct msm_dp_display_private, msm_dp_display=
+);
+> =20
+> +	if (dp->mst_active)
+> +		return status;
+> +
+>  	guard(mutex)(&priv->plugged_lock);
+> +
+>  	ret =3D pm_runtime_resume_and_get(&dp->pdev->dev);
+>  	if (ret) {
+>  		DRM_ERROR("failed to pm_runtime_resume\n");
 
 [Severity: Medium]
-Should this check detect->type !=3D DRM_MODE_CONNECTOR_DisplayPort instead =
-of
-connector->connector_type?
+Should dp->mst_active be checked after acquiring priv->plugged_lock, as
+msm_dp_irq_hpd_handle() does?
 
-In drm_bridge_connector_init(), connector->connector_type is taken from the
-last bridge in the chain rather than bridge_connector->bridge_detect.  When
-msm_dp_bridge (detect->type =3D=3D DRM_MODE_CONNECTOR_DisplayPort) is follo=
-wed
-by a Type-C HPD bridge that sets bridge.type =3D DRM_MODE_CONNECTOR_USB (su=
-ch
-as drivers/platform/arm64/acer-aspire1-ec.c), connector->connector_type is
-DRM_MODE_CONNECTOR_USB.  When msm_dp_bridge_detect() returns
-connector_status_disconnected (for example while MST is active),
-drm_bridge_connector_detect_ctx() will still notify the bridge chain and
-tear down the active DP link.
+drm_bridge_connector_handle_hpd() invokes drm_bridge_connector_hpd_notify()
+without holding dev->mode_config.mutex, so priv->plugged_lock is the only
+lock serializing HPD plug handling against concurrent connector probing:
+
+CPU0                                  CPU1
+msm_dp_hpd_plug_handle()
+  lock(&priv->plugged_lock)
+  ...
+                                      msm_dp_bridge_detect()
+                                        if (dp->mst_active) // false
+                                        lock(&priv->plugged_lock) // blocks
+    dp->mst_active =3D true
+    priv->plugged =3D true
+  unlock(&priv->plugged_lock)
+                                        pm_runtime_resume_and_get(...)
+                                        ...  <-- runs SST detect in MST mode
+
+When CPU1 enters the SST detection path after MST is enabled, a successful
+DPCD read leaves an extra runtime PM reference leaked (because priv->plugged
+is true at the end label and msm_dp_hpd_unplug_handle() only drops one
+reference), while a transient AUX read failure resets priv->plugged to false
+and causes a subsequent unplug to return early without tearing down the MST
+topology manager.
 
 --=20
 Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261119-msm-dp-mst=
--v9-0-ca61be4edfc3@oss.qualcomm.com?part=3D20
+-v9-0-ca61be4edfc3@oss.qualcomm.com?part=3D23
