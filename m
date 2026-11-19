@@ -2,127 +2,159 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id ED3A0606A320
-	for <dri-devel@archiver.kernel.org>; Thu, 19 Nov 2026 03:30:28 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2571F606A325
+	for <dri-devel@archiver.kernel.org>; Thu, 19 Nov 2026 03:48:01 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=amd.com header.i=@amd.com header.a=rsa-sha256 header.s=selector1 header.b=QKoxMkp2
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=bteDf3j6;
+	dkim=fail reason="signature verification failed" (1024-bit key, unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=selector1 header.b=HO5GUpN9
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 4B7A310E4EF;
-	Thu, 19 Nov 2026 03:30:23 +0000 (UTC)
-Received: from MW6PR02CU001.outbound.protection.outlook.com
- (mail-westus2azon11012007.outbound.protection.outlook.com [52.101.48.7])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 79EE510E423;
- Thu, 19 Nov 2026 03:30:16 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 8BF7C10E66C;
+	Thu, 19 Nov 2026 03:47:50 +0000 (UTC)
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.17])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 1A9EE10E1EA;
+ Thu, 19 Nov 2026 03:47:39 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1795060060; x=1826596060;
+ h=date:from:to:cc:subject:message-id:references:
+ content-transfer-encoding:in-reply-to:mime-version;
+ bh=7XgdFiyQcY+ZlIPq6ptzu6dZpAbkFn9GN9EqRKJwvw0=;
+ b=bteDf3j6LOhHT+uJ5DtwvKCx7TxHf7S9a7JltCpx8QKhpgNVrKCkBkeR
+ EY5UsL1icMvsHSghgCoK+MupxtG7ryyJitowQ2PUJyHWp2YmIOk+qx3cp
+ KSpjV7HmMwgtKqmFMXH2vJ7ndV+mG5yTaxvJ1YzNzeguD7lMLalgRGmZA
+ eAXkDBKstoLnqbjS1ng8U7PsurJrOTgzQCdaosSb/k91SrHD3qrjjJVhf
+ XTRaqYJKWND2R81VWAgAdYGsRErFN9tz+He9ACAy2TeEklIeeRA0NSOPg
+ pgoKZzREcbWp+vQcVkunweYA7HsicEcIHiVbG/HZ30hI0w0q3/0s3Kfxv w==;
+X-CSE-ConnectionGUID: i7CqseTwTfSZtIFgjIMs2g==
+X-CSE-MsgGUID: MskZ/jI3Q6uSWxEHw9d4Hw==
+X-IronPort-AV: E=McAfee;i="6800,10657,11970"; a="3905630"
+X-IronPort-AV: E=Sophos;i="6.27,220,1787036400"; 
+   d="scan'208";a="3905630"
+Received: from fmviesa001.fm.intel.com ([10.60.135.141])
+ by orvoesa109.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 18 Nov 2026 19:47:38 -0800
+X-CSE-ConnectionGUID: YA8oQv9VSG6/pmG8uvdHHA==
+X-CSE-MsgGUID: tu4pdVdtTcGCaOd02eI4Cw==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,220,1787036400"; d="scan'208";a="10711940"
+Received: from fmsmsx903.amr.corp.intel.com ([10.18.126.92])
+ by fmviesa001.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 18 Nov 2026 19:47:38 -0800
+Received: from FMSMSX903.amr.corp.intel.com (10.18.126.92) by
+ fmsmsx903.amr.corp.intel.com (10.18.126.92) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.56; Wed, 18 Nov 2026 19:47:37 -0800
+Received: from fmsedg903.ED.cps.intel.com (10.1.192.145) by
+ FMSMSX903.amr.corp.intel.com (10.18.126.92) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.56 via Frontend Transport; Wed, 18 Nov 2026 19:47:37 -0800
+Received: from PH0PR06CU001.outbound.protection.outlook.com (40.107.208.58) by
+ edgegateway.intel.com (192.55.55.83) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.56; Wed, 18 Nov 2026 19:47:36 -0800
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=Q0Ok/dxgFMD8PE7zJUxvfOM+v2tWZXgZ848WqWlX5Qyg62axobTJzW8vxMiUZoj9Gr6nEbMShC2NhcLh+5w8W8+s4GvNsChzrWMIe2ThhvixDz3atyiZRgCXO9MvLt9Aihd1N8RRKkzkZZ8FyXsUd3XlT8Ii98HDjn/Gg2BgOaup1/g3V1npfN5OGsxjR+C5k40cHeZDA3Gw6nYRFstvbvJHXJQUlNfT6x3r/PnMNw4eRcMrFPM8ghe2jGcFX7g7rtLl0/s2lCdhEfKyVjQA76xpxeI3Ab3gG3lrdnUsNg8LzkhKuF59WjhXwjnmCVY8rJ2XqEOGqh9XTG13WOuMfg==
+ b=hW7Y+kZrYj8yyDVQHbxnJXddh9NDdHr+S+9D237grnGS52M9eTZb5z1SLVN7dZ35DjGpEVr8wQ1QuB9LpsalyklQwWSUDyf51ZjEZloO9yNNUkjUCht/jD6n8NzrASKvm6sW5ZrxoQVffptZX6RSC7OJSRr1ux8Gegf7usg/wzhMZHhRs+9lSVa44QwN4GQTsPVCe8TGMZrFUaUFk3ZEBYHhZgx8jxHQgCwn7uiLxcv5oBnYzmE27qtxPPW4x6uH3dNbVWsLVG7F1vXMoCSRGuHtGS1O/BvaN+wBPLbSxxgou0EtoU5FsmAi5l663vgHpzTf019vObK0iyEcXYjTkQ==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=OpvDI6TgXzmB6g/B/VaDknhayqxl3f1PaDY60umjfDE=;
- b=luuRkSdAA29WtLKLHUEtXEVlQ8yEw8PEySwxafuybrgGQG1IfhvapKd4K0z6+pHW6USctF+zHqvgnQXIlRXreSUs4AC3oaNEfkD5ZFP/BgKrSz6hntAZ10xvXHMbIwKw0CpbrfHSz124wsRaz4wN3YphY2OZCC/sKyUmPQb6eNSQISjU8zwTvMdBaxilcZ5saDQ8IaNy6IgRMcBSzKoanGqI9/5DS4/IuaBZGux66qGRXVeCneBgLOWDc0DIk6JsS0yJ9GiEF6oY9KqhaCphLuXTQOx32Me0HeZLPZ14jyWebPSGE4L3ut/e2XBpYPIenGH/q2hj5h3zo84/Et1ZgQ==
+ bh=DWM6QQLV2ql9PuyapmcIcW1bNmWxOeSGRBN3zXWg6oY=;
+ b=d6MC1uIBh9PizcgPcihtBhyWwBMtOQlJPPMcuR7QEzQ6ArJ3vdJgR3c7gozlq9/qPlbfgw0ZzZc2fXaU8ICc+0+b2Ey8xBXoi9V4Aj6paDP1XsbMEveStmOM7a2CP6xexEYIW/HhsYXhtMvp/S0kI5H/la6ZYK0zlyFmC8h6DdMhXW94+TiuCjBeWUcgAS6yfWrjSTC2ieeocZV3Gb7kkXdDVqrgy21iHPAcnFfOcgfSTfPWOtJTPK/VGcR2+ZpvtiQCUqNCOpptBNa8IkSX943pRfbxbp6RfNG0Aj5HVimEZkfQY9silTuEnVdRykwrdSjKYABtCZ/7AUaIHupoaQ==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ smtp.mailfrom=intel.com; dmarc=pass action=none header.from=intel.com;
+ dkim=pass header.d=intel.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=intel.com; s=selector1;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=OpvDI6TgXzmB6g/B/VaDknhayqxl3f1PaDY60umjfDE=;
- b=QKoxMkp2MMPuKpBNz2A0WJahhSx+UoLQl5MqHeXE9308q4F+2BDG5WQtCWRAejOTnSx8Fy3pCzX0eKWh/GF69I+6tGCkRmOBkBHOvAGvSW0dqKk5MdbuZi/xyEMOmGf8Sf0n82p509+/W0+WhRB3z/8IIEQBAYUCfytXe5MY6N0=
-Received: from MW4SPRMB0025.namprd12.prod.outlook.com (2603:10b6:303:18f::13)
- by SA1PR12MB9248.namprd12.prod.outlook.com (2603:10b6:806:3a3::15)
+ bh=DWM6QQLV2ql9PuyapmcIcW1bNmWxOeSGRBN3zXWg6oY=;
+ b=HO5GUpN9yrK6PO+BbQH0FjoKzIc1CkX/vQJwSKRHaVy51xzWZ2dLLCLbN6sDxdgCjHzDArDkF6OsjYkunjTWdnsYMQeY/H1WL+lRJM/XFXwTc96xUK4VWGFZxqyxVD4NVHKqwbQbv16yoejySrDJgmegzccSKDNzrMvt3fIeAf4=
+Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=intel.com;
+Received: from CO1PR11MB4787.namprd11.prod.outlook.com (2603:10b6:303:95::23)
+ by CH3PR11MB677380.namprd11.prod.outlook.com (2603:10b6:610:363::10)
  with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.615.10; Thu, 19 Nov
- 2026 03:30:12 +0000
-Received: from MW4SPRMB0025.namprd12.prod.outlook.com
- ([fe80::8743:fbd4:589c:9ed3]) by MW4SPRMB0025.namprd12.prod.outlook.com
- ([fe80::8743:fbd4:589c:9ed3%6]) with mapi id 15.21.0615.015; Thu, 19 Nov 2026
- 03:30:11 +0000
-From: "Liang, Prike" <Prike.Liang@amd.com>
-To: =?iso-8859-1?Q?Ville_Syrj=E4l=E4?= <ville.syrjala@linux.intel.com>
-CC: "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>,
- "dri-devel@lists.freedesktop.org" <dri-devel@lists.freedesktop.org>,
- "Deucher, Alexander" <Alexander.Deucher@amd.com>, "Koenig, Christian"
- <Christian.Koenig@amd.com>, "Wentland, Harry" <Harry.Wentland@amd.com>, "Li,
- Sun peng (Leo)" <Sunpeng.Li@amd.com>, "tzimmermann@suse.de"
- <tzimmermann@suse.de>
-Subject: RE: [PATCH RESEND 2/5] drm/vblank: Stop drm_crtc_wait_one_vblank()
- when vblank is turned off
-Thread-Topic: [PATCH RESEND 2/5] drm/vblank: Stop drm_crtc_wait_one_vblank()
- when vblank is turned off
-Thread-Index: AQHdcbp3F1Sj7wPlyU+PYurN0tfuObcz/84AgAC8i7A=
-Date: Thu, 19 Nov 2026 03:30:11 +0000
-Message-ID: <MW4SPRMB00253F8653BDD33748B70E77FB792@MW4SPRMB0025.namprd12.prod.outlook.com>
-References: <20261111085534.514957-1-Prike.Liang@amd.com>
- <20261111085534.514957-2-Prike.Liang@amd.com> <av3EZjSWFetO7U3e@intel.com>
-In-Reply-To: <av3EZjSWFetO7U3e@intel.com>
-Accept-Language: en-US
-Content-Language: en-US
-X-MS-Has-Attach: 
-X-MS-TNEF-Correlator: 
-msip_labels: MSIP_Label_198e8dea-a4f3-4850-b16a-fd6d2b1302b4_Enabled=True;
- MSIP_Label_198e8dea-a4f3-4850-b16a-fd6d2b1302b4_SiteId=3dd8961f-e488-4e60-8e11-a82d994e183d;
- MSIP_Label_198e8dea-a4f3-4850-b16a-fd6d2b1302b4_SetDate=2026-11-19T02:44:31.0000000Z;
- MSIP_Label_198e8dea-a4f3-4850-b16a-fd6d2b1302b4_Name=AMD General
- v26; MSIP_Label_198e8dea-a4f3-4850-b16a-fd6d2b1302b4_ContentBits=3;
- MSIP_Label_198e8dea-a4f3-4850-b16a-fd6d2b1302b4_Method=Standard
-authentication-results: mx.microsoft.com 1; dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-x-ms-publictraffictype: Email
-x-ms-traffictypediagnostic: MW4SPRMB0025:EE_|SA1PR12MB9248:EE_
-x-ms-office365-filtering-correlation-id: 13efcd07-6178-4760-7a89-08df45ed6b43
-x-ms-exchange-senderadcheck: 1
-x-ms-exchange-antispam-relay: 0
-x-microsoft-antispam: BCL:0;
- ARA:13230040|1800799024|376014|366016|23010399003|18002099003|22082099003|261009223027099003|261009221227099003|6133799003|11063799006|56012099006|261102123227099003|4143699003|10067099003|261026121527099003|261026140227099003|261022075727099003|261028144727099003|261021121427099003|261022115727099003|261022105027099003|261021123027099003|38070700021;
-x-microsoft-antispam-message-info: 1IxZFhuHV2ML/TcI9lKnmJ4Oirtjy+yK68zx8zhbVuqlBKof0oyYKyVKxkHixLNSpREQ2m3th/dDFhP9P/PjtH09Ey4Qt7a2M52CKAE5Mx71yHHgQIFbSzA68015Ry8vuspfCMfdJL/dMQXbPee3U5xpCunJPITpauR43n6yEj+gJnau0tTq9lytnnidQHxvL0ANZ/o2+DsR6sTlg9Fgzj15EwkhtVfbSw24WyO+DqVeGk8/gIiQsLRKTRqZRrqDcx6LtotofkdGWhFEyoYLQFvzFdNw2+eerEJTbOHk/u58m6dYx8ng1cAxiLDyxDX4zjYfpmUfcJ9xivXyvqsNo2me6w9RCzKOg5s8rBVn+/NqiOrl3A4kOueHascTY1EjcD0lAR3x2DbtsK+UdTozHVSdIdZvqlppjbIj3htjuUOjE7qUS6n9uxkRYiH9DZaQ3FMh49crkxoUJCzckBeiMzE9EVpadxpvh1GCM8MikTg4MN+AbF2MdzgKRlzp+hN9ikPgIlDtaiIVcwBTM/qCnQCaN15Ipg3bIGpqo1UDw+kevGFq4E18X1qp6/1np+mphCmJkV5kfL9V//FdhxZH8ukOJV5Ya+TP201sEnn2n/miQfSUstHeSg3kqiSjkLYYDfGaxkeAl/vCAfQprSR7L1lkJSJJRwRuEB7wDwFn4OeCNjkuYDpwolYB+0JMtS/Arse4c9r4Ychzj8pUVlbTy3F/OON0QcJeiQXren2W87M=
-x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:MW4SPRMB0025.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(1800799024)(376014)(366016)(23010399003)(18002099003)(22082099003)(261009223027099003)(261009221227099003)(6133799003)(11063799006)(56012099006)(261102123227099003)(4143699003)(10067099003)(261026121527099003)(261026140227099003)(261022075727099003)(261028144727099003)(261021121427099003)(261022115727099003)(261022105027099003)(261021123027099003)(38070700021);
- DIR:OUT; SFP:1101; 
-x-ms-exchange-antispam-messagedata-chunkcount: 1
-x-ms-exchange-antispam-messagedata-0: =?iso-8859-1?Q?gvS9e2NnWTnc6MqFAT8HkatDDgsc3NwQLsghYSx/fsRLeIWMS0aXAC1UyR?=
- =?iso-8859-1?Q?A2P0pZuYFfDKQav9wfkhTObGEnCX7/ep0k/Xq1AyFAAonVydZSf3sYE0nO?=
- =?iso-8859-1?Q?JByQjaj2WcL1WDs4+g5QVz+SCFFZfA6+bCedf+ZGbq2eizbkIYMq0n9tnW?=
- =?iso-8859-1?Q?0AeiFEa60g+eMjz2DsjSvsJAX4w9/kmCiJK5Bd07ZSkWsS+nZnDSUTS1mz?=
- =?iso-8859-1?Q?sFU8DnWOE4Rwhyo/kDY5t7iJULX9EcLLj9kIMqj5OnGIo0rnOQKbfLtXef?=
- =?iso-8859-1?Q?eDgwTSBWe76g06JAUiMptQ5rkFcHZOX5WJk7JFSzV6bwvNUtXKcjQqsQu9?=
- =?iso-8859-1?Q?OHSeEEyOEPVlwcewMikZK+C+3K5xcr3LJ3Te0vjL6e2AFGjgbE0qQsAafR?=
- =?iso-8859-1?Q?PfukiE1h4BQZovVgu6HFGKOBskerQkIfJ5zIF6/GaUp11s6ZqMBDav0ml4?=
- =?iso-8859-1?Q?Q4XsDXXhCKicSg2EeDypSvMA8aISquWn4bgjHIjg/UAEd2nK/33b1RM6fI?=
- =?iso-8859-1?Q?WyI7DnMv7sCIrSk9lz57ie2CPcM/0BuuX1oUQ3n6c2/DPhEkAx2E3eu0dx?=
- =?iso-8859-1?Q?ctqcHRpd4AR/I8eg+GzMfReI7C0SvLOBh1rUI12A2ahefv6/sayQFSrHcZ?=
- =?iso-8859-1?Q?oOUrchr+uyI+uC4xThzVh3zBFAKOdNfbYt0cRdikfazrqK+rsOED6iyt8C?=
- =?iso-8859-1?Q?lVWm+g7o8Vw2b8ZVUcCnxk7nI1RSwakhan4MfRYfXJKWKff2Q0jyzf0KTf?=
- =?iso-8859-1?Q?fF0yOYyKwStXfKFRTN8FdUkGm9vBvd0bR5+Lwn1ki3ufr/20Q7S7EoGg5Q?=
- =?iso-8859-1?Q?TVWe1i+Cxt7eknYLjbXqRscQ4rqW2DytKNLlxlEaFMO2uMgR+yA/Yjl5dD?=
- =?iso-8859-1?Q?5Tvy0bdoluBzp8b2tLMkxPhvls4EeaWQ8AIzPnXhEN/vpma/H/LJMZuIX+?=
- =?iso-8859-1?Q?BbY9C2wgNCtYhrmparFlIGvVX8qUwKTSImGJUq6TfR2v4JK4vFftD92m2J?=
- =?iso-8859-1?Q?D/kRwOQpeUQwpuJz5yMfLkSQhUE8vJiSwQA2VGtGegcCjZGC1zDxL60Gcy?=
- =?iso-8859-1?Q?YF7XpFDfEpFXMATIp/bgb7C4Ic5Lct7NzbzrvDAm6DCndLUE6ZglHMSc4w?=
- =?iso-8859-1?Q?q1HGyjmnNX2j+aFn1ZP/6t9YKiZoG2BCkxCvORr06gTzZ+SAFzIJJW6fOO?=
- =?iso-8859-1?Q?XG/FPvdMSP5reSTINYgr+bjFm+acafAYP0MXrCMMoeQVbfGpC1L3SRSHOb?=
- =?iso-8859-1?Q?z4YizdNPdqqNmfOuS4uUgXaVLoo3Nx9DUzU1qkHyxIy8+bPdLhIGSAqLaz?=
- =?iso-8859-1?Q?KgPG9x2y0fqxStmWg17qjRcxO7khqgGqUlD04PRoOGkHJCqJ2OR0f+oKyQ?=
- =?iso-8859-1?Q?sHWSfqhS18H4TWVr3npzx8mRXeXxIxIZh0K25tR8AhFDV48ZPdLoilCxaD?=
- =?iso-8859-1?Q?vuYmYDfl0/EYkC22w9DEDvKSvUMlB/kYtBCLEr/moYIIJVSvoMaovdDZq+?=
- =?iso-8859-1?Q?uFKrvMLrOUK+f4CUq697AHm47RGHe13qrFUeO7nSML9J23S6poDrH8woPB?=
- =?iso-8859-1?Q?NHV4kPd0wvGKD00MH1gLqIWd/fs9aeMsg2mZxpkJO3JW8ZWP8/eZ0Aj6hn?=
- =?iso-8859-1?Q?xLpV+Rg3hPMDBCkqWh3whISnXUVMzWuChfe/A26PXycbljJRoli+EdLVZ/?=
- =?iso-8859-1?Q?wrT5QedSGEUQXVpeSwAp/7PU7BUHlMOdRFx4zHX53eaDvvkoahk33eARNL?=
- =?iso-8859-1?Q?m2dHnPDejnTMaSBlwHENcA0aP51RPeIulJUXCKmDnjPhRV?=
-Content-Type: text/plain; charset="iso-8859-1"
-Content-Transfer-Encoding: quoted-printable
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.615.17; Thu, 19 Nov
+ 2026 03:47:15 +0000
+Received: from CO1PR11MB4787.namprd11.prod.outlook.com
+ ([fe80::e7eb:a872:53d1:21fd]) by CO1PR11MB4787.namprd11.prod.outlook.com
+ ([fe80::e7eb:a872:53d1:21fd%4]) with mapi id 15.21.0615.013; Thu, 19 Nov 2026
+ 03:47:15 +0000
+Date: Wed, 18 Nov 2026 19:47:12 -0800
+From: Matthew Brost <matthew.brost@intel.com>
+To: "Summers, Stuart" <stuart.summers@intel.com>
+CC: "intel-xe@lists.freedesktop.org" <intel-xe@lists.freedesktop.org>,
+ "dri-devel@lists.freedesktop.org" <dri-devel@lists.freedesktop.org>, "Yadav,
+ Arvind" <arvind.yadav@intel.com>, "Vivi, Rodrigo" <rodrigo.vivi@intel.com>,
+ "Ghimiray, Himal Prasad" <himal.prasad.ghimiray@intel.com>, "Upadhyay, Tejas"
+ <tejas.upadhyay@intel.com>, "thomas.hellstrom@linux.intel.com"
+ <thomas.hellstrom@linux.intel.com>
+Subject: Re: [PATCH] drm/xe/guc: Do not trigger TDR from the memory CAT error
+ handler
+Message-ID: <av5xQK24zmMYCEv3@gsse-cloud1.jf.intel.com>
+References: <20261116102020.1567127-1-arvind.yadav@intel.com>
+ <04c50600f64b0798c62f92995aa36bb0f56c434e.camel@intel.com>
+Content-Type: text/plain; charset=iso-8859-1
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <04c50600f64b0798c62f92995aa36bb0f56c434e.camel@intel.com>
+X-ClientProxiedBy: SJ0PR13CA0193.namprd13.prod.outlook.com
+ (2603:10b6:a03:2c3::18) To CO1PR11MB4787.namprd11.prod.outlook.com
+ (2603:10b6:303:95::23)
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
-X-OriginatorOrg: amd.com
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: CO1PR11MB4787:EE_|CH3PR11MB677380:EE_
+X-MS-Office365-Filtering-Correlation-Id: 17efe3e8-1630-4f62-2407-08df45efccfd
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+ ARA:13230040|1800799024|376014|23010399003|366016|22082099003|18002099003|6133799003|261009223027099003|4143699003|56012099006|11063799006|261102123227099003|261026140227099003|261026121527099003|261028144727099003|261021121427099003|261022075727099003|261021123027099003|261022113327099003|261022105027099003|10067099003;
+X-Microsoft-Antispam-Message-Info: gP7eX06aG3xWxFvWwJvNdwpm6F7XvEUoUaGs9QzVxn2e61E7hmOYJITg6HUbHPAnuY1PXrBRDeJjTsLZPifpc9R7KeXNM8luufSBvYNohjA8owoth/oCWmSrBdMHlLtvpzDB51KLeY5Pn7zVDAqc+IvMWlKbxdejIkA41Iur+6n5I/InGyg6lNSUPkDivJiSTHcIcCvlOx07gNVWKA5LAExo/yoD1sh17HUDHzPP5Qh34WZCzCMZa4NbodGZ4qcgpnENq6Mm0FsqsZOYTGSeALad0bfF/jgOfMK64FKyodleeEbzAuUD15l9vBJTYf7S/ZmSBVKULGkH0+7Tl8F+SEizEU0L8HZTovhC2aQlNjzzz1MqJTDh1KLp2TTNyRVHDE8FWyltU9n7Sd9A+9OhExlY164pRHxO/yJ51cMRtssETjx4BZsFFth5cyPTWr6HN7wm4gUK75m96pCPqJxgg5wcGD/ZjxQJ+JT+na/4US7sXG4I7qr2viCywJ7n7AA3AzCI3lLKcYvx9nd6xbq8UUO3AYV3DeK8+QyuQYqQix7VeDX0Scxcw0oUVwD+66zDsw1Gr/YEp8GuOtP15N7g61Dgyc/slcT+9e37WE5phcdplTVT0DjelcVnSr7niRXEEhTB04qSKi/1qsM7ZQvRJ9iW8RgjpklbS7noVADuJiY=
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:CO1PR11MB4787.namprd11.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230040)(1800799024)(376014)(23010399003)(366016)(22082099003)(18002099003)(6133799003)(261009223027099003)(4143699003)(56012099006)(11063799006)(261102123227099003)(261026140227099003)(261026121527099003)(261028144727099003)(261021121427099003)(261022075727099003)(261021123027099003)(261022113327099003)(261022105027099003)(10067099003);
+ DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: =?iso-8859-1?Q?M4kPZ4ZGlgV7MnMP6goBe0MpFGRoJtph4fJ/4xy00jAx8TBGWmEWu1cP/t?=
+ =?iso-8859-1?Q?nDqOXsOThidMxHjG/Pizbiwu9ezTPv5fPxpqugEJqc9ofyQyo9IHiqYist?=
+ =?iso-8859-1?Q?FJwLY52LMKr2cP0CcjG5qJPDAZ4ClpvpF2h8xtHjljsJAMgX4oBYB3FrrP?=
+ =?iso-8859-1?Q?MooEbe9S0AUJm2cLRNPM6jiReVm/84QMU9o86TSkdBfMmQY8mVeTTtaTCo?=
+ =?iso-8859-1?Q?AFlZWLDDL2ZoOhhV+qh50OMSS1iTus9OiKI0PKKglfGWXEcjemSWKnGe04?=
+ =?iso-8859-1?Q?qRaW8ZbP4xcv0zK/dqvgjvVfLHvFxNBY7AkKFOLh11oEfAzhkAkvlzE1r0?=
+ =?iso-8859-1?Q?mNdUlZvvcZKGvwoVpAiPpo4csawjBmQCXnDTIxwC7nT8VpYVMx6KDMBgzX?=
+ =?iso-8859-1?Q?UWZuhDEJNrgqRTXACZKevIH1kVSd7Qp5IetrcqzXUc59DzluGThcbsSvgQ?=
+ =?iso-8859-1?Q?xocRsIznvaj6sGp5nP6y2xid5T0JlTC/YtWda27ii7j/tE82FxS7goBA8q?=
+ =?iso-8859-1?Q?6ErzZAlwQg4s3Ow/XFB6MmjpVqwGJJhGQaMz2kJPYCZXga43A0DwmF3L4S?=
+ =?iso-8859-1?Q?d/dIhKATnSBdyd2FtiHT+7FkRiwBzl3NYdro+FceUJ7PODBN2EgzpoGVlw?=
+ =?iso-8859-1?Q?7Ot23sfl/bs0H0SMsMWPlpczG32Ul/2G9vpYkG8GHhhRTzyfEHiL7BpdVq?=
+ =?iso-8859-1?Q?sgE1jdeCi6r76dMOExWiyB/uIWa1Fw5qINaGP1E1zZ21LAIfvca/DsUCxH?=
+ =?iso-8859-1?Q?BIsNmUeYMQxSJHRWddJmmKX4zQJcBMroEA2fIo+9LBrlCdlcPd0c7Ia2C2?=
+ =?iso-8859-1?Q?GiMhQcNQmGCPvPSK7CJNVUy80y3SyocSVzjMkKSqRGHzavtPn3RDScMSy2?=
+ =?iso-8859-1?Q?997/tW27Q/u3t6STUqitzEGv4+N7Yv/F8FIbldWLdWF3buR4onybOgtDVt?=
+ =?iso-8859-1?Q?mfNk5CfPIhBPhcEIkpFoqpt0T5AyxiS9wI4Ahikl8ksOyyMoDCKCeMoEzt?=
+ =?iso-8859-1?Q?n1CawMY21VknWP9HbSnrJ/8APNK4bWeqJucLMmJmsy0rBPLrtq69Fme7qd?=
+ =?iso-8859-1?Q?hSMrwymgvspHBANJZ+lHVCVp+KXsBV+Lklz0753ObxBCFjlxwrTG8IWgMk?=
+ =?iso-8859-1?Q?dLGSh6NAnyTqM5uVBaEstSJqE3JWdMQNKQdTho//4vsmiZTnGEBougdFVR?=
+ =?iso-8859-1?Q?Dy/qqF51Du5o6o23/EvqM2jxBQVBzxB1hTXAs29AUScsqS+jRlbeHbmQxH?=
+ =?iso-8859-1?Q?diX/ccW2/gxidqLFpE1mPfdl6x3yRDQGJqEtJ/A021ScjqPfrzAWro31O7?=
+ =?iso-8859-1?Q?3YGwjhMnRrNkCZBw3ai6TCYso1dZGSIMRvVgwEr5jmzX7IEFAdLcUhpAwL?=
+ =?iso-8859-1?Q?lsxOoPdplvrAirU+Wh9qenPSM5pa5iT0KtuedjeYfr0TKYem1a1xCHybkb?=
+ =?iso-8859-1?Q?XAAP4I9SByMjHz5bi7J+xEK/6ahNQD8DU8AwLU4ejSetu0CEfWYf13juvt?=
+ =?iso-8859-1?Q?G1L3pFu/4zJMrczHuUzN6atkhrb98FrCFTLbfdnwWSi9ZFujbXR4A5hkpi?=
+ =?iso-8859-1?Q?cQ8/PsQN/Iyv8B8mQPvBjB1GrfzorbXRj/PxpXDiotTNBlLYSBpaQaV16F?=
+ =?iso-8859-1?Q?ZPve0XtlcgSfNLZ3+ov0Lwvq1jvnz4IOxqXQ8DNRinHpk0whMKk8zkIWi7?=
+ =?iso-8859-1?Q?DzfcvDOeAOkVuRe3OxTD9SDknNM3GbFc2n65XhNzRxqyQy5nRcx78URIn/?=
+ =?iso-8859-1?Q?LTk/fG2mhx6ChYgqjwCBxFyxTKYJ44RsU8E9RNCoRJGBe12mdSWJL7r5z4?=
+ =?iso-8859-1?Q?mnINTcqHtw=3D=3D?=
+X-Exchange-RoutingPolicyChecked: l+1l6hBPGK212aXF2oIvJIwC8MU00NwEQ0DzxO3iwFU8UV5/Vv/Frgr6PuExleVZIkz6Qjcp7moI5YqYqvIfQhLJ4pokhqhLjNQJ5worXdBLz6S7yWLr2hCzoJyiZM0IGwFzT0EN00mOE+DT9pqT8vJdDp26D7SJJIADQfTzBx/B+aLTqVjouTZyBg41jKm7LvdcuuCZk7IulUsAoTjoju6LoAu4nu3fiK8ytOSa/3bfH+mBbJtYGLdITFq2Ycd4/oVS/bDb/9jUz6gPur4kMI7+munZOlGxtH39pduqvJ1SgEOnR3dGtKjphmg1c3cFOSWzpzpkPiOOwc4nyYNxuQ==
+X-MS-Exchange-CrossTenant-Network-Message-Id: 17efe3e8-1630-4f62-2407-08df45efccfd
+X-MS-Exchange-CrossTenant-AuthSource: CO1PR11MB4787.namprd11.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: MW4SPRMB0025.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 13efcd07-6178-4760-7a89-08df45ed6b43
-X-MS-Exchange-CrossTenant-originalarrivaltime: 19 Nov 2026 03:30:11.7985 (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: QmtxK73jBtR2AAwJ/IVrKHuN9Oy4Yf0mqDXnfQeWtmh7FkhLHR4aPdCn/XVlovlI
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SA1PR12MB9248
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 19 Nov 2026 03:47:15.0922 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 46c98d88-e344-4ed4-8496-4ed7712e255d
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: S+xyZANzDYxb+Zkdy3gWh2RnhBDCGwROZMB8BMQHXhBrrsarZ4DC+go6knHdHfOnN7OqKjKJQzsVjO7svW4JGA==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: CH3PR11MB677380
+X-OriginatorOrg: intel.com
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -141,164 +173,257 @@ X-Spam-Status: No, score=-15.8 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-AMD General
+On Wed, Nov 18, 2026 at 01:38:30PM -0700, Summers, Stuart wrote:
+> On Mon, 2026-11-16 at 15:50 +0530, Arvind Yadav wrote:
+> > The memory CAT error handler uses the same cleanup path as the
+> > context-reset handler. This immediately triggers the TDR, which can
+> > send a scheduling-disable request before the context-reset
+> > notification
+> > arrives.
 
-> -----Original Message-----
-> From: Ville Syrj=E4l=E4 <ville.syrjala@linux.intel.com>
-> Sent: Wednesday, November 18, 2026 11:30 PM
-> To: Liang, Prike <Prike.Liang@amd.com>
-> Cc: amd-gfx@lists.freedesktop.org; dri-devel@lists.freedesktop.org; Deuch=
-er,
-> Alexander <Alexander.Deucher@amd.com>; Koenig, Christian
-> <Christian.Koenig@amd.com>; Wentland, Harry <Harry.Wentland@amd.com>; Li,
-> Sun peng (Leo) <Sunpeng.Li@amd.com>; tzimmermann@suse.de
-> Subject: Re: [PATCH RESEND 2/5] drm/vblank: Stop drm_crtc_wait_one_vblank=
-()
-> when vblank is turned off
->
-> On Wed, Nov 11, 2026 at 04:55:31PM +0800, Prike Liang wrote:
-> > drm_crtc_vblank_off() turns off the vblank interrupt even while
-> > someone holds a vblank reference and waits for a vblank. It then wakes
-> > up the vblank wait queue. DRM_IOCTL_WAIT_VBLANK stops waiting at this
-> > point, because its wait condition also checks whether vblank is still e=
-nabled.
-> >
-> > drm_crtc_wait_one_vblank() and
-> > drm_crtc_wait_one_vblank_interruptible()
-> > only check whether the vblank count has changed. Once vblank is off,
-> > the count doesn't change, so the woken waiter sleeps again until the
-> > wait times out after one second and warns "vblank wait timed out".
-> > This happens, for example, when the fbdev damage worker or
-> > FBIO_WAITFORVSYNC waits for a vblank while the driver turns the CRTC
-> > off for suspend or a GPU reset.
-> >
-> > Make __drm_crtc_wait_one_vblank(), which implements both functions,
-> > also stop waiting when vblank is turned off, and return -EINVAL if no
-> > vblank passed, the same error that drm_vblank_get() returns when vblank=
- is off.
-> > The wait condition is checked before going to sleep, so this also
-> > covers vblank being turned off between drm_vblank_get() and the wait.
-> > Waits that see a vblank, time out or are interrupted behave as before.
-> >
-> > Fixes: e8450f51a4b3 ("drm/irq: Implement a generic vblank_wait
-> > function")
-> > Cc: Thomas Zimmermann <tzimmermann@suse.de>
-> > Assisted-by: Copilot:claude-opus-5.5
-> > Signed-off-by: Prike Liang <Prike.Liang@amd.com>
+So as below - a CAT error is immediately followed by an engine reset
+G2H?
+
+> > 
+> > On a BMG dGPU, an early disable after a CCS memory CAT error is
+> > associated with subsequent contexts being enabled but never starting
+> > work. Recovery occurs later when a scheduling-disable timeout
+> > triggers
+> > a GT reset.
+> > 
+> > Separate waking user-fence waiters from triggering the TDR. On a
+> > memory
+> > CAT notification, mark the queue reset and wake waiters without
+> > starting
+> > the TDR. Keep the existing cleanup triggered by the context-reset
+> > notification.
+> > 
+> > Leave the uncorrectable-error and CGP context-error paths unchanged.
+> > 
+> > Tested on a BMG dGPU using a standalone SYCL reproducer with two
+> > separate processes.
+> > 
+> > The first process submits a kernel that reads an unmapped GPU
+> > address,
+> > causing a page fault followed by a memory CAT error. It then calls
+> > abort() without waiting for the kernel to finish.
+> > 
+> > After that process exits, a second process, called "victim", starts.
+> > It submits a simple kernel that writes 7 to a device allocation,
+> > copies the value back to the CPU and checks the result.
+> > 
+> > Without the patch, the victim can hang and reach its 60-second
+> > userspace timeout. With the patch, the victim completed and returned
+> > the expected value in all tested rounds where the first process
+> > triggered
+> > the fault.
+> > 
+> > Recovery without a context-reset notification still needs
+> > confirmation,
+> > particularly for LR queues, which have no normal finite job timeout.
+> > Independent queue-kill and cleanup paths are unchanged.
+> > 
+> > Cc: Matthew Brost <matthew.brost@intel.com>
+> > Cc: Thomas Hellström <thomas.hellstrom@linux.intel.com>
+> > Cc: Himal Prasad Ghimiray <himal.prasad.ghimiray@intel.com>
+> > Cc: Rodrigo Vivi <rodrigo.vivi@intel.com>
+> > Cc: Tejas Upadhyay <tejas.upadhyay@intel.com>
+> > Assisted-by: LLM
+
+Fixes: ...
+
+> > Signed-off-by: Arvind Yadav <arvind.yadav@intel.com>
+> 
+> This isn't right... I'm not clear on what problem we're trying to solve
+> here. Is it that the engine reset happening after CAT error is taking
+
+I'm little unclear too. I haven't looked in depth - but are we saying
+every CAT error is also followed by an engine reset? iirc - that is some
+GuC klv option. If we always get a CAT error + engine reset G2H - this
+patch is generally ok, but TBH as with Stuart I'm a little confused what
+exactly the problem is here but Arvind appears to have data back to this
+up, perhaps a GuC or HW quirk. Assuming this some quirk, I'd say we get
+in this into the GuC spec if has programming flows section.
+
+> too long? And where is the schedule disable originating? If it's part
+
+The schedule disable originates from the TDR.
+
+> of the TDR that means we likely want to re-arrange the TDR sequence
+> rather than just skip it.
+
+Well the TDR can't signal any fences (this is the job of TDR) until a
+schedule disable returns to avoid any possible memory corruption which
+infinitely worse than a long hang as that can take down the OS.
+
+> 
+> Engine reset is required after a CAT error to recover and the driver is
+> doing that as part of this flow (vs an engine reset due to a preemption
+> failure which originates from GuC and the driver just reacts to that).
+
+Right, iirc we always get a engine reset after CAT error - but my
+assumption was schedule disable from the TDR was the source of the
+engine reset, not from the CAT error.
+
+So TL;DR, I think this patch is fine with a bit more explaination and
+possible GuC spec follow up.
+
+Matt
+
+> 
+> Thanks,
+> Stuart
+> 
 > > ---
-> >  drivers/gpu/drm/drm_vblank.c | 23 ++++++++++++++++-------
-> >  1 file changed, 16 insertions(+), 7 deletions(-)
-> >
-> > diff --git a/drivers/gpu/drm/drm_vblank.c
-> > b/drivers/gpu/drm/drm_vblank.c index c3c9afc08ed2..5e247663978a 100644
-> > --- a/drivers/gpu/drm/drm_vblank.c
-> > +++ b/drivers/gpu/drm/drm_vblank.c
-> > @@ -1315,21 +1315,29 @@ static int __drm_crtc_wait_one_vblank(struct
-> > drm_crtc *crtc, bool interruptible)
-> >
-> >     if (interruptible)
-> >             timeout =3D wait_event_interruptible_timeout(vblank->queue,
-> > -                                                      last !=3D drm_vb=
-lank_count(dev,
-> pipe),
-> > +                                                      last !=3D drm_vb=
-lank_count(dev,
-> pipe) ||
-> > +                                                      !READ_ONCE(vblan=
-k-
-> >enabled),
-> >                                                        timeout);
-> >     else
-> >             timeout =3D wait_event_timeout(vblank->queue,
-> > -                                        last !=3D drm_vblank_count(dev=
-, pipe),
-> > +                                        last !=3D drm_vblank_count(dev=
-, pipe) ||
-> > +                                        !READ_ONCE(vblank->enabled),
-> >                                          timeout);
-> >
-> >     drm_WARN(dev, timeout =3D=3D 0, "vblank wait timed out on crtc %i\n=
-",
-> > pipe);
-> >
-> > -   drm_vblank_put(dev, pipe);
-> > -
-> >     if (timeout < 0)
-> > -           return timeout;
-> > +           ret =3D timeout;
-> > +   else if (!timeout)
-> > +           ret =3D -ETIMEDOUT;
-> > +   else if (last =3D=3D drm_vblank_count(dev, pipe))
-> > +           ret =3D -EINVAL; /* drm_crtc_vblank_off() ended the wait */
->
-> The error matches the one you get from drm_vblank_get() if calling this w=
-hen the
-> vblank has been already turned off prior to the wait. Not sure if we migh=
-t want a
-> different error value? Perhaps not. The ioctl does return with success fo=
-r a
-> terminated wait, but I suppose having the internal one return with an err=
-or will let the
-> caller know that vblanks are no longer available, so seems like a OK choi=
-ce to me.
-
-> What is different between the two drm_vblank_get() failing vs.
-> terminating early due to _off() is that drm_vblank_get() failing will WAR=
-N, terminating
-> the vblank early does not. I take it that is the behaviour you are after =
-here. I think that
-> difference is worth pointing in the commit message, so we know it's inten=
-tional.
-
-
-Yes, that WARN difference is intentional. Failure to acquire the initial
-vblank reference retains the existing warning, while a successful
-acquisition followed by vblank shutdown should end the wait without
-warning. I'll make that explicit in the commit message and keep -EINVAL
-to match the existing unavailable-vblank error.
-
-
-> I think you should probably reorder the series and move this to be the fi=
-rst patch so
-> that it could even be backported without having to bring the interruptibl=
-e variant
-> along for the ride.
-
-I'll also move this fix before the interruptible-wait change so it can
- be backported independently.
-
-Regards,
-      Prike
-
-> > +   else
-> > +           ret =3D 0;
-> >
-> > -   return timeout ? 0 : -ETIMEDOUT;
-> > +   drm_vblank_put(dev, pipe);
-> > +
-> > +   return ret;
-> >  }
-> >
-> >  /**
-> > @@ -1338,7 +1346,8 @@ static int __drm_crtc_wait_one_vblank(struct drm_=
-crtc
-> *crtc, bool interruptible)
-> >   *
-> >   * This waits for one vblank to pass on @crtc, using the irq driver in=
-terfaces.
-> >   * It is a failure to call this when the vblank irq for @crtc is disab=
-led, e.g.
-> > - * due to lack of driver support or because the crtc is off.
-> > + * due to lack of driver support or because the crtc is off. The wait
-> > + also fails
-> > + * if drm_crtc_vblank_off() disables the vblank irq before a vblank pa=
-sses.
-> >   *
-> >   * Returns: 0 on success, negative error on failures.
-> >   */
+> >  drivers/gpu/drm/xe/xe_guc_submit.c | 50 ++++++++++++++++++++++------
 > > --
-> > 2.34.1
->
-> --
-> Ville Syrj=E4l=E4
-> Intel
+> >  1 file changed, 37 insertions(+), 13 deletions(-)
+> > 
+> > diff --git a/drivers/gpu/drm/xe/xe_guc_submit.c
+> > b/drivers/gpu/drm/xe/xe_guc_submit.c
+> > index d76f125f9c3a..aa382634a235 100644
+> > --- a/drivers/gpu/drm/xe/xe_guc_submit.c
+> > +++ b/drivers/gpu/drm/xe/xe_guc_submit.c
+> > @@ -557,17 +557,39 @@ static bool vf_recovery(struct xe_guc *guc)
+> >         return xe_gt_recovery_pending(guc_to_gt(guc));
+> >  }
+> >  
+> > -static void xe_guc_exec_queue_trigger_cleanup(struct xe_exec_queue
+> > *q)
+> > +static void xe_guc_exec_queue_wake_ufence(struct xe_exec_queue *q)
+> >  {
+> >         struct xe_guc *guc = exec_queue_to_guc(q);
+> >         struct xe_device *xe = guc_to_xe(guc);
+> >  
+> >         /** to wakeup xe_wait_user_fence ioctl if exec queue is reset
+> > */
+> >         wake_up_all(&xe->ufence_wq);
+> > +}
+> > +
+> > +static void xe_guc_exec_queue_trigger_cleanup(struct xe_exec_queue
+> > *q)
+> > +{
+> > +       xe_guc_exec_queue_wake_ufence(q);
+> >  
+> >         xe_sched_tdr_queue_imm(&q->guc->sched);
+> >  }
+> >  
+> > +/*
+> > + * Allow callers to wake user-fence waiters without triggering the
+> > TDR.
+> > + * The memory CAT handler uses this to avoid starting cleanup before
+> > + * the context-reset notification arrives.
+> > + */
+> > +static void xe_queue_trigger_cleanup_for_reset(struct xe_exec_queue
+> > *q,
+> > +                                              bool trigger_tdr)
+> > +{
+> > +       if (exec_queue_banned(q))
+> > +               return;
+> > +
+> > +       if (trigger_tdr)
+> > +               xe_guc_exec_queue_trigger_cleanup(q);
+> > +       else
+> > +               xe_guc_exec_queue_wake_ufence(q);
+> > +}
+> > +
+> >  static void xe_guc_exec_queue_group_stop(struct xe_exec_queue *q)
+> >  {
+> >         struct xe_exec_queue *primary =
+> > xe_exec_queue_multi_queue_primary(q);
+> > @@ -653,7 +675,8 @@ static void
+> > xe_guc_exec_queue_group_trigger_cleanup(struct xe_exec_queue *q)
+> >         mutex_unlock(&group->list_lock);
+> >  }
+> >  
+> > -static void xe_guc_exec_queue_reset_trigger_cleanup(struct
+> > xe_exec_queue *q)
+> > +static void xe_guc_exec_queue_reset_trigger_cleanup(struct
+> > xe_exec_queue *q,
+> > +                                                   bool trigger_tdr)
+> >  {
+> >         if (xe_exec_queue_is_multi_queue(q)) {
+> >                 struct xe_exec_queue *primary =
+> > xe_exec_queue_multi_queue_primary(q);
+> > @@ -664,20 +687,17 @@ static void
+> > xe_guc_exec_queue_reset_trigger_cleanup(struct xe_exec_queue *q)
+> >                 WRITE_ONCE(group->banned, true);
+> >  
+> >                 set_exec_queue_reset(primary);
+> > -               if (!exec_queue_banned(primary))
+> > -                       xe_guc_exec_queue_trigger_cleanup(primary);
+> > +               xe_queue_trigger_cleanup_for_reset(primary,
+> > trigger_tdr);
+> >  
+> >                 mutex_lock(&group->list_lock);
+> >                 list_for_each_entry(eq, &group->list,
+> > multi_queue.link) {
+> >                         set_exec_queue_reset(eq);
+> > -                       if (!exec_queue_banned(eq))
+> > -
+> >                                xe_guc_exec_queue_trigger_cleanup(eq);
+> > +                       xe_queue_trigger_cleanup_for_reset(eq,
+> > trigger_tdr);
+> >                 }
+> >                 mutex_unlock(&group->list_lock);
+> >         } else {
+> >                 set_exec_queue_reset(q);
+> > -               if (!exec_queue_banned(q))
+> > -                       xe_guc_exec_queue_trigger_cleanup(q);
+> > +               xe_queue_trigger_cleanup_for_reset(q, trigger_tdr);
+> >         }
+> >  }
+> >  
+> > @@ -3523,7 +3543,7 @@ int xe_guc_exec_queue_reset_handler(struct
+> > xe_guc *guc, u32 *msg, u32 len)
+> >          * jobs by setting timeout of the job to the minimum value
+> > kicking
+> >          * guc_exec_queue_timedout_job.
+> >          */
+> > -       xe_guc_exec_queue_reset_trigger_cleanup(q);
+> > +       xe_guc_exec_queue_reset_trigger_cleanup(q, true);
+> >  
+> >         return 0;
+> >  }
+> > @@ -3601,8 +3621,12 @@ int
+> > xe_guc_exec_queue_memory_cat_error_handler(struct xe_guc *guc, u32
+> > *msg,
+> >  
+> >         trace_xe_exec_queue_memory_cat_error(q);
+> >  
+> > -       /* Treat the same as engine reset */
+> > -       xe_guc_exec_queue_reset_trigger_cleanup(q);
+> > +       /*
+> > +        * Starting the TDR here can send a scheduling-disable
+> > request before
+> > +        * the context-reset notification arrives. Mark the queue
+> > reset and
+> > +        * wake user-fence waiters, leaving that notification to
+> > trigger cleanup.
+> > +        */
+> > +       xe_guc_exec_queue_reset_trigger_cleanup(q, false);
+> >  
+> >         return 0;
+> >  }
+> > @@ -3644,7 +3668,7 @@ int xe_guc_uncorrectable_error_handler(struct
+> > xe_guc *guc, u32 *msg, u32 len)
+> >         trace_xe_guc_uncorrectable_error(q);
+> >  
+> >         /* Treat the same as engine reset */
+> > -       xe_guc_exec_queue_reset_trigger_cleanup(q);
+> > +       xe_guc_exec_queue_reset_trigger_cleanup(q, true);
+> >  
+> >         return 0;
+> >  }
+> > @@ -3696,7 +3720,7 @@ int
+> > xe_guc_exec_queue_cgp_context_error_handler(struct xe_guc *guc, u32
+> > *msg,
+> >         trace_xe_exec_queue_cgp_context_error(q);
+> >  
+> >         /* Treat the same as engine reset */
+> > -       xe_guc_exec_queue_reset_trigger_cleanup(q);
+> > +       xe_guc_exec_queue_reset_trigger_cleanup(q, true);
+> >  
+> >         return 0;
+> >  }
+> 
