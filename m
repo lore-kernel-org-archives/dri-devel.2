@@ -2,102 +2,42 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DA374606A324
-	for <dri-devel@archiver.kernel.org>; Thu, 19 Nov 2026 19:53:02 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AA64E606A331
+	for <dri-devel@archiver.kernel.org>; Thu, 19 Nov 2026 19:55:35 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=amd.com header.i=@amd.com header.a=rsa-sha256 header.s=selector1 header.b=XXVCFFIm
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=APME4xXi
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 0934B10F0F1;
-	Thu, 19 Nov 2026 19:52:57 +0000 (UTC)
-Received: from DM1PR04CU001.outbound.protection.outlook.com
- (mail-centralusazon11010064.outbound.protection.outlook.com [52.101.61.64])
- by gabe.freedesktop.org (Postfix) with ESMTPS id D3AF210F0DD;
- Thu, 19 Nov 2026 19:52:50 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=gR/bMmBOJT0BI2k5IkogLfxkUmeQKcB6msAQZCJAnHQC5qXwWc+x0i3u17GTLIzoRsOK3QHuvaLuEQNNXgYeSeuhXVTCK1T/Zx3IFMgqd9gbYSGlHmTj5v4R3CyC9LWqndrtcLUIP9Msfpfx5cW3B76AyMmFmIO7kOy17/m4WRbPQsUBAkSg8SAi4g1BQD5rHN2gH49lCgG/+LTI1G6ez2QS08ozx2enRH3it4mB2iKhuB36ooFs9IOVmwzH359DvQhYtUDI3/qZmlVKF5CxccPnrye2P8GTN5tsLbd4Q/d+hoFAxfqOzWOKl+6qzdmFjNda641VqtGpsuQAbexrNg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=sW4ONGPablWhGsBfeIbdELadQqxmAJVdT8roEI84HHQ=;
- b=qrZLxPCrgYYW0okNUNFZPn9ASchE39iYBfNfnNBSCiwS9iIdj9puUvCtMA9qrEod1zYgDDMC23BepeN18WVMDraw9WUa+S27cusT24ZOOv3KbifIsTWK4lWTuCeiFr/y3YiI4If8CglQ4gXBeGmjEqfrg3DgK/R41/Idu7zmfhZt1uEslnXyugnl7ImtW6Ehw80bO8+ijo7B7ziwIvVCdMm45vjRSTlaLcT6BmBDDEl0uchqRY/W0L8CkoeZ4Po2l2XTc3I91LtQrccTQwmNhvKHNAlp7L7SbukKgUPTBH/dErAv+AB425+AreHwtD72mEx4D6NNHuXv8V6Xi/HYKA==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
- dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
- header.from=amd.com; dkim=none (message not signed); arc=none (0)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=sW4ONGPablWhGsBfeIbdELadQqxmAJVdT8roEI84HHQ=;
- b=XXVCFFIm7sqNQyQd8SlIibxsGiHvLZN9IVQ5e938ikX5qcY8esr3VzBDRYsOZBRdT8uHzR50ZJiVAW9bg1SBtTscKJw+SvcwOd4zDQzeH5D2NEJRTGSbMxnkWqPDJylrZ25d8Vogkvd+C+M1WHGB6NiYDS4ZOaB9uqv5eS7Efog=
-Received: from DM6PR02CA0122.namprd02.prod.outlook.com (2603:10b6:5:1b4::24)
- by PH7PR12MB6882.namprd12.prod.outlook.com (2603:10b6:510:1b8::12) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.639.10; Thu, 19 Nov
- 2026 19:52:06 +0000
-Received: from CY7PEPF000000F6.namprd05.prod.outlook.com
- (2603:10b6:5:1b4:cafe::2a) by DM6PR02CA0122.outlook.office365.com
- (2603:10b6:5:1b4::24) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.21.615.13 via Frontend Transport; Thu,
- 19 Nov 2026 19:52:05 +0000
-X-MS-Exchange-Authentication-Results: mx.microsoft.com 1; spf=pass (sender IP
- is 165.204.84.17) smtp.mailfrom=amd.com;
- dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=amd.com;
-Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
- 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=satlexmb07.amd.com; pr=C
-Received: from satlexmb07.amd.com (165.204.84.17) by
- CY7PEPF000000F6.mail.protection.outlook.com (10.167.247.154) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.639.5 via Frontend Transport; Thu, 19 Nov 2026 19:52:05 +0000
-Received: from Satlexmb09.amd.com (10.181.42.218) by satlexmb07.amd.com
- (10.181.42.216) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.57; Thu, 19 Nov
- 2026 13:52:00 -0600
-Received: from satlexmb08.amd.com (10.181.42.217) by satlexmb09.amd.com
- (10.181.42.218) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.57; Thu, 19 Nov
- 2026 13:52:00 -0600
-Received: from hwentlanrmb (10.180.168.240) by satlexmb08.amd.com
- (10.181.42.217) with Microsoft SMTP Server id 15.2.2562.57 via Frontend
- Transport; Thu, 19 Nov 2026 13:52:00 -0600
-From: Harry Wentland <harry.wentland@amd.com>
-To: <dri-devel@lists.freedesktop.org>, <amd-gfx@lists.freedesktop.org>
-CC: Harry Wentland <harry.wentland@amd.com>
-Subject: [PATCH v2 1/4] drm/colorop: Define Gamma 2.4 and 2.6 and its Inverse
-Date: Thu, 19 Nov 2026 14:51:55 -0500
-Message-ID: <20261119195158.2546927-2-harry.wentland@amd.com>
-X-Mailer: git-send-email 2.56.1
-In-Reply-To: <20261119195158.2546927-1-harry.wentland@amd.com>
-References: <20261119195158.2546927-1-harry.wentland@amd.com>
-X-Archived-By: <archiver.kernel.org>
-MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: CY7PEPF000000F6:EE_|PH7PR12MB6882:EE_
-X-MS-Office365-Filtering-Correlation-Id: f6e91d28-4cb3-4767-4a43-08df467696b6
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
- ARA:13230040|376014|1800799024|36860700016|82310400026|23010399003|10067099003|56012099006|11063799006|261009221227099003|261009223027099003|261021121427099003|261102123227099003|18002099003|22082099003|6133799003;
-X-Microsoft-Antispam-Message-Info: rFz87uwu5VfCuh0mNOP4fqvnTnirp4BK2KB5cSvVFy47DEP18hHCDLGysxfKIZGXe2oZrAF01tm4AkMrqKYg0WkT2ARTuLuhOI4GTwusjDMF3Jvyf0R/Kv462FcwMIcev3rJL5nRRWEaQtGXfKLy+SOVKgeu3VSD6VoRWW62dOK0COxyq/44FX08mxC9OOnjW7GUSOXQMI75P9A713d/pGKV2dNn6vlc4gzM7bmZ5p/+ZIlJzPUkfm/qChwgf0PGMxJYDpg0mp9wsQnTWB5XFF8m2Fr4oIQ4ZTsFSGal2fUI42h9JSt9D1QPv4wjfVXeyXyNWxHKcLj2mtIJdMjVgLijmg4fJWzEGjkk5TXDe9hJoXe6+hUI6dNLaGZVsb0WL7pNl/BCaHljCusbPiO0lgrf2eJHdVQB3t7hnOV+dEXqHKgrNLZCEZFiOhpWeNieEcbLGCha43M8/rH3sZLzqjtFam4JuoGXat6AxX1HHZk26LeGc5IlywET8/hZRskNzP8KMIfqd3OjTVc8u/iCWZfyfbl5Xbtn4aYOJ/Zy7YSSwrMx4m/6TmMCPPhWCYESaZF0KKvaJHBfTd/pqVWu1ijRq48zzNZZhxKkTgNfNvTC5FzLp+JjfyTdN6hDh80ZZfxa6dMkLxwswqmssKbZYFeR/yhRJhNgst48/ij59vN9YqCwahY96INDzpph60p14bNvSX7eMWd+AMO6w2SRLg==
-X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:satlexmb07.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230040)(376014)(1800799024)(36860700016)(82310400026)(23010399003)(10067099003)(56012099006)(11063799006)(261009221227099003)(261009223027099003)(261021121427099003)(261102123227099003)(18002099003)(22082099003)(6133799003);
- DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: OgjyEkk/fBCq4w/dkz9ml7exmLW1uVwqTdhAy+v3CedHFBAAcAetoijs1CJf8UiD1+cD12yIKvFl4uBtJVAngSqPrHR9g4nnrhq2Xh8afcPpOFMOfQ2fNbjE/Cs4zNJLRXFIRbq/9tlICMPQpRbXpYHbMsREPRKzYwyHdM79DE3T79DQqehZ2Xl24Mh3goCjCXItd3jnjEIHSebuL0RELcycDuzkJqNCpivIyLJVnhHlI13h/E0tMZYi/ESmDvgx+30mDu5WpdcHb5Gn5ULtgj5ZHyZkMq2kL+d7Mc3q7G5ynm4YkLN02PjlQRUCN7Iz7HnPyEQ3aTNc9Lyw5iHnLRxc7rP1aCiLN8ket6drU2jM8VcW8D0Nhu9JP4ZlL2j81hYnLPUzfZBuvaq+YXJJbgct4Jm+gYXe1FcqAO1/SHrOwoKXNUHjfeLF7q90Xvp1
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 19 Nov 2026 19:52:05.7613 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: f6e91d28-4cb3-4767-4a43-08df467696b6
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
- Helo=[satlexmb07.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: CY7PEPF000000F6.namprd05.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH7PR12MB6882
+	by gabe.freedesktop.org (Postfix) with ESMTP id 9CDA910F0F4;
+	Thu, 19 Nov 2026 19:55:29 +0000 (UTC)
+Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id C3ED210F0F4
+ for <dri-devel@lists.freedesktop.org>; Thu, 19 Nov 2026 19:55:22 +0000 (UTC)
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+ by tor.source.kernel.org (Postfix) with ESMTP id CD67961CCF;
+ Thu, 19 Nov 2026 19:55:21 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 530A81F000CC;
+ Thu, 19 Nov 2026 19:55:21 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+ s=k20260515; t=1795118121;
+ bh=t7KOZUCixvGtBOSCO7Z86m/XNRQ3BGWxbSAXPhpzZ7U=;
+ h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+ b=APME4xXiVka4vcq35CkjTeq5iJbwjhtt8TdscJwM/Gtu/p85BXV8gEdK+ZXtq2kZ/
+ oCujeYJUnHOtB+wVuBnysJJTdFzOVldDiyFgLWGNXAu0wE2VhQYQR6a9pf3G7QVpK+
+ EVNnesor7WJh0Vbkog3BwbBEk+Qw+WdCVmCbpicbmRBDRLqJ9aqhJXH3w/cZjLb+YP
+ F5snHtXq6svYDj3DCte46xVPxxBRjXc3YMZV70nT7j7NtHzpxq9/THzS5Tt3s2hXc7
+ VOyhV6siI5TNfUMWi7ZdYN68h/tDG+dcHGBbd2kNE7W6rlfzMwCNVj/8r+P3Oz2jEC
+ 6Co/H5/Rtv95w==
+Message-ID: <sashiko-outbox-223986@kernel.org>
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH 1/6] drm/shmem: Add a drm_gem_shmem_sync() helper
+To: =?utf-8?b?TWHDrXJhIENhbmFs?= <mcanal@igalia.com>
+Cc: dri-devel@lists.freedesktop.org, ojeda@kernel.org, gary@garyguo.net
+In-Reply-To: <20261119-pan-drop-dma-buf-hooks-v1-1-6c6f1629e7f9@igalia.com>
+References: <20261119-pan-drop-dma-buf-hooks-v1-0-6c6f1629e7f9@igalia.com>
+ <20261119-pan-drop-dma-buf-hooks-v1-1-6c6f1629e7f9@igalia.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Thu, 19 Nov 2026 19:55:20 +0000
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -108,88 +48,152 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
+Reply-To: sashiko-reviews@lists.linux.dev
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-18.8 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
+X-Spam-Status: No, score=-10.8 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
 	DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
-	INCLUDES_CR_TRAILER,INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,
-	SPF_PASS,USER_AGENT_GIT autolearn=ham autolearn_force=no version=4.0.1
+	INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS autolearn=ham
+	autolearn_force=no version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
+X-Archived-By: <archiver.kernel.org>
 
-Add new 1D curve colorop types for the Gamma 2.4 and Gamma 2.6 power
-functions and their inverses.
+Thank you for your contribution! Sashiko AI review found 2 potential
+issues to consider:
+- [High] drm/shmem: unlocked sgt traversal in drm_gem_shmem_sync()
+  causes UAF
+- [Medium] drm/shmem: drm_gem_shmem_sync() populates pages on purged or
+  unbacked BOs
+--
 
-Signed-off-by: Harry Wentland <harry.wentland@amd.com>
----
- drivers/gpu/drm/drm_colorop.c |  4 ++++
- include/drm/drm_colorop.h     | 39 +++++++++++++++++++++++++++++++++++
- 2 files changed, 43 insertions(+)
+commit 9fdf5667225c80a2c62b9b65dbf8c174b87f854f
+Author: Faith Ekstrand <faith.ekstrand@collabora.com>
 
-diff --git a/drivers/gpu/drm/drm_colorop.c b/drivers/gpu/drm/drm_colorop.c
-index 682fcc651525..d62153fd9c71 100644
---- a/drivers/gpu/drm/drm_colorop.c
-+++ b/drivers/gpu/drm/drm_colorop.c
-@@ -79,6 +79,10 @@ static const char * const colorop_curve_1d_type_names[] = {
- 	[DRM_COLOROP_1D_CURVE_BT2020_OETF] = "BT.2020 OETF",
- 	[DRM_COLOROP_1D_CURVE_GAMMA22] = "Gamma 2.2",
- 	[DRM_COLOROP_1D_CURVE_GAMMA22_INV] = "Gamma 2.2 Inverse",
-+	[DRM_COLOROP_1D_CURVE_GAMMA24] = "Gamma 2.4",
-+	[DRM_COLOROP_1D_CURVE_GAMMA24_INV] = "Gamma 2.4 Inverse",
-+	[DRM_COLOROP_1D_CURVE_GAMMA26] = "Gamma 2.6",
-+	[DRM_COLOROP_1D_CURVE_GAMMA26_INV] = "Gamma 2.6 Inverse",
- };
- 
- static const struct drm_prop_enum_list drm_colorop_lut1d_interpolation_list[] = {
-diff --git a/include/drm/drm_colorop.h b/include/drm/drm_colorop.h
-index 224fae40ed2b..5c4c763da83e 100644
---- a/include/drm/drm_colorop.h
-+++ b/include/drm/drm_colorop.h
-@@ -126,6 +126,45 @@ enum drm_colorop_curve_1d_type {
- 	 * The inverse of &DRM_COLOROP_1D_CURVE_GAMMA22
- 	 */
- 	DRM_COLOROP_1D_CURVE_GAMMA22_INV,
-+
-+	/**
-+	 * @DRM_COLOROP_1D_CURVE_GAMMA24:
-+	 *
-+	 * enum string "Gamma 2.4"
-+	 *
-+	 * A gamma 2.4 power function. This applies a power curve with
-+	 * gamma value of 2.4 to the input values.
-+	 */
-+	DRM_COLOROP_1D_CURVE_GAMMA24,
-+
-+	/**
-+	 * @DRM_COLOROP_1D_CURVE_GAMMA24_INV:
-+	 *
-+	 * enum string "Gamma 2.4 Inverse"
-+	 *
-+	 * The inverse of &DRM_COLOROP_1D_CURVE_GAMMA24
-+	 */
-+	DRM_COLOROP_1D_CURVE_GAMMA24_INV,
-+
-+	/**
-+	 * @DRM_COLOROP_1D_CURVE_GAMMA26:
-+	 *
-+	 * enum string "Gamma 2.6"
-+	 *
-+	 * A gamma 2.6 power function. This applies a power curve with
-+	 * gamma value of 2.6 to the input values.
-+	 */
-+	DRM_COLOROP_1D_CURVE_GAMMA26,
-+
-+	/**
-+	 * @DRM_COLOROP_1D_CURVE_GAMMA26_INV:
-+	 *
-+	 * enum string "Gamma 2.6 Inverse"
-+	 *
-+	 * The inverse of &DRM_COLOROP_1D_CURVE_GAMMA26
-+	 */
-+	DRM_COLOROP_1D_CURVE_GAMMA26_INV,
-+
- 	/**
- 	 * @DRM_COLOROP_1D_CURVE_COUNT:
- 	 *
--- 
-2.56.1
+drm/shmem: Add a drm_gem_shmem_sync() helper
 
+This commit adds a drm_gem_shmem_sync() helper to flush or invalidate CPU
+caches for a range of a shmem GEM object by walking its scatter-gather table
+and calling dma_sync_single_for_device() and dma_sync_single_for_cpu().
+
+> diff --git a/drivers/gpu/drm/drm_gem_shmem_helper.c b/drivers/gpu/drm/drm=
+_gem_shmem_helper.c
+> index d654a22a30ded..72933ed283731 100644
+> --- a/drivers/gpu/drm/drm_gem_shmem_helper.c
+> +++ b/drivers/gpu/drm/drm_gem_shmem_helper.c
+> @@ -790,6 +790,99 @@ int drm_gem_shmem_mmap(struct drm_gem_shmem_object *=
+shmem, struct vm_area_struct
+>  }
+>  EXPORT_SYMBOL_GPL(drm_gem_shmem_mmap);
+> =20
+> +/**
+> + * drm_gem_shmem_sync - Sync CPU-mapped data
+> + * @shmem: shmem GEM object
+> + * @offset: Offset into the GEM object
+> + * @size: Size of the area to sync
+> + * @type: Type of synchronization
+> + *
+> + * Returns:
+> + * 0 on success or a negative error code on failure.
+> + */
+> +int drm_gem_shmem_sync(struct drm_gem_shmem_object *shmem, size_t offset,
+> +		       size_t size, enum drm_gem_shmem_sync_type type)
+> +{
+> +	const struct drm_device *dev =3D shmem->base.dev;
+> +	struct sg_table *sgt;
+> +	struct scatterlist *sgl;
+> +	unsigned int count;
+> +
+> +	/* Make sure the range is in bounds. */
+> +	if (offset + size < offset || offset + size > shmem->base.size)
+> +		return -EINVAL;
+> +
+> +	/* Disallow CPU-cache maintenance on imported buffers. */
+> +	if (drm_gem_is_imported(&shmem->base))
+> +		return -EINVAL;
+> +
+> +	switch (type) {
+> +	case DRM_GEM_SHMEM_SYNC_CPU_CACHE_FLUSH:
+> +	case DRM_GEM_SHMEM_SYNC_CPU_CACHE_FLUSH_AND_INVALIDATE:
+> +		break;
+> +
+> +	default:
+> +		return -EINVAL;
+> +	}
+> +
+> +	/* Don't bother if it's WC-mapped */
+> +	if (shmem->map_wc)
+> +		return 0;
+> +
+> +	/* Nothing to do if the size is zero. */
+> +	if (size =3D=3D 0)
+> +		return 0;
+> +
+> +	sgt =3D drm_gem_shmem_get_pages_sgt(shmem);
+> +	if (IS_ERR(sgt))
+> +		return PTR_ERR(sgt);
+
+[Severity: Medium]
+Should drm_gem_shmem_sync() populate backing pages and a scatter-gather
+table when shmem->pages is NULL or the object has been purged?
+
+Calling drm_gem_shmem_get_pages_sgt() on an unbacked object allocates and
+DMA-maps pages when there is no CPU-cached data to sync.  If the object was
+already purged (shmem->madv < 0), drm_gem_shmem_get_pages_sgt() allocates a
+new shmem->sgt and pages (or takes another reference on truncated pages
+kept alive by an open VMA), and because drm_gem_shmem_is_purgeable()
+requires shmem->madv > 0, the newly populated pages and sgt can never be
+purged again until the GEM object is freed.
+
+> +
+> +	for_each_sgtable_dma_sg(sgt, sgl, count) {
+> +		if (size =3D=3D 0)
+> +			break;
+> +
+> +		dma_addr_t paddr =3D sg_dma_address(sgl);
+> +		size_t len =3D sg_dma_len(sgl);
+> +
+> +		if (len <=3D offset) {
+> +			offset -=3D len;
+> +			continue;
+> +		}
+> +
+> +		paddr +=3D offset;
+> +		len -=3D offset;
+> +		len =3D min_t(size_t, len, size);
+> +		size -=3D len;
+> +		offset =3D 0;
+[ ... ]
+> +		dma_sync_single_for_device(dev->dev, paddr, len, DMA_TO_DEVICE);
+> +		if (type =3D=3D DRM_GEM_SHMEM_SYNC_CPU_CACHE_FLUSH_AND_INVALIDATE)
+> +			dma_sync_single_for_cpu(dev->dev, paddr, len, DMA_FROM_DEVICE);
+> +	}
+
+[Severity: High]
+Can sgt be unmapped and freed while drm_gem_shmem_sync() is walking it?
+
+drm_gem_shmem_get_pages_sgt() unlocks shmem->base.resv before returning
+sgt, and does not increment shmem->pages_pin_count.  If the buffer is
+marked purgeable (shmem->madv > 0, pages_pin_count =3D=3D 0), a concurrent
+shrinker can purge it while the loop runs:
+
+CPU0                                  CPU1
+drm_gem_shmem_sync()
+  drm_gem_shmem_get_pages_sgt()
+    dma_resv_lock_interruptible(...)
+    drm_gem_shmem_get_pages_sgt_locked()
+    dma_resv_unlock(...)
+                                      ...
+                                        drm_gem_shmem_purge_locked()
+                                          dma_unmap_sgtable(..., shmem->sgt=
+, ...)
+                                          sg_free_table(shmem->sgt)
+                                          kfree(shmem->sgt)
+  for_each_sgtable_dma_sg(sgt, ...)
+    sg_dma_address(sgl)  <-- use-after-free
+
+Holding shmem->base.resv across drm_gem_shmem_get_pages_sgt_locked() and
+the scatterlist walk would prevent concurrent purging or sgt teardown.
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261119-pan-drop-d=
+ma-buf-hooks-v1-0-6c6f1629e7f9@igalia.com?part=3D1
