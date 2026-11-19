@@ -2,123 +2,54 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AC43E606A325
-	for <dri-devel@archiver.kernel.org>; Thu, 19 Nov 2026 07:49:12 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8EE5D606A320
+	for <dri-devel@archiver.kernel.org>; Thu, 19 Nov 2026 07:49:13 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.a=rsa-sha256 header.s=selector1-NXP1-onmicrosoft-com header.b=mDBBfEnI
+	dkim=pass (1024-bit key) header.d=qq.com header.i=@qq.com header.a=rsa-sha256 header.s=s201512 header.b=q1ab5F18
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 808D010FCD6;
+	by gabe.freedesktop.org (Postfix) with ESMTP id B173C10FCDD;
 	Thu, 19 Nov 2026 07:48:52 +0000 (UTC)
-Received: from AM0PR02CU008.outbound.protection.outlook.com
- (mail-westeuropeazon11013053.outbound.protection.outlook.com [52.101.72.53])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 7671C10E7FE
- for <dri-devel@lists.freedesktop.org>; Wed, 18 Nov 2026 15:27:15 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=v3EnXgYFMZ8CSRzqmBDtnTrK/HJSL4aci41Xo4F6XqtScpy2CAV/I/3OltaOHV53DJaQU+gBF+SeawlRnSydIJxD2rUk+wXJW/2uILMmDGX3y+andt/pgivnSft7MIvUlf9mTXEY+KzQhxLB1MGO4hbgeozpXlV9FvOPBXEYOG9cx405cGU4wfbanqUleM34RzuysQ2cHODiSkS33193Iy6dSNEn9VZFuarKxxx5kMCoATYB9gvGf5NGA2yAVrqi0qQNZSthv8U8ARkStBmV0Dzy9IDY59J9wvnKcwHYhKXetJGIojXSnoWtchBl9HYraewp7MLoNRwMVgNL0qv30w==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=eY2hHNDdt1qZV3S19uhVtiep8ZuUlQu9tochO15/uXs=;
- b=kHx0xyrbjD316E1FwydkVe/LL93FMtpxRYhg+7hJZM8XMtBE5FMzvPZqMGi9I+m/iCeEgKkaq2SQ6z3070jskSkWpxlOGTNsnaVaAST7sJ7zHFl7KtcWabfC8ewy7GKF1J6hnnTXwF3VVS1OE0kHMzUpu+sOZ4Fq0OxUd81/aF2g9VozESw6BwDifvRmtsrGAXZiS0un5+eX6jiMgwzNw7axn7zAWrpbj8nYtSrnHuaXunckwLCUpzyD1TSNgkdVcjU473Rg2ls4Vj5XHp997BmrWdW8yDWGHXl1tPv+u6cGEGegoRAp5sao1gJ8E/knGkcqgTp7VV1P1Ru9OO+P7g==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=oss.nxp.com; dmarc=pass action=none header.from=oss.nxp.com;
- dkim=pass header.d=oss.nxp.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=NXP1.onmicrosoft.com; 
- s=selector1-NXP1-onmicrosoft-com;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=eY2hHNDdt1qZV3S19uhVtiep8ZuUlQu9tochO15/uXs=;
- b=mDBBfEnIdJvr+FR6hnjhgiLsYq/DP3eLxYRE5qLItKYdyLj3QDUD42i9JnaI7NVX8wXeuzahcKg+u5zx/RVJJ8GuSyWuGiJAjzZki7QAZFVQr63FRYa2mknNXXCOQrYeEwQpE1Od1+9Z4rAAfOrP+E4Po+vtLcR2db6kJe8q1mO1BlcNfEPa59Z355TWIaaGbJzVKs+Jb9oqiCnV1/LNMsD4+LETmWLgN2rPoQA5EQgZghU2Pla/qKipSgPSWOy8GsafmvWm9NU1ksJrvfv20uHd/Ui2zBCq2OG/oyhP2dHDeKofxJ/C4GrJ0VNdELqlck8hLRhqrpljP5HkKvm27Q==
-Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=oss.nxp.com;
-Received: from GV2PR04MB12318.eurprd04.prod.outlook.com
- (2603:10a6:150:32b::19) by PAXPR04MB8974.eurprd04.prod.outlook.com
- (2603:10a6:102:20d::21) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.592.9; Wed, 18 Nov
- 2026 15:27:10 +0000
-Received: from GV2PR04MB12318.eurprd04.prod.outlook.com
- ([fe80::a498:2b5a:cbdb:d6fa]) by GV2PR04MB12318.eurprd04.prod.outlook.com
- ([fe80::a498:2b5a:cbdb:d6fa%3]) with mapi id 15.21.0615.013; Wed, 18 Nov 2026
- 15:27:10 +0000
-Date: Wed, 18 Nov 2026 17:27:06 +0200
-From: Laurentiu Palcu <laurentiu.palcu@oss.nxp.com>
-To: Luca Ceresoli <luca.ceresoli@bootlin.com>
-Cc: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- Frank Li <Frank.Li@nxp.com>, Sascha Hauer <s.hauer@pengutronix.de>,
- Pengutronix Kernel Team <kernel@pengutronix.de>, 
- Fabio Estevam <festevam@gmail.com>, linux-clk@vger.kernel.org,
- imx@lists.linux.dev, 
- devicetree@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
- linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org
-Subject: Re: [PATCH v11 4/7] drm/imx: Add support for i.MX94 DCIF
-Message-ID: <av3C0ietJXI1ax3X@vm>
-References: <20261110-dcif-upstreaming-v11-0-9e13c85ae0d8@oss.nxp.com>
- <20261110-dcif-upstreaming-v11-4-9e13c85ae0d8@oss.nxp.com>
- <179449701677.2030221.6593749298448668349.b4-review@b4>
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <179449701677.2030221.6593749298448668349.b4-review@b4>
-X-ClientProxiedBy: AS4P189CA0047.EURP189.PROD.OUTLOOK.COM
- (2603:10a6:20b:659::19) To GV2PR04MB12318.eurprd04.prod.outlook.com
- (2603:10a6:150:32b::19)
+Received: from xmbghk7.mail.qq.com (xmbghk7.mail.qq.com [43.163.128.53])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 7142910E4EF
+ for <dri-devel@lists.freedesktop.org>; Thu, 19 Nov 2026 02:48:12 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qq.com; s=s201512;
+ t=1795056490; bh=LjU6et09z+4LTYCgFxOVr0gqOEbWQOQz9Sm57WvJHzk=;
+ h=From:To:Cc:Subject:Date;
+ b=q1ab5F18uFkETf7SKcVqxXkj2HtTGeYE6rC/DntEicRGFy+YnffV1XBam8rRU+1IB
+ yt3Squv5IzOIG1GxzbRMNH+c+wVOLaiZrPSfojnfIa9b2LiFoJchomR0bTl44mYdGV
+ tk3DuJNvO/CSCIyw45Xc9MfJMXGAtbTMl6cgo+Xo=
+Received: from [192.168.2.135] ([113.90.236.90])
+ by newxmesmtplogicsvrszb43-0.qq.com (NewEsmtp) with SMTP
+ id BFA264FE; Thu, 19 Nov 2026 10:47:58 +0800
+X-QQ-mid: xmsmtpt1795056487t3936ch7o
+Message-ID: <tencent_5A564BDF0E844A4F30BFD9A85EE3C51F3B08@qq.com>
+X-QQ-XMAILINFO: OATpkVjS499u9yaGSSvTsV8Hq20O3ghovj+R6JVglP724SnHPGrO07fVV0p2c/
+ LXCqTtcJ372Ikt0r67cWk8ru1fcHwEBdJfOdEW0/G9+HQQ7bz9JvKQJo5e1FVXT5vJbGFWswRbTD
+ vp1rFY8zCdQXvKJaSer/rx3xfihuIcPK2mHDNPHGRtHVUkEN16AIOLpXf6lSxQjg7Dw9xFstfaIA
+ 5UTGVssvjWRkdnGN9sTctu2gGmwh5nCKblnnbuen8pEi4XgJp1b+EHhApyuEnPWY8C7Bt53ohzDV
+ 8i0RdcCnDqvSq32XUKBe96vqiQ5VtS/I82Q11lPDdv8NMWyy40c+D4e2EFYGcDm9tzsKEmXvDK5N
+ ybGYVooWtDqbGdO6/PMMAg8oRbQ/CBTQwayD2j/kHnSwU7Z4u3iG3PTt5DDvZXVTyAIUMomBisRq
+ GlDIPehstN51rQ0OMB4OUv2+9DrpwStqDmA1LmD4lj0O4bpRRNpEzBgDuLDe209/Mj3iQAPGOTjt
+ GaCEyMN+/yDosTmLXcBVtqdsGTmd4MhdWp0Z1qt/QH9hVaEDKZI3chzGK+o3wdQTO4Of7DjXSU42
+ 6/6KZ7+rXurgUAzO2b65ATmVOk0pFfwijlM/urKiQGXhxAq2t0a1mMPFgznhkbzvbE6TDsHgXBDZ
+ PhLfdY0z+kRGzDBBmNZqvPXy/fyuasEIBpVvleyoapTe8GT5ouVNXzMeV5lLWKV2hSnvQ3CSVmi5
+ kPvq/eGjNGO9PlmlWSfVrB2bBgGdAC7GguCaDyypZWBwbLHAfSocCRJUQOvTOlszWc7ymhoHHtvY
+ 3xuqEzk/WFVVL7XGP4m78/NMnzjbMHQoD0GWbg+/mAazlEuf9I+Ua80D9kxhyDrt99yOAYNBG6za
+ N1hoBzXoLz2YQH7p3AIe4r/KFeJ8/dVdwtK9E4f+7LDXAq4FLL2IZSdcpxAlUHZbZxcRYLtm1VY8
+ am8bfKd5KkllC5RzXJw3UIn4FhcqYiAohZlwdNY4IYZ36NsTn4+bEI6JMf+cjYszlGvpMkPTZiiK
+ KECvXBQD0LxUFuhGrkeyHY4vzlFjiZh0Ri0rBwEQ+vwunAxNVpYHXr/s/NVNs=
+X-QQ-XMRINFO: MPJ6Tf5t3I/ylTmHUqvI8+Wpn+Gzalws3A==
+From: Hefei <3066883572@qq.com>
+To: dri-devel@lists.freedesktop.org
+Cc: linux-input@vger.kernel.org, devicetree@vger.kernel.org,
+ linux-kernel@vger.kernel.org
+Subject: [PATCH 5/6] Input: add Jadard JD9365TX in-cell touchscreen driver
+Date: Thu, 19 Nov 2026 10:48:10 +0800
+X-OQ-MSGID: <179505649000.50956.16687767535487291401@qq.com>
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
-X-MS-Exchange-MessageSentRepresentingType: 1
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: GV2PR04MB12318:EE_|PAXPR04MB8974:EE_
-X-MS-Office365-Filtering-Correlation-Id: 79f7bb89-8be6-4f17-470c-08df458869c3
-X-MS-Exchange-SharedMailbox-RoutingAgent-Processed: True
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
- ARA:13230040|376014|19092799006|7416014|1800799024|366016|23010399003|261009223027099003|261009221727099003|261009220027099003|4143699003|11063799006|261022105027099003|261028144727099003|261102123227099003|56012099006|261026121527099003|261009223327099003|261009221227099003|261026140227099003|261021121427099003|10067099003|22082099003|18002099003|3023799007;
-X-Microsoft-Antispam-Message-Info: 2XMeuwlxi3I0rS4TcYTYs3FJ2SZYzUEVbcWUl3ryi80h9SIZdtTZ2mO7EusxnV4f8PlrvqqSYn1VOkryjMhXJOjjrX0+xhynHAO6iwITNmsG15l0bYwz+V2PVxf08pnYOSluG1FvcOmL3Ous6kLdMFmAfs6kOw0hZig/R60zspWVY3SdnvbpOgAOPJhNOpLop47qTz5FMivuvHC1cWp4Cfhda2I/7MzVgGWUez5sGFipfi8UbYAweuYNIlfiaMFGyQEOaucEM7oGJDOys6pE+iG13zmynXdPNOKXrJnHipWCKINSLVxpU1LOKELBi+82okAIWWP5ckVs8Xp1Fe/iQ2HhEbSgXzA6Rv6phoEvHVX/CVeU3ZnJ7d39p4C3tRxAsc58OhaPzTloMQQX4as0RZR6E39/rWnO3VF8F6T29ytQiuaHqpDr25LpBdEVh2ti3PCEm5yn74QoIP4hDwpe0nV6A8FVRymhxoHJr2jridGt1O33Vxc9qhb1CO5DjI/r+Jy0tSLGZYdRvJL6q2dTFYaL3B9Rkv+W8JeAO00r2/eMe+HBakAw3hyWr/bW2blvwWg4av3mBCYTFYhMPYsyxjSPifJH3iXvH8RmG8wThoaKEuxwCIZv5uMjm74gEkGDbB+o363XBy6HlIhXfZiEbzKw4yL0OACA7CvkuDrGGR4=
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:GV2PR04MB12318.eurprd04.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(376014)(19092799006)(7416014)(1800799024)(366016)(23010399003)(261009223027099003)(261009221727099003)(261009220027099003)(4143699003)(11063799006)(261022105027099003)(261028144727099003)(261102123227099003)(56012099006)(261026121527099003)(261009223327099003)(261009221227099003)(261026140227099003)(261021121427099003)(10067099003)(22082099003)(18002099003)(3023799007);
- DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?us-ascii?Q?O+xQBYzhPfo2I5pjwaVBqPy3imeA9CNdNgS1IRuI/fVmJVaicUxORySfJYYI?=
- =?us-ascii?Q?urJv3Q8BFxu7apcgFDqHvqUk2dgdxbFcB4tVJ0hW8uUD1y7IqorLzNgMgxsz?=
- =?us-ascii?Q?KSLq5iIXgGe3fF6mYnws1fKjCO1L8c+PmGi8VOUVsrngHAR72mQr6Zf09q0r?=
- =?us-ascii?Q?4KTl/hBPuIX6jz9Sj5HsPHcvEJpD57jBFXC2x/0F5MOeW6hgdfWnR6p/olNu?=
- =?us-ascii?Q?Ib94P2CM1ODohL6QSAG3hJ28+Dc5jWVmfs+HPkHbChOa8CdNN8MWax9798Qm?=
- =?us-ascii?Q?AiO7xdIEZF9c7xaNeFaGjt6E4Gfdhbf46WmJJWApkOR7Uh4HUFX0ByaOnmVn?=
- =?us-ascii?Q?vP/qrTkTK7rAOLPjQrdhRwYBfHDXDGFP7jugqPKaui0L4uB99dupM+fmuOfB?=
- =?us-ascii?Q?VUhNfgRjbFIN0PaMNdukjjVA1JB5az96A4XY9MGcgE/kN6DCg3p1/G4eKGMC?=
- =?us-ascii?Q?UHMCMRaANKx5d/vq4Q1ozUQClSOhX9f7nme4aiKfp0Zfgz2A8TtDOf5+0HNQ?=
- =?us-ascii?Q?OF3wGDR+Sxr1PuD5qD0Qnf5BEeJupqkUmseYvr1kjRZxYtDtCCJ/i/oduE03?=
- =?us-ascii?Q?ql8kMJSiD1lJyj9xmFozTtM97Z2NaImdoxeuXOAVWNh1WrhGShsDyGaLc1Y9?=
- =?us-ascii?Q?SprR3P2eCkemk79NLPrZaifP48PtxrxSAG3y2EV5VtRakNh57X0+I/z+tEdV?=
- =?us-ascii?Q?DGIwdBh/t1gYoyXZ2kxc2ha3xUuYKz5vPaRKdQXHW0EO1h+Q1bBMEFasCcYH?=
- =?us-ascii?Q?RaGwQu9hid81bT/a97y68UyHb7MqrbvmeVOlfb6cyYiWtSukzhaG5pDWPpDi?=
- =?us-ascii?Q?bDefV5e4vvNEBZ0IEKFpBFxXoB3nUzOuWzTJP+ZaRsxslxHUjZNu7RnBN7km?=
- =?us-ascii?Q?ZbmRe7PB4kgOEq00NmbJxh7sBqrnDcI6XyG+4pF6UeS8r2blXnMcd1g2rXVG?=
- =?us-ascii?Q?BGOZ/rmPBMrlnYlDNDRyhL0hw/Nj47wdUw/rcnHoaQIfFBQIMStpQ+/dYOyl?=
- =?us-ascii?Q?iLcKD/5fHHTVAPX69NefbK5Z4CCmWmUOUd3/A0LVWBAlr3u0YrftiiLFXIXz?=
- =?us-ascii?Q?fTexIMpP/nTYJDGtBVJ/rARtAPlO3fqn6WX3ilFmwIQJHvWzRK+ItihIT79B?=
- =?us-ascii?Q?OjJkwIKzya+vDu8rHqQgLfFms8bxGuAByDzQBSGfhRGAHIbv5tJxza/JtRek?=
- =?us-ascii?Q?6gdVGKFAQ6x8qvh74b+Gl3KNlir7KxsRgluOX8W1/s2AFHRaG0dzUhmW29vB?=
- =?us-ascii?Q?Oue2zaJecstaduxtHXNCDWGp1DBaK1B7NPlUsTTWoZqGNlooVPSy7hX+QnQu?=
- =?us-ascii?Q?YAj4dMFqSzXLf9Y/5QWphxqfrf7pRZFYj8J/WqbKqunbazE/WFaLGP0xbfhA?=
- =?us-ascii?Q?BIC7CKTTLwKG91VPFFiO3pszS/6Kwak/PwgI95CIlZsNqJDVlxzduC6Kneni?=
- =?us-ascii?Q?suI5yzqqefj6f/bg/NGXdJ1GSvSneRJe2VREofnQ/PYei8Y3+SDX2RfWxwq5?=
- =?us-ascii?Q?/fhrLB6/+0g1H8OcAVf+CwMKo+nTfkMEysp3YX92U7KX7M5GMv36TW1siZcX?=
- =?us-ascii?Q?czk8fl529mev71XPbIHNFX392DgcScVBfx8LYq8xbc726UMRIu0g/wzl3xLF?=
- =?us-ascii?Q?4Uzd0BMkaUxO9LiL5LFnDB0LPWMHWKdDdQ2KCwxj+ojFNYz1kQERFYrqIr6g?=
- =?us-ascii?Q?T8P/JhuvUSIsq0k7nEL5GRmrNr6QchomMEDLkvsdFx9j8Webed0dCDSQO1yA?=
- =?us-ascii?Q?Zfk8gFtm79X7ACTtrlMlBJgi/qa3Auw=3D?=
-X-OriginatorOrg: oss.nxp.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 79f7bb89-8be6-4f17-470c-08df458869c3
-X-MS-Exchange-CrossTenant-AuthSource: GV2PR04MB12318.eurprd04.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 18 Nov 2026 15:27:10.3727 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: OIU4ERWak21ngOiqd+AyCDd5V9kvaW2bq9uFaoXIcXnFpjuf7f56hGYYRRD93jATa+A8hIlfNmQov1GLxwo0/Q==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: PAXPR04MB8974
 X-Mailman-Approved-At: Thu, 19 Nov 2026 07:48:39 +0000
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -131,144 +62,413 @@ List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-13.8 required=3.0 tests=BAYES_00,DKIM_SIGNED,
-	DKIM_VALID,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,
-	INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS
-	autolearn=unavailable autolearn_force=no version=4.0.1
+X-Spam-Status: No, score=-12.8 required=3.0 tests=BAYES_00,DKIM_SIGNED,
+	DKIM_VALID,DKIM_VALID_AU,FREEMAIL_FORGED_FROMDOMAIN,FREEMAIL_FROM,
+	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
+	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS autolearn=unavailable
+	autolearn_force=no version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-Hi Luca,
+Add a polling I2C touchscreen driver for Jadard JD9365TX in-cell
+panels that do not wire an interrupt line on the FPC.
 
-Thanks for the review.
+Signed-off-by: Hefei <3066883572@qq.com>
+---
+ drivers/input/touchscreen/Kconfig           |  12 +
+ drivers/input/touchscreen/Makefile          |   1 +
+ drivers/input/touchscreen/jadard_jd9365tx.c | 347 ++++++++++++++++++++
+ 3 files changed, 360 insertions(+)
+ create mode 100644 drivers/input/touchscreen/jadard_jd9365tx.c
 
-On Thu, Nov 12, 2026 at 04:23:36PM +0100, Luca Ceresoli wrote:
-> Hello Laurentiu,
-> 
-> > The i.MX94 Display Control Interface features:
-> >  * Up to maximum 3 layers of alpha blending:
-> >     - 1 background layer(Layer 0);
-> >     - 1 foreground layer(Layer 1);
-> >     - A programmable constant color behind the background layer;
-> >  * Each layer supports:
-> >     - programmable plane size;
-> >     - programmable background color;
-> >     - embedded alpha and global alpha;
-> >  * Data output with CRC checksum for 4 programmable regions;
-> >
-> > Reviewed-by: Luca Ceresoli <luca.ceresoli@bootlin.com> # bridge refcounting
-> > Signed-off-by: Sandor Yu <sandor.yu@nxp.com>
-> > Co-developed-by: Laurentiu Palcu <laurentiu.palcu@oss.nxp.com>
-> > Signed-off-by: Laurentiu Palcu <laurentiu.palcu@oss.nxp.com>
-> 
-> Looks OK, I just have a small remark and a few minor nitpicks, see below.
-> 
-> > +++ b/drivers/gpu/drm/imx/dcif/Kconfig
-> > @@ -0,0 +1,16 @@
-> > +config DRM_IMX_DCIF
-> > +	tristate "DRM support for NXP i.MX94 DCIF"
-> > +	select DRM_KMS_HELPER
-> > +	select DRM_GEM_DMA_HELPER
-> > +	select DRM_DISPLAY_HELPER
-> > +	select DRM_PANEL_BRIDGE
-> 
-> This should be unneeded now. As o fnow it is basically a complicated way to
-> say 'select DRM_PANEL'. And you are (rightfully) not using the panel API,
-> so this line should probably just be removed. Please double check by
-> building multiple configs, including an allmodconfig.
-
-Indeed, I addressed this in v12 and compiled DCIF with allmodconfig for
-i386, x86_64 and arm, 
-
-> 
-> > +++ b/drivers/gpu/drm/imx/dcif/dcif-crc.c
-> > @@ -0,0 +1,221 @@
-> > +// SPDX-License-Identifier: GPL-2.0
-> > +
-> > +/*
-> > + * Copyright 2025 NXP
-> 
-> 2026 I guess... v11, a long journey, hopefully it won't slip to 2027! :)
-
-Thanks, I guess I forgot to update this. It was/is a long journey
-indeed... :/ Addressed in v12.
-
-> 
-> > +++ b/drivers/gpu/drm/imx/dcif/dcif-crtc.c
-> ...
-> > +static int dcif_crtc_query_output_bus_format(struct drm_crtc *crtc,
-> > +					     struct drm_crtc_state *crtc_state)
-> > +{
-> > +	struct dcif_crtc_state *dcif_state = to_dcif_crtc_state(crtc_state);
-> > +	struct drm_bridge *bridge __free(drm_bridge_put) = NULL;
-> 
-> While this is OK, there is generally a preference to declare and assign in
-> the same statement when using cleanup actions, so...
-> 
-> > +	struct drm_bridge_state *bridge_state;
-> > +	u32 bus_format;
-> > +
-> > +	dcif_state->bus_format = MEDIA_BUS_FMT_RGB888_1X24;
-> > +	dcif_state->bus_flags = 0;
-> > +
-> > +	bridge = dcif_crtc_get_bridge(crtc, crtc_state);
-> 
-> ...it should all happen here, as:
-> 
-> 	struct drm_bridge *bridge __free(drm_bridge_put) =
-> 		dcif_crtc_get_bridge(crtc, crtc_state);
-
-Addressed in v12.
-
-> 
-> > +++ b/drivers/gpu/drm/imx/dcif/dcif-kms.c
-> > @@ -0,0 +1,168 @@
-> > +// SPDX-License-Identifier: GPL-2.0
-> > +
-> > +/*
-> > + * Copyright 2025 NXP
-> > + */
-> > +
-> > +#include <linux/device.h>
-> > +#include <linux/of.h>
-> > +#include <linux/of_platform.h>
-> > +#include <linux/platform_device.h>
-> > +
-> > +#include <drm/drm_atomic.h>
-> > +#include <drm/drm_atomic_helper.h>
-> > +#include <drm/drm_bridge.h>
-> > +#include <drm/drm_bridge_connector.h>
-> > +#include <drm/drm_gem_framebuffer_helper.h>
-> > +#include <drm/drm_panel.h>
-> 
-> Unused include?
-
-Removed, thanks.
-
-> 
-> > +static int dcif_kms_init(struct dcif_dev *dcif)
-> > +{
-> > +	struct drm_device *drm = &dcif->drm;
-> > +	struct device_node *np = drm->dev->of_node;
-> > +	struct drm_connector *connector;
-> > +	struct drm_bridge *bridge;
-> > +	int ret;
-> > +
-> > +	ret = dcif_crtc_init(dcif);
-> > +	if (ret)
-> > +		return ret;
-> > +
-> > +	bridge = devm_drm_of_get_bridge(drm->dev, np, 0, 0);
-> 
-> This function is deprecated. You can use of_drm_get_bridge_by_endpoint()
-> instead, which returns a refcounted bridge pointer. And since the bridge
-> pointer is a local variable you can just use a cleanup action to put it
-> easily:
-> 
->   struct drm_bridge *bridge __free(drm_bridge_put) = of_drm_get_bridge_by_endpoint(...);
-
-Thanks for the hint. I updated the driver to use the new function.
-
+diff --git a/drivers/input/touchscreen/Kconfig b/drivers/input/touchscreen/Kconfig
+index e2ee722..da425c8 100644
+--- a/drivers/input/touchscreen/Kconfig
++++ b/drivers/input/touchscreen/Kconfig
+@@ -540,6 +540,18 @@ config TOUCHSCREEN_IPROC
+ 	  To compile this driver as a module, choose M here: the
+ 	  module will be called bcm_iproc_tsc.
+ 
++config TOUCHSCREEN_JADARD_JD9365TX
++	tristate "Jadard JD9365TX in-cell touchscreen"
++	depends on I2C
++	help
++	  Say Y here if you have a Jadard JD9365TX in-cell touchscreen.
++	  The driver polls over I2C when no interrupt line is wired.
++
++	  If unsure, say N.
++
++	  To compile this driver as a module, choose M here: the
++	  module will be called jadard_jd9365tx.
++
+ config TOUCHSCREEN_S6SY761
+ 	tristate "Samsung S6SY761 Touchscreen driver"
+ 	depends on I2C
+diff --git a/drivers/input/touchscreen/Makefile b/drivers/input/touchscreen/Makefile
+index 58094f2..5846f4d 100644
+--- a/drivers/input/touchscreen/Makefile
++++ b/drivers/input/touchscreen/Makefile
+@@ -59,6 +59,7 @@ obj-$(CONFIG_TOUCHSCREEN_IMAGIS)	+= imagis.o
+ obj-$(CONFIG_TOUCHSCREEN_IMX6UL_TSC)	+= imx6ul_tsc.o
+ obj-$(CONFIG_TOUCHSCREEN_INEXIO)	+= inexio.o
+ obj-$(CONFIG_TOUCHSCREEN_IPROC)		+= bcm_iproc_tsc.o
++obj-$(CONFIG_TOUCHSCREEN_JADARD_JD9365TX) += jadard_jd9365tx.o
+ obj-$(CONFIG_TOUCHSCREEN_LPC32XX)	+= lpc32xx_ts.o
+ obj-$(CONFIG_TOUCHSCREEN_MAX11801)	+= max11801_ts.o
+ obj-$(CONFIG_TOUCHSCREEN_MXS_LRADC)     += mxs-lradc-ts.o
+diff --git a/drivers/input/touchscreen/jadard_jd9365tx.c b/drivers/input/touchscreen/jadard_jd9365tx.c
+new file mode 100644
+index 0000000..eec8dc7
+--- /dev/null
++++ b/drivers/input/touchscreen/jadard_jd9365tx.c
+@@ -0,0 +1,347 @@
++// SPDX-License-Identifier: GPL-2.0
++/*
++ * Copyright (C) 2026 VIEWE
++ *
++ * Jadard JD9365TX in-cell touchscreen (I2C @0x68, polling).
++ * Typical DSI FPC has no interrupt line.
++ */
++
++#include <linux/delay.h>
++#include <linux/i2c.h>
++#include <linux/input.h>
++#include <linux/input/mt.h>
++#include <linux/input/touchscreen.h>
++#include <linux/module.h>
++#include <linux/of.h>
++#include <linux/property.h>
++#include <linux/slab.h>
++
++#define JD_CHIP_ID			0x9084
++#define JD_CHIP_ID_ALT			0x9032
++#define JD_SOC_CHIP_ID2			0x40008076
++#define JD_ERAM_BASE			0x20011000
++#define JD_SECTION_READY_VAL		0xA55A
++#define JD_MAX_DSRAM_NUM		25
++#define JD_ESRAM_COORD_IDX		1
++#define JD_ESRAM_SECTION_NUM		6
++#define JD_DEFAULT_COORD_ADDR		0x20011120
++#define JD_TOUCH_DATA_SIZE		78
++#define JD_FINGER_DATA_SIZE		5
++#define JD_FINGER_NUM_ADDR		0
++#define JD_TOUCH_COORD_INFO_ADDR	3
++#define JD_MAX_POINTS			10
++#define JD_DEFAULT_POLL_MS		16
++
++struct jadard_tp {
++	struct i2c_client *client;
++	struct input_dev *input;
++	struct touchscreen_properties prop;
++	u32 coord_addr;
++	u16 touch_data_size;
++	u16 max_points;
++	u16 abs_x_max;
++	u16 abs_y_max;
++	unsigned int poll_interval_ms;
++	bool ready;
++};
++
++static int jd_bus_write(struct i2c_client *client, const u8 *cmd, u8 cmd_len,
++			const u8 *data, u16 data_len)
++{
++	u8 buf[64];
++	struct i2c_msg msg;
++	int ret;
++
++	if (cmd_len + data_len > sizeof(buf))
++		return -EINVAL;
++
++	memcpy(buf, cmd, cmd_len);
++	if (data_len)
++		memcpy(buf + cmd_len, data, data_len);
++
++	msg.addr = client->addr;
++	msg.flags = 0;
++	msg.len = cmd_len + data_len;
++	msg.buf = buf;
++
++	ret = i2c_transfer(client->adapter, &msg, 1);
++	return ret == 1 ? 0 : (ret < 0 ? ret : -EIO);
++}
++
++static int jd_bus_read(struct i2c_client *client, const u8 *cmd, u8 cmd_len,
++		       u8 *data, u16 data_len)
++{
++	struct i2c_msg msg[2];
++	int ret;
++
++	msg[0].addr = client->addr;
++	msg[0].flags = 0;
++	msg[0].len = cmd_len;
++	msg[0].buf = (u8 *)cmd;
++	msg[1].addr = client->addr;
++	msg[1].flags = I2C_M_RD;
++	msg[1].len = data_len;
++	msg[1].buf = data;
++
++	ret = i2c_transfer(client->adapter, msg, 2);
++	return ret == 2 ? 0 : (ret < 0 ? ret : -EIO);
++}
++
++static int jd_enter_backdoor(struct i2c_client *client)
++{
++	const u8 cmd[5] = { 0xF2, 0xAA, 0xF0, 0x0F, 0x55 };
++	const u8 data = 0x68;
++
++	return jd_bus_write(client, cmd, sizeof(cmd), &data, 1);
++}
++
++static int jd_read_reg(struct i2c_client *client, u32 addr, u8 *rdata, u16 rlen)
++{
++	u8 cmd[6];
++
++	cmd[0] = 0xF3;
++	cmd[1] = (addr >> 24) & 0xFF;
++	cmd[2] = (addr >> 16) & 0xFF;
++	cmd[3] = (addr >> 8) & 0xFF;
++	cmd[4] = addr & 0xFF;
++	cmd[5] = 0x03;
++
++	return jd_bus_read(client, cmd, sizeof(cmd), rdata, rlen);
++}
++
++static int jd_get_chip_id(struct i2c_client *client, u16 *id)
++{
++	u8 rbuf[2];
++	int ret;
++
++	ret = jd_read_reg(client, JD_SOC_CHIP_ID2, rbuf, sizeof(rbuf));
++	if (ret)
++		return ret;
++
++	*id = (u16)((rbuf[1] << 8) | rbuf[0]);
++	return 0;
++}
++
++static bool jd_section_ready(struct i2c_client *client)
++{
++	u8 rbuf[2];
++	unsigned int waited = 0;
++
++	do {
++		msleep(2);
++		if (jd_read_reg(client, JD_ERAM_BASE, rbuf, sizeof(rbuf)))
++			return false;
++		waited += 2;
++		if (((rbuf[1] << 8) | rbuf[0]) == JD_SECTION_READY_VAL)
++			return true;
++	} while (waited < 100);
++
++	return false;
++}
++
++static int jd_resolve_coord_addr(struct jadard_tp *ts)
++{
++	u32 esram_num_addr = JD_ERAM_BASE + 4 + JD_MAX_DSRAM_NUM * 8;
++	u32 esram_sec_addr = esram_num_addr + 4;
++	u8 buf[JD_ESRAM_SECTION_NUM * 8];
++	u32 addr, len;
++	int ret;
++
++	ret = jd_read_reg(ts->client, esram_sec_addr, buf, sizeof(buf));
++	if (ret)
++		return ret;
++
++	addr = buf[JD_ESRAM_COORD_IDX * 8 + 0] |
++	       (buf[JD_ESRAM_COORD_IDX * 8 + 1] << 8) |
++	       (buf[JD_ESRAM_COORD_IDX * 8 + 2] << 16) |
++	       (buf[JD_ESRAM_COORD_IDX * 8 + 3] << 24);
++	len = buf[JD_ESRAM_COORD_IDX * 8 + 4] |
++	      (buf[JD_ESRAM_COORD_IDX * 8 + 5] << 8) |
++	      (buf[JD_ESRAM_COORD_IDX * 8 + 6] << 16) |
++	      (buf[JD_ESRAM_COORD_IDX * 8 + 7] << 24);
++
++	if (addr < JD_ERAM_BASE || addr >= JD_ERAM_BASE + 0x1000 ||
++	    len == 0 || len > JD_TOUCH_DATA_SIZE)
++		return -EINVAL;
++
++	ts->coord_addr = addr;
++	ts->touch_data_size = (u16)len;
++	return 0;
++}
++
++static int jd_hw_init(struct jadard_tp *ts)
++{
++	u16 chip_id = 0;
++	int ret;
++
++	ret = jd_enter_backdoor(ts->client);
++	if (ret)
++		return ret;
++
++	ret = jd_get_chip_id(ts->client, &chip_id);
++	if (ret)
++		return ret;
++
++	if (chip_id != JD_CHIP_ID && chip_id != JD_CHIP_ID_ALT &&
++	    (chip_id == 0 || chip_id == 0xFFFF))
++		return -ENODEV;
++
++	jd_enter_backdoor(ts->client);
++
++	if (jd_section_ready(ts->client) && !jd_resolve_coord_addr(ts))
++		return 0;
++
++	if (!ts->coord_addr)
++		ts->coord_addr = JD_DEFAULT_COORD_ADDR;
++	ts->touch_data_size = JD_TOUCH_DATA_SIZE;
++
++	return 0;
++}
++
++static void jd_report_touches(struct jadard_tp *ts, const u8 *buf)
++{
++	u8 finger_num = buf[JD_FINGER_NUM_ADDR];
++	unsigned int i;
++	bool any = false;
++
++	if (finger_num > ts->max_points)
++		finger_num = ts->max_points;
++
++	for (i = 0; i < ts->max_points; i++) {
++		const u8 *c = buf + JD_TOUCH_COORD_INFO_ADDR +
++			      i * JD_FINGER_DATA_SIZE;
++		u16 x = (c[0] << 8) | c[1];
++		u16 y = (c[2] << 8) | c[3];
++		u8 w = c[4];
++		bool down = false;
++
++		if (i < finger_num &&
++		    x <= ts->abs_x_max && y <= ts->abs_y_max &&
++		    x != 0xFFFF && y != 0xFFFF)
++			down = true;
++
++		input_mt_slot(ts->input, i);
++		input_mt_report_slot_state(ts->input, MT_TOOL_FINGER, down);
++
++		if (down) {
++			touchscreen_report_pos(ts->input, &ts->prop, x, y, true);
++			input_report_abs(ts->input, ABS_MT_TOUCH_MAJOR, w);
++			any = true;
++		}
++	}
++
++	input_mt_sync_frame(ts->input);
++	input_report_key(ts->input, BTN_TOUCH, any);
++	input_sync(ts->input);
++}
++
++static void jd_poll(struct input_dev *input)
++{
++	struct jadard_tp *ts = input_get_drvdata(input);
++	u8 buf[JD_TOUCH_DATA_SIZE];
++	int ret;
++
++	if (!ts->ready) {
++		ret = jd_hw_init(ts);
++		if (ret)
++			return;
++		ts->ready = true;
++	}
++
++	ret = jd_read_reg(ts->client, ts->coord_addr, buf, ts->touch_data_size);
++	if (!ret)
++		jd_report_touches(ts, buf);
++}
++
++static int jadard_tp_probe(struct i2c_client *client)
++{
++	struct device *dev = &client->dev;
++	struct jadard_tp *ts;
++	struct input_dev *input;
++	u32 val;
++	int ret;
++
++	ts = devm_kzalloc(dev, sizeof(*ts), GFP_KERNEL);
++	if (!ts)
++		return -ENOMEM;
++
++	ts->client = client;
++	ts->max_points = JD_MAX_POINTS;
++	ts->abs_x_max = 719;
++	ts->abs_y_max = 1279;
++	ts->poll_interval_ms = JD_DEFAULT_POLL_MS;
++	ts->touch_data_size = JD_TOUCH_DATA_SIZE;
++
++	if (!device_property_read_u32(dev, "poll-interval", &val) &&
++	    val >= 8 && val <= 100)
++		ts->poll_interval_ms = val;
++
++	if (!of_property_read_u32(dev->of_node, "touchscreen-size-x", &val) && val)
++		ts->abs_x_max = val - 1;
++
++	if (!of_property_read_u32(dev->of_node, "touchscreen-size-y", &val) && val)
++		ts->abs_y_max = val - 1;
++
++	if (!of_property_read_u32(dev->of_node, "jadard,coord-addr", &val) && val)
++		ts->coord_addr = val;
++
++	input = devm_input_allocate_device(dev);
++	if (!input)
++		return -ENOMEM;
++
++	input->name = "Jadard JD9365TX Touchscreen";
++	input->id.bustype = BUS_I2C;
++	input->dev.parent = dev;
++
++	__set_bit(EV_ABS, input->evbit);
++	__set_bit(EV_KEY, input->evbit);
++	__set_bit(BTN_TOUCH, input->keybit);
++
++	input_set_abs_params(input, ABS_MT_POSITION_X, 0, ts->abs_x_max, 0, 0);
++	input_set_abs_params(input, ABS_MT_POSITION_Y, 0, ts->abs_y_max, 0, 0);
++	input_set_abs_params(input, ABS_MT_TOUCH_MAJOR, 0, 255, 0, 0);
++
++	touchscreen_parse_properties(input, true, &ts->prop);
++
++	ret = input_mt_init_slots(input, ts->max_points, INPUT_MT_DIRECT);
++	if (ret)
++		return ret;
++
++	input_set_drvdata(input, ts);
++	ts->input = input;
++	i2c_set_clientdata(client, ts);
++
++	ret = input_setup_polling(input, jd_poll);
++	if (ret)
++		return ret;
++
++	input_set_poll_interval(input, ts->poll_interval_ms);
++
++	return input_register_device(input);
++}
++
++static const struct of_device_id jadard_tp_of_match[] = {
++	{ .compatible = "jadard,jd9365tx" },
++	{ }
++};
++MODULE_DEVICE_TABLE(of, jadard_tp_of_match);
++
++static const struct i2c_device_id jadard_tp_id[] = {
++	{ "jd9365tx", 0 },
++	{ }
++};
++MODULE_DEVICE_TABLE(i2c, jadard_tp_id);
++
++static struct i2c_driver jadard_tp_driver = {
++	.driver = {
++		.name = "jadard-tp-jd9365tx",
++		.of_match_table = jadard_tp_of_match,
++	},
++	.probe = jadard_tp_probe,
++	.id_table = jadard_tp_id,
++};
++module_i2c_driver(jadard_tp_driver);
++
++MODULE_AUTHOR("Hefei <3066883572@qq.com>");
++MODULE_DESCRIPTION("Jadard JD9365TX in-cell touchscreen");
++MODULE_LICENSE("GPL");
 -- 
-Thanks,
-Laurentiu
+2.55.0.windows.5
+
