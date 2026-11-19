@@ -2,60 +2,60 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 88448606A326
-	for <dri-devel@archiver.kernel.org>; Thu, 19 Nov 2026 23:44:56 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 02CF6606A332
+	for <dri-devel@archiver.kernel.org>; Thu, 19 Nov 2026 23:48:41 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=N1QPIKHg
+	dkim=fail reason="signature verification failed" (1024-bit key, unprotected) header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=BoTWH5Fi
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 002721127EF;
-	Thu, 19 Nov 2026 23:44:50 +0000 (UTC)
-Received: from mgamail.intel.com (unknown [192.198.163.11])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 4524A1127EF;
- Thu, 19 Nov 2026 23:44:45 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1795131886; x=1826667886;
- h=from:to:cc:subject:date:message-id:in-reply-to:
- references:mime-version:content-transfer-encoding;
- bh=ld7fiPYN1Wy1vb2ijLUDZVrER4eq/U6P/98fhJSBncU=;
- b=N1QPIKHg0L/Znhh2T4knSbIzrS0++R96QQehCeMFYWqm7ZnFfkMqvzQx
- /MXipClXMtzY4z4qFlKKQHGqEse39cMv48T9/PxvOszyXRJ9Axw605WYi
- n1TgC8RAshTvJ1X01IxlnmPa6MoH/VLm7WFXI6XOvhpxUpaXNzbjKUwl7
- qgiMfMb37DL3BTeJ1PtLgwWZYI3plxdQj5n34D8jCh2FbJnBdnaymzbtK
- V4Es+2WDsHG1DSiEtsGzkSpmEDOWi9VAgWclW3QDpGVbKO2s1j84BSZRk
- wmxki0UNbXOGmh42ZKpLHqRQ1PpIPEaI4uIzuIDdfl87Ur+AieutHjcwM g==;
-X-CSE-ConnectionGUID: CR5yLAMxSl6X9O3Ka39oMg==
-X-CSE-MsgGUID: 8ObBe2weQb6QRMZ0SqVSvw==
-X-IronPort-AV: E=McAfee;i="6800,10657,11971"; a="3923960"
-X-IronPort-AV: E=Sophos;i="6.27,221,1787036400"; 
-   d="scan'208";a="3923960"
-Received: from fmviesa002.fm.intel.com ([10.60.135.142])
- by fmvoesa105.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 19 Nov 2026 15:44:34 -0800
-X-CSE-ConnectionGUID: KcxaTHm+SQuVKrcVc/WyYQ==
-X-CSE-MsgGUID: Wwt6ZtijSMauYQKS6Gob6w==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,221,1787036400"; d="scan'208";a="10788951"
-Received: from ncintean-mobl1.ger.corp.intel.com (HELO localhost)
- ([10.245.245.202])
- by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 19 Nov 2026 15:44:31 -0800
-From: Ville Syrjala <ville.syrjala@linux.intel.com>
-To: dri-devel@lists.freedesktop.org
-Cc: intel-gfx@lists.freedesktop.org,
-	intel-xe@lists.freedesktop.org
-Subject: [PATCH 2/2] drm/atomic: Prefer drm_WARN_ON() over WARN_ON() in
- drm_atomic_get_*_state()
-Date: Fri, 20 Nov 2026 01:44:23 +0200
-Message-ID: <20261119234423.11666-2-ville.syrjala@linux.intel.com>
-X-Mailer: git-send-email 2.56.0
-In-Reply-To: <20261119234423.11666-1-ville.syrjala@linux.intel.com>
-References: <20261119234423.11666-1-ville.syrjala@linux.intel.com>
+	by gabe.freedesktop.org (Postfix) with ESMTP id 6B5A31127C1;
+	Thu, 19 Nov 2026 23:48:35 +0000 (UTC)
+Received: from mta0.migadu.com (out-174.mta0.migadu.com [91.218.175.174])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 67EBD1127C1
+ for <dri-devel@lists.freedesktop.org>; Thu, 19 Nov 2026 23:48:29 +0000 (UTC)
+X-Envelope-To: dri-devel@lists.freedesktop.org
+DKIM-Signature: a=rsa-sha256; bh=6LWaP9a799dRmXjPzl0gkWLih06hsrqQYvPtGBFxEsY=; 
+ c=simple/simple; d=linux.dev;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1795132107; v=1; x=1795736907;
+ b=BoTWH5Fi1IZExkaX1UVG0UE/sKHeD7yr0JBoEA7pSxpIS9I/AG/d2puwMNbDLQzs2vT11U1s
+ vASgSWckzezIb9s1Sd0vB6uxw4uXPLLwr5GKRk1rBj9hLubjulj4/oLYePkSmiMd7yc+crCqZM/
+ 4ZhHgjLXJXGKVDcDNMWg5GdI=
+X-Envelope-To: dri-devel@lists.freedesktop.org
+Received: by smtp.migadu.com with ESMTPS id a9882a66356e0e59;
+ Thu, 19 Nov 2026 23:48:27 +0000
+X-Mizu-Trace-ID: a9882a66356e0e59
+X-Migadu-Flow: FLOW_OUT
+Message-ID: <583bde38-c84d-41a3-a65c-d1365ea04f07@linux.dev>
+Date: Fri, 20 Nov 2026 07:47:56 +0800
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Cc: cui.tao@linux.dev, akpm@linux-foundation.org, dgilbert@interlog.com,
+ mkp@kernel.org, loberman@redhat.com, jmeneghi@redhat.com, kraxel@redhat.com,
+ vivek.kasireddy@intel.com, mst@redhat.com, jasowangio@gmail.com,
+ eperezma@redhat.com, stefanha@redhat.com, sgarzare@redhat.com,
+ mhiramat@kernel.org, jgg@ziepe.ca, kevin.tian@intel.com, axboe@kernel.dk,
+ linux-mm@kvack.org, James.Bottomley@hansenpartnership.com,
+ sumit.semwal@linaro.org, christian.koenig@amd.com, phasta@kernel.org,
+ joro@8bytes.org, will@kernel.org, linux-scsi@vger.kernel.org,
+ dri-devel@lists.freedesktop.org, linux-media@vger.kernel.org,
+ linaro-mm-sig@lists.linaro.org, kvm@vger.kernel.org,
+ virtualization@lists.linux.dev, linux-trace-kernel@vger.kernel.org,
+ iommu@lists.linux.dev, io-uring@vger.kernel.org,
+ linux-kernel@vger.kernel.org, bobbyeshleman@meta.com,
+ mathieu.desnoyers@efficios.com, robin.murphy@arm.com, mason@kernel.org,
+ aesteve@redhat.com, tjmercier@google.com, harry@kernel.org, vbabka@suse.cz,
+ cuitao@kylinos.cn
+Subject: Re: [PATCH 4/7] tracing: account ring buffer pages and trace_array
+ metadata to memcg
+To: Steven Rostedt <rostedt@goodmis.org>,
+ Vincent Donnefort <vdonnefort@google.com>
+References: <20261106131829.3228926-1-cui.tao@linux.dev>
+ <20261106131829.3228926-5-cui.tao@linux.dev> <avScKhR22kFOQ1z4@google.com>
+ <20261111181447.3c483a50@fedora>
+From: Tao Cui <cui.tao@linux.dev>
+In-Reply-To: <20261111181447.3c483a50@fedora>
 Content-Type: text/plain; charset=UTF-8
-Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park,
- 6 krs Bertel Jungin Aukio 5, 02600 Espoo, Finland
 Content-Transfer-Encoding: 8bit
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -68,72 +68,95 @@ List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-16.8 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
-	DKIM_SIGNED,DKIM_VALID,HEADER_FROM_DIFFERENT_DOMAINS,
-	INCLUDES_CR_TRAILER,INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,
-	SPF_PASS,USER_AGENT_GIT autolearn=ham autolearn_force=no version=4.0.1
+X-Spam-Status: No, score=-15.1 required=3.0 tests=BAYES_00,DKIM_INVALID,
+	DKIM_SIGNED,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,
+	INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,
+	USER_AGENT_SANE_1 autolearn=unavailable autolearn_force=no
+	version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-From: Ville Syrjälä <ville.syrjala@linux.intel.com>
+Hello, Steven, Vincent,
 
-Change all the get_state() acquire_ctx WARNs to use drm_WARN_ON()
-instead of WARN_ON() so we get to know which device triggered it.
+在 2026/11/12 07:14, Steven Rostedt 写道:
+> On Wed, 11 Nov 2026 16:47:38 +0000
+> Vincent Donnefort <vdonnefort@google.com> wrote:
+> 
+>> On Fri, Nov 06, 2026 at 09:18:26PM +0800, Tao Cui wrote:
+>>> From: Tao Cui <cuitao@kylinos.cn>
+>>>
+>>> Creating an instance immediately allocates two full sets of per-cpu
+>>> ring buffers, array buffer plus snapshot, about 1.375MB per cpu per set
+>>> on the default config, plus the trace_array and its name.  None of it
+>>> is charged: neither trace.c nor ring_buffer.c passes __GFP_ACCOUNT,
+>>> while user_events in the same directory accounts everything it
+>>> allocates.
+> 
+> As the name suggests, "user_events" are for users and are special.
+> 
+>>>
+>>> Instance creation is currently gated by tracefs file permissions
+>>> alone, so a
+>>> rootful container with the host tracefs bound in can create instances
+>>> until the host runs out of memory.
+> 
+> You mean, "works as expected"?
+> 
+>>  Charge the ring buffer pages and
+>>> the trace_array metadata to the creating cgroup.
+>>>
+>>> Signed-off-by: Tao Cui <cuitao@kylinos.cn>
+>>> ---
+>>>  kernel/trace/ring_buffer.c | 8 +++++++-
+>>>  kernel/trace/trace.c       | 6 +++---
+>>>  2 files changed, 10 insertions(+), 4 deletions(-)
+>>>
+>>> diff --git a/kernel/trace/ring_buffer.c b/kernel/trace/ring_buffer.c
+>>> index 1fd28a72e6ee..676c059c112c 100644
+>>> --- a/kernel/trace/ring_buffer.c
+>>> +++ b/kernel/trace/ring_buffer.c
+>>> @@ -441,7 +441,13 @@ static struct buffer_data_page *alloc_cpu_data(int cpu, int order)
+>>>  	 * gracefully without invoking oom-killer and the system is not
+>>>  	 * destabilized.
+>>>  	 */
+>>> -	mflags = GFP_KERNEL | __GFP_RETRY_MAYFAIL | __GFP_COMP | __GFP_ZERO;
+>>> +	/*
+>>> +	 * The subbuffers are charged to the memcg of whoever caused the
+>>> +	 * allocation: the creator of a trace instance, or root at boot for
+>>> +	 * the global trace.
+>>> +	 */
+>>> +	mflags = GFP_KERNEL | __GFP_RETRY_MAYFAIL | __GFP_COMP | __GFP_ZERO |
+>>> +		  __GFP_ACCOUNT;
+>>>  
+>>>  	page = alloc_pages_node(cpu_to_node(cpu), mflags, order);
+>>>  	if (!page)  
+>>
+>> Hum, by default tracefs is root only. 
+>>
+>> And even if made accessible to other users: 
+>>
+>>   1. The life span of a trace instance is not tied to the caller.
+>>   2. The ring buffer is shared by multiple users.
+> 
+> Right. Is there a use case out there that allows non-admin to create an
+> instance? Tracing ring buffers can expose a lot and should not be given
+> to unprivileged users.
+> 
+Not that I can point to.  Instances are admin-only by default, and the permission layer is the right place for that.
 
-Signed-off-by: Ville Syrjälä <ville.syrjala@linux.intel.com>
----
- drivers/gpu/drm/drm_atomic.c | 10 +++++-----
- 1 file changed, 5 insertions(+), 5 deletions(-)
-
-diff --git a/drivers/gpu/drm/drm_atomic.c b/drivers/gpu/drm/drm_atomic.c
-index b0843e5a9e4d..324e79152e17 100644
---- a/drivers/gpu/drm/drm_atomic.c
-+++ b/drivers/gpu/drm/drm_atomic.c
-@@ -473,7 +473,7 @@ drm_atomic_get_crtc_state(struct drm_atomic_commit *state,
- 	int ret;
- 	struct drm_crtc_state *crtc_state;
+> What exactly is this trying to achieve?
+>
+The series closes uncharged kernel allocations that scale with user input.  For tracing I misread the tracefs permission check as a gap rather than the intended boundary.  Combined with Vincent's points on lifetime and sharing, I'll drop patch.
  
--	WARN_ON(!state->acquire_ctx);
-+	drm_WARN_ON(state->dev, !state->acquire_ctx);
- 	drm_WARN_ON(state->dev, state->checked);
- 
- 	crtc_state = drm_atomic_get_new_crtc_state(state, crtc);
-@@ -666,7 +666,7 @@ drm_atomic_get_plane_state(struct drm_atomic_commit *state,
- 	int ret;
- 	struct drm_plane_state *plane_state;
- 
--	WARN_ON(!state->acquire_ctx);
-+	drm_WARN_ON(state->dev, !state->acquire_ctx);
- 	drm_WARN_ON(state->dev, state->checked);
- 
- 	/* the legacy pointers should never be set */
-@@ -741,7 +741,7 @@ drm_atomic_get_colorop_state(struct drm_atomic_commit *state,
- 	int ret;
- 	struct drm_colorop_state *colorop_state;
- 
--	WARN_ON(!state->acquire_ctx);
-+	drm_WARN_ON(state->dev, !state->acquire_ctx);
- 	drm_WARN_ON(state->dev, state->checked);
- 
- 	colorop_state = drm_atomic_get_new_colorop_state(state, colorop);
-@@ -1144,7 +1144,7 @@ drm_atomic_get_private_obj_state(struct drm_atomic_commit *state,
- 	int ret;
- 	struct drm_private_state *obj_state;
- 
--	WARN_ON(!state->acquire_ctx);
-+	drm_WARN_ON(state->dev, !state->acquire_ctx);
- 	drm_WARN_ON(state->dev, state->checked);
- 
- 	obj_state = drm_atomic_get_new_private_obj_state(state, obj);
-@@ -1459,7 +1459,7 @@ drm_atomic_get_connector_state(struct drm_atomic_commit *state,
- 	struct drm_mode_config *config = &connector->dev->mode_config;
- 	struct drm_connector_state *connector_state;
- 
--	WARN_ON(!state->acquire_ctx);
-+	drm_WARN_ON(state->dev, !state->acquire_ctx);
- 	drm_WARN_ON(state->dev, state->checked);
- 
- 	ret = drm_modeset_lock(&config->connection_mutex, state->acquire_ctx);
--- 
-2.56.0
+Thanks,
+Tao
+> -- Steve
+> 
+> 
+>>
+>> Overall I am not convinced charging the creator makes much sense.
+>>
+>> Eventually a few allocations for iterators could be GFP_ACCOUNT.
+>>
+> 
 
