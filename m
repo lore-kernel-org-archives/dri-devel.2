@@ -2,169 +2,70 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DD1C2606A320
-	for <dri-devel@archiver.kernel.org>; Thu, 19 Nov 2026 09:50:32 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 084AD606A320
+	for <dri-devel@archiver.kernel.org>; Thu, 19 Nov 2026 09:59:21 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=j130jgLn;
-	dkim=pass (1024-bit key, unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=selector1 header.b=iCxBrLYe
+	dkim=pass (2048-bit key) header.d=mailbox.org header.i=@mailbox.org header.a=rsa-sha256 header.s=mail20150812 header.b=e4wNncEa
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 4BAAE10E683;
-	Thu, 19 Nov 2026 09:50:22 +0000 (UTC)
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.18])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 9CDF510E683;
- Thu, 19 Nov 2026 09:50:11 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1795081811; x=1826617811;
- h=date:from:to:cc:subject:message-id:references:
- content-transfer-encoding:in-reply-to:mime-version;
- bh=3msPGpA8raVOy2q+h8YFrDHvaC9mYD0rSVfVe8EuDJs=;
- b=j130jgLnHhi/WZivLmCJ+8DY4hf6hYI4Km/7STzc3H4t5ZlRm3yvxpZq
- RqeqXx8e5WWqhZBkOOu5aM9Y2acghdO3jRgCgo/hZoaWWwJR7LN/84Ofn
- UIrD94Vo/7XQStCGm7MB5dWZIBJgT6nqxHjf5SpImxD7byLfk2iYTj3Fl
- 8vQqAqMz4AnGdIMFPyy+g+bjhmlo91hQrRAHnMkSCKkWNu2MgTRywusGL
- NG7YUhEopWWAwbF4WCBKbqGR6u2a9Egb/AFgmYP2pucyCzUsJQcfnA1oK
- aCSP3sJAYtJMpeSZMGxFzxqGzUgEjhWGYByxgbMab5x7XVBk+jaPU3VQ2 w==;
-X-CSE-ConnectionGUID: HvBdfg1oRS6fiQxsZPCJdw==
-X-CSE-MsgGUID: xjyxb7KDSd+se8qghk6QnA==
-X-IronPort-AV: E=McAfee;i="6800,10657,11970"; a="3943936"
-X-IronPort-AV: E=Sophos;i="6.27,220,1787036400"; 
-   d="scan'208";a="3943936"
-Received: from fmviesa008.fm.intel.com ([10.60.135.148])
- by orvoesa110.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 19 Nov 2026 01:50:10 -0800
-X-CSE-ConnectionGUID: OcQJ6WrnTpuDTEXyTKBESw==
-X-CSE-MsgGUID: C/PrYDewT766kBbAz8af4A==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,220,1787036400"; d="scan'208";a="10637130"
-Received: from fmsmsx903.amr.corp.intel.com ([10.18.126.92])
- by fmviesa008.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 19 Nov 2026 01:50:11 -0800
-Received: from FMSMSX902.amr.corp.intel.com (10.18.126.91) by
- fmsmsx903.amr.corp.intel.com (10.18.126.92) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.56; Thu, 19 Nov 2026 01:50:10 -0800
-Received: from fmsedg903.ED.cps.intel.com (10.1.192.145) by
- FMSMSX902.amr.corp.intel.com (10.18.126.91) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.56 via Frontend Transport; Thu, 19 Nov 2026 01:50:10 -0800
-Received: from MW6PR02CU001.outbound.protection.outlook.com (52.101.48.63) by
- edgegateway.intel.com (192.55.55.83) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.56; Thu, 19 Nov 2026 01:50:09 -0800
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=w5JZAaY1NPJCN0aGHOjdLHSvYq5qlUtw5XDWoNrglTKlZ+VySf16kOgziIAMTkQVqjJoJKRmLH3Mu+fxSJncI1YPj0/F9w8++HdAfRqxLzVgXVJ90757sC1SAGK94/aLl5MQ4BSBsv4iNXw0XlyUEGIfSsS5s7RT6BWXjUanPv4LG0PLNU/8z+ss0bcs5czvboghxvBz5AcSqxwrdf+IylEANJc2Ch4D3BfnAZavyuzRihh3C+BJfylk1sbphiuOR8PnQWL3s1KFgvI1fuyjnC3aYF6xo9TS70KMdD0upAMNpuESnFgADfAaP6iVeSNXWnjEMJr1EusKF/PV7EUDGA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=VpcU3iDiIjTlT5AU87lLaeOTlJiHhUkHSEldjUExgI0=;
- b=IicTQSfvQM1swzXT9+7vWPQwTDrOl9ExYRl2X81SgsNJ8dVSqFfHKhmPJRuLE89P892VtMcSaCBMvC1tMdmUWkP2KdBKXws+dnFEzectCGO+G4F7u//9g5j1NO9ku2rqTnH9kT2VkI/y0Evaf6VxGmDsCU7ZdpHjAz3sMurL59b8HFm5tBnj5dOH3h/cfoDwmbizQSIGXhQeS/9bTVmHY4nzIgJSVJo+hvTIRAZYOpkh3xodPTlHpKbDuNDYiyCgn+ysfDLz9NAXJtIfc+icIbgAZaHbbY0JSCKEvQHkiRl99YKaITFLbJwjGJbTixlvVdoTtwcW5JBElU933EEDvw==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=intel.com; dmarc=pass action=none header.from=intel.com;
- dkim=pass header.d=intel.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=intel.com; s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=VpcU3iDiIjTlT5AU87lLaeOTlJiHhUkHSEldjUExgI0=;
- b=iCxBrLYeF5EPsGjLQDbYCwGJlfGBRCe5DjiNKHmN7AczI0aPQdAFo6jR3NU0OcjIKcm9rXOMDUCsE0ZVo3lExeuCZ1QQ/NlOur4gks1fZHzqMtyDnArWptJtcH1WDl0105R/FEE7g/ZmAmEnFDA69DnPY4o/Az10dUjyKy4NpvM=
-Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=intel.com;
-Received: from PH8PR11MB8039.namprd11.prod.outlook.com (2603:10b6:510:25f::18)
- by DM6PR11MB4673.namprd11.prod.outlook.com (2603:10b6:5:2a4::18) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.615.14; Thu, 19 Nov
- 2026 09:50:07 +0000
-Received: from PH8PR11MB8039.namprd11.prod.outlook.com
- ([fe80::42df:f465:90a8:df92]) by PH8PR11MB8039.namprd11.prod.outlook.com
- ([fe80::42df:f465:90a8:df92%3]) with mapi id 15.21.0615.012; Thu, 19 Nov 2026
- 09:50:07 +0000
-Date: Thu, 19 Nov 2026 10:50:03 +0100
-From: Piotr =?utf-8?Q?Pi=C3=B3rkowski?= <piotr.piorkowski@intel.com>
-To: "Summers, Stuart" <stuart.summers@intel.com>
-CC: "Brost, Matthew" <matthew.brost@intel.com>, "yaolu@kylinos.cn"
- <yaolu@kylinos.cn>, "K V P, Satyanarayana" <satyanarayana.k.v.p@intel.com>,
- "Vivi, Rodrigo" <rodrigo.vivi@intel.com>, "thomas.hellstrom@linux.intel.com"
- <thomas.hellstrom@linux.intel.com>, "intel-xe@lists.freedesktop.org"
- <intel-xe@lists.freedesktop.org>, "dri-devel@lists.freedesktop.org"
- <dri-devel@lists.freedesktop.org>, "linux-kernel@vger.kernel.org"
- <linux-kernel@vger.kernel.org>, "michal.wajdeczko@intel.com"
- <michal.wajdeczko@intel.com>
-Subject: Re: [PATCH] drm/xe/gt: Abort GT init on LMTT initialization failure
-Message-ID: <20261119095003.reakox5n3mhp5utx@intel.com>
-References: <20261118085453.198348-1-yaolu@kylinos.cn>
- <54d0efa24a49e73880bdc4d6f2786b940f32fdf8.camel@intel.com>
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <54d0efa24a49e73880bdc4d6f2786b940f32fdf8.camel@intel.com>
-X-ClientProxiedBy: AS9PR06CA0156.eurprd06.prod.outlook.com
- (2603:10a6:20b:45c::13) To PH8PR11MB8039.namprd11.prod.outlook.com
- (2603:10b6:510:25f::18)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 67067112238;
+	Thu, 19 Nov 2026 09:59:15 +0000 (UTC)
+Received: from mout-p-103.mailbox.org (mout-p-103.mailbox.org [80.241.56.161])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 504BB112238
+ for <dri-devel@lists.freedesktop.org>; Thu, 19 Nov 2026 09:59:08 +0000 (UTC)
+Received: from smtp102.mailbox.org (smtp102.mailbox.org
+ [IPv6:2001:67c:2050:b231:465::102])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519MLKEM768 server-signature RSA-PSS (4096 bits) server-digest
+ SHA256) (No client certificate requested)
+ by mout-p-103.mailbox.org (Postfix) with ESMTPS id 4jVYpF6J2vzKnr1;
+ Thu, 19 Nov 2026 10:59:01 +0100 (CET)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=mailbox.org;
+ s=mail20150812; 
+ t=1795082341; h=from:from:reply-to:reply-to:subject:subject:date:date:
+ message-id:message-id:to:to:cc:cc:mime-version:mime-version:
+ content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references;
+ bh=Q3GQZrybC5QxaJKCFYXWQxqvNW0jtycxDKmrfuuMapE=;
+ b=e4wNncEaiArLAyqQUA+yobmyL1ur4Y2Wpm1fA1jFpvgIgIorXA9ZgMK8KQ6tOAPXvX35CT
+ 2TsAbAZoha4kj4Pc+kxwRQ2bDVviWVOBu0YXWciu+gIaaqoXQggXkAxbtzIM50Ean4bqIv
+ Z9ui6UtS8ykCwzvQDXLFut2Uven/pdUxNOtHXQiENDCG2CT63PDcALppOTpsLj/sw65bGL
+ t2GjgbjxRDwCQ5QkJ1nB4Hs3tIaVxckrXzBgzbyifVBbKyH7AFph2rhxGSQO/BFeY21cjG
+ JiRqWz6Vkr2uz+D+uo4Axi9GycZkYRoV7U8gKJHcu/N00YrSFIaQ//G+Oh/1lw==
+Message-ID: <202dd0c3d515ddfa77a8ec8751badadd31b8a7b0.camel@mailbox.org>
+Subject: Re: [PATCH] rust: DamFence: Remove warning about unsignaled drop
+From: Philipp Stanner <phasta@mailbox.org>
+To: Christian =?ISO-8859-1?Q?K=F6nig?= <christian.koenig@amd.com>, Danilo
+ Krummrich <dakr@kernel.org>
+Cc: phasta@kernel.org, Sumit Semwal <sumit.semwal@linaro.org>, Alice Ryhl	
+ <aliceryhl@google.com>, Miguel Ojeda <ojeda@kernel.org>, Boqun Feng	
+ <boqun@kernel.org>, Gary Guo <gary@garyguo.net>, =?ISO-8859-1?Q?Bj=F6rn?=
+ Roy Baron <bjorn3_gh@protonmail.com>, Benno Lossin <lossin@kernel.org>,
+ Andreas Hindborg	 <a.hindborg@kernel.org>, Trevor Gross
+ <tmgross@umich.edu>, Daniel Almeida	 <daniel.almeida@collabora.com>, Tamir
+ Duberstein <tamird@kernel.org>,  Alexandre Courbot <acourbot@nvidia.com>,
+ Onur =?ISO-8859-1?Q?=D6zkan?= <work@onurozkan.dev>, 
+ linux-media@vger.kernel.org, dri-devel@lists.freedesktop.org, 
+ rust-for-linux@vger.kernel.org, linux-kernel@vger.kernel.org
+Date: Thu, 19 Nov 2026 10:58:57 +0100
+In-Reply-To: <a7f9e0f3-b299-4d40-9230-106003725dc2@amd.com>
+References: <20261112101015.528127-2-phasta@kernel.org>
+ <5d466f7c-2e70-4011-be04-9ffdf877b915@amd.com>
+ <49298d3a328c1695ea27993f714c20b8a1c05f32.camel@mailbox.org>
+ <e2ec8a39-56c3-4274-91ce-60c273904877@amd.com>
+ <ab99758408df682c68a3792cc3014b77d6e1c8ab.camel@mailbox.org>
+ <c2dd46ea-94d8-4720-af37-897c91809338@amd.com>
+ <DMXJ8TBSZJJ4.3HG0OJDI9URTT@kernel.org>
+ <8da4a8c0-1740-450c-9cf1-1a7b21d12997@amd.com>
+ <DMXMSIQONGUW.1RRNS7I6LACD6@kernel.org>
+ <a7f9e0f3-b299-4d40-9230-106003725dc2@amd.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+User-Agent: Evolution 3.60.2 (3.60.2-3.fc44) 
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: PH8PR11MB8039:EE_|DM6PR11MB4673:EE_
-X-MS-Office365-Filtering-Correlation-Id: 123fb44f-6913-41ce-1f28-08df46227e68
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
- ARA:13230040|376014|1800799024|366016|23010399003|10067099003|56012099006|4143699003|261028144727099003|261022075727099003|11063799006|261022105027099003|261021121427099003|261021123027099003|261026121527099003|261102123227099003|261026140227099003|261009223027099003|22082099003|18002099003|6133799003|3023799007;
-X-Microsoft-Antispam-Message-Info: ZFmI56AabYZCyqe7qj5enD0GOaJtH+2toNUxo0SAQoaaD/VDtDph9sr6qvdKOTZ0Qj0+zLGFDJ6buJ2FCrz3pyLh/m3sX8c+Khmffdm9xEQK912jaUjF9dwFr+ahDD+edLYO8rydzi4pdhoCq7v5CDys5Q0y/igx1v055fcdc2gGdKltWSqBwVrxXeUjuAdNPrBum40rsm+nBprwIu1LT4zr+UBLb07b/A5DALftohuvqNivJmlshzRrZCTUUwHvSYZOnlA74oemAIPatb2xgS5KBbkv1g2RqTtkSSKcCYAY2Z2tsh83i6VzTyG8ycXtA5Lc0PZzuuSFQ2IFScnrbU15u43J7z9bEi1MUemD1E+3LaEkqOwYfWrTH1M2OUIcv37wACy/A2tYmtJY/2SB7eQz50J6QR4QKuBMMREDSoL0RVoHg1m7UL0S+4RFLwp6L6t0pS7nQKg4BbIXmtMaHZx03nNfmoUgHx7QU91+wSszxBJOjwu4mnm4MKMAfgTys+9YU97SBWaBPWcYcM1yked41/uePeWm9//2ixFjubui8KNyLJlZmuuq1xHuWtFbtUV1LDGpCagH4Cl6OTAKQSc44Ll1ZuJR21zDbJ3CbkYt31NNtnGk0OjLYjp+V4Kk3jPwm7Obos7xeJE8/wNTirNToewaKd7dkXSWDMu/CVg=
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:PH8PR11MB8039.namprd11.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(376014)(1800799024)(366016)(23010399003)(10067099003)(56012099006)(4143699003)(261028144727099003)(261022075727099003)(11063799006)(261022105027099003)(261021121427099003)(261021123027099003)(261026121527099003)(261102123227099003)(261026140227099003)(261009223027099003)(22082099003)(18002099003)(6133799003)(3023799007);
- DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?OXdSdHJMYmRybEdJNFVjYjZ5M3FBbWQ5Y1k4bjNwV1VvSStmQWRXdUxhcjRj?=
- =?utf-8?B?L3pubTUrUnZ4MzZDcER2Q2dMZlpmSEpTVGIvdmwveWhwaVVYaGhYeU4wYmds?=
- =?utf-8?B?Y3BCVmZpQnJtZ0w5OEJQWHM3bjdCMWR5S0JhSGNCUmtzYXhrOHo1VlpsYXhW?=
- =?utf-8?B?RUlmTExHMHZrejZaSUlza2R4R1NrZEhyY2NXQzdhL0NkVWRzVGNVM0FMMlZw?=
- =?utf-8?B?Unlyc2VicFZieTdhL1F3TTJnVmkvTjhFQktRaURsTWpqbHpXdjQrbmFmcTkw?=
- =?utf-8?B?MUM5UXVSR25LY3hOWSsxQ1RnSW5FNlRwZUdaaVNaTk95c1U3SENCYmt4Nkll?=
- =?utf-8?B?OFc1TmMrbWtBQ2htemF0ZUNWQkhod0pvbWJIY0RTMzBuZ0RreTNFcnRCcUhB?=
- =?utf-8?B?aG9SM1hzTzZEY2xMTTZZUWlJaWxCaDNtYnAwVGhFR2xkMTdGajVXbE03TGU4?=
- =?utf-8?B?TU9iV2NxRHJkWWlrTGRESElJSGdURWx2QlNUZkM3TVg4R0RzaUR5bFhqMWR4?=
- =?utf-8?B?b0ZVaFIwZkVjeWRwRHFWRmZPQWdNVitNZnZJb2NtSVB4N0NlMTRYeng3ZUlB?=
- =?utf-8?B?NmpsUlFPeHV5azhnYk5jbzRJM29Hc2JUa0F0T25zNlBsc2l6L2R4OUYxa3Ez?=
- =?utf-8?B?dS83OFFEV1VsZ3J3RUtEdGFBWjBiZGJJZ2JzNGNkMlY1YTg1WXFENHpPc1k4?=
- =?utf-8?B?VEV6bTVDWkNRdldhckNQRlAyV3I1M2w1UmtSKysxTUVPZnd3M3gyNTdRemth?=
- =?utf-8?B?aG9qWVdYWmZGUUNjMXZMQTNNT0pVdzlIMTUzRWlMQnk0R0lXRDFtU0JWTXJE?=
- =?utf-8?B?UmVmREoxN3h3U0I4Q0RjODEwdnAveEk3ckV3cklaTjY3TU1HV280LzYxZXM2?=
- =?utf-8?B?YU5LeXNxcDl4N01GUU9LcEI5QVBIN0RibW84RUtuQmd0RHdWUXA0bUEwZ2sz?=
- =?utf-8?B?cFRIREtxNkErVmhucUVaNU9xVTVOajZPUFh5WkhoSzhWVDJzcTNld0VPY2xx?=
- =?utf-8?B?K0Q3WjBWTDkveitwTmRjdURGQ1dlMU01SGtwaXYzZHpSbnJKS1o2MzRJek5h?=
- =?utf-8?B?TTRJUHdJYVRrOTExNDFUNzdmZlRob3U4eUNxN3FrVDRkbDNGS1piRjBwdUIz?=
- =?utf-8?B?NTcxTW4zdkd1WmRqNEZ1eXRkeEFsQTZpSjR2SUtkYi9jZ0FxNmlod3RYV2FR?=
- =?utf-8?B?a29CdG1ZdldQbDZRcUZ4U1dGWFZiaVVFWHFrMTV4RG1qNzY4ekh1S0ttWnVN?=
- =?utf-8?B?bGRhRk9wakpERnIrLzJqWnRudGdLR0ZlSGVRbVFRbWtFR1o1c3RDaU9BTjJh?=
- =?utf-8?B?MklEY2hUQVpMdDNFUHJKaUtDMVV3cU9nd1E4OGhsRnNiY1NVY1hZbDJvYVpU?=
- =?utf-8?B?R2MveFdoL1BVNCtCZlZIelJRSUNtbWsxbEpOaHV0TUNRb0ZwTDBjZHdQTU5o?=
- =?utf-8?B?VDdNMTJTVTh2UEdva0N1dTVjL203TEhVZERZVnY3M0pXYnlTLy83dlZxRDNB?=
- =?utf-8?B?cTdicFN3N0ZYZ1JYSnRhWUxtcktEeHJWMVdkZUVoWjI0K0dJS3hwYTFlRHBo?=
- =?utf-8?B?Tk9QZU1iRGQ1ZnFoT25mOXNlVUhaN242T1FONFExa21zZ0ZaUFVHNkVCdHdY?=
- =?utf-8?B?T2xJbDk0SWZoSEpBRmV0a2pGbVQ1K1VVNGZJUHpzUzlDdk4xZE1Zc0JLNUhk?=
- =?utf-8?B?OC95cUVWYi9CRGdaeWZoOGIvdnoxc1lDN05NQnpSM21DWWdlYm5ncDVUbXZF?=
- =?utf-8?B?akdlODJyYmdBT09MMjAyKzJQNUdNN0JOQ0xrQUw3WjJFdmd2WThQUm9qQjNv?=
- =?utf-8?B?TXFjb3Z5cS9MbVNoa01FK3E5K3VZL1FlNWRvMnZ0YlhJVllXOTROWjRsLzh1?=
- =?utf-8?B?MU9kUkVRWEpWSEJ4alVYeUlIakJFbTFac0N0WHc4VnBTRGpwQWxkbUpmTGRi?=
- =?utf-8?B?WlB5bHJLNmJjTUtaYUUxejFxRnh6ZzlVZ00xNzlmZ1dJTzVITEhtVFdiUmtR?=
- =?utf-8?B?ZzJDeVgzMERXbmdJVXc4eGc3eGE2ZkhoOGpPRDdaRnlPd3RqOVMrN1BRWGRZ?=
- =?utf-8?B?dFRMd09pdWNKbFlUNmdWVG9LTEN2VmpKM2lyS3V0L1RQdzh5V0FkTTdsL2V6?=
- =?utf-8?B?SkVYd3FIelI2ZExOUng1VzlOMFdqMkJrVVNKOE5aTzFEMDZ6dkk4RlRDZVhC?=
- =?utf-8?B?RTVpT0toZ0tFUm9rOTZOdmNGOUFnNmFPZ0ZVNWs4QlZKdjdWL295dlVlbG14?=
- =?utf-8?B?amYyeThVK2FjdDhhc3U3dXVrZ1BMUTM1bktHTEt1Si9BdVljak9MQUozWFVr?=
- =?utf-8?B?aDRoVzNJWHdDTjNRcnN4cXRSWXhWZm9QU1NCaytGdEVNaFpNZTdobnJSWER4?=
- =?utf-8?Q?cnxBf+K0FndKSSDc=3D?=
-X-Exchange-RoutingPolicyChecked: rsJ4OpHQRBOY7ozG2N9GFHEwnlnnz7dgLiehkkRcJnZleDMkiMeESj4In+VvBOUCL+ebRuL07tLgj7WO576fWAGkq081HYgFdK8bWOh4pHXHD+nMRAOUKwORc7InVtOym5WJPJhsKAYbHC5W6olpYH6JlM1Ncb1+b7/2Wu0PLXdICu1I6w5Om7I/j71D95V6j6X+dK4Og8qM1FF2dl5Pz3UWPIPbkG/fkn6gUZ5BbR4QEs3OEFXUezcpUVmL1JziUJ43UZllCwtosSWLlK2tTgx1EdZCOdTg3PX7On39RHrp+yUfDVx09kZDRjN3T/NYQ386cXADfVYZdy1qaJuOlA==
-X-MS-Exchange-CrossTenant-Network-Message-Id: 123fb44f-6913-41ce-1f28-08df46227e68
-X-MS-Exchange-CrossTenant-AuthSource: PH8PR11MB8039.namprd11.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 19 Nov 2026 09:50:07.5564 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 46c98d88-e344-4ed4-8496-4ed7712e255d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: twC0mECLroE3fKnnE2lCxOx9WIW1IPlaBOFixIwgpTrYQVQKA/jiWavceWj6GaSjh6lXBQME6Dk1a6rlGOf66PERAhfh79Oq2qu0f54oJFk=
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM6PR11MB4673
-X-OriginatorOrg: intel.com
+X-MBO-RS-ID: 8917f7885d5135c09a4
+X-MBO-RS-META: 5bgyrspatab3ugyn7198xxbjjtnsxz6p
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -175,153 +76,147 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
+Reply-To: phasta@kernel.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-15.8 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
-	DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
-	INCLUDES_CR_TRAILER,INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,
-	SPF_PASS autolearn=unavailable autolearn_force=no version=4.0.1
+X-Spam-Status: No, score=-5.8 required=3.0 tests=BAYES_00,DKIM_SIGNED,
+	DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
+	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS autolearn=no
+	autolearn_force=no version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-Summers, Stuart <stuart.summers@intel.com> wrote on śro [2026-lis-18 21:03:09 +0100]:
-> On Wed, 2026-11-18 at 16:54 +0800, yaolu@kylinos.cn wrote:
-> > From: Lu Yao <yaolu@kylinos.cn>
-> > 
-> > xe_lmtt_init() can fail, but gt_init_with_gt_forcewake() ignores its
-> > return value. On a PF the probe then continues with a half-
-> > initialized
-> > LMTT: lmtt->pd is never set (and lmtt->ops is cleared), so
-> > xe_lmtt_init_hw() returns early and the VF local memory is left
-> > without
-> > a translation directory while the driver still reports success.
-> > 
-> > Return the xe_lmtt_init() error and abort GT init instead, as
-> > required
-> > by the documented LMTT contract ("Any LMTT initialization failure
-> > should block VFs enabling").
-> > 
-> > Fixes: b1d204058218 ("drm/xe/pf: Introduce Local Memory Translation
-> > Table")
-> > Signed-off-by: Lu Yao <yaolu@kylinos.cn>
-> 
-> I'm not an expert in this code, but it does look like if we tried to
-> allocate memory here and that failed for some reason, causing the LMTT
-> init to fail, it would cause downstream issues later in the PF's LMTT
-> management. But the change as-is doesn't seem like the right approach
-> here IMO. I don't think we want to kill the whole driver load because
-> of this, it seems better to just log the error and not enumerate the
-> VFs.
-> 
-> But it would be good to get feedback from Piotr/Satya here.
+On Thu, 2026-11-19 at 10:32 +0100, Christian K=C3=B6nig wrote:
+> On 11/17/26 17:36, Danilo Krummrich wrote:
+> > Drivers often reference count representations of hardware resources and=
+ hardware
+> > states and hence keep them alive beyond what their actual lifetime shou=
+ld be --
+> > even beyond driver unbind.
+>=20
+> Yeah, I agree 100% with that. I know why drivers do this and there are un=
+fortunately really good reason for that.
 
-I agree with Stuart that, since LMTT is only necessary for creating VFs, we could simply
-block the creation of VFs (and all operations related to SR-IOV).
-It seems that switching back to native mode at this point is already too late.
-Interrupting the driver's probe is definitely too radical an approach.
+To me it seems more that we are often working around fundamental design
+errors. What good reasons come to mind?
 
-We could do something like this:
+>=20
+> > This causes lot's of issues and I'm looking into fixing this up, see my=
+ talk in
+> > [1] and an example from Xe [2] for reference.
+> >=20
+> > That said, in Rust we don't have this kind of ambiguity, lifetime and o=
+wnership
+> > of resources are well defined and the core infrastructure guides driver=
+s
+> > accordingly.
+>=20
+> I disagree, you do have that in Rust as well.
+>=20
+> Background is that the fundamental problem of having two signaling
+> directions which want to define lifetime differently doesn't go away
+> because you switch the programming language.
 
---- a/drivers/gpu/drm/xe/xe_lmtt.h
-+++ b/drivers/gpu/drm/xe/xe_lmtt.h
-@@
- #ifdef CONFIG_PCI_IOV
- int xe_lmtt_init(struct xe_lmtt *lmtt);
-+bool xe_lmtt_is_ready(struct xe_lmtt *lmtt);
- void xe_lmtt_init_hw(struct xe_gt *gt);
---- a/drivers/gpu/drm/xe/xe_lmtt.c
-+++ b/drivers/gpu/drm/xe/xe_lmtt.c
-@@
-+/**
-+ * xe_lmtt_is_ready() - Check if LMTT is ready to be used.
-+ * @lmtt: the &xe_lmtt to check
-+ *
-+ * This function shall be called only by PF.
-+ *
-+ * Return: true if LMTT is not needed on this device or was successfully
-+ *         initialized by xe_lmtt_init(), false otherwise.
-+ */
-+bool xe_lmtt_is_ready(struct xe_lmtt *lmtt)
-+{
-+	lmtt_assert(lmtt, IS_SRIOV_PF(lmtt_to_xe(lmtt)));
-+
-+	return !xe_device_has_lmtt(lmtt_to_xe(lmtt)) || lmtt->pd;
-+}
---- a/drivers/gpu/drm/xe/xe_gt.c
-+++ b/drivers/gpu/drm/xe/xe_gt.c
-@@ static int gt_init_with_gt_forcewake(struct xe_gt *gt)
- 	if (xe_gt_is_main_type(gt)) {
- 		err = xe_ggtt_init(gt_to_tile(gt)->mem.ggtt);
- 		if (err)
- 			return err;
--		if (IS_SRIOV_PF(gt_to_xe(gt)))
--			xe_lmtt_init(&gt_to_tile(gt)->sriov.pf.lmtt);
-+		if (IS_SRIOV_PF(gt_to_xe(gt))) {
-+			err = xe_lmtt_init(&gt_to_tile(gt)->sriov.pf.lmtt);
-+			if (err)
-+				xe_gt_sriov_err(gt, "Failed to initialize LMTT (%pe), VFs will be unavailable\n",
-+						ERR_PTR(err));
-+		}
- 	}
---- a/drivers/gpu/drm/xe/xe_sriov_pf.c
-+++ b/drivers/gpu/drm/xe/xe_sriov_pf.c
-@@
-+static int pf_check_lmtt(struct xe_device *xe)
-+{
-+	struct xe_tile *tile;
-+	unsigned int id;
-+
-+	for_each_tile(tile, xe, id)
-+		if (!xe_lmtt_is_ready(&tile->sriov.pf.lmtt))
-+			return -ENODEV;
-+
-+	return 0;
-+}
-+
- int xe_sriov_pf_wait_ready(struct xe_device *xe)
- {
- 	struct xe_gt *gt;
- 	unsigned int id;
- 	int err;
- 
- 	if (xe_wedged(xe))
- 		return -ECANCELED;
- 
-+	err = pf_check_lmtt(xe);
-+	if (err)
-+		return err;
-+
- 	for_each_gt(gt, xe, id) {
+For Rust DmaFence, this is addressed by having two distinct objects
+sharing the same refcounted memory, DriverFence and Fence.
 
-Thanks
-Piotr
+Dropping / signaling DriverFence is the decoupling point.
 
-> 
-> Thanks,
-> Stuart
-> 
-> > ---
-> >  drivers/gpu/drm/xe/xe_gt.c | 4 ++--
-> >  1 file changed, 2 insertions(+), 2 deletions(-)
-> > 
-> > diff --git a/drivers/gpu/drm/xe/xe_gt.c b/drivers/gpu/drm/xe/xe_gt.c
-> > index 286aee5775c0..1239cbb7c84c 100644
-> > --- a/drivers/gpu/drm/xe/xe_gt.c
-> > +++ b/drivers/gpu/drm/xe/xe_gt.c
-> > @@ -582,10 +582,10 @@ static int gt_init_with_gt_forcewake(struct
-> > xe_gt *gt)
-> >  
-> >         if (xe_gt_is_main_type(gt)) {
-> >                 err = xe_ggtt_init(gt_to_tile(gt)->mem.ggtt);
-> > +               if (!err && IS_SRIOV_PF(gt_to_xe(gt)))
-> > +                       err = xe_lmtt_init(&gt_to_tile(gt)-
-> > >sriov.pf.lmtt);
-> >                 if (err)
-> >                         return err;
-> > -               if (IS_SRIOV_PF(gt_to_xe(gt)))
-> > -                       xe_lmtt_init(&gt_to_tile(gt)->sriov.pf.lmtt);
-> >         }
-> >  
-> >         /* Enable per hw engine IRQs */
-> 
+Which is by the way why I am trying to convince you so hard to give me
+the spinlock, to make this simpler and fully sync ;)
 
--- 
+> But even in Rust there is still the need to give HW drivers something
+> like a template in which is defined how things should be done and
+> what things need to be avoided.
+
+see below
+
+>=20
+> > Consequently, it is perfectly reasonable to assume that a driver object=
+ that
+> > owns device resources (such as DMA memory) will, in its destructor, tea=
+r down
+> > the hardware to not access any of the resources it owns anymore.
+>=20
+> Exactly that is a pattern I have seen many many times before and I
+> can say from experience that it is very prone to human errors as
+> well.
+
+Danilo's argument is that the object that halts the hardware is the
+same that owns the fences.
+
+You drop the hardware-ring-object, this halts the ring, waits for it
+synchronously, then the fences drop and signal. Of course, you can
+additionally signal them manually before their drop with another error
+code than the default.
+
+> > Insisting on an explicit method call is not improving anything in this =
+model.
+>=20
+> I'm not insisting on an explicit method call.
+>=20
+> What I'm insisting on is that the response from the HW that the DMA
+> operation has stopped is signaling the fence.
+
+That is effectively the case, see above.
+
+> And not that driver tell the HW stop DMA and then continue and dma
+> fence is automatically signaled without explicitly saying that is the
+> signal that DMA operations are stopped.
+
+Again, the main point here is that the object layout ensures *exactly*
+what you want, Christian
+
+Like this, pseudocode
+
+// Drops first, stops hardware
+struct exec_context {
+	// drops second
+	jq: JobQueue, // signals remaining fences when it drops
+}
+
+It's maybe more implicit, but ensures exactly what needs to be ensured.
+
+That's how teardown is done in Rust. You drop the lock, it unlocks
+itself. You drop the memory, it frees itself. You drop the fence, it
+signals itself.
+
+That's by design because the object lifetime model falls naturally into
+place.
+
+> I think the most defensive way would be as last resort scream loud in
+> the logs that the driver is somehow buggy and hasn't signaled it's
+> fence, wait for a certain amount of time (100ms?) as safeguard and
+> then signal the fence with an error.
+
+Now that doesn't make any sense at all, either the hardware is stopped
+or it isn't. Having some random delay is probably even worse because
+the problem is then more difficult to even encounter and thus fix.
+
+> Exactly that is what I disagree on.
+>=20
+> Stopping the HW is what makes fences signal and that is what this
+> tear down process should block for.
+
+Our point is that dropping stuff stops the hardware, and *then* signals
+the fences. Exactly what you want! :)
+
+> Well the question is can we enforce this?
+>=20
+> I mean there are usually only limited options from the compiler side
+> to enforce things, but we should still push developers to use well
+> proven patterns and coding practices.
+
+You currently cannot prevent people from refcounting stuff if they
+really want to. The Rust language is working on enforcing that, too,
+though
+
+https://goals.rust-lang.org/2026/move-trait.html
+
+
+btw the best feature that Rust offers IMO is that the refcounting is at
+least always right. That's quite cool. A great many hacks I've seen
+stem from the fact that programmers are not disciplined when it comes
+to copying pointers and their refcount.
+
+
+P.
