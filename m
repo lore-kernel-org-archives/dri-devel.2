@@ -2,58 +2,66 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 655A7606A32A
-	for <dri-devel@archiver.kernel.org>; Thu, 19 Nov 2026 08:04:31 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1A0B9606A324
+	for <dri-devel@archiver.kernel.org>; Thu, 19 Nov 2026 08:05:50 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=collabora.com header.i=@collabora.com header.a=rsa-sha256 header.s=mail header.b=dVs4xeTh
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=JpnSstNM
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 64BAA10FFB7;
-	Thu, 19 Nov 2026 08:04:25 +0000 (UTC)
-Received: from bali.collaboradmins.com (bali.collaboradmins.com
- [148.251.105.195])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 7A1CE10FFB7
- for <dri-devel@lists.freedesktop.org>; Thu, 19 Nov 2026 08:04:14 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
- s=mail; t=1795075453;
- bh=9TazWM6BKOf6d9tLlEyGmgvHD0KV9sR6KW/73xdMYsA=;
- h=Date:From:To:Cc:Subject:In-Reply-To:References:From;
- b=dVs4xeThV2UkMFisYcBJ5RmcjppQeHn5BY71MaXE0m6sN0CvZUU9f9oEI+SC4B2Pg
- AU21kIkKA2P99IgAu2NmbgPBisBJVqlxTuUmOahVdkj3ryM5pj1gh/HvUN/g6aQIsI
- pMjxFcuEw5y5NFasazxkiQcIxP4VTLv5s3LpEQDnijS9ieX4QifC6Ncgv40D2FfHB1
- bGrHppvuQXtMCDH6jsBSYI6wM/QddBNwEd/tsPYLCQQXlEig3QsfyAkoYw6vZBw+D9
- 4EMDLFDongjLmSpKYuzRna2DuNRkA0fGdJtiy+UN2GyMAua4HrA8BYoXYHXYz5HVku
- qBQhJFOCAW3XA==
-Received: from fedora1.home (unknown [100.64.0.11])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange secp256r1 server-signature RSA-PSS (4096 bits) server-digest
- SHA256) (No client certificate requested)
- (Authenticated sender: bbrezillon)
- by bali.collaboradmins.com (Postfix) with ESMTPSA id 9548717E00E8;
- Thu, 19 Nov 2026 09:04:12 +0100 (CET)
-Date: Thu, 19 Nov 2026 09:04:09 +0100
-From: Boris Brezillon <boris.brezillon@collabora.com>
-To: Karunika Choo <karunika.choo@arm.com>
-Cc: dri-devel@lists.freedesktop.org, nd@arm.com, Steven Price
- <steven.price@arm.com>, Liviu Dudau <liviu.dudau@arm.com>,
- linux-kernel@vger.kernel.org, Akash Goel <akash.goel@arm.com>, Lukas
- Zapolskas <lukas.zapolskas@arm.com>, Chris Diamand <chris.diamand@arm.com>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, Maxime Ripard
- <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, David Airlie
- <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, Rob Herring
- <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
- <conor+dt@kernel.org>, devicetree@vger.kernel.org
-Subject: Re: [PATCH v3 08/10] dt-bindings: gpu: mali-gen5-am: Add Mali
- 5th-Gen AM schema
-Message-ID: <20261119090409.5309e7bb@fedora1.home>
-In-Reply-To: <20261118175332.519657-9-karunika.choo@arm.com>
-References: <20261118175332.519657-1-karunika.choo@arm.com>
- <20261118175332.519657-9-karunika.choo@arm.com>
-Organization: Collabora
-X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; x86_64-redhat-linux-gnu)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 3964510FFF4;
+	Thu, 19 Nov 2026 08:05:44 +0000 (UTC)
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.19])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id B61EB10FFE8;
+ Thu, 19 Nov 2026 08:05:37 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1795075537; x=1826611537;
+ h=date:from:to:cc:subject:message-id:mime-version:
+ content-transfer-encoding;
+ bh=IJ6joWbz1UgYrLRxC/e1sHS4cHsf7fO4DIgbtXHJzbk=;
+ b=JpnSstNMw4nbA63kd1UcUQb8CTQWeWI6NbPRmFOr1v40S2a91Y9/NRCR
+ c4jwbD1Bcw7/x+RCOLWk6qTVFJ2/6AxuGyBD9feg8vfDrSuPSkh+R/2P/
+ 6YbwItwqPTDXvlJpsnt4qBiM0d6vd7gt8jb2LqcB0d0t30Nv+75W1Jnta
+ J9dVGoK96+2OVMRrAS6EGO1iyQP7MsqWnhqVpD9PaepUcHe/mz4n52Kld
+ pi8X5It8zacWDbh18xDeX5u0GrvkC4S72SVv2+U55URJMBswTTpvgFJaM
+ 5WP1URFGbf9Ku3InmPnrQd1ftDEF4uA87GJ/6f45gismdBA4AgoAfmFn7 g==;
+X-CSE-ConnectionGUID: sv3H0Uy4Sr6i8H0U0+i01g==
+X-CSE-MsgGUID: +PMtZ450Rcmd1TLmmiHUqA==
+X-IronPort-AV: E=McAfee;i="6800,10657,11970"; a="3964663"
+X-IronPort-AV: E=Sophos;i="6.27,220,1787036400"; 
+   d="scan'208";a="3964663"
+Received: from fmviesa003.fm.intel.com ([10.60.135.143])
+ by orvoesa111.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 19 Nov 2026 00:05:37 -0800
+X-CSE-ConnectionGUID: D6bImurKT2eZ4VbNJMzLdw==
+X-CSE-MsgGUID: vXx2w6UcTcqQeuVtZxjJGw==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,220,1787036400"; d="scan'208";a="10513346"
+Received: from slindbla-desk.ger.corp.intel.com (HELO localhost)
+ ([10.245.245.76])
+ by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 19 Nov 2026 00:05:32 -0800
+Date: Thu, 19 Nov 2026 10:05:30 +0200
+From: Joonas Lahtinen <joonas.lahtinen@linux.intel.com>
+To: Dave Airlie <airlied@gmail.com>, Simona Vetter <simona.vetter@ffwll.ch>
+Cc: Jani Nikula <jani.nikula@linux.intel.com>,
+ Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
+ Tvrtko Ursulin <tursulin@ursulin.net>,
+ Rodrigo Vivi <rodrigo.vivi@intel.com>,
+ Thomas Zimmermann <tzimmermann@suse.de>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>,
+ Matthew Brost <matthew.brost@intel.com>,
+ Thomas =?iso-8859-1?Q?Hellstr=F6m?= <thomas.hellstrom@linux.intel.com>,
+ Oded Gabbay <ogabbay@kernel.org>, dri-devel@lists.freedesktop.org,
+ intel-gfx@lists.freedesktop.org, intel-xe@lists.freedesktop.org,
+ dim-tools@lists.freedesktop.org
+Subject: [PULL] drm-intel-fixes
+Message-ID: <av6tygXTIOlGV7vc@jlahtine-mobl>
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=iso-8859-1
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -65,153 +73,51 @@ List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-17.3 required=3.0 tests=BAYES_00,DKIM_SIGNED,
-	DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
-	INCLUDES_CR_TRAILER,INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,
-	SPF_PASS,USER_AGENT_SANE_2 autolearn=unavailable autolearn_force=no
-	version=4.0.1
+X-Spam-Status: No, score=-13.8 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
+	DKIM_SIGNED,DKIM_VALID,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_PATCH,
+	INCLUDES_PULL_REQUEST,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS
+	autolearn=unavailable autolearn_force=no version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-On Wed, 18 Nov 2026 17:53:24 +0000
-Karunika Choo <karunika.choo@arm.com> wrote:
+Hi Dave & Sima,
 
-> Add a separate device-tree schema for Mali 5th-Gen AM GPUs.
-> 
-> AM_GOVERNOR controls GPU frequency. The GPU node does not accept OPP,
-> cooling or GPU supply properties.
-> 
-> Signed-off-by: Karunika Choo <karunika.choo@arm.com>
+Here goes drm-intel-fixes PR towards v7.4-rc4.
 
-Acked-by: Boris Brezillon <boris.brezillon@collabora.com>
+One regression fix for CML/KBL 4K displays and one DSB programming fix.
 
-> ---
-> v3:
-> - Drop the $nodename constraint from the AM GPU binding.
-> - Require the arm,zena-css-mali integration compatible followed by
->   the arm,mali-gen5-am fallback.
-> - Update the binding example to use the new compatible, three-cell
->   interrupt specifiers, and a single GPU clock.
-> v2:
-> - Move arm,mali-gen5-am support from arm,mali-valhall-csf.yaml to a
->   separate arm,mali-gen5-am.yaml schema.
-> - Move the AM GPU example to the new schema and add the interrupt
->   binding headers.
-> - Add the new schema to the Panthor MAINTAINERS entry.
-> 
->  .../bindings/gpu/arm,mali-gen5-am.yaml        | 89 +++++++++++++++++++
->  MAINTAINERS                                   |  1 +
->  2 files changed, 90 insertions(+)
->  create mode 100644 Documentation/devicetree/bindings/gpu/arm,mali-gen5-am.yaml
-> 
-> diff --git a/Documentation/devicetree/bindings/gpu/arm,mali-gen5-am.yaml b/Documentation/devicetree/bindings/gpu/arm,mali-gen5-am.yaml
-> new file mode 100644
-> index 0000000000000..af758daec2aeb
-> --- /dev/null
-> +++ b/Documentation/devicetree/bindings/gpu/arm,mali-gen5-am.yaml
-> @@ -0,0 +1,89 @@
-> +# SPDX-License-Identifier: GPL-2.0-only OR BSD-2-Clause
-> +%YAML 1.2
-> +---
-> +$id: http://devicetree.org/schemas/gpu/arm,mali-gen5-am.yaml#
-> +$schema: http://devicetree.org/meta-schemas/core.yaml#
-> +
-> +title: ARM Mali 5th Gen AM GPU
-> +
-> +maintainers:
-> +  - Liviu Dudau <liviu.dudau@arm.com>
-> +  - Boris Brezillon <boris.brezillon@collabora.com>
-> +
-> +properties:
-> +  compatible:
-> +    items:
-> +      - enum:
-> +          - arm,zena-css-mali
-> +      - const: arm,mali-gen5-am
-> +
-> +  reg:
-> +    maxItems: 1
-> +
-> +  interrupts:
-> +    items:
-> +      - description: Job interrupt
-> +      - description: MMU interrupt
-> +      - description: GPU interrupt
-> +
-> +  interrupt-names:
-> +    items:
-> +      - const: job
-> +      - const: mmu
-> +      - const: gpu
-> +
-> +  clocks:
-> +    minItems: 1
-> +    maxItems: 3
-> +
-> +  clock-names:
-> +    minItems: 1
-> +    items:
-> +      - const: core
-> +      - enum:
-> +          - coregroup
-> +          - stacks
-> +      - const: stacks
-> +
-> +  nvmem-cells:
-> +    items:
-> +      - description: bitmask of functional shader cores
-> +
-> +  nvmem-cell-names:
-> +    items:
-> +      - const: shader-present
-> +
-> +  power-domains:
-> +    minItems: 1
-> +    maxItems: 5
-> +
-> +  power-domain-names:
-> +    minItems: 1
-> +    maxItems: 5
-> +
-> +  dma-coherent: true
-> +
-> +required:
-> +  - compatible
-> +  - reg
-> +  - interrupts
-> +  - interrupt-names
-> +  - clocks
-> +
-> +additionalProperties: false
-> +
-> +examples:
-> +  - |
-> +    #include <dt-bindings/interrupt-controller/irq.h>
-> +    #include <dt-bindings/interrupt-controller/arm-gic.h>
-> +
-> +    gpu@100000 {
-> +        compatible = "arm,zena-css-mali", "arm,mali-gen5-am";
-> +        reg = <0x100000 0x480000>;
-> +        interrupts = <GIC_SPI 168 IRQ_TYPE_LEVEL_HIGH>,
-> +                     <GIC_SPI 168 IRQ_TYPE_LEVEL_HIGH>,
-> +                     <GIC_SPI 168 IRQ_TYPE_LEVEL_HIGH>;
-> +        interrupt-names = "job", "mmu", "gpu";
-> +        clocks = <&gpu_clk>;
-> +    };
-> +...
-> diff --git a/MAINTAINERS b/MAINTAINERS
-> index bcade5bfbafe9..93ee837af9958 100644
-> --- a/MAINTAINERS
-> +++ b/MAINTAINERS
-> @@ -2404,6 +2404,7 @@ R:	Chris Diamand <chris.diamand@arm.com>
->  L:	dri-devel@lists.freedesktop.org
->  S:	Supported
->  T:	git https://gitlab.freedesktop.org/drm/misc/kernel.git
-> +F:	Documentation/devicetree/bindings/gpu/arm,mali-gen5-am*.yaml
->  F:	Documentation/devicetree/bindings/gpu/arm,mali-valhall-csf.yaml
->  F:	drivers/gpu/drm/ci/xfails/panthor*
->  F:	drivers/gpu/drm/panthor/
-> --
-> 2.43.0
-> 
+Regards, Joonas
 
+***
+
+drm-intel-fixes-2026-11-19:
+
+- Regression fix for GitLab #16595 and #17423: 4K displays corrupt/black on CML/KBL
+- DSB programming fix for GOSUB
+
+The following changes since commit aebb7274476403040d582c61478df8f4a7bf9cd3:
+
+  Linux 7.4-rc3 (2026-11-15 14:30:11 -0800)
+
+are available in the Git repository at:
+
+  https://gitlab.freedesktop.org/drm/i915/kernel.git tags/drm-intel-fixes-2026-11-19
+
+for you to fetch changes up to 715f145f6204363a50853eb15719dc860db0bc01:
+
+  drm/i915/dsb: Realign GOSUB only for QW slots 6 and 7 (2026-11-16 11:12:07 +0200)
+
+----------------------------------------------------------------
+- Regression fix for GitLab #16595 and #17423: 4K displays corrupt/black on CML/KBL
+- DSB programming fix for GOSUB
+
+----------------------------------------------------------------
+Hanson Wang (1):
+      drm/i915/dsb: Realign GOSUB only for QW slots 6 and 7
+
+Ville Syrjälä (1):
+      drm/i915/cdclk: Ignore SWF18 in SKL CDCLK sanitization
+
+ drivers/gpu/drm/i915/display/intel_cdclk.c | 13 +------------
+ drivers/gpu/drm/i915/display/intel_dsb.c   | 16 ++++++++++------
+ 2 files changed, 11 insertions(+), 18 deletions(-)
