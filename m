@@ -2,42 +2,42 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 70394606A320
-	for <dri-devel@archiver.kernel.org>; Thu, 19 Nov 2026 09:01:28 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 455E760A2617
+	for <dri-devel@archiver.kernel.org>; Thu, 19 Nov 2026 09:05:28 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ebugXVXa
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=MaoM/Dk0
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id D25C61121BE;
-	Thu, 19 Nov 2026 09:01:22 +0000 (UTC)
-Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 642221121BE
- for <dri-devel@lists.freedesktop.org>; Thu, 19 Nov 2026 09:01:16 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id A918410E675;
+	Thu, 19 Nov 2026 09:05:22 +0000 (UTC)
+Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id CD2F110E675
+ for <dri-devel@lists.freedesktop.org>; Thu, 19 Nov 2026 09:05:16 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id 1FE3047A37;
- Thu, 19 Nov 2026 09:01:16 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id DA35C1F000C4;
- Thu, 19 Nov 2026 09:01:15 +0000 (UTC)
+ by tor.source.kernel.org (Postfix) with ESMTP id 259FB60F60;
+ Thu, 19 Nov 2026 09:05:16 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id B16E91F000C4;
+ Thu, 19 Nov 2026 09:05:15 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1795078876;
- bh=wnWD7y+aIxjNRa5LAP2+NhnLk9HlQ8VRVZFqcUmxiDw=;
+ s=k20260515; t=1795079115;
+ bh=yItuJl3iymVqaUiyn/bVkdF/eUQVQaDYoZTntV80HCE=;
  h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
- b=ebugXVXadwdBavfywFsydx6f6q5izhCP2LUPXaT9ONVFJI+GwpSpArbTFdObAEoOI
- 7zfviwMIEaWVzH3iajaibqC9IYX+umGtJ3EWkb8FtHrrp9Z0jkHJiKdgIJgGVbI38l
- Gxrrij0Dli9RmO39T1e13nFGpv2xc2GZHI71ZUXARbJNc8Mia6I1BC1flulp3q+8jo
- SVZvuiRK4rQpkAQOQQRAqe5A2t1va3rQ8jEe3z8QfmKy5MMFWz9K+qaoP1HZSbHvRc
- 1b+v022CN1Dbs6BxAsHutF1ghmkYxsfU2ok9KrWerkdWm4Ma5TruCZBLlZePMeWaO8
- pWiyiZZmPKSRw==
-Message-ID: <sashiko-outbox-222773@kernel.org>
+ b=MaoM/Dk0S59Qy4kwP9famGF0nv5qIR00+gn+IVo8jYinQTHngsDRbxUgMu1cKNjUJ
+ Vlsd/zW1+HMP1yG+wi7WZtglpqfErgaFdYSikixUD/Y3XI2RzmTi3/B1CXX8oGnRFN
+ DZEJYW4oNfFzCl28ePeAW0lm0CBgqhF9gqPxxQFPDGcSuoyqXNJJ9/QxFPpxvxKGyS
+ Yu79FwhzURn/WJct0jYa3fgfJlGP8864aFEsRURZ4OXud9yHTC4Exq64/bkq4+6+e7
+ Mfvwkbfz0ZqZJ07xlhn85Pn0HIVsXxnZjoPSpDotpmq+5J2x2TX1CdCWpovueVUnMg
+ Grj2R9RyhbvJg==
+Message-ID: <sashiko-outbox-222782@kernel.org>
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v9 18/29] drm/msm/dp: add atomic stream handling for MST
+Subject: Re: [PATCH v9 24/29] drm/msm/dp: enable MST on capable sinks
 To: "Yongxing Mou" <yongxing.mou@oss.qualcomm.com>
 Cc: dri-devel@lists.freedesktop.org
-In-Reply-To: <20261119-msm-dp-mst-v9-18-ca61be4edfc3@oss.qualcomm.com>
+In-Reply-To: <20261119-msm-dp-mst-v9-24-ca61be4edfc3@oss.qualcomm.com>
 References: <20261119-msm-dp-mst-v9-0-ca61be4edfc3@oss.qualcomm.com>
- <20261119-msm-dp-mst-v9-18-ca61be4edfc3@oss.qualcomm.com>
+ <20261119-msm-dp-mst-v9-24-ca61be4edfc3@oss.qualcomm.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Thu, 19 Nov 2026 09:01:15 +0000
+Date: Thu, 19 Nov 2026 09:05:15 +0000
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -60,294 +60,223 @@ X-Archived-By: <archiver.kernel.org>
 
 Thank you for your contribution! Sashiko AI review found 5 potential
 issues to consider:
-- [High] drm/msm/dp: broken DPMS payload tracking in
-  msm_dp_mst_stream_atomic_check()
-- [High] drm/msm/dp: MST payload state corruption on
-  msm_dp_mst_stream_enable() error
-- [High] drm/msm/dp: link and runtime PM leak in
-  msm_dp_mst_stream_post_disable()
-- [Medium] drm/msm/dp: zero pbn_div in msm_dp_mst_stream_atomic_check()
-  causes div-by-zero
-- [Medium] drm/msm/dp: SST panel and connector queried in
-  dpu_encoder_mst_atomic_enable()
+- [High] drm/msm/dp: missing msm_dp_display_unprepare() on MST unplug
+- [High] drm/msm/dp: msm_dp_bridge_detect() sets plugged=3Dtrue and blocks
+  MST enablement
+- [Medium] drm/msm/dp: unchecked set_mgr_state error in
+  msm_dp_display_mst_enable()
+- [Medium] drm/msm/dp: msm_dp_display_mode_valid() ignores info for
+  dp->connector
+- [Medium] drm/msm/dp: race on mst_active and plugged in
+  msm_dp_bridge_detect()
 --
 
-commit 3b57ce88885b473a2748e491b3e969f409d8d170
-Author: Yongxing Mou <yongxing.mou@oss.qualcomm.com>
+commit cd4f05789938aa44aebbfa953a74a28b9b779975
+Author: Abhinav Kumar <quic_abhinavk@quicinc.com>
 
-drm/msm/dp: add atomic stream handling for MST
+drm/msm/dp: enable MST on capable sinks
 
-This commit adds atomic check, enable, and disable helpers for DisplayPort
-MST streams, reserving VC payload bandwidth and updating MST payloads.
+This commit enables MST mode on MST-capable sinks connected to
+multi-stream DP controllers and updates the MST topology manager state on
+HPD plug and unplug.
 
-> diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c b/drivers/gpu/dr=
-m/msm/disp/dpu1/dpu_encoder.c
-> index 802cb62fc0102..edf30d7d3d169 100644
-> --- a/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c
-> +++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c
-> @@ -2745,16 +2745,27 @@ static const struct drm_encoder_helper_funcs dpu_=
-encoder_helper_funcs =3D {
->  static void dpu_encoder_mst_atomic_enable(struct drm_encoder *enc,
->  				      struct drm_atomic_commit *state)
->  {
-> +	msm_dp_mst_stream_enable(enc, state);
->  	dpu_encoder_virt_atomic_enable(enc, state);
->  }
-
-[Severity: Medium]
-Does dpu_encoder_virt_atomic_enable() query the SST panel and connector
-instead of the MST stream's panel and connector when configuring widebus
-and peripheral flush?
-
-msm_dp_mst_stream_enable() binds the per-stream MST panel to the MST
-connector and configures dp->ctrl->wide_bus_en from that panel.
-dpu_encoder_virt_atomic_enable() then calls msm_dp_wide_bus_available() and
-msm_dp_needs_periph_flush(), which inspect the SST dp->panel and
-msm_dp_display->connector:
-
-drivers/gpu/drm/msm/dp/dp_display.c:msm_dp_needs_periph_flush() {
-	return drm_mode_is_420_only(&msm_dp_display->connector->display_info, mode=
-);
-}
-
-drivers/gpu/drm/msm/dp/dp_display.c:msm_dp_wide_bus_available() {
-	...
-	if (dp->panel->msm_dp_mode.out_fmt_is_yuv_420)
-		return false;
-
-	return dp->wide_bus_supported;
-}
-
-When a YUV420 mode is enabled on an MST connector (or if the SST panel
-retained out_fmt_is_yuv_420 from an earlier SST session), the DPU INTF and
-DP controller end up with mismatched widebus settings, and YUV420 MST
-streams halve horizontal timings twice while skipping peripheral flush.
-
-> diff --git a/drivers/gpu/drm/msm/dp/dp_mst_drm.c b/drivers/gpu/drm/msm/dp=
-/dp_mst_drm.c
-> index ef5fb70863b81..eae82e857c849 100644
-> --- a/drivers/gpu/drm/msm/dp/dp_mst_drm.c
-> +++ b/drivers/gpu/drm/msm/dp/dp_mst_drm.c
+> diff --git a/drivers/gpu/drm/msm/dp/dp_display.c b/drivers/gpu/drm/msm/dp=
+/dp_display.c
+> index 17487a7900d00..7f5247cbae035 100644
+> --- a/drivers/gpu/drm/msm/dp/dp_display.c
+> +++ b/drivers/gpu/drm/msm/dp/dp_display.c
 [ ... ]
-> @@ -147,6 +186,158 @@ static int msm_dp_mst_encoder_stream_id(struct msm_=
-dp_mst *mst,
->  	return -1;
+> @@ -270,10 +271,34 @@ static int msm_dp_display_lttpr_init(struct msm_dp_=
+display_private *dp, u8 *dpcd
+>  	return lttpr_count;
 >  }
 > =20
-> +void msm_dp_mst_stream_enable(struct drm_encoder *encoder,
-> +			       struct drm_atomic_commit *state)
+> +static void msm_dp_display_mst_enable(struct msm_dp_display_private *dp)
 > +{
-> +	struct drm_connector *connector =3D
-> +		drm_atomic_get_new_connector_for_encoder(state, encoder);
-> +	struct msm_dp_mst_connector *mst_conn =3D to_dp_mst_connector(connector=
-);
-> +	struct msm_dp_mst *mst =3D mst_conn->dp_mst;
-> +	struct msm_dp *dp_display =3D mst->msm_dp;
-> +	struct msm_dp_panel *panel =3D msm_dp_mst_panel_from_encoder(mst, encod=
-er);
-> +	struct drm_dp_mst_port *port =3D mst_conn->mst_port;
-> +	struct drm_dp_mst_topology_state *mst_state =3D
-> +		drm_atomic_get_new_mst_topology_state(state, &mst->mst_mgr);
-> +	struct drm_dp_mst_atomic_payload *payload =3D
-> +		drm_atomic_get_mst_payload_state(mst_state, port);
-> +	struct msm_dp_mst_slot_info slots[DP_STREAM_MAX] =3D {};
-> +	int rc;
+> +	struct msm_dp *msm_dp =3D &dp->msm_dp_display;
+> +	int ret;
 > +
-> +	guard(mutex)(&mst->mst_lock);
-> +
-> +	drm_connector_get(connector);
-> +	panel->connector =3D connector;
-> +
-> +	rc =3D msm_dp_display_set_mode_helper(dp_display, state, encoder, panel=
-);
-> +	if (rc) {
-> +		drm_err(dp_display->drm_dev,
-> +			"[MST] stream:%u set_mode failed rc=3D%d\n", panel->stream_id, rc);
+> +	/* Clear any pre-existing MST state before enabling MST. */
+> +	ret =3D drm_dp_dpcd_write_byte(dp->aux, DP_MSTM_CTRL, 0);
+> +	if (ret < 0) {
+> +		DRM_ERROR("failed to clear DP_MSTM_CTRL, ret=3D%d\n", ret);
 > +		return;
 > +	}
 > +
-> +	rc =3D msm_dp_display_prepare_link(dp_display);
-> +	if (rc) {
-> +		drm_err(dp_display->drm_dev,
-> +			"[MST] stream:%u prepare_link failed rc=3D%d\n", panel->stream_id, rc=
-);
+> +	ret =3D drm_dp_dpcd_write_byte(dp->aux, DP_MSTM_CTRL,
+> +				     DP_MST_EN | DP_UP_REQ_EN | DP_UPSTREAM_IS_SRC);
+> +	if (ret < 0) {
+> +		DRM_ERROR("sink MST enablement failed\n");
 > +		return;
 > +	}
 > +
-> +	drm_dp_mst_update_slots(mst_state, DP_CAP_ANSI_8B10B);
-> +
-> +	rc =3D drm_dp_add_payload_part1(&mst->mst_mgr, mst_state, payload);
-> +	if (rc)
-> +		return;
-> +
-> +	msm_dp_mst_collect_slots(mst, mst_state, slots);
-> +
-> +	drm_dbg_kms(dp_display->drm_dev,
-> +		    "[MST] stream:%u timeslots vc_start:%d slots:%d pbn:%d\n",
-> +		    panel->stream_id, payload->vc_start_slot,
-> +		    payload->time_slots, payload->pbn);
-> +
-> +	rc =3D msm_dp_display_enable_helper(dp_display, panel, slots);
-> +	if (rc)
-> +		return;
-> +
-> +	drm_dp_check_act_status(&mst->mst_mgr);
-> +
-> +	drm_dp_add_payload_part2(&mst->mst_mgr, payload);
+> +	msm_dp->mst_active =3D true;
+> +	msm_dp_mst_display_set_mgr_state(msm_dp, true);
 > +}
-> +
-> +void msm_dp_mst_stream_disable(struct drm_encoder *encoder,
-> +			       struct drm_atomic_commit *state)
-> +{
-> +	struct drm_connector *connector =3D drm_atomic_get_old_connector_for_en=
-coder(state, encoder);
-> +	struct msm_dp_mst_connector *mst_conn =3D to_dp_mst_connector(connector=
-);
-> +	struct msm_dp_mst *mst =3D mst_conn->dp_mst;
-> +	struct msm_dp_panel *panel =3D msm_dp_mst_panel_from_encoder(mst, encod=
-er);
-> +	struct drm_dp_mst_topology_state *old_mst_state =3D
-> +		drm_atomic_get_old_mst_topology_state(state, &mst->mst_mgr);
-> +	struct drm_dp_mst_topology_state *new_mst_state =3D
-> +		drm_atomic_get_new_mst_topology_state(state, &mst->mst_mgr);
-> +	struct drm_dp_mst_atomic_payload *old_payload =3D
-> +		drm_atomic_get_mst_payload_state(old_mst_state, mst_conn->mst_port);
-> +	struct drm_dp_mst_atomic_payload *new_payload =3D
-> +		drm_atomic_get_mst_payload_state(new_mst_state, mst_conn->mst_port);
-> +	struct msm_dp_mst_slot_info slots[DP_STREAM_MAX] =3D {};
-> +
-> +	guard(mutex)(&mst->mst_lock);
-> +
-> +	drm_dp_remove_payload_part1(&mst->mst_mgr, new_mst_state, new_payload);
-> +
-> +	drm_dp_remove_payload_part2(&mst->mst_mgr, new_mst_state, old_payload, =
-new_payload);
-
-[Severity: High]
-Can an early return in msm_dp_mst_stream_enable() before
-drm_dp_add_payload_part1() corrupt the MST payload state on the subsequent
-disable?
-
-If msm_dp_display_set_mode_helper() or msm_dp_display_prepare_link() fails
-(for example, on a link training failure), drm_dp_add_payload_part1() is
-skipped, so payload->vc_start_slot stays -1 and mst_mgr.payload_count is
-not incremented.  When the stream is later disabled,
-msm_dp_mst_stream_disable() still calls drm_dp_remove_payload_part2(),
-which sees new_payload->vc_start_slot =3D=3D -1, subtracts
-old_payload->time_slots from the vc_start_slot of every active payload with
-vc_start_slot >=3D 1, and underflows mst_mgr.payload_count and
-mst_mgr.next_start_slot.
-
-> +	msm_dp_mst_collect_slots(mst, new_mst_state, slots);
-> +
-> +	drm_dbg_kms(mst->msm_dp->drm_dev,
-> +		    "[MST] stream:%u timeslots vc_start:%d slots:%d pbn:%d\n",
-> +		    panel->stream_id, new_payload->vc_start_slot,
-> +		    new_payload->time_slots, new_payload->pbn);
-> +
-> +	if (!msm_dp_display_is_plugged(mst->msm_dp))
-> +		return;
-> +
-> +	msm_dp_display_disable_helper(mst->msm_dp, panel, slots);
-> +
-> +	drm_dp_check_act_status(&mst->mst_mgr);
-> +}
-> +
-> +void msm_dp_mst_stream_post_disable(struct drm_encoder *encoder,
-> +				    struct drm_atomic_commit *state)
-> +{
-> +	struct drm_connector *connector =3D drm_atomic_get_old_connector_for_en=
-coder(state, encoder);
-> +	struct msm_dp_mst_connector *mst_conn =3D to_dp_mst_connector(connector=
-);
-> +	struct msm_dp_mst *mst =3D mst_conn->dp_mst;
-> +	struct msm_dp_panel *panel =3D msm_dp_mst_panel_from_encoder(mst, encod=
-er);
-> +
-> +	guard(mutex)(&mst->mst_lock);
-> +
-> +	msm_dp_display_atomic_post_disable_helper(mst->msm_dp, panel);
-> +
-> +	if (!mst->msm_dp->mst_active)
-> +		msm_dp_display_unprepare(mst->msm_dp);
-
-[Severity: High]
-Does gating msm_dp_display_unprepare() on !mst->msm_dp->mst_active leak the
-link state and runtime PM reference when the last MST stream is disabled?
-
-mst_active stays true while an MST branch device is connected, and
-msm_dp_display_unprepare() already returns early when
-active_stream_mask !=3D 0.  Skipping msm_dp_display_unprepare() when
-mst_active is true leaves mainlink clocks and the PHY enabled, leaks the
-runtime PM reference from msm_dp_display_prepare_link(), and leaves
-link_ready set to true so later connections skip link training.
-
-> +	panel->connector =3D NULL;
-> +
-> +	drm_connector_put(connector);
-> +}
-> +
-> +int msm_dp_mst_stream_atomic_check(struct drm_encoder *enc,
-> +				   struct drm_crtc_state *crtc_state,
-> +				   struct drm_connector_state *conn_state)
-> +{
-> +	struct msm_dp_mst_connector *mst_conn =3D to_dp_mst_connector(conn_stat=
-e->connector);
-> +	struct msm_dp_mst *mst =3D mst_conn->dp_mst;
-> +	struct drm_dp_mst_topology_state *mst_state;
-> +	int bpp, pbn, slots;
-> +
-> +	if (!conn_state->crtc)
-> +		return 0;
-> +
-> +	if (!drm_atomic_crtc_needs_modeset(crtc_state) || !crtc_state->active)
-> +		return 0;
-
-[Severity: High]
-Does skipping time slot allocation when !crtc_state->active break MST
-payload tracking across inactive modesets and DPMS transitions?
-
-drm_dp_atomic_release_time_slots() in msm_dp_mst_connector_atomic_check()
-tracks payloads by conn_state->crtc (crtc_state->enable), not
-crtc_state->active.  If a CRTC is enabled with active =3D false, no payload
-is allocated here, so a later disable or mode change hits WARN_ON(!payload)
-in drm_dp_atomic_release_time_slots() and fails with -EINVAL.  Conversely,
-if an active MST stream goes to DPMS OFF (enable =3D true, active =3D false)
-and is later disabled (enable =3D false), drm_dp_remove_payload_part2() runs
-during the DPMS OFF commit while new_payload->delete is still false and
-does not run on the final disable when old_crtc_state->active is already
-false, leaking the port's malloc_kref reference.
-
-> +	bpp =3D (conn_state->connector->display_info.bpc * 3) ?: 24; /* fallbac=
-k: assume 8bpc */
-> +	pbn =3D drm_dp_calc_pbn_mode(crtc_state->mode.clock, bpp << 4);
-> +
-> +	mst_state =3D drm_atomic_get_mst_topology_state(crtc_state->state, &mst=
-->mst_mgr);
-> +	if (IS_ERR(mst_state))
-> +		return PTR_ERR(mst_state);
-> +
-> +	if (!dfixed_trunc(mst_state->pbn_div)) {
-> +		mst_state->pbn_div =3D
-> +			drm_dp_get_vc_payload_bw(mst->link->link_caps.rate,
-> +						 mst->link->link_caps.num_lanes);
-> +	}
-> +
-> +	slots =3D drm_dp_atomic_find_time_slots(crtc_state->state, &mst->mst_mg=
-r,
-> +					      mst_conn->mst_port, pbn);
 
 [Severity: Medium]
-Can mst_state->pbn_div.full be zero here and cause a division by zero in
-drm_dp_atomic_find_time_slots()?
+Does ignoring the return value of msm_dp_mst_display_set_mgr_state() leave
+msm_dp->mst_active set to true when drm_dp_mst_topology_mgr_set_mst()
+fails?
 
-msm_dp_panel_read_dpcd() zeroes mst->link->link_caps with memset() before
-reading DPCD over AUX, and mst->link->link_caps is read here without locks
-or a check that pbn_div.full > 0.  If an atomic check runs concurrently
-with an HPD replug or after a failed DPCD read while the MST connector is
-still registered, drm_dp_get_vc_payload_bw() returns 0 and
-drm_dp_atomic_find_time_slots() divides by topology_state->pbn_div.full.
+If drm_dp_read_dpcd_caps(), drm_dp_add_mst_branch_device(), or the DPCD
+write fails inside drm_dp_mst_topology_mgr_set_mst(), topology discovery is
+not started, but mst_active remains true.  msm_dp_bridge_detect() then
+reports the SST connector as disconnected while no MST connectors can be
+probed, and msm_dp_irq_hpd_handle() routes HPD IRQs to an uninitialized
+topology manager.
+
+Also, can msm_dp_bridge_detect() race with msm_dp_hpd_plug_handle() on
+dp->mst_active?
+
+drivers/gpu/drm/msm/dp/dp_display.c:msm_dp_bridge_detect() {
+	if (dp->mst_active)
+		return status;
+
+	guard(mutex)(&priv->plugged_lock);
+}
+
+CPU0                                    CPU1
+msm_dp_hpd_plug_handle()
+  mutex_lock(&dp->plugged_lock)
+  msm_dp_display_process_hpd_high()
+                                        msm_dp_bridge_detect()
+                                          if (dp->mst_active) /* false */
+                                          mutex_lock(&priv->plugged_lock)
+    msm_dp_display_mst_enable()
+      msm_dp->mst_active =3D true
+  dp->plugged =3D true
+  mutex_unlock(&dp->plugged_lock)
+                                          pm_runtime_resume_and_get(...)
+                                            <-- proceeds while MST active
+
+Because msm_dp_bridge_detect() does not recheck dp->mst_active after
+acquiring priv->plugged_lock, it performs SST DPCD reads concurrently with
+the active MST topology manager and leaks the runtime PM reference at end:
+because priv->plugged is true.
+
+>  static int msm_dp_display_process_hpd_high(struct msm_dp_display_private=
+ *dp)
+>  {
+>  	struct drm_connector *connector =3D dp->msm_dp_display.connector;
+>  	const struct drm_display_info *info =3D &connector->display_info;
+> +	enum drm_dp_mst_mode mst_mode =3D DRM_DP_SST;
+>  	int rc =3D 0;
+>  	u8 dpcd[DP_RECEIVER_CAP_SIZE];
+>  	const struct drm_edid *drm_edid =3D NULL;
+> @@ -288,14 +313,19 @@ static int msm_dp_display_process_hpd_high(struct m=
+sm_dp_display_private *dp)
+>  	if (rc)
+>  		goto end;
+> =20
+> -	drm_edid =3D drm_edid_read_ddc(connector, &dp->aux->ddc);
+> -	drm_edid_connector_update(connector, drm_edid);
+> +	if (msm_dp_ctrl_get_stream_cnt(dp->ctrl) > 1)
+> +		mst_mode =3D drm_dp_read_mst_cap(dp->aux, dp->panel->dpcd);
+> =20
+> -	if (!drm_edid) {
+> -		DRM_ERROR("panel edid read failed\n");
+> -		/* check edid read fail is due to unplug */
+> -		if (!msm_dp_aux_is_link_connected(dp->aux))
+> -			return -ETIMEDOUT;
+> +	if (mst_mode !=3D DRM_DP_MST) {
+> +		drm_edid =3D drm_edid_read_ddc(connector, &dp->aux->ddc);
+> +		drm_edid_connector_update(connector, drm_edid);
+> +
+> +		if (!drm_edid) {
+> +			DRM_ERROR("panel edid read failed\n");
+> +			/* check edid read fail is due to unplug */
+> +			if (!msm_dp_aux_is_link_connected(dp->aux))
+> +				return -ETIMEDOUT;
+> +		}
+>  	}
+
+[Severity: Medium]
+With EDID updates skipped on the primary connector in MST mode, does
+msm_dp_display_mode_valid() check an unpopulated display_info when called
+from msm_dp_mst_connector_mode_valid()?
+
+msm_dp_mst_connector_mode_valid() passes the MST port connector's
+&connector->display_info as info, but msm_dp_display_mode_valid() ignores
+info and reads &dp->connector->display_info:
+
+drivers/gpu/drm/msm/dp/dp_display.c:msm_dp_display_mode_valid() {
+	...
+	is_yuv_420 =3D drm_mode_is_420_only(&dp->connector->display_info, mode);
+	...
+	mode_bpp =3D dp->connector->display_info.bpc * num_components;
+}
+
+As a result, is_yuv_420 is always false and bpc is always 0 for MST
+connectors, so YUV420-only modes are validated at twice their actual pixel
+clock and link rate.  Similarly, msm_dp_needs_periph_flush() checks
+&msm_dp_display->connector->display_info, so the peripheral flush bit for
+VSC SDP packets is not set for MST YUV420 streams.
+
+>  	msm_dp_link_process_request(dp->link);
+> @@ -317,6 +347,9 @@ static int msm_dp_display_process_hpd_high(struct msm=
+_dp_display_private *dp)
+>  	 */
+>  	msm_dp_link_psm_config(dp->link, &dp->link->link_caps, false);
+> =20
+> +	if (mst_mode =3D=3D DRM_DP_MST)
+> +		msm_dp_display_mst_enable(dp);
+
+[Severity: High]
+Can msm_dp_bridge_detect() prevent msm_dp_display_mst_enable() from ever
+running when an MST sink is connected at boot?
+
+During initial connector probing, msm_dp_bridge_detect() runs while
+dp->mst_active is still false and sets priv->plugged =3D true:
+
+drivers/gpu/drm/msm/dp/dp_display.c:msm_dp_bridge_detect() {
+	...
+	status =3D connector_status_connected;
+	priv->plugged =3D true;
+}
+
+When msm_dp_hpd_plug_handle() subsequently runs, it sees dp->plugged =3D=3D
+true and returns early without calling msm_dp_display_process_hpd_high(),
+leaving link_caps uninitialized and MST disabled until the cable is
+physically replugged.
+
+>  	msm_dp_link_reset_phy_params_vx_px(dp->link);
+> =20
+>  end:
+> @@ -502,6 +535,11 @@ static int msm_dp_hpd_unplug_handle(struct msm_dp_di=
+splay_private *dp)
+>  						 dp->panel->dpcd,
+>  						 dp->panel->downstream_ports);
+> =20
+> +	if (dp->msm_dp_display.mst_active) {
+> +		msm_dp_mst_display_set_mgr_state(&dp->msm_dp_display, false);
+> +		dp->msm_dp_display.mst_active =3D false;
+> +	}
+
+[Severity: High]
+Does unplugging an MST sink skip msm_dp_display_unprepare() and leave
+msm_dp_display->link_ready stuck at true?
+
+When MST streams are disabled while mst_active is true (such as on DPMS
+off, when downstream monitors are unplugged from an MST hub first, or
+before msm_dp_hpd_unplug_handle() clears mst_active),
+msm_dp_mst_stream_post_disable() skips msm_dp_display_unprepare():
+
+drivers/gpu/drm/msm/dp/dp_mst_drm.c:msm_dp_mst_stream_post_disable() {
+	...
+	msm_dp_display_atomic_post_disable_helper(mst->msm_dp, panel);
+
+	if (!mst->msm_dp->mst_active)
+		msm_dp_display_unprepare(mst->msm_dp);
+}
+
+Because msm_dp_hpd_unplug_handle() clears mst_active without calling
+msm_dp_display_unprepare(), the runtime PM reference and link clocks from
+msm_dp_display_prepare_link() are leaked, and link_ready remains true so
+subsequent hotplug connections return early from
+msm_dp_display_prepare_link() without initializing the PHY or training the
+link.
 
 --=20
 Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261119-msm-dp-mst=
--v9-0-ca61be4edfc3@oss.qualcomm.com?part=3D18
+-v9-0-ca61be4edfc3@oss.qualcomm.com?part=3D24
