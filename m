@@ -2,87 +2,54 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8B1BD606A324
-	for <dri-devel@archiver.kernel.org>; Thu, 19 Nov 2026 07:49:29 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 79DE2606A325
+	for <dri-devel@archiver.kernel.org>; Thu, 19 Nov 2026 07:49:30 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=xX9ahJ3/
+	dkim=pass (1024-bit key) header.d=qq.com header.i=@qq.com header.a=rsa-sha256 header.s=s201512 header.b=RTUgHNM9
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id A26D310FD2A;
-	Thu, 19 Nov 2026 07:49:06 +0000 (UTC)
-Received: from mail-ej1-f47.google.com (mail-ej1-f47.google.com
- [209.85.218.47])
- by gabe.freedesktop.org (Postfix) with ESMTPS id E11F810E192
- for <dri-devel@lists.freedesktop.org>; Wed, 18 Nov 2026 20:53:01 +0000 (UTC)
-Received: by mail-ej1-f47.google.com with SMTP id
- a640c23a62f3a-c511cdd5a82so126688066b.3
- for <dri-devel@lists.freedesktop.org>; Wed, 18 Nov 2026 12:53:01 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20260707; t=1795035180; x=1795639980; darn=lists.freedesktop.org;
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:date:subject:cc:to:from:from:to:cc:subject:date
- :message-id:reply-to:content-type;
- bh=XRZdj8OAA5IgBUgIXtKpGdWFleIEtSggcmllPJz2aKU=;
- b=xX9ahJ3//I1qP2fWFEt3zixPa1aaax+P/fzZDR1jXf5doFN0C81QzOcWgpoWHm8PAw
- RbE7zEx/qgAvDEBuCaOgj/bl2aqZARc1C/1MnW816guBeWU3/pqZvtaMOyn7xIM5gzOA
- Vd2mvCtGAz5PiyDHD3sMeMuz3u4xgIY3RoPiQmqHlLnm5mtnCTJS0p4Qnrch836eCkIq
- llGUm42ya8o4Xe8vhsYgxj0C+AgKgsaFnXP+8qf1YaJPdgX2Hnwb8Up3ERNvwq/4xjLz
- aLd3qAGYLgDz9bxUuG6TVUXp/oVpA4+zYrJaFjLiCsevoVPYU1quXGCz0jT/dmeJnGrE
- s9uA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20260707; t=1795035180; x=1795639980;
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
- :to:cc:subject:date:message-id:reply-to:content-type;
- bh=XRZdj8OAA5IgBUgIXtKpGdWFleIEtSggcmllPJz2aKU=;
- b=cDKjWyhla13Z/OFnnRRB/rTJfrFNu6GP2x3+RH2TvFBESXBQc7gnrI4ihzaAEsjVbL
- 9ArtRpOTEUmHtY+P2ILRwBWCJfPqdr9bEBd4os+aiEZBEnPMydRNHtfrnOxBMzB8yLzn
- wxtdPhLUXoBuMKl7iwFFguwcra5auTxYbhJ78qCUUekDxqBSiVm0+WpwuWpwaGwPhnwH
- NafHT6oiHX/qZMMrpaQI7SYFLKQVBHW2g+/+xphgKE+60hsEr3zRSxAIZlSx74v5jFJQ
- z4ORdjN77qhegn+iR1LU7yoI9tApM9t4yVI9QtPj7A/TBuCQE4UzHN6ncipm2kTd+R54
- 0h5w==
-X-Forwarded-Encrypted: i=1;
- AL+hErHVqv1VaB8Xkvdy8mtQqMSCv9RNPeAyVKdbvF/gM4HwKuytevwXra1dykxxCE5p0t94pddPIarcVz4=@lists.freedesktop.org
-X-Gm-Message-State: APuU4Z9YLVxJKaUfwE/zOfUD80pXRIRwKkQ+DScf5rKOAzBG+6VxoprM
- /O5WcIyeyyAWP5sg//2jNMZ1C0y2CrN1m0nsAP+PfC5slMO2y8PGyTjI
-X-Gm-Gg: AYBFou3fd9C4uKrtijJiuCo0DCE7tBLA1BwIBJFcPXiD9JIkopl8G/tbcaSwoP0iE21
- H8QxbHuimb8hGsZlcTUJnpd6547k8V+MnejunCz2f0On1mQN7KxGz8SH+/7LeslWRLeq59ZypaD
- aEvkMqUKGIiyNc/JiY2ZxEhRyqp7OMBJQPuPf1WDxNs+H9tjUaVakrTriQ3DicSv/aBL20eNo+t
- uFIoAChVM9e5qP7MqxwS/5tb5l7Hh7c/NGdqD7pngisKYCOCheKID0YQz83LNzmApwfidTIARmy
- tyVUe/X065PfZHwFiI9d+7V+FYJpwykiZGMyjYpkVHBoWA1+v4jZxK+t3brKqKFNDLcivPaCFzv
- DNBqZ63PuM7S4em13LkMEps631YYwXNBXPpIwDKpc2x+zfvRXA4qYbfOqGb+Xxz9oYAK7DNxwFk
- 6GwYBJpy23atSg/Yad8SZ+yMq1Wv9t1/Qa4136mRqLXU1QsOzYE+nh2i91POy+T1P83AyUo47Jz
- oHIx2tpi8GM+/4S2tSQ3aWKr0fVnUBg2mwq0pen2mN2HpqVT+PMDbtTcW2F244WZjLyEjUrISIo
- U9dvxfFTkOg8ipjeeOsmr71l8O9TC9DC4yBoYQ3CWQAfKgK/pzEmt7c1yF16aGH1WrmWRCTc28P
- tnRgsVFE=
-X-Received: by 2002:a17:907:6d1f:b0:c46:8b87:c1f4 with SMTP id
- a640c23a62f3a-c510e2d4ee1mr357637066b.20.1795035180171; 
- Wed, 18 Nov 2026 12:53:00 -0800 (PST)
-Received: from antoniarch (84-40-238-230.cgnat.inetia.pl. [84.40.238.230])
- by smtp.gmail.com with ESMTPSA id
- a640c23a62f3a-c5123421612sm35303166b.41.2026.11.18.12.52.59
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Wed, 18 Nov 2026 12:52:59 -0800 (PST)
-From: Antoni Pokusinski <apokusinski01@gmail.com>
-To: vigneshr@ti.com, andi.shyti@kernel.org, robh@kernel.org,
- krzk+dt@kernel.org, conor+dt@kernel.org, aaro.koskinen@iki.fi,
- andreas@kemnade.info, khilman@baylibre.com, rogerq@kernel.org,
- tony@atomide.com, jmkrzyszt@gmail.com, sumit.semwal@linaro.org,
- christian.koenig@amd.com, phasta@kernel.org
-Cc: linux-omap@vger.kernel.org, linux-i2c@vger.kernel.org,
- devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
- linux-media@vger.kernel.org, dri-devel@lists.freedesktop.org,
- linaro-mm-sig@lists.linaro.org,
- Antoni Pokusinski <apokusinski01@gmail.com>,
- Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
-Subject: [PATCH v2 1/4] dt-bindings: i2c: ti,omap4-i2c: Add DMA properties
-Date: Wed, 18 Nov 2026 21:52:04 +0100
-Message-ID: <20261118205213.88778-2-apokusinski01@gmail.com>
-X-Mailer: git-send-email 2.56.1
-In-Reply-To: <20261118205213.88778-1-apokusinski01@gmail.com>
-References: <20261118205213.88778-1-apokusinski01@gmail.com>
+	by gabe.freedesktop.org (Postfix) with ESMTP id 523C010FDD8;
+	Thu, 19 Nov 2026 07:49:08 +0000 (UTC)
+Received: from xmbghk7.mail.qq.com (xmbghk7.mail.qq.com [43.163.128.52])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id CFAB610E178
+ for <dri-devel@lists.freedesktop.org>; Thu, 19 Nov 2026 02:48:03 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qq.com; s=s201512;
+ t=1795056482; bh=JVKuOHtqWaENIpZF84Cfi+faC/DMX8myONlni7okLBA=;
+ h=From:To:Cc:Subject:Date;
+ b=RTUgHNM9Mhp+Qpt/qiq3ug1uHuTSq7JxGTKGXe+BRcda0+paXCYnc8+HFMU5qc0Io
+ 5uBBylzAwuEFO/55MFfPAvgZBYqAjr9BnyTUgX1qgnWgMCiPwyd1w17wMW3L1DXpWP
+ 7XmF2nmKyYrYi4+MfFkKUildekIBi3uqfRqoaWeQ=
+Received: from [192.168.2.135] ([113.90.236.90])
+ by newxmesmtplogicsvrszb43-0.qq.com (NewEsmtp) with SMTP
+ id BFA264FE; Thu, 19 Nov 2026 10:47:58 +0800
+X-QQ-mid: xmsmtpt1795056479thkfw135q
+Message-ID: <tencent_C97CF8588D7C3312CE3D51FCDEA1E68DA70A@qq.com>
+X-QQ-XMAILINFO: NnYhxYSyuBnLDdzQ1AeBNKtFazquo18o/UyQqpehHfXjv3O2vLcw96g7x0R8NJ
+ JKuzZWWxGhQhCtmjLKiP5nJPQW7Mo//2nuaHHKNiesgM08wJZoxoNwb2dFBe1ZzPF/xXuF7uQe7d
+ J2QAo8aVZc1nQC5N0+0U0uA2d35PEUPfrLOsqjjqmaR0etHx9eC+Qd5GiqAi6Or5P/IKqcn1rl/k
+ O4XtUjA2OwV+pY5WnXuqgjFpVCiEyetZeMwGvVQ6P/G3c77SL36s9uHswtU0lgixrt97TXFww+j8
+ JMQJOKsd51WOXhmArhcg3S11PuTYLmrV/HinJbX1Y5J0md5bGIgf/gQlhXNG6ukRmP4gCjk6DnEP
+ hCg2z6ePJ1zxZmZ7rxnDNOHaHWFj+DixdUDhR+lv3RALM//HCpeI1xPibczq/rPg9CpDiHUbR3iA
+ zca+bCcFwDd88wMDfgeFOYBN2sCiocvrdsfuIxXL9bK+ep4/9xh5Cyzlx4cnz2fDH3x496/yprog
+ erIhLHLvmQ0IdzDWV2nQkZsn6D/ojSRVadd8jcI2XjvAbAajm8i6bU/+Xi7LflLJfQH3XkHrGYFT
+ iP/9y5BMQDRiQYH9xs4ZarJFzcKlYj4OP0MSoeATbL56i32pvhth7jX5/iSQxoOMWYroJ1Wn6k/d
+ 5i17Bw2qTI8fnphAJEnCGz7rE2Ah+fn50CI9Mv2C9ikWxGsAHMbXXOEUfv0gm0N/DI7KUeRXA2Ih
+ 2YBVE2S0nkKZP3yQMv2D5bXTMifwuk7fUx63bA9T2ld2yRfWb0ySFLLtn4fIGdFxJ4Do7kDfI9Zj
+ UA3WKMIibGBjcRfIiI/B0zKf8HfDCtld0TzCdl/O/Iqo+PAfWS7H7Kc/U53sAa9OTH3oZbr3RvKr
+ WIXOC6U+vLrsnKr5voR0Ij0o1nSaoKeVOoSHQT8oJtdTlX3rJi51UdIByUhK6v4s1483UglTxhZ9
+ /8IKKdblN3f087HgXdRQIW8PdyScSspRYcwQ6P8DZ0E3fJ4URceIzgCJEv81hP4kk/3F+tb6Tnlr
+ r96QRfvCnJgkTzjZNojfY3d+zOuudhIzP/VXb5FfG9XTDI0yTP
+X-QQ-XMRINFO: Nq+8W0+stu50tPAe92KXseR0ZZmBTk3gLg==
+From: Hefei <3066883572@qq.com>
+To: dri-devel@lists.freedesktop.org
+Cc: linux-input@vger.kernel.org, devicetree@vger.kernel.org,
+ linux-kernel@vger.kernel.org
+Subject: [PATCH 1/6] dt-bindings: display: add VIEWE JD9365TX panel binding
+Date: Thu, 19 Nov 2026 10:48:01 +0800
+X-OQ-MSGID: <179505648148.50956.16568373722115319718@qq.com>
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
 X-Mailman-Approved-At: Thu, 19 Nov 2026 07:48:39 +0000
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -95,51 +62,105 @@ List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-15.8 required=3.0 tests=BAYES_00,DKIM_SIGNED,
+X-Spam-Status: No, score=-12.8 required=3.0 tests=BAYES_00,DKIM_SIGNED,
 	DKIM_VALID,DKIM_VALID_AU,FREEMAIL_FORGED_FROMDOMAIN,FREEMAIL_FROM,
 	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
-	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,USER_AGENT_GIT
-	autolearn=unavailable autolearn_force=no version=4.0.1
+	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS autolearn=unavailable
+	autolearn_force=no version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-Document the TX and RX DMA request channels featured
-by the OMAP I2C controller.
+Add the device tree binding for the VIEWE 7KF82 720x1280 Jadard
+JD9365TX MIPI-DSI panel.
 
-Acked-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
-Signed-off-by: Antoni Pokusinski <apokusinski01@gmail.com>
+Signed-off-by: Hefei <3066883572@qq.com>
 ---
- .../devicetree/bindings/i2c/ti,omap4-i2c.yaml        | 12 ++++++++++++
- 1 file changed, 12 insertions(+)
+ .../display/panel/viewe,jd9365tx.yaml         | 76 +++++++++++++++++++
+ 1 file changed, 76 insertions(+)
+ create mode 100644 Documentation/devicetree/bindings/display/panel/viewe,jd9365tx.yaml
 
-diff --git a/Documentation/devicetree/bindings/i2c/ti,omap4-i2c.yaml b/Documentation/devicetree/bindings/i2c/ti,omap4-i2c.yaml
-index 58d32ceeacfc..ff946fdfaad3 100644
---- a/Documentation/devicetree/bindings/i2c/ti,omap4-i2c.yaml
-+++ b/Documentation/devicetree/bindings/i2c/ti,omap4-i2c.yaml
-@@ -37,6 +37,16 @@ properties:
-   clock-names:
-     const: fck
- 
-+  dmas:
-+    items:
-+      - description: TX DMA channel phandle
-+      - description: RX DMA channel phandle
+diff --git a/Documentation/devicetree/bindings/display/panel/viewe,jd9365tx.yaml b/Documentation/devicetree/bindings/display/panel/viewe,jd9365tx.yaml
+new file mode 100644
+index 0000000..b15d6db
+--- /dev/null
++++ b/Documentation/devicetree/bindings/display/panel/viewe,jd9365tx.yaml
+@@ -0,0 +1,76 @@
++# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
++%YAML 1.2
++---
++$id: http://devicetree.org/schemas/display/panel/viewe,jd9365tx.yaml#
++$schema: http://devicetree.org/meta-schemas/core.yaml#
 +
-+  dma-names:
-+    items:
-+      - const: tx
-+      - const: rx
++title: VIEWE 7.0" 720x1280 Jadard JD9365TX MIPI-DSI in-cell panel
 +
-   power-domains: true
- 
-   ti,hwmods:
-@@ -93,4 +103,6 @@ examples:
-         #address-cells = <1>;
-         #size-cells = <0>;
-         mux-states = <&i2c_mux 1>;
-+        dmas = <&edma 58 0>, <&edma 59 0>;
-+        dma-names = "tx", "rx";
-     };
++maintainers:
++  - Hefei <3066883572@qq.com>
++
++description: |
++  The VIEWE 7KF82 module is a 720x1280 RGB888 video-mode MIPI-DSI panel
++  based on Jadard JD9365TX. It uses two DSI data lanes and exposes in-cell
++  touch over I2C on the same FPC.
++
++allOf:
++  - $ref: panel-common.yaml#
++
++properties:
++  compatible:
++    const: viewe,7kf82
++
++  reg:
++    maxItems: 1
++
++  vdd-supply:
++    description: Panel VDD supply, usually 3.3V
++
++  iovcc-supply:
++    description: Panel IO voltage supply, usually 3.3V
++
++  vccio-supply:
++    description: Alternate name for iovcc-supply
++
++  reset-gpios:
++    description: Optional panel reset GPIO (omit if board uses POR only).
++    maxItems: 1
++
++  backlight: true
++  rotation: true
++  port: true
++
++required:
++  - compatible
++  - reg
++  - vdd-supply
++
++anyOf:
++  - required: [iovcc-supply]
++  - required: [vccio-supply]
++
++additionalProperties: false
++
++examples:
++  - |
++    dsi {
++        #address-cells = <1>;
++        #size-cells = <0>;
++
++        panel@0 {
++            compatible = "viewe,7kf82";
++            reg = <0>;
++            vdd-supply = <&reg_vdd>;
++            iovcc-supply = <&reg_iovcc>;
++            backlight = <&viewe_bl>;
++
++            port {
++                endpoint {
++                    remote-endpoint = <&dsi_out>;
++                    data-lanes = <0 1>;
++                };
++            };
++        };
++    };
++...
 -- 
-2.56.1
+2.55.0.windows.5
 
