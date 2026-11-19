@@ -2,19 +2,19 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EC08A606A33C
-	for <dri-devel@archiver.kernel.org>; Thu, 19 Nov 2026 13:41:20 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 62A4460A2602
+	for <dri-devel@archiver.kernel.org>; Thu, 19 Nov 2026 13:41:21 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 12E0D112405;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 687D2112408;
 	Thu, 19 Nov 2026 13:41:20 +0000 (UTC)
 Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 31CC5112405
- for <dri-devel@lists.freedesktop.org>; Thu, 19 Nov 2026 13:41:11 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 7A3D4112405
+ for <dri-devel@lists.freedesktop.org>; Thu, 19 Nov 2026 13:41:15 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id D71EC4749B;
- Thu, 19 Nov 2026 13:41:10 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id A4DF51F000C4;
- Thu, 19 Nov 2026 13:41:06 +0000 (UTC)
+ by sea.source.kernel.org (Postfix) with ESMTP id 62B5F47916;
+ Thu, 19 Nov 2026 13:41:15 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3067D1F00925;
+ Thu, 19 Nov 2026 13:41:11 +0000 (UTC)
 From: Geert Uytterhoeven <geert+renesas@glider.be>
 To: Aaro Koskinen <aaro.koskinen@iki.fi>,
  Andreas Kemnade <andreas@kemnade.info>,
@@ -29,10 +29,9 @@ Cc: linux-clk@vger.kernel.org, linux-renesas-soc@vger.kernel.org,
  linux-rockchip@lists.infradead.org, linux-omap@vger.kernel.org,
  linux-arm-kernel@lists.infradead.org, dri-devel@lists.freedesktop.org,
  linux-pm@vger.kernel.org, Geert Uytterhoeven <geert+renesas@glider.be>
-Subject: [PATCH 4/6] [RFT] drm/rockchip: dw_hdmi: Convert to
- dev_clk_get_from_provider()
-Date: Thu, 19 Nov 2026 14:40:37 +0100
-Message-ID: <313d11bdd1dd46e895e34236191e7a3b175d0382.1795094688.git.geert+renesas@glider.be>
+Subject: [PATCH 5/6] [RFT] ARM: OMAP2+: Convert to dev_clk_get_from_provider()
+Date: Thu, 19 Nov 2026 14:40:38 +0100
+Message-ID: <683b5b189409e5ee04100044fb615b01cb877f3d.1795094688.git.geert+renesas@glider.be>
 X-Mailer: git-send-email 2.43.0
 In-Reply-To: <cover.1795094688.git.geert+renesas@glider.be>
 References: <cover.1795094688.git.geert+renesas@glider.be>
@@ -57,9 +56,9 @@ X-Spam-Status: No, score=-16.8 required=3.0 tests=BAYES_00,
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-The Rockchip Designware HDMI driver uses of_clk_get_from_provider() to
-obtain the clock for the HDMI PHY, so the latter shows up as
-"deviceless" in the consumer column of the clk_summary file in debugfs.
+OMAP2+ clock handling uses of_clk_get_from_provider() to obtain clocks
+used for power management, so the latter show up as "deviceless" in the
+consumer column of the clk_summary file in debugfs.
 
 Fix this by using dev_clk_get_from_provider() instead, letting us pass
 the consumer device, too.
@@ -67,24 +66,48 @@ the consumer device, too.
 Signed-off-by: Geert Uytterhoeven <geert+renesas@glider.be>
 ---
 Compile-tested only.
----
- drivers/gpu/drm/rockchip/dw_hdmi-rockchip.c | 3 ++-
- 1 file changed, 2 insertions(+), 1 deletion(-)
 
-diff --git a/drivers/gpu/drm/rockchip/dw_hdmi-rockchip.c b/drivers/gpu/drm/rockchip/dw_hdmi-rockchip.c
-index b6e154c35e7c290e..a44e4b273924430e 100644
---- a/drivers/gpu/drm/rockchip/dw_hdmi-rockchip.c
-+++ b/drivers/gpu/drm/rockchip/dw_hdmi-rockchip.c
-@@ -633,7 +633,8 @@ static int dw_hdmi_rockchip_bind(struct device *dev, struct device *master,
+The first change is probably OK.  The second change may fail if anything
+in the oh->od->pdev->dev chain is not available yet at this point.
+---
+ arch/arm/mach-omap2/omap_device.c | 2 +-
+ arch/arm/mach-omap2/omap_hwmod.c  | 3 ++-
+ 2 files changed, 3 insertions(+), 2 deletions(-)
+
+diff --git a/arch/arm/mach-omap2/omap_device.c b/arch/arm/mach-omap2/omap_device.c
+index 77a75b0b9ae69c85..5695e0c8f2392eca 100644
+--- a/arch/arm/mach-omap2/omap_device.c
++++ b/arch/arm/mach-omap2/omap_device.c
+@@ -73,7 +73,7 @@ static void _add_clkdev(struct omap_device *od, const char *clk_alias,
  
- 		if (!of_parse_phandle_with_args(np, "phys", "#phy-cells", index,
- 						&clkspec)) {
--			hdmi->hdmiphy_clk = of_clk_get_from_provider(&clkspec);
-+			hdmi->hdmiphy_clk = dev_clk_get_from_provider(dev,
-+								      &clkspec);
- 			of_node_put(clkspec.np);
- 			if (IS_ERR(hdmi->hdmiphy_clk))
- 				hdmi->hdmiphy_clk = NULL;
+ 		clkspec.np = of_find_node_by_name(NULL, clk_name);
+ 
+-		r = of_clk_get_from_provider(&clkspec);
++		r = dev_clk_get_from_provider(&od->pdev->dev, &clkspec);
+ 
+ 		rc = clk_register_clkdev(r, clk_alias,
+ 					 dev_name(&od->pdev->dev));
+diff --git a/arch/arm/mach-omap2/omap_hwmod.c b/arch/arm/mach-omap2/omap_hwmod.c
+index 03cd523dff874bb0..5e4123014909d4ac 100644
+--- a/arch/arm/mach-omap2/omap_hwmod.c
++++ b/arch/arm/mach-omap2/omap_hwmod.c
+@@ -147,6 +147,7 @@
+ #include <asm/system_misc.h>
+ 
+ #include "clock.h"
++#include "omap_device.h"
+ #include "omap_hwmod.h"
+ 
+ #include "soc.h"
+@@ -796,7 +797,7 @@ static struct clk *_lookup_clkctrl_clk(struct omap_hwmod *oh)
+ 				clkspec.args[0] = addr - provider->addr[0];
+ 				clkspec.args[1] = 0;
+ 
+-				clk = of_clk_get_from_provider(&clkspec);
++				clk = dev_clk_get_from_provider(&oh->od->pdev->dev, &clkspec);
+ 
+ 				pr_debug("%s: %s got %p (offset=%x, provider=%pOF)\n",
+ 					 __func__, oh->name, clk,
 -- 
 2.43.0
 
