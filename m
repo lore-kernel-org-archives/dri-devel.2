@@ -2,80 +2,76 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F1C1C606A325
-	for <dri-devel@archiver.kernel.org>; Fri, 20 Nov 2026 16:18:40 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AAE95606A325
+	for <dri-devel@archiver.kernel.org>; Fri, 20 Nov 2026 16:18:41 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=kQtGrPZo
+	dkim=pass (2048-bit key) header.d=virtuozzo.com header.i=@virtuozzo.com header.a=rsa-sha256 header.s=relay header.b=QzByG199
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 44077112BC8;
-	Fri, 20 Nov 2026 16:18:35 +0000 (UTC)
-Received: from mail-qt1-f172.google.com (mail-qt1-f172.google.com
- [209.85.160.172])
- by gabe.freedesktop.org (Postfix) with ESMTPS id A958810E861
- for <dri-devel@lists.freedesktop.org>; Fri, 20 Nov 2026 03:19:21 +0000 (UTC)
-Received: by mail-qt1-f172.google.com with SMTP id
- d75a77b69052e-537548b811aso3662011cf.3
- for <dri-devel@lists.freedesktop.org>; Thu, 19 Nov 2026 19:19:21 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20260707; t=1795144760; x=1795749560; darn=lists.freedesktop.org;
- h=content-transfer-encoding:mime-version:message-id:date:subject:cc
- :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
- bh=e3wD7sDYHdJ5IM8Gjq16wv20BB8zD8yiMJqTnDWRVYE=;
- b=kQtGrPZo4lKTiEBE/y2i+wBx2dDYOG82R8orkrWpsXwImicYM0F+nDyWeFkf8RjFfr
- J/YbnzK37n1Gfxoy6oeBTHlZWRtfetNs75i9Ck6vAWoBEe8DYcVVZdjkPlMssyELWMZr
- V1TtXrXdoOwgD4PsSaT//1ucINZyh0WMY0UvLBlAH51ENWQ7k2MZ8DP1cJqgsGef3yvR
- tI3l1r7iRUGWN0Ud3siV3x5vFuoUUrU12U12/2GyBlZzomzEYRGTyJnNYNAY6RvC/wMq
- UwjOekIhpMaM8MOYAjfI4IArDKk3Rx++0L5WY0fwigh0yqWMRgaGk+xk/6rW/L52C3XD
- 8jBA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20260707; t=1795144760; x=1795749560;
- h=content-transfer-encoding:mime-version:message-id:date:subject:cc
- :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
- :message-id:reply-to:content-type;
- bh=e3wD7sDYHdJ5IM8Gjq16wv20BB8zD8yiMJqTnDWRVYE=;
- b=SHTMHDPD4aX5T5UCEf14FUW7rWD0aF8mKVxdf3uLYt1zMF8tB+u2rukwk2MLIw2fAT
- VptiaYj3SZrHGu9JCSKbA5u4w3dFnJblzAJsSb6FwHQYnEiCaieZjPQqjDko0wSDtCam
- +BwuP0D8rjNdSYjYsOjm8qHpDHdxTiPq0FwLOwIwzdZZyle3nJyhiAe9An7ACZ2SVKPt
- a2dura4m3NhJM208Tt66+ZnfZe7wuJw19mw6PLBT5WiypHHJPSVyFUMdTWKxgSsq22QX
- Jl0OfILrHBTTB+00XfyGn4ewXxyBR0ksIlkwwk2E3PjqdBAgm2/H/2QETa8spmOlSTDu
- jEFw==
-X-Forwarded-Encrypted: i=1;
- AL+hErH3sgzcPB180rKd6qC/t3mjulOYcf7zlutT/BWYBMOuml3YQAqrDrI1iZPvWQqIyIHDV/wPpm2yfQs=@lists.freedesktop.org
-X-Gm-Message-State: APuU4Z8PvwjUcZg2o9dPu0CDecFyTE11vTXE+AFeRthXLCsiOctyksaA
- pPBDPAFRAstgR3MIFW44tF6BWJ7d08bnpd1mGIASC7nHoPTpAJ8h59fc
-X-Gm-Gg: AYBFou0NvxJBJnpyQDv2OTqVMu/oRIGkj3cpObPXUHKSyxx4TB9BBe/PS741uY3sUNW
- 9iivBtcFpJVDNvCfeECCmGIiEjp/3vIBKegwyVfO7RZcaWjxonYeyVwSnpfZdmot7hHrYq4siHh
- YSsNu8atOs2md6jNtqZ9U2d+attgQuEF3r9L6xUtGWGikqWgmWWhnhRE/PUmj6N52tHQcdrLXPZ
- x+lp0AOvhhms3C7mOH1W7I6VP75WXTKFNsVFD6JSBH3IxrHKsn2xCfJuoz6sLHSfNCqgn5YfDap
- /tBnD0DwTS3tSOUyjWqlZJTp0od/OyLRUPSAzFTCpN5oyaqGSNLBXPXONHZgefKmZvGVoIfJeKN
- kiyVgJnjfCaayrjOVsMJUMGC9QmlbR+lq3SmrOio7faZ/5Vl7OEjKP4tNcg/je90C07pZv3SqZT
- 37G0JdAUJt0G2sh6BuRm4CrdNtpD0tcw8jSPg4oDapp2mC6ziFEF1F9PKxhBqCzEXFLMsmjhG18
- Ho+D3ipgMV5qnFFCKZgMadmUA9x5v7VtXjdA94A8RORQKzR9pF9vLEkkf8aAbCElR6lfQA1Yetm
- ga/PFXG8xU5PlB2CB3N4/RSqtaCHbeY1u+vS1OslHlmxsM0GzaqLDGTPT7aCnUA4XhpJl1yK2sM
- =
-X-Received: by 2002:a05:622a:5c1b:b0:55c:abad:a72c with SMTP id
- d75a77b69052e-55d76a6260dmr33689941cf.56.1795144760510; 
- Thu, 19 Nov 2026 19:19:20 -0800 (PST)
-Received: from linux.. ([8.34.174.240]) by smtp.gmail.com with ESMTPSA id
- 6a1803df08f44-921349f6959sm14377356d6.31.2026.11.19.19.19.19
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 19 Nov 2026 19:19:20 -0800 (PST)
-From: Changyul Lee <lcy8047@gmail.com>
-To: Felix Kuehling <Felix.Kuehling@amd.com>,
- Alex Deucher <alexander.deucher@amd.com>,
- =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>
-Cc: Rajneesh Bhardwaj <rajneesh.bhardwaj@amd.com>,
- David Yat Sin <david.yatsin@amd.com>, amd-gfx@lists.freedesktop.org,
- dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
- Changyul Lee <lcy8047@gmail.com>
-Subject: [PATCH] drm/amdkfd: lock event_mutex while counting events for CRIU
-Date: Thu, 19 Nov 2026 22:19:17 -0500
-Message-ID: <20261120031917.1708024-1-lcy8047@gmail.com>
-X-Mailer: git-send-email 2.43.0
+	by gabe.freedesktop.org (Postfix) with ESMTP id 05062112BCC;
+	Fri, 20 Nov 2026 16:18:36 +0000 (UTC)
+Received: from relay.virtuozzo.com (relay.virtuozzo.com [130.117.225.111])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id E753B112417
+ for <dri-devel@lists.freedesktop.org>; Thu, 19 Nov 2026 13:44:51 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+ d=virtuozzo.com; s=relay; h=Message-Id:Content-Type:MIME-Version:Subject:Date
+ :From; bh=nbB8McM+pZsP1nWFy++Avpejx7qyy0NzIjLQT0z2hjc=; b=QzByG199OY9wUoYkzrg
+ DPhUwBEew+cryv6qFjom7gBw0UeNqytujh+Q+kBpgavYFY3wiqAs7Xun+tveG/sqUEdWKbNSaO6Kw
+ N8iJ5bqIMBjyVh17oHXC2E6nJ2PpZqNgZOQLYrrezy93+s89Kr5v4+ASTJfzbS9eWtC7yD5t+zdZU
+ keh71avNmAB+GINqp+EVNdq91FtBCDlaWP2CiPH084rjsJRF0rKkDZ8Zbhw4CoXInwxGcX8pt7arx
+ UcTFhAIyKP5xltkYIbSAtBfTAoGZHFNwIl9LSKaomb4dUmLHdm5UY1nnFNWFqRpPqC3e2QPkKiHtm
+ HegkEpsm4YvT8uw==;
+Received: from ch-demo-asa.virtuozzo.com ([130.117.225.8] helo=f0.sw.ru)
+ by relay.virtuozzo.com with esmtp (Exim 4.96)
+ (envelope-from <khorenko@virtuozzo.com>) id 1xU2R7-00FBqZ-17;
+ Thu, 19 Nov 2026 14:44:25 +0100
+From: Konstantin Khorenko <khorenko@virtuozzo.com>
+Date: Thu, 19 Nov 2026 14:44:04 +0100
+Subject: [PATCH v6 3/4] mm/huge_memory: read a special PMD under the lock
+ in copy_huge_pmd()
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20261119-b4-prep-vstor-149847-copy_huge_pmd-recheck-special-pmd-v6-3-efa7817a2bb3@virtuozzo.com>
+References: <20261119-b4-prep-vstor-149847-copy_huge_pmd-recheck-special-pmd-v6-0-efa7817a2bb3@virtuozzo.com>
+In-Reply-To: <20261119-b4-prep-vstor-149847-copy_huge_pmd-recheck-special-pmd-v6-0-efa7817a2bb3@virtuozzo.com>
+To: Andrew Morton <akpm@linux-foundation.org>, 
+ "David Hildenbrand (Arm)" <david@kernel.org>, Zi Yan <ziy@nvidia.com>, 
+ Baolin Wang <baolin.wang@linux.alibaba.com>, 
+ "Liam R. Howlett" <liam@infradead.org>, Nico Pache <nico.pache@linux.dev>, 
+ Ryan Roberts <ryan.roberts@arm.com>, Dev Jain <dev.jain@arm.com>, 
+ Barry Song <baohua@kernel.org>, Lance Yang <lance.yang@linux.dev>, 
+ Usama Arif <usama.arif@linux.dev>, Kiryl Shutsemau <kas@kernel.org>, 
+ Peter Xu <peterx@redhat.com>
+Cc: Alex Williamson <alex@shazbot.org>, kvm@vger.kernel.org, 
+ =?utf-8?q?Lo=C3=AFc_Molinari?= <loic.molinari@collabora.com>, 
+ Lorenzo Stoakes <ljs@kernel.org>, Shuah Khan <shuah@kernel.org>, 
+ linux-kselftest@vger.kernel.org, dri-devel@lists.freedesktop.org, 
+ Madhavan Srinivasan <maddy@linux.ibm.com>, 
+ "Ritesh Harjani (IBM)" <ritesh.list@gmail.com>, 
+ linuxppc-dev@lists.ozlabs.org, linux-mm@kvack.org, 
+ linux-kernel@vger.kernel.org, Konstantin Khorenko <khorenko@virtuozzo.com>, 
+ Jason Gunthorpe <jgg@ziepe.ca>, stable@vger.kernel.org, 
+ Sashiko <sashiko-bot@kernel.org>, 
+ "Jose A. Perez de Azpillaga" <azpijr@gmail.com>
+X-Mailer: b4 0.16.0
+X-Developer-Signature: v=1; a=openpgp-sha256; l=4194;
+ i=khorenko@virtuozzo.com; h=from:subject:message-id;
+ bh=0KbTMYxwQGgCuwBNwt1Pek/vi+cv68YluLjm3ssgOAk=;
+ b=owEBbQKS/ZANAwAKAVGWCkf5YVwqAcsmYgBq/v03feVsR9uS5X8yS8SIHKVuDw/Cs0h9NcRGk
+ G1L467BasCJAjMEAAEKAB0WIQRWD23IPcXT0GO9CCxRlgpH+WFcKgUCav79NwAKCRBRlgpH+WFc
+ KtsaD/4upDZ3XOtGVuDlVMtEZc6ok0w47ytJX2pe4pZSlEyhwyYu2hNNv7HOVvaTxVdOJwB8t10
+ R4bYNeK2RHBH32+UrYqVTMdv4KCU5XtpCW3Dcvv7tKgYraXEO4J3ZchXA9qYonPXblA/Cx2H03w
+ l8G6NqMFhFhC0Es4AfG09RdLDoDGT0o73ildtP02dN0HsDsq5tk3IXZc0YFrVEyO2/ubPoR4LgM
+ FmyvZSN8S8uaUnA9InrJGifkTJ1p3Hu9lkJ7pSWucQcl8eIPnP2/55JVtx1ZPN1tbDviOBiyopQ
+ 1yFbfeGc6aVE6+wRNQjjbbaN7NnNHoNVc4u9uKwRMxc6DpeoHFBb08oTNHaPV4pcXEVe6/2ZAOV
+ ihWRAfsHlDC9k8qPXMdM0h1mjo0i70ayiHMbMJYE8m+HPr8Mtt/8HcaDAcDc7HpnUEpnX9+bnLs
+ HOx7QnnfgckSuJErP7G26GWKsErWQyc4lDOVQvr3ijPBipiZ6+FH1udhQHUEpBkCK/ilzlG5fCo
+ QENePxvVh8xXHLuF0WEy4NIgggm84eK/WNiSyVPvkSDY3aIh9D4+MReR0r3YIXRHA2oByJwPOSp
+ apRhB7ACPdHpBkMynndAtijGBWcFBa7CoRRIJZDAX1ufjBJ4HyjIUiQkyk46ISBTz+EuywI4TRS
+ TEQ5SXwEBP98vyA==
+X-Developer-Key: i=khorenko@virtuozzo.com; a=openpgp;
+ fpr=560F6DC83DC5D3D063BD082C51960A47F9615C2A
 X-Mailman-Approved-At: Fri, 20 Nov 2026 16:17:37 +0000
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -88,52 +84,113 @@ List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-15.8 required=3.0 tests=BAYES_00,DKIM_SIGNED,
-	DKIM_VALID,DKIM_VALID_AU,FREEMAIL_FORGED_FROMDOMAIN,FREEMAIL_FROM,
-	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
-	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,USER_AGENT_GIT
-	autolearn=unavailable autolearn_force=no version=4.0.1
+X-Spam-Status: No, score=-18.8 required=3.0 tests=BAYES_00,DKIM_SIGNED,
+	DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
+	INCLUDES_CR_TRAILER,INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,
+	SPF_PASS,USER_AGENT_GIT autolearn=unavailable autolearn_force=no
+	version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-criu_get_process_object_info() holds p->mutex while counting events
-in p->event_idr. Event creation and destruction use p->event_mutex,
-so the event IDR can change during the walk. If an event is removed,
-the walk can access a freed IDR node.
+copy_huge_pmd() reads a special PMD without the page table lock and
+copies that value to the child. The mmap write lock held by fork does
+not stop unmap_mapping_range(): it zaps under i_mmap_rwsem and the PMD
+lock.
 
-Hold p->event_mutex while counting events.
-kfd_criu_checkpoint_events() uses the same lock when walking the
-event IDR. Event creation and destruction do not acquire p->mutex,
-so taking p->event_mutex while holding p->mutex preserves the lock
-order.
+The zap visits the parent VMA before the child's, as dup_mmap() links
+the child right after the parent in i_mmap. If it clears the parent PMD
+after fork has read it, and passes the child before fork copies it, the
+child keeps a mapping the driver has revoked, for example:
 
-Fixes: 40e8a766a761 ("drm/amdkfd: CRIU checkpoint and restore events")
-Signed-off-by: Changyul Lee <lcy8047@gmail.com>
+- vfio-pci: the child reaches the BAR after the device memory was
+  disabled or the device was reset, instead of getting SIGBUS;
+- panthor: the child maps the pages of an evicted buffer object after
+  the driver has released them.
+
+The same branch deposits no page table under the copy. ppc64 in hash
+mode keeps the hash slot array of every huge PMD in that table, so the
+child dereferences a NULL table on the first hash fault, in
+__hash_page_thp(), and on the zap, in hash__pmdp_huge_get_and_clear().
+
+Take the locks first and let vm_normal_page_pmd() tell a PFN mapping
+from a folio under them, as copy_present_ptes() does with
+vm_normal_page(). The zap clears the parent PMD under the same lock, so
+either fork finds it none and skips it, or the copy is in place before
+the zap reaches the child.
+
+The copy of a PFN mapping then goes through the same tail as a folio:
+
+- it gets a page table where the architecture needs one;
+- in a shared mapping it is marked clean in the child, as a PTE is;
+- in a CoW mapping, which only VM_MIXEDMAP allows, both sides are write
+  protected instead of a warning being printed.
+
+Fixes: bc02afbd4d73 ("mm/fork: accept huge pfnmap entries")
+Fixes: d1503aa9ab80 ("powerpc/64s: Add support for huge pfnmaps")
+Cc: stable@vger.kernel.org
+Reported-by: Sashiko <sashiko-bot@kernel.org>
+Closes: https://sashiko.dev/#/patchset/20261014-b4-prep-vstor-149847-copy_huge_pmd-recheck-special-pmd-v1-1-d225c60bc316@virtuozzo.com?part=1
+Suggested-by: David Hildenbrand (Arm) <david@kernel.org>
+Acked-by: Kiryl Shutsemau (Meta) <kas@kernel.org>
+Acked-by: David Hildenbrand (Arm) <david@kernel.org>
+Reviewed-by: Jose A. Perez de Azpillaga <azpijr@gmail.com>
+Acked-by: Zi Yan <ziy@nvidia.com>
+Tested-by: Ritesh Harjani (IBM) <ritesh.list@gmail.com> #PowerPC
+Signed-off-by: Konstantin Khorenko <khorenko@virtuozzo.com>
 ---
-Found with a static analysis tool we are developing.
+ mm/huge_memory.c | 24 +++---------------------
+ 1 file changed, 3 insertions(+), 21 deletions(-)
 
-Compile-tested only, with x86_64_defconfig plus DRM_AMDGPU, HSA_AMD
-and W=1.
-
- drivers/gpu/drm/amd/amdkfd/kfd_chardev.c | 2 ++
- 1 file changed, 2 insertions(+)
-
-diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_chardev.c b/drivers/gpu/drm/amd/amdkfd/kfd_chardev.c
-index 3d2136adb62b..20e3bbd073a5 100644
---- a/drivers/gpu/drm/amd/amdkfd/kfd_chardev.c
-+++ b/drivers/gpu/drm/amd/amdkfd/kfd_chardev.c
-@@ -2234,7 +2234,9 @@ static int criu_get_process_object_info(struct kfd_process *p,
- 	if (ret)
- 		return ret;
+diff --git a/mm/huge_memory.c b/mm/huge_memory.c
+index 277d27a8a4364..adf3ca088bf41 100644
+--- a/mm/huge_memory.c
++++ b/mm/huge_memory.c
+@@ -1977,25 +1977,6 @@ int copy_huge_pmd(struct mm_struct *dst_mm, struct mm_struct *src_mm,
+ 	int ret = -ENOMEM;
+ 	bool writable;
  
-+	mutex_lock(&p->event_mutex);
- 	num_events = kfd_get_num_events(p);
-+	mutex_unlock(&p->event_mutex);
+-	pmd = pmdp_get_lockless(src_pmd);
+-	if (unlikely(pmd_present(pmd) && pmd_special(pmd) &&
+-		     !is_huge_zero_pmd(pmd))) {
+-		dst_ptl = pmd_lock(dst_mm, dst_pmd);
+-		src_ptl = pmd_lockptr(src_mm, src_pmd);
+-		spin_lock_nested(src_ptl, SINGLE_DEPTH_NESTING);
+-		/*
+-		 * No need to recheck the pmd, it can't change with write
+-		 * mmap lock held here.
+-		 *
+-		 * Meanwhile, making sure it's not a CoW VMA with writable
+-		 * mapping, otherwise it means either the anon page wrongly
+-		 * applied special bit, or we made the PRIVATE mapping be
+-		 * able to wrongly write to the backend MMIO.
+-		 */
+-		VM_WARN_ON_ONCE(vma_is_cow_mapping(src_vma) && pmd_write(pmd));
+-		goto set_pmd;
+-	}
+-
+ 	if (vma_is_anonymous(dst_vma) || arch_needs_pgtable_deposit()) {
+ 		pgtable = pte_alloc_one(dst_mm);
+ 		if (unlikely(!pgtable))
+@@ -2037,7 +2018,9 @@ int copy_huge_pmd(struct mm_struct *dst_mm, struct mm_struct *src_mm,
+ 		goto copy_pmd;
+ 	}
  
- 	svm_range_get_info(p, &num_svm_ranges, &svm_priv_data_size);
+-	src_page = pmd_page(pmd);
++	src_page = vm_normal_page_pmd(src_vma, addr, pmd);
++	if (!src_page)
++		goto copy_pmd;
+ 	VM_BUG_ON_PAGE(!PageHead(src_page), src_page);
+ 	src_folio = page_folio(src_page);
+ 
+@@ -2088,7 +2071,6 @@ int copy_huge_pmd(struct mm_struct *dst_mm, struct mm_struct *src_mm,
+ 	}
+ 	if (src_vma->vm_flags & VM_SHARED)
+ 		pmd = pmd_mkclean(pmd);
+-set_pmd:
+ 	pmd = pmd_mkold(pmd);
+ 	set_pmd_at(dst_mm, addr, dst_pmd, pmd);
  
 
-base-commit: 8dd68a79583aaf6df6fe4feea3ee9e9f26b02993
 -- 
 2.43.0
 
