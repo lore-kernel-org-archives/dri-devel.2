@@ -2,68 +2,68 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 61E38606A32C
-	for <dri-devel@archiver.kernel.org>; Thu, 19 Nov 2026 05:22:10 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 00B80606A320
+	for <dri-devel@archiver.kernel.org>; Thu, 19 Nov 2026 05:22:33 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=kIVMi7qe
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=cx1SiotZ
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 1803710E508;
-	Thu, 19 Nov 2026 05:22:04 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id CDB1D10E768;
+	Thu, 19 Nov 2026 05:22:26 +0000 (UTC)
 Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 6713510E6E5
- for <dri-devel@lists.freedesktop.org>; Thu, 19 Nov 2026 05:21:46 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id E97A810E508
+ for <dri-devel@lists.freedesktop.org>; Thu, 19 Nov 2026 05:21:50 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id 2F3B9459A4;
- Thu, 19 Nov 2026 05:21:46 +0000 (UTC)
+ by sea.source.kernel.org (Postfix) with ESMTP id 12B3940BF9;
+ Thu, 19 Nov 2026 05:21:47 +0000 (UTC)
 Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
 ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
- t=1795065706;
- b=Urq1xsMHLAzmugV7mMUCshKTNesOijscDSYbB4h6oly1YVHXYl4UFIrScGfhoEpSJeA/
- EV3yGwE6gibqsPtlA2PO3GYFhtSUvMW7c4IljV3PrpoDycMFHoLq2rIF2ROZjUQYwt3Qh
- 5Pc/kMfq4XxA8IBjyZss6oml7eg96YzQuj4RJIyN2qAgUArh85KzR1GbDeZRhk+xw+uhs
- tVcsik5CCf7okLsrXOFrZopD4Yx4yu0bSIM6EwP9MPKN8olyqE6pZc8mhaR9Sq5AFdtX3
- HNF3evt85yJILY+jeYO6VzhJ3ZcDSCJpYV73iz1D4pw7qByoQdwF4z0RUQgRfhpyZVg==
+ t=1795065707;
+ b=ku6wQ+46Kbh7rjeSmjKZQDS7jh90pnx99dANjtUEu/9+mkzrRRN/v4EtfdXALHXB1GBW
+ ejijsOy4fPAfRpokp0DPtOMJ/kihCaZ4JiHSrZdPGF1QRQ2YqTXKY8mlrLfs8lEHlsJV/
+ jGmHQR2Ut+fph0TmiYeYzMZND5anwMwowsSvnd9l+GP3lQMq19uHroy/tV8nQogHEdFzt
+ cBDTkvwGaN1hWF6kSF6yZ9hr5mQuHujUXnsCh8AOOaNC5Rpd9VDaLd3Ii73gP5VxQMGUQ
+ LLcPn+e+9anbc192ImS93PHuZMLMszPdsfQxh2yRwe3zO+R0jD4sFRbLYSljxC571ag==
 ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
- c=relaxed/relaxed; t=1795065706;
+ c=relaxed/relaxed; t=1795065707;
  h=DKIM-Signature:Received:From:Date:Subject:MIME-Version:Content-Type:
  Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
  X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
  X-Original-From:Reply-To:Content-Transfer-Encoding;
- bh=Sea7z+n5pZZqi+t3TzaXiTFzXOh2A7iP/dngPcAdtLM=;
- b=t2/iBnIUYUfP3zLqEtuwzuGZiFTSEGLxPtXEtx8x14BwZqOrL9WpHSSZPiDjqnR7eL0l
- DdVvewSLACQK1gG8OuDKpRMNwkqw1v/50zbaQ+WYhumCSw6vCeyFWRvhHITtoKn49RCmu
- wiMfDnicrmT4leRN8tL/0QLYT+j2e8hUqh6hTSk+wBczULDgbJktKAWdUeBwgiSSJrKRZ
- XrPnnW0h1zh363bOhbcN+7r6vALtPtbrMHVTwrTzrCAl2OhHqt4jAB6H6T/QqN74JBYnr
- cHWkt3Hh3FxxMcVjGt840Sq3/8atnbPSVoe/BngxlPQg6ofwM+ev3xbI6vIovAlIARA==
+ bh=vmmsCAmkFJPF5VXt86nWzLOnvQgS7sQpk97nCjyz42s=;
+ b=vPui3xgcPqk24k8CCad1gjf9VKVL+HaKLZ22IGg6yV11VRW80b1wydfioyfjxaYTMHmi
+ JRZAu6QLqtGxAqPKYPARzBV1EKkLW0zuevCPYSHj4QEsDTj1JGUAKHkFnOrnD+1BV3cWb
+ yJKrxDHnoNEFvdkqF21IdknsBLQy+7yUlauiJzi5iUh0tJmcylLOWRSRFbUUtdd3mOVMC
+ PQ++I6n6AvWzgJdTrMHyUBc7SNaobONMdCIufJMndCfmrQxe1TpxxfUI8mZNC240pRlRV
+ 4phM3J7fRmchXo1oqIhVizmE1FR8s6Rx7oT1LoA0vmgSRDHU3RHoB34fnfSVvFc11RA==
 ARC-Authentication-Results: i=1; smtp.kernel.org; 
  arc=none smtp.remote-ip=100.80.115.77
 Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
  (No client certificate requested)
- by smtp.kernel.org (Postfix) with ESMTPS id 008091F000CB;
+ by smtp.kernel.org (Postfix) with ESMTPS id F1CE11F000C5;
  Thu, 19 Nov 2026 05:21:44 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
  s=k20260515; t=1795065706;
- bh=Sea7z+n5pZZqi+t3TzaXiTFzXOh2A7iP/dngPcAdtLM=;
+ bh=vmmsCAmkFJPF5VXt86nWzLOnvQgS7sQpk97nCjyz42s=;
  h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To;
- b=kIVMi7qeV7R4TMNgc/Fr3H5FM0sDS8GDvK4aKJ7IAuYTTJFojDIz1WiB1jUDyvaQ3
- Kby5+5X8X6574p09Mdc8Mzm5R0Q9bp/Y1vO5uWlQTSyeKzc+M5NJrhhu5aXTzgw3Ms
- lErobWZJw6PgZwcIHNpi6ogGZC2gBmVD6IkB/oPOiQHDrx/oTKldFtGkUrbi1SAaSf
- l/n5BaDGYMdJEx07FRzECiB/irUGS9wcRYEjwMNAoTRS4Bq4DCuhceRueYhu3vusgG
- vC9VHDdS/mCZeOHo43xGwpVywXEUxOL5F1dK0oesy28OX3pcv9gO8g+XDbBIS1LP3u
- Bkhg1dG+tGEmw==
+ b=cx1SiotZbWSumq13MxnpkD8KXzy+VyzN2UfnZ00YSPX3uvuWK313L6wJXfryo0FOA
+ 8kHaPEVWE1WQvlJuv1HWRi0bOv56WUyFoztjd0oKmqbmzLBF0Xg7j1X53tO2UvFeo7
+ H/CG9xLT0QcRdlMgySlnyocuN4WJzcEZuJURadtygIEeNfJ19vU1gSUsVlFTFGhkvX
+ lSkiF96NTNg/aLj47tKHFvfwRKPQq9rtt1mDzly3kGKjG8LGzVXWnrZXjTkpg4Vf7G
+ 2aCP9trY88TLWlLS+qK0uA7sqn7ksqzCDlJ4QF/m9+G/bfb8FVi0ktMdQpv5pfSFMm
+ e0SLsJHRH+vQw==
 Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
- by lkml.kernel.org (Postfix) with ESMTP id 7CC8F4B102;
+ by lkml.kernel.org (Postfix) with ESMTP id C8A894B10D;
  Thu, 19 Nov 2026 05:21:43 +0000 (UTC)
 From: Arun Iyengar via B4 Relay <devnull+aiyengar1990.gmail.com@kernel.org>
-Date: Thu, 19 Nov 2026 05:21:44 +0000
-Subject: [PATCH v4 3/8] drm/rockchip: vop2: Fix the HDMI sync polarity on
- RK3588
+Date: Thu, 19 Nov 2026 05:21:47 +0000
+Subject: [PATCH v4 6/8] drm/rockchip: vop2: Find the first mixer of a video
+ port with Esmart3 too
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
-Message-Id: <20261119-vop2-fixes-v4-3-4b8f5e7148c9@gmail.com>
+Message-Id: <20261119-vop2-fixes-v4-6-4b8f5e7148c9@gmail.com>
 References: <20261119-vop2-fixes-v4-0-4b8f5e7148c9@gmail.com>
 In-Reply-To: <20261119-vop2-fixes-v4-0-4b8f5e7148c9@gmail.com>
 To: Sandy Huang <hjc@rock-chips.com>, 
@@ -77,14 +77,13 @@ Cc: Piotr Zalewski <pZ010001011111@proton.me>,
  Chaoyi Chen <chaoyi.chen@rock-chips.com>, 
  Damon Ding <damon.ding@rock-chips.com>, dri-devel@lists.freedesktop.org, 
  linux-rockchip@lists.infradead.org, linux-arm-kernel@lists.infradead.org, 
- linux-kernel@vger.kernel.org, Arun Iyengar <aiyengar1990@gmail.com>, 
- Cristian Ciocaltea <cristian.ciocaltea@collabora.com>
+ linux-kernel@vger.kernel.org, Arun Iyengar <aiyengar1990@gmail.com>
 X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1795065702; l=1551;
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1795065702; l=1927;
  i=aiyengar1990@gmail.com; s=20261110; h=from:subject:message-id;
- bh=y/BLNj95neZ1kNSGI9NFsr8jsXQo+g+IgIthS+l+Duk=;
- b=0qcKw8upSrWwQ8ZwYNtXRiuBPfNZd2/78sN+W/kwWn5wJf2395l6zxYIq3H7fHd7F5A73Ge9U
- 0HF/gIGeYyIA5uVSUAcyJE0xTnGgqnZrPlh99x/pnx2lJq89gmP3/6F
+ bh=65jy5ymajpG89k237tvRGcCxVl9Lytdo/uG5Ow0DDXs=;
+ b=eavln/Szzu2kfv6EJn+f2yUSSyS0oEHYBNjqxRmhWRR/dAprw5iUYDy1WujlwSeTK+xNvx6ez
+ rWN54Xr7MO7CsJooBXzdymCxHWAhNHwjRjYMqcM/IDF31l1DrduV844
 X-Developer-Key: i=aiyengar1990@gmail.com; a=ed25519;
  pk=zXpRgUTrhaFe6jLyPqbBy3ccfkj04w0g2690Wv3mg+0=
 X-Endpoint-Received: by B4 Relay for aiyengar1990@gmail.com/20261110 with
@@ -113,43 +112,48 @@ X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 
 From: Arun Iyengar <aiyengar1990@gmail.com>
 
-rk3588_get_hdmi_pol() is passed the POLFLAG bits of the mode but tests
-them as DRM mode flags, so the HDMI sync polarity bits in GRF_VO1_CON0
-come out wrong: +HSync/+VSync modes get one of them set and
--HSync/-VSync modes none.
+vop2_find_start_mixer_id_for_vp() passes ROCKCHIP_VOP2_ESMART3, the
+highest window id, as the bit count to for_each_set_bit(), so Esmart3
+is never found and a video port whose bottom layer is Esmart3 programs
+the mixers of other video ports.
 
-The bits are set for a negative sync. Test the POLFLAG bits instead.
+Add ROCKCHIP_VOP2_MAX_LAYER_ID after the last window id and search up to
+it.
 
-Fixes: 5a028e8f062f ("drm/rockchip: vop2: Add support for rk3588")
+Fixes: d3fe9aa49585 ("drm/rockchip: vop2: Use OVL_LAYER_SEL configuration instead of use win_mask calculate used layers")
 Reviewed-by: Chaoyi Chen <chaoyi.chen@rock-chips.com>
 Reviewed-by: Damon Ding <damon.ding@rock-chips.com>
-Cc: Cristian Ciocaltea <cristian.ciocaltea@collabora.com>
 Signed-off-by: Arun Iyengar <aiyengar1990@gmail.com>
 ---
- drivers/gpu/drm/rockchip/rockchip_vop2_reg.c | 7 ++++---
- 1 file changed, 4 insertions(+), 3 deletions(-)
+ drivers/gpu/drm/rockchip/rockchip_drm_vop2.h | 1 +
+ drivers/gpu/drm/rockchip/rockchip_vop2_reg.c | 2 +-
+ 2 files changed, 2 insertions(+), 1 deletion(-)
 
+diff --git a/drivers/gpu/drm/rockchip/rockchip_drm_vop2.h b/drivers/gpu/drm/rockchip/rockchip_drm_vop2.h
+index de325cc50c59..a1668d234b84 100644
+--- a/drivers/gpu/drm/rockchip/rockchip_drm_vop2.h
++++ b/drivers/gpu/drm/rockchip/rockchip_drm_vop2.h
+@@ -807,6 +807,7 @@ enum vop2_layer_phy_id {
+ 	ROCKCHIP_VOP2_CLUSTER3,
+ 	ROCKCHIP_VOP2_ESMART2,
+ 	ROCKCHIP_VOP2_ESMART3,
++	ROCKCHIP_VOP2_MAX_LAYER_ID,
+ 	ROCKCHIP_VOP2_PHY_ID_INVALID = -1,
+ };
+ 
 diff --git a/drivers/gpu/drm/rockchip/rockchip_vop2_reg.c b/drivers/gpu/drm/rockchip/rockchip_vop2_reg.c
-index f340aba5bfd1..3e654cb99ddf 100644
+index 3a95d2f9516c..6927db8a592d 100644
 --- a/drivers/gpu/drm/rockchip/rockchip_vop2_reg.c
 +++ b/drivers/gpu/drm/rockchip/rockchip_vop2_reg.c
-@@ -1683,12 +1683,13 @@ static u32 rk3588_get_mipi_port_mux(int vp_id)
- 		return 0;
- }
+@@ -1881,7 +1881,7 @@ static int vop2_find_start_mixer_id_for_vp(struct vop2_video_port *vp)
  
--static u32 rk3588_get_hdmi_pol(u32 flags)
-+/* The sync polarity bits in GRF_VO1_CON0 are set for a negative sync */
-+static u32 rk3588_get_hdmi_pol(u32 polflags)
- {
- 	u32 val;
- 
--	val = (flags & DRM_MODE_FLAG_NHSYNC) ? BIT(HSYNC_POSITIVE) : 0;
--	val |= (flags & DRM_MODE_FLAG_NVSYNC) ? BIT(VSYNC_POSITIVE) : 0;
-+	val = (polflags & BIT(HSYNC_POSITIVE)) ? 0 : BIT(HSYNC_POSITIVE);
-+	val |= (polflags & BIT(VSYNC_POSITIVE)) ? 0 : BIT(VSYNC_POSITIVE);
- 
- 	return val;
- }
+ 	for (i = 0; i < 31; i += 4) {
+ 		match = false;
+-		for_each_set_bit(phys_id, &win_mask, ROCKCHIP_VOP2_ESMART3) {
++		for_each_set_bit(phys_id, &win_mask, ROCKCHIP_VOP2_MAX_LAYER_ID) {
+ 			win = vop2_find_win_by_phys_id(vop2, phys_id);
+ 			if (win->data->layer_sel_id[vp->id] == ((layer_sel >> i) & 0xf)) {
+ 				match = true;
 
 -- 
 2.55.0
