@@ -2,68 +2,71 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1A7BF60A6F57
-	for <dri-devel@archiver.kernel.org>; Thu, 19 Nov 2026 17:10:57 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EA7DB60A262F
+	for <dri-devel@archiver.kernel.org>; Thu, 19 Nov 2026 17:11:04 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=gMR4thZQ
+	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=he+hqyxY
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 33E9411267A;
-	Thu, 19 Nov 2026 17:10:51 +0000 (UTC)
-Received: from mail-pj1-f69.google.com (mail-pj1-f69.google.com
- [209.85.216.69])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 40E9211267A
- for <dri-devel@lists.freedesktop.org>; Thu, 19 Nov 2026 17:10:45 +0000 (UTC)
-Received: by mail-pj1-f69.google.com with SMTP id
- 98e67ed59e1d1-3b167bc8e16so32268a91.1
- for <dri-devel@lists.freedesktop.org>; Thu, 19 Nov 2026 09:10:45 -0800 (PST)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 0DF8611267E;
+	Thu, 19 Nov 2026 17:10:59 +0000 (UTC)
+Received: from mail-oa1-f72.google.com (mail-oa1-f72.google.com
+ [209.85.160.72])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 621F911267C
+ for <dri-devel@lists.freedesktop.org>; Thu, 19 Nov 2026 17:10:52 +0000 (UTC)
+Received: by mail-oa1-f72.google.com with SMTP id
+ 586e51a60fabf-46509ab0149so34891fac.2
+ for <dri-devel@lists.freedesktop.org>; Thu, 19 Nov 2026 09:10:52 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=google.com; s=20260707; t=1795108245; x=1795713045;
+ d=google.com; s=20260707; t=1795108251; x=1795713051;
  darn=lists.freedesktop.org; 
  h=content-type:cc:to:from:subject:message-id:mime-version:date:from
  :to:cc:subject:date:message-id:reply-to:content-type;
- bh=Wf/5Oq5mchrTyiDMKcWORLhQhELf6w7llq5mVEibG3E=;
- b=gMR4thZQAHOc9hNq56O7aoNFGVCcUmXtO4zb5txifHhviWfhZs895R0NS78CRCGQUk
- Aiad9uJtWPx0UcM7jnEkjb9lx20i6iw/IEnbXRHeJRIFUe3neUIlmEjZGs5vVn3JEsoS
- Rx7TTqoJakdpz79gBrP8ktrfwlCFZlj7qBj1epEwa0GF51uouM4SFJMqrhCpbkbZqwq6
- rzIWMActBn9n38oViS2fl1npnUEWaIz6Af05FKX/czp+Jldh9J35FSea0Ei8qVNumGcW
- jBGiieGBSkKft5Wmeu6jryRcNRwpTZfhh4yhYlgo/iYyqj9DHBGBQR3PqRYteSOIPpHj
- 32Ew==
+ bh=UgCYURNKZXvnpxT2x6kH2Yd3H2eYME7sOBjpX93BA1E=;
+ b=he+hqyxYizP/a89nSv7C27BARC/L72litL+lTYLFdFlogHDHro7JGAFC0EtDm/CuWe
+ 6UoyD6sItWG4JqLTbkqnUQqYcELL5PVBbhVMtHmZY4TqOEeT8j804lfEoxa24ej/lX/j
+ qYzq2K3rlMBfx2Gw0ElUF7pvAWStoUi7cegaawbEFU+CbN9phKZc/noX7l2+ZSwsadcU
+ M7GDq3yzq2tjTAqsdJ/XoRcrkK64IW8C/jTlST1rud03cl6S8TtX4rXwkBMgc+AXbGMY
+ 8E7v4lRLHPQ0tiMA4O4eBAsRXKyYiY8H6r4gfEl5y7z3WQ5f7HusyKNNHm0ofgKFzH4l
+ 2A1A==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20260707; t=1795108245; x=1795713045;
+ d=1e100.net; s=20260707; t=1795108251; x=1795713051;
  h=content-type:cc:to:from:subject:message-id:mime-version:date
  :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
  :content-type;
- bh=Wf/5Oq5mchrTyiDMKcWORLhQhELf6w7llq5mVEibG3E=;
- b=VOMWXTBhAb598d+7OpBiIYL2xmzuRjUHc0hSPu5ZcPgGW1nQhdeCAASIbYi3m1C50G
- raNNGlWnnzf/FNIhzanGs1KgB+e51o5f5yA2j79It7xPsgOuTiBMzMtj2zNPxNzUZ7CL
- IaaAOs2Yhv38rYNgEkM1yXRj/4cHYkxBNqy4+LQBY1TVj0ieGA5jEzaCxHqEHaAIHRlT
- FypC1c/IxgsIreccaQgl9V+V+BvhJMrlZohPqf9LvVqbQngZVshLZYUfVUnERbwLXVVs
- 6vcq9EQmKfdT45yQZR4TEGTizRoL6iLaqfgRFDG2p0Bd1gqiZZt4h/UECRZu3/UKG8Uu
- vKqA==
-X-Gm-Message-State: APuU4Z9L8MuIRONu0KqNRU1zpREnRSmrOJ2U3PmGInUWhEs4z/XQVcMl
- 9bfd7UAUXd52K6VxeHQu+5omY5dk3S5yqQJr0MLPgBMkubyDxgTCwohPowpf91uBIdXoP15NACF
- iFOxjncVQ2A==
-X-Received: from pgfv9-n1.prod.google.com
- ([2002:a05:6a02:8749:10b0:cd8:5a84:95f])
+ bh=UgCYURNKZXvnpxT2x6kH2Yd3H2eYME7sOBjpX93BA1E=;
+ b=PACFyW9Ynv3BU4EMbdTFhJ03R3nfwEvrSQIf8NTmrsLl3J7ciE/9loCnd0RJpPGaXM
+ Dg+83dCSLmrkc0mmxM1kM1WHth1R0FNijHXItit3rrV84eTNkBKOFKCRc/Abo9mqNiY0
+ u2Dq+LM8nS88aJlcSfXeEBhmYA1/uwJQpVaxu6zSzQYSVmHgwbacdFBmYxiUbFzW8rpI
+ mvrwJSbMfEeP9J3UaQ78MPZyIk35289Ole9keyVvhnWfBkQ2sUfCIGJ4jNOvIMIJtDcc
+ f4yipJQlqHHJNDDN8ENX1H0PdankRMBXylpIMiWnd3NQdxehLelAn+I3XLLnulv65BPX
+ Gdyg==
+X-Forwarded-Encrypted: i=1;
+ AL+hErEaor76w7MJoeQ4OD1V+xwekMGDH6a4fespO26gvJmgl0j9AYENupuHkI2ZfMV04NtUE9QiGR4v6iY=@lists.freedesktop.org
+X-Gm-Message-State: APuU4Z/S65k+xsok4v/X6ihVYg3XxMpVEDEqX9BrT7/2OrxPcDQ+K1j/
+ ecspSxF1FIRKKuXdxcNJC6CAUVakIhDd0RYbYeLJl5JxGWcmEgO1zm1Q4jnrHtRANaoeOnSVfud
+ KaY0CvTJPBA==
+X-Received: from oadxh9-n1.prod.google.com
+ ([2002:a05:6871:ed09:10b0:4a7:1cc1:e72])
  (user=irogers job=prod-delivery.src-stubby-dispatcher) by
- 2002:a17:90b:4d10:b0:3ac:a1c7:20fd
- with SMTP id 98e67ed59e1d1-3b41c7ac351mr40117a91.4.1795108244548; Thu, 19 Nov
- 2026 09:10:44 -0800 (PST)
-Date: Thu, 19 Nov 2026 09:10:41 -0800
+ 2002:a05:6870:b14d:b0:4a2:47f6:3cbf
+ with SMTP id 586e51a60fabf-4bc7d56ee04mr238017fac.8.1795108251216; Thu, 19
+ Nov 2026 09:10:51 -0800 (PST)
+Date: Thu, 19 Nov 2026 09:10:46 -0800
 X-Archived-By: <archiver.kernel.org>
 Mime-Version: 1.0
 X-Mailer: git-send-email 2.56.1.708.g77570a6a1d-goog
-Message-ID: <20261119171041.1536322-1-irogers@google.com>
-Subject: [PATCH] drm/tidss: Return drm_mode_status values from
- tidss_oldi_mode_valid()
+Message-ID: <20261119171046.1536673-1-irogers@google.com>
+Subject: [PATCH] drm/msm/dp: Return MODE_BAD instead of -EINVAL from
+ mode_valid callbacks
 From: Ian Rogers <irogers@google.com>
-To: Jyri Sarha <jyri.sarha@iki.fi>,
- Tomi Valkeinen <tomi.valkeinen@ideasonboard.com>, 
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>, 
- Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>,
- Simona Vetter <simona@ffwll.ch>
-Cc: dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org, 
+To: Rob Clark <robin.clark@oss.qualcomm.com>,
+ Dmitry Baryshkov <lumag@kernel.org>, 
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>
+Cc: Abhinav Kumar <abhinav.kumar@linux.dev>,
+ Jessica Zhang <jesszhan0024@gmail.com>, 
+ Sean Paul <sean@poorly.run>, Marijn Suijten <marijn.suijten@somainline.org>, 
+ linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org, 
+ freedreno@lists.freedesktop.org, linux-kernel@vger.kernel.org, 
  llvm@lists.linux.dev, Elkin Cruz <elkin@google.com>,
  Ian Rogers <irogers@google.com>
 Content-Type: text/plain; charset="UTF-8"
@@ -86,42 +89,54 @@ X-Spam-Status: No, score=-26.3 required=3.0 tests=BAYES_00,DKIMWL_WL_MED,
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-tidss_oldi_mode_valid() has return type enum drm_mode_status, but
-returns -EINVAL (-22) when the rounded serial clock differs by more
-than 5% and 0 otherwise. When drm_mode_prune_invalid() logs rejected
-modes via drm_get_mode_status_name(), status == -22 computes a
-negative table index (-19) and triggers a WARN_ON().
+msm_dp_display_mode_valid() and msm_edp_bridge_mode_valid() have
+return type enum drm_mode_status, but return -EINVAL (-22) when dp,
+dp->connector, or mode->clock is zero/NULL. If a mode with zero pixel
+clock is validated and pruned, passing -22 to
+drm_get_mode_status_name() computes a negative array index and fires
+WARN_ON().
 
-Return MODE_CLOCK_RANGE and MODE_OK instead, matching
-dispc_vp_mode_valid().
+Return MODE_BAD instead of -EINVAL in both callbacks.
 
-Found via Clang -Wimplicit-int-enum-cast on an x86_64 allyesconfig
-build. Verified by building drivers/gpu/drm/tidss/tidss_oldi.o with
-LLVM=1 W=1 (-Werror) and -Wimplicit-int-enum-cast, and with a
-standalone C reproducer; not runtime-tested on TI DSS OLDI hardware.
+Found via Clang -Wassign-enum on an x86_64 allyesconfig build.
+Verified by building drivers/gpu/drm/msm/dp/dp_display.o and dp_drm.o
+with LLVM=1 W=1 (-Werror) and -Wassign-enum; not runtime-tested on
+Qualcomm Snapdragon DP/eDP hardware.
 
-Fixes: 86db652fc22f ("drm/tidss: Move OLDI mode validation to OLDI bridge mode_valid hook")
+Fixes: c943b4948b58 ("drm/msm/dp: add displayPort driver support")
+Fixes: 05d001352733 ("drm/msm/dp: use the eDP bridge ops to validate eDP modes")
 Signed-off-by: Ian Rogers <irogers@google.com>
 ---
- drivers/gpu/drm/tidss/tidss_oldi.c | 4 ++--
- 1 file changed, 2 insertions(+), 2 deletions(-)
+ drivers/gpu/drm/msm/dp/dp_display.c | 2 +-
+ drivers/gpu/drm/msm/dp/dp_drm.c     | 2 +-
+ 2 files changed, 2 insertions(+), 2 deletions(-)
 
-diff --git a/drivers/gpu/drm/tidss/tidss_oldi.c b/drivers/gpu/drm/tidss/tidss_oldi.c
-index 62c9780f7855..3b5046628642 100644
---- a/drivers/gpu/drm/tidss/tidss_oldi.c
-+++ b/drivers/gpu/drm/tidss/tidss_oldi.c
-@@ -322,9 +322,9 @@ tidss_oldi_mode_valid(struct drm_bridge *bridge,
- 	 * we use the same 5% check here.
- 	 */
- 	if (dispc_pclk_diff(mode->clock * 7 * 1000, round_clock) > 5)
+diff --git a/drivers/gpu/drm/msm/dp/dp_display.c b/drivers/gpu/drm/msm/dp/dp_display.c
+index c0c150e2c575..51649b584573 100644
+--- a/drivers/gpu/drm/msm/dp/dp_display.c
++++ b/drivers/gpu/drm/msm/dp/dp_display.c
+@@ -759,7 +759,7 @@ enum drm_mode_status msm_dp_display_mode_valid(struct msm_dp *dp,
+ 
+ 	if (!dp || !mode_pclk_khz || !dp->connector) {
+ 		DRM_ERROR("invalid params\n");
 -		return -EINVAL;
-+		return MODE_CLOCK_RANGE;
++		return MODE_BAD;
+ 	}
  
--	return 0;
-+	return MODE_OK;
- }
+ 	msm_dp_display = container_of(dp, struct msm_dp_display_private, msm_dp_display);
+diff --git a/drivers/gpu/drm/msm/dp/dp_drm.c b/drivers/gpu/drm/msm/dp/dp_drm.c
+index c1e4147bfef1..dd4e8426cfe0 100644
+--- a/drivers/gpu/drm/msm/dp/dp_drm.c
++++ b/drivers/gpu/drm/msm/dp/dp_drm.c
+@@ -251,7 +251,7 @@ static enum drm_mode_status msm_edp_bridge_mode_valid(struct drm_bridge *bridge,
  
- static const struct drm_bridge_funcs tidss_oldi_bridge_funcs = {
+ 	if (!dp || !mode_pclk_khz || !dp->connector) {
+ 		DRM_ERROR("invalid params\n");
+-		return -EINVAL;
++		return MODE_BAD;
+ 	}
+ 
+ 	if (msm_dp_wide_bus_available(dp))
 -- 
 2.56.1.708.g77570a6a1d-goog
 
