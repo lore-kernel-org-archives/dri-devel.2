@@ -2,43 +2,42 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CE5B5606A320
-	for <dri-devel@archiver.kernel.org>; Thu, 19 Nov 2026 08:51:22 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C7F21606A325
+	for <dri-devel@archiver.kernel.org>; Thu, 19 Nov 2026 08:51:35 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=KorxvIFP
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=SwrMyqBR
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 3706C1121AE;
-	Thu, 19 Nov 2026 08:51:17 +0000 (UTC)
-Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 7E35B1121AE
- for <dri-devel@lists.freedesktop.org>; Thu, 19 Nov 2026 08:51:02 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 2740D1121B5;
+	Thu, 19 Nov 2026 08:51:30 +0000 (UTC)
+Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 74B2C1121B5
+ for <dri-devel@lists.freedesktop.org>; Thu, 19 Nov 2026 08:51:23 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by tor.source.kernel.org (Postfix) with ESMTP id E120760F8B;
- Thu, 19 Nov 2026 08:51:01 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7302F1F000C4;
- Thu, 19 Nov 2026 08:51:01 +0000 (UTC)
+ by sea.source.kernel.org (Postfix) with ESMTP id D4F0345EF9;
+ Thu, 19 Nov 2026 08:51:22 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 99E2B1F000C4;
+ Thu, 19 Nov 2026 08:51:22 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1795078261;
- bh=6Bk8hCpsgZfl2HUhWcwGOm9G3pFHJ3P+zRUsS1eXKms=;
+ s=k20260515; t=1795078282;
+ bh=tGdXedpMISZQ+EuUN5b13Gq1aEzns3LJXvK+Cfw0Sv8=;
  h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
- b=KorxvIFPu8gO6ih4kjaVz80x2nSWMp8ZFCiuwHyqEWodzniwsKgHnOPpdS4W7OqXJ
- KE0vOk+IhlwnbB2AKTJ7fMZLJdrdndBPwnrd4x/FJdgzCyVihkVLavu1EEK8o+FX2c
- /GBB86a+87hfyNrrBnyjM3rAX9zm2vXX7ztwLpQsnpbLHGcPjRSRu6WVZqX/np2IRf
- e8TG3yXTvJARkhZ9hOHX+NFYqFSCfmJIfS6y8JxhsIoiiTot8cniDb9fQRWyFUJNsJ
- DGbEC64b2yK7/hzbvPcMUWMtsXrlPHRDELNaQaFLbaMrJ7GHf5PZ9oXGAoG0Oo+oqU
- xf/PC7Fl9Ebaw==
-Message-ID: <sashiko-outbox-222728@kernel.org>
+ b=SwrMyqBRMOnym53/tmbx27uKpYrbnOM7R6fOQFqtAF+cndwVlCilrGLZ/Unbbs6+8
+ vdp/PXTKxUnfBMfvvwL4F7Ucss7Lz3OSKUYa0O5aiub811qIY9kZM5H1gIpkNrEG6p
+ Xm+/+OEXeJ6s5LK6O7PqzqVxmgeokO3RWIb8uzRKRwCAJaKtm82KMWJJdf2+bKNhyt
+ 8StB6gv6+49uiS+pMQ8a5styNoh86jvLX/Xxz3qCGo8feCuf9cfyVaCPFus4oi7Qh2
+ IRjm2+BqilOjXcZFKEnx2xh1Y2yJ3l01aG+AeD5KIDuGr3IMT9kISnJ48gVTnoTWvd
+ FkKHC1Up9VY2A==
+Message-ID: <sashiko-outbox-222730@kernel.org>
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v9 25/29] drm/msm/dp: mark the SST bridge disconnected
- when an MST-capable sink is present
+Subject: Re: [PATCH v9 16/29] drm/msm/dpu: add per-stream MST encoders
 To: "Yongxing Mou" <yongxing.mou@oss.qualcomm.com>
 Cc: dri-devel@lists.freedesktop.org
-In-Reply-To: <20261119-msm-dp-mst-v9-25-ca61be4edfc3@oss.qualcomm.com>
+In-Reply-To: <20261119-msm-dp-mst-v9-16-ca61be4edfc3@oss.qualcomm.com>
 References: <20261119-msm-dp-mst-v9-0-ca61be4edfc3@oss.qualcomm.com>
- <20261119-msm-dp-mst-v9-25-ca61be4edfc3@oss.qualcomm.com>
+ <20261119-msm-dp-mst-v9-16-ca61be4edfc3@oss.qualcomm.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Thu, 19 Nov 2026 08:51:01 +0000
+Date: Thu, 19 Nov 2026 08:51:22 +0000
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -59,66 +58,107 @@ X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 X-Archived-By: <archiver.kernel.org>
 
-Thank you for your contribution! Sashiko AI review found 1 potential
-issue to consider:
-- [High] drm/msm/dp: msm_dp_bridge_detect() sets plugged and blocks boot
-  MST enable
+Thank you for your contribution! Sashiko AI review found 2 potential
+issues to consider:
+- [High] drm/msm/dpu: KMS init failure on SC8180X in
+  _dpu_kms_initialize_displayport()
+- [Medium] drm/msm/dp: devres leak of msm_dp_panel in
+  msm_dp_mst_attach_encoder()
 --
 
-commit 743d14a69ac4db117bcd70993b4890a54c2ba917
-Author: Abhinav Kumar <quic_abhinavk@quicinc.com>
+commit b76c85c1a18e10745adde0bb5001dc9b1e93e31a
+Author: Yongxing Mou <yongxing.mou@oss.qualcomm.com>
 
-drm/msm/dp: mark the SST bridge disconnected when an MST-capable sink is pr=
-esent
+drm/msm/dpu: add per-stream MST encoders
 
-This commit returns connector_status_disconnected from msm_dp_bridge_detect=
-()
-when a multi-stream capable controller detects an MST-capable sink before
-MST is activated.
+This commit creates a DRM encoder for each DP MST stream, associates it
+with a stream ID and panel, and sets up MST-specific encoder helper
+callbacks.
 
-> diff --git a/drivers/gpu/drm/msm/dp/dp_display.c b/drivers/gpu/drm/msm/dp=
-/dp_display.c
-> index 7f5247cbae035..6f1f9dd3660d0 100644
-> --- a/drivers/gpu/drm/msm/dp/dp_display.c
-> +++ b/drivers/gpu/drm/msm/dp/dp_display.c
-> @@ -1063,6 +1063,11 @@ enum drm_connector_status msm_dp_bridge_detect(str=
-uct drm_bridge *bridge,
->  			status =3D connector_status_disconnected;
->  	}
-> =20
-> +	/* Mark SST connector as disconnected in DP boot-up case */
-> +	if (msm_dp_ctrl_get_stream_cnt(priv->ctrl) > 1 &&
-> +	    drm_dp_read_mst_cap(priv->aux, dpcd) =3D=3D DRM_DP_MST)
-> +		status =3D connector_status_disconnected;
+> diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_kms.c b/drivers/gpu/drm/ms=
+m/disp/dpu1/dpu_kms.c
+> index 3c3203ca32c76..92691d39dcb24 100644
+> --- a/drivers/gpu/drm/msm/disp/dpu1/dpu_kms.c
+> +++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_kms.c
+> @@ -688,6 +688,21 @@ static int _dpu_kms_initialize_displayport(struct dr=
+m_device *dev,
+>  				return rc;
+>  			}
+>  		}
+> +
+> +		for (int stream_id =3D 0; stream_cnt > 1 && stream_id < stream_cnt; st=
+ream_id++) {
+> +			info.stream_id =3D stream_id;
+> +			encoder =3D dpu_encoder_init(dev, DRM_MODE_ENCODER_DPMST, &info);
+> +			if (IS_ERR(encoder)) {
+> +				DPU_ERROR("encoder init failed for dp mst display\n");
+> +				return PTR_ERR(encoder);
+> +			}
 
 [Severity: High]
-Does leaving priv->plugged set to true here prevent
-msm_dp_hpd_plug_handle() from enabling MST when an MST-capable sink is
-connected at boot?
+Does this break KMS initialization on SC8180X?
 
-Earlier in msm_dp_bridge_detect(), priv->plugged is set to true before this
-check overrides status to connector_status_disconnected while dp->mst_active
-is still false.  When msm_dp_hpd_plug_handle() later runs, it returns early
-without calling msm_dp_display_process_hpd_high() or
-msm_dp_display_mst_enable():
+In arch/arm64/boot/dts/qcom/sc8180x.dtsi, mdss_dp0 and mdss_dp1 both
+specify stream_pixel and stream_1_pixel in clock-names, so
+msm_dp_get_mst_max_stream() returns stream_cnt =3D=3D 2.  However, the SC81=
+80X
+DPU catalog only has one INTF_DP entry per controller because the shared
+MST interface uses a dummy controller_id:
 
-drivers/gpu/drm/msm/dp/dp_display.c:msm_dp_hpd_plug_handle() {
+drivers/gpu/drm/msm/disp/dpu1/catalog/dpu_5_1_sc8180x.h:sc8180x_intf[] {
     ...
-	if (dp->plugged)
-		return 0;
-    ...
-	ret =3D msm_dp_display_process_hpd_high(dp);
+	/* INTF_3 is for MST, wired to INTF_DP 0 and 1, use dummy index until this=
+ is supported */
+	{
+		.name =3D "intf_3", .id =3D INTF_3,
+		.base =3D 0x6b800, .len =3D 0x280,
+		.type =3D INTF_DP,
+		.controller_id =3D 999,
     ...
 }
 
-As a result, the SST connector reports disconnected while MST topology
-discovery is never started, leaving both SST and MST display output
-non-functional.  In addition, because dp->mst_active stays false while
-priv->plugged is true, each later msm_dp_bridge_detect() call takes a new
-runtime PM reference via pm_runtime_resume_and_get() and skips
-pm_runtime_put_sync() under if (!priv->plugged), leaking a runtime PM
-reference per detect call.
+When stream_id =3D=3D 1, dpu_encoder_init() -> dpu_encoder_setup_display() =
+->
+dpu_encoder_get_intf() finds no second matching INTF_DP entry and returns
+NULL, causing _dpu_kms_initialize_displayport() to fail with -ENOMEM and
+aborting display initialization on SC8180X.
+
+> diff --git a/drivers/gpu/drm/msm/dp/dp_mst_drm.c b/drivers/gpu/drm/msm/dp=
+/dp_mst_drm.c
+> index a2900ff3b0ab3..ef5fb70863b81 100644
+> --- a/drivers/gpu/drm/msm/dp/dp_mst_drm.c
+> +++ b/drivers/gpu/drm/msm/dp/dp_mst_drm.c
+> @@ -147,6 +147,26 @@ static int msm_dp_mst_encoder_stream_id(struct msm_d=
+p_mst *mst,
+>  	return -1;
+>  }
+> =20
+> +int msm_dp_mst_attach_encoder(struct msm_dp *dp_display, unsigned int st=
+ream_id,
+> +			      struct drm_encoder *encoder)
+> +{
+> +	struct msm_dp_mst *mst =3D dp_display->msm_dp_mst;
+> +	struct msm_dp_panel *dp_panel;
+> +
+> +	dp_panel =3D msm_dp_display_get_panel(dp_display, stream_id);
+> +	if (!dp_panel) {
+> +		drm_err(dp_display->drm_dev,
+> +			"[MST] failed to allocate panel for stream %d\n", stream_id);
+> +		return -ENOMEM;
+> +	}
+
+[Severity: Medium]
+Does calling msm_dp_display_get_panel() during KMS initialization leak
+struct msm_dp_panel_private across DRM component master bind/unbind
+cycles?
+
+msm_dp_display_get_panel() calls msm_dp_panel_get(), which allocates the
+panel with devm_kzalloc() on the subordinate DP platform device
+(&dp->msm_dp_display.pdev->dev).  When the DRM master unbinds (or if a
+later step in msm_drm_init() fails), msm_dp_mst_unregister() frees struct
+msm_dp_mst, but the devres allocations on the persistent DP platform
+device remain and are reallocated on each subsequent bind.
 
 --=20
 Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261119-msm-dp-mst=
--v9-0-ca61be4edfc3@oss.qualcomm.com?part=3D25
+-v9-0-ca61be4edfc3@oss.qualcomm.com?part=3D16
