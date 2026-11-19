@@ -2,31 +2,31 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8388460A2609
-	for <dri-devel@archiver.kernel.org>; Thu, 19 Nov 2026 13:19:50 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1FE66606A32A
+	for <dri-devel@archiver.kernel.org>; Thu, 19 Nov 2026 13:19:57 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=iYrxmap9
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=cUMdBXQW
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id BFC8D10E8A9;
-	Thu, 19 Nov 2026 13:19:44 +0000 (UTC)
-Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 328D310E8A9
- for <dri-devel@lists.freedesktop.org>; Thu, 19 Nov 2026 13:19:39 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id F2A6110E9BF;
+	Thu, 19 Nov 2026 13:19:50 +0000 (UTC)
+Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 30C7710E9BF
+ for <dri-devel@lists.freedesktop.org>; Thu, 19 Nov 2026 13:19:45 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id D909B40570;
- Thu, 19 Nov 2026 13:19:38 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 195CB1F000C5;
- Thu, 19 Nov 2026 13:19:33 +0000 (UTC)
+ by tor.source.kernel.org (Postfix) with ESMTP id 5439D636E7;
+ Thu, 19 Nov 2026 13:19:44 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 45BD31F000C4;
+ Thu, 19 Nov 2026 13:19:39 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1795094378;
- bh=gK1ForMjyEmgPmikJ+yHxqKUGm6sEgHvzRHvKpK3TlY=;
- h=From:To:Cc:Subject:Date;
- b=iYrxmap9F95zC7zevzlIkNvm2EvW0xFeZEV4uDvbltwjqYDMQDZgoctTK79JgpP6v
- I33+MyJSK1AWI6xpnh/bQL3XsfaZZloLDwjcq6M4OhHbjxka2rqWS/9C7k6QjiQKpV
- lo9owqejGMK+pEir1kr72Cu8/95kEj1SBJdg2h30swHFWBbRjuuNVzjPRpqxwoL+eP
- JDSvzEUSbDMIK3mvtQTtE9JZ1/HfPvaNx7LxdLihSiTz0hvgD8IYiimYGBgxw7degI
- 5NitSr8PHy4otVpN269UpDlnCkWhacVOysN65dLm6121gLeZ0CWiNJqtj03mZ6OGen
- CyOlsrJR23T0w==
+ s=k20260515; t=1795094384;
+ bh=tqYW6qfCA89hjEn5S9pqMagRU23Yv0iJY1QqK9VwBZY=;
+ h=From:To:Cc:Subject:Date:In-Reply-To:References;
+ b=cUMdBXQWPwrmExTjmd3k4UHdq3e3AF8tfw03kNLYOkIghQLXXrteSD0JgH7nrp1WO
+ kDoUisHmRH+urygOeK5JGPGx/YP9DMmKH+lZrji6Xp5C183puetxI3m9ngILxtDYtv
+ vRFkeav0jbcQx8gjVvCVLG4Qfya7FKTO2HvwmJ20X3pWeGuWEXyS/tEMZIn8pCvBwv
+ /Me5CdsmwbHBwb2/mxWvPcSvDHoRMVD1p/skM/7VDHr/cJLWGAnqlrAmXb5DrWltS6
+ Jw2gLuAniYfQvNFrldjuaJQJ2TgqA1b9qCulsW0iVZWhCgEQfmBNuc84UbEngjXZA+
+ os/qBDoL8d0tw==
 From: Philipp Stanner <phasta@kernel.org>
 To: Sumit Semwal <sumit.semwal@linaro.org>,
  =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
@@ -45,11 +45,14 @@ To: Sumit Semwal <sumit.semwal@linaro.org>,
  Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>,
  Simona Vetter <simona@ffwll.ch>
 Cc: linux-media@vger.kernel.org, dri-devel@lists.freedesktop.org,
- linux-kernel@vger.kernel.org
-Subject: [PATCH 0/3] dma-fence: Fix timestamp memory ordering
-Date: Thu, 19 Nov 2026 14:18:28 +0100
-Message-ID: <20261119131830.2535266-2-phasta@kernel.org>
+ linux-kernel@vger.kernel.org, stable@vger.kernel.org
+Subject: [PATCH 1/3] dma-buf/dma-fence: Ensure correct ordering in
+ dma_fence_timestamp()
+Date: Thu, 19 Nov 2026 14:18:29 +0100
+Message-ID: <20261119131830.2535266-3-phasta@kernel.org>
 X-Mailer: git-send-email 2.56.0
+In-Reply-To: <20261119131830.2535266-2-phasta@kernel.org>
+References: <20261119131830.2535266-2-phasta@kernel.org>
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
@@ -64,40 +67,57 @@ List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-13.8 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
+X-Spam-Status: No, score=-18.8 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
 	DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
-	INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,
-	USER_AGENT_GIT autolearn=ham autolearn_force=no version=4.0.1
+	INCLUDES_CR_TRAILER,INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,
+	SPF_PASS,USER_AGENT_GIT autolearn=ham autolearn_force=no version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-Based on misc-fixes
+dma_fence_timestamp() tests two fence flags with test_bit(), not
+providing any ordering.
 
-The memory ordering for obtaining a fences timestamp seems to be broken.
-Moreover, there is no canonical way for users to obtain the timestamp,
-as proven by the broken ordering in drm_sched.
+The while loop + cpu_relax() seem to satisfy the desire to avoid
+locking, effectively rebuilding a locks spinning behavior in the rare
+case that a fence is signaling right now. Contrary to proper locking,
+however, correct memory ordering is not guaranteed.
 
-See also my patch for the signaled flag [1].
+Ensure correct ordering with locking.
 
-@Tvrtko, would you mind basing your patch [2] on this series? That way
-we'd solve both bugs.
+Cc: stable@vger.kernel.org
+Fixes: b83ce9cb4a46 ("dma-buf: add dma_fence_timestamp helper")
+Signed-off-by: Philipp Stanner <phasta@kernel.org>
+---
+ include/linux/dma-fence.h | 14 +++++++++-----
+ 1 file changed, 9 insertions(+), 5 deletions(-)
 
-
-[1] https://lore.kernel.org/dri-devel/20261119104030.2381685-3-phasta@kernel.org/
-[2] https://lore.kernel.org/dri-devel/20261117094324.8256-1-tvrtko.ursulin@igalia.com/
-
-Philipp Stanner (3):
-  dma-buf/dma-fence: Ensure correct ordering in dma_fence_timestamp()
-  dma-buf: dma-fence: Add dma_fence_overwrite_timestamp()
-  drm/sched: Fix memory ordering with dma_fence_overwrite_timestamp()
-
- drivers/dma-buf/dma-fence.c            | 28 ++++++++++++++++++++++++++
- drivers/gpu/drm/scheduler/sched_main.c | 28 +++++++++++++++++++++-----
- include/linux/dma-fence.h              | 15 +++++++++-----
- 3 files changed, 61 insertions(+), 10 deletions(-)
-
-
-base-commit: 7488ee210542b918b9c5749a29fd1502c49a0665
+diff --git a/include/linux/dma-fence.h b/include/linux/dma-fence.h
+index dd07d128adc3..34aefb63a7fe 100644
+--- a/include/linux/dma-fence.h
++++ b/include/linux/dma-fence.h
+@@ -708,13 +708,17 @@ static inline void dma_fence_set_error(struct dma_fence *fence,
+  */
+ static inline ktime_t dma_fence_timestamp(struct dma_fence *fence)
+ {
+-	if (WARN_ON(!test_bit(DMA_FENCE_FLAG_SIGNALED_BIT, &fence->flags)))
+-		return ktime_get();
++	unsigned long flags;
++	ktime_t ret;
+ 
+-	while (!test_bit(DMA_FENCE_FLAG_TIMESTAMP_BIT, &fence->flags))
+-		cpu_relax();
++	dma_fence_lock_irqsave(fence, flags);
++	if (WARN_ON(!dma_fence_test_signaled_flag(fence)))
++		ret = ktime_get();
++	else
++		ret = fence->timestamp;
++	dma_fence_unlock_irqrestore(fence, flags);
+ 
+-	return fence->timestamp;
++	return ret;
+ }
+ 
+ signed long dma_fence_wait_timeout(struct dma_fence *,
 -- 
 2.56.0
 
