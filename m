@@ -2,57 +2,43 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A55BF606A320
-	for <dri-devel@archiver.kernel.org>; Thu, 19 Nov 2026 15:26:13 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 45E3460A2612
+	for <dri-devel@archiver.kernel.org>; Thu, 19 Nov 2026 15:30:49 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.a=rsa-sha256 header.s=dkim header.b=lPH2miSv
+	dkim=pass (1024-bit key) header.d=aliel.fr header.i=@aliel.fr header.a=rsa-sha256 header.s=courrier-s1 header.b=Nj6zi7Fo
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 1165B112547;
-	Thu, 19 Nov 2026 15:26:08 +0000 (UTC)
-Received: from smtpout-03.galae.net (smtpout-03.galae.net [185.246.85.4])
- by gabe.freedesktop.org (Postfix) with ESMTPS id A42E7112547;
- Thu, 19 Nov 2026 15:26:01 +0000 (UTC)
-Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
- by smtpout-03.galae.net (Postfix) with ESMTPS id 6EBFD4E4166D;
- Thu, 19 Nov 2026 15:26:00 +0000 (UTC)
-Received: from mail.galae.net (mail.galae.net [212.83.136.155])
- by smtpout-01.galae.net (Postfix) with ESMTPS id 39FC460237;
- Thu, 19 Nov 2026 15:26:00 +0000 (UTC)
-Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon)
- with ESMTPSA id 9114411BC0B70; Thu, 19 Nov 2026 16:25:52 +0100 (CET)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
- t=1795101958; h=from:subject:date:message-id:to:cc:mime-version:content-type:
- content-transfer-encoding:in-reply-to:references;
- bh=83kfz/Q/Jb+Vp5Jr41JCUsiF6MGEKqwAhM9jGM2Mdrs=;
- b=lPH2miSv2zbMc/uJm6sfaohLUQERGXzmbwaVR4+2MAb6sukd0E3BIYnTrTfKvpyDdrfEPv
- dF/IwuD0vaaXXfBTDAPuzpICE2fxEpV9/9X5hRVuOk2hXuQtEjxpD2Ti73HH319hJ+VdWQ
- GB372tbftuaUwaJ/4Ie4njUjiBtMfyB+326Ic68GLeiM2D7mMLDtUhKDHFLIgX0we1wKli
- Ibltxq2bXJDoah+g52aAbHgrSITMx1PLc+32kKUmW98DlaasGpT0M1xA8AGjJdcDfRshwP
- OyFUM9Qq3qCypvgsvlELODgn5JBMUclEakPg4yGRrLSEFSI0q14CKtUR0z7u/g==
+	by gabe.freedesktop.org (Postfix) with ESMTP id 9B15F11255F;
+	Thu, 19 Nov 2026 15:30:43 +0000 (UTC)
+Received: from courrier.aliel.fr (courrier.aliel.fr [65.21.61.41])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 08E1A10F00B
+ for <dri-devel@lists.freedesktop.org>; Thu, 19 Nov 2026 15:30:36 +0000 (UTC)
+Message-ID: <ec9c8460-a8de-460e-92bb-dc03240152bb@aliel.fr>
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=aliel.fr;
+ s=courrier-s1; t=1795102234;
+ bh=3cxvdL4KfFwcHXkWK7rQriyomVokMs5MeD2OaggeClQ=;
+ h=Date:From:Subject:To:Cc:References:In-Reply-To;
+ b=Nj6zi7Fo0ca5Ps9aUATozF/jxT6gCv+7SS7P/dwLIZlh4hIVjAk7MXSsgA7JbBLy7
+ lf+mFz55owqBoYAWIJldfRz0SSqxgdM6lEpUk0rQzL+74rNH31mts30Mc31SPIGjA+
+ FTOPuTK24MLzcb6ip2CCC7ddL/fChzsbgAjliXNI=
+Date: Thu, 19 Nov 2026 16:30:02 +0100
 X-Archived-By: <archiver.kernel.org>
-Mime-Version: 1.0
-Content-Transfer-Encoding: quoted-printable
+MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+From: Ronald Claveau <linux-kernel-dev@aliel.fr>
+Subject: Re: [PATCH 06/10] drm/meson: dw-hdmi: Drop manual HHI clock and
+ memory PD setup
+To: sashiko-reviews@lists.linux.dev
+Cc: devicetree@vger.kernel.org, linux-amlogic@lists.infradead.org,
+ linux-phy@lists.infradead.org, dri-devel@lists.freedesktop.org,
+ robh@kernel.org, conor+dt@kernel.org, neil.armstrong@linaro.org,
+ vkoul@kernel.org, olteanv@gmail.com
+References: <20261117-meson-drm-create-hdmitx-phy-v1-0-9e0ac931381c@aliel.fr>
+ <20261117-meson-drm-create-hdmitx-phy-v1-6-9e0ac931381c@aliel.fr>
+ <sashiko-outbox-219570@kernel.org>
+Content-Language: en-US
+In-Reply-To: <sashiko-outbox-219570@kernel.org>
 Content-Type: text/plain; charset=UTF-8
-Date: Thu, 19 Nov 2026 16:25:51 +0100
-Message-Id: <DMZAJ81GJWY7.2L6AJG1RSL3RF@bootlin.com>
-To: "Maxime Ripard" <mripard@kernel.org>, "Maarten Lankhorst"
- <maarten.lankhorst@linux.intel.com>, "Thomas Zimmermann"
- <tzimmermann@suse.de>, "David Airlie" <airlied@gmail.com>, "Simona Vetter"
- <simona@ffwll.ch>, "Andrzej Hajda" <andrzej.hajda@intel.com>, "Neil
- Armstrong" <neil.armstrong@linaro.org>, "Robert Foss" <rfoss@kernel.org>,
- "Laurent Pinchart" <Laurent.pinchart@ideasonboard.com>, "Jonas Karlman"
- <jonas@kwiboo.se>, "Jernej Skrabec" <jernej.skrabec@gmail.com>, "Jyri
- Sarha" <jyri.sarha@iki.fi>, "Tomi Valkeinen"
- <tomi.valkeinen@ideasonboard.com>
-From: "Luca Ceresoli" <luca.ceresoli@bootlin.com>
-Subject: Re: [PATCH v8 08/39] drm/bridge: Switch print_state to use bridge name
-Cc: "Devarsh Thakkar" <devarsht@ti.com>, <dri-devel@lists.freedesktop.org>,
- "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
-X-Mailer: aerc 0.22.0
-References: <20261106-drm-state-readout-v8-0-cbe78624e1bc@kernel.org>
- <20261106-drm-state-readout-v8-8-cbe78624e1bc@kernel.org>
-In-Reply-To: <20261106-drm-state-readout-v8-8-cbe78624e1bc@kernel.org>
-X-Last-TLS-Session-Version: TLSv1.3
+Content-Transfer-Encoding: 7bit
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -64,29 +50,116 @@ List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-10.8 required=3.0 tests=BAYES_00,DKIM_SIGNED,
-	DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
-	INCLUDES_CR_TRAILER,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS
-	autolearn=ham autolearn_force=no version=4.0.1
+X-Spam-Status: No, score=-12.3 required=3.0 tests=BAYES_00,DKIM_SIGNED,
+	DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_PATCH,
+	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,USER_AGENT_SANE_1
+	autolearn=unavailable autolearn_force=no version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-On Fri Nov 6, 2026 at 2:14 PM CET, Maxime Ripard wrote:
-> drm_bridge_atomic_print_priv_state() currently identifies bridges by
-> printing the symbol name of bridge->funcs using the %ps format
-> specifier. This produces output like a raw function pointer name, which
-> is not particularly user-friendly for debugging.
->
-> Since bridges now carry a human-readable name, switch to printing
-> bridge->name instead. This makes the state readout output more
-> consistent and easier to interpret.
->
-> Reviewed-by: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>
-> Signed-off-by: Maxime Ripard <mripard@kernel.org>
+On 11/17/26 21:11, sashiko-bot@kernel.org wrote:
+> Thank you for your contribution! Sashiko AI review found 1 potential
+> issue to consider:
+> - [High] drm/meson: dw-hdmi: skipped HDMITX mem PD power-up in
+>   meson_dw_hdmi_init()
+> --
+> 
+> commit c8e782099f758bf635402705a20f57d7df9682a7
+> Author: Ronald Claveau <linux-kernel-dev@aliel.fr>
+> 
+> drm/meson: dw-hdmi: Drop manual HHI clock and memory PD setup
+> 
+> This commit removes the direct HHI_HDMI_CLK_CNTL and HHI_MEM_PD_REG0
+> register writes in meson_dw_hdmi_init() and takes a runtime PM reference
+> in meson_dw_hdmi_probe() to power on the VPU power domain.
+> 
+>> diff --git a/drivers/gpu/drm/meson/meson_dw_hdmi.c b/drivers/gpu/drm/meson/meson_dw_hdmi.c
+>> index eb33c70f29c31..20a821936b3af 100644
+>> --- a/drivers/gpu/drm/meson/meson_dw_hdmi.c
+>> +++ b/drivers/gpu/drm/meson/meson_dw_hdmi.c
+> [ ... ]
+>> @@ -599,12 +598,6 @@ static void meson_dw_hdmi_init(struct meson_dw_hdmi *meson_dw_hdmi)
+>>  {
+>>  	struct meson_drm *priv = meson_dw_hdmi->priv;
+>>  
+>> -	/* Enable clocks */
+>> -	regmap_update_bits(priv->hhi, HHI_HDMI_CLK_CNTL, 0xffff, 0x100);
+>> -
+>> -	/* Bring HDMITX MEM output of power down */
+>> -	regmap_update_bits(priv->hhi, HHI_MEM_PD_REG0, 0xff << 8, 0);
+>> -
+>>  	/* Reset HDMITX APB & TX & PHY */
+>>  	reset_control_reset(meson_dw_hdmi->hdmitx_apb);
+>>  	reset_control_reset(meson_dw_hdmi->hdmitx_ctrl);
+>> @@ -829,9 +822,29 @@ static int __maybe_unused meson_dw_hdmi_pm_resume(struct device *dev)
+>>  	return 0;
+>>  }
+>>  
+>> +static void meson_dw_hdmi_pm_put(void *dev)
+>> +{
+>> +	pm_runtime_put_sync(dev);
+>> +}
+>> +
+>>  static int meson_dw_hdmi_probe(struct platform_device *pdev)
+>>  {
+>> -	return component_add(&pdev->dev, &meson_dw_hdmi_ops);
+>> +	struct device *dev = &pdev->dev;
+>> +	int ret;
+>> +
+>> +	ret = devm_pm_runtime_enable(dev);
+>> +	if (ret)
+>> +		return ret;
+>> +
+>> +	ret = pm_runtime_resume_and_get(dev);
+>> +	if (ret)
+>> +		return dev_err_probe(dev, ret, "Failed to power on HDMI TX\n");
+> 
+> [Severity: High]
+> Can dropping the HHI_MEM_PD_REG0 write leave the HDMITX memory powered
+> down when the bootloader turns on the top-level VPU domain without
+> enabling HDMI?
+> 
+> In the VPU power domain driver, pwrc_ee_is_powered_off() only checks the
+> top-level AO sleep bit and does not check HHI_MEM_PD_REG0[15:8].  When
+> the top-level VPU domain is already powered on at boot,
+> meson_ee_pwrc_init_domain() registers the genpd as already on without
+> calling meson_ee_pwrc_on():
+> 
+> drivers/pmdomain/amlogic/meson-ee-pwrc.c:meson_ee_pwrc_init_domain() {
+> 	...
+> 	if (dom->num_clks && dom->desc.is_powered_off && !dom->desc.is_powered_off(dom)) {
+> 		ret = clk_bulk_prepare_enable(dom->num_clks, dom->clks);
+> 		if (ret)
+> 			return ret;
+> 
+> 		dom->base.flags = GENPD_FLAG_ALWAYS_ON;
+> 		ret = pm_genpd_init(&dom->base, NULL, false);
+> 		if (ret)
+> 			return ret;
+> 	}
+> 	...
+> }
+> 
+> Because the genpd is initialized in the ON state with
+> GENPD_FLAG_ALWAYS_ON, pm_runtime_resume_and_get() is a no-op and
+> meson_ee_pwrc_on() never runs to clear HHI_MEM_PD_REG0[15:8], leaving
+> HDMITX memory powered down when meson_dw_hdmi_init() and dw_hdmi_probe()
+> access the controller.
+> 
 
-Reviewed-by: Luca Ceresoli <luca.ceresoli@bootlin.com>
+I will add a new patch with a function to release the memories power off
+bits in v2.
 
---
-Luca Ceresoli, Bootlin
-Embedded Linux and Kernel engineering
-https://bootlin.com
+> In addition, power-domains and assigned-clocks are optional in the
+> amlogic,meson-dw-hdmi binding and were only added to in-tree DTs in
+> v6.11, so dropping the HHI_HDMI_CLK_CNTL and HHI_MEM_PD_REG0 writes also
+> regresses older DTBs (where meson_vclk_set() only configures
+> HHI_HDMI_CLK_CNTL later at atomic_enable time) and builds with CONFIG_PM
+> disabled.
+> 
+
+I will add a depends on PM in v2.
+
+-- 
+Best regards,
+Ronald
