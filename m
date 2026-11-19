@@ -2,102 +2,50 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 72322606A32C
-	for <dri-devel@archiver.kernel.org>; Thu, 19 Nov 2026 11:50:20 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1846A606A320
+	for <dri-devel@archiver.kernel.org>; Thu, 19 Nov 2026 11:51:53 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=T98eRA2a
+	dkim=pass (2048-bit key) header.d=igalia.com header.i=@igalia.com header.a=rsa-sha256 header.s=20170329 header.b=I6bCcWza
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 931A910E34A;
-	Thu, 19 Nov 2026 11:50:14 +0000 (UTC)
-Received: from mail-wr1-f43.google.com (mail-wr1-f43.google.com
- [209.85.221.43])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 8DE1D112310
- for <dri-devel@lists.freedesktop.org>; Thu, 19 Nov 2026 11:50:08 +0000 (UTC)
-Received: by mail-wr1-f43.google.com with SMTP id
- ffacd0b85a97d-497614c95f0so1330111f8f.1
- for <dri-devel@lists.freedesktop.org>; Thu, 19 Nov 2026 03:50:08 -0800 (PST)
-ARC-Seal: i=1; a=rsa-sha256; t=1795089007; cv=none;
- d=google.com; s=arc-20260327;
- b=Zs3qW+yGJLapgf7ukYlnHnmKyZzaUNwqUOvVPB7sPBPFlyhaRdCLQJg+5rExjFfH5d
- v90xjSTrbqgi9n3VJ8z04XutyjlLDQUD5Q/paQj5m8UoY/mAQ9pyRAXdAB74mMn06Naw
- woiGIupoQ4hTsr4+3z6/aaOE8DIHhxdlitnF/q595Xc0kkNbaUJe3DNOofK7W66dgmws
- BDv26UuOgBClMpiFBeMzX8KHeVSOeeUWnpI7EAuI/dcOfjl0nMwAlbF1kO8FSve4ObvK
- a+iPKy1Ndr+fIUcPQndJR85XtIYP/NTb29B5J8HGDArYudb8nDLU0/wjTh0AqpIZL/z2
- +Ipw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com;
- s=arc-20260327; 
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:dkim-signature;
- bh=zOO8IN3WTwfTWmmyHCF/uCzTotxA10dmHaLxKg4Nq4E=;
- fh=yYKepYoD08k5Bp9sZg6kCkd8SFPEK/bhqTD/rYr5ago=;
- b=sV98d45stUN3XYsQ0TFRz8ZUdIsRNohtzaG4pxUFAmeSsfSReWO2GBHa14Z+l6x/oI
- A6Zuko9fHQzzsLiJ5uStKzyews5OA2n+7uoii0nHiZGR3gPP1eC/CHp2Mvr9HrWKbOs+
- 5puaU5QYm/4s6muKtXixk23eIp+5akMDEpviycEGWg1FvMHvOB75DZ3uMyzGwAhR5e2P
- WEa0qHo/s830vIGtiRTDvgAJb33SC9UVayvEpCICyGGzKL3lHF2Y88n82u6XIz0w+amf
- i0nBeLh2i7//9SM9ZKUUr0y/QUUFhRf0MpTU+ioh1OFbQ8HDMecnvGE5BGzqwi83N69X
- 9OxQ==; darn=lists.freedesktop.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=google.com; s=20260707; t=1795089007; x=1795693807;
- darn=lists.freedesktop.org; 
- h=content-transfer-encoding:content-type:cc:to:subject:message-id
- :date:from:in-reply-to:references:mime-version:from:to:cc:subject
- :date:message-id:reply-to:content-type;
- bh=zOO8IN3WTwfTWmmyHCF/uCzTotxA10dmHaLxKg4Nq4E=;
- b=T98eRA2amqmtqUEEW4sAA25CJZ1C14joc7I1Yj+7upVPyXioi7tliVCz9i2688rtsE
- IlxjRJYpLeFbVOTjyMG8PltBK4ZWd+0tsxnna+9dodyO8uJ1PBMomFpzvYx3EK/0GJZQ
- DZ09s3wMlN896LpeMYeJbFiuS188aW8MuVYBDkLTJFL61sx5Xj6klKOOtyJuY2N0072y
- W8Xaxyp/OumJJZT2xQQw8jVrQbAeCHF+r7/NMtyhreklnGXyjWlNJn2nAZ1Wxddpw+9P
- VJMCheXB7hAUJtHtlXJLBvrN6Tam5Uua9m89mdSmIQpq5Ws3ldSGoUdZp+z28PXI2JGw
- Fzmg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20260707; t=1795089007; x=1795693807;
- h=content-transfer-encoding:content-type:cc:to:subject:message-id
- :date:from:in-reply-to:references:mime-version:x-gm-gg
- :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
- :content-type;
- bh=zOO8IN3WTwfTWmmyHCF/uCzTotxA10dmHaLxKg4Nq4E=;
- b=iFXE+ZzJQw88LBkGZ8qQejooVkY09JuJ6Vi6Oi5BirhLFcfgWv/CMs724leMwyx0CP
- jW0/PRYt00VvUprBPMOatF/eucOXdfD5VHaqfXe1nzdzKCsylcwudDxIch4NuHYP8LqQ
- Zqs3tVqFFgXCFhkYzhdY5mvAsmOc/kV26m8iUghRIBo6VWM8P7P9cUr76Cb+JggkIsaR
- DX77t6pWLHdvg7O8XrJcpFACRHIFvfQXs4dPbFd2vVdGGeeV3TUXToG2sHyYUk1DsqED
- ElNTWLyANGNJk5IuElDvbjgI6fY6ip1ifAh/uhdbTLORjGmbSNyNBz9KH9nPaaoQjqu5
- uCyQ==
-X-Forwarded-Encrypted: i=1;
- AL+hErGXFBi0brtkObHky0NwfvIJdtBZSoxkcLQ8zX7SKU5VqDyZYCfxrXX1QBH7m2yWjR/HWQIfEpAbGTs=@lists.freedesktop.org
-X-Gm-Message-State: APuU4Z80EdBsktIbu5RVSuydJbbjQVAghK1sTltSd7exLXMbX++p5d+v
- 1jGD/hP0f59wMbjp3z92mRi603DgllI82GeTSoic2RTgygyCygP6TuiRZbOJJH6j2rt3HF5cmzK
- Rtbhpm16TipJUE9TiPfRQnfMoaczLDijK3KDgdDXW
-X-Gm-Gg: AZFdTZegSlYpX+8iiLHpj8jYgLAKVCnhgCgZRmSUg0WmI4OZEpqbV+pyzI5ziXdFkoO
- 4jRhNo52BSlSrNkqkNlJdzVclBDifQxw80Vx7fJcVuhJKt4SWNAG0fhhsxVTfhYLIsJzYbYEpHp
- szKau9vTnMUMyDT4WOpHAW/o7sQ4UJqMPvcCs8ZPLTNKsTD0SiPIwwAyWaMOSG3IdG3UpsxMiJp
- Jcamz4VnkqAZPctEVFpDZ4HNuEC2Q1KnU+goYJdVn92zUwyihlvuSCPZwq4or6R4A6zX6de5TFc
- tm/XA7VaP+j4VcHoM3P+JIoqtV9I+gNmhTbKjNgWEurZ7GdXzMKrUNs2homK2bOaK6Nzq9SH5xK
- 0J1KGi35JMMVNnJwOGaKx3kkoefXKRTZY3i0bp56XS5QgJXhsHnKchbhiRxRMI3AMd5KqLWk22z
- /w9LF7dnTL6dyTngW0GIibtOaHuT8gX2c8xsYLrzPNJZo+
-X-Received: by 2002:adf:e183:0:b0:4aa:8de6:6648 with SMTP id
- ffacd0b85a97d-4aa8de66db5mr1569581f8f.45.1795089006191; Thu, 19 Nov 2026
- 03:50:06 -0800 (PST)
-X-Archived-By: <archiver.kernel.org>
-MIME-Version: 1.0
-References: <20261118181245.2583303-1-dakr@kernel.org>
- <20261119111746.3049044-1-aliceryhl@google.com>
- <DMZ5ER6XTNLG.2ZJOF7F4100XW@garyguo.net>
-In-Reply-To: <DMZ5ER6XTNLG.2ZJOF7F4100XW@garyguo.net>
-From: Alice Ryhl <aliceryhl@google.com>
-Date: Thu, 19 Nov 2026 12:49:53 +0100
-X-Gm-Features: Aa3M54oh8HJOrpuOfJ-i5QqnZtSXVPWrGr-cWZKRejJI37TjGzDfWl8zYFwePng
-Message-ID: <CAH5fLghc63zD9c1F437pQiX+ohgSkYQe4nt3xP4gSTsqAVLzBA@mail.gmail.com>
-Subject: Re: [PATCH] rust: drm: remove DRM device private data
-To: Gary Guo <gary@garyguo.net>
-Cc: Danilo Krummrich <dakr@kernel.org>, airlied@gmail.com, simona@ffwll.ch, 
- daniel.almeida@collabora.com, ojeda@kernel.org, boqun@kernel.org, 
- bjorn3_gh@protonmail.com, lossin@kernel.org, a.hindborg@kernel.org, 
- tmgross@umich.edu, tamird@kernel.org, acourbot@nvidia.com, work@onurozkan.dev, 
- nova-gpu@lists.linux.dev, dri-devel@lists.freedesktop.org, 
- linux-kernel@vger.kernel.org, rust-for-linux@vger.kernel.org
+	by gabe.freedesktop.org (Postfix) with ESMTP id BD9E410E853;
+	Thu, 19 Nov 2026 11:51:46 +0000 (UTC)
+Received: from fanzine2.igalia.com (fanzine2.igalia.com [213.97.179.56])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 77BB4112310
+ for <dri-devel@lists.freedesktop.org>; Thu, 19 Nov 2026 11:51:39 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com; 
+ s=20170329;
+ h=MIME-Version:Content-Transfer-Encoding:Content-Type:Date:Cc:To:
+ From:Subject:Message-ID:From:Reply-To;
+ bh=Gaiu6KeZj3bJ+9tvYTb007XoS5/RLmD1wLbF+GZ9AZI=; t=1795089099; x=2110449099; 
+ b=I6bCcWza2BGd7b/WJp90judMc08AAYc+6QtrspspPcb+OqY1xRqg6dwkdyViIi09X0FS5/YWRnj
+ b79iagHGNIBQn29mcLVX1VvCTO1imkiNvwTSKvRilQbPy1UGfLG3/MHvwDoeke7kMAjh/Uyqyih7a
+ Bkgg0WlKA4kH9WhAjJId+uLwnEUt1gmclMIrdBrVn56jdODj7UteXsvwii/w1PNaDVmsTnWwCuRbF
+ XKh3mQ7D9eVYDUXjDbhmEvjmhAj/bUqVZNZAuLAj1tVxaC0hEtKJUHGcYwgovDYi9q+r42O8IAZAq
+ 0kRSUKBylOJEIuQOi0RaI79sy3AJ0QiMEvuw==;
+Received: from [192.168.12.229] by fanzine2.igalia.com with esmtpsa 
+ (Cipher TLS1.3:ECDHE_SECP256R1__RSA_PSS_RSAE_SHA256__AES_256_GCM:256) (Exim)
+ id 1xU0fw-00000001R6U-3HR9; Thu, 19 Nov 2026 12:51:36 +0100
+Message-ID: <cdcb2fff01938818f26a08fff847c711ad7fb3be.camel@igalia.com>
+Subject: Re: [PATCH 0/4] drm/vc4: Work around GFXH-16 instruction cache
+ livelock
+From: Iago Toral <itoral@igalia.com>
+To: =?ISO-8859-1?Q?Ma=EDra?= Canal <mcanal@igalia.com>, "Juan A. Suarez
+ Romero" <jasuarez@igalia.com>, Dave Stevenson
+ <dave.stevenson@raspberrypi.com>, Raspberry Pi Kernel Maintenance
+ <kernel-list@raspberrypi.com>, Maxime Ripard <mripard@kernel.org>, David
+ Airlie <airlied@gmail.com>,  Simona Vetter <simona@ffwll.ch>
+Cc: kernel-dev@igalia.com, dri-devel@lists.freedesktop.org, 
+ stable@vger.kernel.org
+Date: Thu, 19 Nov 2026 12:51:36 +0100
+In-Reply-To: <584c3855-5fa5-4b06-a95f-c6c0816cea08@igalia.com>
+References: <20261118-vc4-icache-workaround-v1-0-5b8adc2c84fe@igalia.com>
+ <e945bdd00b4eecec4b7e451e35cb39855ad2e0de.camel@igalia.com>
+ <584c3855-5fa5-4b06-a95f-c6c0816cea08@igalia.com>
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
+User-Agent: Evolution 3.52.3-0ubuntu1.1 
+X-Archived-By: <archiver.kernel.org>
+MIME-Version: 1.0
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -109,77 +57,147 @@ List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-18.3 required=3.0 tests=BAYES_00,DKIMWL_WL_MED,
-	DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
-	INCLUDES_CR_TRAILER,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,
-	USER_IN_DEF_DKIM_WL autolearn=unavailable autolearn_force=no
-	version=4.0.1
+X-Spam-Status: No, score=-15.8 required=3.0 tests=BAYES_00,DKIM_SIGNED,
+	DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
+	INCLUDES_CR_TRAILER,INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,
+	SPF_PASS autolearn=unavailable autolearn_force=no version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-On Thu, Nov 19, 2026 at 12:25=E2=80=AFPM Gary Guo <gary@garyguo.net> wrote:
->
-> On Thu Nov 19, 2026 at 11:17 AM GMT, Alice Ryhl wrote:
-> > On Wed, Nov 18, 2026 at 07:07:35PM +0100, Danilo Krummrich wrote:
-> >> Driver::Data is owned by the reference-counted drm::Device and can
-> >> outlive device unregistration and driver unbind. Driver state belongs =
-in
-> >> RegistrationData, whose lifetime ends with registration teardown.
-> >>
-> >> The intended model is that, after drm_dev_unplug(), surviving DRM
-> >> objects (e.g. through remaining userspace handles) no longer require
-> >> access to the driver state. Thus Driver::RegistrationData is available
-> >> (and sufficient) for all DRM callbacks into the driver.
-> >>
-> >> Remove Driver::Data, its storage and Deref implementation, and the
-> >> unused workqueue implementations that depend on it. Drop the data
-> >> initializer argument from UnregisteredDevice::new() and update its
-> >> callers.
-> >>
-> >> Signed-off-by: Danilo Krummrich <dakr@kernel.org>
-> >
-> > Makes sense to me. Both in-tree users had `type Data =3D ()` anyway, an=
-d
-> > nothing uses the `WorkItem`/`HasWork` impls on `drm::Device`, so this i=
-s
-> > a pure simplification.
-> >
-> > Reviewed-by: Alice Ryhl <aliceryhl@google.com>
-> >
-> > One small suggestion below.
-> >
-> >> -        release: Some(Device::<T>::release),
-> >> +        release: None,
-> >
-> > [...]
-> >
-> >>  #[repr(C)]
-> >>  pub struct Device<T: drm::Driver, C: DeviceContext =3D Normal> {
-> >>      dev: Opaque<bindings::drm_device>,
-> >> -    data: T::Data,
-> >>      pub(super) registration_data: UnsafeCell<NonNull<T::RegistrationD=
-ata<'static>>>,
-> >>      _ctx: PhantomData<C>,
-> >>  }
-> >
-> > With `release` gone, nothing ever runs `drop_in_place()` on the Rust
-> > side of `Device` anymore. That's fine today since all remaining fields
-> > are trivially droppable, but it is now an implicit requirement on the
-> > struct: anyone adding a field with a `Drop` impl (or a pinned field
-> > that needs a destructor) would silently leak it.
-> >
-> > Could you add a short comment on the struct along the lines of "no
-> > `release` callback is installed, so no field of this struct may require
-> > dropping"? That way the next person adding a field knows they have to
-> > bring back the `release` callback.
-> >
-> > (For what it's worth, I checked the lifetime-parameterized `File`
-> > series [1] against this: `open_count`/`open_count_wq` are both
-> > droppable without a destructor, and the two merge cleanly, so no
-> > ordering constraint there as far as I can tell.)
->
-> Instead of a comment, a const assertion of !needs_drop would be better.
+El jue, 19-11-2026 a las 08:34 -0300, Ma=C3=ADra Canal escribi=C3=B3:
+> Hi Iago,
+>=20
+> On 19/11/26 05:17, Iago Toral wrote:
+> > Looks good to me:
+> > Reviewed-by: Iago Toral Quiroga <itoral@igalia.com>
+> >=20
+> > I was not aware that hang checks were happening at second
+> > boundaries,
+> > regardless of the time at which the hangcheck was queued, it
+> > doesn't
+> > sound like a good idea, so I think it is good to change that.
+> >=20
+> > On the other hand, now we rearm the hang check every 100ms instead
+> > which is a much smaller window. I understand this reduces visible
+> > impact of the workaround when the issue happens, but I am wondering
+> > whether this alone has any visible performance impact for the 99%
+> > of
+> > the time we are not hitting the problem, I presume you haven't seen
+> > any?
+> >=20
+>=20
+> I benchmarked glmark2-wayland --off-screen (800x600, under labwc) and
+> glmark2-es2-drm (1920x1080 fullscreen), which I believe are
+> representative applications for RPi 3B+, and I observed no
+> performance
+> impact. I even tested 50 ms and I didn't observe a performance impact
+> as
+> well.
+>=20
+> If you have other applications you would like to see the benchmark
+> results, just let me know and I can test it.
+>=20
 
-Good idea
+Thanks for checking, I think this is fine then.
 
-Alice
+Iago
+
+> Best regards,
+> - Ma=C3=ADra
+>=20
+> > Iago
+> >=20
+> > El mi=C3=A9, 18-11-2026 a las 18:47 -0300, Ma=C3=ADra Canal escribi=C3=
+=B3:
+> > > Mesa issue #16652 [1] reports GPU resets every few minutes on the
+> > > Raspberry Pi 3. They happen when text labels are drawn over their
+> > > shadows:
+> > > two different threaded fragment shaders, plus untextured single-
+> > > threaded
+> > > ones, in the same tiles.
+> > >=20
+> > > During a hang, the performance counters show four QPUs fetching
+> > > instructions with 0 cache hits, ~6.5M misses per 100 ms, and 0
+> > > valid
+> > > instructions executed. This matches HW erratum GFXH-16: the QPUs
+> > > of a
+> > > slice share one instruction cache and can livelock, evicting each
+> > > other's
+> > > fills. Since shader code always starts at offset 0 of a page-
+> > > aligned
+> > > BO,
+> > > every shader competes for the same cache sets.
+> > >=20
+> > > This series works around it:
+> > >=20
+> > > =C2=A0=C2=A0 - Patch 3 starts each shader's code at one of four offse=
+ts in
+> > > its
+> > > BO,
+> > > =C2=A0=C2=A0=C2=A0=C2=A0 spreading shaders across cache sets.
+> > >=20
+> > > =C2=A0=C2=A0 - Patch 4 clears the slice instruction and uniforms cach=
+es
+> > > when the
+> > > =C2=A0=C2=A0=C2=A0=C2=A0 hangcheck finds no progress, and resets the =
+GPU only if the
+> > > stall
+> > > =C2=A0=C2=A0=C2=A0=C2=A0 persists. It is meant to recover from livelo=
+cks the offsets
+> > > don't
+> > > =C2=A0=C2=A0=C2=A0=C2=A0 prevent.
+> > >=20
+> > > Patches 1 and 2 fix an off-by-one in the shader BO handle check
+> > > and a
+> > > NULL pointer dereference in validate_gl_shader_rec(), found while
+> > > working
+> > > on patch 3.
+> > >=20
+> > > Tested on a Raspberry Pi 3B+ with the issue's reproducer, 4 x 15
+> > > min
+> > > runs:
+> > >=20
+> > > =C2=A0=C2=A0 without the series:=C2=A0 29 GPU resets
+> > > =C2=A0=C2=A0 with patches 1-3:=C2=A0=C2=A0=C2=A0=C2=A0 0 GPU resets
+> > >=20
+> > > [1] https://gitlab.freedesktop.org/mesa/mesa/-/issues/16652
+> > >=20
+> > > Best regards,
+> > > - Ma=C3=ADra
+> > >=20
+> > > ---
+> > > Ma=C3=ADra Canal (4):
+> > > =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 drm/vc4: Fix off-by-one in the s=
+hader record BO handle
+> > > check
+> > > =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 drm/vc4: Check for a validated s=
+hader before reading its
+> > > thread
+> > > mode
+> > > =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 drm/vc4: Start shader code at va=
+rying offsets in its BO
+> > > =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 drm/vc4: Clear the slice caches =
+before resetting a stalled
+> > > GPU
+> > >=20
+> > > =C2=A0=C2=A0drivers/gpu/drm/vc4/vc4_bo.c=C2=A0=C2=A0=C2=A0=C2=A0=C2=
+=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 | 43
+> > > +++++++++++++++++++++++-------
+> > > =C2=A0=C2=A0drivers/gpu/drm/vc4/vc4_drv.h=C2=A0=C2=A0=C2=A0=C2=A0=C2=
+=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 | 15 ++++++++++-
+> > > =C2=A0=C2=A0drivers/gpu/drm/vc4/vc4_gem.c=C2=A0=C2=A0=C2=A0=C2=A0=C2=
+=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 | 20 ++++++++++++--
+> > > =C2=A0=C2=A0drivers/gpu/drm/vc4/vc4_validate.c=C2=A0=C2=A0=C2=A0=C2=
+=A0=C2=A0=C2=A0=C2=A0=C2=A0 | 17 +++++++-----
+> > > =C2=A0=C2=A0drivers/gpu/drm/vc4/vc4_validate_shaders.c |=C2=A0 7 ++--=
+-
+> > > =C2=A0=C2=A05 files changed, 79 insertions(+), 23 deletions(-)
+> > > ---
+> > > base-commit: 80ac6d197218c3399d66674167a4d7c9051a25e2
+> > > change-id: 20261112-vc4-icache-workaround-d11b444bc7e8
+> > >=20
+> > >=20
+> >=20
+>=20
+>=20
+
