@@ -2,71 +2,73 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2C3BC606A320
-	for <dri-devel@archiver.kernel.org>; Thu, 19 Nov 2026 14:22:03 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5CB78606A320
+	for <dri-devel@archiver.kernel.org>; Thu, 19 Nov 2026 14:22:15 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.a=rsa-sha256 header.s=susede2_rsa header.b=0keLFOqf;
-	dkim=pass header.d=suse.de header.i=@suse.de header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=6X6z4JZn;
-	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.a=rsa-sha256 header.s=susede2_rsa header.b=0keLFOqf;
-	dkim=neutral header.d=suse.de header.i=@suse.de header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=6X6z4JZn
+	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.a=rsa-sha256 header.s=susede2_rsa header.b=ZvPkAXLx;
+	dkim=pass header.d=suse.de header.i=@suse.de header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=bZeabSRy;
+	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.a=rsa-sha256 header.s=susede2_rsa header.b=rGA9EgM/;
+	dkim=neutral header.d=suse.de header.i=@suse.de header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=wM67+xNa
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id B315E10E772;
-	Thu, 19 Nov 2026 14:21:50 +0000 (UTC)
-Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.223.131])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 94F8F112498
+	by gabe.freedesktop.org (Postfix) with ESMTP id DD7F8112479;
+	Thu, 19 Nov 2026 14:22:02 +0000 (UTC)
+Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.223.130])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 59891112492
  for <dri-devel@lists.freedesktop.org>; Thu, 19 Nov 2026 14:21:39 +0000 (UTC)
-Received: from imap1.dmz-prg2.suse.org (unknown [10.150.64.97])
+Received: from imap1.dmz-prg2.suse.org (imap1.dmz-prg2.suse.org
+ [IPv6:2a07:de40:b281:104:10:150:64:97])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
  (No client certificate requested)
- by smtp-out2.suse.de (Postfix) with ESMTPS id 39ED61F808;
- Thu, 19 Nov 2026 14:21:22 +0000 (UTC)
+ by smtp-out1.suse.de (Postfix) with ESMTPS id AA318223EB;
+ Thu, 19 Nov 2026 14:21:21 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
  t=1795098082; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
  mime-version:mime-version:
  content-transfer-encoding:content-transfer-encoding:
  in-reply-to:in-reply-to:references:references;
- bh=tDitDNQr2Qy5Wy9Z9Zm6/kDAU+Gzv5SFn8YC0NcqW8A=;
- b=0keLFOqfhzvVIAP1EWlNPlaZVOZM+LyqNWw0ShQN/BN34jIs7m8Rb/2JfIBbU+vNLPB51E
- MDhi/ln4n6vdQ2f2a1t2XDu2qf/N+m48kJQOmR+mXsdB5op8GROpxtfbiPpnnv/E+6uu5e
- ZO3ZCIK1vpZrNyiyklVze6HiS3jUabI=
+ bh=XT6cNWyrHJaH2C7fwtB1oaRlBLqQ5gmYANIDVmnUjRg=;
+ b=ZvPkAXLxHmrb3WbSq5uu4y36bQMN/4V8RIjffQfNNJxjGxVzMSOkCL9YSyBo59EmaU+CWY
+ vZYGTKPKogNgcgFTR9qlqDZRvVZxpXyy3h/Sc/Efm3zzb2uwUfDDmOduRy3MJbMYkAIZfu
+ eo8D+sEB0wmzvv7FwmeGhKe950aUyzg=
 DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
  s=susede2_ed25519; t=1795098082;
  h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
  mime-version:mime-version:
  content-transfer-encoding:content-transfer-encoding:
  in-reply-to:in-reply-to:references:references;
- bh=tDitDNQr2Qy5Wy9Z9Zm6/kDAU+Gzv5SFn8YC0NcqW8A=;
- b=6X6z4JZnYTlcE/TrqcXX+ps+92g5xidJLOiJ6+T0imeW9+MZlPNP3LSPyYG5qgS4qa831S
- rg960LGTcXputQAA==
-Authentication-Results: smtp-out2.suse.de;
-	none
+ bh=XT6cNWyrHJaH2C7fwtB1oaRlBLqQ5gmYANIDVmnUjRg=;
+ b=bZeabSRyyKtqE0Bv9+6PbhYqmZ3xTB0A8YC13O8iP5UeZUChmvp8ApVXB0xaiHwYWu1lwa
+ iaMtVUPN7RwlwdBA==
+Authentication-Results: smtp-out1.suse.de;
+ dkim=pass header.d=suse.de header.s=susede2_rsa header.b="rGA9EgM/";
+ dkim=pass header.d=suse.de header.s=susede2_ed25519 header.b=wM67+xNa
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
- t=1795098082; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ t=1795098081; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
  mime-version:mime-version:
  content-transfer-encoding:content-transfer-encoding:
  in-reply-to:in-reply-to:references:references;
- bh=tDitDNQr2Qy5Wy9Z9Zm6/kDAU+Gzv5SFn8YC0NcqW8A=;
- b=0keLFOqfhzvVIAP1EWlNPlaZVOZM+LyqNWw0ShQN/BN34jIs7m8Rb/2JfIBbU+vNLPB51E
- MDhi/ln4n6vdQ2f2a1t2XDu2qf/N+m48kJQOmR+mXsdB5op8GROpxtfbiPpnnv/E+6uu5e
- ZO3ZCIK1vpZrNyiyklVze6HiS3jUabI=
+ bh=XT6cNWyrHJaH2C7fwtB1oaRlBLqQ5gmYANIDVmnUjRg=;
+ b=rGA9EgM/xvFpUsgAsfyV4vA1eRgUj0lRVveK0dnxrit/Jmo3mHfgfa1uZEpll+iFv+trD9
+ 9A0eVUkOH6tFuNCVv+W1Tde56Lb3JRo9ljJVKTAim4nc57WKlf1ZhwBlaWr7n/sXoqQgNy
+ yE7R+o8RSRSSqhhjxj1gfepJntCE+E4=
 DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_ed25519; t=1795098082;
+ s=susede2_ed25519; t=1795098081;
  h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
  mime-version:mime-version:
  content-transfer-encoding:content-transfer-encoding:
  in-reply-to:in-reply-to:references:references;
- bh=tDitDNQr2Qy5Wy9Z9Zm6/kDAU+Gzv5SFn8YC0NcqW8A=;
- b=6X6z4JZnYTlcE/TrqcXX+ps+92g5xidJLOiJ6+T0imeW9+MZlPNP3LSPyYG5qgS4qa831S
- rg960LGTcXputQAA==
+ bh=XT6cNWyrHJaH2C7fwtB1oaRlBLqQ5gmYANIDVmnUjRg=;
+ b=wM67+xNa6GOJ1jSizvbYGygbddQb+bIeL+FhBElkoKvD2cqznoAGS+kgFXpp5l6lzfPBJC
+ j4lfnM7v/V6qGOBA==
 Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
  (No client certificate requested)
- by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 69FD013510;
+ by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 0F2BE13507;
  Thu, 19 Nov 2026 14:21:21 +0000 (UTC)
 Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
- by imap1.dmz-prg2.suse.org with ESMTPSA id RynyAeAF/2rJfgAAD6G6ig:T4
+ by imap1.dmz-prg2.suse.org with ESMTPSA id RynyAeAF/2rJfgAAD6G6ig:T3
  (envelope-from <tzimmermann@suse.de>); Thu, 19 Nov 2026 14:21:21 +0000
 From: Thomas Zimmermann <tzimmermann@suse.de>
 To: airlied@redhat.com, sean@poorly.run, tiwai@suse.com,
@@ -74,32 +76,41 @@ To: airlied@redhat.com, sean@poorly.run, tiwai@suse.com,
  mripard@kernel.org, airlied@gmail.com, simona@ffwll.ch
 Cc: dri-devel@lists.freedesktop.org, sashiko-reviews@lists.linux.dev,
  Thomas Zimmermann <tzimmermann@suse.de>
-Subject: [PATCH 03/11] drm/udl: Store per-URB allocation length in struct
- urb_node
-Date: Thu, 19 Nov 2026 15:02:15 +0100
-Message-ID: <20261119142114.152052-4-tzimmermann@suse.de>
+Subject: [PATCH 02/11] drm/udl: Do not use URB completion handler for error
+ cleanup
+Date: Thu, 19 Nov 2026 15:02:14 +0100
+Message-ID: <20261119142114.152052-3-tzimmermann@suse.de>
 X-Mailer: git-send-email 2.56.0
 In-Reply-To: <20261119142114.152052-1-tzimmermann@suse.de>
 References: <20261119142114.152052-1-tzimmermann@suse.de>
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
+X-Rspamd-Queue-Id: AA318223EB
 X-Spam-Level: 
-X-Spamd-Result: default: False [-10.30 / 50.00]; SUSE_INTERNAL_BYPASS(-9.00)[];
+X-Rspamd-Server: rspamd2.dmz-prg2.suse.org
+X-Rspamd-Action: no action
+X-Spamd-Result: default: False [-10.51 / 50.00]; SUSE_INTERNAL_BYPASS(-9.00)[];
  BAYES_HAM(-3.00)[100.00%]; SUSPICIOUS_RECIPS(1.50)[];
  NEURAL_HAM_LONG(-1.00)[-1.000]; MID_CONTAINS_FROM(1.00)[];
- R_MISSING_CHARSET(0.50)[]; NEURAL_HAM_SHORT(-0.20)[-1.000];
- MIME_GOOD(-0.10)[text/plain]; TO_MATCH_ENVRCPT_ALL(0.00)[];
- RCVD_VIA_SMTP_AUTH(0.00)[]; FROM_EQ_ENVFROM(0.00)[];
- ARC_NA(0.00)[]; MIME_TRACE(0.00)[0:+]; FROM_HAS_DN(0.00)[];
- RCVD_COUNT_TWO(0.00)[2]; TAGGED_RCPT(0.00)[];
+ R_MISSING_CHARSET(0.50)[];
+ R_DKIM_ALLOW(-0.20)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
+ NEURAL_HAM_SHORT(-0.20)[-1.000]; MIME_GOOD(-0.10)[text/plain];
+ MX_GOOD(-0.01)[]; MIME_TRACE(0.00)[0:+]; ARC_NA(0.00)[];
+ TO_MATCH_ENVRCPT_ALL(0.00)[];
+ RBL_SPAMHAUS_BLOCKED_OPENRESOLVER(0.00)[2a07:de40:b281:104:10:150:64:97:from]; 
  FREEMAIL_TO(0.00)[redhat.com,poorly.run,suse.com,gmail.com,linux.intel.com,kernel.org,ffwll.ch];
- DBL_BLOCKED_OPENRESOLVER(0.00)[imap1.dmz-prg2.suse.org:helo,suse.de:email];
- RCVD_TLS_ALL(0.00)[];
  DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
- RCPT_COUNT_SEVEN(0.00)[11]; TO_DN_SOME(0.00)[];
- FREEMAIL_ENVRCPT(0.00)[gmail.com]
-X-Spam-Score: -10.30
+ DKIM_TRACE(0.00)[suse.de:+]; TO_DN_SOME(0.00)[];
+ RCVD_COUNT_TWO(0.00)[2];
+ DBL_BLOCKED_OPENRESOLVER(0.00)[imap1.dmz-prg2.suse.org:rdns,imap1.dmz-prg2.suse.org:helo,suse.de:dkim,suse.de:email];
+ FROM_EQ_ENVFROM(0.00)[]; FROM_HAS_DN(0.00)[];
+ RCVD_TLS_ALL(0.00)[];
+ DNSWL_BLOCKED(0.00)[2a07:de40:b281:104:10:150:64:97:from];
+ RECEIVED_SPAMHAUS_BLOCKED_OPENRESOLVER(0.00)[2a07:de40:b281:106:10:150:64:167:received];
+ RCPT_COUNT_SEVEN(0.00)[11]; RCVD_VIA_SMTP_AUTH(0.00)[];
+ TAGGED_RCPT(0.00)[]; FREEMAIL_ENVRCPT(0.00)[gmail.com]
+X-Spam-Score: -10.51
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -119,95 +130,81 @@ X-Spam-Status: No, score=-18.8 required=3.0 tests=BAYES_00,DKIM_SIGNED,
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-Store the length of an URB's data buffer in the URB's instance of
-struct urb_node. Use the value for free'ing the buffer. Remove the
-obsolete size field from struct urb_list.
+Call udl_put_urb() to release an URB back into the URB cache. Replace
+udl_urb_completion() in error-handling code.
 
-With the URB cache in place, all URBs have the same buffer size. At
-some point we want URBs to have an individual length for their allocated
-buffer. Hence, the buffer length needs to be stored separately.
+The URB completion handler runs in interrupt context after the USB
+subsystem has processed an URB. Do not call it from udl's error-handling
+logic.
 
 Signed-off-by: Thomas Zimmermann <tzimmermann@suse.de>
 ---
- drivers/gpu/drm/udl/udl_drv.h  |  2 +-
- drivers/gpu/drm/udl/udl_main.c | 13 +++++++------
- 2 files changed, 8 insertions(+), 7 deletions(-)
+ drivers/gpu/drm/udl/udl_drv.h      | 1 -
+ drivers/gpu/drm/udl/udl_main.c     | 4 ++--
+ drivers/gpu/drm/udl/udl_modeset.c  | 2 +-
+ drivers/gpu/drm/udl/udl_transfer.c | 2 +-
+ 4 files changed, 4 insertions(+), 5 deletions(-)
 
 diff --git a/drivers/gpu/drm/udl/udl_drv.h b/drivers/gpu/drm/udl/udl_drv.h
-index 68c5a5feb6f3..4736d83aec9a 100644
+index 9535e9c59950..68c5a5feb6f3 100644
 --- a/drivers/gpu/drm/udl/udl_drv.h
 +++ b/drivers/gpu/drm/udl/udl_drv.h
-@@ -37,6 +37,7 @@ struct urb_node {
- 	struct list_head entry;
- 	struct udl_device *dev;
- 	struct urb *urb;
-+	size_t alloc_size;
- };
+@@ -77,7 +77,6 @@ void udl_put_urb(struct urb *urb);
  
- struct urb_list {
-@@ -45,7 +46,6 @@ struct urb_list {
- 	wait_queue_head_t sleep;
- 	int available;
- 	int count;
--	size_t size;
- };
+ int udl_submit_urb(struct udl_device *udl, struct urb *urb, size_t len);
+ void udl_sync_pending_urbs(struct udl_device *udl);
+-void udl_urb_completion(struct urb *urb);
  
- struct udl_device {
+ int udl_init(struct udl_device *udl);
+ 
 diff --git a/drivers/gpu/drm/udl/udl_main.c b/drivers/gpu/drm/udl/udl_main.c
-index 77b0bc560422..67da676f0f94 100644
+index 936fb6565bdb..77b0bc560422 100644
 --- a/drivers/gpu/drm/udl/udl_main.c
 +++ b/drivers/gpu/drm/udl/udl_main.c
-@@ -180,7 +180,7 @@ static void udl_free_urb_list(struct udl_device *udl)
- 			break;
- 		unode = urb->context;
- 		/* Free each separately allocated piece */
--		usb_free_coherent(urb->dev, udl->urbs.size,
-+		usb_free_coherent(urb->dev, unode->alloc_size,
- 				  urb->transfer_buffer, urb->transfer_dma);
- 		usb_free_urb(urb);
- 		kfree(unode);
-@@ -204,8 +204,6 @@ static int udl_alloc_urb_list(struct udl_device *udl, int count, size_t size)
- 	udl->urbs.available = 0;
+@@ -147,7 +147,7 @@ int udl_select_std_channel(struct udl_device *udl)
+ 	return ret < 0 ? ret : 0;
+ }
  
- retry:
--	udl->urbs.size = size;
--
- 	while (udl->urbs.count * size < wanted_size) {
- 		unode = kzalloc_obj(struct urb_node);
- 		if (!unode)
-@@ -218,8 +216,9 @@ static int udl_alloc_urb_list(struct udl_device *udl, int count, size_t size)
- 			break;
- 		}
- 		unode->urb = urb;
-+		unode->alloc_size = size;
- 
--		buf = usb_alloc_coherent(udev, size, GFP_KERNEL,
-+		buf = usb_alloc_coherent(udev, unode->alloc_size, GFP_KERNEL,
- 					 &urb->transfer_dma);
- 		if (!buf) {
- 			kfree(unode);
-@@ -290,7 +289,7 @@ void udl_put_urb(struct urb *urb)
- 	struct udl_device *udl = unode->dev;
- 	unsigned long flags;
- 
--	urb->transfer_buffer_length = udl->urbs.size; /* reset to actual */
-+	urb->transfer_buffer_length = unode->alloc_size; /* reset to actual */
- 
- 	spin_lock_irqsave(&udl->urbs.lock, flags);
- 	list_add_tail(&unode->entry, &udl->urbs.list);
-@@ -302,9 +301,11 @@ void udl_put_urb(struct urb *urb)
- 
- int udl_submit_urb(struct udl_device *udl, struct urb *urb, size_t len)
+-void udl_urb_completion(struct urb *urb)
++static void udl_urb_completion(struct urb *urb)
  {
-+	struct drm_device *drm = &udl->drm;
-+	struct urb_node *unode = urb->context;
- 	int ret;
- 
--	if (WARN_ON(len > udl->urbs.size)) {
-+	if (drm_WARN_ON_ONCE(drm, len > unode->alloc_size)) {
- 		ret = -EINVAL;
- 		goto error;
+ 	/* sync/async unlink faults aren't errors */
+ 	if (urb->status) {
+@@ -312,7 +312,7 @@ int udl_submit_urb(struct udl_device *udl, struct urb *urb, size_t len)
+ 	ret = usb_submit_urb(urb, GFP_ATOMIC);
+  error:
+ 	if (ret) {
+-		udl_urb_completion(urb); /* because no one else will */
++		udl_put_urb(urb);
+ 		DRM_ERROR("usb_submit_urb error %x\n", ret);
  	}
+ 	return ret;
+diff --git a/drivers/gpu/drm/udl/udl_modeset.c b/drivers/gpu/drm/udl/udl_modeset.c
+index d8a617e2d2ea..bbba1dee8e4f 100644
+--- a/drivers/gpu/drm/udl/udl_modeset.c
++++ b/drivers/gpu/drm/udl/udl_modeset.c
+@@ -243,7 +243,7 @@ static int udl_handle_damage(struct drm_framebuffer *fb,
+ 		len = cmd - (char *)urb->transfer_buffer;
+ 		ret = udl_submit_urb(udl, urb, len);
+ 	} else {
+-		udl_urb_completion(urb);
++		udl_put_urb(urb);
+ 	}
+ 
+ 	return 0;
+diff --git a/drivers/gpu/drm/udl/udl_transfer.c b/drivers/gpu/drm/udl/udl_transfer.c
+index 7d670b3a5293..de8e673d1efa 100644
+--- a/drivers/gpu/drm/udl/udl_transfer.c
++++ b/drivers/gpu/drm/udl/udl_transfer.c
+@@ -183,7 +183,7 @@ int udl_render_hline(struct udl_device *udl, int log_bpp, struct urb **urb_ptr,
+ 
+ 	if (WARN_ON(!(log_bpp == 1 || log_bpp == 2))) {
+ 		/* need to finish URB at error from this function */
+-		udl_urb_completion(urb);
++		udl_put_urb(urb);
+ 		return -EINVAL;
+ 	}
+ 
 -- 
 2.56.0
 
