@@ -2,50 +2,45 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EC702606A31C
-	for <dri-devel@archiver.kernel.org>; Thu, 19 Nov 2026 01:41:52 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5A844606A331
+	for <dri-devel@archiver.kernel.org>; Thu, 19 Nov 2026 01:52:26 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=fail reason="signature verification failed" (2048-bit key, unprotected) header.d=cwooper.dev header.i=@cwooper.dev header.a=rsa-sha256 header.s=key1 header.b=RQ5Vljpm
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=XG2XcNvz
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 52A5B10E1E3;
-	Thu, 19 Nov 2026 01:41:47 +0000 (UTC)
-Received: from mta0.migadu.com (out-84.mta0.migadu.com [91.218.175.84])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 185CE112110
- for <dri-devel@lists.freedesktop.org>; Thu, 19 Nov 2026 01:41:39 +0000 (UTC)
-X-Envelope-To: dri-devel@lists.freedesktop.org
-DKIM-Signature: a=rsa-sha256; bh=78jCQYAj/2CHdToyXerZ0OobA/hCp5b2KM82DylRDl4=; 
- c=simple/simple; d=cwooper.dev;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1795052497; v=1; x=1795657297;
- b=RQ5VljpmayCFOZ2cbXnlw9aVNqmb+FJnHMs/bSCP+PGq1dnMyydBAEclfT/QB2K7AkWRu9v5
- bvbxV2J4GFsLBvDEx+1T9v4cSfOclkrD7a0+zimQqqtCG4lxj5ev3mxSocKu/JYHvVl9Vr4nv54
- C4jcU3R+lY7Yt+jhiSBMQHq/C0A6rEm0DZg5SvAA+a4TOWWzE1iAPimVSXUPCDBrua/rav/iP1h
- dUlSCL9rTkaKo4NwjrxLOwM+VV94MXDz9GxiL0k9pYSnNUTulafRBJHuZP0K4KqbqtfMDqyttMi
- C0F+WiI1h2S322Dqc5H3PXckocAG8prU9TgbHv/WicK8A==
-X-Envelope-To: dri-devel@lists.freedesktop.org
-Received: by smtp.migadu.com with ESMTPS id 4d7e63b37adc295c;
- Thu, 19 Nov 2026 01:41:37 +0000
-X-Mizu-Trace-ID: 4d7e63b37adc295c
-X-Migadu-Flow: FLOW_OUT
-From: Cooper Morgan <ext-github@cwooper.dev>
-To: Alex Deucher <alexander.deucher@amd.com>
-Cc: erenozen@protonmail.com, Wayne.Lin@amd.com, oss@oysterdaisuki.com,
- harry.wentland@amd.com, amd-gfx@lists.freedesktop.org, sunpeng.li@amd.com,
- siqueira@igalia.com, christian.koenig@amd.com, airlied@gmail.com,
- simona@ffwll.ch, dri-devel@lists.freedesktop.org,
- linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v2 0/2] drm/amd/display: Fix FreeSync infopacket refresh
- rates above 255 Hz
-Date: Wed, 18 Nov 2026 17:41:15 -0800
-Message-ID: <20261119014116.3632450-1-ext-github@cwooper.dev>
-X-Mailer: git-send-email 2.56.1
-In-Reply-To: <HftAWPKURVjBtK_2BmUiLXOb8ghZxaEzAJSg0tlsmy5L3ckJyDWc6g65vrsVGdA3ZcytB6mPuyxaQbsPawfOZmdC1dyAo4lCbaK3Tj7Tm-U=@protonmail.com>
-References: <20261113010529.11514-1-ext-github@cwooper.dev>
- <20261117183440.552477-1-ext-github@cwooper.dev>
- <HftAWPKURVjBtK_2BmUiLXOb8ghZxaEzAJSg0tlsmy5L3ckJyDWc6g65vrsVGdA3ZcytB6mPuyxaQbsPawfOZmdC1dyAo4lCbaK3Tj7Tm-U=@protonmail.com>
-X-Archived-By: <archiver.kernel.org>
-MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+	by gabe.freedesktop.org (Postfix) with ESMTP id BFEF910E1C5;
+	Thu, 19 Nov 2026 01:52:20 +0000 (UTC)
+Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id EFD4710E1C5
+ for <dri-devel@lists.freedesktop.org>; Thu, 19 Nov 2026 01:52:14 +0000 (UTC)
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+ by sea.source.kernel.org (Postfix) with ESMTP id 95893411BC;
+ Thu, 19 Nov 2026 01:52:14 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 218071F000C5;
+ Thu, 19 Nov 2026 01:52:14 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+ s=k20260515; t=1795053134;
+ bh=GDOheIw0XyESHKUJmb3R4hfMiS0jbOtm8JRApTUjWVc=;
+ h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+ b=XG2XcNvzg/I/qPEHulzMBfCeTM4wOYHuWOz4Te2RjIwIt2muKsNZcmgf05+kM7mjG
+ HslV9yNwIha7iGIAsTxaZNMBin1NYZrPSs22VOiO+JH6BlIRpNd3tX8GO13cHW9dxW
+ ZCx8LS7ByKlrP6k9d2VHSQa/C2FzcE/Wketsq5UMaZDZlHVx917VMQBZrowRnqhZ6W
+ fc+lIHBOwSW8LkR/vErDNQdrsGl7uqHvHRZbXHT7kEdSQtwriPCGIjFs6FqibmpGsD
+ 47OmONbSo0WTyg9YA6ZrFySxsmcXM5dj7xDUbSKvGljXPPUg8RIfZNbWDLKU+dhU0r
+ Pln2U88glzXkA==
+Message-ID: <sashiko-outbox-222304@kernel.org>
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH 1/2] drm/nouveau: add option to leave GSP-capable GPUs
+ to other drivers
+To: "Dave Airlie" <airlied@redhat.com>, "Lyude Paul" <lyude@redhat.com>,
+ "Danilo
+ Krummrich" <dakr@kernel.org>, "Alexandre Courbot" <acourbot@nvidia.com>
+Cc: dri-devel@lists.freedesktop.org, nova-gpu@lists.linux.dev
+In-Reply-To: <20261119-nova-nouveau-gsp-v1-1-4cde2bc41132@redhat.com>
+References: <20261119-nova-nouveau-gsp-v1-0-4cde2bc41132@redhat.com>
+ <20261119-nova-nouveau-gsp-v1-1-4cde2bc41132@redhat.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Thu, 19 Nov 2026 01:52:13 +0000
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -56,23 +51,90 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
+Reply-To: sashiko-reviews@lists.linux.dev
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-6.6 required=3.0 tests=BAYES_00,DKIM_INVALID,
-	DKIM_SIGNED,HEADER_FROM_DIFFERENT_DOMAINS,MAILING_LIST_MULTI,
-	SPF_HELO_NONE,SPF_PASS,USER_AGENT_GIT autolearn=no autolearn_force=no
-	version=4.0.1
+X-Spam-Status: No, score=-10.8 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
+	DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
+	INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS autolearn=ham
+	autolearn_force=no version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
+X-Archived-By: <archiver.kernel.org>
 
-Hi Alex,
+Thank you for your contribution! Sashiko AI review found 1 potential
+issue to consider:
+- [High] drm/nouveau: resource leak and stale list entry in
+  nvkm_device_ctor()
+--
 
-The copies in drm-fixes-7.4 and drm-next have the same problem Eren
-found. Patch 2 there (6a9d5e2f, e1c26823) is missing the
-amdgpu_dm_connector.c hunk, and its connector test went with it, so
-nothing fails on those branches.
+commit 2b74a622d800f1d2cd12ecd10013a3d94e2a156e
+Author: Dave Airlie <airlied@redhat.com>
 
-Could you swap in v2 before the fixes pull goes out? It has the hunk,
-plus oystersuki's Tested-by and Suggested-by tags.
+drm/nouveau: add option to leave GSP-capable GPUs to other drivers
 
-Thanks,
-Cooper
+This commit adds a DRM_NOUVEAU_BIND_GSP Kconfig option and a bind_gsp
+module parameter to let nouveau skip GSP-capable (Turing and later) PCI
+GPUs so other drivers such as nova-core can claim them.
+
+> diff --git a/drivers/gpu/drm/nouveau/nvkm/engine/device/base.c b/drivers/=
+gpu/drm/nouveau/nvkm/engine/device/base.c
+> index a2ed8c4fe52a0..a027860fa8694 100644
+> --- a/drivers/gpu/drm/nouveau/nvkm/engine/device/base.c
+> +++ b/drivers/gpu/drm/nouveau/nvkm/engine/device/base.c
+[ ... ]
+> @@ -3381,6 +3381,20 @@ nvkm_device_ctor(const struct nvkm_device_func *fu=
+nc,
+>  		goto done;
+>  	}
+> =20
+> +	/* Unless nouveau is the default NVIDIA driver, leave GSP-capable
+> +	 * (Turing and later) PCI GPUs to other drivers, such as nova-core.
+> +	 * Older GPUs are always bound.
+> +	 *
+> +	 * Reject before subdevs are constructed, as that would already load
+> +	 * GSP firmware for GPUs that are not going to be used.
+> +	 */
+> +	if (device->func->pci && device->card_type >=3D TU100 && !bind_gsp) {
+> +		nvdev_info(device, "leaving GSP-capable GPU to other drivers "
+> +			   "(bind_gsp=3D0)\n");
+> +		ret =3D -ENODEV;
+> +		goto done;
+> +	}
+> +
+>  	/* read strapping information */
+>  	strap =3D nvkm_rd32(device, 0x101000);
+
+[Severity: High]
+Does rejecting a GPU here leak pdev, leave pci_dev enabled, and leave a
+freed or stale entry on nv_devices?
+
+Before reaching this check, nvkm_device_pci_new() calls
+pci_enable_device() and allocates pdev, and nvkm_device_ctor() adds
+&device->head to the global nv_devices list:
+
+drivers/gpu/drm/nouveau/nvkm/engine/device/base.c:nvkm_device_ctor() {
+    ...
+	list_add_tail(&device->head, &nv_devices);
+    ...
+done:
+	if (ret && device->pri) {
+		iounmap(device->pri);
+		device->pri =3D NULL;
+	}
+	mutex_unlock(&nv_devices_mutex);
+	return ret;
+}
+
+When nvkm_device_ctor() returns -ENODEV, the done label only unmaps
+device->pri, and nvkm_device_pci_new() and nouveau_drm_probe() return
+ret immediately without unlinking device->head from nv_devices, calling
+pci_disable_device(), or freeing pdev.  This leaves the PCI device's
+enable_cnt elevated when handing off to another driver and causes any
+later nouveau probe of the same device handle to fail with -EEXIST.
+(Note that calling nvkm_device_del() directly on this failure path would
+also hit an uninitialized device->intr.intr list in nvkm_intr_dtor(),
+since nvkm_intr_ctor() has not run yet.)
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261119-nova-nouve=
+au-gsp-v1-0-4cde2bc41132@redhat.com?part=3D1
