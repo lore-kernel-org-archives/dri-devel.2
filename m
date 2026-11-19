@@ -2,30 +2,30 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3C132606E318
-	for <dri-devel@archiver.kernel.org>; Thu, 19 Nov 2026 05:35:44 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 14294606F96D
+	for <dri-devel@archiver.kernel.org>; Thu, 19 Nov 2026 05:35:49 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=fail reason="signature verification failed" (2048-bit key) header.d=infradead.org header.i=@infradead.org header.a=rsa-sha256 header.s=bombadil.20210309 header.b=tZNGbQMb
+	dkim=fail reason="signature verification failed" (2048-bit key) header.d=infradead.org header.i=@infradead.org header.a=rsa-sha256 header.s=bombadil.20210309 header.b=yNhn0nNT
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 8E10E10E4BC;
-	Thu, 19 Nov 2026 05:35:38 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 9511710ECF7;
+	Thu, 19 Nov 2026 05:35:39 +0000 (UTC)
 Received: from bombadil.infradead.org (bombadil.infradead.org
  [198.137.202.133])
- by gabe.freedesktop.org (Postfix) with ESMTPS id A46F410E4BC;
- Thu, 19 Nov 2026 05:35:32 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 6F0BC10EC81;
+ Thu, 19 Nov 2026 05:35:33 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
  d=infradead.org; s=bombadil.20210309; h=Content-Transfer-Encoding:
  MIME-Version:References:In-Reply-To:Message-ID:Date:Subject:Cc:To:From:Sender
  :Reply-To:Content-Type:Content-ID:Content-Description;
- bh=z46ZwabXBcpTEJRysA4syBAZyQggGPY6SIVcMl/gSzA=; b=tZNGbQMbkEBB3qnsfmrI0ak97e
- GXxh5zYLcHrA7zzJrOQPdhV8uybDVtFAWYTrP+dt/z9kZiD41YJ2wTmXVlB8OYrmzf5wEwT37Km6a
- bsmU2r2a+szwKja0pzLZGHDqbW+LwePYyxWY28VlKJW4IkKj5u6oq7VCuB7i2yoEQ6coDe9GcyFby
- gmUkrTGRPw16swI5ikzHGUIbD/DQdgrEEfISwS/y2TJ9bAeOWAGvRZM46laKYkr4+h5q8QUSFOd1e
- FNUYp/NsoT++jUBOGEPDm/c59sWmUx3tgkmaRELHsSyXx62CAagtXJ2Elyvg7quNk77tut/ToOd3p
- hQQjF0qQ==;
+ bh=q4RqbTqrf5mX8cN4Vzs7NN9E5++HncNdO08vef8Myn4=; b=yNhn0nNT2kTjtdSzkIYIw4Y8vY
+ Wu8IMpwciBKK0mPRjwLp0J6lXnYl2QXRdoyGs7gEPlDNW7iR10NcDhumI86BcLgOaUX+PjrRV6xVb
+ 8O58AE44qe860hoCGVid1vxjbYwpFG8l3RgpeRSDp5V4FTWtIrn7i+RinM2E7YjnLj4oqL80Wyf0/
+ /sgURq6tm/V4dsX6PlSh5f+qiQ7p9owDapXPkXxMVpSKTRzF2uGto4W4329bl1/byaHPJpz05ixrd
+ rcTtDdUsLaE/rONtAbOdlQSsjIoUrn1vdxur07cp/kvKJ+Wiq6GsRe5yp8eOJPJ3NCMaXF4hxg+uw
+ Z+U7uU6g==;
 Received: from [50.53.43.113] (helo=bombadil.infradead.org)
  by bombadil.infradead.org with esmtpsa (Exim 4.100.1 #2 (Red Hat Linux))
- id 1xTunq-0000000Aufu-1tOB; Thu, 19 Nov 2026 05:35:22 +0000
+ id 1xTunv-0000000Aufu-0Tiz; Thu, 19 Nov 2026 05:35:27 +0000
 From: Randy Dunlap <rdunlap@infradead.org>
 To: linux-kernel@vger.kernel.org
 Cc: Randy Dunlap <rdunlap@infradead.org>, Jonathan Corbet <corbet@lwn.net>,
@@ -81,9 +81,9 @@ Cc: Randy Dunlap <rdunlap@infradead.org>, Jonathan Corbet <corbet@lwn.net>,
  Matthew Brost <matthew.brost@intel.com>,
  =?UTF-8?q?Thomas=20Hellstr=C3=B6m?= <thomas.hellstrom@linux.intel.com>,
  intel-xe@lists.freedesktop.org
-Subject: [PATCH v2 01/12] docs: ioctl-number: update MM entries
-Date: Wed, 18 Nov 2026 21:35:02 -0800
-Message-ID: <20261119053514.255348-2-rdunlap@infradead.org>
+Subject: [PATCH v2 03/12] docs: ioctl-number: update block entries
+Date: Wed, 18 Nov 2026 21:35:04 -0800
+Message-ID: <20261119053514.255348-4-rdunlap@infradead.org>
 X-Mailer: git-send-email 2.56.1
 In-Reply-To: <20261119053514.255348-1-rdunlap@infradead.org>
 References: <20261119053514.255348-1-rdunlap@infradead.org>
@@ -108,7 +108,7 @@ X-Spam-Status: No, score=-16.6 required=3.0 tests=BAYES_00,DKIM_INVALID,
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-Add ioctl number entries for test_hmm_uapi and gup_test.
+Update the list of files where block ioctls are defined.
 
 Signed-off-by: Randy Dunlap <rdunlap@infradead.org>
 ---
@@ -121,32 +121,29 @@ take all of these through the docs-next tree.]
 Cc: Jonathan Corbet <corbet@lwn.net>
 Cc: Shuah Khan <skhan@linuxfoundation.org>
 Cc: linux-doc@vger.kernel.org
-Cc: David Hildenbrand <david@kernel.org>
-Cc: Andrew Morton <akpm@linux-foundation.org>
-Cc: Jason Gunthorpe <jgg@nvidia.com>
-Cc: Leon Romanovsky <leonro@nvidia.com>
-Cc: linux-mm@kvack.org
+Cc: Jens Axboe <axboe@kernel.dk>
+Cc: linux-block@vger.kernel.org
 
  Documentation/userspace-api/ioctl/ioctl-number.rst |    4 ++++
  1 file changed, 4 insertions(+)
 
---- linux-next-20261111.orig/Documentation/userspace-api/ioctl/ioctl-number.rst
-+++ linux-next-20261111/Documentation/userspace-api/ioctl/ioctl-number.rst
-@@ -147,6 +147,8 @@ Code  Seq#    Include File
- 'G'   00-0F  xen/gntalloc.h, xen/gntdev.h                              conflict!
- 'H'   00-7F  linux/hiddev.h                                            conflict!
- 'H'   00-0F  linux/hidraw.h                                            conflict!
-+'H'   00-0F  lib/test_hmm_uapi.h                                       conflict!
-+                                                                       <mailto:linux-mm@kvack.org>
- 'H'   01     linux/mei.h                                               conflict!
- 'H'   02     linux/mei.h                                               conflict!
- 'H'   03     linux/mei.h                                               conflict!
-@@ -252,6 +254,8 @@ Code  Seq#    Include File
- 'f'   81-8F  linux/fsverity.h
- 'g'   00-0F  linux/usb/gadgetfs.h
- 'g'   20-2F  linux/usb/g_printer.h
-+'g'   01-0F  mm/gup_test.h                                             conflict!
-+                                                                       <mailto:linux-mm@kvack.org>
- 'h'   00-7F                                                            conflict! Charon filesystem
-                                                                        <mailto:zapman@interlan.net>
- 'h'   00-1F  linux/hpet.h                                              conflict!
+--- linux-next-20261116.orig/Documentation/userspace-api/ioctl/ioctl-number.rst
++++ linux-next-20261116/Documentation/userspace-api/ioctl/ioctl-number.rst
+@@ -78,6 +78,7 @@ Code  Seq#    Include File
+ 0x00  00-1F  linux/fb.h                                                conflict!
+ 0x00  00-1F  linux/wavefront.h                                         conflict!
+ 0x02  all    linux/fd.h
++             drivers/block/floppy.c
+ 0x03  all    linux/hdreg.h
+ 0x04  D2-DC  linux/umsdos_fs.h                                         Dead since 2.6.11, but don't reuse these.
+ 0x06  all    linux/lp.h
+@@ -90,6 +91,9 @@ Code  Seq#    Include File
+              linux/blkpg.h
+              linux/blkzoned.h
+              linux/blk-crypto.h
++             linux/blkdev.h
++             linux/blktrace_api.h
++             block/ioctl.c
+ 0x15  all    linux/fs.h                                                FS_IOC_* ioctls
+ 0x1b  all                                                              InfiniBand Subsystem
+                                                                        <http://infiniband.sourceforge.net/>
