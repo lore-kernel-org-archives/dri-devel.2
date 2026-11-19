@@ -2,53 +2,48 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 931D2606A330
-	for <dri-devel@archiver.kernel.org>; Thu, 19 Nov 2026 08:16:28 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8131D606A32F
+	for <dri-devel@archiver.kernel.org>; Thu, 19 Nov 2026 08:18:12 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=ideasonboard.com header.i=@ideasonboard.com header.a=rsa-sha256 header.s=mail header.b=SBDjvhVH
+	dkim=pass (2048-bit key) header.d=igalia.com header.i=@igalia.com header.a=rsa-sha256 header.s=20170329 header.b=Jdr2aFT/
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id EDC9510E73F;
-	Thu, 19 Nov 2026 08:16:22 +0000 (UTC)
-Received: from perceval.ideasonboard.com (perceval.ideasonboard.com
- [213.167.242.64])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 7861110E73F
- for <dri-devel@lists.freedesktop.org>; Thu, 19 Nov 2026 08:16:16 +0000 (UTC)
-Received: from killaraus.ideasonboard.com
- (2001-14ba-7086-3000--a06.rev.dnainternet.fi [IPv6:2001:14ba:7086:3000::a06])
- by perceval.ideasonboard.com (Postfix) with ESMTPSA id D7FD44E6;
- Thu, 19 Nov 2026 09:13:45 +0100 (CET)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=ideasonboard.com;
- s=mail; t=1795076026;
- bh=I9fIZdwUtwWaOxKGVX5tqYUG9uEmcE9FWv3jz1LdbZU=;
- h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
- b=SBDjvhVHPB97xZxJQgb9MqugDPRKfsvrtwFoiQ4CkPcjqRCwH3jjmawRiQz/1gvLN
- YTd8sHGz1L4bERyR5buBiG3NbCFwIIzzsmS/+HM7YmeGKfaCidE1hAxe667EW0s6H7
- R7EplmmjrHSZQLv5jEF3eFTZPUi4CJ0a41+sX6G4=
-Date: Thu, 19 Nov 2026 10:16:13 +0200
-From: Laurent Pinchart <laurent.pinchart@ideasonboard.com>
-To: Geert Uytterhoeven <geert@linux-m68k.org>
-Cc: Ville =?utf-8?B?U3lyasOkbMOk?= <ville.syrjala@linux.intel.com>,
- dri-devel@lists.freedesktop.org,
- Tomi Valkeinen <tomi.valkeinen+renesas@ideasonboard.com>,
- Kieran Bingham <kieran.bingham+renesas@ideasonboard.com>,
- Geert Uytterhoeven <geert+renesas@glider.be>,
- Magnus Damm <magnus.damm@gmail.com>, linux-renesas-soc@vger.kernel.org
-Subject: Re: [PATCH v4 20/20] drm/rcar-du: Allow VSP and writeback build with
- COMPILE_TEST=y
-Message-ID: <20261119081613.GO1923307@killaraus.ideasonboard.com>
-References: <20261118214518.29317-1-ville.syrjala@linux.intel.com>
- <20261118214518.29317-21-ville.syrjala@linux.intel.com>
- <20261118221114.GI1923307@killaraus.ideasonboard.com>
- <av4nb98f3ewe2rV3@intel.com>
- <20261118223911.GJ1923307@killaraus.ideasonboard.com>
- <av4tQaL6caoqd2w8@intel.com>
- <CAMuHMdWSiwX6AoPoPwF4zrYpO8xdaG=aq7U2JG_RjyS-E5UtcQ@mail.gmail.com>
+	by gabe.freedesktop.org (Postfix) with ESMTP id 052F6112089;
+	Thu, 19 Nov 2026 08:18:07 +0000 (UTC)
+Received: from fanzine2.igalia.com (fanzine2.igalia.com [213.97.179.56])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id D1F3011208C
+ for <dri-devel@lists.freedesktop.org>; Thu, 19 Nov 2026 08:18:00 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com; 
+ s=20170329;
+ h=MIME-Version:Content-Transfer-Encoding:Content-Type:Date:Cc:To:
+ From:Subject:Message-ID:From:Reply-To;
+ bh=cKNnXRxwc7qIR50Hs6GqKcaRO1r0IQSK7B3OlbA6Vhg=; t=1795076280; x=2110436280; 
+ b=Jdr2aFT/LyTjwb35Vx1vOgK1cDf8BAGfWGSfKDmlaAkdQcydpzVnFTCvzOdc3ra3dhDDkXtIT1E
+ 3APHkBsvWf7JkrRAgXJW7YMDzSP8G1Qtl33vUxemFZZ4tfHCOoebR1Sd02YTTlf/+KEYyPMJ2/R2a
+ xMylUXCToEK4KaWYSqdvjw6hoLwKy9eYompbfNpGIokeoxldW7kUTgiLqQYfOr2SNrqaELMpHTlh+
+ 2jdDL5VVQNCGfCU0jDuq/RhguHuQc6/hV0XVv5P+oFd02DoxenvDvq/PWWtSFjDd6EKTsfPnqPsn8
+ X/rXq/RHxa7V2Vkzdm8McvL8so86ViPsfEXg==;
+Received: from [192.168.12.229] by fanzine2.igalia.com with esmtpsa 
+ (Cipher TLS1.3:ECDHE_SECP256R1__RSA_PSS_RSAE_SHA256__AES_256_GCM:256) (Exim)
+ id 1xTxLB-00000001MPj-3hij; Thu, 19 Nov 2026 09:17:57 +0100
+Message-ID: <e945bdd00b4eecec4b7e451e35cb39855ad2e0de.camel@igalia.com>
+Subject: Re: [PATCH 0/4] drm/vc4: Work around GFXH-16 instruction cache
+ livelock
+From: Iago Toral <itoral@igalia.com>
+To: =?ISO-8859-1?Q?Ma=EDra?= Canal <mcanal@igalia.com>, "Juan A. Suarez
+ Romero" <jasuarez@igalia.com>, Dave Stevenson
+ <dave.stevenson@raspberrypi.com>, Raspberry Pi Kernel Maintenance
+ <kernel-list@raspberrypi.com>, Maxime Ripard <mripard@kernel.org>, David
+ Airlie <airlied@gmail.com>,  Simona Vetter <simona@ffwll.ch>
+Cc: kernel-dev@igalia.com, dri-devel@lists.freedesktop.org, 
+ stable@vger.kernel.org
+Date: Thu, 19 Nov 2026 09:17:57 +0100
+In-Reply-To: <20261118-vc4-icache-workaround-v1-0-5b8adc2c84fe@igalia.com>
+References: <20261118-vc4-icache-workaround-v1-0-5b8adc2c84fe@igalia.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+User-Agent: Evolution 3.52.3-0ubuntu1.1 
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <CAMuHMdWSiwX6AoPoPwF4zrYpO8xdaG=aq7U2JG_RjyS-E5UtcQ@mail.gmail.com>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -67,79 +62,95 @@ X-Spam-Status: No, score=-15.8 required=3.0 tests=BAYES_00,DKIM_SIGNED,
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-Hi Geert,
+Looks good to me:
+Reviewed-by: Iago Toral Quiroga <itoral@igalia.com>
 
-On Thu, Nov 19, 2026 at 08:38:21AM +0100, Geert Uytterhoeven wrote:
-> On Wed, 18 Nov 2026 at 23:57, Ville Syrjälä wrote:
-> > On Thu, Nov 19, 2026 at 12:39:11AM +0200, Laurent Pinchart wrote:
-> > > On Thu, Nov 19, 2026 at 12:32:15AM +0200, Ville Syrjälä wrote:
-> > > > On Thu, Nov 19, 2026 at 12:11:14AM +0200, Laurent Pinchart wrote:
-> > > > > On Wed, Nov 18, 2026 at 11:45:17PM +0200, Ville Syrjala wrote:
-> > > > > > From: Ville Syrjälä <ville.syrjala@linux.intel.com>
-> > > > > >
-> > > > > > Make DRM_RCAR_VSP selectable with COMPILE_TEST=y, and enable the hidden
-> > > > > > DRM_RCAR_WRITEBACK option by default, so the VSP and writeback code gets
-> > > > > > built for greater coverage. Builds fine on x86, x86_64, arm and arm64 at
-> > > > > > least.
-> > > > >
-> > > > > Let's see what build bots will report on more exotic architectures. I
-> > > > > may volunteer you to send a fix if I'm too busy when the builders start
-> > > > > yelling :-)
-> > > > >
-> > > > > > Cc: Laurent Pinchart <laurent.pinchart+renesas@ideasonboard.com>
-> > > > > > Cc: Tomi Valkeinen <tomi.valkeinen+renesas@ideasonboard.com>
-> > > > > > Cc: Kieran Bingham <kieran.bingham+renesas@ideasonboard.com>
-> > > > > > Cc: Geert Uytterhoeven <geert+renesas@glider.be>
-> > > > > > Cc: Magnus Damm <magnus.damm@gmail.com>
-> > > > > > Cc: linux-renesas-soc@vger.kernel.org
-> > > > > > Signed-off-by: Ville Syrjälä <ville.syrjala@linux.intel.com>
-> > > > > > ---
-> > > > > >  drivers/gpu/drm/renesas/rcar-du/Kconfig | 4 ++--
-> > > > > >  1 file changed, 2 insertions(+), 2 deletions(-)
-> > > > > >
-> > > > > > diff --git a/drivers/gpu/drm/renesas/rcar-du/Kconfig b/drivers/gpu/drm/renesas/rcar-du/Kconfig
-> > > > > > index 80bd770ae0f6..5394f131c58f 100644
-> > > > > > --- a/drivers/gpu/drm/renesas/rcar-du/Kconfig
-> > > > > > +++ b/drivers/gpu/drm/renesas/rcar-du/Kconfig
-> > > > > > @@ -76,7 +76,7 @@ config DRM_RCAR_MIPI_DSI
-> > > > > >         select RESET_CONTROLLER
-> > > > > >
-> > > > > >  config DRM_RCAR_VSP
-> > > > > > -       bool "R-Car DU VSP Compositor Support" if ARM
-> > > > > > +       bool "R-Car DU VSP Compositor Support" if ARM || COMPILE_TEST
-> > > > >
-> > > > > This will make it possible to disable the option when ARM64 &&
-> > > > > COMPILE_TEST, which will break operation on Gen3 and up. It would be
-> > > > > best to avoid that.
-> > > >
-> > > > Break operation, as in when running on real hardware?
-> > > > People actually do that with COMPILE_TEST=y kernels?
-> 
-> COMPILE_TEST=y kernels should still work.
-> 
-> > > Hopefully not in production, but that may be the case during development
-> > > (I don't though, there are enough kernel options to deal with without
-> > > COMPILE_TEST).
-> > >
-> > > This should do:
-> > >
-> > >       bool "R-Car DU VSP Compositor Support" if ARM || (COMPILE_TEST && !ARM64)
-> > >
-> > > (untested though). Do you think it brings too much complexity ?
-> >
-> > Doesn't bother me.
-> 
-> It does bother me, as it breaks the safeguards encoded in Kconfig rules.
-> I think it would be better if DRM_RCAR_DU would select DRM_RCAR_VSP
-> if ARM64, so DRM_RCAR_VSP cannot be disabled where it is needed.
+I was not aware that hang checks were happening at second boundaries,
+regardless of the time at which the hangcheck was queued, it doesn't
+sound like a good idea, so I think it is good to change that.
 
-That's possibly an option too. But does
+On the other hand, now we rearm the hang check every 100ms instead
+which is a much smaller window. I understand this reduces visible
+impact of the workaround when the issue happens, but I am wondering
+whether this alone has any visible performance impact for the 99% of
+the time we are not hitting the problem, I presume you haven't seen
+any?
 
-	bool "R-Car DU VSP Compositor Support" if ARM || (COMPILE_TEST && !ARM64)
+Iago
 
-break the safeguard ?
+El mi=C3=A9, 18-11-2026 a las 18:47 -0300, Ma=C3=ADra Canal escribi=C3=B3:
+> Mesa issue #16652 [1] reports GPU resets every few minutes on the
+> Raspberry Pi 3. They happen when text labels are drawn over their
+> shadows:
+> two different threaded fragment shaders, plus untextured single-
+> threaded
+> ones, in the same tiles.
+>=20
+> During a hang, the performance counters show four QPUs fetching
+> instructions with 0 cache hits, ~6.5M misses per 100 ms, and 0 valid
+> instructions executed. This matches HW erratum GFXH-16: the QPUs of a
+> slice share one instruction cache and can livelock, evicting each
+> other's
+> fills. Since shader code always starts at offset 0 of a page-aligned
+> BO,
+> every shader competes for the same cache sets.
+>=20
+> This series works around it:
+>=20
+> =C2=A0 - Patch 3 starts each shader's code at one of four offsets in its
+> BO,
+> =C2=A0=C2=A0=C2=A0 spreading shaders across cache sets.
+>=20
+> =C2=A0 - Patch 4 clears the slice instruction and uniforms caches when th=
+e
+> =C2=A0=C2=A0=C2=A0 hangcheck finds no progress, and resets the GPU only i=
+f the stall
+> =C2=A0=C2=A0=C2=A0 persists. It is meant to recover from livelocks the of=
+fsets don't
+> =C2=A0=C2=A0=C2=A0 prevent.
+>=20
+> Patches 1 and 2 fix an off-by-one in the shader BO handle check and a
+> NULL pointer dereference in validate_gl_shader_rec(), found while
+> working
+> on patch 3.
+>=20
+> Tested on a Raspberry Pi 3B+ with the issue's reproducer, 4 x 15 min
+> runs:
+>=20
+> =C2=A0 without the series:=C2=A0 29 GPU resets
+> =C2=A0 with patches 1-3:=C2=A0=C2=A0=C2=A0=C2=A0 0 GPU resets
+>=20
+> [1] https://gitlab.freedesktop.org/mesa/mesa/-/issues/16652
+>=20
+> Best regards,
+> - Ma=C3=ADra
+>=20
+> ---
+> Ma=C3=ADra Canal (4):
+> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 drm/vc4: Fix off-by-one in the shader reco=
+rd BO handle check
+> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 drm/vc4: Check for a validated shader befo=
+re reading its thread
+> mode
+> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 drm/vc4: Start shader code at varying offs=
+ets in its BO
+> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 drm/vc4: Clear the slice caches before res=
+etting a stalled GPU
+>=20
+> =C2=A0drivers/gpu/drm/vc4/vc4_bo.c=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
+=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 | 43
+> +++++++++++++++++++++++-------
+> =C2=A0drivers/gpu/drm/vc4/vc4_drv.h=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
+=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 | 15 ++++++++++-
+> =C2=A0drivers/gpu/drm/vc4/vc4_gem.c=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
+=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 | 20 ++++++++++++--
+> =C2=A0drivers/gpu/drm/vc4/vc4_validate.c=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
+=A0=C2=A0=C2=A0 | 17 +++++++-----
+> =C2=A0drivers/gpu/drm/vc4/vc4_validate_shaders.c |=C2=A0 7 ++---
+> =C2=A05 files changed, 79 insertions(+), 23 deletions(-)
+> ---
+> base-commit: 80ac6d197218c3399d66674167a4d7c9051a25e2
+> change-id: 20261112-vc4-icache-workaround-d11b444bc7e8
+>=20
+>=20
 
--- 
-Regards,
-
-Laurent Pinchart
