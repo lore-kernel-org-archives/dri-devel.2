@@ -2,86 +2,72 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 218C4606B05F
-	for <dri-devel@archiver.kernel.org>; Thu, 19 Nov 2026 14:50:02 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6807D606A320
+	for <dri-devel@archiver.kernel.org>; Thu, 19 Nov 2026 14:56:02 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=rRNjhkDx
+	dkim=pass (2048-bit key) header.d=mailbox.org header.i=@mailbox.org header.a=rsa-sha256 header.s=mail20150812 header.b=DBlKI+Fz
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id A60281124E2;
-	Thu, 19 Nov 2026 14:49:55 +0000 (UTC)
-Received: from mail-wm1-f51.google.com (mail-wm1-f51.google.com
- [209.85.128.51])
- by gabe.freedesktop.org (Postfix) with ESMTPS id E15461124E2
- for <dri-devel@lists.freedesktop.org>; Thu, 19 Nov 2026 14:49:49 +0000 (UTC)
-Received: by mail-wm1-f51.google.com with SMTP id
- 5b1f17b1804b1-4a35d5d4a20so24812675e9.2
- for <dri-devel@lists.freedesktop.org>; Thu, 19 Nov 2026 06:49:49 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20260707; t=1795099788; x=1795704588; darn=lists.freedesktop.org;
- h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
- :content-type:mime-version:subject:date:from:from:to:cc:subject:date
- :message-id:reply-to:content-type;
- bh=hgLxpH3LEm6Qly6PZhos0Gifa/hrNOwM+ajMDoFp79c=;
- b=rRNjhkDxfC+a0jbSCoanmuWFTMOxF58G+T73iMccJi61dCO5dATFy4rAwytQhot5/e
- HUM9YAwhMard3Qcs07YbmmM3lvtLZrzm7sSuTZxF8X4SE2w2Pb/Jlyxz5pYaiMY9bUVF
- 3CYSZs9df7lcV6i7GfSWOprtNFpKXcU/ZqXa0PlqDNFEycl/jrYgx/pLQ7iEFVfjm6ky
- 1RpwYuTmMKPNF4O5lqn+2ChRwBhKJFVWltr6EEGAz8eL18B7xIELbj7ZzuKFeI0NHRgX
- bTO4v3KyZlVPZYkbNeaG9d2h5W50YUmkJdjTTqzRX8IhmgnafAkAoMilO5bxINnUo470
- AksA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20260707; t=1795099788; x=1795704588;
- h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
- :content-type:mime-version:subject:date:from:x-gm-gg
- :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
- :content-type;
- bh=hgLxpH3LEm6Qly6PZhos0Gifa/hrNOwM+ajMDoFp79c=;
- b=ATj7W9gBnMo3u1zCY14qxVdWW+Q5msktAQRwafdVZGeShmB0zr9fYBsx4QreP9sx0D
- JovPvVuyj4L0+hGIdkBtQL17HhNTRfC5zX6XnAa2pd/8KA++9sw2cS2pbBNYhx0snHn0
- /YKxcu+GdCLEzi8YEv4TCY6HdPqlP41LOA0XFugbdscK3ybewGIKnBYlw+zLaSi96aZk
- 3ZBJXswYnd6qnKxq3UBpnKb+aWkVkYH1KVZQZQSoGeexmQTH9UGuZOH5GwVt0NdpnyDU
- E0T34FNk9l3ncEy/BmK8wHWVArII/xI/2ZFLQA0GLqdaoZR2h6TwQuouitZS1zIG/+nb
- Vuow==
-X-Gm-Message-State: APuU4Z8MtkMWA1UpALhZFeQPr+DuAY3kMVyJ64n/JdJY7w1K29gFvcs1
- tB0REIyknIiNxoHEVvm03kOD1/JSJkUlq0FgH+f2i4rDzEq73xFM3xVz
-X-Gm-Gg: AYBFou3eIVyaoYNh5OoHtScNs5CdoGQrUjyqxg8xKlMOB6nDYnQ5MEhCRSAjgiLRCth
- 6kdOyKYV1F4u/69iJ/k3wNLVZ7y5j22xS7YQBy10ws1uk9HiFm6Yi6DZq0N8aBIJVdebXPqU+fK
- B4jAqTH1lqVNp4H5MN/BfKeFOOS1PpddzfJvPgtpDWVICjFWYZe9pPY7XS4rKcQ8bhIyD36uz3b
- O9zqEm3BOH0XjS345fSTH9v1RXG92LiMX9NV32cRZdaxWN0ypeGFUAHUuz1WRpz4/ono8es69mo
- hv/eLLLXDQMBnDHC+aIjyhVqHbBeMSkGU0zOcvAkinDsBWlAnHYgod/VAedAuXfK1czY/CpcmCs
- Gkm31Lof1c5Or7xgYBun5XFCPBqt1tLPCpL0/D30eVu8DWpSg0t8e7njwqou4E6THB5I5y/KNIz
- J/dV5DJeddDpSoeuT2Px8kyYW3AYRUFVkeOeXU9EoJrpn4E6PMONNp9YexVlQgq46TyRmA+rVt7
- 33m05p7/s1DuP2gWbXvrHoMQG1ImmA2Ygro4MKQx37IRJoPhA6bdj/HeKD9E/KdNxgzSM+1gd+g
- xXRBPrUvSxHKgZ9alEY0J5jatnBX7zifrjgVxaNl0A==
-X-Received: by 2002:a05:600c:3b91:b0:49f:e772:6ddf with SMTP id
- 5b1f17b1804b1-4bb7da4647dmr143326545e9.32.1795099788158; 
- Thu, 19 Nov 2026 06:49:48 -0800 (PST)
-Received: from [10.111.176.198] ([2001:19f0:6c01:2c43:5400:5ff:fef6:1b30])
- by smtp.gmail.com with ESMTPSA id
- 5b1f17b1804b1-4bb84e4df2bsm38881785e9.3.2026.11.19.06.49.33
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 19 Nov 2026 06:49:47 -0800 (PST)
-From: Oarora Etimis <oaroraetimis@gmail.com>
-Date: Thu, 19 Nov 2026 15:49:08 +0100
-Subject: [PATCH v4 2/2] drm/vkms: queue the composer work under the output lock
+	by gabe.freedesktop.org (Postfix) with ESMTP id 0A9F81124F2;
+	Thu, 19 Nov 2026 14:55:56 +0000 (UTC)
+Received: from mout-p-202.mailbox.org (mout-p-202.mailbox.org [80.241.56.172])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id CD4F01124F8
+ for <dri-devel@lists.freedesktop.org>; Thu, 19 Nov 2026 14:55:48 +0000 (UTC)
+Received: from smtp1.mailbox.org (smtp1.mailbox.org
+ [IPv6:2001:67c:2050:b231:465::1])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519MLKEM768 server-signature RSA-PSS (4096 bits) server-digest
+ SHA256) (No client certificate requested)
+ by mout-p-202.mailbox.org (Postfix) with ESMTPS id 4jVhNd2THPzMlyX;
+ Thu, 19 Nov 2026 15:55:45 +0100 (CET)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=mailbox.org;
+ s=mail20150812; 
+ t=1795100145; h=from:from:reply-to:reply-to:subject:subject:date:date:
+ message-id:message-id:to:to:cc:cc:mime-version:mime-version:
+ content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references;
+ bh=ikfEBgKAQ/w72CS+c61ChZxhzTrU5wLEwfcM5Che0D8=;
+ b=DBlKI+Fz+EjeHwYBG7o/+qlCzGZ9/6qJhHumvHeEfu/wpegFlr96QVPRCQoUbzbO9OCZ72
+ 1gkyl9pKkyIXvIr8wcTI7GNEzOKZCIQ6nP8e2aZqqReWcu44RikCS344e25+UJ4ts+H1mx
+ 9hJrqIwPTj2Lqnw+jGDKB2xpv5NiMrKFQLjghJUVAp1N7fRMUGl00Ww3ffAsJGe251fRTd
+ jVXEA7nXlQHwigzaCAiOCvwk1Ln4hkopjgHrPwL51It3TK8iGQKjOv4bi7KfcaM40pxWcg
+ anCjgSENQ5CGw+VMyfJkx47TM0pErQzTyWDVa7zl9Rhfx72VpOi4ar2NNqcbbQ==
+Message-ID: <972ba9ddea36c9dc84ce649e2edcf6bde71420d1.camel@mailbox.org>
+Subject: Re: [PATCH] rust: DamFence: Remove warning about unsignaled drop
+From: Philipp Stanner <phasta@mailbox.org>
+To: Christian =?ISO-8859-1?Q?K=F6nig?= <christian.koenig@amd.com>, 
+ phasta@kernel.org, Danilo Krummrich <dakr@kernel.org>
+Cc: Sumit Semwal <sumit.semwal@linaro.org>, Alice Ryhl
+ <aliceryhl@google.com>,  Miguel Ojeda <ojeda@kernel.org>, Boqun Feng
+ <boqun@kernel.org>, Gary Guo <gary@garyguo.net>,  =?ISO-8859-1?Q?Bj=F6rn?=
+ Roy Baron	 <bjorn3_gh@protonmail.com>, Benno Lossin <lossin@kernel.org>,
+ Andreas Hindborg	 <a.hindborg@kernel.org>, Trevor Gross
+ <tmgross@umich.edu>, Daniel Almeida	 <daniel.almeida@collabora.com>, Tamir
+ Duberstein <tamird@kernel.org>,  Alexandre Courbot <acourbot@nvidia.com>,
+ Onur =?ISO-8859-1?Q?=D6zkan?= <work@onurozkan.dev>, 
+ linux-media@vger.kernel.org, dri-devel@lists.freedesktop.org, 
+ rust-for-linux@vger.kernel.org, linux-kernel@vger.kernel.org
+Date: Thu, 19 Nov 2026 15:55:42 +0100
+In-Reply-To: <141892f8-180c-4157-8c59-6e69057334f2@amd.com>
+References: <20261112101015.528127-2-phasta@kernel.org>
+ <5d466f7c-2e70-4011-be04-9ffdf877b915@amd.com>
+ <49298d3a328c1695ea27993f714c20b8a1c05f32.camel@mailbox.org>
+ <e2ec8a39-56c3-4274-91ce-60c273904877@amd.com>
+ <ab99758408df682c68a3792cc3014b77d6e1c8ab.camel@mailbox.org>
+ <c2dd46ea-94d8-4720-af37-897c91809338@amd.com>
+ <DMXJ8TBSZJJ4.3HG0OJDI9URTT@kernel.org>
+ <8da4a8c0-1740-450c-9cf1-1a7b21d12997@amd.com>
+ <DMXMSIQONGUW.1RRNS7I6LACD6@kernel.org>
+ <a7f9e0f3-b299-4d40-9230-106003725dc2@amd.com>
+ <202dd0c3d515ddfa77a8ec8751badadd31b8a7b0.camel@mailbox.org>
+ <141892f8-180c-4157-8c59-6e69057334f2@amd.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+User-Agent: Evolution 3.60.2 (3.60.2-3.fc44) 
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20261119-composer-v4-2-5973fc9296ee@gmail.com>
-References: <20261119-composer-v4-0-5973fc9296ee@gmail.com>
-In-Reply-To: <20261119-composer-v4-0-5973fc9296ee@gmail.com>
-To: Louis Chauvet <louis.chauvet@bootlin.com>, 
- Haneen Mohammed <hamohammed.sa@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
- Melissa Wen <melissa.srw@gmail.com>, Oarora Etimis <oaroraetimis@gmail.com>, 
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
- David Airlie <airlied@gmail.com>, Jonathan Corbet <corbet@lwn.net>, 
- Shuah Khan <skhan@linuxfoundation.org>, 
- Randy Dunlap <rdunlap@infradead.org>, Liviu Dudau <liviu.dudau@arm.com>, 
- Rodrigo Siqueira <siqueira@igalia.com>
-Cc: dri-devel@lists.freedesktop.org, linux-doc@vger.kernel.org, 
- linux-kernel@vger.kernel.org
-X-Mailer: b4 0.15.2
+X-MBO-RS-META: 1az8ce8au3wj3syybakktcd5manwyxhs
+X-MBO-RS-ID: 7de1ef4fecc2618c8c8
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -92,72 +78,103 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
+Reply-To: phasta@kernel.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-15.8 required=3.0 tests=BAYES_00,DKIM_SIGNED,
-	DKIM_VALID,DKIM_VALID_AU,FREEMAIL_FORGED_FROMDOMAIN,FREEMAIL_FROM,
-	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
-	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,USER_AGENT_GIT
-	autolearn=unavailable autolearn_force=no version=4.0.1
+X-Spam-Status: No, score=-5.8 required=3.0 tests=BAYES_00,DKIM_SIGNED,
+	DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
+	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS autolearn=no
+	autolearn_force=no version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-vkms_crtc_handle_vblank_timeout() reads output->composer_state under
-output->lock, then drops the lock and queues a work item that lives inside
-that state.  The commit that retires the state frees it after flush_work(),
-which does not wait for a work item that has not been queued yet, so the
-queue can land on freed memory.  A legacy cursor update and a CRTC disable
-both complete flip_done without waiting for a vblank, which is what makes
-the window reachable.
+On Thu, 2026-11-19 at 11:47 +0100, Christian K=C3=B6nig wrote:
+> On 11/19/26 10:58, Philipp Stanner wrote:
 
-Hold the lock across the frame accounting - including
-drm_crtc_accurate_vblank_count() - and the queue, so the state that was
-read is still the state that gets queued.
+> BTW that is the reason why dma_fences are RCU protected as well. That
+> is not because of performance but rather to be able to do a try get
+> on a reference to solve reference direction problems.
 
-Fixes: 88ad7f3a5660 ("drm/vkms: Reduce critical section in vblank_simulate")
-Signed-off-by: Oarora Etimis <oaroraetimis@gmail.com>
----
- drivers/gpu/drm/vkms/vkms_crtc.c | 5 ++---
- drivers/gpu/drm/vkms/vkms_drv.h  | 3 +--
- 2 files changed, 3 insertions(+), 5 deletions(-)
+You mean dma_fence_get_rcu()?
 
-diff --git a/drivers/gpu/drm/vkms/vkms_crtc.c b/drivers/gpu/drm/vkms/vkms_crtc.c
-index 4e15abfd92a0..d2c6ffbad07c 100644
---- a/drivers/gpu/drm/vkms/vkms_crtc.c
-+++ b/drivers/gpu/drm/vkms/vkms_crtc.c
-@@ -27,9 +27,7 @@ static bool vkms_crtc_handle_vblank_timeout(struct drm_crtc *crtc)
- 		DRM_ERROR("vkms failure on handling vblank");
- 
- 	state = output->composer_state;
--	spin_unlock(&output->lock);
--
--	if (state && READ_ONCE(output->composer_users)) {
-+	if (state && output->composer_users) {
- 		u64 frame = drm_crtc_accurate_vblank_count(crtc);
- 
- 		/* update frame_start only if a queued vkms_composer_worker()
-@@ -49,6 +47,7 @@ static bool vkms_crtc_handle_vblank_timeout(struct drm_crtc *crtc)
- 		if (!ret)
- 			DRM_DEBUG_DRIVER("Composer worker already queued\n");
- 	}
-+	spin_unlock(&output->lock);
- 
- 	dma_fence_end_signalling(fence_cookie);
- 
-diff --git a/drivers/gpu/drm/vkms/vkms_drv.h b/drivers/gpu/drm/vkms/vkms_drv.h
-index 4f9f1614281a..290eeb988498 100644
---- a/drivers/gpu/drm/vkms/vkms_drv.h
-+++ b/drivers/gpu/drm/vkms/vkms_drv.h
-@@ -213,8 +213,7 @@ struct vkms_crtc_state {
-  * @composer_workq: Ordered workqueue for @composer_state.composer_work.
-  * @lock: Lock used to protect concurrent access to the composer
-  * @composer_users: Number of users that currently hold a composer reference; the composer
-- *		    is active only while it is non-zero. Updated under @lock and read with
-- *		    READ_ONCE() from the vblank timeout.
-+ *		    is active only while it is non-zero.  Updated and read under @lock.
-  * @composer_state: Protected by @lock, current state of this VKMS output
-  * @composer_lock: Lock used internally to protect @composer_state members
-  */
+That's simply a workaround for broken refcounting. Either you have a
+reference, then you can increment it. Or you don't, because you stole
+someone else's reference, and now you need a magic RCU delay so that
+the rightful owner of the reference cannot free the memory that you
+illegally occupy.
 
--- 
-2.56.1
 
+> No it doesn't.
+>=20
+> What I want to ensure is that drivers don't come up with funky methods to=
+ signal fences.
+
+They won't because the only signal mechanisms is our API.
+
+All the driver needs to do right is to associate the fence container
+with the object associated with the hardware.
+
+>=20
+> The cleanup part you want to have here is clearly good to get that
+> defined as well, but to be honest that is peanuts compared to what
+> you get when you have the dma_fence signaling wrong.
+>=20
+> >=20
+> > That's how teardown is done in Rust. You drop the lock, it unlocks
+> > itself. You drop the memory, it frees itself. You drop the fence, it
+> > signals itself.
+> >=20
+> > That's by design because the object lifetime model falls naturally into
+> > place.
+> >=20
+> > > I think the most defensive way would be as last resort scream loud in
+> > > the logs that the driver is somehow buggy and hasn't signaled it's
+> > > fence, wait for a certain amount of time (100ms?) as safeguard and
+> > > then signal the fence with an error.
+> >=20
+> > Now that doesn't make any sense at all, either the hardware is stopped
+> > or it isn't.
+>=20
+> There is a huge window of state in between.
+>=20
+> > Having some random delay is probably even worse because
+> > the problem is then more difficult to even encounter and thus fix.
+>=20
+> Well the whole point of the delay is to at least have some kind of
+> save guard that makes follow up problems less likely to encounter in
+> production.
+>=20
+> That the underlying problem is fixed should be triggered by the big
+> warning in the system log and not because I notice that my valuable
+> data is corrupted because a DMA fence signaled to early and caused
+> random corruption.
+
+Again, if the driver, the only one who understands the hardware, really
+wants to screw up then your system is done anyway.
+
+Remember my previous example:
+
+// forgets to stop hardware
+dma_fence_signal(f);
+// still forgets to stop hardware
+
+Your WARN_ON will not trigger. Your sleep/delay would not trigger.
+
+> > > Exactly that is what I disagree on.
+> > >=20
+> > > Stopping the HW is what makes fences signal and that is what this
+> > > tear down process should block for.
+> >=20
+> > Our point is that dropping stuff stops the hardware, and *then* signals
+> > the fences. Exactly what you want! :)
+>=20
+> No, that is completely backwards.
+>=20
+> A dma_fence should *NEVER* signal because you waited for something. Inste=
+ad the dma_fence is what is waited on.
+
+By whom? And who signals it? It's the party stopping the hardware, no?
+So just like with our design.
+
+
+
+P.
