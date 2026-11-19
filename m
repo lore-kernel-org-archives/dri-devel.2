@@ -2,56 +2,64 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 820FD60A2629
-	for <dri-devel@archiver.kernel.org>; Thu, 19 Nov 2026 18:32:25 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CC68C606A320
+	for <dri-devel@archiver.kernel.org>; Thu, 19 Nov 2026 18:38:07 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux-foundation.org header.i=@linux-foundation.org header.a=rsa-sha256 header.s=korg header.b=I51Wzs14
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=V9/QmJnN
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id EA22310E068;
-	Thu, 19 Nov 2026 18:32:19 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 4246D10E6F2;
+	Thu, 19 Nov 2026 18:38:02 +0000 (UTC)
 Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 9962310E7B8
- for <dri-devel@lists.freedesktop.org>; Thu, 19 Nov 2026 18:32:13 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 79CCE10E6F2
+ for <dri-devel@lists.freedesktop.org>; Thu, 19 Nov 2026 18:37:55 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by tor.source.kernel.org (Postfix) with ESMTP id 8599E61810;
- Thu, 19 Nov 2026 18:32:12 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6DB8F1F000C6;
- Thu, 19 Nov 2026 18:32:11 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=linux-foundation.org; s=korg; t=1795113132;
- bh=rnpSKrnFQmYg+ietBlmwBi39cYR0OhHgd0OQTIatyVs=;
- h=Date:From:To:Cc:Subject:In-Reply-To:References;
- b=I51Wzs14XbAG4qsckU/kwl6HJ858CxkZd8Rp3hB5PXisfTLMvM35ZoKvjH++juonX
- AL35Xk4tz1hhVpn9MtlJe0CUC+dxBvx6wMLVyxPSbVNqCySeMu/oKGY6gfD+0PY32E
- Ko4FR8GzYJBzLWe5QJX14zKR7S65A6HAY0c6Ypaw=
-Date: Thu, 19 Nov 2026 10:32:10 -0800
-From: Andrew Morton <akpm@linux-foundation.org>
-To: Konstantin Khorenko <khorenko@virtuozzo.com>
-Cc: "David Hildenbrand (Arm)" <david@kernel.org>, Zi Yan <ziy@nvidia.com>,
- Baolin Wang <baolin.wang@linux.alibaba.com>, "Liam R. Howlett"
- <liam@infradead.org>, Nico Pache <nico.pache@linux.dev>, Ryan Roberts
- <ryan.roberts@arm.com>, Dev Jain <dev.jain@arm.com>, Barry Song
- <baohua@kernel.org>, Lance Yang <lance.yang@linux.dev>, Usama Arif
- <usama.arif@linux.dev>, Kiryl Shutsemau <kas@kernel.org>, Peter Xu
- <peterx@redhat.com>, Alex Williamson <alex@shazbot.org>,
- kvm@vger.kernel.org, =?ISO-8859-1?Q?Lo=EFc?= Molinari
- <loic.molinari@collabora.com>, Lorenzo Stoakes <ljs@kernel.org>, Shuah Khan
- <shuah@kernel.org>, linux-kselftest@vger.kernel.org,
- dri-devel@lists.freedesktop.org, Madhavan Srinivasan <maddy@linux.ibm.com>,
- "Ritesh Harjani (IBM)" <ritesh.list@gmail.com>,
- linuxppc-dev@lists.ozlabs.org, linux-mm@kvack.org,
- linux-kernel@vger.kernel.org, Jason Gunthorpe <jgg@ziepe.ca>, Yeoreum Yun
- <yeoreum.yun@arm.com>
-Subject: Re: [PATCH v6 4/4] selftests/mm: test fork of PMD-mapped shmem THPs
-Message-Id: <20261119103210.24a7612ee26c3ffc3db49451@linux-foundation.org>
-In-Reply-To: <20261119-b4-prep-vstor-149847-copy_huge_pmd-recheck-special-pmd-v6-4-efa7817a2bb3@virtuozzo.com>
-References: <20261119-b4-prep-vstor-149847-copy_huge_pmd-recheck-special-pmd-v6-0-efa7817a2bb3@virtuozzo.com>
- <20261119-b4-prep-vstor-149847-copy_huge_pmd-recheck-special-pmd-v6-4-efa7817a2bb3@virtuozzo.com>
-X-Mailer: Sylpheed 3.8.0beta1 (GTK+ 2.24.33; x86_64-pc-linux-gnu)
+ by tor.source.kernel.org (Postfix) with ESMTP id 6D5B861B7D;
+ Thu, 19 Nov 2026 18:37:54 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id EA1761F000C7;
+ Thu, 19 Nov 2026 18:37:48 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+ s=k20260515; t=1795113474;
+ bh=gLO/oqmV4DgN6TSlCCTIto3brNJsLk1Z5wCWirBFpeQ=;
+ h=Date:From:To:Cc:Subject:References:In-Reply-To;
+ b=V9/QmJnN2JlChDE1K/HsoFTxGK8BUntAFRsQKrrwAQ13j2/3wadDh4OnJkqW+pux6
+ bZ3lbbHiovC3hstNVVKyFWze8GZYT6RS6h4CezG1VghnqLkdj8odVKmNP1o56t+WVK
+ qRJ8ASFD14PTrrW9HutLbcH9djJujhcYKKkW9zrIFErzeCfdRUUcwLmFmofeNNMW8O
+ N9Wm1QM96dx1beV6qK9srRD5Q3l0Lj+nOsKF5U4xSBFq2U3jgj5UxlM96qNfNbH/eG
+ sbsmHAuwwvMwzwlv54x+i9tF537LfR4fFDFJhhW4tAatXHjVk/SL256cJmhKMDrJHY
+ LAu/xtTf2NXiQ==
+Date: Thu, 19 Nov 2026 18:37:46 +0000
+From: Conor Dooley <conor@kernel.org>
+To: Olivier Moysan <olivier.moysan@foss.st.com>
+Cc: Jonathan Cameron <jic23@kernel.org>, David Lechner <dlechner@baylibre.com>,
+ Nuno =?iso-8859-1?Q?S=E1?= <nuno.sa@analog.com>,
+ Andy Shevchenko <andy@kernel.org>, Rob Herring <robh@kernel.org>,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>,
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+ Alexandre Torgue <alexandre.torgue@foss.st.com>,
+ Philipp Zabel <p.zabel@pengutronix.de>,
+ Sumit Semwal <sumit.semwal@linaro.org>,
+ Christian =?iso-8859-1?Q?K=F6nig?= <christian.koenig@amd.com>,
+ Philipp Stanner <phasta@kernel.org>,
+ Arnaud Pouliquen <arnaud.pouliquen@foss.st.com>,
+ Liam Girdwood <lgirdwood@gmail.com>,
+ Mark Brown <broonie@kernel.org>, Jaroslav Kysela <perex@perex.cz>,
+ Takashi Iwai <tiwai@suse.com>,
+ Fabrice Gasnier <fabrice.gasnier@foss.st.com>,
+ linux-iio@vger.kernel.org, devicetree@vger.kernel.org,
+ linux-stm32@st-md-mailman.stormreply.com,
+ linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org,
+ linux-media@vger.kernel.org, dri-devel@lists.freedesktop.org,
+ linaro-mm-sig@lists.linaro.org, linux-sound@vger.kernel.org
+Subject: Re: [PATCH v2 00/11] iio: adc: stm32: add mdf support for stm32mp2
+Message-ID: <20261119-stick-armored-64cd8e1cea62@spud>
+References: <20261118-upstream_mdf_v2-v2-0-7939d3c3720a@foss.st.com>
 X-Archived-By: <archiver.kernel.org>
-Mime-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
-Content-Transfer-Encoding: 7bit
+MIME-Version: 1.0
+Content-Type: multipart/signed; micalg=pgp-sha512;
+ protocol="application/pgp-signature"; boundary="LpL/rArroYRlxrrz"
+Content-Disposition: inline
+In-Reply-To: <20261118-upstream_mdf_v2-v2-0-7939d3c3720a@foss.st.com>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -63,103 +71,249 @@ List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-12.5 required=3.0 tests=BAYES_00,DKIM_SIGNED,
-	DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_PATCH,
-	MAILING_LIST_MULTI,NICE_REPLY_A,SPF_HELO_NONE,SPF_PASS autolearn=ham
-	autolearn_force=no version=4.0.1
+X-Spam-Status: No, score=-15.8 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
+	DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
+	INCLUDES_CR_TRAILER,INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,
+	SPF_PASS autolearn=ham autolearn_force=no version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-On Thu, 19 Nov 2026 14:44:05 +0100 Konstantin Khorenko <khorenko@virtuozzo.com> wrote:
+--LpL/rArroYRlxrrz
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
 
-> Fork a process that maps shmem THPs with PMDs, in a VMA whose page
-> tables fork copies: a private mapping with an anon_vma, and a shared
-> one with a guard region. The child must find the PMDs before it
-> touches the mapping, and its exit must leave the parent's mapping and
-> the system-wide ShmemPmdMapped counter as they were.
-> 
-> With folio_dup_file_rmap_pmd() adding PTE mappings, the child's exit
-> takes the parent's share off ShmemPmdMapped while the parent still maps
-> the folios. Unmapping them drops it once more, so every mapping stays
-> until exit, where the kernel reports "Bad page cache", or hits a
-> VM_BUG_ON with CONFIG_DEBUG_VM. A kernel that leaves file THPs to a
-> refault in the child skips the test.
-> 
-> ShmemPmdMapped is system-wide, and reclaim or NUMA balancing can take a
-> PMD from the parent while the test runs. So the test makes up to three
-> attempts, each on a fresh file, and fails only if all of them see the
-> counter drop by exactly the parent's share: the bug does that on every
-> fork, other processes only by chance. It passes on the first clean
-> attempt and skips when none is clean.
-> 
-> The test mounts a tmpfs with huge=always over /tmp in a private mount
-> namespace, so it leaves the THP settings and the host's mounts and
-> files alone.
-> 
-> ...
->
-> +static void test_fork(bool shared)
-> +{
-> +	const char *desc = shared ? "shared mapping with a guard region" :
-> +				    "private mapping with an anon_vma";
-> +	long before = 0, after = 0;
-> +	enum result res = NO_THP;
-> +	int i, drops = 0;
-> +	char *mem;
-> +
-> +	for (i = 0; i < ATTEMPTS; i++) {
-> +		mem = map_file(shared);
-> +		/* Make fork copy the page tables; the last PMD gets zapped. */
-> +		if (shared) {
-> +			if (madvise(mem + size - pagesize, pagesize,
-> +				    MADV_GUARD_INSTALL)) {
-> +				ksft_test_result_skip("%s: MADV_GUARD_INSTALL: %s\n",
-> +						      desc, strerror(errno));
-> +				return;
-> +			}
-> +		} else {
-> +			mem[size - pagesize] = 'p';
-> +		}
-> +
-> +		res = pmds_ok(mem) ? fork_once(mem, shared, &before, &after) :
-> +				     res == NO_THP ? NO_THP : LOST_PMDS;
-> +		/* Later children get only their own mapping. */
-> +		madvise(mem, size, MADV_DONTFORK);
+On Wed, Nov 18, 2026 at 04:17:45PM +0100, Olivier Moysan wrote:
+> This series adds support for the STM32 Multi-function Digital Filter
+> (MDF) found on STM32MP2 SoCs. MDF converts bitstreams from external
+> sigma-delta modulators and PDM microphones into samples for IIO and
+> ASoC consumers.
+>=20
+> The drivers support direct IIO conversions, cyclic DMA acquisition,
+> CIC configuration and scaling, synchronized and interleaved filters,
+> and external timer triggers. An ASoC DAI provides PDM microphone capture.
+>=20
+> This revision addresses the v1 review comments listed below and splits
+> the driver patch into smaller functional patches for readability.
+> It retains the existing IIO backend interface for external sigma-delta
+> modulators, pending agreement on the preferred abstraction.
+>=20
+> These changes do not resolve all v1 review comments. In particular, the
+> frontend/backend architecture, DT child-node model and complete clock
+> topology remain open discussion points.
+>=20
+> * Open questions: MDF topology (backend/frontend)
+>=20
+> In Analog Devices use of the IIO backend framework, the AXI ADC is a
+> hardware backend, while the AD9467 is a hardware frontend. The external
+> sigma-delta modulator is actually a hardware frontend in the MDF signal
+> chain. The difference from the AD9467 use case is which driver owns the
+> aggregate IIO device.
 
-autobot want the return value checked:
+My red line here, that I probably made pretty clear on v1, is that what
+is done needs to make sense when the ADC is feeding the MDF, it cannot
+only work for the data coming in from sd modulators or w/e you connect
+to the SITFx inputs.
 
-: If this fails, the next child inherits an earlier test mapping too. 
-: Its exit can then change ShmemPmdMapped by more than the expected
-: amount, causing the test to skip a real failure.
+> Option 1:
+> One option would be to generalize the existing backend abstraction to
+> represent components contributing to an aggregate IIO device,
+> independently of their position in the signal chain.
+>=20
+> The existing framework appears to provide the required mechanisms. None
+> of these mechanisms inherently requires the provider to be a hardware bac=
+kend.
+> A generic component/provider model would support both topologies without
+> duplicating interfaces or requiring reciprocal dependencies. The key
+> point here is to preserve the compatibility of APIs and DT bindings.
+>=20
+> Option 2:
+> Alternatively, if the backend abstraction should retain its hardware
+> meaning, we could introduce an explicit frontend-provider abstraction
+> sharing the existing infrastructure. Frontend operations would cover
+> analog-side control and conversion parameters.
+>=20
+> Would generalizing the existing abstraction be acceptable, or would a
+> separate frontend interface built on shared infrastructure be preferred?
 
-which seems ignorable - MADV_DONTFORK failures are super unlikely at present.
+For either of these options, do you envisage the data being retrieved
+=66rom the mdf sysfs files rather than from the modulator?
 
->
-> ...
->
-> +int main(void)
-> +{
-> +	ksft_print_header();
-> +	pagesize = getpagesize();
-> +	pmdsize = read_pmd_pagesize();
+>=20
+> Option 3:
+> An aggregate IIO device based on the component framework, as discussed
+> in previous threads, could also be considered. I currently regard this
+> as a fallback solution:
+> https://lore.kernel.org/all/ec411432-4b77-4410-b0aa-b29f73b82c84@foss.st.=
+com/
 
-This is going to ruin Mark's day again, thanks to "kselftest: mm:
-rename read_pmd_pagesize() to pmd_psize()".
+You option 2 in the earlier thread had:
+| 2 - DFSDM managed as a "hardware accelerator"
+|=20
+|=20
+|    +-------------+
+|    | Sysfs       |
+|    | - Scale     | +---------------+
+|    | - Raw data  | | IIO char dev  |
+|    +-------------+ +---------------+
+|             ^             /\
+|             |             ||
+|             |             ||                         Userland
+|   -----------------------------------------------------------
+|             |             ||                         IIO fw
+|             |             ||
+|             |             ||
+|   -----------------------------------------------------------
+|             |             ||
+|          +--|-------------||--+     +----------------+
+|          |  |             ||  |     |                | Drivers
+|          |  |             =3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=
+=3D=3D=3D=3D=3D=3D=3D=3D    |
+|          |  |                 |     |           ||   |
+|          |  +-----------------+-----+--+        ||   |
+|          |          +---------+-----+--+        ||   |
+|          +----------|---------+     +-----------||---+
+|                     |                           ||
+|   -----------------------------------------------------------
+|                     |                           ||
+|          +----------|---------+     +-----------||---+
+|          |                    |     |           ||   | Hardware
+|          |    sd modulator    |     |  DFSDM    ||   |
+|      =3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=
+=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D   |
+|          |                    |     |                |
+|          +----------+---------+     +----------------+
+|                     |
+|                     |
+|                    Vref
+|=20
+| The DFSDM is a consumer of the SD modulator.
+|=20
+| In addition to its complexity, the main drawback of this approach is=20
+| that it is unsuitable for interleaved mode.
 
-I think I'll alter Yeoreum's above patch like this (presently untested):
+Two mails prior I had theorised a way to deal with the interleaved mode
+https://lore.kernel.org/all/20261015-attentive-conflict-1a1f538de77d@spud/
+but I never saw a response from you as to why something like that cannot
+work. That's twice in that thread you said it was unsuitable without
+providing the actual explanation for why?
 
---- a/tools/testing/selftests/mm/vm_util.h~kselftest-mm-rename-read_pmd_pagesize-to-pmd_psize-fix
-+++ a/tools/testing/selftests/mm/vm_util.h
-@@ -93,6 +93,8 @@ unsigned long pagemap_get_pfn(int fd, ch
- void clear_softdirty(void);
- bool check_for_pattern(FILE *fp, const char *pattern, char *buf, size_t len);
- uint64_t pmd_psize(void);
-+/* temporary cross-tree compatibility thing: */
-+#define read_pmd_pagesize() pmd_psize()
- unsigned long rss_anon(void);
- bool check_huge_anon(void *addr, size_t len, int nr_hpages, uint64_t hpage_size);
- bool check_huge_file(void *addr, size_t len, int nr_hpages, uint64_t hpage_size);
-_
+Cheers,
+Conor.
 
-and we can clean that up later.
+>=20
+> * Driver implementation
+>=20
+> Serial interfaces (SITF) are shared resources managed directly by the
+> MDF core and no longer have separate platform devices. This revision
+> retains their DT nodes to describe configuration and clock connections,
+> and to allow filters to reference their input bitstreams without
+> duplicating shared settings.
+>=20
+> This revision also retains a platform device for each MDF filter, as
+> each filter manages its own registers, interrupt, DMA channel and IIO
+> acquisition state, with a separate suspend/resume lifecycle.
+>=20
+> * Clock management
+>=20
+> Several clock-management review comments are addressed in this revision:
+> - The provider-side clock-frequency property has been removed. Consumers
+>   request CCK rates through assigned-clocks and assigned-clock-rates.
+> - The clock-names property has been removed. The core acquires its single
+>   input clock by index, and CCK gating uses regmap-based clock operations.
+> - Remove the unused clock-ranges property, as the core now explicitly
+>   shares the kernel clock with the serial interfaces and filters instead
+>   of relying on parent clock lookup.
+>=20
+> Clock topology point remains open, awaiting clarification of the MDF topo=
+logy.
+>=20
+> Changes since v1:
+> - Split the large IIO driver patch into smaller functional patches.
+> - Replace provider-side clock-frequency with consumer-assigned CCK rates
+>   through the common clock framework.
+> - Remove the platform devices for serial interfaces.
+> - Replace the interleave phandle list with a filter count, covering
+>   consecutive filters starting at filter 0.
+> - Simplify clock-output-names, remove clock-names, reset-names and
+>   filter-level clock properties, and move mdf-dai into an explicit
+>   property outside the conditional schema.
+> - Rename the binding to match the STM32MP25 compatible, sort compatible
+>   entries, and simplify the binding patch subject.
+> - Use unsigned long for match data, improve probe error reporting and
+>   wrapping, remove a probe-success debug message, and add kernel-doc for
+>   exported core functions.
+> - Use scoped spinlock guards.
+> - Remove empty serial-interface runtime-PM callbacks.
+> - Remove the redundant ASoC platform module alias.
+>=20
+> Additional fixes since v1 (following Sashiko review):
+> - Compute the settling-time discard count with 64-bit arithmetic.
+> - Size cyclic DMA periods in complete scans and validate buffer and
+>   period alignment before starting DMA.
+> - Fix backend-enable rollback so backend zero is disabled as well.
+> - Use managed allocation for the conversion buffer and managed IIO
+>   triggered-buffer setup.
+> - Release temporary synchronization and serial-interface firmware-node
+>   references. Replacing interleave phandles also removes the associated
+>   stored node references.
+> - Avoid unregistering secondary interleaved filters that were never
+>   registered as IIO devices.
+> - Use managed acquisition of the optional serial clock.
+> - Replace the GCD-based CCK divider selection with a search for the
+>   largest valid divisor, allowing non-power-of-two divider values.
+> - Remove the selection of the undefined COMMON_CLK_REGMAP symbol.
+>=20
+> Previous discussion:
+> https://lore.kernel.org/all/20261001145702.2628429-1-olivier.moysan@foss.=
+st.com/
+>=20
+> Signed-off-by: Olivier Moysan <olivier.moysan@foss.st.com>
+> ---
+> Olivier Moysan (11):
+>       dt-bindings: iio: adc: add stm32mp2 mdf filter
+>       iio: adc: stm32-mdf: add core registration
+>       iio: adc: stm32-mdf: add cck clocks provider
+>       iio: adc: stm32-mdf: add serial interfaces support
+>       iio: adc: stm32-mdf: add digital filter device support
+>       iio: adc: stm32-mdf: configure cic filters and sample rates
+>       iio: adc: stm32-mdf: add direct iio conversion support
+>       iio: adc: stm32-mdf: add dma buffered acquisition support
+>       iio: adc: stm32-mdf: add external timer trigger support
+>       iio: adc: stm32-mdf: add dmic audio filter support
+>       ASoC: stm32: add mdf dai support
+>=20
+>  .../bindings/iio/adc/st,stm32mp25-mdf.yaml         |  341 ++++
+>  drivers/iio/adc/Kconfig                            |   29 +
+>  drivers/iio/adc/Makefile                           |    3 +
+>  drivers/iio/adc/stm32-mdf-adc.c                    | 2080 ++++++++++++++=
+++++++
+>  drivers/iio/adc/stm32-mdf-core.c                   |  899 +++++++++
+>  drivers/iio/adc/stm32-mdf-serial.c                 |  223 +++
+>  drivers/iio/adc/stm32-mdf.h                        |  275 +++
+>  include/linux/iio/adc/stm32-mdf-adc.h              |   19 +
+>  sound/soc/stm/Kconfig                              |   15 +
+>  sound/soc/stm/Makefile                             |    3 +
+>  sound/soc/stm/stm32_amdf.c                         |  375 ++++
+>  11 files changed, 4262 insertions(+)
+> ---
+> base-commit: d922ed738439e1d5b4701df7f4cdd49a09925624
+> change-id: 20261112-upstream_mdf_v2-76040d99138e
+>=20
+> Best regards,
+> -- =20
+> Olivier Moysan <olivier.moysan@foss.st.com>
+>=20
 
+--LpL/rArroYRlxrrz
+Content-Type: application/pgp-signature; name=signature.asc
+
+-----BEGIN PGP SIGNATURE-----
+
+iHUEABYKAB0WIQRh246EGq/8RLhDjO14tDGHoIJi0gUCav9B+gAKCRB4tDGHoIJi
+0nrLAP0dW7n5X9s3iyUz2lxPDPplj9Was9TElWS7BopK6xw12AD9FHCRYp+BpumB
+phGv0h7oTawzrzkeZT7WJK6s4SXVGQM=
+=/5Gs
+-----END PGP SIGNATURE-----
+
+--LpL/rArroYRlxrrz--
