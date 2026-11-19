@@ -2,130 +2,76 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A701B606A320
-	for <dri-devel@archiver.kernel.org>; Thu, 19 Nov 2026 11:28:57 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5B88D606A320
+	for <dri-devel@archiver.kernel.org>; Thu, 19 Nov 2026 11:34:44 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=garyguo.net header.i=@garyguo.net header.a=rsa-sha256 header.s=selector1 header.b=StpojMvs
+	dkim=pass (2048-bit key) header.d=igalia.com header.i=@igalia.com header.a=rsa-sha256 header.s=20170329 header.b=om59g+Xg
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id BF0F01122D9;
-	Thu, 19 Nov 2026 11:28:51 +0000 (UTC)
-Received: from CWXP265CU010.outbound.protection.outlook.com
- (mail-ukwestazon11022085.outbound.protection.outlook.com [52.101.101.85])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 4CC691122D9
- for <dri-devel@lists.freedesktop.org>; Thu, 19 Nov 2026 11:28:45 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=iXa7WyxFB6oLcAd7Dhi4iM5SrZKmliO4uGmL5jCfFBl/VcpGV9OUlPkxpt61LRz9hntOJPS7m6hltLCq8bBjsfSyjdg1oyetINCMxTVsxfHnKXMHZLWZ6Vpn3GD+6UTvXoWLUYxQORpribMeBtZjpMkUo7mTxdoMRxR9vvGZLEBEog7fDLevTi22VUa5wgna6Hcwxs5Trk1EfgxO8np5D1M9DRa8DFtuKmDdJSMaCC12CjyK9xYc0LClb2SdMaEP8D+ZKGbqejIbMNhXP4qgLERC0d88kqeyivMb/6FOEVEJiwyss2lDdaAAEFdubKH4W3Ce3c2sHVSzEpL1B/n/DQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=808J7PNFPIIHz+voB6IbC90ayK3WTI6EeXcC4XBvC/4=;
- b=FFInbLoxLriq8W+1iQ57sqaZGg8bdGck5Ilz62Rn2qEQjFAIqOcWzmKDvKqWJSVzVoymiqK4m89fKpgUOeazNT2w1FQJl7HUfvR4wcbEBA/bImHZ1MQWAVPIUZdwe55hTOBWd4lW5R/787dQRJxlYxhcvGtWR7r6xrUCqYqoMfFA06093zRPEOVPyIiXqmOvlyBj4/dkHNQDoAr13fkUNzGB5S8BM1FbweRSaubg9ppr8680+cdoEDOtDIxP1dD2lz2tm9mwmIP+6UBG/+zApfspm0zb9KcUa6upco3itBiPxmvRQoVfOSieJkz8EBlIHNG96kVogAWde6EZHUJYEg==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=garyguo.net; dmarc=pass action=none header.from=garyguo.net;
- dkim=pass header.d=garyguo.net; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=garyguo.net;
- s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=808J7PNFPIIHz+voB6IbC90ayK3WTI6EeXcC4XBvC/4=;
- b=StpojMvsTAV8o9kgzJXp111EyDrRk32lpjEMIGhhZ1s/iRXHDOogzpr28b5HMLSUTxY9UNhyLFRSJ/0Ab7/89tKy/7HUvS+kaCQaQQ1o/XbG5LWDNZWcdmJb82bavu0flrgm032IIvhp9I7KnpNtI2/5ENGk8xjnqG49nMkJboo=
-Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=garyguo.net;
-Received: from CWLP265MB6051.GBRP265.PROD.OUTLOOK.COM (2603:10a6:400:1cb::9)
- by CWLP265MB6561.GBRP265.PROD.OUTLOOK.COM (2603:10a6:400:1dd::10) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.639.10; Thu, 19 Nov
- 2026 11:28:40 +0000
-Received: from CWLP265MB6051.GBRP265.PROD.OUTLOOK.COM
- ([fe80::55f6:f98b:7fad:c6e3]) by CWLP265MB6051.GBRP265.PROD.OUTLOOK.COM
- ([fe80::55f6:f98b:7fad:c6e3%2]) with mapi id 15.21.0615.015; Thu, 19 Nov 2026
- 11:28:40 +0000
-Content-Transfer-Encoding: quoted-printable
-Content-Type: text/plain; charset=UTF-8
-Date: Thu, 19 Nov 2026 11:28:39 +0000
-Message-Id: <DMZ5HM326EKD.1I8KUFD65L91Y@garyguo.net>
-To: "Danilo Krummrich" <dakr@kernel.org>, "Gary Guo" <gary@garyguo.net>
-Cc: <aliceryhl@google.com>, <daniel.almeida@collabora.com>,
- <airlied@gmail.com>, <simona@ffwll.ch>, <lossin@kernel.org>,
- <ojeda@kernel.org>, <boqun@kernel.org>, <bjorn3_gh@protonmail.com>,
- <a.hindborg@kernel.org>, <tmgross@umich.edu>, <tamird@kernel.org>,
- <acourbot@nvidia.com>, <work@onurozkan.dev>,
- <dri-devel@lists.freedesktop.org>, <rust-for-linux@vger.kernel.org>,
- <linux-kernel@vger.kernel.org>
-Subject: Re: [PATCH 1/4] drm/tyr: name resource lifetimes after their types
-From: "Gary Guo" <gary@garyguo.net>
-X-Mailer: aerc 0.22.0
-References: <20261118233727.3147222-1-dakr@kernel.org>
- <20261118233727.3147222-2-dakr@kernel.org>
- <DMYTKRS80NRC.18PBQHK9SZ8K9@garyguo.net>
- <DMZ4C3GGD9U0.360KJBSFLEK61@kernel.org>
-In-Reply-To: <DMZ4C3GGD9U0.360KJBSFLEK61@kernel.org>
-X-ClientProxiedBy: LO4P302CA0002.GBRP302.PROD.OUTLOOK.COM
- (2603:10a6:600:2c2::8) To CWLP265MB6051.GBRP265.PROD.OUTLOOK.COM
- (2603:10a6:400:1cb::9)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 805241122E1;
+	Thu, 19 Nov 2026 11:34:38 +0000 (UTC)
+Received: from fanzine2.igalia.com (fanzine2.igalia.com [213.97.179.56])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 215DB1122E1
+ for <dri-devel@lists.freedesktop.org>; Thu, 19 Nov 2026 11:34:30 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com; 
+ s=20170329;
+ h=Content-Transfer-Encoding:Content-Type:From:Cc:To:Subject:
+ MIME-Version:Date:Message-ID:From:Reply-To;
+ bh=as/xbQd6btjek9NqkbwnfZXg1yO8+Tx8iUfeqSMu6CE=; t=1795088069; x=2110448069; 
+ b=om59g+XglQLD9g3og0nMGFn+Xu/xcRPOS4fm9lodNkONkgOHQN2luQG8iesPNTh8dtcGfTPW+6+
+ pGiSkfB1ZRjYPGvnMCxH45QSFx5fKrS3AEONZ72dr2Gwim7LgbzgZQNFKMacjyWteTGHN0kiTIOvW
+ coK4Iy7PGL1FIokXI0gtc5zlLA+Ohi+PrdVHgslUdsc1o9HLJw2IzxM2MMdOVtTRZuYnRWwVqNggU
+ +dp8UzWoL3XBbJWZvb/no/kK8ZZWqtbWWWF+JA8CS1qoc2FcZ9T5FAyKePUq/WzqzpQwjS8gR4h8y
+ N0PeE7l6uCKiIIOk0LAJKf6Vwc9bBUrF4d4g==;
+Received: from [179.105.94.163] (helo=[192.168.0.4])
+ by fanzine2.igalia.com with esmtpsa 
+ (Cipher TLS1.3:ECDHE_X25519__RSA_PSS_RSAE_SHA256__AES_128_GCM:128) (Exim)
+ id 1xU0PK-00000001Qjw-3oGx; Thu, 19 Nov 2026 12:34:27 +0100
+Message-ID: <584c3855-5fa5-4b06-a95f-c6c0816cea08@igalia.com>
+Date: Thu, 19 Nov 2026 08:34:20 -0300
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: CWLP265MB6051:EE_|CWLP265MB6561:EE_
-X-MS-Office365-Filtering-Correlation-Id: 8e7f43ba-b3e2-4bca-e2f0-08df463042f5
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
- ARA:13230040|23010399003|7416014|376014|1800799024|366016|10070799003|22082099003|18002099003|4143699003|10067099003|261026140227099003|261026121527099003|261028144727099003|261022105027099003|56012099006;
-X-Microsoft-Antispam-Message-Info: OxRaJOEwJckp3KGQZv8abOsyvx14W+1bLRRRI0dXBdroj+9CXs0E1TmFlb+eMaNlJNPXe9Njc+c7M3Gn2Pn0ayPYhIVdP0Li/Hp4A0cG0B0RXK/tvmnSig5BeWixGBEZ9Fy8MRRMKfOf2XiUGlh5KViAujm8/6X7JA0dcuV/WZHDTT4XTpKqcOIqMGuGU55ygl2hogvOHeeqIXsRNeF5XfS4NG1Q5IpYrn+IqsnYKOfX2os+wJVu/Or/qU8NyOklHppPrq6gGuSTqNpvvBmh58wZHactmkcXNmJvB9yWP1cEKJiVbFtXqG/zE84Y/4GN+rUkXJzg/BhYMV0obzc71D8FPDFu1Avp2FFgprI68ZP9w0bdN6tv70rux+rD1HG3t/CGWuC5ysLC8nHB+MrnVTQqauJaXGZ8ESnBQ9mkmrqc+zwNB1xLNFEmUyd8b3nTNcxL5d3NxDJUeqCrcGQMnLjlzO309jZg22Wnxgke/9WOWydTgn8OZ8536MKrRHjBsZioSKM9Y8t45RsE6CWBzd68AjAhvzuwmjmXom+0qnYLXqEXfiYuHlYod7TWcwreTA33Y/rtSDusXocQW7QHQao4CJqAdn4xzS4PHrI1GqIey8la5+NSqhegZTMrVYPW+mJwpfNSs/ll4NZZ4yORLDAG36OSTKDOfH24z7UolSs=
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:CWLP265MB6051.GBRP265.PROD.OUTLOOK.COM; PTR:; CAT:NONE;
- SFS:(13230040)(23010399003)(7416014)(376014)(1800799024)(366016)(10070799003)(22082099003)(18002099003)(4143699003)(10067099003)(261026140227099003)(261026121527099003)(261028144727099003)(261022105027099003)(56012099006);
- DIR:OUT; SFP:1102; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?TDBBSXNPQ0RNbG1NZGFBd1hYVEdZcEN4L0FTM2dGbzhkUTRtVUtBb0txQU9t?=
- =?utf-8?B?THBvS1FTOEpOQ2FxajZSaDZWeU1ISFpMUUp5c1VOU0U2KytVb0RRQVdnY1NR?=
- =?utf-8?B?OElpWlVQdVZ6MUVNeUY2MTA1WlFFcWg2THJ5QlBuQ2tSb1lGZVFLVzVkOUlr?=
- =?utf-8?B?VFVVMkNCOXdsSjRONFQyTUUreEltMWtLS0ljcURiVHhLc0JCYnVDTWtYbjNZ?=
- =?utf-8?B?enZUQ3FkR2tFUHpwTS9VVVVBYXdqZXlRN1VvQ040aDNVTUpNR2xXL2k4ZzZr?=
- =?utf-8?B?V1YwZTZqMXd0dUxJOW9mekNRSk0rTmU5L25QQVRnWWhxMnRDZ3JzRm91SGtT?=
- =?utf-8?B?L1ZpcnFOc29wS2RGeDhIdS9SQlFVcHRiRWErMURhQlE2T1RjSTBLaXRpTmJK?=
- =?utf-8?B?aWp2Mk5uWE5QeXlVS0VwRTY4YjU4ZFpKdVlrVnY1RG1MUVF4S3pYWUJpb1J0?=
- =?utf-8?B?TVBJY3IwSnRVMnFOdkphTk54UUxkNHRzdGFnVmovVGVkTVZsMm5mMWRGNnlJ?=
- =?utf-8?B?OTBaMklHRS9raWZpQzVZYnd1a0o0VDh5TWhUVklRd2tGNEJsUTJxUko3R0Ur?=
- =?utf-8?B?M1YrUUVHZEpEdlQ3cElDU1dob1ZlcTJ1QUJMeW1NWTNMYlptaS9OUThES1Jo?=
- =?utf-8?B?amVjYTEvR1pyQzJHTElzaUsxYktJcCtVaVV6M0NLUStGb2ZNWU94VTV2NWZs?=
- =?utf-8?B?NkJ0dkFHdVErcVRNWVdqS2Vsbm4rOVdJaldxTGY0aWxGV0o1UXc1dWpzYUxR?=
- =?utf-8?B?MWxpQjc2L2NNbnRkYnU0Mm5kUzNZZWMzbGhqLzRETDJ4clZqQnIzRkcxMGh6?=
- =?utf-8?B?MkcrWGNzQ3JyUlJUTHZQS3VpeHVyVTRTdjF3eGNmYWhTaVRPN0V2T0o2eTdo?=
- =?utf-8?B?UnkwOGhmcXJuOVc5Y09VRjBlR0I4aTVnZUFCTThkZXhaMFQ5V2svNU9UWUFq?=
- =?utf-8?B?MFpvVzJMY25tK2Y4d0t2MlRZQ1BVUDdSN3U3aFRCemM0ZCszcGw3MHRKYXdM?=
- =?utf-8?B?YkhRNHdianljVDJLcnpzQVhEeXBOWWpGaXIrQ05HcGZqL2lTYk1RT295Y0Fn?=
- =?utf-8?B?ZkhJMis0VGpwTGpxVFR2OXNPTFZacWtsV3hMSi8xYWc4anNMTjVpSHBlMGlw?=
- =?utf-8?B?MTVRWEU2ait6aDRWU2I2K3J4bjBzUXpEdjVUdUtPT2hMWHV3NVcvYmZNeE9a?=
- =?utf-8?B?T0NHSEtIQTIvbXU2cXgrVDBpMFV6Nklld3plMjVjd2I5VmcyeTQ1T2s4Z05i?=
- =?utf-8?B?MDMyUk0rNWlVYm12d2hFclFUMHRNWWlvclNMa1NuWE9Ld1pvVG1jWnpuajAr?=
- =?utf-8?B?NDRZU3ROdDVVeE9JL2dnS2x4SURmdnY5OEcrbHd1akZ3ekJGVEtzbzZNUDF3?=
- =?utf-8?B?c1hveUhMUEU3enhKcmVtZ1VGRUZFTElwNzEvMHpneDJpR2lvTnF3Q1JyMURL?=
- =?utf-8?B?VzZEc1ozdzZ1OFVJSkZ1N1lpNUhCcktWa0Rqdmx0RUk0Y0ZUd2lLZm9oTWpC?=
- =?utf-8?B?VmVhVUxPVkFmS3dXYUNSTFViQzZlY0Nvb0lKRURXcHRPaFR5UE1ONk5LRjE4?=
- =?utf-8?B?ZVozL2pONWlCQkZJb2Z2SkRDaHFlUlRXWGhUUTYvQXQrSlNQRCtlWWhrTnRh?=
- =?utf-8?B?ZUpWOExJcGZjWTRkeCtRRjVPY09UQ2NUZ0htR0c5NGRzOWZtSzFWV2wvdG5w?=
- =?utf-8?B?RE9tbXNLUVFnYzlmc1pkM1ZSb3ZwdE5XZFZpNmZFczc1OUpQbFY3azl4c3Zj?=
- =?utf-8?B?MS9PelVvb0dteXh4VzdjZXdrWU0wRU83TXp5RUNSTHJtYmdpM1FDcnAzMlFX?=
- =?utf-8?B?L2p0RThwenFqYVhLSVAzcWFyRFFuTFJvQWR6WXBTOWxQNDRjalZzTHFURDJy?=
- =?utf-8?B?ZXVEWkFyZ3NvdHREN3Q2OVFrbEJuRWVGUUZQbTQ0ckNieTE0MGpGSGVqeGJn?=
- =?utf-8?B?R3h6MzZCekFUUFA2VmNUVWlKN1pLUzFNL09JU1BzdHNIaVpYVUpLeEtMbVND?=
- =?utf-8?B?WFJCUlF5TDM3ekkycDVTT0dGdXd0SGpqdG1ZUkt4NzNaTlI5R0ovTlR1RHgw?=
- =?utf-8?B?cUVSYStKZVFQWUhtVlU2L1Budzczbk84L0pMQWZCZmt6UlkyWWVXWUdXNjNO?=
- =?utf-8?B?MitFY3ZPaWFqSGdYdlF4KzRkd0c5RTdnM0l2bHZnTDRMYW9nczhJdVkyKytQ?=
- =?utf-8?B?UVNMOXBzTHpNRDlQQnNvc0xsdlU0VDVYelFUQkluZ1FNSExEcVZIdFMzQysx?=
- =?utf-8?B?NmU2Y28xTjJoUEVKaG5RQ2FQaWpTaHNRaWxaK1dIMnRRWEt6T0Y0WXUwSzU1?=
- =?utf-8?B?ditEVVRtWmNaSi9iSTNkcW9UWG1JbGwrelgvbEhWbXJDVkZybmVEdz09?=
-X-OriginatorOrg: garyguo.net
-X-MS-Exchange-CrossTenant-Network-Message-Id: 8e7f43ba-b3e2-4bca-e2f0-08df463042f5
-X-MS-Exchange-CrossTenant-AuthSource: CWLP265MB6051.GBRP265.PROD.OUTLOOK.COM
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 19 Nov 2026 11:28:40.7078 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: bbc898ad-b10f-4e10-8552-d9377b823d45
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: Pa9D26UYpWQHS8FGXYI7EQI78/tav/noQKQIRSndOaHnl6FuWiS8ipNZwBVo2Y9TvRa8mTgjyjL1ZtyUirNxwA==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: CWLP265MB6561
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 0/4] drm/vc4: Work around GFXH-16 instruction cache
+ livelock
+To: Iago Toral <itoral@igalia.com>,
+ "Juan A. Suarez Romero" <jasuarez@igalia.com>,
+ Dave Stevenson <dave.stevenson@raspberrypi.com>,
+ Raspberry Pi Kernel Maintenance <kernel-list@raspberrypi.com>,
+ Maxime Ripard <mripard@kernel.org>, David Airlie <airlied@gmail.com>,
+ Simona Vetter <simona@ffwll.ch>
+Cc: kernel-dev@igalia.com, dri-devel@lists.freedesktop.org,
+ stable@vger.kernel.org
+References: <20261118-vc4-icache-workaround-v1-0-5b8adc2c84fe@igalia.com>
+ <e945bdd00b4eecec4b7e451e35cb39855ad2e0de.camel@igalia.com>
+From: =?UTF-8?Q?Ma=C3=ADra_Canal?= <mcanal@igalia.com>
+Content-Language: en-US
+Autocrypt: addr=mcanal@igalia.com; keydata=
+ xsBNBGcCwywBCADgTji02Sv9zjHo26LXKdCaumcSWglfnJ93rwOCNkHfPIBll85LL9G0J7H8
+ /PmEL9y0LPo9/B3fhIpbD8VhSy9Sqz8qVl1oeqSe/rh3M+GceZbFUPpMSk5pNY9wr5raZ63d
+ gJc1cs8XBhuj1EzeE8qbP6JAmsL+NMEmtkkNPfjhX14yqzHDVSqmAFEsh4Vmw6oaTMXvwQ40
+ SkFjtl3sr20y07cJMDe++tFet2fsfKqQNxwiGBZJsjEMO2T+mW7DuV2pKHr9aifWjABY5EPw
+ G7qbrh+hXgfT+njAVg5+BcLz7w9Ju/7iwDMiIY1hx64Ogrpwykj9bXav35GKobicCAwHABEB
+ AAHNIE1hw61yYSBDYW5hbCA8bWNhbmFsQGlnYWxpYS5jb20+wsCRBBMBCAA7FiEE+ORdfQEW
+ dwcppnfRP/MOinaI+qoFAmcCwywCGwMFCwkIBwICIgIGFQoJCAsCBBYCAwECHgcCF4AACgkQ
+ P/MOinaI+qoUBQgAqz2gzUP7K3EBI24+a5FwFlruQGtim85GAJZXToBtzsfGLLVUSCL3aF/5
+ O335Bh6ViSBgxmowIwVJlS/e+L95CkTGzIIMHgyUZfNefR2L3aZA6cgc9z8cfow62Wu8eXnq
+ GM/+WWvrFQb/dBKKuohfBlpThqDWXxhozazCcJYYHradIuOM8zyMtCLDYwPW7Vqmewa+w994
+ 7Lo4CgOhUXVI2jJSBq3sgHEPxiUBOGxvOt1YBg7H9C37BeZYZxFmU8vh7fbOsvhx7Aqu5xV7
+ FG+1ZMfDkv+PixCuGtR5yPPaqU2XdjDC/9mlRWWQTPzg74RLEw5sz/tIHQPPm6ROCACFls7A
+ TQRnAsMsAQgAxTU8dnqzK6vgODTCW2A6SAzcvKztxae4YjRwN1SuGhJR2isJgQHoOH6oCItW
+ Xc1CGAWnci6doh1DJvbbB7uvkQlbeNxeIz0OzHSiB+pb1ssuT31Hz6QZFbX4q+crregPIhr+
+ 0xeDi6Mtu+paYprI7USGFFjDUvJUf36kK0yuF2XUOBlF0beCQ7Jhc+UoI9Akmvl4sHUrZJzX
+ LMeajARnSBXTcig6h6/NFVkr1mi1uuZfIRNCkxCE8QRYebZLSWxBVr3h7dtOUkq2CzL2kRCK
+ T2rKkmYrvBJTqSvfK3Ba7QrDg3szEe+fENpL3gHtH6h/XQF92EOulm5S5o0I+ceREwARAQAB
+ wsB2BBgBCAAgFiEE+ORdfQEWdwcppnfRP/MOinaI+qoFAmcCwywCGwwACgkQP/MOinaI+qpI
+ zQf+NAcNDBXWHGA3lgvYvOU31+ik9bb30xZ7IqK9MIi6TpZqL7cxNwZ+FAK2GbUWhy+/gPkX
+ it2gCAJsjo/QEKJi7Zh8IgHN+jfim942QZOkU+p/YEcvqBvXa0zqW0sYfyAxkrf/OZfTnNNE
+ Tr+uBKNaQGO2vkn5AX5l8zMl9LCH3/Ieaboni35qEhoD/aM0Kpf93PhCvJGbD4n1DnRhrxm1
+ uEdQ6HUjWghEjC+Jh9xUvJco2tUTepw4OwuPxOvtuPTUa1kgixYyG1Jck/67reJzMigeuYFt
+ raV3P8t/6cmtawVjurhnCDuURyhUrjpRhgFp+lW8OGr6pepHol/WFIOQEg==
+In-Reply-To: <e945bdd00b4eecec4b7e451e35cb39855ad2e0de.camel@igalia.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -137,47 +83,109 @@ List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-5.8 required=3.0 tests=BAYES_00,DKIM_SIGNED,
+X-Spam-Status: No, score=-17.3 required=3.0 tests=BAYES_00,DKIM_SIGNED,
 	DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
-	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS autolearn=no
-	autolearn_force=no version=4.0.1
+	INCLUDES_CR_TRAILER,INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,
+	SPF_PASS,USER_AGENT_SANE_1 autolearn=unavailable autolearn_force=no
+	version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-On Thu Nov 19, 2026 at 10:34 AM GMT, Danilo Krummrich wrote:
-> On Thu Nov 19, 2026 at 3:08 AM CET, Gary Guo wrote:
->> On Wed Nov 18, 2026 at 11:37 PM GMT, Danilo Krummrich wrote:
->>> The firmware, buffer, VM and MMU types use 'drm for their resource
->>> lifetimes, even though each parameter is local to its type.
+Hi Iago,
+
+On 19/11/26 05:17, Iago Toral wrote:
+> Looks good to me:
+> Reviewed-by: Iago Toral Quiroga <itoral@igalia.com>
+> 
+> I was not aware that hang checks were happening at second boundaries,
+> regardless of the time at which the hangcheck was queued, it doesn't
+> sound like a good idea, so I think it is good to change that.
+> 
+> On the other hand, now we rearm the hang check every 100ms instead
+> which is a much smaller window. I understand this reduces visible
+> impact of the workaround when the issue happens, but I am wondering
+> whether this alone has any visible performance impact for the 99% of
+> the time we are not hitting the problem, I presume you haven't seen
+> any?
+> 
+
+I benchmarked glmark2-wayland --off-screen (800x600, under labwc) and
+glmark2-es2-drm (1920x1080 fullscreen), which I believe are
+representative applications for RPi 3B+, and I observed no performance
+impact. I even tested 50 ms and I didn't observe a performance impact as
+well.
+
+If you have other applications you would like to see the benchmark
+results, just let me know and I can test it.
+
+Best regards,
+- Maíra
+
+> Iago
+> 
+> El mié, 18-11-2026 a las 18:47 -0300, Maíra Canal escribió:
+>> Mesa issue #16652 [1] reports GPU resets every few minutes on the
+>> Raspberry Pi 3. They happen when text labels are drawn over their
+>> shadows:
+>> two different threaded fragment shaders, plus untextured single-
+>> threaded
+>> ones, in the same tiles.
 >>
->> This doesn't make any sense, a lifetime on a type by definition cannot r=
-efer to
->> a scope of itself.
+>> During a hang, the performance counters show four QPUs fetching
+>> instructions with 0 cache hits, ~6.5M misses per 100 ms, and 0 valid
+>> instructions executed. This matches HW erratum GFXH-16: the QPUs of a
+>> slice share one instruction cache and can livelock, evicting each
+>> other's
+>> fills. Since shader code always starts at offset 0 of a page-aligned
+>> BO,
+>> every shader competes for the same cache sets.
 >>
->> `'sec` is not the lifetime of `Section` and `'fw` is not the lifetime of
->> `Firmware` and I think this is just confusing.
->
-> Yes, this was badly phrased. What is actually meant is that e.g. 'fw cons=
-trains
-> how long a Firmware instance can be used.
+>> This series works around it:
+>>
+>>    - Patch 3 starts each shader's code at one of four offsets in its
+>> BO,
+>>      spreading shaders across cache sets.
+>>
+>>    - Patch 4 clears the slice instruction and uniforms caches when the
+>>      hangcheck finds no progress, and resets the GPU only if the stall
+>>      persists. It is meant to recover from livelocks the offsets don't
+>>      prevent.
+>>
+>> Patches 1 and 2 fix an off-by-one in the shader BO handle check and a
+>> NULL pointer dereference in validate_gl_shader_rec(), found while
+>> working
+>> on patch 3.
+>>
+>> Tested on a Raspberry Pi 3B+ with the issue's reproducer, 4 x 15 min
+>> runs:
+>>
+>>    without the series:  29 GPU resets
+>>    with patches 1-3:     0 GPU resets
+>>
+>> [1] https://gitlab.freedesktop.org/mesa/mesa/-/issues/16652
+>>
+>> Best regards,
+>> - Maíra
+>>
+>> ---
+>> Maíra Canal (4):
+>>        drm/vc4: Fix off-by-one in the shader record BO handle check
+>>        drm/vc4: Check for a validated shader before reading its thread
+>> mode
+>>        drm/vc4: Start shader code at varying offsets in its BO
+>>        drm/vc4: Clear the slice caches before resetting a stalled GPU
+>>
+>>   drivers/gpu/drm/vc4/vc4_bo.c               | 43
+>> +++++++++++++++++++++++-------
+>>   drivers/gpu/drm/vc4/vc4_drv.h              | 15 ++++++++++-
+>>   drivers/gpu/drm/vc4/vc4_gem.c              | 20 ++++++++++++--
+>>   drivers/gpu/drm/vc4/vc4_validate.c         | 17 +++++++-----
+>>   drivers/gpu/drm/vc4/vc4_validate_shaders.c |  7 ++---
+>>   5 files changed, 79 insertions(+), 23 deletions(-)
+>> ---
+>> base-commit: 80ac6d197218c3399d66674167a4d7c9051a25e2
+>> change-id: 20261112-vc4-icache-workaround-d11b444bc7e8
+>>
+>>
+> 
 
-I think this is weird still. Any lifetime on a type would constrain how lon=
-g an
-instance of that type can be used, that's just type wellformness.
-
-I think what you're saying is basically "I couldn't think of a good name so=
- I
-use the name of the type instead". To me I think using `'a` has the same ef=
-fect
-and is less confusing because reader knows that it is a generic name and is=
- not
-tied to any specific scope.
-
-Best,
-Gary
-
->
-> (In the following patch, in TyrDrmRegistrationData, Firmware borrows Mmu.=
- That
-> borrow has its own lifetime, distinct from TyrDrmRegistrationData's 'drm
-> parameter.)
