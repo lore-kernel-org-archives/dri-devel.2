@@ -2,43 +2,42 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6A9AA606A320
-	for <dri-devel@archiver.kernel.org>; Thu, 19 Nov 2026 08:50:37 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DC888606A324
+	for <dri-devel@archiver.kernel.org>; Thu, 19 Nov 2026 08:51:02 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Ye8qBC6a
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=kDVQ+XpJ
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id CC3DB10E535;
-	Thu, 19 Nov 2026 08:50:31 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 4632D1121AC;
+	Thu, 19 Nov 2026 08:50:57 +0000 (UTC)
 Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id BD8A610E535
- for <dri-devel@lists.freedesktop.org>; Thu, 19 Nov 2026 08:50:25 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id B70771121AC
+ for <dri-devel@lists.freedesktop.org>; Thu, 19 Nov 2026 08:50:51 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by tor.source.kernel.org (Postfix) with ESMTP id D352C60F8B;
- Thu, 19 Nov 2026 08:50:24 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6505A1F000C4;
- Thu, 19 Nov 2026 08:50:24 +0000 (UTC)
+ by tor.source.kernel.org (Postfix) with ESMTP id 3C4F160F8B;
+ Thu, 19 Nov 2026 08:50:51 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id CCA4D1F000C4;
+ Thu, 19 Nov 2026 08:50:50 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1795078224;
- bh=KrOyKM85njGxEPyZjNXs4ukGaWlvUq3qWU7xKtMt0jo=;
+ s=k20260515; t=1795078251;
+ bh=ElQ4cGT0/YIxK+/tTJ8fp0m1xIKGMfDLRZwfQjdO5N0=;
  h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
- b=Ye8qBC6aAconaLsGGwlLuBxBjCIJUqMCrQrK/oTxIh00Qghfvi8awzT4FgCkGiTJY
- PHkw3dHiwEJU2pS7GxbWxSSKSo3YSdm+gIcYk9cn1sSRDYHVBytxFuw7g3OML7D9To
- UyDUhKAGQCzSFDJYdvNz8EiYHmScZoF2brETtqjMQMZxzmJ/zqhEr9wFLI+j1wDOSI
- lkRqH1KGmEN1ztvgIH0mFC3muLRik17iyj6hdDPbZMr1iW2sc7BJjz3zBPrtFg2wj4
- 0wqMoAf8XfeJHeyUDtR0TlYIQemFghD3h1V7pvfYi5amDy140A0zll/s8MiXhrjzez
- pgyPoTm5LJ2qw==
-Message-ID: <sashiko-outbox-222724@kernel.org>
+ b=kDVQ+XpJNmBWTwZopAdrPf57EdOM6Uq8ggK4VD2l4Ubg7qL0D85K522mrb5fn9Xxn
+ 9shs8Lt2ZVwiDPxqsANdlNmTTPq0II34+CwI3Ei4UcxNcymugeT44ZN9EsVxwFq+Fr
+ CCR4ADmaaxb1q+6dc0yTQzq/Ctlp2h319L1caIm6zJuvi4HMl6xEszGvI8N22wU7b2
+ ADMK0ltV3QKVSITTOgktt983JXg0bpoudDl4CF2O2lNURvqXjRT/lVdEF/FhmqGJMx
+ qzg8JruJKCHB6+epkwBXmSMJLOMBZarxJr8S4pVI7dq9n/s9pauATtI7ACowWjcNwd
+ dw1KYBfFYmxxA==
+Message-ID: <sashiko-outbox-222727@kernel.org>
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v9 28/29] drm/msm/dp: select MST stream bpp during
- atomic check
+Subject: Re: [PATCH v9 21/29] drm/msm/dp: add HPD callback for dp MST
 To: "Yongxing Mou" <yongxing.mou@oss.qualcomm.com>
 Cc: dri-devel@lists.freedesktop.org
-In-Reply-To: <20261119-msm-dp-mst-v9-28-ca61be4edfc3@oss.qualcomm.com>
+In-Reply-To: <20261119-msm-dp-mst-v9-21-ca61be4edfc3@oss.qualcomm.com>
 References: <20261119-msm-dp-mst-v9-0-ca61be4edfc3@oss.qualcomm.com>
- <20261119-msm-dp-mst-v9-28-ca61be4edfc3@oss.qualcomm.com>
+ <20261119-msm-dp-mst-v9-21-ca61be4edfc3@oss.qualcomm.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Thu, 19 Nov 2026 08:50:24 +0000
+Date: Thu, 19 Nov 2026 08:50:50 +0000
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -61,81 +60,50 @@ X-Archived-By: <archiver.kernel.org>
 
 Thank you for your contribution! Sashiko AI review found 1 potential
 issue to consider:
-- [Medium] drm/msm/dp: msm_dp_mst_select_bpp() ignores active link
-  payloads
+- [High] drm/msm/dp: msm_dp_irq_hpd_handle() ignores link status changes
+  in MST mode
 --
 
-commit 3977050b668a1f08d8d9b23f6fc76eaf2a03455a
-Author: Yongxing Mou <yongxing.mou@oss.qualcomm.com>
+commit 15b01d9a837796474eb17d695117c65eb5290f5f
+Author: Abhinav Kumar <quic_abhinavk@quicinc.com>
 
-drm/msm/dp: select MST stream bpp during atomic check
+drm/msm/dp: add HPD callback for dp MST
 
-This commit selects the MST stream bpp during atomic check by trying 30,
-24, and 18 bpp against the port PBN and link time slots, storing the
-result in a connector state subclass for commit.
+This commit adds an HPD IRQ handler and poll_hpd_irq topology callback for
+DisplayPort MST, routing IRQ_HPD events to the MST module when MST is
+active.
 
-> diff --git a/drivers/gpu/drm/msm/dp/dp_mst_drm.c b/drivers/gpu/drm/msm/dp=
-/dp_mst_drm.c
-> index 2b96e003225d5..a452b3d2ba228 100644
-> --- a/drivers/gpu/drm/msm/dp/dp_mst_drm.c
-> +++ b/drivers/gpu/drm/msm/dp/dp_mst_drm.c
-[ ... ]
-> @@ -142,6 +189,42 @@ static int msm_dp_mst_connector_atomic_check(struct =
-drm_connector *connector,
->  	return drm_dp_atomic_release_time_slots(state, &mst->mst_mgr, mst_conn-=
->mst_port);
->  }
+> diff --git a/drivers/gpu/drm/msm/dp/dp_display.c b/drivers/gpu/drm/msm/dp=
+/dp_display.c
+> index 7bf24cd2bae25..75eaf739b86f0 100644
+> --- a/drivers/gpu/drm/msm/dp/dp_display.c
+> +++ b/drivers/gpu/drm/msm/dp/dp_display.c
+> @@ -529,6 +529,11 @@ static int msm_dp_irq_hpd_handle(struct msm_dp_displ=
+ay_private *dp)
+>  			dp->msm_dp_display.connector_type,
+>  			dp->link->sink_count);
 > =20
-> +static int msm_dp_mst_select_bpp(struct drm_atomic_commit *state,
-> +				 struct msm_dp_mst *mst,
-> +				 const struct drm_dp_mst_topology_state *mst_state,
-> +				 struct drm_dp_mst_port *port,
-> +				 const struct drm_display_mode *mode,
-> +				 u32 max_bpp, u32 *bpp)
-> +{
-> +	static const u32 bpps[] =3D { 30, 24, 18 };
-> +	unsigned int i;
-> +
-> +	for (i =3D 0; i < ARRAY_SIZE(bpps); i++) {
-> +		int pbn, slots;
-> +
-> +		if (bpps[i] > max_bpp)
-> +			continue;
-> +
-> +		pbn =3D drm_dp_calc_pbn_mode(mode->clock, bpps[i] << 4);
-> +		if (pbn > port->full_pbn)
-> +			continue;
-> +
-> +		slots =3D drm_dp_atomic_find_time_slots(state, &mst->mst_mgr, port, pb=
-n);
-> +		if (slots < 0)
-> +			return slots;
-> +
-> +		if (slots <=3D mst_state->total_avail_slots) {
-> +			drm_dbg_kms(mst->msm_dp->drm_dev,
-> +				    "[MST] bpp=3D%u pbn=3D%d slots=3D%d\n",
-> +				    bpps[i], pbn, slots);
-> +			*bpp =3D bpps[i];
-> +			return 0;
-> +		}
+> +	if (dp->msm_dp_display.mst_active) {
+> +		msm_dp_mst_display_hpd_irq(&dp->msm_dp_display);
+> +		return 0;
 > +	}
 > +
-> +	return -ENOSPC;
-> +}
+>  	/* check for any test request issued by sink */
+>  	rc =3D msm_dp_link_process_request(dp->link);
+>  	if (!rc) {
 
-[Severity: Medium]
-Does comparing slots against mst_state->total_avail_slots account for time
-slots already used by other active streams on the link?
+[Severity: High]
+Does returning early here skip link status checks and retraining when MST
+is active?
 
-drm_dp_atomic_find_time_slots() returns only the slots required for this
-port, while mst_state->total_avail_slots is the fixed 63-slot capacity of
-the entire link and is not decremented as payloads are added to
-mst_state->payloads.  When another stream is already active on the link,
-msm_dp_mst_select_bpp() will pick 30 or 24 bpp as long as this stream
-alone fits in 63 slots, even if the remaining unallocated slots only have
-room for 24 or 18 bpp, causing drm_dp_mst_atomic_check() to fail the
-modeset with -ENOSPC instead of stepping down to a lower bpp.
+drm_dp_mst_hpd_irq_handle_event() only processes the sink count in esi[0]
+and sideband message readiness (DP_DOWN_REP_MSG_RDY and DP_UP_REQ_MSG_RDY)
+in esi[1].  Because msm_dp_irq_hpd_handle() returns before calling
+msm_dp_link_process_request() and msm_dp_display_handle_irq_hpd(), link
+service events in esi[3] (such as LINK_STATUS_CHANGED) and lane status
+losses reported via IRQ_HPD are ignored, leaving the mainlink untrained
+and MST displays blank if link synchronization is lost.
 
 --=20
 Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261119-msm-dp-mst=
--v9-0-ca61be4edfc3@oss.qualcomm.com?part=3D28
+-v9-0-ca61be4edfc3@oss.qualcomm.com?part=3D21
