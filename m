@@ -2,46 +2,46 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 39EEC606A326
-	for <dri-devel@archiver.kernel.org>; Thu, 19 Nov 2026 17:50:12 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3178C606A32A
+	for <dri-devel@archiver.kernel.org>; Thu, 19 Nov 2026 17:51:24 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=KAc2NLRm
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=gOXr4FIX
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 764FD10E4AA;
-	Thu, 19 Nov 2026 17:50:06 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 69C9A10F03D;
+	Thu, 19 Nov 2026 17:51:18 +0000 (UTC)
 Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 9721810E4AA
- for <dri-devel@lists.freedesktop.org>; Thu, 19 Nov 2026 17:49:59 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 813C110F03A
+ for <dri-devel@lists.freedesktop.org>; Thu, 19 Nov 2026 17:51:11 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by tor.source.kernel.org (Postfix) with ESMTP id 91EC0621C9;
- Thu, 19 Nov 2026 17:49:58 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 258EE1F000C4;
- Thu, 19 Nov 2026 17:49:56 +0000 (UTC)
+ by tor.source.kernel.org (Postfix) with ESMTP id 8A36A6297B;
+ Thu, 19 Nov 2026 17:51:10 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 31A5B1F000CA;
+ Thu, 19 Nov 2026 17:51:09 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1795110598;
- bh=cwnvE5ZeFGIwub6ucKfZkEWrWwezozotlhK7iduubCE=;
+ s=k20260515; t=1795110670;
+ bh=91cixVM9xkYFwo/rM+qZds/LEL2+Y7pV6WbTYF8SOsc=;
  h=Date:From:To:Cc:Subject:References:In-Reply-To;
- b=KAc2NLRm9bBMbaYzslkI2E7t9znLMFgTCz25Ken+tEwfdtfHw+myyGC000vz0xCiv
- oL7f5XLuHnWxyYk4zM8e2wu1ZMA+2raBxfNrMwaMZnDgWR8VFngA3LpLGkyy6rynMI
- Swvaf+1clJ1+U3beasLHqkMmaMyrWjCev7U5XprvFxynrBiIiH6S1zCtitrk+hrqAY
- TXc/44uzqnym5iidQfbfsNP4xX/bUzeK2p6EitfVvdRywsZfbcjeZrynkw1PCbUHTo
- BstFTzQjn2AQ1U6gL/YVdqAHM4ggmW9/5oI+w/ugiV/02A3I6Zcc92wIRHA1LlH/lH
- +S4OiIV7zIlIg==
-Date: Thu, 19 Nov 2026 17:49:55 +0000
+ b=gOXr4FIX+yvyM0UlExwGlCV50m2VGD8kM4tJPrAugMHZwWfyy1u6l0UvOoW/TvN37
+ dS2BowK0I22uP/crYXPhVI0AAARfSc4vbmYGagFJgF8nRTR5jTOaBXenOey2WY5v9H
+ TL2UZ7JQqnyOePlZnAFljZDTihnnS1YKznFxsz5Mufb+uN6CTPJYUF0NnvNKZ0IGs1
+ BqBPt3dar7IPC4vwLU8MUU8PRrsTpIU3MSeTVFiFibrWmXZQs/Cya7i3oo+matFEfh
+ oLO4FgLUh6VYOai/dyOslD3cYAdAg4Y0v0/hpznBkgikf8PdilzwWhobL6SkkOTmXC
+ 9En+XwPh4vqVg==
+Date: Thu, 19 Nov 2026 17:51:07 +0000
 From: Conor Dooley <conor@kernel.org>
 To: Hefei <3066883572@qq.com>
 Cc: dri-devel@lists.freedesktop.org, linux-input@vger.kernel.org,
  devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH 2/6] dt-bindings: input: add Jadard JD9365TX touchscreen
+Subject: Re: [PATCH 3/6] dt-bindings: backlight: add VIEWE I2C backlight
  binding
-Message-ID: <20261119-unmindful-bagel-6405d83c4fbc@spud>
-References: <tencent_BF0B9E6C7E95501FC63D3F98AD08BEF70909@qq.com>
+Message-ID: <20261119-gravity-unlighted-54fc29aa3dd8@spud>
+References: <tencent_093E92ACAABFAB09F39EC07F4350A5C7BD09@qq.com>
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
 Content-Type: multipart/signed; micalg=pgp-sha512;
- protocol="application/pgp-signature"; boundary="X7+UfeTsliGi7hlS"
+ protocol="application/pgp-signature"; boundary="B+xvd9frcwCJyrJG"
 Content-Disposition: inline
-In-Reply-To: <tencent_BF0B9E6C7E95501FC63D3F98AD08BEF70909@qq.com>
+In-Reply-To: <tencent_093E92ACAABFAB09F39EC07F4350A5C7BD09@qq.com>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -60,74 +60,65 @@ X-Spam-Status: No, score=-15.8 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
---X7+UfeTsliGi7hlS
+--B+xvd9frcwCJyrJG
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
 Content-Transfer-Encoding: quoted-printable
 
-On Thu, Nov 19, 2026 at 10:48:03AM +0800, Hefei wrote:
-> Add the binding for the Jadard JD9365TX in-cell touchscreen used on
-> the VIEWE 7KF82 module.
+On Thu, Nov 19, 2026 at 10:48:05AM +0800, Hefei wrote:
+> Add the binding for the VIEWE panel backlight MCU on I2C.
 >=20
 > Signed-off-by: Hefei <3066883572@qq.com>
 > ---
->  .../input/touchscreen/jadard,jd9365tx.yaml    | 53 +++++++++++++++++++
->  1 file changed, 53 insertions(+)
->  create mode 100644 Documentation/devicetree/bindings/input/touchscreen/j=
-adard,jd9365tx.yaml
+>  .../leds/backlight/viewe,i2c-backlight.yaml   | 44 +++++++++++++++++++
+>  1 file changed, 44 insertions(+)
+>  create mode 100644 Documentation/devicetree/bindings/leds/backlight/view=
+e,i2c-backlight.yaml
 >=20
-> diff --git a/Documentation/devicetree/bindings/input/touchscreen/jadard,j=
-d9365tx.yaml b/Documentation/devicetree/bindings/input/touchscreen/jadard,j=
-d9365tx.yaml
+> diff --git a/Documentation/devicetree/bindings/leds/backlight/viewe,i2c-b=
+acklight.yaml b/Documentation/devicetree/bindings/leds/backlight/viewe,i2c-=
+backlight.yaml
 > new file mode 100644
-> index 0000000..23696a4
+> index 0000000..ab60c2c
 > --- /dev/null
-> +++ b/Documentation/devicetree/bindings/input/touchscreen/jadard,jd9365tx=
-=2Eyaml
-> @@ -0,0 +1,53 @@
+> +++ b/Documentation/devicetree/bindings/leds/backlight/viewe,i2c-backligh=
+t.yaml
+> @@ -0,0 +1,44 @@
 > +# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
 > +%YAML 1.2
 > +---
-> +$id: http://devicetree.org/schemas/input/touchscreen/jadard,jd9365tx.yam=
-l#
+> +$id: http://devicetree.org/schemas/leds/backlight/viewe,i2c-backlight.ya=
+ml#
 > +$schema: http://devicetree.org/meta-schemas/core.yaml#
 > +
-> +title: Jadard JD9365TX in-cell touchscreen
+> +title: VIEWE I2C panel backlight
 > +
 > +maintainers:
 > +  - Hefei <3066883572@qq.com>
 > +
 > +description: |
-> +  In-cell touch integrated with Jadard JD9365TX DSI panels. The module F=
-PC
-> +  often exposes only I2C (no interrupt GPIO); the driver polls coordinate
-> +  reports.
+> +  Simple I2C backlight used on VIEWE DSI modules. Default protocol is de=
+vice
+> +  address 0x45, register 0x86, brightness 0..255.
 > +
 > +allOf:
-> +  - $ref: touchscreen.yaml#
+> +  - $ref: common.yaml#
 > +
 > +properties:
 > +  compatible:
-> +    const: jadard,jd9365tx
+> +    const: viewe,i2c-backlight
+
+This seems far too generic.
+Do we not have access to a part number or something to better identify
+this device?
+
 > +
 > +  reg:
 > +    maxItems: 1
 > +
-> +  poll-interval: true
-> +
-> +  jadard,coord-addr:
-> +    description: Optional fixed coordinate SRAM address override
-> +    $ref: /schemas/types.yaml#/definitions/uint32
-
-Input folks, this does not really parse to me - does it make sense?
-
-> +
 > +required:
 > +  - compatible
 > +  - reg
-
-The device has no power supplies?
-
 > +
 > +unevaluatedProperties: false
 > +
@@ -137,12 +128,10 @@ The device has no power supplies?
 > +        #address-cells =3D <1>;
 > +        #size-cells =3D <0>;
 > +
-> +        touchscreen@68 {
-> +            compatible =3D "jadard,jd9365tx";
-> +            reg =3D <0x68>;
-> +            touchscreen-size-x =3D <720>;
-> +            touchscreen-size-y =3D <1280>;
-> +            poll-interval =3D <16>;
+> +        backlight@45 {
+> +            compatible =3D "viewe,i2c-backlight";
+> +            reg =3D <0x45>;
+> +            default-brightness =3D <200>;
 > +        };
 > +    };
 > +...
@@ -151,15 +140,15 @@ The device has no power supplies?
 >=20
 >=20
 
---X7+UfeTsliGi7hlS
+--B+xvd9frcwCJyrJG
 Content-Type: application/pgp-signature; name=signature.asc
 
 -----BEGIN PGP SIGNATURE-----
 
-iHUEABYKAB0WIQRh246EGq/8RLhDjO14tDGHoIJi0gUCav82wgAKCRB4tDGHoIJi
-0tHZAQC77AEClONCxlm2UftDzEnXPGEa0ZEewI6ktZlLmnBKLgD/a5xaq6VMlvcb
-CTWDw3M2i/CHGG8q88NZWCjVCHIiBwU=
-=0lw2
+iHUEABYKAB0WIQRh246EGq/8RLhDjO14tDGHoIJi0gUCav83CwAKCRB4tDGHoIJi
+0psXAP99GO4RrsJ86JAlIZszQIbzJlsts5XXMquezkiU8jY4PQEAjGfcqVeXvoN9
+kz5bj2BWP15kOH9+6UryflGXNgsQFwI=
+=QNSA
 -----END PGP SIGNATURE-----
 
---X7+UfeTsliGi7hlS--
+--B+xvd9frcwCJyrJG--
