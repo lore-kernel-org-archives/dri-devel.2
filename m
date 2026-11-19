@@ -2,43 +2,58 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2DA91606A320
-	for <dri-devel@archiver.kernel.org>; Thu, 19 Nov 2026 23:44:09 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6B42E606A32A
+	for <dri-devel@archiver.kernel.org>; Thu, 19 Nov 2026 23:44:41 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=de7PTetd
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=YSMzCaGE
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 862531127D1;
-	Thu, 19 Nov 2026 23:44:02 +0000 (UTC)
-Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 84AB810E8C2;
- Thu, 19 Nov 2026 23:43:56 +0000 (UTC)
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id 49E214393F;
- Thu, 19 Nov 2026 23:43:56 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id E73221F000CA;
- Thu, 19 Nov 2026 23:43:55 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1795131836;
- bh=t1eCgcy9b3WNHyq3M9rz9JT7lPvD4AfVY8O6VHdOGUc=;
- h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
- b=de7PTetdNXzA9qjyadz+Vh65j+r/uKwfjt0VWP3zCPkr+BEnQlaBZ4MntPdES+VuC
- VtdbHHXM5OCP8lRq4Mg5GUO6++0EiDuHfWvJk0PneluxNKHnJTYkCsuv1sX/wteqP+
- YMMAA3fqm49DBdbP4mLX7rbs6zAm41wun4wlLgeLsYB7HzUCy9fnIA9vDBzsM3vAej
- 6xySeD9l9rJ25ibO/asoU5H9eOcharVtTXJalVwWpd3K2DA5/ULRJ+OlFKHncZ+fH3
- kszCYT5tFyHy0ys5sZvD+SVOWhW5yrNFNpNQnv8rpJbL0zxzkuWms1HUH8uC5/NhRc
- oLz7k17wyTJLA==
-Message-ID: <sashiko-outbox-224212@kernel.org>
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v12 10/12] drm/gud: add connector luminance support
-To: "Mario Limonciello" <mario.limonciello@amd.com>
-Cc: dri-devel@lists.freedesktop.org, amd-gfx@lists.freedesktop.org,
- intel-gfx@lists.freedesktop.org, intel-xe@lists.freedesktop.org
-In-Reply-To: <20261119-superm1-backlight-property-v12-10-89d5217d3618@amd.com>
-References: <20261119-superm1-backlight-property-v12-0-89d5217d3618@amd.com>
- <20261119-superm1-backlight-property-v12-10-89d5217d3618@amd.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Thu, 19 Nov 2026 23:43:55 +0000
+	by gabe.freedesktop.org (Postfix) with ESMTP id DBFD11127EB;
+	Thu, 19 Nov 2026 23:44:35 +0000 (UTC)
+Received: from mgamail.intel.com (unknown [192.198.163.17])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 07F331127EE;
+ Thu, 19 Nov 2026 23:44:29 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1795131870; x=1826667870;
+ h=from:to:cc:subject:date:message-id:mime-version:
+ content-transfer-encoding;
+ bh=WA1keZtPPyT5DAM+cYD53Hy97zVENbPrSgF0A2XcbC8=;
+ b=YSMzCaGEc5DPtv1KTO5vjrWd+oo7EioORPci1kNtFjF9K+O36vo5R3M+
+ ojYB3PeFyHXYqk+ezmODo1pDpaIF9pFh7ltDsac1y5agV37jguuRmw5W8
+ pfpoxW3tywHHsFCDz2a41Vk/b/T50yX07gHjcde/MOXz4t99p8zcB5RkS
+ XGhb0qO9+U/cGVwioz56Zt9Gd6X5zsgNoY7Y/Z4/dP7k0jizyKtiqKI0F
+ GqjAQVpGJX8TObfgfjBMGbFxwn0GpNY47fUbGlxcIK06RCuyaf0ZrnzuT
+ P6TCycf1U5PAzb8VHJdXxWA5KxG46eyzgY0Kaqc4+o6s9oiknzhVnleHL Q==;
+X-CSE-ConnectionGUID: ooAPLxB0T2WnIE1Ekv81cw==
+X-CSE-MsgGUID: HZqvdSgqSYeOoyY158EM6g==
+X-IronPort-AV: E=McAfee;i="6800,10657,11971"; a="3994298"
+X-IronPort-AV: E=Sophos;i="6.27,221,1787036400"; 
+   d="scan'208";a="3994298"
+Received: from orviesa007.jf.intel.com ([10.64.159.147])
+ by fmvoesa111.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 19 Nov 2026 15:44:29 -0800
+X-CSE-ConnectionGUID: fo1oyaaPTKKEzGLlT154Fg==
+X-CSE-MsgGUID: H0fq8dW4QhmJwSmhOQl0AA==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,221,1787036400"; d="scan'208";a="10485125"
+Received: from ncintean-mobl1.ger.corp.intel.com (HELO localhost)
+ ([10.245.245.202])
+ by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 19 Nov 2026 15:44:27 -0800
+From: Ville Syrjala <ville.syrjala@linux.intel.com>
+To: dri-devel@lists.freedesktop.org
+Cc: intel-gfx@lists.freedesktop.org,
+	intel-xe@lists.freedesktop.org
+Subject: [PATCH 1/2] drm/atomic: Add the state->checked WARN to colorop state
+Date: Fri, 20 Nov 2026 01:44:22 +0200
+Message-ID: <20261119234423.11666-1-ville.syrjala@linux.intel.com>
+X-Mailer: git-send-email 2.56.0
+X-Archived-By: <archiver.kernel.org>
+MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
+Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park,
+ 6 krs Bertel Jungin Aukio 5, 02600 Espoo, Finland
+Content-Transfer-Encoding: 8bit
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -49,133 +64,38 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
-Reply-To: sashiko-reviews@lists.linux.dev
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-10.8 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
-	DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
-	INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS
-	autolearn=unavailable autolearn_force=no version=4.0.1
+X-Spam-Status: No, score=-16.8 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
+	DKIM_SIGNED,DKIM_VALID,HEADER_FROM_DIFFERENT_DOMAINS,
+	INCLUDES_CR_TRAILER,INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,
+	SPF_PASS,USER_AGENT_GIT autolearn=unavailable autolearn_force=no
+	version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
-X-Archived-By: <archiver.kernel.org>
 
-Thank you for your contribution! Sashiko AI review found 1 potential
-issue to consider:
-- [Medium] drm/gud: race on staged state in
-  gud_connector_set_luminance()
---
+From: Ville Syrjälä <ville.syrjala@linux.intel.com>
 
-commit 5745bfa73995dabc57cdf0005257260438071d7c
-Author: Mario Limonciello <mario.limonciello@amd.com>
+drm_atomic_get_colorop_state() didn't get the memo on
+commit 0a0e79a2d9ed ("drm/atomic: WARN about invalid
+drm_foo_get_state() usage"). Add the missing warning.
 
-drm/gud: add connector luminance support
+Signed-off-by: Ville Syrjälä <ville.syrjala@linux.intel.com>
+---
+ drivers/gpu/drm/drm_atomic.c | 1 +
+ 1 file changed, 1 insertion(+)
 
-This commit exposes GUD display brightness through the connector LUMINANCE
-property when CONFIG_DRM_LUMINANCE is enabled, resending the current
-display state and committing it from the .set_luminance callback on
-luminance-only updates.
+diff --git a/drivers/gpu/drm/drm_atomic.c b/drivers/gpu/drm/drm_atomic.c
+index 81591173265d..b0843e5a9e4d 100644
+--- a/drivers/gpu/drm/drm_atomic.c
++++ b/drivers/gpu/drm/drm_atomic.c
+@@ -742,6 +742,7 @@ drm_atomic_get_colorop_state(struct drm_atomic_commit *state,
+ 	struct drm_colorop_state *colorop_state;
+ 
+ 	WARN_ON(!state->acquire_ctx);
++	drm_WARN_ON(state->dev, state->checked);
+ 
+ 	colorop_state = drm_atomic_get_new_colorop_state(state, colorop);
+ 	if (colorop_state)
+-- 
+2.56.0
 
-> diff --git a/drivers/gpu/drm/gud/gud_connector.c b/drivers/gpu/drm/gud/gu=
-d_connector.c
-> index ddbf3b3ebbca8..f00272f030c1c 100644
-> --- a/drivers/gpu/drm/gud/gud_connector.c
-> +++ b/drivers/gpu/drm/gud/gud_connector.c
-> @@ -13,6 +13,7 @@
->  #include <drm/drm_edid.h>
->  #include <drm/drm_encoder.h>
->  #include <drm/drm_file.h>
-> +#include <drm/drm_framebuffer.h>
->  #include <drm/drm_modeset_helper_vtables.h>
->  #include <drm/drm_print.h>
->  #include <drm/drm_probe_helper.h>
-> @@ -314,17 +315,52 @@ static int gud_connector_atomic_check(struct drm_co=
-nnector *connector,
->  	return 0;
->  }
-> =20
-> +/*
-> + * The device receives brightness as part of its display state, there is=
- no
-> + * dedicated request. Resend the current configuration with the new lumi=
-nance
-> + * and apply it, so that a luminance change doesn't need a modeset.
-> + */
-> +static void gud_connector_set_luminance(const struct drm_connector_state=
- *conn_state)
-> +{
-> +	struct drm_connector *connector =3D conn_state->connector;
-> +	struct gud_device *gdrm =3D to_gud_device(connector->dev);
-> +	struct drm_crtc_state *crtc_state =3D conn_state->crtc->state;
-> +	struct drm_plane_state *plane_state =3D gdrm->plane.state;
-> +	int idx, ret;
-> +
-> +	/*
-> +	 * gud_plane_atomic_check() sent the committed luminance with
-> +	 * GUD_REQ_SET_STATE_CHECK for these changes and gud_crtc_atomic_enable=
-()
-> +	 * applied it. A modeset that only changed the active state didn't.
-> +	 */
-> +	if (crtc_state->mode_changed || crtc_state->connectors_changed)
-> +		return;
-> +
-> +	if (drm_WARN_ON_ONCE(connector->dev, !plane_state->fb))
-> +		return;
-> +
-> +	ret =3D gud_state_check(gdrm, &crtc_state->mode, plane_state->fb->forma=
-t,
-> +			      plane_state->rotation, conn_state);
-> +	if (!ret && drm_dev_enter(connector->dev, &idx)) {
-> +		ret =3D gud_usb_set(gdrm, GUD_REQ_SET_STATE_COMMIT, 0, NULL, 0);
-> +		drm_dev_exit(idx);
-> +	}
-> +	if (ret)
-> +		gud_conn_err(connector, "Failed to set luminance", ret);
-> +}
-
-[Severity: Medium]
-Can a nonblocking luminance commit race with gud_plane_atomic_check() and
-clobber the display state staged on the device with GUD_REQ_SET_STATE_CHECK?
-
-For commits where mode_changed or connectors_changed is set,
-gud_plane_atomic_check() stages the new configuration on the device during
-drm_atomic_check_only(), before drm_atomic_helper_swap_state() waits for an
-in-flight nonblocking commit's hw_done completion, and
-gud_crtc_atomic_enable() later applies it with a payload-less
-GUD_REQ_SET_STATE_COMMIT.  Because commit_work runs
-gud_connector_set_luminance() after modeset locks are dropped, it can
-interleave with a subsequent modeset or property commit:
-
-CPU0 (commit B: modeset/rotation)   kworker (commit A: nonblocking luminanc=
-e)
-drm_mode_atomic_ioctl()
-  drm_atomic_check_only()
-    gud_plane_atomic_check()
-      gud_state_check()
-        /* stages B on device */
-  drm_atomic_helper_commit()
-    drm_atomic_helper_swap_state()
-      wait_for_completion(A->hw_done)
-                                    commit_tail()
-                                      ...
-                                      gud_connector_set_luminance()
-                                        gud_state_check()
-                                          /* overwrites device with A */
-                                        gud_usb_set(SET_STATE_COMMIT)
-                                      drm_atomic_helper_commit_hw_done()
-    ...
-    gud_crtc_atomic_enable()
-      gud_usb_set(SET_STATE_COMMIT)
-        /* re-commits A; B is lost */
-    gud_connector_set_luminance()
-      if (mode_changed || ...)
-        return;
-
-Similarly, because gud_connector_set_luminance() drops gdrm->ctrl_lock
-between gud_state_check() and gud_usb_set(GUD_REQ_SET_STATE_COMMIT), a
-concurrent DRM_MODE_ATOMIC_TEST_ONLY ioctl can run gud_plane_atomic_check()
--> gud_state_check() between the two transfers and have its test-only state
-committed to the device.
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261119-superm1-ba=
-cklight-property-v12-0-89d5217d3618@amd.com?part=3D10
