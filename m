@@ -2,53 +2,64 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2E779606A324
-	for <dri-devel@archiver.kernel.org>; Thu, 19 Nov 2026 14:33:31 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3B21B606A320
+	for <dri-devel@archiver.kernel.org>; Thu, 19 Nov 2026 14:33:44 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.a=rsa-sha256 header.s=dkim header.b=tiHz+Cm8
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=Vt3Wan/v
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id C6BFE112499;
-	Thu, 19 Nov 2026 14:33:24 +0000 (UTC)
-Received: from smtpout-04.galae.net (smtpout-04.galae.net [185.171.202.116])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 0D40C11249B
- for <dri-devel@lists.freedesktop.org>; Thu, 19 Nov 2026 14:33:17 +0000 (UTC)
-Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
- by smtpout-04.galae.net (Postfix) with ESMTPS id 42328C4CBF6;
- Thu, 19 Nov 2026 14:33:21 +0000 (UTC)
-Received: from mail.galae.net (mail.galae.net [212.83.136.155])
- by smtpout-01.galae.net (Postfix) with ESMTPS id CC94060237;
- Thu, 19 Nov 2026 14:33:15 +0000 (UTC)
-Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon)
- with ESMTPSA id 838A511BC0C25; Thu, 19 Nov 2026 15:33:07 +0100 (CET)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
- t=1795098791; h=from:subject:date:message-id:to:cc:mime-version:content-type:
- content-transfer-encoding:content-language:in-reply-to:references;
- bh=3iOPrmDBeLNuU6Puk+mYmzZxNUc6D6NyMUemoCOwSNc=;
- b=tiHz+Cm86tKjAD8gIEkpXuUz7hMXYZeTeGmbwPRS3IyH12FdiM6q2jviIhVq/P6jeFiX3L
- jZz6AuGeKXLbBvTVJMxwZoYz8M/oKz3iFVVD1+rHKRciLTAbwbzfUwFRiMAglLF/PURsNE
- Weg6bwz8JUCMS282/dlS6PbuZmfwp68fKVFR5zeGfoLkf1tLBgYTMYzWPGZKDS7KzHDRqN
- wk460xOMhlP6Bj12SCesaG4cC33NYiEXjFrfGL1X1G1lqzS/3wifZ0a98xRcFm7b+4UgCc
- MaGlUnm7fAu/z72U/icFTi/mqherhAe6HL6k3GhCwOtfjh58qeaS29ZUnlNtKg==
-Message-ID: <16a151dd-de63-48ff-8e2a-2d60d71caebd@bootlin.com>
-Date: Thu, 19 Nov 2026 15:33:06 +0100
+	by gabe.freedesktop.org (Postfix) with ESMTP id D28481124A8;
+	Thu, 19 Nov 2026 14:33:37 +0000 (UTC)
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.16])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id A7AE111249B;
+ Thu, 19 Nov 2026 14:33:25 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1795098806; x=1826634806;
+ h=date:from:to:cc:subject:message-id:references:
+ mime-version:content-transfer-encoding:in-reply-to;
+ bh=kOhm33GcgTYW6Cfl9gwTuTaUtVMzJ1SBn8qWmlLVokI=;
+ b=Vt3Wan/vzGBwKfx6zaTusCyfGxo4N50xveTG/shGzVQPzRfeHCgEw6JT
+ /9vzc/07oGIvZLeHGcil1nKLwixkHkO9cLmk3IFB000EIvnEBvqgNgLdE
+ OTic4menqP5qgjPfMGYXVsnXKEg3+WV72vXIayMjN/pqjdIOOuoC5sD0y
+ A0cpnY7IpAjMKuadmgfZaEG0XZV+n9L+vc9OueBh6BTM6KXeQJkL+T1H4
+ 5FNaZuG7cLwhtoKS5eO98I9dt8EEAdPtaOvKT6KZuakybyIQlO74XGJJG
+ yaXSKvAVmm5hgYt3oAe1tIdfmo3im4ud8Izq4pjXCrdPxZ99vdGk6RUfN w==;
+X-CSE-ConnectionGUID: XO7HzKZ0R8iCoT+B0JT5SQ==
+X-CSE-MsgGUID: TbFiKxG8T36lTy062KbGrw==
+X-IronPort-AV: E=McAfee;i="6800,10657,11971"; a="3975973"
+X-IronPort-AV: E=Sophos;i="6.27,221,1787036400"; 
+   d="scan'208";a="3975973"
+Received: from fmviesa003.fm.intel.com ([10.60.135.143])
+ by fmvoesa110.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 19 Nov 2026 06:33:25 -0800
+X-CSE-ConnectionGUID: wtIXX9LKTzukTINbZ0E2VQ==
+X-CSE-MsgGUID: lA7SShAxQOOv1AkBwqzamg==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,221,1787036400"; d="scan'208";a="10578482"
+Received: from ettammin-mobl3.ger.corp.intel.com (HELO localhost)
+ ([10.245.245.54])
+ by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 19 Nov 2026 06:33:22 -0800
+Date: Thu, 19 Nov 2026 16:33:19 +0200
+From: Ville =?iso-8859-1?Q?Syrj=E4l=E4?= <ville.syrjala@linux.intel.com>
+To: Prike Liang <Prike.Liang@amd.com>
+Cc: amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
+ Alexander.Deucher@amd.com, Christian.Koenig@amd.com,
+ Harry.Wentland@amd.com, Sunpeng.Li@amd.com, tzimmermann@suse.de
+Subject: Re: [PATCH v2 2/5] drm/vblank: Add
+ drm_crtc_wait_one_vblank_interruptible()
+Message-ID: <av8Ir1li1-eeoTcQ@intel.com>
+References: <20261119082424.554841-1-Prike.Liang@amd.com>
+ <20261119082424.554841-2-Prike.Liang@amd.com>
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] drm/vkms: Fix kernel-doc parameter and member names
-To: Aryan Sinha <sinha.aryan03@gmail.com>
-Cc: Haneen Mohammed <hamohammed.sa@gmail.com>, Simona Vetter
- <simona@ffwll.ch>, Melissa Wen <melissa.srw@gmail.com>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
- David Airlie <airlied@gmail.com>, dri-devel@lists.freedesktop.org,
- linux-kernel@vger.kernel.org
-References: <20261012154449.42015-1-sinha.aryan03@gmail.com>
-From: Louis Chauvet <louis.chauvet@bootlin.com>
-Content-Language: en-US
-In-Reply-To: <20261012154449.42015-1-sinha.aryan03@gmail.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-X-Last-TLS-Session-Version: TLSv1.3
+Content-Type: text/plain; charset=iso-8859-1
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <20261119082424.554841-2-Prike.Liang@amd.com>
+X-Patchwork-Hint: comment
+Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
+ krs Bertel Jungin Aukio 5, 02600 Espoo, Finland
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -60,120 +71,158 @@ List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-17.3 required=3.0 tests=BAYES_00,DKIM_SIGNED,
-	DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
+X-Spam-Status: No, score=-13.8 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
+	DKIM_SIGNED,DKIM_VALID,HEADER_FROM_DIFFERENT_DOMAINS,
 	INCLUDES_CR_TRAILER,INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,
-	SPF_PASS,USER_AGENT_SANE_1 autolearn=unavailable autolearn_force=no
-	version=4.0.1
+	SPF_PASS autolearn=unavailable autolearn_force=no version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-
-
-On 10/12/26 17:44, Aryan Sinha wrote:
-> A handful of kernel-doc entries name things that do not exist. struct
-> vkms_output documents encoder and connector and misspells wb_connector,
-> struct vkms_connector calls its base member drm, vkms_crtc_init() lists a
-> crtc argument it does not take, the CRTC plane helpers say crtc_config
-> instead of crtc_cfg, and vkms_config_plane_get_type() is written without
-> the get.
+On Thu, Nov 19, 2026 at 04:24:21PM +0800, Prike Liang wrote:
+> drm_crtc_wait_one_vblank() waits uninterruptibly and only gives up after
+> one second. That doesn't suit a wait that userspace asks for, such as
+> FBIO_WAITFORVSYNC: if no vblank interrupt arrives, the task sleeps in D
+> state for the whole second and can't be interrupted, not even by
+> SIGKILL.
 > 
-> struct vkms_device used a dash instead of a colon, so its entries were
-> being ignored rather than warned about. Switch it over and drop output,
-> which is not a member either.
+> Add drm_crtc_wait_one_vblank_interruptible(), a DRM-internal variant of
+> drm_crtc_wait_one_vblank() that a signal can interrupt. It returns
+> -ERESTARTSYS in that case and otherwise behaves like
+> drm_crtc_wait_one_vblank(), which includes ending the wait when vblank
+> is turned off. Move the wait to __drm_crtc_wait_one_vblank(), which
+> implements both functions.
 > 
-> Signed-off-by: Aryan Sinha <sinha.aryan03@gmail.com>
+> drm_crtc_wait_one_vblank() doesn't change, and drivers keep using it.
+> The new function has no user yet. The next patch uses it in
+> drm_client_modeset_wait_for_vblank().
+> 
+> Version update:
+> 1) https://lists.freedesktop.org/archives/dri-devel/2026-November/616727.html
+> 
+> Cc: Thomas Zimmermann <tzimmermann@suse.de>
+> Cc: Ville Syrjälä <ville.syrjala@linux.intel.com>
+> Assisted-by: Copilot:claude-opus-5.5
+> Signed-off-by: Prike Liang <Prike.Liang@amd.com>
 
-Reviewed-by: Louis Chauvet <louis.chauvet@bootlin.com>
+Reviewed-by: Ville Syrjälä <ville.syrjala@linux.intel.com>
 
 > ---
-> @vblank_hrtimer and @period_ns in struct vkms_output are stale too, but
-> they are already removed by Thomas Zimmermann's pending patch, so this
-> one leaves them alone:
-> https://lore.kernel.org/all/20260420131831.242882-1-tzimmermann@suse.de/
->   drivers/gpu/drm/vkms/vkms_config.h    |  6 +++---
->   drivers/gpu/drm/vkms/vkms_connector.h |  2 +-
->   drivers/gpu/drm/vkms/vkms_drv.h       | 11 ++++-------
->   3 files changed, 8 insertions(+), 11 deletions(-)
+>  drivers/gpu/drm/drm_internal.h |  1 +
+>  drivers/gpu/drm/drm_vblank.c   | 64 ++++++++++++++++++++++++----------
+>  2 files changed, 47 insertions(+), 18 deletions(-)
 > 
-> diff --git a/drivers/gpu/drm/vkms/vkms_config.h b/drivers/gpu/drm/vkms/vkms_config.h
-> index 8f7f286a4..56805b0c9 100644
-> --- a/drivers/gpu/drm/vkms/vkms_config.h
-> +++ b/drivers/gpu/drm/vkms/vkms_config.h
-> @@ -269,7 +269,7 @@ struct vkms_config_plane *vkms_config_create_plane(struct vkms_config *config);
->   void vkms_config_destroy_plane(struct vkms_config_plane *plane_cfg);
->   
->   /**
-> - * vkms_config_plane_type() - Return the plane type
-> + * vkms_config_plane_get_type() - Return the plane type
->    * @plane_cfg: Plane to get the type from
->    */
->   static inline enum drm_plane_type
-> @@ -373,7 +373,7 @@ vkms_config_crtc_set_writeback(struct vkms_config_crtc *crtc_cfg,
->   /**
->    * vkms_config_crtc_primary_plane() - Return the primary plane for a CRTC
->    * @config: Configuration containing the CRTC
-> - * @crtc_config: Target CRTC
-> + * @crtc_cfg: Target CRTC
->    *
->    * Note that, if multiple primary planes are found, the first one is returned.
->    * In this case, the configuration will be invalid. See vkms_config_is_valid().
-> @@ -387,7 +387,7 @@ struct vkms_config_plane *vkms_config_crtc_primary_plane(const struct vkms_confi
->   /**
->    * vkms_config_crtc_cursor_plane() - Return the cursor plane for a CRTC
->    * @config: Configuration containing the CRTC
-> - * @crtc_config: Target CRTC
-> + * @crtc_cfg: Target CRTC
->    *
->    * Note that, if multiple cursor planes are found, the first one is returned.
->    * In this case, the configuration will be invalid. See vkms_config_is_valid().
-> diff --git a/drivers/gpu/drm/vkms/vkms_connector.h b/drivers/gpu/drm/vkms/vkms_connector.h
-> index ed312f4ef..52ae97af2 100644
-> --- a/drivers/gpu/drm/vkms/vkms_connector.h
-> +++ b/drivers/gpu/drm/vkms/vkms_connector.h
-> @@ -11,7 +11,7 @@
->   /**
->    * struct vkms_connector - VKMS custom type wrapping around the DRM connector
->    *
-> - * @drm: Base DRM connector
-> + * @base: Base DRM connector
->    */
->   struct vkms_connector {
->   	struct drm_connector base;
-> diff --git a/drivers/gpu/drm/vkms/vkms_drv.h b/drivers/gpu/drm/vkms/vkms_drv.h
-> index 0933e4ce0..1c94a2dea 100644
-> --- a/drivers/gpu/drm/vkms/vkms_drv.h
-> +++ b/drivers/gpu/drm/vkms/vkms_drv.h
-> @@ -202,9 +202,8 @@ struct vkms_crtc_state {
->    * struct vkms_output - Internal representation of all output components in VKMS
->    *
->    * @crtc: Base CRTC in DRM
-> - * @encoder: DRM encoder used for this output
-> - * @connector: DRM connector used for this output
-> - * @wb_connecter: DRM writeback connector used for this output
-> + * @wb_connector: DRM writeback connector used for this output
-> + * @wb_encoder: DRM encoder used for this output
->    * @vblank_hrtimer: Timer used to trigger the vblank
->    * @period_ns: vblank period, in nanoseconds, used to configure @vblank_hrtimer and to compute
->    *	       vblank timestamps
-> @@ -234,9 +233,8 @@ struct vkms_config_plane;
->   /**
->    * struct vkms_device - Description of a VKMS device
->    *
-> - * @drm - Base device in DRM
-> - * @faux_dev - Associated faux device
-> - * @output - Configuration and sub-components of the VKMS device
-> + * @drm: Base device in DRM
-> + * @faux_dev: Associated faux device
->    * @config: Configuration used in this VKMS device
->    */
->   struct vkms_device {
-> @@ -284,7 +282,6 @@ void vkms_destroy(struct vkms_config *config);
->   /**
->    * vkms_crtc_init() - Initialize a CRTC for VKMS
->    * @dev: DRM device associated with the VKMS buffer
-> - * @crtc: uninitialized CRTC device
->    * @primary: primary plane to attach to the CRTC
->    * @cursor: plane to attach to the CRTC
->    */
+> diff --git a/drivers/gpu/drm/drm_internal.h b/drivers/gpu/drm/drm_internal.h
+> index f893b1e3a596..2be21c20eb78 100644
+> --- a/drivers/gpu/drm/drm_internal.h
+> +++ b/drivers/gpu/drm/drm_internal.h
+> @@ -115,6 +115,7 @@ void drm_vblank_disable_and_save(struct drm_device *dev, unsigned int pipe);
+>  int drm_vblank_get(struct drm_device *dev, unsigned int pipe);
+>  void drm_vblank_put(struct drm_device *dev, unsigned int pipe);
+>  u64 drm_vblank_count(struct drm_device *dev, unsigned int pipe);
+> +int drm_crtc_wait_one_vblank_interruptible(struct drm_crtc *crtc);
+>  
+>  /* drm_vblank_work.c */
+>  static inline void drm_vblank_flush_worker(struct drm_vblank_crtc *vblank)
+> diff --git a/drivers/gpu/drm/drm_vblank.c b/drivers/gpu/drm/drm_vblank.c
+> index 54118eb1413c..5e247663978a 100644
+> --- a/drivers/gpu/drm/drm_vblank.c
+> +++ b/drivers/gpu/drm/drm_vblank.c
+> @@ -1297,22 +1297,12 @@ void drm_crtc_vblank_put(struct drm_crtc *crtc)
+>  }
+>  EXPORT_SYMBOL(drm_crtc_vblank_put);
+>  
+> -/**
+> - * drm_crtc_wait_one_vblank - wait for one vblank
+> - * @crtc: DRM crtc
+> - *
+> - * This waits for one vblank to pass on @crtc, using the irq driver interfaces.
+> - * It is a failure to call this when the vblank irq for @crtc is disabled, e.g.
+> - * due to lack of driver support or because the crtc is off. The wait also fails
+> - * if drm_crtc_vblank_off() disables the vblank irq before a vblank passes.
+> - *
+> - * Returns: 0 on success, negative error on failures.
+> - */
+> -int drm_crtc_wait_one_vblank(struct drm_crtc *crtc)
+> +static int __drm_crtc_wait_one_vblank(struct drm_crtc *crtc, bool interruptible)
+>  {
+>  	struct drm_device *dev = crtc->dev;
+>  	int pipe = drm_crtc_index(crtc);
+>  	struct drm_vblank_crtc *vblank = drm_crtc_vblank_crtc(crtc);
+> +	long timeout = msecs_to_jiffies(1000);
+>  	int ret;
+>  	u64 last;
+>  
+> @@ -1323,14 +1313,22 @@ int drm_crtc_wait_one_vblank(struct drm_crtc *crtc)
+>  
+>  	last = drm_vblank_count(dev, pipe);
+>  
+> -	ret = wait_event_timeout(vblank->queue,
+> -				 last != drm_vblank_count(dev, pipe) ||
+> -				 !READ_ONCE(vblank->enabled),
+> -				 msecs_to_jiffies(1000));
+> +	if (interruptible)
+> +		timeout = wait_event_interruptible_timeout(vblank->queue,
+> +							   last != drm_vblank_count(dev, pipe) ||
+> +							   !READ_ONCE(vblank->enabled),
+> +							   timeout);
+> +	else
+> +		timeout = wait_event_timeout(vblank->queue,
+> +					     last != drm_vblank_count(dev, pipe) ||
+> +					     !READ_ONCE(vblank->enabled),
+> +					     timeout);
+>  
+> -	drm_WARN(dev, ret == 0, "vblank wait timed out on crtc %i\n", pipe);
+> +	drm_WARN(dev, timeout == 0, "vblank wait timed out on crtc %i\n", pipe);
+>  
+> -	if (!ret)
+> +	if (timeout < 0)
+> +		ret = timeout;
+> +	else if (!timeout)
+>  		ret = -ETIMEDOUT;
+>  	else if (last == drm_vblank_count(dev, pipe))
+>  		ret = -EINVAL; /* drm_crtc_vblank_off() ended the wait */
+> @@ -1341,8 +1339,38 @@ int drm_crtc_wait_one_vblank(struct drm_crtc *crtc)
+>  
+>  	return ret;
+>  }
+> +
+> +/**
+> + * drm_crtc_wait_one_vblank - wait for one vblank
+> + * @crtc: DRM crtc
+> + *
+> + * This waits for one vblank to pass on @crtc, using the irq driver interfaces.
+> + * It is a failure to call this when the vblank irq for @crtc is disabled, e.g.
+> + * due to lack of driver support or because the crtc is off. The wait also fails
+> + * if drm_crtc_vblank_off() disables the vblank irq before a vblank passes.
+> + *
+> + * Returns: 0 on success, negative error on failures.
+> + */
+> +int drm_crtc_wait_one_vblank(struct drm_crtc *crtc)
+> +{
+> +	return __drm_crtc_wait_one_vblank(crtc, false);
+> +}
+>  EXPORT_SYMBOL(drm_crtc_wait_one_vblank);
+>  
+> +/**
+> + * drm_crtc_wait_one_vblank_interruptible - wait for one vblank, interruptibly
+> + * @crtc: DRM crtc
+> + *
+> + * Like drm_crtc_wait_one_vblank(), but a signal interrupts the wait.
+> + *
+> + * Returns: 0 on success, -ERESTARTSYS if a signal interrupted the wait,
+> + * negative error on other failures.
+> + */
+> +int drm_crtc_wait_one_vblank_interruptible(struct drm_crtc *crtc)
+> +{
+> +	return __drm_crtc_wait_one_vblank(crtc, true);
+> +}
+> +
+>  /**
+>   * drm_crtc_vblank_off - disable vblank events on a CRTC
+>   * @crtc: CRTC in question
+> -- 
+> 2.34.1
 
+-- 
+Ville Syrjälä
+Intel
