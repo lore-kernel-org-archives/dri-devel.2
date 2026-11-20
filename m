@@ -2,96 +2,89 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DACBD606A6A0
-	for <dri-devel@archiver.kernel.org>; Fri, 20 Nov 2026 22:18:56 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 54FE4606A336
+	for <dri-devel@archiver.kernel.org>; Fri, 20 Nov 2026 22:36:18 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=MQBqktVk
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=zkFWNNut
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 052FD112D3F;
-	Fri, 20 Nov 2026 22:18:50 +0000 (UTC)
-Received: from mail-qk1-f181.google.com (mail-qk1-f181.google.com
- [209.85.222.181])
- by gabe.freedesktop.org (Postfix) with ESMTPS id CFC09112D3F
- for <dri-devel@lists.freedesktop.org>; Fri, 20 Nov 2026 22:18:43 +0000 (UTC)
-Received: by mail-qk1-f181.google.com with SMTP id
- af79cd13be357-9495f083657so171894485a.0
- for <dri-devel@lists.freedesktop.org>; Fri, 20 Nov 2026 14:18:43 -0800 (PST)
-ARC-Seal: i=1; a=rsa-sha256; t=1795213122; cv=none;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 7547310E09A;
+	Fri, 20 Nov 2026 22:36:12 +0000 (UTC)
+Received: from mail-qk1-f172.google.com (mail-qk1-f172.google.com
+ [209.85.222.172])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 0C0A810E09A
+ for <dri-devel@lists.freedesktop.org>; Fri, 20 Nov 2026 22:36:06 +0000 (UTC)
+Received: by mail-qk1-f172.google.com with SMTP id
+ af79cd13be357-9497a167a6aso300522085a.1
+ for <dri-devel@lists.freedesktop.org>; Fri, 20 Nov 2026 14:36:06 -0800 (PST)
+ARC-Seal: i=1; a=rsa-sha256; t=1795214165; cv=none;
  d=google.com; s=arc-20260327;
- b=qt1pGbNChoCbzRDQym5giSv0BmI9KP2YfjabNIO4tkWbow6GB1Sh1h+EFdU1YhmRYw
- 9kEaTAFT3z/jo70t1Wwg5XPZ5oXYVFZfM3X/dyd794zlpO08iiPlv6ZsBqP4YQ6K5v7B
- 1dw8zRpQ2ObYh/fixbVy/PwbqNIKrWCqAd863OnAFVmYlctqovAmwmLExcAim9pvNPlC
- JD36aGAObLK6X4Hb4HLZUh49XjzaHcYyD/YXbgNSnAlQ7CwAQ1/IZwGhFg8BdNPbkqIf
- AJOwhIDyyFqwyjPxt7PzC1VguDm3jEZzeK1or4htV6YRYcxMoPLr2RCzhv2MkCHPnSqR
- Om0w==
+ b=aoQsYPwFDbCyZOW/stUtoT99NCkoMhuO9RDR2FAqE7wGiifZ7MnQxTy7j9JpXeGWfm
+ pl9+sbYQK4w+Pr5DK4oN+dnjw/evbCYKXORV4u8q4Ttew6eLedrr7MxN6wLsoFvCIAgb
+ WcOMu1T2AdacRDo+IF0NxSmJSVuXpcn3BNBh4xzeW7PEpUYKZiOLkzcD/NmyR2jMCo23
+ lYQ7K84gxejd+pUn6jUsqB2LxlV6FKU71W5Qz0Q44Wg/jXmHBg2MehXOAO4j/fbZpvuM
+ j2kJbAnoEmumtKDdslV8RE6e36adeFHDBdt6WBy3s+Wi6+8PEeJ9eJLwTtfL+lvmmEhO
+ TVpA==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com;
  s=arc-20260327; 
- h=cc:to:subject:message-id:date:from:in-reply-to:references
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
  :mime-version:dkim-signature;
- bh=9hK61NhYm4hbvqQZMc/tWnALDQEyPFZSvX9uNHUR+Aw=;
- fh=oFdE6K1X7vQCNGpVUKnrPXiCCUD77NKwWgCRggYaG9I=;
- b=jCB2ZT+BAvglR6EwUXsKQElhxvMb4begNwuen7EzXL73r518PWEwQfnysv0JBja5hc
- OFeo5P2wbjTF2TzdMHbpJbJsPG6LD01tT9Z3x2iMqOCRTa9YgqB5F7oXtZyN6gvL8TNp
- VbYmUFdTk1wH5QeZVcGNyCR1zJHAnskqeyHYM3Ngs6jcBPXy7UJpXDk5OQH0vn6qT9Wg
- HCTVECyhAz5wuQsojkm/IqbR64QRYIpM0NwafeKbsvtprRXkXcwwZLKwe/UR2m1hi4+j
- sQH2+oIAEPCjQDiLMDz6/qILVWVFzHKXG3ZjPBm5+yuTO+F06CWsL46CUymFvVWhSw5T
- rLXw==; darn=lists.freedesktop.org
+ bh=om2eQkM/JRjtjJ/j1uD7TO0ShCQcGRiebdmjkxmghqg=;
+ fh=HQwGS/tgfrjuEQ8NZOhWLiLZo088fJVbEezIgNGsHOo=;
+ b=YIKB1xETeoP9qaR1Z/CN2rqiNQY1QtWWNmBZ/vLPPFrnJKXzDa0qFjQuEPL1CaNRg2
+ 9mhcL83ygx/QBcWsShJPeBoVVLoe7VB7vSXUYoW4MJKQKq4hQNTbft/g7ns5auGaodal
+ r9ttS995L5QiEV8/dN/v647MfK0pWy1CEIDfQGgp6eMX6FAxl/coAPnBkIIgj2I2kJiI
+ 1GF6YjiUe+FHd2iHh+AuhLW4L6WvSAFjDLNEVzKT9uHtqXo9r6ItHEjXyTgc5lbpzzUl
+ pcXHlYG9aRkaM713MQ0HUwP1H/QUbooBHg9XgMXKhqf3Up3xOYo1M3QGh1O3SgT1RPTP
+ qHkg==; darn=lists.freedesktop.org
 ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20260707; t=1795213122; x=1795817922; darn=lists.freedesktop.org;
- h=content-type:cc:to:subject:message-id:date:from:in-reply-to
- :references:mime-version:from:to:cc:subject:date:message-id:reply-to
- :content-type; bh=9hK61NhYm4hbvqQZMc/tWnALDQEyPFZSvX9uNHUR+Aw=;
- b=MQBqktVkG536riOXKxBWiehxngHGxaa6FJudxMk4fMFi7R8mELA2E3roCI+m2wmEFC
- 6+/orCR6FBK94YQMYBwacUL2rAA+eGDC90E3qyG447wRLauLWkOFgQo5HAf4sPW3NacD
- dwo7ZyrVQo9yj/dC+CrJbAOblS0MTylKFoagXdv4FAO5GxM3WJkYBYSJJ326/i/++AzU
- 7JFgEMzC7+iNo31Wg58sQYS6K2IxqFr7qm4pkXRgwCeUH/zytjSQEG82a3kS7/rDI09H
- QxhhdRV1kyK2yTF9QuhVz1amCbB4HjCc5W1LsaCM357Yi4Np1nWsh1T54z3zz7GBtw7l
- DqOQ==
+ d=gmail.com; s=20260707; t=1795214165; x=1795818965; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:content-type:cc:to:subject:message-id
+ :date:from:mime-version:from:to:cc:subject:date:message-id:reply-to
+ :content-type; bh=om2eQkM/JRjtjJ/j1uD7TO0ShCQcGRiebdmjkxmghqg=;
+ b=zkFWNNutdoemrMPPtHyap7XnYIXHyXZjzSdVZiUs9AGjIUIyBI5ruYLKgczUPlXPqM
+ 8G4lcPIvW5hSRKDTiss8Zb2DXYcrp5vaLEt9OGuttWuvGKWPmb2PA00lbLRrEpr7KhQu
+ COe2ccEkdnf2Z7vRHKPqOAvTHvZyocJ7ZZEimEA5zhcu18ZUP4+uFOUP3hB6D/oTyQK9
+ BbV7kjwKnMcPAiLVf5rN9Z5byW+qAmBI0m7EebtV0Vlp/FO/uSpl31EVATm1mTqi2lMW
+ ifjM3SLU9eLE1IUpN/aoIxlNI0Jg1dpc2MQy9ANeAWN2olLZhLi37mtviuDhDIzt5nO3
+ Vy0A==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20260707; t=1795213122; x=1795817922;
- h=content-type:cc:to:subject:message-id:date:from:in-reply-to
- :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
+ d=1e100.net; s=20260707; t=1795214165; x=1795818965;
+ h=content-transfer-encoding:content-type:cc:to:subject:message-id
+ :date:from:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
  :subject:date:message-id:reply-to:content-type;
- bh=9hK61NhYm4hbvqQZMc/tWnALDQEyPFZSvX9uNHUR+Aw=;
- b=L9QDiw1M1P11JrATLAv9SWG7s3LNK6TGt5p6sHyelsxcOfQobXrqyb28C88S9ltyPK
- z1ROqfMnfK+k4epOjcS1BDAcbB150fu10PlUhn52l5FkwyhVHqHt1SipN0OI10uPlY36
- bq8xNm1KO/353g9gtcLLYVsza5rmVY2eFCr3urAl9cj+lT9DxXtQNXf9fGKWBxNfa8Zv
- +xvjtn4vZPWrG8bQQB3ZDtenvjH70zKZ+Ufuwk9O0PeSnuyoXjqXyjImvKdnnX7h1as4
- Yxj5y/mSL0HiIjPamkhfHiKtgfRKN8a13x2RM1jbqZaW2+HQuRbolkb4INOahfGVW1x6
- mvGQ==
-X-Forwarded-Encrypted: i=1;
- AL+hErFFWRej/C/IZpSbo9HHl+VL5IWJaGxOtf9F6y5JxxMf54zeEcSd8URbsKDtBYtXac51nYtqxfEs0/c=@lists.freedesktop.org
-X-Gm-Message-State: APuU4Z/HARixQb7iXW2qJGna5VOidwaHiZK4hT9Pd1D7bWDRMawNgh9J
- cofQKOI/nsCybHBUyiBR2r9TJyRNRzs8KGmJr7lSCcCwmiSTX24OwfXL7owq1qDfPGTx+JFKOOA
- cYEaSeOkL9F76Fv9s/Ol11Mt9xgQXxm4=
-X-Gm-Gg: AYBFou002cQIhAwKs/bA+qpsBf2ydSQifBLp7FV3Ey61hNsDVl21w67crnPzplGb4ET
- wzz3E5N71VgV4o4NdrcKDgfO3TmnorvJKatxPnptqTknfB0agkDL5zk5+bMWHj1OxY+3tGYoBqd
- fj4xFeWHI8GMBpUisxHo/0dwGG96jjvCTUfrs2sBu4jzNAnhjWYYMCSyZE3oBmNV95yg2d+763q
- 9UhYCUW7gU50wsZrTwpyCVceVXZo2skoTO3mQVmXhXhBvRSp1AbNFewwbR5hwD49v7XPNI4YYkx
- CKBjxbwRwJGaLvR62shtbVIhgg40+aMWHAwd7WthT3xENpkXj71r/+8EZKH39Ylu69qHwaWTG/4
- aWysCo5Rc42aFDDzbO1xTj0dugZe18sJHg2UXsGfwaHH/iCj3ykgpFZC8c+FkGJ1pZIKK726D8z
- kHgKqV6e9Y+Gcwe0u0hVHVWg==
-X-Received: by 2002:a05:620a:1308:b0:949:6493:7c6c with SMTP id
- af79cd13be357-949ba9e05efmr715091585a.30.1795213121902; Fri, 20 Nov 2026
- 14:18:41 -0800 (PST)
+ bh=om2eQkM/JRjtjJ/j1uD7TO0ShCQcGRiebdmjkxmghqg=;
+ b=r2mIejFTG3tOa/oK5AGQbU8Jj06vAi3wyGnCUoc8Kz0miwooL388vUB23rYrKE+yoh
+ BHFhY+71eqbaJDcVeJzyLTBbRvUNtLSLfDeJk/3RLoEP6jn6vnkvujcBsnc+Ji5m9Ly7
+ po0jpNaLIzIM3IoSZ9ufs1Ig2Mcb/R7xp3lP65e0KMrK/mb6amz9ihBBcbgD+O26ASAm
+ dyvOgcwGcD9LOI2uMdr72w9W+gRNQKh+/cPZLar4vWVr5t75lu3WQMfLGmVkic9pusXr
+ ktG2AOqRJbNprqNEhy17mms7m/Uviq3hnwSn2CBcrGqost1KBDUhYcrzdnJLKDNHw2Ju
+ U1xQ==
+X-Gm-Message-State: APuU4Z+AXN40+141Wxe7Sk7XDgRobdHBxz/+8qN2xIBn3G5L0kuZRNoR
+ hcjb9rbbqVW+Fjyjp08Lcyfn4xrITKp5YEIM8Q+gnp+viAb880bIXhp9qQDNw5jCZWJsT48ogjB
+ QqCPxrIv9x/Z9Zoe22YZikaxu2mJxOWE=
+X-Gm-Gg: AYBFou1oBKsMa4cN9dIJ6W7AtR2BBe2Qii4IdmT+75XA+NIpooOR93rUk2UgjsjpZIh
+ ZwSnn4lFTFRZKv9U7eo4EOx1st9rIIgGzaJ/UigPigLvDXCEFItJ2IlOJ1uttMUa2dKfMdWAZPo
+ M5r8XMgZfxybK8FNMifpRX6vM8B06fo+BPF3qGVCs5Xub//QRU8/Oh4GC+pIJmAwzU/ghwOXSBD
+ tjNfhN3kluzY91omDCq3GsRHIJ79sWK4jKiG65C33vkW1eFZA3IZtqqWzULJSpv24Q04+E4WkgF
+ KNKOruIlGh0g5jUCVYgEQrnlzXz1uyqm4uFfimnepxG2G0bmiv97x44mTIZErLNv8gX24ArjHxo
+ QVeorjvxshgxi6TNoWvtGn89uuRdDIdXTwwH8XISribFdANHpZWtkiKfiQq/ln8EJC/4u6ItOvL
+ kK410xXkVzMcPvm9u8LuitQOo=
+X-Received: by 2002:a05:620a:8386:b0:945:d7a2:4b57 with SMTP id
+ af79cd13be357-949ba9b1549mr684426985a.21.1795214164871; Fri, 20 Nov 2026
+ 14:36:04 -0800 (PST)
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
-References: <aveDNRBLx1a-9hRQ@mail.tty42.de> <avsSK1OE97meC40e@ideak-desk.lan>
- <avtDzWO1sOXYvxZ2@mail.tty42.de>
-In-Reply-To: <avtDzWO1sOXYvxZ2@mail.tty42.de>
 From: Dave Airlie <airlied@gmail.com>
-Date: Sat, 21 Nov 2026 08:18:30 +1000
-X-Gm-Features: AclHuK-PSpYuj1ahpbNwXwT3dsy09uR-DRKpJwSDX7vu-5SIVe4I6Jr9vd-wnBw
-Message-ID: <CAPM=9tz7suJ0UwGPVCusSQr1Km_hK29aNAGWyaCehTEeAHVXbQ@mail.gmail.com>
-Subject: Re: [REGRESSION] i915: UHBR training fails with TB5 dock after
- 1fd440de4e02; source FFE update skipped?
-To: Frederik Schwan <frederik@tty42.de>
-Cc: Imre Deak <imre.deak@intel.com>, intel-gfx@lists.freedesktop.org, 
- dri-devel@lists.freedesktop.org, regressions@lists.linux.dev, 
- Jani Nikula <jani.nikula@linux.intel.com>,
- Rodrigo Vivi <rodrigo.vivi@intel.com>
+Date: Sat, 21 Nov 2026 08:35:51 +1000
+X-Gm-Features: AclHuK_sY9Ust1B_-xfjRr0-pjxL3gzyLtuKgIBQyecq9ey6-ym79-dXyjl-slA
+Message-ID: <CAPM=9ty1FBin9jGz8CoumpTTBOe-LB_Qs5RNn_uMJMbMGTYmyQ@mail.gmail.com>
+Subject: [git pull] drm fixes for 7.4-rc4
+To: Linus Torvalds <torvalds@linux-foundation.org>, Sima Vetter <sima@ffwll.ch>
+Cc: dri-devel <dri-devel@lists.freedesktop.org>,
+ LKML <linux-kernel@vger.kernel.org>
 Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -105,329 +98,584 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 X-Spam-Status: No, score=-12.8 required=3.0 tests=BAYES_00,DKIM_SIGNED,
 	DKIM_VALID,DKIM_VALID_AU,FREEMAIL_FORGED_FROMDOMAIN,FREEMAIL_FROM,
-	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
-	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS autolearn=unavailable
+	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_PATCH,INCLUDES_PULL_REQUEST,
+	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS autolearn=ham
 	autolearn_force=no version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-This is a pretty well reported regressions in 7.3 that is hitting a
-lot of laptop/docks, can we get some maintainer to just pull the patch
-together and get it into the tree soon?
+Hi Linus,
+
+Weekly fixes, around the usual size, though it looks like vmwgfx got
+hit with a lot of analysis and has a bunch of validation fixes.
+nouveau fixes for a 7.3 regression. I know of one open i915 7.3
+regressions that hopefully a fix will land next week. Otherwise amdgpu
+and xe have the most with a scattering for others.
 
 Dave.
 
-On Tue, 17 Nov 2026 at 04:26, Frederik Schwan <frederik@tty42.de> wrote:
->
-> On Mon, Nov 16, 2026 at 04:24:43PM +0200, Imre Deak wrote:
-> > On Fri, Nov 13, 2026 at 11:08:15PM +0100, Frederik Schwan wrote:
-> > > Hi everyone,
-> > > I just upgraded my system to 7.3.x and found a regression with my notebook/dock setup.
-> > > 3x 4k displays are hooked to the dock, 2 by DP and one through USB-C (I guess that DP-alt mode then).
-> > >
-> > > Until 7.2 all displays worked. With 7.3 all displays work until kernel switches from fbdev (?) after
-> > > which the 2 DP displays have no signal anymore but the USB-C one still works.
-> > >
-> > > Bisect:
-> > >
-> > > # bad: [c03c1a14507dfaf8b856c2608f9ac216021fc222] Linux 7.3
-> > > # good: [8d3ae59288f1e7d58d76558a6ee96d533bc5019f] Linux 7.2
-> > > git bisect start 'v7.3' 'v7.2' '--' 'drivers/gpu/drm/i915/display' 'drivers/gpu/drm/display'
-> > > # good: [bbf51a67d1fe895f3d27402d2560259a619b6dba] drm/i915/dp_link_caps: Use max common lane count from link_caps
-> > > git bisect good bbf51a67d1fe895f3d27402d2560259a619b6dba
-> > > # good: [d6a1bc7c9b4ce71674a633242251d8a804ced82d] drm/i915: Throw away the BIOS fb if has the wrong depth/bpp
-> > > git bisect good d6a1bc7c9b4ce71674a633242251d8a804ced82d
-> > > # bad: [f0cabcc880aba3f05ca59d735f6d166b7fceca80] drm/i915/fbc: No surface size restrictions from LNL onwards
-> > > git bisect bad f0cabcc880aba3f05ca59d735f6d166b7fceca80
-> > > # good: [b0b6d44646dc7750df4f052d17688fb7e7569a74] drm/dp_tunnel: Add UHBR tunneling support
-> > > git bisect good b0b6d44646dc7750df4f052d17688fb7e7569a74
-> > > # bad: [662560bad9be29c3e1a2668806392d2ed9a743d6] drm/i915/bw: Fix spelling mistake "threshod" -> "threshold"
-> > > git bisect bad 662560bad9be29c3e1a2668806392d2ed9a743d6
-> > > # good: [47fff2b1749e9ba5dfab7528960555cc865360b5] drm/i915/dp: Disable UHBR link configs with 1/2 lanes
-> > > git bisect good 47fff2b1749e9ba5dfab7528960555cc865360b5
-> > > # bad: [8b9bc7786adef4e2df3a23293c0682efac6dcc83] drm/i915/dram: Interpret 0xF populated-channel count as 16
-> > > git bisect bad 8b9bc7786adef4e2df3a23293c0682efac6dcc83
-> > > # bad: [1fd440de4e02efab97874bbda0a4daf59d228fa3] drm/i915/dp_tunnel: Add UHBR tunneling support
-> > > git bisect bad 1fd440de4e02efab97874bbda0a4daf59d228fa3
-> > > # first 'bad' commit: [1fd440de4e02efab97874bbda0a4daf59d228fa3] drm/i915/dp_tunnel: Add UHBR tunneling support
-> > >
-> > > I collected logs as well with `drm.debug=0x10e log_buf_len=32M thunderbolt.dyndbg=+p`:
-> > >
-> > > good: v7.2-rc1-263-gb0b6d44646dc.log
-> > > bad: v7.2-rc1-268-g1fd440de4e02.log
-> > > patched: patched.log
-> > >
-> > > #regzbot introduced: 1fd440de4e02efab97874bbda0a4daf59d228fa3
-> > > #regzbot title: i915: UHBR training fails through TB5 dock when source FFE updates are skipped
-> > >
-> > > I was desperate and thought I'd give it a quick try with help of Codex which ended in a rabbit whole of DP protocol investigation for me :).
-> > > We came up with a patch which I tested successfully.
-> > >
-> > > I've attached the patch and the "report" codex created in case you're interested.
-> > >
-> > > Best regards,
-> > > Frederik
-> >
-> > > From: Frederik Schwan <frederik@tty42.de>
-> > > Date: Fri, 13 Nov 2026 22:57:12 +0100
-> > > Subject: [PATCH] drm/i915/dp: Update source FFE presets during UHBR training with LTTPRs
-> > >
-> > > UHBR link training uses intra-hop AUX replies at the DPRX address even
-> > > when LTTPRs are present. However, intel_dp_set_signal_levels() only
-> > > programs the source transmitter when intel_dp_phy_is_downstream_of_source()
-> > > identifies the receiver being trained as directly downstream of it.
-> > > With LTTPRs present, this check rejects DP_PHY_DPRX.
-> > >
-> > > As a result, UHBR training updates the requested FFE presets in the DPCD
-> > > training set but does not apply them to the source PHY. This causes
-> > > UHBR20 and UHBR10 training failures on a Meteor Lake system connected to
-> > > a ThinkPad Thunderbolt 5 Smart Dock 7500. Enabling UHBR tunneling exposed
-> > > the existing assumption in the source signal-level update path.
-> > >
-> > > Always update the source signal levels during UHBR training. Preserve
-> > > the per-PHY check for 8b/10b training, which trains downstream receivers
-> > > individually.
-> >
-> > The fix is correct, however the above explanation for the root cause and
-> > fix isn't clear. The actual one is:
-> >
-> > 128b132b links (i.e. links used for UHBR modes) are link trained in
-> > LTTPR-transparent-mode, even in the cases where LTTPRs are detected on
-> > the link: In transparent mode the DPRX PHY is link trained directly,
-> > without link training the LTTPR PHYs first separately and so the source
-> > must set the FFE parameters during the - single - DPRX link training
-> > phase.
-> >
-> > During a non-transparent link training (i.e. on 8b10b links), the link
-> > training signal parameters (i.e. vswing/pre-emph) are only set for the
-> > first LTTPR PHY, directly downstream of the source, if LTTPRs are
-> > detected on the link. Such LTTPR PHY link training phases are indicated
-> > by phy being set to one of the DP_PHY_LTTPRx values as opposed to
-> > DP_PHY_DPRX. At the moment, according to the above setting the source's
-> > link training signal parameters are skipped whenever a PHY other than
-> > DP_PHY_LTTPR1 is being link trained on a link with LTTPRs detected on
-> > it. This is not correct during a transparent link training (i.e. on
-> > 128b132b links), when the port is in the legacy or DP-alt mode (in the
-> > TBT-alt mode the Thunderbolt subsytem owns and programs the source's
-> > PHY).
-> >
-> > Please update the commit message according to the above lines.
-> >
->
-> Done, hope I didn't forget anything. Patch attached.
->
-> > > With this change, the affected system completes four-lane UHBR20
-> > > training, including channel equalization, interlane alignment and CDS.
-> > >
-> > > Fixes: 1fd440de4e02 ("drm/i915/dp_tunnel: Add UHBR tunneling support")
-> >
-> > The change is not limited to tunnel scenarios, rather to any case where
-> > a 128b132b link (i.e. for any UHBR mode) is used in a legacy or DP-alt
-> > TypeC port mode (i.e. not TBT-alt port mode), with LTTPRs detected on
-> > the link. So the above Fixes: line is not correct, instead the patch
-> > should be backported to a kernel version in which the 128b/132b (i.e.
-> > UHBR support) in general was enabled.
->
-> a421d8a99216d46926609611cdcf260fdf900645 seems to be the first commit of
-> the current DP2.0 implementation. That is as old as 5.17.
->
-> >
-> > > Signed-off-by: Frederik Schwan <freswa@archlinux.org>
-> > > Assisted-by: Codex:gpt-6
-> > > ---
-> > > The analysis and patch preparation were assisted by OpenAI Codex. The
-> > > reporter performed the bisect and hardware tests.
-> > >
-> > >  drivers/gpu/drm/i915/display/intel_dp_link_training.c | 8 +++++++-
-> > >  1 file changed, 7 insertions(+), 1 deletion(-)
-> > >
-> > > diff --git a/drivers/gpu/drm/i915/display/intel_dp_link_training.c b/drivers/gpu/drm/i915/display/intel_dp_link_training.c
-> > > index cb92cff90614..92b8a8a1af3d 100644
-> > > --- a/drivers/gpu/drm/i915/display/intel_dp_link_training.c
-> > > +++ b/drivers/gpu/drm/i915/display/intel_dp_link_training.c
-> > > @@ -1019,7 +1019,13 @@ void intel_dp_set_signal_levels(struct intel_dp *intel_dp,
-> > >                    TRAIN_SET_PREEMPH_ARGS(intel_dp->train_set));
-> > >     }
-> > >
-> > > -   if (intel_dp_phy_is_downstream_of_source(intel_dp, dp_phy))
-> > > +   /*
-> > > +    * UHBR training uses intra-hop AUX replies at the DPRX address, even
-> > > +    * with LTTPRs present. The requested FFE presets apply to the source
-> > > +    * transmitter, unlike 8b/10b training of individual downstream PHYs.
-> > > +    */
-> > > +   if (intel_dp_is_uhbr(crtc_state) ||
-> > > +       intel_dp_phy_is_downstream_of_source(intel_dp, dp_phy))
-> >
-> > Introducing an is_transparent_mode() helper and adding that to
-> > intel_dp_phy_is_downstream_of_source() would be better probably, but
-> > that's a bigger change and should be left out from this fix.
-> >
-> > intel_dp_get_lane_adjust_tx_ffe_preset() should be fixed similarly to
-> > the above.
-> >
-> > >             encoder->set_signal_levels(encoder, crtc_state);
-> > >  }
-> > >
-> >
-> > > i915 UHBR / Thunderbolt 5 regression investigation
-> > > ================================================
-> > >
-> > > Provenance
-> > > ----------
-> > > Frederik Schwan performed the bisect, built and booted the test kernels,
-> > > and supplied the hardware logs. OpenAI Codex, an AI coding assistant,
-> > > analyzed those logs and the kernel source, identified the skipped source
-> > > PHY callback, prepared the candidate fix, and ran the source-level checks.
-> > > This report was prepared by Codex. Its interpretation is offered for
-> > > maintainer review; the hardware results below come from the supplied logs.
-> > >
-> > > Setup and regression boundary
-> > > -----------------------------
-> > > Host: Lenovo 21Q8CTO1WW, BIOS N4EET24W (1.10), 2026-06-29.
-> > > GPU: Intel Meteor Lake, i915, PCI ID 8086:7d51.
-> > > Dock: ThinkPad Thunderbolt 5 Smart Dock 7500, connected over Thunderbolt 5.
-> > > Display topology: dock MST hub feeding two DisplayPort 1.x displays.
-> > > Affected upstream display link: DP-4 / DDI TC3, four lanes, one LTTPR.
-> > > The GPU-side state dump shows tbt_mode: no: the physical source PHY is
-> > > in use, rather than the integrated TBT alternate-mode PHY path.
-> > >
-> > > The bisect began with v7.2 good and v7.3 bad, restricted to
-> > >   drivers/gpu/drm/i915/display
-> > >   drivers/gpu/drm/display
-> > >
-> > > First bad:
-> > >   1fd440de4e02efab97874bbda0a4daf59d228fa3
-> > >   drm/i915/dp_tunnel: Add UHBR tunneling support
-> > >
-> > > Immediate parent tested good:
-> > >   47fff2b1749e9ba5dfab7528960555cc865360b5
-> > >   drm/i915/dp: Disable UHBR link configs with 1/2 lanes
-> > >
-> > > The final patched hardware capture identifies its kernel as
-> > > 7.3.4-arch1-2, built 2026-11-13 20:51:44 UTC. NVIDIA modules are also
-> > > loaded; the affected link and training messages in this report are i915.
-> > >
-> > > Failure and unsuccessful experiments
-> > > ------------------------------------
-> > > Before the source-FFE fix, four-lane UHBR20 training fails, including a
-> > > retry, followed by UHBR10 failure. Representative six-byte link status:
-> > >   UHBR20: 33 33 00 08 ee ee
-> > >   UHBR10: 33 33 00 08 66 66
-> > >
-> > > The adjustment bytes request FFE preset 14 or 6, respectively, on all
-> > > four lanes. Lane EQ bits are set but alignment is absent. The sink-status
-> > > bit 0x08 is DP_INTRA_HOP_AUX_REPLY_INDICATION; these are intra-hop replies,
-> > > not proof that the entire downstream path has finished training.
-> > >
-> > > Experiment 1 (dmesg.log): remove the legacy alignment-bit requirement
-> > > from the UHBR lane-EQ helper, preserving it for active-link monitoring.
-> > > Result: training advances to "Lane channel eq done" but then fails with
-> > > "Interlane align timeout". This did not fix the problem.
-> > >
-> > > Experiment 2 (dmesg.log.1): restore the original helper and repeat the
-> > > 0x2215 capability read after LTTPR initialization, logging tunnel caps.
-> > > Result: coding=01 rates=03 before initialization, after initialization,
-> > > and after the extra read; 0x2215 returns 00. UHBR20 and UHBR10 still fail
-> > > with "Max loop count reached". This did not fix the problem either.
-> > >
-> > > Failed runs fall back to HBR3. Although HBR3 training passes, FEC-enable
-> > > polling subsequently times out with status 0x04 or 0x00. The logs show
-> > > 8b/10b coding selected and intra-hop mode clearing; there is no evidence
-> > > that the driver simply leaves UHBR coding or intra-hop mode enabled.
-> > > The cause of the fallback FEC failure has not been established.
-> > >
-> > > Source-level finding
-> > > --------------------
-> > > File: drivers/gpu/drm/i915/display/intel_dp_link_training.c
-> > > Function: intel_dp_set_signal_levels()
-> > >
-> > > The existing code calls encoder->set_signal_levels() only if
-> > > intel_dp_phy_is_downstream_of_source(intel_dp, dp_phy) returns true.
-> > > That helper accepts a link without repeaters or the source-adjacent
-> > > LTTPR, DP_PHY_LTTPR(lttpr_count - 1).
-> > >
-> > > UHBR lane EQ calls the signal-level update path with DP_PHY_DPRX, even
-> > > when repeaters are present, because it uses intra-hop AUX replies.
-> > > Consequently, with one or more LTTPRs, the existing guard skips the
-> > > source transmitter callback. The debug print precedes the guard, so
-> > > "TX FFE presets: 14/14/14/14" does not establish that those presets
-> > > were programmed into the GPU PHY. The AUX training-set writes still run.
-> > >
-> > > For this platform, the callback leads to intel_cx0_phy_set_signal_levels().
-> > > The lane level is derived from train_set through intel_ddi_dp_level(),
-> > > and the corresponding transmitter settings are written to the PHY.
-> > > The integrated TBT alternate-mode path has its own early return there;
-> > > that is not the path shown by this system's PHY state.
-> > >
-> > > Candidate fix
-> > > -------------
-> > > Allow the callback whenever intel_dp_is_uhbr(crtc_state) is true, retaining
-> > > the existing per-PHY guard for 8b/10b:
-> > >
-> > >   if (intel_dp_is_uhbr(crtc_state) ||
-> > >       intel_dp_phy_is_downstream_of_source(intel_dp, dp_phy))
-> > >           encoder->set_signal_levels(encoder, crtc_state);
-> > >
-> > > Neither unsuccessful experimental change is included in this fix.
-> > > The bisected commit enabled a path that exposes an older assumption;
-> > > it did not introduce the original guard itself.
-> > >
-> > > Hardware evidence with the fix (dmesg.log.2)
-> > > -------------------------------------------
-> > > First successful sequence on DP-4:
-> > >   20.224632  Lane channel eq done
-> > >   20.271570  Interlane align done
-> > >   20.297496  CDS interlane align done
-> > >   20.297680  128b/132b Link Training passed at link rate = 2000000,
-> > >              lane count = 4
-> > >
-> > > Second successful sequence on DP-4:
-> > >   33.891635  Lane channel eq done
-> > >   33.934586  Interlane align done
-> > >   33.956537  CDS interlane align done
-> > >   33.956747  128b/132b Link Training passed at link rate = 2000000,
-> > >              lane count = 4
-> > >
-> > > The first sequence reaches status 77 77 8d 00 11 11 at CDS completion.
-> > > There are no UHBR training failures, fallback attempts, or FEC-enable
-> > > timeouts in this capture. Earlier Thunderbolt DPRX-read timeouts and
-> > > unrelated NVIDIA messages do appear; this is not an error-free system log.
-> > >
-> > > The result strongly supports the skipped source FFE update as the cause
-> > > of the reported UHBR training failure. It also demonstrates that the
-> > > DP1.x monitors do not inherently prevent this upstream link training at
-> > > UHBR20. It does not establish long-term display stability or validate
-> > > UHBR-to-HBR3 fallback recovery, which was not exercised in this run.
-> > >
-> > > Validation performed by Codex
-> > > -----------------------------
-> > > - Built intel_dp_link_training.o using a configuration copied from the
-> > >   running kernel and processed by olddefconfig.
-> > > - git diff --check and scripts/checkpatch.pl passed for the code change.
-> > > - A standalone harness extracted the source functions and mocked the
-> > >   encoder callback. Before the change, all UHBR cases with 1-8 repeaters
-> > >   missed the callback. Afterward, those cases passed, and tested 8b/10b
-> > >   per-PHY callback behavior was unchanged. This is not a KUnit or hardware
-> > >   test and does not validate electrical signal quality.
-> > > - The code patch applies cleanly to the v7.3 version of the source file.
-> > >
-> > > Supporting material
-> > > -------------------
-> > > Primary attachments:
-> > >   bisect.log
-> > >   i915-uhbr-source-ffe.patch
-> > >   v7.2-rc1-263-gb0b6d44646dc.log (known-good capture)
-> > >   v7.2-rc1-268-g1fd440de4e02.log (first-bad capture)
-> > >   patched.log (successful final candidate on 7.3.4)
-> > >
-> > > Optional experimental captures:
-> > >   dmesg.log (lane-EQ helper experiment)
-> > >   dmesg.log.1 (0x2215 refresh experiment)
-> > >
-> > > Logging parameters:
-> > >   drm.debug=0x10e log_buf_len=32M thunderbolt.dyndbg=+p
-> > >
-> > > Retain full logs, preferably compressed, so reviewers can inspect the
-> > > capability reads, AUX transactions, topology and ordering. The source
-> > > filenames from the bisect should be interpreted together with the actual
-> > > kernel banners and bisect.log.
+drm-fixes-2026-11-21:
+drm fixes for 7.4-rc4
+
+core:
+- syncobj: Limit allocations
+- vblank: Resolve deadlock in timer
+
+amdgpu:
+- GPUVM fixes
+- SMU 8 fix
+- PCO quirk
+- ATPX lifetime fix
+- Unwinding fix for module loading failure
+- UserQ fix
+- HDMI fixes
+- DML2 fix
+- DC DRAM config fixes
+- DCN 4.2 fixes
+- DC pre-OS clock handling fixes
+- DPMS fix
+- Cleaner shader fixes for multi-XCC parts
+- Vblank fix for GPU resets
+- Properly handle firmware with different trust athorities
+- Freesync/VRR fixes
+- Backlight fix
+- Display warning fixes
+- PSR fixes
+
+amdkfd:
+- SVM fixes
+
+radeon:
+- Bounds checks in vbios parsing
+- ATPX lifetime fix
+
+xe:
+- hwmon error handling fixes
+- Treat CT-disabled TLB invalidation as cancelled
+- Validate BOs on export to charge the exporter
+- Always free requested IRQs on uninstall
+- Reset TLB invalidation state in submit fini
+- Use ordered clock reads for engine cycles cpu_delta
+- Treat non-fatal PCIe errors as recovered
+
+i915:
+- Regression fix for GitLab #16595 and #17423: 4K displays
+corrupt/black on CML/KBL
+- DSB programming fix for GOSUB
+
+imagination:
+- Use correct function for polling non-iomem
+
+ivpu:
+- Fix race condition in recovery
+
+nouveau:
+- Fix instmem io_mapping faults and slowdowns
+
+omap:
+- dss: Fix handling deferrals
+
+qaic:
+- Harden ioctl checks
+
+rocket:
+- iommu fixes
+- lifetime and validation fixes
+- clock request fix
+- devicetre core count fix
+
+tilcdc:
+- Fix drvdata in suspend/resume
+
+vc4:
+- async flip fixes
+- off by one shader record
+- object lifetime fixes
+- two dsi fixes
+
+vmwgfx:
+- bounds checking fixes
+- validation fixes
+The following changes since commit aebb7274476403040d582c61478df8f4a7bf9cd3=
+:
+
+  Linux 7.4-rc3 (2026-11-15 14:30:11 -0800)
+
+are available in the Git repository at:
+
+  https://gitlab.freedesktop.org/drm/kernel.git tags/drm-fixes-2026-11-21
+
+for you to fetch changes up to ce29b8f9fb606f87014c2d05483a3fef05a11f38:
+
+  Merge tag 'drm-misc-fixes-2026-11-20' of
+https://gitlab.freedesktop.org/drm/misc/kernel into drm-fixes
+(2026-11-21 07:38:38 +1000)
+
+----------------------------------------------------------------
+drm fixes for 7.4-rc4
+
+core:
+- syncobj: Limit allocations
+- vblank: Resolve deadlock in timer
+
+amdgpu:
+- GPUVM fixes
+- SMU 8 fix
+- PCO quirk
+- ATPX lifetime fix
+- Unwinding fix for module loading failure
+- UserQ fix
+- HDMI fixes
+- DML2 fix
+- DC DRAM config fixes
+- DCN 4.2 fixes
+- DC pre-OS clock handling fixes
+- DPMS fix
+- Cleaner shader fixes for multi-XCC parts
+- Vblank fix for GPU resets
+- Properly handle firmware with different trust athorities
+- Freesync/VRR fixes
+- Backlight fix
+- Display warning fixes
+- PSR fixes
+
+amdkfd:
+- SVM fixes
+
+radeon:
+- Bounds checks in vbios parsing
+- ATPX lifetime fix
+
+xe:
+- hwmon error handling fixes
+- Treat CT-disabled TLB invalidation as cancelled
+- Validate BOs on export to charge the exporter
+- Always free requested IRQs on uninstall
+- Reset TLB invalidation state in submit fini
+- Use ordered clock reads for engine cycles cpu_delta
+- Treat non-fatal PCIe errors as recovered
+
+i915:
+- Regression fix for GitLab #16595 and #17423: 4K displays
+corrupt/black on CML/KBL
+- DSB programming fix for GOSUB
+
+imagination:
+- Use correct function for polling non-iomem
+
+ivpu:
+- Fix race condition in recovery
+
+nouveau:
+- Fix instmem io_mapping faults and slowdowns
+
+omap:
+- dss: Fix handling deferrals
+
+qaic:
+- Harden ioctl checks
+
+rocket:
+- iommu fixes
+- lifetime and validation fixes
+- clock request fix
+- devicetre core count fix
+
+tilcdc:
+- Fix drvdata in suspend/resume
+
+vc4:
+- async flip fixes
+- off by one shader record
+- object lifetime fixes
+- two dsi fixes
+
+vmwgfx:
+- bounds checking fixes
+- validation fixes
+
+----------------------------------------------------------------
+Abdulla Bubshait (1):
+      drm/amd/display: Abort DPMS ON when enabling the link fails
+
+Adrian Betschart (1):
+      drm/amd/display: Apply the HDMI RGB range default only to HDMI signal=
+s
+
+Aldo Ariel Panzardo (3):
+      drm/vmwgfx: return an error when a shared GB surface has no backup bu=
+ffer
+      drm/vmwgfx: close TOCTOU on guest_memory_bo in surface reference ioct=
+l
+      drm/vmwgfx: do not hand the embedded sg_table to the PRIME core
+
+Allen Pan (1):
+      drm/amd/display: Update DCN42B stutter latency to match DCN42
+
+Andreas Kemnade (1):
+      drm/omap: dss: fix handling deferrals
+
+Andrey Misiurov (1):
+      drm/radeon: Bound GPIO I2C table entry count from VBIOS
+
+Arvind Yadav (1):
+      drm/xe/irq: Always free requested IRQs on uninstall
+
+Austin Zheng (1):
+      drm/amd/display: Flip
+dml2_core_utils_get_segment_horizontal_contiguous() Inputs
+
+Benjamin Cheng (2):
+      drm/amdgpu: wait for tlb flush before freeing BO
+      drm/amdgpu/gem: use dma_resv_add_fence directly
+
+Chaoyi Chen (1):
+      accel/rocket: Fix the extra iommu_group_get call in rocket_job_handle=
+_irq
+
+Christian K=C3=B6nig (1):
+      drm/amdgpu: fix cleared PDE/PTE flag generation
+
+Cooper Morgan (2):
+      drm/amd/display: Saturate refresh rates in v1/v2 FreeSync infopackets
+      drm/amd/display: Use FreeSync v3 infopacket for sinks above 255 Hz
+
+Dan Carpenter (1):
+      drm/vmwgfx: Fix NULL vs error pointer bug in vmw_prime_import_sg_tabl=
+e()
+
+Dave Airlie (4):
+      Merge tag 'drm-intel-fixes-2026-11-19' of
+https://gitlab.freedesktop.org/drm/i915/kernel into drm-fixes
+      Merge tag 'amd-drm-fixes-7.4-2026-11-19' of
+https://gitlab.freedesktop.org/drm/amdgpu/kernel into drm-fixes
+      Merge tag 'drm-xe-fixes-2026-11-19-1' of
+https://gitlab.freedesktop.org/drm/xe/kernel into drm-fixes
+      Merge tag 'drm-misc-fixes-2026-11-20' of
+https://gitlab.freedesktop.org/drm/misc/kernel into drm-fixes
+
+Davey Hughes (1):
+      drm/amd/display: Keep FreeSync flip timing across plane resets
+
+Dnyaneshwar Bhadane (2):
+      drm/xe/log: Add VRAM, PAT, and HWMON DRIVER_HARDWARE components
+      drm/xe/hwmon: Report errors using structured xe_log API
+
+Egor Perevoshchikov (1):
+      drm/amd/display: Restore PSR-SU guard in power module
+
+Erhan Bilgili (1):
+      drm/amdgpu: Fix UserQ slot availability checks
+
+Fangzhi Zuo (2):
+      drm/amd/display: Move HDMI FRL Polling Outside dc_lock
+      drm/amd/display: Stop HDMI FRL status polling on fini
+
+Fei Yu (1):
+      drm/syncobj: Limit the number of handles and use kvmalloc for
+user-sized arrays
+
+Guangshuo Li (1):
+      accel/rocket: put IOMMU domain on BO creation failure
+
+Gyeyoung Baek (1):
+      accel/rocket: Fix drm_mm UAF on close vs in-flight job
+
+Hanson Wang (1):
+      drm/i915/dsb: Realign GOSUB only for QW slots 6 and 7
+
+Haoming Gao (1):
+      accel/rocket: publish read fences for input buffers
+
+Heiko Stuebner (1):
+      MAINTAINERS: Add two reviewers to the Rockchip DRM entry
+
+Henry Zhang (2):
+      drm/vc4: dsi: Register the PHY clock provider with devm
+      drm/vc4: dsi: Set the transfer result before completing the transfer
+
+Hugo Sales (3):
+      drm/amd/display: Take every stream out of self-refresh before a modes=
+et
+      drm/amd/display: Add the AUX backlight minimum once on the custom cur=
+ve
+      drm/amd/display: Hold the VRR vblank reference only on active CRTCs
+
+Ian Forbes (2):
+      drm/vmwgfx: Never destroy STDU zero's Screen Target
+      drm/vmwgfx: Check whether CRTC is active when updating planes
+
+Igor Paunovic (3):
+      accel/rocket: release the shared device's devres on teardown
+      accel/rocket: number the cores by devicetree position, not bind order
+      accel/rocket: request the core clocks by name
+
+Jackie Liu (1):
+      drm/amd/display: Fix logger leak on perf trace allocation failure
+
+Jaeyeong Lee (1):
+      drm/vmwgfx: Erase the detached resource entry on resource release
+
+Jesse Zhang (2):
+      drm/amdkfd: don't check the HMM range when getting its pages failed
+      drm/amdkfd: keep the DMA addresses of a range intact if splitting fai=
+ls
+
+Jiaming Fan (3):
+      drm/radeon: only unregister the ATPX handler if we registered it
+      drm/amdgpu: only unregister the ATPX handler if we registered it
+      drm/amdgpu: unwind module init on failure
+
+Jiaxing Hu (3):
+      accel/rocket: take the completion register writes under job_lock
+      accel/rocket: wait for a running IRQ handler before resetting a core
+      accel/rocket: let the core suspend after a reset
+
+Jing Zhou (1):
+      drm/amd/display: Seed boot clocks to avoid lowering pre-OS display cl=
+ocks
+
+Joshua Horne (1):
+      drm/amd/pm: send smu8 sclk level indices, not the level mask
+
+Karol Wachowski (1):
+      accel/ivpu: Defer recovery until probe completes
+
+Karthik Poosa (1):
+      drm/xe/hwmon: Propagate all hardware read errors
+
+Kent Russell (3):
+      drm/amdgpu: Run shader cleaner on all XCCs on faults
+      drm/amdgpu: Fix fault shader cleaner on MI3
+      drm/amdgpu: Fix fault cleaner race condition
+
+Luigi Santivetti (1):
+      drm/imagination: use appropriate poll function for non-iomem
+
+Mario Limonciello (1):
+      drm/amd: Select the firmware signing scheme the PSP reports
+
+Markus Schneider-Pargmann (TI) (1):
+      drm/tilcdc: Fix suspend/resume drvdata
+
+Maxime Ripard (7):
+      MAINTAINERS: Move armada DRM under drm-misc
+      MAINTAINERS: Move Keem Bay DRM under drm-misc
+      MAINTAINERS: Move Tegra DRM under drm-misc
+      MAINTAINERS: Remove Jonas Karlman from bridge reviewers
+      MAINTAINERS: Remove Andrzej Hajda from bridge maintainers
+      MAINTAINERS: Remove myself for VC4 DRM driver
+      MAINTAINERS: Add Dmitry Baryshkov as bridge maintainer
+
+Ma=C3=ADra Canal (7):
+      drm/vc4: Drop BO usecnt before releasing the old FB
+      drm/vc4: Complete async page flips from an ordered workqueue
+      drm/vc4: Look up the async page flip fence before committing the flip
+      drm/vc4: Fix off-by-one in the shader record BO handle check
+      drm/vc4: Check for a validated shader before reading its thread mode
+      drm/vc4: Start shader code at varying offsets in its BO
+      drm/vc4: Clear the slice caches before resetting a stalled GPU
+
+Mohamed Ahmed (3):
+      drm/nouveau: do not return early from a synchronous VM_BIND
+      drm/nouveau/bar: take the GSP-RM flush pointer from the BAR2 io_mappi=
+ng
+      drm/nouveau/instmem: map only the part of BAR2 that is used
+
+Ovidiu Bunea (1):
+      drm/amd/display: Add support for more PSP footer sizes
+
+Paul Menzel (1):
+      drm/amd/display: Don't warn about vendor infoframe for non-infoframe =
+sinks
+
+Piotr Pi=C3=B3rkowski (1):
+      drm/xe/guc: Reset TLB invalidation state in submit fini
+
+Prike Liang (1):
+      drm/amdgpu: keep reading the vblank counter in IRQ context during res=
+et
+
+Qiang Han (1):
+      drm/amdkfd: wait for the queue quiesce in concurrent SVM evictions
+
+Riana Tauro (1):
+      drm/xe/ras: Treat non-fatal PCIe errors as recovered
+
+Ruben Wauters (1):
+      MAINTAINERS: Update Ruben Wauters email address
+
+Sanjay Yadav (1):
+      drm/xe/query: Use ordered clock reads for engine cycles cpu_delta
+
+Suresh Guttula (1):
+      drm/amdgpu: bypass IMU ucode loading for GC 11 APU
+
+Thomas Hellstr=C3=B6m (1):
+      drm/xe/dma-buf: Validate BOs on export to charge the exporter
+
+Thomas Lamprecht (1):
+      drm/amd/display: Don't warn about links without an HPD GPIO
+
+Thomas Zimmermann (2):
+      drm/vblank: timer: Do not block within critical section
+      drm/vblank: Cancel vblank timer outside of critical section
+
+Tomas M (1):
+      drm/vmwgfx: include legacy hotspots in GB-only cursor images
+
+Tomeu Vizoso (1):
+      accel/rocket: Fix up sched array handling on open and close
+
+Triet Hoang (2):
+      accel/rocket: Check allocations before use
+      accel/rocket: Keep scheduler allocation in rocket_file_priv
+
+Ville Syrj=C3=A4l=C3=A4 (1):
+      drm/i915/cdclk: Ignore SWF18 in SKL CDCLK sanitization
+
+Vladimir Popov (1):
+      drm/vmwgfx: fix NULL pointer dereference in vmw_validation_bo_fence()
+
+Wang Jiang (1):
+      drm/amdgpu/gfx_v9_0: Add gfxoff quirk for Lenovo Picasso 318F
+
+Wenjing Liu (1):
+      drm/amd/display: Read DRAM channel width from SMU init table
+
+Youssef Samir (1):
+      accel/qaic: Harden checks in BO execute and wait IOCTLs
+
+Zack Rusin (11):
+      drm/vmwgfx: validate command body sizes before parsing
+      drm/vmwgfx: validate backup buffer size in command buffer processing
+      drm/vmwgfx: avoid underflow when stripping short GuestInfo replies
+      drm/vmwgfx: bound MKSSTAT lengths before rounding to pages
+      drm/vmwgfx: keep cursor mappings and pins with each plane state
+      drm/vmwgfx: validate GB-only cursor command limits
+      drm/vmwgfx: reserve dumb buffers while detaching their surfaces
+      drm/vmwgfx: validate the framebuffer selected for cursor updates
+      drm/vmwgfx: reserve cursor MOBs before unpinning them
+      drm/vmwgfx: log missing primary planes only once
+      drm/vmwgfx: log MOB limits outside the manager spinlock
+
+Zongyao Bai (1):
+      drm/xe/guc: Treat CT-disabled TLB invalidation as cancelled
+
+ .mailmap                                           |   1 +
+ MAINTAINERS                                        |  14 +-
+ drivers/accel/ivpu/ivpu_pm.c                       |   9 +-
+ drivers/accel/qaic/qaic_data.c                     |  16 ++
+ drivers/accel/rocket/rocket_core.c                 |   4 +
+ drivers/accel/rocket/rocket_core.h                 |  14 +-
+ drivers/accel/rocket/rocket_drv.c                  | 104 ++++++----
+ drivers/accel/rocket/rocket_drv.h                  |  14 +-
+ drivers/accel/rocket/rocket_gem.c                  |  33 ++--
+ drivers/accel/rocket/rocket_gem.h                  |   4 +-
+ drivers/accel/rocket/rocket_job.c                  |  63 ++++--
+ drivers/accel/rocket/rocket_job.h                  |   2 +-
+ drivers/gpu/drm/amd/amdgpu/amdgpu_atpx_handler.c   |  13 +-
+ drivers/gpu/drm/amd/amdgpu/amdgpu_device.c         |   4 +
+ drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c            |  14 +-
+ drivers/gpu/drm/amd/amdgpu/amdgpu_gem.c            |   9 +-
+ drivers/gpu/drm/amd/amdgpu/amdgpu_kms.c            |  29 ++-
+ drivers/gpu/drm/amd/amdgpu/amdgpu_psp.c            |  20 ++
+ drivers/gpu/drm/amd/amdgpu/amdgpu_psp.h            |   1 +
+ drivers/gpu/drm/amd/amdgpu/amdgpu_ucode.c          |  35 ++++
+ drivers/gpu/drm/amd/amdgpu/amdgpu_ucode.h          |   9 +
+ drivers/gpu/drm/amd/amdgpu/amdgpu_vcn.c            |   4 +
+ drivers/gpu/drm/amd/amdgpu/amdgpu_vm_pt.c          |  64 +++---
+ drivers/gpu/drm/amd/amdgpu/gfx_v11_0.c             |  16 ++
+ drivers/gpu/drm/amd/amdgpu/gfx_v9_0.c              |   7 +-
+ drivers/gpu/drm/amd/amdgpu/gfx_v9_4_2.c            | 104 ++++++----
+ drivers/gpu/drm/amd/amdgpu/gfx_v9_4_3.c            |  16 ++
+ drivers/gpu/drm/amd/amdgpu/gfx_v9_4_3.h            |   3 +
+ drivers/gpu/drm/amd/amdgpu/imu_v11_0.c             |  17 +-
+ drivers/gpu/drm/amd/amdgpu/mes_v11_0.c             |   8 +
+ drivers/gpu/drm/amd/amdgpu/psp_v15_0.c             |  47 +++++
+ drivers/gpu/drm/amd/amdgpu/psp_v15_0.h             |   1 +
+ drivers/gpu/drm/amd/amdgpu/sdma_v6_0.c             |   2 +
+ drivers/gpu/drm/amd/amdgpu/vpe_v2_0.c              |   2 +
+ .../gpu/drm/amd/amdkfd/kfd_device_queue_manager.c  |   5 +-
+ drivers/gpu/drm/amd/amdkfd/kfd_int_process_v9.c    |   2 +-
+ drivers/gpu/drm/amd/amdkfd/kfd_priv.h              |   7 +
+ drivers/gpu/drm/amd/amdkfd/kfd_svm.c               |  67 +++++--
+ drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c  | 154 ++++++++++++++-
+ .../amd/display/amdgpu_dm/amdgpu_dm_backlight.c    |   9 +-
+ .../amd/display/amdgpu_dm/amdgpu_dm_connector.c    |  19 +-
+ .../amd/display/amdgpu_dm/amdgpu_dm_connector.h    |   3 +-
+ .../gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_dmub.c |   2 +
+ .../gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_dmub.h |   2 +
+ .../drm/amd/display/amdgpu_dm/amdgpu_dm_freesync.c |  19 +-
+ .../amdgpu_dm/tests/amdgpu_dm_backlight_test.c     |  14 +-
+ .../amdgpu_dm/tests/amdgpu_dm_connector_test.c     |  90 ++++++---
+ .../amdgpu_dm/tests/amdgpu_dm_freesync_test.c      | 214 +++++++++++++++++=
+++++
+ .../amd/display/dc/clk_mgr/dcn42/dcn42_clk_mgr.c   |   3 +
+ .../amd/display/dc/clk_mgr/dcn42b/dcn42b_clk_mgr.c |   4 +
+ .../gpu/drm/amd/display/dc/clk_mgr/dcn60/dalsmc.h  |   3 +-
+ .../amd/display/dc/clk_mgr/dcn60/dcn60_clk_mgr.c   |   3 +-
+ drivers/gpu/drm/amd/display/dc/core/dc.c           |  18 +-
+ .../gpu/drm/amd/display/dc/dce/dce_link_encoder.c  |   5 +-
+ .../amd/display/dc/dio/dcn10/dcn10_link_encoder.c  |   5 +-
+ .../dml21/inc/bounding_boxes/dcn42b_soc_bb.h       |   4 +-
+ .../src/dml2_core/dml2_core_dcn5_calcs_dchub.c     |   8 +-
+ drivers/gpu/drm/amd/display/dc/link/link_dpms.c    |   2 +-
+ drivers/gpu/drm/amd/display/dmub/dmub_srv.h        |   2 +
+ drivers/gpu/drm/amd/display/dmub/src/dmub_srv.c    |  41 ++--
+ .../drm/amd/display/modules/freesync/freesync.c    |  12 +-
+ .../gpu/drm/amd/display/modules/power/power_psr.c  |   9 +-
+ .../gpu/drm/amd/pm/powerplay/hwmgr/smu8_hwmgr.c    |  14 +-
+ drivers/gpu/drm/drm_syncobj.c                      |  42 ++--
+ drivers/gpu/drm/drm_vblank.c                       |  92 +++++----
+ drivers/gpu/drm/drm_vblank_helper.c                |  16 ++
+ drivers/gpu/drm/i915/display/intel_cdclk.c         |  13 +-
+ drivers/gpu/drm/i915/display/intel_dsb.c           |  16 +-
+ drivers/gpu/drm/imagination/pvr_power.c            |   3 +-
+ drivers/gpu/drm/nouveau/nouveau_sched.c            |   6 +-
+ drivers/gpu/drm/nouveau/nvkm/subdev/bar/gf100.c    |   6 +
+ drivers/gpu/drm/nouveau/nvkm/subdev/bar/priv.h     |   1 +
+ .../gpu/drm/nouveau/nvkm/subdev/gsp/rm/r535/bar.c  |  32 ++-
+ drivers/gpu/drm/nouveau/nvkm/subdev/instmem/nv50.c |  19 +-
+ drivers/gpu/drm/nouveau/nvkm/subdev/instmem/priv.h |   3 +
+ drivers/gpu/drm/omapdrm/dss/output.c               |   3 +
+ drivers/gpu/drm/radeon/radeon_atombios.c           |  22 ++-
+ drivers/gpu/drm/radeon/radeon_atpx_handler.c       |  13 +-
+ drivers/gpu/drm/tilcdc/tilcdc_drv.c                |   6 +-
+ drivers/gpu/drm/vc4/vc4_bo.c                       |  43 ++++-
+ drivers/gpu/drm/vc4/vc4_crtc.c                     | 136 ++++++-------
+ drivers/gpu/drm/vc4/vc4_drv.h                      |  21 +-
+ drivers/gpu/drm/vc4/vc4_dsi.c                      |   7 +-
+ drivers/gpu/drm/vc4/vc4_gem.c                      |  20 +-
+ drivers/gpu/drm/vc4/vc4_validate.c                 |  15 +-
+ drivers/gpu/drm/vc4/vc4_validate_shaders.c         |   7 +-
+ drivers/gpu/drm/vmwgfx/vmwgfx_bo.c                 |   3 +
+ drivers/gpu/drm/vmwgfx/vmwgfx_cursor_plane.c       | 166 +++++++++++-----
+ drivers/gpu/drm/vmwgfx/vmwgfx_cursor_plane.h       |   4 +
+ drivers/gpu/drm/vmwgfx/vmwgfx_execbuf.c            | 208 +++++++++++++++++=
++++
+ drivers/gpu/drm/vmwgfx/vmwgfx_gem.c                |  17 +-
+ drivers/gpu/drm/vmwgfx/vmwgfx_gmrid_manager.c      |  55 ++++--
+ drivers/gpu/drm/vmwgfx/vmwgfx_kms.c                |   6 +-
+ drivers/gpu/drm/vmwgfx/vmwgfx_ldu.c                |   3 +-
+ drivers/gpu/drm/vmwgfx/vmwgfx_msg.c                |  21 +-
+ drivers/gpu/drm/vmwgfx/vmwgfx_resource.c           |   1 +
+ drivers/gpu/drm/vmwgfx/vmwgfx_scrn.c               |   2 +
+ drivers/gpu/drm/vmwgfx/vmwgfx_shader.c             |   2 +-
+ drivers/gpu/drm/vmwgfx/vmwgfx_stdu.c               |  19 +-
+ drivers/gpu/drm/vmwgfx/vmwgfx_streamoutput.c       |   2 +-
+ drivers/gpu/drm/vmwgfx/vmwgfx_surface.c            |  28 ++-
+ drivers/gpu/drm/vmwgfx/vmwgfx_validation.h         |  13 +-
+ drivers/gpu/drm/vmwgfx/vmwgfx_vkms.c               |   2 +-
+ drivers/gpu/drm/xe/abi/xe_log_abi.h                |   3 +
+ drivers/gpu/drm/xe/xe_dma_buf.c                    |  82 ++++----
+ drivers/gpu/drm/xe/xe_guc_submit.c                 |   2 +
+ drivers/gpu/drm/xe/xe_guc_tlb_inval.c              |  14 +-
+ drivers/gpu/drm/xe/xe_hwmon.c                      |  62 +++---
+ drivers/gpu/drm/xe/xe_irq.c                        |   6 +-
+ drivers/gpu/drm/xe/xe_query.c                      |   6 +-
+ drivers/gpu/drm/xe/xe_ras.c                        |   2 +-
+ include/drm/drm_crtc.h                             |   9 +
+ include/drm/drm_vblank.h                           |  16 ++
+ include/drm/drm_vblank_helper.h                    |   2 +
+ 114 files changed, 2092 insertions(+), 649 deletions(-)
