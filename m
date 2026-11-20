@@ -2,73 +2,80 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3E003606A320
-	for <dri-devel@archiver.kernel.org>; Fri, 20 Nov 2026 16:17:55 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3C954606A331
+	for <dri-devel@archiver.kernel.org>; Fri, 20 Nov 2026 16:17:56 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=NOZVqhEE
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=iQQdJRHw
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id A23C2112BC5;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 8F1FD112BC4;
 	Fri, 20 Nov 2026 16:17:44 +0000 (UTC)
-Received: from mail-pj1-f45.google.com (mail-pj1-f45.google.com
- [209.85.216.45])
- by gabe.freedesktop.org (Postfix) with ESMTPS id EF65F11297E
- for <dri-devel@lists.freedesktop.org>; Fri, 20 Nov 2026 11:59:17 +0000 (UTC)
-Received: by mail-pj1-f45.google.com with SMTP id
- 98e67ed59e1d1-3b0bbdeae06so475201a91.1
- for <dri-devel@lists.freedesktop.org>; Fri, 20 Nov 2026 03:59:17 -0800 (PST)
+Received: from mail-qk1-f177.google.com (mail-qk1-f177.google.com
+ [209.85.222.177])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 64A7610E05E
+ for <dri-devel@lists.freedesktop.org>; Fri, 20 Nov 2026 03:11:57 +0000 (UTC)
+Received: by mail-qk1-f177.google.com with SMTP id
+ af79cd13be357-93f20c3aaa5so45825085a.2
+ for <dri-devel@lists.freedesktop.org>; Thu, 19 Nov 2026 19:11:57 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20260707; t=1795175957; x=1795780757; darn=lists.freedesktop.org;
+ d=gmail.com; s=20260707; t=1795144316; x=1795749116; darn=lists.freedesktop.org;
  h=content-transfer-encoding:mime-version:message-id:date:subject:cc
  :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
- bh=S6IS/mU9CGQB+CxcqZArg7eMwtn8KJF1AGNkVI6J8eA=;
- b=NOZVqhEEr52/MD1FkzBufTnId6ONL2GB5ethGRvT8oRNDgM5eYBRxT4mf89acKWnY6
- 9mULbK2oN21jJVU8PWjttzT5EgFkViXxf688YFyQYCu2hab8Yq9hRovsb7hn0EdHax7p
- oR8H1a3Csta2zQDQWt9NgHzR4VT5dJ7xtNj5B/t+G3r00tJiiifeGPn3Cjbi9dzFOmfl
- 745R/QHyykPiV1Xfz0fYH40xf2HiOXxVCoywOpRT45zxZEdxRattuVtALBwhgnvNQSRV
- tG+P6FvfRiCpOjyivXsdD9YXfQoSUq11/CS1G3b5Fv91/snFmV16cuYoVXNWGx0Eki16
- EjHg==
+ bh=PfLDjrfdwYTniLwtWaqO0Y6QOqwiPoyn88w0QJPjNII=;
+ b=iQQdJRHwttfk0XE3rncJxcIdJgzWr9MDqxC0dJdmPwiv9MPhQ+fz6JgHDpOLWRPked
+ YpL+DOehqeDjiAmbe4xO5f6O9czOLeYKmir/18dZbvaXSFUZ2loDt0eochYnsBT7kGVt
+ 5V1IVZzstNBj5zQz/zIWTSDkhlYBo+o1fpOIVdkpqnUFChndDXeXp0MR+eso1P+gbNDv
+ Ue3H6xirXH+6G1TcomXPDGX0kNJIizMgIQUk6Dqn6NL7Qf4YESK5QzQB/RZNveNgueA5
+ 1suG5we4jn5kuqKlPAYnM8El7tZtpg1L2xXIfZQxA42VWM7suRijzPCTNDjhqOjAnxU3
+ RqAg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20260707; t=1795175957; x=1795780757;
+ d=1e100.net; s=20260707; t=1795144316; x=1795749116;
  h=content-transfer-encoding:mime-version:message-id:date:subject:cc
  :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
  :message-id:reply-to:content-type;
- bh=S6IS/mU9CGQB+CxcqZArg7eMwtn8KJF1AGNkVI6J8eA=;
- b=2e9zoWM2H0STzkK7li1XB+LhNaSBdznedUXZLMEABLMR5E9ElJ9y0O7F9ltnJd8mkV
- 110vqBLF9ALH3l06qD+bwvPR+cjtto9uawhC2Tcj7UdTR+EIP3lFXWEgTww/eTZqzDjG
- 01tp8C/CN9veleai8kJna4vo0OvtRDz40/XDXGQcG9TmdSu/VPtPmlRAcUOYfSLtNnUD
- XA9pc7iUVDrnZaFeMY/bXkfz3uG4hCfornaSorga+QhMonj/uLPMeHldd/BJ7ZpTIeJ7
- QTi7QiV05WGVmHyCbjKLV0AYKPBixdtcXx9NbLQ0CeEA0kQ/g96hmffKHRoEv2w0+p4f
- 4FmQ==
-X-Gm-Message-State: APuU4Z8pf+pDE6bATtPJzeTd56qjDEyeP0CbaV5QnVqNg7Ls8qYJGsNg
- 7noHCV2lZud2Ei2vA/5g1Pwd4sp3lKZBkSaKcGnTajVhWkGUkxlnVucw
-X-Gm-Gg: AZFdTZdKi5X12y9lOroujgc2RYfNNKD24t0KM+ue9WzbLezWfqFlYFM4qRbcvi+/3uZ
- +Yn0iz4ylKp2JcaAX+RmAub9Fm/DoI7rfaD/P9eKiDZvoUQ4aROOBuiIB17mGsFDiaIWQmRt0Cs
- WFvTFcueFN6E4yCGCGqh4n9upKFX3BYmZuYeR3ocRx+R6atFjdLxBGse+7eMSRrwSzvRJ9eG4eP
- eTp7hBpMJDF86LcieH7a/GsWqBbwsuCaqpVi1sGqZGyX7YaPWI2vt58dSeHvvYkgxKYkuKqwxiQ
- tyRcHy6togln7dXFzx6LIyY6vpWG14wImDcwY8hslSg4fgP8YvYy/RWAUcFzQm7Tj4M6fOsojnh
- vt+Yakh+5fqYlRYIgc+feEY2d0QS9MJinge6gmDIwBvWaP2vZ1AXmM0TnbRRG2817JHiUrFwNG8
- g6wkEHlJKcsASdotTom0DJ/Yy+oh5q2SpkClhpCC+IDlILDZG+V9Al0a6hdNBXeejawJmrLkpR2
- v7cLmEm50Bmf0Ir0DvYfz973xwEreMUu7XzccgZzi1tFnUnDwzwUSWgMvawKBspzbfMxBSDPYsr
- ROLm4Ywa21pTo9OFact7KpV+xfA0hY3+0wISww1Sr3sD7+SBe6loa6AJzmXeq1kwF/Ii2cee3qc
- 5rcrelwZORA==
-X-Received: by 2002:a17:90b:2cce:b0:3a4:967c:6947 with SMTP id
- 98e67ed59e1d1-3b41c909001mr2615121a91.21.1795175957247; 
- Fri, 20 Nov 2026 03:59:17 -0800 (PST)
-Received: from DESKTOP-TPPBPA1 (36-226-249-217.dynamic-ip.hinet.net.
- [36.226.249.217]) by smtp.gmail.com with ESMTPSA id
- 41be03b00d2f7-cde6d0575d9sm1226566a12.25.2026.11.20.03.59.15
+ bh=PfLDjrfdwYTniLwtWaqO0Y6QOqwiPoyn88w0QJPjNII=;
+ b=d6IIbm5GJSp+pq48vXI9nx3VImYXo4Ahx8sdo45QS7Gb4KDYajzI7XV+3ZnrWMy3M0
+ XviLO9VYrLVkHYi34twHtKs2NSlShSXahu7xCauWzudw9iX3E+7ZonEJW0yLlZ6rtKPp
+ AdnBTLdXpkSQzrSKunYQVTLTTmpuFLngMK15umZZw0juKQQJta3HV5V6fGiSakAEDOxl
+ CESNxjJhD60Wv9YZ325CGZEc+VKd4C6w0bl51KZOtC2qk67n3MzfIm/zP300VQTI+c5d
+ uF8t9jwjzLc/vOnVsX8gD1IXR2FWNADMPoXy9QmhbKkw4JHPjPSndbjhsYYEow4+UyeE
+ Pi8A==
+X-Forwarded-Encrypted: i=1;
+ AL+hErG7whd9OlFPEl7nccsFhtb9UOZPUnj+s6HN8IBZLjCoK0yaPZi+mtpEEjKB9AxmeaAC8vFTFmFvzuA=@lists.freedesktop.org
+X-Gm-Message-State: APuU4Z9UR65uWVi9nEnqfOcHR+FlkDH/2p3ZVrCmlF0zTLlUs0XnVofb
+ zb/UFec99GhaAWj6dJgQ+8qLl2CvaTtFISfyKa8Z/sUUv4odCbzMjYya
+X-Gm-Gg: AYBFou2XsSd+rg9UmnceGM4HVx6cfCIgzlXGVXoIP1rWakSxOc6QdLyzZX0RPB5Q1qM
+ SIjdUMn9O+Hguc8Dhc74on7FkQRjH8skH9Uaumi0dJjSyuMn4bM0X6wvieaEIWnGlNnWVyF4PbK
+ aHqepEr6rRpUdUbgmxLZzzb6XCHT+aCpFWXzqZgZ8oSjc3t8gC1mNsgIoBqpQYRg42ZQXIKGdYo
+ 6Jg3S5aRe6iGQKhaPMuSRGdqrzxYhEl66VV2brTrUejoQajD3hvKvVYMRsYkPzVgnleko2KRORN
+ tjCimu86qSPOfJHy1XcfxbPRSU+j8YaLiKKF2d3NoS8QW0C9yYcBh9C5sKnxGgP/hFyYwEcxY0K
+ yEaiATAFUnDK22fHccLkyVcyT0enrbJqLZP9a6KfVsPAIY39+PdCGfrI/1b6aRT01L1Xe3p352q
+ OO+460rBkJbkYTkXoErX+x0DJLRtCEunqJZrvbmR1Rxez6ovyhPma4wHbMiJ+ImC/8e4/vd+04/
+ /YGPZ004u0YOO91hy+n05FLISGWNUJ5iPw+m/T8z7bFnVL813VpVweBdXscL/DS/kQmEz4wgPr+
+ /iksab1OBCiAbivCa5WG3GUSOR+aHHS1onTGlZyI5TlL8SdMtsu8+z/Oy7FaeGmhi4r8LMETWmV
+ c8Fal+3fIyyrjk4KFs9ng
+X-Received: by 2002:a05:620a:2996:b0:93e:6620:bde7 with SMTP id
+ af79cd13be357-949ba9b71admr305091385a.20.1795144316405; 
+ Thu, 19 Nov 2026 19:11:56 -0800 (PST)
+Received: from linux.. ([8.34.174.240]) by smtp.gmail.com with ESMTPSA id
+ af79cd13be357-949bb38319asm100211885a.16.2026.11.19.19.11.55
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Fri, 20 Nov 2026 03:59:16 -0800 (PST)
-From: Roy <rongh7426@gmail.com>
-To: mwen@igalia.com,
-	mcanal@igalia.com
-Cc: dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
- Roy <rongh7426@gmail.com>, stable@vger.kernel.org
-Subject: [PATCH] drm/v3d: Don't free the core's sg_table when PRIME import
- fails
-Date: Fri, 20 Nov 2026 19:58:40 +0800
-Message-ID: <20261120115840.417741-1-rongh7426@gmail.com>
-X-Mailer: git-send-email 2.51.1.windows.1
+ Thu, 19 Nov 2026 19:11:56 -0800 (PST)
+From: Changyul Lee <lcy8047@gmail.com>
+To: Zack Rusin <zack.rusin@broadcom.com>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>,
+ Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>,
+ Simona Vetter <simona@ffwll.ch>
+Cc: Broadcom internal kernel review list
+ <bcm-kernel-feedback-list@broadcom.com>, 
+ Maaz Mombasawala <maaz.mombasawala@broadcom.com>,
+ Martin Krastev <martin.krastev@broadcom.com>,
+ dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
+ Changyul Lee <lcy8047@gmail.com>
+Subject: [PATCH] drm/vmwgfx: Reserve the buffer during surface lookup
+Date: Thu, 19 Nov 2026 22:11:52 -0500
+Message-ID: <20261120031152.1696587-1-lcy8047@gmail.com>
+X-Mailer: git-send-email 2.43.0
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
@@ -84,84 +91,70 @@ List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-20.8 required=3.0 tests=BAYES_00,DKIM_SIGNED,
+X-Spam-Status: No, score=-15.8 required=3.0 tests=BAYES_00,DKIM_SIGNED,
 	DKIM_VALID,DKIM_VALID_AU,FREEMAIL_FORGED_FROMDOMAIN,FREEMAIL_FROM,
 	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
-	MAILING_LIST_MULTI,MENTIONS_GIT_HOSTING,SPF_HELO_NONE,SPF_PASS,
-	USER_AGENT_GIT autolearn=unavailable autolearn_force=no version=4.0.1
+	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,USER_AGENT_GIT
+	autolearn=unavailable autolearn_force=no version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-When v3d_bo_create_finish() fails in v3d_prime_import_sg_table(), for
-example with -ENOSPC because the V3D address space is full, the object
-is freed with drm_gem_shmem_free(). At that point obj->import_attach is
-not set yet, since drm_gem_prime_import_dev() only sets it after the
-driver callback returns. drm_gem_shmem_release() therefore takes the
-non-imported path and treats shmem->sgt as its own: it unmaps it with
-the V3D device, calls sg_free_table() and kfree()s it.
+A GEM reference keeps the buffer alive, but it does not keep its
+surfaces alive. vmw_bo_surface() walks the buffer's resource tree
+without holding the buffer reservation. A concurrent surface release
+can remove and free a surface while the lookup is still using its
+tree node. The caller enters its RCU read-side critical section only
+after the walk.
 
-That sg_table belongs to drm_gem_prime_import_dev(), which then unmaps
-it again through dma_buf_unmap_attachment_unlocked() on its fail_unmap
-path. The exporter's unmap runs on the freed table, and the kernel
-crashes:
+Reserve the buffer before calling vmw_bo_surface() and keep it
+reserved until the lookup has tried to take a surface reference.
+The reservation prevents the surface from being detached during
+the lookup, and kref_get_unless_zero() rejects a surface whose
+reference count has already reached zero. Assert that the caller
+holds the reservation in vmw_bo_surface().
 
-  Unable to handle kernel NULL pointer dereference at virtual address 000000000000001c
-  pc : dma_direct_unmap_sg+0x84/0x260
-  lr : dma_unmap_sg_attrs+0x60/0x148
-  Call trace:
-   dma_direct_unmap_sg+0x84/0x260 (P)
-   dma_unmap_sg_attrs+0x60/0x148
-   drm_gem_unmap_dma_buf+0x38/0x68 [drm]
-   dma_buf_unmap_attachment+0x3c/0xa0
-   dma_buf_unmap_attachment_unlocked+0x58/0x98
-   drm_gem_prime_import_dev+0x1a0/0x1e0 [drm]
-   drm_gem_prime_fd_to_handle+0x1a8/0x280 [drm]
-   drm_prime_fd_to_handle_ioctl+0x40/0x58 [drm]
-
-Users have hit this on Raspberry Pi 5 with Xorg importing vc4 buffers
-into v3d.
-
-Clear shmem->sgt before freeing the object, so that only the PRIME core
-unmaps it.
-
-Tested on a Raspberry Pi 5 running 6.18.39 with a small program that
-exports a vc4 dumb buffer, fills the V3D address space with BOs until
-creation fails with -ENOSPC, then imports the dma-buf into v3d. Without
-this patch the import oopses as above. With it, the import fails
-cleanly with -ENOSPC (60 runs), BO stats stay at zero, and imports
-succeed again once BOs are freed. The fix was tested as an out-of-tree
-v3d module built against 6.18.39; this tree was not built for arm64.
-
-The bug was found and the fix written with the help of an AI coding
-assistant (Claude); I reproduced and tested it on hardware and reviewed
-the change.
-
-Fixes: 40609d4820b2 ("drm/v3d: Use the new shmem helpers to reduce driver boilerplate.")
-Cc: stable@vger.kernel.org
-Link: https://github.com/raspberrypi/linux/issues/7504
-Signed-off-by: Roy <rongh7426@gmail.com>
+Fixes: d6667f0ddf46 ("drm/vmwgfx: Fix handling of dumb buffers")
+Signed-off-by: Changyul Lee <lcy8047@gmail.com>
 ---
- drivers/gpu/drm/v3d/v3d_bo.c | 7 +++++++
- 1 file changed, 7 insertions(+)
+ drivers/gpu/drm/vmwgfx/vmwgfx_bo.c      | 2 ++
+ drivers/gpu/drm/vmwgfx/vmwgfx_surface.c | 2 ++
+ 2 files changed, 4 insertions(+)
 
-diff --git a/drivers/gpu/drm/v3d/v3d_bo.c b/drivers/gpu/drm/v3d/v3d_bo.c
-index db95a2f..d0b672d 100644
---- a/drivers/gpu/drm/v3d/v3d_bo.c
-+++ b/drivers/gpu/drm/v3d/v3d_bo.c
-@@ -185,6 +185,13 @@ v3d_prime_import_sg_table(struct drm_device *dev,
+diff --git a/drivers/gpu/drm/vmwgfx/vmwgfx_bo.c b/drivers/gpu/drm/vmwgfx/vmwgfx_bo.c
+index a6d7156e4281..625c4b33daa2 100644
+--- a/drivers/gpu/drm/vmwgfx/vmwgfx_bo.c
++++ b/drivers/gpu/drm/vmwgfx/vmwgfx_bo.c
+@@ -864,6 +864,8 @@ struct vmw_surface *vmw_bo_surface(struct vmw_bo *vbo)
+ 	struct vmw_surface *surf = NULL;
+ 	struct rb_node *rb_itr = vbo->res_tree.rb_node;
  
- 	ret = v3d_bo_create_finish(obj);
- 	if (ret) {
-+		/*
-+		 * The sg_table still belongs to drm_gem_prime_import_dev(),
-+		 * which unmaps it when we return an error. import_attach is
-+		 * not set yet, so drm_gem_shmem_free() would otherwise unmap
-+		 * and free it as if it were ours.
-+		 */
-+		to_v3d_bo(obj)->base.sgt = NULL;
- 		drm_gem_shmem_free(&to_v3d_bo(obj)->base);
- 		return ERR_PTR(ret);
++	dma_resv_assert_held(vbo->tbo.base.resv);
++
+ 	if (vbo->is_dumb && vbo->dumb_surface) {
+ 		res = &vbo->dumb_surface->res;
+ 		goto out;
+diff --git a/drivers/gpu/drm/vmwgfx/vmwgfx_surface.c b/drivers/gpu/drm/vmwgfx/vmwgfx_surface.c
+index 3064a2a960e1..13548fdfa84c 100644
+--- a/drivers/gpu/drm/vmwgfx/vmwgfx_surface.c
++++ b/drivers/gpu/drm/vmwgfx/vmwgfx_surface.c
+@@ -877,6 +877,7 @@ vmw_lookup_user_surface_for_buffer(struct vmw_private *vmw, struct vmw_bo *bo,
+ 	struct vmw_surface *surf;
+ 	struct ttm_base_object *base;
+ 
++	ttm_bo_reserve(&bo->tbo, false, false, NULL);
+ 	surf = vmw_bo_surface(bo);
+ 	if (surf) {
+ 		rcu_read_lock();
+@@ -891,6 +892,7 @@ vmw_lookup_user_surface_for_buffer(struct vmw_private *vmw, struct vmw_bo *bo,
+ 		}
+ 		rcu_read_unlock();
  	}
++	ttm_bo_unreserve(&bo->tbo);
+ 
+ 	return user_srf;
+ }
+
+base-commit: af1cf92e8617a7f7aa24b415596cbf64b76a12e7
 -- 
-2.51.1.windows.1
+2.43.0
 
