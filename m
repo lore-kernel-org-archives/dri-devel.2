@@ -2,40 +2,40 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 03D30606A320
-	for <dri-devel@archiver.kernel.org>; Fri, 20 Nov 2026 12:55:47 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9FBE5606A325
+	for <dri-devel@archiver.kernel.org>; Fri, 20 Nov 2026 12:55:48 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=MRnhr6Y4
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=BB8xHwrk
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 197FE1129D9;
-	Fri, 20 Nov 2026 12:55:40 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 21F941129DB;
+	Fri, 20 Nov 2026 12:55:41 +0000 (UTC)
 Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id D969A1129D0
- for <dri-devel@lists.freedesktop.org>; Fri, 20 Nov 2026 12:55:23 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 2222D1129D4
+ for <dri-devel@lists.freedesktop.org>; Fri, 20 Nov 2026 12:55:34 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id AF47D43770;
- Fri, 20 Nov 2026 12:55:23 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 15A3B1F000C0;
- Fri, 20 Nov 2026 12:55:22 +0000 (UTC)
+ by sea.source.kernel.org (Postfix) with ESMTP id 09DD3441BF;
+ Fri, 20 Nov 2026 12:55:34 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id DFD6F1F000D3;
+ Fri, 20 Nov 2026 12:55:32 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1795179323;
- bh=S0aOPn/TEo0olvqbt/VbMrHJ/0MCKQnxL6eHqJmbaL0=;
+ s=k20260515; t=1795179333;
+ bh=mAOg9cbA59SAaUTmOXI4dUEovS1i5/58CkVPY7xzSkU=;
  h=From:Date:Subject:References:In-Reply-To:To:Cc;
- b=MRnhr6Y4C84Rfgg5+8p/DnP05e4IoJPu+aNO3CoCFPw5Euqaw7WtI0iHysYqI+hZX
- oaCFPRiJ5zF8SGJkqu5secigik3gUPHNHuVwzFChX+gc/xbBkXUyPsr4jOyWVkhjPa
- SegzHPtv39v5I15blo+wzWp+5jO0lcI/InxxG7W3wd8YAfZo25wssCDxko1OZ4PuU+
- P6aQA5x5zOiYOlHmqgcNThhAn4ZJBmFn/a8UYTiPW+p/w3jBHiiw+nZ0ZsP5RJW2O5
- 5GQsiwEPFqfIJnQGwp3bbGUml8Cb4iaw5m5m7/7nPWvWIxFQLOY2vqcyL6XlK/by/l
- R4T/3RUyilk4Q==
+ b=BB8xHwrkPHP7wR0spacJYPD2uB3qk5fSyiCdfrZ6EjfYXLgop6fzQU2K9ZjTldUaQ
+ l+NVFu+cLaCAwpmU3e0t7K3j3wJIXiskwFKOnOcbFa27CGGRrsiZiEGZhPe6kMNqDQ
+ hYVct7PGaVtoL5oaUoZsyb9oLvLzYsb6y1OW1yJ5JBDq0Dj8Lj8Ec5ZJgTOMTVyujP
+ htxSAQEUOcKw+yztO9gNSNbtVLd3v9CfYtQ5gZEnTvHUvYkfC4hELKQiDANXxnNMXC
+ Zvhk69glNk8plDTOPU0p4q2uXmFdKxW2Z/7f6b0DbOokJt7pVwrXccg8XQtS0hG4iz
+ SPxHHtPj8vXXg==
 From: Maxime Ripard <mripard@kernel.org>
-Date: Fri, 20 Nov 2026 13:54:53 +0100
-Subject: [PATCH v9 01/42] drm/atomic: Add
- drm_atomic_get_connector_for_encoder_locked()
+Date: Fri, 20 Nov 2026 13:54:56 +0100
+Subject: [PATCH v9 04/42] drm/tests: hdmi-state-helper: Handle EDEADLK in
+ the color format test
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20261120-drm-state-readout-v9-1-a67c2b45b8ec@kernel.org>
+Message-Id: <20261120-drm-state-readout-v9-4-a67c2b45b8ec@kernel.org>
 References: <20261120-drm-state-readout-v9-0-a67c2b45b8ec@kernel.org>
 In-Reply-To: <20261120-drm-state-readout-v9-0-a67c2b45b8ec@kernel.org>
 To: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
@@ -49,12 +49,12 @@ To: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
 Cc: Devarsh Thakkar <devarsht@ti.com>, dri-devel@lists.freedesktop.org, 
  Maxime Ripard <mripard@kernel.org>
 X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=openpgp-sha256; l=4971; i=mripard@kernel.org;
- h=from:subject:message-id; bh=dxtZntBMS7z+8LZ2+SCA0rxLmF+3PiMyQ9ZOoSJFj94=;
- b=owGbwMvMwCmsHn9OcpHtvjLG02pJDNkMzsrllY+uqrwxOhZRunW9BdPCdwXixx0rttk1P5vNV
- O4gLfioYyoLgzAng6yYIssTmbDTy9sXVznYr/wBM4eVCWQIAxenAExkXRxjw+fDP29tP/F17oqe
- kFtNHxLzVSe9i3DkSzg6zedy/ppV7wwjPzdPvdDzTfWt8SnXf6pdOxnrfXV7i5/8N+rrK/nI+jG
- t94RR4cYnV84t1L9xSO/emrryFX78BdM8noeGTpzeJe8ZInkeAA==
+X-Developer-Signature: v=1; a=openpgp-sha256; l=2775; i=mripard@kernel.org;
+ h=from:subject:message-id; bh=ETUGIvdl6CvVQHMhX2UxuefRLnRXMXupcWdJLk8SOi4=;
+ b=owGbwMvMwCmsHn9OcpHtvjLG02pJDNkMziquG22U1H80N164avi4QP0u3yqzHvUJR1qE0o4dz
+ d29+mRZx1QWBmFOBlkxRZYnMmGnl7cvrnKwX/kDZg4rE8gQBi5OAZhIfQdjnfE+uXXPJ/N3TvaV
+ TD3WWOS83eqz6loWL7twM42ec7rBbvbpfx8qVi7WmJ7263/whC/TGOusjaw6zr4PP7zO9tzCw4+
+ TdnJ/k54TtjRX5fkjJRfRPO+N09e8TLHiWatw5/P664fWbrMCAA==
 X-Developer-Key: i=mripard@kernel.org; a=openpgp;
  fpr=BE5675C37E818C8B5764241C254BCFC56BF6CE8D
 X-BeenThere: dri-devel@lists.freedesktop.org
@@ -75,136 +75,81 @@ X-Spam-Status: No, score=-18.8 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-drm_atomic_get_connector_for_encoder() takes the connection mutex
-through the acquire context it is given, looks up the connector routed
-to an encoder, and releases the mutex before returning.
+The atomic state API is allowed to return -EDEADLK whenever the
+wound/wait mutex code detects a deadlock, and the caller is then
+expected to back off and restart the whole sequence.
 
-However, callers that need to look at the state of the connector they
-just found have to take the connection mutex again afterwards, which
-leaves a window where a concurrent commit can re-route the connector.
-And if the caller already held the connection mutex through the same
-acquire context, drm_atomic_get_connector_for_encoder() releases it
-from under it.
+drm_test_check_hdmi_color_format() wasn't doing any of that, and
+reported a spurious failure when drm_atomic_set_crtc_for_connector()
+returned -EDEADLK, just like its 420-only counterpart fixed earlier.
+Since the ticket ordering depends on the execution, this could only be
+observed occasionally.
 
-Split the lookup into drm_atomic_get_connector_for_encoder_locked(),
-which expects the caller to hold the connection mutex, and make
-drm_atomic_get_connector_for_encoder() a wrapper around it that takes
-and releases the mutex.
+The assertion also aborted before the locking context could be
+released, leaving connection_mutex held when the device was released,
+which drm_modeset_lock_fini() then reported through
+drm_mode_config_cleanup().
 
+Add the usual backoff and restart pattern.
+
+Fixes: f7235a4805a4 ("drm/tests: hdmi: Add tests for the color_format property")
 Signed-off-by: Maxime Ripard <mripard@kernel.org>
 ---
- drivers/gpu/drm/drm_atomic.c | 57 ++++++++++++++++++++++++++++++++++----------
- include/drm/drm_atomic.h     |  2 ++
- 2 files changed, 46 insertions(+), 13 deletions(-)
+ drivers/gpu/drm/tests/drm_hdmi_state_helper_test.c | 14 ++++++++++++++
+ 1 file changed, 14 insertions(+)
 
-diff --git a/drivers/gpu/drm/drm_atomic.c b/drivers/gpu/drm/drm_atomic.c
-index 81591173265d..d2a46ba7394f 100644
---- a/drivers/gpu/drm/drm_atomic.c
-+++ b/drivers/gpu/drm/drm_atomic.c
-@@ -1289,10 +1289,52 @@ drm_atomic_get_new_connector_for_encoder(const struct drm_atomic_commit *state,
+diff --git a/drivers/gpu/drm/tests/drm_hdmi_state_helper_test.c b/drivers/gpu/drm/tests/drm_hdmi_state_helper_test.c
+index aafe78b7cbbd..8e3e9bb4a202 100644
+--- a/drivers/gpu/drm/tests/drm_hdmi_state_helper_test.c
++++ b/drivers/gpu/drm/tests/drm_hdmi_state_helper_test.c
+@@ -2295,33 +2295,47 @@ static void drm_test_check_hdmi_color_format(struct kunit *test)
+ 	KUNIT_ASSERT_TRUE(test, drm_mode_is_420(info, preferred));
  
- 	return NULL;
+ 	state = drm_kunit_helper_atomic_state_alloc(test, &priv->drm, &ctx);
+ 	KUNIT_ASSERT_NOT_ERR_OR_NULL(test, state);
+ 
++retry:
+ 	conn_state = drm_atomic_get_connector_state(state, &priv->connector);
+ 	KUNIT_ASSERT_NOT_ERR_OR_NULL(test, conn_state);
+ 
+ 	conn_state->color_format = param->fmt;
+ 
+ 	ret = drm_atomic_set_crtc_for_connector(conn_state, priv->crtc);
++	if (ret == -EDEADLK)
++		goto backoff;
+ 	KUNIT_ASSERT_EQ(test, ret, 0);
+ 
+ 	crtc_state = drm_atomic_get_crtc_state(state, priv->crtc);
++	if (IS_ERR(crtc_state) && PTR_ERR(crtc_state) == -EDEADLK)
++		goto backoff;
+ 	KUNIT_ASSERT_NOT_ERR_OR_NULL(test, crtc_state);
+ 
+ 	ret = drm_atomic_set_mode_for_crtc(crtc_state, preferred);
+ 	KUNIT_ASSERT_EQ(test, ret, 0);
+ 
+ 	crtc_state->enable = true;
+ 	crtc_state->active = true;
+ 
+ 	ret = drm_atomic_check_only(state);
++	if (ret == -EDEADLK)
++		goto backoff;
+ 	KUNIT_EXPECT_EQ(test, ret, param->expected_ret);
+ 	KUNIT_EXPECT_EQ(test, conn_state->hdmi.output_format, param->expected);
+ 
+ 	drm_modeset_drop_locks(&ctx);
+ 	drm_modeset_acquire_fini(&ctx);
++
++	return;
++
++backoff:
++	drm_atomic_commit_clear(state);
++	drm_modeset_backoff(&ctx);
++	goto retry;
  }
- EXPORT_SYMBOL(drm_atomic_get_new_connector_for_encoder);
  
-+/**
-+ * drm_atomic_get_connector_for_encoder_locked - Get connector currently assigned to an encoder
-+ * @encoder: The encoder to find the connector of
-+ *
-+ * This function finds and returns the connector currently assigned to
-+ * an @encoder.
-+ *
-+ * It is similar to drm_atomic_get_connector_for_encoder(), but expects
-+ * the caller to hold &drm_mode_config.connection_mutex. This is useful
-+ * for callers that need to keep looking at the connector state once the
-+ * connector has been found, since the connection mutex must be held for
-+ * the whole sequence.
-+ *
-+ * Returns:
-+ * The connector connected to @encoder, or an error pointer otherwise.
-+ */
-+struct drm_connector *
-+drm_atomic_get_connector_for_encoder_locked(const struct drm_encoder *encoder)
-+{
-+	struct drm_connector_list_iter conn_iter;
-+	struct drm_connector *out_connector = ERR_PTR(-EINVAL);
-+	struct drm_connector *connector;
-+	struct drm_device *dev = encoder->dev;
-+
-+	drm_modeset_lock_assert_held(&dev->mode_config.connection_mutex);
-+
-+	drm_connector_list_iter_begin(dev, &conn_iter);
-+	drm_for_each_connector_iter(connector, &conn_iter) {
-+		if (!connector->state)
-+			continue;
-+
-+		if (encoder == connector->state->best_encoder) {
-+			out_connector = connector;
-+			break;
-+		}
-+	}
-+	drm_connector_list_iter_end(&conn_iter);
-+
-+	return out_connector;
-+}
-+EXPORT_SYMBOL(drm_atomic_get_connector_for_encoder_locked);
-+
- /**
-  * drm_atomic_get_connector_for_encoder - Get connector currently assigned to an encoder
-  * @encoder: The encoder to find the connector of
-  * @ctx: Modeset locking context
-  *
-@@ -1314,31 +1356,20 @@ EXPORT_SYMBOL(drm_atomic_get_new_connector_for_encoder);
-  */
- struct drm_connector *
- drm_atomic_get_connector_for_encoder(const struct drm_encoder *encoder,
- 				     struct drm_modeset_acquire_ctx *ctx)
- {
--	struct drm_connector_list_iter conn_iter;
--	struct drm_connector *out_connector = ERR_PTR(-EINVAL);
--	struct drm_connector *connector;
-+	struct drm_connector *out_connector;
- 	struct drm_device *dev = encoder->dev;
- 	int ret;
- 
- 	ret = drm_modeset_lock(&dev->mode_config.connection_mutex, ctx);
- 	if (ret)
- 		return ERR_PTR(ret);
- 
--	drm_connector_list_iter_begin(dev, &conn_iter);
--	drm_for_each_connector_iter(connector, &conn_iter) {
--		if (!connector->state)
--			continue;
-+	out_connector = drm_atomic_get_connector_for_encoder_locked(encoder);
- 
--		if (encoder == connector->state->best_encoder) {
--			out_connector = connector;
--			break;
--		}
--	}
--	drm_connector_list_iter_end(&conn_iter);
- 	drm_modeset_unlock(&dev->mode_config.connection_mutex);
- 
- 	return out_connector;
- }
- EXPORT_SYMBOL(drm_atomic_get_connector_for_encoder);
-diff --git a/include/drm/drm_atomic.h b/include/drm/drm_atomic.h
-index 3ae35b09c0cf..c8d0f18fd0fd 100644
---- a/include/drm/drm_atomic.h
-+++ b/include/drm/drm_atomic.h
-@@ -775,10 +775,12 @@ drm_atomic_get_old_connector_for_encoder(const struct drm_atomic_commit *state,
- 					 struct drm_encoder *encoder);
- struct drm_connector *
- drm_atomic_get_new_connector_for_encoder(const struct drm_atomic_commit *state,
- 					 struct drm_encoder *encoder);
- struct drm_connector *
-+drm_atomic_get_connector_for_encoder_locked(const struct drm_encoder *encoder);
-+struct drm_connector *
- drm_atomic_get_connector_for_encoder(const struct drm_encoder *encoder,
- 				     struct drm_modeset_acquire_ctx *ctx);
- 
- struct drm_crtc *
- drm_atomic_get_old_crtc_for_encoder(struct drm_atomic_commit *state,
+ static const struct color_format_test_param hdmi_color_format_params[] = {
+ 	{
+ 		.fmt = DRM_CONNECTOR_COLOR_FORMAT_AUTO,
 
 -- 
 2.56.1
