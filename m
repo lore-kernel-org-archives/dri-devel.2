@@ -2,66 +2,66 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6E60F606A331
-	for <dri-devel@archiver.kernel.org>; Fri, 20 Nov 2026 15:55:13 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 10BC4606A335
+	for <dri-devel@archiver.kernel.org>; Fri, 20 Nov 2026 15:55:18 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=nLu3SoMe
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=itM/HmFl
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id C0AD2112AE5;
-	Fri, 20 Nov 2026 15:55:06 +0000 (UTC)
-Received: from mail-wm1-f54.google.com (mail-wm1-f54.google.com
- [209.85.128.54])
- by gabe.freedesktop.org (Postfix) with ESMTPS id E4EFD10E914
- for <dri-devel@lists.freedesktop.org>; Fri, 20 Nov 2026 15:54:55 +0000 (UTC)
-Received: by mail-wm1-f54.google.com with SMTP id
- 5b1f17b1804b1-4bb64ef5a00so8205345e9.3
- for <dri-devel@lists.freedesktop.org>; Fri, 20 Nov 2026 07:54:55 -0800 (PST)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 009EE112BB3;
+	Fri, 20 Nov 2026 15:55:12 +0000 (UTC)
+Received: from mail-wm1-f42.google.com (mail-wm1-f42.google.com
+ [209.85.128.42])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 1ED6910E2F4
+ for <dri-devel@lists.freedesktop.org>; Fri, 20 Nov 2026 15:55:00 +0000 (UTC)
+Received: by mail-wm1-f42.google.com with SMTP id
+ 5b1f17b1804b1-4bb72b44a97so8940425e9.0
+ for <dri-devel@lists.freedesktop.org>; Fri, 20 Nov 2026 07:55:00 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20260707; t=1795190094; x=1795794894; darn=lists.freedesktop.org;
+ d=gmail.com; s=20260707; t=1795190098; x=1795794898; darn=lists.freedesktop.org;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:from:to:cc:subject:date
  :message-id:reply-to:content-type;
- bh=oxj5/8ZVuVe+zapf44BocB1MooTS6kcqmBXhurZCUnQ=;
- b=nLu3SoMeZb3IpF9riTTtD0gWqUCWBz3C9cKZ0F5fBv8Pu4GOx01L9VMkglPdzEyYzr
- 0zpui8QbJEZwS1cZqTcWNty7KCPi2FWzfL4x01VSuooXCRe1VesxPmxd7R4dx/CCOIiX
- ILY8OJr29/WtXDhH3LxvZGIFIRLg6yKydOVcdpqQLuIjBCn92N/k99pIrmmlpRBuvm5+
- JYhWpCYOEAyjCN3DbGSdEltqfe0eQLStIPIB6HCRRn359zOmuHLOL9M2VVsU512B03tE
- LQ9JjgYM9QsC4wcwsDyJFRHbJkPY4YDvqd6KlHgsL1sQzIAQl7tYTBbVVp9rZrX0hZqL
- z2wQ==
+ bh=iEwn/neGYJcnJW/f7YdqIPyeyWp1f9cfch/HHbVGQAw=;
+ b=itM/HmFl9p6lXrF39noelJQaYto+B+1oM5vsGq5KSkWX0m5qOls5Z3sP/yIboLJCzd
+ iG6P8eHSiVHzj8p021ptmSNrbIYMImI7lS4pwO1GkPSMRyH2RrFwKRwa1NlzineEzQ9r
+ Tzk2hfNz6agqGB/z2l9pQ6BfC+LYpXdM1azLH8uLoAjtfLvSWdnafDdrBTFjgWm4NmNG
+ OT9bVQh+2gSDOXRUbP4bGRITnCX84A2OZewjiT9XI1x8yNx9KB3FmEllfVbByHQQW6vQ
+ kiNRBr4JbBwUVXrgCP7nS9KTnIvpClxPPBOaO1KPzCKWi7CUVkwEl8LxeKh8shIHZ6Ii
+ nTeg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20260707; t=1795190094; x=1795794894;
+ d=1e100.net; s=20260707; t=1795190098; x=1795794898;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
  :to:cc:subject:date:message-id:reply-to:content-type;
- bh=oxj5/8ZVuVe+zapf44BocB1MooTS6kcqmBXhurZCUnQ=;
- b=qiOPaJDgrtGEc7C2zE4QGyqCCjDhe3UdPm4R8uY8QhxDQoLIvwtktZRSoVxD/DtQbs
- 0Nd1NHSxMMWGnpkrUghIh7HlcuFy93/nAlJO7/ZVrciDVQiM3MFD2TK9MQ9+TiExJ2aD
- ePC21mvdoWjNJQ0eT580CnY+mc+xRIGveTg8pH8Soj1giasvS/Dk+Qul0Djx+eyCqfTT
- BXReC1l2+HHF+N/5rpfyXF8KiVHBs/KWX1CN62q1+huoOgAX0dswRPMnIjJPnQVGGtq7
- 04GwFm10Dj0bgLyGMTo1TLJC9m9PbQl0DTUwnVzOZBWGriBrMCbcAxPxmk0HboDyKoeu
- cvLQ==
+ bh=iEwn/neGYJcnJW/f7YdqIPyeyWp1f9cfch/HHbVGQAw=;
+ b=cpLqs2vSQHfD2cHPXgZ27Chr7KNGwNgElu/x0IDuDu8NbwC7JWgs7CESbOI46G3cYs
+ c5RNBDxlnCXnB4sGvxPVZnCZT9MHa2ekPGKOH9WvAx5ys6doOu+GnVhilr7faLIAkg2o
+ qlsLeSzuqRjGWxyUR65ShFNTMlzcnSVKzfFaxRlcE8RQVJPbGdibQrwfzoNFnuLUF/Ev
+ 96zwB9H4vO00zeWBnRpucDyPzpcdhqKqGVK/8PrpsLlmH+d9UKEWxlFVss4HRgLb9apv
+ /X/Vco9MQklgI4FETpU6vBG1mgBJmdAnzbJUiTAKdCvU90WD43gFZjBCseSg1KhkudgY
+ I1OA==
 X-Forwarded-Encrypted: i=1;
- AL+hErHTAiF4kW0AxNt/YEN3NiEwRBg1N9dAjm9Tfnz3yrKJL8f0Oiv6dTBAQ7+hRUc1Y0xwiEeZWN3Oe60=@lists.freedesktop.org
-X-Gm-Message-State: APuU4Z/sC7fXNSmQWpmPHpcppdQNLQyozhmfrg38Oz4xNlDDBO698c54
- D0R5XNkio7Ido+qgiuAnYT9ckDtuz+B0cenqJ5Bn806sabdNIOXm1aYG
-X-Gm-Gg: AYBFou1aGS1+dVhZeHtTXLrOffbbGYftjELeTGIA4ey0FFWKKoj/mvGvEDAkdDce8G/
- IH9M/n4Jf8M0E5/N32sdmL0NRLR0YILfH3HkNI2quhcMMOn85F6ZomGeMK5gjtZ2KMSAKPCCCMj
- Tu5caCJGrlSqKZ2c/aOdBYJJitpDeiASB+6GnwnKZbeFo/xHtP8HqWmGY7ITOTz339Tr32hRDK3
- H9q8aL0aZxU/ZYKRjJ5PervYOzSr3pekHYAnvVfSFsz9xNuTqdgesYpym2lvO9N3LcDn0TWPTBA
- glEfnZgMGAoJi8Khl6oZb/q2BXaY8psgM400QAKnWBqxVLeKkXgBWGLBxbHhZ2mYV4K2m+XzVj/
- 7TJluuSJALq0d9dOvVNhXkpZZGz38zz8Phzt4J1gkdBz9k9nYbqe1CF6e8Of/nDJlX6wn57biEN
- HkGRehpID2EXgqEZ/eh0Wm/7iNBZyiOBezAHs3BRGCUImUxPHAuTM9JXu1aGP7VEVF0+fD09ZjB
- MLEiw6X3OgfzgXjDrvCVkYfwkTSa2We1yO+W1TTCtGRsVdMwl/6eU0+nbjpPswVuq4X9MujQCB4
- 51tFrX8TA71uKQ+JwAMQYvtEwpJU9KqPNn3WChJo80R+OI/Ae3xGb0x4ov4WAuPV8BXOWQgw4lE
- =
-X-Received: by 2002:a05:600c:468c:b0:4bb:6d61:af7c with SMTP id
- 5b1f17b1804b1-4bb88944bf5mr76243685e9.35.1795190094118; 
- Fri, 20 Nov 2026 07:54:54 -0800 (PST)
+ AL+hErHCS8DIyULDxNr0BOAwoYIqwKQDoxTm7gn5TEzO81LUf5w+2IbJc8ScAKxxo1pxm4F+hZY8mqNt3Mc=@lists.freedesktop.org
+X-Gm-Message-State: APuU4Z/Eaybr0lrqTkBXu09EeACJh0cX3EWLO/d3uSh6B5BGNmFc+s1E
+ BMvH7OSSDUyaC1WMIKphnKBQDqYh4weCUdkgkpDeUPl3z8CY5e93jniu
+X-Gm-Gg: AYBFou2JihHQoDRoZqx2ga+8aoX3Z/iAehkzaBRulVANtyy077SyD145NQkFad4yIWo
+ R4ukCWdinc5OzQXO761hXwhM1lSHPKs3MNmCkHZLV7iVVEb23fsKhfpRUExpMMIk3GS3m8qPAxK
+ TvSGtIkz06BWPZhOKoXcJLuP0bmkEK6yMm62YxcJk8Jz7PpDaGRxHXBYjX5u5T+ftQ88OExFu03
+ YJQ0/6LGkSsnV9Oc21+gBM2E9bDkmNWH6Mx9wcQQ86cVfv3BTlLI3KIn3wmoAp9CrzcjrzNRwV7
+ Gg0YaBESRtsvTooo6L+PbHWhQqSuw9O0ySaUK3zcSClri/8rJx4DDsFu2qlK5jao5JwkrJfPfrs
+ qCaQlL3oCS8GHUDpqbinAJamahYQePFUVmqHupQn2pCRXrTiIVFRL24mpc+kmc1wCOoHlVyQp4i
+ QjjpJW3XCZ3RogJKwz76CbLedzeDIc9gh9dvtVaPE5HGLXc4PG1Wwnmrwq2To89Lfa8RD9dDDXj
+ v173Z59mi/U/7DZ8KJ6dI9SrA46e6PerDhm8wVuPiIorutORegYA7e/C7ysjXUWzzHOmsGZfEya
+ Wkk8aTRrjn4/8vOp1G9v452oj7LRL0jZ9nlgqQS5vcWRD7so1G0+2lDElFHkZCVFhTljBBUBZ/E
+ Z
+X-Received: by 2002:a05:600c:5251:b0:4a1:f8cb:7d70 with SMTP id
+ 5b1f17b1804b1-4bb8881e837mr72253505e9.24.1795190098333; 
+ Fri, 20 Nov 2026 07:54:58 -0800 (PST)
 Received: from DESKTOP-BJ3EVC4.lan (178-164-182-185.pool.digikabel.hu.
  [178.164.182.185]) by smtp.gmail.com with ESMTPSA id
- 5b1f17b1804b1-4bb884a15absm83982635e9.9.2026.11.20.07.54.53
+ 5b1f17b1804b1-4bb884a15absm83982635e9.9.2026.11.20.07.54.57
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Fri, 20 Nov 2026 07:54:53 -0800 (PST)
+ Fri, 20 Nov 2026 07:54:57 -0800 (PST)
 From: Abdur Rofik <rofikcoga@gmail.com>
 To: linux-arm-msm@vger.kernel.org
 Cc: devicetree@vger.kernel.org, phone-devel@vger.kernel.org,
@@ -73,10 +73,9 @@ Cc: devicetree@vger.kernel.org, phone-devel@vger.kernel.org,
  Neil Armstrong <neil.armstrong@linaro.org>,
  Dmitry Torokhov <dmitry.torokhov@gmail.com>,
  Abdur Rofik <rofikcoga@gmail.com>
-Subject: [PATCH v5 02/10] arm64: dts: qcom: add LG V60 ThinQ 5G (timelm)
- support
-Date: Fri, 20 Nov 2026 16:54:41 +0100
-Message-Id: <20261120155450.7719-3-rofikcoga@gmail.com>
+Subject: [PATCH v5 06/10] Input: touchscreen: add Silicon Works SW42902 support
+Date: Fri, 20 Nov 2026 16:54:45 +0100
+Message-Id: <20261120155450.7719-7-rofikcoga@gmail.com>
 X-Mailer: git-send-email 2.39.5
 In-Reply-To: <20261120155450.7719-1-rofikcoga@gmail.com>
 References: <20261120155450.7719-1-rofikcoga@gmail.com>
@@ -102,655 +101,433 @@ X-Spam-Status: No, score=-15.8 required=3.0 tests=BAYES_00,DKIM_SIGNED,
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-Add initial device tree and MAINTAINERS entry for the LG V60 ThinQ 5G
-(timelm), an SM8250-based smartphone released in 2020.
-
-The initial description enables:
-- Memory reservations for bootloader and firmware log regions
-- Simple framebuffer continuous splash reservation
-- Volume Down and Assistant keys via PM8150 GPIOs
-- Volume Up key via PM8150 RESIN
-- RPMh power supplies across PM8150, PM8150L, and PM8009
-- Storage via UFS 3.0 and SD card via SDHC2 with pinctrl states
-- Graphics via Adreno 650 GPU with GMU and ZAP shader firmware
-- High-Speed USB and SuperSpeed QMP PHY
-- Console output on GENI UART12
+Add basic multitouch support for the SW42902 controller. Implement the
+power and reset sequence using regulator supplies and use the firmware
+already present in controller flash; no firmware update is performed.
 
 Signed-off-by: Abdur Rofik <rofikcoga@gmail.com>
 ---
- MAINTAINERS                                   |   6 +
- arch/arm64/boot/dts/qcom/Makefile             |   1 +
- arch/arm64/boot/dts/qcom/sm8250-lg-timelm.dts | 592 ++++++++++++++++++
- 3 files changed, 599 insertions(+)
- create mode 100644 arch/arm64/boot/dts/qcom/sm8250-lg-timelm.dts
+ MAINTAINERS                         |   1 +
+ drivers/input/touchscreen/Kconfig   |  13 +
+ drivers/input/touchscreen/Makefile  |   1 +
+ drivers/input/touchscreen/sw42902.c | 360 ++++++++++++++++++++++++++++
+ 4 files changed, 375 insertions(+)
+ create mode 100644 drivers/input/touchscreen/sw42902.c
 
 diff --git a/MAINTAINERS b/MAINTAINERS
-index ccbcdc0799b9f..80c1bfb66f8cc 100644
+index a29019d984393..7a1904f6d0fad 100644
 --- a/MAINTAINERS
 +++ b/MAINTAINERS
-@@ -15211,6 +15211,12 @@ F:	Documentation/ABI/testing/sysfs-platform-lg-laptop
- F:	Documentation/admin-guide/laptops/lg-laptop.rst
- F:	drivers/platform/x86/lg-laptop.c
+@@ -25840,6 +25840,7 @@ M:	Abdur Rofik <rofikcoga@gmail.com>
+ L:	linux-input@vger.kernel.org
+ S:	Maintained
+ F:	Documentation/devicetree/bindings/input/touchscreen/lg,sw42902.yaml
++F:	drivers/input/touchscreen/sw42902.c
  
-+LG V60 THINQ 5G (TIMELM) SUPPORT
-+M:	Abdur Rofik <rofikcoga@gmail.com>
-+L:	linux-arm-msm@vger.kernel.org
-+S:	Maintained
-+F:	arch/arm64/boot/dts/qcom/sm8250-lg-timelm*
+ SILVACO I3C DUAL-ROLE MASTER
+ M:	Miquel Raynal <miquel.raynal@bootlin.com>
+diff --git a/drivers/input/touchscreen/Kconfig b/drivers/input/touchscreen/Kconfig
+index 9b9ae8ac3f7fd..14c6cd999ec92 100644
+--- a/drivers/input/touchscreen/Kconfig
++++ b/drivers/input/touchscreen/Kconfig
+@@ -1299,6 +1299,19 @@ config TOUCHSCREEN_SURFACE3_SPI
+ 	  To compile this driver as a module, choose M here: the
+ 	  module will be called surface3_spi.
+ 
++config TOUCHSCREEN_SW42902
++	tristate "Silicon Works SW42902 touchscreen"
++	depends on I2C
++	depends on GPIOLIB
++	help
++	  Say Y here if you have a Silicon Works SW42902 touchscreen
++	  connected to your system (e.g. LG V60).
 +
- LG2160 MEDIA DRIVER
- M:	Michael Krufky <mkrufky@linuxtv.org>
- L:	linux-media@vger.kernel.org
-diff --git a/arch/arm64/boot/dts/qcom/Makefile b/arch/arm64/boot/dts/qcom/Makefile
-index 88230c4e00ea9..84ed4bf513960 100644
---- a/arch/arm64/boot/dts/qcom/Makefile
-+++ b/arch/arm64/boot/dts/qcom/Makefile
-@@ -409,6 +409,7 @@ dtb-$(CONFIG_ARCH_QCOM)	+= sm8150-mtp.dtb
- dtb-$(CONFIG_ARCH_QCOM)	+= sm8150-sony-xperia-kumano-bahamut.dtb
- dtb-$(CONFIG_ARCH_QCOM)	+= sm8150-sony-xperia-kumano-griffin.dtb
- dtb-$(CONFIG_ARCH_QCOM)	+= sm8250-hdk.dtb
-+dtb-$(CONFIG_ARCH_QCOM)	+= sm8250-lg-timelm.dtb
- dtb-$(CONFIG_ARCH_QCOM)	+= sm8250-mtp.dtb
- dtb-$(CONFIG_ARCH_QCOM)	+= sm8250-samsung-r8q.dtb
- dtb-$(CONFIG_ARCH_QCOM)	+= sm8250-samsung-x1q.dtb
-diff --git a/arch/arm64/boot/dts/qcom/sm8250-lg-timelm.dts b/arch/arm64/boot/dts/qcom/sm8250-lg-timelm.dts
++	  If unsure, say N.
++
++	  To compile this driver as a module, choose M here: the
++	  module will be called sw42902.
++
+ config TOUCHSCREEN_SX8654
+ 	tristate "Semtech SX8654 touchscreen"
+ 	depends on I2C
+diff --git a/drivers/input/touchscreen/Makefile b/drivers/input/touchscreen/Makefile
+index bfd9de83389d8..1ee2590014535 100644
+--- a/drivers/input/touchscreen/Makefile
++++ b/drivers/input/touchscreen/Makefile
+@@ -86,6 +86,7 @@ obj-$(CONFIG_TOUCHSCREEN_STMPE)		+= stmpe-ts.o
+ obj-$(CONFIG_TOUCHSCREEN_SUN4I)		+= sun4i-ts.o
+ obj-$(CONFIG_TOUCHSCREEN_SUR40)		+= sur40.o
+ obj-$(CONFIG_TOUCHSCREEN_SURFACE3_SPI)	+= surface3_spi.o
++obj-$(CONFIG_TOUCHSCREEN_SW42902)	+= sw42902.o
+ obj-$(CONFIG_TOUCHSCREEN_TI_AM335X_TSC)	+= ti_am335x_tsc.o
+ obj-$(CONFIG_TOUCHSCREEN_TOUCHIT213)	+= touchit213.o
+ obj-$(CONFIG_TOUCHSCREEN_TOUCHRIGHT)	+= touchright.o
+diff --git a/drivers/input/touchscreen/sw42902.c b/drivers/input/touchscreen/sw42902.c
 new file mode 100644
-index 0000000000000..20aaf70355158
+index 0000000000000..7e4032f6400c9
 --- /dev/null
-+++ b/arch/arm64/boot/dts/qcom/sm8250-lg-timelm.dts
-@@ -0,0 +1,592 @@
-+// SPDX-License-Identifier: BSD-3-Clause
++++ b/drivers/input/touchscreen/sw42902.c
+@@ -0,0 +1,360 @@
++// SPDX-License-Identifier: GPL-2.0-only
 +/*
 + * Copyright (c) 2026 Abdur Rofik <rofikcoga@gmail.com>
-+ * Device Tree for LG V60 ThinQ 5G (timelm / LM-V600)
++ * Silicon Works SW42902 touchscreen, as used by LG V60 (timelm).
++ * Register protocol and report layout derived from the LGE vendor driver
++ * (Copyright (C) 2015 LGE, author hoyeon.jang@lge.com).
++ * This driver uses the controller's existing flash firmware.
 + */
 +
-+/dts-v1/;
++#include <linux/delay.h>
++#include <linux/gpio/consumer.h>
++#include <linux/i2c.h>
++#include <linux/input/mt.h>
++#include <linux/input/touchscreen.h>
++#include <linux/interrupt.h>
++#include <linux/module.h>
++#include <linux/of.h>
++#include <linux/pm.h>
++#include <linux/regulator/consumer.h>
++#include <linux/slab.h>
++#include <linux/unaligned.h>
 +
-+#include <dt-bindings/gpio/gpio.h>
-+#include <dt-bindings/input/input.h>
-+#include <dt-bindings/regulator/qcom,rpmh-regulator.h>
-+#include "sm8250.dtsi"
-+#include "pm8150.dtsi"
-+#include "pm8150b.dtsi"
-+#include "pm8150l.dtsi"
++#define SW42902_MAX_CONTACTS	10
++#define SW42902_REPORT_SIZE	(12 + 24 + 12 * SW42902_MAX_CONTACTS)
++#define SW42902_IC_STATUS	0x600
++#define SW42902_VERSION		0x642
++#define SW42902_DEVICE_CTL	0xc00
++#define SW42902_INTERRUPT_CTL	0xc01
++#define SW42902_DRIVING_CTL	0xc03
++#define SW42902_SERIAL_SPI_EN	0xfe4
++#define SW42902_DRIVING_STOP	0x04
++#define SW42902_DRIVING_U3	0x8303
 +
-+/ {
-+	model = "LG V60 ThinQ 5G";
-+	compatible = "lg,timelm", "qcom,sm8250";
-+	chassis-type = "handset";
++static const char * const sw42902_supplies[] = {
++	"vcl",
++	"vdd",
++};
 +
-+	aliases {
-+		serial0 = &uart12;
++struct sw42902 {
++	struct i2c_client *client;
++	struct input_dev *input;
++	struct touchscreen_properties prop;
++	struct gpio_desc *reset;
++	struct regulator_bulk_data supplies[ARRAY_SIZE(sw42902_supplies)];
++	bool suspended;
++	u8 report[SW42902_REPORT_SIZE];
++};
++
++static int sw42902_read(struct sw42902 *ts, u16 reg, void *data, u16 len)
++{
++	u8 command[] = { (reg >> 8) | (len > 4 ? 0x20 : 0), reg & 0xff };
++	struct i2c_msg msgs[] = {
++		{ .addr = ts->client->addr, .len = sizeof(command),
++		  .buf = command },
++		{ .addr = ts->client->addr, .flags = I2C_M_RD,
++		  .len = len, .buf = data },
 +	};
++	int error;
 +
-+	chosen {
-+		stdout-path = "serial0:115200n8";
-+		#address-cells = <2>;
-+		#size-cells = <2>;
-+		ranges;
++	error = i2c_transfer(ts->client->adapter, msgs, ARRAY_SIZE(msgs));
++	if (error < 0)
++		return error;
++	return error == ARRAY_SIZE(msgs) ? 0 : -EIO;
++}
 +
-+		framebuffer@9c000000 {
-+			compatible = "simple-framebuffer";
-+			reg = <0x0 0x9c000000 0x0 (1080 * 2460 * 4)>;
-+			width = <1080>;
-+			height = <2460>;
-+			stride = <(1080 * 4)>;
-+			format = "a8r8g8b8";
-+		};
-+	};
++static int sw42902_write(struct sw42902 *ts, u16 reg, u32 value)
++{
++	u8 command[6] = { 0x40 | (reg >> 8), reg & 0xff };
++	int error;
 +
-+	gpio-keys {
-+		compatible = "gpio-keys";
++	put_unaligned_le32(value, command + 2);
++	error = i2c_master_send(ts->client, command, sizeof(command));
++	if (error < 0)
++		return error;
++	return error == sizeof(command) ? 0 : -EIO;
++}
 +
-+		pinctrl-names = "default";
-+		pinctrl-0 = <&volume_down_state>, <&assist_state>;
++static void sw42902_release_contacts(struct sw42902 *ts)
++{
++	int i;
 +
-+		key-vol-down {
-+			label = "Volume Down";
-+			gpios = <&pm8150_gpios 6 GPIO_ACTIVE_LOW>;
-+			linux,code = <KEY_VOLUMEDOWN>;
-+			debounce-interval = <15>;
-+			linux,can-disable;
-+			wakeup-source;
-+		};
++	for (i = 0; i < SW42902_MAX_CONTACTS; i++) {
++		input_mt_slot(ts->input, i);
++		input_mt_report_slot_state(ts->input, MT_TOOL_FINGER, false);
++	}
++	input_mt_sync_frame(ts->input);
++	input_sync(ts->input);
++}
 +
-+		key-assistant {
-+			label = "Assistant";
-+			gpios = <&pm8150_gpios 1 GPIO_ACTIVE_LOW>;
-+			linux,code = <KEY_ASSISTANT>;
-+			debounce-interval = <15>;
-+			linux,can-disable;
-+			wakeup-source;
-+		};
-+	};
++static irqreturn_t sw42902_irq(int irq, void *data)
++{
++	struct sw42902 *ts = data;
++	struct input_dev *input = ts->input;
++	u32 status, header;
++	unsigned int count, i;
++	int error;
 +
-+	reserved-memory {
-+		res_xbl_uefi_log_region: memory@80880000 {
-+			reg = <0x0 0x80880000 0x0 0x14000>;
-+			no-map;
-+		};
++	error = sw42902_read(ts, SW42902_IC_STATUS, ts->report,
++			     sizeof(ts->report));
++	if (error) {
++		dev_err_ratelimited(&ts->client->dev, "report read failed: %d\n", error);
++		sw42902_release_contacts(ts);
++		return IRQ_HANDLED;
++	}
 +
-+		memory@9c000000 {
-+			reg = <0x0 0x9c000000 0x0 0x1200000>;
-+			no-map;
-+		};
++	status = get_unaligned_le32(ts->report + 4);
++	header = get_unaligned_le32(ts->report + 8);
++	/* Only normal absolute-touch reports; ignore pen/gesture/debug IRQs. */
++	if (((status >> 16) & 0xf) != 5 || (header & 0xff))
++		return IRQ_HANDLED;
 +
-+		dfps_data_mem: memory@9e300000 {
-+			reg = <0x0 0x9e300000 0x0 0x100000>;
-+			no-map;
-+		};
++	count = (header >> 8) & 0x1f;
++	if (count > SW42902_MAX_CONTACTS) {
++		dev_warn_ratelimited(&ts->client->dev, "invalid contact count: %u\n", count);
++		sw42902_release_contacts(ts);
++		return IRQ_HANDLED;
++	}
 +
-+		ramoops: ramoops@b0000000 {
-+			compatible = "ramoops";
-+			reg = <0x0 0xb0000000 0x0 0x280000>;
-+			record-size = <0x40000>;
-+			console-size = <0x40000>;
-+			ftrace-size = <0x40000>;
-+			pmsg-size = <0x100000>;
-+			no-map;
-+		};
-+	};
++	/* A palm report cancels all active fingers. */
++	if (header & BIT(31)) {
++		sw42902_release_contacts(ts);
++		return IRQ_HANDLED;
++	}
 +
-+	vreg_s6c_0p88: smpc6-regulator {
-+		compatible = "regulator-fixed";
-+		regulator-name = "vreg_s6c_0p88";
-+		regulator-min-microvolt = <880000>;
-+		regulator-max-microvolt = <880000>;
-+		regulator-always-on;
-+	};
++	/* Pre-scan for palm report to avoid queueing partial touch events */
++	for (i = 0; i < count; i++) {
++		const u8 *contact = ts->report + 36 + 12 * i;
++		u32 a = get_unaligned_le32(contact);
 +
-+	vph_pwr: vph-pwr-regulator {
-+		compatible = "regulator-fixed";
-+		regulator-name = "vph_pwr";
-+		regulator-min-microvolt = <3700000>;
-+		regulator-max-microvolt = <3700000>;
-+		regulator-always-on;
-+		regulator-boot-on;
-+	};
++		if ((a & 0x1f) == 15) {
++			sw42902_release_contacts(ts);
++			return IRQ_HANDLED;
++		}
++	}
++
++	for (i = 0; i < count; i++) {
++		const u8 *contact = ts->report + 36 + 12 * i;
++		u32 a = get_unaligned_le32(contact);
++		u32 b = get_unaligned_le32(contact + 4);
++		u32 c = get_unaligned_le32(contact + 8);
++		unsigned int id = a & 0x1f;
++		unsigned int event = (a >> 16) & 3;
++
++		if (id >= SW42902_MAX_CONTACTS || (event != 1 && event != 2))
++			continue;
++
++		input_mt_slot(input, id);
++		input_mt_report_slot_state(input, MT_TOOL_FINGER, true);
++		touchscreen_report_pos(input, &ts->prop, a >> 18, b & 0x3fff, true);
++		input_report_abs(input, ABS_MT_PRESSURE, (b >> 14) & 0xff);
++		input_report_abs(input, ABS_MT_TOUCH_MAJOR, (c >> 4) & 0x3fff);
++		input_report_abs(input, ABS_MT_TOUCH_MINOR, c >> 18);
++	}
++
++	input_mt_sync_frame(input);
++	input_sync(input);
++	return IRQ_HANDLED;
++}
++
++static void sw42902_power_off(void *data)
++{
++	struct sw42902 *ts = data;
++
++	if (ts->suspended)
++		return;
++
++	gpiod_set_value_cansleep(ts->reset, 1);
++	usleep_range(1000, 2000);
++	regulator_bulk_disable(ARRAY_SIZE(ts->supplies), ts->supplies);
++	ts->suspended = true;
++}
++
++static int sw42902_power_on(struct sw42902 *ts)
++{
++	int error;
++
++	error = regulator_bulk_enable(ARRAY_SIZE(ts->supplies), ts->supplies);
++	if (error)
++		return error;
++
++	usleep_range(10000, 11000);
++	gpiod_set_value_cansleep(ts->reset, 0);
++	/* Docomo downstream DT specifies a 90 ms hardware reset delay. */
++	msleep(90);
++
++	return 0;
++}
++
++static int sw42902_start(struct sw42902 *ts)
++{
++	u8 version[4];
++	int error;
++
++	error = sw42902_read(ts, SW42902_VERSION, version, sizeof(version));
++	if (error)
++		return error;
++	if (version[2] != 10 || (version[3] & 0xf) != 4) {
++		dev_err(&ts->client->dev, "unexpected chip/protocol: %u/%u\n",
++			version[2], version[3] & 0xf);
++		return -ENODEV;
++	}
++
++	error = sw42902_write(ts, SW42902_SERIAL_SPI_EN, 0);
++	if (error)
++		return error;
++	error = sw42902_write(ts, SW42902_DEVICE_CTL, 1);
++	if (error)
++		return error;
++	error = sw42902_write(ts, SW42902_INTERRUPT_CTL, 1);
++	if (error)
++		return error;
++	error = sw42902_write(ts, SW42902_DRIVING_CTL, SW42902_DRIVING_STOP);
++	if (error)
++		return error;
++	msleep(30);
++	error = sw42902_write(ts, SW42902_DRIVING_CTL, SW42902_DRIVING_U3);
++	if (error)
++		return error;
++
++	return 0;
++}
++
++static int sw42902_probe(struct i2c_client *client)
++{
++	struct device *dev = &client->dev;
++	struct sw42902 *ts;
++	struct input_dev *input;
++	int error, i;
++
++	if (!i2c_check_functionality(client->adapter, I2C_FUNC_I2C))
++		return -EOPNOTSUPP;
++	if (client->irq <= 0)
++		return dev_err_probe(dev, -EINVAL, "missing interrupt\n");
++
++	ts = devm_kzalloc(dev, sizeof(*ts), GFP_KERNEL);
++	if (!ts)
++		return -ENOMEM;
++	ts->client = client;
++	i2c_set_clientdata(client, ts);
++
++	ts->reset = devm_gpiod_get(dev, "reset", GPIOD_OUT_HIGH);
++	if (IS_ERR(ts->reset))
++		return dev_err_probe(dev, PTR_ERR(ts->reset), "reset GPIO\n");
++
++	for (i = 0; i < ARRAY_SIZE(sw42902_supplies); i++)
++		ts->supplies[i].supply = sw42902_supplies[i];
++
++	error = devm_regulator_bulk_get(dev, ARRAY_SIZE(ts->supplies), ts->supplies);
++	if (error)
++		return dev_err_probe(dev, error, "failed to get regulators\n");
++
++	input = devm_input_allocate_device(dev);
++	if (!input)
++		return -ENOMEM;
++	ts->input = input;
++	input->name = "Silicon Works SW42902";
++	input->id.bustype = BUS_I2C;
++	input_set_abs_params(input, ABS_MT_POSITION_X, 0, 1079, 0, 0);
++	input_set_abs_params(input, ABS_MT_POSITION_Y, 0, 2459, 0, 0);
++	input_set_abs_params(input, ABS_MT_PRESSURE, 0, 255, 0, 0);
++	input_set_abs_params(input, ABS_MT_TOUCH_MAJOR, 0, 16383, 0, 0);
++	input_set_abs_params(input, ABS_MT_TOUCH_MINOR, 0, 16383, 0, 0);
++	touchscreen_parse_properties(input, true, &ts->prop);
++	error = input_mt_init_slots(input, SW42902_MAX_CONTACTS,
++				    INPUT_MT_DIRECT | INPUT_MT_DROP_UNUSED);
++	if (error)
++		return error;
++
++	error = sw42902_power_on(ts);
++	if (error)
++		return error;
++
++	error = devm_add_action_or_reset(dev, sw42902_power_off, ts);
++	if (error)
++		return error;
++
++	error = devm_request_threaded_irq(dev, client->irq, NULL, sw42902_irq,
++					  IRQF_ONESHOT | IRQF_NO_AUTOEN,
++					  dev_name(dev), ts);
++	if (error)
++		return error;
++
++	error = sw42902_start(ts);
++	if (error)
++		return dev_err_probe(dev, error, "controller initialization failed\n");
++	error = input_register_device(input);
++	if (error)
++		return error;
++	enable_irq(client->irq);
++	dev_info(dev, "SW42902 initialized using existing flash firmware\n");
++	return 0;
++}
++
++static int sw42902_suspend(struct device *dev)
++{
++	struct sw42902 *ts = i2c_get_clientdata(to_i2c_client(dev));
++
++	if (ts->suspended)
++		return 0;
++
++	disable_irq(ts->client->irq);
++	sw42902_release_contacts(ts);
++	sw42902_write(ts, SW42902_DRIVING_CTL, SW42902_DRIVING_STOP);
++	sw42902_power_off(ts);
++
++	return 0;
++}
++
++static int sw42902_resume(struct device *dev)
++{
++	struct sw42902 *ts = i2c_get_clientdata(to_i2c_client(dev));
++	int error;
++
++	if (!ts->suspended)
++		return 0;
++
++	error = sw42902_power_on(ts);
++	if (error)
++		return error;
++
++	ts->suspended = false;
++
++	error = sw42902_start(ts);
++	if (error) {
++		sw42902_power_off(ts);
++		return error;
++	}
++	enable_irq(ts->client->irq);
++
++	return 0;
++}
++
++static DEFINE_SIMPLE_DEV_PM_OPS(sw42902_pm_ops, sw42902_suspend, sw42902_resume);
++
++static const struct of_device_id sw42902_of_match[] = {
++	{ .compatible = "lg,sw42902" },
++	{ }
 +};
++MODULE_DEVICE_TABLE(of, sw42902_of_match);
 +
-+&apps_rsc {
-+	regulators-0 {
-+		compatible = "qcom,pm8150-rpmh-regulators";
-+		qcom,pmic-id = "a";
-+
-+		vdd-s1-supply = <&vph_pwr>;
-+		vdd-s2-supply = <&vph_pwr>;
-+		vdd-s3-supply = <&vph_pwr>;
-+		vdd-s4-supply = <&vph_pwr>;
-+		vdd-s5-supply = <&vph_pwr>;
-+		vdd-s6-supply = <&vph_pwr>;
-+		vdd-s7-supply = <&vph_pwr>;
-+		vdd-s8-supply = <&vph_pwr>;
-+		vdd-s9-supply = <&vph_pwr>;
-+		vdd-s10-supply = <&vph_pwr>;
-+		vdd-l1-l8-l11-supply = <&vreg_s6c_0p88>;
-+		vdd-l2-l10-supply = <&vreg_bob>;
-+		vdd-l3-l4-l5-l18-supply = <&vreg_s6a_0p95>;
-+		vdd-l6-l9-supply = <&vreg_s8c_1p35>;
-+		vdd-l7-l12-l14-l15-supply = <&vreg_s5a_1p9>;
-+		vdd-l13-l16-l17-supply = <&vreg_bob>;
-+
-+		vreg_s4a_1p8: smps4 {
-+			regulator-name = "vreg_s4a_1p8";
-+			regulator-min-microvolt = <1800000>;
-+			regulator-max-microvolt = <1800000>;
-+			regulator-initial-mode = <RPMH_REGULATOR_MODE_HPM>;
-+			regulator-allow-set-load;
-+			regulator-allowed-modes = <RPMH_REGULATOR_MODE_LPM
-+						   RPMH_REGULATOR_MODE_HPM>;
-+		};
-+
-+		vreg_s5a_1p9: smps5 {
-+			regulator-name = "vreg_s5a_1p9";
-+			regulator-min-microvolt = <1900000>;
-+			regulator-max-microvolt = <2040000>;
-+			regulator-initial-mode = <RPMH_REGULATOR_MODE_HPM>;
-+		};
-+
-+		vreg_s6a_0p95: smps6 {
-+			regulator-name = "vreg_s6a_0p95";
-+			regulator-min-microvolt = <950000>;
-+			regulator-max-microvolt = <1128000>;
-+			regulator-initial-mode = <RPMH_REGULATOR_MODE_HPM>;
-+		};
-+
-+		vreg_l1a_0p88: ldo1 {
-+			regulator-name = "vreg_l1a_0p88";
-+			regulator-min-microvolt = <880000>;
-+			regulator-max-microvolt = <880000>;
-+			regulator-initial-mode = <RPMH_REGULATOR_MODE_HPM>;
-+		};
-+
-+		vreg_l2a_3p1: ldo2 {
-+			regulator-name = "vreg_l2a_3p1";
-+			regulator-min-microvolt = <3072000>;
-+			regulator-max-microvolt = <3072000>;
-+			regulator-initial-mode = <RPMH_REGULATOR_MODE_HPM>;
-+		};
-+
-+		vreg_l3a_0p8: ldo3 {
-+			regulator-name = "vreg_l3a_0p8";
-+			regulator-min-microvolt = <800000>;
-+			regulator-max-microvolt = <800000>;
-+			regulator-initial-mode = <RPMH_REGULATOR_MODE_HPM>;
-+		};
-+
-+		vreg_l5a_0p88: ldo5 {
-+			regulator-name = "vreg_l5a_0p88";
-+			regulator-min-microvolt = <880000>;
-+			regulator-max-microvolt = <880000>;
-+			regulator-initial-mode = <RPMH_REGULATOR_MODE_HPM>;
-+		};
-+
-+		vreg_l6a_1p2: ldo6 {
-+			regulator-name = "vreg_l6a_1p2";
-+			regulator-min-microvolt = <1200000>;
-+			regulator-max-microvolt = <1200000>;
-+			regulator-initial-mode = <RPMH_REGULATOR_MODE_HPM>;
-+			regulator-allow-set-load;
-+			regulator-allowed-modes = <RPMH_REGULATOR_MODE_LPM
-+						   RPMH_REGULATOR_MODE_HPM>;
-+		};
-+
-+		vreg_l7a_1p7: ldo7 {
-+			regulator-name = "vreg_l7a_1p7";
-+			regulator-min-microvolt = <1704000>;
-+			regulator-max-microvolt = <1800000>;
-+			regulator-initial-mode = <RPMH_REGULATOR_MODE_HPM>;
-+		};
-+
-+		vreg_l9a_1p2: ldo9 {
-+			regulator-name = "vreg_l9a_1p2";
-+			regulator-min-microvolt = <1200000>;
-+			regulator-max-microvolt = <1200000>;
-+			regulator-initial-mode = <RPMH_REGULATOR_MODE_HPM>;
-+		};
-+
-+		vreg_l10a_1p8: ldo10 {
-+			regulator-name = "vreg_l10a_1p8";
-+			regulator-min-microvolt = <1800000>;
-+			regulator-max-microvolt = <1800000>;
-+			regulator-initial-mode = <RPMH_REGULATOR_MODE_HPM>;
-+		};
-+
-+		vreg_l12a_1p8: ldo12 {
-+			regulator-name = "vreg_l12a_1p8";
-+			regulator-min-microvolt = <1800000>;
-+			regulator-max-microvolt = <1800000>;
-+			regulator-initial-mode = <RPMH_REGULATOR_MODE_HPM>;
-+		};
-+
-+		vreg_l13a_ts: ldo13 {
-+			regulator-name = "vreg_l13a_ts";
-+			regulator-min-microvolt = <3000000>;
-+			regulator-max-microvolt = <3000000>;
-+			regulator-initial-mode = <RPMH_REGULATOR_MODE_HPM>;
-+		};
-+
-+		vreg_l14a_1p8: ldo14 {
-+			regulator-name = "vreg_l14a_1p8";
-+			regulator-min-microvolt = <1800000>;
-+			regulator-max-microvolt = <1800000>;
-+			regulator-initial-mode = <RPMH_REGULATOR_MODE_HPM>;
-+		};
-+
-+		vreg_l15a_1p8: ldo15 {
-+			regulator-name = "vreg_l15a_1p8";
-+			regulator-min-microvolt = <1800000>;
-+			regulator-max-microvolt = <1800000>;
-+			regulator-initial-mode = <RPMH_REGULATOR_MODE_HPM>;
-+		};
-+
-+		vreg_l16a_2p7: ldo16 {
-+			regulator-name = "vreg_l16a_2p7";
-+			regulator-min-microvolt = <2704000>;
-+			regulator-max-microvolt = <2960000>;
-+			regulator-initial-mode = <RPMH_REGULATOR_MODE_HPM>;
-+		};
-+
-+		vreg_l17a_3p0: ldo17 {
-+			regulator-name = "vreg_l17a_3p0";
-+			regulator-min-microvolt = <2950000>;
-+			regulator-max-microvolt = <3008000>;
-+			regulator-initial-mode = <RPMH_REGULATOR_MODE_HPM>;
-+			regulator-allow-set-load;
-+			regulator-allowed-modes = <RPMH_REGULATOR_MODE_LPM
-+						   RPMH_REGULATOR_MODE_HPM>;
-+		};
-+
-+		vreg_l18a_0p9: ldo18 {
-+			regulator-name = "vreg_l18a_0p9";
-+			regulator-min-microvolt = <880000>;
-+			regulator-max-microvolt = <912000>;
-+			regulator-initial-mode = <RPMH_REGULATOR_MODE_HPM>;
-+		};
-+	};
-+
-+	regulators-1 {
-+		compatible = "qcom,pm8150l-rpmh-regulators";
-+		qcom,pmic-id = "c";
-+
-+		vdd-s1-supply = <&vph_pwr>;
-+		vdd-s2-supply = <&vph_pwr>;
-+		vdd-s3-supply = <&vph_pwr>;
-+		vdd-s4-supply = <&vph_pwr>;
-+		vdd-s5-supply = <&vph_pwr>;
-+		vdd-s6-supply = <&vph_pwr>;
-+		vdd-s7-supply = <&vph_pwr>;
-+		vdd-s8-supply = <&vph_pwr>;
-+		vdd-l1-l8-supply = <&vreg_s4a_1p8>;
-+		vdd-l2-l3-supply = <&vreg_s8c_1p35>;
-+		vdd-l4-l5-l6-supply = <&vreg_bob>;
-+		vdd-l7-l11-supply = <&vreg_bob>;
-+		vdd-l9-l10-supply = <&vreg_bob>;
-+		vdd-bob-supply = <&vph_pwr>;
-+
-+		vreg_bob: bob {
-+			regulator-name = "vreg_bob";
-+			regulator-min-microvolt = <3008000>;
-+			regulator-max-microvolt = <4000000>;
-+			regulator-initial-mode = <RPMH_REGULATOR_MODE_AUTO>;
-+		};
-+
-+		vreg_s8c_1p35: smps8 {
-+			regulator-name = "vreg_s8c_1p35";
-+			regulator-min-microvolt = <1350000>;
-+			regulator-max-microvolt = <1400000>;
-+			regulator-initial-mode = <RPMH_REGULATOR_MODE_HPM>;
-+		};
-+
-+		vreg_l1c_1p8: ldo1 {
-+			regulator-name = "vreg_l1c_1p8";
-+			regulator-min-microvolt = <1800000>;
-+			regulator-max-microvolt = <1800000>;
-+			regulator-initial-mode = <RPMH_REGULATOR_MODE_HPM>;
-+		};
-+
-+		vreg_l2c_1p2: ldo2 {
-+			regulator-name = "vreg_l2c_1p2";
-+			regulator-min-microvolt = <1200000>;
-+			regulator-max-microvolt = <1200000>;
-+			regulator-initial-mode = <RPMH_REGULATOR_MODE_HPM>;
-+		};
-+
-+		vreg_l3c_1p2: ldo3 {
-+			regulator-name = "vreg_l3c_1p2";
-+			regulator-min-microvolt = <1200000>;
-+			regulator-max-microvolt = <1200000>;
-+			regulator-initial-mode = <RPMH_REGULATOR_MODE_HPM>;
-+		};
-+
-+		vreg_l4c_1p7: ldo4 {
-+			regulator-name = "vreg_l4c_1p7";
-+			regulator-min-microvolt = <1704000>;
-+			regulator-max-microvolt = <3000000>;
-+			regulator-initial-mode = <RPMH_REGULATOR_MODE_HPM>;
-+		};
-+
-+		vreg_l5c_1p8: ldo5 {
-+			regulator-name = "vreg_l5c_1p8";
-+			regulator-min-microvolt = <1800000>;
-+			regulator-max-microvolt = <1800000>;
-+			regulator-initial-mode = <RPMH_REGULATOR_MODE_HPM>;
-+		};
-+
-+		vreg_l6c_2p9: ldo6 {
-+			regulator-name = "vreg_l6c_2p9";
-+			regulator-min-microvolt = <1800000>;
-+			regulator-max-microvolt = <2960000>;
-+			regulator-initial-mode = <RPMH_REGULATOR_MODE_HPM>;
-+		};
-+
-+		vreg_l7c_2p85: ldo7 {
-+			regulator-name = "vreg_l7c_2p85";
-+			regulator-min-microvolt = <2856000>;
-+			regulator-max-microvolt = <3104000>;
-+			regulator-initial-mode = <RPMH_REGULATOR_MODE_HPM>;
-+		};
-+
-+		vreg_l8c_1p8: ldo8 {
-+			regulator-name = "vreg_l8c_1p8";
-+			regulator-min-microvolt = <1800000>;
-+			regulator-max-microvolt = <1800000>;
-+			regulator-initial-mode = <RPMH_REGULATOR_MODE_HPM>;
-+		};
-+
-+		vreg_l9c_2p9: ldo9 {
-+			regulator-name = "vreg_l9c_2p9";
-+			regulator-min-microvolt = <2704000>;
-+			regulator-max-microvolt = <2960000>;
-+			regulator-initial-mode = <RPMH_REGULATOR_MODE_HPM>;
-+		};
-+
-+		vreg_l10c_3p3: ldo10 {
-+			regulator-name = "vreg_l10c_3p3";
-+			regulator-min-microvolt = <3000000>;
-+			regulator-max-microvolt = <3304000>;
-+			regulator-initial-mode = <RPMH_REGULATOR_MODE_HPM>;
-+		};
-+
-+		vreg_l11c_3p0: ldo11 {
-+			regulator-name = "vreg_l11c_3p0";
-+			regulator-min-microvolt = <3000000>;
-+			regulator-max-microvolt = <3312000>;
-+			regulator-initial-mode = <RPMH_REGULATOR_MODE_HPM>;
-+		};
-+	};
-+
-+	regulators-2 {
-+		compatible = "qcom,pm8009-rpmh-regulators";
-+		qcom,pmic-id = "f";
-+
-+		vdd-s1-supply = <&vph_pwr>;
-+		vdd-s2-supply = <&vreg_bob>;
-+		vdd-l2-supply = <&vreg_s8c_1p35>;
-+		vdd-l5-l6-supply = <&vreg_bob>;
-+		vdd-l7-supply = <&vreg_s4a_1p8>;
-+
-+		vreg_s1f_1p2: smps1 {
-+			regulator-name = "vreg_s1f_1p2";
-+			regulator-min-microvolt = <1200000>;
-+			regulator-max-microvolt = <1200000>;
-+			regulator-initial-mode = <RPMH_REGULATOR_MODE_HPM>;
-+		};
-+
-+		vreg_s2f_0p5: smps2 {
-+			regulator-name = "vreg_s2f_0p5";
-+			regulator-min-microvolt = <512000>;
-+			regulator-max-microvolt = <1100000>;
-+			regulator-initial-mode = <RPMH_REGULATOR_MODE_HPM>;
-+		};
-+
-+		vreg_l2f_1p3: ldo2 {
-+			regulator-name = "vreg_l2f_1p3";
-+			regulator-min-microvolt = <1304000>;
-+			regulator-max-microvolt = <1304000>;
-+			regulator-initial-mode = <RPMH_REGULATOR_MODE_HPM>;
-+		};
-+
-+		vreg_l5f_2p8: ldo5 {
-+			regulator-name = "vreg_l5f_2p8";
-+			regulator-min-microvolt = <2800000>;
-+			regulator-max-microvolt = <2800000>;
-+			regulator-initial-mode = <RPMH_REGULATOR_MODE_HPM>;
-+		};
-+
-+		vreg_l6f_2p8: ldo6 {
-+			regulator-name = "vreg_l6f_2p8";
-+			regulator-min-microvolt = <2800000>;
-+			regulator-max-microvolt = <2800000>;
-+			regulator-initial-mode = <RPMH_REGULATOR_MODE_HPM>;
-+		};
-+
-+		vreg_l7f_1p8: ldo7 {
-+			regulator-name = "vreg_l7f_1p8";
-+			regulator-min-microvolt = <1800000>;
-+			regulator-max-microvolt = <1800000>;
-+			regulator-initial-mode = <RPMH_REGULATOR_MODE_HPM>;
-+		};
-+	};
++static const struct i2c_device_id sw42902_ids[] = {
++	{ .name = "sw42902" },
++	{ }
 +};
++MODULE_DEVICE_TABLE(i2c, sw42902_ids);
 +
-+&cdsp {
-+	firmware-name = "qcom/sm8250/LG/timelm/cdsp.mbn";
-+	status = "okay";
++static struct i2c_driver sw42902_driver = {
++	.driver = {
++		.name = "sw42902",
++		.of_match_table = sw42902_of_match,
++		.pm = pm_sleep_ptr(&sw42902_pm_ops),
++	},
++	.probe = sw42902_probe,
++	.id_table = sw42902_ids,
 +};
++module_i2c_driver(sw42902_driver);
 +
-+&gmu {
-+	status = "okay";
-+};
-+
-+&gpi_dma0 {
-+	status = "okay";
-+};
-+
-+&gpi_dma1 {
-+	status = "okay";
-+};
-+
-+&gpi_dma2 {
-+	status = "okay";
-+};
-+
-+&gpu {
-+	status = "okay";
-+};
-+
-+&gpu_zap_shader {
-+	firmware-name = "qcom/sm8250/LG/timelm/a650_zap.mbn";
-+};
-+
-+&pm8150_gpios {
-+	assist_state: assist-state {
-+		pins = "gpio1";
-+		function = "normal";
-+		input-enable;
-+		bias-pull-up;
-+		power-source = <0>;
-+	};
-+
-+	volume_down_state: volume-down-state {
-+		pins = "gpio6";
-+		function = "normal";
-+		input-enable;
-+		bias-pull-up;
-+		power-source = <0>;
-+	};
-+};
-+
-+&pon_pwrkey {
-+	status = "okay";
-+};
-+
-+&pon_resin {
-+	status = "okay";
-+	linux,code = <KEY_VOLUMEUP>;
-+};
-+
-+&qupv3_id_0 {
-+	status = "okay";
-+};
-+
-+&qupv3_id_1 {
-+	status = "okay";
-+};
-+
-+&qupv3_id_2 {
-+	status = "okay";
-+};
-+
-+&sdhc_2 {
-+	status = "okay";
-+
-+	pinctrl-names = "default", "sleep";
-+	pinctrl-0 = <&sdc2_default_state>, <&sdc2_card_det_n>;
-+	pinctrl-1 = <&sdc2_sleep_state>, <&sdc2_card_det_n>;
-+
-+	cd-gpios = <&tlmm 77 GPIO_ACTIVE_LOW>;
-+	vmmc-supply = <&vreg_l9c_2p9>;
-+	vqmmc-supply = <&vreg_l6c_2p9>;
-+	bus-width = <4>;
-+	no-sdio;
-+	no-mmc;
-+};
-+
-+&tlmm {
-+	gpio-reserved-ranges = <40 4>, <52 4>;
-+
-+	sdc2_default_state: sdc2-default-state {
-+		clk-pins {
-+			pins = "sdc2_clk";
-+			drive-strength = <16>;
-+			bias-disable;
-+		};
-+
-+		cmd-pins {
-+			pins = "sdc2_cmd";
-+			drive-strength = <16>;
-+			bias-pull-up;
-+		};
-+
-+		data-pins {
-+			pins = "sdc2_data";
-+			drive-strength = <16>;
-+			bias-pull-up;
-+		};
-+	};
-+
-+	sdc2_card_det_n: sd-card-det-n-state {
-+		pins = "gpio77";
-+		function = "gpio";
-+		drive-strength = <2>;
-+		bias-pull-up;
-+	};
-+};
-+
-+&uart12 {
-+	status = "okay";
-+};
-+
-+&ufs_mem_hc {
-+	status = "okay";
-+
-+	vcc-supply = <&vreg_l17a_3p0>;
-+	vcc-max-microamp = <800000>;
-+	vccq-supply = <&vreg_l6a_1p2>;
-+	vccq-max-microamp = <800000>;
-+	vccq2-supply = <&vreg_s4a_1p8>;
-+	vccq2-max-microamp = <800000>;
-+};
-+
-+&ufs_mem_phy {
-+	status = "okay";
-+
-+	vdda-phy-supply = <&vreg_l5a_0p88>;
-+	vdda-pll-supply = <&vreg_l9a_1p2>;
-+};
-+
-+&usb_1 {
-+	status = "okay";
-+};
-+
-+&usb_1_dwc3 {
-+	dr_mode = "peripheral";
-+};
-+
-+&usb_1_hsphy {
-+	status = "okay";
-+
-+	vdda-pll-supply = <&vreg_l5a_0p88>;
-+	vdda18-supply = <&vreg_l12a_1p8>;
-+	vdda33-supply = <&vreg_l2a_3p1>;
-+};
-+
-+&usb_1_qmpphy {
-+	status = "okay";
-+
-+	vdda-phy-supply = <&vreg_l18a_0p9>;
-+	vdda-pll-supply = <&vreg_l9a_1p2>;
-+};
++MODULE_AUTHOR("Abdur Rofik <rofikcoga@gmail.com>");
++MODULE_DESCRIPTION("Silicon Works SW42902 touchscreen driver");
++MODULE_LICENSE("GPL");
 -- 
 2.39.5
 
