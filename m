@@ -2,43 +2,42 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E2CC3606A320
-	for <dri-devel@archiver.kernel.org>; Fri, 20 Nov 2026 17:32:27 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 59347606A32C
+	for <dri-devel@archiver.kernel.org>; Fri, 20 Nov 2026 17:33:15 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=aTo3SxHk
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=OT7PTiun
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 592EB10E286;
-	Fri, 20 Nov 2026 17:32:22 +0000 (UTC)
-Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 4F465112C0F
- for <dri-devel@lists.freedesktop.org>; Fri, 20 Nov 2026 17:32:16 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id BAA4E112C07;
+	Fri, 20 Nov 2026 17:33:09 +0000 (UTC)
+Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 2907F112C07
+ for <dri-devel@lists.freedesktop.org>; Fri, 20 Nov 2026 17:33:04 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id 165D343372;
- Fri, 20 Nov 2026 17:32:16 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 440BA1F000C6;
- Fri, 20 Nov 2026 17:32:15 +0000 (UTC)
+ by tor.source.kernel.org (Postfix) with ESMTP id 5BD18601E1;
+ Fri, 20 Nov 2026 17:33:03 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 900DD1F000CF;
+ Fri, 20 Nov 2026 17:33:02 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1795195935;
- bh=WTVfqDO7JYv3rw75rbR1yF0m83xWq3dEqOPlWcgDeV8=;
+ s=k20260515; t=1795195982;
+ bh=O1Uk+iY46JUFa3GvZyU6iG1oiehu3jAsRgmkwJora1A=;
  h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
- b=aTo3SxHkw5CFFEi5Sf/7mkV4krrvGMRqsEO2oApOGPu9ZWa4XjwpaB74bCUSIupex
- 7Q+0FAPep13P7+QQMQuc8rmdf2Std+jmdqsX0vnbGCj//BfAwFETaC6Be9pBlxiXHL
- yotXk3Fm2jxAWVtbIm7UPVUcw11mOk4AicGMcuenj8GhGq+8CIDHPeh/KLmGqPtWT6
- 4FkNDIlguCprymwVvB98wrzm0aerbjFQw+KPW/fjD9ZGT0s4UxQ7pTzh3palaWBi66
- j3Q7Ut4XbLoDZjhFObccDaeppsfNejxo1BkUE4oRhdmhFoV73Ck3rlWM75u340bfWg
- 5jZqUIqkPf/vw==
-Message-ID: <sashiko-outbox-225674@kernel.org>
+ b=OT7PTiunEC9/ujshooSuZcqEOvvOvkx3nfCt47uDvK1dmGToJ8sNUu8DMAwZF0j16
+ 5Re2Jfta9nPbwQWB/FGy2SyI+DR0jbOuxeLHwNXwzHf8lGsni9uJBJ7G5NpuRvuUlV
+ /yQdZHoxOt79G0Sm3LhVY6uaV11lY8bcZwn9g16ECp9YnV/rWr+ureSM+wXsRDeKV3
+ oNIlIKSQpM8gjvyXwWhQ1aSd0usgtW0DdCFNyokVh9jtgM62mmyyUwx+KVXMaMiQfL
+ U1BfaLQ6lCrpH805S6IFhUuqxCyHaanbTaJC1XVF/zL44pT9BmTO+Rn2BSbCezm1/u
+ ntZ9VeQ0/5vOA==
+Message-ID: <sashiko-outbox-225679@kernel.org>
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v2 2/5] drm: Fix incorrect CFLAGS-y spelling inside
- Makefile
+Subject: Re: [PATCH v2 3/5] drm: fix config dependent unused variable warning.
 To: "Jim Cromie" <jim.cromie@gmail.com>
 Cc: dri-devel@lists.freedesktop.org
-In-Reply-To: <20261120-rd-mostly-v2-2-88056ede02a8@gmail.com>
+In-Reply-To: <20261120-rd-mostly-v2-3-88056ede02a8@gmail.com>
 References: <20261120-rd-mostly-v2-0-88056ede02a8@gmail.com>
- <20261120-rd-mostly-v2-2-88056ede02a8@gmail.com>
+ <20261120-rd-mostly-v2-3-88056ede02a8@gmail.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Fri, 20 Nov 2026 17:32:14 +0000
+Date: Fri, 20 Nov 2026 17:33:02 +0000
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -61,53 +60,46 @@ X-Archived-By: <archiver.kernel.org>
 
 Thank you for your contribution! Sashiko AI review found 1 potential
 issue to consider:
-- [Low] drm: redundant ccflags-y with subdir-ccflags-y duplicates
-  compiler flag
+- [Medium] drm/print: __drm_printfn_dbg() ignores category under
+  DYNAMIC_DEBUG
 --
 
-commit 3641ab8573c265c9f30c513b01ff9a6dc232bced
+commit 86a692a9057b290b879237eb899a9b98e98de2c4
 Author: Jim Cromie <jim.cromie@gmail.com>
 
-drm: Fix incorrect CFLAGS-y spelling inside Makefile
+drm: fix config dependent unused variable warning.
 
-This commit replaces CFLAGS-$(CONFIG_DRM_USE_DYNAMIC_DEBUG) with
-ccflags-y and subdir-ccflags-y in drivers/gpu/drm/Makefile so that
--DDYNAMIC_DEBUG_MODULE is passed during compilation.
+This commit removes the local category variable in __drm_printfn_dbg() and
+passes p->category directly to __drm_debug_enabled() to avoid an
+unused-variable warning when CONFIG_DRM_USE_DYNAMIC_DEBUG=3Dy.
 
-> diff --git a/drivers/gpu/drm/Makefile b/drivers/gpu/drm/Makefile
-> index 2c6bc093a923a..4a93c09f08d94 100644
-> --- a/drivers/gpu/drm/Makefile
-> +++ b/drivers/gpu/drm/Makefile
-> @@ -3,7 +3,8 @@
->  # Makefile for the drm device driver.  This driver provides support for =
-the
->  # Direct Rendering Infrastructure (DRI) in XFree86 4.1.0 and higher.
+> diff --git a/drivers/gpu/drm/drm_print.c b/drivers/gpu/drm/drm_print.c
+> index 50cdeb1b15e25..12b95901eb707 100644
+> --- a/drivers/gpu/drm/drm_print.c
+> +++ b/drivers/gpu/drm/drm_print.c
+> @@ -218,9 +218,8 @@ void __drm_printfn_dbg(struct drm_printer *p, struct =
+va_format *vaf)
+>  {
+>  	const struct drm_device *drm =3D p->arg;
+>  	const struct device *dev =3D drm ? drm->dev : NULL;
+> -	enum drm_debug_category category =3D p->category;
 > =20
-> -CFLAGS-$(CONFIG_DRM_USE_DYNAMIC_DEBUG)	+=3D -DDYNAMIC_DEBUG_MODULE
-> +ccflags-$(CONFIG_DRM_USE_DYNAMIC_DEBUG)		+=3D -DDYNAMIC_DEBUG_MODULE
-> +subdir-ccflags-$(CONFIG_DRM_USE_DYNAMIC_DEBUG)	+=3D -DDYNAMIC_DEBUG_MODU=
-LE
+> -	if (!__drm_debug_enabled(category))
+> +	if (!__drm_debug_enabled(p->category))
+>  		return;
 
-[Severity: Low]
-Is ccflags-$(CONFIG_DRM_USE_DYNAMIC_DEBUG) redundant when
-subdir-ccflags-$(CONFIG_DRM_USE_DYNAMIC_DEBUG) is also set?
+[Severity: Medium]
+Should __drm_printfn_dbg() call drm_debug_enabled(p->category) (or
+drm_debug_enabled_raw(p->category)) instead of __drm_debug_enabled()?
 
-In scripts/Makefile.build, subdir-ccflags-y is appended to KBUILD_CFLAGS
-for both the current directory and its subdirectories:
-
-scripts/Makefile.build {
-    ...
-    # flags that take effect in current and sub directories
-    KBUILD_AFLAGS +=3D $(subdir-asflags-y)
-    KBUILD_CFLAGS +=3D $(subdir-ccflags-y)
-    ...
-}
-
-Setting both passes -DDYNAMIC_DEBUG_MODULE twice on the compiler command
-line for every object built directly in drivers/gpu/drm/.  Keeping only
-subdir-ccflags-$(CONFIG_DRM_USE_DYNAMIC_DEBUG), matching the rest of this
-Makefile, covers both drivers/gpu/drm/ and its subdirectories.
+When CONFIG_DRM_USE_DYNAMIC_DEBUG=3Dy, __drm_debug_enabled() expands to
+true without evaluating its argument because it assumes the callsite is
+already gated by a dynamic debug descriptor via _dynamic_func_call_cls().
+drm_dbg_printer() wires __drm_printfn_dbg() as a function pointer without
+a dynamic debug callsite descriptor, so using __drm_debug_enabled() leaves
+p->category unchecked and causes all drm_dbg_printer() messages to be
+printed unconditionally even when drm.debug has that category disabled.
 
 --=20
 Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261120-rd-mostly-=
-v2-0-88056ede02a8@gmail.com?part=3D2
+v2-0-88056ede02a8@gmail.com?part=3D3
