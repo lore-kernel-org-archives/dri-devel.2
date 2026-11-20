@@ -2,39 +2,40 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4B085606A325
-	for <dri-devel@archiver.kernel.org>; Fri, 20 Nov 2026 12:58:23 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 05052606A325
+	for <dri-devel@archiver.kernel.org>; Fri, 20 Nov 2026 12:58:29 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Ux+5WFDX
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=mDVj9iRd
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id ADCBE112A07;
-	Fri, 20 Nov 2026 12:58:16 +0000 (UTC)
-Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id A70FE10E8D1
- for <dri-devel@lists.freedesktop.org>; Fri, 20 Nov 2026 12:57:36 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 7A0A6112A08;
+	Fri, 20 Nov 2026 12:58:22 +0000 (UTC)
+Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 4C2C11129F2
+ for <dri-devel@lists.freedesktop.org>; Fri, 20 Nov 2026 12:57:23 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id 8FE8B4323D;
- Fri, 20 Nov 2026 12:57:36 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id E8A921F000CF;
- Fri, 20 Nov 2026 12:57:35 +0000 (UTC)
+ by tor.source.kernel.org (Postfix) with ESMTP id AA85460E12;
+ Fri, 20 Nov 2026 12:57:22 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7B2601F000C0;
+ Fri, 20 Nov 2026 12:57:21 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1795179456;
- bh=oZGwhwG/z5xzT9/mrEWIvuCB7lLLzD9FsVzJ3CXGlBU=;
+ s=k20260515; t=1795179442;
+ bh=dKXVMckNemj8P578XSHmli1vccAYVwrj0jHEBCLIVxU=;
  h=From:Date:Subject:References:In-Reply-To:To:Cc;
- b=Ux+5WFDX7zBG050O1M86G7DW724XO8d+/w2N7cz4NM5u924zT3sxivYIpeTrn+lxp
- nSz3NNeNb2bw0T+XJwUFBxiTfaYcVqfraRyLY5+5eSH8u86i1iqLBjftVqQf4fISlY
- 9iSwQFXR08/MZsG7nFBFhH0NE3LA4f3XxmMGBYfNIM94hRHoUgB6Hsa1IvohWEiIAU
- MH+AaNaG5FfeSmH+FTFJpuURGa2be6Sw0RBXn8ACH80VqGTj5h5BJOpnuIQ8Vr8b4p
- sfP569DRDqUEKOYmVJuLmhpCrnBpW7jAXCJw+VBCGGUrffhRS7C0rnAC0d2RevmNj2
- AI8z3akcLFKWw==
+ b=mDVj9iRdbARL9+EI9piz9BBt1WXtnuI1y0PQ9BJZhPJ/wZ+brugVa9laJygAsCG2b
+ cTDpM06hEnR4Om9PNsCJlFKj50SsbT4eCpVG4/icnp3I2+sx345z6t7Rn9jLAwS+Ea
+ 2/cbCszrWqHOzKCVq7QXSwzLwf9WEiuMy6HuMHUSELkA0FK1ARbuZV54NiIdtKvg/O
+ sJDDZVi9/YQ85pwFjxja9SHG7D3lA+ZSUeymr8v+9QnYRys7cKeAzQmU4iFXE5LrH2
+ 14Ffz31VEh99y1QNisam9B/G/Kcz+nsWGgjDlt+6M4ceWd8YpNTd11te9OQ/fHMgx1
+ EjWWZ63BoTLSQ==
 From: Maxime Ripard <mripard@kernel.org>
-Date: Fri, 20 Nov 2026 13:55:31 +0100
-Subject: [PATCH v9 39/42] drm/panel: Implement state readout support
+Date: Fri, 20 Nov 2026 13:55:27 +0100
+Subject: [PATCH v9 35/42] drm/tidss: plane: Implement hardware state
+ readout
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20261120-drm-state-readout-v9-39-a67c2b45b8ec@kernel.org>
+Message-Id: <20261120-drm-state-readout-v9-35-a67c2b45b8ec@kernel.org>
 References: <20261120-drm-state-readout-v9-0-a67c2b45b8ec@kernel.org>
 In-Reply-To: <20261120-drm-state-readout-v9-0-a67c2b45b8ec@kernel.org>
 To: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
@@ -48,12 +49,12 @@ To: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
 Cc: Devarsh Thakkar <devarsht@ti.com>, dri-devel@lists.freedesktop.org, 
  Maxime Ripard <mripard@kernel.org>
 X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=openpgp-sha256; l=8118; i=mripard@kernel.org;
- h=from:subject:message-id; bh=mz0C74VfgdbwL60P2y1GRLInFgX7TCYhGCAJVa0QPhU=;
- b=owGbwMvMwCmsHn9OcpHtvjLG02pJDNkMzsYTZn0/tkn3r82GjaEpf8qZayzKK3hZTsoePGbDc
- ff90ZNCHVNZGIQ5GWTFFFmeyISdXt6+uMrBfuUPmDmsTCBDGLg4BWAiGoGMDe/nhHue22S2ou/Y
- 5CmFx26JVE/iCWoOSFhRN3eCRoTVWXOhLVt/bLKTXXAzyDNjds2s54w1HDY73HitXRnK9dK/Xug
- 1aNAMzTW3eT5H08MhbduKA8nlunEPaxhlTkWcOvfk2L7NaW0A
+X-Developer-Signature: v=1; a=openpgp-sha256; l=9658; i=mripard@kernel.org;
+ h=from:subject:message-id; bh=x2z9SqhbECHER4k4/cyS033AIJp78YHMaoYzefWV6Iw=;
+ b=owGbwMvMwCmsHn9OcpHtvjLG02pJDNkMzkYPmdW27338+cEBF7mNUX/2/JrgLXZG1fup1UqNu
+ d4Ld3lpdUxlYRDmZJAVU2R5IhN2enn74ioH+5U/YOawMoEMYeDiFICJNP5lbHhxdhVHKEexgqJO
+ QkjdvdT7ddMPpwkkdwZLGR5gfWS26ouUb/j6uxvK1+5qYgz5Fn1oP2PD9joBYatEYV/9Q7vtdqa
+ ybc6Wbnq8eM4fwwkLz79aVh3z4AfnwTwbh/zrC5devTgrmY8TAA==
 X-Developer-Key: i=mripard@kernel.org; a=openpgp;
  fpr=BE5675C37E818C8B5764241C254BCFC56BF6CE8D
 X-BeenThere: dri-devel@lists.freedesktop.org
@@ -74,217 +75,301 @@ X-Spam-Status: No, score=-18.8 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-A panel bridge has no state of its own to read out of the hardware:
-neither the panel enable state nor the bus configuration is observable
-through it.
+When the firmware leaves a video port running, the planes feeding it
+have to be read out too, otherwise the first commit sees them as
+disabled and has to reprogram the whole pipeline.
 
-The bus configuration the atomic helpers negotiate can however be
-reconstructed: the panel bridge is always the last bridge of a chain, so
-the negotiation picks the first connector display info format as its
-output format, or MEDIA_BUS_FMT_FIXED when the display info has none,
-passes it through to its input end, and propagates the display info
-flags to both ends. The atomic_sro_readout_state hook reports that
-configuration. The display info is only populated once the connector
-modes have been read, after the initial state has been created: the
-fixed format reported then matches what the negotiation would produce,
-and is harmless as the initial state is never compared.
+Implement the atomic_sro_readout_state hook for the tidss planes. A
+plane is read out as disabled if its VID pipeline isn't enabled, if
+it isn't routed to an overlay layer, or if its CRTC is inactive. The
+latter two matter because tidss_crtc_atomic_disable() and a disabled
+video port leave the VID pipeline of their planes enabled.
 
-The atomic_sro_connector_readout hook reports the connector as bound to
-the current CRTC of its encoder whenever that CRTC was read out as
-active, the panel being assumed enabled whenever its pipeline is. A
-panel bridge only carries DRM_BRIDGE_OP_CONNECTOR_HW_READOUT when no
-bridge attached earlier in its chain provides a connector readout:
-drm_bridge_connector_init() picks the last bridge carrying that op, and
-earlier bridges may know the actual link state.
+Otherwise, the CRTC, source and destination rectangles, zpos, alpha and
+blend mode are read from the registers. The zpos is the index of the
+overlay layer the plane is routed to, which is the normalized zpos it
+was committed with. The alpha is the 8-bit global alpha replicated in
+both bytes of the 16-bit property, the only inverse that maps full
+opacity back to 0xffff.
+
+The framebuffer is reconstructed from the format, picture size and
+increments. It has no GEM object since the firmware allocated the
+buffer, which drm_gem_plane_helper_prepare_fb() and
+drm_fb_dma_get_scanout_buffer() cope with. It can only be rebuilt when
+the planes aren't YUV, aren't multiplanar and don't use horizontal
+decimation, and the readout fails otherwise so that the core falls back
+to the regular initialization. The offset into the buffer, and thus the
+source origin, isn't recovered yet.
+
+Use drm_atomic_helper_plane_compare_state() to compare the readout
+state with the committed one.
 
 Signed-off-by: Maxime Ripard <mripard@kernel.org>
 ---
- drivers/gpu/drm/drm_panel.c | 129 ++++++++++++++++++++++++++++++++++++++++++++
- 1 file changed, 129 insertions(+)
+ drivers/gpu/drm/tidss/tidss_plane.c | 224 ++++++++++++++++++++++++++++++++++++
+ 1 file changed, 224 insertions(+)
 
-diff --git a/drivers/gpu/drm/drm_panel.c b/drivers/gpu/drm/drm_panel.c
-index 560ea57591bd..9c60942de90b 100644
---- a/drivers/gpu/drm/drm_panel.c
-+++ b/drivers/gpu/drm/drm_panel.c
-@@ -7,14 +7,17 @@
+diff --git a/drivers/gpu/drm/tidss/tidss_plane.c b/drivers/gpu/drm/tidss/tidss_plane.c
+index b0d5d6959b88..88f415b5439f 100644
+--- a/drivers/gpu/drm/tidss/tidss_plane.c
++++ b/drivers/gpu/drm/tidss/tidss_plane.c
+@@ -4,16 +4,19 @@
+  * Author: Tomi Valkeinen <tomi.valkeinen@ti.com>
+  */
  
- #include <linux/backlight.h>
- #include <linux/debugfs.h>
- #include <linux/err.h>
- #include <linux/export.h>
-+#include <linux/media-bus-format.h>
- #include <linux/module.h>
- #include <linux/of.h>
- 
+ #include <drm/drm_atomic.h>
  #include <drm/drm_atomic_helper.h>
 +#include <drm/drm_atomic_state_readout.h>
 +#include <drm/drm_atomic_state_readout_helper.h>
- #include <drm/drm_bridge.h>
- #include <drm/drm_connector.h>
+ #include <drm/drm_blend.h>
  #include <drm/drm_crtc.h>
- #include <drm/drm_encoder.h>
- #include <drm/drm_managed.h>
-@@ -81,12 +84,35 @@ static int panel_bridge_attach(struct drm_bridge *bridge,
- 			       struct drm_encoder *encoder,
- 			       enum drm_bridge_attach_flags flags)
- {
- 	struct drm_panel *panel = drm_bridge_to_panel(bridge);
- 	struct drm_connector *connector = &panel->connector;
-+	bool upstream_readout = false;
- 	int ret;
+ #include <drm/drm_fb_dma_helper.h>
+ #include <drm/drm_fourcc.h>
+ #include <drm/drm_framebuffer.h>
+ #include <drm/drm_gem_atomic_helper.h>
++#include <drm/drm_gem_framebuffer_helper.h>
+ #include <drm/drm_panic_helper.h>
  
-+	/*
-+	 * drm_bridge_connector_init() picks the connector readout
-+	 * provider from the last bridge of the chain carrying
-+	 * DRM_BRIDGE_OP_CONNECTOR_HW_READOUT. Only provide the
-+	 * fallback readout of a panel bridge when no bridge earlier
-+	 * in the chain provides one, as those know the actual link
-+	 * state while a panel bridge can only assume the panel is
-+	 * enabled.
-+	 */
-+	drm_for_each_bridge_in_chain(encoder, iter) {
-+		if (iter == bridge)
-+			break;
-+
-+		if (iter->ops & DRM_BRIDGE_OP_CONNECTOR_HW_READOUT) {
-+			upstream_readout = true;
-+			break;
-+		}
-+	}
-+
-+	if (!upstream_readout)
-+		bridge->ops |= DRM_BRIDGE_OP_CONNECTOR_HW_READOUT;
-+
- 	if (flags & DRM_BRIDGE_ATTACH_NO_CONNECTOR)
- 		return 0;
- 
- 	drm_connector_helper_add(connector,
- 				 &panel_bridge_connector_helper_funcs);
-@@ -224,10 +250,110 @@ static void panel_bridge_debugfs_init(struct drm_bridge *bridge,
- 	root = debugfs_create_dir("panel", root);
- 	if (panel->funcs->debugfs_init)
- 		panel->funcs->debugfs_init(panel, root);
- }
- 
-+/*
-+ * A panel bridge has no state of its own to read out of the hardware:
-+ * reconstruct the bus configuration the atomic helpers negotiate
-+ * instead.
-+ *
-+ * The panel bridge is always the last bridge of a chain, and the
-+ * negotiation picks the first connector display info format as its
-+ * output format (or MEDIA_BUS_FMT_FIXED when the display info has
-+ * none), which drm_atomic_helper_bridge_propagate_bus_fmt() passes
-+ * through to its input. drm_atomic_bridge_propagate_bus_flags()
-+ * similarly propagates the display info flags to both its output and
-+ * input. This is also what happens when the display info has no
-+ * formats yet, like during the initial state creation at probe time
-+ * before any mode has been read: the bus configuration then reports
-+ * a fixed format, which is harmless as the initial state is never
-+ * compared, and every commit negotiates the bus configuration anew.
-+ *
-+ * The format the negotiation selects can only differ from the first
-+ * display info format when the connector reports several formats and
-+ * the rest of the bridge chain rejects it, which panel connectors
-+ * don't do.
-+ */
-+static int
-+panel_bridge_readout_state(struct drm_bridge *bridge,
-+			   struct drm_atomic_sro_state *state,
-+			   struct drm_bridge_state *bridge_state,
-+			   struct drm_crtc_state *crtc_state,
-+			   struct drm_connector_state *conn_state)
-+{
-+	struct drm_connector *connector = conn_state->connector;
-+	struct drm_display_info *info = &connector->display_info;
-+	u32 format;
-+
-+	if (info->num_bus_formats)
-+		format = info->bus_formats[0];
-+	else
-+		format = MEDIA_BUS_FMT_FIXED;
-+
-+	bridge_state->input_bus_cfg.format = format;
-+	bridge_state->output_bus_cfg.format = format;
-+
-+	bridge_state->input_bus_cfg.flags = info->bus_flags;
-+	bridge_state->output_bus_cfg.flags = info->bus_flags;
-+
-+	return 0;
-+}
-+
-+/*
-+ * A panel bridge has no way to read the panel state out of the
-+ * hardware: assume the panel is enabled whenever its pipeline is.
-+ */
-+static int
-+panel_bridge_connector_readout(struct drm_bridge *bridge,
-+			       struct drm_atomic_sro_state *state,
-+			       struct drm_connector_state *conn_state)
-+{
-+	struct drm_connector *connector = conn_state->connector;
-+	struct drm_crtc_state *crtc_state;
-+	struct drm_encoder *encoder;
-+	struct drm_crtc *crtc;
-+
-+	encoder = bridge->encoder;
-+	if (!encoder->funcs || !encoder->funcs->atomic_sro_get_current_crtc)
-+		return -ENODEV;
-+
-+	/* The encoder is disabled, there is nothing to read out. */
-+	crtc = encoder->funcs->atomic_sro_get_current_crtc(encoder);
-+	if (!crtc)
-+		return 0;
-+
-+	/*
-+	 * A readout limited to the objects of a commit doesn't have a
-+	 * state for a CRTC that isn't part of it, and a CRTC can't be
-+	 * left out of a commit enabling it.
-+	 */
-+	crtc_state = drm_atomic_sro_get_crtc_state(state, crtc);
-+	if (!crtc_state)
-+		return 0;
-+
-+	/* The pipeline is off, there is nothing to read out. */
-+	if (!crtc_state->active)
-+		return 0;
-+
-+	crtc_state->encoder_mask |= drm_encoder_mask(encoder);
-+	crtc_state->connector_mask |= drm_connector_mask(connector);
-+
-+	/*
-+	 * drm_atomic_set_crtc_for_connector() takes a connector
-+	 * reference when setting the crtc pointer, which is later
-+	 * released by __drm_atomic_helper_connector_destroy_state().
-+	 * The readout bypasses that path, so take the reference
-+	 * explicitly.
-+	 */
-+	drm_connector_get(connector);
-+	conn_state->crtc = crtc;
-+	conn_state->best_encoder = encoder;
-+
-+	return 0;
-+}
-+
- static const struct drm_bridge_funcs panel_bridge_bridge_funcs = {
- 	.attach = panel_bridge_attach,
- 	.detach = panel_bridge_detach,
- 	.atomic_pre_enable = panel_bridge_atomic_pre_enable,
- 	.atomic_enable = panel_bridge_atomic_enable,
-@@ -237,10 +363,13 @@ static const struct drm_bridge_funcs panel_bridge_bridge_funcs = {
- 	.atomic_create_state = drm_atomic_helper_bridge_create_state,
- 	.atomic_duplicate_state = drm_atomic_helper_bridge_duplicate_state,
- 	.atomic_destroy_state = drm_atomic_helper_bridge_destroy_state,
- 	.atomic_get_input_bus_fmts = drm_atomic_helper_bridge_propagate_bus_fmt,
- 	.debugfs_init = panel_bridge_debugfs_init,
-+	.atomic_sro_readout_state = panel_bridge_readout_state,
-+	.atomic_sro_compare_state = drm_atomic_helper_bridge_compare_state,
-+	.atomic_sro_connector_readout = panel_bridge_connector_readout,
+ #include "tidss_crtc.h"
+ #include "tidss_dispc.h"
+ #include "tidss_drv.h"
+@@ -174,15 +177,236 @@ static const struct drm_plane_helper_funcs tidss_primary_plane_helper_funcs = {
+ 	.atomic_enable = tidss_plane_atomic_enable,
+ 	.atomic_disable = tidss_plane_atomic_disable,
+ 	.get_scanout_buffer = drm_fb_dma_get_scanout_buffer,
  };
  
- /**
-  * drm_bridge_is_panel - Checks if a drm_bridge is a panel_bridge.
-  *
++static const struct drm_framebuffer_funcs tidss_plane_readout_fb_funcs = {
++	.destroy	= drm_gem_fb_destroy,
++};
++
++static struct drm_framebuffer *tidss_plane_readout_fb(struct drm_plane *plane)
++{
++	struct drm_device *ddev = plane->dev;
++	struct tidss_device *tidss = to_tidss(ddev);
++	struct dispc_device *dispc = tidss->dispc;
++	struct tidss_plane *tplane = to_tidss_plane(plane);
++	const struct drm_format_info *info;
++	struct drm_framebuffer *fb;
++	int ret;
++
++	fb = kzalloc_obj(*fb);
++	if (!fb)
++		return ERR_PTR(-ENOMEM);
++
++	fb->dev = plane->dev;
++
++	info = dispc_plane_get_current_format(dispc, tplane->hw_plane_id);
++	if (IS_ERR(info)) {
++		ret = PTR_ERR(info);
++		goto err_free_fb;
++	}
++
++	// TODO: Figure out YUV and multiplanar formats, along with
++	// the color encoding and range
++	if (info->is_yuv) {
++		ret = -EINVAL;
++		goto err_free_fb;
++	}
++
++	fb->format = info;
++
++	dispc_plane_get_picture_size(dispc, tplane->hw_plane_id, &fb->width,
++				     &fb->height);
++
++	/*
++	 * A pixel increment of 1 means that the DMA engine fetches every
++	 * pixel of the source buffer. Any other value means that
++	 * horizontal decimation is enabled, and the buffer geometry
++	 * cannot be reconstructed from the registers.
++	 */
++	if (dispc_plane_get_pixel_inc(dispc, tplane->hw_plane_id) != 1) {
++		ret = -EINVAL;
++		goto err_free_fb;
++	}
++
++	/*
++	 * The row increment register holds the extra bytes between the
++	 * end of a row of the picture and the beginning of the next one,
++	 * which includes any padding the firmware might have programmed.
++	 */
++	fb->pitches[0] = fb->width * (drm_format_info_bpp(info, 0) / 8) +
++			 dispc_plane_get_row_inc(dispc, tplane->hw_plane_id) - 1;
++
++	/*
++	 * TODO: The DMA base address has the offsets baked in, and there
++	 * is no backing buffer to recover them from.
++	 */
++	fb->offsets[0] = 0;
++
++	ret = drm_framebuffer_init(plane->dev, fb, &tidss_plane_readout_fb_funcs);
++	if (ret) {
++		kfree(fb);
++		return ERR_PTR(ret);
++	}
++
++	return fb;
++
++err_free_fb:
++	kfree(fb);
++	return ERR_PTR(ret);
++}
++
++static struct drm_crtc *tidss_plane_readout_crtc(struct drm_plane *plane,
++						 int *crtc_x, int *crtc_y,
++						 u32 *normalized_zpos)
++{
++	struct drm_device *dev = plane->dev;
++	struct tidss_device *tidss = to_tidss(dev);
++	struct tidss_plane *tplane = to_tidss_plane(plane);
++	struct drm_crtc *crtc;
++	u32 hw_videoport, layer;
++	int ret;
++
++	ret = dispc_ovr_get_plane(tidss->dispc, tplane->hw_plane_id,
++				  &hw_videoport, crtc_x, crtc_y, &layer);
++	if (ret)
++		return ERR_PTR(ret);
++
++	*normalized_zpos = layer;
++
++	drm_for_each_crtc(crtc, dev) {
++		if (to_tidss_crtc(crtc)->hw_videoport == hw_videoport)
++			return crtc;
++	}
++
++	return ERR_PTR(-ENODEV);
++}
++
++static int tidss_plane_atomic_readout_state(struct drm_plane *plane,
++					    struct drm_atomic_sro_state *state,
++					    struct drm_plane_state *plane_state)
++{
++	struct drm_device *ddev = plane->dev;
++	struct tidss_device *tidss = to_tidss(ddev);
++	struct dispc_device *dispc = tidss->dispc;
++	struct tidss_plane *tplane = to_tidss_plane(plane);
++	struct drm_crtc_state *crtc_state;
++	struct drm_framebuffer *fb;
++	struct drm_crtc *crtc;
++	unsigned int in_w, in_h;
++	int crtc_x, crtc_y;
++	u32 normalized_zpos;
++	int ret;
++
++	ret = tidss_runtime_get(tidss);
++	if (ret < 0)
++		return ret;
++
++	if (!dispc_plane_is_enabled(dispc, tplane->hw_plane_id))
++		goto out;
++
++	crtc = tidss_plane_readout_crtc(plane, &crtc_x, &crtc_y,
++					&normalized_zpos);
++	if (IS_ERR(crtc)) {
++		ret = PTR_ERR(crtc);
++
++		/*
++		 * tidss_crtc_atomic_disable() disables the overlay layers of
++		 * the video port, but the planes on a CRTC being disabled
++		 * aren't disabled in the VID pipeline. A plane that isn't
++		 * routed to any layer is thus disabled.
++		 */
++		if (ret == -ENODEV)
++			goto out;
++
++		goto err_runtime_pm;
++	}
++
++	crtc_state = drm_atomic_sro_get_crtc_state(state, crtc);
++	if (!crtc_state) {
++		ret = -ENODEV;
++		goto err_runtime_pm;
++	}
++
++	/*
++	 * K2G has no overlay manager to tell us whether the plane is
++	 * routed, and the planes of a disabled video port are left
++	 * enabled: a plane on an inactive CRTC isn't scanned out.
++	 */
++	if (!crtc_state->active)
++		goto out;
++
++	fb = tidss_plane_readout_fb(plane);
++	if (IS_ERR(fb)) {
++		ret = PTR_ERR(fb);
++		goto err_runtime_pm;
++	}
++
++	plane_state->fb = fb;
++	plane_state->crtc = crtc;
++	plane_state->visible = true;
++
++	dispc_plane_get_picture_size(dispc, tplane->hw_plane_id, &in_w, &in_h);
++	plane_state->src_w = in_w << 16;
++	plane_state->src_h = in_h << 16;
++
++	dispc_plane_get_size(dispc, tplane->hw_plane_id, &plane_state->crtc_w,
++			     &plane_state->crtc_h);
++
++	plane_state->crtc_x = crtc_x;
++	plane_state->crtc_y = crtc_y;
++
++	/*
++	 * The overlay layer index a plane is routed to is its
++	 * normalized zpos, as that is what the atomic update uses as
++	 * the layer index. The raw zpos property userspace set
++	 * cannot be recovered from the hardware.
++	 */
++	plane_state->normalized_zpos = normalized_zpos;
++	plane_state->zpos = normalized_zpos;
++
++	// TODO: Handle src_x/src_y, see DISPC_VID_BA_0
++
++	plane_state->src.x1 = 0;
++	plane_state->src.x2 = plane_state->src_w;
++	plane_state->src.y1 = 0;
++	plane_state->src.y2 = plane_state->src_h;
++	plane_state->dst.x1 = crtc_x;
++	plane_state->dst.x2 = crtc_x + plane_state->crtc_w;
++	plane_state->dst.y1 = crtc_y;
++	plane_state->dst.y2 = crtc_y + plane_state->crtc_h;
++
++	/*
++	 * The global alpha register is 8 bits wide and is programmed
++	 * from the high byte of the 16 bits alpha property.
++	 * Replicating the byte is the only inverse that preserves the
++	 * fraction of full opacity (0x00 -> 0x0000, 0xff -> 0xffff)
++	 * and round-trips through a program-then-readout cycle.
++	 */
++	plane_state->alpha =
++		dispc_plane_get_global_alpha(dispc, tplane->hw_plane_id) * 0x0101;
++	plane_state->pixel_blend_mode =
++		dispc_plane_get_blend_mode(dispc, tplane->hw_plane_id);
++
++	crtc_state->plane_mask |= drm_plane_mask(plane);
++
++out:
++	tidss_runtime_put(tidss);
++	return 0;
++
++err_runtime_pm:
++	tidss_runtime_put(tidss);
++	return ret;
++}
++
+ static const struct drm_plane_funcs tidss_plane_funcs = {
+ 	.update_plane = drm_atomic_helper_update_plane,
+ 	.disable_plane = drm_atomic_helper_disable_plane,
+ 	.destroy = drm_plane_destroy,
+ 	.atomic_create_state = drm_atomic_helper_plane_create_state,
++	.atomic_sro_readout_state = tidss_plane_atomic_readout_state,
++	.atomic_sro_compare_state = drm_atomic_helper_plane_compare_state,
+ 	.atomic_duplicate_state = drm_atomic_helper_plane_duplicate_state,
+ 	.atomic_destroy_state = drm_atomic_helper_plane_destroy_state,
+ 	DRM_PANIC_PLANE_FUNCS,
+ };
+ 
 
 -- 
 2.56.1
