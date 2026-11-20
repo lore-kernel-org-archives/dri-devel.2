@@ -2,40 +2,39 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 18710606A325
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C1885606A326
 	for <dri-devel@archiver.kernel.org>; Fri, 20 Nov 2026 12:58:18 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=TR3gFWTQ
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=g/jr+9kn
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 13216112A02;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 25111112A03;
 	Fri, 20 Nov 2026 12:58:11 +0000 (UTC)
-Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id D6FA610E8D1
- for <dri-devel@lists.freedesktop.org>; Fri, 20 Nov 2026 12:57:43 +0000 (UTC)
+Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id A497E10E8D1
+ for <dri-devel@lists.freedesktop.org>; Fri, 20 Nov 2026 12:57:11 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by tor.source.kernel.org (Postfix) with ESMTP id 55877611FF;
- Fri, 20 Nov 2026 12:57:43 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 45F331F000E0;
- Fri, 20 Nov 2026 12:57:42 +0000 (UTC)
+ by sea.source.kernel.org (Postfix) with ESMTP id 8BF79405D5;
+ Fri, 20 Nov 2026 12:57:11 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id C8F591F000D1;
+ Fri, 20 Nov 2026 12:57:10 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1795179462;
- bh=H+q2FnyhjtBhlefTRTUJUjBUfAbxkIkbsgm7LBrETW8=;
+ s=k20260515; t=1795179431;
+ bh=S0e7mgXuoEvDLgXm2gsjawSnNoBTMy7nwJtKyL2t3yA=;
  h=From:Date:Subject:References:In-Reply-To:To:Cc;
- b=TR3gFWTQ91NKCNYLCXO+9Cb4j8xzFXpxbeATAyHpgSIZHNkOTBjsAY1PKyqJTtVJM
- uc4GH+xDaoLBaWNZ1jL89bXXFKSRiZGoQa3h+ls8bXQaICQsdwtfjlA+IxVhPVPkUA
- t+Eg2usvs6AYSYoclaxsQKkTeaVPqIpB0H52yL8SW2OeW31wD1ZiI7neZwegDLDNcD
- U9z944sxxnfS/i17dyz5iCugzDOwE/tId6rJN1J2ctP3O5jIyDT/255mMqnZA3xAFb
- 2nbn9NJTaG/v1FsYivSlH0JUKvXFvBkG80P6ocb7fKcuHpWPN4JQmOtr7qDNlbtleo
- VSpRJVStLCeUQ==
+ b=g/jr+9knBt4PhFT+/p3a3/Eb+ay10jI7ox7FyGHG8iP6ojdRbR64OtY76TXo3v48V
+ Z1RzugENuSiWjnxaijg1FZMtX75bcUa4OvcffAqxEr8CdJr207WCzT6Xrcw6GFTtOY
+ Exjak6iJNSBlv0sqGFxUvquPZxpnGyYXTXxdHsObMm0tRPx9rFtkMA6uiGI3NHGD4w
+ /hUbFB4y5BqyupcaQseMjC+cOOlPFCduz5zMa59YJ9t63Uq69NyFxOFPuYvEUs5c8i
+ FpWzuEyHvQeMS7PyDyibA/ZeWogOqBcpqquIxB47wTQjiPOw98Dbw5rW85jldaX61f
+ eGOL0LrQD6fVw==
 From: Maxime Ripard <mripard@kernel.org>
-Date: Fri, 20 Nov 2026 13:55:33 +0100
-Subject: [PATCH DO NOT MERGE v9 41/42] drm/tidss: oldi: Implement hardware
- state readout
+Date: Fri, 20 Nov 2026 13:55:24 +0100
+Subject: [PATCH v9 32/42] drm/tidss: crtc: Implement hardware state readout
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20261120-drm-state-readout-v9-41-a67c2b45b8ec@kernel.org>
+Message-Id: <20261120-drm-state-readout-v9-32-a67c2b45b8ec@kernel.org>
 References: <20261120-drm-state-readout-v9-0-a67c2b45b8ec@kernel.org>
 In-Reply-To: <20261120-drm-state-readout-v9-0-a67c2b45b8ec@kernel.org>
 To: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
@@ -49,12 +48,12 @@ To: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
 Cc: Devarsh Thakkar <devarsht@ti.com>, dri-devel@lists.freedesktop.org, 
  Maxime Ripard <mripard@kernel.org>
 X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=openpgp-sha256; l=8753; i=mripard@kernel.org;
- h=from:subject:message-id; bh=sGYoRbNcPMnwwDvBAXI1gZ8lEdOsoZynUdNp3i7rz3E=;
- b=owGbwMvMwCmsHn9OcpHtvjLG02pJDNkMzib3e5V2B///MvUsd/vV9X+dc3aIP3R6ustURdRx0
- tGncnbcHVNYGIQ5GWTFFFmeyISdXt6+uMrBfuUPmDmsTCBDGLg4BWAia64yVrS2nj2U89Xw9JIj
- f366L7th2WIxl5e3LvixznR5M+cexvKTJ6+8vc1VbfCHx/SEe1UzYxXTVttvukHhYlPPTV/5Teb
- mZ+XDDBeOpjFcD1j12vW93PXFUq/47+Z+WGQ997x+yVk/oxMA
+X-Developer-Signature: v=1; a=openpgp-sha256; l=6905; i=mripard@kernel.org;
+ h=from:subject:message-id; bh=BsIy4WjWP8Z0BM2iiL+x+S0AD32EIOIzLe84FVXdslE=;
+ b=owGbwMvMwCmsHn9OcpHtvjLG02pJDNkMzgYvD1+c9fjI0ezwuUH9N+I33RB60Nc159vBtnJXg
+ cd2K6r9O6ayMAhzMsiKKbI8kQk7vbx9cZWD/cofMHNYmUCGMHBxCsBEnixhbPi6tnKyRuaFvbv4
+ 3kS2FG3sF2cXsU9N2Cb2xq3tk3xxbuUWN/tf7IaTj541+nxrvux0DsaGS+96H/mtc30bLzxPc+e
+ zUnvtJXsrGzLfXUlbFnxARy5TiUVPy/27osd05Sn7dBNypkoBAA==
 X-Developer-Key: i=mripard@kernel.org; a=openpgp;
  fpr=BE5675C37E818C8B5764241C254BCFC56BF6CE8D
 X-BeenThere: dri-devel@lists.freedesktop.org
@@ -75,255 +74,205 @@ X-Spam-Status: No, score=-18.8 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-On the AM65x and the AM625, an OLDI transmitter sits between a video
-port and the panel or the bridge it drives. Without a readout of the
-transmitter, the bridge chain of a pipeline the firmware left running
-has no state for it, and the first commit can't be matched against what
-is programmed.
+The firmware can leave a video port running when the driver probes, and
+the KMS state of its CRTC should then reflect it instead of being
+pristine, so that the first modeset can be skipped if it matches.
 
-Implement the state readout hooks of the OLDI bridge. The
-atomic_sro_readout_state hook reads the transmitter configuration
-register through tidss_get_oldi_config(), and does nothing if the
-transmitter is disabled. Otherwise, it looks up the bus format the LVDS
-mapping and the width flag correspond to, since the most significant
-bit of the mapping field carries the dual-link flag rather than the
-mapping, and reconstructs the bus configuration the atomic helpers
-negotiate: the transmitter takes the parallel RGB output of the video
-port and serializes it. The DE polarity is the only flag the
-transmitter stores, the sampling edges being hardcoded. The readout
-fails when the mapping isn't recognized, so that the core falls back to
-the regular initialization.
+Implement the state readout hooks for the CRTCs.
+tidss_crtc_readout_state() reports the CRTC as active when its video
+port is enabled, and reads out its mode, bus flags and bus format. The
+connectors and planes bound to the CRTC are filled by their own readout
+hooks.
 
-The atomic_sro_connector_readout hook binds the connector to the CRTC
-the encoder is currently connected to, and takes the connector reference
-that drm_atomic_set_crtc_for_connector() would have taken. Set
-DRM_BRIDGE_OP_CONNECTOR_HW_READOUT so that drm_bridge_connector uses
-it.
+tidss_crtc_install_state() takes over the video port of an active CRTC
+when its state is installed: it takes the runtime PM reference and the
+video port clock that tidss_crtc_atomic_disable() later releases, flags
+the video port as a DPI output, and turns the vblank reporting on. The
+hook can't fail, so if one of those resources can't be acquired, the
+CRTC is installed as inactive instead, and the next modeset fully
+programs the video port.
 
-Use drm_atomic_helper_bridge_compare_state() to compare the readout
-state with the committed one.
-
-This hasn't been tested yet.
+Finally, implement tidss_crtc_compare_state(), that checks the bus
+format and bus flags on top of the generic CRTC comparison, unless both
+states are inactive since the bus configuration isn't read out from a
+disabled pipeline.
 
 Signed-off-by: Maxime Ripard <mripard@kernel.org>
 ---
- drivers/gpu/drm/tidss/tidss_oldi.c | 157 +++++++++++++++++++++++++++++++++++++
- 1 file changed, 157 insertions(+)
+ drivers/gpu/drm/tidss/tidss_crtc.c | 132 +++++++++++++++++++++++++++++++++++++
+ 1 file changed, 132 insertions(+)
 
-diff --git a/drivers/gpu/drm/tidss/tidss_oldi.c b/drivers/gpu/drm/tidss/tidss_oldi.c
-index f767b0c115ac..0ad4ef34ba64 100644
---- a/drivers/gpu/drm/tidss/tidss_oldi.c
-+++ b/drivers/gpu/drm/tidss/tidss_oldi.c
-@@ -3,20 +3,25 @@
-  * Copyright (C) 2025 - Texas Instruments Incorporated
-  *
-  * Aradhya Bhatia <a-bhatia1@ti.com>
+diff --git a/drivers/gpu/drm/tidss/tidss_crtc.c b/drivers/gpu/drm/tidss/tidss_crtc.c
+index d2664bda53a9..c72194e93bde 100644
+--- a/drivers/gpu/drm/tidss/tidss_crtc.c
++++ b/drivers/gpu/drm/tidss/tidss_crtc.c
+@@ -2,12 +2,16 @@
+ /*
+  * Copyright (C) 2018 Texas Instruments Incorporated - https://www.ti.com/
+  * Author: Tomi Valkeinen <tomi.valkeinen@ti.com>
   */
  
-+#include <linux/bitfield.h>
- #include <linux/clk.h>
- #include <linux/of.h>
- #include <linux/of_graph.h>
- #include <linux/mfd/syscon.h>
- #include <linux/media-bus-format.h>
- #include <linux/regmap.h>
- 
++#include <linux/clk.h>
++
+ #include <drm/drm_atomic.h>
  #include <drm/drm_atomic_helper.h>
-+#include <drm/drm_atomic_state_readout.h>
 +#include <drm/drm_atomic_state_readout_helper.h>
- #include <drm/drm_bridge.h>
-+#include <drm/drm_connector.h>
- #include <drm/drm_of.h>
-+#include <drm/drm_panel.h>
++#include <drm/drm_atomic_uapi.h>
+ #include <drm/drm_crtc.h>
+ #include <drm/drm_gem_dma_helper.h>
+ #include <drm/drm_print.h>
+ #include <drm/drm_vblank.h>
  
- #include "tidss_dispc.h"
- #include "tidss_dispc_regs.h"
- #include "tidss_oldi.h"
+@@ -370,10 +374,135 @@ static struct drm_crtc_state *tidss_crtc_create_state(struct drm_crtc *crtc)
+ 	__drm_atomic_helper_crtc_state_init(&tstate->base, crtc);
  
-@@ -348,20 +353,171 @@ tidss_oldi_mode_valid(struct drm_bridge *bridge,
- 		return MODE_CLOCK_RANGE;
- 
- 	return MODE_OK;
+ 	return &tstate->base;
  }
  
-+static u32 tidss_oldi_read_config(struct tidss_oldi *oldi)
-+{
-+	u32 cfg;
-+
-+	tidss_runtime_get(oldi->tidss);
-+	cfg = tidss_get_oldi_config(oldi->tidss, oldi->parent_vp);
-+	tidss_runtime_put(oldi->tidss);
-+
-+	return cfg;
-+}
-+
-+static int
-+tidss_oldi_bridge_readout_state(struct drm_bridge *bridge,
-+				struct drm_atomic_sro_state *state,
-+				struct drm_bridge_state *bridge_state,
-+				struct drm_crtc_state *crtc_state,
-+				struct drm_connector_state *conn_state)
-+{
-+	struct tidss_oldi *oldi = drm_bridge_to_tidss_oldi(bridge);
-+	const struct oldi_bus_format *bus_fmt = NULL;
-+	unsigned int i;
-+	u32 cfg, map, flags;
-+
-+	cfg = tidss_oldi_read_config(oldi);
-+
-+	/* The transmitter is off, there is nothing to read out. */
-+	if (!(cfg & OLDI_ENABLE))
-+		return 0;
-+
-+	/*
-+	 * The most significant bit of the data mapping field carries
-+	 * the dual-link flag rather than the LVDS mapping: mask it out
-+	 * before looking for the bus format the mapping corresponds
-+	 * to.
-+	 */
-+	map = cfg & (OLDI_MAP & ~BIT(3));
-+
-+	for (i = 0; i < ARRAY_SIZE(oldi_bus_formats); i++) {
-+		if (oldi_bus_formats[i].oldi_mode_reg_val << 1 != map)
-+			continue;
-+
-+		if ((cfg & OLDI_MSB) ?
-+		    oldi_bus_formats[i].data_width != 24 :
-+		    oldi_bus_formats[i].data_width != 18)
-+			continue;
-+
-+		bus_fmt = &oldi_bus_formats[i];
-+		break;
-+	}
-+
-+	if (!bus_fmt) {
-+		dev_err(oldi->dev,
-+			"OLDI%u: unrecognised mapping in the config register\n",
-+			oldi->oldi_instance);
-+		return -EINVAL;
-+	}
-+
-+	/*
-+	 * Reconstruct the bus configuration the atomic helpers
-+	 * negotiate: the OLDI transmitter takes the parallel RGB
-+	 * output of the video port and serialises it with the LVDS
-+	 * mapping found in the config register.
-+	 */
-+	bridge_state->input_bus_cfg.format = bus_fmt->input_bus_fmt;
-+	bridge_state->output_bus_cfg.format = bus_fmt->bus_fmt;
-+
-+	/*
-+	 * The transmitter only stores the DE polarity: OLDI_DEPOL is
-+	 * set when the DE is active low, and the sampling edges are
-+	 * hardcoded, the transmitter cannot configure them. TODO:
-+	 * read them back from the hardware registers if a variant
-+	 * makes them configurable.
-+	 *
-+	 * Everything else in the bus flags can't be read back, but the
-+	 * atomic check leaves it untouched: the output flags are those
-+	 * the next element of the chain expects, which are the display
-+	 * info flags when the elements after the transmitter forward
-+	 * them unmodified, and tidss_oldi_atomic_check() only replaces
-+	 * the sampling edges of the input flags. Start from the display
-+	 * info flags and only reconcile the DE polarity with what the
-+	 * hardware reports, so that a DE polarity left unspecified is
-+	 * not reported as an explicit one.
-+	 */
-+	flags = conn_state->connector->display_info.bus_flags;
-+
-+	if (cfg & OLDI_DEPOL) {
-+		flags &= ~DRM_BUS_FLAG_DE_HIGH;
-+		flags |= DRM_BUS_FLAG_DE_LOW;
-+	} else if (flags & DRM_BUS_FLAG_DE_LOW) {
-+		flags &= ~DRM_BUS_FLAG_DE_LOW;
-+		flags |= DRM_BUS_FLAG_DE_HIGH;
-+	}
-+
-+	bridge_state->output_bus_cfg.flags = flags;
-+
-+	flags &= ~(DRM_BUS_FLAG_PIXDATA_SAMPLE_NEGEDGE |
-+		   DRM_BUS_FLAG_SYNC_SAMPLE_NEGEDGE);
-+	flags |= DRM_BUS_FLAG_PIXDATA_SAMPLE_POSEDGE |
-+		 DRM_BUS_FLAG_SYNC_SAMPLE_POSEDGE;
-+	bridge_state->input_bus_cfg.flags = flags;
-+
-+	return 0;
-+}
-+
-+static int
-+tidss_oldi_bridge_connector_readout(struct drm_bridge *bridge,
++static int tidss_crtc_readout_state(struct drm_crtc *crtc,
 +				    struct drm_atomic_sro_state *state,
-+				    struct drm_connector_state *conn_state)
++				    struct drm_crtc_state *crtc_state)
 +{
-+	struct tidss_oldi *oldi = drm_bridge_to_tidss_oldi(bridge);
-+	struct drm_connector *connector = conn_state->connector;
-+	struct drm_crtc_state *crtc_state;
-+	struct drm_encoder *encoder;
-+	struct drm_crtc *crtc;
++	struct drm_device *ddev = crtc->dev;
++	struct tidss_device *tidss = to_tidss(ddev);
++	struct dispc_device *dispc = tidss->dispc;
++	struct tidss_crtc_state *tstate = to_tidss_crtc_state(crtc_state);
++	struct tidss_crtc *tcrtc =
++		to_tidss_crtc(crtc);
++	struct drm_display_mode mode = {};
++	int ret;
 +
-+	/* The transmitter is off, there is nothing to read out. */
-+	if (!(tidss_oldi_read_config(oldi) & OLDI_ENABLE))
-+		return 0;
++	tidss_runtime_get(tidss);
 +
-+	encoder = bridge->encoder;
-+	if (!encoder->funcs || !encoder->funcs->atomic_sro_get_current_crtc)
-+		return -ENODEV;
++	if (!dispc_vp_is_enabled(dispc, tcrtc->hw_videoport))
++		goto out;
 +
-+	crtc = encoder->funcs->atomic_sro_get_current_crtc(encoder);
-+	if (!crtc)
-+		return -ENODEV;
++	tstate->base.active = 1;
++	tstate->base.enable = 1;
 +
-+	crtc_state = drm_atomic_sro_get_crtc_state(state, crtc);
-+	if (!crtc_state)
-+		return -ENODEV;
++	ret = dispc_vp_readout_mode(dispc, tcrtc->hw_videoport, &mode);
++	if (ret)
++		goto err_runtime_put;
 +
-+	crtc_state->encoder_mask |= drm_encoder_mask(encoder);
-+	crtc_state->connector_mask |= drm_connector_mask(connector);
++	ret = drm_atomic_set_mode_for_crtc(&tstate->base, &mode);
++	if (WARN_ON(ret))
++		goto err_runtime_put;
++
++	drm_mode_copy(&tstate->base.adjusted_mode, &mode);
++
++	tstate->bus_flags = dispc_vp_get_bus_flags(dispc, tcrtc->hw_videoport);
++	ret = dispc_vp_get_bus_format(dispc, tcrtc->hw_videoport,
++				      &tstate->bus_format);
++	if (ret)
++		goto err_runtime_put;
 +
 +	/*
-+	 * drm_atomic_set_crtc_for_connector() takes a connector
-+	 * reference when setting the crtc pointer, which is later
-+	 * released by __drm_atomic_helper_connector_destroy_state().
-+	 * The readout bypasses that path, so take the reference
-+	 * explicitly.
++	 * The active connectors and planes will be filled by their
++	 * respective readout callbacks.
 +	 */
-+	drm_connector_get(connector);
-+	conn_state->crtc = crtc;
-+	conn_state->best_encoder = encoder;
 +
++out:
++	tidss_runtime_put(tidss);
 +	return 0;
++
++err_runtime_put:
++	tidss_runtime_put(tidss);
++	return ret;
 +}
 +
- static const struct drm_bridge_funcs tidss_oldi_bridge_funcs = {
- 	.attach = tidss_oldi_bridge_attach,
- 	.atomic_check = tidss_oldi_atomic_check,
- 	.atomic_pre_enable = tidss_oldi_atomic_pre_enable,
- 	.atomic_post_disable = tidss_oldi_atomic_post_disable,
- 	.atomic_get_input_bus_fmts = tidss_oldi_atomic_get_input_bus_fmts,
- 	.atomic_duplicate_state = drm_atomic_helper_bridge_duplicate_state,
- 	.atomic_destroy_state = drm_atomic_helper_bridge_destroy_state,
- 	.atomic_create_state = drm_atomic_helper_bridge_create_state,
- 	.mode_valid = tidss_oldi_mode_valid,
-+	.atomic_sro_readout_state = tidss_oldi_bridge_readout_state,
-+	.atomic_sro_compare_state = drm_atomic_helper_bridge_compare_state,
-+	.atomic_sro_connector_readout = tidss_oldi_bridge_connector_readout,
- };
- 
- static int get_oldi_mode(struct device_node *oldi_tx, int *companion_instance)
++static void tidss_crtc_install_state(struct drm_crtc *crtc,
++				     struct drm_crtc_state *crtc_state)
++{
++	struct tidss_crtc *tcrtc = to_tidss_crtc(crtc);
++	struct drm_device *ddev = crtc->dev;
++	struct tidss_device *tidss = to_tidss(ddev);
++	int ret;
++
++	/*
++	 * The video port wasn't enabled in hardware: nothing to take
++	 * over for it, and enabling the clock and the vblank reporting
++	 * would leak their reference for a CRTC that no disable will
++	 * ever release.
++	 */
++	if (!crtc_state->active)
++		return;
++
++	ret = tidss_runtime_get(tidss);
++	if (ret < 0)
++		goto err_inactive;
++
++	ret = dispc_vp_enable_clk(tidss->dispc, tcrtc->hw_videoport);
++	if (ret != 0) {
++		tidss_runtime_put(tidss);
++		goto err_inactive;
++	}
++
++	/*
++	 * dispc_vp_unprepare() only clears DPIENABLE for video ports
++	 * that dispc_vp_setup() flagged as DPI outputs, which hasn't
++	 * run for a video port enabled before the driver probed.
++	 */
++	dispc_vp_set_dpi_output(tidss->dispc, tcrtc->hw_videoport,
++				tcrtc->dpi_output);
++
++	/* Turn vertical blanking interrupt reporting on. */
++	drm_crtc_vblank_on(crtc);
++
++	return;
++
++err_inactive:
++	/*
++	 * This hook can't fail. Without the references taken above, a
++	 * later tidss_crtc_atomic_disable() would release references
++	 * it doesn't hold, so install the CRTC as inactive instead:
++	 * the next modeset will fully program the video port.
++	 */
++	drm_warn(ddev, "[CRTC:%d:%s] Couldn't take over the video port: %d\n",
++		 crtc->base.id, crtc->name, ret);
++	crtc_state->active = false;
++}
++
++static bool tidss_crtc_compare_state(struct drm_crtc *crtc,
++				     struct drm_printer *p,
++				     struct drm_crtc_state *expected,
++				     struct drm_crtc_state *actual)
++{
++	struct tidss_crtc_state *t_expected = to_tidss_crtc_state(expected);
++	struct tidss_crtc_state *t_actual = to_tidss_crtc_state(actual);
++	bool ret = drm_atomic_helper_crtc_compare_state(crtc, p, expected, actual);
++
++	/*
++	 * Both inactive: the bus configuration wasn't read out from the
++	 * disabled pipeline, and the committed one is stale anyway.
++	 */
++	if (!expected->active && !actual->active)
++		return ret;
++
++	STATE_CHECK_U32_X(ret, p, crtc->name, t_expected, t_actual, bus_format);
++	STATE_CHECK_U32_X(ret, p, crtc->name, t_expected, t_actual, bus_flags);
++
++	return ret;
++}
++
+ static struct drm_crtc_state *tidss_crtc_duplicate_state(struct drm_crtc *crtc)
  {
- 	struct device_node *companion;
-@@ -610,10 +766,11 @@ static int tidss_oldi_init_one(struct tidss_device *tidss,
- 	}
+ 	struct tidss_crtc_state *state, *current_state;
  
- 	/* Register the bridge. */
- 	oldi->bridge.of_node = oldi_tx;
- 	oldi->bridge.driver_private = oldi;
-+	oldi->bridge.ops |= DRM_BRIDGE_OP_CONNECTOR_HW_READOUT;
- 
- 	tidss->oldis[tidss->num_oldis++] = oldi;
- 	tidss->is_ext_vp_clk[oldi->parent_vp] = true;
- 	oldi->tidss = tidss;
- 
+ 	if (WARN_ON(!crtc->state))
+@@ -415,10 +544,13 @@ static void tidss_crtc_atomic_print_state(struct drm_printer *p,
+ static const struct drm_crtc_funcs tidss_crtc_funcs = {
+ 	.destroy = tidss_crtc_destroy,
+ 	.set_config = drm_atomic_helper_set_config,
+ 	.page_flip = drm_atomic_helper_page_flip,
+ 	.atomic_create_state = tidss_crtc_create_state,
++	.atomic_sro_readout_state = tidss_crtc_readout_state,
++	.atomic_sro_install_state = tidss_crtc_install_state,
++	.atomic_sro_compare_state = tidss_crtc_compare_state,
+ 	.atomic_duplicate_state = tidss_crtc_duplicate_state,
+ 	.atomic_destroy_state = tidss_crtc_destroy_state,
+ 	.atomic_print_state = tidss_crtc_atomic_print_state,
+ 	.enable_vblank = tidss_crtc_enable_vblank,
+ 	.disable_vblank = tidss_crtc_disable_vblank,
 
 -- 
 2.56.1
