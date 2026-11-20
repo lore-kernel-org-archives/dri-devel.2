@@ -2,73 +2,69 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B615A60A2617
-	for <dri-devel@archiver.kernel.org>; Fri, 20 Nov 2026 17:19:11 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3C45160A2615
+	for <dri-devel@archiver.kernel.org>; Fri, 20 Nov 2026 17:19:20 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=eXfA6lNZ
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=hEcS1+yh
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 812AF10E063;
-	Fri, 20 Nov 2026 17:19:03 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 9686610E05D;
+	Fri, 20 Nov 2026 17:19:14 +0000 (UTC)
 Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 3451D10E023
- for <dri-devel@lists.freedesktop.org>; Fri, 20 Nov 2026 17:18:57 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 0B97610E023
+ for <dri-devel@lists.freedesktop.org>; Fri, 20 Nov 2026 17:19:03 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id DE2AE433FB;
- Fri, 20 Nov 2026 17:18:56 +0000 (UTC)
+ by sea.source.kernel.org (Postfix) with ESMTP id E823A40137;
+ Fri, 20 Nov 2026 17:19:02 +0000 (UTC)
 Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
 ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
- t=1795195136;
- b=atzpBexBIAINow/6DsY4HM5oUjPA6ofzy8giGa9ZN7Smgp7w1i/w4brAOOdFVIv88gKf
- 7k7RB7L1voYKxwZXM5Zzi0nCQVweiJBeWtTrDEYCRVtvMgTmbLdvp84hiwRTHVKm+0WLg
- rK+SN/OsPckZye/i1kXqd/z9FuUsCba9sMjmkM8IdxF5Onth4LOJ9niJMeKkbrVY/POQ3
- pScAtHjtHGR1Bf/FMPjNZPWI6Hzr+F1Xt4r1rUc4oVUkuS0bFhSc4XWAVbOYkI8P3Vpyx
- E00WgHWywcAMJcscMvQ0ED+HicBRlC3RKMJECAiErmsTsRxLpvt5tPNI0Ug+1u74F5A==
+ t=1795195142;
+ b=QFho46/Wr0seqVeF+t2UTATyOGt5IEHRLvO1mHeEPP/rDwDd8kZNC+R+rChJ7FHUZ2ko
+ oK08qEujA5pEHEF28E2Ysnv3MLovUoiVWJdGAW23AD1JfIVC8xWH0tOmrHPd4R8ycO5YW
+ zMRdA/R73+LjLkjX/3TMin47BBwuk+pkEzdKi9P/j+/Su/UlxX59wZ9Lv+OCOw9Ayf5XK
+ bjubIVvzjob4iLLd0Hmq/Y7kaz/2DqbiWmRQRbc1J0rjteQQ4AqadPCi/0R6CtuIUttK2
+ EHF9TVifS0Z5Zgx9BaYPzm4bHBxP3V06KC9nHrPA8MgrFYvg4tTYC52XHBfBOPNRBHw==
 ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
- c=relaxed/relaxed; t=1795195136;
- h=DKIM-Signature:Received:From:Subject:Date:Message-Id:MIME-Version:
- Content-Type:Content-Transfer-Encoding:X-B4-Tracking:X-Change-ID:To:
- Cc:X-Mailer:X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
- X-Original-From:Reply-To;
- bh=j5aeOlXPwsIGKiT8rzKAsAdFcc8q5YgjF0Yn6AZf5ME=;
- b=OlB138q9jCIkCUUaY0zFL6pAfxSJer0sRd6t+4hJkifyuYqyYBAZ/iBLV3n0eZNHxvL5
- OT+WFQ1pCxR31/anZFOa+QqycDfuKoCRQnc0uPG2OY0weufP/nWUx5+5IBC9J2XWq/ZAx
- dpxD/UAjjY2uElwSK0iOpvx/rA0KXQzKSKBra7mSFySK6SDwcvDA9teuz73Z2Wqys+3JQ
- LLIW8ANcWb/0yamj/yozJ90tbClOqZTRf/tYtr2wLFXB4FiKurwWzfAjAr+vdZnP8aWKN
- KlVt/k9+wvK5hBExdZPBtg2crnh9zaJ/uWg/pENCo5Ps7qK0Mea0sLHROGx5ydXFZkw==
+ c=relaxed/relaxed; t=1795195142;
+ h=DKIM-Signature:Received:From:Date:Subject:MIME-Version:Content-Type:
+ Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
+ X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
+ X-Original-From:Reply-To:Content-Transfer-Encoding;
+ bh=yh5n9jWo/3W77LwmiI39asuVgN3yT8N8hYH+AL2o/iw=;
+ b=CxDq72xJVN2sTznpR5Ad2/eGBlcwihwyvcSr9uLgK/UVAO74v/fzSgmm6kQkNFyIuhR3
+ sUjvE+mVbc1i5gOER0b1MiQxRMzW7z230RQ5DzFBis9MgvJN1V0jsWVi8lMchP3rpscKC
+ MnxhKgoohu+6aTFVSkLPNsbhruZ5pyod+zEyGeKvCKGcH/b1ls7AJpO+Qdoz1Rf0o6GDf
+ xoo89vraywklFmbWUxLcMjIZqxRzT/nAHLEKugQRJjPc8cxiPQbKmDNqjmEZSOEwqWDPD
+ yI0vXet96XIijENR76t/trryVj6TmsNHRzxfGZtwyreIgWx8NKZvAcTP4k2er4gP88w==
 ARC-Authentication-Results: i=1; smtp.kernel.org; 
  arc=none smtp.remote-ip=100.80.115.77
 Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
  (No client certificate requested)
- by smtp.kernel.org (Postfix) with ESMTPS id B03CF1F000EC;
+ by smtp.kernel.org (Postfix) with ESMTPS id CCD411F000CF;
  Fri, 20 Nov 2026 17:18:46 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1795195136;
- bh=j5aeOlXPwsIGKiT8rzKAsAdFcc8q5YgjF0Yn6AZf5ME=;
- h=From:Subject:Date:To:Cc:Reply-To;
- b=eXfA6lNZZtYJM0dI5pFb2p+6a3IcHb26UqY1Vee3RA0z4TwfHbtjuq1p9XvzjvQrz
- Qu1GvcTxkjX2/SooM8sdLz9vJaDhwqbap+J8truluGxC+HYXR3sU+q9QGukqsPmsoX
- YQY4kgQAbXjP833s6ngKT7Q4CxRQHj2NyJp3I8b7ZebvpLw3UzFtOYt8ZUt1HqgW/J
- WJG7rKbT7vBrG0auTwy0Iq5FAziej+6EXX4USZBQWbhvAjHp6QG2/qW06Y1pwrW64o
- +t5TkETDPiSoy5PuxwWUMEODJUcBqAxh0FBDLfEl7DjdLwdmPFYD12HTywOwrowIWM
- hidqj7o/z1fBQ==
+ s=k20260515; t=1795195142;
+ bh=yh5n9jWo/3W77LwmiI39asuVgN3yT8N8hYH+AL2o/iw=;
+ h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To;
+ b=hEcS1+yhhiO6duCO1O93xW/CRD01YuvtqfVr5AH7mhBZ7XvGcj0VGpHaX3r128iIZ
+ KmC46roAC4PRs/aCASjDz7hvvIKKuTj36D2mRb44JvNTMxzJjA/GbEOYvDB83foEeF
+ tOnqsL2Kae2se9JHzyy7hsu10Lwi7Tuo1on2gkcjiRXHeNNS0r6VATpYX/00nCx850
+ B+K5XK8almyeTJCOy5Rg29NMKnv4sZcs98f/DK4Lm/ldHYjpdq6mrzUbg3RWZ62XQs
+ iOWIax1itvlk5j6z8CskL9jhgV9iYkybly32/PFZ4WQGYseHe6zmsxC1OH0KP51rDo
+ /vA8jmuiwMBZA==
 Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
- by lkml.kernel.org (Postfix) with ESMTP id 0DB004B871;
+ by lkml.kernel.org (Postfix) with ESMTP id 592A04B87D;
  Fri, 20 Nov 2026 17:18:46 +0000 (UTC)
 From: Jim Cromie via B4 Relay <devnull+jim.cromie.gmail.com@kernel.org>
-Subject: [PATCH v2 0/5] drm/print,dyndbg: __drm_debug __read_mostly, uint
- shrink, build fixes
-Date: Fri, 20 Nov 2026 10:18:27 -0700
-Message-Id: <20261120-rd-mostly-v2-0-88056ede02a8@gmail.com>
+Date: Fri, 20 Nov 2026 10:18:30 -0700
+Subject: [PATCH v2 3/5] drm: fix config dependent unused variable warning.
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-X-B4-Tracking: v=1; b=H4sIAAAAAAAA/03MSwrDIBAA0KvIrGPRoTWtq96jZGH9JAMxFg3SE
- Lx7aaDQ7Vu8HYrP5AtotkP2lQqlBTTDjoGdzDJ6Tg40AxSoxA0vPDseU1nnjSuDwQrrVHAKOga
- v7AO9j+sxdAwmKmvK21FX+dXfov6WKrngeH32rpdn79Dex2hoPtkUYWitfQD7VkXjogAAAA==
-X-Change-ID: 20260925-rd-mostly-6a2fc0cd6fd6
+Message-Id: <20261120-rd-mostly-v2-3-88056ede02a8@gmail.com>
+References: <20261120-rd-mostly-v2-0-88056ede02a8@gmail.com>
+In-Reply-To: <20261120-rd-mostly-v2-0-88056ede02a8@gmail.com>
 To: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
  Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
  David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
@@ -78,16 +74,17 @@ To: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
 Cc: dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org, 
  Jim Cromie <jim.cromie@gmail.com>
 X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1795195125; l=2782;
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1795195125; l=1090;
  i=jim.cromie@gmail.com; s=20260203; h=from:subject:message-id;
- bh=xnRH0qB/GwHqK1xzuiISEJFJ6H/0x3SoHlEN19+4id0=;
- b=ZVbV5T5CdTJSA9L2enICkZVUo5maRNjASt3co0FrgQPrH6ymN3NTcqDsl0ZT5yL1axpG0Nk/l
- Zt59NE/PumvAGV24WCPaSGeLwxbz0XVkfFC7tZIwFtVfskxxrzOoTMA
+ bh=FWl5eybJevr+52Kq5KRfTj77HDYm3mQVIttIFHf1YBM=;
+ b=NOIutQD7kqK1VDi5lWhr/3MbHVkNy3BWiKygm/5FUyz8vqm+NhKzWvQHtDpOo/JTpswB2rCf6
+ ArCsKbgc6SBB7oIAgpHM1xZDuD/c6LoxyRdqST7f4JZguv4n1e4CRNW
 X-Developer-Key: i=jim.cromie@gmail.com; a=ed25519;
  pk=C6E5ODlPQo7ZBynATXH9wg7K6HxP0pIXyf4s38Qw0XE=
 X-Endpoint-Received: by B4 Relay for jim.cromie@gmail.com/20260203 with
  auth_id=958
 X-Original-From: Jim Cromie <jim.cromie@gmail.com>
+Content-Transfer-Encoding: 7bit
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -107,70 +104,40 @@ X-Spam-Status: No, score=-18.8 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-This series improves __drm_debug placement/sizing and fixes two build
-issues exposed when CONFIG_DRM_USE_DYNAMIC_DEBUG=y is enabled:        
+From: Jim Cromie <jim.cromie@gmail.com>
 
-1. Mark __drm_debug as __read_mostly to move it out of the cacheline
-it currently shares with frequently written locks and structures.  In
-a 12-vkcube test, its read rate is ~83 kHz.
-    
-2. Fix CFLAGS- -> ccflags- spelling error in drivers/gpu/drm/Makefile
-to add -DDYNAMIC_DEBUG_MODULE when CONFIG_DYNAMIC_DEBUG_CORE=y without
-CONFIG_DYNAMIC_DEBUG=y.  Also add subdir-ccflags- so DRM subdirs
-(drivers and helpers) get the -Dflag too.
+__drm_printfn_dbg() does:
+      enum drm_debug_category category = p->category;
+then:
+      if (!__drm_debug_enabled(category))
 
-3. Drop the unused `category` local in __drm_printfn_dbg() when
-CONFIG_DRM_USE_DYNAMIC_DEBUG=y expands __drm_debug_enabled() to true.
-
-4. Shrink __drm_debug and struct ddebug_class_param.bits from unsigned
-long back to unsigned int, updating lib/dynamic_debug.c and        
-lib/test_dynamic_debug.c callers accordingly.               
-
-NOTES:
-
-drm and dyndbg are coupled on __drm_debug's size and type, so changing
-the size requires coordination between DRM and core.  The coupling
-allows dyndbg to use the var to keep 'state', and allows drm to
-continue using it in a few cases where drm_*dbg doesnt quite fit.
-
-Because DRM_USE_DYNAMIC_DEBUG still depends on BROKEN, patches 2-4
-were build-tested with that dependency locally removed. That un-BROKEN
-patch is intentionally excluded here, as modular DRM probe-time
-drm.debug support (and external users like drivers/accel/) still
-need the separate/pending classmap fixup series.
+When CONFIG_DRM_USE_DYNAMIC_DEBUG=y, __drm_debug_enabled(category)
+expands to `true` without referencing `category`, causing an
+unused-variable warning/error. Silence it by passing p->category
+directly.
 
 Signed-off-by: Jim Cromie <jim.cromie@gmail.com>
 ---
-Changes in v2:
-- Add subdir-ccflags- propagation in drivers/gpu/drm/Makefile (patch 2).
-- Add unused `category` warning fix under CONFIG_DRM_USE_DYNAMIC_DEBUG=y
-(patch 3). 
-- Add __drm_debug and ddebug_class_param.bits shrink to unsigned int
-(patch 4).
-- Link to v1: https://lore.kernel.org/r/20260926-rd-mostly-v1-0-28b7d714ed2c@gmail.com
+ drivers/gpu/drm/drm_print.c | 3 +--
+ 1 file changed, 1 insertion(+), 2 deletions(-)
 
----
-Jim Cromie (5):
-      drm/print: Mark __drm_debug as __read_mostly
-      drm: Fix incorrect CFLAGS-y spelling inside Makefile
-      drm: fix config dependent unused variable warning.
-      drm/print,dyndbg: restore __drm_debug to uint from ulong
-      drm-dyndbg: drop BROKEN on DRM_USE_DYNAMIC_DEBUG for testing (DONT_APPLY)
+diff --git a/drivers/gpu/drm/drm_print.c b/drivers/gpu/drm/drm_print.c
+index 50cdeb1b15e2..12b95901eb70 100644
+--- a/drivers/gpu/drm/drm_print.c
++++ b/drivers/gpu/drm/drm_print.c
+@@ -218,9 +218,8 @@ void __drm_printfn_dbg(struct drm_printer *p, struct va_format *vaf)
+ {
+ 	const struct drm_device *drm = p->arg;
+ 	const struct device *dev = drm ? drm->dev : NULL;
+-	enum drm_debug_category category = p->category;
+ 
+-	if (!__drm_debug_enabled(category))
++	if (!__drm_debug_enabled(p->category))
+ 		return;
+ 
+ 	__drm_dev_vprintk(dev, KERN_DEBUG, p->origin, p->prefix, vaf);
 
- drivers/gpu/drm/Kconfig.debug | 1 -
- drivers/gpu/drm/Makefile      | 3 ++-
- drivers/gpu/drm/drm_print.c   | 7 +++----
- include/drm/drm_print.h       | 2 +-
- include/linux/dynamic_debug.h | 2 +-
- lib/dynamic_debug.c           | 8 +++++---
- lib/test_dynamic_debug.c      | 2 +-
- 7 files changed, 13 insertions(+), 12 deletions(-)
----
-base-commit: aebb7274476403040d582c61478df8f4a7bf9cd3
-change-id: 20260925-rd-mostly-6a2fc0cd6fd6
-
-Best regards,
 -- 
-Jim Cromie <jim.cromie@gmail.com>
+2.56.1
 
 
