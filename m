@@ -2,40 +2,40 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6A4E0606A320
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BDA43606A325
 	for <dri-devel@archiver.kernel.org>; Fri, 20 Nov 2026 12:57:39 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=QCQi6bmE
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Qjn7BeYh
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id ABD7389FCE;
+	by gabe.freedesktop.org (Postfix) with ESMTP id EFA011129FA;
 	Fri, 20 Nov 2026 12:57:33 +0000 (UTC)
 Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 89F1910E8D1
- for <dri-devel@lists.freedesktop.org>; Fri, 20 Nov 2026 12:57:04 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 890E01129F2
+ for <dri-devel@lists.freedesktop.org>; Fri, 20 Nov 2026 12:57:01 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id 721394379B;
- Fri, 20 Nov 2026 12:57:04 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id C979A1F000EB;
- Fri, 20 Nov 2026 12:57:03 +0000 (UTC)
+ by sea.source.kernel.org (Postfix) with ESMTP id 6F67A40784;
+ Fri, 20 Nov 2026 12:57:01 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id B355C1F000CF;
+ Fri, 20 Nov 2026 12:57:00 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1795179424;
- bh=ZLSjPle1krVNVTgdP2NkfUZ3M9w3y+3WJPJHN8BJ7Jc=;
+ s=k20260515; t=1795179421;
+ bh=tb/PLo6e1ZJPDQVfwaHMvga/LNtgEtveh88Vm9eC9Ms=;
  h=From:Date:Subject:References:In-Reply-To:To:Cc;
- b=QCQi6bmE0yUleTMAZa67cghh3JzyeQps9srhoURu3OU7dDiXdxwbDuaItKQG5LrSp
- Fwo42zygkTHWZ3CQHiU2aV2DKXaGJOrEo0BmC1dcfSNKYVQ+GdNY249VykxRPOVavQ
- 4HB5ORbSKCWKEn38T5I3/LFUOzAqxqEtT6y65b2pX+VyaGolqbruSpjtBCKClu8Q81
- p9Vse3Nezt1svIEry704942tohP6o/A0mr/mdw1l9ch5NTbiM25xAD6fyXGIbdoqd8
- FN5ruPDyuGxjVVvI8NHGulBwGhKwtdVyRBFs3WeVzN1YKoZR9uxCKNbCkLuuFy+WsK
- xxrqNr4s2QQbg==
+ b=Qjn7BeYhrX8KBK+NZTRqNB3+09lu96ateFOAOTLw19gzLfl36Zt2k9vT0Yp568Wo9
+ 1juFeVmH4j8UBUjX1lj4Q4uYlGwHCgUlwdkI1gWKB07HQUnvyV/uEccN+D+u7JZR7a
+ NozAzBzXDJHfNuinX3pJHTeYtB11mqZCbmxCBhMhXHerkUcbyMsQxMe5UOHYxIRSjp
+ 9plLt0TtvPzcGAC+DXETGBgQWD6knTmcCk42A0gis9AzjRaN3OY15YytnvBJMXX2lp
+ 6Xlq7xbnVNgrswKaIvcwOARlj+ado/4CU9m7MB2zqxDlHQLkYcgpN2vJpT0ECRh1DQ
+ R7CoDFI1ZALJQ==
 From: Maxime Ripard <mripard@kernel.org>
-Date: Fri, 20 Nov 2026 13:55:22 +0100
-Subject: [PATCH v9 30/42] drm/bridge_connector: Implement hw readout for
- connector
+Date: Fri, 20 Nov 2026 13:55:21 +0100
+Subject: [PATCH v9 29/42] drm/bridge: display-connector: Implement readout
+ support
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20261120-drm-state-readout-v9-30-a67c2b45b8ec@kernel.org>
+Message-Id: <20261120-drm-state-readout-v9-29-a67c2b45b8ec@kernel.org>
 References: <20261120-drm-state-readout-v9-0-a67c2b45b8ec@kernel.org>
 In-Reply-To: <20261120-drm-state-readout-v9-0-a67c2b45b8ec@kernel.org>
 To: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
@@ -49,12 +49,12 @@ To: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
 Cc: Devarsh Thakkar <devarsht@ti.com>, dri-devel@lists.freedesktop.org, 
  Maxime Ripard <mripard@kernel.org>
 X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=openpgp-sha256; l=9509; i=mripard@kernel.org;
- h=from:subject:message-id; bh=KEatr8kc12fyFC6e1G+OB7QebxgyU12DdexcuPRqgQY=;
- b=owGbwMvMwCmsHn9OcpHtvjLG02pJDNkMzvoNzAXh6QHfSyS396x4PvEXz062Y98mZl/Z739MK
- v2seLFtx1QWBmFOBlkxRZYnMmGnl7cvrnKwX/kDZg4rE8gQBi5OAZjIqQDG+vK/cac/vXy7IbBO
- WvHbCVvHK8Gids8Y/X6uuCWZWVRw+M28XjuHm3fmB/sufZsnY2c4mbGS8XAd0yE9ngxW7vmuHAe
- nHH60cMo1vg1XGnVNH/0u3hIza/2iNx/42punB87zaGNYun47AA==
+X-Developer-Signature: v=1; a=openpgp-sha256; l=5126; i=mripard@kernel.org;
+ h=from:subject:message-id; bh=DB+8M7x8AACNwILS1p7L7yutUtCF98A4c/aVy2fozoE=;
+ b=owGbwMvMwCmsHn9OcpHtvjLG02pJDNkMzvrf9uYIVYQe8eB7eVr5ynrfWRfLb+n8tEz+41az5
+ scUZo4rHVNZGIQ5GWTFFFmeyISdXt6+uMrBfuUPmDmsTCBDGLg4BWAiRQWMdYYfjCTN9v5+tCDp
+ w6c7ffb/nQr0vG5cd/SdK3WS3b3BW9JJJqUh/9JKJ08R14cmB07eY6yzOTF5V8SZf+dYl906zBn
+ /q9702CrX6TvPBa6cf8vwt7HxHMltWtl/LA79565Zf0nhr3oKAA==
 X-Developer-Key: i=mripard@kernel.org; a=openpgp;
  fpr=BE5675C37E818C8B5764241C254BCFC56BF6CE8D
 X-BeenThere: dri-devel@lists.freedesktop.org
@@ -75,257 +75,132 @@ X-Spam-Status: No, score=-18.8 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-drm_bridge_connector allows to create a generic connector from a list of
-bridges.
+The display-connector bridge is the last bridge in the chain on
+platforms using drm_bridge_connector, and is responsible for the
+physical connector interface.
 
-However, it's a somewhat virtual connector, and relies on the bridges to
-implement its various capabilities.
-
-What we actually want though is for the last bridge implementing
-hardware readout to fill the connector state from its own state.
-
-Thus, implement a new op for bridge_connector to allow just
-that.
+Implement the atomic_sro_readout_state hook and wire up the default
+drm_atomic_helper_bridge_compare_state() as the compare hook.
 
 Reviewed-by: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>
 Signed-off-by: Maxime Ripard <mripard@kernel.org>
 ---
- drivers/gpu/drm/display/drm_bridge_connector.c | 65 +++++++++++++++++++++++++-
- include/drm/drm_bridge.h                       | 32 +++++++++++++
- 2 files changed, 95 insertions(+), 2 deletions(-)
+ drivers/gpu/drm/bridge/display-connector.c | 75 ++++++++++++++++++++++++++++++
+ 1 file changed, 75 insertions(+)
 
-diff --git a/drivers/gpu/drm/display/drm_bridge_connector.c b/drivers/gpu/drm/display/drm_bridge_connector.c
-index 2202e6044444..c1c208abf75c 100644
---- a/drivers/gpu/drm/display/drm_bridge_connector.c
-+++ b/drivers/gpu/drm/display/drm_bridge_connector.c
-@@ -9,10 +9,11 @@
+diff --git a/drivers/gpu/drm/bridge/display-connector.c b/drivers/gpu/drm/bridge/display-connector.c
+index eb3412ec30a0..be375f86e038 100644
+--- a/drivers/gpu/drm/bridge/display-connector.c
++++ b/drivers/gpu/drm/bridge/display-connector.c
+@@ -12,11 +12,14 @@
  #include <linux/of.h>
- #include <linux/property.h>
- #include <linux/slab.h>
+ #include <linux/platform_device.h>
+ #include <linux/regulator/consumer.h>
+ #include <linux/workqueue.h>
  
- #include <drm/drm_atomic_state_helper.h>
++#include <drm/drm_atomic.h>
+ #include <drm/drm_atomic_helper.h>
++#include <drm/drm_atomic_state_readout.h>
 +#include <drm/drm_atomic_state_readout_helper.h>
  #include <drm/drm_bridge.h>
- #include <drm/drm_bridge_connector.h>
- #include <drm/drm_connector.h>
- #include <drm/drm_device.h>
  #include <drm/drm_edid.h>
-@@ -65,10 +66,18 @@ struct drm_bridge_connector {
- 	 * @encoder:
- 	 *
- 	 * The encoder at the start of the bridges chain.
- 	 */
- 	struct drm_encoder *encoder;
-+	/**
-+	 * @bridge_connector_hw_readout:
-+	 *
-+	 * The last bridge in the chain (closest to the connector) that
-+	 * provides hardware state readout support, if any (see
-+	 * &DRM_BRIDGE_OP_CONNECTOR_HW_READOUT).
-+	 */
-+	struct drm_bridge *bridge_connector_hw_readout;
- 	/**
- 	 * @bridge_edid:
- 	 *
- 	 * The last bridge in the chain (closest to the connector) that provides
- 	 * EDID read support, if any (see &DRM_BRIDGE_OP_EDID).
-@@ -242,10 +251,30 @@ drm_bridge_connector_create_state(struct drm_connector *connector)
- 							      connector);
  
- 	return conn_state;
+ struct display_connector {
+ 	struct drm_bridge	bridge;
+@@ -211,10 +214,80 @@ static u32 *display_connector_get_input_bus_fmts(struct drm_bridge *bridge,
+ 	return prev_bridge->funcs->atomic_get_input_bus_fmts(prev_bridge, prev_bridge_state,
+ 							     crtc_state, conn_state, output_fmt,
+ 							     num_input_fmts);
  }
  
++/*
++ * Reconstruct the bridge bus configuration from the previous bridge's
++ * readout state and the connector's display_info.
++ *
++ * During normal atomic check, drm_atomic_bridge_chain_select_bus_fmts()
++ * and drm_atomic_bridge_propagate_bus_flags() walk the bridge chain to
++ * negotiate formats and propagate flags. During SRO readout, those
++ * functions do not run, so each bridge must reconstruct its own state.
++ *
++ * The SRO infrastructure traverses bridges from first to last, so the
++ * previous bridge's state is already available. The input bus
++ * configuration is taken from the previous bridge's output. The output
++ * bus format comes from the connector's display_info, since this bridge
++ * is the last in the chain and acts as a passthrough to the connector.
++ * Bus flags are also taken from display_info, matching the default
++ * propagation behavior of drm_atomic_bridge_propagate_bus_flags().
++ */
 +static int
-+drm_bridge_connector_readout_state(struct drm_connector *connector,
-+				   struct drm_atomic_sro_state *state,
-+				   struct drm_connector_state *conn_state)
++display_connector_readout_state(struct drm_bridge *bridge,
++				struct drm_atomic_sro_state *state,
++				struct drm_bridge_state *bridge_state,
++				struct drm_crtc_state *crtc_state,
++				struct drm_connector_state *conn_state)
 +{
-+	struct drm_bridge_connector *bridge_connector =
-+		to_drm_bridge_connector(connector);
-+	struct drm_bridge *readout =
-+		bridge_connector->bridge_connector_hw_readout;
-+	int ret;
++	struct drm_display_info *di = &conn_state->connector->display_info;
++	struct drm_bridge *prev_bridge __free(drm_bridge_put) =
++		drm_bridge_get_prev_bridge(bridge);
 +
-+	if (readout) {
-+		ret = readout->funcs->atomic_sro_connector_readout(readout, state, conn_state);
-+		if (ret)
-+			return ret;
++	/*
++	 * A previous bridge without readout support still gets a
++	 * pristine state in the SRO state, which doesn't hold any
++	 * meaningful bus configuration. Only use the state of bridges
++	 * that were actually read out.
++	 */
++	if (prev_bridge && prev_bridge->base.funcs->atomic_sro_readout_state) {
++		struct drm_private_state *prev_priv_state =
++			drm_atomic_sro_get_private_obj_state(state,
++							     &prev_bridge->base);
++
++		if (prev_priv_state) {
++			struct drm_bridge_state *prev_bridge_state =
++				drm_priv_to_bridge_state(prev_priv_state);
++
++			bridge_state->input_bus_cfg.format =
++				prev_bridge_state->output_bus_cfg.format;
++			bridge_state->input_bus_cfg.flags =
++				prev_bridge_state->output_bus_cfg.flags;
++			goto out_input;
++		}
 +	}
++
++	/*
++	 * The previous bridge might not have readout support, so we
++	 * can't treat a missing state as an error.
++	 */
++	bridge_state->input_bus_cfg.format = MEDIA_BUS_FMT_FIXED;
++	bridge_state->input_bus_cfg.flags = di->bus_flags;
++
++out_input:
++
++	if (di->num_bus_formats && di->bus_formats)
++		bridge_state->output_bus_cfg.format = di->bus_formats[0];
++	else
++		bridge_state->output_bus_cfg.format = MEDIA_BUS_FMT_FIXED;
++
++	bridge_state->output_bus_cfg.flags = di->bus_flags;
 +
 +	return 0;
 +}
 +
- static enum drm_connector_color_format
- drm_bridge_connector_color_format(const struct drm_connector_state *conn_state)
- {
- 	struct drm_bridge_connector *bridge_connector =
- 		to_drm_bridge_connector(conn_state->connector);
-@@ -275,10 +304,22 @@ static const struct drm_connector_funcs drm_bridge_connector_funcs = {
- 	.debugfs_init = drm_bridge_connector_debugfs_init,
- 	.oob_hotplug_event = drm_bridge_connector_oob_hotplug_event,
- 	.color_format = drm_bridge_connector_color_format,
+ static const struct drm_bridge_funcs display_connector_bridge_funcs = {
+ 	.attach = display_connector_attach,
+ 	.destroy = display_connector_destroy,
+ 	.detect = display_connector_bridge_detect,
+ 	.hpd_enable = display_connector_hpd_enable,
+@@ -223,10 +296,12 @@ static const struct drm_bridge_funcs display_connector_bridge_funcs = {
+ 	.atomic_get_output_bus_fmts = display_connector_get_output_bus_fmts,
+ 	.atomic_get_input_bus_fmts = display_connector_get_input_bus_fmts,
+ 	.atomic_duplicate_state = drm_atomic_helper_bridge_duplicate_state,
+ 	.atomic_destroy_state = drm_atomic_helper_bridge_destroy_state,
+ 	.atomic_create_state = drm_atomic_helper_bridge_create_state,
++	.atomic_sro_readout_state	= display_connector_readout_state,
++	.atomic_sro_compare_state	= drm_atomic_helper_bridge_compare_state,
  };
  
-+static const struct drm_connector_funcs drm_bridge_connector_sro_funcs = {
-+	.fill_modes = drm_helper_probe_single_connector_modes,
-+	.atomic_create_state = drm_bridge_connector_create_state,
-+	.atomic_sro_readout_state = drm_bridge_connector_readout_state,
-+	.atomic_sro_compare_state = drm_atomic_helper_connector_compare_state,
-+	.atomic_duplicate_state = drm_atomic_helper_connector_duplicate_state,
-+	.atomic_destroy_state = drm_atomic_helper_connector_destroy_state,
-+	.debugfs_init = drm_bridge_connector_debugfs_init,
-+	.oob_hotplug_event = drm_bridge_connector_oob_hotplug_event,
-+	.color_format = drm_bridge_connector_color_format,
-+};
-+
- /* -----------------------------------------------------------------------------
-  * Bridge Connector Helper Functions
-  */
- 
- static int drm_bridge_connector_detect_ctx(struct drm_connector *connector,
-@@ -825,10 +866,11 @@ static const struct drm_connector_hdmi_cec_funcs drm_bridge_connector_hdmi_cec_f
- 
- static void drm_bridge_connector_put_bridges(struct drm_device *dev, void *data)
+ static irqreturn_t display_connector_hpd_irq(int irq, void *arg)
  {
- 	struct drm_bridge_connector *bridge_connector = (struct drm_bridge_connector *)data;
- 
-+	drm_bridge_put(bridge_connector->bridge_connector_hw_readout);
- 	drm_bridge_put(bridge_connector->bridge_edid);
- 	drm_bridge_put(bridge_connector->bridge_hpd);
- 	drm_bridge_put(bridge_connector->bridge_detect);
- 	drm_bridge_put(bridge_connector->bridge_modes);
- 	drm_bridge_put(bridge_connector->bridge_hdmi);
-@@ -855,10 +897,11 @@ static void drm_bridge_connector_put_bridges(struct drm_device *dev, void *data)
-  * pointer otherwise.
-  */
- struct drm_connector *drm_bridge_connector_init(struct drm_device *drm,
- 						struct drm_encoder *encoder)
- {
-+	const struct drm_connector_funcs *connector_funcs;
- 	struct drm_bridge_connector *bridge_connector;
- 	struct drm_connector *connector;
- 	struct i2c_adapter *ddc = NULL;
- 	struct drm_bridge *panel_bridge __free(drm_bridge_put) = NULL;
- 	bool support_hdcp = false;
-@@ -894,10 +937,17 @@ struct drm_connector *drm_bridge_connector_init(struct drm_device *drm,
- 		if (!bridge->interlace_allowed)
- 			connector->interlace_allowed = false;
- 		if (!bridge->ycbcr_420_allowed)
- 			connector->ycbcr_420_allowed = false;
- 
-+		if (bridge->ops & DRM_BRIDGE_OP_CONNECTOR_HW_READOUT) {
-+			if (!bridge->funcs->atomic_sro_connector_readout)
-+				return ERR_PTR(-EINVAL);
-+
-+			drm_bridge_put(bridge_connector->bridge_connector_hw_readout);
-+			bridge_connector->bridge_connector_hw_readout = drm_bridge_get(bridge);
-+		}
- 		/*
- 		 * Ensure the last bridge declares OP_EDID or OP_MODES or both.
- 		 */
- 		if (bridge->ops & DRM_BRIDGE_OP_EDID || bridge->ops & DRM_BRIDGE_OP_MODES) {
- 			drm_bridge_put(bridge_connector->bridge_edid);
-@@ -1026,10 +1076,21 @@ struct drm_connector *drm_bridge_connector_init(struct drm_device *drm,
- 	}
- 
- 	if (connector_type == DRM_MODE_CONNECTOR_Unknown)
- 		return ERR_PTR(-EINVAL);
- 
-+	/*
-+	 * Only expose the hardware state readout hooks when a bridge in
-+	 * the chain provides a connector readout implementation.
-+	 * Otherwise, the readout would silently succeed with a
-+	 * pristine, disconnected connector state.
-+	 */
-+	if (bridge_connector->bridge_connector_hw_readout)
-+		connector_funcs = &drm_bridge_connector_sro_funcs;
-+	else
-+		connector_funcs = &drm_bridge_connector_funcs;
-+
- 	if (bridge_connector->bridge_hdmi) {
- 		bridge_connector->hdmi_funcs = drm_bridge_connector_hdmi_funcs;
- 
- 		bridge_connector->hdmi_funcs.vendor = bridge_connector->bridge_hdmi->vendor;
- 		bridge_connector->hdmi_funcs.product = bridge_connector->bridge_hdmi->product;
-@@ -1072,18 +1133,18 @@ struct drm_connector *drm_bridge_connector_init(struct drm_device *drm,
- 			bridge_connector->hdmi_funcs.scrambler_disable =
- 				drm_bridge_connector_scrambler_disable;
- 		}
- 
- 		ret = drmm_connector_hdmi_init(drm, connector,
--					       &drm_bridge_connector_funcs,
-+					       connector_funcs,
- 					       &bridge_connector->hdmi_funcs,
- 					       connector_type, ddc);
- 		if (ret)
- 			return ERR_PTR(ret);
- 	} else {
- 		ret = drmm_connector_init(drm, connector,
--					  &drm_bridge_connector_funcs,
-+					  connector_funcs,
- 					  connector_type, ddc);
- 		if (ret)
- 			return ERR_PTR(ret);
- 	}
- 
-diff --git a/include/drm/drm_bridge.h b/include/drm/drm_bridge.h
-index a74407ee5a9c..a1c953da0975 100644
---- a/include/drm/drm_bridge.h
-+++ b/include/drm/drm_bridge.h
-@@ -978,10 +978,35 @@ struct drm_bridge_funcs {
- 	 */
- 	int (*dp_audio_mute_stream)(struct drm_bridge *bridge,
- 				    struct drm_connector *connector,
- 				    bool enable, int direction);
- 
-+	/**
-+	 * @atomic_sro_connector_readout:
-+	 *
-+	 * This optional hook initializes the &struct drm_connector_state
-+	 * based on hardware state.
-+	 *
-+	 * It is implemented by bridges that set the
-+	 * %DRM_BRIDGE_OP_CONNECTOR_HW_READOUT flag in their
-+	 * &drm_bridge.ops. When using drm_bridge_connector, the last
-+	 * bridge in the chain with this flag set will have its hook
-+	 * called to fill the connector state.
-+	 *
-+	 * Drivers are expected to return a negative error code if the
-+	 * hardware was programmed with a configuration they don't
-+	 * support. The framework will then abort the readout and fall
-+	 * back to the regular initialization path.
-+	 *
-+	 * RETURNS:
-+	 *
-+	 * 0 on success, a negative error code otherwise.
-+	 */
-+	int (*atomic_sro_connector_readout)(struct drm_bridge *bridge,
-+					    struct drm_atomic_sro_state *state,
-+					    struct drm_connector_state *conn_state);
-+
- 	/**
- 	 * @debugfs_init:
- 	 *
- 	 * Allows bridges to create bridge-specific debugfs files.
- 	 */
-@@ -1118,10 +1143,17 @@ enum drm_bridge_ops {
- 	 * @DRM_BRIDGE_OP_HDMI_SPD_INFOFRAME: The bridge supports
- 	 * &drm_bridge_funcs->hdmi_write_spd_infoframe and
- 	 * &drm_bridge_funcs->hdmi_clear_spd_infoframe callbacks.
- 	 */
- 	DRM_BRIDGE_OP_HDMI_SPD_INFOFRAME = BIT(10),
-+	/**
-+	 * @DRM_BRIDGE_OP_CONNECTOR_HW_READOUT: The bridge supports the
-+	 * &drm_bridge_funcs.atomic_sro_connector_readout callback to
-+	 * fill the connector state from the bridge's own hardware state
-+	 * during state readout.
-+	 */
-+	DRM_BRIDGE_OP_CONNECTOR_HW_READOUT = BIT(11),
- };
- 
- /**
-  * struct drm_bridge - central DRM bridge control structure
-  */
+ 	struct display_connector *conn = arg;
 
 -- 
 2.56.1
