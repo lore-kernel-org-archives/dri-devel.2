@@ -2,83 +2,83 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 827A5606A320
-	for <dri-devel@archiver.kernel.org>; Fri, 20 Nov 2026 07:44:45 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 618F2606A326
+	for <dri-devel@archiver.kernel.org>; Fri, 20 Nov 2026 07:49:20 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 0658E10E2A9;
-	Fri, 20 Nov 2026 07:44:45 +0000 (UTC)
-Received: from mail-ua1-f53.google.com (mail-ua1-f53.google.com
- [209.85.222.53])
- by gabe.freedesktop.org (Postfix) with ESMTPS id E360610E2A9
- for <dri-devel@lists.freedesktop.org>; Fri, 20 Nov 2026 07:44:43 +0000 (UTC)
-Received: by mail-ua1-f53.google.com with SMTP id
- a1e0cc1a2514c-990fbae94f5so402628241.3
- for <dri-devel@lists.freedesktop.org>; Thu, 19 Nov 2026 23:44:43 -0800 (PST)
+	by gabe.freedesktop.org (Postfix) with ESMTP id BEA4710E262;
+	Fri, 20 Nov 2026 07:49:19 +0000 (UTC)
+Received: from mail-vk1-f175.google.com (mail-vk1-f175.google.com
+ [209.85.221.175])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id AEDE510E262
+ for <dri-devel@lists.freedesktop.org>; Fri, 20 Nov 2026 07:49:18 +0000 (UTC)
+Received: by mail-vk1-f175.google.com with SMTP id
+ 71dfb90a1353d-5ea969fafeeso184344e0c.0
+ for <dri-devel@lists.freedesktop.org>; Thu, 19 Nov 2026 23:49:18 -0800 (PST)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20260707; t=1795160682; x=1795765482;
+ d=1e100.net; s=20260707; t=1795160957; x=1795765757;
  h=content-type:cc:to:subject:message-id:date:from:in-reply-to
  :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
  :subject:date:message-id:reply-to:content-type;
- bh=Vu6IMQbhyMpXX+yWtY4enAtEpk8kj3N3fFV230nsSvs=;
- b=yEIQ3284IZMzcxbRoU4QhS+CKjdKY1Ef86DtgOdAh/j+K09MKmIP9G4HRRwAPRT+dC
- lPIjxYlDkRJpWzNygw66NQ6eL0xUbhaKPVQBQ6G8Wt8xZ476iL9PQRF30jJMTatpsk78
- e/dNKAoirZ2xTnhoegpnJMemPsoKzQoQ74UkeeTId1BhAW7pa31qWd4q+/xvCDAOHfrt
- o55XK8Bfuliwmgx+fhf3oUnIycRbUukaKr5YHaTG2A6LKMBLSWqZsFbUMRjwlLyDxxFk
- ouqzR0AXn6LHM9RTWXdPckrrWp1hXhThmsAd4zv/IjKZ1OiqxYi5o6M3U8y7+cU0yc1n
- viTA==
+ bh=xKnU/TldM314xEN7UqLDGvv/eDTZSOGz68aX0N6/qi4=;
+ b=gbyv1RLlCCAv/FEKyeQR2iggR0q06aDG57Sp5RPRNN4TpO5PpVdIx2wpy3iBgI/g4l
+ EYSyTbggaGrGXmbcLlWqUnHSgEKS9K10ULYeL3BWQr/9F6wnZVsdYejs0ZUe2J19KJSg
+ CgjibkB5rey56pBT74r6KvmuYl6ANhw3+iu08VelxZv0IEFlKtHnJLY6swr37hVTh36l
+ tjyznHVHyqiUix6yL7fljIpuvTzpUiLVRWfILfZHs65JaclRkTplrUwouJqGQGESJEsz
+ eo7mocSJQ3+l8si4MgrCBlf/gq0Zk6jVzQzG0VUibUPeNBISQak+Xrq07qTEKkaNKBD4
+ 7gjQ==
 X-Forwarded-Encrypted: i=1;
- AL+hErFfwgxHHCG1IDBCajMHVez0zsXcGk/Wxvtfjl0mMhJvLsiAZOJm9TH7ET6hi0w5MHwNIEgtmNmpddA=@lists.freedesktop.org
-X-Gm-Message-State: APuU4Z9JrhRYIcUtqAPaKmZEc4Z1r3HAXCLTIrVELb8+LbSDI33LvF/s
- Zp7g1YelWQZ8Mzmej1lSCcpybw/BTRn1OXfkJ0bZyWKRKumiyuz/31p/LIq9KUPU
-X-Gm-Gg: AZFdTZerSfc0Dc2QGSiu2xB+CYBwrQ3gvFGRw2Cv/t8A0feLbLDYSWt3WdPzaC49cSz
- xchDUoombqBjV/U2WccwGdlXfVGqVBjmAK/0SUk63CpPFocaD6fB7abY9e8o+L/D/EXykul2ZFz
- iQdFjHkQORPHwejslbTCnEHFM5TG4VWeh31w4UJbMp3Mf2h4jXGZhGD+J6oc25ErRJnw0p0oKX0
- Eg0DN+MdI9fKvaNZxwJ3vdf+H3eewhZw5s8dmbgxVoBs0jWWrGQ17t3Xtp1FNX5NDZ+R7dJ7djF
- cK+99hLItfc1Rwv9iLhMgteOu+eDAlEpZu1J8KB4LwUYdGNvEJ15wi8qrFRME1UTbskHWsRpLy3
- VT4g4qR9JoslIq/Zf4iGJjc5YeVXkCLreSIqw7JwzNaLzHORph2YBoape5gointwEnzR14EY3Uj
- 1TcYh00+lY4luBaAhiz4GXsxZB6X0IynADmbzpklYK9rjt02f7BY8fzR31SNlJSspRvzQdj2iB/
- bz7WLn5CPEPBCzSOtL5Tj8iXdMRGcJVHfM7Te8suh3bhLidewju0JPM/4JvKlb0l5is5H2pz3gB
- 58/JvrXLOpzTufG2uw4NwR22lS4sa+Z8tI4BvD1L2CU4QjyTzt6+otlksiTJjNZtnfAtsCZM/TV
- jyMgxdjsbQRY7
-X-Received: by 2002:a05:6102:b11:b0:7d6:3d9a:4da2 with SMTP id
- ada2fe7eead31-7d7396157aemr1023458137.26.1795160682508; 
- Thu, 19 Nov 2026 23:44:42 -0800 (PST)
-Received: from mail-ua1-f48.google.com (mail-ua1-f48.google.com.
- [209.85.222.48]) by smtp.gmail.com with ESMTPSA id
- ada2fe7eead31-7d6e7f92680sm2294930137.5.2026.11.19.23.44.41
+ AL+hErE9wCQvZv7ZOQOpgfHKkrPYwgBJNFyeLhrYm7llOY4SqgAbIbexq77J+KM98d55K+xiZYiE+9sitLs=@lists.freedesktop.org
+X-Gm-Message-State: APuU4Z96KD9dq6TjkyqzGa2BCcYrxC5O65PeX9bd7bLziA/38yiz3hgB
+ FrRkujeMrmUYJd9IE4JkYDfWM4jGnP/N/oTxZjPPExWBvsb0JELYv0OBq0mgKqsA
+X-Gm-Gg: AZFdTZfOXJJ9ZQRhGSFqQbRrpndDn5Bi3vPoNBSjI0TfJGP3SgO4JlplhKMgedCv8tX
+ 6wNBPPHJ4TzVI3NPDdNSNFxfhqHE/5lDGdjjeKSvlzmLGduY5KOCUCjFucGQMBUiPcK0dcFpIp+
+ lDGi21K70nEhF+rab/7DExLzIXh/a14CdHOKNFRRLJXChxsGdXYPjwYRBTwrW2ckuBRu7c1A7lY
+ jX19n8GeJ88PO8WbNYDoZ9rJ0zvu0Vwu2q1debB6EXvHbMgYePc+ZF1gFxcwCTjeIpZ1rSOG3gp
+ N5XSNeW8qEw3QjUqA7UUFJdDfW4Yjyg2eOOyFFSNt42CLSgoKsS9fzt4cGlBJ4UAPY2na2XrOnq
+ M7BymyX1NBLnb/ISSILIa9CC9buV9fpXAz5NsqlkD3hte5N1pubU8ehAG0O2dLP0i9/s5OB6XZS
+ kZLo9xs+Rr4S0J1DAxTcYcigyW3oQipBbjIiQ+D6p8HYevlgAgx0qzjQ505+hpOgKYPYzTTkGcO
+ dJMf1BcXJ5XR7JMGqNWPvVdNV1HmD/fFuiC/g1LXZu8pYg+eRwPNC+8mqHpdJ20k3IpUjqjnnHc
+ Fl8yXyG5fUljK6nqZDgR0evr05K3TffJGGCpaZHPi0GayI6iefhSnjw8To6IQWc2y3M=
+X-Received: by 2002:a05:6123:a8:b0:5ec:3e18:a912 with SMTP id
+ 71dfb90a1353d-5ee8af230a5mr944550e0c.14.1795160957177; 
+ Thu, 19 Nov 2026 23:49:17 -0800 (PST)
+Received: from mail-vs1-f50.google.com (mail-vs1-f50.google.com.
+ [209.85.217.50]) by smtp.gmail.com with ESMTPSA id
+ 71dfb90a1353d-5ee8b5a91bdsm1867233e0c.9.2026.11.19.23.49.16
  for <dri-devel@lists.freedesktop.org>
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Thu, 19 Nov 2026 23:44:41 -0800 (PST)
-Received: by mail-ua1-f48.google.com with SMTP id
- a1e0cc1a2514c-990fbae94f5so402611241.3
- for <dri-devel@lists.freedesktop.org>; Thu, 19 Nov 2026 23:44:41 -0800 (PST)
+ Thu, 19 Nov 2026 23:49:16 -0800 (PST)
+Received: by mail-vs1-f50.google.com with SMTP id
+ ada2fe7eead31-77bf892b496so213251137.0
+ for <dri-devel@lists.freedesktop.org>; Thu, 19 Nov 2026 23:49:16 -0800 (PST)
 X-Forwarded-Encrypted: i=1;
- AL+hErHWlB+q5ymRwW1LzAwjhehbqSr6Df3KSSxEwjJlrlPdQAQziCc54obzYpm9OEJluymnpyEJ+apT+Us=@lists.freedesktop.org
-X-Received: by 2002:a05:6102:441e:b0:7cb:bda3:27ab with SMTP id
- ada2fe7eead31-7d7393925f5mr941037137.13.1795160681386; Thu, 19 Nov 2026
- 23:44:41 -0800 (PST)
+ AL+hErGi+oNhgrT/CipPRjn7bdoJQR+mU9pi1dSjy/EdoCc4bGX/iDfxQOBv0N5PfWVfVuW+uhbx/sy1YzY=@lists.freedesktop.org
+X-Received: by 2002:a05:6102:6c4:b0:7b3:8f0a:f76c with SMTP id
+ ada2fe7eead31-7d7393caab1mr683612137.13.1795160956421; Thu, 19 Nov 2026
+ 23:49:16 -0800 (PST)
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
 References: <cover.1795094688.git.geert+renesas@glider.be>
- <a896e5bdb29c7c6de39df9b28b11d55614f2ec2d.1795094688.git.geert+renesas@glider.be>
- <179513882271.284394.17357508909448455391.b4-review@b4>
-In-Reply-To: <179513882271.284394.17357508909448455391.b4-review@b4>
+ <683b5b189409e5ee04100044fb615b01cb877f3d.1795094688.git.geert+renesas@glider.be>
+ <20261119225017.15a7b5cc@kemnade.info>
+In-Reply-To: <20261119225017.15a7b5cc@kemnade.info>
 From: Geert Uytterhoeven <geert@linux-m68k.org>
-Date: Fri, 20 Nov 2026 08:44:29 +0100
-X-Gmail-Original-Message-ID: <CAMuHMdWJ8zK+kzcznM7FJ3JCo1xWzjRZ5MQz9jhSUcYQfO5rBA@mail.gmail.com>
-X-Gm-Features: Aa3M54p6yw1Lhc431P_jQfP5g0YMf_od8mct8UUR6SclOJC7dcSgYi-awR9w8qQ
-Message-ID: <CAMuHMdWJ8zK+kzcznM7FJ3JCo1xWzjRZ5MQz9jhSUcYQfO5rBA@mail.gmail.com>
-Subject: Re: [PATCH 1/6] clk: Remove unused clk.dev
-To: Brian Masney <masneyb@kernel.org>
-Cc: Aaro Koskinen <aaro.koskinen@iki.fi>,
- Andreas Kemnade <andreas@kemnade.info>, 
- Kevin Hilman <khilman@baylibre.com>, Roger Quadros <rogerq@kernel.org>, 
- Tony Lindgren <tony@atomide.com>, Russell King <linux@armlinux.org.uk>,
- Paul Walmsley <paul@pwsan.com>, 
- Stephen Boyd <sboyd@kernel.org>, Brian Masney <bmasney+clk@redhat.com>, 
- Jerome Brunet <jbrunet+clk@baylibre.com>, Sandy Huang <hjc@rock-chips.com>, 
- =?UTF-8?Q?Heiko_St=C3=BCbner?= <heiko@sntech.de>, Andy Yan <andyshrk@163.com>, 
- Ulf Hansson <ulfh@kernel.org>, linux-clk@vger.kernel.org, 
+Date: Fri, 20 Nov 2026 08:49:05 +0100
+X-Gmail-Original-Message-ID: <CAMuHMdVbgGV_6yjOip4xT3YhBgaOveHzSRbw9e_cHen9NRZqmw@mail.gmail.com>
+X-Gm-Features: Aa3M54rfGlA3UrmhLbFF7B0m1MfxoFvw1pyboKcP24dUngkkG_fWLkpDdrOnbn8
+Message-ID: <CAMuHMdVbgGV_6yjOip4xT3YhBgaOveHzSRbw9e_cHen9NRZqmw@mail.gmail.com>
+Subject: Re: [PATCH 5/6] [RFT] ARM: OMAP2+: Convert to
+ dev_clk_get_from_provider()
+To: Andreas Kemnade <andreas@kemnade.info>
+Cc: Aaro Koskinen <aaro.koskinen@iki.fi>, Kevin Hilman <khilman@baylibre.com>, 
+ Roger Quadros <rogerq@kernel.org>, Tony Lindgren <tony@atomide.com>, 
+ Russell King <linux@armlinux.org.uk>, Paul Walmsley <paul@pwsan.com>,
+ Stephen Boyd <sboyd@kernel.org>, 
+ Brian Masney <bmasney+clk@redhat.com>, Jerome Brunet <jbrunet+clk@baylibre.com>,
+ Sandy Huang <hjc@rock-chips.com>,
+ =?UTF-8?Q?Heiko_St=C3=BCbner?= <heiko@sntech.de>, 
+ Andy Yan <andyshrk@163.com>, Ulf Hansson <ulfh@kernel.org>,
+ linux-clk@vger.kernel.org, 
  linux-renesas-soc@vger.kernel.org, linux-rockchip@lists.infradead.org, 
  linux-omap@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
  dri-devel@lists.freedesktop.org, linux-pm@vger.kernel.org
@@ -101,31 +101,62 @@ X-Spam-Status: No, score=-13.8 required=3.0 tests=BAYES_00,
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-Hi Brian,
+Hi Andreas,
 
-On Fri, 20 Nov 2026 at 02:40, Brian Masney <masneyb@kernel.org> wrote:
-> > This basically reverts commit efa850487a6b6742 ("clk: Inform the core
-> > about consumer devices").
+On Thu, 19 Nov 2026 at 22:50, Andreas Kemnade <andreas@kemnade.info> wrote:
+> On Thu, 19 Nov 2026 14:40:38 +0100
+> Geert Uytterhoeven <geert+renesas@glider.be> wrote:
+>
+> > OMAP2+ clock handling uses of_clk_get_from_provider() to obtain clocks
+> > used for power management, so the latter show up as "deviceless" in the
+> > consumer column of the clk_summary file in debugfs.
 > >
-> > This commit added a struct device pointer member to struct clk and a
-> > parameter to clk_hw_create_clk(), but the new member was never used
-> > beyond setting.
+> > Fix this by using dev_clk_get_from_provider() instead, letting us pass
+> > the consumer device, too.
 > >
 > > Signed-off-by: Geert Uytterhoeven <geert+renesas@glider.be>
-
-> > --- a/drivers/clk/clk.h
-> > +++ b/drivers/clk/clk.h
-> > @@ -5,8 +5,6 @@
-> >   */
+> > ---
+> > Compile-tested only.
 > >
-> >  struct clk_hw;
-> > -struct device;
-> > -struct of_phandle_args;
+> > The first change is probably OK.  The second change may fail if anything
+> > in the oh->od->pdev->dev chain is not available yet at this point.
 >
-> Did you mean to remove of_phandle_args?
+> Test on OMAP3:
 
-Yes, it was added by efa850487a6b6742, too (although it was
-used in that header file before). Currently it's not used.
+Thanks for testing!
+
+> --- clk-old     2026-11-19 22:44:59.810807920 +0100
+> +++ clk-new     2026-11-19 22:26:52.862531880 +0100
+> @@ -1,17 +1,17 @@
+>                                   enable  prepare  protect                                duty  hardware                            connection
+>     clock                          count    count    count        rate   accuracy phase  cycle    enable   consumer                         id
+>  ---------------------------------------------------------------------------------------------------------------------------------------------
+> - oscillator                          0       0        0        26000000    0          0     50000      Y   deviceless                      of_clk_get_from_provider
+> + oscillator                          0       0        0        26000000    0          0     50000      Y   deviceless                      dev_clk_get_from_provider
+>                                                                                                             deviceless                      no_connection_id
+> - secure_32k_fck                      0       1        0        32768       0          0     50000      Y   deviceless                      of_clk_get_from_provider
+> + secure_32k_fck                      0       1        0        32768       0          0     50000      Y   deviceless                      dev_clk_get_from_provider
+>                                                                                                             deviceless                      no_connection_id
+> -    wdt1_fck                         0       0        0        32768       0          0     50000      Y      deviceless                      of_clk_get_from_provider
+> +    wdt1_fck                         0       0        0        32768       0          0     50000      Y      deviceless                      dev_clk_get_from_provider
+>                                                                                                                deviceless                      no_connection_id
+>      gpt12_fck                        0       1        0        32768       0          0     50000      Y      48304000.timer                  fck
+>                                                                                                                48304000.target-module          fck
+> -                                                                                                              deviceless                      of_clk_get_from_provider
+> +                                                                                                              deviceless                      dev_clk_get_from_provider
+>                                                                                                                deviceless                      no_connection_id
+> - dummy_ck                            0       0        0        0           0          0     50000      Y   deviceless                      of_clk_get_from_provider
+> + dummy_ck                            0       0        0        0           0          0     50000      Y   deviceless                      dev_clk_get_from_provider
+>                                                                                                             deviceless                      no_connection_id
+>   mcbsp_clks                          0       5        0        0           0          0     50000      Y   deviceless                      mcbsp_clks
+>                                                                                                             deviceless                      mcbsp_clks
+
+Hmm, so the passed device is always NULL, and thus there is no point
+in making the change.
+Do you know if these come from the first or second change in my patch
+(I guess the second)?
+
+Thanks again!
 
 Gr{oetje,eeting}s,
 
