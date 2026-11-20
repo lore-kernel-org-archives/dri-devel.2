@@ -2,67 +2,62 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id ABF2E60A263D
-	for <dri-devel@archiver.kernel.org>; Fri, 20 Nov 2026 08:33:22 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8DECD606A320
+	for <dri-devel@archiver.kernel.org>; Fri, 20 Nov 2026 08:34:10 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=samsung.com header.i=@samsung.com header.a=rsa-sha256 header.s=mail20170921 header.b=geIMCpwt
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=kvHozla1
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 231BE10E5E1;
-	Fri, 20 Nov 2026 08:33:17 +0000 (UTC)
-Received: from mailout2.w1.samsung.com (mailout2.w1.samsung.com
- [210.118.77.12])
- by gabe.freedesktop.org (Postfix) with ESMTPS id BBB5710E5E1
- for <dri-devel@lists.freedesktop.org>; Fri, 20 Nov 2026 08:33:10 +0000 (UTC)
-Received: from eucas1p1.samsung.com (unknown [182.198.249.206])
- by mailout2.w1.samsung.com (KnoxPortal) with ESMTP id
- 20261120083308euoutp024e2d8fdbb119aff300f2f4b0ccbb8ab3~ps8XY5ILA0821908219euoutp02w
- for <dri-devel@lists.freedesktop.org>; Fri, 20 Nov 2026 08:33:08 +0000 (GMT)
-DKIM-Filter: OpenDKIM Filter v2.11.0 mailout2.w1.samsung.com
- 20261120083308euoutp024e2d8fdbb119aff300f2f4b0ccbb8ab3~ps8XY5ILA0821908219euoutp02w
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=samsung.com;
- s=mail20170921; t=1795163588;
- bh=ojjQE8zFX677t+gAJRG+m0a6Gi2Ki7K5qk5BkNHDxwI=;
- h=From:To:Cc:Subject:Date:References:From;
- b=geIMCpwtlAbY/xk/kf0hWNioLtvXqEUHrkmdhveGAaTIOOq6qAFvpXHej7SA9plYm
- Yh2oPd96chTGAVBhIBxUa6NWj3B4LeO5IrCzd5ovBQ7wOaxtBNiQsEY+lr5saSXsMK
- v3ZM1Ka0fH6eNnhRnLuVG9Q/31mdHwFyM0gERxpU=
-Received: from eusmtip2.samsung.com (unknown [203.254.199.222]) by
- eucas1p1.samsung.com (KnoxPortal) with ESMTPA id
- 20261120083308eucas1p1d1298fab5a4df3a64cf66d5fe9d82438~ps8W_xKz_1516215162eucas1p1P;
- Fri, 20 Nov 2026 08:33:08 +0000 (GMT)
-Received: from AMDC4653.digital.local (unknown [106.120.51.32]) by
- eusmtip2.samsung.com (KnoxPortal) with ESMTPA id
- 20261120083307eusmtip2051a07475ab43ef42acd41fbf9530feb~ps8WMryvY1698416984eusmtip2O;
- Fri, 20 Nov 2026 08:33:07 +0000 (GMT)
-From: Marek Szyprowski <m.szyprowski@samsung.com>
-To: dri-devel@lists.freedesktop.org
-Cc: Marek Szyprowski <m.szyprowski@samsung.com>, Andrzej Hajda
- <andrzej.hajda@intel.com>, Neil Armstrong <neil.armstrong@linaro.org>,
- Robert Foss <rfoss@kernel.org>, Laurent Pinchart
- <Laurent.pinchart@ideasonboard.com>, Jonas Karlman <jonas@kwiboo.se>, Jernej
- Skrabec <jernej.skrabec@gmail.com>, Luca Ceresoli
- <luca.ceresoli@bootlin.com>, Maarten Lankhorst
- <maarten.lankhorst@linux.intel.com>, Maxime Ripard <mripard@kernel.org>,
- Thomas Zimmermann <tzimmermann@suse.de>, Damon Ding
- <damon.ding@rock-chips.com>, Dmitry Baryshkov
- <dmitry.baryshkov@oss.qualcomm.com>, Heiko Stuebner <heiko@sntech.de>,
- Douglas Anderson <dianders@chromium.org>, Brian Norris
- <briannorris@chromium.org>
-Subject: [PATCH] drm/bridge: analogix_dp: Make
- analogix_dp_init_analog_func() void
-Date: Fri, 20 Nov 2026 09:33:01 +0100
-Message-ID: <20261120083302.3719465-1-m.szyprowski@samsung.com>
-X-Mailer: git-send-email 2.43.0
+	by gabe.freedesktop.org (Postfix) with ESMTP id 032B0112604;
+	Fri, 20 Nov 2026 08:34:05 +0000 (UTC)
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.10])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 4FBF210E610;
+ Fri, 20 Nov 2026 08:33:58 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1795163639; x=1826699639;
+ h=mime-version:content-transfer-encoding:in-reply-to:
+ references:subject:from:cc:to:date:message-id;
+ bh=GMyEQJvmq27rqx1T/bFHEkXPkQXd+jF7hs13UOe1t2w=;
+ b=kvHozla1xJhx23OnBtWIidfqHmzY/IikwD1OfqlL2piSiN91Z8hBxKH6
+ 5W3FUl2Vfixi0XXC0SZSkvX1MBzBE7sRd7fWzqyziPE42wibeuKZMgkta
+ EjpUvLpU0r6wi5IXyB4Zn/tvWPcsY5SWuHr+CdCeQcjJi8TCgONFsB1xF
+ wH0DyLsANLReX95AlplqSFxl7OPttQ7CGxE5TcyVaSQfri1smKcSONl1o
+ Cz2pFnWJf35p4QWKiKPZBL+lXS/+t1Y4gUW2AUM+MhsDRUtvq2CZkW4mV
+ iBlXYf0FxRc0ZiI9cZuyOmI9lVySyF1TaaEoc8M+53XnQKJnQ4dEkrvKs A==;
+X-CSE-ConnectionGUID: 4yG4Qc7GSByhe+zC4f+bGA==
+X-CSE-MsgGUID: fcWz6QrTSmSDu+Ep4yuODw==
+X-IronPort-AV: E=McAfee;i="6800,10657,11971"; a="3950686"
+X-IronPort-AV: E=Sophos;i="6.27,222,1787036400"; 
+   d="scan'208";a="3950686"
+Received: from fmviesa004.fm.intel.com ([10.60.135.144])
+ by orvoesa102.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 20 Nov 2026 00:33:58 -0800
+X-CSE-ConnectionGUID: aXEXX1cHRaWdAopq149/8w==
+X-CSE-MsgGUID: D26vuOlwRlqmJloPrNm3Lg==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,222,1787036400"; d="scan'208";a="10644733"
+Received: from conormcd-mobl2.ger.corp.intel.com (HELO localhost)
+ ([10.245.245.228])
+ by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 20 Nov 2026 00:33:55 -0800
+Content-Type: text/plain; charset="utf-8"
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-CMS-MailID: 20261120083308eucas1p1d1298fab5a4df3a64cf66d5fe9d82438
-X-Msg-Generator: CA
-Content-Type: text/plain; charset="utf-8"
-X-RootMTR: 20261120083308eucas1p1d1298fab5a4df3a64cf66d5fe9d82438
-X-EPHeader: CA
-X-CMS-RootMailID: 20261120083308eucas1p1d1298fab5a4df3a64cf66d5fe9d82438
-References: <CGME20261120083308eucas1p1d1298fab5a4df3a64cf66d5fe9d82438@eucas1p1.samsung.com>
+Content-Transfer-Encoding: quoted-printable
+In-Reply-To: <20261120024210.1658348-1-lcy8047@gmail.com>
+References: <20261120024210.1658348-1-lcy8047@gmail.com>
+Subject: Re: [PATCH] drm/i915/gem: Set the VM owner before publishing the VM
+From: Joonas Lahtinen <joonas.lahtinen@linux.intel.com>
+Cc: Aravind Iddamsetty <aravind.iddamsetty@intel.com>,
+ intel-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org, Changyul Lee <lcy8047@gmail.com>
+To: Changyul Lee <lcy8047@gmail.com>, David Airlie <airlied@gmail.com>,
+ Jani Nikula <jani.nikula@linux.intel.com>,
+ Rodrigo Vivi <rodrigo.vivi@intel.com>, Simona Vetter <simona@ffwll.ch>,
+ Tvrtko Ursulin <tursulin@ursulin.net>
+Date: Fri, 20 Nov 2026 10:33:52 +0200
+Message-ID: <179516363210.27957.16651774665226630199@jlahtine-mobl>
+User-Agent: alot/0.13.dev2+g40c57d620
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -74,77 +69,80 @@ List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-18.8 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
-	DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
+X-Spam-Status: No, score=-13.8 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
+	DKIM_SIGNED,DKIM_VALID,HEADER_FROM_DIFFERENT_DOMAINS,
 	INCLUDES_CR_TRAILER,INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,
-	SPF_PASS,USER_AGENT_GIT autolearn=ham autolearn_force=no version=4.0.1
+	SPF_PASS autolearn=unavailable autolearn_force=no version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-analogix_dp_init_analog_func() always returned 0, so the error check in
-its only caller, analogix_dp_set_bridge(), never took the jump to the
-common error path. Make the function void and drop the check. No
-functional change.
+Quoting Changyul Lee (2026-11-20 04:42:10)
+> i915_gem_vm_create_ioctl() adds the VM to the file's VM table before
+> setting its owner (vm.fpriv). A concurrent lookup can therefore see
+> the VM without an owner and allocate page tables that are missing
+> from the client's memory accounting.
 
-Suggested-by: Brian Norris <briannorris@chromium.org>
-Link: https://lore.kernel.org/all/20261119093347.1159198-1-m.szyprowski@samsung.com/
-Fixes: 3efe2ace7f5b ("drm/bridge: analogix_dp: move basic controller init into runtime PM")
-Signed-off-by: Marek Szyprowski <m.szyprowski@samsung.com>
----
- drivers/gpu/drm/bridge/analogix/analogix_dp_core.c | 4 +---
- drivers/gpu/drm/bridge/analogix/analogix_dp_core.h | 2 +-
- drivers/gpu/drm/bridge/analogix/analogix_dp_reg.c  | 3 +--
- 3 files changed, 3 insertions(+), 6 deletions(-)
+This commit message is just not making any sense.
 
-diff --git a/drivers/gpu/drm/bridge/analogix/analogix_dp_core.c b/drivers/gpu/drm/bridge/analogix/analogix_dp_core.c
-index 8bb4c48aa3b4..a41c16b7dcbe 100644
---- a/drivers/gpu/drm/bridge/analogix/analogix_dp_core.c
-+++ b/drivers/gpu/drm/bridge/analogix/analogix_dp_core.c
-@@ -996,9 +996,7 @@ static int analogix_dp_set_bridge(struct analogix_dp_device *dp)
- 
- 	pm_runtime_get_sync(dp->dev);
- 
--	ret = analogix_dp_init_analog_func(dp);
--	if (ret)
--		return ret;
-+	analogix_dp_init_analog_func(dp);
- 
- 	/*
- 	 * According to DP spec v1.3 chap 3.5.1.2 Link Training,
-diff --git a/drivers/gpu/drm/bridge/analogix/analogix_dp_core.h b/drivers/gpu/drm/bridge/analogix/analogix_dp_core.h
-index 4560597604ad..440007e2270d 100644
---- a/drivers/gpu/drm/bridge/analogix/analogix_dp_core.h
-+++ b/drivers/gpu/drm/bridge/analogix/analogix_dp_core.h
-@@ -192,7 +192,7 @@ void analogix_dp_set_pll_power_down(struct analogix_dp_device *dp, bool enable);
- void analogix_dp_set_analog_power_down(struct analogix_dp_device *dp,
- 				       enum analog_power_block block,
- 				       bool enable);
--int analogix_dp_init_analog_func(struct analogix_dp_device *dp);
-+void analogix_dp_init_analog_func(struct analogix_dp_device *dp);
- void analogix_dp_init_hpd(struct analogix_dp_device *dp);
- void analogix_dp_force_hpd(struct analogix_dp_device *dp);
- enum dp_irq_type analogix_dp_get_irq_type(struct analogix_dp_device *dp);
-diff --git a/drivers/gpu/drm/bridge/analogix/analogix_dp_reg.c b/drivers/gpu/drm/bridge/analogix/analogix_dp_reg.c
-index c1344a3f013a..3d196cf96fb9 100644
---- a/drivers/gpu/drm/bridge/analogix/analogix_dp_reg.c
-+++ b/drivers/gpu/drm/bridge/analogix/analogix_dp_reg.c
-@@ -351,7 +351,7 @@ void analogix_dp_set_analog_power_down(struct analogix_dp_device *dp,
- 	}
- }
- 
--int analogix_dp_init_analog_func(struct analogix_dp_device *dp)
-+void analogix_dp_init_analog_func(struct analogix_dp_device *dp)
- {
- 	u32 reg;
- 
-@@ -372,7 +372,6 @@ int analogix_dp_init_analog_func(struct analogix_dp_device *dp)
- 	reg &= ~(SERDES_FIFO_FUNC_EN_N | LS_CLK_DOMAIN_FUNC_EN_N
- 		| AUX_FUNC_EN_N);
- 	writel(reg, dp->reg_base + ANALOGIX_DP_FUNC_EN_2);
--	return 0;
- }
- 
- void analogix_dp_clear_hotplug_interrupts(struct analogix_dp_device *dp)
--- 
-2.43.0
+The ID used in the supposed lookup is returned from this very IOCTL.
 
+> Concurrent VM destruction can
+> also free the VM before the owner assignment, causing a write to
+> freed memory.
+
+Could you explain in your own terms the call sequence that'll lead to
+this?
+
+> Set the owner before inserting the VM into the table with xa_alloc().
+> If xa_alloc() fails, err_put still releases the VM.
+
+Very LLM'esque to just explain what the code does to inflate the patch
+description.
+
+> Fixes: ca02a0119f81 ("drm/i915: Record which client owns a VM")
+> Signed-off-by: Changyul Lee <lcy8047@gmail.com>
+> ---
+> Found with a static analysis tool we are developing.
+
+Unless a competent human developer looked the patches through before
+submitting and wrote the patch descriptions, please redirect further
+submissions to /dev/null.
+
+Regards, Joonas
+
+>=20
+> Compile-tested only, with x86_64_defconfig and W=3D1.
+>=20
+>  drivers/gpu/drm/i915/gem/i915_gem_context.c | 3 ++-
+>  1 file changed, 2 insertions(+), 1 deletion(-)
+>=20
+> diff --git a/drivers/gpu/drm/i915/gem/i915_gem_context.c b/drivers/gpu/dr=
+m/i915/gem/i915_gem_context.c
+> index c58ffa5a8fa6..489b221091d1 100644
+> --- a/drivers/gpu/drm/i915/gem/i915_gem_context.c
+> +++ b/drivers/gpu/drm/i915/gem/i915_gem_context.c
+> @@ -1838,6 +1838,8 @@ int i915_gem_vm_create_ioctl(struct drm_device *dev=
+, void *data,
+>                         goto err_put;
+>         }
+> =20
+> +       ppgtt->vm.fpriv =3D file_priv;
+> +
+>         err =3D xa_alloc(&file_priv->vm_xa, &id, &ppgtt->vm,
+>                        xa_limit_32b, GFP_KERNEL);
+>         if (err)
+> @@ -1845,7 +1847,6 @@ int i915_gem_vm_create_ioctl(struct drm_device *dev=
+, void *data,
+> =20
+>         GEM_BUG_ON(id =3D=3D 0); /* reserved for invalid/unassigned ppgtt=
+ */
+>         args->vm_id =3D id;
+> -       ppgtt->vm.fpriv =3D file_priv;
+>         return 0;
+> =20
+>  err_put:
+>=20
+> base-commit: aebb7274476403040d582c61478df8f4a7bf9cd3
+> --=20
+> 2.43.0
+>
