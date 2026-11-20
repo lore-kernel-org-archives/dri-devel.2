@@ -2,145 +2,84 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 817E6606A320
-	for <dri-devel@archiver.kernel.org>; Fri, 20 Nov 2026 13:02:25 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 62F00606A33D
+	for <dri-devel@archiver.kernel.org>; Fri, 20 Nov 2026 13:10:33 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.a=rsa-sha256 header.s=susede2_rsa header.b=1QzYhUIC;
-	dkim=pass header.d=suse.de header.i=@suse.de header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=B3Xrhzwr;
-	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.a=rsa-sha256 header.s=susede2_rsa header.b=QAOfbLYZ;
-	dkim=neutral header.d=suse.de header.i=@suse.de header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=BvOCCZVO
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=WbWSOIOW
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id C040E10E83F;
-	Fri, 20 Nov 2026 13:02:14 +0000 (UTC)
-Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.223.130])
- by gabe.freedesktop.org (Postfix) with ESMTPS id C177510E83F
- for <dri-devel@lists.freedesktop.org>; Fri, 20 Nov 2026 13:02:02 +0000 (UTC)
-Received: from imap1.dmz-prg2.suse.org (imap1.dmz-prg2.suse.org
- [IPv6:2a07:de40:b281:104:10:150:64:97])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
- (No client certificate requested)
- by smtp-out1.suse.de (Postfix) with ESMTPS id E6FB4225DD;
- Fri, 20 Nov 2026 13:01:59 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
- t=1795179721; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
- bh=+hw76wFclWBOEuXW0RzjleonS2M6gylSsM4JkLN6iWc=;
- b=1QzYhUICkarqKoqaDK/CIARgmH/NGSf6UH+vlMNT3anQOGB8iDlNGNvFIBP+bkDmTX+Ay9
- kB3y0aElCCOln7HZIQx5TGnjv2K+L3rc9BuUouNxbFI4aESWziMPrzlpamHKaK127JoXcz
- 3DhiRrYyvP3n12dQbSYuSIHS84Qg1Cc=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_ed25519; t=1795179721;
- h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
- bh=+hw76wFclWBOEuXW0RzjleonS2M6gylSsM4JkLN6iWc=;
- b=B3XrhzwrWKoEjdJKAqTBFNnbucsFB+Ou/YpWouTXhNX/B85WcKAD7gfuN4+jXLKrY6Xv4w
- xI0lisH4M2uqoOCA==
-Authentication-Results: smtp-out1.suse.de;
- dkim=pass header.d=suse.de header.s=susede2_rsa header.b=QAOfbLYZ;
- dkim=pass header.d=suse.de header.s=susede2_ed25519 header.b=BvOCCZVO
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
- t=1795179719; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
- bh=+hw76wFclWBOEuXW0RzjleonS2M6gylSsM4JkLN6iWc=;
- b=QAOfbLYZCgD3IQndtyVCMhHG/2ScVjrc1sVhOSpz2r/nL2EfNiD1Id6FeyoMu7ooGZV9Ow
- 8YzICuwxOmaWNLNAatubiK1J2ORXiN931Xu5LTVQBJlvVHi6V34rbeV7q76/Q2Jz96c9/o
- dX8jumFcfu+sjoHrChAlrr3tM+OrBj8=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_ed25519; t=1795179719;
- h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
- bh=+hw76wFclWBOEuXW0RzjleonS2M6gylSsM4JkLN6iWc=;
- b=BvOCCZVOQQU/XiK61g51TI6SAI/mMx132js2F5A6bpIeIHQuNHnqJCa18vm70S09izPYcQ
- jf8YVHpARefoNQBg==
-Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
- (No client certificate requested)
- by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 7C4F11342D;
- Fri, 20 Nov 2026 13:01:59 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
- by imap1.dmz-prg2.suse.org with ESMTPSA id 1fkkEcdEAGtBUwAAD6G6ig
- (envelope-from <tzimmermann@suse.de>); Fri, 20 Nov 2026 13:01:59 +0000
-Message-ID: <6d9e93eb-594a-4e4c-be73-ab80c6436847@suse.de>
-Date: Fri, 20 Nov 2026 14:01:58 +0100
+	by gabe.freedesktop.org (Postfix) with ESMTP id 16451112A1C;
+	Fri, 20 Nov 2026 13:10:26 +0000 (UTC)
+Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id A0218112A18;
+ Fri, 20 Nov 2026 13:10:19 +0000 (UTC)
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+ by tor.source.kernel.org (Postfix) with ESMTP id C233862356;
+ Fri, 20 Nov 2026 13:10:18 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 48ED91F000D0;
+ Fri, 20 Nov 2026 13:10:17 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+ s=k20260515; t=1795180218;
+ bh=Bh0XbDrI2hg3GpbJADUXfor6MClrFyYoyxbyUQk7gjc=;
+ h=From:Subject:Date:To:Cc;
+ b=WbWSOIOWM7apluZo0JJ51s90y4wJj8uDc19GKxP5+fFORH9J75F7ozHHRceBDLjLW
+ mCarsiWVCqm/AxgYCUprgi66Bpw6h1/ZHoA0nIcJKcaRiQ5SaQE4/WBLvHuwz745Op
+ HiD3wjoLP/RWdNfs9qK9dQvXI8IteV7vd6LOmBVRIEkoFqbB6iSzGBoY62y4PUGfsG
+ SQbQ4+Tjn5zVpMzxLVOKgXM2gJmp7+zUga/QzH6CTyr5KVC4hZ/vQHwDJdLp1eyAnD
+ T/O9IST3hxFQOFa9E336ITXxFLgtUnvRivMfpM5L2ZP7q/85gbiylEuzpxsSS8H2X5
+ +GyzSvZkC+WEw==
+From: Maxime Ripard <mripard@kernel.org>
+Subject: [PATCH v12 0/9] drm: Add DRM_MODE_ATOMIC_RESET flag
+Date: Fri, 20 Nov 2026 14:10:07 +0100
+Message-Id: <20261120-drm-reset-state-flag-v12-0-42d63d7417fc@kernel.org>
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 10/11] drm/udl: Allocate URBs on demand
-To: Jie Feng <hjf3108@gmail.com>
-Cc: airlied@redhat.com, sean@poorly.run, tiwai@suse.com,
- patrik.r.jakobsson@gmail.com, maarten.lankhorst@linux.intel.com,
- mripard@kernel.org, airlied@gmail.com, simona@ffwll.ch,
- dri-devel@lists.freedesktop.org, sashiko-reviews@lists.linux.dev
-References: <20261119142114.152052-1-tzimmermann@suse.de>
- <20261119142114.152052-11-tzimmermann@suse.de>
- <CABOQOSVdsELGDEiJu95e5RQ1uRiWLkcwz4TB9xfbQe9qbD7WrA@mail.gmail.com>
-Content-Language: en-US
-From: Thomas Zimmermann <tzimmermann@suse.de>
-Autocrypt: addr=tzimmermann@suse.de; keydata=
- xsBNBFs50uABCADEHPidWt974CaxBVbrIBwqcq/WURinJ3+2WlIrKWspiP83vfZKaXhFYsdg
- XH47fDVbPPj+d6tQrw5lPQCyqjwrCPYnq3WlIBnGPJ4/jreTL6V+qfKRDlGLWFjZcsrPJGE0
- BeB5BbqP5erN1qylK9i3gPoQjXGhpBpQYwRrEyQyjuvk+Ev0K1Jc5tVDeJAuau3TGNgah4Yc
- hdHm3bkPjz9EErV85RwvImQ1dptvx6s7xzwXTgGAsaYZsL8WCwDaTuqFa1d1jjlaxg6+tZsB
- 9GluwvIhSezPgnEmimZDkGnZRRSFiGP8yjqTjjWuf0bSj5rUnTGiyLyRZRNGcXmu6hjlABEB
- AAHNJ1Rob21hcyBaaW1tZXJtYW5uIDx0emltbWVybWFubkBzdXNlLmRlPsLAjgQTAQgAOAIb
- AwULCQgHAgYVCgkICwIEFgIDAQIeAQIXgBYhBHIX+6yM6c9jRKFo5WgNwR1TC3ojBQJftODH
- AAoJEGgNwR1TC3ojx1wH/0hKGWugiqDgLNXLRD/4TfHBEKmxIrmfu9Z5t7vwUKfwhFL6hqvo
- lXPJJKQpQ2z8+X2vZm/slsLn7J1yjrOsoJhKABDi+3QWWSGkaGwRJAdPVVyJMfJRNNNIKwVb
- U6B1BkX2XDKDGffF4TxlOpSQzdtNI/9gleOoUA8+jy8knnDYzjBNOZqLG2FuTdicBXblz0Mf
- vg41gd9kCwYXDnD91rJU8tzylXv03E75NCaTxTM+FBXPmsAVYQ4GYhhgFt8S2UWMoaaABLDe
- 7l5FdnLdDEcbmd8uLU2CaG4W2cLrUaI4jz2XbkcPQkqTQ3EB67hYkjiEE6Zy3ggOitiQGcqp
- j//OwE0EWznS4AEIAMYmP4M/V+T5RY5at/g7rUdNsLhWv1APYrh9RQefODYHrNRHUE9eosYb
- T6XMryR9hT8XlGOYRwKWwiQBoWSDiTMo/Xi29jUnn4BXfI2px2DTXwc22LKtLAgTRjP+qbU6
- 3Y0xnQN29UGDbYgyyK51DW3H0If2a3JNsheAAK+Xc9baj0LGIc8T9uiEWHBnCH+RdhgATnWW
- GKdDegUR5BkDfDg5O/FISymJBHx2Dyoklv5g4BzkgqTqwmaYzsl8UxZKvbaxq0zbehDda8lv
- hFXodNFMAgTLJlLuDYOGLK2AwbrS3Sp0AEbkpdJBb44qVlGm5bApZouHeJ/+n+7r12+lqdsA
- EQEAAcLAdgQYAQgAIAIbDBYhBHIX+6yM6c9jRKFo5WgNwR1TC3ojBQJftOH6AAoJEGgNwR1T
- C3ojVSkIALpAPkIJPQoURPb1VWjh34l0HlglmYHvZszJWTXYwavHR8+k6Baa6H7ufXNQtThR
- yIxJrQLW6rV5lm7TjhffEhxVCn37+cg0zZ3j7zIsSS0rx/aMwi6VhFJA5hfn3T0TtrijKP4A
- SAQO9xD1Zk9/61JWk8OysuIh7MXkl0fxbRKWE93XeQBhIJHQfnc+YBLprdnxR446Sh8Wn/2D
- Ya8cavuWf2zrB6cZurs048xe0UbSW5AOSo4V9M0jzYI4nZqTmPxYyXbm30Kvmz0rYVRaitYJ
- 4kyYYMhuULvrJDMjZRvaNe52tkKAvMevcGdt38H4KSVXAylqyQOW5zvPc4/sq9c=
-In-Reply-To: <CABOQOSVdsELGDEiJu95e5RQ1uRiWLkcwz4TB9xfbQe9qbD7WrA@mail.gmail.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
-X-Spamd-Result: default: False [-12.00 / 50.00]; SUSE_INTERNAL_BYPASS(-9.00)[];
- BAYES_HAM(-3.00)[100.00%]; SUSPICIOUS_RECIPS(1.50)[];
- NEURAL_HAM_LONG(-1.00)[-1.000];
- R_DKIM_ALLOW(-0.20)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
- NEURAL_HAM_SHORT(-0.20)[-1.000]; MIME_GOOD(-0.10)[text/plain];
- MX_GOOD(-0.01)[]; XM_UA_NO_VERSION(0.01)[];
- TO_MATCH_ENVRCPT_ALL(0.00)[];
- FREEMAIL_ENVRCPT(0.00)[gmail.com];
- FREEMAIL_TO(0.00)[gmail.com]; MIME_TRACE(0.00)[0:+];
- DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
- ARC_NA(0.00)[];
- RBL_SPAMHAUS_BLOCKED_OPENRESOLVER(0.00)[2a07:de40:b281:104:10:150:64:97:from]; 
- FREEMAIL_CC(0.00)[redhat.com,poorly.run,suse.com,gmail.com,linux.intel.com,kernel.org,ffwll.ch,lists.freedesktop.org,lists.linux.dev];
- DKIM_TRACE(0.00)[suse.de:+]; TO_DN_SOME(0.00)[];
- RCVD_COUNT_TWO(0.00)[2];
- DNSWL_BLOCKED(0.00)[2a07:de40:b281:104:10:150:64:97:from];
- FROM_EQ_ENVFROM(0.00)[]; FROM_HAS_DN(0.00)[];
- RCVD_TLS_ALL(0.00)[]; MID_RHS_MATCH_FROM(0.00)[];
- RECEIVED_SPAMHAUS_BLOCKED_OPENRESOLVER(0.00)[2a07:de40:b281:106:10:150:64:167:received];
- RCPT_COUNT_SEVEN(0.00)[11]; RCVD_VIA_SMTP_AUTH(0.00)[];
- TAGGED_RCPT(0.00)[];
- DBL_BLOCKED_OPENRESOLVER(0.00)[suse.de:email, suse.de:dkim, rate.so:url,
- suse.com:url, imap1.dmz-prg2.suse.org:rdns, imap1.dmz-prg2.suse.org:helo]
-X-Rspamd-Server: rspamd1.dmz-prg2.suse.org
-X-Rspamd-Action: no action
-X-Spam-Score: -12.00
-X-Spam-Level: 
-X-Rspamd-Queue-Id: E6FB4225DD
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-B4-Tracking: v=1; b=H4sIAAAAAAAA/4XTS24bMQwG4KsMtDYLUu/xqvcospBGlCM0tltpY
+ iQIfPdiEqCeQhC65eIj+YP8EI1r4SaO04eofCutXC/iOJE8TGJ5DpcTQ0niOAmJ0qJDD6meoXL
+ jFdoaVob8Ek4gc5TROKI8O3GYxK/Kubx9uj+eDpN4Lm291vfPNjfaqv8BbwQIi3Jpmb3R3qTvP
+ 7le+OXbtZ7EJt7kQ/EkB4oEBJ7twqQUudQr6qHMw1kUIMxojMOsvAu6U/ROoZGiAcGERGiVw4y
+ mU8xfhZDsQDGAkEKSyepoZxU7xe4UOcrFAkJWNlmN0bGzneJ2isKB4gBBszEcOLD1qlP8QyEcb
+ eS3XDAn1DY6NLlT5p1Co1nmLZcUkaVVUgfsFMI9MwqGcLs7ziEQJzS2vxiivTNairb7Vc5HlV3
+ krOQ/zv3rRSr/fi2trF9/ImJoDMv1fC7rcdrYc2kLXPhtha0bEAHN4ul+/wNREL9ctgMAAA==
+X-Change-ID: 20260708-drm-reset-state-flag-2fb2b5711f97
+To: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
+ Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>, 
+ Simona Vetter <simona@ffwll.ch>, Louis Chauvet <louis.chauvet@bootlin.com>, 
+ Haneen Mohammed <hamohammed.sa@gmail.com>, 
+ Melissa Wen <melissa.srw@gmail.com>
+Cc: Daniel Stone <daniels@collabora.com>, 
+ Harry Wentland <harry.wentland@amd.com>, 
+ Jocelyn Falempe <jfalempe@redhat.com>, 
+ =?utf-8?q?Jonas_=C3=85dahl?= <jadahl@redhat.com>, 
+ =?utf-8?q?Michel_D=C3=A4nzer?= <mdaenzer@redhat.com>, 
+ Pekka Paalanen <pekka.paalanen@collabora.com>, 
+ Sebastian Wick <sebastian.wick@redhat.com>, Simon Ser <contact@emersion.fr>, 
+ Victoria Brekenfeld <victoria@system76.com>, 
+ Xaver Hugl <xaver.hugl@kde.org>, dri-devel@lists.freedesktop.org, 
+ linux-kernel@vger.kernel.org, Maxime Ripard <mripard@kernel.org>, 
+ Daniel Stone <daniel@fooishbar.org>, Leo Li <sunpeng.li@amd.com>, 
+ Rodrigo Siqueira <siqueira@igalia.com>, 
+ Alex Deucher <alexander.deucher@amd.com>, 
+ =?utf-8?q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>, 
+ amd-gfx@lists.freedesktop.org, 
+ Dave Stevenson <dave.stevenson@raspberrypi.com>, 
+ =?utf-8?q?Ma=C3=ADra_Canal?= <mcanal@igalia.com>, 
+ Raspberry Pi Kernel Maintenance <kernel-list@raspberrypi.com>, 
+ Rob Clark <robin.clark@oss.qualcomm.com>, 
+ Dmitry Baryshkov <lumag@kernel.org>, 
+ Abhinav Kumar <abhinav.kumar@linux.dev>, 
+ Jessica Zhang <jesszhan0024@gmail.com>, freedreno@lists.freedesktop.org, 
+ Oarora Etimis <oaroraetimis@gmail.com>
+X-Mailer: b4 0.14.3
+X-Developer-Signature: v=1; a=openpgp-sha256; l=6841; i=mripard@kernel.org;
+ h=from:subject:message-id; bh=Oh7HL7XBFWKY3ltxWWE6ykCPewGxD6IZnl6uZB6OJrI=;
+ b=owGbwMvMwCmsHn9OcpHtvjLG02pJDNkMbpvqzqkVvnt6an9TrdKx9YdYExdLn831VTz6fp5t8
+ rrcgssrO6ayMAhzMsiKKbI8kQk7vbx9cZWD/cofMHNYmUCGMHBxCsBE4q8x1scsVY9KOf7yWctx
+ W6avCWwLWWPKFS83+elqTpAr/lJ/KejpUtEe2ST9s1sNvz2JlzWZw9gwf7LmJacdEhYfHYz2X9i
+ kn85+2qC17tprGbs9sd+ZND6nZYSmPE5+9fPWxMdhuXYurzUB
+X-Developer-Key: i=mripard@kernel.org; a=openpgp;
+ fpr=BE5675C37E818C8B5764241C254BCFC56BF6CE8D
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -152,271 +91,162 @@ List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-17.3 required=3.0 tests=BAYES_00,DKIM_SIGNED,
-	DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
+X-Spam-Status: No, score=-18.8 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
+	DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
 	INCLUDES_CR_TRAILER,INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,
-	SPF_PASS,USER_AGENT_SANE_1 autolearn=unavailable autolearn_force=no
+	SPF_PASS,USER_AGENT_GIT autolearn=unavailable autolearn_force=no
 	version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-Hi
+Hi,
 
-Am 20.11.26 um 07:54 schrieb Jie Feng:
-> On Fri, 20 Nov 2026 at 14:45, Thomas Zimmermann <tzimmermann@suse.de> wrote:
->> Remove the limit on the number of URBs in flight. Allocate URBs as
->> needed. Keep once-allocated URBs in a list for reuse at later frames.
->> Also remove some bogus debug output from the affected code.
->>
->> The existing synchronization in atomic_begin() guarantees that udl
->> does not send a frame over the USB before the previous frame has been
->> transferred. This avoids overloading the USB. If the USB is saturated,
->> page flips delay and the compositor reduces the update frequency.
->>
->> The allocated URBs remain in the cache until the driver is being removed
->> from the device. In a later update, a regular worker or a shrinker could
->> free the URB cache when needed.
->>
->> Signed-off-by: Thomas Zimmermann <tzimmermann@suse.de>
->> ---
->>   drivers/gpu/drm/udl/udl_drv.h  |   1 -
->>   drivers/gpu/drm/udl/udl_main.c | 123 ++++++++++++---------------------
->>   2 files changed, 44 insertions(+), 80 deletions(-)
->>
->> diff --git a/drivers/gpu/drm/udl/udl_drv.h b/drivers/gpu/drm/udl/udl_drv.h
->> index 420166bdc4bc..68bcf0222764 100644
->> --- a/drivers/gpu/drm/udl/udl_drv.h
->> +++ b/drivers/gpu/drm/udl/udl_drv.h
->> @@ -45,7 +45,6 @@ struct urb_list {
->>          spinlock_t lock;
->>          wait_queue_head_t sleep;
->>          unsigned int in_flight;
->> -       int count;
->>   };
->>
->>   struct udl_device {
->> diff --git a/drivers/gpu/drm/udl/udl_main.c b/drivers/gpu/drm/udl/udl_main.c
->> index d0195bd4213d..adddcf4b3451 100644
->> --- a/drivers/gpu/drm/udl/udl_main.c
->> +++ b/drivers/gpu/drm/udl/udl_main.c
->> @@ -25,13 +25,10 @@
->>   #define NR_USB_REQUEST_CHANNEL 0x12
->>
->>   #define MAX_TRANSFER (PAGE_SIZE*16 - BULK_SIZE)
->> -#define WRITES_IN_FLIGHT (20)
->>   #define MAX_VENDOR_DESCRIPTOR_SIZE 256
->>
->>   #define UDL_SKU_PIXEL_LIMIT_DEFAULT    2080000
->>
->> -static struct urb *udl_get_urb_locked(struct udl_device *udl, long timeout);
->> -
->>   /*
->>    * Try to make sense of whatever we parse. Therefore return @end on
->>    * errors, but don't fail hard.
->> @@ -216,25 +213,41 @@ static struct urb *udl_alloc_bulk_urb(struct udl_device *udl, size_t size)
->>          return ERR_PTR(ret);
->>   }
->>
->> +static struct urb *__udl_get_cached_urb_locked(struct udl_device *udl)
->> +{
->> +       struct urb_node *unode;
->> +
->> +       assert_spin_locked(&udl->urbs.lock);
->> +
->> +       if (list_empty(&udl->urbs.list))
->> +               return NULL;
->> +
->> +       unode = list_first_entry(&udl->urbs.list, struct urb_node, entry);
->> +       list_del_init(&unode->entry);
->> +
->> +       return unode->urb;
->> +}
->> +
->>   static void udl_free_urb_list(struct udl_device *udl)
->>   {
->> +       struct drm_device *drm = &udl->drm;
->>          struct urb *urb;
->>
->> -       DRM_DEBUG("Waiting for completes and freeing all render urbs\n");
->> +       drm_dbg(drm, "Waiting for completes and freeing all render URBs\n");
->>
->> -       /* keep waiting and freeing, until we've got 'em all */
->> -       while (udl->urbs.count) {
->> -               spin_lock_irq(&udl->urbs.lock);
->> -               urb = udl_get_urb_locked(udl, MAX_SCHEDULE_TIMEOUT);
->> -               udl->urbs.count--;
->> -               spin_unlock_irq(&udl->urbs.lock);
->> -               if (WARN_ON(!urb))
->> -                       break;
->> -               /* Free each separately allocated piece */
->> -               udl_free_bulk_urb(urb);
->> +       /* keep waiting until we've got 'em all */
->> +       scoped_guard(spinlock_irq, &udl->urbs.lock) {
->> +               wait_event_lock_irq(udl->urbs.sleep, !udl->urbs.in_flight, udl->urbs.lock);
->> +
->> +               urb = __udl_get_cached_urb_locked(udl);
->>          }
->>
->> -       wake_up_all(&udl->urbs.sleep);
->> +       while (urb) {
->> +               udl_free_bulk_urb(urb);
->> +
->> +               scoped_guard(spinlock_irq, &udl->urbs.lock)
->> +                       urb = __udl_get_cached_urb_locked(udl);
->> +       }
->>   }
->>
->>   static void udl_urb_list_release(void *data)
->> @@ -244,71 +257,16 @@ static void udl_urb_list_release(void *data)
->>          udl_free_urb_list(udl);
->>   }
->>
->> -static int udl_alloc_urb_list(struct udl_device *udl, int count, size_t size)
->> +static int udl_init_urb_list(struct udl_device *udl)
->>   {
->>          struct drm_device *drm = &udl->drm;
->> -       size_t wanted_size = count * size;
->> -       int ret;
->>
->>          spin_lock_init(&udl->urbs.lock);
->>          INIT_LIST_HEAD(&udl->urbs.list);
->>          init_waitqueue_head(&udl->urbs.sleep);
->> -       udl->urbs.count = 0;
->>          udl->urbs.in_flight = 0;
->>
->> -retry:
->> -       while (udl->urbs.count * size < wanted_size) {
->> -               struct urb *urb;
->> -               struct urb_node *unode;
->> -
->> -               urb = udl_alloc_bulk_urb(udl, size);
->> -               if (IS_ERR(urb)) {
->> -                       if (PTR_ERR(urb) == -ENOBUFS && size > PAGE_SIZE) {
->> -                               size /= 2;
->> -                               udl_free_urb_list(udl);
->> -                               goto retry;
->> -                       }
->> -                       break;
->> -               }
->> -               unode = urb->context;
->> -
->> -               list_add_tail(&unode->entry, &udl->urbs.list);
->> -
->> -               udl->urbs.count++;
->> -       }
->> -
->> -       if (!udl->urbs.count)
->> -               return -ENOMEM;
->> -
->> -       ret = devm_add_action_or_reset(drm->dev, udl_urb_list_release, udl);
->> -       if (ret < 0)
->> -               return ret;
->> -
->> -       DRM_DEBUG("allocated %d %d byte urbs\n", udl->urbs.count, (int) size);
->> -
->> -       return udl->urbs.count;
->> -}
->> -
->> -static struct urb *udl_get_urb_locked(struct udl_device *udl, long timeout)
->> -{
->> -       struct urb_node *unode;
->> -
->> -       assert_spin_locked(&udl->urbs.lock);
->> -
->> -       /* Wait for an in-flight buffer to complete and get re-queued */
->> -       if (!wait_event_lock_irq_timeout(udl->urbs.sleep,
->> -                                        !udl->urbs.count ||
->> -                                        !list_empty(&udl->urbs.list),
->> -                                        udl->urbs.lock, timeout))
->> -               return NULL;
->> -
->> -       if (!udl->urbs.count)
->> -               return NULL;
->> -
->> -       unode = list_first_entry(&udl->urbs.list, struct urb_node, entry);
->> -       list_del_init(&unode->entry);
->> -
->> -       return unode->urb;
->> +       return devm_add_action_or_reset(drm->dev, udl_urb_list_release, udl);
->>   }
->>
->>   struct urb *udl_get_urb(struct udl_device *udl)
->> @@ -321,9 +279,18 @@ struct urb *udl_get_urb(struct udl_device *udl)
->>                          return NULL;
->>                  ++udl->urbs.in_flight;
->>
->> -               urb = udl_get_urb_locked(udl, HZ * 2);
->> -               if (!urb)
->> -                       --udl->urbs.in_flight;
->> +               urb = __udl_get_cached_urb_locked(udl);
->> +       }
->> +
->> +       if (!urb) {
->> +               urb = udl_alloc_bulk_urb(udl, MAX_TRANSFER);
->> +               if (IS_ERR(urb)) {
->> +                       scoped_guard(spinlock_irqsave, &udl->urbs.lock) {
->> +                               if (udl->urbs.in_flight)
->> +                                       --udl->urbs.in_flight;
->> +                       }
->> +                       return NULL;
->> +               }
-> On a usb contention or stalled device, this might allocate memory unboundedly
-> if the udl_sync_pending_urbs keeps timing out.
-> The number of URBs could be limited based on the size of the worst-case
-> full frame update. The entire urb cache can be cleared on a modeset,
-> so that maximum memory usage scales with the frame size.
+Userspace currently has no atomic way to bring a display pipeline back
+to a pristine state. A compositor that wants to start from a known
+baseline must explicitly set every property on every KMS object to its
+default value, which requires tracking which properties exist and what
+their defaults are. This is fragile and must be updated every time a
+new property is added to the kernel.
 
-I wouldn't worry about this problem. Only compositors can send page 
-flips. If the sync times out, the compositor should throttle down the 
-page-flip rate.So it's unlikely to happen in practice. And a malicious 
-compositor can already bring down the system today.
+This series introduces a new DRM_MODE_ATOMIC_RESET flag for the
+atomic ioctl. When set, the kernel fills the commit with default
+states for all KMS objects before applying the properties supplied in
+the request. Properties not explicitly included remain at their
+defaults. This allows userspace to describe the desired end state
+declaratively, without caring about the current state or the full set
+of properties.
 
-For the cleaning up unused allocations, I think a shrinker would be 
-best. It's the kernel's data structure for clearing such caches when 
-needed. It runs when needed and can also be tested via debugfs. That 
-would be another patch on top, I think.
+A driver-specific property is added to vkms planes for testing.
+Standard properties are impractical for this: compositors like Mutter
+enumerate all known properties, making it hard to isolate the reset
+behavior in a test.
 
-Best regards
-Thomas
+Mutter has a working implementation using the new flag, with a
+vkms-based test exercising the reset behavior:
+https://gitlab.gnome.org/GNOME/mutter/-/merge_requests/5309
 
->
->>          }
->>
->>          return urb;
->> @@ -395,8 +362,6 @@ int udl_init(struct udl_device *udl)
->>          int ret = -ENOMEM;
->>          struct device *dma_dev;
->>
->> -       DRM_DEBUG("\n");
->> -
->>          dma_dev = usb_intf_get_dma_device(to_usb_interface(dev->dev));
->>          if (dma_dev) {
->>                  drm_dev_set_dma_dev(dev, dma_dev);
->> @@ -419,8 +384,8 @@ int udl_init(struct udl_device *udl)
->>          if (udl_select_std_channel(udl))
->>                  DRM_ERROR("Selecting channel failed\n");
->>
->> -       ret = udl_alloc_urb_list(udl, WRITES_IN_FLIGHT, MAX_TRANSFER);
->> -       if (ret < 0)
->> +       ret = udl_init_urb_list(udl);
->> +       if (ret)
->>                  return ret;
->>
->>          ret = udl_modeset_init(udl);
->> --
->> 2.56.0
->>
->>
->
-> Best regards,
-> Jie Feng
+And we have IGT tests as well:
+https://lore.kernel.org/r/20261112162147.766264-1-mripard@kernel.org/
 
+Let me know what you think,
+Maxime
+
+Signed-off-by: Maxime Ripard <mripard@kernel.org>
+---
+Changes in v12:
+- Re-add drm_lease flag to differentiate an empty from a revoked lease
+- Link to v11: https://lore.kernel.org/r/20261116-drm-reset-state-flag-v11-0-378b3f7bef32@kernel.org
+
+Changes in v11:
+- Reorder object state allocations to be more robust against lease revocation
+- Bring back lease revocation check
+- Link to v10: https://lore.kernel.org/r/20261112-drm-reset-state-flag-v10-0-cefaa1ed056d@kernel.org
+
+Changes in v10:
+- Stop trying to make partial lease work, they aren't meant to exist, so
+  we can simply error out when they happen
+- More tests for zpos and color management
+- Fix DPU1 issues reported by sashiko
+- Link to v9: https://lore.kernel.org/r/20261110-drm-reset-state-flag-v9-0-ddb0e26324a0@kernel.org
+
+Changes in v9:
+- Add a flag to know if leases have been revoked or are empty
+- Handle the situation where a leased plane or connector being reset
+  would disable an unleased CRTC
+- Add more kunit tests to cover the new issues reported by sashiko
+- Fix reset-related bugs in amdgpu, vc4 and msm DPU
+- Add a vc4 kunit test for its reset related bug
+- Link to v8: https://lore.kernel.org/r/20261106-drm-reset-state-flag-v8-0-50fd046b705f@kernel.org
+
+Changes in v8:
+- Fix more leases issues
+- Drop applied patches
+- Link to v7: https://lore.kernel.org/r/20261030-drm-reset-state-flag-v7-0-4e55eaeae683@kernel.org
+
+Changes in v7:
+- Fix a whole bunch of sashiko issues to deal with color_mgmt_changed,
+  leases, partially leased devices (like a plane leased but it's crtc
+  isn't) and the interaction with PAGE_FLIP_EVENT better
+- Fix crtc create_state implementation for ssd130x
+- Actually make it possible for a compositor to recreate the same whole
+  state without passing ALLOW_MODESET
+- Fix EDEADLK bugs with kunit tests
+- Don't report DRM_CAP_ATOMIC_RESET on !atomic drivers
+- Fix error handling in vkms for the new property
+- Add more kunit tests for the new corner cases
+- Link to v6: https://lore.kernel.org/r/20261022-drm-reset-state-flag-v6-0-f36d640b7e76@kernel.org
+
+Changes in v6:
+- If using a lease, only considered the leased objects
+- Fix amdgpu plane atomic_create_state implementation
+- Link to v5: https://lore.kernel.org/r/20261016-drm-reset-state-flag-v5-0-dad2d64b693b@kernel.org
+
+Changes in v5:
+- Fix bisection issue
+- Improve the documentation
+- Fix connector hotplugging issue
+- Added kunit tests for drm_atomic_commit_fill_with_defaults()
+- Link to v4: https://lore.kernel.org/r/20260918-drm-reset-state-flag-v4-0-5ad106370f05@kernel.org
+
+Changes in v4:
+- Improve the drm_atomic_get_private_obj_state and
+  drm_atomic_get_connector_state array reallocations
+- Return void on functions to insert an object state into a commit when
+  it cannot fail
+- Rename drm_atomic_can_create_state() into
+  drm_atomic_implements_create_state()
+- Move capability check from drm_atomic_commit_fill_with_defaults to its
+  caller 
+- Added IGT test
+- Link to v3: https://lore.kernel.org/r/20260908-drm-reset-state-flag-v3-0-905570f387a4@kernel.org
+
+Changes in v3:
+- Rebased on top of the latest atomic_create_state series
+- Sebastian Wick created and tested this work with mutter and vkms
+- Fix colorop locking
+- Link to v2: https://lore.kernel.org/r/20260812-drm-reset-state-flag-v2-0-e96ce13317dd@kernel.org
+
+Changes in v2:
+- Fix bisection
+- Add capability to let userspace know if it can reset the state
+- Link to v1: https://lore.kernel.org/r/20260708-drm-reset-state-flag-v1-0-c37dc985485d@kernel.org
+
+---
+Maxime Ripard (8):
+      drm/lease: Add a helper to tell whether a lease was revoked
+      drm/atomic: Add drm_atomic_implements_create_state() helper
+      drm/atomic: Allow filling a commit with pristine object states
+      drm/tests: atomic: Add tests for drm_atomic_commit_fill_with_defaults()
+      drm/amd/display: Take over the current stream and dc_state
+      drm/vc4: Carry the HVS channel over to created CRTC states
+      drm/msm/dpu1: Carry the mixers over to created CRTC states
+      drm/vkms: Add driver-specific plane property for testing
+
+Sebastian Wick (1):
+      drm/atomic-uapi: Add DRM_MODE_ATOMIC_RESET flag
+
+ drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c |  50 +++
+ drivers/gpu/drm/drm_atomic.c                      | 373 +++++++++++++++++++
+ drivers/gpu/drm/drm_atomic_uapi.c                 |  44 ++-
+ drivers/gpu/drm/drm_ioctl.c                       |   5 +
+ drivers/gpu/drm/drm_lease.c                       |  30 ++
+ drivers/gpu/drm/msm/disp/dpu1/dpu_crtc.c          |  23 ++
+ drivers/gpu/drm/tests/drm_atomic_test.c           | 435 +++++++++++++++++++++-
+ drivers/gpu/drm/vc4/tests/vc4_test_pv_muxing.c    | 105 ++++++
+ drivers/gpu/drm/vc4/vc4_kms.c                     |  16 +-
+ drivers/gpu/drm/vkms/vkms_drv.h                   |   3 +
+ drivers/gpu/drm/vkms/vkms_plane.c                 |  63 +++-
+ include/drm/drm_atomic.h                          |   4 +
+ include/drm/drm_auth.h                            |  11 +
+ include/drm/drm_lease.h                           |   2 +
+ include/uapi/drm/drm.h                            |  10 +
+ include/uapi/drm/drm_mode.h                       |  22 +-
+ 16 files changed, 1186 insertions(+), 10 deletions(-)
+---
+base-commit: e6e635c4407e5bb8ddc6017a2e9825c17240e799
+change-id: 20260708-drm-reset-state-flag-2fb2b5711f97
+
+Best regards,
 -- 
---
-Thomas Zimmermann
-Graphics Driver Developer
-SUSE Software Solutions Germany GmbH
-Frankenstr. 146, 90461 Nürnberg, Germany, www.suse.com
-GF: Stefan Gaiser, Jochen Jaser, Abhinav Puri, (HRB 36809, AG Nürnberg)
-
+Maxime Ripard <mripard@kernel.org>
 
