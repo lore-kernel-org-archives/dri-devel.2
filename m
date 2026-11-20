@@ -2,39 +2,39 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CE15860A2601
-	for <dri-devel@archiver.kernel.org>; Fri, 20 Nov 2026 14:58:30 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3A44060A2601
+	for <dri-devel@archiver.kernel.org>; Fri, 20 Nov 2026 14:58:31 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=C+CeVaOz
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=L8RTJFx9
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 35C6A112B62;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 52B22112B64;
 	Fri, 20 Nov 2026 14:58:25 +0000 (UTC)
 Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 24D74112B5C
- for <dri-devel@lists.freedesktop.org>; Fri, 20 Nov 2026 14:58:14 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 4356B112B5D
+ for <dri-devel@lists.freedesktop.org>; Fri, 20 Nov 2026 14:58:09 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by tor.source.kernel.org (Postfix) with ESMTP id 98C1961C5C;
- Fri, 20 Nov 2026 14:58:13 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0EC151F000C0;
- Fri, 20 Nov 2026 14:58:12 +0000 (UTC)
+ by tor.source.kernel.org (Postfix) with ESMTP id B377C60DF4;
+ Fri, 20 Nov 2026 14:58:08 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id DD5321F000CA;
+ Fri, 20 Nov 2026 14:58:07 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1795186693;
- bh=uZtGli3CkGrAhqKNwEKSISDtx01ePT5PWZSPVbc9OdE=;
+ s=k20260515; t=1795186688;
+ bh=OsDmDSuXIeI4Gt+DPJ5jUIsjpvJ19K8lSFk9Nw4dHLE=;
  h=From:Date:Subject:References:In-Reply-To:To:Cc;
- b=C+CeVaOz2nF9ABdQXaAIonS/gu8qKbpk0EUC2Wk21vaBYlBpQIf7mKhD2JkMHlMRb
- 73dOG8OjXtRrVOjjxXWgWzDL00MUJhqnKI6XJ5wgOzHZ0wvwc/0UI6OgRQsdn/etrT
- PKb3xi2sOND62rvYkIjjjl6Akh6Wp/2DIOVVfudZdeVOm0UgJYvvWeRt5dWgm0WTlE
- uKcp3NwSYuDDT8BFroVyefhWXZktcvgNM/ODfrmQkWV/JSiqQq5YoeaLszjPoHV9MM
- oiTshH2UGd9l9q6zfBqplGccLJgNCPLS2V5qfcbCWj7T7Hc9H8HcFbbhssSIChmyMj
- wGDuug223WddA==
+ b=L8RTJFx9SGYtOGuk/ZJOY1uvPzmlh/mAs66N6bYOyuCC1uyNnzMz2z4cBouCsgZZ2
+ W9SPtUaddXqYPV7l1ytP2nxVAypCrzbGG51h6aO0io1Q6n3BqAMkfKicZrv82x1bMG
+ GpBapWPylTU4wVx2XpOoscm7nedWJTdqKdjwthutJdYX80bvT0wCJq7870Zdy6hdFv
+ 0rm7/c3BkDu/aZAdDEtOT4uFvJSg2f1XL/+m+Z1q2Eg/LA+R+iF/ut0ozE7iArXtqw
+ FwLnUG64se7yBQXoQLQs7Oyl3HBn/rgtJhkJdKtTXa5WsMf8ofEoO3uSMXXDGseM8b
+ cQ1WPUkeaNUUw==
 From: "Rob Herring (Arm)" <robh@kernel.org>
-Date: Fri, 20 Nov 2026 08:57:30 -0600
-Subject: [PATCH v5 06/19] accel: ethosu: Validate secondary streams
+Date: Fri, 20 Nov 2026 08:57:28 -0600
+Subject: [PATCH v5 04/19] accel: ethosu: Factor buffer bounds checks
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20261120-ethosu-fixes-v5-6-52d459acdb84@kernel.org>
+Message-Id: <20261120-ethosu-fixes-v5-4-52d459acdb84@kernel.org>
 References: <20261120-ethosu-fixes-v5-0-52d459acdb84@kernel.org>
 In-Reply-To: <20261120-ethosu-fixes-v5-0-52d459acdb84@kernel.org>
 To: Tomeu Vizoso <tomeu@tomeuvizoso.net>, Oded Gabbay <ogabbay@kernel.org>, 
@@ -59,88 +59,83 @@ X-Spam-Status: No, score=-18.8 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-The command-stream validator records the additional U65 scale and
-weight stream addresses and the U85 weight decoder addresses, but only
-checked stream 0 against its region buffer.
+Move the repeated command-stream buffer range validation into a
+helper in preparation for validating all weight and scale streams.
 
-Check every configured secondary stream against the matching weight or
-scale region before accepting a kernel operation.
-
-Fixes: 5a5e9c0228e6 ("accel: Add Arm Ethos-U NPU driver")
-Cc: stable@vger.kernel.org
 Signed-off-by: Rob Herring (Arm) <robh@kernel.org>
 ---
 v5:
  - No changes.
 
 v2:
- - Adjust for register state tracking
+ - Adjust due to previous patch
 ---
- drivers/accel/ethosu/ethosu_gem.c | 33 ++++++++++++++++++++++++++++-----
- 1 file changed, 28 insertions(+), 5 deletions(-)
+ drivers/accel/ethosu/ethosu_gem.c | 37 +++++++++++++++++++++++++------------
+ 1 file changed, 25 insertions(+), 12 deletions(-)
 
 diff --git a/drivers/accel/ethosu/ethosu_gem.c b/drivers/accel/ethosu/ethosu_gem.c
-index 67c7cbbd39b8..af8a0c45039b 100644
+index 75f6901d19e5..24f88696c18b 100644
 --- a/drivers/accel/ethosu/ethosu_gem.c
 +++ b/drivers/accel/ethosu/ethosu_gem.c
-@@ -436,13 +436,17 @@ static u64 feat_matrix_length(struct ethosu_device *edev,
+@@ -433,6 +433,25 @@ static u64 feat_matrix_length(struct ethosu_device *edev,
+ 	return addr;
+ }
  
- static int buffer_size(struct ethosu_validated_cmdstream_info *info,
- 		       struct cmd_state *st, struct buffer *buf, s8 region,
--		       u16 region_cmd, u16 base_cmd, u16 length_cmd)
-+		       u16 region_cmd, u16 base_cmd, u16 length_cmd, bool optional)
- {
- 	u64 end;
-+	bool base_set = cmd_state_reg_is_set(st, base_cmd);
-+	bool length_set = cmd_state_reg_is_set(st, length_cmd);
++static int buffer_size(struct ethosu_validated_cmdstream_info *info,
++		       struct cmd_state *st, struct buffer *buf, s8 region,
++		       u16 region_cmd, u16 base_cmd, u16 length_cmd)
++{
++	u64 end;
 +
-+	if (optional && !base_set && !length_set)
-+		return 0;
- 
- 	if (region < 0 || !cmd_state_reg_is_set(st, region_cmd) ||
--	    !cmd_state_reg_is_set(st, base_cmd) ||
--	    !cmd_state_reg_is_set(st, length_cmd))
-+	    !base_set || !length_set)
- 		return -EINVAL;
- 
- 	if (check_add_overflow(buf->base, (u64)buf->length, &end))
-@@ -507,7 +511,20 @@ static int calc_sizes(struct drm_device *ddev,
++	if (region < 0 || !cmd_state_reg_is_set(st, region_cmd) ||
++	    !cmd_state_reg_is_set(st, base_cmd) ||
++	    !cmd_state_reg_is_set(st, length_cmd))
++		return -EINVAL;
++
++	if (check_add_overflow(buf->base, (u64)buf->length, &end))
++		return -EINVAL;
++
++	info->region_size[region] = max(info->region_size[region], end);
++
++	return 0;
++}
++
+ static int calc_sizes(struct drm_device *ddev,
+ 		      struct ethosu_validated_cmdstream_info *info,
+ 		      u16 op, struct cmd_state *st,
+@@ -485,26 +504,20 @@ static int calc_sizes(struct drm_device *ddev,
+ 		dev_dbg(ddev->dev, "op %d: W:%d:0x%llx-0x%llx\n",
+ 			op, st->weight[0].region, st->weight[0].base,
  			st->weight[0].base + st->weight[0].length - 1);
- 		if (buffer_size(info, st, &st->weight[0], st->weight[0].region,
- 				NPU_SET_WEIGHT_REGION, NPU_SET_WEIGHT_BASE,
--				NPU_SET_WEIGHT_LENGTH))
-+				NPU_SET_WEIGHT_LENGTH, false))
-+			return -EINVAL;
-+
-+		if (buffer_size(info, st, &st->weight[1], st->weight[0].region,
-+				NPU_SET_WEIGHT_REGION, NPU_SET_WEIGHT1_BASE,
-+				NPU_SET_WEIGHT1_LENGTH, true) ||
-+		    buffer_size(info, st, &st->weight[3], st->weight[0].region,
-+				NPU_SET_WEIGHT_REGION, NPU_SET_WEIGHT3_BASE,
-+				NPU_SET_WEIGHT3_LENGTH, true))
-+			return -EINVAL;
-+		if (!ethosu_is_u65(edev) &&
-+		    buffer_size(info, st, &st->weight[2], st->weight[0].region,
-+				NPU_SET_WEIGHT_REGION, NPU_SET_WEIGHT2_BASE,
-+				NPU_SET_WEIGHT2_LENGTH, true))
+-		if (!cmd_state_reg_is_set(st, NPU_SET_WEIGHT_REGION) ||
+-		    !cmd_state_reg_is_set(st, NPU_SET_WEIGHT_BASE) ||
+-		    !cmd_state_reg_is_set(st, NPU_SET_WEIGHT_LENGTH))
++		if (buffer_size(info, st, &st->weight[0], st->weight[0].region,
++				NPU_SET_WEIGHT_REGION, NPU_SET_WEIGHT_BASE,
++				NPU_SET_WEIGHT_LENGTH))
  			return -EINVAL;
+-		info->region_size[st->weight[0].region] =
+-			max(info->region_size[st->weight[0].region],
+-			    st->weight[0].base + st->weight[0].length);
  	}
  
-@@ -517,7 +534,13 @@ static int calc_sizes(struct drm_device *ddev,
+ 	if (scale) {
+ 		dev_dbg(ddev->dev, "op %d: S:%d:0x%llx-0x%llx\n",
+ 			op, st->scale[0].region, st->scale[0].base,
  			st->scale[0].base + st->scale[0].length - 1);
- 		if (buffer_size(info, st, &st->scale[0], st->scale[0].region,
- 				NPU_SET_SCALE_REGION, NPU_SET_SCALE_BASE,
--				NPU_SET_SCALE_LENGTH))
-+				NPU_SET_SCALE_LENGTH, false))
-+			return -EINVAL;
-+
-+		if (ethosu_is_u65(edev) &&
-+		    buffer_size(info, st, &st->scale[1], st->scale[0].region,
-+				NPU_SET_SCALE_REGION, NPU_SET_SCALE1_BASE,
-+				NPU_SET_SCALE1_LENGTH, true))
+-		if (!cmd_state_reg_is_set(st, NPU_SET_SCALE_REGION) ||
+-		    !cmd_state_reg_is_set(st, NPU_SET_SCALE_BASE) ||
+-		    !cmd_state_reg_is_set(st, NPU_SET_SCALE_LENGTH))
++		if (buffer_size(info, st, &st->scale[0], st->scale[0].region,
++				NPU_SET_SCALE_REGION, NPU_SET_SCALE_BASE,
++				NPU_SET_SCALE_LENGTH))
  			return -EINVAL;
+-		info->region_size[st->scale[0].region] =
+-			max(info->region_size[st->scale[0].region],
+-			    st->scale[0].base + st->scale[0].length);
  	}
  
+ 	len = feat_matrix_length(edev, info, st, &st->ofm, FEAT_MATRIX_OFM,
 
 -- 
 2.53.0
