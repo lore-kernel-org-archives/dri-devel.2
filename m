@@ -2,40 +2,39 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AC9D2606A325
-	for <dri-devel@archiver.kernel.org>; Fri, 20 Nov 2026 12:58:22 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4B085606A325
+	for <dri-devel@archiver.kernel.org>; Fri, 20 Nov 2026 12:58:23 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=RmnSaLAo
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Ux+5WFDX
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 23B21112A05;
+	by gabe.freedesktop.org (Postfix) with ESMTP id ADCBE112A07;
 	Fri, 20 Nov 2026 12:58:16 +0000 (UTC)
-Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id BD2831129F2
- for <dri-devel@lists.freedesktop.org>; Fri, 20 Nov 2026 12:56:40 +0000 (UTC)
+Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id A70FE10E8D1
+ for <dri-devel@lists.freedesktop.org>; Fri, 20 Nov 2026 12:57:36 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by tor.source.kernel.org (Postfix) with ESMTP id 2967D629FD;
- Fri, 20 Nov 2026 12:56:40 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5BEA41F00A01;
- Fri, 20 Nov 2026 12:56:39 +0000 (UTC)
+ by sea.source.kernel.org (Postfix) with ESMTP id 8FE8B4323D;
+ Fri, 20 Nov 2026 12:57:36 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id E8A921F000CF;
+ Fri, 20 Nov 2026 12:57:35 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1795179399;
- bh=BCWReLk3sf7mL9BESH7YWnYxdK/FQL2iYeS2oZ+gH9s=;
+ s=k20260515; t=1795179456;
+ bh=oZGwhwG/z5xzT9/mrEWIvuCB7lLLzD9FsVzJ3CXGlBU=;
  h=From:Date:Subject:References:In-Reply-To:To:Cc;
- b=RmnSaLAo4/qKS7e+mdvYxSydGWPSI9OIMD9VO6oCQ0Jb042/wkOIkWPBcPkSFNZO0
- /YM2OW1iH5w0uzADe7ZKlewWdlyN359cVjpnkevO9v/ldn5skIwjJI4KSs3fNzebfs
- U3ImGUCdXMn8imzV586CuoPUfBbxUvxUAO0KCCQEmU5/urwMOZOVx5bfKbTbH6YM/e
- yBcAoVfnpO40l6tNbcoO2z/Wnh5N7ZC+M9NTTgc6RNpaFSGcUuF4U3iOXXJhslmxAk
- XMRTg0iqa/d2l8q/HX+TijtKoeUJBq/z/XvwmZJD3fEo33nOgl2gHuQfY8qKjhfspA
- PPKHUISCCHkxg==
+ b=Ux+5WFDX7zBG050O1M86G7DW724XO8d+/w2N7cz4NM5u924zT3sxivYIpeTrn+lxp
+ nSz3NNeNb2bw0T+XJwUFBxiTfaYcVqfraRyLY5+5eSH8u86i1iqLBjftVqQf4fISlY
+ 9iSwQFXR08/MZsG7nFBFhH0NE3LA4f3XxmMGBYfNIM94hRHoUgB6Hsa1IvohWEiIAU
+ MH+AaNaG5FfeSmH+FTFJpuURGa2be6Sw0RBXn8ACH80VqGTj5h5BJOpnuIQ8Vr8b4p
+ sfP569DRDqUEKOYmVJuLmhpCrnBpW7jAXCJw+VBCGGUrffhRS7C0rnAC0d2RevmNj2
+ AI8z3akcLFKWw==
 From: Maxime Ripard <mripard@kernel.org>
-Date: Fri, 20 Nov 2026 13:55:15 +0100
-Subject: [PATCH v9 23/42] drm/atomic-state-helper: Provide comparison
- macros
+Date: Fri, 20 Nov 2026 13:55:31 +0100
+Subject: [PATCH v9 39/42] drm/panel: Implement state readout support
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20261120-drm-state-readout-v9-23-a67c2b45b8ec@kernel.org>
+Message-Id: <20261120-drm-state-readout-v9-39-a67c2b45b8ec@kernel.org>
 References: <20261120-drm-state-readout-v9-0-a67c2b45b8ec@kernel.org>
 In-Reply-To: <20261120-drm-state-readout-v9-0-a67c2b45b8ec@kernel.org>
 To: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
@@ -49,12 +48,12 @@ To: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
 Cc: Devarsh Thakkar <devarsht@ti.com>, dri-devel@lists.freedesktop.org, 
  Maxime Ripard <mripard@kernel.org>
 X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=openpgp-sha256; l=10714; i=mripard@kernel.org;
- h=from:subject:message-id; bh=7RNNtGqkT6HsuJ11gABTzrbw/ysB5k6hypttxdOG0xc=;
- b=owGbwMvMwCmsHn9OcpHtvjLG02pJDNkMzjrrz6ksYj0XeXHS9088cU1X4vyz5vZmHvWK5Fqiu
- XHflK9fOqayMAhzMsiKKbI8kQk7vbx9cZWD/cofMHNYmUCGMHBxCsBE1nYyNmwN11JcvSZp7pNJ
- on+4m42LJxrHzHsZy33pxoofX/8o1qy6dvRoXBSDZqaBOWO3YlLdFcZa6YNPjk20Yfu2Suyh9NU
- w59r53rN62M6V+ObdUn58//GpQMnp/9erS3Dcd9nk+4hT/d0XAA==
+X-Developer-Signature: v=1; a=openpgp-sha256; l=8118; i=mripard@kernel.org;
+ h=from:subject:message-id; bh=mz0C74VfgdbwL60P2y1GRLInFgX7TCYhGCAJVa0QPhU=;
+ b=owGbwMvMwCmsHn9OcpHtvjLG02pJDNkMzsYTZn0/tkn3r82GjaEpf8qZayzKK3hZTsoePGbDc
+ ff90ZNCHVNZGIQ5GWTFFFmeyISdXt6+uMrBfuUPmDmsTCBDGLg4BWAiGoGMDe/nhHue22S2ou/Y
+ 5CmFx26JVE/iCWoOSFhRN3eCRoTVWXOhLVt/bLKTXXAzyDNjds2s54w1HDY73HitXRnK9dK/Xug
+ 1aNAMzTW3eT5H08MhbduKA8nlunEPaxhlTkWcOvfk2L7NaW0A
 X-Developer-Key: i=mripard@kernel.org; a=openpgp;
  fpr=BE5675C37E818C8B5764241C254BCFC56BF6CE8D
 X-BeenThere: dri-devel@lists.freedesktop.org
@@ -75,302 +74,217 @@ X-Spam-Status: No, score=-18.8 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-In order to make the implementation of atomic_sro_compare_state easier
-and reduce the boilerplate, introduce a set of STATE_CHECK_* macros to
-compare state field values depending on their type.
+A panel bridge has no state of its own to read out of the hardware:
+neither the panel enable state nor the bus configuration is observable
+through it.
 
-Reviewed-by: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>
+The bus configuration the atomic helpers negotiate can however be
+reconstructed: the panel bridge is always the last bridge of a chain, so
+the negotiation picks the first connector display info format as its
+output format, or MEDIA_BUS_FMT_FIXED when the display info has none,
+passes it through to its input end, and propagates the display info
+flags to both ends. The atomic_sro_readout_state hook reports that
+configuration. The display info is only populated once the connector
+modes have been read, after the initial state has been created: the
+fixed format reported then matches what the negotiation would produce,
+and is harmless as the initial state is never compared.
+
+The atomic_sro_connector_readout hook reports the connector as bound to
+the current CRTC of its encoder whenever that CRTC was read out as
+active, the panel being assumed enabled whenever its pipeline is. A
+panel bridge only carries DRM_BRIDGE_OP_CONNECTOR_HW_READOUT when no
+bridge attached earlier in its chain provides a connector readout:
+drm_bridge_connector_init() picks the last bridge carrying that op, and
+earlier bridges may know the actual link state.
+
 Signed-off-by: Maxime Ripard <mripard@kernel.org>
 ---
- drivers/gpu/drm/drm_atomic_state_readout_helper.c |  30 +++
- include/drm/drm_atomic_state_readout_helper.h     | 220 ++++++++++++++++++++++
- 2 files changed, 250 insertions(+)
+ drivers/gpu/drm/drm_panel.c | 129 ++++++++++++++++++++++++++++++++++++++++++++
+ 1 file changed, 129 insertions(+)
 
-diff --git a/drivers/gpu/drm/drm_atomic_state_readout_helper.c b/drivers/gpu/drm/drm_atomic_state_readout_helper.c
-index f290d2fe5496..80eb467baefc 100644
---- a/drivers/gpu/drm/drm_atomic_state_readout_helper.c
-+++ b/drivers/gpu/drm/drm_atomic_state_readout_helper.c
-@@ -935,5 +935,35 @@ void drm_atomic_helper_sro_install_state(struct drm_atomic_sro_state *state)
- 		state->private_objs[i].state = NULL;
- 		state->private_objs[i].ptr = NULL;
- 	}
+diff --git a/drivers/gpu/drm/drm_panel.c b/drivers/gpu/drm/drm_panel.c
+index 560ea57591bd..9c60942de90b 100644
+--- a/drivers/gpu/drm/drm_panel.c
++++ b/drivers/gpu/drm/drm_panel.c
+@@ -7,14 +7,17 @@
+ 
+ #include <linux/backlight.h>
+ #include <linux/debugfs.h>
+ #include <linux/err.h>
+ #include <linux/export.h>
++#include <linux/media-bus-format.h>
+ #include <linux/module.h>
+ #include <linux/of.h>
+ 
+ #include <drm/drm_atomic_helper.h>
++#include <drm/drm_atomic_state_readout.h>
++#include <drm/drm_atomic_state_readout_helper.h>
+ #include <drm/drm_bridge.h>
+ #include <drm/drm_connector.h>
+ #include <drm/drm_crtc.h>
+ #include <drm/drm_encoder.h>
+ #include <drm/drm_managed.h>
+@@ -81,12 +84,35 @@ static int panel_bridge_attach(struct drm_bridge *bridge,
+ 			       struct drm_encoder *encoder,
+ 			       enum drm_bridge_attach_flags flags)
+ {
+ 	struct drm_panel *panel = drm_bridge_to_panel(bridge);
+ 	struct drm_connector *connector = &panel->connector;
++	bool upstream_readout = false;
+ 	int ret;
+ 
++	/*
++	 * drm_bridge_connector_init() picks the connector readout
++	 * provider from the last bridge of the chain carrying
++	 * DRM_BRIDGE_OP_CONNECTOR_HW_READOUT. Only provide the
++	 * fallback readout of a panel bridge when no bridge earlier
++	 * in the chain provides one, as those know the actual link
++	 * state while a panel bridge can only assume the panel is
++	 * enabled.
++	 */
++	drm_for_each_bridge_in_chain(encoder, iter) {
++		if (iter == bridge)
++			break;
++
++		if (iter->ops & DRM_BRIDGE_OP_CONNECTOR_HW_READOUT) {
++			upstream_readout = true;
++			break;
++		}
++	}
++
++	if (!upstream_readout)
++		bridge->ops |= DRM_BRIDGE_OP_CONNECTOR_HW_READOUT;
++
+ 	if (flags & DRM_BRIDGE_ATTACH_NO_CONNECTOR)
+ 		return 0;
+ 
+ 	drm_connector_helper_add(connector,
+ 				 &panel_bridge_connector_helper_funcs);
+@@ -224,10 +250,110 @@ static void panel_bridge_debugfs_init(struct drm_bridge *bridge,
+ 	root = debugfs_create_dir("panel", root);
+ 	if (panel->funcs->debugfs_init)
+ 		panel->funcs->debugfs_init(panel, root);
  }
- EXPORT_SYMBOL(drm_atomic_helper_sro_install_state);
-+
-+/**
-+ * drm_atomic_helper_print_state_mismatch - report a state comparison mismatch
-+ * @p: printer to report through
-+ * @name: human-readable name of the object (e.g. plane or CRTC name)
-+ * @field: name of the mismatching field
-+ * @format: printf-style format string describing the mismatch
+ 
++/*
++ * A panel bridge has no state of its own to read out of the hardware:
++ * reconstruct the bus configuration the atomic helpers negotiate
++ * instead.
 + *
-+ * Helper used by atomic_sro_compare_state implementations and the
-+ * STATE_CHECK_* macros to report a field-level mismatch between the
-+ * committed state and the state read back from hardware.
++ * The panel bridge is always the last bridge of a chain, and the
++ * negotiation picks the first connector display info format as its
++ * output format (or MEDIA_BUS_FMT_FIXED when the display info has
++ * none), which drm_atomic_helper_bridge_propagate_bus_fmt() passes
++ * through to its input. drm_atomic_bridge_propagate_bus_flags()
++ * similarly propagates the display info flags to both its output and
++ * input. This is also what happens when the display info has no
++ * formats yet, like during the initial state creation at probe time
++ * before any mode has been read: the bus configuration then reports
++ * a fixed format, which is harmless as the initial state is never
++ * compared, and every commit negotiates the bus configuration anew.
++ *
++ * The format the negotiation selects can only differ from the first
++ * display info format when the connector reports several formats and
++ * the rest of the bridge chain rejects it, which panel connectors
++ * don't do.
 + */
-+void __printf(4, 5)
-+drm_atomic_helper_print_state_mismatch(struct drm_printer *p,
-+				       const char *name,
-+				       const char *field,
-+				       const char *format, ...)
++static int
++panel_bridge_readout_state(struct drm_bridge *bridge,
++			   struct drm_atomic_sro_state *state,
++			   struct drm_bridge_state *bridge_state,
++			   struct drm_crtc_state *crtc_state,
++			   struct drm_connector_state *conn_state)
 +{
-+	struct va_format vaf;
-+	va_list args;
++	struct drm_connector *connector = conn_state->connector;
++	struct drm_display_info *info = &connector->display_info;
++	u32 format;
 +
-+	va_start(args, format);
-+	vaf.fmt = format;
-+	vaf.va = &args;
++	if (info->num_bus_formats)
++		format = info->bus_formats[0];
++	else
++		format = MEDIA_BUS_FMT_FIXED;
 +
-+	drm_printf(p, "%s configuration mismatch in %s %pV\n", name, field, &vaf);
++	bridge_state->input_bus_cfg.format = format;
++	bridge_state->output_bus_cfg.format = format;
 +
-+	va_end(args);
++	bridge_state->input_bus_cfg.flags = info->bus_flags;
++	bridge_state->output_bus_cfg.flags = info->bus_flags;
++
++	return 0;
 +}
-+EXPORT_SYMBOL(drm_atomic_helper_print_state_mismatch);
-diff --git a/include/drm/drm_atomic_state_readout_helper.h b/include/drm/drm_atomic_state_readout_helper.h
-index 5e230da4b8fe..603fe13a732e 100644
---- a/include/drm/drm_atomic_state_readout_helper.h
-+++ b/include/drm/drm_atomic_state_readout_helper.h
-@@ -1,13 +1,16 @@
- /* SPDX-License-Identifier: GPL-2.0-or-later */
++
++/*
++ * A panel bridge has no way to read the panel state out of the
++ * hardware: assume the panel is enabled whenever its pipeline is.
++ */
++static int
++panel_bridge_connector_readout(struct drm_bridge *bridge,
++			       struct drm_atomic_sro_state *state,
++			       struct drm_connector_state *conn_state)
++{
++	struct drm_connector *connector = conn_state->connector;
++	struct drm_crtc_state *crtc_state;
++	struct drm_encoder *encoder;
++	struct drm_crtc *crtc;
++
++	encoder = bridge->encoder;
++	if (!encoder->funcs || !encoder->funcs->atomic_sro_get_current_crtc)
++		return -ENODEV;
++
++	/* The encoder is disabled, there is nothing to read out. */
++	crtc = encoder->funcs->atomic_sro_get_current_crtc(encoder);
++	if (!crtc)
++		return 0;
++
++	/*
++	 * A readout limited to the objects of a commit doesn't have a
++	 * state for a CRTC that isn't part of it, and a CRTC can't be
++	 * left out of a commit enabling it.
++	 */
++	crtc_state = drm_atomic_sro_get_crtc_state(state, crtc);
++	if (!crtc_state)
++		return 0;
++
++	/* The pipeline is off, there is nothing to read out. */
++	if (!crtc_state->active)
++		return 0;
++
++	crtc_state->encoder_mask |= drm_encoder_mask(encoder);
++	crtc_state->connector_mask |= drm_connector_mask(connector);
++
++	/*
++	 * drm_atomic_set_crtc_for_connector() takes a connector
++	 * reference when setting the crtc pointer, which is later
++	 * released by __drm_atomic_helper_connector_destroy_state().
++	 * The readout bypasses that path, so take the reference
++	 * explicitly.
++	 */
++	drm_connector_get(connector);
++	conn_state->crtc = crtc;
++	conn_state->best_encoder = encoder;
++
++	return 0;
++}
++
+ static const struct drm_bridge_funcs panel_bridge_bridge_funcs = {
+ 	.attach = panel_bridge_attach,
+ 	.detach = panel_bridge_detach,
+ 	.atomic_pre_enable = panel_bridge_atomic_pre_enable,
+ 	.atomic_enable = panel_bridge_atomic_enable,
+@@ -237,10 +363,13 @@ static const struct drm_bridge_funcs panel_bridge_bridge_funcs = {
+ 	.atomic_create_state = drm_atomic_helper_bridge_create_state,
+ 	.atomic_duplicate_state = drm_atomic_helper_bridge_duplicate_state,
+ 	.atomic_destroy_state = drm_atomic_helper_bridge_destroy_state,
+ 	.atomic_get_input_bus_fmts = drm_atomic_helper_bridge_propagate_bus_fmt,
+ 	.debugfs_init = panel_bridge_debugfs_init,
++	.atomic_sro_readout_state = panel_bridge_readout_state,
++	.atomic_sro_compare_state = drm_atomic_helper_bridge_compare_state,
++	.atomic_sro_connector_readout = panel_bridge_connector_readout,
+ };
  
- #ifndef DRM_ATOMIC_SRO_HELPER_H_
- #define DRM_ATOMIC_SRO_HELPER_H_
- 
-+#include <linux/string_choices.h>
-+
- struct drm_atomic_commit;
- struct drm_atomic_sro_state;
- struct drm_device;
-+struct drm_printer;
- 
- int
- drm_atomic_helper_sro_readout_planes_state(struct drm_device *dev,
- 					   struct drm_atomic_sro_state *state,
- 					   struct drm_atomic_commit *commit);
-@@ -31,6 +34,223 @@ struct drm_atomic_sro_state *
- drm_atomic_helper_sro_build_state(struct drm_device *dev,
- 				  struct drm_atomic_commit *commit);
- int drm_atomic_helper_sro_readout_state(struct drm_device *dev);
- void drm_atomic_helper_sro_install_state(struct drm_atomic_sro_state *state);
- 
-+void __printf(4, 5)
-+drm_atomic_helper_print_state_mismatch(struct drm_printer *p,
-+				       const char *name,
-+				       const char *field,
-+				       const char *format, ...);
-+
-+#define STATE_CHECK_BOOL(r, p, n, sa, sb, f)				\
-+	do {								\
-+		static_assert(__same_type(sa->f, sb->f),		\
-+			      __stringify(f) " field types don't match"); \
-+		static_assert(__same_type(sa->f, bool),			\
-+			      __stringify(f) " is not a bool");		\
-+		if (sa->f != sb->f) {					\
-+			drm_atomic_helper_print_state_mismatch(p,	\
-+							       n,	\
-+							       __stringify(f), \
-+							       "expected %s, got %s", \
-+							       str_yes_no(sa->f), \
-+							       str_yes_no(sb->f)); \
-+			r = false;					\
-+		}							\
-+	} while (0)
-+
-+#define STATE_CHECK_DISPLAY_MODE(r, p, n, sa, sb, f)			\
-+	do {								\
-+		static_assert(__same_type(sa->f, sb->f),		\
-+			      __stringify(f) " field types don't match"); \
-+		static_assert(__same_type(sa->f, struct drm_display_mode), \
-+			      __stringify(f) " is not a drm_display_mode structure"); \
-+		if (!drm_mode_equal(&sa->f, &sb->f)) {			\
-+			drm_atomic_helper_print_state_mismatch(p,	\
-+							       n,	\
-+							       __stringify(f), \
-+							       "expected " DRM_MODE_FMT ", got " DRM_MODE_FMT, \
-+							       DRM_MODE_ARG(&sa->f), \
-+							       DRM_MODE_ARG(&sb->f)); \
-+			r = false;					\
-+		}							\
-+	} while (0)
-+
-+#define STATE_CHECK_INFOFRAME(r, p, n, sa, sb, f)			\
-+	do {								\
-+		static_assert(__same_type(sa->f, sb->f),		\
-+			      __stringify(f) " field types don't match"); \
-+		static_assert(__same_type(sa->f, union hdmi_infoframe), \
-+			      __stringify(f) " is not an hdmi_infoframe union"); \
-+		if (memcmp(&sa->f, &sb->f, sizeof(union hdmi_infoframe))) { \
-+			drm_atomic_helper_print_state_mismatch(p,	\
-+							       n,	\
-+							       __stringify(f), \
-+							       "infoframes don't match"); \
-+			r = false;					\
-+		}							\
-+	} while (0)
-+
-+#define STATE_CHECK_FORMAT_INFO(r, p, n, sa, sb, f)			\
-+	do {								\
-+		static_assert(__same_type(sa->f, sb->f),		\
-+			      __stringify(f) " field types don't match"); \
-+		static_assert(__same_type(sa->f, const struct drm_format_info *), \
-+			      __stringify(f) " is not a drm_format_info pointer"); \
-+		if (sa->f != sb->f) {			\
-+			drm_atomic_helper_print_state_mismatch(p,	\
-+							       n,	\
-+							       __stringify(f), \
-+							       "expected %p4cc, got %p4cc", \
-+							       sa->f ? &sa->f->format : NULL, \
-+							       sb->f ? &sb->f->format : NULL); \
-+			r = false;					\
-+		}							\
-+	} while (0)
-+
-+#define STATE_CHECK_PROPERTY_BLOB(r, p, n, sa, sb, f)			\
-+	do {								\
-+		static_assert(__same_type(sa->f, sb->f),		\
-+			      __stringify(f) " field types don't match"); \
-+		static_assert(__same_type(sa->f, struct drm_property_blob *), \
-+			      __stringify(f) " is not a drm_property_blob pointer"); \
-+		if (sa->f != sb->f &&					\
-+		    (!sa->f || !sb->f ||				\
-+		     sa->f->length != sb->f->length ||			\
-+		     memcmp(sa->f->data, sb->f->data, sa->f->length))) { \
-+			drm_atomic_helper_print_state_mismatch(p,	\
-+							       n,	\
-+							       __stringify(f), \
-+							       "blobs don't match"); \
-+			r = false;					\
-+		}							\
-+	} while (0)
-+
-+#define STATE_CHECK_PTR(r, p, n, sa, sb, f)				\
-+	do {								\
-+		static_assert(__same_type(sa->f, sb->f),		\
-+			      __stringify(f) " field types don't match"); \
-+		if (sa->f != sb->f) {					\
-+			drm_atomic_helper_print_state_mismatch(p,	\
-+							       n,	\
-+							       __stringify(f), \
-+							       "expected %p, got %p",	\
-+							       sa->f, sb->f); \
-+			r = false;					\
-+		}							\
-+	} while (0)
-+
-+#define STATE_CHECK_S32(r, p, n, sa, sb, f)				\
-+	do {								\
-+		static_assert(__same_type(sa->f, sb->f),		\
-+			      __stringify(f) " field types don't match"); \
-+		static_assert(__same_type(sa->f, (s32)0),		\
-+			      __stringify(f) " is not an s32");		\
-+		if (sa->f != sb->f) {					\
-+			drm_atomic_helper_print_state_mismatch(p,	\
-+							       n,	\
-+							       __stringify(f), \
-+							       "expected %d, got %d", \
-+							       sa->f, sb->f); \
-+			r = false;					\
-+		}							\
-+	} while (0)
-+
-+#define STATE_CHECK_S32_X(r, p, n, sa, sb, f)				\
-+	do {								\
-+		static_assert(__same_type(sa->f, sb->f),		\
-+			      __stringify(f) " field types don't match"); \
-+		static_assert(__same_type(sa->f, (s32)0),		\
-+			      __stringify(f) " is not an s32");		\
-+		if (sa->f != sb->f) {					\
-+			drm_atomic_helper_print_state_mismatch(p,	\
-+							       n,	\
-+							       __stringify(f), \
-+							       "expected %x, got %x", \
-+							       sa->f, sb->f); \
-+			r = false;					\
-+		}							\
-+	} while (0)
-+
-+#define STATE_CHECK_U16(r, p, n, sa, sb, f)				\
-+	do {								\
-+		static_assert(__same_type(sa->f, sb->f),		\
-+			      __stringify(f) " field types don't match"); \
-+		static_assert(__same_type(sa->f, (u16)0),		\
-+			      __stringify(f) " is not a u16");		\
-+		if (sa->f != sb->f) {					\
-+			drm_atomic_helper_print_state_mismatch(p,	\
-+							       n,	\
-+							       __stringify(f), \
-+							       "expected %u, got %u", \
-+							       sa->f, sb->f); \
-+			r = false;					\
-+		}							\
-+	} while (0)
-+
-+#define STATE_CHECK_U32(r, p, n, sa, sb, f)				\
-+	do {								\
-+		static_assert(__same_type(sa->f, sb->f),		\
-+			      __stringify(f) " field types don't match"); \
-+		static_assert(__same_type(sa->f, (u32)0),		\
-+			      __stringify(f) " is not a u32");		\
-+		if (sa->f != sb->f) {					\
-+			drm_atomic_helper_print_state_mismatch(p,	\
-+							       n,	\
-+							       __stringify(f), \
-+							       "expected %u, got %u", \
-+							       sa->f, sb->f); \
-+			r = false;					\
-+		}							\
-+	} while (0)
-+
-+#define STATE_CHECK_U32_16_16(r, p, n, sa, sb, f)			\
-+	do {								\
-+		static_assert(__same_type(sa->f, sb->f),		\
-+			      __stringify(f) " field types don't match"); \
-+		static_assert(__same_type(sa->f, (u32)0),		\
-+			      __stringify(f) " is not a u32");		\
-+		if (sa->f != sb->f) {					\
-+			drm_atomic_helper_print_state_mismatch(p,	\
-+							       n,	\
-+							       __stringify(f), \
-+							       "expected %d.%06u, got %d.%06u", \
-+							       sa->f >> 16, ((sa->f & 0xffff) * 15625) >> 10, \
-+							       sb->f >> 16, ((sb->f & 0xffff) * 15625) >> 10); \
-+			r = false;					\
-+		}							\
-+	} while (0)
-+
-+#define STATE_CHECK_U32_X(r, p, n, sa, sb, f)				\
-+	do {								\
-+		static_assert(__same_type(sa->f, sb->f),		\
-+			      __stringify(f) " field types don't match"); \
-+		static_assert(__same_type(sa->f, (u32)0),		\
-+			      __stringify(f) " is not a u32");		\
-+		if (sa->f != sb->f) {					\
-+			drm_atomic_helper_print_state_mismatch(p,	\
-+							       n,	\
-+							       __stringify(f), \
-+							       "expected %08x, got %08x", \
-+							       sa->f, sb->f); \
-+			r = false;					\
-+		}							\
-+	} while (0)
-+
-+#define STATE_CHECK_U64(r, p, n, sa, sb, f)				\
-+	do {								\
-+		static_assert(__same_type(sa->f, sb->f),		\
-+			      __stringify(f) " field types don't match"); \
-+		static_assert(__same_type(sa->f, (u64)0),		\
-+			      __stringify(f) " is not a u64");		\
-+		if (sa->f != sb->f) {					\
-+			drm_atomic_helper_print_state_mismatch(p,	\
-+							       n,	\
-+							       __stringify(f), \
-+							       "expected %llu, got %llu", \
-+							       sa->f, sb->f); \
-+			r = false;					\
-+		}							\
-+	} while (0)
-+
- #endif /* DRM_ATOMIC_SRO_HELPER_H_ */
+ /**
+  * drm_bridge_is_panel - Checks if a drm_bridge is a panel_bridge.
+  *
 
 -- 
 2.56.1
