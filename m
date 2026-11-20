@@ -2,103 +2,81 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CE245606A330
-	for <dri-devel@archiver.kernel.org>; Fri, 20 Nov 2026 15:58:47 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A0E82606A33E
+	for <dri-devel@archiver.kernel.org>; Fri, 20 Nov 2026 16:06:19 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.a=rsa-sha256 header.s=susede2_rsa header.b=LVloF5Ph;
-	dkim=pass header.d=suse.de header.i=@suse.de header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=hdfXVYss;
-	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.a=rsa-sha256 header.s=susede2_rsa header.b=FMm+sDTb;
-	dkim=neutral header.d=suse.de header.i=@suse.de header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=3ood98qN
+	dkim=pass (2048-bit key) header.d=igalia.com header.i=@igalia.com header.a=rsa-sha256 header.s=20170329 header.b=EcVNsC3w
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 2AD0D10E93A;
-	Fri, 20 Nov 2026 15:58:37 +0000 (UTC)
-Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.223.130])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 94DC0112B92
- for <dri-devel@lists.freedesktop.org>; Fri, 20 Nov 2026 15:58:26 +0000 (UTC)
-Received: from imap1.dmz-prg2.suse.org (imap1.dmz-prg2.suse.org
- [IPv6:2a07:de40:b281:104:10:150:64:97])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
- (No client certificate requested)
- by smtp-out1.suse.de (Postfix) with ESMTPS id EB00C2258E;
- Fri, 20 Nov 2026 15:58:24 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
- t=1795190305; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version: content-transfer-encoding:content-transfer-encoding;
- bh=0hnuUq5U6ulpxWIKDfylKBbb7qMsyHDP/g8UrtzG0cc=;
- b=LVloF5Ph1ridCWOcv3hHQGDNMNvqy+2ERuwqO42C2X63IOp5LwL4MtHQGd8B4lWNVHP2jo
- tRH4ztfuwerOCZn4pUpRHUOx1GMZ0+UevYIDVXqAvtZZJT1Re3OoOBS1kujauHosqbm6/q
- a8zRYQi8X1oynwbQF5BsVy07ZTV3/g8=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_ed25519; t=1795190305;
- h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version: content-transfer-encoding:content-transfer-encoding;
- bh=0hnuUq5U6ulpxWIKDfylKBbb7qMsyHDP/g8UrtzG0cc=;
- b=hdfXVYss/zpHLS1ViHEH7Yqqls+lsdPiIWjLljS01HOcgKUITnq/O0tEiPEs1v/HqiuYLb
- QnQzaAZu8PkLZ/Aw==
-Authentication-Results: smtp-out1.suse.de;
- dkim=pass header.d=suse.de header.s=susede2_rsa header.b=FMm+sDTb;
- dkim=pass header.d=suse.de header.s=susede2_ed25519 header.b=3ood98qN
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
- t=1795190304; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version: content-transfer-encoding:content-transfer-encoding;
- bh=0hnuUq5U6ulpxWIKDfylKBbb7qMsyHDP/g8UrtzG0cc=;
- b=FMm+sDTbEA9wH+NiVby8McQfFIi+n2Kdq1fp+vipQXaMEcJuudkMK9Kkz2RdfjwkVpvRcP
- EEMGrMMq45t5nB3SnFxSL1Pvm+G+eMPJndWCQ8asIhqEAFaLKZLd1FsnC0oQ+Vl4FQs+S9
- 3zVY7TJMLHBjLCfiCbjtQRpxmkALkok=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_ed25519; t=1795190304;
- h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version: content-transfer-encoding:content-transfer-encoding;
- bh=0hnuUq5U6ulpxWIKDfylKBbb7qMsyHDP/g8UrtzG0cc=;
- b=3ood98qNeHrV1GEyVo5U31EtjN78yaA6wRyMUMD80qZ/qAp6DVUDoQOBsZ4zOEZiOCY3y1
- WafwAtk4uhIcL+Dg==
-Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
- (No client certificate requested)
- by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 8BB841348F;
- Fri, 20 Nov 2026 15:58:24 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
- by imap1.dmz-prg2.suse.org with ESMTPSA id Dx6oGiBuAGtTCQAAD6G6ig
- (envelope-from <tzimmermann@suse.de>); Fri, 20 Nov 2026 15:58:24 +0000
-From: Thomas Zimmermann <tzimmermann@suse.de>
-To: jfalempe@redhat.com, airlied@redhat.com, maarten.lankhorst@linux.intel.com,
- mripard@kernel.org, simona@ffwll.ch, airlied@gmail.com,
- dri-devel@lists.freedesktop.org
-Cc: Thomas Zimmermann <tzimmermann@suse.de>,
-	stable@vger.kernel.org
-Subject: [PATCH] drm/ast: Add an option to disable Write-Combine
-Date: Fri, 20 Nov 2026 16:57:58 +0100
-Message-ID: <20261120155821.119377-1-tzimmermann@suse.de>
-X-Mailer: git-send-email 2.56.0
+	by gabe.freedesktop.org (Postfix) with ESMTP id 025BF112B94;
+	Fri, 20 Nov 2026 16:06:14 +0000 (UTC)
+Received: from fanzine2.igalia.com (fanzine2.igalia.com [213.97.179.56])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 7C4E8112B94
+ for <dri-devel@lists.freedesktop.org>; Fri, 20 Nov 2026 16:06:07 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com; 
+ s=20170329;
+ h=Content-Transfer-Encoding:Content-Type:From:Cc:To:Subject:
+ MIME-Version:Date:Message-ID:From:Reply-To;
+ bh=cB+xUv7w1KY1jdh5E4wnq+1DubRDKcjagVPfCrGkLyM=; t=1795190767; x=2110550767; 
+ b=EcVNsC3wrlEduteDbOA0h/hcb98aB6LE8r6RDh5sd64Vi3PqfFrJp8Q5CKD8Vrpw+QaTLY6B5as
+ W12jpfPyYRzzYd9LUZJDBooG7n5eNa9rB1GbL/scqRWfuRPYCTyfQXdCjVEd2JBqUK7q4STxl2gUj
+ TCkIwcVhKDcjMRmlt/5ilsrdAM06YB0DkCOn5DghXyFIqnJz71NWB8Gyu74UxoLH1zNiWJiTHkl0t
+ feZBr2+1CulbyJ2ZITX2nv/GefUHBEMxnSnpfy5ZKIJ3Y6XAp2Huud2oFk8cX/YfeHWlugcr/p80v
+ s4FVm2+6EX82zFglxKkemDYyweHxkr/LZmIQ==;
+Received: from [179.105.94.163] (helo=[192.168.0.4])
+ by fanzine2.igalia.com with esmtpsa 
+ (Cipher TLS1.3:ECDHE_X25519__RSA_PSS_RSAE_SHA256__AES_128_GCM:128) (Exim)
+ id 1xUR7e-00000001w50-2e5Q; Fri, 20 Nov 2026 17:05:58 +0100
+Message-ID: <d2aa7dd9-367a-4b6f-8dee-3913b8e5f6a2@igalia.com>
+Date: Fri, 20 Nov 2026 13:05:50 -0300
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 0/6] drm/panfrost,panthor: Refuse to export WB_MMAP BOs
+To: Boris Brezillon <boris.brezillon@collabora.com>
+Cc: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ Faith Ekstrand <faith.ekstrand@collabora.com>, Rob Herring
+ <robh@kernel.org>, Steven Price <steven.price@arm.com>,
+ =?UTF-8?Q?Adri=C3=A1n_Larumbe?= <adrian.larumbe@collabora.com>,
+ Liviu Dudau <liviu.dudau@arm.com>, Akash Goel <akash.goel@arm.com>,
+ Karunika Choo <karunika.choo@arm.com>,
+ Lukas Zapolskas <lukas.zapolskas@arm.com>,
+ Chris Diamand <chris.diamand@arm.com>,
+ Daniel Almeida <daniel.almeida@collabora.com>,
+ Alice Ryhl <aliceryhl@google.com>, kernel-dev@igalia.com,
+ dri-devel@lists.freedesktop.org, rust-for-linux@vger.kernel.org
+References: <20261119-pan-drop-dma-buf-hooks-v1-0-6c6f1629e7f9@igalia.com>
+ <20261120105654.63e1c254@fedora1.home>
+From: =?UTF-8?Q?Ma=C3=ADra_Canal?= <mcanal@igalia.com>
+Content-Language: en-US
+Autocrypt: addr=mcanal@igalia.com; keydata=
+ xsBNBGcCwywBCADgTji02Sv9zjHo26LXKdCaumcSWglfnJ93rwOCNkHfPIBll85LL9G0J7H8
+ /PmEL9y0LPo9/B3fhIpbD8VhSy9Sqz8qVl1oeqSe/rh3M+GceZbFUPpMSk5pNY9wr5raZ63d
+ gJc1cs8XBhuj1EzeE8qbP6JAmsL+NMEmtkkNPfjhX14yqzHDVSqmAFEsh4Vmw6oaTMXvwQ40
+ SkFjtl3sr20y07cJMDe++tFet2fsfKqQNxwiGBZJsjEMO2T+mW7DuV2pKHr9aifWjABY5EPw
+ G7qbrh+hXgfT+njAVg5+BcLz7w9Ju/7iwDMiIY1hx64Ogrpwykj9bXav35GKobicCAwHABEB
+ AAHNIE1hw61yYSBDYW5hbCA8bWNhbmFsQGlnYWxpYS5jb20+wsCRBBMBCAA7FiEE+ORdfQEW
+ dwcppnfRP/MOinaI+qoFAmcCwywCGwMFCwkIBwICIgIGFQoJCAsCBBYCAwECHgcCF4AACgkQ
+ P/MOinaI+qoUBQgAqz2gzUP7K3EBI24+a5FwFlruQGtim85GAJZXToBtzsfGLLVUSCL3aF/5
+ O335Bh6ViSBgxmowIwVJlS/e+L95CkTGzIIMHgyUZfNefR2L3aZA6cgc9z8cfow62Wu8eXnq
+ GM/+WWvrFQb/dBKKuohfBlpThqDWXxhozazCcJYYHradIuOM8zyMtCLDYwPW7Vqmewa+w994
+ 7Lo4CgOhUXVI2jJSBq3sgHEPxiUBOGxvOt1YBg7H9C37BeZYZxFmU8vh7fbOsvhx7Aqu5xV7
+ FG+1ZMfDkv+PixCuGtR5yPPaqU2XdjDC/9mlRWWQTPzg74RLEw5sz/tIHQPPm6ROCACFls7A
+ TQRnAsMsAQgAxTU8dnqzK6vgODTCW2A6SAzcvKztxae4YjRwN1SuGhJR2isJgQHoOH6oCItW
+ Xc1CGAWnci6doh1DJvbbB7uvkQlbeNxeIz0OzHSiB+pb1ssuT31Hz6QZFbX4q+crregPIhr+
+ 0xeDi6Mtu+paYprI7USGFFjDUvJUf36kK0yuF2XUOBlF0beCQ7Jhc+UoI9Akmvl4sHUrZJzX
+ LMeajARnSBXTcig6h6/NFVkr1mi1uuZfIRNCkxCE8QRYebZLSWxBVr3h7dtOUkq2CzL2kRCK
+ T2rKkmYrvBJTqSvfK3Ba7QrDg3szEe+fENpL3gHtH6h/XQF92EOulm5S5o0I+ceREwARAQAB
+ wsB2BBgBCAAgFiEE+ORdfQEWdwcppnfRP/MOinaI+qoFAmcCwywCGwwACgkQP/MOinaI+qpI
+ zQf+NAcNDBXWHGA3lgvYvOU31+ik9bb30xZ7IqK9MIi6TpZqL7cxNwZ+FAK2GbUWhy+/gPkX
+ it2gCAJsjo/QEKJi7Zh8IgHN+jfim942QZOkU+p/YEcvqBvXa0zqW0sYfyAxkrf/OZfTnNNE
+ Tr+uBKNaQGO2vkn5AX5l8zMl9LCH3/Ieaboni35qEhoD/aM0Kpf93PhCvJGbD4n1DnRhrxm1
+ uEdQ6HUjWghEjC+Jh9xUvJco2tUTepw4OwuPxOvtuPTUa1kgixYyG1Jck/67reJzMigeuYFt
+ raV3P8t/6cmtawVjurhnCDuURyhUrjpRhgFp+lW8OGr6pepHol/WFIOQEg==
+In-Reply-To: <20261120105654.63e1c254@fedora1.home>
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
-X-Rspamd-Queue-Id: EB00C2258E
-X-Spam-Level: 
-X-Rspamd-Server: rspamd2.dmz-prg2.suse.org
-X-Rspamd-Action: no action
-X-Spamd-Result: default: False [-12.01 / 50.00]; SUSE_INTERNAL_BYPASS(-9.00)[];
- BAYES_HAM(-3.00)[100.00%]; MID_CONTAINS_FROM(1.00)[];
- NEURAL_HAM_LONG(-1.00)[-1.000]; R_MISSING_CHARSET(0.50)[];
- R_DKIM_ALLOW(-0.20)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
- NEURAL_HAM_SHORT(-0.20)[-1.000]; MIME_GOOD(-0.10)[text/plain];
- MX_GOOD(-0.01)[]; MIME_TRACE(0.00)[0:+];
- TO_MATCH_ENVRCPT_ALL(0.00)[];
- DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
- URIBL_BLOCKED(0.00)[suse.de:dkim,suse.de:email,imap1.dmz-prg2.suse.org:rdns,imap1.dmz-prg2.suse.org:helo];
- RBL_SPAMHAUS_BLOCKED_OPENRESOLVER(0.00)[2a07:de40:b281:104:10:150:64:97:from]; 
- ARC_NA(0.00)[];
- FREEMAIL_TO(0.00)[redhat.com,linux.intel.com,kernel.org,ffwll.ch,gmail.com,lists.freedesktop.org];
- RCVD_TLS_ALL(0.00)[]; DKIM_TRACE(0.00)[suse.de:+];
- RCVD_COUNT_TWO(0.00)[2]; FROM_EQ_ENVFROM(0.00)[];
- FROM_HAS_DN(0.00)[]; TO_DN_SOME(0.00)[];
- DBL_BLOCKED_OPENRESOLVER(0.00)[imap1.dmz-prg2.suse.org:rdns,imap1.dmz-prg2.suse.org:helo,suse.de:dkim,suse.de:email];
- RECEIVED_SPAMHAUS_BLOCKED_OPENRESOLVER(0.00)[2a07:de40:b281:106:10:150:64:167:received];
- RCPT_COUNT_SEVEN(0.00)[9]; RCVD_VIA_SMTP_AUTH(0.00)[];
- FREEMAIL_ENVRCPT(0.00)[gmail.com]
-X-Spam-Score: -12.01
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -110,81 +88,58 @@ List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-18.8 required=3.0 tests=BAYES_00,DKIM_SIGNED,
+X-Spam-Status: No, score=-7.3 required=3.0 tests=BAYES_00,DKIM_SIGNED,
 	DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
-	INCLUDES_CR_TRAILER,INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,
-	SPF_PASS,USER_AGENT_GIT autolearn=unavailable autolearn_force=no
-	version=4.0.1
+	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,USER_AGENT_SANE_1
+	autolearn=no autolearn_force=no version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-WC-mapped video memory presumably has PCI I/O bursts that interfere
-with real-time tasks. Seen on AST2600 hardware.
+Hi Boris,
 
-Add an Kconfig option to ast for vmapping the video memory uncached
-if CONFIG_RT=y. If set, video-memory access is slower, but avoids
-I/O bursts on the PCI us. Mirrors a similar change to mgag200 in
-commit b593ea940623 ("drm/mgag200: Add an option to disable
-Write-Combine").
+On 20/11/26 06:56, Boris Brezillon wrote:
+>>
+>> Still, if you think this would be problematic, I can drop patches 3 and 6.
+> 
+> I was about to suggest forcing uncached CPU mappings for shareable BOs
+> on systems where the GPU is IO coherent, but there's actually no way we
+> can know whether a BO will be exported on not on Panfrost (on Panthor
+> we at least have this exclusive_vm thing that gives this guarantee). So
+> there's actually no way around it, it's either going back to a "broken"
+> state (broken in the sense it's not doing what it's supposed to, but no
+> one really complained in the past) or keep this sync logic to try to do
+> our best (even if it's not entirely safe, especially if the importer
+> does crazy stuff like pretending to be UMA when it's not).
+> 
+> Sorry for not having a better answer than: it might be okay, but it
+> looks wrong. Every time I tried to understand what's expected from us
+> for this shared buffer synchronization, I ended up more confused than
+> before...
+> 
 
-Signed-off-by: Thomas Zimmermann <tzimmermann@suse.de>
-Fixes: f2fa5a99ca81 ("drm/ast: Convert ast to SHMEM")
-Cc: <stable@vger.kernel.org> # v6.2+
----
- drivers/gpu/drm/ast/Kconfig  |  9 +++++++++
- drivers/gpu/drm/ast/ast_mm.c | 13 +++++++++++++
- 2 files changed, 22 insertions(+)
+That makes two of us :)
 
-diff --git a/drivers/gpu/drm/ast/Kconfig b/drivers/gpu/drm/ast/Kconfig
-index 242fbccdf844..f2c99e99b5b4 100644
---- a/drivers/gpu/drm/ast/Kconfig
-+++ b/drivers/gpu/drm/ast/Kconfig
-@@ -14,3 +14,12 @@ config DRM_AST
- 	 is bound to the driver. These GPUs are commonly found
- 	 in server chipsets.
- 
-+config DRM_AST_DISABLE_WRITECOMBINE
-+	bool "Disable Write Combine mapping of VRAM"
-+	depends on DRM_AST && (PREEMPT_RT || COMPILE_TEST)
-+	help
-+	  The VRAM of AST GPUs is mapped with Write-Combine to improve
-+	  performances. This can interfere with real-time tasks; even if they
-+	  are running on other CPU cores than the graphics output.
-+	  Enable this option only if you run real-time tasks on a server with
-+	  Aspeed graphics.
-diff --git a/drivers/gpu/drm/ast/ast_mm.c b/drivers/gpu/drm/ast/ast_mm.c
-index 0bc140319464..cc882d2c172d 100644
---- a/drivers/gpu/drm/ast/ast_mm.c
-+++ b/drivers/gpu/drm/ast/ast_mm.c
-@@ -74,6 +74,18 @@ int ast_mm_init(struct ast_device *ast)
- {
- 	struct drm_device *dev = &ast->base;
- 	struct pci_dev *pdev = to_pci_dev(dev->dev);
-+#if defined(CONFIG_DRM_AST_DISABLE_WRITECOMBINE)
-+	resource_size_t base;
-+	u32 vram_size;
-+
-+	base = pci_resource_start(pdev, 0);
-+
-+	vram_size = ast_get_vram_size(ast);
-+
-+	ast->vram = devm_ioremap(dev->dev, base, vram_size);
-+	if (!ast->vram)
-+		return -ENOMEM;
-+#else
- 	resource_size_t base, size;
- 	u32 vram_size;
- 
-@@ -89,6 +101,7 @@ int ast_mm_init(struct ast_device *ast)
- 	ast->vram = devm_ioremap_wc(dev->dev, base, vram_size);
- 	if (!ast->vram)
- 		return -ENOMEM;
-+#endif
- 
- 	ast->vram_base = base;
- 	ast->vram_size = vram_size;
+I'm okay dropping patches 3 and 6. I decided to send them as suggested
+in our last discussion, but when I analyzed the IO-coherent case, I also
+had the impression that this could be a step back.
 
-base-commit: 7d502136b31169f6b5575f7f89c3da60cdf7891d
--- 
-2.56.0
+V3D doesn't have the IO coherent case, so I can move forward with only
+Faith's drm_gem_shmem_sync() helper and I won't need the custom
+dma_buf_ops.
+
+If possible, could you take a look at patches 1-2 and 4-5? I'd
+appreciate it.
+
+>>
+>> The Panthor changes were tested on hardware, but Panfrost changes were
+>> only compile-tested.
+> 
+> Could you prepare a custom gfx-ci kernel [1] so we can check that mesa
+> CI is not regressed by this change? I know none of the tests in mesa CI
+> would normally hit the removed logic, but better safe than sorry.
+
+Sure, I'll test the series on Mesa CI (without patches 3 and 6).
+
+Best regards,
+- Maíra
 
