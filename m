@@ -2,39 +2,40 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 882D960A380D
-	for <dri-devel@archiver.kernel.org>; Fri, 20 Nov 2026 14:58:51 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3FBB660A3816
+	for <dri-devel@archiver.kernel.org>; Fri, 20 Nov 2026 14:58:52 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=mSJcOngF
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=OKllHen3
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id D58ED112B6A;
-	Fri, 20 Nov 2026 14:58:45 +0000 (UTC)
-Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id B935C112B66
- for <dri-devel@lists.freedesktop.org>; Fri, 20 Nov 2026 14:58:25 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 035BF112B6B;
+	Fri, 20 Nov 2026 14:58:46 +0000 (UTC)
+Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 3693E112B68
+ for <dri-devel@lists.freedesktop.org>; Fri, 20 Nov 2026 14:58:37 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by tor.source.kernel.org (Postfix) with ESMTP id 3D94962C9F;
- Fri, 20 Nov 2026 14:58:25 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id AC3091F00A00;
- Fri, 20 Nov 2026 14:58:24 +0000 (UTC)
+ by sea.source.kernel.org (Postfix) with ESMTP id 1E31A46C14;
+ Fri, 20 Nov 2026 14:58:37 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id BD02A1F000C6;
+ Fri, 20 Nov 2026 14:58:36 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1795186704;
- bh=jIxmtd9iZIt0rb0n6X/c8Zg9JQpUevuLYYf4wsCOBBw=;
+ s=k20260515; t=1795186717;
+ bh=tm1WIg0O1FFv6Tly0Qt5Lzt9aOxoUsNmPJ767y2Zuf0=;
  h=From:Date:Subject:References:In-Reply-To:To:Cc;
- b=mSJcOngFEB45cFdlj6UIQPQX588Dn990Jn4xGTO90vpyV9/AbuFQK05YRH4nwwG2A
- 981zvknFMX+1c0Gga1/hh6q1DiILhDj6j699haHxzDixvoz/IJMpv0KRWwxCWOl69c
- o4QWHaHPE1ujDs19rTOJqvRefvSdU1Whd1fkOET1Ta1d5FR/zdpkP+2FEuHx2FQ8vW
- hi9tOZQs6dPfhaRUgf4SrHl4v2ldnw2NEaW6svQVn5RsxantEDdoDYK9SLXgmvmXTu
- PMNBrrsyVPfXR1Lz+0XBKH091s0+2DI7ZEIXVJJdTLSr/xUZfcXfcIrw0gAauXnaEb
- cLVG16s1Vi9xg==
+ b=OKllHen3/BRHO8tIIFT0wGvq/Upr6By1pPTklhPNrfJ12T2gemm8kkrymzNRt64H1
+ hH32b775X3zTl3PwiHhrqzdo0Eg2RE6F800dAFIZF/WIfXJLi/HEBuJrd22JBGZE8H
+ n9Ok7WEXdgH5xkv5q2dSJeHgah/7cdLNa5i6MRcLAt+XFxLtvPe8Ze20Kmgu+YgRTW
+ Nro44ibddHnCLy7vj/Llb2rKKRUMLIbHhnmNi5oxwE6UenpCXR6Y6qiXOaNB2ad2fn
+ OCpbwcW/zTSsAhaRykm7fq/X90z+LMLFIMYN83RGOo/QGHYvV/MDYljGx2SvxnzR0K
+ JfVJ0gNbqXD1w==
 From: "Rob Herring (Arm)" <robh@kernel.org>
-Date: Fri, 20 Nov 2026 08:57:36 -0600
-Subject: [PATCH v5 12/19] accel: ethosu: Restrict dynamic IFM2 weights
+Date: Fri, 20 Nov 2026 08:57:40 -0600
+Subject: [PATCH v5 16/19] accel: ethosu: Ensure cmd stream is multiple of 4
+ bytes
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20261120-ethosu-fixes-v5-12-52d459acdb84@kernel.org>
+Message-Id: <20261120-ethosu-fixes-v5-16-52d459acdb84@kernel.org>
 References: <20261120-ethosu-fixes-v5-0-52d459acdb84@kernel.org>
 In-Reply-To: <20261120-ethosu-fixes-v5-0-52d459acdb84@kernel.org>
 To: Tomeu Vizoso <tomeu@tomeuvizoso.net>, Oded Gabbay <ogabbay@kernel.org>, 
@@ -59,39 +60,57 @@ X-Spam-Status: No, score=-18.8 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-The validator bounds dynamic IFM2 weights as a 1x1 weight matrix, but
-did not enforce the corresponding kernel shape. A larger crafted kernel
-could make the NPU access beyond the validated IFM2 feature map.
+The command-stream validator consumes 32-bit words, so reject empty or
+unaligned streams at that boundary. This also prevents QSIZE from
+receiving an unvalidated trailing byte.
 
-Reject dynamic-weight convolutions whose kernel is not 1x1.
+Check that the second word of a CMD1 command is within the declared
+stream before reading it from userspace. A word-aligned stream can still
+end with the first word of a two-word command. The old ordering read
+beyond the supplied size and could return -EFAULT instead of rejecting
+the truncated command with -EINVAL.
 
 Fixes: 5a5e9c0228e6 ("accel: Add Arm Ethos-U NPU driver")
 Cc: stable@vger.kernel.org
 Signed-off-by: Rob Herring (Arm) <robh@kernel.org>
 ---
 v5:
- - No changes.
+ - Also check length before get_user() access
 
-v2:
- - new patch
+v4:
+ - New patch
 ---
- drivers/accel/ethosu/ethosu_gem.c | 3 +++
- 1 file changed, 3 insertions(+)
+ drivers/accel/ethosu/ethosu_gem.c | 7 ++++---
+ 1 file changed, 4 insertions(+), 3 deletions(-)
 
 diff --git a/drivers/accel/ethosu/ethosu_gem.c b/drivers/accel/ethosu/ethosu_gem.c
-index e3cd28c02e81..1d2bc5d4a37a 100644
+index ff89cfdb4772..fc31372a2c08 100644
 --- a/drivers/accel/ethosu/ethosu_gem.c
 +++ b/drivers/accel/ethosu/ethosu_gem.c
-@@ -606,6 +606,9 @@ static int calc_sizes(struct drm_device *ddev,
- 		    !cmd_state_reg_is_set(st, NPU_SET_IFM_PAD_RIGHT) ||
- 		    !cmd_state_reg_is_set(st, NPU_SET_IFM_PAD_BOTTOM))
- 			return -EINVAL;
-+		/* Dynamic IFM2 weights are only supported for 1x1 convolutions. */
-+		if (ifm2 && (st->ifm.width || st->ifm.height[2]))
-+			return -EINVAL;
- 		u32 stride_y = ((st->ifm.stride_kernel >> 8) & 0x2) +
- 			((st->ifm.stride_kernel >> 1) & 0x1) + 1;
- 		u32 stride_x = ((st->ifm.stride_kernel >> 5) & 0x2) +
+@@ -977,6 +977,8 @@ static int ethosu_gem_cmdstream_copy_and_validate(struct drm_device *ddev,
+ 
+ 	if (!info)
+ 		return -ENOMEM;
++	if (!size || size & 3)
++		return -EINVAL;
+ 	info->cmd_size = size;
+ 
+ 	cmd_state_init(&st);
+@@ -997,12 +999,11 @@ static int ethosu_gem_cmdstream_copy_and_validate(struct drm_device *ddev,
+ 		param = cmds[0] >> 16;
+ 
+ 		if (cmd & NPU_CMD_CTRL_CMD1) {
++			if (++i >= size / 4)
++				return -EINVAL;
+ 			if (get_user(cmds[1], ucmds++))
+ 				return -EFAULT;
+ 
+-			i++;
+-			if (i >= size / 4)
+-				return -EINVAL;
+ 			bocmds[i] = cmds[1];
+ 			addr = cmd_to_addr(cmds);
+ 		}
 
 -- 
 2.53.0
