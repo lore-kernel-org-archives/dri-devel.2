@@ -2,36 +2,37 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 72B11606A326
-	for <dri-devel@archiver.kernel.org>; Fri, 20 Nov 2026 01:41:02 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 23529606A325
+	for <dri-devel@archiver.kernel.org>; Fri, 20 Nov 2026 01:41:08 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=W0YUc57e
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=mPjsVoOv
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id DA13010E8C7;
-	Fri, 20 Nov 2026 01:40:56 +0000 (UTC)
-Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 09FD810E8D4
- for <dri-devel@lists.freedesktop.org>; Fri, 20 Nov 2026 01:40:47 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 61FB210E8D4;
+	Fri, 20 Nov 2026 01:41:02 +0000 (UTC)
+Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 80E1610E8C7
+ for <dri-devel@lists.freedesktop.org>; Fri, 20 Nov 2026 01:40:51 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id BFE0F43651;
- Fri, 20 Nov 2026 01:40:46 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 152CF1F000CF;
- Fri, 20 Nov 2026 01:40:45 +0000 (UTC)
+ by tor.source.kernel.org (Postfix) with ESMTP id 8496160D9F;
+ Fri, 20 Nov 2026 01:40:50 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id A48EC1F000C6;
+ Fri, 20 Nov 2026 01:40:48 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1795138846;
- bh=XHUsb0Xtaw6Jq3ZXOlI1gdrz1ttBLZ57v7PE2vNJerY=;
+ s=k20260515; t=1795138850;
+ bh=UNYBiOhAD+30znGjPejLZJPRdYr6/sqO+OtQ52jw+6k=;
  h=Subject:From:To:Cc:In-Reply-To:References:Date;
- b=W0YUc57edZeG2Y6/hqlHJhhl41/gafd+T0NW3lQi3zCbK0OQ7sBEJhGlifHaujcie
- EITdRwmzmgDZgklRGPDMDDcBM1rIrLt0Hd05C678Wc18jURvd8orYq+S0Dohsn/r9z
- X9hnFDED24ktVwgAOH55wtKm6YhHipDka8rjRx1zeYjdHMcJUaFSnpEzgdmpbzPsvk
- tpCCUBVoIqku91yz5lbyxeQSw3OuyMNqy1WTu64HvbGY2+jr4b0Othq9u5ekumaZoT
- OQp0FtZMvmFBIvokuV2tMussXvosFMgj5TkQipTvmEJYSaco6vltRTb1bKEukpXNpn
- eTAd+jeSii/OQ==
+ b=mPjsVoOv+gyomx2nkUJ4gfXTECNpfs5wubWv4LBWT7r0aOiMaRqYeG5ZVChyVtO2K
+ bLpyRDUr98Io9WqgybKFqsLehTGnCTwWSPELRLnqacSzqL4Z5NLDlEzTrGl9iATzxh
+ jN4Nh7bMMmbylRorj69iyvun/dpZc95nam8RKhXUnBOnG9x1/udORrrynW+j2WJ9Tf
+ EiTZZCI8I3jWTlFiPonHcW+KngD34tcF6LtLGpxm+6gcw2xEwi2wuhVm3PRhMDrCZq
+ jj9fkEs31b9b01QNqei7QmfcSZZIjZRGbwLYjATdDFDixrc3/gpTtpMuTWjqdXcUcM
+ vxI05YqsG3JCQ==
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Subject: Re: [PATCH 2/6] clk: Add dev_clk_get_from_provider()
+Subject: Re: [PATCH 4/6] [RFT] drm/rockchip: dw_hdmi: Convert to
+ dev_clk_get_from_provider()
 From: Brian Masney <masneyb@kernel.org>
 To: Geert Uytterhoeven <geert+renesas@glider.be>
 Cc: Aaro Koskinen <aaro.koskinen@iki.fi>, 
@@ -46,19 +47,19 @@ Cc: Aaro Koskinen <aaro.koskinen@iki.fi>,
  linux-rockchip@lists.infradead.org, linux-omap@vger.kernel.org, 
  linux-arm-kernel@lists.infradead.org, dri-devel@lists.freedesktop.org, 
  linux-pm@vger.kernel.org, Brian Masney <masneyb@kernel.org>
-In-Reply-To: <7155949aea78042fd399da5ad23a72765b2b6cc7.1795094688.git.geert+renesas@glider.be>
+In-Reply-To: <313d11bdd1dd46e895e34236191e7a3b175d0382.1795094688.git.geert+renesas@glider.be>
 References: <cover.1795094688.git.geert+renesas@glider.be>
- <7155949aea78042fd399da5ad23a72765b2b6cc7.1795094688.git.geert+renesas@glider.be>
+ <313d11bdd1dd46e895e34236191e7a3b175d0382.1795094688.git.geert+renesas@glider.be>
 Date: Thu, 19 Nov 2026 20:40:22 -0500
-Message-Id: <179513882272.284394.5255700296836474521.b4-review@b4>
+Message-Id: <179513882273.284394.4331892287524393422.b4-review@b4>
 X-Mailer: b4 0.17-dev-8145e
-X-Developer-Signature: v=1; a=openpgp-sha256; l=565; i=masneyb@kernel.org;
+X-Developer-Signature: v=1; a=openpgp-sha256; l=479; i=masneyb@kernel.org;
  s=20250903; h=from:subject:message-id;
- bh=6zJGmBMLssq21U23/Bgo8QkI6kNUxjlR9Sy14J5yfUI=;
- b=owGbwMvMwCW2/dJd9di6A+2Mp9WSGLL+LxW8Ns1Y/1VJ9huOYqsvN/TmCc14dU74RbjaV/u6W
- 9vNDYTKO0pZGMS4GGTFFFmW5BoVRKSusr13R5MFZg4rE8gQBi5OAZjI1iyG/6ELNDYWGjFMXyef
- +e6E+P7o5zVsKwNd1t+ZV1mokPdh13VGhqXZUoyvr3W1X+3d/vHpLF+R2wmFM6ZO+KskvufN/F1
- 7krkA
+ bh=JGsrsWKRl0kw3WUwGSIprP/RenP+nQQZD7u3j9iJt1I=;
+ b=kA0DAAoWt9LdJ11+wIcByyZiAGr/pROgWlEsgnn4T7idnP8BIUXK0HiWzQz/5qMUdPDmhjFmD
+ Ih1BAAWCgAdFiEEpG0ycFhlqj3e3CkEt9LdJ11+wIcFAmr/pRMACgkQt9LdJ11+wIeTyAEAnOnn
+ uWf5C9UfZlObjo+Lo59Bat1yoayzzvNH9NdY1qwBAOswW+07L4AHYLwWodYFTqnZ7ppxIcEV09w
+ V46KoATMJ
 X-Developer-Key: i=masneyb@kernel.org; a=openpgp;
  fpr=A46D32705865AA3DDEDC2904B7D2DD275D7EC087
 X-BeenThere: dri-devel@lists.freedesktop.org
@@ -79,14 +80,12 @@ X-Spam-Status: No, score=-13.8 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-> Clocks obtained through of_clk_get_from_provider() show up as
+> The Rockchip Designware HDMI driver uses of_clk_get_from_provider() to
+> obtain the clock for the HDMI PHY, so the latter shows up as
 > "deviceless" in the consumer column of the clk_summary file in debugfs.
-> Add a new variant dev_clk_get_from_provider() that also takes a consumer
-> device, so callers can provide it, and consumer's name will be shown in
-> the clk_summary output.
 > 
-> Reimplement of_clk_get_from_provider() on top of
-> dev_clk_get_from_provider().
+> Fix this by using dev_clk_get_from_provider() instead, letting us pass
+> the consumer device, too.
 > 
 > Signed-off-by: Geert Uytterhoeven <geert+renesas@glider.be>
 
