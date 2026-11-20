@@ -2,89 +2,89 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AA00E606A332
-	for <dri-devel@archiver.kernel.org>; Fri, 20 Nov 2026 06:51:45 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 80FE6606A320
+	for <dri-devel@archiver.kernel.org>; Fri, 20 Nov 2026 06:55:22 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=w/Ahuhnz
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=C/OjQ8fI
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id E734710E0FA;
-	Fri, 20 Nov 2026 06:51:38 +0000 (UTC)
-Received: from mail-oo1-f50.google.com (mail-oo1-f50.google.com
- [209.85.161.50])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 96E6310E0FA
- for <dri-devel@lists.freedesktop.org>; Fri, 20 Nov 2026 06:51:32 +0000 (UTC)
-Received: by mail-oo1-f50.google.com with SMTP id
- 006d021491bc7-6df5e315bd1so545848eaf.2
- for <dri-devel@lists.freedesktop.org>; Thu, 19 Nov 2026 22:51:32 -0800 (PST)
-ARC-Seal: i=1; a=rsa-sha256; t=1795157492; cv=none;
+	by gabe.freedesktop.org (Postfix) with ESMTP id C621810E193;
+	Fri, 20 Nov 2026 06:55:16 +0000 (UTC)
+Received: from mail-oo1-f46.google.com (mail-oo1-f46.google.com
+ [209.85.161.46])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 2E21C10E115
+ for <dri-devel@lists.freedesktop.org>; Fri, 20 Nov 2026 06:55:10 +0000 (UTC)
+Received: by mail-oo1-f46.google.com with SMTP id
+ 006d021491bc7-71ab5e64742so362587eaf.3
+ for <dri-devel@lists.freedesktop.org>; Thu, 19 Nov 2026 22:55:10 -0800 (PST)
+ARC-Seal: i=1; a=rsa-sha256; t=1795157709; cv=none;
  d=google.com; s=arc-20260327;
- b=mPGLZrTe71Lzu2PBUzMJBQMz+GsPoNrfJUOkGr9GYkhEDviJMDDWk2dOLtjSJRji0q
- Q5Cu2tQ2bA+5NvNwz1IM+g/oLdWgVK/zUUYvoQvRx3/1q+DyFA49OgfjNjkc7RMc4Nra
- myCNjsBcX69+NGR5MtPImLguXl0NVJqd0qQF/JhY7DMFuufEQUJExxsl5YeLWxITEvz0
- +FwdEfwODkPQmhpVL3uL3GutCks8WAWkT7J/POzn/o4t1NxMA93NqC8d3YWfpSO5QRwS
- OWie4qLrzRYhxAgQU+MjCFy1lu8o01LIKcDvgFQheOql+ceVzJmDifM7Lebjq4pWVuJh
- kNOA==
+ b=FNHmG9vS006y2mAJ4ZfUYqzKAXtZpUMlB/Jg4BtsxKlNAPRU8YsUzaM8FeWkkoeRjz
+ 9Xw73If2p1Pc7YeS3dihrskZaYA/WrRUuKWA5NZLT6+fxqvgGhw59hhPNUCbmwnLfWz+
+ SV4/+1TtQHttnGAXRFG1wl2K4JS+DOc9E0Ij23Y62giD/NffRBrfL8McjE8wFH2lJU+W
+ WKBTlKeKljv+X8h12YrM7s3DqXVflAntfdFUXfb1O3RfCsBFlI9q/WvfGn6ejhHz9c4V
+ 13AuThoY+Mj1cM3QjZNlGgFpD8PnzzgBsnUeHR3JDEf6r6ozP9G7E9tWwQuyuCxbTZBR
+ NJOA==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com;
  s=arc-20260327; 
  h=cc:to:subject:message-id:date:from:in-reply-to:references
  :mime-version:dkim-signature;
- bh=PtA8qFFBXG6iEUpmFm1DFbbkNSGlt5cA5Pbfh67zRN0=;
- fh=FoppdSpYsFp5lFtxyBUr9PL0k0+gtW9Gw7AjSiB23tI=;
- b=n7PBPU3UY0Q12dn1Jl4w5G5Vmxmwo7etOW+TQNshOGjHWifSyp8u+8SLzUIq1lbowk
- nYYZrP5/xdMFiHjnlCSdxl1XbDXrCyDPKVOdveG8pKroXkph0pEMxOuI+To2ovndHFwi
- xZjHmZsre53Pezkuov9rvB7C5+5Ayr2JQYJvY4d7V4SSXN+buaxhQTr9CAP3KjD7eBQ8
- WkFDXOYOPiNL/sJqJQiaLLsNtsRADtth84XmugYx2qe4p86i/72pnLVkAgE/A5qM9B5j
- l6zq4WolPlBis9E3yWrcz/8fjzvoLPsAx6C3I6sBez5wuZMnNbySnCLbvu4KYv+6kSZR
- lylQ==; darn=lists.freedesktop.org
+ bh=yUqc+7I9fkDNqG0gHFeWHQ2EttT+25aZhma/FvBj/3o=;
+ fh=G/+gfVlfYAN8qW1cBZYMjtNt4jkkgOXi6EoNHYedSq8=;
+ b=C0iJRTaQJy5soeR38+jro4ZumM8xB8KDGzQ3vRya6H67ZwJFIzFDPo/ZpZq582ZbxP
+ Y0HtnUBUdIOdNx3ZjWYAhl5Q5okfJtdoIdYdihoCgUhnDg4qKfGMsr1nbsGCM4YCSmTg
+ H5NrAHjraAOlJ41SNPz2ZhgDNYW25vCVCLcODAvDKmAWQ/eLj6tLgfpJhgIdM1xPe457
+ QBLUylqtbYkM8gQFIgcDkKYo1hKnc0gsrdA7Pl7jBbJGtaIFknWAP3s1qBBl/0DYbRHa
+ ZBr1tZnzPWRN0jvm5nc+GIdWdpbumkmBvOik0uCi1y/ANuW/USptBP6l4gFZmjJPZtJ1
+ XmSQ==; darn=lists.freedesktop.org
 ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20260707; t=1795157492; x=1795762292; darn=lists.freedesktop.org;
+ d=gmail.com; s=20260707; t=1795157709; x=1795762509; darn=lists.freedesktop.org;
  h=content-type:cc:to:subject:message-id:date:from:in-reply-to
  :references:mime-version:from:to:cc:subject:date:message-id:reply-to
- :content-type; bh=PtA8qFFBXG6iEUpmFm1DFbbkNSGlt5cA5Pbfh67zRN0=;
- b=w/Ahuhnzm6ZRb1FyJaY2gTa6Dxnp8FHQ2ntn8armPDkRcR1vCnFT4/1tbtPlzIPZlc
- mQElu7Nn3x7jSXkRcKV9pM8ywzeGZVEJnuHvWmhCZSNDWHHRDDybUdh/L0H7GHk/aKVb
- l1ctHpYAGcuzkO24TkWu85jLqMyapxyurAusiJozYLgje47mqFMKrk/HX1fztHq1ZjB0
- 50PoO4B1fEqM7ePqb3FP4Tp96X7AnienrtseaDZWhPl9HLSNt9H2vhGXuELh6trdgYIQ
- 8yu4GsoqMoJMFJ67tzjv/SqeHnFOiuUTOTmRlGKhn3/TXyY9K83lJL4hGj6TNXDZg4yI
- PfkQ==
+ :content-type; bh=yUqc+7I9fkDNqG0gHFeWHQ2EttT+25aZhma/FvBj/3o=;
+ b=C/OjQ8fIGa8WURAheZsM2ZZgPxx/i4OdHxM58Mx+8fiA7BLX9BdjUxX+/jYx9Aah5S
+ 754Kqg60QLLHdajWriDQmURGC9iha/1NEqnfxVejI1PJjO0PIN8K0YKQhEV0Y0A8UYBd
+ OMachFhsYo6TQqHYFD0Jn5jPnAvoglktVNrG7svTCWBWdso/rqgZxn2f5Bt+9N6h2F/h
+ Jj/gRY7YAI6EMmFUxYyr1S/AqLFoJWpgG2IBYa3s1BUAvwFOgtlcsQeU7z8XEP+uzQJP
+ W98uAAno7t4a7vHqao6t6X0lkfkPgrpph8XLXLlwD5r/v6PumolW0SHCYcroww9+ZhQm
+ ZJJw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20260707; t=1795157492; x=1795762292;
+ d=1e100.net; s=20260707; t=1795157709; x=1795762509;
  h=content-type:cc:to:subject:message-id:date:from:in-reply-to
  :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
  :subject:date:message-id:reply-to:content-type;
- bh=PtA8qFFBXG6iEUpmFm1DFbbkNSGlt5cA5Pbfh67zRN0=;
- b=v6PrIZlpFU7whDb3ZnFbhrdRqYWejDllCW2b+jXoScLZ8si2GjYnC//OAlzpybNU7y
- 71mN2c7DDHac9RmN1TM0EYQ0w6KcRqPbXPJqVVUa/8Jn0Q4ZxKkYlkakvXjPsKWxnGfx
- pS5IOCphsQlwnAQlrtHbJumAGlnWZ+qh09oOKlrgLiPPk96GlBzKsz5ISuJtEJ//3z1n
- Y7x6vtlTo866RKQDOXHO49ijNbXhn6asJ0cek7l4XpG702YNzNT27hMg5Z2+0/mVRQPB
- vAqB/lkzS8tIBJ6RRH7lfEDT/gjIRWU6NKMMxbJxr/RzF3umpVc0LVhczpI7iEYPsIdU
- aD5A==
+ bh=yUqc+7I9fkDNqG0gHFeWHQ2EttT+25aZhma/FvBj/3o=;
+ b=SQ4sMPZblBLvfG0M7wyKNUVPj707FJgpJYVkbSQS9YPBkMUncHjG+dYCak0W0rqRKy
+ OGVU8E/a9ujbum1BFfWJsKNwCQKpXIuNaZv5Yy7+WjBJNA1EcNyRfuD/tWR/Ze8NDAIm
+ EirnjwXFLwZRhs+0LLLpA8pcswvxuVhBjkm86LS2lODFbSS4Zc8yqJlnYcFnJGnlZ9QN
+ NBKwTjQqS7gd3Z4g0m1ZP7A6CVabspAv9v9QdIj62HoeAMfTChGiLDfn81+eVjTxGCrY
+ /urA9Sq15pmHFl1VGPlkqkgCWZEB9tkfILO3OUqqWnALj4bBFNJfATEav9Gj37rdWofp
+ erYw==
 X-Forwarded-Encrypted: i=1;
- AL+hErF1s1gKItDpx1VqGf3vIW0n1ITXAlaCx8ryAC484OJ0Wo3Dc1++6wOgfndCDuqYN5hmopAY29iHU6A=@lists.freedesktop.org
-X-Gm-Message-State: APuU4Z/BE3300Z8mjbWa33K62+c2edgVqQGzJvI5PAZiXJGQ91PUejvs
- JhG9ag7DY4lM71PgkYroCGoNTy5jZuQbYGojAw0EI40Pdo1f1KYEODH+mo15qxuZcSRJeoCdi+x
- LoC4661eaOspJq8K85tfEg186YozFh3Y=
-X-Gm-Gg: AYBFou35Q16kAIWrS0U+CIWmjdp+s/TeMRCz67H7Ch6AJ9yz84k1IXDnUzMKSxLQEEb
- lIVymvCQbjX38OO+lLB4A7GB6X5gMhXlFuqLPkhBaS+k+HRwAMryh6PDL0dcanGbLksJgCci0vi
- 5llEkUN53aw5M1u6gjDXvoq9cMmgoHouEbW6ENobpCbL69/KPDZE4iEPszgo45WQ4MGndq+R4+g
- rNk8wa2J3qLUFHFAiI0PKT0VSD8R0BvNsnrJsBzdlLmuwihp1mzb1modbSa786h8H1CWvWVaLY4
- 36H/ClHnM9sXN0tRj/9p4unmeDfigc1+GAbei1vLmlE87lh5LEyGzBCKRFIkYWwZfZDkXLyAR7p
- WBXA5W4nqszwF0hGmMEDrOcMFsG/f6PFxu5AXa4Jp41OVYwkIv583fJ4D+8jRqzPJ+zvywOTsJz
- JJkow0t0MO28eHkr5iepcZHL2DCLc0D24=
-X-Received: by 2002:a05:6820:61a:b0:70b:960c:53d2 with SMTP id
- 006d021491bc7-71b39293479mr2191361eaf.1.1795157491577; Thu, 19 Nov 2026
- 22:51:31 -0800 (PST)
+ AL+hErG4YQDmjMzjDiRynFJQ4nIIXRpuy5G0oBgf4aGPzf5y0/IlFqr0xcbHFyAMlc0LWxotJPtpHC2v9ek=@lists.freedesktop.org
+X-Gm-Message-State: APuU4Z9kCdlc2vW6A+UUqqG5RsURYgltctQ9R5mDmoKDIbZJ2onSQJa7
+ yYG7gaa9M+/T4WHp7A8w8D1SKbT8x1M1zTBbxN0myaGEBmZ1cwXZmeMB8TcXH9Fdh9uJ23Ag7ud
+ 4wp/6UKJh4/sgTU4inlWJKmyMR0m0V6o=
+X-Gm-Gg: AYBFou2mWWXitiA3CuBvq4kKsb87qEesIU0/BGYicvQjZAc/faMErs7/NrQAZsyJV43
+ +rMG6AsiZtXqDl3qYuACV+xMSrsZyit7xBaXArE97+mNlOx/diemhqCr+OPH+8Gww64kwv/CqPl
+ gcE0sUYPwzM8WiTLNXuaBNJZzkniBigHnftbMsqkVTcFH3hkf4qGwgAglG4/jPCT0O3gw1xUPL3
+ Gp8N9vmyxCe/qEc1MTstrIM+KQGQPEwc5F3vnwm9rwxteBHVrC5Dc4m4laj4P+XElYMlpqE2IfG
+ fLFcWsoJOrc9qFS6Q0Ws26Ek+FZgLkYHVYC+owJw7I3+Yknz0AoLJH2fx9dVYAwjHRbKvp9P9X6
+ DkZcdVPFkiqk6AL/3OCVQO+JtBtQ1BlD17E4RQljmuk/cjZOoBfx2k7biWolF0Z2y1uIF72ZWs7
+ 1KD6cvctP2NrQgHu8tQzSpWoYw/jXGrCxK
+X-Received: by 2002:a05:6820:a703:10b0:71a:e9b1:65e3 with SMTP id
+ 006d021491bc7-71b39631876mr1261642eaf.81.1795157709033; Thu, 19 Nov 2026
+ 22:55:09 -0800 (PST)
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
 References: <20261119142114.152052-1-tzimmermann@suse.de>
- <20261119142114.152052-10-tzimmermann@suse.de>
-In-Reply-To: <20261119142114.152052-10-tzimmermann@suse.de>
+ <20261119142114.152052-11-tzimmermann@suse.de>
+In-Reply-To: <20261119142114.152052-11-tzimmermann@suse.de>
 From: Jie Feng <hjf3108@gmail.com>
-Date: Fri, 20 Nov 2026 14:50:55 +0800
-X-Gm-Features: Aa3M54oSQae2g29PSYOCxYYXAOYr41DBB5dj51KvljQ-LoxuIq1mgzPJn0qEf_8
-Message-ID: <CABOQOSWQtK8mxAR0c9HDSc0=j_hzPz1hYHDk-XF5ERcfdgq0Ew@mail.gmail.com>
-Subject: Re: [PATCH 09/11] drm/udl: Synchronize pending URBs on each frame
+Date: Fri, 20 Nov 2026 14:54:33 +0800
+X-Gm-Features: AclHuK_zcsvJVWcd5lOf-LUFaTbb1PGsprsSd6oBG8EPOYJIPRPC_ZTuRDkP7uc
+Message-ID: <CABOQOSVdsELGDEiJu95e5RQ1uRiWLkcwz4TB9xfbQe9qbD7WrA@mail.gmail.com>
+Subject: Re: [PATCH 10/11] drm/udl: Allocate URBs on demand
 To: Thomas Zimmermann <tzimmermann@suse.de>
 Cc: airlied@redhat.com, sean@poorly.run, tiwai@suse.com, 
  patrik.r.jakobsson@gmail.com, maarten.lankhorst@linux.intel.com, 
@@ -110,74 +110,238 @@ X-Spam-Status: No, score=-12.8 required=3.0 tests=BAYES_00,DKIM_SIGNED,
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-On Fri, 20 Nov 2026 at 14:48, Thomas Zimmermann <tzimmermann@suse.de> wrote:
+On Fri, 20 Nov 2026 at 14:45, Thomas Zimmermann <tzimmermann@suse.de> wrote:
 >
-> Wait for in-flight URBs from the previous frame before sending out
-> the current frame. Throttles frame rate to USB limits.
+> Remove the limit on the number of URBs in flight. Allocate URBs as
+> needed. Keep once-allocated URBs in a list for reuse at later frames.
+> Also remove some bogus debug output from the affected code.
 >
-> PC display usually runs with a refresh rate of 60 Hz or more. Sending
-> out URBs for each frame at this rate easily overloads the USB. This
-> results in display lag up to several seconds. Udl currently avoids
-> this by limiting the number of URBs to 20 at a time. This prevents
-> overloading the USB, but also prevents udl from using all the
-> bandwidth available.
+> The existing synchronization in atomic_begin() guarantees that udl
+> does not send a frame over the USB before the previous frame has been
+> transferred. This avoids overloading the USB. If the USB is saturated,
+> page flips delay and the compositor reduces the update frequency.
 >
-> Solving this requires more flexibility in the number of in-flight
-> URBs. The exact value depends on the framebuffer configuration and
-> the available bandwidth on the USB.
->
-> Before removing the limit on the URB count, add another means of
-> synchronizing the frame rate to the USB. Do this in atomic_begin, so
-> that the USB has the maximum time between sending two frames.
+> The allocated URBs remain in the cache until the driver is being removed
+> from the device. In a later update, a regular worker or a shrinker could
+> free the URB cache when needed.
 >
 > Signed-off-by: Thomas Zimmermann <tzimmermann@suse.de>
 > ---
->  drivers/gpu/drm/udl/udl_modeset.c | 18 ++++++++++++++++++
->  1 file changed, 18 insertions(+)
+>  drivers/gpu/drm/udl/udl_drv.h  |   1 -
+>  drivers/gpu/drm/udl/udl_main.c | 123 ++++++++++++---------------------
+>  2 files changed, 44 insertions(+), 80 deletions(-)
 >
-> diff --git a/drivers/gpu/drm/udl/udl_modeset.c b/drivers/gpu/drm/udl/udl_modeset.c
-> index bbba1dee8e4f..caa0a117e3c2 100644
-> --- a/drivers/gpu/drm/udl/udl_modeset.c
-> +++ b/drivers/gpu/drm/udl/udl_modeset.c
-> @@ -329,6 +329,23 @@ static const struct drm_plane_funcs udl_primary_plane_funcs = {
->   * CRTC
->   */
+> diff --git a/drivers/gpu/drm/udl/udl_drv.h b/drivers/gpu/drm/udl/udl_drv.h
+> index 420166bdc4bc..68bcf0222764 100644
+> --- a/drivers/gpu/drm/udl/udl_drv.h
+> +++ b/drivers/gpu/drm/udl/udl_drv.h
+> @@ -45,7 +45,6 @@ struct urb_list {
+>         spinlock_t lock;
+>         wait_queue_head_t sleep;
+>         unsigned int in_flight;
+> -       int count;
+>  };
 >
-> +static void udl_crtc_helper_atomic_begin(struct drm_crtc *crtc, struct drm_atomic_commit *state)
+>  struct udl_device {
+> diff --git a/drivers/gpu/drm/udl/udl_main.c b/drivers/gpu/drm/udl/udl_main.c
+> index d0195bd4213d..adddcf4b3451 100644
+> --- a/drivers/gpu/drm/udl/udl_main.c
+> +++ b/drivers/gpu/drm/udl/udl_main.c
+> @@ -25,13 +25,10 @@
+>  #define NR_USB_REQUEST_CHANNEL 0x12
+>
+>  #define MAX_TRANSFER (PAGE_SIZE*16 - BULK_SIZE)
+> -#define WRITES_IN_FLIGHT (20)
+>  #define MAX_VENDOR_DESCRIPTOR_SIZE 256
+>
+>  #define UDL_SKU_PIXEL_LIMIT_DEFAULT    2080000
+>
+> -static struct urb *udl_get_urb_locked(struct udl_device *udl, long timeout);
+> -
+>  /*
+>   * Try to make sense of whatever we parse. Therefore return @end on
+>   * errors, but don't fail hard.
+> @@ -216,25 +213,41 @@ static struct urb *udl_alloc_bulk_urb(struct udl_device *udl, size_t size)
+>         return ERR_PTR(ret);
+>  }
+>
+> +static struct urb *__udl_get_cached_urb_locked(struct udl_device *udl)
 > +{
-> +       struct drm_device *dev = crtc->dev;
-> +       struct udl_device *udl = to_udl(dev);
-> +       int idx;
+> +       struct urb_node *unode;
 > +
-> +       if (!drm_dev_enter(dev, &idx))
-> +               return;
+> +       assert_spin_locked(&udl->urbs.lock);
 > +
-> +       /*
-> +        * It is acceptable to briefly block in this call, but
-> +        * having it timeout frequently indicates a problem.
-> +        */
-> +       udl_sync_pending_urbs(udl);
-Using usb anchors might work better instead of the completion I suggested
-in the other message. usb_wait_anchor_empty_timeout() could be used.
-
-> +       drm_dev_exit(idx);
+> +       if (list_empty(&udl->urbs.list))
+> +               return NULL;
+> +
+> +       unode = list_first_entry(&udl->urbs.list, struct urb_node, entry);
+> +       list_del_init(&unode->entry);
+> +
+> +       return unode->urb;
 > +}
 > +
->  static void udl_crtc_helper_atomic_enable(struct drm_crtc *crtc, struct drm_atomic_commit *state)
+>  static void udl_free_urb_list(struct udl_device *udl)
 >  {
->         struct drm_device *dev = crtc->dev;
-> @@ -395,6 +412,7 @@ static void udl_crtc_helper_atomic_disable(struct drm_crtc *crtc, struct drm_ato
+> +       struct drm_device *drm = &udl->drm;
+>         struct urb *urb;
 >
->  static const struct drm_crtc_helper_funcs udl_crtc_helper_funcs = {
->         .atomic_check = drm_crtc_helper_atomic_check,
-> +       .atomic_begin = udl_crtc_helper_atomic_begin,
->         .atomic_enable = udl_crtc_helper_atomic_enable,
->         .atomic_disable = udl_crtc_helper_atomic_disable,
->  };
+> -       DRM_DEBUG("Waiting for completes and freeing all render urbs\n");
+> +       drm_dbg(drm, "Waiting for completes and freeing all render URBs\n");
+>
+> -       /* keep waiting and freeing, until we've got 'em all */
+> -       while (udl->urbs.count) {
+> -               spin_lock_irq(&udl->urbs.lock);
+> -               urb = udl_get_urb_locked(udl, MAX_SCHEDULE_TIMEOUT);
+> -               udl->urbs.count--;
+> -               spin_unlock_irq(&udl->urbs.lock);
+> -               if (WARN_ON(!urb))
+> -                       break;
+> -               /* Free each separately allocated piece */
+> -               udl_free_bulk_urb(urb);
+> +       /* keep waiting until we've got 'em all */
+> +       scoped_guard(spinlock_irq, &udl->urbs.lock) {
+> +               wait_event_lock_irq(udl->urbs.sleep, !udl->urbs.in_flight, udl->urbs.lock);
+> +
+> +               urb = __udl_get_cached_urb_locked(udl);
+>         }
+>
+> -       wake_up_all(&udl->urbs.sleep);
+> +       while (urb) {
+> +               udl_free_bulk_urb(urb);
+> +
+> +               scoped_guard(spinlock_irq, &udl->urbs.lock)
+> +                       urb = __udl_get_cached_urb_locked(udl);
+> +       }
+>  }
+>
+>  static void udl_urb_list_release(void *data)
+> @@ -244,71 +257,16 @@ static void udl_urb_list_release(void *data)
+>         udl_free_urb_list(udl);
+>  }
+>
+> -static int udl_alloc_urb_list(struct udl_device *udl, int count, size_t size)
+> +static int udl_init_urb_list(struct udl_device *udl)
+>  {
+>         struct drm_device *drm = &udl->drm;
+> -       size_t wanted_size = count * size;
+> -       int ret;
+>
+>         spin_lock_init(&udl->urbs.lock);
+>         INIT_LIST_HEAD(&udl->urbs.list);
+>         init_waitqueue_head(&udl->urbs.sleep);
+> -       udl->urbs.count = 0;
+>         udl->urbs.in_flight = 0;
+>
+> -retry:
+> -       while (udl->urbs.count * size < wanted_size) {
+> -               struct urb *urb;
+> -               struct urb_node *unode;
+> -
+> -               urb = udl_alloc_bulk_urb(udl, size);
+> -               if (IS_ERR(urb)) {
+> -                       if (PTR_ERR(urb) == -ENOBUFS && size > PAGE_SIZE) {
+> -                               size /= 2;
+> -                               udl_free_urb_list(udl);
+> -                               goto retry;
+> -                       }
+> -                       break;
+> -               }
+> -               unode = urb->context;
+> -
+> -               list_add_tail(&unode->entry, &udl->urbs.list);
+> -
+> -               udl->urbs.count++;
+> -       }
+> -
+> -       if (!udl->urbs.count)
+> -               return -ENOMEM;
+> -
+> -       ret = devm_add_action_or_reset(drm->dev, udl_urb_list_release, udl);
+> -       if (ret < 0)
+> -               return ret;
+> -
+> -       DRM_DEBUG("allocated %d %d byte urbs\n", udl->urbs.count, (int) size);
+> -
+> -       return udl->urbs.count;
+> -}
+> -
+> -static struct urb *udl_get_urb_locked(struct udl_device *udl, long timeout)
+> -{
+> -       struct urb_node *unode;
+> -
+> -       assert_spin_locked(&udl->urbs.lock);
+> -
+> -       /* Wait for an in-flight buffer to complete and get re-queued */
+> -       if (!wait_event_lock_irq_timeout(udl->urbs.sleep,
+> -                                        !udl->urbs.count ||
+> -                                        !list_empty(&udl->urbs.list),
+> -                                        udl->urbs.lock, timeout))
+> -               return NULL;
+> -
+> -       if (!udl->urbs.count)
+> -               return NULL;
+> -
+> -       unode = list_first_entry(&udl->urbs.list, struct urb_node, entry);
+> -       list_del_init(&unode->entry);
+> -
+> -       return unode->urb;
+> +       return devm_add_action_or_reset(drm->dev, udl_urb_list_release, udl);
+>  }
+>
+>  struct urb *udl_get_urb(struct udl_device *udl)
+> @@ -321,9 +279,18 @@ struct urb *udl_get_urb(struct udl_device *udl)
+>                         return NULL;
+>                 ++udl->urbs.in_flight;
+>
+> -               urb = udl_get_urb_locked(udl, HZ * 2);
+> -               if (!urb)
+> -                       --udl->urbs.in_flight;
+> +               urb = __udl_get_cached_urb_locked(udl);
+> +       }
+> +
+> +       if (!urb) {
+> +               urb = udl_alloc_bulk_urb(udl, MAX_TRANSFER);
+> +               if (IS_ERR(urb)) {
+> +                       scoped_guard(spinlock_irqsave, &udl->urbs.lock) {
+> +                               if (udl->urbs.in_flight)
+> +                                       --udl->urbs.in_flight;
+> +                       }
+> +                       return NULL;
+> +               }
+On a usb contention or stalled device, this might allocate memory unboundedly
+if the udl_sync_pending_urbs keeps timing out.
+The number of URBs could be limited based on the size of the worst-case
+full frame update. The entire urb cache can be cleared on a modeset,
+so that maximum memory usage scales with the frame size.
+
+>         }
+>
+>         return urb;
+> @@ -395,8 +362,6 @@ int udl_init(struct udl_device *udl)
+>         int ret = -ENOMEM;
+>         struct device *dma_dev;
+>
+> -       DRM_DEBUG("\n");
+> -
+>         dma_dev = usb_intf_get_dma_device(to_usb_interface(dev->dev));
+>         if (dma_dev) {
+>                 drm_dev_set_dma_dev(dev, dma_dev);
+> @@ -419,8 +384,8 @@ int udl_init(struct udl_device *udl)
+>         if (udl_select_std_channel(udl))
+>                 DRM_ERROR("Selecting channel failed\n");
+>
+> -       ret = udl_alloc_urb_list(udl, WRITES_IN_FLIGHT, MAX_TRANSFER);
+> -       if (ret < 0)
+> +       ret = udl_init_urb_list(udl);
+> +       if (ret)
+>                 return ret;
+>
+>         ret = udl_modeset_init(udl);
 > --
 > 2.56.0
 >
 >
+
 
 Best regards,
 Jie Feng
