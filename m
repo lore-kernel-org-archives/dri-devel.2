@@ -2,135 +2,70 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4567760A2621
-	for <dri-devel@archiver.kernel.org>; Fri, 20 Nov 2026 09:38:46 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E434A606A320
+	for <dri-devel@archiver.kernel.org>; Fri, 20 Nov 2026 09:48:03 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=amd.com header.i=@amd.com header.a=rsa-sha256 header.s=selector1 header.b=TQzXAOsU
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=TTQIJQdF
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 8EF1010E2B2;
-	Fri, 20 Nov 2026 09:38:40 +0000 (UTC)
-Received: from BYAPR05CU005.outbound.protection.outlook.com
- (mail-westusazon11010035.outbound.protection.outlook.com [52.101.85.35])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 18E9D10E2B2
- for <dri-devel@lists.freedesktop.org>; Fri, 20 Nov 2026 09:38:34 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=yGbw3k4M+2k71o/VSFreHzjc9RDnYkrzqkTTi1SzPhhXYD56dITfGe62j+ctDgEthbmTQYFXakn4EBJPjFGpuKXWavZFhOUete6Of7gvEKoxaZTIZN3lfbtlOKITp4cUXUtcet/ZzVv9AGodZWGR3B32HADwdbWb6L4UP/7WdVMYLhwVTSPCco1GauZHabOy6rO1GQD0Qs1fOG+N3EO2UgJw7PEdid0HlRe5y2k5VIFxNo6Zcrw16OXUhScrKjBOB9MjKmJKVk6xyO/uIgCx2h1CaKbTAbguvN71+7TWJdztI3K73zD/I8pKN7GjAiQaAPkdvmqeuYAPs/gEtgx+2Q==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=E3kYN66unIfWJU+PWktPCCCNMP6jyfq3fFNRcFYEJqk=;
- b=QSlPrzD5oZG57PzACrVqu4//e3EptTGah/JxKBlPwnNb72iYyfa4pUHKbkiKjO+8am5IV2DhjAdcrEXF/uxZDcrDcurGxEQ8lVfMRsoXyQEo36k+DKZgXY4g20WMDtvM1PbJ1kR205QyTQ1ONTaUyHmvOvQsjfK4HyXRBslLjTs3OuSUoI9PhSsgCAnyMh4BNtsZXcWPoiZQXqeHEEguxOqGJKLIzJLcuwJdxl2iNDqlT8cyF/BBo5+a5nR6kx1eHWRrLmA4yd6yZBqJh7gzskxS8K7GNto501yo7sGr2F3HnYwG3GrAJ7FC94y1SOXl4dGPjkKQ4AoNr1I3GSsWVw==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=E3kYN66unIfWJU+PWktPCCCNMP6jyfq3fFNRcFYEJqk=;
- b=TQzXAOsUccTBTEFBNfbHevfIzVNiE3nwq3O1qCWHb0fzBWjP5hD8O5NV+YhKu6ZU6TPTxHIMheVZlqOqqyXEGaCjLU1jPlpYND3iOEVj/VO701r3VygsRL6d0GzXpnxMIEN0K3HZSghy/9KtmdzEdnAjTWWXjK4MmsfB91SWTlY=
-Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-Received: from PH7PR12MB5685.namprd12.prod.outlook.com (2603:10b6:510:13c::22)
- by CY8PR12MB7194.namprd12.prod.outlook.com (2603:10b6:930:5a::19)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.615.10; Fri, 20 Nov
- 2026 09:38:31 +0000
-Received: from PH7PR12MB5685.namprd12.prod.outlook.com
- ([fe80::ce69:cfae:774d:a65c]) by PH7PR12MB5685.namprd12.prod.outlook.com
- ([fe80::ce69:cfae:774d:a65c%3]) with mapi id 15.21.0639.011; Fri, 20 Nov 2026
- 09:38:30 +0000
-Message-ID: <a8fe714b-6d26-4777-8b9c-4299ecdc3f44@amd.com>
-Date: Fri, 20 Nov 2026 10:38:20 +0100
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 2/3] dma-buf: dma-fence: Add
- dma_fence_overwrite_timestamp()
-To: Philipp Stanner <phasta@kernel.org>,
- Sumit Semwal <sumit.semwal@linaro.org>,
- Simona Vetter <simona.vetter@ffwll.ch>,
- Chris Wilson <chris@chris-wilson.co.uk>, Danilo Krummrich <dakr@kernel.org>,
- Gary Guo <gary@garyguo.net>, Alice Ryhl <aliceryhl@google.com>,
- Daniel Almeida <daniel.almeida@collabora.com>,
- Tvrtko Ursulin <tvrtko.ursulin@igalia.com>,
- "Paul E . McKenney" <paulmck@kernel.org>, Yunxiang Li <Yunxiang.Li@amd.com>,
- Alex Deucher <alexander.deucher@amd.com>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>
-Cc: linux-media@vger.kernel.org, dri-devel@lists.freedesktop.org,
- linux-kernel@vger.kernel.org, stable@vger.kernel.org
-References: <20261119131830.2535266-2-phasta@kernel.org>
- <20261119131830.2535266-4-phasta@kernel.org>
-Content-Language: en-US
-From: =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>
-In-Reply-To: <20261119131830.2535266-4-phasta@kernel.org>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: FR2P281CA0087.DEUP281.PROD.OUTLOOK.COM
- (2603:10a6:d10:9b::6) To SJ0PR12MB5673.namprd12.prod.outlook.com
- (2603:10b6:a03:42b::13)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 4CED110E865;
+	Fri, 20 Nov 2026 09:47:58 +0000 (UTC)
+Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id C6C4810E5A5
+ for <dri-devel@lists.freedesktop.org>; Fri, 20 Nov 2026 09:47:51 +0000 (UTC)
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+ by sea.source.kernel.org (Postfix) with ESMTP id 7145C468AB
+ for <dri-devel@lists.freedesktop.org>; Fri, 20 Nov 2026 09:47:51 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 46E941F000CF
+ for <dri-devel@lists.freedesktop.org>; Fri, 20 Nov 2026 09:47:51 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+ s=k20260515; t=1795168071;
+ bh=YU5P8Wuc2M6bZTL3XK84wjuebJ0zvL/QXfNPgZyOqi0=;
+ h=References:In-Reply-To:From:Date:Subject:To:Cc;
+ b=TTQIJQdFmsgcCJvZ5orSt7w0DatjFVZQwcM9IEaWaC+WjWprBbCupEHBw2ZEdEY5b
+ BIBCQ8gTLt9anGc3R+WoUEP/8X0wqmmRyUA0Is+/tDt6D0Coe+GssnIRmwyUztMzR9
+ n9c4oX6NDEhgWoC9wYM7VnNjMV3ikjcOOi9DiBzT4NUIQQANyKjVCwoQ9tX93LQ4Td
+ Wyq5vz3a4GnOFKlXnvezyfJNzLPLOgMgy6KV/q8eVLSgE7z+o4JrHPe3rMwYrkadWP
+ lboTcbWu9QSv9dLAlRzQXsDKcewPjqfaR/lq9p/AjBDOYgb+cEVXKzHr7WrFntR/Gm
+ Qp/UOxFXEysyQ==
+Received: by mail-lf1-f52.google.com with SMTP id
+ 2adb3069b0e04-5be3d5927ceso965679e87.3
+ for <dri-devel@lists.freedesktop.org>; Fri, 20 Nov 2026 01:47:51 -0800 (PST)
+X-Forwarded-Encrypted: i=1;
+ AL+hErGSldhd/nWzhq3IvonOnlu6sgbZf5nTnvPY9j+dHixBq/oSOhW2VhPbkJ/tywyySaPHppoxcihqBgk=@lists.freedesktop.org
+X-Gm-Message-State: APuU4Z+0guuwdUSLezfOyGEZBpvRR67HP1TklqsMLn65u/vVjmTcypLd
+ f0q4ayWshCNGE4PPOjpx5pHiHFt9Mb4IF9OuILjshr4RLNTlWThtHITTHhJIlLuaQ33czQAO98l
+ xxF0DnmxXsiopwxZ9lyB1yRF9Wvz0xos=
+X-Received: by 2002:a05:6512:6d0:b0:5c0:463:7b4d with SMTP id
+ 2adb3069b0e04-5c1bc85f15fmr656116e87.46.1795168069914; Fri, 20 Nov 2026
+ 01:47:49 -0800 (PST)
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: PH7PR12MB5685:EE_|CY8PR12MB7194:EE_
-X-MS-Office365-Filtering-Correlation-Id: 76af6d12-94e4-4f69-6b0c-08df46ea0968
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
- ARA:13230040|23010399003|1800799024|366016|376014|7416014|261102123227099003|261026140227099003|261026121527099003|11063799006|261028144727099003|261022075727099003|261022105027099003|261021121427099003|921020|56012099006|4143699003|261102130727099003|10067099003|18002099003|261009223027099003|22082099003;
-X-Microsoft-Antispam-Message-Info: daysot/Q0R2jsfrfCFYShvAmksU2zPzBKE2c3JtPAm8s4Eh6Shz9OKr0wEbDyTArMWEW/9Mb/jNcs1YVUEmIQg0AXDnwrOiP82N2Qn0YgJpYgcY5SjTvt3jW3zOomz0DPUJ7oec4RdNUYkA5ntEqlZkO5/KvLKuHHBK7ii/OqFvZYA95sm9jTW/qBgzOzVNAISRI5KpP68hQvB8339PcsB4SfEus0lvmYq+7doFrn+jvwG/3/7ddHPq72EOcbq/llRpknMgpAuK2F3pYD0dsdyy3aMLDMEyH/EgO3BPurcDHI00T7SJrgB6bi5oVDYNd/YV1RodCdNnXNI6j9knwleDKAFV21vLptzSNtkfmFqoVTb+BBki//wSwLLDeGmq6JIzi/wSnRiJtqiJtV1qKOkRf3hdIujsD/8AG3k/iF+TSCKwDaqhM4Y8IvdqwrBernl9RJIj/0tQksfiM0OXTEedB5ZZVLGdCC4KE6qhquUbQ37hl4mTtchJkPFBRfugCxpnAhkBWj3Jp48EOsrQxwoVyHoy87tIC0J3I6qzbIP45O065xlct0fsaRP2jgN4dqy7sdDm4lV9erco195Xdvugr8nsRkA3cLzubikuQL2In6sXlL03TD2NwmlE2lou8DmDmvfSXo6iRkDjWpPJVguWVX+vft0uvH7RhZzGk5i14g6ELv2OK15C2UMsPVYrg9c9dn/MPAIOZFYVxcqtxiw==
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:PH7PR12MB5685.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(23010399003)(1800799024)(366016)(376014)(7416014)(261102123227099003)(261026140227099003)(261026121527099003)(11063799006)(261028144727099003)(261022075727099003)(261022105027099003)(261021121427099003)(921020)(56012099006)(4143699003)(261102130727099003)(10067099003)(18002099003)(261009223027099003)(22082099003);
- DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?MUlGSW9Wa09vaVlSS0NNWFkxSEQzZGc1MXVtaDc4bXJHSWEvZVlMdHhSelVy?=
- =?utf-8?B?YTNZRTNaN29odXlMcWR5d1hYUW9QYVF4TzFzTVM4bmNkOHdqOE9JZXR3WHRq?=
- =?utf-8?B?bGY4K3psektZTjlaeUZvMnJINHd5aW9LTjNoQzVOWW0vSGxFS0RJcmt1aVJv?=
- =?utf-8?B?NUh4SE1XZWxaeHoyZC82QWp2NDFyNndNYmZXSmZLbDdHZ01XVUh2TGtwUzly?=
- =?utf-8?B?N2FkcGtSVk5lQlFaMFkwTXEvY2o3aDAvMStmaW5tVzZwUkRBZEtXY2ZRWDVP?=
- =?utf-8?B?ZTB4Yy9yOHRBUHhjL1VvVWg1OXBWZXhrZmYvVnpaVTFhMkpZWXZobnhwTzF2?=
- =?utf-8?B?cXVKZXhQVk5LTlRSTlFSRndvNXBQWnl3VUI2YkwzTUVISWMvMUhEcnp3S3Nl?=
- =?utf-8?B?SEdSdWMrNS9TVVZ3dk1JRTJuMEM3dU5sVmkvWWs2YmNjUE0zdTZhVms5NG0r?=
- =?utf-8?B?bHc5R2xrR0JRclJXSjJVODFDRW93VWdSdC94c1ZvdXdSSFgrL2xwZm1FRnF4?=
- =?utf-8?B?QU5CWm10MlZ3U3lHM2NtajZWV1kvaEV3Tjc2YzRwcjRFMzBaN2M2clh0UWh0?=
- =?utf-8?B?dUY5b1N5czZBcngyR0VyNXYzbGdodkpiMTdHRW9yM1dqYmcvZDJ2MEtIQy9l?=
- =?utf-8?B?dG01dlBQMkRWY3FjTThFZUlBcTVoWWlBRCt3WXNTdDZaK3BWeGs1cDN6ZWZW?=
- =?utf-8?B?ZjdtVjRtMXIrUXVIbVF0TFk5OWR1dlprZ3oyMlFiNWJjNk9TWDZ1YWxxbU9Z?=
- =?utf-8?B?M3ZpbXk5ZEtpOTlsYmt2NDJKL0ViOEJjVHZtMzJVOWJ6bmNRbmtwL0pLbnJJ?=
- =?utf-8?B?ZXVpa2FtQTlBQTVyQ0FPakh5azFaVUpsUlVjeTNWMEJvT20wOVcxZUduUmc5?=
- =?utf-8?B?cVBrNDRTZmR1dWN2d2M5RWF0bTlKa1hHRFNjT1V3cmJQTDB5UTJUQ0NYYUZO?=
- =?utf-8?B?YWo5ZmluMWxSVjBaSXlQd05YTStlSGJacDM1LzVPSzVKalJxWHBWaHh2UEYr?=
- =?utf-8?B?ZzZMMzRxOExxVkhyRTgzcnAxak1JNEFVTmxFR1V2ZENKcmRHTUhoT1YxOURV?=
- =?utf-8?B?M3llMXFMR3dZWmQzcEhoRjVvUzNndmtndHM1MkJpOVNlUjZseDFCd1JNYTBX?=
- =?utf-8?B?TU1Kano3Y0ovb3M5R1RIMk1IZUQ3ZjJaQVJJTHRxcm1ieW9FVHNFdXZzV21Q?=
- =?utf-8?B?VkZQS1lXMjdrcXN3d0FCNTlHdTlueDcxc1BBVFBuNnNlK2tENFdtck5lVWcr?=
- =?utf-8?B?S1dEWlF0WHJXdXhwSC9nREhoUFp0K3FEcXZlQ2lMS3B4Z2tiOFlMdm9DcDhu?=
- =?utf-8?B?WXBWeFNNY09KMit6SXR5M1RSZzNiMmxVdElhcWRGbDZSTS9PeXdWZDdoUGpj?=
- =?utf-8?B?N1NBMUpZUDJLUlFZM0FuYjA3dmNiQjNyNmtKdUo4QVdXUW1sc1BWTUdTMUFS?=
- =?utf-8?B?aTd1T1lvTmErNXBJVmVJYzRUbVlkd3NFWU84TEk0Z1RFVEZXTUo3UGhZZXdZ?=
- =?utf-8?B?N0dMUHEvTWlRNzRCb1NSbE5hb29Nc2hGQ01BczMvanlXSWZiMXViK2hoRGY2?=
- =?utf-8?B?WVJIM1V4TkhRYXIyK2hWNUN6WVJUblgrS2pOanVsVXA1UnRTM0dzakpoZHVK?=
- =?utf-8?B?QndRSDZJcWZTcHAvcm4wNDE4S0xDUndLZnphWnlBQXlWeDFzZXlmUklYUFZH?=
- =?utf-8?B?bHpiNUhRa1MxNW9uTVpaOUVqY1B2U040RG1QZUlsSHZtUjBaVU41NE9LZE5p?=
- =?utf-8?B?aENxRWd2VXpWYzlPemtaKytTVUFzM3VBKy9oRWNzRGlPdUFXditmMWRvbFNW?=
- =?utf-8?B?eEMxZU9jTTBEdTJLdWtOUmRjVytUTGtiL1RaQWhTTnJnV1dsSTRPSHNiU2t3?=
- =?utf-8?B?OXRGV0RYVzc3dzY5b1o5RVJwZUdaTUhzeXJGdk41SzBLZVFtS3dhRTJZYW9U?=
- =?utf-8?B?WTdVQnptYkpHUUhLaFdzOWlQNFh6T292blJLREc5ZG5QbmZ2YmsvS2x1ZDg0?=
- =?utf-8?B?QlpEYzFvWVhrN0Z5bGtMWHRHWUJyeUFSL3ZxMlhxdE5FVnVQTXFxTmFXdnk2?=
- =?utf-8?B?YXlqV1hmSy9WR1pWVDIzS3VXeVNIVVJpSk4zdE1JNk5CWTN5MjRlSEVRb3RC?=
- =?utf-8?B?dE10M0NVSlVrOSt6b1pOWFh6TGdNZ2Q0dFdQakl5eitxTGNSNS92dW1pd1I4?=
- =?utf-8?B?alhhbkdDMExMbXN0RWlNNStiN2JKaGxJMnB3dHZaL2NBdnN4cG9uOFdzR2dy?=
- =?utf-8?B?a3Q2RXNWUGxRZkp3YW5LczI1QlVaSFY1QzJTLzA3VHRTVHRXRGY5dUJiNVc3?=
- =?utf-8?Q?hdm4LPX+mbpfQ2PIO0?=
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 76af6d12-94e4-4f69-6b0c-08df46ea0968
-X-MS-Exchange-CrossTenant-AuthSource: SJ0PR12MB5673.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 20 Nov 2026 09:38:30.7645 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: NA5IIrvz3ppRtV9BOEUkEjsqRzDSSx7ve5deEDyLLjVkkuvmZol0eRHYTzc2SLsl
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: CY8PR12MB7194
+References: <20261015142552.4128028-1-ryan.roberts@arm.com>
+ <20261015142552.4128028-2-ryan.roberts@arm.com>
+In-Reply-To: <20261015142552.4128028-2-ryan.roberts@arm.com>
+From: Linus Walleij <linusw@kernel.org>
+Date: Fri, 20 Nov 2026 10:47:37 +0100
+X-Gmail-Original-Message-ID: <CAD++jLkrWojU3FeTPGOCFHHsbmTGYG0Tz3b2nrn7mMfsDssCQw@mail.gmail.com>
+X-Gm-Features: Aa3M54rOrfZtY95RmYFxRv97HUcFxeSdg2w3O8Cm90EYC1dabPW2gsgZ-nnS-cY
+Message-ID: <CAD++jLkrWojU3FeTPGOCFHHsbmTGYG0Tz3b2nrn7mMfsDssCQw@mail.gmail.com>
+Subject: Re: [RFC PATCH v2 01/15] misc/arm-cla: Add driver skeleton and
+ documentation
+To: Ryan Roberts <ryan.roberts@arm.com>
+Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+ Arnd Bergmann <arnd@arndb.de>, 
+ Catalin Marinas <catalin.marinas@arm.com>, Will Deacon <will@kernel.org>, 
+ Mark Rutland <mark.rutland@arm.com>, Marc Zyngier <maz@kernel.org>,
+ Oliver Upton <oupton@kernel.org>, 
+ Alex Williamson <alex@shazbot.org>, Jason Gunthorpe <jgg@nvidia.com>,
+ Rob Herring <robh@kernel.org>, 
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
+ Jean-Philippe Brucker <jpb@kernel.org>, Oded Gabbay <ogabbay@kernel.org>,
+ Jonathan Corbet <corbet@lwn.net>, 
+ linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
+ kvmarm@lists.linux.dev, kvm@vger.kernel.org, devicetree@vger.kernel.org, 
+ dri-devel@lists.freedesktop.org, linux-doc@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -142,93 +77,54 @@ List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-17.3 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
+X-Spam-Status: No, score=-5.8 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
 	DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
-	INCLUDES_CR_TRAILER,INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,
-	SPF_PASS,USER_AGENT_SANE_1 autolearn=unavailable autolearn_force=no
-	version=4.0.1
+	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS autolearn=no
+	autolearn_force=no version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-On 11/19/26 14:18, Philipp Stanner wrote:
-> A fence's timestamp is just an opportunistic data point for debugging
-> information etc. drm_sched, for example, uses the timestamps for its
-> scheduling algorithms.
-> 
-> In rare situations it can make sense to allow users to overwrite a
-> timestamp with a more accurate value. This is relatively harmless since
-> the timestamp has no meaning for the implementation itself.
-> 
-> Add dma_fence_overwrite_timestamp().
+On Thu, Oct 15, 2026 at 4:26=E2=80=AFPM Ryan Roberts <ryan.roberts@arm.com>=
+ wrote:
 
-I think that this is a very bad idea since it gives the impression that overwriting the timestamp on a fence is ok.
-
-That was only done on the scheduled dma-fence because nobody cares about that time in the uAPI. For all other cases that can blow up.
-
-I would rather come up with a clean approach for the scheduler to track the spend time per entity which would make that hack completely superfluous.
-
-IIRC Tvrtko already created patches for that, I'm just not sure if they were ever committed.
-
-Regards,
-Christian.
-
-> 
-> Cc: stable@vger.kernel.org
-> Signed-off-by: Philipp Stanner <phasta@kernel.org>
-> ---
->  drivers/dma-buf/dma-fence.c | 28 ++++++++++++++++++++++++++++
->  include/linux/dma-fence.h   |  1 +
->  2 files changed, 29 insertions(+)
-> 
-> diff --git a/drivers/dma-buf/dma-fence.c b/drivers/dma-buf/dma-fence.c
-> index bd58688b81a7..f1b7e90864bf 100644
-> --- a/drivers/dma-buf/dma-fence.c
-> +++ b/drivers/dma-buf/dma-fence.c
-> @@ -412,6 +412,34 @@ void dma_fence_signal_timestamp(struct dma_fence *fence, ktime_t timestamp)
->  }
->  EXPORT_SYMBOL(dma_fence_signal_timestamp);
->  
-> +/**
-> + * dma_fence_overwrite_timestamp - overwrite a fence's timestamp
-> + * @fence: the fence whose timestamp shall be overwritten
-> + * @timestamp: the timestamp
-> + *
-> + * A dma_fence's timestamp is merely an opportunistically evaluated value to
-> + * obtain information such as scheduling granularity. In some situations it can
-> + * make sense to overwrite with a custom value. This function provides said
-> + * functionality with the correct memory ordering.
-> + *
-> + * Return: 0 on success, -EAGAIN if the fence was not yet signaled.
-> + */
-> +int dma_fence_overwrite_timestamp(struct dma_fence *fence, ktime_t timestamp)
-> +{
-> +	unsigned long flags;
-> +	int ret = 0;
+> +Inter-Accelerator Communication
+> +-------------------------------
 > +
-> +	dma_fence_lock_irqsave(fence, flags);
-> +	if (dma_fence_test_signaled_flag(fence))
-> +		fence->timestamp = timestamp;
-> +	else
-> +		ret = -EAGAIN;
-> +	dma_fence_unlock_irqrestore(fence, flags);
-> +
-> +	return ret;
-> +}
-> +EXPORT_SYMBOL(dma_fence_overwrite_timestamp);
-> +
->  /**
->   * dma_fence_signal_locked - signal completion of a fence
->   * @fence: the fence to signal
-> diff --git a/include/linux/dma-fence.h b/include/linux/dma-fence.h
-> index 34aefb63a7fe..815471b844f0 100644
-> --- a/include/linux/dma-fence.h
-> +++ b/include/linux/dma-fence.h
-> @@ -447,6 +447,7 @@ bool dma_fence_check_and_signal_locked(struct dma_fence *fence);
->  void dma_fence_signal_locked(struct dma_fence *fence);
->  void dma_fence_signal_timestamp(struct dma_fence *fence, ktime_t timestamp);
->  void dma_fence_signal_timestamp_locked(struct dma_fence *fence, ktime_t timestamp);
-> +int dma_fence_overwrite_timestamp(struct dma_fence *fence, ktime_t timestamp);
->  signed long dma_fence_default_wait(struct dma_fence *fence,
->  				   bool intr, signed long timeout);
->  int dma_fence_add_callback(struct dma_fence *fence,
+> +On some platforms, multiple accelerators, each attached to a separate CL=
+A within
+> +a cluster, are also directly connected to each other via a shared bus to
+> +accelerate cooperation between accelerators. The accelerators sharing a =
+bus
+> +cannot be isolated from each other. When collaborative operations are la=
+unched
+> +on each of the participating accelerators, they synchronize over the bus=
+,
+> +stalling until all are ready.
 
+What the patch series needs to do is tell us how this topology is discovere=
+d.
+I.e. will it be discoverable from the hardware itself, or will this topolog=
+y be
+described in device tree or ACPI for example?
+
+The kernel must certainly know this topology to be able to synchronize
+work across several cores? What happens if an asynchronous acceleration
+task is running on some cores and no actual CPU load is on any of them
+and the kernel want to put them to idle or shut them down? Same problem
+on the cluster level?
+
+Further since this appears to be hardware topology userspace must obtain
+this information from the kernel, not the other way around: we cannot
+have a situation where userspace "just knows" stuff about the hardware,
+keeping the kernel in the dark.
+
+I think this is a wider question about the discovery of these CLA:s:
+there must be a coherent story about how userspace finds it and maps
+it topology and that information must come from the kernel, so the
+kernel and userspace have the same map of the world.
+
+Right now IIUC the driver probes from discovery in the hardware from
+CPU-specific registers so does this discovery also include the topology?
+
+Yours,
+Linus Walleij
