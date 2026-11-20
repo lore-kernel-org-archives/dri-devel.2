@@ -2,43 +2,163 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 38AAC606A320
-	for <dri-devel@archiver.kernel.org>; Fri, 20 Nov 2026 17:53:36 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A96B060A2630
+	for <dri-devel@archiver.kernel.org>; Fri, 20 Nov 2026 17:54:28 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=aliel.fr header.i=@aliel.fr header.a=rsa-sha256 header.s=courrier-s1 header.b=vYBXbJye
+	dkim=pass (2048-bit key) header.d=gmx.de header.i=deller@gmx.de header.a=rsa-sha256 header.s=s31663417 header.b=RyOiIGoj
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 96A0A112C5E;
-	Fri, 20 Nov 2026 17:53:30 +0000 (UTC)
-Received: from courrier.aliel.fr (courrier.aliel.fr [65.21.61.41])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 2F61E10E02C
- for <dri-devel@lists.freedesktop.org>; Fri, 20 Nov 2026 17:53:24 +0000 (UTC)
-Message-ID: <ef1b7465-9639-4d11-9b10-4b0c9da21bd5@aliel.fr>
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=aliel.fr;
- s=courrier-s1; t=1795197201;
- bh=V8tpS6gdtCA8ZbK1QEzTWT9dOlqALvACzeGN4IBIn60=;
- h=Date:From:Subject:To:Cc:References:In-Reply-To;
- b=vYBXbJyeFCDtVKTZkks5hS0kKXgmajx0a9aGeWOoL6LRhNYO0O1MO2QARIZQDEbki
- ezb0rth3CwzPZpsK6kXyuX92iK0FDNFUbi2O3bjhrJgqn4rOtuRJaiEuf4sQG3B6Sm
- eZmcENqezW7RZGDTK3ggXRmbK6y/wimX1gYVvpM8=
-Date: Fri, 20 Nov 2026 18:52:50 +0100
+	by gabe.freedesktop.org (Postfix) with ESMTP id 202BA10E542;
+	Fri, 20 Nov 2026 17:54:23 +0000 (UTC)
+Received: from mout.gmx.net (mout.gmx.net [212.227.17.20])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 5C8E710E1C1
+ for <dri-devel@lists.freedesktop.org>; Fri, 20 Nov 2026 17:54:16 +0000 (UTC)
+DKIM2-Signature: i=1; m=1; t=1795197254; mf=PGRlbGxlckBnbXguZGU+;
+ rt=PGRyaS1kZXZlbEBsaXN0cy5mcmVlZGVza3RvcC5vcmc+; d=gmx.de;
+ s=s31663417:rsa-sha256:BiwtluDCdCnr2q4XwW3D+vDKHc23
+ V+1LtzPycx3qQ9qhpiHgMHu6j4G41QQFy9EnnMg+Vr9n3leXf7K5hcneDU/CpuOCIJDZR6emMjA
+ cAbyRCpcocuCiiFqL4UBy0juEtS2kj/m9KJ7bN30EFneeH+cbfQj68ahXthRKWKfJjtZ8VMbftf
+ X9HbN3z9ufjHv50ETIaX7bpBFaQ9D39OWRtBzfXVmpnnQrQyEmuu2CU8YRMnpZkC7LZtY2274V2
+ J3D8Pz5G9STlZNW/TAj6aMygAY+MD1n/9FBewMsQUziiLrCtM//g6+WoxpYilY+97D83304aaED
+ UMYiCTzGUGc4lw==;
+Message-Instance: m=1; h=sha256: EYQLEEDq46wAcosuHPgHvTh1urvAe7EMG7PGoiM0rpk=:
+ kb8i/WGJzIOgpop7YMTG5VRycG6NnfUl/YmjrQVPuwM=, sha512:
+ 46jSujwWgPNB6xP0YCpIwhg9Hiy4NW9u/8sXTShU5OfUVEn4EI2mP3y/IdAl0LyPoKa+/PNCW17wFrxyYI0nzw==:
+ B9QlnLeAEJlgeLcGds4La6YapwYA3jD6puOBUk9RPE8W+8t5b5+5sgNUW0VJ4NAUZadt7vP9WBuJBYOg+xEY0A==;
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmx.de;
+ s=s31663417; t=1795197254; x=1795802054; i=deller@gmx.de;
+ bh=sHrVwm9Y2azO/qyG5D6lAPdfzBKPrr7WTaybCanFFQA=;
+ h=X-UI-Sender-Class:From:To:Cc:Subject:Date:Message-ID:In-Reply-To:
+ References:MIME-Version:Content-Transfer-Encoding:cc:
+ content-transfer-encoding:content-type:date:from:message-id:
+ mime-version:reply-to:subject:to;
+ b=RyOiIGojNFj6sTXZ7SRTpVmzkbd0aKM7t3h7N/ls9NkBFXR45dnUW/kFGYq3q2Z8
+ p5AFzzyJtljr2DMIHcma6/g4oiu6IapQt1J47P+RqffOQzncILINwjyyclzHaHfm9
+ +q/nmBNny1Opj4XplAYnAriauNkgjPk1cDBVgnrRBt3BAoSWzWqPSWkiuzdtyhkvJ
+ wFyneReLPE9OVDUTePvKCkAvrW0v+WbFuJFs69JXR0TShFGXUxm5HngYqy1mDnWDD
+ cfG/VthOvrWmS5kOcewMmHgLY5/Qar/L5rFYuhLfKslPRcFWN5VUnlHl5kAKb/txL
+ sKqY8qcpXxwOjVwutg==
+X-UI-Sender-Class: 724b4f7f-cbec-4199-ad4e-598c01a50d3a
+Received: from client.hidden.invalid by mail.gmx.net (mrgmx105
+ [212.227.17.168]) with ESMTPSA (Nemesis) id 1MJVHU-1xoK342CHA-00LPdW; Fri, 20
+ Nov 2026 18:54:14 +0100
+From: Helge Deller <deller@gmx.de>
+To: linux-fbdev@vger.kernel.org,
+	dri-devel@lists.freedesktop.org
+Cc: Henri Roosen <henri.roosen@ginzinger.com>,
+	stable@vger.kernel.org
+Subject: [PATCH 2/2] fbcon: Don't drop last logo line if logo is same size as
+ screen
+Date: Fri, 20 Nov 2026 18:54:13 +0100
+Message-ID: <20261120175413.176249-2-deller@gmx.de>
+X-Mailer: git-send-email 2.56.1
+In-Reply-To: <20261120175413.176249-1-deller@gmx.de>
+References: <20261120175413.176249-1-deller@gmx.de>
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-From: Ronald Claveau <linux-kernel-dev@aliel.fr>
-Subject: Re: [PATCH 07/10] drm/meson: dw-hdmi: Use the generic PHY framework
- for the HDMI TX PHY
-To: sashiko-reviews@lists.linux.dev
-Cc: devicetree@vger.kernel.org, linux-amlogic@lists.infradead.org,
- linux-phy@lists.infradead.org, dri-devel@lists.freedesktop.org,
- robh@kernel.org, conor+dt@kernel.org, neil.armstrong@linaro.org,
- vkoul@kernel.org, olteanv@gmail.com
-References: <20261117-meson-drm-create-hdmitx-phy-v1-0-9e0ac931381c@aliel.fr>
- <20261117-meson-drm-create-hdmitx-phy-v1-7-9e0ac931381c@aliel.fr>
- <sashiko-outbox-219549@kernel.org>
-Content-Language: en-US
-In-Reply-To: <sashiko-outbox-219549@kernel.org>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: quoted-printable
+X-Provags-ID: V03:K1:uZpN/SJ9/o+U8cPP0zJjCorPn+bxWK8Psv5ciIwhdsCGzxILXKf
+ rnUtqfDEgreSL0lnqCE4QWnAtsEatH+Ip1egkk74GvKxP53z1KeNS2dH/+RTC8gRdEt4lRM
+ apY6tysMpuIHATQD2MgaRQ5e7XGl02CgyCLsDPQZI7cm1Knhto0I9aKybvAsKvKNZtK86vk
+ ujGnk4oyyIHoX9eMnYEWQ==
+UI-OutboundReport: notjunk:1;M01:P0:2CRPWB0ohTk=;K2cat+do9kRmwXN1QElxoox4TES
+ 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
+ 2GxBAAiRscqgYA+wpA==
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -50,112 +170,60 @@ List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-12.3 required=3.0 tests=BAYES_00,DKIM_SIGNED,
-	DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_PATCH,
-	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,USER_AGENT_SANE_1
+X-Spam-Status: No, score=-15.8 required=3.0 tests=BAYES_00,DKIM_SIGNED,
+	DKIM_VALID,DKIM_VALID_AU,FREEMAIL_FORGED_FROMDOMAIN,FREEMAIL_FROM,
+	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
+	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,USER_AGENT_GIT
 	autolearn=unavailable autolearn_force=no version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-On 11/17/26 21:03, sashiko-bot@kernel.org wrote:
-> Thank you for your contribution! Sashiko AI review found 3 potential
-> issues to consider:
-> - [High] drm/meson: dw-hdmi: suspend/resume order breaks PHY state and
->   HDMI output
-> - [Medium] drm/meson: dw-hdmi: missing phy_exit() on dw_hdmi_probe()
->   failure
-> - [Medium] drm/meson: dw-hdmi: premature PHY teardown in
->   meson_dw_hdmi_unbind()
-> --
-> 
-> commit 91e31ad4e0b36171e791e7c0487c9a4c66b12b31
-> Author: Ronald Claveau <linux-kernel-dev@aliel.fr>
-> 
-> drm/meson: dw-hdmi: Use the generic PHY framework for the HDMI TX PHY
-> 
-> This commit converts meson_dw_hdmi from direct HHI_HDMI_PHY_CNTL0..5
-> register writes to the generic PHY API, with a legacy fallback when the
-> device tree lacks a "phys" property.
-> 
->> diff --git a/drivers/gpu/drm/meson/meson_dw_hdmi.c b/drivers/gpu/drm/meson/meson_dw_hdmi.c
->> index 20a821936b3af..f28cc1e6ee1df 100644
->> --- a/drivers/gpu/drm/meson/meson_dw_hdmi.c
->> +++ b/drivers/gpu/drm/meson/meson_dw_hdmi.c
-> 
-> 
-> [Severity: Medium]
-> Does meson_dw_hdmi_bind() leak a phy_init() reference if dw_hdmi_probe()
-> fails later in this function (for example with -EPROBE_DEFER when the DDC
-> I2C bus is not ready)?
-> 
-> When the PHY comes from the external PHY provider, devres cleanup on a
-> failed component bind only calls phy_put(), leaving phy->init_count at 1.
-> On the next bind attempt, meson_dw_hdmi_init() resets hdmitx_phy and calls
-> phy_init(), which sees init_count > 0 and skips phy->ops->init(), leaving
-> HHI_HDMI_PHY_CNTL0 and HHI_HDMI_PHY_CNTL1 uninitialized after the hardware
-> reset.
-> 
+Henri reported a regression that when a custom bootlogo is exactly as
+big as the screen, a white bar with the size of the font height is
+displayed at the bottom of the display.
 
-I will move revert this change.
+This patch fixes this off-by-one bug, but now -as sashiko-bot noticed-
+since the logo covers the whole screen there is no area left in which
+the text can be scrolled. To avoid accesses outside the screen memory
+simply keep the text area covering the full screen (and possibly
+overwriting) the full-screen logo.
 
-> [Severity: Medium]
-> Can tearing down meson_dw_hdmi->phy before devm_free_irq() and
-> dw_hdmi_unbind() cause a use-after-free in dw_hdmi_top_thread_irq()?
-> 
-> CPU0                                    CPU1
-> meson_dw_hdmi_unbind()
->   phy_exit(meson_dw_hdmi->phy)
->   devm_phy_destroy(..., meson_dw_hdmi->phy)
->                                         dw_hdmi_top_thread_irq()
->                                           dw_hdmi_setup_rx_sense()
->                                             ...
->                                               dw_hdmi_phy_init()
->                                                 phy_configure(dw_hdmi->phy, ...)
->                                                   <-- use-after-free
->   devm_free_irq(...)
->   dw_hdmi_unbind(...)
-> 
-> In the legacy PHY path, devm_phy_destroy() immediately unregisters and
-> frees meson_dw_hdmi->phy while the threaded HPD interrupt handler is still
-> active and can invoke dw_hdmi_phy_init() or dw_hdmi_phy_disable().  Even
-> with a DT PHY, HPD handling or dw_hdmi_unbind() can access the PHY after
-> phy_exit().  Should phy_exit() and devm_phy_destroy() run after
-> devm_free_irq() and dw_hdmi_unbind()?
-> 
+Fixes: 94e6a058b168 ("fbcon: Fix KASAN slab-out-of-bounds Read in fbcon_pr=
+epare_logo")
+Tested-by: Henri Roosen <henri.roosen@ginzinger.com>
+Signed-off-by: Helge Deller <deller@gmx.de>
+Cc: stable@vger.kernel.org # v7.3+
+=2D--
+ drivers/video/fbdev/core/fbcon.c | 6 ++++--
+ 1 file changed, 4 insertions(+), 2 deletions(-)
 
-I will move the phy_destroy after unbind, phy_exit will be on
-phy_disable only.
+diff --git a/drivers/video/fbdev/core/fbcon.c b/drivers/video/fbdev/core/f=
+bcon.c
+index d7890e119dc7..cc311dc0e2e4 100644
+=2D-- a/drivers/video/fbdev/core/fbcon.c
++++ b/drivers/video/fbdev/core/fbcon.c
+@@ -666,7 +666,7 @@ static void fbcon_prepare_logo(struct vc_data *vc, str=
+uct fb_info *info,
+ 	logo_height =3D fb_prepare_logo(info, par->rotate);
+ 	logo_lines =3D DIV_ROUND_UP(logo_height, vc->vc_font.height);
+ 	logo_lines =3D min(logo_lines, rows);
+-	logo_lines =3D min(logo_lines, new_rows - 1);
++	logo_lines =3D min(logo_lines, new_rows);
+ 	if (logo_lines <=3D 0) {
+ 		logo_lines =3D 0;
+ 		logo_shown =3D FBCON_LOGO_DONTSHOW;
+@@ -734,7 +734,9 @@ static void fbcon_prepare_logo(struct vc_data *vc, str=
+uct fb_info *info,
+ 		pr_info("fbcon: disable boot-logo (boot-logo bigger than screen).\n");
+ 	} else {
+ 		logo_shown =3D FBCON_LOGO_DRAW;
+-		vc->vc_top =3D logo_lines;
++		/* keep vc_top if logo covers whole screen */
++		if (logo_lines < vc->vc_bottom)
++			vc->vc_top =3D logo_lines;
+ 	}
+ }
+ #endif /* MODULE */
+=2D-=20
+2.56.1
 
-> [Severity: High]
-> Does calling phy_exit() in meson_dw_hdmi_pm_suspend() and phy_init() in
-> meson_dw_hdmi_pm_resume() break HDMI output across system suspend/resume?
-> 
-> Because the HDMI TX platform device sits after the VPU master device on
-> dpm_list (both from DT node order and because devm_phy_optional_get() adds
-> a stateless device link to the PHY that reorders the consumer to the tail
-> of dpm_list), system suspend runs meson_dw_hdmi_pm_suspend() before
-> meson_drv_pm_suspend(), and system resume runs meson_drv_pm_resume()
-> before meson_dw_hdmi_pm_resume().
-> 
-> On suspend, meson_dw_hdmi_pm_suspend() calls phy_exit() while the PHY is
-> still powered on, before meson_drv_pm_suspend() ->
-> drm_mode_config_helper_suspend() -> dw_hdmi_phy_disable() calls
-> phy_power_off().
-> 
-> On resume, meson_drv_pm_resume() -> drm_mode_config_helper_resume() ->
-> dw_hdmi_phy_init() calls phy_configure() and phy_power_on() while
-> phy->init_count is still 0.  Then meson_dw_hdmi_pm_resume() runs
-> meson_dw_hdmi_init(), which resets hdmitx_phy and calls phy_init(); since
-> phy->power_count > phy->init_count, phy_init() warns ("phy_power_on was
-> called before phy_init") and runs meson_hdmi_phy_init(), overwriting
-> HHI_HDMI_PHY_CNTL0 and HHI_HDMI_PHY_CNTL1 with cntl0_init and cntl1_init
-> and clobbering the mode that meson_drv_pm_resume() just configured and
-> powered on.
-> 
-
-I will put phy_init in dw_hdmi_phy_init and phy_exit in
-dw_hdmi_phy_disable for v2.
-
--- 
-Best regards,
-Ronald
