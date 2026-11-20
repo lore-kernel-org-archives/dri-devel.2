@@ -2,40 +2,39 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9FBE5606A325
-	for <dri-devel@archiver.kernel.org>; Fri, 20 Nov 2026 12:55:48 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1879F606A320
+	for <dri-devel@archiver.kernel.org>; Fri, 20 Nov 2026 12:56:03 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=BB8xHwrk
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=D7p3tTAR
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 21F941129DB;
-	Fri, 20 Nov 2026 12:55:41 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 363F51129D0;
+	Fri, 20 Nov 2026 12:55:57 +0000 (UTC)
 Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 2222D1129D4
- for <dri-devel@lists.freedesktop.org>; Fri, 20 Nov 2026 12:55:34 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 0EAE91129D4
+ for <dri-devel@lists.freedesktop.org>; Fri, 20 Nov 2026 12:55:41 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id 09DD3441BF;
- Fri, 20 Nov 2026 12:55:34 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id DFD6F1F000D3;
- Fri, 20 Nov 2026 12:55:32 +0000 (UTC)
+ by sea.source.kernel.org (Postfix) with ESMTP id EB83644E6A;
+ Fri, 20 Nov 2026 12:55:40 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id BE7CF1F000D4;
+ Fri, 20 Nov 2026 12:55:39 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1795179333;
- bh=mAOg9cbA59SAaUTmOXI4dUEovS1i5/58CkVPY7xzSkU=;
+ s=k20260515; t=1795179340;
+ bh=JdTWumvc9n2bCV3YQUSMi2nQpyXgefMPJDC9VJfjT6Y=;
  h=From:Date:Subject:References:In-Reply-To:To:Cc;
- b=BB8xHwrkPHP7wR0spacJYPD2uB3qk5fSyiCdfrZ6EjfYXLgop6fzQU2K9ZjTldUaQ
- l+NVFu+cLaCAwpmU3e0t7K3j3wJIXiskwFKOnOcbFa27CGGRrsiZiEGZhPe6kMNqDQ
- hYVct7PGaVtoL5oaUoZsyb9oLvLzYsb6y1OW1yJ5JBDq0Dj8Lj8Ec5ZJgTOMTVyujP
- htxSAQEUOcKw+yztO9gNSNbtVLd3v9CfYtQ5gZEnTvHUvYkfC4hELKQiDANXxnNMXC
- Zvhk69glNk8plDTOPU0p4q2uXmFdKxW2Z/7f6b0DbOokJt7pVwrXccg8XQtS0hG4iz
- SPxHHtPj8vXXg==
+ b=D7p3tTARdaK9Bs1j1tjQS8hKi/p5OMOOpNfen1mEJKcoIx9GaCVXSn1Hi4E944aCy
+ 5kvt0cEiJ8v73zCMu6KVok+cYJqBC8RMKX5qVndScJHDTTZhAzbfag8Adsgi85vxNO
+ 0o99PLN8nKc813BTkR8bORWLS2x2RbyXmOCCJ2UVHtYwqq6RXFC/2GOkUTLc7F3Qsm
+ PTjd4M/nN2JsGYVwybFe10mFiDR4uKPyIV25seojFUMsTKd7CYXV+ndF6EQ/eO1qkK
+ RudtO480GRqp7YepBMbIZbOKuEp1Er5WT8dbD1mhS8FMEPAMLqpAgfDBKzJ5AABFTX
+ s0OuUc5jZwVuQ==
 From: Maxime Ripard <mripard@kernel.org>
-Date: Fri, 20 Nov 2026 13:54:56 +0100
-Subject: [PATCH v9 04/42] drm/tests: hdmi-state-helper: Handle EDEADLK in
- the color format test
+Date: Fri, 20 Nov 2026 13:54:58 +0100
+Subject: [PATCH v9 06/42] drm/atomic: Fix private obj error handling
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20261120-drm-state-readout-v9-4-a67c2b45b8ec@kernel.org>
+Message-Id: <20261120-drm-state-readout-v9-6-a67c2b45b8ec@kernel.org>
 References: <20261120-drm-state-readout-v9-0-a67c2b45b8ec@kernel.org>
 In-Reply-To: <20261120-drm-state-readout-v9-0-a67c2b45b8ec@kernel.org>
 To: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
@@ -47,14 +46,15 @@ To: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
  Jyri Sarha <jyri.sarha@iki.fi>, 
  Tomi Valkeinen <tomi.valkeinen@ideasonboard.com>
 Cc: Devarsh Thakkar <devarsht@ti.com>, dri-devel@lists.freedesktop.org, 
- Maxime Ripard <mripard@kernel.org>
+ Maxime Ripard <mripard@kernel.org>, 
+ Laurent Pinchart <laurent.pinchart@ideasonboard.com>
 X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=openpgp-sha256; l=2775; i=mripard@kernel.org;
- h=from:subject:message-id; bh=ETUGIvdl6CvVQHMhX2UxuefRLnRXMXupcWdJLk8SOi4=;
- b=owGbwMvMwCmsHn9OcpHtvjLG02pJDNkMziquG22U1H80N164avi4QP0u3yqzHvUJR1qE0o4dz
- d29+mRZx1QWBmFOBlkxRZYnMmGnl7cvrnKwX/kDZg4rE8gQBi5OAZhIfQdjnfE+uXXPJ/N3TvaV
- TD3WWOS83eqz6loWL7twM42ec7rBbvbpfx8qVi7WmJ7263/whC/TGOusjaw6zr4PP7zO9tzCw4+
- TdnJ/k54TtjRX5fkjJRfRPO+N09e8TLHiWatw5/P664fWbrMCAA==
+X-Developer-Signature: v=1; a=openpgp-sha256; l=2921; i=mripard@kernel.org;
+ h=from:subject:message-id; bh=NLGP55ne1s4VzJJdZyWZz/4IDKZ0eBtxQLjNgLTOcjo=;
+ b=owGbwMvMwCmsHn9OcpHtvjLG02pJDNkMzqqHp3SWsWYaRGVe+/Oy75Xk6V9BBlPD7zAusL48J
+ 95M7pFvx1QWBmFOBlkxRZYnMmGnl7cvrnKwX/kDZg4rE8gQBi5OAZhIlRZjwxWbD4kFERxtzyR7
+ F5Ul5vxaveSuzPYZ3V/55Q6l/9q5sG6nSLGcto7bTpm7V7fIdi3SY2xYqXWlwP9uxsvUhWmqzpw
+ anoraNfw/bbIj3JT82BJVe01EJxiwi8v6v4ubbp//hJfJHwA=
 X-Developer-Key: i=mripard@kernel.org; a=openpgp;
  fpr=BE5675C37E818C8B5764241C254BCFC56BF6CE8D
 X-BeenThere: dri-devel@lists.freedesktop.org
@@ -75,81 +75,95 @@ X-Spam-Status: No, score=-18.8 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-The atomic state API is allowed to return -EDEADLK whenever the
-wound/wait mutex code detects a deadlock, and the caller is then
-expected to back off and restart the whole sequence.
+drm_atomic_private_obj_init() initializes the modeset lock and adds the
+object to the privobj_list before calling atomic_create_state().
 
-drm_test_check_hdmi_color_format() wasn't doing any of that, and
-reported a spurious failure when drm_atomic_set_crtc_for_connector()
-returned -EDEADLK, just like its 420-only counterpart fixed earlier.
-Since the ticket ordering depends on the execution, this could only be
-observed occasionally.
+However, if atomic_create_state() fails, the function returns the error
+directly without removing the object from the list or cleaning up the
+lock. This leaves a dangling entry in privobj_list and a leaked lock.
 
-The assertion also aborted before the locking context could be
-released, leaving connection_mutex held when the device was released,
-which drm_modeset_lock_fini() then reported through
-drm_mode_config_cleanup().
+Fix this by unwinding both operations in an error path.
 
-Add the usual backoff and restart pattern.
-
-Fixes: f7235a4805a4 ("drm/tests: hdmi: Add tests for the color_format property")
+Fixes: 47b5ac7daa46 ("drm/atomic: Add new atomic_create_state callback to drm_private_obj")
+Suggested-by: Laurent Pinchart <laurent.pinchart@ideasonboard.com>
+Reviewed-by: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>
 Signed-off-by: Maxime Ripard <mripard@kernel.org>
 ---
- drivers/gpu/drm/tests/drm_hdmi_state_helper_test.c | 14 ++++++++++++++
- 1 file changed, 14 insertions(+)
+ drivers/gpu/drm/drm_atomic.c | 33 ++++++++++++++++++++++++++++++---
+ 1 file changed, 30 insertions(+), 3 deletions(-)
 
-diff --git a/drivers/gpu/drm/tests/drm_hdmi_state_helper_test.c b/drivers/gpu/drm/tests/drm_hdmi_state_helper_test.c
-index aafe78b7cbbd..8e3e9bb4a202 100644
---- a/drivers/gpu/drm/tests/drm_hdmi_state_helper_test.c
-+++ b/drivers/gpu/drm/tests/drm_hdmi_state_helper_test.c
-@@ -2295,33 +2295,47 @@ static void drm_test_check_hdmi_color_format(struct kunit *test)
- 	KUNIT_ASSERT_TRUE(test, drm_mode_is_420(info, preferred));
- 
- 	state = drm_kunit_helper_atomic_state_alloc(test, &priv->drm, &ctx);
- 	KUNIT_ASSERT_NOT_ERR_OR_NULL(test, state);
- 
-+retry:
- 	conn_state = drm_atomic_get_connector_state(state, &priv->connector);
- 	KUNIT_ASSERT_NOT_ERR_OR_NULL(test, conn_state);
- 
- 	conn_state->color_format = param->fmt;
- 
- 	ret = drm_atomic_set_crtc_for_connector(conn_state, priv->crtc);
-+	if (ret == -EDEADLK)
-+		goto backoff;
- 	KUNIT_ASSERT_EQ(test, ret, 0);
- 
- 	crtc_state = drm_atomic_get_crtc_state(state, priv->crtc);
-+	if (IS_ERR(crtc_state) && PTR_ERR(crtc_state) == -EDEADLK)
-+		goto backoff;
- 	KUNIT_ASSERT_NOT_ERR_OR_NULL(test, crtc_state);
- 
- 	ret = drm_atomic_set_mode_for_crtc(crtc_state, preferred);
- 	KUNIT_ASSERT_EQ(test, ret, 0);
- 
- 	crtc_state->enable = true;
- 	crtc_state->active = true;
- 
- 	ret = drm_atomic_check_only(state);
-+	if (ret == -EDEADLK)
-+		goto backoff;
- 	KUNIT_EXPECT_EQ(test, ret, param->expected_ret);
- 	KUNIT_EXPECT_EQ(test, conn_state->hdmi.output_format, param->expected);
- 
- 	drm_modeset_drop_locks(&ctx);
- 	drm_modeset_acquire_fini(&ctx);
+diff --git a/drivers/gpu/drm/drm_atomic.c b/drivers/gpu/drm/drm_atomic.c
+index d2a46ba7394f..11a533184250 100644
+--- a/drivers/gpu/drm/drm_atomic.c
++++ b/drivers/gpu/drm/drm_atomic.c
+@@ -1060,25 +1060,41 @@ static void drm_atomic_plane_print_state(struct drm_printer *p,
+ int drm_atomic_private_obj_init(struct drm_device *dev,
+ 				struct drm_private_obj *obj,
+ 				const struct drm_private_state_funcs *funcs)
+ {
+ 	struct drm_private_state *state;
++	int ret;
 +
-+	return;
+ 	memset(obj, 0, sizeof(*obj));
+ 
++	/*
++	 * Keep the list node in a state drm_atomic_private_obj_fini()
++	 * can safely handle if we fail before adding it to the private
++	 * objects list.
++	 */
++	INIT_LIST_HEAD(&obj->head);
 +
-+backoff:
-+	drm_atomic_commit_clear(state);
-+	drm_modeset_backoff(&ctx);
-+	goto retry;
+ 	drm_modeset_lock_init(&obj->lock);
+ 
+ 	obj->dev = dev;
+ 	obj->funcs = funcs;
+ 	list_add_tail(&obj->head, &dev->mode_config.privobj_list);
+ 
+ 	state = obj->funcs->atomic_create_state(obj);
+-	if (IS_ERR(state))
+-		return PTR_ERR(state);
++	if (IS_ERR(state)) {
++		ret = PTR_ERR(state);
++		goto err_list_del;
++	}
+ 
+ 	obj->state = state;
+ 
+ 	return 0;
++
++err_list_del:
++	list_del_init(&obj->head);
++	drm_modeset_lock_fini(&obj->lock);
++	return ret;
  }
+ EXPORT_SYMBOL(drm_atomic_private_obj_init);
  
- static const struct color_format_test_param hdmi_color_format_params[] = {
- 	{
- 		.fmt = DRM_CONNECTOR_COLOR_FORMAT_AUTO,
+ /**
+  * drm_atomic_private_obj_fini - finalize private object
+@@ -1087,11 +1103,22 @@ EXPORT_SYMBOL(drm_atomic_private_obj_init);
+  * Finalize the private object.
+  */
+ void
+ drm_atomic_private_obj_fini(struct drm_private_obj *obj)
+ {
+-	list_del(&obj->head);
++	/*
++	 * Some callers ignore drm_atomic_private_obj_init() failures
++	 * and unconditionally register a teardown action that calls
++	 * this function. Use list_del_init() rather than list_del() so
++	 * that calling drm_atomic_private_obj_fini() twice, after both
++	 * a failed and a successful drm_atomic_private_obj_init(),
++	 * remains safe.
++	 */
++	if (list_empty(&obj->head))
++		return;
++
++	list_del_init(&obj->head);
+ 	obj->funcs->atomic_destroy_state(obj, obj->state);
+ 	drm_modeset_lock_fini(&obj->lock);
+ }
+ EXPORT_SYMBOL(drm_atomic_private_obj_fini);
+ 
 
 -- 
 2.56.1
