@@ -2,66 +2,66 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 749C2606A325
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B0C86606A333
 	for <dri-devel@archiver.kernel.org>; Fri, 20 Nov 2026 15:55:36 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=Qmp2OuDx
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=hzn+HON8
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id DAFE210E914;
-	Fri, 20 Nov 2026 15:55:30 +0000 (UTC)
-Received: from mail-wr1-f41.google.com (mail-wr1-f41.google.com
- [209.85.221.41])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 0EBC3112AE5
- for <dri-devel@lists.freedesktop.org>; Fri, 20 Nov 2026 15:55:01 +0000 (UTC)
-Received: by mail-wr1-f41.google.com with SMTP id
- ffacd0b85a97d-4a3e706b5dfso727480f8f.2
- for <dri-devel@lists.freedesktop.org>; Fri, 20 Nov 2026 07:55:00 -0800 (PST)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 1489710E91A;
+	Fri, 20 Nov 2026 15:55:31 +0000 (UTC)
+Received: from mail-wm1-f50.google.com (mail-wm1-f50.google.com
+ [209.85.128.50])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 044E810E93A
+ for <dri-devel@lists.freedesktop.org>; Fri, 20 Nov 2026 15:55:04 +0000 (UTC)
+Received: by mail-wm1-f50.google.com with SMTP id
+ 5b1f17b1804b1-4ac95761c85so8361785e9.2
+ for <dri-devel@lists.freedesktop.org>; Fri, 20 Nov 2026 07:55:03 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20260707; t=1795190099; x=1795794899; darn=lists.freedesktop.org;
+ d=gmail.com; s=20260707; t=1795190102; x=1795794902; darn=lists.freedesktop.org;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:from:to:cc:subject:date
  :message-id:reply-to:content-type;
- bh=Pt1Ey6vqlrKjY9t+x5QDUocIGkE3O17FTDnJ0augaVA=;
- b=Qmp2OuDxx3lVI1g9lHCt6biP0YAgFFAunpoWpx3RIsD7c3yTcPN0d9gxjj5K9depjt
- 69mokDmK1Qakq+mlHRweP42NzJDpUVPxPgs8ppxFKozr/v5acCd/WWehp0Dn21sE9mhR
- 8MM3nIbeUP1aUd54hybhJ3YZeZr/F1wCqM9VS87nUsM/RwDB0HiAZwa6cPBtIrv3DtKy
- m5+Dr0xhLv8hHGe6lMMweoBgjJZW8oNsgnCQD2+MoHMqPkbzBicJ6u9jGnEeaPwHSGiR
- +s7LszEQRW/x6y9pA+468dlF/9+21PW8IQL2TEsakTZSvPXw76qytb8xdHSxiyv1vSjb
- DeHg==
+ bh=Xs8qsWr3WzXXJQ7Iw3lOFiXdEVTvIvytDHijgZN3pu0=;
+ b=hzn+HON8LPmEPrEvFVMQGSxzzVfGNGeww4+gUnaXP8LzQlpMFuVp+ZDfZumplDmQuH
+ ZM0aik4RTyc4pk57BOAfjrh2rehCU7C/oIkx2A7O2JDyo4STKtMDwF6LhWgTNzREUadZ
+ tZr2fH6HRogRgR22Tq4xTTCjSvRFbxX9N/DnVM0vA5IdoyL1C2uDuGMzwv6KtbmRzaHH
+ nQmpLungqslZ297IB18396OYKLUHF4Z1hh79vfquhZeqfX1U7pj6ynOEAZTZAhQmFHQR
+ KwIazQw1IxNobIwpTsBy58hUP83IqePUVvtDuEzBX0lGZ8AELXSsk5EP6TMxmXHNPYiq
+ aXQA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20260707; t=1795190099; x=1795794899;
+ d=1e100.net; s=20260707; t=1795190102; x=1795794902;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
  :to:cc:subject:date:message-id:reply-to:content-type;
- bh=Pt1Ey6vqlrKjY9t+x5QDUocIGkE3O17FTDnJ0augaVA=;
- b=TirkP6ITHt9uRAeO2NUEE8mbsS5ZCd0BmzWMtVcGaph6nrm3k26J1s4JLm5TSU0gKR
- CvjWNn3ZyL9tZpW/V1xntQIDtyeOoDkhgzSDfTpg2Gp4/t7SthAAqWflq+bB8r11jDYt
- ZxcYg8GezvzC8v6udHxwv3O5h/vS5TGq66qwKzrn+WufMtr4tVQMbI9Z9cgLBVdkR8zr
- Sxue4Ic+2GFBd4CLgfPN9hCkBhnnr8M0B8gI9jeBqVF/Opa++AzOSCULoecmgZ8xuiCw
- GdqVJpxvvNwKvfERPW5ORPZrU9VaCEDpgrNiHU6K8GLjqD0+og17BjoIMqDNNcjBvSo4
- TcbQ==
+ bh=Xs8qsWr3WzXXJQ7Iw3lOFiXdEVTvIvytDHijgZN3pu0=;
+ b=hYm5e22GuzjLtOTw3pzpO5uqAiFtER/J/Bjs0lu/IkuLVby7KG8/2eBQa3Fw7Cf+za
+ fy+eJaYbf+SYsI8vcgjRpTAZaX/3skE5dFEbS8swJpy04MHGn5RrfhQ8JFHcOMqTNdY3
+ Gm10NtMshBQNv+qsJflkpZyspMRuRHw0vS4NXRhVp8lug3LTjI8SgPrNakpcPZx+MsNy
+ W5jNB58qTBe1SdYkTILQ3BrufhEAWAFSVHShXOfav7A/BgbBMB5aPhmkEyoPoxGkyevV
+ hv0nhdpUght7LXBMsKNOKTzmndUyeBYT+UQwH4QIqAjxWWQqvjDVLyFk9wMHoq00TXTI
+ YI2A==
 X-Forwarded-Encrypted: i=1;
- AL+hErHFhYVJSJ/bduTc4oOAoIt2T/nGjSd8NLHy/k2lyZZNNrkMzFHDY+RoqfvmLlENsvAH3jFrXPJ4u9s=@lists.freedesktop.org
-X-Gm-Message-State: APuU4Z/+NGIMzL+hDUrRbE8I+aUxsPgU+eY2P3Sq6vsB8THdI3stuwK/
- zDbLBqFsw5Y2Df4iqdofKbeD7Z7+CysrIrrTdWwy6kO+aJmlgqkluW9Y
-X-Gm-Gg: AYBFou1M8e3O367e2DNZioGTs10PT6JeH7H8E+7Vb5NGYKXEUwHPM2PqA2qBkEX8ulR
- FBkBqfSCBiXapBXnWdoQjyyNf2k9yMqI1NxcupgUaQ0MXmhbRIeZLgf5lzl8cxdjrSDlUMkfkD5
- 3X/naCVTRaRqCNls/giYEkfqMN5Tey3LV1YyEQj/nHbogkoPyQZfDEnkxvIfml5vNtvj5xISE35
- BwvKe+U9xKHF23DVrAwAgJcyXzM7C1oJEYgAGmBEUkne8Nu/gsytIJc2a09dK6u2vIq0TKfXB7N
- E+t94kwFJSl6E9RKTeUydrFA5DwFMFvqfOFtAqjDRXoxyrie2TahlgAca67xgugK5TPYFrKj1/J
- i8Ax74hNWckbR1DSPcCWPN3vhUm6b+DmA6hmYzcQjDa8MHdxywPQdoVQq1pYCPa0HQRqPZs2bmo
- xK5k8AAcCeo9v2iW7BDEWm0Pn1ZmheqrdPSsSF+auPCGQViFz1aw25oVuVbJIudumkrn8AJOl9+
- LAStp1/sQQrG2mtJcC6i1DRXsn6OttEcYsjHtN5fSXazb99cnMIdtMTsNb1gIigv00DLDqxK8tS
- BQDPSugqBwbvAycwqEyekWQ4CZazm2RVhelzMYnEovPQivmYTgRg3iCZ+epFLvNBhpwetTfmRlw
+ AL+hErFnMhaIIBV/0yj0DPDekFyKEO2sCuYGWUAsdeE3q47zGvooC9vd172fSxwA8AvB51Pzr58pmFwbRtw=@lists.freedesktop.org
+X-Gm-Message-State: APuU4Z9fkLygKY5CFEVtUooADccOKAuKByw2guMjuROhzRqWItFd8vvV
+ Qb1N0yxs1FTokv0Bru0NFmPPTLd0J9bq5o9RPTjUghtVnb6CRM/EsIeZ
+X-Gm-Gg: AYBFou1AcLHt4BmQaHdve2gypOeFO6B2rz/IgEdVmy1NNnaHsarfSm1YSs6EPKtQ4W4
+ RtRE3Wqu2IKzXfJ+0Dpeu9sjjohyZ5JPtB6RrMq4+ZiOTiTbxw6azgfazd+Z4Ntn2U8kFwNbfA7
+ KGrqC3XXcF42U323iasA9QLbnmNAYC7+f1rXH2IRsmW8awR7H23SK1SWTkK0bQ4ERhcGkn5IZhP
+ pTI8mvtcWIZMzh5EanY6DdhynZpfABI5BSwSPEs3s+Aknn3C/J6DCUnGFAvyOll5K9B7oHjUQC5
+ HngoaYMT0v8ohDooYmB2lyZMFK9VcLie7PdGtjaHGYy0GT5ZwjxSMxTMcA1hGCzNLf86hmyAbQr
+ sjeVCXXJYV2EcOeAP0/5lMfo+tx8DGeFVbObvh2LGcSIgbkCG/q6fhGcw2HxfHk33NP/sCx9xxS
+ r9yQDx5RD+601T2+GNgOuf2rgImqp3nUe3eBvaS+ZfUUMR7VA0VbserWfP3jeUZgKPhSmf7Qb0G
+ ssTv0ZktLy4SAW12iQbVVfz1ZxlROvhXSFoyrKtsa3d+ivP9Od0iwP/ud+3kfZa8Tjpvav9Qe/5
+ Its28t3tYGndPLmdHK7ub1022+rCDXbx8ad7PlV3e0hbvadL4wVTTLDJ7wEVuRcZysKrYD1C+do
  =
-X-Received: by 2002:a05:600c:638f:b0:4bb:6752:8400 with SMTP id
- 5b1f17b1804b1-4bb8881a2bbmr71997325e9.17.1795190099296; 
- Fri, 20 Nov 2026 07:54:59 -0800 (PST)
+X-Received: by 2002:a05:600c:1d8c:b0:4bb:5345:606b with SMTP id
+ 5b1f17b1804b1-4bb8882358dmr81647945e9.31.1795190102271; 
+ Fri, 20 Nov 2026 07:55:02 -0800 (PST)
 Received: from DESKTOP-BJ3EVC4.lan (178-164-182-185.pool.digikabel.hu.
  [178.164.182.185]) by smtp.gmail.com with ESMTPSA id
- 5b1f17b1804b1-4bb884a15absm83982635e9.9.2026.11.20.07.54.58
+ 5b1f17b1804b1-4bb884a15absm83982635e9.9.2026.11.20.07.55.01
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Fri, 20 Nov 2026 07:54:59 -0800 (PST)
+ Fri, 20 Nov 2026 07:55:01 -0800 (PST)
 From: Abdur Rofik <rofikcoga@gmail.com>
 To: linux-arm-msm@vger.kernel.org
 Cc: devicetree@vger.kernel.org, phone-devel@vger.kernel.org,
@@ -73,10 +73,10 @@ Cc: devicetree@vger.kernel.org, phone-devel@vger.kernel.org,
  Neil Armstrong <neil.armstrong@linaro.org>,
  Dmitry Torokhov <dmitry.torokhov@gmail.com>,
  Abdur Rofik <rofikcoga@gmail.com>
-Subject: [PATCH v5 07/10] arm64: dts: qcom: sm8250-lg-timelm: enable SW43103
- panel
-Date: Fri, 20 Nov 2026 16:54:46 +0100
-Message-Id: <20261120155450.7719-8-rofikcoga@gmail.com>
+Subject: [PATCH v5 10/10] arm64: dts: qcom: sm8250-lg-timelm: add QCA6390
+ Bluetooth
+Date: Fri, 20 Nov 2026 16:54:49 +0100
+Message-Id: <20261120155450.7719-11-rofikcoga@gmail.com>
 X-Mailer: git-send-email 2.39.5
 In-Reply-To: <20261120155450.7719-1-rofikcoga@gmail.com>
 References: <20261120155450.7719-1-rofikcoga@gmail.com>
@@ -102,61 +102,131 @@ X-Spam-Status: No, score=-15.8 required=3.0 tests=BAYES_00,DKIM_SIGNED,
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-Enable MDSS, DSI0, and its PHY. Attach the SW43103 panel with its power
-rails, enable and reset GPIOs, and four-lane DSI link.
+Describe the QCA6390 power sequencer with properly voltaged supplies
+and enable Bluetooth HCI on GENI UART6.
 
 Signed-off-by: Abdur Rofik <rofikcoga@gmail.com>
 ---
- arch/arm64/boot/dts/qcom/sm8250-lg-timelm.dts | 36 +++++++++++++++++++
- 1 file changed, 36 insertions(+)
+ arch/arm64/boot/dts/qcom/sm8250-lg-timelm.dts | 92 +++++++++++++++++++
+ 1 file changed, 92 insertions(+)
 
 diff --git a/arch/arm64/boot/dts/qcom/sm8250-lg-timelm.dts b/arch/arm64/boot/dts/qcom/sm8250-lg-timelm.dts
-index 20aaf70355158..709cf9674e2d4 100644
+index 16ed6b3871374..66cc2a0a57124 100644
 --- a/arch/arm64/boot/dts/qcom/sm8250-lg-timelm.dts
 +++ b/arch/arm64/boot/dts/qcom/sm8250-lg-timelm.dts
-@@ -461,6 +461,42 @@ &gpu_zap_shader {
- 	firmware-name = "qcom/sm8250/LG/timelm/a650_zap.mbn";
- };
+@@ -65,6 +65,67 @@ key-assistant {
+ 		};
+ 	};
  
-+&mdss {
-+	status = "okay";
-+};
++	qca6390-pmu {
++		compatible = "qcom,qca6390-pmu";
 +
-+&mdss_dsi0 {
-+	vdda-supply = <&vreg_l9a_1p2>;
-+	status = "okay";
++		pinctrl-names = "default";
++		pinctrl-0 = <&bt_en_state>, <&wlan_en_state>;
 +
-+	panel@0 {
-+		compatible = "lg,sw43103";
-+		reg = <0>;
++		vddaon-supply = <&vreg_s6a_0p95>;
++		vddpmu-supply = <&vreg_s6a_0p95>;
++		vddrfa0p95-supply = <&vreg_s6a_0p95>;
++		vddrfa1p3-supply = <&vreg_s8c_1p35>;
++		vddrfa1p9-supply = <&vreg_s5a_1p9>;
++		vddpcie1p3-supply = <&vreg_s8c_1p35>;
++		vddpcie1p9-supply = <&vreg_s5a_1p9>;
++		vddio-supply = <&vreg_s4a_1p8>;
 +
-+		vddi-supply = <&vreg_l14a_1p8>;
-+		vpnl-supply = <&vreg_l11c_3p0>;
++		wlan-enable-gpios = <&tlmm 20 GPIO_ACTIVE_HIGH>;
++		bt-enable-gpios = <&tlmm 21 GPIO_ACTIVE_HIGH>;
 +
-+		reset-gpios = <&tlmm 75 GPIO_ACTIVE_LOW>;
-+		enable-gpios = <&pm8150l_gpios 4 GPIO_ACTIVE_HIGH>;
++		regulators {
++			vreg_pmu_rfa_cmn: ldo0 {
++				regulator-name = "vreg_pmu_rfa_cmn";
++			};
 +
-+		port {
-+			panel_in: endpoint {
-+				remote-endpoint = <&mdss_dsi0_out>;
++			vreg_pmu_aon_0p59: ldo1 {
++				regulator-name = "vreg_pmu_aon_0p59";
++			};
++
++			vreg_pmu_wlcx_0p8: ldo2 {
++				regulator-name = "vreg_pmu_wlcx_0p8";
++			};
++
++			vreg_pmu_wlmx_0p85: ldo3 {
++				regulator-name = "vreg_pmu_wlmx_0p85";
++			};
++
++			vreg_pmu_btcmx_0p85: ldo4 {
++				regulator-name = "vreg_pmu_btcmx_0p85";
++			};
++
++			vreg_pmu_rfa_0p8: ldo5 {
++				regulator-name = "vreg_pmu_rfa_0p8";
++			};
++
++			vreg_pmu_rfa_1p2: ldo6 {
++				regulator-name = "vreg_pmu_rfa_1p2";
++			};
++
++			vreg_pmu_rfa_1p7: ldo7 {
++				regulator-name = "vreg_pmu_rfa_1p7";
++			};
++
++			vreg_pmu_pcie_0p9: ldo8 {
++				regulator-name = "vreg_pmu_pcie_0p9";
++			};
++
++			vreg_pmu_pcie_1p8: ldo9 {
++				regulator-name = "vreg_pmu_pcie_1p8";
 +			};
 +		};
 +	};
++
+ 	reserved-memory {
+ 		res_xbl_uefi_log_region: memory@80880000 {
+ 			reg = <0x0 0x80880000 0x0 0x14000>;
+@@ -633,6 +694,14 @@ &sdhc_2 {
+ &tlmm {
+ 	gpio-reserved-ranges = <40 4>, <52 4>;
+ 
++	bt_en_state: bt-enable-state {
++		pins = "gpio21";
++		function = "gpio";
++		drive-strength = <2>;
++		bias-disable;
++		output-low;
++	};
++
+ 	sdc2_default_state: sdc2-default-state {
+ 		clk-pins {
+ 			pins = "sdc2_clk";
+@@ -666,6 +735,29 @@ ts_int_default: ts-int-default-state {
+ 		drive-strength = <8>;
+ 		bias-pull-up;
+ 	};
++
++	wlan_en_state: wlan-enable-state {
++		pins = "gpio20";
++		function = "gpio";
++		drive-strength = <16>;
++		bias-pull-up;
++		output-low;
++	};
 +};
 +
-+&mdss_dsi0_out {
-+	remote-endpoint = <&panel_in>;
-+	data-lanes = <0 1 2 3>;
-+};
-+
-+&mdss_dsi0_phy {
-+	vdds-supply = <&vreg_l5a_0p88>;
++&uart6 {
 +	status = "okay";
-+};
 +
- &pm8150_gpios {
- 	assist_state: assist-state {
- 		pins = "gpio1";
++	bluetooth {
++		compatible = "qcom,qca6390-bt";
++
++		vddrfacmn-supply = <&vreg_pmu_rfa_cmn>;
++		vddaon-supply = <&vreg_pmu_aon_0p59>;
++		vddbtcmx-supply = <&vreg_pmu_btcmx_0p85>;
++		vddrfa0p8-supply = <&vreg_pmu_rfa_0p8>;
++		vddrfa1p2-supply = <&vreg_pmu_rfa_1p2>;
++		vddrfa1p7-supply = <&vreg_pmu_rfa_1p7>;
++	};
+ };
+ 
+ &uart12 {
 -- 
 2.39.5
 
