@@ -2,42 +2,42 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 85EC8606A320
-	for <dri-devel@archiver.kernel.org>; Fri, 20 Nov 2026 13:25:47 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BCAD5606A339
+	for <dri-devel@archiver.kernel.org>; Fri, 20 Nov 2026 13:26:43 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=YcLNzbhZ
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=VwhMsQeJ
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id E64F4112A53;
-	Fri, 20 Nov 2026 13:25:41 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 05ADC112A54;
+	Fri, 20 Nov 2026 13:26:38 +0000 (UTC)
 Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 57971112A4B
- for <dri-devel@lists.freedesktop.org>; Fri, 20 Nov 2026 13:25:35 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 61676112A54
+ for <dri-devel@lists.freedesktop.org>; Fri, 20 Nov 2026 13:26:31 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id 11CF544868
- for <dri-devel@lists.freedesktop.org>; Fri, 20 Nov 2026 13:25:35 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id C2B7E1F000C0;
- Fri, 20 Nov 2026 13:25:34 +0000 (UTC)
+ by sea.source.kernel.org (Postfix) with ESMTP id 48AC245B27
+ for <dri-devel@lists.freedesktop.org>; Fri, 20 Nov 2026 13:26:31 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id F0CA51F00A19;
+ Fri, 20 Nov 2026 13:26:30 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1795181135;
- bh=rWpoEcRjt6vGHDn0M8Rd4JU0/6Vs/0kY/Ay58un/Qyo=;
+ s=k20260515; t=1795181191;
+ bh=7zEer7UghG830v4Bqe9AaiUhqZKHl6JfJTtHfzHVsao=;
  h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
- b=YcLNzbhZI5hADZYgetDNIu1vMZ6+CiUgK5ILvR556LqO8N8LwnA3I5VZTKQ7SeqZT
- B+OF6CExkXShFxsdFsB92wBlDAtdyCx/hPxpVzl5UOOfFpRF7QdYN2GEqwwv0flW8D
- JO/I+qeXV30Q/mVoZ21NRUOfzdr5QPTZgPX4qNFPnIqmAsMsFrOVNDOYu7/DVNDc3C
- /xL2o1E2xNS9q7LRTkcESiwq1KXKyJWOmyIUhpd6WI+2lGaWJejzvHMAdgaOQ3ppU/
- b7smDzJqZLu0VYjEslToPjbhUJEUO8zmHg4+WOKQJazNU3iJQhgO+VnBREfCaBWMS7
- eR0+Rrh6Rrqcg==
-Message-ID: <sashiko-outbox-225227@kernel.org>
+ b=VwhMsQeJlejLO4ZFVZ0n2OmLlHbVCxhfbTNk90jDY5Z7YYMKQq4ktpX7J2sCDYO9h
+ +NHD5daN2fwIABdFGCjKidmc4/2hEa8AXr0JcReUDxc9PTUPIXxazKtBMRwNlouP9S
+ BlLJePGeMFtpYYVqLQuNKyBV/dwSbZ01Fi7IX3+cKK+KZF4IkUaJraZG0LVFhIGTc4
+ 1jneURjXw1FdXudL8AziWDQqacsRXeTfsNOV5dR3cwOSvrG/fG5S7WOLesBaZzw62/
+ kx+EpKJ7YDaUUoipxTHoULERsiekqo8KCRuPugcpOW5UJhBUqhkj17HjBax8ZJa47e
+ vezFM+xH5sj5g==
+Message-ID: <sashiko-outbox-225231@kernel.org>
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v9 34/42] drm/tidss: kms: Hook up hardware state readout
+Subject: Re: [PATCH v9 38/42] drm/bridge: sii902x: Implement hw state readout
 To: "Maxime Ripard" <mripard@kernel.org>
 Cc: dri-devel@lists.freedesktop.org
-In-Reply-To: <20261120-drm-state-readout-v9-34-a67c2b45b8ec@kernel.org>
+In-Reply-To: <20261120-drm-state-readout-v9-38-a67c2b45b8ec@kernel.org>
 References: <20261120-drm-state-readout-v9-0-a67c2b45b8ec@kernel.org>
- <20261120-drm-state-readout-v9-34-a67c2b45b8ec@kernel.org>
+ <20261120-drm-state-readout-v9-38-a67c2b45b8ec@kernel.org>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Fri, 20 Nov 2026 13:25:34 +0000
+Date: Fri, 20 Nov 2026 13:26:30 +0000
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -60,63 +60,80 @@ X-Archived-By: <archiver.kernel.org>
 
 Thank you for your contribution! Sashiko AI review found 1 potential
 issue to consider:
-- [Medium] drm/tidss: unchecked tidss_runtime_get() in
-  tidss_crtc_readout_state()
+- [Medium] drm/bridge: sii902x: unconditional reset in sii902x_init()
+  wipes hw state
 --
 
-commit 056d6b442f1d4a5e8f743bf80ec001d68148711b
+commit 863c5900a85de3bb77ecf66aba575b8561a6f743
 Author: Maxime Ripard <mripard@kernel.org>
 
-drm/tidss: kms: Hook up hardware state readout
+drm/bridge: sii902x: Implement hw state readout
 
-This commit wires up the mode_config and mode_config_helper state readout
-callbacks so the KMS core invokes the tidss driver's per-object readout
-hooks.
+This commit implements atomic state readout callbacks for the sii902x
+bridge and connector and enables DRM_BRIDGE_OP_CONNECTOR_HW_READOUT.
 
-> diff --git a/drivers/gpu/drm/tidss/tidss_kms.c b/drivers/gpu/drm/tidss/ti=
-dss_kms.c
-> index 9d9cd19906306..77294fe34df0a 100644
-> --- a/drivers/gpu/drm/tidss/tidss_kms.c
-> +++ b/drivers/gpu/drm/tidss/tidss_kms.c
+> diff --git a/drivers/gpu/drm/bridge/sii902x.c b/drivers/gpu/drm/bridge/si=
+i902x.c
+> index 6eaf70aeb0e37..4fb639e72c7e7 100644
+> --- a/drivers/gpu/drm/bridge/sii902x.c
+> +++ b/drivers/gpu/drm/bridge/sii902x.c
+
 [ ... ]
-> @@ -64,7 +66,9 @@ static void tidss_atomic_commit_tail(struct drm_atomic_=
-commit *old_state)
+
+> @@ -537,6 +539,128 @@ sii902x_bridge_mode_valid(struct drm_bridge *bridge,
+>  	return MODE_OK;
 >  }
 > =20
->  static const struct drm_mode_config_helper_funcs mode_config_helper_func=
-s =3D {
-> -	.atomic_commit_tail =3D tidss_atomic_commit_tail,
-> +	.atomic_commit_tail	=3D tidss_atomic_commit_tail,
-> +	.atomic_sro_build_state =3D drm_atomic_helper_sro_build_state,
-> +	.atomic_sro_install_state =3D drm_atomic_helper_sro_install_state,
->  };
+> +static int
+> +sii902x_bridge_connector_readout(struct drm_bridge *bridge,
+> +				 struct drm_atomic_sro_state *state,
+> +				 struct drm_connector_state *conn_state)
+> +{
+> +	struct sii902x *sii902x =3D bridge_to_sii902x(bridge);
+> +	struct drm_connector *connector =3D conn_state->connector;
+> +	struct drm_crtc_state *crtc_state;
+> +	struct drm_encoder *encoder;
+> +	struct drm_crtc *crtc;
+> +	int ret;
+> +
+> +	mutex_lock(&sii902x->mutex);
+> +
+> +	ret =3D regmap_test_bits(sii902x->regmap, SII902X_SYS_CTRL_DATA, SII902=
+X_SYS_CTRL_PWR_DWN);
+> +	/* I2C error */
+> +	if (ret < 0)
+> +		goto err_mutex_unlock;
+> +	/* Device is powered down, nothing to read out */
+> +	if (ret)
+> +		goto out;
 
 [Severity: Medium]
-Can wiring up drm_atomic_helper_sro_build_state() read DISPC registers
-while unclocked and underflow the runtime PM usage count if
-tidss_runtime_get() fails in tidss_crtc_readout_state()?
+Can SII902X_SYS_CTRL_PWR_DWN ever be clear at readout time when
+reset-gpios is provided in the device tree?
 
-drivers/gpu/drm/tidss/tidss_crtc.c:tidss_crtc_readout_state() {
-    ...
-	tidss_runtime_get(tidss);
+During probe, sii902x_init() unconditionally calls sii902x_reset() before
+registering the bridge:
 
-	if (!dispc_vp_is_enabled(dispc, tcrtc->hw_videoport))
-		goto out;
-    ...
-out:
-	tidss_runtime_put(tidss);
-	return 0;
-    ...
+drivers/gpu/drm/bridge/sii902x.c:sii902x_reset() {
+	if (!sii902x->reset_gpio)
+		return;
+
+	gpiod_set_value_cansleep(sii902x->reset_gpio, 1);
+
+	/* The datasheet says treset-min =3D 100us. Make it 150us to be sure. */
+	usleep_range(150, 200);
+
+	gpiod_set_value_cansleep(sii902x->reset_gpio, 0);
 }
 
-tidss_runtime_get() wraps pm_runtime_resume_and_get(), which already drops
-the runtime PM reference on failure.  Unlike tidss_crtc_install_state()
-and tidss_plane_atomic_readout_state(), tidss_crtc_readout_state()
-introduced in commit "drm/tidss: crtc: Implement hardware state readout"
-does not check the return value of tidss_runtime_get(), so on resume
-failure it proceeds to read MMIO registers via dispc_vp_is_enabled() and
-unconditionally calls tidss_runtime_put().
+Pulsing reset_gpio restores all SiI9022 registers to their power-down
+defaults (SII902X_SYS_CTRL_PWR_DWN =3D 1).  When the KMS driver later runs
+hardware state readout, both sii902x_bridge_connector_readout() and
+sii902x_bridge_readout_state() see SII902X_SYS_CTRL_PWR_DWN set and treat
+the bridge as powered down, leaving conn_state->crtc NULL and
+crtc_state->encoder_mask and connector_mask clear on a firmware-enabled
+display pipeline.
 
 --=20
 Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261120-drm-state-=
-readout-v9-0-a67c2b45b8ec@kernel.org?part=3D34
+readout-v9-0-a67c2b45b8ec@kernel.org?part=3D38
