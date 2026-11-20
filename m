@@ -2,145 +2,77 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 45784606A325
-	for <dri-devel@archiver.kernel.org>; Fri, 20 Nov 2026 09:51:33 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D9AC7606A325
+	for <dri-devel@archiver.kernel.org>; Fri, 20 Nov 2026 09:53:47 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=XLQhuATv;
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=Rjee+52B
+	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=QC0LLIX0
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 59D9A1127AF;
-	Fri, 20 Nov 2026 09:51:22 +0000 (UTC)
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com
- [205.220.168.131])
- by gabe.freedesktop.org (Postfix) with ESMTPS id EBF0B1127E9
- for <dri-devel@lists.freedesktop.org>; Fri, 20 Nov 2026 09:51:10 +0000 (UTC)
-Received: from pps.filterd (m0279862.ppops.net [127.0.0.1])
- by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id
- 6AK7f15c606035
- for <dri-devel@lists.freedesktop.org>; Fri, 20 Nov 2026 09:51:10 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
- cc:content-transfer-encoding:content-type:date:from:in-reply-to
- :message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
- JVyI8XzJB+HjkVWzBTxdK27XAVBVFV76hYAsFq4nkK0=; b=XLQhuATvbqxovLlT
- dL411IJrhlAJYPNrAhk0mgGnBLMSHr/hV8iTE1AqWbuQQdAoTrHyzrFCtxbrcwQf
- DY6xYi3BhFoT+o5+BDMztoA+oWyYqEiqXXKJOkkfL8JdScJdLUQ26+9xJvl8Whhi
- +D7eRf7/P+sYWAztIAEKOZku+V2bVaYkRqwj8ir6fh00+SejGPOWLEtKzmPxu6F0
- VQE4cGvqAWhoRoiSUKqmRHBbrIapkRDF1fJbBXVBvj64RreyBBgssxLA7mXllHZh
- SPzEv0qRcSOsjfTytxwHjef0zixTExVJc13XINk99ZZTm0kCe+Q2/0WeNOTQ6SiR
- Fa8FgQ==
-Received: from mail-qk1-f197.google.com (mail-qk1-f197.google.com
- [209.85.222.197])
- by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4j2ggqrx2x-1
- (version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
- for <dri-devel@lists.freedesktop.org>; Fri, 20 Nov 2026 09:51:10 +0000 (GMT)
-Received: by mail-qk1-f197.google.com with SMTP id
- af79cd13be357-93f20addba1so137775385a.1
- for <dri-devel@lists.freedesktop.org>; Fri, 20 Nov 2026 01:51:10 -0800 (PST)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 4613411283B;
+	Fri, 20 Nov 2026 09:53:42 +0000 (UTC)
+Received: from mail-wm1-f72.google.com (mail-wm1-f72.google.com
+ [209.85.128.72])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 24A7711283B
+ for <dri-devel@lists.freedesktop.org>; Fri, 20 Nov 2026 09:53:36 +0000 (UTC)
+Received: by mail-wm1-f72.google.com with SMTP id
+ 5b1f17b1804b1-4bb818d8dcfso3140825e9.3
+ for <dri-devel@lists.freedesktop.org>; Fri, 20 Nov 2026 01:53:36 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=oss.qualcomm.com; s=google; t=1795168269; x=1795773069;
+ d=google.com; s=20260707; t=1795168414; x=1795773214;
  darn=lists.freedesktop.org; 
- h=in-reply-to:content-transfer-encoding:content-disposition
- :content-type:mime-version:references:message-id:subject:cc:to:from
- :date:from:to:cc:subject:date:message-id:reply-to:content-type;
- bh=JVyI8XzJB+HjkVWzBTxdK27XAVBVFV76hYAsFq4nkK0=;
- b=Rjee+52BEDJn4N0LN5cfLYeZcSRnij3JBzPGEuRx6EBwhmvT2sOqMcdO+27RWI2GF4
- JiUFktMz6gSoNBHPIrc4riRwhhjEsVqpJkpYmraJIday/aeqT1L4PKrhAvwtIJSlntz0
- fA/YArpfrVycX/DTue/o+D+eWjoDDRXirWo26h8RoDBcvexHBO199wEJQ0laYh8p5zU6
- I2+ZC/699C06+8e2OnlVAUYa2Cp2xQX4N4J3ag6AIuB+tdmsVN/2PUY4I+aeZbN+HXK5
- 1r06txj6GUSjros+dD1xUJqKjNjQvHblitw9rElfk8Vvp935mTvnuzHizVYNm0AchVfG
- KRcg==
+ h=content-type:cc:to:from:subject:message-id:references:mime-version
+ :in-reply-to:date:from:to:cc:subject:date:message-id:reply-to
+ :content-type; bh=wU4LlfzaVTfqT9FAZ2d8xCr1YhlqLtpgo7yVgEhBPXE=;
+ b=QC0LLIX0kcBCWPHmaxIqrPrKMVE7upZvt7qY1FLhYIflLAyQIaVBjv1Dpo0gVEbqiT
+ rLpA9o2YxYZFv0p+HIvAuZ16s2U7I5nexnFENqnOU7eyfJR1hyC+CrsZc1CZY0sOrz9R
+ D/nITfVoizd+5JNTC4uFV5Ic6A6oNr8rzjaqxM6eqIZDQKbyeF/z5RJ9BLf2ZiQfSROj
+ KTaQS78fFvNx7WzCLr3WxGT0xcRdFs+oT4a5jT5zTZdyETy6uNdt2edbPkF+7tQob88k
+ Y1ECoKthCgWeJY0KrN6JEaPE0TQLUiqiEcFdpx1q0YMd3aN6Ih54PgEYG049zMBZeLg7
+ 3TiQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20260707; t=1795168269; x=1795773069;
- h=in-reply-to:content-transfer-encoding:content-disposition
- :content-type:mime-version:references:message-id:subject:cc:to:from
- :date:x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
- :reply-to:content-type;
- bh=JVyI8XzJB+HjkVWzBTxdK27XAVBVFV76hYAsFq4nkK0=;
- b=DdLeu2kumuQjkS4vBjSSRkVw3J5N/lwx1+UWiWDdu5iHlbPZzlLctglmjiq0uOTAyX
- w1xAeiBCD2XgW90jeQLNo2PE3FCYf9+jsuHs9EeBC7C7jEQORTlJ6Ok89MJKG3LHMImt
- zgKq3SnSGt/spBRsKh00NMA+j0LRCjLji4R8PvvT8cYtjgVevnlURduVsU+oIvahy9Af
- 7Q+pRJGFJFTe2U4qwXEQj7pA1BysMDejlQPcPtDU4DPwehusHhwNEXRgvUFvnaMkQOir
- PfjXo8IYT1cOULtcrW4OU+0XEMUI9YmKP7idgx/8ATnzRA7hFgcSrTsFz4pL/ZGOGH5p
- 4iCg==
+ d=1e100.net; s=20260707; t=1795168414; x=1795773214;
+ h=content-type:cc:to:from:subject:message-id:references:mime-version
+ :in-reply-to:date:x-gm-message-state:from:to:cc:subject:date
+ :message-id:reply-to:content-type;
+ bh=wU4LlfzaVTfqT9FAZ2d8xCr1YhlqLtpgo7yVgEhBPXE=;
+ b=gXtIWsQu4qT1mxRW7rKtP4iZvS0Yq2/KTq5HiQFTsQCNn8QvLHnsASjVqGOjYNKTJ5
+ UjKvObwx/E2tDEmNahpDyoZ9PzsegXxdehv9cgwoK0+B9CWcQYexHmwVgJK13KhCTIMu
+ gIRx+Ta16pazU5XSkbGgl2NYP07mvGQX8sD7Kfe9hSz1uV6ZWIp5GktJC3WayGxXo730
+ JFCXJuSVBJzx47aSfK4G8hzT4EDem3r9vGK/XmKQr+bfb+2rMV6GuiZHkY+fPiC9JaPE
+ j7G6TCDbjxutiacIX2yPWf1t1ZfoNGXrDvVrccoyGNZzSO6WRqQHuSVfBCXlfcWdh3yY
+ jvAA==
 X-Forwarded-Encrypted: i=1;
- AL+hErHca4vJPxnuXw06M1L1JdP6XLC6/LTeIUrpkGJ1cp2/bK134AYnQKLhy4WW8AMPERLtddpH39xqNK4=@lists.freedesktop.org
-X-Gm-Message-State: APuU4Z8dk0lE36PbjcI1+SSyDwL98ONXliE6fv+Eo2rwxZ1hhegwfHeO
- Mp/oxCl0GXzHiQziGS7FoaJvfAPFc0AH047aLGM6vw4hp26y4KpYFJGOkW+iGndwHvUK4MjleqB
- 9+vDC/aPIhbHkJ1PQISMecsNu145TtYR5+qPPC6njgFqaGCE6K/C/SMMnKo6OQhopF8wvAUw=
-X-Gm-Gg: AYBFou2D9YHXf+/X1bMLNS37NjHr71NOY4dddDLb7eQjU/QYfnJDi0Jt9cI90LiJl68
- 8I6DBJsNvKjYiT/Wh1sWelpVKjVc+BhGfc19W5j6bVJX3mxwVbdW3I0vgi/ujfHX6EwHRTGnrTs
- Kl14ijoqqXl31NjSxwbgnDF2o5aX/EIs/yc+7rVoAjqMoDleGhVunSVmHQme9GsDeRqRSmTQy7u
- fkbjDEQPZSG02WvU+52feS4i3S52AhrnBcErWmNKkt0B1T/vmQWfrqlglzSdRsARX/n/q2DZ5YH
- LTswOCXcBRnq+pKT8Q4akPZsIjY+yh/j6LukKRFBeoYXwhsWM/yXwOJb1MzIoDJ8T2675mADiJW
- 3uXinyznenSM5Ev/q3jOJbs59OXCoI1jBBw4OvgUt33/Uo1/tvDM6EUsCGj6hJwmI
-X-Received: by 2002:a05:620a:8081:b0:93b:d7a3:45cf with SMTP id
- af79cd13be357-949ba9e882fmr372403385a.56.1795168268945; 
- Fri, 20 Nov 2026 01:51:08 -0800 (PST)
-X-Received: by 2002:a05:620a:8081:b0:93b:d7a3:45cf with SMTP id
- af79cd13be357-949ba9e882fmr372397685a.56.1795168268270; 
- Fri, 20 Nov 2026 01:51:08 -0800 (PST)
-Received: from oss.qualcomm.com ([188.27.161.77])
- by smtp.gmail.com with ESMTPSA id
- ffacd0b85a97d-4ab658e2d60sm4524417f8f.3.2026.11.20.01.51.06
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Fri, 20 Nov 2026 01:51:07 -0800 (PST)
-Date: Fri, 20 Nov 2026 11:51:05 +0200
-From: Abel Vesa <abel.vesa@oss.qualcomm.com>
-To: Akhil P Oommen <akhilpo@oss.qualcomm.com>
-Cc: Rob Clark <robin.clark@oss.qualcomm.com>, Sean Paul <sean@poorly.run>,
- Konrad Dybcio <konradybcio@kernel.org>,
- Dmitry Baryshkov <lumag@kernel.org>,
- Abhinav Kumar <abhinav.kumar@linux.dev>,
- Jessica Zhang <jesszhan0024@gmail.com>,
- Marijn Suijten <marijn.suijten@somainline.org>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>,
- Thomas Zimmermann <tzimmermann@suse.de>, Rob Herring <robh@kernel.org>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>, Bjorn Andersson <andersson@kernel.org>,
- Abel Vesa <abelvesa@kernel.org>, linux-arm-msm@vger.kernel.org,
- dri-devel@lists.freedesktop.org, freedreno@lists.freedesktop.org,
- linux-kernel@vger.kernel.org, devicetree@vger.kernel.org,
- Aastha Pandey <aastha.pandey@oss.qualcomm.com>
-Subject: Re: [PATCH v2 4/5] arm64: dts: qcom: nord: Add GPU cooling
-Message-ID: <ajoxvv5enftdx6phawevgoky3hijrk7asx5g55u7cmcdjrlntx@syh2k5q27bwc>
-References: <20261118-nord-gpu1-v2-0-8d6d9908b7c5@oss.qualcomm.com>
- <20261118-nord-gpu1-v2-4-8d6d9908b7c5@oss.qualcomm.com>
+ AL+hErGap4/4XOzzyui67NagpFQ2Ekf0AUCkZ8r85d/J7SE59akYon9UdUfuaitZomqYSPPo3PlvgexnPCY=@lists.freedesktop.org
+X-Gm-Message-State: APuU4Z8dmionwAkkVpfEJq8FsDs2BXFbPvsB4urk9F84YbIbvKvAJnN8
+ Y6nDsd8SZIsqlbY6pLm+26yiGuThrlQjRPxU31H6u1O8KJEBTM8sEooT1UdIpsjaZWwC392jRYX
+ v3O+xuUlaIzUhctVLmA==
+X-Received: from wrud2.prod.google.com ([2002:a5d:4f82:0:b0:48e:3c17:c059])
+ (user=aliceryhl job=prod-delivery.src-stubby-dispatcher) by
+ 2002:a05:600c:4e4c:b0:4bb:6238:cd81 with SMTP id
+ 5b1f17b1804b1-4bb88807dcemr52539295e9.10.1795168414195; 
+ Fri, 20 Nov 2026 01:53:34 -0800 (PST)
+Date: Fri, 20 Nov 2026 09:53:33 +0000
+In-Reply-To: <DMZD4TXCZSRX.HN0ETV0FWFIY@kernel.org>
 X-Archived-By: <archiver.kernel.org>
-MIME-Version: 1.0
-Content-Type: text/plain; charset=iso-8859-1
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <20261118-nord-gpu1-v2-4-8d6d9908b7c5@oss.qualcomm.com>
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMTIwMDAzOSBTYWx0ZWRfX1t4tDjmbdChz
- 5hekfFQWUni5FtCN0jRENl1ZtaT2rZzq/JVMr4ENnymslTro96DeThgPsA98H8La08BDsfgKLi3
- 15CulvhcsonM8fZ/ZRM4DSmV4OtOPFTazsn/aIA0KsCM+T/nfyzKqh/ymcfPuYEA4h1vLVVSUpU
- rXqUaciw1Y1j/gP+Q+U4lN9zAvoEalzh0Vh/Jnmpfx7p5bYo4kyiziFZoEazX2jvzOkBHvuFL38
- /iviRxYGNEzmB4NhV7crnnWDV78FDP1yhcpztnkPf29d3oF3kjEhjXi0w0pCYu0YTzplIC/utE/
- xjXCQ6H7PFOpWSapZHsnFmCst/6+3BsnKrHLihBhnFd4LjlqhXgvqOci0cyy/CPjGEcaV6ZqVXu
- kY7GZLz4wi3kD8fXCk0RoIk/k6kG/J0V5lbQA35Q2K/yP1zuk6V0LFxEHqmKd99eQ/E9OZitZID
- 6GNuBcLzvbiaECoZ7/g==
-X-Proofpoint-GUID: jQp87zZ7wd0D1DTVdna0aRF2n9qECmZw
-X-Proofpoint-ORIG-GUID: jQp87zZ7wd0D1DTVdna0aRF2n9qECmZw
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMTIwMDAzOSBTYWx0ZWRfX/77BO30mKZK0
- Dm13P7PK6sc8KzqJOVJ6xZdxm/XhFkOuK0L0I85Gso2EqWcoBIWc87oxa7LLDHL/Oo785BPTQQ0
- 4eAIboM2QC7MKrsyoGTswrwCIGWdgZ0=
-X-Authority-Analysis: v=2.4 cv=CNy/zhrD c=1 sm=1 tr=0 ts=6b00180e cx=c_pps
- a=50t2pK5VMbmlHzFWWp8p/g==:117 a=asF+/XNaGoxFafzDDLC1GQ==:17
- a=8nJEP1OIZ-IA:10 a=zJRp6_cAMcgA:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=_K5XuSEh1TEqbUxoQ0s3:22
- a=EUspDBNiAAAA:8 a=r-Xe3uw014UkFQyex58A:9 a=3ZKOabzyN94A:10 a=wPNLvfGTeEIA:10
- a=IoWCM6iH3mJn3m4BftBB:22
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
- definitions=2026-11-20_03,2026-11-19_01,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- phishscore=0 clxscore=1015 malwarescore=0 adultscore=0 spamscore=0
- bulkscore=0 impostorscore=0 lowpriorityscore=0 suspectscore=0
- priorityscore=1501 classifier=typeunknown authscore=0 authtc= authcc=
- route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2611040001
- definitions=main-2611200039
+Mime-Version: 1.0
+References: <20261118181245.2583303-1-dakr@kernel.org>
+ <20261119111746.3049044-1-aliceryhl@google.com>
+ <DMZ5ER6XTNLG.2ZJOF7F4100XW@garyguo.net>
+ <CAH5fLghc63zD9c1F437pQiX+ohgSkYQe4nt3xP4gSTsqAVLzBA@mail.gmail.com>
+ <DMZD4TXCZSRX.HN0ETV0FWFIY@kernel.org>
+X-Mailer: git-send-email 2.56.1.750.gf70dc682cf-goog
+Message-ID: <20261120095333.2135217-1-aliceryhl@google.com>
+Subject: Re: [PATCH] rust: drm: remove DRM device private data
+From: Alice Ryhl <aliceryhl@google.com>
+To: Danilo Krummrich <dakr@kernel.org>
+Cc: Alice Ryhl <aliceryhl@google.com>, Gary Guo <gary@garyguo.net>,
+ airlied@gmail.com, 
+ simona@ffwll.ch, daniel.almeida@collabora.com, ojeda@kernel.org, 
+ boqun@kernel.org, bjorn3_gh@protonmail.com, lossin@kernel.org, 
+ a.hindborg@kernel.org, tmgross@umich.edu, tamird@kernel.org, 
+ acourbot@nvidia.com, work@onurozkan.dev, nova-gpu@lists.linux.dev, 
+ dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org, 
+ rust-for-linux@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -152,30 +84,38 @@ List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-10.8 required=3.0 tests=BAYES_00,DKIM_SIGNED,
-	DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
-	INCLUDES_CR_TRAILER,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS
-	autolearn=unavailable autolearn_force=no version=4.0.1
+X-Spam-Status: No, score=-21.3 required=3.0 tests=BAYES_00,DKIMWL_WL_MED,
+	DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
+	INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,
+	USER_AGENT_GIT,USER_IN_DEF_DKIM_WL autolearn=unavailable
+	autolearn_force=no version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-On 26-11-18 04:30:07, Akhil P Oommen wrote:
-> From: Aastha Pandey <aastha.pandey@oss.qualcomm.com>
+On Thu, Nov 19, 2026 at 06:28:07PM +0100, Danilo Krummrich wrote:
+> On Thu Nov 19, 2026 at 12:49 PM CET, Alice Ryhl wrote:
+> > Good idea
 > 
-> Unlike the CPU, the GPU does not throttle its speed automatically when
-> it reaches high temperatures.
+> Indeed, what do you think about this?
 > 
-> Set up GPU cooling on Nord by throttling the Adreno 753 GPU when it
-> reaches 105°C. Label the passive trip points of the GPU thermal zones,
-> map them to the GPU as a cooling device, and add a passive polling
-> delay so the thermal framework can monitor the zones while throttling.
-> 
-> The thermal zones and the GPU node are both described in nord.dtsi, so
-> do it there. On the GearVM variant the GPU node stays disabled, no
-> cooling device gets registered for it, and the maps are simply left
-> unbound.
-> 
-> Signed-off-by: Aastha Pandey <aastha.pandey@oss.qualcomm.com>
-> Signed-off-by: Akhil P Oommen <akhilpo@oss.qualcomm.com>
+> diff --git a/rust/kernel/drm/device.rs b/rust/kernel/drm/device.rs
+> index 774db3acb15a..8c48dcfdecec 100644
+> --- a/rust/kernel/drm/device.rs
+> +++ b/rust/kernel/drm/device.rs
+> @@ -158,7 +158,11 @@ const fn compute_features() -> u32 {
+>          open: Some(drm::File::<T::File>::open_callback),
+>          postclose: Some(drm::File::<T::File>::postclose_callback),
+>          unload: None,
+> -        release: None,
+> +        release: {
+> +            // The DRM core frees the device without running a Rust destructor.
+> +            const_assert!(!mem::needs_drop::<Device<T, Normal>>());
+> +            None
+> +        },
+>          master_set: None,
+>          master_drop: None,
+>          debugfs_init: None,
 
-Reviewed-by: Abel Vesa <abel.vesa@oss.qualcomm.com>
+Looks good to me.
+
+Alice
