@@ -2,75 +2,80 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 41758606A320
-	for <dri-devel@archiver.kernel.org>; Fri, 20 Nov 2026 16:17:44 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 48195606A320
+	for <dri-devel@archiver.kernel.org>; Fri, 20 Nov 2026 16:17:45 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=virtuozzo.com header.i=@virtuozzo.com header.a=rsa-sha256 header.s=relay header.b=VOSH71Cw
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=hyPMsWYf
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 74A4D112B92;
+	by gabe.freedesktop.org (Postfix) with ESMTP id A714E112BA1;
 	Fri, 20 Nov 2026 16:17:38 +0000 (UTC)
-Received: from relay.virtuozzo.com (relay.virtuozzo.com [130.117.225.111])
- by gabe.freedesktop.org (Postfix) with ESMTPS id E6D62112413
- for <dri-devel@lists.freedesktop.org>; Thu, 19 Nov 2026 13:44:51 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
- d=virtuozzo.com; s=relay; h=Message-Id:Content-Type:MIME-Version:Subject:Date
- :From; bh=AxMySNVvPjLucVppfHytyY+kX3x4T6lEtLV81QZyco4=; b=VOSH71CwjVoEFr6SOAO
- 8v3CqiPqjopc3hX6iCTDL4NRauh3kG0xHnXkKCHlrjAA8HVhxDC1LBky4KT4m6XZdsBh8mfhM5BmO
- 5cqz39X85md+IhaionpfkALD9n0Obupl5ILdCuxr3ySgwMYD0g2FZmQN0Pt1KmOSMisNJszpmLXjm
- tX59CZMiVBhp+EAhC6CF/RYD6qkCpY4AaCe6bV7P5Xp9s7w3jcDQibB4Ju3S9SmohtyG+Xf4t+1k1
- 9mdiWogiz9RIL/VUlgBJAB0+n1du3N+n2U2IXs5f+vHmrJ1t+Fi3RP0a4/fZ9oSRxU7l+NZjb02BI
- AV/ll/TvEBPEgOw==;
-Received: from ch-demo-asa.virtuozzo.com ([130.117.225.8] helo=f0.sw.ru)
- by relay.virtuozzo.com with esmtp (Exim 4.96)
- (envelope-from <khorenko@virtuozzo.com>) id 1xU2R6-00FBqZ-1S;
- Thu, 19 Nov 2026 14:44:24 +0100
-From: Konstantin Khorenko <khorenko@virtuozzo.com>
-Date: Thu, 19 Nov 2026 14:44:03 +0100
-Subject: [PATCH v6 2/4] mm/huge_memory: copy file THPs at fork like
- copy_present_ptes() does
+Received: from mail-qk1-f171.google.com (mail-qk1-f171.google.com
+ [209.85.222.171])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 16C5710E2CF
+ for <dri-devel@lists.freedesktop.org>; Fri, 20 Nov 2026 02:42:15 +0000 (UTC)
+Received: by mail-qk1-f171.google.com with SMTP id
+ af79cd13be357-9497a167a6aso193877885a.1
+ for <dri-devel@lists.freedesktop.org>; Thu, 19 Nov 2026 18:42:15 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20260707; t=1795142534; x=1795747334; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+ bh=8Nzf7HyGQGJipLzRsxdSMLabv2rUKwLHQTs0uFyn5jw=;
+ b=hyPMsWYfacIzGmvCvDqucy9V82id/k87iwhemu6I79jinnfAdw19s8vSlvFK5I5KNd
+ WhdLJ59VkupRlUkrb5J6CS17VgnLC3REbNkEoAGUWZVmZNcspvGpCBDflDNBRHu98q92
+ 7CjnBp2Cde+HpeRikIVsbyTzKW6d9/YzkHseM1xAsvIihK8DPY2Tww4nSyKtq9kC7NzB
+ Co90PWcUIuH6AbpFaN7kacE7rQqGmF2PZ3ZHYgrDd5uh7GK9O6BwTox8dP8MSBXmcmvD
+ ztJOpit/uy9w+Yr2T0pQv/tjKP+hpHORu7jbK/27dDJcuiRNGaAXnVaC2sWGEElMw1eb
+ AyZw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20260707; t=1795142534; x=1795747334;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+ :message-id:reply-to:content-type;
+ bh=8Nzf7HyGQGJipLzRsxdSMLabv2rUKwLHQTs0uFyn5jw=;
+ b=Ti4ZhnaWq6sZa7fIKiRNZLIhDzTGnr8PMCIsACPkWFcrN+l4aP9G1869ZcqGuy6IX3
+ BrKiYmwsp4m1CQoEmlj/GAKJuwjLy0jHWc5dB+dkwyWE7cZakp/6TbwO1clB1HYSTCGS
+ 45pkap7GQE7lxqptffLcudIsxVbKfkYM4Yrg5Kfg+I5q54ty4xcNZpZet4YHp3LesAXn
+ 33c9vTf5WCpFNpUlU6JraI4zBlb7rqYLR9ftrA8XsBpjXcvYGr60qMl4V8nRGi0Z0a2i
+ ezBzv8Vgg0qp9Fhs7/NtkVdi6YtIdx6+3RJJAjaECWUu1n8dKYS4DhumHHpFLw+u/N+k
+ ub8g==
+X-Forwarded-Encrypted: i=1;
+ AL+hErGk8tg3J+l33p7Guzuzmu4/XXqh7u3H4/yxCQ6oJHOvpa4RujZzVshJy7KGbXd9NNUDcFtFyGcUVrA=@lists.freedesktop.org
+X-Gm-Message-State: APuU4Z+/WeCi4SVC1BaS7PUTLG9tnYIptwQPWCkzeierbpCg3Bjf0eu8
+ a4xJkxCO4rlO6eaSCFZpI8Ix8R4WoMXaGjEhh25CGVZynF8iLpNCqQ8P
+X-Gm-Gg: AYBFou2PWIR1pfsptR3tBEc3R4tm8HpkAxSMb/mA0vtS1XuQQqC5vkK0Ivq09kzAko7
+ IPPZTfUeFD/W6mALIDRxvo1hu2B/i/Z/dVteIJedg7qDsI21rC1qtTwwDK7Dzmm/vaMU1xk6KSt
+ Al+RX+t2T+8GG3VtklzQj/1H1OP5J4R0nwghHvMx/e1Tt9H4vFsNvp/WPZrjMA88F6TH+7cLMEW
+ NcXfvBJ4vA6NkW3Hv3wH4FvGk1mFBflBylaruJiMQecfIG1/OaDsFqsuiYvBBcWbvitW6PIOLim
+ 7Yc2f5eGRB6ygTkQeGLxPtlfQ01eBAJnU53UDxf7pAxH8pci9b+z/FSWTkOUPd/ehHbIp7UGXb2
+ ZOEfJtw2iRoVBW+xBeAupEocMCRq+w0dyGwVctfo0saUHIu7J+qPJtOyqrG4ds25PL6tcMxtSkN
+ wd0LOGMDyMTbNltYzyhWvi3inTjt+vRqO8lXJI+3h5IiIRCKPuIQaGsbRZDt4rVrw81UgWsZP0I
+ ydTV5of1h/bfOx6NKJ7ig/brKnnniIFxID4IuBnw1Hdauv49WU7K4weWyO306h3LDILEou2RAxX
+ l+RtcOqKLilW7iquUyLmniZdyU/3ZsL42bo2N/FcHTOrDywh7m/3UsjNXIy4SY2A4YrVtaa8Yv0
+ =
+X-Received: by 2002:a05:620a:2852:b0:949:8014:70e1 with SMTP id
+ af79cd13be357-949ba95ad91mr277788285a.6.1795142533878; 
+ Thu, 19 Nov 2026 18:42:13 -0800 (PST)
+Received: from linux.. ([8.34.174.240]) by smtp.gmail.com with ESMTPSA id
+ af79cd13be357-949bb031617sm100514785a.1.2026.11.19.18.42.12
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Thu, 19 Nov 2026 18:42:13 -0800 (PST)
+From: Changyul Lee <lcy8047@gmail.com>
+To: Jani Nikula <jani.nikula@linux.intel.com>,
+ Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
+ Rodrigo Vivi <rodrigo.vivi@intel.com>,
+ Tvrtko Ursulin <tursulin@ursulin.net>, David Airlie <airlied@gmail.com>,
+ Simona Vetter <simona@ffwll.ch>
+Cc: Aravind Iddamsetty <aravind.iddamsetty@intel.com>,
+ intel-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org, Changyul Lee <lcy8047@gmail.com>
+Subject: [PATCH] drm/i915/gem: Set the VM owner before publishing the VM
+Date: Thu, 19 Nov 2026 21:42:10 -0500
+Message-ID: <20261120024210.1658348-1-lcy8047@gmail.com>
+X-Mailer: git-send-email 2.43.0
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20261119-b4-prep-vstor-149847-copy_huge_pmd-recheck-special-pmd-v6-2-efa7817a2bb3@virtuozzo.com>
-References: <20261119-b4-prep-vstor-149847-copy_huge_pmd-recheck-special-pmd-v6-0-efa7817a2bb3@virtuozzo.com>
-In-Reply-To: <20261119-b4-prep-vstor-149847-copy_huge_pmd-recheck-special-pmd-v6-0-efa7817a2bb3@virtuozzo.com>
-To: Andrew Morton <akpm@linux-foundation.org>, 
- "David Hildenbrand (Arm)" <david@kernel.org>, Zi Yan <ziy@nvidia.com>, 
- Baolin Wang <baolin.wang@linux.alibaba.com>, 
- "Liam R. Howlett" <liam@infradead.org>, Nico Pache <nico.pache@linux.dev>, 
- Ryan Roberts <ryan.roberts@arm.com>, Dev Jain <dev.jain@arm.com>, 
- Barry Song <baohua@kernel.org>, Lance Yang <lance.yang@linux.dev>, 
- Usama Arif <usama.arif@linux.dev>, Kiryl Shutsemau <kas@kernel.org>, 
- Peter Xu <peterx@redhat.com>
-Cc: Alex Williamson <alex@shazbot.org>, kvm@vger.kernel.org, 
- =?utf-8?q?Lo=C3=AFc_Molinari?= <loic.molinari@collabora.com>, 
- Lorenzo Stoakes <ljs@kernel.org>, Shuah Khan <shuah@kernel.org>, 
- linux-kselftest@vger.kernel.org, dri-devel@lists.freedesktop.org, 
- Madhavan Srinivasan <maddy@linux.ibm.com>, 
- "Ritesh Harjani (IBM)" <ritesh.list@gmail.com>, 
- linuxppc-dev@lists.ozlabs.org, linux-mm@kvack.org, 
- linux-kernel@vger.kernel.org, Konstantin Khorenko <khorenko@virtuozzo.com>, 
- Jason Gunthorpe <jgg@ziepe.ca>, stable@vger.kernel.org, 
- "Jose A. Perez de Azpillaga" <azpijr@gmail.com>
-X-Mailer: b4 0.16.0
-X-Developer-Signature: v=1; a=openpgp-sha256; l=7540;
- i=khorenko@virtuozzo.com; h=from:subject:message-id;
- bh=IgE9uAEv/c+7yRxMtgqsFi6vMtEjdXegJpH8fpn8rS4=;
- b=owEBbQKS/ZANAwAKAVGWCkf5YVwqAcsmYgBq/v02ql8g3EcW9pPf4laG3jC53qlxFzRdsvB1A
- yrQpj8ZU62JAjMEAAEKAB0WIQRWD23IPcXT0GO9CCxRlgpH+WFcKgUCav79NgAKCRBRlgpH+WFc
- KuDLD/0WNK6BP+muT6uGJO6/TBtfM3lc/++r4ez/AxsXmcFbyaTeUKJYuV7iodMrqeSHzXKPFAu
- Peff7ZXoDLBCiK6OTguPLQq+FRh43y36PtNF04AkbpAkAqz81/Z9S7Z7sR6rAvi0erU27ugQaEU
- OQrwMzat5vHwy/Zce8pKvxNPhs5N8cWBAdXOOI7Q/mTg4YSfFnfuDIrFiYkZBBAbUI85xM3M13z
- 54RxY4DQjjevy0tB9GeVyKtgDf5sZsp0Y63thT/a2yYZ+lSXC9hBVIPiGHmHnzI0nOXzKqh3bo6
- 36iTYxBT5/aIoNuDTJ4Kbe2LPQKhOWHvHFqbzcFSDDxydQzPoNmuc2nBpsjJSSF5jg42tBVJaIR
- s+JZgQYe5OGxnP4fKlPitSR6uUk7X/g35C50vyX15buA1ToxmzU9WcWzg4b1j09v1HTC5G3qj2j
- ctWxJjqoSweDpbUtGENb34qfTXIH2wFGEl9pdJsX7o0IZpnVX7MUWTVb7jVOyjZtVN8pchrwdGy
- 1+Qxwg8S9wzwqbbL5zW4DKibuQjYV5znPUgWTPb4MlobrR3g5lmyvBx+H3N4jY3Ehxv4CIzQFaQ
- sr/afIhFfjEjiDqgK1NW4OiCzitg535LxOPRw6djD5kgsMReBpj8EM8VQvZRJx1FqwM1SxxFL1K
- no6usWnboYgnAog==
-X-Developer-Key: i=khorenko@virtuozzo.com; a=openpgp;
- fpr=560F6DC83DC5D3D063BD082C51960A47F9615C2A
+Content-Transfer-Encoding: 8bit
 X-Mailman-Approved-At: Fri, 20 Nov 2026 16:17:37 +0000
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -83,219 +88,57 @@ List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-18.8 required=3.0 tests=BAYES_00,DKIM_SIGNED,
-	DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
-	INCLUDES_CR_TRAILER,INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,
-	SPF_PASS,USER_AGENT_GIT autolearn=unavailable autolearn_force=no
-	version=4.0.1
+X-Spam-Status: No, score=-15.8 required=3.0 tests=BAYES_00,DKIM_SIGNED,
+	DKIM_VALID,DKIM_VALID_AU,FREEMAIL_FORGED_FROMDOMAIN,FREEMAIL_FROM,
+	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
+	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,USER_AGENT_GIT
+	autolearn=unavailable autolearn_force=no version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-This fixes no bug: it makes fork copy a PMD the way copy_present_ptes()
-copies a PTE. Until now copy_huge_pmd() skipped every folio PMD of a
-non-anonymous VMA and left the child to fault them in again, while the
-PTEs of the same VMA are copied.
+i915_gem_vm_create_ioctl() adds the VM to the file's VM table before
+setting its owner (vm.fpriv). A concurrent lookup can therefore see
+the VM without an owner and allocate page tables that are missing
+from the client's memory accounting. Concurrent VM destruction can
+also free the VM before the owner assignment, causing a write to
+freed memory.
 
-Treat file folios as the PTE path does: take a reference, duplicate the
-rmap and account them. fork then pays a reference and an rmap update
-per PMD, and saves the child a fault per PMD it touches. The next patch
-sends PFN mappings through the same tail.
+Set the owner before inserting the VM into the table with xa_alloc().
+If xa_alloc() fails, err_put still releases the VM.
 
-That covers the VMAs vma_needs_copy() sends here:
-
-- private file mappings with an anon_vma;
-- VM_COPY_ON_FORK ones: uffd-wp and uffd-rwp, VM_MIXEDMAP, and
-  VM_MAYBE_GUARD, which shared shmem, file and DAX mappings get from a
-  guard region.
-
-A folio over the page cache refcount limit is not copied, as in
-copy_present_ptes(): the child faults it in, and fork() fails with
--ENOMEM only in a VM_MIXEDMAP VMA, which may have no fault handler.
-Unlike a skipped PTE, the PMD needs no uffd marker: a file PMD never
-carries the uffd bit, as protecting it splits it.
-
-The DAX huge zero PMD is copied too, with a reference taken by
-mm_get_huge_zero_folio() as for anonymous VMAs. A migration entry of a
-file folio is copied and accounted like copy_nonpresent_pte() does, and
-made read-only in both processes only in a CoW mapping. A device
-private entry gets the same CoW check, as in copy_nonpresent_pte().
-
-The copy then gets the same tail as __copy_present_ptes(): write
-protect both sides in a CoW mapping, mark the child's copy clean in a
-shared one, and drop the uffd-wp bit where the child is not armed. An
-anonymous THP is now write protected only when its PMD is writable, as
-a PTE is.
-
-A page table is deposited under the copy where the fault paths deposit
-one: in anonymous VMAs, and wherever the architecture needs one.
-
-Cc: stable@vger.kernel.org # needed by the next patch
-Suggested-by: David Hildenbrand (Arm) <david@kernel.org>
-Reviewed-by: Kiryl Shutsemau (Meta) <kas@kernel.org>
-Reviewed-by: Zi Yan <ziy@nvidia.com>
-Reviewed-by: Jose A. Perez de Azpillaga <azpijr@gmail.com>
-Signed-off-by: Konstantin Khorenko <khorenko@virtuozzo.com>
+Fixes: ca02a0119f81 ("drm/i915: Record which client owns a VM")
+Signed-off-by: Changyul Lee <lcy8047@gmail.com>
 ---
- mm/huge_memory.c | 74 ++++++++++++++++++++++++++++++++++++++------------------
- 1 file changed, 50 insertions(+), 24 deletions(-)
+Found with a static analysis tool we are developing.
 
-diff --git a/mm/huge_memory.c b/mm/huge_memory.c
-index 641e5a3822e3a..277d27a8a4364 100644
---- a/mm/huge_memory.c
-+++ b/mm/huge_memory.c
-@@ -1913,12 +1913,13 @@ static void copy_huge_non_present_pmd(
- 		pmd_t pmd, pgtable_t pgtable)
- {
- 	softleaf_t entry = softleaf_from_pmd(pmd);
--	struct folio *src_folio;
-+	struct folio *src_folio = softleaf_to_folio(entry);
- 
- 	VM_WARN_ON_ONCE(!pmd_is_valid_softleaf(pmd));
- 
--	if (softleaf_is_migration_write(entry) ||
--	    softleaf_is_migration_read_exclusive(entry)) {
-+	if ((softleaf_is_migration_write(entry) ||
-+	     softleaf_is_migration_read_exclusive(entry)) &&
-+	    vma_is_cow_mapping(src_vma)) {
- 		entry = make_readable_migration_entry(swp_offset(entry));
- 		pmd = softleaf_to_pmd(entry);
- 		if (pmd_swp_soft_dirty(*src_pmd))
-@@ -1931,7 +1932,8 @@ static void copy_huge_non_present_pmd(
- 		 * For device private entries, since there are no
- 		 * read exclusive entries, writable = !readable
- 		 */
--		if (softleaf_is_device_private_write(entry)) {
-+		if (softleaf_is_device_private_write(entry) &&
-+		    vma_is_cow_mapping(src_vma)) {
- 			entry = make_readable_device_private_entry(swp_offset(entry));
- 			pmd = softleaf_to_pmd(entry);
- 
-@@ -1942,7 +1944,6 @@ static void copy_huge_non_present_pmd(
- 			set_pmd_at(src_mm, addr, src_pmd, pmd);
- 		}
- 
--		src_folio = softleaf_to_folio(entry);
- 		VM_WARN_ON(!folio_test_large(src_folio));
- 
- 		folio_get(src_folio);
-@@ -1954,9 +1955,11 @@ static void copy_huge_non_present_pmd(
- 					    dst_vma, src_vma);
- 	}
- 
--	add_mm_counter(dst_mm, MM_ANONPAGES, HPAGE_PMD_NR);
--	mm_inc_nr_ptes(dst_mm);
--	pgtable_trans_huge_deposit(dst_mm, dst_pmd, pgtable);
-+	add_mm_counter(dst_mm, mm_counter(src_folio), HPAGE_PMD_NR);
-+	if (pgtable) {
-+		mm_inc_nr_ptes(dst_mm);
-+		pgtable_trans_huge_deposit(dst_mm, dst_pmd, pgtable);
-+	}
- 	if (!userfaultfd_protected(dst_vma))
- 		pmd = pmd_swp_clear_uffd(pmd);
- 	set_pmd_at(dst_mm, addr, dst_pmd, pmd);
-@@ -1972,6 +1975,7 @@ int copy_huge_pmd(struct mm_struct *dst_mm, struct mm_struct *src_mm,
- 	pmd_t pmd;
- 	pgtable_t pgtable = NULL;
- 	int ret = -ENOMEM;
-+	bool writable;
- 
- 	pmd = pmdp_get_lockless(src_pmd);
- 	if (unlikely(pmd_present(pmd) && pmd_special(pmd) &&
-@@ -1992,13 +1996,11 @@ int copy_huge_pmd(struct mm_struct *dst_mm, struct mm_struct *src_mm,
- 		goto set_pmd;
- 	}
- 
--	/* Skip if can be re-fill on fault */
--	if (!vma_is_anonymous(dst_vma))
--		return 0;
--
--	pgtable = pte_alloc_one(dst_mm);
--	if (unlikely(!pgtable))
--		goto out;
-+	if (vma_is_anonymous(dst_vma) || arch_needs_pgtable_deposit()) {
-+		pgtable = pte_alloc_one(dst_mm);
-+		if (unlikely(!pgtable))
-+			goto out;
-+	}
- 
- 	dst_ptl = pmd_lock(dst_mm, dst_pmd);
- 	src_ptl = pmd_lockptr(src_mm, src_pmd);
-@@ -2016,7 +2018,8 @@ int copy_huge_pmd(struct mm_struct *dst_mm, struct mm_struct *src_mm,
- 	}
- 
- 	if (unlikely(!pmd_trans_huge(pmd))) {
--		pte_free(dst_mm, pgtable);
-+		if (pgtable)
-+			pte_free(dst_mm, pgtable);
- 		goto out_unlock;
- 	}
- 	/*
-@@ -2031,13 +2034,30 @@ int copy_huge_pmd(struct mm_struct *dst_mm, struct mm_struct *src_mm,
- 		 * copy. It just takes a reference.
- 		 */
- 		mm_get_huge_zero_folio(dst_mm);
--		goto out_zero_page;
-+		goto copy_pmd;
- 	}
- 
- 	src_page = pmd_page(pmd);
- 	VM_BUG_ON_PAGE(!PageHead(src_page), src_page);
- 	src_folio = page_folio(src_page);
- 
-+	if (!folio_test_anon(src_folio)) {
-+		if (unlikely(folio_ref_count_over_limit(src_folio))) {
-+			/*
-+			 * VM_MIXEDMAP may contain driver-inserted pages with no
-+			 * fault handler to reconstruct the mapping.
-+			 */
-+			ret = (dst_vma->vm_flags & VM_MIXEDMAP) ? -ENOMEM : 0;
-+			if (pgtable)
-+				pte_free(dst_mm, pgtable);
-+			goto out_unlock;
-+		}
-+		folio_get(src_folio);
-+		folio_dup_file_rmap_pmd(src_folio, src_page, dst_vma);
-+		add_mm_counter(dst_mm, mm_counter_file(src_folio),
-+			       HPAGE_PMD_NR);
-+		goto copy_pmd;
-+	}
- 	folio_get(src_folio);
- 	if (unlikely(folio_try_dup_anon_rmap_pmd(src_folio, src_page, dst_vma, src_vma))) {
- 		/* Page maybe pinned: split and retry the fault on PTEs. */
-@@ -2049,19 +2069,25 @@ int copy_huge_pmd(struct mm_struct *dst_mm, struct mm_struct *src_mm,
- 		return -EAGAIN;
- 	}
- 	add_mm_counter(dst_mm, MM_ANONPAGES, HPAGE_PMD_NR);
--out_zero_page:
--	mm_inc_nr_ptes(dst_mm);
--	pgtable_trans_huge_deposit(dst_mm, dst_pmd, pgtable);
-+copy_pmd:
-+	if (pgtable) {
-+		mm_inc_nr_ptes(dst_mm);
-+		pgtable_trans_huge_deposit(dst_mm, dst_pmd, pgtable);
-+	}
- 
--	/* See __copy_present_ptes(): restore accessible protection. */
-+	/* See __copy_present_ptes(). */
-+	writable = pmd_write(pmd);
- 	if (!userfaultfd_protected(dst_vma)) {
- 		if (userfaultfd_rwp(src_vma) && pmd_uffd(pmd))
- 			pmd = pmd_modify(pmd, dst_vma->vm_page_prot);
- 		pmd = pmd_clear_uffd(pmd);
- 	}
--
--	pmdp_set_wrprotect(src_mm, addr, src_pmd);
--	pmd = pmd_wrprotect(pmd);
-+	if (vma_is_cow_mapping(src_vma) && writable) {
-+		pmdp_set_wrprotect(src_mm, addr, src_pmd);
-+		pmd = pmd_wrprotect(pmd);
-+	}
-+	if (src_vma->vm_flags & VM_SHARED)
-+		pmd = pmd_mkclean(pmd);
- set_pmd:
- 	pmd = pmd_mkold(pmd);
- 	set_pmd_at(dst_mm, addr, dst_pmd, pmd);
+Compile-tested only, with x86_64_defconfig and W=1.
 
+ drivers/gpu/drm/i915/gem/i915_gem_context.c | 3 ++-
+ 1 file changed, 2 insertions(+), 1 deletion(-)
+
+diff --git a/drivers/gpu/drm/i915/gem/i915_gem_context.c b/drivers/gpu/drm/i915/gem/i915_gem_context.c
+index c58ffa5a8fa6..489b221091d1 100644
+--- a/drivers/gpu/drm/i915/gem/i915_gem_context.c
++++ b/drivers/gpu/drm/i915/gem/i915_gem_context.c
+@@ -1838,6 +1838,8 @@ int i915_gem_vm_create_ioctl(struct drm_device *dev, void *data,
+ 			goto err_put;
+ 	}
+ 
++	ppgtt->vm.fpriv = file_priv;
++
+ 	err = xa_alloc(&file_priv->vm_xa, &id, &ppgtt->vm,
+ 		       xa_limit_32b, GFP_KERNEL);
+ 	if (err)
+@@ -1845,7 +1847,6 @@ int i915_gem_vm_create_ioctl(struct drm_device *dev, void *data,
+ 
+ 	GEM_BUG_ON(id == 0); /* reserved for invalid/unassigned ppgtt */
+ 	args->vm_id = id;
+-	ppgtt->vm.fpriv = file_priv;
+ 	return 0;
+ 
+ err_put:
+
+base-commit: aebb7274476403040d582c61478df8f4a7bf9cd3
 -- 
 2.43.0
 
