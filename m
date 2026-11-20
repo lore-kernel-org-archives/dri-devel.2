@@ -2,62 +2,52 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8DECD606A320
-	for <dri-devel@archiver.kernel.org>; Fri, 20 Nov 2026 08:34:10 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9A753606A325
+	for <dri-devel@archiver.kernel.org>; Fri, 20 Nov 2026 08:44:27 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=kvHozla1
+	dkim=pass (2048-bit key) header.d=kemnade.info header.i=@kemnade.info header.a=rsa-sha256 header.s=20220719 header.b=hzChnzqG
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 032B0112604;
-	Fri, 20 Nov 2026 08:34:05 +0000 (UTC)
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.10])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 4FBF210E610;
- Fri, 20 Nov 2026 08:33:58 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1795163639; x=1826699639;
- h=mime-version:content-transfer-encoding:in-reply-to:
- references:subject:from:cc:to:date:message-id;
- bh=GMyEQJvmq27rqx1T/bFHEkXPkQXd+jF7hs13UOe1t2w=;
- b=kvHozla1xJhx23OnBtWIidfqHmzY/IikwD1OfqlL2piSiN91Z8hBxKH6
- 5W3FUl2Vfixi0XXC0SZSkvX1MBzBE7sRd7fWzqyziPE42wibeuKZMgkta
- EjpUvLpU0r6wi5IXyB4Zn/tvWPcsY5SWuHr+CdCeQcjJi8TCgONFsB1xF
- wH0DyLsANLReX95AlplqSFxl7OPttQ7CGxE5TcyVaSQfri1smKcSONl1o
- Cz2pFnWJf35p4QWKiKPZBL+lXS/+t1Y4gUW2AUM+MhsDRUtvq2CZkW4mV
- iBlXYf0FxRc0ZiI9cZuyOmI9lVySyF1TaaEoc8M+53XnQKJnQ4dEkrvKs A==;
-X-CSE-ConnectionGUID: 4yG4Qc7GSByhe+zC4f+bGA==
-X-CSE-MsgGUID: fcWz6QrTSmSDu+Ep4yuODw==
-X-IronPort-AV: E=McAfee;i="6800,10657,11971"; a="3950686"
-X-IronPort-AV: E=Sophos;i="6.27,222,1787036400"; 
-   d="scan'208";a="3950686"
-Received: from fmviesa004.fm.intel.com ([10.60.135.144])
- by orvoesa102.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 20 Nov 2026 00:33:58 -0800
-X-CSE-ConnectionGUID: aXEXX1cHRaWdAopq149/8w==
-X-CSE-MsgGUID: D26vuOlwRlqmJloPrNm3Lg==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,222,1787036400"; d="scan'208";a="10644733"
-Received: from conormcd-mobl2.ger.corp.intel.com (HELO localhost)
- ([10.245.245.228])
- by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 20 Nov 2026 00:33:55 -0800
-Content-Type: text/plain; charset="utf-8"
+	by gabe.freedesktop.org (Postfix) with ESMTP id E24A310E292;
+	Fri, 20 Nov 2026 08:44:21 +0000 (UTC)
+Received: from mail.andi.de1.cc (mail.andi.de1.cc [178.238.236.174])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 9A5F510E292
+ for <dri-devel@lists.freedesktop.org>; Fri, 20 Nov 2026 08:44:15 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+ d=kemnade.info; s=20220719; h=References:In-Reply-To:Subject:Cc:To:From:
+ Reply-To:Content-ID:Content-Description;
+ bh=UxmBx3Rz1ImbRcmIwlXmykyvtl7+nbEutG+sEKlD5uk=; t=1795164255; x=1796373855; 
+ b=hzChnzqGiBJfiBIhFcTJ71Ukwl765xrG6ZNEm8C7fKbQi9SCCbkd88UiVEIS+cenBBUlN8Qj/hv
+ SOuG1gCRo3+OnlA1DLr3eGuWwbOhDNX2gVkeC+AGbdCclwKTb4gvGKiPpBZuDtDRd1phUI6ICKNmu
+ BDwOPw4NN320aRQVviPmPWHexf127XZWV+x567E4tdEHQ6pILO+FT7C2nyvstHhsTOJ9QJgeeAP7j
+ 6k0ipIinvOeLrp+MiWhEcLerwKs0As61JaUijehggX8+WsgXW1NufAtoKVAYeP5otjkIONz02TwO2
+ wg87PCUyUKJLjs+Ll8TFNdVU2JolZFmPIlEg==;
+Date: Fri, 20 Nov 2026 09:43:20 +0100
+From: Andreas Kemnade <andreas@kemnade.info>
+To: Geert Uytterhoeven <geert@linux-m68k.org>, ettore.chimenti@linaro.org
+Cc: Aaro Koskinen <aaro.koskinen@iki.fi>, Kevin Hilman
+ <khilman@baylibre.com>, Roger Quadros <rogerq@kernel.org>, Tony Lindgren
+ <tony@atomide.com>, Russell King <linux@armlinux.org.uk>, Paul Walmsley
+ <paul@pwsan.com>, Stephen Boyd <sboyd@kernel.org>, Brian Masney
+ <bmasney+clk@redhat.com>, Jerome Brunet <jbrunet+clk@baylibre.com>, Sandy
+ Huang <hjc@rock-chips.com>, Heiko =?UTF-8?B?U3TDvGJuZXI=?=
+ <heiko@sntech.de>, Andy Yan <andyshrk@163.com>, Ulf Hansson
+ <ulfh@kernel.org>, linux-clk@vger.kernel.org,
+ linux-renesas-soc@vger.kernel.org, linux-rockchip@lists.infradead.org,
+ linux-omap@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
+ dri-devel@lists.freedesktop.org, linux-pm@vger.kernel.org
+Subject: Re: [PATCH 5/6] [RFT] ARM: OMAP2+: Convert to
+ dev_clk_get_from_provider()
+Message-ID: <20261120094320.442d064b@kemnade.info>
+In-Reply-To: <CAMuHMdVbgGV_6yjOip4xT3YhBgaOveHzSRbw9e_cHen9NRZqmw@mail.gmail.com>
+References: <cover.1795094688.git.geert+renesas@glider.be>
+ <683b5b189409e5ee04100044fb615b01cb877f3d.1795094688.git.geert+renesas@glider.be>
+ <20261119225017.15a7b5cc@kemnade.info>
+ <CAMuHMdVbgGV_6yjOip4xT3YhBgaOveHzSRbw9e_cHen9NRZqmw@mail.gmail.com>
+X-Mailer: Claws Mail 4.3.1 (GTK 3.24.49; aarch64-unknown-linux-gnu)
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
+Content-Type: text/plain; charset=US-ASCII
 Content-Transfer-Encoding: quoted-printable
-In-Reply-To: <20261120024210.1658348-1-lcy8047@gmail.com>
-References: <20261120024210.1658348-1-lcy8047@gmail.com>
-Subject: Re: [PATCH] drm/i915/gem: Set the VM owner before publishing the VM
-From: Joonas Lahtinen <joonas.lahtinen@linux.intel.com>
-Cc: Aravind Iddamsetty <aravind.iddamsetty@intel.com>,
- intel-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
- linux-kernel@vger.kernel.org, Changyul Lee <lcy8047@gmail.com>
-To: Changyul Lee <lcy8047@gmail.com>, David Airlie <airlied@gmail.com>,
- Jani Nikula <jani.nikula@linux.intel.com>,
- Rodrigo Vivi <rodrigo.vivi@intel.com>, Simona Vetter <simona@ffwll.ch>,
- Tvrtko Ursulin <tursulin@ursulin.net>
-Date: Fri, 20 Nov 2026 10:33:52 +0200
-Message-ID: <179516363210.27957.16651774665226630199@jlahtine-mobl>
-User-Agent: alot/0.13.dev2+g40c57d620
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -69,80 +59,118 @@ List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-13.8 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
-	DKIM_SIGNED,DKIM_VALID,HEADER_FROM_DIFFERENT_DOMAINS,
+X-Spam-Status: No, score=-17.3 required=3.0 tests=BAYES_00,DKIM_SIGNED,
+	DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
 	INCLUDES_CR_TRAILER,INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,
-	SPF_PASS autolearn=unavailable autolearn_force=no version=4.0.1
+	SPF_PASS,USER_AGENT_SANE_2 autolearn=unavailable autolearn_force=no
+	version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-Quoting Changyul Lee (2026-11-20 04:42:10)
-> i915_gem_vm_create_ioctl() adds the VM to the file's VM table before
-> setting its owner (vm.fpriv). A concurrent lookup can therefore see
-> the VM without an owner and allocate page tables that are missing
-> from the client's memory accounting.
+On Fri, 20 Nov 2026 08:49:05 +0100
+Geert Uytterhoeven <geert@linux-m68k.org> wrote:
 
-This commit message is just not making any sense.
-
-The ID used in the supposed lookup is returned from this very IOCTL.
-
-> Concurrent VM destruction can
-> also free the VM before the owner assignment, causing a write to
-> freed memory.
-
-Could you explain in your own terms the call sequence that'll lead to
-this?
-
-> Set the owner before inserting the VM into the table with xa_alloc().
-> If xa_alloc() fails, err_put still releases the VM.
-
-Very LLM'esque to just explain what the code does to inflate the patch
-description.
-
-> Fixes: ca02a0119f81 ("drm/i915: Record which client owns a VM")
-> Signed-off-by: Changyul Lee <lcy8047@gmail.com>
-> ---
-> Found with a static analysis tool we are developing.
-
-Unless a competent human developer looked the patches through before
-submitting and wrote the patch descriptions, please redirect further
-submissions to /dev/null.
-
-Regards, Joonas
-
+> Hi Andreas,
 >=20
-> Compile-tested only, with x86_64_defconfig and W=3D1.
+> On Thu, 19 Nov 2026 at 22:50, Andreas Kemnade <andreas@kemnade.info> wrot=
+e:
+> > On Thu, 19 Nov 2026 14:40:38 +0100
+> > Geert Uytterhoeven <geert+renesas@glider.be> wrote:
+> > =20
+> > > OMAP2+ clock handling uses of_clk_get_from_provider() to obtain clocks
+> > > used for power management, so the latter show up as "deviceless" in t=
+he
+> > > consumer column of the clk_summary file in debugfs.
+> > >
+> > > Fix this by using dev_clk_get_from_provider() instead, letting us pass
+> > > the consumer device, too.
+> > >
+> > > Signed-off-by: Geert Uytterhoeven <geert+renesas@glider.be>
+> > > ---
+> > > Compile-tested only.
+> > >
+> > > The first change is probably OK.  The second change may fail if anyth=
+ing
+> > > in the oh->od->pdev->dev chain is not available yet at this point. =20
+> >
+> > Test on OMAP3: =20
 >=20
->  drivers/gpu/drm/i915/gem/i915_gem_context.c | 3 ++-
->  1 file changed, 2 insertions(+), 1 deletion(-)
+> Thanks for testing!
 >=20
-> diff --git a/drivers/gpu/drm/i915/gem/i915_gem_context.c b/drivers/gpu/dr=
-m/i915/gem/i915_gem_context.c
-> index c58ffa5a8fa6..489b221091d1 100644
-> --- a/drivers/gpu/drm/i915/gem/i915_gem_context.c
-> +++ b/drivers/gpu/drm/i915/gem/i915_gem_context.c
-> @@ -1838,6 +1838,8 @@ int i915_gem_vm_create_ioctl(struct drm_device *dev=
-, void *data,
->                         goto err_put;
->         }
-> =20
-> +       ppgtt->vm.fpriv =3D file_priv;
-> +
->         err =3D xa_alloc(&file_priv->vm_xa, &id, &ppgtt->vm,
->                        xa_limit_32b, GFP_KERNEL);
->         if (err)
-> @@ -1845,7 +1847,6 @@ int i915_gem_vm_create_ioctl(struct drm_device *dev=
-, void *data,
-> =20
->         GEM_BUG_ON(id =3D=3D 0); /* reserved for invalid/unassigned ppgtt=
- */
->         args->vm_id =3D id;
-> -       ppgtt->vm.fpriv =3D file_priv;
->         return 0;
-> =20
->  err_put:
+> > --- clk-old     2026-11-19 22:44:59.810807920 +0100
+> > +++ clk-new     2026-11-19 22:26:52.862531880 +0100
+> > @@ -1,17 +1,17 @@
+> >                                   enable  prepare  protect             =
+                   duty  hardware                            connection
+> >     clock                          count    count    count        rate =
+  accuracy phase  cycle    enable   consumer                         id
+> >  ----------------------------------------------------------------------=
+-----------------------------------------------------------------------
+> > - oscillator                          0       0        0        2600000=
+0    0          0     50000      Y   deviceless                      of_clk=
+_get_from_provider
+> > + oscillator                          0       0        0        2600000=
+0    0          0     50000      Y   deviceless                      dev_cl=
+k_get_from_provider
+> >                                                                        =
+                                     deviceless                      no_con=
+nection_id
+> > - secure_32k_fck                      0       1        0        32768  =
+     0          0     50000      Y   deviceless                      of_clk=
+_get_from_provider
+> > + secure_32k_fck                      0       1        0        32768  =
+     0          0     50000      Y   deviceless                      dev_cl=
+k_get_from_provider
+> >                                                                        =
+                                     deviceless                      no_con=
+nection_id
+> > -    wdt1_fck                         0       0        0        32768  =
+     0          0     50000      Y      deviceless                      of_=
+clk_get_from_provider
+> > +    wdt1_fck                         0       0        0        32768  =
+     0          0     50000      Y      deviceless                      dev=
+_clk_get_from_provider
+> >                                                                        =
+                                        deviceless                      no_=
+connection_id
+> >      gpt12_fck                        0       1        0        32768  =
+     0          0     50000      Y      48304000.timer                  fck
+> >                                                                        =
+                                        48304000.target-module          fck
+> > -                                                                      =
+                                        deviceless                      of_=
+clk_get_from_provider
+> > +                                                                      =
+                                        deviceless                      dev=
+_clk_get_from_provider
+> >                                                                        =
+                                        deviceless                      no_=
+connection_id
+> > - dummy_ck                            0       0        0        0      =
+     0          0     50000      Y   deviceless                      of_clk=
+_get_from_provider
+> > + dummy_ck                            0       0        0        0      =
+     0          0     50000      Y   deviceless                      dev_cl=
+k_get_from_provider
+> >                                                                        =
+                                     deviceless                      no_con=
+nection_id
+> >   mcbsp_clks                          0       5        0        0      =
+     0          0     50000      Y   deviceless                      mcbsp_=
+clks
+> >                                                                        =
+                                     deviceless                      mcbsp_=
+clks =20
 >=20
-> base-commit: aebb7274476403040d582c61478df8f4a7bf9cd3
-> --=20
-> 2.43.0
->
+> Hmm, so the passed device is always NULL, and thus there is no point
+> in making the change.
+> Do you know if these come from the first or second change in my patch
+> (I guess the second)?
+>=20
+=46rom the first change, The second piece is nowadys only used by the dm81*
+devices.
+
+I would prefer to have this tested on dm81* too.
+
+Regards,
+Andreas
