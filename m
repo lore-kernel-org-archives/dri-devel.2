@@ -2,39 +2,40 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7B73C606A335
-	for <dri-devel@archiver.kernel.org>; Fri, 20 Nov 2026 12:58:17 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 18710606A325
+	for <dri-devel@archiver.kernel.org>; Fri, 20 Nov 2026 12:58:18 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=QqRNDDEl
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=TR3gFWTQ
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 0394A112A01;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 13216112A02;
 	Fri, 20 Nov 2026 12:58:11 +0000 (UTC)
 Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id C8B731129F2
- for <dri-devel@lists.freedesktop.org>; Fri, 20 Nov 2026 12:57:33 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id D6FA610E8D1
+ for <dri-devel@lists.freedesktop.org>; Fri, 20 Nov 2026 12:57:43 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by tor.source.kernel.org (Postfix) with ESMTP id 4D30B60D0B;
- Fri, 20 Nov 2026 12:57:33 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id CF6BC1F000C6;
- Fri, 20 Nov 2026 12:57:31 +0000 (UTC)
+ by tor.source.kernel.org (Postfix) with ESMTP id 55877611FF;
+ Fri, 20 Nov 2026 12:57:43 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 45F331F000E0;
+ Fri, 20 Nov 2026 12:57:42 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1795179452;
- bh=84gcpPLyA7MExkV84AAhFzUmD9b+mztsv3tH99iXwLY=;
+ s=k20260515; t=1795179462;
+ bh=H+q2FnyhjtBhlefTRTUJUjBUfAbxkIkbsgm7LBrETW8=;
  h=From:Date:Subject:References:In-Reply-To:To:Cc;
- b=QqRNDDElqUnRi2QUafjGoy3Tcz0FANMpApkscnQCMMvbPkF9svH1ErLhT7ja44geO
- MjClNwuPtFDGgTGbLuufK2nnl+AGpMN0v6anFl1muKlzbdK2Nkz8N6x+zSdIR2x2Ij
- HzSM6NjddqIsq5PHuJ8yH6LHsFUVKtXnuJBb/IznRZwyPFYILxb3iBMkV/FaGP0Qdg
- V6JPmz8LZPVrUKWIwzWtQ1fsShwbUTht3L4W7h6VJvYDuzeZJ/xEcKFjl/difwZNMp
- DxRPLXIz5MoyEysOoVcwc+EvOiGorPOOnu/wb1b4smNsSEOT+m0Azdk6yxNe1K2KY0
- jF0WFpCKk9nXg==
+ b=TR3gFWTQ91NKCNYLCXO+9Cb4j8xzFXpxbeATAyHpgSIZHNkOTBjsAY1PKyqJTtVJM
+ uc4GH+xDaoLBaWNZ1jL89bXXFKSRiZGoQa3h+ls8bXQaICQsdwtfjlA+IxVhPVPkUA
+ t+Eg2usvs6AYSYoclaxsQKkTeaVPqIpB0H52yL8SW2OeW31wD1ZiI7neZwegDLDNcD
+ U9z944sxxnfS/i17dyz5iCugzDOwE/tId6rJN1J2ctP3O5jIyDT/255mMqnZA3xAFb
+ 2nbn9NJTaG/v1FsYivSlH0JUKvXFvBkG80P6ocb7fKcuHpWPN4JQmOtr7qDNlbtleo
+ VSpRJVStLCeUQ==
 From: Maxime Ripard <mripard@kernel.org>
-Date: Fri, 20 Nov 2026 13:55:30 +0100
-Subject: [PATCH v9 38/42] drm/bridge: sii902x: Implement hw state readout
+Date: Fri, 20 Nov 2026 13:55:33 +0100
+Subject: [PATCH DO NOT MERGE v9 41/42] drm/tidss: oldi: Implement hardware
+ state readout
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20261120-drm-state-readout-v9-38-a67c2b45b8ec@kernel.org>
+Message-Id: <20261120-drm-state-readout-v9-41-a67c2b45b8ec@kernel.org>
 References: <20261120-drm-state-readout-v9-0-a67c2b45b8ec@kernel.org>
 In-Reply-To: <20261120-drm-state-readout-v9-0-a67c2b45b8ec@kernel.org>
 To: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
@@ -48,12 +49,12 @@ To: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
 Cc: Devarsh Thakkar <devarsht@ti.com>, dri-devel@lists.freedesktop.org, 
  Maxime Ripard <mripard@kernel.org>
 X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=openpgp-sha256; l=5983; i=mripard@kernel.org;
- h=from:subject:message-id; bh=857PsCNXqQcqY+i7IBehUqtgpkSalLcKxoAAe/XFYTg=;
- b=owGbwMvMwCmsHn9OcpHtvjLG02pJDNkMzsZXZfQKmGRS5rP/jqsyFVnoK638qq3v2aGUOdpGb
- F5/S8I6prIwCHMyyIopsjyRCTu9vH1xlYP9yh8wc1iZQIYwcHEKwETufGZs2CL12UjV+eMRLgmG
- Wc85ZA9+DGJ4M+3he2X/+nUPOg7+3l1zRK/u55KSrMPvOe1uuyxWYGzoPfS8kXWFoKvGIwfH5dM
- O8IRk+Pb31JS8aKwL5PqYfK/x2fxHN3/x/87dWNq3OHKjBjMA
+X-Developer-Signature: v=1; a=openpgp-sha256; l=8753; i=mripard@kernel.org;
+ h=from:subject:message-id; bh=sGYoRbNcPMnwwDvBAXI1gZ8lEdOsoZynUdNp3i7rz3E=;
+ b=owGbwMvMwCmsHn9OcpHtvjLG02pJDNkMzib3e5V2B///MvUsd/vV9X+dc3aIP3R6ustURdRx0
+ tGncnbcHVNYGIQ5GWTFFFmeyISdXt6+uMrBfuUPmDmsTCBDGLg4BWAia64yVrS2nj2U89Xw9JIj
+ f366L7th2WIxl5e3LvixznR5M+cexvKTJ6+8vc1VbfCHx/SEe1UzYxXTVttvukHhYlPPTV/5Teb
+ mZ+XDDBeOpjFcD1j12vW93PXFUq/47+Z+WGQ997x+yVk/oxMA
 X-Developer-Key: i=mripard@kernel.org; a=openpgp;
  fpr=BE5675C37E818C8B5764241C254BCFC56BF6CE8D
 X-BeenThere: dri-devel@lists.freedesktop.org
@@ -74,191 +75,254 @@ X-Spam-Status: No, score=-18.8 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-Implement the hardware state readout for the sii902x bridge
-now that all the infrastructure is in place.
+On the AM65x and the AM625, an OLDI transmitter sits between a video
+port and the panel or the bridge it drives. Without a readout of the
+transmitter, the bridge chain of a pipeline the firmware left running
+has no state for it, and the first commit can't be matched against what
+is programmed.
 
-Reviewed-by: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>
+Implement the state readout hooks of the OLDI bridge. The
+atomic_sro_readout_state hook reads the transmitter configuration
+register through tidss_get_oldi_config(), and does nothing if the
+transmitter is disabled. Otherwise, it looks up the bus format the LVDS
+mapping and the width flag correspond to, since the most significant
+bit of the mapping field carries the dual-link flag rather than the
+mapping, and reconstructs the bus configuration the atomic helpers
+negotiate: the transmitter takes the parallel RGB output of the video
+port and serializes it. The DE polarity is the only flag the
+transmitter stores, the sampling edges being hardcoded. The readout
+fails when the mapping isn't recognized, so that the core falls back to
+the regular initialization.
+
+The atomic_sro_connector_readout hook binds the connector to the CRTC
+the encoder is currently connected to, and takes the connector reference
+that drm_atomic_set_crtc_for_connector() would have taken. Set
+DRM_BRIDGE_OP_CONNECTOR_HW_READOUT so that drm_bridge_connector uses
+it.
+
+Use drm_atomic_helper_bridge_compare_state() to compare the readout
+state with the committed one.
+
+This hasn't been tested yet.
+
 Signed-off-by: Maxime Ripard <mripard@kernel.org>
 ---
- drivers/gpu/drm/bridge/sii902x.c | 130 ++++++++++++++++++++++++++++++++++++++-
- 1 file changed, 129 insertions(+), 1 deletion(-)
+ drivers/gpu/drm/tidss/tidss_oldi.c | 157 +++++++++++++++++++++++++++++++++++++
+ 1 file changed, 157 insertions(+)
 
-diff --git a/drivers/gpu/drm/bridge/sii902x.c b/drivers/gpu/drm/bridge/sii902x.c
-index 6eaf70aeb0e3..4fb639e72c7e 100644
---- a/drivers/gpu/drm/bridge/sii902x.c
-+++ b/drivers/gpu/drm/bridge/sii902x.c
-@@ -20,10 +20,12 @@
- #include <linux/regmap.h>
- #include <linux/regulator/consumer.h>
+diff --git a/drivers/gpu/drm/tidss/tidss_oldi.c b/drivers/gpu/drm/tidss/tidss_oldi.c
+index f767b0c115ac..0ad4ef34ba64 100644
+--- a/drivers/gpu/drm/tidss/tidss_oldi.c
++++ b/drivers/gpu/drm/tidss/tidss_oldi.c
+@@ -3,20 +3,25 @@
+  * Copyright (C) 2025 - Texas Instruments Incorporated
+  *
+  * Aradhya Bhatia <a-bhatia1@ti.com>
+  */
+ 
++#include <linux/bitfield.h>
  #include <linux/clk.h>
+ #include <linux/of.h>
+ #include <linux/of_graph.h>
+ #include <linux/mfd/syscon.h>
+ #include <linux/media-bus-format.h>
+ #include <linux/regmap.h>
  
  #include <drm/drm_atomic_helper.h>
 +#include <drm/drm_atomic_state_readout.h>
 +#include <drm/drm_atomic_state_readout_helper.h>
  #include <drm/drm_bridge.h>
- #include <drm/drm_drv.h>
- #include <drm/drm_edid.h>
- #include <drm/drm_print.h>
- #include <drm/drm_probe_helper.h>
-@@ -535,20 +537,145 @@ sii902x_bridge_mode_valid(struct drm_bridge *bridge,
- 		return MODE_CLOCK_HIGH;
++#include <drm/drm_connector.h>
+ #include <drm/drm_of.h>
++#include <drm/drm_panel.h>
+ 
+ #include "tidss_dispc.h"
+ #include "tidss_dispc_regs.h"
+ #include "tidss_oldi.h"
+ 
+@@ -348,20 +353,171 @@ tidss_oldi_mode_valid(struct drm_bridge *bridge,
+ 		return MODE_CLOCK_RANGE;
  
  	return MODE_OK;
  }
  
-+static int
-+sii902x_bridge_connector_readout(struct drm_bridge *bridge,
-+				 struct drm_atomic_sro_state *state,
-+				 struct drm_connector_state *conn_state)
++static u32 tidss_oldi_read_config(struct tidss_oldi *oldi)
 +{
-+	struct sii902x *sii902x = bridge_to_sii902x(bridge);
++	u32 cfg;
++
++	tidss_runtime_get(oldi->tidss);
++	cfg = tidss_get_oldi_config(oldi->tidss, oldi->parent_vp);
++	tidss_runtime_put(oldi->tidss);
++
++	return cfg;
++}
++
++static int
++tidss_oldi_bridge_readout_state(struct drm_bridge *bridge,
++				struct drm_atomic_sro_state *state,
++				struct drm_bridge_state *bridge_state,
++				struct drm_crtc_state *crtc_state,
++				struct drm_connector_state *conn_state)
++{
++	struct tidss_oldi *oldi = drm_bridge_to_tidss_oldi(bridge);
++	const struct oldi_bus_format *bus_fmt = NULL;
++	unsigned int i;
++	u32 cfg, map, flags;
++
++	cfg = tidss_oldi_read_config(oldi);
++
++	/* The transmitter is off, there is nothing to read out. */
++	if (!(cfg & OLDI_ENABLE))
++		return 0;
++
++	/*
++	 * The most significant bit of the data mapping field carries
++	 * the dual-link flag rather than the LVDS mapping: mask it out
++	 * before looking for the bus format the mapping corresponds
++	 * to.
++	 */
++	map = cfg & (OLDI_MAP & ~BIT(3));
++
++	for (i = 0; i < ARRAY_SIZE(oldi_bus_formats); i++) {
++		if (oldi_bus_formats[i].oldi_mode_reg_val << 1 != map)
++			continue;
++
++		if ((cfg & OLDI_MSB) ?
++		    oldi_bus_formats[i].data_width != 24 :
++		    oldi_bus_formats[i].data_width != 18)
++			continue;
++
++		bus_fmt = &oldi_bus_formats[i];
++		break;
++	}
++
++	if (!bus_fmt) {
++		dev_err(oldi->dev,
++			"OLDI%u: unrecognised mapping in the config register\n",
++			oldi->oldi_instance);
++		return -EINVAL;
++	}
++
++	/*
++	 * Reconstruct the bus configuration the atomic helpers
++	 * negotiate: the OLDI transmitter takes the parallel RGB
++	 * output of the video port and serialises it with the LVDS
++	 * mapping found in the config register.
++	 */
++	bridge_state->input_bus_cfg.format = bus_fmt->input_bus_fmt;
++	bridge_state->output_bus_cfg.format = bus_fmt->bus_fmt;
++
++	/*
++	 * The transmitter only stores the DE polarity: OLDI_DEPOL is
++	 * set when the DE is active low, and the sampling edges are
++	 * hardcoded, the transmitter cannot configure them. TODO:
++	 * read them back from the hardware registers if a variant
++	 * makes them configurable.
++	 *
++	 * Everything else in the bus flags can't be read back, but the
++	 * atomic check leaves it untouched: the output flags are those
++	 * the next element of the chain expects, which are the display
++	 * info flags when the elements after the transmitter forward
++	 * them unmodified, and tidss_oldi_atomic_check() only replaces
++	 * the sampling edges of the input flags. Start from the display
++	 * info flags and only reconcile the DE polarity with what the
++	 * hardware reports, so that a DE polarity left unspecified is
++	 * not reported as an explicit one.
++	 */
++	flags = conn_state->connector->display_info.bus_flags;
++
++	if (cfg & OLDI_DEPOL) {
++		flags &= ~DRM_BUS_FLAG_DE_HIGH;
++		flags |= DRM_BUS_FLAG_DE_LOW;
++	} else if (flags & DRM_BUS_FLAG_DE_LOW) {
++		flags &= ~DRM_BUS_FLAG_DE_LOW;
++		flags |= DRM_BUS_FLAG_DE_HIGH;
++	}
++
++	bridge_state->output_bus_cfg.flags = flags;
++
++	flags &= ~(DRM_BUS_FLAG_PIXDATA_SAMPLE_NEGEDGE |
++		   DRM_BUS_FLAG_SYNC_SAMPLE_NEGEDGE);
++	flags |= DRM_BUS_FLAG_PIXDATA_SAMPLE_POSEDGE |
++		 DRM_BUS_FLAG_SYNC_SAMPLE_POSEDGE;
++	bridge_state->input_bus_cfg.flags = flags;
++
++	return 0;
++}
++
++static int
++tidss_oldi_bridge_connector_readout(struct drm_bridge *bridge,
++				    struct drm_atomic_sro_state *state,
++				    struct drm_connector_state *conn_state)
++{
++	struct tidss_oldi *oldi = drm_bridge_to_tidss_oldi(bridge);
 +	struct drm_connector *connector = conn_state->connector;
 +	struct drm_crtc_state *crtc_state;
 +	struct drm_encoder *encoder;
 +	struct drm_crtc *crtc;
-+	int ret;
 +
-+	mutex_lock(&sii902x->mutex);
-+
-+	ret = regmap_test_bits(sii902x->regmap, SII902X_SYS_CTRL_DATA, SII902X_SYS_CTRL_PWR_DWN);
-+	/* I2C error */
-+	if (ret < 0)
-+		goto err_mutex_unlock;
-+	/* Device is powered down, nothing to read out */
-+	if (ret)
-+		goto out;
++	/* The transmitter is off, there is nothing to read out. */
++	if (!(tidss_oldi_read_config(oldi) & OLDI_ENABLE))
++		return 0;
 +
 +	encoder = bridge->encoder;
-+	if (!encoder->funcs || !encoder->funcs->atomic_sro_get_current_crtc) {
-+		ret = -ENODEV;
-+		goto err_mutex_unlock;
-+	}
++	if (!encoder->funcs || !encoder->funcs->atomic_sro_get_current_crtc)
++		return -ENODEV;
 +
 +	crtc = encoder->funcs->atomic_sro_get_current_crtc(encoder);
-+	if (!crtc) {
-+		ret = -ENODEV;
-+		goto err_mutex_unlock;
-+	}
++	if (!crtc)
++		return -ENODEV;
 +
 +	crtc_state = drm_atomic_sro_get_crtc_state(state, crtc);
-+	if (!crtc_state) {
-+		ret = -ENODEV;
-+		goto err_mutex_unlock;
-+	}
++	if (!crtc_state)
++		return -ENODEV;
 +
 +	crtc_state->encoder_mask |= drm_encoder_mask(encoder);
 +	crtc_state->connector_mask |= drm_connector_mask(connector);
 +
 +	/*
-+	 * drm_atomic_set_crtc_for_connector() takes a connector reference
-+	 * when setting the crtc pointer, which is later released by
-+	 * __drm_atomic_helper_connector_destroy_state(). SRO readout
-+	 * bypasses that path, so take the reference explicitly.
++	 * drm_atomic_set_crtc_for_connector() takes a connector
++	 * reference when setting the crtc pointer, which is later
++	 * released by __drm_atomic_helper_connector_destroy_state().
++	 * The readout bypasses that path, so take the reference
++	 * explicitly.
 +	 */
 +	drm_connector_get(connector);
 +	conn_state->crtc = crtc;
 +	conn_state->best_encoder = encoder;
 +
-+out:
-+	mutex_unlock(&sii902x->mutex);
 +	return 0;
-+
-+err_mutex_unlock:
-+	mutex_unlock(&sii902x->mutex);
-+	return ret;
 +}
 +
-+static int sii902x_bridge_readout_state(struct drm_bridge *bridge,
-+					struct drm_atomic_sro_state *state,
-+					struct drm_bridge_state *bridge_state,
-+					struct drm_crtc_state *crtc_state,
-+					struct drm_connector_state *conn_state)
-+{
-+	struct sii902x *sii902x = bridge_to_sii902x(bridge);
-+	u32 input_format;
-+	int ret;
-+
-+	mutex_lock(&sii902x->mutex);
-+
-+	ret = regmap_test_bits(sii902x->regmap, SII902X_SYS_CTRL_DATA, SII902X_SYS_CTRL_PWR_DWN);
-+	/* I2C error */
-+	if (ret < 0)
-+		goto err_mutex_unlock;
-+	/* Device is powered down, nothing to read out */
-+	if (ret)
-+		goto out;
-+
-+	switch (sii902x->bus_width) {
-+	case 16:
-+		input_format = MEDIA_BUS_FMT_RGB565_1X16;
-+		break;
-+	case 18:
-+		input_format = MEDIA_BUS_FMT_RGB666_1X18;
-+		break;
-+	case 24:
-+		input_format = MEDIA_BUS_FMT_RGB888_1X24;
-+		break;
-+	default:
-+		ret = -EINVAL;
-+		goto err_mutex_unlock;
-+	}
-+
-+	bridge_state->input_bus_cfg.format = input_format;
-+	bridge_state->input_bus_cfg.flags = bridge->timings->input_bus_flags;
-+
-+	/* The sii902x is a passthrough transmitter, output format equals input. */
-+	bridge_state->output_bus_cfg.format = input_format;
-+
-+	/*
-+	 * The output flags are those the next element of the chain
-+	 * expects, which aren't available yet during the readout. They
-+	 * are the connector display info flags when the elements after
-+	 * the transmitter forward them unmodified, as the atomic check
-+	 * assumes.
-+	 */
-+	bridge_state->output_bus_cfg.flags =
-+		conn_state->connector->display_info.bus_flags;
-+
-+out:
-+	mutex_unlock(&sii902x->mutex);
-+	return 0;
-+
-+err_mutex_unlock:
-+	mutex_unlock(&sii902x->mutex);
-+	return ret;
-+}
-+
- static const struct drm_bridge_funcs sii902x_bridge_funcs = {
- 	.attach = sii902x_bridge_attach,
- 	.mode_set = sii902x_bridge_mode_set,
- 	.atomic_disable = sii902x_bridge_atomic_disable,
- 	.atomic_enable = sii902x_bridge_atomic_enable,
- 	.detect = sii902x_bridge_detect,
- 	.edid_read = sii902x_bridge_edid_read,
- 	.atomic_create_state = drm_atomic_helper_bridge_create_state,
+ static const struct drm_bridge_funcs tidss_oldi_bridge_funcs = {
+ 	.attach = tidss_oldi_bridge_attach,
+ 	.atomic_check = tidss_oldi_atomic_check,
+ 	.atomic_pre_enable = tidss_oldi_atomic_pre_enable,
+ 	.atomic_post_disable = tidss_oldi_atomic_post_disable,
+ 	.atomic_get_input_bus_fmts = tidss_oldi_atomic_get_input_bus_fmts,
  	.atomic_duplicate_state = drm_atomic_helper_bridge_duplicate_state,
  	.atomic_destroy_state = drm_atomic_helper_bridge_destroy_state,
+ 	.atomic_create_state = drm_atomic_helper_bridge_create_state,
+ 	.mode_valid = tidss_oldi_mode_valid,
++	.atomic_sro_readout_state = tidss_oldi_bridge_readout_state,
 +	.atomic_sro_compare_state = drm_atomic_helper_bridge_compare_state,
-+	.atomic_sro_readout_state = sii902x_bridge_readout_state,
-+	.atomic_sro_connector_readout = sii902x_bridge_connector_readout,
- 	.atomic_get_input_bus_fmts = sii902x_bridge_atomic_get_input_bus_fmts,
- 	.atomic_check = sii902x_bridge_atomic_check,
- 	.mode_valid = sii902x_bridge_mode_valid,
++	.atomic_sro_connector_readout = tidss_oldi_bridge_connector_readout,
  };
  
-@@ -1139,11 +1266,12 @@ static int sii902x_init(struct sii902x *sii902x)
- 	if (ret)
- 		goto err_unreg_audio;
+ static int get_oldi_mode(struct device_node *oldi_tx, int *companion_instance)
+ {
+ 	struct device_node *companion;
+@@ -610,10 +766,11 @@ static int tidss_oldi_init_one(struct tidss_device *tidss,
+ 	}
  
- 	sii902x->bridge.of_node = dev->of_node;
- 	sii902x->bridge.timings = &default_sii902x_timings;
--	sii902x->bridge.ops = DRM_BRIDGE_OP_DETECT | DRM_BRIDGE_OP_EDID;
-+	sii902x->bridge.ops = DRM_BRIDGE_OP_DETECT | DRM_BRIDGE_OP_EDID |
-+			      DRM_BRIDGE_OP_CONNECTOR_HW_READOUT;
- 	sii902x->bridge.type = DRM_MODE_CONNECTOR_HDMIA;
+ 	/* Register the bridge. */
+ 	oldi->bridge.of_node = oldi_tx;
+ 	oldi->bridge.driver_private = oldi;
++	oldi->bridge.ops |= DRM_BRIDGE_OP_CONNECTOR_HW_READOUT;
  
- 	if (sii902x->i2c->irq > 0)
- 		sii902x->bridge.ops |= DRM_BRIDGE_OP_HPD;
+ 	tidss->oldis[tidss->num_oldis++] = oldi;
+ 	tidss->is_ext_vp_clk[oldi->parent_vp] = true;
+ 	oldi->tidss = tidss;
  
 
 -- 
