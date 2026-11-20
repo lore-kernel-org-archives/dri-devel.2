@@ -2,46 +2,84 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C7C55606A6F8
-	for <dri-devel@archiver.kernel.org>; Fri, 20 Nov 2026 19:20:51 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E7078606A6D3
+	for <dri-devel@archiver.kernel.org>; Fri, 20 Nov 2026 19:21:04 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=EVDbAutf
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=dRYD7G3A
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 31B2D112CD7;
-	Fri, 20 Nov 2026 19:20:46 +0000 (UTC)
-Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 5D1D3112CD7
- for <dri-devel@lists.freedesktop.org>; Fri, 20 Nov 2026 19:20:40 +0000 (UTC)
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id 1603543CEA;
- Fri, 20 Nov 2026 19:20:40 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6ABC31F000ED;
- Fri, 20 Nov 2026 19:20:39 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1795202440;
- bh=vxlrH7ZyE4Vxgz8nt01JW/28BAYUCeqTyQt+hXyeCFI=;
- h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
- b=EVDbAutfcdKj6lUOz2AMjxnLptzDf9dj0f+SLHMWMwSo3TRTyP+W0h9BAJVeB54aI
- GncSb4UIO8Ghi2rQ6oX/lstFTNZIwStcBNTwY8HAR3hcyQA0r1nyiQb8GfpP12Vc0Q
- D3qI6uQn96pAmxAnV2M0qbTD9P3iNS+H5tBijDfMBmnXEym2k8b846LVwbBpQ4S8bb
- seWnpNbsR8AuKdDyDpDV9wQytZv8pM3s5PLdWim76CXy7AdlsYA6gOgpx+8cRBzrSX
- Ww/KmMyogRF45rc7HwzLAhWp7m/O9TqrMmq+5CxiKMiOnD+nQNu18G9KJH1qIGDVkL
- hJ0PdLBUGhREg==
-Message-ID: <sashiko-outbox-225914@kernel.org>
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v2 08/11] drm/meson: dw-hdmi: Use the generic PHY
- framework for the HDMI TX PHY
-To: "Ronald Claveau" <linux-kernel-dev@aliel.fr>
-Cc: devicetree@vger.kernel.org, linux-amlogic@lists.infradead.org,
- linux-phy@lists.infradead.org, dri-devel@lists.freedesktop.org,
- robh@kernel.org, conor+dt@kernel.org, neil.armstrong@linaro.org,
- vkoul@kernel.org, olteanv@gmail.com
-In-Reply-To: <20261120-meson-drm-create-hdmitx-phy-v2-8-93d622d9bb07@aliel.fr>
-References: <20261120-meson-drm-create-hdmitx-phy-v2-0-93d622d9bb07@aliel.fr>
- <20261120-meson-drm-create-hdmitx-phy-v2-8-93d622d9bb07@aliel.fr>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Fri, 20 Nov 2026 19:20:39 +0000
+	by gabe.freedesktop.org (Postfix) with ESMTP id 50387112CE1;
+	Fri, 20 Nov 2026 19:20:59 +0000 (UTC)
+Received: from mail-qt1-f177.google.com (mail-qt1-f177.google.com
+ [209.85.160.177])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 4082E112CE1
+ for <dri-devel@lists.freedesktop.org>; Fri, 20 Nov 2026 19:20:53 +0000 (UTC)
+Received: by mail-qt1-f177.google.com with SMTP id
+ d75a77b69052e-55c48582654so15924901cf.0
+ for <dri-devel@lists.freedesktop.org>; Fri, 20 Nov 2026 11:20:53 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20260707; t=1795202452; x=1795807252; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+ bh=5xn4C6Gwtp+D5V/nlSsDQf1o0XJ2+OFbQn76n9amPzk=;
+ b=dRYD7G3AT59MSnSPDrU+Axoeqmuf11nPDLtY1AxrnIEnmyNEmkwPLjZNq1IqOiIp2+
+ hXKm0fe7BVsQTVr4sNHP9BCo+PUg/xNUEuRfxlcapoP0j86HEEPDDj8lBURPdaTQxwd4
+ DzalAyXO+s8SOhbcFnFQ6CDVadyxPmIDN8MECrmUiSvsgTm1hN1lOeXyvioqnuQX7k4q
+ 2t6wyU+nqAhsRMIjXJ10zpa+WVBUWA+FcbHOYVQB1HAnscqRvy2f/d4BYFHIv2e+qBZq
+ 5P445T6NslHGaO+gzyECUjygehvWy323YG5hqCGl8VfSU1HKn2HrUT0jAk06tgQcp6lb
+ VDSg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20260707; t=1795202452; x=1795807252;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+ :message-id:reply-to:content-type;
+ bh=5xn4C6Gwtp+D5V/nlSsDQf1o0XJ2+OFbQn76n9amPzk=;
+ b=juv6PzC8R+XmnFC13+zD01ndaPEkMvTz9IZp/zFet+vagtpfdqRsg3QOZqj0fNqOvr
+ 8B2aU8DuyZS7iFB2NZMBB1j8XfkAPs6IStI+bc7BSIHYV/O93y4AcdUPbHU2HRWG/nnL
+ S15zSlWibCOfJqKY1I80tY7CMRrTJcrmScmk2EpVSeP6A9QQWuQ7miNJ9bNRnJm6zclS
+ SP8QBF/yoTmNFBccm8ily3+bRqFd2cF2dH41gORbQNpXjitewI6zPKLEwS7Y9RWYBGpU
+ NdTlONm5ah5X75QHQDkGXNpPgBpNpeiRhE/+CcrNjvD/u/KppGyiBwkSUkBj4PJOZHxP
+ 56IA==
+X-Forwarded-Encrypted: i=1;
+ AL+hErFa+0gC3QjoRXswLhzBMELipK85Zfm99GTSjZEiEAkUKYGym3NeHcxxAwjZi9a9VUuix8FqNQU9ttI=@lists.freedesktop.org
+X-Gm-Message-State: APuU4Z9qami1Y080IlM4chKq5EWZis6/ePlZN9M9I5qQ7Sn9rVsj1SKx
+ zQuQbofWxmpVEFRiuhpSA8tnVPOe8tW3G2KJyztImTvd552E9pM8VUHI
+X-Gm-Gg: AYBFou0HKnLMWMDLa6F9S0fyEHbmYEA0vGB+uM4vfYMQAfQpenQFFTh5mF6FwR2D+3g
+ lGdkRXnKrknBC2M2tfirTiRTiH6qkvPnXvkj41zB9wd0wEsFo+k9oAYNlSp+GHgP0TJfc7ViDln
+ pCmWJXib593Ks107Ya3HiW7HWzv7UM8TVJMY5124yw8bDWfoj3XtHO3hmM4xTrTFG8IkTY7GN83
+ 9Rd8wlsSdqEO5RK3490MosVpJNXTlBNdln95LSxXQujJKwLNXvWjDgng94S/5frYJhcCdphBSFp
+ +JqWhpBO30n5Nwoi7gDu/cq9xtGUbLpRWANlLSx+L6r0GSURA5JqfCWxGr9GlsMUEpVHo20gHU3
+ 704fkBgLO9pwjkZA37Z9/Y2igliSFWgk0R6dDP+yQY8liuB5We2v3tgBFPqSMETD+Hh2pgNLBoa
+ f6UNtdtZVoAFrd5ys2z/9dCCncSVzDnnJk2R8CEbOITY50xEymckMFgMkXkYagrRVc0IJHa9FM5
+ puKRLEokAv/8U5lQHU+cLfl8bs+fia5ojtaiFs/ntIKC5nq6g43b4lV34mGClRgxNAsqcZzu9p9
+ Ja8RHBTDWB+ZtsJDpj6T2LWZ/scQ5y8J+yIM0K4alwzEM46Dn2w8qJOCx2E2WTuLO1zd8o0n3wT
+ 6G0icZ9Bd9wEKeb+PFkAWqSCAu1AE3AWvn9MzSxdKrQUG8vAcW9tAOxC1f3xTNtOLgves4wOX+/
+ UdUCBFDNxe2VcHN4+TTBG3hHztZjgLCAe0eJJsMCFL8Etfx0bQbZjRbw4Q4WtrhgBv6yZ8Xek5o
+ d09UclGtXmnBh0tyS0UFSbwJScDnM4EyJBx4cEDRVb19tvBH2+IHDuyli31HTVunHk=
+X-Received: by 2002:a05:622a:5512:b0:535:1d90:ebcd with SMTP id
+ d75a77b69052e-55d76a6f9ecmr76637611cf.27.1795202451996; 
+ Fri, 20 Nov 2026 11:20:51 -0800 (PST)
+Received: from LRMS.tailf8556c.ts.net
+ ([2600:4041:5024:4b00:d420:4621:169f:8773])
+ by smtp.gmail.com with ESMTPSA id
+ d75a77b69052e-55d7882e2c6sm31475921cf.12.2026.11.20.11.20.51
+ (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
+ Fri, 20 Nov 2026 11:20:51 -0800 (PST)
+From: Jesse Casco <jesse.casco@gmail.com>
+To: Rob Clark <robin.clark@oss.qualcomm.com>,
+ Dmitry Baryshkov <lumag@kernel.org>
+Cc: Abhinav Kumar <abhinav.kumar@linux.dev>,
+ Jessica Zhang <jesszhan0024@gmail.com>, Sean Paul <sean@poorly.run>,
+ Marijn Suijten <marijn.suijten@somainline.org>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ Jim Martin <jimmartin@gmail.com>, linux-arm-msm@vger.kernel.org,
+ dri-devel@lists.freedesktop.org, freedreno@lists.freedesktop.org
+Subject: [PATCH 0/2] drm/msm/dp: make the eDP 1.4 LINK_RATE_SET path work
+Date: Fri, 20 Nov 2026 14:20:48 -0500
+Message-ID: <20261120192050.73315-1-jesse.casco@gmail.com>
+X-Mailer: git-send-email 2.56.0
+X-Archived-By: <archiver.kernel.org>
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -52,137 +90,56 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
-Reply-To: sashiko-reviews@lists.linux.dev
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-10.8 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
-	DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
-	INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS autolearn=ham
+X-Spam-Status: No, score=-10.8 required=3.0 tests=BAYES_00,DKIM_SIGNED,
+	DKIM_VALID,DKIM_VALID_AU,FREEMAIL_FORGED_FROMDOMAIN,FREEMAIL_FROM,
+	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_PATCH,MAILING_LIST_MULTI,
+	SPF_HELO_NONE,SPF_PASS,USER_AGENT_GIT autolearn=unavailable
 	autolearn_force=no version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
-X-Archived-By: <archiver.kernel.org>
 
-Thank you for your contribution! Sashiko AI review found 2 potential
-issues to consider:
-- [High] drm/meson: dw-hdmi: missing PHY init in meson_dw_hdmi_init()
-  breaks CEC/ARC
-- [Medium] drm/meson: dw-hdmi: phy_init() leak on error path in
-  dw_hdmi_phy_init()
---
+The eDP 1.4 link-rate table support picks a LINK_RATE_SET index in
+dp_panel, but the selection never reaches link training: only rate and
+num_lanes are copied into link_params, so LINK_RATE_SET is never
+written and the rate-set fallback branch can't run. Patch 1 carries
+the fields through. Patch 2 fixes the fallback once it is reachable,
+so it stops at the lowest table entry instead of dropping to a standard
+rate the sink was not told about.
 
-commit 9c4e52bbd305f6371ee6545c479c9a84e6845324
-Author: Ronald Claveau <linux-kernel-dev@aliel.fr>
+I found this while bringing up an ASUS Zenbook A16 (Glymur), whose eDP
+1.4 panel lists 1.62, 2.7 and 5.4 Gbps in SUPPORTED_LINK_RATES. At boot
+the firmware has left LINK_BW_SET at 0x14, so dp_panel picks the
+LINK_BW_SET path. When the compositor starts and the link caps are read
+again, LINK_BW_SET reads 0 and dp_panel selects the rate table, but
+without patch 1 that selection never reaches link training. With the
+series the link trains through LINK_RATE_SET (5.4 Gbps, 4 lanes).
 
-drm/meson: dw-hdmi: Use the generic PHY framework for the HDMI TX PHY
+With a test-only change that fails the first clock-recovery attempt,
+the fallback moves to index 1 and the panel trains at 2.7 Gbps,
+reading back LINK_RATE_SET=0x01. The lowest entry of this panel's table
+is RBR, so patch 2 does not change behavior here.
 
-This commit converts the Meson DW-HDMI driver from direct HHI register
-programming to the generic PHY API, with a legacy fallback when the DT
-node lacks a "phys" property.
+I tested on the A16 with a next-20261103-based kernel; the patches
+apply unchanged to next-20261119. They touch dp_ctrl.c alongside
+"drm/msm/dp: don't fall back to a link that can't carry the eDP
+mode" [1], and the two apply in either order.
 
-> diff --git a/drivers/gpu/drm/meson/meson_dw_hdmi.c b/drivers/gpu/drm/meso=
-n/meson_dw_hdmi.c
-> index 20a821936b3af..1ca1ce6173563 100644
-> --- a/drivers/gpu/drm/meson/meson_dw_hdmi.c
-> +++ b/drivers/gpu/drm/meson/meson_dw_hdmi.c
-[ ... ]
-> @@ -364,10 +276,18 @@ static int dw_hdmi_phy_init(struct dw_hdmi *hdmi, v=
-oid *data,
->  	unsigned int wr_clk =3D
->  		readl_relaxed(priv->io_base + _REG(VPU_HDMI_SETTING));
->  	bool mode_is_420 =3D false;
-> +	unsigned int pixel_clock =3D mode->clock;
-> +	union phy_configure_opts opts =3D {};
-> +	int ret;
-> =20
->  	DRM_DEBUG_DRIVER("\"%s\" div%d\n", mode->name,
->  			 mode->clock > 340000 ? 40 : 10);
-> =20
-> +	/* Setup PHY */
-> +	ret =3D phy_init(dw_hdmi->phy);
-> +	if (ret)
-> +		return ret;
-> +
->  	if (drm_mode_is_420_only(display, mode) ||
->  	    (!is_hdmi2_sink && drm_mode_is_420_also(display, mode)) ||
->  	    dw_hdmi_bus_fmt_is_420(hdmi))
-> @@ -392,19 +312,22 @@ static int dw_hdmi_phy_init(struct dw_hdmi *hdmi, v=
-oid *data,
->  	dw_hdmi->data->top_write(dw_hdmi, HDMITX_TOP_TMDS_CLK_PTTN_CNTL, 0x2);
-> =20
->  	/* Setup PHY parameters */
-> -	meson_hdmi_phy_setup_mode(dw_hdmi, mode, mode_is_420);
-> -
-> -	/* Disable clock, fifo, fifo_wr */
-> -	regmap_update_bits(priv->hhi, HHI_HDMI_PHY_CNTL1, 0xf, 0);
-> +	if (mode_is_420)
-> +		pixel_clock /=3D 2;
-> +	opts.hdmi.tmds_char_rate =3D (u64)pixel_clock * 1000;
-> +	opts.hdmi.bpc =3D 8;
-> +	ret =3D phy_configure(dw_hdmi->phy, &opts);
-> +	if (ret)
-> +		return ret;
-> =20
->  	dw_hdmi_set_high_tmds_clock_ratio(hdmi, display);
-> =20
->  	msleep(100);
-> =20
->  	/* Reset PHY 3 times in a row */
-> -	meson_dw_hdmi_phy_reset(dw_hdmi);
-> -	meson_dw_hdmi_phy_reset(dw_hdmi);
-> -	meson_dw_hdmi_phy_reset(dw_hdmi);
-> +	ret =3D phy_power_on(dw_hdmi->phy);
-> +	if (ret)
-> +		return ret;
+Jim, Cc'ing you as mentioned off-list: Omarchy's arm64 kernel carries
+patch 1 as 2367 with your 2368-2371 on top, and your 2369 covers what
+patch 2 does. I'm happy to drop patch 2 if you post yours.
 
-[Severity: Medium]
-Do the error returns from phy_configure() and phy_power_on() leak a
-dw_hdmi->phy->init_count reference?
+[1] https://lore.kernel.org/r/20261115000021.78869-1-jesse.casco@gmail.com
 
-When dw_hdmi_phy_init() fails, dw_hdmi_setup() leaves hdmi->phy.enabled
-false, so dw_hdmi_poweroff() never calls dw_hdmi_phy_disable() to balance
-phy_init() with phy_exit().  A non-VIC DMT mode with a pixel clock below
-25.175 MHz passes meson_encoder_hdmi_mode_valid() but is rejected with
--EINVAL by meson_hdmi_phy_configure() -> meson_hdmi_phy_find_rate(),
-permanently elevating init_count so subsequent phy_init() calls skip
-hardware initialization.
+Jesse Casco (2):
+  drm/msm/dp: carry the eDP rate-set selection into the link parameters
+  drm/msm/dp: stop the rate-set fallback at the lowest table entry
 
-[ ... ]
+ drivers/gpu/drm/msm/dp/dp_ctrl.c | 19 ++++++++++++++++---
+ 1 file changed, 16 insertions(+), 3 deletions(-)
 
-> @@ -623,10 +542,6 @@ static void meson_dw_hdmi_init(struct meson_dw_hdmi =
-*meson_dw_hdmi)
->  	/* Enable normal output to PHY */
->  	meson_dw_hdmi->data->top_write(meson_dw_hdmi, HDMITX_TOP_BIST_CNTL, BIT=
-(12));
-> =20
-> -	/* Setup PHY */
-> -	regmap_write(priv->hhi, HHI_HDMI_PHY_CNTL1, meson_dw_hdmi->data->cntl1_=
-init);
-> -	regmap_write(priv->hhi, HHI_HDMI_PHY_CNTL0, meson_dw_hdmi->data->cntl0_=
-init);
-> -
->  	/* Enable HDMI-TX Interrupt */
->  	meson_dw_hdmi->data->top_write(meson_dw_hdmi, HDMITX_TOP_INTR_STAT_CLR,
->  				       HDMITX_TOP_INTR_CORE);
 
-[Severity: High]
-Does removing the initial PHY setup from meson_dw_hdmi_init() leave the
-HDMI TX PHY uninitialized whenever no HDMI video mode is active?
+base-commit: adcad7f4e6332cff3d6d7165f41584899f598534
+-- 
+2.56.1
 
-meson_dw_hdmi_init() pulses reset_control_reset(meson_dw_hdmi->hdmitx_phy)
-at bind and system resume time, while meson_venc_init() zeroes
-HHI_HDMI_PHY_CNTL0.  Commits 04703bfd7f99 ("drm/meson: dw-hdmi: power up
-phy on device init") and 08001033121d ("drm/meson: dw-hdmi: add bandgap
-setting for g12") programmed HHI_HDMI_PHY_CNTL1 and HHI_HDMI_PHY_CNTL0
-here because CEC and the G12A ARC/eARC utility pin need the PHY
-initialized even before the first HDMI modeset or when another display
-interface is used.
-
-With phy_init() deferred to dw_hdmi_phy_init(), which dw_hdmi_setup() only
-calls when enabling an active HDMI display mode (and which
-meson_dw_hdmi_pm_resume() -> dw_hdmi_resume() does not call), the PHY
-stays in its post-reset state at boot and after resume whenever HDMI
-video is inactive.
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261120-meson-drm-=
-create-hdmitx-phy-v2-0-93d622d9bb07@aliel.fr?part=3D8
