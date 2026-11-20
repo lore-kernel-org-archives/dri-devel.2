@@ -2,62 +2,62 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6B7C3606A320
-	for <dri-devel@archiver.kernel.org>; Fri, 20 Nov 2026 14:13:09 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 97EB4606A32A
+	for <dri-devel@archiver.kernel.org>; Fri, 20 Nov 2026 14:13:15 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=furiosa.ai header.i=@furiosa.ai header.a=rsa-sha256 header.s=google header.b=ktNvX+dz
+	dkim=pass (1024-bit key) header.d=furiosa.ai header.i=@furiosa.ai header.a=rsa-sha256 header.s=google header.b=C3dHLycN
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id C15FA10E8FB;
-	Fri, 20 Nov 2026 14:13:03 +0000 (UTC)
-Received: from mail-dy1-f180.google.com (mail-dy1-f180.google.com
- [74.125.82.180])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 4FF9810E09A
- for <dri-devel@lists.freedesktop.org>; Fri, 20 Nov 2026 14:12:55 +0000 (UTC)
-Received: by mail-dy1-f180.google.com with SMTP id
- 5a478bee46e88-3866a784546so409574eec.0
- for <dri-devel@lists.freedesktop.org>; Fri, 20 Nov 2026 06:12:55 -0800 (PST)
+	by gabe.freedesktop.org (Postfix) with ESMTP id CD34F112A8B;
+	Fri, 20 Nov 2026 14:13:09 +0000 (UTC)
+Received: from mail-dy1-f182.google.com (mail-dy1-f182.google.com
+ [74.125.82.182])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 7033510E8FB
+ for <dri-devel@lists.freedesktop.org>; Fri, 20 Nov 2026 14:12:58 +0000 (UTC)
+Received: by mail-dy1-f182.google.com with SMTP id
+ 5a478bee46e88-38587f3de36so1060863eec.0
+ for <dri-devel@lists.freedesktop.org>; Fri, 20 Nov 2026 06:12:58 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=furiosa.ai; s=google; t=1795183974; x=1795788774; darn=lists.freedesktop.org;
+ d=furiosa.ai; s=google; t=1795183978; x=1795788778; darn=lists.freedesktop.org;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:from:to:cc:subject:date
  :message-id:reply-to:content-type;
- bh=XnW30PHUXx79kYX2nANpqvm3liTJckFdWjtFkWjjHcM=;
- b=ktNvX+dzOW5pTmyqdZ8vqbDT1gA6TIVStHBl2XboLOQhI7PBwbiJOEPB8bLxCZ/5ND
- HzzhoW4nUrEOVyuuKgWIydJWez/llZQbqXBh8pNYeGrMuTQ2OG6l+efcyG01QjEBAFll
- yrTq33II7rQgfAebN89SGYQXV1y7Zr/8D28pk=
+ bh=OcPIQ0d5qXJOh07IzuyFSR1AEkkv6LDZJPL7nbKJNWQ=;
+ b=C3dHLycN8SSs8SoRKyQpwqUS53ZowJleAgyDE0V+7TVTq0Xl/uXQiNJG9AeYNnWxcY
+ FYUL5TKEnWVyR/7JgNhuoqbF3eOdpzs+22FaAQVCv5MfAu4YgdFPWBb4SA8qD70mQ8vY
+ pyJftWKAGQMREjHDwrG2z/mdi5kCT2FSv1kMk=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20260707; t=1795183974; x=1795788774;
+ d=1e100.net; s=20260707; t=1795183978; x=1795788778;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
  :to:cc:subject:date:message-id:reply-to:content-type;
- bh=XnW30PHUXx79kYX2nANpqvm3liTJckFdWjtFkWjjHcM=;
- b=krRekM46NI5NeTuWPAe0lYLbl4HoT+eSmNC+XfSRKrMgjHHhkpNMor0cx1TevFQmjL
- BqBrBe7V8bIgbl6M3zKVVG2W5EU9h38jRftYtc0LAwGuiV+0IEG6zk/z90njOGjuHrzh
- 6K8njcQMD9n0FnM/pLjRjxR+crqv6VIbvkGRYulz2tmOMZfueEi3J/HfzyEpZQP5D62h
- DJzvJsqu8zXIWeSRIqNi/zCUvuUwUqlsQeeiMCagLYNrTpQ5wCsu+HB6yU4ksl1tO6We
- 0hweBXjUarth6h1a/6wnhnmkXyPw7Cf/TWRVCiE/dcl84fdBgZZeEis4pF7jmuW7zQ5T
- K1fw==
+ bh=OcPIQ0d5qXJOh07IzuyFSR1AEkkv6LDZJPL7nbKJNWQ=;
+ b=sd4zZxlsrSYf5+avHcyHdMBUGa767i6SENxZIPNctpUshI/AUtUrSO+Am0Y3vVmbtr
+ eDhVto3ZgicNrIa+E8jS1DZCnbTnjOZUeQ/UVbAx/RxSeHoBxxtdCA5wYJCLYcM9YHmJ
+ DeZfA2hVudyxqA5ddzLbT6PMxKgsoTZiZnWquh/XqVPWyf2yh0RnnzGk3cEh30oIyuqv
+ bwc1tThAscKuLiP26m10olGYJwZkS78a95yBAMFbIvjccmtr02A2gAcB0VUyBvrtDZIM
+ 7mmm/2a+v/VruY5kXpOoAkDjSUwBSqLbHLkn6V08Pn16WeD0ug3LKJAevDSCF5TFqTGB
+ RIgQ==
 X-Forwarded-Encrypted: i=1;
- AL+hErEbX8BfGXnlsmeTkk8+gA6BNM0x3HWIxjnMLZNEiOXubwFj9dlu2ahekQlCb7bRYsEej83TpjEDHm0=@lists.freedesktop.org
-X-Gm-Message-State: APuU4Z/H8b7EinSJZd1C0UwM4CHtD35cE3n48lVuKi9K8P2Lm8hkjgR2
- B9il6s0380x2R6S3cV9AvYgEuXx+oROpKS8gomYs+6UjxRWsDaeUbsPfEfTqKypRx2k=
-X-Gm-Gg: AZFdTZfhamJu2862Pj0AavGPwLlNqE60UKCLT5loqxJU2LLUtMyFvSqWXXLcFCTkXAx
- TbAcXtDs9Jt71t3IwtxXSF/awueWZjMUSgX/1WRwz3dU1h0XbFMTDGsDrkMzEDxsHOw/Y6CWNay
- FXaCi+U5A/GxUYchIy9Fc/oc4JQ3TMb1NBwZV7jko0+x0MBhBCCXZEqZ+nFnYXt+mhNB4+EagBe
- i5W16bZkFMviXlVmX0uV8oJhHt4srzMbK5QPxUN54RI75Y4jJVPgReumyYtBWEGj+C67RMC8w6U
- KbJDjZMiJHhX1KJUv4ECCHCsoSQ6BgSZWZl+qLn2cN5CgBoR9VFH3Nf66J7mIWKL6UFAaksJjHw
- FluRgxbFPZ9H6/PtR9jguvqkEUIfzfzqrkZiCOO7hTryCnUARyr5hBC98niObHWHiB/gJ3xaV99
- TrT+amDQkn6DgWsS/OgEoJq4A5v9QOcbFh3W+EvJ/UmP1WEiC1MU08ApopvKnyUko5BiUhokl7V
- KR2ZpMGsUxNJYXlbfSXUKLN9PyOkCg56ziu0DfjHlGnwE7s7KDL2X0x+m6qkR4rqiv+ts+xNCfk
- 1IlJjdPtQdQ238b5nT0x7XSifK/qKcm0Dj9x16de44nfAQ81wFeHmnZt4aCKDaarYnmMXvvKs+N
- uqkxU4yymXfQi
-X-Received: by 2002:a05:7300:1486:b0:383:6eb6:5730 with SMTP id
- 5a478bee46e88-38570e24c0fmr3279535eec.32.1795183974401; 
- Fri, 20 Nov 2026 06:12:54 -0800 (PST)
+ AL+hErG8d4V3KK0xnq7IG3/Bc8MJhNlee3Zd706hUvsLC+rJ8EQPKGeH3nRACR0dgElHc2zUcKroNyH4Wzk=@lists.freedesktop.org
+X-Gm-Message-State: APuU4Z8fSvotjf3smZPnnNgOS983wfnSi6zeB1RRWODf1jU4+no2rWU+
+ foBZw1j4MhBMej64uwUYh4wHnE6wxGOsIsbpb7S2f/JRJcclVyddMh8JWrv4y22uotA=
+X-Gm-Gg: AZFdTZfK1UWvwuFtjW50N81D9TMzb22bg46fbeIWu/fZJ4H00cyOZd/mBLNErJJDj5h
+ wT1lw12Vp1WuBRatpH7mXjil4j+8NBZMfSAi2f12LFpQ/h6sJmHmOjA6ttfXMeMGRGJjAaX0cDs
+ Uy8auGKCV9rBbaBGv+Zq557epWNqSzN/ddTUvzOnabDitITFOak1jzPKv4ONlFQtjNbOQVP1c2p
+ sYLi2y4xXmxZKPa4FqZ70sIv4FXeeRoKiWsShSmEc3SamQt1sE4dOjlHBWYyZJ0bXZEH2E/jJwN
+ UzcVTcaFmVksJuy4iWNol9x00X6OC1dt7rAy64nXkG9J1asUdd2hyq8ddLl9U5T4e4YRTk/LBfx
+ Ca4ZivI3Hl7UqRFbf7wIIQsn3yytD8MZ7aDQW4pFRfsWEpmp9ci5glaMaOED6bfr0AJYfboL2R9
+ M5ldTfxD6ls1jV3pPZAmROv2QyUHYgWsySjsqbK3ngMGAP29IZc/hGPYEQpfOezCui+JZ3D1SrL
+ tv+xw7nudwrq/nUSvaZEXI0mW6X8S5cFCbKjzJfQkZ6/K5+1Co4pF/TS2e6fNqU+8fjRcH5FSvF
+ OtpDL5PsJ7ZXJN8Bu136iozH4756p1QL4Rz7Cxn7kCYr+sv8oa+meSpDHCKKzxiRG62HZ8sn5hR
+ 2mpnXi2k9omOJ
+X-Received: by 2002:a05:7301:18aa:b0:384:eec:aba0 with SMTP id
+ 5a478bee46e88-3857073eebamr2968011eec.36.1795183977458; 
+ Fri, 20 Nov 2026 06:12:57 -0800 (PST)
 Received: from rock-5b-plus ([61.83.209.48]) by smtp.gmail.com with ESMTPSA id
- 5a478bee46e88-385666e99fdsm11244434eec.5.2026.11.20.06.12.51
+ 5a478bee46e88-385666e99fdsm11244434eec.5.2026.11.20.06.12.54
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Fri, 20 Nov 2026 06:12:54 -0800 (PST)
+ Fri, 20 Nov 2026 06:12:57 -0800 (PST)
 From: Sidong Yang <sidong.yang@furiosa.ai>
 To: Tomeu Vizoso <tomeu@tomeuvizoso.net>, Oded Gabbay <ogabbay@kernel.org>,
  Philipp Stanner <phasta@kernel.org>, Danilo Krummrich <dakr@kernel.org>,
@@ -67,9 +67,9 @@ Cc: Tvrtko Ursulin <tursulin@ursulin.net>, mcanal@igalia.com,
  dri-devel@lists.freedesktop.org, linux-doc@vger.kernel.org,
  linux-kernel@vger.kernel.org, Sidong Yang <sidong.yang@furiosa.ai>,
  Tvrtko Ursulin <tvrtko.ursulin@igalia.com>
-Subject: [PATCH v6 1/2] drm/sched: Add drm_sched_entity_get_runtime_ns()
-Date: Fri, 20 Nov 2026 23:12:24 +0900
-Message-ID: <20261120141225.789350-2-sidong.yang@furiosa.ai>
+Subject: [PATCH v6 2/2] accel/rocket: Report NPU usage through fdinfo
+Date: Fri, 20 Nov 2026 23:12:25 +0900
+Message-ID: <20261120141225.789350-3-sidong.yang@furiosa.ai>
 X-Mailer: git-send-email 2.53.0
 In-Reply-To: <20261120141225.789350-1-sidong.yang@furiosa.ai>
 References: <20261120141225.789350-1-sidong.yang@furiosa.ai>
@@ -95,73 +95,122 @@ X-Spam-Status: No, score=-18.8 required=3.0 tests=BAYES_00,DKIM_SIGNED,
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-The scheduler accumulates the time each entity's jobs spend on the
-hardware for the fair policy, but drivers cannot read it. Export it so
-drivers can report per-client engine time through fdinfo without
-keeping their own counter.
+There is no way to tell how much of the NPU a client uses. Implement the
+DRM usage stats: report the runtime of the client's scheduler entity as
+drm-engine-npu, along with drm_show_memory_stats() for the BOs.
 
-The stats object is refcounted and held by the entity and its jobs, so
-unlike commit df622729ddbf ("drm/scheduler: track GPU active time per
-entity"), which was reverted, accounting a job does not touch the
-entity.
+The cores are identical, so they are reported as a single engine with
+drm-engine-capacity-npu set to rdev->num_cores, the number of cores
+bound to the driver.
 
-Suggested-by: Tvrtko Ursulin <tursulin@ursulin.net>
+Document the keys in the rocket driver documentation.
+
 Signed-off-by: Sidong Yang <sidong.yang@furiosa.ai>
-Reviewed-by: Tvrtko Ursulin <tvrtko.ursulin@igalia.com>
-Acked-by: Philipp Stanner <phasta@kernel.org>
+Acked-by: Tvrtko Ursulin <tvrtko.ursulin@igalia.com>
 ---
- drivers/gpu/drm/scheduler/sched_entity.c | 25 ++++++++++++++++++++++++
- include/drm/gpu_scheduler.h              |  1 +
- 2 files changed, 26 insertions(+)
+ Documentation/accel/rocket/index.rst  | 29 +++++++++++++++++++++++++++
+ Documentation/gpu/drm-usage-stats.rst |  1 +
+ drivers/accel/rocket/rocket_drv.c     | 25 ++++++++++++++++++++++-
+ 3 files changed, 54 insertions(+), 1 deletion(-)
 
-diff --git a/drivers/gpu/drm/scheduler/sched_entity.c b/drivers/gpu/drm/scheduler/sched_entity.c
-index 03e68b4102d5..9b059914556a 100644
---- a/drivers/gpu/drm/scheduler/sched_entity.c
-+++ b/drivers/gpu/drm/scheduler/sched_entity.c
-@@ -238,6 +238,31 @@ int drm_sched_entity_error(struct drm_sched_entity *entity)
- }
- EXPORT_SYMBOL(drm_sched_entity_error);
+diff --git a/Documentation/accel/rocket/index.rst b/Documentation/accel/rocket/index.rst
+index 70f97bccf100..d633502c8f15 100644
+--- a/Documentation/accel/rocket/index.rst
++++ b/Documentation/accel/rocket/index.rst
+@@ -17,3 +17,32 @@ project.
+ Hardware currently supported:
  
-+/**
-+ * drm_sched_entity_get_runtime_ns - Get the time an entity's jobs have run
-+ * @entity: scheduler entity
-+ *
-+ * Returns the time the jobs of @entity have spent on the hardware, measured
-+ * from the scheduled to the finished fence of each job. A job is accounted
-+ * when the scheduler frees it.
-+ *
-+ * The caller must ensure @entity has not been finalized.
-+ *
-+ * Return: Accumulated runtime in nanoseconds.
-+ */
-+u64 drm_sched_entity_get_runtime_ns(struct drm_sched_entity *entity)
+ * RK3588
++
++.. _rocket-usage-stats:
++
++Rocket DRM client usage stats implementation
++============================================
++
++The accel/rocket driver implements the DRM client usage stats specification as
++documented in :ref:`drm-client-usage-stats`.
++
++The NPU cores are reported as a single engine, npu, with a capacity equal to the
++number of cores bound to the driver. The time is summed over all cores and is
++accounted by the DRM GPU scheduler, from when a job is handed to a core until
++its fence signals.
++
++Example of the output showing the implemented key value pairs:
++
++::
++
++        pos:	0
++        flags:	02400002
++        mnt_id:	33
++        ino:	755
++        drm-driver:	rocket
++        drm-client-id:	263
++        drm-engine-npu:	2384122043 ns
++        drm-engine-capacity-npu:	3
++        drm-total-memory:	24216 KiB
++        drm-shared-memory:	0
++        drm-active-memory:	3000 KiB
+diff --git a/Documentation/gpu/drm-usage-stats.rst b/Documentation/gpu/drm-usage-stats.rst
+index 70b7cfcc194f..288764730d23 100644
+--- a/Documentation/gpu/drm-usage-stats.rst
++++ b/Documentation/gpu/drm-usage-stats.rst
+@@ -218,3 +218,4 @@ Driver specific implementations
+ * :ref:`panthor-usage-stats`
+ * :ref:`xe-usage-stats`
+ * :ref:`amdxdna-usage-stats`
++* :ref:`rocket-usage-stats`
+diff --git a/drivers/accel/rocket/rocket_drv.c b/drivers/accel/rocket/rocket_drv.c
+index 5d7805c41dc3..b5fd800f500f 100644
+--- a/drivers/accel/rocket/rocket_drv.c
++++ b/drivers/accel/rocket/rocket_drv.c
+@@ -3,8 +3,10 @@
+ 
+ #include <drm/drm_accel.h>
+ #include <drm/drm_drv.h>
++#include <drm/drm_file.h>
+ #include <drm/drm_gem.h>
+ #include <drm/drm_ioctl.h>
++#include <drm/drm_print.h>
+ #include <drm/rocket_accel.h>
+ #include <linux/clk.h>
+ #include <linux/err.h>
+@@ -139,7 +141,27 @@ static const struct drm_ioctl_desc rocket_drm_driver_ioctls[] = {
+ 	ROCKET_IOCTL(FINI_BO, fini_bo),
+ };
+ 
+-DEFINE_DRM_ACCEL_FOPS(rocket_accel_driver_fops);
++static void rocket_show_fdinfo(struct drm_printer *p, struct drm_file *file)
 +{
-+	struct drm_sched_entity_stats *stats = entity->stats;
-+	ktime_t runtime;
++	struct rocket_device *rdev = to_rocket_device(file->minor->dev);
++	struct rocket_file_priv *rocket_priv = file->driver_priv;
++	unsigned int num_cores = rdev->num_cores;
 +
-+	spin_lock(&stats->lock);
-+	runtime = stats->runtime;
-+	spin_unlock(&stats->lock);
++	drm_printf(p, "drm-engine-npu:\t%llu ns\n",
++		   drm_sched_entity_get_runtime_ns(&rocket_priv->sched_entity));
 +
-+	return ktime_to_ns(runtime);
++	/* A capacity of zero is not allowed, skip it once all cores are gone. */
++	if (num_cores)
++		drm_printf(p, "drm-engine-capacity-npu:\t%u\n", num_cores);
++
++	drm_show_memory_stats(p, file);
 +}
-+EXPORT_SYMBOL(drm_sched_entity_get_runtime_ns);
 +
- static void drm_sched_entity_kill_jobs_cb(struct dma_fence *f,
- 					  struct dma_fence_cb *cb);
++static const struct file_operations rocket_accel_driver_fops = {
++	.owner = THIS_MODULE,
++	DRM_ACCEL_FOPS,
++	.show_fdinfo = drm_show_fdinfo,
++};
  
-diff --git a/include/drm/gpu_scheduler.h b/include/drm/gpu_scheduler.h
-index 3b0978fa8cf0..ac632e272499 100644
---- a/include/drm/gpu_scheduler.h
-+++ b/include/drm/gpu_scheduler.h
-@@ -730,6 +730,7 @@ void drm_sched_entity_destroy(struct drm_sched_entity *entity);
- void drm_sched_entity_set_priority(struct drm_sched_entity *entity,
- 				   enum drm_sched_priority priority);
- int drm_sched_entity_error(struct drm_sched_entity *entity);
-+u64 drm_sched_entity_get_runtime_ns(struct drm_sched_entity *entity);
- void drm_sched_entity_modify_sched(struct drm_sched_entity *entity,
- 				   struct drm_gpu_scheduler **sched_list,
- 				   unsigned int num_sched_list);
+ /*
+  * Rocket driver version:
+@@ -150,6 +172,7 @@ static const struct drm_driver rocket_drm_driver = {
+ 	.open			= rocket_open,
+ 	.postclose		= rocket_postclose,
+ 	.gem_create_object	= rocket_gem_create_object,
++	.show_fdinfo		= rocket_show_fdinfo,
+ 	.ioctls			= rocket_drm_driver_ioctls,
+ 	.num_ioctls		= ARRAY_SIZE(rocket_drm_driver_ioctls),
+ 	.fops			= &rocket_accel_driver_fops,
 -- 
 2.53.0
 
