@@ -2,44 +2,45 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 24B35606A331
-	for <dri-devel@archiver.kernel.org>; Fri, 20 Nov 2026 14:58:33 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F20CD60A262D
+	for <dri-devel@archiver.kernel.org>; Fri, 20 Nov 2026 14:58:36 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=FHurcA23
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=JOY1pNTN
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id E8D1B112B67;
-	Fri, 20 Nov 2026 14:58:25 +0000 (UTC)
-Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 9C409112B5F
- for <dri-devel@lists.freedesktop.org>; Fri, 20 Nov 2026 14:58:17 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id D4401112B5F;
+	Fri, 20 Nov 2026 14:58:30 +0000 (UTC)
+Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 107FF112B5F
+ for <dri-devel@lists.freedesktop.org>; Fri, 20 Nov 2026 14:58:12 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id 855A746A22;
- Fri, 20 Nov 2026 14:58:17 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 30BD71F000D3;
- Fri, 20 Nov 2026 14:58:17 +0000 (UTC)
+ by tor.source.kernel.org (Postfix) with ESMTP id 895DA62641;
+ Fri, 20 Nov 2026 14:58:11 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id DCC6D1F000C6;
+ Fri, 20 Nov 2026 14:58:10 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1795186697;
- bh=gAiKnDvlUSeWowcD3gLHGK3bKq8UZqbxkXcowaWUrCE=;
+ s=k20260515; t=1795186691;
+ bh=cbzB2LZxRa8KlJ7L448ZxVbc856NNpuuZnTJ2XHUAX4=;
  h=From:Date:Subject:References:In-Reply-To:To:Cc;
- b=FHurcA23NqLcVsA6/Psx2hCcOvUfk4o6WsZb/AQYSpWz/NfexwbVRcEnWY1EVqfDF
- 3Sf6i1A3thmcfmhbnBIZm2FF8C4Rdsv6A5o/2TGkK321k6xLys1axLK0IQDq+JAkjl
- aeHiKJanhUUmjD/ockGhZ6pQfGlhSW+27HlMIVBHNit5UnGomWa5S+XRv50+BbUTGR
- vdVFVqObqBR2ODACxGNUNVJxRVhwcMGlsW8gKURfbBY8OvcFfvKxO+bcuanFC61xNP
- nU8cD2umoK+XMRuFjPnQCVwTBibP+z0I4srs2YLUQC631B8Q5HXpkK6AB3AKLswvIp
- FmfEAVm3byP2A==
+ b=JOY1pNTNYwmYbCn3T95tQ1G6rg9Gqsu7GBll229Z0x7uwIvgIg76x58M6muj85Ngt
+ beYZGov1027RIvCDqmVUWnuKkhLrCwDksk5fAt3i9eOFjs2EFbV6YlPg5dSKDf6NwP
+ qPG7uHd6ALc7WmJRZdZn7d0LhGYX3in+tgnVh7ok0I7Ix6zEsQr3DLkTTTCkFuuyJx
+ GKA0XuhFp4Jrpjtp5v1A7v48025yGIQJJr7FwvHKMVVO9vRM+8NEO4+evfkz9KlpfB
+ dhwei6jhtHftIQ+PxyO+CJStJhm9WBSVfdrtvML506cWfX7U/GCDKnqMrqqqnEHlRm
+ WA2dvOj5xlfWg==
 From: "Rob Herring (Arm)" <robh@kernel.org>
-Date: Fri, 20 Nov 2026 08:57:32 -0600
-Subject: [PATCH v5 08/19] accel: ethosu: Validate all feature map tiles
+Date: Fri, 20 Nov 2026 08:57:29 -0600
+Subject: [PATCH v5 05/19] accel: ethosu: Fix NHCWB16 bounds calculation
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20261120-ethosu-fixes-v5-8-52d459acdb84@kernel.org>
+Message-Id: <20261120-ethosu-fixes-v5-5-52d459acdb84@kernel.org>
 References: <20261120-ethosu-fixes-v5-0-52d459acdb84@kernel.org>
 In-Reply-To: <20261120-ethosu-fixes-v5-0-52d459acdb84@kernel.org>
 To: Tomeu Vizoso <tomeu@tomeuvizoso.net>, Oded Gabbay <ogabbay@kernel.org>, 
  Frank Li <Frank.Li@nxp.com>, Thomas Zimmermann <tzimmermann@suse.de>
-Cc: dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org
+Cc: dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org, 
+ sashiko-bot@kernel.org
 X-Mailer: b4 0.16-dev
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -59,250 +60,41 @@ X-Spam-Status: No, score=-18.8 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-The command-stream validator checked only the final feature-map
-coordinate. For tiled tensors, this can leave an earlier tile base
-address unchecked even though the operation accesses it.
-
-Check the final coordinate of every tile touched by an operation. Also
-treat U65 feature maps as 2x2 tiled: its precision rounding bits are not
-the U85 storage encoding.
+The Ethos-U NPU inherently processes NHCWB16 data in 16-channel bricks.
+The NHCWB16 address calculation uses the final channel of the last
+accessed brick. If the channel depth modulo 16 is less than 15, the
+hardware will still read or write the full 16-element brick.
 
 Fixes: 5a5e9c0228e6 ("accel: Add Arm Ethos-U NPU driver")
-Cc: stable@vger.kernel.org
+Reported-by: sashiko-bot@kernel.org
+Closes: https://lore.kernel.org/all/20260905010523.866411F00A3D@smtp.kernel.org/
 Signed-off-by: Rob Herring (Arm) <robh@kernel.org>
 ---
 v5:
  - No changes.
 
-v4:
- - NHCWB16 feature maps may be vertically tiled. Account for tile 0's
-   maximum Y coordinate when calculating the feature map bounds.
-
 v3:
- - Fix for storage mode 0 intermediate tile calculations
-
-v2:
- - no changes
+ - new patch
 ---
- drivers/accel/ethosu/ethosu_gem.c | 147 ++++++++++++++++++++++++++++++--------
- 1 file changed, 119 insertions(+), 28 deletions(-)
+ drivers/accel/ethosu/ethosu_gem.c | 3 ++-
+ 1 file changed, 2 insertions(+), 1 deletion(-)
 
 diff --git a/drivers/accel/ethosu/ethosu_gem.c b/drivers/accel/ethosu/ethosu_gem.c
-index 9a66d8439408..11f41382dc5d 100644
+index 24f88696c18b..67c7cbbd39b8 100644
 --- a/drivers/accel/ethosu/ethosu_gem.c
 +++ b/drivers/accel/ethosu/ethosu_gem.c
-@@ -444,6 +444,96 @@ static u64 feat_matrix_length(struct ethosu_device *edev,
- 	return addr;
- }
+@@ -415,9 +415,10 @@ static u64 feat_matrix_length(struct ethosu_device *edev,
+ 	case 1: //nhcwb16:
+ 		element_size = BIT((fm->precision >> (ofm ? 1 : 2)) & 0x3);
  
-+static int feat_matrix_check_location(struct ethosu_device *edev,
-+				      struct ethosu_validated_cmdstream_info *info,
-+				      struct cmd_state *st, struct feat_matrix *fm,
-+				      enum feat_matrix_type type, u32 x, u32 y,
-+				      u32 c, bool ofm, u64 *max_len)
-+{
-+	u64 len;
-+
-+	len = feat_matrix_length(edev, info, st, fm, type, x, y, c, ofm);
-+	if (len == U64_MAX)
-+		return -EINVAL;
-+
-+	*max_len = max(*max_len, len);
-+	return 0;
-+}
-+
-+static int feat_matrix_size(struct ethosu_device *edev,
-+			    struct ethosu_validated_cmdstream_info *info,
-+			    struct cmd_state *st, struct feat_matrix *fm,
-+			    enum feat_matrix_type type,
-+			    u32 x, u32 y, u32 c, bool ofm, u64 *max_len)
-+{
-+	u32 storage = ethosu_is_u65(edev) ? 0 : fm->precision >> 14;
-+	int ret;
-+
-+	*max_len = 0;
-+
-+	if (storage == 0) {
-+		ret = feat_matrix_check_location(edev, info, st, fm, type, 0, 0,
-+						 c, ofm, max_len);
-+		if (ret)
-+			return ret;
-+
-+		ret = feat_matrix_check_location(edev, info, st, fm, type,
-+						 min(x, (u32)fm->width0),
-+						 min(y, (u32)fm->height[0]), c, ofm,
-+						 max_len);
-+		if (ret)
-+			return ret;
-+
-+		if (fm->width0 < x) {
-+			ret = feat_matrix_check_location(edev, info, st, fm, type, x,
-+							 min(y, (u32)fm->height[1]), c,
-+							 ofm, max_len);
-+			if (ret)
-+				return ret;
-+		}
-+
-+		if (fm->height[0] < y) {
-+			ret = feat_matrix_check_location(edev, info, st, fm, type,
-+							 min(x, (u32)fm->width0), y, c,
-+							 ofm, max_len);
-+			if (ret)
-+				return ret;
-+		}
-+
-+		if (fm->width0 < x && fm->height[1] < y)
-+			return feat_matrix_check_location(edev, info, st, fm, type,
-+							  x, y, c, ofm, max_len);
-+
-+		return 0;
-+	}
-+
-+	if (storage == 1) {
-+		ret = feat_matrix_check_location(edev, info, st, fm, type, x,
-+						 min3(y, (u32)fm->height[0],
-+						      (u32)fm->height[1]), c, ofm,
-+						 max_len);
-+		if (ret)
-+			return ret;
-+		if (fm->height[0] < fm->height[1] && fm->height[1] <= y) {
-+			ret = feat_matrix_check_location(edev, info, st, fm, type, x,
-+							 fm->height[1], c, ofm,
-+							 max_len);
-+			if (ret)
-+				return ret;
-+		}
-+		if (fm->height[1] < y) {
-+			ret = feat_matrix_check_location(edev, info, st, fm, type, x,
-+							 fm->height[1] + 1, c, ofm,
-+							 max_len);
-+			if (ret)
-+				return ret;
-+		}
-+	}
-+
-+	return feat_matrix_check_location(edev, info, st, fm, type, x, y, c, ofm,
-+					  max_len);
-+}
-+
- static int buffer_size(struct ethosu_validated_cmdstream_info *info,
- 		       struct cmd_state *st, struct buffer *buf, s8 region,
- 		       u16 region_cmd, u16 base_cmd, u16 length_cmd, bool optional)
-@@ -474,6 +564,7 @@ static int calc_sizes(struct drm_device *ddev,
- {
- 	struct ethosu_device *edev = to_ethosu_device(ddev);
- 	u64 len;
-+	int ret;
- 
- 	if (ifm) {
- 		if (!cmd_state_reg_is_set(st, NPU_SET_KERNEL_WIDTH_M1) ||
-@@ -496,23 +587,22 @@ static int calc_sizes(struct drm_device *ddev,
- 		if (ifm_height < 0 || ifm_width < 0)
- 			return -EINVAL;
- 
--		len = feat_matrix_length(edev, info, st, &st->ifm,
--					 FEAT_MATRIX_IFM, ifm_width, ifm_height,
--					 st->ifm.depth, false);
-+		ret = feat_matrix_size(edev, info, st, &st->ifm, FEAT_MATRIX_IFM,
-+				       ifm_width, ifm_height, st->ifm.depth, false,
-+				       &len);
- 		dev_dbg(ddev->dev, "op %d: IFM:%d:0x%llx-0x%llx\n",
- 			op, st->ifm.region, st->ifm.base[0], len);
--		if (len == U64_MAX)
--			return -EINVAL;
-+		if (ret)
-+			return ret;
- 	}
- 
- 	if (ifm2) {
--		len = feat_matrix_length(edev, info, st, &st->ifm2,
--					 FEAT_MATRIX_IFM2, st->ifm.depth, 0,
--					 st->ofm.depth, false);
-+		ret = feat_matrix_size(edev, info, st, &st->ifm2, FEAT_MATRIX_IFM2,
-+				       st->ifm.depth, 0, st->ofm.depth, false, &len);
- 		dev_dbg(ddev->dev, "op %d: IFM2:%d:0x%llx-0x%llx\n",
- 			op, st->ifm2.region, st->ifm2.base[0], len);
--		if (len == U64_MAX)
--			return -EINVAL;
-+		if (ret)
-+			return ret;
- 	}
- 
- 	if (weight) {
-@@ -554,13 +644,13 @@ static int calc_sizes(struct drm_device *ddev,
- 			return -EINVAL;
- 	}
- 
--	len = feat_matrix_length(edev, info, st, &st->ofm, FEAT_MATRIX_OFM,
--				 st->ofm.width, st->ofm.height[2], st->ofm.depth,
--				 true);
-+	ret = feat_matrix_size(edev, info, st, &st->ofm, FEAT_MATRIX_OFM,
-+			       st->ofm.width, st->ofm.height[2], st->ofm.depth,
-+			       true, &len);
- 	dev_dbg(ddev->dev, "op %d: OFM:%d:0x%llx-0x%llx\n",
- 		op, st->ofm.region, st->ofm.base[0], len);
--	if (len == U64_MAX)
--		return -EINVAL;
-+	if (ret)
-+		return ret;
- 	if (!feat_matrix_chained(edev, &st->ofm))
- 		info->output_region[st->ofm.region] = true;
- 
-@@ -575,18 +665,19 @@ static int calc_sizes_elemwise(struct drm_device *ddev,
- 	struct ethosu_device *edev = to_ethosu_device(ddev);
- 	u32 height, width, depth;
- 	u64 len;
-+	int ret;
- 
- 	if (ifm) {
- 		height = st->ifm.broadcast & 0x1 ? 0 : st->ofm.height[2];
- 		width = st->ifm.broadcast & 0x2 ? 0 : st->ofm.width;
- 		depth = st->ifm.broadcast & 0x4 ? 0 : st->ofm.depth;
- 
--		len = feat_matrix_length(edev, info, st, &st->ifm,
--					 FEAT_MATRIX_IFM, width, height, depth, false);
-+		ret = feat_matrix_size(edev, info, st, &st->ifm, FEAT_MATRIX_IFM,
-+				       width, height, depth, false, &len);
- 		dev_dbg(ddev->dev, "op %d: IFM:%d:0x%llx-0x%llx\n",
- 			op, st->ifm.region, st->ifm.base[0], len);
--		if (len == U64_MAX)
--			return -EINVAL;
-+		if (ret)
-+			return ret;
- 	}
- 
- 	if (ifm2) {
-@@ -594,21 +685,21 @@ static int calc_sizes_elemwise(struct drm_device *ddev,
- 		width = st->ifm2.broadcast & 0x2 ? 0 : st->ofm.width;
- 		depth = st->ifm2.broadcast & 0x4 ? 0 : st->ofm.depth;
- 
--		len = feat_matrix_length(edev, info, st, &st->ifm2,
--					 FEAT_MATRIX_IFM2, width, height, depth, false);
-+		ret = feat_matrix_size(edev, info, st, &st->ifm2, FEAT_MATRIX_IFM2,
-+				       width, height, depth, false, &len);
- 		dev_dbg(ddev->dev, "op %d: IFM2:%d:0x%llx-0x%llx\n",
- 			op, st->ifm2.region, st->ifm2.base[0], len);
--		if (len == U64_MAX)
--			return -EINVAL;
-+		if (ret)
-+			return ret;
- 	}
- 
--	len = feat_matrix_length(edev, info, st, &st->ofm, FEAT_MATRIX_OFM,
--				 st->ofm.width, st->ofm.height[2], st->ofm.depth,
--				 true);
-+	ret = feat_matrix_size(edev, info, st, &st->ofm, FEAT_MATRIX_OFM,
-+			       st->ofm.width, st->ofm.height[2], st->ofm.depth,
-+			       true, &len);
- 	dev_dbg(ddev->dev, "op %d: OFM:%d:0x%llx-0x%llx\n",
- 		op, st->ofm.region, st->ofm.base[0], len);
--	if (len == U64_MAX)
--		return -EINVAL;
-+	if (ret)
-+		return ret;
- 	if (!feat_matrix_chained(edev, &st->ofm))
- 		info->output_region[st->ofm.region] = true;
- 
++		/* NHCWB16 accesses the complete final channel brick. */
+ 		if (check_mul_overflow(c / 16, (u64)fm->stride_c, &offset) ||
+ 		    check_add_overflow(addr, offset, &addr) ||
+-		    check_mul_overflow(16 * x + (c & 0xf), element_size, &offset) ||
++		    check_mul_overflow(16 * x + 15, element_size, &offset) ||
+ 		    check_add_overflow(addr, offset, &addr))
+ 			return U64_MAX;
+ 		break;
 
 -- 
 2.53.0
