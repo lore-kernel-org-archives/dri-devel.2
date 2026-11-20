@@ -2,87 +2,117 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 13A79606A333
-	for <dri-devel@archiver.kernel.org>; Fri, 20 Nov 2026 10:41:25 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EB9EF606A320
+	for <dri-devel@archiver.kernel.org>; Fri, 20 Nov 2026 10:48:51 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=j0zljVKj
+	dkim=pass (2048-bit key) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.a=rsa-sha256 header.s=selector1-NXP1-onmicrosoft-com header.b=EPprA3/u
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 6925310E5F0;
-	Fri, 20 Nov 2026 10:41:19 +0000 (UTC)
-Received: from mail-wm1-f45.google.com (mail-wm1-f45.google.com
- [209.85.128.45])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 37A621128D2
- for <dri-devel@lists.freedesktop.org>; Fri, 20 Nov 2026 10:40:47 +0000 (UTC)
-Received: by mail-wm1-f45.google.com with SMTP id
- 5b1f17b1804b1-4bb70074ab2so6899305e9.0
- for <dri-devel@lists.freedesktop.org>; Fri, 20 Nov 2026 02:40:47 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20260707; t=1795171245; x=1795776045; darn=lists.freedesktop.org;
- h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
- :content-type:mime-version:subject:date:from:from:to:cc:subject:date
- :message-id:reply-to:content-type;
- bh=qBLG4t4oO3794vWhQM2jRWw+A/4Ymw3vg7/JQp5J2Cg=;
- b=j0zljVKjwwhjx1x04jXCOrGcOi7qF5UUVOosbs0+zbPlh3wtnuCzADjhSjyzD3KgjL
- wl9WIbs2h8PGqKP/z3DQVkoG/rL527aAqvFJnLvACPF6rytZ97EZHT1SBY/6RuRJQ8Ko
- ejldh5sYYC6paJ7c4MpY4FBarAvT/nWkg+Xii/B2yFezfwbFVO8edUACGTaSr8yhdZEA
- H1RQYS9z2xOhD+ovrSm7DbkWqmmgb20UgtbpMXRQHcjW0zoPdVYQO97zjeIWQY2gM0bf
- oiRxlCQEO152Xwhax/uSQCwNYYKbvMTn24knZsS3TJ+cON1jp1LCdlqSGnnTkebVWJQD
- 1GmQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20260707; t=1795171245; x=1795776045;
- h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
- :content-type:mime-version:subject:date:from:x-gm-gg
- :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
- :content-type;
- bh=qBLG4t4oO3794vWhQM2jRWw+A/4Ymw3vg7/JQp5J2Cg=;
- b=1o5EDC7ppNFVpj2SdKhbqbSbhj9C908JrJA2zAOj1vxyQwsnLydoy4nIBUMh9Mt2eb
- CyvXHF4ZgoMYuUGkdvnkw1K2/p4EC6LrMouiIvxgWjGhbMBdeRRpu1Xe1bPrbiJcpgqk
- D0EiaYxISSoJvKDSyhlMobH3ztCaqb8updh06ZlWCHAj7twQ9mXwqpd6ms2z/dpVxLYu
- YTI8lcx8/2eD3Ci0Kk7i1Kns4ZPVFWbiDIOAoySw3aeZl6AnuLHDMcMvcXop/U8+RoBl
- +x2riz9gID5Szj6SAs5jWFkzf0AQkSO65jl9RWTky/IWWy+GMaQ+2JjEy0YKRn8SeLmr
- V4kQ==
-X-Forwarded-Encrypted: i=1;
- AL+hErGCkTaKSjnjTfwGhHU5iLBKULLQPw+LoZpbRfTgUk84FHEJvwyftOZcwFTm9qvoWCpFuN9V+VdORcQ=@lists.freedesktop.org
-X-Gm-Message-State: APuU4Z/yf5QvDZCFlgUNr7Wufg/QUElSqtgJhlPwT11TYK6j7kCoECCE
- 9X9ob4n8xmje4QC7RvWFZon7UU/+FS3+nGzZbHvd6I22wXUXiKV1Bvxa
-X-Gm-Gg: AYBFou0piaG/YeUeXUQQeJqiXr52DmJQpLXL+WWY5hBfxMIoF/KcE0DMNxlWn5tkhAF
- ORzCZMns8inCcxHxLlvkMcL68tedP6649mcXlR9dVX4KgSxRZmnnO444MOh5tZXZseNX4dY+71F
- q58GG0ZnIymggNqWCpL9dpiei7mIPmPg9Gk2CQyL3ryL6ehJZjpJOu6/tXBlJS8OZe3ijVJHdYW
- kAl8I5mh1XXI/cgy6qpIRthOHl4IfFi12fKz6Oq7yw9ZRnrWBUIY+UjBkgl/volMiXW/D8bDjG0
- 1yBYEs6idsfhnIYT5qvbcqNaddxADcuwm3/h6b9cFaxJ15Y4Uq8TRkAmMTE6Gp5xYiAjU/TmwFn
- v+T0L7uYiT3wtSVFsjdw3+uK92uXopsXQfm4x8u7MClUiSZ5H0Io6VDUw9hkv2t/1dfjK0PBiBJ
- bfCMM5iO0l2Qv3YnHKr4v8Dw4EAd92HhaJX+HiOqn/7tExDfCJv8gIt9sluzmOlK13nCtyEDlrV
- cH+Fccs+IBfwbd3b11PO5NYYP0+oLfKmH5SnCQAc8IqKy7YHj06xmJaSpOJ1p0m+59Cwdx7NvcL
- SxQN7+VDp8x4Pnbo8A1PEsv2lcLZ7YGj7XvJZWHImBAjqX7UgHl7EokqPtF32Dtqr0+eTm5qVPx
- hPBf0JY+5CzRt9pKCFRpfvV929O0omsamwr1ETDqgO9/aNhKMaCFIVnNLRrbCF05ADsQTFuSc
-X-Received: by 2002:a05:600c:a0b:b0:4b7:6a8b:9df2 with SMTP id
- 5b1f17b1804b1-4bb8882432bmr54391435e9.25.1795171245423; 
- Fri, 20 Nov 2026 02:40:45 -0800 (PST)
-Received: from localhost.localdomain (80-108-121-211.cable.dynamic.surfer.at.
- [80.108.121.211]) by smtp.gmail.com with ESMTPSA id
- 5b1f17b1804b1-4bb895eec06sm22297535e9.2.2026.11.20.02.40.44
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Fri, 20 Nov 2026 02:40:44 -0800 (PST)
-From: Christian Gmeiner <christian.gmeiner@gmail.com>
-Date: Fri, 20 Nov 2026 11:40:33 +0100
-Subject: [PATCH 7/7] drm/etnaviv: Add an ioctl to read back GPU clock changes
+	by gabe.freedesktop.org (Postfix) with ESMTP id 47DED10E058;
+	Fri, 20 Nov 2026 10:48:46 +0000 (UTC)
+Received: from DU2PR03CU002.outbound.protection.outlook.com
+ (mail-northeuropeazon11011030.outbound.protection.outlook.com [52.101.65.30])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 40CB310E30B
+ for <dri-devel@lists.freedesktop.org>; Fri, 20 Nov 2026 10:48:39 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=LRgHz2fz7mMQQuVvTgYZ2zD5NcYEH4JUrBD0LvFjHPeCoxbfzCxiwziiX6gXnZKl0Upq/1pf777SMpQVEgLkPp4V5ExwXfTEMA1yiOsu2wc3cvbYA4c1fDigAkusxbV9EfSp6Mk5uXSKDRysCHxLPtROV9VDyr9m13yeGJlKMqp3sEaZwqySfk1P7lb3MpI8HAQZqT2x63B7HyTbfUyuURE5pjQAFKParzfFjSQE6nAF/0f52PJ9KGr/lYzN+xogT/h9AVTpuWNwUv6qn+huArDaPRhjGIKEIcWguBo9ZqXFW/kiKrH60vmG1fgReZXAc+MOQuDSnlv09StvscyIZw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=PpIkpj45PnSBFFJR7sWSdwgY/ddfffz58HANlT3Ibbw=;
+ b=v5372+UtNNQq1QjL20cm+ArJqW0q/mf+NkIJzkfsnh4GKrxOEJc7bd7fjaZRVw0soEKhyDxZ5soALRsFBreL6D1Zv2OmoxSXUWF/BfZX9sInLBqZnWDjp21agxtvUHQ5Q8xub4/s3TtnCX4gicdu3GuZyOPGTiWYxf4FjHtWWJuuJKkOJq/0lx2HG9FDjvEhcVZ5i4qtgZBkEzfPvncX7IbFyDhrNZK4CLVxoGFo8a4eabQoFJhx5oPy38JPmUORuzryBYR3xAMp+nT+gm7v/hIUyeB4xUinr1P7dlITJyvB1jkAt1AydkkCFLHzln7MFRBHkO0EPXpnpUcbdxHbYg==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=oss.nxp.com; dmarc=pass action=none header.from=oss.nxp.com;
+ dkim=pass header.d=oss.nxp.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=NXP1.onmicrosoft.com; 
+ s=selector1-NXP1-onmicrosoft-com;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=PpIkpj45PnSBFFJR7sWSdwgY/ddfffz58HANlT3Ibbw=;
+ b=EPprA3/ui3m0JNTP466msx4xDYED9backaSzI++NN6IDIFWe0ibSsGGdsHMua976QTsjYSicJjGDh9nVjmCtwla9h1h75JUU/87zqBY2repeE3+qqe6cO8jaUh50uk9rV7l/qf+0U34c/DH98iZ8OgWdMC423IXgvnyBwrsk86R1KVRa0bsxetqltPYpCuYCMy7mCJHAedCvwp6kcONiUv9+6968r1AdMCBC4NVG5A1xf1zJew8nejiSAsVfJFBrdG300t2qAKrKEJN1SuVmXnCat1c5cDUnBit1NGRU917jZm+ByrbUCFN3ztwp2f40bCA+7JnZM4jmRk93Y+sP0A==
+Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=oss.nxp.com;
+Received: from GV2PR04MB12318.eurprd04.prod.outlook.com
+ (2603:10a6:150:32b::19) by AS8PR04MB7638.eurprd04.prod.outlook.com
+ (2603:10a6:20b:291::23) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.639.12; Fri, 20 Nov
+ 2026 10:48:34 +0000
+Received: from GV2PR04MB12318.eurprd04.prod.outlook.com
+ ([fe80::a498:2b5a:cbdb:d6fa]) by GV2PR04MB12318.eurprd04.prod.outlook.com
+ ([fe80::a498:2b5a:cbdb:d6fa%3]) with mapi id 15.21.0639.010; Fri, 20 Nov 2026
+ 10:48:34 +0000
+Date: Fri, 20 Nov 2026 12:48:30 +0200
+From: Laurentiu Palcu <laurentiu.palcu@oss.nxp.com>
+To: sashiko-reviews@lists.linux.dev
+Cc: linux-clk@vger.kernel.org, imx@lists.linux.dev, 
+ devicetree@vger.kernel.org, dri-devel@lists.freedesktop.org, robh@kernel.org, 
+ conor+dt@kernel.org, Frank.Li@kernel.org
+Subject: Re: [PATCH v12 2/5] drm/imx: Add support for i.MX94 DCIF
+Message-ID: <awAgaVs4LLwqVA57@vm>
+References: <20261118-dcif-upstreaming-v12-0-29b35e27a1cc@oss.nxp.com>
+ <20261118-dcif-upstreaming-v12-2-29b35e27a1cc@oss.nxp.com>
+ <sashiko-outbox-221406@kernel.org>
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <sashiko-outbox-221406@kernel.org>
+X-ClientProxiedBy: AM8P191CA0027.EURP191.PROD.OUTLOOK.COM
+ (2603:10a6:20b:21a::32) To GV2PR04MB12318.eurprd04.prod.outlook.com
+ (2603:10a6:150:32b::19)
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20261120-etnaviv-gpu-freq-trace-v1-7-445fc6eacddf@igalia.com>
-References: <20261120-etnaviv-gpu-freq-trace-v1-0-445fc6eacddf@igalia.com>
-In-Reply-To: <20261120-etnaviv-gpu-freq-trace-v1-0-445fc6eacddf@igalia.com>
-To: Lucas Stach <l.stach@pengutronix.de>, 
- Russell King <linux+etnaviv@armlinux.org.uk>, 
- Christian Gmeiner <christian.gmeiner@gmail.com>, 
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>
-Cc: kernel-dev@igalia.com, etnaviv@lists.freedesktop.org, 
- dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org, 
- Christian Gmeiner <cgmeiner@igalia.com>
-X-Mailer: b4 0.14.3
+X-MS-Exchange-MessageSentRepresentingType: 1
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: GV2PR04MB12318:EE_|AS8PR04MB7638:EE_
+X-MS-Office365-Filtering-Correlation-Id: b03cec65-aac4-4241-afea-08df46f3d2be
+X-MS-Exchange-SharedMailbox-RoutingAgent-Processed: True
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+ ARA:13230040|366016|1800799024|376014|23010399003|19092799006|6133799003|261009223027099003|18092099006|22082099003|18002099003|261022075727099003|261022105027099003|261026140227099003|261026121527099003|261028144727099003|261021121427099003|261102123227099003|261021135927099003|56012099006|4143699003|10067099003|5023799004|11063799006;
+X-Microsoft-Antispam-Message-Info: LThyzbVjH5Z0K8+8JifSDWch4ObxXkAzqyDd75eTw2tBJToBwG3XK3CBHPBWezzA9UV7n8sYg943fGhHfh5cuqMCO7Hr/RU5JiEweDkWDaVKe9mAp93LjS+ruUHhc5TK167s4YLIzm82q8sZZdhigifznZv2k/qgN3Ho2HFbThIcoMHBIuUA1mEzAQBf918UzSeWphv9YUtQPLNUuZdnpG7dHTdyu6K/PDCzUUztKP6nmYSatqLp9VCcYZEOSwCVw4O+OwEyL86kEcaIiOW0iHbYP6bDx968zCPIAZYLdUUAkq9fWe28pVMPxHa23oY1hr5zNHEoObTembvCXIwJ2Utyf4GjHwpMcC8rFPjoYolij753+AL7vsw5LKm8FXMlbOXQvQcge8G5ECRRifBC5xqe74lM/02na18dQaEjBLvGfHrAJnP0eKdSd8/CJseweu86YCosSrv+IaoSgMfZvZW56IVIVjh6jDCJSyrDnjLeykttqaTNYBlN7krKIzMJQe61PuVFpouYKzrLWRScf/o7Bf1Og7c/iYKQEvGCFZJbua6zSYDMpFvc9fcyCvnO4cuBpYutRyy12EbFrTKwzvvFMccrVyV68Jk+GQMjsUGN0eJAzFkgFxncTg5eTXxP3n6L33y1f1QS+979iWd51kHAR2d03TlAwB2lVm8nMeA=
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:GV2PR04MB12318.eurprd04.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230040)(366016)(1800799024)(376014)(23010399003)(19092799006)(6133799003)(261009223027099003)(18092099006)(22082099003)(18002099003)(261022075727099003)(261022105027099003)(261026140227099003)(261026121527099003)(261028144727099003)(261021121427099003)(261102123227099003)(261021135927099003)(56012099006)(4143699003)(10067099003)(5023799004)(11063799006);
+ DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: =?us-ascii?Q?xwe7LpzWc1pXfBpEERjemn0UftsTCeiM/NfxxgsIfgbN/hCLMF82XQJUoINJ?=
+ =?us-ascii?Q?IDubnkalGjUX139ldEX8/WAmomQkbUqWrFaPZ/iPKobvbdFE3rd02M0jXrsz?=
+ =?us-ascii?Q?ogqMlrsoyjU/b1dWMa2zGYK/3aT+/09PTEWNBgEEsZmOgFf7l0xke+wMZ4EN?=
+ =?us-ascii?Q?u5ud/YtpWkdV8hnT3Gk5/5C4JH1EGsn8c2+fxqsFp4UkBUPaw8jw2xc66EZd?=
+ =?us-ascii?Q?Z9lwtN2DOiyYkbH+KOJ9nMnUHFqIZlZInGv39BtGMSueif4rIVkVwGs6Qu0P?=
+ =?us-ascii?Q?p+ImCFiOn+tqWZdDnUgKv650EpTjYgnSv213tzCS/eD61CkRuIMfe7PeclwE?=
+ =?us-ascii?Q?2u3SVbjMBwYJZ8GYTw6I4j1IGphN26cgFAWEXSl1N7SjQChNVb6T+cEg/5fw?=
+ =?us-ascii?Q?2cymzy0YtPLpA1E+zgjg5vMeD3AsoNn7AmvMiU6HnWDxPQ9CjhHY5gvZY7jU?=
+ =?us-ascii?Q?L/3iI1rfpeaqnL0gnvKWKAkQdjMQN6/leK7PyHjUtAY8RiTpnUYZrzYuD84o?=
+ =?us-ascii?Q?VbiLCXqf+lMvlmwGD9BNGfh+4Evh+25/XkN6YHNYp9jqiY0ZfyHPv3iVKw9G?=
+ =?us-ascii?Q?TbB6me/6GytqUQO3tqpKnAJ+4HAh9UHzMV4jiNGRrH8gpJkejEIQNKaO7UsK?=
+ =?us-ascii?Q?CFjpLJCwSocje2c+AZaN+lc2kqn8sPO5QDkX24vmO9vQKEsMNg50z7hQ6+DF?=
+ =?us-ascii?Q?LTIEGtEifuDLv7aNSA32RtOnfbYJZsTX8ozTVMuxi4gCZBkZsocwqePtoa1F?=
+ =?us-ascii?Q?ysV7dmCQJjvkvSp4p10m/KSIb7Uzp1Wykk1V1UoBLLobcrFCO/PqZRqhl2PT?=
+ =?us-ascii?Q?oAxvSvaIAI9RNt0++NOGKdUwcZSnH9CnJVGQQjgTW7XVh3kN/uDgKxyKFUrd?=
+ =?us-ascii?Q?eE+KlHSgyTRlQZR3tdIHgWAIZ0wzR8Z6clFKGl9T0YFYiGKuzRX4bcwlYCwq?=
+ =?us-ascii?Q?9K58TR5Jx/EXUXxzCt0j/SAADOdHjM4VyDz5P/yLcuGv8EDvRSqLyIANgCwF?=
+ =?us-ascii?Q?+nu8zZpwl8ZmxUsPkZyIPFmOCE65REktJCgjStOcJI15pGleqFkg4ZoHRuwz?=
+ =?us-ascii?Q?9iKwyRVim/2dKw++1pvUsJhzBqDM4jCTMc+uGhndXj08TZ5/xxI2uvVi8T8o?=
+ =?us-ascii?Q?NoduJHfqMup8w4iSKxyaNyv22YmQDfKfuMdUE6yWnt4Tzatu0ObeOX01Gwem?=
+ =?us-ascii?Q?whkEo8Sez0l7RtQbUOJSI0ReFFG93lsWl1lInHzzOlkOqPM8mo0OzpxHSazs?=
+ =?us-ascii?Q?VCGY2lLsEpn9ViV23IWUsZI1p/26kBZJr3bJfjYFOjPRIt4fb5oC/UiYhaUQ?=
+ =?us-ascii?Q?9WzXTuZBwaIm3/s77V3RVYCXkov6PJ/z8dQ1PVgJFcFn8KQ1V8745uhRfYmj?=
+ =?us-ascii?Q?/K9RkJIq3Gn41m6V2E3pLjayjRkaX6YGmfU2g1YJ845ybmXXVe6v/TovUBOS?=
+ =?us-ascii?Q?w6OG4yRZuGuiZ3RMWyXAz+7+WJbl+FU3y61OoFL7J06YJGZ37qxE6jx7aOrT?=
+ =?us-ascii?Q?zEWDqLP4cLUR8UyaHdgsZLmCWft2kctAlitn8xitnPa8G2oLPdbQ4S0a4Inc?=
+ =?us-ascii?Q?G4TwZIX8w6wuUj/2UUlkcXazW84gbX3undSKP/UUxOl9EjMuS/RvDeQnslcE?=
+ =?us-ascii?Q?s4v9j2J9P49SuP856vuWjNagri/tDaEz8nZGRj8aYctm9KTFYcFVUzauNw7h?=
+ =?us-ascii?Q?251bhxw6KucvNmQqyu/Te1fHh51XWEOo2nKMURob2zXA8zSLLa28v1stjm8K?=
+ =?us-ascii?Q?19tv5TNR9Q=3D=3D?=
+X-OriginatorOrg: oss.nxp.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: b03cec65-aac4-4241-afea-08df46f3d2be
+X-MS-Exchange-CrossTenant-AuthSource: GV2PR04MB12318.eurprd04.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 20 Nov 2026 10:48:33.8643 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: 83X6a7mbucdwMNwOMzeo0hFIZgmChg6dpV2JYFtSKdg2BnYQJ8GhJj0DqTCxCQblX+FCu6cgrYDifXA+/iT/aA==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: AS8PR04MB7638
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -94,300 +124,216 @@ List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-15.8 required=3.0 tests=BAYES_00,DKIM_SIGNED,
-	DKIM_VALID,DKIM_VALID_AU,FREEMAIL_FORGED_FROMDOMAIN,FREEMAIL_FROM,
-	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
-	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,USER_AGENT_GIT
-	autolearn=unavailable autolearn_force=no version=4.0.1
+X-Spam-Status: No, score=-8.8 required=3.0 tests=BAYES_00,DKIM_SIGNED,
+	DKIM_VALID,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_PATCH,
+	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS autolearn=ham
+	autolearn_force=no version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-From: Christian Gmeiner <cgmeiner@igalia.com>
+On Wed, Nov 18, 2026 at 04:02:40PM +0000, sashiko-bot@kernel.org wrote:
+> Thank you for your contribution! Sashiko AI review found 3 potential
+> issues to consider:
+> - [Medium] drm/imx/dcif: unclocked MMIO access when runtime PM resume
+>   fails
+> - [Medium] drm/imx: dcif: unbalanced clock disable if
+>   dcif_runtime_resume() fails
+> - [Low] drm/imx/dcif: missing shadow load and trigger clear in
+>   dcif_crc_source_disable()
+> --
+> 
+> commit 373caa0eccbfd7fa4334093ea8869b540640e7ab
+> Author: Sandor Yu <sandor.yu@nxp.com>
+> 
+> drm/imx: Add support for i.MX94 DCIF
+> 
+> This commit adds a DRM/KMS driver for the NXP i.MX94 Display Control
+> Interface (DCIF), supporting primary and overlay planes, YCbCr-to-RGB CSC
+> on layer 0, and frame/ROI CRC generation.
+> 
+> > diff --git a/drivers/gpu/drm/imx/dcif/dcif-crc.c b/drivers/gpu/drm/imx/dcif/dcif-crc.c
+> > new file mode 100644
+> > index 0000000000000..ad94b458a6c59
+> > --- /dev/null
+> > +++ b/drivers/gpu/drm/imx/dcif/dcif-crc.c
+> [ ... ]
+> > +void dcif_crc_source_enable(struct dcif_dev *dcif, enum dcif_crc_source source,
+> > +			    struct drm_rect *roi, int ncrc)
+> > +{
+> > +	int ret;
+> > +
+> > +	if (ncrc >= MAX_DCIF_CRC_NUM)
+> > +		return;
+> > +
+> > +	if (source == DCIF_CRC_SRC_NONE)
+> > +		return;
+> > +
+> > +	if (dcif->crc_is_enabled)
+> > +		return;
+> > +
+> > +	ret = drm_crtc_vblank_get(&dcif->crtc);
+> > +	if (ret) {
+> > +		drm_err(&dcif->drm, "Could not get vblank reference: %d\n", ret);
+> > +		return;
+> > +	}
+> > +
+> > +	dcif_crc_config(dcif, roi, ncrc);
+> > +
+> > +	regmap_set_bits(dcif->regmap, DCIF_CRC_CTRL,
+> > +			DCIF_CRC_CTRL_CRC_MODE | DCIF_CRC_CTRL_CRC_SHADOW_LOAD_EN |
+> > +			DCIF_CRC_CTRL_CRC_TRIG);
+> > +
+> > +	scoped_guard(spinlock_irqsave, &dcif->drm.event_lock)
+> > +		dcif->crc_is_enabled = true;
+> > +}
+> > +
+> > +void dcif_crc_source_disable(struct dcif_dev *dcif, int ncrc)
+> > +{
+> > +	if (!dcif->crc_is_enabled)
+> > +		return;
+> > +
+> > +	if (ncrc >= MAX_DCIF_CRC_NUM)
+> > +		return;
+> > +
+> > +	regmap_clear_bits(dcif->regmap, DCIF_CRC_CTRL, DCIF_CRC_CTRL_CRC_EN(ncrc));
+> 
+> [Severity: Low]
+> Should dcif_crc_source_disable() also clear DCIF_CRC_CTRL_CRC_TRIG and set
+> DCIF_CRC_CTRL_CRC_SHADOW_LOAD_EN when disabling CRC on an active CRTC?
+> 
+> Clearing only DCIF_CRC_CTRL_CRC_EN(ncrc) leaves the disabled state
+> unlatched, and if DCIF_CRC_CTRL_CRC_MODE, DCIF_CRC_CTRL_CRC_SHADOW_LOAD_EN
+> and DCIF_CRC_CTRL_CRC_TRIG stay set in DCIF_CRC_CTRL, a later
+> dcif_crc_source_enable() call via regmap_set_bits() will see no bit changes
+> and skip writing the register.
 
-Userspace that converts GPU cycle counts to time needs the core clock
-rate a job ran at. The trace event has this information, but only a
-privileged tracer can read it.
+It appears this one is correct. The CRC_EN(n) is shadowed and CRC_TRIG
+is not self-clearing in continuous mode. Will fix in v13.
 
-Keep the last 256 clock changes per GPU in a ring buffer, 10 KiB per
-GPU. A record is written together with the trace event. It has the
-same times and flags, the rate after the change and a sequence number.
-The ring only fills as fast as the thermal governor changes the
-cooling state.
+> 
+> [ ... ]
+> 
+> > diff --git a/drivers/gpu/drm/imx/dcif/dcif-crtc.c b/drivers/gpu/drm/imx/dcif/dcif-crtc.c
+> > new file mode 100644
+> > index 0000000000000..233e149929964
+> > --- /dev/null
+> > +++ b/drivers/gpu/drm/imx/dcif/dcif-crtc.c
+> [ ... ]
+> > +static void dcif_crtc_atomic_enable(struct drm_crtc *crtc,
+> > +				    struct drm_atomic_commit *state)
+> > +{
+> > +	struct drm_crtc_state *crtc_state = drm_atomic_get_new_crtc_state(state, crtc);
+> > +	struct dcif_crtc_state *dcif_crtc_state = to_dcif_crtc_state(crtc_state);
+> > +	struct drm_display_mode *adj = &crtc_state->adjusted_mode;
+> > +	struct dcif_dev *dcif = crtc_to_dcif_dev(crtc);
+> > +	struct drm_device *drm = crtc->dev;
+> > +	int ret;
+> > +
+> > +	dev_dbg(drm->dev, "mode " DRM_MODE_FMT "\n", DRM_MODE_ARG(adj));
+> > +
+> > +	/* enable power when we start to set mode for CRTC */
+> > +	ret = pm_runtime_resume_and_get(drm->dev);
+> > +	if (ret < 0) {
+> > +		drm_err(drm, "failed to resume DCIF, ret = %d\n", ret);
+> > +		return;
+> > +	}
+> > +	dcif->crtc_pm_enabled = true;
+> [ ... ]
+> > +static void dcif_crtc_atomic_disable(struct drm_crtc *crtc,
+> > +				     struct drm_atomic_commit *state)
+> > +{
+> > +	struct dcif_dev *dcif = crtc_to_dcif_dev(crtc);
+> > +	struct drm_device *drm = crtc->dev;
+> > +
+> > +	if (dcif->has_crc)
+> > +		dcif_crc_source_disable(dcif, 0);
+> > +
+> > +	dcif_disable_controller(dcif);
+> > +	dcif_disable_plane_panic(dcif);
+> > +
+> > +	drm_crtc_vblank_off(crtc);
+> > +
+> > +	if (dcif->crtc_pm_enabled) {
+> > +		dcif->crtc_pm_enabled = false;
+> > +		pm_runtime_put_sync(drm->dev);
+> > +	}
+> 
+> [Severity: Medium]
+> Can a failure in pm_runtime_resume_and_get() lead to MMIO register accesses
+> while the DCIF clocks are disabled?
+> 
+> If pm_runtime_resume_and_get() fails in dcif_crtc_atomic_enable(),
+> dcif->crtc_pm_enabled remains false, but crtc_state->active is still true.
+> In the same commit tail, drm_atomic_helper_commit_planes() still calls
+> dcif_plane_atomic_update() and dcif_crtc_atomic_flush(), and a later
+> dcif_crtc_atomic_disable() calls dcif_crc_source_disable(),
+> dcif_disable_controller(), and dcif_disable_plane_panic() before checking
+> dcif->crtc_pm_enabled.  Accessing DCIF registers while the block is
+> unclocked can cause an external abort or bus hang on i.MX94.
 
-Add an ioctl that returns the records newer than a given sequence
-number. It also returns the newest sequence number the kernel has, so
-a reader knows when to call again. A reader that has fallen behind
-sees a gap in the sequence numbers. The caller passes the size of its
-record struct, so the record can grow later without a new ioctl. The
-first clock setup after bind is recorded too, so a new process can
-read the current rate.
+This one is not worth fixing. First, the only thing that can fail in the
+runtime resume is clk_bulk_prepare_enable(). If that fails, the platform
+is already broken since the clocks are managed by the SCMI firmware. Second,
+adding checks dor crtc_pm_enabled in every commit path (flush, plane
+update, etc) would add a lot of unnecessary noise for something that
+will probably never happen in practice.
 
-Bump the minor version so userspace can check for the ioctl.
+> 
+> [ ... ]
+> 
+> > diff --git a/drivers/gpu/drm/imx/dcif/dcif-drv.c b/drivers/gpu/drm/imx/dcif/dcif-drv.c
+> > new file mode 100644
+> > index 0000000000000..80b554f1b6843
+> > --- /dev/null
+> > +++ b/drivers/gpu/drm/imx/dcif/dcif-drv.c
+> [ ... ]
+> > +static int dcif_suspend(struct device *dev)
+> > +{
+> > +	struct dcif_dev *dcif = dev_get_drvdata(dev);
+> > +	int ret;
+> > +
+> > +	ret = drm_mode_config_helper_suspend(&dcif->drm);
+> > +	if (ret < 0)
+> > +		return ret;
+> > +
+> > +	if (pm_runtime_suspended(dev))
+> > +		return 0;
+> > +
+> > +	return dcif_runtime_suspend(dev);
+> > +}
+> > +
+> > +static int dcif_resume(struct device *dev)
+> > +{
+> > +	struct dcif_dev *dcif = dev_get_drvdata(dev);
+> > +	int ret;
+> > +
+> > +	if (!pm_runtime_suspended(dev)) {
+> > +		ret = dcif_runtime_resume(dev);
+> > +		if (ret < 0)
+> > +			return ret;
+> > +	}
+> > +
+> > +	return drm_mode_config_helper_resume(&dcif->drm);
+> > +}
+> 
+> [Severity: Medium]
+> Can a failure in dcif_runtime_resume() during system resume cause an
+> unbalanced clk_bulk_disable_unprepare()?
+> 
+> When the CRTC is active entering system suspend, the PM core's
+> device_prepare() holds a runtime PM reference, so the pm_runtime_put_sync()
+> in dcif_crtc_atomic_disable() leaves the device's runtime PM status as
+> RPM_ACTIVE.  dcif_suspend() then calls dcif_runtime_suspend() directly,
+> disabling clocks without updating runtime_status.  If dcif_runtime_resume()
+> fails in dcif_resume(), clocks remain disabled while runtime_status is
+> still RPM_ACTIVE, and device_complete() -> pm_runtime_put() will invoke
+> dcif_runtime_suspend() a second time.  Using pm_runtime_force_suspend() and
+> pm_runtime_force_resume() would keep runtime_status aligned with the clock
+> state.
 
-Signed-off-by: Christian Gmeiner <cgmeiner@igalia.com>
----
- drivers/gpu/drm/etnaviv/etnaviv_drv.c | 20 ++++++++-
- drivers/gpu/drm/etnaviv/etnaviv_gpu.c | 83 +++++++++++++++++++++++++++++++++++
- drivers/gpu/drm/etnaviv/etnaviv_gpu.h |  9 ++++
- include/uapi/drm/etnaviv_drm.h        | 43 +++++++++++++++++-
- 4 files changed, 153 insertions(+), 2 deletions(-)
-
-diff --git a/drivers/gpu/drm/etnaviv/etnaviv_drv.c b/drivers/gpu/drm/etnaviv/etnaviv_drv.c
-index ec1352c1b09f..317362137e4a 100644
---- a/drivers/gpu/drm/etnaviv/etnaviv_drv.c
-+++ b/drivers/gpu/drm/etnaviv/etnaviv_drv.c
-@@ -473,6 +473,23 @@ static int etnaviv_ioctl_pm_query_sig(struct drm_device *dev, void *data,
- 	return etnaviv_pm_query_sig(gpu, args);
- }
- 
-+static int etnaviv_ioctl_clock_history(struct drm_device *dev, void *data,
-+	struct drm_file *file)
-+{
-+	struct etnaviv_drm_private *priv = dev->dev_private;
-+	struct drm_etnaviv_clock_history *args = data;
-+	struct etnaviv_gpu *gpu;
-+
-+	if (args->pipe >= ETNA_MAX_PIPES)
-+		return -EINVAL;
-+
-+	gpu = priv->gpu[args->pipe];
-+	if (!gpu)
-+		return -ENXIO;
-+
-+	return etnaviv_gpu_clock_history(gpu, args);
-+}
-+
- static const struct drm_ioctl_desc etnaviv_ioctls[] = {
- #define ETNA_IOCTL(n, func, flags) \
- 	DRM_IOCTL_DEF_DRV(ETNAVIV_##n, etnaviv_ioctl_##func, flags)
-@@ -487,6 +504,7 @@ static const struct drm_ioctl_desc etnaviv_ioctls[] = {
- 	ETNA_IOCTL(GEM_WAIT,     gem_wait,     DRM_RENDER_ALLOW),
- 	ETNA_IOCTL(PM_QUERY_DOM, pm_query_dom, DRM_RENDER_ALLOW),
- 	ETNA_IOCTL(PM_QUERY_SIG, pm_query_sig, DRM_RENDER_ALLOW),
-+	ETNA_IOCTL(CLOCK_HISTORY, clock_history, DRM_RENDER_ALLOW),
- };
- 
- static void etnaviv_show_fdinfo(struct drm_printer *p, struct drm_file *file)
-@@ -515,7 +533,7 @@ static const struct drm_driver etnaviv_drm_driver = {
- 	.name               = "etnaviv",
- 	.desc               = "etnaviv DRM",
- 	.major              = 1,
--	.minor              = 4,
-+	.minor              = 5,
- };
- 
- /*
-diff --git a/drivers/gpu/drm/etnaviv/etnaviv_gpu.c b/drivers/gpu/drm/etnaviv/etnaviv_gpu.c
-index 03075f289c69..2af1af33287a 100644
---- a/drivers/gpu/drm/etnaviv/etnaviv_gpu.c
-+++ b/drivers/gpu/drm/etnaviv/etnaviv_gpu.c
-@@ -506,6 +506,80 @@ static void etnaviv_gpu_load_clock(struct etnaviv_gpu *gpu, u32 clock)
- 	gpu_write(gpu, VIVS_HI_CLOCK_CONTROL, clock);
- }
- 
-+static void etnaviv_gpu_record_clock(struct etnaviv_gpu *gpu, u32 flags,
-+				     u64 begin_ns, u64 end_ns,
-+				     unsigned long rate)
-+{
-+	spin_lock(&gpu->clock_lock);
-+	gpu->clock_seq++;
-+	gpu->clock_records[gpu->clock_seq % ETNA_NR_CLOCK_RECORDS] =
-+		(struct drm_etnaviv_clock_record){
-+			.begin_ns = begin_ns,
-+			.end_ns = end_ns,
-+			.rate = rate,
-+			.seq = gpu->clock_seq,
-+			.flags = flags,
-+		};
-+	spin_unlock(&gpu->clock_lock);
-+}
-+
-+static u64 etnaviv_gpu_clock_oldest(u64 last)
-+{
-+	if (last > ETNA_NR_CLOCK_RECORDS)
-+		return last - ETNA_NR_CLOCK_RECORDS + 1;
-+
-+	return 1;
-+}
-+
-+int etnaviv_gpu_clock_history(struct etnaviv_gpu *gpu,
-+			      struct drm_etnaviv_clock_history *args)
-+{
-+	u64 last, start;
-+	u32 size, n = 0, i;
-+
-+	if (args->flags)
-+		return -EINVAL;
-+
-+	/* records can grow, a reader gets the part of each one it knows */
-+	if (args->record_size <
-+	    offsetofend(struct drm_etnaviv_clock_record, pad))
-+		return -EINVAL;
-+	size = min_t(u32, args->record_size,
-+		     sizeof(struct drm_etnaviv_clock_record));
-+
-+	spin_lock(&gpu->clock_lock);
-+	last = gpu->clock_seq;
-+	spin_unlock(&gpu->clock_lock);
-+
-+	if (args->since_seq < last) {
-+		start = max(args->since_seq + 1, etnaviv_gpu_clock_oldest(last));
-+		n = min_t(u64, last - start + 1, args->count);
-+	}
-+
-+	for (i = 0; i < n; i++) {
-+		void __user *dst = u64_to_user_ptr(args->records +
-+						   (u64)i * args->record_size);
-+		struct drm_etnaviv_clock_record record;
-+
-+		spin_lock(&gpu->clock_lock);
-+		record = gpu->clock_records[(start + i) % ETNA_NR_CLOCK_RECORDS];
-+		spin_unlock(&gpu->clock_lock);
-+
-+		/* overwritten since clock_seq was read */
-+		if (record.seq != start + i)
-+			break;
-+
-+		if (copy_to_user(dst, &record, size))
-+			return -EFAULT;
-+	}
-+
-+	args->count = i;
-+	args->record_size = size;
-+	args->last_seq = last;
-+
-+	return 0;
-+}
-+
- /* begin_ns is when the switch, or the restart that includes it, began */
- static void etnaviv_gpu_update_clock(struct etnaviv_gpu *gpu, u32 flags,
- 				     u64 begin_ns)
-@@ -538,6 +612,8 @@ static void etnaviv_gpu_update_clock(struct etnaviv_gpu *gpu, u32 flags,
- 
- 	/* a resume or reset that keeps the rate is not worth a report */
- 	if (scaled || rate_before != gpu->core_rate) {
-+		etnaviv_gpu_record_clock(gpu, flags, begin_ns, end_ns,
-+					 gpu->core_rate);
- 		trace_etnaviv_gpu_clock_change(gpu->dev, flags, begin_ns,
- 					       end_ns, rate_before,
- 					       gpu->core_rate);
-@@ -2008,8 +2084,15 @@ static int etnaviv_gpu_platform_probe(struct platform_device *pdev)
- 
- 	gpu->dev = dev;
- 	mutex_init(&gpu->lock);
-+	spin_lock_init(&gpu->clock_lock);
- 	mutex_init(&gpu->sched_lock);
- 
-+	gpu->clock_records = devm_kcalloc(dev, ETNA_NR_CLOCK_RECORDS,
-+					  sizeof(*gpu->clock_records),
-+					  GFP_KERNEL);
-+	if (!gpu->clock_records)
-+		return -ENOMEM;
-+
- 	/* Map registers: */
- 	gpu->mmio = devm_platform_ioremap_resource(pdev, 0);
- 	if (IS_ERR(gpu->mmio))
-diff --git a/drivers/gpu/drm/etnaviv/etnaviv_gpu.h b/drivers/gpu/drm/etnaviv/etnaviv_gpu.h
-index c8d537c3dee7..ac619f3020bb 100644
---- a/drivers/gpu/drm/etnaviv/etnaviv_gpu.h
-+++ b/drivers/gpu/drm/etnaviv/etnaviv_gpu.h
-@@ -96,6 +96,7 @@ struct clk;
- struct reset_control;
- 
- #define ETNA_NR_EVENTS 30
-+#define ETNA_NR_CLOCK_RECORDS 256
- 
- enum etnaviv_gpu_state {
- 	ETNA_GPU_STATE_UNKNOWN = 0,
-@@ -168,6 +169,11 @@ struct etnaviv_gpu {
- 	unsigned long base_rate_core;
- 	unsigned long core_rate;
- 	unsigned long base_rate_shader;
-+
-+	/* protects clock_seq and clock_records */
-+	spinlock_t clock_lock;
-+	u64 clock_seq;
-+	struct drm_etnaviv_clock_record *clock_records;
- };
- 
- static inline void gpu_write(struct etnaviv_gpu *gpu, u32 reg, u32 data)
-@@ -237,4 +243,7 @@ void etnaviv_gpu_start_fe(struct etnaviv_gpu *gpu, u32 address, u16 prefetch);
- 
- extern struct platform_driver etnaviv_gpu_driver;
- 
-+int etnaviv_gpu_clock_history(struct etnaviv_gpu *gpu,
-+			      struct drm_etnaviv_clock_history *args);
-+
- #endif /* __ETNAVIV_GPU_H__ */
-diff --git a/include/uapi/drm/etnaviv_drm.h b/include/uapi/drm/etnaviv_drm.h
-index 83c58d94d36b..2f039836e7a9 100644
---- a/include/uapi/drm/etnaviv_drm.h
-+++ b/include/uapi/drm/etnaviv_drm.h
-@@ -284,6 +284,45 @@ struct drm_etnaviv_pm_signal {
- #define ETNA_CLOCK_RESET               0x0002
- #define ETNA_CLOCK_BUSY                0x0004
- 
-+/*
-+ * The kernel also records the clock changes. The switch happens between
-+ * begin_ns and end_ns. For RESUME and RESET the window covers the whole
-+ * restart, from before the first reset attempt or the clock enable. That
-+ * is wider than needed, but no job runs in it.
-+ *
-+ * The first record is written when the GPU is initialized after it is
-+ * bound. So a GPU has at least one record, unless its core clock rate is
-+ * unknown.
-+ *
-+ * DRM_IOCTL_ETNAVIV_CLOCK_HISTORY returns the records after since_seq, oldest
-+ * first. It can return fewer than requested even if more exist, call it again
-+ * until the last returned seq reaches last_seq. A reader that fell behind
-+ * sees a gap between since_seq and the first seq returned.
-+ *
-+ * record_size is the stride of the records array and at least the size of
-+ * the record below. So that the record can grow, the kernel writes the
-+ * smaller of record_size and its own record size to each element and returns
-+ * that size in record_size.
-+ */
-+struct drm_etnaviv_clock_record {
-+	__u64 begin_ns;    /* CLOCK_MONOTONIC right before the switch */
-+	__u64 end_ns;      /* CLOCK_MONOTONIC right after the switch */
-+	__u64 rate;        /* core clock rate after the switch, in Hz */
-+	__u64 seq;         /* increments by one per record, starts at 1 */
-+	__u32 flags;       /* ETNA_CLOCK_x */
-+	__u32 pad;         /* out, zero */
-+};
-+
-+struct drm_etnaviv_clock_history {
-+	__u32 pipe;        /* in */
-+	__u32 count;       /* in, capacity of records, out, records returned */
-+	__u32 record_size; /* in, stride of records, out, bytes written each */
-+	__u32 flags;       /* in, must be zero */
-+	__u64 since_seq;   /* in, return records with seq > since_seq */
-+	__u64 last_seq;    /* out, newest record */
-+	__u64 records;     /* in, pointer to struct drm_etnaviv_clock_record */
-+};
-+
- #define DRM_ETNAVIV_GET_PARAM          0x00
- /* placeholder:
- #define DRM_ETNAVIV_SET_PARAM          0x01
-@@ -298,7 +337,8 @@ struct drm_etnaviv_pm_signal {
- #define DRM_ETNAVIV_GEM_WAIT           0x09
- #define DRM_ETNAVIV_PM_QUERY_DOM       0x0a
- #define DRM_ETNAVIV_PM_QUERY_SIG       0x0b
--#define DRM_ETNAVIV_NUM_IOCTLS         0x0c
-+#define DRM_ETNAVIV_CLOCK_HISTORY      0x0c
-+#define DRM_ETNAVIV_NUM_IOCTLS         0x0d
- 
- #define DRM_IOCTL_ETNAVIV_GET_PARAM    DRM_IOWR(DRM_COMMAND_BASE + DRM_ETNAVIV_GET_PARAM, struct drm_etnaviv_param)
- #define DRM_IOCTL_ETNAVIV_GEM_NEW      DRM_IOWR(DRM_COMMAND_BASE + DRM_ETNAVIV_GEM_NEW, struct drm_etnaviv_gem_new)
-@@ -311,6 +351,7 @@ struct drm_etnaviv_pm_signal {
- #define DRM_IOCTL_ETNAVIV_GEM_WAIT     DRM_IOW(DRM_COMMAND_BASE + DRM_ETNAVIV_GEM_WAIT, struct drm_etnaviv_gem_wait)
- #define DRM_IOCTL_ETNAVIV_PM_QUERY_DOM DRM_IOWR(DRM_COMMAND_BASE + DRM_ETNAVIV_PM_QUERY_DOM, struct drm_etnaviv_pm_domain)
- #define DRM_IOCTL_ETNAVIV_PM_QUERY_SIG DRM_IOWR(DRM_COMMAND_BASE + DRM_ETNAVIV_PM_QUERY_SIG, struct drm_etnaviv_pm_signal)
-+#define DRM_IOCTL_ETNAVIV_CLOCK_HISTORY DRM_IOWR(DRM_COMMAND_BASE + DRM_ETNAVIV_CLOCK_HISTORY, struct drm_etnaviv_clock_history)
- 
- #if defined(__cplusplus)
- }
+This is related to the previous issue and also not worth fixing since
+the resume is unlikely to fail, as I explained above.
 
 -- 
-2.56.0
-
+Thanks,
+Laurentiu
