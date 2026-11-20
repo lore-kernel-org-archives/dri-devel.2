@@ -2,130 +2,52 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 52592606A339
-	for <dri-devel@archiver.kernel.org>; Fri, 20 Nov 2026 13:48:34 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 723FC60A3832
+	for <dri-devel@archiver.kernel.org>; Fri, 20 Nov 2026 13:56:42 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=posteo.de header.i=@posteo.de header.a=rsa-sha256 header.s=1984.8680eb header.b=clo/BOoQ
+	dkim=pass (1024-bit key) header.d=ideasonboard.com header.i=@ideasonboard.com header.a=rsa-sha256 header.s=mail header.b=WjSiwlRP
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id B995610E8FE;
-	Fri, 20 Nov 2026 13:48:28 +0000 (UTC)
-X-Greylist: delayed 432 seconds by postgrey-1.36 at gabe;
- Fri, 20 Nov 2026 13:48:21 UTC
-Received: from mout01.posteo.de (mout01.posteo.de [185.67.36.65])
- by gabe.freedesktop.org (Postfix) with ESMTPS id F334C10E90A
- for <dri-devel@lists.freedesktop.org>; Fri, 20 Nov 2026 13:48:21 +0000 (UTC)
-Received: from submission (posteo.de [185.67.36.169]) 
- by mout01.posteo.de (Postfix) with ESMTPS id 878A8240027
- for <dri-devel@lists.freedesktop.org>; Fri, 20 Nov 2026 14:41:06 +0100 (CET)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=posteo.de;
- s=1984.8680eb; t=1795182066;
- bh=YW4oRhO1MuXRHyeWQ9Lx5ixnye7cuXD9in5rMS24y2A=;
- h=Message-ID:Subject:From:To:Cc:Date:Autocrypt:Content-Type:
- MIME-Version:OpenPGP:From;
- b=clo/BOoQev9GVZ/nJoQIFvi7wZiixcxpmk11sW0SYY+s3fd1zmWJH5gHuX9aDQYXe
- FDAqiHZqWgp1rDqxGYwk2ueaL/VWGhSa7ZcLEqgRcvV6TeprQBrd2Pd48uK9E+Itzt
- 4rXjKaaWFWTI7I3d7ny9S5mKhAeep+6soQJgyeY6215aVJDhiCg01GgZhEbxJefEva
- xcgRTYfoWLN3AVT4TQbUtYLvXNHJFklIgu/neh+1p3gaCTRcxG0NO7unKf1c9Ix50u
- pv0jbKzwGr7Vuf8tDuIv3UPeu5NStBiwJNIKWqAiGqPqZhAd5Sd2PAF7w6cSN/9vzZ
- tNjVxUT1AX8qQ==
-Received: from customer (localhost [127.0.0.1])
- by submission (posteo.de) with ESMTPSA id 4jWGgr36MZz6tyT;
- Fri, 20 Nov 2026 14:40:56 +0100 (CET)
-Message-ID: <e4c77581b1c09f8e0c8be570283f653a2a7e2147.camel@posteo.de>
-Subject: Re: [PATCH v22 4/5] rust: rename `AlwaysRefCounted` to `RefCounted`
-From: Markus Probst <markus.probst@posteo.de>
-To: Andreas Hindborg <a.hindborg@kernel.org>, Danilo Krummrich
- <dakr@kernel.org>,  Lorenzo Stoakes	 <ljs@kernel.org>, Vlastimil Babka
- <vbabka@kernel.org>, "Liam R. Howlett"	 <liam@infradead.org>, Uladzislau
- Rezki <urezki@gmail.com>, Miguel Ojeda	 <ojeda@kernel.org>, Boqun Feng
- <boqun@kernel.org>, Gary Guo <gary@garyguo.net>,  =?ISO-8859-1?Q?Bj=F6rn?=
- Roy Baron	 <bjorn3_gh@protonmail.com>, Benno Lossin <lossin@kernel.org>,
- Alice Ryhl	 <aliceryhl@google.com>, Trevor Gross <tmgross@umich.edu>,
- Daniel Almeida	 <daniel.almeida@collabora.com>, Tamir Duberstein
- <tamird@kernel.org>,  Alexandre Courbot <acourbot@nvidia.com>, Onur
- =?ISO-8859-1?Q?=D6zkan?= <work@onurozkan.dev>, Lyude Paul	
- <lyude@redhat.com>, Greg Kroah-Hartman <gregkh@linuxfoundation.org>, 
- Christian Brauner	 <brauner@kernel.org>, "Rafael J. Wysocki"
- <rafael@kernel.org>, Dave Ertman	 <david.m.ertman@intel.com>, Leon
- Romanovsky <leon@kernel.org>, Paul Moore	 <paul@paul-moore.com>, Serge
- Hallyn <sergeh@kernel.org>, David Airlie	 <airlied@gmail.com>, Simona
- Vetter <simona@ffwll.ch>, Alexander Viro	 <viro@zeniv.linux.org.uk>, Jan
- Kara <jack@suse.cz>, Igor Korotin	 <igor.korotin@linux.dev>, Viresh Kumar
- <vireshk@kernel.org>, Nishanth Menon	 <nm@ti.com>, Stephen Boyd
- <sboyd@kernel.org>, Bjorn Helgaas <bhelgaas@google.com>,  Krzysztof
- =?UTF-8?Q?Wilczy=C5=84ski?=	 <kwilczynski@kernel.org>, Pavel Tikhomirov
- <ptikhomirov@virtuozzo.com>,  Michal Wilczynski <m.wilczynski@samsung.com>,
- Ira Weiny <iweiny@kernel.org>, Matthew Brost <matthew.brost@intel.com>, 
- Thomas =?ISO-8859-1?Q?Hellstr=F6m?=	 <thomas.hellstrom@linux.intel.com>,
- Johan Hovold <johan@kernel.org>, Sumit Semwal <sumit.semwal@linaro.org>,
- Christian =?ISO-8859-1?Q?K=F6nig?= <christian.koenig@amd.com>,  Dave Jiang
- <dave.jiang@intel.com>, Jason Gunthorpe <jgg@ziepe.ca>, Saeed Mahameed
- <saeedm@nvidia.com>,  Zhi Wang <zhiw@nvidia.com>, Jonathan Cameron
- <jic23@kernel.org>
-Cc: Philipp Stanner <phasta@kernel.org>, rust-for-linux@vger.kernel.org, 
- linux-kernel@vger.kernel.org, linux-mm@kvack.org,
- driver-core@lists.linux.dev, 	linux-block@vger.kernel.org,
- linux-security-module@vger.kernel.org, 	dri-devel@lists.freedesktop.org,
- linux-fsdevel@vger.kernel.org, 	linux-pm@vger.kernel.org,
- linux-pci@vger.kernel.org, linux-pwm@vger.kernel.org, 
- linux-usb@vger.kernel.org, linux-media@vger.kernel.org, 
- linaro-mm-sig@lists.linaro.org, linux-serial@vger.kernel.org, Oliver
- Mangold	 <oliver.mangold@pm.me>, Viresh Kumar <viresh.kumar@linaro.org>,
- Uwe =?ISO-8859-1?Q?Kleine-K=F6nig?=	 <ukleinek@kernel.org>
-Date: Fri, 20 Nov 2026 13:41:05 +0000
-In-Reply-To: <20261116-unique-ref-v22-4-12029383206d@kernel.org>
-References: <20261116-unique-ref-v22-0-12029383206d@kernel.org>
- <20261116-unique-ref-v22-4-12029383206d@kernel.org>
-Autocrypt: addr=markus.probst@posteo.de; prefer-encrypt=mutual;
- keydata=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
- jfGillcaQOqFZ3WwVqyzG1BUfTow==
-Content-Type: multipart/signed; micalg="pgp-sha256";
- protocol="application/pgp-signature"; boundary="=-1bC6az0UrhT7nf2a398O"
+	by gabe.freedesktop.org (Postfix) with ESMTP id DD9D910E907;
+	Fri, 20 Nov 2026 13:56:36 +0000 (UTC)
+Received: from perceval.ideasonboard.com (perceval.ideasonboard.com
+ [213.167.242.64])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 19D2210E907
+ for <dri-devel@lists.freedesktop.org>; Fri, 20 Nov 2026 13:56:30 +0000 (UTC)
+Received: from [192.168.88.20] (91-158-153-178.elisa-laajakaista.fi
+ [91.158.153.178])
+ by perceval.ideasonboard.com (Postfix) with ESMTPSA id 600C94E6;
+ Fri, 20 Nov 2026 14:53:57 +0100 (CET)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=ideasonboard.com;
+ s=mail; t=1795182838;
+ bh=Aar6XZczj/4btUv+pjLkVDhGtVoJXtRsa+7PZSfK/vQ=;
+ h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
+ b=WjSiwlRPN5GTQ+4eWSR1eK2LcBuiAy779feehu9+FUTGvJycfCjcK6MruVBUKIPdI
+ 5bbFSa7fShPG8lTS1taz/aCKyP+UVwTDuN9TxyHFJNj3XRNg1m2DYoM5vHgAYRUz7P
+ nYzTATGTYuA9hJ99ynhQ6lF5C3CXZ8MufzWGBdmc=
+Message-ID: <e40cd28f-eb52-4205-a799-8340b59c0a60@ideasonboard.com>
+Date: Fri, 20 Nov 2026 15:56:24 +0200
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
-OpenPGP: url=https://posteo.de/keys/markus.probst@posteo.de.asc;
- preference=encrypt
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v3] drm/bridge: cdns-mhdp8546: Add suspend resume support
+ to the bridge driver
+To: Benjamin Robin <benjamin.robin@bootlin.com>,
+ "Kumar, Abhash" <a-kumar2@ti.com>
+Cc: linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org,
+ Laurent.pinchart@ideasonboard.com, jonas@kwiboo.se,
+ jernej.skrabec@gmail.com, s-jain1@ti.com, y-d@ti.com,
+ andrzej.hajda@intel.com, neil.armstrong@linaro.org, rfoss@kernel.org,
+ mripard@kernel.org, tzimmermann@suse.de, airlied@gmail.com, simona@ffwll.ch,
+ devarsht@ti.com, u-kumar1@ti.com, sjakhade@cadence.com
+References: <20260601095041.3042950-1-a-kumar2@ti.com>
+ <f1089720-2a8e-4f0f-b995-fc7ef0836da0@ti.com>
+ <73ebfed6-a3ad-4134-a8b9-d17213442fa9@ideasonboard.com>
+ <oN6DWNeSTbeo_5NexR3j3A@bootlin.com>
+From: Tomi Valkeinen <tomi.valkeinen@ideasonboard.com>
+Content-Language: en-US
+In-Reply-To: <oN6DWNeSTbeo_5NexR3j3A@bootlin.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -137,80 +59,170 @@ List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-10.8 required=3.0 tests=BAYES_00,DKIM_SIGNED,
+X-Spam-Status: No, score=-7.3 required=3.0 tests=BAYES_00,DKIM_SIGNED,
 	DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
-	INCLUDES_CR_TRAILER,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS
-	autolearn=unavailable autolearn_force=no version=4.0.1
+	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,USER_AGENT_SANE_1
+	autolearn=no autolearn_force=no version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
+Hi,
 
---=-1bC6az0UrhT7nf2a398O
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+On 20/11/2026 15:11, Benjamin Robin wrote:
+> On Wednesday, October 14, 2026 at 3:25 PM, Tomi Valkeinen wrote:
+>> Hi,
+>>
+>> On 06/10/2026 11:49, Kumar, Abhash wrote:
+>>> Hi,
+>>>
+>>> On 10/1/2026 1:10 PM, Tomi Valkeinen wrote:
+>>>> Hi,
+>>>>
+>>>> On 29/06/2026 13:32, abhash wrote:
+>>>>>
+>>>>> Hi Tomi,
+>>>>>
+>>>>> Thanks for the review.
+>>>>>
+>>>>> On 18/06/26 14:19, Tomi Valkeinen wrote:
+>>>>>> Hi,
+>>>>>>
+>>>>>> On 01/06/2026 12:50, Abhash Kumar Jha wrote:
+>>>>>>> Add system suspend and resume hooks to the cdns-mhdp8546 bridge
+>>>>>>> driver.
+>>>>>>>
+>>>>>>> While resuming we either load the firmware or activate it. Firmware
+>>>>>>> is loaded only when resuming from a successful suspend-resume cycle.
+>>>>>>
+>>>>>> It's not clear from the patch if this is a fix or improvement. It
+>>>>>> sounds a bit like a fix, but it doesn't mention any kind of issue in
+>>>>>> the driver. So, why is this patch needed?
+>>>>>
+>>>>> The driver lacked support for suspend-resume as stated in the todo on
+>>>>> the driver, So the patch adds this improvement.
+>>>>
+>>>> The patch doesn't remove any todo lines. Was that just a miss, or is
+>>>> there more to add wrt. PM?
+>>> Yeah, i will remove the TODO in the next revision.
+>>>>
+>>>> What does it mean it didn't support PM? Does the driver not work after
+>>>> suspend-resume cycle? Or does the driver prevent a proper suspend?
+>>>
+>>> When we resume, the cdns_mhdp_link_up function fails.
+>>>
+>>> Failure log at resume:
+>>>
+>>> [  55.329452] tidss 4a00000.dss: PM: calling tidss_resume [tidss] @
+>>> 1053, parent: bus@100000
+>>>
+>>> [ 183.381228] cdns-mhdp8546 a000000.bridge: Failed to read receiver
+>>> capabilities
+>>>
+>>> [ 191.391548] cdns-mhdp8546 a000000.bridge: get block[0] edid failed: -110
+>>>
+>>> [ 193.392713] cdns-mhdp8546 a000000.bridge: Failed to read register
+>>>
+>>> [ 261.415544] cdns-mhdp8546 a000000.bridge: Failed to read register
+>>>
+>>> [ 263.946153] tidss 4a00000.dss: Timeout waiting for framedone on crtc 0
+>>>
+>>> [ 391.991358] cdns-mhdp8546 a000000.bridge: Failed to read receiver
+>>> capabilities
+>>>
+>>> [ 392.026847] tidss 4a00000.dss: PM: tidss_resume [tidss] returned 0
+>>> after 336689133 usecs
+>>>
+>>> I guess it is fair to say that the driver does not work after suspend-
+>>> resume cycle.
+>>>
+>>>>>>> If resuming due to an aborted suspend, loading the firmware is not
+>>>>>>> possible because the uCPU's IMEM is only accessible after a reset
+>>>>>>> and the
+>>>>>>> bridge has not gone through a reset in this case. Hence, Activate the
+>>>>>>> firmware that is already loaded.
+>>>>>>>
+>>>>>>> Use genpd_notifier to get the power domain status of the bridge and
+>>>>>>> accordingly load the firmware.
+>>>>>>>
+>>>>>>> Additionally, introduce phy_power_off/on to control the power to
+>>>>>>> the phy.
+>>>>>>
+>>>>>> If you write "also" or "additionally" or such in a commit desc, you
+>>>>>> should stop and think if that part should actually be a separate
+>>>>>> patch. Also, why is that change needed?
+>>>>>
+>>>>> The phy device could be powered off while resuming. So we are
+>>>>> explicitly powering it on.
+>>>>>
+>>>>> The phy driver api also recommends to always call phy_init() first
+>>>>> followed by a phy_power_on().
+>>>>>
+>>>>> "Some PHY drivers may not implement `phy_init` or `phy_power_on`, but
+>>>>> controllers should always call these functions to be compatible with
+>>>>> other PHYs"
+>>>>
+>>>> It still sounds like a separate patch to me: the current driver is
+>>>> missing phy_power_on/off from the probe/remove functions.
+>>>>
+>>> I will add that as a separate patch
+>>>>>> Overall, this sounds fragile/hacky to me.
+>>>>>>
+>>>>>> The first thing is that usually you shouldn't use system suspend/
+>>>>>> resume in a bridge driver. When a system suspend happend, the
+>>>>>> display pipeline will be disabled, so this driver will get an
+>>>>>> atomic_disable() call, and enable when resuming. You can use runtime
+>>>>>> PM hooks if you need resume/suspend hooks.
+>>>>>>
+>>>>> Thanks for the suggestion, I will use the runtime PM instead.
+>>>>>
+>>>>>> The second thing is the PD notifier. Is there really no way we can
+>>>>>> see the state from the MDHP IP registers?
+>>>>>
+>>>>> The other way that i found was to read the MHDP KEEP_ALIVE_p register
+>>>>> twice to know if the firmware is incrementing the counter.
+>>>>>
+>>>>> Based on that we can decide if the bridge is active or not. Do you
+>>>>> think this approach would be okay over the PD notifier?
+>>>> I think it would be best to be able somehow to ask this from the HW to
+>>>> find the true state, instead of guessing it second hand from the PD
+>>>> notifier (which also doesn't tell us the initial HW state at probe).
+>>>>
+>>>> KEEP_ALIVE_p sounds fine. Or what does the mdhp IP do if you send a
+>>>> message to the firmware when it's not up? Say, if you always do
+>>>> cdns_mhdp_set_firmware_active, what happens if the FW has not been
+>>>> loaded? I would guess that there's a timeout, and that could be used
+>>>> to find out the FW is not up.
+>>>>
+>>> Yes, there is a 2 second timeout if we send a message and the firmware
+>>> is not up. I would prefer the KEEP_ALIVE_p method, as that is a better
+>>> indication of the
+>>
+>> But that's a driver imposed timeout, and it sounds rather arbitrary (and
+>> bad). How quickly does the firmware usually reply? What would be the
+>> situation where the firmware takes e.g. 1.5s to reply? I would guess
+>> that if the FW updates the KEEP_ALIVE_p every N us, it would also reply
+>> to us in that time.
+>>
+>> In any case, changing MAILBOX_TIMEOUT_US would be another patch.
+>> KEEP_ALIVE_p sounds fine if you know how often the FW updates it.
+>>
+>>    Tomi
+> 
+> Hi,
+> 
+> I wanted to check on the status of this series, as I'm quite interested
+> in it since my series [1] depends on it.
+> 
+> For my use case, the suspend/resume support isn't essential, but the
+> calls to phy_power_on() and phy_power_off() are.
+> 
+> Thanks for any update.
+> 
+> [1] https://lore.kernel.org/all/20261120-phy-cadence-torrent-ng-v1-0-da2db7125cd7@bootlin.com/T/
+> 
 
-On Mon, 2026-11-16 at 15:21 +0100, Andreas Hindborg wrote:
-> From: Oliver Mangold <oliver.mangold@pm.me>
->=20
-> There are types where it may both be reference counted in some cases and
-> owned in others. For such types, obtaining an `ARef<T>` from a `&T` may b=
-e
-> unsound, as it allows creation of an `ARef<T>` from a `&Owned<T>`.
->=20
-> Therefore, we split `AlwaysRefCounted` into `RefCounted` (which `ARef<T>`
-> would require) and a marker trait to indicate that the `&T` -> `ARef<T>`
-> conversion is sound for the type. A type that implements `Ownable` may
-> only implement the marker trait if it allows an `ARef<T>` to exist
-> together with an `Owned<T>`.
->=20
-> - Rename `AlwaysRefCounted` to `RefCounted`.
-> - Add a new unsafe trait `AlwaysRefCounted`.
-> - Implement the new trait `AlwaysRefCounted` for the newly renamed
->   `RefCounted` implementations. This leaves functionality of existing
->   implementers of `AlwaysRefCounted` intact.
->=20
-> Suggested-by: Alice Ryhl <aliceryhl@google.com>
-> Signed-off-by: Oliver Mangold <oliver.mangold@pm.me>
-> [ Andreas: Updated commit message, rebased on v7.4-rc2, converted new
->   implementers, relaxed the `ForeignOwnable` bound for `ARef<T>`, updated
->   safety comments. ]
-> Acked-by: Igor Korotin <igor.korotin.linux@gmail.com>
-> Acked-by: Danilo Krummrich <dakr@kernel.org>
-> Acked-by: Viresh Kumar <viresh.kumar@linaro.org>
-> Co-developed-by: Andreas Hindborg <a.hindborg@kernel.org>
-> Signed-off-by: Andreas Hindborg <a.hindborg@kernel.org>
-> Acked-by: Uwe Kleine-K=C3=B6nig <ukleinek@kernel.org> # for pwm.rs
+Yep, it could as well be sent separately. Abhash, are you working on 
+this still? Can you send the phy power on/off as a separate patch.
 
-I haven't unterstood yet what use case this has, so I am trusting the
-other ACKs here. Maybe a precise example would help?
+  Tomi
 
-For serdev:
-
-Acked-by: Markus Probst <markus.probst@posteo.de>
-
-Thanks
-- Markus Probst
-
---=-1bC6az0UrhT7nf2a398O
-Content-Type: application/pgp-signature; name="signature.asc"
-Content-Description: This is a digitally signed message part
-
------BEGIN PGP SIGNATURE-----
-
-iQJPBAABCAA5FiEEgnQYxPSsWOdyMMRzNHYf+OetQ9IFAmsATecbFIAAAAAABAAO
-bWFudTIsMi41KzEuMTIsMiwyAAoJEDR2H/jnrUPSANQP/R1hB8C5F3mypETYwCgo
-/31OX6ODiCHu568feU0OwqqnH1gKua6thOPxdUzO4oz9uHEvJOy9k0pAUuqhIoUR
-cwWGFajvqbq0iEcbMMls3ezTo63QhALeYKpaK+p4wCU6HqazGDnsTiqXqIBnSMFF
-/zhMCLHxApAYueLhRzmTe9z4DIEhOaUdcOowPIV35HlxhghSQZ/uaZclBwv6h+xn
-PDpQAKnR2JxW4CcyT1Fm62hItTX+Djvef/Q6aac3xdMq1JSPlsbNUlThWsY+EjbX
-eBTAO766WENw3Hw3SxnX/pcUQwUVsRa3bxxgBxSfwZtm6nSfhxmBzAHsiR7aA4wq
-hrI46P32JW6WcL+jToQJC/QjQienV9rV/QTWrfp83Z59ce3lL43XtMlofu0EoK6W
-IWoX/O4IoSM3YDlzHsSYGQR7KG+VGDXyJAb6HhVyNdMTiegz8UxWwYqGviS9mTON
-a3YA8htdMngXmkwT5CQKhsNbS0sLqGb3nDrqmLV2hSDpjGkdUe86bahObcVCXonf
-7Gdl1/15c46K0QRbEf7q5kgreejRoLqFdi2eyw406ruUxE7Bd71t9faF5zWzaJRK
-ewr2s+IremZr522ABFhIX0SFkqu1sPzXqNLKXQa5fz5XxTh6jQziddGf3Q2z71dB
-79I2PETkcl5NqkNBz+UkmsCH
-=iSw7
------END PGP SIGNATURE-----
-
---=-1bC6az0UrhT7nf2a398O--
