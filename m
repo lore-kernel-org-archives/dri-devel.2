@@ -2,41 +2,41 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 11F2460A6F61
-	for <dri-devel@archiver.kernel.org>; Fri, 20 Nov 2026 18:04:41 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 09A9860A2605
+	for <dri-devel@archiver.kernel.org>; Fri, 20 Nov 2026 18:04:47 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.a=rsa-sha256 header.s=dkim header.b=GOmfKRR3
+	dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.a=rsa-sha256 header.s=dkim header.b=sN+nNroC
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 61ED0112C66;
-	Fri, 20 Nov 2026 18:04:35 +0000 (UTC)
-Received: from smtpout-02.galae.net (smtpout-02.galae.net [185.246.84.56])
- by gabe.freedesktop.org (Postfix) with ESMTPS id BE9DE112C6C
- for <dri-devel@lists.freedesktop.org>; Fri, 20 Nov 2026 18:04:25 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 25F17112C6C;
+	Fri, 20 Nov 2026 18:04:41 +0000 (UTC)
+Received: from smtpout-03.galae.net (smtpout-03.galae.net [185.246.85.4])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id D062E112C66
+ for <dri-devel@lists.freedesktop.org>; Fri, 20 Nov 2026 18:04:29 +0000 (UTC)
 Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
- by smtpout-02.galae.net (Postfix) with ESMTPS id 918671A1756;
- Fri, 20 Nov 2026 18:04:24 +0000 (UTC)
+ by smtpout-03.galae.net (Postfix) with ESMTPS id 8EB304E4168F;
+ Fri, 20 Nov 2026 18:04:28 +0000 (UTC)
 Received: from mail.galae.net (mail.galae.net [212.83.136.155])
- by smtpout-01.galae.net (Postfix) with ESMTPS id 60EA3601B9;
- Fri, 20 Nov 2026 18:04:24 +0000 (UTC)
+ by smtpout-01.galae.net (Postfix) with ESMTPS id 5B3CA601B9;
+ Fri, 20 Nov 2026 18:04:28 +0000 (UTC)
 Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon)
- with ESMTPSA id E5DB711BC0990; Fri, 20 Nov 2026 19:04:18 +0100 (CET)
+ with ESMTPSA id D9A8611BC08D7; Fri, 20 Nov 2026 19:04:22 +0100 (CET)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
- t=1795197862; h=from:subject:date:message-id:to:cc:mime-version:content-type:
+ t=1795197866; h=from:subject:date:message-id:to:cc:mime-version:content-type:
  content-transfer-encoding:in-reply-to:references;
- bh=VxvB3jeuaoZKF1Y80P48kAyWqaNMXNm9heNN4Bt5VPQ=;
- b=GOmfKRR39uEh79nQ5VS7qxRSBn53MS3obcc3+ILYBXYavhK6fZVFJzdiXXTQnC3ZFqR9Os
- lhPQJTCZ1xSH0Z7uqvK9iz6hiCgHIT1i8xgQlgs/sOGk+xuqkIFoSKdNtscbmdLF3P0+hR
- +UXry6+inwRL4eFQwAwhNjWgG5vOOykhPMl/FNxthyLuNmn5ukp+kZYniEn3BoI2RTsod/
- d/BjuJ9qrYtl0GYOJP/ij5n/l9izRHrcj4KpijAg6yoKTydsxr0rPuF1jzQNV1yGUfg/v7
- I8hrYnXDGsBChhdY0ccygLeYtiJFOgk6nzVT3eoDufoDLri8a+2pumA3v3qCZg==
+ bh=NS3cLlAdqPNMuJ+QKGV0OCOJEdwO55+ni17yKX+sznU=;
+ b=sN+nNroCx3hOQl3nBvB0VFQvtdEmFRbARnZGZ6FCHrTuxMf0CFPfs3Sf9CD0f7tSmoxHgG
+ FJl4NvUnqGeRb/blKM00DgNB0KjgSUuxLD3GRbDYhhwthzMtOGmqAGGJ45yqwoHCN4Uia/
+ +8mepXG4ylvmsX0wh0o7sSLERvOLOgKiuv7LRuEZRSxa4gefLjTMLpmpC/KdR35ehcfAn1
+ A1Rq27b106cpInyGEDv8tCgi0UG0kG1XyLfX8Rib6cYH/Gl2WBG9b71MLRO+HBaIXoiMtB
+ KKBrKbPauM+xrslTRItR+Wu3VqkbcK1Xc89kuWPTDK4XjaiusYiYhRp91brGAg==
 From: Louis Chauvet <louis.chauvet@bootlin.com>
-Date: Fri, 20 Nov 2026 18:59:01 +0100
-Subject: [PATCH v6 19/43] drm/vkms: Use plane folder name as plane name
+Date: Fri, 20 Nov 2026 18:59:02 +0100
+Subject: [PATCH v6 20/43] drm/vkms: Introduce config for plane rotation
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20261120-vkms-all-config-v6-19-78ace90f4fc1@bootlin.com>
+Message-Id: <20261120-vkms-all-config-v6-20-78ace90f4fc1@bootlin.com>
 References: <20261120-vkms-all-config-v6-0-78ace90f4fc1@bootlin.com>
 In-Reply-To: <20261120-vkms-all-config-v6-0-78ace90f4fc1@bootlin.com>
 To: Haneen Mohammed <hamohammed.sa@gmail.com>, 
@@ -62,21 +62,21 @@ Cc: Luca Ceresoli <luca.ceresoli@bootlin.com>,
  linux-doc@vger.kernel.org, Simona Vetter <simona.vetter@ffwll.ch>, 
  llvm@lists.linux.dev
 X-Mailer: b4 0.17-dev
-X-Developer-Signature: v=1; a=openpgp-sha256; l=1728;
+X-Developer-Signature: v=1; a=openpgp-sha256; l=11621;
  i=louis.chauvet@bootlin.com; h=from:subject:message-id;
- bh=LDiCl7pqKtJMqRvE3mr2TEpnty9XeoWtToOQc8swqm0=;
- b=owEBiQJ2/ZANAwAIASCtLsZbECziAcsmYgBrAIr/uT/GiwWpk9F0PAnSY9Ce57lQHeRWwPXcU
- staq7AylL+JAk8EAAEIADkWIQRPj7g/vng8MQxQWQQgrS7GWxAs4gUCawCK/xsUgAAAAAAEAA5t
- YW51MiwyLjUrMS4xMiwyLDIACgkQIK0uxlsQLOJF9A//VV8Qu812gGTw/xKh/njTNShxFXd8n/e
- t+4hl5NwiIwrTAKlz5IC7pCZq20u8IDeK45jtVVWn8xIwN+wE7VO7TkA6Scveke7Oc9V/QCJTqb
- jvqlgQRR9DUpojMWHq8ohepesoDWlKDs7PTUaHV9BGod385iiuWq7FqNDPccoJ5l6F6BnMYVUBq
- NnqlGAboXEYO3jR6kybZSiVCg9P+U+rztaVdg1Jj2+BAr+yg+2OVS8bbhpyfQ8XMgNH1YdRtg+G
- 1VPF0rzyuvYz59a2FLl7mLt/TpFxa5HCxcb+5mdrVsua/reJtb2UlIUfVJRtQDS6SEay1r/U7g+
- c8EMpicNbEEVvwkdWJvnb+NrfJHgnFQEPLvrGGotie55i4aVhfPLqwyT2xgFpxYiMcKxv2KG1SM
- PSjuk2nfdzQNUE6T3AR99P+nIMIjm2Q6BKtlfKjbCvT7/uGWz+74aba6fSkxj9Xyaa9Rk/qVWtq
- FGPCAWOLein0sN2BrOKrwzUAi+js4uMa4c8NeIZlsicag6Kyy2S4PWBzHE1iOiibD8YufXbiF6I
- WaiFfEnpny3M7eUQVBDvsl++cKL/9Xfq+ltBbLGrEgwsvv2KdVhcs2hy55TgVK9q67E9eziNMvo
- /5byyFbGZ1AxZMCfdDe+L26FL0WX79zWkMDQHnWM+Uy/UHJ0yJTI=
+ bh=Cz/6uXZX6vsgiFxFAxRKl2O8qO3zG0XE85J8WyN5IPw=;
+ b=owEBiQJ2/ZANAwAIASCtLsZbECziAcsmYgBrAIsAu+T40ZqBiiH6yjyqcFlv7JfT2mdNdgJIp
+ ph2fNkboIqJAk8EAAEIADkWIQRPj7g/vng8MQxQWQQgrS7GWxAs4gUCawCLABsUgAAAAAAEAA5t
+ YW51MiwyLjUrMS4xMiwyLDIACgkQIK0uxlsQLOLp5w/6AkXhuZsxaW9BxuUzOjys80B5MVkcvi4
+ JmamV2xtz3KBNLA3Tk5XieUMqbbmaYsahQ5KT7T0n9DdaKgp3+kAOE670QizkTiZEIfgkujyZu0
+ Q4YcvRxNKnNnHLFuW68JRv78n7xxDgqEy1/lBag95KQgKJRigCeKf4y0d/P/9dPmKqu4ZEc3MiD
+ jm9PVUPGLqH04RDWABa/qJU2nw5F4WRDLi6t0esp6VDSlC1o/2k65gReA6OY/4eIJZYGsmKDvwL
+ 9dhuMNP7r8nDqfFeY4ove9lKbO3Lwr9IZAFtafjcKzjUvqXyKb4V7uuMYfWiy8Hf3QxnVcO3oDY
+ X+0ELgkNo5OBEWmaJNpA2+/aKkkyAqbX8eQPM0Pw6AvpJ1tRBZXVy2ooW0khFU6/kt7uvSZ+3H/
+ 2a1VjirLyR8zh04oxwlaY0HErCksXwCVnaJ1Yl6Mr18fSIkv0u9FN0doK+d+vm2gpe+5KzZgLNJ
+ uZdTFTOLSS0ePvKfNNbFeWQORdy0gDrp6r4pIYLx9hGoKfX0yI8awPPopRdmfuHF1nT6W2M2+bb
+ JByKbnMcwKy3UlRL1f1SvBgbMZtXTYsNF/7F/UCHFpESK1IdDEqZhwWrbGMZUv6V6VDH+PMN/4B
+ OJ4s/8eKLi2H6KGAUu34/J/4r6ZoQtPyGuaBB99vJpXx7yoguci0=
 X-Developer-Key: i=louis.chauvet@bootlin.com; a=openpgp;
  fpr=8B7104AE9A272D6693F527F2EC1883F55E0B40A5
 X-Last-TLS-Session-Version: TLSv1.3
@@ -99,48 +99,290 @@ X-Spam-Status: No, score=-18.8 required=3.0 tests=BAYES_00,DKIM_SIGNED,
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-The plane name is now directly derived from the configfs folder
-name. When a plane directory is created under
-/config/vkms/<device>/planes/, the folder name is used as the
-plane name via vkms_config_plane_set_name.
+VKMS driver supports all the rotation on planes, but for testing it can be
+useful to only advertise few of them. This new configuration interface
+will allow configuring the rotation per planes.
 
+Reviewed-by: Luca Ceresoli <luca.ceresoli@bootlin.com>
 Signed-off-by: Louis Chauvet <louis.chauvet@bootlin.com>
 ---
- Documentation/ABI/testing/configfs-vkms | 3 ++-
- drivers/gpu/drm/vkms/vkms_configfs.c    | 6 ++++++
- 2 files changed, 8 insertions(+), 1 deletion(-)
+ drivers/gpu/drm/vkms/tests/vkms_config_test.c | 53 ++++++++++++++++++++++++
+ drivers/gpu/drm/vkms/vkms_config.c            | 46 +++++++++++++++++++++
+ drivers/gpu/drm/vkms/vkms_config.h            | 59 +++++++++++++++++++++++++++
+ drivers/gpu/drm/vkms/vkms_plane.c             |  5 ++-
+ 4 files changed, 161 insertions(+), 2 deletions(-)
 
-diff --git a/Documentation/ABI/testing/configfs-vkms b/Documentation/ABI/testing/configfs-vkms
-index 26e7f81b5b7d..55e4183046ec 100644
---- a/Documentation/ABI/testing/configfs-vkms
-+++ b/Documentation/ABI/testing/configfs-vkms
-@@ -98,7 +98,8 @@ Date:		Nov 2025
- Contact:	dri-devel@lists.freedesktop.org
- Description:
- 	This group contains attributes corresponding to the
--	plane <plane> of the VKMS device <device>.
-+	plane <plane> of the VKMS device <device>. The name of
-+	the directory becomes the name of the DRM plane.
+diff --git a/drivers/gpu/drm/vkms/tests/vkms_config_test.c b/drivers/gpu/drm/vkms/tests/vkms_config_test.c
+index 1e4ea1863420..dcb29ed8ac4a 100644
+--- a/drivers/gpu/drm/vkms/tests/vkms_config_test.c
++++ b/drivers/gpu/drm/vkms/tests/vkms_config_test.c
+@@ -1,5 +1,6 @@
+ // SPDX-License-Identifier: GPL-2.0+
  
- What:		/sys/kernel/config/vkms/<device>/planes/<plane>/type
- Date:		Nov 2025
-diff --git a/drivers/gpu/drm/vkms/vkms_configfs.c b/drivers/gpu/drm/vkms/vkms_configfs.c
-index a7ddcfd4e86e..3a1a34643cce 100644
---- a/drivers/gpu/drm/vkms/vkms_configfs.c
-+++ b/drivers/gpu/drm/vkms/vkms_configfs.c
-@@ -375,6 +375,12 @@ static struct config_group *make_plane_group(struct config_group *group,
- 			return ERR_PTR(ret);
++#include <drm/drm_mode.h>
+ #include <kunit/test.h>
+ 
+ #include "../vkms_config.h"
+@@ -185,6 +186,12 @@ static void vkms_config_test_default_config(struct kunit *test)
+ 			n_possible_crtcs++;
  		}
+ 		KUNIT_EXPECT_EQ(test, n_possible_crtcs, 1);
++		KUNIT_EXPECT_EQ(test,
++				vkms_config_plane_get_supported_rotations(plane_cfg),
++				DRM_MODE_ROTATE_MASK | DRM_MODE_REFLECT_MASK);
++		KUNIT_EXPECT_EQ(test,
++				vkms_config_plane_get_default_rotation(plane_cfg),
++				DRM_MODE_ROTATE_0);
+ 	}
  
-+		ret = vkms_config_plane_set_name(plane->config, name, strlen(name));
-+		if (ret) {
-+			vkms_config_destroy_plane(plane->config);
-+			return ERR_PTR(ret);
-+		}
+ 	/* Encoders */
+@@ -481,6 +488,51 @@ static void vkms_config_test_valid_plane_type(struct kunit *test)
+ 	vkms_config_destroy(config);
+ }
+ 
++static void vkms_config_test_valid_plane_rotations(struct kunit *test)
++{
++	struct vkms_config *config;
++	struct vkms_config_plane *plane_cfg;
 +
- 		config_group_init_type_name(&plane->group, name, &plane_item_type);
++	config = vkms_config_default_create(false, false, false, false);
++	KUNIT_ASSERT_NOT_ERR_OR_NULL(test, config);
++
++	plane_cfg = get_first_plane(config);
++
++	/* Valid, no rotation, no reflection */
++	vkms_config_plane_set_supported_rotations(plane_cfg, DRM_MODE_ROTATE_0);
++	vkms_config_plane_set_default_rotation(plane_cfg, DRM_MODE_ROTATE_0);
++	KUNIT_EXPECT_TRUE(test, vkms_config_valid_plane_rotation(config, plane_cfg));
++	KUNIT_EXPECT_TRUE(test, vkms_config_is_valid(config));
++
++	/* Invalid, default rotation is not supported */
++	vkms_config_plane_set_supported_rotations(plane_cfg, DRM_MODE_ROTATE_0);
++	vkms_config_plane_set_default_rotation(plane_cfg, DRM_MODE_ROTATE_90);
++	KUNIT_EXPECT_FALSE(test, vkms_config_valid_plane_rotation(config, plane_cfg));
++	KUNIT_EXPECT_FALSE(test, vkms_config_is_valid(config));
++
++	/* Invalid, supported rotations must contain at least one base rotation angle */
++	vkms_config_plane_set_supported_rotations(plane_cfg, DRM_MODE_REFLECT_MASK);
++	vkms_config_plane_set_default_rotation(plane_cfg, DRM_MODE_REFLECT_X | DRM_MODE_ROTATE_0);
++	KUNIT_EXPECT_FALSE(test, vkms_config_valid_plane_rotation(config, plane_cfg));
++	KUNIT_EXPECT_FALSE(test, vkms_config_is_valid(config));
++
++	/* Invalid, default rotation must contain exactly one base rotation angle */
++	vkms_config_plane_set_supported_rotations(plane_cfg,
++						  DRM_MODE_REFLECT_MASK | DRM_MODE_ROTATE_0);
++	vkms_config_plane_set_default_rotation(plane_cfg, DRM_MODE_REFLECT_X);
++	KUNIT_EXPECT_FALSE(test, vkms_config_valid_plane_rotation(config, plane_cfg));
++	KUNIT_EXPECT_FALSE(test, vkms_config_is_valid(config));
++
++	/* Invalid, multiple rotation bits in default_rotation */
++	vkms_config_plane_set_supported_rotations(plane_cfg,
++						  DRM_MODE_REFLECT_MASK | DRM_MODE_ROTATE_MASK);
++	vkms_config_plane_set_default_rotation(plane_cfg, DRM_MODE_ROTATE_0 | DRM_MODE_ROTATE_90);
++	KUNIT_EXPECT_FALSE(test, vkms_config_valid_plane_rotation(config, plane_cfg));
++	KUNIT_EXPECT_FALSE(test, vkms_config_is_valid(config));
++
++	vkms_config_destroy(config);
++}
++
+ static void vkms_config_test_valid_plane_possible_crtcs(struct kunit *test)
+ {
+ 	struct vkms_config *config;
+@@ -1003,6 +1055,7 @@ static struct kunit_case vkms_config_test_cases[] = {
+ 	KUNIT_CASE(vkms_config_test_get_connectors),
+ 	KUNIT_CASE(vkms_config_test_invalid_plane_number),
+ 	KUNIT_CASE(vkms_config_test_valid_plane_type),
++	KUNIT_CASE(vkms_config_test_valid_plane_rotations),
+ 	KUNIT_CASE(vkms_config_test_valid_plane_possible_crtcs),
+ 	KUNIT_CASE(vkms_config_test_invalid_crtc_number),
+ 	KUNIT_CASE(vkms_config_test_invalid_encoder_number),
+diff --git a/drivers/gpu/drm/vkms/vkms_config.c b/drivers/gpu/drm/vkms/vkms_config.c
+index fe82fb9e344a..82e8ada05b26 100644
+--- a/drivers/gpu/drm/vkms/vkms_config.c
++++ b/drivers/gpu/drm/vkms/vkms_config.c
+@@ -2,8 +2,11 @@
  
- 		config_group_init_type_name(&plane->possible_crtcs_group,
+ #include <linux/slab.h>
+ #include <linux/string_choices.h>
++#include <linux/log2.h>
+ 
++#include <drm/drm_blend.h>
+ #include <drm/drm_connector.h>
++#include <drm/drm_mode.h>
+ #include <drm/drm_print.h>
+ #include <drm/drm_debugfs.h>
+ #include <kunit/visibility.h>
+@@ -180,6 +183,35 @@ static bool valid_plane_number(const struct vkms_config *config)
+ 	return true;
+ }
+ 
++VISIBLE_IF_KUNIT
++bool vkms_config_valid_plane_rotation(const struct vkms_config *config,
++				      const struct vkms_config_plane *plane_cfg)
++{
++	struct drm_device *dev = config->dev ? &config->dev->drm : NULL;
++
++	if ((vkms_config_plane_get_supported_rotations(plane_cfg) &
++	     DRM_MODE_ROTATE_MASK) == 0) {
++		drm_info(dev, "Configured supported rotations must contain at least one base rotation angle\n");
++		return false;
++	}
++
++	if (!is_power_of_2(vkms_config_plane_get_default_rotation(plane_cfg) &
++			   DRM_MODE_ROTATE_MASK)) {
++		drm_info(dev, "Configured default rotation must contain exactly one base rotation angle\n");
++		return false;
++	}
++
++	if ((vkms_config_plane_get_default_rotation(plane_cfg) &
++	     vkms_config_plane_get_supported_rotations(plane_cfg)) !=
++	    vkms_config_plane_get_default_rotation(plane_cfg)) {
++		drm_info(dev, "Configured default rotation is not supported by the plane\n");
++		return false;
++	}
++
++	return true;
++}
++EXPORT_SYMBOL_IF_KUNIT(vkms_config_valid_plane_rotation);
++
+ static bool valid_planes_for_crtc(const struct vkms_config *config,
+ 				  struct vkms_config_crtc *crtc_cfg)
+ {
+@@ -337,6 +369,12 @@ static bool valid_connector_possible_encoders(const struct vkms_config *config)
+ bool vkms_config_is_valid(const struct vkms_config *config)
+ {
+ 	struct vkms_config_crtc *crtc_cfg;
++	struct vkms_config_plane *plane_cfg;
++
++	vkms_config_for_each_plane(config, plane_cfg) {
++		if (!vkms_config_valid_plane_rotation(config, plane_cfg))
++			return false;
++	}
+ 
+ 	if (!valid_plane_number(config))
+ 		return false;
+@@ -397,6 +435,10 @@ static int vkms_config_show(struct seq_file *m, void *data)
+ 		seq_printf(m, "\tname=%s\n",
+ 			   vkms_config_plane_get_name(plane_cfg) ?
+ 			   vkms_config_plane_get_name(plane_cfg) : "(null)");
++		seq_printf(m, "\tsupported rotations=" DRM_ROTATION_FMT "\n",
++			   DRM_ROTATION_FMT_ARGS(vkms_config_plane_get_supported_rotations(plane_cfg)));
++		seq_printf(m, "\tdefault rotation=" DRM_ROTATION_FMT "\n",
++			   DRM_ROTATION_FMT_ARGS(vkms_config_plane_get_default_rotation(plane_cfg)));
+ 	}
+ 
+ 	vkms_config_for_each_crtc(vkmsdev->config, crtc_cfg) {
+@@ -447,6 +489,10 @@ struct vkms_config_plane __must_check *vkms_config_create_plane(struct vkms_conf
+ 	if (ret)
+ 		goto cleanup_plane_cfg;
+ 
++	vkms_config_plane_set_supported_rotations(plane_cfg,
++						  DRM_MODE_ROTATE_MASK | DRM_MODE_REFLECT_MASK);
++	vkms_config_plane_set_default_rotation(plane_cfg, DRM_MODE_ROTATE_0);
++
+ 	xa_init_flags(&plane_cfg->possible_crtcs, XA_FLAGS_ALLOC);
+ 
+ 	list_add_tail(&plane_cfg->link, &config->planes);
+diff --git a/drivers/gpu/drm/vkms/vkms_config.h b/drivers/gpu/drm/vkms/vkms_config.h
+index 8704b6f71000..b0a5a1ae6537 100644
+--- a/drivers/gpu/drm/vkms/vkms_config.h
++++ b/drivers/gpu/drm/vkms/vkms_config.h
+@@ -48,6 +48,8 @@ struct vkms_config {
+  * @type: Type of the plane. The creator of configuration needs to ensures that
+  *        at least one primary plane is present.
+  * @possible_crtcs: Array of CRTCs that can be used with this plane
++ * @default_rotation: Default rotation that should be used by this plane
++ * @supported_rotation: Rotation that this plane will support
+  * @plane: Internal usage. This pointer should never be considered as valid.
+  *         It can be used to store a temporary reference to a VKMS plane during
+  *         device creation. This pointer is not managed by the configuration and
+@@ -59,6 +61,8 @@ struct vkms_config_plane {
+ 
+ 	const char *name;
+ 	enum drm_plane_type type;
++	unsigned int default_rotation;
++	unsigned int supported_rotations;
+ 	struct xarray possible_crtcs;
+ 	bool default_pipeline;
+ 
+@@ -344,6 +348,61 @@ vkms_config_plane_set_default_pipeline(struct vkms_config_plane *plane_cfg,
+ 	plane_cfg->default_pipeline = default_pipeline;
+ }
+ 
++/**
++ * vkms_config_plane_get_default_rotation() - Get the default rotation for a plane
++ * @plane_cfg: Plane to get the default rotation from
++ *
++ * Returns:
++ * The default rotation for the plane.
++ */
++static inline unsigned int
++vkms_config_plane_get_default_rotation(const struct vkms_config_plane *plane_cfg)
++{
++	return plane_cfg->default_rotation;
++}
++
++/**
++ * vkms_config_plane_set_default_rotation() - Set the default rotation for a plane
++ * @plane_cfg: Plane to set the default rotation to
++ * @default_rotation: New default rotation for the plane
++ */
++static inline void
++vkms_config_plane_set_default_rotation(struct vkms_config_plane *plane_cfg,
++				       unsigned int default_rotation)
++{
++	plane_cfg->default_rotation = default_rotation;
++}
++
++/**
++ * vkms_config_plane_get_supported_rotations() - Get the supported rotations for a plane
++ * @plane_cfg: Plane to get the supported rotations from
++ *
++ * Returns:
++ * The supported rotations for the plane.
++ */
++static inline unsigned int
++vkms_config_plane_get_supported_rotations(const struct vkms_config_plane *plane_cfg)
++{
++	return plane_cfg->supported_rotations;
++}
++
++/**
++ * vkms_config_plane_set_supported_rotations() - Set the supported rotations for a plane
++ * @plane_cfg: Plane to set the supported rotations to
++ * @supported_rotations: New supported rotations for the plane
++ */
++static inline void
++vkms_config_plane_set_supported_rotations(struct vkms_config_plane *plane_cfg,
++					  unsigned int supported_rotations)
++{
++	plane_cfg->supported_rotations = supported_rotations;
++}
++
++#if IS_ENABLED(CONFIG_KUNIT)
++bool vkms_config_valid_plane_rotation(const struct vkms_config *config,
++				      const struct vkms_config_plane *plane_cfg);
++#endif
++
+ /**
+  * vkms_config_plane_set_name() - Set the plane name
+  * @plane_cfg: Plane to set the name to
+diff --git a/drivers/gpu/drm/vkms/vkms_plane.c b/drivers/gpu/drm/vkms/vkms_plane.c
+index 8ea05c1d98e4..91c51a8d908b 100644
+--- a/drivers/gpu/drm/vkms/vkms_plane.c
++++ b/drivers/gpu/drm/vkms/vkms_plane.c
+@@ -272,8 +272,9 @@ struct vkms_plane *vkms_plane_init(struct vkms_device *vkmsdev,
+ 
+ 	drm_plane_helper_add(&plane->base, &vkms_plane_helper_funcs);
+ 
+-	drm_plane_create_rotation_property(&plane->base, DRM_MODE_ROTATE_0,
+-					   DRM_MODE_ROTATE_MASK | DRM_MODE_REFLECT_MASK);
++	drm_plane_create_rotation_property(&plane->base,
++					   vkms_config_plane_get_default_rotation(plane_cfg),
++					   vkms_config_plane_get_supported_rotations(plane_cfg));
+ 
+ 	drm_plane_create_color_properties(&plane->base,
+ 					  BIT(DRM_COLOR_YCBCR_BT601) |
 
 -- 
 2.56.0
