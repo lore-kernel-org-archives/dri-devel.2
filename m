@@ -2,40 +2,40 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 62094606A33C
-	for <dri-devel@archiver.kernel.org>; Fri, 20 Nov 2026 13:11:05 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BDACD606A334
+	for <dri-devel@archiver.kernel.org>; Fri, 20 Nov 2026 13:11:11 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=dFRcjYQs
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=dqthkCfC
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id A176B112A29;
-	Fri, 20 Nov 2026 13:10:59 +0000 (UTC)
-Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id C5357112A1E
- for <dri-devel@lists.freedesktop.org>; Fri, 20 Nov 2026 13:10:48 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id DAC3A112A2F;
+	Fri, 20 Nov 2026 13:11:05 +0000 (UTC)
+Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id EF16C112A1E
+ for <dri-devel@lists.freedesktop.org>; Fri, 20 Nov 2026 13:10:37 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by tor.source.kernel.org (Postfix) with ESMTP id 47BE462A0C;
- Fri, 20 Nov 2026 13:10:48 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7F0201F000E1;
- Fri, 20 Nov 2026 13:10:47 +0000 (UTC)
+ by sea.source.kernel.org (Postfix) with ESMTP id D6F17436E1;
+ Fri, 20 Nov 2026 13:10:37 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3AA931F000E0;
+ Fri, 20 Nov 2026 13:10:37 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1795180248;
- bh=iiJnD7v9aFWHKpJ3Q4lR06Nb75KXGKPE8/0cqPiDtQI=;
+ s=k20260515; t=1795180237;
+ bh=388ztI594AS+nKGPU4H0M5a2RIBgnI1LfiHUyoQUutQ=;
  h=From:Date:Subject:References:In-Reply-To:To:Cc;
- b=dFRcjYQsQxGEeCqdLvwJtGkLL4XugcJLJGa7JBm5m7IFUvgJfaI5VMcO4fGeoJjXm
- 1PTcHntbpknbu9u/H9QqNkHuv4cGDHcuhvfJhlUtdEBUGVjI4BGq4GN3wjz7qO77Dk
- tvLp+XGavWeMq2bkgt1U+M7S+DvFmuIbMjHnPcxU7iyz68b08sWI8wwqNzney4OP5b
- r3i2bWFcQu2RHbBUwphPNtKqMbJNjERPyDVXVtLwTDIAhSBqVM3ikLOmVIYN6jZd0+
- krgNRchkN2oIHb/ddIvATIJe+A0vAE7BrvRzgkyHrSGwsUVgrqKAtkb2vQ+pTO5Ljr
- oavBq8u2MXPQg==
+ b=dqthkCfC+TsMclo9bIy6An59QHE2+LwFyMnOMYhyDONXgitaAiwQtOzJnOsEoqaTF
+ 1RovgJ/kyX9xnld6WevTuq+OYmw5Z62DuDbx0GiCA1sbk1Dl6hdU9TuOexR9v+I9Mo
+ /meEfA63CydmdCRXlaODHsSzln3ulnAJMdW0AbFALKZuo2K+iPbIWkxJl8Rk4ufNiu
+ DhZ9G3O88TzcmdFJs4cHkC1liIprN4cGokEaadl9JKHxzMnvLXFtxr9fikKkxY0iYd
+ V+RMhK6H/ATASfg6KsmWs09bX2cSWT+L7oWim8t5jeBMVFJyQ5VUrLUlRkYRG4cIzp
+ 97s3K71fogimg==
 From: Maxime Ripard <mripard@kernel.org>
-Date: Fri, 20 Nov 2026 14:10:16 +0100
-Subject: [PATCH v12 9/9] drm/vkms: Add driver-specific plane property for
- testing
+Date: Fri, 20 Nov 2026 14:10:13 +0100
+Subject: [PATCH v12 6/9] drm/vc4: Carry the HVS channel over to created
+ CRTC states
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20261120-drm-reset-state-flag-v12-9-42d63d7417fc@kernel.org>
+Content-Transfer-Encoding: 8bit
+Message-Id: <20261120-drm-reset-state-flag-v12-6-42d63d7417fc@kernel.org>
 References: <20261120-drm-reset-state-flag-v12-0-42d63d7417fc@kernel.org>
 In-Reply-To: <20261120-drm-reset-state-flag-v12-0-42d63d7417fc@kernel.org>
 To: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
@@ -53,14 +53,16 @@ Cc: Daniel Stone <daniels@collabora.com>,
  Victoria Brekenfeld <victoria@system76.com>, 
  Xaver Hugl <xaver.hugl@kde.org>, dri-devel@lists.freedesktop.org, 
  linux-kernel@vger.kernel.org, Maxime Ripard <mripard@kernel.org>, 
- Oarora Etimis <oaroraetimis@gmail.com>
+ Dave Stevenson <dave.stevenson@raspberrypi.com>, 
+ =?utf-8?q?Ma=C3=ADra_Canal?= <mcanal@igalia.com>, 
+ Raspberry Pi Kernel Maintenance <kernel-list@raspberrypi.com>
 X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=openpgp-sha256; l=6615; i=mripard@kernel.org;
- h=from:subject:message-id; bh=u8FbPSMOVBrgNqgbv2ZDGqH/Wbk2GeZ3sYhq04Tu080=;
- b=owGbwMvMwCmsHn9OcpHtvjLG02pJDNkMbtty+hx5tjybYa9b9yrvr3Nh++3HCxYKLntVzPz7o
- VElb8+7jqksDMKcDLJiiixPZMJOL29fXOVgv/IHzBxWJpAhDFycAjARnS2Mdfbb2aW8/malcd0Q
- NnzrV6RgMKUt7UjBpu2pdnGxoUeXXzb4PlUwTnrGtjkGS/8y/Ms6zFgf4KD4aJuQ2lr+gwnx2ss
- fvd3k+yZ6xSy5ZR47WA4c+NMsWeuaO/Voyqye4vz8hU7OuQUA
+X-Developer-Signature: v=1; a=openpgp-sha256; l=6843; i=mripard@kernel.org;
+ h=from:subject:message-id; bh=Aen0UsFhzRDDkrCC3Fuk/+qjL8RrEjAcNfYIsatGIkI=;
+ b=owGbwMvMwCmsHn9OcpHtvjLG02pJDNkMbltFXgf153z6Ov26xLL7PUcLJp3I5wzROeXB0iq+b
+ 7Jj8J2yjqksDMKcDLJiiixPZMJOL29fXOVgv/IHzBxWJpAhDFycAjCR07GMDXNvsXF+M/TMO80s
+ 5Th36eFdN064f3qUsjik4fOJHS6rbxmGHTlW/GXLxGV65Usro+cU5DLWO1kpZ0ZbHp7XNs9jlYX
+ R65W5dfoN3iX2p1stfpxee4jHJHfeNekJWoU5dxxDE9YvWhwJAA==
 X-Developer-Key: i=mripard@kernel.org; a=openpgp;
  fpr=BE5675C37E818C8B5764241C254BCFC56BF6CE8D
 X-BeenThere: dri-devel@lists.freedesktop.org
@@ -81,195 +83,196 @@ X-Spam-Status: No, score=-18.8 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-The DRM_MODE_ATOMIC_RESET flag allows userspace to reset all object
-states to their defaults before applying new property values. Testing
-that this mechanism works correctly requires a property that the test
-can set to a non-default value and then verify is properly reset.
+drm_atomic_commit_fill_with_defaults() builds its commits out of
+states created through atomic_create_state() instead of duplicating
+the current state. A created CRTC state comes with its
+assigned_channel left to VC4_HVS_CHANNEL_DISABLED, while a duplicated
+state carries the channel currently in use.
 
-Using a standard property for this is problematic: compositors like
-Mutter enumerate and track all known properties, making it difficult
-to isolate the reset behavior from the compositor's own property
-management.
+vc4_pv_muxing_atomic_check() skips the CRTCs whose enablement doesn't
+change, so a CRTC that stays enabled with a created state keeps its
+channel unset, and vc4_core_clock_atomic_check() then indexes
+hvs_new_state->fifo_state[] with VC4_HVS_CHANNEL_DISABLED (-1U), far
+outside of the array.
 
-Add a "vkms-test-do-not-use-in-prod" range property to vkms planes.
-The property is stored in vkms_plane_state, duplicated across state
-copies, and initialized from its registered default in
-atomic_create_state via drm_object_property_get_default_value().
+Copy the channel of the current state over in the skip branch, like a
+duplicated state would have carried it. This is a no-op for duplicated
+states, which already have the channel set.
 
-Reviewed-by: Daniel Stone <daniels@collabora.com>
-Reviewed-by: Oarora Etimis <oaroraetimis@gmail.com>
-Reviewed-by: Louis Chauvet <louis.chauvet@bootlin.com>
+Add a KUnit test that enables an output, fills a state with defaults
+and re-applies the same configuration, and checks that the CRTC kept
+its channel.
+
+Acked-by: Dave Stevenson <dave.stevenson@raspberrypi.com>
 Signed-off-by: Maxime Ripard <mripard@kernel.org>
 ---
- drivers/gpu/drm/vkms/vkms_drv.h   |  3 ++
- drivers/gpu/drm/vkms/vkms_plane.c | 63 +++++++++++++++++++++++++++++++++++++--
- 2 files changed, 64 insertions(+), 2 deletions(-)
 
-diff --git a/drivers/gpu/drm/vkms/vkms_drv.h b/drivers/gpu/drm/vkms/vkms_drv.h
-index ce8df1a8fbad..5807c44a0cf2 100644
---- a/drivers/gpu/drm/vkms/vkms_drv.h
-+++ b/drivers/gpu/drm/vkms/vkms_drv.h
-@@ -144,20 +144,23 @@ struct conversion_matrix {
-  * @base: base plane state
-  * @frame_info: data required for composing computation
-  * @pixel_read_line: function to read a pixel line in this plane. The creator of a
-  *		     struct vkms_plane_state must ensure that this pointer is valid
-  * @conversion_matrix: matrix used for yuv formats to convert to rgb
-+ * @vkms_test_do_not_use_value: driver-specific property for testing only
-  */
- struct vkms_plane_state {
- 	struct drm_shadow_plane_state base;
- 	struct vkms_frame_info frame_info;
- 	pixel_read_line_t pixel_read_line;
- 	struct conversion_matrix conversion_matrix;
-+	unsigned int vkms_test_do_not_use_value;
- };
+To: Dave Stevenson <dave.stevenson@raspberrypi.com>
+To: Maíra Canal <mcanal@igalia.com>
+Cc: Raspberry Pi Kernel Maintenance <kernel-list@raspberrypi.com>
+---
+ drivers/gpu/drm/vc4/tests/vc4_test_pv_muxing.c | 105 +++++++++++++++++++++++++
+ drivers/gpu/drm/vc4/vc4_kms.c                  |  16 +++-
+ 2 files changed, 119 insertions(+), 2 deletions(-)
+
+diff --git a/drivers/gpu/drm/vc4/tests/vc4_test_pv_muxing.c b/drivers/gpu/drm/vc4/tests/vc4_test_pv_muxing.c
+index 7a54f46acff9..c868d2cd1b3d 100644
+--- a/drivers/gpu/drm/vc4/tests/vc4_test_pv_muxing.c
++++ b/drivers/gpu/drm/vc4/tests/vc4_test_pv_muxing.c
+@@ -1119,14 +1119,119 @@ drm_test_vc5_pv_muxing_bugs_subsequent_crtc_enable_too_many_crtc_state(struct ku
  
- struct vkms_plane {
- 	struct drm_plane base;
-+	struct drm_property *vkms_test_do_not_use_property;
- };
- 
- struct vkms_color_lut {
- 	struct drm_color_lut *base;
- 	size_t lut_length;
-diff --git a/drivers/gpu/drm/vkms/vkms_plane.c b/drivers/gpu/drm/vkms/vkms_plane.c
-index fd3d34dcf0fe..42513cb462ac 100644
---- a/drivers/gpu/drm/vkms/vkms_plane.c
-+++ b/drivers/gpu/drm/vkms/vkms_plane.c
-@@ -9,14 +9,18 @@
- #include <drm/drm_colorop.h>
- #include <drm/drm_fourcc.h>
- #include <drm/drm_gem_atomic_helper.h>
- #include <drm/drm_gem_framebuffer_helper.h>
- #include <drm/drm_print.h>
-+#include <drm/drm_property.h>
- 
- #include "vkms_drv.h"
- #include "vkms_formats.h"
- 
-+#define to_vkms_plane(target) \
-+	container_of_const(target, struct vkms_plane, base)
-+
- static const u32 vkms_formats[] = {
- 	DRM_FORMAT_ARGB8888,
- 	DRM_FORMAT_ABGR8888,
- 	DRM_FORMAT_BGRA8888,
- 	DRM_FORMAT_RGBA8888,
-@@ -52,16 +56,19 @@ static const u32 vkms_formats[] = {
- };
- 
- static struct drm_plane_state *
- vkms_plane_duplicate_state(struct drm_plane *plane)
- {
-+	struct vkms_plane_state *old_state = to_vkms_plane_state(plane->state);
- 	struct vkms_plane_state *vkms_state;
- 
- 	vkms_state = kzalloc_obj(*vkms_state);
- 	if (!vkms_state)
- 		return NULL;
- 
-+	vkms_state->vkms_test_do_not_use_value = old_state->vkms_test_do_not_use_value;
-+
- 	__drm_gem_duplicate_shadow_plane_state(plane, &vkms_state->base);
- 
- 	return &vkms_state->base.base;
+ 	drm_modeset_drop_locks(&ctx);
+ 	drm_modeset_acquire_fini(&ctx);
  }
  
-@@ -83,28 +90,69 @@ static void vkms_plane_destroy_state(struct drm_plane *plane,
- 	kfree(vkms_state);
- }
- 
- static struct drm_plane_state *vkms_plane_create_state(struct drm_plane *plane)
- {
-+	struct vkms_plane *vkms_plane = to_vkms_plane(plane);
- 	struct vkms_plane_state *vkms_state;
-+	u64 val;
- 
- 	vkms_state = kzalloc_obj(*vkms_state);
- 	if (!vkms_state) {
- 		DRM_ERROR("Cannot allocate vkms_plane_state\n");
- 		return ERR_PTR(-ENOMEM);
- 	}
- 
- 	__drm_gem_shadow_plane_state_init(plane, &vkms_state->base);
- 
-+	if (!drm_object_property_get_default_value(&plane->base,
-+						   vkms_plane->vkms_test_do_not_use_property,
-+						   &val))
-+		vkms_state->vkms_test_do_not_use_value = val;
-+
- 	return &(&vkms_state->base)->base;
- }
- 
-+static int vkms_plane_atomic_set_property(struct drm_plane *plane,
-+					  struct drm_plane_state *state,
-+					  struct drm_property *property,
-+					  uint64_t val)
++/*
++ * Test that a CRTC that stays enabled with a state created through
++ * atomic_create_state(), like the ones drm_atomic_commit_fill_with_defaults()
++ * builds for a reset, keeps the HVS channel it was assigned:
++ * vc4_pv_muxing_atomic_check() skips the CRTCs whose enablement doesn't
++ * change, so their new state has to carry the channel over from the
++ * current state, the way a duplicated state would, for
++ * vc4_core_clock_atomic_check() to see a valid channel.
++ */
++static void
++drm_test_vc5_pv_muxing_bugs_created_state_keeps_channel(struct kunit *test)
 +{
-+	struct vkms_plane *vkms_plane = to_vkms_plane(plane);
-+	struct vkms_plane_state *vkms_state = to_vkms_plane_state(state);
++	struct drm_modeset_acquire_ctx ctx;
++	struct drm_atomic_commit *state;
++	struct vc4_crtc_state *new_vc4_crtc_state;
++	struct drm_device *drm;
++	struct vc4_dev *vc4;
++	unsigned int old_channel;
++	int ret;
 +
-+	if (property == vkms_plane->vkms_test_do_not_use_property) {
-+		vkms_state->vkms_test_do_not_use_value = val;
-+		return 0;
++	vc4 = vc5_mock_device(test);
++	KUNIT_ASSERT_NOT_ERR_OR_NULL(test, vc4);
++
++	drm_modeset_acquire_init(&ctx, 0);
++
++	drm = &vc4->base;
++retry_first:
++	state = drm_kunit_helper_atomic_state_alloc(test, drm, &ctx);
++	KUNIT_ASSERT_NOT_ERR_OR_NULL(test, state);
++
++	ret = vc4_mock_atomic_add_output(test, state, VC4_ENCODER_TYPE_HDMI0);
++	if (ret == -EDEADLK) {
++		drm_atomic_commit_clear(state);
++		ret = drm_modeset_backoff(&ctx);
++		if (!ret)
++			goto retry_first;
 +	}
++	KUNIT_ASSERT_EQ(test, ret, 0);
 +
-+	return -EINVAL;
++	ret = drm_atomic_check_only(state);
++	if (ret == -EDEADLK) {
++		drm_atomic_commit_clear(state);
++		ret = drm_modeset_backoff(&ctx);
++		if (!ret)
++			goto retry_first;
++	}
++	KUNIT_ASSERT_EQ(test, ret, 0);
++
++	new_vc4_crtc_state = get_vc4_crtc_state_for_encoder(test, state,
++							    VC4_ENCODER_TYPE_HDMI0);
++	KUNIT_ASSERT_NOT_NULL(test, new_vc4_crtc_state);
++
++	old_channel = new_vc4_crtc_state->assigned_channel;
++	KUNIT_ASSERT_NE(test, old_channel, VC4_HVS_CHANNEL_DISABLED);
++
++	/* Make the enabled state the current one */
++	ret = drm_atomic_helper_swap_state(state, false);
++	KUNIT_ASSERT_EQ(test, ret, 0);
++
++retry_second:
++	state = drm_kunit_helper_atomic_state_alloc(test, drm, &ctx);
++	KUNIT_ASSERT_NOT_ERR_OR_NULL(test, state);
++
++	/*
++	 * Fill the state with defaults, like a DRM_MODE_ATOMIC_RESET
++	 * commit would, then re-apply the exact same configuration.
++	 */
++	ret = drm_atomic_commit_fill_with_defaults(NULL, state);
++	if (ret == -EDEADLK) {
++		drm_atomic_commit_clear(state);
++		ret = drm_modeset_backoff(&ctx);
++		if (!ret)
++			goto retry_second;
++	}
++	KUNIT_ASSERT_EQ(test, ret, 0);
++
++	ret = vc4_mock_atomic_add_output(test, state, VC4_ENCODER_TYPE_HDMI0);
++	if (ret == -EDEADLK) {
++		drm_atomic_commit_clear(state);
++		ret = drm_modeset_backoff(&ctx);
++		if (!ret)
++			goto retry_second;
++	}
++	KUNIT_ASSERT_EQ(test, ret, 0);
++
++	ret = drm_atomic_check_only(state);
++	if (ret == -EDEADLK) {
++		drm_atomic_commit_clear(state);
++		ret = drm_modeset_backoff(&ctx);
++		if (!ret)
++			goto retry_second;
++	}
++	KUNIT_ASSERT_EQ(test, ret, 0);
++
++	new_vc4_crtc_state = get_vc4_crtc_state_for_encoder(test, state,
++							    VC4_ENCODER_TYPE_HDMI0);
++	KUNIT_ASSERT_NOT_NULL(test, new_vc4_crtc_state);
++
++	KUNIT_EXPECT_EQ(test, new_vc4_crtc_state->assigned_channel, old_channel);
++
++	drm_modeset_drop_locks(&ctx);
++	drm_modeset_acquire_fini(&ctx);
 +}
 +
-+static int vkms_plane_atomic_get_property(struct drm_plane *plane,
-+					  const struct drm_plane_state *state,
-+					  struct drm_property *property,
-+					  uint64_t *val)
-+{
-+	const struct vkms_plane_state *vkms_state = to_vkms_plane_state(state);
-+	const struct vkms_plane *vkms_plane = to_vkms_plane(plane);
-+
-+	if (property == vkms_plane->vkms_test_do_not_use_property) {
-+		*val = vkms_state->vkms_test_do_not_use_value;
-+		return 0;
-+	}
-+
-+	return -EINVAL;
-+}
-+
- static const struct drm_plane_funcs vkms_plane_funcs = {
- 	.update_plane		= drm_atomic_helper_update_plane,
- 	.disable_plane		= drm_atomic_helper_disable_plane,
--	.atomic_create_state = vkms_plane_create_state,
--	.atomic_duplicate_state = vkms_plane_duplicate_state,
-+	.atomic_set_property	= vkms_plane_atomic_set_property,
-+	.atomic_get_property	= vkms_plane_atomic_get_property,
-+	.atomic_create_state	= vkms_plane_create_state,
-+	.atomic_duplicate_state	= vkms_plane_duplicate_state,
- 	.atomic_destroy_state	= vkms_plane_destroy_state,
+ static struct kunit_case vc5_pv_muxing_bugs_tests[] = {
+ 	KUNIT_CASE(drm_test_vc5_pv_muxing_bugs_subsequent_crtc_enable),
+ 	KUNIT_CASE(drm_test_vc5_pv_muxing_bugs_subsequent_crtc_enable_too_many_crtc_state),
+ 	KUNIT_CASE(drm_test_vc5_pv_muxing_bugs_stable_fifo),
++	KUNIT_CASE(drm_test_vc5_pv_muxing_bugs_created_state_keeps_channel),
+ 	{}
  };
  
- static void vkms_plane_atomic_update(struct drm_plane *plane,
- 				     struct drm_atomic_commit *state)
-@@ -281,10 +329,21 @@ struct vkms_plane *vkms_plane_init(struct vkms_device *vkmsdev,
- 					  BIT(DRM_COLOR_YCBCR_LIMITED_RANGE) |
- 					  BIT(DRM_COLOR_YCBCR_FULL_RANGE),
- 					  DRM_COLOR_YCBCR_BT601,
- 					  DRM_COLOR_YCBCR_FULL_RANGE);
+ static struct kunit_suite vc5_pv_muxing_bugs_test_suite = {
+ 	.name = "vc5-pv-muxing-bugs",
+diff --git a/drivers/gpu/drm/vc4/vc4_kms.c b/drivers/gpu/drm/vc4/vc4_kms.c
+index ab551eb2da50..562f2d1f45a4 100644
+--- a/drivers/gpu/drm/vc4/vc4_kms.c
++++ b/drivers/gpu/drm/vc4/vc4_kms.c
+@@ -970,15 +970,27 @@ static int vc4_pv_muxing_atomic_check(struct drm_device *dev,
  
-+	plane->vkms_test_do_not_use_property =
-+		drm_property_create_range(dev, 0,
-+					  "vkms-test-do-not-use-in-prod",
-+					  0, U32_MAX);
-+	if (!plane->vkms_test_do_not_use_property)
-+		return ERR_PTR(-ENOMEM);
-+
-+	drm_object_attach_property(&plane->base.base,
-+				   plane->vkms_test_do_not_use_property,
-+				   0);
-+
- 	if (vkms_config_plane_get_default_pipeline(plane_cfg))
- 		vkms_initialize_colorops(&plane->base);
+ 		drm_dbg(dev, "%s: Trying to find a channel.\n", crtc->name);
  
- 	return plane;
- }
+ 		/* Nothing to do here, let's skip it */
+ 		if (old_crtc_state->enable == new_crtc_state->enable) {
+-			if (new_crtc_state->enable)
++			/*
++			 * A CRTC that stays enabled keeps its channel. A
++			 * duplicated state carries it over, but a state
++			 * created through atomic_create_state() comes with
++			 * the channel unset, so copy it from the current
++			 * state to make sure the core clock check and the
++			 * commit see the channel in use.
++			 */
++			if (new_crtc_state->enable) {
++				new_vc4_crtc_state->assigned_channel =
++					old_vc4_crtc_state->assigned_channel;
++
+ 				drm_dbg(dev, "%s: Already enabled, reusing channel %d.\n",
+ 					crtc->name, new_vc4_crtc_state->assigned_channel);
+-			else
++			} else {
+ 				drm_dbg(dev, "%s: Disabled, ignoring.\n", crtc->name);
++			}
+ 
+ 			continue;
+ 		}
+ 
+ 		/* Muxing will need to be modified, mark it as such */
 
 -- 
 2.56.1
