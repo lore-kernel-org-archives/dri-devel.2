@@ -2,77 +2,43 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AD4E4606A33D
-	for <dri-devel@archiver.kernel.org>; Fri, 20 Nov 2026 17:43:14 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 38AAC606A320
+	for <dri-devel@archiver.kernel.org>; Fri, 20 Nov 2026 17:53:36 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=Jf1HkVpa
+	dkim=pass (1024-bit key) header.d=aliel.fr header.i=@aliel.fr header.a=rsa-sha256 header.s=courrier-s1 header.b=vYBXbJye
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 0D70B112C0E;
-	Fri, 20 Nov 2026 17:43:09 +0000 (UTC)
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.20])
- by gabe.freedesktop.org (Postfix) with ESMTPS id C524A112AF3;
- Fri, 20 Nov 2026 17:43:02 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1795196583; x=1826732583;
- h=date:from:to:cc:subject:message-id:references:
- mime-version:content-transfer-encoding:in-reply-to;
- bh=ZesNmmTH+elezFnRnzpxUtzX4X1KPesleeR9OkrS3+I=;
- b=Jf1HkVpabE+pZtWeBrWu9FWRC+QnbSS0gdMJXtP2ee/4UOaPUU1PIxX/
- FDkTfhgK7CVnr6lMRF3JS0R4yA3gr+5OWb+aWaEnhgHYKpNIAFPo1AQCR
- zKdwVYTCbjgWGV0L+Nf9QkJGpqH7Svnf9TO4IGImnnyI6TFTFcN4KQtSN
- vDEeTKPK7WCa3WuftIX/s3MssgvlVslTZMmeBHjBUb9OVqZc+C69dLd/5
- kgbvr52ZOiAaYZam1BIYe6WbIEQJcBxVEC19yiOMBeFRLjd6QkuX4mXSC
- eIrd3A4/TGtSBPfEjJgKUZDS5SBrMFvbzG2kTSzI8UijDa/kOXBMFajZ7 g==;
-X-CSE-ConnectionGUID: PUOeN82JTSWQJ0xO8J/nKQ==
-X-CSE-MsgGUID: d97TXlbqSKGgYvgyp7N+Aw==
-X-IronPort-AV: E=McAfee;i="6800,10657,11972"; a="4123446"
-X-IronPort-AV: E=Sophos;i="6.27,223,1787036400"; 
-   d="scan'208";a="4123446"
-Received: from orviesa006.jf.intel.com ([10.64.159.146])
- by orvoesa112.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 20 Nov 2026 09:43:02 -0800
-X-CSE-ConnectionGUID: 9ppcSj5TQx+v07CsGbbJag==
-X-CSE-MsgGUID: yUVOLHc6TNy2a5JT+RRZsw==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,223,1787036400"; d="scan'208";a="10744643"
-Received: from klitkey1-mobl1.ger.corp.intel.com (HELO localhost)
- ([10.245.244.66])
- by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 20 Nov 2026 09:42:58 -0800
-Date: Fri, 20 Nov 2026 19:42:54 +0200
-From: Ville =?iso-8859-1?Q?Syrj=E4l=E4?= <ville.syrjala@linux.intel.com>
-To: Mario Limonciello <mario.limonciello@amd.com>
-Cc: Maxime Ripard <mripard@kernel.org>,
- Alex Deucher <alexander.deucher@amd.com>,
- Jani Nikula <jani.nikula@linux.intel.com>,
- Javier Martinez Canillas <javierm@redhat.com>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Thomas Zimmermann <tzimmermann@suse.de>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- Harry Wentland <harry.wentland@amd.com>,
- Leo Li <sunpeng.li@amd.com>, Rodrigo Siqueira <siqueira@igalia.com>,
- Mario Limonciello <superm1@kernel.org>,
- Xaver Hugl <xaver.hugl@gmail.com>, dri-devel@lists.freedesktop.org,
- linux-kernel@vger.kernel.org, amd-gfx@lists.freedesktop.org,
- intel-gfx@lists.freedesktop.org, intel-xe@lists.freedesktop.org,
- nouveau@lists.freedesktop.org
-Subject: Re: [PATCH v12 01/12] drm: add connector LUMINANCE property
-Message-ID: <awCGnqjGUroPBH4B@intel.com>
-References: <20261119-superm1-backlight-property-v12-0-89d5217d3618@amd.com>
- <20261119-superm1-backlight-property-v12-1-89d5217d3618@amd.com>
- <awB4Qe83u0l0XPKA@intel.com>
- <8713bae1-9782-41d4-b09c-f14031203e88@amd.com>
- <awCEezzEIrhWv5sk@intel.com>
+	by gabe.freedesktop.org (Postfix) with ESMTP id 96A0A112C5E;
+	Fri, 20 Nov 2026 17:53:30 +0000 (UTC)
+Received: from courrier.aliel.fr (courrier.aliel.fr [65.21.61.41])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 2F61E10E02C
+ for <dri-devel@lists.freedesktop.org>; Fri, 20 Nov 2026 17:53:24 +0000 (UTC)
+Message-ID: <ef1b7465-9639-4d11-9b10-4b0c9da21bd5@aliel.fr>
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=aliel.fr;
+ s=courrier-s1; t=1795197201;
+ bh=V8tpS6gdtCA8ZbK1QEzTWT9dOlqALvACzeGN4IBIn60=;
+ h=Date:From:Subject:To:Cc:References:In-Reply-To;
+ b=vYBXbJyeFCDtVKTZkks5hS0kKXgmajx0a9aGeWOoL6LRhNYO0O1MO2QARIZQDEbki
+ ezb0rth3CwzPZpsK6kXyuX92iK0FDNFUbi2O3bjhrJgqn4rOtuRJaiEuf4sQG3B6Sm
+ eZmcENqezW7RZGDTK3ggXRmbK6y/wimX1gYVvpM8=
+Date: Fri, 20 Nov 2026 18:52:50 +0100
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=iso-8859-1
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <awCEezzEIrhWv5sk@intel.com>
-X-Patchwork-Hint: comment
-Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
- krs Bertel Jungin Aukio 5, 02600 Espoo, Finland
+User-Agent: Mozilla Thunderbird
+From: Ronald Claveau <linux-kernel-dev@aliel.fr>
+Subject: Re: [PATCH 07/10] drm/meson: dw-hdmi: Use the generic PHY framework
+ for the HDMI TX PHY
+To: sashiko-reviews@lists.linux.dev
+Cc: devicetree@vger.kernel.org, linux-amlogic@lists.infradead.org,
+ linux-phy@lists.infradead.org, dri-devel@lists.freedesktop.org,
+ robh@kernel.org, conor+dt@kernel.org, neil.armstrong@linaro.org,
+ vkoul@kernel.org, olteanv@gmail.com
+References: <20261117-meson-drm-create-hdmitx-phy-v1-0-9e0ac931381c@aliel.fr>
+ <20261117-meson-drm-create-hdmitx-phy-v1-7-9e0ac931381c@aliel.fr>
+ <sashiko-outbox-219549@kernel.org>
+Content-Language: en-US
+In-Reply-To: <sashiko-outbox-219549@kernel.org>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -84,107 +50,112 @@ List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-13.8 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
-	DKIM_SIGNED,DKIM_VALID,HEADER_FROM_DIFFERENT_DOMAINS,
-	INCLUDES_CR_TRAILER,INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,
-	SPF_PASS autolearn=unavailable autolearn_force=no version=4.0.1
+X-Spam-Status: No, score=-12.3 required=3.0 tests=BAYES_00,DKIM_SIGNED,
+	DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_PATCH,
+	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,USER_AGENT_SANE_1
+	autolearn=unavailable autolearn_force=no version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-On Fri, Nov 20, 2026 at 07:33:47PM +0200, Ville Syrjälä wrote:
-> On Fri, Nov 20, 2026 at 11:19:13AM -0600, Mario Limonciello wrote:
-> > 
-> > 
-> > On 11/20/26 10:41, Ville Syrjälä wrote:
-> > > On Thu, Nov 19, 2026 at 05:27:28PM -0600, Mario Limonciello wrote:
-> > >> Panel brightness is a property of a display, and thus of a DRM
-> > >> connector. Add an atomic per-connector LUMINANCE range property so
-> > >> compositors can manage relative panel luminance together with the rest
-> > >> of the display state.
-> > >>
-> > >> Keep the core backend-agnostic. Drivers create the property with their
-> > >> hardware range and implement connector helper callbacks to set luminance
-> > >> or disable panel emission. The atomic helpers sequence those callbacks
-> > >> around pipeline enable and disable, including luminance-only commits.
-> > >> The panel is left lit when the pipeline enters self refresh, and the
-> > >> luminance is only reprogrammed when it changes or a modeset enables the
-> > >> pipeline.
-> > >>
-> > >> The stored property value is independent of display power. A commit made
-> > >> while the connector is inactive is retained and applied on the next
-> > >> enable; disabling the pipeline does not overwrite it.
-> > >>
-> > >> LUMINANCE values are relative, driver-defined levels rather than
-> > >> absolute luminance in cd/m^2. The interface supports emissive panels as
-> > >> well as panels with a separate backlight.
-> > >>
-> > >> Keep the interface behind a default-off DRM_LUMINANCE option. Migrated
-> > >> drivers retain their legacy backlight class ABI unless the new interface
-> > >> is explicitly selected, allowing the DRM UAPI and legacy compatibility
-> > >> policy to remain separate.
-> > >>
-> > >> Acked-by: Javier Martinez Canillas <javierm@redhat.com>
-> > >> Signed-off-by: Mario Limonciello <mario.limonciello@amd.com>
-> > >> ---
-> > >> v11:
-> > >>   * Don't call .disable_luminance when the CRTC enters self refresh (Sashiko)
-> > >>   * Only call .set_luminance when the luminance changes or on a modeset
-> > >>     that isn't a self refresh exit (Leo Li, Sashiko)
-> > >>   * Fix the .set_luminance self refresh documentation
-> > >> v10:
-> > >>   * Add tag
-> > >> ---
-> > >>   drivers/gpu/drm/Kconfig                    | 14 +++++
-> > >>   drivers/gpu/drm/drm_atomic_helper.c        | 98 +++++++++++++++++++++++++++++-
-> > >>   drivers/gpu/drm/drm_atomic_state_helper.c  |  7 +++
-> > >>   drivers/gpu/drm/drm_atomic_uapi.c          |  5 ++
-> > >>   drivers/gpu/drm/drm_connector.c            | 57 +++++++++++++++++
-> > >>   drivers/gpu/drm/tests/drm_connector_test.c | 28 +++++++++
-> > >>   include/drm/drm_atomic_helper.h            |  3 +
-> > >>   include/drm/drm_connector.h                | 16 +++++
-> > >>   include/drm/drm_modeset_helper_vtables.h   | 28 +++++++++
-> > >>   9 files changed, 255 insertions(+), 1 deletion(-)
-> > >>
-> > >> diff --git a/drivers/gpu/drm/Kconfig b/drivers/gpu/drm/Kconfig
-> > >> index 61111d50b1c65..1bbe2c2d7c76f 100644
-> > >> --- a/drivers/gpu/drm/Kconfig
-> > >> +++ b/drivers/gpu/drm/Kconfig
-> > >> @@ -33,6 +33,20 @@ endmenu
-> > >>   
-> > >>   if DRM
-> > >>   
-> > >> +config DRM_LUMINANCE
-> > >> +	bool "DRM connector luminance support"
-> > >> +	help
-> > >> +	  Expose relative luminance as an atomic DRM connector property. Values
-> > >> +	  are driver-defined levels rather than absolute luminance in cd/m^2.
-> > >> +	  Drivers provide connector helper callbacks to program their hardware;
-> > >> +	  the DRM core does not depend on a particular backend.
-> > >> +
-> > >> +	  Drivers migrated to this interface will use it instead of registering
-> > >> +	  a legacy backlight class device. Leave this disabled to preserve the
-> > >> +	  de-facto userspace ABI in /sys/class/backlight.
-> > > 
-> > > I don't think this will fly if it breaks the backlight class interface.
-> > > No one can actually enable this outside of some niche embedded use
-> > > cases where backwards compatibility is not an issue. I think what
-> > > you need is a generic backlight class implementation on top of this.
-> > > 
-> > 
-> > The idea with this was:
-> > 1) to get the series landed
-> > 2) let compositors merge solutions around it.
-> > 3) Then add backwards compatibility to kernel so we can flip the Kconfig 
-> > default.
+On 11/17/26 21:03, sashiko-bot@kernel.org wrote:
+> Thank you for your contribution! Sashiko AI review found 3 potential
+> issues to consider:
+> - [High] drm/meson: dw-hdmi: suspend/resume order breaks PHY state and
+>   HDMI output
+> - [Medium] drm/meson: dw-hdmi: missing phy_exit() on dw_hdmi_probe()
+>   failure
+> - [Medium] drm/meson: dw-hdmi: premature PHY teardown in
+>   meson_dw_hdmi_unbind()
+> --
 > 
-> With that plan, I think you need to mark it BROKEN if it will 
-> actually break current setups when some unsuspecting user flips
-> it on.
+> commit 91e31ad4e0b36171e791e7c0487c9a4c66b12b31
+> Author: Ronald Claveau <linux-kernel-dev@aliel.fr>
+> 
+> drm/meson: dw-hdmi: Use the generic PHY framework for the HDMI TX PHY
+> 
+> This commit converts meson_dw_hdmi from direct HHI_HDMI_PHY_CNTL0..5
+> register writes to the generic PHY API, with a legacy fallback when the
+> device tree lacks a "phys" property.
+> 
+>> diff --git a/drivers/gpu/drm/meson/meson_dw_hdmi.c b/drivers/gpu/drm/meson/meson_dw_hdmi.c
+>> index 20a821936b3af..f28cc1e6ee1df 100644
+>> --- a/drivers/gpu/drm/meson/meson_dw_hdmi.c
+>> +++ b/drivers/gpu/drm/meson/meson_dw_hdmi.c
+> 
+> 
+> [Severity: Medium]
+> Does meson_dw_hdmi_bind() leak a phy_init() reference if dw_hdmi_probe()
+> fails later in this function (for example with -EPROBE_DEFER when the DDC
+> I2C bus is not ready)?
+> 
+> When the PHY comes from the external PHY provider, devres cleanup on a
+> failed component bind only calls phy_put(), leaving phy->init_count at 1.
+> On the next bind attempt, meson_dw_hdmi_init() resets hdmitx_phy and calls
+> phy_init(), which sees init_count > 0 and skips phy->ops->init(), leaving
+> HHI_HDMI_PHY_CNTL0 and HHI_HDMI_PHY_CNTL1 uninitialized after the hardware
+> reset.
+> 
 
-Oh and this will not be turned on in our CI since we need to test
-the thing people are actually using. So you won't be getting any
-usable CI results with this kind of hard build time selection.
+I will move revert this change.
+
+> [Severity: Medium]
+> Can tearing down meson_dw_hdmi->phy before devm_free_irq() and
+> dw_hdmi_unbind() cause a use-after-free in dw_hdmi_top_thread_irq()?
+> 
+> CPU0                                    CPU1
+> meson_dw_hdmi_unbind()
+>   phy_exit(meson_dw_hdmi->phy)
+>   devm_phy_destroy(..., meson_dw_hdmi->phy)
+>                                         dw_hdmi_top_thread_irq()
+>                                           dw_hdmi_setup_rx_sense()
+>                                             ...
+>                                               dw_hdmi_phy_init()
+>                                                 phy_configure(dw_hdmi->phy, ...)
+>                                                   <-- use-after-free
+>   devm_free_irq(...)
+>   dw_hdmi_unbind(...)
+> 
+> In the legacy PHY path, devm_phy_destroy() immediately unregisters and
+> frees meson_dw_hdmi->phy while the threaded HPD interrupt handler is still
+> active and can invoke dw_hdmi_phy_init() or dw_hdmi_phy_disable().  Even
+> with a DT PHY, HPD handling or dw_hdmi_unbind() can access the PHY after
+> phy_exit().  Should phy_exit() and devm_phy_destroy() run after
+> devm_free_irq() and dw_hdmi_unbind()?
+> 
+
+I will move the phy_destroy after unbind, phy_exit will be on
+phy_disable only.
+
+> [Severity: High]
+> Does calling phy_exit() in meson_dw_hdmi_pm_suspend() and phy_init() in
+> meson_dw_hdmi_pm_resume() break HDMI output across system suspend/resume?
+> 
+> Because the HDMI TX platform device sits after the VPU master device on
+> dpm_list (both from DT node order and because devm_phy_optional_get() adds
+> a stateless device link to the PHY that reorders the consumer to the tail
+> of dpm_list), system suspend runs meson_dw_hdmi_pm_suspend() before
+> meson_drv_pm_suspend(), and system resume runs meson_drv_pm_resume()
+> before meson_dw_hdmi_pm_resume().
+> 
+> On suspend, meson_dw_hdmi_pm_suspend() calls phy_exit() while the PHY is
+> still powered on, before meson_drv_pm_suspend() ->
+> drm_mode_config_helper_suspend() -> dw_hdmi_phy_disable() calls
+> phy_power_off().
+> 
+> On resume, meson_drv_pm_resume() -> drm_mode_config_helper_resume() ->
+> dw_hdmi_phy_init() calls phy_configure() and phy_power_on() while
+> phy->init_count is still 0.  Then meson_dw_hdmi_pm_resume() runs
+> meson_dw_hdmi_init(), which resets hdmitx_phy and calls phy_init(); since
+> phy->power_count > phy->init_count, phy_init() warns ("phy_power_on was
+> called before phy_init") and runs meson_hdmi_phy_init(), overwriting
+> HHI_HDMI_PHY_CNTL0 and HHI_HDMI_PHY_CNTL1 with cntl0_init and cntl1_init
+> and clobbering the mode that meson_drv_pm_resume() just configured and
+> powered on.
+> 
+
+I will put phy_init in dw_hdmi_phy_init and phy_exit in
+dw_hdmi_phy_disable for v2.
 
 -- 
-Ville Syrjälä
-Intel
+Best regards,
+Ronald
