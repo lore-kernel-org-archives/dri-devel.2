@@ -2,87 +2,103 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BE771606C887
-	for <dri-devel@archiver.kernel.org>; Fri, 20 Nov 2026 15:55:56 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CE245606A330
+	for <dri-devel@archiver.kernel.org>; Fri, 20 Nov 2026 15:58:47 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=Z49O4+HG
+	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.a=rsa-sha256 header.s=susede2_rsa header.b=LVloF5Ph;
+	dkim=pass header.d=suse.de header.i=@suse.de header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=hdfXVYss;
+	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.a=rsa-sha256 header.s=susede2_rsa header.b=FMm+sDTb;
+	dkim=neutral header.d=suse.de header.i=@suse.de header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=3ood98qN
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 133C4112B0D;
-	Fri, 20 Nov 2026 15:55:51 +0000 (UTC)
-Received: from mail-wm1-f48.google.com (mail-wm1-f48.google.com
- [209.85.128.48])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 09FEC10E914
- for <dri-devel@lists.freedesktop.org>; Fri, 20 Nov 2026 15:55:02 +0000 (UTC)
-Received: by mail-wm1-f48.google.com with SMTP id
- 5b1f17b1804b1-4a3517554f7so10655765e9.2
- for <dri-devel@lists.freedesktop.org>; Fri, 20 Nov 2026 07:55:01 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20260707; t=1795190100; x=1795794900; darn=lists.freedesktop.org;
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:date:subject:cc:to:from:from:to:cc:subject:date
- :message-id:reply-to:content-type;
- bh=Woi1KVVkXXGab1Y1GMu8DNbprDgDmJk8VMTl2ZFXeN4=;
- b=Z49O4+HGNFMW1lF5V2C8Be3rjn8ljUL5JO29Gz6UBRD6+vafgcbkVotEGmHiUyGTF3
- X9wdyGl/AmcEMnPpeZRILEVdL/Ao4iw22ahHqB7e7Y4KsipbmSJteqqOfFMJtGpn/zyr
- F7mwlHWX5m3FxCJuwSWmmn0oEwi8mynSv7z+QMF/bR4YB9gwQvX/1KQjSRwtbdutHMgS
- jQX+/DhUub5FgwEAo9wNT1eb1vcadYi0XboCPilW9p2AhtY4up0mJeX91/bHnioMXE9U
- YK7gsxsqwPeW5GtgAruLIfHYWCwzD+jlg1nr2Ed9plfxX98MXkQRlGvHliOwQowW/+f9
- 6tyA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20260707; t=1795190100; x=1795794900;
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
- :to:cc:subject:date:message-id:reply-to:content-type;
- bh=Woi1KVVkXXGab1Y1GMu8DNbprDgDmJk8VMTl2ZFXeN4=;
- b=bW22mdPkYfI+2wQmzABYym33taFAJxj1LDOOwophpwHRDWP2RbiJ8YoJw30jhyz1bp
- KynLcCP+P9UlIznLL+YF8dEK5stmg0SO+sPQ0Yt/zSq8vmRPuN6Ob57krxBzT3FqK3CB
- JQVsb3BPpTBQM6BDoqDjNhgep3V+6PwNOZ3nwWxsltZ9v8+5sIWalMoi833NFKR39TiQ
- jHY98Vgy4tDo0UpHc+Zd8ooSHrI+LqwngoXxXEwNzMoTbnuMO2DNNs70ZARSaxUBoB23
- d0Myv78hUgWYoNMQS74inufzH/VSi6Ne1OG9NP6C2/AX06ARwg5WSw07kIk9GI/sM+Qp
- HBGg==
-X-Forwarded-Encrypted: i=1;
- AL+hErF+k3Yes3LL0IrfgFfOqg38RheNElQptcTWH/HRXUlEMwcbBEVeQbRrj6FPZAFibi1gJhWbbBnDXLk=@lists.freedesktop.org
-X-Gm-Message-State: APuU4Z9JtBC2PmPCYiET8H0O17KjKA8awXu9qFau11DZo1x73IXJ+YKC
- 9ibD7HnwBfqdulMpepPiB4mYYMv+fybm7eexbEEBnYyuyXNQYJ6za8e9
-X-Gm-Gg: AYBFou0REXIJi3IG4qJbTmJocCpSxcrBnjHR/QUErqRfcq4978BS+na5VDfBHoZviGe
- SpmyPrp7rNxTUbot2xhlypxXJ7QEyU5KzEW1RR6OEl+ZLoqV6KX3t9VwUhNiBVGWTj77nnPha7n
- gFpVwgcr3pqXtxeszvmNFb3fv9oYKVyp5Uh9MsmzJRx9ZTMyhLaGPBAM+IN4B7smz+ALfoyR0sX
- Jt8XAn0VncGQTTGTseenAzI8bP3LIr5jj2p52LNsmQRnJabtsct+3IaefgrAzxxJTMzTjtMPimf
- ympMoXGVn8UcEL9y0PkT7FEJaz/KpJA/a346O/aFNfG4wEiJVzPKp7uXJdVB42K6vNuYUpFkK41
- VMNUkGwN+4zvmYv+wsK0xbFy+jB4xifaRC1BElK/rq1EzoXAl3+HC08q1pdjmlMxH/yFFn4RhvG
- PPJQ0DsZqWXkftCEfyeaqatX52/Cl++Q1+WyBYraShU9s81urKI2ZlHsj1v1IKgvVIfOl5yopgl
- Q6yT5ObfPCv5Bka+6P5AAwNL5Lo4PIPyekPMDXQZboQ+fpTk2vl1AYB27qbCujdBcu2DIS2AF+i
- daIiozVFExCWGx1DzWnNNswxJgmT3ACEFosSmaqHdROYCM02r/WhGGCLDhPrwUEnGNhvvZ74gaE
- =
-X-Received: by 2002:a05:600c:a085:b0:4a2:a9:ed87 with SMTP id
- 5b1f17b1804b1-4bb88811c75mr88092485e9.19.1795190100244; 
- Fri, 20 Nov 2026 07:55:00 -0800 (PST)
-Received: from DESKTOP-BJ3EVC4.lan (178-164-182-185.pool.digikabel.hu.
- [178.164.182.185]) by smtp.gmail.com with ESMTPSA id
- 5b1f17b1804b1-4bb884a15absm83982635e9.9.2026.11.20.07.54.59
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Fri, 20 Nov 2026 07:54:59 -0800 (PST)
-From: Abdur Rofik <rofikcoga@gmail.com>
-To: linux-arm-msm@vger.kernel.org
-Cc: devicetree@vger.kernel.org, phone-devel@vger.kernel.org,
- dri-devel@lists.freedesktop.org, linux-input@vger.kernel.org,
- linux-kernel@vger.kernel.org, Bjorn Andersson <andersson@kernel.org>,
- Konrad Dybcio <konradybcio@kernel.org>, Rob Herring <robh@kernel.org>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>,
- Neil Armstrong <neil.armstrong@linaro.org>,
- Dmitry Torokhov <dmitry.torokhov@gmail.com>,
- Abdur Rofik <rofikcoga@gmail.com>
-Subject: [PATCH v5 08/10] arm64: dts: qcom: sm8250-lg-timelm: add SW42902
- touchscreen
-Date: Fri, 20 Nov 2026 16:54:47 +0100
-Message-Id: <20261120155450.7719-9-rofikcoga@gmail.com>
-X-Mailer: git-send-email 2.39.5
-In-Reply-To: <20261120155450.7719-1-rofikcoga@gmail.com>
-References: <20261120155450.7719-1-rofikcoga@gmail.com>
+	by gabe.freedesktop.org (Postfix) with ESMTP id 2AD0D10E93A;
+	Fri, 20 Nov 2026 15:58:37 +0000 (UTC)
+Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.223.130])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 94DC0112B92
+ for <dri-devel@lists.freedesktop.org>; Fri, 20 Nov 2026 15:58:26 +0000 (UTC)
+Received: from imap1.dmz-prg2.suse.org (imap1.dmz-prg2.suse.org
+ [IPv6:2a07:de40:b281:104:10:150:64:97])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+ (No client certificate requested)
+ by smtp-out1.suse.de (Postfix) with ESMTPS id EB00C2258E;
+ Fri, 20 Nov 2026 15:58:24 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+ t=1795190305; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version: content-transfer-encoding:content-transfer-encoding;
+ bh=0hnuUq5U6ulpxWIKDfylKBbb7qMsyHDP/g8UrtzG0cc=;
+ b=LVloF5Ph1ridCWOcv3hHQGDNMNvqy+2ERuwqO42C2X63IOp5LwL4MtHQGd8B4lWNVHP2jo
+ tRH4ztfuwerOCZn4pUpRHUOx1GMZ0+UevYIDVXqAvtZZJT1Re3OoOBS1kujauHosqbm6/q
+ a8zRYQi8X1oynwbQF5BsVy07ZTV3/g8=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+ s=susede2_ed25519; t=1795190305;
+ h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version: content-transfer-encoding:content-transfer-encoding;
+ bh=0hnuUq5U6ulpxWIKDfylKBbb7qMsyHDP/g8UrtzG0cc=;
+ b=hdfXVYss/zpHLS1ViHEH7Yqqls+lsdPiIWjLljS01HOcgKUITnq/O0tEiPEs1v/HqiuYLb
+ QnQzaAZu8PkLZ/Aw==
+Authentication-Results: smtp-out1.suse.de;
+ dkim=pass header.d=suse.de header.s=susede2_rsa header.b=FMm+sDTb;
+ dkim=pass header.d=suse.de header.s=susede2_ed25519 header.b=3ood98qN
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+ t=1795190304; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version: content-transfer-encoding:content-transfer-encoding;
+ bh=0hnuUq5U6ulpxWIKDfylKBbb7qMsyHDP/g8UrtzG0cc=;
+ b=FMm+sDTbEA9wH+NiVby8McQfFIi+n2Kdq1fp+vipQXaMEcJuudkMK9Kkz2RdfjwkVpvRcP
+ EEMGrMMq45t5nB3SnFxSL1Pvm+G+eMPJndWCQ8asIhqEAFaLKZLd1FsnC0oQ+Vl4FQs+S9
+ 3zVY7TJMLHBjLCfiCbjtQRpxmkALkok=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+ s=susede2_ed25519; t=1795190304;
+ h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version: content-transfer-encoding:content-transfer-encoding;
+ bh=0hnuUq5U6ulpxWIKDfylKBbb7qMsyHDP/g8UrtzG0cc=;
+ b=3ood98qNeHrV1GEyVo5U31EtjN78yaA6wRyMUMD80qZ/qAp6DVUDoQOBsZ4zOEZiOCY3y1
+ WafwAtk4uhIcL+Dg==
+Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+ (No client certificate requested)
+ by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 8BB841348F;
+ Fri, 20 Nov 2026 15:58:24 +0000 (UTC)
+Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
+ by imap1.dmz-prg2.suse.org with ESMTPSA id Dx6oGiBuAGtTCQAAD6G6ig
+ (envelope-from <tzimmermann@suse.de>); Fri, 20 Nov 2026 15:58:24 +0000
+From: Thomas Zimmermann <tzimmermann@suse.de>
+To: jfalempe@redhat.com, airlied@redhat.com, maarten.lankhorst@linux.intel.com,
+ mripard@kernel.org, simona@ffwll.ch, airlied@gmail.com,
+ dri-devel@lists.freedesktop.org
+Cc: Thomas Zimmermann <tzimmermann@suse.de>,
+	stable@vger.kernel.org
+Subject: [PATCH] drm/ast: Add an option to disable Write-Combine
+Date: Fri, 20 Nov 2026 16:57:58 +0100
+Message-ID: <20261120155821.119377-1-tzimmermann@suse.de>
+X-Mailer: git-send-email 2.56.0
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
+X-Rspamd-Queue-Id: EB00C2258E
+X-Spam-Level: 
+X-Rspamd-Server: rspamd2.dmz-prg2.suse.org
+X-Rspamd-Action: no action
+X-Spamd-Result: default: False [-12.01 / 50.00]; SUSE_INTERNAL_BYPASS(-9.00)[];
+ BAYES_HAM(-3.00)[100.00%]; MID_CONTAINS_FROM(1.00)[];
+ NEURAL_HAM_LONG(-1.00)[-1.000]; R_MISSING_CHARSET(0.50)[];
+ R_DKIM_ALLOW(-0.20)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
+ NEURAL_HAM_SHORT(-0.20)[-1.000]; MIME_GOOD(-0.10)[text/plain];
+ MX_GOOD(-0.01)[]; MIME_TRACE(0.00)[0:+];
+ TO_MATCH_ENVRCPT_ALL(0.00)[];
+ DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
+ URIBL_BLOCKED(0.00)[suse.de:dkim,suse.de:email,imap1.dmz-prg2.suse.org:rdns,imap1.dmz-prg2.suse.org:helo];
+ RBL_SPAMHAUS_BLOCKED_OPENRESOLVER(0.00)[2a07:de40:b281:104:10:150:64:97:from]; 
+ ARC_NA(0.00)[];
+ FREEMAIL_TO(0.00)[redhat.com,linux.intel.com,kernel.org,ffwll.ch,gmail.com,lists.freedesktop.org];
+ RCVD_TLS_ALL(0.00)[]; DKIM_TRACE(0.00)[suse.de:+];
+ RCVD_COUNT_TWO(0.00)[2]; FROM_EQ_ENVFROM(0.00)[];
+ FROM_HAS_DN(0.00)[]; TO_DN_SOME(0.00)[];
+ DBL_BLOCKED_OPENRESOLVER(0.00)[imap1.dmz-prg2.suse.org:rdns,imap1.dmz-prg2.suse.org:helo,suse.de:dkim,suse.de:email];
+ RECEIVED_SPAMHAUS_BLOCKED_OPENRESOLVER(0.00)[2a07:de40:b281:106:10:150:64:167:received];
+ RCPT_COUNT_SEVEN(0.00)[9]; RCVD_VIA_SMTP_AUTH(0.00)[];
+ FREEMAIL_ENVRCPT(0.00)[gmail.com]
+X-Spam-Score: -12.01
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -94,94 +110,81 @@ List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-15.8 required=3.0 tests=BAYES_00,DKIM_SIGNED,
-	DKIM_VALID,DKIM_VALID_AU,FREEMAIL_FORGED_FROMDOMAIN,FREEMAIL_FROM,
-	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
-	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,USER_AGENT_GIT
-	autolearn=unavailable autolearn_force=no version=4.0.1
+X-Spam-Status: No, score=-18.8 required=3.0 tests=BAYES_00,DKIM_SIGNED,
+	DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
+	INCLUDES_CR_TRAILER,INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,
+	SPF_PASS,USER_AGENT_GIT autolearn=unavailable autolearn_force=no
+	version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-Describe the SW42902 touchscreen on GENI I2C13 with its interrupt,
-reset, regulator supplies, pinctrl, and native 1080x2460 touch area.
+WC-mapped video memory presumably has PCI I/O bursts that interfere
+with real-time tasks. Seen on AST2600 hardware.
 
-Signed-off-by: Abdur Rofik <rofikcoga@gmail.com>
+Add an Kconfig option to ast for vmapping the video memory uncached
+if CONFIG_RT=y. If set, video-memory access is slower, but avoids
+I/O bursts on the PCI us. Mirrors a similar change to mgag200 in
+commit b593ea940623 ("drm/mgag200: Add an option to disable
+Write-Combine").
+
+Signed-off-by: Thomas Zimmermann <tzimmermann@suse.de>
+Fixes: f2fa5a99ca81 ("drm/ast: Convert ast to SHMEM")
+Cc: <stable@vger.kernel.org> # v6.2+
 ---
- arch/arm64/boot/dts/qcom/sm8250-lg-timelm.dts | 47 +++++++++++++++++++
- 1 file changed, 47 insertions(+)
+ drivers/gpu/drm/ast/Kconfig  |  9 +++++++++
+ drivers/gpu/drm/ast/ast_mm.c | 13 +++++++++++++
+ 2 files changed, 22 insertions(+)
 
-diff --git a/arch/arm64/boot/dts/qcom/sm8250-lg-timelm.dts b/arch/arm64/boot/dts/qcom/sm8250-lg-timelm.dts
-index 709cf9674e2d4..6f00495d42467 100644
---- a/arch/arm64/boot/dts/qcom/sm8250-lg-timelm.dts
-+++ b/arch/arm64/boot/dts/qcom/sm8250-lg-timelm.dts
-@@ -107,6 +107,24 @@ vph_pwr: vph-pwr-regulator {
- 		regulator-always-on;
- 		regulator-boot-on;
- 	};
-+
-+	reg_ts_vcl: regulator-ts-vcl {
-+		compatible = "regulator-fixed";
-+		regulator-name = "reg_ts_vcl";
-+		regulator-min-microvolt = <3300000>;
-+		regulator-max-microvolt = <3300000>;
-+		gpio = <&pm8150_gpios 8 GPIO_ACTIVE_HIGH>;
-+		enable-active-high;
-+	};
-+
-+	reg_ts_vdd: regulator-ts-vdd {
-+		compatible = "regulator-fixed";
-+		regulator-name = "reg_ts_vdd";
-+		regulator-min-microvolt = <1800000>;
-+		regulator-max-microvolt = <1800000>;
-+		gpio = <&pm8150_gpios 9 GPIO_ACTIVE_HIGH>;
-+		enable-active-high;
-+	};
- };
+diff --git a/drivers/gpu/drm/ast/Kconfig b/drivers/gpu/drm/ast/Kconfig
+index 242fbccdf844..f2c99e99b5b4 100644
+--- a/drivers/gpu/drm/ast/Kconfig
++++ b/drivers/gpu/drm/ast/Kconfig
+@@ -14,3 +14,12 @@ config DRM_AST
+ 	 is bound to the driver. These GPUs are commonly found
+ 	 in server chipsets.
  
- &apps_rsc {
-@@ -461,6 +479,28 @@ &gpu_zap_shader {
- 	firmware-name = "qcom/sm8250/LG/timelm/a650_zap.mbn";
- };
++config DRM_AST_DISABLE_WRITECOMBINE
++	bool "Disable Write Combine mapping of VRAM"
++	depends on DRM_AST && (PREEMPT_RT || COMPILE_TEST)
++	help
++	  The VRAM of AST GPUs is mapped with Write-Combine to improve
++	  performances. This can interfere with real-time tasks; even if they
++	  are running on other CPU cores than the graphics output.
++	  Enable this option only if you run real-time tasks on a server with
++	  Aspeed graphics.
+diff --git a/drivers/gpu/drm/ast/ast_mm.c b/drivers/gpu/drm/ast/ast_mm.c
+index 0bc140319464..cc882d2c172d 100644
+--- a/drivers/gpu/drm/ast/ast_mm.c
++++ b/drivers/gpu/drm/ast/ast_mm.c
+@@ -74,6 +74,18 @@ int ast_mm_init(struct ast_device *ast)
+ {
+ 	struct drm_device *dev = &ast->base;
+ 	struct pci_dev *pdev = to_pci_dev(dev->dev);
++#if defined(CONFIG_DRM_AST_DISABLE_WRITECOMBINE)
++	resource_size_t base;
++	u32 vram_size;
++
++	base = pci_resource_start(pdev, 0);
++
++	vram_size = ast_get_vram_size(ast);
++
++	ast->vram = devm_ioremap(dev->dev, base, vram_size);
++	if (!ast->vram)
++		return -ENOMEM;
++#else
+ 	resource_size_t base, size;
+ 	u32 vram_size;
  
-+&i2c13 {
-+	status = "okay";
-+	clock-frequency = <400000>;
-+
-+	touchscreen@48 {
-+		compatible = "lg,sw42902";
-+		reg = <0x48>;
-+
-+		interrupts-extended = <&tlmm 39 IRQ_TYPE_LEVEL_LOW>;
-+
-+		pinctrl-names = "default";
-+		pinctrl-0 = <&ts_int_default>;
-+
-+		reset-gpios = <&tlmm 38 GPIO_ACTIVE_LOW>;
-+		vcl-supply = <&reg_ts_vcl>;
-+		vdd-supply = <&reg_ts_vdd>;
-+
-+		touchscreen-size-x = <1080>;
-+		touchscreen-size-y = <2460>;
-+	};
-+};
-+
- &mdss {
- 	status = "okay";
- };
-@@ -580,6 +620,13 @@ sdc2_card_det_n: sd-card-det-n-state {
- 		drive-strength = <2>;
- 		bias-pull-up;
- 	};
-+
-+	ts_int_default: ts-int-default-state {
-+		pins = "gpio39";
-+		function = "gpio";
-+		drive-strength = <8>;
-+		bias-pull-up;
-+	};
- };
+@@ -89,6 +101,7 @@ int ast_mm_init(struct ast_device *ast)
+ 	ast->vram = devm_ioremap_wc(dev->dev, base, vram_size);
+ 	if (!ast->vram)
+ 		return -ENOMEM;
++#endif
  
- &uart12 {
+ 	ast->vram_base = base;
+ 	ast->vram_size = vram_size;
+
+base-commit: 7d502136b31169f6b5575f7f89c3da60cdf7891d
 -- 
-2.39.5
+2.56.0
 
