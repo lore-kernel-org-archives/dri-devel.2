@@ -2,42 +2,43 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3FED2606A330
-	for <dri-devel@archiver.kernel.org>; Fri, 20 Nov 2026 12:22:18 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BAAB2606A320
+	for <dri-devel@archiver.kernel.org>; Fri, 20 Nov 2026 12:29:13 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=OWueO9F7
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=fwTmR93M
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 6665510E7ED;
-	Fri, 20 Nov 2026 12:22:12 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 03D1110E01F;
+	Fri, 20 Nov 2026 12:29:08 +0000 (UTC)
 Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 41EA510E75D
- for <dri-devel@lists.freedesktop.org>; Fri, 20 Nov 2026 12:22:06 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id E50E210E01F
+ for <dri-devel@lists.freedesktop.org>; Fri, 20 Nov 2026 12:29:01 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by tor.source.kernel.org (Postfix) with ESMTP id 8056260E48;
- Fri, 20 Nov 2026 12:22:05 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id B4E751F000C4;
- Fri, 20 Nov 2026 12:22:04 +0000 (UTC)
+ by tor.source.kernel.org (Postfix) with ESMTP id 37FEE61903;
+ Fri, 20 Nov 2026 12:29:01 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4E2921F008B2;
+ Fri, 20 Nov 2026 12:29:00 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1795177324;
- bh=QQk7FIIbl8HF409lOXuo7wEnPDUrmoqERTU1WVLdYa0=;
+ s=k20260515; t=1795177740;
+ bh=CjO+Fla5ztvssdyeZ68Rg9EjVSB1MYR94WMYJ658R6o=;
  h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
- b=OWueO9F7O3o1qR7r99u8CD+4EBixRl+MAMKzHIdx4TkkAQuR4ICZBao7hzqFde5zs
- bHaXtDSwP4ruOjwns3QaKoQwFK86T+SJc4v0kaW3hqjGPwHZ1CHtTjDQCnVGpgEOPV
- zi6VAkI9ZgnejPwryDLirm0lA+f957DPztLXO10QPZaRcQgc2UThCfTZo8cwqRykYG
- lKpwh037tQYO4ftFfsBkH8PNdReDQ3Xhu44jRACSig00GhPURdQcY/2CZueSNwKR4F
- K8URS9S9Qkd44mnbMhItcqDJf2syEoQ6Ou+Qa9bFbG409EUyn3/oduXtBS5l39tMSY
- 0cMNQ4TBJfb1Q==
-Message-ID: <sashiko-outbox-225136@kernel.org>
+ b=fwTmR93MvYwD9uvBoV3pN+Be/aVKGscT/eul5kh3KfJm7wk7sajIli9tVJx1DlzoV
+ +AOxSpoPlahtf4KT/Je6FTtQAYB/C2XjJJjFDb26XQzllXEj1XvDDXLjkJt8KHUexi
+ Uvj7z53ShR0Rd766rgqTx8fiHIGvzuA+ET7z0afn4DVGy+ACumDqjjYQ/vvrh4NAc4
+ 2Yv5I49kIftub8iDNc43O8Zry3Ycuh9Yh/pWVFlNSgCQzQG7KIdXAC2HOZk0F9h1X1
+ XNAktmWdFPqGD3cMyOGj8Z8qNdGhku8Z96xuhz5jKOQGq4e+LR63jnK0A9f4qM8Stn
+ RpU6VszpFCXag==
+Message-ID: <sashiko-outbox-225142@kernel.org>
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v2 5/6] fbcon: Look up glyphs using the font interface
+Subject: Re: [PATCH v2 6/6] fbcon: Handle characters with no glyph defined
+ in a consistent way
 To: "Thomas Zimmermann" <tzimmermann@suse.de>
 Cc: dri-devel@lists.freedesktop.org
-In-Reply-To: <20261120115215.52092-6-tzimmermann@suse.de>
+In-Reply-To: <20261120115215.52092-7-tzimmermann@suse.de>
 References: <20261120115215.52092-1-tzimmermann@suse.de>
- <20261120115215.52092-6-tzimmermann@suse.de>
+ <20261120115215.52092-7-tzimmermann@suse.de>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Fri, 20 Nov 2026 12:22:04 +0000
+Date: Fri, 20 Nov 2026 12:28:59 +0000
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -58,126 +59,126 @@ X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 X-Archived-By: <archiver.kernel.org>
 
-Thank you for your contribution! Sashiko AI review found 1 potential
-issue to consider:
-- [High] fbcon: mismatched par->p->fontdata lookup and NULL deref in
-  bitblit
+Thank you for your contribution! Sashiko AI review found 2 potential
+issues to consider:
+- [High] fbcon: wrong font buffer in bit_putcs_aligned() and
+  bit_putcs_unaligned()
+- [Medium] fbcon: fallback lookup in ccw_cursor() repeats c & charmask
+  instead of NUL
 --
 
-commit 715441bc0ed4d52171baff9d0046bf7f7969ee89
+commit 87130bf587571fed7c1353d5789cd5ab5b6c495b
 Author: Thomas Zimmermann <tzimmermann@suse.de>
 
-fbcon: Look up glyphs using the font interface
+fbcon: Handle characters with no glyph defined in a consistent way
 
-This commit replaces open-coded glyph lookups and cell-size calculations
-in the fbcon bitblit and rotation implementations with font_data_glyph_buf()
-and font_glyph_size().
+This commit checks the return value of font_data_glyph_buf() for NULL
+across fbcon drawing functions, falling back to the '\0' glyph or
+skipping the character when undefined.
 
 > diff --git a/drivers/video/fbdev/core/bitblit.c b/drivers/video/fbdev/cor=
 e/bitblit.c
-> index 1cbfbe50bebff..c28329466f051 100644
+> index c28329466f051..cf3adc46aaa9a 100644
 > --- a/drivers/video/fbdev/core/bitblit.c
 > +++ b/drivers/video/fbdev/core/bitblit.c
-> @@ -76,13 +76,15 @@ static void bit_clear(struct vc_data *vc, struct fb_i=
-nfo *info, int sy,
-> =20
->  static inline void bit_putcs_aligned(struct vc_data *vc, struct fb_info =
-*info,
->  				     const u16 *s, u32 attr, u32 cnt,
-> -				     u32 d_pitch, u32 s_pitch, u32 cellsize,
-> +				     u32 d_pitch, u32 s_width, u32 s_vpitch,
->  				     struct fb_image *image,
+> @@ -81,7 +81,6 @@ static inline void bit_putcs_aligned(struct vc_data *vc=
+, struct fb_info *info,
 >  				     unsigned char *buf, u8 *dst)
 >  {
 >  	u16 charmask =3D vc->vc_hi_font_mask ? 0x1ff : 0xff;
->  	unsigned int charcnt =3D vc->vc_font.charcount;
+> -	unsigned int charcnt =3D vc->vc_font.charcount;
 >  	u32 idx =3D vc->vc_font.width >> 3;
-> +	struct fbcon_par *par =3D info->fbcon_par;
-> +	u32 s_pitch =3D font_glyph_pitch(s_width);
->  	const unsigned char *src;
-> =20
+>  	struct fbcon_par *par =3D info->fbcon_par;
+>  	u32 s_pitch =3D font_glyph_pitch(s_width);
+> @@ -90,9 +89,12 @@ static inline void bit_putcs_aligned(struct vc_data *v=
+c, struct fb_info *info,
 >  	while (cnt--) {
-> @@ -90,7 +92,7 @@ static inline void bit_putcs_aligned(struct vc_data *vc=
-, struct fb_info *info,
+>  		u16 ch =3D scr_readw(s++) & charmask;
 > =20
->  		if (ch >=3D charcnt)
->  			ch =3D 0;
-> -		src =3D vc->vc_font.data + (unsigned int)ch * cellsize;
-> +		src =3D font_data_glyph_buf(par->p->fontdata, s_width, s_vpitch, ch);
+> -		if (ch >=3D charcnt)
+> -			ch =3D 0;
+>  		src =3D font_data_glyph_buf(par->p->fontdata, s_width, s_vpitch, ch);
+> +		if (!src) {
+> +			src =3D font_data_glyph_buf(par->rotated.buf, s_width, s_vpitch, '\0'=
+);
+> +			if (!src)
+> +				goto next_char;
+> +		}
 > =20
 >  		if (attr) {
 >  			update_attr(buf, src, attr, vc);
-> @@ -113,7 +115,7 @@ static inline void bit_putcs_aligned(struct vc_data *=
+> @@ -105,7 +107,7 @@ static inline void bit_putcs_aligned(struct vc_data *=
 vc, struct fb_info *info,
->  static inline void bit_putcs_unaligned(struct vc_data *vc,
->  				       struct fb_info *info, const u16 *s,
->  				       u32 attr, u32 cnt, u32 d_pitch,
-> -				       u32 s_pitch, u32 cellsize,
-> +				       u32 s_width, u32 s_vpitch,
->  				       struct fb_image *image,
+>  		else
+>  			fb_pad_aligned_buffer(dst, d_pitch, src, idx,
+>  					      image->height);
+> -
+> +next_char:
+>  		dst +=3D s_pitch;
+>  	}
+> =20
+> @@ -120,7 +122,6 @@ static inline void bit_putcs_unaligned(struct vc_data=
+ *vc,
 >  				       unsigned char *buf, u8 *dst)
 >  {
-> @@ -122,6 +124,8 @@ static inline void bit_putcs_unaligned(struct vc_data=
- *vc,
+>  	u16 charmask =3D vc->vc_hi_font_mask ? 0x1ff : 0xff;
+> -	unsigned int charcnt =3D vc->vc_font.charcount;
 >  	u32 shift_low =3D 0, mod =3D vc->vc_font.width % 8;
 >  	u32 shift_high =3D 8;
 >  	u32 idx =3D vc->vc_font.width >> 3;
-> +	struct fbcon_par *par =3D info->fbcon_par;
-> +	u32 s_pitch =3D font_glyph_pitch(s_width);
->  	const unsigned char *src;
-> =20
+> @@ -131,9 +132,12 @@ static inline void bit_putcs_unaligned(struct vc_dat=
+a *vc,
 >  	while (cnt--) {
-> @@ -129,7 +133,7 @@ static inline void bit_putcs_unaligned(struct vc_data=
- *vc,
+>  		u16 ch =3D scr_readw(s++) & charmask;
 > =20
->  		if (ch >=3D charcnt)
->  			ch =3D 0;
-> -		src =3D vc->vc_font.data + (unsigned int)ch * cellsize;
-> +		src =3D font_data_glyph_buf(par->p->fontdata, s_width, s_vpitch, ch);
-> =20
->  		if (attr) {
->  			update_attr(buf, src, attr, vc);
+> -		if (ch >=3D charcnt)
+> -			ch =3D 0;
+>  		src =3D font_data_glyph_buf(par->p->fontdata, s_width, s_vpitch, ch);
+> +		if (!src) {
+> +			src =3D font_data_glyph_buf(par->rotated.buf, s_width, s_vpitch, '\0'=
+);
+> +			if (!src)
+> +				goto next_char;
+> +		}
+
+[Severity: High]
+Should the fallback lookups in bit_putcs_aligned() and
+bit_putcs_unaligned() pass par->p->fontdata instead of par->rotated.buf?
+
+par->rotated is only defined when CONFIG_FRAMEBUFFER_CONSOLE_ROTATION is
+enabled, so builds without it fail to compile.  When rotation support is
+compiled in, par->rotated.buf is NULL on an unrotated console, causing
+font_data_glyph_buf() -> font_data_num_glyphs() -> font_data_size() to
+dereference a NULL pointer whenever an out-of-range character index is
+drawn.
 
 [ ... ]
 
-> @@ -289,7 +294,7 @@ static void bit_cursor(struct vc_data *vc, struct fb_=
-info *info, bool enable,
->  	/* Clamp to font size, same as bit_putcs_aligned() */
->  	if (c >=3D vc->vc_font.charcount)
->  		c =3D 0;
-> -	src =3D vc->vc_font.data + (c * cellsize);
-> +	src =3D font_data_glyph_buf(par->p->fontdata, width, vpitch, c);
-> =20
->  	if (par->cursor_state.image.data !=3D (const char *)src ||
->  	    par->cursor_reset) {
+> diff --git a/drivers/video/fbdev/core/fbcon_ccw.c b/drivers/video/fbdev/c=
+ore/fbcon_ccw.c
+> index 9da6c0e41e7a2..cbaa75fc1cc14 100644
+> --- a/drivers/video/fbdev/core/fbcon_ccw.c
+> +++ b/drivers/video/fbdev/core/fbcon_ccw.c
+[ ... ]
+> @@ -246,6 +251,11 @@ static void ccw_cursor(struct vc_data *vc, struct fb=
+_info *info, bool enable,
+>   	c =3D scr_readw((u16 *) vc->vc_pos);
+>  	attribute =3D get_attribute(info, c);
+>  	src =3D font_data_glyph_buf(par->rotated.buf, width, vpitch, c & charma=
+sk);
+> +	if (!src) {
+> +		src =3D font_data_glyph_buf(par->rotated.buf, width, vpitch, c & charm=
+ask);
+> +		if (!src)
+> +			return;
+> +	}
 
-[Severity: High]
-Can looking up glyphs in par->p->fontdata instead of vc->vc_font.data
-cause a NULL pointer dereference in bit_putcs_aligned(),
-bit_putcs_unaligned(), and bit_cursor()?
-
-par is shared across all virtual consoles mapped to info, so par->p does
-not always point to &fb_display[vc->vc_num].  For example, con_font_set()
-calls hide_cursor(vc) -> fbcon_cursor(vc, false) -> bit_cursor() on a
-background console while par->p still points to &fb_display[fg_console],
-and set_con2fb_map() sets par->p =3D &fb_display[unit] for a background
-console before con2fb_init_display() calls update_screen() on fg_console.
-
-When par->p->fontdata belongs to a console with a smaller font buffer
-than vc (such as an 8x16 font on par->p vs a 16x32 font on vc), any
-character index c >=3D font_data_num_glyphs(par->p->fontdata, width, vpitch)
-still passes the c >=3D vc->vc_font.charcount clamp, causing
-font_data_glyph_buf() to return NULL.  That unchecked NULL src is then
-dereferenced in soft_cursor(), update_attr(), or the fb_pad_*_buffer()
-helpers; and if the console referenced by par->p was deallocated via
-VT_DISALLOCATE so that par->p->fontdata is NULL, font_data_glyph_buf()
-itself dereferences NULL in FNTSIZE().
-
-The follow-up commit "fbcon: Handle characters with no glyph defined in a
-consistent way" adds if (!src) checks after font_data_glyph_buf(), but does
-not fix the par->p->fontdata mismatch in bitblit.c and falls back to
-dereferencing par->rotated.buf (which is NULL in bitblit) when !src.
+[Severity: Medium]
+Should the fallback call in ccw_cursor() look up '\0' instead of
+c & charmask again?  Repeating c & charmask always returns NULL when the
+first lookup fails, so the cursor is skipped instead of falling back to
+the '\0' glyph.
 
 --=20
 Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261120115215.5209=
-2-1-tzimmermann@suse.de?part=3D5
+2-1-tzimmermann@suse.de?part=3D6
