@@ -2,136 +2,51 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 05EFC606A6A6
-	for <dri-devel@archiver.kernel.org>; Fri, 20 Nov 2026 20:54:48 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1BD1E606A6B5
+	for <dri-devel@archiver.kernel.org>; Fri, 20 Nov 2026 20:58:09 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=amd.com header.i=@amd.com header.a=rsa-sha256 header.s=selector1 header.b=ZICi5BZb
+	dkim=fail reason="signature verification failed" (1024-bit key, unprotected) header.d=collabora.com header.i=@collabora.com header.a=rsa-sha256 header.s=zohomail header.b=cIshJhwD
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id EBF4810E162;
-	Fri, 20 Nov 2026 20:54:41 +0000 (UTC)
-Received: from MW6PR02CU001.outbound.protection.outlook.com
- (mail-westus2azon11012059.outbound.protection.outlook.com [52.101.48.59])
- by gabe.freedesktop.org (Postfix) with ESMTPS id CF19F10E203;
- Fri, 20 Nov 2026 20:54:35 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=tv26+4/S6wTCm57gHdS96Q8Q9UjsipbE+KzmNvZnJRVZLQadm/2gHoeYYWcXbSCsI4/mMfhq1XudbvzCpNevWTzcMgBKK1LEEBnVpY563QzQw4cuMuTsDE8RWw8oNvAxUp5kzCSFM6G1wqffRKGUhHQLEjGG8zgkVbUW4ul6wsnWU3kWsa1gqdRpZ02RUWVNSVNLQkCk0X19O6kOzWQCPtJ8H3uUA1pEp6cL6ige4IZngvNTQg3tP2fCRS25a5/g8MaWwIZKWF7F0SHFO5BckatphzsR1nKN8DD1LLYYQgGuac3C4kF/Lync5iz9GpZMvgBH5zGH7BL9u6K0c3LTiw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=sBXQYfcy1i8Bi/FlH/xlEHVkHpg6pZV4gl/1Ef8Zgyo=;
- b=upM3WgVHIVHgFBNb/F6qCF6/W8wZoVIZAtkTkOoNRMUXrwyx1IVj0dnshS4V59Vpc0gNpUV91yb0tBsML19vnd3PJIWgnnjsd2rlsBX90Tx0If1E1QqWT+iiu0gPGKDfdjGG97uW1B4hqKmpY509GRFJh4qJZ1Wfiy6WM1txiUgCOxOQQLQGhGI8uYMxWqGU9ZaBX8v6Ngmxs+iHo7IFuCBLwd+n8LLHclPBPj6gbc015EtGEqoWEJ7ceZGYlk4i4T/6+vOqgjAik/1pmIDO5FXIWU9r5cLRllTfiPN9MzgGvHgedMyaQEqwviKJafh1T5f0MzUNMZVy2pKoG5wYNw==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=sBXQYfcy1i8Bi/FlH/xlEHVkHpg6pZV4gl/1Ef8Zgyo=;
- b=ZICi5BZbBRnzm8sNJzbWb2w62OGnx64RTLIuv8dCsS/Ruyjl548uREgZFW6fYtjnSGCjk8419fvpOr1He61DvptCgSLRmUEjL6K9pg8l5GSXsPvY6zreB5W3jIkOFsScEuxt4ZmO2qz0H/i9rUEbiIWAxA3gZPO11EDjWa7blBM=
-Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-Received: from LV8PR12MB9133.namprd12.prod.outlook.com (2603:10b6:408:188::15)
- by LV2PR12MB5992.namprd12.prod.outlook.com (2603:10b6:408:14e::17)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.639.10; Fri, 20 Nov
- 2026 20:54:29 +0000
-Received: from LV8PR12MB9133.namprd12.prod.outlook.com
- ([fe80::d29f:9915:159b:b02]) by LV8PR12MB9133.namprd12.prod.outlook.com
- ([fe80::d29f:9915:159b:b02%4]) with mapi id 15.21.0639.011; Fri, 20 Nov 2026
- 20:54:29 +0000
-Message-ID: <886d2fe0-ac06-407f-b1db-f8d7857282c5@amd.com>
-Date: Fri, 20 Nov 2026 15:54:26 -0500
-User-Agent: Mozilla Thunderbird
-Subject: Re: [RFC PATCH 2/3] platform/x86: amd_isp4: add the OV13B10
- (OMNI13B1) board configuration
-To: Sakari Ailus <sakari.ailus@linux.intel.com>,
- Seifelden Abdelmonem <saif.elden.hatim@gmail.com>
-Cc: Mario Limonciello <superm1@kernel.org>,
- Alex Deucher <alexander.deucher@amd.com>, Hans de Goede <hansg@kernel.org>,
- =?UTF-8?Q?Ilpo_J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>,
- Bin Du <bin.du@amd.com>, Nirujogi Pratap <pratap.nirujogi@amd.com>,
- Benjamin Chan <benjamin.chan@amd.com>, King Li <King.Li@amd.com>,
- Caspar Adriani <caspar.adriani@proton.me>,
- =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>,
- Arec Kao <arec.kao@intel.com>, Mauro Carvalho Chehab <mchehab@kernel.org>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
- platform-driver-x86@vger.kernel.org, linux-media@vger.kernel.org,
- linux-kernel@vger.kernel.org
-References: <20261103155313.114347-1-saif.elden.hatim@gmail.com>
- <20261103155313.114347-3-saif.elden.hatim@gmail.com>
- <avMH5glolytc9L86@kekkonen.localdomain>
-Content-Language: en-GB
-From: "Nirujogi, Pratap" <pnirujog@amd.com>
-In-Reply-To: <avMH5glolytc9L86@kekkonen.localdomain>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: YQZPR01CA0155.CANPRD01.PROD.OUTLOOK.COM
- (2603:10b6:c01:8c::8) To LV8PR12MB9133.namprd12.prod.outlook.com
- (2603:10b6:408:188::15)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 327F910E6B7;
+	Fri, 20 Nov 2026 20:58:03 +0000 (UTC)
+Received: from sender5-op-o12.zoho.com (sender5-op-o12.zoho.com
+ [165.173.182.12])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id BC29E10E6B7;
+ Fri, 20 Nov 2026 20:57:56 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; t=1795208272; cv=none; 
+ d=zohomail.com; s=zohoarc; 
+ b=MNJOx8tZxvWSrqSIVQfcCY3UygmScJycKjInx52Iu7xc1lGJX4iUIKf1/vdB/glMbELOd4HX2n+gXdNywq0nzmtyeZ2S4OWdeonUKGyrG3lu+LRQeqXQnXbylEtFb+y37DqCUz6B3aQRVI+KBg6rc+82JENxKYl9oKLeYg9gtkw=
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com;
+ s=zohoarc; t=1795208272;
+ h=Content-Type:Content-Transfer-Encoding:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:Subject:Subject:To:To:Message-Id:Reply-To:Cc;
+ bh=+jrSQBlE/7LeuSSURWGNRbL9ee6NMmTf4Eyvavv2h3o=; 
+ b=mjpuWmLANXf8FNcgYdxS9IVD2M/CmIsGoIzjJcpALWVOawZ3X05yuUhHqFvPoa77/VdbHubBkEPR+N9vnk5vSWG3T+49ibVjk5184WRSUzBDngGLfNF812AGDaP3jqR/XJr4ppqDlTEVUcU3KzxoD6ZLOpttRLFKP/84s+qS0fc=
+ARC-Authentication-Results: i=1; mx.zohomail.com;
+ dkim=pass  header.i=collabora.com;
+ spf=pass  smtp.mailfrom=robert.mader@collabora.com;
+ dmarc=pass header.from=<robert.mader@collabora.com>
+DKIM-Signature: a=rsa-sha256;
+ b=cIshJhwDkvinZkmQQvnYiUNMr9JOEOR/Fr/w9y+Q50EflImyHSVmqhjMzhK2uayV9knldH7Z9PKlzuGa8KYbpUr60Pcb3yeaTxOjYPW5SpyTFr48Ktro2Cho8EvP1e9FkuiMD4B8v+ZfCCn2iu8EUVZ8U7Y3B0s+MpglQ55HECM=;
+ c=relaxed/relaxed; s=zohomail; d=collabora.com; v=1;
+ bh=+jrSQBlE/7LeuSSURWGNRbL9ee6NMmTf4Eyvavv2h3o=;
+ h=Content-Description:Content-ID:Content-Type:Content-Transfer-Encoding:Cc:Date:From:In-Reply-To:List-Subscribe:List-Post:List-Owner:List-Id:List-Archive:List-Help:List-Unsubscribe:MIME-Version:Message-ID:Resent-Sender:Resent-Cc:Resent-Date:Resent-To:Reply-To:Resent-Message-ID:Resent-From:Sender:Subject:To:Date:From:Message-Id:Reply-To:Subject:To:Cc;
+Received: by smtp.zohomail.com with SMTPS id 1795208270460676.7972250834318;
+ Fri, 20 Nov 2026 12:57:50 -0800 (PST)
+Message-ID: <35c12a49-294e-4c56-af83-c7bdce56d052@collabora.com>
+Date: Fri, 20 Nov 2026 21:57:46 +0100
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: LV8PR12MB9133:EE_|LV2PR12MB5992:EE_
-X-MS-Office365-Filtering-Correlation-Id: 1e14e155-7495-448d-7576-08df4748786b
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
- ARA:13230040|376014|7416014|1800799024|23010399003|366016|11063799006|261026140227099003|4143699003|261021123027099003|10067099003|261022105027099003|261028144727099003|56012099006|18002099003|22082099003;
-X-Microsoft-Antispam-Message-Info: upGsmQkJIi7i4pNPwITUqb3IeGYT24HLRqVgxEiNVBMX0r7zMIfDPjdP66tvjFHpS2zEBk5ef4CVd9Rr5kTU1PppYtR8HZ++W7O6Jn/9v/UtqxOnfFQCLDtb2tk50O3SiWA0bKFNCEt3ulfu6wtmZJOlyxFAF+lAkLxFzCUUPwhYXBCR+GZe8MXiQAHINx8phkLgqYWQCPYqVyAPdrBFf+itprMOlToMFA9M9U5II2dq92F5iio0SZVQ0/dC2waF2mVoPkN2zaJ96J7PpMjnS3deJNOSKhCeuuaAwjP0DpK7Q4FpD8FrF7cE9zUaHqhYkSG8H26ejavDOQcAlVHZ1p3YYRwOzL8eiIFoziiab9OYNTnZmxeX4nujE1WI0T2kLybpDvqYNIcD0hbWyXpBYn7HVGTZYe6ngGVJz1XnByn3YnsezkO15SIbeZbFLe8wXDHhcqw6NyppLBPKoWbBrMiCsfvKfuQYVpzl2p2huB4XBPWozgaQn8fezH4+NnQw5vFxeHiQ2SvW3vOxdPPbNVERalYe6KDnDPa4ozHK92INSqJi+Ke/H2I+6NTuLWCzUm+7hu3m1INqXKIvxrFzgg/ZUepDEwbC5dOZkS9fD16bZiWv2a036dcxlb/Gp8vD
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:LV8PR12MB9133.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(376014)(7416014)(1800799024)(23010399003)(366016)(11063799006)(261026140227099003)(4143699003)(261021123027099003)(10067099003)(261022105027099003)(261028144727099003)(56012099006)(18002099003)(22082099003);
- DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?Y3JoR25wTmtac1h5VkFnUTk0MXB6aS9ySFRrZUtPeWZEci9WazZ1cnMvZ0RS?=
- =?utf-8?B?RmY5ekpFTTkyQ3VUclNRTFR1cTRDL1cvNUJVWEo5VS8rZW9GWitVOUV5SkFZ?=
- =?utf-8?B?dlltNWpBY1p6RG1NcnNMQzVsUFh1bFRVRkIxMzhGNytONkliTkE5bTRzUmVP?=
- =?utf-8?B?YUN2ZzVTTlNoOHZ1Z0xUTi8xQ1VRMFZiK0NyaklwNG1PZE0xTjNIaUtiR3lr?=
- =?utf-8?B?eUkyN1BBR3hGOVZaNjhIREh2RjZiU2RQZFhsVXV4bzIrMVlpRXhXTHpPUDVP?=
- =?utf-8?B?UE0wMU5GSXFTT1I2Um5CalFtSEx6TG1UeUJlSU1pWTcydnhiZU8wanVmeURy?=
- =?utf-8?B?RjhaY3d2S29HZlR4NlZ4YWI2RmhrS21LRzdaSi9GbUlrOUVCTVZ3aC9EYk9P?=
- =?utf-8?B?dGRjS2JMTm9WcTQ5RUJOL0NkOVE4aFNTRGE3RnZSVXBiejNWSkVYT01XaE1S?=
- =?utf-8?B?dEVoaCtJZTVtL044eGdyckcxZ3gxblliMEtsdDY1cGtZR0VDMFk1UE1lampu?=
- =?utf-8?B?Vm83Tll2aXhQeG5yWHZCd0ZxenZaRUw0YkFmTXNDdG1lYjRpRU9yUFdaTEVK?=
- =?utf-8?B?UUV4bGVqdS94aTQwbkg3dHo0YmZCZkNpM2h3aGMyQzhmM2xTWTIrQmhFbmkz?=
- =?utf-8?B?STc0Q0lsVnFmK1VMWkN1ZTlWM1hzU1hKSmZvaVdqekdEWkY0a1MvNS83T1Ux?=
- =?utf-8?B?aHN1RFRhVGJScW1SUGQ5VjNCazJ2SnhvSXBGM1NQOVgvdVNNazRjR0NEaEp3?=
- =?utf-8?B?THZpd3hFaFVCOGpLU3M5ekJHbVo3eVZGeGF2U2M2eG9SeHNIZVZSZDJuemhk?=
- =?utf-8?B?RTZwU1ZVUlRqbzlEbE5kWk1vaHNJVUNpSUhHdkFJcHRKRXdOUTBXZEc3NUM4?=
- =?utf-8?B?SGJLUDhmMXBlSHQ2Q2xTalErWDRza0VrcXFuZjhyYjJLTmo5bGZQK2tIclRN?=
- =?utf-8?B?cUpKNytDSURvSm5UU1gwTU1sRXR3T1N6ZmdvRnNFbW9PMkJCTCtDbXUwcUN6?=
- =?utf-8?B?RC9PQnM1ZTMxSktxZVBEYjUxbHkybUY1VG1EcFZ2TCs2VTM5czZqbmZxaTk3?=
- =?utf-8?B?UG1Cc1NqMU5zKzFsK210MEZWMVZEWTV3YXlXblNsalJ3UHI5OVQxV2E3RlRE?=
- =?utf-8?B?WTFEVkQ1VHV1TEtPZUNPd2lZc2l2dkU5di82eE1XcUljazN1ZDhYTjNEVG9h?=
- =?utf-8?B?N3hSOG1kbmxnMkVmRUhqWXhsWktkczBkSXFhUjR4REtEbkZWMmZ5ZENweUJX?=
- =?utf-8?B?cDVtZHBPWlJINEtZdE1GYmc0N2hZTC9rM0Q1cVhyMXNSU1c1M1J2ZUpGTGlL?=
- =?utf-8?B?cm1JdHNMdXNuWFdqUTZLc2dKMzc4eUxPS2ZOWEJocWNXM2M1UEJiUkFkY0xV?=
- =?utf-8?B?RExzTGhsRDc4aVUyOEdEZkpPS0pLYXY1V2cxWkpsTmh1STFLeXF6RFpjUDFI?=
- =?utf-8?B?NjJETVhMRDU0TmxWQVZkRm9wZzJRQXh6cU02Qlh2SWpTSFUyT3Rza2szR0F0?=
- =?utf-8?B?VkQwMjVwdWcwaDQvWW9CL25pQTVqRG5SRVlIWStaVmt2L2xGT0NlMEhpTHA5?=
- =?utf-8?B?Ri9ldDRrQkVMT2lGT2hjeHhnSVRhREczN3VCSS9aa1JnV0NRZ2YwTUdsNjlO?=
- =?utf-8?B?Um92c0JoVkRKTVF5RS9JaTl4bzllVWxPQXI0d3ZVWTZhYVZ2YmxNYzhFL0lT?=
- =?utf-8?B?dFlvOXZteEpCVG5QaGtMMndXYi9mcHE0cklYQXU3TWVYbmhYOXJWYzRvaG0r?=
- =?utf-8?B?dE9IeDl3MVlEY013NEpKMWM1dktaejV4UktYbjJrTDZlWEV6bW9TdkZWaWpE?=
- =?utf-8?B?UzJnOTVZeTgwaVJVM1JuUVJNWXNpSnViTTJQOFp2eWRTQURvTEl0Rk9oczMw?=
- =?utf-8?B?c2ZFeVVjcFQwTGVmYVVIZ0tPY3hnVVR5VU9nL2pXOUxYaERhc3pIN0JUNnJ2?=
- =?utf-8?B?M3dxSHhaVTg2KzhYdm5nckxjb3VmWk5scHZiSXVMYzVHcENON2c4WGpiN0RY?=
- =?utf-8?B?UG9adFBDMk5DazFyZzk3UjM2cTJzSlBrZGpuZm9WOHNvczdLTXVtN00vbUtZ?=
- =?utf-8?B?MlZkR08rdVlBcDNwUVcxZ3o4MXB0YjFmS3BQbklNRWFlTDRXVURuakdrVjB1?=
- =?utf-8?B?SW5HYm1wUERmbmExUWMzVysrbFNZUHVibThNT3JiV2t1d3cydXFYeHhPN1Rp?=
- =?utf-8?B?cVNYdFptbUZoRjdhcWNBRlE2V1RscFBCVUJwWXZEeUJGYVVqK3BQemNCY0JW?=
- =?utf-8?B?MWkyRTZBRVc3NnUrVnhscmtnbDFqMWVZbXh1TCs3K2hET2d3emJpOXM2bDJB?=
- =?utf-8?B?TVRxWHhTWEJpTk5HVDdDbm9pQXlLY002M0RrclR5RjNuNFN0NGJkZz09?=
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 1e14e155-7495-448d-7576-08df4748786b
-X-MS-Exchange-CrossTenant-AuthSource: LV8PR12MB9133.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 20 Nov 2026 20:54:29.5431 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: NGOiDR+P1Dbtvd+JSthBcgLlYqWvTWq9/BkwA/5TaXFGLlpwtDPyiD6ccP7zm3qkPjoPBwttBHh6F2SrRbtpcQ==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: LV2PR12MB5992
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2 0/4] drm/amd/display: Add Gamma 2.4 and 2.6 colorop
+ support
+To: Harry Wentland <harry.wentland@amd.com>, dri-devel@lists.freedesktop.org, 
+ amd-gfx@lists.freedesktop.org
+References: <20261119195158.2546927-1-harry.wentland@amd.com>
+Content-Language: en-US, de-DE
+From: Robert Mader <robert.mader@collabora.com>
+In-Reply-To: <20261119195158.2546927-1-harry.wentland@amd.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -143,47 +58,125 @@ List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-7.3 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
-	DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
-	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,USER_AGENT_SANE_1
-	autolearn=no autolearn_force=no version=4.0.1
+X-Spam-Status: No, score=-20.1 required=3.0 tests=BAYES_00,DKIM_INVALID,
+	DKIM_SIGNED,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,
+	INCLUDES_PATCH,MAILING_LIST_MULTI,MENTIONS_GIT_HOSTING,SPF_HELO_NONE,
+	SPF_PASS,USER_AGENT_SANE_1 autolearn=ham autolearn_force=no
+	version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-Hi Sakari,
+Thanks a lot!
 
-On 11/10/2026 7:02 AM, Sakari Ailus wrote:
-> Caution: This message originated from an External Source. Use proper caution when opening attachments, clicking links, or responding.
-> 
-> 
-> Hi Seifelden,
-> 
-> Thanks for the set.
-> 
-> On Tue, Nov 03, 2026 at 06:53:12PM +0300, Seifelden Abdelmonem wrote:
->> +#define AMDISP_OV13B10_HID           "OMNI13B1"
-> 
-> Any idea who allocates these HIDs? Omnivision ACPI ID prefix is "OVTI" and
-> "OMNI" is indeed unallocated. I presume these HIDs have been "allocated" by
-> AMD? This is not the first time something like this happens but it would be
-> good to avoid it from happening in the future.
-> 
-Apologies for the delayed response.
+I added the patches to my kernel branch at 
+https://gitlab.com/rmader/linux/-/tree/testing-post-blend-2026-11-20 [1] 
+and tested it with my Weston test branch for the post-blend pipeline 
+(https://gitlab.freedesktop.org/wayland/weston/-/merge_requests/2157). I 
+can confirm it works on AMD for SDR video playback - below is some DRM 
+debug output confirming the Gamma 2.4 -> Gamma 2.2 Inverse use we'd 
+expect. The kernel and Weston branches further add and use gamma 2.4 on 
+VKMS, successfully comparing the output to the GL renderer.
 
-Thank you for bringing this up. You are correct that "OMNI" is not 
-registered with the UEFI Forum. The OMNI5C10 and OMNI13B1 IDs were 
-created by AMD. Since these IDs are already present on shipped 
-platforms, they need to continue to be recognized by the kernel to 
-maintain compatibility with those platforms.
+Thus the the whole series is:
 
-Going forward, we will use IDs registered with the UEFI Forum 
-(https://uefi.org/ACPI_ID_List?acpi_search) i.e. "OVTI" for OmniVision.
+Tested-by: Robert Mader <robert.mader@collabora.com>
 
-Thanks,
-Pratap
+Best regards,
 
-> --
-> Regards,
-> 
-> Sakari Ailus
+Robert
+
+[atomic] drmModeAtomicCommit
+     [repaint] Using plane-only state composition
+     [repaint] paint node 0:4-2-1 on primary plane 224
+     [repaint] paint node 0:4-1-1 using renderer composition
+     [repaint] paint node 0:comp-3-1 using renderer composition
+     [repaint] paint node 0:2-1-1 using renderer composition
+     [repaint] paint node 0:2-2-1 using renderer composition
+         [atomic] applying output 0 (eDP-1) state
+             [CRTC:411] MODE_ID (24) -> 1920x1200@60.001Hz (0x248)
+             [CRTC:411] ACTIVE (23) -> 1 (0x1)
+             [COLOROP:412] BYPASS (414) -> 1 (0x1)
+             [COLOROP:417] BYPASS (419) -> 0 (0x0)
+             [COLOROP:417] CURVE_1D_TYPE (421) -> Gamma 2.2 Inverse (0x7)
+             [COLOROP:422] BYPASS (424) -> 1 (0x1)
+             [CRTC:411] COLOR_PIPELINE (429) -> 412 (0x19c)
+             [CRTC:411] VRR_ENABLED (25) -> 0 (0x0)
+             [CONN:503] CRTC_ID (21) -> 411 (0x19b)
+             [CONN:503] Content Protection (508) -> Undesired (0x0)
+             [CONN:503] HDCP Content Type (509) -> HDCP Type0 (0x0)
+             [CONN:503] HDR_OUTPUT_METADATA (8) -> 0 (0x0)
+             [CONN:503] max bpc (504) -> 16 (0x10)
+             [CONN:503] Colorspace (505) -> Default (0x0)
+             [CONN:503] underscan (38) -> off (0x0)
+             [CONN:503] underscan hborder (39) -> 0 (0x0)
+             [CONN:503] underscan vborder (40) -> 0 (0x0)
+             [CONN:503] color format (507) -> AUTO (0x0)
+             [PLANE:224 pri] FB_ID (18) -> 586 (0x24a)
+             [PLANE:224 pri] CRTC_ID (21) -> 411 (0x19b)
+             [PLANE:224 pri] SRC_X (10) -> 0.00 (0x0)
+             [PLANE:224 pri] SRC_Y (11) -> 0.00 (0x0)
+             [PLANE:224 pri] SRC_W (12) -> 3840.00 (0xf000000)
+             [PLANE:224 pri] SRC_H (13) -> 2160.00 (0x8700000)
+             [PLANE:224 pri] CRTC_X (14) -> 0 (0x0)
+             [PLANE:224 pri] CRTC_Y (15) -> 60 (0x3c)
+             [PLANE:224 pri] CRTC_W (16) -> 1920 (0x780)
+             [PLANE:224 pri] CRTC_H (17) -> 1080 (0x438)
+             [PLANE:224 pri] FB_DAMAGE_CLIPS (22) -> 0 (0x0)
+             [COLOROP:232] BYPASS (234) -> 0 (0x0)
+             [COLOROP:232] FIXED_MATRIX_TYPE (236) -> YCbCr 709 Limited 
+to RGB (0x3)
+             [COLOROP:237] BYPASS (239) -> 0 (0x0)
+             [COLOROP:237] CURVE_1D_TYPE (241) -> Gamma 2.4 (0x8)
+             [COLOROP:242] BYPASS (244) -> 1 (0x1)
+             [COLOROP:247] BYPASS (249) -> 1 (0x1)
+             [COLOROP:252] BYPASS (254) -> 1 (0x1)
+             [COLOROP:257] BYPASS (259) -> 1 (0x1)
+             [COLOROP:264] BYPASS (266) -> 1 (0x1)
+             [COLOROP:271] BYPASS (273) -> 1 (0x1)
+             [COLOROP:276] BYPASS (278) -> 1 (0x1)
+             [PLANE:224 pri] COLOR_PIPELINE (283) -> 232 (0xe8)
+             [PLANE:224] FORMAT: NV12 MODIFIER: 
+AMD_GFX11,64KB_R_X,PIPE_XOR_BITS=2,PACKERS=2 (0x200000010401b04)
+             [PLANE:224 pri] rotation (231) -> 1 (0x1)
+             [PLANE:224 pri] pixel blend mode (227) -> None (0x2)
+
+1: A heavily rebased version of Melissas branch from 
+https://gitlab.freedesktop.org/mwen/drm-misc/-/commits/gamescope_pipeline_w_colorop
+
+On 19.11.26 20:51, Harry Wentland wrote:
+> Mutter needs a pure 2.4 power curve. The color pipeline only has 2.2.
+> This series adds 2.4, and 2.6 for completeness.
+>
+> Tested on Navi 48.
+>
+> IGT patches for the Gamma 2.4 and 2.6 tests are on the igt-dev mailing
+> list.
+>
+> Changes in v2:
+> - Put gamma 2.4 and 2.6 on the wide curve in
+>    cm_helper_translate_curve_to_hw_format() as well (Sashiko).
+>
+> Harry Wentland (4):
+>    drm/colorop: Define Gamma 2.4 and 2.6 and its Inverse
+>    drm/amd/display: Use the wide curve for gamma 2.4 and 2.6
+>    drm/amd/display: Add support for 2.4 and 2.6 Gamma and its Inverse
+>    drm/amd/display: Add KUnit cases for gamma 2.4 and 2.6 colorops
+>
+>   .../amd/display/amdgpu_dm/amdgpu_dm_color.c   |  6 +++
+>   .../amd/display/amdgpu_dm/amdgpu_dm_colorop.c | 12 +++--
+>   .../amdgpu_dm/tests/amdgpu_dm_color_test.c    | 18 +++++++
+>   .../amdgpu_dm/tests/amdgpu_dm_colorop_test.c  | 54 +++++++++++++++++--
+>   .../amd/display/dc/dcn10/dcn10_cm_common.c    |  4 +-
+>   .../amd/display/dc/dcn30/dcn30_cm_common.c    |  2 +
+>   drivers/gpu/drm/drm_colorop.c                 |  4 ++
+>   include/drm/drm_colorop.h                     | 39 ++++++++++++++
+>   8 files changed, 132 insertions(+), 7 deletions(-)
+>
+-- 
+Robert Mader
+Consultant Software Developer
+
+Collabora Ltd.
+Platinum Building, St John's Innovation Park, Cambridge CB4 0DS, UK
+Registered in England & Wales, no. 5513718
 
