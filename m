@@ -2,40 +2,39 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BDACD606A334
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B26F8606A333
 	for <dri-devel@archiver.kernel.org>; Fri, 20 Nov 2026 13:11:11 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=dqthkCfC
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ortrY37a
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id DAC3A112A2F;
+	by gabe.freedesktop.org (Postfix) with ESMTP id DC17F112A31;
 	Fri, 20 Nov 2026 13:11:05 +0000 (UTC)
 Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id EF16C112A1E
- for <dri-devel@lists.freedesktop.org>; Fri, 20 Nov 2026 13:10:37 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 09126112A2E
+ for <dri-devel@lists.freedesktop.org>; Fri, 20 Nov 2026 13:10:45 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id D6F17436E1;
- Fri, 20 Nov 2026 13:10:37 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3AA931F000E0;
- Fri, 20 Nov 2026 13:10:37 +0000 (UTC)
+ by sea.source.kernel.org (Postfix) with ESMTP id E578241A45;
+ Fri, 20 Nov 2026 13:10:44 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 368FE1F008B2;
+ Fri, 20 Nov 2026 13:10:44 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1795180237;
- bh=388ztI594AS+nKGPU4H0M5a2RIBgnI1LfiHUyoQUutQ=;
+ s=k20260515; t=1795180244;
+ bh=iryzJqzOrz0QeKZx7NITaD+YV8T03brcxgRjZq9j/4M=;
  h=From:Date:Subject:References:In-Reply-To:To:Cc;
- b=dqthkCfC+TsMclo9bIy6An59QHE2+LwFyMnOMYhyDONXgitaAiwQtOzJnOsEoqaTF
- 1RovgJ/kyX9xnld6WevTuq+OYmw5Z62DuDbx0GiCA1sbk1Dl6hdU9TuOexR9v+I9Mo
- /meEfA63CydmdCRXlaODHsSzln3ulnAJMdW0AbFALKZuo2K+iPbIWkxJl8Rk4ufNiu
- DhZ9G3O88TzcmdFJs4cHkC1liIprN4cGokEaadl9JKHxzMnvLXFtxr9fikKkxY0iYd
- V+RMhK6H/ATASfg6KsmWs09bX2cSWT+L7oWim8t5jeBMVFJyQ5VUrLUlRkYRG4cIzp
- 97s3K71fogimg==
+ b=ortrY37ay1yDfKr+1MbKwsmDp72M8FeFAjf9KCD61PITd0cCFEcc6tlgNAOp7TMXk
+ k3uGMsbS4ZspbjNTHdaXxNy6regrarrXOZG1G0YqnVS53/3HUyiX5wjd9+xaNgXodI
+ KxzCe+7kWUNnjjW5X1iYB1wFPIVxY9n50c75n67ykasC4UqEb687g4h6MEjGd/lkFT
+ tlDDfHWBSzXGx3KP5bys1ILxWmiIqFsiGtW3Q9M+Z1tAtIhj4gaS74kOLA0cto0m9I
+ GyIYHq5TkDtlqQ+4pR84TwjPNvrjHtduw49IrU7Q53TR7YCZ0SqICd6wrVJPLovJqN
+ GG+0PaHak143g==
 From: Maxime Ripard <mripard@kernel.org>
-Date: Fri, 20 Nov 2026 14:10:13 +0100
-Subject: [PATCH v12 6/9] drm/vc4: Carry the HVS channel over to created
- CRTC states
+Date: Fri, 20 Nov 2026 14:10:15 +0100
+Subject: [PATCH v12 8/9] drm/atomic-uapi: Add DRM_MODE_ATOMIC_RESET flag
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
-Message-Id: <20261120-drm-reset-state-flag-v12-6-42d63d7417fc@kernel.org>
+Content-Transfer-Encoding: 7bit
+Message-Id: <20261120-drm-reset-state-flag-v12-8-42d63d7417fc@kernel.org>
 References: <20261120-drm-reset-state-flag-v12-0-42d63d7417fc@kernel.org>
 In-Reply-To: <20261120-drm-reset-state-flag-v12-0-42d63d7417fc@kernel.org>
 To: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
@@ -52,17 +51,14 @@ Cc: Daniel Stone <daniels@collabora.com>,
  Sebastian Wick <sebastian.wick@redhat.com>, Simon Ser <contact@emersion.fr>, 
  Victoria Brekenfeld <victoria@system76.com>, 
  Xaver Hugl <xaver.hugl@kde.org>, dri-devel@lists.freedesktop.org, 
- linux-kernel@vger.kernel.org, Maxime Ripard <mripard@kernel.org>, 
- Dave Stevenson <dave.stevenson@raspberrypi.com>, 
- =?utf-8?q?Ma=C3=ADra_Canal?= <mcanal@igalia.com>, 
- Raspberry Pi Kernel Maintenance <kernel-list@raspberrypi.com>
+ linux-kernel@vger.kernel.org, Maxime Ripard <mripard@kernel.org>
 X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=openpgp-sha256; l=6843; i=mripard@kernel.org;
- h=from:subject:message-id; bh=Aen0UsFhzRDDkrCC3Fuk/+qjL8RrEjAcNfYIsatGIkI=;
- b=owGbwMvMwCmsHn9OcpHtvjLG02pJDNkMbltFXgf153z6Ov26xLL7PUcLJp3I5wzROeXB0iq+b
- 7Jj8J2yjqksDMKcDLJiiixPZMJOL29fXOVgv/IHzBxWJpAhDFycAjCR07GMDXNvsXF+M/TMO80s
- 5Th36eFdN064f3qUsjik4fOJHS6rbxmGHTlW/GXLxGV65Usro+cU5DLWO1kpZ0ZbHp7XNs9jlYX
- R65W5dfoN3iX2p1stfpxee4jHJHfeNekJWoU5dxxDE9YvWhwJAA==
+X-Developer-Signature: v=1; a=openpgp-sha256; l=9352; i=mripard@kernel.org;
+ h=from:subject:message-id; bh=k0qhVlHDatKdxhe4aNclPAbYF7AP62qxpddqyxgK1wU=;
+ b=owGbwMvMwCmsHn9OcpHtvjLG02pJDNkMbtuad1c/+TtP4Nfbzh1K8ecqD+zLyHBSYzmjUyY+N
+ edy/ZPmjqksDMKcDLJiiixPZMJOL29fXOVgv/IHzBxWJpAhDFycAjCRwxsY64t3vfsmWrP1RfRP
+ idvfgp/s9fJMj3gVreffwHbo0TNOzfZz/Pozv2zkDIhMeDLl0FyhlYy1svJ5Jk0t0/7I3X7z9mB
+ GdZitD4uHU7/ezfLG41HLGDguXVzfsyn/s5H/57ki7p33lq0DAA==
 X-Developer-Key: i=mripard@kernel.org; a=openpgp;
  fpr=BE5675C37E818C8B5764241C254BCFC56BF6CE8D
 X-BeenThere: dri-devel@lists.freedesktop.org
@@ -83,196 +79,268 @@ X-Spam-Status: No, score=-18.8 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-drm_atomic_commit_fill_with_defaults() builds its commits out of
-states created through atomic_create_state() instead of duplicating
-the current state. A created CRTC state comes with its
-assigned_channel left to VC4_HVS_CHANNEL_DISABLED, while a duplicated
-state carries the channel currently in use.
+From: Sebastian Wick <sebastian.wick@redhat.com>
 
-vc4_pv_muxing_atomic_check() skips the CRTCs whose enablement doesn't
-change, so a CRTC that stays enabled with a created state keeps its
-channel unset, and vc4_core_clock_atomic_check() then indexes
-hvs_new_state->fifo_state[] with VC4_HVS_CHANNEL_DISABLED (-1U), far
-outside of the array.
+Userspace currently has no atomic way to reset all KMS object states
+to their defaults. To bring a display pipeline to a known state, a
+compositor must explicitly set every property on every object, which
+requires tracking which properties exist and what their defaults are.
 
-Copy the channel of the current state over in the skip branch, like a
-duplicated state would have carried it. This is a no-op for duplicated
-states, which already have the channel set.
+Introduce DRM_MODE_ATOMIC_RESET (0x0800) which, when passed to the
+atomic ioctl, fills the commit with default states for all KMS
+objects before applying the properties supplied in the request.
+Properties not explicitly included in the commit remain at their
+defaults (CRTCs inactive, planes disabled, connectors unbound, and
+so on).
 
-Add a KUnit test that enables an output, fills a state with defaults
-and re-applies the same configuration, and checks that the CRTC kept
-its channel.
+The flag cannot be combined with DRM_MODE_PAGE_FLIP_ASYNC, since a
+full state reset is incompatible with an async flip.
 
-Acked-by: Dave Stevenson <dave.stevenson@raspberrypi.com>
+Since the commit contains every CRTC of the device or lease, including
+the ones that are disabled before and after it, no page flip event is
+attached to those: they can't report a flip, and drm_atomic_crtc_check()
+would reject the whole commit. Such a CRTC doesn't count towards the
+CRTCs that can signal either, so a commit that leaves them all disabled
+while asking for an event is still rejected instead of waiting for an
+event that would never come.
+
+Signed-off-by: Sebastian Wick <sebastian.wick@redhat.com>
+Co-developed-by: Maxime Ripard <mripard@kernel.org>
 Signed-off-by: Maxime Ripard <mripard@kernel.org>
 ---
+ drivers/gpu/drm/drm_atomic.c      |  3 +++
+ drivers/gpu/drm/drm_atomic_uapi.c | 44 ++++++++++++++++++++++++++++++++++++---
+ drivers/gpu/drm/drm_ioctl.c       |  5 +++++
+ include/uapi/drm/drm.h            | 10 +++++++++
+ include/uapi/drm/drm_mode.h       | 22 +++++++++++++++++++-
+ 5 files changed, 80 insertions(+), 4 deletions(-)
 
-To: Dave Stevenson <dave.stevenson@raspberrypi.com>
-To: Maíra Canal <mcanal@igalia.com>
-Cc: Raspberry Pi Kernel Maintenance <kernel-list@raspberrypi.com>
----
- drivers/gpu/drm/vc4/tests/vc4_test_pv_muxing.c | 105 +++++++++++++++++++++++++
- drivers/gpu/drm/vc4/vc4_kms.c                  |  16 +++-
- 2 files changed, 119 insertions(+), 2 deletions(-)
-
-diff --git a/drivers/gpu/drm/vc4/tests/vc4_test_pv_muxing.c b/drivers/gpu/drm/vc4/tests/vc4_test_pv_muxing.c
-index 7a54f46acff9..c868d2cd1b3d 100644
---- a/drivers/gpu/drm/vc4/tests/vc4_test_pv_muxing.c
-+++ b/drivers/gpu/drm/vc4/tests/vc4_test_pv_muxing.c
-@@ -1119,14 +1119,119 @@ drm_test_vc5_pv_muxing_bugs_subsequent_crtc_enable_too_many_crtc_state(struct ku
+diff --git a/drivers/gpu/drm/drm_atomic.c b/drivers/gpu/drm/drm_atomic.c
+index 43df13aaef1e..7c288ff31cdb 100644
+--- a/drivers/gpu/drm/drm_atomic.c
++++ b/drivers/gpu/drm/drm_atomic.c
+@@ -1611,10 +1611,13 @@ EXPORT_SYMBOL(drm_atomic_get_new_bridge_state);
+  * the current state.
+  *
+  * Color operations are not checked because they always use
+  * drm_atomic_helper_colorop_create_state() and do not have a per-driver hook.
+  *
++ * This is used to report the %DRM_CAP_ATOMIC_RESET capability to userspace,
++ * and as a precondition in drm_atomic_commit_fill_with_defaults().
++ *
+  * Returns:
+  * True if all objects implement atomic_create_state, false otherwise.
+  */
+ bool drm_atomic_implements_create_state(struct drm_device *dev)
+ {
+diff --git a/drivers/gpu/drm/drm_atomic_uapi.c b/drivers/gpu/drm/drm_atomic_uapi.c
+index 1eebcf6f5e05..fe6d8cc533bc 100644
+--- a/drivers/gpu/drm/drm_atomic_uapi.c
++++ b/drivers/gpu/drm/drm_atomic_uapi.c
+@@ -1438,24 +1438,43 @@ static int prepare_signaling(struct drm_device *dev,
+ 	if (arg->flags & DRM_MODE_ATOMIC_TEST_ONLY)
+ 		return 0;
  
- 	drm_modeset_drop_locks(&ctx);
- 	drm_modeset_acquire_fini(&ctx);
- }
+ 	for_each_new_crtc_in_state(state, crtc, crtc_state, i) {
+ 		s32 __user *fence_ptr;
++		bool page_flip_event;
  
-+/*
-+ * Test that a CRTC that stays enabled with a state created through
-+ * atomic_create_state(), like the ones drm_atomic_commit_fill_with_defaults()
-+ * builds for a reset, keeps the HVS channel it was assigned:
-+ * vc4_pv_muxing_atomic_check() skips the CRTCs whose enablement doesn't
-+ * change, so their new state has to carry the channel over from the
-+ * current state, the way a duplicated state would, for
-+ * vc4_core_clock_atomic_check() to see a valid channel.
-+ */
-+static void
-+drm_test_vc5_pv_muxing_bugs_created_state_keeps_channel(struct kunit *test)
-+{
-+	struct drm_modeset_acquire_ctx ctx;
-+	struct drm_atomic_commit *state;
-+	struct vc4_crtc_state *new_vc4_crtc_state;
-+	struct drm_device *drm;
-+	struct vc4_dev *vc4;
-+	unsigned int old_channel;
-+	int ret;
-+
-+	vc4 = vc5_mock_device(test);
-+	KUNIT_ASSERT_NOT_ERR_OR_NULL(test, vc4);
-+
-+	drm_modeset_acquire_init(&ctx, 0);
-+
-+	drm = &vc4->base;
-+retry_first:
-+	state = drm_kunit_helper_atomic_state_alloc(test, drm, &ctx);
-+	KUNIT_ASSERT_NOT_ERR_OR_NULL(test, state);
-+
-+	ret = vc4_mock_atomic_add_output(test, state, VC4_ENCODER_TYPE_HDMI0);
-+	if (ret == -EDEADLK) {
-+		drm_atomic_commit_clear(state);
-+		ret = drm_modeset_backoff(&ctx);
-+		if (!ret)
-+			goto retry_first;
-+	}
-+	KUNIT_ASSERT_EQ(test, ret, 0);
-+
-+	ret = drm_atomic_check_only(state);
-+	if (ret == -EDEADLK) {
-+		drm_atomic_commit_clear(state);
-+		ret = drm_modeset_backoff(&ctx);
-+		if (!ret)
-+			goto retry_first;
-+	}
-+	KUNIT_ASSERT_EQ(test, ret, 0);
-+
-+	new_vc4_crtc_state = get_vc4_crtc_state_for_encoder(test, state,
-+							    VC4_ENCODER_TYPE_HDMI0);
-+	KUNIT_ASSERT_NOT_NULL(test, new_vc4_crtc_state);
-+
-+	old_channel = new_vc4_crtc_state->assigned_channel;
-+	KUNIT_ASSERT_NE(test, old_channel, VC4_HVS_CHANNEL_DISABLED);
-+
-+	/* Make the enabled state the current one */
-+	ret = drm_atomic_helper_swap_state(state, false);
-+	KUNIT_ASSERT_EQ(test, ret, 0);
-+
-+retry_second:
-+	state = drm_kunit_helper_atomic_state_alloc(test, drm, &ctx);
-+	KUNIT_ASSERT_NOT_ERR_OR_NULL(test, state);
-+
-+	/*
-+	 * Fill the state with defaults, like a DRM_MODE_ATOMIC_RESET
-+	 * commit would, then re-apply the exact same configuration.
-+	 */
-+	ret = drm_atomic_commit_fill_with_defaults(NULL, state);
-+	if (ret == -EDEADLK) {
-+		drm_atomic_commit_clear(state);
-+		ret = drm_modeset_backoff(&ctx);
-+		if (!ret)
-+			goto retry_second;
-+	}
-+	KUNIT_ASSERT_EQ(test, ret, 0);
-+
-+	ret = vc4_mock_atomic_add_output(test, state, VC4_ENCODER_TYPE_HDMI0);
-+	if (ret == -EDEADLK) {
-+		drm_atomic_commit_clear(state);
-+		ret = drm_modeset_backoff(&ctx);
-+		if (!ret)
-+			goto retry_second;
-+	}
-+	KUNIT_ASSERT_EQ(test, ret, 0);
-+
-+	ret = drm_atomic_check_only(state);
-+	if (ret == -EDEADLK) {
-+		drm_atomic_commit_clear(state);
-+		ret = drm_modeset_backoff(&ctx);
-+		if (!ret)
-+			goto retry_second;
-+	}
-+	KUNIT_ASSERT_EQ(test, ret, 0);
-+
-+	new_vc4_crtc_state = get_vc4_crtc_state_for_encoder(test, state,
-+							    VC4_ENCODER_TYPE_HDMI0);
-+	KUNIT_ASSERT_NOT_NULL(test, new_vc4_crtc_state);
-+
-+	KUNIT_EXPECT_EQ(test, new_vc4_crtc_state->assigned_channel, old_channel);
-+
-+	drm_modeset_drop_locks(&ctx);
-+	drm_modeset_acquire_fini(&ctx);
-+}
-+
- static struct kunit_case vc5_pv_muxing_bugs_tests[] = {
- 	KUNIT_CASE(drm_test_vc5_pv_muxing_bugs_subsequent_crtc_enable),
- 	KUNIT_CASE(drm_test_vc5_pv_muxing_bugs_subsequent_crtc_enable_too_many_crtc_state),
- 	KUNIT_CASE(drm_test_vc5_pv_muxing_bugs_stable_fifo),
-+	KUNIT_CASE(drm_test_vc5_pv_muxing_bugs_created_state_keeps_channel),
- 	{}
- };
+ 		fence_ptr = get_out_fence_for_crtc(crtc_state->state, crtc);
  
- static struct kunit_suite vc5_pv_muxing_bugs_test_suite = {
- 	.name = "vc5-pv-muxing-bugs",
-diff --git a/drivers/gpu/drm/vc4/vc4_kms.c b/drivers/gpu/drm/vc4/vc4_kms.c
-index ab551eb2da50..562f2d1f45a4 100644
---- a/drivers/gpu/drm/vc4/vc4_kms.c
-+++ b/drivers/gpu/drm/vc4/vc4_kms.c
-@@ -970,15 +970,27 @@ static int vc4_pv_muxing_atomic_check(struct drm_device *dev,
- 
- 		drm_dbg(dev, "%s: Trying to find a channel.\n", crtc->name);
- 
- 		/* Nothing to do here, let's skip it */
- 		if (old_crtc_state->enable == new_crtc_state->enable) {
--			if (new_crtc_state->enable)
-+			/*
-+			 * A CRTC that stays enabled keeps its channel. A
-+			 * duplicated state carries it over, but a state
-+			 * created through atomic_create_state() comes with
-+			 * the channel unset, so copy it from the current
-+			 * state to make sure the core clock check and the
-+			 * commit see the channel in use.
-+			 */
-+			if (new_crtc_state->enable) {
-+				new_vc4_crtc_state->assigned_channel =
-+					old_vc4_crtc_state->assigned_channel;
+-		if (arg->flags & DRM_MODE_PAGE_FLIP_EVENT || fence_ptr) {
++		page_flip_event = arg->flags & DRM_MODE_PAGE_FLIP_EVENT;
 +
- 				drm_dbg(dev, "%s: Already enabled, reusing channel %d.\n",
- 					crtc->name, new_vc4_crtc_state->assigned_channel);
--			else
-+			} else {
- 				drm_dbg(dev, "%s: Disabled, ignoring.\n", crtc->name);
-+			}
++		/*
++		 * A commit with the DRM_MODE_ATOMIC_RESET flag contains
++		 * every CRTC of the device or lease, even the ones that are
++		 * disabled before and after the commit. Those can't report
++		 * a page flip, and drm_atomic_crtc_check() would reject the
++		 * whole commit, so don't attach any event to them.
++		 */
++		if (page_flip_event && !fence_ptr &&
++		    (arg->flags & DRM_MODE_ATOMIC_RESET) &&
++		    !crtc_state->active) {
++			struct drm_crtc_state *old_crtc_state;
++
++			old_crtc_state = drm_atomic_get_old_crtc_state(state, crtc);
++			page_flip_event = old_crtc_state->active;
++		}
++
++		if (page_flip_event || fence_ptr) {
+ 			struct drm_pending_vblank_event *e;
  
- 			continue;
+ 			e = create_vblank_event(crtc, arg->user_data);
+ 			if (!e)
+ 				return -ENOMEM;
+ 
+ 			crtc_state->event = e;
  		}
  
- 		/* Muxing will need to be modified, mark it as such */
+-		if (arg->flags & DRM_MODE_PAGE_FLIP_EVENT) {
++		if (page_flip_event) {
+ 			struct drm_pending_vblank_event *e = crtc_state->event;
+ 
+ 			ret = drm_event_reserve_init(dev, file_priv, &e->base,
+ 						     &e->event.base);
+ 			if (ret) {
+@@ -1492,11 +1511,12 @@ static int prepare_signaling(struct drm_device *dev,
+ 			}
+ 
+ 			crtc_state->event->base.fence = fence;
+ 		}
+ 
+-		c++;
++		if (page_flip_event)
++			c++;
+ 	}
+ 
+ 	for_each_new_connector_in_state(state, conn, conn_state, i) {
+ 		struct drm_writeback_connector *wb_conn;
+ 		struct drm_out_fence_state *f;
+@@ -1671,10 +1691,17 @@ int drm_mode_atomic_ioctl(struct drm_device *dev,
+ 		drm_dbg_atomic(dev,
+ 			       "commit failed: page-flip event requested with test-only commit\n");
+ 		return -EINVAL;
+ 	}
+ 
++	if ((arg->flags & DRM_MODE_ATOMIC_RESET) &&
++	    (arg->flags & DRM_MODE_PAGE_FLIP_ASYNC)) {
++		drm_dbg_atomic(dev,
++			       "commit failed: reset cannot be combined with async flip\n");
++		return -EINVAL;
++	}
++
+ 	state = drm_atomic_commit_alloc(dev);
+ 	if (!state)
+ 		return -ENOMEM;
+ 
+ 	drm_modeset_acquire_init(&ctx, DRM_MODESET_ACQUIRE_INTERRUPTIBLE);
+@@ -1686,10 +1713,21 @@ int drm_mode_atomic_ioctl(struct drm_device *dev,
+ 	copied_objs = 0;
+ 	copied_props = 0;
+ 	fence_state = NULL;
+ 	num_fences = 0;
+ 
++	if (arg->flags & DRM_MODE_ATOMIC_RESET) {
++		if (!drm_atomic_implements_create_state(dev)) {
++			ret = -EOPNOTSUPP;
++			goto out;
++		}
++
++		ret = drm_atomic_commit_fill_with_defaults(file_priv, state);
++		if (ret)
++			goto out;
++	}
++
+ 	for (i = 0; i < arg->count_objs; i++) {
+ 		uint32_t obj_id, count_props;
+ 		struct drm_mode_object *obj;
+ 
+ 		if (get_user(obj_id, objs_ptr + copied_objs)) {
+diff --git a/drivers/gpu/drm/drm_ioctl.c b/drivers/gpu/drm/drm_ioctl.c
+index 9039a39c4324..f666a13da6bf 100644
+--- a/drivers/gpu/drm/drm_ioctl.c
++++ b/drivers/gpu/drm/drm_ioctl.c
+@@ -31,10 +31,11 @@
+ #include <linux/export.h>
+ #include <linux/nospec.h>
+ #include <linux/pci.h>
+ #include <linux/uaccess.h>
+ 
++#include <drm/drm_atomic.h>
+ #include <drm/drm_auth.h>
+ #include <drm/drm_crtc.h>
+ #include <drm/drm_drv.h>
+ #include <drm/drm_file.h>
+ #include <drm/drm_ioctl.h>
+@@ -302,10 +303,14 @@ static int drm_getcap(struct drm_device *dev, void *data, struct drm_file *file_
+ 		break;
+ 	case DRM_CAP_ATOMIC_ASYNC_PAGE_FLIP:
+ 		req->value = drm_core_check_feature(dev, DRIVER_ATOMIC) &&
+ 			     dev->mode_config.async_page_flip;
+ 		break;
++	case DRM_CAP_ATOMIC_RESET:
++		req->value = drm_core_check_feature(dev, DRIVER_ATOMIC) &&
++			     drm_atomic_implements_create_state(dev);
++		break;
+ 	default:
+ 		return -EINVAL;
+ 	}
+ 	return 0;
+ }
+diff --git a/include/uapi/drm/drm.h b/include/uapi/drm/drm.h
+index bc7ef7684099..b6e2f2edd122 100644
+--- a/include/uapi/drm/drm.h
++++ b/include/uapi/drm/drm.h
+@@ -793,10 +793,20 @@ struct drm_gem_change_handle {
+  * If set to 1, the driver supports &DRM_MODE_PAGE_FLIP_ASYNC for atomic
+  * commits.
+  */
+ #define DRM_CAP_ATOMIC_ASYNC_PAGE_FLIP	0x15
+ 
++/**
++ * DRM_CAP_ATOMIC_RESET
++ *
++ * If set to 1, the driver supports the &DRM_MODE_ATOMIC_RESET flag in
++ * &DRM_IOCTL_MODE_ATOMIC commits. When supported, userspace can pass that
++ * flag to reset all KMS object states to their defaults before applying
++ * property changes.
++ */
++#define DRM_CAP_ATOMIC_RESET	0x16
++
+ /* DRM_IOCTL_GET_CAP ioctl argument type */
+ struct drm_get_cap {
+ 	__u64 capability;
+ 	__u64 value;
+ };
+diff --git a/include/uapi/drm/drm_mode.h b/include/uapi/drm/drm_mode.h
+index ed1a660a3dfd..571bb7c6804d 100644
+--- a/include/uapi/drm/drm_mode.h
++++ b/include/uapi/drm/drm_mode.h
+@@ -1326,10 +1326,29 @@ struct drm_mode_destroy_dumb {
+  * To the best of the driver's knowledge, visual artifacts are guaranteed to
+  * not appear when this flag is not set. Some sinks might display visual
+  * artifacts outside of the driver's control.
+  */
+ #define DRM_MODE_ATOMIC_ALLOW_MODESET 0x0400
++/**
++ * DRM_MODE_ATOMIC_RESET
++ *
++ * Reset all KMS object states (CRTCs, planes, connectors, color operations)
++ * to their default values before applying the properties in this commit.
++ * Properties not explicitly included in the commit will remain at their
++ * defaults (CRTCs inactive, planes disabled, connectors unbound, etc.).
++ *
++ * CRTCs that are disabled before and after the commit won't send any
++ * &DRM_MODE_PAGE_FLIP_EVENT.
++ *
++ * On a lease, only the objects part of that lease are reset. Partial
++ * pipelines aren't supported: if one of the leased planes or connectors
++ * is bound to a CRTC that isn't leased, or if a leased CRTC drives a
++ * plane or a connector that isn't, the commit fails with -ENOENT.
++ *
++ * This flag cannot be combined with &DRM_MODE_PAGE_FLIP_ASYNC.
++ */
++#define DRM_MODE_ATOMIC_RESET 0x0800
+ 
+ /**
+  * DRM_MODE_ATOMIC_FLAGS
+  *
+  * Bitfield of flags accepted by the &DRM_IOCTL_MODE_ATOMIC IOCTL in
+@@ -1338,11 +1357,12 @@ struct drm_mode_destroy_dumb {
+ #define DRM_MODE_ATOMIC_FLAGS (\
+ 		DRM_MODE_PAGE_FLIP_EVENT |\
+ 		DRM_MODE_PAGE_FLIP_ASYNC |\
+ 		DRM_MODE_ATOMIC_TEST_ONLY |\
+ 		DRM_MODE_ATOMIC_NONBLOCK |\
+-		DRM_MODE_ATOMIC_ALLOW_MODESET)
++		DRM_MODE_ATOMIC_ALLOW_MODESET |\
++		DRM_MODE_ATOMIC_RESET)
+ 
+ struct drm_mode_atomic {
+ 	__u32 flags;
+ 	__u32 count_objs;
+ 	__u64 objs_ptr;
 
 -- 
 2.56.1
