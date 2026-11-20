@@ -2,42 +2,41 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8544760A262D
-	for <dri-devel@archiver.kernel.org>; Fri, 20 Nov 2026 18:04:01 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4687F60A2621
+	for <dri-devel@archiver.kernel.org>; Fri, 20 Nov 2026 18:04:10 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.a=rsa-sha256 header.s=dkim header.b=jT5uK86M
+	dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.a=rsa-sha256 header.s=dkim header.b=ygXJndYc
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id E8C65112C56;
-	Fri, 20 Nov 2026 18:03:55 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id A2ACC112C5C;
+	Fri, 20 Nov 2026 18:04:04 +0000 (UTC)
 Received: from smtpout-03.galae.net (smtpout-03.galae.net [185.246.85.4])
- by gabe.freedesktop.org (Postfix) with ESMTPS id DD840112C5C
- for <dri-devel@lists.freedesktop.org>; Fri, 20 Nov 2026 18:03:48 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 6F806112C5C
+ for <dri-devel@lists.freedesktop.org>; Fri, 20 Nov 2026 18:03:58 +0000 (UTC)
 Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
- by smtpout-03.galae.net (Postfix) with ESMTPS id A84A34E4168E;
- Fri, 20 Nov 2026 18:03:47 +0000 (UTC)
+ by smtpout-03.galae.net (Postfix) with ESMTPS id 39CF34E4168F;
+ Fri, 20 Nov 2026 18:03:57 +0000 (UTC)
 Received: from mail.galae.net (mail.galae.net [212.83.136.155])
- by smtpout-01.galae.net (Postfix) with ESMTPS id 75942601B9;
- Fri, 20 Nov 2026 18:03:47 +0000 (UTC)
+ by smtpout-01.galae.net (Postfix) with ESMTPS id 07438601B9;
+ Fri, 20 Nov 2026 18:03:57 +0000 (UTC)
 Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon)
- with ESMTPSA id 14C3F11BC08D7; Fri, 20 Nov 2026 19:03:36 +0100 (CET)
+ with ESMTPSA id 48EDF11BC0997; Fri, 20 Nov 2026 19:03:46 +0100 (CET)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
- t=1795197821; h=from:subject:date:message-id:to:cc:mime-version:content-type:
+ t=1795197830; h=from:subject:date:message-id:to:cc:mime-version:content-type:
  content-transfer-encoding:in-reply-to:references;
- bh=DwiRSRh5gEtvlqW0dzzCs/Wk8GHTeI9BSIT2uTN6bJs=;
- b=jT5uK86Me8Ae4QyvVeZKWBG7N93n0ytgWC1TMrfvatyrtERW71aCOlLAfXBum6JMhitE9t
- 6fSDEqzTxDbd4VIOAl7oHGGY4RfJa031usTZKkLlLXIMpc/JscB8sjsDlxQTVDXOxIpyHj
- 8DkkPk+rvHflgr6euv19Ax1p/LVJLTcMWO4y65l+bYNMioGkAiZVoQ8gl8qAB4ghLpvpx9
- BLRFAfIrY7XXXHjSTzk+RUy3cRgpwpHeE1hKyNsHisA6FxJ7DUfpjQ4K+nXwXj4M1dJS4O
- mDkr01mNq6js5Gffg/c27bKBlbPkajDHRSbc4lv/K1fZwnd/scj2cpkLFxScIQ==
+ bh=tbVoHzDu+rifzr3obMkFmU0bXfvQnWpgl13F+BB9d54=;
+ b=ygXJndYciC0Tu8U/AZpu7Xaj/uLJtc6rvRRVUpU8wAd92ydUaBli4zV71BIzFaLGcQ0App
+ N6FyhEliZp6nDJrv6SoadgGv2SX45cpuAxgrDJQYxS8hm7w09X0YTdi7aKx7Qpmq7oK5yB
+ tRTjg1X8DXK2ZH7wAz+4tCNAx/BHfgfI/YlYepkAkW6XpLUac236tmqX1TQbt/+uHho9ls
+ A6iAT8PaFApCoFL3LvOHxDH+9rmOGUIY6gCXZYnri+ksMKKW3bBzeSn5CEQRrFlOcKF6b8
+ oVi9NnplPfmc4yW/7RDQ4OQAXCypdey2MeRIPURiq+seVTXqbWnNnS3tmf26vA==
 From: Louis Chauvet <louis.chauvet@bootlin.com>
-Date: Fri, 20 Nov 2026 18:58:54 +0100
-Subject: [PATCH v6 12/43] drm/vkms: Reference-count vkms_config and
- vkms_config_connector
+Date: Fri, 20 Nov 2026 18:58:55 +0100
+Subject: [PATCH v6 13/43] drm/vkms: Add KUnit test for device lifecycle
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20261120-vkms-all-config-v6-12-78ace90f4fc1@bootlin.com>
+Message-Id: <20261120-vkms-all-config-v6-13-78ace90f4fc1@bootlin.com>
 References: <20261120-vkms-all-config-v6-0-78ace90f4fc1@bootlin.com>
 In-Reply-To: <20261120-vkms-all-config-v6-0-78ace90f4fc1@bootlin.com>
 To: Haneen Mohammed <hamohammed.sa@gmail.com>, 
@@ -63,21 +62,21 @@ Cc: Luca Ceresoli <luca.ceresoli@bootlin.com>,
  linux-doc@vger.kernel.org, Simona Vetter <simona.vetter@ffwll.ch>, 
  llvm@lists.linux.dev
 X-Mailer: b4 0.17-dev
-X-Developer-Signature: v=1; a=openpgp-sha256; l=10009;
+X-Developer-Signature: v=1; a=openpgp-sha256; l=10161;
  i=louis.chauvet@bootlin.com; h=from:subject:message-id;
- bh=fqjFoGMeqtYdyCoYfsEAUeEHOhGs+X+8/vNwSXbius0=;
- b=owEBiQJ2/ZANAwAIASCtLsZbECziAcsmYgBrAIr+DWgnEZc6vdDJcRWVIOGv/7aW9QOyxI2bm
- AAAiiEmPz6JAk8EAAEIADkWIQRPj7g/vng8MQxQWQQgrS7GWxAs4gUCawCK/hsUgAAAAAAEAA5t
- YW51MiwyLjUrMS4xMiwyLDIACgkQIK0uxlsQLOLkFhAAgaALNjm0qBvo/M2LjwHbEjtzW1YNXZz
- GxJRa0WBjRXbSvH6TrpY7/7eOg/2xIszGkPwZt+livhMdWlqUlbxM0wxaYI0T7qU7EBDek9X+lb
- wDxmexToVuqMHunfAdDQV7NmsQ8Ztb5vbySxp0O77AVG3qBy/56RPS96NmTVY4xC+Tdum1Vigqx
- Dt/IXe6++jO1u8MFlc4X0Rf39wHS7Sf3oq8MIz7wHEMfsPfT3EZnJShw7+KLHaQ2v4BvI6isszt
- jv7EoZLisZ2pEcw5XLwyEpjScOoDtR5DN5ZbJZkCPALxbVHVr/MYMZQ1Q1xoVd2xLwLvQyKjXLn
- hQFNg6ncIIDGhwBHsXcAsNhqBwu+pHZ0xhqWsRz2hiHf3FCsXlCgfKWodpUb7jkPvoc0ZBxxmJN
- l7vfyFgJaRmko4VgIOJbBGbmgKdnv67LPooSd/ErVGGjhGdgibX1hiE7YAnSePNxvuyw3TgZZPt
- 6sQoRgfHTpfmu4HCsQGRskLxEsQOQUAd9Ij7MZ6HKLd7Sgx8AiOs/SYcVe/J6iHKd3Dypp1j4vg
- m1Q43/6KT9HayYfO15qf6kzk9jlwW5A+7jh6xfoutRx/vlw806sqH/O+zJB3tLRcsA/OEFmRjve
- TVbEFp/gSSzKx2pjOWNnZb4WXf3scYG9gQDKPetbgt2au+Ue7UTo=
+ bh=F2AwDvsjIsuT/dCGlAPBtsvdUQaj57QaRLPEDTGT4aI=;
+ b=owEBiQJ2/ZANAwAIASCtLsZbECziAcsmYgBrAIr/4sPyioPF/fL86gTpVUdkY6cVS9MLtPKnP
+ +L/oLqyromJAk8EAAEIADkWIQRPj7g/vng8MQxQWQQgrS7GWxAs4gUCawCK/xsUgAAAAAAEAA5t
+ YW51MiwyLjUrMS4xMiwyLDIACgkQIK0uxlsQLOLjzg//RcLUD8j0Ajq64UhOrJ4H+IaosjZg6Cw
+ 6an9j79MsZMlMy6WgG7aeqfCNeLGN3Y28nynaJd/xm/+WjimsmPzUe1pJWvEB2byb/A9xAYm7dY
+ WTT7XintlGvwAacSnxhybm0UpVU9qDT0PUnd+7ZhauAPaNxmZqj1cv8xX2HPvVvdvJTMEPeseR7
+ psWgcOXDm3yAbkP2nJsqKbIiOPB+ojxmG0Xqxr2BNGkEsrv//CrRlcyYk5MSIKxSJuOqMD4gL9K
+ Y0hxwSoBw2et9BDRPzaC3kY0FFYWoHCGgG8Q6LhK0eqlGYl+r1+rOedrqt1RBBdI87JgycEaeiR
+ M4KHtmRLHMzEu80ZrJrnCM3E4Hxg7vgDX3DfumHUo0/JuJx78rlTE3/2h7ANQPlvLJZGkXxUxXR
+ OmFLQ38tcxZ45mekpdx/wCV+ptvetv74wINfSis+Vy7Iixz5RP9R5LHK2voQnDDDb8LU2L4OP1M
+ iq9uz4yhpPjc9HP+0nEDTBedVdyi9xNUiQwfCpO4hncFbADha2iA0Nc/M+e9muaPaYxucPNhQHh
+ uerx7q2He5sftiRWKGwdyZ3OCPP6lY+dLpcwK/mYvfYHIXYo4VSTnFsO+l0PT2VjapjDOKCGOmU
+ Up3uWhAF3xLTQrr0Wf+sell/N8JI4qVSMyaiAGL+9o3N4SI9GNQU=
 X-Developer-Key: i=louis.chauvet@bootlin.com; a=openpgp;
  fpr=8B7104AE9A272D6693F527F2EC1883F55E0B40A5
 X-Last-TLS-Session-Version: TLSv1.3
@@ -100,285 +99,344 @@ X-Spam-Status: No, score=-18.8 required=3.0 tests=BAYES_00,DKIM_SIGNED,
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-The configuration objects are referenced from places with independent
-lifetimes: connectors keep a pointer to their vkms_config_connector, the
-DRM device outlives the configfs view, and userspace can delete a
-configfs directory while the device is still running. Freeing a
-configuration when its configfs representation disappears can therefore
-lead to use-after-free.
-
-Add explicit get/put references to vkms_config and vkms_config_connector:
-a configuration destroyed while still referenced is detached and kept
-alive until its last reference is dropped.
+The configuration objects are now reference-counted and their lifetime is
+driven by explicit get/put calls. Add tests aiming to spot UAF and leaks
+using KASAN.
 
 Signed-off-by: Louis Chauvet <louis.chauvet@bootlin.com>
 ---
- drivers/gpu/drm/vkms/vkms_config.c | 88 +++++++++++++++++++++++++++++++++++---
- drivers/gpu/drm/vkms/vkms_config.h | 41 +++++++++++++++++-
- drivers/gpu/drm/vkms/vkms_drv.c    |  7 ++-
- 3 files changed, 128 insertions(+), 8 deletions(-)
+ drivers/gpu/drm/vkms/tests/.kunitconfig          |  12 ++
+ drivers/gpu/drm/vkms/tests/Makefile              |   3 +-
+ drivers/gpu/drm/vkms/tests/vkms_lifecycle_test.c | 259 +++++++++++++++++++++++
+ drivers/gpu/drm/vkms/vkms_drv.c                  |   3 +
+ 4 files changed, 276 insertions(+), 1 deletion(-)
 
-diff --git a/drivers/gpu/drm/vkms/vkms_config.c b/drivers/gpu/drm/vkms/vkms_config.c
-index 71877651cb00..50cde689f482 100644
---- a/drivers/gpu/drm/vkms/vkms_config.c
-+++ b/drivers/gpu/drm/vkms/vkms_config.c
-@@ -9,6 +9,8 @@
+diff --git a/drivers/gpu/drm/vkms/tests/.kunitconfig b/drivers/gpu/drm/vkms/tests/.kunitconfig
+index 6a2d87068edc..b72899f06088 100644
+--- a/drivers/gpu/drm/vkms/tests/.kunitconfig
++++ b/drivers/gpu/drm/vkms/tests/.kunitconfig
+@@ -2,3 +2,15 @@ CONFIG_KUNIT=y
+ CONFIG_DRM=y
+ CONFIG_DRM_VKMS=y
+ CONFIG_DRM_VKMS_KUNIT_TEST=y
++CONFIG_KASAN=y
++CONFIG_KASAN_INLINE=y
++CONFIG_KASAN_VMALLOC=y
++CONFIG_KUNIT_ALL_TESTS=n
++CONFIG_DEBUG_KMEMLEAK=y
++CONFIG_DEBUG_OBJECTS=y
++CONFIG_DEBUG_OBJECTS_FREE=y
++CONFIG_DEBUG_OBJECTS_TIMERS=y
++CONFIG_DEBUG_SLAB=y
++CONFIG_PAGE_POISONING=y
++CONFIG_PAGE_POISONING_NO_SANITY=n
++CONFIG_PAGE_POISONING_ZERO=y
+diff --git a/drivers/gpu/drm/vkms/tests/Makefile b/drivers/gpu/drm/vkms/tests/Makefile
+index d4d9ba8d4c54..a7810a12c9c8 100644
+--- a/drivers/gpu/drm/vkms/tests/Makefile
++++ b/drivers/gpu/drm/vkms/tests/Makefile
+@@ -3,6 +3,7 @@
+ vkms-kunit-tests-y := \
+ 	vkms_config_test.o \
+ 	vkms_format_test.o \
+-	vkms_color_test.o
++	vkms_color_test.o \
++	vkms_lifecycle_test.o \
  
- #include "vkms_config.h"
- 
-+static void vkms_config_connector_release(struct kref *ref);
+ obj-$(CONFIG_DRM_VKMS_KUNIT_TEST) += vkms-kunit-tests.o
+diff --git a/drivers/gpu/drm/vkms/tests/vkms_lifecycle_test.c b/drivers/gpu/drm/vkms/tests/vkms_lifecycle_test.c
+new file mode 100644
+index 000000000000..b319f6424285
+--- /dev/null
++++ b/drivers/gpu/drm/vkms/tests/vkms_lifecycle_test.c
+@@ -0,0 +1,259 @@
++// SPDX-License-Identifier: GPL-2.0+
 +
- struct vkms_config *vkms_config_create(const char *dev_name)
- {
- 	struct vkms_config *config;
-@@ -27,6 +29,7 @@ struct vkms_config *vkms_config_create(const char *dev_name)
- 	INIT_LIST_HEAD(&config->crtcs);
- 	INIT_LIST_HEAD(&config->encoders);
- 	INIT_LIST_HEAD(&config->connectors);
-+	kref_init(&config->refcnt);
- 	mutex_init(&config->lock);
- 
- 	return config;
-@@ -112,8 +115,9 @@ struct vkms_config *vkms_config_default_create(bool enable_cursor,
- }
- EXPORT_SYMBOL_IF_KUNIT(vkms_config_default_create);
- 
--void vkms_config_destroy(struct vkms_config *config)
-+static void vkms_config_release(struct kref *ref)
- {
-+	struct vkms_config *config = container_of(ref, struct vkms_config, refcnt);
- 	struct vkms_config_plane *plane_cfg, *plane_tmp;
- 	struct vkms_config_crtc *crtc_cfg, *crtc_tmp;
- 	struct vkms_config_encoder *encoder_cfg, *encoder_tmp;
-@@ -128,13 +132,37 @@ void vkms_config_destroy(struct vkms_config *config)
- 	list_for_each_entry_safe(encoder_cfg, encoder_tmp, &config->encoders, link)
- 		vkms_config_destroy_encoder(config, encoder_cfg);
- 
--	list_for_each_entry_safe(connector_cfg, connector_tmp, &config->connectors, link)
--		vkms_config_destroy_connector(connector_cfg);
-+	list_for_each_entry_safe(connector_cfg, connector_tmp, &config->connectors, link) {
-+		/*
-+		 * The configuration is already being released and cannot be
-+		 * pinned anymore: drop the initial reference directly. The
-+		 * connector is still linked, so its release only unlinks it
-+		 * without touching the configuration.
-+		 */
-+		vkms_config_connector_put(connector_cfg);
++#include <kunit/test.h>
++#include <linux/string.h>
++
++#include "../vkms_config.h"
++#include "../vkms_drv.h"
++
++MODULE_IMPORT_NS("EXPORTED_FOR_KUNIT_TESTING");
++
++#define LIFECYCLE_ITERATIONS 50
++#define STRESS_ITERATIONS    500
++
++static void vkms_lifecycle_test_create_destroy_default(struct kunit *test)
++{
++	struct vkms_config *config;
++	int ret, i;
++
++	for (i = 0; i < LIFECYCLE_ITERATIONS; i++) {
++		config = vkms_config_default_create(true, true, false, false);
++		KUNIT_ASSERT_NOT_ERR_OR_NULL(test, config);
++
++		ret = vkms_create(config);
++		KUNIT_ASSERT_EQ(test, ret, 0);
++
++		vkms_destroy(config);
++		vkms_config_destroy(config);
 +	}
- 
- 	mutex_destroy(&config->lock);
- 	kfree_const(config->dev_name);
- 	kfree(config);
- }
-+
-+void vkms_config_get(struct vkms_config *config)
-+{
-+	kref_get(&config->refcnt);
 +}
-+EXPORT_SYMBOL_IF_KUNIT(vkms_config_get);
 +
-+void vkms_config_put(struct vkms_config *config)
++static void vkms_lifecycle_test_create_destroy_with_overlay(struct kunit *test)
 +{
-+	kref_put(&config->refcnt, vkms_config_release);
-+}
-+EXPORT_SYMBOL_IF_KUNIT(vkms_config_put);
++	struct vkms_config *config;
++	int ret, i;
 +
-+void vkms_config_destroy(struct vkms_config *config)
-+{
-+	vkms_config_put(config);
-+}
- EXPORT_SYMBOL_IF_KUNIT(vkms_config_destroy);
- 
- static bool valid_plane_number(const struct vkms_config *config)
-@@ -610,6 +638,7 @@ struct vkms_config_connector *vkms_config_create_connector(struct vkms_config *c
- 	connector_cfg->config = config;
- 	connector_cfg->status = connector_status_connected;
- 	xa_init_flags(&connector_cfg->possible_encoders, XA_FLAGS_ALLOC);
-+	kref_init(&connector_cfg->refcnt);
- 
- 	list_add_tail(&connector_cfg->link, &config->connectors);
- 
-@@ -617,12 +646,61 @@ struct vkms_config_connector *vkms_config_create_connector(struct vkms_config *c
- }
- EXPORT_SYMBOL_IF_KUNIT(vkms_config_create_connector);
- 
--void vkms_config_destroy_connector(struct vkms_config_connector *connector_cfg)
-+static void vkms_config_connector_release(struct kref *ref)
- {
-+	struct vkms_config_connector *connector_cfg =
-+		container_of(ref, struct vkms_config_connector, refcnt);
- 	xa_destroy(&connector_cfg->possible_encoders);
--	list_del(&connector_cfg->link);
-+	if (list_empty(&connector_cfg->link)) {
-+		/*
-+		 * The connector was detached from the configuration by
-+		 * vkms_config_destroy_connector() before its final put,
-+		 * and that call pinned the configuration to keep it alive
-+		 * while the connector still points to it; drop that
-+		 * reference now that the last connector reference is gone.
-+		 */
-+		vkms_config_put(connector_cfg->config);
-+	} else {
-+		/*
-+		 * The configuration is already being released and cannot be
-+		 * pinned anymore: unlink the connector without touching the
-+		 * configuration.
-+		 */
-+		list_del(&connector_cfg->link);
++	for (i = 0; i < LIFECYCLE_ITERATIONS; i++) {
++		config = vkms_config_default_create(true, true, true, false);
++		KUNIT_ASSERT_NOT_ERR_OR_NULL(test, config);
++
++		ret = vkms_create(config);
++		KUNIT_ASSERT_EQ(test, ret, 0);
++
++		vkms_destroy(config);
++		vkms_config_destroy(config);
 +	}
- 	kfree(connector_cfg);
- }
-+
-+struct vkms_config_connector *vkms_config_connector_get(struct vkms_config_connector *connector_cfg)
-+{
-+	kref_get(&connector_cfg->refcnt);
-+	return connector_cfg;
 +}
-+EXPORT_SYMBOL_IF_KUNIT(vkms_config_connector_get);
 +
-+void vkms_config_connector_put(struct vkms_config_connector *connector_cfg)
++static void vkms_lifecycle_test_create_destroy_with_pipeline(struct kunit *test)
 +{
-+	kref_put(&connector_cfg->refcnt, vkms_config_connector_release);
++	struct vkms_config *config;
++	int ret, i;
++
++	for (i = 0; i < LIFECYCLE_ITERATIONS; i++) {
++		config = vkms_config_default_create(true, true, true, true);
++		KUNIT_ASSERT_NOT_ERR_OR_NULL(test, config);
++
++		ret = vkms_create(config);
++		KUNIT_ASSERT_EQ(test, ret, 0);
++
++		vkms_destroy(config);
++		vkms_config_destroy(config);
++	}
 +}
-+EXPORT_SYMBOL_IF_KUNIT(vkms_config_connector_put);
 +
-+void vkms_config_destroy_connector(struct vkms_config_connector *connector_cfg)
++static void vkms_lifecycle_test_create_destroy_minimal(struct kunit *test)
 +{
-+	/*
-+	 * Pin the configuration and detach the connector before dropping
-+	 * the initial reference: the release callback runs inside the put
-+	 * when it is the last one, and would otherwise mutate the
-+	 * configuration lists without holding config->lock, or free the
-+	 * configuration while this call and its configfs caller still use
-+	 * both. The pin is dropped again by the release when the connector
-+	 * dies here; if it survives, it keeps the configuration alive until
-+	 * the connector's final put.
-+	 */
-+	vkms_config_get(connector_cfg->config);
-+	list_del_init(&connector_cfg->link);
++	struct vkms_config *config;
++	int ret, i;
 +
++	for (i = 0; i < LIFECYCLE_ITERATIONS; i++) {
++		config = vkms_config_default_create(false, false, false, false);
++		KUNIT_ASSERT_NOT_ERR_OR_NULL(test, config);
++
++		ret = vkms_create(config);
++		KUNIT_ASSERT_EQ(test, ret, 0);
++
++		vkms_destroy(config);
++		vkms_config_destroy(config);
++	}
++}
++
++static void vkms_lifecycle_test_create_destroy_writeback(struct kunit *test)
++{
++	struct vkms_config *config;
++	int ret, i;
++
++	for (i = 0; i < LIFECYCLE_ITERATIONS; i++) {
++		config = vkms_config_default_create(false, true, false, false);
++		KUNIT_ASSERT_NOT_ERR_OR_NULL(test, config);
++
++		ret = vkms_create(config);
++		KUNIT_ASSERT_EQ(test, ret, 0);
++
++		vkms_destroy(config);
++		vkms_config_destroy(config);
++	}
++}
++
++static void vkms_lifecycle_test_stress_many_cycles(struct kunit *test)
++{
++	struct vkms_config *config;
++	int ret, i;
++
++	for (i = 0; i < STRESS_ITERATIONS; i++) {
++		config = vkms_config_default_create(true, true, true, false);
++		KUNIT_ASSERT_NOT_ERR_OR_NULL(test, config);
++
++		ret = vkms_create(config);
++		KUNIT_ASSERT_EQ(test, ret, 0);
++
++		vkms_destroy(config);
++		vkms_config_destroy(config);
++	}
++}
++
++static void vkms_lifecycle_test_interleaved_create_destroy(struct kunit *test)
++{
++	struct vkms_config *configs[5];
++	const char *new_name;
++	char name[32];
++	int ret, i, j;
++
++	for (j = 0; j < 20; j++) {
++		for (i = 0; i < 5; i++) {
++			configs[i] = vkms_config_default_create(i & 1, i & 2, i & 4, false);
++			KUNIT_ASSERT_NOT_ERR_OR_NULL(test, configs[i]);
++
++			snprintf(name, sizeof(name), "vkms-interleaved-%d", i);
++			new_name = kstrdup_const(name, GFP_KERNEL);
++			KUNIT_ASSERT_NOT_NULL(test, new_name);
++			kfree_const(configs[i]->dev_name);
++			configs[i]->dev_name = new_name;
++
++			ret = vkms_create(configs[i]);
++			KUNIT_ASSERT_EQ(test, ret, 0);
++		}
++
++		for (i = 4; i >= 0; i--) {
++			vkms_destroy(configs[i]);
++			vkms_config_destroy(configs[i]);
++		}
++	}
++}
++
++static void vkms_lifecycle_test_destroy_uncreated_device(struct kunit *test)
++{
++	struct vkms_config *config;
++
++	config = vkms_config_default_create(true, true, false, false);
++	KUNIT_ASSERT_NOT_ERR_OR_NULL(test, config);
++
++	KUNIT_ASSERT_NULL(test, config->dev);
++
++	vkms_config_destroy(config);
++}
++
++static void vkms_lifecycle_test_double_destroy(struct kunit *test)
++{
++	struct vkms_config *config;
++	int ret;
++
++	config = vkms_config_default_create(true, true, false, false);
++	KUNIT_ASSERT_NOT_ERR_OR_NULL(test, config);
++
++	ret = vkms_create(config);
++	KUNIT_ASSERT_EQ(test, ret, 0);
++
++	vkms_destroy(config);
++	KUNIT_ASSERT_NULL(test, config->dev);
++
++	vkms_config_destroy(config);
++}
++
++static void vkms_lifecycle_test_create_after_destroy(struct kunit *test)
++{
++	struct vkms_config *config;
++	int ret, i;
++
++	for (i = 0; i < 20; i++) {
++		config = vkms_config_default_create(true, true, false, false);
++		KUNIT_ASSERT_NOT_ERR_OR_NULL(test, config);
++
++		ret = vkms_create(config);
++		KUNIT_ASSERT_EQ(test, ret, 0);
++
++		vkms_destroy(config);
++
++		ret = vkms_create(config);
++		KUNIT_ASSERT_EQ(test, ret, 0);
++
++		vkms_destroy(config);
++		vkms_config_destroy(config);
++	}
++}
++
++static void vkms_lifecycle_test_connector_ref_outlives_config(struct kunit *test)
++{
++	struct vkms_config_connector *connector_cfg;
++	struct vkms_config *config;
++
++	config = vkms_config_default_create(false, false, false, false);
++	KUNIT_ASSERT_NOT_ERR_OR_NULL(test, config);
++	KUNIT_ASSERT_FALSE(test, list_empty(&config->connectors));
++
++	connector_cfg = list_first_entry(&config->connectors,
++					 struct vkms_config_connector, link);
++
++	/* Simulate the rmdir while DRM hold the device */
++	vkms_config_connector_get(connector_cfg);
++	vkms_config_destroy_connector(connector_cfg);
++	vkms_config_destroy(config);
++
++	/* The connector must survive, detached from the configuration. */
++	KUNIT_EXPECT_EQ(test, kref_read(&connector_cfg->refcnt), 1);
++	KUNIT_EXPECT_TRUE(test, list_empty(&connector_cfg->link));
++
++	/* Last reference: connector and configuration are freed here. */
 +	vkms_config_connector_put(connector_cfg);
 +}
- EXPORT_SYMBOL_IF_KUNIT(vkms_config_destroy_connector);
- 
- int __must_check vkms_config_connector_attach_encoder(struct vkms_config_connector *connector_cfg,
-diff --git a/drivers/gpu/drm/vkms/vkms_config.h b/drivers/gpu/drm/vkms/vkms_config.h
-index 10604f7f37e1..de6a89819daf 100644
---- a/drivers/gpu/drm/vkms/vkms_config.h
-+++ b/drivers/gpu/drm/vkms/vkms_config.h
-@@ -3,8 +3,12 @@
- #ifndef _VKMS_CONFIG_H_
- #define _VKMS_CONFIG_H_
- 
--#include <linux/list.h>
-+#include <linux/cleanup.h>
-+#include <linux/kref.h>
- #include <linux/mutex.h>
-+#include <linux/rcupdate.h>
-+#include <linux/string.h>
-+#include <linux/list.h>
- #include <linux/types.h>
- #include <linux/xarray.h>
- 
-@@ -32,6 +36,7 @@ struct vkms_config {
- 	struct list_head connectors;
- 	struct mutex lock;
- 	struct vkms_device *dev;
-+	struct kref refcnt;
- };
- 
- /**
-@@ -122,6 +127,8 @@ struct vkms_config_connector {
- 
- 	/* Internal usage */
- 	struct vkms_connector *connector;
 +
-+	struct kref refcnt;
- };
- 
- /**
-@@ -211,6 +218,23 @@ struct vkms_config *vkms_config_default_create(bool enable_cursor,
- 					       bool enable_overlay,
- 					       bool enable_plane_pipeline);
- 
-+/**
-+ * vkms_config_get() - Acquire a reference to a VKMS configuration
-+ * @config: vkms_config to acquire a reference to
-+ */
-+void vkms_config_get(struct vkms_config *config);
++static void vkms_lifecycle_test_connector_static_drmm_release(struct kunit *test)
++{
++	struct vkms_config *config;
 +
-+/**
-+ * vkms_config_put() - Release a reference to a VKMS configuration
-+ * @config: vkms_config to release the reference from
-+ *
-+ * When the last reference is released, the configuration and all its
-+ * sub-components are freed.
-+ */
-+void vkms_config_put(struct vkms_config *config);
++	config = vkms_config_default_create(true, true, false, false);
++	KUNIT_ASSERT_NOT_ERR_OR_NULL(test, config);
 +
-+DEFINE_FREE(vkms_config_put, struct vkms_config *, if (_T) vkms_config_put(_T));
++	KUNIT_ASSERT_EQ(test, vkms_create(config), 0);
 +
- /**
-  * vkms_config_destroy() - Free a VKMS configuration
-  * @config: vkms_config to free
-@@ -446,6 +470,21 @@ void vkms_config_encoder_detach_crtc(struct vkms_config_encoder *encoder_cfg,
-  */
- struct vkms_config_connector *vkms_config_create_connector(struct vkms_config *config);
- 
-+/**
-+ * vkms_config_connector_get() - Acquire a reference to a connector configuration
-+ * @connector_cfg: Connector configuration to acquire a reference to
-+ */
-+struct vkms_config_connector *
-+vkms_config_connector_get(struct vkms_config_connector *connector_cfg);
++	/* vkms_destroy() runs the drmm action, which frees and detaches the connector. */
++	vkms_destroy(config);
++	vkms_config_destroy(config);
++}
 +
-+/**
-+ * vkms_config_connector_put() - Release a reference to a connector configuration
-+ * @connector_cfg: Connector configuration to release the reference from
-+ *
-+ * When the last reference is released, the connector configuration is freed.
-+ */
-+void vkms_config_connector_put(struct vkms_config_connector *connector_cfg);
++static struct kunit_case vkms_lifecycle_test_cases[] = {
++	KUNIT_CASE(vkms_lifecycle_test_create_destroy_default),
++	KUNIT_CASE(vkms_lifecycle_test_create_destroy_with_overlay),
++	KUNIT_CASE(vkms_lifecycle_test_create_destroy_with_pipeline),
++	KUNIT_CASE(vkms_lifecycle_test_create_destroy_minimal),
++	KUNIT_CASE(vkms_lifecycle_test_create_destroy_writeback),
++	KUNIT_CASE(vkms_lifecycle_test_stress_many_cycles),
++	KUNIT_CASE(vkms_lifecycle_test_interleaved_create_destroy),
++	KUNIT_CASE(vkms_lifecycle_test_destroy_uncreated_device),
++	KUNIT_CASE(vkms_lifecycle_test_double_destroy),
++	KUNIT_CASE(vkms_lifecycle_test_create_after_destroy),
++	KUNIT_CASE(vkms_lifecycle_test_connector_ref_outlives_config),
++	KUNIT_CASE(vkms_lifecycle_test_connector_static_drmm_release),
++	{}
++};
 +
- /**
-  * vkms_config_destroy_connector() - Remove and free a connector configuration
-  * @connector_cfg: Connector configuration to destroy
++static struct kunit_suite vkms_lifecycle_test_suite = {
++	.name = "vkms-lifecycle",
++	.test_cases = vkms_lifecycle_test_cases,
++};
++
++kunit_test_suite(vkms_lifecycle_test_suite);
++
++MODULE_LICENSE("GPL");
++MODULE_DESCRIPTION("KUnit test for VKMS device lifecycle, aiming to catch UAF and memory issues");
 diff --git a/drivers/gpu/drm/vkms/vkms_drv.c b/drivers/gpu/drm/vkms/vkms_drv.c
-index 5a640b531d88..64c75b038869 100644
+index 64c75b038869..a4bc3d02a6cd 100644
 --- a/drivers/gpu/drm/vkms/vkms_drv.c
 +++ b/drivers/gpu/drm/vkms/vkms_drv.c
-@@ -163,6 +163,9 @@ int vkms_create(struct vkms_config *config)
- 	struct faux_device *fdev;
- 	struct vkms_device *vkms_device;
- 	const char *dev_name;
-+	struct vkms_config *cfg __free(vkms_config_put) = config;
-+
-+	vkms_config_get(cfg);
+@@ -18,6 +18,7 @@
+ #include <drm/drm_atomic.h>
+ #include <drm/drm_atomic_helper.h>
+ #include <drm/drm_colorop.h>
++#include <kunit/visibility.h>
+ #include <drm/drm_drv.h>
+ #include <drm/drm_fbdev_shmem.h>
+ #include <drm/drm_file.h>
+@@ -250,6 +251,7 @@ static int __init vkms_init(void)
  
- 	dev_name = vkms_config_get_device_name(config);
- 	fdev = faux_device_create(dev_name, NULL, NULL);
-@@ -210,11 +213,11 @@ int vkms_create(struct vkms_config *config)
- 		goto out_devres;
- 
- 	drm_client_setup(&vkms_device->drm, NULL);
--
  	return 0;
- 
- out_devres:
- 	devres_release_group(&fdev->dev, NULL);
-+	config->dev = NULL;
- out_unregister:
- 	faux_device_destroy(fdev);
- 	return ret;
-@@ -275,7 +278,7 @@ static void __exit vkms_exit(void)
- 		return;
- 
- 	vkms_destroy(default_config);
--	vkms_config_destroy(default_config);
-+	vkms_config_put(default_config);
  }
++EXPORT_SYMBOL_IF_KUNIT(vkms_create);
  
- module_init(vkms_init);
+ void vkms_destroy(struct vkms_config *config)
+ {
+@@ -269,6 +271,7 @@ void vkms_destroy(struct vkms_config *config)
+ 
+ 	config->dev = NULL;
+ }
++EXPORT_SYMBOL_IF_KUNIT(vkms_destroy);
+ 
+ static void __exit vkms_exit(void)
+ {
 
 -- 
 2.56.0
