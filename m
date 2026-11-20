@@ -2,76 +2,76 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 29C1F606A32C
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BF859606A32A
 	for <dri-devel@archiver.kernel.org>; Fri, 20 Nov 2026 10:40:53 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=lKgjl5yA
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=p+X4GT4X
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 8F8271128D3;
+	by gabe.freedesktop.org (Postfix) with ESMTP id C937D1128CD;
 	Fri, 20 Nov 2026 10:40:47 +0000 (UTC)
-Received: from mail-wr1-f48.google.com (mail-wr1-f48.google.com
- [209.85.221.48])
- by gabe.freedesktop.org (Postfix) with ESMTPS id ADB5E1128A2
- for <dri-devel@lists.freedesktop.org>; Fri, 20 Nov 2026 10:40:37 +0000 (UTC)
-Received: by mail-wr1-f48.google.com with SMTP id
- ffacd0b85a97d-4a7b8abe209so498607f8f.0
- for <dri-devel@lists.freedesktop.org>; Fri, 20 Nov 2026 02:40:37 -0800 (PST)
+Received: from mail-wm1-f54.google.com (mail-wm1-f54.google.com
+ [209.85.128.54])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id D54741128BF
+ for <dri-devel@lists.freedesktop.org>; Fri, 20 Nov 2026 10:40:38 +0000 (UTC)
+Received: by mail-wm1-f54.google.com with SMTP id
+ 5b1f17b1804b1-4bb6adaf0f1so6111235e9.0
+ for <dri-devel@lists.freedesktop.org>; Fri, 20 Nov 2026 02:40:38 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20260707; t=1795171236; x=1795776036; darn=lists.freedesktop.org;
+ d=gmail.com; s=20260707; t=1795171237; x=1795776037; darn=lists.freedesktop.org;
  h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
  :content-type:mime-version:subject:date:from:from:to:cc:subject:date
  :message-id:reply-to:content-type;
- bh=wWjEO3N90Ag9CCKCLSbaqSxSbDsFMtzLcLHXCqLa5hY=;
- b=lKgjl5yATIztk2Q/om7FRPFksg+yknEw/i1L4fPy6c1qDJyxrtqEUZpD1lOwsa+cJ+
- 6PAOxSXitjw/SF6MYvBHfeOOmGVH7WG17n8VI4d643el716dRrDrpookP/E7wBrqpck4
- zheWdVkkc5S57SFOEiBYVyExvv5QLY2UBlPO6OZVbCwnKVqD9B78Lz8+gY/g1aspPwxS
- rf4yHa+d5YLZRSnD5bzozDYH8fR11WPqgYPO0lXYmoq+jCFNBF9m4YS2CqTsCffO1xHa
- ADCoUp89abGUBfByeZrcJOsngcMKrjD1IqMQpaErOr8bVW/pMsITAGe/EjRrDjG9lp+/
- mWQw==
+ bh=el1LyCfnrClGpym+h6i1skzP/uh1fnaEtmw/z/26iV4=;
+ b=p+X4GT4XzMUR3EWF9lzHh0/l7sabMtEZd+ROYbbDEciwasHvmb9hK+S1iorJ1N8eKg
+ 3SJNif/f78vN+kmWk/ODua074P3HigPhR5pAM422cYrpjIo2ARMnd0RaHk+4OQGPOTdm
+ ZwOH/juaVY2W64kE9sqcBmoWDh6WMt5377P1aaXKqzRKXLdbqJgn59kR8WdRwzaUGoPn
+ qGtwkuJJ2MKEaTt2lVC1wZno24mDgBGwV5V5evtRy/2TWRsKzMblOBDY4afFVEGFhvc8
+ XRjrmzmPV7SskB3eRxcfp/yQOTqKSB54noA6fOyesynBubhFh7CCtkvKu5pzhl3R2J1s
+ zIBA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20260707; t=1795171236; x=1795776036;
+ d=1e100.net; s=20260707; t=1795171237; x=1795776037;
  h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
  :content-type:mime-version:subject:date:from:x-gm-gg
  :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
  :content-type;
- bh=wWjEO3N90Ag9CCKCLSbaqSxSbDsFMtzLcLHXCqLa5hY=;
- b=NNkwUYBj5I0N+8B6Ea8hX0jXFcR06b8dCYhbpEgtHsmXihiEEIz5+EXyJbtGAlGSiw
- Jy3TQL/zx1pwG1RSb5gdOACmBbxSohgZQ+I3DhLXgVrFvimX8p2tQAUvnouMDZBqdS+Z
- gr8ggxcAXOLLBNCDSKDcSC4S3Rz03gG/Ey5I09v5T64z2GzY3BxT7/bcqTFzdMnX+zHS
- tCEoueDxf/twEFGsju+ZRgFBg0luzttNGAOFJBeT5Ew9ybGuW++MUuKc47/OkmvK+LzU
- BWQU2vAiLotT4q9oxNrG5F6hnnNhjybgFTa10/A9P6cUh1jZTxPTldq5+C+SwtOdK2x/
- RVXA==
+ bh=el1LyCfnrClGpym+h6i1skzP/uh1fnaEtmw/z/26iV4=;
+ b=s9tQ7krXABIuOhIbrgMPy+d+0SvaZWnNRTFNMvdfH+ax7yFFoOsoYEi/O4a8kgdGLt
+ jU/mdWIuxhdg3TJPBpQE5rTlTcUTbHgpJsZzjh692cNcoDqE+yiKQU3+nat0wsv4onQT
+ 4gnqplfO96jgAP/T32zqxVQwrxrkRuKNqxCiEfeKeNNhI3Xyu/6u7EMBXT28hZ/PBEmX
+ LTlh66dmwMjP9lL7foh5HV/8ORfsQH53tRLg22OdDIVdcFTV63pFAj8Ccvo221vZQSu/
+ K+PxeuwQani/V7DoU5LlviStcnpsiovPgwBQ+l1ATIERhSlkVIdXrRdJLdJ8PcSnX9qC
+ CPPg==
 X-Forwarded-Encrypted: i=1;
- AL+hErEQlsj7/MPJuw3WYxOyRPS5dtCgHBmdktNxM/ZRDsiobgveXKQ5bN54MERkY01/uICjuhWc5hDpCuI=@lists.freedesktop.org
-X-Gm-Message-State: APuU4Z+ondfi+8zZf0FiE0PugGEeIIP4SZR22f9OSAgWZkR1r1ncD7fs
- 8bL87KI3dw1DPpHOlPF5vvhUSI6mCvWBj1RIbkmaym1ciP0cNmm5fmfT
-X-Gm-Gg: AYBFou1GAfyVgyaWkdbrZnPdgCGd9ES3CgJDAhmFZsARlt8CPcnXtoVK66cloj4Yyk8
- Co5thi7JeGJVJ06wZD/KyqXJIdFoYa/PpKv89f6HtPi+qOrgUpirZ5xhvdkTEW2jkkb9BGWXeaJ
- jNoxLtNCg1HmhA+iQiY1EOfsd3ZqoQRrHIh1TB9v4cHLlpd+6o7b96Z/cH6avDLc9HpKf9J+1Mr
- QfuuJ6eOZpp6L4xX5drRUzaGz/C1GYmcg+BXOsaCzfezZFhXOL+ltBaTVoMrnSWYCbiojN2z1LX
- wkvWc7SP9uR0+O4Slm4AQhHQOW1hjHQLlXeadQQNwB5FwibtcK4/GS/9vwkQfKB+uzBUYdTTk+t
- Uz1DdpjNyBBaIksL6QK3WcYUf7mw4qQpJJTLDaB/EQ0po5V3iW3wYLcr2pWu0tziDgHCFaR+Cu1
- 6ZNIf9n3AVQalMRjjsg9Od077mYVx2/6d+1fzmQ/foB4IBRWWxHqmZEvzhQT2YP9Ui8fJ9I8DyP
- YcZLVDdWVrDayOrnH+1ck2PIFzbA94zzfiDeokz1G4/72r4wOLCJRHyrRZJTE/j3UW6pw+eWsh7
- FhU+Xyq58rfBDuXoWRzvMdA6l/lqcYk3df/L4Wlg+tsZKdVBMVEpFsxnlJw7WUP3/Elxz+CnW+2
- flRRYFpC8p+0HYGwVDlU2cyFG7mCbP3b2soJT63FHQpLBQSEy2tY=
-X-Received: by 2002:a05:600c:8b11:b0:4a1:dda8:eb73 with SMTP id
- 5b1f17b1804b1-4bb8881c630mr62257765e9.27.1795171235703; 
- Fri, 20 Nov 2026 02:40:35 -0800 (PST)
+ AL+hErHUAy2yKPWwX3PWEiSxhVxPdYx9arNODgjiEsmsIwK7bW+uPWfMxQRxTbXWDoa/MXZzAKemCBgHnRQ=@lists.freedesktop.org
+X-Gm-Message-State: APuU4Z8AHEIvgryF2qV4+0O7TBztFUwod5TiWBUw3keG1/ZCs0dahr90
+ Nc9aickpAWMl2jVS8vwyI5xVOXFsld2TEuK9vePeb1yJ4JRUQvIRGh9K
+X-Gm-Gg: AYBFou14bSVRkYAtpuYCZrA21HQ03DvJS156D/D60wSTn5SKmbGmbiKVIra7y+yKP09
+ eC3agOHK/VYLLRwFr5CC4i7Jf5hCKKOXohYXN0+9w3dcXKPejPyE9ZneMZNM2kpV+rJUfS2iwrS
+ HFcRRNDScPs1olQVlpnMPAcHe+D3XapA8nw3yivhh1ALYSkgvUg0ZZjlJ84v9wS0iBxIvebhCBn
+ p54qPGzx60U2WOdFyMN6SDebGYb///md6LgmT5IozsLN6HkE1Ci3+TEr9UED+5j0C49osu2dGgT
+ h26tB/1XmDyHzL/Sw3Aw738VKsKPxmsEzcqeNzsIOG1Erf9OsU+V+aB0ryD2BDe29cZ1jwgVvG8
+ J9s9GeR+h12brB53lL5dBq/atLBB8Qdmo2mXzbfc8DgOg/XZf1yr6ES6gc//qIx5+g/0sxXXZek
+ 8UatIMoN1cdJcMEEKhoZAhmZCLOlSWzf1R6heHLNJybZEmkQkzdY4QBrVIuKYhdfRPL8/qIVyQ1
+ x7zrqypoju9pVFJfkpDuTDbfOo+UWfxQFU9KQkW21szKDdGpjCvyOwtFhoJAjcasaLc5WTosoDN
+ AIHAa+Oh6msAyueIFuSFDPSyrQ1H09WQ6fmeig5YafO0st3PdlZLgy9a8P3adryjZsb6rudL0bF
+ kIGIBq5vQBN2+a9+e0S6dYCpjf9NRUGIoIwxtOYB2kD4lRHxzyDo=
+X-Received: by 2002:a05:600c:848d:b0:4bb:6b6b:fbaa with SMTP id
+ 5b1f17b1804b1-4bb8880fd0amr55521205e9.16.1795171237076; 
+ Fri, 20 Nov 2026 02:40:37 -0800 (PST)
 Received: from localhost.localdomain (80-108-121-211.cable.dynamic.surfer.at.
  [80.108.121.211]) by smtp.gmail.com with ESMTPSA id
- 5b1f17b1804b1-4bb895eec06sm22297535e9.2.2026.11.20.02.40.33
+ 5b1f17b1804b1-4bb895eec06sm22297535e9.2.2026.11.20.02.40.35
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Fri, 20 Nov 2026 02:40:35 -0800 (PST)
+ Fri, 20 Nov 2026 02:40:36 -0800 (PST)
 From: Christian Gmeiner <christian.gmeiner@gmail.com>
-Date: Fri, 20 Nov 2026 11:40:27 +0100
-Subject: [PATCH 1/7] drm/etnaviv: Don't set up a GPU on resume that is not
- initialized
+Date: Fri, 20 Nov 2026 11:40:28 +0100
+Subject: [PATCH 2/7] drm/etnaviv: Register the cooling device last and
+ unregister it first
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20261120-etnaviv-gpu-freq-trace-v1-1-445fc6eacddf@igalia.com>
+Message-Id: <20261120-etnaviv-gpu-freq-trace-v1-2-445fc6eacddf@igalia.com>
 References: <20261120-etnaviv-gpu-freq-trace-v1-0-445fc6eacddf@igalia.com>
 In-Reply-To: <20261120-etnaviv-gpu-freq-trace-v1-0-445fc6eacddf@igalia.com>
 To: Lucas Stach <l.stach@pengutronix.de>, 
@@ -105,62 +105,112 @@ X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 
 From: Christian Gmeiner <cgmeiner@igalia.com>
 
-etnaviv_gpu_init(..) can fail, for example for a VG core with FE2.0,
-which is ignored on purpose. The device stays bound and is runtime
-suspended and resumed later.
+etnaviv_gpu_bind(..) registers the cooling device before the workqueue,
+the scheduler and the clocks are set up, and etnaviv_gpu_unbind(..)
+unregisters it after they are gone. So a cooling request can come in
+while the GPU is not set up yet or already torn down.
 
-etnaviv_gpu_rpm_suspend(..) sets the state to identified without
-looking at the old state. So the next resume programs the clock and
-runs etnaviv_gpu_hw_init(..) on a GPU that is not initialized. An
-unbound GPU keeps the identified state as well, so the next bind sets
-it up before it is reset.
+With CONFIG_PM the GPU is runtime suspended at these points and the
+request only stores the new state. Without CONFIG_PM
+pm_runtime_suspended(..) always returns false and the request accesses
+a GPU whose clocks are off.
 
-Go back to the unknown state when etnaviv_gpu_init(..) fails and in
-etnaviv_gpu_unbind(..), and keep it in etnaviv_gpu_rpm_suspend(..).
+Register the cooling device as the last step of bind and unregister it
+as the first step of unbind. A following patch makes cooling requests
+wait for the queued jobs and needs this order too.
 
-Seen on an i.MX6Q with its ignored GC355, and with its GC320 on every
-bind after the first.
-
-Fixes: 647d817d8071 ("drm/etnaviv: better track GPU state")
-Cc: stable@vger.kernel.org # 6.6+
+Fixes: bcdfb5e56dc5 ("drm/etnaviv: add etnaviv cooling device")
+Cc: stable@vger.kernel.org
 Signed-off-by: Christian Gmeiner <cgmeiner@igalia.com>
 ---
- drivers/gpu/drm/etnaviv/etnaviv_gpu.c | 8 +++++++-
- 1 file changed, 7 insertions(+), 1 deletion(-)
+ drivers/gpu/drm/etnaviv/etnaviv_gpu.c | 42 ++++++++++++++++++-----------------
+ 1 file changed, 22 insertions(+), 20 deletions(-)
 
 diff --git a/drivers/gpu/drm/etnaviv/etnaviv_gpu.c b/drivers/gpu/drm/etnaviv/etnaviv_gpu.c
-index 6a4aab75ebba..2a15ae6135f5 100644
+index 2a15ae6135f5..2a56bdf2510a 100644
 --- a/drivers/gpu/drm/etnaviv/etnaviv_gpu.c
 +++ b/drivers/gpu/drm/etnaviv/etnaviv_gpu.c
-@@ -951,6 +951,8 @@ int etnaviv_gpu_init(struct etnaviv_gpu *gpu)
+@@ -1808,19 +1808,9 @@ static int etnaviv_gpu_bind(struct device *dev, struct device *master,
+ 	struct etnaviv_gpu *gpu = dev_get_drvdata(dev);
+ 	int ret;
+ 
+-	if (IS_ENABLED(CONFIG_DRM_ETNAVIV_THERMAL)) {
+-		gpu->cooling = thermal_of_cooling_device_register(dev->of_node, 0,
+-								  dev_name(dev),
+-								  gpu, &cooling_ops);
+-		if (IS_ERR(gpu->cooling))
+-			return PTR_ERR(gpu->cooling);
+-	}
+-
+ 	gpu->wq = alloc_ordered_workqueue(dev_name(dev), 0);
+-	if (!gpu->wq) {
+-		ret = -ENOMEM;
+-		goto out_thermal;
+-	}
++	if (!gpu->wq)
++		return -ENOMEM;
+ 
+ 	ret = etnaviv_sched_init(gpu);
+ 	if (ret)
+@@ -1840,20 +1830,32 @@ static int etnaviv_gpu_bind(struct device *dev, struct device *master,
+ 	INIT_WORK(&gpu->sync_point_work, sync_point_worker);
+ 	init_waitqueue_head(&gpu->fence_event);
+ 
++	if (IS_ENABLED(CONFIG_DRM_ETNAVIV_THERMAL)) {
++		gpu->cooling = thermal_of_cooling_device_register(dev->of_node, 0,
++								  dev_name(dev),
++								  gpu, &cooling_ops);
++		if (IS_ERR(gpu->cooling)) {
++			ret = PTR_ERR(gpu->cooling);
++			gpu->cooling = NULL;
++			goto out_clk;
++		}
++	}
++
+ 	priv->gpu[priv->num_gpus++] = gpu;
+ 
  	return 0;
  
- fail:
-+	/* the GPU is not used, a resume must not set it up */
-+	gpu->state = ETNA_GPU_STATE_UNKNOWN;
- 	pm_runtime_mark_last_busy(gpu->dev);
- pm_put:
- 	pm_runtime_put_autosuspend(gpu->dev);
-@@ -1874,6 +1876,9 @@ static void etnaviv_gpu_unbind(struct device *dev, struct device *master,
- 		etnaviv_gpu_clk_disable(gpu);
- 	}
- 
-+	/* the GPU is not initialized any more, a resume must not set it up */
-+	gpu->state = ETNA_GPU_STATE_UNKNOWN;
++out_clk:
++	gpu->drm = NULL;
++	if (!IS_ENABLED(CONFIG_PM))
++		etnaviv_gpu_clk_disable(gpu);
 +
- 	if (gpu->mmu_context)
- 		etnaviv_iommu_context_put(gpu->mmu_context);
+ out_sched:
+ 	etnaviv_sched_fini(gpu);
  
-@@ -2019,7 +2024,8 @@ static int etnaviv_gpu_rpm_suspend(struct device *dev)
+ out_workqueue:
+ 	destroy_workqueue(gpu->wq);
  
- 	etnaviv_gpu_hw_suspend(gpu);
- 
--	gpu->state = ETNA_GPU_STATE_IDENTIFIED;
-+	if (gpu->state != ETNA_GPU_STATE_UNKNOWN)
-+		gpu->state = ETNA_GPU_STATE_IDENTIFIED;
- 
- 	return etnaviv_gpu_clk_disable(gpu);
+-out_thermal:
+-	if (IS_ENABLED(CONFIG_DRM_ETNAVIV_THERMAL))
+-		thermal_cooling_device_unregister(gpu->cooling);
+-
+ 	return ret;
  }
+ 
+@@ -1864,6 +1866,10 @@ static void etnaviv_gpu_unbind(struct device *dev, struct device *master,
+ 
+ 	DBG("%s", dev_name(gpu->dev));
+ 
++	if (IS_ENABLED(CONFIG_DRM_ETNAVIV_THERMAL))
++		thermal_cooling_device_unregister(gpu->cooling);
++	gpu->cooling = NULL;
++
+ 	destroy_workqueue(gpu->wq);
+ 
+ 	etnaviv_sched_fini(gpu);
+@@ -1887,10 +1893,6 @@ static void etnaviv_gpu_unbind(struct device *dev, struct device *master,
+ 
+ 	gpu->drm = NULL;
+ 	xa_destroy(&gpu->user_fences);
+-
+-	if (IS_ENABLED(CONFIG_DRM_ETNAVIV_THERMAL))
+-		thermal_cooling_device_unregister(gpu->cooling);
+-	gpu->cooling = NULL;
+ }
+ 
+ static const struct component_ops gpu_ops = {
 
 -- 
 2.56.0
