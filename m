@@ -2,42 +2,90 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 87197606A33A
-	for <dri-devel@archiver.kernel.org>; Fri, 20 Nov 2026 00:23:14 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1B543606A320
+	for <dri-devel@archiver.kernel.org>; Fri, 20 Nov 2026 01:12:04 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=mwiYZhxe
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=r7KTv0YW
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id B616B10E8A4;
-	Fri, 20 Nov 2026 00:23:08 +0000 (UTC)
-Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 30AB610E8A4
- for <dri-devel@lists.freedesktop.org>; Fri, 20 Nov 2026 00:23:02 +0000 (UTC)
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by tor.source.kernel.org (Postfix) with ESMTP id 5606C601D7;
- Fri, 20 Nov 2026 00:23:01 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id DA6B11F000C6;
- Fri, 20 Nov 2026 00:23:00 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1795134181;
- bh=lunv6wnsibEvo5DNcAsgxnZ91lhiZ8MdD0eb0YGrLoE=;
- h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
- b=mwiYZhxeNPpEn96LtiVqymgHy8qvMI26zpCNgDeAICt1VJ7Edt9pfxxc09xYqaNeT
- IzoqoAQkAP46o4+UOmO+kGCWcwGBIFLcJzbBUfFttIrQr6b/+BpmH5JBD96QxUVwJR
- Qg0Urx+A++UZ2yseBI+XsXeUroCPoCnQiICgNZ2QiHDpdgpW0u9kedCDqkb1nFSJyH
- IELOwTEhemoN/NPWsCE0fqyRxrMEVPeyEf7z0MWVj3T38BVqxJ8rm0bJ7cUy97Fog5
- 924L3vFqvSP9027XOxkad6R/W0cMa2LaBEZmhj5MoP9vI80CylN5RA4RzPw9rk4kr6
- fkc5MJPfJyVSg==
-Message-ID: <sashiko-outbox-224265@kernel.org>
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v9 13/14] drm/bridge: it6505: Add audio support
-To: "Daniel Golle" <daniel@makrotopia.org>
-Cc: dri-devel@lists.freedesktop.org
-In-Reply-To: <9fa6e149442b5f7294814762b858ecabc3db4d38.1795132452.git.daniel@makrotopia.org>
-References: <cover.1795132452.git.daniel@makrotopia.org>
- <9fa6e149442b5f7294814762b858ecabc3db4d38.1795132452.git.daniel@makrotopia.org>
-Content-Type: text/plain; charset=utf-8
+	by gabe.freedesktop.org (Postfix) with ESMTP id DE19410E0E8;
+	Fri, 20 Nov 2026 01:11:57 +0000 (UTC)
+Received: from mail-pj2-f8.google.com (mail-pj2-f8.google.com [74.125.227.136])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 5633510E0E8
+ for <dri-devel@lists.freedesktop.org>; Fri, 20 Nov 2026 01:11:51 +0000 (UTC)
+Received: by mail-pj2-f8.google.com with SMTP id
+ 98e67ed59e1d1-3b40283c001so86564a91.0
+ for <dri-devel@lists.freedesktop.org>; Thu, 19 Nov 2026 17:11:51 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20260707; t=1795137111; x=1795741911; darn=lists.freedesktop.org;
+ h=cc:to:content-transfer-encoding:content-type:mime-version
+ :message-id:date:subject:from:from:to:cc:subject:date:message-id
+ :reply-to:content-type;
+ bh=+WauXmzgjTADvjBBTuDw9ddxWh3mS9R+yZFc6+jn+U4=;
+ b=r7KTv0YWkvBJByEo0k85K1UGnxUCSPTUFSUxGff7czLCXH7M0LahMjJJuWN8jXHemc
+ R3D0H17yk39+9h/jcA0tMvz2uQWVSX4Vn4ShAkXW7Rh2nH4YcUH8f+4hHum361f5u2sm
+ AK4c94YRCt1+7tGlHTSN6xqkdgy41+nUb+ggjBWh/ofSLcBeQk/5BVKCeXSiDO7R80Et
+ g1CN2dfAhln86X+x7RSlFFj6LnVyeuUCqn3ku10YVzXHBFqDigM+zh+RYSJQGMiAEW9K
+ L6PXNqO5Z5AYKYhUGwIimcBNivira4kJMmH9awxHZPjYMQhzzSzBHOUa2knI266ehXie
+ R3Jw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20260707; t=1795137111; x=1795741911;
+ h=cc:to:content-transfer-encoding:content-type:mime-version
+ :message-id:date:subject:from:x-gm-gg:x-gm-message-state:from:to:cc
+ :subject:date:message-id:reply-to:content-type;
+ bh=+WauXmzgjTADvjBBTuDw9ddxWh3mS9R+yZFc6+jn+U4=;
+ b=nXaQQSVjdUEcTPhtmLXtw9w6BsAuLo2Doh4eLCsuQsKX8w5wAf1PUwYh6vmXnkH7qb
+ irNYnBqEQL5NQx7yUewk0y11kG0dP3oVbx/Lq0NKFzExaQEBJbhoSA0RCT/pDan0GlNX
+ mNSjodsmWBZ/VBYo68Ce8jDTpxioHAL2bJ+n6yO9Evl9JAyKPx8cij+uqUirbAJWAoc9
+ ORvCbpNmgldt78hvXc0rBC41pzHCN7JebUYWKBfQc/s3P9lHWvQA5Ft686OkRy+ih29F
+ XxOWBwgCH3qbaGAdZ3kcrllK2Vt4F50NyjxbGMqz6hJHfdgtxHGJAPdcLEI6h6RvhEzf
+ H8SA==
+X-Forwarded-Encrypted: i=1;
+ AL+hErGZ2UhosVG+NfzNyya1DhMgxz+SbEbWi5vA0zjs8gxAU+QC/tKK71TNPL5hgdHGxVOkwiLMEehYwGE=@lists.freedesktop.org
+X-Gm-Message-State: APuU4Z/ZSDdMloWvb9MkXGnV9Bgdhwfb4mVnEOI/hfYr0PXkKXvyJqeo
+ s/3hNp9AwTMF3RpGGYdse8I0yl1NQONtwapTDOZnNVDgnjx+6xEhc6ly
+X-Gm-Gg: AZFdTZdhWKjRRNiZlweDGqors6qnnvdyC40zYhAhs0uY/GusT27r4qiDkHSlZldHi1l
+ LI6edSug/pzWzMEA5OMPNBjaqHm97JyMvY7apPQc1BUGJdsv/k5AogJoaQPan8HwMFmVbHfW9qY
+ EXlIILRqHgTyZs7U/ZZPgOmUyUlLgykQlUkZ5WwQzrAXuzMViuVuHqdBLY5WX29IPXiIPJ2RdjJ
+ GD8pxv4OL5PBhzdGFGthNME0Yaxd0N2XKFTUAoMUaiNYOKrG2nOwigjYaOihd4C6VozbY4yy7PN
+ MwFpq4Ot2aGHNcy9anmPoVryMgzXkDinUr1RCGhhoA9BB1jDRHBWLftVCBGFhc6GlM//Ri/Bf9/
+ 0ZQzAzEs4SLU+L1SRTcP2QS06nhupqZdlFlVZ+s+G3kOCt/YOqpLWcZ7OT1MSOHZS6fMFcU6mms
+ sMok67S5lU0l4/iqShUUeW0vOMnolnDNSMAB2ZWrrnCxfZS3BZC52MuzIKf2wmZSmFdDYaW4nYh
+ nYRlmuQQrp4EmkybP0yOtq/xXADrPjgHk+9tVuHjR1L7tRIIzD7zmEBVwXYEPfXa7Bz4mgxIiPM
+ PJwbOLhBYvv/cR2itCgTgrSQXUX9IOEumMK4+QYV9CKYRJaKqxhwjUfRQ5vMUGhdRZIJKhWm40Y
+ A5ureKiADfdYK
+X-Received: by 2002:a17:90b:2f8f:b0:3b3:b0f4:1bf7 with SMTP id
+ 98e67ed59e1d1-3b41c8d460emr1098385a91.23.1795137110648; 
+ Thu, 19 Nov 2026 17:11:50 -0800 (PST)
+Received: from localhost ([50.7.253.42]) by smtp.gmail.com with ESMTPSA id
+ 98e67ed59e1d1-3b41d243eb1sm622215a91.3.2026.11.19.17.11.35
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Thu, 19 Nov 2026 17:11:50 -0800 (PST)
+From: Aveline Noir <jm5905938@gmail.com>
+Subject: [PATCH RESEND v2 0/2] HID: picolcd: Fix output-request and
+ framebuffer locking
+Date: Fri, 20 Nov 2026 12:05:46 +1100
+Message-Id: <20261120-mail-picolcd-v2-resend-20261120-v2-0-d7531fa8061b@gmail.com>
+X-Archived-By: <archiver.kernel.org>
+MIME-Version: 1.0
+Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: quoted-printable
-Date: Fri, 20 Nov 2026 00:23:00 +0000
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/2WNTQvCMBBE/0rZs4tJxCCe7dWDHsVDPla7UtOSa
+ BFK/7tJRS8eZ+Yxb4REkSnBthoh0sCJu5CDWlTgGhOuhOxzBiWUllIJvBtusWfXtc7joDBSouD
+ xtzvya7PReuWlgPzSR7rwazac4FAf6/0Ozp8+Pe2N3KPcF9KaRGijCa4pVREt/0Uz9bXBNL0Bd
+ +SW7MIAAAA=
+X-Change-ID: 20261120-mail-picolcd-v2-resend-20261120-ced5a8663d10
+To: Benjamin Tissoires <bentiss@kernel.org>, Jiri Kosina <jikos@kernel.org>
+Cc: linux-fbdev@vger.kernel.org, linux-kernel@vger.kernel.org, 
+ Mika Westerberg <mika.westerberg@linux.intel.com>, deller@gmx.de, 
+ Thomas Zimmermann <tzimmermann@suse.de>, dri-devel@lists.freedesktop.org, 
+ =?utf-8?q?Bruno_Pr=C3=A9mont?= <bonbons@linux-vserver.org>, 
+ Clark Williams <clrkwllms@kernel.org>, bigeasy@linutronix.de, 
+ linux-input@vger.kernel.org, Steven Rostedt <rostedt@goodmis.org>, 
+ Takashi Iwai <tiwai@suse.de>, 
+ syzbot+912222e4cb82423535fa@syzkaller.appspotmail.com, 
+ linux-rt-devel@lists.linux.dev, simona@ffwll.ch, 
+ Patrik Jakobsson <patrik.r.jakobsson@gmail.com>
+X-Mailer: b4 0.16.0
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -48,179 +96,63 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
-Reply-To: sashiko-reviews@lists.linux.dev
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-10.8 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
-	DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
-	INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS autolearn=ham
+X-Spam-Status: No, score=-10.8 required=3.0 tests=BAYES_00,DKIM_SIGNED,
+	DKIM_VALID,DKIM_VALID_AU,FREEMAIL_FORGED_FROMDOMAIN,FREEMAIL_FROM,
+	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_PATCH,MAILING_LIST_MULTI,
+	SPF_HELO_NONE,SPF_PASS,USER_AGENT_GIT autolearn=unavailable
 	autolearn_force=no version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
-X-Archived-By: <archiver.kernel.org>
 
-Thank you for your contribution! Sashiko AI review found 3 potential
-issues to consider:
-- [Medium] drm/bridge: it6505: audio not enabled in
-  it6505_link_train_ok() when unmuted
-- [Medium] drm/bridge: it6505: unlocked chip reset in
-  it6505_process_hpd_irq()
-- [Medium] drm/bridge: it6505: uncanceled delayed_audio on HPD low in
-  it6505_irq_hpd()
---
+Hi Jiri,
 
-commit 9525a8456c7b3a8b8b712a90e98e5ba9c8adfe1a
-Author: Jiaxin Yu <jiaxin.yu@mediatek.com>
+Thanks for catching that. Both patch emails were line-wrapped in
+transit, so I'm resending the full v2 series. The commit messages and
+diffs are unchanged. I checked that a copy of patch 1/2 sent to myself
+applies cleanly with git am.
 
-drm/bridge: it6505: Add audio support
+This series fixes two PicoLCD locking problems. The first moves output
+requests into sleepable context and serializes LED state updates. The
+second breaks the last-close/deferred-worker lock dependency using a
+private framebuffer update mutex.
 
-This commit registers an hdmi-audio-codec platform device for it6505, wires
-up the hdmi_codec_ops callbacks, and serializes audio state and hardware
-register updates with an audio_lock mutex.
+The first patch was tested separately with the original syzkaller C
+reproducer and bounded concurrent sysfs/UHID-destroy workloads on
+PREEMPT_RT. The complete series additionally passed repeated framebuffer
+open/write/close and persistent-open framebuffer tests. Pre-fix modules
+reproduced the respective failures. Physical hardware, prolonged stress
+and suspend/resume have not been tested.
 
-Link: https://lore.kernel.org/all/20230730180803.22570-4-jiaxin.yu@mediatek=
-.com/
+Patch 2's Fixes tag identifies the fbdev change that began draining
+deferred work from fb_release() while holding info->lock. Patch 1's Fixes
+tag was checked against the upstream transport-conversion diff.
 
-> diff --git a/drivers/gpu/drm/bridge/ite-it6505.c b/drivers/gpu/drm/bridge=
-/ite-it6505.c
-> index 2da58d94127c3..eedc46eaf974b 100644
-> --- a/drivers/gpu/drm/bridge/ite-it6505.c
-> +++ b/drivers/gpu/drm/bridge/ite-it6505.c
+Changes in v2:
+- Address Sebastian Andrzej Siewior's feedback: clarify that the issue
+  is not specific to PREEMPT_RT and identify picolcd_data::lock as a
+  spinlock_t in patch 1. The code changes are identical to v1.
 
-[ ... ]
+Helge acked patch 2/2 in the original thread.
+https://lore.kernel.org/linux-input/CANOyQmGfmBdTRaEamVdGuMBToVLeXGi6qLrnX=
+=3DxkA9acsL9TSQ@mail.gmail.com/
 
-> @@ -2326,19 +2337,12 @@ static void it6505_stop_link_train(struct it6505 =
-*it6505)
-> =20
->  static void it6505_link_train_ok(struct it6505 *it6505)
->  {
-> -	struct device *dev =3D it6505->dev;
-> -
->  	it6505->link_state =3D LINK_OK;
->  	/* disalbe mute enable avi info frame */
->  	it6505_set_bits(it6505, REG_DATA_MUTE_CTRL, EN_VID_MUTE, 0x00);
->  	it6505_set_bits(it6505, REG_INFOFRAME_CTRL,
->  			EN_VID_CTRL_PKT, EN_VID_CTRL_PKT);
-> =20
-> -	if (it6505_audio_input(it6505)) {
-> -		DRM_DEV_DEBUG_DRIVER(dev, "Enable audio!");
-> -		it6505_enable_audio(it6505);
-> -	}
-> -
->  	if (it6505->hdcp_desired)
->  		it6505_start_hdcp(it6505);
->  }
+Thanks,
+Aveline Noir
 
-[Severity: Medium]
-Does removing audio enablement from it6505_link_train_ok() completely leave
-audio disabled in hardware whenever link training finishes after the ALSA
-stream is already unmuted?
+Aveline Noir (2):
+  HID: picolcd: Move output requests out of spinlocked sections
+  HID: picolcd: Avoid framebuffer last-close deadlock
 
-With this removal, __it6505_enable_audio() is only called from
-it6505_delayed_audio() (scheduled once, 180 ms after it6505_audio_mute()
-unmutes the stream) and from it6505_irq_audio_fifo_error() (which cannot
-fire while AUDIO_RESET is asserted and M_AUDIO_I2S_EN is cleared).  If an
-active stream is interrupted by an HPD low-to-high pulse (where
-it6505_irq_hpd() calls it6505_disable_audio()), or if ALSA unmutes the
-stream more than 180 ms before it6505_poweron() and link training complete,
-it6505->audio.mute is false when it6505_link_train_ok() runs, yet nothing
-re-enables audio.
+ drivers/hid/hid-picolcd.h           |  4 +++
+ drivers/hid/hid-picolcd_backlight.c |  7 ++--
+ drivers/hid/hid-picolcd_core.c      | 46 +++++++++++++++---------
+ drivers/hid/hid-picolcd_fb.c        | 56 ++++++++++++++++++-----------
+ drivers/hid/hid-picolcd_lcd.c       |  7 ++--
+ drivers/hid/hid-picolcd_leds.c      | 31 +++++++++-------
+ 6 files changed, 93 insertions(+), 58 deletions(-)
 
-Should it6505_link_train_ok() still enable audio (or schedule
-it6505->delayed_audio) when !it6505->audio.mute?
 
-[ ... ]
-
-> @@ -2785,11 +2791,13 @@ static int it6505_poweron(struct it6505 *it6505)
->  		usleep_range(25000, 35000);
->  	}
-> =20
-> +	mutex_lock(&it6505->audio_lock);
->  	it6505->powered =3D true;
->  	it6505_reset_logic(it6505);
->  	it6505_int_mask_enable(it6505);
->  	it6505_init(it6505);
->  	it6505_lane_off(it6505);
-> +	mutex_unlock(&it6505->audio_lock);
-> =20
->  	enable_irq(it6505->irq);
-
-[Severity: Medium]
-it6505_poweron() holds it6505->audio_lock across it6505_reset_logic(),
-it6505_int_mask_enable(), and it6505_init(), but what about
-it6505_process_hpd_irq()?
-
-drivers/gpu/drm/bridge/ite-it6505.c:it6505_process_hpd_irq() {
-    ...
-	if (it6505->branch_device && dpcd_sink_count !=3D it6505->sink_count) {
-		memset(it6505->dpcd, 0, sizeof(it6505->dpcd));
-		it6505->sink_count =3D dpcd_sink_count;
-		it6505_reset_logic(it6505);
-		it6505_int_mask_enable(it6505);
-		it6505_init(it6505);
-		it6505_remove_edid(it6505);
-		return 0;
-	}
-    ...
-}
-
-When a branch device signals a downstream sink-count change via HPD_IRQ,
-this runs the same ALL_LOGIC_RESET and register init sequence while
-it6505->powered is true without holding it6505->audio_lock, so it can
-interleave with __it6505_enable_audio() or __it6505_disable_audio() and
-corrupt the audio, mute, and InfoFrame register configuration.
-
-[ ... ]
-
-> @@ -2979,25 +2990,28 @@ static void it6505_remove_notifier_module(struct =
-it6505 *it6505)
->  	flush_work(&it6505->extcon_wq);
->  }
-> =20
-> -static void __maybe_unused it6505_delayed_audio(struct work_struct *work)
-> +static void it6505_delayed_audio(struct work_struct *work)
->  {
->  	struct it6505 *it6505 =3D container_of(work, struct it6505,
->  					     delayed_audio.work);
-> =20
->  	DRM_DEV_DEBUG_DRIVER(it6505->dev, "start");
-> =20
-> -	if (!it6505->powered)
-> +	if (it6505->enable_drv_hold)
->  		return;
-> =20
-> -	if (!it6505->enable_drv_hold)
-> -		it6505_enable_audio(it6505);
-> +	mutex_lock(&it6505->audio_lock);
-> +	if (it6505->powered && !it6505->audio.mute)
-> +		__it6505_enable_audio(it6505);
-> +	mutex_unlock(&it6505->audio_lock);
->  }
-
-[Severity: Medium]
-Can it6505_delayed_audio() re-enable audio and Audio InfoFrames after HPD
-has gone low and the link has been shut down?
-
-CPU0                              CPU1
-it6505_audio_mute(..., false, ...)
-  it6505->audio.mute =3D false
-  queue_delayed_work(...,
-    &it6505->delayed_audio, 180ms)
-                                  it6505_int_threaded_handler()
-                                    it6505_irq_hpd() /* hpd_state =3D=3D fa=
-lse */
-                                      it6505_disable_audio()
-                                      it6505_stop_link_train()
-                                      it6505_lane_off()
-it6505_delayed_audio()
-  if (it6505->powered &&
-      !it6505->audio.mute)
-    __it6505_enable_audio()  <-- enables audio with link and lanes off
-
-When HPD goes low in it6505_irq_hpd(), it6505->delayed_audio is not
-cancelled and it6505->powered remains true until extcon or runtime PM powers
-the chip off.  it6505_delayed_audio() does not check it6505->hpd_state or
-it6505->link_state =3D=3D LINK_OK before calling __it6505_enable_audio().
-
+base-commit: 72d3fcf802c45d00b300f25b848a93c3a2bd7c7e
 --=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/cover.1795132452.gi=
-t.daniel@makrotopia.org?part=3D13
+2.55.0
