@@ -2,163 +2,155 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 30009606A320
-	for <dri-devel@archiver.kernel.org>; Fri, 20 Nov 2026 05:48:52 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 28F8360A261C
+	for <dri-devel@archiver.kernel.org>; Fri, 20 Nov 2026 05:56:53 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=VJO4nKja;
-	dkim=fail reason="signature verification failed" (1024-bit key, unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=selector1 header.b=bv3U/Mgq
+	dkim=pass (2048-bit key, unprotected) header.d=Nvidia.com header.i=@Nvidia.com header.a=rsa-sha256 header.s=selector2 header.b=ER0kMiKk
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 856E6112095;
-	Fri, 20 Nov 2026 05:48:41 +0000 (UTC)
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.14])
- by gabe.freedesktop.org (Postfix) with ESMTPS id DD405112058;
- Fri, 20 Nov 2026 05:48:29 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1795153710; x=1826689710;
- h=date:from:to:cc:subject:message-id:references:
- content-transfer-encoding:in-reply-to:mime-version;
- bh=DTHjXhTLDbJgu3x8v319RwtuxAsuGoPu/SAktDo053Y=;
- b=VJO4nKjaj1pxH/4qMt0dqZ9Vq9vs5b2K9f4vckFXgGWPOlqmhW8jMyYO
- hbrIbYRYZ/DU+IbB67G6+JwqressvUCl8y5PCzKzKvS/cJmO9St5vwcCd
- nNrZrmdMw+bToKQir6+v/D+9Ha0XMeANJDwBWrNP3mOGKS0jIjFzPJTjG
- GNAiD2rjotdnai4teQcj/8LKVRTe94oLRjXReKQ7YbZcdF0Hg+aMYk3ru
- NwQRRz5600gi0xotVjEbq9CnxoYZXEdgiXVXFPfEki0jmF/jrrelDjCMr
- yykrcpTutM1EVbabixdc5g+3rmg1pRI4eHclVf/ZIz8Qo2VN9+Jyd/NzA w==;
-X-CSE-ConnectionGUID: MX1z3gviQdKT23LzGuOFFg==
-X-CSE-MsgGUID: 7XABN4h5Qo+wurkbc5X2bQ==
-X-IronPort-AV: E=McAfee;i="6800,10657,11971"; a="3915206"
-X-IronPort-AV: E=Sophos;i="6.27,222,1787036400"; 
-   d="scan'208";a="3915206"
-Received: from fmviesa007.fm.intel.com ([10.60.135.147])
- by orvoesa106.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 19 Nov 2026 21:48:29 -0800
-X-CSE-ConnectionGUID: +SoLMOOZTD2aleIW95Bx8w==
-X-CSE-MsgGUID: QD0PUh0tStmdm6NnlbTomA==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,222,1787036400"; d="scan'208";a="10969381"
-Received: from orsmsx902.amr.corp.intel.com ([10.22.229.24])
- by fmviesa007.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 19 Nov 2026 21:48:29 -0800
-Received: from ORSMSX902.amr.corp.intel.com (10.22.229.24) by
- ORSMSX902.amr.corp.intel.com (10.22.229.24) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.56; Thu, 19 Nov 2026 21:48:28 -0800
-Received: from ORSEDG901.ED.cps.intel.com (10.7.248.11) by
- ORSMSX902.amr.corp.intel.com (10.22.229.24) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.56 via Frontend Transport; Thu, 19 Nov 2026 21:48:28 -0800
-Received: from SA9PR02CU001.outbound.protection.outlook.com (40.93.196.44) by
- edgegateway.intel.com (134.134.137.111) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.56; Thu, 19 Nov 2026 21:48:28 -0800
+	by gabe.freedesktop.org (Postfix) with ESMTP id 25DCF10E3B0;
+	Fri, 20 Nov 2026 05:56:47 +0000 (UTC)
+Received: from SJ2PR03CU001.outbound.protection.outlook.com
+ (mail-westusazon11012053.outbound.protection.outlook.com [52.101.43.53])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 1A8D310E3B0;
+ Fri, 20 Nov 2026 05:56:41 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=rlhVI9Q9JKqS1EdIO/2xfl11oXVHbjMti50f3rMohBuLGhSbZP+0OsYMYZPy8KLQTB9UFtwJMV7Jd3Q825oY2Sv0RJxSgmhsM+D2PgsY1AKoClIj72JIsRZJxlRgUqoNxV8bRqpTA/l7tBicLLpsUSVJ5xXFoCWI7T2cotyrGKNDS8lSzM3Gcyxv7zs2xzrI6qJY32o51mOudxy9rpKFfCVzU8Utvl1yYOgRERx5CA9tOjfGTE3pyieBBzH6mUgagJx8+XFA8rrcfSgc/jJL1xwvJr4HqB8CAbwCJD7eXRy4tIiwc7dmN9q9NjdqeEDiAFdjy1yVAagJnyzgu1MmRg==
+ b=TL9cjzpKWCnr2q1JAVusbIKpxq1Q/vvNNP9+TmBtzo4AzLgZQX9Lrse8c5VMptkl6RG4XxLK1OSPCPMFaGH6I2UeKTf/sqfprGZ2UVPKhzCTds/NVFdi/5cKFU8Q0ZClhbfDuu7kdiGWP4FdiYC4BE9ZfUgIImL2gO3dR7YwTF2Fdn5qLzOcG1c3VHTIobnMGTj+GxaGUgqotYBNG7aTGmW06FqRLciSTSB4sItkfK7fSp1SxgnpTKu8LCT5DHqDUCNcButWRh4KVQMHRj5+P143KSjYIz/KvR+lxjPuNgkatQU8BxIW5DiexG+hcmTk0RtRVgHoeN7vkksdsuIGEA==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=SNZ6LwaQTFvf+u9rmH01wwovEJ6BdGvBEHd+MudzASU=;
- b=uQReeIcEYuQGwWN+SHAtfINPPoqf+UWiionTd5Vri3IHu2n8XUn8qYcxTMSkOoLFekZAZ0PEbfZnhE7r3bM3ZoCpBx55lWY4hEf7Io7o/TtS0iMcnrPtfe4Ky5nHpYnCBVIdK9DGHoaKPTsAPA7Xm2IHB4klyjWfy2998BlrRg6vDmpimqjb3na42m63RwIC4hccuzV6+0B7z9q39HSDjjWP7deZ9jv++UJrW7s4qI9Kgyys6t/8fWX3Euh9NnngiBK+2Fla0EX1SbYQVg5KiqcVsuoBneue+0x3TbKqXTodOtmqfnrE3PAon3g8V8KUHgLiv0ORPfmw74nwT9Ohdg==
+ bh=RCzJ7l/yM8HsunVHdXvmoc8PxMe33huRWpoj6XFOnFQ=;
+ b=y1pHZVtnNWOc4LMTQ11Hgn4V5UuXjmXUvQPb8cn+1FepQ8EDYEFqsi/N57C36IfAS+Dpz0cE0r7hEzJAUbLPrrG+wbPR1jVdcA9KGDU7jY3eChcrSBsJK4TYFbfTkjiiWkrqv8VEy7ypNbqgHd/TcM138K9NNIzOcoW3IWB4vfyT4UUiB32SKbKmzp9s+Evvm86GjlnoGZyesUsgsUIw5uJPkXrVtU+X0stoHLR8vO7eLKPxYCWAuElXTAPTQyrD2rH6JtvQNyn4QUjGN2i+1vcWuGv4CPHCUtLSCNgXOK7fVOTHjZ++QCEf5sUImR2mPBfT7w3DZkO/EIL1T458pQ==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=intel.com; dmarc=pass action=none header.from=intel.com;
- dkim=pass header.d=intel.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=intel.com; s=selector1;
+ smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
+ dkim=pass header.d=nvidia.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
+ s=selector2;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=SNZ6LwaQTFvf+u9rmH01wwovEJ6BdGvBEHd+MudzASU=;
- b=bv3U/MgqxYz9rxF+ov6dV9uHnpKm2mrGDpW5sBfemyPEhY5J3R9c3p5UcQhrAp5tFm7+XZrcKm5cPd4aB6yPX8MYAbDqkMm199XbqV+n6myNWRG4LaOuq7k1gfzRbP6M9FOPG9AEelFPuel1FgLRzSg6YrdRwJleOO2GHsVIv/M=
+ bh=RCzJ7l/yM8HsunVHdXvmoc8PxMe33huRWpoj6XFOnFQ=;
+ b=ER0kMiKkoeDjo+MzPyj6sQGJGWfKkP//OJtt7nc6HK+sKU01wEuAgjM70iExemvvCvSEE6argXmo3oa0/LBwJS41EkpmfeIdH/1z+6F8HtGsbQyXodSYDHgHjiGW8kRrqoG9hLZXdTp1KIAwm9MpvvhRZshgOqmX148daCAyyCkWbmhBZasdPpiLqNj2z3tMDnlOAjRsu2koPE4aBM5mGO41el+5g67ZrOUJEmDwXfNugV9J3bDF+5WrLkZBMh2mlusX6IYqDe3/uNyRrLlELEMC/rtipDRO0OJF7ePwrzsZr342ptjtes5ZcIPVeJoR0v+7emSD1fyDeNQVkkpYvw==
 Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=intel.com;
-Received: from CO1PR11MB4787.namprd11.prod.outlook.com (2603:10b6:303:95::23)
- by DS6PR11MB931270.namprd11.prod.outlook.com (2603:10b6:8:413::17)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.639.12; Fri, 20 Nov
- 2026 05:48:25 +0000
-Received: from CO1PR11MB4787.namprd11.prod.outlook.com
- ([fe80::e7eb:a872:53d1:21fd]) by CO1PR11MB4787.namprd11.prod.outlook.com
- ([fe80::e7eb:a872:53d1:21fd%4]) with mapi id 15.21.0639.010; Fri, 20 Nov 2026
- 05:48:25 +0000
-Date: Thu, 19 Nov 2026 21:48:23 -0800
-From: Matthew Brost <matthew.brost@intel.com>
-To: Niranjana Vishwanathapura <niranjana.vishwanathapura@intel.com>
-CC: <intel-xe@lists.freedesktop.org>, <dri-devel@lists.freedesktop.org>,
- Carlos Santa <carlos.santa@intel.com>, Ryan Neph <ryanneph@google.com>,
- Christian Koenig <christian.koenig@amd.com>, Huang Rui <ray.huang@amd.com>,
- Matthew Auld <matthew.auld@intel.com>, Maarten Lankhorst
- <maarten.lankhorst@linux.intel.com>, Maxime Ripard <mripard@kernel.org>,
- Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>,
- Simona Vetter <simona@ffwll.ch>, <linux-kernel@vger.kernel.org>, Thomas
- =?iso-8859-1?Q?Hellstr=F6m?= <thomas.hellstrom@linux.intel.com>
-Subject: Re: [PATCH v3 10/33] drm/ttm: Add full out-of-lock preallocation for
- ttm_pool_alloc()
-Message-ID: <av/fJ28fT1/3FtD1@gsse-cloud1.jf.intel.com>
-References: <20260711025619.2540575-1-matthew.brost@intel.com>
- <20260711025619.2540575-11-matthew.brost@intel.com>
- <avQZ6cCNt2H8vBtG@nvishwa1-desk>
-Content-Type: text/plain; charset=iso-8859-1
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <avQZ6cCNt2H8vBtG@nvishwa1-desk>
-X-ClientProxiedBy: MW4P221CA0019.NAMP221.PROD.OUTLOOK.COM
- (2603:10b6:303:8b::24) To CO1PR11MB4787.namprd11.prod.outlook.com
- (2603:10b6:303:95::23)
+ header.d=none;dmarc=none action=none header.from=nvidia.com;
+Received: from SA3PR12MB598757.namprd12.prod.outlook.com
+ (2603:10b6:806:52d::14) by IA0PR12MB7675.namprd12.prod.outlook.com
+ (2603:10b6:208:433::9) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.615.14; Fri, 20 Nov
+ 2026 05:56:32 +0000
+Received: from SA3PR12MB598757.namprd12.prod.outlook.com
+ ([fe80::e206:100:5946:a777]) by SA3PR12MB598757.namprd12.prod.outlook.com
+ ([fe80::e206:100:5946:a777%5]) with mapi id 15.21.0639.011; Fri, 20 Nov 2026
+ 05:56:32 +0000
+From: Alistair Popple <apopple@nvidia.com>
+Subject: [PATCH v3 00/24] DMA-buf mapping types
+Date: Fri, 20 Nov 2026 16:55:38 +1100
+Message-Id: <20261120-dma_mapping_type_v4-v3-0-c0183a409bdf@nvidia.com>
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-B4-Tracking: v=1; b=H4sIANrg/2oC/32Nyw6DIBBFf6WZdWmAPsCu+h+NMQijThORgCU1x
+ n+v2n2XJzn33BkSRsIE98MMETMlGvwK5+MBbGd8i4zcyiC5vAnBr8z1pupNCOTbapwCVvnCGiW
+ E5nWhFGpYlyFiQ5+9+ix/nN71C+24pTajozQOcdpvs9y8/w9ZMs6UrrWzhUHNzcNncmROduihX
+ JblC5ISQ0vJAAAA
+X-Change-ID: 20261105-dma_mapping_type_v4-f71180b977e8
+To: =?utf-8?q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>, 
+ Sumit Semwal <sumit.semwal@linaro.org>, 
+ =?utf-8?q?Thomas_Hellstr=C3=B6m?= <thomas.hellstrom@linux.intel.com>, 
+ Simona Vetter <simona.vetter@ffwll.ch>, 
+ Matthew Brost <matthew.brost@intel.com>, 
+ Vivek Kasireddy <vivek.kasireddy@intel.com>, 
+ Dongwon Kim <dongwon.kim@intel.com>, Kevin Tian <kevin.tian@intel.com>, 
+ Xu Yilun <yilun.xu@linux.intel.com>, 
+ Karl Mehltretter <kmehltretter@gmail.com>, 
+ Baolu Lu <baolu.lu@linux.intel.com>, 
+ Felix Kuehling <felix.kuehling@amd.com>, 
+ Alex Deucher <alexander.deucher@amd.com>, linux-kernel@vger.kernel.org, 
+ dri-devel@lists.freedesktop.org, intel-xe@lists.freedesktop.org, 
+ amd-gfx@lists.freedesktop.org, linux-media@vger.kernel.org, 
+ linaro-mm-sig@lists.linaro.org, linux-rdma@vger.kernel.org, 
+ iommu@lists.linux.dev, Keith Busch <kbusch@kernel.org>, 
+ Jens Axboe <axboe@kernel.dk>, Christoph Hellwig <hch@lst.de>, 
+ Sagi Grimberg <sagi@grimberg.me>, linux-nvme@lists.infradead.org, 
+ "David S. Miller" <davem@davemloft.net>, Eric Dumazet <edumazet@kernel.org>, 
+ Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>, 
+ Simon Horman <horms@kernel.org>, Mina Almasry <almasrymina@google.com>, 
+ netdev@vger.kernel.org, Alexey Kardashevskiy <aik@amd.com>, 
+ zhipingz@meta.com, treding@nvidia.com, jhubbard@nvidia.com, 
+ chaitanyak@nvidia.com, Jason Gunthorpe <jgg@ziepe.ca>, 
+ Leon Romanovsky <leon@kernel.org>
+Cc: Alistair Popple <apopple@nvidia.com>
+X-Mailer: b4 0.16.0
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1795154186; l=15186;
+ i=apopple@nvidia.com; s=20261105; h=from:subject:message-id;
+ bh=VUlh2SB+BFt47bJYLSE2vbsaVq5pXM/G98L1x6Rf66g=;
+ b=+uCSVvUU3zuOcHtpYqc9un+ipAaqBMplES7uXyqH+cnUt4ko2tYWOAoCOeEGHIoDTfJFQBJvw
+ MthlunmK/3mD8rtO/EADM3TMSjfEuUmmBSbn39b8zd+H+RjVaZgL8N1
+X-Developer-Key: i=apopple@nvidia.com; a=ed25519;
+ pk=WdWPT9rAq3YNfXldbGv1NSGVLGxzQGFGJvRUiShhNqs=
+X-ClientProxiedBy: SY5P282CA0193.AUSP282.PROD.OUTLOOK.COM
+ (2603:10c6:10:249::16) To SA3PR12MB598757.namprd12.prod.outlook.com
+ (2603:10b6:806:52d::14)
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: CO1PR11MB4787:EE_|DS6PR11MB931270:EE_
-X-MS-Office365-Filtering-Correlation-Id: 76485288-e14c-4f6a-3e9a-08df46c9e4df
-X-LD-Processed: 46c98d88-e344-4ed4-8496-4ed7712e255d,ExtAddr
+X-MS-TrafficTypeDiagnostic: SA3PR12MB598757:EE_|IA0PR12MB7675:EE_
+X-MS-Office365-Filtering-Correlation-Id: 46f32a5b-1e3a-4d51-5ff5-08df46cb0737
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
- ARA:13230040|7416014|376014|23010399003|1800799024|366016|261022075727099003|5023799004|11063799006|4143699003|261009221727099003|261021123027099003|261009223027099003|261021121427099003|261102123227099003|261102130727099003|10067099003|261009221227099003|261009220027099003|261009223327099003|261026121527099003|261026140227099003|261022105027099003|56012099006|261028144727099003|22082099003|18002099003|6133799003;
-X-Microsoft-Antispam-Message-Info: RdhMUrPNkum5W9w23f3tfpXmtv6dwsamPeBCC2xPzYeGrQu54iJ2eAlV4hQtnqGsp31Jq4eVbRhJbxaxzMv3evX7dAherFuvddnGsnQGl3zu3HFfnHl5pwv6SJ5jWavSfWy8LWMmCAJxQQasXhn1TNgttTbSKBieIYmc/82D+ItGit24jfK5Q/vARAk8XH3Dra741H/vDzMNq9MfK2/yrrwjy7d6EPnoyd/yqg+dd6wxfXJVh/XE/2n2y/UybN0Y2HaR+GDoM8aY8lJdxT7ix/vOQHaBpQr+oBxw3MOjPLhLAaaqXqhvNj8h13Cjk5sA+cz0DG4YegFx41ijBaCwAif9itNUCGNKEqvOcU7zze8Dj5m9h2wIMNtn02clbNcyeQhp6UzTzlcNeRx86J+wx7ITaOznAE/j27zYO067o5IZ2klcfZVyZ+LCGMoEx2HXE+VtNv6Yq6IyLulwVU5Wa8fzePKkqd7+Btj5GCe6y21EYG3t8OSCUmfOmwWDzrLxK5VVPH8wADsRYqGSwOaFVZI5jB/DXqz3CBOaXsK+4n5lB42e0v5ixweGgN/kxEbJIsuV6NlbWhYCNu4a69xu4cfT9GaXLaX/4ZTU16pAvHqRcw/lmy4NNUyko7VQFtQCehTEsU1fODuz+Kg/svkNDKd7IciGfloRi8UKXhPgxqs=
+ ARA:13230040|376014|23010399003|7416014|366016|1800799024|921020|10067099003|11063799006|5023799004|56012099006|261022113327099003|261021123027099003|261028144727099003|261022105027099003|261026121527099003|261026140227099003|261022075727099003|261021135927099003|261021121427099003|261102130727099003|261102123227099003|261009220027099003|261009223027099003|261009221727099003|261009221227099003|261009223327099003|18002099003|6133799003|3023799007;
+X-Microsoft-Antispam-Message-Info: R3lnCADBMpmRNfJck8ZtMhHzh4ECMhQzCAUzqc83heeoGP1wuTvniK7GhaO5+RFinj78QYkcTgNgaz0+vT3WXOmrBp0fe2El7QIkqkxx26yn/VGnvFq4niDNvbA8RVntdYbiMp5K3fxDNjqa24E6CgWu0zkS3GJJoEGPpRm1kYD0I188hzKTxz9zO+dbYMb+CUXnw0RQm+IiEbMFUFXw/U+i3NOuwjVegDji3fCBT2ZGy3ebVbRux7Fqgdy5Vythe4jzt/22Yho1iTAWsvhtMXWh0vJj6kEPC+pJhMZvvE/BcGG2J/3YyRGnHsjbuxNk2bD7dAsEcDgHqhHQD5tq10/9pwU4FI2QT/gbDNRgYQaVCK0lJJdkbqgiezxTtp3Es8ZS6YOPW/WYFAkxeRG4KG2xXsIzX+i16vwm6NSQp1HUR0Xx7OKMp5vYJHpI92MTQSWuH0puL/hnfCEgWPMiVMewlzpptU2lJwBRt0LODicME6qxPHjjR0/z38lOq1w2aPh9XwijkOTB5V3VwJLu1hW6P1vGTgC49W+LdSUXO+IvnrowFvjjEtv3VD0vKVBW2QTKmzfpFklJt4wUR1rP0fOg7McMxBsJuM1IlTpMsZwkoByYr4Wo93jOHlk79Y9RE1EL2rDBn8AJU3odb+0o1TR0z5qtSYUEK6SHTHonEcWBjciJqQcCpElqIezh47SNFy0hMveDT1pVu1qWmsY6Yg==
 X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:CO1PR11MB4787.namprd11.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(7416014)(376014)(23010399003)(1800799024)(366016)(261022075727099003)(5023799004)(11063799006)(4143699003)(261009221727099003)(261021123027099003)(261009223027099003)(261021121427099003)(261102123227099003)(261102130727099003)(10067099003)(261009221227099003)(261009220027099003)(261009223327099003)(261026121527099003)(261026140227099003)(261022105027099003)(56012099006)(261028144727099003)(22082099003)(18002099003)(6133799003);
+ IPV:NLI; SFV:NSPM; H:SA3PR12MB598757.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230040)(376014)(23010399003)(7416014)(366016)(1800799024)(921020)(10067099003)(11063799006)(5023799004)(56012099006)(261022113327099003)(261021123027099003)(261028144727099003)(261022105027099003)(261026121527099003)(261026140227099003)(261022075727099003)(261021135927099003)(261021121427099003)(261102130727099003)(261102123227099003)(261009220027099003)(261009223027099003)(261009221727099003)(261009221227099003)(261009223327099003)(18002099003)(6133799003)(3023799007);
  DIR:OUT; SFP:1101; 
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?iso-8859-1?Q?ZQ9t0vzkjgLaRnB4fjtxigXneoIRxRGMSJkbbBStHMkjtCJSlSoX8Uh+bZ?=
- =?iso-8859-1?Q?il0nXpGLIEqKUNklXpO+OLi6wRNRDgBfi+to2WhIFll6mSqY0UtXgVJ9Dc?=
- =?iso-8859-1?Q?2ZfctJ0Y8NHIvbBuDGi7OsCMkAzg/jcdrhp+RZuOY45iEznSMvBOPtPZmS?=
- =?iso-8859-1?Q?a3yf5sWFerCOIB6L9OjwtcCCs0411raVQfAA5GxLWaQ1NzIcu3w5Re83et?=
- =?iso-8859-1?Q?cMADFEmfY7FR9I7oHOCA5/5vE3s1EXCKsgq1KGVWp2tiUiuZ3amoR5TzMo?=
- =?iso-8859-1?Q?Acr7NsJya3IYZcjvDqAX1w6NtHZafROcL9fX7p2z7Zs0MfKEHk173fXFvP?=
- =?iso-8859-1?Q?2a5LCXJQtsvj7Knl6cEwb0rxq0INgJO8+WeGs5Su79Dmdp1Ph0S+WvGHMl?=
- =?iso-8859-1?Q?hE/ncYUban7seT2C7/xtohL8maip/nU3cEg2OC7KG+gl8gUs4Z3rL+ah7t?=
- =?iso-8859-1?Q?Pn4pervSxBl6dmTUoytE6Rv62Vlr9nJ+3axa1Ij3YJpBnYlsHAMOKoo3W6?=
- =?iso-8859-1?Q?hxTppyxT1fybEE25+Ab0Z5q7zpsFfqQJb9+lvWWVEjceWLhUhBpRr/vZnw?=
- =?iso-8859-1?Q?eaDHwLc5wJ8iFpN/LwDGa84eII0UlitDPgtJJRwXjMfImc2eLmxhfau/kY?=
- =?iso-8859-1?Q?yoSJAHK55/GmUc4vswofjuZUErGa+XZHccAOmbUIZizYLKe2CGb5EmXuPs?=
- =?iso-8859-1?Q?2vjIIwyeSOYY/gzxJ3QIJEFrbYi+4mbVqUqYNnMP9lNHAaq5MG+1UKJTp5?=
- =?iso-8859-1?Q?5A3/PLyOZL6WywBkPeyfze904d05x7Znvl+OgjQvF5cUunO9b2y/dbmiuQ?=
- =?iso-8859-1?Q?YjcTH7hryIYTTDGVM/MrLxYOdW7nVUh756x2ZUDGtA9itUcuFW+nlRZzlI?=
- =?iso-8859-1?Q?DVCrEF3S17F9lv64C1dVlIwL3R8jszgO/Caq1GxILGSf4Xy4BqqSe8MmM2?=
- =?iso-8859-1?Q?MeL83V7XH/mCo0BKjMsahsQHmNnCyESNeki9EoO92QyF2bSeLVjamu/Hmf?=
- =?iso-8859-1?Q?VlVNyxuDLcRSaehzbp1KOJB/FAsbzFe1pymMPwOInpSYvbbQs5uY2fpP6u?=
- =?iso-8859-1?Q?E3O+TANthPlyML9sxfUR1ZYwHKfIyo0N7bjFKlKMZyhPoPk/NxhPzFI9iM?=
- =?iso-8859-1?Q?eC/5nqwrNX1Ft7WXc2+VG3uMIaGko+nzv0RoIRwrJlShlRbhGB4Xrtjzv/?=
- =?iso-8859-1?Q?vCNpHSulrpFWUwVGRzCoP13Z0kicGSqkWZHfdpI0vG0HceEXCaVOFhXsFJ?=
- =?iso-8859-1?Q?Gs20anuBIbUiV/S3wiwnqSMAjc5w7xbH6nS8Y9GLBxGj1I5VGZqkLXJ4H4?=
- =?iso-8859-1?Q?5mTSaDw3L3Lg314ML7YCWFt97CgBEflsbIuD5bLwtHXmzi8X3KNIzgrf26?=
- =?iso-8859-1?Q?mmmKl1izbJYWApP28Q1EileBs+QJbZtCXNewupQuKoJooDuqtizchIQzBF?=
- =?iso-8859-1?Q?Dj+93exh8VJU3bhY4ySH8VbBSyZ7F7hk3ULZrESCFwfca9/fJgZbXQbvsN?=
- =?iso-8859-1?Q?bfS/JdPKc/MmhIUfBQsbCoTVgHCCWp2snol4y4UMxE0gQgJ0Ey0oBL6lOa?=
- =?iso-8859-1?Q?lMjAeQtP1ha+sm4p96RijwvH2JbdXndXJJ+zbchOYGzz59pKaZpgfwXiKg?=
- =?iso-8859-1?Q?PMlzc6i3Z9xyV1K0fbGVcKjVPaoh3KISTeo18PfFLVVA3RQE2eTPzg0eLQ?=
- =?iso-8859-1?Q?77axDwLFwdkWueH82eeOZLTe/0C6hinUHQo/789taXNwmRWRPqA3mflPvv?=
- =?iso-8859-1?Q?3RVvoIdkNO6amAwK0uYcwEIXMj6PGrgb0CICYrv76bNw/+ulOYi3HuGVCD?=
- =?iso-8859-1?Q?vR0N+ghkLkhOQEy4oJj68bhXClMYs04=3D?=
-X-Exchange-RoutingPolicyChecked: mAFjH8zAIDC+XYUFoR/NAQnH/m2tzvVsNwTXfE3j6Y7Xi11WiocZd5tu6hU0lvJogPISdvm4Vj7RHFKK5heFQ+FNwal2884VL+Cov05O78eslAvYuHmXx1aFCIrRs2WDUM1VRJR+fwfV905v87y4ro/I8aDWQCcfEl8lkHE1iiy2s3o3W4D0jQiOqCFjcX3nwcU5f3bsEfUarXHMIVM4frPVFTi22FY1ftETiaAYPWKAgHRxNrjuvmWqwYZywXI7qRouYC3npFEREt+NeBhhNlcIYEmRB4g1yZlvSlFLR0/+Utf8lnLYI90sAraXsyhiz3U+Xr2/0IddGzhHhsi9Bg==
-X-MS-Exchange-CrossTenant-Network-Message-Id: 76485288-e14c-4f6a-3e9a-08df46c9e4df
-X-MS-Exchange-CrossTenant-AuthSource: CO1PR11MB4787.namprd11.prod.outlook.com
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?bWNpMXphcjdFOWZENjNJMWI1SHdxejRCcVdxWkJLSWNDMnErVkJBazU4QVBk?=
+ =?utf-8?B?UGQ2ZXhhSmVIZ2YvUmtpdFFzdFdXallFNHdGL3haY2s0OFlYazRYNEtFYXkv?=
+ =?utf-8?B?cDgvd05hZ2phZTBQSXg5N0lKVDdLVDBvdlZvK0tkK2tvYmFCVHZhQmZPRGk2?=
+ =?utf-8?B?MGVPK3owTFo4cnFna3lkZXZxbXp1QzY0S0tPOGcxeXFXUDlvNmJsc1JTMkdZ?=
+ =?utf-8?B?eXV2dzVhVnNxNGtrZEZVT0JLY2lqT0tXNlZJNWZzZ2VLSlpFSDdXcFpQNGl2?=
+ =?utf-8?B?a3M1NHVhRW0vVFgzSHJxY0I1MklrTkJyMkpsUWZFcTNmVjJrMGhYY3VDdStO?=
+ =?utf-8?B?OW9VUWtvV05rZXZMTkd0M0RRV0tnM1hMTWtzV2pvSlB6ZGhlOTBLa3F4OFk0?=
+ =?utf-8?B?d1ExaHlSUzdLUEN0V2kzVVJONDRvajdHMnVHUHI1OUZ3SGlnNk5JQVBqUDJP?=
+ =?utf-8?B?VnJPR21jSWtSN3hoRXBwK0R3dEFZR0RHMFdoUnlQOXVDNDNTaSswaE1WaUtO?=
+ =?utf-8?B?d3NWc1NFbTNKR1ptK25jbXNKRXhUejVmL0ZrN1BJK0VkYW9ESERudlRLQ056?=
+ =?utf-8?B?QkM0KzY0SlBZaDJRNjV2MXo0UzhUMEt2czdTRTZPa3VwL00yMjVFbmE3Wnp4?=
+ =?utf-8?B?RmQ3UGFEbFViSW5QazViSFM2UGZQZ1dQTnlDZ0hTOGoyWVBwVXorcDBlU1Bx?=
+ =?utf-8?B?OFR1Vk1zM0hzRk8vOFFEb24xWFFGcmxMdGRwVUIvcUs2UWFlUUU4dEZJVm42?=
+ =?utf-8?B?bnh0elk4by9HYm1UN1pLcXNpMmNOdHljeWtRNFpTbkpVRFpoUUx6QjVYWjRC?=
+ =?utf-8?B?cHB3YXB3bVE0UFZYMFhvS0h0R1NyNmZLeWRMWG9LY2NhS2Y4VmFEVVhUSjJN?=
+ =?utf-8?B?Um1XUFRIS2YzbnhQdGRFRXN2TmZwWVo5bjZtTkNFMFIvYkp5VFNNekxIQXZs?=
+ =?utf-8?B?VXlMd2t2aUw3b29vaGpYTWVmdjlMbDBkdEM5USt1SkhRdUY4MGtPcHJraXQ1?=
+ =?utf-8?B?NFkrMXdWNS92aHZ0V2hsNlRGeDhPU2xFenNJTXF4clRzUklxZ0xNUmw5RWd6?=
+ =?utf-8?B?TEhJTkIxNDZlRU45ZkVoT3M5TXRPWHpKWVVMMVgvVjU3S0hDMVN2R2RQZkFj?=
+ =?utf-8?B?Y25ia2xCUzRhQ1g1QlJ3TkFoRmZLa2xnSHo4c0htYWtPa21XSmhEN3hUSDBq?=
+ =?utf-8?B?d2Eyd2pDZHdnYThSYnp5R0tGWHVXOCtJYWxyeGYzN2M2cTRYSFdzNzlBSGlO?=
+ =?utf-8?B?a1ZwMzZBQ2ZFbmV4MC9EYTc3azh1bUtXTHhOYXNJVkV5eFV5WWNZaGNRY003?=
+ =?utf-8?B?dHowc2g5K3R3S1FBT2lSaWhlbmkzS2hnYmFUVm1neTZuay9xU3FOV1pxNHM4?=
+ =?utf-8?B?OGZFVUtDaTJENTlwOEVNZm82UzRPeDdYZXViMld1ZW9OYjBxeGZBcDVobWp3?=
+ =?utf-8?B?YVdibVB1YTM3aXdCU1FQcU43dGNWdFhEeXlqSmVpZVFLdDJpRDBoalU5Rk5K?=
+ =?utf-8?B?QnJpYm5WQ0Z3NWROb0RTZFZHSmpzWTFGR08wZVlieWNWYk9reXkzeGROMk94?=
+ =?utf-8?B?ZXQzdGlUa2FrWVFqTmtlbGRjZUkxUUNtUEVkUVhrWW9OSk8wT2FFRXZYQnZW?=
+ =?utf-8?B?aFFSUmlrdm1YSXNISWs4YzZvWHJPZG53LzlYU3BkVHNWOHNZejhNTktsbndV?=
+ =?utf-8?B?ODdrelJqUmtOQUljM1VjTHQ1WlBWaS9UUExDd3ZDMExscEs1YVJGOTg4UUd2?=
+ =?utf-8?B?UUhjVWxlOHdMUVRhTzE2ZlFOZG5iM3dhUXF3Zm5TQVk3YWZHVWZRV3ZSNTB5?=
+ =?utf-8?B?VCt0SFVVbGlLdWFrb1IvVEdaLy8yMGZnN05aNHdCRzluR0I2MXczQ1BTcE04?=
+ =?utf-8?B?WHVOUzJ6TkIvS0IxNFcweXpmeWlUSnFqblk4a0VhOG5iSytCZnpETENBSFBw?=
+ =?utf-8?B?Nm1yV1I0MnpSSnJ5d3R1dlRtNlQvYzBJeFJoWDU5VUp5UFFIQ0xGQjdseGMx?=
+ =?utf-8?B?VUp4L2J1ZzF4ZVhOdTJ6cGNhbFlaaU9Xd0FZeXVvUlcvT3JTTkJpaWFlREoz?=
+ =?utf-8?B?dnJEWW1TOVk4UmVYUk84Y2FNdzBlc290dkxaWEVZSGRNSnU3RmR5MGc4dEg1?=
+ =?utf-8?B?MGtRbGphaXFYZTF3OFpKamhUdkc4bzNkQ1VSSXQrTHdsVHlvbHJvaE9sNDI1?=
+ =?utf-8?B?RTk4aVZLcjhTbjdIZDdYK3ZWaUpLSHlwM1o5WGRRNkZ3RkRncmxDTHdoU25R?=
+ =?utf-8?B?bTBORmFaWmVaMzhSbzVUVjR0N1RTVVNhMDZDMzR3SFRqN0xJMGQwdXNSa3k0?=
+ =?utf-8?B?endKRGlMZWJxb1dPODQ4V2t2YTU0QUFaekpWaksyV1R5UWlJL2hOUT09?=
+X-OriginatorOrg: Nvidia.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 46f32a5b-1e3a-4d51-5ff5-08df46cb0737
+X-MS-Exchange-CrossTenant-AuthSource: SA3PR12MB598757.namprd12.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 20 Nov 2026 05:48:25.4195 (UTC)
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 20 Nov 2026 05:56:32.5652 (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 46c98d88-e344-4ed4-8496-4ed7712e255d
+X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: LxkMLbb22INFp0W3pHke2qavvc0M3nD5/U38C89bqcstNmmjAjaGJ8CGAIPXr/3JXsrZGszmcGfiut+5ySGsQA==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DS6PR11MB931270
-X-OriginatorOrg: intel.com
+X-MS-Exchange-CrossTenant-UserPrincipalName: WmHYzyVMZuV/ms/UTdsqrqVqdqelAWqu0vNs5ekAiC38/Le0J9+wBe+0t/k8CvgFpCcqbbrXFaE4Gs6PCaT1xw==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: IA0PR12MB7675
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -170,511 +162,300 @@ List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-15.8 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
+X-Spam-Status: No, score=-13.8 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
 	DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
-	INCLUDES_CR_TRAILER,INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,
-	SPF_PASS autolearn=unavailable autolearn_force=no version=4.0.1
+	INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,
+	USER_AGENT_GIT autolearn=unavailable autolearn_force=no version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-On Tue, Nov 10, 2026 at 11:31:53PM -0800, Niranjana Vishwanathapura wrote:
-> On Fri, Jul 10, 2026 at 07:55:56PM -0700, Matthew Brost wrote:
-> > ttm_pool_prealloc_fill() lets a driver preallocate beneficial-order pages
-> > outside the dma-resv lock for a defragmentation move, so the high-order
-> > allocations that may stall in reclaim/compaction happen off the critical
-> > section.  That bag is deliberately partial: it holds only interchangeable
-> > beneficial-order chunks and the allocator consumes it opportunistically,
-> > falling back to in-line allocation for everything else.
-> > 
-> > An ordinary populate of a system-memory buffer object has the same
-> > problem - the whole backing is allocated under the dma-resv lock - but no
-> > way to move it out of the critical section, because the existing bag does
-> > not cover sub-beneficial orders and does not describe a full tt.
-> > 
-> > Add a "full" flavour of the same preallocation mechanism:
-> > 
-> >  - struct ttm_pool_prealloc gains a @full flag.  In full mode the bag is
-> >    an ordered tiling of an entire tt at mixed orders (pool pages
-> >    included), rather than a set of interchangeable beneficial-order
-> >    chunks.  The per-chunk order is recorded on the page itself and read
-> >    back at consume time, so no parallel order array is needed.
-> > 
-> >  - ttm_pool_prealloc_fill_full() allocates the whole backing for a tt of
-> >    @num_pages pages up front, mirroring the in-line allocator's order
-> >    walk (highest order first, capped by the remaining page count).  It
-> >    reuses the existing unlocked helpers (ttm_pool_prealloc_gfp(),
-> >    ttm_pool_set_caching()) via a new ttm_pool_take_page() helper that
-> >    tries a same-order pool page before a fresh system allocation.
-> > 
-> >  - ttm_pool_prealloc_fini() frees any unconsumed tail at each chunk's own
-> >    order when @full.
-> > 
-> >  - ttm_pool_prealloc_fill_full() takes a @beneficial_reclaim_backoff
-> >    argument, plumbed to ttm_pool_alloc_page(), that lets the caller
-> >    allocate higher-order chunks without aggressive reclaim/compaction.
-> >    This suits a driver that upgrades suboptimal pages to beneficial order
-> >    in place later (e.g. via a background defragmenter) and so has no need
-> >    to stall the user context reclaiming for contiguity up front.
-> > 
-> >  - __ttm_pool_alloc() consumes a full bag with a single early branch in
-> >    ttm_pool_iter_acquire_page(): install the next chunk as-is (order
-> >    taken from the page) and return; once the best-effort bag is drained
-> >    the loop falls through to normal in-line allocation.  The defrag
-> >    harvest and reuse-old phases are inert here as there is no
-> >    defrag_old_tt.
-> > 
-> > Like the defrag bag, this is best-effort: a short fill is fine (the pool
-> > allocates the shortfall in-line) and DMA-alloc pools are unsupported
-> > (caching is applied on the kernel mapping).  No functional change for
-> > existing users; the new fill routine has no in-tree caller yet.
-> > 
-> > Cc: Carlos Santa <carlos.santa@intel.com>
-> > Cc: Ryan Neph <ryanneph@google.com>
-> > Cc: Christian Koenig <christian.koenig@amd.com>
-> > Cc: Huang Rui <ray.huang@amd.com>
-> > Cc: Matthew Auld <matthew.auld@intel.com>
-> > Cc: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>
-> > Cc: Maxime Ripard <mripard@kernel.org>
-> > Cc: Thomas Zimmermann <tzimmermann@suse.de>
-> > Cc: David Airlie <airlied@gmail.com>
-> > Cc: Simona Vetter <simona@ffwll.ch>
-> > Cc: dri-devel@lists.freedesktop.org
-> > Cc: linux-kernel@vger.kernel.org
-> > Cc: Thomas Hellström <thomas.hellstrom@linux.intel.com>
-> > Assisted-by: GitHub_Copilot:claude-opus-4.8
-> > Signed-off-by: Matthew Brost <matthew.brost@intel.com>
-> > ---
-> > drivers/gpu/drm/ttm/ttm_pool.c | 232 ++++++++++++++++++++++++++++++++-
-> > include/drm/ttm/ttm_bo.h       |  19 +--
-> > include/drm/ttm/ttm_pool.h     |  27 +++-
-> > 3 files changed, 258 insertions(+), 20 deletions(-)
-> > 
-> > diff --git a/drivers/gpu/drm/ttm/ttm_pool.c b/drivers/gpu/drm/ttm/ttm_pool.c
-> > index da7d132c8297..4746f5d8cd7e 100644
-> > --- a/drivers/gpu/drm/ttm/ttm_pool.c
-> > +++ b/drivers/gpu/drm/ttm/ttm_pool.c
-> > @@ -1046,6 +1046,7 @@ int ttm_pool_prealloc_fill(struct ttm_pool *pool, enum ttm_caching tt_caching,
-> > 	pp->caching = tt_caching;
-> > 	pp->count = 0;
-> > 	pp->used = 0;
-> > +	pp->full = false;
-> > 
-> > 	/* Nothing to gain without a beneficial order or for DMA-alloc pools. */
-> > 	if (!order || !count || ttm_pool_uses_dma_alloc(pool))
-> > @@ -1102,6 +1103,187 @@ int ttm_pool_prealloc_fill(struct ttm_pool *pool, enum ttm_caching tt_caching,
-> > }
-> > EXPORT_SYMBOL(ttm_pool_prealloc_fill);
-> > 
-> > +/*
-> > + * Acquire a single *@order chunk, trying a same-order pool page first (already
-> > + * carries @caching) then a fresh system allocation (write-back). Runs unlocked.
-> > + * When @beneficial_reclaim_backoff is set, higher-order system allocations skip
-> > + * aggressive reclaim/compaction (see ttm_pool_alloc_page()).
-> > + *
-> > + * A fresh system page is write-back and needs the tt's caching applied later in
-> > + * bulk; *@need_caching is set true for it and false for a (pre-cached) pool
-> > + * page.
-> > + *
-> > + * On a genuine failure *@order is left untouched (the caller lowers it by one
-> > + * and retries). Fault injection instead pretends allocation at (or above) the
-> > + * beneficial order failed and lowers *@order to the beneficial order, so the
-> > + * caller's next attempt lands below it - mirroring the in-line acquire path's
-> > + * fail_beneficial jump and exercising the beneficial_order_failed tracking
-> > + * without driving the system into real fragmentation.
-> > + *
-> > + * Returns NULL if no page of *@order could be obtained.
-> > + */
-> > +static struct page *ttm_pool_take_page(struct ttm_pool *pool,
-> > +				       enum ttm_caching caching,
-> > +				       unsigned int *order, gfp_t gfp,
-> > +				       bool *need_caching,
-> > +				       bool beneficial_reclaim_backoff)
-> > +{
-> > +	unsigned int beneficial = ttm_pool_beneficial_order(pool);
-> > +	struct ttm_pool_type *pt;
-> > +	struct page *p;
-> > +
-> > +	*need_caching = false;
-> > +
-> > +	if (IS_ENABLED(CONFIG_FAULT_INJECTION) && beneficial &&
-> > +	    *order >= beneficial &&
-> > +	    should_fail(&beneficial_order_fault_inject, 1)) {
-> > +		*order = beneficial;
-> > +		return NULL;
-> > +	}
-> > +
-> > +	pt = ttm_pool_select_type(pool, caching, *order);
-> > +	if (pt) {
-> > +		p = ttm_pool_type_take(pt, ttm_pool_nid(pool));
-> > +		if (p)
-> > +			return p;	/* pool page already carries @caching */
-> > +	}
-> > +
-> > +	p = ttm_pool_alloc_page(pool, gfp, *order, beneficial_reclaim_backoff);
-> > +	if (!p)
-> > +		return NULL;
-> > +
-> > +	/* Fresh system page is write-back; caller applies @caching in bulk. */
-> > +	*need_caching = true;
-> > +	return p;
-> > +}
-> > +
-> > +/**
-> > + * ttm_pool_prealloc_fill_full() - Preallocate a whole tt's backing outside any
-> > + * lock
-> > + * @pool: The pool to allocate from.
-> > + * @tt_caching: The requested cpu-caching for the pages allocated.
-> > + * @pp: Prealloc bag to fill; marked @full and tiled with mixed-order chunks.
-> > + * @num_pages: Number of 4K pages the tt needs backed.
-> > + *
-> > + * Unlike ttm_pool_prealloc_fill() (which parks a bag of interchangeable
-> > + * beneficial-order defrag chunks), this allocates the ENTIRE backing for a tt
-> > + * of @num_pages pages up front, at whatever mix of orders is available (pool
-> > + * pages included), so that the subsequent __ttm_pool_alloc() under the dma-resv
-> > + * lock merely installs the pages without stalling in reclaim/compaction. The
-> > + * chunk orders mirror the in-line allocator's order walk; each chunk's order is
-> > + * recorded on the page itself and read back at consume time.
-> > + *
-> > + * May sleep/reclaim freely as it runs unlocked. When
-> > + * @beneficial_reclaim_backoff is set, higher-order chunks are taken without
-> > + * aggressive reclaim/compaction: the caller relies on a background
-> > + * defragmenter to upgrade to beneficial-order pages in place later, so there
-> > + * is no need to stall the user context reclaiming for contiguity here. A short
-> > + * fill is fine: the pool falls back to in-line allocation for the shortfall.
-> > + * DMA-alloc pools are not supported (the bag stays empty). Returns 0 (release
-> > + * with ttm_pool_prealloc_fini()).
-> > + */
-> > +int ttm_pool_prealloc_fill_full(struct ttm_pool *pool,
-> > +				enum ttm_caching tt_caching,
-> > +				struct ttm_pool_prealloc *pp,
-> > +				unsigned int num_pages,
-> > +				bool beneficial_reclaim_backoff)
-> > +{
-> > +	gfp_t gfp = ttm_pool_prealloc_gfp(pool) | __GFP_ZERO |
-> > +		__GFP_RETRY_MAYFAIL | __GFP_NOWARN;
-> 
-> Assisted-by: LLM
-> 
+This is v3 of the DMA-buf mapping types series [1]. The main difference
+from v2 is exporters have been changed to allocate a type-specific
+mapping struct and the PCIe P2P changes have been deferred to a
+follow-up patch series. The exporter conversion was primarily motivated
+by a need to have the importer call the correct unmap functions even
+if the selected attachment type has subsequently changed after an
+invalidation.
 
-Yes.
+Doing this conversion though will make it easier in future to move away
+from providing the sgt data type to importers. A future patch series
+will be posted to do that.
 
-> __GFP_RETRY_MAYFAIL is bit confusing here as as ttm_pool_alloc_page()
-> is expected to suppy it (patch 1). I see that only applies to
-> beneficial order, but here we have mixed-order and hence it is set
-> here. May be add some documentation to clarify it?
-> 
+The PCIe P2P work was deferred in order to keep this series mostly a
+mechanical "no behavioural change" that introduces the types, does the
+conversion of exporters and adds the type selection contract/logic.
 
-Ye, this is a bit confusing. ttm_pool_alloc_page will change these flags
-based beneficial_reclaim_backoff / beneficial_order. In general I chose
-to set __GFP_RETRY_MAYFAIL here as a default to avoid the prealloc to
-avoid any chance of triggering OOM - i.e., if prealloc fails for
-whatever reason we fall back the traditional TTM alloc path which I
-think is correct.
+A follow up adding PCIe P2P as its own type will be posted shortly after
+this.
 
-So maybe '__GFP_RETRY_MAYFAIL is set to never trigger OOM on prealloc'.
+Patch Summary
+-------------
 
-> > +	unsigned int highest = MAX_PAGE_ORDER;
-> > +	unsigned int remaining = num_pages;
-> > +	struct page **cpages = NULL;
-> > +	unsigned int ncpages = 0;
-> > +	int r;
-> > +
-> > +	pp->pages = NULL;
-> > +	pp->order = 0;
-> > +	pp->caching = tt_caching;
-> > +	pp->count = 0;
-> > +	pp->used = 0;
-> > +	pp->full = true;
-> > +
-> > +	/* Caching is applied on the kernel mapping, so DMA-alloc is unsupported. */
-> > +	if (!num_pages || ttm_pool_uses_dma_alloc(pool))
-> > +		return 0;
-> > +
-> > +	/* Worst case is one order-0 chunk per page. */
-> > +	pp->pages = kvzalloc_objs(*pp->pages, num_pages);
-> > +	if (!pp->pages)
-> > +		return 0;
-> > +
-> > +	/*
-> > +	 * Fresh write-back chunks get their caching changed in a single
-> > +	 * set_pages_array_*() after the fill; collect their constituent pages
-> > +	 * into an unpacked scratch array (one entry per 4K page) since the
-> > +	 * packed bag holds mixed-order chunks. Cached tts and pool pages need
-> > +	 * no change (and non-x86 handles caching at map time).
-> > +	 */
-> > +	if (IS_ENABLED(CONFIG_X86) && tt_caching != ttm_cached) {
-> > +		cpages = kvzalloc_objs(*cpages, num_pages);
-> 
-> Same comment as in patch 9.
-> cpages is tansient memory and unlike patch 9, it is not bounded by 'budget' here.
+Patch 1 renames dma_buf_(un)map_attachment() to dma_buf_(un)map_sgt().
 
-It is not bounded by any budget rather by the number pages in the BO
-size.
+Patches 2-6 introduce the DMA-buf mapping type system, initially
+developed by Jason Gunthorpe.
 
-> may be it can be avoided altogether by using a one static 4k page in the
-> pool and flush it with set_pages_array*() as and when it fills up?
-> 
+Patches 7-19 convert exporters to allocate and return a
+dma_buf_sgt_mapping embedding an sg_table instead of an sg_table
+directly. These are mechanical and should not change behaviour.
 
-I think that is the wrong trade. set_pages_array on x86 does some
-hardware interaction which is rather expensive, thus the entire reason
-TTM pool exist to avoid calling set_pages_array on every alloc / free.
-i.e., more tansient memory vs 1 hardware interaction is the right trade.
+The mechanical changes for smaller drivers has been split up by class
+based on how the sg_table is allocated (eg. per-map, attachment, etc.)
+with corner cases getting their own patch. Larger drivers, such as Intel
+Xe and amdgpu also get their own patch.
 
-> > +		if (!cpages) {
-> > +			kvfree(pp->pages);
-> > +			pp->pages = NULL;
-> > +			return 0;
-> > +		}
-> > +	}
-> > +
-> > +	while (remaining) {
-> > +		unsigned int order = min_t(unsigned int, highest,
-> > +					   __fls(remaining));
-> > +		bool need_caching;
-> > +		struct page *p;
-> > +
-> > +		for (;;) {
-> > +			p = ttm_pool_take_page(pool, tt_caching, &order, gfp,
-> > +					       &need_caching,
-> > +					       beneficial_reclaim_backoff);
-> > +			if (p)
-> > +				break;
-> > +			if (!order)
-> > +				goto apply_caching;	/* short fill */
-> > +			/*
-> > +			 * Genuine failure: retry one order down. A fault
-> > +			 * injection lowered @order to the beneficial order
-> > +			 * above, so this drops it below - landing on a
-> > +			 * sub-optimal (defrag-worthy) chunk.
-> > +			 */
-> > +			order--;
-> > +		}
-> > +
-> > +		pp->pages[pp->count++] = p;
-> > +		if (cpages && need_caching)
-> > +			ttm_pool_prealloc_stage_caching(cpages, &ncpages, p,
-> > +							order);
-> > +		remaining -= 1u << order;
-> > +		highest = order;
-> > +	}
-> > +
-> > +apply_caching:
-> > +	/*
-> > +	 * Apply the requested caching to every collected page in one shot. On
-> > +	 * failure the pages' caching is indeterminate, so drop the whole bag
-> > +	 * (freeing restores write-back) and let the consumer allocate in-line.
-> > +	 */
-> > +	r = ttm_pool_prealloc_apply_caching(tt_caching, cpages, ncpages);
-> > +	kvfree(cpages);
-> > +	if (r) {
-> > +		unsigned int i;
-> > +
-> > +		for (i = 0; i < pp->count; i++) {
-> > +			struct page *p = pp->pages[i];
-> > +
-> > +			ttm_pool_free_page(pool, tt_caching,
-> > +					   ttm_pool_page_order_nodma(p), p,
-> > +					   false);
-> > +		}
-> > +		pp->count = 0;
-> > +	}
-> > +
-> > +	return 0;
-> > +}
-> > +EXPORT_SYMBOL(ttm_pool_prealloc_fill_full);
-> 
-> It has lot of code common with ttm_pool_prealloc_fill(). May be extract common
-> code to separate function/s?
+Patch 20 removes the compatibility code the conversion needed and patch
+21 adds KUnit tests for the matching rules.
 
-I see what you mean, but the algorithms are different. One tries to
-obtain N beneficially ordered pages, while the other fills an array with
-any set of pages regardless of order.
+Patches 22-24 add the contract and logic for making and changing
+exporter types. Nothing currently exports two types, but a follow up
+series building on this with a PCIe P2P type will be posted shortly.
 
-I'm hesitant to force the code into helpers or create a single unified
-function with conditionals just to save 70 lines of code. In my opinion,
-the abstraction is already at the right level.
+Future Work
+-----------
 
-> 
-> > +
-> > /**
-> >  * ttm_pool_prealloc_fini() - Release unconsumed preallocated pages
-> >  * @pool: The pool the pages came from.
-> > @@ -1111,9 +1293,13 @@ void ttm_pool_prealloc_fini(struct ttm_pool *pool, struct ttm_pool_prealloc *pp)
-> > {
-> > 	unsigned int i;
-> > 
-> > -	for (i = pp->used; i < pp->count; ++i)
-> > -		ttm_pool_free_page(pool, pp->caching, pp->order, pp->pages[i],
-> > -				   false);
-> > +	for (i = pp->used; i < pp->count; ++i) {
-> > +		struct page *p = pp->pages[i];
-> > +		unsigned int order = pp->full ?
-> > +			ttm_pool_page_order_nodma(p) : pp->order;
-> > +
-> > +		ttm_pool_free_page(pool, pp->caching, order, p, false);
-> > +	}
-> > 	kvfree(pp->pages);
-> > 	pp->pages = NULL;
-> > 	pp->count = 0;
-> > @@ -1251,9 +1437,10 @@ static int ttm_pool_iter_reuse_old(struct ttm_pool_alloc_iter *it)
-> > 
-> > /*
-> >  * Acquire a single page for the current order, leaving it in @it->p (NULL on
-> > - * failure). Tries, in order: a beneficial-order page preallocated outside the
-> > - * dma-resv lock (defrag), a same-order pool page, then a fresh system
-> > - * allocation. Fault injection can force the beneficial-order paths to "fail".
-> > + * failure). Tries, in order: a chunk from a full out-of-lock prealloc (populate
-> > + * of the whole tt), a beneficial-order page preallocated outside the dma-resv
-> > + * lock (defrag), a same-order pool page, then a fresh system allocation. Fault
-> > + * injection can force the beneficial-order paths to "fail".
-> >  */
-> > static void ttm_pool_iter_acquire_page(struct ttm_pool_alloc_iter *it)
-> > {
-> > @@ -1262,6 +1449,39 @@ static void ttm_pool_iter_acquire_page(struct ttm_pool_alloc_iter *it)
-> > 
-> > 	it->p = NULL;
-> > 
-> > +	/*
-> > +	 * Full prealloc: the entire backing was allocated (pool + system, at
-> > +	 * mixed orders) outside the dma-resv lock. Install the next chunk as-is,
-> > +	 * taking its order from the page. Falls through to in-line allocation
-> > +	 * once the best-effort bag is drained.
-> > +	 */
-> > +	if (pp && pp->full && pp->used < pp->count) {
-> > +		it->fail_beneficial = false;
-> > +		it->p = pp->pages[pp->used++];
-> > +		it->order = ttm_pool_page_order_nodma(it->p);
-> > +		it->page_caching = it->tt->caching;
-> 
-> Same comment as in 23.
-> We should ensure caching has not changed here after prefill
-> (ie., pp->caching == it->tt->caching). Though it is not expected to change
-> in gem_create_ioctl call (unlike defragmentation case of patch 23),
-> probably it is still better to check to ensure TTM prealloc() and
-> pool_alloc_page() interfaces work correctly together?
-> 
+Several series will build on top of this. Current proposals are:
 
-We don't have formalized assert framework in TTM like we do in Xe but
-perhaps we should - I'd like add one in a follow up as there as so many
-undocumented invarients in TTM...
+1. A PCIe P2P mapping type series to handle P2P negotiation.
+2. An exporter type that allows conversion to iommufd or new DMA address
+   list instead of sg_table.
+3. Possible exporters/importers for private interconnects such
+   as converting existing XGMI code to use this or future UALink
+   exporters/importers.
 
-So...
+Why mapping types
+-----------------
 
-/* TODO: formalize invarients in a common TTM assert framework */
-WARN_ON(it->tt->caching != pp->pp->caching)?
+Since its introduction, DMA-buf has only supported using scatterlist for
+the exporter and importer to exchange address information.  This is not
+sufficient for all use cases as dma_addr_t is a very specific and limited
+type that should not be abused for things unrelated to the DMA API.
 
-Matt
+There are several motivations for addressing this now:
+ 1) VFIO to IOMMUFD and KVM requires a physical address, not a dma_addr_t
+    scatterlist, it cannot be represented in the scatterlist structure
+ 2) xe vGPU requires the host driver to accept a DMABUF from VFIO of its
+    own VF and convert it into an internal VRAM address on the PF
+ 3) We are starting to look at replacement datastructures for
+    scatterlist
+ 4) Ideas around UALink/etc are suggesting not using the DMA API
+ 5) Private interconnects, such as XGMI, are forced to work around this using
+    driver-specific hacks.
 
-> > +
-> > +		/*
-> > +		 * The full prealloc tiles at whatever orders were available
-> > +		 * without stalling in reclaim. A sub-beneficial chunk only
-> > +		 * means a sub-optimal backing (defrag-worthy) when it sits in a
-> > +		 * beneficial-order aligned region that fully fits in the tt -
-> > +		 * that region could have been a beneficial-order page. A low
-> > +		 * order in the unaligned trailing tail is expected and must not
-> > +		 * flag the tt (mirrors ttm_pool_harvest_remaining()).
-> > +		 */
-> > +		if (it->beneficial_order && it->order < it->beneficial_order) {
-> > +			pgoff_t bnr = 1UL << it->beneficial_order;
-> > +			pgoff_t off = it->tt->num_pages -
-> > +				      it->alloc->remaining_pages;
-> > +
-> > +			if (round_down(off, bnr) + bnr <= it->tt->num_pages)
-> > +				it->tt->page_flags |=
-> > +					TTM_TT_FLAG_BENEFICIAL_ORDER_FAILED;
-> > +		}
-> > +		return;
-> > +	}
-> > +
-> > 	/*
-> > 	 * Fault injection: pretend allocation at (or above) the device's
-> > 	 * beneficial order failed, forcing a sub-optimal backing. Exercises the
-> > diff --git a/include/drm/ttm/ttm_bo.h b/include/drm/ttm/ttm_bo.h
-> > index a80304f179ba..52ec7e5c0d2d 100644
-> > --- a/include/drm/ttm/ttm_bo.h
-> > +++ b/include/drm/ttm/ttm_bo.h
-> > @@ -238,14 +238,17 @@ struct ttm_operation_ctx {
-> > 	 */
-> > 	s64 defrag_bytes_remaining;
-> > 	/**
-> > -	 * @prealloc: Pages preallocated outside the dma-resv lock for a defrag
-> > -	 * move. The pool allocator consumes these instead of allocating fresh
-> > -	 * beneficial-order pages under the lock, moving the (potentially
-> > -	 * reclaim/compaction stalling) high-order allocations out of the
-> > -	 * critical section. NULL means allocate in-line as usual. The pool
-> > -	 * silently falls back to in-line allocation for any shortfall. The
-> > -	 * allocator consumes it for beneficial-order chunks of any populate;
-> > -	 * drivers only set it for a defrag move.
-> > +	 * @prealloc: Pages preallocated outside the dma-resv lock. The pool
-> > +	 * allocator consumes these instead of allocating under the lock, moving
-> > +	 * the (potentially reclaim/compaction stalling) allocations out of the
-> > +	 * critical section. NULL means allocate in-line as usual. Two flavours,
-> > +	 * distinguished by ttm_pool_prealloc::full:
-> > +	 *   - defrag bag (full=false): a bag of interchangeable beneficial-order
-> > +	 *     chunks consumed only for beneficial-order chunks of a defrag move.
-> > +	 *   - full tiling (full=true): the entire backing of the tt, at mixed
-> > +	 *     orders, consumed for every chunk of an ordinary populate.
-> > +	 * The allocator silently falls back to in-line allocation for any
-> > +	 * shortfall.
-> > 	 */
-> > 	struct ttm_pool_prealloc *prealloc;
-> > 	/**
-> > diff --git a/include/drm/ttm/ttm_pool.h b/include/drm/ttm/ttm_pool.h
-> > index 71670350eb15..777d5aa08f6a 100644
-> > --- a/include/drm/ttm/ttm_pool.h
-> > +++ b/include/drm/ttm/ttm_pool.h
-> > @@ -83,18 +83,27 @@ void ttm_pool_free(struct ttm_pool *pool, struct ttm_tt *tt);
-> > 
-> > /**
-> >  * struct ttm_pool_prealloc - Pages preallocated outside the dma-resv lock
-> > - * @pages: Array of @count beneficial-order pages (or fewer if a fill fell
-> > - *         short); each entry is the head page of a 1 << @order chunk.
-> > - * @order: Page order of every preallocated chunk.
-> > + * @pages: Array of @count preallocated chunks; each entry is the head page of a
-> > + *         chunk. In defrag mode every chunk is @order pages; in @full mode the
-> > + *         chunks tile a whole tt at mixed orders and the per-chunk order is read
-> > + *         back from the page itself.
-> > + * @order: Page order of every preallocated chunk (defrag mode only; 0 in @full
-> > + *         mode where each chunk carries its own order).
-> >  * @caching: CPU caching applied to the pages, so leftovers can be restored
-> >  *           to write-back before being freed.
-> >  * @count: Number of valid entries in @pages.
-> >  * @used: Number of entries already consumed by the pool allocator.
-> > + * @full: When set the bag holds a full, mixed-order tiling of an entire tt
-> > + *        (produced by ttm_pool_prealloc_fill_full()) rather than a bag of
-> > + *        interchangeable beneficial-order defrag chunks. The pool allocator
-> > + *        then drains the bag in order for every populate, taking each chunk's
-> > + *        order from the page, and falls back to in-line allocation only for any
-> > + *        shortfall.
-> >  *
-> >  * Defrag pages are interchangeable, so only a count of beneficial-order chunks
-> > - * is needed. ttm_pool_prealloc_fill() populates this outside the lock and
-> > - * __ttm_pool_alloc() drains it; any unused tail is released by
-> > - * ttm_pool_prealloc_fini().
-> > + * is needed. ttm_pool_prealloc_fill() / ttm_pool_prealloc_fill_full() populate
-> > + * this outside the lock and __ttm_pool_alloc() drains it; any unused tail is
-> > + * released by ttm_pool_prealloc_fini().
-> >  */
-> > struct ttm_pool_prealloc {
-> > 	struct page **pages;
-> > @@ -102,10 +111,16 @@ struct ttm_pool_prealloc {
-> > 	enum ttm_caching caching;
-> > 	unsigned int count;
-> > 	unsigned int used;
-> > +	bool full;
-> > };
-> > 
-> > int ttm_pool_prealloc_fill(struct ttm_pool *pool, enum ttm_caching tt_caching,
-> > 			   struct ttm_pool_prealloc *pp, unsigned int count);
-> > +int ttm_pool_prealloc_fill_full(struct ttm_pool *pool,
-> > +				enum ttm_caching tt_caching,
-> > +				struct ttm_pool_prealloc *pp,
-> > +				unsigned int num_pages,
-> > +				bool beneficial_reclaim_backoff);
-> > void ttm_pool_prealloc_fini(struct ttm_pool *pool,
-> > 			    struct ttm_pool_prealloc *pp);
-> > unsigned int ttm_pool_prealloc_order(struct ttm_pool *pool);
-> > -- 
-> > 2.34.1
-> > 
+None of these can be achieved using scatterlist. This series introduces a
+"mapping type" mechanism allowing dma-buf to negotiate compatibility between
+different types and support alternate mapping options. See the description of
+patch 2 for more details.
+
+Selecting mapping type
+----------------------
+
+Importers and exporters list possible mapping types with the exporter
+responsible for selecting the final type at pin/map time under the dma_resv
+lock. A matching phase at attachment time eliminates types which statically
+cannot be supported for a given exporter/importer.
+
+At pin/map the exporter chooses one of the types matched, taking the other
+attachments and the buffer's placement into account. That choice is held by the
+core until the exporter explicitly invalidates the attachment. This ensures
+unmap/remap cannot cause buffer movement and ping/pong.
+
+The dma-buf core enforces this by calling select_mapping() only on the
+first pin/map after attach or after an invalidate. The pin/map type
+can therefore only change once the exporter has explicitly invalidated
+the mapping and the choice is remembered across unmap/map.
+
+Testing
+-------
+
+- KUnit dma-buf-mapping suite passes with new tests to address issue
+  found by Karl previously.
+- iommufd self-test passes.
+- Every patch compile-tested with a config enabling all converted drivers.
+- A small test exporting via vfio-pci and importing and pinning via iommufd.
+
+Changes since v2
+----------------
+
+Link to v2: https://patch.msgid.link/20261105-dma_mapping_type_v4-v2-0-78b8dc9ae80a@nvidia.com
+
+- PCIe P2P is no longer negotiated in this series. P2P keeps working
+  through allow_peer2peer and attach->peer2peer exactly as today, a
+  future series will introduce a PCIe P2P type to introduce negotiation.
+- Exporters allocate a mapping object with sg_table embedded and their
+  unmap takes it back.
+- Exporter unmap callbacks take the DMA device from the mapping rather
+  than from the attachment so a mapping that outlives an invalidate and a
+  new selection is unmapped against the device it was made for.
+- dma_buf_map_sgt() and dma_buf_unmap_sgt() are now wrappers around the
+  generic dma_buf_mapping_map() and dma_buf_mapping_unmap().
+- The single "Convert all the simple exporters" patch is split by class
+  of change.
+- A pre-existing leak in fsl_asrc_m2m's unmap was fixed as a side-effect.
+- Added more KUnit tests to test corner cases identified by Karl in
+  previous postings.
+
+Changes since v1 [2]
+--------------------
+
+- Rebased onto v7.4-rc1. The rename also covers the new nvme-pci DMA-buf
+  importer and devmem's switch to pinning. xe's dynamic-debug knob for the
+  p2pdma distance check (3bc497a40178) is dropped, since the check is now
+  done by the core at match time, and amdgpu's PREEMPT-domain import
+  decision (78cdd96ab497) asks the negotiated match set instead of
+  attach->peer2peer.
+- The dma_buf_map_attachment()/dma_buf_unmap_attachment() rename is now the
+  first patch, squashed into one, and uses the shorter dma_buf_map_sgt() and
+  dma_buf_unmap_sgt() names (Christian [3]).
+- Dropped dma_buf_mapping_attach() and the dma_buf_sgt_attach() /
+  dma_buf_sgt_dynamic_attach() renames. Importers that support more than
+  the SGT type list them in a static dma_buf_attach_ops
+  ->supported_mapping_types table. The importing device is passed to the
+  mapping types through the match arguments rather than stored in each
+  entry. dma_buf_attach() and dma_buf_dynamic_attach() are unchanged for
+  everyone else (Christian [3]).
+- The selected type is an index into the attachment's match set, read
+  through dma_buf_attach_map_type(), instead of a copy in attach->map_type.
+  finish_match() fills the match set entry directly and select_mapping()
+  returns the index.
+- A failed pin or map only undoes a selection it made itself, so a map
+  failing under a held pin keeps the pinned type and a failed first pin
+  leaves the attachment unselected; KUnit tests for both.
+- dma_buf_match_mapping() returns -EOPNOTSUPP when the two sides have no
+  type in common, keeping -EINVAL for an empty list, which restores the
+  error xe's own tests expect (Sashiko).
+- New DMA_SGT_EXPORTER_REQUIRES_P2P flavour that requires a P2P capable
+  importer without a pci_p2pdma_distance() check at match time, used by
+  vfio and uverbs so iommufd's non-PCI device can still attach and so no
+  pci_dev is dereferenced outside the dma_resv lock (Sashiko).
+- The SGT P2P distance check is quiet, as it was in xe and amdgpu before
+  the conversion (Sashiko).
+- Fixed a NULL importer_ops dereference in dma_buf_dynamic_attach() and the
+  NULL check order in dma_buf_unmap_sgt() (Sashiko).
+- Signed-off-by added to every patch (Jason). Patch 4 is now authored by me
+  with Jason as co-developer, as little of the original remains.
+- Not addressed: the Tegra fault with CONFIG_DMABUF_DEBUG that Karl
+  reported [4] is a pre-existing Tegra bug being fixed separately.
+
+Changes since RFC v1 [1]
+------------------------
+
+- Dropped the PAL type and its vfio/iommufd users (RFC 21-25).
+- Rebased onto v7.3-rc5: move_notify is now invalidate_mappings,
+  CONFIG_DMABUF_MOVE_NOTIFY is gone, new amdxdna/panfrost/panthor
+  exporters converted, kzalloc_obj().
+- Patch 1 records the whole match set in a fixed-size array in the
+  attachment; patch 3 initialises the attachment before match_mapping()
+  (Karl); patch 15 holds a pci_dev reference instead of asserting the resv
+  lock (Baolu).
+- New patches 5, 6 and 7: exporter selection at pin/map with core-enforced
+  stickiness, match set queries, and dma_buf_mapping_map()/unmap().
+- xe and amdgpu conversions written against the final API; amdgpu's XGMI
+  override rewrites the recorded match set entry.
+- New patch 26 with KUnit tests for the selection contract.
+
+[1] https://lore.kernel.org/all/0-v1-b5cab63049c0+191af-dmabuf_map_type_jgg@nvidia.com/
+[2] https://lore.kernel.org/all/20261026053623.202642-1-apopple@nvidia.com/
+[3] https://lore.kernel.org/all/3151a820-c583-4968-8440-673a9e390446@amd.com/
+[4] https://lore.kernel.org/all/auAIO0y09SXk34CN@gmail.com/
+
+---
+Alistair Popple (14):
+      dma-buf: Negotiate the mapping type in dma_buf_dynamic_attach()
+      dma-buf: Allow single exporter drivers to avoid the match_mapping function
+      dma-buf: Convert exporters allocating a table per map to the SGT mapping type
+      iommufd/selftest: Convert the test exporter to the SGT mapping type
+      dma-buf: Convert exporters keeping a table per attachment to the SGT mapping type
+      drm: Convert drm_gem_map_dma_buf() and its users to the SGT mapping type
+      udmabuf: Convert to the SGT mapping type
+      drm/omapdrm: Convert to the SGT mapping type
+      accel/ivpu: Convert the userptr exporter to the SGT mapping type
+      dma-buf: Convert dma_buf_phys_vec_to_sgt() and its users to the SGT mapping type
+      dma-buf: Remove unused SGT stuff from the common structures
+      dma-buf: Let the exporter select mapping type at pin/map
+      dma-buf: Add dma_buf_mapping_map() returning a type-tagged mapping and implement it for sgt
+      dma-buf: Add kunit tests for mapping type selection
+
+Jason Gunthorpe (10):
+      treewide: Rename dma_buf_(un)map_attachment() to dma_buf_(un)map_sgt()
+      dma-buf: Introduce DMA-buf mapping types
+      dma-buf: Add the SGT DMA mapping type
+      dma-buf: Route SGT related actions through the attachment's mapping type
+      drm/xe/dma-buf: Use the SGT mapping type
+      drm/amdgpu: Use the SGT mapping type
+      drm/vmwgfx: Use match_mapping instead of dummy calls
+      iio: buffer: convert to use the SGT mapping type
+      functionfs: convert to use the SGT mapping type
+      dma-buf: Add kunit tests for mapping type
+
+ drivers/accel/amdxdna/amdxdna_cbuf.c               |   30 +-
+ drivers/accel/amdxdna/amdxdna_gem.c                |   11 +-
+ drivers/accel/amdxdna/amdxdna_ubuf.c               |   34 +-
+ drivers/accel/habanalabs/common/memory.c           |   52 +-
+ drivers/accel/ivpu/ivpu_gem.c                      |    6 +-
+ drivers/accel/ivpu/ivpu_gem_userptr.c              |   29 +-
+ drivers/accel/qaic/qaic_data.c                     |    6 +-
+ drivers/dma-buf/Makefile                           |    1 +
+ drivers/dma-buf/dma-buf-mapping-internal.h         |   39 +
+ drivers/dma-buf/dma-buf-mapping.c                  |  307 +++++-
+ drivers/dma-buf/dma-buf.c                          |  349 ++++--
+ drivers/dma-buf/heaps/cma_heap.c                   |   33 +-
+ drivers/dma-buf/heaps/system_heap.c                |   34 +-
+ drivers/dma-buf/st-dma-mapping.c                   | 1106 ++++++++++++++++++++
+ drivers/dma-buf/udmabuf.c                          |   71 +-
+ drivers/gpu/drm/amd/amdgpu/amdgpu_dma_buf.c        |   85 +-
+ drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c            |   29 +-
+ drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.h            |    4 +-
+ drivers/gpu/drm/amd/amdgpu/amdgpu_vram_mgr.c       |   30 +-
+ drivers/gpu/drm/armada/armada_gem.c                |   52 +-
+ drivers/gpu/drm/drm_prime.c                        |   78 +-
+ drivers/gpu/drm/i915/gem/i915_gem_dmabuf.c         |   31 +-
+ drivers/gpu/drm/i915/gem/i915_gem_object.c         |    2 +-
+ .../gpu/drm/i915/gem/selftests/i915_gem_dmabuf.c   |    4 +-
+ drivers/gpu/drm/i915/gem/selftests/mock_dmabuf.c   |   30 +-
+ drivers/gpu/drm/msm/msm_gem_prime.c                |    7 +-
+ drivers/gpu/drm/omapdrm/omap_gem_dmabuf.c          |   51 +-
+ drivers/gpu/drm/panfrost/panfrost_gem.c            |   27 +-
+ drivers/gpu/drm/panthor/panthor_gem.c              |   25 +-
+ drivers/gpu/drm/tegra/gem.c                        |   44 +-
+ drivers/gpu/drm/virtio/virtgpu_drv.h               |    9 +-
+ drivers/gpu/drm/virtio/virtgpu_prime.c             |   30 +-
+ drivers/gpu/drm/virtio/virtgpu_vram.c              |   25 +-
+ drivers/gpu/drm/vmwgfx/vmwgfx_prime.c              |   32 +-
+ drivers/gpu/drm/xe/xe_bo.c                         |   16 +-
+ drivers/gpu/drm/xe/xe_dma_buf.c                    |   62 +-
+ drivers/gpu/drm/xe/xe_ttm_vram_mgr.c               |   22 +-
+ drivers/gpu/drm/xe/xe_ttm_vram_mgr.h               |    2 +-
+ drivers/iio/industrialio-buffer.c                  |   13 +-
+ drivers/infiniband/core/umem_dmabuf.c              |    8 +-
+ drivers/infiniband/core/uverbs_std_types_dmabuf.c  |   23 +-
+ drivers/iommu/iommufd/selftest.c                   |   22 +-
+ drivers/media/common/videobuf2/videobuf2-core.c    |    2 +-
+ .../media/common/videobuf2/videobuf2-dma-contig.c  |   42 +-
+ drivers/media/common/videobuf2/videobuf2-dma-sg.c  |   37 +-
+ drivers/media/common/videobuf2/videobuf2-vmalloc.c |   32 +-
+ .../media/platform/nvidia/tegra-vde/dmabuf-cache.c |    6 +-
+ drivers/misc/fastrpc.c                             |   36 +-
+ drivers/nvme/host/pci-dmabuf.c                     |    6 +-
+ drivers/tee/tee_heap.c                             |   28 +-
+ drivers/usb/gadget/function/f_fs.c                 |    9 +-
+ drivers/vfio/pci/vfio_pci_dmabuf.c                 |   24 +-
+ drivers/xen/gntdev-dmabuf.c                        |   75 +-
+ include/drm/drm_prime.h                            |    8 +-
+ include/linux/dma-buf-mapping.h                    |  366 ++++++-
+ include/linux/dma-buf.h                            |  212 ++--
+ include/trace/events/dma_buf.h                     |    2 +-
+ io_uring/zcrx.c                                    |    6 +-
+ net/core/devmem.c                                  |    8 +-
+ samples/vfio-mdev/mbochs.c                         |   31 +-
+ sound/soc/fsl/fsl_asrc_m2m.c                       |   32 +-
+ 61 files changed, 2972 insertions(+), 861 deletions(-)
+---
+base-commit: 6628e7d4c6b25c8d18f1345e3a20d21829aae7e4
+change-id: 20261105-dma_mapping_type_v4-f71180b977e8
+
+Best regards,
+--  
+Alistair Popple <apopple@nvidia.com>
+
