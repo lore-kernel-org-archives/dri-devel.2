@@ -2,66 +2,55 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 991EC606A325
-	for <dri-devel@archiver.kernel.org>; Fri, 20 Nov 2026 13:11:22 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6EF7E60A381E
+	for <dri-devel@archiver.kernel.org>; Fri, 20 Nov 2026 13:11:28 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=QFIMZPr2
+	dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.a=rsa-sha256 header.s=dkim header.b=VzJ2Iqkf
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 04A69112A3C;
-	Fri, 20 Nov 2026 13:11:17 +0000 (UTC)
-Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id C5157112A19
- for <dri-devel@lists.freedesktop.org>; Fri, 20 Nov 2026 13:10:27 +0000 (UTC)
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id AC9784645A;
- Fri, 20 Nov 2026 13:10:27 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1EF841F000ED;
- Fri, 20 Nov 2026 13:10:26 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1795180227;
- bh=8umWhaiFQ7V+7+G3BCNO/4RuSRPm/dj5q+aSYieoro8=;
- h=From:Date:Subject:References:In-Reply-To:To:Cc;
- b=QFIMZPr22TRhTOgG0y8onyxqJJuNkdPqX9tZr0q+dTKcuoDcumQHIS3BpNuAnvMQH
- xXcBTlbHj9TYhCLoVXPGhdXrXEDrynfHgkhvqdbHNRQ+3nZXiBIs2om1AXwY/b1z6Y
- UEkDAtGXcKDp9hvfiIyYXnGgkLIcVN6L029L7d8nUeAyCtquewqW9mYHwJYiPZebpl
- bzszlvdzoVQ/pW/rqVfbKY5L1Jk8Q1x0mQOr1qjWG3mRoVoLljFzdivO3Tapd3ulaX
- oCK7BRAH4qs6eTZ6O8rUmhuV9ZfOwaavx3odEalY9vegeKCrgR1nsxzNk0/LhvbQ+L
- KmY7KrDo6+nSw==
-From: Maxime Ripard <mripard@kernel.org>
-Date: Fri, 20 Nov 2026 14:10:10 +0100
-Subject: [PATCH v12 3/9] drm/atomic: Allow filling a commit with pristine
- object states
+	by gabe.freedesktop.org (Postfix) with ESMTP id A5968112A3A;
+	Fri, 20 Nov 2026 13:11:22 +0000 (UTC)
+Received: from smtpout-02.galae.net (smtpout-02.galae.net [185.246.84.56])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 1522E112A36
+ for <dri-devel@lists.freedesktop.org>; Fri, 20 Nov 2026 13:11:15 +0000 (UTC)
+Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
+ by smtpout-02.galae.net (Postfix) with ESMTPS id 845091A1748;
+ Fri, 20 Nov 2026 13:11:13 +0000 (UTC)
+Received: from mail.galae.net (mail.galae.net [212.83.136.155])
+ by smtpout-01.galae.net (Postfix) with ESMTPS id 4797E601B9;
+ Fri, 20 Nov 2026 13:11:13 +0000 (UTC)
+Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon)
+ with ESMTPSA id 40E3311BC0089; Fri, 20 Nov 2026 14:11:05 +0100 (CET)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
+ t=1795180271; h=from:subject:date:message-id:to:cc:mime-version:content-type:
+ content-transfer-encoding:in-reply-to:references;
+ bh=uUoED0cDbcz0KfAteKUfnKCWp0vpsdbr7J4+2b7eRPI=;
+ b=VzJ2Iqkf6sZd0IczGzHfI/apvv15DT1Hdj5+U5RNpmAf93PGyoh41fNj6NG0jumXvWitu2
+ t8qGQy08hBxYViD5dl2huEMrkGQ657tqh1KNZDfYj/t70+rqTsKM9bbkmT7TZVOmHO13os
+ WTp4OcGuFESxx7gRJseneWHHpSe1nASKRPScDIjDbObkYpwF2IVaLc1vwFBvlD8RbhV8w2
+ O+F/N3I8ZK9/T/ShgrvssKdxa8R2IQdBYMqlPqbE+m8sfgVC5/uvpoU8g9FeGI1k8RoJ1y
+ Scl/POdT6KuJLFmAYxQjQ1PUUBuQkhulTeO+R2K9cN3hGlCC//dCH8JLPyxc6A==
+From: Benjamin Robin <benjamin.robin@bootlin.com>
+To: "Kumar, Abhash" <a-kumar2@ti.com>,
+ Tomi Valkeinen <tomi.valkeinen@ideasonboard.com>
+Cc: linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org,
+ Laurent.pinchart@ideasonboard.com, jonas@kwiboo.se, jernej.skrabec@gmail.com, 
+ s-jain1@ti.com, y-d@ti.com, andrzej.hajda@intel.com,
+ neil.armstrong@linaro.org, rfoss@kernel.org, mripard@kernel.org,
+ tzimmermann@suse.de, airlied@gmail.com, simona@ffwll.ch, devarsht@ti.com,
+ u-kumar1@ti.com, sjakhade@cadence.com
+Subject: Re: [PATCH v3] drm/bridge: cdns-mhdp8546: Add suspend resume support
+ to the bridge driver
+Date: Fri, 20 Nov 2026 14:11:04 +0100
+Message-ID: <oN6DWNeSTbeo_5NexR3j3A@bootlin.com>
+In-Reply-To: <73ebfed6-a3ad-4134-a8b9-d17213442fa9@ideasonboard.com>
+References: <20260601095041.3042950-1-a-kumar2@ti.com>
+ <f1089720-2a8e-4f0f-b995-fc7ef0836da0@ti.com>
+ <73ebfed6-a3ad-4134-a8b9-d17213442fa9@ideasonboard.com>
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
+Content-Transfer-Encoding: quoted-printable
 Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20261120-drm-reset-state-flag-v12-3-42d63d7417fc@kernel.org>
-References: <20261120-drm-reset-state-flag-v12-0-42d63d7417fc@kernel.org>
-In-Reply-To: <20261120-drm-reset-state-flag-v12-0-42d63d7417fc@kernel.org>
-To: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
- Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>, 
- Simona Vetter <simona@ffwll.ch>, Louis Chauvet <louis.chauvet@bootlin.com>, 
- Haneen Mohammed <hamohammed.sa@gmail.com>, 
- Melissa Wen <melissa.srw@gmail.com>
-Cc: Daniel Stone <daniels@collabora.com>, 
- Harry Wentland <harry.wentland@amd.com>, 
- Jocelyn Falempe <jfalempe@redhat.com>, 
- =?utf-8?q?Jonas_=C3=85dahl?= <jadahl@redhat.com>, 
- =?utf-8?q?Michel_D=C3=A4nzer?= <mdaenzer@redhat.com>, 
- Pekka Paalanen <pekka.paalanen@collabora.com>, 
- Sebastian Wick <sebastian.wick@redhat.com>, Simon Ser <contact@emersion.fr>, 
- Victoria Brekenfeld <victoria@system76.com>, 
- Xaver Hugl <xaver.hugl@kde.org>, dri-devel@lists.freedesktop.org, 
- linux-kernel@vger.kernel.org, Maxime Ripard <mripard@kernel.org>
-X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=openpgp-sha256; l=15660; i=mripard@kernel.org;
- h=from:subject:message-id; bh=SO3nEE4TSmpoEm3FjJDcTIFRXzAKzk23zConT4QMIPY=;
- b=owGbwMvMwCmsHn9OcpHtvjLG02pJDNkMblsMXnW5zZ7U0/U5U3q3/56Zi3fnCuplXXi0wiXsv
- PP/qWt0OqayMAhzMsiKKbI8kQk7vbx9cZWD/cofMHNYmUCGMHBxCsBEvj9krC8qZ//qwPOjf09W
- yFyhqkDeRc/8v6wy27nX+30E06czrfsu3zd4eX7/hLt/n74pD3k5aR9jvavG5Wn5aiK/TqUo7N7
- CcVKifm1p3NScJfvrNVa/yNQJEJfZeNOPR6pLQE52fwW/l6MVAA==
-X-Developer-Key: i=mripard@kernel.org; a=openpgp;
- fpr=BE5675C37E818C8B5764241C254BCFC56BF6CE8D
+X-Last-TLS-Session-Version: TLSv1.3
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -73,405 +62,184 @@ List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-18.8 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
-	DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
-	INCLUDES_CR_TRAILER,INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,
-	SPF_PASS,USER_AGENT_GIT autolearn=ham autolearn_force=no version=4.0.1
+X-Spam-Status: No, score=-5.8 required=3.0 tests=BAYES_00,DKIM_SIGNED,
+	DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
+	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS autolearn=no
+	autolearn_force=no version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-The upcoming DRM_MODE_ATOMIC_RESET flag will need to create an atomic
-commit that brings the entire device back to a pristine state, as if
-no configuration had ever been applied.
+On Wednesday, October 14, 2026 at 3:25=E2=80=AFPM, Tomi Valkeinen wrote:
+> Hi,
+>=20
+> On 06/10/2026 11:49, Kumar, Abhash wrote:
+> > Hi,
+> >=20
+> > On 10/1/2026 1:10 PM, Tomi Valkeinen wrote:
+> >> Hi,
+> >>
+> >> On 29/06/2026 13:32, abhash wrote:
+> >>>
+> >>> Hi Tomi,
+> >>>
+> >>> Thanks for the review.
+> >>>
+> >>> On 18/06/26 14:19, Tomi Valkeinen wrote:
+> >>>> Hi,
+> >>>>
+> >>>> On 01/06/2026 12:50, Abhash Kumar Jha wrote:
+> >>>>> Add system suspend and resume hooks to the cdns-mhdp8546 bridge=20
+> >>>>> driver.
+> >>>>>
+> >>>>> While resuming we either load the firmware or activate it. Firmware
+> >>>>> is loaded only when resuming from a successful suspend-resume cycle.
+> >>>>
+> >>>> It's not clear from the patch if this is a fix or improvement. It=20
+> >>>> sounds a bit like a fix, but it doesn't mention any kind of issue in=
+=20
+> >>>> the driver. So, why is this patch needed?
+> >>>
+> >>> The driver lacked support for suspend-resume as stated in the todo on=
+=20
+> >>> the driver, So the patch adds this improvement.
+> >>
+> >> The patch doesn't remove any todo lines. Was that just a miss, or is=20
+> >> there more to add wrt. PM?
+> > Yeah, i will remove the TODO in the next revision.
+> >>
+> >> What does it mean it didn't support PM? Does the driver not work after=
+=20
+> >> suspend-resume cycle? Or does the driver prevent a proper suspend?=20
+> >=20
+> > When we resume, the cdns_mhdp_link_up function fails.
+> >=20
+> > Failure log at resume:
+> >=20
+> > [  55.329452] tidss 4a00000.dss: PM: calling tidss_resume [tidss] @=20
+> > 1053, parent: bus@100000
+> >=20
+> > [ 183.381228] cdns-mhdp8546 a000000.bridge: Failed to read receiver=20
+> > capabilities
+> >=20
+> > [ 191.391548] cdns-mhdp8546 a000000.bridge: get block[0] edid failed: -=
+110
+> >=20
+> > [ 193.392713] cdns-mhdp8546 a000000.bridge: Failed to read register
+> >=20
+> > [ 261.415544] cdns-mhdp8546 a000000.bridge: Failed to read register
+> >=20
+> > [ 263.946153] tidss 4a00000.dss: Timeout waiting for framedone on crtc 0
+> >=20
+> > [ 391.991358] cdns-mhdp8546 a000000.bridge: Failed to read receiver=20
+> > capabilities
+> >=20
+> > [ 392.026847] tidss 4a00000.dss: PM: tidss_resume [tidss] returned 0=20
+> > after 336689133 usecs
+> >=20
+> > I guess it is fair to say that the driver does not work after suspend-=
+=20
+> > resume cycle.
+> >=20
+> >>>>> If resuming due to an aborted suspend, loading the firmware is not
+> >>>>> possible because the uCPU's IMEM is only accessible after a reset=20
+> >>>>> and the
+> >>>>> bridge has not gone through a reset in this case. Hence, Activate t=
+he
+> >>>>> firmware that is already loaded.
+> >>>>>
+> >>>>> Use genpd_notifier to get the power domain status of the bridge and
+> >>>>> accordingly load the firmware.
+> >>>>>
+> >>>>> Additionally, introduce phy_power_off/on to control the power to=20
+> >>>>> the phy.
+> >>>>
+> >>>> If you write "also" or "additionally" or such in a commit desc, you=
+=20
+> >>>> should stop and think if that part should actually be a separate=20
+> >>>> patch. Also, why is that change needed?=20
+> >>>
+> >>> The phy device could be powered off while resuming. So we are=20
+> >>> explicitly powering it on.
+> >>>
+> >>> The phy driver api also recommends to always call phy_init() first=20
+> >>> followed by a phy_power_on().
+> >>>
+> >>> "Some PHY drivers may not implement `phy_init` or `phy_power_on`, but=
+=20
+> >>> controllers should always call these functions to be compatible with=
+=20
+> >>> other PHYs"
+> >>
+> >> It still sounds like a separate patch to me: the current driver is=20
+> >> missing phy_power_on/off from the probe/remove functions.
+> >>
+> > I will add that as a separate patch
+> >>>> Overall, this sounds fragile/hacky to me.
+> >>>>
+> >>>> The first thing is that usually you shouldn't use system suspend/=20
+> >>>> resume in a bridge driver. When a system suspend happend, the=20
+> >>>> display pipeline will be disabled, so this driver will get an=20
+> >>>> atomic_disable() call, and enable when resuming. You can use runtime=
+=20
+> >>>> PM hooks if you need resume/suspend hooks.
+> >>>>
+> >>> Thanks for the suggestion, I will use the runtime PM instead.
+> >>>
+> >>>> The second thing is the PD notifier. Is there really no way we can=20
+> >>>> see the state from the MDHP IP registers?=20
+> >>>
+> >>> The other way that i found was to read the MHDP KEEP_ALIVE_p register=
+=20
+> >>> twice to know if the firmware is incrementing the counter.
+> >>>
+> >>> Based on that we can decide if the bridge is active or not. Do you=20
+> >>> think this approach would be okay over the PD notifier?
+> >> I think it would be best to be able somehow to ask this from the HW to=
+=20
+> >> find the true state, instead of guessing it second hand from the PD=20
+> >> notifier (which also doesn't tell us the initial HW state at probe).
+> >>
+> >> KEEP_ALIVE_p sounds fine. Or what does the mdhp IP do if you send a=20
+> >> message to the firmware when it's not up? Say, if you always do=20
+> >> cdns_mhdp_set_firmware_active, what happens if the FW has not been=20
+> >> loaded? I would guess that there's a timeout, and that could be used=20
+> >> to find out the FW is not up.
+> >>
+> > Yes, there is a 2 second timeout if we send a message and the firmware=
+=20
+> > is not up. I would prefer the KEEP_ALIVE_p method, as that is a better=
+=20
+> > indication of the
+>=20
+> But that's a driver imposed timeout, and it sounds rather arbitrary (and=
+=20
+> bad). How quickly does the firmware usually reply? What would be the=20
+> situation where the firmware takes e.g. 1.5s to reply? I would guess=20
+> that if the FW updates the KEEP_ALIVE_p every N us, it would also reply=20
+> to us in that time.
+>=20
+> In any case, changing MAILBOX_TIMEOUT_US would be another patch.=20
+> KEEP_ALIVE_p sounds fine if you know how often the FW updates it.
+>=20
+>   Tomi
 
-Create drm_atomic_commit_fill_with_defaults() which iterates over all
-CRTCs, planes, connectors, and color operations in the device and
-inserts a fresh default state for each one into the commit. This uses
-the atomic_create_state() hooks rather than atomic_duplicate_state(),
-since atomic_create_state() provides exactly this pristine state on a
-per-object basis.
+Hi,
 
-A lessee only gets the objects of its lease reset, the other ones
-keeping their current state. Partial pipelines aren't supported
-though: detaching a plane or a connector from its CRTC, and disabling
-a CRTC driving them, both need the two sides in the commit, so a lease
-that splits a pipeline is rejected with -ENOENT. validate_lease() is
-expected to keep that from happening, since it requires a lease to
-hold at least a CRTC, a connector and a plane, but it only looks at
-the object types, not at what they are bound to.
+I wanted to check on the status of this series, as I'm quite interested
+in it since my series [1] depends on it.
 
-Part of the state the atomic helpers maintain is only recomputed when
-something changed, which a reset re-applying the same configuration
-doesn't trigger. The CRTC adjusted_mode and the connector best_encoder
-are therefore carried over like a duplicated state would, and the
-CRTCs ask for a zpos normalization.
+=46or my use case, the suspend/resume support isn't essential, but the
+calls to phy_power_on() and phy_power_off() are.
 
-The color management changes are reported through color_mgmt_changed
-for the same reason: the userspace property handlers only set it when
-a property write changes the value stored in the new state, so neither
-restoring a default nor leaving a property untouched would, even
-though the reset clears whatever is currently programmed.
+Thanks for any update.
 
-Signed-off-by: Maxime Ripard <mripard@kernel.org>
----
- drivers/gpu/drm/drm_atomic.c | 321 +++++++++++++++++++++++++++++++++++++++++++
- include/drm/drm_atomic.h     |   2 +
- 2 files changed, 323 insertions(+)
+[1] https://lore.kernel.org/all/20261120-phy-cadence-torrent-ng-v1-0-da2db7=
+125cd7@bootlin.com/T/
 
-diff --git a/drivers/gpu/drm/drm_atomic.c b/drivers/gpu/drm/drm_atomic.c
-index 7a77051096c9..43df13aaef1e 100644
---- a/drivers/gpu/drm/drm_atomic.c
-+++ b/drivers/gpu/drm/drm_atomic.c
-@@ -1647,10 +1647,331 @@ bool drm_atomic_implements_create_state(struct drm_device *dev)
- 
- 	return true;
- }
- EXPORT_SYMBOL(drm_atomic_implements_create_state);
- 
-+/**
-+ * drm_atomic_commit_fill_with_defaults - populate a commit with pristine states
-+ * @file_priv: DRM file the reset was requested from, or NULL
-+ * @commit: atomic commit to fill
-+ *
-+ * Iterate over all CRTCs, planes, connectors, and color operations in
-+ * the device and insert a freshly created default state for each one
-+ * into @commit. The states are created through the atomic_create_state()
-+ * hooks, producing the same initial state the driver starts with rather
-+ * than a copy of the current hardware state.
-+ *
-+ * In the default state, all objects are disabled: CRTCs are inactive,
-+ * planes are disabled, and connectors are unbound. Driver-specific
-+ * properties such as color pipeline settings or max_bpc may carry
-+ * non-zero defaults appropriate for basic display output.
-+ *
-+ * If @file_priv is a lessee, only the CRTCs, planes and connectors part
-+ * of its lease are reset, and the other objects keep their current
-+ * state. @file_priv is optional: if NULL, it is considered to not hold
-+ * any lease, and all objects are reset.
-+ *
-+ * Partial pipelines aren't supported. Resetting a plane or a connector
-+ * detaches it from the CRTC it is bound to, and resetting a CRTC
-+ * disables the planes and connectors bound to it, neither of which the
-+ * atomic helpers can sort out with only one side of the pair in the
-+ * commit. A lease covering a plane or a connector without the CRTC it
-+ * is bound to, or a CRTC without all the planes and connectors bound
-+ * to it, would thus require reaching outside of it, so the reset is
-+ * rejected instead.
-+ *
-+ * Such a lease shouldn't exist in the first place: validate_lease()
-+ * requires a lease to hold at least a CRTC, a connector and a plane,
-+ * so leases are meant to describe whole pipelines. It only looks at
-+ * the object types though, not at what they are bound to, so the
-+ * reset still has to guard against it.
-+ *
-+ * This is meant to be used with the %DRM_MODE_ATOMIC_RESET flag, which
-+ * needs to bring the device back to a known baseline before applying
-+ * userspace property changes on top.
-+ *
-+ * Returns:
-+ * 0 on success, -ENOENT if a leased plane or connector is bound to a
-+ * CRTC that isn't leased or if the lease was revoked, or a negative
-+ * error code on failure.
-+ */
-+int drm_atomic_commit_fill_with_defaults(struct drm_file *file_priv,
-+					 struct drm_atomic_commit *commit)
-+{
-+	struct drm_device *dev = commit->dev;
-+	struct drm_mode_config *config = &dev->mode_config;
-+	struct drm_crtc *crtc;
-+	struct drm_plane *plane, *crtc_plane;
-+	struct drm_connector *connector;
-+	struct drm_connector_list_iter conn_iter;
-+	struct drm_colorop *colorop;
-+	int ret;
-+
-+	drm_WARN_ON(dev, !commit->acquire_ctx);
-+
-+	/*
-+	 * Private objects are ignored because none have userspace
-+	 * properties we might want to reset. atomic_check
-+	 * implementations will derive or infer their private obj state
-+	 * from the state that will end up being committed anyway.
-+	 *
-+	 * The CRTCs are handled first because resetting a plane or a
-+	 * connector bound to one detaches it, and the atomic helpers
-+	 * need that CRTC in the commit to do so.
-+	 *
-+	 * A lease is always revoked as a whole, so a plane or a
-+	 * connector still leased when its loop runs had its CRTC
-+	 * leased when the CRTC loop ran. A revocation halfway through
-+	 * can thus not leave an object detached from a CRTC that never
-+	 * made it into the commit.
-+	 *
-+	 * The other way around doesn't hold though: a revocation after
-+	 * the CRTC loop skips the planes and connectors bound to the
-+	 * CRTCs it reset. Since the pristine CRTC states come with
-+	 * empty plane and connector masks, neither the atomic helpers
-+	 * nor the core checks would notice, and the commit would leave
-+	 * those connectors bound to a disabled CRTC. The lease is thus
-+	 * checked once more after all the loops ran.
-+	 */
-+	drm_for_each_colorop(colorop, dev) {
-+		struct drm_colorop_state *colorop_state;
-+
-+		if (!drm_lease_held(file_priv, colorop->plane->base.id))
-+			continue;
-+
-+		ret = drm_modeset_lock(&colorop->plane->mutex, commit->acquire_ctx);
-+		if (ret)
-+			return ret;
-+
-+		colorop_state = drm_atomic_helper_colorop_create_state(colorop);
-+		if (IS_ERR(colorop_state))
-+			return PTR_ERR(colorop_state);
-+
-+		drm_atomic_commit_set_colorop_state(commit, colorop, colorop_state);
-+	}
-+
-+	drm_for_each_crtc(crtc, dev) {
-+		struct drm_crtc_state *crtc_state;
-+
-+		if (!drm_lease_held(file_priv, crtc->base.id))
-+			continue;
-+
-+		ret = drm_modeset_lock(&crtc->mutex, commit->acquire_ctx);
-+		if (ret)
-+			return ret;
-+
-+		/*
-+		 * The reset disables the CRTC, which the planes enabled on
-+		 * it can't stay bound to. Disabling them is only an option
-+		 * for the ones the lease covers, so a CRTC driving a plane
-+		 * it doesn't is rejected like the other way around.
-+		 */
-+		drm_for_each_plane_mask(crtc_plane, dev, crtc->state->plane_mask) {
-+			if (drm_lease_held(file_priv, crtc_plane->base.id))
-+				continue;
-+
-+			drm_dbg_atomic(dev,
-+				       "[CRTC:%d:%s] drives [PLANE:%d:%s], which isn't leased\n",
-+				       crtc->base.id, crtc->name,
-+				       crtc_plane->base.id, crtc_plane->name);
-+			return -ENOENT;
-+		}
-+
-+		crtc_state = crtc->funcs->atomic_create_state(crtc);
-+		if (IS_ERR(crtc_state))
-+			return PTR_ERR(crtc_state);
-+
-+		/*
-+		 * The userspace property handlers only set
-+		 * color_mgmt_changed when a property write changes the
-+		 * value stored in the new state. Since the pristine states
-+		 * we create here are already set to their default values,
-+		 * restoring those defaults wouldn't set the flag, and
-+		 * neither would leaving the properties untouched, even
-+		 * though the commit clears whatever LUT or CTM is
-+		 * currently programmed. Compare with the current state
-+		 * so that the drivers reprogram the color management
-+		 * hardware.
-+		 */
-+		crtc_state->color_mgmt_changed =
-+			crtc->state->degamma_lut != crtc_state->degamma_lut ||
-+			crtc->state->ctm != crtc_state->ctm ||
-+			crtc->state->gamma_lut != crtc_state->gamma_lut;
-+
-+		/*
-+		 * adjusted_mode is derived from the mode by the atomic
-+		 * helpers rather than set by userspace, and mode_fixup()
-+		 * only recomputes it when the mode or the connectors
-+		 * changed. A duplicated state carries it over, so nothing
-+		 * needs to be recomputed when nothing changes, but the
-+		 * pristine states we create here would be left with a
-+		 * zeroed adjusted_mode on a CRTC that stays enabled across
-+		 * the commit. Carry it over too, so that the drivers and
-+		 * the vblank timestamping constants keep seeing the
-+		 * timings currently programmed.
-+		 */
-+		drm_mode_copy(&crtc_state->adjusted_mode,
-+			      &crtc->state->adjusted_mode);
-+
-+		/*
-+		 * The planes come back with the default zpos, which the
-+		 * atomic helpers only normalize when the planes bound to a
-+		 * CRTC or one of their zpos changed. Re-applying the same
-+		 * configuration on top of the reset wouldn't trigger
-+		 * either, so ask for a normalization explicitly.
-+		 */
-+		crtc_state->zpos_changed = true;
-+
-+		drm_atomic_commit_set_crtc_state(commit, crtc, crtc_state);
-+	}
-+
-+	drm_for_each_plane(plane, dev) {
-+		struct drm_plane_state *plane_state;
-+
-+		if (!drm_lease_held(file_priv, plane->base.id))
-+			continue;
-+
-+		ret = drm_modeset_lock(&plane->mutex, commit->acquire_ctx);
-+		if (ret)
-+			return ret;
-+
-+		/*
-+		 * The pristine state detaches the plane from the CRTC it
-+		 * is enabled on, which the atomic helpers can only sort
-+		 * out with that CRTC in the commit. Resetting a plane
-+		 * enabled on a CRTC that isn't leased would thus require
-+		 * touching an object the lease doesn't cover, so report it
-+		 * like any other access outside of the lease.
-+		 */
-+		if (plane->state->crtc &&
-+		    !drm_lease_held(file_priv, plane->state->crtc->base.id)) {
-+			drm_dbg_atomic(dev,
-+				       "[PLANE:%d:%s] is enabled on [CRTC:%d:%s], which isn't leased\n",
-+				       plane->base.id, plane->name,
-+				       plane->state->crtc->base.id,
-+				       plane->state->crtc->name);
-+			return -ENOENT;
-+		}
-+
-+		plane_state = plane->funcs->atomic_create_state(plane);
-+		if (IS_ERR(plane_state))
-+			return PTR_ERR(plane_state);
-+
-+		/*
-+		 * Like the CRTC LUTs and CTM above, the pristine state
-+		 * comes with no color pipeline, and neither restoring
-+		 * that default nor leaving the property untouched sets
-+		 * color_mgmt_changed, even though the commit clears the
-+		 * pipeline currently programmed. Compare with the current
-+		 * state so that the drivers reprogram the color
-+		 * management hardware.
-+		 */
-+		plane_state->color_mgmt_changed =
-+			plane->state->color_pipeline != plane_state->color_pipeline;
-+
-+		drm_atomic_commit_set_plane_state(commit, plane, plane_state);
-+	}
-+
-+	ret = drm_modeset_lock(&config->connection_mutex, commit->acquire_ctx);
-+	if (ret)
-+		return ret;
-+
-+	drm_connector_list_iter_begin(dev, &conn_iter);
-+	drm_for_each_connector_iter(connector, &conn_iter) {
-+		struct drm_connector_state *connector_state;
-+
-+		if (!drm_lease_held(file_priv, connector->base.id)) {
-+			/*
-+			 * Same as the planes of a leased CRTC: the reset
-+			 * disables that CRTC, and a connector the lease
-+			 * doesn't cover can't be unbound from it.
-+			 */
-+			if (connector->state->crtc &&
-+			    drm_lease_held(file_priv,
-+					   connector->state->crtc->base.id)) {
-+				drm_dbg_atomic(dev,
-+					       "[CONNECTOR:%d:%s] isn't leased, but [CRTC:%d:%s] it is bound to is\n",
-+					       connector->base.id, connector->name,
-+					       connector->state->crtc->base.id,
-+					       connector->state->crtc->name);
-+				drm_connector_list_iter_end(&conn_iter);
-+				return -ENOENT;
-+			}
-+
-+			continue;
-+		}
-+
-+		/*
-+		 * Same as the planes above: unbinding the connector from
-+		 * an unleased CRTC would need that CRTC in the commit.
-+		 */
-+		if (connector->state->crtc &&
-+		    !drm_lease_held(file_priv, connector->state->crtc->base.id)) {
-+			drm_dbg_atomic(dev,
-+				       "[CONNECTOR:%d:%s] is bound to [CRTC:%d:%s], which isn't leased\n",
-+				       connector->base.id, connector->name,
-+				       connector->state->crtc->base.id,
-+				       connector->state->crtc->name);
-+			drm_connector_list_iter_end(&conn_iter);
-+			return -ENOENT;
-+		}
-+
-+		/*
-+		 * drm_atomic_implements_create_state() already checked
-+		 * this, but connectors can be hotplugged between that
-+		 * lockless check and the iteration here.
-+		 */
-+		if (!connector->funcs->atomic_create_state) {
-+			drm_connector_list_iter_end(&conn_iter);
-+			return -EOPNOTSUPP;
-+		}
-+
-+		connector_state = connector->funcs->atomic_create_state(connector);
-+		if (IS_ERR(connector_state)) {
-+			drm_connector_list_iter_end(&conn_iter);
-+			ret = PTR_ERR(connector_state);
-+			return ret;
-+		}
-+
-+		/*
-+		 * best_encoder is a routing information maintained by the
-+		 * atomic helpers rather than a userspace property, and it
-+		 * is only carried over to a new state when that state is a
-+		 * duplicate of the current one. Since
-+		 * update_connector_routing() uses it to detect the commits
-+		 * that keep the connector routing unchanged, carry the
-+		 * encoder currently in use over so that a reset on which
-+		 * userspace re-applies the exact same configuration doesn't
-+		 * require a modeset.
-+		 */
-+		connector_state->best_encoder = connector->state->best_encoder;
-+
-+		ret = drm_atomic_commit_set_connector_state(commit, connector, connector_state);
-+		if (ret) {
-+			connector->funcs->atomic_destroy_state(connector, connector_state);
-+			drm_connector_list_iter_end(&conn_iter);
-+			return ret;
-+		}
-+	}
-+	drm_connector_list_iter_end(&conn_iter);
-+
-+	/*
-+	 * Revoking a lease doesn't take any modeset lock, so it can
-+	 * still happen right after this check. The loops above all saw
-+	 * the whole lease then, and the commit is consistent. This is
-+	 * the same window any other commit from a lessee has between
-+	 * the lease checks and the commit.
-+	 */
-+	if (drm_lease_revoked(file_priv)) {
-+		drm_dbg_atomic(dev, "Lease revoked while resetting the state\n");
-+		return -ENOENT;
-+	}
-+
-+	return 0;
-+}
-+EXPORT_SYMBOL(drm_atomic_commit_fill_with_defaults);
-+
- /**
-  * drm_atomic_add_encoder_bridges - add bridges attached to an encoder
-  * @state: atomic state
-  * @encoder: DRM encoder
-  *
-diff --git a/include/drm/drm_atomic.h b/include/drm/drm_atomic.h
-index 72c3d420f40c..cac74d43a34d 100644
---- a/include/drm/drm_atomic.h
-+++ b/include/drm/drm_atomic.h
-@@ -701,10 +701,12 @@ int drm_crtc_commit_wait(struct drm_crtc_commit *commit);
- struct drm_atomic_commit * __must_check
- drm_atomic_commit_alloc(struct drm_device *dev);
- void drm_atomic_commit_clear(struct drm_atomic_commit *state);
- 
- bool drm_atomic_implements_create_state(struct drm_device *dev);
-+int drm_atomic_commit_fill_with_defaults(struct drm_file *file_priv,
-+					 struct drm_atomic_commit *commit);
- 
- /**
-  * drm_atomic_commit_get - acquire a reference to the atomic state
-  * @state: The atomic state
-  *
+=2D-=20
+Benjamin Robin, Bootlin
+Embedded Linux and Kernel engineering
+https://bootlin.com
 
--- 
-2.56.1
+
 
