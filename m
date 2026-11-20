@@ -2,41 +2,41 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3DF6C60A6F6C
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 11F2460A6F61
 	for <dri-devel@archiver.kernel.org>; Fri, 20 Nov 2026 18:04:41 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.a=rsa-sha256 header.s=dkim header.b=zDA2Xcjg
+	dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.a=rsa-sha256 header.s=dkim header.b=GOmfKRR3
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id A0D27112C6D;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 61ED0112C66;
 	Fri, 20 Nov 2026 18:04:35 +0000 (UTC)
 Received: from smtpout-02.galae.net (smtpout-02.galae.net [185.246.84.56])
- by gabe.freedesktop.org (Postfix) with ESMTPS id AC860112C66
- for <dri-devel@lists.freedesktop.org>; Fri, 20 Nov 2026 18:04:21 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id BE9DE112C6C
+ for <dri-devel@lists.freedesktop.org>; Fri, 20 Nov 2026 18:04:25 +0000 (UTC)
 Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
- by smtpout-02.galae.net (Postfix) with ESMTPS id 7F42D1A1757;
- Fri, 20 Nov 2026 18:04:20 +0000 (UTC)
+ by smtpout-02.galae.net (Postfix) with ESMTPS id 918671A1756;
+ Fri, 20 Nov 2026 18:04:24 +0000 (UTC)
 Received: from mail.galae.net (mail.galae.net [212.83.136.155])
- by smtpout-01.galae.net (Postfix) with ESMTPS id 528C5601B9;
- Fri, 20 Nov 2026 18:04:20 +0000 (UTC)
+ by smtpout-01.galae.net (Postfix) with ESMTPS id 60EA3601B9;
+ Fri, 20 Nov 2026 18:04:24 +0000 (UTC)
 Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon)
- with ESMTPSA id DEDA511BC08D7; Fri, 20 Nov 2026 19:04:14 +0100 (CET)
+ with ESMTPSA id E5DB711BC0990; Fri, 20 Nov 2026 19:04:18 +0100 (CET)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
- t=1795197858; h=from:subject:date:message-id:to:cc:mime-version:content-type:
+ t=1795197862; h=from:subject:date:message-id:to:cc:mime-version:content-type:
  content-transfer-encoding:in-reply-to:references;
- bh=bovjhTF929t/EhEj+lrwcqzgP+RaTKEfLba0kv0M/D8=;
- b=zDA2XcjgfF0+H/mShyoWolFQ6G1cWIml5F/U3G5hG9QyutPMP0ZDA8L3jegj2VmY2tfQj+
- TL2Zp2sIXcrDPvvsIcbPuPowdzqz6YigUHa0zW5bOv2QtJQFzh8IfvOmsr0+ChEhLLHpeG
- HcV4Vq9oMv09tri0P6x5Acc0J/5NLOk3Zts7Ir2Zy4jWIazjNgVftWQ7bz4QBifg2rIhNJ
- Ksf9Z8Y/SjX3XtTk+5QeSyCuqr1Dj8ptTrgTqMf0lTU4nQ1RLTm90p0ghGR5fj+uGdrYZA
- NmTbOQ0Z2/Z9ePBpn6bXtwdz07YD+v3M2c9SGjqaFyPDkiutXxvbGX/faoHqMQ==
+ bh=VxvB3jeuaoZKF1Y80P48kAyWqaNMXNm9heNN4Bt5VPQ=;
+ b=GOmfKRR39uEh79nQ5VS7qxRSBn53MS3obcc3+ILYBXYavhK6fZVFJzdiXXTQnC3ZFqR9Os
+ lhPQJTCZ1xSH0Z7uqvK9iz6hiCgHIT1i8xgQlgs/sOGk+xuqkIFoSKdNtscbmdLF3P0+hR
+ +UXry6+inwRL4eFQwAwhNjWgG5vOOykhPMl/FNxthyLuNmn5ukp+kZYniEn3BoI2RTsod/
+ d/BjuJ9qrYtl0GYOJP/ij5n/l9izRHrcj4KpijAg6yoKTydsxr0rPuF1jzQNV1yGUfg/v7
+ I8hrYnXDGsBChhdY0ccygLeYtiJFOgk6nzVT3eoDufoDLri8a+2pumA3v3qCZg==
 From: Louis Chauvet <louis.chauvet@bootlin.com>
-Date: Fri, 20 Nov 2026 18:59:00 +0100
-Subject: [PATCH v6 18/43] drm/vkms: Introduce config for plane name
+Date: Fri, 20 Nov 2026 18:59:01 +0100
+Subject: [PATCH v6 19/43] drm/vkms: Use plane folder name as plane name
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20261120-vkms-all-config-v6-18-78ace90f4fc1@bootlin.com>
+Message-Id: <20261120-vkms-all-config-v6-19-78ace90f4fc1@bootlin.com>
 References: <20261120-vkms-all-config-v6-0-78ace90f4fc1@bootlin.com>
 In-Reply-To: <20261120-vkms-all-config-v6-0-78ace90f4fc1@bootlin.com>
 To: Haneen Mohammed <hamohammed.sa@gmail.com>, 
@@ -62,21 +62,21 @@ Cc: Luca Ceresoli <luca.ceresoli@bootlin.com>,
  linux-doc@vger.kernel.org, Simona Vetter <simona.vetter@ffwll.ch>, 
  llvm@lists.linux.dev
 X-Mailer: b4 0.17-dev
-X-Developer-Signature: v=1; a=openpgp-sha256; l=4490;
+X-Developer-Signature: v=1; a=openpgp-sha256; l=1728;
  i=louis.chauvet@bootlin.com; h=from:subject:message-id;
- bh=vh+dkp5wcZli5cK0MUpSsS6MGsbDjFsfTgok8eQF73I=;
- b=owEBiQJ2/ZANAwAIASCtLsZbECziAcsmYgBrAIr/Mvl8sVMUqXoquWx5WZAGthoGiu2U30GVl
- DPcovVfj/iJAk8EAAEIADkWIQRPj7g/vng8MQxQWQQgrS7GWxAs4gUCawCK/xsUgAAAAAAEAA5t
- YW51MiwyLjUrMS4xMiwyLDIACgkQIK0uxlsQLOKtSQ/+OwPdbKxhzmAkSBg7ecamCHpuzwcecPd
- RlApPOV0sVSnl4PhSqcVRvvfXx3YpoJjayS2U1wSpo1pWBUb2L2+JgJR+jCw4aGuAfrWJwjc/LS
- OR2HaL+VENFmZrt510n0ZxvJnULpMVehbrtMS9Pk6LLetvKdaaAUAtak+C5LLts0gn+z2FCoIMd
- Tkany9R1b6hzY5NrpM576xhxTLbDepJJ0ymNDZgddnPE/3SLpDf/DZZyFB52/9KBgm+pCTBjArw
- EHxOZlDu+8D9E3HkwNKJ5eg/o6qjQz495hFPg7i8bWpobXkf8EzT17M8G8Itpb4uYF8fAWukNPm
- yLbzqNQgwNQgqEqkiIrkpk3G+wdFwCUlA6g1lUYzwnbHizdW5ykHE491fnGBoxyrmR9sg4uuUQo
- A/YWdh7l/hlvKuzw4b5CyrEanjW7vq6ZMpM2LkNDO9AjGmiq9hitc3r8TObCK9zOLWSKvBQsUiF
- 884nraZWBHBFqZvRUFUJl6rkrw5MFr3urm4iUkHOL0oTMydHVBnZ+V8rLZZCWVazEZprIjTdCnJ
- zpw4xyIrdwBpZVtJtqpgfubQlUdfBdRtphLsc+2znvBarcRKF45sCZppDDb+exm8BFNnh497HDi
- r4BZlZrl/D0GHRC95c/SzdDBjCN70aDTwJTHvO2nixJCWsQdu93E=
+ bh=LDiCl7pqKtJMqRvE3mr2TEpnty9XeoWtToOQc8swqm0=;
+ b=owEBiQJ2/ZANAwAIASCtLsZbECziAcsmYgBrAIr/uT/GiwWpk9F0PAnSY9Ce57lQHeRWwPXcU
+ staq7AylL+JAk8EAAEIADkWIQRPj7g/vng8MQxQWQQgrS7GWxAs4gUCawCK/xsUgAAAAAAEAA5t
+ YW51MiwyLjUrMS4xMiwyLDIACgkQIK0uxlsQLOJF9A//VV8Qu812gGTw/xKh/njTNShxFXd8n/e
+ t+4hl5NwiIwrTAKlz5IC7pCZq20u8IDeK45jtVVWn8xIwN+wE7VO7TkA6Scveke7Oc9V/QCJTqb
+ jvqlgQRR9DUpojMWHq8ohepesoDWlKDs7PTUaHV9BGod385iiuWq7FqNDPccoJ5l6F6BnMYVUBq
+ NnqlGAboXEYO3jR6kybZSiVCg9P+U+rztaVdg1Jj2+BAr+yg+2OVS8bbhpyfQ8XMgNH1YdRtg+G
+ 1VPF0rzyuvYz59a2FLl7mLt/TpFxa5HCxcb+5mdrVsua/reJtb2UlIUfVJRtQDS6SEay1r/U7g+
+ c8EMpicNbEEVvwkdWJvnb+NrfJHgnFQEPLvrGGotie55i4aVhfPLqwyT2xgFpxYiMcKxv2KG1SM
+ PSjuk2nfdzQNUE6T3AR99P+nIMIjm2Q6BKtlfKjbCvT7/uGWz+74aba6fSkxj9Xyaa9Rk/qVWtq
+ FGPCAWOLein0sN2BrOKrwzUAi+js4uMa4c8NeIZlsicag6Kyy2S4PWBzHE1iOiibD8YufXbiF6I
+ WaiFfEnpny3M7eUQVBDvsl++cKL/9Xfq+ltBbLGrEgwsvv2KdVhcs2hy55TgVK9q67E9eziNMvo
+ /5byyFbGZ1AxZMCfdDe+L26FL0WX79zWkMDQHnWM+Uy/UHJ0yJTI=
 X-Developer-Key: i=louis.chauvet@bootlin.com; a=openpgp;
  fpr=8B7104AE9A272D6693F527F2EC1883F55E0B40A5
 X-Last-TLS-Session-Version: TLSv1.3
@@ -99,139 +99,48 @@ X-Spam-Status: No, score=-18.8 required=3.0 tests=BAYES_00,DKIM_SIGNED,
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-As planes can have a name in DRM, prepare VKMS to configure it using
-ConfigFS.
+The plane name is now directly derived from the configfs folder
+name. When a plane directory is created under
+/config/vkms/<device>/planes/, the folder name is used as the
+plane name via vkms_config_plane_set_name.
 
 Signed-off-by: Louis Chauvet <louis.chauvet@bootlin.com>
 ---
- drivers/gpu/drm/vkms/vkms_config.c | 11 +++++++++++
- drivers/gpu/drm/vkms/vkms_config.h | 35 +++++++++++++++++++++++++++++++++++
- drivers/gpu/drm/vkms/vkms_plane.c  |  3 ++-
- 3 files changed, 48 insertions(+), 1 deletion(-)
+ Documentation/ABI/testing/configfs-vkms | 3 ++-
+ drivers/gpu/drm/vkms/vkms_configfs.c    | 6 ++++++
+ 2 files changed, 8 insertions(+), 1 deletion(-)
 
-diff --git a/drivers/gpu/drm/vkms/vkms_config.c b/drivers/gpu/drm/vkms/vkms_config.c
-index 4127fb176a87..fe82fb9e344a 100644
---- a/drivers/gpu/drm/vkms/vkms_config.c
-+++ b/drivers/gpu/drm/vkms/vkms_config.c
-@@ -394,6 +394,9 @@ static int vkms_config_show(struct seq_file *m, void *data)
- 		seq_puts(m, "plane:\n");
- 		seq_printf(m, "\ttype=%s\n",
- 			   drm_get_plane_type_name(vkms_config_plane_get_type(plane_cfg)));
-+		seq_printf(m, "\tname=%s\n",
-+			   vkms_config_plane_get_name(plane_cfg) ?
-+			   vkms_config_plane_get_name(plane_cfg) : "(null)");
- 	}
+diff --git a/Documentation/ABI/testing/configfs-vkms b/Documentation/ABI/testing/configfs-vkms
+index 26e7f81b5b7d..55e4183046ec 100644
+--- a/Documentation/ABI/testing/configfs-vkms
++++ b/Documentation/ABI/testing/configfs-vkms
+@@ -98,7 +98,8 @@ Date:		Nov 2025
+ Contact:	dri-devel@lists.freedesktop.org
+ Description:
+ 	This group contains attributes corresponding to the
+-	plane <plane> of the VKMS device <device>.
++	plane <plane> of the VKMS device <device>. The name of
++	the directory becomes the name of the DRM plane.
  
- 	vkms_config_for_each_crtc(vkmsdev->config, crtc_cfg) {
-@@ -439,12 +442,19 @@ struct vkms_config_plane __must_check *vkms_config_create_plane(struct vkms_conf
- 	plane_cfg->config = config;
- 	plane_cfg->default_pipeline = false;
- 	vkms_config_plane_set_type(plane_cfg, DRM_PLANE_TYPE_OVERLAY);
+ What:		/sys/kernel/config/vkms/<device>/planes/<plane>/type
+ Date:		Nov 2025
+diff --git a/drivers/gpu/drm/vkms/vkms_configfs.c b/drivers/gpu/drm/vkms/vkms_configfs.c
+index a7ddcfd4e86e..3a1a34643cce 100644
+--- a/drivers/gpu/drm/vkms/vkms_configfs.c
++++ b/drivers/gpu/drm/vkms/vkms_configfs.c
+@@ -375,6 +375,12 @@ static struct config_group *make_plane_group(struct config_group *group,
+ 			return ERR_PTR(ret);
+ 		}
+ 
++		ret = vkms_config_plane_set_name(plane->config, name, strlen(name));
++		if (ret) {
++			vkms_config_destroy_plane(plane->config);
++			return ERR_PTR(ret);
++		}
 +
-+	ret = vkms_config_plane_set_name(plane_cfg, NULL, 0);
-+	if (ret)
-+		goto cleanup_plane_cfg;
-+
- 	xa_init_flags(&plane_cfg->possible_crtcs, XA_FLAGS_ALLOC);
+ 		config_group_init_type_name(&plane->group, name, &plane_item_type);
  
- 	list_add_tail(&plane_cfg->link, &config->planes);
- 
- 	return plane_cfg;
- 
-+cleanup_plane_cfg:
-+	kfree(plane_cfg);
- fail:
- 	return ERR_PTR(ret);
- }
-@@ -454,6 +464,7 @@ void vkms_config_destroy_plane(struct vkms_config_plane *plane_cfg)
- {
- 	xa_destroy(&plane_cfg->possible_crtcs);
- 	list_del(&plane_cfg->link);
-+	kfree(plane_cfg->name);
- 	kfree(plane_cfg);
- }
- EXPORT_SYMBOL_IF_KUNIT(vkms_config_destroy_plane);
-diff --git a/drivers/gpu/drm/vkms/vkms_config.h b/drivers/gpu/drm/vkms/vkms_config.h
-index 49510a0957c7..8704b6f71000 100644
---- a/drivers/gpu/drm/vkms/vkms_config.h
-+++ b/drivers/gpu/drm/vkms/vkms_config.h
-@@ -44,6 +44,7 @@ struct vkms_config {
-  *
-  * @link: Link to the others planes in vkms_config
-  * @config: The vkms_config this plane belongs to
-+ * @name: Name of the plane
-  * @type: Type of the plane. The creator of configuration needs to ensures that
-  *        at least one primary plane is present.
-  * @possible_crtcs: Array of CRTCs that can be used with this plane
-@@ -56,6 +57,7 @@ struct vkms_config_plane {
- 	struct list_head link;
- 	struct vkms_config *config;
- 
-+	const char *name;
- 	enum drm_plane_type type;
- 	struct xarray possible_crtcs;
- 	bool default_pipeline;
-@@ -342,6 +344,39 @@ vkms_config_plane_set_default_pipeline(struct vkms_config_plane *plane_cfg,
- 	plane_cfg->default_pipeline = default_pipeline;
- }
- 
-+/**
-+ * vkms_config_plane_set_name() - Set the plane name
-+ * @plane_cfg: Plane to set the name to
-+ * @name: New plane name. The name is copied.
-+ *
-+ * Returns: -ENOMEM if the memory allocation failed, 0 in case of success
-+ */
-+static inline int __must_check
-+vkms_config_plane_set_name(struct vkms_config_plane *plane_cfg,
-+			   const char *name, size_t name_len)
-+{
-+	char *new_name;
-+
-+	new_name = kmemdup_nul(name, name_len, GFP_KERNEL);
-+	if (name && !new_name)
-+		return -ENOMEM;
-+
-+	kfree(plane_cfg->name);
-+	plane_cfg->name = new_name;
-+
-+	return 0;
-+}
-+
-+/**
-+ * vkms_config_plane_get_name - Get the plane name
-+ * @plane_cfg: Plane to get the name from
-+ */
-+static inline const char *
-+vkms_config_plane_get_name(const struct vkms_config_plane *plane_cfg)
-+{
-+	return plane_cfg->name;
-+}
-+
- /**
-  * vkms_config_plane_attach_crtc - Attach a plane to a CRTC
-  * @plane_cfg: Plane to attach
-diff --git a/drivers/gpu/drm/vkms/vkms_plane.c b/drivers/gpu/drm/vkms/vkms_plane.c
-index fd3d34dcf0fe..8ea05c1d98e4 100644
---- a/drivers/gpu/drm/vkms/vkms_plane.c
-+++ b/drivers/gpu/drm/vkms/vkms_plane.c
-@@ -12,6 +12,7 @@
- #include <drm/drm_gem_framebuffer_helper.h>
- #include <drm/drm_print.h>
- 
-+#include "vkms_config.h"
- #include "vkms_drv.h"
- #include "vkms_formats.h"
- 
-@@ -265,7 +266,7 @@ struct vkms_plane *vkms_plane_init(struct vkms_device *vkmsdev,
- 					   &vkms_plane_funcs,
- 					   vkms_formats, ARRAY_SIZE(vkms_formats),
- 					   NULL, vkms_config_plane_get_type(plane_cfg),
--					   NULL);
-+					   "%s", vkms_config_plane_get_name(plane_cfg));
- 	if (IS_ERR(plane))
- 		return plane;
- 
+ 		config_group_init_type_name(&plane->possible_crtcs_group,
 
 -- 
 2.56.0
