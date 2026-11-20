@@ -2,65 +2,58 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 655BC606A320
-	for <dri-devel@archiver.kernel.org>; Fri, 20 Nov 2026 09:56:02 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 39A72606A320
+	for <dri-devel@archiver.kernel.org>; Fri, 20 Nov 2026 09:57:14 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=GP0u4gdA
+	dkim=pass (2048-bit key) header.d=collabora.com header.i=@collabora.com header.a=rsa-sha256 header.s=mail header.b=T1TCU7pz
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 87956112852;
-	Fri, 20 Nov 2026 09:55:56 +0000 (UTC)
-Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 163BE112852
- for <dri-devel@lists.freedesktop.org>; Fri, 20 Nov 2026 09:55:51 +0000 (UTC)
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id BCBF4447DF;
- Fri, 20 Nov 2026 09:55:50 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id F1E9F1F000C4;
- Fri, 20 Nov 2026 09:55:42 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1795168550;
- bh=qyrgnqyAtWqlxuswsMQE0t4cgrkAkoCIR2wECYGDFYE=;
- h=Date:From:To:Cc:Subject:References:In-Reply-To;
- b=GP0u4gdAojIMgPsbZyvPNMOhmUxd/MzlJD8JRl9D77ESr9JnULCKtvoWeSgrMzj5e
- BM4BXyoib7MJcqQH8cMnqHclQIjzDlbR35ErJtS9NDuSSAxyxnktr3EzRENR1LD7wB
- kZYJe4gaZY7uQSw/SqL/Ml/+78Uog0rd4NblK7ZlADqxwvR/D4RcSoVmrV8+CwuiOP
- bJ39TDLj1Fl5fdgpN7RRBsTDMP4RTTWhgV71BHM29aCcOjpJanTD/ymlXCmfBVGA8o
- LF0JjU29TF1fr57T/VklvVc7mSKTCIAIu8y43985XxKsyq/QG98YmBlJJ0XvzdhHzg
- 8Vj11qV+C2oGg==
-Date: Fri, 20 Nov 2026 10:55:40 +0100
-From: Christian Brauner <brauner@kernel.org>
-To: Mengmeng Zhao <mengmeng.zhao@linux.dev>, 
-	Christoph Hellwig <hch@lst.de>
-Cc: Anuj Gupta <anuj1072538@gmail.com>, 
- Nitesh Shetty <nj.shetty@samsung.com>, Jens Axboe <axboe@kernel.dk>, 
- Sumit Semwal <sumit.semwal@linaro.org>, christian.koenig@amd.com,
- Philipp Stanner <phasta@kernel.org>, 
- Dan Williams <djbw@kernel.org>, Matthew Wilcox <willy@infradead.org>,
- Jan Kara <jack@suse.cz>, 
- Alexander Viro <viro@zeniv.linux.org.uk>, tytso@mit.edu,
- Andreas Dilger <adilger.kernel@dilger.ca>, 
- Baokun Li <libaokun@linux.alibaba.com>, Ojaswin Mujoo <ojaswin@linux.ibm.com>, 
- "Ritesh Harjani (IBM)" <ritesh.list@gmail.com>, Zhang Yi <yi.zhang@huawei.com>,
- asml.silence@gmail.com, 
- Jonathan Corbet <corbet@lwn.net>, Shuah Khan <skhan@linuxfoundation.org>, 
- Randy Dunlap <rdunlap@infradead.org>, linux-block@vger.kernel.org,
- linux-kernel@vger.kernel.org, 
- linux-fsdevel@vger.kernel.org, nvdimm@lists.linux.dev,
- linux-ext4@vger.kernel.org, 
- linux-xfs@vger.kernel.org, linux-doc@vger.kernel.org,
- linux-media@vger.kernel.org, 
- dri-devel@lists.freedesktop.org, linaro-mm-sig@lists.linaro.org,
- Li Wang <liwang@kylinos.cn>, Mengmeng Zhao <zhaomengmeng@kylinos.cn>
-Subject: Re: [RFC PATCH v2 6/8] fs: add FMODE_CAN_DMABUF_IO and require it
- for dma-buf I/O contexts
-Message-ID: <20261120-faust-bohnenkraut-reduzieren-a30811186a15@brauner>
-References: <20261113070621.273953-1-mengmeng.zhao@linux.dev>
- <20261113070621.273953-7-mengmeng.zhao@linux.dev>
+	by gabe.freedesktop.org (Postfix) with ESMTP id 5AEDB10E0CC;
+	Fri, 20 Nov 2026 09:57:08 +0000 (UTC)
+Received: from bali.collaboradmins.com (bali.collaboradmins.com
+ [148.251.105.195])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 11A2810E0CC
+ for <dri-devel@lists.freedesktop.org>; Fri, 20 Nov 2026 09:57:02 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
+ s=mail; t=1795168620;
+ bh=kVuErGnzgjCpfRpl9ChLGXyTSW00UJKEHoErDw4aJWk=;
+ h=Date:From:To:Cc:Subject:In-Reply-To:References:From;
+ b=T1TCU7pzZKeBzmfnB9+i3hcVq4LBFdMb6uYfuP4tcBM9RkZC6gzfe9quShSZK44/W
+ XfgMrehpUq7Me1mRcmTHWQ+GMAppSYHRBpkXrj0Y6kFFN2gNtz+70wYT5pLGvRlCEX
+ vGQvLuoAurkR6uNhDTG4/MP8/8Xt/P9T0OYv+9+OwurJhhDhBc/fqs0RaEz9MYsOsQ
+ BOXZy1CLoJy83q5pdS+zFUwP9FhadiJ7cb1RaD6ySZzXgn4FVGWFVrPwR0lszhRr+5
+ s/gOoKYsBRyUFJHaWn2EKdSsga/KfoPBQ/YgOKvy/z4ondc1Q4mC4QtNTraV1NXJaN
+ CSfOs3HXZ/GHw==
+Received: from fedora1.home (unknown [100.64.0.11])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange secp256r1 server-signature RSA-PSS (4096 bits) server-digest
+ SHA256) (No client certificate requested)
+ (Authenticated sender: bbrezillon)
+ by bali.collaboradmins.com (Postfix) with ESMTPSA id B6CAC17E0630;
+ Fri, 20 Nov 2026 10:56:59 +0100 (CET)
+Date: Fri, 20 Nov 2026 10:56:54 +0100
+From: Boris Brezillon <boris.brezillon@collabora.com>
+To: =?UTF-8?B?TWHDrXJh?= Canal <mcanal@igalia.com>
+Cc: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, Maxime Ripard
+ <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, David Airlie
+ <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, Faith Ekstrand
+ <faith.ekstrand@collabora.com>, Rob Herring <robh@kernel.org>, Steven Price
+ <steven.price@arm.com>, =?UTF-8?B?QWRyacOhbg==?= Larumbe
+ <adrian.larumbe@collabora.com>, Liviu Dudau <liviu.dudau@arm.com>, Akash
+ Goel <akash.goel@arm.com>, Karunika Choo <karunika.choo@arm.com>, Lukas
+ Zapolskas <lukas.zapolskas@arm.com>, Chris Diamand <chris.diamand@arm.com>,
+ Daniel Almeida <daniel.almeida@collabora.com>, Alice Ryhl
+ <aliceryhl@google.com>, kernel-dev@igalia.com,
+ dri-devel@lists.freedesktop.org, rust-for-linux@vger.kernel.org
+Subject: Re: [PATCH 0/6] drm/panfrost,panthor: Refuse to export WB_MMAP BOs
+Message-ID: <20261120105654.63e1c254@fedora1.home>
+In-Reply-To: <20261119-pan-drop-dma-buf-hooks-v1-0-6c6f1629e7f9@igalia.com>
+References: <20261119-pan-drop-dma-buf-hooks-v1-0-6c6f1629e7f9@igalia.com>
+Organization: Collabora
+X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; x86_64-redhat-linux-gnu)
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-In-Reply-To: <20261113070621.273953-7-mengmeng.zhao@linux.dev>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: quoted-printable
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -72,150 +65,104 @@ List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-15.8 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
-	DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
-	INCLUDES_CR_TRAILER,INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,
-	SPF_PASS autolearn=ham autolearn_force=no version=4.0.1
+X-Spam-Status: No, score=-7.3 required=3.0 tests=BAYES_00,DKIM_SIGNED,
+	DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
+	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,USER_AGENT_SANE_2
+	autolearn=no autolearn_force=no version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-On Fri, Nov 13, 2026 at 03:06:19PM +0800, Mengmeng Zhao wrote:
-> From: Mengmeng Zhao <zhaomengmeng@kylinos.cn>
-> 
-> Add a file mode bit for files that can be the target of dma-buf I/O and
-> require it when a buffer is registered.  Block device files set it when
-> the backing disk supports dma-buf I/O, and filesystems can set it for
-> inodes whose data can be reached without the page cache.  The bit is
-> coarse: a driver that installs ->init_dma_buf_io_ctx for every
-> namespace, like nvme, still decides per device at registration.
-> 
-> dma_buf_io_ctx_create() is the only caller of ->init_dma_buf_io_ctx, so
-> the capability and the O_DIRECT requirement are checked there for every
-> file type rather than in each helper; O_DIRECT belongs at registration
-> because F_SETFL can change it afterwards.  Add bdev_can_dmabuf_io() so
-> the open-time and registration checks share one predicate.
-> 
-> Signed-off-by: Mengmeng Zhao <zhaomengmeng@kylinos.cn>
-> Signed-off-by: Li Wang <liwang@kylinos.cn>
-> ---
->  block/bdev.c                 |  8 ++++----
->  block/fops.c                 |  2 +-
->  drivers/dma-buf/dma-buf-io.c | 13 +++++++++----
->  include/linux/blkdev.h       |  7 ++++++-
->  include/linux/fs.h           |  8 +++++++-
->  5 files changed, 27 insertions(+), 11 deletions(-)
-> 
-> diff --git a/block/bdev.c b/block/bdev.c
-> index 88e3f552f5d4..4e7a7f7e1e8b 100644
-> --- a/block/bdev.c
-> +++ b/block/bdev.c
-> @@ -61,14 +61,12 @@ struct block_device *file_bdev(struct file *bdev_file)
->  }
->  EXPORT_SYMBOL(file_bdev);
->  
-> -int bdev_init_dma_buf_io_ctx(struct file *file, struct block_device *bdev,
-> +int bdev_init_dma_buf_io_ctx(struct block_device *bdev,
->  			     struct dma_buf_io_ctx *ctx)
->  {
-> -	if (!(file->f_flags & O_DIRECT))
-> -		return -EINVAL;
->  	if (ctx->dmabuf->size > UINT_MAX)
->  		return -EINVAL;
-> -	if (!bdev->bd_disk->fops->init_dma_buf_io_ctx)
-> +	if (!bdev_can_dmabuf_io(bdev))
->  		return -EOPNOTSUPP;
->  	return bdev->bd_disk->fops->init_dma_buf_io_ctx(bdev, ctx);
->  }
-> @@ -1041,6 +1039,8 @@ int bdev_open(struct block_device *bdev, blk_mode_t mode, void *holder,
->  
->  	bdev_file->f_flags |= O_LARGEFILE;
->  	bdev_file->f_mode |= FMODE_CAN_ODIRECT;
-> +	if (bdev_can_dmabuf_io(bdev))
-> +		bdev_file->f_mode |= FMODE_CAN_DMABUF_IO;
->  	if (bdev_nowait(bdev))
->  		bdev_file->f_mode |= FMODE_NOWAIT;
->  	if (mode & BLK_OPEN_RESTRICT_WRITES)
-> diff --git a/block/fops.c b/block/fops.c
-> index 86bf1f298b79..7e5702e047a2 100644
-> --- a/block/fops.c
-> +++ b/block/fops.c
-> @@ -1008,7 +1008,7 @@ static int blkdev_mmap_prepare(struct vm_area_desc *desc)
->  static int blkdev_init_dma_buf_io_ctx(struct file *file,
->  				      struct dma_buf_io_ctx *ctx)
->  {
-> -	return bdev_init_dma_buf_io_ctx(file, file_bdev(file), ctx);
-> +	return bdev_init_dma_buf_io_ctx(file_bdev(file), ctx);
->  }
->  
->  const struct file_operations def_blk_fops = {
-> diff --git a/drivers/dma-buf/dma-buf-io.c b/drivers/dma-buf/dma-buf-io.c
-> index 8440151de860..9575b7d65ec5 100644
-> --- a/drivers/dma-buf/dma-buf-io.c
-> +++ b/drivers/dma-buf/dma-buf-io.c
-> @@ -152,9 +152,11 @@ static void dma_buf_io_ctx_shutdown(struct dma_buf_io_ctx *ctx)
->   * @out_ctx:	[out]	resulting ctx
->   *
->   * Create a new I/O context from the given DMA buffer for the given file.
-> - * It only works with files implementing ->init_dma_buf_io_ctx and fails
-> - * with -EOPNOTSUPP otherwise. Once created, the user can create a map
-> - * and use it to issue I/O, such as read/write requests, to @file.
-> + * It only works with files implementing ->init_dma_buf_io_ctx,
-> + * advertising FMODE_CAN_DMABUF_IO and currently opened for direct I/O,
-> + * and fails with -EOPNOTSUPP or -EINVAL otherwise. Once created, the
-> + * user can create a map and use it to issue I/O, such as read/write
-> + * requests, to @file.
->   */
->  int dma_buf_io_ctx_create(struct file *file,
->  			   struct dma_buf *dmabuf,
-> @@ -164,8 +166,11 @@ int dma_buf_io_ctx_create(struct file *file,
->  	struct dma_buf_io_ctx *ctx;
->  	int ret;
->  
-> -	if (!file->f_op->init_dma_buf_io_ctx)
-> +	if (!file->f_op->init_dma_buf_io_ctx ||
-> +	    !(file->f_mode & FMODE_CAN_DMABUF_IO))
->  		return -EOPNOTSUPP;
-> +	if (!(file->f_flags & O_DIRECT))
-> +		return -EINVAL;
->  
->  	ctx = kzalloc_obj(*ctx);
->  	if (!ctx)
-> diff --git a/include/linux/blkdev.h b/include/linux/blkdev.h
-> index b98f43478cc0..0cfb6fb6b4e2 100644
-> --- a/include/linux/blkdev.h
-> +++ b/include/linux/blkdev.h
-> @@ -1610,9 +1610,14 @@ struct block_device_operations {
->  	int (*alternative_gpt_sector)(struct gendisk *disk, sector_t *sector);
->  };
->  
-> -int bdev_init_dma_buf_io_ctx(struct file *file, struct block_device *bdev,
-> +int bdev_init_dma_buf_io_ctx(struct block_device *bdev,
->  			     struct dma_buf_io_ctx *ctx);
->  
-> +static inline bool bdev_can_dmabuf_io(struct block_device *bdev)
-> +{
-> +	return !!bdev->bd_disk->fops->init_dma_buf_io_ctx;
-> +}
-> +
->  #ifdef CONFIG_COMPAT
->  extern int blkdev_compat_ptr_ioctl(struct block_device *, blk_mode_t,
->  				      unsigned int, unsigned long);
-> diff --git a/include/linux/fs.h b/include/linux/fs.h
-> index 99caef43ff3c..f5524fc770d4 100644
-> --- a/include/linux/fs.h
-> +++ b/include/linux/fs.h
-> @@ -121,7 +121,13 @@ typedef int (dio_iodone_t)(struct kiocb *iocb, loff_t offset,
->  /* File supports atomic writes */
->  #define FMODE_CAN_ATOMIC_WRITE	((__force fmode_t)(1 << 7))
->  
-> -/* FMODE_* bit 8 */
-> +/*
-> + * File can be the target of dma-buf I/O.  Set it for files whose data can be
-> + * reached with direct I/O without the page cache: a dma-buf iterator has no
-> + * pages to copy, so a buffered path cannot serve it.  The bit is coarse; both
-> + * the device behind it and O_DIRECT are checked when a buffer is registered.
-> + */
-> +#define FMODE_CAN_DMABUF_IO	((__force fmode_t)(1 << 8))
+Hi Maira,
 
-This is stealing yet another FMODE_* bit for special-purpose stuff.
-We're really really short of them. Did Christoph suggest this?
+On Thu, 19 Nov 2026 16:38:15 -0300
+Ma=C3=ADra Canal <mcanal@igalia.com> wrote:
+
+> This series follows up on the discussion in the V3D cached maps series
+> [1], about how to handle CPU-cached BOs that are shared through dma-buf.
+>=20
+> As pointed by Faith and Boris, when a buffer is shared through dma-buf,
+> there's no way to ensure that a client will properly bracket their CPU
+> accesses with DMA_BUF_IOCTL_SYNC. With WC mappings, waiting on fences is
+> enough to guarantee consistency. However, with WB mappings, a missed sync
+> can leave dirty cache lines behind, which another client can end up
+> writing over.
+>=20
+> PanVK already keeps WB_MMAP BOs private, so this series only makes the
+> kernel enforce the same policy on Panfrost and Panthor. As WB_MMAP BOs can
+> no longer be exported, the custom dma_buf_ops providing begin/end_cpu_acc=
+ess()
+> are no longer needed for them and are replaced by the default PRIME ops.
+>=20
+> - Patch 1 adds the drm_gem_shmem_sync() helper, taken from [2].
+> - Patches 2 and 5 refuse to export WB_MMAP BOs in Panfrost and Panthor.
+> - Patches 3 and 6 drop the custom dma_buf_ops from Panfrost and Panthor.
+> - Patch 4 converts Panfrost to drm_gem_shmem_sync(). V3D will also use it
+>   to implement its cached maps, which I'll send in a separate series.
+>=20
+> Patches 3 and 6 need some extra attention as they aren't a no-op on
+> IO-coherent GPUs. In this case, all BOs are CPU-mapped WB, and the custom
+> begin/end_cpu_access() could be used to sync the mappings of non-coherent
+> importers.
+
+Ah, I completely forgot about this, thanks for the reminder. If we have
+a system where the GPU is IO-coherent, but the video decoder or the
+display controller isn't, we either need to force CPU-uncached
+mappings for everybody with extra forced syncs on the UMD side for that
+case (right now we assume that IO coherent implies always-WB IIRC), or
+we need CPU access signalization with a proper begin/end_cpu_access()
+implementation to keep things consistent when cross-dev sharing is
+involved. I think this was the very reason I decided to keep the
+begin/end_cpu_access() implementation in panfrost/panthor in the first
+place.
+
+Note that the same problem can exist if the other device is the
+exporter and is IO coherent, but the GPU isn't. If the exporter were to
+expose CPU mappings as cached without proper sync hooks, we'd face the
+same problem. One way to avoid it would be to never CPU map imported
+buffers in mesa, but IIRC, that's not an option.
+
+>=20
+> However, I decided to send these patches either way because they only
+> restore the behavior prior to commits 3ae6637378e6 and 925ad0c26dd8, which
+> is what we discussed in [1] (IIUC). Also, Mesa writes through the GEM mmap
+> without DMA_BUF_IOCTL_SYNC, so it never relied on these hooks anyway.
+
+Mesa doesn't, but there might be other elements in-between (video
+decoder, and some custom layers analyzing/touching frames from the CPU
+before they're passed to the GPU). I get the "it used to work" argument,
+but I'm worried we're going backwards here. I also hate the fact we're
+going back to a "broken" implementation without even updating the dmabuf
+docs to explain that this sync-around-CPU-access mechanism is
+deprecated/fragile/broken and shouldn't be relied on.
+
+>=20
+> Still, if you think this would be problematic, I can drop patches 3 and 6.
+
+I was about to suggest forcing uncached CPU mappings for shareable BOs
+on systems where the GPU is IO coherent, but there's actually no way we
+can know whether a BO will be exported on not on Panfrost (on Panthor
+we at least have this exclusive_vm thing that gives this guarantee). So
+there's actually no way around it, it's either going back to a "broken"
+state (broken in the sense it's not doing what it's supposed to, but no
+one really complained in the past) or keep this sync logic to try to do
+our best (even if it's not entirely safe, especially if the importer
+does crazy stuff like pretending to be UMA when it's not).
+
+Sorry for not having a better answer than: it might be okay, but it
+looks wrong. Every time I tried to understand what's expected from us
+for this shared buffer synchronization, I ended up more confused than
+before...
+
+>=20
+> The Panthor changes were tested on hardware, but Panfrost changes were
+> only compile-tested.
+
+Could you prepare a custom gfx-ci kernel [1] so we can check that mesa
+CI is not regressed by this change? I know none of the tests in mesa CI
+would normally hit the removed logic, but better safe than sorry.
+
+Regards,
+
+Boris
+
+[1]https://gitlab.freedesktop.org/gfx-ci/linux
