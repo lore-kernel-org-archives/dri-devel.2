@@ -2,106 +2,129 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B3464606A335
-	for <dri-devel@archiver.kernel.org>; Fri, 20 Nov 2026 02:36:30 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0B615606A33F
+	for <dri-devel@archiver.kernel.org>; Fri, 20 Nov 2026 03:16:36 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=amd.com header.i=@amd.com header.a=rsa-sha256 header.s=selector1 header.b=5O5vTBk7
+	dkim=pass (2048-bit key, unprotected) header.d=Nvidia.com header.i=@Nvidia.com header.a=rsa-sha256 header.s=selector2 header.b=W5IIEQeC
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id C064410EC4C;
-	Fri, 20 Nov 2026 02:36:24 +0000 (UTC)
-Received: from CH5PR02CU005.outbound.protection.outlook.com
- (mail-northcentralusazon11012045.outbound.protection.outlook.com
- [40.107.200.45])
- by gabe.freedesktop.org (Postfix) with ESMTPS id CEAD410EC88
- for <dri-devel@lists.freedesktop.org>; Fri, 20 Nov 2026 02:36:18 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 4EB6B10E1E2;
+	Fri, 20 Nov 2026 03:16:30 +0000 (UTC)
+Received: from SN4PR0501CU005.outbound.protection.outlook.com
+ (mail-southcentralusazon11011065.outbound.protection.outlook.com
+ [40.93.194.65])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 3B44410E1E2
+ for <dri-devel@lists.freedesktop.org>; Fri, 20 Nov 2026 03:16:24 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=KjrzKfM8tUYaTsprbhHzfXC6G2UQGCVlGCcw595YrBetdoAXCpnV4fGib+BmPYo7pvUS94RiNcyw+uUs13as+xgy1Qq3GaoFe5ZqFhAsAI9vo9XHedSLvZo2E/RTPiYeFJBKx5ey3ZGo+T7/x2sQ9nwwvecgG6OEZZBrm8lA+17t7NhJ4Z8UezAV/3kYUm3vEKXKYi1Od8S170Sv2WZuz1ljTRRh858zWewxqBsoHQ69Hm9hoYfUHGKwkBGHIG5XqOPo/x/CBc5kWMBmItwvpzfAE9snWpLBmIJ96EP+YW6P5Re0UjsQs1x5P7B1w6XiWYstQ730hTdRv6oJ16hx8Q==
+ b=OA0dHY8VV7FoMN1rgucXjWc3yMlkIo2qmycOLQkYyWH2MlBpJGkyo1J3lYQUEPZuclnrAzq/47dgGUKqJN04X3yXDoXB+/z+Lf+3yONNy2fRUcIu4TsT8ZJ4bPYr/nLqSowWs22KAt2M8nmBQad5Ldk0qLwXYpx24gqQ3WyKmMjQ1U+4gn0u8GX2r6BLUq2LafTAxcWA8ThoIKk9lQuV1QDID/O+hZFlqecPoh09+Fb0yMd2uYqHzTucqqWypixtZ9dblz9wXKCRA+bCesWZwpnMIlqwURq8/mAuRSXWn4gm0q2kOLzYP6KPMQtpeQcZ1meyLVm5QhztsUTkT+hoHQ==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=6HNiTxFvfoUCPr4e9tvsdhmnMKPupztmudlbX8ci/3s=;
- b=apSkTEcskBE/fJVd4fbKM+U9a9ov6WP9r34CiXoZyX3Lrev9XRqq/EvUVysBlc5pygM6ENCg8jdUonIu5t1kjiZatpeOB0FZUs1l/1+ZN4NfmN2UGU2M1Eq4OlmZmXDXX+/Ox3NUpjlpJYCxD8Z9nO6PDBrSLUJPcCWuEagT3YuZU+T6BKNtyRD3SYMDDfwItFDRU9539DEcXMApz9s87r7iZE522sTHFIfPiG7qJ9sEXS4x3FlN5n/RQn4IZST7RhIXkq/KOrNNbre/CP/7IfNHLlK1rx6h3VSDVFlg/i/P7aGjkMzfWzdDHe8cbf1BM/yvbMmR215G0PTqe5SR7A==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=kernel.org smtp.mailfrom=amd.com; dmarc=pass
- (p=quarantine sp=quarantine pct=100) action=none header.from=amd.com;
- dkim=none (message not signed); arc=none (0)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ bh=RazoXDFEmTaGbLInOzJciezu+PHPWUaTuw4kUrHJbbo=;
+ b=xLkX4xPBeumDraHNMFmX1f99b9guwxq7OXkk9rcTRmlNhbbT3UPsAeDtlOQKMtzJM7X0yT1U3ToCI3VxD2L0efFyLi0FYv1RXN71oIIVW23531lq4y+nAGP44Lau+wl5dmk6IYJqs4u52aF/q46DJVHC5QEtdM8mvZqwBa6nAEFpFxCrhL6+gS5sQJX8tjMQM61o9jy3I9dHoU/skCjwJCxfBoG2FbVXbMMdGPGItdOLlorNu7lpO59+VcTer6IuRNhz3AEME6RzEctMbNbw+OX1OVBm5vsWTDQawTd0HIF/lWI26mdy7HcXdUsJEozPGAKuvaDqWk9fn1fb6nDTIw==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
+ dkim=pass header.d=nvidia.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
+ s=selector2;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=6HNiTxFvfoUCPr4e9tvsdhmnMKPupztmudlbX8ci/3s=;
- b=5O5vTBk70yEZbSPR00t+eodfi/69C29EOjo0Bv2rlmoFScHvRFaBe92Y5pV0hqz8+LrPmMkT0p7oc5MrT6jQr5ikin2e3ftIajeY9OuPDJmti16B1k1dxv2VeWTPY8sUxKJRp4Qf5LTi8rHRnduIGmvI6rcrPJTWp/gtCEUqkH0=
-Received: from SJ0P220CA0010.NAMP220.PROD.OUTLOOK.COM (2603:10b6:a03:41b::14)
- by FT1PR12MB777854.namprd12.prod.outlook.com (2603:10b6:170:24::21)
+ bh=RazoXDFEmTaGbLInOzJciezu+PHPWUaTuw4kUrHJbbo=;
+ b=W5IIEQeC4mLSN9MoAfk7uGdmNiZtQHUb1Sh4fjkIb6Ax+l3bNUrm6KWas8A/YtSjwqAv4vDksmhqizIWMB0crfBhl/87YBp8LNInm0BJMMxQ/xDNb2paaLJRguIu5Ygo8r4s1QT7ihgAPV2WqfvOs5Tkjkr7JOuphQYOMWuc607DOBBWKuw61nWSU0ATvvhwaEOXkIs/r+lG6EiK3/U7kKwQzbEXInJDYOhPG1OtmJFafXLyzej0VBvCwrdxFj9tLOeJn7jvLFd4k9PDaqImzC2bCTWMmVqA4/8AIEIn2nV/0Hi7ZUujbwCDr/7JcHQ7PgVJGFwUhRuNOVjRc+sg8g==
+Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=nvidia.com;
+Received: from SJ2PR12MB9161.namprd12.prod.outlook.com (2603:10b6:a03:566::20)
+ by SJ1PR12MB6266.namprd12.prod.outlook.com (2603:10b6:a03:457::11)
  with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.639.10; Fri, 20 Nov
- 2026 02:36:15 +0000
-Received: from SJ1PEPF000037AE.namprd03.prod.outlook.com
- (2603:10b6:a03:41b:cafe::5) by SJ0P220CA0010.outlook.office365.com
- (2603:10b6:a03:41b::14) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.21.639.12 via Frontend Transport; Fri,
- 20 Nov 2026 02:36:15 +0000
-X-MS-Exchange-Authentication-Results: mx.microsoft.com 1; spf=pass (sender IP
- is 165.204.84.17) smtp.mailfrom=amd.com;
- dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=amd.com;
-Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
- 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=satlexmb08.amd.com; pr=C
-Received: from satlexmb08.amd.com (165.204.84.17) by
- SJ1PEPF000037AE.mail.protection.outlook.com (10.167.244.183) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.639.5 via Frontend Transport; Fri, 20 Nov 2026 02:36:15 +0000
-Received: from Satlexmb09.amd.com (10.181.42.218) by satlexmb08.amd.com
- (10.181.42.217) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.57; Thu, 19 Nov
- 2026 20:36:15 -0600
-Received: from satlexmb08.amd.com (10.181.42.217) by satlexmb09.amd.com
- (10.181.42.218) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.57; Thu, 19 Nov
- 2026 20:36:15 -0600
-Received: from xsjlizhih51.xilinx.com (10.180.168.240) by satlexmb08.amd.com
- (10.181.42.217) with Microsoft SMTP Server id 15.2.2562.57 via Frontend
- Transport; Thu, 19 Nov 2026 20:36:14 -0600
-From: Lizhi Hou <lizhi.hou@amd.com>
-To: <ogabbay@kernel.org>, <quic_jhugo@quicinc.com>,
- <dri-devel@lists.freedesktop.org>, <mario.limonciello@amd.com>,
- <karol.wachowski@linux.intel.com>, <max.zhen@amd.com>,
- <christian.koenig@amd.com>, <linaro-mm-sig@lists.linaro.org>
-CC: Lizhi Hou <lizhi.hou@amd.com>, <linux-kernel@vger.kernel.org>,
- <sonal.santan@amd.com>
-Subject: [PATCH V1] accel/amdxdna: Reject a zero sized buffer in
- amdxdna_gem_prime_import()
-Date: Thu, 19 Nov 2026 18:35:40 -0800
-Message-ID: <20261120023540.888381-1-lizhi.hou@amd.com>
-X-Mailer: git-send-email 2.34.1
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.639.12; Fri, 20 Nov
+ 2026 03:16:19 +0000
+Received: from SJ2PR12MB9161.namprd12.prod.outlook.com
+ ([fe80::d9d1:8c49:a703:b017]) by SJ2PR12MB9161.namprd12.prod.outlook.com
+ ([fe80::d9d1:8c49:a703:b017%5]) with mapi id 15.21.0639.011; Fri, 20 Nov 2026
+ 03:16:19 +0000
+From: Mikko Perttunen <mperttunen@nvidia.com>
+To: Thierry Reding <thierry.reding@kernel.org>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ Jonathan Hunter <jonathanh@nvidia.com>, stable@vger.kernel.org
+Cc: Svyatoslav Ryhel <clamor95@gmail.com>, dri-devel@lists.freedesktop.org,
+ linux-tegra@vger.kernel.org, linux-kernel@vger.kernel.org,
+ stable@vger.kernel.org, Patrick Fischer <admin@tsv-stahl-riesa.de>,
+ admin@tsv-stahl-riesa.de
+Subject: Re: [PATCH] gpu: host1x: Cancel the fence when a syncpoint wait is
+ interrupted
+Date: Fri, 20 Nov 2026 12:16:15 +0900
+Message-ID: <xW4QZMkHQ7ahYXD5Tq5ciA@nvidia.com>
+In-Reply-To: <20261113-upstream-host1x-fence-cancel-v1-1-89f453504222@tsv-stahl-riesa.de>
+References: <20261113-upstream-host1x-fence-cancel-v1-1-89f453504222@tsv-stahl-riesa.de>
+Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset="utf-8"
+X-ClientProxiedBy: TY4P286CA0034.JPNP286.PROD.OUTLOOK.COM
+ (2603:1096:405:2b2::13) To SJ2PR12MB9161.namprd12.prod.outlook.com
+ (2603:10b6:a03:566::20)
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: SJ1PEPF000037AE:EE_|FT1PR12MB777854:EE_
-X-MS-Office365-Filtering-Correlation-Id: 62f682e6-dd67-4d66-74d9-08df46af0cc0
+X-MS-TrafficTypeDiagnostic: SJ2PR12MB9161:EE_|SJ1PR12MB6266:EE_
+X-MS-Office365-Filtering-Correlation-Id: 685a4c41-ff7d-45cf-6020-08df46b4a50d
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
- ARA:13230040|376014|1800799024|36860700016|82310400026|23010399003|11063799006|261009223027099003|261021121427099003|261102123227099003|261102130727099003|56012099006|261026121527099003|10067099003|18002099003;
-X-Microsoft-Antispam-Message-Info: p6tYhiTDr1ykDYpvTPTJWZTXwM8Fa7qIcCitOedNajZ4LBQXEgp7EI+4aFkkO4lAI3K+Y6l7GyCjAAifC3hU8cygItPi4RoqDq24i/43LQEJgUL/DOf+imVtiAzJT/rrIoiv42gqeRTG4+DW/qzkyNnOimLVcv43ctKbkKy4s01F5P1Sdm0dRcyJei574YC6TSBQWpI7kCJEVENk8vmn70FQKRFbBoBbTg36L+9tp38k4SJxXB0fD1bgp7uzwFN5eZHikcg6+ugStyyf4PogXuVjXcWyb/BQvCcC8nZzVzorJ9l18N0+TfMM2XFpvCbwvQf/SMYFvXyj+15nG+5mf1YLSJMD3IfloHQwhPuHDnmTUyLFguSsufbrCD/HxCI7wgKXHI0H0PTf+aqWP+jc4xJMMvqoHsXjD5llp+1etQ6o5r7rma56qtKGcyy8yG6Up8WBBgQxdaeNo9gTeEm9DN/J8tF06qorQ/M/sNo/V9IPigMdsH+TMgzlS5lKne6oVJmX7/Q4oBSoVO3gH73by0WPjiOmYX4hpRH2erQjcKPXoHYbEcw+WH/+Bb0wa5Irq2oi/rK9KUzG078ibsmZGRYOGBkLMIoCknGRHCjqnifemHSnEOEP8HY9eg0Qg1hFl890XNazOp6aZShPp8jaLNx9foP8ZZVlvrcXUPwLF0jMtE6d/OK+Fz6C7Kd9m4YVU2pnUSobmIZj82+9fXjqlQ==
-X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:satlexmb08.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230040)(376014)(1800799024)(36860700016)(82310400026)(23010399003)(11063799006)(261009223027099003)(261021121427099003)(261102123227099003)(261102130727099003)(56012099006)(261026121527099003)(10067099003)(18002099003);
+ ARA:13230040|366016|1800799024|376014|23010399003|10070799003|6133799003|261009223027099003|18002099003|22082099003|3023799007|261022075727099003|261022105027099003|261026121527099003|261026140227099003|261028144727099003|261021121427099003|261102123227099003|261021135927099003|261021123027099003|56012099006|10067099003|11063799006;
+X-Microsoft-Antispam-Message-Info: J00Utffc5D3gdsULLmZ+zygnK6jgLd0wEPjPKf+nRCuaQMhKc4gW+MWuiIVGiYtOTDBvS8FyYlnu3etmNUQel1t52JlLfkbhOw9VmhMbubXaRdi7oaTUV9ZZEOFp+wZH+i6P9ZdZChfeA1BPBAz100CgxA/HM14vBGzNoY9GYd9kqOqOlEb7CJTdSpPaHE+HPGNlivTmBDQRHzWhV2mYmONWdxhZwqQOGTTCF+VxL6wigE6nbLwLp+E1KHeor+XZ0heaEOTb0qBXVldC07SzTbk7RpzS5XGkQs6/fK8XqYVZWn2X3+ejnRHp0T8+K2Eh48HTr2HOxOTMd/HPmfrsIX0fXr4f4kJf9SklUG74bbFrZD1sLdzlAcb3nBPqS91uThF8kuP9dEAl1AO4XK6in+1lTk/GZE5kGFJ7F7yQJ9Zu7C3gYHMZExC/8iFlc5YPCmLSPz9hF2FoEy3FpxG3sPYPeg2Ygz74ilq034yZ+P8LwoOQlkuhrO3TKdJIDVGMjtxuSQrHjmBMyYAsxseTVQVPwAuC8JJW9Hn5DtqYqODQjl+l9CO86JJp+bV0zmMwvZd0fg+tyDuB7uYxVZgFBt3XC7asTq7ZeK/j5BTGxmAWSyG22ZhL+feqhsGo/K27b3XcpnxG18jDnQhmYvDNfxoEsgd9I41QF8LrB+bRJqM=
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:SJ2PR12MB9161.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230040)(366016)(1800799024)(376014)(23010399003)(10070799003)(6133799003)(261009223027099003)(18002099003)(22082099003)(3023799007)(261022075727099003)(261022105027099003)(261026121527099003)(261026140227099003)(261028144727099003)(261021121427099003)(261102123227099003)(261021135927099003)(261021123027099003)(56012099006)(10067099003)(11063799006);
  DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: 1th8wmtUAxPoXuwNVKpJiRoDZ+BHWQoWwK1XbNLsrtS6CP+yhyYVRDSC1znyrElYh0ctOTexFhT5IqQqdblnGBINg37dk0hPclSzwH9gpJz44/j8l9uZ4psSj1Q5mZeHmHNsXvJcZHDWT8GTcoQYTq2LnEhmx37rv7d7uE+RBxAgA0jqgsB2Ckvl1Ig3/+i/r41eyjKQOzGwHd5COMQK8hjSpnJeJ3CXSboD9tL6soMV6GO+b/znfeEM9/GMS8CQLFallPBGJWNHJP+O83V93fbeacL4XRyVxgKeOXX3kISkOX+PB9lqEesJhvwhc/y1l1CXh4uV0ySzb0wb8hzNnFEN/ee35Drw8d1SfncLHcMwT+aLBVQJ56ORaMUyPbFfIhjOhnTxXQQ3LO6jAujw0v0ZjS9iIuxotAhASVSSBo8/zu6oTKxqirCo6x9cqrgj
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 20 Nov 2026 02:36:15.6289 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 62f682e6-dd67-4d66-74d9-08df46af0cc0
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
- Helo=[satlexmb08.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: SJ1PEPF000037AE.namprd03.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: FT1PR12MB777854
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 2
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?dnpHY2NXV3MwZndjY04zM2xaSk9KUFNKREN0aVM4bUI5K0UxWDBOUTQyQ0RB?=
+ =?utf-8?B?dzRSaSt4QXdvRHlBNzVzY2x6U0ErYnFQbjJramFUNlpJUzRGcjJoN0g2Q255?=
+ =?utf-8?B?UHlWN3JmRlduWENEZkVCTDVMQUM3d2NHRUJ0bzVYZlU1RUhTR0VvUnU3SzBD?=
+ =?utf-8?B?WDUrZThHZkEyR08vT3I0dHFhQ0JlR0hEREVNTkluV1NuYTEwZ1FjN0RKWFZH?=
+ =?utf-8?B?TUJWR0tSUkVpVlFKNGFkMVNNaWRaSlFyVXdXcCtOa2VFQVFzRmd3M3daOWRG?=
+ =?utf-8?B?bnBFWEtKU01POWRZQmFSNERlTDU2d29kT0RyZ1ZUL2lEVDdFaENLb3hlSlZP?=
+ =?utf-8?B?MHRyNVF2eVo3dDNKaUxyaVVYNUdmQzlOb1Z3d1RpQnRNOXJNOFFHOXVYL1Z0?=
+ =?utf-8?B?d3dFc212TXFvZmRKNk9DV1BTc0g1bThPYlBLS2xMYWc4SVdmRXFvWUdUR1g5?=
+ =?utf-8?B?Q1IrRHdwRG5JaUFoZkFpV3JLYzhrNGNYRGlyYVBkMU1KbUtQT1VSTjhkMjdI?=
+ =?utf-8?B?TGpVZkdNVFRTZlFza3dGbDg4TTNMOVJpWkVubHI4U0Nmemw1Uk5JbGxHR2Na?=
+ =?utf-8?B?RTNFb3FUd3BNV2FxQWtaTXoxZHdZclZiSzV2QTNxck9mK1I1NVRzVmdQSWZr?=
+ =?utf-8?B?b0wzT2lWUUNyeWtyRnpScEpnemxCNTNqbkgzN2wvcGRDV01lSzJvblFsd3JL?=
+ =?utf-8?B?VUpiZS9Kb2hocUl1TnVhME1wWHkyMnFFR3liV2FsYzYycS90VGV3eHhSTU9s?=
+ =?utf-8?B?YzRhTDRrOXhLQ3ZhbEZyYmVZNVVlaDZOcGhQSDYzTEhXZHFUc0lHZXAyZnJF?=
+ =?utf-8?B?cVJQTGVzZ0dOd2t0R2RRcDBYekpOa3BJZVZkeGRBdXpnQkpOekF2QkN1NmlZ?=
+ =?utf-8?B?MzJIR3BVakJlUTFvVXVQSXF4cjJ1VEs3ajdLUkQzS0JFbHhPT3d3eXN2bXZC?=
+ =?utf-8?B?N2VYbFIxb09FK0dGZm1rR0dLM3daMnZEbG9EVGRLZ09ETnA2LzFKejJmWFJp?=
+ =?utf-8?B?Q2trK0VhYTErdjVCOGt2TC8rSjgvcUFzSTVPYjJMaXhuanRSSk9yM3o3V1FV?=
+ =?utf-8?B?R2JIZmRpa1VEb1pYeGRxVmVjOWNBSXhpNkNNUlB3bGZQUks2aVJTWUxucXE4?=
+ =?utf-8?B?NzZxYWpXdUgrVXRSdUhWUnBBK3JHOFAyWUp4dXAxWnBZRVowdUZkUDBKV2NQ?=
+ =?utf-8?B?NG9NUmUzaFM5cGNtVGNkaG1Oby9FUzBMd1cwbU9QVXpoSWFmeFNIM1Q2MTV1?=
+ =?utf-8?B?NXdGYnNBM0xXZmg5L1o1cVBvVmUxV1RCZURaelpTa0dYUjZodWptL0k1dHk1?=
+ =?utf-8?B?MFJKSmI2Ry8rc05XZXI5TUJjVitkVkt1WHZBY3AwZmlLNGhaVlJ6R1htblNK?=
+ =?utf-8?B?dnh1Q1hPeDVhdFEvVjZOTXhrZDBVdzhyMWdMVDlFRHBUOHhjSjBwNGFkVUtN?=
+ =?utf-8?B?WmQ2cVdheXlTTEVCbU9vdlZKR25PeDF2cHU5SXo2b3hJQWRhVzVBU215YjJE?=
+ =?utf-8?B?Z2Z6Wk42SVFOVW9tS2t3ak9UUy9QSzhWVGN3Q3MwSkVpTG1Sc09MbXhjSmFt?=
+ =?utf-8?B?aU5aWnNTaStqZ0tjNHpSNllvNEJIdHY1Qlk0MjZzRmlkZmk3K2VQeE1OQmRY?=
+ =?utf-8?B?RG9rSkVrNmxIbUxTTWJsQ2VQL0pyRGNnSkFBVkRHQXNhNzU0Smx1LzZTT3NS?=
+ =?utf-8?B?akRmeGwrazczUFkrRVRvQnMzUHlHYk5NNmkyWEpQMmc2aXhra2hvWnZ4NUlk?=
+ =?utf-8?B?NWUyNkRxRUNzcmJWd3lMblZHM3dpTEZhZk1FODNVLzExZXVZY2tZUkJyOUox?=
+ =?utf-8?B?b2dXOGQ5YTFRallzcEYya2VhejQ2bEFmOTJIV1E1d29xVVlxNlgzVS92djRK?=
+ =?utf-8?B?RUZPTnovT0x0czJydy82akpqL2xjRWdmaVdnOFFHRExEc0NKbk9pRjdlVklK?=
+ =?utf-8?B?U1dWMVZmeHNVZmlEN2x3SDN3b2YxMnE2Y1lUNHhuaWJLc3daYUhUL1dScEpi?=
+ =?utf-8?B?RDREZWNOelJWVVB2dzNxUVh5SzVrdTlJRGIzQ3BOR0p0TGJUMFpSZXpmWHdN?=
+ =?utf-8?B?V3dyTGVvWERoZERMR1RQVGR5bWNiemMwWGxQWDZkeUZ3VDhnakYwUmgwOTR6?=
+ =?utf-8?B?d3ZRUU9EVzZIYWkrZ1RCdmxCMy80ZHFVMXdVd0JPTmVOWmpkV0VXckVNRmlx?=
+ =?utf-8?B?UTZOelQ5NVF5K3ltTmlDYVhSRGNDMHhyQ3VXR25PQUYwaFJsOWtlU2xPT2ho?=
+ =?utf-8?B?MnZTbmlhR1ZoQTVad0VFbTB0M2pGTFVOOFhZZ2h1M3Y5NERYVWpDUnBRbEtQ?=
+ =?utf-8?B?ZkZHK3VSaHFVMDRIMnJhUlNpR3VJeitUSU9EeTN3MnRYNFBuNXpZclpkWFJa?=
+ =?utf-8?Q?ju0q+GNVBGbum5A44k7H/mqgi6Us5hQI9joybffVt+FRX?=
+X-MS-Exchange-AntiSpam-MessageData-1: 18f9NN6Bgdx0KA==
+X-OriginatorOrg: Nvidia.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 685a4c41-ff7d-45cf-6020-08df46b4a50d
+X-MS-Exchange-CrossTenant-AuthSource: SJ2PR12MB9161.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 20 Nov 2026 03:16:18.9942 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: 117Zfno2DXWsYhO4KsPXdVDvnuUwaepIG/6GzJWgi8aNtJUR/c6ELYW+UHjsX9LS/Sc1yirTEIyZ/vcwxrMMcA==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SJ1PR12MB6266
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -113,37 +136,112 @@ List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-18.8 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
+X-Spam-Status: No, score=-15.8 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
 	DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
 	INCLUDES_CR_TRAILER,INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,
-	SPF_PASS,USER_AGENT_GIT autolearn=unavailable autolearn_force=no
-	version=4.0.1
+	SPF_PASS autolearn=ham autolearn_force=no version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-Zero sized buffer is not supported. Check the buffer size and return
--EINVAL if the size is zero.
+On Saturday, November 14, 2026 4:01=E2=80=AFAM Patrick Fischer via B4 Relay=
+ wrote:
+> From: Patrick Fischer <admin@tsv-stahl-riesa.de>
+>=20
+> host1x_syncpt_wait() creates its fence without the internal 30 second
+> timeout and cancels it only when dma_fence_wait_timeout() returns 0.
+> If the wait is interrupted, dma_fence_wait_timeout() returns
+> -ERESTARTSYS and the fence is left on the syncpoint's fence list,
+> holding the reference that host1x_syncpt_fence_enable_signaling() took
+> for the interrupt path. It is freed only once the syncpoint reaches the
+> threshold, which may never happen.
+>=20
+> Callers that retry on -ERESTARTSYS allocate a new fence each time.
+> tegra20_channel_capture_frame() retries in a loop without delay, and
+> while the syncpoint does not move, for example with a camera that
+> delivers no frames, every round leaks one fence until the system runs
+> out of memory. Svyatoslav Ryhel reported this as an out-of-memory crash
+> in the VI capture thread; the allocations in his report come from
+> host1x_fence_create(), called by host1x_syncpt_wait() from
+> tegra20_chan_capture_kthread_start(). The DRM syncpoint wait IOCTLs end
+> up in host1x_syncpt_wait() as well, so a process that is signalled while
+> waiting leaks a fence the same way.
+>=20
+> Cancel the fence whenever the wait did not succeed. host1x_fence_cancel()
+> is safe if the interrupt path has signalled the fence in the meantime,
+> as do_fence_timeout() then returns early.
+>=20
+> The leak was found with the help of an LLM assistant reading the host1x
+> and dma-fence code against the call chain in the report.
+>=20
+> Fixes: d5179020f5ce ("gpu: host1x: External timeout/cancellation for fenc=
+es")
+> Cc: stable@vger.kernel.org
+> Reported-by: Svyatoslav Ryhel <clamor95@gmail.com>
+> Signed-off-by: Patrick Fischer <admin@tsv-stahl-riesa.de>
+> ---
 
-Fixes: e486147c912f ("accel/amdxdna: Add BO import and export")
-Signed-off-by: Lizhi Hou <lizhi.hou@amd.com>
----
- drivers/accel/amdxdna/amdxdna_gem.c | 3 +++
- 1 file changed, 3 insertions(+)
+Nice find, thank you!
 
-diff --git a/drivers/accel/amdxdna/amdxdna_gem.c b/drivers/accel/amdxdna/amdxdna_gem.c
-index ffe12a722dfe..4d7f3de88cd3 100644
---- a/drivers/accel/amdxdna/amdxdna_gem.c
-+++ b/drivers/accel/amdxdna/amdxdna_gem.c
-@@ -1133,6 +1133,9 @@ amdxdna_gem_prime_import(struct drm_device *dev, struct dma_buf *dma_buf)
- 	struct sg_table *sgt;
- 	int ret;
- 
-+	if (!dma_buf->size)
-+		return ERR_PTR(-EINVAL);
-+
- 	get_dma_buf(dma_buf);
- 
- 	attach = dma_buf_attach(dma_buf, dev->dev);
--- 
-2.34.1
+One thing I'd like to add to this patch is moving the call to=20
+INIT_LIST_HEAD from host1x_intr_add_fence_locked to host1x_fence_create.=20
+Otherwise, theoretically, a dma_fence_wait_timeout error path that=20
+returns before calling enable_signaling would with this patch result in=20
+host1x_fence_cancel being called, that would go into=20
+host1x_intr_remove_fence which assumes the list head has been=20
+initialized.
+
+Mikko
+
+> Svyatoslav reported the out-of-memory crash, and he confirmed off-list
+> that this patch stops the leak on his LG P895 (Tegra30). I left out a
+> Tested-by so that he can give it here.
+>=20
+> I could not test this myself: the Tegra Note 7 I work on has no
+> working camera path in mainline yet. Build-tested for arm and arm64.
+> The DRM IOCTL case in the changelog comes from reading the code; I have
+> not tried it.
+>=20
+> The retry loop in tegra20_channel_capture_frame() still spins without
+> delay as long as the wait keeps returning -ERESTARTSYS. With this patch
+> that costs CPU time instead of memory; how the VI driver should handle
+> an interrupted wait is a separate question.
+>=20
+> Tool use (see Documentation/process/generated-content.rst): an LLM
+> assistant (Claude, in a chat) found the leak by reading
+> host1x_syncpt_wait() and the fence code against the call chain in the
+> OOM report. Claude Code then checked the finding against the code and
+> wrote the change, the changelog and this note from my notes and
+> instructions. I reviewed the change.
+> ---
+>  drivers/gpu/host1x/syncpt.c | 2 +-
+>  1 file changed, 1 insertion(+), 1 deletion(-)
+>=20
+> diff --git a/drivers/gpu/host1x/syncpt.c b/drivers/gpu/host1x/syncpt.c
+> index fe74ff6fc6f2..f9c871f218f3 100644
+> --- a/drivers/gpu/host1x/syncpt.c
+> +++ b/drivers/gpu/host1x/syncpt.c
+> @@ -247,7 +247,7 @@ int host1x_syncpt_wait(struct host1x_syncpt *sp, u32 =
+thresh, long timeout,
+>  		return PTR_ERR(fence);
+> =20
+>  	wait_err =3D dma_fence_wait_timeout(fence, true, timeout);
+> -	if (wait_err =3D=3D 0)
+> +	if (wait_err <=3D 0)
+>  		host1x_fence_cancel(fence);
+>  	dma_fence_put(fence);
+> =20
+>=20
+> ---
+> base-commit: 9d66f26fefacebfeed15de31c1123451a17ff119
+> change-id: 20261113-upstream-host1x-fence-cancel-0b32753150d6
+>=20
+> Best regards,
+> -- =20
+> Patrick Fischer <admin@tsv-stahl-riesa.de>
+>=20
+>=20
+>=20
+
+
+
 
