@@ -2,39 +2,40 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 099F1606A330
-	for <dri-devel@archiver.kernel.org>; Fri, 20 Nov 2026 12:56:48 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1129C606A33C
+	for <dri-devel@archiver.kernel.org>; Fri, 20 Nov 2026 12:56:49 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=cOOjgrd9
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=e6fq0x69
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id AFE571129F7;
-	Fri, 20 Nov 2026 12:56:38 +0000 (UTC)
-Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 715021129E5
- for <dri-devel@lists.freedesktop.org>; Fri, 20 Nov 2026 12:56:29 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id DA3801129F5;
+	Fri, 20 Nov 2026 12:56:39 +0000 (UTC)
+Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 9ABD41129E0
+ for <dri-devel@lists.freedesktop.org>; Fri, 20 Nov 2026 12:56:33 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id 578BB45F9F;
- Fri, 20 Nov 2026 12:56:29 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 54C9D1F00A36;
- Fri, 20 Nov 2026 12:56:28 +0000 (UTC)
+ by tor.source.kernel.org (Postfix) with ESMTP id CA9D96286D;
+ Fri, 20 Nov 2026 12:56:32 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id DC4231F000EE;
+ Fri, 20 Nov 2026 12:56:31 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1795179388;
- bh=v0wOYI9rNuZJuZ5iP1cFOFw7Rw7piVOcCe6x0I+N5OQ=;
+ s=k20260515; t=1795179392;
+ bh=v7w7uSjAovGYJNRUO21jQkoxCOHR8xe538FO+KhfmbI=;
  h=From:Date:Subject:References:In-Reply-To:To:Cc;
- b=cOOjgrd9pqxFpguc9LjhJGgVRl5gxSOLsiTWbqI6ocC2eeQTuGHxQYxK1OCxr0tIl
- DJSKpmQ7DA2vfuPWANYerfANEL4mBAKL3GhLOoiPdUwHn/kMkRKo/L4W7lSRgHW1S2
- Q4nSAy5kkkU2NY7nGTEmwC5ghPbms/zoJBPAonCzhzO2hvwz6IfgB/E5F9phFzFZsW
- s2ID4eV0aWEUjYyYtTwnNJIaYJEufVo0nmCi2EU0jHG7H8CQxtmlXJ5HcD/anXS022
- yUtW4LxMDBKrKl/S5i2zrZAxMl2feNjvH4FQ0ZUSz2X5cNzoTUiAGbPiWgeON7l0hF
- iDF8P3hP9CsYQ==
+ b=e6fq0x69wBUbBtK3q0Bomkf6pg+7j5cb+yvuTovUb00Etazd7pF/uiWW2W1G2u4cY
+ RWpOy+5tHpohP2uPY38RxMJjQZo52av09s1g0phOSxfjWGJ/Cw23WdWizibxeU+8TG
+ 6On91X8zjbjz64YKC0ACQ9i7qkroDSFXSLrRqpdcUwy3MoUiRDeSRDmnxw8Zv2U6Cj
+ uBQ6/QA7IeAc08gHEZe7R26SjuN9LQWeohaobew9UXJW2InELZWnj6Dajayn/x95Lp
+ QMs7D2PueSWm+5GIgQBedghUN8hrPl4nitSt0Rx5eJlzV5ErK9IYsXKKjtgDyVYYli
+ mJUd5/TOFeMXA==
 From: Maxime Ripard <mripard@kernel.org>
-Date: Fri, 20 Nov 2026 13:55:12 +0100
-Subject: [PATCH v9 20/42] drm/mode-config: Introduce hw_reset hook
+Date: Fri, 20 Nov 2026 13:55:13 +0100
+Subject: [PATCH v9 21/42] drm/modeset-helper: Add
+ drm_mode_config_helper_hw_reset()
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20261120-drm-state-readout-v9-20-a67c2b45b8ec@kernel.org>
+Message-Id: <20261120-drm-state-readout-v9-21-a67c2b45b8ec@kernel.org>
 References: <20261120-drm-state-readout-v9-0-a67c2b45b8ec@kernel.org>
 In-Reply-To: <20261120-drm-state-readout-v9-0-a67c2b45b8ec@kernel.org>
 To: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
@@ -48,12 +49,12 @@ To: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
 Cc: Devarsh Thakkar <devarsht@ti.com>, dri-devel@lists.freedesktop.org, 
  Maxime Ripard <mripard@kernel.org>
 X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=openpgp-sha256; l=4698; i=mripard@kernel.org;
- h=from:subject:message-id; bh=hKsnM2BRbkgN8HD/shzLSf7w0GmQ5UsIB95kL95l/24=;
- b=owGbwMvMwCmsHn9OcpHtvjLG02pJDNkMztoX+zd7KJ0UMfV233Hrloj035UPCrat9SyfJt6cP
- fnvqk22HVNZGIQ5GWTFFFmeyISdXt6+uMrBfuUPmDmsTCBDGLg4BWAiyy8wNtxIcGKf2b7ve1LH
- p3Pqd6vlcsRly6tnLI+atm12SZ7bxNObzr3yzk/fyFj926P534w1IYz15d/F6kLcNVZ9lXLVFKz
- e5du8Q/699t5NK8oyJGsrXh1IUNrDujRn45zoaW7/N8++v+kMAA==
+X-Developer-Signature: v=1; a=openpgp-sha256; l=3575; i=mripard@kernel.org;
+ h=from:subject:message-id; bh=HaegtoF4ToUpJO52JB9WFWmWeWxUfa0nm0aoEsaPc5o=;
+ b=owGbwMvMwCmsHn9OcpHtvjLG02pJDNkMztqVcxsXbzJvmqt1QJnp9xOr3d8M9Y7q+KeblwkcN
+ +09mp7YMZWFQZiTQVZMkeWJTNjp5e2LqxzsV/6AmcPKBDKEgYtTACYSfZyx4fs/v1kPz4vVm60+
+ vfv/BY0y3tNcVz7Hfn29xidAd2ny5Us7CzJ3TV5zP7il4mBgWuVsLcb67PPfPmc1lrhdWfkhyk0
+ 7XUrEdc49Bzu2c5rvHJdM9tUzn+nzsaG6amlOyg6hyTXWUT0A
 X-Developer-Key: i=mripard@kernel.org; a=openpgp;
  fpr=BE5675C37E818C8B5764241C254BCFC56BF6CE8D
 X-BeenThere: dri-devel@lists.freedesktop.org
@@ -74,113 +75,97 @@ X-Spam-Status: No, score=-18.8 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-drm_mode_config_create_initial_state() tries to read out the current
-hardware state to build the initial atomic state. If state readout is
-disabled or fails, it falls back to creating pristine software state
-using the objects' atomic_create_state callbacks.
+drm_mode_config_create_initial_state() calls
+&drm_mode_config_funcs.hw_reset when the hardware state readout fails,
+to put the hardware in a known-good state before creating pristine
+software state.
 
-However, creating pristine state without resetting the hardware leaves
-the hardware and software states out of sync. The legacy
-drm_mode_config_reset() handles this by calling per-object .reset
-callbacks that both reset the hardware and allocate new state, but these
-two concerns are intertwined and cannot be reused independently.
-
-Introduce a new hw_reset hook in drm_mode_config_funcs that only
-performs the hardware reset, without allocating any software state. Call
-it in drm_mode_config_create_initial_state() after state readout fails,
-right before falling back to drm_mode_config_create_state(). This
-separates the hardware reset from state creation, allowing drivers that
-implement state readout to share their reset logic with the fallback
-path.
+Provide drm_mode_config_helper_hw_reset() as a default implementation of
+&drm_mode_config_funcs.hw_reset that resets all the objects requiring
+it.
 
 Reviewed-by: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>
 Signed-off-by: Maxime Ripard <mripard@kernel.org>
 ---
- drivers/gpu/drm/drm_mode_config.c |  8 +++++++-
- include/drm/drm_mode_config.h     | 32 ++++++++++++++++++++++++++++++++
- 2 files changed, 39 insertions(+), 1 deletion(-)
+ drivers/gpu/drm/drm_modeset_helper.c | 31 +++++++++++++++++++++++++++++++
+ include/drm/drm_mode_config.h        |  5 +++++
+ include/drm/drm_modeset_helper.h     |  1 +
+ 3 files changed, 37 insertions(+)
 
-diff --git a/drivers/gpu/drm/drm_mode_config.c b/drivers/gpu/drm/drm_mode_config.c
-index d6f92e1a54d2..0259ec48cfbc 100644
---- a/drivers/gpu/drm/drm_mode_config.c
-+++ b/drivers/gpu/drm/drm_mode_config.c
-@@ -404,11 +404,12 @@ static int drm_mode_config_create_state(struct drm_device *dev)
-  * can use this in e.g. probe to initialize their state.
-  *
-  * It creates the initial state in several steps. It first tries to
-  * read-out the initial state from the hardware for all objects if state
-  * read-out is enabled and the driver supports it. Then, if state
-- * read-out isn't supported or fails, it creates a new, pristine state
-+ * read-out isn't supported or fails, it resets the hardware using
-+ * &drm_mode_config_funcs.hw_reset() and creates a new, pristine state
-  * using the objects atomic_create_state callback.
-  *
-  * For historical reasons, drm_mode_config_reset() is similar, but
-  * doesn't support state read-out, and will always reset the hardware.
-  * It will also ignore all &drm_private_obj.
-@@ -438,10 +439,15 @@ int drm_mode_config_create_initial_state(struct drm_device *dev)
- 		ret = dev->mode_config.funcs->atomic_sro_readout_state(dev);
- 		if (!ret)
- 			goto out;
- 	}
+diff --git a/drivers/gpu/drm/drm_modeset_helper.c b/drivers/gpu/drm/drm_modeset_helper.c
+index cca623eb23e5..1a49ab8a0e41 100644
+--- a/drivers/gpu/drm/drm_modeset_helper.c
++++ b/drivers/gpu/drm/drm_modeset_helper.c
+@@ -260,5 +260,36 @@ int drm_mode_config_helper_resume(struct drm_device *dev)
+ 		drm_kms_helper_poll_enable(dev);
  
-+	/* Reset the hardware first ... */
-+	if (dev->mode_config.funcs->hw_reset)
-+		dev->mode_config.funcs->hw_reset(dev);
+ 	return ret;
+ }
+ EXPORT_SYMBOL(drm_mode_config_helper_resume);
 +
-+	/* ... then allocate a new pristine state */
- 	ret = drm_mode_config_create_state(dev);
- 
- out:
- 	DRM_MODESET_LOCK_ALL_END(dev, ctx, ret);
- 
++/**
++ * drm_mode_config_helper_hw_reset - default &drm_mode_config_funcs.hw_reset implementation
++ * @dev: DRM device
++ *
++ * Resets all KMS objects that provide a hardware reset hook to a
++ * known-good state, without touching the software state.
++ *
++ * Drivers can assign this function as their
++ * &drm_mode_config_funcs.hw_reset implementation.
++ */
++void drm_mode_config_helper_hw_reset(struct drm_device *dev)
++{
++	struct drm_crtc *crtc;
++
++	drm_for_each_crtc(crtc, dev) {
++		const struct drm_crtc_helper_funcs *helper_funcs =
++			crtc->helper_private;
++
++		if (helper_funcs && helper_funcs->hw_reset)
++			helper_funcs->hw_reset(crtc);
++	}
++
++	/*
++	 * TODO: Reset encoders once the semantics of
++	 * encoder->funcs->reset have been clarified. Some drivers
++	 * (e.g. i915) reset both hardware and software state, while
++	 * others (e.g. loongson) only reset hardware registers.
++	 */
++}
++EXPORT_SYMBOL(drm_mode_config_helper_hw_reset);
 diff --git a/include/drm/drm_mode_config.h b/include/drm/drm_mode_config.h
-index e1124b314524..42d37f4aba84 100644
+index 42d37f4aba84..9f8674870248 100644
 --- a/include/drm/drm_mode_config.h
 +++ b/include/drm/drm_mode_config.h
-@@ -107,10 +107,42 @@ struct drm_mode_config_funcs {
- 	 * should be checked in the .mode_valid() hook for each specific object.
- 	 */
- 	enum drm_mode_status (*mode_valid)(struct drm_device *dev,
- 					   const struct drm_display_mode *mode);
- 
-+	/**
-+	 * @hw_reset:
-+	 *
-+	 * Optional hook for device-specific hardware reset.
-+	 *
-+	 * Unlike drm_mode_config_reset(), which both resets hardware
-+	 * and creates new software state through per-object .reset
-+	 * callbacks, this hook only resets the hardware to a known good
-+	 * state without touching the software state at all.
-+	 *
-+	 * This hook is called by
-+	 * drm_mode_config_create_initial_state() when the hardware
-+	 * state readout (atomic_sro_readout_state) is not supported
-+	 * or fails. The call sequence is:
-+	 *
-+	 * 1. Try atomic_sro_readout_state() to read the hardware state
-+	 * 2. If that fails, call hw_reset() to put the hardware in a
-+	 *    known state
-+	 * 3. Create pristine software state via atomic_create_state
-+	 *    callbacks
-+	 *
-+	 * Drivers that implement state readout and need a hardware
-+	 * reset on the fallback path should implement this hook.
-+	 * Drivers that don't implement state readout at all can keep
-+	 * using drm_mode_config_reset() instead.
-+	 *
-+	 * This hook is optional. If not provided, the fallback path
-+	 * will create software state without resetting the hardware
-+	 * first.
-+	 */
-+	void (*hw_reset)(struct drm_device *dev);
-+
- 	/**
- 	 * @atomic_check:
+@@ -133,10 +133,15 @@ struct drm_mode_config_funcs {
+ 	 * Drivers that implement state readout and need a hardware
+ 	 * reset on the fallback path should implement this hook.
+ 	 * Drivers that don't implement state readout at all can keep
+ 	 * using drm_mode_config_reset() instead.
  	 *
- 	 * This is the only hook to validate an atomic modeset update. This
- 	 * function must reject any modeset and state changes which the hardware
++	 * drm_mode_config_helper_hw_reset() resets all the objects
++	 * that require it, and can be used as the implementation of
++	 * this hook, or called from it once the device specific reset
++	 * is done.
++	 *
+ 	 * This hook is optional. If not provided, the fallback path
+ 	 * will create software state without resetting the hardware
+ 	 * first.
+ 	 */
+ 	void (*hw_reset)(struct drm_device *dev);
+diff --git a/include/drm/drm_modeset_helper.h b/include/drm/drm_modeset_helper.h
+index 7e3d4c5a7f66..bd4193fbd907 100644
+--- a/include/drm/drm_modeset_helper.h
++++ b/include/drm/drm_modeset_helper.h
+@@ -40,7 +40,8 @@ void drm_helper_mode_fill_fb_struct(struct drm_device *dev,
+ int drm_crtc_init(struct drm_device *dev, struct drm_crtc *crtc,
+ 		  const struct drm_crtc_funcs *funcs);
+ 
+ int drm_mode_config_helper_suspend(struct drm_device *dev);
+ int drm_mode_config_helper_resume(struct drm_device *dev);
++void drm_mode_config_helper_hw_reset(struct drm_device *dev);
+ 
+ #endif
 
 -- 
 2.56.1
