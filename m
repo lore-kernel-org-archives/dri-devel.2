@@ -2,104 +2,100 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6A174606A320
-	for <dri-devel@archiver.kernel.org>; Fri, 20 Nov 2026 10:54:49 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 973A660A3835
+	for <dri-devel@archiver.kernel.org>; Fri, 20 Nov 2026 11:12:18 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=kjIMwmPt
+	dkim=pass (1024-bit key) header.d=amarulasolutions.com header.i=@amarulasolutions.com header.a=rsa-sha256 header.s=google header.b=DAZ019Ko
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id CF6811128EE;
-	Fri, 20 Nov 2026 10:54:43 +0000 (UTC)
-Received: from mail-lf1-f53.google.com (mail-lf1-f53.google.com
- [209.85.167.53])
- by gabe.freedesktop.org (Postfix) with ESMTPS id C004F10E202
- for <dri-devel@lists.freedesktop.org>; Fri, 20 Nov 2026 10:54:37 +0000 (UTC)
-Received: by mail-lf1-f53.google.com with SMTP id
- 2adb3069b0e04-5c0ace36e8eso56347e87.0
- for <dri-devel@lists.freedesktop.org>; Fri, 20 Nov 2026 02:54:37 -0800 (PST)
-ARC-Seal: i=1; a=rsa-sha256; t=1795172076; cv=none;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 9B6C1112901;
+	Fri, 20 Nov 2026 11:12:12 +0000 (UTC)
+Received: from mail-yw1-f175.google.com (mail-yw1-f175.google.com
+ [209.85.128.175])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id DB03310E6E0
+ for <dri-devel@lists.freedesktop.org>; Fri, 20 Nov 2026 11:12:06 +0000 (UTC)
+Received: by mail-yw1-f175.google.com with SMTP id
+ 00721157ae682-8b4b9ba815bso4678647b3.3
+ for <dri-devel@lists.freedesktop.org>; Fri, 20 Nov 2026 03:12:06 -0800 (PST)
+ARC-Seal: i=1; a=rsa-sha256; t=1795173125; cv=none;
  d=google.com; s=arc-20260327;
- b=pf+L9+/Yjt1NaeHd8YNb7n1BXHhc6kkzEpoDAjqy646Mdl5zOaUydpeL3MYdMKJdlq
- 1Pqyn49nPW5vFLbxNMQ6XFjSZlfIn/ZI1vW4lAl/ubZgkXMHsvJY+A8+rU/0hawcchKw
- eN1FUcjJ53v8FNqY1zn7mYu7pMHi44isIbc774HITAL7pRLEP2viYbMfOXsv1UGK5ouF
- jUbQI6zBrgTSAqpoi3LX0x9R0jjvNZx90jWI88BupKZiK7/+dfzmmnAVdN5gUS/vqtd3
- n4M+D1v5pyQSmmWP8UofjxZOzU5DVHyKvnjKQ7RzqUj6qE4k3EJcgKMPFhv57zKszEBo
- uKEQ==
+ b=Ye5s4gU5/uBxdWj6R8L0SOYqvmjeIsxCQXBTSiWqheotRY7+pR2wYRDeD9bOpsYYqC
+ L7DW/zgyR1JZ3mS+rWZlIkV8qJndUz4EPA9FoYypRXeok1iVb8nyPKpyzlNO1qxfzzxx
+ WbhLBMMk26/9gNKTeBPZZ7OZ4/kLah7BALroO+vVbCbKTb6n5tktZrl9tXRFxxbK8fh0
+ wfHbcVaA+ZW9B0RbNrNph8Q7ftPbxhnUOFy6oNViALQh7TDfb0UV3soo39LUv9S8TyY2
+ SKSFwaIXhnzkFHwCW2aGasA/awD1h4rvt+nZ1R/kuqdZcYKUYkBffOSmIP6d1wlK+AAi
+ ZGoA==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com;
  s=arc-20260327; 
  h=content-transfer-encoding:cc:to:subject:message-id:date:from
  :in-reply-to:references:mime-version:dkim-signature;
- bh=vievxvMoQb39fU5dw8Ha4cqfcWmcBRrBY8uU/a8nTv8=;
- fh=LB4esriHsxmhMfnZo/ygS+dFvsgFS9xi47EEyDbKutI=;
- b=T/fHWiyK/YLFaDopS7ZthuqE2pRt4am1wsds1/dJ25P7gMC6211boTE47+z+1yf3Jh
- I2mJLeuHCIrTJX0zpAW+25cNK+f0QfffbrTuQ1ey++fGq4y6FBNHj0E2b2VGbyp0Exw9
- CUtnR+Os2T0VedChjXrjanLDWOs33R27xqIUBYaZWrl3Juf86IF4uPg/EpKpiVydC3p7
- i++0LCLSelQKgECB5Emf2sNWoSgVz9uyJ/lvG3z/2MnE4whbdwQhtezUGHMaO1mUO9bE
- 3SM2tVQzZI5tiJPydxMzCwkcsyXBVHP65AqzhufM4MkPvBN0+36R7oUffU2tYHZRM2Cv
- tryA==; darn=lists.freedesktop.org
+ bh=Ctvd1E18LBT1bm/OVmwtHp7EJOxWtY2oUhWq4p20dK4=;
+ fh=RLSrZhYlieLluM84kee7yqTRg+638A1zAyZzURKdLb0=;
+ b=RTmC0A3jsKz0nzu6b5UbC3+yGyPUy+0Pq1rx2PDqNQ9jIlESi/xjaBdFE5askK7QCn
+ K1UUejxM3uKzIaz5Nx0RW6mKGnhEs0jHyitJVMzaTIx8eJmcYmVLYSiUfdB61LjmRBYU
+ WEcyHBpc7tpu4EmgMsoP4mMuqmytzptZ80XVJ2aOBaPAWy4yFf73htSY3tft1ZCBjvVC
+ UxsN8d20AUnymSCqDrjK/ExW9aj24KKR+xPpBvTC5E4KskTYLJdZ/GfaeQAIywLQjmTp
+ q8AgBmKFiUPcP8Vs5qwc364fkTmm1ypn78Gh5pJuROEvTUzGn2CCBQEKBJlG3u6Z3mBN
+ xvhQ==; darn=lists.freedesktop.org
 ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20260707; t=1795172076; x=1795776876; darn=lists.freedesktop.org;
+ d=amarulasolutions.com; s=google; t=1795173125; x=1795777925;
+ darn=lists.freedesktop.org; 
  h=content-transfer-encoding:content-type:cc:to:subject:message-id
  :date:from:in-reply-to:references:mime-version:from:to:cc:subject
  :date:message-id:reply-to:content-type;
- bh=vievxvMoQb39fU5dw8Ha4cqfcWmcBRrBY8uU/a8nTv8=;
- b=kjIMwmPtELpfY9UjAlpEwu67FrJexHE4MKk3NAYmNaLzaxPklh8etmUdwGAQ0Z6OhJ
- zGcM7oAWKZG5H+JuqPEvrV7QtotT+kMgP+WxDMAbViybhl5d4VoNwJ8mFB2+1LnzgW1E
- 3cdz/MrvlHFyvjVk+U45c8Us2OKRnPIhVxp2EIEPlxG0t9UocTsQ7HF/NPGEguw82D+P
- qvKxSU1go4uwq9f2SW3QE1xVt1VsuyYiH59E2TFDw2qS+bDM42d2jbo6vblnyNxmBODs
- 5skQOsWjny8vApfXoqZQqwIc+jh6CCuGQT4DXIB/ABp1QxZPxQRxn0Dads7vCnLC5NOs
- pAzg==
+ bh=Ctvd1E18LBT1bm/OVmwtHp7EJOxWtY2oUhWq4p20dK4=;
+ b=DAZ019Ko0WfNb96sqV2DfjKWgD3/JesGbWTyCJtMEqTZ3RBo+kQqywfBIXAn+l3/dA
+ gsHR+8wwLvA0rFnrfy0XyjsdkglhTKhsaeI5CY8gCm8omU2Z8mv19GM0IAciX0PQog2f
+ uPs5T10xpzAXjhmLIUQyRdvhAAYtyZ4JZFOKI=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20260707; t=1795172076; x=1795776876;
+ d=1e100.net; s=20260707; t=1795173125; x=1795777925;
  h=content-transfer-encoding:content-type:cc:to:subject:message-id
  :date:from:in-reply-to:references:mime-version:x-gm-gg
  :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
  :content-type;
- bh=vievxvMoQb39fU5dw8Ha4cqfcWmcBRrBY8uU/a8nTv8=;
- b=Z/SydyVn/JSyy+RR/u1fN8LthzCSHZ40GFv89/i0WW1aQ+xhrlZtbqYfs0HFWhVxBG
- SDWJsW+g86sq2e0peVYbTGamumSYScg7vRu00Kw7f7677Jfh73q4Qv7rh3nvn5P8eOgL
- yZudAtxi98shPfyBvsbeEZmOplloQDbw9zGY/Ur0US+ABKnNYwJy9+MwquRbel9Jt14W
- 8CQy6me9UfOUPhYe/eDgKk8N6Q7Y5oup/Nyk0T+sYzLKObkhlxESF+YXYQ2UEc+AwxrK
- HD02tz1bufJ05ozmxAJ96Ihz3+7RqB8FyG+vD0Ued+s/R6R6NyP1zbgXDYyseB023uq1
- NrVw==
+ bh=Ctvd1E18LBT1bm/OVmwtHp7EJOxWtY2oUhWq4p20dK4=;
+ b=uGcCf84vmQKwJxa9uwQmXopT1YGjcwKMv3l+DOP95wiT+zg267hVRhfz8IkOsFeybk
+ BDBWoLprZCoQKr3tM03j/+70NKHvSk436NIwBXt9W5Sv9WO8r4RbRUHoDXhXdJ8it6ny
+ NAM0yTmPcA9REqLmAmQOkyhFI2DqpKAYBXX1E/Tu5xg9otghcMJkLkhHAeR3OV724UvH
+ 7ktUhkcAqqQnJL45LJLyDALQaH9RCiAXh7uXbliDOpRbhovyZVlN8O7w+BmjisFuaXdn
+ gdCRK3GJe557KWWnnom3s5NoFkwxJHhT2rcpzhKfB/HINMp+QitvdN1bgm3KE61SaXOA
+ 8VGA==
 X-Forwarded-Encrypted: i=1;
- AL+hErHKlC0qQQ2Vj8YF8CI8wz0o3h3WVmy89OD7NqsI6688l6TXEuTEvqOcRazxABWkagT7v/yOxApyMe0=@lists.freedesktop.org
-X-Gm-Message-State: APuU4Z84ahn1UjDVOp0kxSVvij2AoqJ7sgOBdZDVjOF7wAi30PTNF8A+
- Ad5fCIvHQ7zZUzNuB4jNIIL/1YJTvyHSEB9Un0hrWZnijaQaLZSxJBwgxhMrAIUIk9ftQxOMzgS
- fxd86BMWwMIFAfJWElP09VShyc569vDQ=
-X-Gm-Gg: AZFdTZdYHmkLKiWa9ZBwOOarb1UpQ8pgtfZjQvosfYoExSu5SV8Oz3PQ9qCXpYbHHGl
- BeDZgVVfMG8XN7PODOSRGsW710Vgyn4bRzPXOtVNh4W9bac7RFI5rKmrxTM99/MOFsOJx1Gt3fR
- Vo1RS0k/PujgLGlUp/jx+042+qSRS1Cuym2jx23lrDnZsmNi9XAFA/cNVXft4c05M2WlqrO3fM5
- 1kJFX1XAbPZzLDbEa2p4MAXaNrC2t52A+MlymI4tNXKUAqLvJyIPuc2x658N/Xf2ynE8TOODxV3
- K1FoZQ1QAC9q07s7mEbJWcr2MGZ9w6gqYcHscyaMZlYkpIutZY1mzOqpKDWdbMnq2/HfQiO2Uz2
- wDUXDEmCEFdWec8z4+tQlUOaXEx7xPlhF3pPaPwXtXI86OCWk1iPnqKKspc9HJ67LIhSdnefhl9
- gaSgNv/V1zTUKGVQ4USH/T0/L6aNoz0s2gmyU935Bx5SAe9sYFYdIepW0dGp670hRjfUB3q+1Km
- znMDl4FVCUi6lPCqoR9nMNlb0GSzARAQ7c8QcO/ibwnEWLOCkJC3N6o/9Xq7x0suTKU70aE
-X-Received: by 2002:a05:6512:6812:b0:5c1:5703:46ed with SMTP id
- 2adb3069b0e04-5c1bc89ca10mr714804e87.6.1795172075335; Fri, 20 Nov 2026
- 02:54:35 -0800 (PST)
+ AL+hErGX6Q9DQcju2SNcAc6EDW9Zzrdc92WZdO39aLca3vH4s4KSIy/fCzpMRqiqWIsiyDdr/Pufu8kiHaI=@lists.freedesktop.org
+X-Gm-Message-State: APuU4Z/xdlJPV8BcZJhFHSHT3HIBweI0eGsaRYnYp361M2mhCWvh518E
+ FJwkuZdVu2/MsPRm7mXxPh6mk0xF7kxNI4I7wGIXKivL5xgc3SQ0F6Z87vr0b3SUFqkMIStsC93
+ 6YHzRpfLmFzCMcGsVq0pXpwu1hKkYX0fo/5GdXVwRJw==
+X-Gm-Gg: AZFdTZeiEZrfynAf6OAyOEmmW0di1wrhlVsZqnQqTJdgVNzdEETqnax4700FjDD1sPk
+ bHcl0Bbiv9C9NEH00G4968wzQ/NyKizrZTVtffXoC7lVt+I4IHDVBESbKR8bSdp6NAFWbAwwjG+
+ 0NLHOWKBIJuDflo/vBpi1eN8N24orfwRf1lgr9+pLiDux6ftMf0POZLk5R+rL4Hy2ZQtnF/DRqb
+ PzRsHhj4AXFl4HiDpZ14OyUgAMuFQp5ziSL8XtEEs0vZic1ePZRhQvfNCO4bSd5a2Ij3ItU69QL
+ /rGi2loUTEe+h+5JAPHQVPgHBUgsYeWjGKHw152Hcf+dhZH0HLeoh4z4EyfBIY1B3rebpv7elNL
+ ptEwDXnSYIrs+qbdeTJaoh0QDdUJMPGJ/JAQOXzJv90KekGromW4UZ8JD64jPbti8YO4=
+X-Received: by 2002:a05:690c:e908:b0:8b3:3956:6f7e with SMTP id
+ 00721157ae682-8b52043cdd0mr12064397b3.12.1795173125445; Fri, 20 Nov 2026
+ 03:12:05 -0800 (PST)
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
-References: <20261020-b4-gpu_info_intobytes-v5-0-3e0c7c93223c@collabora.com>
- <20261020-b4-gpu_info_intobytes-v5-1-3e0c7c93223c@collabora.com>
-In-Reply-To: <20261020-b4-gpu_info_intobytes-v5-1-3e0c7c93223c@collabora.com>
-From: Miguel Ojeda <miguel.ojeda.sandonis@gmail.com>
-Date: Fri, 20 Nov 2026 11:54:23 +0100
-X-Gm-Features: Aa3M54o513_u4OJXnC_4PJiTfbRDccCUiJK3hUcQFc9fkLbXWHCQET8-3sinerE
-Message-ID: <CANiq72nX+94ie+0RjysjKT+FSoTH0TvWUCOciPObvnrkrnH-eA@mail.gmail.com>
-Subject: Re: [PATCH v5 1/2] rust: add zerocopy to bindings and uapi
-To: Deborah Brouwer <deborah.brouwer@collabora.com>
-Cc: Danilo Krummrich <dakr@kernel.org>, Alice Ryhl <aliceryhl@google.com>, 
- Daniel Almeida <daniel.almeida@collabora.com>, David Airlie <airlied@gmail.com>,
- Simona Vetter <simona@ffwll.ch>, Miguel Ojeda <ojeda@kernel.org>,
- Boqun Feng <boqun@kernel.org>, Gary Guo <gary@garyguo.net>,
- =?UTF-8?Q?Bj=C3=B6rn_Roy_Baron?= <bjorn3_gh@protonmail.com>, 
- Benno Lossin <lossin@kernel.org>, Andreas Hindborg <a.hindborg@kernel.org>, 
- Trevor Gross <tmgross@umich.edu>, Tamir Duberstein <tamird@kernel.org>, 
- Alexandre Courbot <acourbot@nvidia.com>,
- =?UTF-8?Q?Onur_=C3=96zkan?= <work@onurozkan.dev>, 
- Jesung Yang <y.j3ms.n@gmail.com>, dri-devel@lists.freedesktop.org, 
- rust-for-linux@vger.kernel.org, linux-kernel@vger.kernel.org
+References: <20261028131823.2649142-1-dario.binacchi@amarulasolutions.com>
+In-Reply-To: <20261028131823.2649142-1-dario.binacchi@amarulasolutions.com>
+From: Dario Binacchi <dario.binacchi@amarulasolutions.com>
+Date: Fri, 20 Nov 2026 12:11:54 +0100
+X-Gm-Features: AclHuK-5tDXHRBDyzoy4ZajDKym7P3SzWGspe7yU6ZZCvGx7SKszxQtXGhkPNm8
+Message-ID: <CABGWkvrPMDAq2s5msic8y=Ds7uNgqC79BLMzZNFmez7v9DVJMQ@mail.gmail.com>
+Subject: Re: [PATCH] drm/stm: ltdc: create blend mode property
+To: Yannick Fertre <yannick.fertre@foss.st.com>, 
+ Raphael Gallais-Pou <raphael.gallais-pou@foss.st.com>, 
+ Philippe Cornu <philippe.cornu@foss.st.com>
+Cc: michael@amarulasolutions.com, linux-amarula@amarulasolutions.com, 
+ Alexandre Torgue <alexandre.torgue@foss.st.com>,
+ Daniel Stone <daniels@collabora.com>, David Airlie <airlied@gmail.com>,
+ Leandro Ribeiro <leandro.ribeiro@collabora.com>, 
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>, Maxime Ripard <mripard@kernel.org>,
+ Pekka Paalanen <pekka.paalanen@collabora.com>, Simona Vetter <simona@ffwll.ch>,
+ Thomas Zimmermann <tzimmermann@suse.de>, dri-devel@lists.freedesktop.org, 
+ linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org, 
+ linux-stm32@st-md-mailman.stormreply.com
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
 X-BeenThere: dri-devel@lists.freedesktop.org
@@ -113,29 +109,76 @@ List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-7.8 required=3.0 tests=BAYES_00,DKIM_SIGNED,
-	DKIM_VALID,DKIM_VALID_AU,FREEMAIL_FORGED_FROMDOMAIN,FREEMAIL_FROM,
-	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,MAILING_LIST_MULTI,
-	SPF_HELO_NONE,SPF_PASS autolearn=no autolearn_force=no version=4.0.1
+X-Spam-Status: No, score=-15.8 required=3.0 tests=BAYES_00,DKIM_SIGNED,
+	DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
+	INCLUDES_CR_TRAILER,INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,
+	SPF_PASS autolearn=unavailable autolearn_force=no version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-On Wed, Oct 21, 2026 at 1:48=E2=80=AFAM Deborah Brouwer
-<deborah.brouwer@collabora.com> wrote:
->
-> Make the zerocopy and zerocopy_derive crates available to use when
-> building the bindings and uapi crates and their tests. Also make the
-> zerocopy and zerocopy_derive crates available to rust-analyzer when it
-> runs on the bindings and uapi crates.
->
-> This will be used by the Tyr driver that needs the traits IntoBytes and
-> Immutable to safely copy the struct byte-for-byte to userspace.
->
-> Signed-off-by: Deborah Brouwer <deborah.brouwer@collabora.com>
+Hi Yannick, Raphael, Philippe,
 
-Looks fine, please feel free to take it through your tree:
+Gentle ping on this patch.
 
-Acked-by: Miguel Ojeda <ojeda@kernel.org>
+The warning has been there since v7.3 and is still present in v7.4-rc3
+and in next-20261119.
 
-Cheers,
-Miguel
+Thanks and regards,
+Dario
+
+On Wed, Oct 28, 2026 at 2:18=E2=80=AFPM Dario Binacchi
+<dario.binacchi@amarulasolutions.com> wrote:
+>
+> After commit 860e748bddcc ("drm: ensure blend mode supported if pixel
+> format with alpha exposed") we get warnings at boot:
+>
+> stm32-display 48010000.display-controller: [drm] [PLANE:37:plane-0] pixel=
+ format with alpha exposed but blend mode not setup. Please fix.
+>
+> The LTDC blends the pixel formats with alpha by straight alpha, the
+> only mode implemented in the driver. Create the blend mode property
+> with DRM_MODE_BLEND_COVERAGE only.
+>
+> Fixes: 860e748bddcc ("drm: ensure blend mode supported if pixel format wi=
+th alpha exposed")
+> Signed-off-by: Dario Binacchi <dario.binacchi@amarulasolutions.com>
+>
+> ---
+>
+>  drivers/gpu/drm/stm/ltdc.c | 1 +
+>  1 file changed, 1 insertion(+)
+>
+> diff --git a/drivers/gpu/drm/stm/ltdc.c b/drivers/gpu/drm/stm/ltdc.c
+> index 5311e0b3e8dc..3b6e680c1c61 100644
+> --- a/drivers/gpu/drm/stm/ltdc.c
+> +++ b/drivers/gpu/drm/stm/ltdc.c
+> @@ -1642,6 +1642,7 @@ static struct drm_plane *ltdc_plane_create(struct d=
+rm_device *ddev,
+>         drm_plane_helper_add(plane, &ltdc_plane_helper_funcs);
+>
+>         drm_plane_create_alpha_property(plane);
+> +       drm_plane_create_blend_mode_property(plane, BIT(DRM_MODE_BLEND_CO=
+VERAGE));
+>
+>         drm_dbg_driver(plane->dev, "plane:%d created\n", plane->base.id);
+>
+> ---
+> base-commit: 65ba8f34ec886ec72b2c07ddc8cf3d815c32869d
+> branch: stm32-ltdc-blend-mode
+>
+> --
+> 2.43.0
+>
+
+
+--=20
+Dario Binacchi
+Senior Embedded Software Engineer
+M. +39 328 0625246
+dario.binacchi@amarulasolutions.com
+=E2=80=95=E2=80=95=E2=80=95=E2=80=95=E2=80=95=E2=80=95=E2=80=95=E2=80=95=E2=
+=80=95=E2=80=95=E2=80=95=E2=80=95=E2=80=95=E2=80=95=E2=80=95
+Amarula Solutions SRL
+ Via Felice Cavallotti 25D, 41012 Carpi, MO, IT
+info@amarulasolutions.com
+www.amarulasolutions.com
