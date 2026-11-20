@@ -2,66 +2,57 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9E623606AA45
-	for <dri-devel@archiver.kernel.org>; Fri, 20 Nov 2026 11:44:49 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=MK02NyNG
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 457A6606A339
+	for <dri-devel@archiver.kernel.org>; Fri, 20 Nov 2026 11:52:31 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id E27FD112926;
-	Fri, 20 Nov 2026 11:44:43 +0000 (UTC)
-Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 2CB2C11293E
- for <dri-devel@lists.freedesktop.org>; Fri, 20 Nov 2026 11:44:37 +0000 (UTC)
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by tor.source.kernel.org (Postfix) with ESMTP id 5AF166291A;
- Fri, 20 Nov 2026 11:44:36 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9CB791F000EB;
- Fri, 20 Nov 2026 11:44:32 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1795175076;
- bh=5L7qqB5WaMtNMY9uDK4imR6R5lduwPZOBAPzSNwaOt8=;
- h=Date:Cc:To:From:Subject:References:In-Reply-To;
- b=MK02NyNGVt3ebGIuf7j8ititOe/z/miWKxC/cxRWpaUwoqWbdiGhRQvU8OaMCnYwS
- j90977RhLU5XEfTut81+FJClZVIn6vGa5AdoBLBiocBd87c89OiQPzCwDmssryaBWy
- jaOwv8Ws2Pvbr0/Jqe12F3wSyeJ7/lxSoBcG0C6LMvt46SOWFWgWL7iApA3ZTBxIJQ
- r8vv8oHlRieseBk+vxJ0jfn3VoA4zcPO0VuTJ6LhfNzmP2W3B6ufNf/6OJ3ifZDSb3
- 4NJ14njem1N4mzF1c2R/lShdOdWSJbTlYuq/igCsgM317wLi0DTSRuKHTmukFsh8p7
- J5TfXh/NYL1+g==
+	by gabe.freedesktop.org (Postfix) with ESMTP id 4EC4D112976;
+	Fri, 20 Nov 2026 11:52:30 +0000 (UTC)
+Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.223.131])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 8C6E510E5E8
+ for <dri-devel@lists.freedesktop.org>; Fri, 20 Nov 2026 11:52:28 +0000 (UTC)
+Received: from imap1.dmz-prg2.suse.org (imap1.dmz-prg2.suse.org
+ [IPv6:2a07:de40:b281:104:10:150:64:97])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+ (No client certificate requested)
+ by smtp-out2.suse.de (Postfix) with ESMTPS id 238BF1F441;
+ Fri, 20 Nov 2026 11:52:27 +0000 (UTC)
+Authentication-Results: smtp-out2.suse.de;
+	none
+Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+ (No client certificate requested)
+ by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id A17F5134F6;
+ Fri, 20 Nov 2026 11:52:26 +0000 (UTC)
+Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
+ by imap1.dmz-prg2.suse.org with ESMTPSA id UE2UA3o0AGsbDAAAD6G6ig:T2
+ (envelope-from <tzimmermann@suse.de>); Fri, 20 Nov 2026 11:52:26 +0000
+From: Thomas Zimmermann <tzimmermann@suse.de>
+To: deller@gmx.de,
+	simona@ffwll.ch
+Cc: dri-devel@lists.freedesktop.org, linux-fbdev@vger.kernel.org,
+ sashiko-reviews@lists.linux.dev, Thomas Zimmermann <tzimmermann@suse.de>
+Subject: [PATCH v2 1/6] fbcon: Use unsigned char for glyph data
+Date: Fri, 20 Nov 2026 12:49:54 +0100
+Message-ID: <20261120115215.52092-2-tzimmermann@suse.de>
+X-Mailer: git-send-email 2.56.0
+In-Reply-To: <20261120115215.52092-1-tzimmermann@suse.de>
+References: <20261120115215.52092-1-tzimmermann@suse.de>
 X-Archived-By: <archiver.kernel.org>
-Mime-Version: 1.0
-Content-Transfer-Encoding: quoted-printable
-Content-Type: text/plain; charset=UTF-8
-Date: Fri, 20 Nov 2026 12:44:31 +0100
-Message-Id: <DN00GAPAAQTY.1T9M9U7UAFYC0@kernel.org>
-Cc: <phasta@kernel.org>, "Sumit Semwal" <sumit.semwal@linaro.org>, "Alice
- Ryhl" <aliceryhl@google.com>, "Miguel Ojeda" <ojeda@kernel.org>, "Boqun
- Feng" <boqun@kernel.org>, "Gary Guo" <gary@garyguo.net>,
- =?utf-8?q?Bj=C3=B6rn_Roy_Baron?= <bjorn3_gh@protonmail.com>, "Benno Lossin"
- <lossin@kernel.org>, "Andreas Hindborg" <a.hindborg@kernel.org>, "Trevor
- Gross" <tmgross@umich.edu>, "Daniel Almeida"
- <daniel.almeida@collabora.com>, "Tamir Duberstein" <tamird@kernel.org>,
- "Alexandre Courbot" <acourbot@nvidia.com>, =?utf-8?q?Onur_=C3=96zkan?=
- <work@onurozkan.dev>, <linux-media@vger.kernel.org>,
- <dri-devel@lists.freedesktop.org>, <rust-for-linux@vger.kernel.org>,
- <linux-kernel@vger.kernel.org>
-To: =?utf-8?q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>
-From: "Danilo Krummrich" <dakr@kernel.org>
-Subject: Re: [PATCH] rust: DamFence: Remove warning about unsignaled drop
-References: <20261112101015.528127-2-phasta@kernel.org>
- <5d466f7c-2e70-4011-be04-9ffdf877b915@amd.com>
- <49298d3a328c1695ea27993f714c20b8a1c05f32.camel@mailbox.org>
- <e2ec8a39-56c3-4274-91ce-60c273904877@amd.com>
- <ab99758408df682c68a3792cc3014b77d6e1c8ab.camel@mailbox.org>
- <c2dd46ea-94d8-4720-af37-897c91809338@amd.com>
- <DMXJ8TBSZJJ4.3HG0OJDI9URTT@kernel.org>
- <8da4a8c0-1740-450c-9cf1-1a7b21d12997@amd.com>
- <DMXMSIQONGUW.1RRNS7I6LACD6@kernel.org>
- <a7f9e0f3-b299-4d40-9230-106003725dc2@amd.com>
- <202dd0c3d515ddfa77a8ec8751badadd31b8a7b0.camel@mailbox.org>
- <141892f8-180c-4157-8c59-6e69057334f2@amd.com>
- <DMZAQ0G6LTTB.1CRPNXSYB4QHG@kernel.org>
- <c18fc55a-717f-42a0-b37f-4ed81efd29d1@amd.com>
-In-Reply-To: <c18fc55a-717f-42a0-b37f-4ed81efd29d1@amd.com>
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
+X-Rspamd-Pre-Result: action=no action; module=replies;
+ Message is reply to one we originated
+X-Rspamd-Server: rspamd1.dmz-prg2.suse.org
+X-Spamd-Result: default: False [-4.00 / 50.00];
+	REPLY(-4.00)[]
+X-Spam-Score: -4.00
+X-Spam-Level: 
+X-Rspamd-Queue-Id: 238BF1F441
+X-Rspamd-Pre-Result: action=no action; module=replies;
+ Message is reply to one we originated
+X-Rspamd-Action: no action
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -73,145 +64,388 @@ List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-5.8 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
-	DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
-	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS autolearn=no
-	autolearn_force=no version=4.0.1
+X-Spam-Status: No, score=-16.8 required=3.0 tests=BAYES_00,
+	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
+	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,USER_AGENT_GIT
+	autolearn=unavailable autolearn_force=no version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-On Fri Nov 20, 2026 at 10:15 AM CET, Christian K=C3=B6nig wrote:
-> On 11/19/26 16:34, Danilo Krummrich wrote:
->> On Thu Nov 19, 2026 at 11:47 AM CET, Christian K=C3=B6nig wrote:
->>> A dma_fence should *NEVER* signal because you waited for something. Ins=
-tead
->>> the dma_fence is what is waited on.
->>=20
->> In the end, despite doing it on behalf of the hardware, the driver is th=
-e
->> producer of the fence. And there are cases where it can't wait on its ow=
-n fence,
->> because no one is going to signal it other than the driver itself.
->>=20
->> Assume you have an execution context that is torn down, and also assume =
-the
->> hardware supports preemption. Then some of the jobs in the queue might s=
-till
->> signal, but some jobs are not processed anymore and hence are not signal=
-ed.
->>=20
->> For those jobs that did not execute anymore, the fence still has to be s=
-ignaled.
->> So the driver has to signal them after it waited on the preemption and e=
-xecution
->> context teardown is complete and no more operations are in flight.
->
-> Oh well that comment made me smile because it confirmed what I wrote :)
+Represent glyph data as unsigned char, as done by font_data_t. Convert
+all related code. Also declare source buffers with glyph data as const
+because internal fonts reside in read-only memory. Avoid writing them.
 
-No, it just seems that way because you ignore everything I write and instea=
-d
-repeat "wait for the DMA fence".
+We still use char for glyph data in struct fb_image. The type is part
+of the kernel uAPI and therefore cannot be changed. Fall back to type
+casting in this case.
 
-Again, how can a driver wait for its own fence to be signaled (e.g. through=
- an
-interrupt) when the hardware (or firmware) queue is dead?
+Destination buffers for font drawing are still u8. This is framebuffer
+memory provided by graphics hardware.
 
-> How do you wait for the "preemption and execution context teardown is com=
-plete
-> and no more operations are in flight" ?
+Signed-off-by: Thomas Zimmermann <tzimmermann@suse.de>
+---
+ drivers/video/fbdev/core/bitblit.c   | 25 ++++++++++++++-----------
+ drivers/video/fbdev/core/fbcon.h     |  4 ++--
+ drivers/video/fbdev/core/fbcon_ccw.c | 22 ++++++++++++----------
+ drivers/video/fbdev/core/fbcon_cw.c  | 22 ++++++++++++----------
+ drivers/video/fbdev/core/fbcon_ud.c  | 28 +++++++++++++++-------------
+ 5 files changed, 55 insertions(+), 46 deletions(-)
 
-I think the generic answer is exactly the same way as if an individual job
-completes, the driver signals the fence for otherwise.
+diff --git a/drivers/video/fbdev/core/bitblit.c b/drivers/video/fbdev/core/bitblit.c
+index 590d12bbf30d..5cdd70f32c28 100644
+--- a/drivers/video/fbdev/core/bitblit.c
++++ b/drivers/video/fbdev/core/bitblit.c
+@@ -23,12 +23,13 @@
+ /*
+  * Accelerated handlers.
+  */
+-static void update_attr(u8 *dst, const u8 *src, int attribute, struct vc_data *vc)
++static void update_attr(unsigned char *dst, const unsigned char *src, int attribute,
++			struct vc_data *vc)
+ {
+ 	int i, offset = (vc->vc_font.height < 10) ? 1 : 2;
+ 	int width = DIV_ROUND_UP(vc->vc_font.width, 8);
+ 	unsigned int cellsize = vc->vc_font.height * width;
+-	u8 c;
++	unsigned char c;
+ 
+ 	offset = cellsize - (offset * width);
+ 	for (i = 0; i < cellsize; i++) {
+@@ -76,12 +77,13 @@ static void bit_clear(struct vc_data *vc, struct fb_info *info, int sy,
+ static inline void bit_putcs_aligned(struct vc_data *vc, struct fb_info *info,
+ 				     const u16 *s, u32 attr, u32 cnt,
+ 				     u32 d_pitch, u32 s_pitch, u32 cellsize,
+-				     struct fb_image *image, u8 *buf, u8 *dst)
++				     struct fb_image *image,
++				     unsigned char *buf, u8 *dst)
+ {
+ 	u16 charmask = vc->vc_hi_font_mask ? 0x1ff : 0xff;
+ 	unsigned int charcnt = vc->vc_font.charcount;
+ 	u32 idx = vc->vc_font.width >> 3;
+-	const u8 *src;
++	const unsigned char *src;
+ 
+ 	while (cnt--) {
+ 		u16 ch = scr_readw(s++) & charmask;
+@@ -112,15 +114,15 @@ static inline void bit_putcs_unaligned(struct vc_data *vc,
+ 				       struct fb_info *info, const u16 *s,
+ 				       u32 attr, u32 cnt, u32 d_pitch,
+ 				       u32 s_pitch, u32 cellsize,
+-				       struct fb_image *image, u8 *buf,
+-				       u8 *dst)
++				       struct fb_image *image,
++				       unsigned char *buf, u8 *dst)
+ {
+ 	u16 charmask = vc->vc_hi_font_mask ? 0x1ff : 0xff;
+ 	unsigned int charcnt = vc->vc_font.charcount;
+ 	u32 shift_low = 0, mod = vc->vc_font.width % 8;
+ 	u32 shift_high = 8;
+ 	u32 idx = vc->vc_font.width >> 3;
+-	const u8 *src;
++	const unsigned char *src;
+ 
+ 	while (cnt--) {
+ 		u16 ch = scr_readw(s++) & charmask;
+@@ -161,7 +163,8 @@ static void bit_putcs(struct vc_data *vc, struct fb_info *info,
+ 	u32 buf_align = info->pixmap.buf_align - 1;
+ 	u32 mod = vc->vc_font.width % 8, cnt, pitch, size;
+ 	u32 attribute = get_attribute(info, scr_readw(s));
+-	u8 *dst, *buf = NULL;
++	unsigned char *buf = NULL;
++	u8 *dst;
+ 
+ 	image.fg_color = fg;
+ 	image.bg_color = bg;
+@@ -269,7 +272,7 @@ static void bit_cursor(struct vc_data *vc, struct fb_info *info, bool enable,
+ 	int y = real_y(par->p, vc->state.y);
+ 	int attribute, use_sw = vc->vc_cursor_type & CUR_SW;
+ 	int err = 1;
+-	const u8 *src;
++	const unsigned char *src;
+ 
+ 	cursor.set = 0;
+ 
+@@ -287,12 +290,12 @@ static void bit_cursor(struct vc_data *vc, struct fb_info *info, bool enable,
+ 
+ 	if (par->cursor_state.image.data != (const char *)src ||
+ 	    par->cursor_reset) {
+-		par->cursor_state.image.data = src;
++		par->cursor_state.image.data = (const char *)src;
+ 		cursor.set |= FB_CUR_SETIMAGE;
+ 	}
+ 
+ 	if (attribute) {
+-		u8 *dst;
++		unsigned char *dst;
+ 
+ 		dst = kmalloc_array(w, vc->vc_font.height, GFP_ATOMIC);
+ 		if (!dst)
+diff --git a/drivers/video/fbdev/core/fbcon.h b/drivers/video/fbdev/core/fbcon.h
+index d93a89877d04..289a3d18f917 100644
+--- a/drivers/video/fbdev/core/fbcon.h
++++ b/drivers/video/fbdev/core/fbcon.h
+@@ -75,7 +75,7 @@ struct fbcon_bitops {
+ #ifdef CONFIG_FRAMEBUFFER_CONSOLE_ROTATION
+ struct fbcon_rotated {
+ 	font_data_t *fontdata;       /* source font */
+-	u8 *buf;                     /* rotated glyphs */
++	unsigned char *buf;          /* rotated glyphs */
+ 	size_t bufsize;
+ 	int buf_rotate;              /* rotation of buf */
+ 	unsigned int buf_width;      /* geometry of source font */
+@@ -98,7 +98,7 @@ struct fbcon_par {
+ 	int    graphics;
+ 	bool   initialized;
+ 	int    rotate;
+-	char  *cursor_data;
++	unsigned char *cursor_data;
+ #ifdef CONFIG_FRAMEBUFFER_CONSOLE_ROTATION
+ 	struct fbcon_rotated rotated;
+ #endif
+diff --git a/drivers/video/fbdev/core/fbcon_ccw.c b/drivers/video/fbdev/core/fbcon_ccw.c
+index 9a9839631cc5..de4a58d3385e 100644
+--- a/drivers/video/fbdev/core/fbcon_ccw.c
++++ b/drivers/video/fbdev/core/fbcon_ccw.c
+@@ -23,13 +23,13 @@
+  * Rotation 270 degrees
+  */
+ 
+-static void ccw_update_attr(u8 *dst, u8 *src, int attribute,
+-				  struct vc_data *vc)
++static void ccw_update_attr(unsigned char *dst, const unsigned char *src, int attribute,
++			    struct vc_data *vc)
+ {
+ 	int i, j, offset = (vc->vc_font.height < 10) ? 1 : 2;
+ 	int width = font_glyph_pitch(vc->vc_font.height);
+ 	int mod = vc->vc_font.height % 8;
+-	u8 c, msk = ~(0xff << offset), msk1 = 0;
++	unsigned char c, msk = ~(0xff << offset), msk1 = 0;
+ 
+ 	if (mod)
+ 		msk <<= (8 - mod);
+@@ -98,12 +98,13 @@ static void ccw_clear(struct vc_data *vc, struct fb_info *info, int sy,
+ static inline void ccw_putcs_aligned(struct vc_data *vc, struct fb_info *info,
+ 				    const u16 *s, u32 attr, u32 cnt,
+ 				    u32 d_pitch, u32 s_pitch, u32 cellsize,
+-				    struct fb_image *image, u8 *buf, u8 *dst)
++				    struct fb_image *image,
++				    unsigned char *buf, u8 *dst)
+ {
+ 	struct fbcon_par *par = info->fbcon_par;
+ 	u16 charmask = vc->vc_hi_font_mask ? 0x1ff : 0xff;
+ 	u32 idx = font_glyph_pitch(vc->vc_font.height);
+-	u8 *src;
++	const unsigned char *src;
+ 
+ 	while (cnt--) {
+ 		src = par->rotated.buf + (scr_readw(s--) & charmask) * cellsize;
+@@ -139,8 +140,9 @@ static void ccw_putcs(struct vc_data *vc, struct fb_info *info,
+ 	u32 buf_align = info->pixmap.buf_align - 1;
+ 	u32 cnt, pitch, size;
+ 	u32 attribute = get_attribute(info, scr_readw(s));
+-	u8 *dst, *buf = NULL;
++	unsigned char *buf = NULL;
+ 	u32 vyres = GETVYRES(par->p, info);
++	u8 *dst;
+ 
+ 	if (!par->rotated.buf)
+ 		return;
+@@ -229,7 +231,7 @@ static void ccw_cursor(struct vc_data *vc, struct fb_info *info, bool enable,
+ 	int y = real_y(par->p, vc->state.y);
+ 	int attribute, use_sw = vc->vc_cursor_type & CUR_SW;
+ 	int err = 1, dx, dy;
+-	char *src;
++	const unsigned char *src;
+ 	u32 vyres = GETVYRES(par->p, info);
+ 
+ 	if (!par->rotated.buf)
+@@ -241,14 +243,14 @@ static void ccw_cursor(struct vc_data *vc, struct fb_info *info, bool enable,
+ 	attribute = get_attribute(info, c);
+ 	src = par->rotated.buf + ((c & charmask) * (w * vc->vc_font.width));
+ 
+-	if (par->cursor_state.image.data != src ||
++	if (par->cursor_state.image.data != (const char *)src ||
+ 	    par->cursor_reset) {
+-		par->cursor_state.image.data = src;
++		par->cursor_state.image.data = (const char *)src;
+ 		cursor.set |= FB_CUR_SETIMAGE;
+ 	}
+ 
+ 	if (attribute) {
+-		u8 *dst;
++		unsigned char *dst;
+ 
+ 		dst = kmalloc_array(w, vc->vc_font.width, GFP_ATOMIC);
+ 		if (!dst)
+diff --git a/drivers/video/fbdev/core/fbcon_cw.c b/drivers/video/fbdev/core/fbcon_cw.c
+index 4cb20337cf79..4e82199082f1 100644
+--- a/drivers/video/fbdev/core/fbcon_cw.c
++++ b/drivers/video/fbdev/core/fbcon_cw.c
+@@ -23,12 +23,12 @@
+  * Rotation 90 degrees
+  */
+ 
+-static void cw_update_attr(u8 *dst, u8 *src, int attribute,
+-				  struct vc_data *vc)
++static void cw_update_attr(unsigned char *dst, const unsigned char *src, int attribute,
++			   struct vc_data *vc)
+ {
+ 	int i, j, offset = (vc->vc_font.height < 10) ? 1 : 2;
+ 	int width = font_glyph_pitch(vc->vc_font.height);
+-	u8 c, msk = ~(0xff >> offset);
++	unsigned char c, msk = ~(0xff >> offset);
+ 
+ 	for (i = 0; i < vc->vc_font.width; i++) {
+ 		for (j = 0; j < width; j++) {
+@@ -83,12 +83,13 @@ static void cw_clear(struct vc_data *vc, struct fb_info *info, int sy,
+ static inline void cw_putcs_aligned(struct vc_data *vc, struct fb_info *info,
+ 				    const u16 *s, u32 attr, u32 cnt,
+ 				    u32 d_pitch, u32 s_pitch, u32 cellsize,
+-				    struct fb_image *image, u8 *buf, u8 *dst)
++				    struct fb_image *image,
++				    unsigned char *buf, u8 *dst)
+ {
+ 	struct fbcon_par *par = info->fbcon_par;
+ 	u16 charmask = vc->vc_hi_font_mask ? 0x1ff : 0xff;
+ 	u32 idx = font_glyph_pitch(vc->vc_font.height);
+-	u8 *src;
++	const unsigned char *src;
+ 
+ 	while (cnt--) {
+ 		src = par->rotated.buf + (scr_readw(s++) & charmask) * cellsize;
+@@ -124,8 +125,9 @@ static void cw_putcs(struct vc_data *vc, struct fb_info *info,
+ 	u32 buf_align = info->pixmap.buf_align - 1;
+ 	u32 cnt, pitch, size;
+ 	u32 attribute = get_attribute(info, scr_readw(s));
+-	u8 *dst, *buf = NULL;
++	unsigned char *buf = NULL;
+ 	u32 vxres = GETVXRES(par->p, info);
++	u8 *dst;
+ 
+ 	if (!par->rotated.buf)
+ 		return;
+@@ -212,7 +214,7 @@ static void cw_cursor(struct vc_data *vc, struct fb_info *info, bool enable,
+ 	int y = real_y(par->p, vc->state.y);
+ 	int attribute, use_sw = vc->vc_cursor_type & CUR_SW;
+ 	int err = 1, dx, dy;
+-	char *src;
++	const unsigned char *src;
+ 	u32 vxres = GETVXRES(par->p, info);
+ 
+ 	if (!par->rotated.buf)
+@@ -224,14 +226,14 @@ static void cw_cursor(struct vc_data *vc, struct fb_info *info, bool enable,
+ 	attribute = get_attribute(info, c);
+ 	src = par->rotated.buf + ((c & charmask) * (w * vc->vc_font.width));
+ 
+-	if (par->cursor_state.image.data != src ||
++	if (par->cursor_state.image.data != (const char *)src ||
+ 	    par->cursor_reset) {
+-		par->cursor_state.image.data = src;
++		par->cursor_state.image.data = (const char *)src;
+ 		cursor.set |= FB_CUR_SETIMAGE;
+ 	}
+ 
+ 	if (attribute) {
+-		u8 *dst;
++		unsigned char *dst;
+ 
+ 		dst = kmalloc_array(w, vc->vc_font.width, GFP_ATOMIC);
+ 		if (!dst)
+diff --git a/drivers/video/fbdev/core/fbcon_ud.c b/drivers/video/fbdev/core/fbcon_ud.c
+index ac22b9846b79..dc48e19513a1 100644
+--- a/drivers/video/fbdev/core/fbcon_ud.c
++++ b/drivers/video/fbdev/core/fbcon_ud.c
+@@ -22,13 +22,13 @@
+  * Rotation 180 degrees
+  */
+ 
+-static void ud_update_attr(u8 *dst, u8 *src, int attribute,
+-				  struct vc_data *vc)
++static void ud_update_attr(unsigned char *dst, const unsigned char *src, int attribute,
++			   struct vc_data *vc)
+ {
+ 	int i, offset = (vc->vc_font.height < 10) ? 1 : 2;
+ 	int width = font_glyph_pitch(vc->vc_font.width);
+ 	unsigned int cellsize = vc->vc_font.height * width;
+-	u8 c;
++	unsigned char c;
+ 
+ 	offset = offset * width;
+ 
+@@ -84,12 +84,13 @@ static void ud_clear(struct vc_data *vc, struct fb_info *info, int sy,
+ static inline void ud_putcs_aligned(struct vc_data *vc, struct fb_info *info,
+ 				    const u16 *s, u32 attr, u32 cnt,
+ 				    u32 d_pitch, u32 s_pitch, u32 cellsize,
+-				    struct fb_image *image, u8 *buf, u8 *dst)
++				    struct fb_image *image,
++				    unsigned char *buf, u8 *dst)
+ {
+ 	struct fbcon_par *par = info->fbcon_par;
+ 	u16 charmask = vc->vc_hi_font_mask ? 0x1ff : 0xff;
+ 	u32 idx = vc->vc_font.width >> 3;
+-	u8 *src;
++	const unsigned char *src;
+ 
+ 	while (cnt--) {
+ 		src = par->rotated.buf + (scr_readw(s--) & charmask) * cellsize;
+@@ -116,15 +117,15 @@ static inline void ud_putcs_unaligned(struct vc_data *vc,
+ 				      struct fb_info *info, const u16 *s,
+ 				      u32 attr, u32 cnt, u32 d_pitch,
+ 				      u32 s_pitch, u32 cellsize,
+-				      struct fb_image *image, u8 *buf,
+-				      u8 *dst)
++				      struct fb_image *image,
++				      unsigned char *buf, u8 *dst)
+ {
+ 	struct fbcon_par *par = info->fbcon_par;
+ 	u16 charmask = vc->vc_hi_font_mask ? 0x1ff : 0xff;
+ 	u32 shift_low = 0, mod = vc->vc_font.width % 8;
+ 	u32 shift_high = 8;
+ 	u32 idx = vc->vc_font.width >> 3;
+-	u8 *src;
++	const unsigned char *src;
+ 
+ 	while (cnt--) {
+ 		src = par->rotated.buf + (scr_readw(s--) & charmask) * cellsize;
+@@ -160,9 +161,10 @@ static void ud_putcs(struct vc_data *vc, struct fb_info *info,
+ 	u32 buf_align = info->pixmap.buf_align - 1;
+ 	u32 mod = vc->vc_font.width % 8, cnt, pitch, size;
+ 	u32 attribute = get_attribute(info, scr_readw(s));
+-	u8 *dst, *buf = NULL;
++	unsigned char *buf = NULL;
+ 	u32 vyres = GETVYRES(par->p, info);
+ 	u32 vxres = GETVXRES(par->p, info);
++	u8 *dst;
+ 
+ 	if (!par->rotated.buf)
+ 		return;
+@@ -258,7 +260,7 @@ static void ud_cursor(struct vc_data *vc, struct fb_info *info, bool enable,
+ 	int y = real_y(par->p, vc->state.y);
+ 	int attribute, use_sw = vc->vc_cursor_type & CUR_SW;
+ 	int err = 1, dx, dy;
+-	char *src;
++	const unsigned char *src;
+ 	u32 vyres = GETVYRES(par->p, info);
+ 	u32 vxres = GETVXRES(par->p, info);
+ 
+@@ -271,14 +273,14 @@ static void ud_cursor(struct vc_data *vc, struct fb_info *info, bool enable,
+ 	attribute = get_attribute(info, c);
+ 	src = par->rotated.buf + ((c & charmask) * (w * vc->vc_font.height));
+ 
+-	if (par->cursor_state.image.data != src ||
++	if (par->cursor_state.image.data != (const char *)src ||
+ 	    par->cursor_reset) {
+-		par->cursor_state.image.data = src;
++		par->cursor_state.image.data = (const char *)src;
+ 		cursor.set |= FB_CUR_SETIMAGE;
+ 	}
+ 
+ 	if (attribute) {
+-		u8 *dst;
++		unsigned char *dst;
+ 
+ 		dst = kmalloc_array(w, vc->vc_font.height, GFP_ATOMIC);
+ 		if (!dst)
+-- 
+2.56.0
 
-> That waiting for DMA context teardown must be done through a dma-fence. T=
-hat
-> is the whole concept of dma-fences in the first place.
-
-Again, how can this be done if the hardware or firmware queue is dead?
-
-> I wish I could enforce that in C somehow but we missed that opportunity w=
-hen
-> we originally designed the dma-fence and now it is to late because of the
-> fallout and complexity required for such a change.
->
-> See the discussion here as well https://lists.freedesktop.org/archives/dr=
-i-devel/2025-August/520640.html
-
-You ask about whether dma_fence_work_commit_imm() in i915 should exist in t=
-he
-first place. I can't find any subsequent discussion and the function exists=
- in
-i915 till today. What did you intend me to extract from this?
-
-> I think we are at the point where I need to make clear that practices lik=
-e
-> signaling fences from a destructor or other IOCTL initiated teardown is a=
- NAK
-> from my side as DMA-buf maintainer.
->
-> When you want to push forward with this anyway I think we need to raise t=
-his
-> with Dave/Linus to get an answer if such an approach is ok or not.
-
-There's many indicators in this discussion that show me that you probably d=
-on't
-understand Rust enough, or didn't engage with the arguments enough to make =
-such
-a call (mixing up Rust destructors and IOCTL context above is one of them).
-
-At this point, none of this needs an authoritative answer.
-
-That said, maybe it helps to find some similar examples in C. I tried to fi=
-nd
-amdgpu ones. Xe code is probably a better fit as it has firmware queues as =
-well,
-but let's try this first.
-
-amdgpu signales fences in a way that is a destructor too.
-
-[1] was introduced in commit 97ff19462539 ("drm/amdgpu: Implement a new
-userqueue fence driver"), explicitly suggested and reviewed by yourself.
-
-(To me it seems that this signaling loop is unnecessary though, so maybe fa=
-ir
-enough.)
-
-Another example is amdgpu_fence_driver_force_completion() [2], which is cal=
-led
-in many places. One of them has the following callchain:
-
-	amdgpu_pci_remove()
-	  drm_dev_unplug()
-	  amdgpu_driver_unload_kms()
-	    amdgpu_device_fini_hw()
-	      amdgpu_fence_driver_hw_fini()
-	        amdgpu_fence_driver_force_completion()
-	          amdgpu_fence_process()
-	            dma_fence_signal()
-=09
-
-The comment in [3] explicitly says "You can't wait for HW to signal if it's
-gone", which is exactly my point.
-
-The same is true for when a firmware ring is gone (or dead) and the firmwar=
-e
-guarantees that there are no more outstanding transfers.
-
-And then there's of course the case where jobs didn't hit a hardware or fir=
-mware
-queue in the first palce, e.g. in drm_sched_entity_kill().
-
-All of those examples are all destructors.
-
-[1] https://elixir.bootlin.com/linux/v7.3.1/source/drivers/gpu/drm/amd/amdg=
-pu/amdgpu_userq_fence.c#L183
-[2] https://elixir.bootlin.com/linux/v7.3.1/source/drivers/gpu/drm/amd/amdg=
-pu/amdgpu_fence.c#L668
-[3] https://elixir.bootlin.com/linux/v7.3.1/source/drivers/gpu/drm/amd/amdg=
-pu/amdgpu_fence.c#L543
-[4] https://elixir.bootlin.com/linux/v7.3.1/source/drivers/gpu/drm/schedule=
-r/sched_entity.c#L305
-
->> The same is true for job fences that are in a software queue and never h=
-it the
->> queue of the hardware execution context.
