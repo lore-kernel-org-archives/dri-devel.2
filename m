@@ -2,42 +2,44 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2527A606A32A
-	for <dri-devel@archiver.kernel.org>; Fri, 20 Nov 2026 13:15:08 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 57236606A332
+	for <dri-devel@archiver.kernel.org>; Fri, 20 Nov 2026 13:16:29 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=MShqbXqK
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=U1+7dvHG
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 69F2A112A42;
-	Fri, 20 Nov 2026 13:15:02 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id B642C112A43;
+	Fri, 20 Nov 2026 13:16:23 +0000 (UTC)
 Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 7A7FE112A41
- for <dri-devel@lists.freedesktop.org>; Fri, 20 Nov 2026 13:14:55 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 83FFB112A4B
+ for <dri-devel@lists.freedesktop.org>; Fri, 20 Nov 2026 13:16:17 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id 6442042A89
- for <dri-devel@lists.freedesktop.org>; Fri, 20 Nov 2026 13:14:55 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0A0EA1F000C6;
- Fri, 20 Nov 2026 13:14:54 +0000 (UTC)
+ by sea.source.kernel.org (Postfix) with ESMTP id 5236F46200;
+ Fri, 20 Nov 2026 13:16:17 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5CD771F000F0;
+ Fri, 20 Nov 2026 13:16:16 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1795180495;
- bh=z3wKsUTj4x8+9RW9X9fkzEX8payT1ljMMhtQq7d2qJY=;
+ s=k20260515; t=1795180577;
+ bh=rymBCJyiHy8Ghdn2DaeKiGdHuUNaTTqnH0lL1TRcJxE=;
  h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
- b=MShqbXqKrwHfYDd7bdyN2LFQ67ccWcHamIYvQsCYiBrnlKaYhKcdWrRqzgZQSrEJ1
- WHBIIdJgeLdyckkOJT7y0Hrh+tX75anEtKrLXPgVK73mOtA64Ye0b80MfdybXTgKQ9
- KtzNk+V3rVLAY2ViT6WETd96PkfFuwB71SNNzjgq4ZbVRDZnsvM74aeJaQk09CkB9z
- 7iVOeD3M4xBm6+XC7RbnNs0/z8+YyPCoUaf/2xCYaOTgnumHToIlj8l0aPB3EK8ZOz
- zcurbp9/y1+NgPTRDouBfjg9BhPixDWCh96OU6AU3F/DD/eEmmF7K1z81prR7doPDm
- 1dcVTSxMnARuw==
-Message-ID: <sashiko-outbox-225202@kernel.org>
+ b=U1+7dvHGJyor3CsGEGO8dR09Z+Ox5yzjvEdcIB6MttWlEAI/fgVJoRDQRaaIk6llC
+ lROet6Mam2eTKNtcLjdZk7cbYDBAN7DbnRfe7Zgv53soNdKR2/OEbgfQggrd2heiqB
+ /SasuUOTemJOaPvE0V43mR+gX1nohn3ZqxAsdHUs/eYRT4zRUiNYcmwXHuzXYBj1Ke
+ REByfybOYxAjhpb74yzrRFhMyUW44nCFUMB5g4W3MfvJr+/Re9qxOXZ37GNG1OtzRs
+ GTG5oMMTBEbvb+Dxo+gAuqmNXLgwt0s1qvax/MTrWG3D1Ik5lJcQN8pz9Sbz3aeiCP
+ AtlqgJ0e7Pctg==
+Message-ID: <sashiko-outbox-225210@kernel.org>
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v9 32/42] drm/tidss: crtc: Implement hardware state readout
-To: "Maxime Ripard" <mripard@kernel.org>
-Cc: dri-devel@lists.freedesktop.org
-In-Reply-To: <20261120-drm-state-readout-v9-32-a67c2b45b8ec@kernel.org>
-References: <20261120-drm-state-readout-v9-0-a67c2b45b8ec@kernel.org>
- <20261120-drm-state-readout-v9-32-a67c2b45b8ec@kernel.org>
+Subject: Re: [PATCH v13 2/5] drm/imx: Add support for i.MX94 DCIF
+To: "Laurentiu Palcu" <laurentiu.palcu@oss.nxp.com>
+Cc: linux-clk@vger.kernel.org, imx@lists.linux.dev, devicetree@vger.kernel.org,
+ dri-devel@lists.freedesktop.org, robh@kernel.org, conor+dt@kernel.org,
+ Frank.Li@kernel.org
+In-Reply-To: <20261120-dcif-upstreaming-v13-2-966ac248773f@oss.nxp.com>
+References: <20261120-dcif-upstreaming-v13-0-966ac248773f@oss.nxp.com>
+ <20261120-dcif-upstreaming-v13-2-966ac248773f@oss.nxp.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Fri, 20 Nov 2026 13:14:54 +0000
+Date: Fri, 20 Nov 2026 13:16:15 +0000
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -60,91 +62,143 @@ X-Archived-By: <archiver.kernel.org>
 
 Thank you for your contribution! Sashiko AI review found 2 potential
 issues to consider:
-- [High] drm/tidss: build failure due to undeclared dispc_vp_*() readout
-  helpers
-- [Medium] drm/tidss: unchecked tidss_runtime_get() in
-  tidss_crtc_readout_state()
+- [Medium] drm/imx/dcif: unclocked MMIO access after
+  pm_runtime_resume_and_get() fails
+- [Medium] drm/imx: dcif: unbalanced clock disable if
+  dcif_runtime_resume() fails
 --
 
-commit 9881c280c684258267a1385984e8908b2bf1845f
-Author: Maxime Ripard <mripard@kernel.org>
+commit aec0e23d14596f3fd993df3e2ad261bfab2bf2dd
+Author: Sandor Yu <sandor.yu@nxp.com>
 
-drm/tidss: crtc: Implement hardware state readout
+drm/imx: Add support for i.MX94 DCIF
 
-This commit implements the hardware state readout, state installation, and
-state comparison hooks for tidss CRTCs.
+This commit adds a DRM driver for the Display Control Interface (DCIF) on
+NXP i.MX94 SoCs, supporting primary and overlay planes, alpha blending,
+and display output CRC generation.
 
-> diff --git a/drivers/gpu/drm/tidss/tidss_crtc.c b/drivers/gpu/drm/tidss/t=
-idss_crtc.c
-> index d2664bda53a99..c72194e93bde1 100644
-> --- a/drivers/gpu/drm/tidss/tidss_crtc.c
-> +++ b/drivers/gpu/drm/tidss/tidss_crtc.c
+> diff --git a/drivers/gpu/drm/imx/dcif/dcif-crtc.c b/drivers/gpu/drm/imx/d=
+cif/dcif-crtc.c
+> new file mode 100644
+> index 0000000000000..233e149929964
+> --- /dev/null
+> +++ b/drivers/gpu/drm/imx/dcif/dcif-crtc.c
+> @@ -0,0 +1,710 @@
 
 [ ... ]
 
-> @@ -372,6 +376,131 @@ static struct drm_crtc_state *tidss_crtc_create_sta=
-te(struct drm_crtc *crtc)
->  	return &tstate->base;
->  }
-> =20
-> +static int tidss_crtc_readout_state(struct drm_crtc *crtc,
-> +				    struct drm_atomic_sro_state *state,
-> +				    struct drm_crtc_state *crtc_state)
+> +static void dcif_crtc_atomic_enable(struct drm_crtc *crtc,
+> +				    struct drm_atomic_commit *state)
 > +{
-> +	struct drm_device *ddev =3D crtc->dev;
-> +	struct tidss_device *tidss =3D to_tidss(ddev);
-> +	struct dispc_device *dispc =3D tidss->dispc;
-> +	struct tidss_crtc_state *tstate =3D to_tidss_crtc_state(crtc_state);
-> +	struct tidss_crtc *tcrtc =3D
-> +		to_tidss_crtc(crtc);
-> +	struct drm_display_mode mode =3D {};
+> +	struct drm_crtc_state *crtc_state =3D drm_atomic_get_new_crtc_state(sta=
+te, crtc);
+> +	struct dcif_crtc_state *dcif_crtc_state =3D to_dcif_crtc_state(crtc_sta=
+te);
+> +	struct drm_display_mode *adj =3D &crtc_state->adjusted_mode;
+> +	struct dcif_dev *dcif =3D crtc_to_dcif_dev(crtc);
+> +	struct drm_device *drm =3D crtc->dev;
 > +	int ret;
 > +
-> +	tidss_runtime_get(tidss);
+> +	dev_dbg(drm->dev, "mode " DRM_MODE_FMT "\n", DRM_MODE_ARG(adj));
+> +
+> +	/* enable power when we start to set mode for CRTC */
+> +	ret =3D pm_runtime_resume_and_get(drm->dev);
+> +	if (ret < 0) {
+> +		drm_err(drm, "failed to resume DCIF, ret =3D %d\n", ret);
+> +		return;
+> +	}
+> +	dcif->crtc_pm_enabled =3D true;
+
+[ ... ]
+
+> +static void dcif_crtc_atomic_disable(struct drm_crtc *crtc,
+> +				     struct drm_atomic_commit *state)
+> +{
+> +	struct dcif_dev *dcif =3D crtc_to_dcif_dev(crtc);
+> +	struct drm_device *drm =3D crtc->dev;
+> +
+> +	if (dcif->has_crc)
+> +		dcif_crc_source_disable(dcif, 0);
+> +
+> +	dcif_disable_controller(dcif);
+> +	dcif_disable_plane_panic(dcif);
+> +
+> +	drm_crtc_vblank_off(crtc);
+> +
+> +	if (dcif->crtc_pm_enabled) {
+> +		dcif->crtc_pm_enabled =3D false;
+> +		pm_runtime_put_sync(drm->dev);
+> +	}
 
 [Severity: Medium]
-Should tidss_crtc_readout_state() check the return value of
-tidss_runtime_get() before reading DISPC registers, as
-tidss_crtc_install_state() does below?
+Can a failure in pm_runtime_resume_and_get() lead to unclocked MMIO
+accesses and a synchronous external abort?
 
-tidss_runtime_get() wraps pm_runtime_resume_and_get(), which drops the
-usage count on failure.  Continuing on error accesses DISPC registers while
-the DSS power domain and functional clock are disabled, and then
-unconditionally calls tidss_runtime_put() on exit, underflowing the runtime
-PM usage counter.
+When pm_runtime_resume_and_get() fails in dcif_crtc_atomic_enable(),
+dcif->crtc_pm_enabled stays false and the DCIF clocks remain disabled,
+while crtc_state->active is still true.  In the same commit tail,
+drm_atomic_helper_commit_planes() then runs dcif_plane_atomic_update() and
+dcif_crtc_atomic_flush(), writing to plane and shadow-load registers
+without checking dcif->crtc_pm_enabled.  Later, dcif_crtc_atomic_disable()
+also accesses and polls DCIF registers in dcif_crc_source_disable(),
+dcif_disable_controller(), and dcif_disable_plane_panic() before checking
+dcif->crtc_pm_enabled.
 
-> +
-> +	if (!dispc_vp_is_enabled(dispc, tcrtc->hw_videoport))
-> +		goto out;
-> +
-> +	tstate->base.active =3D 1;
-> +	tstate->base.enable =3D 1;
-> +
-> +	ret =3D dispc_vp_readout_mode(dispc, tcrtc->hw_videoport, &mode);
-> +	if (ret)
-> +		goto err_runtime_put;
-> +
-> +	ret =3D drm_atomic_set_mode_for_crtc(&tstate->base, &mode);
-> +	if (WARN_ON(ret))
-> +		goto err_runtime_put;
-> +
-> +	drm_mode_copy(&tstate->base.adjusted_mode, &mode);
-> +
-> +	tstate->bus_flags =3D dispc_vp_get_bus_flags(dispc, tcrtc->hw_videoport=
-);
-> +	ret =3D dispc_vp_get_bus_format(dispc, tcrtc->hw_videoport,
-> +				      &tstate->bus_format);
+> diff --git a/drivers/gpu/drm/imx/dcif/dcif-drv.c b/drivers/gpu/drm/imx/dc=
+if/dcif-drv.c
+> new file mode 100644
+> index 0000000000000..80b554f1b6843
+> --- /dev/null
+> +++ b/drivers/gpu/drm/imx/dcif/dcif-drv.c
+> @@ -0,0 +1,250 @@
 
-[Severity: High]
-Does this commit fail to build when CONFIG_DRM_TIDSS is enabled?
+[ ... ]
 
-dispc_vp_is_enabled(), dispc_vp_readout_mode(), dispc_vp_get_bus_flags(),
-dispc_vp_get_bus_format(), and dispc_vp_set_dpi_output() (called in
-tidss_crtc_install_state() below) are neither declared in tidss_dispc.h nor
-defined in tidss_dispc.c at this point in the series.  They are only added
-later in commit "drm/tidss: dispc: Add hardware state readout helpers",
-which breaks compilation and bisection here.
+> +static int dcif_suspend(struct device *dev)
+> +{
+> +	struct dcif_dev *dcif =3D dev_get_drvdata(dev);
+> +	int ret;
+> +
+> +	ret =3D drm_mode_config_helper_suspend(&dcif->drm);
+> +	if (ret < 0)
+> +		return ret;
+> +
+> +	if (pm_runtime_suspended(dev))
+> +		return 0;
+> +
+> +	return dcif_runtime_suspend(dev);
+> +}
+> +
+> +static int dcif_resume(struct device *dev)
+> +{
+> +	struct dcif_dev *dcif =3D dev_get_drvdata(dev);
+> +	int ret;
+> +
+> +	if (!pm_runtime_suspended(dev)) {
+> +		ret =3D dcif_runtime_resume(dev);
+> +		if (ret < 0)
+> +			return ret;
+> +	}
+> +
+> +	return drm_mode_config_helper_resume(&dcif->drm);
+> +}
+
+[Severity: Medium]
+Can a failure in dcif_runtime_resume() during system resume cause an
+unbalanced clk_bulk_disable_unprepare()?
+
+When the CRTC is active entering system suspend, the PM core holds an
+extra runtime PM reference from device_prepare(), so the
+pm_runtime_put_sync() in dcif_crtc_atomic_disable() leaves the device
+runtime-active.  dcif_suspend() then calls dcif_runtime_suspend() directly,
+disabling dcif->clks while runtime_status remains RPM_ACTIVE.
+
+If dcif_runtime_resume() fails in dcif_resume(), the device stays
+RPM_ACTIVE with its clocks already disabled, and device_complete() ->
+pm_runtime_put() will invoke dcif_runtime_suspend() a second time.  Using
+pm_runtime_force_suspend() and pm_runtime_force_resume() would keep the
+runtime PM state in sync with the clocks.
 
 --=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261120-drm-state-=
-readout-v9-0-a67c2b45b8ec@kernel.org?part=3D32
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261120-dcif-upstr=
+eaming-v13-0-966ac248773f@oss.nxp.com?part=3D2
