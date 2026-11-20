@@ -2,81 +2,63 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A0E82606A33E
-	for <dri-devel@archiver.kernel.org>; Fri, 20 Nov 2026 16:06:19 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 06CA9606A331
+	for <dri-devel@archiver.kernel.org>; Fri, 20 Nov 2026 16:10:22 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=igalia.com header.i=@igalia.com header.a=rsa-sha256 header.s=20170329 header.b=EcVNsC3w
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=oG7JIY1B
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 025BF112B94;
-	Fri, 20 Nov 2026 16:06:14 +0000 (UTC)
-Received: from fanzine2.igalia.com (fanzine2.igalia.com [213.97.179.56])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 7C4E8112B94
- for <dri-devel@lists.freedesktop.org>; Fri, 20 Nov 2026 16:06:07 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com; 
- s=20170329;
- h=Content-Transfer-Encoding:Content-Type:From:Cc:To:Subject:
- MIME-Version:Date:Message-ID:From:Reply-To;
- bh=cB+xUv7w1KY1jdh5E4wnq+1DubRDKcjagVPfCrGkLyM=; t=1795190767; x=2110550767; 
- b=EcVNsC3wrlEduteDbOA0h/hcb98aB6LE8r6RDh5sd64Vi3PqfFrJp8Q5CKD8Vrpw+QaTLY6B5as
- W12jpfPyYRzzYd9LUZJDBooG7n5eNa9rB1GbL/scqRWfuRPYCTyfQXdCjVEd2JBqUK7q4STxl2gUj
- TCkIwcVhKDcjMRmlt/5ilsrdAM06YB0DkCOn5DghXyFIqnJz71NWB8Gyu74UxoLH1zNiWJiTHkl0t
- feZBr2+1CulbyJ2ZITX2nv/GefUHBEMxnSnpfy5ZKIJ3Y6XAp2Huud2oFk8cX/YfeHWlugcr/p80v
- s4FVm2+6EX82zFglxKkemDYyweHxkr/LZmIQ==;
-Received: from [179.105.94.163] (helo=[192.168.0.4])
- by fanzine2.igalia.com with esmtpsa 
- (Cipher TLS1.3:ECDHE_X25519__RSA_PSS_RSAE_SHA256__AES_128_GCM:128) (Exim)
- id 1xUR7e-00000001w50-2e5Q; Fri, 20 Nov 2026 17:05:58 +0100
-Message-ID: <d2aa7dd9-367a-4b6f-8dee-3913b8e5f6a2@igalia.com>
-Date: Fri, 20 Nov 2026 13:05:50 -0300
+	by gabe.freedesktop.org (Postfix) with ESMTP id 80B78112B53;
+	Fri, 20 Nov 2026 16:10:15 +0000 (UTC)
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.16])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 2503C10E16C;
+ Fri, 20 Nov 2026 16:10:09 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1795191010; x=1826727010;
+ h=date:from:to:cc:subject:message-id:references:
+ mime-version:content-transfer-encoding:in-reply-to;
+ bh=/4nZzDCmQZxoUOyX8zA2Wr0ex3XpKyr80j56l/B4zxE=;
+ b=oG7JIY1BTh2cljiSbTYhLqAlrYFWN5hsFvxn618tyOpt8/ARsbtOVUru
+ uD2XtlQWo7alcX2Xs9r/jCU+A7EjnW3be3zSgR4r2D0gpKTcVPdqgFJor
+ j9Ce7+VgMnWooUeIsKaxEbgQs+synmKx/Tz7s6OJe1TRZZ7ESypEvm0IE
+ 4Yk+LX6jwcY2/jdYhMl7cw2P8SgBRpIkQPHyl7IUJmw75HOrQAIEBh+es
+ x/J/5vmb1xtNuZlnfxrvSCsKCphmeT2hqvajGmceM2LfGSHMb7Q2RSCk8
+ UNlZXuN/gBUQRz5Kf6ymFzF6u12mn0sg3Ara0O9jOHFJaW9Q6kg+te+R7 w==;
+X-CSE-ConnectionGUID: UC3IaLfuSmSHEFirsvZoow==
+X-CSE-MsgGUID: VDnC2hQwTSqlcjYk7H3nkw==
+X-IronPort-AV: E=McAfee;i="6800,10657,11972"; a="4064630"
+X-IronPort-AV: E=Sophos;i="6.27,223,1787036400"; 
+   d="scan'208";a="4064630"
+Received: from fmviesa006.fm.intel.com ([10.60.135.146])
+ by orvoesa108.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 20 Nov 2026 08:10:09 -0800
+X-CSE-ConnectionGUID: lu37WXorTmOTPGCAL8j8bw==
+X-CSE-MsgGUID: PvTnga3zRDqFFgLgpiSkyA==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,223,1787036400"; d="scan'208";a="11061698"
+Received: from klitkey1-mobl1.ger.corp.intel.com (HELO localhost)
+ ([10.245.244.66])
+ by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 20 Nov 2026 08:10:07 -0800
+Date: Fri, 20 Nov 2026 18:10:04 +0200
+From: Ville =?iso-8859-1?Q?Syrj=E4l=E4?= <ville.syrjala@linux.intel.com>
+To: sashiko-reviews@lists.linux.dev
+Cc: Yitian Shao <fighters390@qq.com>, intel-gfx@lists.freedesktop.org,
+ dri-devel@lists.freedesktop.org
+Subject: Re: [PATCH] drm/i915/dp: Attach HDR_OUTPUT_METADATA on eDP when TCON
+ supports HDR
+Message-ID: <awBw3DlWwFrl16Vw@intel.com>
+References: <tencent_083AD2514CBC235A9F55EE00BDF72D3B9209@qq.com>
+ <sashiko-outbox-224547@kernel.org>
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 0/6] drm/panfrost,panthor: Refuse to export WB_MMAP BOs
-To: Boris Brezillon <boris.brezillon@collabora.com>
-Cc: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- Faith Ekstrand <faith.ekstrand@collabora.com>, Rob Herring
- <robh@kernel.org>, Steven Price <steven.price@arm.com>,
- =?UTF-8?Q?Adri=C3=A1n_Larumbe?= <adrian.larumbe@collabora.com>,
- Liviu Dudau <liviu.dudau@arm.com>, Akash Goel <akash.goel@arm.com>,
- Karunika Choo <karunika.choo@arm.com>,
- Lukas Zapolskas <lukas.zapolskas@arm.com>,
- Chris Diamand <chris.diamand@arm.com>,
- Daniel Almeida <daniel.almeida@collabora.com>,
- Alice Ryhl <aliceryhl@google.com>, kernel-dev@igalia.com,
- dri-devel@lists.freedesktop.org, rust-for-linux@vger.kernel.org
-References: <20261119-pan-drop-dma-buf-hooks-v1-0-6c6f1629e7f9@igalia.com>
- <20261120105654.63e1c254@fedora1.home>
-From: =?UTF-8?Q?Ma=C3=ADra_Canal?= <mcanal@igalia.com>
-Content-Language: en-US
-Autocrypt: addr=mcanal@igalia.com; keydata=
- xsBNBGcCwywBCADgTji02Sv9zjHo26LXKdCaumcSWglfnJ93rwOCNkHfPIBll85LL9G0J7H8
- /PmEL9y0LPo9/B3fhIpbD8VhSy9Sqz8qVl1oeqSe/rh3M+GceZbFUPpMSk5pNY9wr5raZ63d
- gJc1cs8XBhuj1EzeE8qbP6JAmsL+NMEmtkkNPfjhX14yqzHDVSqmAFEsh4Vmw6oaTMXvwQ40
- SkFjtl3sr20y07cJMDe++tFet2fsfKqQNxwiGBZJsjEMO2T+mW7DuV2pKHr9aifWjABY5EPw
- G7qbrh+hXgfT+njAVg5+BcLz7w9Ju/7iwDMiIY1hx64Ogrpwykj9bXav35GKobicCAwHABEB
- AAHNIE1hw61yYSBDYW5hbCA8bWNhbmFsQGlnYWxpYS5jb20+wsCRBBMBCAA7FiEE+ORdfQEW
- dwcppnfRP/MOinaI+qoFAmcCwywCGwMFCwkIBwICIgIGFQoJCAsCBBYCAwECHgcCF4AACgkQ
- P/MOinaI+qoUBQgAqz2gzUP7K3EBI24+a5FwFlruQGtim85GAJZXToBtzsfGLLVUSCL3aF/5
- O335Bh6ViSBgxmowIwVJlS/e+L95CkTGzIIMHgyUZfNefR2L3aZA6cgc9z8cfow62Wu8eXnq
- GM/+WWvrFQb/dBKKuohfBlpThqDWXxhozazCcJYYHradIuOM8zyMtCLDYwPW7Vqmewa+w994
- 7Lo4CgOhUXVI2jJSBq3sgHEPxiUBOGxvOt1YBg7H9C37BeZYZxFmU8vh7fbOsvhx7Aqu5xV7
- FG+1ZMfDkv+PixCuGtR5yPPaqU2XdjDC/9mlRWWQTPzg74RLEw5sz/tIHQPPm6ROCACFls7A
- TQRnAsMsAQgAxTU8dnqzK6vgODTCW2A6SAzcvKztxae4YjRwN1SuGhJR2isJgQHoOH6oCItW
- Xc1CGAWnci6doh1DJvbbB7uvkQlbeNxeIz0OzHSiB+pb1ssuT31Hz6QZFbX4q+crregPIhr+
- 0xeDi6Mtu+paYprI7USGFFjDUvJUf36kK0yuF2XUOBlF0beCQ7Jhc+UoI9Akmvl4sHUrZJzX
- LMeajARnSBXTcig6h6/NFVkr1mi1uuZfIRNCkxCE8QRYebZLSWxBVr3h7dtOUkq2CzL2kRCK
- T2rKkmYrvBJTqSvfK3Ba7QrDg3szEe+fENpL3gHtH6h/XQF92EOulm5S5o0I+ceREwARAQAB
- wsB2BBgBCAAgFiEE+ORdfQEWdwcppnfRP/MOinaI+qoFAmcCwywCGwwACgkQP/MOinaI+qpI
- zQf+NAcNDBXWHGA3lgvYvOU31+ik9bb30xZ7IqK9MIi6TpZqL7cxNwZ+FAK2GbUWhy+/gPkX
- it2gCAJsjo/QEKJi7Zh8IgHN+jfim942QZOkU+p/YEcvqBvXa0zqW0sYfyAxkrf/OZfTnNNE
- Tr+uBKNaQGO2vkn5AX5l8zMl9LCH3/Ieaboni35qEhoD/aM0Kpf93PhCvJGbD4n1DnRhrxm1
- uEdQ6HUjWghEjC+Jh9xUvJco2tUTepw4OwuPxOvtuPTUa1kgixYyG1Jck/67reJzMigeuYFt
- raV3P8t/6cmtawVjurhnCDuURyhUrjpRhgFp+lW8OGr6pepHol/WFIOQEg==
-In-Reply-To: <20261120105654.63e1c254@fedora1.home>
-Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Type: text/plain; charset=iso-8859-1
+Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
+In-Reply-To: <sashiko-outbox-224547@kernel.org>
+X-Patchwork-Hint: comment
+Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
+ krs Bertel Jungin Aukio 5, 02600 Espoo, Finland
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -88,58 +70,167 @@ List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-7.3 required=3.0 tests=BAYES_00,DKIM_SIGNED,
-	DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
-	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,USER_AGENT_SANE_1
-	autolearn=no autolearn_force=no version=4.0.1
+X-Spam-Status: No, score=-8.8 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
+	DKIM_SIGNED,DKIM_VALID,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_PATCH,
+	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS autolearn=unavailable
+	autolearn_force=no version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-Hi Boris,
-
-On 20/11/26 06:56, Boris Brezillon wrote:
->>
->> Still, if you think this would be problematic, I can drop patches 3 and 6.
+On Fri, Nov 20, 2026 at 06:15:06AM +0000, sashiko-bot@kernel.org wrote:
+> Thank you for your contribution! Sashiko AI review found 3 potential
+> issues to consider:
+> - [High] drm/i915/dp: broken LSPCON HDR in
+>   intel_dp_compute_hdr_metadata_infoframe_sdp()
+> - [Medium] drm/i915/dp: unchecked union read of intel_cap in
+>   intel_dp_add_properties()
+> - [Medium] drm/i915/dp: fastset skips TCON HDR update when SDP
+>   computation is bypassed
+> --
 > 
-> I was about to suggest forcing uncached CPU mappings for shareable BOs
-> on systems where the GPU is IO coherent, but there's actually no way we
-> can know whether a BO will be exported on not on Panfrost (on Panthor
-> we at least have this exclusive_vm thing that gives this guarantee). So
-> there's actually no way around it, it's either going back to a "broken"
-> state (broken in the sense it's not doing what it's supposed to, but no
-> one really complained in the past) or keep this sync logic to try to do
-> our best (even if it's not entirely safe, especially if the importer
-> does crazy stuff like pretending to be UMA when it's not).
+> commit ee42402ceca82543288507d878602e90d81ac27f
+> Author: Yitian Shao <fighters390@qq.com>
 > 
-> Sorry for not having a better answer than: it might be okay, but it
-> looks wrong. Every time I tried to understand what's expected from us
-> for this shared buffer synchronization, I ended up more confused than
-> before...
+> drm/i915/dp: Attach HDR_OUTPUT_METADATA on eDP when TCON supports HDR
 > 
-
-That makes two of us :)
-
-I'm okay dropping patches 3 and 6. I decided to send them as suggested
-in our last discussion, but when I analyzed the IO-coherent case, I also
-had the impression that this could be a step back.
-
-V3D doesn't have the IO coherent case, so I can move forward with only
-Faith's drm_gem_shmem_sync() helper and I won't need the custom
-dma_buf_ops.
-
-If possible, could you take a look at patches 1-2 and 4-5? I'd
-appreciate it.
-
->>
->> The Panthor changes were tested on hardware, but Panfrost changes were
->> only compile-tested.
+> This commit attaches the HDR_OUTPUT_METADATA property on eDP connectors
+> whose TCON supports PQ (ST2084) decoding via the Intel AUX HDR interface,
+> and skips computing the HDR metadata infoframe SDP when the encoder does
+> not support gamut metadata DIP.
 > 
-> Could you prepare a custom gfx-ci kernel [1] so we can check that mesa
-> CI is not regressed by this change? I know none of the tests in mesa CI
-> would normally hit the removed logic, but better safe than sorry.
+> > diff --git a/drivers/gpu/drm/i915/display/intel_dp.c b/drivers/gpu/drm/i915/display/intel_dp.c
+> > index 47741957935ae..3faa5ddb4c60b 100644
+> > --- a/drivers/gpu/drm/i915/display/intel_dp.c
+> > +++ b/drivers/gpu/drm/i915/display/intel_dp.c
+> > @@ -3239,6 +3239,9 @@ intel_dp_compute_hdr_metadata_infoframe_sdp(struct intel_dp *intel_dp,
+> >  	int ret;
+> >  	struct hdmi_drm_infoframe *drm_infoframe = &crtc_state->infoframes.drm.drm;
+> >  
+> > +	if (!intel_dp_has_gamut_metadata_dip(&dp_to_dig_port(intel_dp)->base))
+> > +		return;
+> > +
+> >  	if (!conn_state->hdr_output_metadata)
+> >  		return;
+> 
+> [Severity: High]
+> Does this break HDR metadata transmission on LSPCON outputs?
+> 
+> intel_dp_has_gamut_metadata_dip() unconditionally returns false when
+> intel_bios_encoder_is_lspcon(encoder->devdata) is true, because LSPCON
+> connectors defer attaching HDR_OUTPUT_METADATA until
+> intel_dp_connector_register() probes intel_lspcon_detect_hdr_capability().
+> LSPCON encoders still rely on intel_dp_compute_hdr_metadata_infoframe_sdp()
+> to populate crtc_state->infoframes.drm.drm and enable
+> HDMI_PACKET_TYPE_GAMUT_METADATA in crtc_state->infoframes.enable for
+> lspcon_write_infoframe().  With this check, HDR metadata is never computed
+> or sent on LSPCON ports, and the state checker will report an infoframe
+> mismatch if VIDEO_DIP_ENABLE_GMP_HSW was already active.
 
-Sure, I'll test the series on Mesa CI (without patches 3 and 6).
+Looks legit. I think the correct solution would be to drop
+the LSPCON check from has_gamut_metadata_dip() since it's
+clearly nonsense. But then intel_dp_add_properties()
+will need to do the LSPCON check itself so that it doesn't
+attache the HDR metadata to the LSPCON there.
 
-Best regards,
-- MaÃ­ra
+And I think for good measure we also want to add a 
+has_gamut_metadata_dip() check into
+intel_lspcon_detect_hdr_capability(), just in case someone
+has ever hooked up an on board LSPCON to a port that doesn't
+support that DIP. This should be a separate patch though
+since it's a separate pre-existing issue.
 
+> 
+> [Severity: Medium]
+> When intel_dp_compute_hdr_metadata_infoframe_sdp() returns early on pre-ICL
+> port A eDP panels, can a fastset skip programming the TCON HDR parameters?
+> 
+> When userspace toggles HDR_OUTPUT_METADATA,
+> intel_digital_connector_atomic_check() sets crtc_state->mode_changed = true,
+> and on platforms with gamut metadata DIP the resulting change in
+> crtc_state->infoframes.enable causes intel_pipe_config_compare() to reject
+> fastset and run a full modeset.  Returning early here leaves
+> crtc_state->infoframes.enable unchanged, so commits without another pipe
+> config change are downgraded to a fastset (update_pipe).  On the fastset
+> path, intel_ddi_update_pipe_dp() calls intel_backlight_update(), which only
+> calls __intel_backlight_enable() -> intel_dp_aux_hdr_enable_backlight()
+> when !panel->backlight.enabled:
+
+This looks correct as well. And I think it highlights that our HDR
+metadata fastset support is already broken. Well, it kinda works
+for changing the metadata (except when the backlight interface is
+involved as is the case here), but not for switching between HDR
+and SDR modes.
+
+I say "kinda works" above because in general the whole .update_pipe()
+thing is a half baked hack. There is no real consideration for any
+differences in double buffering behaviour of DIPs (or a complete lack
+of double buffering as is the case for many DIPs). .update_pipe() is
+also called outside the vblank evasion critical section, so even
+the double buffered DIPs (or anything else we do there) will probably
+not sync up with the rest of the atomic commit on the CRTC.
+
+So how to fix this specific AUX backlight problem... Maybe we need
+a crtc_state->backlight_changed or something? This might in fact
+also be relevant for the recently proposed LUMINANCE connector
+property (which I've not had any time to actually consider).
+
+> 
+> drivers/gpu/drm/i915/display/intel_backlight.c:intel_backlight_update() {
+>     ...
+> 	mutex_lock(&display->backlight.lock);
+> 	if (!panel->backlight.enabled)
+> 		__intel_backlight_enable(crtc_state, conn_state);
+> 
+> 	mutex_unlock(&display->backlight.lock);
+>     ...
+> }
+> 
+> Because panel->backlight.enabled is already true on an active panel,
+> INTEL_EDP_HDR_GETSET_CTRL_PARAMS is never updated in the TCON.
+> 
+> > @@ -7018,7 +7021,9 @@ intel_dp_add_properties(struct intel_dp *intel_dp, struct drm_connector *_connec
+> >  		intel_attach_dp_colorspace_property(&connector->base);
+> >  	}
+> >  
+> > -	if (intel_dp_has_gamut_metadata_dip(&dp_to_dig_port(intel_dp)->base))
+> > +	if (intel_dp_has_gamut_metadata_dip(&dp_to_dig_port(intel_dp)->base) ||
+> > +	    (intel_dp_is_edp(intel_dp) &&
+> > +	     connector->panel.backlight.edp.intel_cap.supports_2084_decode))
+> >  		drm_connector_attach_hdr_output_metadata_property(&connector->base);
+> >  
+> >  	if (HAS_VRR(display))
+> 
+> [Severity: Medium]
+> Can reading connector->panel.backlight.edp.intel_cap.supports_2084_decode
+> here access the wrong union member when the VESA eDP AUX backlight
+> interface is selected?
+> 
+> In struct intel_panel, panel.backlight.edp is an untagged union between
+> vesa and intel_cap:
+> 
+> drivers/gpu/drm/i915/display/intel_display_types.h:struct intel_panel {
+>     ...
+> 		union {
+> 			struct {
+> 				struct drm_edp_backlight_info info;
+> 				bool luminance_control_support;
+> 			} vesa;
+> 			struct {
+> 				bool sdr_uses_aux;
+> 				bool supports_2084_decode;
+>     ...
+> }
+> 
+> supports_2084_decode sits at byte offset 1, overlapping
+> vesa.info.pwm_freq_pre_divider in struct drm_edp_backlight_info.  If
+> intel_edp_backlight_setup() selected the VESA AUX backlight path instead of
+> the Intel HDR AUX path, drm_edp_backlight_init() populates vesa.info and a
+> non-zero pwm_freq_pre_divider will falsely attach HDR_OUTPUT_METADATA (and
+> trigger an out-of-range bool load under UBSan if the divider is >= 2).
+> 
+> -- 
+> Sashiko AI review · https://sashiko.dev/#/patchset/tencent_083AD2514CBC235A9F55EE00BDF72D3B9209@qq.com?part=1
+
+-- 
+Ville Syrjälä
+Intel
