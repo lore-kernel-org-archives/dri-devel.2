@@ -2,37 +2,36 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 35D56606A325
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9BFBC606A320
 	for <dri-devel@archiver.kernel.org>; Fri, 20 Nov 2026 01:41:14 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=OXjgZ5nu
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=hSWvlxGX
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 713A910FE75;
-	Fri, 20 Nov 2026 01:41:08 +0000 (UTC)
-Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 561D310E8D4
- for <dri-devel@lists.freedesktop.org>; Fri, 20 Nov 2026 01:40:53 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 07A4E1127EE;
+	Fri, 20 Nov 2026 01:41:09 +0000 (UTC)
+Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id B1C2210FE75
+ for <dri-devel@lists.freedesktop.org>; Fri, 20 Nov 2026 01:40:48 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by tor.source.kernel.org (Postfix) with ESMTP id 4F58E60A6C;
- Fri, 20 Nov 2026 01:40:52 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 739831F000D2;
- Fri, 20 Nov 2026 01:40:50 +0000 (UTC)
+ by sea.source.kernel.org (Postfix) with ESMTP id 8AE874683A;
+ Fri, 20 Nov 2026 01:40:48 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id D964F1F000C4;
+ Fri, 20 Nov 2026 01:40:46 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1795138852;
- bh=vcKPQHmf9gWTDq0nbpcIRDBqyotp3mpevFZSMkbKrMc=;
+ s=k20260515; t=1795138848;
+ bh=aWLmF/3TFJHphPfFbdIW/SCt13oJ16DXgR+WbLyacng=;
  h=Subject:From:To:Cc:In-Reply-To:References:Date;
- b=OXjgZ5nuBCosE1FlnEJeoifb7O714az6f2IdsuWkNJ89tkZTpKfNTf4OhnTdcW4bK
- 5cUNPpLYp9ANhTfaKetlX2fEmRAInxL6aB/OnhqXraqqJakMuZsr/j/s9YH6ib5mVg
- UZnzcRM6v9yQiO2+kJv4ddJYpDu4kRHTBK0vXugWiLdvCcrkRhxohYpJ3LH0gA1TFg
- zdxcVxVq1kfrmX2NxboDhSwpvHnaj8CsxJwT0DKAdAqbuIdA6e5o44xQt+/stDFon1
- 2a9qVnjIXeBIINOvm9NNi3XRmDcG0T1rdHK2IFfRjn1r0M67yC7CM99EGL2gR85rjJ
- eOLlW3zKvsJog==
+ b=hSWvlxGXDrkBhyd8iPNzHhSr//zVCQ8oOyWZLSkfEgGDXAqyuxG7EU1Dn8IAgv/o7
+ iM55eayZXAoWHo+12C1oZPhfZC3kCYDfQNNR2U1THP45Jy97i7G7Prhsu/4SveW8BB
+ rut3yoF9BKy+UwPKY8hauuhCzl2OJR07Tu/t1RD+gS9qb2k/FVet28DIZgILz0xPHC
+ qA98vwMx63v6+usMfwqmJLOQ9HXx+ygT87RAyw2hjzoDoKG36r8MUhz4mSJrdm0hgQ
+ D1EhOGPj/RRai2NzLViEUzRp9LRhgOKjh6tkEG65FmhZzUq1sJrOSnnzJGxryKq1RA
+ 7Co0Vh43lGhwA==
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Subject: Re: [PATCH 5/6] [RFT] ARM: OMAP2+: Convert to
- dev_clk_get_from_provider()
+Subject: Re: [PATCH 3/6] clk: renesas: Convert to dev_clk_get_from_provider()
 From: Brian Masney <masneyb@kernel.org>
 To: Geert Uytterhoeven <geert+renesas@glider.be>
 Cc: Aaro Koskinen <aaro.koskinen@iki.fi>, 
@@ -47,19 +46,19 @@ Cc: Aaro Koskinen <aaro.koskinen@iki.fi>,
  linux-rockchip@lists.infradead.org, linux-omap@vger.kernel.org, 
  linux-arm-kernel@lists.infradead.org, dri-devel@lists.freedesktop.org, 
  linux-pm@vger.kernel.org, Brian Masney <masneyb@kernel.org>
-In-Reply-To: <683b5b189409e5ee04100044fb615b01cb877f3d.1795094688.git.geert+renesas@glider.be>
+In-Reply-To: <55d67b95c675924fb67d13ecbab47bb45c8af372.1795094688.git.geert+renesas@glider.be>
 References: <cover.1795094688.git.geert+renesas@glider.be>
- <683b5b189409e5ee04100044fb615b01cb877f3d.1795094688.git.geert+renesas@glider.be>
+ <55d67b95c675924fb67d13ecbab47bb45c8af372.1795094688.git.geert+renesas@glider.be>
 Date: Thu, 19 Nov 2026 20:40:22 -0500
-Message-Id: <179513882273.284394.16014881415515819933.b4-review@b4>
+Message-Id: <179513882272.284394.9826583224210522814.b4-review@b4>
 X-Mailer: b4 0.17-dev-8145e
-X-Developer-Signature: v=1; a=openpgp-sha256; l=470; i=masneyb@kernel.org;
+X-Developer-Signature: v=1; a=openpgp-sha256; l=700; i=masneyb@kernel.org;
  s=20250903; h=from:subject:message-id;
- bh=agOkKy6rfsDuf/v2Uk7yRPZKM78mXjUOoAKPNIJkhCE=;
- b=owGbwMvMwCW2/dJd9di6A+2Mp9WSGLL+LxUJkxVluuylry9x6uWzQ++lGcU2O7r9UJ+fk//G+
- xG3nu3njlIWBjEuBlkxRZYluUYFEamrbO/d0WSBmcPKBDKEgYtTACay4ALD/9wj5notbPd46naL
- HP950JH7Tr5VWltQya0zRnEPk6JuX2X4n8GcvNHHbdnP3JqL0dpbBKcEGzS1Ldzk+TjuheKLV7s
- YGQE=
+ bh=NYTf8jjEK+WlRFfr+I/PcRCeTGbwoene0QOnnIsqQzM=;
+ b=owGbwMvMwCW2/dJd9di6A+2Mp9WSGLL+LxX6yHaVa5rUJs4HTdOYPGVati9u/tZWPIfNWtSye
+ EVw+qSwjlIWBjEuBlkxRZYluUYFEamrbO/d0WSBmcPKBDKEgYtTACai3cPwv3D1ca83R60eNDtV
+ W085viJXcaXhjiur/qrmzXpv9tnkvxMjw9UJpdHBidtqejZEXP383uHDlwuMn+612oVsStuoubn
+ hPScA
 X-Developer-Key: i=masneyb@kernel.org; a=openpgp;
  fpr=A46D32705865AA3DDEDC2904B7D2DD275D7EC087
 X-BeenThere: dri-devel@lists.freedesktop.org
@@ -80,12 +79,16 @@ X-Spam-Status: No, score=-13.8 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-> OMAP2+ clock handling uses of_clk_get_from_provider() to obtain clocks
-> used for power management, so the latter show up as "deviceless" in the
-> consumer column of the clk_summary file in debugfs.
+> Renesas clock domain callbacks use of_clk_get_from_provider() to obtain
+> clocks used for power management, so the latter show up as "deviceless"
+> in the consumer column of the clk_summary file in debugfs.
 > 
 > Fix this by using dev_clk_get_from_provider() instead, letting us pass
 > the consumer device, too.
+> 
+> Sample clk_summary change snippet on R-Car H1 Marzen:
+>     - sata 1 1 0 62500000 0 0 50000 Y deviceless    of_clk_get_from_provider
+>     + sata 1 1 0 62500000 0 0 50000 Y fc600000.sata dev_clk_get_from_provider
 > 
 > Signed-off-by: Geert Uytterhoeven <geert+renesas@glider.be>
 
