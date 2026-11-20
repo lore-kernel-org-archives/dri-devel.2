@@ -2,88 +2,71 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4056B606A32A
-	for <dri-devel@archiver.kernel.org>; Fri, 20 Nov 2026 19:21:16 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A770F606A6F1
+	for <dri-devel@archiver.kernel.org>; Fri, 20 Nov 2026 19:22:00 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=KwM873Zt
+	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=eH5Db7yS
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 7D20D112CE8;
-	Fri, 20 Nov 2026 19:21:10 +0000 (UTC)
-Received: from mail-qt1-f177.google.com (mail-qt1-f177.google.com
- [209.85.160.177])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 015FE112CE3
- for <dri-devel@lists.freedesktop.org>; Fri, 20 Nov 2026 19:20:54 +0000 (UTC)
-Received: by mail-qt1-f177.google.com with SMTP id
- d75a77b69052e-55d6deecef6so12677861cf.2
- for <dri-devel@lists.freedesktop.org>; Fri, 20 Nov 2026 11:20:53 -0800 (PST)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 0A23810E1AC;
+	Fri, 20 Nov 2026 19:21:55 +0000 (UTC)
+Received: from mail-dy1-f199.google.com (mail-dy1-f199.google.com
+ [74.125.82.199])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 08EFD10E252
+ for <dri-devel@lists.freedesktop.org>; Fri, 20 Nov 2026 19:21:47 +0000 (UTC)
+Received: by mail-dy1-f199.google.com with SMTP id
+ 5a478bee46e88-3846d5f54c1so1568071eec.1
+ for <dri-devel@lists.freedesktop.org>; Fri, 20 Nov 2026 11:21:47 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20260707; t=1795202453; x=1795807253; darn=lists.freedesktop.org;
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:date:subject:cc:to:from:from:to:cc:subject:date
- :message-id:reply-to:content-type;
- bh=JzigroRRK1EKbCrob1Vqde61idCw6MMlemAEeFuskd4=;
- b=KwM873ZtXAUaMsoj0Cw+2T8yp5DNoPB+NMbDw0LdcF05U4MoEmqt3N9XruujzbzfqD
- kTndB/CxxZH+1CJPGRzpb81b4s0XJ3YAzgySf4S2c2lvrc9usETRtZqYSZP6PCub6LgI
- ujb3UFGRsKKrjJsJOF+BrJwYXvHJXMv2aLwVFemy8t1fBnwZz8xP/7VyjaAr9GM+NRdU
- dx5tNnq8GAmkNX0S0y5INuLOptOC7FLezho6gOZJTUxKsFwqpTbbYbPLKq75vYtrpWBQ
- QM4xRdHjojB7+PFFjG+Ui1bLQmGiwaaxUkAV7mmkIyPS3LcdRgK5FbHmM5ySJjOfQl6Z
- cbRA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20260707; t=1795202453; x=1795807253;
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+ d=google.com; s=20260707; t=1795202507; x=1795807307;
+ darn=lists.freedesktop.org; 
+ h=content-type:cc:to:from:subject:message-id:mime-version:date:from
  :to:cc:subject:date:message-id:reply-to:content-type;
- bh=JzigroRRK1EKbCrob1Vqde61idCw6MMlemAEeFuskd4=;
- b=JakeiI7eZwXnWPiJVAjwgoigUws2Ncppeew5FiZiNDKdigQxU+nX3WXicnG3F7MO+s
- +pczzrv95atHebsY3BCsi3qEoAvq/I0nTXyKmDixyU+lA7xU/HKCulMXiom68ZBUaW4x
- bZ2w8UbxuqwRss/M//HOwx31mZXlv+da+vjN9cDPDZb+AePD4JS85pwFHdMT25MTCSA/
- qmD+cIbVEym5Ogqdvtmvm3Kf/f7kEbRE9zKSguVf8d8aeeLOE/PnW078zJxS8XtRLN9f
- pgXP7nkXQmozpM5ok+i7d2eU9kj6tieIiR2Y+H6/Y0V+zYGtK+yhfae2HaDw05iN/kCC
- RzTQ==
+ bh=DNVNmDF5dVzvlnQ4zjX9N+gfP3FXX+TLZ7yfkqU1zlQ=;
+ b=eH5Db7yS/3V5aJekncnImhJmdbICY4YFBtlFD86/3tGv9a9bb3whtikqxksbHPG9o+
+ xzWWCeRau2Sz5x2cNXA+ELMebMLuQOOMsb22X+0DeTWYzEhyalSpZGnTeNo4MIkLO61i
+ oKFx2cb8xFSuioi61ydhGVf7ghluL89Wz3D9HqrahNRaknQUyGzcHUzd45HzGSr8PRVS
+ 3e4i/RwiAasa2vwf65ySoSyktmOWByyXdVrqURmUkxa29jbK/sspjLMEfUlmiuxgSpFa
+ nLANRxtfaopmZHM5Pws/ixzZvrPTZGbjcvCaW2mB+tWsf9ekdk1ABM8ocrKs357dhL2h
+ LcMQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20260707; t=1795202507; x=1795807307;
+ h=content-type:cc:to:from:subject:message-id:mime-version:date
+ :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+ :content-type;
+ bh=DNVNmDF5dVzvlnQ4zjX9N+gfP3FXX+TLZ7yfkqU1zlQ=;
+ b=XN9DtrQPGv4Xfl8Xa1cEy+WyAY06GUMo4d9Jf1I3Tj1ilxU0seyv/xQUEqM+3SpsHz
+ DAij7HXJVGXMcjVHxfCZfeTIlOb15gCD5Y3SOWNba8gfHapIY5sA7sPuzKhbPgS8YPId
+ CzoGZkdiQfGKDLHpZcmKH/HDLuGDVy2ONl59URbugyvY2s9oZHlyFwbLWKERVzzeq3Uq
+ kpqyT+U6zPoBCH4h+E2BPb+BzZWZNLITyz9w6L6J5bgJt/jgSEW515xBzoKuPRiXsvM+
+ qozsoUjkUXTSN7IBOkCz3t5cOEWdRuzdcep4q7s5X0aOQn8Y5ySJWi2Vn55/YUviLyZK
+ NffA==
 X-Forwarded-Encrypted: i=1;
- AL+hErF3qJctkveeWk8li4iuKR9u9LdlUl09Ln0rvuvGDnbU8RkCRT/XvFRsY7YXLwL5Fupj2MQEb4hp9wE=@lists.freedesktop.org
-X-Gm-Message-State: APuU4Z81Mm8IwApxrW5wOhtBKkTWq3RStacdxv8oPmWBrQP2PkKURjvX
- RBzs134bZJ/SfNF7/ZON6aMrqqGge/+JcQ5EIBOWhg3fcsKDQrjCCxHTiweQNcXqjGWPhg==
-X-Gm-Gg: AYBFou3mMzwUadRPvcXn9yVIfwi4ytVoy84GYXVzEmwhJfASNA1xWjQoZkT+KCFlKtP
- J2LM3ZLtbwpq3fBpE691PJqSdwhpQ4A2ATtkzoS7OxH1EgdILxGZ6a03EoMarPC3tG+rIrCk5iL
- f+C/xKLauCh3/dGgqZ4RD/8sD8xR6TcL5O8Ea3vs4A3cUtp+J4HjPuWR2W7uE4LWPXBEMghV7Yw
- i6BA61xQZ8wYqAOAq2RjMcqxLt68asIKc0BU2deieyPJ9vU50e6Yu9zuQ3RSXwRgZGmqHpv7Plb
- 7o2nFZGnvVbTLE7jJnWrQBcg1WRRiVesak+RcPeujaoIw0KAmX/XzntDODorXnBn2tHMqAMx5wt
- GxW8yDBbWg5W6KxSPWVh0R5TY9BGLy7OXcJKM52kcsWvVrIjUhFXMxX/tG7iKR+l6iPKunfheGS
- Y3smwtm+j1lxwc3lhEVF8cRaJNBpqJ9UYrw8voPm7/PqyU69MWoLveYE0BZ/p9Vh7PzF1xTY8EC
- 10/fmy6AHV9oWaQuhjC3GbiVfAVTc2lVdwhUoHoGLqp0WaY2MZtTojfzYg1tWT5HY2Wi0FkhDFj
- yr+TPEt8IYj2A9sanIZQx//8U5ZGTDLs9ZcTMPcToV2lMwhQC6TXR0gdK5sQAViVIMw/7tRLYqo
- dcXjAmle6bYv7/cb+7PzTEtdwXCEKoOtK/0N6PIiGdv10NndrBSdlvZpaZQDZ636Q22zPGOEK+j
- WC6RLqrHOvXwQxb7Fx/pOZK2/lC9oxUnNkVZGhsyCICfuNaoGg2gLo/prJ8oqJQrqlNyqZD6jjO
- e0nY87d7mcOAfWF2KfBcClvh0eD4XqNp2Vlp/ANuPMHnw==
-X-Received: by 2002:ac8:5a46:0:b0:536:6bbc:6187 with SMTP id
- d75a77b69052e-55d76a4ffabmr77548281cf.31.1795202452871; 
- Fri, 20 Nov 2026 11:20:52 -0800 (PST)
-Received: from LRMS.tailf8556c.ts.net
- ([2600:4041:5024:4b00:d420:4621:169f:8773])
- by smtp.gmail.com with ESMTPSA id
- d75a77b69052e-55d7882e2c6sm31475921cf.12.2026.11.20.11.20.52
- (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
- Fri, 20 Nov 2026 11:20:52 -0800 (PST)
-From: Jesse Casco <jesse.casco@gmail.com>
-To: Rob Clark <robin.clark@oss.qualcomm.com>,
- Dmitry Baryshkov <lumag@kernel.org>
-Cc: Abhinav Kumar <abhinav.kumar@linux.dev>,
- Jessica Zhang <jesszhan0024@gmail.com>, Sean Paul <sean@poorly.run>,
- Marijn Suijten <marijn.suijten@somainline.org>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- Jim Martin <jimmartin@gmail.com>, linux-arm-msm@vger.kernel.org,
- dri-devel@lists.freedesktop.org, freedreno@lists.freedesktop.org
-Subject: [PATCH 1/2] drm/msm/dp: carry the eDP rate-set selection into the
- link parameters
-Date: Fri, 20 Nov 2026 14:20:49 -0500
-Message-ID: <20261120192050.73315-2-jesse.casco@gmail.com>
-X-Mailer: git-send-email 2.56.0
-In-Reply-To: <20261120192050.73315-1-jesse.casco@gmail.com>
-References: <20261120192050.73315-1-jesse.casco@gmail.com>
+ AL+hErEb3JFO++TPf63qNDOo0sCtE6U4Qui8tZacDz1d0hgy9DZ+WSzGxOjaFbvoDp3irHqj2wteIavH7Ws=@lists.freedesktop.org
+X-Gm-Message-State: APuU4Z9/TH96+TQ71svGUaiRiTYkMDOYIigf/v7KuOH+jqzwSIuu+l6x
+ j9oPv3pKvfC6WCZSLMTjYAJkWKEAT3EwiOHzcQNf7NB2+h2WQRfGkR7NMYHBC0XhSiqUdy6CWZN
+ LYg==
+X-Received: from dycqw15-n1.prod.google.com
+ ([2002:a05:7300:c00f:10b0:36f:5688:8a11])
+ (user=elkin job=prod-delivery.src-stubby-dispatcher) by
+ 2002:a05:7300:ff48:b0:385:3595:5e87
+ with SMTP id 5a478bee46e88-3856fd5b5damr3386093eec.16.1795202506690; Fri, 20
+ Nov 2026 11:21:46 -0800 (PST)
+Date: Fri, 20 Nov 2026 19:20:50 +0000
 X-Archived-By: <archiver.kernel.org>
-MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Mime-Version: 1.0
+X-Mailer: git-send-email 2.56.1.750.gf70dc682cf-goog
+Message-ID: <20261120192050.2868566-1-elkin@google.com>
+Subject: [PATCH] drm/xe: clear backup ERR_PTR before retrying in
+ xe_bo_evict_pinned()
+From: Elkin Cruz <elkin@google.com>
+To: Matthew Brost <matthew.brost@intel.com>, 
+ "=?UTF-8?q?Thomas=20Hellstr=C3=B6m?=" <thomas.hellstrom@linux.intel.com>,
+ Rodrigo Vivi <rodrigo.vivi@intel.com>, 
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>
+Cc: intel-xe@lists.freedesktop.org, dri-devel@lists.freedesktop.org, 
+ linux-kernel@vger.kernel.org, llvm@lists.linux.dev, irogers@google.com, 
+ Elkin Cruz <elkin@google.com>
+Content-Type: text/plain; charset="UTF-8"
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -95,67 +78,54 @@ List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-14.8 required=3.0 tests=BAYES_00,DKIM_SIGNED,
-	DKIM_VALID,DKIM_VALID_AU,FORGED_GMAIL_RCVD,FREEMAIL_FORGED_FROMDOMAIN,
-	FREEMAIL_FROM,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,
-	INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,
-	USER_AGENT_GIT autolearn=unavailable autolearn_force=no version=4.0.1
+X-Spam-Status: No, score=-26.3 required=3.0 tests=BAYES_00,DKIMWL_WL_MED,
+	DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
+	INCLUDES_CR_TRAILER,INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,
+	SPF_PASS,USER_AGENT_GIT,USER_IN_DEF_DKIM_WL autolearn=unavailable
+	autolearn_force=no version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-msm_dp_panel_read_link_caps() picks an eDP 1.4 LINK_RATE_SET index and
-fills panel->link_info.rate_set, use_rate_set and supported_rates, but
-msm_dp_ctrl_on_link() only copies rate and num_lanes into
-ctrl->link->link_params. Link training builds its msm_dp_link_info from
-link_params, so use_rate_set is always false there and
-msm_dp_aux_link_configure() never writes LINK_RATE_SET. The rate-set
-branch of msm_dp_ctrl_link_rate_down_shift() is unreachable for the
-same reason.
+In xe_bo_evict_pinned(), backup is initialized to bo->backup_obj (NULL)
+outside xe_validation_guard(). When xe_bo_init_locked() returns an
+ERR_PTR on lock contention (-EDEADLK) or OOM (-ENOMEM),
+drm_exec_retry_on_contention(&exec) or
+xe_validation_retry_on_oom(&ctx, &ret) restarts the loop while backup
+still holds the ERR_PTR. On the retried iteration, "if (!backup)" is
+false, passing the ERR_PTR directly to xe_bo_evict_pinned_copy().
 
-Copy the rate-set fields along with the rate, pass them to
-msm_dp_aux_link_configure(), and restore rate_set together with the
-rate when falling back to fewer lanes.
+Extract ret = PTR_ERR(backup) and reset backup to NULL before
+retrying.
 
-Fixes: ed100aa239be ("drm/msm/dp: Enable support for eDP v1.4+ link rates table")
-Signed-off-by: Jesse Casco <jesse.casco@gmail.com>
+Fixes: 844150c255c9 ("drm/xe: Convert pinned suspend eviction for exhaustive eviction")
+Signed-off-by: Elkin Cruz <elkin@google.com>
 ---
- drivers/gpu/drm/msm/dp/dp_ctrl.c | 9 +++++++++
- 1 file changed, 9 insertions(+)
+I am trying out a new Clang static analysis linter for ERR_PTR/NULL
+handling, and it flagged this code as possibly buggy. The findings were triaged
+and fixed with an AI coding assistant, then checked against linux-next (not
+runtime-tested on hardware).
 
-diff --git a/drivers/gpu/drm/msm/dp/dp_ctrl.c b/drivers/gpu/drm/msm/dp/dp_ctrl.c
-index 47647fdec..c8d097d65 100644
---- a/drivers/gpu/drm/msm/dp/dp_ctrl.c
-+++ b/drivers/gpu/drm/msm/dp/dp_ctrl.c
-@@ -1596,6 +1596,7 @@ static int msm_dp_ctrl_link_lane_down_shift(struct msm_dp_ctrl_private *ctrl,
- 
- 	ctrl->link->link_params.num_lanes /= 2;
- 	ctrl->link->link_params.rate = panel->link_info.rate;
-+	ctrl->link->link_params.rate_set = panel->link_info.rate_set;
- 
- 	ctrl->link->phy_params.p_level = 0;
- 	ctrl->link->phy_params.v_level = 0;
-@@ -1712,6 +1713,8 @@ static int msm_dp_ctrl_link_train(struct msm_dp_ctrl_private *ctrl,
- 
- 	link_info.num_lanes = ctrl->link->link_params.num_lanes;
- 	link_info.rate = ctrl->link->link_params.rate;
-+	link_info.rate_set = ctrl->link->link_params.rate_set;
-+	link_info.use_rate_set = ctrl->link->link_params.use_rate_set;
- 	link_info.capabilities = DP_LINK_CAP_ENHANCED_FRAMING;
- 
- 	msm_dp_aux_link_configure(ctrl->aux, &link_info);
-@@ -2407,6 +2410,12 @@ int msm_dp_ctrl_on_link(struct msm_dp_ctrl *msm_dp_ctrl,
- 		ctrl->link->link_params.rate = rate;
- 		ctrl->link->link_params.num_lanes =
- 			panel->link_info.num_lanes;
-+		ctrl->link->link_params.rate_set = panel->link_info.rate_set;
-+		ctrl->link->link_params.use_rate_set =
-+			panel->link_info.use_rate_set;
-+		memcpy(ctrl->link->link_params.supported_rates,
-+		       panel->link_info.supported_rates,
-+		       sizeof(ctrl->link->link_params.supported_rates));
- 		if (panel->msm_dp_mode.out_fmt_is_yuv_420)
- 			pixel_rate >>= 1;
- 	}
+Thanks,
+Elkin
+
+ drivers/gpu/drm/xe/xe_bo.c | 3 ++-
+ 1 file changed, 2 insertions(+), 1 deletion(-)
+
+diff --git a/drivers/gpu/drm/xe/xe_bo.c b/drivers/gpu/drm/xe/xe_bo.c
+index 353ac1e9a9d6..ae6fd20304ce 100644
+--- a/drivers/gpu/drm/xe/xe_bo.c
++++ b/drivers/gpu/drm/xe/xe_bo.c
+@@ -1680,8 +1680,9 @@ int xe_bo_evict_pinned(struct xe_bo *bo)
+ 						   XE_BO_FLAG_SYSTEM | XE_BO_FLAG_NEEDS_CPU_ACCESS |
+ 						   XE_BO_FLAG_PINNED, NULL, &exec);
+ 			if (IS_ERR(backup)) {
+-				drm_exec_retry_on_contention(&exec);
+ 				ret = PTR_ERR(backup);
++				backup = NULL;
++				drm_exec_retry_on_contention(&exec);
+ 				xe_validation_retry_on_oom(&ctx, &ret);
+ 				break;
+ 			}
 -- 
-2.56.1
+2.56.1.750.gf70dc682cf-goog
 
