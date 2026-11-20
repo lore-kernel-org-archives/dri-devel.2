@@ -2,145 +2,66 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7FC2D606A320
-	for <dri-devel@archiver.kernel.org>; Fri, 20 Nov 2026 12:52:26 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D5AD1606A320
+	for <dri-devel@archiver.kernel.org>; Fri, 20 Nov 2026 12:52:58 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.a=rsa-sha256 header.s=susede2_rsa header.b=TNxe8ccl;
-	dkim=pass header.d=suse.de header.i=@suse.de header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=uhEp6Qtp;
-	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.a=rsa-sha256 header.s=susede2_rsa header.b=TNxe8ccl;
-	dkim=neutral header.d=suse.de header.i=@suse.de header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=uhEp6Qtp
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=AEDEMp22
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 9E5EF10E8FF;
-	Fri, 20 Nov 2026 12:52:15 +0000 (UTC)
-Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.223.131])
- by gabe.freedesktop.org (Postfix) with ESMTPS id F2D3010E8FF
- for <dri-devel@lists.freedesktop.org>; Fri, 20 Nov 2026 12:52:03 +0000 (UTC)
-Received: from imap1.dmz-prg2.suse.org (imap1.dmz-prg2.suse.org
- [IPv6:2a07:de40:b281:104:10:150:64:97])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
- (No client certificate requested)
- by smtp-out2.suse.de (Postfix) with ESMTPS id 55F1C1F458;
- Fri, 20 Nov 2026 12:52:02 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
- t=1795179122; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
- bh=uwbSs9++k6F8pT9T11GiErRyyJNmhFR/rhllKP53k+g=;
- b=TNxe8cclQCphqCkhTdQHU2i9UAsO8pDojNHi4ttUXVDPXRn7uCoRnDfqXKAIuHZJSjLWRk
- w5IZjy1NtdBM5iKjYL1u3rCokub3dbShleclZKwxh3f3gWpzSpNc/tQYHZ0inwXMkHWjHk
- sSHcxfjIv+luu6pDDoizrz6lgqon4SI=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_ed25519; t=1795179122;
- h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
- bh=uwbSs9++k6F8pT9T11GiErRyyJNmhFR/rhllKP53k+g=;
- b=uhEp6QtpW0Eztl36iBwfOcOV2x2IQ1Prgk0htrkcE2279Grifq8nEs4YXNv5er6jq3818s
- xDontyO3tMrWS5Cw==
-Authentication-Results: smtp-out2.suse.de;
- dkim=pass header.d=suse.de header.s=susede2_rsa header.b=TNxe8ccl;
- dkim=pass header.d=suse.de header.s=susede2_ed25519 header.b=uhEp6Qtp
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
- t=1795179122; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
- bh=uwbSs9++k6F8pT9T11GiErRyyJNmhFR/rhllKP53k+g=;
- b=TNxe8cclQCphqCkhTdQHU2i9UAsO8pDojNHi4ttUXVDPXRn7uCoRnDfqXKAIuHZJSjLWRk
- w5IZjy1NtdBM5iKjYL1u3rCokub3dbShleclZKwxh3f3gWpzSpNc/tQYHZ0inwXMkHWjHk
- sSHcxfjIv+luu6pDDoizrz6lgqon4SI=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_ed25519; t=1795179122;
- h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
- bh=uwbSs9++k6F8pT9T11GiErRyyJNmhFR/rhllKP53k+g=;
- b=uhEp6QtpW0Eztl36iBwfOcOV2x2IQ1Prgk0htrkcE2279Grifq8nEs4YXNv5er6jq3818s
- xDontyO3tMrWS5Cw==
-Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
- (No client certificate requested)
- by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id DB892134F6;
- Fri, 20 Nov 2026 12:52:01 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
- by imap1.dmz-prg2.suse.org with ESMTPSA id Dq35KnFCAGshSQAAD6G6ig
- (envelope-from <tzimmermann@suse.de>); Fri, 20 Nov 2026 12:52:01 +0000
-Message-ID: <f9b56145-b479-40af-ab82-d7b15c6fc962@suse.de>
-Date: Fri, 20 Nov 2026 13:52:00 +0100
+	by gabe.freedesktop.org (Postfix) with ESMTP id 0784E1129C9;
+	Fri, 20 Nov 2026 12:52:53 +0000 (UTC)
+Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 40D541129C9
+ for <dri-devel@lists.freedesktop.org>; Fri, 20 Nov 2026 12:52:47 +0000 (UTC)
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+ by sea.source.kernel.org (Postfix) with ESMTP id 2AB0F46579
+ for <dri-devel@lists.freedesktop.org>; Fri, 20 Nov 2026 12:52:47 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id C4C7B1F000E1
+ for <dri-devel@lists.freedesktop.org>; Fri, 20 Nov 2026 12:52:46 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+ s=k20260515; t=1795179166;
+ bh=YTa99/gQDpgz73/BKE8NpgRyese8EPLHJ7fjfDiIXEQ=;
+ h=References:In-Reply-To:From:Date:Subject:To:Cc;
+ b=AEDEMp22Gu+k0c/UKkXbC6nZTZP9xlNJF5eAMpFc7UO3N5PXkYJzzAFlDCCAdr3Dr
+ curY0fehQWgiI1SJtwxycfQTLDisLPAsZASMKddezyS1gTPpv1Ufvv5QASDrU7Csf0
+ 5GD7r1LJES1bJns64Ivg/okbsEyHjeBjbuI9q0gpib+pDiu/OpjFBYkb+ilxTY2esG
+ 3WCWBV8sLUij03xyLBsPodU6EFs5grDXRvL9rX6g42EuuqRvh1aP9gz+YJr/68iV1H
+ EHXIN5ExCon9ApnVfDwCDDxc2qLp2sTEndnfKT/OoIs45NIImDlRtBl0IEX/QDM255
+ C2CiMexmilgpw==
+Received: by mail-lj1-f175.google.com with SMTP id
+ 38308e7fff4ca-3ada7d53082so8943341fa.0
+ for <dri-devel@lists.freedesktop.org>; Fri, 20 Nov 2026 04:52:46 -0800 (PST)
+X-Forwarded-Encrypted: i=1;
+ AL+hErH7kaXHSQkv48ImxWCsPHICIJQL+FP4ONIA1ZYByWFag5p+WBnaAzwmFOB57K3yVZ36E35gaq70DLw=@lists.freedesktop.org
+X-Gm-Message-State: APuU4Z8kVEfZW6wR41MinJubaUS9oiQQMakqYYqLyhjmcr4/Hzh7aTA4
+ R2n39eNuCtIhJuuhFOfe78TsCvkOwt7i4OFCn5Ud6uUy48aH0Qu7T+eEDoBzG5/ydkoPWr2f//4
+ vHeai/FfqeMye7xVykEEBi6qsrfrbOq8=
+X-Received: by 2002:a05:651c:54e:b0:3ae:6ed3:a9b7 with SMTP id
+ 38308e7fff4ca-3ae7b7fc14dmr11474761fa.22.1795179165255; Fri, 20 Nov 2026
+ 04:52:45 -0800 (PST)
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 09/11] drm/udl: Synchronize pending URBs on each frame
-To: Jie Feng <hjf3108@gmail.com>
-Cc: airlied@redhat.com, sean@poorly.run, tiwai@suse.com,
- patrik.r.jakobsson@gmail.com, maarten.lankhorst@linux.intel.com,
- mripard@kernel.org, airlied@gmail.com, simona@ffwll.ch,
- dri-devel@lists.freedesktop.org, sashiko-reviews@lists.linux.dev
-References: <20261119142114.152052-1-tzimmermann@suse.de>
- <20261119142114.152052-10-tzimmermann@suse.de>
- <CABOQOSWQtK8mxAR0c9HDSc0=j_hzPz1hYHDk-XF5ERcfdgq0Ew@mail.gmail.com>
-Content-Language: en-US
-From: Thomas Zimmermann <tzimmermann@suse.de>
-Autocrypt: addr=tzimmermann@suse.de; keydata=
- xsBNBFs50uABCADEHPidWt974CaxBVbrIBwqcq/WURinJ3+2WlIrKWspiP83vfZKaXhFYsdg
- XH47fDVbPPj+d6tQrw5lPQCyqjwrCPYnq3WlIBnGPJ4/jreTL6V+qfKRDlGLWFjZcsrPJGE0
- BeB5BbqP5erN1qylK9i3gPoQjXGhpBpQYwRrEyQyjuvk+Ev0K1Jc5tVDeJAuau3TGNgah4Yc
- hdHm3bkPjz9EErV85RwvImQ1dptvx6s7xzwXTgGAsaYZsL8WCwDaTuqFa1d1jjlaxg6+tZsB
- 9GluwvIhSezPgnEmimZDkGnZRRSFiGP8yjqTjjWuf0bSj5rUnTGiyLyRZRNGcXmu6hjlABEB
- AAHNJ1Rob21hcyBaaW1tZXJtYW5uIDx0emltbWVybWFubkBzdXNlLmRlPsLAjgQTAQgAOAIb
- AwULCQgHAgYVCgkICwIEFgIDAQIeAQIXgBYhBHIX+6yM6c9jRKFo5WgNwR1TC3ojBQJftODH
- AAoJEGgNwR1TC3ojx1wH/0hKGWugiqDgLNXLRD/4TfHBEKmxIrmfu9Z5t7vwUKfwhFL6hqvo
- lXPJJKQpQ2z8+X2vZm/slsLn7J1yjrOsoJhKABDi+3QWWSGkaGwRJAdPVVyJMfJRNNNIKwVb
- U6B1BkX2XDKDGffF4TxlOpSQzdtNI/9gleOoUA8+jy8knnDYzjBNOZqLG2FuTdicBXblz0Mf
- vg41gd9kCwYXDnD91rJU8tzylXv03E75NCaTxTM+FBXPmsAVYQ4GYhhgFt8S2UWMoaaABLDe
- 7l5FdnLdDEcbmd8uLU2CaG4W2cLrUaI4jz2XbkcPQkqTQ3EB67hYkjiEE6Zy3ggOitiQGcqp
- j//OwE0EWznS4AEIAMYmP4M/V+T5RY5at/g7rUdNsLhWv1APYrh9RQefODYHrNRHUE9eosYb
- T6XMryR9hT8XlGOYRwKWwiQBoWSDiTMo/Xi29jUnn4BXfI2px2DTXwc22LKtLAgTRjP+qbU6
- 3Y0xnQN29UGDbYgyyK51DW3H0If2a3JNsheAAK+Xc9baj0LGIc8T9uiEWHBnCH+RdhgATnWW
- GKdDegUR5BkDfDg5O/FISymJBHx2Dyoklv5g4BzkgqTqwmaYzsl8UxZKvbaxq0zbehDda8lv
- hFXodNFMAgTLJlLuDYOGLK2AwbrS3Sp0AEbkpdJBb44qVlGm5bApZouHeJ/+n+7r12+lqdsA
- EQEAAcLAdgQYAQgAIAIbDBYhBHIX+6yM6c9jRKFo5WgNwR1TC3ojBQJftOH6AAoJEGgNwR1T
- C3ojVSkIALpAPkIJPQoURPb1VWjh34l0HlglmYHvZszJWTXYwavHR8+k6Baa6H7ufXNQtThR
- yIxJrQLW6rV5lm7TjhffEhxVCn37+cg0zZ3j7zIsSS0rx/aMwi6VhFJA5hfn3T0TtrijKP4A
- SAQO9xD1Zk9/61JWk8OysuIh7MXkl0fxbRKWE93XeQBhIJHQfnc+YBLprdnxR446Sh8Wn/2D
- Ya8cavuWf2zrB6cZurs048xe0UbSW5AOSo4V9M0jzYI4nZqTmPxYyXbm30Kvmz0rYVRaitYJ
- 4kyYYMhuULvrJDMjZRvaNe52tkKAvMevcGdt38H4KSVXAylqyQOW5zvPc4/sq9c=
-In-Reply-To: <CABOQOSWQtK8mxAR0c9HDSc0=j_hzPz1hYHDk-XF5ERcfdgq0Ew@mail.gmail.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
-X-Spamd-Result: default: False [-12.00 / 50.00]; SUSE_INTERNAL_BYPASS(-9.00)[];
- BAYES_HAM(-3.00)[100.00%]; SUSPICIOUS_RECIPS(1.50)[];
- NEURAL_HAM_LONG(-1.00)[-1.000];
- R_DKIM_ALLOW(-0.20)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
- NEURAL_HAM_SHORT(-0.20)[-1.000]; MIME_GOOD(-0.10)[text/plain];
- MX_GOOD(-0.01)[]; XM_UA_NO_VERSION(0.01)[];
- TO_MATCH_ENVRCPT_ALL(0.00)[];
- FREEMAIL_ENVRCPT(0.00)[gmail.com];
- FREEMAIL_TO(0.00)[gmail.com]; MIME_TRACE(0.00)[0:+];
- DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
- ARC_NA(0.00)[];
- RBL_SPAMHAUS_BLOCKED_OPENRESOLVER(0.00)[2a07:de40:b281:104:10:150:64:97:from]; 
- FREEMAIL_CC(0.00)[redhat.com,poorly.run,suse.com,gmail.com,linux.intel.com,kernel.org,ffwll.ch,lists.freedesktop.org,lists.linux.dev];
- DKIM_TRACE(0.00)[suse.de:+]; TO_DN_SOME(0.00)[];
- RCVD_COUNT_TWO(0.00)[2];
- DNSWL_BLOCKED(0.00)[2a07:de40:b281:104:10:150:64:97:from];
- FROM_EQ_ENVFROM(0.00)[]; FROM_HAS_DN(0.00)[];
- RCVD_TLS_ALL(0.00)[]; MID_RHS_MATCH_FROM(0.00)[];
- RECEIVED_SPAMHAUS_BLOCKED_OPENRESOLVER(0.00)[2a07:de40:b281:106:10:150:64:167:received];
- RCPT_COUNT_SEVEN(0.00)[11]; RCVD_VIA_SMTP_AUTH(0.00)[];
- TAGGED_RCPT(0.00)[];
- DBL_BLOCKED_OPENRESOLVER(0.00)[suse.de:email, suse.de:dkim,
- imap1.dmz-prg2.suse.org:rdns, imap1.dmz-prg2.suse.org:helo, suse.com:url]
-X-Rspamd-Server: rspamd1.dmz-prg2.suse.org
-X-Rspamd-Action: no action
-X-Spam-Score: -12.00
-X-Spam-Level: 
-X-Rspamd-Queue-Id: 55F1C1F458
+References: <3471545.44csPzL39Z@rafael.j.wysocki>
+ <CAJZ5v0gB+ktRht4j8SjSTo-mqmsRR+e5m1sfc6j5gnGop6=BJg@mail.gmail.com>
+In-Reply-To: <CAJZ5v0gB+ktRht4j8SjSTo-mqmsRR+e5m1sfc6j5gnGop6=BJg@mail.gmail.com>
+From: "Rafael J. Wysocki (Intel)" <rafael@kernel.org>
+Date: Fri, 20 Nov 2026 13:52:32 +0100
+X-Gmail-Original-Message-ID: <CAJZ5v0hUzQ7+NEi8DAgCy=Fx-i+a77Cc2Q_U2zwt=wVqrxcc7w@mail.gmail.com>
+X-Gm-Features: Aa3M54p6ev89u-Dya_X8LkTxv_6m4WAMWGfQWDQnspC5qiUwdt1yYxqWfIzI8SA
+Message-ID: <CAJZ5v0hUzQ7+NEi8DAgCy=Fx-i+a77Cc2Q_U2zwt=wVqrxcc7w@mail.gmail.com>
+Subject: Re: [PATCH v1 0/3] ACPI: glue: Rework ACPI companion lookup related
+ to device type
+To: Linux ACPI <linux-acpi@vger.kernel.org>
+Cc: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>, 
+ Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>,
+ Simona Vetter <simona@ffwll.ch>, 
+ Andreas Noever <andreas.noever@gmail.com>, Mika Westerberg <westeri@kernel.org>,
+ Yehezkel Bernat <YehezkelShB@gmail.com>,
+ Greg Kroah-Hartman <gregkh@linuxfoundation.org>, 
+ dri-devel@lists.freedesktop.org, linux-usb@vger.kernel.org, 
+ Andy Shevchenko <andriy.shevchenko@linux.intel.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -152,102 +73,67 @@ List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-17.3 required=3.0 tests=BAYES_00,DKIM_SIGNED,
-	DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
-	INCLUDES_CR_TRAILER,INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,
-	SPF_PASS,USER_AGENT_SANE_1 autolearn=unavailable autolearn_force=no
-	version=4.0.1
+X-Spam-Status: No, score=-5.8 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
+	DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
+	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS autolearn=no
+	autolearn_force=no version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-Hi
-
-Am 20.11.26 um 07:50 schrieb Jie Feng:
-> On Fri, 20 Nov 2026 at 14:48, Thomas Zimmermann <tzimmermann@suse.de> wrote:
->> Wait for in-flight URBs from the previous frame before sending out
->> the current frame. Throttles frame rate to USB limits.
->>
->> PC display usually runs with a refresh rate of 60 Hz or more. Sending
->> out URBs for each frame at this rate easily overloads the USB. This
->> results in display lag up to several seconds. Udl currently avoids
->> this by limiting the number of URBs to 20 at a time. This prevents
->> overloading the USB, but also prevents udl from using all the
->> bandwidth available.
->>
->> Solving this requires more flexibility in the number of in-flight
->> URBs. The exact value depends on the framebuffer configuration and
->> the available bandwidth on the USB.
->>
->> Before removing the limit on the URB count, add another means of
->> synchronizing the frame rate to the USB. Do this in atomic_begin, so
->> that the USB has the maximum time between sending two frames.
->>
->> Signed-off-by: Thomas Zimmermann <tzimmermann@suse.de>
->> ---
->>   drivers/gpu/drm/udl/udl_modeset.c | 18 ++++++++++++++++++
->>   1 file changed, 18 insertions(+)
->>
->> diff --git a/drivers/gpu/drm/udl/udl_modeset.c b/drivers/gpu/drm/udl/udl_modeset.c
->> index bbba1dee8e4f..caa0a117e3c2 100644
->> --- a/drivers/gpu/drm/udl/udl_modeset.c
->> +++ b/drivers/gpu/drm/udl/udl_modeset.c
->> @@ -329,6 +329,23 @@ static const struct drm_plane_funcs udl_primary_plane_funcs = {
->>    * CRTC
->>    */
->>
->> +static void udl_crtc_helper_atomic_begin(struct drm_crtc *crtc, struct drm_atomic_commit *state)
->> +{
->> +       struct drm_device *dev = crtc->dev;
->> +       struct udl_device *udl = to_udl(dev);
->> +       int idx;
->> +
->> +       if (!drm_dev_enter(dev, &idx))
->> +               return;
->> +
->> +       /*
->> +        * It is acceptable to briefly block in this call, but
->> +        * having it timeout frequently indicates a problem.
->> +        */
->> +       udl_sync_pending_urbs(udl);
-> Using usb anchors might work better instead of the completion I suggested
-> in the other message. usb_wait_anchor_empty_timeout() could be used.
-
-Nice, I wasn't aware of this helper. I briefly looked over it and it 
-seems useful. It would also mean that there are two lists: one for the 
-cache and one for the anchor. That might be a good thing in the longer 
-term. I'll see if I can use anchors to the benefit of this code.
-
-Best regards
-Thomas
-
+On Fri, Nov 13, 2026 at 5:27=E2=80=AFPM Rafael J. Wysocki (Intel)
+<rafael@kernel.org> wrote:
 >
->> +       drm_dev_exit(idx);
->> +}
->> +
->>   static void udl_crtc_helper_atomic_enable(struct drm_crtc *crtc, struct drm_atomic_commit *state)
->>   {
->>          struct drm_device *dev = crtc->dev;
->> @@ -395,6 +412,7 @@ static void udl_crtc_helper_atomic_disable(struct drm_crtc *crtc, struct drm_ato
->>
->>   static const struct drm_crtc_helper_funcs udl_crtc_helper_funcs = {
->>          .atomic_check = drm_crtc_helper_atomic_check,
->> +       .atomic_begin = udl_crtc_helper_atomic_begin,
->>          .atomic_enable = udl_crtc_helper_atomic_enable,
->>          .atomic_disable = udl_crtc_helper_atomic_disable,
->>   };
->> --
->> 2.56.0
->>
->>
-> Best regards,
-> Jie Feng
+> On Wed, Nov 4, 2026 at 10:12=E2=80=AFPM Rafael J. Wysocki <rafael@kernel.=
+org> wrote:
+> >
+> > Hi All,
+> >
+> > The ACPI "glue" code is responsible for binding Linux devices (like pla=
+tform
+> > devices for one example) to their ACPI companions (represented by struc=
+t
+> > acpi_device objects).  This is done by acpi_device_notify() when the gi=
+ven
+> > device is registered.
+> >
+> > If the device's ACPI companion is set already at that point, the bindin=
+g
+> > simply adds the device to the list of "physical nodes" associated with =
+its
+> > ACPI companion.  That's the case for PCI devices and platform devices, =
+for
+> > example.  However, there are cases in which the ACPI companion is not s=
+et
+> > upfront and it needs to be looked up via "lookup helpers" registered by
+> > the subsystems the devices in question belong to.  This series changes
+> > the "lookup helpers" representation and handling.
+> >
+> > Before the changes, the "lookup helpers" are represented by struct
+> > acpi_bus_type objects which is doubly confusing because they have nothi=
+ng
+> > to do with bus types and because the "acpi_bus_type" name is also used
+> > elsewhere.  Patch [1/3] renames struct acpi_bus_type to struct acpi_dev=
+_type
+> > because all of the existing "lookup helpers" operate on device types.
+> >
+> > Next, the registration and unregistration functions for "lookup helpers=
+"
+> > are defined to return an int, but all of their existing users effective=
+ly
+> > discard their return values (they are discarded right away or passed up=
+ the
+> > call chain and then discarded).  Patch [2/3] changes the return type of
+> > those functions to void.
+> >
+> > Finally, since all of the existing "lookup helpers" match dev->type to
+> > a certain device type, they can be rearranged to point to the device
+> > types in question and provide a .find_companion() callback, and an
+> > additional .setup() callback in one case.  This is done by patch [3/3]
+> > and allows all of the affected code to be simplified quite a bit.
+>
+> In the absence of any feedback I will assume no objections or concerns
+> and I'll queue up this lot for 7.5.
 
--- 
---
-Thomas Zimmermann
-Graphics Driver Developer
-SUSE Software Solutions Germany GmbH
-Frankenstr. 146, 90461 Nürnberg, Germany, www.suse.com
-GF: Stefan Gaiser, Jochen Jaser, Abhinav Puri, (HRB 36809, AG Nürnberg)
+And so applied.
 
-
+Thanks!
