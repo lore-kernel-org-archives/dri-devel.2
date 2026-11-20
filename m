@@ -2,51 +2,51 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 21C25606A320
-	for <dri-devel@archiver.kernel.org>; Fri, 20 Nov 2026 05:12:03 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0F61B606A326
+	for <dri-devel@archiver.kernel.org>; Fri, 20 Nov 2026 05:12:06 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=H+Fp2bKK
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=QmOJvbqB
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id C58FD10FDEA;
-	Fri, 20 Nov 2026 05:11:56 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 0039F10FB75;
+	Fri, 20 Nov 2026 05:11:59 +0000 (UTC)
 Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.9])
- by gabe.freedesktop.org (Postfix) with ESMTPS id B7B2D10F075;
- Fri, 20 Nov 2026 05:11:41 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 6F3A410E0F0;
+ Fri, 20 Nov 2026 05:11:49 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1795151503; x=1826687503;
+ t=1795151510; x=1826687510;
  h=from:date:subject:mime-version:content-transfer-encoding:
  message-id:references:in-reply-to:to:cc;
- bh=udCC0yuWXpUuG6Xi1piz77NGQcuqbkvrdOGDmdG5gyc=;
- b=H+Fp2bKKBQvKWNDinTy9Iy3yFMrqkG9MivTwfhbq6WC5s3F3SWjOTvTG
- OuQAfqXGINxheFLvNc0e3oY6/hhJ/LYkc8ZpDLsHrq+6mo+OLISAluAq0
- e0xMCGW2ysjNfOcw6gv/5boCmIUtWlzvkU24xd2OxdmYtEOzG/4sBX8Fk
- qwcVaRyzbh/ILFLIUY/QtJo8/aV55g/COgitD/jtwiileUJFIIKHLZ1ys
- I6X7bYzyV8y+EZ8ty00xmtFKxKOHTF1YSUWWhkXsLga5zCw3/syxgu3pf
- +dVI5//FORdx1kkDNTdteFAphCOiHq0qHzr/QOw33ia9B+yKYM+evXGi+ A==;
-X-CSE-ConnectionGUID: NEk0+u8/SVq4WHqS3K7liw==
-X-CSE-MsgGUID: rHWuG/lEQVK5o5RFq11ysQ==
-X-IronPort-AV: E=McAfee;i="6800,10657,11971"; a="3907448"
+ bh=A1xsJqgjh0z97TTJZOMWc0IHI6vw8brbvgXW9J/GC10=;
+ b=QmOJvbqB+CIydnms43+xPtTCoE1bD9R+gd6YZs8XfKhucHOmLZem2CA/
+ A4SPa8D40MQ48wbrE8T6ZFrVyznqGs6T6u45CnJuuacZlfQKzdiLD7Oh4
+ 9trtyJcXDzdOgo6Gv2sj+YkrdnbMK1vuNxtI+q1xr97V5ik2EYtkWIA4+
+ STdjvuN0ojyk4bsJ0zlWVwmq7ThVYFWKxn7xxVas4LtomwuOtbQJJqXOL
+ xiZfnd4gXbf62+4MAzRTrwanvgDgln9HeEwIizNypV4Z7jzBy8kGx2vK7
+ BJZAmD6ZzhUeaGlOckjHaBkzymhgN7YNR1j2mv5vdLuirFaodR/Ol6aRF g==;
+X-CSE-ConnectionGUID: h4c8eQfnSz6TYLBBjIINBg==
+X-CSE-MsgGUID: Akqiu9gtSHqaz1aBdw9IBA==
+X-IronPort-AV: E=McAfee;i="6800,10657,11971"; a="3907470"
 X-IronPort-AV: E=Sophos;i="6.27,222,1787036400"; 
-   d="scan'208";a="3907448"
+   d="scan'208";a="3907470"
 Received: from fmviesa004.fm.intel.com ([10.60.135.144])
  by fmvoesa103.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 19 Nov 2026 21:11:42 -0800
-X-CSE-ConnectionGUID: cjyEFGc6TuaQXaTgfsO9EA==
-X-CSE-MsgGUID: lRtSBcr6SkGP0RuO/obDNg==
+ 19 Nov 2026 21:11:50 -0800
+X-CSE-ConnectionGUID: UIU0CGnoToKgy/ZAT+mcjw==
+X-CSE-MsgGUID: plIbNWbUSqeRU0dyEbT2oA==
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,222,1787036400"; d="scan'208";a="10607182"
+X-IronPort-AV: E=Sophos;i="6.27,222,1787036400"; d="scan'208";a="10607273"
 Received: from srr4-3-linux-106-armuthy.iind.intel.com ([10.190.238.56])
- by fmviesa004.fm.intel.com with ESMTP; 19 Nov 2026 21:11:39 -0800
+ by fmviesa004.fm.intel.com with ESMTP; 19 Nov 2026 21:11:47 -0800
 From: Arun R Murthy <arun.r.murthy@intel.com>
-Date: Fri, 20 Nov 2026 10:36:06 +0530
-Subject: [PATCH v5 07/13] drm/i915/display: Program the DP symbol based
- timing generator
+Date: Fri, 20 Nov 2026 10:36:09 +0530
+Subject: [PATCH v5 10/13] drm/i915/dp: Prune the modes not fitting the DP
+ symbol timing generator
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20261120-vlk-64036-dp-symbol-tg-v5-7-bf8f78b32709@intel.com>
+Message-Id: <20261120-vlk-64036-dp-symbol-tg-v5-10-bf8f78b32709@intel.com>
 References: <20261120-vlk-64036-dp-symbol-tg-v5-0-bf8f78b32709@intel.com>
 In-Reply-To: <20261120-vlk-64036-dp-symbol-tg-v5-0-bf8f78b32709@intel.com>
 To: intel-gfx@lists.freedesktop.org, intel-xe@lists.freedesktop.org, 
@@ -74,285 +74,281 @@ X-Spam-Status: No, score=-18.8 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-Program the 128 bit LL symbol Data M/N before the LINK_N write which
-arms the double buffered update, the LL symbol HACT/HTOTAL/CHUNK_SIZE
-along with the other transcoder timings, and enable the timing
-generator via TRANSCONF.DP_Symbol_TG_Enable before the transcoder is
-enabled.
+The LL symbol timings of a mode have to fit the TRANS_LLSYM_HTOTAL and
+TRANS_LLSYM_CHUNK_SIZE registers when the symbol based timing generator
+is used. Instead of accepting such modes and silently falling back to the
+pixel based timing generator, reject them in the mode validation, the
+same as for the transcoder timing limits.
 
-The Hblank Early count of the audio and the Early Count Scaling are a
-pair: with the symbol based timing generator the count is in symbols, 96
-of them (rolled down to fit the Hactive symbol count) with x1 scaling.
-Program the count along with the scaling, and clear the scaling again when
-disabling the transcoder.
+Factor out the LL symbol cycle count computation, to be used both by the
+mode validation and by the computation of the timing generator
+parameters. The mode validation uses the minimum link bpp, as a mode not
+fitting with that doesn't fit with any other bpp either.
 
-v3: Remove redundant HAS_DP_SYMBOL_TG (Jani)
-    Use intel_de_read64_2x32()
-v4: Program the Hblank Early count paired with the x1 scaling
-v5: Audio: pick the Hblank Early count in symbols, rolled down to fit the
-    Hactive symbol count of the symbol TG, in enable_audio_dsc_wa()
-
-Bspec: 68849, 68922, 68943, 69961
 Signed-off-by: Arun R Murthy <arun.r.murthy@intel.com>
 ---
- drivers/gpu/drm/i915/display/intel_audio.c   |  28 ++++++-
- drivers/gpu/drm/i915/display/intel_ddi.c     |   2 +
- drivers/gpu/drm/i915/display/intel_display.c | 114 +++++++++++++++++++++++++--
- drivers/gpu/drm/i915/display/intel_display.h |   1 +
- 4 files changed, 136 insertions(+), 9 deletions(-)
+ drivers/gpu/drm/i915/display/intel_dp.c     | 173 +++++++++++++++++++++-------
+ drivers/gpu/drm/i915/display/intel_dp.h     |   7 ++
+ drivers/gpu/drm/i915/display/intel_dp_mst.c |   8 ++
+ 3 files changed, 149 insertions(+), 39 deletions(-)
 
-diff --git a/drivers/gpu/drm/i915/display/intel_audio.c b/drivers/gpu/drm/i915/display/intel_audio.c
-index 32f8c5e55319fbbf5a10558d067cc5e05f242b01..e1b4e7fdc22a91ce6a6e9d80e88c5791d2d72753 100644
---- a/drivers/gpu/drm/i915/display/intel_audio.c
-+++ b/drivers/gpu/drm/i915/display/intel_audio.c
-@@ -506,6 +506,20 @@ static unsigned int calc_samples_room(const struct intel_crtc_state *crtc_state)
- 		(pixel_clk * (48 / lanes + 2));
- }
+diff --git a/drivers/gpu/drm/i915/display/intel_dp.c b/drivers/gpu/drm/i915/display/intel_dp.c
+index e59737c8e22ed11a6af86ac58eac02f5e11d884f..82966028b2a2867889169ca372d8d36b576d9119 100644
+--- a/drivers/gpu/drm/i915/display/intel_dp.c
++++ b/drivers/gpu/drm/i915/display/intel_dp.c
+@@ -1540,6 +1540,14 @@ intel_dp_mode_valid_format(struct intel_connector *connector,
+ 		if (status != MODE_OK)
+ 			continue;
  
-+static int symbol_tg_hblank_start_count(const struct intel_dp_symbol_tg *tg)
-+{
-+	if (tg->hactive >= 96)
-+		return HBLANK_START_COUNT_96;
-+	else if (tg->hactive >= 64)
-+		return HBLANK_START_COUNT_64;
-+	else if (tg->hactive >= 32)
-+		return HBLANK_START_COUNT_32;
-+	else if (tg->hactive >= 16)
-+		return HBLANK_START_COUNT_16;
-+	else
-+		return HBLANK_START_COUNT_8;
-+}
-+
- static void enable_audio_dsc_wa(struct intel_encoder *encoder,
- 				const struct intel_crtc_state *crtc_state)
- {
-@@ -524,9 +538,17 @@ static void enable_audio_dsc_wa(struct intel_encoder *encoder,
- 	else if (DISPLAY_VER(display) >= 12)
- 		val |= HBLANK_EARLY_ENABLE_TGL(cpu_transcoder);
- 
--	if (crtc_state->dsc.compression_enable &&
--	    crtc_state->hw.adjusted_mode.hdisplay >= 3840 &&
--	    crtc_state->hw.adjusted_mode.vdisplay >= 2160) {
-+	if (crtc_state->dp_symbol_tg.enable) {
-+		/*
-+		 * The Hblank Early count and the Early Count Scaling (x1,
-+		 * programmed in intel_enable_transcoder()) are a pair.
-+		 */
-+		val &= ~HBLANK_START_COUNT_MASK(cpu_transcoder);
-+		val |= HBLANK_START_COUNT(cpu_transcoder,
-+					  symbol_tg_hblank_start_count(&crtc_state->dp_symbol_tg));
-+	} else if (crtc_state->dsc.compression_enable &&
-+		   crtc_state->hw.adjusted_mode.hdisplay >= 3840 &&
-+		   crtc_state->hw.adjusted_mode.vdisplay >= 2160) {
- 		/* Get hblank early enable value required */
- 		val &= ~HBLANK_START_COUNT_MASK(cpu_transcoder);
- 		hblank_early_prog = calc_hblank_early_prog(encoder, crtc_state);
-diff --git a/drivers/gpu/drm/i915/display/intel_ddi.c b/drivers/gpu/drm/i915/display/intel_ddi.c
-index a46ab5d3d70fc75c6975f46e14d1b0c24dc1ba5e..c814e0740aa064f56d844e304c0a93d1047475c6 100644
---- a/drivers/gpu/drm/i915/display/intel_ddi.c
-+++ b/drivers/gpu/drm/i915/display/intel_ddi.c
-@@ -4083,6 +4083,7 @@ static void intel_ddi_read_func_ctl_dp_sst(struct intel_encoder *encoder,
- 			REG_FIELD_GET(TRANS_DDI_MST_TRANSPORT_SELECT_MASK, ddi_func_ctl);
- 
- 	intel_cpu_transcoder_get_m1_n1(crtc, cpu_transcoder, &crtc_state->dp_m_n);
-+	intel_cpu_transcoder_get_llsym_m_n(crtc_state);
- 	intel_cpu_transcoder_get_m2_n2(crtc, cpu_transcoder, &crtc_state->dp_m2_n2);
- 
- 	crtc_state->enhanced_framing =
-@@ -4119,6 +4120,7 @@ static void intel_ddi_read_func_ctl_dp_mst(struct intel_encoder *encoder,
- 			REG_FIELD_GET(TRANS_DDI_MST_TRANSPORT_SELECT_MASK, ddi_func_ctl);
- 
- 	intel_cpu_transcoder_get_m1_n1(crtc, cpu_transcoder, &crtc_state->dp_m_n);
-+	intel_cpu_transcoder_get_llsym_m_n(crtc_state);
- 
- 	if (DISPLAY_VER(display) >= 11)
- 		crtc_state->fec_enable =
-diff --git a/drivers/gpu/drm/i915/display/intel_display.c b/drivers/gpu/drm/i915/display/intel_display.c
-index 7caf5bee8718729667376b487b0584b47891f05a..1900a3fe28c23bdf9c6733997459a820f37551b5 100644
---- a/drivers/gpu/drm/i915/display/intel_display.c
-+++ b/drivers/gpu/drm/i915/display/intel_display.c
-@@ -521,9 +521,18 @@ void intel_enable_transcoder(const struct intel_crtc_state *new_crtc_state)
- 		return;
- 	}
- 
--	/* Wa_1409098942:adlp+ */
--	if (DISPLAY_VER(display) >= 13 &&
--	    new_crtc_state->dsc.compression_enable) {
-+	/*
-+	 * The Hblank Early count is in symbols with the DP symbol TG, no scaling.
-+	 * The matching count is programmed by the audio code, see
-+	 * enable_audio_dsc_wa().
-+	 */
-+	if (new_crtc_state->dp_symbol_tg.enable) {
-+		val &= ~TRANSCONF_PIXEL_COUNT_SCALING_MASK;
-+		val |= REG_FIELD_PREP(TRANSCONF_PIXEL_COUNT_SCALING_MASK,
-+				      TRANSCONF_PIXEL_COUNT_SCALING_X1);
-+	} else if (DISPLAY_VER(display) >= 13 &&
-+		   new_crtc_state->dsc.compression_enable) {
-+		/* Wa_1409098942:adlp+ */
- 		val &= ~TRANSCONF_PIXEL_COUNT_SCALING_MASK;
- 		val |= REG_FIELD_PREP(TRANSCONF_PIXEL_COUNT_SCALING_MASK,
- 				      TRANSCONF_PIXEL_COUNT_SCALING_X4);
-@@ -575,9 +584,10 @@ void intel_disable_transcoder(const struct intel_crtc_state *old_crtc_state)
- 	if (!display->platform.i830)
- 		val &= ~TRANSCONF_ENABLE;
- 
--	/* Wa_1409098942:adlp+ */
--	if (DISPLAY_VER(display) >= 13 &&
--	    old_crtc_state->dsc.compression_enable)
-+	/* Wa_1409098942:adlp+, and the Hblank Early scaling of the DP symbol TG */
-+	if ((DISPLAY_VER(display) >= 13 &&
-+	     old_crtc_state->dsc.compression_enable) ||
-+	    old_crtc_state->dp_symbol_tg.enable)
- 		val &= ~TRANSCONF_PIXEL_COUNT_SCALING_MASK;
- 
- 	intel_de_write(display, TRANSCONF(display, cpu_transcoder), val);
-@@ -588,6 +598,14 @@ void intel_disable_transcoder(const struct intel_crtc_state *old_crtc_state)
- 
- 	if ((val & TRANSCONF_ENABLE) == 0)
- 		intel_wait_for_pipe_off(old_crtc_state);
-+
-+	/* Disable the DP symbol based timing generator */
-+	if (old_crtc_state->dp_symbol_tg.enable) {
-+		intel_de_rmw(display, TRANSCONF(display, cpu_transcoder),
-+			     TRANSCONF_DP_SYMBOL_TG_ENABLE, 0);
-+		intel_de_write(display, TRANS_LLSYM_HACT(display, cpu_transcoder), 0);
-+		intel_de_write(display, TRANS_LLSYM_HTOTAL(display, cpu_transcoder), 0);
-+	}
- }
- 
- u32 intel_plane_fb_max_stride(struct intel_display *display,
-@@ -1683,6 +1701,52 @@ static void hsw_set_frame_start_delay(const struct intel_crtc_state *crtc_state)
- 		     HSW_FRAME_START_DELAY(crtc_state->framestart_delay - 1));
- }
- 
-+static void intel_cpu_transcoder_set_llsym_m_n(const struct intel_crtc_state *crtc_state)
-+{
-+	struct intel_display *display = to_intel_display(crtc_state);
-+	enum transcoder transcoder = crtc_state->cpu_transcoder;
-+	const struct intel_dp_symbol_tg *tg = &crtc_state->dp_symbol_tg;
-+
-+	if (!tg->enable)
-+		return;
-+
-+	/*
-+	 * These are double buffered, updated by the LINK_N write in
-+	 * intel_set_m_n(), so must be written before that.
-+	 */
-+	intel_de_write(display, DP_LLSYM_DATAM(display, transcoder, 0),
-+		       lower_32_bits(tg->data_m[0]));
-+	intel_de_write(display, DP_LLSYM_DATAM(display, transcoder, 1),
-+		       upper_32_bits(tg->data_m[0]));
-+	intel_de_write(display, DP_LLSYM_DATAM_EXT(display, transcoder, 0),
-+		       lower_32_bits(tg->data_m[1]));
-+	intel_de_write(display, DP_LLSYM_DATAM_EXT(display, transcoder, 1),
-+		       upper_32_bits(tg->data_m[1]));
-+	intel_de_write(display, DP_LLSYM_DATAN(display, transcoder, 0),
-+		       lower_32_bits(tg->data_n[0]));
-+	intel_de_write(display, DP_LLSYM_DATAN(display, transcoder, 1),
-+		       upper_32_bits(tg->data_n[0]));
-+	intel_de_write(display, DP_LLSYM_DATAN_EXT(display, transcoder, 0),
-+		       lower_32_bits(tg->data_n[1]));
-+	intel_de_write(display, DP_LLSYM_DATAN_EXT(display, transcoder, 1),
-+		       upper_32_bits(tg->data_n[1]));
-+}
-+
-+void intel_cpu_transcoder_get_llsym_m_n(struct intel_crtc_state *crtc_state)
-+{
-+	struct intel_display *display = to_intel_display(crtc_state);
-+	enum transcoder transcoder = crtc_state->cpu_transcoder;
-+	struct intel_dp_symbol_tg *tg = &crtc_state->dp_symbol_tg;
-+
-+	if (!tg->enable)
-+		return;
-+
-+	tg->data_m[0] = intel_de_read64_2x32(display, DP_LLSYM_DATAM(display, transcoder, 0));
-+	tg->data_m[1] = intel_de_read64_2x32(display, DP_LLSYM_DATAM_EXT(display, transcoder, 0));
-+	tg->data_n[0] = intel_de_read64_2x32(display, DP_LLSYM_DATAN(display, transcoder, 0));
-+	tg->data_n[1] = intel_de_read64_2x32(display, DP_LLSYM_DATAN_EXT(display, transcoder, 0));
-+}
-+
- static void hsw_configure_cpu_transcoder(const struct intel_crtc_state *crtc_state)
- {
- 	struct intel_display *display = to_intel_display(crtc_state);
-@@ -1693,6 +1757,7 @@ static void hsw_configure_cpu_transcoder(const struct intel_crtc_state *crtc_sta
- 		intel_cpu_transcoder_set_m1_n1(crtc, cpu_transcoder,
- 					       &crtc_state->fdi_m_n);
- 	} else if (intel_crtc_has_dp_encoder(crtc_state)) {
-+		intel_cpu_transcoder_set_llsym_m_n(crtc_state);
- 		intel_cpu_transcoder_set_m1_n1(crtc, cpu_transcoder,
- 					       &crtc_state->dp_m_n);
- 		intel_cpu_transcoder_set_m2_n2(crtc, cpu_transcoder,
-@@ -2929,6 +2994,19 @@ void intel_set_transcoder_timings(const struct intel_crtc_state *crtc_state,
- 		intel_de_write(display, DP_MIN_HBLANK_CTL(transcoder),
- 			       crtc_state->min_hblank);
- 	}
-+
-+	if (crtc_state->dp_symbol_tg.enable &&
-+	    transcoder != TRANSCODER_CMTG0 &&
-+	    transcoder != TRANSCODER_CMTG1) {
-+		const struct intel_dp_symbol_tg *tg = &crtc_state->dp_symbol_tg;
-+
-+		intel_de_write(display, TRANS_LLSYM_HACT(display, transcoder),
-+			       TRANS_LLSYM_HACT_VAL(tg->hactive - 1));
-+		intel_de_write(display, TRANS_LLSYM_HTOTAL(display, transcoder),
-+			       TRANS_LLSYM_HTOTAL_VAL(tg->htotal - 1));
-+		intel_de_write(display, TRANS_LLSYM_CHUNK_SIZE(display, transcoder),
-+			       TRANS_LLSYM_CHUNK_SIZE_VAL(tg->chunk_size));
-+	}
- }
- 
- void intel_set_transcoder_timings_lrr(const struct intel_crtc_state *crtc_state,
-@@ -3095,6 +3173,26 @@ static void intel_get_transcoder_timings(struct intel_crtc *crtc,
- 	if (DISPLAY_VER(display) >= 30)
- 		pipe_config->min_hblank = intel_de_read(display,
- 							DP_MIN_HBLANK_CTL(cpu_transcoder));
-+
-+	if (HAS_DP_SYMBOL_TG(display)) {
-+		tmp = intel_de_read(display, TRANSCONF(display, cpu_transcoder));
-+
-+		if (tmp & TRANSCONF_DP_SYMBOL_TG_ENABLE) {
-+			struct intel_dp_symbol_tg *tg = &pipe_config->dp_symbol_tg;
-+			u32 hact, htotal, chunk_size;
-+
-+			hact = intel_de_read(display, TRANS_LLSYM_HACT(display, cpu_transcoder));
-+			htotal = intel_de_read(display,
-+					       TRANS_LLSYM_HTOTAL(display, cpu_transcoder));
-+			chunk_size = intel_de_read(display,
-+						   TRANS_LLSYM_CHUNK_SIZE(display, cpu_transcoder));
-+
-+			tg->enable = true;
-+			tg->hactive = REG_FIELD_GET(TRANS_LLSYM_HACT_MASK, hact) + 1;
-+			tg->htotal = REG_FIELD_GET(TRANS_LLSYM_HTOTAL_MASK, htotal) + 1;
-+			tg->chunk_size = REG_FIELD_GET(TRANS_LLSYM_CHUNK_SIZE_MASK, chunk_size);
++		if (!intel_dp_mode_valid_symbol_tg(connector, intel_dp, false, mode,
++						   max_link_clock, output_format,
++						   mode_rate <= max_rate,
++						   dsc ? dsc_slice_count : 0)) {
++			status = MODE_H_ILLEGAL;
++			continue;
 +		}
-+	}
- }
- 
- static void intel_joiner_adjust_pipe_src(struct intel_crtc_state *crtc_state)
-@@ -3419,6 +3517,10 @@ static void hsw_set_transconf(const struct intel_crtc_state *crtc_state)
- 	    crtc_state->output_format != INTEL_OUTPUT_FORMAT_RGB)
- 		val |= TRANSCONF_OUTPUT_COLORSPACE_YUV_HSW;
- 
-+	/* Must be set before the transcoder is enabled, so only on modeset */
-+	if (crtc_state->dp_symbol_tg.enable)
-+		val |= TRANSCONF_DP_SYMBOL_TG_ENABLE;
 +
- 	intel_de_write(display, TRANSCONF(display, cpu_transcoder), val);
- 	intel_de_posting_read(display, TRANSCONF(display, cpu_transcoder));
+ 		if (!dsc)
+ 			dsc_slice_count = 0;
+ 
+@@ -3762,6 +3770,88 @@ int intel_dp_compute_min_hblank(struct intel_crtc_state *crtc_state,
+ /* Number of symbols the transcoder link layer processes in a symbol cycle */
+ #define LL_SYMBOLS_PER_CYCLE	4
+ 
++struct intel_dp_symbol_tg_cycles {
++	int hactive;
++	int hblank;
++	int chunk;
++};
++
++/* dsc_slices is 0 for an uncompressed stream */
++static void intel_dp_symbol_tg_calc_cycles(struct intel_dp *intel_dp,
++					   int hdisplay, int htotal,
++					   int link_bpp_x16, int dsc_slices,
++					   enum intel_output_format output_format,
++					   bool is_uhbr,
++					   struct intel_dp_symbol_tg_cycles *cycles)
++{
++	int symbol_size = is_uhbr ? 32 : 8;
++	u8 rx_min_hblank;
++	int hblank_pixels;
++
++	cycles->chunk = 0;
++
++	if (dsc_slices) {
++		int slice_width = DIV_ROUND_UP(hdisplay, dsc_slices);
++		int chunk_bytes = DIV_ROUND_UP(slice_width * link_bpp_x16, 16 * 8);
++
++		cycles->chunk = DIV_ROUND_UP(chunk_bytes * 8,
++					     LL_SYMBOLS_PER_CYCLE * symbol_size);
++		cycles->hactive = dsc_slices * (cycles->chunk + 1);
++	} else {
++		int hact_width = hdisplay;
++		int pix_bpp_x16 = link_bpp_x16;
++
++		/* YUV 4:2:0 without DSC: half the Hactive at twice the bpp */
++		if (output_format == INTEL_OUTPUT_FORMAT_YCBCR420) {
++			hact_width /= 2;
++			pix_bpp_x16 *= 2;
++		}
++
++		cycles->hactive = DIV_ROUND_UP(DIV_ROUND_UP(hact_width, LL_SYMBOLS_PER_CYCLE) *
++					       pix_bpp_x16, 16 * symbol_size);
++	}
++
++	hblank_pixels = htotal - hdisplay;
++	cycles->hblank = DIV_ROUND_UP(DIV_ROUND_UP(hblank_pixels, LL_SYMBOLS_PER_CYCLE) *
++				      link_bpp_x16, 16 * symbol_size);
++
++	/* DP 2.1: the minimum Hblank is 5 LL symbol cycles for 8b/10b, 3 for 128b/132b */
++	cycles->hblank = max(cycles->hblank, is_uhbr ? 3 : 5);
++
++	/* The Rx minimum Hblank, if the sink enumerates it */
++	rx_min_hblank = intel_dp->rx_min_hblank[is_uhbr];
++	if (rx_min_hblank & DP_RX_MIN_HBLANK_ENABLE)
++		cycles->hblank = max(cycles->hblank,
++				     (rx_min_hblank & DP_RX_MIN_HBLANK_MASK) +
++				     (is_uhbr ? 3 : 5));
++}
++
++static bool intel_dp_symbol_tg_cycles_in_range(const struct intel_dp_symbol_tg_cycles *cycles)
++{
++	return cycles->hactive + cycles->hblank <= TRANS_LLSYM_HTOTAL_MASK + 1 &&
++		cycles->chunk <= TRANS_LLSYM_CHUNK_SIZE_MASK;
++}
++
++/*
++ * Check if the LL symbol timings of a mode fit the symbol based timing
++ * generator registers, for the given link rate and link bpp. The lower the
++ * bpp, the fewer cycles, so this can be called with the minimum bpp to prune
++ * the modes which can't be supported with any bpp.
++ */
++static bool intel_dp_symbol_tg_mode_valid(struct intel_dp *intel_dp,
++					  const struct drm_display_mode *mode,
++					  int link_rate, int link_bpp_x16, int dsc_slices,
++					  enum intel_output_format output_format)
++{
++	struct intel_dp_symbol_tg_cycles cycles;
++
++	intel_dp_symbol_tg_calc_cycles(intel_dp, mode->hdisplay, mode->htotal,
++				       link_bpp_x16, dsc_slices, output_format,
++				       drm_dp_is_uhbr_rate(link_rate), &cycles);
++
++	return intel_dp_symbol_tg_cycles_in_range(&cycles);
++}
++
+ /* 64 x 64 -> 128 bit multiplication, result as {lo, hi} */
+ static void intel_dp_mul_u64_u64(u64 a, u64 b, u64 res[2])
+ {
+@@ -3808,6 +3898,40 @@ void intel_dp_symbol_tg_select_mn(struct intel_crtc_state *crtc_state)
+ 								      &crtc_state->dpll_hw_state));
  }
-diff --git a/drivers/gpu/drm/i915/display/intel_display.h b/drivers/gpu/drm/i915/display/intel_display.h
-index d53b7b4a80e75f8cb3a76d923d05648ffe505e2d..fa9ae8799a1999d9dd6a1f4e4d56983b6536ba26 100644
---- a/drivers/gpu/drm/i915/display/intel_display.h
-+++ b/drivers/gpu/drm/i915/display/intel_display.h
-@@ -446,6 +446,7 @@ void intel_cpu_transcoder_get_m2_n2(struct intel_crtc *crtc,
- 				    enum transcoder cpu_transcoder,
- 				    struct intel_link_m_n *m_n);
- int intel_dotclock_calculate(int link_freq, const struct intel_link_m_n *m_n);
-+void intel_cpu_transcoder_get_llsym_m_n(struct intel_crtc_state *crtc_state);
- int intel_crtc_dotclock(const struct intel_crtc_state *pipe_config);
- int intel_max_uncompressed_dotclock(struct intel_display *display);
- enum intel_display_power_domain intel_port_to_power_domain(struct intel_digital_port *dig_port);
+ 
++/*
++ * Check if the LL symbol timings of a mode can be supported by the symbol
++ * based timing generator, if that is used for the given link, either with an
++ * uncompressed stream (if @uncompressed_ok) or with DSC (if @dsc_slice_count
++ * is not 0), at the minimum link bpp.
++ */
++bool intel_dp_mode_valid_symbol_tg(struct intel_connector *connector,
++				   struct intel_dp *intel_dp, bool is_mst,
++				   const struct drm_display_mode *mode,
++				   int link_rate,
++				   enum intel_output_format output_format,
++				   bool uncompressed_ok, int dsc_slice_count)
++{
++	struct intel_display *display = to_intel_display(connector);
++	int min_bpp_x16, min_compressed_bpp_x16;
++
++	if (!intel_dp_use_symbol_tg(display, is_mst, drm_dp_is_uhbr_rate(link_rate)))
++		return true;
++
++	min_bpp_x16 = intel_dp_mode_min_link_bpp_x16(connector, mode, output_format);
++	if (uncompressed_ok &&
++	    intel_dp_symbol_tg_mode_valid(intel_dp, mode, link_rate,
++					  min_bpp_x16, 0, output_format))
++		return true;
++
++	min_compressed_bpp_x16 = intel_dp_compute_min_compressed_bpp_x16(connector,
++									 output_format);
++
++	return dsc_slice_count &&
++		intel_dp_symbol_tg_mode_valid(intel_dp, mode, link_rate,
++					      min_compressed_bpp_x16,
++					      dsc_slice_count, output_format);
++}
++
+ /* Compute the DP link layer (LL) symbol based timing generator parameters */
+ int intel_dp_compute_symbol_tg(struct intel_dp *intel_dp,
+ 			       struct intel_crtc_state *crtc_state,
+@@ -3820,9 +3944,8 @@ int intel_dp_compute_symbol_tg(struct intel_dp *intel_dp,
+ 	struct intel_dp_symbol_tg *tg = &crtc_state->dp_symbol_tg;
+ 	bool is_uhbr = intel_dp_is_uhbr(crtc_state);
+ 	int symbol_size = is_uhbr ? 32 : 8;
+-	int hactive_cycles, hblank_cycles, chunk_cycles = 0;
+-	int hblank_pixels;
+-	u8 rx_min_hblank;
++	struct intel_dp_symbol_tg_cycles cycles;
++	int hactive_cycles, hblank_cycles, chunk_cycles;
+ 	int dsc_slices, link_bpp_x16;
+ 	u32 ch_num, ch_den, ssc_num, ssc_den, spread_x1000, link_rate_mbps;
+ 	u32 rate_gcd, ssc_gcd;
+@@ -3847,43 +3970,15 @@ int intel_dp_compute_symbol_tg(struct intel_dp *intel_dp,
+ 	if (ret)
+ 		return ret;
+ 
+-	if (crtc_state->dsc.compression_enable) {
+-		int slice_width = DIV_ROUND_UP(adjusted_mode->crtc_hdisplay, dsc_slices);
+-		int chunk_bytes = DIV_ROUND_UP(slice_width * link_bpp_x16, 16 * 8);
+-
+-		chunk_cycles = DIV_ROUND_UP(chunk_bytes * 8,
+-					    LL_SYMBOLS_PER_CYCLE * symbol_size);
+-		hactive_cycles = dsc_slices * (chunk_cycles + 1);
+-	} else {
+-		int hact_width = adjusted_mode->crtc_hdisplay;
+-		int pix_bpp_x16 = link_bpp_x16;
+-
+-		/* YUV 4:2:0 without DSC: half the Hactive at twice the bpp */
+-		if (crtc_state->output_format == INTEL_OUTPUT_FORMAT_YCBCR420) {
+-			hact_width /= 2;
+-			pix_bpp_x16 *= 2;
+-		}
+-
+-		hactive_cycles = DIV_ROUND_UP(DIV_ROUND_UP(hact_width, LL_SYMBOLS_PER_CYCLE) *
+-					      pix_bpp_x16, 16 * symbol_size);
+-	}
+-
+-	hblank_pixels = adjusted_mode->crtc_htotal - adjusted_mode->crtc_hdisplay;
+-	hblank_cycles = DIV_ROUND_UP(DIV_ROUND_UP(hblank_pixels, LL_SYMBOLS_PER_CYCLE) *
+-				     link_bpp_x16, 16 * symbol_size);
+-
+-	/* DP 2.1: the minimum Hblank is 5 LL symbol cycles for 8b/10b, 3 for 128b/132b */
+-	hblank_cycles = max(hblank_cycles, is_uhbr ? 3 : 5);
+-
+-	/* The Rx minimum Hblank, if the sink enumerates it */
+-	rx_min_hblank = intel_dp->rx_min_hblank[is_uhbr];
+-	if (rx_min_hblank & DP_RX_MIN_HBLANK_ENABLE)
+-		hblank_cycles = max(hblank_cycles,
+-				    (rx_min_hblank & DP_RX_MIN_HBLANK_MASK) +
+-				    (is_uhbr ? 3 : 5));
++	intel_dp_symbol_tg_calc_cycles(intel_dp, adjusted_mode->crtc_hdisplay,
++				       adjusted_mode->crtc_htotal, link_bpp_x16,
++				       dsc_slices, crtc_state->output_format,
++				       is_uhbr, &cycles);
++	hactive_cycles = cycles.hactive;
++	hblank_cycles = cycles.hblank;
++	chunk_cycles = cycles.chunk;
+ 
+-	if (hactive_cycles + hblank_cycles > TRANS_LLSYM_HTOTAL_MASK + 1 ||
+-	    chunk_cycles > TRANS_LLSYM_CHUNK_SIZE_MASK) {
++	if (!intel_dp_symbol_tg_cycles_in_range(&cycles)) {
+ 		drm_dbg_kms(display->drm,
+ 			    "LL symbol timings out of range (hactive %d, hblank %d, chunk %d), using pixel TG\n",
+ 			    hactive_cycles, hblank_cycles, chunk_cycles);
+diff --git a/drivers/gpu/drm/i915/display/intel_dp.h b/drivers/gpu/drm/i915/display/intel_dp.h
+index 064ea36d100e09cd822e5be558eee7496f17943c..db65912047332bd788adc0fdd9401e06cf5acfa8 100644
+--- a/drivers/gpu/drm/i915/display/intel_dp.h
++++ b/drivers/gpu/drm/i915/display/intel_dp.h
+@@ -16,6 +16,7 @@ enum port;
+ struct drm_connector_state;
+ struct drm_dp_desc;
+ struct drm_dp_vsc_sdp;
++struct drm_display_mode;
+ struct drm_encoder;
+ struct drm_modeset_acquire_ctx;
+ struct intel_atomic_state;
+@@ -216,6 +217,12 @@ int intel_dp_dsc_min_src_compressed_bpp(void);
+ int intel_dp_compute_min_hblank(struct intel_crtc_state *crtc_state,
+ 				const struct drm_connector_state *conn_state);
+ bool intel_dp_use_symbol_tg(struct intel_display *display, bool is_mst, bool is_uhbr);
++bool intel_dp_mode_valid_symbol_tg(struct intel_connector *connector,
++				   struct intel_dp *intel_dp, bool is_mst,
++				   const struct drm_display_mode *mode,
++				   int link_rate,
++				   enum intel_output_format output_format,
++				   bool uncompressed_ok, int dsc_slice_count);
+ void intel_dp_symbol_tg_select_mn(struct intel_crtc_state *crtc_state);
+ int intel_dp_compute_symbol_tg(struct intel_dp *intel_dp,
+ 			       struct intel_crtc_state *crtc_state,
+diff --git a/drivers/gpu/drm/i915/display/intel_dp_mst.c b/drivers/gpu/drm/i915/display/intel_dp_mst.c
+index 58ca5312c195e2428b0356da090d540bfb8012ce..ed615ee2f51ec08bb8d7f2e729f95edcf83de5b1 100644
+--- a/drivers/gpu/drm/i915/display/intel_dp_mst.c
++++ b/drivers/gpu/drm/i915/display/intel_dp_mst.c
+@@ -1647,6 +1647,14 @@ mst_connector_mode_valid_ctx(struct drm_connector *_connector,
+ 		if (*status != MODE_OK)
+ 			continue;
+ 
++		if (!intel_dp_mode_valid_symbol_tg(connector, intel_dp, true, mode,
++						   max_link_clock, INTEL_OUTPUT_FORMAT_RGB,
++						   mode_rate <= max_rate,
++						   dsc ? dsc_slice_count : 0)) {
++			*status = MODE_H_ILLEGAL;
++			continue;
++		}
++
+ 		if (!dsc)
+ 			dsc_slice_count = 0;
+ 
 
 -- 
 2.25.1
