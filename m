@@ -2,152 +2,163 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B1A3B60A381D
-	for <dri-devel@archiver.kernel.org>; Fri, 20 Nov 2026 05:59:01 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EDD49606A333
+	for <dri-devel@archiver.kernel.org>; Fri, 20 Nov 2026 06:03:27 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=Nvidia.com header.i=@Nvidia.com header.a=rsa-sha256 header.s=selector2 header.b=kfHk02Nq
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=lACX3/AD;
+	dkim=fail reason="signature verification failed" (1024-bit key, unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=selector1 header.b=EtG/+JqW
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id C7F7611253C;
-	Fri, 20 Nov 2026 05:58:55 +0000 (UTC)
-Received: from BN1PR04CU002.outbound.protection.outlook.com
- (mail-eastus2azon11010042.outbound.protection.outlook.com [52.101.56.42])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 0464D112390;
- Fri, 20 Nov 2026 05:58:43 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 5BA7C10F116;
+	Fri, 20 Nov 2026 06:03:17 +0000 (UTC)
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.10])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id CE12210FFD2;
+ Fri, 20 Nov 2026 06:03:05 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1795154587; x=1826690587;
+ h=date:from:to:cc:subject:message-id:references:
+ content-transfer-encoding:in-reply-to:mime-version;
+ bh=WP+2Mlt7DfJRuY5wkXZfwB8rCNqAbrj37loIQMHiwPA=;
+ b=lACX3/ADq0aYSmbDWSaM11n39Z2wUdXbwfqUrl0AHmlmHoeNJSELAh4m
+ N9ZD4ppYM1HYNcUhlI6GVMdbXFhti50dlk7DnX60l74iavSvs0cehkRXE
+ 9ANIg4CuXJClELFj3kki62urAKSzusEC0fkStiibc397mwEVQSY2idSQS
+ Ryo+hSwBLPJy0BXIZk8i+kZFo4MR9RAhfjghkvNOeQ8x2mVIWX28PP/LR
+ sJB2ddZ1/BapEYIft67+8C1KEjY1NzqKlDdMWksxhDyRAUo0AlQNrcpqx
+ MCVAxsFBgGrcYkUrlOfUelJT1s8c8tqoFimpRQXBducfjAyo8qXo/ndUU A==;
+X-CSE-ConnectionGUID: cybdwN6IRZGDr81abpTBNg==
+X-CSE-MsgGUID: sUne8oVLSqmJogXZkcDjhA==
+X-IronPort-AV: E=McAfee;i="6800,10657,11971"; a="3940687"
+X-IronPort-AV: E=Sophos;i="6.27,222,1787036400"; 
+   d="scan'208";a="3940687"
+Received: from fmviesa007.fm.intel.com ([10.60.135.147])
+ by orvoesa102.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 19 Nov 2026 22:03:06 -0800
+X-CSE-ConnectionGUID: feVwbzE6ThyZnQMVggXklQ==
+X-CSE-MsgGUID: YpKklO4ZRKOSdh0GScBgLg==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,222,1787036400"; d="scan'208";a="10972105"
+Received: from orsmsx902.amr.corp.intel.com ([10.22.229.24])
+ by fmviesa007.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 19 Nov 2026 22:03:05 -0800
+Received: from ORSMSX903.amr.corp.intel.com (10.22.229.25) by
+ ORSMSX902.amr.corp.intel.com (10.22.229.24) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.56; Thu, 19 Nov 2026 22:03:04 -0800
+Received: from ORSEDG902.ED.cps.intel.com (10.7.248.12) by
+ ORSMSX903.amr.corp.intel.com (10.22.229.25) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.56 via Frontend Transport; Thu, 19 Nov 2026 22:03:04 -0800
+Received: from BL0PR03CU003.outbound.protection.outlook.com (52.101.53.34) by
+ edgegateway.intel.com (134.134.137.112) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.56; Thu, 19 Nov 2026 22:03:04 -0800
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=V7vcTO99BRRqFoOlm9Z0c38jSzY4S6smU4TIAG0DUZeBq5v7NOWojdnXPGuHTNgleNbEM9lXRdsB8akjSfMHYkWUZVnUgppCISrvnnGK/Ui7g7cfq8xEC93EyrtdHiCe8/5pZJi08bEtmG3yq7KZQJhPcKyta1JcZEP0k4ZloEieDI29ptZNiX0RYyVO+Dy1UXFeUwse3nWFTYiDkHiUus5QJ8ZWyWOhA3e9lfWayp74/2WIK16VLRT1Y0sVPye2J65mcWXF//2lGwZjClXVGiRchAbpellcjSHXHr86wJDQ67jE6rI7UToV/axegLhOVTrpZO1MTDKneiBbhRqy8w==
+ b=hK09vNRdAx8mscu8U5001KjhiXkkxaNKC2OjNmKgUlwl5FPnLBexB0+HaULUaTHMwQ5LwMdmu6vpc4kAZoEAwUouJX3cu9JYuwh5mf/eCAhVs4rkpQEREhnC9kSITEHjR3BSDRB5UcUCsJMQ+z0OU39dG1UeQSjz9xOby8IXfJDt99UjHpqPBcyasBgYqbJ1b8ALt3ERYVk+Fo1jrCPGDlKe+uHspArpEYtEMyQdMV77trps3uI+6c6CIjERI3oFae643/9sTBiiyXFphUY2T7+t21sbU2xOoXJFB598yScC0q3iDuebmYPcNzMHcEbssIR+DBQk7QEsUW9Gynb9gA==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=P8MEGgwFkZ/5xrrjKNhLYkfAKtMAgXeKCG4RXs5cVs0=;
- b=UMKMpy/gcC77N0sN0EhlYsaGAEuTYc51SM88pzzthKACibAAHWcrVguZ5/PPps1eO6vGi89YlOkDujiE7M3TUNlJ+smV0kS+TX0zetkwvFhqWW5M0X/0Mk9rNxxW5I1mZXqTjKXGFfJCDqsMMFZN2f42Fj75pKINDdFaf9R5KcOgl4GIH/mik1EikYYemZGKKwCOJDvNIYi/2Wle5iCA358pbe31kLDWxs/HcvASeZWTE03Bm26K1iKEk1ze5vAkTs+X9O6TZzBQaTuXGKzVKFpM/DF1QcVt4kk1d5+VPDwzFaGCcQegVGo51Uwg+3V+dPew4eJqP/oy9b55ztVBpw==
+ bh=wCDXlTskNmQePH9OIUvmWbbI0mXe+VrmDrYE2WQM1Pk=;
+ b=QPhUmpkEh1tXWDariqUNgBvi0qBID95RCt5L/q0Q4JnnFGb3xPRiXaRdUfC7PeXR2qqgtqytyKLcr++bFykaAL6SqxOa3xWiJ/4gkXtOWF2vB36/LVSJBr3dQia7drbUkHebLcRerRdyHqGvvP1rQMW57cwDaN1oHMPv9fJ1occvdCH1Vj6xMqbZH+1J/bUqXtmnl25mVcjSS6scLBV1Z0jr6cnwaQMx0ovB3tCd6d9wQXwsgw1pttXioYAagHigTze8/T+00PV7WGRqRImtMoSO1ofLNYGwrnxEybBc8cucg9wCNUlu5lXCiXptLVVTdbITp3QU6gQatj7XI1nI9A==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
- dkim=pass header.d=nvidia.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
- s=selector2;
+ smtp.mailfrom=intel.com; dmarc=pass action=none header.from=intel.com;
+ dkim=pass header.d=intel.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=intel.com; s=selector1;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=P8MEGgwFkZ/5xrrjKNhLYkfAKtMAgXeKCG4RXs5cVs0=;
- b=kfHk02NqR5H6ffXwDMIL5d2uyUf6dSmtZMIE/fIVwYQNRIoTq1iW/xTG5wCsTkWUZQLQgk19AEiJwSUAilAzTjj5jjak8HG9WgKRmDWe6H6o4Gwf8OLt4SG0ctiIrUyzhX/81IiptEoykJtaZ973sP6ETMOPXAAmkmSeoCn7v2f+NVEPnvj1ZgpHQtjEEposDy8Q7SKcfT1g7VnvG1oSUDgUhPEbCdC+pePuQfx9uVuQRyBOCzVA91b32Vhe52IP9xXVSZKUwHe/MVidXn95TR9EZVsvJ+2Usn9aTd8S+in2hJwzDrwTzUpqWb5wCPMPGHIoHi2qzKlDcf/s7cqrVw==
+ bh=wCDXlTskNmQePH9OIUvmWbbI0mXe+VrmDrYE2WQM1Pk=;
+ b=EtG/+JqWqKp7RzqAJjY9q5rTZhUQLm6ILCdjrPRYMZkGLGwKMSNxbUlUsuQAW3inE5u2WKowlFDeiudjz793EmcFFiayRT4oOmVOkh4InzfuMSlu8XuR2k+v5z3vj0FMKnJmb5XCW5/vnd/UcOTFO6o6axAuaTGa8Vi/h/AubUM=
 Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=nvidia.com;
-Received: from SA3PR12MB598757.namprd12.prod.outlook.com
- (2603:10b6:806:52d::14) by PH7PR12MB6717.namprd12.prod.outlook.com
- (2603:10b6:510:1b0::20) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.615.14; Fri, 20 Nov
- 2026 05:58:33 +0000
-Received: from SA3PR12MB598757.namprd12.prod.outlook.com
- ([fe80::e206:100:5946:a777]) by SA3PR12MB598757.namprd12.prod.outlook.com
- ([fe80::e206:100:5946:a777%5]) with mapi id 15.21.0639.011; Fri, 20 Nov 2026
- 05:58:33 +0000
-From: Alistair Popple <apopple@nvidia.com>
-Date: Fri, 20 Nov 2026 16:56:02 +1100
-Subject: [PATCH v3 24/24] dma-buf: Add kunit tests for mapping type selection
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20261120-dma_mapping_type_v4-v3-24-c0183a409bdf@nvidia.com>
-References: <20261120-dma_mapping_type_v4-v3-0-c0183a409bdf@nvidia.com>
-In-Reply-To: <20261120-dma_mapping_type_v4-v3-0-c0183a409bdf@nvidia.com>
-To: =?utf-8?q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>, 
- Sumit Semwal <sumit.semwal@linaro.org>, 
- =?utf-8?q?Thomas_Hellstr=C3=B6m?= <thomas.hellstrom@linux.intel.com>, 
- Simona Vetter <simona.vetter@ffwll.ch>, 
- Matthew Brost <matthew.brost@intel.com>, 
- Vivek Kasireddy <vivek.kasireddy@intel.com>, 
- Dongwon Kim <dongwon.kim@intel.com>, Kevin Tian <kevin.tian@intel.com>, 
- Xu Yilun <yilun.xu@linux.intel.com>, 
- Karl Mehltretter <kmehltretter@gmail.com>, 
- Baolu Lu <baolu.lu@linux.intel.com>, 
- Felix Kuehling <felix.kuehling@amd.com>, 
- Alex Deucher <alexander.deucher@amd.com>, linux-kernel@vger.kernel.org, 
- dri-devel@lists.freedesktop.org, intel-xe@lists.freedesktop.org, 
- amd-gfx@lists.freedesktop.org, linux-media@vger.kernel.org, 
- linaro-mm-sig@lists.linaro.org, linux-rdma@vger.kernel.org, 
- iommu@lists.linux.dev, Keith Busch <kbusch@kernel.org>, 
- Jens Axboe <axboe@kernel.dk>, Christoph Hellwig <hch@lst.de>, 
- Sagi Grimberg <sagi@grimberg.me>, linux-nvme@lists.infradead.org, 
- "David S. Miller" <davem@davemloft.net>, Eric Dumazet <edumazet@kernel.org>, 
- Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>, 
- Simon Horman <horms@kernel.org>, Mina Almasry <almasrymina@google.com>, 
- netdev@vger.kernel.org, Alexey Kardashevskiy <aik@amd.com>, 
- zhipingz@meta.com, treding@nvidia.com, jhubbard@nvidia.com, 
- chaitanyak@nvidia.com, Jason Gunthorpe <jgg@ziepe.ca>, 
- Leon Romanovsky <leon@kernel.org>
-Cc: Alistair Popple <apopple@nvidia.com>
-X-Mailer: b4 0.16.0
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1795154186; l=27463;
- i=apopple@nvidia.com; s=20261105; h=from:subject:message-id;
- bh=X6MOMHA5yR9Or4dwu/StNGYyBebhWLwpFsX7toq7H+k=;
- b=NZzBPR6jeC+JXwYi+CzoSuPQbXGoiZvJ3UUHweQk5XYNPf3zQfjXJ1cpE6WlHdzULmf+TOn24
- fbCQJaqUa5FDbWkmnRW1sW3a1opm9v61xfy+hoHihaJJ9vX+dkMtOK8
-X-Developer-Key: i=apopple@nvidia.com; a=ed25519;
- pk=WdWPT9rAq3YNfXldbGv1NSGVLGxzQGFGJvRUiShhNqs=
-X-ClientProxiedBy: SY6PR01CA0162.ausprd01.prod.outlook.com
- (2603:10c6:10:1ba::20) To SA3PR12MB598757.namprd12.prod.outlook.com
- (2603:10b6:806:52d::14)
+ header.d=none;dmarc=none action=none header.from=intel.com;
+Received: from CO1PR11MB4787.namprd11.prod.outlook.com (2603:10b6:303:95::23)
+ by PH8PR11MB9533.namprd11.prod.outlook.com (2603:10b6:510:39f::15)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.639.12; Fri, 20 Nov
+ 2026 06:03:00 +0000
+Received: from CO1PR11MB4787.namprd11.prod.outlook.com
+ ([fe80::e7eb:a872:53d1:21fd]) by CO1PR11MB4787.namprd11.prod.outlook.com
+ ([fe80::e7eb:a872:53d1:21fd%4]) with mapi id 15.21.0639.010; Fri, 20 Nov 2026
+ 06:02:58 +0000
+Date: Thu, 19 Nov 2026 22:02:56 -0800
+From: Matthew Brost <matthew.brost@intel.com>
+To: Niranjana Vishwanathapura <niranjana.vishwanathapura@intel.com>
+CC: <intel-xe@lists.freedesktop.org>, <dri-devel@lists.freedesktop.org>,
+ Carlos Santa <carlos.santa@intel.com>, Ryan Neph <ryanneph@google.com>,
+ Christian Koenig <christian.koenig@amd.com>, Huang Rui <ray.huang@amd.com>,
+ Matthew Auld <matthew.auld@intel.com>, Maarten Lankhorst
+ <maarten.lankhorst@linux.intel.com>, Maxime Ripard <mripard@kernel.org>,
+ Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>,
+ Simona Vetter <simona@ffwll.ch>, <linux-kernel@vger.kernel.org>, Thomas
+ =?iso-8859-1?Q?Hellstr=F6m?= <thomas.hellstrom@linux.intel.com>
+Subject: Re: [PATCH v3 15/33] drm/xe: Track BOs backed at a sub-optimal page
+ order
+Message-ID: <av/ikBSLnX7XpIlu@gsse-cloud1.jf.intel.com>
+References: <20260711025619.2540575-1-matthew.brost@intel.com>
+ <20260711025619.2540575-16-matthew.brost@intel.com>
+ <au6tzuytWiqiqRUM@nvishwa1-desk>
+Content-Type: text/plain; charset=iso-8859-1
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <au6tzuytWiqiqRUM@nvishwa1-desk>
+X-ClientProxiedBy: MW4PR03CA0141.namprd03.prod.outlook.com
+ (2603:10b6:303:8c::26) To CO1PR11MB4787.namprd11.prod.outlook.com
+ (2603:10b6:303:95::23)
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: SA3PR12MB598757:EE_|PH7PR12MB6717:EE_
-X-MS-Office365-Filtering-Correlation-Id: 67018038-5a86-4724-2880-08df46cb4f25
+X-MS-TrafficTypeDiagnostic: CO1PR11MB4787:EE_|PH8PR11MB9533:EE_
+X-MS-Office365-Filtering-Correlation-Id: ab3b6a0f-765e-47c3-5854-08df46cbed7d
+X-LD-Processed: 46c98d88-e344-4ed4-8496-4ed7712e255d,ExtAddr
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
- ARA:13230040|376014|1800799024|7416014|23010399003|366016|921020|261102123227099003|261021121427099003|10067099003|11063799006|261102130727099003|5023799004|261026121527099003|56012099006|261026140227099003|261022075727099003|261028144727099003|261022105027099003|261009223027099003|22082099003|18002099003;
-X-Microsoft-Antispam-Message-Info: MgJnBNowX52BknRoOM3RZlr7ObBp+TWoaoXxj1Q64J+YArhlHdXdwoaCpNVwl5eaxLRxYW65rTpyvPJ/PM470c4I2O7EtS90GDAGqnrB63xfXRm8BxJz/a4n4lD/5a2ve/I15jIKBBkwuh20FSkjPbIBCWvJdvcAaQ3rFFe/qPinOTFrAdKhczcaHs/jvFSy54uRClNjtP3TyIs9P6IMuuRvexF19fGHixYygjwhvj9hr6EYjmiD4yGGM8Q8fKc/RvH8fkw7ejqSeSrRpJTRRWCLCYnXYJAV1qQBdGutsuFTeAotgMLdg65FpLmXyPYYs9JNT9BqXguQ10gfiG+n2QSnaAkgj9lfeaI7v5HXkK7zpj/oqCbDz05ymCRUepJVDPSTmgNW/xLnDL3ShxrUCHbzBp4jztxu5eEcMcCL0hGEHlJxhvTYdKNmrorDZOEXg3HHUXEbxoJeMSlUNS1/QjL3xucpXF5U14SOsD+qU3Bjx8btgK78dw+FiadoAfWWZWXftXRhch/ewshgPSoznVUjuaMEqayoudqEUm6Ns+yTtr1nGMUxHpheH10x/7rPLECv6AaAZNDIoXTxgPSO5/A71tGWMIktWrV93kI/hLuoLICymnI7/R6B5XwOUzrpxYcuTr9W4Jn5IsHKz4lWrKHlygMM5h0smeTOflvLnGp6JnGVraBCs06xjgwWobkvS6okIHgSt4AgHST5HzJUeg==
+ ARA:13230040|7416014|376014|366016|1800799024|23010399003|4143699003|11063799006|261009223027099003|261021121427099003|261102123227099003|56012099006|261028144727099003|261026140227099003|261022105027099003|261026121527099003|261021123027099003|10067099003|22082099003|18002099003|6133799003;
+X-Microsoft-Antispam-Message-Info: neujXqV6YPQQfFanrxpVJc/2OxYbNLwmtscBKp4cufnTbAICCiYz8bGtgB/bE8j6KjaqToqkP5+i2W6YtfRpTU6XtEXl9G9C4F2BhrRVO+FulAGrO56HfLFMGO0Ty2VXTgeC2jC20UseBgkXf6hVNey9/sZzr8CV+jnqf5xYHjGDwyLfaG5+qVq1jSDe7/R1qGymQmect0feOSXTBo97Y9Ztpk5R+kqqIVkKkDMT+4e731m++l0FQSi3ul/E1OGwfyEgwWPfUQBUVgbBSMwTRYoFoJhbjzye3yqcbse5XJyetw/ERUWd2ruNWYif9cOhUYkrMvA9EnvrBjtdjy/rmfa4F/12i5B0m8OKsmyS8IOXhWRiqfTEKBx+ZCfmsTnSnR07EYu6sYKXjtG2fqun+VpCHXfVTDioS+/ylGTYfc7cre/p/fbOuKJLJXzdskFzHijpJPL2DYdOEWbBWlKlR0PPOZLWUnxzjthM53PlzgLh+p1olAC/Os/Pm4Fpk3oI7b3IOJeDc29Kte0igZgbRMyKUntay3kEj+cZkAv7Atr7Kicu0/Dd70hKuXgsksCOIGCwLrVWk6dVBCptKcyP2/k0tElYlrRHRQLlW6L8qH4LXjJEu4w5nqMmjp0AIx1/tCpt1pysW4Xqxvxtn0d30jWSN/73Iu79e0eHxJDao+o=
 X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:SA3PR12MB598757.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(376014)(1800799024)(7416014)(23010399003)(366016)(921020)(261102123227099003)(261021121427099003)(10067099003)(11063799006)(261102130727099003)(5023799004)(261026121527099003)(56012099006)(261026140227099003)(261022075727099003)(261028144727099003)(261022105027099003)(261009223027099003)(22082099003)(18002099003);
+ IPV:NLI; SFV:NSPM; H:CO1PR11MB4787.namprd11.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230040)(7416014)(376014)(366016)(1800799024)(23010399003)(4143699003)(11063799006)(261009223027099003)(261021121427099003)(261102123227099003)(56012099006)(261028144727099003)(261026140227099003)(261022105027099003)(261026121527099003)(261021123027099003)(10067099003)(22082099003)(18002099003)(6133799003);
  DIR:OUT; SFP:1101; 
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?VHV0b3B3VENKM2oweisrR2ZRU3NvaHp1MGJtOGZBTDAyemszUEN6bm0rRU5j?=
- =?utf-8?B?YlNpeWgwZGx5QlU3Yllqc1FlSVMrMWwzUWsxc240VnA1dUIxaXZGV3p5anRa?=
- =?utf-8?B?TW1xWlptUjRadXJxM01hMUQxd1prSkN3VzBUbklqZ2J4dmlkVjJNUEJrUkQz?=
- =?utf-8?B?dWRMck80WWF4aG1tZkpGZEpIUjQ2cXptWGpqQU5ZYitwRnlKTFNHblRlQ25z?=
- =?utf-8?B?Q3R2TjBZR0poTWViSjUzM0o0QmRFSFNSMnlqOTc4dW9TVmRPdFlueEN1SnVC?=
- =?utf-8?B?UE5NNGNKQ1NhNWpQMzQzWldBcFRmQzUyeW0zdUIwSXdiVzRIQU5PYi85bjYz?=
- =?utf-8?B?UnlzTlBJTTJyWU96U1dsTWRERE5sOGtCNHZ0YllleEFJZDU1Mlo4Ukdnek9m?=
- =?utf-8?B?Vm5SU3I5NHdIRFowNStiMzI2cjJlUWhscmJoZDNEdFRWLzQrSTFzTkxCQUF4?=
- =?utf-8?B?ZUY1UHVhWmlSM0V0YzVoY1h3aVBrK3VZa0JYY2xMZ04vNWdkT2g0N1lCVjNy?=
- =?utf-8?B?TzlEUWw1cndtVkhMQWx6YXNRamd5Z0ZVdHJRUEY4S1Z5NS84Q2tCR0dBTS9i?=
- =?utf-8?B?Rk5JSmhiTVl1TWlzZWQxZW91RjBzM2o4QzljR3pNOXg2dEJ5bVFmZUhtSVhl?=
- =?utf-8?B?RVoxclZxNTFDenJGRXdXOUN3em9KakJLWGZGb0QwMnRiOTY3eGFaVzRCaUw3?=
- =?utf-8?B?bnFSYVhvR0dIU3FOV2FxWUhoc3hoUkIrYmhuRnVDZHZWSnhvQVoxZXhlYXV6?=
- =?utf-8?B?MnlwbUx2TmZ2aWJRUC82WmhwODhha2NTUzB3aC9zdHZ1WHZqSGZ4cDJtaGJU?=
- =?utf-8?B?VHFid3ZXbjZXZENCc0tZdENnOVBNS2FkLzVIcHBNT2E2eGR3MXUvVjRJdFdS?=
- =?utf-8?B?d2JoRGlsVUo1WkNIWXgxVWR4eS9hQlZQc2dVZWIyRmo0ZXFQY0FYRGV3T1pk?=
- =?utf-8?B?bjdlbnpDWm40RjJxQ20yNmV2ZzhKdTEzN21sdytMbXVFbG1RbGwzaWxCQk5B?=
- =?utf-8?B?em8vZ2VoYTlINUZGZ2MrRGxaOVZWb0E4bzV2YzlKVTM4ald4VXg5eWp3WEp3?=
- =?utf-8?B?bDBpRExCYUxXV2Z4bzF3ZkNsbVZ6ajJLa3FaSjVQYVd3bGQwb0p6cjNmT1pB?=
- =?utf-8?B?TjJNTER0VmErN3I4NXBXSzJlQXJpYktJMzg2cUJWa2RzTmRtMDg5b0pHWWg3?=
- =?utf-8?B?MG90aXZxdlN3OVM3Tm9tYmdsNmE3Skt5amRsT01vSm5hN1B5VTd1b1pjOXdJ?=
- =?utf-8?B?ZW4vblBBdjg3KytjMTFZK1RBcjQ5RE1VWE1rbHZSNlZ5WGhMcjhIQml0RWZY?=
- =?utf-8?B?Z25DaEhuaDA4VFNSVU4xVlpqaXVMUlFpblZTb1Y2YVFnVHNBemdVc254L0Vy?=
- =?utf-8?B?cjhXcVFQMmg5WWErMTBMeVcybno0QVl0WGJnc1BPeXFXdUI1NFpHYU1zM0Np?=
- =?utf-8?B?RGp0Rlc3OEJ2OHNNcHMzbTlVQ1pKL0RFcERMZXFZWDUwUDZkTzNCbW5rSHR4?=
- =?utf-8?B?REhuNW1Mb01PTEdtS21sOXROMmZYeFllNHBNSkMyeExxdm96TjNxMHRKWU52?=
- =?utf-8?B?cWs4RjdlMm9xZmc3RHBOeFJzTDRINzJPZzN1SnRtUHVtMzA5NTl5bzcwYmww?=
- =?utf-8?B?WU1Yc2l3V05ZNldNejIwM1F1Z3kxbVJCT01uY2xwUmNiM0g3ZTdLSXdkQXN0?=
- =?utf-8?B?Y1VPVVFXZHlVVXJoemFRb3lKZGtPZXhMOEV4QkViSmZIVkszOTlMQmo0d2xF?=
- =?utf-8?B?cmVPY3lQVitEWmRDQ1dZeXRBR3NmclNSNUJQVEVoT05qbjZNOEpyU3BwSjBa?=
- =?utf-8?B?ZG40bW9KaFllazEwOFN3emdLdkhlbkN5TGFQcEZBbCtZd2NWcHJmY0FoamxF?=
- =?utf-8?B?ZTR4MHlaOE91ZTJUOUEraytpNHRGbkQ5OGJzU21sTlNmZmt1c054NXV1TEg2?=
- =?utf-8?B?STY5bmt0aEsyaGhLTE5QOWhLRnVKd3lrVGk3VTBWZTV3VlQ4OVBFUGsyR0RS?=
- =?utf-8?B?dEVxU1lRZHA5QzZuVlozVG5XM2RvZ2pVY1BQZDBxSHRKYytvU3QrV0F2TnBU?=
- =?utf-8?B?ZzloMWhwZlU1cSs1U2dPVGlzR0FPWDdKN0swM1IwWDB0QmFraXZpYWEycFBH?=
- =?utf-8?B?cjhCaGozNEY3dUZVVm55MDd3VCtRd0REdmdPT29WYm9IMnRpSGpUNnhOOE40?=
- =?utf-8?B?ZUJrMWRObFdkRXFOQURyWDQ5UWN0djhFWG9XbEFXNDBwMndxMS9MSDd4Z0Rz?=
- =?utf-8?B?UFZRanVyQ2pyNTJCcXU1VW1aanRvbHgxaTNsWGQwUTl1NTRWU1dWWTd5bGo4?=
- =?utf-8?B?MmpuTDVKNmVWU1NSZDM3VE1IQjV4UUprd3RkWk8rT1RIbzJrZFN1UT09?=
-X-OriginatorOrg: Nvidia.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 67018038-5a86-4724-2880-08df46cb4f25
-X-MS-Exchange-CrossTenant-AuthSource: SA3PR12MB598757.namprd12.prod.outlook.com
+X-MS-Exchange-AntiSpam-MessageData-0: =?iso-8859-1?Q?CUhFW3TANQxafmwZxjismCwY3NAhYt7ESRw8lnl79k6d6Tj9GLnifn41HQ?=
+ =?iso-8859-1?Q?41SJlq0ZvVKGQK56pyzuaoQgWt//P7wlYjnsp0jbIONu8A2Uj5cG148KFj?=
+ =?iso-8859-1?Q?CfKSJaD3NAy8tOvl6Apx1ausgf/fMGYu0tZHWfeluJ9Zh6ZF8fJwVkzcdY?=
+ =?iso-8859-1?Q?J1k7MSzRXeqepMJuPZRBpw4S70QiKA3F4fxCtThtKb31sRFI/VMYyYE8mM?=
+ =?iso-8859-1?Q?RD95sndKlb7xx7TUTubthoYTaAQrtEnLfIxuWfNIcgwJgVdAYF7/ISkQsm?=
+ =?iso-8859-1?Q?UjrZuANCgok0bouFwrT6HW4rwa8clpZfr27hFiHwYIHzeMTas6db/hXzrM?=
+ =?iso-8859-1?Q?ZsaImysjt7mHW6Xo318Jrseh7Zs3OHXowR1b26D9jQYXyc5TOIQofN2QPy?=
+ =?iso-8859-1?Q?25Ip9gM8wow5e5OcG3v+hxkH4uw1xoh5vEV//GgdAjDHO41hadNi1SQJLr?=
+ =?iso-8859-1?Q?OzpTQ/uwIwGsPnKu+XPMBzMVib34GYNdFvsZrOWLyfz8+BRercTbyMQwFa?=
+ =?iso-8859-1?Q?jVZ3OKh0TzpcfK/obzyqmDGCxxZYHvudu0ICnPRSkSlCoGz+89QmFKLkL5?=
+ =?iso-8859-1?Q?7QMvP7VdIf8mwl0mYgzMB5fho0cWZHlqZkhVSEpERGAaiXrVofKfKZ06EJ?=
+ =?iso-8859-1?Q?RrCmD1PD/y91fepkNL4SfU9zco9jb+gnX43Z45AeXq8NYzGUw0qKUp4jZD?=
+ =?iso-8859-1?Q?wIKp50M8YR9S3oon5Nc90cDOv5AlMVLKWToH4bWr/xeN4AGi9IaSwOZnk8?=
+ =?iso-8859-1?Q?a5AdYYCokfbqOqfWIYUyS/Zb630eLXZeEGi0ek6CnGqzOeNWNlwW5F/b95?=
+ =?iso-8859-1?Q?evoiiYRk1i/NF01lUuVvyWLhuOguTlejQpzVy4UcDPv4c8QTLWrc7nsagU?=
+ =?iso-8859-1?Q?Jk5E2CyVdZxDDxx7NA2te46oBbJ3t85PhTFAKU5simS3Xsz/h8rVJ3P+hT?=
+ =?iso-8859-1?Q?1wT+2m2x66IHd0vj6+6eoBCk1fbB1iM2ZPjJwoJMHIFJFTPsXonKpfM1D7?=
+ =?iso-8859-1?Q?s1UzdSmIKtKzpvJbcXls6UtzPa1jY5A2h/lCK4NiatVy1h4LjFXX9WX1qF?=
+ =?iso-8859-1?Q?DsoPaTV4CzlRfob8TUGFUzN3v/yyXoIvV7cTMVoPU4AXBGISOX3ndhpQVz?=
+ =?iso-8859-1?Q?yOONUMgCCm7FxQyWXJEaMx/+8ZiueQ0mbRDeOJASEwD5w5EUdEuALg8Fjh?=
+ =?iso-8859-1?Q?2dXn8SLZcMX2E81VDy4e+GTkCou9+rLtOYsa3yiZwdN+UGpcWP9c5pGAb5?=
+ =?iso-8859-1?Q?QKsxzUekACsbdNhgjKsyO0WnIpM7YnJye5vE6LPnujD6YGW9XJIEdhtYId?=
+ =?iso-8859-1?Q?7CB+fxcJ2kw389KQkU6/uHw4y/MlmXItMEBaxTm2vUkkKo9JOqICY0gV3Q?=
+ =?iso-8859-1?Q?fXiJN+IehOgvk3gYa83TBm2eP0YoEiwCGDi+VkzRDtd9UOIQQLnzZEdTjT?=
+ =?iso-8859-1?Q?1FYo00g7NMlj7ECsXsNb6wVE626D7F+MPrZxPbLFSl7G2T/XtNHAUJSrXn?=
+ =?iso-8859-1?Q?h9DONnMFb1zFMs38tw9Vmty6ps38tfBhupT0zSuhIn8srsUXisVUqmOMn7?=
+ =?iso-8859-1?Q?LhVzJfTqmgV58JmNwsgR2rL3qDy6M6LSVKp7+C6FHABn5UCF+cKkzFuIsc?=
+ =?iso-8859-1?Q?xGQ5QB4tYrx/KegwXBSYv6KxGv6RPkJSNdLPu2HLPF4zCV4MPLkuKfjQN1?=
+ =?iso-8859-1?Q?KovOOKnoDyaIQ3HYssw6KrAx8qapuEcwzoPF2Q7lQ4ypNOtBBTrikoxKW5?=
+ =?iso-8859-1?Q?cYX3s4nienjuzdPh89VYM5mIbAdTb6k42+NgVWScqDG6pm8sZm8tJ3ShV+?=
+ =?iso-8859-1?Q?srVG428wHuCIh0TfkbLV9KxoSRg0dQA=3D?=
+X-Exchange-RoutingPolicyChecked: YcYhQOc5Sw6CLAFJnEpVxeJ5oamyuTRR/BTas+zzL0EbGcrL+yR+62JYJVQkhSx8oWzhDkgaQ3u88b84O+ZVbqYgOETKDFQ3YiMcf6g6BygQ8IUJvmKuXeldzbZh61mL2z2ZWVsaXmNwYzYnrCLm4i09qb8nkKryfj5gef7+lqxINGwDcTSciKy7dQgWFFNrB0SxGkilgt1HVttZjES+guluw4p4DeqZFirNQvCNb+JfHbWGBGAz5ixN6/bi8o9eV8Ne9oi/3aUm9hM60L7BJaDtjudI1IK5N1Be1LMmmVduSpywcXvIsTRAPpgbrbcHr2ESw1mPtlW9qIn5scTKIA==
+X-MS-Exchange-CrossTenant-Network-Message-Id: ab3b6a0f-765e-47c3-5854-08df46cbed7d
+X-MS-Exchange-CrossTenant-AuthSource: CO1PR11MB4787.namprd11.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 20 Nov 2026 05:58:33.2551 (UTC)
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 20 Nov 2026 06:02:58.8042 (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
+X-MS-Exchange-CrossTenant-Id: 46c98d88-e344-4ed4-8496-4ed7712e255d
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: fnzQdcN9aq3WwRiyfD0IIIutVK/XSda5MhsFMjJlqpGlXkY3z+8w2ZYj7OH8ncrZj4KBFvj/qgmdjLMcY1Rmpg==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH7PR12MB6717
+X-MS-Exchange-CrossTenant-UserPrincipalName: AiuHu8RuMyAjyHj2IGIkS8mSQBTTsfaD9qPRrxoigR9lQtltJLPz5ygOBohG9KIWMw2bW8IDnfqqLjQtMv9f1g==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH8PR11MB9533
+X-OriginatorOrg: intel.com
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -159,799 +170,370 @@ List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-18.8 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
+X-Spam-Status: No, score=-15.8 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
 	DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
 	INCLUDES_CR_TRAILER,INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,
-	SPF_PASS,USER_AGENT_GIT autolearn=unavailable autolearn_force=no
-	version=4.0.1
+	SPF_PASS autolearn=unavailable autolearn_force=no version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-Add an offer list and a select_mapping() callback to the mock exporter
-along with map/unmap for the two mock types.
+On Fri, Nov 06, 2026 at 08:49:18PM -0800, Niranjana Vishwanathapura wrote:
+> On Fri, Jul 10, 2026 at 07:56:01PM -0700, Matthew Brost wrote:
+> > Add per-device tracking of BOs whose backing TT pages were allocated
+> > below the pool's beneficial order, as reported by the
+> > TTM_TT_FLAG_BENEFICIAL_ORDER_FAILED tt page flag (read via
+> > ttm_tt_is_beneficial_order_failed()). These BOs are future candidates for
+> > a defragmentation pass that reallocates their pages at the beneficial
+> > order.
+> > 
+> > Add a mem.defrag sub-struct (lock, list, atomic count) to struct
+> > xe_device and a defrag_link to struct xe_bo, initialised at BO create
+> > and device init. Membership is updated from xe_bo_move() via
+> > xe_bo_defrag_update(): a BO is added when it is a populated, needed,
+> > non-pinned ttm_bo_type_device object flagged
+> > TTM_TT_FLAG_BENEFICIAL_ORDER_FAILED, and removed otherwise. BOs are also
+> > removed on pin, on purge, moved to dontneed, and at destroy.
+> > 
+> > Only ttm_bo_type_device BOs are tracked.
+> > 
+> > Cc: Carlos Santa <carlos.santa@intel.com>
+> > Cc: Ryan Neph <ryanneph@google.com>
+> > Cc: Christian Koenig <christian.koenig@amd.com>
+> > Cc: Huang Rui <ray.huang@amd.com>
+> > Cc: Matthew Auld <matthew.auld@intel.com>
+> > Cc: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>
+> > Cc: Maxime Ripard <mripard@kernel.org>
+> > Cc: Thomas Zimmermann <tzimmermann@suse.de>
+> > Cc: David Airlie <airlied@gmail.com>
+> > Cc: Simona Vetter <simona@ffwll.ch>
+> > Cc: dri-devel@lists.freedesktop.org
+> > Cc: linux-kernel@vger.kernel.org
+> > Cc: Thomas Hellström <thomas.hellstrom@linux.intel.com>
+> > Assisted-by: GitHub_Copilot:claude-opus-4.8
+> > Signed-off-by: Matthew Brost <matthew.brost@intel.com>
+> > ---
+> > drivers/gpu/drm/xe/xe_bo.c           | 115 +++++++++++++++++++++++++++
+> > drivers/gpu/drm/xe/xe_bo.h           |   1 +
+> > drivers/gpu/drm/xe/xe_bo_types.h     |   6 ++
+> > drivers/gpu/drm/xe/xe_device.c       |   2 +
+> > drivers/gpu/drm/xe/xe_device_types.h |  19 +++++
+> > 5 files changed, 143 insertions(+)
+> > 
+> > diff --git a/drivers/gpu/drm/xe/xe_bo.c b/drivers/gpu/drm/xe/xe_bo.c
+> > index 4ee48cdc02ac..ff324caab6da 100644
+> > --- a/drivers/gpu/drm/xe/xe_bo.c
+> > +++ b/drivers/gpu/drm/xe/xe_bo.c
+> > @@ -926,6 +926,9 @@ static void xe_bo_set_purgeable_shrinker(struct xe_bo *bo,
+> > 	}
+> > }
+> > 
+> > +static void xe_bo_defrag_update(struct xe_bo *bo);
+> > +static void xe_bo_defrag_remove(struct xe_bo *bo);
+> > +
+> > /**
+> >  * xe_bo_set_purgeable_state() - Set BO purgeable state with validation
+> >  * @bo: Buffer object
+> > @@ -954,6 +957,7 @@ void xe_bo_set_purgeable_state(struct xe_bo *bo,
+> > 
+> > 	bo->purgeable.state = new_state;
+> > 	xe_bo_set_purgeable_shrinker(bo, new_state);
+> > +	xe_bo_defrag_update(bo);
+> > }
+> > 
+> > /**
+> > @@ -1003,9 +1007,100 @@ static int xe_ttm_bo_purge(struct ttm_buffer_object *ttm_bo, struct ttm_operatio
+> > 	/* Commit the state transition only once invalidation was queued */
+> > 	xe_bo_set_purgeable_state(bo, XE_MADV_PURGEABLE_PURGED);
+> > 
+> > +	/*
+> > +	 * The backing store is gone, so the BO no longer needs defrag. Drop it
+> > +	 * from the defrag list here so the count stays accurate even for purge
+> > +	 * paths that don't pass through xe_bo_move() (e.g. swap_notify).
+> > +	 */
+> > +	xe_bo_defrag_remove(bo);
+> > +
+> > 	return 0;
+> > }
+> > 
+> > +/**
+> > + * xe_bo_defrag_init_early() - Initialize the device defrag BO tracking
+> > + * @xe: The xe device
+> > + *
+> > + * Initialize the list, lock and count used to track BOs whose backing TT
+> > + * pages were allocated at a sub-optimal order.
+> > + */
+> > +void xe_bo_defrag_init_early(struct xe_device *xe)
+> > +{
+> > +	spin_lock_init(&xe->mem.defrag.lock);
+> > +	INIT_LIST_HEAD(&xe->mem.defrag.list);
+> > +	atomic_set(&xe->mem.defrag.count, 0);
+> > +}
+> > +
+> > +static bool xe_bo_needs_defrag(struct xe_bo *bo)
+> > +{
+> > +	struct ttm_buffer_object *ttm_bo = &bo->ttm;
+> > +	struct ttm_tt *tt = ttm_bo->ttm;
+> > +
+> > +	xe_bo_assert_held(bo);
+> > +
+> > +	return ttm_bo->type == ttm_bo_type_device && tt &&
+> > +		!xe_bo_madv_is_dontneed(bo) &&
+> > +		ttm_tt_is_populated(tt) &&
+> > +		ttm_tt_is_beneficial_order_failed(tt) &&
+> > +		ttm_bo->resource && ttm_bo->resource->mem_type == XE_PL_TT &&
+> > +		!xe_bo_is_pinned(bo);
+> > +}
+> > +
+> > +static void xe_bo_defrag_add(struct xe_bo *bo)
+> > +{
+> > +	struct xe_device *xe = xe_bo_device(bo);
+> > +
+> > +	xe_bo_assert_held(bo);
+> > +	xe_assert(xe, xe_bo_needs_defrag(bo));
+> > +
+> > +	scoped_guard(spinlock, &xe->mem.defrag.lock) {
+> > +		if (list_empty(&bo->defrag_link)) {
+> > +			list_add_tail(&bo->defrag_link, &xe->mem.defrag.list);
+> > +			atomic_inc(&xe->mem.defrag.count);
+> > +		}
+> > +	}
+> > +}
+> > +
+> > +static void __xe_bo_defrag_remove(struct xe_bo *bo)
+> > +{
+> > +	struct xe_device *xe = xe_bo_device(bo);
+> > +
+> > +	guard(spinlock)(&xe->mem.defrag.lock);
+> > +	if (!list_empty(&bo->defrag_link)) {
+> > +		list_del_init(&bo->defrag_link);
+> > +		atomic_dec(&xe->mem.defrag.count);
+> > +	}
+> > +}
+> 
+> Assisted-by: LLM
+> 
 
-Adds tests for the exporter/importer contract.
+Yes.
 
- - test_match_set_is_final: a later importer attaching does not change
-   an existing attachment's match set or default. Later attachments
-   influence what the exporter selects at pin and map time but not
-   previous attachments.
+> NIT...probably worth adding a comment saying this version
+> can be called without holding bo dma-resv lock?
+> 
 
- - test_select_at_map: the exporter chooses a non-default entry on first
-   map and the result is tagged with it. A pin taken while there is a
-   live mapping inherits the type and the choice survives unmap/remap.
-   Only dma_buf_invalidate_mappings() allows the exporter to make
-   a different selection. An -EBUSY from selection leaves nothing
-   established.
+It should be self documenting with lockdep but can add this.
 
- - test_select_at_pin: pin selects, and the choice survives map, unmap
-   and unpin so a pinned importer that is never invalidated keeps its
-   first type for the life of the import.
+> > +
+> > +static void xe_bo_defrag_remove(struct xe_bo *bo)
+> > +{
+> > +	xe_bo_assert_held(bo);
+> > +
+> > +	if (list_empty(&bo->defrag_link))
+> > +		return;
+> > +
+> > +	__xe_bo_defrag_remove(bo);
+> > +}
+> > +
+> > +/**
+> > + * xe_bo_defrag_update() - Update defrag list membership for a BO
+> > + * @bo: The buffer object
+> > + *
+> > + * Add @bo to the device defrag list when it is a ttm_bo_type_device BO resident
+> > + * in XE_PL_TT with a populated TT whose pages were allocated at a sub-optimal
+> > + * order (ttm_tt_is_beneficial_order_failed()) and it isn't pinned. Otherwise
+> > + * ensure it is removed from the list.
+> > + */
+> > +static void xe_bo_defrag_update(struct xe_bo *bo)
+> > +{
+> > +	xe_bo_assert_held(bo);
+> > +
+> > +	if (xe_bo_needs_defrag(bo))
+> > +		xe_bo_defrag_add(bo);
+> > +	else
+> > +		xe_bo_defrag_remove(bo);
+> > +}
+> > +
+> > static int xe_bo_move(struct ttm_buffer_object *ttm_bo, bool evict,
+> > 		      struct ttm_operation_ctx *ctx,
+> > 		      struct ttm_resource *new_mem,
+> > @@ -1231,6 +1326,8 @@ static int xe_bo_move(struct ttm_buffer_object *ttm_bo, bool evict,
+> > 		xe_tt_unmap_sg(xe, ttm_bo->ttm);
+> > 	}
+> > 
+> > +	xe_bo_defrag_update(bo);
+> > +
+> > 	return ret;
+> > }
+> > 
+> > @@ -1267,6 +1364,15 @@ static long xe_bo_shrink_purge(struct ttm_operation_ctx *ctx,
+> > 	if (lret > 0) {
+> > 		xe_ttm_tt_account_subtract(xe, bo->ttm);
+> > 		update_global_total_pages(bo->bdev, -(long)tt->num_pages);
+> > +
+> > +		/*
+> > +		 * The pages are gone, so a tracked BO no longer needs defrag.
+> > +		 * This shrinker purge path frees pages without going through
+> > +		 * xe_bo_move(), so drop any stale defrag list entry here. Ghost
+> > +		 * bos are never tracked, so guard for real xe bos.
+> > +		 */
+> > +		if (xe_bo_is_xe_bo(bo))
+> > +			xe_bo_defrag_remove(ttm_to_xe_bo(bo));
+> > 	}
+> > 
+> > 	return lret;
+> > @@ -1909,6 +2015,8 @@ static void xe_ttm_bo_destroy(struct ttm_buffer_object *ttm_bo)
+> > 		list_del(&bo->vram_userfault_link);
+> > 	mutex_unlock(&xe->mem_access.vram_userfault.lock);
+> > 
+> > +	__xe_bo_defrag_remove(bo);
+> > +
+> > 	kfree(bo);
+> > }
+> > 
+> > @@ -2414,6 +2522,7 @@ struct xe_bo *xe_bo_init_locked(struct xe_device *xe, struct xe_bo *bo,
+> > 	bo->ttm.base.funcs = &xe_gem_object_funcs;
+> > 	bo->ttm.priority = XE_BO_PRIORITY_NORMAL;
+> > 	INIT_LIST_HEAD(&bo->pinned_link);
+> > +	INIT_LIST_HEAD(&bo->defrag_link);
+> > #ifdef CONFIG_PROC_FS
+> > 	INIT_LIST_HEAD(&bo->client_link);
+> > #endif
+> > @@ -3020,6 +3129,8 @@ int xe_bo_pin_external(struct xe_bo *bo, bool in_place, struct drm_exec *exec)
+> > 	if (bo->ttm.ttm && ttm_tt_is_populated(bo->ttm.ttm))
+> > 		xe_ttm_tt_account_subtract(xe, bo->ttm.ttm);
+> > 
+> > +	xe_bo_defrag_remove(bo);
+> > +
+> > 	/*
+> > 	 * FIXME: If we always use the reserve / unreserve functions for locking
+> > 	 * we do not need this.
+> > @@ -3078,6 +3189,8 @@ int xe_bo_pin(struct xe_bo *bo, struct drm_exec *exec)
+> > 	if (bo->ttm.ttm && ttm_tt_is_populated(bo->ttm.ttm))
+> > 		xe_ttm_tt_account_subtract(xe, bo->ttm.ttm);
+> > 
+> > +	xe_bo_defrag_remove(bo);
+> > +
+> > 	/*
+> > 	 * FIXME: If we always use the reserve / unreserve functions for locking
+> > 	 * we do not need this.
+> > @@ -3113,6 +3226,7 @@ void xe_bo_unpin_external(struct xe_bo *bo)
+> > 	ttm_bo_unpin(&bo->ttm);
+> > 	if (bo->ttm.ttm && ttm_tt_is_populated(bo->ttm.ttm))
+> > 		xe_ttm_tt_account_add(xe, bo->ttm.ttm);
+> > +	xe_bo_defrag_update(bo);
+> > 
+> > 	/*
+> > 	 * FIXME: If we always use the reserve / unreserve functions for locking
+> > @@ -3145,6 +3259,7 @@ void xe_bo_unpin(struct xe_bo *bo)
+> > 	ttm_bo_unpin(&bo->ttm);
+> > 	if (bo->ttm.ttm && ttm_tt_is_populated(bo->ttm.ttm))
+> > 		xe_ttm_tt_account_add(xe, bo->ttm.ttm);
+> > +	xe_bo_defrag_update(bo);
+> > }
+> 
+> Looks like list update needs to be called from 2 other places,
+> 
+> 1. ttm_bo_populate() getting called from CPU fault path and from TTM fault
+>    never calls xe_bo_defrag_update().
 
- - test_unmap_uses_own_type: after an invalidate the exporter may select
-   another type for the next map. A mapping made with the previous one
-   is still live, and each mapping must be torn down with the type it
-   was made with.
+Yes. We also need to strip out reclaim flags in CPU fault path as this a
+foreground op.
 
- - test_select_survives_own_invalidate: a pin or map whose exporter
-   callback invalidates every attachment still ends up selected, and one
-   that invalidates and fails does not.
+> 2. In xe_bo_shrink() if ttm_bo_shrink() returns >0 value. This will inflate
+>    the defrag.count value.
+> 
 
-Signed-off-by: Alistair Popple <apopple@nvidia.com>
----
- drivers/dma-buf/st-dma-mapping.c | 703 +++++++++++++++++++++++++++++++++++++++
- 1 file changed, 703 insertions(+)
+This routes through ttm_bo_validate which ends up in xe_bo_move so I
+think this case is covered.
 
-diff --git a/drivers/dma-buf/st-dma-mapping.c b/drivers/dma-buf/st-dma-mapping.c
-index 8c69ae212455..42e6748f0ae6 100644
---- a/drivers/dma-buf/st-dma-mapping.c
-+++ b/drivers/dma-buf/st-dma-mapping.c
-@@ -7,6 +7,7 @@
- #include <kunit/test.h>
- #include <linux/dma-buf.h>
- #include <linux/dma-buf-mapping.h>
-+#include <linux/dma-resv.h>
- #include <linux/errno.h>
- 
- /* Mock tracking state -- reset before each test */
-@@ -21,6 +22,27 @@ static const struct dma_buf_match_args *mock_finish_args_arg;
- static const struct dma_buf_mapping_match *mock_finish_exp_arg;
- static const struct dma_buf_mapping_match *mock_finish_imp_arg;
- 
-+/* Mapping types the configurable mock exporter currently offers */
-+static const struct dma_buf_mapping_match *mock_exp_offer;
-+static size_t mock_exp_offer_len;
-+
-+/* Which match set entry the selecting mock exporter picks, or an error */
-+static int mock_select_idx;
-+static int mock_select_err;
-+static int mock_select_count;
-+
-+/* Make the mock exporter's pin and map invalidate everyone, as a move does */
-+static bool mock_invalidate_in_callback;
-+
-+/* What the mock types' unmap saw: the mapping's header type and its map's */
-+static const struct dma_buf_mapping_type *mock_unmap_type;
-+static const struct dma_buf_mapping_type *mock_unmap_made_by;
-+
-+/* Failure injection for the mock types' map and the mock exporter's pin */
-+static int mock_map_err;
-+static int mock_pin_err;
-+static int mock_pin_count;
-+
- static int reset_mock_state(struct kunit *test)
- {
- 	mock_match_called = false;
-@@ -32,6 +54,17 @@ static int reset_mock_state(struct kunit *test)
- 	mock_finish_args_arg = NULL;
- 	mock_finish_exp_arg = NULL;
- 	mock_finish_imp_arg = NULL;
-+	mock_exp_offer = NULL;
-+	mock_exp_offer_len = 0;
-+	mock_select_idx = 0;
-+	mock_select_err = 0;
-+	mock_select_count = 0;
-+	mock_invalidate_in_callback = false;
-+	mock_unmap_type = NULL;
-+	mock_unmap_made_by = NULL;
-+	mock_map_err = 0;
-+	mock_pin_err = 0;
-+	mock_pin_count = 0;
- 	return 0;
- }
- 
-@@ -374,6 +407,485 @@ static void test_mock_attach(struct kunit *test)
- 	dma_buf_put(dmabuf);
- }
- 
-+static int mock_dmabuf_offer_match_mapping(struct dma_buf_match_args *args)
-+{
-+	return dma_buf_match_mapping(args, mock_exp_offer, mock_exp_offer_len);
-+}
-+
-+static const struct dma_buf_ops mock_dmabuf_offer_ops = {
-+	.release = mock_dmabuf_release,
-+	.match_mapping = mock_dmabuf_offer_match_mapping,
-+};
-+
-+/*
-+ * The match set is final once attached. A later importer attaching must not
-+ * change an existing attachment even if the exporter returns a different set.
-+ *
-+ * Later attachments influence what the exporter selects at pin or map time,
-+ * not what was previously negotiated.
-+ */
-+static void test_match_set_is_final(struct kunit *test)
-+{
-+	static const struct dma_buf_mapping_match offer_ab[] = {
-+		{ .type = &mock_type_a },
-+		{ .type = &mock_type_b },
-+	};
-+	static const struct dma_buf_mapping_match offer_b[] = {
-+		{ .type = &mock_type_b },
-+	};
-+	struct dma_buf_mapping_match imp1[] = {
-+		{ .type = &mock_type_a },
-+		{ .type = &mock_type_b },
-+	};
-+	struct dma_buf_mapping_match imp2[] = { { .type = &mock_type_b } };
-+
-+	MOCK_IMPORTER_OPS(importer1_ops, imp1);
-+	MOCK_IMPORTER_OPS(importer2_ops, imp2);
-+	struct dma_buf_attachment *attach1, *attach2;
-+	struct dma_buf *dmabuf;
-+	struct device *dev;
-+
-+	dev = kunit_device_register(test, "dma-buf-test");
-+	KUNIT_ASSERT_NOT_ERR_OR_NULL(test, dev);
-+
-+	dmabuf = mock_dmabuf_export(&mock_dmabuf_offer_ops);
-+	KUNIT_ASSERT_NOT_ERR_OR_NULL(test, dmabuf);
-+
-+	mock_exp_offer = offer_ab;
-+	mock_exp_offer_len = ARRAY_SIZE(offer_ab);
-+	attach1 = dma_buf_dynamic_attach(dmabuf, dev, &importer1_ops, NULL);
-+	KUNIT_ASSERT_NOT_ERR_OR_NULL(test, attach1);
-+	KUNIT_ASSERT_EQ(test, attach1->nr_matches, 2);
-+	KUNIT_EXPECT_PTR_EQ(test, dma_buf_attach_map_type(attach1)->type,
-+			    &mock_type_a);
-+
-+	/* Exporter's answer for new importers changes; attach1 does not */
-+	mock_exp_offer = offer_b;
-+	mock_exp_offer_len = ARRAY_SIZE(offer_b);
-+	attach2 = dma_buf_dynamic_attach(dmabuf, dev, &importer2_ops, NULL);
-+	KUNIT_ASSERT_NOT_ERR_OR_NULL(test, attach2);
-+	KUNIT_ASSERT_EQ(test, attach2->nr_matches, 1);
-+	KUNIT_EXPECT_PTR_EQ(test, dma_buf_attach_map_type(attach2)->type,
-+			    &mock_type_b);
-+	KUNIT_EXPECT_EQ(test, attach1->nr_matches, 2);
-+	KUNIT_EXPECT_PTR_EQ(test, dma_buf_attach_map_type(attach1)->type,
-+			    &mock_type_a);
-+
-+	dma_buf_detach(dmabuf, attach2);
-+	KUNIT_EXPECT_EQ(test, attach1->nr_matches, 2);
-+	KUNIT_EXPECT_PTR_EQ(test, dma_buf_attach_map_type(attach1)->type,
-+			    &mock_type_a);
-+
-+	dma_buf_detach(dmabuf, attach1);
-+	dma_buf_put(dmabuf);
-+}
-+
-+/* Mock mapping result for the generic map path */
-+struct mock_mapping {
-+	struct dma_buf_mapping base;
-+	const struct dma_buf_mapping_type *made_by;
-+};
-+
-+static struct dma_buf_mapping *mock_type_map(struct dma_buf_attachment *attach,
-+					     enum dma_data_direction dir)
-+{
-+	struct mock_mapping *m;
-+
-+	if (mock_invalidate_in_callback)
-+		dma_buf_invalidate_mappings(attach->dmabuf);
-+	if (mock_map_err)
-+		return ERR_PTR(mock_map_err);
-+	m = kzalloc_obj(*m);
-+	if (!m)
-+		return ERR_PTR(-ENOMEM);
-+	m->made_by = dma_buf_attach_map_type(attach)->type;
-+	return &m->base;
-+}
-+
-+static void mock_type_unmap(struct dma_buf_attachment *attach,
-+			    struct dma_buf_mapping *mapping,
-+			    enum dma_data_direction dir)
-+{
-+	struct mock_mapping *m = container_of(mapping, struct mock_mapping, base);
-+
-+	mock_unmap_type = dma_buf_mapping_type_of(mapping);
-+	mock_unmap_made_by = m->made_by;
-+	kfree(m);
-+}
-+
-+/* Exporter choosing the match set entry the test asks for */
-+static int mock_dmabuf_select_mapping(struct dma_buf_attachment *attach)
-+{
-+	mock_select_count++;
-+	if (mock_select_err)
-+		return mock_select_err;
-+	return mock_select_idx;
-+}
-+
-+static int mock_dmabuf_pin(struct dma_buf_attachment *attach)
-+{
-+	if (mock_invalidate_in_callback)
-+		dma_buf_invalidate_mappings(attach->dmabuf);
-+	if (mock_pin_err)
-+		return mock_pin_err;
-+	mock_pin_count++;
-+	return 0;
-+}
-+
-+static void mock_dmabuf_unpin(struct dma_buf_attachment *attach)
-+{
-+	mock_pin_count--;
-+}
-+
-+static const struct dma_buf_ops mock_dmabuf_select_ops = {
-+	.release = mock_dmabuf_release,
-+	.match_mapping = mock_dmabuf_offer_match_mapping,
-+	.select_mapping = mock_dmabuf_select_mapping,
-+	.pin = mock_dmabuf_pin,
-+	.unpin = mock_dmabuf_unpin,
-+};
-+
-+/*
-+ * Exporter decides type at first map from the match set. The result is tagged
-+ * with it and the core holds the choice across unmap/remap until the attachment
-+ * has been explicitly invalidated.
-+ */
-+static void test_select_at_map(struct kunit *test)
-+{
-+	static const struct dma_buf_mapping_match offer_ab[] = {
-+		{ .type = &mock_type_a },
-+		{ .type = &mock_type_b },
-+	};
-+	struct dma_buf_mapping_match imp[] = {
-+		{ .type = &mock_type_a },
-+		{ .type = &mock_type_b },
-+	};
-+	MOCK_IMPORTER_OPS(importer_ops, imp);
-+	struct dma_buf_attachment *attach;
-+	struct dma_buf_mapping *mapping;
-+	struct dma_buf *dmabuf;
-+	struct device *dev;
-+
-+	mock_type_a.map = mock_type_map;
-+	mock_type_a.unmap = mock_type_unmap;
-+	mock_type_b.map = mock_type_map;
-+	mock_type_b.unmap = mock_type_unmap;
-+
-+	dev = kunit_device_register(test, "dma-buf-test");
-+	KUNIT_ASSERT_NOT_ERR_OR_NULL(test, dev);
-+
-+	dmabuf = mock_dmabuf_export(&mock_dmabuf_select_ops);
-+	KUNIT_ASSERT_NOT_ERR_OR_NULL(test, dmabuf);
-+
-+	mock_exp_offer = offer_ab;
-+	mock_exp_offer_len = ARRAY_SIZE(offer_ab);
-+	attach = dma_buf_dynamic_attach(dmabuf, dev, &importer_ops, NULL);
-+	KUNIT_ASSERT_NOT_ERR_OR_NULL(test, attach);
-+	KUNIT_EXPECT_FALSE(test, attach->selected);
-+	KUNIT_EXPECT_PTR_EQ(test, dma_buf_attach_map_type(attach)->type,
-+			    &mock_type_a);
-+
-+	dma_resv_lock(dmabuf->resv, NULL);
-+
-+	/* Exporter picks the second entry (mock_type_b) */
-+	mock_select_idx = 1;
-+	mapping = dma_buf_mapping_map(attach, DMA_BIDIRECTIONAL);
-+	KUNIT_ASSERT_NOT_ERR_OR_NULL(test, mapping);
-+	KUNIT_EXPECT_PTR_EQ(test, dma_buf_mapping_type_of(mapping),
-+			    &mock_type_b);
-+	KUNIT_EXPECT_PTR_EQ(test, dma_buf_attach_map_type(attach)->type,
-+			    &mock_type_b);
-+	KUNIT_EXPECT_TRUE(test, attach->selected);
-+
-+	/* A pin taken whilst mapping is live gets the same type */
-+	mock_select_idx = 0;
-+	KUNIT_EXPECT_EQ(test, dma_buf_pin(attach), 0);
-+	KUNIT_EXPECT_PTR_EQ(test, dma_buf_attach_map_type(attach)->type,
-+			    &mock_type_b);
-+	dma_buf_unpin(attach);
-+
-+	dma_buf_mapping_unmap(attach, mapping, DMA_BIDIRECTIONAL);
-+
-+	/*
-+	 * Unmapped the exporter would now pick A, but no invalidate has
-+	 * happened so remap must get B again to avoid ping-ponging.
-+	 */
-+	KUNIT_EXPECT_TRUE(test, attach->selected);
-+	mapping = dma_buf_mapping_map(attach, DMA_BIDIRECTIONAL);
-+	KUNIT_ASSERT_NOT_ERR_OR_NULL(test, mapping);
-+	KUNIT_EXPECT_PTR_EQ(test, dma_buf_mapping_type_of(mapping),
-+			    &mock_type_b);
-+	dma_buf_mapping_unmap(attach, mapping, DMA_BIDIRECTIONAL);
-+
-+	/* Only an explicit invalidation allows the type to change */
-+	dma_buf_invalidate_mappings(dmabuf);
-+	KUNIT_EXPECT_FALSE(test, attach->selected);
-+	/* Nothing is reselected until the next pin or map */
-+	KUNIT_EXPECT_PTR_EQ(test, dma_buf_attach_map_type(attach)->type,
-+			    &mock_type_b);
-+
-+	mapping = dma_buf_mapping_map(attach, DMA_BIDIRECTIONAL);
-+	KUNIT_ASSERT_NOT_ERR_OR_NULL(test, mapping);
-+	KUNIT_EXPECT_PTR_EQ(test, dma_buf_mapping_type_of(mapping),
-+			    &mock_type_a);
-+	dma_buf_mapping_unmap(attach, mapping, DMA_BIDIRECTIONAL);
-+
-+	/* Exporter cannot serve this importer right now */
-+	dma_buf_invalidate_mappings(dmabuf);
-+	mock_select_err = -EBUSY;
-+	mapping = dma_buf_mapping_map(attach, DMA_BIDIRECTIONAL);
-+	KUNIT_EXPECT_EQ(test, PTR_ERR(mapping), -EBUSY);
-+	KUNIT_EXPECT_FALSE(test, attach->selected);
-+	mock_select_err = 0;
-+
-+	dma_resv_unlock(dmabuf->resv);
-+
-+	dma_buf_detach(dmabuf, attach);
-+	dma_buf_put(dmabuf);
-+
-+	mock_type_a.map = NULL;
-+	mock_type_a.unmap = NULL;
-+	mock_type_b.map = NULL;
-+	mock_type_b.unmap = NULL;
-+}
-+
-+/*
-+ * Pin selects too and the choice survives map, unmap and unpin. A pinned
-+ * importer that is never invalidated keeps its first type for the life of the
-+ * attachment.
-+ */
-+static void test_select_at_pin(struct kunit *test)
-+{
-+	static const struct dma_buf_mapping_match offer_ab[] = {
-+		{ .type = &mock_type_a },
-+		{ .type = &mock_type_b },
-+	};
-+	struct dma_buf_mapping_match imp[] = {
-+		{ .type = &mock_type_a },
-+		{ .type = &mock_type_b },
-+	};
-+	MOCK_IMPORTER_OPS(importer_ops, imp);
-+	struct dma_buf_attachment *attach;
-+	struct dma_buf_mapping *mapping;
-+	struct dma_buf *dmabuf;
-+	struct device *dev;
-+
-+	mock_type_a.map = mock_type_map;
-+	mock_type_a.unmap = mock_type_unmap;
-+	mock_type_b.map = mock_type_map;
-+	mock_type_b.unmap = mock_type_unmap;
-+
-+	dev = kunit_device_register(test, "dma-buf-test");
-+	KUNIT_ASSERT_NOT_ERR_OR_NULL(test, dev);
-+
-+	dmabuf = mock_dmabuf_export(&mock_dmabuf_select_ops);
-+	KUNIT_ASSERT_NOT_ERR_OR_NULL(test, dmabuf);
-+
-+	mock_exp_offer = offer_ab;
-+	mock_exp_offer_len = ARRAY_SIZE(offer_ab);
-+	attach = dma_buf_dynamic_attach(dmabuf, dev, &importer_ops, NULL);
-+	KUNIT_ASSERT_NOT_ERR_OR_NULL(test, attach);
-+
-+	dma_resv_lock(dmabuf->resv, NULL);
-+
-+	mock_select_idx = 1;
-+	KUNIT_EXPECT_EQ(test, dma_buf_pin(attach), 0);
-+	KUNIT_EXPECT_TRUE(test, attach->selected);
-+	KUNIT_EXPECT_PTR_EQ(test, dma_buf_attach_map_type(attach)->type,
-+			    &mock_type_b);
-+
-+	/* Map after pin uses the pinned type regardless of the exporter now */
-+	mock_select_idx = 0;
-+	mapping = dma_buf_mapping_map(attach, DMA_BIDIRECTIONAL);
-+	KUNIT_ASSERT_NOT_ERR_OR_NULL(test, mapping);
-+	KUNIT_EXPECT_PTR_EQ(test, dma_buf_mapping_type_of(mapping),
-+			    &mock_type_b);
-+	dma_buf_mapping_unmap(attach, mapping, DMA_BIDIRECTIONAL);
-+
-+	KUNIT_EXPECT_PTR_EQ(test, dma_buf_attach_map_type(attach)->type,
-+			    &mock_type_b);
-+
-+	dma_buf_unpin(attach);
-+	KUNIT_EXPECT_TRUE(test, attach->selected);
-+	KUNIT_EXPECT_PTR_EQ(test, dma_buf_attach_map_type(attach)->type,
-+			    &mock_type_b);
-+
-+	dma_resv_unlock(dmabuf->resv);
-+
-+	dma_buf_detach(dmabuf, attach);
-+	dma_buf_put(dmabuf);
-+
-+	mock_type_a.map = NULL;
-+	mock_type_a.unmap = NULL;
-+	mock_type_b.map = NULL;
-+	mock_type_b.unmap = NULL;
-+}
-+
-+/*
-+ * If the first map/pin fails it shouldn't pin the selection. However all
-+ * subsequent map/pin failure must not reset the selection state, otherwise a
-+ * retry could reselect without an invalidate.
-+ */
-+static void test_select_survives_failed_map(struct kunit *test)
-+{
-+	static const struct dma_buf_mapping_match offer_ab[] = {
-+		{ .type = &mock_type_a },
-+		{ .type = &mock_type_b },
-+	};
-+	struct dma_buf_mapping_match imp[] = {
-+		{ .type = &mock_type_a },
-+		{ .type = &mock_type_b },
-+	};
-+	MOCK_IMPORTER_OPS(importer_ops, imp);
-+	struct dma_buf_attachment *attach;
-+	struct dma_buf_mapping *mapping;
-+	struct dma_buf *dmabuf;
-+	struct device *dev;
-+
-+	mock_type_a.map = mock_type_map;
-+	mock_type_a.unmap = mock_type_unmap;
-+	mock_type_b.map = mock_type_map;
-+	mock_type_b.unmap = mock_type_unmap;
-+
-+	dev = kunit_device_register(test, "dma-buf-test");
-+	KUNIT_ASSERT_NOT_ERR_OR_NULL(test, dev);
-+
-+	dmabuf = mock_dmabuf_export(&mock_dmabuf_select_ops);
-+	KUNIT_ASSERT_NOT_ERR_OR_NULL(test, dmabuf);
-+
-+	mock_exp_offer = offer_ab;
-+	mock_exp_offer_len = ARRAY_SIZE(offer_ab);
-+	attach = dma_buf_dynamic_attach(dmabuf, dev, &importer_ops, NULL);
-+	KUNIT_ASSERT_NOT_ERR_OR_NULL(test, attach);
-+
-+	dma_resv_lock(dmabuf->resv, NULL);
-+
-+	/* A map that selected and then failed does not change the selected state */
-+	mock_select_idx = 1;
-+	mock_map_err = -EIO;
-+	mapping = dma_buf_mapping_map(attach, DMA_BIDIRECTIONAL);
-+	KUNIT_EXPECT_EQ(test, PTR_ERR(mapping), -EIO);
-+	KUNIT_EXPECT_FALSE(test, attach->selected);
-+	KUNIT_EXPECT_PTR_EQ(test, dma_buf_attach_map_type(attach)->type,
-+			    &mock_type_a);
-+	mock_map_err = 0;
-+
-+	/* Pin selects B and holds it */
-+	KUNIT_EXPECT_EQ(test, dma_buf_pin(attach), 0);
-+	KUNIT_EXPECT_TRUE(test, attach->selected);
-+	KUNIT_EXPECT_PTR_EQ(test, dma_buf_attach_map_type(attach)->type,
-+			    &mock_type_b);
-+	KUNIT_EXPECT_EQ(test, mock_pin_count, 1);
-+
-+	/* A map failing under that pin must not allow a different selection */
-+	mock_select_idx = 0;
-+	mock_map_err = -EIO;
-+	mapping = dma_buf_mapping_map(attach, DMA_BIDIRECTIONAL);
-+	KUNIT_EXPECT_EQ(test, PTR_ERR(mapping), -EIO);
-+	KUNIT_EXPECT_TRUE(test, attach->selected);
-+	KUNIT_EXPECT_PTR_EQ(test, dma_buf_attach_map_type(attach)->type,
-+			    &mock_type_b);
-+	KUNIT_EXPECT_EQ(test, mock_pin_count, 1);
-+	mock_map_err = 0;
-+
-+	/* The retry gets the pinned type, not a new selection */
-+	mapping = dma_buf_mapping_map(attach, DMA_BIDIRECTIONAL);
-+	KUNIT_ASSERT_NOT_ERR_OR_NULL(test, mapping);
-+	KUNIT_EXPECT_PTR_EQ(test, dma_buf_mapping_type_of(mapping),
-+			    &mock_type_b);
-+	dma_buf_mapping_unmap(attach, mapping, DMA_BIDIRECTIONAL);
-+
-+	dma_buf_unpin(attach);
-+	KUNIT_EXPECT_EQ(test, mock_pin_count, 0);
-+
-+	dma_resv_unlock(dmabuf->resv);
-+
-+	dma_buf_detach(dmabuf, attach);
-+	dma_buf_put(dmabuf);
-+
-+	mock_type_a.map = NULL;
-+	mock_type_a.unmap = NULL;
-+	mock_type_b.map = NULL;
-+	mock_type_b.unmap = NULL;
-+}
-+
-+/*
-+ * The same rule for a failing exporter pin. A pin that selected and then
-+ * failed resets the selection state, and one that failed after an existing map
-+ * does not.
-+ */
-+static void test_select_after_failed_pin(struct kunit *test)
-+{
-+	static const struct dma_buf_mapping_match offer_ab[] = {
-+		{ .type = &mock_type_a },
-+		{ .type = &mock_type_b },
-+	};
-+	struct dma_buf_mapping_match imp[] = {
-+		{ .type = &mock_type_a },
-+		{ .type = &mock_type_b },
-+	};
-+	MOCK_IMPORTER_OPS(importer_ops, imp);
-+	struct dma_buf_attachment *attach;
-+	struct dma_buf_mapping *mapping;
-+	struct dma_buf *dmabuf;
-+	struct device *dev;
-+
-+	mock_type_a.map = mock_type_map;
-+	mock_type_a.unmap = mock_type_unmap;
-+	mock_type_b.map = mock_type_map;
-+	mock_type_b.unmap = mock_type_unmap;
-+
-+	dev = kunit_device_register(test, "dma-buf-test");
-+	KUNIT_ASSERT_NOT_ERR_OR_NULL(test, dev);
-+
-+	dmabuf = mock_dmabuf_export(&mock_dmabuf_select_ops);
-+	KUNIT_ASSERT_NOT_ERR_OR_NULL(test, dmabuf);
-+
-+	mock_exp_offer = offer_ab;
-+	mock_exp_offer_len = ARRAY_SIZE(offer_ab);
-+	attach = dma_buf_dynamic_attach(dmabuf, dev, &importer_ops, NULL);
-+	KUNIT_ASSERT_NOT_ERR_OR_NULL(test, attach);
-+
-+	dma_resv_lock(dmabuf->resv, NULL);
-+
-+	/* First pin selects B but the exporter cannot pin: nothing is kept */
-+	mock_select_idx = 1;
-+	mock_pin_err = -ENOSPC;
-+	KUNIT_EXPECT_EQ(test, dma_buf_pin(attach), -ENOSPC);
-+	KUNIT_EXPECT_FALSE(test, attach->selected);
-+	KUNIT_EXPECT_PTR_EQ(test, dma_buf_attach_map_type(attach)->type,
-+			    &mock_type_a);
-+	KUNIT_EXPECT_EQ(test, mock_pin_count, 0);
-+	mock_pin_err = 0;
-+
-+	/* A live mapping selects A */
-+	mock_select_idx = 0;
-+	mapping = dma_buf_mapping_map(attach, DMA_BIDIRECTIONAL);
-+	KUNIT_ASSERT_NOT_ERR_OR_NULL(test, mapping);
-+	KUNIT_EXPECT_PTR_EQ(test, dma_buf_mapping_type_of(mapping),
-+			    &mock_type_a);
-+
-+	/* A pin failing under it leaves that selection in place */
-+	mock_select_idx = 1;
-+	mock_pin_err = -ENOSPC;
-+	KUNIT_EXPECT_EQ(test, dma_buf_pin(attach), -ENOSPC);
-+	KUNIT_EXPECT_TRUE(test, attach->selected);
-+	KUNIT_EXPECT_PTR_EQ(test, dma_buf_attach_map_type(attach)->type,
-+			    &mock_type_a);
-+	mock_pin_err = 0;
-+
-+	dma_buf_mapping_unmap(attach, mapping, DMA_BIDIRECTIONAL);
-+	dma_resv_unlock(dmabuf->resv);
-+
-+	dma_buf_detach(dmabuf, attach);
-+	dma_buf_put(dmabuf);
-+
-+	mock_type_a.map = NULL;
-+	mock_type_a.unmap = NULL;
-+	mock_type_b.map = NULL;
-+	mock_type_b.unmap = NULL;
-+}
-+
- static const struct dma_exporter dma_exporter_params[] = {
- 	{ &mock_dmabuf_simple_sgt_ops, "simple_sgt" },
- 	{ &mock_dmabuf_two_exp_ops, "two_exp" },
-@@ -381,6 +893,190 @@ static const struct dma_exporter dma_exporter_params[] = {
- 
- KUNIT_ARRAY_PARAM_DESC(dma_exporter, dma_exporter_params, desc);
- 
-+/*
-+ * After an invalidate the exporter may select another type for the next map
-+ * while a mapping made with the previous selection is still live. Since
-+ * importers don't have to unmap on invalidate the attachment selection may
-+ * have changed by the time unmap is called. Therefore every mapping must be
-+ * torn down with the type it was made with, and the new selection governs new
-+ * maps only not unmap.
-+ */
-+static void test_unmap_uses_own_type(struct kunit *test)
-+{
-+	static const struct dma_buf_mapping_match offer_ab[] = {
-+		{ .type = &mock_type_a },
-+		{ .type = &mock_type_b },
-+	};
-+	struct dma_buf_mapping_match imp[] = {
-+		{ .type = &mock_type_a },
-+		{ .type = &mock_type_b },
-+	};
-+	MOCK_IMPORTER_OPS(importer_ops, imp);
-+	struct dma_buf_mapping *mapping, *mapping2;
-+	struct dma_buf_attachment *attach;
-+	struct dma_buf *dmabuf;
-+	struct device *dev;
-+
-+	mock_type_a.map = mock_type_map;
-+	mock_type_a.unmap = mock_type_unmap;
-+	mock_type_b.map = mock_type_map;
-+	mock_type_b.unmap = mock_type_unmap;
-+
-+	dev = kunit_device_register(test, "dma-buf-test");
-+	KUNIT_ASSERT_NOT_ERR_OR_NULL(test, dev);
-+
-+	dmabuf = mock_dmabuf_export(&mock_dmabuf_select_ops);
-+	KUNIT_ASSERT_NOT_ERR_OR_NULL(test, dmabuf);
-+
-+	mock_exp_offer = offer_ab;
-+	mock_exp_offer_len = ARRAY_SIZE(offer_ab);
-+	attach = dma_buf_dynamic_attach(dmabuf, dev, &importer_ops, NULL);
-+	KUNIT_ASSERT_NOT_ERR_OR_NULL(test, attach);
-+
-+	dma_resv_lock(dmabuf->resv, NULL);
-+
-+	/* Mapped with the exporter's second entry */
-+	mock_select_idx = 1;
-+	mapping = dma_buf_mapping_map(attach, DMA_BIDIRECTIONAL);
-+	KUNIT_ASSERT_NOT_ERR_OR_NULL(test, mapping);
-+	KUNIT_EXPECT_PTR_EQ(test, dma_buf_mapping_type_of(mapping),
-+			    &mock_type_b);
-+	KUNIT_EXPECT_PTR_EQ(test, mapping->match, &attach->matches[1]);
-+	KUNIT_EXPECT_EQ(test, mock_select_count, 1);
-+
-+	/* Invalidated while that mapping is live: the next map reselects */
-+	dma_buf_invalidate_mappings(dmabuf);
-+	KUNIT_EXPECT_FALSE(test, attach->selected);
-+	mock_select_idx = 0;
-+	mapping2 = dma_buf_mapping_map(attach, DMA_BIDIRECTIONAL);
-+	KUNIT_ASSERT_NOT_ERR_OR_NULL(test, mapping2);
-+	KUNIT_EXPECT_PTR_EQ(test, mapping2->type, &mock_type_a);
-+	KUNIT_EXPECT_TRUE(test, attach->selected);
-+	KUNIT_EXPECT_EQ(test, mock_select_count, 2);
-+	KUNIT_EXPECT_PTR_EQ(test, dma_buf_attach_map_type(attach)->type,
-+			    &mock_type_a);
-+
-+	/* The old mapping is still torn down as B, the new one as A */
-+	dma_buf_mapping_unmap(attach, mapping, DMA_BIDIRECTIONAL);
-+	KUNIT_EXPECT_PTR_EQ(test, mock_unmap_type, &mock_type_b);
-+	KUNIT_EXPECT_PTR_EQ(test, mock_unmap_made_by, &mock_type_b);
-+	/* The selection itself is untouched by the unmap */
-+	KUNIT_EXPECT_PTR_EQ(test, dma_buf_attach_map_type(attach)->type,
-+			    &mock_type_a);
-+	KUNIT_EXPECT_TRUE(test, attach->selected);
-+
-+	dma_buf_mapping_unmap(attach, mapping2, DMA_BIDIRECTIONAL);
-+	KUNIT_EXPECT_PTR_EQ(test, mock_unmap_type, &mock_type_a);
-+	KUNIT_EXPECT_PTR_EQ(test, mock_unmap_made_by, &mock_type_a);
-+
-+	/* Nothing live, but the selection stands until the next invalidate */
-+	mock_select_idx = 1;
-+	mapping = dma_buf_mapping_map(attach, DMA_BIDIRECTIONAL);
-+	KUNIT_ASSERT_NOT_ERR_OR_NULL(test, mapping);
-+	KUNIT_EXPECT_PTR_EQ(test, dma_buf_mapping_type_of(mapping),
-+			    &mock_type_a);
-+	KUNIT_EXPECT_EQ(test, mock_select_count, 2);
-+	dma_buf_mapping_unmap(attach, mapping, DMA_BIDIRECTIONAL);
-+
-+	dma_resv_unlock(dmabuf->resv);
-+
-+	dma_buf_detach(dmabuf, attach);
-+	dma_buf_put(dmabuf);
-+
-+	mock_type_a.map = NULL;
-+	mock_type_a.unmap = NULL;
-+	mock_type_b.map = NULL;
-+	mock_type_b.unmap = NULL;
-+}
-+
-+/*
-+ * An exporter that moves the buffer during map/pin after invalidating must not
-+ * leave the attachment in an unselected state after the map/pin succeeds. Once
-+ * a mapping succeeds it must lock in the selection made after the invalidate and
-+ * move and subsequent map/pin operations must get the same type.
-+ */
-+static void test_select_survives_own_invalidate(struct kunit *test)
-+{
-+	static const struct dma_buf_mapping_match offer_ab[] = {
-+		{ .type = &mock_type_a },
-+		{ .type = &mock_type_b },
-+	};
-+	struct dma_buf_mapping_match imp[] = {
-+		{ .type = &mock_type_a },
-+		{ .type = &mock_type_b },
-+	};
-+	MOCK_IMPORTER_OPS(importer_ops, imp);
-+	struct dma_buf_mapping *mapping, *mapping2;
-+	struct dma_buf_attachment *attach;
-+	struct dma_buf *dmabuf;
-+	struct device *dev;
-+
-+	mock_type_a.map = mock_type_map;
-+	mock_type_a.unmap = mock_type_unmap;
-+	mock_type_b.map = mock_type_map;
-+	mock_type_b.unmap = mock_type_unmap;
-+
-+	dev = kunit_device_register(test, "dma-buf-test");
-+	KUNIT_ASSERT_NOT_ERR_OR_NULL(test, dev);
-+
-+	dmabuf = mock_dmabuf_export(&mock_dmabuf_select_ops);
-+	KUNIT_ASSERT_NOT_ERR_OR_NULL(test, dmabuf);
-+
-+	mock_exp_offer = offer_ab;
-+	mock_exp_offer_len = ARRAY_SIZE(offer_ab);
-+	attach = dma_buf_dynamic_attach(dmabuf, dev, &importer_ops, NULL);
-+	KUNIT_ASSERT_NOT_ERR_OR_NULL(test, attach);
-+
-+	mock_invalidate_in_callback = true;
-+	dma_resv_lock(dmabuf->resv, NULL);
-+
-+	/* The map's move invalidates the attachment selection. */
-+	mock_select_idx = 1;
-+	mapping = dma_buf_mapping_map(attach, DMA_BIDIRECTIONAL);
-+	KUNIT_ASSERT_NOT_ERR_OR_NULL(test, mapping);
-+	KUNIT_EXPECT_PTR_EQ(test, dma_buf_mapping_type_of(mapping),
-+			    &mock_type_b);
-+	KUNIT_EXPECT_TRUE(test, attach->selected);
-+	KUNIT_EXPECT_EQ(test, mock_select_count, 1);
-+
-+	/* A second map does not reselect. */
-+	mock_select_idx = 0;
-+	mapping2 = dma_buf_mapping_map(attach, DMA_BIDIRECTIONAL);
-+	KUNIT_ASSERT_NOT_ERR_OR_NULL(test, mapping2);
-+	KUNIT_EXPECT_PTR_EQ(test, mapping2->type, &mock_type_b);
-+	KUNIT_EXPECT_TRUE(test, attach->selected);
-+	KUNIT_EXPECT_EQ(test, mock_select_count, 1);
-+
-+	/* Nor does a pin taken under it */
-+	KUNIT_EXPECT_EQ(test, dma_buf_pin(attach), 0);
-+	KUNIT_EXPECT_TRUE(test, attach->selected);
-+	KUNIT_EXPECT_EQ(test, mock_select_count, 1);
-+	dma_buf_unpin(attach);
-+
-+	dma_buf_mapping_unmap(attach, mapping2, DMA_BIDIRECTIONAL);
-+	dma_buf_mapping_unmap(attach, mapping, DMA_BIDIRECTIONAL);
-+
-+	/* A map that invalidates and then fails establishes nothing */
-+	dma_buf_invalidate_mappings(dmabuf);
-+	mock_map_err = -EIO;
-+	mapping = dma_buf_mapping_map(attach, DMA_BIDIRECTIONAL);
-+	KUNIT_EXPECT_EQ(test, PTR_ERR(mapping), -EIO);
-+	KUNIT_EXPECT_FALSE(test, attach->selected);
-+	KUNIT_EXPECT_PTR_EQ(test, dma_buf_attach_map_type(attach)->type,
-+			    &mock_type_a);
-+	mock_map_err = 0;
-+
-+	dma_resv_unlock(dmabuf->resv);
-+
-+	dma_buf_detach(dmabuf, attach);
-+	dma_buf_put(dmabuf);
-+
-+	mock_type_a.map = NULL;
-+	mock_type_a.unmap = NULL;
-+	mock_type_b.map = NULL;
-+	mock_type_b.unmap = NULL;
-+}
-+
- static struct kunit_case dma_mapping_cases[] = {
- 	KUNIT_CASE(test_match_fail),
- 	KUNIT_CASE(test_match_no_match_callback),
-@@ -389,6 +1085,13 @@ static struct kunit_case dma_mapping_cases[] = {
- 	KUNIT_CASE(test_match_importer_priority),
- 	KUNIT_CASE_PARAM(test_sgt_attach, dma_exporter_gen_params),
- 	KUNIT_CASE(test_mock_attach),
-+	KUNIT_CASE(test_match_set_is_final),
-+	KUNIT_CASE(test_select_at_map),
-+	KUNIT_CASE(test_select_at_pin),
-+	KUNIT_CASE(test_select_survives_failed_map),
-+	KUNIT_CASE(test_select_after_failed_pin),
-+	KUNIT_CASE(test_unmap_uses_own_type),
-+	KUNIT_CASE(test_select_survives_own_invalidate),
- 	{}
- };
- 
+> > 
+> > /**
+> > diff --git a/drivers/gpu/drm/xe/xe_bo.h b/drivers/gpu/drm/xe/xe_bo.h
+> > index 6340317f7d2e..4186cb51af87 100644
+> > --- a/drivers/gpu/drm/xe/xe_bo.h
+> > +++ b/drivers/gpu/drm/xe/xe_bo.h
+> > @@ -224,6 +224,7 @@ int xe_bo_pin_external(struct xe_bo *bo, bool in_place, struct drm_exec *exec);
+> > int xe_bo_pin(struct xe_bo *bo, struct drm_exec *exec);
+> > void xe_bo_unpin_external(struct xe_bo *bo);
+> > void xe_bo_unpin(struct xe_bo *bo);
+> > +void xe_bo_defrag_init_early(struct xe_device *xe);
+> > int xe_bo_validate(struct xe_bo *bo, struct xe_vm *vm, bool allow_res_evict,
+> > 		   struct drm_exec *exec);
+> > 
+> > diff --git a/drivers/gpu/drm/xe/xe_bo_types.h b/drivers/gpu/drm/xe/xe_bo_types.h
+> > index fcc63ae3f455..9eea9ab380e5 100644
+> > --- a/drivers/gpu/drm/xe/xe_bo_types.h
+> > +++ b/drivers/gpu/drm/xe/xe_bo_types.h
+> > @@ -54,6 +54,12 @@ struct xe_bo {
+> > 	struct ttm_bo_kmap_obj kmap;
+> > 	/** @pinned_link: link to present / evicted list of pinned BO */
+> > 	struct list_head pinned_link;
+> > +	/**
+> > +	 * @defrag_link: link into @xe_device.mem.defrag.list for BOs whose
+> > +	 * backing TT pages were allocated at a sub-optimal order. Protected by
+> > +	 * @xe_device.mem.defrag.lock.
+> > +	 */
+> > +	struct list_head defrag_link;
+> > #ifdef CONFIG_PROC_FS
+> > 	/**
+> > 	 * @client: @xe_drm_client which created the bo
+> > diff --git a/drivers/gpu/drm/xe/xe_device.c b/drivers/gpu/drm/xe/xe_device.c
+> > index 97cc2d185e45..bb93425a5c70 100644
+> > --- a/drivers/gpu/drm/xe/xe_device.c
+> > +++ b/drivers/gpu/drm/xe/xe_device.c
+> > @@ -607,6 +607,8 @@ int xe_device_init_early(struct xe_device *xe)
+> > 	if (err)
+> > 		return err;
+> > 
+> > +	xe_bo_defrag_init_early(xe);
+> > +
+> > 	xe->preempt_fence_wq = alloc_ordered_workqueue("xe-preempt-fence-wq",
+> > 						       WQ_MEM_RECLAIM);
+> > 	xe->ordered_wq = alloc_ordered_workqueue("xe-ordered-wq", 0);
+> > diff --git a/drivers/gpu/drm/xe/xe_device_types.h b/drivers/gpu/drm/xe/xe_device_types.h
+> > index 95e7cea91cbf..9e6244d8f41b 100644
+> > --- a/drivers/gpu/drm/xe/xe_device_types.h
+> > +++ b/drivers/gpu/drm/xe/xe_device_types.h
+> > @@ -296,6 +296,25 @@ struct xe_device {
+> > 		 */
+> > 		atomic_long_t dma_mapped_pages_svm[NR_PAGE_ORDERS];
+> > #endif
+> > +		/**
+> > +		 * @mem.defrag: Tracking of BOs whose backing TT pages were
+> > +		 * allocated at a sub-optimal (smaller than beneficial) order.
+> > +		 *
+> > +		 * Such BOs are candidates for a future defragmentation pass that
+> > +		 * tries to reallocate their pages at the device's beneficial
+> > +		 * order. Only ttm_bo_type_device BOs are tracked.
+> > +		 */
+> > +		struct {
+> > +			/** @mem.defrag.lock: Protects @mem.defrag.list. */
+> > +			spinlock_t lock;
+> > +			/** @mem.defrag.list: List of struct xe_bo defrag_link. */
+> > +			struct list_head list;
+> > +			/**
+> > +			 * @mem.defrag.count: Number of BOs currently on
+> > +			 * @mem.defrag.list.
+> > +			 */
+> > +			atomic_t count;
+> 
+> NIT...Not sure if we need it to be atomic. Count is only used in patch 16 and
+> usage is approximation anyhow (doesn't guarantee anything as list lenght can
+> be changing).
 
--- 
-2.54.0
+Right - incr / decr are protected by the spin lock along with the list.
 
+I think count might actually be able to be dropped as target has slighly
+moved - foreground just never does reclaim, thus
+XE_BO_DEFRAG_RECLAIM_BACKOFF_THRESHOLD / count isn't needed.
+
+Matt
+
+> 
+> Niranjana
+> 
+> > +		} defrag;
+> > 	} mem;
+> > 
+> > 	/** @sriov: device level virtualization data */
+> > -- 
+> > 2.34.1
+> > 
