@@ -2,43 +2,70 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 66D0C606A325
-	for <dri-devel@archiver.kernel.org>; Fri, 20 Nov 2026 13:18:23 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 99290606A331
+	for <dri-devel@archiver.kernel.org>; Fri, 20 Nov 2026 13:21:22 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ObZY7a/O
+	dkim=pass (2048-bit key) header.d=igalia.com header.i=@igalia.com header.a=rsa-sha256 header.s=20170329 header.b=s395kUab
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id C051B112A4F;
-	Fri, 20 Nov 2026 13:18:17 +0000 (UTC)
-Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 84F3A112A4B
- for <dri-devel@lists.freedesktop.org>; Fri, 20 Nov 2026 13:18:11 +0000 (UTC)
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id 6EB6746B72
- for <dri-devel@lists.freedesktop.org>; Fri, 20 Nov 2026 13:18:11 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 27C101F00A00;
- Fri, 20 Nov 2026 13:18:11 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1795180691;
- bh=drJr6MP3Du51raYogO6YDqlOyGMjr6z6O3zsics7AN8=;
- h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
- b=ObZY7a/OgbuVetr7Qso05kr4rbGNgZ9+c1+wCgjm5mA0lCYZ9phui4HYOCqK6hKOF
- WFspOkBj+rzOqeHLQS8ufMUXELbwSHFm96wxgQ01EWPKszF3TBE8xIelyO+PwPwFUT
- tO5RzIk6sK5VPsOiaqa9Ukj3YmbYxiaiGDFjDZ6ZWsPVFSE3T4ZmLrhUUMqZlahSVZ
- M0vBC881qY7iiuly40VHU+gJwqaJngBjOTa6bo7va2/U/Qdjt1nawwtk+P1z6ULuPg
- D6Fvq5xAHxNHL+vj3UTVh36f4TDrRXI8gH2/vRsS5ftACumO0mcu/KCwfDT9GFTenj
- Bjbc7kAlsK3VA==
-Message-ID: <sashiko-outbox-225218@kernel.org>
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v9 17/42] drm/bridge: Handle bridges with hardware state
- readout
-To: "Maxime Ripard" <mripard@kernel.org>
-Cc: dri-devel@lists.freedesktop.org
-In-Reply-To: <20261120-drm-state-readout-v9-17-a67c2b45b8ec@kernel.org>
-References: <20261120-drm-state-readout-v9-0-a67c2b45b8ec@kernel.org>
- <20261120-drm-state-readout-v9-17-a67c2b45b8ec@kernel.org>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Fri, 20 Nov 2026 13:18:10 +0000
+	by gabe.freedesktop.org (Postfix) with ESMTP id 0990B112A63;
+	Fri, 20 Nov 2026 13:21:17 +0000 (UTC)
+Received: from fanzine2.igalia.com (fanzine2.igalia.com [213.97.179.56])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 0CD8410E0ED
+ for <dri-devel@lists.freedesktop.org>; Fri, 20 Nov 2026 13:21:11 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com; 
+ s=20170329;
+ h=Content-Transfer-Encoding:Content-Type:From:Cc:To:Subject:
+ MIME-Version:Date:Message-ID:From:Reply-To;
+ bh=FD8qNqxuGkw2ONxsf6uof1ejRB1r6IPhsvDKJD5h66E=; t=1795180870; x=2110540870; 
+ b=s395kUabunqFU0py9h9v/CHH8L/TCfMKkxN7goeWTaV6cLe0AJVmltfXo2DdtChW8lBpw9m6iwi
+ QQrBPqTP3lB5JWNl5TnSvwxC0HQ4r18mB01exKtxWDOWtnSPp2Ao+lMr4mHtbwXZTsE256wdowCVb
+ p7GJRxgOjJRn3UN5OPw5Q2M1FzTsYNk5iNrfh0UV1B7fUQCcJCGyXblIEDGWdYduDXWg52zLh7nwm
+ Rccnx+GqiI2ONxBjXrvs7p/JOfX4sfFmTjQAFBMtd+9ge/bMveB4OkiRqtdOOtiT1qkqYdcP93g7i
+ 1Jz9V221jN0YOueaXQaFEV6U/UlW7/UaDrEQ==;
+Received: from [179.105.94.163] (helo=[192.168.0.4])
+ by fanzine2.igalia.com with esmtpsa 
+ (Cipher TLS1.3:ECDHE_X25519__RSA_PSS_RSAE_SHA256__AES_128_GCM:128) (Exim)
+ id 1xUOY8-00000001siW-2MMt; Fri, 20 Nov 2026 14:21:08 +0100
+Message-ID: <76156131-651d-450e-ad0d-f29ab8b0aa7f@igalia.com>
+Date: Fri, 20 Nov 2026 10:21:04 -0300
+X-Archived-By: <archiver.kernel.org>
+MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] drm/v3d: Don't free the core's sg_table when PRIME import
+ fails
+To: Roy <rongh7426@gmail.com>, mwen@igalia.com
+Cc: dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
+ stable@vger.kernel.org
+References: <20261120115840.417741-1-rongh7426@gmail.com>
+From: =?UTF-8?Q?Ma=C3=ADra_Canal?= <mcanal@igalia.com>
+Content-Language: en-US
+Autocrypt: addr=mcanal@igalia.com; keydata=
+ xsBNBGcCwywBCADgTji02Sv9zjHo26LXKdCaumcSWglfnJ93rwOCNkHfPIBll85LL9G0J7H8
+ /PmEL9y0LPo9/B3fhIpbD8VhSy9Sqz8qVl1oeqSe/rh3M+GceZbFUPpMSk5pNY9wr5raZ63d
+ gJc1cs8XBhuj1EzeE8qbP6JAmsL+NMEmtkkNPfjhX14yqzHDVSqmAFEsh4Vmw6oaTMXvwQ40
+ SkFjtl3sr20y07cJMDe++tFet2fsfKqQNxwiGBZJsjEMO2T+mW7DuV2pKHr9aifWjABY5EPw
+ G7qbrh+hXgfT+njAVg5+BcLz7w9Ju/7iwDMiIY1hx64Ogrpwykj9bXav35GKobicCAwHABEB
+ AAHNIE1hw61yYSBDYW5hbCA8bWNhbmFsQGlnYWxpYS5jb20+wsCRBBMBCAA7FiEE+ORdfQEW
+ dwcppnfRP/MOinaI+qoFAmcCwywCGwMFCwkIBwICIgIGFQoJCAsCBBYCAwECHgcCF4AACgkQ
+ P/MOinaI+qoUBQgAqz2gzUP7K3EBI24+a5FwFlruQGtim85GAJZXToBtzsfGLLVUSCL3aF/5
+ O335Bh6ViSBgxmowIwVJlS/e+L95CkTGzIIMHgyUZfNefR2L3aZA6cgc9z8cfow62Wu8eXnq
+ GM/+WWvrFQb/dBKKuohfBlpThqDWXxhozazCcJYYHradIuOM8zyMtCLDYwPW7Vqmewa+w994
+ 7Lo4CgOhUXVI2jJSBq3sgHEPxiUBOGxvOt1YBg7H9C37BeZYZxFmU8vh7fbOsvhx7Aqu5xV7
+ FG+1ZMfDkv+PixCuGtR5yPPaqU2XdjDC/9mlRWWQTPzg74RLEw5sz/tIHQPPm6ROCACFls7A
+ TQRnAsMsAQgAxTU8dnqzK6vgODTCW2A6SAzcvKztxae4YjRwN1SuGhJR2isJgQHoOH6oCItW
+ Xc1CGAWnci6doh1DJvbbB7uvkQlbeNxeIz0OzHSiB+pb1ssuT31Hz6QZFbX4q+crregPIhr+
+ 0xeDi6Mtu+paYprI7USGFFjDUvJUf36kK0yuF2XUOBlF0beCQ7Jhc+UoI9Akmvl4sHUrZJzX
+ LMeajARnSBXTcig6h6/NFVkr1mi1uuZfIRNCkxCE8QRYebZLSWxBVr3h7dtOUkq2CzL2kRCK
+ T2rKkmYrvBJTqSvfK3Ba7QrDg3szEe+fENpL3gHtH6h/XQF92EOulm5S5o0I+ceREwARAQAB
+ wsB2BBgBCAAgFiEE+ORdfQEWdwcppnfRP/MOinaI+qoFAmcCwywCGwwACgkQP/MOinaI+qpI
+ zQf+NAcNDBXWHGA3lgvYvOU31+ik9bb30xZ7IqK9MIi6TpZqL7cxNwZ+FAK2GbUWhy+/gPkX
+ it2gCAJsjo/QEKJi7Zh8IgHN+jfim942QZOkU+p/YEcvqBvXa0zqW0sYfyAxkrf/OZfTnNNE
+ Tr+uBKNaQGO2vkn5AX5l8zMl9LCH3/Ieaboni35qEhoD/aM0Kpf93PhCvJGbD4n1DnRhrxm1
+ uEdQ6HUjWghEjC+Jh9xUvJco2tUTepw4OwuPxOvtuPTUa1kgixYyG1Jck/67reJzMigeuYFt
+ raV3P8t/6cmtawVjurhnCDuURyhUrjpRhgFp+lW8OGr6pepHol/WFIOQEg==
+In-Reply-To: <20261120115840.417741-1-rongh7426@gmail.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -49,78 +76,94 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
-Reply-To: sashiko-reviews@lists.linux.dev
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-10.8 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
-	DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
-	INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS autolearn=ham
-	autolearn_force=no version=4.0.1
+X-Spam-Status: No, score=-22.3 required=3.0 tests=BAYES_00,DKIM_SIGNED,
+	DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
+	INCLUDES_CR_TRAILER,INCLUDES_PATCH,MAILING_LIST_MULTI,
+	MENTIONS_GIT_HOSTING,SPF_HELO_NONE,SPF_PASS,USER_AGENT_SANE_1
+	autolearn=unavailable autolearn_force=no version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
-X-Archived-By: <archiver.kernel.org>
 
-Thank you for your contribution! Sashiko AI review found 1 potential
-issue to consider:
-- [Medium] drm/bridge: check crtc_state->active in
-  drm_bridge_atomic_readout_priv_state()
---
+Hi Roy,
 
-commit f5a0fcf4814d5306f865f770861315035338896e
-Author: Maxime Ripard <mripard@kernel.org>
+This is a duplicate of [1].
 
-drm/bridge: Handle bridges with hardware state readout
+[1] 
+https://lore.kernel.org/dri-devel/20261119144339.43896-1-tsbol@icloud.com/
 
-This commit adds hardware state readout and installation wrappers for DRM
-bridges, looking up the corresponding connector and CRTC states for the
-bridge's pipeline before invoking the bridge hooks.
+Best regards,
+- Maíra
 
-> diff --git a/drivers/gpu/drm/drm_bridge.c b/drivers/gpu/drm/drm_bridge.c
-> index b6cdbc172f689..868558a09f951 100644
-> --- a/drivers/gpu/drm/drm_bridge.c
-> +++ b/drivers/gpu/drm/drm_bridge.c
+On 20/11/26 08:58, Roy wrote:
+> When v3d_bo_create_finish() fails in v3d_prime_import_sg_table(), for
+> example with -ENOSPC because the V3D address space is full, the object
+> is freed with drm_gem_shmem_free(). At that point obj->import_attach is
+> not set yet, since drm_gem_prime_import_dev() only sets it after the
+> driver callback returns. drm_gem_shmem_release() therefore takes the
+> non-imported path and treats shmem->sgt as its own: it unmaps it with
+> the V3D device, calls sg_free_table() and kfree()s it.
+> 
+> That sg_table belongs to drm_gem_prime_import_dev(), which then unmaps
+> it again through dma_buf_unmap_attachment_unlocked() on its fail_unmap
+> path. The exporter's unmap runs on the freed table, and the kernel
+> crashes:
+> 
+>    Unable to handle kernel NULL pointer dereference at virtual address 000000000000001c
+>    pc : dma_direct_unmap_sg+0x84/0x260
+>    lr : dma_unmap_sg_attrs+0x60/0x148
+>    Call trace:
+>     dma_direct_unmap_sg+0x84/0x260 (P)
+>     dma_unmap_sg_attrs+0x60/0x148
+>     drm_gem_unmap_dma_buf+0x38/0x68 [drm]
+>     dma_buf_unmap_attachment+0x3c/0xa0
+>     dma_buf_unmap_attachment_unlocked+0x58/0x98
+>     drm_gem_prime_import_dev+0x1a0/0x1e0 [drm]
+>     drm_gem_prime_fd_to_handle+0x1a8/0x280 [drm]
+>     drm_prime_fd_to_handle_ioctl+0x40/0x58 [drm]
+> 
+> Users have hit this on Raspberry Pi 5 with Xorg importing vc4 buffers
+> into v3d.
+> 
+> Clear shmem->sgt before freeing the object, so that only the PRIME core
+> unmaps it.
+> 
+> Tested on a Raspberry Pi 5 running 6.18.39 with a small program that
+> exports a vc4 dumb buffer, fills the V3D address space with BOs until
+> creation fails with -ENOSPC, then imports the dma-buf into v3d. Without
+> this patch the import oopses as above. With it, the import fails
+> cleanly with -ENOSPC (60 runs), BO stats stay at zero, and imports
+> succeed again once BOs are freed. The fix was tested as an out-of-tree
+> v3d module built against 6.18.39; this tree was not built for arm64.
+> 
+> The bug was found and the fix written with the help of an AI coding
+> assistant (Claude); I reproduced and tested it on hardware and reviewed
+> the change.
+> 
+> Fixes: 40609d4820b2 ("drm/v3d: Use the new shmem helpers to reduce driver boilerplate.")
+> Cc: stable@vger.kernel.org
+> Link: https://github.com/raspberrypi/linux/issues/7504
+> Signed-off-by: Roy <rongh7426@gmail.com>
+> ---
+>   drivers/gpu/drm/v3d/v3d_bo.c | 7 +++++++
+>   1 file changed, 7 insertions(+)
+> 
+> diff --git a/drivers/gpu/drm/v3d/v3d_bo.c b/drivers/gpu/drm/v3d/v3d_bo.c
+> index db95a2f..d0b672d 100644
+> --- a/drivers/gpu/drm/v3d/v3d_bo.c
+> +++ b/drivers/gpu/drm/v3d/v3d_bo.c
+> @@ -185,6 +185,13 @@ v3d_prime_import_sg_table(struct drm_device *dev,
+>   
+>   	ret = v3d_bo_create_finish(obj);
+>   	if (ret) {
+> +		/*
+> +		 * The sg_table still belongs to drm_gem_prime_import_dev(),
+> +		 * which unmaps it when we return an error. import_attach is
+> +		 * not set yet, so drm_gem_shmem_free() would otherwise unmap
+> +		 * and free it as if it were ours.
+> +		 */
+> +		to_v3d_bo(obj)->base.sgt = NULL;
+>   		drm_gem_shmem_free(&to_v3d_bo(obj)->base);
+>   		return ERR_PTR(ret);
+>   	}
 
-[ ... ]
-
-> +static int
-> +drm_bridge_atomic_readout_priv_state(struct drm_private_obj *obj,
-> +				     struct drm_atomic_sro_state *state,
-> +				     struct drm_private_state *priv_state)
-> +{
-> +	struct drm_bridge *bridge =3D drm_priv_to_bridge(obj);
-> +	struct drm_encoder *encoder =3D bridge->encoder;
-> +	const struct drm_bridge_funcs *bridge_funcs =3D bridge->funcs;
-> +	struct drm_crtc_state *crtc_state;
-> +	struct drm_bridge_state *bridge_state;
-> +	struct drm_connector_state *conn_state;
-> +	int ret;
-> +
-> +	/*
-> +	 * If the bridge's encoder has no routed connector or no
-> +	 * active CRTC, the pipeline is disabled and there is nothing
-> +	 * to read out. Keep the pristine default state created by
-> +	 * &drm_mode_config_helper_funcs.atomic_sro_build_state.
-> +	 */
-> +	conn_state =3D find_connector_state_for_encoder(state, encoder);
-> +	if (!conn_state)
-> +		return 0;
-> +
-> +	if (!conn_state->crtc)
-> +		return 0;
-> +
-> +	crtc_state =3D drm_atomic_sro_get_crtc_state(state, conn_state->crtc);
-> +	if (!crtc_state)
-> +		return 0;
-
-[Severity: Medium]
-Should this check !crtc_state->active as well, matching the comment above
-and drm_bridge_atomic_install_priv_state() below?
-
-drm_atomic_helper_sro_readout_crtcs_state() populates a non-NULL
-crtc_state in the readout container even when the CRTC is inactive, so
-checking only !crtc_state will still invoke atomic_sro_readout_state() on
-a disabled pipeline if conn_state->crtc is set while crtc_state->active is
-false.
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261120-drm-state-=
-readout-v9-0-a67c2b45b8ec@kernel.org?part=3D17
