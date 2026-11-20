@@ -2,41 +2,91 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CD8C6606A6EA
-	for <dri-devel@archiver.kernel.org>; Fri, 20 Nov 2026 19:58:39 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2C503606A6EE
+	for <dri-devel@archiver.kernel.org>; Fri, 20 Nov 2026 20:05:31 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=OdmEwQwF
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=weukMQDt
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 4331510E035;
-	Fri, 20 Nov 2026 19:58:34 +0000 (UTC)
-Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 0F04410E035
- for <dri-devel@lists.freedesktop.org>; Fri, 20 Nov 2026 19:58:28 +0000 (UTC)
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id E964444D35
- for <dri-devel@lists.freedesktop.org>; Fri, 20 Nov 2026 19:58:27 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5FA091F000C4;
- Fri, 20 Nov 2026 19:58:27 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1795204707;
- bh=VDM1d0EDWS2rm0wJTFcMUA6Q/uCzeoO1eePW0KoUL/c=;
- h=From:Subject:Reply-To:To:In-Reply-To:References:Date;
- b=OdmEwQwFvYrooyvXLDhycia+qSan+N5n1zBjQV50Lzm43OEVGWoMa+UdpvWnrayng
- ce5RzjVMlmltK1V3+ZZ1TBDSC0bjPZHykEeQ4t5n8W+COa40WafJFODucrZN1K/nuX
- nsiSRuvujY+eEvDdRNhwkyNGY3+OidS9ksoJQnnzCvYsXYPd02mQmpjwDOe2ejgjn5
- 1vnAgI+icd+GmrVfDyjGWoBPZX927/ViFysRjQ/plFPYGV9pcFkqek9+eE3vUp6v5K
- zwwuBrdmyQS9EpOZPE0PAuFLfPRK7m82IzUU5YQyKrFOEcXkiRn3GmxvLLIgJl787U
- CtMVfY+/Zaayg==
-Message-ID: <sashiko-outbox-225984@kernel.org>
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v3] fbcon: Don't drop last logo line if logo is same
- size as screen
-To: "Helge Deller" <deller@kernel.org>, dri-devel@lists.freedesktop.org
-In-Reply-To: <awCcqwVKi_n0KMhi@carbonx1>
-References: <awCcqwVKi_n0KMhi@carbonx1>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Fri, 20 Nov 2026 19:58:26 +0000
+	by gabe.freedesktop.org (Postfix) with ESMTP id 9874710E082;
+	Fri, 20 Nov 2026 20:05:25 +0000 (UTC)
+Received: from mail-oa1-f49.google.com (mail-oa1-f49.google.com
+ [209.85.160.49])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 67CF910E082
+ for <dri-devel@lists.freedesktop.org>; Fri, 20 Nov 2026 20:05:19 +0000 (UTC)
+Received: by mail-oa1-f49.google.com with SMTP id
+ 586e51a60fabf-4911df1e196so789767fac.1
+ for <dri-devel@lists.freedesktop.org>; Fri, 20 Nov 2026 12:05:19 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20260707; t=1795205118; x=1795809918; darn=lists.freedesktop.org;
+ h=cc:to:message-id:content-transfer-encoding:content-type
+ :mime-version:subject:date:from:from:to:cc:subject:date:message-id
+ :reply-to:content-type;
+ bh=T9Xx4usP8rm74KCRP+cc35Zk5oNMrUUP5XG8xRlvNZA=;
+ b=weukMQDtogxRdYzEo5FkyknQfjfDzPnITWXTC+N0Blw6BuhzKOTfFQkHfY8k6lSFGE
+ 7+whAwcS+2GOncYpGgV/L72d7k8Hb6qPKzULcZCH+1eSjKpNnaBbRXBArvblmP0qFdVe
+ 01EKgXSTs1S3EVzoVYcUDUNKUuyPK1GgFIzawwAxbyXarnl+sZwlSez3+RNKoveLZqr9
+ PzmL5OBN1mPk9+OqUgsTa/fJ3JK18UpGWalLM4RTq0QXK5vj9xMWDnFtOe7DmDiAuQER
+ Qw/8cMsWLYjdOaQpQbisJLyVAggxyKUgAUC+gk2Z95KSlLRn8SRLmN8YswT3FyvzcVbO
+ JC0w==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20260707; t=1795205118; x=1795809918;
+ h=cc:to:message-id:content-transfer-encoding:content-type
+ :mime-version:subject:date:from:x-gm-gg:x-gm-message-state:from:to
+ :cc:subject:date:message-id:reply-to:content-type;
+ bh=T9Xx4usP8rm74KCRP+cc35Zk5oNMrUUP5XG8xRlvNZA=;
+ b=Bl14xr4sZ4fyKv5F1WzPdE17AYhxQiaODVm2p5tmsGJvga+/4hVgLEW2oS1ELhgC8U
+ jH6ztxJQ3I0MI5PGvYpGnmYWK1iB4gp+HjAEEMLBEnAsjNEqLO1IH+2v6x14ZUA+SZJV
+ pj7d75cg6rGXM2KQ2BqcQlw6XlyB5mmg8Z1ofHaLssjj19Pc5SjEdFxE6Ac6G9BVy73W
+ +TJBH0Mna6VOT1nKK+T9ft0q16W4loQQ2dDOKn7+CQM4hAMhoaugxZVeMiSP/wbkE4qX
+ 9YF2S+giI2uNC+snRaP8mBG3EpirIp1jdNEJhd8hIewH6uh9M+fLru4J/RROPfc3s54e
+ WV9A==
+X-Gm-Message-State: APuU4Z89ec/Lahs0NZVH63k+LAoRyfqK0O5U5QUNd/2/S0/ZsvJUS8Ry
+ Niq3RlA9mwIa3m6/RqDuUu9b64XGsPT6qxTgnK9/yY3yAXehRNkdFPwk
+X-Gm-Gg: AZFdTZfNl3Qgb1Rqs6yCpjKJ13YBkx2Xr7/rjMrc8j7ssMgldWjMdb9YWS8TL9tt3fN
+ +BIwFIb7Ch4DcDQAbayOX8TvcRAMjfvtG3+W8XYfrpb/1k2MBknWah44chMIKFUbFGAoJ54yk6H
+ VsdS1SWUkX6x3J1M1cksgDQrtSvsVEvuTMR33Tiw+KyzklujfXlT6J0DqwNFNjXaJ0QDIxTIwjX
+ YHqi3ssMDZbExuKqgsnEDdHKxp1tnbTAbj2pIIUuPrFpN9u6nI6Nnqz7VD3hCAeUkeY7Bn088Oc
+ D1JknVdqQoAd4S3EC8OnnN2rInKFdrrAqKdYYz/QyT4dqMqLkqVIUs6Y5ldDQVD9zhZSvW2IIDx
+ s2OuLd/Rm0EDF6pY3cHTloYuPnMUnL5mpeMIv77VQBmGCexlZz6+lKIjfi184KrCBlwVkE6BR7r
+ Xi7kHKtKeII/9RCIFbKiYyv8N0OdXZoUxB3HWNECZl4bywNhXoNQoDEBotWPSQtYLJodOBPpofh
+ Pyt3oMgH9v7adHgqsqsbLZctMcmvjGdv0uQts/Zu975ML3eHV4fTYxmgXGRmS0UTdkmIXOjCe+U
+ FrYXlRb9Yxc+YL6wr0XPz7B1n19xfpPbJfbVeP0OjrlHxr0esgTf+0Cp4VcErWG22sZbGplDLD4
+ faDjNou9F26I8mSVHeOw=
+X-Received: by 2002:a05:6870:4db:b0:4ad:8d9f:98a3 with SMTP id
+ 586e51a60fabf-4bc87de13e3mr3153094fac.35.1795205118467; 
+ Fri, 20 Nov 2026 12:05:18 -0800 (PST)
+Received: from [10.10.18.223] (wsip-64-207-253-118.tu.ok.cox.net.
+ [64.207.253.118]) by smtp.gmail.com with ESMTPSA id
+ 586e51a60fabf-4bc5edc52aasm4122200fac.4.2026.11.20.12.05.16
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Fri, 20 Nov 2026 12:05:17 -0800 (PST)
+From: Ryan Brue <ryanbrue.dev@gmail.com>
+Date: Fri, 20 Nov 2026 14:05:16 -0600
+Subject: [PATCH] drm/mediatek: ovl: Report coverage blending on older SoCs
+X-Archived-By: <archiver.kernel.org>
+MIME-Version: 1.0
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20261120-rbrue-suez-mtk-ovl-coverage-v1-1-35040085fc37@gmail.com>
+X-B4-Tracking: v=1; b=H4sIAAAAAAAA/x3MUQrCMAwG4KuEPC9ghkjtVcSHtv7OoK6SuiKO3
+ V3wO8C3coMbGkda2dGtWZ05kg7E5ZbmCWIXjsTjbjyoahDPvkDagq8833ep/SGldniaIHoMRTW
+ nkHXPA/HLcbXPfz+dt+0HCGu2Qm0AAAA=
+X-Change-ID: 20261118-rbrue-suez-mtk-ovl-coverage-198c11ba8b14
+To: Chun-Kuang Hu <chunkuang.hu@kernel.org>, 
+ Philipp Zabel <p.zabel@pengutronix.de>, David Airlie <airlied@gmail.com>, 
+ Simona Vetter <simona@ffwll.ch>, Matthias Brugger <matthias.bgg@gmail.com>, 
+ AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>
+Cc: dri-devel@lists.freedesktop.org, linux-mediatek@lists.infradead.org, 
+ linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
+ Ryan Brue <ryanbrue.dev@gmail.com>
+X-Mailer: b4 0.14.3
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1795205116; l=4367;
+ i=ryanbrue.dev@gmail.com; s=20260906; h=from:subject:message-id;
+ bh=h4Tvd2gLk6BmOFdUxw3JC3W2Yz6nDyqzW/jYqV5h1bo=;
+ b=jygRYnIZ6A4BG1IGZuzzTo8JDeciKHrqpHygmrw7zjCsTulx4jjcQ4bzto4hZFbM6Q7yhLwFt
+ 4qkyVhGaLPOCo2whLDjeAKzLnJWJLoLWJ/JFUVijZG41BSFtOvQ8ye8
+X-Developer-Key: i=ryanbrue.dev@gmail.com; a=ed25519;
+ pk=KsUvVaP//v/2q+ZBuacc7cLbsyEYn+AD71Sn28oZWKo=
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -47,118 +97,116 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
-Reply-To: sashiko-reviews@lists.linux.dev
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-10.8 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
-	DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
-	INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS autolearn=ham
-	autolearn_force=no version=4.0.1
+X-Spam-Status: No, score=-15.8 required=3.0 tests=BAYES_00,DKIM_SIGNED,
+	DKIM_VALID,DKIM_VALID_AU,FREEMAIL_FORGED_FROMDOMAIN,FREEMAIL_FROM,
+	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
+	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,USER_AGENT_GIT
+	autolearn=unavailable autolearn_force=no version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
-X-Archived-By: <archiver.kernel.org>
 
-Thank you for your contribution! Sashiko AI review found 3 potential
-issues to consider:
-- [High] fbcon: slab-out-of-bounds read in fbcon_prepare_logo() when
-  cols > new_cols
-- [Medium] fbcon: full-screen logo overwritten in fbcon_prepare_logo()
-  if rows < new_rows
-- [Low] fbcon: stale vc_top kept in fbcon_prepare_logo() when dimensions
-  match
---
+Since commit 860e748bddcc ("drm: ensure blend mode supported if pixel
+format with alpha exposed"), every OVL plane on MT2701, MT8167, MT8173
+and MT8183 warns at boot:
 
-commit d343bfc671c341be6e2717c9d73d4817c83b82d0
-Author: Helge Deller <deller@kernel.org>
+  [drm] [PLANE:37:plane-0] pixel format with alpha exposed but blend
+  mode not setup. Please fix.
 
-fbcon: Don't drop last logo line if logo is same size as screen
+These OVLs expose ARGB formats but don't have blend_modes in their driver
+data, so no "pixel blend mode" property is created. They can't blend
+premultiplied pixels: mtk_ovl_fmt_convert() always selects the
+non-premultiplied color formats for them, which is the DRM "Coverage"
+equation. Since commit 9813e158d13d ("drm/drm_blend: allow blend mode
+property without PREMULTI") a coverage-only property is allowed, so
+advertise it and drop the comment saying it couldn't be created.
 
-This commit allows bootlogos that match the screen height to use all rows
-without dropping the last line, while keeping vc_top unchanged and skipping
-update_region() when a logo covers the entire screen.
+The plane state now defaults to Coverage instead of Pre-multiplied. Both
+are non-zero, so mtk_ovl_layer_config() programs the same registers as
+before.
 
-> diff --git a/drivers/video/fbdev/core/fbcon.c b/drivers/video/fbdev/core/=
-fbcon.c
-> index 7720dfc80c165..3be7f2ade65cc 100644
-> --- a/drivers/video/fbdev/core/fbcon.c
-> +++ b/drivers/video/fbdev/core/fbcon.c
-> @@ -637,7 +637,7 @@ static void fbcon_prepare_logo(struct vc_data *vc, st=
-ruct fb_info *info,
->  	logo_height =3D fb_prepare_logo(info, par->rotate);
->  	logo_lines =3D DIV_ROUND_UP(logo_height, vc->vc_font.height);
->  	logo_lines =3D min(logo_lines, rows);
-> -	logo_lines =3D min(logo_lines, new_rows - 1);
-> +	logo_lines =3D min(logo_lines, new_rows);
->  	if (logo_lines <=3D 0) {
->  		logo_lines =3D 0;
->  		logo_shown =3D FBCON_LOGO_DONTSHOW;
+Tested on MT8173 (Amazon Fire HD 10 2017). The warning is gone, every
+plane reports a "pixel blend mode" of Coverage, and the OVL0 layer
+registers are unchanged.
 
-[Severity: High]
-Can r underflow vc->vc_origin and cause a slab-out-of-bounds read in
-scr_readw(r) when cols > new_cols?
+Signed-off-by: Ryan Brue <ryanbrue.dev@gmail.com>
+---
+Since 7.3, MT8173 and the other OVLs without premultiplied alpha log
+"pixel format with alpha exposed but blend mode not setup" for every
+plane at boot. They blend in coverage mode, and the blend mode helper
+now accepts a coverage-only property, so this patch advertises that.
+No register changes; tested on MT8173 (Amazon Fire HD 10 2017).
 
-In fbcon_init(), vc_resize(vc, new_cols, new_rows) runs before
-fbcon_prepare_logo(), reallocating vc->vc_screenbuf to new_cols * new_rows
-characters and setting vc->vc_size_row =3D 2 * new_cols:
+This patch was developed with the help of an LLM.
+---
+ drivers/gpu/drm/mediatek/mtk_disp_ovl.c | 13 +++++++------
+ 1 file changed, 7 insertions(+), 6 deletions(-)
 
-drivers/video/fbdev/core/fbcon.c:fbcon_prepare_logo() {
-    ...
-	q =3D (unsigned short *) (vc->vc_origin +
-				vc->vc_size_row * rows);
-	step =3D logo_lines * cols;
-	for (r =3D q - logo_lines * cols; r < q; r++)
-		if (scr_readw(r) !=3D vc->vc_video_erase_char)
-			break;
-    ...
-}
+diff --git a/drivers/gpu/drm/mediatek/mtk_disp_ovl.c b/drivers/gpu/drm/mediatek/mtk_disp_ovl.c
+index 5445870716f9..81a4143f294d 100644
+--- a/drivers/gpu/drm/mediatek/mtk_disp_ovl.c
++++ b/drivers/gpu/drm/mediatek/mtk_disp_ovl.c
+@@ -412,12 +412,8 @@ static unsigned int mtk_ovl_fmt_convert(struct mtk_disp_ovl *ovl,
+ 	 * and supports premultiplied color formats, such as OVL_CON_CLRFMT_PARGB8888.
+ 	 *
+ 	 * Check blend_modes in the driver data to see if premultiplied mode is supported.
+-	 * If not, use coverage mode instead to set it to the supported color formats.
+-	 *
+-	 * Current DRM assumption is that alpha is default premultiplied, so the bitmask of
+-	 * blend_modes must include BIT(DRM_MODE_BLEND_PREMULTI). Otherwise, mtk_plane_init()
+-	 * will get an error return from drm_plane_create_blend_mode_property() and
+-	 * state->base.pixel_blend_mode should not be used.
++	 * If not, the hardware only blends in coverage mode, which is the only mode
++	 * those platforms advertise.
+ 	 */
+ 	if (ovl->data->blend_modes & BIT(DRM_MODE_BLEND_PREMULTI))
+ 		blend_mode = state->base.pixel_blend_mode;
+@@ -667,6 +663,7 @@ static const struct mtk_disp_ovl_data mt2701_ovl_driver_data = {
+ 	.gmc_bits = 8,
+ 	.layer_nr = 4,
+ 	.fmt_rgb565_is_0 = false,
++	.blend_modes = BIT(DRM_MODE_BLEND_COVERAGE),
+ 	.formats = mt8173_formats,
+ 	.num_formats = ARRAY_SIZE(mt8173_formats),
+ };
+@@ -677,6 +674,7 @@ static const struct mtk_disp_ovl_data mt8167_ovl_driver_data = {
+ 	.layer_nr = 4,
+ 	.fmt_rgb565_is_0 = true,
+ 	.smi_id_en = true,
++	.blend_modes = BIT(DRM_MODE_BLEND_COVERAGE),
+ 	.formats = mt8173_formats,
+ 	.num_formats = ARRAY_SIZE(mt8173_formats),
+ };
+@@ -686,6 +684,7 @@ static const struct mtk_disp_ovl_data mt8173_ovl_driver_data = {
+ 	.gmc_bits = 8,
+ 	.layer_nr = 4,
+ 	.fmt_rgb565_is_0 = true,
++	.blend_modes = BIT(DRM_MODE_BLEND_COVERAGE),
+ 	.formats = mt8173_formats,
+ 	.num_formats = ARRAY_SIZE(mt8173_formats),
+ };
+@@ -695,6 +694,7 @@ static const struct mtk_disp_ovl_data mt8183_ovl_driver_data = {
+ 	.gmc_bits = 10,
+ 	.layer_nr = 4,
+ 	.fmt_rgb565_is_0 = true,
++	.blend_modes = BIT(DRM_MODE_BLEND_COVERAGE),
+ 	.formats = mt8173_formats,
+ 	.num_formats = ARRAY_SIZE(mt8173_formats),
+ };
+@@ -704,6 +704,7 @@ static const struct mtk_disp_ovl_data mt8183_ovl_2l_driver_data = {
+ 	.gmc_bits = 10,
+ 	.layer_nr = 2,
+ 	.fmt_rgb565_is_0 = true,
++	.blend_modes = BIT(DRM_MODE_BLEND_COVERAGE),
+ 	.formats = mt8173_formats,
+ 	.num_formats = ARRAY_SIZE(mt8173_formats),
+ };
 
-When transitioning from a console such as 80x25 vgacon to a narrower fbcon
-(for example new_cols =3D 79, new_rows =3D 25, where vgacon_resize() return=
-ed
--EINVAL during fbcon_startup() so cols is still 80), allowing logo_lines =
-=3D=3D
-rows makes logo_lines * cols larger than rows * new_cols.  Then r =3D q -
-logo_lines * cols starts before vc->vc_origin.
+---
+base-commit: aebb7274476403040d582c61478df8f4a7bf9cd3
+change-id: 20261118-rbrue-suez-mtk-ovl-coverage-198c11ba8b14
 
-> @@ -705,7 +705,9 @@ static void fbcon_prepare_logo(struct vc_data *vc, st=
-ruct fb_info *info,
->  		pr_info("fbcon: disable boot-logo (boot-logo bigger than screen).\n");
->  	} else {
->  		logo_shown =3D FBCON_LOGO_DRAW;
-> -		vc->vc_top =3D logo_lines;
-> +		/* keep vc_top if logo covers whole screen */
-> +		if (logo_lines < vc->vc_bottom)
-> +			vc->vc_top =3D logo_lines;
->  	}
->  }
->  #endif /* MODULE */
+Best regards,
+-- 
+Ryan Brue <ryanbrue.dev@gmail.com>
 
-[Severity: Medium]
-Does a full-screen logo still set vc->vc_top to rows and get partially
-overwritten whenever rows < new_rows?
-
-Earlier in fbcon_prepare_logo(), logo_lines is clamped with min(logo_lines,
-rows), whereas vc_resize() has already set vc->vc_bottom to new_rows.  When
-taking over from a smaller console (such as 80x25 vgacon on a display with
-more than 25 character rows), logo_lines is clamped to 25 while
-vc->vc_bottom is new_rows, so logo_lines < vc->vc_bottom is true even for a
-full-screen logo.  That sets vc->vc_top =3D rows, causing fbcon_switch() to
-call update_region() after fb_show_logo() and erase the bottom new_rows -
-rows lines of the logo.
-
-[Severity: Low]
-Can vc->vc_top remain non-zero when logo_lines =3D=3D vc->vc_bottom if the
-console dimensions did not change?
-
-When new_cols =3D=3D vc->vc_cols and new_rows =3D=3D vc->vc_rows, vc_do_res=
-ize()
-returns early via resize_screen() without resetting vc->vc_top to 0.  If
-vc->vc_top was non-zero prior to fbcon_prepare_logo() (for example from an
-earlier scrolling region or console unbind/rebind), skipping the assignment
-leaves the stale non-zero vc->vc_top in place, and fbcon_switch() will call
-update_region() over the full-screen logo.  Explicitly setting vc->vc_top =
-=3D
-0 in an else branch would avoid this.
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/awCcqwVKi_n0KMhi@ca=
-rbonx1?part=3D1
