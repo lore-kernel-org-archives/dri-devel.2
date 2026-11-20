@@ -2,51 +2,130 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3A2F260A2617
-	for <dri-devel@archiver.kernel.org>; Fri, 20 Nov 2026 13:43:09 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 52592606A339
+	for <dri-devel@archiver.kernel.org>; Fri, 20 Nov 2026 13:48:34 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=UpVSaYgS
+	dkim=pass (2048-bit key, unprotected) header.d=posteo.de header.i=@posteo.de header.a=rsa-sha256 header.s=1984.8680eb header.b=clo/BOoQ
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 924A010E0DA;
-	Fri, 20 Nov 2026 13:43:03 +0000 (UTC)
-Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id D9FE310E076;
- Fri, 20 Nov 2026 13:42:56 +0000 (UTC)
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by tor.source.kernel.org (Postfix) with ESMTP id 0456162639;
- Fri, 20 Nov 2026 13:42:56 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6D0AF1F000C6;
- Fri, 20 Nov 2026 13:42:54 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1795182175;
- bh=DelEkWRb0otuJ3Owk/bNvAUD48qPFcVpkVG0GdkPIyw=;
- h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
- b=UpVSaYgSj1NtOF2npDd65U4IopbZzT3Hi6ZIqgFnGLCDO3Gz9D3X8hsrvlFN8b2vq
- Ht3A6P/uyAEZs8Xl2usjLVUEolwygAOoserrISqQ57UvsNrrASNEs1wl7gTUDQC4c/
- DPxaVbvyQSJwSuh/HjbvZ/7NShlFe6KHXux7nsFTAMK75rsqBcpMx1DC5ed/pykgWO
- ZCqvnrCBcXk880Wo334MC2BZzmu0cma+pnffkE6hZrX3G6gcxkp0nHpcjlcH00NDm5
- Xh+qzrinP/3wLbNonh0+OrQxLQ9uTdJZu04q8LTvKY/o9X7PWHu3K/nDowL1c2Hxao
- gM6AxXrB+3Ssw==
-Message-ID: <sashiko-outbox-225261@kernel.org>
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH] drm/i915/gem: Skip writeback of shmem folios with extra
- references
-To: =?utf-8?b?S2lyeWwgU2h1dHNlbWF1IChNZXRhKQ==?= <kas@kernel.org>, "Jani
- Nikula" <jani.nikula@linux.intel.com>,
- "Joonas Lahtinen" <joonas.lahtinen@linux.intel.com>, "Rodrigo
- Vivi" <rodrigo.vivi@intel.com>, "Tvrtko Ursulin" <tursulin@ursulin.net>
-Cc: "David Airlie" <airlied@gmail.com>, "Simona Vetter" <simona@ffwll.ch>,
- "Andi
- Shyti" <andi.shyti@linux.intel.com>, "David Hildenbrand" <david@kernel.org>,
- "Hugh
- Dickins" <hughd@google.com>, "Baolin Wang" <baolin.wang@linux.alibaba.com>,
- intel-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
- linux-mm@kvack.org, kernel-team@meta.com
-In-Reply-To: <20261119134243.3745282-1-kas@kernel.org>
-References: <20261119134243.3745282-1-kas@kernel.org>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Fri, 20 Nov 2026 13:42:53 +0000
+	by gabe.freedesktop.org (Postfix) with ESMTP id B995610E8FE;
+	Fri, 20 Nov 2026 13:48:28 +0000 (UTC)
+X-Greylist: delayed 432 seconds by postgrey-1.36 at gabe;
+ Fri, 20 Nov 2026 13:48:21 UTC
+Received: from mout01.posteo.de (mout01.posteo.de [185.67.36.65])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id F334C10E90A
+ for <dri-devel@lists.freedesktop.org>; Fri, 20 Nov 2026 13:48:21 +0000 (UTC)
+Received: from submission (posteo.de [185.67.36.169]) 
+ by mout01.posteo.de (Postfix) with ESMTPS id 878A8240027
+ for <dri-devel@lists.freedesktop.org>; Fri, 20 Nov 2026 14:41:06 +0100 (CET)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=posteo.de;
+ s=1984.8680eb; t=1795182066;
+ bh=YW4oRhO1MuXRHyeWQ9Lx5ixnye7cuXD9in5rMS24y2A=;
+ h=Message-ID:Subject:From:To:Cc:Date:Autocrypt:Content-Type:
+ MIME-Version:OpenPGP:From;
+ b=clo/BOoQev9GVZ/nJoQIFvi7wZiixcxpmk11sW0SYY+s3fd1zmWJH5gHuX9aDQYXe
+ FDAqiHZqWgp1rDqxGYwk2ueaL/VWGhSa7ZcLEqgRcvV6TeprQBrd2Pd48uK9E+Itzt
+ 4rXjKaaWFWTI7I3d7ny9S5mKhAeep+6soQJgyeY6215aVJDhiCg01GgZhEbxJefEva
+ xcgRTYfoWLN3AVT4TQbUtYLvXNHJFklIgu/neh+1p3gaCTRcxG0NO7unKf1c9Ix50u
+ pv0jbKzwGr7Vuf8tDuIv3UPeu5NStBiwJNIKWqAiGqPqZhAd5Sd2PAF7w6cSN/9vzZ
+ tNjVxUT1AX8qQ==
+Received: from customer (localhost [127.0.0.1])
+ by submission (posteo.de) with ESMTPSA id 4jWGgr36MZz6tyT;
+ Fri, 20 Nov 2026 14:40:56 +0100 (CET)
+Message-ID: <e4c77581b1c09f8e0c8be570283f653a2a7e2147.camel@posteo.de>
+Subject: Re: [PATCH v22 4/5] rust: rename `AlwaysRefCounted` to `RefCounted`
+From: Markus Probst <markus.probst@posteo.de>
+To: Andreas Hindborg <a.hindborg@kernel.org>, Danilo Krummrich
+ <dakr@kernel.org>,  Lorenzo Stoakes	 <ljs@kernel.org>, Vlastimil Babka
+ <vbabka@kernel.org>, "Liam R. Howlett"	 <liam@infradead.org>, Uladzislau
+ Rezki <urezki@gmail.com>, Miguel Ojeda	 <ojeda@kernel.org>, Boqun Feng
+ <boqun@kernel.org>, Gary Guo <gary@garyguo.net>,  =?ISO-8859-1?Q?Bj=F6rn?=
+ Roy Baron	 <bjorn3_gh@protonmail.com>, Benno Lossin <lossin@kernel.org>,
+ Alice Ryhl	 <aliceryhl@google.com>, Trevor Gross <tmgross@umich.edu>,
+ Daniel Almeida	 <daniel.almeida@collabora.com>, Tamir Duberstein
+ <tamird@kernel.org>,  Alexandre Courbot <acourbot@nvidia.com>, Onur
+ =?ISO-8859-1?Q?=D6zkan?= <work@onurozkan.dev>, Lyude Paul	
+ <lyude@redhat.com>, Greg Kroah-Hartman <gregkh@linuxfoundation.org>, 
+ Christian Brauner	 <brauner@kernel.org>, "Rafael J. Wysocki"
+ <rafael@kernel.org>, Dave Ertman	 <david.m.ertman@intel.com>, Leon
+ Romanovsky <leon@kernel.org>, Paul Moore	 <paul@paul-moore.com>, Serge
+ Hallyn <sergeh@kernel.org>, David Airlie	 <airlied@gmail.com>, Simona
+ Vetter <simona@ffwll.ch>, Alexander Viro	 <viro@zeniv.linux.org.uk>, Jan
+ Kara <jack@suse.cz>, Igor Korotin	 <igor.korotin@linux.dev>, Viresh Kumar
+ <vireshk@kernel.org>, Nishanth Menon	 <nm@ti.com>, Stephen Boyd
+ <sboyd@kernel.org>, Bjorn Helgaas <bhelgaas@google.com>,  Krzysztof
+ =?UTF-8?Q?Wilczy=C5=84ski?=	 <kwilczynski@kernel.org>, Pavel Tikhomirov
+ <ptikhomirov@virtuozzo.com>,  Michal Wilczynski <m.wilczynski@samsung.com>,
+ Ira Weiny <iweiny@kernel.org>, Matthew Brost <matthew.brost@intel.com>, 
+ Thomas =?ISO-8859-1?Q?Hellstr=F6m?=	 <thomas.hellstrom@linux.intel.com>,
+ Johan Hovold <johan@kernel.org>, Sumit Semwal <sumit.semwal@linaro.org>,
+ Christian =?ISO-8859-1?Q?K=F6nig?= <christian.koenig@amd.com>,  Dave Jiang
+ <dave.jiang@intel.com>, Jason Gunthorpe <jgg@ziepe.ca>, Saeed Mahameed
+ <saeedm@nvidia.com>,  Zhi Wang <zhiw@nvidia.com>, Jonathan Cameron
+ <jic23@kernel.org>
+Cc: Philipp Stanner <phasta@kernel.org>, rust-for-linux@vger.kernel.org, 
+ linux-kernel@vger.kernel.org, linux-mm@kvack.org,
+ driver-core@lists.linux.dev, 	linux-block@vger.kernel.org,
+ linux-security-module@vger.kernel.org, 	dri-devel@lists.freedesktop.org,
+ linux-fsdevel@vger.kernel.org, 	linux-pm@vger.kernel.org,
+ linux-pci@vger.kernel.org, linux-pwm@vger.kernel.org, 
+ linux-usb@vger.kernel.org, linux-media@vger.kernel.org, 
+ linaro-mm-sig@lists.linaro.org, linux-serial@vger.kernel.org, Oliver
+ Mangold	 <oliver.mangold@pm.me>, Viresh Kumar <viresh.kumar@linaro.org>,
+ Uwe =?ISO-8859-1?Q?Kleine-K=F6nig?=	 <ukleinek@kernel.org>
+Date: Fri, 20 Nov 2026 13:41:05 +0000
+In-Reply-To: <20261116-unique-ref-v22-4-12029383206d@kernel.org>
+References: <20261116-unique-ref-v22-0-12029383206d@kernel.org>
+ <20261116-unique-ref-v22-4-12029383206d@kernel.org>
+Autocrypt: addr=markus.probst@posteo.de; prefer-encrypt=mutual;
+ keydata=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
+ jfGillcaQOqFZ3WwVqyzG1BUfTow==
+Content-Type: multipart/signed; micalg="pgp-sha256";
+ protocol="application/pgp-signature"; boundary="=-1bC6az0UrhT7nf2a398O"
+X-Archived-By: <archiver.kernel.org>
+MIME-Version: 1.0
+OpenPGP: url=https://posteo.de/keys/markus.probst@posteo.de.asc;
+ preference=encrypt
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -57,88 +136,81 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
-Reply-To: sashiko-reviews@lists.linux.dev
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-10.8 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
-	DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
-	INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS
+X-Spam-Status: No, score=-10.8 required=3.0 tests=BAYES_00,DKIM_SIGNED,
+	DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
+	INCLUDES_CR_TRAILER,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS
 	autolearn=unavailable autolearn_force=no version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
-X-Archived-By: <archiver.kernel.org>
 
-Thank you for your contribution! Sashiko AI review found 2 potential
-issues to consider:
-- [High] drm/i915/gem: missing folio_unlock() after redirty in
-  __shmem_writeback()
-- [High] drm/i915/gem: invalid dirty-tag writeback helpers in
-  __shmem_writeback()
---
 
-commit eee676ed22d7c6fdff448f68a9e29b819f5d0c1e
-Author: Kiryl Shutsemau (Meta) <kas@kernel.org>
+--=-1bC6az0UrhT7nf2a398O
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-drm/i915/gem: Skip writeback of shmem folios with extra references
+On Mon, 2026-11-16 at 15:21 +0100, Andreas Hindborg wrote:
+> From: Oliver Mangold <oliver.mangold@pm.me>
+>=20
+> There are types where it may both be reference counted in some cases and
+> owned in others. For such types, obtaining an `ARef<T>` from a `&T` may b=
+e
+> unsound, as it allows creation of an `ARef<T>` from a `&Owned<T>`.
+>=20
+> Therefore, we split `AlwaysRefCounted` into `RefCounted` (which `ARef<T>`
+> would require) and a marker trait to indicate that the `&T` -> `ARef<T>`
+> conversion is sound for the type. A type that implements `Ownable` may
+> only implement the marker trait if it allows an `ARef<T>` to exist
+> together with an `Owned<T>`.
+>=20
+> - Rename `AlwaysRefCounted` to `RefCounted`.
+> - Add a new unsafe trait `AlwaysRefCounted`.
+> - Implement the new trait `AlwaysRefCounted` for the newly renamed
+>   `RefCounted` implementations. This leaves functionality of existing
+>   implementers of `AlwaysRefCounted` intact.
+>=20
+> Suggested-by: Alice Ryhl <aliceryhl@google.com>
+> Signed-off-by: Oliver Mangold <oliver.mangold@pm.me>
+> [ Andreas: Updated commit message, rebased on v7.4-rc2, converted new
+>   implementers, relaxed the `ForeignOwnable` bound for `ARef<T>`, updated
+>   safety comments. ]
+> Acked-by: Igor Korotin <igor.korotin.linux@gmail.com>
+> Acked-by: Danilo Krummrich <dakr@kernel.org>
+> Acked-by: Viresh Kumar <viresh.kumar@linaro.org>
+> Co-developed-by: Andreas Hindborg <a.hindborg@kernel.org>
+> Signed-off-by: Andreas Hindborg <a.hindborg@kernel.org>
+> Acked-by: Uwe Kleine-K=C3=B6nig <ukleinek@kernel.org> # for pwm.rs
 
-This commit skips shmem writeback in __shmem_writeback() for folios that
-carry references beyond the page cache and writeback_iter(), avoiding
-writeback while an unmapped PMD may still have pending stores through a
-stale TLB entry.
+I haven't unterstood yet what use case this has, so I am trusting the
+other ACKs here. Maybe a precise example would help?
 
-> diff --git a/drivers/gpu/drm/i915/gem/i915_gem_shmem.c b/drivers/gpu/drm/=
-i915/gem/i915_gem_shmem.c
-> index bf9e7480f0f54..748772c358acd 100644
-> --- a/drivers/gpu/drm/i915/gem/i915_gem_shmem.c
-> +++ b/drivers/gpu/drm/i915/gem/i915_gem_shmem.c
-> @@ -316,9 +316,15 @@ void __shmem_writeback(size_t size, struct address_s=
-pace *mapping)
->  	 * leaving only CPU mmapings around) and add those folios to the LRU
->  	 * instead of invoking writeback so they are aged and paged out
->  	 * as normal.
-> +	 *
-> +	 * The same goes for a folio with references beyond the page cache
-> +	 * and writeback_iter(). A folio that was just unmapped can still be
-> +	 * written through a stale TLB entry until the unmapping side flushes
-> +	 * the TLB and drops its reference. pageout() checks the same.
->  	 */
->  	while ((folio =3D writeback_iter(mapping, &wbc, folio, &error))) {
-> -		if (folio_mapped(folio))
-> +		if (folio_mapped(folio) ||
-> +		    folio_ref_count(folio) !=3D 1 + folio_nr_pages(folio))
->  			folio_redirty_for_writepage(&wbc, folio);
->  		else
->  			error =3D shmem_write_folio(folio);
+For serdev:
 
-[Severity: High]
-Does skipping writeback here leave the folio locked?
+Acked-by: Markus Probst <markus.probst@posteo.de>
 
-writeback_iter() returns the folio locked via writeback_get_folio(), and
-neither folio_redirty_for_writepage() nor the next writeback_iter() call
-unlocks it.  Routing unmapped folios with extra references into the
-folio_redirty_for_writepage() branch without calling folio_unlock() leaves
-PG_locked set permanently, deadlocking later faults, reclaim or truncation
-on that folio.
+Thanks
+- Markus Probst
 
-[Severity: High]
-Can writeback_iter() and folio_redirty_for_writepage() be used on a shmem
-mapping?
+--=-1bC6az0UrhT7nf2a398O
+Content-Type: application/pgp-signature; name="signature.asc"
+Content-Description: This is a digitally signed message part
 
-writeback_get_folio() looks up folios by PAGECACHE_TAG_DIRTY, but
-shmem_aops uses noop_dirty_folio, which sets PG_dirty without tagging
-mapping->i_pages.  As a result, writeback_iter() never finds dirty shmem
-folios, and calling folio_redirty_for_writepage() on a shmem folio reaches
-__folio_mark_dirty(), which triggers:
+-----BEGIN PGP SIGNATURE-----
 
-mm/page-writeback.c:__folio_mark_dirty() {
-	...
-	/*
-	 * Shmem writeback relies on swap, and swap writeback is LRU based,
-	 * not using the dirty mark.
-	 */
-	VM_WARN_ON_ONCE(folio_test_swapcache(folio) || shmem_mapping(mapping));
-	...
-}
+iQJPBAABCAA5FiEEgnQYxPSsWOdyMMRzNHYf+OetQ9IFAmsATecbFIAAAAAABAAO
+bWFudTIsMi41KzEuMTIsMiwyAAoJEDR2H/jnrUPSANQP/R1hB8C5F3mypETYwCgo
+/31OX6ODiCHu568feU0OwqqnH1gKua6thOPxdUzO4oz9uHEvJOy9k0pAUuqhIoUR
+cwWGFajvqbq0iEcbMMls3ezTo63QhALeYKpaK+p4wCU6HqazGDnsTiqXqIBnSMFF
+/zhMCLHxApAYueLhRzmTe9z4DIEhOaUdcOowPIV35HlxhghSQZ/uaZclBwv6h+xn
+PDpQAKnR2JxW4CcyT1Fm62hItTX+Djvef/Q6aac3xdMq1JSPlsbNUlThWsY+EjbX
+eBTAO766WENw3Hw3SxnX/pcUQwUVsRa3bxxgBxSfwZtm6nSfhxmBzAHsiR7aA4wq
+hrI46P32JW6WcL+jToQJC/QjQienV9rV/QTWrfp83Z59ce3lL43XtMlofu0EoK6W
+IWoX/O4IoSM3YDlzHsSYGQR7KG+VGDXyJAb6HhVyNdMTiegz8UxWwYqGviS9mTON
+a3YA8htdMngXmkwT5CQKhsNbS0sLqGb3nDrqmLV2hSDpjGkdUe86bahObcVCXonf
+7Gdl1/15c46K0QRbEf7q5kgreejRoLqFdi2eyw406ruUxE7Bd71t9faF5zWzaJRK
+ewr2s+IremZr522ABFhIX0SFkqu1sPzXqNLKXQa5fz5XxTh6jQziddGf3Q2z71dB
+79I2PETkcl5NqkNBz+UkmsCH
+=iSw7
+-----END PGP SIGNATURE-----
 
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261119134243.3745=
-282-1-kas@kernel.org?part=3D1
+--=-1bC6az0UrhT7nf2a398O--
