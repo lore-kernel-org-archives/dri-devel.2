@@ -2,164 +2,136 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7F68F606A6C9
-	for <dri-devel@archiver.kernel.org>; Fri, 20 Nov 2026 20:37:55 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 05EFC606A6A6
+	for <dri-devel@archiver.kernel.org>; Fri, 20 Nov 2026 20:54:48 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=eB9Tiwvo;
-	dkim=fail reason="signature verification failed" (1024-bit key, unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=selector1 header.b=OaMRh0iw
+	dkim=pass (1024-bit key, unprotected) header.d=amd.com header.i=@amd.com header.a=rsa-sha256 header.s=selector1 header.b=ZICi5BZb
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 8D98810E10B;
-	Fri, 20 Nov 2026 20:37:44 +0000 (UTC)
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.19])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 025D110E10B;
- Fri, 20 Nov 2026 20:37:32 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1795207053; x=1826743053;
- h=date:from:to:cc:subject:message-id:references:
- content-transfer-encoding:in-reply-to:mime-version;
- bh=2VjzttfJdCajz7DlPEAnHvy2aeRmgnsAYFfNVtG+c30=;
- b=eB9Tiwvo0bawKeW4CvLhM+nhvOHVR7HJx5W+MhORltfgqc0zuSi5iNcF
- 3ZRBM7khOyo/WgbnakVPe8T8rJCg4Qyl7p8BODzMkEIMuhpPxl0cAE6gq
- IXFN1MvGwLDfkYJej9R3Vf8xv+zBi9tADdDcvBZUAAQ3UbKfaPEIL2Rmg
- SqpaVz3I3P/o75f+7Smlmc2Dym9s8JK7r4L2JSWgZMIzT8sK4ZupO6MbF
- vcmNkTebc6a0lz3CWiFDB0jwa1jS/tdSiVgbUXgHYbi6oiGKDfticmGI6
- X/udNG0kGa1ZfYGesk00LbByXs5MEd+Nm/l+/St+iK/tnajS0p7sogtsw A==;
-X-CSE-ConnectionGUID: JqPHUMXASC+xrdT7trH3dA==
-X-CSE-MsgGUID: miWfjLn/Tt6doyq8B0w+8Q==
-X-IronPort-AV: E=McAfee;i="6800,10657,11972"; a="4194406"
-X-IronPort-AV: E=Sophos;i="6.27,223,1787036400"; 
-   d="scan'208";a="4194406"
-Received: from fmviesa009.fm.intel.com ([10.60.135.149])
- by fmvoesa113.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 20 Nov 2026 12:37:33 -0800
-X-CSE-ConnectionGUID: CW3jM9IbQ+izHIKUAFTuhw==
-X-CSE-MsgGUID: hRC77TcnRqW1mLOUjq8DeA==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,223,1787036400"; d="scan'208";a="11130099"
-Received: from fmsmsx903.amr.corp.intel.com ([10.18.126.92])
- by fmviesa009.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 20 Nov 2026 12:37:33 -0800
-Received: from FMSMSX902.amr.corp.intel.com (10.18.126.91) by
- fmsmsx903.amr.corp.intel.com (10.18.126.92) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.56; Fri, 20 Nov 2026 12:37:31 -0800
-Received: from fmsedg902.ED.cps.intel.com (10.1.192.144) by
- FMSMSX902.amr.corp.intel.com (10.18.126.91) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.56 via Frontend Transport; Fri, 20 Nov 2026 12:37:31 -0800
-Received: from SJ2PR03CU001.outbound.protection.outlook.com (52.101.43.43) by
- edgegateway.intel.com (192.55.55.82) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.56; Fri, 20 Nov 2026 12:37:31 -0800
+	by gabe.freedesktop.org (Postfix) with ESMTP id EBF4810E162;
+	Fri, 20 Nov 2026 20:54:41 +0000 (UTC)
+Received: from MW6PR02CU001.outbound.protection.outlook.com
+ (mail-westus2azon11012059.outbound.protection.outlook.com [52.101.48.59])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id CF19F10E203;
+ Fri, 20 Nov 2026 20:54:35 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=ZeSZrP92gQwY5eWIbsbHrWrEqsce0IikrbfS0ez+fAlNEO5EraTde5pWN4obqA88CLV6D4WWrRSXGnabxkIaEdHZqgHlNHyFoSkNSwsgqHgB0iKS/3u295/um2c5SPV6obeD7gxseIG0JdR8t1EIVxAkk2HJcW0UMddkMcNlMumySYwsrsSJj+aj9DqG4v53UqNUvrPmBz+P+s8M+qo5gDeJvFBDyaZ41p7CkF8zxGEW8+L7Irg4N3b1/VzMeZ0441IZNUyyNFAg8lg300l9lM9StTFHmRLwOscsERJjvW1M+T5teNqXm7GBPg7XVyGGdxF/Lsp0kGqSG1m6jNqQ6Q==
+ b=tv26+4/S6wTCm57gHdS96Q8Q9UjsipbE+KzmNvZnJRVZLQadm/2gHoeYYWcXbSCsI4/mMfhq1XudbvzCpNevWTzcMgBKK1LEEBnVpY563QzQw4cuMuTsDE8RWw8oNvAxUp5kzCSFM6G1wqffRKGUhHQLEjGG8zgkVbUW4ul6wsnWU3kWsa1gqdRpZ02RUWVNSVNLQkCk0X19O6kOzWQCPtJ8H3uUA1pEp6cL6ige4IZngvNTQg3tP2fCRS25a5/g8MaWwIZKWF7F0SHFO5BckatphzsR1nKN8DD1LLYYQgGuac3C4kF/Lync5iz9GpZMvgBH5zGH7BL9u6K0c3LTiw==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=D7GVqOU853JeDajKCvaJDCgIn+VOKxxEW9O9JHBAbT4=;
- b=b47RtgF7rNvwyWtk5nZJkZJoAQo2T+waOiU0/afaExjFN5nMJ7JeUFNj6DxZeJUiGbEk3UMCVyarKCmnFyoVL9IL9ttyBI0O8KaEyAbmTnsqfP9ZQ3yXB+Oz/B+jpRGCFlT34cZCvptmQ2U+ihUE77WmU4M+TqAvTRBRBSbTwRPCrz2psVfktb9E1NRH5+bWpxZhk2xVLYD7D6q7HLdkGcRosJMTrmkX4cs3MsIDDXSiDHhqK2RfxipezjgmpJsip5ZbaC/FUgyaah9PuF3KHa31F8gDzj0KbSAqfFE7ClR4gfjwuJ/1dyKS1Ma7hPTXIYG363mikYQXL+R3PT6f6w==
+ bh=sBXQYfcy1i8Bi/FlH/xlEHVkHpg6pZV4gl/1Ef8Zgyo=;
+ b=upM3WgVHIVHgFBNb/F6qCF6/W8wZoVIZAtkTkOoNRMUXrwyx1IVj0dnshS4V59Vpc0gNpUV91yb0tBsML19vnd3PJIWgnnjsd2rlsBX90Tx0If1E1QqWT+iiu0gPGKDfdjGG97uW1B4hqKmpY509GRFJh4qJZ1Wfiy6WM1txiUgCOxOQQLQGhGI8uYMxWqGU9ZaBX8v6Ngmxs+iHo7IFuCBLwd+n8LLHclPBPj6gbc015EtGEqoWEJ7ceZGYlk4i4T/6+vOqgjAik/1pmIDO5FXIWU9r5cLRllTfiPN9MzgGvHgedMyaQEqwviKJafh1T5f0MzUNMZVy2pKoG5wYNw==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=intel.com; dmarc=pass action=none header.from=intel.com;
- dkim=pass header.d=intel.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=intel.com; s=selector1;
+ smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
+ header.d=amd.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=D7GVqOU853JeDajKCvaJDCgIn+VOKxxEW9O9JHBAbT4=;
- b=OaMRh0iwvNP//Y6GdvFXr59MTj4dZojiZr87T8HC4Pg95amuz6uxekf2JH3vBMa908+DcYkksVVvIU2Zy7jMU41L1Zl+2VcZHx/kYS52mv/xOtVQRTaVcUrRannpbhDSuV1OxbGMO0XKOfVCihtyJC40xYEp10WIuXrpirlvesM=
+ bh=sBXQYfcy1i8Bi/FlH/xlEHVkHpg6pZV4gl/1Ef8Zgyo=;
+ b=ZICi5BZbBRnzm8sNJzbWb2w62OGnx64RTLIuv8dCsS/Ruyjl548uREgZFW6fYtjnSGCjk8419fvpOr1He61DvptCgSLRmUEjL6K9pg8l5GSXsPvY6zreB5W3jIkOFsScEuxt4ZmO2qz0H/i9rUEbiIWAxA3gZPO11EDjWa7blBM=
 Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=intel.com;
-Received: from MW3PR11MB4684.namprd11.prod.outlook.com (2603:10b6:303:5d::14)
- by SJ5PPF3F833FA49.namprd11.prod.outlook.com
- (2603:10b6:a0f:fc02::823) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.615.13; Fri, 20 Nov
- 2026 20:37:23 +0000
-Received: from MW3PR11MB4684.namprd11.prod.outlook.com
- ([fe80::2f5a:96ce:f7e4:c315]) by MW3PR11MB4684.namprd11.prod.outlook.com
- ([fe80::2f5a:96ce:f7e4:c315%7]) with mapi id 15.21.0639.011; Fri, 20 Nov 2026
- 20:37:23 +0000
-Date: Fri, 20 Nov 2026 12:37:20 -0800
-From: Niranjana Vishwanathapura <niranjana.vishwanathapura@intel.com>
-To: Matthew Brost <matthew.brost@intel.com>
-CC: <intel-xe@lists.freedesktop.org>, <dri-devel@lists.freedesktop.org>,
- Carlos Santa <carlos.santa@intel.com>, Ryan Neph <ryanneph@google.com>,
- Christian Koenig <christian.koenig@amd.com>, Huang Rui <ray.huang@amd.com>,
- Matthew Auld <matthew.auld@intel.com>, Maarten Lankhorst
- <maarten.lankhorst@linux.intel.com>, Maxime Ripard <mripard@kernel.org>,
- Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>,
- Simona Vetter <simona@ffwll.ch>, <linux-kernel@vger.kernel.org>, Thomas
- =?iso-8859-1?Q?Hellstr=F6m?= <thomas.hellstrom@linux.intel.com>
-Subject: Re: [PATCH v3 08/33] drm/ttm: Bound page (re)allocation per
- defragmentation move
-Message-ID: <awCvgBh6-2-tinXR@nvishwa1-desk>
-References: <20260711025619.2540575-1-matthew.brost@intel.com>
- <20260711025619.2540575-9-matthew.brost@intel.com>
- <avKE9ruZsQwbsQEa@nvishwa1-desk>
- <av+s/38v9gtCDhhr@gsse-cloud1.jf.intel.com>
-Content-Type: text/plain; charset=iso-8859-1; format=flowed
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <av+s/38v9gtCDhhr@gsse-cloud1.jf.intel.com>
-X-ClientProxiedBy: SJ2P220CA0004.NAMP220.PROD.OUTLOOK.COM
- (2603:10b6:a03:5da::11) To MW3PR11MB4684.namprd11.prod.outlook.com
- (2603:10b6:303:5d::14)
+ header.d=none;dmarc=none action=none header.from=amd.com;
+Received: from LV8PR12MB9133.namprd12.prod.outlook.com (2603:10b6:408:188::15)
+ by LV2PR12MB5992.namprd12.prod.outlook.com (2603:10b6:408:14e::17)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.639.10; Fri, 20 Nov
+ 2026 20:54:29 +0000
+Received: from LV8PR12MB9133.namprd12.prod.outlook.com
+ ([fe80::d29f:9915:159b:b02]) by LV8PR12MB9133.namprd12.prod.outlook.com
+ ([fe80::d29f:9915:159b:b02%4]) with mapi id 15.21.0639.011; Fri, 20 Nov 2026
+ 20:54:29 +0000
+Message-ID: <886d2fe0-ac06-407f-b1db-f8d7857282c5@amd.com>
+Date: Fri, 20 Nov 2026 15:54:26 -0500
+User-Agent: Mozilla Thunderbird
+Subject: Re: [RFC PATCH 2/3] platform/x86: amd_isp4: add the OV13B10
+ (OMNI13B1) board configuration
+To: Sakari Ailus <sakari.ailus@linux.intel.com>,
+ Seifelden Abdelmonem <saif.elden.hatim@gmail.com>
+Cc: Mario Limonciello <superm1@kernel.org>,
+ Alex Deucher <alexander.deucher@amd.com>, Hans de Goede <hansg@kernel.org>,
+ =?UTF-8?Q?Ilpo_J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>,
+ Bin Du <bin.du@amd.com>, Nirujogi Pratap <pratap.nirujogi@amd.com>,
+ Benjamin Chan <benjamin.chan@amd.com>, King Li <King.Li@amd.com>,
+ Caspar Adriani <caspar.adriani@proton.me>,
+ =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>,
+ Arec Kao <arec.kao@intel.com>, Mauro Carvalho Chehab <mchehab@kernel.org>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
+ platform-driver-x86@vger.kernel.org, linux-media@vger.kernel.org,
+ linux-kernel@vger.kernel.org
+References: <20261103155313.114347-1-saif.elden.hatim@gmail.com>
+ <20261103155313.114347-3-saif.elden.hatim@gmail.com>
+ <avMH5glolytc9L86@kekkonen.localdomain>
+Content-Language: en-GB
+From: "Nirujogi, Pratap" <pnirujog@amd.com>
+In-Reply-To: <avMH5glolytc9L86@kekkonen.localdomain>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
+X-ClientProxiedBy: YQZPR01CA0155.CANPRD01.PROD.OUTLOOK.COM
+ (2603:10b6:c01:8c::8) To LV8PR12MB9133.namprd12.prod.outlook.com
+ (2603:10b6:408:188::15)
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: MW3PR11MB4684:EE_|SJ5PPF3F833FA49:EE_
-X-MS-Office365-Filtering-Correlation-Id: f5dd76d8-f6ad-4029-f85b-08df474614c9
-X-LD-Processed: 46c98d88-e344-4ed4-8496-4ed7712e255d,ExtAddr
+X-MS-TrafficTypeDiagnostic: LV8PR12MB9133:EE_|LV2PR12MB5992:EE_
+X-MS-Office365-Filtering-Correlation-Id: 1e14e155-7495-448d-7576-08df4748786b
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
- ARA:13230040|7416014|376014|1800799024|366016|23010399003|261021123027099003|261022075727099003|261102130727099003|10067099003|261021121427099003|4143699003|56012099006|11063799006|261102123227099003|261026121527099003|261022113327099003|261026140227099003|261028144727099003|261022105027099003|261009221227099003|261009223327099003|261009223027099003|261009220027099003|261009221727099003|22082099003|18002099003;
-X-Microsoft-Antispam-Message-Info: QobrgJUJ63PfLv40191gTM4xWOzeO4XzrPsO6uKE5MmDCyCSRLPyfBYLriGwGxghCd6WZkKxK7I+Na6SoyeFWbJTcUHlkDRF3keAnE5Mt73h+b0o1z7mjQa2c2THq80k110Njj5TFPSu5vJjqPpp1QTJEwy+OJzhqBgx8vT+l9N39guj+u9tJT84HJh4KaiDkZc711eMywMp4fV3ND779QsQ2dXTLXJieeN291yWCF0AeASwttA5/5m0PO3odHG2B8Hq/Kz1csCNXza02Kz5MAQ1Ubr6ADOfxIZLJlENvbbVxgaiPHospxCs7Pn5MGNlLUzBVAgpEQ09y97yYN5ZQLxvGCxYU85OdpZMqhABP0srv8/8dV24eVSRuwROa+wnhujl8wWmRIRB4PEdajMWwk+FKqZnVbcr4lpLiwiTZ1RCEpuUX+sq9MXC6Xzc0gZ42V/tUnibn3Iov74vDoYKUtZidH1klNTzTfUmXy7wwXlcCRzyd8z4+/pxLOibH/WgBAiibc3L02YsiIT5TxK1TfwIFFwJIlpbM7KiY52QPjJfrM6u62JGmEvzMYfZmW2ODgPszyi7DDT/bXXkjDukZtHoWg0GXlEAS7QAwtZG0t5ERFZymGOXHi6ctIx1jc+X+vw+W241DT+Rbkk30swPAx/e2uti0t3d/9tQJrW2hhg=
+ ARA:13230040|376014|7416014|1800799024|23010399003|366016|11063799006|261026140227099003|4143699003|261021123027099003|10067099003|261022105027099003|261028144727099003|56012099006|18002099003|22082099003;
+X-Microsoft-Antispam-Message-Info: upGsmQkJIi7i4pNPwITUqb3IeGYT24HLRqVgxEiNVBMX0r7zMIfDPjdP66tvjFHpS2zEBk5ef4CVd9Rr5kTU1PppYtR8HZ++W7O6Jn/9v/UtqxOnfFQCLDtb2tk50O3SiWA0bKFNCEt3ulfu6wtmZJOlyxFAF+lAkLxFzCUUPwhYXBCR+GZe8MXiQAHINx8phkLgqYWQCPYqVyAPdrBFf+itprMOlToMFA9M9U5II2dq92F5iio0SZVQ0/dC2waF2mVoPkN2zaJ96J7PpMjnS3deJNOSKhCeuuaAwjP0DpK7Q4FpD8FrF7cE9zUaHqhYkSG8H26ejavDOQcAlVHZ1p3YYRwOzL8eiIFoziiab9OYNTnZmxeX4nujE1WI0T2kLybpDvqYNIcD0hbWyXpBYn7HVGTZYe6ngGVJz1XnByn3YnsezkO15SIbeZbFLe8wXDHhcqw6NyppLBPKoWbBrMiCsfvKfuQYVpzl2p2huB4XBPWozgaQn8fezH4+NnQw5vFxeHiQ2SvW3vOxdPPbNVERalYe6KDnDPa4ozHK92INSqJi+Ke/H2I+6NTuLWCzUm+7hu3m1INqXKIvxrFzgg/ZUepDEwbC5dOZkS9fD16bZiWv2a036dcxlb/Gp8vD
 X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:MW3PR11MB4684.namprd11.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(7416014)(376014)(1800799024)(366016)(23010399003)(261021123027099003)(261022075727099003)(261102130727099003)(10067099003)(261021121427099003)(4143699003)(56012099006)(11063799006)(261102123227099003)(261026121527099003)(261022113327099003)(261026140227099003)(261028144727099003)(261022105027099003)(261009221227099003)(261009223327099003)(261009223027099003)(261009220027099003)(261009221727099003)(22082099003)(18002099003);
+ IPV:NLI; SFV:NSPM; H:LV8PR12MB9133.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230040)(376014)(7416014)(1800799024)(23010399003)(366016)(11063799006)(261026140227099003)(4143699003)(261021123027099003)(10067099003)(261022105027099003)(261028144727099003)(56012099006)(18002099003)(22082099003);
  DIR:OUT; SFP:1101; 
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?iso-8859-1?Q?gYUkGpPUgYxLi4DKuQU+UbDd7H8ttmZAMI5xPUdugmf+p3CML44WHfI1Kb?=
- =?iso-8859-1?Q?+QAWoqjG5QV2GcXJFoh0bPXJdPEKaZe2FLDso2CqjQkL1Zxe7reTtZOJzJ?=
- =?iso-8859-1?Q?q8XqGDrxqPYauZ7hYACCpDLXZwwgXji7X/KecuDhToxJafN0Qr4yutKox/?=
- =?iso-8859-1?Q?wmdxZWkXCxclog1CWgQHETqdEAxaN9hPL7KfFXS0nCmMFngYeqiktCw35F?=
- =?iso-8859-1?Q?gJ+A8oIxg7vhbK7nTvscwMgESscDYYCPzBJfviLq8jXLoq0FS+5lQPTKP0?=
- =?iso-8859-1?Q?xoPpUZ7QTMYVA18BqZK1ucFG67ar6x4GyWU3wEuLm9aoLwAp0dEOof2R0l?=
- =?iso-8859-1?Q?gZEb1Pv40UDFyFHwRBzMPb7yirIcCZk6i3WXP5WzSSFZeX6AsSKPXRWe95?=
- =?iso-8859-1?Q?guNxdQVd6NoZrkmmOa7MzqZ8fO41F6xBiRKaLLlUTngpNHLP2pmwI9RvAE?=
- =?iso-8859-1?Q?EnBLVN9x0pq4Q5X4jZ80ZHtrTNI/4Oc7h07UPFug2ynYsvWBLDynLWZcNG?=
- =?iso-8859-1?Q?0TEW/mX4/wmMJ9vdPZU7x09BBqna4VHKxNtYat9kZZoHXngVxucH3QBBJs?=
- =?iso-8859-1?Q?jacJGA94BHW3eo/s+OZT4VAfiLx5HFsCvRB5ZWUWBStTyp4XrB1RoliMK5?=
- =?iso-8859-1?Q?CB2iY27+sUQT+EwSmO6Nax5+rWwrKDI4rH93b47SjFaXzUBr0MZd8Jexdc?=
- =?iso-8859-1?Q?6q+Zjs6QP2RBRwv2HVRR6KF2tQjAT6+y8dunAH20bkfFiqYR3cYioEOJSH?=
- =?iso-8859-1?Q?+rs/XSvDTPrpMM6pCz9xbf5kIL0MbawvIsnxlpLQ6oTVS9ItZTnsliHktw?=
- =?iso-8859-1?Q?TM0mJ2YcYpS8QR9X3g48GYJ4UsG3xA9HeW2yceqygaEnCrieF5ye5TsW1u?=
- =?iso-8859-1?Q?EtLktS//oCSI4aFs8o+4TRfcD8nDusPG+k7JJKwF1JpM/+3vijxgcj6r9d?=
- =?iso-8859-1?Q?UuG91A2Ln+07HAZuDi2BEmSmLCDC+o3Hzpiwj0i+KvpUs1i1tt7FW8Njup?=
- =?iso-8859-1?Q?v7lo9kELB/yI0fBSgoEuA6YuvxfM/rM1p8uD6SlGhYsgQX5N6dQ3bFfgqI?=
- =?iso-8859-1?Q?qzONtRlEv6aTFjZkWiyJKMNuy+15H67+pN7z205rYtB5Wuvjya/BYXMfxh?=
- =?iso-8859-1?Q?y4RnAJyOnLGzIhA+5N2uS/piBoG+PrzZoys5sazfZk0rjGqcWGZyZLTvbW?=
- =?iso-8859-1?Q?vlylRFlci5ePPQqf7PCs5H9FKJ8lK8eBmYUZbdBDwuhUnBvBjkzQKubaOd?=
- =?iso-8859-1?Q?fkfdoMbXqB9Qvwd0GxeAbvKTLeJWDyexh/2K6Ove54ZegFayE0nVFJOqq3?=
- =?iso-8859-1?Q?UCp2+DfAdJjtouIGPY0If0aGFghUnwywyBRETvwvrE7O8mSddE4ZzzHV6O?=
- =?iso-8859-1?Q?JLWKXjKg9AtI07Z9rVERCmwGPfqOhCeGhX/cvnjT/xYK/pjkg9DEJK+4US?=
- =?iso-8859-1?Q?yiI8Plj0RpXPph/3rbM1A+lBgA2cVZ7yRV0+jDq1rgLRV5vWQ6LDmyv3ij?=
- =?iso-8859-1?Q?oe4mDD6MTjjfAJvn7Hm678/ob15ERs0qUt0/bKQl5bBUf99ZAzkfLZRak9?=
- =?iso-8859-1?Q?t1OZCHw5BJybnn3JUbBBZfpr/TNSSRPPV4Ylh8RYfF3tJCT6+pc+FL2QhS?=
- =?iso-8859-1?Q?51QvdFbxmTiQsXZs3CnwV2TklF7WjP1v+7RJrO1wN54FfOQiMY6i70oqiu?=
- =?iso-8859-1?Q?ua05TFR6LivEjmFtGB46BgCQLeKq6ETzPNo8bBxlNFk9GLSMNI5dxZEGIC?=
- =?iso-8859-1?Q?Onqg5+mEOB70Tb9QvE91/Q5/XprpyH3VJkvnvoQD6qFSnS+x6bS5raitlf?=
- =?iso-8859-1?Q?eu8zeWzshYpaZOCXP58PALxEU1vopNSfIF5az4uZsORhEtxO5z4Q?=
-X-Exchange-RoutingPolicyChecked: vL1IzE7j/IpOwqZEcspeAFTUuZb0o4n4EvBKJ57HDq5mFlNgSdm5JNevKruf14V2Gh5VI78kQcRAPNIuw44FBvLuxjQ0ymmL01L6QZoMEI59AvkGmU+AOdJ3x4jPke7xNdU/5460f81Grl11F+KRrpyjWjtfIw08WI/2gsqsbvDNgrkixKFCdT3Yq1yziVua9PD+YzD0Q2qClTVWSnbSsJbnzgTRojwpcRI8IIm73LMuSAcihJjhkioFvEBxPkFUQILn9OQJyoKxLkLSlLbtfAqVtn9HNq9DZ7i3/EW+zUN1kf7ayWa7qa98xZ/uW0qD0wFK9tQfMUDH9IMs92S8Fw==
-X-MS-Exchange-CrossTenant-Network-Message-Id: f5dd76d8-f6ad-4029-f85b-08df474614c9
-X-MS-Exchange-CrossTenant-AuthSource: MW3PR11MB4684.namprd11.prod.outlook.com
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?Y3JoR25wTmtac1h5VkFnUTk0MXB6aS9ySFRrZUtPeWZEci9WazZ1cnMvZ0RS?=
+ =?utf-8?B?RmY5ekpFTTkyQ3VUclNRTFR1cTRDL1cvNUJVWEo5VS8rZW9GWitVOUV5SkFZ?=
+ =?utf-8?B?dlltNWpBY1p6RG1NcnNMQzVsUFh1bFRVRkIxMzhGNytONkliTkE5bTRzUmVP?=
+ =?utf-8?B?YUN2ZzVTTlNoOHZ1Z0xUTi8xQ1VRMFZiK0NyaklwNG1PZE0xTjNIaUtiR3lr?=
+ =?utf-8?B?eUkyN1BBR3hGOVZaNjhIREh2RjZiU2RQZFhsVXV4bzIrMVlpRXhXTHpPUDVP?=
+ =?utf-8?B?UE0wMU5GSXFTT1I2Um5CalFtSEx6TG1UeUJlSU1pWTcydnhiZU8wanVmeURy?=
+ =?utf-8?B?RjhaY3d2S29HZlR4NlZ4YWI2RmhrS21LRzdaSi9GbUlrOUVCTVZ3aC9EYk9P?=
+ =?utf-8?B?dGRjS2JMTm9WcTQ5RUJOL0NkOVE4aFNTRGE3RnZSVXBiejNWSkVYT01XaE1S?=
+ =?utf-8?B?dEVoaCtJZTVtL044eGdyckcxZ3gxblliMEtsdDY1cGtZR0VDMFk1UE1lampu?=
+ =?utf-8?B?Vm83Tll2aXhQeG5yWHZCd0ZxenZaRUw0YkFmTXNDdG1lYjRpRU9yUFdaTEVK?=
+ =?utf-8?B?UUV4bGVqdS94aTQwbkg3dHo0YmZCZkNpM2h3aGMyQzhmM2xTWTIrQmhFbmkz?=
+ =?utf-8?B?STc0Q0lsVnFmK1VMWkN1ZTlWM1hzU1hKSmZvaVdqekdEWkY0a1MvNS83T1Ux?=
+ =?utf-8?B?aHN1RFRhVGJScW1SUGQ5VjNCazJ2SnhvSXBGM1NQOVgvdVNNazRjR0NEaEp3?=
+ =?utf-8?B?THZpd3hFaFVCOGpLU3M5ekJHbVo3eVZGeGF2U2M2eG9SeHNIZVZSZDJuemhk?=
+ =?utf-8?B?RTZwU1ZVUlRqbzlEbE5kWk1vaHNJVUNpSUhHdkFJcHRKRXdOUTBXZEc3NUM4?=
+ =?utf-8?B?SGJLUDhmMXBlSHQ2Q2xTalErWDRza0VrcXFuZjhyYjJLTmo5bGZQK2tIclRN?=
+ =?utf-8?B?cUpKNytDSURvSm5UU1gwTU1sRXR3T1N6ZmdvRnNFbW9PMkJCTCtDbXUwcUN6?=
+ =?utf-8?B?RC9PQnM1ZTMxSktxZVBEYjUxbHkybUY1VG1EcFZ2TCs2VTM5czZqbmZxaTk3?=
+ =?utf-8?B?UG1Cc1NqMU5zKzFsK210MEZWMVZEWTV3YXlXblNsalJ3UHI5OVQxV2E3RlRE?=
+ =?utf-8?B?WTFEVkQ1VHV1TEtPZUNPd2lZc2l2dkU5di82eE1XcUljazN1ZDhYTjNEVG9h?=
+ =?utf-8?B?N3hSOG1kbmxnMkVmRUhqWXhsWktkczBkSXFhUjR4REtEbkZWMmZ5ZENweUJX?=
+ =?utf-8?B?cDVtZHBPWlJINEtZdE1GYmc0N2hZTC9rM0Q1cVhyMXNSU1c1M1J2ZUpGTGlL?=
+ =?utf-8?B?cm1JdHNMdXNuWFdqUTZLc2dKMzc4eUxPS2ZOWEJocWNXM2M1UEJiUkFkY0xV?=
+ =?utf-8?B?RExzTGhsRDc4aVUyOEdEZkpPS0pLYXY1V2cxWkpsTmh1STFLeXF6RFpjUDFI?=
+ =?utf-8?B?NjJETVhMRDU0TmxWQVZkRm9wZzJRQXh6cU02Qlh2SWpTSFUyT3Rza2szR0F0?=
+ =?utf-8?B?VkQwMjVwdWcwaDQvWW9CL25pQTVqRG5SRVlIWStaVmt2L2xGT0NlMEhpTHA5?=
+ =?utf-8?B?Ri9ldDRrQkVMT2lGT2hjeHhnSVRhREczN3VCSS9aa1JnV0NRZ2YwTUdsNjlO?=
+ =?utf-8?B?Um92c0JoVkRKTVF5RS9JaTl4bzllVWxPQXI0d3ZVWTZhYVZ2YmxNYzhFL0lT?=
+ =?utf-8?B?dFlvOXZteEpCVG5QaGtMMndXYi9mcHE0cklYQXU3TWVYbmhYOXJWYzRvaG0r?=
+ =?utf-8?B?dE9IeDl3MVlEY013NEpKMWM1dktaejV4UktYbjJrTDZlWEV6bW9TdkZWaWpE?=
+ =?utf-8?B?UzJnOTVZeTgwaVJVM1JuUVJNWXNpSnViTTJQOFp2eWRTQURvTEl0Rk9oczMw?=
+ =?utf-8?B?c2ZFeVVjcFQwTGVmYVVIZ0tPY3hnVVR5VU9nL2pXOUxYaERhc3pIN0JUNnJ2?=
+ =?utf-8?B?M3dxSHhaVTg2KzhYdm5nckxjb3VmWk5scHZiSXVMYzVHcENON2c4WGpiN0RY?=
+ =?utf-8?B?UG9adFBDMk5DazFyZzk3UjM2cTJzSlBrZGpuZm9WOHNvczdLTXVtN00vbUtZ?=
+ =?utf-8?B?MlZkR08rdVlBcDNwUVcxZ3o4MXB0YjFmS3BQbklNRWFlTDRXVURuakdrVjB1?=
+ =?utf-8?B?SW5HYm1wUERmbmExUWMzVysrbFNZUHVibThNT3JiV2t1d3cydXFYeHhPN1Rp?=
+ =?utf-8?B?cVNYdFptbUZoRjdhcWNBRlE2V1RscFBCVUJwWXZEeUJGYVVqK3BQemNCY0JW?=
+ =?utf-8?B?MWkyRTZBRVc3NnUrVnhscmtnbDFqMWVZbXh1TCs3K2hET2d3emJpOXM2bDJB?=
+ =?utf-8?B?TVRxWHhTWEJpTk5HVDdDbm9pQXlLY002M0RrclR5RjNuNFN0NGJkZz09?=
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 1e14e155-7495-448d-7576-08df4748786b
+X-MS-Exchange-CrossTenant-AuthSource: LV8PR12MB9133.namprd12.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 20 Nov 2026 20:37:23.5161 (UTC)
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 20 Nov 2026 20:54:29.5431 (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 46c98d88-e344-4ed4-8496-4ed7712e255d
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: 5Bzt3yz+v9y2FVarkFI45UFhxFv1Bm05nX/SuEO5OxR8D/h+leUK0brwPny0QnIhhtF6V015+q3Hjhf5f0xvl9ZQih8VBKGR++xOO+9PGwEpgQKrXXU/v4zEhYXYwos1
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SJ5PPF3F833FA49
-X-OriginatorOrg: intel.com
+X-MS-Exchange-CrossTenant-UserPrincipalName: NGOiDR+P1Dbtvd+JSthBcgLlYqWvTWq9/BkwA/5TaXFGLlpwtDPyiD6ccP7zm3qkPjoPBwttBHh6F2SrRbtpcQ==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: LV2PR12MB5992
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -171,338 +143,47 @@ List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-15.8 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
+X-Spam-Status: No, score=-7.3 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
 	DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
-	INCLUDES_CR_TRAILER,INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,
-	SPF_PASS autolearn=unavailable autolearn_force=no version=4.0.1
+	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,USER_AGENT_SANE_1
+	autolearn=no autolearn_force=no version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-On Thu, Nov 19, 2026 at 06:14:23PM -0800, Matthew Brost wrote:
->On Mon, Nov 09, 2026 at 06:44:06PM -0800, Niranjana Vishwanathapura wrote:
->> On Fri, Jul 10, 2026 at 07:55:54PM -0700, Matthew Brost wrote:
->> > A defragmentation move reallocates an object's backing at the device's
->> > beneficial order and harvests whatever the allocator cannot upgrade from
->> > the old tt. For a very large object this can reallocate (and have the
->> > driver re-copy) the entire backing in one move, which is expensive and
->> > can stall concurrent work for an unbounded stretch.
->>
->> Assisted-by: LLM
->>
->> NIT...So, a time budge would also be helpful here along with the size
->> budge?
->
->That could be option but a size budget seems like reasonable place to start.
+Hi Sakari,
 
-ok
+On 11/10/2026 7:02 AM, Sakari Ailus wrote:
+> Caution: This message originated from an External Source. Use proper caution when opening attachments, clicking links, or responding.
+> 
+> 
+> Hi Seifelden,
+> 
+> Thanks for the set.
+> 
+> On Tue, Nov 03, 2026 at 06:53:12PM +0300, Seifelden Abdelmonem wrote:
+>> +#define AMDISP_OV13B10_HID           "OMNI13B1"
+> 
+> Any idea who allocates these HIDs? Omnivision ACPI ID prefix is "OVTI" and
+> "OMNI" is indeed unallocated. I presume these HIDs have been "allocated" by
+> AMD? This is not the first time something like this happens but it would be
+> good to avoid it from happening in the future.
+> 
+Apologies for the delayed response.
 
->
->>
->> >
->> > Add an optional per-move byte budget so a large object can be upgraded in
->> > slices across successive moves. Plumb a new
->> > ttm_operation_ctx::defrag_bytes_remaining through to the pool allocator:
->> > only pages actually (re)allocated at the beneficial order are charged
->> > against it; pages harvested (borrowed) from defrag_old_tt are free and do
->> > not count. Once the budget is exhausted the allocator stops upgrading and
->> > completes the new tt by harvesting the remainder of the old tt as-is,
->> > marking the tt sub-optimal (TTM_TT_FLAG_BENEFICIAL_ORDER_FAILED) so the
->> > driver re-queues it and a later move resumes the upgrade. The slices
->> > already upgraded come back as free already-beneficial harvests on the
->> > next pass, so each move spends budget only on new forward progress.
->> >
->> > The allocator decrements the budget as it allocates and writes the unused
->> > remainder back on success, letting the caller compute how many bytes were
->> > actually spent. A value of 0 means unlimited (upgrade the whole object in
->> > one move), preserving the previous behaviour. This is only consulted on a
->> > defragmentation move, i.e. when defrag_old_tt is set.
->> >
->> > Cc: Carlos Santa <carlos.santa@intel.com>
->> > Cc: Ryan Neph <ryanneph@google.com>
->> > Cc: Christian Koenig <christian.koenig@amd.com>
->> > Cc: Huang Rui <ray.huang@amd.com>
->> > Cc: Matthew Auld <matthew.auld@intel.com>
->> > Cc: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>
->> > Cc: Maxime Ripard <mripard@kernel.org>
->> > Cc: Thomas Zimmermann <tzimmermann@suse.de>
->> > Cc: David Airlie <airlied@gmail.com>
->> > Cc: Simona Vetter <simona@ffwll.ch>
->> > Cc: dri-devel@lists.freedesktop.org
->> > Cc: linux-kernel@vger.kernel.org
->> > Cc: Thomas Hellström <thomas.hellstrom@linux.intel.com>
->> > Assisted-by: GitHub_Copilot:claude-opus-4.8
->> > Signed-off-by: Matthew Brost <matthew.brost@intel.com>
->> > ---
->> > drivers/gpu/drm/ttm/ttm_pool.c | 101 ++++++++++++++++++++++++++++++++-
->> > include/drm/ttm/ttm_bo.h       |  14 +++++
->> > 2 files changed, 112 insertions(+), 3 deletions(-)
->> >
->> > diff --git a/drivers/gpu/drm/ttm/ttm_pool.c b/drivers/gpu/drm/ttm/ttm_pool.c
->> > index 52f5e64f05dd..1673e81b8df8 100644
->> > --- a/drivers/gpu/drm/ttm/ttm_pool.c
->> > +++ b/drivers/gpu/drm/ttm/ttm_pool.c
->> > @@ -77,6 +77,11 @@ struct ttm_pool_dma {
->> >  * @dma_addr: Pointer to the next tt dma_address entry to populate if any.
->> >  * @remaining_pages: Remaining pages to populate.
->> >  * @tt_caching: The requested cpu-caching for the pages allocated.
->> > + * @defrag_bytes_remaining: Byte budget for newly (re)allocated pages on a
->> > + * defragmentation move, seeded from ttm_operation_ctx::defrag_bytes_remaining.
->> > + * Pages harvested (borrowed) from the old tt are free and do not count; once
->> > + * this drops to zero the allocator stops upgrading and harvests the remainder.
->> > + * On completion it holds the unused budget. 0 means unlimited (no defrag cap).
->> >  */
->> > struct ttm_pool_alloc_state {
->> > 	struct page **pages;
->> > @@ -84,6 +89,7 @@ struct ttm_pool_alloc_state {
->> > 	dma_addr_t *dma_addr;
->> > 	pgoff_t remaining_pages;
->> > 	enum ttm_caching tt_caching;
->> > +	s64 defrag_bytes_remaining;
->> > };
->> >
->> > /**
->> > @@ -780,6 +786,7 @@ static void ttm_pool_alloc_state_init(const struct ttm_tt *tt,
->> > 	alloc->dma_addr = tt->dma_address;
->> > 	alloc->remaining_pages = tt->num_pages;
->> > 	alloc->tt_caching = tt->caching;
->> > +	alloc->defrag_bytes_remaining = 0;
->> > }
->> >
->> > /*
->> > @@ -885,8 +892,12 @@ static int ttm_pool_harvest_page(struct ttm_tt *old_tt, unsigned int order,
->> >
->> > static int ttm_pool_harvest_remaining(struct ttm_pool *pool,
->> > 				      struct ttm_tt *old_tt, pgoff_t off,
->> > -				      struct ttm_pool_alloc_state *alloc)
->> > +				      struct ttm_pool_alloc_state *alloc,
->> > +				      bool *suboptimal)
->> > {
->> > +	unsigned int beneficial = ttm_pool_beneficial_order(pool);
->> > +	pgoff_t bnr = 1UL << beneficial;
->> > +
->> > 	/*
->> > 	 * @off is always an old-tt chunk head here, never a tail page, so
->> > 	 * reading the per-chunk order below is safe. This holds because:
->> > @@ -906,8 +917,23 @@ static int ttm_pool_harvest_remaining(struct ttm_pool *pool,
->> > 		struct page *p = old_tt->pages[off];
->> > 		unsigned int order = ttm_pool_page_order(pool, p);
->> > 		pgoff_t nr = 1UL << order;
->> > +		pgoff_t num_pages = off + alloc->remaining_pages;
->>
->> num_pages seems loop invariant. May be move it out of the loop as total_pages
->> or something?
->>
->
->No, both 'off' and 'alloc->remaining_pages' change each iteration of the loop.
->
+Thank you for bringing this up. You are correct that "OMNI" is not 
+registered with the UEFI Forum. The OMNI5C10 and OMNI13B1 IDs were 
+created by AMD. Since these IDs are already present on shipped 
+platforms, they need to continue to be recognized by the kernel to 
+maintain compatibility with those platforms.
 
-Yes, but the sum 'off + alloc->remaining_pages' is always equals to
-it->tt->num_pages, as we do +nr to offset and -nr to alloc->remaining_pages.
+Going forward, we will use IDs registered with the UEFI Forum 
+(https://uefi.org/ACPI_ID_List?acpi_search) i.e. "OVTI" for OmniVision.
 
->> > 		int r;
->> >
->> > +		/*
->> > +		 * Only report a sub-optimal backing when a chunk we cannot
->> > +		 * upgrade (out of budget/prealloc) sits in a beneficial-order
->> > +		 * aligned region that fully fits in the tt: that region could
->> > +		 * have been upgraded with more budget. A chunk below the
->> > +		 * beneficial order is expected for the unaligned tail (the last
->> > +		 * partial beneficial-order region) and for already beneficial-
->> > +		 * order harvests - neither leaves real defrag work, so they must
->> > +		 * not flag the tt for re-queue.
->> > +		 */
->> > +		if (beneficial && order < beneficial &&
->> > +		    round_down(off, bnr) + bnr <= num_pages)
->> > +			*suboptimal = true;
->> > +
->> > 		r = ttm_pool_harvest_page(old_tt, order, off, alloc);
->> > 		if (r)
->> > 			return r;
->
->e.g., below here (unseen) 'off' is incremented by 'nr'.
+Thanks,
+Pratap
 
-yes, but alloc->remaining_pages is decremented by 'nr'.
+> --
+> Regards,
+> 
+> Sakari Ailus
 
->
->> > @@ -951,6 +977,7 @@ struct ttm_pool_alloc_iter {
->> > 	struct ttm_tt *defrag_old_tt;
->> > 	unsigned int beneficial_order;
->> > 	gfp_t gfp_flags;
->> > +	bool defrag_capped;
->> >
->> > 	/* Mutated as the loop walks the orders. */
->> > 	unsigned int order;
->> > @@ -962,6 +989,44 @@ struct ttm_pool_alloc_iter {
->> > 	struct page *p;
->> > };
->> >
->> > +/*
->> > + * Defrag move budget exhausted: the upgrade can make no further progress this
->> > + * pass. Snapshot @defrag_capped is set only when a byte budget was in force at
->> > + * entry.
->> > + */
->> > +static bool ttm_pool_iter_defrag_exhausted(const struct ttm_pool_alloc_iter *it)
->> > +{
->> > +	if (!it->defrag_old_tt)
->> > +		return false;
->> > +
->> > +	return it->defrag_capped && it->alloc->defrag_bytes_remaining <= 0;
->> > +}
->> > +
->> > +/*
->> > + * Complete the new tt by harvesting the rest of the old tt as-is (borrowing its
->> > + * pages, including any still below beneficial order). Never fall back to in-lock
->> > + * reclaim for the shortfall - that would reintroduce the stall we preallocated
->> > + * to avoid. Only re-queue (flag) the tt when the harvested remainder is
->> > + * genuinely sub-optimal; if every remaining old chunk was already at beneficial
->> > + * order the move fully upgraded the object.
->> > + */
->> > +static int ttm_pool_iter_harvest_rest(struct ttm_pool_alloc_iter *it)
->> > +{
->> > +	pgoff_t off = it->tt->num_pages - it->alloc->remaining_pages;
->> > +	bool suboptimal = false;
->> > +	int r;
->> > +
->> > +	r = ttm_pool_harvest_remaining(it->pool, it->defrag_old_tt, off,
->> > +				       it->alloc, &suboptimal);
->> > +	if (r)
->> > +		return r;
->> > +
->> > +	if (suboptimal)
->> > +		it->tt->page_flags |= TTM_TT_FLAG_BENEFICIAL_ORDER_FAILED;
->> > +
->> > +	return 0;
->> > +}
->> > +
->> > /*
->> >  * Defrag move: reuse an already beneficial-order chunk from the old tt at this
->> >  * offset rather than reallocating it. Harvest whatever order the old chunk has
->> > @@ -1062,11 +1127,12 @@ static int ttm_pool_iter_lower_order(struct ttm_pool_alloc_iter *it)
->> > 		if (it->alloc_count && it->defrag_old_tt) {
->> > 			pgoff_t off = it->tt->num_pages -
->> > 				      it->alloc->remaining_pages;
->> > +			bool suboptimal = false;
->> > 			int r;
->> >
->> > 			r = ttm_pool_harvest_remaining(it->pool,
->> > 						       it->defrag_old_tt, off,
->> > -						       it->alloc);
->> > +						       it->alloc, &suboptimal);
->>
->> As suboptimal is not required here, probably send a NULL here and have
->> ttm_pool_harvest_remaining handle that NULL.
->>
->
->That is better will change.
->
->> > 			if (r)
->> > 				return r;
->> >
->> > @@ -1121,10 +1187,23 @@ static int __ttm_pool_alloc(struct ttm_pool *pool, struct ttm_tt *tt,
->> > 		gfp_flags |= GFP_HIGHUSER;
->> >
->> > 	it.gfp_flags = gfp_flags;
->> > +	it.defrag_capped = it.defrag_old_tt && alloc->defrag_bytes_remaining > 0;
->> >
->> > 	for (it.order = ttm_pool_alloc_find_order(MAX_PAGE_ORDER, alloc);
->> > 	     alloc->remaining_pages;
->> > 	     it.order = ttm_pool_alloc_find_order(it.order, alloc)) {
->> > +		/*
->> > +		 * Out of defrag budget: harvest the rest of the old tt as-is and
->> > +		 * stop (the tt is re-queued if the remainder is still
->> > +		 * sub-optimal).
->> > +		 */
->> > +		if (ttm_pool_iter_defrag_exhausted(&it)) {
->> > +			r = ttm_pool_iter_harvest_rest(&it);
->> > +			if (r)
->> > +				goto error_free_all;
->> > +			break;
->> > +		}
->> > +
->> > 		/* Reuse an already beneficial-order chunk from the old tt. */
->> > 		r = ttm_pool_iter_reuse_old(&it);
->> > 		if (r < 0)
->> > @@ -1155,6 +1234,15 @@ static int __ttm_pool_alloc(struct ttm_pool *pool, struct ttm_tt *tt,
->> > 				goto error_free_all;
->> > 		}
->> >
->> > +		/*
->> > +		 * Charge a newly (re)allocated chunk against the defrag move
->> > +		 * budget. Harvested chunks borrow the old tt's pages for free
->> > +		 * and never reach here.
->> > +		 */
->> > +		if (it.defrag_capped)
->> > +			alloc->defrag_bytes_remaining -=
->> > +				(s64)(1UL << it.order) << PAGE_SHIFT;
->> > +
->> > 		it.alloc_count++;
->> > 	}
->> >
->> > @@ -1204,14 +1292,21 @@ int ttm_pool_alloc(struct ttm_pool *pool, struct ttm_tt *tt,
->> > 		   struct ttm_operation_ctx *ctx)
->> > {
->> > 	struct ttm_pool_alloc_state alloc;
->> > +	int ret;
->> >
->> > 	if (WARN_ON(ttm_tt_is_backed_up(tt)))
->> > 		return -EINVAL;
->> >
->> > 	tt->page_flags &= ~TTM_TT_FLAG_BENEFICIAL_ORDER_FAILED;
->> > 	ttm_pool_alloc_state_init(tt, &alloc);
->> > +	alloc.defrag_bytes_remaining = ctx->defrag_bytes_remaining;
->> > +
->> > +	ret = __ttm_pool_alloc(pool, tt, ctx, &alloc, NULL);
->> > +
->> > +	/* Report the unused defrag budget back to the caller. */
->> > +	ctx->defrag_bytes_remaining = alloc.defrag_bytes_remaining;
->> >
->> > -	return __ttm_pool_alloc(pool, tt, ctx, &alloc, NULL);
->> > +	return ret;
->> > }
->> > EXPORT_SYMBOL(ttm_pool_alloc);
->> >
->> > diff --git a/include/drm/ttm/ttm_bo.h b/include/drm/ttm/ttm_bo.h
->> > index fcaba5fb8bf7..6124d2627b47 100644
->> > --- a/include/drm/ttm/ttm_bo.h
->> > +++ b/include/drm/ttm/ttm_bo.h
->> > @@ -223,6 +223,20 @@ struct ttm_operation_ctx {
->> > 	 * NULL for non-defrag operations.
->> > 	 */
->> > 	struct ttm_tt *defrag_old_tt;
->> > +	/**
->> > +	 * @defrag_bytes_remaining: Byte budget for newly allocated pages during
->> > +	 * a defragmentation move. Only pages that are actually (re)allocated at
->> > +	 * the beneficial order count against it; pages harvested (borrowed) from
->> > +	 * @defrag_old_tt are free and do not. When the budget is exhausted the
->> > +	 * pool allocator stops upgrading and completes the new tt by harvesting
->> > +	 * the remainder of @defrag_old_tt, marking the tt sub-optimal so the
->> > +	 * driver can resume on a later pass. The allocator decrements this as it
->> > +	 * allocates, so on return it holds the unused budget (which the caller
->> > +	 * can use to compute how many bytes were spent). A value of 0 means
->> > +	 * unlimited (upgrade the whole object). Only consulted when
->> > +	 * @defrag_old_tt is set.
->> > +	 */
->> > +	s64 defrag_bytes_remaining;
->>
->> If user specifies -ve value, currently it means unlimited. So, may be update the
->> documentation here to say "A value of <= 0 means unlimited"? Or, better only accept
->> > =0 value from the user ctx here.
->
->How about I reject user input defrag_bytes_remaining < 0?
->
-
-Ok, sounds good.
-
-Niranjana
-
->Matt
->
->>
->> Niranjana
->>
->> > 	/**
->> > 	 * @resv: Reservation object to be used together with
->> > 	 * @allow_res_evict.
->> > --
->> > 2.34.1
->> >
