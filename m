@@ -2,41 +2,41 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0C98A606A33E
-	for <dri-devel@archiver.kernel.org>; Fri, 20 Nov 2026 18:02:59 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9C86D60A261E
+	for <dri-devel@archiver.kernel.org>; Fri, 20 Nov 2026 18:03:08 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.a=rsa-sha256 header.s=dkim header.b=JyOkhE93
+	dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.a=rsa-sha256 header.s=dkim header.b=HcT2d1hB
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 6B1E6112C33;
-	Fri, 20 Nov 2026 18:02:53 +0000 (UTC)
-Received: from smtpout-02.galae.net (smtpout-02.galae.net [185.246.84.56])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 8D20E112C33
- for <dri-devel@lists.freedesktop.org>; Fri, 20 Nov 2026 18:02:46 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id E8E25112C46;
+	Fri, 20 Nov 2026 18:03:02 +0000 (UTC)
+Received: from smtpout-03.galae.net (smtpout-03.galae.net [185.246.85.4])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 2A7B5112C46
+ for <dri-devel@lists.freedesktop.org>; Fri, 20 Nov 2026 18:02:56 +0000 (UTC)
 Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
- by smtpout-02.galae.net (Postfix) with ESMTPS id 5DD461A1755;
- Fri, 20 Nov 2026 18:02:45 +0000 (UTC)
+ by smtpout-03.galae.net (Postfix) with ESMTPS id E6C534E4168F;
+ Fri, 20 Nov 2026 18:02:54 +0000 (UTC)
 Received: from mail.galae.net (mail.galae.net [212.83.136.155])
- by smtpout-01.galae.net (Postfix) with ESMTPS id 2B5FA601B9;
- Fri, 20 Nov 2026 18:02:45 +0000 (UTC)
+ by smtpout-01.galae.net (Postfix) with ESMTPS id BAEE0601B9;
+ Fri, 20 Nov 2026 18:02:54 +0000 (UTC)
 Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon)
- with ESMTPSA id 08F5011BC0997; Fri, 20 Nov 2026 19:02:33 +0100 (CET)
+ with ESMTPSA id 8CA1511BC0966; Fri, 20 Nov 2026 19:02:43 +0100 (CET)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
- t=1795197759; h=from:subject:date:message-id:to:cc:mime-version:content-type:
+ t=1795197768; h=from:subject:date:message-id:to:cc:mime-version:content-type:
  content-transfer-encoding:in-reply-to:references;
- bh=jMrUkp8Jmq4FQY+dGBtdQu4nbYZ89fJFnFeknoUPq/E=;
- b=JyOkhE93GeOL5lTKQlQNZ00zcP0xvqHpaNJbTodfvUE7c10KJhpJFtDnSc/ptuK5WS0g5Q
- IyRZDV1V5/mQfT4e+dIcjJ8gb1nqdEQ/xZjMkucRpfrZ2HslI92XY17vY1qbLL0v/K35Dp
- znZbF/iVUHIoAgsXO1MRmAiHpxBJQF/VIbFtWzk3B9o7kqCsNjsxBzmboK6CRmHvP2XGDT
- P5/J76QdI1w/ncIaFaKMiLQWLZ9X3nCj7Y21FnUhp0Fcz/dzmG6Xz0DHtqOJfy+sS5dXJ1
- bK3AAK8q4mrtT55nJM44m/0ZoE5Tw37lX5DNACpQBmjaGKYt+h8SOqUeTxTMwQ==
+ bh=YHaVD+y7zB4Ff+Ynnos42onyumUQm0y/KwmAf7PZvPc=;
+ b=HcT2d1hB00gwT9eKZVT38Nwueg1NBjTtrvMpcVzxbnIsq9rhLiHwPF8kuXNhAN1MEFO0RQ
+ nt3Y7zZowTfJBwusKYqk7IHR6nOPcBiICknQqBF7ofnNDddUwfnPtOUxPN2d8+wRzqr5mO
+ Tfre2SxoXz0qhpKmp/jDgMZC0EN4Wu7oBH1xyBwW1GvCKt2x+DTY7zJVBYZzjLfLNRnGcx
+ lHpQPcaCngKEH45sIEQg4W8tTaucw+cYG39V1ZPUVGPaF1hl7AUHZ2Ju5eeR/F/f4LJFmu
+ vVqQhbsXLKzLb0sAAhghEWKdmOC39fXSnfWqnjOwaJ6qTfia5ATRc78M12y4WQ==
 From: Louis Chauvet <louis.chauvet@bootlin.com>
-Date: Fri, 20 Nov 2026 18:58:47 +0100
-Subject: [PATCH v6 05/43] drm/blend: Get a rotation name from its bitfield
+Date: Fri, 20 Nov 2026 18:58:48 +0100
+Subject: [PATCH v6 06/43] drm/tests: Add test cases for DRM rotation name
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20261120-vkms-all-config-v6-5-78ace90f4fc1@bootlin.com>
+Message-Id: <20261120-vkms-all-config-v6-6-78ace90f4fc1@bootlin.com>
 References: <20261120-vkms-all-config-v6-0-78ace90f4fc1@bootlin.com>
 In-Reply-To: <20261120-vkms-all-config-v6-0-78ace90f4fc1@bootlin.com>
 To: Haneen Mohammed <hamohammed.sa@gmail.com>, 
@@ -62,21 +62,21 @@ Cc: Luca Ceresoli <luca.ceresoli@bootlin.com>,
  linux-doc@vger.kernel.org, Simona Vetter <simona.vetter@ffwll.ch>, 
  llvm@lists.linux.dev
 X-Mailer: b4 0.17-dev
-X-Developer-Signature: v=1; a=openpgp-sha256; l=4038;
+X-Developer-Signature: v=1; a=openpgp-sha256; l=3815;
  i=louis.chauvet@bootlin.com; h=from:subject:message-id;
- bh=Ql0sub2TFJgazaz3gGeUjQQPDRlHWhBuiIAHC2Oi85M=;
- b=owEBiQJ2/ZANAwAIASCtLsZbECziAcsmYgBrAIr9Gvnos0103sUReBNV8LYmxH74Bk8mt6icm
- xCnNLMw87mJAk8EAAEIADkWIQRPj7g/vng8MQxQWQQgrS7GWxAs4gUCawCK/RsUgAAAAAAEAA5t
- YW51MiwyLjUrMS4xMiwyLDIACgkQIK0uxlsQLOKjSQ//TNP0+gU+odETPPtHBRLYlmqr2JyypS4
- j+iSIcJ1CUPDhvGgCpF88TDJCuXIxfD2TdNEUqAM78Nq4DzH6G7XSAVAnJSvyusHdhRL3U+YlTm
- X53BTvNfWBltHJJ6zkH7b9gJwKn7A0ER33rKmy/+0b253z6jxsQtI9qOVCWsfbaCO5wCCm+s3EB
- bqQANh94txtfXRIrDCIkE1vjBewtFiNpWDADSXLFd+Y2iYha5kWV10PX7lf5MFubYlXeaXVqaFU
- 5AdpQ/f1eEtiPFYW+ssUcxNNe5gg/V32hf52JVrbS3zmwyUz7Kns6gtvNuwtzYQIIKF88D8SWlH
- GiSc9bh4bHiwNro2kOyegpr8yg2VwC5lVjdK4bE3eA51IqWHnewUoPTyuLyB3M802NV2EAUtLuB
- k9nB+1hT1ZORD9rlI2UP5EbhU0i+FBCGSQi5TlwMKIFYO17u/CWIuqiS0Uvae5VjhBnWfpjyqA/
- P7AA2B3D2zrVghOjj9rBowlDlIc2W1tWaSGTKJWoP6nDMFYlMyHZ0+zfM4mjUoRLo7V8Z4Nv9BX
- j0iPx/l5tPC3ymZ5FrXBVJtHGSqdeIO9eNQi/kuGve+t3S/wtDsK9IspLjn5KsGPe+wmvYdWVhu
- R0kuD/PmEv/vFsSv6QiPLnsLyVE53lHdxF9Z6vFXL0FBv0Xpac0I=
+ bh=B3KVoBheTJ1J5bQ+MPIIQ77Ic/UjY4qZi8YFWPmcDx8=;
+ b=owEBiQJ2/ZANAwAIASCtLsZbECziAcsmYgBrAIr97DCQJdM5xNMvxiHKxur4N8ef6SBI1snIq
+ IcSVKU6CZCJAk8EAAEIADkWIQRPj7g/vng8MQxQWQQgrS7GWxAs4gUCawCK/RsUgAAAAAAEAA5t
+ YW51MiwyLjUrMS4xMiwyLDIACgkQIK0uxlsQLOK/0g/9FN4GFIY83pPXzINllDbmrA0Fchk3F7o
+ UOEW+Ak/u38WsasNhsmthMEYbdzeshkIFQ9f4ve0Yzly0KDistZVeTBiGndM3NUs4dPKVJunXIx
+ qGw1sb0m+TMhTQoCgaUeMYklsb5Wj0ivDQpP5kQ2D6r0xnIBEKLvWr3z/HspcvS0AO2+5YWfWyg
+ b3hzyv2oMoUVBYW9chr6uORju9hh6MPaw4mX/Q5rqUpVgjaRs+gqh6Ad4byWNhAm8K5Pt9xRvTu
+ nxW3sF1aRc9W5Xm/f9ZzIQwWL+qEUh17qAX0xAO86Ns2LHnrt8dzN6FgTgZKOZa+m6DqTlozdkk
+ AK2CMFhtAi0ttmOpA6nD2kA3ge8wu6o6yD4mQcnKnjdTbHLxEdppIqlkm81qD87an31AQJ+f3vT
+ 8uPJkrVMk5xPHXgV4YDvUaopM9/1sVoZ7MTpt4B39UxSfq3GE5NBj6WqRK4zYY5MFgJOV7+Px0S
+ il+QwmJmTZ4YfX9mfvQvjTJXnX+NEa1+RR40KQMCeGMwVmw1v6NCTUDWQ57NK0RLtU/khsU+ujF
+ KELMcMihyS653Vc9BnqHHTCO923DR9LkAqOK/e6b5nqERfUCgImHXzZmmgCKHaJ5GV8qUfrq48x
+ YuezKEKrH/RQ7gOh6HWTCc1ory6ShRji3mTWLXk3ZUlnDiBYcNXs=
 X-Developer-Key: i=louis.chauvet@bootlin.com; a=openpgp;
  fpr=8B7104AE9A272D6693F527F2EC1883F55E0B40A5
 X-Last-TLS-Session-Version: TLSv1.3
@@ -99,105 +99,108 @@ X-Spam-Status: No, score=-18.8 required=3.0 tests=BAYES_00,DKIM_SIGNED,
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-Extract the rotation/reflection name table and expose the
-DRM_ROTATION_FMT()/DRM_ROTATION_FMT_ARGS() helpers to print a
-human-readable rotation mask.
+Verify the DRM_ROTATION_FMT()/DRM_ROTATION_FMT_ARGS() helpers.
 
 Signed-off-by: Louis Chauvet <louis.chauvet@bootlin.com>
 ---
- drivers/gpu/drm/drm_blend.c | 19 ++++++++++---------
- include/drm/drm_blend.h     | 34 ++++++++++++++++++++++++++++++++++
- 2 files changed, 44 insertions(+), 9 deletions(-)
+ drivers/gpu/drm/tests/Makefile            |  1 +
+ drivers/gpu/drm/tests/drm_rotation_test.c | 76 +++++++++++++++++++++++++++++++
+ 2 files changed, 77 insertions(+)
 
-diff --git a/drivers/gpu/drm/drm_blend.c b/drivers/gpu/drm/drm_blend.c
-index d17ae964fb21..b62f1db9c311 100644
---- a/drivers/gpu/drm/drm_blend.c
-+++ b/drivers/gpu/drm/drm_blend.c
-@@ -256,6 +256,15 @@ int drm_plane_create_alpha_property(struct drm_plane *plane)
- }
- EXPORT_SYMBOL(drm_plane_create_alpha_property);
- 
-+static const struct drm_prop_enum_list rotation_props[] = {
-+	{ __builtin_ffs(DRM_MODE_ROTATE_0) - 1,   "rotate-0" },
-+	{ __builtin_ffs(DRM_MODE_ROTATE_90) - 1,  "rotate-90" },
-+	{ __builtin_ffs(DRM_MODE_ROTATE_180) - 1, "rotate-180" },
-+	{ __builtin_ffs(DRM_MODE_ROTATE_270) - 1, "rotate-270" },
-+	{ __builtin_ffs(DRM_MODE_REFLECT_X) - 1,  "reflect-x" },
-+	{ __builtin_ffs(DRM_MODE_REFLECT_Y) - 1,  "reflect-y" },
+diff --git a/drivers/gpu/drm/tests/Makefile b/drivers/gpu/drm/tests/Makefile
+index 42207df1d1c8..c10bd6a97f5b 100644
+--- a/drivers/gpu/drm/tests/Makefile
++++ b/drivers/gpu/drm/tests/Makefile
+@@ -24,6 +24,7 @@ obj-$(CONFIG_DRM_KUNIT_TEST) += \
+ 	drm_plane_helper_test.o \
+ 	drm_probe_helper_test.o \
+ 	drm_rect_test.o \
++	drm_rotation_test.o \
+ 	drm_sysfb_modeset_test.o \
+ 	drm_fixp_test.o \
+ 	drm_kunit_edid.o
+diff --git a/drivers/gpu/drm/tests/drm_rotation_test.c b/drivers/gpu/drm/tests/drm_rotation_test.c
+new file mode 100644
+index 000000000000..c537e7ca35b9
+--- /dev/null
++++ b/drivers/gpu/drm/tests/drm_rotation_test.c
+@@ -0,0 +1,76 @@
++// SPDX-License-Identifier: GPL-2.0
++/*
++ * Test cases for DRM rotation functions and macros
++ *
++ * Tests DRM_ROTATION_FMT_ARGS()
++ */
++
++#include <kunit/test.h>
++#include <drm/drm_blend.h>
++
++static void drm_test_rotation_fmt_args(struct kunit *test)
++{
++	char buf[128];
++
++	memset(buf, 0, sizeof(buf));
++	snprintf(buf, sizeof(buf), DRM_ROTATION_FMT, DRM_ROTATION_FMT_ARGS(0));
++	KUNIT_EXPECT_STREQ(test, buf, "(0x00000000)");
++
++	memset(buf, 0, sizeof(buf));
++	snprintf(buf, sizeof(buf), DRM_ROTATION_FMT, DRM_ROTATION_FMT_ARGS(DRM_MODE_ROTATE_0));
++	KUNIT_EXPECT_STREQ(test, buf, "rotate-0 (0x00000001)");
++
++	memset(buf, 0, sizeof(buf));
++	snprintf(buf, sizeof(buf), DRM_ROTATION_FMT, DRM_ROTATION_FMT_ARGS(DRM_MODE_ROTATE_90));
++	KUNIT_EXPECT_STREQ(test, buf, "rotate-90 (0x00000002)");
++
++	memset(buf, 0, sizeof(buf));
++	snprintf(buf, sizeof(buf), DRM_ROTATION_FMT, DRM_ROTATION_FMT_ARGS(DRM_MODE_ROTATE_180));
++	KUNIT_EXPECT_STREQ(test, buf, "rotate-180 (0x00000004)");
++
++	memset(buf, 0, sizeof(buf));
++	snprintf(buf, sizeof(buf), DRM_ROTATION_FMT, DRM_ROTATION_FMT_ARGS(DRM_MODE_ROTATE_270));
++	KUNIT_EXPECT_STREQ(test, buf, "rotate-270 (0x00000008)");
++
++	memset(buf, 0, sizeof(buf));
++	snprintf(buf, sizeof(buf), DRM_ROTATION_FMT, DRM_ROTATION_FMT_ARGS(DRM_MODE_REFLECT_X));
++	KUNIT_EXPECT_STREQ(test, buf, "reflect-x (0x00000010)");
++
++	memset(buf, 0, sizeof(buf));
++	snprintf(buf, sizeof(buf), DRM_ROTATION_FMT, DRM_ROTATION_FMT_ARGS(DRM_MODE_REFLECT_Y));
++	KUNIT_EXPECT_STREQ(test, buf, "reflect-y (0x00000020)");
++
++	memset(buf, 0, sizeof(buf));
++	snprintf(buf, sizeof(buf), DRM_ROTATION_FMT,
++		 DRM_ROTATION_FMT_ARGS(DRM_MODE_ROTATE_0 | DRM_MODE_ROTATE_90 |
++				       DRM_MODE_REFLECT_X));
++	KUNIT_EXPECT_STREQ(test, buf, "rotate-0 rotate-90 reflect-x (0x00000013)");
++
++	unsigned int all = DRM_MODE_ROTATE_0 | DRM_MODE_ROTATE_90 | DRM_MODE_ROTATE_180 |
++			   DRM_MODE_ROTATE_270 | DRM_MODE_REFLECT_X | DRM_MODE_REFLECT_Y;
++
++	memset(buf, 0, sizeof(buf));
++	snprintf(buf, sizeof(buf), DRM_ROTATION_FMT, DRM_ROTATION_FMT_ARGS(all));
++	KUNIT_EXPECT_STREQ(test, buf,
++			   "rotate-0 rotate-90 rotate-180 rotate-270 reflect-x reflect-y (0x0000003f)");
++
++	memset(buf, 0, sizeof(buf));
++	snprintf(buf, sizeof(buf), DRM_ROTATION_FMT,
++		 DRM_ROTATION_FMT_ARGS(DRM_MODE_REFLECT_X | DRM_MODE_REFLECT_Y));
++	KUNIT_EXPECT_STREQ(test, buf, "reflect-x reflect-y (0x00000030)");
++}
++
++static struct kunit_case drm_rotation_tests[] = {
++	KUNIT_CASE(drm_test_rotation_fmt_args),
++	{}
 +};
 +
- /**
-  * drm_plane_create_rotation_property - create a new rotation property
-  * @plane: drm plane
-@@ -294,14 +303,6 @@ int drm_plane_create_rotation_property(struct drm_plane *plane,
- 				       unsigned int rotation,
- 				       unsigned int supported_rotations)
- {
--	static const struct drm_prop_enum_list props[] = {
--		{ __builtin_ffs(DRM_MODE_ROTATE_0) - 1,   "rotate-0" },
--		{ __builtin_ffs(DRM_MODE_ROTATE_90) - 1,  "rotate-90" },
--		{ __builtin_ffs(DRM_MODE_ROTATE_180) - 1, "rotate-180" },
--		{ __builtin_ffs(DRM_MODE_ROTATE_270) - 1, "rotate-270" },
--		{ __builtin_ffs(DRM_MODE_REFLECT_X) - 1,  "reflect-x" },
--		{ __builtin_ffs(DRM_MODE_REFLECT_Y) - 1,  "reflect-y" },
--	};
- 	struct drm_property *prop;
- 
- 	WARN_ON((supported_rotations & DRM_MODE_ROTATE_MASK) == 0);
-@@ -309,7 +310,7 @@ int drm_plane_create_rotation_property(struct drm_plane *plane,
- 	WARN_ON(rotation & ~supported_rotations);
- 
- 	prop = drm_property_create_bitmask(plane->dev, 0, "rotation",
--					   props, ARRAY_SIZE(props),
-+					   rotation_props, ARRAY_SIZE(rotation_props),
- 					   supported_rotations);
- 	if (!prop)
- 		return -ENOMEM;
-diff --git a/include/drm/drm_blend.h b/include/drm/drm_blend.h
-index bebbb77a8f21..f000b10a16e7 100644
---- a/include/drm/drm_blend.h
-+++ b/include/drm/drm_blend.h
-@@ -43,6 +43,40 @@ static inline bool drm_rotation_90_or_270(unsigned int rotation)
- 
- #define DRM_BLEND_ALPHA_OPAQUE		0xffff
- 
-+/**
-+ * DRM_ROTATION_FMT - printf format string describing a rotation bitmask
-+ *
-+ * To be used together with DRM_ROTATION_FMT_ARGS(), e.g.:
-+ *
-+ *	seq_printf(m, "rotation=" DRM_ROTATION_FMT "\n",
-+ *		   DRM_ROTATION_FMT_ARGS(state->rotation));
-+ *
-+ * The result names every set bit, separated by single spaces, and ends
-+ * with the raw value in parentheses, e.g.:
-+ *
-+ *	rotate-90 reflect-x (0x00000012)
-+ *
-+ * The trailing raw value ensures the output is never empty and never
-+ * ends with a space, even when no bit is set.
-+ */
-+#define DRM_ROTATION_FMT "%s%s%s%s%s%s(0x%08x)"
++static struct kunit_suite drm_rotation_test_suite = {
++	.name = "drm_rotation",
++	.test_cases = drm_rotation_tests,
++};
 +
-+/**
-+ * DRM_ROTATION_FMT_ARGS - printf arguments for DRM_ROTATION_FMT
-+ * @rot: rotation bitmask (DRM_MODE_ROTATE_* | DRM_MODE_REFLECT_*)
-+ *
-+ * Evaluates @rot several times: only pass a variable or an expression
-+ * without side effects.
-+ */
-+#define DRM_ROTATION_FMT_ARGS(rot) \
-+	((rot) & DRM_MODE_ROTATE_0)   ? "rotate-0 "   : "", \
-+	((rot) & DRM_MODE_ROTATE_90)  ? "rotate-90 "  : "", \
-+	((rot) & DRM_MODE_ROTATE_180) ? "rotate-180 " : "", \
-+	((rot) & DRM_MODE_ROTATE_270) ? "rotate-270 " : "", \
-+	((rot) & DRM_MODE_REFLECT_X)  ? "reflect-x "  : "", \
-+	((rot) & DRM_MODE_REFLECT_Y)  ? "reflect-y "  : "", \
-+	(rot)
++kunit_test_suite(drm_rotation_test_suite);
 +
- int drm_plane_create_alpha_property(struct drm_plane *plane);
- int drm_plane_create_rotation_property(struct drm_plane *plane,
- 				       unsigned int rotation,
++MODULE_DESCRIPTION("Test cases for DRM rotation functions and macros");
++MODULE_LICENSE("GPL");
 
 -- 
 2.56.0
