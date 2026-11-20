@@ -2,66 +2,66 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0E850606A325
-	for <dri-devel@archiver.kernel.org>; Fri, 20 Nov 2026 07:34:20 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0436B60A2606
+	for <dri-devel@archiver.kernel.org>; Fri, 20 Nov 2026 07:34:22 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=IUAY5S4F
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=uL7S7Bc+
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 1CE6E10E29B;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 86C3110E22A;
 	Fri, 20 Nov 2026 07:34:14 +0000 (UTC)
-Received: from mail-wm1-f47.google.com (mail-wm1-f47.google.com
- [209.85.128.47])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 356BE10E282
- for <dri-devel@lists.freedesktop.org>; Fri, 20 Nov 2026 07:34:07 +0000 (UTC)
-Received: by mail-wm1-f47.google.com with SMTP id
- 5b1f17b1804b1-4bb77a462c6so13344995e9.1
- for <dri-devel@lists.freedesktop.org>; Thu, 19 Nov 2026 23:34:07 -0800 (PST)
+Received: from mail-wr1-f53.google.com (mail-wr1-f53.google.com
+ [209.85.221.53])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 0309B10E22A
+ for <dri-devel@lists.freedesktop.org>; Fri, 20 Nov 2026 07:34:03 +0000 (UTC)
+Received: by mail-wr1-f53.google.com with SMTP id
+ ffacd0b85a97d-49a92144733so232223f8f.0
+ for <dri-devel@lists.freedesktop.org>; Thu, 19 Nov 2026 23:34:02 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20260707; t=1795160045; x=1795764845; darn=lists.freedesktop.org;
+ d=gmail.com; s=20260707; t=1795160041; x=1795764841; darn=lists.freedesktop.org;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:from:to:cc:subject:date
  :message-id:reply-to:content-type;
- bh=VlPXjcEHW+lGnIptKKRSC5EQ8CQecxUOoIc+hyAGrok=;
- b=IUAY5S4FjG0bRFD94HNAATXvYPXQnF3kCXzCxNN79GpylmY8EKxjG0ecO4os+Nu6bZ
- t1JsG5hjXy60k53BrL/rosS705Cco/CbLA6fhor6QVhon2NMMAUZwwkFTjHVJ+1lWY4C
- ljECw56tVafTOwzwwcmfNMGr9NpGOEvHBopQ44qjN0x6S/2sD0hO9SbeDY33/bj1EecN
- w/SrbwuDXh1IuSeCI740WPHOZohMNN8yT/ziR6NGW4yZI1ZHAYlAHW1Uu3hc5XljgSo2
- No+skJ5rgc4338dCNmZKZbtZfL0sCyCIPH70lAxgwb1jZeAZ5lMwBGJNzB8Lh7mdoNrF
- PJxw==
+ bh=YcT3yZc29jCRS7MnDgeTGGcWUyCQ1FNb6W/JHHtK0hQ=;
+ b=uL7S7Bc+scuYY9bPLOI2aV+rJ+RpSC/dmEp1MK1AGCvnC44hy0sAIp2D4gz+TiAKd/
+ 9zOlOD4Bf6vEPdbmTRgAveysGfoUflqRaEUMY/tcBZc4K82qeDPSLpNWGsGaIXsYLn61
+ eZxghr4uv4RHg8YYhhXiN+ZaLRT8GHTqE2NJSqMH1QkClmyOvvWeku3oZLcnYfeBnf1F
+ xCdqvq0Mlnu9Xp2xQX0qb0up4txiyIr1l8vhTcAnnE3NCEil5jUpy3z2PgRJAI29/rTd
+ 5tE4vDEpTVdamH3QjZETI7XH5mFmcTk8smQ401Q6DSuZS4inAdHjIJvS9/vpbA9zgKkH
+ b1mA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20260707; t=1795160045; x=1795764845;
+ d=1e100.net; s=20260707; t=1795160041; x=1795764841;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
  :to:cc:subject:date:message-id:reply-to:content-type;
- bh=VlPXjcEHW+lGnIptKKRSC5EQ8CQecxUOoIc+hyAGrok=;
- b=zjBZBzLd9KPELaEVLZ3/fKPGVs7KQ3R9F0AUHxuOT6t1yyKjAUE032bodKOTJKC/X5
- xTd295UPfMH0xXACuPV5jw1hrIrOhL039BcMeRSJDYdTZPJlNd71Fx6nq6LKzqwgrzfu
- +DWSaJk+2p16jOdsPSnWtNQwl9/FpfLwcnnWYyu6rSfh0mZ2eWf5M3NHbg8PJqdmleeu
- 5yk3kb3y6pf23F1ngvwu4fMGbEes8dpoG0InMq1L5Hwz4lXOS5Ocj4Vd1e53j6sACCGe
- zZAm1iuo5kyrGh8o4DB0IGfKJVsbvl9AgTGvRo5IzpUDpZQsr5CjkXUsx7gdoIvAXXbX
- 7nsA==
+ bh=YcT3yZc29jCRS7MnDgeTGGcWUyCQ1FNb6W/JHHtK0hQ=;
+ b=2TWUgwwcOXRVhYQzTAIxvY0iiNti3lCwEzhEBxToYvW3u1F1pxebD85YDdvtJly6Po
+ 36NCijvBWuFP2X6aujtJc1x4EG8oEsvmZY8cJSXQRiB/yp1U8HtU2c2x0ff8FCalU76s
+ 9IenGHmk8fIaKNuXClwnSzfBmdbbRYBf46kiDtDllqX6kMB+G9s0SY40uffnpyX5ABIh
+ 1kMRxmXYtPup5uzHNYMwKfRdLxErA08Spv4kNM5Ba8b+5h7SyLk10Mq6GG/+5+O5d6eV
+ e8QBQTo5RjNFi5VPkylzkBGHb6xv5L6MR0biAW0IRIzi/xN0edm910jxOeKpaauLLEnF
+ +I5g==
 X-Forwarded-Encrypted: i=1;
- AL+hErGJ27bLKugbwIbuAZAg9FDzPgcjzrDoNseB5L/y9NOXa1Ns0z9iOSWGVOzy0crRKL2bBYx1SFMY5uE=@lists.freedesktop.org
-X-Gm-Message-State: APuU4Z8DpUvpt6rZ/hKDOXp1hitbLCFbaBLl41ax5zwZXuim9nY3Zj3J
- EgN5QOY1xmcmxwH6wqbftOjK3+sT1916r7Z3L2YNB2uBI+9/jR9YNfbY
-X-Gm-Gg: AYBFou1MXvi7+TMZHjYbaXljTJWNZJAoYACBLOHHtCE+GctzIcubUNWVmqoKJl+QIwR
- L+cKzCsDcA2fl234VWnHXDZRr/eASR85XnW/+BhfCGToQj271tqINYPOerErgeEDNhCru8MBRZZ
- LwalFJh4k/Jui5MjLWKOZXv3xF1TheIXgMFvoQBz6BWXD0pk6JHOOP9WbB2i06MKJjbze/GBWUU
- lznWx6wH/FUmWN8IBtgaexY9Y+xf8a7bA0nsNsODrCzVxAr0HmJYLm9xEyLWlXTOYcE3VBqFj0/
- ZGHvsF7k0fY3/bu8a6bkUxzQf+DA7hN5oe7pliwKYUa6kkg3IwykAog0UfxO3M0Bevw9bZV9Y2H
- 6iK/5bP5Pna8jeoi8RsaOfXrTc6Spmuuh50LG5B4qA5bBgj3AsXrecad+2QP/yIf2/nCHAqxxG/
- urgTVKAvGUeLOsacm3PsiHlNf7dJLeM6ICyyejNhL4PykYPmHbro4L8cSGQ/Ar4jwICZ3H99bhg
- kdT3GiG22EtWHKMtiBxfAl2rfnjN+Weu15VM95We+xFExCswTxy+jwmJEA0EBNTCSNCozT0rJ/d
- /msQCIPQN0AEZQaN1JVh1WSvHHyEtEzNxWg1e6tb7TgT+wHNQSgNjbZ2bK5bMQsrQlqJuakk6qR
- y/adY0/cvRe4AYBMxsLKO
-X-Received: by 2002:a05:600c:6749:b0:4bb:5d38:259f with SMTP id
- 5b1f17b1804b1-4bb8881099cmr44675865e9.12.1795160045388; 
- Thu, 19 Nov 2026 23:34:05 -0800 (PST)
+ AL+hErHKOOp4NeMId5F8pwtulPOvzyr+X9lf3OFFaKK9thJ0S0xBqa9kL6hSVZdhZiJwYwztk0pvM9iCm6c=@lists.freedesktop.org
+X-Gm-Message-State: APuU4Z/ATWhTvi3NqL3ickhEIFFacDp/0x4GtlXWu2frGCOPPgkRwMLG
+ SbnDUgg2GltlTY0kjBkEwLvo/GSEGd8sL/9i/AjeyYfKEri5WvvHWvCz
+X-Gm-Gg: AYBFou2kwdBM4nhT6mzjKRQuphQ2GHJmMRK7q5z//8VYP94YWtyYUDwJ0KDg8YYn43Z
+ t60Hbb0sRgEHc2AkoxzoI3xsa2QRmO7zolai0RKpU9ERwT/c36+Gw1VBdcwX/+MYfdEfg3IcVw6
+ x/T9A5WxFORnB0FtAW02sUzkfpvlr8G5TZhQx76QFszhoztEZyzvjwcZKVq0kdO0gvRN0AlF0LC
+ HHbXw/dgVe9xK91pb8zjmEgke+ohPTxE/ZOyNmF7RCVxjPGewQbOWQ6aWQtjOUxo9aEXzBcfgGg
+ KgAMPPPridFfWusxXqFLnTW0XB7cOeMnHIXutC6C0uqRFnbwioD6NEqWSb2o8lKLVkL81OTah7S
+ aRKz5lK7t5AEkxCnmyJ21iWrbxUvV1fXgHNA1NJgZjcSeP2F7KhKDttHun/qV7Vy6L+74KjFERU
+ MFS9nG9z75nVIDT+o+IMt9a73eDbJ0EI76iZ3OIXKm3OEQQc3MAGmdD87LEe47LQgV3tlWWy6mL
+ M70CfZdad+X3d0k/v6bFFWGbAjuh4MnmFJ2IoFHpvSuXov8b9ERjVnffHi0OSYFIz9ikbF9lHPC
+ gqUq5OvB+UdB4EJtyOr/6bToD148luclUJKYSallUGe5WZwDfh1ELOB1Fe2CWOfZNwfT4K7zuHg
+ =
+X-Received: by 2002:a05:600c:b90:b0:4a7:76fa:87e9 with SMTP id
+ 5b1f17b1804b1-4bb8892cb02mr41369415e9.21.1795160041183; 
+ Thu, 19 Nov 2026 23:34:01 -0800 (PST)
 Received: from DESKTOP-BJ3EVC4.lan (178-164-182-185.pool.digikabel.hu.
  [178.164.182.185]) by smtp.gmail.com with ESMTPSA id
- 5b1f17b1804b1-4bb884a3a3dsm54154045e9.10.2026.11.19.23.34.04
+ 5b1f17b1804b1-4bb884a3a3dsm54154045e9.10.2026.11.19.23.34.00
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 19 Nov 2026 23:34:05 -0800 (PST)
+ Thu, 19 Nov 2026 23:34:00 -0800 (PST)
 From: Abdur Rofik <rofikcoga@gmail.com>
 To: linux-arm-msm@vger.kernel.org
 Cc: devicetree@vger.kernel.org, phone-devel@vger.kernel.org,
@@ -73,10 +73,9 @@ Cc: devicetree@vger.kernel.org, phone-devel@vger.kernel.org,
  Neil Armstrong <neil.armstrong@linaro.org>,
  Dmitry Torokhov <dmitry.torokhov@gmail.com>,
  Abdur Rofik <rofikcoga@gmail.com>
-Subject: [PATCH v4 05/10] dt-bindings: input: touchscreen: add Silicon Works
- SW42902
-Date: Fri, 20 Nov 2026 08:33:53 +0100
-Message-Id: <20261120073358.10267-6-rofikcoga@gmail.com>
+Subject: [PATCH v4 01/10] dt-bindings: arm: qcom: add LG V60 ThinQ 5G (timelm)
+Date: Fri, 20 Nov 2026 08:33:49 +0100
+Message-Id: <20261120073358.10267-2-rofikcoga@gmail.com>
 X-Mailer: git-send-email 2.39.5
 In-Reply-To: <20261120073358.10267-1-rofikcoga@gmail.com>
 References: <20261120073358.10267-1-rofikcoga@gmail.com>
@@ -102,112 +101,26 @@ X-Spam-Status: No, score=-15.8 required=3.0 tests=BAYES_00,DKIM_SIGNED,
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-Document the Silicon Works SW42902 I2C touchscreen controller, including
-its interrupt, reset GPIO, power supplies, and panel touch properties.
+Document the compatible for the LG V60 ThinQ 5G (timelm), based on
+the Qualcomm SM8250 platform.
 
 Signed-off-by: Abdur Rofik <rofikcoga@gmail.com>
 ---
- .../input/touchscreen/lg,sw42902.yaml         | 73 +++++++++++++++++++
- MAINTAINERS                                   |  6 ++
- 2 files changed, 79 insertions(+)
- create mode 100644 Documentation/devicetree/bindings/input/touchscreen/lg,sw42902.yaml
+ Documentation/devicetree/bindings/arm/qcom.yaml | 1 +
+ 1 file changed, 1 insertion(+)
 
-diff --git a/Documentation/devicetree/bindings/input/touchscreen/lg,sw42902.yaml b/Documentation/devicetree/bindings/input/touchscreen/lg,sw42902.yaml
-new file mode 100644
-index 0000000000000..c5ec3bf4e545b
---- /dev/null
-+++ b/Documentation/devicetree/bindings/input/touchscreen/lg,sw42902.yaml
-@@ -0,0 +1,73 @@
-+# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
-+%YAML 1.2
-+---
-+$id: http://devicetree.org/schemas/input/touchscreen/lg,sw42902.yaml#
-+$schema: http://devicetree.org/meta-schemas/core.yaml#
-+
-+title: Silicon Works SW42902 Touchscreen Controller
-+
-+maintainers:
-+  - Abdur Rofik <rofikcoga@gmail.com>
-+
-+description: |
-+  The SW42902 is an I2C capacitive touchscreen controller used on the
-+  LG V60 (timelm).
-+
-+allOf:
-+  - $ref: touchscreen.yaml#
-+
-+properties:
-+  compatible:
-+    const: lg,sw42902
-+
-+  reg:
-+    maxItems: 1
-+
-+  interrupts:
-+    maxItems: 1
-+
-+  reset-gpios:
-+    maxItems: 1
-+    description: Active-low hardware reset
-+
-+  vcl-supply:
-+    description: 3.3 V power supply
-+
-+  vdd-supply:
-+    description: 1.8 V power supply
-+
-+required:
-+  - compatible
-+  - reg
-+  - interrupts
-+  - reset-gpios
-+  - vcl-supply
-+  - vdd-supply
-+
-+unevaluatedProperties: false
-+
-+examples:
-+  - |
-+    #include <dt-bindings/gpio/gpio.h>
-+    #include <dt-bindings/interrupt-controller/irq.h>
-+
-+    i2c {
-+        #address-cells = <1>;
-+        #size-cells = <0>;
-+
-+        touchscreen@48 {
-+            compatible = "lg,sw42902";
-+            reg = <0x48>;
-+
-+            interrupt-parent = <&tlmm>;
-+            interrupts = <39 IRQ_TYPE_LEVEL_LOW>;
-+
-+            reset-gpios = <&tlmm 38 GPIO_ACTIVE_LOW>;
-+            vcl-supply = <&reg_ts_vcl>;
-+            vdd-supply = <&reg_ts_vdd>;
-+
-+            touchscreen-size-x = <1080>;
-+            touchscreen-size-y = <2460>;
-+        };
-+    };
-+...
-diff --git a/MAINTAINERS b/MAINTAINERS
-index 28e4aac18d44a..a29019d984393 100644
---- a/MAINTAINERS
-+++ b/MAINTAINERS
-@@ -25835,6 +25835,12 @@ S:	Maintained
- F:	Documentation/fb/sm712fb.rst
- F:	drivers/video/fbdev/sm712*
+diff --git a/Documentation/devicetree/bindings/arm/qcom.yaml b/Documentation/devicetree/bindings/arm/qcom.yaml
+index 121ca557ce1ef..85635a871e7f3 100644
+--- a/Documentation/devicetree/bindings/arm/qcom.yaml
++++ b/Documentation/devicetree/bindings/arm/qcom.yaml
+@@ -1139,6 +1139,7 @@ properties:
  
-+SILICON WORKS SW42902 TOUCHSCREEN DRIVER
-+M:	Abdur Rofik <rofikcoga@gmail.com>
-+L:	linux-input@vger.kernel.org
-+S:	Maintained
-+F:	Documentation/devicetree/bindings/input/touchscreen/lg,sw42902.yaml
-+
- SILVACO I3C DUAL-ROLE MASTER
- M:	Miquel Raynal <miquel.raynal@bootlin.com>
- M:	Frank Li <Frank.Li@nxp.com>
+       - items:
+           - enum:
++              - lg,timelm
+               - qcom,qrb5165-rb5
+               - qcom,sm8250-hdk
+               - qcom,sm8250-mtp
 -- 
 2.39.5
 
