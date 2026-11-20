@@ -2,40 +2,39 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8C6CF606A33C
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DC57760A5BCE
 	for <dri-devel@archiver.kernel.org>; Fri, 20 Nov 2026 14:59:24 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=BvJYUSyn
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=TJlXgYm4
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id DC8E1112B6D;
-	Fri, 20 Nov 2026 14:59:18 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 3F989112B71;
+	Fri, 20 Nov 2026 14:59:19 +0000 (UTC)
 Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id BF3B7112B5C
- for <dri-devel@lists.freedesktop.org>; Fri, 20 Nov 2026 14:58:26 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 04337112B66
+ for <dri-devel@lists.freedesktop.org>; Fri, 20 Nov 2026 14:58:42 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id A90014692E;
- Fri, 20 Nov 2026 14:58:26 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4CD041F00A36;
- Fri, 20 Nov 2026 14:58:26 +0000 (UTC)
+ by sea.source.kernel.org (Postfix) with ESMTP id E0FE946C20;
+ Fri, 20 Nov 2026 14:58:41 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 51D7F1F00A36;
+ Fri, 20 Nov 2026 14:58:41 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1795186706;
- bh=HnnxhzyMXZMilpbzp72La6orrAlXi+darEn01RzXf5s=;
+ s=k20260515; t=1795186721;
+ bh=X8kjfOaquqsCuw1INjfug/3xaJAguhVUHjw7uk0as/M=;
  h=From:Date:Subject:References:In-Reply-To:To:Cc;
- b=BvJYUSyneEWTU7TcFeqJk1PWWMSZtbBW16E+u02Stf/ifgcHQDhzGDjZEIK/Gfu9h
- SWjB99Af+q0omuZDsYUzWObRSRA1VraXJwlKsKKrdJnqOB4lUDr1R/FqKCh614LqsM
- 5wevDkymCxLpTRBcl7XzNW0F+5ILNUCjb+v6WLKkJJnkT8uGcLHHcs/pZzICggopSh
- nYBMK4PfXK7IRepJIiMLg+2wXjpbG+1AAg0At6HS0SOCEkNz80TLt0zgooLWXhO0oW
- CJCtRmiO7Do5bDar+AbEbsXb5ATZQktAKAyFWBaje3HBPwEILt1OO5wXxkpBVsmaHp
- D258+lUfdtMWw==
+ b=TJlXgYm4ykF7EehzJFw5Rrg4sXQpm9f2Hr/3qB8yNcj0hVdddJggFV7PKEBFblib1
+ +4FkA4ZkiNRm0skGgjb0mvnwK6Q26hoYDsHf0wd67hqQFZFnbveHMJpKUFcbJpcW8K
+ 8+BHxfNz7PV7K3UCVweIbqjcM8Yu1hMOMhZKqKBNZ+kPuCxb7vIMVky6uNQ8hUyTOj
+ 2ScIEq+iTHsb+dAc8ywT3DCkj6x01A1w/hqkdOtCGEqPMrWpoBR/+KppNOMe4DfH9s
+ Ory7f/g40Y3gD8k5JSGRA64zLiOMNW7Vtwl8t3guK107gjWazC9jeF9vUA19aytnm6
+ SWKmOnwvr6c3A==
 From: "Rob Herring (Arm)" <robh@kernel.org>
-Date: Fri, 20 Nov 2026 08:57:37 -0600
-Subject: [PATCH v5 13/19] accel: ethosu: Split U65 and U85 DMA length
- validation
+Date: Fri, 20 Nov 2026 08:57:42 -0600
+Subject: [PATCH v5 18/19] accel: ethosu: Support IFM upscaling
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20261120-ethosu-fixes-v5-13-52d459acdb84@kernel.org>
+Message-Id: <20261120-ethosu-fixes-v5-18-52d459acdb84@kernel.org>
 References: <20261120-ethosu-fixes-v5-0-52d459acdb84@kernel.org>
 In-Reply-To: <20261120-ethosu-fixes-v5-0-52d459acdb84@kernel.org>
 To: Tomeu Vizoso <tomeu@tomeuvizoso.net>, Oded Gabbay <ogabbay@kernel.org>, 
@@ -60,219 +59,164 @@ X-Spam-Status: No, score=-18.8 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-Ethos-U65 and Ethos-U85 have slightly different DMA programming models.
-The U65 has skip values added on to the size whereas U85 has signed
-stride values. The U65 shares the skip values for source and destination
-whereas the U85 has independent settings for source and destination.
+Track the IFM upscaling mode while validating command streams and
+adjust feature-map bounds for its 2x resampling modes.
 
-The current validation only correctly handles U65 constraints and only
-for source 2D/3D mode. Split the shared DMA length calculation into U65
-and U85 specific versions adding U65 destination 2D/3D mode and U85
-constraints.
+Resize operations require no IFM upscaling, so reject a non-default
+mode there. Ethos-U only defines upscaled IFM reads with unit kernel
+strides and non-chained storage. Reject incompatible state when the
+operation actually reads IFM, including elementwise operations, rather
+than checking when registers are programmed.
 
-Fixes: 5a5e9c0228e6 ("accel: Add Arm Ethos-U NPU driver")
-Cc: stable@vger.kernel.org
+Also enforce the pooling-mode restrictions: max/min cannot insert zeros,
+and reduce_sum and argmax do not support IFM upscaling. The coordinate
+reduction used for bounds checking must not be applied to these
+undefined hardware configurations.
+
 Signed-off-by: Rob Herring (Arm) <robh@kernel.org>
 ---
 v5:
- - Handle U85 shared stride mode
- - Fix U65 case with mixed contiguous buffer and strided buffer
+ - Reject various invalid modes
+ - IFM upscaling is not U85 specific, but supported on U65 too
 
 v4:
- - Only account for a skip/stride between transfers and not at the end of
-   last transfer
-
-v3:
- - Fix U65 destination stride/skip handling
-
-v2:
- - new patch
+ - New patch
 ---
- drivers/accel/ethosu/ethosu_gem.c | 131 +++++++++++++++++++++++++++++++-------
- 1 file changed, 107 insertions(+), 24 deletions(-)
+ drivers/accel/ethosu/ethosu_device.h |  7 ++++++
+ drivers/accel/ethosu/ethosu_gem.c    | 46 ++++++++++++++++++++++++++++++++++++
+ 2 files changed, 53 insertions(+)
 
+diff --git a/drivers/accel/ethosu/ethosu_device.h b/drivers/accel/ethosu/ethosu_device.h
+index f8066a9cf610..40b7f28ae61d 100644
+--- a/drivers/accel/ethosu/ethosu_device.h
++++ b/drivers/accel/ethosu/ethosu_device.h
+@@ -93,6 +93,12 @@ struct gen_pool;
+ 
+ #define NPU_CMD_CTRL_CMD1		BIT(14)
+ 
++enum ethosu_ifm_upscale_mode {
++	NPU_IFM_UPSCALE_NONE,
++	NPU_IFM_UPSCALE_NEAREST,
++	NPU_IFM_UPSCALE_ZEROS,
++};
++
+ enum ethosu_cmds {
+ 	NPU_OP_STOP = 0x0,
+ 	NPU_OP_CONV = 0x2,
+@@ -109,6 +115,7 @@ enum ethosu_cmds {
+ 	NPU_SET_IFM_PAD_BOTTOM = 0x103,
+ 	NPU_SET_IFM_DEPTH_M1 = 0x104,
+ 	NPU_SET_IFM_PRECISION = 0x105,
++	NPU_SET_IFM_UPSCALE = 0x107,
+ 	NPU_SET_IFM_BROADCAST = 0x108,
+ 	NPU_SET_IFM_WIDTH0_M1 = 0x10a,
+ 	NPU_SET_IFM_HEIGHT0_M1 = 0x10b,
 diff --git a/drivers/accel/ethosu/ethosu_gem.c b/drivers/accel/ethosu/ethosu_gem.c
-index 1d2bc5d4a37a..0ab73b99c458 100644
+index d2884d9922ae..b4544298742f 100644
 --- a/drivers/accel/ethosu/ethosu_gem.c
 +++ b/drivers/accel/ethosu/ethosu_gem.c
-@@ -212,12 +212,18 @@ static bool dma_use_src_stride(struct ethosu_device *edev,
- 	return ethosu_is_u65(edev) || dma == &dma_st->src;
- }
+@@ -167,6 +167,7 @@ struct cmd_state {
+ 	u8 acc_input_precision;
+ 	bool fast_weights;
+ 	u8 parallel_mode;
++	u8 ifm_upscale;
+ 	struct dma_state dma;
+ 	struct buffer scale[2];
+ 	struct buffer weight[4];
+@@ -402,6 +403,11 @@ static int feat_matrix_validate(struct ethosu_device *edev,
+ 		    !cmd_state_reg_is_set(st, NPU_SET_IFM_PRECISION) ||
+ 		    !cmd_state_reg_is_set(st, NPU_SET_IFM_DEPTH_M1))
+ 			return -EINVAL;
++		if (st->ifm_upscale &&
++		    (!cmd_state_reg_is_set(st, NPU_SET_KERNEL_STRIDE) ||
++		     feat_matrix_chained(edev, fm) ||
++		     (st->ifm.stride_kernel & (BIT(0) | BIT(1) | BIT(6) | BIT(9)))))
++			return -EINVAL;
+ 		if (feat_matrix_chained(edev, fm))
+ 			return 0;
+ 		if (!cmd_state_reg_is_set(st, NPU_SET_IFM_WIDTH0_M1) ||
+@@ -745,6 +751,11 @@ static int calc_sizes_resize(struct drm_device *ddev,
+ 	u64 len;
+ 	int ret;
  
-+static s8 dma_mode(struct ethosu_device *edev,
-+		   const struct dma_state *dma_st, const struct dma *dma)
-+{
-+	return ethosu_is_u65(edev) ? dma->mode : dma_st->src.mode;
-+}
++	if (st->ifm_upscale != NPU_IFM_UPSCALE_NONE ||
++	    feat_matrix_chained(edev, &st->ofm) ||
++	    FIELD_GET(NPU_OFM_TRANSPOSE_MASK, st->ofm.precision))
++		return -EINVAL;
 +
- static bool dma_params_valid(struct ethosu_device *edev, struct cmd_state *st,
- 			     const struct dma_state *dma_st,
- 			     const struct dma *dma,
- 			     u16 region_cmd, u16 addr_cmd)
- {
--	s8 mode = dma->mode;
-+	s8 mode = dma_mode(edev, dma_st, dma);
- 
- 	if (!cmd_state_reg_is_set(st, region_cmd) ||
- 	    !cmd_state_reg_is_set(st, addr_cmd) ||
-@@ -245,40 +251,101 @@ static bool dma_params_valid(struct ethosu_device *edev, struct cmd_state *st,
- 	return true;
+ 	if (!cmd_state_reg_is_set(st, NPU_SET_KERNEL_WIDTH_M1) ||
+ 	    !cmd_state_reg_is_set(st, NPU_SET_KERNEL_HEIGHT_M1) ||
+ 	    !cmd_state_reg_is_set(st, NPU_SET_OFM_BLK_WIDTH_M1) ||
+@@ -811,6 +822,19 @@ static int weight_streams(struct ethosu_device *edev, struct cmd_state *st,
+ 	return 0;
  }
  
--static u64 dma_length(struct ethosu_device *edev,
--		      struct ethosu_validated_cmdstream_info *info,
--		      struct cmd_state *st, struct dma_state *dma_st,
--		      struct dma *dma, u16 region_cmd, u16 addr_cmd)
-+static u64 dma_length_finish(struct ethosu_validated_cmdstream_info *info,
-+			     const struct dma *dma, u64 len)
- {
--	s8 mode = dma->mode;
--	u64 len = dma->len;
-+	if (dma->region >= 0) {
-+		u64 end;
- 
--	if (!dma_params_valid(edev, st, dma_st, dma, region_cmd, addr_cmd))
--		return U64_MAX;
-+		if (check_add_overflow(len, dma->offset, &end))
-+			return U64_MAX;
-+		info->region_size[dma->region] =
-+			max(info->region_size[dma->region], end);
++static u32 ifm_upscale_coord(u32 coord, u8 mode)
++{
++	switch (mode) {
++	case NPU_IFM_UPSCALE_NONE:
++		return coord;
++	case NPU_IFM_UPSCALE_NEAREST:
++	case NPU_IFM_UPSCALE_ZEROS:
++		return coord / 2;
 +	}
 +
-+	return len;
++	return 0;
 +}
 +
-+static u64 dma_length_u65(struct ethosu_validated_cmdstream_info *info,
-+			  struct dma_state *dma_st,
-+			  struct dma *dma)
-+{
-+	s8 mode = max(dma_st->src.mode, dma_st->dst.mode);
-+	u64 len = dma->len;
-+	u64 stride;
+ static int buffer_size(struct ethosu_validated_cmdstream_info *info,
+ 		       struct cmd_state *st, struct buffer *buf, s8 region,
+ 		       u16 region_cmd, u16 base_cmd, u16 length_cmd, bool inactive)
+@@ -871,6 +895,8 @@ static int calc_sizes(struct drm_device *ddev,
  
- 	if (mode >= 1) {
--		if (dma->stride[0] < 0 && (u64)(-dma->stride[0]) > len)
--			return U64_MAX;
--		len += dma->stride[0];
- 		if (check_mul_overflow(len, (u64)dma_st->size0, &len))
- 			return U64_MAX;
-+		if (dma->mode >= 1 &&
-+		    (check_mul_overflow((u64)dma->stride[0],
-+				       (u64)dma_st->size0 - 1, &stride) ||
-+		     check_add_overflow(len, stride, &len)))
-+			return U64_MAX;
- 	}
- 	if (mode == 2) {
--		if (dma->stride[1] < 0 && (u64)(-dma->stride[1]) > len)
--			return U64_MAX;
--		len += dma->stride[1];
- 		if (check_mul_overflow(len, (u64)dma_st->size1, &len))
- 			return U64_MAX;
-+		if (dma->mode == 2 &&
-+		    (check_mul_overflow((u64)dma->stride[1],
-+				       (u64)dma_st->size1 - 1, &stride) ||
-+		     check_add_overflow(len, stride, &len)))
-+			return U64_MAX;
- 	}
--	if (dma->region >= 0) {
--		u64 end;
+ 		if (ifm_height < 0 || ifm_width < 0)
+ 			return -EINVAL;
++		ifm_height = ifm_upscale_coord(ifm_height, st->ifm_upscale);
++		ifm_width = ifm_upscale_coord(ifm_width, st->ifm_upscale);
  
--		if (check_add_overflow(len, dma->offset, &end))
-+	return dma_length_finish(info, dma, len);
-+}
-+
-+static u64 dma_length_u85(struct ethosu_validated_cmdstream_info *info,
-+			  struct dma_state *dma_st,
-+			  struct dma *dma)
-+{
-+	s8 mode = dma_st->src.mode;
-+	s64 min = 0;
-+	u64 max = dma->len;
-+	s64 stride;
-+
-+	if (mode >= 1) {
-+		if (check_mul_overflow(dma->stride[0],
-+				       (s64)dma_st->size0 - 1, &stride))
-+			return U64_MAX;
-+		if (stride < 0) {
-+			if (check_add_overflow(min, stride, &min))
-+				return U64_MAX;
-+		} else if (check_add_overflow(max, (u64)stride, &max)) {
- 			return U64_MAX;
--		info->region_size[dma->region] = max(info->region_size[dma->region], end);
-+		}
-+	}
-+	if (mode == 2) {
-+		if (check_mul_overflow(dma->stride[1],
-+				       (s64)dma_st->size1 - 1, &stride))
-+			return U64_MAX;
-+		if (stride < 0) {
-+			if (check_add_overflow(min, stride, &min))
-+				return U64_MAX;
-+		} else if (check_add_overflow(max, (u64)stride, &max)) {
-+			return U64_MAX;
-+		}
- 	}
+ 		ret = feat_matrix_size(edev, info, st, &st->ifm, FEAT_MATRIX_IFM,
+ 				       ifm_width, ifm_height, st->ifm.depth, false,
+@@ -972,6 +998,8 @@ static int calc_sizes_elemwise(struct drm_device *ddev,
+ 		height = st->ifm.broadcast & 0x1 ? 0 : st->ofm.height[2];
+ 		width = st->ifm.broadcast & 0x2 ? 0 : st->ofm.width;
+ 		depth = st->ifm.broadcast & 0x4 ? 0 : st->ofm.depth;
++		height = ifm_upscale_coord(height, st->ifm_upscale);
++		width = ifm_upscale_coord(width, st->ifm_upscale);
  
--	return len;
-+	if (min < 0 && -(u64)min > dma->offset)
-+		return U64_MAX;
-+
-+	return dma_length_finish(info, dma, max);
-+}
-+
-+static u64 dma_length(struct ethosu_device *edev,
-+		      struct ethosu_validated_cmdstream_info *info,
-+		      struct cmd_state *st, struct dma_state *dma_st,
-+		      struct dma *dma, u16 region_cmd, u16 addr_cmd)
-+{
-+	if (!dma_params_valid(edev, st, dma_st, dma, region_cmd, addr_cmd))
-+		return U64_MAX;
-+
-+	if (ethosu_is_u65(edev))
-+		return dma_length_u65(info, dma_st, dma);
-+
-+	return dma_length_u85(info, dma_st, dma);
- }
- 
- static bool feat_matrix_chained(struct ethosu_device *edev, struct feat_matrix *fm)
-@@ -1102,16 +1169,32 @@ static int ethosu_gem_cmdstream_copy_and_validate(struct drm_device *ddev,
- 			st.dma.size1 = param;
- 			break;
- 		case NPU_SET_DMA0_SRC_STRIDE0:
--			st.dma.src.stride[0] = ((s64)addr << 24) >> 24;
-+			if (ethosu_is_u65(edev)) {
-+				st.dma.src.stride[0] = addr;
-+				st.dma.dst.stride[0] = addr;
-+			} else {
-+				st.dma.src.stride[0] = sign_extend64(addr, 39);
+ 		ret = feat_matrix_size(edev, info, st, &st->ifm, FEAT_MATRIX_IFM,
+ 				       width, height, depth, false, &len);
+@@ -1102,6 +1130,19 @@ static int ethosu_gem_cmdstream_copy_and_validate(struct drm_device *ddev,
+ 		case NPU_OP_POOL:
+ 			if (param > (ethosu_is_u65(edev) ? 2 : 7))
+ 				return -EINVAL;
++			if (st.ifm_upscale) {
++				switch (param) {
++				case 0: /* max */
++				case 5: /* min */
++					if (st.ifm_upscale == NPU_IFM_UPSCALE_ZEROS)
++						return -EINVAL;
++					break;
++				case 2: /* reduce_sum */
++				case 6: /* argmax_x */
++				case 7: /* argmax_y */
++					return -EINVAL;
++				}
 +			}
+ 			use_ifm = param != 0x4;  // pooling mode
+ 			if (!cmd_state_reg_is_set(&st, NPU_SET_OFM_PRECISION))
+ 				return -EINVAL;
+@@ -1208,6 +1249,11 @@ static int ethosu_gem_cmdstream_copy_and_validate(struct drm_device *ddev,
+ 				return -EINVAL;
+ 			st.ifm.precision = param;
  			break;
- 		case NPU_SET_DMA0_SRC_STRIDE1:
--			st.dma.src.stride[1] = ((s64)addr << 24) >> 24;
-+			if (ethosu_is_u65(edev)) {
-+				st.dma.src.stride[1] = addr;
-+				st.dma.dst.stride[1] = addr;
-+			} else {
-+				st.dma.src.stride[1] = sign_extend64(addr, 39);
-+			}
- 			break;
- 		case NPU_SET_DMA0_DST_STRIDE0:
--			st.dma.dst.stride[0] = ((s64)addr << 24) >> 24;
-+			if (!ethosu_is_u65(edev))
-+				st.dma.dst.stride[0] = sign_extend64(addr, 39);
-+			else
++		case NPU_SET_IFM_UPSCALE:
++			if (param > NPU_IFM_UPSCALE_ZEROS)
 +				return -EINVAL;
++			st.ifm_upscale = param;
++			break;
+ 		case NPU_SET_IFM_BROADCAST:
+ 			st.ifm.broadcast = param;
  			break;
- 		case NPU_SET_DMA0_DST_STRIDE1:
--			st.dma.dst.stride[1] = ((s64)addr << 24) >> 24;
-+			if (!ethosu_is_u65(edev))
-+				st.dma.dst.stride[1] = sign_extend64(addr, 39);
-+			else
-+				return -EINVAL;
- 			break;
- 		case NPU_SET_DMA0_SRC:
- 			st.dma.src.offset = addr;
 
 -- 
 2.53.0
