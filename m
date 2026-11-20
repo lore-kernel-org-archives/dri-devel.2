@@ -2,82 +2,42 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7DDE5606A331
-	for <dri-devel@archiver.kernel.org>; Fri, 20 Nov 2026 12:01:00 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E514F606A325
+	for <dri-devel@archiver.kernel.org>; Fri, 20 Nov 2026 12:01:21 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=EIYxJwKV
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=hCuhTT8V
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id AFC5F11295C;
-	Fri, 20 Nov 2026 12:00:54 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 0DC1311297B;
+	Fri, 20 Nov 2026 12:01:16 +0000 (UTC)
 Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id B691111295C
- for <dri-devel@lists.freedesktop.org>; Fri, 20 Nov 2026 12:00:47 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 3629F112980
+ for <dri-devel@lists.freedesktop.org>; Fri, 20 Nov 2026 12:01:09 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by tor.source.kernel.org (Postfix) with ESMTP id F2A666185B;
- Fri, 20 Nov 2026 12:00:46 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8F5811F000CA;
- Fri, 20 Nov 2026 12:00:30 +0000 (UTC)
+ by tor.source.kernel.org (Postfix) with ESMTP id A696662712;
+ Fri, 20 Nov 2026 12:01:08 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id B05E21F000D0;
+ Fri, 20 Nov 2026 12:01:07 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1795176046;
- bh=beQWb4LoAtDg8Zy+5AKtlfFZLus+EPwyn9DYxNFG6mU=;
- h=Date:From:To:Cc:Subject:References:In-Reply-To;
- b=EIYxJwKV6pKOzzIEBuRXOlDo0Y+HodiAO2ZB2R6VQEfoBQ/HvGlDsgCsZZD6G5Czz
- 6Hw2mEq4W7WWL2M0khcowQ1ijdyhpl4Mf5E6jvjTXU3BGCjU3W7JH3HwTFePuk7BsW
- Zf0fcxra0plL9c0eF7Yjpx+CYN7bzoUzk/Q+FqleL9bhb1AcVGEf22bj+ScG5xaNBz
- T66Fe3ePBa9AIlYOk+9jLYdZIJzmgdv7gXFnPj3yOg7RrM21kpYHHujoSPlrAH4uP9
- arxmZfKtYgbrYZDY/oMy1BhaVWUrcfXk5RMw2HX+ZvgFLWMDcsj5WLUngXGiGzaopt
- u7hrJu5tbh8fQ==
-Date: Fri, 20 Nov 2026 13:00:27 +0100
-From: Christian Brauner <brauner@kernel.org>
-To: Andreas Hindborg <a.hindborg@kernel.org>, 
- Danilo Krummrich <dakr@kernel.org>, Lorenzo Stoakes <ljs@kernel.org>, 
- Vlastimil Babka <vbabka@kernel.org>, "Liam R. Howlett" <liam@infradead.org>, 
- Uladzislau Rezki <urezki@gmail.com>, Miguel Ojeda <ojeda@kernel.org>,
- Boqun Feng <boqun@kernel.org>, Gary Guo <gary@garyguo.net>,
- =?utf-8?B?QmrDtnJu?= Roy Baron <bjorn3_gh@protonmail.com>, 
- Benno Lossin <lossin@kernel.org>, Alice Ryhl <aliceryhl@google.com>, 
- Trevor Gross <tmgross@umich.edu>, Daniel Almeida <daniel.almeida@collabora.com>,
- Tamir Duberstein <tamird@kernel.org>, Alexandre Courbot <acourbot@nvidia.com>, 
- Onur =?utf-8?B?w5Z6a2Fu?= <work@onurozkan.dev>, Lyude Paul <lyude@redhat.com>, 
- Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
- "Rafael J. Wysocki" <rafael@kernel.org>, 
- Dave Ertman <david.m.ertman@intel.com>, Leon Romanovsky <leon@kernel.org>, 
- Paul Moore <paul@paul-moore.com>, Serge Hallyn <sergeh@kernel.org>, 
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
- Alexander Viro <viro@zeniv.linux.org.uk>, Jan Kara <jack@suse.cz>,
- Igor Korotin <igor.korotin@linux.dev>, 
- Viresh Kumar <vireshk@kernel.org>, Nishanth Menon <nm@ti.com>,
- Stephen Boyd <sboyd@kernel.org>, Bjorn Helgaas <bhelgaas@google.com>,
- Krzysztof =?utf-8?Q?Wilczy=C5=84ski?= <kwilczynski@kernel.org>, 
- Pavel Tikhomirov <ptikhomirov@virtuozzo.com>,
- Michal Wilczynski <m.wilczynski@samsung.com>, 
- Ira Weiny <iweiny@kernel.org>, Matthew Brost <matthew.brost@intel.com>, 
- Thomas =?utf-8?Q?Hellstr=C3=B6m?= <thomas.hellstrom@linux.intel.com>,
- Johan Hovold <johan@kernel.org>, Sumit Semwal <sumit.semwal@linaro.org>,
- Christian =?utf-8?B?S8O2bmln?= <christian.koenig@amd.com>, 
- Dave Jiang <dave.jiang@intel.com>, Jason Gunthorpe <jgg@ziepe.ca>, 
- Saeed Mahameed <saeedm@nvidia.com>, Zhi Wang <zhiw@nvidia.com>,
- Jonathan Cameron <jic23@kernel.org>, 
- Markus Probst <markus.probst@posteo.de>
-Cc: Philipp Stanner <phasta@kernel.org>, rust-for-linux@vger.kernel.org, 
- linux-kernel@vger.kernel.org, linux-mm@kvack.org, driver-core@lists.linux.dev, 
- linux-block@vger.kernel.org, linux-security-module@vger.kernel.org, 
- dri-devel@lists.freedesktop.org, linux-fsdevel@vger.kernel.org,
- linux-pm@vger.kernel.org, 
- linux-pci@vger.kernel.org, linux-pwm@vger.kernel.org, linux-usb@vger.kernel.org,
- linux-media@vger.kernel.org, linaro-mm-sig@lists.linaro.org,
- linux-serial@vger.kernel.org, 
- Oliver Mangold <oliver.mangold@pm.me>, Viresh Kumar <viresh.kumar@linaro.org>, 
- Uwe =?utf-8?Q?Kleine-K=C3=B6nig?= <ukleinek@kernel.org>
-Subject: Re: [PATCH v22 4/5] rust: rename `AlwaysRefCounted` to `RefCounted`
-Message-ID: <20261120-belichtet-austoben-januar-9fca976c1371@brauner>
-References: <20261116-unique-ref-v22-0-12029383206d@kernel.org>
- <20261116-unique-ref-v22-4-12029383206d@kernel.org>
-X-Archived-By: <archiver.kernel.org>
-MIME-Version: 1.0
+ s=k20260515; t=1795176067;
+ bh=c+vVERstLO3oItYRhFW50EmgEr3o7iS7G8avI+C84+s=;
+ h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+ b=hCuhTT8VqeN0j3lYiuE4b8QQI4rdWuae991F0qNxe4fNUkX7hxXvyG+lHXMQWqMWc
+ 9UDB6JAaETlJB7O7LJl5KXLT9xox6mizeBexVc/u10ka7BUndOD4fGTO5IVlV8Z2AS
+ 3nUrHtJ0ktqRjZi0oaMmgzRSzVuLGuLPwo3l/Lr94W+6Y0Q0x+qIPQX/0KAOH5XtAA
+ y0JWB0hWyWjawsmCnvma7A7w6SCdVYUnrjIWHHj5v0nc8i9R1b5iSfG7CHdSZAVF5V
+ VZn83lJhz4z8ooqL5iH8D61u4kLISm2j6vcuSKafiSKqKSWVqXCVlLsFPOczSQBfVc
+ CKdtkObM0gw9Q==
+Message-ID: <sashiko-outbox-225104@kernel.org>
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v2 3/6] lib/fonts, fbcon: Use font_data_t for rotated fonts
+To: "Thomas Zimmermann" <tzimmermann@suse.de>
+Cc: dri-devel@lists.freedesktop.org
+In-Reply-To: <20261120115215.52092-4-tzimmermann@suse.de>
+References: <20261120115215.52092-1-tzimmermann@suse.de>
+ <20261120115215.52092-4-tzimmermann@suse.de>
 Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-In-Reply-To: <20261116-unique-ref-v22-4-12029383206d@kernel.org>
+Content-Transfer-Encoding: quoted-printable
+Date: Fri, 20 Nov 2026 12:01:07 +0000
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -88,16 +48,114 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
+Reply-To: sashiko-reviews@lists.linux.dev
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 X-Spam-Status: No, score=-10.8 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
 	DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
-	INCLUDES_CR_TRAILER,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS
-	autolearn=ham autolearn_force=no version=4.0.1
+	INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS autolearn=ham
+	autolearn_force=no version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
+X-Archived-By: <archiver.kernel.org>
 
-On Mon, Nov 16, 2026 at 03:21:01PM +0100, Andreas Hindborg wrote:
+Thank you for your contribution! Sashiko AI review found 2 potential
+issues to consider:
+- [High] fbcon: invalid kfree() of font_data_t pointer in
+  fbcon_do_set_font()
+- [Low] lib/fonts: contradictory kernel-doc comment for
+  font_data_rotate()
+--
 
-For the fs and pid_namespace bits:
+commit b5f0d07cd7c39fad0c72c3148ca9444f977625ca
+Author: Thomas Zimmermann <tzimmermann@suse.de>
 
-Acked-by: Christian Brauner <brauner@kernel.org>
+lib/fonts, fbcon: Use font_data_t for rotated fonts
+
+This commit converts font_data_rotate() and struct fbcon_rotated.buf to
+use font_data_t instead of unsigned char *, releasing rotated font data in
+fbcon with font_data_put().
+
+> diff --git a/drivers/video/fbdev/core/fbcon.h b/drivers/video/fbdev/core/=
+fbcon.h
+> index 289a3d18f917f..28111c706e348 100644
+> --- a/drivers/video/fbdev/core/fbcon.h
+> +++ b/drivers/video/fbdev/core/fbcon.h
+> @@ -75,8 +75,7 @@ struct fbcon_bitops {
+>  #ifdef CONFIG_FRAMEBUFFER_CONSOLE_ROTATION
+>  struct fbcon_rotated {
+>  	font_data_t *fontdata;       /* source font */
+> -	unsigned char *buf;          /* rotated glyphs */
+> -	size_t bufsize;
+> +	font_data_t *buf;            /* rotated font */
+>  	int buf_rotate;              /* rotation of buf */
+>  	unsigned int buf_width;      /* geometry of source font */
+>  	unsigned int buf_height;
+
+[Severity: High]
+Does fbcon_do_set_font() still pass struct fbcon_rotated.buf directly to
+kfree() when changing the font on a visible rotated console?
+
+drivers/video/fbdev/core/fbcon.c:fbcon_do_set_font() {
+    ...
+#ifdef CONFIG_FRAMEBUFFER_CONSOLE_ROTATION
+	if (rotated_saved)
+		kfree(saved_rotated.buf);
+#endif
+    ...
+err_out:
+#ifdef CONFIG_FRAMEBUFFER_CONSOLE_ROTATION
+	if (rotated_saved) {
+		kfree(par->rotated.buf);
+		par->rotated =3D saved_rotated;
+	}
+#endif
+    ...
+}
+
+Because __font_data_alloc() returns &font_data->data[0] (offset 16 bytes
+past the start of struct font_data), calling kfree() on saved_rotated.buf
+or par->rotated.buf frees an interior pointer and corrupts the slab. Both
+paths need to check for a non-NULL buffer and release it with
+font_data_put() instead.
+
+[ ... ]
+
+> diff --git a/lib/fonts/font_rotate.c b/lib/fonts/font_rotate.c
+> index 275406008823b..ea54bd618ffb0 100644
+> --- a/lib/fonts/font_rotate.c
+> +++ b/lib/fonts/font_rotate.c
+> @@ -181,8 +181,7 @@ EXPORT_SYMBOL_GPL(font_glyph_rotate_270);
+>   * @height: The number of scanlines in the glyph
+>   * @charcount: The number of glyphs in the font
+>   * @steps: Number of rotation steps of 90=C2=B0
+> - * @buf: Preallocated output buffer; can be NULL
+> - * @bufsize: The size of @buf in bytes; can be NULL
+> + * @buf: Preallocated font data; can be NULL
+>   *
+>   * The parameters @width and @height refer to the visible number of pixe=
+ls
+>   * and scanlines in a single glyph. The number of glyphs is given in @ch=
+arcount.
+> @@ -194,16 +193,14 @@ EXPORT_SYMBOL_GPL(font_glyph_rotate_270);
+>   * as returned by font_data_buf(). Callers are responsible to free the r=
+eturned
+>   * buffer with kfree(). Font rotation typically happens when displays get
+>   * re-oriented. To avoid unnecessary re-allocation of the memory buffer,=
+ the
+> - * caller can pass in an earlier result buffer in @buf for reuse. The ol=
+d and
+> - * new buffer sizes are given and retrieved by the caller in @bufsize. T=
+he
+> - * allocation semantics are compatible with krealloc().
+> + * caller can pass in an earlier result in @buf for reuse. The returned =
+font
+> + * data should be released with font_data_put().
+
+[Severity: Low]
+This isn't a bug, but the earlier sentences in this kernel-doc comment
+still say that the returned buffer is not compatible with font_data_t and
+must be freed with kfree(), contradicting the new sentence at the end.
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261120115215.5209=
+2-1-tzimmermann@suse.de?part=3D3
