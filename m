@@ -2,72 +2,72 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A60E4606A32C
-	for <dri-devel@archiver.kernel.org>; Fri, 20 Nov 2026 16:48:53 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BB524606A32C
+	for <dri-devel@archiver.kernel.org>; Fri, 20 Nov 2026 16:49:07 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=baylibre.com header.i=@baylibre.com header.a=rsa-sha256 header.s=google header.b=Xc47zwRe
+	dkim=pass (2048-bit key) header.d=baylibre.com header.i=@baylibre.com header.a=rsa-sha256 header.s=google header.b=PXn6RJpb
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 0CE4210E074;
-	Fri, 20 Nov 2026 16:48:48 +0000 (UTC)
-Received: from mail-wm1-f54.google.com (mail-wm1-f54.google.com
- [209.85.128.54])
- by gabe.freedesktop.org (Postfix) with ESMTPS id ABC90112BDF
- for <dri-devel@lists.freedesktop.org>; Fri, 20 Nov 2026 16:48:41 +0000 (UTC)
-Received: by mail-wm1-f54.google.com with SMTP id
- 5b1f17b1804b1-4bb6adaf0f1so9815695e9.0
- for <dri-devel@lists.freedesktop.org>; Fri, 20 Nov 2026 08:48:41 -0800 (PST)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 26885112BDF;
+	Fri, 20 Nov 2026 16:49:02 +0000 (UTC)
+Received: from mail-wr1-f50.google.com (mail-wr1-f50.google.com
+ [209.85.221.50])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id B2890112BDF
+ for <dri-devel@lists.freedesktop.org>; Fri, 20 Nov 2026 16:48:55 +0000 (UTC)
+Received: by mail-wr1-f50.google.com with SMTP id
+ ffacd0b85a97d-48e20ed3b9dso970437f8f.2
+ for <dri-devel@lists.freedesktop.org>; Fri, 20 Nov 2026 08:48:55 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=baylibre.com; s=google; t=1795193320; x=1795798120;
+ d=baylibre.com; s=google; t=1795193334; x=1795798134;
  darn=lists.freedesktop.org; 
  h=message-id:date:references:in-reply-to:cc:to:from:subject
  :content-transfer-encoding:content-type:mime-version:from:to:cc
  :subject:date:message-id:reply-to:content-type;
- bh=bfyjauXkdda14TZQkJmia5dShZ8rR0trlEvtPbJzkjU=;
- b=Xc47zwReP3xjkVlLLH38d+Ksi3c9BzfEs2n3B8DUPRmVelQ4V1lW34hFpi9/gvzNj7
- pM2pb7uBgf7Fk60DARz/p+Z4n6tyk3FOnVpMHN06PUmRZrKkotR79ImiCLgCKm0w9AdR
- 1QBNla0etwrAZoGS07etHLn0DzgsamLkDz3BvsGhnloTL/znQwVaxQoTZ+6JHCvGIedh
- Ar5B8WqYSATQ/MieY18w8/I+jlpr7adbTTgulogSEhKG4d75QUmGluzGp4kVZF5tZwkP
- Nj0HpxCQADHSVhEvNYdowKvfUapKuvD1teHFi7VhDJJSL6Sn1/jK5bqku30m6zlew8No
- wFgg==
+ bh=h6ErIQcXg/IQfSzNOukoWYAaLWArDLpy/6tOg0mzvho=;
+ b=PXn6RJpbXGOEJjsVvS9Qshx7Rq7Bk4Bred3KmnctN2rimpdFm/JiD1RUrB8DCp8ots
+ 0RwqtU8ZoqMxbm/0+RyIp5w+ZqwvtpQQD5WuGnu4wRsGVetWoN0x6frh/wQDiRUFmeei
+ 6wVPTiDJsQdEgXfovRlpz+b8W68E81FcCvkTI+3iszXKqW8R1aC0xVoeWaK5INwhAAeD
+ 0Lz6aMxjVLwuHeYhGdT5pfWT4LgcOX3rh9zCWMdKVzQFfPHTJdkuR+sQuTdf6V/v5nxW
+ Br2dHvB+kKst8KVPifhtVeh/KdY9//82UNK7GVXT1z4ya2y20/MB4hDP4Xbm7rVXMV4Q
+ GEIQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20260707; t=1795193320; x=1795798120;
+ d=1e100.net; s=20260707; t=1795193334; x=1795798134;
  h=message-id:date:references:in-reply-to:cc:to:from:subject
  :content-transfer-encoding:content-type:mime-version:x-gm-gg
  :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
  :content-type;
- bh=bfyjauXkdda14TZQkJmia5dShZ8rR0trlEvtPbJzkjU=;
- b=Eivejt0bJL2VH4JKYm6xPMlKz4VOl9v+WcytoL5PyMhXD/YRJYqmUWrS1mj6wTsOF4
- qIwg4+nJwY379BSG0vralhITgiZ2K1eTBcwYN20pkE+kimX3cyqMh85Vo4z6SUh8wKjV
- f4qYdNtXch2aSTUlVtFW7Yp7bquBbjVIDA3Cd/w48L6G9ii2gNuTMMEdfdQ5b8QXCWl0
- GRAofTXwAovivNG046V5b8qxNTiS2yWE8XwifYs4g5D8PfPT3smCDPqrbsJmbuSBEzCx
- 8znm4cii5C27ejpseUaagIcG4ZuKuDkF6l5TGuc7UJStSS5kbdQxNnKZv6Qu21s12ZvS
- y0cg==
+ bh=h6ErIQcXg/IQfSzNOukoWYAaLWArDLpy/6tOg0mzvho=;
+ b=SEGyaL//tQlIWPJbkhwR6NjI5zc5TyJcKA4xsZGI3BxGNB8xAets8A8lvbOV11+86x
+ kfwC01i5w5TpAluUMtIMuLhOYDefjVrIrFKhZe4xWPSWf+5CcSjEmdpZiM3Mne6ZqAg8
+ yBg3qFMLY84xQ6Q+Fp4mMGvYjbAEl5pUFLF79ID83HjNRENAdOHEADDlqdoIBveMmf3C
+ cYWkumCQQl2kdFJWHdBMd/JwWBR+C5EPqrr+mIa2VdNFGvX87xC6AmH7jNXairp3fWHG
+ TAAHtk9pvZ+ex5hQ7GfS8AIC0RcfUsde+fx6CU0D6d0Bll7b6ftJmERVm8waigKqN7wx
+ 3xJg==
 X-Forwarded-Encrypted: i=1;
- AL+hErFIHsGxcBf7aMcmVDKBfAEwD7mX6wE7g2MDTfzrTJlUxLDjR/oCL8ebZg2CnPYqJYPP9FdDx4fTnog=@lists.freedesktop.org
-X-Gm-Message-State: APuU4Z8TWFsFDiEH1aXadMOCMyOBvK8u/U4ZXWFol35xCRUNQNfD3rII
- FcxRQlGULVk1eLzi9P0ZM5y//PgwBfFCddwX088VJiyl8ik2vbEvYsvbDDfXHdyZ2Tg=
-X-Gm-Gg: AYBFou36cSce7e9icdYkxksuLGsIu6eCOH7bgJyBRNqZLcrppEiqUNVWexxsertpo2f
- 56fk3S2L9jSjrqcjo3TcTlZynX5/ZVNMqkqwiO9fPKDedu9P7oHUmSc7cjH5SYmoQ1Z1upAkbUW
- 9SSQ9B27bQkuaym9ozs3xZtfunY4UgRtmdu3Qn8baA/W7I1XurzGq1B+YtFDTycjN7SYP9Vu130
- cVnFFoek92ctnuoEqB1AnYV5Yg7r45mvVnAmt0C8XFQXjNtcjYUUb/+mkmSxsD6Tbgot8Bzg4EL
- ruDxymZHZiYPKHjtEHkJ/3ImIFFNjMwQ+nmTWpUGOFZwq9iRfC07O++6AwG0qLOmUzSTRFh36QV
- WHu8A9xAk25Zhnxw3evYBbKdj3KAzy17pJ3LpdiApkeWVs9OvIFKLCIQ6Iey9P7kQC806h4I1Yr
- 2XcYWljrRyfsJXGm4aWNbWusuviCGCX8N26oxA9BpbaSLwK2DaK7yFukEapC2vQZHMRzwcmsjHu
- j/b32U50bN7DLab9M0r+gg5gJq2SFqmatqg+XzjB/qjTVbmYxldYPtREsf/JPeoxhEntfeRnAws
- akwpUSIEBC8vqPzSSbLQ7IeDnuapijTTTRN4ZTFhKU1V+8Xh
-X-Received: by 2002:a05:600c:848d:b0:4bb:6b6b:fbaa with SMTP id
- 5b1f17b1804b1-4bb8880fd0amr81601005e9.16.1795193319985; 
- Fri, 20 Nov 2026 08:48:39 -0800 (PST)
+ AL+hErHIa18YORUjtlxEMHcATf3v4NEE3yoiquPrIvvwqiy2y75Rnw0/dKJqxb5HWj7ZNrRQxJ+I2DfLapg=@lists.freedesktop.org
+X-Gm-Message-State: APuU4Z+g0uJ3gx7fJsrvXeh0Za/Tcqk7IHcSWqysW5jn7XwfYP/ysNlf
+ lQ2OzqzbEaUbu42qhGkb1yv45Qh1/ZFuwl+nU1KhssTJQzv48afeSwSUND0HRT0wTHU=
+X-Gm-Gg: AZFdTZekziIvkf9PQ0fYeaNLRcE9ZKvLjdMKzJyIvtHqYqqbKXquxUO7hj9jYakF2nE
+ S7GEqRPlRr5VEPEG5/j+84J0C2L4USjCodmiQkXwEu/uwYW3Tf9WTWTnJbYJYt8+qvhtfX83kgA
+ 5K7hrB24lyjaoMG8gL6iaUVLIfuEsOr+MZ0iCE2JyScP3S8aV4mayKY4GY8NXfCACHMkK95tGD4
+ AGY/4yLCMWoeljRQyHvbdjzr9sEGATWpnf3iNqppuAJJVc1/gAU+Fq9D3J8WmqcWVtnT7Qh02NW
+ +6ePY7NWMl0bkI/DGELplphztWuef7hpszWCRGviSg3TH1jSIY1Y3fM4WhJvQat0m8HFSOqnHyx
+ 6CV43izxJKBtHR+YuhYSeKINzNjNUE7+ji6m3gL7QrjSELtsN5hgNqeNebQi8q5B7Q0eQPkpDB3
+ vYM9FB02EKzyzHrtExeenKUv8pwQqVS2UGK25WY+EYWQDrnmyhxQoVSinJwtF2tOMtIDv0g5qTR
+ ETWOsOk6HTvoHFWH1JARB7BlkdJ/UbNbN4QgVEB5q41gUsKwBVbmdBQE2eDTHtcSVBL6l0NrEBI
+ Sunlt1IvKsqoEPm27i2UyjIwIkHorwlYS2W4N+Vws6iycwd3
+X-Received: by 2002:a05:6000:2c0e:b0:48c:58d5:30fb with SMTP id
+ ffacd0b85a97d-4abad5ac62emr8227901f8f.5.1795193333959; 
+ Fri, 20 Nov 2026 08:48:53 -0800 (PST)
 Received: from localhost (82-67-6-57.subs.proxad.net. [82.67.6.57])
  by smtp.gmail.com with ESMTPSA id
- 5b1f17b1804b1-4bb884c3063sm102415595e9.15.2026.11.20.08.48.39
+ ffacd0b85a97d-4ab6b10b5f6sm6034212f8f.34.2026.11.20.08.48.53
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Fri, 20 Nov 2026 08:48:39 -0800 (PST)
+ Fri, 20 Nov 2026 08:48:53 -0800 (PST)
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Subject: Re: [PATCH v6 0/7] Clk improvements
+Subject: Re: [PATCH v6 3/7] rust: clk: use the type-state pattern
 From: Jerome Brunet <jbrunet@baylibre.com>
 To: Daniel Almeida <daniel.almeida@collabora.com>
 Cc: "Rafael J. Wysocki" <rafael@kernel.org>, 
@@ -84,30 +84,26 @@ Cc: "Rafael J. Wysocki" <rafael@kernel.org>,
  =?utf-8?q?Bj=C3=B6rn_Roy_Baron?= <bjorn3_gh@protonmail.com>, 
  Benno Lossin <lossin@kernel.org>, Andreas Hindborg <a.hindborg@kernel.org>, 
  Trevor Gross <tmgross@umich.edu>, Tamir Duberstein <tamird@kernel.org>, 
- Alexandre Courbot <acourbot@nvidia.com>, 
- linux-pm <linux-pm@vger.kernel.org>, 
- linux-kernel <linux-kernel@vger.kernel.org>, 
- dri-devel <dri-devel@lists.freedesktop.org>, 
- linux-riscv <linux-riscv@lists.infradead.org>, 
- linux-pwm <linux-pwm@vger.kernel.org>, 
- linux-clk <linux-clk@vger.kernel.org>, 
- rust-for-linux <rust-for-linux@vger.kernel.org>, 
+ Alexandre Courbot <acourbot@nvidia.com>, linux-pm@vger.kernel.org, 
+ linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org, 
+ linux-riscv@lists.infradead.org, linux-pwm@vger.kernel.org, 
+ linux-clk@vger.kernel.org, rust-for-linux@vger.kernel.org, 
  Boris Brezillon <boris.brezillon@collabora.com>, 
  =?utf-8?q?Onur_=C3=96zkan?= <work@onurozkan.dev>, 
  Maurice Hieronymus <mhi@mailbox.org>, Jerome Brunet <jbrunet@baylibre.com>
-In-Reply-To: <1a1cb87df11.2c57f9fa237371.844135553238709982@collabora.com>
+In-Reply-To: <20261013-clk-type-state-v6-3-a5e9977b3509@collabora.com>
 References: <20261013-clk-type-state-v6-0-a5e9977b3509@collabora.com>
- <1a1cb87df11.2c57f9fa237371.844135553238709982@collabora.com>
-Date: Fri, 20 Nov 2026 17:48:38 +0100
-Message-Id: <179519331840.3795820.8047048832159165355.b4-reply@b4>
+ <20261013-clk-type-state-v6-3-a5e9977b3509@collabora.com>
+Date: Fri, 20 Nov 2026 17:48:51 +0100
+Message-Id: <179519333138.3795820.61438010297111723.b4-review@b4>
 X-Mailer: b4 0.17-dev
-X-Developer-Signature: v=1; a=openpgp-sha256; l=2089; i=jbrunet@baylibre.com; 
+X-Developer-Signature: v=1; a=openpgp-sha256; l=1734; i=jbrunet@baylibre.com; 
  h=from:subject:message-id;
- bh=4z3/sdMgR1NP7DfsDZx0tYiu2dW9UOhvaq59u1rg0JU=; 
- b=owGbwMvMwCW2VtK+WnvWU3HG02pJDNkMlc+2Ksh+kZXIPh/3rDDW4Kn27hqR6Y15t/Vndc9nY
- JL6uuFhRykLgxgXg6yYIksNd7X4O0mtL7Om69yGmcPKBDKEgYtTACYSOYfhf77/s+M/3jXtP6oy
- 5+cRhk+hnv9r4q4aztv7e7Xt8cINxx8zMkx3PJygYGn8ecrZdJeblhwduyRv7OkO5akz19EKybu
- wlhsA
+ bh=vYLwHzMkZLjjbU0w6/Ec7PCJHgruiB342xDmGbUK7jQ=; 
+ b=owGbwMvMwCW2VtK+WnvWU3HG02pJDNkMlV+EGpr8GpuXL66eHBu5Y3mWWeFV4a/G+0oUxUrer
+ RUIcefpKGVhEONikBVTZKnhrhZ/J6n1ZdZ0ndswc1iZQIYwcHEKwETm3mJk+BtiEpjsotk54bty
+ cAsHW8fEZPaiNRy3p1XOeRy6T/PLD0aGzfPKGdIZvNz7xBo2Ljp/6Q+/laCNSwnzT95L3nMcLF+
+ wAwA=
 X-Developer-Key: i=jbrunet@baylibre.com; a=openpgp;
  fpr=F29F26CF27BAE1A9719AE6BDC3C92AAF3E60AED9
 X-BeenThere: dri-devel@lists.freedesktop.org
@@ -128,53 +124,46 @@ X-Spam-Status: No, score=-8.8 required=3.0 tests=BAYES_00,DKIM_SIGNED,
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-On 2026-11-11 13:54:01-03:00, Daniel Almeida wrote:
-> Hi all,
+> The current Clk abstraction can still be improved on the following issues:
 > 
->  > This series contains a few improvements that simplify clock handling for
->  > drivers.
->  > 
->  > Patch 1 converts clk.rs to the kernel-vertical style for imports.
->  > 
->  > Patch 2 replaces OptionalClk with Clk::get_optional(). There is no struct
->  > optional_clk in C, and Clk already allows a NULL pointer.
->  > 
->  > Patch 3 implements the same typestate pattern that has been used
->  > successfully for Regulators. This is needed because otherwise drivers
->  > will be responsible for unpreparing and disabling clocks themselves and
->  > ultimately handling the reference counts on their own. This is
->  > undesirable. The patch automatically encodes this information using the
->  > type system so that no misuse can occur.
->  > 
->  > Patch 4 adds guards that prepare and/or enable a clock for the lifetime
->  > of the guard without consuming the Clk, so that a driver can keep a
->  > long-lived Clk<Prepared> and enable it for scoped sections.
->  > 
->  > Patch 5 makes things more convenient by offering devres-managed APIs. This
->  > lets drivers set clock parameters once and forget about lifetime
->  > management.
->  > 
->  > Patch 6 adds ExclusiveClk<T>, which holds rate exclusivity over a Clk<T>
->  > in any state until it is dropped.
->  > 
->  > Patch 7 uses it in pwm-th1520 to lock the clock rate for the lifetime of
->  > the driver data.
+> a) It only keeps track of a count to clk_get(), which means that users have
+> to manually call disable() and unprepare(), or a variation of those, like
+> disable_unprepare().
+> 
+> b) It allows repeated calls to prepare() or enable(), but it keeps no track
+> of how often these were called, i.e., it's currently legal to write the
+> following:
+> 
+> clk.prepare();
+> clk.prepare();
+> clk.enable();
+> clk.enable();
 
-Hi there,
+This particular sequence is indeed allowed in C. I don't get why it should not
+be ? (in general and/or in rust)
 
-I was wondering how the rust folks expect these changes to be handled since they
-touch the rust/ dir. Should the clock changes go through the clock tree or the
-rust one ? it is fine with me either way.
+If you dis-allow this in rust, the 2 sides drift apart, don't they ?
+I mean they start behaving differently. I suppose this is not something
+desirable ?
 
-I've added small comments on patch 3, with my understanding of what of what you
-are trying to do. Please take them with a grain of salt. While I'm eager to help
-rust grow in the kernel, I'm definetely very new to it. It is very likely I got
-things wrong.
+> 
+> And nothing gets undone on drop().
+> 
+> c) It does not let a user express the state of the clk through the
+> type system. For example, there is currently no way to encode that a Clk is
+> enabled via the type system alone.
+> 
+> Following the Regulator abstraction, switch this abstraction to use the
+> type-state pattern instead. It solves both a) and b) by establishing a
+> number of states and the valid ways to transition between them. It also
+> automatically undoes any call to clk_get(), clk_prepare() and clk_enable()
+> as applicable on drop(), so users do not have to do anything special
+> before Clk goes out of scope.
 
-If there are pain points regarding clocks with Rust, please feel free to
-reach me or Brian. We are happy to help if we can.
-
-Cheers
+So the point the is automatically clean-up (as in disable()) clock when they
+go out of scope ? In C, the equivalent would be calling clk_put() with a non
+NULL enable/prepare count. We do complain loudly when this happen. I don't
+people should encouraged to not actively care for this.
 
 -- 
 Jerome
