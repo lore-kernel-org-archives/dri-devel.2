@@ -2,48 +2,60 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 84653606A320
-	for <dri-devel@archiver.kernel.org>; Fri, 20 Nov 2026 16:18:41 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0495C606A334
+	for <dri-devel@archiver.kernel.org>; Fri, 20 Nov 2026 16:24:33 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=fail reason="signature verification failed" (2048-bit key, unprotected) header.d=justthetip.ca header.i=@justthetip.ca header.a=rsa-sha256 header.s=key1 header.b=MxnII4w0
+	dkim=pass (2048-bit key) header.d=collabora.com header.i=@collabora.com header.a=rsa-sha256 header.s=mail header.b=d4mOxrkl
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id C434B112BCB;
-	Fri, 20 Nov 2026 16:18:35 +0000 (UTC)
-Received: from mta1.migadu.com (out-55.mta1.migadu.com [95.215.58.55])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 37E1910F0CF
- for <dri-devel@lists.freedesktop.org>; Thu, 19 Nov 2026 19:10:58 +0000 (UTC)
-X-Envelope-To: dri-devel@lists.freedesktop.org
-DKIM-Signature: a=rsa-sha256; bh=AWOkBBAq/YXJUhDBoogWOzXz+yE7PZKM8xjPAy/bQ9M=; 
- c=simple/simple; d=justthetip.ca;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1795115456; v=1; x=1795720256;
- b=MxnII4w0zaxTOJoEonw/Gh62OmKqWz4MsNYCsQtKuW8AszrboA4QWpVidKdKRztIRAwrk3t0
- bllrPUlnqGkaVYuCU+9drBOg9mTpvUf2zX9WotHe3otMFEcYi8hXOa2z+9huA06OYZp1KhoqH14
- 4s1iBlYOxXwKCMaNOtVKPCLgUlUsFcgnLPQSfjbulMfovPa17H3B7AC0c0hgcMpyCPy9e5NGX2T
- uKqVtEXP7+CCUZN401Qe2S5N2PQ9MHkNANSczKhmNxgKfTTxpoHvr2AXc92Tcvc5Kz7vERdmoN9
- LAO91wrFYY/Epl/RenZYVWRHOetyQ14sQb2UzQsCoyn3w==
-X-Envelope-To: dri-devel@lists.freedesktop.org
-Received: by smtp.migadu.com with ESMTPS id 58450e64729725f2;
- Thu, 19 Nov 2026 19:10:46 +0000
-X-Mizu-Trace-ID: 58450e64729725f2
-X-Migadu-Flow: FLOW_OUT
-From: Devin Wittmayer <lucid_duck@justthetip.ca>
-To: Jocelyn Falempe <jfalempe@redhat.com>,
- Javier Martinez Canillas <javierm@redhat.com>
-Cc: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>,
- Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>,
- Simona Vetter <simona@ffwll.ch>, dri-devel@lists.freedesktop.org,
- linux-kernel@vger.kernel.org, desobei <desobei@outlook.com>,
- luyuantao <luyuantao@kylinos.cn>
-Subject: [PATCH] drm/panic: Bring back the kmsg screen fixes lost in a merge
-Date: Thu, 19 Nov 2026 12:10:38 -0700
-Message-ID: <20261119191038.146963-1-lucid_duck@justthetip.ca>
-X-Mailer: git-send-email 2.56.1
+	by gabe.freedesktop.org (Postfix) with ESMTP id 6878810E120;
+	Fri, 20 Nov 2026 16:24:27 +0000 (UTC)
+Received: from bali.collaboradmins.com (bali.collaboradmins.com
+ [148.251.105.195])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 77EEA112BAE
+ for <dri-devel@lists.freedesktop.org>; Fri, 20 Nov 2026 16:24:20 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
+ s=mail; t=1795191859;
+ bh=fcy12No5QCrnAOUZgkGdvGdHHMJsgzaVa8BGW+ywOe0=;
+ h=Date:From:To:Cc:Subject:In-Reply-To:References:From;
+ b=d4mOxrkl4G40xmOzMt8BiUz7e8/hDKC+KDW9zb4AErCSyAOyv7gtUVLyYCRWNhtKS
+ 8Gwetp6WMHJoDB85pWApNfkzM7hA60b/zFru8Ex4jIaf8hjetkJbP1BdSg1ZM8bXgY
+ b/9RzRGij0RG1DWK23kUIz84M34sl8fx6KKGw2IC/tlS4WH0AX1n6HEwGY5raJ5V0O
+ JSW2ykqLQKBIAul3V/tf4RtCB+d0+BWLxlfJIHOj6DLyTyiAl6VxReGzMq2wiI8jjp
+ hydsziA/0F3PtDa2uDPBZ4qjROXPb6ynmq8SKhlwKzEkNgXSgpinEuOGxb/kKtDvNe
+ Fz0XstB3lXUvA==
+Received: from fedora1.home (unknown [100.64.0.11])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange secp256r1 server-signature RSA-PSS (4096 bits) server-digest
+ SHA256) (No client certificate requested)
+ (Authenticated sender: bbrezillon)
+ by bali.collaboradmins.com (Postfix) with ESMTPSA id 3C74217E0564;
+ Fri, 20 Nov 2026 17:24:18 +0100 (CET)
+Date: Fri, 20 Nov 2026 17:24:15 +0100
+From: Boris Brezillon <boris.brezillon@collabora.com>
+To: =?UTF-8?B?TWHDrXJh?= Canal <mcanal@igalia.com>
+Cc: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, Maxime Ripard
+ <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, David Airlie
+ <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, Faith Ekstrand
+ <faith.ekstrand@collabora.com>, Rob Herring <robh@kernel.org>, Steven Price
+ <steven.price@arm.com>, =?UTF-8?B?QWRyacOhbg==?= Larumbe
+ <adrian.larumbe@collabora.com>, Liviu Dudau <liviu.dudau@arm.com>, Akash
+ Goel <akash.goel@arm.com>, Karunika Choo <karunika.choo@arm.com>, Lukas
+ Zapolskas <lukas.zapolskas@arm.com>, Chris Diamand <chris.diamand@arm.com>,
+ Daniel Almeida <daniel.almeida@collabora.com>, Alice Ryhl
+ <aliceryhl@google.com>, kernel-dev@igalia.com,
+ dri-devel@lists.freedesktop.org, rust-for-linux@vger.kernel.org
+Subject: Re: [PATCH 0/6] drm/panfrost,panthor: Refuse to export WB_MMAP BOs
+Message-ID: <20261120172415.2aa235f0@fedora1.home>
+In-Reply-To: <d2aa7dd9-367a-4b6f-8dee-3913b8e5f6a2@igalia.com>
+References: <20261119-pan-drop-dma-buf-hooks-v1-0-6c6f1629e7f9@igalia.com>
+ <20261120105654.63e1c254@fedora1.home>
+ <d2aa7dd9-367a-4b6f-8dee-3913b8e5f6a2@igalia.com>
+Organization: Collabora
+X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; x86_64-redhat-linux-gnu)
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-Mailman-Approved-At: Fri, 20 Nov 2026 16:17:37 +0000
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: quoted-printable
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -55,77 +67,66 @@ List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-16.6 required=3.0 tests=BAYES_00,DKIM_INVALID,
-	DKIM_SIGNED,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,
-	INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,
-	USER_AGENT_GIT autolearn=unavailable autolearn_force=no version=4.0.1
+X-Spam-Status: No, score=-7.3 required=3.0 tests=BAYES_00,DKIM_SIGNED,
+	DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
+	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,USER_AGENT_SANE_2
+	autolearn=no autolearn_force=no version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-Commit b537d87d2632 ("drm/panic: Fix the loop that causes kmsg to not
-display correctly") and commit 1ba640563843 ("drm/panic: Fix kmsg screen
-hang on a long log line") changed the old panic file. By the time they
-reached drm-fixes, that code had moved into the helper library, and the
-merge left the helper as it was.
+On Fri, 20 Nov 2026 13:05:50 -0300
+Ma=C3=ADra Canal <mcanal@igalia.com> wrote:
 
-So the panic screen that prints the kernel log hangs again on a long
-log line, and the machine never reboots. The helper's KUnit suite hangs
-the same way.
+> Hi Boris,
+>=20
+> On 20/11/26 06:56, Boris Brezillon wrote:
+> >>
+> >> Still, if you think this would be problematic, I can drop patches 3 an=
+d 6. =20
+> >=20
+> > I was about to suggest forcing uncached CPU mappings for shareable BOs
+> > on systems where the GPU is IO coherent, but there's actually no way we
+> > can know whether a BO will be exported on not on Panfrost (on Panthor
+> > we at least have this exclusive_vm thing that gives this guarantee). So
+> > there's actually no way around it, it's either going back to a "broken"
+> > state (broken in the sense it's not doing what it's supposed to, but no
+> > one really complained in the past) or keep this sync logic to try to do
+> > our best (even if it's not entirely safe, especially if the importer
+> > does crazy stuff like pretending to be UMA when it's not).
+> >=20
+> > Sorry for not having a better answer than: it might be okay, but it
+> > looks wrong. Every time I tried to understand what's expected from us
+> > for this shared buffer synchronization, I ended up more confused than
+> > before...
+> >  =20
+>=20
+> That makes two of us :)
+>=20
+> I'm okay dropping patches 3 and 6. I decided to send them as suggested
+> in our last discussion, but when I analyzed the IO-coherent case, I also
+> had the impression that this could be a step back.
+>=20
+> V3D doesn't have the IO coherent case, so I can move forward with only
+> Faith's drm_gem_shmem_sync() helper and I won't need the custom
+> dma_buf_ops.
+>=20
+> If possible, could you take a look at patches 1-2 and 4-5? I'd
+> appreciate it.
 
-Make both changes in the helper.
+They look good to me.
 
-Fixes: 5c3d323984fd ("drm/panic: Move panic display code into helper library")
-Reported-by: desobei <desobei@outlook.com>
-Closes: https://lore.kernel.org/all/PH7PR19MB6658FDBDD012399C6E8D330FAF792@PH7PR19MB6658.namprd19.prod.outlook.com/
-Tested-by: desobei <desobei@outlook.com>
-Cc: luyuantao <luyuantao@kylinos.cn>
-Signed-off-by: Devin Wittmayer <lucid_duck@justthetip.ca>
----
-Both were lost in merge 1c3b1398f1cf. My other fix in that pull, for
-the panic screen setting, made it through.
-
-Panics with a long line in the log, on drm-misc-fixes:
-
-                              without this    with this
-    QEMU, 40 panics           all hang        all reboot
-    AMD mini PC, 8 panics     all hang        all reboot
-
-Panics with nothing long in the log reboot either way.
-
- drivers/gpu/drm/drm_panic_helper.c | 10 ++++++++--
- 1 file changed, 8 insertions(+), 2 deletions(-)
-
-diff --git a/drivers/gpu/drm/drm_panic_helper.c b/drivers/gpu/drm/drm_panic_helper.c
-index 8913c3d22e8d..385a07ed314b 100644
---- a/drivers/gpu/drm/drm_panic_helper.c
-+++ b/drivers/gpu/drm/drm_panic_helper.c
-@@ -513,7 +513,8 @@ VISIBLE_IF_KUNIT int drm_panic_helper_draw_screen_kmsg(struct drm_scanout_buffer
- 	const struct font_desc *font = get_default_font(sb->width, sb->height, NULL, NULL);
- 	struct drm_rect r_screen = DRM_RECT_INIT(0, 0, sb->width, sb->height);
- 	struct kmsg_dump_iter iter;
--	char kmsg_buf[512];
-+	/* the size printk formats one record into, too big for the stack */
-+	static char kmsg_buf[2048];
- 	size_t kmsg_len;
- 	struct drm_panic_line line;
- 	int yoffset;
-@@ -530,10 +531,15 @@ VISIBLE_IF_KUNIT int drm_panic_helper_draw_screen_kmsg(struct drm_scanout_buffer
- 	drm_panic_helper_fill(sb, &r_screen, bg_color);
- 
- 	kmsg_dump_rewind(&iter);
--	while (kmsg_dump_get_buffer(&iter, false, kmsg_buf, sizeof(kmsg_buf), &kmsg_len)) {
-+	while (yoffset >= 0 && kmsg_dump_get_buffer(&iter, false, kmsg_buf,
-+	       sizeof(kmsg_buf), &kmsg_len)) {
- 		char *start;
- 		char *end;
- 
-+		/* a record that does not fit comes back empty, every time */
-+		if (!kmsg_len)
-+			break;
-+
- 		/* ignore terminating NUL and newline */
- 		start = kmsg_buf + kmsg_len - 2;
- 		end = kmsg_buf + kmsg_len - 1;
--- 
-2.56.1
+>=20
+> >>
+> >> The Panthor changes were tested on hardware, but Panfrost changes were
+> >> only compile-tested. =20
+> >=20
+> > Could you prepare a custom gfx-ci kernel [1] so we can check that mesa
+> > CI is not regressed by this change? I know none of the tests in mesa CI
+> > would normally hit the removed logic, but better safe than sorry. =20
+>=20
+> Sure, I'll test the series on Mesa CI (without patches 3 and 6).
+>=20
+> Best regards,
+> - Ma=C3=ADra
+>=20
 
