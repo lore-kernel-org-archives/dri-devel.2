@@ -2,80 +2,43 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4271160A260E
-	for <dri-devel@archiver.kernel.org>; Fri, 20 Nov 2026 13:17:51 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 208DB60A2603
+	for <dri-devel@archiver.kernel.org>; Fri, 20 Nov 2026 13:18:00 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=TD3I+IMX
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ilURff78
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id A320F112A47;
-	Fri, 20 Nov 2026 13:17:45 +0000 (UTC)
-Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 843EB112A47
- for <dri-devel@lists.freedesktop.org>; Fri, 20 Nov 2026 13:17:39 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 88C0A112A4A;
+	Fri, 20 Nov 2026 13:17:54 +0000 (UTC)
+Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id C5B65112A4A
+ for <dri-devel@lists.freedesktop.org>; Fri, 20 Nov 2026 13:17:47 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id 6CD1146B63;
- Fri, 20 Nov 2026 13:17:39 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 23ED01F000D4;
- Fri, 20 Nov 2026 13:17:37 +0000 (UTC)
+ by tor.source.kernel.org (Postfix) with ESMTP id 49DEB6252F
+ for <dri-devel@lists.freedesktop.org>; Fri, 20 Nov 2026 13:17:47 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id C8ECF1F000CF;
+ Fri, 20 Nov 2026 13:17:46 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1795180659;
- bh=1r2RPLiYFSIogaEoUkz4XwYUZKQoUko/pKRdi08cxM0=;
- h=Date:From:To:Cc:Subject:References:In-Reply-To;
- b=TD3I+IMXRD+9btMqjG+8B3kJTvc6/N3FGTiOQW0DBF8szaAbfyT3rdoeRLPEztlhd
- 1fkasb/JgYhFktdnsYQr/hbjy8ZgctD2oCPodj+EcxdWF0TgHkODd7sFnXKKDQLPq8
- 5ASnbC5RngYAvXnPAqtilUTGTnCIjoJva8uNteQehr3AeEwKXuZJgY2lgewq1DJ9PS
- VwJ+/gaSErGpmwEF865LUS3VM1nLS3oOqHLTAYvriEXuxCXfiWnPIsOBBpItHfM9Qy
- SlI1Q3+bLjypHspK7ZlbPfJeomFf2OJXl+Xuxt7f6hr2LyAcAONIPxsaFe381p00kt
- 3qa5gmkswFQ8Q==
-Received: from phl-compute-05.internal (phl-compute-05.internal [10.202.2.45])
- by mailfauth.ams.internal (Postfix) with ESMTP id E3EF41980047;
- Fri, 20 Nov 2026 08:17:33 -0500 (EST)
-Received: from phl-frontend-03 ([10.202.2.162])
- by phl-compute-05.internal (MEProxy); Fri, 20 Nov 2026 08:17:36 -0500
-X-ME-Sender: <xms:bUgAa0Ss467GVnDhyoa5GLJvJ3Qkb6jHpBysa7UtJwMHKBxrb5rknQ>
- <xme:bUgAa_Jn5SAa9Gm26aQ6PCluN4Igj4Xbu-1eShGyKxR4qD4s9mbJsthGMUuBhDiiJ
- DvPsGIIO4AzG_TK8e7R8mLHjv9E9hWIE1EgDfNtY4sRYb_WfmuVqNFO>
-X-ME-Received: <xmr:bUgAa92iCqHJb79UKYNhTmSvtYLPj7oT62s31rdeiXpMYGt1_RtpnZNe0lI>
-X-ME-Proxy-Cause: dmFkZTEMslbIUNDm8LIh02IXJPPGaz8x9nStkoY2McUqfXdvc0zDAMNuwAdNk567GWqWFb
- Ue01QIrqSlGhLD7aTRxcawP+AUSNewklEcq6PMC9JP8w32Vkz0EAbVZ2QFm6NbbycGqrOT
- 4Vb8re4U7agTXekt+mqlS2xCpK9NpzTwr+ErpQ3XVKIL+uqfYPpDVYCLRwfuz8aG4ZROa7
- Xd1wxnnT9IcNmrmTW/L61gTt77vLm2hbvmmHDGa2LHM3iddXj9bf/9phFNGmR4hUZZM7Uc
- ZJ9oEFeNgt22uQRjW3Wdih7LGzmvCPCrT/2DICvgDeLsnE5QRBd6+NlZnMM7O7XfT7q9Do
- MkQJtlimT0MHz0XKCwD/pqeSVQTF9nQB6fmaRrIBniyooZx48Wp+fOdjkpjjfy1M74AB0h
- vS3M9aDC5BqCGS+vBnYumDdMEN6m0xvfiEIP84KP4vUCXEzzfRXpY0HUEEr7Ux+TLE0CvM
- 8mfzIpvGacxcLQSZU2/0i1GMY7jfN3hn3SzrJ9D9XCXiD5LzrcLQeHCkaf88rKLabxTIfx
- MK6n/B4O2fmC0h6UK+8FsX8/QUZPhtXvSb6VY/dDu82xZH1mgNTNYlAD8mYnORC1N2N/Kt
- 9BSKREudmnRmc0072qjsdqwInnjVlm+WtP0N1OdHG4S5m3ZYPrjrL8R/k2Sw
-X-ME-Proxy: <xmx:bUgAa7toYIuLcOc32pRwV-nsWDZX_L4XKKyWqDVC59SHUuoImBWT_A>
- <xmx:bUgAa5HlJOmSY7P5WSFjnY6uqz8LobY_WUwzQM8wba5A2rgz9WGBCA>
- <xmx:bUgAa1Jqwm68KOU2wpFhGSlDAH1XL0GVrygZ1G3sIJWJupOyMB2yEw>
- <xmx:bUgAa0GHctFKPFG36KsYueFTUiK1wxmIM_ROA7NlIGuYWQMr6gettQ>
- <xmx:bUgAax7INTnv3udfOUXtVTWi3rt4nW4moV6FhuG_CrgEs7tK_rv3kZad>
-Feedback-ID: i10464835:Fastmail
-Received: by mail.messagingengine.com (Postfix) with ESMTPA; Fri,
- 20 Nov 2026 08:17:32 -0500 (EST)
-Date: Fri, 20 Nov 2026 13:17:31 +0000
-From: "Kiryl Shutsemau (Meta)" <kas@kernel.org>
-To: Andi Shyti <andi.shyti@kernel.org>
-Cc: Jani Nikula <jani.nikula@linux.intel.com>, 
- Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
- Rodrigo Vivi <rodrigo.vivi@intel.com>, 
- Tvrtko Ursulin <tursulin@ursulin.net>, David Airlie <airlied@gmail.com>, 
- Simona Vetter <simona@ffwll.ch>, Andi Shyti <andi.shyti@linux.intel.com>, 
- David Hildenbrand <david@kernel.org>, Hugh Dickins <hughd@google.com>, 
- Baolin Wang <baolin.wang@linux.alibaba.com>, intel-gfx@lists.freedesktop.org,
- dri-devel@lists.freedesktop.org, 
- linux-mm@kvack.org, linux-kernel@vger.kernel.org, kernel-team@meta.com
-Subject: Re: [PATCH] drm/i915/gem: Skip writeback of shmem folios with extra
- references
-Message-ID: <awBIB3vjr_o-gfCn@shutemov.name>
-References: <20261119134243.3745282-1-kas@kernel.org>
- <av8n42vx3Q7zvQK8@zenone.zhora.eu>
-X-Archived-By: <archiver.kernel.org>
-MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <av8n42vx3Q7zvQK8@zenone.zhora.eu>
+ s=k20260515; t=1795180666;
+ bh=MrMFv/yh7/dUZi1KfC+DA8KGXRB7+8ecXUZuNXUwR2s=;
+ h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+ b=ilURff78u40Bh8Jlk5lkJOBZQmZSz4zGCiJkwuHmakp3EGEKOeGVuzRD03/rZnxGz
+ I9cLbKkpZ/Opxx1ZwQuYwYF9zZ9HWY0PfoZSQPCn2krIeb/apgXWhL5wKAW4f72eRi
+ v4gb4WQbdgp4oK098IuynvyOd7bx3izVySfnFPO1uVghN5aHoGSDs/W6pyIRZAUeNL
+ 6lLURsMxAr9po7ZiWBo5qMuvTuYPUS5mu2y8TTDzKKBFJYDPIT7kCyIz0IAwpZS3N5
+ VRrIzz3TdBOM5P0n4rnfaSXQoFHZusQiCdRQX6Eh45eE7mkx5322uid2fjS/qp21bR
+ F7Ask8FBSF2JA==
+Message-ID: <sashiko-outbox-225216@kernel.org>
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v9 22/42] drm/atomic_helper: Compare actual and readout
+ states once the commit is done
+To: "Maxime Ripard" <mripard@kernel.org>
+Cc: dri-devel@lists.freedesktop.org
+In-Reply-To: <20261120-drm-state-readout-v9-22-a67c2b45b8ec@kernel.org>
+References: <20261120-drm-state-readout-v9-0-a67c2b45b8ec@kernel.org>
+ <20261120-drm-state-readout-v9-22-a67c2b45b8ec@kernel.org>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Fri, 20 Nov 2026 13:17:46 +0000
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -86,6 +49,7 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
+Reply-To: sashiko-reviews@lists.linux.dev
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 X-Spam-Status: No, score=-10.8 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
 	DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
@@ -93,40 +57,103 @@ X-Spam-Status: No, score=-10.8 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
 	autolearn_force=no version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
+X-Archived-By: <archiver.kernel.org>
 
-On Thu, Nov 19, 2026 at 06:43:08PM +0100, Andi Shyti wrote:
-> > diff --git a/drivers/gpu/drm/i915/gem/i915_gem_shmem.c b/drivers/gpu/drm/i915/gem/i915_gem_shmem.c
-> > index bf9e7480f0f5..748772c358ac 100644
-> > --- a/drivers/gpu/drm/i915/gem/i915_gem_shmem.c
-> > +++ b/drivers/gpu/drm/i915/gem/i915_gem_shmem.c
-> > @@ -316,9 +316,15 @@ void __shmem_writeback(size_t size, struct address_space *mapping)
-> >  	 * leaving only CPU mmapings around) and add those folios to the LRU
-> >  	 * instead of invoking writeback so they are aged and paged out
-> >  	 * as normal.
-> > +	 *
-> > +	 * The same goes for a folio with references beyond the page cache
-> > +	 * and writeback_iter(). A folio that was just unmapped can still be
-> > +	 * written through a stale TLB entry until the unmapping side flushes
-> > +	 * the TLB and drops its reference. pageout() checks the same.
-> >  	 */
-> >  	while ((folio = writeback_iter(mapping, &wbc, folio, &error))) {
-> > -		if (folio_mapped(folio))
-> > +		if (folio_mapped(folio) ||
-> > +		    folio_ref_count(folio) != 1 + folio_nr_pages(folio))
-> 
-> I don't think we need this fix in the current tree. The i915
-> writeback iterator already skips the shmem folio in the case you
-> describe, so the new refcount check doesn't change the outcome.
+Thank you for your contribution! Sashiko AI review found 2 potential
+issues to consider:
+- [Medium] drm/bridge: drm_bridge_attach() disables readout if compare
+  hook is unset
+- [Low] drm/atomic_sro: duplicated line in DOC: overview comment
+--
 
-Oh. It took me a while to see why.
+commit 00233166cd25376785bc177974713d5ccca22687
+Author: Maxime Ripard <mripard@kernel.org>
 
-__shmem_writeback() asks writeback_iter() for PAGECACHE_TAG_DIRTY
-folios, and shmem never sets that tag, its ->dirty_folio is
-noop_dirty_folio(). So the loop body never runs for any folio, and
-hasn't since 776a853a43c9 ("i915: Use writeback_iter()").
+drm/atomic_helper: Compare actual and readout states once the commit is done
 
-That makes me question the whole writeback thing. What's going on
-there, and what's the plan?
+This commit introduces atomic_sro_compare_state callbacks for KMS objects
+and adds drm_atomic_sro_readout_and_compare() to read back and compare
+hardware state against the committed state after blocking atomic commits.
 
--- 
-  Kiryl Shutsemau / Kirill A. Shutemov
+> diff --git a/drivers/gpu/drm/drm_atomic_state_readout.c b/drivers/gpu/drm=
+/drm_atomic_state_readout.c
+> index 3e50b0796cbec..4b6512ef1aae7 100644
+> --- a/drivers/gpu/drm/drm_atomic_state_readout.c
+> +++ b/drivers/gpu/drm/drm_atomic_state_readout.c
+> @@ -26,7 +26,7 @@
+>   * firmware already configured the display, the first userspace
+>   * modeset can be skipped when the requested mode matches.
+>   *
+> - * The SRO lifecycle has two phases. The first phase is the readout
+> + * The SRO lifecycle has three phases. The first phase is the readout
+>   * itself: at driver registration time, each KMS object (CRTCs, planes,
+>   * connectors, bridges, private objects) has its
+>   * atomic_sro_readout_state hook called to populate a
+> @@ -46,7 +46,17 @@
+>   * state active, such as power domains, clocks, or interrupts. This hook
+>   * cannot fail.
+>   *
+> - * Drivers integrate with SRO by implementing the readout hooks in their
+> + * The third phase is the comparison. Because getting access to every
+> + * firmware variation is hard, and most firmware setups will be fairly
+> + * basic, the framework also provides a way to verify the readout
+> + * implementation during normal operation. After every blocking commit,
+> + * the framework reads out a fresh state from hardware and compares it
+> + * to the committed state using the atomic_sro_compare_state hooks. Any
+> + * mismatch is reported, which allows to catch readout bugs without
+> + * needing specific firmware configurations.
+> + *
+> + * Drivers integrate with SRO by implementing the readout and compare
+> + * hooks in their object funcs vtables and setting the
+>   * object funcs vtables and setting the
+>   * &drm_mode_config_funcs.atomic_sro_readout_state,
+>   * &drm_mode_config_helper_funcs.atomic_sro_install_state, and
+
+[Severity: Low]
+This isn't a bug, but "object funcs vtables and setting the" is duplicated
+in the overview comment.
+
+[ ... ]
+
+> diff --git a/drivers/gpu/drm/drm_bridge.c b/drivers/gpu/drm/drm_bridge.c
+> index 868558a09f951..fe9b535d02bd5 100644
+> --- a/drivers/gpu/drm/drm_bridge.c
+> +++ b/drivers/gpu/drm/drm_bridge.c
+> @@ -798,7 +798,8 @@ int drm_bridge_attach(struct drm_encoder *encoder, st=
+ruct drm_bridge *bridge,
+>  	}
+> =20
+>  	if (bridge->funcs &&
+> -	    bridge->funcs->atomic_sro_readout_state)
+> +	    bridge->funcs->atomic_sro_readout_state &&
+> +	    bridge->funcs->atomic_sro_compare_state)
+>  		ret =3D drm_atomic_private_obj_init(bridge->dev, &bridge->base,
+>  						  bridge->name,
+>  						  &drm_bridge_priv_state_funcs_with_sro);
+
+[Severity: Medium]
+Does requiring bridge->funcs->atomic_sro_compare_state here break bridge
+state readout when atomic_readout is set to
+DRM_ATOMIC_READOUT_SKIP_MISSING_COMPARE or
+DRM_ATOMIC_READOUT_SKIP_MISSING_READOUT?
+
+If a bridge implements atomic_sro_readout_state without
+atomic_sro_compare_state, drm_bridge_attach() falls back to
+drm_bridge_priv_state_funcs, which leaves
+privobj->funcs->atomic_sro_readout_state and
+privobj->funcs->atomic_sro_install_state NULL.
+drm_atomic_sro_can_readout() then rejects the device under
+DRM_ATOMIC_READOUT_SKIP_MISSING_COMPARE, and
+drm_atomic_helper_sro_readout_bridge_state() skips the bridge's readout
+hook under DRM_ATOMIC_READOUT_SKIP_MISSING_READOUT.
+
+Also, at this point in the series, drm_bridge_priv_state_funcs_with_sro
+does not yet set .atomic_sro_compare_state (wired in the later commit
+"drm/atomic-state-helper: Provide atomic_compare_state helpers"), so
+drm_atomic_sro_can_compare() returns false under
+DRM_ATOMIC_READOUT_ENABLED for any device with an attached bridge until
+that commit.
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261120-drm-state-=
+readout-v9-0-a67c2b45b8ec@kernel.org?part=3D22
