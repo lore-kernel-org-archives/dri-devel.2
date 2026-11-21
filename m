@@ -2,32 +2,32 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9645D606A320
-	for <dri-devel@archiver.kernel.org>; Sat, 21 Nov 2026 10:25:22 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1E832606A331
+	for <dri-devel@archiver.kernel.org>; Sat, 21 Nov 2026 10:25:43 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=hBz7WbYY
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Mb94tnCW
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id BA63710E1F9;
-	Sat, 21 Nov 2026 10:25:16 +0000 (UTC)
-Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 7EDE110E1F9
- for <dri-devel@lists.freedesktop.org>; Sat, 21 Nov 2026 10:25:10 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 4649610E296;
+	Sat, 21 Nov 2026 10:25:37 +0000 (UTC)
+Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 9062010E296
+ for <dri-devel@lists.freedesktop.org>; Sat, 21 Nov 2026 10:25:30 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id 605E645654;
- Sat, 21 Nov 2026 10:25:10 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 909A51F000C4;
- Sat, 21 Nov 2026 10:25:09 +0000 (UTC)
+ by tor.source.kernel.org (Postfix) with ESMTP id 64A0761388;
+ Sat, 21 Nov 2026 10:25:29 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 50DA11F000C0;
+ Sat, 21 Nov 2026 10:25:28 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1795256710;
- bh=FS0SGY45488KZrZ0atpu54dpxNlj/6wagsa2k03gJzU=;
+ s=k20260515; t=1795256729;
+ bh=zcYwiYMgwHPQSKRl9NzBw2LKspoM6b+H+dLztCd23Cg=;
  h=Date:From:To:Cc:Subject:References:In-Reply-To;
- b=hBz7WbYYrXorJK9xAFL6eIh9ORLC89FZ2RPxREuoxuc1sLOgkxrwxEmX2vcMO8Tdw
- 8raUF4itO4NSXzGm7nNsI6d8gaqXSi0K/0o2ak1bWJ17UR7TXWYUKJUQVGY9nR3WyB
- MYq3c3m/+W8/AFGUFk0sy+EdcMIuAI7UwGqGOVWP0BkBgefRFWoLMggMuh85L87C7E
- jmh0BoFMn2lPWbcZ8EI4aBOFq7UD/i/DcLgXGN8D4CpWYslU99+0h3SzjZUDDBqD1F
- qZ3HwE8ONVRDd2qSVXATjiBNPkPRxLbScjsEI7cI7GF2cRJLEsX92+GaoEwb5dCy9J
- ju+GmBRSv5+yQ==
-Date: Sat, 21 Nov 2026 11:25:07 +0100
+ b=Mb94tnCWX/iYDn9bt0VqQnsMIk2qoUIRC14x9VjZlMkPCi/+ubRWhQ9kq/WIXwV6h
+ YMlLbsqBU467I2LaNg3KvLo8R0fSLbaKmjo9aaC7vaMFsomO7P8f1I2yB6ROoNsOaa
+ 924v6loVFKQBJP0psU7EfhB24rlH9Ab5uDdFV/w7AH8ZxfMutfLEyzvC9YBp0flGJH
+ cLkqYiKyKo8DDomEwCcbvLTg5qcobNTuIVo1OLMGjILjmyAfB0cWVQX2LafKqV/O/4
+ b3hstB0e1qvpmyEdF2EakNa8jAvm/eKJJE+s0FIK/merQPOwZ8J7XV2DQ7ZH1jiSw7
+ hJwq6mSHlUIAg==
+Date: Sat, 21 Nov 2026 11:25:25 +0100
 From: Krzysztof Kozlowski <krzk@kernel.org>
 To: Abdur Rofik <rofikcoga@gmail.com>
 Cc: linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org, 
@@ -38,16 +38,16 @@ Cc: linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org,
  Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
  Neil Armstrong <neil.armstrong@linaro.org>,
  Dmitry Torokhov <dmitry.torokhov@gmail.com>
-Subject: Re: [PATCH v5 07/10] arm64: dts: qcom: sm8250-lg-timelm: enable
- SW43103 panel
-Message-ID: <20261121-furious-turquoise-zebra-28c6ed@quoll>
+Subject: Re: [PATCH v5 08/10] arm64: dts: qcom: sm8250-lg-timelm: add SW42902
+ touchscreen
+Message-ID: <20261121-skilled-boisterous-antelope-0ca5ef@quoll>
 References: <20261120155450.7719-1-rofikcoga@gmail.com>
- <20261120155450.7719-8-rofikcoga@gmail.com>
+ <20261120155450.7719-9-rofikcoga@gmail.com>
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=utf-8
 Content-Disposition: inline
-In-Reply-To: <20261120155450.7719-8-rofikcoga@gmail.com>
+In-Reply-To: <20261120155450.7719-9-rofikcoga@gmail.com>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -66,16 +66,16 @@ X-Spam-Status: No, score=-15.8 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-On Fri, Nov 20, 2026 at 04:54:46PM +0100, Abdur Rofik wrote:
-> Enable MDSS, DSI0, and its PHY. Attach the SW43103 panel with its power
-> rails, enable and reset GPIOs, and four-lane DSI link.
+On Fri, Nov 20, 2026 at 04:54:47PM +0100, Abdur Rofik wrote:
+> Describe the SW42902 touchscreen on GENI I2C13 with its interrupt,
+> reset, regulator supplies, pinctrl, and native 1080x2460 touch area.
 > 
 > Signed-off-by: Abdur Rofik <rofikcoga@gmail.com>
 > ---
->  arch/arm64/boot/dts/qcom/sm8250-lg-timelm.dts | 36 +++++++++++++++++++
+>  arch/arm64/boot/dts/qcom/sm8250-lg-timelm.dts | 47 +++++++++++++++++++
+>  1 file changed, 47 insertions(+)
 
-Why is this separate? When you have your new board DTS ready, and you do
-have, posting a new board is one commit.
+Don't split logical patches into multiple chunks.
 
 Best regards,
 Krzysztof
