@@ -2,62 +2,73 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E0D43606A331
-	for <dri-devel@archiver.kernel.org>; Sun, 22 Nov 2026 17:14:43 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C1EBB606A332
+	for <dri-devel@archiver.kernel.org>; Sun, 22 Nov 2026 17:14:44 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=qq.com header.i=@qq.com header.a=rsa-sha256 header.s=s201512 header.b=Ispycg+a
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=guCjsCR1
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 279A710E632;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 2D1CD10E634;
 	Sun, 22 Nov 2026 17:14:32 +0000 (UTC)
-Received: from out162-62-57-252.mail.qq.com (out162-62-57-252.mail.qq.com
- [162.62.57.252])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 8C0C510E2FD
- for <dri-devel@lists.freedesktop.org>; Sat, 21 Nov 2026 07:58:45 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qq.com; s=s201512;
- t=1795247921; bh=Xmt8jo7oKKzTvhYcY6f1b8Zs3I9/GqGJBF3qAGH80D4=;
- h=From:To:Cc:Subject:Date;
- b=Ispycg+a3sAa1WU5PXGrZMh41is5LNCwzCByGkiY+g934KrMoGXybO5ibYIyrQ/dh
- Q0o4F/c9CiyI4TSnKEd/AkTk8QCld7LgW/yGhuvAp78eYPz3X8bL4SL5ONFKJHCdj9
- 954UKaKLVuD07iljE3JER49pDrXVSMpM5fT6IaUM=
-Received: from jerry-PC.lan ([2408:8249:5f:7101:71a:8713:56b4:5043])
- by newxmesmtplogicsvrszb51-1.qq.com (NewEsmtp) with SMTP
- id EA517A94; Sat, 21 Nov 2026 15:58:37 +0800
-X-QQ-mid: xmsmtpt1795247917t4zunjgeo
-Message-ID: <tencent_6F7C9E04169BCBAE4E162DAA3DCD5395B209@qq.com>
-X-QQ-XMAILINFO: OKquegeHeYmF6WbOtyTZ71BnVYmwKY+O+h3/k7lMB2BxYQi7WXNhMgPMUkX+yU
- ZCE4V++4VafBpe1iwLqDPTPTg1Wv6ymcQF1C6JbjYVrVE8JnEkhfekICSFy5FjjcDxecxUgc6CQU
- 4AoGiyLmhRlrgW+Q0M869OZ8zDBOubihez9mMiPgn+y440PqxBuPCl/5uXnG4Hzg5TALEjAr3xYE
- PgoJLCCZByOC08JaiWJ1e5TFGndH7es9ddWW1cGgbd0yxd0CenwdSsEiY8n45vUsCBfqJ2b7xghU
- Y7P/6zc4qVy/qmgtv4jKX4dcXBiypHOFkXQDrEIwexVNXYk62xANcB4XVOPz1SaBMdCmDogogcsP
- D2IrT5iB9ewcttnvuRdFQzasuoPRN1B3SgKESL3K7GvZTap3TgZeycssYAxRbU+Od9VuDMxsEbMi
- kxXmavRFNNaeVPDJzDwkRXfPMXAjOksopKsPylcTNIA7op2oeMm6abMGwjV2hXhAzoxzmAxh2ZA6
- a73em9asBUV2l+i5ocTEix35BYQWd/TPqmgwR3qw+UvEQmcRk8pHipBHXhC1DhD3TNtnrOFcGC5m
- WzoDvZ3S3Bf3Lxkd+mtk2WZOr/8/vXGzl2U9IVkN5qDbgfJJbmR80EZIfvviPaXxE+8Vt9rBpsKG
- EWfX4Dfit8weSJ9dc9hWyqpjHf105dDuO29bw91qV/F6EeCS6ZHEkPIPvZZf3LJaEw7UYOgmWql9
- FIXQoim0jTA920ASZHS81/IiukCfZvZ06PHsar8SC6Jtg1Dds1zQFstpTSjDSO+jS36ILMkUEdrb
- t9GA25xozqMtINC3Tt56zrmthO315pz4btUyNtua6sJGMySbRmjBSmgKq+3o/DTUDScDWv820Tl4
- DzFzeaVO0iFHFgf6RF8zoftqpqW4qFuX5/Lfne8CqaE3OXDmQEOJ4i9PVd1Zkj/oGtfjvuL/smOt
- 3gRwAkgpema9W0UkzyuPWqfnRLnsCtCbpnpnoRU5f4zlyr0432CkI2GGJhGPskcTrok8gW/z/Ltc
- LY0RT/tLEi1gA9r4q45pwdvXuIJvpo8x/TANfndVJh8JQY5InapQpm4SPhJ8VmQOm67IkE1GUnJx
- lM/yhLQvHO4Ky67e3hZMYxzOr/MBAlMfoBE7X7DrhUJ2n+JLp+q9tAWMLuZPVPiqGYdgD1
-X-QQ-XMRINFO: OWPUhxQsoeAVwkVaQIEGSKwwgKCxK/fD5g==
-From: ZhuXiangyu <1194781887@qq.com>
-To: Vinod Koul <vkoul@kernel.org>, Neil Armstrong <neil.armstrong@linaro.org>,
- Heiko Stuebner <heiko@sntech.de>, Sandy Huang <hjc@rock-chips.com>
-Cc: Andy Yan <andyshrk@163.com>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>,
- Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>,
- Simona Vetter <simona@ffwll.ch>, Manivannan Sadhasivam <mani@kernel.org>,
- linux-phy@lists.infradead.org, dri-devel@lists.freedesktop.org,
- linux-arm-kernel@lists.infradead.org, linux-rockchip@lists.infradead.org,
- linux-kernel@vger.kernel.org, ZhuXiangyu <1194781887@qq.com>
-Subject: [PATCH] drm/phy: rockchip: fix RK3506 DSI low-power command handling
-Date: Sat, 21 Nov 2026 15:58:35 +0800
-X-OQ-MSGID: <20261121075835.1283525-1-1194781887@qq.com>
-X-Mailer: git-send-email 2.47.3
+Received: from mail-lf1-f45.google.com (mail-lf1-f45.google.com
+ [209.85.167.45])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 0306910E212
+ for <dri-devel@lists.freedesktop.org>; Sat, 21 Nov 2026 09:09:54 +0000 (UTC)
+Received: by mail-lf1-f45.google.com with SMTP id
+ 2adb3069b0e04-5bcdae234ecso2085262e87.3
+ for <dri-devel@lists.freedesktop.org>; Sat, 21 Nov 2026 01:09:54 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20260707; t=1795252193; x=1795856993; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:content-type:mime-version:message-id:date
+ :subject:cc:to:from:from:to:cc:subject:date:message-id:reply-to
+ :content-type; bh=lcNychyJRn+TkNQvLalB8mPDA3D518aYH3ytDiQAN8Y=;
+ b=guCjsCR1p8t+wG6HlGy56TeX39t5Rht2yqKWacx10KXimAyZqSTERJ+7aQN098fFfs
+ N0oy1E7u/XcawYJ6WprjdKEO4iY3PHa5fBEbK2TXpKS4sScc5VgtOHvu1IqDTnMk0vHh
+ rpTtyood0Mou5tux4H2a44pSDaAr4jTLTpJRhQZsyXDtq6e01mFNqpRH8sPKgUKJa+RJ
+ gyhKPoD3zWSo+UunPV75wXj6NTMVEJsVWTgSu0nDIt6w3+B6QpEWFNaw3dHXoYEABvi5
+ RJBGiy16E7Bk51h5DGnf/GHNjYkCyz+AEAsZpvTSDt3yzNVWLYs9SR6aq1UCjdnSUI9o
+ uSSw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20260707; t=1795252193; x=1795856993;
+ h=content-transfer-encoding:content-type:mime-version:message-id:date
+ :subject:cc:to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject
+ :date:message-id:reply-to:content-type;
+ bh=lcNychyJRn+TkNQvLalB8mPDA3D518aYH3ytDiQAN8Y=;
+ b=oNNcFsZtDjDnTvdWrYYoP9DnYh7wwrc5KZX07vrfH5EZpr40GXJg1SP3SxFmk+7kik
+ DVUASA83PVpL5dRQgv19WkFTfYSh3kUl/uqkAUktYU51Ll+VVqJTGPJq9qynczOrQFB2
+ HLmLzhacH9k096qgh7vYMxZicQoDo6KTnbk+KM/2zK3hf5grfv2+nwO/E4dYkjT7DeoE
+ QCNj0r2v/PSAh+JKq+zSCE/8788YOdOUx2t+b74y3euaSqdHS0NFcuS7j7Re7koYAbeA
+ KNgFJE/mAcEAJTypvFFhHB1oAKYDy44XK2tUzvIQBd2Vb0CmPpGzoR/hAbCkD3gJwwc5
+ hcYw==
+X-Gm-Message-State: APuU4Z/B2jTZg4ZA9AWmTkM3/tf5pWns9bFmD+O5juy1Dy39ozRhcGSw
+ holwmu6bXXoIEGlfQGlEFzAnRyiBmeZqFlpg48pIFBWMju8F/EfOKHOkFex3IE/4PSY=
+X-Gm-Gg: AZFdTZehcE4U8LiBTNfBMCThZZsIdLYPCvgQYspyeOZ/536jvAWw+6AB07iX7wjzrTW
+ g6wThIS6ulRDVhpHS6WIkqPzqK5qF5n6M9WTrCbsWZ5kMHbKD8iyBYwS+WkkWyWNheIyGrYjocM
+ 9zf4Qkwdcl33DkbXz0C1r6J+YFIONdqTPhI1QxJZr8H54bWFwVuNCoizi8Wu+aoBJ4T4aUDFH0U
+ Q3uo9NrhJy0ujcLSH1CgiPXaQhx3uiShR4bf7Bqbw1fNpEvLyP/6PIzHzUX3C4wtq+6Paq/adcN
+ ihufaZWlf+3q86kBm/EZmEYCvRJ9vjM26jyjmaUC0aJj9djyeGUwJr6MqbE1XHObRCV+XcJZCwB
+ /YxXcBNmRQXgEsAbapq9aN+nx1oAth4oAWf+dFydriXUzvC1oxFAOvbT9qHZY0N6SZcpKjhQf6M
+ NLCDtvMAsDtTPtOkmb71pCehJBpsgfMYF+7lmRmvNzqaMqjfVtkTmmmlWWBNO8FVddQ16vLGdNV
+ p/wNOs8gyKlbLCQAWPN///AOTGVtN2IlLnjrhq1AeIsgJ6LOQGkmYlYrRQzt3VWuXgwgMmqFsJ3
+ UyOnIyaB9+Yk41E0x4QE2AAQ8AiT
+X-Received: by 2002:a05:6512:23a9:b0:5c0:c5e:3cf with SMTP id
+ 2adb3069b0e04-5c1bc7d072bmr1515520e87.25.1795252192669; 
+ Sat, 21 Nov 2026 01:09:52 -0800 (PST)
+Received: from localhost ([2a01:799:ca8:9900:6399:b7a1:82e6:2b58])
+ by smtp.gmail.com with UTF8SMTPSA id
+ 2adb3069b0e04-5c1bd041813sm1230381e87.53.2026.11.21.01.09.52
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Sat, 21 Nov 2026 01:09:52 -0800 (PST)
+From: =?UTF-8?q?Petter=20Skjelsb=C3=A6k?= <skjelsbaek@gmail.com>
+To: dri-devel@lists.freedesktop.org
+Cc: ankit.k.nautiyal@intel.com, ville.syrjala@linux.intel.com,
+ maarten.lankhorst@linux.intel.com, skjelsbaek@gmail.com
+Subject: [RFC PATCH] drm/dp: allow dual-link clock for 30-inch Apple Cinema HD
+Date: Sat, 21 Nov 2026 10:09:49 +0100
+Message-ID: <20261121090949.12290-1-skjelsbaek@gmail.com>
+X-Mailer: git-send-email 2.43.0
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 X-Mailman-Approved-At: Sun, 22 Nov 2026 17:13:42 +0000
 X-BeenThere: dri-devel@lists.freedesktop.org
@@ -74,107 +85,64 @@ Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 X-Spam-Status: No, score=-15.8 required=3.0 tests=BAYES_00,DKIM_SIGNED,
 	DKIM_VALID,DKIM_VALID_AU,FREEMAIL_FORGED_FROMDOMAIN,FREEMAIL_FROM,
 	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
-	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,USER_AGENT_GIT
-	autolearn=unavailable autolearn_force=no version=4.0.1
+	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,USER_AGENT_GIT autolearn=ham
+	autolearn_force=no version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-Two bugs keep the RK3506 MIPI-DSI link from initialising a panel: the
-DPHY programs the wrong high-speed timing entry, and the PHY data lanes
-are never enabled in the GRF.
+The 30-inch Apple Cinema HD Display (APP 0x9221) advertises its
+native 2560x1600 mode at 59.86 Hz with a 268 MHz pixel clock.
+Its EDID also identifies the digital interface as DVI Dual Link
+High Resolution.
 
-1. phy-rockchip-inno-dsidphy picks the wrong HS timing entry
+When connected using Apple's active Mini DisplayPort to Dual-Link
+DVI adapter, the adapter is detected as a DisplayPort branch with
+a DVI downstream port. It does not provide detailed downstream
+capability information, so drm_dp_downstream_max_tmds_clock()
+falls back to 165 MHz.
 
-   The 1.5 GHz inno DSI PHY timing table stores its rates in Mbps while
-   the other tables and the lookup use Hz. The mode enable code compares
-   inno->pll.rate in Hz (e.g. 372000000) against timings[].rate in Mbps
-   (e.g. 400), so the comparison never matches. The loop runs to the end
-   and the last, fastest entry is used, which programs a TLPX/LPX
-   counter that is far too large. The panel then cannot decode the
-   low-power DCS commands and stays in sleep mode, so the display stays
-   black even though the LP packets are visible on the data lane.
+This causes the native 268 MHz mode to be rejected, leaving only
+1280x800 at 71 MHz available.
 
-   Convert the 1.5 GHz timing table rates to Hz so that the lookup
-   selects the correct entry.
+Allow a 300 MHz TMDS clock for this display so that its native
+2560x1600 mode is exposed.
 
-2. The RK3506 DSI GRF lane enable bits are never written
+An earlier version of this workaround was tested successfully
+with an Intel Arc B580 using the xe driver and Apple's active
+Mini DisplayPort to Dual-Link DVI adapter on Linux 7.0.11 and
+7.2.6. The revised capability check has not yet been runtime-tested.
 
-   rk3506_chip_data only clears the turnaround / force-stop fields, so
-   the PHY data lanes stay disabled unless the boot loader happens to
-   enable them. Program RK3506_DSI_PHY_ENABLE_LANE0/1 as well.
+This is intended as an RFC since the underlying limitation is the
+active dual-link DVI adapter, while this workaround identifies
+the attached display by EDID. A more generic way of identifying
+dual-link capable downstream DVI adapters may be preferable.
 
-Tested on the RK3506B JerryTech board: the panel now receives the init
-sequence over LP and the framebuffer console is visible.
-
-Signed-off-by: ZhuXiangyu <1194781887@qq.com>
+Signed-off-by: Petter Skjelsbæk <skjelsbaek@gmail.com>
 ---
- .../gpu/drm/rockchip/dw-mipi-dsi-rockchip.c   |  6 +++-
- .../phy/rockchip/phy-rockchip-inno-dsidphy.c  | 28 +++++++++----------
- 2 files changed, 19 insertions(+), 15 deletions(-)
+ drivers/gpu/drm/display/drm_dp_helper.c | 9 ++++++++-
+ 1 file changed, 8 insertions(+), 1 deletion(-)
 
-diff --git a/drivers/gpu/drm/rockchip/dw-mipi-dsi-rockchip.c b/drivers/gpu/drm/rockchip/dw-mipi-dsi-rockchip.c
-index 30d6f83c..116cc140 100644
---- a/drivers/gpu/drm/rockchip/dw-mipi-dsi-rockchip.c
-+++ b/drivers/gpu/drm/rockchip/dw-mipi-dsi-rockchip.c
-@@ -199,6 +199,8 @@
- 
- #define RK3506_SYS_GRF_SOC_CON6		0x0018
- #define RK3506_DSI_FORCETXSTOPMODE	(0xf << 4)
-+#define RK3506_DSI_PHY_ENABLE_LANE1	BIT(9)
-+#define RK3506_DSI_PHY_ENABLE_LANE0	BIT(8)
- #define RK3506_DSI_TURNDISABLE		BIT(2)
- #define RK3506_DSI_FORCERXMODE		BIT(0)
- 
-@@ -1727,7 +1729,9 @@ static const struct rockchip_dw_dsi_chip_data rk3506_chip_data[] = {
- 		.lanecfg1_grf_reg = RK3506_SYS_GRF_SOC_CON6,
- 		.lanecfg1 = (FIELD_PREP_WM16_CONST(RK3506_DSI_TURNDISABLE, 0) |
- 			     FIELD_PREP_WM16_CONST(RK3506_DSI_FORCERXMODE, 0) |
--			     FIELD_PREP_WM16_CONST(RK3506_DSI_FORCETXSTOPMODE, 0)),
-+			     FIELD_PREP_WM16_CONST(RK3506_DSI_FORCETXSTOPMODE, 0) |
-+			     FIELD_PREP_WM16_CONST(RK3506_DSI_PHY_ENABLE_LANE0, 1) |
-+			     FIELD_PREP_WM16_CONST(RK3506_DSI_PHY_ENABLE_LANE1, 1)),
- 		.max_data_lanes = 2,
- 		.max_bit_rate_per_lane = 1500000000UL,
- 		.dphy_get_timing = dw_mipi_dsi_phy_px30_get_timing,
-diff --git a/drivers/phy/rockchip/phy-rockchip-inno-dsidphy.c b/drivers/phy/rockchip/phy-rockchip-inno-dsidphy.c
-index 6ad04b0c..fcf7aa17 100644
---- a/drivers/phy/rockchip/phy-rockchip-inno-dsidphy.c
-+++ b/drivers/phy/rockchip/phy-rockchip-inno-dsidphy.c
-@@ -282,20 +282,20 @@ struct inno_mipi_dphy_timing inno_mipi_dphy_timing_table_max_1ghz[] = {
- 
- static const
- struct inno_mipi_dphy_timing inno_mipi_dphy_timing_table_max_1_5ghz[] = {
--	{ 110, 0x02, 0x7f, 0x16, 0x02, 0x02},
--	{ 150, 0x02, 0x7f, 0x16, 0x03, 0x02},
--	{ 200, 0x02, 0x7f, 0x17, 0x04, 0x02},
--	{ 250, 0x02, 0x7f, 0x17, 0x05, 0x04},
--	{ 300, 0x02, 0x7f, 0x18, 0x06, 0x04},
--	{ 400, 0x03, 0x7e, 0x19, 0x07, 0x04},
--	{ 500, 0x03, 0x7c, 0x1b, 0x07, 0x08},
--	{ 600, 0x03, 0x70, 0x1d, 0x08, 0x10},
--	{ 700, 0x05, 0x40, 0x1e, 0x08, 0x30},
--	{ 800, 0x05, 0x02, 0x1f, 0x09, 0x30},
--	{1000, 0x05, 0x08, 0x20, 0x09, 0x30},
--	{1200, 0x06, 0x03, 0x32, 0x14, 0x0f},
--	{1400, 0x09, 0x03, 0x32, 0x14, 0x0f},
--	{1500, 0x0d, 0x42, 0x36, 0x0e, 0x0f},
-+	{ 110000000, 0x02, 0x7f, 0x16, 0x02, 0x02},
-+	{ 150000000, 0x02, 0x7f, 0x16, 0x03, 0x02},
-+	{ 200000000, 0x02, 0x7f, 0x17, 0x04, 0x02},
-+	{ 250000000, 0x02, 0x7f, 0x17, 0x05, 0x04},
-+	{ 300000000, 0x02, 0x7f, 0x18, 0x06, 0x04},
-+	{ 400000000, 0x03, 0x7e, 0x19, 0x07, 0x04},
-+	{ 500000000, 0x03, 0x7c, 0x1b, 0x07, 0x08},
-+	{ 600000000, 0x03, 0x70, 0x1d, 0x08, 0x10},
-+	{ 700000000, 0x05, 0x40, 0x1e, 0x08, 0x30},
-+	{ 800000000, 0x05, 0x02, 0x1f, 0x09, 0x30},
-+	{1000000000, 0x05, 0x08, 0x20, 0x09, 0x30},
-+	{1200000000, 0x06, 0x03, 0x32, 0x14, 0x0f},
-+	{1400000000, 0x09, 0x03, 0x32, 0x14, 0x0f},
-+	{1500000000, 0x0d, 0x42, 0x36, 0x0e, 0x0f},
- };
- 
- static const
+diff --git a/drivers/gpu/drm/display/drm_dp_helper.c b/drivers/gpu/drm/display/drm_dp_helper.c
+index e623ccb4c1d8..ec36fa88b0ca 100644
+--- a/drivers/gpu/drm/display/drm_dp_helper.c
++++ b/drivers/gpu/drm/display/drm_dp_helper.c
+@@ -1388,8 +1388,15 @@ int drm_dp_downstream_max_tmds_clock(const u8 dpcd[DP_RECEIVER_CAP_SIZE],
+ 			return 300000;
+ 		return port_cap[1] * 2500;
+ 	case DP_DS_PORT_TYPE_DVI:
+-		if ((dpcd[DP_DOWNSTREAMPORT_PRESENT] & DP_DETAILED_CAP_INFO_AVAILABLE) == 0)
++		if ((dpcd[DP_DOWNSTREAMPORT_PRESENT] &
++		     DP_DETAILED_CAP_INFO_AVAILABLE) == 0) {
++			if (drm_edid &&
++			    drm_edid_get_panel_id(drm_edid) ==
++			    drm_edid_encode_panel_id('A', 'P', 'P', 0x9221))
++				return 300000;
+ 			return 165000;
++		}
++
+ 		/* FIXME what to do about DVI dual link? */
+ 		return port_cap[1] * 2500;
+ 	default:
 -- 
-2.47.3
+2.43.0
 
