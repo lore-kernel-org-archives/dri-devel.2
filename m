@@ -2,62 +2,78 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B9D65606A6AD
-	for <dri-devel@archiver.kernel.org>; Sat, 21 Nov 2026 01:43:59 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 08982606A6AD
+	for <dri-devel@archiver.kernel.org>; Sat, 21 Nov 2026 01:51:56 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=iatXViQ6
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=COia/9Fa
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 33D1810E56E;
-	Sat, 21 Nov 2026 01:43:53 +0000 (UTC)
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.13])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 21D2210E56E;
- Sat, 21 Nov 2026 01:43:46 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 08E4010E166;
+	Sat, 21 Nov 2026 01:51:50 +0000 (UTC)
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.20])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 4AF4310E166
+ for <dri-devel@lists.freedesktop.org>; Sat, 21 Nov 2026 01:51:44 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1795225426; x=1826761426;
+ t=1795225905; x=1826761905;
  h=date:from:to:cc:subject:message-id:references:
- mime-version:content-transfer-encoding:in-reply-to;
- bh=kVaHlHjJcy4SxxTooYyyL0PT+SmvPoA8rf2OZQ5memc=;
- b=iatXViQ6PdJhPQf++R7Pm7kEaTW0+nxzVsxoWGAEWBxODGKf8bV8RKX9
- W05luELgog1ZlwR6z5iUCqEygzTrq5ddBbY82LpvvZpsyzr8YpDJUXkS5
- 2aahLk3VewGyv3Ds1NJKbt0saK6udPOfLnDhOLRABOHPCAsV/SbVQkN+B
- CGeEcrk8Hu7IZMwM34qtzEObRQB29CZDvishemucokvaZFQGH0saO+eBr
- Cjeiz2FV8TdL52Ig353d5SBOy/42VAUdzkIXjlCum1us2iG8p/Hgqs1aN
- ggKQORIKTIxrj+OWPZivPm06ItQbU34ak/2+joyIyiyadZk1Gd2uZNEia Q==;
-X-CSE-ConnectionGUID: GlszPraHSb+Ed/GXmu0NYQ==
-X-CSE-MsgGUID: ZBySE8wzTT2D2JIR1zXyHA==
-X-IronPort-AV: E=McAfee;i="6800,10657,11972"; a="4102958"
+ mime-version:in-reply-to;
+ bh=IwahHoB4S9ZhcNncbWPcEfTPsCZcT9vB1MtXpBP03/g=;
+ b=COia/9FayfUhZoHlHdDA7chh9woWIpsKfUytj5ByoamJt+IU9+pJTYIw
+ EdzwQC75k58UmKbSre01rx9RpPO4VmLI/yMjComA6x1LwJO0pt97GOKxH
+ RvQgA7Jy0P/BssQ1WXIgEoszMVD6Gv6899U78cgTe1Yh2IugbQtHmkCYZ
+ bdOuET67gvPyGWMLNaGQogoqrQARoLWJqiKwVNyzW/NEdBejvz4HJ8aCv
+ AXNurzIhD3U1OA0C6tuGZioLeF/Ou5tMjMKrN/FK1XTPbH6agv4dbBmUz
+ hntBeKh9PueulgYE91p1BevW0DeY1+JbrEFQ5Yx802CXi89Y+3nC0yeFB A==;
+X-CSE-ConnectionGUID: 1f6jZznPSbePU9fClqAjXw==
+X-CSE-MsgGUID: /GsfGdXhRLahR4j+DOUL6g==
+X-IronPort-AV: E=McAfee;i="6800,10657,11972"; a="4154310"
 X-IronPort-AV: E=Sophos;i="6.27,224,1787036400"; 
-   d="scan'208";a="4102958"
-Received: from orviesa006.jf.intel.com ([10.64.159.146])
- by fmvoesa107.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 20 Nov 2026 17:43:45 -0800
-X-CSE-ConnectionGUID: rkFiyE5jRiqbh/3pUBoOng==
-X-CSE-MsgGUID: kPcxZkNjRWiGkVPhoX2IKw==
+   d="scan'208";a="4154310"
+Received: from fmviesa005.fm.intel.com ([10.60.135.145])
+ by orvoesa112.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 20 Nov 2026 17:51:44 -0800
+X-CSE-ConnectionGUID: AAmMxKbUSX+u0wxTw78PUQ==
+X-CSE-MsgGUID: NUWuXceNRh+Tm3I+RLBZpg==
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,224,1787036400"; d="scan'208";a="10825255"
-Received: from klitkey1-mobl1.ger.corp.intel.com (HELO localhost)
- ([10.245.244.66])
- by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 20 Nov 2026 17:43:44 -0800
-Date: Sat, 21 Nov 2026 03:43:40 +0200
-From: Ville =?iso-8859-1?Q?Syrj=E4l=E4?= <ville.syrjala@linux.intel.com>
-To: Yitian Shao <fighters390@qq.com>
-Cc: intel-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
- jani.nikula@intel.com, sebastian.wick@redhat.com,
- uma.shankar@intel.com, suraj.kandpal@intel.com
-Subject: Re: [PATCH v3 0/4] drm/i915/dp: Attach HDR_OUTPUT_METADATA on eDP
-Message-ID: <awD3TIOlLBMHZvu6@intel.com>
-References: <tencent_D31B4BA3A4E1F42313C008AFE786BB6D6F07@qq.com>
+X-IronPort-AV: E=Sophos;i="6.27,224,1787036400"; d="scan'208";a="10914179"
+Received: from lkp-server01.sh.intel.com (HELO 0caa9d2d175c) ([10.239.97.150])
+ by fmviesa005.fm.intel.com with ESMTP; 20 Nov 2026 17:51:38 -0800
+Received: from kbuild by 0caa9d2d175c with local (Exim 4.98.2)
+ (envelope-from <lkp@intel.com>) id 1xUaGM-00000001JC7-0LGj;
+ Sat, 21 Nov 2026 01:51:34 +0000
+Date: Sat, 21 Nov 2026 09:51:21 +0800
+From: kernel test robot <lkp@intel.com>
+To: Olivier Moysan <olivier.moysan@foss.st.com>,
+ Jonathan Cameron <jic23@kernel.org>, David Lechner <dlechner@baylibre.com>,
+ Nuno =?iso-8859-1?Q?S=E1?= <nuno.sa@analog.com>,
+ Andy Shevchenko <andy@kernel.org>, Rob Herring <robh@kernel.org>,
+ Krzysztof Kozlowski <krzk@kernel.org>, Conor Dooley <conor+dt@kernel.org>,
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+ Alexandre Torgue <alexandre.torgue@foss.st.com>,
+ Philipp Zabel <p.zabel@pengutronix.de>,
+ Sumit Semwal <sumit.semwal@linaro.org>,
+ Christian =?iso-8859-1?Q?K=F6nig?= <christian.koenig@amd.com>,
+ Philipp Stanner <phasta@kernel.org>,
+ Arnaud Pouliquen <arnaud.pouliquen@foss.st.com>,
+ Liam Girdwood <lgirdwood@gmail.com>,
+ Mark Brown <broonie@kernel.org>, Jaroslav Kysela <perex@perex.cz>,
+ Takashi Iwai <tiwai@suse.com>,
+ Fabrice Gasnier <fabrice.gasnier@foss.st.com>
+Cc: oe-kbuild-all@lists.linux.dev, linux-iio@vger.kernel.org,
+ devicetree@vger.kernel.org, linux-stm32@st-md-mailman.stormreply.com,
+ linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org,
+ linux-media@vger.kernel.org, dri-devel@lists.freedesktop.org,
+ linaro-mm-sig@lists.linaro.org, linux-sound@vger.kernel.org,
+ Olivier Moysan <olivier.moysan@foss.st.com>
+Subject: Re: [PATCH v2 08/11] iio: adc: stm32-mdf: add dma buffered
+ acquisition support
+Message-ID: <202611210936.q9qVaCjc-lkp@intel.com>
+References: <20261118-upstream_mdf_v2-v2-8-7939d3c3720a@foss.st.com>
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=iso-8859-1
+Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <tencent_D31B4BA3A4E1F42313C008AFE786BB6D6F07@qq.com>
-X-Patchwork-Hint: comment
-Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
- krs Bertel Jungin Aukio 5, 02600 Espoo, Finland
+In-Reply-To: <20261118-upstream_mdf_v2-v2-8-7939d3c3720a@foss.st.com>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -69,89 +85,76 @@ List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-8.8 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
-	DKIM_SIGNED,DKIM_VALID,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_PATCH,
-	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS autolearn=unavailable
-	autolearn_force=no version=4.0.1
+X-Spam-Status: No, score=-10.8 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
+	DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
+	MAILING_LIST_MULTI,MENTIONS_GIT_HOSTING,SPF_HELO_NONE,SPF_PASS
+	autolearn=unavailable autolearn_force=no version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-On Sat, Nov 21, 2026 at 08:54:05AM +0800, Yitian Shao wrote:
-> This series makes HDR work on pre-ICL eDP panels that decode the metadata
-> through the Intel AUX HDR interface instead of a gamut metadata DIP.
-> 
-> Patch 1 removes the LSPCON check from intel_dp_has_gamut_metadata_dip(),
-> which made the helper answer the wrong question.
-> 
-> Patch 2 attaches HDR_OUTPUT_METADATA on eDP when the panel's TCON advertises
-> PQ decoding, and skips the infoframe when no DIP is available.
-> 
-> Patch 3 is the pre-existing LSPCON issue pointed out during review: refuse
-> HDR support when the port cannot transmit the gamut metadata DIP.
-> 
-> Patch 4 writes the content luminance over DPCD only when the SDP path is not
-> in use, since the SDP takes precedence.
+Hi Olivier,
 
-We still haven't solved the fastset issue, but I think we can mostly
-sidestep it for now by always forcing a full modeset when the HDR
-metadata changes.
+kernel test robot noticed the following build warnings:
 
-Probably the most straightforward way to do that is by changing
-intel_digital_connector_atomic_check() to flag connectors_changed=true
-instead of mode_changed=true if the metadata changes on a connector
-that uses the AUX HDR interface. A commit with connectors_change==true
-will always result in a full modeset.
+[auto build test WARNING on d922ed738439e1d5b4701df7f4cdd49a09925624]
 
-And I'm thinking that we do want that check to be just the
-"are we using the HDR AUX interface" and nothing more. We should
-not consider the SDP override stuff at all. That's because the HDR
-AUX interface also sets up other stuff such as the 2084 decode and
-segmented backlight. I believe this is in fact a pre-existing bug 
-in the code; If the metadata changes between PQ and SDR but otherwise
-remains in place we are currently failing to update the TCON.
+url:    https://github.com/intel-lab-lkp/linux/commits/Olivier-Moysan/dt-bindings-iio-adc-add-stm32mp2-mdf-filter/20261118-161746
+base:   d922ed738439e1d5b4701df7f4cdd49a09925624
+patch link:    https://lore.kernel.org/r/20261118-upstream_mdf_v2-v2-8-7939d3c3720a%40foss.st.com
+patch subject: [PATCH v2 08/11] iio: adc: stm32-mdf: add dma buffered acquisition support
+config: csky-allmodconfig (https://download.01.org/0day-ci/archive/20261121/202611210936.q9qVaCjc-lkp@intel.com/config)
+compiler: csky-linux-gcc (GCC) 16.2.0
+reproduce (this is a W=1 build): (https://download.01.org/0day-ci/archive/20261121/202611210936.q9qVaCjc-lkp@intel.com/reproduce)
 
-Eventually we'll probably want a proper fastset support for this
-stuff, but no need to rush it now IMO.
+If you fix the issue in a separate patch/commit (i.e. not just a new version of
+the same patch/commit), kindly add following tags
+| Reported-by: kernel test robot <lkp@intel.com>
+| Closes: https://lore.kernel.org/oe-kbuild-all/202611210936.q9qVaCjc-lkp@intel.com/
 
-> 
-> v3:
->  - Drop the LSPCON check from intel_dp_has_gamut_metadata_dip() and move it
->    to intel_dp_add_properties(), per Ville.
->  - Fold the checks into intel_dp_hdr_metadata_supported() instead of an
->    ever growing if-statement.
->  - Add the LSPCON DIP check as a separate patch, per Ville.
->  - Invert the content luminance condition: use DPCD when there is no SDP.
->  - Dropped the fastset concern from v2. The analysis was confirmed correct,
->    but HDR metadata fastset support is already broken and needs a separate
->    fix (possibly crtc_state->backlight_changed), so it does not belong here.
-> 
-> v2:
->  - Do not skip the infoframe on LSPCON (superseded by patch 1 and 2).
->  - Only attach the property when the Intel AUX HDR backlight interface is in
->    use, to avoid reading the untagged union.
-> 
-> Testing: CometLake-U (Gen9.5) laptop with a 3840x2160 10bpc eDP panel that
-> advertises BT2020 + ST2084. With the equivalent change applied the connector
-> exposes HDR_OUTPUT_METADATA, GNOME 50 offers the HDR switch, and the panel
-> enters PQ/BT2020 mode. The TCON HDR backlight interface was already in use.
-> v3 was compile-tested only; I have not re-run the runtime test.
-> 
-> Yitian Shao (4):
->   drm/i915/dp: Drop LSPCON check from intel_dp_has_gamut_metadata_dip()
->   drm/i915/dp: Attach HDR_OUTPUT_METADATA on eDP with TCON HDR support
->   drm/i915/display: Check gamut metadata DIP support in LSPCON HDR
->     detection
->   drm/i915/dp: Prefer SDP over DPCD for HDR content luminance
-> 
->  drivers/gpu/drm/i915/display/intel_dp.c       | 32 ++++++++++++++++---
->  .../drm/i915/display/intel_dp_aux_backlight.c | 11 ++++++-
->  .../drm/i915/display/intel_dp_aux_backlight.h |  3 ++
->  drivers/gpu/drm/i915/display/intel_lspcon.c   |  5 +++
->  4 files changed, 46 insertions(+), 5 deletions(-)
-> 
-> -- 
-> 2.53.0
+All warnings (new ones prefixed by >>):
+
+>> drivers/iio/adc/stm32-mdf-adc.c:1781:12: warning: 'stm32_mdf_adc_resume' defined but not used [-Wunused-function]
+    1781 | static int stm32_mdf_adc_resume(struct device *dev)
+         |            ^~~~~~~~~~~~~~~~~~~~
+>> drivers/iio/adc/stm32-mdf-adc.c:1766:12: warning: 'stm32_mdf_adc_suspend' defined but not used [-Wunused-function]
+    1766 | static int stm32_mdf_adc_suspend(struct device *dev)
+         |            ^~~~~~~~~~~~~~~~~~~~~
+
+
+vim +/stm32_mdf_adc_resume +1781 drivers/iio/adc/stm32-mdf-adc.c
+
+  1765	
+> 1766	static int stm32_mdf_adc_suspend(struct device *dev)
+  1767	{
+  1768		struct iio_dev *indio_dev = dev_get_drvdata(dev);
+  1769		struct stm32_mdf_adc *adc = iio_priv(indio_dev);
+  1770		int ret = 0;
+  1771	
+  1772		if (iio_buffer_enabled(indio_dev))
+  1773			ret = stm32_mdf_adc_predisable(indio_dev);
+  1774	
+  1775		regcache_cache_only(adc->regmap, true);
+  1776		regcache_mark_dirty(adc->regmap);
+  1777	
+  1778		return ret;
+  1779	}
+  1780	
+> 1781	static int stm32_mdf_adc_resume(struct device *dev)
+  1782	{
+  1783		struct iio_dev *indio_dev = dev_get_drvdata(dev);
+  1784		struct stm32_mdf_adc *adc = iio_priv(indio_dev);
+  1785		int ret;
+  1786	
+  1787		regcache_cache_only(adc->regmap, false);
+  1788		ret = regcache_sync(adc->regmap);
+  1789	
+  1790		if (!ret && iio_buffer_enabled(indio_dev))
+  1791			ret = stm32_mdf_adc_postenable(indio_dev);
+  1792	
+  1793		return ret;
+  1794	}
+  1795	
 
 -- 
-Ville Syrjälä
-Intel
+0-DAY CI Kernel Test Service
+https://github.com/intel/lkp-tests/wiki
