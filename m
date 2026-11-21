@@ -2,64 +2,60 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9A31E606A33F
-	for <dri-devel@archiver.kernel.org>; Sat, 21 Nov 2026 01:29:17 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E09C1606A6A0
+	for <dri-devel@archiver.kernel.org>; Sat, 21 Nov 2026 01:35:55 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=JhYs+k4/
+	dkim=pass (1024-bit key) header.d=qq.com header.i=@qq.com header.a=rsa-sha256 header.s=s201512 header.b=mj06pKDc
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 2075410E6D7;
-	Sat, 21 Nov 2026 01:29:10 +0000 (UTC)
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.8])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 3F64110E6D7;
- Sat, 21 Nov 2026 01:29:04 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1795224545; x=1826760545;
- h=date:from:to:cc:subject:message-id:references:
- mime-version:content-transfer-encoding:in-reply-to;
- bh=ir7RR7TU4SnIvahRgW65oHo9GJCm2molH6VVbIzmibM=;
- b=JhYs+k4/g/W2TFU6sZ9PcESXC8/+HdV0bNLYHfo7nnKLUIAIQTmnqifa
- YGKzvUjmV9lbpO0qC0fbB2JN3MFyyNnp2MHKFLfI7FERhHnrENYbmkiPQ
- HKRmLeuT4c//baOxrE4shCwEHKmozVEb9G2AMJg2sykrbM01iyhVqyfJs
- UJHbACNO/Uuv89i/Nli9gK4V8piIVVwdM6DdMvQHbrqRGsfI99+rRx+wB
- uSH4+y645ts0j/DJa9f6Pt5cCxfokLbs6x5k+W+T9BXDgNGUMwKeap+oT
- IMzyuNlwZhdlHzPCSbSH2uK+g6U3HQtB5L3oV9gRm4oE16Ty6QT4+ZAXV A==;
-X-CSE-ConnectionGUID: 8TpLWShUTQ+TdkQy1wOVrQ==
-X-CSE-MsgGUID: CRTVnSUlRWGulItD0XG+xw==
-X-IronPort-AV: E=McAfee;i="6800,10657,11972"; a="4010628"
-X-IronPort-AV: E=Sophos;i="6.27,224,1787036400"; 
-   d="scan'208";a="4010628"
-Received: from orviesa007.jf.intel.com ([10.64.159.147])
- by fmvoesa102.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 20 Nov 2026 17:29:04 -0800
-X-CSE-ConnectionGUID: zBbPs4VgR6K754MgDILDqQ==
-X-CSE-MsgGUID: y8MAlmp0R3uCFBuA4kjhew==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,224,1787036400"; d="scan'208";a="10774454"
-Received: from klitkey1-mobl1.ger.corp.intel.com (HELO localhost)
- ([10.245.244.66])
- by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 20 Nov 2026 17:29:01 -0800
-Date: Sat, 21 Nov 2026 03:28:57 +0200
-From: Ville =?iso-8859-1?Q?Syrj=E4l=E4?= <ville.syrjala@linux.intel.com>
-To: Yitian Shao <fighters390@qq.com>
-Cc: intel-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
- jani.nikula@intel.com, sebastian.wick@redhat.com,
- uma.shankar@intel.com, suraj.kandpal@intel.com
-Subject: Re: [PATCH v3 4/4] drm/i915/dp: Prefer SDP over DPCD for HDR content
- luminance
-Message-ID: <awDz2WfzlvnUSd9q@intel.com>
-References: <20261121005409.17626-1-fighters390@qq.com>
- <tencent_10977788255152703A88096844DFF3EF9D06@qq.com>
+	by gabe.freedesktop.org (Postfix) with ESMTP id 97B68112D9F;
+	Sat, 21 Nov 2026 01:35:46 +0000 (UTC)
+Received: from xmbghk7.mail.qq.com (xmbghk7.mail.qq.com [43.163.128.55])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id EED2110E924;
+ Sat, 21 Nov 2026 01:35:39 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qq.com; s=s201512;
+ t=1795224937; bh=cq5fvr/XhYoEty228aTIF8W++wbqTGZw0rCJWVYSFRc=;
+ h=From:To:Cc:Subject:Date:In-Reply-To:References;
+ b=mj06pKDcrgJ2Cgi409m+XGMV7NjTgIsKgl2X6x5w+LlJZwwoun4SZmUSngxv2mFil
+ bHJXRTw6KTY7ZxPscK6VbGIMh0SFF+l6CwFOIkrS3k4yfkeqFYgms74ljxA4YQMLKh
+ mRJBhVQcg9vpI5PI8b7q7qyml0ohm+UIU3GZg2YU=
+Received: from ThinkPad-T14 ([42.80.74.187])
+ by newxmesmtplogicsvrszb51-0.qq.com (NewEsmtp) with SMTP
+ id 8E0AE630; Sat, 21 Nov 2026 09:35:32 +0800
+X-QQ-mid: xmsmtpt1795224934t8go8fzeo
+Message-ID: <tencent_3496A349FCE9B826471144CFB37798DE7308@qq.com>
+X-QQ-XMAILINFO: Nq6RUwyQu1GQzsAi+fqes7pOPaG+J0cKx1LA28cjTj1dppHA5QZ7wDaOQW2hTT
+ M8ANiBj7dZ7+iUW1Jb+9NzXwwElznqF7dic8ehRSEYGbGQqSG0tr2VSXmIZClpXWcVIV6gUgjmp1
+ 9qKIO0UYuCd9x5ekaZlQKFDMqCTOxHwtFVIDYIiZpnueE2a4K/1W6WmSD89QzcHpW4j/z148MJXk
+ wibr9Rj7v2y9RK+mFz7hN5boSoh2586LubiUZAeFwwgL69GU7hum28oeKylJEe6AMfdyW+R4ovEn
+ +HKZL/6EZNS9wYeuPoCRFDmaxIvNaEH7nS+eZIWEgKpUvhaAtKNiyzaz9CqJFMNr9SjvfdMspqj5
+ oiX3e+HYPJUVtbb/vLdO6w766+AoJhDTPgN2X5iIBPmB2C++QaXfoTxm8MHOp1bxn/B1LmzbIPlZ
+ ivtehzOz03XnYLErnvppplIoF6VK5rLx2BupF6xguRtS2S7pxFkgjH/eyIPpoJNxOQb+r9Oo7fnm
+ keeWoX4KU08hz3CbZV2ngmleltN4pxJQ26B6nwZr2EvOrVCpvQJI14QhBlOY8CSVMYY3Sk/BpstF
+ EgFxvXYJnXjDBBEy+RqH2ikkbkU3OfjLwuOonUIY2piq3w5HsnaS8R1Ijwftow3wWoJIRh9cJfWR
+ 1L+UOimRQeEg2bpzOLw+KuRWVdXTEPC6SgDaND9mOnkQMF9l6lFv+1ok+m+BBFXYeyY1ufqvnjKr
+ NnvldIFYn+8getxBvoLAT/KicopPYC4X2EYfPlFy7FkmDIcbn5v1AdN8crXZGO+u12DTa+847B+Z
+ RJkxoxrBedF4vIc/DJvc2swCwIC6nwRLNFX470DAflUjwaTggI0c3A/E6Jne7F3DzPaq4zk6m6FV
+ AyjQcVBE+7n66tWpIPc+TdSd1Oz58kjpFua9hzBd8RKZ3RwZtKCqZccbawGyZn0hQ5G5ssFt094O
+ /6NS39ugCNgoxJYKf5r68TOf28ZhpVwWzCjTGu+WES2DhusIwgEDku+uQI5R6zMDs8lt+AaD9ziZ
+ kdj8ZzJPiNHXTMo9b/gcO4zN10wxdRymhEjcpVTaOd5radWVZ4/g9Ub+QO4tzGj9Oc96aNq3/2mL
+ ZISSmpFOJP+NVLeoEcolSLAWl9dyFM9sNkbXXf
+X-QQ-XMRINFO: NI4Ajvh11aEjEMj13RCX7UuhPEoou2bs1g==
+From: Yitian Shao <fighters390@qq.com>
+To: intel-gfx@lists.freedesktop.org
+Cc: dri-devel@lists.freedesktop.org, ville.syrjala@linux.intel.com,
+ jani.nikula@intel.com, sebastian.wick@redhat.com, uma.shankar@intel.com,
+ suraj.kandpal@intel.com
+Subject: [PATCH v4 1/4] drm/i915/dp: Drop LSPCON check from
+ intel_dp_has_gamut_metadata_dip()
+Date: Sat, 21 Nov 2026 09:35:29 +0800
+X-OQ-MSGID: <20261121013532.21135-2-fighters390@qq.com>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <20261121013532.21135-1-fighters390@qq.com>
+References: <20261121013532.21135-1-fighters390@qq.com>
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=iso-8859-1
-Content-Disposition: inline
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-In-Reply-To: <tencent_10977788255152703A88096844DFF3EF9D06@qq.com>
-X-Patchwork-Hint: comment
-Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
- krs Bertel Jungin Aukio 5, 02600 Espoo, Finland
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -71,57 +67,55 @@ List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-13.8 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
-	DKIM_SIGNED,DKIM_VALID,HEADER_FROM_DIFFERENT_DOMAINS,
-	INCLUDES_CR_TRAILER,INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,
-	SPF_PASS autolearn=unavailable autolearn_force=no version=4.0.1
+X-Spam-Status: No, score=-15.8 required=3.0 tests=BAYES_00,DKIM_SIGNED,
+	DKIM_VALID,DKIM_VALID_AU,FREEMAIL_FORGED_FROMDOMAIN,FREEMAIL_FROM,
+	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
+	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,USER_AGENT_GIT
+	autolearn=unavailable autolearn_force=no version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-On Sat, Nov 21, 2026 at 08:54:09AM +0800, Yitian Shao wrote:
-> intel_dp_aux_write_content_luminance() skips the DPCD write when the
-> encoder cannot send a gamut metadata SDP. That is backwards: the DPCD
-> register is exactly what the AUX HDR interface uses on those platforms,
-> while the SDP takes precedence where it is available.
-> 
-> Invert the check.
-> 
-> Signed-off-by: Yitian Shao <fighters390@qq.com>
-> ---
->  drivers/gpu/drm/i915/display/intel_dp_aux_backlight.c | 6 +++++-
->  1 file changed, 5 insertions(+), 1 deletion(-)
-> 
-> diff --git a/drivers/gpu/drm/i915/display/intel_dp_aux_backlight.c b/drivers/gpu/drm/i915/display/intel_dp_aux_backlight.c
-> index 8c7fd99..92516f3 100644
-> --- a/drivers/gpu/drm/i915/display/intel_dp_aux_backlight.c
-> +++ b/drivers/gpu/drm/i915/display/intel_dp_aux_backlight.c
-> @@ -250,7 +250,11 @@ intel_dp_aux_write_content_luminance(struct intel_connector *connector,
->  	int ret;
->  	u8 buf[4];
->  
-> -	if (!intel_dp_has_gamut_metadata_dip(connector->encoder))
-> +	/*
-> +	 * When the metadata is sent as a gamut metadata SDP it takes
-> +	 * precedence over the DPCD based content luminance.
-> +	 */
-> +	if (intel_dp_has_gamut_metadata_dip(connector->encoder))
+intel_dp_has_gamut_metadata_dip() returns false for LSPCON encoders, which
+is not what the function is asking. The gamut metadata DIP exists regardless
+of whether LSPCON is in use; LSPCON just writes it through
+lspcon_write_infoframe().
 
-If we want to check something here then I think it would have to be the
-same 'supports_sdp_colorimetry && intel_dp_has_gamut_metadata_dip()'
-check we do when setting the INTEL_EDP_HDR_TCON_SDP_OVERRIDE_AUX bit.
-That is the bit that tells the tcon which source of information
-to use.
+The check only existed to keep intel_dp_add_properties() from attaching
+HDR_OUTPUT_METADATA before intel_lspcon_detect_hdr_capability() has probed
+the hardware. Move that check to intel_dp_add_properties() where the
+attach decision is made.
 
-The other option is to check nothing and always write the value.
-INTEL_EDP_HDR_TCON_SDP_OVERRIDE_AUX will then make the tcon ignore
-the written value if it supports the SDP override.
+Reviewed-by: Ville Syrj√§l√§ <ville.syrjala@linux.intel.com>
+Signed-off-by: Yitian Shao <fighters390@qq.com>
+---
+ drivers/gpu/drm/i915/display/intel_dp.c | 7 +++----
+ 1 file changed, 3 insertions(+), 4 deletions(-)
 
->  		return;
->  
->  	buf[0] = hdr_metadata->hdmi_metadata_type1.max_cll & 0xFF;
-> -- 
-> 2.53.0
-
+diff --git a/drivers/gpu/drm/i915/display/intel_dp.c b/drivers/gpu/drm/i915/display/intel_dp.c
+index afd4169..2736a78 100644
+--- a/drivers/gpu/drm/i915/display/intel_dp.c
++++ b/drivers/gpu/drm/i915/display/intel_dp.c
+@@ -6672,9 +6672,6 @@ intel_dp_has_gamut_metadata_dip(struct intel_encoder *encoder)
+ 	struct intel_display *display = to_intel_display(encoder);
+ 	enum port port = encoder->port;
+ 
+-	if (intel_bios_encoder_is_lspcon(encoder->devdata))
+-		return false;
+-
+ 	if (DISPLAY_VER(display) >= 11)
+ 		return true;
+ 
+@@ -6715,7 +6712,9 @@ intel_dp_add_properties(struct intel_dp *intel_dp, struct drm_connector *_connec
+ 		intel_attach_dp_colorspace_property(&connector->base);
+ 	}
+ 
+-	if (intel_dp_has_gamut_metadata_dip(&dp_to_dig_port(intel_dp)->base))
++	/* LSPCON attaches the property itself in intel_dp_connector_register() */
++	if (!intel_bios_encoder_is_lspcon(dp_to_dig_port(intel_dp)->base.devdata) &&
++	    intel_dp_has_gamut_metadata_dip(&dp_to_dig_port(intel_dp)->base))
+ 		drm_connector_attach_hdr_output_metadata_property(&connector->base);
+ 
+ 	if (HAS_VRR(display))
 -- 
-Ville Syrj‰l‰
-Intel
+2.53.0
+
