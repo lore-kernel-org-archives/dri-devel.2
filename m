@@ -2,69 +2,68 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C3C5D606A33C
-	for <dri-devel@archiver.kernel.org>; Sat, 21 Nov 2026 07:41:31 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D3B49606A681
+	for <dri-devel@archiver.kernel.org>; Sat, 21 Nov 2026 07:41:32 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=FpZkP04+
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Ym3pRa+z
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 2DCA210E308;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 47D0610E321;
 	Sat, 21 Nov 2026 07:41:25 +0000 (UTC)
 Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id CC9F410E2C3
- for <dri-devel@lists.freedesktop.org>; Sat, 21 Nov 2026 07:41:07 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 9427C10E2DC
+ for <dri-devel@lists.freedesktop.org>; Sat, 21 Nov 2026 07:41:09 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id B5D5D4606D;
- Sat, 21 Nov 2026 07:41:07 +0000 (UTC)
+ by sea.source.kernel.org (Postfix) with ESMTP id 8A57743720;
+ Sat, 21 Nov 2026 07:41:09 +0000 (UTC)
 Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
 ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
- t=1795246867;
- b=o1+V0D+E6qe8pxHjH0KAMlgYXpPCE+gm0wg/GCNeKIIOcLPB2+xxaE/LRDKxC9Tpudsg
- ypDfL7ZDBMLUBobaP8J6pFt5Idt5Exxa1Ex40kvFGYf0IMKVsX4YNaw8Jhkmc6DcyeHZX
- owzcAzPVU0Zqg6NyAIU0h1Gz7rSXwLp/58xA4065tQySoKU7u8YklbBjdA4lBgw1G/GZM
- BdKShM23Yo5DrTpmTigCXeiXvJCxeDfhcjTMXBC5UopuFQc4DqT5nRnyz3EK9EXwfxCAA
- lsDd0KnpNcVy8Aw/ZVYX2IU8hmTbJzgQFTXsWMnI5QsaeNI2q58MbjQ2l15Vsd7Xzqw==
+ t=1795246869;
+ b=MVzo3a7oF/D+VFb3wVICNm7lX6CBUqxOseiI68BS1HIwrDgZOO8VaJyyXiHMU9FuG4Ht
+ QYdApRkrc0reMJZfntqq6pcDOEVOnb1FTu3w0j7rhprvFFuXIZZn6R7cTRiZeJApQJuuX
+ 1xonOv5pObASX5eD3vXPiQYAH0Lg/apOo/zi+bnasIaxgbio4D9lY9kx70bctyUx6LahU
+ NVt9FhP6oBqSQXz1rtcZ6o1t/EEMrQYglEl3sBqFGJ6rro6W8tC7nm3U0eYZSfj3Y065h
+ ZQ99gP2Qe1mBpiH/km32yAvm+tbTwsgbe+ohwHYWY+4TV2c3ncnSDQh1+mYrorG8oCQ==
 ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
- c=relaxed/relaxed; t=1795246867;
+ c=relaxed/relaxed; t=1795246869;
  h=DKIM-Signature:Received:From:Date:Subject:MIME-Version:Content-Type:
  Content-Transfer-Encoding:Message-Id:References:In-Reply-To:To:Cc:
  X-Mailer:X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
  X-Original-From:Reply-To;
- bh=sDHSVGl8kB15K9C6tpHAuZhTgef3I5l11INrdWFOwMk=;
- b=Bko94bKysVo7TKc7RiqNli8IRtA15UPHOGuNd4biBZBJRQQvvmxM4QirOlI+kInCeQP8
- C+cPUfN7rRSoM5WgqQ1Pz3kAia/n00tM+89DZdgZPcq7H9iipGn5RI/c4Ms9UPlDCsSi4
- YnVfR5ivpQzGGAz8M6EGe4J+PznqnkiVLDQ6/CL/KD2l0J36qKeCtaotEGUHWs4wXYWvR
- N8w8WVrlhnJTMsLX5MRnywxAqcAhQAQYC2K4cV1zDC1BUXUDeLtRLjU94onB3E6Z5JgNA
- EbgmLT1CLZw679qQYrLUZbcjtEV4ceCQo2aYbijE7KPqt1vgN8mNXP5GEv+2463Q/Lw==
+ bh=12nXbNfUJtHj5A72+or7l1i/noB6TcIhyLLCSLJh8DA=;
+ b=jdei5rqUx0iH9lpr0kfZtzmGQnAA+L3M0nAloH98lhuIYg4FYhCOTWMJQN8ia5wp2gmq
+ ecBlSUn0s0IBtoFXcRJeqQ50rBuLgms7dm5y9SL9KgkvzAG0eB3v9Lnh0d2+DY4cjDIv2
+ jEBIBvTEVkH2bO3fxNtowaqGBX2k8WtxQ/Xetd/FqN93iZ+CzrnNlrtSeBqrw/o5U2yKX
+ HYdaZFeT+EkeKWXKSNbiaKnFG9SKT7JRM7cdc7tdpB3Jcrlv+z4WfrmyYrvfpml/onCJ3
+ im5c8045Qc9LylT6X8LTO5FXlUYSGDqAqDBx1SQ8Hm8rwUZSHCl5Scx1jVZGIV2kA9w==
 ARC-Authentication-Results: i=1; smtp.kernel.org; 
  arc=none smtp.remote-ip=100.80.115.77
 Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
  (No client certificate requested)
- by smtp.kernel.org (Postfix) with ESMTPS id F2BEF1F0093E;
+ by smtp.kernel.org (Postfix) with ESMTPS id 07DAD1F000E6;
  Sat, 21 Nov 2026 07:40:53 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1795246867;
- bh=sDHSVGl8kB15K9C6tpHAuZhTgef3I5l11INrdWFOwMk=;
+ s=k20260515; t=1795246869;
+ bh=12nXbNfUJtHj5A72+or7l1i/noB6TcIhyLLCSLJh8DA=;
  h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To;
- b=FpZkP04+jGtpv5PQet25HktPHlmE6Q/ndhrmfopuQqupzCuXUpuk5/4mHKghelegp
- cju1Bhd4/mtrnQvfmW+TOpbyl2tOJxbAvM5vmqcBy2jksM0qidm322Fsy/JKfEBNDt
- yBky9GanVdRhjS/f3UkntWdpDiXHuzO5PVYSfrlRso75giop5+JTgifr8NkltRK39q
- i1BmGcOnMUEd1K0gih8WQijPqQ7lV2ImRuuEquRsqLxSkbY8dzGMZ0MK3lM1PyWHpd
- Klxd1CtEJYS4AvY3s3C2vGnDgjWE76m8ZPxw3+rx7Zkgt/RVlyc1kXreWFkQMt375H
- YGBfkBk67wC/w==
+ b=Ym3pRa+zSwqBsDOXHs6VcUOSPEhaPDdna9K6tLKVBcJCvSZz5ZGdiTVmmAAOW9Ltl
+ Pg52oA/jJmMiFOoqm89RSYtGDhqZgSveJh6rHINc386Ty75IFDw26sAe4Fy53jReXB
+ qtJNyjQHRYeQvzFJfnPqBt4an8GpYUJB5eRLpiCseUvdC1+y/Kl8dQsJciulMIaVVE
+ vCftjAytaaNg2WAcslJtL5Rcjsek7R8wE2I6jzCbBkabV4WA8IDYJjmHuw1CSEcn9R
+ JfzX+8rZPzhNeYyGzz5+0fw/foSXdPjr9LQpFdX+BmgxzFuYstiPMDLRj78k7wLcnP
+ XN0uLH2B6x0cg==
 Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
- by lkml.kernel.org (Postfix) with ESMTP id A99AF4BB78;
+ by lkml.kernel.org (Postfix) with ESMTP id 16C1D4BB64;
  Sat, 21 Nov 2026 07:40:51 +0000 (UTC)
 From: Cody Kang via B4 Relay <devnull+codykang.hk.gmail.com@kernel.org>
-Date: Sat, 21 Nov 2026 15:40:51 +0800
-Subject: [PATCH v3 12/17] drm/spacemit: add Innosilicon DP/eDP controller
- bridge driver
+Date: Sat, 21 Nov 2026 15:40:46 +0800
+Subject: [PATCH v3 07/17] drm/spacemit: add Saturn DPU register model
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20261121-k3-display-v3-12-ec419e8e96b8@gmail.com>
+Message-Id: <20261121-k3-display-v3-7-ec419e8e96b8@gmail.com>
 References: <20261121-k3-display-v3-0-ec419e8e96b8@gmail.com>
 In-Reply-To: <20261121-k3-display-v3-0-ec419e8e96b8@gmail.com>
 To: David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
@@ -90,11 +89,11 @@ Cc: Cody Kang <codykang@vsit.ai>, dri-devel@lists.freedesktop.org,
  spacemit@lists.linux.dev, linux-kernel@vger.kernel.org, 
  linux-phy@lists.infradead.org, linux-clk@vger.kernel.org
 X-Mailer: b4 0.16.0
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1795246844; l=91398;
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1795246844; l=20109;
  i=codykang.hk@gmail.com; s=codykang; h=from:subject:message-id;
- bh=xMou/vpLm0QEdIsj9FJor/d51C0cWKB1VET6PTR9Ijk=;
- b=G+Jq2y/A9EP0Gkz/GRy0UsLn3fYlc9uA87VgvuLbeKacE/oMnIZfhjLMmiZNkp4YDz7FNs022
- FCJ3U6cnu1/AlS+I9bCPGXt3MuldrbkgKlXVoMkkvSI14RHYWS9WsCg
+ bh=NTW6JfnlJipQNnmeqgj9/5R1C40mBD84zE35I7GDNBo=;
+ b=6K2toVA+EptkSdPLi8IW8m2leTibOqifN5DJxvnOpbwN/qywnQE1XvH5zv/T30ccIzpePLTZp
+ yQcif4ZGYZSDVPJfzGSy8tuKAfZE9htxGDVHMGhDzytbtPly73cyOlJ
 X-Developer-Key: i=codykang.hk@gmail.com; a=ed25519;
  pk=Osn6/cs9Su/mHHw4P19cmVc3v2FMQfiWahjsN0vEkuk=
 X-Endpoint-Received: by B4 Relay for codykang.hk@gmail.com/codykang with
@@ -121,2624 +120,484 @@ X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 
 From: Cody Kang <codykang@vsit.ai>
 
-Add the DP/eDP controller that sits downstream of the Saturn DPU. Two
-identical instances share one compatible; the eDP-vs-DP role is board
-wiring, so it is taken from the devicetree: an eDP panel always sits
-under an aux-bus child node, an external DP connector never does.
-
-The link rate is set through the generic PHY framework and the pixel
-rate through the clock the PHY registers, so the controller programs
-no PLL. It only sets the power-down bits of the two PLLs when it shuts
-the link down or resets the block.
-
-The controller's HPD interrupt is gated by the DP pixel clock, which
-can be off exactly when a plug has to be caught, so the connector is
-also polled and the interrupt path re-reads the live level when it
-does fire.
-
-The check that fails AUX transfers fast while HPD is low is from
-Sarah Emery <sarah.emery@canonical.com>.
+The Saturn display processing unit is programmed through a set of
+register blocks (composer, RDMA, timing generator, cmdlist engine,
+display MMU) laid out identically in both DPU instances of the K3.
+Add the block address map, the per-field word offset and mask tables
+consumed by the field accessors, the interrupt bit layout and the
+compositor and output-format ID encodings. The address map describes
+the whole IP block on purpose, including blocks the driver does not
+touch; the field tables carry the fields the driver programs, with
+each block's full word count kept as its NWORDS extent.
 
 Signed-off-by: Cody Kang <codykang@vsit.ai>
 
 ---
 v3:
-- fail AUX transfers fast when HPD is low (Sarah Emery)
-- narrow the link after a failed training and read the EDID with
-  drm_edid_read_ddc(); clear a stale AUX reply before a transfer and
-  hold the AUX mutex across the AUX resets; drop the mode_config.mutex
-  wrap, the external pixel clock path and the unused stream formats
-- join the DRM device only once the eDP panel has probed
-- let the panel supply the modes on eDP (Guodong Xu)
-- use drm_dbg() (Thomas Zimmermann)
-- commit message: the controller does set the PLL power-down bits
+- write single-bit register fields as BIT()
+- name the include guards after their files
+- commit message: reworded
 v2:
-- use devm_reset_control_get_exclusive_deasserted(), dropping the manual
-  deassert/assert paths and the reset field (Philipp Zabel)
-- hand the pxclk disable to a devm action registered after the PHY
-  child is populated (Yao Zi)
-- drop the dead NULL-clk guards (Yao Zi)
-- drop the error message duplicated by devm_request_threaded_irq()
-  (Yao Zi)
-- ack the W1C DP_GENERAL_INTERRUPT bits with plain writes (Sashiko)
-- return IRQ_HANDLED when the ISR consumed an HPD latch instead of
-  IRQ_NONE (Sashiko)
-- read EDID blocks through the aux I2C adapter (Sashiko)
-- drop DRM_BRIDGE_OP_MODES from the DP branch (Sashiko)
-- respond to Rob Herring's suggestion, port@1 required, compute
-  possible_crtcs from the input endpoint only
+- no change
 ---
- drivers/gpu/drm/spacemit/Kconfig            |   19 +
- drivers/gpu/drm/spacemit/Makefile           |    3 +
- drivers/gpu/drm/spacemit/spacemit_inno_dp.c | 2186 +++++++++++++++++++++++++++
- drivers/gpu/drm/spacemit/spacemit_inno_dp.h |  328 ++++
- 4 files changed, 2536 insertions(+)
+ drivers/gpu/drm/spacemit/dpu/saturn_regs/dpu_int.h |  25 ++
+ .../gpu/drm/spacemit/dpu/saturn_regs/reg_map_hee.h |  65 +++++
+ .../drm/spacemit/dpu/saturn_regs/saturn_fields.h   | 312 +++++++++++++++++++++
+ drivers/gpu/drm/spacemit/spacemit_dpu_ids.h        |  26 ++
+ 4 files changed, 428 insertions(+)
 
-diff --git a/drivers/gpu/drm/spacemit/Kconfig b/drivers/gpu/drm/spacemit/Kconfig
-index 8326a7b98151a..4667cb624401a 100644
---- a/drivers/gpu/drm/spacemit/Kconfig
-+++ b/drivers/gpu/drm/spacemit/Kconfig
-@@ -16,3 +16,22 @@ config DRM_SPACEMIT
- 	  DisplayPort or embedded DisplayPort controller.
- 
- 	  If M is selected the module will be called spacemit-drm.
-+
-+config SPACEMIT_INNO_DP
-+	tristate "SpacemiT Innosilicon DP/eDP controller support"
-+	depends on DRM_SPACEMIT
-+	imply PHY_SPACEMIT_K3_INNO_DP
-+	select GENERIC_PHY
-+	select DRM_PANEL_BRIDGE
-+	select DRM_BRIDGE_CONNECTOR
-+	select DRM_DISPLAY_HELPER
-+	select DRM_DISPLAY_DP_HELPER
-+	select DRM_DISPLAY_DP_AUX_BUS
-+	help
-+	  Choose this option to enable the Innosilicon DisplayPort /
-+	  embedded DisplayPort transmitter integrated in SpacemiT SoCs.
-+	  The controller sits downstream of the Saturn DPU and drives an
-+	  eDP panel (discovered over the DP AUX bus) or an external
-+	  DisplayPort connector.
-+
-+	  If M is selected the module will be called spacemit-inno-dp.
-diff --git a/drivers/gpu/drm/spacemit/Makefile b/drivers/gpu/drm/spacemit/Makefile
-index b3b148000cf7b..260d316a271b5 100644
---- a/drivers/gpu/drm/spacemit/Makefile
-+++ b/drivers/gpu/drm/spacemit/Makefile
-@@ -9,4 +9,7 @@ spacemit-drm-y := spacemit_drm.o \
- 		  dpu/dpu_saturn_hee.o \
- 		  dpu/saturn_fbcmem.o
- 
-+spacemit-inno-dp-y := spacemit_inno_dp.o
-+
- obj-$(CONFIG_DRM_SPACEMIT) += spacemit-drm.o
-+obj-$(CONFIG_SPACEMIT_INNO_DP) += spacemit-inno-dp.o
-diff --git a/drivers/gpu/drm/spacemit/spacemit_inno_dp.c b/drivers/gpu/drm/spacemit/spacemit_inno_dp.c
+diff --git a/drivers/gpu/drm/spacemit/dpu/saturn_regs/dpu_int.h b/drivers/gpu/drm/spacemit/dpu/saturn_regs/dpu_int.h
 new file mode 100644
-index 0000000000000..436e5f15b4039
+index 0000000000000..24a22538f47b1
 --- /dev/null
-+++ b/drivers/gpu/drm/spacemit/spacemit_inno_dp.c
-@@ -0,0 +1,2186 @@
-+// SPDX-License-Identifier: GPL-2.0
-+/*
-+ * Copyright (C) 2025-2026 SpacemiT Co., Ltd.
-+ *
-+ */
-+
-+#include <linux/bitfield.h>
-+#include <linux/bits.h>
-+#include <linux/cleanup.h>
-+#include <linux/clk.h>
-+#include <linux/component.h>
-+#include <linux/delay.h>
-+#include <linux/interrupt.h>
-+#include <linux/iopoll.h>
-+#include <linux/math64.h>
-+#include <linux/media-bus-format.h>
-+#include <linux/module.h>
-+#include <linux/mutex.h>
-+#include <linux/of.h>
-+#include <linux/of_graph.h>
-+#include <linux/of_platform.h>
-+#include <linux/phy/phy-dp.h>
-+#include <linux/phy/phy.h>
-+#include <linux/platform_device.h>
-+#include <linux/regmap.h>
-+#include <linux/reset.h>
-+#include <linux/slab.h>
-+#include <linux/workqueue.h>
-+
-+#include <drm/display/drm_dp.h>
-+#include <drm/display/drm_dp_aux_bus.h>
-+#include <drm/display/drm_dp_helper.h>
-+#include <drm/drm_atomic.h>
-+#include <drm/drm_atomic_state_helper.h>
-+#include <drm/drm_bridge.h>
-+#include <drm/drm_bridge_connector.h>
-+#include <drm/drm_connector.h>
-+#include <drm/drm_device.h>
-+#include <drm/drm_drv.h>
-+#include <drm/drm_edid.h>
-+#include <drm/drm_encoder.h>
-+#include <drm/drm_of.h>
-+#include <drm/drm_print.h>
-+#include <drm/drm_probe_helper.h>
-+
-+#include "spacemit_inno_dp.h"
-+
-+#define SPACEMIT_DP_SWING_MAX  2
-+#define SPACEMIT_DP_PREEMP_MAX 2
-+#define SPACEMIT_DP_AUX_MAX_RETRIES 3
-+#define SPACEMIT_DP_AUX_POLL_US     100
-+#define SPACEMIT_DP_AUX_TIMEOUT_US  (200 * USEC_PER_MSEC)
-+
-+/* Adjust requests followed in one training phase before it is given up. */
-+#define SPACEMIT_DP_TRAIN_MAX_TRIES 8
-+
-+#define SPACEMIT_DP_SINK_READY_DELAY_MS 120
-+#define SPACEMIT_DP_SINK_READY_RETRIES 3
-+
-+/*
-+ * With DP routed through a Type-C PD controller the HPD pin is virtual and
-+ * can re-assert seconds after a transmitter power-cycle. Asserted HPD
-+ * returns immediately; the full wait is paid only when no sink shows up.
-+ */
-+#define SPACEMIT_DP_HPD_POLL_US     1000
-+#define SPACEMIT_DP_HPD_DEBOUNCE_US (1000 * USEC_PER_MSEC)
-+
-+enum spacemit_dp_link_rate {
-+	SPACEMIT_DP_LINK_RATE_1_62 = 1620000, /* 1.62 Gbps */
-+	SPACEMIT_DP_LINK_RATE_2_70 = 2700000, /* 2.70 Gbps */
-+	SPACEMIT_DP_LINK_RATE_5_40 = 5400000, /* 5.40 Gbps */
-+	SPACEMIT_DP_LINK_RATE_8_10 = 8100000, /* 8.10 Gbps */
-+};
-+
-+/* The K3 source tops out at HBR2: the PHY's MPLL has no 8.1 Gbps config. */
-+#define SPACEMIT_DP_SOURCE_MAX_RATE	SPACEMIT_DP_LINK_RATE_5_40
-+
-+enum spacemit_dp_lane_count {
-+	SPACEMIT_DP_LANE_1 = 1,
-+	SPACEMIT_DP_LANE_2 = 2,
-+	SPACEMIT_DP_LANE_4 = 4,
-+};
-+
-+/* DP_VIDEO_MAPPING encoding of the one stream format produced: RGB, 8 bpc. */
-+#define SPACEMIT_DP_VIDEO_RGB_8BIT	1
-+#define SPACEMIT_DP_BPP			24
-+
-+enum spacemit_dp_ref_clk {
-+	SPACEMIT_DP_REF_CLK_24M = 24000,
-+};
-+
-+static const struct spacemit_dp_link_config {
-+	enum spacemit_dp_link_rate rate;
-+	enum spacemit_dp_lane_count lanes;
-+} spacemit_dp_link_priority_table[] = {
-+	{SPACEMIT_DP_LINK_RATE_1_62, SPACEMIT_DP_LANE_1}, /* 1.62 Gbps */
-+	{SPACEMIT_DP_LINK_RATE_2_70, SPACEMIT_DP_LANE_1}, /* 2.70 Gbps */
-+	{SPACEMIT_DP_LINK_RATE_1_62, SPACEMIT_DP_LANE_2}, /* 3.24 Gbps */
-+
-+	{SPACEMIT_DP_LINK_RATE_2_70, SPACEMIT_DP_LANE_2}, /* 5.40 Gbps */
-+	{SPACEMIT_DP_LINK_RATE_1_62, SPACEMIT_DP_LANE_4}, /* 6.48 Gbps */
-+
-+	{SPACEMIT_DP_LINK_RATE_2_70, SPACEMIT_DP_LANE_4}, /* 10.8 Gbps */
-+	{SPACEMIT_DP_LINK_RATE_5_40, SPACEMIT_DP_LANE_2}, /* 10.8 Gbps */
-+
-+	{SPACEMIT_DP_LINK_RATE_5_40, SPACEMIT_DP_LANE_4}, /* 21.6 Gbps */
-+};
-+
-+/**
-+ * struct spacemit_dp_dev - Per-instance state for an Innosilicon DP/eDP
-+ * controller
-+ * @dev: Underlying platform device.
-+ * @drm: Parent DRM device, set at component bind.
-+ * @encoder: Passive encoder anchoring possible_crtcs; atomic goes through
-+ * @bridge.
-+ * @bridge: DRM bridge implementing this controller, attached NO_CONNECTOR.
-+ * @connector: Connector built on top of @bridge by drm_bridge_connector_init().
-+ * @connector_status: Last status .detect() reported; the HPD interrupt
-+ *		      compares against it.
-+ * @regs: Regmap over the DP controller register block.
-+ * @aux: DPCD AUX channel, registered at bind.
-+ * @dpcd: Raw DPCD capability bytes.
-+ * @lane_count: Lane count chosen by link training (1, 2 or 4).
-+ * @link_rate: Link rate chosen by link training, in kbit/s.
-+ * @link: Link limits: the sink's capabilities, clamped to the PHY and
-+ *	narrowed after a failed training until the sink is replugged.
-+ * @link.revision: DPCD revision byte.
-+ * @link.enhanced_framing: Whether the sink advertises enhanced framing.
-+ * @link.max_rate: Maximum usable link rate, in kbit/s.
-+ * @link.max_num_lanes: Maximum usable lane count.
-+ * @pxclk: Pixel clock mux, parented onto @pll_clk at probe.
-+ * @pll_clk: The PHY's pixel PLL; clk_set_rate() programs it.
-+ * @phy: DP PHY handle.
-+ * @phy_powered: Controller-side mirror of the PHY framework's power refcount.
-+ * @edp_mode: True when this instance drives an embedded panel.
-+ * @component_added: True once the component is registered; for eDP that is
-+ *	when the panel has probed.
-+ * @mode_lock: Serialises detect, EDID read, enable and disable.
-+ * @modeset_retry_work: Deferred "link is bad" notification, see its handler.
-+ * @irq: Controller interrupt line.
-+ */
-+struct spacemit_dp_dev {
-+	struct device *dev;
-+
-+	struct drm_device *drm;
-+	struct drm_encoder encoder;
-+	struct drm_bridge bridge;
-+	struct drm_connector *connector;
-+
-+	enum drm_connector_status connector_status;
-+
-+	struct regmap *regs;
-+	struct drm_dp_aux aux;
-+
-+	u8 dpcd[DP_RECEIVER_CAP_SIZE];
-+	int lane_count;
-+	u32 link_rate;
-+
-+	struct {
-+		u8 revision;
-+		u8 enhanced_framing;
-+		u32 max_rate;
-+		u32 max_num_lanes;
-+	} link;
-+
-+	struct clk *pxclk;
-+	struct clk *pll_clk;
-+	struct phy *phy;
-+	bool phy_powered;
-+
-+	bool edp_mode;
-+	bool component_added;
-+	struct mutex mode_lock;	/* detect, EDID read, enable, disable */
-+
-+	struct work_struct modeset_retry_work;
-+
-+	int irq;
-+};
-+
-+/*
-+ * drm_connector_set_link_status_property() takes connection_mutex, which the
-+ * commit already holds: calling it from .atomic_enable deadlocks against
-+ * itself, hence the work item.
-+ */
-+static void spacemit_dp_modeset_retry_work(struct work_struct *work)
-+{
-+	struct spacemit_dp_dev *dp = container_of(work, struct spacemit_dp_dev,
-+						  modeset_retry_work);
-+	struct drm_connector *connector = dp->connector;
-+
-+	if (!connector)
-+		return;
-+
-+	drm_connector_set_link_status_property(connector,
-+					       DRM_MODE_LINK_STATUS_BAD);
-+	drm_kms_helper_connector_hotplug_event(connector);
-+}
-+
-+/**
-+ * struct spacemit_dp_bridge_state - Per-state planned link configuration.
-+ * @base: Parent &struct drm_bridge_state.
-+ * @link_cfg_idx: Index into spacemit_dp_link_priority_table[] picked by
-+ *	->atomic_check(); -1 means ->atomic_enable() walks the table from the start.
-+ */
-+struct spacemit_dp_bridge_state {
-+	struct drm_bridge_state base;
-+	int link_cfg_idx;
-+};
-+
-+static inline struct spacemit_dp_bridge_state *
-+to_spacemit_dp_bridge_state(struct drm_bridge_state *state)
-+{
-+	return container_of(state, struct spacemit_dp_bridge_state, base);
-+}
-+
-+static const struct regmap_config spacemit_dp_regmap_config = {
-+	.name		= "dp",
-+	.reg_bits	= 32,
-+	.val_bits	= 32,
-+	.reg_stride	= 4,
-+	.max_register	= 0x3ffc,	/* 0x4000-byte register window */
-+};
-+
-+static u32 spacemit_dp_aux_get_cmd(struct drm_dp_aux_msg *msg)
-+{
-+	switch (msg->request & ~DP_AUX_I2C_MOT) {
-+	case DP_AUX_NATIVE_WRITE:
-+	case DP_AUX_I2C_WRITE:
-+	case DP_AUX_I2C_WRITE_STATUS_UPDATE:
-+	case DP_AUX_NATIVE_READ:
-+	case DP_AUX_I2C_READ:
-+		return msg->request;
-+	default:
-+		return 0;
-+	}
-+}
-+
-+static void spacemit_dp_aux_hw_reset(struct spacemit_dp_dev *dp)
-+{
-+	regmap_write_bits(dp->regs, DP_SOFT_RESET, DP_AUX_RESET,
-+			  FIELD_PREP(DP_AUX_RESET, 0x1));
-+	usleep_range(2000, 2500);
-+	regmap_write_bits(dp->regs, DP_SOFT_RESET, DP_AUX_RESET,
-+			  FIELD_PREP(DP_AUX_RESET, 0x0));
-+	usleep_range(2000, 2500);
-+	regmap_write(dp->regs, DP_GENERAL_INTERRUPT,
-+		     DP_AUX_REPLY_EVENT_INT_STA);
-+}
-+
-+static bool spacemit_dp_dpcd_caps_valid(const u8 *dpcd)
-+{
-+	u8 max_bw = dpcd[DP_MAX_LINK_RATE];
-+	u8 max_lanes = dpcd[DP_MAX_LANE_COUNT] & DP_MAX_LANE_COUNT_MASK;
-+
-+	if (!dpcd[DP_DPCD_REV])
-+		return false;
-+
-+	switch (max_bw) {
-+	case DP_LINK_BW_1_62:
-+	case DP_LINK_BW_2_7:
-+	case DP_LINK_BW_5_4:
-+	case DP_LINK_BW_8_1:
-+		break;
-+	default:
-+		return false;
-+	}
-+
-+	return max_lanes == 1 || max_lanes == 2 || max_lanes == 4;
-+}
-+
-+static ssize_t spacemit_dp_aux_transfer(struct drm_dp_aux *aux,
-+					struct drm_dp_aux_msg *msg)
-+{
-+	int ret, i, retries = 0;
-+
-+	struct spacemit_dp_dev *dp = container_of(aux, struct spacemit_dp_dev,
-+						  aux);
-+	u32 cmd, len, val, status;
-+	u32 data[4] = {0};
-+	u8 *buf = msg->buffer;
-+	bool is_read = (msg->request & DP_AUX_I2C_READ) ||
-+		((msg->request & DP_AUX_NATIVE_READ) == DP_AUX_NATIVE_READ);
-+
-+	/*
-+	 * Nothing attached: skip the 200 ms timeout + retries, fail at once.
-+	 * Read the live HPD-in level; the HPD interrupt is pixel-clock gated.
-+	 */
-+	if (!dp->edp_mode &&
-+	    !regmap_test_bits(dp->regs, DP_HPD_INTERRUPT_STATUS, DP_HPD_IN_STATUS))
-+		return -ENXIO;
-+
-+	if (msg->size > 16)
-+		return -EINVAL;
-+
-+	cmd = spacemit_dp_aux_get_cmd(msg);
-+
-+retry_eio:
-+	if (!is_read) {
-+		/* Pack bytes into 32-bit words (Little Endian packing) */
-+		for (i = 0; i < msg->size; i++)
-+			data[i / 4] |= (u32)buf[i] << ((i % 4) * 8);
-+
-+		/* Write data to registers: DATA1(LSB)..DATA4(MSB) */
-+		regmap_write_bits(dp->regs, DP_AUX_DATA1_REG, DP_AUX_DATA1,
-+				  FIELD_PREP(DP_AUX_DATA1, data[0]));
-+		regmap_write_bits(dp->regs, DP_AUX_DATA2_REG, DP_AUX_DATA2,
-+				  FIELD_PREP(DP_AUX_DATA2, data[1]));
-+		regmap_write_bits(dp->regs, DP_AUX_DATA3_REG, DP_AUX_DATA3,
-+				  FIELD_PREP(DP_AUX_DATA3, data[2]));
-+		regmap_write_bits(dp->regs, DP_AUX_DATA4_REG, DP_AUX_DATA4,
-+				  FIELD_PREP(DP_AUX_DATA4, data[3]));
-+	}
-+
-+	/* HW expects Length - 1 */
-+	len = msg->size > 0 ? msg->size - 1 : 0;
-+
-+	regmap_write_bits(dp->regs, DP_AUX_CMD_REG, DP_AUX_LENGTH,
-+			  FIELD_PREP(DP_AUX_LENGTH, len));
-+	regmap_write_bits(dp->regs, DP_AUX_CMD_REG, DP_AUX_ADDR,
-+			  FIELD_PREP(DP_AUX_ADDR, msg->address));
-+	regmap_write_bits(dp->regs, DP_AUX_CMD_REG, DP_AUX_CMD_TYPE,
-+			  FIELD_PREP(DP_AUX_CMD_TYPE, cmd));
-+
-+	/*
-+	 * A transfer that timed out may complete late and latch the reply
-+	 * event; start from a clean status so the poll below cannot see it.
-+	 */
-+	regmap_write(dp->regs, DP_GENERAL_INTERRUPT,
-+		     DP_AUX_REPLY_EVENT_INT_STA);
-+
-+	regmap_write_bits(dp->regs, DP_AUX_START_REG, DP_AUX_START,
-+			  FIELD_PREP(DP_AUX_START, 0));
-+	regmap_write_bits(dp->regs, DP_AUX_START_REG, DP_AUX_START,
-+			  FIELD_PREP(DP_AUX_START, 1));
-+
-+	ret = regmap_read_poll_timeout(dp->regs, DP_GENERAL_INTERRUPT, val,
-+				       val & DP_AUX_REPLY_EVENT_INT_STA,
-+				       SPACEMIT_DP_AUX_POLL_US,
-+				       SPACEMIT_DP_AUX_TIMEOUT_US);
-+	if (ret) {
-+		if (retries < SPACEMIT_DP_AUX_MAX_RETRIES) {
-+			retries++;
-+			spacemit_dp_aux_hw_reset(dp);
-+			dev_dbg(dp->dev,
-+				"AUX timeout, cmd=0x%x addr=0x%x size=%zu retry %d/%d\n",
-+				cmd, msg->address, msg->size, retries, SPACEMIT_DP_AUX_MAX_RETRIES);
-+			goto retry_eio;
-+		}
-+
-+		dev_err_ratelimited(dp->dev,
-+				    "AUX transfer timeout, req: 0x%x, cmd: 0x%x, addr: 0x%x, size %zu\n",
-+				    msg->request, cmd, msg->address, msg->size);
-+		return ret;
-+	}
-+
-+	regmap_read(dp->regs, DP_AUX_STS_REG, &status);
-+	status = FIELD_GET(DP_AUX_STATUS, status);
-+
-+	/* Write 1 to clear. */
-+	regmap_write(dp->regs, DP_GENERAL_INTERRUPT,
-+		     DP_AUX_REPLY_EVENT_INT_STA);
-+
-+	/* Map HW status (the AUX reply command byte) to DRM reply codes */
-+	switch (status) {
-+	case 0: /* ACK */
-+		msg->reply = DP_AUX_NATIVE_REPLY_ACK;
-+		break;
-+	case 1: /* NACK */
-+		msg->reply = DP_AUX_NATIVE_REPLY_NACK;
-+		return 0; /* the AUX helpers retry on a NACK */
-+	case 2: /* DEFER */
-+		msg->reply = DP_AUX_NATIVE_REPLY_DEFER;
-+		return 0;
-+	case DP_AUX_I2C_REPLY_NACK: /* native ACK, I2C NACK */
-+		msg->reply = DP_AUX_I2C_REPLY_NACK;
-+		return 0;
-+	case DP_AUX_I2C_REPLY_DEFER: /* native ACK, I2C DEFER */
-+		msg->reply = DP_AUX_I2C_REPLY_DEFER;
-+		return 0;
-+	default:
-+		regmap_read(dp->regs, DP_AUX_STS_REG, &val);
-+		val = FIELD_GET(DP_AUX_REPLY_ERR_CODE, val);
-+		if (retries < SPACEMIT_DP_AUX_MAX_RETRIES) {
-+			retries++;
-+			dev_dbg(dp->dev,
-+				"AUX status, cmd=0x%x addr=0x%x size=%zu retry %d/%d\n",
-+				cmd, msg->address, msg->size, retries, SPACEMIT_DP_AUX_MAX_RETRIES);
-+			usleep_range(1000, 1100);
-+			goto retry_eio;
-+		}
-+		dev_err_ratelimited(dp->dev,
-+				    "AUX error: cmd=0x%x addr=0x%x size=%zu status=0x%x code=0x%x\n",
-+				    cmd, msg->address, msg->size, status, val);
-+		return -EIO;
-+	}
-+
-+	if (is_read && msg->size > 0) {
-+		regmap_read(dp->regs, DP_AUX_DATA1_REG, &data[0]);
-+		data[0] = FIELD_GET(DP_AUX_DATA1, data[0]);
-+		regmap_read(dp->regs, DP_AUX_DATA2_REG, &data[1]);
-+		data[1] = FIELD_GET(DP_AUX_DATA2, data[1]);
-+		regmap_read(dp->regs, DP_AUX_DATA3_REG, &data[2]);
-+		data[2] = FIELD_GET(DP_AUX_DATA3, data[2]);
-+		regmap_read(dp->regs, DP_AUX_DATA4_REG, &data[3]);
-+		data[3] = FIELD_GET(DP_AUX_DATA4, data[3]);
-+
-+		/* Unpack 32-bit words back to bytes */
-+		for (i = 0; i < msg->size; i++)
-+			buf[i] = (data[i / 4] >> ((i % 4) * 8)) & 0xFF;
-+	}
-+
-+	return msg->size;
-+}
-+
-+static int spacemit_dp_update_edp_config(struct spacemit_dp_dev *dp, bool enable)
-+{
-+	u8 value;
-+	int ret;
-+
-+	ret = drm_dp_dpcd_read_byte(&dp->aux, DP_EDP_CONFIGURATION_SET, &value);
-+	if (ret < 0) {
-+		drm_dbg(dp->drm,
-+			"failed to read DP_EDP_CONFIGURATION_SET: %d\n", ret);
-+		return ret;
-+	}
-+
-+	if (enable)
-+		value |= DP_ALTERNATE_SCRAMBLER_RESET_ENABLE;
-+	else
-+		value &= ~DP_ALTERNATE_SCRAMBLER_RESET_ENABLE;
-+
-+	ret = drm_dp_dpcd_write_byte(&dp->aux, DP_EDP_CONFIGURATION_SET, value);
-+	if (ret < 0) {
-+		drm_dbg(dp->drm,
-+			"failed to write DP_EDP_CONFIGURATION_SET: %d\n", ret);
-+		return ret;
-+	}
-+
-+	return 0;
-+}
-+
-+/*
-+ * Read the sink's DPCD link-layer capabilities. EDID is handled separately.
-+ * A sink that does not answer is reported here and given assumed limits, so
-+ * there is nothing left for a caller to handle.
-+ */
-+static void spacemit_dp_hw_read_sink_caps(struct spacemit_dp_dev *dp)
-+{
-+	ssize_t ret;
-+	int retry;
-+
-+	for (retry = 0; retry < SPACEMIT_DP_SINK_READY_RETRIES; retry++) {
-+		if (retry) {
-+			scoped_guard(mutex, &dp->aux.hw_mutex)
-+				spacemit_dp_aux_hw_reset(dp);
-+			msleep(SPACEMIT_DP_SINK_READY_DELAY_MS);
-+		}
-+
-+		ret = drm_dp_read_dpcd_caps(&dp->aux, dp->dpcd);
-+		if (ret < 0)
-+			continue;
-+
-+		if (!spacemit_dp_dpcd_caps_valid(dp->dpcd)) {
-+			drm_dbg(dp->drm,
-+				"DPCD caps not ready: rev=0x%02x bw=0x%02x lanes=0x%02x\n",
-+				dp->dpcd[DP_DPCD_REV], dp->dpcd[DP_MAX_LINK_RATE],
-+				dp->dpcd[DP_MAX_LANE_COUNT]);
-+			ret = -EAGAIN;
-+			continue;
-+		}
-+
-+		break;
-+	}
-+
-+	if (ret < 0) {
-+		drm_warn_ratelimited(dp->drm,
-+				     "failed to read DPCD after %d retries: %zd\n",
-+				     SPACEMIT_DP_SINK_READY_RETRIES, ret);
-+		dp->link.revision = DP_DPCD_REV_14;
-+		dp->link.max_rate = SPACEMIT_DP_LINK_RATE_5_40;
-+		dp->link.max_num_lanes = SPACEMIT_DP_LANE_2;
-+		dp->link.enhanced_framing = 1;
-+		return;
-+	}
-+
-+	dp->link.revision = dp->dpcd[DP_DPCD_REV];
-+
-+	/* drm_dp_max_link_rate() is in 10 kbit/s; the source stops at HBR2. */
-+	dp->link.max_rate = min_t(u32, drm_dp_max_link_rate(dp->dpcd) * 10,
-+				  SPACEMIT_DP_SOURCE_MAX_RATE);
-+	dp->link.max_num_lanes = drm_dp_max_lane_count(dp->dpcd);
-+	dp->link.enhanced_framing = drm_dp_enhanced_frame_cap(dp->dpcd);
-+
-+	drm_dbg(dp->drm,
-+		"DPCD: Rev %x.%x, MaxRate %d kbit/s, MaxLanes %d, EnhFrame %d\n",
-+		dp->link.revision >> 4, dp->link.revision & 0xF,
-+		dp->link.max_rate, dp->link.max_num_lanes,
-+		dp->link.enhanced_framing);
-+}
-+
-+static int spacemit_dp_phy_set_lanes(struct spacemit_dp_dev *dp,
-+				     enum spacemit_dp_lane_count lanes)
-+{
-+	union phy_configure_opts opts = {
-+		.dp = {
-+			.lanes = lanes,
-+			.set_lanes = true,
-+		},
-+	};
-+	int ret;
-+
-+	ret = phy_configure(dp->phy, &opts);
-+	if (ret)
-+		return ret;
-+
-+	dp->lane_count = lanes;
-+	return 0;
-+}
-+
-+static int spacemit_dp_phy_set_rate(struct spacemit_dp_dev *dp,
-+				    enum spacemit_dp_link_rate rate)
-+{
-+	union phy_configure_opts opts = {
-+		.dp = {
-+			/*
-+			 * enum value is in kbit/s; PHY framework wants Mbit/s.
-+			 */
-+			.link_rate = rate / 1000,
-+			.set_rate = true,
-+		},
-+	};
-+	int ret;
-+
-+	ret = phy_configure(dp->phy, &opts);
-+	if (ret)
-+		return ret;
-+
-+	dp->link_rate = rate;
-+	return 0;
-+}
-+
-+/*
-+ * The link PLL rides phy_configure(); the pixel PLL is a clock the PHY
-+ * registered. Link first: that is the order the analog blocks come up in.
-+ */
-+static int spacemit_dp_set_plls(struct spacemit_dp_dev *dp,
-+				enum spacemit_dp_link_rate rate, u32 pclk_khz)
-+{
-+	int ret;
-+
-+	ret = spacemit_dp_phy_set_rate(dp, rate);
-+	if (ret)
-+		return ret;
-+
-+	return clk_set_rate(dp->pll_clk, (unsigned long)pclk_khz * 1000);
-+}
-+
-+/*
-+ * phy_power_on/off() are refcounted, but this driver's bring-up is idempotent
-+ * rather than pair-balanced. Mirror the state so the refcount cannot go
-+ * negative.
-+ */
-+static int spacemit_dp_phy_on(struct spacemit_dp_dev *dp)
-+{
-+	int ret;
-+
-+	if (dp->phy_powered)
-+		return 0;
-+
-+	ret = phy_power_on(dp->phy);
-+	if (ret)
-+		return ret;
-+
-+	dp->phy_powered = true;
-+	return 0;
-+}
-+
-+static void spacemit_dp_phy_off(struct spacemit_dp_dev *dp)
-+{
-+	if (!dp->phy_powered)
-+		return;
-+
-+	phy_power_off(dp->phy);
-+	dp->phy_powered = false;
-+}
-+
-+/* Pulse the AUX reset so the next bring-up starts from a clean state. */
-+static void spacemit_dp_link_disable(struct spacemit_dp_dev *dp)
-+{
-+	regmap_write_bits(dp->regs, DP_VIDEO_VSAMPLE_REG,
-+			  DP_VIDEO_STREAM_ENABLE,
-+			  FIELD_PREP(DP_VIDEO_STREAM_ENABLE, 0));
-+	spacemit_dp_phy_off(dp);
-+
-+	/* Not under a transfer: a userspace AUX client may be in one. */
-+	guard(mutex)(&dp->aux.hw_mutex);
-+	regmap_write_bits(dp->regs, DP_SOFT_RESET, DP_AUX_RESET,
-+			  FIELD_PREP(DP_AUX_RESET, 0x1));
-+	usleep_range(5000, 8000);
-+	regmap_write_bits(dp->regs, DP_SOFT_RESET, DP_AUX_RESET,
-+			  FIELD_PREP(DP_AUX_RESET, 0x0));
-+	usleep_range(2000, 4000);
-+}
-+
-+static enum drm_connector_status
-+spacemit_dp_hw_detect_hpd(struct spacemit_dp_dev *dp)
-+{
-+	u32 hpd_status;
-+	enum drm_connector_status connector_status =
-+			connector_status_disconnected;
-+
-+	regmap_read(dp->regs, DP_HPD_INTERRUPT_STATUS, &hpd_status);
-+	hpd_status = FIELD_GET(DP_HPD_IN_STATUS, hpd_status);
-+	if (hpd_status)
-+		connector_status = connector_status_connected;
-+	else
-+		connector_status = connector_status_disconnected;
-+
-+	return connector_status;
-+}
-+
-+/* Returns true when a latched HPD event was pending and got acked. */
-+static bool spacemit_dp_hw_clean_hpd(struct spacemit_dp_dev *dp)
-+{
-+	u32 plug_event, unplug_event;
-+
-+	regmap_read(dp->regs, DP_HPD_INTERRUPT_STATUS, &plug_event);
-+	plug_event = FIELD_GET(DP_HOT_PLUG_EVENT, plug_event);
-+	regmap_read(dp->regs, DP_HPD_INTERRUPT_STATUS, &unplug_event);
-+	unplug_event = FIELD_GET(DP_HOT_UNPLUG_EVENT, unplug_event);
-+
-+	if (plug_event)
-+		regmap_write(dp->regs, DP_HPD_INTERRUPT_STATUS,
-+			     FIELD_PREP(DP_HOT_PLUG_EVENT, 0x1));
-+
-+	if (unplug_event)
-+		regmap_write(dp->regs, DP_HPD_INTERRUPT_STATUS,
-+			     FIELD_PREP(DP_HOT_UNPLUG_EVENT, 0x1));
-+
-+	return plug_event || unplug_event;
-+}
-+
-+static int spacemit_dp_set_training_pattern(struct spacemit_dp_dev *dp,
-+					    u8 pattern)
-+{
-+	u32 tps_sel;
-+	u8 dpcd_pattern = pattern;
-+	int ret;
-+
-+	if (pattern != DP_TRAINING_PATTERN_DISABLE)
-+		dpcd_pattern |= DP_LINK_SCRAMBLING_DISABLE;
-+
-+	switch (pattern) {
-+	case DP_TRAINING_PATTERN_DISABLE:
-+		tps_sel = 0;
-+		regmap_write_bits(dp->regs, DP_CORE_CONTROL,
-+				  DP_SCRAMBLER_DISABLE,
-+				  FIELD_PREP(DP_SCRAMBLER_DISABLE, 0));
-+		break;
-+	case DP_TRAINING_PATTERN_1:
-+		tps_sel = 1;
-+		regmap_write_bits(dp->regs, DP_CORE_CONTROL,
-+				  DP_SCRAMBLER_DISABLE,
-+				  FIELD_PREP(DP_SCRAMBLER_DISABLE, 1));
-+		break;
-+	case DP_TRAINING_PATTERN_2:
-+		tps_sel = 2;
-+		regmap_write_bits(dp->regs, DP_CORE_CONTROL,
-+				  DP_SCRAMBLER_DISABLE,
-+				  FIELD_PREP(DP_SCRAMBLER_DISABLE, 1));
-+		break;
-+	case DP_TRAINING_PATTERN_3:
-+		tps_sel = 3;
-+		regmap_write_bits(dp->regs, DP_CORE_CONTROL,
-+				  DP_SCRAMBLER_DISABLE,
-+				  FIELD_PREP(DP_SCRAMBLER_DISABLE, 1));
-+		break;
-+	default:
-+		drm_err(dp->drm, "Unsupported training pattern: 0x%x\n",
-+			pattern);
-+		return -EINVAL;
-+	}
-+
-+	regmap_write_bits(dp->regs, DP_PHYIF_CTRL_ADDR, DP_TPS_SEL,
-+			  FIELD_PREP(DP_TPS_SEL, tps_sel));
-+
-+	ret = drm_dp_dpcd_write_byte(&dp->aux, DP_TRAINING_PATTERN_SET,
-+				     dpcd_pattern);
-+	if (ret < 0) {
-+		drm_dbg(dp->drm, "failed to set DPCD training pattern: %d\n",
-+			ret);
-+		return ret;
-+	}
-+
-+	return 0;
-+}
-+
-+/*
-+ * The adjust request has to reach the source PHY, not just the sink's DPCD:
-+ * a transmitter left at its reset default trains any level > 0 with a bad eye.
-+ */
-+static int spacemit_dp_link_apply_adjust(struct spacemit_dp_dev *dp,
-+					 const u8 *link_status,
-+				    enum spacemit_dp_lane_count lanes,
-+				    u8 *training_set)
-+{
-+	union phy_configure_opts opts = {
-+		.dp = {
-+			.lanes = lanes,
-+			.set_voltages = true,
-+		},
-+	};
-+	int i, ret;
-+
-+	for (i = 0; i < lanes; i++) {
-+		u8 v = drm_dp_get_adjust_request_voltage(link_status, i);
-+		u8 p = drm_dp_get_adjust_request_pre_emphasis(link_status, i);
-+		u8 v_bits;
-+
-+		if (v >= SPACEMIT_DP_SWING_MAX)
-+			v = SPACEMIT_DP_SWING_MAX;
-+		if (p >= SPACEMIT_DP_PREEMP_MAX)
-+			p = SPACEMIT_DP_PREEMP_MAX;
-+
-+		opts.dp.voltage[i] = v;
-+		opts.dp.pre[i] = p;
-+
-+		v_bits = v;
-+		if (v == SPACEMIT_DP_SWING_MAX)
-+			v_bits |= DP_TRAIN_MAX_SWING_REACHED;
-+		if (p == SPACEMIT_DP_PREEMP_MAX)
-+			v_bits |= DP_TRAIN_MAX_PRE_EMPHASIS_REACHED;
-+
-+		training_set[i] = v_bits | (p << DP_TRAIN_PRE_EMPHASIS_SHIFT);
-+	}
-+
-+	ret = phy_configure(dp->phy, &opts);
-+	if (ret)
-+		return ret;
-+
-+	return drm_dp_dpcd_write_data(&dp->aux, DP_TRAINING_LANE0_SET,
-+				      training_set, lanes);
-+}
-+
-+static int spacemit_dp_link_train_clock_recovery(struct spacemit_dp_dev *dp,
-+						 enum spacemit_dp_link_rate rate,
-+					    enum spacemit_dp_lane_count lanes)
-+{
-+	u8 link_status[DP_LINK_STATUS_SIZE] = {0};
-+	u8 training_set[4] = {0};
-+	int retries = 0;
-+	int ret;
-+
-+	/* Level 0 on both ends: the PHY keeps what the last training left. */
-+	ret = spacemit_dp_link_apply_adjust(dp, link_status, lanes,
-+					    training_set);
-+	if (ret < 0)
-+		return ret;
-+
-+	ret = spacemit_dp_set_training_pattern(dp, DP_TRAINING_PATTERN_1);
-+	if (ret < 0)
-+		goto err_end_training;
-+
-+	while (retries < SPACEMIT_DP_TRAIN_MAX_TRIES) {
-+		drm_dp_link_train_clock_recovery_delay(&dp->aux, dp->dpcd);
-+
-+		ret = drm_dp_dpcd_read_link_status(&dp->aux, link_status);
-+		if (ret < 0)
-+			goto err_end_training;
-+
-+		if (drm_dp_clock_recovery_ok(link_status, lanes))
-+			return 0;
-+
-+		ret = spacemit_dp_link_apply_adjust(dp, link_status, lanes,
-+						    training_set);
-+		if (ret)
-+			goto err_end_training;
-+
-+		retries++;
-+	}
-+
-+	drm_dbg(dp->drm, "link training: clock recovery failed\n");
-+	ret = -ETIMEDOUT;
-+
-+err_end_training:
-+	spacemit_dp_set_training_pattern(dp, DP_TRAINING_PATTERN_DISABLE);
-+	return ret;
-+}
-+
-+static int spacemit_dp_link_train_channel_eq(struct spacemit_dp_dev *dp,
-+					     enum spacemit_dp_link_rate rate,
-+					enum spacemit_dp_lane_count lanes)
-+{
-+	u8 link_status[DP_LINK_STATUS_SIZE];
-+	u8 training_set[4] = {0};
-+	u8 training_pattern = DP_TRAINING_PATTERN_2;
-+	int retries = 0;
-+	int ret;
-+
-+	if (drm_dp_tps3_supported(dp->dpcd)) {
-+		training_pattern = DP_TRAINING_PATTERN_3;
-+		drm_dbg(dp->drm, "link training: using TPS3\n");
-+	} else {
-+		drm_dbg(dp->drm, "link training: using TPS2\n");
-+	}
-+
-+	ret = spacemit_dp_set_training_pattern(dp, training_pattern);
-+	if (ret < 0)
-+		goto err_end_training;
-+
-+	while (retries < SPACEMIT_DP_TRAIN_MAX_TRIES) {
-+		drm_dp_link_train_channel_eq_delay(&dp->aux, dp->dpcd);
-+
-+		ret = drm_dp_dpcd_read_link_status(&dp->aux, link_status);
-+		if (ret < 0)
-+			goto err_end_training;
-+
-+		if (drm_dp_channel_eq_ok(link_status, lanes))
-+			return spacemit_dp_set_training_pattern(dp,
-+					DP_TRAINING_PATTERN_DISABLE);
-+
-+		ret = spacemit_dp_link_apply_adjust(dp, link_status, lanes,
-+						    training_set);
-+		if (ret)
-+			goto err_end_training;
-+
-+		retries++;
-+	}
-+
-+	drm_dbg(dp->drm, "link training: channel EQ failed\n");
-+	ret = -ETIMEDOUT;
-+
-+err_end_training:
-+	spacemit_dp_set_training_pattern(dp, DP_TRAINING_PATTERN_DISABLE);
-+	return ret;
-+}
-+
-+static int spacemit_dp_link_train(struct spacemit_dp_dev *dp, enum spacemit_dp_link_rate rate,
-+				  enum spacemit_dp_lane_count lanes)
-+{
-+	int ret;
-+	u8 link_config[1];
-+	u8 bw_code = drm_dp_link_rate_to_bw_code(rate / 10);
-+
-+	/*
-+	 * A sink may act on the DP_LINK_BW_SET write, so set the lane count
-+	 * first.
-+	 */
-+	link_config[0] = lanes;
-+	if (dp->link.enhanced_framing)
-+		link_config[0] |= DP_LANE_COUNT_ENHANCED_FRAME_EN;
-+	regmap_write_bits(dp->regs, DP_CORE_CONTROL, DP_ENHANCE_FRAMING_EN,
-+			  FIELD_PREP(DP_ENHANCE_FRAMING_EN,
-+				     dp->link.enhanced_framing));
-+
-+	ret = drm_dp_dpcd_write_byte(&dp->aux, DP_LANE_COUNT_SET,
-+				     link_config[0]);
-+	if (ret < 0) {
-+		drm_dbg(dp->drm, "failed to set DPCD lane count\n");
-+		return ret;
-+	}
-+
-+	ret = drm_dp_dpcd_write_byte(&dp->aux, DP_LINK_BW_SET, bw_code);
-+	if (ret < 0) {
-+		drm_dbg(dp->drm, "failed to set DPCD link rate\n");
-+		return ret;
-+	}
-+
-+	ret = spacemit_dp_link_train_clock_recovery(dp, rate, lanes);
-+	if (ret)
-+		return ret;
-+
-+	return spacemit_dp_link_train_channel_eq(dp, rate, lanes);
-+}
-+
-+static void spacemit_dp_hw_set_msa_and_enable_video(struct spacemit_dp_dev *dp,
-+						    const struct drm_display_mode *mode,
-+						    enum spacemit_dp_link_rate rate,
-+						    enum spacemit_dp_lane_count lanes)
-+{
-+	u64 hb_num;
-+	u32 link_rate;
-+	u32 fp; /* Pixel clock in MHz */
-+	u32 tu, tu_frac, tu_int, rd_thres;
-+	u32 hsync_len, hstart, vstart;
-+
-+	/* mode->clock unit is kHz, fp unit is MHz */
-+	fp = mode->clock / 1000;
-+
-+	if (fp == 0)
-+		fp = 1; /* Prevent division by zero */
-+
-+	/*
-+	 * HBlank interval = (htotal - hactive) * (LinkSymbolClock / 4) /
-+	 * PixelClock, where LinkSymbolClock = LinkRate * 100 (1.62G -> 162MHz).
-+	 * rate is in kbit/s, so link_rate = rate / 10000 gives the 162, 270,
-+	 * 540 form used below.
-+	 */
-+	link_rate = rate / 10000;
-+
-+	/* Multiply before dividing: hb_num = hblank * (link_rate / 4) / fp */
-+	hb_num = (u64)(mode->htotal - mode->hdisplay) * link_rate;
-+	do_div(hb_num, 4 * fp);
-+
-+	/* Transfer unit: tu = fp * bpp * 640 / (8 * lanes * link_rate) */
-+	tu = div_u64((u64)fp * SPACEMIT_DP_BPP * 640, 8 * lanes * link_rate);
-+	tu_frac = tu % 10;
-+	tu_int  = tu / 10;
-+
-+	/* FIFO read threshold. */
-+	if (tu_int < 6)
-+		rd_thres = 32;
-+	else if ((mode->htotal - mode->hdisplay) < 80)
-+		rd_thres = 12;
-+	else
-+		rd_thres = 16;
-+
-+	drm_dbg(dp->drm,
-+		"MSA: %dx%d, Rate:%d kbit/s, Lanes:%d, BPP:%d, TU:%d.%d\n",
-+		mode->hdisplay, mode->vdisplay, rate, lanes, SPACEMIT_DP_BPP,
-+		tu_int, tu_frac);
-+
-+	regmap_write_bits(dp->regs, DP_VIDEO_VSAMPLE_REG, DP_VIDEO_MAPPING,
-+			  FIELD_PREP(DP_VIDEO_MAPPING, SPACEMIT_DP_VIDEO_RGB_8BIT));
-+
-+	/*
-+	 * The Saturn TMG raster is always positive-sync (hsp/vsp fixed to 1).
-+	 */
-+	regmap_write_bits(dp->regs, DP_VINPUT_POLARITY, DP_HSYNC_IN_POLARITY,
-+			  FIELD_PREP(DP_HSYNC_IN_POLARITY, 1));
-+	regmap_write_bits(dp->regs, DP_VINPUT_POLARITY, DP_VSYNC_IN_POLARITY,
-+			  FIELD_PREP(DP_VSYNC_IN_POLARITY, 1));
-+
-+	/* Basic timing */
-+	regmap_write_bits(dp->regs, DP_VIDEO_CONFIG1, DP_HACTIVE,
-+			  FIELD_PREP(DP_HACTIVE, mode->hdisplay));
-+	regmap_write_bits(dp->regs, DP_VIDEO_CONFIG2, DP_VACTIVE,
-+			  FIELD_PREP(DP_VACTIVE, mode->vdisplay));
-+	regmap_write_bits(dp->regs, DP_VIDEO_CONFIG1, DP_HBLANK,
-+			  FIELD_PREP(DP_HBLANK, mode->htotal - mode->hdisplay));
-+	regmap_write_bits(dp->regs, DP_VIDEO_CONFIG2, DP_VBLANK,
-+			  FIELD_PREP(DP_VBLANK, mode->vtotal - mode->vdisplay));
-+
-+	/* MSA start values count from the leading edge of sync. */
-+	hstart = mode->htotal - mode->hsync_start;
-+	vstart = mode->vtotal - mode->vsync_start;
-+
-+	regmap_write_bits(dp->regs, DP_VIDEO_MSA1, DP_HSTART,
-+			  FIELD_PREP(DP_HSTART, hstart));
-+	regmap_write_bits(dp->regs, DP_VIDEO_MSA1, DP_VSTART,
-+			  FIELD_PREP(DP_VSTART, vstart));
-+
-+	hsync_len = mode->hsync_end - mode->hsync_start;
-+
-+	regmap_write_bits(dp->regs, DP_VIDEO_CONFIG3, DP_H_SYNC_WIDTH,
-+			  FIELD_PREP(DP_H_SYNC_WIDTH, hsync_len));
-+	regmap_write_bits(dp->regs, DP_VIDEO_CONFIG4, DP_V_SYNC_WIDTH,
-+			  FIELD_PREP(DP_V_SYNC_WIDTH, mode->vsync_end - mode->vsync_start));
-+	regmap_write_bits(dp->regs, DP_VIDEO_CONFIG3, DP_H_FRONT_PORCH,
-+			  FIELD_PREP(DP_H_FRONT_PORCH, mode->hsync_start - mode->hdisplay));
-+	regmap_write_bits(dp->regs, DP_VIDEO_CONFIG4, DP_V_FRONT_PORCH,
-+			  FIELD_PREP(DP_V_FRONT_PORCH, mode->vsync_start - mode->vdisplay));
-+
-+	/* MSA and MISC */
-+	regmap_write_bits(dp->regs, DP_VIDEO_MSA2, DP_MISC0,
-+			  FIELD_PREP(DP_MISC0, DP_MSA_MISC_8_BPC));
-+	regmap_write_bits(dp->regs, DP_VIDEO_MSA3, DP_MISC1,
-+			  FIELD_PREP(DP_MISC1, 0));
-+	regmap_write_bits(dp->regs, DP_VIDEO_MSA3, DP_NVID,
-+			  FIELD_PREP(DP_NVID, 0));
-+
-+	/* Link layer parameters */
-+	regmap_write_bits(dp->regs, DP_VIDEO_HBLANK_INTERVAL,
-+			  DP_HBLANK_INTERVAL,
-+			  FIELD_PREP(DP_HBLANK_INTERVAL, (u32)hb_num));
-+	regmap_write_bits(dp->regs, DP_VIDEO_CONFIG5, DP_AVERAGE_BYTES_PER_TU,
-+			  FIELD_PREP(DP_AVERAGE_BYTES_PER_TU, tu_int));
-+	regmap_write_bits(dp->regs, DP_VIDEO_CONFIG5,
-+			  DP_AVERAGE_BYTES_PER_TU_FRAC,
-+			  FIELD_PREP(DP_AVERAGE_BYTES_PER_TU_FRAC, tu_frac));
-+	regmap_write_bits(dp->regs, DP_VIDEO_CONFIG5, DP_INIT_THRESHOLD,
-+			  FIELD_PREP(DP_INIT_THRESHOLD, rd_thres));
-+
-+	regmap_write_bits(dp->regs, DP_PHYIF_CTRL_ADDR, DP_PHY_SSC_DIS,
-+			  FIELD_PREP(DP_PHY_SSC_DIS, 1));
-+	regmap_write_bits(dp->regs, DP_CLK_INV_MUX, DP_REG_VID_CLK_SEL,
-+			  FIELD_PREP(DP_REG_VID_CLK_SEL, 0));
-+	regmap_write_bits(dp->regs, DP_VIDEO_COLORBAR_CFG, DP_VID_BIST_EN,
-+			  FIELD_PREP(DP_VID_BIST_EN, 0));
-+
-+	drm_dbg(dp->drm, "enabling video stream\n");
-+	regmap_write_bits(dp->regs, DP_VIDEO_VSAMPLE_REG,
-+			  DP_VIDEO_STREAM_ENABLE,
-+			  FIELD_PREP(DP_VIDEO_STREAM_ENABLE, 1));
-+}
-+
-+static void spacemit_dp_hw_disable(struct spacemit_dp_dev *dp)
-+{
-+	dev_dbg(dp->dev, "disabling video and PHY\n");
-+
-+	regmap_write_bits(dp->regs, DP_VIDEO_VSAMPLE_REG,
-+			  DP_VIDEO_STREAM_ENABLE,
-+			  FIELD_PREP(DP_VIDEO_STREAM_ENABLE, 0));
-+
-+	regmap_write_bits(dp->regs, DP_PHYIF_CTRL_ADDR, DP_XMIT_ENABLE,
-+			  FIELD_PREP(DP_XMIT_ENABLE, 0));
-+
-+	regmap_write_bits(dp->regs, DP_ANA_TX_ENABLE, DP_ANA_TX_EN_LDO_D0,
-+			  FIELD_PREP(DP_ANA_TX_EN_LDO_D0, 0));
-+	regmap_write_bits(dp->regs, DP_ANA_TX_ENABLE, DP_ANA_TX_EN_LDO_D1,
-+			  FIELD_PREP(DP_ANA_TX_EN_LDO_D1, 0));
-+	regmap_write_bits(dp->regs, DP_ANA_TX_ENABLE, DP_ANA_TX_EN_LDO_D2,
-+			  FIELD_PREP(DP_ANA_TX_EN_LDO_D2, 0));
-+	regmap_write_bits(dp->regs, DP_ANA_TX_ENABLE, DP_ANA_TX_EN_LDO_D3,
-+			  FIELD_PREP(DP_ANA_TX_EN_LDO_D3, 0));
-+
-+	regmap_write_bits(dp->regs, DP_ANA_TX_ENABLE, DP_ANA_TX_EN_DRV_D0,
-+			  FIELD_PREP(DP_ANA_TX_EN_DRV_D0, 0));
-+	regmap_write_bits(dp->regs, DP_ANA_TX_ENABLE, DP_ANA_TX_EN_DRV_D1,
-+			  FIELD_PREP(DP_ANA_TX_EN_DRV_D1, 0));
-+	regmap_write_bits(dp->regs, DP_ANA_TX_ENABLE, DP_ANA_TX_EN_DRV_D2,
-+			  FIELD_PREP(DP_ANA_TX_EN_DRV_D2, 0));
-+	regmap_write_bits(dp->regs, DP_ANA_TX_ENABLE, DP_ANA_TX_EN_DRV_D3,
-+			  FIELD_PREP(DP_ANA_TX_EN_DRV_D3, 0));
-+
-+	regmap_write_bits(dp->regs, DP_ANA_TX_CTRL3, DP_ANA_TX_EN_P2S_D0,
-+			  FIELD_PREP(DP_ANA_TX_EN_P2S_D0, 0));
-+	regmap_write_bits(dp->regs, DP_ANA_TX_CTRL3, DP_ANA_TX_EN_P2S_D1,
-+			  FIELD_PREP(DP_ANA_TX_EN_P2S_D1, 0));
-+	regmap_write_bits(dp->regs, DP_ANA_TX_CTRL3, DP_ANA_TX_EN_P2S_D2,
-+			  FIELD_PREP(DP_ANA_TX_EN_P2S_D2, 0));
-+	regmap_write_bits(dp->regs, DP_ANA_TX_CTRL3, DP_ANA_TX_EN_P2S_D3,
-+			  FIELD_PREP(DP_ANA_TX_EN_P2S_D3, 0));
-+
-+	regmap_write_bits(dp->regs, DP_ANA_TX_CTRL6, DP_ANA_BG_EN,
-+			  FIELD_PREP(DP_ANA_BG_EN, 0));
-+	regmap_write_bits(dp->regs, DP_ANA_TX_CTRL7, DP_ANA_BG_EN_RCAL,
-+			  FIELD_PREP(DP_ANA_BG_EN_RCAL, 0));
-+
-+	/* Both PLLs. */
-+	regmap_write_bits(dp->regs, DP_MPLL_CTRL0, DP_ANA_MPLL_PD,
-+			  FIELD_PREP(DP_ANA_MPLL_PD, 1));
-+	regmap_write_bits(dp->regs, DP_PREPLL_CTRL0, DP_ANA_PREPLL_PD,
-+			  FIELD_PREP(DP_ANA_PREPLL_PD, 1));
-+}
-+
-+/* Calculate required bandwidth in kbit/s (Pixel Clock * Bits Per Pixel) */
-+static u32 spacemit_dp_calc_required_bw(const struct drm_display_mode *mode,
-+					int bpp)
-+{
-+	return mode->clock * bpp;
-+}
-+
-+/*
-+ * Calculate available link capacity in kbit/s (taking 8b/10b overhead into
-+ * account)
-+ */
-+static u32 spacemit_dp_calc_link_capacity(enum spacemit_dp_link_rate rate,
-+					  enum spacemit_dp_lane_count lanes)
-+{
-+	u32 rate_khz = rate;
-+	u32 lane_count = lanes;
-+
-+	/* Capacity = Rate(kbit/s) * Lanes * 0.8 */
-+	return (rate_khz * lane_count * 8) / 10;
-+}
-+
-+/*
-+ * Every configuration able to carry @req_bw failed to train. Limit the link
-+ * to the best configuration below it, so that mode_valid() prunes the mode
-+ * and userspace falls back to a smaller one.
-+ */
-+static bool spacemit_dp_link_narrow(struct spacemit_dp_dev *dp, u32 req_bw)
-+{
-+	const struct spacemit_dp_link_config *best = NULL;
-+	u32 best_capacity = 0;
-+	int i;
-+
-+	for (i = 0; i < ARRAY_SIZE(spacemit_dp_link_priority_table); i++) {
-+		const struct spacemit_dp_link_config *cfg =
-+				&spacemit_dp_link_priority_table[i];
-+		u32 capacity;
-+
-+		if (cfg->rate > dp->link.max_rate ||
-+		    cfg->lanes > dp->link.max_num_lanes)
-+			continue;
-+
-+		capacity = spacemit_dp_calc_link_capacity(cfg->rate, cfg->lanes);
-+		if (capacity >= req_bw || capacity <= best_capacity)
-+			continue;
-+
-+		best = cfg;
-+		best_capacity = capacity;
-+	}
-+
-+	if (!best)
-+		return false;
-+
-+	dp->link.max_rate = best->rate;
-+	dp->link.max_num_lanes = best->lanes;
-+	return true;
-+}
-+
-+static enum drm_connector_status
-+spacemit_dp_bridge_detect(struct drm_bridge *bridge, struct drm_connector *connector)
-+{
-+	struct spacemit_dp_dev *dp = container_of(bridge,
-+						  struct spacemit_dp_dev,
-+						  bridge);
-+	enum drm_connector_status status;
-+
-+	/*
-+	 * The eDP panel is fixed, and DP_HPD_IN_STATUS does not read
-+	 * meaningfully on that path.
-+	 */
-+	if (dp->edp_mode)
-+		return connector_status_connected;
-+
-+	/*
-+	 * The HPD interrupt is gated by the DP pixel clock, which is off
-+	 * exactly when a plug must be caught. Read the level register live
-+	 * instead.
-+	 */
-+	guard(mutex)(&dp->mode_lock);
-+	status = spacemit_dp_hw_detect_hpd(dp);
-+
-+	/*
-+	 * The bind-time cap read only covers a sink that was already there.
-+	 * Without a re-read here, link.max_rate stays 0 and every link config
-+	 * is filtered out.
-+	 */
-+	if (status == connector_status_connected &&
-+	    dp->connector_status != connector_status_connected)
-+		spacemit_dp_hw_read_sink_caps(dp);
-+
-+	WRITE_ONCE(dp->connector_status, status);
-+
-+	return status;
-+}
-+
-+static const struct drm_edid *
-+spacemit_dp_bridge_edid_read(struct drm_bridge *bridge, struct drm_connector *connector)
-+{
-+	struct spacemit_dp_dev *dp = container_of(bridge,
-+						  struct spacemit_dp_dev,
-+						  bridge);
-+	const struct drm_edid *edid = NULL;
-+	int retry;
-+
-+	scoped_guard(mutex, &dp->mode_lock) {
-+		for (retry = 0; retry < SPACEMIT_DP_SINK_READY_RETRIES; retry++) {
-+			if (retry) {
-+				scoped_guard(mutex, &dp->aux.hw_mutex)
-+					spacemit_dp_aux_hw_reset(dp);
-+				msleep(SPACEMIT_DP_SINK_READY_DELAY_MS);
-+			}
-+
-+			edid = drm_edid_read_ddc(connector, &dp->aux.ddc);
-+			if (edid)
-+				break;
-+		}
-+	}
-+
-+	if (!edid)
-+		drm_err_ratelimited(dp->drm, "failed to read EDID\n");
-+
-+	return edid;
-+}
-+
-+static enum drm_mode_status
-+spacemit_dp_bridge_mode_valid(struct drm_bridge *bridge,
-+			      const struct drm_display_info *info,
-+			 const struct drm_display_mode *mode)
-+{
-+	struct spacemit_dp_dev *dp = container_of(bridge,
-+						  struct spacemit_dp_dev,
-+						  bridge);
-+	unsigned int max_link_rate, max_lanes;
-+	u64 max_bw, req_bw;
-+
-+	/*
-+	 * Prefer the link limits the driver maintains: they start as the
-+	 * sink's capabilities clamped to the PHY and are narrowed after a
-+	 * failed training. drm_dp_max_link_rate() is in 10 kbit/s.
-+	 */
-+	if (dp->link.max_rate && dp->link.max_num_lanes) {
-+		max_link_rate = dp->link.max_rate / 10;
-+		max_lanes = dp->link.max_num_lanes;
-+	} else {
-+		max_link_rate = min_t(unsigned int,
-+				      drm_dp_max_link_rate(dp->dpcd),
-+				      SPACEMIT_DP_SOURCE_MAX_RATE / 10);
-+		max_lanes = drm_dp_max_lane_count(dp->dpcd);
-+	}
-+	if (!max_link_rate || !max_lanes) {
-+		/* Sink not enumerated yet: accept and re-check at modeset. */
-+		return MODE_OK;
-+	}
-+
-+	/*
-+	 * max_link_rate is per lane in 10 kbit/s. The x10 to reach kbit/s and
-+	 * the 8b/10b coding overhead cancel down to a plain "* 8".
-+	 */
-+	max_bw = (u64)max_link_rate * max_lanes * 8;
-+
-+	/* Required bandwidth: pixel clock (kHz) * bits per pixel. */
-+	req_bw = (u64)mode->clock * SPACEMIT_DP_BPP;
-+
-+	if (req_bw > max_bw) {
-+		drm_dbg(bridge->dev,
-+			"rejecting %dx%d@%d: %llu > %llu kbit/s (%u kbit/s x%u lanes)\n",
-+			mode->hdisplay, mode->vdisplay, drm_mode_vrefresh(mode),
-+			req_bw, max_bw, max_link_rate * 10, max_lanes);
-+		return MODE_CLOCK_HIGH;
-+	}
-+
-+	/* The pixel clock is made by the PHY PLL, which cannot hit every rate. */
-+	if (clk_round_rate(dp->pll_clk, mode->clock * 1000UL) <= 0)
-+		return MODE_NOCLOCK;
-+
-+	return MODE_OK;
-+}
-+
-+static const struct drm_encoder_funcs spacemit_dp_encoder_funcs = {
-+	.destroy = drm_encoder_cleanup,
-+};
-+
-+static void spacemit_dp_bridge_atomic_enable(struct drm_bridge *bridge,
-+					     struct drm_atomic_commit *state)
-+{
-+	struct spacemit_dp_dev *dp = container_of(bridge,
-+						  struct spacemit_dp_dev,
-+						  bridge);
-+	struct drm_bridge_state *new_bridge_state =
-+		drm_atomic_get_new_bridge_state(state, bridge);
-+	struct spacemit_dp_bridge_state *st =
-+			to_spacemit_dp_bridge_state(new_bridge_state);
-+	struct drm_connector *connector =
-+		drm_atomic_get_new_connector_for_encoder(state, bridge->encoder);
-+	struct drm_connector_state *conn_state =
-+		drm_atomic_get_new_connector_state(state, connector);
-+	struct drm_crtc_state *crtc_state =
-+		drm_atomic_get_new_crtc_state(state, conn_state->crtc);
-+	struct drm_display_mode *adjusted_mode = &crtc_state->adjusted_mode;
-+	const struct spacemit_dp_link_config *cfg;
-+	bool hpd_lost = false;
-+	bool trained;
-+	u32 req_bw;
-+	u32 hpd;
-+	int start;
-+	int i;
-+
-+	guard(mutex)(&dp->mode_lock);
-+
-+	/* Enable-time retry for the caps .detect() could not read. */
-+	if (!dp->link.max_rate || !dp->link.max_num_lanes)
-+		spacemit_dp_hw_read_sink_caps(dp);
-+
-+	req_bw = spacemit_dp_calc_required_bw(adjusted_mode, SPACEMIT_DP_BPP);
-+
-+	/*
-+	 * Start where atomic_check() left off, but keep the upgrade walk as
-+	 * fallback.
-+	 */
-+	start = st->link_cfg_idx >= 0 ? st->link_cfg_idx : 0;
-+
-+	for (trained = false, i = start;
-+	     i < ARRAY_SIZE(spacemit_dp_link_priority_table); i++) {
-+		u32 capacity;
-+
-+		cfg = &spacemit_dp_link_priority_table[i];
-+
-+		/* Source and sink limits */
-+		if (cfg->rate > dp->link.max_rate || cfg->lanes > dp->link.max_num_lanes)
-+			continue;
-+
-+		/* Bandwidth requirement */
-+		capacity = spacemit_dp_calc_link_capacity(cfg->rate,
-+							  cfg->lanes);
-+		if (capacity < req_bw)
-+			continue;
-+
-+		drm_dbg(dp->drm, "trying link config: rate %d lanes %d (capacity %d, required %d)\n",
-+			cfg->rate, cfg->lanes, capacity, req_bw);
-+
-+		spacemit_dp_link_disable(dp);
-+
-+		/* Apply Hardware Settings */
-+		if (spacemit_dp_set_plls(dp, cfg->rate, adjusted_mode->clock))
-+			continue;
-+
-+		if (spacemit_dp_phy_set_lanes(dp, cfg->lanes))
-+			continue;
-+
-+		if (spacemit_dp_phy_on(dp))
-+			continue;
-+
-+		/*
-+		 * Debounce: the transmitter was power-cycled just now and a
-+		 * sink may legitimately drop HPD across a link-down. eDP is
-+		 * hardwired and noisy.
-+		 */
-+		if (!dp->edp_mode &&
-+		    regmap_read_poll_timeout(dp->regs, DP_HPD_INTERRUPT_STATUS, hpd,
-+					     hpd & DP_HPD_IN_STATUS,
-+					     SPACEMIT_DP_HPD_POLL_US,
-+					     SPACEMIT_DP_HPD_DEBOUNCE_US)) {
-+			drm_dbg(dp->drm,
-+				"sink is not asserting HPD; not training\n");
-+			hpd_lost = true;
-+			break;
-+		}
-+
-+		if (dp->edp_mode) {
-+			regmap_write_bits(dp->regs, DP_CORE_CONTROL,
-+					  DP_ENABLE_EDP,
-+					  FIELD_PREP(DP_ENABLE_EDP, 0x1));
-+			regmap_write_bits(dp->regs, DP_VIDEO_VSAMPLE_REG,
-+					  DP_STREAM_ENC_EN,
-+					  FIELD_PREP(DP_STREAM_ENC_EN, 0x1));
-+
-+			/* Do not train a link the panel was not set up for. */
-+			if (spacemit_dp_update_edp_config(dp, true))
-+				continue;
-+		}
-+
-+		/* Execute Link Training */
-+		if (spacemit_dp_link_train(dp, cfg->rate, cfg->lanes) == 0) {
-+			drm_dbg(dp->drm,
-+				"link training succeeded: rate %d lanes %d\n",
-+				cfg->rate, cfg->lanes);
-+			trained = true;
-+			break;
-+		}
-+
-+		drm_dbg(dp->drm,
-+			"link training failed: rate %d lanes %d, trying next config\n",
-+			cfg->rate, cfg->lanes);
-+	}
-+
-+	/*
-+	 * The DPU's pixel clock comes from the PHY PLL, so scanning out into an
-+	 * untrained link never reaches CFG_RDY and wedges the CRTC on
-+	 * flip_done.
-+	 */
-+	if (!trained) {
-+		/* A sink that went away is not a link that failed. */
-+		if (!hpd_lost)
-+			drm_err_ratelimited(dp->drm,
-+					    "no usable link config; leaving video disabled (%u kbit/s x%u lanes)\n",
-+					    dp->link.max_rate,
-+					    dp->link.max_num_lanes);
-+
-+		/*
-+		 * A panel has no smaller mode to fall back to and a sink that
-+		 * dropped HPD was not trained at all: retry those as they are,
-+		 * with the capabilities read again. Otherwise retrying the
-+		 * same mode would fail the same way, so narrow the link, and
-+		 * give up once nothing is left to narrow.
-+		 */
-+		if (dp->edp_mode || hpd_lost) {
-+			dp->link.max_rate = 0;
-+			dp->link.max_num_lanes = 0;
-+		} else if (!spacemit_dp_link_narrow(dp, req_bw)) {
-+			dp->link.max_rate = 0;
-+			dp->link.max_num_lanes = 0;
-+			return;
-+		}
-+
-+		/*
-+		 * Deferred: we are inside the commit and hold the modeset
-+		 * locks.
-+		 */
-+		schedule_work(&dp->modeset_retry_work);
-+		return;
-+	}
-+
-+	spacemit_dp_hw_set_msa_and_enable_video(dp, adjusted_mode,
-+						dp->link_rate, dp->lane_count);
-+}
-+
-+static void spacemit_dp_bridge_atomic_disable(struct drm_bridge *bridge,
-+					      struct drm_atomic_commit *state)
-+{
-+	struct spacemit_dp_dev *dp = container_of(bridge,
-+						  struct spacemit_dp_dev,
-+						  bridge);
-+
-+	guard(mutex)(&dp->mode_lock);
-+
-+	spacemit_dp_link_disable(dp);
-+}
-+
-+static int spacemit_dp_bridge_atomic_check(struct drm_bridge *bridge,
-+					   struct drm_bridge_state *bridge_state,
-+				      struct drm_crtc_state *crtc_state,
-+				      struct drm_connector_state *conn_state)
-+{
-+	struct spacemit_dp_dev *dp = container_of(bridge,
-+						  struct spacemit_dp_dev,
-+						  bridge);
-+	struct spacemit_dp_bridge_state *st =
-+			to_spacemit_dp_bridge_state(bridge_state);
-+	const struct drm_display_mode *mode = &crtc_state->adjusted_mode;
-+	u32 req_bw;
-+	int i;
-+
-+	req_bw = spacemit_dp_calc_required_bw(mode, SPACEMIT_DP_BPP);
-+
-+	/* No caps yet: leave idx unset and let ->atomic_enable() retry. */
-+	if (!dp->link.max_rate || !dp->link.max_num_lanes) {
-+		st->link_cfg_idx = -1;
-+		return 0;
-+	}
-+
-+	for (i = 0; i < ARRAY_SIZE(spacemit_dp_link_priority_table); i++) {
-+		const struct spacemit_dp_link_config *cfg =
-+				&spacemit_dp_link_priority_table[i];
-+
-+		if (cfg->rate > dp->link.max_rate ||
-+		    cfg->lanes > dp->link.max_num_lanes)
-+			continue;
-+		if (spacemit_dp_calc_link_capacity(cfg->rate, cfg->lanes) < req_bw)
-+			continue;
-+
-+		st->link_cfg_idx = i;
-+		return 0;
-+	}
-+
-+	drm_dbg(bridge->dev,
-+		"no DP link cfg fits %dx%d@%d (need %u kbit/s; sink %u kbit/s x %u lanes)\n",
-+		mode->hdisplay, mode->vdisplay, drm_mode_vrefresh(mode),
-+		req_bw, dp->link.max_rate, dp->link.max_num_lanes);
-+	return -EINVAL;
-+}
-+
-+static struct drm_bridge_state *
-+spacemit_dp_bridge_atomic_duplicate_state(struct drm_bridge *bridge)
-+{
-+	struct spacemit_dp_bridge_state *cur =
-+		to_spacemit_dp_bridge_state(drm_priv_to_bridge_state(bridge->base.state));
-+	struct spacemit_dp_bridge_state *new;
-+
-+	new = kzalloc_obj(*new);
-+	if (!new)
-+		return NULL;
-+
-+	__drm_atomic_helper_bridge_duplicate_state(bridge, &new->base);
-+	new->link_cfg_idx = cur->link_cfg_idx;
-+	return &new->base;
-+}
-+
-+static void
-+spacemit_dp_bridge_atomic_destroy_state(struct drm_bridge *bridge,
-+					struct drm_bridge_state *state)
-+{
-+	kfree(to_spacemit_dp_bridge_state(state));
-+}
-+
-+static u32 *spacemit_dp_bridge_atomic_get_output_bus_fmts(struct drm_bridge *bridge,
-+							  struct drm_bridge_state *bridge_state,
-+				struct drm_crtc_state *crtc_state,
-+				struct drm_connector_state *conn_state,
-+				unsigned int *num_output_fmts)
-+{
-+	u32 *output_fmts;
-+
-+	output_fmts = kmalloc_obj(*output_fmts, GFP_KERNEL);
-+	if (!output_fmts) {
-+		*num_output_fmts = 0;
-+		return NULL;
-+	}
-+
-+	output_fmts[0] = MEDIA_BUS_FMT_RGB888_1X24;
-+	*num_output_fmts = 1;
-+	return output_fmts;
-+}
-+
-+static struct drm_bridge_state *
-+spacemit_dp_bridge_atomic_create_state(struct drm_bridge *bridge)
-+{
-+	struct spacemit_dp_bridge_state *new;
-+
-+	new = kzalloc_obj(*new);
-+	if (!new)
-+		return ERR_PTR(-ENOMEM);
-+
-+	__drm_atomic_helper_bridge_state_init(&new->base, bridge);
-+	new->link_cfg_idx = -1;
-+	return &new->base;
-+}
-+
-+static int spacemit_dp_bridge_attach(struct drm_bridge *bridge,
-+				     struct drm_encoder *encoder,
-+				enum drm_bridge_attach_flags flags)
-+{
-+	if (!(flags & DRM_BRIDGE_ATTACH_NO_CONNECTOR))
-+		return -EINVAL;
-+
-+	if (!bridge->next_bridge)
-+		return 0;
-+
-+	return drm_bridge_attach(encoder, bridge->next_bridge, bridge, flags);
-+}
-+
-+static const struct drm_bridge_funcs spacemit_dp_bridge_funcs = {
-+	.attach				= spacemit_dp_bridge_attach,
-+	.atomic_enable			= spacemit_dp_bridge_atomic_enable,
-+	.atomic_disable			= spacemit_dp_bridge_atomic_disable,
-+	.atomic_check			= spacemit_dp_bridge_atomic_check,
-+	.atomic_duplicate_state		= spacemit_dp_bridge_atomic_duplicate_state,
-+	.atomic_destroy_state		= spacemit_dp_bridge_atomic_destroy_state,
-+	.atomic_create_state		= spacemit_dp_bridge_atomic_create_state,
-+	.atomic_get_output_bus_fmts	= spacemit_dp_bridge_atomic_get_output_bus_fmts,
-+	.mode_valid			= spacemit_dp_bridge_mode_valid,
-+	.detect				= spacemit_dp_bridge_detect,
-+	.edid_read			= spacemit_dp_bridge_edid_read,
-+};
-+
-+static irqreturn_t spacemit_dp_irq_handler(int irq, void *data)
-+{
-+	struct spacemit_dp_dev *dp = data;
-+	irqreturn_t ret = IRQ_NONE;
-+	int idx;
-+
-+	if (!drm_dev_enter(dp->drm, &idx))
-+		return IRQ_NONE;
-+
-+	/*
-+	 * eDP .detect() ignores the HPD level (and never records it), so a
-+	 * level flip would wake the thread forever; ack and ignore.
-+	 */
-+	if (dp->edp_mode) {
-+		spacemit_dp_hw_clean_hpd(dp);
-+		drm_dev_exit(idx);
-+		return IRQ_HANDLED;
-+	}
-+
-+	/*
-+	 * Only compare here: the authoritative connector_status update
-+	 * happens in the thread under mode_lock, via .detect().
-+	 */
-+	if (spacemit_dp_hw_detect_hpd(dp) != READ_ONCE(dp->connector_status))
-+		ret = IRQ_WAKE_THREAD;
-+	if (spacemit_dp_hw_clean_hpd(dp) && ret == IRQ_NONE)
-+		ret = IRQ_HANDLED;
-+
-+	drm_dev_exit(idx);
-+	return ret;
-+}
-+
-+static irqreturn_t spacemit_dp_hotplug_event_handler(int irq, void *data)
-+{
-+	struct spacemit_dp_dev *dp = data;
-+	enum drm_connector_status status;
-+	int idx;
-+
-+	if (!drm_dev_enter(dp->drm, &idx))
-+		return IRQ_HANDLED;
-+
-+	/*
-+	 * .detect() owns mode_lock and re-reads the sink caps on a fresh plug
-+	 */
-+	status = spacemit_dp_bridge_detect(&dp->bridge, dp->connector);
-+	drm_bridge_hpd_notify(&dp->bridge, status);
-+
-+	drm_dev_exit(idx);
-+	return IRQ_HANDLED;
-+}
-+
-+static int spacemit_dp_resource_init(struct spacemit_dp_dev *dp,
-+				     struct platform_device *pdev)
-+{
-+	struct device *dev = &pdev->dev;
-+	void __iomem *base;
-+
-+	base = devm_platform_ioremap_resource(pdev, 0);
-+	if (IS_ERR(base))
-+		return dev_err_probe(dev, PTR_ERR(base),
-+				     "failed to map registers\n");
-+	dp->regs = devm_regmap_init_mmio(dev, base, &spacemit_dp_regmap_config);
-+	if (IS_ERR(dp->regs))
-+		return dev_err_probe(dev, PTR_ERR(dp->regs),
-+				     "failed to init DP regmap\n");
-+
-+	dp->irq = platform_get_irq(pdev, 0);
-+	if (dp->irq < 0)
-+		return dp->irq;
-+
-+	return 0;
-+}
-+
-+static int spacemit_dp_dev_init(struct spacemit_dp_dev *dp)
-+{
-+	int ret;
-+	u32 m_isel = 0x5, m_mainsel = 0x19;
-+	u32 m_pre = 0x0, m_post = 0x2;
-+	u32 tx_mode = 0x1, tx_pre = 0x0;
-+	u32 clk_div = 24 * 1000 / 100;
-+
-+	regmap_write_bits(dp->regs, DP_PHYIF_CTRL_ADDR, DP_XMIT_ENABLE,
-+			  FIELD_PREP(DP_XMIT_ENABLE, 0));
-+	usleep_range(2000, 4000);
-+
-+	regmap_write_bits(dp->regs, DP_MPLL_CTRL0, DP_ANA_MPLL_PD,
-+			  FIELD_PREP(DP_ANA_MPLL_PD, 1));
-+	regmap_write_bits(dp->regs, DP_PREPLL_CTRL0, DP_ANA_PREPLL_PD,
-+			  FIELD_PREP(DP_ANA_PREPLL_PD, 1));
-+	usleep_range(2000, 4000);
-+
-+	/* Reset Controller and PHY */
-+	regmap_write_bits(dp->regs, DP_SOFT_RESET, DP_CONTROLLER_RESET,
-+			  FIELD_PREP(DP_CONTROLLER_RESET, 0x1));
-+	regmap_write_bits(dp->regs, DP_SOFT_RESET, DP_PHY_RESET,
-+			  FIELD_PREP(DP_PHY_RESET, 0x1));
-+	regmap_write_bits(dp->regs, DP_SOFT_RESET, DP_HDCP_RESET,
-+			  FIELD_PREP(DP_HDCP_RESET, 0x1));
-+	regmap_write_bits(dp->regs, DP_SOFT_RESET, DP_AUX_RESET,
-+			  FIELD_PREP(DP_AUX_RESET, 0x1));
-+	regmap_write_bits(dp->regs, DP_SOFT_RESET, DP_VIDEO_RESET,
-+			  FIELD_PREP(DP_VIDEO_RESET, 0x1));
-+	usleep_range(5000, 8000);
-+
-+	/* Release the resets */
-+	regmap_write_bits(dp->regs, DP_SOFT_RESET, DP_CONTROLLER_RESET,
-+			  FIELD_PREP(DP_CONTROLLER_RESET, 0x0));
-+	regmap_write_bits(dp->regs, DP_SOFT_RESET, DP_PHY_RESET,
-+			  FIELD_PREP(DP_PHY_RESET, 0x0));
-+	regmap_write_bits(dp->regs, DP_SOFT_RESET, DP_HDCP_RESET,
-+			  FIELD_PREP(DP_HDCP_RESET, 0x0));
-+	regmap_write_bits(dp->regs, DP_SOFT_RESET, DP_AUX_RESET,
-+			  FIELD_PREP(DP_AUX_RESET, 0x0));
-+	regmap_write_bits(dp->regs, DP_SOFT_RESET, DP_VIDEO_RESET,
-+			  FIELD_PREP(DP_VIDEO_RESET, 0x0));
-+	usleep_range(2000, 4000);
-+
-+	regmap_write(dp->regs, DP_GENERAL_INTERRUPT,
-+		     DP_AUX_REPLY_EVENT_INT_STA);
-+
-+	regmap_write_bits(dp->regs, DP_CORE_CONTROL,
-+			  DP_DEFAULT_FAST_LINK_TRAIN_EN,
-+			  FIELD_PREP(DP_DEFAULT_FAST_LINK_TRAIN_EN, 0x0));
-+	regmap_write_bits(dp->regs, DP_CORE_CONTROL, DP_SCRAMBLER_DISABLE,
-+			  FIELD_PREP(DP_SCRAMBLER_DISABLE, 0x0));
-+	regmap_write_bits(dp->regs, DP_CORE_CONTROL, DP_SCALE_DOWN_MODE,
-+			  FIELD_PREP(DP_SCALE_DOWN_MODE, 0x0));
-+	regmap_write_bits(dp->regs, DP_PHYIF_CTRL_ADDR, DP_XMIT_ENABLE,
-+			  FIELD_PREP(DP_XMIT_ENABLE, 0));
-+
-+	regmap_write_bits(dp->regs, DP_VIDEO_VSAMPLE_REG,
-+			  DP_VIDEO_STREAM_ENABLE,
-+			  FIELD_PREP(DP_VIDEO_STREAM_ENABLE, 0));
-+
-+	regmap_write_bits(dp->regs, DP_GENERAL_INTERRUPT_MASK,
-+			  DP_AUX_REPLY_EVENT_INT_STA_MSK,
-+			  FIELD_PREP(DP_AUX_REPLY_EVENT_INT_STA_MSK, 0x0));
-+	regmap_write_bits(dp->regs, DP_GENERAL_INTERRUPT_MASK,
-+			  DP_HDCP_INT_STA_MSK,
-+			  FIELD_PREP(DP_HDCP_INT_STA_MSK, 0x0));
-+	regmap_write_bits(dp->regs, DP_GENERAL_INTERRUPT_MASK,
-+			  DP_ILLEGAL_AUX_CMD_INT_STA_MSK,
-+			  FIELD_PREP(DP_ILLEGAL_AUX_CMD_INT_STA_MSK, 0x0));
-+	regmap_write_bits(dp->regs, DP_GENERAL_INTERRUPT_MASK,
-+			  DP_TYPE_C_EVENT_MSK,
-+			  FIELD_PREP(DP_TYPE_C_EVENT_MSK, 0x0));
-+	regmap_write_bits(dp->regs, DP_GENERAL_INTERRUPT_MASK, DP_DSC_EVENT_MSK,
-+			  FIELD_PREP(DP_DSC_EVENT_MSK, 0x0));
-+	regmap_write_bits(dp->regs, DP_GENERAL_INTERRUPT_MASK,
-+			  DP_SDP_INT_STA_S3_MSK,
-+			  FIELD_PREP(DP_SDP_INT_STA_S3_MSK, 0x0));
-+	regmap_write_bits(dp->regs, DP_GENERAL_INTERRUPT_MASK,
-+			  DP_SDP_INT_STA_S2_MSK,
-+			  FIELD_PREP(DP_SDP_INT_STA_S2_MSK, 0x0));
-+	regmap_write_bits(dp->regs, DP_GENERAL_INTERRUPT_MASK,
-+			  DP_SDP_INT_STA_S1_MSK,
-+			  FIELD_PREP(DP_SDP_INT_STA_S1_MSK, 0x0));
-+	regmap_write_bits(dp->regs, DP_GENERAL_INTERRUPT_MASK,
-+			  DP_SDP_INT_STA_S0_MSK,
-+			  FIELD_PREP(DP_SDP_INT_STA_S0_MSK, 0x0));
-+	regmap_write_bits(dp->regs, DP_GENERAL_INTERRUPT_MASK,
-+			  DP_VIDEO_FIFO_OVERFLOW_INT_STA_S3_MSK,
-+			  FIELD_PREP(DP_VIDEO_FIFO_OVERFLOW_INT_STA_S3_MSK, 0x0));
-+	regmap_write_bits(dp->regs, DP_GENERAL_INTERRUPT_MASK,
-+			  DP_VIDEO_FIFO_OVERFLOW_INT_STA_S2_MSK,
-+			  FIELD_PREP(DP_VIDEO_FIFO_OVERFLOW_INT_STA_S2_MSK, 0x0));
-+	regmap_write_bits(dp->regs, DP_GENERAL_INTERRUPT_MASK,
-+			  DP_VIDEO_FIFO_OVERFLOW_INT_STA_S1_MSK,
-+			  FIELD_PREP(DP_VIDEO_FIFO_OVERFLOW_INT_STA_S1_MSK, 0x0));
-+	regmap_write_bits(dp->regs, DP_GENERAL_INTERRUPT_MASK,
-+			  DP_VIDEO_FIFO_OVERFLOW_INT_STA_S0_MSK,
-+			  FIELD_PREP(DP_VIDEO_FIFO_OVERFLOW_INT_STA_S0_MSK, 0x0));
-+	regmap_write_bits(dp->regs, DP_HPD_INTERRUPT_ENABLE,
-+			  DP_SINK_IRQ_EVENT_MSK,
-+			  FIELD_PREP(DP_SINK_IRQ_EVENT_MSK, 0x0));
-+	regmap_write_bits(dp->regs, DP_GENERAL_INTERRUPT_MASK,
-+			  DP_HPD_INT_STA_MSK,
-+			  FIELD_PREP(DP_HPD_INT_STA_MSK, 0x1));
-+	regmap_write_bits(dp->regs, DP_HPD_INTERRUPT_ENABLE,
-+			  DP_HOT_PLUG_EVENT_MSK,
-+			  FIELD_PREP(DP_HOT_PLUG_EVENT_MSK, 0x1));
-+	regmap_write_bits(dp->regs, DP_HPD_INTERRUPT_ENABLE,
-+			  DP_HOT_UNPLUG_EVENT_MSK,
-+			  FIELD_PREP(DP_HOT_UNPLUG_EVENT_MSK, 0x1));
-+	regmap_write_bits(dp->regs, DP_HPD_INTERRUPT_ENABLE,
-+			  DP_SINK_UNPLUG_ERROR_EVENT_MSK,
-+			  FIELD_PREP(DP_SINK_UNPLUG_ERROR_EVENT_MSK, 0x0));
-+	usleep_range(2000, 4000);
-+
-+	regmap_write_bits(dp->regs, DP_PHYIF_CTRL_ADDR, DP_PHY_BUSY_BYP,
-+			  FIELD_PREP(DP_PHY_BUSY_BYP, 0x1));
-+
-+	/* Enable enhanced framing */
-+	regmap_write_bits(dp->regs, DP_CORE_CONTROL, DP_ENHANCE_FRAMING_EN,
-+			  FIELD_PREP(DP_ENHANCE_FRAMING_EN, 0x1));
-+
-+	ret = spacemit_dp_set_plls(dp, SPACEMIT_DP_LINK_RATE_2_70, 148500);
-+	if (ret)
-+		return ret;
-+
-+	ret = spacemit_dp_phy_set_lanes(dp, SPACEMIT_DP_LANE_2);
-+	if (ret)
-+		return ret;
-+
-+	ret = spacemit_dp_phy_on(dp);
-+	if (ret)
-+		return ret;
-+
-+	regmap_write_bits(dp->regs, DP_ANA_TX_CTRL3, DP_ANA_TX_MODE_D0,
-+			  FIELD_PREP(DP_ANA_TX_MODE_D0, 0));
-+	regmap_write_bits(dp->regs, DP_ANA_TX_CTRL3, DP_ANA_TX_MODE_D1,
-+			  FIELD_PREP(DP_ANA_TX_MODE_D1, 0));
-+	regmap_write_bits(dp->regs, DP_ANA_TX_CTRL3, DP_ANA_TX_MODE_D2,
-+			  FIELD_PREP(DP_ANA_TX_MODE_D2, 0));
-+	regmap_write_bits(dp->regs, DP_ANA_TX_CTRL3, DP_ANA_TX_MODE_D3,
-+			  FIELD_PREP(DP_ANA_TX_MODE_D3, 0));
-+	regmap_write_bits(dp->regs, DP_ANA_TX_CTRL7, DP_ANA_RTCAL_FREQDIV_HBIT,
-+			  FIELD_PREP(DP_ANA_RTCAL_FREQDIV_HBIT, (clk_div >> 8) & 0x7f));
-+	regmap_write_bits(dp->regs, DP_ANA_TX_CTRL7, DP_ANA_RTCAL_BYPASS,
-+			  FIELD_PREP(DP_ANA_RTCAL_BYPASS, 1));
-+	regmap_write_bits(dp->regs, DP_ANA_TX_CTRL7, DP_ANA_RTCAL_FREQDIV_LBIT,
-+			  FIELD_PREP(DP_ANA_RTCAL_FREQDIV_LBIT, clk_div & 0xff));
-+	regmap_write_bits(dp->regs, DP_ANA_TX_CTRL7, DP_ANA_BG_RCAL_SEL,
-+			  FIELD_PREP(DP_ANA_BG_RCAL_SEL, 0));
-+
-+	regmap_write_bits(dp->regs, DP_ANA_TX_CTRL8, DP_ANA_TX_RTM_D3,
-+			  FIELD_PREP(DP_ANA_TX_RTM_D3, 0));
-+	regmap_write_bits(dp->regs, DP_ANA_TX_CTRL8, DP_ANA_TX_RTM_D2,
-+			  FIELD_PREP(DP_ANA_TX_RTM_D2, 0));
-+	regmap_write_bits(dp->regs, DP_ANA_TX_CTRL8, DP_ANA_TX_RTM_D1,
-+			  FIELD_PREP(DP_ANA_TX_RTM_D1, 0));
-+	regmap_write_bits(dp->regs, DP_ANA_TX_CTRL8, DP_ANA_TX_RTM_D0,
-+			  FIELD_PREP(DP_ANA_TX_RTM_D0, 0));
-+	regmap_write_bits(dp->regs, DP_ANA_TX_CTRL7, DP_ANA_RTCAL_BYPASS,
-+			  FIELD_PREP(DP_ANA_RTCAL_BYPASS, 1));
-+	regmap_write_bits(dp->regs, DP_ANA_TX_CTRL7, DP_ANA_RTCAL_BYPASS,
-+			  FIELD_PREP(DP_ANA_RTCAL_BYPASS, 0));
-+	msleep(100);
-+
-+	regmap_write_bits(dp->regs, DP_ANA_LANE_EMPH, DP_ANA_TX_MODE_PRE_D3,
-+			  FIELD_PREP(DP_ANA_TX_MODE_PRE_D3, 1));
-+	regmap_write_bits(dp->regs, DP_ANA_LANE_EMPH, DP_ANA_TX_MODE_PRE_D2,
-+			  FIELD_PREP(DP_ANA_TX_MODE_PRE_D2, 1));
-+	regmap_write_bits(dp->regs, DP_ANA_LANE_EMPH, DP_ANA_TX_MODE_PRE_D1,
-+			  FIELD_PREP(DP_ANA_TX_MODE_PRE_D1, 1));
-+	regmap_write_bits(dp->regs, DP_ANA_LANE_EMPH, DP_ANA_TX_MODE_PRE_D0,
-+			  FIELD_PREP(DP_ANA_TX_MODE_PRE_D0, 1));
-+	regmap_write_bits(dp->regs, DP_ANA_LANE_EMPH, DP_ANA_TX_MODE_DE_D3,
-+			  FIELD_PREP(DP_ANA_TX_MODE_DE_D3, 1));
-+	regmap_write_bits(dp->regs, DP_ANA_LANE_EMPH, DP_ANA_TX_MODE_DE_D2,
-+			  FIELD_PREP(DP_ANA_TX_MODE_DE_D2, 1));
-+	regmap_write_bits(dp->regs, DP_ANA_LANE_EMPH, DP_ANA_TX_MODE_DE_D1,
-+			  FIELD_PREP(DP_ANA_TX_MODE_DE_D1, 1));
-+	regmap_write_bits(dp->regs, DP_ANA_LANE_EMPH, DP_ANA_TX_MODE_DE_D0,
-+			  FIELD_PREP(DP_ANA_TX_MODE_DE_D0, 1));
-+	regmap_write_bits(dp->regs, DP_ANA_LANE_EMPH, DP_ANA_TX_POSTSEL_PRE_D3,
-+			  FIELD_PREP(DP_ANA_TX_POSTSEL_PRE_D3, tx_pre));
-+	regmap_write_bits(dp->regs, DP_ANA_LANE_EMPH, DP_ANA_TX_POSTSEL_PRE_D2,
-+			  FIELD_PREP(DP_ANA_TX_POSTSEL_PRE_D2, tx_pre));
-+	regmap_write_bits(dp->regs, DP_ANA_LANE_EMPH, DP_ANA_TX_POSTSEL_PRE_D1,
-+			  FIELD_PREP(DP_ANA_TX_POSTSEL_PRE_D1, tx_pre));
-+	regmap_write_bits(dp->regs, DP_ANA_LANE_EMPH, DP_ANA_TX_POSTSEL_PRE_D0,
-+			  FIELD_PREP(DP_ANA_TX_POSTSEL_PRE_D0, tx_pre));
-+	regmap_write_bits(dp->regs, DP_ANA_TX_ENABLE, DP_ANA_TX_ISEL_DRV_D3,
-+			  FIELD_PREP(DP_ANA_TX_ISEL_DRV_D3, m_isel));
-+	regmap_write_bits(dp->regs, DP_ANA_TX_ENABLE, DP_ANA_TX_ISEL_DRV_D2,
-+			  FIELD_PREP(DP_ANA_TX_ISEL_DRV_D2, m_isel));
-+	regmap_write_bits(dp->regs, DP_ANA_TX_CTRL1, DP_ANA_TX_MAINSEL_D2,
-+			  FIELD_PREP(DP_ANA_TX_MAINSEL_D2, m_mainsel));
-+	regmap_write_bits(dp->regs, DP_ANA_TX_CTRL1, DP_ANA_TX_MAINSEL_D3,
-+			  FIELD_PREP(DP_ANA_TX_MAINSEL_D3, m_mainsel));
-+	regmap_write_bits(dp->regs, DP_ANA_TX_CTRL1, DP_ANA_TX_ISEL_DRV_D1,
-+			  FIELD_PREP(DP_ANA_TX_ISEL_DRV_D1, m_isel));
-+	regmap_write_bits(dp->regs, DP_ANA_TX_CTRL1, DP_ANA_TX_ISEL_DRV_D0,
-+			  FIELD_PREP(DP_ANA_TX_ISEL_DRV_D0, m_isel));
-+	regmap_write_bits(dp->regs, DP_ANA_TX_CTRL2, DP_ANA_TX_POSTSEL_D1,
-+			  FIELD_PREP(DP_ANA_TX_POSTSEL_D1, m_post));
-+	regmap_write_bits(dp->regs, DP_ANA_TX_CTRL2, DP_ANA_TX_POSTSEL_D0,
-+			  FIELD_PREP(DP_ANA_TX_POSTSEL_D0, m_post));
-+	regmap_write_bits(dp->regs, DP_ANA_TX_CTRL2, DP_ANA_TX_POSTSEL_D3,
-+			  FIELD_PREP(DP_ANA_TX_POSTSEL_D3, m_post));
-+	regmap_write_bits(dp->regs, DP_ANA_TX_CTRL2, DP_ANA_TX_POSTSEL_D2,
-+			  FIELD_PREP(DP_ANA_TX_POSTSEL_D2, m_post));
-+	regmap_write_bits(dp->regs, DP_ANA_TX_CTRL2, DP_DA_TX_MAINSEL_D0_4_0,
-+			  FIELD_PREP(DP_DA_TX_MAINSEL_D0_4_0, m_mainsel));
-+	regmap_write_bits(dp->regs, DP_ANA_TX_CTRL2, DP_ANA_TX_MAINSEL_D1,
-+			  FIELD_PREP(DP_ANA_TX_MAINSEL_D1, m_mainsel));
-+	regmap_write_bits(dp->regs, DP_ANA_TX_CTRL3, DP_ANA_TX_PRESEL_D1,
-+			  FIELD_PREP(DP_ANA_TX_PRESEL_D1, m_pre));
-+	regmap_write_bits(dp->regs, DP_ANA_TX_CTRL3, DP_ANA_TX_PRESEL_D0,
-+			  FIELD_PREP(DP_ANA_TX_PRESEL_D0, m_pre));
-+	regmap_write_bits(dp->regs, DP_ANA_TX_CTRL3, DP_ANA_TX_PRESEL_D3,
-+			  FIELD_PREP(DP_ANA_TX_PRESEL_D3, m_pre));
-+	regmap_write_bits(dp->regs, DP_ANA_TX_CTRL3, DP_ANA_TX_PRESEL_D2,
-+			  FIELD_PREP(DP_ANA_TX_PRESEL_D2, m_pre));
-+	regmap_write_bits(dp->regs, DP_ANA_TX_CTRL3, DP_ANA_TX_MODE_D3,
-+			  FIELD_PREP(DP_ANA_TX_MODE_D3, tx_mode));
-+	regmap_write_bits(dp->regs, DP_ANA_TX_CTRL3, DP_ANA_TX_MODE_D2,
-+			  FIELD_PREP(DP_ANA_TX_MODE_D2, tx_mode));
-+	regmap_write_bits(dp->regs, DP_ANA_TX_CTRL3, DP_ANA_TX_MODE_D1,
-+			  FIELD_PREP(DP_ANA_TX_MODE_D1, tx_mode));
-+	regmap_write_bits(dp->regs, DP_ANA_TX_CTRL3, DP_ANA_TX_MODE_D0,
-+			  FIELD_PREP(DP_ANA_TX_MODE_D0, tx_mode));
-+	regmap_write_bits(dp->regs, DP_ANA_TX_AUX_CTRL, DP_ANA_TX_AUX_RX_VSEL,
-+			  FIELD_PREP(DP_ANA_TX_AUX_RX_VSEL, 0x0));
-+
-+	return 0;
-+}
-+
-+static int spacemit_dp_bind(struct device *dev, struct device *master,
-+			    void *data)
-+{
-+	struct spacemit_dp_dev *dp = dev_get_drvdata(dev);
-+	struct drm_device *drm = data;
-+	struct device_node *ep;
-+	int ret;
-+
-+	dp->drm = drm;
-+	dp->aux.drm_dev = drm;
-+	ret = drm_dp_aux_register(&dp->aux);
-+	if (ret) {
-+		dev_err_probe(dev, ret, "failed to register DP AUX\n");
-+		goto err_drm;
-+	}
-+
-+	ret = drm_encoder_init(drm, &dp->encoder, &spacemit_dp_encoder_funcs,
-+			       DRM_MODE_ENCODER_NONE, NULL);
-+	if (ret) {
-+		dev_err_probe(dev, ret, "failed to init encoder\n");
-+		goto err_aux;
-+	}
-+
-+	ep = of_graph_get_endpoint_by_regs(dev->of_node, 0, -1);
-+	if (ep) {
-+		struct device_node *remote = of_graph_get_remote_port(ep);
-+
-+		dp->encoder.possible_crtcs = drm_of_crtc_port_mask(drm, remote);
-+		of_node_put(remote);
-+		of_node_put(ep);
-+	}
-+
-+	ret = drm_bridge_attach(&dp->encoder, &dp->bridge, NULL,
-+				DRM_BRIDGE_ATTACH_NO_CONNECTOR);
-+	if (ret) {
-+		dev_err_probe(dev, ret, "failed to attach bridge\n");
-+		goto err_encoder;
-+	}
-+
-+	dp->connector = drm_bridge_connector_init(drm, &dp->encoder);
-+	if (IS_ERR(dp->connector)) {
-+		ret = PTR_ERR(dp->connector);
-+		dev_err_probe(dev, ret, "failed to init bridge connector\n");
-+		goto err_encoder;
-+	}
-+
-+	ret = spacemit_dp_dev_init(dp);
-+	if (ret)
-+		goto err_encoder;
-+
-+	spacemit_dp_link_disable(dp);
-+
-+	WRITE_ONCE(dp->connector_status, spacemit_dp_hw_detect_hpd(dp));
-+	spacemit_dp_hw_clean_hpd(dp);
-+
-+	if (dp->connector_status == connector_status_connected)
-+		spacemit_dp_hw_read_sink_caps(dp);
-+
-+	drm_bridge_hpd_notify(&dp->bridge,
-+			      spacemit_dp_bridge_detect(&dp->bridge,
-+							dp->connector));
-+
-+	enable_irq(dp->irq);
-+
-+	return 0;
-+
-+err_encoder:
-+	drm_encoder_cleanup(&dp->encoder);
-+err_aux:
-+	drm_dp_aux_unregister(&dp->aux);
-+err_drm:
-+	/* The master releases the drm_device; the AUX channel outlives it. */
-+	dp->drm = NULL;
-+	dp->connector = NULL;
-+	dp->aux.drm_dev = NULL;
-+	return ret;
-+}
-+
-+static void spacemit_dp_unbind(struct device *dev, struct device *master,
-+			       void *data)
-+{
-+	struct spacemit_dp_dev *dp = dev_get_drvdata(dev);
-+
-+	disable_irq(dp->irq);
-+
-+	/* The connector this work touches dies with the DRM device. */
-+	cancel_work_sync(&dp->modeset_retry_work);
-+
-+	drm_dp_aux_unregister(&dp->aux);
-+
-+	spacemit_dp_hw_disable(dp);
-+
-+	drm_encoder_cleanup(&dp->encoder);
-+
-+	dp->drm = NULL;
-+	dp->connector = NULL;
-+	dp->aux.drm_dev = NULL;
-+}
-+
-+static const struct component_ops spacemit_dp_ops = {
-+	.bind = spacemit_dp_bind,
-+	.unbind = spacemit_dp_unbind,
-+};
-+
-+/*
-+ * AUX-bus done-probing callback. The controller joins the DRM device only
-+ * now, so the bind always finds the panel bridge at the end of the chain.
-+ */
-+static int spacemit_dp_edp_link_panel(struct drm_dp_aux *aux)
-+{
-+	struct spacemit_dp_dev *dp = container_of(aux, struct spacemit_dp_dev,
-+						  aux);
-+	struct drm_bridge *next;
-+	int ret;
-+
-+	/* A panel that probes again cannot join a registered controller. */
-+	if (dp->component_added)
-+		return -EBUSY;
-+
-+	next = devm_drm_of_get_bridge(dp->dev, dp->dev->of_node, 1, 0);
-+	if (IS_ERR(next))
-+		return PTR_ERR(next);
-+
-+	/* Held until the bridge is freed; the core drops it then. */
-+	dp->bridge.next_bridge = drm_bridge_get(next);
-+
-+	ret = component_add(dp->dev, &spacemit_dp_ops);
-+	if (ret) {
-+		dp->bridge.next_bridge = NULL;
-+		drm_bridge_put(next);
-+		return ret;
-+	}
-+	dp->component_added = true;
-+
-+	return 0;
-+}
-+
-+/* Leave the DRM device, or power down a controller that never joined one. */
-+static void spacemit_dp_unregister(struct spacemit_dp_dev *dp)
-+{
-+	if (dp->component_added)
-+		component_del(dp->dev, &spacemit_dp_ops);
-+	else
-+		spacemit_dp_hw_disable(dp);
-+}
-+
-+/*
-+ * Registered after devm_of_platform_populate(), so devres runs it before
-+ * the PHY child (and the PLL clock it provides) is torn down: unregistering
-+ * a clock that still has an enabled child warns, a disabled child is
-+ * orphaned silently.
-+ */
-+static void spacemit_dp_pxclk_disable(void *data)
-+{
-+	clk_disable_unprepare(data);
-+}
-+
-+static int spacemit_dp_probe(struct platform_device *pdev)
-+{
-+	struct device *dev = &pdev->dev;
-+	struct device_node *aux_bus_np;
-+	struct spacemit_dp_dev *dp;
-+	struct reset_control *rstc;
-+	int ret;
-+
-+	dp = devm_drm_bridge_alloc(dev, struct spacemit_dp_dev, bridge,
-+				   &spacemit_dp_bridge_funcs);
-+	if (IS_ERR(dp))
-+		return PTR_ERR(dp);
-+
-+	dp->dev = dev;
-+	INIT_WORK(&dp->modeset_retry_work, spacemit_dp_modeset_retry_work);
-+
-+	/* eDP instances have an aux-bus child node; DP instances do not. */
-+	aux_bus_np = of_get_child_by_name(dev->of_node, "aux-bus");
-+	dp->edp_mode = !!aux_bus_np;
-+	of_node_put(aux_bus_np);
-+
-+	dp->bridge.of_node = dev->of_node;
-+	dp->connector_status = connector_status_disconnected;
-+	ret = devm_mutex_init(dev, &dp->mode_lock);
-+	if (ret)
-+		return ret;
-+
-+	rstc = devm_reset_control_get_exclusive_deasserted(&pdev->dev, NULL);
-+	if (IS_ERR(rstc))
-+		return dev_err_probe(dev, PTR_ERR(rstc),
-+				     "failed to get reset\n");
-+
-+	dp->pxclk = devm_clk_get(dev, "pxclk");
-+	if (IS_ERR(dp->pxclk))
-+		return dev_err_probe(dev, PTR_ERR(dp->pxclk),
-+				     "failed to get pxclk\n");
-+
-+	if (dp->edp_mode) {
-+		dp->bridge.type = DRM_MODE_CONNECTOR_eDP;
-+		/* .detect() reports the fixed panel as connected. */
-+		dp->bridge.ops = DRM_BRIDGE_OP_DETECT | DRM_BRIDGE_OP_HPD;
-+	} else {
-+		dp->bridge.type = DRM_MODE_CONNECTOR_DisplayPort;
-+		/*
-+		 * No OP_HPD: the HPD interrupt is gated by the DP pixel clock.
-+		 * Leaving it out marks the connector POLL_CONNECT |
-+		 * POLL_DISCONNECT instead.
-+		 */
-+		dp->bridge.ops = DRM_BRIDGE_OP_DETECT | DRM_BRIDGE_OP_EDID;
-+	}
-+
-+	ret = clk_prepare_enable(dp->pxclk);
-+	if (ret)
-+		return dev_err_probe(dev, ret, "failed to enable pxclk\n");
-+
-+	/*
-+	 * The PHY child shares this device's regmap, so the regmap must exist
-+	 * before devm_of_platform_populate() lets the PHY probe and
-+	 * devm_phy_get() succeed.
-+	 */
-+	ret = spacemit_dp_resource_init(dp, pdev);
-+	if (ret)
-+		goto err_disable_pxclk;
-+
-+	ret = devm_of_platform_populate(dev);
-+	if (ret) {
-+		dev_err_probe(dev, ret, "failed to populate child devices\n");
-+		goto err_disable_pxclk;
-+	}
-+
-+	dp->phy = devm_phy_get(dev, "dp");
-+	if (IS_ERR(dp->phy)) {
-+		ret = dev_err_probe(dev, PTR_ERR(dp->phy),
-+				    "failed to get DP PHY\n");
-+		goto err_disable_pxclk;
-+	}
-+
-+	/*
-+	 * The PHY exposes its PLL as the APMU pixel-clock mux's external
-+	 * parent.
-+	 */
-+	dp->pll_clk = devm_clk_get(dev, "pll");
-+	if (IS_ERR(dp->pll_clk)) {
-+		ret = dev_err_probe(dev, PTR_ERR(dp->pll_clk),
-+				    "failed to get PHY pixel clock\n");
-+		goto err_disable_pxclk;
-+	}
-+
-+	ret = clk_set_parent(dp->pxclk, dp->pll_clk);
-+	if (ret) {
-+		dev_err_probe(dev, ret,
-+			      "failed to route the pixel mux to the PHY PLL\n");
-+		goto err_disable_pxclk;
-+	}
-+
-+	ret = devm_add_action_or_reset(dev, spacemit_dp_pxclk_disable,
-+				       dp->pxclk);
-+	if (ret)
-+		return ret;
-+
-+	/*
-+	 * Panel discovery needs the AUX channel here; registration waits for
-+	 * bind.
-+	 */
-+	dp->aux.name = "spacemit-dp-aux";
-+	dp->aux.dev = dev;
-+	dp->aux.transfer = spacemit_dp_aux_transfer;
-+	dp->aux.no_zero_sized = true;
-+	drm_dp_aux_init(&dp->aux);
-+	dp->bridge.ddc = &dp->aux.ddc;
-+
-+	/*
-+	 * drm_bridge_attach() expects the bridge to already be on the global
-+	 * list.
-+	 */
-+	ret = devm_drm_bridge_add(dev, &dp->bridge);
-+	if (ret)
-+		return dev_err_probe(dev, ret, "failed to register DP bridge\n");
-+
-+	platform_set_drvdata(pdev, dp);
-+
-+	/*
-+	 * The handler needs bind-created state, so keep the line disabled until
-+	 * bind.
-+	 */
-+	ret = devm_request_threaded_irq(dev, dp->irq, spacemit_dp_irq_handler,
-+					spacemit_dp_hotplug_event_handler,
-+					IRQF_NO_AUTOEN, dev_name(dev), dp);
-+	if (ret)
-+		return ret;
-+
-+	if (!dp->edp_mode) {
-+		ret = component_add(dev, &spacemit_dp_ops);
-+		if (ret)
-+			return dev_err_probe(dev, ret,
-+					     "failed to add component\n");
-+		dp->component_added = true;
-+
-+		return 0;
-+	}
-+
-+	/*
-+	 * eDP hands panel power, enable-GPIO and backlight to panel-edp over
-+	 * the AUX bus, and panel-edp reads the EDID over AUX while it probes:
-+	 * bring the controller up first. The component is added once the panel
-+	 * is there, from spacemit_dp_edp_link_panel(); that may be before this
-+	 * call returns.
-+	 */
-+	ret = spacemit_dp_dev_init(dp);
-+	if (ret) {
-+		spacemit_dp_hw_disable(dp);
-+		return dev_err_probe(dev, ret,
-+				     "eDP: failed to bring up the controller\n");
-+	}
-+	spacemit_dp_link_disable(dp);
-+
-+	ret = devm_of_dp_aux_populate_bus(&dp->aux, spacemit_dp_edp_link_panel);
-+	if (ret) {
-+		spacemit_dp_unregister(dp);
-+		return dev_err_probe(dev, ret,
-+				     "eDP: failed to populate aux-bus panel\n");
-+	}
-+
-+	return 0;
-+
-+err_disable_pxclk:
-+	clk_disable_unprepare(dp->pxclk);
-+	return ret;
-+}
-+
-+static void spacemit_dp_remove(struct platform_device *pdev)
-+{
-+	spacemit_dp_unregister(platform_get_drvdata(pdev));
-+}
-+
-+static void spacemit_dp_shutdown(struct platform_device *pdev)
-+{
-+	spacemit_dp_hw_disable(platform_get_drvdata(pdev));
-+}
-+
-+static const struct of_device_id spacemit_dp_match[] = {
-+	{ .compatible = "spacemit,k3-inno-dp" },
-+	{}
-+};
-+MODULE_DEVICE_TABLE(of, spacemit_dp_match);
-+
-+static struct platform_driver spacemit_dp_driver = {
-+	.probe = spacemit_dp_probe,
-+	.remove = spacemit_dp_remove,
-+	.shutdown = spacemit_dp_shutdown,
-+	.driver = {
-+		.name = "spacemit-inno-dp-drv",
-+		.of_match_table = spacemit_dp_match,
-+	},
-+};
-+
-+module_platform_driver(spacemit_dp_driver);
-+
-+MODULE_DESCRIPTION("SpacemiT K3 Innosilicon DP/eDP bridge driver");
-+MODULE_LICENSE("GPL");
-+MODULE_SOFTDEP("pre: phy-k3-inno-dp");
-diff --git a/drivers/gpu/drm/spacemit/spacemit_inno_dp.h b/drivers/gpu/drm/spacemit/spacemit_inno_dp.h
-new file mode 100644
-index 0000000000000..fa61783102ce0
---- /dev/null
-+++ b/drivers/gpu/drm/spacemit/spacemit_inno_dp.h
-@@ -0,0 +1,328 @@
++++ b/drivers/gpu/drm/spacemit/dpu/saturn_regs/dpu_int.h
+@@ -0,0 +1,25 @@
 +/* SPDX-License-Identifier: GPL-2.0 */
 +/*
 + * Copyright (C) 2025-2026 SpacemiT Co., Ltd.
 + *
 + */
 +
-+#ifndef __SPACEMIT_INNO_DP_H__
-+#define __SPACEMIT_INNO_DP_H__
++#ifndef DPU_INT_H
++#define DPU_INT_H
 +
 +#include <linux/bits.h>
 +
-+#define DP_CORE_CONTROL                      0x0018
-+#define  DP_SCRAMBLER_DISABLE               BIT(31)
-+#define  DP_ENHANCE_FRAMING_EN              BIT(30)
-+#define  DP_DEFAULT_FAST_LINK_TRAIN_EN      BIT(29)
-+#define  DP_SCALE_DOWN_MODE                 BIT(28)
-+#define  DP_FORCE_HPD                       BIT(27)
-+#define  DP_ENABLE_EDP                      BIT(4)
++#define DPU_INT_CMDLIST_CH_FRM_CFG_DONE_MASK	(0xff)
++#define DPU_INT_CMDLIST_CH_FRM_CFG_DONE		(DPU_INT_CMDLIST_CH_FRM_CFG_DONE_MASK << 11)
++#define DPU_INT_FRM_TIMING_UNFLOW		BIT(8)
++#define DPU_INT_CFG_RDY_CLR			BIT(5)
++#define DPU_INT_FRM_TIMING_CFG_LINE		BIT(4)
++#define DPU_INT_FRM_TIMING_CFG_EOF		(BIT(2) | BIT(3))
++#define DPU_INT_FRM_TIMING_EOF			BIT(1)
++#define DPU_INT_FRM_TIMING_VSYNC		BIT(0)
++#define DPU_REST_INT_BITS			(DPU_INT_FRM_TIMING_CFG_EOF | \
++						 DPU_INT_FRM_TIMING_CFG_LINE | \
++						 DPU_INT_FRM_TIMING_EOF | \
++						 DPU_INT_CMDLIST_CH_FRM_CFG_DONE)
 +
-+#define DP_SOFT_RESET                        0x001c
-+#define  DP_CONTROLLER_RESET                BIT(31)
-+#define  DP_PHY_RESET                       BIT(30)
-+#define  DP_HDCP_RESET                      BIT(29)
-+#define  DP_AUDIO_RESET                     BIT(28)
-+#define  DP_AUX_RESET                       BIT(27)
-+#define  DP_VIDEO_RESET                     GENMASK(3, 0)
++#endif /* DPU_INT_H */
+diff --git a/drivers/gpu/drm/spacemit/dpu/saturn_regs/reg_map_hee.h b/drivers/gpu/drm/spacemit/dpu/saturn_regs/reg_map_hee.h
+new file mode 100644
+index 0000000000000..9c7d90aaf3a41
+--- /dev/null
++++ b/drivers/gpu/drm/spacemit/dpu/saturn_regs/reg_map_hee.h
+@@ -0,0 +1,65 @@
++/* SPDX-License-Identifier: GPL-2.0 */
++/*
++ * Copyright (C) 2025-2026 SpacemiT Co., Ltd.
++ *
++ */
 +
-+#define DP_CLK_INV_MUX                       0x0028
-+#define  DP_REG_VID_CLK_SEL                 BIT(0)
++#ifndef _SATURN_REG_MAP_HEE_H_
++#define _SATURN_REG_MAP_HEE_H_
 +
-+/* Interrupt status latches; write 1 to clear. */
-+#define DP_GENERAL_INTERRUPT                 0x0080
-+#define  DP_AUX_REPLY_EVENT_INT_STA         BIT(16)
++#include "dpu_int.h"
 +
-+#define DP_GENERAL_INTERRUPT_MASK            0x0084
-+#define  DP_HPD_INT_STA_MSK                 BIT(17)
-+#define  DP_AUX_REPLY_EVENT_INT_STA_MSK     BIT(16)
-+#define  DP_HDCP_INT_STA_MSK                BIT(15)
-+#define  DP_ILLEGAL_AUX_CMD_INT_STA_MSK     BIT(14)
-+#define  DP_TYPE_C_EVENT_MSK                BIT(13)
-+#define  DP_DSC_EVENT_MSK                   BIT(12)
-+#define  DP_SDP_INT_STA_S3_MSK              BIT(11)
-+#define  DP_SDP_INT_STA_S2_MSK              BIT(10)
-+#define  DP_SDP_INT_STA_S1_MSK              BIT(9)
-+#define  DP_SDP_INT_STA_S0_MSK              BIT(8)
-+#define  DP_VIDEO_FIFO_OVERFLOW_INT_STA_S3_MSK BIT(7)
-+#define  DP_VIDEO_FIFO_OVERFLOW_INT_STA_S2_MSK BIT(6)
-+#define  DP_VIDEO_FIFO_OVERFLOW_INT_STA_S1_MSK BIT(5)
-+#define  DP_VIDEO_FIFO_OVERFLOW_INT_STA_S0_MSK BIT(4)
++/* Block base addresses */
 +
-+#define DP_HPD_INTERRUPT_STATUS              0x0088
-+#define  DP_HOT_PLUG_EVENT                  BIT(29)
-+#define  DP_HOT_UNPLUG_EVENT                BIT(28)
-+#define  DP_HPD_IN_STATUS                   BIT(26)
++#define DPU_TOP_BASE_ADDR 0x0
++#define DPU_CTRL_BASE_ADDR 0x3c0 /* dpu_ctl_top start address */
++#define CMDLIST_BASE_ADDR 0x500
++#define DPU_INT_BASE_ADDR 0x700
 +
-+#define DP_HPD_INTERRUPT_ENABLE              0x008c
-+#define  DP_SINK_IRQ_EVENT_MSK              BIT(31)
-+#define  DP_HOT_PLUG_EVENT_MSK              BIT(29)
-+#define  DP_HOT_UNPLUG_EVENT_MSK            BIT(28)
-+#define  DP_SINK_UNPLUG_ERROR_EVENT_MSK     BIT(27)
++#define DPU_ONLINE_IRQ_MSK	(3 * 4)
++#define DPU_ONLINE_IRQ_STS	(12 * 4)
 +
-+#define DP_PHYIF_CTRL_ADDR                   0x0100
-+#define  DP_PHY_BUSY_BYP                    BIT(31)
-+#define  DP_TPS_SEL                         GENMASK(28, 25)
-+#define  DP_XMIT_ENABLE                     GENMASK(20, 17)
-+#define  DP_PHY_POWERDOWN                   GENMASK(16, 13)
-+#define  DP_PHY_SSC_DIS                     BIT(8)
-+#define  DP_PHY_NUM_LANES                   GENMASK(6, 5)
-+#define  DP_PHY_RATE                        GENMASK(1, 0)
++#define DMA_TOP_BASE_ADDR (RDMA0_BASE_ADDR + 0x280)
 +
-+#define DP_PHYIF_TX_EQ_ADDR                  0x0104
-+#define  DP_PHY_LANE3_TX_VSWING             GENMASK(21, 20)
-+#define  DP_PHY_LANE3_TX_PREEMP             GENMASK(19, 18)
-+#define  DP_PHY_LANE2_TX_VSWING             GENMASK(15, 14)
-+#define  DP_PHY_LANE2_TX_PREEMP             GENMASK(13, 12)
-+#define  DP_PHY_LANE1_TX_VSWING             GENMASK(9, 8)
-+#define  DP_PHY_LANE1_TX_PREEMP             GENMASK(7, 6)
-+#define  DP_PHY_LANE0_TX_VSWING             GENMASK(3, 2)
-+#define  DP_PHY_LANE0_TX_PREEMP             GENMASK(1, 0)
++#define RDMA0_BASE_ADDR (0x00001000)
++#define RDMA1_BASE_ADDR (RDMA0_BASE_ADDR + 0x1000)
++#define RDMA2_BASE_ADDR (RDMA0_BASE_ADDR + 0xa000)
++#define RDMA3_BASE_ADDR (RDMA0_BASE_ADDR + 0xb000)
 +
-+#define DP_MPLL_CTRL0                        0x0180
-+#define  DP_ANA_MPLL_FBDIV_LBIT             GENMASK(31, 24)
-+#define  DP_ANA_MPLL_SEL_EXTWAVE            BIT(22)
-+#define  DP_ANA_MPLL_DISABLE_SSCG           BIT(21)
-+#define  DP_ANA_MPLL_DOWNSPREAD             BIT(20)
-+#define  DP_ANA_MPLL_FBDIV_HBIT             GENMASK(19, 16)
-+#define  DP_ANA_MPLL_OBSEN                  BIT(15)
-+#define  DP_ANA_MPLL_OBSSEL                 BIT(14)
-+#define  DP_ANA_MPLL_PREDIV                 GENMASK(13, 8)
-+#define  DP_AD_LOCK_COREPLL                 BIT(7)
-+#define  DP_ANA_MPLL_DACPD                  BIT(5)
-+#define  DP_ANA_MPLL_DSMPD                  BIT(4)
-+#define  DP_ANA_MPLL_PD                     BIT(0)
++#define MMU_BASE_ADDR (0x1100)
++#define MMU_TOP_BASE_ADDR (MMU_BASE_ADDR + 0x100)
 +
-+#define DP_MPLL_CTRL1                        0x0184
-+#define  DP_ANA_MPLL_FRAC_LBIT              GENMASK(23, 16)
-+#define  DP_ANA_MPLL_FRAC_MBIT              GENMASK(15, 8)
-+#define  DP_ANA_MPLL_FRAC_HBIT              GENMASK(7, 0)
++#define TBU0_ADDR 0x1100
++#define TBU1_ADDR 0x1180
++#define TBU2_ADDR 0x2100
++#define TBU3_ADDR 0x2180
++#define TBU4_ADDR 0xb100
++#define TBU5_ADDR 0xb180
++#define TBU6_ADDR 0xc100
++#define TBU7_ADDR 0xc180
 +
-+#define DP_MPLL_CTRL2                        0x0188
-+#define  DP_ANA_MPLL_VCOCLK_DIV8_EN         BIT(16)
-+#define  DP_ANA_MPLL_POSTDIVEN              BIT(11)
-+#define  DP_ANA_MPLL_POSTDIV                GENMASK(10, 8)
++#define CMP0_BASE_ADDR 0x00018000
++#define CMP1_BASE_ADDR (CMP0_BASE_ADDR + 0x18000)
++#define CMP2_BASE_ADDR (CMP0_BASE_ADDR + 0x30000)
 +
-+#define DP_PREPLL_CTRL0                      0x0190
-+#define  DP_ANA_PREPLL_FBDIV2_LBIT          GENMASK(31, 24)
-+#define  DP_ANA_PREPLL_FBDIV2_HBIT          GENMASK(19, 16)
-+#define  DP_ANA_PREPLL_PREDIV               GENMASK(13, 8)
-+#define  DP_AD_LOCK_PIXELPLL                BIT(7)
-+#define  DP_ANA_PREPLL_DACPD                BIT(5)
-+#define  DP_ANA_PREPLL_DSMPD                BIT(4)
-+#define  DP_REG_PCLK_OUTPUT_NORMAL          BIT(1)
-+#define  DP_ANA_PREPLL_PD                   BIT(0)
++#define PREPIPE_SCAL0_BASE_ADDR 0x14000
++#define PREPIPE_SCAL1_BASE_ADDR 0x14400
++#define PREPIPE_SCAL2_BASE_ADDR 0x14800
++#define PREPIPE_SCAL3_BASE_ADDR 0x14c00
 +
-+#define DP_PREPLL_CTRL1                      0x0194
-+#define  DP_ANA_PREPLL_PRECLK_DIVM          GENMASK(17, 16)
-+#define  DP_ANA_PREPLL_PRECLK_DIVAUX        GENMASK(12, 8)
++#define POST_PIPE_ADDR (CMP1_BASE_ADDR + 0x300)
 +
-+#define DP_PREPLL_CTRL2                      0x0198
-+#define  DP_ANA_PREPLL_PCLKDIV5_EN          BIT(31)
-+#define  DP_ANA_PREPLL_PCLK_DIVAUX          GENMASK(28, 24)
-+#define  DP_ANA_PREPLL_LOCK_BYPEN           BIT(17)
-+#define  DP_ANA_PREPLL_LOWFRE_EN            BIT(16)
-+#define  DP_ANA_PREPLL_TESTEN               BIT(15)
-+#define  DP_ANA_PREPLL_TESTSEL              GENMASK(14, 12)
-+#define  DP_ANA_PREPLL_HDMI_EN              BIT(9)
-+#define  DP_ANA_PREPLL_DP_EN                BIT(8)
++#define EE_ADDR (CMP1_BASE_ADDR + 0xd00)
 +
-+#define DP_PREPLL_SSC_CTRL                   0x019c
-+#define  DP_ANA_PREPLL_FRAC2_LBIT           GENMASK(23, 16)
-+#define  DP_ANA_PREPLL_FRAC2_MBIT           GENMASK(15, 8)
-+#define  DP_ANA_PREPLL_FRAC2_HBIT           GENMASK(7, 0)
++#define DPU_SCENE_CTL_BASE_ADDR (0x300)
++#define DPU_SCENE_CTL_SIZE 0x40
++#define DPU_SCENE_CTL_ADDR(i) (DPU_SCENE_CTL_BASE_ADDR + (i) * DPU_SCENE_CTL_SIZE)
 +
-+#define DP_ANA_TX_CTRL0                      0x01a0
-+#define  DP_ANA_MPLL_CLKDIV_16M             GENMASK(13, 8)
++#define TMG0_BASE_ADDR (0x00051000 + 0x200)
 +
-+#define DP_ANA_TX_ENABLE                     0x01a4
-+#define  DP_ANA_TX_ISEL_DRV_D3              GENMASK(31, 28)
-+#define  DP_ANA_TX_ISEL_DRV_D2              GENMASK(27, 24)
-+#define  DP_AD_TX_ESDSENSE_D3               GENMASK(23, 22)
-+#define  DP_AD_TX_ESDSENSE_D2               GENMASK(21, 20)
-+#define  DP_AD_TX_ESDSENSE_D1               GENMASK(19, 18)
-+#define  DP_AD_TX_ESDSENSE_D0               GENMASK(17, 16)
-+#define  DP_ANA_TX_EN_LDO_D3                BIT(11)
-+#define  DP_ANA_TX_EN_LDO_D2                BIT(10)
-+#define  DP_ANA_TX_EN_LDO_D1                BIT(9)
-+#define  DP_ANA_TX_EN_LDO_D0                BIT(8)
-+#define  DP_ANA_TX_EN_BYP_D3                BIT(7)
-+#define  DP_ANA_TX_EN_BYP_D2                BIT(6)
-+#define  DP_ANA_TX_EN_BYP_D1                BIT(5)
-+#define  DP_ANA_TX_EN_BYP_D0                BIT(4)
-+#define  DP_ANA_TX_EN_DRV_D3                BIT(3)
-+#define  DP_ANA_TX_EN_DRV_D2                BIT(2)
-+#define  DP_ANA_TX_EN_DRV_D1                BIT(1)
-+#define  DP_ANA_TX_EN_DRV_D0                BIT(0)
++/* Byte offsets from DPU_CTRL_BASE_ADDR */
++#define CMDLIST_CH_Y                 0x188
++#define CMDLIST_CH_START_CMPS_Y      0x90
++#define CMDLIST_CFG_READY            0x34
 +
-+#define DP_ANA_TX_CTRL1                      0x01a8
-+#define  DP_ANA_TX_PHASE_D2                 GENMASK(31, 30)
-+#define  DP_ANA_TX_MAINSEL_D2               GENMASK(28, 24)
-+#define  DP_ANA_TX_PHASE_D3                 GENMASK(23, 22)
-+#define  DP_ANA_TX_MAINSEL_D3               GENMASK(20, 16)
-+#define  DP_ANA_TX_ISEL_LDO_D3              BIT(11)
-+#define  DP_ANA_TX_ISEL_LDO_D2              BIT(10)
-+#define  DP_ANA_TX_ISEL_LDO_D1              BIT(9)
-+#define  DP_ANA_TX_ISEL_LDO_D0              BIT(8)
-+#define  DP_ANA_TX_ISEL_DRV_D1              GENMASK(7, 4)
-+#define  DP_ANA_TX_ISEL_DRV_D0              GENMASK(3, 0)
++#endif
+diff --git a/drivers/gpu/drm/spacemit/dpu/saturn_regs/saturn_fields.h b/drivers/gpu/drm/spacemit/dpu/saturn_regs/saturn_fields.h
+new file mode 100644
+index 0000000000000..6303c91b7481b
+--- /dev/null
++++ b/drivers/gpu/drm/spacemit/dpu/saturn_regs/saturn_fields.h
+@@ -0,0 +1,312 @@
++/* SPDX-License-Identifier: GPL-2.0 */
++/*
++ * Copyright (C) 2025-2026 SpacemiT Co., Ltd.
++ *
++ * Saturn DPU register field map: word offset and mask per field, consumed by
++ * the accessors in spacemit_dpu_reg.h and spacemit_cmdlist.h.
++ */
 +
-+#define DP_ANA_TX_CTRL2                      0x01ac
-+#define  DP_ANA_TX_POSTSEL_D1               GENMASK(31, 28)
-+#define  DP_ANA_TX_POSTSEL_D0               GENMASK(27, 24)
-+#define  DP_ANA_TX_POSTSEL_D3               GENMASK(23, 20)
-+#define  DP_ANA_TX_POSTSEL_D2               GENMASK(19, 16)
-+#define  DP_ANA_TX_PHASE_D0                 GENMASK(15, 14)
-+#define  DP_DA_TX_MAINSEL_D0_4_0            GENMASK(12, 8)
-+#define  DP_ANA_TX_PHASE_D1                 GENMASK(7, 6)
-+#define  DP_ANA_TX_MAINSEL_D1               GENMASK(4, 0)
++#ifndef SATURN_FIELDS_H
++#define SATURN_FIELDS_H
 +
-+#define DP_ANA_TX_CTRL3                      0x01b0
-+#define  DP_ANA_TX_EN_P2S_D3                BIT(31)
-+#define  DP_ANA_TX_EN_P2S_D2                BIT(30)
-+#define  DP_ANA_TX_EN_P2S_D1                BIT(29)
-+#define  DP_ANA_TX_EN_P2S_D0                BIT(28)
-+#define  DP_ANA_TX_MODE_D3                  BIT(27)
-+#define  DP_ANA_TX_MODE_D2                  BIT(26)
-+#define  DP_ANA_TX_MODE_D1                  BIT(25)
-+#define  DP_ANA_TX_MODE_D0                  BIT(24)
-+#define  DP_ANA_TX_PRESEL_D1                GENMASK(14, 12)
-+#define  DP_ANA_TX_PRESEL_D0                GENMASK(10, 8)
-+#define  DP_ANA_TX_PRESEL_D3                GENMASK(6, 4)
-+#define  DP_ANA_TX_PRESEL_D2                GENMASK(2, 0)
++#include <linux/bits.h>
 +
-+#define DP_ANA_TX_CTRL6                      0x01bc
-+#define  DP_ANA_BG_VREF5                    GENMASK(15, 14)
-+#define  DP_ANA_BG_VREF4                    GENMASK(13, 12)
-+#define  DP_ANA_BG_VREF3                    GENMASK(11, 10)
-+#define  DP_ANA_BG_VREF2                    GENMASK(9, 8)
-+#define  DP_ANA_BG_VREF                     GENMASK(7, 6)
-+#define  DP_ANA_BG_VREF1                    GENMASK(5, 4)
-+#define  DP_ANA_BG_EN_CHOP                  BIT(3)
-+#define  DP_ANA_BG_EN                       BIT(2)
-+#define  DP_ANA_BG_ISEL                     BIT(1)
-+#define  DP_ANA_BG_VSEL                     BIT(0)
++/* CMDLIST_REG: 128 x 32-bit registers */
++#define CMDLIST_REG__NWORDS	128
++#define CMDLIST_REG__cmdlist_reg_0__cmdlist_ch_start_addrl_WORD(i)	(0 + (i))
++#define CMDLIST_REG__cmdlist_reg_0__cmdlist_ch_start_addrl_MASK	GENMASK(31, 4)
++#define CMDLIST_REG__cmdlist_reg_16__cmdlist_ch_start_addrh_WORD(i)	(16 + (i))
++#define CMDLIST_REG__cmdlist_reg_16__cmdlist_ch_start_addrh_MASK	GENMASK(5, 0)
++#define CMDLIST_REG__cmdlist_reg_48__cmdlist_ch_y_first_WORD(i)	(48 + (i))
++#define CMDLIST_REG__cmdlist_reg_48__cmdlist_ch_y_first_MASK	GENMASK(24, 12)
 +
-+#define DP_ANA_TX_CTRL7                      0x01c0
-+#define  DP_ANA_BG_EN_RCAL                  BIT(27)
-+#define  DP_ANA_BG_RCAL_SEL                 GENMASK(26, 25)
-+#define  DP_AD_BG_RCAL_OUT                  BIT(24)
-+#define  DP_ANA_RTCAL_FREQDIV_LBIT          GENMASK(23, 16)
-+#define  DP_ANA_RTCAL_BYPASS                BIT(15)
-+#define  DP_ANA_RTCAL_FREQDIV_HBIT          GENMASK(14, 8)
-+#define  DP_ANA_BG_RCAL_VAL                 GENMASK(5, 0)
++/* CMPS_X_REG: 146 x 32-bit registers */
++#define CMPS_X_REG__NWORDS	146
++#define CMPS_X_REG__module_enable_WORD	0
++#define CMPS_X_REG__module_enable_MASK	BIT(0)
++#define CMPS_X_REG__dst_w_WORD	1
++#define CMPS_X_REG__dst_w_MASK	GENMASK(15, 0)
++#define CMPS_X_REG__dst_h_WORD	1
++#define CMPS_X_REG__dst_h_MASK	GENMASK(31, 16)
++#define CMPS_X_REG__bg_color_r_WORD	2
++#define CMPS_X_REG__bg_color_r_MASK	GENMASK(9, 0)
++#define CMPS_X_REG__bg_color_g_WORD	3
++#define CMPS_X_REG__bg_color_g_MASK	GENMASK(9, 0)
++#define CMPS_X_REG__bg_color_b_WORD	4
++#define CMPS_X_REG__bg_color_b_MASK	GENMASK(9, 0)
++#define CMPS_X_REG__bg_color_a_WORD	5
++#define CMPS_X_REG__bg_color_a_MASK	GENMASK(7, 0)
++#define CMPS_X_REG__layer00_area_left_WORD	8
++#define CMPS_X_REG__layer00_area_left_MASK	GENMASK(15, 0)
++#define CMPS_X_REG__layer00_area_right_WORD	8
++#define CMPS_X_REG__layer00_area_right_MASK	GENMASK(31, 16)
++#define CMPS_X_REG__layer00_area_top_WORD	9
++#define CMPS_X_REG__layer00_area_top_MASK	GENMASK(15, 0)
++#define CMPS_X_REG__layer00_area_bottom_WORD	9
++#define CMPS_X_REG__layer00_area_bottom_MASK	GENMASK(31, 16)
++#define CMPS_X_REG__layer00_solid_color_r_WORD	10
++#define CMPS_X_REG__layer00_solid_color_r_MASK	GENMASK(9, 0)
++#define CMPS_X_REG__layer00_solid_color_g_WORD	11
++#define CMPS_X_REG__layer00_solid_color_g_MASK	GENMASK(9, 0)
++#define CMPS_X_REG__layer00_solid_color_b_WORD	12
++#define CMPS_X_REG__layer00_solid_color_b_MASK	GENMASK(9, 0)
++#define CMPS_X_REG__layer00_solid_color_a_WORD	13
++#define CMPS_X_REG__layer00_solid_color_a_MASK	GENMASK(7, 0)
++#define CMPS_X_REG__layer00_blend_mode_WORD	13
++#define CMPS_X_REG__layer00_blend_mode_MASK	GENMASK(15, 14)
++#define CMPS_X_REG__layer00_colorkey_en_WORD	13
++#define CMPS_X_REG__layer00_colorkey_en_MASK	BIT(18)
++#define CMPS_X_REG__layer00_en_WORD	14
++#define CMPS_X_REG__layer00_en_MASK	BIT(0)
++#define CMPS_X_REG__layer00_blend_sel_WORD	14
++#define CMPS_X_REG__layer00_blend_sel_MASK	GENMASK(2, 1)
++#define CMPS_X_REG__layer00_solid_en_WORD	14
++#define CMPS_X_REG__layer00_solid_en_MASK	BIT(3)
++#define CMPS_X_REG__layer00_dma_id_WORD	14
++#define CMPS_X_REG__layer00_dma_id_MASK	GENMASK(7, 4)
++#define CMPS_X_REG__layer00_layer_alpha_WORD	14
++#define CMPS_X_REG__layer00_layer_alpha_MASK	GENMASK(15, 8)
++#define CMPS_X_REG__layer00_alpha_ratio_WORD	14
++#define CMPS_X_REG__layer00_alpha_ratio_MASK	GENMASK(23, 16)
++#define CMPS_X_REG__layer01_en_WORD	21
++#define CMPS_X_REG__layer01_en_MASK	BIT(0)
++#define CMPS_X_REG__layer02_en_WORD	28
++#define CMPS_X_REG__layer02_en_MASK	BIT(0)
++#define CMPS_X_REG__layer03_en_WORD	35
++#define CMPS_X_REG__layer03_en_MASK	BIT(0)
++#define CMPS_X_REG__layer04_en_WORD	42
++#define CMPS_X_REG__layer04_en_MASK	BIT(0)
++#define CMPS_X_REG__layer05_en_WORD	49
++#define CMPS_X_REG__layer05_en_MASK	BIT(0)
++#define CMPS_X_REG__layer06_en_WORD	56
++#define CMPS_X_REG__layer06_en_MASK	BIT(0)
++#define CMPS_X_REG__layer07_en_WORD	63
++#define CMPS_X_REG__layer07_en_MASK	BIT(0)
++#define CMPS_X_REG__layer08_en_WORD	70
++#define CMPS_X_REG__layer08_en_MASK	BIT(0)
++#define CMPS_X_REG__layer09_en_WORD	77
++#define CMPS_X_REG__layer09_en_MASK	BIT(0)
++#define CMPS_X_REG__layer10_en_WORD	84
++#define CMPS_X_REG__layer10_en_MASK	BIT(0)
++#define CMPS_X_REG__layer11_en_WORD	91
++#define CMPS_X_REG__layer11_en_MASK	BIT(0)
++#define CMPS_X_REG__layer12_en_WORD	98
++#define CMPS_X_REG__layer12_en_MASK	BIT(0)
++#define CMPS_X_REG__layer13_en_WORD	105
++#define CMPS_X_REG__layer13_en_MASK	BIT(0)
++#define CMPS_X_REG__layer14_en_WORD	112
++#define CMPS_X_REG__layer14_en_MASK	BIT(0)
++#define CMPS_X_REG__layer15_en_WORD	119
++#define CMPS_X_REG__layer15_en_MASK	BIT(0)
 +
-+#define DP_ANA_TX_CTRL8                      0x01c4
-+#define  DP_ANA_TX_RTM_D3                   GENMASK(29, 24)
-+#define  DP_ANA_TX_RTM_D2                   GENMASK(21, 16)
-+#define  DP_ANA_TX_RTM_D1                   GENMASK(13, 8)
-+#define  DP_ANA_TX_RTM_D0                   GENMASK(5, 0)
++/* DMA_TOP_REG: 25 x 32-bit registers */
++#define DMA_TOP_REG__NWORDS	25
++#define DMA_TOP_REG__image_rr_ratio_WORD	1
++#define DMA_TOP_REG__image_rr_ratio_MASK	GENMASK(7, 0)
++#define DMA_TOP_REG__pixel_num_th_WORD	1
++#define DMA_TOP_REG__pixel_num_th_MASK	GENMASK(14, 9)
++#define DMA_TOP_REG__rdma_timeout_limit_WORD	2
++#define DMA_TOP_REG__rdma_timeout_limit_MASK	GENMASK(15, 0)
++#define DMA_TOP_REG__wdma_timeout_limit_WORD	2
++#define DMA_TOP_REG__wdma_timeout_limit_MASK	GENMASK(31, 16)
 +
-+#define DP_ANA_TX_AUX_CTRL                   0x01d0
-+#define  DP_ANA_TX_AUX_RX_VSEL              GENMASK(13, 12)
++/* DPU_CTL_REG: 15 x 32-bit registers */
++#define DPU_CTL_REG__NWORDS	15
++#define DPU_CTL_REG__nml_rch_en_WORD	0
++#define DPU_CTL_REG__nml_rch_en_MASK	GENMASK(9, 0)
++#define DPU_CTL_REG__nml_scl_en_WORD	0
++#define DPU_CTL_REG__nml_scl_en_MASK	GENMASK(13, 10)
++#define DPU_CTL_REG__nml_outctl_en_WORD	0
++#define DPU_CTL_REG__nml_outctl_en_MASK	BIT(18)
++#define DPU_CTL_REG__nml_frm_timing_en_WORD	0
++#define DPU_CTL_REG__nml_frm_timing_en_MASK	GENMASK(25, 23)
++#define DPU_CTL_REG__both_cfg_rdy_WORD	2
++#define DPU_CTL_REG__both_cfg_rdy_MASK	BIT(0)
++#define DPU_CTL_REG__video_mod_WORD	3
++#define DPU_CTL_REG__video_mod_MASK	BIT(0)
++#define DPU_CTL_REG__dbg_mod_WORD	3
++#define DPU_CTL_REG__dbg_mod_MASK	BIT(1)
++#define DPU_CTL_REG__timing_inter0_WORD	3
++#define DPU_CTL_REG__timing_inter0_MASK	GENMASK(7, 2)
++#define DPU_CTL_REG__timing_inter1_WORD	3
++#define DPU_CTL_REG__timing_inter1_MASK	GENMASK(13, 8)
++#define DPU_CTL_REG__sw_start_WORD	4
++#define DPU_CTL_REG__sw_start_MASK	BIT(0)
++#define DPU_CTL_REG__nml_rch_vrt_reuse_WORD	7
++#define DPU_CTL_REG__nml_rch_vrt_reuse_MASK	GENMASK(9, 0)
 +
-+#define DP_ANA_LANE_EMPH                     0x01dc
-+#define  DP_ANA_TX_POSTSEL_PRE_D3           GENMASK(23, 20)
-+#define  DP_ANA_TX_POSTSEL_PRE_D2           GENMASK(19, 16)
-+#define  DP_ANA_TX_POSTSEL_PRE_D1           GENMASK(15, 12)
-+#define  DP_ANA_TX_POSTSEL_PRE_D0           GENMASK(11, 8)
-+#define  DP_ANA_TX_MODE_DE_D3               BIT(7)
-+#define  DP_ANA_TX_MODE_DE_D2               BIT(6)
-+#define  DP_ANA_TX_MODE_DE_D1               BIT(5)
-+#define  DP_ANA_TX_MODE_DE_D0               BIT(4)
-+#define  DP_ANA_TX_MODE_PRE_D3              BIT(3)
-+#define  DP_ANA_TX_MODE_PRE_D2              BIT(2)
-+#define  DP_ANA_TX_MODE_PRE_D1              BIT(1)
-+#define  DP_ANA_TX_MODE_PRE_D0              BIT(0)
++/* DPU_CTL_TOP_REG: 53 x 32-bit registers */
++#define DPU_CTL_TOP_REG__NWORDS	53
++#define DPU_CTL_TOP_REG__dpu_ctl_top_reg_0__cmdlist_rch_en_WORD(i)	(0 + (i))
++#define DPU_CTL_TOP_REG__dpu_ctl_top_reg_0__cmdlist_rch_en_MASK	BIT(0)
++#define DPU_CTL_TOP_REG__dpu_ctl_top_reg_10__cmdlist_cmps_other_en_WORD(i)	(10 + (i))
++#define DPU_CTL_TOP_REG__dpu_ctl_top_reg_10__cmdlist_cmps_other_en_MASK	BIT(0)
++#define DPU_CTL_TOP_REG__dpu_ctl_top_reg_10__cmdlist_cmps_top_en_WORD(i)	(10 + (i))
++#define DPU_CTL_TOP_REG__dpu_ctl_top_reg_10__cmdlist_cmps_top_en_MASK	BIT(1)
 +
-+#define DP_VIDEO_VSAMPLE_REG                 0x0200
-+#define  DP_VIDEO_STREAM_ENABLE             BIT(28)
-+#define  DP_VIDEO_MAPPING                   GENMASK(26, 22)
-+#define  DP_STREAM_ENC_EN                   BIT(18)
++/* DPU_INTP_REG: 50 x 32-bit registers */
++#define DPU_INTP_REG__NWORDS	50
 +
-+#define DP_VINPUT_POLARITY                   0x020c
-+#define  DP_HSYNC_IN_POLARITY               BIT(29)
-+#define  DP_VSYNC_IN_POLARITY               BIT(28)
++/* EE_REG: 51 x 32-bit registers */
++#define EE_REG__NWORDS	51
++#define EE_REG__m_benable_WORD	0
++#define EE_REG__m_benable_MASK	BIT(0)
 +
-+#define DP_VIDEO_CONFIG2                     0x0210
-+#define  DP_VACTIVE                         GENMASK(31, 16)
-+#define  DP_VBLANK                          GENMASK(15, 0)
++/* MMU_TBU_REG: 21 x 32-bit registers */
++#define MMU_TBU_REG__NWORDS	21
++#define MMU_TBU_REG__tbu_en_WORD	0
++#define MMU_TBU_REG__tbu_en_MASK	BIT(0)
++#define MMU_TBU_REG__tbu_burst_limit_en_WORD	0
++#define MMU_TBU_REG__tbu_burst_limit_en_MASK	BIT(4)
++#define MMU_TBU_REG__tlb_fetch_active_en_WORD	0
++#define MMU_TBU_REG__tlb_fetch_active_en_MASK	BIT(5)
++#define MMU_TBU_REG__tbu_qos_WORD	0
++#define MMU_TBU_REG__tbu_qos_MASK	GENMASK(11, 8)
++#define MMU_TBU_REG__tbu_base_addr0_low_WORD	1
++#define MMU_TBU_REG__tbu_base_addr0_low_MASK	GENMASK(31, 0)
++#define MMU_TBU_REG__tbu_base_addr0_high_WORD	2
++#define MMU_TBU_REG__tbu_base_addr0_high_MASK	GENMASK(11, 0)
++#define MMU_TBU_REG__tbu_base_addr1_low_WORD	3
++#define MMU_TBU_REG__tbu_base_addr1_low_MASK	GENMASK(31, 0)
++#define MMU_TBU_REG__tbu_base_addr1_high_WORD	4
++#define MMU_TBU_REG__tbu_base_addr1_high_MASK	GENMASK(11, 0)
++#define MMU_TBU_REG__tbu_base_addr2_low_WORD	5
++#define MMU_TBU_REG__tbu_base_addr2_low_MASK	GENMASK(31, 0)
++#define MMU_TBU_REG__tbu_base_addr2_high_WORD	6
++#define MMU_TBU_REG__tbu_base_addr2_high_MASK	GENMASK(11, 0)
++#define MMU_TBU_REG__tbu_va0_WORD	7
++#define MMU_TBU_REG__tbu_va0_MASK	GENMASK(31, 0)
++#define MMU_TBU_REG__tbu_va1_WORD	8
++#define MMU_TBU_REG__tbu_va1_MASK	GENMASK(31, 0)
++#define MMU_TBU_REG__tbu_va2_WORD	9
++#define MMU_TBU_REG__tbu_va2_MASK	GENMASK(31, 0)
++#define MMU_TBU_REG__tbu_size0_WORD	10
++#define MMU_TBU_REG__tbu_size0_MASK	GENMASK(15, 0)
++#define MMU_TBU_REG__tbu_size1_WORD	11
++#define MMU_TBU_REG__tbu_size1_MASK	GENMASK(15, 0)
++#define MMU_TBU_REG__tbu_size2_WORD	12
++#define MMU_TBU_REG__tbu_size2_MASK	GENMASK(15, 0)
++#define MMU_TBU_REG__vsync_update_en_WORD	13
++#define MMU_TBU_REG__vsync_update_en_MASK	BIT(1)
 +
-+#define DP_VIDEO_CONFIG1                     0x0214
-+#define  DP_HBLANK                          GENMASK(29, 16)
-+#define  DP_HACTIVE                         GENMASK(15, 0)
++/* MMU_TOP_REG: 23 x 32-bit registers */
++#define MMU_TOP_REG__NWORDS	23
++#define MMU_TOP_REG__rdma_timelimit_WORD	0
++#define MMU_TOP_REG__rdma_timelimit_MASK	GENMASK(31, 16)
++#define MMU_TOP_REG__sram0_tlb_axi_port_sel_WORD	1
++#define MMU_TOP_REG__sram0_tlb_axi_port_sel_MASK	GENMASK(1, 0)
++#define MMU_TOP_REG__sram1_tlb_axi_port_sel_WORD	1
++#define MMU_TOP_REG__sram1_tlb_axi_port_sel_MASK	GENMASK(3, 2)
++#define MMU_TOP_REG__dmac0_rd_outs_num_WORD	2
++#define MMU_TOP_REG__dmac0_rd_outs_num_MASK	GENMASK(7, 0)
++#define MMU_TOP_REG__dmac1_rd_outs_num_WORD	3
++#define MMU_TOP_REG__dmac1_rd_outs_num_MASK	GENMASK(7, 0)
 +
-+#define DP_VIDEO_CONFIG5                     0x0218
-+#define  DP_AVERAGE_BYTES_PER_TU            GENMASK(31, 25)
-+#define  DP_AVERAGE_BYTES_PER_TU_FRAC       GENMASK(24, 21)
-+#define  DP_INIT_THRESHOLD                  GENMASK(18, 10)
++/* POSTPIPE_REG: 50 x 32-bit registers */
++#define POSTPIPE_REG__NWORDS	50
++#define POSTPIPE_REG__m_inwidth_WORD	13
++#define POSTPIPE_REG__m_inwidth_MASK	GENMASK(15, 0)
++#define POSTPIPE_REG__m_inheight_WORD	13
++#define POSTPIPE_REG__m_inheight_MASK	GENMASK(31, 16)
 +
-+#define DP_VIDEO_CONFIG3                     0x021c
-+#define  DP_H_FRONT_PORCH                   GENMASK(31, 16)
-+#define  DP_H_SYNC_WIDTH                    GENMASK(15, 0)
++/* RDMA_PATH_X_REG: 60 x 32-bit registers */
++#define RDMA_PATH_X_REG__NWORDS	60
++#define RDMA_PATH_X_REG__layer_mode_WORD	0
++#define RDMA_PATH_X_REG__layer_mode_MASK	GENMASK(1, 0)
++#define RDMA_PATH_X_REG__layer_cmpsr_id_WORD	0
++#define RDMA_PATH_X_REG__layer_cmpsr_id_MASK	GENMASK(15, 13)
++#define RDMA_PATH_X_REG__is_two_layers_WORD	1
++#define RDMA_PATH_X_REG__is_two_layers_MASK	BIT(0)
++#define RDMA_PATH_X_REG__is_offline_WORD	1
++#define RDMA_PATH_X_REG__is_offline_MASK	BIT(1)
++#define RDMA_PATH_X_REG__base_addr0_low_ly0_WORD	9
++#define RDMA_PATH_X_REG__base_addr0_low_ly0_MASK	GENMASK(31, 0)
++#define RDMA_PATH_X_REG__base_addr0_high_ly0_WORD	10
++#define RDMA_PATH_X_REG__base_addr0_high_ly0_MASK	GENMASK(1, 0)
++#define RDMA_PATH_X_REG__base_addr1_low_ly0_WORD	11
++#define RDMA_PATH_X_REG__base_addr1_low_ly0_MASK	GENMASK(31, 0)
++#define RDMA_PATH_X_REG__base_addr1_high_ly0_WORD	12
++#define RDMA_PATH_X_REG__base_addr1_high_ly0_MASK	GENMASK(1, 0)
++#define RDMA_PATH_X_REG__base_addr2_low_ly0_WORD	13
++#define RDMA_PATH_X_REG__base_addr2_low_ly0_MASK	GENMASK(31, 0)
++#define RDMA_PATH_X_REG__base_addr2_high_ly0_WORD	14
++#define RDMA_PATH_X_REG__base_addr2_high_ly0_MASK	GENMASK(1, 0)
++#define RDMA_PATH_X_REG__rdma_stride0_layer0_WORD	15
++#define RDMA_PATH_X_REG__rdma_stride0_layer0_MASK	GENMASK(15, 0)
++#define RDMA_PATH_X_REG__rdma_stride1_layer0_WORD	15
++#define RDMA_PATH_X_REG__rdma_stride1_layer0_MASK	GENMASK(31, 16)
++#define RDMA_PATH_X_REG__img_width_ly0_WORD	16
++#define RDMA_PATH_X_REG__img_width_ly0_MASK	GENMASK(15, 0)
++#define RDMA_PATH_X_REG__img_height_ly0_WORD	16
++#define RDMA_PATH_X_REG__img_height_ly0_MASK	GENMASK(31, 16)
++#define RDMA_PATH_X_REG__bbox_start_x_ly0_WORD	17
++#define RDMA_PATH_X_REG__bbox_start_x_ly0_MASK	GENMASK(15, 0)
++#define RDMA_PATH_X_REG__bbox_start_y_ly0_WORD	17
++#define RDMA_PATH_X_REG__bbox_start_y_ly0_MASK	GENMASK(31, 16)
++#define RDMA_PATH_X_REG__bbox_end_x_ly0_WORD	18
++#define RDMA_PATH_X_REG__bbox_end_x_ly0_MASK	GENMASK(15, 0)
++#define RDMA_PATH_X_REG__bbox_end_y_ly0_WORD	18
++#define RDMA_PATH_X_REG__bbox_end_y_ly0_MASK	GENMASK(31, 16)
++#define RDMA_PATH_X_REG__pixel_format_WORD	29
++#define RDMA_PATH_X_REG__pixel_format_MASK	GENMASK(5, 0)
++#define RDMA_PATH_X_REG__uv_swap_WORD	29
++#define RDMA_PATH_X_REG__uv_swap_MASK	BIT(6)
++#define RDMA_PATH_X_REG__rot_mode_ly0_WORD	29
++#define RDMA_PATH_X_REG__rot_mode_ly0_MASK	GENMASK(10, 8)
++#define RDMA_PATH_X_REG__fbc_mem_size_WORD	31
++#define RDMA_PATH_X_REG__fbc_mem_size_MASK	GENMASK(15, 0)
++#define RDMA_PATH_X_REG__fbc_mem_map_WORD	31
++#define RDMA_PATH_X_REG__fbc_mem_map_MASK	BIT(28)
 +
-+#define DP_VIDEO_CONFIG4                     0x0220
-+#define  DP_V_FRONT_PORCH                   GENMASK(31, 16)
-+#define  DP_V_SYNC_WIDTH                    GENMASK(15, 0)
++/* TMG_REG: 30 x 32-bit registers */
++#define TMG_REG__NWORDS	30
++#define TMG_REG__split_en_WORD	0
++#define TMG_REG__split_en_MASK	BIT(0)
++#define TMG_REG__cmd_screen_WORD	0
++#define TMG_REG__cmd_screen_MASK	BIT(1)
++#define TMG_REG__fm_timing_en_WORD	0
++#define TMG_REG__fm_timing_en_MASK	BIT(2)
++#define TMG_REG__cmd_wait_en_WORD	0
++#define TMG_REG__cmd_wait_en_MASK	BIT(3)
++#define TMG_REG__cmd_wait_te_WORD	0
++#define TMG_REG__cmd_wait_te_MASK	BIT(4)
++#define TMG_REG__disp_ready_man_en_WORD	0
++#define TMG_REG__disp_ready_man_en_MASK	BIT(5)
++#define TMG_REG__hsp_WORD	0
++#define TMG_REG__hsp_MASK	BIT(7)
++#define TMG_REG__vsp_WORD	0
++#define TMG_REG__vsp_MASK	BIT(8)
++#define TMG_REG__user_WORD	2
++#define TMG_REG__user_MASK	GENMASK(15, 12)
++#define TMG_REG__hfp_WORD	3
++#define TMG_REG__hfp_MASK	GENMASK(27, 16)
++#define TMG_REG__hsync_width_WORD	4
++#define TMG_REG__hsync_width_MASK	GENMASK(9, 0)
++#define TMG_REG__hbp_WORD	4
++#define TMG_REG__hbp_MASK	GENMASK(27, 16)
++#define TMG_REG__vfp_WORD	5
++#define TMG_REG__vfp_MASK	GENMASK(15, 0)
++#define TMG_REG__vsync_width_WORD	5
++#define TMG_REG__vsync_width_MASK	GENMASK(25, 16)
++#define TMG_REG__vbp_WORD	6
++#define TMG_REG__vbp_MASK	GENMASK(11, 0)
++#define TMG_REG__h_active_WORD	6
++#define TMG_REG__h_active_MASK	GENMASK(29, 16)
++#define TMG_REG__v_active_WORD	7
++#define TMG_REG__v_active_MASK	GENMASK(13, 0)
++#define TMG_REG__background_r_WORD	9
++#define TMG_REG__background_r_MASK	GENMASK(11, 0)
++#define TMG_REG__background_g_WORD	9
++#define TMG_REG__background_g_MASK	GENMASK(27, 16)
++#define TMG_REG__background_b_WORD	10
++#define TMG_REG__background_b_MASK	GENMASK(11, 0)
++#define TMG_REG__eof_1st_ln_dly_num_WORD	11
++#define TMG_REG__eof_1st_ln_dly_num_MASK	GENMASK(15, 0)
++#define TMG_REG__eof_2nd_ln_dly_num_WORD	11
++#define TMG_REG__eof_2nd_ln_dly_num_MASK	GENMASK(31, 16)
++#define TMG_REG__sof_pre_ln_num_WORD	14
++#define TMG_REG__sof_pre_ln_num_MASK	GENMASK(16, 0)
++#define TMG_REG__vsync_align_with_hsync_WORD	15
++#define TMG_REG__vsync_align_with_hsync_MASK	BIT(0)
 +
-+#define DP_VIDEO_MSA1                        0x0224
-+#define  DP_HSTART                          GENMASK(31, 16)
-+#define  DP_VSTART                          GENMASK(15, 0)
++#endif /* SATURN_FIELDS_H */
+diff --git a/drivers/gpu/drm/spacemit/spacemit_dpu_ids.h b/drivers/gpu/drm/spacemit/spacemit_dpu_ids.h
+new file mode 100644
+index 0000000000000..d5ec7d51ca3a4
+--- /dev/null
++++ b/drivers/gpu/drm/spacemit/spacemit_dpu_ids.h
+@@ -0,0 +1,26 @@
++/* SPDX-License-Identifier: GPL-2.0 */
++/*
++ * Copyright (C) 2025-2026 SpacemiT Co., Ltd.
++ */
 +
-+#define DP_VIDEO_MSA2                        0x0228
-+#define  DP_MISC0                           GENMASK(7, 0)
++#ifndef _SPACEMIT_DPU_IDS_H_
++#define _SPACEMIT_DPU_IDS_H_
 +
-+#define DP_VIDEO_MSA3                        0x022c
-+#define  DP_NVID                            GENMASK(31, 8)
-+#define  DP_MISC1                           GENMASK(7, 0)
++/*
++ * Saturn online compositor ids. Both K3 DPU instances are wired as COMPOSER1,
++ * which selects the composer registers, the scene control block and the
++ * composer's command-list enable and CFG_RDY bits.
++ */
++#define COMPOSER0	0
++#define COMPOSER1	1
++#define COMPOSER2	2
++#define COMPOSER3	3
 +
-+#define DP_VIDEO_HBLANK_INTERVAL             0x0230
-+#define  DP_HBLANK_INTERVAL                 GENMASK(31, 16)
++/* Output-format encoding of the timing generator's user field. */
++#define OUTFMT_RGB121212	0
++#define OUTFMT_RGB101010	1
++#define OUTFMT_RGB888		2
++#define OUTFMT_RGB666		12
++#define OUTFMT_RGB565		13
 +
-+#define DP_VIDEO_COLORBAR_CFG                0x0238
-+#define  DP_VID_BIST_EN                     BIT(0)
-+
-+#define DP_AUDIO_CONFIG1                     0x0300
-+#define  DP_AUDIO_INF_SELECT                BIT(31)
-+#define  DP_AUDIO_MUTE                      BIT(30)
-+#define  DP_HBR_MODE_ENABLE                 BIT(29)
-+#define  DP_AUDIO_DATA_IN_EN                GENMASK(28, 25)
-+#define  DP_I2S_AUDIO_MODE                  GENMASK(24, 23)
-+#define  DP_AUD_ADJUST_SEL                  BIT(22)
-+#define  DP_AUDIO_DATA_WIDTH                GENMASK(21, 17)
-+#define  DP_AUDIO_NUM_CHANNELS              GENMASK(16, 14)
-+#define  DP_AUDIO_PACKET_ID                 GENMASK(13, 6)
-+#define  DP_AUDIO_TIMESTAMP_VERSION_NUM     GENMASK(5, 0)
-+
-+#define DP_AUX_STS_REG                       0x0400
-+#define  DP_AUX_STATUS                      GENMASK(31, 24)
-+#define  DP_AUX_REPLY_ERR_CODE              GENMASK(6, 4)
-+
-+#define DP_AUX_CMD_REG                       0x0404
-+#define  DP_AUX_LENGTH                      GENMASK(27, 24)
-+#define  DP_AUX_ADDR                        GENMASK(23, 4)
-+#define  DP_AUX_CMD_TYPE                    GENMASK(3, 0)
-+
-+#define DP_AUX_START_REG                     0x0408
-+#define  DP_AUX_START                       BIT(31)
-+
-+#define DP_AUX_DATA4_REG                     0x040c
-+#define  DP_AUX_DATA4                       GENMASK(31, 0)
-+
-+#define DP_AUX_DATA3_REG                     0x0410
-+#define  DP_AUX_DATA3                       GENMASK(31, 0)
-+
-+#define DP_AUX_DATA2_REG                     0x0414
-+#define  DP_AUX_DATA2                       GENMASK(31, 0)
-+
-+#define DP_AUX_DATA1_REG                     0x0418
-+#define  DP_AUX_DATA1                       GENMASK(31, 0)
-+
-+#define DP_SDP_HORIZONTAL_CTRL               0x0420
-+#define  DP_AUD_STREAM_HORIZONTAL_EN        BIT(13)
-+#define  DP_AUD_TIMESTAMP_HORIZONTAL_EN     BIT(12)
-+
-+#define DP_SDP_VERTICAL_CTRL                 0x0424
-+#define  DP_AUD_STREAM_VERTICAL_EN          BIT(13)
-+#define  DP_AUD_TIMESTAMP_VERTICAL_EN       BIT(12)
-+
-+#endif /* __SPACEMIT_INNO_DP_H__ */
++#endif /* _SPACEMIT_DPU_IDS_H_ */
 
 -- 
 2.43.0
