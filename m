@@ -2,42 +2,63 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E8560606A332
-	for <dri-devel@archiver.kernel.org>; Sat, 21 Nov 2026 09:32:16 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C0CB6606A320
+	for <dri-devel@archiver.kernel.org>; Sat, 21 Nov 2026 09:35:29 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=QXYxXQMb
+	dkim=pass (1024-bit key) header.d=huawei.com header.i=@huawei.com header.a=rsa-sha256 header.s=dkim header.b=wa4gP2g6
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 45A3510E26C;
-	Sat, 21 Nov 2026 09:32:11 +0000 (UTC)
-Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 5694510E26C;
- Sat, 21 Nov 2026 09:32:05 +0000 (UTC)
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id 23790440F4;
- Sat, 21 Nov 2026 09:32:05 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id DB4761F000C6;
- Sat, 21 Nov 2026 09:32:04 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1795253525;
- bh=OVi23gSPMcbMEwChatdHlZ1dUfXu0akeL1A8Ael//3s=;
- h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
- b=QXYxXQMbG0ku9AkOmwPf1NK5ehfNIeFG80vN5QEh0B2/iO+9JK2+8NL7HpzjB1oJh
- AIO/oOKL9IpB/6JbCaDIBAHbh24J9NMOx/a6YpYjcrW2IqkgDUDoRfALv10G3UvJUf
- 0mRnLLDVxEC6mFRUKxfkgNu1GWwkj8Uif9RrsgOUxHFke+d4gjJCwFdUwQ8na/xk/b
- EoaF4vJcYQYNg45O466mez9wCn43oNRr2z20lK8Ysm9Dr+A3J3qLFnyUueVYjEP1U0
- 9HnSd0G9TNLiIlHOgYnmqmCo7aps8mcZNGjvX0wPH1MG0BpJR9u9XcS+2hzcOTZy0F
- b3AZQDFaHHqzg==
-Message-ID: <sashiko-outbox-226862@kernel.org>
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH] drm/ttm: Don't warn on oversized page directory
- allocations
-To: "Shuicheng Lin" <shuicheng.lin@intel.com>, dri-devel@lists.freedesktop.org
-Cc: intel-xe@lists.freedesktop.org
-In-Reply-To: <20261121091815.1436090-2-shuicheng.lin@intel.com>
-References: <20261121091815.1436090-2-shuicheng.lin@intel.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Sat, 21 Nov 2026 09:32:04 +0000
+	by gabe.freedesktop.org (Postfix) with ESMTP id 2D30210E2A4;
+	Sat, 21 Nov 2026 09:35:24 +0000 (UTC)
+Received: from canpmsgout05.his.huawei.com (canpmsgout05.his.huawei.com
+ [113.46.200.220])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 2DC5610E2A4
+ for <dri-devel@lists.freedesktop.org>; Sat, 21 Nov 2026 09:35:16 +0000 (UTC)
+dkim-signature: v=1; a=rsa-sha256; d=huawei.com; s=dkim;
+ c=relaxed/relaxed; q=dns/txt; h=From;
+ bh=Iv93sQUdjlU9vClZenqwurbqWFVgl+RrUjbVJokCdqQ=;
+ b=wa4gP2g61HZktjzqOHKHF5rENmtJcUw8lekfQ0ti+CNH3HBqNNEb/eiKr8nUvHTMdmBi9YTCv
+ LsgfkT7HAfPYMCnhczyG0wSG+ZKxzqJt3NYEw+LqlG9ZnPOfID+YXltRkUD4wsxQtixHOtvzT81
+ oSRusf9SRR42P2/9jnCk2rY=
+Received: from mail.maildlp.com (unknown [172.19.162.144])
+ by canpmsgout05.his.huawei.com (SkyGuard) with ESMTPS id 4jWn8t0QY1z12LdQ;
+ Sat, 21 Nov 2026 17:34:22 +0800 (CST)
+Received: from kwepemk200005.china.huawei.com (unknown [7.202.194.71])
+ by mail.maildlp.com (Postfix) with ESMTPS id 8999140579;
+ Sat, 21 Nov 2026 17:35:12 +0800 (CST)
+Received: from [10.159.167.44] (10.159.167.44) by
+ kwepemk200005.china.huawei.com (7.202.194.71) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.45; Sat, 21 Nov 2026 17:35:11 +0800
+Message-ID: <b6d71460-328f-4b3a-bf55-da1a833bb736@huawei.com>
+Date: Sat, 21 Nov 2026 17:35:09 +0800
+X-Archived-By: <archiver.kernel.org>
+MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH for drm-misc-fixes v5 1/2] drm/hisilicon/hibmc: Modify the
+ method of obtaining the hpd_status
+To: Thomas Zimmermann <tzimmermann@suse.de>,
+ "dmitry.baryshkov@oss.qualcomm.com" <dmitry.baryshkov@oss.qualcomm.com>,
+ "tiantao (H)" <tiantao6@hisilicon.com>, "maarten.lankhorst@linux.intel.com"
+ <maarten.lankhorst@linux.intel.com>, "mripard@kernel.org"
+ <mripard@kernel.org>, "airlied@gmail.com" <airlied@gmail.com>,
+ "daniel@ffwll.ch" <daniel@ffwll.ch>, "kongxinwei (A)"
+ <kong.kongxinwei@hisilicon.com>
+CC: "Liangjian(Jim,Kunpeng Solution Development Dept)"
+ <liangjian010@huawei.com>, "Shuliubin(Turing&Kunpeng)"
+ <shuliubin@huawei.com>, Chenjianmin <chenjianmin@huawei.com>, "helin (T)"
+ <helin52@h-partners.com>, "shenjian (K)" <shenjian15@huawei.com>, shaojijie
+ <shaojijie@huawei.com>, "dri-devel@lists.freedesktop.org"
+ <dri-devel@lists.freedesktop.org>, "linux-kernel@vger.kernel.org"
+ <linux-kernel@vger.kernel.org>, <shiyongbang@huawei.com>
+References: <20261117130056.272609-1-shiyongbang@huawei.com>
+ <20261117130056.272609-2-shiyongbang@huawei.com>
+ <273ce275-4e40-48e8-8788-86d590081420@suse.de>
+From: Yongbang Shi <shiyongbang@huawei.com>
+In-Reply-To: <273ce275-4e40-48e8-8788-86d590081420@suse.de>
+Content-Type: text/plain; charset="UTF-8"; format=flowed
+Content-Transfer-Encoding: 7bit
+X-ClientProxiedBy: kwepems200002.china.huawei.com (7.221.188.68) To
+ kwepemk200005.china.huawei.com (7.202.194.71)
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -48,79 +69,346 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
-Reply-To: sashiko-reviews@lists.linux.dev
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-10.8 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
-	DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
-	INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS
-	autolearn=unavailable autolearn_force=no version=4.0.1
+X-Spam-Status: No, score=-17.3 required=3.0 tests=BAYES_00,DKIM_SIGNED,
+	DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
+	INCLUDES_CR_TRAILER,INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,
+	SPF_PASS,USER_AGENT_SANE_1 autolearn=unavailable autolearn_force=no
+	version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
-X-Archived-By: <archiver.kernel.org>
 
-Thank you for your contribution! Sashiko AI review found 1 potential
-issue to consider:
-- [Medium] drm/ttm: missing __GFP_NOWARN in
-  ttm_sg_tt_alloc_page_directory()
---
+> Hi
+> 
+> Am 17.11.26 um 14:00 schrieb Yongbang Shi:
+>> From: Lin He <helin52@huawei.com>
+>>
+>> To more accurately determine whether the current HPD status matches the
+>> interrupt status, the polling mechanism in the lower half of the HPD
+>> interrupt (via hibmc_dp_check_hpd_status) has been replaced with directly
+>> retrieving the interrupt status in the upper half of the interrupt (via
+>> hibmc_dp_get_hpd_status).
+>>
+>> * Connector detection is skipped when hpd_status is not HPD_IN.
+>>
+>> * Set the initial status of hpd_status to HPD_OUT.
+>>
+>> * Wait 100 ms after enabling the DP block, so a sink that is already
+>>     connected can latch its HPD interrupt before the first detect.
+>>
+>> * Invalidate the link as soon as an unplug is sampled in the hardirq,
+>>     so an unplug that is followed by a plug before the threaded handler
+>>     runs is not lost.
+>>
+>> Fixes: 3906e7a3b26d ("drm/hisilicon/hibmc: fix dp probabilistical detect errors after HPD irq")
+>> Fixes: b11bc1ae4658 ("drm/hisilicon/hibmc: Add MSI irq getting and requesting for HPD")
+>> Signed-off-by: Lin He <helin52@huawei.com>
+>> Signed-off-by: Yongbang Shi <shiyongbang@huawei.com>
+>> ---
+>> ChangeLog:
+>> v4 -> v5:
+>>     - Invalidate the link in the hardirq when an unplug is sampled, and
+>>       stop clearing the latched HPD status in hibmc_dp_hpd_cfg().
+>>       (sashiko-bot)
+>>     - Serialize a whole AUX transfer with hibmc_dp_hpd_cfg().
+>>       (sashiko-bot)
+>>     - Append HIBMC_HPD_UNKNOWN to the enum instead of prepending it, so
+>>       the existing HIBMC_HPD_OUT/HIBMC_HPD_IN values do not change.
+>> v3 -> v4:
+>>     - Fix the data race on hpd_status between hardirq and process
+>>       contexts with WRITE_ONCE()/READ_ONCE(). (sashiko-bot)
+>>     - Delete the HPD_IN early return in encoder_enable that breaks KMS
+>>       forced modesets. (sashiko-bot)
+>> v2 -> v3:
+>>     - Delete irq_status and use hpd_status directly for hotplug
+>>       detection. (sashiko-bot)
+>>     - Add debug logs when hpd_status is not HPD_IN in detect and
+>>       encoder_enable.
+>> v1 -> v2:
+>>     - More states in HIBMC_DP_HPD_STATUS are added to the
+>>       'hibmc_dp_get_hpd_status'.
+>> ---
+>>    drivers/gpu/drm/hisilicon/hibmc/dp/dp_aux.c   | 11 ++++-
+>>    drivers/gpu/drm/hisilicon/hibmc/dp/dp_comm.h  |  2 +-
+>>    drivers/gpu/drm/hisilicon/hibmc/dp/dp_hw.c    | 40 ++++++++++++-------
+>>    drivers/gpu/drm/hisilicon/hibmc/dp/dp_hw.h    |  5 ++-
+>>    .../gpu/drm/hisilicon/hibmc/hibmc_drm_dp.c    | 31 +++++++-------
+>>    .../gpu/drm/hisilicon/hibmc/hibmc_drm_drv.c   |  9 ++++-
+>>    6 files changed, 63 insertions(+), 35 deletions(-)
+>>
+>> diff --git a/drivers/gpu/drm/hisilicon/hibmc/dp/dp_aux.c b/drivers/gpu/drm/hisilicon/hibmc/dp/dp_aux.c
+>> index 8732cd1d8cb6..ef068cc52641 100644
+>> --- a/drivers/gpu/drm/hisilicon/hibmc/dp/dp_aux.c
+>> +++ b/drivers/gpu/drm/hisilicon/hibmc/dp/dp_aux.c
+>> @@ -131,6 +131,8 @@ static ssize_t hibmc_dp_aux_xfer(struct drm_dp_aux *aux, struct drm_dp_aux_msg *
+>>    	int ret;
+>>    	u32 val; /* val will be assigned at the beginning of readl_poll_timeout function */
+>>    
+>> +	mutex_lock(&dp->aux_lock);
+> 
+> I would recommend using a lock guard here an below. See [1]
+> 
+> [1]
+> https://elixir.bootlin.com/linux/v7.3.1/source/include/linux/cleanup.h#L10
+> 
 
-commit b4df7a501d5e41a0a776550ea76ddd972d2c5a9c
-Author: Shuicheng Lin <shuicheng.lin@intel.com>
+Agreed -- I'll convert these to lock guards from cleanup.h in v6.
 
-drm/ttm: Don't warn on oversized page directory allocations
+Thanks,
+Yongbang
 
-This commit passes __GFP_NOWARN to kvcalloc() in
-ttm_tt_alloc_page_directory() and ttm_dma_tt_alloc_page_directory() to
-prevent user-controlled BO sizes from triggering oversized allocation
-warnings in kvmalloc().
+> Best regards
+> Thomas
+> 
+>> +
+>>    	writel(0, dp->base + HIBMC_DP_AUX_WR_DATA0);
+>>    	writel(0, dp->base + HIBMC_DP_AUX_WR_DATA1);
+>>    	writel(0, dp->base + HIBMC_DP_AUX_WR_DATA2);
+>> @@ -147,10 +149,15 @@ static ssize_t hibmc_dp_aux_xfer(struct drm_dp_aux *aux, struct drm_dp_aux_msg *
+>>    				 !(val & HIBMC_DP_CFG_AUX_REQ), 50, 5000);
+>>    	if (ret) {
+>>    		hibmc_dp_aux_reset(dp);
+>> -		return ret;
+>> +		goto out_unlock;
+>>    	}
+>>    
+>> -	return hibmc_dp_aux_parse_xfer(dp, msg);
+>> +	ret = hibmc_dp_aux_parse_xfer(dp, msg);
+>> +
+>> +out_unlock:
+>> +	mutex_unlock(&dp->aux_lock);
+>> +
+>> +	return ret;
+>>    }
+>>    
+>>    void hibmc_dp_aux_init(struct hibmc_dp *dp)
+>> diff --git a/drivers/gpu/drm/hisilicon/hibmc/dp/dp_comm.h b/drivers/gpu/drm/hisilicon/hibmc/dp/dp_comm.h
+>> index f53dac256ee0..e56bfca886cb 100644
+>> --- a/drivers/gpu/drm/hisilicon/hibmc/dp/dp_comm.h
+>> +++ b/drivers/gpu/drm/hisilicon/hibmc/dp/dp_comm.h
+>> @@ -38,12 +38,12 @@ struct hibmc_dp_dev {
+>>    	struct drm_device *dev;
+>>    	void __iomem *base;
+>>    	struct mutex lock; /* protects concurrent RW in hibmc_dp_reg_write_field() */
+>> +	struct mutex aux_lock; /* serializes AUX transfers with hpd_cfg() */
+>>    	struct hibmc_dp_link link;
+>>    	u8 dpcd[DP_RECEIVER_CAP_SIZE];
+>>    	u8 downstream_ports[DP_MAX_DOWNSTREAM_PORTS];
+>>    	struct drm_dp_desc desc;
+>>    	bool is_branch;
+>> -	int hpd_status;
+>>    	void __iomem *serdes_base;
+>>    };
+>>    
+>> diff --git a/drivers/gpu/drm/hisilicon/hibmc/dp/dp_hw.c b/drivers/gpu/drm/hisilicon/hibmc/dp/dp_hw.c
+>> index d5bd3c45649b..8922a4f5b4ec 100644
+>> --- a/drivers/gpu/drm/hisilicon/hibmc/dp/dp_hw.c
+>> +++ b/drivers/gpu/drm/hisilicon/hibmc/dp/dp_hw.c
+>> @@ -162,6 +162,7 @@ int hibmc_dp_hw_init(struct hibmc_dp *dp)
+>>    		return -ENOMEM;
+>>    
+>>    	mutex_init(&dp_dev->lock);
+>> +	mutex_init(&dp_dev->aux_lock);
+>>    
+>>    	dp->dp_dev = dp_dev;
+>>    
+>> @@ -191,6 +192,10 @@ int hibmc_dp_hw_init(struct hibmc_dp *dp)
+>>    	writel(HIBMC_DP_HDCP, dp_dev->base + HIBMC_DP_HDCP_CFG);
+>>    	/* clock enable */
+>>    	writel(HIBMC_DP_CLK_EN, dp_dev->base + HIBMC_DP_DPTX_CLK_CTRL);
+>> +	/* To latch the HPD interrupt, ensuring that DP can support more modes
+>> +	 * within the fbcon framework when connected alone.
+>> +	 */
+>> +	msleep(100);
+>>    
+>>    	return 0;
+>>    }
+>> @@ -214,15 +219,16 @@ void hibmc_dp_hpd_cfg(struct hibmc_dp *dp)
+>>    {
+>>    	struct hibmc_dp_dev *dp_dev = dp->dp_dev;
+>>    
+>> +	mutex_lock(&dp_dev->aux_lock);
+>> +
+>>    	hibmc_dp_reg_write_field(dp_dev, HIBMC_DP_AUX_REQ, HIBMC_DP_CFG_AUX_SYNC_LEN_SEL, 0x0);
+>>    	hibmc_dp_reg_write_field(dp_dev, HIBMC_DP_AUX_REQ, HIBMC_DP_CFG_AUX_TIMER_TIMEOUT, 0x1);
+>>    	hibmc_dp_reg_write_field(dp->dp_dev, HIBMC_DP_AUX_REQ, HIBMC_DP_CFG_AUX_MIN_PULSE_NUM, 0x9);
+>>    	writel(HIBMC_DP_HDCP, dp_dev->base + HIBMC_DP_HDCP_CFG);
+>> -	writel(0, dp_dev->base + HIBMC_DP_INTR_ENABLE);
+>> -	writel(HIBMC_DP_INT_RST, dp_dev->base + HIBMC_DP_INTR_ORIGINAL_STATUS);
+>> -	writel(HIBMC_DP_INT_ENABLE, dp_dev->base + HIBMC_DP_INTR_ENABLE);
+>>    	writel(HIBMC_DP_DPTX_RST, dp_dev->base + HIBMC_DP_DPTX_RST_CTRL);
+>>    	writel(HIBMC_DP_CLK_EN, dp_dev->base + HIBMC_DP_DPTX_CLK_CTRL);
+>> +
+>> +	mutex_unlock(&dp_dev->aux_lock);
+>>    }
+>>    
+>>    void hibmc_dp_display_en(struct hibmc_dp *dp, bool enable)
+>> @@ -322,20 +328,26 @@ void hibmc_dp_set_cbar(struct hibmc_dp *dp, const struct hibmc_dp_cbar_cfg *cfg)
+>>    	writel(HIBMC_DP_SYNC_EN_MASK, dp_dev->base + HIBMC_DP_TIMING_SYNC_CTRL);
+>>    }
+>>    
+>> -bool hibmc_dp_check_hpd_status(struct hibmc_dp *dp, int exp_status)
+>> +int hibmc_dp_get_hpd_status(struct hibmc_dp *dp)
+>>    {
+>> +	int hpd_status = HIBMC_HPD_UNKNOWN;
+>>    	u32 status;
+>> -	int ret;
+>>    
+>> -	ret = readl_poll_timeout(dp->dp_dev->base + HIBMC_DP_HPD_STATUS, status,
+>> -				 FIELD_GET(HIBMC_DP_HPD_CUR_STATE, status) == exp_status,
+>> -				 1000, 100000); /* DP spec says 100ms */
+>> -	if (ret) {
+>> -		drm_dbg_dp(dp->drm_dev, "wait hpd status timeout");
+>> -		return false;
+>> +	status = FIELD_GET(HIBMC_DP_HPD_CUR_STATE,
+>> +			   readl(dp->dp_dev->base + HIBMC_DP_HPD_STATUS));
+>> +	switch (status) {
+>> +	case 0: /* idle */
+>> +	case 3: /* unplug */
+>> +	case 4: /* unplug intermediate */
+>> +		hpd_status = HIBMC_HPD_OUT;
+>> +		break;
+>> +	case 1: /* plug */
+>> +	case 2: /* plug intermediate */
+>> +		hpd_status = HIBMC_HPD_IN;
+>> +		break;
+>> +	default:
+>> +		break;
+>>    	}
+>>    
+>> -	dp->dp_dev->hpd_status = exp_status;
+>> -
+>> -	return true;
+>> +	return hpd_status;
+>>    }
+>> diff --git a/drivers/gpu/drm/hisilicon/hibmc/dp/dp_hw.h b/drivers/gpu/drm/hisilicon/hibmc/dp/dp_hw.h
+>> index 0f3662d8737e..84faa1a7439d 100644
+>> --- a/drivers/gpu/drm/hisilicon/hibmc/dp/dp_hw.h
+>> +++ b/drivers/gpu/drm/hisilicon/hibmc/dp/dp_hw.h
+>> @@ -17,6 +17,7 @@ struct hibmc_dp_dev;
+>>    enum hibmc_hpd_status {
+>>    	HIBMC_HPD_OUT,
+>>    	HIBMC_HPD_IN,
+>> +	HIBMC_HPD_UNKNOWN,
+>>    };
+>>    
+>>    enum hibmc_dp_cbar_pattern {
+>> @@ -54,7 +55,7 @@ struct hibmc_dp {
+>>    	void __iomem *mmio;
+>>    	struct drm_dp_aux aux;
+>>    	struct hibmc_dp_cbar_cfg cfg;
+>> -	u32 irq_status;
+>> +	int hpd_status;
+>>    	int phys_status;
+>>    };
+>>    
+>> @@ -66,7 +67,7 @@ void hibmc_dp_reset_link(struct hibmc_dp *dp);
+>>    void hibmc_dp_hpd_cfg(struct hibmc_dp *dp);
+>>    void hibmc_dp_enable_int(struct hibmc_dp *dp);
+>>    void hibmc_dp_disable_int(struct hibmc_dp *dp);
+>> -bool hibmc_dp_check_hpd_status(struct hibmc_dp *dp, int exp_status);
+>> +int hibmc_dp_get_hpd_status(struct hibmc_dp *dp);
+>>    u8 hibmc_dp_get_link_rate(struct hibmc_dp *dp);
+>>    u8 hibmc_dp_get_lanes(struct hibmc_dp *dp);
+>>    
+>> diff --git a/drivers/gpu/drm/hisilicon/hibmc/hibmc_drm_dp.c b/drivers/gpu/drm/hisilicon/hibmc/hibmc_drm_dp.c
+>> index 2e9403b8bf3c..6ea70c31d1a9 100644
+>> --- a/drivers/gpu/drm/hisilicon/hibmc/hibmc_drm_dp.c
+>> +++ b/drivers/gpu/drm/hisilicon/hibmc/hibmc_drm_dp.c
+>> @@ -15,8 +15,6 @@
+>>    #include "dp/dp_comm.h"
+>>    #include "dp/dp_config.h"
+>>    
+>> -#define DP_MASKED_SINK_HPD_PLUG_INT	BIT(2)
+>> -
+>>    static int hibmc_dp_connector_get_modes(struct drm_connector *connector)
+>>    {
+>>    	const struct drm_edid *drm_edid;
+>> @@ -61,13 +59,13 @@ static int hibmc_dp_detect(struct drm_connector *connector,
+>>    {
+>>    	struct hibmc_dp *dp = to_hibmc_dp(connector);
+>>    	struct hibmc_dp_dev *dp_dev = dp->dp_dev;
+>> +	int hpd_status = READ_ONCE(dp->hpd_status);
+>>    	int ret = connector_status_disconnected;
+>>    
+>> -	if (dp->irq_status) {
+>> -		if (dp_dev->hpd_status != HIBMC_HPD_IN) {
+>> -			ret = connector_status_disconnected;
+>> -			goto exit;
+>> -		}
+>> +	if (hpd_status != HIBMC_HPD_IN) {
+>> +		drm_dbg_dp(dp->drm_dev, "dp detect skipped, hpd (%d)\n",
+>> +			   hpd_status);
+>> +		goto exit;
+>>    	}
+>>    
+>>    	if (!hibmc_dp_get_dpcd(dp_dev)) {
+>> @@ -189,24 +187,26 @@ irqreturn_t hibmc_dp_hpd_isr(int irq, void *arg)
+>>    {
+>>    	struct drm_device *dev = (struct drm_device *)arg;
+>>    	struct hibmc_drm_private *priv = to_hibmc_drm_private(dev);
+>> -	int idx, exp_status;
+>> +	int status = READ_ONCE(priv->dp.hpd_status);
+>> +	int idx;
+>>    
+>>    	if (!drm_dev_enter(dev, &idx))
+>>    		return -ENODEV;
+>>    
+>> -	if (priv->dp.irq_status & DP_MASKED_SINK_HPD_PLUG_INT) {
+>> +	if (status == HIBMC_HPD_IN) {
+>> +		/* Plug takes aux_lock, so it must run in the thread. */
+>>    		drm_dbg_dp(&priv->dev, "HPD IN isr occur!\n");
+>>    		hibmc_dp_hpd_cfg(&priv->dp);
+>> -		exp_status = HIBMC_HPD_IN;
+>> -	} else {
+>> +	} else if (status == HIBMC_HPD_OUT) {
+>>    		drm_dbg_dp(&priv->dev, "HPD OUT isr occur!\n");
+>> -		hibmc_dp_reset_link(&priv->dp);
+>> -		exp_status = HIBMC_HPD_OUT;
+>> +	} else {
+>> +		drm_err(&priv->dev, "HPD status (%d) error\n", status);
+>> +		goto exit;
+>>    	}
+>>    
+>> -	if (hibmc_dp_check_hpd_status(&priv->dp, exp_status))
+>> -		drm_connector_helper_hpd_irq_event(&priv->dp.connector);
+>> +	drm_connector_helper_hpd_irq_event(&priv->dp.connector);
+>>    
+>> +exit:
+>>    	drm_dev_exit(idx);
+>>    
+>>    	return IRQ_HANDLED;
+>> @@ -223,6 +223,7 @@ int hibmc_dp_init(struct hibmc_drm_private *priv)
+>>    
+>>    	dp->mmio = priv->mmio;
+>>    	dp->drm_dev = dev;
+>> +	dp->hpd_status = HIBMC_HPD_OUT;
+>>    
+>>    	ret = hibmc_dp_hw_init(&priv->dp);
+>>    	if (ret) {
+>> diff --git a/drivers/gpu/drm/hisilicon/hibmc/hibmc_drm_drv.c b/drivers/gpu/drm/hisilicon/hibmc/hibmc_drm_drv.c
+>> index 4d85c89f3f88..7920f03895fe 100644
+>> --- a/drivers/gpu/drm/hisilicon/hibmc/hibmc_drm_drv.c
+>> +++ b/drivers/gpu/drm/hisilicon/hibmc/hibmc_drm_drv.c
+>> @@ -58,11 +58,18 @@ static irqreturn_t hibmc_dp_interrupt(int irq, void *arg)
+>>    {
+>>    	struct drm_device *dev = (struct drm_device *)arg;
+>>    	struct hibmc_drm_private *priv = to_hibmc_drm_private(dev);
+>> +	int hpd_status;
+>>    	u32 status;
+>>    
+>>    	status = readl(priv->mmio + HIBMC_DP_INTSTAT);
+>>    	if (status) {
+>> -		priv->dp.irq_status = status;
+>> +		hpd_status = hibmc_dp_get_hpd_status(&priv->dp);
+>> +		WRITE_ONCE(priv->dp.hpd_status, hpd_status);
+>> +
+>> +		/* Reset here so a later plug cannot hide this unplug. */
+>> +		if (hpd_status == HIBMC_HPD_OUT)
+>> +			hibmc_dp_reset_link(&priv->dp);
+>> +
+>>    		writel(status, priv->mmio + HIBMC_DP_INTCLR);
+>>    		return IRQ_WAKE_THREAD;
+>>    	}
+> 
 
-> diff --git a/drivers/gpu/drm/ttm/ttm_tt.c b/drivers/gpu/drm/ttm/ttm_tt.c
-> index b645a18181843..5dc9d3795b046 100644
-> --- a/drivers/gpu/drm/ttm/ttm_tt.c
-> +++ b/drivers/gpu/drm/ttm/ttm_tt.c
-> @@ -117,7 +117,8 @@ EXPORT_SYMBOL_FOR_TESTS_ONLY(ttm_tt_create);
->   */
->  static int ttm_tt_alloc_page_directory(struct ttm_tt *ttm)
->  {
-> -	ttm->pages =3D kvcalloc(ttm->num_pages, sizeof(void*), GFP_KERNEL);
-> +	ttm->pages =3D kvcalloc(ttm->num_pages, sizeof(void *),
-> +			      GFP_KERNEL | __GFP_NOWARN);
->  	if (!ttm->pages)
->  		return -ENOMEM;
-> =20
-> @@ -127,7 +128,8 @@ static int ttm_tt_alloc_page_directory(struct ttm_tt =
-*ttm)
->  static int ttm_dma_tt_alloc_page_directory(struct ttm_tt *ttm)
->  {
->  	ttm->pages =3D kvcalloc(ttm->num_pages, sizeof(*ttm->pages) +
-> -			      sizeof(*ttm->dma_address), GFP_KERNEL);
-> +			      sizeof(*ttm->dma_address),
-> +			      GFP_KERNEL | __GFP_NOWARN);
->  	if (!ttm->pages)
->  		return -ENOMEM;
-> =20
-
-[Severity: Medium]
-Should ttm_sg_tt_alloc_page_directory() immediately below also pass
-GFP_KERNEL | __GFP_NOWARN to kvzalloc_objs()?
-
-drivers/gpu/drm/ttm/ttm_tt.c:ttm_sg_tt_alloc_page_directory() {
-	ttm->dma_address =3D kvzalloc_objs(*ttm->dma_address, ttm->num_pages);
-	if (!ttm->dma_address)
-		return -ENOMEM;
-
-	return 0;
-}
-
-ttm_sg_tt_init() calls ttm_sg_tt_alloc_page_directory() for
-TTM_TT_FLAG_EXTERNAL objects (such as ttm_bo_type_sg), which can be
-reached when importing a dma-buf > 1 TiB via DRM_IOCTL_PRIME_FD_TO_HANDLE
-(for example through amdgpu_gem_prime_import() ->
-amdgpu_dma_buf_create_obj() -> amdgpu_gem_object_create(), which creates
-and validates the BO in AMDGPU_GEM_DOMAIN_CPU before attaching the
-dma-buf), triggering the same WARN_ON_ONCE(size > INT_MAX) in
-__kvmalloc_node_noprof().
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261121091815.1436=
-090-2-shuicheng.lin@intel.com?part=3D1
