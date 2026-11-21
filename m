@@ -2,68 +2,68 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6BBAF606A337
-	for <dri-devel@archiver.kernel.org>; Sat, 21 Nov 2026 07:41:27 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4B2FB606A683
+	for <dri-devel@archiver.kernel.org>; Sat, 21 Nov 2026 07:41:28 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=kJA47Xm8
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=A+RFDYxG
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id A716310E2DC;
+	by gabe.freedesktop.org (Postfix) with ESMTP id CA77110E2DF;
 	Sat, 21 Nov 2026 07:41:19 +0000 (UTC)
 Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 87F8D10E2DC
- for <dri-devel@lists.freedesktop.org>; Sat, 21 Nov 2026 07:41:03 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 66C5310E280
+ for <dri-devel@lists.freedesktop.org>; Sat, 21 Nov 2026 07:41:00 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id 6101A45F52;
- Sat, 21 Nov 2026 07:41:03 +0000 (UTC)
+ by sea.source.kernel.org (Postfix) with ESMTP id 421B644762;
+ Sat, 21 Nov 2026 07:41:00 +0000 (UTC)
 Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
 ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
- t=1795246863;
- b=0csKt/IseF3RstVdGumfEd0Zg7L4J1ZPBY8wnSlbILiDnWUNKLsmQTYQtXmFydC/R2Kn
- MhiDqMVfCyTTP7zUE4/J3IlFsbY8DxwHPphqE4vHlHkwvudXY03hneSYJ+R4Bsra7wIn3
- 1h5RrathTJhDo85rMEUqEBJvne/lKCfOgJ82o38/rjr05f5FSFnHcuOJXEkH6LBPiX2/n
- G/LBZGvSwSL9AJ3QMscUmASTa+9IqWS7p3FwFThjUn8aK8Ri1anG9WkdivkdQE3itXpbt
- Tns1HUzBg1qeaQEGcIxhJNVaSbxVyzidBrdILHqSH2RepHx2NSfW6R4k7jsD+bwNvMw==
+ t=1795246860;
+ b=xTmTV1e9JU8hg6am2tdW6yK3zYoR/T02K87Q9dxV46hX7rcVhjYgIFz/7/qhOs4ACQC2
+ DC+7JAurKbKY1s6K51xvk7155sNmw0DHxdhrrGW+4KNOBPkVuc1QMBYUt/uRtfPZmZrFb
+ tsV8SWcqkbeQz01X7/eHWPWnWrZasJeWx1tRM81y0o3XxWuMXPZZXlUz/jOzD130g0qKM
+ 1Ws+7UAToBojYCDFAIgmSymFhzOBBOtes76v1PRBuvPQyzTx2yAWHRS7FscQLSM8vcgda
+ ZVs6RlegsWRFdYgP98zHYdqUEPMjGn2Lcqxix8IjMLSOR9fqnDL7evGkgKKQ8TJmQgQ==
 ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
- c=relaxed/relaxed; t=1795246863;
+ c=relaxed/relaxed; t=1795246860;
  h=DKIM-Signature:Received:From:Date:Subject:MIME-Version:Content-Type:
  Content-Transfer-Encoding:Message-Id:References:In-Reply-To:To:Cc:
  X-Mailer:X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
  X-Original-From:Reply-To;
- bh=dEZyk1z+chg2ypqABNP4mNc9vh11h16sqyYSWUS+RYU=;
- b=uvYAV5FDLYzv9ARLj22HzJm054uWKyB5/NrrzlVmoiOVI7iP9X1HMo7L5TiE6hmC0OFR
- y1MRlw3Xt/9v892THPkxXl/JJz7Qg5MnMQKRsBwDpOt8XywtUfcakpKMjZ6pAdPXO41Um
- kwAvAQPPq66ZytjGHdPkGm9xc/KTemFx+vs5Usm/47fc9n+aNkem5vZFquxqo6b12motO
- IfF0YU+chsCfkRW0rPwszZ6TC5ac1s7P2rXoaJ2IQekJPjkcGJNoH+NN2aa9BaRLpDRv+
- GxT/+xab3XKH8AZ6qxFmTDN2JVvM+t42XEpJE7XMqaUVprBZyLkzxiW+I6+1Sg/YCTw==
+ bh=dD3U3VJ0FLwjWCOccbxRQVK0W5Z5sFcV/hEtgh6x+kc=;
+ b=rY6gtoT/qcbVKg73UXWBouMpaYVZ0QK4sgFq6UB2D6xjWsieDzXK/oKKJN9+i+rJiGBJ
+ tNWgwf5YYMqIpGVJ3Wm/og3kCFvoNyw/f2GKZM2F6IKDq82HbPfOefQs90fig38j6TT+F
+ fK9rWlGGFcuw5J5ly07v1Z1b94aPkdf7P6IGCJzipIZwcQTEEORhetS0wduYBz6K6IUrw
+ bZCTwI2g4tRsHHRVZQOjceL1etqLfIobIaxuiQtyO9q7D7vNvvWpqAwtEFC9W9e0N2PIh
+ L/gyiX+9DrtXq7LBtGf8PZay/xLPe7/82gRUx9t8kTgNM2kKwVzdh+GhjC0SxHNlOVQ==
 ARC-Authentication-Results: i=1; smtp.kernel.org; 
  arc=none smtp.remote-ip=100.80.115.77
 Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
  (No client certificate requested)
- by smtp.kernel.org (Postfix) with ESMTPS id 3ECD51F000D2;
- Sat, 21 Nov 2026 07:40:52 +0000 (UTC)
+ by smtp.kernel.org (Postfix) with ESMTPS id B38BC1F000C4;
+ Sat, 21 Nov 2026 07:40:54 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1795246863;
- bh=dEZyk1z+chg2ypqABNP4mNc9vh11h16sqyYSWUS+RYU=;
+ s=k20260515; t=1795246860;
+ bh=dD3U3VJ0FLwjWCOccbxRQVK0W5Z5sFcV/hEtgh6x+kc=;
  h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To;
- b=kJA47Xm8gQAJZzI0nqoUbiN982LAcbPjEu1mtO8ggpSNylX73J3q2MmrZ6VIxVN8n
- z/+CsgvfQvCZGZt4etoRaZFvCIWVyZiRexFgTMTpv22m8On36+LOegn/HV/mjUVj3R
- LG3a00T1molpi147PuU0WUPk1B7/9p2DFUH6aSUNlCXS5Ht/u6/glIe8poUXdKZC2j
- ZfWy6f3hhblTnF0UO3ak7R4SN7+ZLnkRk1F51GS1rDRAveLrxfXLIJpJ09jXiobNwH
- sUgwg3IkrfpELMJWZ80MsgNyDiqNRMsej4We/yFpdVEMpQM5EX1l/y6HUIV910n5Rm
- SEPhwD/1eYliw==
+ b=A+RFDYxGX6Ebv2IlkR0hX/qZByf2M9n2xbvI8JwZHs2KVIcU5GW5h4NikapeBwU97
+ Q93iIjscaGTp7/kpNcw4h6j1w6kx6l+ml0+PVLgeePdaaj8O2JujeGy9g5wNmtDFpv
+ MNuzfREW4cS7PgfkbIwc25CaDM2D3TNgBKP75PK/N4RwtbctzeZAXNxEnMIZoNDMKV
+ vUKx3lf2m0iYgSXk55vrOB7kOJ+bZ3QwgqGNVhTMtCD3fe8eGVDHYxGcTycroPaj7c
+ VfiqPJfONaat+DrkI/uZe88s1zN/CYF1+UbQCy/JIvlz2VArami1P8lFbxpuhXslWK
+ EOVcjLwZ8iOPg==
 Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
- by lkml.kernel.org (Postfix) with ESMTP id D5D8E4BB5C;
- Sat, 21 Nov 2026 07:40:50 +0000 (UTC)
+ by lkml.kernel.org (Postfix) with ESMTP id C49864BB7C;
+ Sat, 21 Nov 2026 07:40:51 +0000 (UTC)
 From: Cody Kang via B4 Relay <devnull+codykang.hk.gmail.com@kernel.org>
-Date: Sat, 21 Nov 2026 15:40:44 +0800
-Subject: [PATCH v3 05/17] phy: spacemit: add Innosilicon DP TX PHY driver
+Date: Sat, 21 Nov 2026 15:40:52 +0800
+Subject: [PATCH v3 13/17] MAINTAINERS: add SpacemiT K3 display driver entry
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20261121-k3-display-v3-5-ec419e8e96b8@gmail.com>
+Message-Id: <20261121-k3-display-v3-13-ec419e8e96b8@gmail.com>
 References: <20261121-k3-display-v3-0-ec419e8e96b8@gmail.com>
 In-Reply-To: <20261121-k3-display-v3-0-ec419e8e96b8@gmail.com>
 To: David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
@@ -89,11 +89,11 @@ Cc: Cody Kang <codykang@vsit.ai>, dri-devel@lists.freedesktop.org,
  spacemit@lists.linux.dev, linux-kernel@vger.kernel.org, 
  linux-phy@lists.infradead.org, linux-clk@vger.kernel.org
 X-Mailer: b4 0.16.0
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1795246844; l=32598;
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1795246844; l=1102;
  i=codykang.hk@gmail.com; s=codykang; h=from:subject:message-id;
- bh=afPON1hRRE/OCblX1MVNiv852zIkEhSDziqX0zyYlTY=;
- b=NUxZZLxl+6veg/CWFcRn5XWLRmrJkPqdCDMwbYzNDAi7/m/rc3Rz2eQdHvTJfmd53nJcb+A3P
- Yz+Dh1mIUxDAWNQYnhtblD0AWHYFifTr71ItpGgjWS9e/otOvW1IQU/
+ bh=oWc1H4pmsBmZYdMOwC23Iy029t50E36ETbDmNN8OobA=;
+ b=8phbJzxo2F4pIjhm7/H/IFSNkGvHl2q5ufpXX7AW27o0KGGChs8nwpGibEUdrtI+wZQxb3qKJ
+ BYJEc/LqD8hC2Xt/avWtv+biYLQ6rxBTDDwkAKF8qa/ovGe8SayHrBO
 X-Developer-Key: i=codykang.hk@gmail.com; a=ed25519;
  pk=Osn6/cs9Su/mHHw4P19cmVc3v2FMQfiWahjsN0vEkuk=
 X-Endpoint-Received: by B4 Relay for codykang.hk@gmail.com/codykang with
@@ -120,1026 +120,43 @@ X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 
 From: Cody Kang <codykang@vsit.ai>
 
-The PHY's registers are interleaved into its parent DP controller's MMIO
-window rather than a window of its own, so it probes as a child of the
-controller, carries no reg or reset, and reaches its registers through
-the controller's regmap.
-
-It registers its pixel PLL as a clock provider. That lets the display
-controller ask for a mode's pixel rate through clk_set_rate(), and it
-lets the APMU pixel-clock mux parent to the PHY through the clock
-framework. Without it the controller would have to program the PHY's
-pixel PLL itself.
+Cover the Saturn DPU, the Innosilicon DP/eDP controller, the DP PHY and
+their bindings.
 
 Signed-off-by: Cody Kang <codykang@vsit.ai>
 
 ---
 v3:
-- park the pixel PLL when the lane enable write fails
-- share one pixel PLL lookup between determine_rate and set_rate
-- describe the lane trim fields with GENMASK() and FIELD_PREP()
-- drop redundant checks and initialisers
-- commit message: reword why the PHY is a clock provider
+- add Guodong Xu as maintainer
+- list Cody Kang with the vsit.ai address
 v2:
-- drop the mod_devicetable.h include (Uwe Kleine-Koenig)
-- unwind the lanes and pixel PLL on the power_on lock-timeout paths
-  (Sashiko)
-- document why power_off keeps the MPLL up: it feeds the 16 MHz AUX
-  reference, and AUX must survive link drops (Sashiko)
-- register the PHY and clock providers last in probe (Sashiko)
+- no change
 ---
- drivers/phy/spacemit/Kconfig          |  13 +
- drivers/phy/spacemit/Makefile         |   1 +
- drivers/phy/spacemit/phy-k3-inno-dp.c | 951 ++++++++++++++++++++++++++++++++++
- 3 files changed, 965 insertions(+)
+ MAINTAINERS | 11 +++++++++++
+ 1 file changed, 11 insertions(+)
 
-diff --git a/drivers/phy/spacemit/Kconfig b/drivers/phy/spacemit/Kconfig
-index b5f36621b2075..6b6071c965d9e 100644
---- a/drivers/phy/spacemit/Kconfig
-+++ b/drivers/phy/spacemit/Kconfig
-@@ -42,3 +42,16 @@ config PHY_SPACEMIT_K3_COMBO_PHY
- 	  driver takes care of enabling and clock setup and will be used
- 	  by K3 dwc3 driver.
- 	  If unsure, say N.
-+
-+config PHY_SPACEMIT_K3_INNO_DP
-+	tristate "SpacemiT K3 Innosilicon DisplayPort PHY driver"
-+	depends on (ARCH_SPACEMIT || COMPILE_TEST) && OF
-+	depends on COMMON_CLK
-+	select GENERIC_PHY
-+	select REGMAP
-+	help
-+	  Enable support for the Innosilicon DisplayPort transmit PHY
-+	  integrated in the SpacemiT K3 SoC. The PHY shares its MMIO window
-+	  with its parent DP/eDP controller (drivers/gpu/drm/spacemit/) and
-+	  exposes lane / rate / vswing / pre-emphasis control through the
-+	  generic PHY framework.
-diff --git a/drivers/phy/spacemit/Makefile b/drivers/phy/spacemit/Makefile
-index f679c1851b4f0..cdd88d9cc18bc 100644
---- a/drivers/phy/spacemit/Makefile
-+++ b/drivers/phy/spacemit/Makefile
-@@ -3,3 +3,4 @@ obj-$(CONFIG_PHY_SPACEMIT_K1_PCIE)		+= phy-k1-pcie.o
- obj-$(CONFIG_PHY_SPACEMIT_K1_USB2)		+= phy-k1-usb2.o
- obj-$(CONFIG_PHY_SPACEMIT_K3_COMBO_PHY)		+= phy-k3-combo.o
- obj-$(CONFIG_PHY_SPACEMIT_K3_COMMON_OPS)	+= phy-k3-common.o
-+obj-$(CONFIG_PHY_SPACEMIT_K3_INNO_DP)		+= phy-k3-inno-dp.o
-diff --git a/drivers/phy/spacemit/phy-k3-inno-dp.c b/drivers/phy/spacemit/phy-k3-inno-dp.c
-new file mode 100644
-index 0000000000000..31d5c0cb5afba
---- /dev/null
-+++ b/drivers/phy/spacemit/phy-k3-inno-dp.c
-@@ -0,0 +1,951 @@
-+// SPDX-License-Identifier: GPL-2.0-only
-+/*
-+ * SpacemiT K3 Innosilicon DisplayPort PHY driver.
-+ *
-+ * Copyright (C) 2025-2026 SpacemiT Co., Ltd.
-+ */
-+
-+#include <linux/bitfield.h>
-+#include <linux/bitops.h>
-+#include <linux/clk-provider.h>
-+#include <linux/delay.h>
-+#include <linux/iopoll.h>
-+#include <linux/math.h>
-+#include <linux/math64.h>
-+#include <linux/module.h>
-+#include <linux/of.h>
-+#include <linux/phy/phy.h>
-+#include <linux/phy/phy-dp.h>
-+#include <linux/platform_device.h>
-+#include <linux/regmap.h>
-+
-+/* Offsets are into the parent controller's MMIO window */
-+#define DPTX_PHY_CTRL			0x0100
-+#define DPTX_PHY_CTRL_XMIT_EN		GENMASK(20, 17)
-+#define DPTX_PHY_CTRL_NUM_LANES		GENMASK(6, 5)
-+#define DPTX_PHY_CTRL_RATE		GENMASK(1, 0)
-+
-+/* One 6-bit slot per lane; only the low 4 bits of each slot are used. */
-+#define DPTX_PHY_LANE_TRIM		0x0104
-+#define DPTX_PHY_LANE_BITS_PER		6
-+#define DPTX_PHY_LANE_PREEMP		GENMASK(1, 0)	/* within a lane slot */
-+#define DPTX_PHY_LANE_VSWING		GENMASK(3, 2)
-+
-+/* MPLL is the link PLL (lane rate) */
-+#define DPTX_ANA_MPLL			0x0180
-+#define DPTX_ANA_MPLL_FBDIV_LBIT	GENMASK(31, 24)
-+#define DPTX_ANA_MPLL_FBDIV_HBIT	GENMASK(19, 16)
-+#define DPTX_ANA_MPLL_PREDIV		GENMASK(13, 8)
-+#define DPTX_ANA_MPLL_LOCKED		BIT(7)
-+#define DPTX_ANA_MPLL_DACPD		BIT(5)
-+#define DPTX_ANA_MPLL_DSMPD		BIT(4)
-+#define DPTX_ANA_MPLL_PD		BIT(0)
-+
-+#define DPTX_ANA_MPLL_FRAC		0x0184
-+#define DPTX_ANA_MPLL_FRAC_LBIT		GENMASK(23, 16)
-+#define DPTX_ANA_MPLL_FRAC_MBIT		GENMASK(15, 8)
-+#define DPTX_ANA_MPLL_FRAC_HBIT		GENMASK(7, 0)
-+
-+#define DPTX_ANA_MPLL_DIV		0x0188
-+#define DPTX_ANA_MPLL_VCOCLK_DIV8_EN	BIT(16)
-+#define DPTX_ANA_MPLL_POSTDIVEN		BIT(11)
-+#define DPTX_ANA_MPLL_POSTDIV		GENMASK(10, 8)
-+
-+/* PREPLL is the pixel PLL exposed as a clock. */
-+#define DPTX_ANA_PREPLL			0x0190
-+#define DPTX_ANA_PREPLL_FBDIV2_LBIT	GENMASK(31, 24)
-+#define DPTX_ANA_PREPLL_FBDIV2_HBIT	GENMASK(19, 16)
-+#define DPTX_ANA_PREPLL_PREDIV		GENMASK(13, 8)
-+#define DPTX_ANA_PREPLL_LOCKED		BIT(7)
-+#define DPTX_ANA_PREPLL_DACPD		BIT(5)
-+#define DPTX_ANA_PREPLL_DSMPD		BIT(4)
-+#define DPTX_ANA_PREPLL_PCLK_NORMAL	BIT(1)
-+#define DPTX_ANA_PREPLL_PD		BIT(0)
-+
-+#define DPTX_ANA_PREPLL_DIV		0x0194
-+#define DPTX_ANA_PREPLL_PRECLK_DIVM	GENMASK(17, 16)
-+#define DPTX_ANA_PREPLL_PRECLK_DIVAUX	GENMASK(12, 8)
-+
-+#define DPTX_ANA_PREPLL_CTRL		0x0198
-+#define DPTX_ANA_PREPLL_PCLKDIV5_EN	BIT(31)
-+#define DPTX_ANA_PREPLL_PCLK_DIVAUX	GENMASK(28, 24)
-+#define DPTX_ANA_PREPLL_LOCK_BYPEN	BIT(17)
-+#define DPTX_ANA_PREPLL_HDMI_EN		BIT(9)
-+#define DPTX_ANA_PREPLL_DP_EN		BIT(8)
-+
-+#define DPTX_ANA_PREPLL_FRAC		0x019c
-+#define DPTX_ANA_PREPLL_FRAC2_LBIT	GENMASK(23, 16)
-+#define DPTX_ANA_PREPLL_FRAC2_MBIT	GENMASK(15, 8)
-+#define DPTX_ANA_PREPLL_FRAC2_HBIT	GENMASK(7, 0)
-+
-+#define DPTX_ANA_TX_CTRL		0x01a0
-+#define DPTX_ANA_MPLL_CLKDIV_16M	GENMASK(13, 8)
-+
-+/* PRECLK_DIVM register value -> divide factor */
-+static const u8 k3_inno_dp_divm_factors[] = { 1, 2, 3, 5 };
-+
-+#define DPTX_VCO_MIN_KHZ		1000000
-+#define DPTX_VCO_MAX_KHZ		3000000
-+#define DPTX_PLL_FRAC_MOD		BIT(24)
-+#define DPTX_PLL_ERR_TOLERANCE		10
-+
-+struct k3_inno_dp_phy {
-+	struct device	*dev;
-+	struct regmap	*regmap;
-+	struct phy	*phy;
-+	u8		lanes;		/* tracks last set_lanes */
-+
-+	struct clk_hw	pxclk_hw;	/* the PREPLL's pixel clock */
-+	unsigned long	pxclk_rate;	/* last programmed PREPLL rate */
-+	u32		ref_clk_khz;	/* PLL reference */
-+};
-+
-+static int k3_inno_dp_phy_power_on(struct phy *phy)
-+{
-+	struct k3_inno_dp_phy *p = phy_get_drvdata(phy);
-+	u32 lane_en;
-+	u32 val;
-+	int ret;
-+
-+	switch (p->lanes) {
-+	case 1:
-+		lane_en = 0x1;
-+		break;
-+	case 2:
-+		lane_en = 0x3;
-+		break;
-+	case 4:
-+	default:
-+		lane_en = 0xf;
-+		break;
-+	}
-+
-+	ret = regmap_write_bits(p->regmap, DPTX_ANA_MPLL, DPTX_ANA_MPLL_PD, 0);
-+	if (ret)
-+		return ret;
-+	ret = regmap_write_bits(p->regmap, DPTX_ANA_PREPLL,
-+				DPTX_ANA_PREPLL_PD, 0);
-+	if (ret)
-+		return ret;
-+	usleep_range(2000, 4000);
-+
-+	ret = regmap_write_bits(p->regmap, DPTX_PHY_CTRL,
-+				DPTX_PHY_CTRL_XMIT_EN,
-+				FIELD_PREP(DPTX_PHY_CTRL_XMIT_EN, lane_en));
-+	if (ret)
-+		goto err_power_down;
-+	usleep_range(2000, 4000);
-+
-+	ret = regmap_read_poll_timeout(p->regmap, DPTX_ANA_MPLL, val,
-+				       val & DPTX_ANA_MPLL_LOCKED,
-+				       2000, 10 * 1000);
-+	if (ret) {
-+		dev_err(p->dev, "DP PHY core PLL lock timed out\n");
-+		goto err_power_down;
-+	}
-+
-+	ret = regmap_read_poll_timeout(p->regmap, DPTX_ANA_PREPLL, val,
-+				       val & DPTX_ANA_PREPLL_LOCKED,
-+				       2000, 10 * 1000);
-+	if (ret) {
-+		dev_err(p->dev, "DP PHY pixel PLL lock timed out\n");
-+		goto err_power_down;
-+	}
-+
-+	return 0;
-+
-+	/*
-+	 * The PHY core does not call power_off after a failed power_on, so
-+	 * park what power_off parks. Not the MPLL: see power_off.
-+	 */
-+err_power_down:
-+	regmap_write_bits(p->regmap, DPTX_PHY_CTRL, DPTX_PHY_CTRL_XMIT_EN, 0);
-+	regmap_write_bits(p->regmap, DPTX_ANA_PREPLL, DPTX_ANA_PREPLL_PD,
-+			  DPTX_ANA_PREPLL_PD);
-+	return ret;
-+}
-+
-+/*
-+ * Asymmetric with power_on on purpose: the MPLL stays up because it also
-+ * feeds the 16 MHz AUX reference (DPTX_ANA_MPLL_CLKDIV_16M), and AUX must
-+ * keep working while the link is down (EDID, DPCD, panel detection). The
-+ * controller parks the PHY through here on every link drop, including
-+ * right after bind.
-+ */
-+static int k3_inno_dp_phy_power_off(struct phy *phy)
-+{
-+	struct k3_inno_dp_phy *p = phy_get_drvdata(phy);
-+
-+	regmap_write_bits(p->regmap, DPTX_PHY_CTRL, DPTX_PHY_CTRL_XMIT_EN, 0);
-+	usleep_range(2000, 4000);
-+
-+	regmap_write_bits(p->regmap, DPTX_ANA_PREPLL, DPTX_ANA_PREPLL_PD,
-+			  DPTX_ANA_PREPLL_PD);
-+	usleep_range(2000, 4000);
-+
-+	return 0;
-+}
-+
-+static int k3_inno_dp_phy_set_lanes(struct k3_inno_dp_phy *p, u8 lanes)
-+{
-+	u32 val;
-+	int ret;
-+
-+	switch (lanes) {
-+	case 1:
-+		val = 0;
-+		break;
-+	case 2:
-+		val = 1;
-+		break;
-+	case 4:
-+		val = 2;
-+		break;
-+	default:
-+		return -EINVAL;
-+	}
-+
-+	ret = regmap_write_bits(p->regmap, DPTX_PHY_CTRL,
-+				DPTX_PHY_CTRL_NUM_LANES,
-+				FIELD_PREP(DPTX_PHY_CTRL_NUM_LANES, val));
-+	if (ret)
-+		return ret;
-+
-+	p->lanes = lanes;
-+	return 0;
-+}
-+
-+struct k3_inno_dp_mpll_cfg {
-+	unsigned int link_rate;		/* Mbps per lane */
-+	u8 prediv;
-+	u16 fbdiv;
-+	u32 frac;
-+	u8 postdiv;
-+	u8 postdiv_en;
-+	u8 frac_pd;
-+	u8 vcoclk_div8_en;
-+	u8 clk_16mdiv;
-+};
-+
-+static const struct k3_inno_dp_mpll_cfg k3_inno_dp_mpll_cfgs[] = {
-+	{
-+		.link_rate	= 1620,
-+		.prediv		= 0x02,
-+		.fbdiv		= 0x87,
-+		.frac		= 0,
-+		.postdiv	= 0,
-+		.postdiv_en	= 1,
-+		.frac_pd	= 0x3,
-+		.vcoclk_div8_en	= 1,
-+		.clk_16mdiv	= 12,
-+	}, {
-+		.link_rate	= 2700,
-+		.prediv		= 0x02,
-+		.fbdiv		= 0xe1,
-+		.frac		= 0,
-+		.postdiv	= 0,
-+		.postdiv_en	= 1,
-+		.frac_pd	= 0x3,
-+		.vcoclk_div8_en	= 1,
-+		.clk_16mdiv	= 21,
-+	}, {
-+		.link_rate	= 5400,
-+		.prediv		= 0x02,
-+		.fbdiv		= 0xe1,
-+		.frac		= 0,
-+		.postdiv	= 0,
-+		.postdiv_en	= 0,
-+		.frac_pd	= 0x3,
-+		.vcoclk_div8_en	= 0,
-+		.clk_16mdiv	= 42,
-+	},
-+};
-+
-+static void k3_inno_dp_phy_program_mpll(struct k3_inno_dp_phy *p,
-+					const struct k3_inno_dp_mpll_cfg *cfg)
-+{
-+	struct regmap *rm = p->regmap;
-+
-+	/*
-+	 * Shared with an unwired HDMI path: select DP first, otherwise the
-+	 * PLLs still lock but nothing reaches the lanes and AUX times out.
-+	 */
-+	regmap_write_bits(rm, DPTX_ANA_PREPLL_CTRL, DPTX_ANA_PREPLL_DP_EN,
-+			  DPTX_ANA_PREPLL_DP_EN);
-+	regmap_write_bits(rm, DPTX_ANA_PREPLL_CTRL, DPTX_ANA_PREPLL_HDMI_EN, 0);
-+
-+	regmap_write_bits(rm, DPTX_ANA_MPLL, DPTX_ANA_MPLL_PD,
-+			  FIELD_PREP(DPTX_ANA_MPLL_PD, 1));
-+	usleep_range(2000, 4000);
-+
-+	regmap_write_bits(rm, DPTX_ANA_MPLL, DPTX_ANA_MPLL_PREDIV,
-+			  FIELD_PREP(DPTX_ANA_MPLL_PREDIV, cfg->prediv));
-+	regmap_write_bits(rm, DPTX_ANA_MPLL, DPTX_ANA_MPLL_FBDIV_LBIT,
-+			  FIELD_PREP(DPTX_ANA_MPLL_FBDIV_LBIT, cfg->fbdiv & 0xff));
-+	regmap_write_bits(rm, DPTX_ANA_MPLL, DPTX_ANA_MPLL_FBDIV_HBIT,
-+			  FIELD_PREP(DPTX_ANA_MPLL_FBDIV_HBIT, (cfg->fbdiv >> 8) & 0xf));
-+	regmap_write_bits(rm, DPTX_ANA_MPLL, DPTX_ANA_MPLL_DACPD,
-+			  FIELD_PREP(DPTX_ANA_MPLL_DACPD, (cfg->frac_pd >> 1) & 0x1));
-+	regmap_write_bits(rm, DPTX_ANA_MPLL, DPTX_ANA_MPLL_DSMPD,
-+			  FIELD_PREP(DPTX_ANA_MPLL_DSMPD, cfg->frac_pd & 0x1));
-+
-+	regmap_write_bits(rm, DPTX_ANA_MPLL_FRAC, DPTX_ANA_MPLL_FRAC_LBIT,
-+			  FIELD_PREP(DPTX_ANA_MPLL_FRAC_LBIT, cfg->frac & 0xff));
-+	regmap_write_bits(rm, DPTX_ANA_MPLL_FRAC, DPTX_ANA_MPLL_FRAC_MBIT,
-+			  FIELD_PREP(DPTX_ANA_MPLL_FRAC_MBIT, (cfg->frac >> 8) & 0xff));
-+	regmap_write_bits(rm, DPTX_ANA_MPLL_FRAC, DPTX_ANA_MPLL_FRAC_HBIT,
-+			  FIELD_PREP(DPTX_ANA_MPLL_FRAC_HBIT, (cfg->frac >> 16) & 0xff));
-+
-+	regmap_write_bits(rm, DPTX_ANA_MPLL_DIV, DPTX_ANA_MPLL_POSTDIV,
-+			  FIELD_PREP(DPTX_ANA_MPLL_POSTDIV, cfg->postdiv));
-+	regmap_write_bits(rm, DPTX_ANA_MPLL_DIV, DPTX_ANA_MPLL_POSTDIVEN,
-+			  FIELD_PREP(DPTX_ANA_MPLL_POSTDIVEN, cfg->postdiv_en));
-+	regmap_write_bits(rm, DPTX_ANA_MPLL_DIV, DPTX_ANA_MPLL_VCOCLK_DIV8_EN,
-+			  FIELD_PREP(DPTX_ANA_MPLL_VCOCLK_DIV8_EN, cfg->vcoclk_div8_en));
-+
-+	regmap_write_bits(rm, DPTX_ANA_TX_CTRL, DPTX_ANA_MPLL_CLKDIV_16M,
-+			  FIELD_PREP(DPTX_ANA_MPLL_CLKDIV_16M, cfg->clk_16mdiv));
-+
-+	regmap_write_bits(rm, DPTX_ANA_PREPLL_CTRL, DPTX_ANA_PREPLL_LOCK_BYPEN,
-+			  FIELD_PREP(DPTX_ANA_PREPLL_LOCK_BYPEN, 1));
-+
-+	regmap_write_bits(rm, DPTX_ANA_MPLL, DPTX_ANA_MPLL_PD,
-+			  FIELD_PREP(DPTX_ANA_MPLL_PD, 0));
-+	usleep_range(2000, 4000);
-+}
-+
-+static int k3_inno_dp_phy_set_rate(struct k3_inno_dp_phy *p,
-+				   unsigned int link_rate)
-+{
-+	u32 sel;
-+
-+	switch (link_rate) {
-+	case 1620:
-+		sel = 0;
-+		break;
-+	case 2700:
-+		sel = 1;
-+		break;
-+	case 5400:
-+		sel = 2;
-+		break;
-+	default:
-+		return -EINVAL;
-+	}
-+
-+	/* The table is indexed by the rate select value. */
-+	k3_inno_dp_phy_program_mpll(p, &k3_inno_dp_mpll_cfgs[sel]);
-+
-+	return regmap_write_bits(p->regmap, DPTX_PHY_CTRL,
-+				 DPTX_PHY_CTRL_RATE,
-+				 FIELD_PREP(DPTX_PHY_CTRL_RATE, sel));
-+}
-+
-+static int k3_inno_dp_phy_set_voltages(struct k3_inno_dp_phy *p,
-+				       struct phy_configure_opts_dp *opts)
-+{
-+	u8 lane;
-+	int ret;
-+
-+	for (lane = 0; lane < opts->lanes; lane++) {
-+		unsigned int shift = lane * DPTX_PHY_LANE_BITS_PER;
-+		u32 mask = (DPTX_PHY_LANE_VSWING | DPTX_PHY_LANE_PREEMP) << shift;
-+		u32 val = (FIELD_PREP(DPTX_PHY_LANE_VSWING, opts->voltage[lane]) |
-+			   FIELD_PREP(DPTX_PHY_LANE_PREEMP, opts->pre[lane])) << shift;
-+
-+		ret = regmap_write_bits(p->regmap, DPTX_PHY_LANE_TRIM, mask,
-+					val);
-+		if (ret)
-+			return ret;
-+	}
-+
-+	return 0;
-+}
-+
-+static int k3_inno_dp_phy_configure(struct phy *phy,
-+				    union phy_configure_opts *opts)
-+{
-+	struct k3_inno_dp_phy *p = phy_get_drvdata(phy);
-+	int ret;
-+
-+	if (opts->dp.set_lanes) {
-+		ret = k3_inno_dp_phy_set_lanes(p, opts->dp.lanes);
-+		if (ret)
-+			return ret;
-+	}
-+
-+	if (opts->dp.set_rate) {
-+		ret = k3_inno_dp_phy_set_rate(p, opts->dp.link_rate);
-+		if (ret)
-+			return ret;
-+	}
-+
-+	if (opts->dp.set_voltages) {
-+		ret = k3_inno_dp_phy_set_voltages(p, &opts->dp);
-+		if (ret)
-+			return ret;
-+	}
-+
-+	return 0;
-+}
-+
-+static int k3_inno_dp_better_cfg(bool new_valid, bool new_is_int, u8 new_pre, u32 new_vco,
-+				 bool best_valid, bool best_is_int, u8 best_pre, u32 best_vco)
-+{
-+	if (!new_valid)
-+		return 0;
-+	if (!best_valid)
-+		return 1;
-+
-+	if (new_is_int && !best_is_int)
-+		return 1;
-+	if (!new_is_int && best_is_int)
-+		return 0;
-+
-+	if (new_pre < best_pre)
-+		return 1;
-+	if (new_pre > best_pre)
-+		return 0;
-+
-+	if (new_vco > best_vco)
-+		return 1;
-+
-+	return 0;
-+}
-+
-+struct k3_inno_dp_prepll_cfg {
-+	u32 target_pclk_khz;
-+	u32 vco_freq_khz;
-+	u8 prediv;
-+	u16 fbdiv;
-+	u32 frac_pd;
-+	u32 frac;
-+	u8 div5_en;
-+	u8 divm;
-+	u8 divaux;
-+	u8 divp;
-+	u32 actual_pclk_khz;
-+	bool valid;
-+};
-+
-+static const struct k3_inno_dp_prepll_cfg k3_inno_dp_prepll_cfgs[] = {
-+	{ 614400, 2460000, 0x05, 512,  0x3, 0x0, 0x0, 0x1, 0x01, 0x1, 614400, true },
-+	{ 594000, 2376000, 0x01, 99,   0x3, 0x0, 0x0, 0x1, 0x01, 0x1, 594000, true },
-+	{ 551040, 2760000, 0x05, 574,  0x3, 0x0, 0x1, 0x0, 0x00, 0x0, 551040, true },
-+	{ 533250, 2130000, 0x08, 711,  0x3, 0x0, 0x0, 0x1, 0x01, 0x1, 533250, true },
-+	{ 443250, 1770000, 0x08, 591,  0x3, 0x0, 0x0, 0x1, 0x01, 0x1, 443250, true },
-+	{ 375000, 3000000, 0x01, 125,  0x3, 0x0, 0x0, 0x0, 0x04, 0x1, 375000, true },
-+	{ 372000, 2980000, 0x01, 124,  0x3, 0x0, 0x0, 0x0, 0x04, 0x1, 372000, true },
-+	{ 348500, 2790000, 0x06, 697,  0x3, 0x0, 0x0, 0x0, 0x04, 0x1, 348500, true },
-+	{ 307200, 1540000, 0x01, 64,   0x3, 0x0, 0x1, 0x0, 0x00, 0x0, 307200, true },
-+	{ 297000, 2376000, 0x01, 99,   0x3, 0x0, 0x0, 0x0, 0x04, 0x1, 297000, true },
-+	{ 280000, 1680000, 0x01, 70,   0x3, 0x0, 0x0, 0x2, 0x01, 0x1, 280000, true },
-+	{ 277440, 2770000, 0x05, 578,  0x3, 0x0, 0x0, 0x3, 0x01, 0x1, 277440, true },
-+	{ 245760, 2457600, 0x05, 512,  0x3, 0x0, 0x0, 0x3, 0x01, 0x1, 245760, true },
-+	{ 241500, 1932000, 0x02, 161,  0x3, 0x0, 0x0, 0x0, 0x04, 0x1, 241500, true },
-+	{ 236000, 2830000, 0x01, 118,  0x3, 0x0, 0x0, 0x0, 0x06, 0x1, 236000, true },
-+	{ 204800, 2048000, 0x03, 256,  0x3, 0x0, 0x0, 0x3, 0x01, 0x1, 204800, true },
-+	{ 193250, 2320000, 0x08, 773,  0x3, 0x0, 0x0, 0x0, 0x06, 0x1, 193250, true },
-+	{ 189000, 1510000, 0x01,  63,  0x3, 0x0, 0x0, 0x0, 0x04, 0x1, 189000, true },
-+	{ 187500, 3000000, 0x01, 125,  0x3, 0x0, 0x0, 0x0, 0x08, 0x1, 187500, true },
-+	{ 162000, 2592000, 0x01, 108,  0x3, 0x0, 0x0, 0x0, 0x08, 0x1, 162000, true },
-+	{ 156000, 2810000, 0x01, 117,  0x3, 0x0, 0x0, 0x0, 0x09, 0x1, 156000, true },
-+	{ 150000, 3000000, 0x01, 125,  0x3, 0x0, 0x0, 0x0, 0x0a, 0x1, 150000, true },
-+	{ 148500, 2376000, 0x01, 99,   0x3, 0x0, 0x0, 0x0, 0x08, 0x1, 148500, true },
-+	{ 146000, 1750000, 0x01, 73,   0x3, 0x0, 0x0, 0x0, 0x06, 0x1, 146000, true },
-+	{ 142860, 2860000, 0x14, 2381, 0x3, 0x0, 0x0, 0x0, 0x0a, 0x1, 142860, true },
-+	{ 140000, 2520000, 0x01, 105,  0x3, 0x0, 0x0, 0x0, 0x09, 0x1, 140000, true },
-+	{ 138500, 2220000, 0x03, 277,  0x3, 0x0, 0x0, 0x0, 0x08, 0x1, 138500, true },
-+	{ 122000, 2930000, 0x01, 122,  0x3, 0x0, 0x0, 0x0, 0x0c, 0x1, 122000, true },
-+	{ 121750, 2920000, 0x04, 487,  0x3, 0x0, 0x0, 0x0, 0x0c, 0x1, 121750, true },
-+	{ 108000, 2810000, 0x01, 117,  0x3, 0x0, 0x0, 0x0, 0x0d, 0x1, 108000, true },
-+	{ 106500, 1700000, 0x01,  71,  0x3, 0x0, 0x0, 0x0, 0x08, 0x1, 106500, true },
-+	{ 83500,  2000000, 0x02, 167,  0x3, 0x0, 0x0, 0x0, 0x0c, 0x1, 83500,  true },
-+	{ 79500,  2540000, 0x01, 106,  0x3, 0x0, 0x0, 0x0, 0x10, 0x1, 79500,  true },
-+	{ 75000,  3000000, 0x01, 125,  0x3, 0x0, 0x0, 0x0, 0x14, 0x1, 75000,  true },
-+	{ 74250,  2376000, 0x01,  99,  0x3, 0x0, 0x0, 0x0, 0x10, 0x1, 74250,  true },
-+	{ 65000,  1560000, 0x01,  65,  0x3, 0x0, 0x0, 0x0, 0x0c, 0x1, 65000,  true },
-+	{ 40000,  2880000, 0x01, 120,  0x3, 0x0, 0x0, 0x0, 0x12, 0x2, 40000,  true },
-+	{ 27000,  2810000, 0x01, 117,  0x3, 0x0, 0x0, 0x0, 0x1a, 0x2, 27000,  true },
-+	{ 25600,  2300000, 0x01,  96,  0x3, 0x0, 0x0, 0x0, 0x0f, 0x3, 25600,  true },
-+	{ 25200,  2520000, 0x01, 105,  0x3, 0x0, 0x0, 0x0, 0x19, 0x2, 25200,  true },
-+};
-+
-+static u32 k3_inno_dp_pll_rate_khz(u8 pre, u16 fb, u32 frac,
-+				   u32 ref_clk_khz, u32 total_div)
-+{
-+	u64 vco_hz;
-+	u64 ref_hz = (u64)ref_clk_khz * 1000;
-+	u64 int_part;
-+	u64 frac_part;
-+
-+	/* Integer part: (Ref * FB) / Pre */
-+	int_part = ref_hz * fb;
-+	int_part += (pre / 2);
-+	do_div(int_part, pre);
-+
-+	/* Fractional part: (Ref * Frac) / (Pre * 2^24) */
-+	frac_part = ref_hz * frac;
-+
-+	frac_part += (pre / 2);
-+	do_div(frac_part, pre);
-+
-+	frac_part += (DPTX_PLL_FRAC_MOD / 2);
-+	do_div(frac_part, DPTX_PLL_FRAC_MOD);
-+
-+	vco_hz = int_part + frac_part;
-+
-+	/* Final Rate = VCO / total_div */
-+	vco_hz += (total_div / 2);
-+	do_div(vco_hz, total_div);
-+
-+	vco_hz += 500;
-+	do_div(vco_hz, 1000);
-+
-+	return (u32)vco_hz;
-+}
-+
-+static int k3_inno_dp_prepll_div_total(const struct k3_inno_dp_prepll_cfg *cfg,
-+				       u32 *div_total)
-+{
-+	if (!cfg->valid)
-+		return -EINVAL;
-+
-+	/* div5_en fixes div_total at 5; divp is unused on this path */
-+	if (cfg->div5_en) {
-+		*div_total = 5;
-+		return 0;
-+	}
-+
-+	if (!cfg->divp)
-+		return -EINVAL;
-+
-+	if (cfg->divaux == 1) {
-+		if (cfg->divm >= ARRAY_SIZE(k3_inno_dp_divm_factors))
-+			return -EINVAL;
-+
-+		*div_total = 2 * k3_inno_dp_divm_factors[cfg->divm] * cfg->divp;
-+		return 0;
-+	}
-+
-+	if (cfg->divaux < 2)
-+		return -EINVAL;
-+
-+	*div_total = 2 * cfg->divaux * cfg->divp;
-+	return 0;
-+}
-+
-+static bool k3_inno_dp_prepll_cfg_matches(const struct k3_inno_dp_prepll_cfg *cfg,
-+					  u32 target_pclk_khz,
-+					 u32 ref_clk_khz)
-+{
-+	u32 div_total;
-+	u32 actual_pclk_khz;
-+
-+	if (k3_inno_dp_prepll_div_total(cfg, &div_total))
-+		return false;
-+
-+	actual_pclk_khz = k3_inno_dp_pll_rate_khz(cfg->prediv, cfg->fbdiv,
-+						  cfg->frac, ref_clk_khz,
-+						  div_total);
-+
-+	if (cfg->actual_pclk_khz &&
-+	    abs_diff(actual_pclk_khz,
-+		     cfg->actual_pclk_khz) > DPTX_PLL_ERR_TOLERANCE)
-+		return false;
-+
-+	return abs_diff(actual_pclk_khz,
-+				    target_pclk_khz) <= DPTX_PLL_ERR_TOLERANCE;
-+}
-+
-+static const struct k3_inno_dp_prepll_cfg *k3_inno_dp_find_prepll_cfg(u32 pclk_khz,
-+								      u32 ref_clk_khz)
-+{
-+	const struct k3_inno_dp_prepll_cfg *best_match = NULL;
-+	u32 min_diff = U32_MAX;
-+	int num_configs = ARRAY_SIZE(k3_inno_dp_prepll_cfgs);
-+
-+	for (int i = 0; i < num_configs; i++) {
-+		u32 current_target = k3_inno_dp_prepll_cfgs[i].target_pclk_khz;
-+		u32 diff = abs_diff(pclk_khz, current_target);
-+
-+		if (diff == 0 && k3_inno_dp_prepll_cfg_matches(&k3_inno_dp_prepll_cfgs[i],
-+							       pclk_khz, ref_clk_khz)) {
-+			return &k3_inno_dp_prepll_cfgs[i];
-+		}
-+
-+		if ((pclk_khz / 100) == (current_target / 100) &&
-+		    k3_inno_dp_prepll_cfg_matches(&k3_inno_dp_prepll_cfgs[i],
-+						  pclk_khz, ref_clk_khz)) {
-+			return &k3_inno_dp_prepll_cfgs[i];
-+		}
-+
-+		if (diff < min_diff && diff < 500 &&
-+		    k3_inno_dp_prepll_cfg_matches(&k3_inno_dp_prepll_cfgs[i],
-+						  pclk_khz, ref_clk_khz)) {
-+			min_diff = diff;
-+			best_match = &k3_inno_dp_prepll_cfgs[i];
-+		}
-+	}
-+
-+	return best_match;
-+}
-+
-+static int k3_inno_dp_solve_frac(u32 target_vco_khz, u32 ref_clk_khz,
-+				 u8 *best_pre, u16 *best_fb, u32 *best_frac)
-+{
-+	u64 min_err = ~0ULL;
-+	int found = 0;
-+	bool best_is_int = false;
-+	int pre;
-+
-+	for (pre = 1; pre <= 63; pre++) {
-+		u64 ref_clk_hz = (u64)ref_clk_khz * 1000;
-+		u64 target_vco_hz = (u64)target_vco_khz * 1000;
-+
-+		/*
-+		 * Calculate required multiplier: Mult = (TargetVCO * Pre) / Ref
-+		 */
-+		u64 num = target_vco_hz * pre;
-+		u64 den = ref_clk_hz;
-+		u64 remainder;
-+		u64 fb_val;
-+		u64 frac_val;
-+		u64 vco_int, vco_frac;
-+		u64 actual_vco;
-+		u64 diff;
-+		bool current_is_int;
-+
-+		fb_val = num;
-+		remainder = do_div(fb_val, (u32)den);
-+
-+		if (fb_val > 4095)
-+			continue;
-+
-+		/* Frac = (Remainder * 2^24 + Ref/2) / Ref */
-+		frac_val = remainder * DPTX_PLL_FRAC_MOD;
-+		frac_val += (den / 2);
-+		do_div(frac_val, (u32)den);
-+
-+		if (frac_val > 0xFFFFFF)
-+			frac_val = 0xFFFFFF;
-+
-+		/* VCO = (Ref * FB / Pre) + (Ref * Frac / (Pre * 2^24)) */
-+		vco_int = ref_clk_hz * fb_val;
-+		do_div(vco_int, pre);
-+		vco_frac = ref_clk_hz * frac_val;
-+		do_div(vco_frac, pre);
-+		do_div(vco_frac, DPTX_PLL_FRAC_MOD);
-+
-+		actual_vco = vco_int + vco_frac;
-+
-+		diff = abs_diff(actual_vco, target_vco_hz);
-+		current_is_int = (frac_val == 0);
-+
-+		if (diff < min_err) {
-+			min_err = diff;
-+			*best_pre = pre;
-+			*best_fb = (u16)fb_val;
-+			*best_frac = (u32)frac_val;
-+			best_is_int = current_is_int;
-+			found = 1;
-+		} else if (diff == min_err) {
-+			if (current_is_int && !best_is_int) {
-+				*best_pre = pre;
-+				*best_fb = (u16)fb_val;
-+				*best_frac = (u32)frac_val;
-+				best_is_int = true;
-+				found = 1;
-+			}
-+		}
-+	}
-+
-+	return found ? 0 : -EINVAL;
-+}
-+
-+/* divaux must be 1 for the DivM path and > 1 for the DivAux path. */
-+static void k3_inno_dp_try_prepll(u32 target_pclk_khz, u32 ref_clk_khz,
-+				  u32 div_total, u8 div5_en, u8 divaux,
-+				  u8 divm, u8 divp,
-+				  struct k3_inno_dp_prepll_cfg *best)
-+{
-+	struct k3_inno_dp_prepll_cfg curr = {0};
-+	u32 target_vco = target_pclk_khz * div_total;
-+	u32 actual_pclk;
-+	u32 frac;
-+	u16 fb;
-+	u8 pre;
-+
-+	if (target_vco < DPTX_VCO_MIN_KHZ || target_vco > DPTX_VCO_MAX_KHZ)
-+		return;
-+
-+	if (k3_inno_dp_solve_frac(target_vco, ref_clk_khz, &pre, &fb, &frac))
-+		return;
-+
-+	actual_pclk = k3_inno_dp_pll_rate_khz(pre, fb, frac, ref_clk_khz,
-+					      div_total);
-+	if (abs_diff(actual_pclk, target_pclk_khz) > DPTX_PLL_ERR_TOLERANCE)
-+		return;
-+
-+	curr.valid = true;
-+	curr.vco_freq_khz = target_vco;
-+	curr.actual_pclk_khz = actual_pclk;
-+	curr.prediv = pre;
-+	curr.fbdiv = fb;
-+	curr.frac = frac;
-+	curr.frac_pd = (frac == 0) ? 3 : 0;
-+	curr.div5_en = div5_en;
-+	curr.divaux = divaux;
-+	curr.divm = divm;
-+	curr.divp = divp;
-+
-+	if (k3_inno_dp_better_cfg(curr.valid, curr.frac == 0, curr.prediv,
-+				  curr.vco_freq_khz, best->valid,
-+				    best->frac == 0, best->prediv,
-+				    best->vco_freq_khz))
-+		*best = curr;
-+}
-+
-+static int k3_inno_dp_solve_prepll(u32 target_pclk_khz, u32 ref_clk_khz,
-+				   struct k3_inno_dp_prepll_cfg *cfg)
-+{
-+	struct k3_inno_dp_prepll_cfg best = {0};
-+	int pclk_div;
-+	int i;
-+
-+	/* Strategy 1: Div5 path (VCO = PCLK * 5) */
-+	k3_inno_dp_try_prepll(target_pclk_khz, ref_clk_khz, 5, 1, 0, 0, 0,
-+			      &best);
-+
-+	for (pclk_div = 1; pclk_div <= 31; pclk_div++) {
-+		/* Strategy 2: DivM path */
-+		for (i = 0; i < ARRAY_SIZE(k3_inno_dp_divm_factors); i++)
-+			k3_inno_dp_try_prepll(target_pclk_khz, ref_clk_khz,
-+					      2 * k3_inno_dp_divm_factors[i] * pclk_div, 0, 1,
-+					      i, pclk_div, &best);
-+
-+		/* Strategy 3: DivAux path */
-+		for (i = 2; i <= 31; i++)
-+			k3_inno_dp_try_prepll(target_pclk_khz, ref_clk_khz,
-+					      2 * i * pclk_div,
-+					      0, i, 0, pclk_div, &best);
-+	}
-+
-+	if (!best.valid)
-+		return -EINVAL;
-+
-+	*cfg = best;
-+	return 0;
-+}
-+
-+static void k3_inno_dp_program_prepll(struct k3_inno_dp_phy *p,
-+				      const struct k3_inno_dp_prepll_cfg *cfg)
-+{
-+	regmap_write_bits(p->regmap, DPTX_ANA_PREPLL, DPTX_ANA_PREPLL_PD,
-+			  FIELD_PREP(DPTX_ANA_PREPLL_PD, 1));
-+	usleep_range(2000, 4000);
-+
-+	regmap_write_bits(p->regmap, DPTX_ANA_PREPLL, DPTX_ANA_PREPLL_PREDIV,
-+			  FIELD_PREP(DPTX_ANA_PREPLL_PREDIV, cfg->prediv));
-+
-+	regmap_write_bits(p->regmap, DPTX_ANA_PREPLL,
-+			  DPTX_ANA_PREPLL_FBDIV2_LBIT,
-+			  FIELD_PREP(DPTX_ANA_PREPLL_FBDIV2_LBIT, cfg->fbdiv & 0xFF));
-+	regmap_write_bits(p->regmap, DPTX_ANA_PREPLL,
-+			  DPTX_ANA_PREPLL_FBDIV2_HBIT,
-+			  FIELD_PREP(DPTX_ANA_PREPLL_FBDIV2_HBIT, (cfg->fbdiv >> 8) & 0xF));
-+
-+	regmap_write_bits(p->regmap, DPTX_ANA_PREPLL, DPTX_ANA_PREPLL_DACPD,
-+			  FIELD_PREP(DPTX_ANA_PREPLL_DACPD, (cfg->frac_pd >> 1) & 0x1));
-+	regmap_write_bits(p->regmap, DPTX_ANA_PREPLL, DPTX_ANA_PREPLL_DSMPD,
-+			  FIELD_PREP(DPTX_ANA_PREPLL_DSMPD, cfg->frac_pd & 0x1));
-+
-+	regmap_write_bits(p->regmap, DPTX_ANA_PREPLL_FRAC,
-+			  DPTX_ANA_PREPLL_FRAC2_LBIT,
-+			  FIELD_PREP(DPTX_ANA_PREPLL_FRAC2_LBIT, cfg->frac & 0xFF));
-+	regmap_write_bits(p->regmap, DPTX_ANA_PREPLL_FRAC,
-+			  DPTX_ANA_PREPLL_FRAC2_MBIT,
-+			  FIELD_PREP(DPTX_ANA_PREPLL_FRAC2_MBIT, (cfg->frac >> 8) & 0xFF));
-+	regmap_write_bits(p->regmap, DPTX_ANA_PREPLL_FRAC,
-+			  DPTX_ANA_PREPLL_FRAC2_HBIT,
-+			  FIELD_PREP(DPTX_ANA_PREPLL_FRAC2_HBIT, (cfg->frac >> 16) & 0xFF));
-+
-+	regmap_write_bits(p->regmap, DPTX_ANA_PREPLL_DIV,
-+			  DPTX_ANA_PREPLL_PRECLK_DIVM,
-+			  FIELD_PREP(DPTX_ANA_PREPLL_PRECLK_DIVM, cfg->divm));
-+	regmap_write_bits(p->regmap, DPTX_ANA_PREPLL_DIV,
-+			  DPTX_ANA_PREPLL_PRECLK_DIVAUX,
-+			  FIELD_PREP(DPTX_ANA_PREPLL_PRECLK_DIVAUX, cfg->divaux));
-+
-+	regmap_write_bits(p->regmap, DPTX_ANA_PREPLL_CTRL,
-+			  DPTX_ANA_PREPLL_PCLKDIV5_EN,
-+			  FIELD_PREP(DPTX_ANA_PREPLL_PCLKDIV5_EN, cfg->div5_en));
-+	regmap_write_bits(p->regmap, DPTX_ANA_PREPLL_CTRL,
-+			  DPTX_ANA_PREPLL_PCLK_DIVAUX,
-+			  FIELD_PREP(DPTX_ANA_PREPLL_PCLK_DIVAUX, cfg->divp));
-+
-+	regmap_write_bits(p->regmap, DPTX_ANA_PREPLL,
-+			  DPTX_ANA_PREPLL_PCLK_NORMAL,
-+			  FIELD_PREP(DPTX_ANA_PREPLL_PCLK_NORMAL, 1));
-+	usleep_range(2000, 4000);
-+
-+	regmap_write_bits(p->regmap, DPTX_ANA_PREPLL, DPTX_ANA_PREPLL_PD,
-+			  FIELD_PREP(DPTX_ANA_PREPLL_PD, 0));
-+	usleep_range(2000, 4000);
-+}
-+
-+#define to_k3_inno_dp_phy_clk(_hw) \
-+	container_of(_hw, struct k3_inno_dp_phy, pxclk_hw)
-+
-+static unsigned long k3_inno_dp_pxclk_recalc_rate(struct clk_hw *hw,
-+						  unsigned long parent_rate)
-+{
-+	struct k3_inno_dp_phy *p = to_k3_inno_dp_phy_clk(hw);
-+
-+	return p->pxclk_rate;
-+}
-+
-+/* The table setting for @rate when there is one, else a solved one. */
-+static int k3_inno_dp_prepll_cfg_for_rate(struct k3_inno_dp_phy *p,
-+					  unsigned long rate,
-+					  struct k3_inno_dp_prepll_cfg *cfg)
-+{
-+	const struct k3_inno_dp_prepll_cfg *found;
-+	u32 khz = div_u64(rate, 1000);
-+
-+	found = k3_inno_dp_find_prepll_cfg(khz, p->ref_clk_khz);
-+	if (!found)
-+		return k3_inno_dp_solve_prepll(khz, p->ref_clk_khz, cfg);
-+
-+	*cfg = *found;
-+	return 0;
-+}
-+
-+static int k3_inno_dp_pxclk_determine_rate(struct clk_hw *hw,
-+					   struct clk_rate_request *req)
-+{
-+	struct k3_inno_dp_phy *p = to_k3_inno_dp_phy_clk(hw);
-+	struct k3_inno_dp_prepll_cfg cfg;
-+	int ret;
-+
-+	ret = k3_inno_dp_prepll_cfg_for_rate(p, req->rate, &cfg);
-+	if (ret)
-+		return ret;
-+
-+	req->rate = (unsigned long)cfg.actual_pclk_khz * 1000;
-+
-+	return 0;
-+}
-+
-+static int k3_inno_dp_pxclk_set_rate(struct clk_hw *hw, unsigned long rate,
-+				     unsigned long parent_rate)
-+{
-+	struct k3_inno_dp_phy *p = to_k3_inno_dp_phy_clk(hw);
-+	struct k3_inno_dp_prepll_cfg cfg;
-+	int ret;
-+
-+	ret = k3_inno_dp_prepll_cfg_for_rate(p, rate, &cfg);
-+	if (ret) {
-+		dev_err(p->dev, "no PLL setting for %lu Hz\n", rate);
-+		return ret;
-+	}
-+
-+	k3_inno_dp_program_prepll(p, &cfg);
-+	p->pxclk_rate = (unsigned long)cfg.actual_pclk_khz * 1000;
-+
-+	return 0;
-+}
-+
-+/*
-+ * No prepare/enable ops: power_on starts the pixel PLL and power_off parks
-+ * it. set_rate powers the PLL down to reprogram the dividers and leaves it
-+ * running afterwards, whether or not the PHY is powered; the next power_off
-+ * parks it again.
-+ */
-+static const struct clk_ops k3_inno_dp_pxclk_ops = {
-+	.recalc_rate	= k3_inno_dp_pxclk_recalc_rate,
-+	.determine_rate	= k3_inno_dp_pxclk_determine_rate,
-+	.set_rate	= k3_inno_dp_pxclk_set_rate,
-+};
-+
-+static const struct phy_ops k3_inno_dp_phy_ops = {
-+	.power_on	= k3_inno_dp_phy_power_on,
-+	.power_off	= k3_inno_dp_phy_power_off,
-+	.configure	= k3_inno_dp_phy_configure,
-+	.owner		= THIS_MODULE,
-+};
-+
-+static int k3_inno_dp_phy_probe(struct platform_device *pdev)
-+{
-+	struct device *dev = &pdev->dev;
-+	struct k3_inno_dp_phy *p;
-+	struct phy_provider *provider;
-+	struct clk_init_data init = {};
-+	int ret;
-+
-+	p = devm_kzalloc(dev, sizeof(*p), GFP_KERNEL);
-+	if (!p)
-+		return -ENOMEM;
-+
-+	p->dev = dev;
-+
-+	p->regmap = dev_get_regmap(dev->parent, "dp");
-+	if (!p->regmap)
-+		return dev_err_probe(dev, -ENODEV,
-+				     "parent DP regmap not available\n");
-+
-+	p->phy = devm_phy_create(dev, dev->of_node, &k3_inno_dp_phy_ops);
-+	if (IS_ERR(p->phy))
-+		return dev_err_probe(dev, PTR_ERR(p->phy),
-+				     "failed to create DP PHY\n");
-+
-+	phy_set_drvdata(p->phy, p);
-+
-+	/* PHY takes a 24 MHz reference clock */
-+	p->ref_clk_khz = 24000;
-+
-+	/* Named by clock-output-names when given, else after the device. */
-+	of_property_read_string(dev->of_node, "clock-output-names", &init.name);
-+	if (!init.name)
-+		init.name = dev_name(dev);
-+	init.ops = &k3_inno_dp_pxclk_ops;
-+	p->pxclk_hw.init = &init;
-+
-+	ret = devm_clk_hw_register(dev, &p->pxclk_hw);
-+	if (ret)
-+		return dev_err_probe(dev, ret,
-+				     "failed to register pixel clock\n");
-+
-+	ret = devm_of_clk_add_hw_provider(dev, of_clk_hw_simple_get,
-+					  &p->pxclk_hw);
-+	if (ret)
-+		return dev_err_probe(dev, ret,
-+				     "failed to add pixel clock provider\n");
-+
-+	/* Providers last: nothing may resolve a half-initialized PHY. */
-+	provider = devm_of_phy_provider_register(dev, of_phy_simple_xlate);
-+	if (IS_ERR(provider))
-+		return dev_err_probe(dev, PTR_ERR(provider),
-+				     "failed to register PHY provider\n");
-+
-+	return 0;
-+}
-+
-+static const struct of_device_id k3_inno_dp_phy_of_match[] = {
-+	{ .compatible = "spacemit,k3-inno-dp-phy" },
-+	{ }
-+};
-+MODULE_DEVICE_TABLE(of, k3_inno_dp_phy_of_match);
-+
-+static struct platform_driver k3_inno_dp_phy_driver = {
-+	.probe = k3_inno_dp_phy_probe,
-+	.driver = {
-+		.name		= "spacemit-k3-inno-dp-phy",
-+		.of_match_table	= k3_inno_dp_phy_of_match,
-+	},
-+};
-+module_platform_driver(k3_inno_dp_phy_driver);
-+
-+MODULE_DESCRIPTION("SpacemiT K3 Innosilicon DisplayPort PHY driver");
-+MODULE_AUTHOR("Cody Kang <codykang.hk@gmail.com>");
-+MODULE_LICENSE("GPL");
+diff --git a/MAINTAINERS b/MAINTAINERS
+index 93abbb315065d..7bba82e8cc810 100644
+--- a/MAINTAINERS
++++ b/MAINTAINERS
+@@ -26364,6 +26364,17 @@ S:	Maintained
+ F:	Documentation/devicetree/bindings/sound/spacemit,k1-i2s.yaml
+ F:	sound/soc/spacemit/k1_i2s.c
+ 
++SPACEMIT K3 DISPLAY DRIVER
++M:	Cody Kang <codykang@vsit.ai>
++M:	Guodong Xu <docular.xu@gmail.com>
++L:	dri-devel@lists.freedesktop.org
++L:	linux-riscv@lists.infradead.org
++S:	Maintained
++F:	Documentation/devicetree/bindings/display/spacemit/
++F:	Documentation/devicetree/bindings/phy/spacemit,k3-inno-dp-phy.yaml
++F:	drivers/gpu/drm/spacemit/
++F:	drivers/phy/spacemit/phy-k3-inno-dp.c
++
+ SPACEMIT RESET CONTROLLER DRIVER
+ M:	Guodong Xu <docular.xu@gmail.com>
+ L:	linux-riscv@lists.infradead.org
 
 -- 
 2.43.0
