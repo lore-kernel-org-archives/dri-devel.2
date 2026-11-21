@@ -2,97 +2,105 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 80F02606A320
-	for <dri-devel@archiver.kernel.org>; Sat, 21 Nov 2026 17:56:20 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4F100606A320
+	for <dri-devel@archiver.kernel.org>; Sat, 21 Nov 2026 17:58:11 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Imk7jC9S
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=EHt0U1PH
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id CC5EE10E2D8;
-	Sat, 21 Nov 2026 17:56:14 +0000 (UTC)
-Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id C3D6110E2D8
- for <dri-devel@lists.freedesktop.org>; Sat, 21 Nov 2026 17:56:08 +0000 (UTC)
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id 838F343C2F;
- Sat, 21 Nov 2026 17:56:08 +0000 (UTC)
-Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
-ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
- t=1795283768;
- b=O6+fmCkAjdi1VhJNVPqpmo6Gg+r2jd2IaGMY9w6TJSfVZjLKuPzn6EK6/dI7pyBtDC2u
- m/W7icIjETwSpIcn5FqXpkFP9wzQKv9Z9Vn5EBVhPQmk9l51Ji34ayOdN9iNhIFInuZt9
- e0uupMcmS+TaUFZQrkmzkYJhNE9kAq4muAU6HH4vugnImYIJklJs9GzxPfZ/O2AI3WXsO
- ul9RkAOx7z2UsHjVGzgn36Itv8gj8s3xDDF8WwhJhg6AsOMwAh2bpPPo+lGPQV6iel5Zs
- NtRdBcqjBuxQwiRL5JjP+2DnCIJgfJMhLgH+nmLFxvVksjLbTHkQwVlFyT+TlvVXkaw==
-ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
- c=relaxed/relaxed; t=1795283768;
- h=DKIM-Signature:Received:From:Date:Subject:MIME-Version:Content-Type:
- Message-Id:X-B4-Tracking:X-Change-ID:To:Cc:X-Mailer:
- X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
- X-Original-From:Reply-To:Content-Transfer-Encoding;
- bh=md8GbRzRNRYozgNCXp9C52wGnVSgk6I5/bfSCAjMp6I=;
- b=lBfGKucgIAsxAZCzTS4ndulxyxE73cV9r2P+ApMAVrtLMW/dJisy8jPrQCD2ftcp2zps
- /0liGNffMmTFXbBSJUrEzhXJyoo+S3hOTpq1nb6RNJcumC1rl9+ohG+FLgZ79MDWoujNK
- epD6A5eLJF/RarNH2K9eEct3533uQ6Bki5uQUbmClORj01n+dJcLY1uSWfOsC4NHCcPbL
- jDyo7wEOaqF6frAUEmjdVFHvQ2BSCBcxcwAHx0UfQD1JmaRmmNM2kXGHdTiXIdJPa6AXs
- 28EJ3eVoKavVuu4GR9xPAQVHzgbfMO2S5U81S0XNjk+vTR3fPZcpwGnmnkqM9IP7q2g==
-ARC-Authentication-Results: i=1; smtp.kernel.org; 
- arc=none smtp.remote-ip=100.80.115.77
-Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
- (No client certificate requested)
- by smtp.kernel.org (Postfix) with ESMTPS id E37DD1F000C0;
- Sat, 21 Nov 2026 17:56:07 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1795283768;
- bh=md8GbRzRNRYozgNCXp9C52wGnVSgk6I5/bfSCAjMp6I=;
- h=From:Date:Subject:To:Cc:Reply-To;
- b=Imk7jC9SbEpGJAwppV5RF8Dt92jjD8SJkGQTV+kMeKAuXi+W4aLPugMl3WLw/t4yP
- S4zNkXSYisDdPFjWxWO1z97GULzaLAg+mJyzZeX83GP+28skCB8SjbJ5JsWWI2uVsP
- azMXROl5Y78ph4mZqpZ8QdY4V6a7/08RPZAteaahh/mvw/ptjGq94IzOopXNm5HFbv
- 9NIsYC8sTOYopPw0+dolB/xCa1T0HMcHKuojJk2WYIlT7W620UKcD+Wufd8vMDvZoR
- xE6Uq+uGF1fvXNSdg+wOqH3uSkKxFPfeOSvEvT3GCUeHsh3vJc2U1SS08WjRmJFM35
- g4SyRmf+wgfvQ==
-Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
- by lkml.kernel.org (Postfix) with ESMTP id 448ED4BD31;
- Sat, 21 Nov 2026 17:56:07 +0000 (UTC)
-From: Roman Vivchar via B4 Relay <devnull+rva333.protonmail.com@kernel.org>
-Date: Sat, 21 Nov 2026 19:55:54 +0200
-Subject: [PATCH v2] dt-bindings: gpu: arm,mali-utgard: add mt6572
+	by gabe.freedesktop.org (Postfix) with ESMTP id 9DBFD10E90D;
+	Sat, 21 Nov 2026 17:58:05 +0000 (UTC)
+Received: from mail-yw1-f173.google.com (mail-yw1-f173.google.com
+ [209.85.128.173])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 37A1410E92B
+ for <dri-devel@lists.freedesktop.org>; Sat, 21 Nov 2026 17:57:59 +0000 (UTC)
+Received: by mail-yw1-f173.google.com with SMTP id
+ 00721157ae682-8b4f4095a7aso16346647b3.0
+ for <dri-devel@lists.freedesktop.org>; Sat, 21 Nov 2026 09:57:59 -0800 (PST)
+ARC-Seal: i=1; a=rsa-sha256; t=1795283877; cv=none;
+ d=google.com; s=arc-20260327;
+ b=VbR9LIa5es6OVBMMl0LQjQtegZZWjo+WyL+q3tPDiQQmqCGnIWsYaafNVBoqpafKlI
+ 5Uj/+mLjmluX9HkeVWaeeb7NZmcJExZk3H4lLOGCsufqVFdnz+cLjCrrx9GsXeFeyVW0
+ Q//VP0F7ve1vo8LC3nUhYFZNTN2Aiu6BkhV1+RC7mn+5lEMJbI1UDAUMDmipfEsZdKsk
+ FENbrGkUHegtNlmJn+zwg9kfxI2NM63ldH4PmaY8ycshjawMc6NgYaFI++wmS4lu7jgk
+ I9QwGXM9TJ+3cd/95nDoi5QVpq7TqufOntoZXQBLBq3Z75SDW0jbF7qNm09pTZXtjOLc
+ a54A==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com;
+ s=arc-20260327; 
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:dkim-signature;
+ bh=9dxaFlJRZuXJMii9iS5rhrUq3M78QjQcIGXNp7AQ9tg=;
+ fh=UBAs2EiTdZLm1SgjAZjgXHiDSIfASWhaSvi4tLgHocs=;
+ b=cmPOmB+a7GGtY5LT4OYzOxcLSWyxSC1a4qdIkil99MfqOQFmEtpcmYF1POpemETGOm
+ JoUYHfKloopTrxO/d6lTu0dXmZXl5UKfwi1gw0R35hZhS0BBfJXpc6vDu2QL2Lwpo8CW
+ Sg40zm13od0mJf0Cnw+9wAOxnlavpYzzGVS9m8dqzk1+eGp8dSrtdNW7etdXc2YSaodn
+ wbK7LWEFMx+ykMl/rcLLkcAUjfqSHwjxXES+A1R87XbdEn252/qzXv0j8nitVWjszgq2
+ nId+FzrapXKG0jxCDXFcUoBJHsumMexnS7DFiNGFLgNrRghuDuV/0Do0PqIetoLd+x+7
+ qRbA==; darn=lists.freedesktop.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20260707; t=1795283877; x=1795888677; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:content-type:cc:to:subject:message-id
+ :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+ :date:message-id:reply-to:content-type;
+ bh=9dxaFlJRZuXJMii9iS5rhrUq3M78QjQcIGXNp7AQ9tg=;
+ b=EHt0U1PHNx650pz/WH8byaTe1xZ9yelR1sNbctwMVeniAx2YzFlC4OuL8AyPW0WHxi
+ YdgIKCF6r2SF2Uosg6xV15AcOtQZwbXsSASgOobZ1YxQbF6H7LBoMgsYD3tYGTkTLqsa
+ uWEk//gcZowZEYVFVXb8obP/3hSlLEWcWKtir84DxV91Cb/SarMIuc5slQY1dmmm43ac
+ LsSCn/O6wKwLg/zvlfaS9rrb4d+dlkK80S3SNxctq3sm/CT3ayNbiUiIHreMcg9f0+RN
+ 2sqx86ksLkFKC3tVh9Gc+e+/sWOD3ZGAXkZTVrZqD9l+MGrqd1+mSIZ3a/7+13oPmBX2
+ byPA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20260707; t=1795283877; x=1795888677;
+ h=content-transfer-encoding:content-type:cc:to:subject:message-id
+ :date:from:in-reply-to:references:mime-version:x-gm-gg
+ :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+ :content-type;
+ bh=9dxaFlJRZuXJMii9iS5rhrUq3M78QjQcIGXNp7AQ9tg=;
+ b=HJutrPO4gg1EDp/OMqy4LQArBWoi70EvT8V+Do7DYETmHtYwrPArtyK9ksxfJEb/7z
+ ZadaDyecT0SrTgbfx7KpB8qZIWVKx5O76cP0ta55j3oB/loKaDqDke+42m2KZ7zEvYQp
+ 9Ak8MxloC7llJoL4j/j4A2MeK7S8WvmwxDOQXIbOwZobrRy/iNtQ/vECOb2eIv+rWYCm
+ lzhdqeqE8EOjxqv2SF0s75BqOs2J9MYwqELEbLGyY4D+7QOGFxJ18IBrQy21yDfKBihR
+ M8ON3ZMZ9ptHiVJAAkSYjczV9KSVisMzgYNTiPDcPPrewQkj+JVgAs1BuxkUufe6aVZp
+ Zlgg==
+X-Forwarded-Encrypted: i=1;
+ AL+hErF1pWPIVX984pinJ2poAKePGAW94i+1+kYkfSDea0x168YelBmmz+IcOtzHSJEaErtw6kMJqx1Lb9Y=@lists.freedesktop.org
+X-Gm-Message-State: APuU4Z84ynO0kD5f5g+WH1kyJ12EtWDvQzSbG4t9GrjRoW0ai02K3BDE
+ zbcTV3Rerb9VrolvBV5Xx9PAv23sHEfxccPdUoSz+26APICnH4wGOOd053YP9rps2S2wbySX3pj
+ +DkpKNOdV6xftH91JlgDQPaHW9gW16VI=
+X-Gm-Gg: AZFdTZdCBSzXWYXxzoY724fsD7FakpMewkZy8FO1yyUN0Ox2mX6xCfI53Qisc5+SQs6
+ QY64G5udOBXpRb0u7mtGenrpeV/KP1ggNjbaudb59GwFolBYmY1s++lYSKLDMvhMIMxb0hHcxvV
+ hMe/7h1wBJvw7heky/yeReH1oDoF88P2Ti5Tile7BWADDvXhBdAplPBmvuanQ5ft5x7go3Ndunn
+ K5sggCgRbAi/D2JOmrokOv7911rd+iaf8TdQoAAFLMIqaVvBBcqeLrYVVq1NtdR+Wv+2hUplfCA
+ v20JW4bnNJuswqD09Ss5N2HmGhYPKP5TdVplNSX4LXqSWJGeZiO9Lf/FwTEuzvvSa1BBWKvN7zc
+ IRbf0bhh78FeI9DFhiLhJbdp7fmJ8XrgY4j96iCI=
+X-Received: by 2002:a05:690c:9b0b:b0:8b0:702f:2a69 with SMTP id
+ 00721157ae682-8b520500588mr37750997b3.39.1795283877275; Sat, 21 Nov 2026
+ 09:57:57 -0800 (PST)
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Message-Id: <20261121-6572-dt-mali-v2-1-1c3925ec7ad1@protonmail.com>
-X-B4-Tracking: v=1; b=H4sIAAAAAAAC/3WNyw6CMBBFf4XM2jFtCS9X/Idh0ZZBxgAlbSUaw
- r8LuHZ5knPPXSGQZwpwS1bwtHBgN+2gLgnYXk8PQm53BiVULkopMM8KhW3EUQ+MpalSI7NKC0u
- wT2ZPHb/P3L35cXiZJ9l4NA6j5xCd/5x/izy8P+lFosTOVKLMVWE6ldazd9FNo+bhat0IzbZtX
- z4eTkK/AAAA
-X-Change-ID: 20260810-6572-dt-mali-8b93b159a0ce
-To: David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>, 
- Matthias Brugger <matthias.bgg@gmail.com>, 
- AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>, 
- Heiko Stuebner <heiko@sntech.de>
-Cc: dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org, 
- linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
- linux-mediatek@lists.infradead.org, 
- Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>, 
- Roman Vivchar <rva333@protonmail.com>
-X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1795283760; l=1233;
- i=rva333@protonmail.com; s=20260510; h=from:subject:message-id;
- bh=yarHUuGiHB5XDU5bIl2bWj8HreokggBNwjoTqcPSgT4=;
- b=aJF+XCEDjuAMvu1RDuLpBiDhOE3GNfJOGS8hGr/Vthvh9jCrPLfytowdDMsZZYu2JMsUjnYUt
- jcgdVQwbtEkDUvOJi/KLujbbBe5DSGFPRFwrlMSUrdInKFA/Sh+RBPX
-X-Developer-Key: i=rva333@protonmail.com; a=ed25519;
- pk=zww/nWjBGoQ4POXCG0BV6fx2iuXK6jx77rsKPA5YK5Y=
-X-Endpoint-Received: by B4 Relay for rva333@protonmail.com/20260510 with
- auth_id=777
-X-Original-From: Roman Vivchar <rva333@protonmail.com>
-Content-Transfer-Encoding: 7bit
+References: <20261111-img-pm-autosuspend-v2-1-427689f6f2f9@linux.spacemit.com>
+In-Reply-To: <20261111-img-pm-autosuspend-v2-1-427689f6f2f9@linux.spacemit.com>
+From: Gyeyoung Baek <gye976@gmail.com>
+Date: Sun, 22 Nov 2026 02:57:46 +0900
+X-Gm-Features: Aa3M54o-NmMelfecL-8e1chO9NJSddT-nsp3zPaudeABWyPskoPrY6_ORqOpIUA
+Message-ID: <CAKbEzntsUc4D3Nvxfphy5yApWG+sGsx7VF1cYd3SLSoZKhiteA@mail.gmail.com>
+Subject: Re: [PATCH v2] drm/imagination: re-check firmware idle state before
+ runtime suspend
+To: Baihui Liang <liangbaihui@linux.spacemit.com>
+Cc: Alessio Belle <alessio.belle@imgtec.com>, 
+ Luigi Santivetti <luigi.santivetti@imgtec.com>, 
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>, 
+ Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>,
+ Simona Vetter <simona@ffwll.ch>, 
+ Yixun Lan <dlan@kernel.org>, Troy Mitchell <troy.mitchell@linux.spacemit.com>, 
+ Paul Walmsley <pjw@kernel.org>, Palmer Dabbelt <palmer@dabbelt.com>,
+ Albert Ou <aou@eecs.berkeley.edu>, 
+ Alexandre Ghiti <alex@ghiti.fr>, imagination@lists.freedesktop.org, 
+ dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org, 
+ linux-riscv@lists.infradead.org, spacemit@lists.linux.dev
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -103,49 +111,50 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
-Reply-To: rva333@protonmail.com
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-16.8 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
-	DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,FREEMAIL_REPLYTO_END_DIGIT,
-	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
-	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,USER_AGENT_GIT autolearn=ham
-	autolearn_force=no version=4.0.1
+X-Spam-Status: No, score=-2.8 required=3.0 tests=BAYES_00,DKIM_SIGNED,
+	DKIM_VALID,DKIM_VALID_AU,FREEMAIL_FORGED_FROMDOMAIN,FREEMAIL_FROM,
+	HEADER_FROM_DIFFERENT_DOMAINS,MAILING_LIST_MULTI,SPF_HELO_NONE,
+	SPF_PASS autolearn=no autolearn_force=no version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-From: Roman Vivchar <rva333@protonmail.com>
+Hi Baihui,
 
-Add a compatible string for the mt6572 Mali-400 MP1 GPU.
+On Wed, Nov 11, 2026 at 6:29=E2=80=AFPM Baihui Liang
+<liangbaihui@linux.spacemit.com> wrote:
+>
+> pvr_power_device_idle() rejects runtime suspend while the firmware
+> hasn't reached ROGUE_FWIF_POW_IDLE. The PM core doesn't reschedule
+> idle notification after rejection, so no further pm_runtime_put()
+> arrives on an idle GPU and the device stays powered indefinitely.
+>
+> Move the idle check into pvr_power_device_suspend() and return -EBUSY
+> after pm_runtime_mark_last_busy() so the PM core reschedules the
+> autosuspend timer and retries until the firmware is idle.
 
-Acked-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
-Signed-off-by: Roman Vivchar <rva333@protonmail.com>
----
-Changes in v2:
-- Pick Krzysztof's ack, resend
-- Link to v1: https://patch.msgid.link/20260810-6572-dt-mali-v1-1-fb908627bf23@protonmail.com
----
- Documentation/devicetree/bindings/gpu/arm,mali-utgard.yaml | 1 +
- 1 file changed, 1 insertion(+)
+My understanding of Sashiko's point (correct me if I'm wrong):
 
-diff --git a/Documentation/devicetree/bindings/gpu/arm,mali-utgard.yaml b/Documentation/devicetree/bindings/gpu/arm,mali-utgard.yaml
-index c8d0d9192d92..6bdbab82126c 100644
---- a/Documentation/devicetree/bindings/gpu/arm,mali-utgard.yaml
-+++ b/Documentation/devicetree/bindings/gpu/arm,mali-utgard.yaml
-@@ -27,6 +27,7 @@ properties:
-               - allwinner,sun8i-h3-mali
-               - allwinner,sun8i-r40-mali
-               - allwinner,sun50i-a64-mali
-+              - mediatek,mt6572-mali
-               - rockchip,rk3036-mali
-               - rockchip,rk3066-mali
-               - rockchip,rk3128-mali
+- pvr_remove(): must power off unconditionally
+- runtime suspend: power off only once idle (-EBUSY otherwise)
 
----
-base-commit: 8cd9520d35a6c38db6567e97dd93b1f11f185dc6
-change-id: 20260810-6572-dt-mali-8b93b159a0ce
+Since remove goes through the suspend callback, it can now skip the
+power-off on -EBUSY.
 
-Best regards,
---  
-Roman Vivchar <rva333@protonmail.com>
+Moving the idle check into runtime suspend looks right to me, so how
+about keeping just the power-off logic in a common helper, called by
+runtime suspend after the idle check and by remove directly? Roughly:
 
+  pvr_power_device_off()        /* fw_disable + power_off */
 
+  pvr_remove()
+      pm_runtime_disable();
+      if (!pm_runtime_status_suspended()) {
+          pvr_power_device_off();
+          pm_runtime_set_suspended();
+      }
+      pm_runtime_enable();      /* balance devm_pm_runtime_enable() */
+
+--=20
+Thanks,
+Gyeyoung
