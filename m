@@ -2,40 +2,39 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BD7DA606A320
-	for <dri-devel@archiver.kernel.org>; Sat, 21 Nov 2026 09:36:43 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 55EFD606A325
+	for <dri-devel@archiver.kernel.org>; Sat, 21 Nov 2026 09:39:12 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=huawei.com header.i=@huawei.com header.a=rsa-sha256 header.s=dkim header.b=yZ46JzZC
+	dkim=pass (1024-bit key) header.d=huawei.com header.i=@huawei.com header.a=rsa-sha256 header.s=dkim header.b=L1rdHUey
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 3047B10E2B6;
-	Sat, 21 Nov 2026 09:36:38 +0000 (UTC)
-Received: from canpmsgout10.his.huawei.com (canpmsgout10.his.huawei.com
- [113.46.200.225])
- by gabe.freedesktop.org (Postfix) with ESMTPS id C5D8F10E2B6
- for <dri-devel@lists.freedesktop.org>; Sat, 21 Nov 2026 09:36:31 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id AE10810E03A;
+	Sat, 21 Nov 2026 09:39:06 +0000 (UTC)
+Received: from canpmsgout03.his.huawei.com (canpmsgout03.his.huawei.com
+ [113.46.200.218])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id BA61910E03A
+ for <dri-devel@lists.freedesktop.org>; Sat, 21 Nov 2026 09:38:59 +0000 (UTC)
 dkim-signature: v=1; a=rsa-sha256; d=huawei.com; s=dkim;
  c=relaxed/relaxed; q=dns/txt; h=From;
- bh=DPbt5fLEQv4vPYe4bYDhTojyAUAUfrDZgqqZi6FM0zc=;
- b=yZ46JzZCwORAuhBw5LplKttXYrHKLCwvmAXCh3KWzFgV9QTCCHzF5l5xtjKglgyC8lmgxjnaN
- rSDEituyLVpgvR3CSAD/Ot1RkSICVCEWkmjlwp8XAQHAukR1JsdGQtk0zheeOI+komZNc7Iwfu3
- 1tPtR3ax9RcKlnpqVAEsrOg=
-Received: from mail.maildlp.com (unknown [172.19.163.163])
- by canpmsgout10.his.huawei.com (SkyGuard) with ESMTPS id 4jWnC02zkMz1K973;
- Sat, 21 Nov 2026 17:36:12 +0800 (CST)
+ bh=onii5ZHNX8GZAZk6MiQXB1RSU4RcSBt2Z/EMxgNhA0U=;
+ b=L1rdHUeyLtCwunnNOYXmGJHWInoGMx5AjlFixjf1M7l4Az3X4RlwecRipLRlW8qE7XVbH0dUI
+ sD7v/Im6yj0FF3UO3fTtCUDc4uECd5o21m7fJYJSerXyHLhe8nd+42uhVhRgEHxVC5moQDEs821
+ c0X8NaPbJ1F+vMZXP+H+7Zo=
+Received: from mail.maildlp.com (unknown [172.19.163.0])
+ by canpmsgout03.his.huawei.com (SkyGuard) with ESMTPS id 4jWnF46y6pzpSvf;
+ Sat, 21 Nov 2026 17:38:00 +0800 (CST)
 Received: from kwepemk200005.china.huawei.com (unknown [7.202.194.71])
- by mail.maildlp.com (Postfix) with ESMTPS id E64894057A;
- Sat, 21 Nov 2026 17:36:27 +0800 (CST)
+ by mail.maildlp.com (Postfix) with ESMTPS id 3C54F4057A;
+ Sat, 21 Nov 2026 17:38:56 +0800 (CST)
 Received: from [10.159.167.44] (10.159.167.44) by
  kwepemk200005.china.huawei.com (7.202.194.71) with Microsoft SMTP Server
  (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.45; Sat, 21 Nov 2026 17:36:27 +0800
-Message-ID: <a49be309-1062-4027-a6bd-10e1aa9c156a@huawei.com>
-Date: Sat, 21 Nov 2026 17:36:24 +0800
+ 15.2.2562.45; Sat, 21 Nov 2026 17:38:55 +0800
+Message-ID: <bb394ba3-180c-4f6c-8040-045afbfaaecd@huawei.com>
+Date: Sat, 21 Nov 2026 17:38:53 +0800
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH for drm-misc-fixes v5 2/2] drm/hisilicon/hibmc: Add a flag
- to indicate whether the OS-side driver has been loaded
+Subject: Re: [PATCH for drm-misc-fixes v5 0/2] Fix some bugs in the hibmc DP
 To: Thomas Zimmermann <tzimmermann@suse.de>,
  "dmitry.baryshkov@oss.qualcomm.com" <dmitry.baryshkov@oss.qualcomm.com>,
  "tiantao (H)" <tiantao6@hisilicon.com>, "maarten.lankhorst@linux.intel.com"
@@ -51,10 +50,9 @@ CC: "Liangjian(Jim,Kunpeng Solution Development Dept)"
  <dri-devel@lists.freedesktop.org>, "linux-kernel@vger.kernel.org"
  <linux-kernel@vger.kernel.org>, <shiyongbang@huawei.com>
 References: <20261117130056.272609-1-shiyongbang@huawei.com>
- <20261117130056.272609-3-shiyongbang@huawei.com>
- <e113b27d-3065-43a2-a60f-aca3552f2002@suse.de>
+ <5418426d-2dfc-4dbe-a74c-47275c1fbbc0@suse.de>
 From: Yongbang Shi <shiyongbang@huawei.com>
-In-Reply-To: <e113b27d-3065-43a2-a60f-aca3552f2002@suse.de>
+In-Reply-To: <5418426d-2dfc-4dbe-a74c-47275c1fbbc0@suse.de>
 Content-Type: text/plain; charset="UTF-8"; format=flowed
 Content-Transfer-Encoding: 7bit
 X-ClientProxiedBy: kwepems200002.china.huawei.com (7.221.188.68) To
@@ -83,126 +81,18 @@ X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 > Am 17.11.26 um 14:00 schrieb Yongbang Shi:
 >> From: Lin He <helin52@huawei.com>
 >>
->> Add a flag to indicate whether the OS-side driver has been loaded to
->> prevent the BMC from enabling DP if the driver is not loaded, which could
->> lead to system failure in handling interrupts and generate error messages
->> like:
->>
->> irq xx: nobody cared (try booting with the "irqpoll" option)
->> ...
->> Call Trace:
->> <TRQ>
->> ...
->>
->> The flag is set only after hibmc_dp_init() succeeded, so it also means
->> that the DP block is ready.  If DP initialization fails, only the vblank
->> MSI vector is requested, so the DP interrupt is not registered at all.
->>
->> Fixes: 0ab6ea261c1f ("drm/hisilicon/hibmc: add dp module in hibmc")
->> Signed-off-by: Lin He <helin52@huawei.com>
->> Signed-off-by: Yongbang Shi <shiyongbang@huawei.com>
->> ---
->> ChangeLog:
->> v4 -> v5:
->>     - Only set the enable flag when DP was initialized, clear it only when
->>       it was set, and do not request the DP interrupt if DP initialization
->>       failed. (sashiko-bot)
->> v2 -> v3:
->>     - Move hibmc_set_enable_flag() before drm_dev_register() and
->>       hibmc_set_disable_flag() after drm_dev_unregister() to narrow the
->>       race window. (sashiko-bot)
->>     - Add spinlock_t gpio_lock to hibmc_drm_private to protect all
->>       operations on 0x0802A4. (sashiko-bot)
->> v1 -> v2:
->>     - The call to `hibmc_set_enable_flag()` has been moved before
->>       `drm_client_setup()`, specifically before the connector detection
->>       triggers the I2C bit operation. (sashiko-bot)
->>     - A read-modify-write operation has been implemented instead of directly
->>       writing to prevent clearing the I2C mask bits. (sashiko-bot)
->> ---
->>    drivers/gpu/drm/hisilicon/hibmc/dp/dp_hw.h    |  1 +
->>    .../gpu/drm/hisilicon/hibmc/hibmc_drm_dp.c    |  1 +
->>    .../gpu/drm/hisilicon/hibmc/hibmc_drm_drv.c   | 45 ++++++++++++++++++-
->>    .../gpu/drm/hisilicon/hibmc/hibmc_drm_drv.h   |  2 +
->>    .../gpu/drm/hisilicon/hibmc/hibmc_drm_i2c.c   | 19 ++++++--
->>    .../gpu/drm/hisilicon/hibmc/hibmc_drm_regs.h  |  3 ++
->>    6 files changed, 66 insertions(+), 5 deletions(-)
->>
->> diff --git a/drivers/gpu/drm/hisilicon/hibmc/dp/dp_hw.h b/drivers/gpu/drm/hisilicon/hibmc/dp/dp_hw.h
->> index 84faa1a7439d..10772cddcfc8 100644
->> --- a/drivers/gpu/drm/hisilicon/hibmc/dp/dp_hw.h
->> +++ b/drivers/gpu/drm/hisilicon/hibmc/dp/dp_hw.h
->> @@ -57,6 +57,7 @@ struct hibmc_dp {
->>    	struct hibmc_dp_cbar_cfg cfg;
->>    	int hpd_status;
->>    	int phys_status;
->> +	bool initialized;
->>    };
->>    
->>    int hibmc_dp_hw_init(struct hibmc_dp *dp);
->> diff --git a/drivers/gpu/drm/hisilicon/hibmc/hibmc_drm_dp.c b/drivers/gpu/drm/hisilicon/hibmc/hibmc_drm_dp.c
->> index 6ea70c31d1a9..9fa49a2ba093 100644
->> --- a/drivers/gpu/drm/hisilicon/hibmc/hibmc_drm_dp.c
->> +++ b/drivers/gpu/drm/hisilicon/hibmc/hibmc_drm_dp.c
->> @@ -256,6 +256,7 @@ int hibmc_dp_init(struct hibmc_drm_private *priv)
->>    	connector->polled = DRM_CONNECTOR_POLL_HPD;
->>    
->>    	dp->phys_status = connector_status_disconnected;
->> +	dp->initialized = true;
->>    
->>    	return 0;
->>    }
->> diff --git a/drivers/gpu/drm/hisilicon/hibmc/hibmc_drm_drv.c b/drivers/gpu/drm/hisilicon/hibmc/hibmc_drm_drv.c
->> index 7920f03895fe..7ea050e89005 100644
->> --- a/drivers/gpu/drm/hisilicon/hibmc/hibmc_drm_drv.c
->> +++ b/drivers/gpu/drm/hisilicon/hibmc/hibmc_drm_drv.c
->> @@ -174,6 +174,8 @@ static int hibmc_kms_init(struct hibmc_drm_private *priv)
->>    	if (ret)
->>    		return ret;
->>    
->> +	spin_lock_init(&priv->gpio_lock);
->> +
->>    	dev->mode_config.min_width = 0;
->>    	dev->mode_config.min_height = 0;
->>    	dev->mode_config.max_width = 1920;
->> @@ -346,12 +348,17 @@ static void hibmc_unload(struct drm_device *dev)
->>    static int hibmc_msi_init(struct drm_device *dev)
->>    {
->>    	struct pci_dev *pdev = to_pci_dev(dev->dev);
->> +	struct hibmc_drm_private *priv = to_hibmc_drm_private(dev);
->> +	int max_vectors = HIBMC_MIN_VECTORS;
->>    	int valid_irq_num;
->>    	int irq;
->>    	int ret;
->>    
->> -	ret = pci_alloc_irq_vectors(pdev, HIBMC_MIN_VECTORS,
->> -				    HIBMC_MAX_VECTORS, PCI_IRQ_MSI);
->> +	if (priv->dp.initialized)
->> +		max_vectors = HIBMC_MAX_VECTORS;
->> +
->> +	ret = pci_alloc_irq_vectors(pdev, HIBMC_MIN_VECTORS, max_vectors,
->> +				    PCI_IRQ_MSI);
->>    	if (ret < 0) {
->>    		drm_err(dev, "enabling MSI failed: %d\n", ret);
->>    		return ret;
->> @@ -430,6 +437,36 @@ static int hibmc_load(struct drm_device *dev)
->>    	return ret;
->>    }
->>    
->> +static inline void hibmc_set_enable_flag(struct hibmc_drm_private *priv)
->> +{
->> +	unsigned long flags;
->> +	u32 value;
->> +
->> +	if (!priv->dp.initialized)
->> +		return;
->> +
->> +	spin_lock_irqsave(&priv->gpio_lock, flags);
+>> Fix some bugs in the hibmc DP driver.
 > 
-> This is again a good place for a lock guard.
+> I can't really comment on the hardware details, so
+> 
+> Acked-by: Thomas Zimmermann <tzimmermann@suse.de>
+> 
+> for the patch set. Please see my comments on using lock guards before
+> merging the series.
 > 
 
-Okay.
+Thanks for the Acked-by. I'll fix the lock-guard usage as commented and
+send a v6 before merging.
 
 Thanks,
 Yongbang
@@ -210,129 +100,60 @@ Yongbang
 > Best regards
 > Thomas
 > 
->> +	value = readl(priv->mmio + HIBMC_ENABLE_FLAG);
->> +	value |= HIBMC_ENABLE_STATE;
->> +	writel(value, priv->mmio + HIBMC_ENABLE_FLAG);
->> +	spin_unlock_irqrestore(&priv->gpio_lock, flags);
->> +}
->> +
->> +static inline void hibmc_set_disable_flag(struct hibmc_drm_private *priv)
->> +{
->> +	unsigned long flags;
->> +	u32 value;
->> +
->> +	if (!priv->dp.initialized)
->> +		return;
->> +
->> +	spin_lock_irqsave(&priv->gpio_lock, flags);
->> +	value = readl(priv->mmio + HIBMC_ENABLE_FLAG);
->> +	value &= ~HIBMC_ENABLE_STATE;
->> +	writel(value, priv->mmio + HIBMC_ENABLE_FLAG);
->> +	spin_unlock_irqrestore(&priv->gpio_lock, flags);
->> +}
->> +
->>    static int hibmc_pci_probe(struct pci_dev *pdev,
->>    			   const struct pci_device_id *ent)
->>    {
->> @@ -465,6 +502,8 @@ static int hibmc_pci_probe(struct pci_dev *pdev,
->>    		goto err_return;
->>    	}
->>    
->> +	hibmc_set_enable_flag(priv);
->> +
->>    	ret = drm_dev_register(dev, 0);
->>    	if (ret) {
->>    		drm_err(dev, "failed to register drv for userspace access: %d\n",
->> @@ -477,6 +516,7 @@ static int hibmc_pci_probe(struct pci_dev *pdev,
->>    	return 0;
->>    
->>    err_unload:
->> +	hibmc_set_disable_flag(priv);
->>    	hibmc_unload(dev);
->>    err_return:
->>    	return ret;
->> @@ -487,6 +527,7 @@ static void hibmc_pci_remove(struct pci_dev *pdev)
->>    	struct drm_device *dev = pci_get_drvdata(pdev);
->>    
->>    	drm_dev_unregister(dev);
->> +	hibmc_set_disable_flag(to_hibmc_drm_private(dev));
->>    	hibmc_unload(dev);
->>    }
->>    
->> diff --git a/drivers/gpu/drm/hisilicon/hibmc/hibmc_drm_drv.h b/drivers/gpu/drm/hisilicon/hibmc/hibmc_drm_drv.h
->> index dce8572bf63e..c2a82000ea7f 100644
->> --- a/drivers/gpu/drm/hisilicon/hibmc/hibmc_drm_drv.h
->> +++ b/drivers/gpu/drm/hisilicon/hibmc/hibmc_drm_drv.h
->> @@ -49,6 +49,8 @@ struct hibmc_drm_private {
->>    	struct drm_crtc crtc;
->>    	struct hibmc_vdac vdac;
->>    	struct hibmc_dp dp;
->> +
->> +	spinlock_t gpio_lock; /* protects RMW on I2C/ENABLE_FLAG (0x0802A4) */
->>    };
->>    
->>    static inline struct hibmc_vdac *to_hibmc_vdac(struct drm_connector *connector)
->> diff --git a/drivers/gpu/drm/hisilicon/hibmc/hibmc_drm_i2c.c b/drivers/gpu/drm/hisilicon/hibmc/hibmc_drm_i2c.c
->> index 44860011855e..4ceb87efec05 100644
->> --- a/drivers/gpu/drm/hisilicon/hibmc/hibmc_drm_i2c.c
->> +++ b/drivers/gpu/drm/hisilicon/hibmc/hibmc_drm_i2c.c
->> @@ -27,7 +27,11 @@ static void hibmc_set_i2c_signal(void *data, u32 mask, int value)
->>    {
->>    	struct hibmc_vdac *vdac = data;
->>    	struct hibmc_drm_private *priv = to_hibmc_drm_private(vdac->connector.dev);
->> -	u32 tmp_dir = readl(priv->mmio + GPIO_DATA_DIRECTION);
->> +	unsigned long flags;
->> +	u32 tmp_dir;
->> +
->> +	spin_lock_irqsave(&priv->gpio_lock, flags);
->> +	tmp_dir = readl(priv->mmio + GPIO_DATA_DIRECTION);
->>    
->>    	if (value) {
->>    		tmp_dir &= ~mask;
->> @@ -41,20 +45,29 @@ static void hibmc_set_i2c_signal(void *data, u32 mask, int value)
->>    		tmp_dir |= mask;
->>    		writel(tmp_dir, priv->mmio + GPIO_DATA_DIRECTION);
->>    	}
->> +	spin_unlock_irqrestore(&priv->gpio_lock, flags);
->>    }
->>    
->>    static int hibmc_get_i2c_signal(void *data, u32 mask)
->>    {
->>    	struct hibmc_vdac *vdac = data;
->>    	struct hibmc_drm_private *priv = to_hibmc_drm_private(vdac->connector.dev);
->> -	u32 tmp_dir = readl(priv->mmio + GPIO_DATA_DIRECTION);
->> +	unsigned long flags;
->> +	u32 tmp_dir;
->> +	int ret;
->> +
->> +	spin_lock_irqsave(&priv->gpio_lock, flags);
->> +	tmp_dir = readl(priv->mmio + GPIO_DATA_DIRECTION);
->>    
->>    	if ((tmp_dir & mask) != mask) {
->>    		tmp_dir &= ~mask;
->>    		writel(tmp_dir, priv->mmio + GPIO_DATA_DIRECTION);
->>    	}
->>    
->> -	return (readl(priv->mmio + GPIO_DATA) & mask) ? 1 : 0;
->> +	ret = (readl(priv->mmio + GPIO_DATA) & mask) ? 1 : 0;
->> +	spin_unlock_irqrestore(&priv->gpio_lock, flags);
->> +
->> +	return ret;
->>    }
->>    
->>    static void hibmc_ddc_setsda(void *data, int state)
->> diff --git a/drivers/gpu/drm/hisilicon/hibmc/hibmc_drm_regs.h b/drivers/gpu/drm/hisilicon/hibmc/hibmc_drm_regs.h
->> index 17b30c393b10..b95add5b253c 100644
->> --- a/drivers/gpu/drm/hisilicon/hibmc/hibmc_drm_regs.h
->> +++ b/drivers/gpu/drm/hisilicon/hibmc/hibmc_drm_regs.h
->> @@ -200,5 +200,8 @@
->>    
->>    #define HIBMC_CRT_PALETTE                       0x80C00
->>    
->> +#define HIBMC_ENABLE_FLAG			0x802A4
->> +#define HIBMC_ENABLE_STATE			BIT(2)
->> +
->>    #define HIBMC_FIELD(field, value) (field(value) & field##_MASK)
->>    #endif
+>>
+>> ---
+>> ChangeLog:
+>> v4 -> v5:
+>>     - Invalidate the link in the hardirq when an unplug is sampled, and
+>>       stop clearing the latched HPD status in hibmc_dp_hpd_cfg().
+>>       (sashiko-bot)
+>>     - Serialize a whole AUX transfer with hibmc_dp_hpd_cfg().
+>>       (sashiko-bot)
+>>     - Append HIBMC_HPD_UNKNOWN to the enum instead of prepending it, so
+>>       the existing HIBMC_HPD_OUT/HIBMC_HPD_IN values do not change.
+>>     - Only set the enable flag when DP was initialized, clear it only when
+>>       it was set, and do not request the DP interrupt if DP initialization
+>>       failed. (sashiko-bot)
+>> v3 -> v4:
+>>     - Fix the data race on hpd_status between hardirq and process
+>>       contexts with WRITE_ONCE()/READ_ONCE(). (sashiko-bot)
+>>     - Delete the HPD_IN early return in encoder_enable that breaks KMS
+>>       forced modesets. (sashiko-bot)
+>> v2 -> v3:
+>>     - Delete irq_status and use hpd_status directly for hotplug
+>>       detection. (sashiko-bot)
+>>     - Add debug logs when hpd_status is not HPD_IN in detect and
+>>       encoder_enable.
+>>     - Move hibmc_set_enable_flag() before drm_dev_register() and
+>>       hibmc_set_disable_flag() after drm_dev_unregister() to narrow the
+>>       race window. (sashiko-bot)
+>>     - Add spinlock_t gpio_lock to hibmc_drm_private to protect all
+>>       operations on 0x0802A4. (sashiko-bot)
+>> v1 -> v2:
+>>     - More states in HIBMC_DP_HPD_STATUS are added to the
+>>       'hibmc_dp_get_hpd_status'.
+>>     - The call to `hibmc_set_enable_flag()` has been moved before
+>>       `drm_client_setup()`, specifically before the connector detection
+>>       triggers the I2C bit operation. (sashiko-bot)
+>>     - A read-modify-write operation has been implemented instead of directly
+>>       writing to prevent clearing the I2C mask bits. (sashiko-bot)
+>> ---
+>>
+>> Lin He (2):
+>>     drm/hisilicon/hibmc: Modify the method of obtaining the hpd_status
+>>     drm/hisilicon/hibmc: Add a flag to indicate whether the OS-side driver
+>>       has been loaded
+>>
+>>    drivers/gpu/drm/hisilicon/hibmc/dp/dp_aux.c   | 11 +++-
+>>    drivers/gpu/drm/hisilicon/hibmc/dp/dp_comm.h  |  2 +-
+>>    drivers/gpu/drm/hisilicon/hibmc/dp/dp_hw.c    | 40 +++++++++-----
+>>    drivers/gpu/drm/hisilicon/hibmc/dp/dp_hw.h    |  6 ++-
+>>    .../gpu/drm/hisilicon/hibmc/hibmc_drm_dp.c    | 32 +++++------
+>>    .../gpu/drm/hisilicon/hibmc/hibmc_drm_drv.c   | 54 +++++++++++++++++--
+>>    .../gpu/drm/hisilicon/hibmc/hibmc_drm_drv.h   |  2 +
+>>    .../gpu/drm/hisilicon/hibmc/hibmc_drm_i2c.c   | 19 +++++--
+>>    .../gpu/drm/hisilicon/hibmc/hibmc_drm_regs.h  |  3 ++
+>>    9 files changed, 129 insertions(+), 40 deletions(-)
+>>
 > 
 
