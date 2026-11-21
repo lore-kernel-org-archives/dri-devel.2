@@ -2,99 +2,60 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 33854606A320
-	for <dri-devel@archiver.kernel.org>; Sat, 21 Nov 2026 09:53:20 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4F8FA606A320
+	for <dri-devel@archiver.kernel.org>; Sat, 21 Nov 2026 09:57:47 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=Ozq81Mhc
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=a4LTnl/U
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 9E77410E19E;
-	Sat, 21 Nov 2026 09:53:14 +0000 (UTC)
-Received: from mail-yw1-f172.google.com (mail-yw1-f172.google.com
- [209.85.128.172])
- by gabe.freedesktop.org (Postfix) with ESMTPS id A4A0010E19E
- for <dri-devel@lists.freedesktop.org>; Sat, 21 Nov 2026 09:53:08 +0000 (UTC)
-Received: by mail-yw1-f172.google.com with SMTP id
- 00721157ae682-8b4d543b6b6so9817037b3.3
- for <dri-devel@lists.freedesktop.org>; Sat, 21 Nov 2026 01:53:08 -0800 (PST)
-ARC-Seal: i=1; a=rsa-sha256; t=1795254787; cv=none;
- d=google.com; s=arc-20260327;
- b=L134fNVuUrjzAa5CQWxqDkZCf3BHsg9IVFGb7FzrJPrrncXYLI61kg/1R5Dc8HAn2Z
- l2nd8hswjGXq731eib56YnTztuTcgx/sscZ1jgCurOP2VcNEsLwRk7JgIsaz1pdpcUfy
- 4cUhMOj5J2dB7VEAt5HZWXfJv+E5QMM56azKslsVj6n7infB0s+sfm6JHqU6YQO09qTG
- Sby5KTBaFs+jK5t/jyqzqCXt/CicQ3z/1XOPJnoUPs4pYYeJsbWkUz5ipHiyV54iW+9q
- 6MnD7hhoWtlpnk71uPuMo07g1XurWCJ4ecBR+zFDDLOAk3exkdvSJ5jWAG2ERyNS2Ipu
- sbPQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com;
- s=arc-20260327; 
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:dkim-signature;
- bh=zENLsrjxXzbyMbN8YT2IRoZaTX6XrURmTnkpOGqlJsA=;
- fh=bvt0Bq2se0yQBSjLXUipKH+3fOjxSndVK7HpDwACxno=;
- b=AJEhSqF0dynUmIW9rFVE1D55zzgWHpKA89EurNO+nFArLos0dYU80ZWywH7iDL8+9g
- 7Z4v3gTCHosKM85gk0alGaULSlJ1h+8IOfYOX/dXnpjpe9n/FbeBzQD3VdOiaj8XgS0c
- VT3+l9YenPMWWyfi8GiAY1TCx9b+lWvTvwU6JS7wU0cHnqbGNAIpZSuumpJCj77q6mzx
- ozYJ59EW37hUaf9ZdBHwwRlTi0QH8wbdQQUKiQhXTvIN39mEEWeliRh9W3yAJ3js6sZY
- i54RdC1vUWUqJegN9KFyBaR2npkqc/bQGh3AmMb1b2lowrhUXO5mBLrTfW5W1YOaXJfq
- 0png==; darn=lists.freedesktop.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20260707; t=1795254787; x=1795859587; darn=lists.freedesktop.org;
- h=content-transfer-encoding:content-type:cc:to:subject:message-id
- :date:from:in-reply-to:references:mime-version:from:to:cc:subject
- :date:message-id:reply-to:content-type;
- bh=zENLsrjxXzbyMbN8YT2IRoZaTX6XrURmTnkpOGqlJsA=;
- b=Ozq81MhcbLWYJUUFo+GdJeVIEM5QDDh0PDc0J02+W7Y5fYHdwYjH/wiZlsr1ULCn9r
- 6w4+9wbHizAISDeg8UKuiDSOSZ9SAyjLcnuvzPsnTr35ifx6cOKdf709HyK4JVrEf0yu
- xj9JrfPAuQHrqPVvWlvjuAqc3In2JU16Obs5R0vINo7EJFlAoWKfkgVx6z8FzYLu0l8x
- tQGmmlx0f8IhlxsCuh9fgwbJrM3btkUvl6/hiPzCGdZtiuuECtwfdb2WwAU+01OUnoQU
- 4X9LtaHqIzhyXsYXvtoN9whIY/TxvGwVemvpIYkvwzc+u4fkRcj7UurqfyniS1U6MDGf
- AW0w==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20260707; t=1795254787; x=1795859587;
- h=content-transfer-encoding:content-type:cc:to:subject:message-id
- :date:from:in-reply-to:references:mime-version:x-gm-gg
- :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
- :content-type;
- bh=zENLsrjxXzbyMbN8YT2IRoZaTX6XrURmTnkpOGqlJsA=;
- b=JWzg0ufS9hl1KnSSFvqBEu+q7hivDh2e/NlXWqw9erQk+E8haVEYGr/4MTb7f72vb7
- MYO0PQ2XCUbzDaOt9+25y2sSCVWYiqLSonXxqWZv0yZogobhuvVA6YuqNvwy4k2P+kRM
- FmIcQf8n0hsjo6GzxfSm0Sjt21NWqvV/TiaK+8D5K/k/imTRae7D1aXa0McKM02cb2xw
- NK5gW9mn1DzU3VNOLsVQ1lu1qQuG1/pR7BZ72QcRm5O06Eh0FEqRJMiqK3q9v/82OU+d
- YO1nfdx460dJ0SP4U78mpDsxWFShw5R2litHPMVFxofHJjc3/5h2RYmWt5Jf0D81URs/
- E6lA==
-X-Forwarded-Encrypted: i=1;
- AL+hErFD7aYSiUXG4rdNrEs/3AKB0V4mnuEsk+7dI8ZvMzYrwOl/DX/q2+9J3wiIOhWSz+SMBcyH6CI0kyk=@lists.freedesktop.org
-X-Gm-Message-State: APuU4Z9wl0AtoFsCxFvkGG8fsXXMIKontq+GR1StUk/3GfHtbS112ceS
- 2RX54odBTiEa92bDJ9P55JcibCS5w5IaxOgZEcQr2ZjsRz0PFAWoyuV7rOiA6bIj0QF2h0SZAaE
- yjTFP2XxhRaN2cYE5/3S4ZP65JmMTCfo=
-X-Gm-Gg: AZFdTZePajZc3+z2n3WaiEWWww4/Ks5ae2Faaa3n47Bq/+W+a+yMMniABekbj/gPWok
- D8q4ArKFbv7UfMfEI+jNCOzHrySVN6RjDXEvTjOmmW9t/WNFeyCxk+vfAoMsVo3ZK5rotWheXW7
- sTe1Fl0M8AVF1k3dxhnY2wHldjvt1uEdkQU9hIe1ljRESjbaP5vXK9Aq3nHkG1zrJVjM0IMdJEe
- S+tRTGGzLQ2u4VxJq+Or7uxS7gJ9Cp1j9BRrerTfATe1K+xn3/k8UrscQ3lA7rYQRFVxLaUGzbm
- vAM82CiTENy/V0GWRkUkQcB2ly0rgWXlWU6ZJ1n+0rYjztVH+baMxa+8kxT51+VP7qsNKGKeUBS
- IzDN53H4+qesBKDR0Zewxs0QWrEtkLwm5nrGvuUg=
-X-Received: by 2002:a05:690c:9a8f:b0:8b4:cd96:e2e5 with SMTP id
- 00721157ae682-8b52047eb39mr22433217b3.57.1795254787409; Sat, 21 Nov 2026
- 01:53:07 -0800 (PST)
+	by gabe.freedesktop.org (Postfix) with ESMTP id B30B710E3A7;
+	Sat, 21 Nov 2026 09:57:41 +0000 (UTC)
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.15])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 7029E10E3A5;
+ Sat, 21 Nov 2026 09:57:35 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1795255056; x=1826791056;
+ h=from:to:cc:subject:date:message-id:mime-version:
+ content-transfer-encoding;
+ bh=G4pbtfdvN+5JkvK3sNDxdWk/EAzihJACbs62h1aSgbA=;
+ b=a4LTnl/UWGGwi5lWKiIhfW9QjRWDvZqJbcvNPb9Ktfy9pmdI3ZcxozJy
+ tchqYYfjG6Tjb4QwqvjpXGtmCB52M5QzZR6TOfnoCMCTexFpJNt0dwSuX
+ MxIRNK6uqUziCOAw+qFKthkzrE3liZqIj1L4lvwit+p5O6NwcgtEV9TWP
+ 897Ns4fgt1vgHbHdEY3MprqTJZDruSp1hXiyrfJ7nzHecRBGJqJuI741M
+ 3joZd+yUkdjAGkaNiEpQAplaifhpKOE4WNmXM/B+LA/lOkJHmwLrMTOGU
+ Bf/xNAT4EHpt7RrN6q8lYcLrPizDvbK14dQAbl8gEABhB5poo8t0iAVS1 g==;
+X-CSE-ConnectionGUID: 3H0JTmEDQXisL2F9lNbfnA==
+X-CSE-MsgGUID: M/QzZ0XZQ1S5CRx9p30lWA==
+X-IronPort-AV: E=McAfee;i="6800,10657,11972"; a="4115712"
+X-IronPort-AV: E=Sophos;i="6.27,224,1787036400"; 
+   d="scan'208";a="4115712"
+Received: from fmviesa005.fm.intel.com ([10.60.135.145])
+ by fmvoesa109.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 21 Nov 2026 01:57:35 -0800
+X-CSE-ConnectionGUID: GgZI4avdQPi6+m4nF9qBRA==
+X-CSE-MsgGUID: 6Y0OD3+hSo2jPOwZCXgq+g==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,224,1787036400"; d="scan'208";a="10970011"
+Received: from cyp05.fm.intel.com ([10.36.55.41])
+ by fmviesa005.fm.intel.com with ESMTP; 21 Nov 2026 01:57:34 -0800
+From: Shuicheng Lin <shuicheng.lin@intel.com>
+To: dri-devel@lists.freedesktop.org
+Cc: Shuicheng Lin <shuicheng.lin@intel.com>, intel-xe@lists.freedesktop.org,
+ Natalie Vock <nat@pixelcluster.dev>,
+ Arun Pravin <arunpravin.paneerselvam@amd.com>,
+ Matthew Auld <matthew.auld@intel.com>,
+ Matthew Brost <matthew.brost@intel.com>,
+ =?UTF-8?q?Thomas=20Hellstr=C3=B6m?= <thomas.hellstrom@linux.intel.com>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>,
+ Thomas Zimmermann <tzimmermann@suse.de>, linux-kernel@vger.kernel.org
+Subject: [PATCH v2] drm/ttm: Don't warn on oversized page directory allocations
+Date: Sat, 21 Nov 2026 01:57:00 -0800
+Message-ID: <20261121095703.1571697-2-shuicheng.lin@intel.com>
+X-Mailer: git-send-email 2.43.0
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
-References: <20261120141225.789350-1-sidong.yang@furiosa.ai>
-In-Reply-To: <20261120141225.789350-1-sidong.yang@furiosa.ai>
-From: Gyeyoung Baek <gye976@gmail.com>
-Date: Sat, 21 Nov 2026 18:52:56 +0900
-X-Gm-Features: Aa3M54p2-QsFjV4SsFcebynkN_mXbs5R4b29wWDoqMp8rJ_L5RBNQwxz99F4OLs
-Message-ID: <CAKbEznuH4sgiAQvnCxh+DeLcLHfzariiMumo-K9S3=zi7LNYxQ@mail.gmail.com>
-Subject: Re: [PATCH v6 0/2] accel/rocket: Report NPU usage through fdinfo
-To: Sidong Yang <sidong.yang@furiosa.ai>
-Cc: Tomeu Vizoso <tomeu@tomeuvizoso.net>, Oded Gabbay <ogabbay@kernel.org>, 
- Philipp Stanner <phasta@kernel.org>, Danilo Krummrich <dakr@kernel.org>, 
- Matthew Brost <matthew.brost@intel.com>, ckoenig.leichtzumerken@gmail.com, 
- Tvrtko Ursulin <tursulin@ursulin.net>, mcanal@igalia.com,
- Heiko Stuebner <heiko@sntech.de>, 
- dri-devel@lists.freedesktop.org, linux-doc@vger.kernel.org, 
- linux-kernel@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 8bit
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -106,45 +67,77 @@ List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-7.8 required=3.0 tests=BAYES_00,DKIM_SIGNED,
-	DKIM_VALID,DKIM_VALID_AU,FREEMAIL_FORGED_FROMDOMAIN,FREEMAIL_FROM,
-	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,MAILING_LIST_MULTI,
-	SPF_HELO_NONE,SPF_PASS autolearn=no autolearn_force=no version=4.0.1
+X-Spam-Status: No, score=-18.8 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
+	DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
+	INCLUDES_CR_TRAILER,INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,
+	SPF_PASS,USER_AGENT_GIT autolearn=unavailable autolearn_force=no
+	version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-Hi Sidong,
+The page directory size in ttm_tt_alloc_page_directory() and
+ttm_dma_tt_alloc_page_directory() comes from the user-supplied BO size.
+kvmalloc() warns on requests above INT_MAX unless __GFP_NOWARN is set,
+so userspace can trigger a WARN (or a panic with panic_on_warn) by
+creating a huge BO, e.g. a 1 TiB sysmem BO on xe with DEFER_BACKING:
 
-On Fri, Nov 20, 2026 at 11:12=E2=80=AFPM Sidong Yang <sidong.yang@furiosa.a=
-i> wrote:
->
-> Report how much of the NPU each client uses through fdinfo. Patch 1
-> exports the runtime the scheduler already accounts per entity, and patch
-> 2 uses it for rocket's drm-engine-npu key.
->
-> v6: Rename the getter to drm_sched_entity_get_runtime_ns() (Ma=C3=ADra
->     Canal). Report rdev->num_cores, the cores that are bound, as the
->     capacity instead of rdev->max_cores, and skip the key once no core
->     is left as a capacity of zero is not allowed (Ma=C3=ADra Canal). Add
->     tags.
-> v5: Use the entity runtime from the new drm_sched_entity_get_runtime()
->     instead of a counter in rocket (Tvrtko Ursulin). Reviewed-by tags
->     are not carried as the accounting changed. Based on drm-misc-next.
-> v4: Single drm-engine-npu key with drm-engine-capacity-npu, and
->     documentation (Tomeu Vizoso).
-> v3: Add a rocket_engine_usage_create() helper (Gyeyoung Baek).
-> v2: Size the per-core counters by rdev->max_cores.
->
+  WARNING: mm/slub.c:7144 at __kvmalloc_node_noprof+0x665/0x810
+  Call Trace:
+   ttm_tt_init+0x1e0/0x2b0
+   xe_ttm_tt_create+0x2cf/0x4b0 [xe]
+   ttm_tt_create+0x17c/0x310
+   ...
+   xe_gem_create_ioctl+0x70f/0x12b0 [xe]
 
-Posted gputop support for accel devices to IGT, which shows the NPU
-usage from drm-engine-npu here:
-https://lore.kernel.org/igt-dev/20261121094225.628262-1-gye976@gmail.com/
+The failure is already handled and the ioctl returns -ENOMEM, so pass
+__GFP_NOWARN to both allocations.
 
-Tested on RK3588 (Rock 5B+) with rocket and panthor running together.
+v2 (Sashiko):
+  - Also pass __GFP_NOWARN in ttm_sg_tt_alloc_page_directory(), whose
+    size comes from an imported dma-buf
 
-Tested-by: Gyeyoung Baek <gye976@gmail.com>
-Reviewed-by: Gyeyoung Baek <gye976@gmail.com>
+Fixes: 7661809d493b ("mm: don't allow oversized kvmalloc() calls")
+Signed-off-by: Shuicheng Lin <shuicheng.lin@intel.com>
+---
+ drivers/gpu/drm/ttm/ttm_tt.c | 9 ++++++---
+ 1 file changed, 6 insertions(+), 3 deletions(-)
 
---=20
-Thanks,
-Gyeyoung
+diff --git a/drivers/gpu/drm/ttm/ttm_tt.c b/drivers/gpu/drm/ttm/ttm_tt.c
+index b645a1818184..7d6c9247507b 100644
+--- a/drivers/gpu/drm/ttm/ttm_tt.c
++++ b/drivers/gpu/drm/ttm/ttm_tt.c
+@@ -117,7 +117,8 @@ EXPORT_SYMBOL_FOR_TESTS_ONLY(ttm_tt_create);
+  */
+ static int ttm_tt_alloc_page_directory(struct ttm_tt *ttm)
+ {
+-	ttm->pages = kvcalloc(ttm->num_pages, sizeof(void*), GFP_KERNEL);
++	ttm->pages = kvcalloc(ttm->num_pages, sizeof(void *),
++			      GFP_KERNEL | __GFP_NOWARN);
+ 	if (!ttm->pages)
+ 		return -ENOMEM;
+ 
+@@ -127,7 +128,8 @@ static int ttm_tt_alloc_page_directory(struct ttm_tt *ttm)
+ static int ttm_dma_tt_alloc_page_directory(struct ttm_tt *ttm)
+ {
+ 	ttm->pages = kvcalloc(ttm->num_pages, sizeof(*ttm->pages) +
+-			      sizeof(*ttm->dma_address), GFP_KERNEL);
++			      sizeof(*ttm->dma_address),
++			      GFP_KERNEL | __GFP_NOWARN);
+ 	if (!ttm->pages)
+ 		return -ENOMEM;
+ 
+@@ -137,7 +139,8 @@ static int ttm_dma_tt_alloc_page_directory(struct ttm_tt *ttm)
+ 
+ static int ttm_sg_tt_alloc_page_directory(struct ttm_tt *ttm)
+ {
+-	ttm->dma_address = kvzalloc_objs(*ttm->dma_address, ttm->num_pages);
++	ttm->dma_address = kvzalloc_objs(*ttm->dma_address, ttm->num_pages,
++					 GFP_KERNEL | __GFP_NOWARN);
+ 	if (!ttm->dma_address)
+ 		return -ENOMEM;
+ 
+
+base-commit: 61df0d1929e7e99d38404a1be02c461a8f6a3f5a
+-- 
+2.43.0
+
