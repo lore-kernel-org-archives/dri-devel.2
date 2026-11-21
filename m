@@ -2,60 +2,42 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D7DAE606A320
-	for <dri-devel@archiver.kernel.org>; Sat, 21 Nov 2026 09:18:58 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E8560606A332
+	for <dri-devel@archiver.kernel.org>; Sat, 21 Nov 2026 09:32:16 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=aK9k4WMA
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=QXYxXQMb
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 011B310E242;
-	Sat, 21 Nov 2026 09:18:53 +0000 (UTC)
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.11])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 414FD10E242;
- Sat, 21 Nov 2026 09:18:47 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1795252728; x=1826788728;
- h=from:to:cc:subject:date:message-id:mime-version:
- content-transfer-encoding;
- bh=47CbEugCOkJMog57P3DdjF+OExylaCYntrmSkY4FJf0=;
- b=aK9k4WMAVB4QMs9v6JXO/0bMYC45nnM+/vzdSm/+o4sGThpvd9QvDkZf
- w4g0A2l3w9NNkre460Pyo3SVc/qXIku3lnJFCcC3wBi5aZfl0SLMPuEQz
- K+WCZY+c2QocHOawtMEhsVBAZokxwl1bh1rsIFKMzOJPqlayuvMSwIoRy
- ht/xETvErQqNWlQPJnShYrKqkTor1OZBYpeS3p4dzyRNKiPNs8EDw9UNK
- rtYNDFBJgfRikAWWUQ/tsppLe3QmqwZQj3uEpAizBSSMA5fftE0i5yqz0
- IvYQ4L1IbgHqY7axqyCgeV7NHK8iyFBrH9e6RSm/rwh6qsuAxw8gSlPj3 Q==;
-X-CSE-ConnectionGUID: tbZikrRDSIi3ZBdHDBZA4A==
-X-CSE-MsgGUID: Q4Wl+MA6QRGRuyiSNtzWQg==
-X-IronPort-AV: E=McAfee;i="6800,10657,11972"; a="4040164"
-X-IronPort-AV: E=Sophos;i="6.27,224,1787036400"; 
-   d="scan'208";a="4040164"
-Received: from fmviesa010.fm.intel.com ([10.60.135.150])
- by fmvoesa105.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 21 Nov 2026 01:18:47 -0800
-X-CSE-ConnectionGUID: ouH4SdJXQoKblpB6P+umJw==
-X-CSE-MsgGUID: duZ8/5SUQyeDqQSHDtdGhQ==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,224,1787036400"; d="scan'208";a="11462979"
-Received: from cyp05.fm.intel.com ([10.36.55.41])
- by fmviesa010.fm.intel.com with ESMTP; 21 Nov 2026 01:18:47 -0800
-From: Shuicheng Lin <shuicheng.lin@intel.com>
-To: dri-devel@lists.freedesktop.org
-Cc: Shuicheng Lin <shuicheng.lin@intel.com>, intel-xe@lists.freedesktop.org,
- Natalie Vock <nat@pixelcluster.dev>,
- Arun Pravin <arunpravin.paneerselvam@amd.com>,
- Matthew Auld <matthew.auld@intel.com>,
- Matthew Brost <matthew.brost@intel.com>,
- =?UTF-8?q?Thomas=20Hellstr=C3=B6m?= <thomas.hellstrom@linux.intel.com>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>,
- Thomas Zimmermann <tzimmermann@suse.de>, linux-kernel@vger.kernel.org
-Subject: [PATCH] drm/ttm: Don't warn on oversized page directory allocations
-Date: Sat, 21 Nov 2026 01:18:13 -0800
-Message-ID: <20261121091815.1436090-2-shuicheng.lin@intel.com>
-X-Mailer: git-send-email 2.43.0
-X-Archived-By: <archiver.kernel.org>
-MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+	by gabe.freedesktop.org (Postfix) with ESMTP id 45A3510E26C;
+	Sat, 21 Nov 2026 09:32:11 +0000 (UTC)
+Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 5694510E26C;
+ Sat, 21 Nov 2026 09:32:05 +0000 (UTC)
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+ by sea.source.kernel.org (Postfix) with ESMTP id 23790440F4;
+ Sat, 21 Nov 2026 09:32:05 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id DB4761F000C6;
+ Sat, 21 Nov 2026 09:32:04 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+ s=k20260515; t=1795253525;
+ bh=OVi23gSPMcbMEwChatdHlZ1dUfXu0akeL1A8Ael//3s=;
+ h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+ b=QXYxXQMbG0ku9AkOmwPf1NK5ehfNIeFG80vN5QEh0B2/iO+9JK2+8NL7HpzjB1oJh
+ AIO/oOKL9IpB/6JbCaDIBAHbh24J9NMOx/a6YpYjcrW2IqkgDUDoRfALv10G3UvJUf
+ 0mRnLLDVxEC6mFRUKxfkgNu1GWwkj8Uif9RrsgOUxHFke+d4gjJCwFdUwQ8na/xk/b
+ EoaF4vJcYQYNg45O466mez9wCn43oNRr2z20lK8Ysm9Dr+A3J3qLFnyUueVYjEP1U0
+ 9HnSd0G9TNLiIlHOgYnmqmCo7aps8mcZNGjvX0wPH1MG0BpJR9u9XcS+2hzcOTZy0F
+ b3AZQDFaHHqzg==
+Message-ID: <sashiko-outbox-226862@kernel.org>
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH] drm/ttm: Don't warn on oversized page directory
+ allocations
+To: "Shuicheng Lin" <shuicheng.lin@intel.com>, dri-devel@lists.freedesktop.org
+Cc: intel-xe@lists.freedesktop.org
+In-Reply-To: <20261121091815.1436090-2-shuicheng.lin@intel.com>
+References: <20261121091815.1436090-2-shuicheng.lin@intel.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Sat, 21 Nov 2026 09:32:04 +0000
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -66,64 +48,79 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
+Reply-To: sashiko-reviews@lists.linux.dev
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-18.8 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
+X-Spam-Status: No, score=-10.8 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
 	DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
-	INCLUDES_CR_TRAILER,INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,
-	SPF_PASS,USER_AGENT_GIT autolearn=unavailable autolearn_force=no
-	version=4.0.1
+	INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS
+	autolearn=unavailable autolearn_force=no version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
+X-Archived-By: <archiver.kernel.org>
 
-The page directory size in ttm_tt_alloc_page_directory() and
-ttm_dma_tt_alloc_page_directory() comes from the user-supplied BO size.
-kvmalloc() warns on requests above INT_MAX unless __GFP_NOWARN is set,
-so userspace can trigger a WARN (or a panic with panic_on_warn) by
-creating a huge BO, e.g. a 1 TiB sysmem BO on xe with DEFER_BACKING:
+Thank you for your contribution! Sashiko AI review found 1 potential
+issue to consider:
+- [Medium] drm/ttm: missing __GFP_NOWARN in
+  ttm_sg_tt_alloc_page_directory()
+--
 
-  WARNING: mm/slub.c:7144 at __kvmalloc_node_noprof+0x665/0x810
-  Call Trace:
-   ttm_tt_init+0x1e0/0x2b0
-   xe_ttm_tt_create+0x2cf/0x4b0 [xe]
-   ttm_tt_create+0x17c/0x310
-   ...
-   xe_gem_create_ioctl+0x70f/0x12b0 [xe]
+commit b4df7a501d5e41a0a776550ea76ddd972d2c5a9c
+Author: Shuicheng Lin <shuicheng.lin@intel.com>
 
-The failure is already handled and the ioctl returns -ENOMEM, so pass
-__GFP_NOWARN to both allocations.
+drm/ttm: Don't warn on oversized page directory allocations
 
-Fixes: 7661809d493b ("mm: don't allow oversized kvmalloc() calls")
-Signed-off-by: Shuicheng Lin <shuicheng.lin@intel.com>
----
- drivers/gpu/drm/ttm/ttm_tt.c | 6 ++++--
- 1 file changed, 4 insertions(+), 2 deletions(-)
+This commit passes __GFP_NOWARN to kvcalloc() in
+ttm_tt_alloc_page_directory() and ttm_dma_tt_alloc_page_directory() to
+prevent user-controlled BO sizes from triggering oversized allocation
+warnings in kvmalloc().
 
-diff --git a/drivers/gpu/drm/ttm/ttm_tt.c b/drivers/gpu/drm/ttm/ttm_tt.c
-index b645a1818184..5dc9d3795b04 100644
---- a/drivers/gpu/drm/ttm/ttm_tt.c
-+++ b/drivers/gpu/drm/ttm/ttm_tt.c
-@@ -117,7 +117,8 @@ EXPORT_SYMBOL_FOR_TESTS_ONLY(ttm_tt_create);
-  */
- static int ttm_tt_alloc_page_directory(struct ttm_tt *ttm)
- {
--	ttm->pages = kvcalloc(ttm->num_pages, sizeof(void*), GFP_KERNEL);
-+	ttm->pages = kvcalloc(ttm->num_pages, sizeof(void *),
-+			      GFP_KERNEL | __GFP_NOWARN);
- 	if (!ttm->pages)
- 		return -ENOMEM;
- 
-@@ -127,7 +128,8 @@ static int ttm_tt_alloc_page_directory(struct ttm_tt *ttm)
- static int ttm_dma_tt_alloc_page_directory(struct ttm_tt *ttm)
- {
- 	ttm->pages = kvcalloc(ttm->num_pages, sizeof(*ttm->pages) +
--			      sizeof(*ttm->dma_address), GFP_KERNEL);
-+			      sizeof(*ttm->dma_address),
-+			      GFP_KERNEL | __GFP_NOWARN);
- 	if (!ttm->pages)
- 		return -ENOMEM;
- 
+> diff --git a/drivers/gpu/drm/ttm/ttm_tt.c b/drivers/gpu/drm/ttm/ttm_tt.c
+> index b645a18181843..5dc9d3795b046 100644
+> --- a/drivers/gpu/drm/ttm/ttm_tt.c
+> +++ b/drivers/gpu/drm/ttm/ttm_tt.c
+> @@ -117,7 +117,8 @@ EXPORT_SYMBOL_FOR_TESTS_ONLY(ttm_tt_create);
+>   */
+>  static int ttm_tt_alloc_page_directory(struct ttm_tt *ttm)
+>  {
+> -	ttm->pages =3D kvcalloc(ttm->num_pages, sizeof(void*), GFP_KERNEL);
+> +	ttm->pages =3D kvcalloc(ttm->num_pages, sizeof(void *),
+> +			      GFP_KERNEL | __GFP_NOWARN);
+>  	if (!ttm->pages)
+>  		return -ENOMEM;
+> =20
+> @@ -127,7 +128,8 @@ static int ttm_tt_alloc_page_directory(struct ttm_tt =
+*ttm)
+>  static int ttm_dma_tt_alloc_page_directory(struct ttm_tt *ttm)
+>  {
+>  	ttm->pages =3D kvcalloc(ttm->num_pages, sizeof(*ttm->pages) +
+> -			      sizeof(*ttm->dma_address), GFP_KERNEL);
+> +			      sizeof(*ttm->dma_address),
+> +			      GFP_KERNEL | __GFP_NOWARN);
+>  	if (!ttm->pages)
+>  		return -ENOMEM;
+> =20
 
-base-commit: 61df0d1929e7e99d38404a1be02c461a8f6a3f5a
--- 
-2.43.0
+[Severity: Medium]
+Should ttm_sg_tt_alloc_page_directory() immediately below also pass
+GFP_KERNEL | __GFP_NOWARN to kvzalloc_objs()?
 
+drivers/gpu/drm/ttm/ttm_tt.c:ttm_sg_tt_alloc_page_directory() {
+	ttm->dma_address =3D kvzalloc_objs(*ttm->dma_address, ttm->num_pages);
+	if (!ttm->dma_address)
+		return -ENOMEM;
+
+	return 0;
+}
+
+ttm_sg_tt_init() calls ttm_sg_tt_alloc_page_directory() for
+TTM_TT_FLAG_EXTERNAL objects (such as ttm_bo_type_sg), which can be
+reached when importing a dma-buf > 1 TiB via DRM_IOCTL_PRIME_FD_TO_HANDLE
+(for example through amdgpu_gem_prime_import() ->
+amdgpu_dma_buf_create_obj() -> amdgpu_gem_object_create(), which creates
+and validates the BO in AMDGPU_GEM_DOMAIN_CPU before attaching the
+dma-buf), triggering the same WARN_ON_ONCE(size > INT_MAX) in
+__kvmalloc_node_noprof().
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261121091815.1436=
+090-2-shuicheng.lin@intel.com?part=3D1
