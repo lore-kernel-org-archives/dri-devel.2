@@ -2,32 +2,32 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2A926606A33E
-	for <dri-devel@archiver.kernel.org>; Sat, 21 Nov 2026 10:27:03 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E6C2D606A325
+	for <dri-devel@archiver.kernel.org>; Sat, 21 Nov 2026 10:27:32 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=lEjbVc6Q
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=THAIw131
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 4C0E510E102;
-	Sat, 21 Nov 2026 10:26:57 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 24B5C10E16D;
+	Sat, 21 Nov 2026 10:27:27 +0000 (UTC)
 Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 4407410E7CB
- for <dri-devel@lists.freedesktop.org>; Sat, 21 Nov 2026 10:26:51 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id E3DBB10E850
+ for <dri-devel@lists.freedesktop.org>; Sat, 21 Nov 2026 10:27:20 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by tor.source.kernel.org (Postfix) with ESMTP id AF24C61388;
- Sat, 21 Nov 2026 10:26:50 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3D1A01F000C4;
- Sat, 21 Nov 2026 10:26:49 +0000 (UTC)
+ by tor.source.kernel.org (Postfix) with ESMTP id 68E9C6025F;
+ Sat, 21 Nov 2026 10:27:20 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 278B41F000C0;
+ Sat, 21 Nov 2026 10:27:18 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1795256810;
- bh=rj24zNyI6Xn2B8xgUnQ8Hw+qn6LQJ3HqbXwAdOsjEsY=;
+ s=k20260515; t=1795256840;
+ bh=w4biS262h0zqd2DW2+xTp/yTJKOFKJuy+vEVoZ/SGAU=;
  h=Date:From:To:Cc:Subject:References:In-Reply-To;
- b=lEjbVc6QnC6/maHHkQCxTPTT447938tp4SQKelX8yTDrb6WtrwClKL9FV//9UaP1P
- LfcjQd6CE6xAvIAYAR3hMIAlWGdvDNcHWOH/O9/WO65emAbTxgubILfIwGY44YeE7z
- 8o05b5R/DWblDDAtA11uZLy8y43IUDzgxprHKY5QNS6U8COnDyK8p8usRFv32fsIOM
- jcBP+BIjMn1ojvKiMuH3ZNEf0juwmmUqoidkc0R9EURUxC82k2bZYoJZXbeSEU9shZ
- mlWDZFVCX874vxrXbmqkB9Pp/VvHSkCjFxuXmVOGbBCcrTDBX3koYfVnCAZ5Ku/0wc
- 2tnSOgk8dIqcg==
-Date: Sat, 21 Nov 2026 11:26:46 +0100
+ b=THAIw131aUJxZ4jdL0vLlrgjtLomDPAxSjHbBH7hf95SDCoa3IR6es9PsVLf7fiv6
+ +BRAFQGtHZRmSO0RSlpm+Oa3Za+oJNDi+VCVfW7726/95z5JGTjLsRw0N/TEEM2SdR
+ NoP3eA5IPT3RWNfSV/hI49tnbarOb58MEuxBn5+kPgtn+UumTaOGLjzYWb5/38yXnQ
+ DEN6LlMoHeRxJ4y0a1HD3lGIP2tPttWnndWCFZcq1X0L9a2R4Cxr55pv6wedY5spo1
+ /0BY0cSJUjwezxvrH622lqBLg6LxNbH6Jn2dhWpbAGqKkUMrZoG7amPsrrAxiJn6Py
+ 1afIwyargcnvw==
+Date: Sat, 21 Nov 2026 11:27:16 +0100
 From: Krzysztof Kozlowski <krzk@kernel.org>
 To: Abdur Rofik <rofikcoga@gmail.com>
 Cc: linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org, 
@@ -38,15 +38,16 @@ Cc: linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org,
  Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
  Neil Armstrong <neil.armstrong@linaro.org>,
  Dmitry Torokhov <dmitry.torokhov@gmail.com>
-Subject: Re: [PATCH v5 03/10] dt-bindings: display: panel: add LG SW43103
-Message-ID: <20261121-authentic-solemn-ibex-d3e2a7@quoll>
+Subject: Re: [PATCH v5 05/10] dt-bindings: input: touchscreen: add Silicon
+ Works SW42902
+Message-ID: <20261121-wild-corgi-from-neptune-6b19d5@quoll>
 References: <20261120155450.7719-1-rofikcoga@gmail.com>
- <20261120155450.7719-4-rofikcoga@gmail.com>
+ <20261120155450.7719-6-rofikcoga@gmail.com>
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=utf-8
 Content-Disposition: inline
-In-Reply-To: <20261120155450.7719-4-rofikcoga@gmail.com>
+In-Reply-To: <20261120155450.7719-6-rofikcoga@gmail.com>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -65,51 +66,46 @@ X-Spam-Status: No, score=-15.8 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-On Fri, Nov 20, 2026 at 04:54:42PM +0100, Abdur Rofik wrote:
-> Document the SW43103 FHD+ AMOLED panel used by the LG V60. The panel
-> uses DSI command mode with DSC and DCS backlight control.
+On Fri, Nov 20, 2026 at 04:54:44PM +0100, Abdur Rofik wrote:
+> Document the Silicon Works SW42902 I2C touchscreen controller, including
+> its interrupt, reset GPIO, power supplies, and panel touch properties.
 > 
 > Signed-off-by: Abdur Rofik <rofikcoga@gmail.com>
 > ---
->  .../bindings/display/panel/lg,sw43103.yaml    | 69 +++++++++++++++++++
->  MAINTAINERS                                   |  5 ++
->  2 files changed, 74 insertions(+)
->  create mode 100644 Documentation/devicetree/bindings/display/panel/lg,sw43103.yaml
+>  .../input/touchscreen/lg,sw42902.yaml         | 72 +++++++++++++++++++
+>  MAINTAINERS                                   |  6 ++
+>  2 files changed, 78 insertions(+)
+>  create mode 100644 Documentation/devicetree/bindings/input/touchscreen/lg,sw42902.yaml
 > 
-> diff --git a/Documentation/devicetree/bindings/display/panel/lg,sw43103.yaml b/Documentation/devicetree/bindings/display/panel/lg,sw43103.yaml
+> diff --git a/Documentation/devicetree/bindings/input/touchscreen/lg,sw42902.yaml b/Documentation/devicetree/bindings/input/touchscreen/lg,sw42902.yaml
 > new file mode 100644
-> index 0000000000000..7f44ac6672bda
+> index 0000000000000..2d6d9b1500faf
 > --- /dev/null
-> +++ b/Documentation/devicetree/bindings/display/panel/lg,sw43103.yaml
-> @@ -0,0 +1,69 @@
+> +++ b/Documentation/devicetree/bindings/input/touchscreen/lg,sw42902.yaml
+> @@ -0,0 +1,72 @@
 > +# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
 > +%YAML 1.2
 > +---
-> +$id: http://devicetree.org/schemas/display/panel/lg,sw43103.yaml#
+> +$id: http://devicetree.org/schemas/input/touchscreen/lg,sw42902.yaml#
 > +$schema: http://devicetree.org/meta-schemas/core.yaml#
 > +
-> +title: LG / BOE SW43103 1080x2460 DSI cmd mode panel
+> +title: Silicon Works SW42902 Touchscreen Controller
 > +
 > +maintainers:
 > +  - Abdur Rofik <rofikcoga@gmail.com>
 > +
 > +description: |
-
-Do not need '|' unless you need to preserve formatting.
-
-> +  The SW43103 is a 1080x2460 command-mode AMOLED panel used by LG V60 (timelm).
-> +  It uses Display Stream Compression (DSC) over a 4-lane MIPI DSI interface.
+> +  The SW42902 is an I2C capacitive touchscreen controller used on the
+> +  LG V60 (timelm).
 > +
 > +allOf:
-> +  - $ref: panel-common.yaml#
+> +  - $ref: touchscreen.yaml#
 > +
 > +properties:
 > +  compatible:
-> +    enum:
-> +      - lg,sw43103
-> +      - boe,sw43103
+> +    const: lg,sw42902
 
-I don't understand who is the vendor of this device.
+Silicon Works or LG? Confusing.
 
 Best regards,
 Krzysztof
