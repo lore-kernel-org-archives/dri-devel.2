@@ -2,116 +2,172 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5A24E606A320
-	for <dri-devel@archiver.kernel.org>; Sat, 21 Nov 2026 06:03:57 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F0534606A337
+	for <dri-devel@archiver.kernel.org>; Sat, 21 Nov 2026 06:30:56 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=kpovA+AD
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=I6Sp7coz;
+	dkim=pass (1024-bit key, unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=selector1 header.b=Igl8twdd
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 8E8F110E13E;
-	Sat, 21 Nov 2026 06:03:51 +0000 (UTC)
-Received: from mail-dy1-f180.google.com (mail-dy1-f180.google.com
- [74.125.82.180])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 7C74310E114
- for <dri-devel@lists.freedesktop.org>; Sat, 21 Nov 2026 06:03:44 +0000 (UTC)
-Received: by mail-dy1-f180.google.com with SMTP id
- 5a478bee46e88-38564b4b017so1613280eec.0
- for <dri-devel@lists.freedesktop.org>; Fri, 20 Nov 2026 22:03:44 -0800 (PST)
-ARC-Seal: i=1; a=rsa-sha256; t=1795241024; cv=none;
- d=google.com; s=arc-20260327;
- b=WmgjXE5yPODibLSYRUXDvUsCtI5xpk4br5ZuyflHM2f7oEv+6OMimyapVlmebvXNpi
- CFwWvdMflhurPnLMaJlujIoAKQMID+UDZTtz79ZWIZynmnN3mjaC0kUw8Xcoyj3kyzOC
- 3xVHXu/6XNSZxGZQEsPxy5tbYxS9zRsjVx7RaIy0aW/sJhQn3rkgCUR4OBF0XsKTJmIt
- Vx+drd0j+LFZop8rUOxZDXpXdIGWd/EkBIRu7Vr9KLA7i88pBjW4oXIHMgkkWMX6lPwP
- jLxEcoKkO/KhpQe8a0lFe9z/aOi+fn8PPGqu5Mw4yIzCLA7pTnmlXynMPCYivu0Osgoo
- p0Ug==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com;
- s=arc-20260327; 
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:dkim-signature;
- bh=lkIcDSC/bFxcu22I88GO2krkZZKs2yf41B/Zw2+/nk0=;
- fh=fJu42mwQfpLzrxC6QiDWQH2tR0ps8UuyF0ibITkjyCw=;
- b=C8JX+rrdxr2WKiOhulqLF0BBLHxkRtZmQXgqhlDzUKoNyreNTFK/0X2baqAApXkSOR
- sW7h/2tvulYdCLbLrf00cY9rI4kWn3ea5aOCjO8XJXMQXw5YFu5EIVT1aQIels9Neawr
- znlDxH60mgXnvJ6ybdBrCjmM4kEhT20nic/d+vG/pQYYqnj+dWSakgz7kzLYtCBk/JOc
- LmCwRj3Xu3DnNmvYj2942bggHLHcuqR4Z39OBRr/RN72VTFqfQ9AlMX2krxAsjc17y+h
- BPZAcl/fbxkPUbMxpXEeq3sRimoDVRmQSHDpeK+MJeAIt5EpAt6rWUD0CrEGWQzI1zjk
- PIMA==; darn=lists.freedesktop.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20260707; t=1795241024; x=1795845824; darn=lists.freedesktop.org;
- h=content-transfer-encoding:content-type:cc:to:subject:message-id
- :date:from:in-reply-to:references:mime-version:from:to:cc:subject
- :date:message-id:reply-to:content-type;
- bh=lkIcDSC/bFxcu22I88GO2krkZZKs2yf41B/Zw2+/nk0=;
- b=kpovA+AD5Ac/y2pYR/0ozuYsgnYm4TTHTaKzFr7mUJ27MhndsqXAmV2u4C+JlmILZZ
- F7ONfKN5cqphX7v6gcKL/nm37kxMjaO5PSoCVGbduGXVISBls9r/IA9U9ZQ7s5yyZg84
- KiuzJzCscr6ukrRQS8CMBR7kuHpFjHPxjtECHmlFgl8MTsdYF3AidrsyyamN0tBNMt+u
- /Mc/uiMRyolUIYrTZPprKWi72oBeBpjw5J76hJkZFD4rEDDS8OmnShj6cN44QZe/vz8B
- 1w7RrYD0p3UYfbsRy8NfkkDpK7KonR6Cpz6sYBMfshtGyGecLFhyl3IJDvghX40g+sZS
- MhTQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20260707; t=1795241024; x=1795845824;
- h=content-transfer-encoding:content-type:cc:to:subject:message-id
- :date:from:in-reply-to:references:mime-version:x-gm-gg
- :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
- :content-type;
- bh=lkIcDSC/bFxcu22I88GO2krkZZKs2yf41B/Zw2+/nk0=;
- b=eOhyqQOG9d8sKVNtf09T1OKSuYxCjEUgW8OaCXydRZgeomKNEolAPH35kVb0JOUvWe
- IMoJ2R8ng8nJYs+rU8H+WbnwbxypOvPWfkxR1WR5k6cs/y7Ga3W7h5hmJSp7aIXEb3Fx
- XISOt/zpqPB7N0iGl/VXpyDEkHvYNdT5h1tCaujTrzLoIyZkvXEmC4rHEb/SCeaENKOe
- EB+AG6vV3k+BjV4eDDtvPjK2fXJycI06ntRtdWnOL+A5tlC7+iKexzIDCZrPUpnOgOOp
- 3lgONT9DuKE/Jq7Dqbsy5eHZlR4TEHBCiiOQP25B5sUMm+senxTyMK8N+5IEgwtWx2/u
- NiKg==
-X-Forwarded-Encrypted: i=1;
- AL+hErHlMGsAC1Yc7m8tQRTX65B+dr03iGkQ7OxuPfDwbqImV5M56YmbUb+s+pOoRHv+Eum5C0W4LH+ne1c=@lists.freedesktop.org
-X-Gm-Message-State: APuU4Z8YAv6lzc4fMol7WwrnoMg0sp0D+KUTSTYjBb9y1SU4Gew3escC
- E0WPoWxOI9BE318zGmyjXp75Z3HrNrpTC6e0XeDOZcLgDhsJM1GriJYjTy+3za22ie51Ul6ftn4
- ML0YhiCR+5VGpMhMGmn0oKMa0e3drNUg=
-X-Gm-Gg: AZFdTZd6OpA9srO/IWB2LAuEU2bKcj+gH7KPl3JnZe4yre/73swsmKtNYCisk7AWrJW
- dihqHQEaHWnmpOZ6T6fktLcQGgy6aNJd9QNYXdROK977jqiHC4hvOvWMM3qgK5nFE+40roMLBGb
- bbcyrJXLbMVvFopXuDIKLMQxtMMfwZIn3Rb8UoRZQOKmUI7nCDXVCBWpQkvkOLrk0bH/7xA1WlP
- 77az8wXFvEnxqwy3Fq9mo8l8ujHPw5drqShj2vMS8EfdFb8vaai2i9daAPq1st/ZYnARNC+mpRn
- zl5AD/siLmB/ngq6Bi7Keg3k4iDn2Mm1buP18ov5FhE8NwZcgY15i+g8vhrQP675f83Q4NhAe8P
- CWQ+XeUcj/exHIdWl3cZiDpzOhuVEoZNuvdDYJkJ1RVzFe/Rum3rBv1Ke7aJ/XEiSoazvv4ktJz
- GB3siF72qIVqFus/4nL9RrPDjFVMW1qA==
-X-Received: by 2002:a05:7300:e9c4:20b0:383:6f73:eb34 with SMTP id
- 5a478bee46e88-3856c6b00fdmr6323139eec.2.1795241023623; Fri, 20 Nov 2026
- 22:03:43 -0800 (PST)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 7A2DB10E009;
+	Sat, 21 Nov 2026 06:30:45 +0000 (UTC)
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.17])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 177CC10E009;
+ Sat, 21 Nov 2026 06:30:33 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1795242634; x=1826778634;
+ h=date:from:to:cc:subject:message-id:references:
+ content-transfer-encoding:in-reply-to:mime-version;
+ bh=Urv+C0BjEq9CoR9xGsDx4YSghjWwWvUcb9nd2JEIeC8=;
+ b=I6Sp7cozDfG5ahSW/7JKGTAeZdQYmO31tNijaLxmzFcewz/WvWEPmD08
+ fdCXPius+O++n7viKfTM3sqL5d03vpyK8C4Ljjyh1N8EDSbMmOItUS5VJ
+ UI26yOfUBGzjc3rqnFDXav23LQN8ayEH8gPGy2TcI0iPZRR3ZaQk07lAA
+ uA8bzN0GOcgRmMjD56Ydo++rUksg9yCx6yZvWC/IKxoecFmKt0liE7/GS
+ Ldbytwii3twP9bZT6OtBImqii0kaz7HP8JvbFZdmlPSqOEYMgO6RPwBLj
+ x/66UsJ/yOXPIEvxd38w5O4uPFmVATPm7z9GjJggpUe5SMalTFD3v6wjw A==;
+X-CSE-ConnectionGUID: 33/bI4k+S86AnJFbZaGwww==
+X-CSE-MsgGUID: MfLZ7ueNQAKiHJikbJLiYA==
+X-IronPort-AV: E=McAfee;i="6800,10657,11972"; a="4113859"
+X-IronPort-AV: E=Sophos;i="6.27,224,1787036400"; 
+   d="scan'208";a="4113859"
+Received: from fmviesa011.fm.intel.com ([10.60.135.151])
+ by fmvoesa111.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 20 Nov 2026 22:30:33 -0800
+X-CSE-ConnectionGUID: Wd791hfbTFK3WJ0Dwk5YfA==
+X-CSE-MsgGUID: eF0xu/mHS0G2dll/jYfj+w==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,224,1787036400"; d="scan'208";a="12692441"
+Received: from orsmsx902.amr.corp.intel.com ([10.22.229.24])
+ by fmviesa011.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 20 Nov 2026 22:30:33 -0800
+Received: from ORSMSX903.amr.corp.intel.com (10.22.229.25) by
+ ORSMSX902.amr.corp.intel.com (10.22.229.24) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.56; Fri, 20 Nov 2026 22:30:32 -0800
+Received: from ORSEDG902.ED.cps.intel.com (10.7.248.12) by
+ ORSMSX903.amr.corp.intel.com (10.22.229.25) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.56 via Frontend Transport; Fri, 20 Nov 2026 22:30:32 -0800
+Received: from CY3PR05CU001.outbound.protection.outlook.com (40.93.201.12) by
+ edgegateway.intel.com (134.134.137.112) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.56; Fri, 20 Nov 2026 22:30:32 -0800
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=xKjyHHHmAukW0BNN0XUjZGSw2GFcVv39RhLbx4SdoWr9sAAIBvlggCaOY3Kscn616TwxIgm7TYDQukjcj26WhbbErp6V527unzpRL623ZTDQn/SzjpV440UxXkgu1YH95GskEl17uUcqOS4Y35hyqp73kgifstlG0+i4GAByQbhWKwVx8mZxHSDGCeQohiz3r04z7wRP0+fS1/i2/+4K1pBEdMxSk1Vt2g/+HrE5GuEVgRia8yVXq3F9y64gYEl/Vz07hdG+q5OXX9GbelEdhCw+9p/3PcqDVf/Rbxb5zq+U2uV+RCRB74X2/+QSfZWczl1Oke+Btm30baJCeE7KoQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=zEN+tavdRczevqF0UK0uYjEo4fxbwulH0I5CspeqRv8=;
+ b=rAYNhdBXheuE6Chc6wjlu/dqGBLmnF3LafPpBDxXgPw9LmsXqgOu+odDnQQ9BEEZlR0xFJ7VrsS2NMXVsBSTPaFLVtdQSjw/VFDLZI9zHs+qchOsEDMe7Ov0TE/B9/6OUxoqofQ4GLItV+n4BzvZrvwb1D+d8aTdmA0cpQd/qfXwDY/27ampEirVZzZqQ0cm0Hfug1PcpUU5Ou2qNyFiFc/SNbPzhVumDe7ohtpjavAyPTC7023cSQKH4bsHctHMS7w+nSL5JKGJEkZwbcgHY7K4SX/fAkkdISq3HpTB1v20q8xWa+o0uSlDGV9coRvGypYAZCsdZprQ7IkStlWT8Q==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=intel.com; dmarc=pass action=none header.from=intel.com;
+ dkim=pass header.d=intel.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=intel.com; s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=zEN+tavdRczevqF0UK0uYjEo4fxbwulH0I5CspeqRv8=;
+ b=Igl8twdd6ih3JhXV2yaHvmlJtP7xab0pzVXzHPVJsvS7vmylhBpDZ3hq5vh8RyrUpkgACD/g2P2X++w7REWuloZhFuOfG86u+9/7Vr/iDlMTyrsU45kFX3x5nCh41BvpJKjH3O5994HMDTfxKBjYZ/IvTxV9fHX4exhC4haxHOk=
+Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=intel.com;
+Received: from MW3PR11MB4684.namprd11.prod.outlook.com (2603:10b6:303:5d::14)
+ by DSVPR11MB9889.namprd11.prod.outlook.com (2603:10b6:8:45d::8) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.639.12; Sat, 21 Nov
+ 2026 06:30:17 +0000
+Received: from MW3PR11MB4684.namprd11.prod.outlook.com
+ ([fe80::2f5a:96ce:f7e4:c315]) by MW3PR11MB4684.namprd11.prod.outlook.com
+ ([fe80::2f5a:96ce:f7e4:c315%7]) with mapi id 15.21.0639.011; Sat, 21 Nov 2026
+ 06:30:16 +0000
+Date: Fri, 20 Nov 2026 22:30:14 -0800
+From: Niranjana Vishwanathapura <niranjana.vishwanathapura@intel.com>
+To: Matthew Brost <matthew.brost@intel.com>
+CC: <intel-xe@lists.freedesktop.org>, <dri-devel@lists.freedesktop.org>,
+ Carlos Santa <carlos.santa@intel.com>, Ryan Neph <ryanneph@google.com>,
+ Christian Koenig <christian.koenig@amd.com>, Huang Rui <ray.huang@amd.com>,
+ Matthew Auld <matthew.auld@intel.com>, Maarten Lankhorst
+ <maarten.lankhorst@linux.intel.com>, Maxime Ripard <mripard@kernel.org>,
+ Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>,
+ Simona Vetter <simona@ffwll.ch>, <linux-kernel@vger.kernel.org>, Thomas
+ =?iso-8859-1?Q?Hellstr=F6m?= <thomas.hellstrom@linux.intel.com>
+Subject: Re: [PATCH v3 05/33] drm/ttm: Support defragmentation moves
+Message-ID: <awE6dk5EYBiu8k1-@nvishwa1-desk>
+References: <20260711025619.2540575-1-matthew.brost@intel.com>
+ <20260711025619.2540575-6-matthew.brost@intel.com>
+ <au1Ax4zGApeRJF47@nvishwa1-desk>
+ <av9Yz12dG7+vtgb2@gsse-cloud1.jf.intel.com>
+Content-Type: text/plain; charset=utf-8; format=flowed
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <av9Yz12dG7+vtgb2@gsse-cloud1.jf.intel.com>
+X-ClientProxiedBy: BY3PR10CA0005.namprd10.prod.outlook.com
+ (2603:10b6:a03:255::10) To MW3PR11MB4684.namprd11.prod.outlook.com
+ (2603:10b6:303:5d::14)
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
-References: <20261113161819.36847-1-clamor95@gmail.com>
- <20261113161819.36847-2-clamor95@gmail.com>
- <20261120143147.GA2466366@killaraus.ideasonboard.com>
- <CAPVz0n3u3oe1+H_w9jE2afb9PQT0VLtYVqfHeVNc3D+tLN6NDQ@mail.gmail.com>
- <20261120213116.GB2472094@killaraus.ideasonboard.com>
-In-Reply-To: <20261120213116.GB2472094@killaraus.ideasonboard.com>
-From: Svyatoslav Ryhel <clamor95@gmail.com>
-Date: Sat, 21 Nov 2026 08:03:31 +0200
-X-Gm-Features: Aa3M54qOnB5G9GXqLIL-lPBYx8eezPpq659tGJ_BSKM-GqCEY4niHx2BKUlkMTw
-Message-ID: <CAPVz0n0h6xd4DbnpNTW63agospeJFqoV8vnkPYdzB3NmgVRM5Q@mail.gmail.com>
-Subject: Re: [PATCH v1 01/10] staging: media: tegra-video: Move driver to
- media/platform/nvidia
-To: Laurent Pinchart <laurent.pinchart@ideasonboard.com>
-Cc: Thierry Reding <thierry.reding@kernel.org>,
- Jonathan Hunter <jonathanh@nvidia.com>, 
- Sowjanya Komatineni <skomatineni@nvidia.com>,
- Luca Ceresoli <luca.ceresoli@bootlin.com>, 
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>, 
- Mauro Carvalho Chehab <mchehab@kernel.org>,
- Greg Kroah-Hartman <gregkh@linuxfoundation.org>, 
- Mikko Perttunen <mperttunen@nvidia.com>,
- Hans Verkuil <hverkuil+cisco@kernel.org>, 
- Sakari Ailus <sakari.ailus@linux.intel.com>, Cong Nguyen <congnt264@gmail.com>,
- Faisal Mukhtar <mukhtarfaisal03@gmail.com>, Dan Carpenter <error27@gmail.com>, 
- Hungyu Lin <dennylin0707@gmail.com>, Hao-Qun Huang <alvinhuang0603@gmail.com>, 
- Yury Norov <ynorov@nvidia.com>,
- =?UTF-8?Q?Uwe_Kleine=2DK=C3=B6nig?= <u.kleine-koenig@baylibre.com>, 
- linux-media@vger.kernel.org, linux-tegra@vger.kernel.org, 
- dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org, 
- linux-kernel@vger.kernel.org, linux-staging@lists.linux.dev
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: MW3PR11MB4684:EE_|DSVPR11MB9889:EE_
+X-MS-Office365-Filtering-Correlation-Id: b6e639d8-c8cb-42c0-f853-08df4798e80c
+X-LD-Processed: 46c98d88-e344-4ed4-8496-4ed7712e255d,ExtAddr
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+ ARA:13230040|7416014|1800799024|366016|376014|23010399003|6133799003|22082099003|18002099003|261009223327099003|261009223027099003|261009221727099003|261009221227099003|261009220027099003|261021123027099003|261021121427099003|261021130227099003|261022115727099003|261026140227099003|261022075727099003|261026130827099003|261022113327099003|261022105027099003|261026121527099003|261028144727099003|261021133027099003|261021135927099003|261026135527099003|56012099006|10067099003|261102123227099003|4143699003|5023799004|11063799006;
+X-Microsoft-Antispam-Message-Info: 7T5QWPt8NZdSxBg0zQT2RT/Z8jHZF5vv7f9MdFXewRO4Pqk2iuOeKxETjakskWFBUlyK/L8w7NDuUC2iv5f1YwRF9Nnk6VPWFzd7g3FFcuLycrcVJIuCkMns78+OKV5IhoP0786hJeZl/wh/rZ4Vhy6EC97EpDFDWFAHJ3z+dGTLbC2S4UycY1IYBluHrWR6HboE5egG4Ows1z55D5aTEj0Nsw74s5Zcr6+Fq38w/PvcfY1yW/7OkBx4DXjrBMqqj3b3Np6s4rjlImpYK7r/ZvydrA2uWmKKy/973CwKdg1KThn4eQ3tbQ+UrWDpu7jKtRpGWdSMzGltNDtB10A+5s+96nPdVwTMqwj0IIeLOS3IFogt5CPBFDPJjyTPvTw7O5R8HMZ2Z8p9qjDbV/FKB4lb7BmIMQCXiO8hjYYw7F+DBOWsjRO0PiA2GT/BcVsGqdXZTPgZ4wU49qHbepV0hmOjHyTREda530OpNFIsb1RP09J9zeNrcYjiNFOk/4VCXMeKWFIcf4q7XocZBAHnZzooUYiq/Lm/d/AGN0h2cxmHDe6x2s4AZ19rQzPwLPHdmLUsJQlVTzBWTQu5mVZ/gt76T1NaMqQhwUjVW6G+n7etLR9n1ZeGm1oCyxsy4cloKhIo8WXHrdeFVBAjQBhOyyrGH4zmCmk5qc5NWz7bScA=
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:MW3PR11MB4684.namprd11.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230040)(7416014)(1800799024)(366016)(376014)(23010399003)(6133799003)(22082099003)(18002099003)(261009223327099003)(261009223027099003)(261009221727099003)(261009221227099003)(261009220027099003)(261021123027099003)(261021121427099003)(261021130227099003)(261022115727099003)(261026140227099003)(261022075727099003)(261026130827099003)(261022113327099003)(261022105027099003)(261026121527099003)(261028144727099003)(261021133027099003)(261021135927099003)(261026135527099003)(56012099006)(10067099003)(261102123227099003)(4143699003)(5023799004)(11063799006);
+ DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?RHVHN09ETjYzWFVzUjBaOHF0eWQ3QlBNcE1OVmRXOWhCMzFuRlVVcVMzOVpK?=
+ =?utf-8?B?RW5CeERjZmQwZzNydkJScnJZOXhiOXkwUFlwdzZBVDhZd3lLNXZtWldFV0ZI?=
+ =?utf-8?B?QjY5L1ZUNEkvODZFaDNJYmo1ZDcrT2w3NGFKWFpJeWk2SnZNQmxtbFZvaGow?=
+ =?utf-8?B?RFJDcVB2NjdJZWFkQ2V4SkZTaWZyeEJnTm83UVNSNkJLajh3Zms3V29BRzdv?=
+ =?utf-8?B?N3hOMVhyZE1lUDNObnF0NWtOcXArM0IxYXBiaFp3MzVUd2RmMTdSMTRtRnRa?=
+ =?utf-8?B?dEQxR2hUWkpaNXYrRmRRWW9ab3E0dlkwYUk5OUZCc3BucUF3alpCSmc5ci9i?=
+ =?utf-8?B?ZlBySUFhcEZGQVZEQlQ4bjNuU2s4cnh1OXNuUWI1VlkyZ2tuUkFnckZLZ3FY?=
+ =?utf-8?B?eG9Kb205NzdGSmIvUDZ3anRyVm0wTWtaa3FMeTJoYW5CMFVxTFlYcFdtR2Yy?=
+ =?utf-8?B?cWNMTXFNcU1VaG40OW5OV2ZTckRDYXRLVlR0UUdRVzZLNFdpZ1VUdlptbGFi?=
+ =?utf-8?B?bVloa2I2N0dTa0pVeXhqS1B2R1Q5cDBhWjUxRjBDVzdaVVpFZjJocm9PSGlw?=
+ =?utf-8?B?M2NXZUVQbnVYNldZUGM4NExBRG1MRys0TUxFbC9TMGFUb1dhZ1FSVWNVUUZI?=
+ =?utf-8?B?SUZEcGRXbURUZm1oa0xMNzEwRUpUTHlyOElaMUVSUDUrQ2F2M3Bsek5YM2c4?=
+ =?utf-8?B?NGhvTXVnNFFwWUhlSERUZmRMV1dOWFhaR25sMFFsakVEKzVjQlVucVRnQnE4?=
+ =?utf-8?B?c1Y5RUVyZEEwSXF6d0VjajFHenRTSDkyakx0cmRoYmswUnllWjYxOXdrbnBj?=
+ =?utf-8?B?bDB2b2xhRThwN21OaVZtRlJQVGJxNTRRWnliQ3NpU2hneHhGclBFeVZoa2gy?=
+ =?utf-8?B?dEhkSEpteXBLQ0luSXpWV1cwOTVpLzNKcnlQQi94VkFyMHdGbXIwQlkwSGxo?=
+ =?utf-8?B?SEVYdVhmSUczWU04dnVjTWxNcTJUTDhpTWRpeFJ2Wi9nRndJNFdzeVBCeG1N?=
+ =?utf-8?B?VXg4Sko0ekFySTBxSkpkTDc1bXlZOXV0ZWttV3MxQ05MWUd4WGJBYnNISWEr?=
+ =?utf-8?B?NGpvazN3aXI1R28reDZScm0wTXRKVTZSajVKYXRtSmdHdS9iY2JZZUVyamNY?=
+ =?utf-8?B?L2FKdlhWY0dhS3k3SHNaTDBEZTdhazV5N2JQL2t6QnhBcktpajdUd2F2aGN4?=
+ =?utf-8?B?TEtpZFJEbjB4TDRwWWpEdk4vaTNuWUpWL1YvaDg4TVkyTDNvbEdqSEVRZ3g1?=
+ =?utf-8?B?NzFaNHF0R0xwS0o3MWlXbElBblVTNGo4TWdFczZCYmJTNFhtKytJRSsvVkU1?=
+ =?utf-8?B?cjdKdkE2ODdYWE51b3pwREZnSy9IUmhkQ3p6emU2bktTTEtvWGhuM0JXcEhZ?=
+ =?utf-8?B?MVFWUGtrTVIvY3FMaG8vOHZCb012SDdtS29sRlc5aTJObmp1OUtUNjJlTWVK?=
+ =?utf-8?B?VVpUUWlqeis2UUlneUsrWkFlRUJSeDZPOWxsUUJBd2JmNThjZzFzSkhhYmxo?=
+ =?utf-8?B?alJjOTBrU3pZTXZLc05wbytRRFpnMHZSOFpFSWVTQ1E3Z1l4R0RDNStFRk1B?=
+ =?utf-8?B?ajRibTZtd1doM0QxWXJ5OG9HOVh2c1RLSVpMN1Zzck5hdzBZOWF4M0ZsRlN6?=
+ =?utf-8?B?V3E4THRHNXp3Nys2aEFCTGRqUVAwMXc3Qm11bStIK1ZaVTZCOVFpVFFMWUV4?=
+ =?utf-8?B?QlZWREtSK2ZQemt1Vm42TDh2bEZjclA1UHFWbkI1R0Y0cExTbzZwb0JGY0VU?=
+ =?utf-8?B?NzlPTEJIMHYycGNBdGM2V2grVys2NjdrOFdydXlCR2lsOGdCMjZPcmRYU3NX?=
+ =?utf-8?B?SGlqWjdxai9tcklXY2owS01UQkpRQmJ2YXpVK2UvTmZjbDNna3dpaE42R0lh?=
+ =?utf-8?B?NkpmM296dE5Yb01JMWYwNWxIU1hHa0pMU2Z6VGN6OVdiRlE3WlZRVlorMTQ5?=
+ =?utf-8?B?L2lYK0FBeld4N0FZNkFLWC80RFMwVkFqUzhQMERaK0IzckZaQkoyeEpsWVcy?=
+ =?utf-8?B?MURobndoZVVmYndrMlRkN0hoeEVWYmd4MkNmWk5LZUxmTS94dXNCbnlpekIx?=
+ =?utf-8?B?UVMzVXJLUG5zbHl4OFRuQ2JDbFYrbmRtNGJkQWxLb2N3aGFnbzhaNmduNHYy?=
+ =?utf-8?B?Y0xyanhnREtlN0VvZGNsaXhITjJaSzdpNkZJbUU0cVRNK3p0a0dvcVJnaDRo?=
+ =?utf-8?B?dndiVmJaZHMyb0x5YU5yUzBJYjFNeDlrTldqR3JlZDRwL2lvY2EwREZpV1NF?=
+ =?utf-8?B?ZDFlR0VRQ1Mvb2FrRnhSUndobHJSRUJVTFFBdzRWNWNJeC9Ja1Nqa0gxWFhZ?=
+ =?utf-8?B?WmhxcU9ST2lDMlBUMVFhdzJON1pZUm9PQVJKQW1oU3NIWGNUY0lLTTdpclZL?=
+ =?utf-8?Q?BgtYNy2vzjjbm66finI930TMzjvbO67SFVyfr?=
+X-Exchange-RoutingPolicyChecked: myoYLXMqYBOxs2BZFKfZjoCDWDNCb8pXHmTZWa2HgGyFT2csPGnI6HgumLtmlF9zn4wdh/brl77QpNugai0HLsb3W8A3e+RvOTdyfYwquWnsgBj5Wk3NKdOyOeRmujpnDdr2lLn+zIuQsIpGr2m5ntuDjyOQr+7vkWPsYvZ2tz+Dp0CQzuC2TiDvErLiDY42Up+BFqywekwMaExwvgz2o/xwLAkAvrWsBqAKViHvsh6wa/kTaeftUJeDDUhAFSYIrPY/Id/vNMBbyZbyOkgiJSeh6oIcDX+Mf15646QMmK2MViiWxa/vG70rK9LtNC1ZlL08FtKRtG2Bk+6xKNx0aQ==
+X-MS-Exchange-CrossTenant-Network-Message-Id: b6e639d8-c8cb-42c0-f853-08df4798e80c
+X-MS-Exchange-CrossTenant-AuthSource: MW3PR11MB4684.namprd11.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 21 Nov 2026 06:30:16.5492 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 46c98d88-e344-4ed4-8496-4ed7712e255d
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: jt86HwJgEGX0Qly3BDvwUqiUpXy+P6Gs5JSeIgigncKumMOYODgBf+g078JeoMGm1FQAqrxMHaF8iVEjEmqGcfYBE4NtXzMmkT1d9Qtmjc4bXFtX01FxRxXfbhlJayw0
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DSVPR11MB9889
+X-OriginatorOrg: intel.com
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -123,138 +179,406 @@ List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-12.8 required=3.0 tests=BAYES_00,DKIM_SIGNED,
-	DKIM_VALID,DKIM_VALID_AU,FREEMAIL_FORGED_FROMDOMAIN,FREEMAIL_FROM,
-	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
-	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS autolearn=unavailable
-	autolearn_force=no version=4.0.1
+X-Spam-Status: No, score=-15.8 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
+	DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
+	INCLUDES_CR_TRAILER,INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,
+	SPF_PASS autolearn=unavailable autolearn_force=no version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-=D0=BF=D1=82, 20 =D0=BB=D0=B8=D1=81=D1=82. 2026=E2=80=AF=D1=80. =D0=BE 23:3=
-1 Laurent Pinchart
-<laurent.pinchart@ideasonboard.com> =D0=BF=D0=B8=D1=88=D0=B5:
+On Thu, Nov 19, 2026 at 12:15:11PM -0800, Matthew Brost wrote:
+>On Thu, Nov 05, 2026 at 06:51:51PM -0800, Niranjana Vishwanathapura wrote:
+>> On Fri, Jul 10, 2026 at 07:55:51PM -0700, Matthew Brost wrote:
+>> > Add infrastructure to let a driver re-back an already-resident BO with
+>> > fresh pages (e.g. at a more beneficial order) by reusing the normal move
+>> > machinery.
+>> >
+>> > Add ctx->defrag, which makes ttm_bo_validate() skip the "current
+>> > resource already compatible" short-circuit so a move is forced even when
+>> > placement is unchanged. In ttm_bo_handle_move_mem(), when defragging a
+>> > populated BO, stash the old tt, create and populate a fresh one
+>> > (allocating new backing), and hand the old tt to the driver move
+>> > callback via bo->defrag_old_tt for copying. On success the old tt is
+>> > unpopulated and freed; if populate or the move fails, the freshly
+>> > allocated backing is discharged and the BO is restored to its original
+>> > tt and placement.
+>> >
+>> > The old tt is handed off through bo->defrag_old_tt (reservation-lock
+>> > protected) rather than the operation context. The pointer describes BO
+>> > state for the duration of the move, so keeping it on the buffer object
+>> > is better layering and lets ttm_bo_move_accel_cleanup() pick it up.
+>> >
+>> > Because a defrag move commonly fails (beneficial-order pages are often
+>> > unavailable) and then leaves the BO untouched on its original backing,
+>> > defer ttm_bo_unmap_virtual() for the defrag case until the new backing
+>> > has been populated and the move is about to commit. Ordinary moves still
+>> > unmap up front. This avoids needlessly zapping and refaulting every
+>> > userspace mapping on the common failure path where nothing moved.
+>> >
+>> > Teach ttm_bo_move_accel_cleanup()'s ghost path about defrag: instead of
+>> > tearing the move's source tt down synchronously, hand bo->defrag_old_tt
+>> > to the ghost object so it is kept populated until the copy fence signals
+>> > and then unbound and destroyed asynchronously, while the BO keeps its
+>> > new tt. This lets a driver pipeline defrag teardown behind the GPU copy
+>> > rather than blocking on it.
+>> >
+>> > This is driver-opt-in and a no-op unless ctx->defrag is set.
+>> >
+>> > Cc: Carlos Santa <carlos.santa@intel.com>
+>> > Cc: Ryan Neph <ryanneph@google.com>
+>> > Cc: Christian Koenig <christian.koenig@amd.com>
+>> > Cc: Huang Rui <ray.huang@amd.com>
+>> > Cc: Matthew Auld <matthew.auld@intel.com>
+>> > Cc: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>
+>> > Cc: Maxime Ripard <mripard@kernel.org>
+>> > Cc: Thomas Zimmermann <tzimmermann@suse.de>
+>> > Cc: David Airlie <airlied@gmail.com>
+>> > Cc: Simona Vetter <simona@ffwll.ch>
+>> > Cc: dri-devel@lists.freedesktop.org
+>> > Cc: linux-kernel@vger.kernel.org
+>> > Cc: Thomas Hellström <thomas.hellstrom@linux.intel.com>
+>> > Assisted-by: GitHub_Copilot:claude-opus-4.8
+>> > Signed-off-by: Matthew Brost <matthew.brost@intel.com>
+>> >
+>> > ---
+>> >
+>> > v3:
+>> > - Reject defrag moves needing a multihop bounce: WARN, restore backing,
+>> >   -EINVAL (Sashiko)
+>> > ---
+>> > drivers/gpu/drm/ttm/ttm_bo.c      | 100 +++++++++++++++++++++++++++---
+>> > drivers/gpu/drm/ttm/ttm_bo_util.c |  16 ++++-
+>> > drivers/gpu/drm/ttm/ttm_pool.c    |   5 +-
+>> > include/drm/ttm/ttm_bo.h          |  17 +++++
+>> > 4 files changed, 127 insertions(+), 11 deletions(-)
+>> >
+>> > diff --git a/drivers/gpu/drm/ttm/ttm_bo.c b/drivers/gpu/drm/ttm/ttm_bo.c
+>> > index 3980f376e3ba..c1629b4c4f0f 100644
+>> > --- a/drivers/gpu/drm/ttm/ttm_bo.c
+>> > +++ b/drivers/gpu/drm/ttm/ttm_bo.c
+>> > @@ -125,49 +125,133 @@ static int ttm_bo_handle_move_mem(struct ttm_buffer_object *bo,
+>> > {
+>> > 	struct ttm_device *bdev = bo->bdev;
+>> > 	bool old_use_tt, new_use_tt;
+>> > +	bool defrag;
+>> > 	int ret;
+>> >
+>> > 	old_use_tt = !bo->resource || ttm_manager_type(bdev, bo->resource->mem_type)->use_tt;
+>> > 	new_use_tt = ttm_manager_type(bdev, mem->mem_type)->use_tt;
+>> >
+>> > -	ttm_bo_unmap_virtual(bo);
+>> > +	/*
+>> > +	 * Only the BO that is the actual defrag target (moved in place via
+>> > +	 * ttm_bo_validate(), evict == false) is being defragmented. The same
+>> > +	 * ctx->defrag is threaded into evictions triggered while allocating
+>> > +	 * that target's new backing (ttm_bo_evict_alloc()), so guard against
+>> > +	 * an unrelated victim BO (evict == true) being misclassified as a
+>> > +	 * defrag move and needlessly reallocating its backing.
+>> > +	 */
+>> > +	defrag = ctx->defrag && !evict && new_use_tt && bo->ttm &&
+>> > +		 ttm_tt_is_populated(bo->ttm);
+>> > +
+>>
+>> The sashiko reports a bug about '!evict' check which seems legitimate.
+>>
 >
-> On Fri, Nov 20, 2026 at 05:31:17PM +0200, Svyatoslav Ryhel wrote:
-> > =D0=BF=D1=82, 20 =D0=BB=D0=B8=D1=81=D1=82. 2026=E2=80=AF=D1=80. =D0=BE =
-16:31 Laurent Pinchart =D0=BF=D0=B8=D1=88=D0=B5:
-> > > On Fri, Nov 13, 2026 at 06:18:10PM +0200, Svyatoslav Ryhel wrote:
-> > > > The Tegra Video Input drivers are mature and developed enough to be=
- moved
-> > > > from staging into the media subsystem. No other changes are introdu=
-ced.
-> > >
-> > > The driver should at least be converted to be MC-centric before being
-> > > moved out of staging. I haven't checked if other changes would also b=
-e
-> > > needed.
-> >
-> > Does the media subsystem deny video-centric devices from even being
-> > moved into it? I have not seen this restriction imposed; could you
-> > please point me to where this is stated in the media subsystem
-> > documentation?
->
-> There's a consensus that devices that require control of camera sensors
-> (i.e. "MIPI" cameras) must be MC-centric. That's not documented, we
-> should probably fix that.
+>See below - we don't allow multi-hop if ctx->defrag == true - i.e., we
+>pop a warning if driver tries to do this. Thus the Sashiko feedback
+>isn't right.
 >
 
-Yeah, stating this in documentation would simplify things.
+I think the issue is in ttm_bo_evict():
 
-> > I would like to convert this device, but that may take quite some time
-> > and may case regressions if not done carefully. This patchset apart
-> > from moving to media is mostly fixes to work correctly with mt9m114
-> > and tegra114 bring-up which is quite simple and straight forward
-> > change.
+         ret = ttm_bo_handle_move_mem(bo, evict_mem, true, ctx, &hop);
+         if (ret != -EMULTIHOP)
+                 break;
+
+         ret = ttm_bo_bounce_temp_buffer(bo, ctx, &hop);
+
+The bo here is an unrelated victim BO being evicted to make room for the defrag target's new backing —
+not the BO actually being defragged. ctx is the same ctx threaded down from the defrag target's
+ttm_bo_validate() call, so ctx->defrag is still set.
+
+If the first call (evict=true) returns -EMULTIHOP, ttm_bo_bounce_temp_buffer() calls
+ttm_bo_handle_move_mem(bo, hop_mem, false, ctx, NULL) — evict=false this time,
+with ctx->defrag still true. defrag = ctx->defrag && !evict && ...now evaluates true for
+this unrelated victim, misclassifying its bounce-completion as a defrag move.
+
+Since this is the final hop (it's completing the bounce, not requesting another one),
+it doesn't return -EMULTIHOP itself, so the WARN_ON_ONCE+EINVAL guard below never triggers
+here — that guard only catches a defrag-classified move that itself needs another hop.
+
+>> > +	/*
+>> > +	 * Tear down userspace mappings up front for ordinary moves. A defrag
+>> > +	 * move is likely to leave the BO in place (beneficial-order allocation
+>> > +	 * commonly fails), so defer the unmap until the new backing has been
+>> > +	 * populated and the move is about to commit. This avoids a needless
+>> > +	 * zap and refault of every userspace mapping on the common failure,
+>> > +	 * where the BO keeps its original, still-mapped backing.
+>> > +	 */
+>> > +	if (!defrag)
+>> > +		ttm_bo_unmap_virtual(bo);
+>> >
+>> > 	/*
+>> > 	 * Create and bind a ttm if required.
+>> > 	 */
+>> >
+>> > 	if (new_use_tt) {
+>> > +		struct ttm_tt *defrag_old_tt = NULL;
+>> > +
+>> > +		/*
+>> > +		 * For a defrag move, stash the current populated tt and force a
+>> > +		 * fresh one to be created and populated (at beneficial order).
+>> > +		 * The old tt is handed to the driver move callback to copy the
+>> > +		 * contents from, and freed once the move completes.
+>> > +		 */
+>> > +		if (defrag) {
+>> > +			defrag_old_tt = bo->ttm;
+>> > +			bo->ttm = NULL;
+>> > +		}
+>> > +
+>> > 		/* Zero init the new TTM structure if the old location should
+>> > 		 * have used one as well.
+>> > 		 */
+>> > -		ret = ttm_tt_create(bo, old_use_tt);
+>> > -		if (ret)
+>> > +		ret = ttm_tt_create(bo, old_use_tt && !defrag_old_tt);
+>> > +		if (ret) {
+>> > +			if (defrag_old_tt)
+>> > +				bo->ttm = defrag_old_tt;
+>> > 			goto out_err;
+>> > +		}
+>> >
+>> > -		if (mem->mem_type != TTM_PL_SYSTEM) {
+>> > +		if (defrag_old_tt || mem->mem_type != TTM_PL_SYSTEM) {
+>> > 			ret = ttm_bo_populate(bo, ctx);
+>> > -			if (ret)
+>> > +			if (ret) {
+>> > +				/*
+>> > +				 * Discharge the freshly allocated backing and
+>> > +				 * leave the BO on its original tt/placement.
+>> > +				 */
+>> > +				if (defrag_old_tt) {
+>> > +					ttm_tt_destroy(bo->bdev, bo->ttm);
+>> > +					bo->ttm = defrag_old_tt;
+>> > +				}
+>> > 				goto out_err;
+>> > +			}
+>> > 		}
+>> > +
+>> > +		bo->defrag_old_tt = defrag_old_tt;
+>> > 	}
+>> >
+>> > 	ret = dma_resv_reserve_fences(bo->base.resv, 1);
+>> > 	if (ret)
+>> > 		goto out_err;
+>> >
+>> > +	/*
+>> > +	 * A defrag move deferred its virtual unmap until the new backing was
+>> > +	 * successfully populated; tear the userspace mappings down now, before
+>> > +	 * the move swaps in the new pages, so the next fault re-establishes
+>> > +	 * them against the new backing.
+>> > +	 */
+>> > +	if (defrag)
+>> > +		ttm_bo_unmap_virtual(bo);
+>> > +
+>>
+>> NIT...would it be good to always do virtual unmap here defrag or not?
+>>
 >
-> Converting to the MC API will require some changes in userspace. That's
-> why it's important to make this change before destaging the driver.
+>We could unconditionally move the ttm_bo_unmap_virtual here. I didn't do
+>that to not mess non-defrag behavior but it looks harmless to
+>unconditionally shuffle around.
+
+yes, ok.
+
+>
+>> > 	ret = bdev->funcs->move(bo, evict, ctx, mem, hop);
+>>
+>> Sashiko reports a bug here when ttm_bo_move_memcpy() is used as move()
+>> function. Though xe doesn't use that function, it is perhaps good to
+>> guard against.
+>>
+>
+>What is suggestion to guard against this?
 >
 
-Noted, I will most likely drop destaging for now then.
+As ttm_bo_move_memcpy() is not defragmentation aware, it will cause both
+source and destination kmap to refer to same bo->ttm. we should probably
+guard against drivers falling back on ttm_bo_move_memcpy(). May be in
+ttm_bo_move_memcpy(), add a WARN_ON if bo->defrag_old_tt is set and
+return error?
 
-> > BTW, may you ack mt9m114 get_fwnode_pad change[1]. I have updated it
-> > to your liking, Sakari seems to ignore it.
-> >
-> > [1] - https://lore.kernel.org/lkml/20261006153619.304520-1-clamor95@gma=
-il.com/
+>> > 	if (ret) {
+>> > -		if (ret == -EMULTIHOP)
+>> > +		if (ret == -EMULTIHOP) {
+>> > +			/*
+>> > +			 * A defrag move targets the BO's current placement and
+>> > +			 * must complete in a single hop. A driver requesting a
+>> > +			 * bounce here is unsupported: restore the original
+>> > +			 * backing and fail the defrag rather than retrying the
+>> > +			 * multihop with ctx->defrag still set, which would
+>> > +			 * misclassify the bounce as another defrag move and
+>> > +			 * overwrite/leak bo->defrag_old_tt.
+>> > +			 */
+>> > +			if (unlikely(defrag)) {
 >
-> In the review of v1, I wrote in my last message
-> (https://lore.kernel.org/linux-media/20260721103845.GJ50424@killaraus.ide=
-asonboard.com/)
-> that the issue seems to come from a bug in the VI driver. Let's continue
-> the discussion there.
+>Here is what makes -EMULTIHOP (Sashiko evict issue) impossible.
 >
-> > > > Signed-off-by: Svyatoslav Ryhel <clamor95@gmail.com>
-> > > > ---
-> > > >  drivers/media/platform/nvidia/Kconfig                           | =
-2 ++
-> > > >  drivers/media/platform/nvidia/Makefile                          | =
-1 +
-> > > >  .../media =3D> media/platform/nvidia}/tegra-video/Kconfig         =
-| 0
-> > > >  .../media =3D> media/platform/nvidia}/tegra-video/Makefile        =
-| 0
-> > > >  .../{staging/media =3D> media/platform/nvidia}/tegra-video/TODO   =
-| 0
-> > > >  .../{staging/media =3D> media/platform/nvidia}/tegra-video/csi.c  =
-| 0
-> > > >  .../{staging/media =3D> media/platform/nvidia}/tegra-video/csi.h  =
-| 0
-> > > >  .../media =3D> media/platform/nvidia}/tegra-video/tegra20.c       =
-| 0
-> > > >  .../media =3D> media/platform/nvidia}/tegra-video/tegra210.c      =
-| 0
-> > > >  .../{staging/media =3D> media/platform/nvidia}/tegra-video/vi.c   =
-| 0
-> > > >  .../{staging/media =3D> media/platform/nvidia}/tegra-video/vi.h   =
-| 0
-> > > >  .../media =3D> media/platform/nvidia}/tegra-video/video.c         =
-| 0
-> > > >  .../media =3D> media/platform/nvidia}/tegra-video/video.h         =
-| 0
-> > > >  .../{staging/media =3D> media/platform/nvidia}/tegra-video/vip.c  =
-| 0
-> > > >  .../{staging/media =3D> media/platform/nvidia}/tegra-video/vip.h  =
-| 0
-> > > >  drivers/staging/media/Kconfig                                   | =
-2 --
-> > > >  drivers/staging/media/Makefile                                  | =
-1 -
-> > > >  17 files changed, 3 insertions(+), 3 deletions(-)
-> > > >  rename drivers/{staging/media =3D> media/platform/nvidia}/tegra-vi=
-deo/Kconfig (100%)
-> > > >  rename drivers/{staging/media =3D> media/platform/nvidia}/tegra-vi=
-deo/Makefile (100%)
-> > > >  rename drivers/{staging/media =3D> media/platform/nvidia}/tegra-vi=
-deo/TODO (100%)
-> > > >  rename drivers/{staging/media =3D> media/platform/nvidia}/tegra-vi=
-deo/csi.c (100%)
-> > > >  rename drivers/{staging/media =3D> media/platform/nvidia}/tegra-vi=
-deo/csi.h (100%)
-> > > >  rename drivers/{staging/media =3D> media/platform/nvidia}/tegra-vi=
-deo/tegra20.c (100%)
-> > > >  rename drivers/{staging/media =3D> media/platform/nvidia}/tegra-vi=
-deo/tegra210.c (100%)
-> > > >  rename drivers/{staging/media =3D> media/platform/nvidia}/tegra-vi=
-deo/vi.c (100%)
-> > > >  rename drivers/{staging/media =3D> media/platform/nvidia}/tegra-vi=
-deo/vi.h (100%)
-> > > >  rename drivers/{staging/media =3D> media/platform/nvidia}/tegra-vi=
-deo/video.c (100%)
-> > > >  rename drivers/{staging/media =3D> media/platform/nvidia}/tegra-vi=
-deo/video.h (100%)
-> > > >  rename drivers/{staging/media =3D> media/platform/nvidia}/tegra-vi=
-deo/vip.c (100%)
-> > > >  rename drivers/{staging/media =3D> media/platform/nvidia}/tegra-vi=
-deo/vip.h (100%)
-> > >
-> > > --
-> > > Regards,
-> > >
-> > > Laurent Pinchart
+
+Responded above.
+
+>> > +				WARN_ON_ONCE(1);
+>> > +				ret = -EINVAL;
+>> > +				goto out_err;
+>> > +			}
+>> > 			return ret;
+>> > +		}
+>> > 		goto out_err;
+>> > 	}
+>> >
+>> > +	if (bo->defrag_old_tt) {
+>> > +		ttm_tt_unpopulate(bo->bdev, bo->defrag_old_tt);
+>> > +		ttm_tt_destroy(bo->bdev, bo->defrag_old_tt);
+>> > +		bo->defrag_old_tt = NULL;
+>> > +	}
+>> > +
+>> > 	ctx->bytes_moved += bo->base.size;
+>> > 	return 0;
+>> >
+>> > out_err:
+>> > -	if (!old_use_tt)
+>> > +	if (bo->defrag_old_tt) {
+>> > +		/* Failed defrag move: restore the original backing. */
+>> > +		ttm_bo_tt_destroy(bo);
+>> > +		bo->ttm = bo->defrag_old_tt;
+>> > +		bo->defrag_old_tt = NULL;
+>> > +	} else if (!old_use_tt) {
+>>
+>> Another sashiko reported bug about tearing down the old pages while an
+>> async copy is still in progress. Looks like xe driver waits for move to
+>> complete before returning, so should be fine. But probably worth adding
+>> a documentation for defrag_old_tt that "a defrag-aware move callback must
+>> not return an error while a copy into the new backing is still in flight
+>>
 >
-> --
-> Regards,
+>I think it is implied in the ->move() contract if one fails after
+>triggering an async move, you must wait on async move before returning
+>or TTM will explode. This appears to be existing behavior too.
 >
-> Laurent Pinchart
+
+Ok.
+
+One more point below.
+
+>Matt
+>
+>> Niranjana
+>>
+>> > 		ttm_bo_tt_destroy(bo);
+>> > +	}
+>> >
+>> > 	return ret;
+>> > }
+>> > @@ -835,7 +919,7 @@ int ttm_bo_validate(struct ttm_buffer_object *bo,
+>> > 	force_space = false;
+>> > 	do {
+>> > 		/* Check whether we need to move buffer. */
+>> > -		if (bo->resource &&
+>> > +		if (bo->resource && !ctx->defrag &&
+>> > 		    ttm_resource_compatible(bo->resource, placement,
+>> > 					    force_space))
+>> > 			return 0;
+>> > diff --git a/drivers/gpu/drm/ttm/ttm_bo_util.c b/drivers/gpu/drm/ttm/ttm_bo_util.c
+>> > index 3e3c201a0222..771313162c8d 100644
+>> > --- a/drivers/gpu/drm/ttm/ttm_bo_util.c
+>> > +++ b/drivers/gpu/drm/ttm/ttm_bo_util.c
+>> > @@ -626,10 +626,22 @@ static int ttm_bo_move_to_ghost(struct ttm_buffer_object *bo,
+>> > 	 * bo to be unbound and destroyed.
+>> > 	 */
+>> >
+>> > -	if (dst_use_tt)
+>> > +	if (bo->defrag_old_tt) {
+>> > +		/*
+>> > +		 * Defrag move: @bo already points at the freshly allocated,
+>> > +		 * beneficial-order tt that the move copied into. Hand the old
+>> > +		 * tt (the move's source) to the ghost so it is kept populated
+>> > +		 * until @fence signals and then unbound and destroyed, instead
+>> > +		 * of being torn down synchronously. @bo keeps its new tt.
+>> > +		 */
+>> > +		ghost_obj->ttm = bo->defrag_old_tt;
+>> > +		ghost_obj->defrag_old_tt = NULL;
+>> > +		bo->defrag_old_tt = NULL;
+>> > +	} else if (dst_use_tt) {
+>> > 		ghost_obj->ttm = NULL;
+>> > -	else
+>> > +	} else {
+>> > 		bo->ttm = NULL;
+>> > +	}
+>> >
+>> > 	dma_resv_unlock(&ghost_obj->base._resv);
+>> > 	ttm_bo_put(ghost_obj);
+>> > diff --git a/drivers/gpu/drm/ttm/ttm_pool.c b/drivers/gpu/drm/ttm/ttm_pool.c
+>> > index 0ca63f5ce73c..d045105afc24 100644
+>> > --- a/drivers/gpu/drm/ttm/ttm_pool.c
+>> > +++ b/drivers/gpu/drm/ttm/ttm_pool.c
+>> > @@ -860,8 +860,11 @@ static int ttm_pool_iter_lower_order(struct ttm_pool_alloc_iter *it)
+>> > 	 * pages. Record it so the driver can later try to defragment the object
+>> > 	 * back to beneficial order.
+>> > 	 */
+>> > -	if (it->beneficial_order && it->order == it->beneficial_order)
+>> > +	if (it->beneficial_order && it->order == it->beneficial_order) {
+>> > 		it->tt->page_flags |= TTM_TT_FLAG_BENEFICIAL_ORDER_FAILED;
+>> > +		if (it->ctx->defrag)
+>> > +			return -ENOMEM;
+>> > +	}
+>>
+>> NIT...probably good to add a comment here that says something like,
+>> 'return error here as the purpose of defragmentation is to get beneficial order'.
+>>
+
+I guess, you missed this point (sorry for signing early at previous comment).
+
+Niranjana
+
+>> >
+>> > 	it->order--;
+>> > 	it->page_caching = it->tt->caching;
+>> > diff --git a/include/drm/ttm/ttm_bo.h b/include/drm/ttm/ttm_bo.h
+>> > index fd814b5cf535..f4f8a8c29f04 100644
+>> > --- a/include/drm/ttm/ttm_bo.h
+>> > +++ b/include/drm/ttm/ttm_bo.h
+>> > @@ -135,6 +135,16 @@ struct ttm_buffer_object {
+>> > 	 * reservation lock.
+>> > 	 */
+>> > 	struct sg_table *sg;
+>> > +
+>> > +	/**
+>> > +	 * @defrag_old_tt: Used internally during a defrag move to hand the BO's
+>> > +	 * previous, populated struct ttm_tt to the driver's move callback so
+>> > +	 * that it can copy the contents into the freshly allocated
+>> > +	 * beneficial-order backing. Set by TTM, consumed by the driver; the old
+>> > +	 * tt is freed (or restored on failure) by TTM once the move completes.
+>> > +	 * Protected by the reservation lock.
+>> > +	 */
+>> > +	struct ttm_tt *defrag_old_tt;
+>> > };
+>> >
+>> > #define TTM_BO_MAP_IOMEM_MASK 0x80
+>> > @@ -194,6 +204,13 @@ struct ttm_operation_ctx {
+>> > 	 * reclaim/compaction before falling back to a smaller order anyway.
+>> > 	 */
+>> > 	bool beneficial_reclaim_backoff;
+>> > +	/**
+>> > +	 * @defrag: Defragmentation pass. Attempt a move even when the bo's
+>> > +	 * current resource is already compatible with the requested placement,
+>> > +	 * so that the backing store can be reallocated at the pool's beneficial
+>> > +	 * order.
+>> > +	 */
+>> > +	bool defrag;
+>> > 	/**
+>> > 	 * @resv: Reservation object to be used together with
+>> > 	 * @allow_res_evict.
+>> > --
+>> > 2.34.1
+>> >
