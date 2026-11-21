@@ -2,81 +2,79 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CDFC4606A320
-	for <dri-devel@archiver.kernel.org>; Sun, 22 Nov 2026 17:13:51 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A4494606A320
+	for <dri-devel@archiver.kernel.org>; Sun, 22 Nov 2026 17:13:53 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=OPcOmGky
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=D6z0+5DL
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 78F3A10E601;
+	by gabe.freedesktop.org (Postfix) with ESMTP id A2DAE10E606;
 	Sun, 22 Nov 2026 17:13:43 +0000 (UTC)
-Received: from mail-dy1-f180.google.com (mail-dy1-f180.google.com
- [74.125.82.180])
- by gabe.freedesktop.org (Postfix) with ESMTPS id AE55110E2EA
- for <dri-devel@lists.freedesktop.org>; Fri, 20 Nov 2026 14:14:30 +0000 (UTC)
-Received: by mail-dy1-f180.google.com with SMTP id
- 5a478bee46e88-372bdb942dbso1244933eec.1
- for <dri-devel@lists.freedesktop.org>; Fri, 20 Nov 2026 06:14:30 -0800 (PST)
+Received: from mail-vk1-f177.google.com (mail-vk1-f177.google.com
+ [209.85.221.177])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 748BB10E9C2
+ for <dri-devel@lists.freedesktop.org>; Sat, 21 Nov 2026 13:14:01 +0000 (UTC)
+Received: by mail-vk1-f177.google.com with SMTP id
+ 71dfb90a1353d-5ee2ad94713so1278657e0c.0
+ for <dri-devel@lists.freedesktop.org>; Sat, 21 Nov 2026 05:14:01 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20260707; t=1795184070; x=1795788870; darn=lists.freedesktop.org;
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:date:subject:cc:to:from:from:to:cc:subject:date
- :message-id:reply-to:content-type;
- bh=yKYud9p8+aP8cT7V12zkUbmCop1ErkdHEczU+hWaU/k=;
- b=OPcOmGkyetyUaChSYoaesWd1kKOyDwpuf9SxNSgnRCyJZVkgojuii5i/NCCsTYd2MO
- CIwyW8m26HhA+dW/4Cq4pLNTOPOZy1IwOT7wThumY7ymSjSEafxJifB2tx9hMkEa04/f
- 1mDPOUBbIHHzT/tQmgfHnPmjccp8rZOaFeLny9BCiE2W4nrDJ7haurVuEcgAstVJcVbH
- TqynB+Fk85mVoBK9w3gt/xv4a/rUTki4udHhH2l6Q8+BLpYIb0hQgdFO5dVt//r/r05T
- O6b3/QgqnyOBDPzSPuasyIc+dvfRMF42MIi5lOla5bI5I0mjjNduRr84CM8DgjgyZR05
- onGQ==
+ d=gmail.com; s=20260707; t=1795266840; x=1795871640; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:content-type:mime-version:message-id:date
+ :subject:cc:to:from:from:to:cc:subject:date:message-id:reply-to
+ :content-type; bh=3uk1V2g2BrgRRimIAVfUYX/6Cv+bp9NcizxCwFi/VHA=;
+ b=D6z0+5DLseFJil6tzOph1gkY+Rqg6aSVA+DcBtXtxqae1bTqRSQ7D4OUR0LzAAleGX
+ dbHGjEytAgf2UDku3IUHXowjZScHu49fsrjxv2n+s+XuwW86jk+KNR4JuXjUnzVr6A+H
+ BIWJD97TNmmI3+pf0HX6gtZxf4s7mlYGKQsaI6FKa5gqcjQXVlqqexBQnh9k6PiQbdW2
+ Kdfqq+n7i0jcjQWBDOY7eaGTCDljBaQBi8LLvxvkPJNtA1uBraxInmFgY3ylHcwz/9Mv
+ 2WSdPO13dJc7XRslJumeK4wNhv6MZMrek/rsP5a6NACB0Lo2Gfs6Jj2KZrFx6fiDlfd+
+ 1d2w==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20260707; t=1795184070; x=1795788870;
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
- :to:cc:subject:date:message-id:reply-to:content-type;
- bh=yKYud9p8+aP8cT7V12zkUbmCop1ErkdHEczU+hWaU/k=;
- b=KTMoUxlPJZgzwyHgOJu3sSisfcERbCmvTvkaQ12sObP6hbXfcTXyfr0QIsuWTw/3d6
- mtuqiBStUZyDybxL/PER+t8Drks9SblF+LcQwBBuM/nRXU9GDYbmExC7x4UNQGrqhms+
- 89yoS7/a/D0/AqLthr85fdb7UGwtHmzQzlYdLi63Z9+s/NgJeOmIqH82FE35c4YwKrmC
- 2O3mzghCw4xF2mR2X3rCHGirxNEUR/PX05FQoIhd0UwC7F2RYYAeeLlgISx0sG8nd3KR
- +CIylFYfR8LRD+sl5JdPOGxbJq2i/qm0OJXMypc3ekr4RDl1vjIbI0pvaMduP2/mbAS1
- zPiA==
+ d=1e100.net; s=20260707; t=1795266840; x=1795871640;
+ h=content-transfer-encoding:content-type:mime-version:message-id:date
+ :subject:cc:to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject
+ :date:message-id:reply-to:content-type;
+ bh=3uk1V2g2BrgRRimIAVfUYX/6Cv+bp9NcizxCwFi/VHA=;
+ b=0P88b0+AeZT62Q1dezBuOOsu1UfB+6g1YH3jDK1jv8XSqkh6W6Gqf6WdClDIRyrdGf
+ Ppw+TX65/Q29bCCGJkvq9lr6x1AkEa5FglCwjMh/8+roX/iLtPlnvxFcxoZbN6pCv4Zq
+ ZxC3iveYHep06y5dYwj08KEg2BlVGRUZp2vYWjgeqjhyP54TX+0Jbrb36iNnNQe4fULg
+ ODWL3XWHcTpZUPNBh2hQV6pBIBeWClub7QjYuxNUlcouHTEHuZVT+NQojMFjYsTh6s8E
+ ZSw5a7rO0GXwmR0165bZgyXShrtjI+zJQ+tQbRe6vnve5E28G5E/CT4HHai6KxlcGE+A
+ IBjA==
 X-Forwarded-Encrypted: i=1;
- AL+hErHSPqguLdV3lRZIgJgtbpAcAtsed1HXVktMBGSNH8hafFNhojbohFuVTxT3gwhEToGmEkgQsYz88ds=@lists.freedesktop.org
-X-Gm-Message-State: APuU4Z+mdhgp8oAMLFpJBp9VxiYVsiRGdiBGaTIk8jl4/vxE0HH3q8m6
- gmQ1/rBnLX/ZkDvAj8S1hgRXVI/UdZ0Z8+TsEST82zhs7fArjzm1rR2L
-X-Gm-Gg: AZFdTZfHWj5pcvgaqx+CiAbHnf/kq721e4qCyzNcu7/CAEEwRx9gvY85w5DIFbMy7f/
- SGxsVPfV5YnhufYlIK597pPm//Ih9Vl62/FlUz8QQypDXOM5EALpKUVU+N9FqDVelG1/gXofNyA
- 1vUixykLNv/XjN4upZvB3FarzvVtgnMgh9wFhHpgAsj1rty3MTka1tb+oQ0iL1t6RiH91EFCCew
- jr8afzN/M3nKSt8pbVvfRF0ixFviPQczycNqfwKpsu9qnGD0tzrtcCeGd/TH4cEWjEoGhYry/Pw
- +bs4NF3NO67EUiZBeV9vI+w/H9/PVhj/DCmSrpdiJQUm0mCiBqOVuPYWF25MBYRrViwtIhAoCcB
- XAAfcC/E5WbNq2e7vQEHPI0eDZovTLcyWIBRbFLSWUm04hmOq48U8gw8bKlYDHkuUr1XYSgT6w8
- G2cHXrngUpg0Yone/VQo+P4x5bTGWLITa/dsSXDYpJIFNzSSn4AR/8E0BE3cJhgvBviQizDceUu
- Ki1cHKvhl45jt1xeEn5j8lyrAJBMdKcl4ryaVEhJXjweH1EB9cwWDqX4v4EFSrEn2mdHUov3Ze0
- Nb4thI3oyldilXuarXHCD+2m3jVpjgaFatXy7XWYiKP6W7S6PeQ=
-X-Received: by 2002:a05:693c:87c2:20b0:36c:dbac:705d with SMTP id
- 5a478bee46e88-3856f65a86emr2607885eec.15.1795184069954; 
- Fri, 20 Nov 2026 06:14:29 -0800 (PST)
-Received: from localhost.localdomain ([103.179.231.88])
+ AL+hErHJV42e6gayIMoNFJdUMOKoFhHtlX1WP+jEgt2qGgUiME3+yHJr/y5dk8lqL1HuY8w1diVpO/TZoGY=@lists.freedesktop.org
+X-Gm-Message-State: APuU4Z9qqwiJ0TVUyeYlkVSOarhIzl6IewAyCIz6SrFslKqe7BNz9+71
+ aWAZ3ue+8Ctaeo3oGVHVCqSVElunWgRPWQOTzxFirRq2skfz8/c/Wk1B
+X-Gm-Gg: AZFdTZcahKboZRkMGER0y9EroTw4ueZw/D026WAhUpQkUDH7LSNSbRQEMH1oRTtxnBb
+ Mm0kMq2KvoeH+ZuzLYBomohDZgV/Q7HlboTKq+HFdcxdOjFdALMxJkO4ouezaFxctVvBusZBQQw
+ Xy7CQGnSomXTKwXKrGLSc+0ZqicSq1ul8ZwJoaerqIYQ2HuqxZeVT8sugvNoZWYoMrLor9nWlon
+ 99Sk1BDXNOHtN8BnKqhvWXEqErQCNSoA4m8mJYQVM442wLT73ifSHfo20+BFtniTM7DMKo4bWWh
+ vWI0JkZD2oF1Aw33Wi2L2AiCdsUoj/rCN0bxaztx4xeyCcWGFDtbf+RZ6MI8yuGbxpo5ZFC85WN
+ ukdyhH6nohHJVraYJkWvRo2WWrIBVfCHfPXkjSfwY2WJnd2TRi3uhjstzRgj/7t9RBaiCtGLDv7
+ MfdWdSEuEb4N0jXCuBNpMExptDR1IxMKipIYCz1KxQilAGN+DUAbg6TANMtBtjPS9F1biKTL1qj
+ fxqx7TzKABCMr0zQvygcjDnI4Yvw045wwnpjw9mhwsicB801+n8270DJ4zABIqE7fYuhT8XCll8
+ DVBxY641fzGM0zV0mhmq7DxFDjLY4HFAICrdn2SsuIxclVg=
+X-Received: by 2002:a05:6122:4201:b0:5ee:a81:e77 with SMTP id
+ 71dfb90a1353d-5ee8af0e023mr2950746e0c.6.1795266840149; 
+ Sat, 21 Nov 2026 05:14:00 -0800 (PST)
+Received: from localhost ([2804:14d:5cd5:542e::1a7f])
  by smtp.gmail.com with ESMTPSA id
- 5a478bee46e88-385666e7f59sm8954893eec.6.2026.11.20.06.14.23
+ a1e0cc1a2514c-99e6dfc0b22sm5702260241.6.2026.11.21.05.13.59
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Fri, 20 Nov 2026 06:14:29 -0800 (PST)
-From: Sreeraj S Kurup <sreekuttan2156239@gmail.com>
-To: vkoul@kernel.org
-Cc: angelogioacchino.delregno@collabora.com, chunkuang.hu@kernel.org,
- dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
- linux-mediatek@lists.infradead.org, linux-phy@lists.infradead.org,
- mani@kernel.org, matthias.bgg@gmail.com, neil.armstrong@linaro.org,
- p.zabel@pengutronix.de, sreekuttan2156239@gmail.com
-Subject: Re: [PATCH] phy: mediatek: mt8195: Check PLL driver setting return
- value
-Date: Fri, 20 Nov 2026 14:13:59 +0000
-Message-ID: <20261120141359.2532-1-sreekuttan2156239@gmail.com>
-X-Mailer: git-send-email 2.55.0
-In-Reply-To: <179510544374.1370333.8388939289479267591.b4-ty@kernel.org>
-References: <179510544374.1370333.8388939289479267591.b4-ty@kernel.org>
+ Sat, 21 Nov 2026 05:13:59 -0800 (PST)
+From: "R. V. Lobato" <vieira.lobato@gmail.com>
+To: nouveau@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
+ regressions@lists.linux.dev
+Cc: Lyude Paul <lyude@redhat.com>, Danilo Krummrich <dakr@kernel.org>,
+ Dave Airlie <airlied@redhat.com>, Ilia Mirkin <imirkin@alum.mit.edu>,
+ stable@vger.kernel.org, Sasha Levin <sashal@kernel.org>,
+ Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+Subject: [REGRESSION] nouveau: GM108 hangs at boot since
+ "drm/nouveau/devinit/gf100-: try to avoid double-running vbios scripts"
+ (6.18.64)
+Date: Sat, 21 Nov 2026 10:13:50 -0300
+Message-ID: <20261121101350.bab69dff11a2@gmail.com>
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 X-Mailman-Approved-At: Sun, 22 Nov 2026 17:13:42 +0000
 X-BeenThere: dri-devel@lists.freedesktop.org
@@ -90,16 +88,116 @@ List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-5.8 required=3.0 tests=BAYES_00,DKIM_SIGNED,
+X-Spam-Status: No, score=-7.8 required=3.0 tests=BAYES_00,DKIM_SIGNED,
 	DKIM_VALID,DKIM_VALID_AU,FREEMAIL_FORGED_FROMDOMAIN,FREEMAIL_FROM,
-	HEADER_FROM_DIFFERENT_DOMAINS,MAILING_LIST_MULTI,SPF_HELO_NONE,
-	SPF_PASS,USER_AGENT_GIT autolearn=no autolearn_force=no version=4.0.1
+	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_PATCH,MAILING_LIST_MULTI,
+	SPF_HELO_NONE,SPF_PASS autolearn=no autolearn_force=no version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
 Hi,
 
-Thanks for applying the patch!
+The 6.18.64 backport 15465d681517 ("drm/nouveau/devinit/gf100-: try
+to avoid double-running vbios scripts", upstream 2139cb633d48, review
+patch 426/686 <20261113153835.372076643@linuxfoundation.org>) breaks
+nouveau on my GM108 laptop GPU. The machine hangs during boot.
+6.18.63 works. Reverting only the gf100.c hunk of this commit on top
+of 6.18.64 fixes it.
 
-Best regards,
-Sreeraj
+Hardware: HP Spectre x360 15-bl0XX, BIOS F.04, Intel HD 620 (i915,
+drives the panel) + NVIDIA GM108M [GeForce 940MX] [10de:134d], no
+display engine, runtime PM enabled.
+
+On 6.18.64 the VRAM size is garbage and the boot stops shortly after:
+
+  nouveau 0000:01:00.0: NVIDIA GM108 (1180d0a2)
+  nouveau 0000:01:00.0: bios: version 82.08.62.00.15
+  nouveau 0000:01:00.0: fb: -1159778304 MiB GDDR5
+  nouveau 0000:01:00.0: bus: MMIO read of 00000000 FAULT at 6013d4 [ PRIVRING ]
+  nouveau 0000:01:00.0: bus: MMIO read of 00000000 FAULT at 10f65c [ PRIVRING ]
+  nouveau 0000:01:00.0: bus: MMIO read of 00000000 FAULT at 17e280 [ PRIVRING ]
+  (no "drm: VRAM", no "Initialized nouveau"; the system hangs)
+
+On 6.18.63 the same machine prints "fb: 2048 MiB GDDR5" and nouveau
+initializes normally.
+
+My reading of the cause: the new code in gf100_devinit_preinit() runs
+the VGA CRTC check only when
+
+  !(nvkm_devinit_disable(base) & (1ULL << NVKM_ENGINE_DISP))
+
+The guard expects nvkm_devinit_disable() to return a mask of disabled
+engines. In 6.18.64 it calls the void ->disable() hook, which disables
+subdevs with nvkm_subdev_disable(), and then always returns 0. So the
+guard is always true, also on boards without a display engine. On
+GM108 the VGA CRTC reads hit the PRIVRING fault at 0x6013d4 and, I
+infer, return a nonzero value (I did not log it), so post is set to
+false, the VBIOS init scripts never run, and the memory controller is
+left uninitialized.
+
+nouveau.config=NvForcePost=1 lets the machine boot, but only fixes the
+first init, because force_post is cleared after the first preinit.
+On every runtime resume of the GPU the check skips devinit again:
+
+  [   35.770421] nouveau 0000:01:00.0: Enabling HDA controller
+  [   35.805652] nouveau 0000:01:00.0: fifo: fault 01 [WRITE] at 0000000000120000 engine 05 [BAR2] client 08 [HUB/HOST_CPU_NB] reason 02 [PTE] on channel -1 [007fd38000 unknown]
+  [   35.806084] nouveau 0000:01:00.0: fifo: SCHED_ERROR 20 []
+  ...
+  [   75.453651] WARNING: CPU: 0 PID: 1081 at nvkm_runl_cgrp_get_cgid+0x79/0x110 [nouveau]
+
+Counts per boot:
+
+  kernel                        runtime resumes  fifo faults  SCHED_ERROR  WARNINGs
+  6.18.63 (two boots)           25 / 30          0            0            0
+  6.18.64 + NvForcePost=1       2                31           103381       39
+  6.18.64 + gf100.c hunk revert 3                0            0            0
+
+The revert I use (restores 6.18.63's gf100.c exactly):
+
+--- a/drivers/gpu/drm/nouveau/nvkm/subdev/devinit/gf100.c
++++ b/drivers/gpu/drm/nouveau/nvkm/subdev/devinit/gf100.c
+@@ -27,7 +27,6 @@
+ #include <subdev/bios/init.h>
+ #include <subdev/bios/pll.h>
+ #include <subdev/clk/pll.h>
+-#include <subdev/vga.h>
+ 
+ int
+ gf100_devinit_pll_set(struct nvkm_devinit *init, u32 type, u32 freq)
+@@ -100,25 +99,6 @@
+ 	 * can use it as a reliable way to know whether we should run devinit.
+ 	 */
+ 	base->post = ((nvkm_rd32(device, 0x2240c) & BIT(1)) == 0);
+-
+-	/*
+-	 * However some VBIOS init sequences miss this bit. So fall back to
+-	 * the nv50 method of checking if the bit is not set. Running the
+-	 * VBIOS multiple times may have detrimental effects.
+-	 */
+-	if (base->post) {
+-		u64 disable = nvkm_devinit_disable(base);
+-		/* magic to detect whether or not x86 vbios code has
+-		 * executed the devinit scripts to initialise the
+-		 * board. only works if there's a display engine.
+-		 */
+-		if (!(disable & (1ULL << NVKM_ENGINE_DISP))) {
+-			if (nvkm_rdvgac(device, 0, 0x00) ||
+-			    nvkm_rdvgac(device, 0, 0x1a)) {
+-				base->post = false;
+-			}
+-		}
+-	}
+ }
+ 
+ static const struct nvkm_devinit_func
+
+A proper fix probably needs the guard to test whether the display
+engine actually exists (for example nvkm_device_engine(device,
+NVKM_ENGINE_DISP, 0) after ->disable() has run) instead of the return
+value of nvkm_devinit_disable(). I have not tested that. I have only
+tested 6.18.y; I can test patches on this machine.
+
+#regzbot introduced: v6.18.63..v6.18.64
+
+Thanks,
+R. V. Lobato
