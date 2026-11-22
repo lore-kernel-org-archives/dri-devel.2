@@ -2,88 +2,92 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4EB78606A332
-	for <dri-devel@archiver.kernel.org>; Sun, 22 Nov 2026 00:49:36 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 73281606A320
+	for <dri-devel@archiver.kernel.org>; Sun, 22 Nov 2026 01:28:32 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.dk header.i=@kernel.dk header.a=rsa-sha256 header.s=google header.b=oVp838lb
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=jZOpHG8V
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 4BE4D10E47F;
-	Sun, 22 Nov 2026 00:49:30 +0000 (UTC)
-Received: from mail-dy1-f181.google.com (mail-dy1-f181.google.com
- [74.125.82.181])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 694E110E47F
- for <dri-devel@lists.freedesktop.org>; Sun, 22 Nov 2026 00:49:24 +0000 (UTC)
-Received: by mail-dy1-f181.google.com with SMTP id
- 5a478bee46e88-33fb4680717so5870209eec.1
- for <dri-devel@lists.freedesktop.org>; Sat, 21 Nov 2026 16:49:24 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=kernel.dk; s=google; t=1795308563; x=1795913363; darn=lists.freedesktop.org; 
- h=content-transfer-encoding:content-type:in-reply-to:from
- :content-language:references:cc:to:subject:user-agent:mime-version
- :date:message-id:from:to:cc:subject:date:message-id:reply-to
- :content-type; bh=HB4GGGiTx/77gkcgbtZkvnLnAdHz3bFsq58nhMt/PIc=;
- b=oVp838lbMbT/cJzjtEqJIMKWWLvki+rbVa9GtG77Bh8ONyCPuEcpIerKQwkP4UzxTG
- xE4X6IPbcIoPNO/avGGb4RZJP8KorFgz3fa1fWBdAHz85t7dlJymJjkMpHaClv+Ckl0G
- 8j4NnD+IiT4doYzncZdRf2iokom/OJpf53Bdlye5qz6iF+gaut+GCYw/v8Vfzq0gx64P
- BgG10Xh6DIZMJv2sgSc+YEaVXas2ZpWd2/OfIrXbW5UEAxGfB0uTRBevAHYkjYCbR/3E
- uSSSgCWjGxDZFRv+vSXaOqf9iPYbNo92nw2xo9DoNCNBuwG1iZB2KFHt7cFGT2S78nAT
- sEHw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20260707; t=1795308563; x=1795913363;
- h=content-transfer-encoding:content-type:in-reply-to:from
- :content-language:references:cc:to:subject:user-agent:mime-version
- :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
- :message-id:reply-to:content-type;
- bh=HB4GGGiTx/77gkcgbtZkvnLnAdHz3bFsq58nhMt/PIc=;
- b=kks9R1gz2SVE4jyBIUk0nkUr2hH+4biy/d1ks4PLWmWYD2YrbWRuj9o3mRFxsVUInO
- ZveSQ7A2Xp4rbYvhl3XWT+QZ7m+4JHg8OAmOumRAwj1jTjeqUNxL2ca9Rg1/ac2v5blz
- O4ghHjkvc8+dQoAeNoaNz/O5Nys9VUJ1H4UwhEdoI+k2s80psbsBh+i9uBepopmNKl8I
- y1aZc6C6j9fhQXtWlrfIxhYGj8ZVIoe7RxmFOeH7RBlwhLBKItr5fEHYlHGAB8NaSE6A
- QIsnbmD6ucl3oZW+luFZ8LK5zYOGtHxaf5+Oyc8BEplDg7inRzdVRDqtlW2F6Bld06Xt
- Hn6A==
-X-Forwarded-Encrypted: i=1;
- AL+hErEcvPyWj9rCmUlHPpdjNyIQwuwHRXbdTUFBW+GaZXlXdBfQxk3ept8+d6ygYsD8cnovIMCrB0w5W/U=@lists.freedesktop.org
-X-Gm-Message-State: APuU4Z9gvjSInEfSGEX/xUhXkU9vZs9u/0zAfyuJ4PutG4ZqVs2pzaoD
- EjbdV3Py8iRtegYZO4QO/PBK1D1eJUNgR+ZMdk58wQYHkkCwERMl2bAanvWUFIW1O+k=
-X-Gm-Gg: AZFdTZfIS0eEvYQjZ8rNWSPg+WonFALIMpPqfAvO7G0csLFw1ZE6cAcQW0+g+oBzlGu
- DMtvVgYRNUtYx1aFrM4yNUHCmKEyjwoVH/7x5E48mJnUuL+V6L4O/w5eKqot/4LrbpMBUKORfri
- KxFplTcg+FS0A6qCg62uyMl284LS4xBCl7Tv0WgtuZy8dkQK9GLE/W6NR2LSexlafXJ3fMRfh10
- uGnJ0b0gbm87Kce45oA3ddOHY6daiuz1x2agWs5AuOyLV8mjdn3G6EmGMTg75JkbrjQ1Av/KrIc
- La+8gDHLyB/g/jqshFD7TLYUXqpIenuPv6zcJhJUjnbAvBqYWE4JwPsQK5ueAaEipiM31pyWQrg
- qdlcW3+RE/Klf2YQYKDLnTuPKUrMXBAUzDoB2f9I3m+ZQKShkWNqU+70vx1azPPhqOOZ/+6TZGD
- NVNk/LB9Cklb7xcEwVfhVZ0BQEizdRyCw7tQMvbSgFaXR9v2irVGfRhzMwLkyqqrXhjy9Jbn9JH
- VNVyWkfru33W2eYNtJ5mnoixjhqtmhm/rP9lvE/ig3KYKOwexArvx5xJdt8eT0Zeewg8K3EkypS
- uYrPeq5N2NFSDhgUloE7NSQWDUYtimp0j5N2tsuChpR/gQJkstce5J0uaZOyun44z1CEnQixdbe
- eC0ZrAUMwXdIzJy/3onpvdNQo0Yvrm6UaR4sLIkffBUungtkQ
-X-Received: by 2002:a05:7022:ea54:b0:193:9aa3:474c with SMTP id
- a92af1059eb24-1b56d7cf637mr883791c88.21.1795308563262; 
- Sat, 21 Nov 2026 16:49:23 -0800 (PST)
-Received: from [192.168.1.142] ([198.8.77.135])
- by smtp.gmail.com with ESMTPSA id
- a92af1059eb24-1b556840494sm17621494c88.12.2026.11.21.16.49.22
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Sat, 21 Nov 2026 16:49:22 -0800 (PST)
-Message-ID: <35aef1da-2277-4d9c-9bf4-cbc6094be4cb@kernel.dk>
-Date: Sat, 21 Nov 2026 17:49:21 -0700
+	by gabe.freedesktop.org (Postfix) with ESMTP id DF58E10E3B6;
+	Sun, 22 Nov 2026 01:28:26 +0000 (UTC)
+Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 9F51B10E3B6
+ for <dri-devel@lists.freedesktop.org>; Sun, 22 Nov 2026 01:28:20 +0000 (UTC)
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+ by tor.source.kernel.org (Postfix) with ESMTP id 671BA60232;
+ Sun, 22 Nov 2026 01:28:19 +0000 (UTC)
+Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
+ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
+ t=1795310899;
+ b=c5LPd7RS4VfTz3/iB09DOWTpru1dbVqLQr3FAbcPnt61TkJnr+pbSF5HUeSnA+eiVtcz
+ 7i49k4dmmlylJt4fNNOaFDMsiZ+3Oy/N8lSGiaM18SmArb21Vzk5o/ywbrSKDXzfHBh7+
+ CE5DHmIyKlMug0Mh1Bag2G76FKBvnkz5fgiA/0j1grFVk9DUsiLtP9pqSI9VgaKzWe1Wt
+ 7urxhPmaL8jNCFEt3lRV7RCRrKZsXXNWFBDRQtj8UUTUYSWS1naWJEuTzR20T6sG/YVk4
+ qr/lu1g7gh6Og9oAOp5HwOB/g4QTu4eb7V9ug4UZh7X6INGM7Cf7e+zSrU0I2jdMBJQ==
+ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
+ c=relaxed/relaxed; t=1795310899;
+ h=DKIM-Signature:Received:From:Date:Subject:MIME-Version:Content-Type:
+ Message-Id:X-B4-Tracking:To:Cc:X-Mailer:X-Developer-Signature:
+ X-Developer-Key:X-Endpoint-Received:X-Original-From:Reply-To:
+ Content-Transfer-Encoding;
+ bh=4qUOVGLfHGTdLP72SoQt9x1onQjawb60zHgKVe5je7s=;
+ b=aBS2N0Hxx9Ygn4hmNTFLhZswB7Y+lJ3kcqQtdK3npQ4I2oYiKHn5R0G+BSC66yjX8y6o
+ VWEqsU1/4N3tpFUc47EDTW4eWlnbZRvAWMvh+0VsRqxcRGFj0Y+DHpBSBtqvXA+4SU27o
+ wXANVX9DOs8qfXvAi8lf1AXmbSmVyM3avSmW1Ogb8IDdNIdEV7Th33Sxi4XXWrr3X0DzU
+ pt7mlx8B/44ot5N1fICHRXQ5thU7BAaSIjlpi4IzC12fDd/I/dnL4pEgaOXng4GMuOraq
+ 0icJKA/C+CvH26Sds0nAOuI2pXqJRImXrydjWY2M1rCRmANfvm+dedCbjy603FGLJoQ==
+ARC-Authentication-Results: i=1; smtp.kernel.org; 
+ arc=none smtp.remote-ip=100.80.115.77
+Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+ (No client certificate requested)
+ by smtp.kernel.org (Postfix) with ESMTPS id A4BFF1F000C0;
+ Sun, 22 Nov 2026 01:28:18 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+ s=k20260515; t=1795310899;
+ bh=4qUOVGLfHGTdLP72SoQt9x1onQjawb60zHgKVe5je7s=;
+ h=From:Date:Subject:To:Cc:Reply-To;
+ b=jZOpHG8Vtd6qKper50Sr5tlnB8/+ft/UDVgVlzsnbPiJdZHEJRlVyvtZ43licZfKr
+ 4v0zcDJmB9NiT+DNNJTvhA+dlqUiX5b0mTksLV9BZmqS2vJfRUOcXTPIM94myKr8WD
+ IQw0g5lqaWwfSx2IL0kPZT/qODRticAUrjljHfeH7qrNIhFE9AVGruGKHx9F29tf3P
+ chdVgj4hedCPpB8dtmvg3cBxAMkRLuawxoN2ZNYBaTpWhKoCx6SWz8GIsU6x/+MG5y
+ n/OwZrM2TpSmuI/OMLjQuKuumhClWy9fBi0ve1J5WCz/lE/JxvawIbCyJR4AIIwVMv
+ xXiGEGpzKRuSQ==
+Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
+ by lkml.kernel.org (Postfix) with ESMTP id 08E504BEA2;
+ Sun, 22 Nov 2026 01:28:18 +0000 (UTC)
+From: Igor Velkov via B4 Relay <devnull+iav.iav.lv@kernel.org>
+Date: Sun, 22 Nov 2026 03:28:04 +0200
+Subject: [PATCH v2] drm/panfrost: Gate the RK3399 GPU clock in runtime suspend
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] dma-buf: fix leak of ctx and dmabuf reference in
- dma_buf_io_ctx_create() WARN path
-To: Falconet3 <Falconet3@proton.me>,
- "sumit.semwal@linaro.org" <sumit.semwal@linaro.org>,
- "christian.koenig@amd.com" <christian.koenig@amd.com>
-Cc: "linux-media@vger.kernel.org" <linux-media@vger.kernel.org>,
- "dri-devel@lists.freedesktop.org" <dri-devel@lists.freedesktop.org>,
- "linaro-mm-sig@lists.linaro.org" <linaro-mm-sig@lists.linaro.org>,
- "io-uring@vger.kernel.org" <io-uring@vger.kernel.org>,
- "asml.silence@gmail.com" <asml.silence@gmail.com>,
- "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>
-References: <htm5h9oaY-vk0g9JVYJmz5XCaKe_nPoWkUJYJqDulyNvv_sAWfzSMp0T6GWt5okc8R4SyvXXpJQ3VGhetKnjEa2KGem5uCYdxpmdzUFf6XA=@proton.me>
-Content-Language: en-US
-From: Jens Axboe <axboe@kernel.dk>
-In-Reply-To: <htm5h9oaY-vk0g9JVYJmz5XCaKe_nPoWkUJYJqDulyNvv_sAWfzSMp0T6GWt5okc8R4SyvXXpJQ3VGhetKnjEa2KGem5uCYdxpmdzUFf6XA=@proton.me>
-Content-Type: text/plain; charset=UTF-8
+Content-Type: text/plain; charset="utf-8"
+Message-Id: <20261122-panfrost-rk3399-pm-rt-v2-1-40f1791aa1a8@iav.lv>
+X-B4-Tracking: v=1; b=H4sIACNFAmsC/4WNQQ6CMBBFr0Jm7ZiWomRceQ/DoilTmahApqTRE
+ O5u5QIu30v++yskVuEEl2oF5SxJprFAfaggDH68M0pfGGpTn61xBmc/Rp3SgvpwjgjnF+qCgb2
+ LwbZkeoKynZWjvPfurSs8SFom/ew32f7sv2K2aJGpaVxrT+Spv4rPx2eGbtu2L9QCNTu3AAAA
+To: Boris Brezillon <boris.brezillon@collabora.com>, 
+ Rob Herring <robh@kernel.org>, Steven Price <steven.price@arm.com>, 
+ =?utf-8?q?Adri=C3=A1n_Larumbe?= <adrian.larumbe@collabora.com>, 
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
+ Heiko Stuebner <heiko@sntech.de>
+Cc: dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org, 
+ linux-arm-kernel@lists.infradead.org, linux-rockchip@lists.infradead.org, 
+ Daniel Stone <daniel@fooishbar.org>, Igor Velkov <iav@iav.lv>
+X-Mailer: b4 0.13.0
+X-Developer-Signature: v=1; a=openpgp-sha256; l=2536; i=iav@iav.lv;
+ h=from:subject:message-id;
+ bh=umYgCRkWKn6+vJ3cIJXDRixn24OfpDYOCpQZFsANalM=;
+ b=owGbwMvMwCVmNH1q96v4SmbG02pJDNlMroat6+Z90PcJ+3l1pcTdh/Frzuuo7PfaaDvV7GCc4
+ HPTqiS5jlIWBjEuBlkxRZYJhzRuZSy5+tffw/wBzBxWJpAhDFycAjCRbE1Ghlu3NLbpc05mkjZo
+ 8VFX/Jte8Un5/KfVS4J7Yy7dTi+O9mVkOHpv5s8/M3b1dwpsXvhv9y+2DypH1WYYBy5jytL6N4H
+ xNRcA
+X-Developer-Key: i=iav@iav.lv; a=openpgp;
+ fpr=90C228DA68A4D5FD4F4837E03297958BEA5F7903
+X-Endpoint-Received: by B4 Relay for iav@iav.lv/default with auth_id=1060
+X-Original-From: Igor Velkov <iav@iav.lv>
 Content-Transfer-Encoding: 7bit
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -95,23 +99,71 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
+Reply-To: iav@iav.lv
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-7.3 required=3.0 tests=BAYES_00,DKIM_SIGNED,
-	DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
-	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,USER_AGENT_SANE_1
-	autolearn=no autolearn_force=no version=4.0.1
+X-Spam-Status: No, score=-18.8 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
+	DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
+	INCLUDES_CR_TRAILER,INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,
+	SPF_PASS,USER_AGENT_GIT autolearn=ham autolearn_force=no version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-On 11/21/26 5:05 PM, Falconet3 wrote:
-> (leak of ctx + dmabuf ref on the WARN_ON_ONCE path, new file in v7.4-rc1, patch attached)
+From: Igor Velkov <iav@iav.lv>
 
-Please see how patches are usually sent - not a huge deal, attachments can
-be applied, it's just a lot more inconvenient than a properly sent
-patch as you can't comment on it in email. The bigger issue is your
-From and Signed-off-by - that needs to be a real identify, not some
-leet handle.
+The RK3399 Mali-T860 matches arm,mali-t860 and gets default_data, so
+panfrost enables aclk_gpu at probe and keeps it enabled until unbind;
+runtime suspend powers the GPU off but leaves the clock on.
 
+On ROCK Pi 4A restore from hibernation hangs in genpd_restore_noirq()
+of the GPU when the hibernated kernel had panfrost bound and the
+kernel that loads the image does not. There clk_disable_unused()
+gates aclk_gpu, while the restored image still holds an enable count
+on it, so powering the GPU domain back on does not ungate the clock.
+With the clock gated in runtime suspend, as on the Allwinner H616 and
+the Renesas RZ/G3L and RZ/G3E, restore completes.
+
+Match rockchip,rk3399-mali to default_pm_rt_data.
+
+Signed-off-by: Igor Velkov <iav@iav.lv>
+---
+Tested on ROCK Pi 4A, drm-misc-next c408466a4dfa with the rkvdec fix [1]
+applied: hibernation restores 9 of 9 with this patch (3 with an HDMI
+mode held, 3 right after glmark2-es2-drm, 3 idle), and the GPU renders
+after restore. With the GPU node left with arm,mali-t860 only, restore
+hangs 2 of 2, in genpd_restore_noirq() of the GPU.
+[1] fixes the same kind of hang in rkvdec, which otherwise hits first;
+this patch applies and builds without it.
+
+[1] https://lore.kernel.org/r/20261030-rkvdec-runtime-pm-clocks-v2-1-8ff510a231de@iav.lv
+
+Changes in v2:
+- Name the SoCs that already use default_pm_rt_data
+- Say why restore hangs
+- Rebase onto drm-misc-next
+- Link to v1: https://lore.kernel.org/r/20261030-panfrost-rk3399-pm-rt-v1-1-e94437159a9d@iav.lv
+---
+ drivers/gpu/drm/panfrost/panfrost_drv.c | 1 +
+ 1 file changed, 1 insertion(+)
+
+diff --git a/drivers/gpu/drm/panfrost/panfrost_drv.c b/drivers/gpu/drm/panfrost/panfrost_drv.c
+index eeda113037fe..91acfa13ef42 100644
+--- a/drivers/gpu/drm/panfrost/panfrost_drv.c
++++ b/drivers/gpu/drm/panfrost/panfrost_drv.c
+@@ -983,6 +983,7 @@ static const struct of_device_id dt_match[] = {
+ 	  .data = &amlogic_data, },
+ 	{ .compatible = "renesas,r9a08g046-mali", .data = &default_pm_rt_data },
+ 	{ .compatible = "renesas,r9a09g047-mali", .data = &default_pm_rt_data },
++	{ .compatible = "rockchip,rk3399-mali", .data = &default_pm_rt_data },
+ 	{ .compatible = "arm,mali-t604", .data = &default_data, },
+ 	{ .compatible = "arm,mali-t624", .data = &default_data, },
+ 	{ .compatible = "arm,mali-t628", .data = &default_data, },
+
+---
+base-commit: c408466a4dfaee4b12587e926c5b85e68c8b3c40
+change-id: 20261030-panfrost-rk3399-pm-rt-cea3fc1790d9
+
+Best regards,
 -- 
-Jens Axboe
+Igor Velkov <iav@iav.lv>
+
 
