@@ -2,75 +2,56 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C1EBB606A332
-	for <dri-devel@archiver.kernel.org>; Sun, 22 Nov 2026 17:14:44 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9B1C3606A330
+	for <dri-devel@archiver.kernel.org>; Sun, 22 Nov 2026 17:14:45 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=guCjsCR1
+	dkim=pass (1024-bit key) header.d=linux-foundation.org header.i=@linux-foundation.org header.a=rsa-sha256 header.s=korg header.b=UK5LpKdm
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 2D1CD10E634;
-	Sun, 22 Nov 2026 17:14:32 +0000 (UTC)
-Received: from mail-lf1-f45.google.com (mail-lf1-f45.google.com
- [209.85.167.45])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 0306910E212
- for <dri-devel@lists.freedesktop.org>; Sat, 21 Nov 2026 09:09:54 +0000 (UTC)
-Received: by mail-lf1-f45.google.com with SMTP id
- 2adb3069b0e04-5bcdae234ecso2085262e87.3
- for <dri-devel@lists.freedesktop.org>; Sat, 21 Nov 2026 01:09:54 -0800 (PST)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 2B25B10E63A;
+	Sun, 22 Nov 2026 17:14:36 +0000 (UTC)
+Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 2B51810E632;
+ Sun, 22 Nov 2026 17:14:21 +0000 (UTC)
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+ by sea.source.kernel.org (Postfix) with ESMTP id E635141913;
+ Sun, 22 Nov 2026 17:14:20 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7EEB51F000C4;
+ Sun, 22 Nov 2026 17:14:19 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20260707; t=1795252193; x=1795856993; darn=lists.freedesktop.org;
- h=content-transfer-encoding:content-type:mime-version:message-id:date
- :subject:cc:to:from:from:to:cc:subject:date:message-id:reply-to
- :content-type; bh=lcNychyJRn+TkNQvLalB8mPDA3D518aYH3ytDiQAN8Y=;
- b=guCjsCR1p8t+wG6HlGy56TeX39t5Rht2yqKWacx10KXimAyZqSTERJ+7aQN098fFfs
- N0oy1E7u/XcawYJ6WprjdKEO4iY3PHa5fBEbK2TXpKS4sScc5VgtOHvu1IqDTnMk0vHh
- rpTtyood0Mou5tux4H2a44pSDaAr4jTLTpJRhQZsyXDtq6e01mFNqpRH8sPKgUKJa+RJ
- gyhKPoD3zWSo+UunPV75wXj6NTMVEJsVWTgSu0nDIt6w3+B6QpEWFNaw3dHXoYEABvi5
- RJBGiy16E7Bk51h5DGnf/GHNjYkCyz+AEAsZpvTSDt3yzNVWLYs9SR6aq1UCjdnSUI9o
- uSSw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20260707; t=1795252193; x=1795856993;
- h=content-transfer-encoding:content-type:mime-version:message-id:date
- :subject:cc:to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject
- :date:message-id:reply-to:content-type;
- bh=lcNychyJRn+TkNQvLalB8mPDA3D518aYH3ytDiQAN8Y=;
- b=oNNcFsZtDjDnTvdWrYYoP9DnYh7wwrc5KZX07vrfH5EZpr40GXJg1SP3SxFmk+7kik
- DVUASA83PVpL5dRQgv19WkFTfYSh3kUl/uqkAUktYU51Ll+VVqJTGPJq9qynczOrQFB2
- HLmLzhacH9k096qgh7vYMxZicQoDo6KTnbk+KM/2zK3hf5grfv2+nwO/E4dYkjT7DeoE
- QCNj0r2v/PSAh+JKq+zSCE/8788YOdOUx2t+b74y3euaSqdHS0NFcuS7j7Re7koYAbeA
- KNgFJE/mAcEAJTypvFFhHB1oAKYDy44XK2tUzvIQBd2Vb0CmPpGzoR/hAbCkD3gJwwc5
- hcYw==
-X-Gm-Message-State: APuU4Z/B2jTZg4ZA9AWmTkM3/tf5pWns9bFmD+O5juy1Dy39ozRhcGSw
- holwmu6bXXoIEGlfQGlEFzAnRyiBmeZqFlpg48pIFBWMju8F/EfOKHOkFex3IE/4PSY=
-X-Gm-Gg: AZFdTZehcE4U8LiBTNfBMCThZZsIdLYPCvgQYspyeOZ/536jvAWw+6AB07iX7wjzrTW
- g6wThIS6ulRDVhpHS6WIkqPzqK5qF5n6M9WTrCbsWZ5kMHbKD8iyBYwS+WkkWyWNheIyGrYjocM
- 9zf4Qkwdcl33DkbXz0C1r6J+YFIONdqTPhI1QxJZr8H54bWFwVuNCoizi8Wu+aoBJ4T4aUDFH0U
- Q3uo9NrhJy0ujcLSH1CgiPXaQhx3uiShR4bf7Bqbw1fNpEvLyP/6PIzHzUX3C4wtq+6Paq/adcN
- ihufaZWlf+3q86kBm/EZmEYCvRJ9vjM26jyjmaUC0aJj9djyeGUwJr6MqbE1XHObRCV+XcJZCwB
- /YxXcBNmRQXgEsAbapq9aN+nx1oAth4oAWf+dFydriXUzvC1oxFAOvbT9qHZY0N6SZcpKjhQf6M
- NLCDtvMAsDtTPtOkmb71pCehJBpsgfMYF+7lmRmvNzqaMqjfVtkTmmmlWWBNO8FVddQ16vLGdNV
- p/wNOs8gyKlbLCQAWPN///AOTGVtN2IlLnjrhq1AeIsgJ6LOQGkmYlYrRQzt3VWuXgwgMmqFsJ3
- UyOnIyaB9+Yk41E0x4QE2AAQ8AiT
-X-Received: by 2002:a05:6512:23a9:b0:5c0:c5e:3cf with SMTP id
- 2adb3069b0e04-5c1bc7d072bmr1515520e87.25.1795252192669; 
- Sat, 21 Nov 2026 01:09:52 -0800 (PST)
-Received: from localhost ([2a01:799:ca8:9900:6399:b7a1:82e6:2b58])
- by smtp.gmail.com with UTF8SMTPSA id
- 2adb3069b0e04-5c1bd041813sm1230381e87.53.2026.11.21.01.09.52
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Sat, 21 Nov 2026 01:09:52 -0800 (PST)
-From: =?UTF-8?q?Petter=20Skjelsb=C3=A6k?= <skjelsbaek@gmail.com>
-To: dri-devel@lists.freedesktop.org
-Cc: ankit.k.nautiyal@intel.com, ville.syrjala@linux.intel.com,
- maarten.lankhorst@linux.intel.com, skjelsbaek@gmail.com
-Subject: [RFC PATCH] drm/dp: allow dual-link clock for 30-inch Apple Cinema HD
-Date: Sat, 21 Nov 2026 10:09:49 +0100
-Message-ID: <20261121090949.12290-1-skjelsbaek@gmail.com>
-X-Mailer: git-send-email 2.43.0
+ d=linux-foundation.org; s=korg; t=1795367660;
+ bh=5JGbsedU74vIQ/0gQEWTkA66OhpSi5QLuKHx51jgv6o=;
+ h=Date:From:To:Cc:Subject:In-Reply-To:References;
+ b=UK5LpKdmOWL0+QIg66xeuCB/MCO3KleNEYpYNhkPYguIjSJsVEOTfFAFSYArDoe57
+ S9UVOHkKTNDRYrqblFi9Cs7MEWehlW8R2JFhx1Heql/svJVetyCbF8b2SY2y3FQoHX
+ trt7AR+PG2xFis8l1vlFBhzeunpgbz/Wn7bqWyXA=
+Date: Sun, 22 Nov 2026 09:14:19 -0800
+From: Andrew Morton <akpm@linux-foundation.org>
+To: Mika =?ISO-8859-1?Q?Penttil=E4?= <mpenttil@redhat.com>
+Cc: Aveline Noir <jm5905938@gmail.com>, airlied@gmail.com,
+ apopple@nvidia.com, balbirs@nvidia.com, christian.koenig@amd.com,
+ dri-devel@lists.freedesktop.org, Francois Dugast
+ <francois.dugast@intel.com>, intel-xe@lists.freedesktop.org,
+ jgg@nvidia.com, jgg@ziepe.ca, leon@kernel.org, leonro@nvidia.com,
+ linux-kernel@vger.kernel.org, linux-mm@kvack.org, Lorenzo Stoakes
+ <lorenzo.stoakes@oracle.com>, Matthew Brost <matthew.brost@intel.com>,
+ mm-commits@vger.kernel.org, Patchwork <patchwork@emeril.freedesktop.org>,
+ Shuah Khan <shuah@kernel.org>, SeongJae Park <sj@kernel.org>,
+ thomas.hellstrom@linux.intel.com, Vlastimil Babka <vbabka@suse.cz>,
+ ziy@nvidia.com
+Subject: Re: [PATCH] mm/hmm: account for subpage offsets in device-private PMDs
+Message-Id: <20261122091419.f82e88761dbd12771fb6c976@linux-foundation.org>
+In-Reply-To: <af91d4a7-11ca-4f84-b8da-33ee1a585916@redhat.com>
+References: <179342234355.4.16705453209886955762@gmail.com>
+ <20261121160037.1a479f3c8b4e860bc23c106d@linux-foundation.org>
+ <36be0904-168d-4813-82ff-27ecced464e3@redhat.com>
+ <20261122015246.d8b6b98ff5a8157168156339@linux-foundation.org>
+ <179535872126.34.4789080961796247940.b4-reply@b4>
+ <af91d4a7-11ca-4f84-b8da-33ee1a585916@redhat.com>
+X-Mailer: Sylpheed 3.8.0beta1 (GTK+ 2.24.33; x86_64-pc-linux-gnu)
 X-Archived-By: <archiver.kernel.org>
-MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
-X-Mailman-Approved-At: Sun, 22 Nov 2026 17:13:42 +0000
+Mime-Version: 1.0
+Content-Type: text/plain; charset=ISO-8859-1
+Content-Transfer-Encoding: quoted-printable
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -82,67 +63,207 @@ List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-15.8 required=3.0 tests=BAYES_00,DKIM_SIGNED,
-	DKIM_VALID,DKIM_VALID_AU,FREEMAIL_FORGED_FROMDOMAIN,FREEMAIL_FROM,
-	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
-	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,USER_AGENT_GIT autolearn=ham
-	autolearn_force=no version=4.0.1
+X-Spam-Status: No, score=-17.5 required=3.0 tests=BAYES_00,DKIM_SIGNED,
+	DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
+	INCLUDES_CR_TRAILER,INCLUDES_PATCH,MAILING_LIST_MULTI,NICE_REPLY_A,
+	SPF_HELO_NONE,SPF_PASS autolearn=unavailable autolearn_force=no
+	version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-The 30-inch Apple Cinema HD Display (APP 0x9221) advertises its
-native 2560x1600 mode at 59.86 Hz with a 268 MHz pixel clock.
-Its EDID also identifies the digital interface as DVI Dual Link
-High Resolution.
+On Sun, 22 Nov 2026 18:41:39 +0200 Mika Penttil=E4 <mpenttil@redhat.com> wr=
+ote:
 
-When connected using Apple's active Mini DisplayPort to Dual-Link
-DVI adapter, the adapter is detected as a DisplayPort branch with
-a DVI downstream port. It does not provide detailed downstream
-capability information, so drm_dp_downstream_max_tmds_clock()
-falls back to 165 MHz.
+>=20
+> On 11/22/26 16:45, Aveline Noir wrote:
+>=20
+> > Hi Andrew,
+> >
+> > On Sun, 22 Nov 2026 01:52:46 -0800 Andrew Morton wrote:
+> >
+> >> Store the corresponding RAM backing page instead.
+> > This avoids the oops on the first read through the second descriptor,
+> > but leaves a stale backing page pointer after CPU faultback.
+> >
+> > Since the mirror XArray entries don't take a page reference, they rely
+> > on invalidation.  When the CPU later faults the page back to RAM,
+> > dmirror_interval_invalidate() skips MMU_NOTIFY_MIGRATE for the same
+> > mdevice, and dmirror_devmem_fault_alloc_and_copy() only clears the
+> > migrating descriptor's entry before the backing folio is freed.  The
+> > second descriptor still points to that freed backing page.
+> >
+> > Reading the same page again through the second descriptor in QEMU
+> > triggers a KASAN use-after-free in dmirror_do_read(), and the read
+> > returns the stale data instead of what the CPU wrote.
+>=20
+> I think this is right, but a fairly artificial scenario: it needs two
+> descriptors open on the same test device in one test, a migration through=
+ one,
+> a read through the other, a CPU fault back, and then another read through
+> the second descriptor..
+>=20
+> The fix lets the device private page content be read without an oops
+> in the context of one fd which is an improvement.=20
 
-This causes the native 268 MHz mode to be rejected, leaving only
-1280x800 at 71 MHz available.
+May as well fix it.  I'll test this updated version.
 
-Allow a 300 MHz TMDS clock for this display so that its native
-2560x1600 mode is exposed.
+Mika, please feel free to take this over, perhaps integrate it (or
+something like it) into whatever you've got going on?  Or not, let me
+know ;)
 
-An earlier version of this workaround was tested successfully
-with an Intel Arc B580 using the xe driver and Apple's active
-Mini DisplayPort to Dual-Link DVI adapter on Linux 7.0.11 and
-7.2.6. The revised capability check has not yet been runtime-tested.
 
-This is intended as an RFC since the underlying limitation is the
-active dual-link DVI adapter, while this workaround identifies
-the attached display by EDID. A more generic way of identifying
-dual-link capable downstream DVI adapters may be preferable.
+From: Andrew Morton <akpm@linux-foundation.org>
+Subject: lib/test_hmm: invalidate all mirrors on device-private migration
+Date: Sun, 22 Nov 2026 08:53:12 -0800
 
-Signed-off-by: Petter Skjelsbæk <skjelsbaek@gmail.com>
----
- drivers/gpu/drm/display/drm_dp_helper.c | 9 ++++++++-
- 1 file changed, 8 insertions(+), 1 deletion(-)
+When one open of the fake HMM device migrates a folio to device-private
+memory, a second open can fault the same address into its mirror page
+table. The second mirror then stores the inaccessible device page, which
+can oops the kernel when dmirror_do_read() copies from it. Store the
+corresponding RAM backing subpage instead.
 
-diff --git a/drivers/gpu/drm/display/drm_dp_helper.c b/drivers/gpu/drm/display/drm_dp_helper.c
-index e623ccb4c1d8..ec36fa88b0ca 100644
---- a/drivers/gpu/drm/display/drm_dp_helper.c
-+++ b/drivers/gpu/drm/display/drm_dp_helper.c
-@@ -1388,8 +1388,15 @@ int drm_dp_downstream_max_tmds_clock(const u8 dpcd[DP_RECEIVER_CAP_SIZE],
- 			return 300000;
- 		return port_cap[1] * 2500;
- 	case DP_DS_PORT_TYPE_DVI:
--		if ((dpcd[DP_DOWNSTREAMPORT_PRESENT] & DP_DETAILED_CAP_INFO_AVAILABLE) == 0)
-+		if ((dpcd[DP_DOWNSTREAMPORT_PRESENT] &
-+		     DP_DETAILED_CAP_INFO_AVAILABLE) == 0) {
-+			if (drm_edid &&
-+			    drm_edid_get_panel_id(drm_edid) ==
-+			    drm_edid_encode_panel_id('A', 'P', 'P', 0x9221))
-+				return 300000;
- 			return 165000;
-+		}
+That conversion also makes the backing page's lifetime significant to
+the second mirror. migrate_vma_setup() notifies all mirrors before CPU
+faultback, but dmirror_interval_invalidate() skips the notification for
+every open on the same device. The faulting open clears only its own
+XArray entry. The other open can read or write the backing page after
+migrate_vma_finalize() frees it. Aveline reported a KASAN use-after-free
+and stale data through the second open.
+
+Handle migration invalidation for every mirror under its mutex. This
+clears pointers before faultback can free the backing pages and waits
+for an active mirror read or write. During system-to-device migration,
+the migrating open installs new entries after migration; other opens
+refault on their next access. Remove the now redundant XArray erase
+from the faultback copy loop.
+
+Extend the PMD migration selftest to read its last device-private
+subpage through a second open, then fault it back to RAM, change it,
+and read the new value through that open. The trigger is available to
+a process permitted to open /dev/hmm_dmirror* when CONFIG_TEST_HMM is
+enabled; it does not depend on physical GPU hardware.
+
+Link: https://lore.kernel.org/r/20261122015246.d8b6b98ff5a8157168156339@lin=
+ux-foundation.org
+Link: https://lore.kernel.org/r/179535872126.34.4789080961796247940.b4-repl=
+y@b4
+Fixes: b2ef9f5a5cb3 ("mm/hmm/test: add selftest driver for HMM")
+Signed-off-by: Andrew Morton <akpm@linux-foundation.org>
+Reported-by: Aveline Noir <jm5905938@gmail.com>
+Cc: Ralph Campbell <rcampbell@nvidia.com>
+Cc: Jason Gunthorpe <jgg@ziepe.ca>
+Cc: Leon Romanovsky <leon@kernel.org>
+Cc: Mika Penttil=E4 <mpenttil@redhat.com>
+Cc: Shuah Khan <shuah@kernel.org>
+Cc: David Hildenbrand <david@kernel.org>
+Cc: Liam R. Howlett <liam@infradead.org>
+Cc: Vlastimil Babka <vbabka@kernel.org>
+Cc: Mike Rapoport <rppt@kernel.org>
+Cc: Michal Hocko <mhocko@suse.com>
+Cc: <stable@vger.kernel.org>
+
+ lib/test_hmm.c                         |   20 +++++++-----------
+ tools/testing/selftests/mm/hmm-tests.c |   25 +++++++++++++++++++++++
+ 2 files changed, 33 insertions(+), 12 deletions(-)
+
+--- a/lib/test_hmm.c~lib-test_hmm-invalidate-all-mirrors-on-device-private-=
+migration
++++ a/lib/test_hmm.c
+@@ -292,6 +292,12 @@ static int dmirror_do_fault(struct dmirr
+ 		page =3D hmm_pfn_to_page(*pfns);
+ 		WARN_ON(!page);
+=20
++		if (is_device_private_page(page)) {
++			struct folio *folio =3D page_folio(page);
 +
- 		/* FIXME what to do about DVI dual link? */
- 		return port_cap[1] * 2500;
- 	default:
--- 
-2.43.0
++			page =3D BACKING_PAGE(&folio->page) +
++				folio_page_idx(folio, page);
++		}
+ 		entry =3D page;
+ 		if (*pfns & HMM_PFN_WRITE)
+ 			entry =3D xa_tag_pointer(entry, DPT_XA_TAG_WRITE);
+@@ -327,14 +333,6 @@ static bool dmirror_interval_invalidate(
+ {
+ 	struct dmirror *dmirror =3D container_of(mni, struct dmirror, notifier);
+=20
+-	/*
+-	 * Ignore invalidation callbacks for device private pages since
+-	 * the invalidation is handled as part of the migration process.
+-	 */
+-	if (range->event =3D=3D MMU_NOTIFY_MIGRATE &&
+-	    range->owner =3D=3D dmirror->mdevice)
+-		return true;
+-
+ 	if (mmu_notifier_range_blockable(range))
+ 		mutex_lock(&dmirror->mutex);
+ 	else if (!mutex_trylock(&dmirror->mutex))
+@@ -1198,7 +1196,6 @@ static vm_fault_t dmirror_devmem_fault_a
+=20
+ 			src_page =3D pfn_to_page(page_to_pfn(spage) + i);
+=20
+-			xa_erase(&dmirror->pt, addr >> PAGE_SHIFT);
+ 			addr +=3D PAGE_SIZE;
+ 			copy_highpage(dst_page, src_page);
+ 		}
+@@ -1822,9 +1819,8 @@ static vm_fault_t dmirror_devmem_fault(s
+ 	}
+ 	migrate_vma_pages(&args);
+ 	/*
+-	 * No device finalize step is needed since
+-	 * dmirror_devmem_fault_alloc_and_copy() will have already
+-	 * invalidated the device page table.
++	 * The migration notifier has invalidated all mirror page tables
++	 * before the backing pages can be freed.
+ 	 */
+ 	migrate_vma_finalize(&args);
+ err:
+--- a/tools/testing/selftests/mm/hmm-tests.c~lib-test_hmm-invalidate-all-mi=
+rrors-on-device-private-migration
++++ a/tools/testing/selftests/mm/hmm-tests.c
+@@ -2087,6 +2087,7 @@ TEST_F(hmm, migrate_anon_huge_fault)
+ 	void *old_ptr;
+ 	void *map;
+ 	int pagemap_fd;
++	int fd2 =3D -1;
+ 	int *ptr;
+ 	int ret;
+=20
+@@ -2143,12 +2144,36 @@ TEST_F(hmm, migrate_anon_huge_fault)
+ 		}
+=20
+ 		close(pagemap_fd);
++
++		/* Read a device-private subpage through another open. */
++		fd2 =3D hmm_open(variant->device_number);
++		ASSERT_GE(fd2, 0);
++		buffer->ptr =3D (char *)map + (npages - 1) * self->page_size;
++		ret =3D hmm_dmirror_cmd(fd2, HMM_DMIRROR_READ, buffer, 1);
++		buffer->ptr =3D map;
++		ASSERT_EQ(ret, 0);
++		ASSERT_EQ(buffer->cpages, 1);
++		ASSERT_EQ(*(int *)buffer->mirror,
++			  (npages - 1) * self->page_size / sizeof(int));
+ 	}
+=20
+ 	/* Fault pages back to system memory and check them. */
+ 	for (i =3D 0, ptr =3D buffer->ptr; i < size / sizeof(*ptr); ++i)
+ 		ASSERT_EQ(ptr[i], i);
+=20
++	if (fd2 >=3D 0) {
++		/* This open must not retain the freed device backing page. */
++		ptr[(npages - 1) * self->page_size / sizeof(*ptr)] =3D -1;
++		buffer->ptr =3D (char *)map + (npages - 1) * self->page_size;
++		ret =3D hmm_dmirror_cmd(fd2, HMM_DMIRROR_READ, buffer, 1);
++		buffer->ptr =3D map;
++		ASSERT_EQ(ret, 0);
++		ASSERT_EQ(buffer->cpages, 1);
++		ASSERT_EQ(buffer->faults, 1);
++		ASSERT_EQ(*(int *)buffer->mirror, -1);
++		ASSERT_EQ(close(fd2), 0);
++	}
++
+ 	buffer->ptr =3D old_ptr;
+ 	hmm_buffer_free(buffer);
+ }
+_
 
