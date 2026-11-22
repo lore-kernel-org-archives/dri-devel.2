@@ -2,165 +2,101 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 299B6606A32A
-	for <dri-devel@archiver.kernel.org>; Sun, 22 Nov 2026 11:56:34 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 298B5606A320
+	for <dri-devel@archiver.kernel.org>; Sun, 22 Nov 2026 12:04:58 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=suse.com header.i=@suse.com header.a=rsa-sha256 header.s=google header.b=AA0gNwbj
+	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=mimecast20190719 header.b=QtATdAra
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 895C810E501;
-	Sun, 22 Nov 2026 11:56:28 +0000 (UTC)
-Received: from mail-ed1-f50.google.com (mail-ed1-f50.google.com
- [209.85.208.50])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 5F13610E568
- for <dri-devel@lists.freedesktop.org>; Sun, 22 Nov 2026 11:56:22 +0000 (UTC)
-Received: by mail-ed1-f50.google.com with SMTP id
- 4fb4d7f45d1cf-6b167ffd132so3575861a12.1
- for <dri-devel@lists.freedesktop.org>; Sun, 22 Nov 2026 03:56:22 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=suse.com; s=google; t=1795348580; x=1795953380; darn=lists.freedesktop.org; 
- h=content-type:in-reply-to:autocrypt:from:content-language:references
- :cc:to:subject:user-agent:mime-version:date:message-id:from:to:cc
- :subject:date:message-id:reply-to:content-type;
- bh=ukt8Gk4DLOLYIyt4G+IT9Thvj+8TqIkl+QNbsvaRca4=;
- b=AA0gNwbjdcXbZ//ZOtqNa8rVB0qGzn44grc68L3mIb6823Y0oPNzzPMniFtmW6Tljz
- LFeqMBqeB0ppCr/m2dwoOpJXKUwKqjFS3EPpUfm3zUDeZETJwoHrI/nuI3KX8p6zm/98
- YGS075tHSNk0/G2fxij/qqZ7X+DD7iqBKNzXO2BQZwiH3g58jnFFV1zTqqTdQljka8fE
- mNgpjE1agYoYiFXzPpPdx+W4ohqld/vAFpsZGAH7igHRn/K2VoOy0CkqfqNL7LQmIjU0
- kV1WEPD91dLtgSH8fK2zdc+mhfxdXvWtN4FxNGX92LWhHJqGqZ/olGyp6fNEjjosRlFK
- OfBQ==
+	by gabe.freedesktop.org (Postfix) with ESMTP id 8BFCD10E584;
+	Sun, 22 Nov 2026 12:04:52 +0000 (UTC)
+Received: from us-smtp-delivery-124.mimecast.com
+ (us-smtp-delivery-124.mimecast.com [170.10.133.124])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 3329B10E58A
+ for <dri-devel@lists.freedesktop.org>; Sun, 22 Nov 2026 12:04:41 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+ s=mimecast20190719; t=1795349080;
+ h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+ to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references;
+ bh=V+yb/y9hVY4gQHBtq0ety+i4x7YbvicEI/eHAt9Cm/M=;
+ b=QtATdAra9RhIwPgRhS7ygnxiUsv7aGRaEtVv/V9javQUjljEfvnitQt838MpxOLMnZQZRy
+ 5UgPfmIB9WMmlg1dSMEBQzTlRSh3lMBl8ka372+01J7jf3jP1w1YCTtvdvtXVR7x77X2AU
+ MzJ4RIfh4ETtbo47V2tFa10PXO+Gosk=
+Received: from mail-lf1-f72.google.com (mail-lf1-f72.google.com
+ [209.85.167.72]) by relay.mimecast.com with ESMTP with STARTTLS
+ (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
+ us-mta-578-JKV8SiqXP-qfisc_aDXrSA-1; Sun, 22 Nov 2026 12:04:38 +0000
+X-MC-Unique: JKV8SiqXP-qfisc_aDXrSA-1
+X-Mimecast-MFC-AGG-ID: JKV8SiqXP-qfisc_aDXrSA_1795349077
+Received: by mail-lf1-f72.google.com with SMTP id
+ 2adb3069b0e04-5bff4099b52so987911e87.3
+ for <dri-devel@lists.freedesktop.org>; Sun, 22 Nov 2026 04:04:38 -0800 (PST)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20260707; t=1795348580; x=1795953380;
- h=content-type:in-reply-to:autocrypt:from:content-language:references
- :cc:to:subject:user-agent:mime-version:date:message-id:x-gm-gg
- :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
- :content-type;
- bh=ukt8Gk4DLOLYIyt4G+IT9Thvj+8TqIkl+QNbsvaRca4=;
- b=aaG4wysRq27BC5ZiKT4mE1gYkkUWZPZPTdz9gNMg1oipJyMpibGtd516GpairafJ8G
- xE/blZbOKMOPj7p3++u5ABWr0F+XImTJ9Vw+PFmFfVySAhNH8E6+va4XZR72WZlFmrYI
- JBQ0zLU0Ah6OD5TodaJ4lx3s/XndvxQhbr1Vl3O/guufkGvv05Lac/s7UCKf2CqUZJmd
- qZAFR5xLsXTdparhh/eJ+T/OC+HSB66/tgBWvZp3eHTd+s9Zoj36fZU80GUY+a5ZyAzU
- l4E4YmrLzMnRlqPYCqV5pjO54EP5jLYhI+X32lCmKzWxyuDZ6QCW1jt15kZrLWekymSa
- VQgw==
+ d=1e100.net; s=20260707; t=1795349077; x=1795953877;
+ h=content-transfer-encoding:content-type:in-reply-to:from
+ :content-language:references:cc:to:subject:user-agent:mime-version
+ :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+ :message-id:reply-to:content-type;
+ bh=V+yb/y9hVY4gQHBtq0ety+i4x7YbvicEI/eHAt9Cm/M=;
+ b=tfS87+Uf2Z+lrZF4L8GuDXYq2orzyuTOXBXpp6EVnwqICK/CNqtR3eNv+KZ3AMJ/cm
+ yYV/50l5B1cKh4EiJuakUdOSJqSPSVWSQq+RYpg4OtTQGbr+zpJcesqqUFHrXKJbZtqR
+ Wd+Eoz8X3TeeNhg8+8afjE5X4SVMOd928JhdCe+aOOH/hmWok+047LxPiumpgzB2wYb+
+ BhRv3eDNJDxvWomkBTs73zKxa27YHnjwGrKxBmFezoSLhk0jm9sMu0Jf3bIwKw6x4TWQ
+ 2PlXjxETKoseR5R6nqZSaJ2enop0EKlEOPJM8Fq4oub2EUuGcujhKlsnEYcOtT38rALM
+ eoaA==
 X-Forwarded-Encrypted: i=1;
- AL+hErH/hr/qVvtJJML9FkTZoSgHN/vX7UE4K358IQrkF+S/+QDv6bc4tyU/okG/yypA87PqcoxDSVhNX34=@lists.freedesktop.org
-X-Gm-Message-State: APuU4Z9xRFT8qm9BlqLh6xn7M1nP+dip1bggbgI7cYYTmZ094ndDA1BJ
- EaCHIhInzIvTcODo97n7KrfwETTo7heU3lfqn9EvIdYWgbJ+itRkRnZKxJITxqT7qDY=
-X-Gm-Gg: AZFdTZfM8Y8i6W32Tw7lKrGwa3r1TXRjIxwPkxefFY4stQmiapsEb1RHtNjQVH/QSvt
- 09+frMu0IVW0Jao9ZH7aO+rg1S09pIrVan6ot3pjpZw7UJ2fHChviAd+3O6Kd3KFLEF7Fzx8dd7
- 6Bm5SgH1GqkTz8JjHs9XCulau+IROJueCTAYSCek386FJWeelQmdpnOdi6F8/vtzLNUZoPb6vxg
- LibCnNUCKaN7MYw0C9nHQNB20YG3M6cu5v+f4GGA6ZTNJsKCYsdHfljUebm4lNh78+sVlfUF1LG
- cKcPo1sEWLm1ttuOnqQYSDToywMoch615ORWoXWAbb5z/H4sSajxzmRzUJUzmRNnrsyxPDRnIxU
- FhUke/1gnkz39UAQzfMh2GOcxsnyLcb0NkQ/1SJCYNLMBizu3rg2AfK4v0gKlShgaPODGNWbdgP
- urvTPiGuQmI6KmxGvMO6t1hIghDV2aKtzRh8fEw+68IRpx1g9mVqosZgkjmyFOEHruMVxfHK47b
- +WusxMFOvFXkrUSk7MTyDXEdYFieJJX+PrcMhJt7mZv5m/FFYD8Ha89JSAfLx+DRKdzfD0Q+rxE
- /R+WT2LiHNBrX0QPbB4wAtxC1zzPmKT4RHx0zhzSIfr8z94opN3dpLrQoD51Rb3QTRIxoMYWQUv
- CMKK7KZinqcS8NPfni6EmCdMvUUL+PdKXNMPV/jZbZcaqSWuJwC8=
-X-Received: by 2002:a05:6402:51d4:b0:6b5:8cb3:5e19 with SMTP id
- 4fb4d7f45d1cf-6ba37e8826emr6733045a12.38.1795348580410; 
- Sun, 22 Nov 2026 03:56:20 -0800 (PST)
-Received: from ?IPV6:2a00:12d0:afa3:c01:92cc:e257:77ba:97a1?
- (2a00-12d0-afa3-c01-92cc-e257-77ba-97a1.ip.tng.de.
- [2a00:12d0:afa3:c01:92cc:e257:77ba:97a1])
+ AL+hErFZuFw9IM28pxL2Sk2XcomGC0TAaoqWn9EY+lcJLkZNS8JBmv/7+bqbSbZGglTnuFW3h1IqHDi2A54=@lists.freedesktop.org
+X-Gm-Message-State: APuU4Z9qfdpxxk3DxFAo8+W3bHCwc85grbDIbKHyKdW7gcrnUjpBaPtb
+ Lf+fJTE0gfdy5h9EUEoZA8F1voOARSIBOVy1pIVhxymGEHCJytqTzFLu63uQaiiaZoCY+HL6OwB
+ dtsYVb4OVDic0Ae1Vu1JKe6r2IHJoUVibWhYAFNlbcYjX/5gDzcSmdbnQRbyUSjRGfmkw
+X-Gm-Gg: AZFdTZezjZcdgJ4k8nFNrQW9Rpam19pG0RQt7BOj8r1vvK20YGTdc+pdSek3NWu41Id
+ 6t365BJHISgEYn5T8gtdSzibklYktrMVQnaLIrAe+959IcH1SkNFiPLR11yz1RgiL+WoIZAFUOm
+ G5uXq4qpGCNLWLAA+5nBg0fRF8NgOUEO01W9DdFbUNWiQ1oQQ1mCE7Rwu3D/ZFRNgIlGwFWvhNJ
+ DbJdhYNh9Yms9R0mpqD6qs/3aC8+h297zyv9iD5d+QPKvR7j562PVP4quo3Xag2yxBH2TozEuua
+ Cwev65umLnQIa7hyBfHsLLPWgZy4LZryctmmLSezAK80LfnTtrtVhIvT5S5epcpWx+YIj0FvKM/
+ 1OnmWSRQdQG/RMJKLdKWeMK9VGIu5r8IQFJ+eqnSouinEqAC9OCJ9C9lxes0KtEMKGsV1Ctjqt1
+ 6z87Tk
+X-Received: by 2002:a05:6512:251f:b0:5bf:e540:85e6 with SMTP id
+ 2adb3069b0e04-5c1bc80fc24mr2490859e87.24.1795349076678; 
+ Sun, 22 Nov 2026 04:04:36 -0800 (PST)
+X-Received: by 2002:a05:6512:251f:b0:5bf:e540:85e6 with SMTP id
+ 2adb3069b0e04-5c1bc80fc24mr2490845e87.24.1795349076163; 
+ Sun, 22 Nov 2026 04:04:36 -0800 (PST)
+Received: from [192.168.1.86] (89-27-86-246.bb.dnainternet.fi. [89.27.86.246])
  by smtp.gmail.com with ESMTPSA id
- 4fb4d7f45d1cf-6ba370fc020sm3845321a12.25.2026.11.22.03.56.18
+ 2adb3069b0e04-5c1bd017803sm2088742e87.38.2026.11.22.04.04.35
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Sun, 22 Nov 2026 03:56:19 -0800 (PST)
-Message-ID: <9f0278ed-70d2-44e6-b897-dc7a968782ed@suse.com>
-Date: Sun, 22 Nov 2026 12:56:18 +0100
+ Sun, 22 Nov 2026 04:04:35 -0800 (PST)
+Message-ID: <ab91c700-311c-4bd5-8d8e-d90d573f57c0@redhat.com>
+Date: Sun, 22 Nov 2026 14:04:34 +0200
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: treewide: Re: [PATCH v6 00/12] msr: Drop 32-bit MSR interfaces
-To: Ingo Molnar <mingo@kernel.org>
-Cc: linux-kernel@vger.kernel.org, x86@kernel.org,
- virtualization@lists.linux.dev, linux-ide@vger.kernel.org,
- dri-devel@lists.freedesktop.org, linux-fbdev@vger.kernel.org,
- linux-crypto@vger.kernel.org, linux-gpio@vger.kernel.org,
- linux-perf-users@vger.kernel.org, linux-hyperv@vger.kernel.org,
- kvm@vger.kernel.org, linux-edac@vger.kernel.org, linux-pci@vger.kernel.org,
- linux-pm@vger.kernel.org, linux-coco@lists.linux.dev,
- linux-acpi@vger.kernel.org, linux-hwmon@vger.kernel.org,
- linux-mtd@lists.infradead.org, platform-driver-x86@vger.kernel.org,
- Thomas Gleixner <tglx@kernel.org>, Ingo Molnar <mingo@redhat.com>,
- Borislav Petkov <bp@alien8.de>, Dave Hansen <dave.hansen@linux.intel.com>,
- "H. Peter Anvin" <hpa@zytor.com>, Ajay Kaher <ajay.kaher@broadcom.com>,
- Alexey Makhalov <alexey.makhalov@broadcom.com>,
- Broadcom internal kernel review list
- <bcm-kernel-feedback-list@broadcom.com>, Damien Le Moal
- <dlemoal@kernel.org>, Niklas Cassel <cassel@kernel.org>,
- David Airlie <airlied@redhat.com>, Helge Deller <deller@gmx.de>,
- linux-geode@lists.infradead.org, Olivia Mackall <olivia@selenic.com>,
- Herbert Xu <herbert@gondor.apana.org.au>, Linus Walleij <linusw@kernel.org>,
- Bartosz Golaszewski <brgl@kernel.org>, Peter Zijlstra
- <peterz@infradead.org>, Arnaldo Carvalho de Melo <acme@kernel.org>,
- Namhyung Kim <namhyung@kernel.org>, Mark Rutland <mark.rutland@arm.com>,
- Alexander Shishkin <alexander.shishkin@linux.intel.com>,
- Jiri Olsa <jolsa@kernel.org>, Ian Rogers <irogers@google.com>,
- Adrian Hunter <adrian.hunter@intel.com>, James Clark
- <james.clark@linaro.org>, Haiyang Zhang <haiyangz@microsoft.com>,
- Wei Liu <wei.liu@kernel.org>, Dexuan Cui <decui@microsoft.com>,
- Sean Christopherson <seanjc@google.com>, Paolo Bonzini
- <pbonzini@redhat.com>, Josh Poimboeuf <jpoimboe@kernel.org>,
- Pawan Gupta <pawan.kumar.gupta@linux.intel.com>, Pu Wen <puwen@hygon.cn>,
- Tony Luck <tony.luck@intel.com>, Reinette Chatre
- <reinette.chatre@intel.com>, Ben Horgan <ben.horgan@arm.com>,
- Dave Martin <Dave.Martin@arm.com>, James Morse <james.morse@arm.com>,
- Babu Moger <babu.moger@amd.com>, Drew Fustini <fustini@kernel.org>,
- Tony W Wang-oc <TonyWWang-oc@zhaoxin.com>,
- Vitaly Kuznetsov <vkuznets@redhat.com>, Andy Lutomirski <luto@kernel.org>,
- Bjorn Helgaas <bhelgaas@google.com>, "Rafael J. Wysocki"
- <rafael@kernel.org>, Pavel Machek <pavel@kernel.org>,
- Kiryl Shutsemau <kas@kernel.org>, Rick Edgecombe
- <rick.p.edgecombe@intel.com>, Boris Ostrovsky <boris.ostrovsky@oracle.com>,
- Len Brown <lenb@kernel.org>, Viresh Kumar <viresh.kumar@linaro.org>,
- Huang Rui <ray.huang@amd.com>, Mario Limonciello
- <mario.limonciello@amd.com>, Perry Yuan <perry.yuan@amd.com>,
- K Prateek Nayak <kprateek.nayak@amd.com>,
- Srinivas Pandruvada <srinivas.pandruvada@linux.intel.com>,
- Yazen Ghannam <yazen.ghannam@amd.com>, Guenter Roeck <linux@roeck-us.net>,
- Artem Bityutskiy <artem.bityutskiy@linux.intel.com>,
- Artem Bityutskiy <dedekind1@gmail.com>, Arnd Bergmann <arnd@arndb.de>,
- Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
- Miquel Raynal <miquel.raynal@bootlin.com>,
- Richard Weinberger <richard@nod.at>, Vignesh Raghavendra <vigneshr@ti.com>,
- Ashok Raj <ashok.raj.linux@gmail.com>, Hans de Goede <hansg@kernel.org>,
- =?UTF-8?Q?Ilpo_J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>,
- Rajneesh Bhardwaj <irenic.rajneesh@gmail.com>,
- Xi Pardee <xi.pardee@linux.intel.com>,
- Daniel Lezcano <daniel.lezcano@kernel.org>, Zhang Rui <rui.zhang@intel.com>,
- Lukasz Luba <lukasz.luba@arm.com>, xen-devel@lists.xenproject.org,
- Linus Torvalds <torvalds@linux-foundation.org>
-References: <20261116150208.1572254-1-jgross@suse.com>
- <awLVzKJWWfC3eJsH@gmail.com>
+Subject: Re: [PATCH] mm/hmm: account for subpage offsets in device-private PMDs
+To: Andrew Morton <akpm@linux-foundation.org>
+Cc: Aveline Noir <jm5905938@gmail.com>, jgg@nvidia.com, leonro@nvidia.com,
+ airlied@gmail.com, apopple@nvidia.com, balbirs@nvidia.com,
+ christian.koenig@amd.com, dri-devel@lists.freedesktop.org,
+ Francois Dugast <francois.dugast@intel.com>, intel-xe@lists.freedesktop.org,
+ jgg@ziepe.ca, leon@kernel.org, linux-kernel@vger.kernel.org,
+ linux-mm@kvack.org, Lorenzo Stoakes <lorenzo.stoakes@oracle.com>,
+ Matthew Brost <matthew.brost@intel.com>, mm-commits@vger.kernel.org,
+ Patchwork <patchwork@emeril.freedesktop.org>, SeongJae Park <sj@kernel.org>,
+ thomas.hellstrom@linux.intel.com, Vlastimil Babka <vbabka@suse.cz>,
+ ziy@nvidia.com
+References: <179342234355.4.16705453209886955762@gmail.com>
+ <20261121160037.1a479f3c8b4e860bc23c106d@linux-foundation.org>
+ <36be0904-168d-4813-82ff-27ecced464e3@redhat.com>
+ <20261122015246.d8b6b98ff5a8157168156339@linux-foundation.org>
+From: =?UTF-8?Q?Mika_Penttil=C3=A4?= <mpenttil@redhat.com>
+In-Reply-To: <20261122015246.d8b6b98ff5a8157168156339@linux-foundation.org>
+X-Mimecast-Spam-Score: 0
+X-Mimecast-MFC-PROC-ID: mEiPtMGQP5Lh2Aadnhg7ea9qF7Rg0G1ESf1N0jOVeXA_1795349077
+X-Mimecast-Originator: redhat.com
 Content-Language: en-US
-From: =?UTF-8?B?SsO8cmdlbiBHcm/Dnw==?= <jgross@suse.com>
-Autocrypt: addr=jgross@suse.com; keydata=
- xsBNBFOMcBYBCACgGjqjoGvbEouQZw/ToiBg9W98AlM2QHV+iNHsEs7kxWhKMjrioyspZKOB
- ycWxw3ie3j9uvg9EOB3aN4xiTv4qbnGiTr3oJhkB1gsb6ToJQZ8uxGq2kaV2KL9650I1SJve
- dYm8Of8Zd621lSmoKOwlNClALZNew72NjJLEzTalU1OdT7/i1TXkH09XSSI8mEQ/ouNcMvIJ
- NwQpd369y9bfIhWUiVXEK7MlRgUG6MvIj6Y3Am/BBLUVbDa4+gmzDC9ezlZkTZG2t14zWPvx
- XP3FAp2pkW0xqG7/377qptDmrk42GlSKN4z76ELnLxussxc7I2hx18NUcbP8+uty4bMxABEB
- AAHNH0p1ZXJnZW4gR3Jvc3MgPGpncm9zc0BzdXNlLmNvbT7CwHkEEwECACMFAlOMcK8CGwMH
- CwkIBwMCAQYVCAIJCgsEFgIDAQIeAQIXgAAKCRCw3p3WKL8TL8eZB/9G0juS/kDY9LhEXseh
- mE9U+iA1VsLhgDqVbsOtZ/S14LRFHczNd/Lqkn7souCSoyWsBs3/wO+OjPvxf7m+Ef+sMtr0
- G5lCWEWa9wa0IXx5HRPW/ScL+e4AVUbL7rurYMfwCzco+7TfjhMEOkC+va5gzi1KrErgNRHH
- kg3PhlnRY0Udyqx++UYkAsN4TQuEhNN32MvN0Np3WlBJOgKcuXpIElmMM5f1BBzJSKBkW0Jc
- Wy3h2Wy912vHKpPV/Xv7ZwVJ27v7KcuZcErtptDevAljxJtE7aJG6WiBzm+v9EswyWxwMCIO
- RoVBYuiocc51872tRGywc03xaQydB+9R7BHPzsBNBFOMcBYBCADLMfoA44MwGOB9YT1V4KCy
- vAfd7E0BTfaAurbG+Olacciz3yd09QOmejFZC6AnoykydyvTFLAWYcSCdISMr88COmmCbJzn
- sHAogjexXiif6ANUUlHpjxlHCCcELmZUzomNDnEOTxZFeWMTFF9Rf2k2F0Tl4E5kmsNGgtSa
- aMO0rNZoOEiD/7UfPP3dfh8JCQ1VtUUsQtT1sxos8Eb/HmriJhnaTZ7Hp3jtgTVkV0ybpgFg
- w6WMaRkrBh17mV0z2ajjmabB7SJxcouSkR0hcpNl4oM74d2/VqoW4BxxxOD1FcNCObCELfIS
- auZx+XT6s+CE7Qi/c44ibBMR7hyjdzWbABEBAAHCwF8EGAECAAkFAlOMcBYCGwwACgkQsN6d
- 1ii/Ey9D+Af/WFr3q+bg/8v5tCknCtn92d5lyYTBNt7xgWzDZX8G6/pngzKyWfedArllp0Pn
- fgIXtMNV+3t8Li1Tg843EXkP7+2+CQ98MB8XvvPLYAfW8nNDV85TyVgWlldNcgdv7nn1Sq8g
- HwB2BHdIAkYce3hEoDQXt/mKlgEGsLpzJcnLKimtPXQQy9TxUaLBe9PInPd+Ohix0XOlY+Uk
- QFEx50Ki3rSDl2Zt2tnkNYKUCvTJq7jvOlaPd6d/W0tZqpyy7KVay+K4aMobDsodB3dvEAs6
- ScCnh03dDAFgIq5nsB11j3KPKdVoPlfucX2c7kGNH+LUMbzqV6beIENfNexkOfxHfw==
-In-Reply-To: <awLVzKJWWfC3eJsH@gmail.com>
-Content-Type: multipart/signed; micalg=pgp-sha256;
- protocol="application/pgp-signature";
- boundary="------------AaknyoBFimMKchSGvZQ4WGjM"
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -172,152 +108,139 @@ List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-7.3 required=3.0 tests=BAYES_00,DKIM_SIGNED,
-	DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
-	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,USER_AGENT_SANE_1
-	autolearn=no autolearn_force=no version=4.0.1
+X-Spam-Status: No, score=-17.3 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
+	DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
+	INCLUDES_CR_TRAILER,INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,
+	SPF_PASS,USER_AGENT_SANE_1 autolearn=unavailable autolearn_force=no
+	version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-This is an OpenPGP/MIME signed message (RFC 4880 and 3156)
---------------AaknyoBFimMKchSGvZQ4WGjM
-Content-Type: multipart/mixed; boundary="------------hSBst9k3JSozt0eq4tpFbjs8";
- protected-headers="v1"; hp="clear"
-Message-ID: <9f0278ed-70d2-44e6-b897-dc7a968782ed@suse.com>
-Date: Sun, 22 Nov 2026 12:56:18 +0100
-MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: treewide: Re: [PATCH v6 00/12] msr: Drop 32-bit MSR interfaces
-To: Ingo Molnar <mingo@kernel.org>
-Cc: linux-kernel@vger.kernel.org, x86@kernel.org,
- virtualization@lists.linux.dev, linux-ide@vger.kernel.org,
- dri-devel@lists.freedesktop.org, linux-fbdev@vger.kernel.org,
- linux-crypto@vger.kernel.org, linux-gpio@vger.kernel.org,
- linux-perf-users@vger.kernel.org, linux-hyperv@vger.kernel.org,
- kvm@vger.kernel.org, linux-edac@vger.kernel.org, linux-pci@vger.kernel.org,
- linux-pm@vger.kernel.org, linux-coco@lists.linux.dev,
- linux-acpi@vger.kernel.org, linux-hwmon@vger.kernel.org,
- linux-mtd@lists.infradead.org, platform-driver-x86@vger.kernel.org,
- Thomas Gleixner <tglx@kernel.org>, Ingo Molnar <mingo@redhat.com>,
- Borislav Petkov <bp@alien8.de>, Dave Hansen <dave.hansen@linux.intel.com>,
- "H. Peter Anvin" <hpa@zytor.com>, Ajay Kaher <ajay.kaher@broadcom.com>,
- Alexey Makhalov <alexey.makhalov@broadcom.com>,
- Broadcom internal kernel review list
- <bcm-kernel-feedback-list@broadcom.com>, Damien Le Moal
- <dlemoal@kernel.org>, Niklas Cassel <cassel@kernel.org>,
- David Airlie <airlied@redhat.com>, Helge Deller <deller@gmx.de>,
- linux-geode@lists.infradead.org, Olivia Mackall <olivia@selenic.com>,
- Herbert Xu <herbert@gondor.apana.org.au>, Linus Walleij <linusw@kernel.org>,
- Bartosz Golaszewski <brgl@kernel.org>, Peter Zijlstra
- <peterz@infradead.org>, Arnaldo Carvalho de Melo <acme@kernel.org>,
- Namhyung Kim <namhyung@kernel.org>, Mark Rutland <mark.rutland@arm.com>,
- Alexander Shishkin <alexander.shishkin@linux.intel.com>,
- Jiri Olsa <jolsa@kernel.org>, Ian Rogers <irogers@google.com>,
- Adrian Hunter <adrian.hunter@intel.com>, James Clark
- <james.clark@linaro.org>, Haiyang Zhang <haiyangz@microsoft.com>,
- Wei Liu <wei.liu@kernel.org>, Dexuan Cui <decui@microsoft.com>,
- Sean Christopherson <seanjc@google.com>, Paolo Bonzini
- <pbonzini@redhat.com>, Josh Poimboeuf <jpoimboe@kernel.org>,
- Pawan Gupta <pawan.kumar.gupta@linux.intel.com>, Pu Wen <puwen@hygon.cn>,
- Tony Luck <tony.luck@intel.com>, Reinette Chatre
- <reinette.chatre@intel.com>, Ben Horgan <ben.horgan@arm.com>,
- Dave Martin <Dave.Martin@arm.com>, James Morse <james.morse@arm.com>,
- Babu Moger <babu.moger@amd.com>, Drew Fustini <fustini@kernel.org>,
- Tony W Wang-oc <TonyWWang-oc@zhaoxin.com>,
- Vitaly Kuznetsov <vkuznets@redhat.com>, Andy Lutomirski <luto@kernel.org>,
- Bjorn Helgaas <bhelgaas@google.com>, "Rafael J. Wysocki"
- <rafael@kernel.org>, Pavel Machek <pavel@kernel.org>,
- Kiryl Shutsemau <kas@kernel.org>, Rick Edgecombe
- <rick.p.edgecombe@intel.com>, Boris Ostrovsky <boris.ostrovsky@oracle.com>,
- Len Brown <lenb@kernel.org>, Viresh Kumar <viresh.kumar@linaro.org>,
- Huang Rui <ray.huang@amd.com>, Mario Limonciello
- <mario.limonciello@amd.com>, Perry Yuan <perry.yuan@amd.com>,
- K Prateek Nayak <kprateek.nayak@amd.com>,
- Srinivas Pandruvada <srinivas.pandruvada@linux.intel.com>,
- Yazen Ghannam <yazen.ghannam@amd.com>, Guenter Roeck <linux@roeck-us.net>,
- Artem Bityutskiy <artem.bityutskiy@linux.intel.com>,
- Artem Bityutskiy <dedekind1@gmail.com>, Arnd Bergmann <arnd@arndb.de>,
- Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
- Miquel Raynal <miquel.raynal@bootlin.com>,
- Richard Weinberger <richard@nod.at>, Vignesh Raghavendra <vigneshr@ti.com>,
- Ashok Raj <ashok.raj.linux@gmail.com>, Hans de Goede <hansg@kernel.org>,
- =?UTF-8?Q?Ilpo_J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>,
- Rajneesh Bhardwaj <irenic.rajneesh@gmail.com>,
- Xi Pardee <xi.pardee@linux.intel.com>,
- Daniel Lezcano <daniel.lezcano@kernel.org>, Zhang Rui <rui.zhang@intel.com>,
- Lukasz Luba <lukasz.luba@arm.com>, xen-devel@lists.xenproject.org,
- Linus Torvalds <torvalds@linux-foundation.org>
-References: <20261116150208.1572254-1-jgross@suse.com>
- <awLVzKJWWfC3eJsH@gmail.com>
-Content-Language: en-US
-From: =?UTF-8?B?SsO8cmdlbiBHcm/Dnw==?= <jgross@suse.com>
-Autocrypt: addr=jgross@suse.com; keydata=
- xsBNBFOMcBYBCACgGjqjoGvbEouQZw/ToiBg9W98AlM2QHV+iNHsEs7kxWhKMjrioyspZKOB
- ycWxw3ie3j9uvg9EOB3aN4xiTv4qbnGiTr3oJhkB1gsb6ToJQZ8uxGq2kaV2KL9650I1SJve
- dYm8Of8Zd621lSmoKOwlNClALZNew72NjJLEzTalU1OdT7/i1TXkH09XSSI8mEQ/ouNcMvIJ
- NwQpd369y9bfIhWUiVXEK7MlRgUG6MvIj6Y3Am/BBLUVbDa4+gmzDC9ezlZkTZG2t14zWPvx
- XP3FAp2pkW0xqG7/377qptDmrk42GlSKN4z76ELnLxussxc7I2hx18NUcbP8+uty4bMxABEB
- AAHNH0p1ZXJnZW4gR3Jvc3MgPGpncm9zc0BzdXNlLmNvbT7CwHkEEwECACMFAlOMcK8CGwMH
- CwkIBwMCAQYVCAIJCgsEFgIDAQIeAQIXgAAKCRCw3p3WKL8TL8eZB/9G0juS/kDY9LhEXseh
- mE9U+iA1VsLhgDqVbsOtZ/S14LRFHczNd/Lqkn7souCSoyWsBs3/wO+OjPvxf7m+Ef+sMtr0
- G5lCWEWa9wa0IXx5HRPW/ScL+e4AVUbL7rurYMfwCzco+7TfjhMEOkC+va5gzi1KrErgNRHH
- kg3PhlnRY0Udyqx++UYkAsN4TQuEhNN32MvN0Np3WlBJOgKcuXpIElmMM5f1BBzJSKBkW0Jc
- Wy3h2Wy912vHKpPV/Xv7ZwVJ27v7KcuZcErtptDevAljxJtE7aJG6WiBzm+v9EswyWxwMCIO
- RoVBYuiocc51872tRGywc03xaQydB+9R7BHPzsBNBFOMcBYBCADLMfoA44MwGOB9YT1V4KCy
- vAfd7E0BTfaAurbG+Olacciz3yd09QOmejFZC6AnoykydyvTFLAWYcSCdISMr88COmmCbJzn
- sHAogjexXiif6ANUUlHpjxlHCCcELmZUzomNDnEOTxZFeWMTFF9Rf2k2F0Tl4E5kmsNGgtSa
- aMO0rNZoOEiD/7UfPP3dfh8JCQ1VtUUsQtT1sxos8Eb/HmriJhnaTZ7Hp3jtgTVkV0ybpgFg
- w6WMaRkrBh17mV0z2ajjmabB7SJxcouSkR0hcpNl4oM74d2/VqoW4BxxxOD1FcNCObCELfIS
- auZx+XT6s+CE7Qi/c44ibBMR7hyjdzWbABEBAAHCwF8EGAECAAkFAlOMcBYCGwwACgkQsN6d
- 1ii/Ey9D+Af/WFr3q+bg/8v5tCknCtn92d5lyYTBNt7xgWzDZX8G6/pngzKyWfedArllp0Pn
- fgIXtMNV+3t8Li1Tg843EXkP7+2+CQ98MB8XvvPLYAfW8nNDV85TyVgWlldNcgdv7nn1Sq8g
- HwB2BHdIAkYce3hEoDQXt/mKlgEGsLpzJcnLKimtPXQQy9TxUaLBe9PInPd+Ohix0XOlY+Uk
- QFEx50Ki3rSDl2Zt2tnkNYKUCvTJq7jvOlaPd6d/W0tZqpyy7KVay+K4aMobDsodB3dvEAs6
- ScCnh03dDAFgIq5nsB11j3KPKdVoPlfucX2c7kGNH+LUMbzqV6beIENfNexkOfxHfw==
-In-Reply-To: <awLVzKJWWfC3eJsH@gmail.com>
+On 11/22/26 11:52, Andrew Morton wrote:
 
---------------hSBst9k3JSozt0eq4tpFbjs8
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: base64
+> On Sun, 22 Nov 2026 07:55:37 +0200 Mika Penttilä <mpenttil@redhat.com> wrote:
+>
+>>> So it accidentally found a bug in lib/test_hmm.c on the way.  "The QEMU
+>>> run exposed a real test_hmm bug: a second open of /dev/hmm_dmirror0 can
+>>> put a device-private page into its page table, then dmirror_do_read()
+>>> tries to copy from that non-CPU-accessible page and oopses".  I'll prep
+>>> a fix for that separately.
+>> I noticed that also and will make changes around it in my series.
+> I came up with the below.  It all tested out OK.  wdyt?  I guess it
+> should have cc:stable>
+>
+>
+>
+> From: Andrew Morton <akpm@linux-foundation.org>
+> Subject: lib/test_hmm: use backing pages for device-private mirror faults
+> Date: Sat, 21 Nov 2026 17:06:45 -0800
+>
+> When one hmm_dmirror descriptor migrates memory to device-private and a
+> second descriptor reads it, dmirror_do_fault() stores the device page in
+> the second descriptor's page table.  dmirror_do_read() then passes that
+> page to memcpy_from_page(), which can oops the kernel.  This was
+> reproduced with an unprivileged process using the fake device in a QEMU
+> guest.
+>
+> Store the corresponding RAM backing page instead.  For a large device
+> folio, retain the subpage offset when selecting the backing page; using
+> the backing folio's head for every entry would return the wrong data. 
+> Extend the existing PMD migration selftest to read the last subpage
+> through a second open before faulting the memory back to RAM.
+>
+> Fixes: b2ef9f5a5cb3 ("mm/hmm/test: add selftest driver for HMM")
+> Signed-off-by: Andrew Morton <akpm@linux-foundation.org>
+> Cc: Jason Gunthorpe <jgg@ziepe.ca>
+> Cc: Leon Romanovsky <leon@kernel.org>
+> Cc: Shuah Khan <shuah@kernel.org>
+> ---
+> tl;dr: The unpatched kernel oopsed when an unprivileged process opened the
+> fake HMM device twice, migrated an anonymous 2 MB PMD to device-private
+> memory through one descriptor, then accessed its last page through the
+> other.  The patched kernel returned the expected bytes on all three ioctl
+> paths.
+>
+> A was reproduced and saved before B was built.  As uid 65534, a static
+> userspace program verified that all 512 pages were device-private PMD
+> entries.  A READ of the last page through the second descriptor produced a
+> KASAN-enabled kernel Oops in dmirror_do_read().  Independent A boots also
+> oopsed on WRITE and READ_UNLOCKED at the same last-page access.
+>
+> With only this patch added, READ and READ_UNLOCKED returned the expected
+> 0x0a byte, and WRITE returned the expected 0xa5 byte after migration back
+> to RAM.  The modified in-tree hmm_device_private.migrate_anon_huge_fault
+> selftest also passed (1/1).
+>
+> This reproduces a userspace-triggered kernel Oops in the fake HMM device
+> used by test_hmm; it does not establish reachability through physical GPU
+> hardware.  QEMU guests used matching kernel configurations with
+> CONFIG_TEST_HMM=y and KASAN.  The guest device permissions were set for
+> uid 65534.
+>
+>  lib/test_hmm.c                         |    7 +++++++
+>  tools/testing/selftests/mm/hmm-tests.c |   14 ++++++++++++++
+>  2 files changed, 21 insertions(+)
+>
+> --- a/lib/test_hmm.c~lib-test_hmm-use-backing-pages-for-device-private-mirror-faults
+> +++ a/lib/test_hmm.c
+> @@ -292,6 +292,13 @@ static int dmirror_do_fault(struct dmirr
+>  		page = hmm_pfn_to_page(*pfns);
+>  		WARN_ON(!page);
+>  
+> +		if (is_device_private_page(page)) {
+> +			struct folio *folio = page_folio(page);
+> +			struct page *backing = BACKING_PAGE(&folio->page);
+> +
+> +			page = folio_page(page_folio(backing),
+> +					  folio_page_idx(folio, page));
+> +		}
+>  		entry = page;
+>  		if (*pfns & HMM_PFN_WRITE)
 
-T24gMjIuMTEuMjYgMTI6NDUsIEluZ28gTW9sbmFyIHdyb3RlOg0KPiANCj4gKiBKdWVyZ2Vu
-IEdyb3NzIDxqZ3Jvc3NAc3VzZS5jb20+IHdyb3RlOg0KPiANCj4+IEZvciBhY2Nlc3Npbmcg
-dGhlIE1TUiByZWdpc3RlcnMgb24gdGhlIGxvY2FsIENQVSwgdGhlcmUgYXJlIDIgdHlwZXMg
-b2YNCj4+IGludGVyZmFjZXM6IHRoZSAibW9kZXJuIiA2NC1iaXQgb25lcyAocmRtc3JxKCkg
-ZXRjLikgYW5kIHRoZSAzMi1iaXQNCj4+IG9uZXMgKHJkbXNyKCkgZXRjLikgd2hpY2ggYXJl
-IHVzaW5nIHRoZSB1cHBlciBhbmQgbG93ZXIgMzItYml0IGhhbHZlcw0KPj4gb2YgdGhlIDY0
-LWJpdCB3aWRlIE1TUiByZWdpc3RlciB2YWx1ZXMuDQo+IA0KPj4gICAxNDAgZmlsZXMgY2hh
-bmdlZCwgNTcyIGluc2VydGlvbnMoKyksIDY5MCBkZWxldGlvbnMoLSkNCj4gDQo+IFNvIEkn
-dmUgYXBwbGllZCB0aGlzIHRvIGEgc2VwYXJhdGUgYnJhbmNoL3RyZWUgdW5kZXIgdGlwOmNv
-cmUvbXNyLA0KPiBiZWNhdXNlIEkgdGhpbmsgdGhpcyBzZXJpZXMgaXMgbWF0dXJlIGVub3Vn
-aCBhbmQgYWZ0ZXIgYWJvdXQgYSB5ZWFyDQo+IHdvcnRoIG9mICh2ZXJ5IHBhdGllbnQpIGl0
-ZXJhdGlvbnMgYnkgeW91IHdlJ3ZlIHJlYWNoZWQgdGhlIGxpbWl0IG9mDQo+IHdoYXQgd2ls
-bCBiZSBwaWNrZWQgdXAgYnkgbWFpbnRhaW5lcnMuDQo+IA0KPiBUaGUgY29tbWl0IHdpdGgg
-dGhlIHdpZGVzdCBpbXBhY3QgaXMgYXV0b21hdGljYWxseSBnZW5lcmF0ZWQNCj4gdmlhIGEg
-c2VtYW50aWMgcGF0Y2g6DQo+IA0KPiAgICB0cmVld2lkZTogQ29udmVydCByZG1zcnEoKSBm
-cm9tIGEgbWFjcm8gdG8gYW4gaW5saW5lIGZ1bmN0aW9uDQo+IA0KPiAgICAxMzkgZmlsZXMg
-Y2hhbmdlZCwgNDkzIGluc2VydGlvbnMoKyksIDQ5NSBkZWxldGlvbnMoLSkNCj4gDQo+IGFu
-ZCBJJ20gcmVhc29uYWJseSBjZXJ0YWluIHRoYXQgd2hhdGV2ZXIgbWVyZ2UgaW1wYWN0IHRo
-aXMgbWF5IGhhdmUNCj4gb24gLW5leHQgY2FuIGJlIGFkZHJlc3NlZCBxdWlja2x5IGFuZCBp
-biBhIHNpbXBsZSBmYXNoaW9uLiBMZXQncyBzZWUNCj4gaG93IHRoaXMgZ29lcy4NCllheSEN
-Cg0KVGhhbmtzLA0KDQoNCkp1ZXJnZW4NCg==
+I have this same chunk. I think it's needed, all dmirror readers expect to
+copy_to_user() from pt.
 
---------------hSBst9k3JSozt0eq4tpFbjs8--
 
---------------AaknyoBFimMKchSGvZQ4WGjM
-Content-Type: application/pgp-signature; name="OpenPGP_signature.asc"
-Content-Description: OpenPGP digital signature
-Content-Disposition: attachment; filename="OpenPGP_signature.asc"
+>  			entry = xa_tag_pointer(entry, DPT_XA_TAG_WRITE);
+> --- a/tools/testing/selftests/mm/hmm-tests.c~lib-test_hmm-use-backing-pages-for-device-private-mirror-faults
+> +++ a/tools/testing/selftests/mm/hmm-tests.c
+> @@ -2087,6 +2087,7 @@ TEST_F(hmm, migrate_anon_huge_fault)
+>  	void *old_ptr;
+>  	void *map;
+>  	int pagemap_fd;
+> +	int fd2 = -1;
+>  	int *ptr;
+>  	int ret;
+>  
+> @@ -2143,12 +2144,25 @@ TEST_F(hmm, migrate_anon_huge_fault)
+>  		}
+>  
+>  		close(pagemap_fd);
+> +
+> +		/* A second open must read the last device-private subpage. */
+> +		fd2 = hmm_open(variant->device_number);
+> +		ASSERT_GE(fd2, 0);
+> +		buffer->ptr = (char *)map + (npages - 1) * self->page_size;
+> +		ret = hmm_dmirror_cmd(fd2, HMM_DMIRROR_READ, buffer, 1);
+> +		buffer->ptr = map;
+> +		ASSERT_EQ(ret, 0);
+> +		ASSERT_EQ(buffer->cpages, 1);
+> +		ASSERT_EQ(*(int *)buffer->mirror,
+> +			  (npages - 1) * self->page_size / sizeof(int));
+>  	}
+>  
+>  	/* Fault pages back to system memory and check them. */
+>  	for (i = 0, ptr = buffer->ptr; i < size / sizeof(*ptr); ++i)
+>  		ASSERT_EQ(ptr[i], i);
+>  
+> +	if (fd2 >= 0)
+> +		ASSERT_EQ(close(fd2), 0);
+>  	buffer->ptr = old_ptr;
+>  	hmm_buffer_free(buffer);
+>  }
+> _
 
------BEGIN PGP SIGNATURE-----
+Looks good to me also!
 
-wsB5BAABCAAjFiEEhRJncuj2BJSl0Jf3sN6d1ii/Ey8FAmsC2GIFAwAAAAAACgkQsN6d1ii/Ey+U
-/Qf/V7wsSss4hIhzlYSEbAn3m9hHxZeeL5FKmbgPgVrLfYK4nlHwa3EJ6R8VEbsBCrSAEDukOo+1
-y+40nF5zk5Cd2x6ZzPoqHY51FPya4j+4EVDSl5V+nbl4SIiJvGDLi4ihESYNx1mvWW5gH6+Vuufs
-OnzP6T4CmZFJXVONAuCrvQmcpuKCQ2grE/lndqutElRto4ptfTedEbY9e75ofBpzPdznr2II1ouD
-tHveoDTySHC4GW3oe56/QxE/nsNs4UzA7yTyiXJKF8L7waOzxaNxh/HChdvWlA5MFcc8008Gc5fJ
-dVj2v83uXCziMzSDhFA+P0ilK02fXgpsKkJqlb/r1A==
-=ZBGv
------END PGP SIGNATURE-----
+--Mika
 
---------------AaknyoBFimMKchSGvZQ4WGjM--
