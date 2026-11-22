@@ -2,108 +2,105 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D03F2606A320
-	for <dri-devel@archiver.kernel.org>; Sun, 22 Nov 2026 11:21:38 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0A564606A320
+	for <dri-devel@archiver.kernel.org>; Sun, 22 Nov 2026 11:45:52 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=GDc+/vb6
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=JBZbk8ZB
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 3196410E395;
-	Sun, 22 Nov 2026 11:21:33 +0000 (UTC)
-Received: from mail-lj1-f171.google.com (mail-lj1-f171.google.com
- [209.85.208.171])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 934A110E395
- for <dri-devel@lists.freedesktop.org>; Sun, 22 Nov 2026 11:21:27 +0000 (UTC)
-Received: by mail-lj1-f171.google.com with SMTP id
- 38308e7fff4ca-3adfb744fa6so1988131fa.2
- for <dri-devel@lists.freedesktop.org>; Sun, 22 Nov 2026 03:21:27 -0800 (PST)
-ARC-Seal: i=1; a=rsa-sha256; t=1795346485; cv=none;
- d=google.com; s=arc-20260327;
- b=OQiZjwgqZtxVDmfyzeMWK1TSJxIK2+1UAC0stfTcn/boWycPLKC3Km4Sq/Fnhlclkx
- 2dpcfZlHKgIxbxJjV/fQikIpSHW0H9ucsQFuYs9eqZR7g6BIBSwES+0kexnIvFKlZS+f
- VRts9I8pjGezwBof73qYx15poLcxiHEy+o+YOE/6t/qaGgGwJVDFozZLCcrnJIj/9cMS
- WI34vfkrQiJLCQHUrzxw828qBIHViIWnxwuayCjT5nM2a2wgE/6D7DL99jWuNvfNw4BU
- ZFhfoQY0K813PzDtb0HCCRT7MoKMUhjE6rZI6Ps2nlkTqr9OeOiKOaFTe6mUgucWb0Hd
- L9dA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com;
- s=arc-20260327; 
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:dkim-signature;
- bh=BCdFGEAGi1FkXvjngBIPRRqSI+mSTpjGWxSdX4AZ69g=;
- fh=YwW1rErXLhIVbqG7OPnTViEEDy6L9NCZ64QSkkFyzws=;
- b=okJn5VgADZE34ABqET77e07tNmk4/83be46XwoKjJLKCUAHwVH0RMcJE+p0H5qvC7s
- rULXjIGbdMJ0SiikV9TRjFYCmJ9YzIXQWt2ia7b4W0Tmg9wABWgXWP7Vn/9OhTBHeRyI
- MEG7lZdrCvB3Z2ko8szDHqFZiKEnrSE0O4go4gzU52cK6gYNSSLx7NbX6RvFZqmlCcHL
- hzy/9KmmrSbbhZoOSUeqsaizWfZrmxiKRoEVgASfL4WPEhMhVhJeqspgOMSpk+z41G00
- 517mCnoYvO9gjd8ir4eU5ANlUyZOkFbLvvOip2e6cOQoE0xDf5y2/1YSJN48NcceD2PG
- 9wxg==; darn=lists.freedesktop.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20260707; t=1795346485; x=1795951285; darn=lists.freedesktop.org;
- h=content-transfer-encoding:content-type:cc:to:subject:message-id
- :date:from:in-reply-to:references:mime-version:from:to:cc:subject
- :date:message-id:reply-to:content-type;
- bh=BCdFGEAGi1FkXvjngBIPRRqSI+mSTpjGWxSdX4AZ69g=;
- b=GDc+/vb6FU8ya0TsJJmbTqI1XKBtsnI9gKQP1S7sXTdwtlksJkjgdvHQGAzPNFZ4or
- +AB07Uo50nikijHHmQk2G8dkO15KrY/iHcr/SoOe0Y8Fmd+KheryfylnI+VUMXjIggfu
- oNnFWu2VItKRbjBn5qsmoeRpXiX5D1UZxPSvqx52XoMRaXzgQpVESAs0GnIKXLiszALM
- 3gkn2Emm6MYqb0fx7gEFrUWjPCtdGKIs750uACTWNd243jXO1ZKvTsA8L7/qPy7mdpEP
- y941rdFK/rHYwWl+SwrKQ5IIp+RTy7WUw5V+KaOA+0w9wL/+r6txdLwWy9hN3LnVhf/5
- nasA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20260707; t=1795346485; x=1795951285;
- h=content-transfer-encoding:content-type:cc:to:subject:message-id
- :date:from:in-reply-to:references:mime-version:x-gm-gg
- :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
- :content-type;
- bh=BCdFGEAGi1FkXvjngBIPRRqSI+mSTpjGWxSdX4AZ69g=;
- b=vM7pWpVN91HWIjnd2VJ/UWzKkW5cQvetJvDpwuZkCgk4CgJh2nT6ZC8j1Fk6K5aRoA
- j+8f79boMm40btUxlAhFSorDomG5YLbhPKOuGVnNz0YpNnVXU5N7SutdzVZAIOwQwuZL
- vtBEbIRKxwm9fA/e1hZMqZ5VZXHJj7Dd1zqBNaFdoq7cC9GfS/iWzyRp7Nw3KqFSSSdt
- eS3Hchh0x10sKvu8iS8S02an1qXnmtHeFHdYg3Zs5vzRnTIOqmcLdxmmVt7L1sbRFsC8
- B/bigyVvea2eP/adU8uGyW4SMtmushAwnOIIIJy5pVqCM1Q1FvF1LbgpMrCtX/tJv5Eh
- yfjw==
-X-Forwarded-Encrypted: i=1;
- AL+hErGO5Mcbh0BSHhNDaLJT3mH9hDqstK/xj3i9TtraD5kIwDLmm3YZu0ncteIlQ1PjIPDrwJhmCNU5JkU=@lists.freedesktop.org
-X-Gm-Message-State: APuU4Z9oPTZv2ojSTFa1noHCaEhblqAUMOvx06Uv6/AnQst8ebjoH2jv
- knaSsQAUgRTTjQzeffJqfs5x1gTVYF0hp+jC4YCBqfBKZ0zwej/vu68RCdbIgirTwnB3g1y4YtR
- MonHK4f5XwxorFc/KbqI8TFOOyzYyszY=
-X-Gm-Gg: AZFdTZeTu9NjUydv0nAL8gZvf0SRSDDKHM3XJfqEqneDLky6bf7bxds2/fPmLlLGHSS
- 6YFz1Uj2xOkwFhdV1uj23Iwzmw7rfIk8sFzHgb2YCUP2++kRpFXugLEjRK3l+zJyan3+zQaBmHM
- 5r8AMJTofsf1JzroZ3RVpSkkjS80jNDGuqU1aY7VRXq9f9q9BIVrxjXJLcCRKRbNzVGJ3Re77tl
- BocRp+HsMCYiyplCHduc8WxRzCdDNfk2PDk0p/SaOkqFJCwnopZlBcRPh/sWCbNiqKHehy9XP09
- 8iV8Hff+lZvgy+jHX5x3zTw6c3J0AUm5vMqOWefd0jGQyAxQGfi6ZR/bdUkwmI7rIWn39A2MsLj
- rvD3zZKvpwegO0m/7nN536UR17aZuaJPm5rHU5Q1djoyBamCqW3LH7c8mm4Q27O3s8gdcH/TWc1
- db2yxGXzIP/7SLFXysMkc2rvyUV3MxnziUPS0nV38Kb/0xLLYhV7K8QO55MpDLjznn9mxou+BE6
- zEjrww5G06UCM+lmVf4UIqXW58dTWqankJTxdTEQYHHedi7ekuJW3Tnx8+LYbSOWyYVBo8v
-X-Received: by 2002:a05:6512:31c3:b0:5bf:e6a1:3115 with SMTP id
- 2adb3069b0e04-5c1bc76a33fmr3359356e87.2.1795346484987; Sun, 22 Nov 2026
- 03:21:24 -0800 (PST)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 687E210E3EB;
+	Sun, 22 Nov 2026 11:45:46 +0000 (UTC)
+Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 7DE8010E32C
+ for <dri-devel@lists.freedesktop.org>; Sun, 22 Nov 2026 11:45:39 +0000 (UTC)
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+ by tor.source.kernel.org (Postfix) with ESMTP id 8425B60629;
+ Sun, 22 Nov 2026 11:45:38 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id E3C711F000C0;
+ Sun, 22 Nov 2026 11:45:18 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+ s=k20260515; t=1795347938;
+ bh=cLMcqM1+ID1GgGq+PerrzsvqYkDe3KsyjwqtE/Ytfio=;
+ h=Date:From:To:Cc:Subject:References:In-Reply-To;
+ b=JBZbk8ZBopVc78PPFvWeVTIg2CMujdUlqemdavr/HCyWWlIQmFZkcrGxwSI3F8Lj7
+ DNLer9OUFPLbOa4J4Swvhd/E17PbHJNYpl75QSvfOs502Qnq+SIVf6x8BaBZgxP/BT
+ TLhC5kAcmMHclzMqgFcvdBPgsnO0el8R7pGYvxVYVMfFAdpjXa9S5pH5onsvDFitkW
+ F7xoQFwGUBjexAU1BbMzjGktImA7HZrErJM176ZMcRKXKM7Cl6WdGzAwr72CinZqC4
+ cUMiH2XukT43gci2XSUdvkVEDyb0hb22fl5gp/8fIaWZ7ym7dU5tWM0l+OzRL/g3Qu
+ BJv0P33zLAReA==
+Date: Sun, 22 Nov 2026 12:45:16 +0100
+From: Ingo Molnar <mingo@kernel.org>
+To: Juergen Gross <jgross@suse.com>
+Cc: linux-kernel@vger.kernel.org, x86@kernel.org,
+ virtualization@lists.linux.dev, linux-ide@vger.kernel.org,
+ dri-devel@lists.freedesktop.org, linux-fbdev@vger.kernel.org,
+ linux-crypto@vger.kernel.org, linux-gpio@vger.kernel.org,
+ linux-perf-users@vger.kernel.org, linux-hyperv@vger.kernel.org,
+ kvm@vger.kernel.org, linux-edac@vger.kernel.org,
+ linux-pci@vger.kernel.org, linux-pm@vger.kernel.org,
+ linux-coco@lists.linux.dev, linux-acpi@vger.kernel.org,
+ linux-hwmon@vger.kernel.org, linux-mtd@lists.infradead.org,
+ platform-driver-x86@vger.kernel.org,
+ Thomas Gleixner <tglx@kernel.org>, Ingo Molnar <mingo@redhat.com>,
+ Borislav Petkov <bp@alien8.de>, Dave Hansen <dave.hansen@linux.intel.com>,
+ "H. Peter Anvin" <hpa@zytor.com>, Ajay Kaher <ajay.kaher@broadcom.com>,
+ Alexey Makhalov <alexey.makhalov@broadcom.com>,
+ Broadcom internal kernel review list <bcm-kernel-feedback-list@broadcom.com>, 
+ Damien Le Moal <dlemoal@kernel.org>, Niklas Cassel <cassel@kernel.org>,
+ David Airlie <airlied@redhat.com>, Helge Deller <deller@gmx.de>,
+ linux-geode@lists.infradead.org, Olivia Mackall <olivia@selenic.com>,
+ Herbert Xu <herbert@gondor.apana.org.au>,
+ Linus Walleij <linusw@kernel.org>, Bartosz Golaszewski <brgl@kernel.org>,
+ Peter Zijlstra <peterz@infradead.org>,
+ Arnaldo Carvalho de Melo <acme@kernel.org>,
+ Namhyung Kim <namhyung@kernel.org>, Mark Rutland <mark.rutland@arm.com>,
+ Alexander Shishkin <alexander.shishkin@linux.intel.com>,
+ Jiri Olsa <jolsa@kernel.org>, Ian Rogers <irogers@google.com>,
+ Adrian Hunter <adrian.hunter@intel.com>,
+ James Clark <james.clark@linaro.org>,
+ Haiyang Zhang <haiyangz@microsoft.com>,
+ Wei Liu <wei.liu@kernel.org>, Dexuan Cui <decui@microsoft.com>,
+ Sean Christopherson <seanjc@google.com>,
+ Paolo Bonzini <pbonzini@redhat.com>, Josh Poimboeuf <jpoimboe@kernel.org>,
+ Pawan Gupta <pawan.kumar.gupta@linux.intel.com>,
+ Pu Wen <puwen@hygon.cn>, Tony Luck <tony.luck@intel.com>,
+ Reinette Chatre <reinette.chatre@intel.com>,
+ Ben Horgan <ben.horgan@arm.com>, Dave Martin <Dave.Martin@arm.com>,
+ James Morse <james.morse@arm.com>, Babu Moger <babu.moger@amd.com>,
+ Drew Fustini <fustini@kernel.org>,
+ Tony W Wang-oc <TonyWWang-oc@zhaoxin.com>,
+ Vitaly Kuznetsov <vkuznets@redhat.com>, Andy Lutomirski <luto@kernel.org>,
+ Bjorn Helgaas <bhelgaas@google.com>,
+ "Rafael J. Wysocki" <rafael@kernel.org>,
+ Pavel Machek <pavel@kernel.org>, Kiryl Shutsemau <kas@kernel.org>,
+ Rick Edgecombe <rick.p.edgecombe@intel.com>,
+ Boris Ostrovsky <boris.ostrovsky@oracle.com>,
+ Len Brown <lenb@kernel.org>, Viresh Kumar <viresh.kumar@linaro.org>,
+ Huang Rui <ray.huang@amd.com>,
+ Mario Limonciello <mario.limonciello@amd.com>,
+ Perry Yuan <perry.yuan@amd.com>, K Prateek Nayak <kprateek.nayak@amd.com>,
+ Srinivas Pandruvada <srinivas.pandruvada@linux.intel.com>,
+ Yazen Ghannam <yazen.ghannam@amd.com>, Guenter Roeck <linux@roeck-us.net>,
+ Artem Bityutskiy <artem.bityutskiy@linux.intel.com>,
+ Artem Bityutskiy <dedekind1@gmail.com>, Arnd Bergmann <arnd@arndb.de>,
+ Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+ Miquel Raynal <miquel.raynal@bootlin.com>,
+ Richard Weinberger <richard@nod.at>, Vignesh Raghavendra <vigneshr@ti.com>,
+ Ashok Raj <ashok.raj.linux@gmail.com>, Hans de Goede <hansg@kernel.org>,
+ Ilpo =?iso-8859-1?Q?J=E4rvinen?= <ilpo.jarvinen@linux.intel.com>,
+ Rajneesh Bhardwaj <irenic.rajneesh@gmail.com>,
+ Xi Pardee <xi.pardee@linux.intel.com>,
+ Daniel Lezcano <daniel.lezcano@kernel.org>,
+ Zhang Rui <rui.zhang@intel.com>, Lukasz Luba <lukasz.luba@arm.com>,
+ xen-devel@lists.xenproject.org,
+ Linus Torvalds <torvalds@linux-foundation.org>
+Subject: treewide: Re: [PATCH v6 00/12] msr: Drop 32-bit MSR interfaces
+Message-ID: <awLVzKJWWfC3eJsH@gmail.com>
+References: <20261116150208.1572254-1-jgross@suse.com>
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
-References: <20261020-b4-dev_query_fixes-v4-0-df66b4c98bc6@collabora.com>
- <20261121141830.171033-1-aliceryhl@google.com>
-In-Reply-To: <20261121141830.171033-1-aliceryhl@google.com>
-From: Miguel Ojeda <miguel.ojeda.sandonis@gmail.com>
-Date: Sun, 22 Nov 2026 12:21:12 +0100
-X-Gm-Features: Aa3M54oNJa8cPl_YiVnZHC_82X9FGjy0ARvybs1hSE8ttDDvbfY_eIi5LF9yt98
-Message-ID: <CANiq72n4CLJZ0aZwHJYSnnc58haG05si6+ocibzd07HLgFbAkg@mail.gmail.com>
-Subject: Re: [PATCH v4 0/3] drm/tyr: allow mismatched buffers for dev_query
-To: Alice Ryhl <aliceryhl@google.com>
-Cc: Miguel Ojeda <ojeda@kernel.org>,
- Deborah Brouwer <deborah.brouwer@collabora.com>, 
- Boqun Feng <boqun@kernel.org>, Gary Guo <gary@garyguo.net>, 
- =?UTF-8?Q?Bj=C3=B6rn_Roy_Baron?= <bjorn3_gh@protonmail.com>, 
- Benno Lossin <lossin@kernel.org>, Andreas Hindborg <a.hindborg@kernel.org>, 
- Trevor Gross <tmgross@umich.edu>, Danilo Krummrich <dakr@kernel.org>, 
- Daniel Almeida <daniel.almeida@collabora.com>,
- Tamir Duberstein <tamird@kernel.org>, 
- Alexandre Courbot <acourbot@nvidia.com>,
- =?UTF-8?Q?Onur_=C3=96zkan?= <work@onurozkan.dev>, 
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- rust-for-linux@vger.kernel.org, 
- linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261116150208.1572254-1-jgross@suse.com>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -115,51 +112,39 @@ List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-7.8 required=3.0 tests=BAYES_00,DKIM_SIGNED,
-	DKIM_VALID,DKIM_VALID_AU,FREEMAIL_FORGED_FROMDOMAIN,FREEMAIL_FROM,
-	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,MAILING_LIST_MULTI,
-	SPF_HELO_NONE,SPF_PASS autolearn=no autolearn_force=no version=4.0.1
+X-Spam-Status: No, score=-5.8 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
+	DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
+	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS autolearn=no
+	autolearn_force=no version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-On Sat, Nov 21, 2026 at 3:18=E2=80=AFPM Alice Ryhl <aliceryhl@google.com> w=
-rote:
->
-> Miguel, are you ok with me taking these uaccess changes through drm-rust-=
-next?
 
-Sure:
+* Juergen Gross <jgross@suse.com> wrote:
 
-Acked-by: Miguel Ojeda <ojeda@kernel.org>
+> For accessing the MSR registers on the local CPU, there are 2 types of
+> interfaces: the "modern" 64-bit ones (rdmsrq() etc.) and the 32-bit
+> ones (rdmsr() etc.) which are using the upper and lower 32-bit halves
+> of the 64-bit wide MSR register values.
 
-A couple notes:
+>  140 files changed, 572 insertions(+), 690 deletions(-)
 
-  - rust: uaccess: add UserSliceWriter::clear(): Newline before `//
-SAFETY` comment? I am actually not sure why the newlines are placed
-like that -- if one wants to compress the code, then I would place the
-early exit `if`s adjacent to the variables they check, saving 2 lines:
+So I've applied this to a separate branch/tree under tip:core/msr,
+because I think this series is mature enough and after about a year
+worth of (very patient) iterations by you we've reached the limit of
+what will be picked up by maintainers.
 
-      let len =3D self.length;
-      if len =3D=3D 0 {
-          return Ok(());
-      }
+The commit with the widest impact is automatically generated
+via a semantic patch:
 
-      // SAFETY: `clear_user` checks the userspace address and range and ha=
-ndles
-      // faults when accessing userspace memory
-      let res =3D unsafe { bindings::clear_user(self.ptr.as_mut_ptr(), len)=
- };
-      if res !=3D 0 {
-          return Err(EFAULT);
-      }
+  treewide: Convert rdmsrq() from a macro to an inline function
 
-  - rust: uaccess: add method to get UserPtr from u64: Intra-doc link
-on `UserPtr`, and span and intra-doc link on `u64`.
+  139 files changed, 493 insertions(+), 495 deletions(-)
 
-  - drm/tyr: allow userspace buffers to be mismatched: `set_uobj` has
-a bunch of comments, should they be documentation even if private?
+and I'm reasonably certain that whatever merge impact this may have
+on -next can be addressed quickly and in a simple fashion. Let's see
+how this goes.
 
-Thanks!
+Thanks,
 
-Cheers,
-Miguel
+	Ingo
