@@ -2,52 +2,61 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 75186606A32C
-	for <dri-devel@archiver.kernel.org>; Sun, 22 Nov 2026 16:59:13 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5FA5C606A338
+	for <dri-devel@archiver.kernel.org>; Sun, 22 Nov 2026 17:00:42 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=FXHnsUQz
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Vmmyrz6u
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 8F9B410E5FE;
-	Sun, 22 Nov 2026 16:59:07 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 9ED1110E5FD;
+	Sun, 22 Nov 2026 17:00:36 +0000 (UTC)
 Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 3B3F410E5FE
- for <dri-devel@lists.freedesktop.org>; Sun, 22 Nov 2026 16:59:01 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 20E2210E5FD
+ for <dri-devel@lists.freedesktop.org>; Sun, 22 Nov 2026 17:00:30 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by tor.source.kernel.org (Postfix) with ESMTP id 3E71E61120;
- Sun, 22 Nov 2026 16:59:00 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id CFC811F000CA;
- Sun, 22 Nov 2026 16:58:58 +0000 (UTC)
+ by tor.source.kernel.org (Postfix) with ESMTP id 5ACE361120;
+ Sun, 22 Nov 2026 17:00:29 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id BB0C71F000C0;
+ Sun, 22 Nov 2026 17:00:22 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1795366739;
- bh=5KT/akQqJfPobK/Gnh5/Clx5Z1xrij4GwAcSxJvS7Gg=;
- h=Date:From:To:Cc:Subject:References:In-Reply-To;
- b=FXHnsUQz4t7cbWldltOLuYKWx2ib4DEnDlS0X1/37hYfx67vp4xhRzJ4D///TI44H
- IoITN0O0k81L9PzfpD1mHulb/0ZdkWyAHIj0zb/UUSFmwiBvL/K7NZZr1KGk911T4T
- +rcJsMkmweKZULlb4Tpu7u8clHRH1mUk29bZvQkat/3xJ671m6Br76/+Hl4XjugTli
- 4G1tsk3tVoSqtFwN/+5cxVaqf+qhz0ROZ532Rt0jtQSBRUyRxlvTML9rPEOBM+/AjD
- x/hCivPUnUzK6IRZ1CChBXzeUdJojejhtY9W641lkeEMl7fFzA9XrZ7s8GevVL7Hfp
- fK2l+w1y/3QMQ==
-Date: Sun, 22 Nov 2026 17:58:56 +0100
-From: Krzysztof Kozlowski <krzk@kernel.org>
-To: Cunyuan Liu <cunyuan.liu@cixtech.com>
-Cc: boris.brezillon@collabora.com, steven.price@arm.com, 
- liviu.dudau@arm.com, robh@kernel.org, krzk+dt@kernel.org, conor+dt@kernel.org, 
- gary.yang@cixtech.com, fugang.duan@cixtech.com, daniel.almeida@collabora.com, 
- aliceryhl@google.com, p.zabel@pengutronix.de, daniel@fooishbar.org, 
- dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org,
- linux-arm-kernel@lists.infradead.org, 
- linux-kernel@vger.kernel.org, rust-for-linux@vger.kernel.org,
- cix-kernel-upstream@cixtech.com, robin.wang@cixtech.com
-Subject: Re: [PATCH v3 3/7] dt-bindings: gpu: arm,mali-valhall-csf: Add
- system-cache policies
-Message-ID: <20261122-greedy-cuddly-hog-06c4ac@quoll>
-References: <20261119123850.2994625-1-cunyuan.liu@cixtech.com>
- <20261119123850.2994625-4-cunyuan.liu@cixtech.com>
+ s=k20260515; t=1795366829;
+ bh=uEqI+Hp2ezJcINVPIUjY03p8JSLOYnYNaqnNBkjZ3rE=;
+ h=From:To:Cc:In-Reply-To:References:Subject:Date;
+ b=Vmmyrz6uK/hYFVidaN2kK+me23a5dUvyk0Op1qeTqHLVqOB88p979QDWelJLt4iap
+ Q1sC8F5zSKZsnUF8J+6xDtlQUU5jID1AtgIYKPRDH4joDHKoOdZ9Z0UEKeZAtS4hQx
+ yvEnCcbrfkkVFn4UA1Xad0pMG9ZT2em9iF5BDDR36qpKsYiSWqPFlFM2EpWLlPWNni
+ AFqo/CI+7GxHabb1n9Gz8W7wZ8CkJ7YkvELRNntoSdhJ45I8dnGf7IW2mmXqth+sBq
+ QNCUJ+JztoZssg7tPc2aSRqkemJ25EJPdIv0x9dG+NYWgEVGBcV1LmZgxEIEXdKLDK
+ 1svDrLaa66c8A==
+From: David Hildenbrand <david@kernel.org>
+To: Andrew Morton <akpm@linux-foundation.org>, 
+ "David Hildenbrand (Arm)" <david@kernel.org>, Zi Yan <ziy@nvidia.com>, 
+ Baolin Wang <baolin.wang@linux.alibaba.com>, 
+ "Liam R. Howlett" <liam@infradead.org>, Nico Pache <nico.pache@linux.dev>, 
+ Ryan Roberts <ryan.roberts@arm.com>, Dev Jain <dev.jain@arm.com>, 
+ Barry Song <baohua@kernel.org>, Lance Yang <lance.yang@linux.dev>, 
+ Usama Arif <usama.arif@linux.dev>, Kiryl Shutsemau <kas@kernel.org>, 
+ Peter Xu <peterx@redhat.com>, Konstantin Khorenko <khorenko@virtuozzo.com>
+Cc: Alex Williamson <alex@shazbot.org>, kvm@vger.kernel.org, 
+ =?utf-8?q?Lo=C3=AFc_Molinari?= <loic.molinari@collabora.com>, 
+ Lorenzo Stoakes <ljs@kernel.org>, Shuah Khan <shuah@kernel.org>, 
+ linux-kselftest@vger.kernel.org, dri-devel@lists.freedesktop.org, 
+ Madhavan Srinivasan <maddy@linux.ibm.com>, 
+ "Ritesh Harjani (IBM)" <ritesh.list@gmail.com>, 
+ linuxppc-dev@lists.ozlabs.org, linux-mm@kvack.org, 
+ linux-kernel@vger.kernel.org, Jason Gunthorpe <jgg@ziepe.ca>, 
+ stable@vger.kernel.org, "Jose A. Perez de Azpillaga" <azpijr@gmail.com>, 
+ Sashiko <sashiko-bot@kernel.org>
+In-Reply-To: <20261119-b4-prep-vstor-149847-copy_huge_pmd-recheck-special-pmd-v6-0-efa7817a2bb3@virtuozzo.com>
+References: <20261119-b4-prep-vstor-149847-copy_huge_pmd-recheck-special-pmd-v6-0-efa7817a2bb3@virtuozzo.com>
+Subject: Re: (subset) [PATCH v6 0/4] mm/huge_memory: copy PMDs at fork like
+ the PTE path does
+Message-Id: <179536682240.11318.5673184071692513568.b4-ty@b4>
+Date: Sun, 22 Nov 2026 18:00:22 +0100
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-In-Reply-To: <20261119123850.2994625-4-cunyuan.liu@cixtech.com>
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-Mailer: b4 0.16.0
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -59,65 +68,56 @@ List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-15.8 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
+X-Spam-Status: No, score=-13.8 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
 	DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
-	INCLUDES_CR_TRAILER,INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,
-	SPF_PASS autolearn=ham autolearn_force=no version=4.0.1
+	MAILING_LIST_MULTI,MENTIONS_GIT_HOSTING,SPF_HELO_NONE,SPF_PASS,
+	USER_AGENT_GIT autolearn=ham autolearn_force=no version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-On Thu, Nov 19, 2026 at 08:38:46PM +0800, Cunyuan Liu wrote:
-> Describe system-cache allocation policies for Mali GPUs with SYSC_ALLOC
-> registers. The policy depends on how the GPU is integrated with the rest
-> of the system and belongs in DT rather than a platform table in the driver.
-
-Explain why.
-
-
+On Thu, 19 Nov 2026 14:44:01 +0100, Konstantin Khorenko wrote:
+> v6 is rebased onto mm/core for-next, as David asked, and patch 2 was
+> finished on the way: it now checks the page cache refcount limit before
+> it copies a file folio, as copy_present_ptes() and copy_huge_pud() do
+> since the refcount overflow fixes. So patch 2 changed after the
+> Reviewed-by tags it carries.
 > 
-> Use entries containing a source ID and separate read and write policies.
-> When the property is present, omitted sources use L2 allocation. Without
-> the property, the driver leaves the register settings unchanged.
+> copy_huge_pmd() decides what to copy at fork by its own rules, apart
+> from copy_present_ptes(): a lockless check for special PMDs, and a skip
+> of every file THP. Following David's review of v3, this series makes it
+> decide the way the PTE path does, under the page table lock, with
+> vm_normal_page_pmd(). That fixes the two bugs v1-v3 were about. The
+> patches:
 > 
-> Signed-off-by: Cunyuan Liu <cunyuan.liu@cixtech.com>
-> ---
->  .../bindings/gpu/arm,mali-valhall-csf.yaml    | 24 +++++++++++++++++++
->  1 file changed, 24 insertions(+)
-> 
-> diff --git a/Documentation/devicetree/bindings/gpu/arm,mali-valhall-csf.yaml b/Documentation/devicetree/bindings/gpu/arm,mali-valhall-csf.yaml
-> index 8eccd4338a2b..4d50427edd87 100644
-> --- a/Documentation/devicetree/bindings/gpu/arm,mali-valhall-csf.yaml
-> +++ b/Documentation/devicetree/bindings/gpu/arm,mali-valhall-csf.yaml
-> @@ -97,6 +97,30 @@ properties:
->  
->    dma-coherent: true
->  
-> +  arm,sysc-alloc:
-> +    $ref: /schemas/types.yaml#/definitions/uint32-matrix
-> +    minItems: 1
-> +    maxItems: 32
-> +    items:
-> +      items:
-> +        - description: GPU internal source ID
-> +          minimum: 0
-> +          maximum: 31
-> +        - description: Read allocation policy
-> +          enum: [0, 2, 3, 4, 5]
-> +        - description: Write allocation policy
-> +          enum: [0, 2, 3, 4, 5]
-> +    description:
-> +      System-cache allocation policies for GPU architecture 11.0.3 and later.
-> +      Each entry contains a source ID, a read policy and a write policy.
-> +      Source IDs must be unique. Reserved source IDs and access directions
-> +      not supported by the GPU must use zero policies. Policy values are
-> +      0 for L2 allocation, 2 for never allocate, 3 for always allocate,
-> +      4 for partial allocation and 5 for L2 partial allocation. When present,
-> +      all source policies start at zero and the listed entries override them.
-> +      Omitted sources therefore use L2 allocation. If absent, the register
-> +      defaults are preserved.
+> [...]
 
-Looks like integration specific, so implied by the compatible.
+Applied, thanks!
 
-Best regards,
-Krzysztof
+tree: mm/core.git
+branch: thp-7.5.misc
+
+Applied patches will appear soon in mm-next, followed by linux-next.
+
+Please report any outstanding bugs that were missed during review, so we
+can either drop the patch series or decide how to fix it up.
+
+It is encouraged to provide Acked-bys, Reviewed-bys, and Tested-bys even
+though the patches have already been applied. If possible, patch trailers
+will be updated.
+
+Note that commit hashes shown below are subject to change due to rebase,
+trailer updates or similar. Further, this is not a guarantee that the
+patches will go upstream. If in doubt, please check the listed branch.
+
+[1/4] mm/rmap: duplicate a PMD mapping as one in folio_dup_file_rmap_pmd()
+      https://git.kernel.org/mm/core/c/4d47d354
+[2/4] mm/huge_memory: copy file THPs at fork like copy_present_ptes() does
+      https://git.kernel.org/mm/core/c/e21c5cf9
+[3/4] mm/huge_memory: read a special PMD under the lock in copy_huge_pmd()
+      https://git.kernel.org/mm/core/c/39b0669b
+
+-- 
+Cheers,
+
+David
 
