@@ -2,84 +2,88 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C06FC606A32A
-	for <dri-devel@archiver.kernel.org>; Sun, 22 Nov 2026 05:12:46 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DCBD7606A339
+	for <dri-devel@archiver.kernel.org>; Sun, 22 Nov 2026 05:12:59 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=AlsysScl
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ddfi9yX1
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id CF2E810E323;
-	Sun, 22 Nov 2026 05:12:40 +0000 (UTC)
-Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id D2E2410E323
- for <dri-devel@lists.freedesktop.org>; Sun, 22 Nov 2026 05:12:34 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 01F7C10E351;
+	Sun, 22 Nov 2026 05:12:54 +0000 (UTC)
+Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 3DE6810E327;
+ Sun, 22 Nov 2026 05:12:47 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by tor.source.kernel.org (Postfix) with ESMTP id BEA2F60E18;
- Sun, 22 Nov 2026 05:12:33 +0000 (UTC)
+ by sea.source.kernel.org (Postfix) with ESMTP id 9A4404013A;
+ Sun, 22 Nov 2026 05:12:46 +0000 (UTC)
 Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
 ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
- t=1795324353;
- b=yrYSTyw8c5qja5A5KmFiKX3o79WaQ8Q5Yil42BGV9gr4C7MTSK8Y6Az/ZEkyJ9tGrn4r
- EQPlXN1oJ2KXbCzvS3fuCpxZTa5cJb4kic/QMJNfkPjceS4/hgkePu7c5nr4nfhFi/0Ji
- UFUdHz6wislBuI9uoSg0g8jtlFlvkaHWvgxRSfdT50dfqETexU1RjgxSVcVtWNLVH5Grn
- 2p+/vR0pIBhqKBVLF/K/EBWun3dJjsHKt1AVoFTKuhtbc4rHM4GGB0wXZ5uOjl6TlvOKV
- nEsjkJE/cBr5y8rYbJG0acQlYJGQhGe2N2kYCe9pyPv2qgGfL5+7YlqVOyqDf7TQa0A==
+ t=1795324366;
+ b=M4yRKcgK1Rxw0NsGjPCnMpeCM8ivuAv0Ik9Qvh7rNroIxj4FEkmjHKcSybuPNkPa3Jk/
+ 77GNrQvHIIa4zPTQjlvJ35zXx9+kxHOjdKC1wvAxlMZdWw8YLt6hRw1Uu9HdPa38TTY/B
+ IFAwkI0l/dA1O6ZlO3da8lOYkS6U0n8w5OkSjrnwccpkrODJqTxLqBDqSloEmlMtagfu/
+ 8JTKT0qBvG75epSnVLSN/d1PLJ4XT8L6rkNTMldbT/64WeBwaNIFaB4Ros8frnlKDchyP
+ PikJMieoA2Lai/UJz3miJpJ3zfXr3S2F0IVwz5CTol5Q64ixyh74V2mNU1ulEonJlGw==
 ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
- c=relaxed/relaxed; t=1795324353;
+ c=relaxed/relaxed; t=1795324366;
  h=DKIM-Signature:Received:From:Date:Subject:MIME-Version:Content-Type:
  Message-Id:X-B4-Tracking:X-Change-ID:To:Cc:X-Mailer:
  X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
  X-Original-From:Reply-To:Content-Transfer-Encoding;
- bh=BqA76MtHP34dwJ/wyvQ6JwjfXJ/sPAsaOjMCcNPFGOo=;
- b=FhE3Dc0f0eB1GGX36BdbBF1CTzKl50FzC46CK6fHgo+2mDyMBs95I9K6cy+4atI9l9lr
- ErGTrf5iXLCjuzTY3nvw92+EoN0AZzd+vlnO4Gb2zL8aVAL0qeUy8oplTB8wrrDnssLJ4
- yhP9TYPCpz7hQRh9ZxRunzToMsgnU5fQYXgZhtIuUJYNmjIrncw6KR6bMD52nvDN2w/L6
- XrBR7MM9bf91DqgoAfQATcz6uqr6LsEk+AZsKoOcp37mKcMJ2FcrLK/t+8FymAvZpq856
- 3pyA0XQ2xbJCh7Ji/mG0hz5eIX5g9cZBK2WU9FM86B4OjzKn8G02AjpRzyzpqF6reHw==
+ bh=dv2pTH9QBO+8U81BAE+yrCyKWYsV7NNXzqFMfxnEC+c=;
+ b=fkPfIgy92pnxKeF0IobSMgfKxNinj6e7axS0rA5k+gSxEAX8A1KmeUlNEnCvU8ddwOM8
+ ObA2Eq6j4qTj8UJkDHENR9p/rawCbXElppgjQlztmeH6bNabxjFvJ1sD6KSC289Dg8SNR
+ 1V47mqtrjU9y1YEDfXpjafLuI3T0Sp6gA7iNBUdoVTME+NNvEi3b6YGLB7GawhjdKqI4+
+ CQ3kwbu4ChRz6ukIlg5+b6u1fwMLQfgJ5uQfgh9S+f3kuNltrSM65xsGNsEsDgeB3Lml6
+ Y2AvxujMrQFy4Ptgs+TQWjNLf1aJH7vM2rJW0am5jhWpx1X/Y8lnJJzUaTltPXHGtww==
 ARC-Authentication-Results: i=1; smtp.kernel.org; 
  arc=none smtp.remote-ip=100.80.115.77
 Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
  (No client certificate requested)
- by smtp.kernel.org (Postfix) with ESMTPS id CEC741F000C4;
- Sun, 22 Nov 2026 05:12:32 +0000 (UTC)
+ by smtp.kernel.org (Postfix) with ESMTPS id 0D5FD1F000C0;
+ Sun, 22 Nov 2026 05:12:46 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1795324353;
- bh=BqA76MtHP34dwJ/wyvQ6JwjfXJ/sPAsaOjMCcNPFGOo=;
+ s=k20260515; t=1795324366;
+ bh=dv2pTH9QBO+8U81BAE+yrCyKWYsV7NNXzqFMfxnEC+c=;
  h=From:Date:Subject:To:Cc:Reply-To;
- b=AlsysSclytREnuGuagVwrbwtIRSszCb1g4mrgHXhOTIgUVSsw/HGqnj5Y6/kSl3mU
- mmBekc1pcC9rldA6b/tbBd5047ljMY4vzSfzimp56F8g1VsQBuHpMyFmMQ9QxJ1Add
- vMakFUAw2gUQNtm2F/ehPEFpYhg0rEO0WJun7R/riwMGCmtSxFzr/fIWvlynAes5l8
- bgH3e0CaIGdjn8LsuTwTBSRV0Pm4UYrrUCcwKCuEbbkB506bfQFh4cGEK1nBabYHFv
- FCnvyvpBLzaFK8QjUHue7QIcpVhBAmSbW+OrEwv1iHmisXgiQkB4cvC380ieOXQKuP
- ZxlZAgC78P8zw==
+ b=ddfi9yX1t/y8pkikSUPEJpMrjL/VRWuh1jgAbRUOrTgGnfMR34w/XKKr/7M+D5YSa
+ NPgBVGdETY6Fun17WTTD0/PDLmGKD9iwke/mTr6uAgi6Kd6imjp/EUPU3gRtasC9xD
+ vubcYXL3EQEkEfPxjNRgr21HjKat4nIo/4xIOY0NDbLbVZ0EkJGV76ZChsPPqaWdei
+ MrxobCAndCOfvw3KnDJeDR0qF4oYSQ/Di4edtwFXM794moAanNqxe/O5ok+lt6Dsqy
+ iM+VLdVcbItC0xJw3M8wvzk9q6zSHvdX/XoWBZs4PbkuORWkfzfgX9lk52l3dPEyvG
+ is0gaFUNXZa1A==
 Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
- by lkml.kernel.org (Postfix) with ESMTP id 5F7D34BEEE;
- Sun, 22 Nov 2026 05:12:32 +0000 (UTC)
+ by lkml.kernel.org (Postfix) with ESMTP id 917A94BF13;
+ Sun, 22 Nov 2026 05:12:45 +0000 (UTC)
 From: EMCP333 via B4 Relay <devnull+emcp.enser.io@kernel.org>
-Date: Sun, 22 Nov 2026 05:12:29 +0000
-Subject: [PATCH] drm/tegra: dc: Drop the bandwidth of planes detached along
- with the CRTC
+Date: Sun, 22 Nov 2026 05:12:43 +0000
+Subject: [PATCH] drm/msm: Use div64_u64() for the retired-submit GPU clock
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
-Message-Id: <20261122-b4-tegra-dc-bw-detached-planes-v1-1-e81ecc31c031@enser.io>
-X-B4-Tracking: v=1; b=H4sIALx5AmsC/yXNwQ7CIBAE0F9p9uxqoWhNf8V4WJa1xRhsAKtJ0
- 38X9Pgmk5kVkkQvCYZmhSiLT/4ZCtSuAZ4ojILeFYNu9UkprdEazDJGQsdo3+gkE0/icH5QkIT
- HvqMzdca1mqGMzFFu/vM7uFz/Ti97F851tTYsJUEbKfBUo8rD0u8NRtawbV+EJH4+ogAAAA==
-X-Change-ID: 20261122-b4-tegra-dc-bw-detached-planes-573a8a34d02c
-To: Thierry Reding <thierry.reding@kernel.org>, 
- Mikko Perttunen <mperttunen@nvidia.com>
-Cc: David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
- Jonathan Hunter <jonathanh@nvidia.com>, Dmitry Osipenko <digetx@gmail.com>, 
- dri-devel@lists.freedesktop.org, linux-tegra@vger.kernel.org, 
+Message-Id: <20261122-b4-drm-msm-retire-div64-v1-1-94d6981799d0@enser.io>
+X-B4-Tracking: v=1; b=H4sIAMp5AmsC/yXMwQ7CIBAE0F9p9uxqoUjVXzEeCqx2TUrNUolJ0
+ 38X9PgmM7NCImFKcGlWEMqceI4FateAH4f4IORQDLrVVimt0RkMMuGUJhRaWAgDZ2tQqePp3Pa
+ d6qyHsn4J3fnze77e/k5v9yS/1LvacEMidDJEP9ao8pD7vUHxGrbtC28RdYObAAAA
+X-Change-ID: 20261122-b4-drm-msm-retire-div64-11589073136c
+To: Rob Clark <robin.clark@oss.qualcomm.com>, 
+ Dmitry Baryshkov <lumag@kernel.org>
+Cc: Sean Paul <sean@poorly.run>, Konrad Dybcio <konradybcio@kernel.org>, 
+ Akhil P Oommen <akhilpo@oss.qualcomm.com>, 
+ Abhinav Kumar <abhinav.kumar@linux.dev>, 
+ Jessica Zhang <jesszhan0024@gmail.com>, 
+ Marijn Suijten <marijn.suijten@somainline.org>, 
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
+ Jordan Crouse <jordan@cosmicpenguin.net>, linux-arm-msm@vger.kernel.org, 
+ dri-devel@lists.freedesktop.org, freedreno@lists.freedesktop.org, 
  linux-kernel@vger.kernel.org, EMCP333 <emcp@enser.io>
 X-Mailer: b4 0.16.0
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1795324350; l=2558;
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1795324363; l=2454;
  i=emcp@enser.io; s=ultron; h=from:subject:message-id;
- bh=tnytgEmbcAbEg+Rxnj8ubadIh+RmzXaDqjz9Brhzka0=;
- b=/UeI9zggcODVbkY6Vw7Azm48TE1Cc4+VDfGlkuVPX7wOhPx4Z1hZJ1xjYzeGkOo96s5VDdXBc
- dbkbEXvAKRdD2btXiK55aFoXVgQ+AYA8WWcMzilaByCSGqEkloxywzn
+ bh=Mv5vF8Oc99FZKnLAmD9sYhN9n2NgdGEHtxT8xvPHv9k=;
+ b=8RCUs9bzCxX/GEB0D3HUaQ+guM16RHO+kqTUQCCGyfxj59dfKUi6VE0gUKqIhQsdbY1hCvUlo
+ B7cYzZs8VnlADWgwc/F13bjCDvVt6sX5AdYfg0AW4KcfNteRjdqqTYU
 X-Developer-Key: i=emcp@enser.io; a=ed25519;
  pk=5sG48Lul+Vn7OzXu3VZrCWk5uvEFPYMXYnAV0TZR/tY=
 X-Endpoint-Received: by B4 Relay for emcp@enser.io/ultron with auth_id=1598
@@ -106,62 +110,66 @@ X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 
 From: EMCP333 <emcp@enser.io>
 
-tegra_crtc_update_memory_bandwidth() removes a CRTC's display bandwidth
-from the interconnect when the CRTC goes inactive, but only for the
-planes in the new state's plane_mask. That covers the kernel's own DPMS,
-which keeps the planes attached. A compositor may instead deactivate the
-CRTC and detach its planes in the same commit, as wlroots does when it
-powers an output off. The new mask is then empty, the loop zeroes
-nothing, and the early return skips the per-plane update that would
-have.
+retire_submit() derives the GPU clock from the CP cycle and always-on
+counter deltas:
 
-Seen on a Tegra Note 7 (Tegra114) under sway with the output powered
-off: the atomic state shows crtc-0 active=0 and plane_mask=0, yet dc0
-still requests 245760 kB/s average and 274708 kB/s peak from the memory
-controller. That request alone holds the EMC at 204 MHz while nothing is
-scanned out.
+	if (elapsed) {
+		clock = cycles * 1000;
+		do_div(clock, elapsed);
+	}
 
-Walk the planes that were attached before the commit instead. For the
-kernel's DPMS the old mask equals the new one, so nothing changes there.
+elapsed is a u64, but do_div() takes a 32-bit divisor, so it is silently
+truncated. The guard tests all 64 bits while the division uses only the
+low 32, so any elapsed value that is a non-zero multiple of 2^32 divides
+by zero, and any value of 2^32 ns or more gives a wrong clock. On 32-bit
+ARM the division by zero lands in __do_div64 and prints "Division by zero
+in kernel" with a backtrace on every such retire.
 
-Tested on that board under sway: with the output powered off, dc0's
-request drops to 0/0, and powering it back on restores 245760/274708,
-over three cycles.
+Observed on an Adreno 330 (MSM8974, LG Nexus 5) running a downstream
+6.16 kernel: the backtrace repeated every 0.3-0.9 s from the first GPU
+submit, 232 times in 34 minutes. The faulting return address,
+retire_submits+0x3dc, is the instruction after the only
+non-constant-divisor __do_div64 call in the function. Why elapsed has
+zero low 32 bits so often on this GPU was not investigated.
+
+Use div64_u64(), which takes a 64-bit divisor.
+
+Tested on the downstream postmarketOS 6.16.12 msm8974 kernel on a Nexus
+5: no "Division by zero" over an 1850 s soak with about 30 minutes of
+GPU load (before: 232 in 34 minutes). On this tree it is build-tested
+only.
 
 The code and this changelog were prepared with the help of an AI coding
 assistant. The submitter has reviewed both and takes responsibility for
 them.
 
-Fixes: 04d5d5df9df7 ("drm/tegra: dc: Support memory bandwidth management")
+Fixes: 4241db42e474 ("drm/msm/gpu: Add trace events for tracking GPU submissions")
 Signed-off-by: EMCP333 <emcp@enser.io>
 ---
- drivers/gpu/drm/tegra/dc.c | 8 ++++++--
- 1 file changed, 6 insertions(+), 2 deletions(-)
+ drivers/gpu/drm/msm/msm_gpu.c | 6 ++----
+ 1 file changed, 2 insertions(+), 4 deletions(-)
 
-diff --git a/drivers/gpu/drm/tegra/dc.c b/drivers/gpu/drm/tegra/dc.c
-index c9df14544c..5a52535192 100644
---- a/drivers/gpu/drm/tegra/dc.c
-+++ b/drivers/gpu/drm/tegra/dc.c
-@@ -2127,9 +2127,13 @@ tegra_crtc_update_memory_bandwidth(struct drm_crtc *crtc,
- 		/*
- 		 * When CRTC is disabled on DPMS, the state of attached planes
- 		 * is kept unchanged. Hence we need to enforce removal of the
--		 * bandwidths from the ICC paths.
-+		 * bandwidths from the ICC paths. A compositor may also detach
-+		 * the planes in the same commit (wlroots does), and then they
-+		 * are gone from the new state's plane_mask, so walk the planes
-+		 * that were attached before it.
- 		 */
--		drm_atomic_crtc_for_each_plane(plane, crtc) {
-+		drm_for_each_plane_mask(plane, crtc->dev,
-+					old_crtc_state->plane_mask) {
- 			tegra = to_tegra_plane(plane);
+diff --git a/drivers/gpu/drm/msm/msm_gpu.c b/drivers/gpu/drm/msm/msm_gpu.c
+index 8319119041..8b99998e19 100644
+--- a/drivers/gpu/drm/msm/msm_gpu.c
++++ b/drivers/gpu/drm/msm/msm_gpu.c
+@@ -705,10 +705,8 @@ static void retire_submit(struct msm_gpu *gpu, struct msm_ringbuffer *ring,
+ 	cycles = stats->cpcycles_end - stats->cpcycles_start;
  
- 			icc_set_bw(tegra->icc_mem, 0, 0);
+ 	/* Calculate the clock frequency from the number of CP cycles */
+-	if (elapsed) {
+-		clock = cycles * 1000;
+-		do_div(clock, elapsed);
+-	}
++	if (elapsed)
++		clock = div64_u64(cycles * 1000, elapsed);
+ 
+ 	submit->queue->ctx->elapsed_ns += elapsed;
+ 	submit->queue->ctx->cycles     += cycles;
 
 ---
 base-commit: 7475ea8b58616b33c04afb976cf0fbaad9dd63fb
-change-id: 20261122-b4-tegra-dc-bw-detached-planes-573a8a34d02c
+change-id: 20261122-b4-drm-msm-retire-div64-11589073136c
 
 Best regards,
 --  
