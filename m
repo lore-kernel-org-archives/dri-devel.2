@@ -2,63 +2,63 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C5D51606A33B
-	for <dri-devel@archiver.kernel.org>; Sun, 22 Nov 2026 08:19:17 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 73462606A32A
+	for <dri-devel@archiver.kernel.org>; Sun, 22 Nov 2026 08:19:38 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=LOIAvVtE
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=bFxcZb6w
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 1D34410E4AD;
-	Sun, 22 Nov 2026 08:19:09 +0000 (UTC)
-Received: from mail-ed1-f51.google.com (mail-ed1-f51.google.com
- [209.85.208.51])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 0D78610E480
- for <dri-devel@lists.freedesktop.org>; Sun, 22 Nov 2026 08:18:55 +0000 (UTC)
-Received: by mail-ed1-f51.google.com with SMTP id
- 4fb4d7f45d1cf-6b88bc47e23so2744831a12.2
- for <dri-devel@lists.freedesktop.org>; Sun, 22 Nov 2026 00:18:54 -0800 (PST)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 80BBE10E460;
+	Sun, 22 Nov 2026 08:19:32 +0000 (UTC)
+Received: from mail-ed1-f43.google.com (mail-ed1-f43.google.com
+ [209.85.208.43])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 7E9B510E4B0
+ for <dri-devel@lists.freedesktop.org>; Sun, 22 Nov 2026 08:19:15 +0000 (UTC)
+Received: by mail-ed1-f43.google.com with SMTP id
+ 4fb4d7f45d1cf-6ba12b00c76so2306945a12.0
+ for <dri-devel@lists.freedesktop.org>; Sun, 22 Nov 2026 00:19:15 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20260707; t=1795335533; x=1795940333; darn=lists.freedesktop.org;
+ d=gmail.com; s=20260707; t=1795335554; x=1795940354; darn=lists.freedesktop.org;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:from:to:cc:subject:date
  :message-id:reply-to:content-type;
- bh=AHE53nOdyArdfub2fhYvMnd7jTxi+4oRR0nTE2xoxZQ=;
- b=LOIAvVtEEP95UBJk+YnA/65CLNCE9jyofNzec/F6Kq7TatIKX+o9JVSjIZkm9zPG+E
- Cy3VizO8H8BYOTX71S9OdEoAGMmSWOPJ9bYxcag/t4t4PSNz013GXafPZPapcUm1X/qs
- eleHGFKLlm35tnKYN1hAWRL2pr3QSk72uYypvvcPBcmdAFV/p6N0ouI0kqmZnh+EaL5g
- ghijjBnpTxxlUKA3m6sdWvExrkNruaqRVXgNYdORiNmPg1ziLkpVgQ10YwiRua9vGqa0
- o2Hvjy9ihz1L7/HgnGnUFVVKxj2L7k4QZCrdnnU+xyYGEwHzxlDjk55tEF/eC3CrNsei
- vUUQ==
+ bh=1z7RmYK1NjDMEO9+xJDI+w73bgLEkLKZ4jmIOyAvUDw=;
+ b=bFxcZb6wNcPn/ovVYBAEai5A/06o8brVeKWrZBK0NuDdDp10WVd8xTUskkW9x3yWsn
+ A5QFtQI692NuULaNRfbDvgHvN2xujGNGHbKBNLJbmpEGfhAfI+J53X3Sl7Bc9FX1CbfA
+ EbQfivLn9o3HdXmWNpTMxxrGJVh3CENS99ko/1IU3nNLFlWE28ddpPY2STh8IRDWXl6q
+ Fv9m4D8v8OgLsza9U23rW4r2U0cbMjvl4IywIZIjxrUKl6klrJpzR3Lzeyn/OiTsdZuL
+ K+03HgnvJwAU2W4nRASZZHylXwpx4wP/uXyPPldna21a3cUIbzSDV7tcR2c9h+jTOQ3W
+ AH5w==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20260707; t=1795335533; x=1795940333;
+ d=1e100.net; s=20260707; t=1795335554; x=1795940354;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
  :to:cc:subject:date:message-id:reply-to:content-type;
- bh=AHE53nOdyArdfub2fhYvMnd7jTxi+4oRR0nTE2xoxZQ=;
- b=oSbeSjkCMQ+CsQqd4VnzMKhHNPtKxraJngbb2dhsCNr1mLpFtyLDFnVdBtABY3inQ+
- HkdYQ4e4pTtWj4LiTsZ7xjlyFMs9pFemF5A8lk98dGOzNGZx3uaqurW/W4Xt04kWjYm4
- diGFcoUwdHZTAe1Nr7nKfqcs+jhKmFTBPgPYjvEHwqI/C0GY9v99SP9zEfiBbPOFiKsw
- DOQVFHfQjSj7tYKN9kiXiJOaU5MCnqZd2ui8QoRBPUDReiz21HXJmHs6vksDTav7tvip
- yghxU9fHOaZkrhodxbLP4PXAIdZtdnVKSMKk7dmokPJZX8ezZ/Usbd55W2aVt73VleBL
- v7EQ==
-X-Gm-Message-State: APuU4Z8uiACpe6nd+AuwMm3uYlJ85TDrRSzHiuz4/pDjxZLv3jsKvg5f
- pm4ijEljTvmcenYCWe2WP4E6NSaiUX9URC2KzMwikp97mRFXXh+1cciG
-X-Gm-Gg: AZFdTZdmpHzS0EgKpFzw94D8EOe65cM/kpV1uytl8C4lz0RWon/wjoHQgeY+r10KGzU
- CgplgZMKiVLM8wqvb2Szi/3O0DfvHvcM3O+3wjHK5X0CerILhZPBFjPbM4s5MlrXhLVi2MTuy2e
- ULCWrqK0SSVO8+bIWKDyXY//ha6/cgCQZS8p72Lndd06IZfabmx6tQ6pCTCa1h0bAFyvD+PcMpT
- 4+DWSR53apTbIsVeco50SvorWPJ6UoYHV2Ya3Tvlr9O4GU+ik7PxYobR/ajftyvmCfVtzb/cl9d
- 4o10KFArOUlZ/iHj7PNXDhs+//Gft3RYcn4EJScvSRZU2orCGuNXjT4xDTWMTNOLr2WLvkd/DoW
- QbgvZKUbpqqTJ6l4+gYdF9dXLPztqj965qSsMsfz+2KheK70qRWsVycgV4tTGBE/YL9F4K8+oEy
- LmENy9ygA6aIEOWt+9wAF4PJ0L0WwcVp0RfG4YVa7pq3wjkorQi8LTd3BPBJT2Vw0WxD17cG1gX
- tPVehn3YZcv/584FV7CPe2t3HUvIz+ZH/Wsdt2JJbsUTwYE4zRlReVyUs4UpGdAyOiJQa4IyEtH
- W1TspueWsfzRzKAFDV5xRMidfFTaMXHj4e+8u9wtcIjiZXis3KArsVjw5j5Fa911Hir4AKPYvTg
- addqnp2Qe7A==
-X-Received: by 2002:a05:6402:13d6:b0:6ba:a614:2fa9 with SMTP id
- 4fb4d7f45d1cf-6baa6145b92mr373973a12.24.1795335533285; 
- Sun, 22 Nov 2026 00:18:53 -0800 (PST)
+ bh=1z7RmYK1NjDMEO9+xJDI+w73bgLEkLKZ4jmIOyAvUDw=;
+ b=VpM5RyyUnoDuz+lMw+KyqbBaPY7usnhr5O8vr+J6lP9LN0LotVe6nUV+pWtmWt3NiH
+ 0TOg8vQFWqZvBMIbnf4y+FQkAfzZ87tgoR2M+WUN3JDrKDywsTMAuGLkOcgXWraLaqhB
+ /S69kQKOif4f8NGror4BI9dH52FnC8OecOIZ5Eq2tnd1yWtCBcy79ILDd//85erWa3ki
+ uqLwtndS2WEz6ASvH5A7fqWEFdny3mGl9hIvLUmdD5jf57KV85QsiIEKoWFrMIO59zKI
+ ICp+v8v1NrcTKpAtic7X3pALAncMbldRS7baEM9VYa73Wb3wm7EZk04eGZ6/FWQL46XO
+ IvbQ==
+X-Gm-Message-State: APuU4Z9CIZE4/DKv53Sep5s4TvSU2w51KhQzEyeceXE3go2MvLAmSi9H
+ Swop4dAUbYz+9vvksornuq/XQzlPHQs7cqg0Q+YmIeKcdITp7V3oelRF
+X-Gm-Gg: AZFdTZeH25B6JvqeubGJdFlQHdqhvclvhciDD/m3nemdVn1Cz+1JydXB0oi+cUDpFqB
+ w5Vw3drjpn7lD4c4KfRkF+wmz5Ama/n8z8u/FAQZ5FDnOFlegdn2xGqArHENwqdQHB71l6NjRbH
+ 7mTBpeRdpiLTLcCQ2Zvg+EpEZd10ES4RNhP/qfVmpSbwofGcSVx40pNeobPk8ArHuxgoRMkv1tQ
+ Ul/B7MwTLIJJ9h7JTFrql4zqGJupr38YSNvky9FW8sdNAsYyREy2Nt/mmWcW6GrNKYQOpl+BhlL
+ tW4FLqMMcmp4E1ldhULk4fnroIXFU5B8cluk1VmQ2XeupAHSIds0tQaizaIQxGxHqBP/2URIIX9
+ bxfdzn2EK5IdGOiWPST8bmy0+aQ0Zi3rCwskrRKYFS5pZ+Z0li35xR9Ctu1o+8mcaa4UlZsoAKR
+ ljnVD1HrBSkGQM5afQJSnRcHjxKFLQ5Jetsw3KmmXGZVr/KnIWgQIqgAuBNhErkSnZ32opmxr5u
+ WbP4bJ+5sy3GkD+oGN23eMFFJ1qEBJMm5/D9+Nc6kZ3HdDRhgsnb+1ulJjK8m/zX/5I/twNyK+7
+ VsN4PhSQYfnhVpvdBbjJheXPYFcsD15GH0PiuT2a4TRasFNWR9PFayuKn2kFJx+kEcYVl8Y4sjG
+ aDSMjd7ey2Nw=
+X-Received: by 2002:a05:6402:13cb:b0:6ba:4bf3:4a2 with SMTP id
+ 4fb4d7f45d1cf-6ba4bf305c0mr4401281a12.17.1795335553806; 
+ Sun, 22 Nov 2026 00:19:13 -0800 (PST)
 Received: from xeon ([188.163.112.62]) by smtp.gmail.com with ESMTPSA id
- 4fb4d7f45d1cf-6ba370e8ad0sm3617167a12.18.2026.11.22.00.18.49
+ 4fb4d7f45d1cf-6ba370e8ad0sm3617167a12.18.2026.11.22.00.19.10
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Sun, 22 Nov 2026 00:18:51 -0800 (PST)
+ Sun, 22 Nov 2026 00:19:12 -0800 (PST)
 From: Svyatoslav Ryhel <clamor95@gmail.com>
 To: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
  Maxime Ripard <mripard@kernel.org>,
@@ -74,10 +74,10 @@ To: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
  Svyatoslav Ryhel <clamor95@gmail.com>
 Cc: dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org,
  linux-tegra@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: [PATCH v8 05/12] drm/panel: panel-lg-lh400wv3: Convert to
- mipi_dbi_write_seq_multi()
-Date: Sun, 22 Nov 2026 10:18:13 +0200
-Message-ID: <20261122081820.53199-6-clamor95@gmail.com>
+Subject: [PATCH v8 11/12] dt-bindings: display: tegra: Document 8-bit CPU
+ parallel interface
+Date: Sun, 22 Nov 2026 10:18:19 +0200
+Message-ID: <20261122081820.53199-12-clamor95@gmail.com>
 X-Mailer: git-send-email 2.53.0
 In-Reply-To: <20261122081820.53199-1-clamor95@gmail.com>
 References: <20261122081820.53199-1-clamor95@gmail.com>
@@ -103,136 +103,164 @@ X-Spam-Status: No, score=-15.8 required=3.0 tests=BAYES_00,DKIM_SIGNED,
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-Switch from the internal panel command-sending macro to a generic one to
-improve code reuse.
+Document 8-bit CPU parallel MIPI DBI Type B interface provided by
+Tegra20/30 SoCs display controller.
 
+Reviewed-by: Rob Herring (Arm) <robh@kernel.org>
 Signed-off-by: Svyatoslav Ryhel <clamor95@gmail.com>
 ---
- drivers/gpu/drm/panel/panel-lg-lh400wv3.c | 91 ++++++++++-------------
- 1 file changed, 40 insertions(+), 51 deletions(-)
+ .../display/tegra/nvidia,tegra20-dbi.yaml     | 108 ++++++++++++++++++
+ .../display/tegra/nvidia,tegra20-dc.yaml      |  15 +++
+ 2 files changed, 123 insertions(+)
+ create mode 100644 Documentation/devicetree/bindings/display/tegra/nvidia,tegra20-dbi.yaml
 
-diff --git a/drivers/gpu/drm/panel/panel-lg-lh400wv3.c b/drivers/gpu/drm/panel/panel-lg-lh400wv3.c
-index 63efeb434be13..02150330f1735 100644
---- a/drivers/gpu/drm/panel/panel-lg-lh400wv3.c
-+++ b/drivers/gpu/drm/panel/panel-lg-lh400wv3.c
-@@ -37,19 +37,6 @@ static inline struct lg_lh400wv3 *to_lg_lh400wv3(struct drm_panel *panel)
- 	return container_of(panel, struct lg_lh400wv3, panel);
- }
- 
--#define panel_dbi_command(priv, cmd, seq...) \
--({ \
--	const u8 d[] = { seq }; \
--	struct drm_panel *panel = &(priv)->panel; \
--	struct mipi_dbi_device *dbidev = (priv)->dbidev; \
--	struct device *dev = panel->dev; \
--	int ret; \
--	ret = mipi_dbi_command_stackbuf((dbidev)->dbi, cmd, d, ARRAY_SIZE(d)); \
--	if (ret) \
--		dev_err_ratelimited(dev, "error %d when sending command %#02x\n", ret, cmd); \
--	ret; \
--})
--
- static int lg_lh400wv3_prepare(struct drm_panel *panel)
- {
- 	struct lg_lh400wv3 *priv = to_lg_lh400wv3(panel);
-@@ -76,57 +63,59 @@ static int lg_lh400wv3_prepare(struct drm_panel *panel)
- static int lg_lh400wv3_enable(struct drm_panel *panel)
- {
- 	struct lg_lh400wv3 *priv = to_lg_lh400wv3(panel);
--
--	panel_dbi_command(priv, MIPI_DCS_EXIT_INVERT_MODE);
--	panel_dbi_command(priv, MIPI_DCS_SET_TEAR_ON);
--
--	panel_dbi_command(priv, MIPI_DCS_SET_PIXEL_FORMAT, MIPI_DCS_PIXEL_FMT_24BIT |
--			  MIPI_DCS_PIXEL_FMT_24BIT << 4);
--
--	panel_dbi_command(priv, 0xb2, 0x00, 0xc8);
--	panel_dbi_command(priv, 0xb3, 0x00);
--	panel_dbi_command(priv, 0xb4, 0x04);
--	panel_dbi_command(priv, 0xb5, 0x42, 0x10, 0x10, 0x00, 0x20);
--	panel_dbi_command(priv, 0xb6, 0x0b, 0x0f, 0x3c, 0x13, 0x13, 0xe8);
--	panel_dbi_command(priv, 0xb7, 0x4c, 0x06, 0x0c, 0x00, 0x00);
--
--	panel_dbi_command(priv, 0xc0, 0x01, 0x11);
--	panel_dbi_command(priv, 0xc3, 0x07, 0x03, 0x04, 0x04, 0x04);
--	panel_dbi_command(priv, 0xc4, 0x12, 0x24, 0x18, 0x18, 0x02, 0x49);
--	panel_dbi_command(priv, 0xc5, 0x65);
--	panel_dbi_command(priv, 0xc6, 0x41, 0x63);
--
--	panel_dbi_command(priv, 0xd0, 0x00, 0x46, 0x74, 0x32, 0x1d, 0x03, 0x51, 0x15, 0x04);
--	panel_dbi_command(priv, 0xd1, 0x00, 0x46, 0x74, 0x32, 0x1d, 0x03, 0x51, 0x15, 0x04);
--	panel_dbi_command(priv, 0xd2, 0x00, 0x46, 0x74, 0x32, 0x1f, 0x03, 0x51, 0x15, 0x04);
--	panel_dbi_command(priv, 0xd3, 0x00, 0x46, 0x74, 0x32, 0x1f, 0x03, 0x51, 0x15, 0x04);
--	panel_dbi_command(priv, 0xd4, 0x01, 0x46, 0x74, 0x25, 0x00, 0x03, 0x51, 0x15, 0x04);
--	panel_dbi_command(priv, 0xd5, 0x01, 0x46, 0x74, 0x25, 0x00, 0x03, 0x51, 0x15, 0x04);
--
--	panel_dbi_command(priv, MIPI_DCS_SET_COLUMN_ADDRESS, 0x00, 0x00, 0x01, 0xdf);
--	panel_dbi_command(priv, MIPI_DCS_SET_PAGE_ADDRESS, 0x00, 0x00, 0x03, 0x1f);
--
--	panel_dbi_command(priv, MIPI_DCS_EXIT_SLEEP_MODE);
-+	struct mipi_dbi_multi_context ctx = { .dbidev = priv->dbidev };
+diff --git a/Documentation/devicetree/bindings/display/tegra/nvidia,tegra20-dbi.yaml b/Documentation/devicetree/bindings/display/tegra/nvidia,tegra20-dbi.yaml
+new file mode 100644
+index 0000000000000..6a34202f80765
+--- /dev/null
++++ b/Documentation/devicetree/bindings/display/tegra/nvidia,tegra20-dbi.yaml
+@@ -0,0 +1,108 @@
++# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
++%YAML 1.2
++---
++$id: http://devicetree.org/schemas/display/tegra/nvidia,tegra20-dbi.yaml#
++$schema: http://devicetree.org/meta-schemas/core.yaml#
 +
-+	mipi_dbi_write_seq_multi(&ctx, MIPI_DCS_EXIT_INVERT_MODE);
-+	mipi_dbi_write_seq_multi(&ctx, MIPI_DCS_SET_TEAR_ON);
++title: Nvidia Tegra Display Controller based MIPI DBI Type B interface
 +
-+	mipi_dbi_write_seq_multi(&ctx, MIPI_DCS_SET_PIXEL_FORMAT, MIPI_DCS_PIXEL_FMT_24BIT |
-+				 MIPI_DCS_PIXEL_FMT_24BIT << 4);
++maintainers:
++  - Svyatoslav Ryhel <clamor95@gmail.com>
 +
-+	mipi_dbi_write_seq_multi(&ctx, 0xb2, 0x00, 0xc8);
-+	mipi_dbi_write_seq_multi(&ctx, 0xb3, 0x00);
-+	mipi_dbi_write_seq_multi(&ctx, 0xb4, 0x04);
-+	mipi_dbi_write_seq_multi(&ctx, 0xb5, 0x42, 0x10, 0x10, 0x00, 0x20);
-+	mipi_dbi_write_seq_multi(&ctx, 0xb6, 0x0b, 0x0f, 0x3c, 0x13, 0x13, 0xe8);
-+	mipi_dbi_write_seq_multi(&ctx, 0xb7, 0x4c, 0x06, 0x0c, 0x00, 0x00);
++description: The display controller in Tegra20/30 SoCs features an
++  8-bit SPI interface that closely resembles the MIPI DBI Type B
++  protocol and is referred to as '8-bit CPU'. Each display controller
++  provides two such interfaces, which can be used to send MIPI DCS
++  commands to initialize and control the panel while image data is
++  transmitted via 16/18/24-line RGB.
 +
-+	mipi_dbi_write_seq_multi(&ctx, 0xc0, 0x01, 0x11);
-+	mipi_dbi_write_seq_multi(&ctx, 0xc3, 0x07, 0x03, 0x04, 0x04, 0x04);
-+	mipi_dbi_write_seq_multi(&ctx, 0xc4, 0x12, 0x24, 0x18, 0x18, 0x02, 0x49);
-+	mipi_dbi_write_seq_multi(&ctx, 0xc5, 0x65);
-+	mipi_dbi_write_seq_multi(&ctx, 0xc6, 0x41, 0x63);
++properties:
++  nvidia,interface:
++    $ref: /schemas/types.yaml#/definitions/uint32
++    description:
++      Number of DBI interface used, 0 - primary, 1 - secondary. If
++      property is not set, primary will be used.
++    enum: [ 0, 1 ]
 +
-+	mipi_dbi_write_seq_multi(&ctx, 0xd0, 0x00, 0x46, 0x74, 0x32, 0x1d, 0x03, 0x51, 0x15, 0x04);
-+	mipi_dbi_write_seq_multi(&ctx, 0xd1, 0x00, 0x46, 0x74, 0x32, 0x1d, 0x03, 0x51, 0x15, 0x04);
-+	mipi_dbi_write_seq_multi(&ctx, 0xd2, 0x00, 0x46, 0x74, 0x32, 0x1f, 0x03, 0x51, 0x15, 0x04);
-+	mipi_dbi_write_seq_multi(&ctx, 0xd3, 0x00, 0x46, 0x74, 0x32, 0x1f, 0x03, 0x51, 0x15, 0x04);
-+	mipi_dbi_write_seq_multi(&ctx, 0xd4, 0x01, 0x46, 0x74, 0x25, 0x00, 0x03, 0x51, 0x15, 0x04);
-+	mipi_dbi_write_seq_multi(&ctx, 0xd5, 0x01, 0x46, 0x74, 0x25, 0x00, 0x03, 0x51, 0x15, 0x04);
++  panel:
++    type: object
++    description: Node of supported panel driven by the bridge.
 +
-+	mipi_dbi_write_seq_multi(&ctx, MIPI_DCS_SET_COLUMN_ADDRESS, 0x00, 0x00, 0x01, 0xdf);
-+	mipi_dbi_write_seq_multi(&ctx, MIPI_DCS_SET_PAGE_ADDRESS, 0x00, 0x00, 0x03, 0x1f);
++  ports:
++    $ref: /schemas/graph.yaml#/properties/ports
 +
-+	mipi_dbi_write_seq_multi(&ctx, MIPI_DCS_EXIT_SLEEP_MODE);
- 	msleep(120);
++    properties:
++      port@0:
++        $ref: /schemas/graph.yaml#/$defs/port-base
++        unevaluatedProperties: false
++        description: Video port for RGB input.
++
++        properties:
++          endpoint:
++            $ref: /schemas/graph.yaml#/$defs/endpoint-base
++            unevaluatedProperties: false
++
++            properties:
++              bus-width:
++                enum: [ 16, 18, 24 ]
++
++      port@1:
++        $ref: /schemas/graph.yaml#/properties/port
++        description: Video port for DBI output (panel or connector).
++
++    required:
++      - port@0
++      - port@1
++
++required:
++  - panel
++  - ports
++
++unevaluatedProperties: false
++
++examples:
++  - |
++    #include <dt-bindings/gpio/gpio.h>
++
++    dbi {
++        nvidia,interface = <0>;
++
++        panel {
++            compatible = "hit,tx10d07vm0baa";
++
++            reset-gpios = <&gpio 175 GPIO_ACTIVE_LOW>;
++
++            avci-supply = <&vcc_2v8_lcd>;
++            iovcc-supply = <&iovcc_1v8_lcd>;
++
++            backlight = <&backlight>;
++
++            port {
++                panel_input: endpoint {
++                    remote-endpoint = <&bridge_output>;
++                };
++            };
++        };
++
++        ports {
++            #address-cells = <1>;
++            #size-cells = <0>;
++
++            port@0 {
++                reg = <0>;
++
++                bridge_input: endpoint {
++                    remote-endpoint = <&dpi_output>;
++                    bus-width = <24>;
++                };
++            };
++
++            port@1 {
++                reg = <1>;
++
++                bridge_output: endpoint {
++                    remote-endpoint = <&panel_input>;
++                };
++            };
++        };
++    };
+diff --git a/Documentation/devicetree/bindings/display/tegra/nvidia,tegra20-dc.yaml b/Documentation/devicetree/bindings/display/tegra/nvidia,tegra20-dc.yaml
+index 69be95afd5627..a014bf0dd508d 100644
+--- a/Documentation/devicetree/bindings/display/tegra/nvidia,tegra20-dc.yaml
++++ b/Documentation/devicetree/bindings/display/tegra/nvidia,tegra20-dc.yaml
+@@ -76,6 +76,9 @@ properties:
+     $ref: /schemas/types.yaml#/definitions/phandle-array
+     description: A list of phandles of outputs that this display controller can drive.
  
--	panel_dbi_command(priv, MIPI_DCS_WRITE_MEMORY_START);
--	panel_dbi_command(priv, MIPI_DCS_SET_DISPLAY_ON);
-+	mipi_dbi_write_seq_multi(&ctx, MIPI_DCS_WRITE_MEMORY_START);
-+	mipi_dbi_write_seq_multi(&ctx, MIPI_DCS_SET_DISPLAY_ON);
++  dbi:
++    $ref: /schemas/display/tegra/nvidia,tegra20-dbi.yaml#
++
+   rgb:
+     type: object
  
--	return 0;
-+	return ctx.accum_err;
- }
+@@ -155,6 +158,18 @@ allOf:
+             - const: wind
+             - const: wint
  
- static int lg_lh400wv3_disable(struct drm_panel *panel)
- {
- 	struct lg_lh400wv3 *priv = to_lg_lh400wv3(panel);
-+	struct mipi_dbi_multi_context ctx = { .dbidev = priv->dbidev };
++  - if:
++      properties:
++        compatible:
++          contains:
++            enum:
++              - nvidia,tegra114-dc
++              - nvidia,tegra124-dc
++              - nvidia,tegra210-dc
++    then:
++      properties:
++        dbi: false
++
+ additionalProperties: false
  
--	panel_dbi_command(priv, MIPI_DCS_SET_DISPLAY_OFF);
--	panel_dbi_command(priv, MIPI_DCS_ENTER_SLEEP_MODE);
-+	mipi_dbi_write_seq_multi(&ctx, MIPI_DCS_SET_DISPLAY_OFF);
-+	mipi_dbi_write_seq_multi(&ctx, MIPI_DCS_ENTER_SLEEP_MODE);
- 	msleep(150);
- 
--	panel_dbi_command(priv, 0xc1, 0x01);
-+	mipi_dbi_write_seq_multi(&ctx, 0xc1, 0x01);
- 	usleep_range(10000, 11000);
- 
--	return 0;
-+	return ctx.accum_err;
- }
- 
- static int lg_lh400wv3_unprepare(struct drm_panel *panel)
+ required:
 -- 
 2.53.0
 
