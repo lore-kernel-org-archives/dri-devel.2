@@ -2,47 +2,92 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C0941606A320
-	for <dri-devel@archiver.kernel.org>; Sun, 22 Nov 2026 07:44:21 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 18BC4606A32C
+	for <dri-devel@archiver.kernel.org>; Sun, 22 Nov 2026 07:52:55 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=fail reason="signature verification failed" (1024-bit key, unprotected) header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=bC0jnxGP
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=eofWCsfg
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id C74EA10E3F1;
-	Sun, 22 Nov 2026 07:44:15 +0000 (UTC)
-Received: from mta1.migadu.com (out-4.mta1.migadu.com [95.215.58.4])
- by gabe.freedesktop.org (Postfix) with ESMTPS id C23AF10E3F0
- for <dri-devel@lists.freedesktop.org>; Sun, 22 Nov 2026 07:44:05 +0000 (UTC)
-X-Envelope-To: dri-devel@lists.freedesktop.org
-DKIM-Signature: a=rsa-sha256; bh=9Bjh+mLwWCYX/lvrGtaVs+DhROo/OhYvZoDPXw0dP3Y=; 
- c=simple/simple; d=linux.dev;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1795333443; v=1; x=1795938243;
- b=bC0jnxGPSaPpJtl1gBeDr0ifYR2/e/dkmb364Rzq7+DRLQVqlQCdFJSDw8+fqi84VAkeziHK
- 5Kj2n5xErRzr0PPJDyyCwoNV+E1X5o0OuG3r2IKkR8V0p/tICIuXrB8MwzA9NG6bPJ2gWQ+mqhx
- URcamZdvRwTz81xS2Hrjs7hU=
-X-Envelope-To: dri-devel@lists.freedesktop.org
-Received: by smtp.migadu.com with ESMTPS id 5445dd188f8cd78c;
- Sun, 22 Nov 2026 07:37:59 +0000
-X-Mizu-Trace-ID: 5445dd188f8cd78c
-X-Migadu-Flow: FLOW_OUT
-From: Qiliang Yuan <qiliang.yuan@linux.dev>
-Date: Sun, 22 Nov 2026 02:37:38 -0500
-Subject: [PATCH 3/3] selftests/udmabuf: test mapping a huge page backed udmabuf
+	by gabe.freedesktop.org (Postfix) with ESMTP id 485EC10E00B;
+	Sun, 22 Nov 2026 07:52:49 +0000 (UTC)
+Received: from mail-ej1-f50.google.com (mail-ej1-f50.google.com
+ [209.85.218.50])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 9F17810E00B
+ for <dri-devel@lists.freedesktop.org>; Sun, 22 Nov 2026 07:52:43 +0000 (UTC)
+Received: by mail-ej1-f50.google.com with SMTP id
+ a640c23a62f3a-c4395d31228so365041566b.1
+ for <dri-devel@lists.freedesktop.org>; Sat, 21 Nov 2026 23:52:43 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20260707; t=1795333962; x=1795938762; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:content-type:mime-version:references
+ :in-reply-to:message-id:date:subject:cc:to:from:from:to:cc:subject
+ :date:message-id:reply-to:content-type;
+ bh=/xbKBOQ+2sn1cOusP4Ybo/C0ew1hnRxWONbAKH11Cm8=;
+ b=eofWCsfgd0j5Fz5RlnvGnBPU17Win4q67j+6Znrhgxo3/iw4eHM172jEdR4Q3avIFd
+ Qs+lWoCMWL4HbYdocDEWLYIicTO2o+s6afG4lPC7JOMFaGuo3rfS0Zxopq1XKu7YaGk9
+ 0hTrL8D9wYG45RkwbI44qghp7Jzgv46BioC3IHWyAnyq2BitRQ14AwCPvwJj1sU4GLy/
+ zkIcR9kXBGQO41uyNu/UJT6EqsReuD3WstO55ohvBgniUm87rJ211bWQJrpl5+3NZ8WZ
+ ljTtlrNNgp6Pq564TLBPqpLThTdwseN7Vv0DtIn87W/E074+Ss9I2CbsjzP9E30IV7Wa
+ d0ZA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20260707; t=1795333962; x=1795938762;
+ h=content-transfer-encoding:content-type:mime-version:references
+ :in-reply-to:message-id:date:subject:cc:to:from:x-gm-gg
+ :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+ :content-type;
+ bh=/xbKBOQ+2sn1cOusP4Ybo/C0ew1hnRxWONbAKH11Cm8=;
+ b=MT8W5jKC6iU3EB4Z4ogmJoTUjh4oPRVKHdEn8FsZOWgjkP+jRj3O258wCalTzpi38P
+ 8TC+zBZqETE8XklQexu9oE/VeQ2fb1ocQ9ynElRzJuX0K86tqPcYwmWYyBAWoeHfgvQ/
+ R7Vd3LqTb9wmTlCMnjlP2a1n4VEWp/p2XSmVZr5ToCoTaPGAOs3Q0rqUbtA80Zau7vNM
+ d++SnViL6YXwKOdPekAGSfQxb2/GP7R+dBforP5928NzLxIpv8iR7Rp3E0ZIoqGHJLpg
+ 3LIlH0ufjSP8bO1AgVEFB4GxSFuanJuk3llGm9d8NT43MwG0kfVLL08MkmT7b3MO3nz9
+ 3hiw==
+X-Forwarded-Encrypted: i=1;
+ AL+hErH5mvp8iYILbk7MfVqpeh/2QN9T7NoSb63RwIJ6mpUOMnlCgdu3ajfNp7RlKejAZOW7JrLzTIuUAPU=@lists.freedesktop.org
+X-Gm-Message-State: APuU4Z/Q7Zw0ncx4SB/NHwR87HDmnyfWWh3YqZUnPVrP5gmCrxO7oBrr
+ HYxX+nzRB2iZj+A8odmpfTpPHdcGpoRwQiJDQcx7gIgLE2NRjgWsvO4G
+X-Gm-Gg: AZFdTZfgp/6H+J9CLdHmqeCm/casXr8mW4JxE+/52nSwkgdZujPBSwEDH5k9nMPFjp1
+ TUDdT35sGwdvFbsZKf/IdL5vX9mhuhDVChYHwe/ymQ19nYY4shNExEMyTdGvvWqGrqNog6aOHl8
+ /vl8RSHRFRseglRWDsN2RvPbtaN1sH2t5rBrzGmRgNlHqbJwENiJPoDuYurh1J1a64KDUaBxbTQ
+ ivRgrlK4snOzEVwxMJONNJXjrYnzxxuj3YiyIERqlTMgxGTxHhWGhH4u0kH8rvaDI+hvSWM3Z5l
+ Oqh40F2NFwYIKEA1pOLuLGsq21btICXcj7jnPP32dFMqYqWCnxWW2M79EkPkTxD0YYZQf5IaqzD
+ Df1bFYgIayhNAepqbWdayaDlQNX46p5zAShUEJBrXVsOk0IHtVNmpBCQ/3v+d0VQvJSkmdZw0+0
+ llZO/WfKZsHg3pE7FfkRMM4LVqFVHtW+meNo4wyzfo0sskBaTHTCVmMfFhKdNN7Xu+wFHN4LvO/
+ 8vswRpbNq55NiBfHqun6Xvwoxxs8o1eLYbYWp3p5C4E+Wro9B/sIE5rnPTBgF06LpzxZsix52q+
+ vy/0g7SjNLSygcD3/e6RXlE7dQ==
+X-Received: by 2002:a17:906:2dd8:b0:c2e:3ed7:7db4 with SMTP id
+ a640c23a62f3a-c513a840ebemr531051466b.23.1795333961712; 
+ Sat, 21 Nov 2026 23:52:41 -0800 (PST)
+Received: from dl360p ([195.155.168.55]) by smtp.gmail.com with ESMTPSA id
+ a640c23a62f3a-c513ad026a4sm290470366b.2.2026.11.21.23.52.37
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Sat, 21 Nov 2026 23:52:39 -0800 (PST)
+From: =?UTF-8?q?Adil=20H=C3=BCsrev=20Tepe?= <tadilhusrev@gmail.com>
+To: Krzysztof Kozlowski <krzk@kernel.org>
+Cc: Neil Armstrong <neil.armstrong@linaro.org>,
+ Jessica Zhang <jesszhan0024@gmail.com>, Rob Herring <robh@kernel.org>,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>,
+ Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>,
+ Simona Vetter <simona@ffwll.ch>,
+ =?UTF-8?q?Uwe=20Kleine-K=C3=B6nig?= <u.kleine-koenig@baylibre.com>,
+ Michael McAllister <me@michaelmcallister.org>,
+ dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org,
+ linux-kernel@vger.kernel.org, phone-devel@vger.kernel.org
+Subject: Re: [PATCH v4 1/2] dt-bindings: display: panel: add Novatek NT36525
+Date: Sun, 22 Nov 2026 10:52:35 +0300
+Message-ID: <20261122075235.2915534-1-tadilhusrev@gmail.com>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <20261121-brave-adamant-caribou-b01daa@quoll>
+References: <20261116070212.314228-1-tadilhusrev@gmail.com>
+ <20261120114100.978148-1-tadilhusrev@gmail.com>
+ <20261120114100.978148-2-tadilhusrev@gmail.com>
+ <20261121-brave-adamant-caribou-b01daa@quoll>
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20261122-feat-udmabuf-huge-pfnmap-v1-3-dcba888940c2@linux.dev>
-References: <20261122-feat-udmabuf-huge-pfnmap-v1-0-dcba888940c2@linux.dev>
-In-Reply-To: <20261122-feat-udmabuf-huge-pfnmap-v1-0-dcba888940c2@linux.dev>
-To: Sumit Semwal <sumit.semwal@linaro.org>, 
- =?utf-8?q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>, 
- Philipp Stanner <phasta@kernel.org>, Gerd Hoffmann <kraxel@redhat.com>, 
- Vivek Kasireddy <vivek.kasireddy@intel.com>, Shuah Khan <shuah@kernel.org>
-Cc: linux-media@vger.kernel.org, dri-devel@lists.freedesktop.org, 
- linaro-mm-sig@lists.linaro.org, linux-kernel@vger.kernel.org, 
- linux-kselftest@vger.kernel.org, Qiliang Yuan <qiliang.yuan@linux.dev>
-X-Mailer: b4 0.13.0
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -54,152 +99,52 @@ List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-16.6 required=3.0 tests=BAYES_00,DKIM_INVALID,
-	DKIM_SIGNED,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,
-	INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,
-	USER_AGENT_GIT autolearn=unavailable autolearn_force=no version=4.0.1
+X-Spam-Status: No, score=-5.8 required=3.0 tests=BAYES_00,DKIM_SIGNED,
+	DKIM_VALID,DKIM_VALID_AU,FREEMAIL_FORGED_FROMDOMAIN,FREEMAIL_FROM,
+	HEADER_FROM_DIFFERENT_DOMAINS,MAILING_LIST_MULTI,SPF_HELO_NONE,
+	SPF_PASS,USER_AGENT_GIT autolearn=no autolearn_force=no version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-udmabuf maps the ranges of a buffer that are backed by huge pages with
-PMDs, provided the mapping covers whole PMDs at an aligned address.
+On Sat, Nov 21, 2026 at 12:09:21PM +0100, Krzysztof Kozlowski wrote:
+> Still incorrectly threaded.
+>
+> I asked to use b4 for a reason. If you insist on not to, then at least
+> follow standard process and standard guides of upstreaming work.
 
-The existing tests of huge page backed buffers only map a few pages, so
-they never get a PMD mapping or check what is read through one.
+Understood, and sorry. I was sending each new version with
+--in-reply-to pointing at v1, which is exactly what buried it. The next
+version will be prepared and sent with b4, as a new thread.
 
-Map a 64 MiB udmabuf backed by 2 MiB huge pages and read back what was
-written to the memfd: through a mapping of the whole buffer, which must
-be PMD aligned when THP support is built in, through a mapping at an
-unaligned offset, and from a forked child.
+> > +      - enum:
+> > +          - novatek,nt36525-xcover5
+>
+> I don't get it, what is xcover5? This claims it is Novatek device. Why
+> isn't this actual panel manufacturer?
 
-Signed-off-by: Qiliang Yuan <qiliang.yuan@linux.dev>
----
- tools/testing/selftests/drivers/dma-buf/udmabuf.c | 90 ++++++++++++++++++++++-
- 1 file changed, 89 insertions(+), 1 deletion(-)
+You're right, Novatek only makes the controller. Samsung's vendor
+kernel names the panel vendor as CSOT ("CSO" in its panel table), but
+it doesn't give a part number, and I haven't found one in any public
+source. I'll try to read it off the panel itself. If that fails, what
+name would you accept for a CSOT panel whose part number isn't known?
 
-diff --git a/tools/testing/selftests/drivers/dma-buf/udmabuf.c b/tools/testing/selftests/drivers/dma-buf/udmabuf.c
-index d78aec662586b..e09330fece6fb 100644
---- a/tools/testing/selftests/drivers/dma-buf/udmabuf.c
-+++ b/tools/testing/selftests/drivers/dma-buf/udmabuf.c
-@@ -14,6 +14,7 @@
- #include <sys/ioctl.h>
- #include <sys/syscall.h>
- #include <sys/mman.h>
-+#include <sys/wait.h>
- #include <linux/memfd.h>
- #include <linux/udmabuf.h>
- #include "kselftest.h"
-@@ -130,6 +131,91 @@ static int compare_chunks(void *addr1, void *addr2, off64_t memfd_size)
- 	return ret;
- }
- 
-+#define HPAGE_SIZE	(2UL << 20)
-+#define HUGE_BUF_SIZE	(32 * HPAGE_SIZE)
-+
-+/* Check that @len bytes of @buf at @off read back what was written to @mem */
-+static bool check_huge_range(int buf, char *mem, off_t off, size_t len)
-+{
-+	char *addr;
-+	size_t i;
-+	bool ok = true;
-+
-+	addr = mmap(NULL, len, PROT_READ, MAP_SHARED, buf, off);
-+	if (addr == MAP_FAILED)
-+		return false;
-+
-+	for (i = 0; i < len; i += getpagesize()) {
-+		if (addr[i] != mem[off + i]) {
-+			ok = false;
-+			break;
-+		}
-+	}
-+
-+	munmap(addr, len);
-+	return ok;
-+}
-+
-+/*
-+ * Map a udmabuf backed by 2MB huge pages, which can be mapped with PMDs, and
-+ * read it back from a PMD-aligned address, a sub-range at an unaligned offset
-+ * and a forked child.
-+ */
-+static void test_huge_mapping(int devfd)
-+{
-+	struct udmabuf_create create = {};
-+	int memfd, buf, status;
-+	bool thp, aligned, ok;
-+	char *mem, *addr;
-+	pid_t pid;
-+	size_t i;
-+
-+	memfd = create_memfd_with_seals(HUGE_BUF_SIZE, true);
-+	mem = mmap_fd(memfd, HUGE_BUF_SIZE);
-+	for (i = 0; i < HUGE_BUF_SIZE; i += getpagesize())
-+		mem[i] = (char)(i / getpagesize());
-+
-+	create.memfd = memfd;
-+	create.size = HUGE_BUF_SIZE;
-+	buf = ioctl(devfd, UDMABUF_CREATE, &create);
-+	if (buf < 0) {
-+		ksft_test_result_fail("%s: [FAIL,test-8]\n", TEST_PREFIX);
-+		ksft_test_result_skip("%s: [SKIP,test-9]\n", TEST_PREFIX);
-+		goto out;
-+	}
-+
-+	/* The address is only aligned when THP support is built in */
-+	thp = !access("/sys/kernel/mm/transparent_hugepage", F_OK);
-+	addr = mmap(NULL, HUGE_BUF_SIZE, PROT_READ, MAP_SHARED, buf, 0);
-+	aligned = addr != MAP_FAILED &&
-+		  (!thp || !((unsigned long)addr % HPAGE_SIZE));
-+	if (addr != MAP_FAILED)
-+		munmap(addr, HUGE_BUF_SIZE);
-+	ok = aligned && check_huge_range(buf, mem, 0, HUGE_BUF_SIZE);
-+	if (ok)
-+		ksft_test_result_pass("%s: [PASS,test-8]\n", TEST_PREFIX);
-+	else
-+		ksft_test_result_fail("%s: [FAIL,test-8]\n", TEST_PREFIX);
-+
-+	ok = check_huge_range(buf, mem, HPAGE_SIZE + getpagesize(),
-+			      5 * HPAGE_SIZE + 3 * getpagesize());
-+	pid = fork();
-+	if (!pid)
-+		_exit(check_huge_range(buf, mem, 0, HUGE_BUF_SIZE) ? 0 : 1);
-+	if (pid < 0 || waitpid(pid, &status, 0) != pid ||
-+	    !WIFEXITED(status) || WEXITSTATUS(status))
-+		ok = false;
-+	if (ok)
-+		ksft_test_result_pass("%s: [PASS,test-9]\n", TEST_PREFIX);
-+	else
-+		ksft_test_result_fail("%s: [FAIL,test-9]\n", TEST_PREFIX);
-+
-+	close(buf);
-+out:
-+	munmap(mem, HUGE_BUF_SIZE);
-+	close(memfd);
-+}
-+
- int main(int argc, char *argv[])
- {
- 	struct udmabuf_create create;
-@@ -138,7 +224,7 @@ int main(int argc, char *argv[])
- 	void *addr1, *addr2;
- 
- 	ksft_print_header();
--	ksft_set_plan(7);
-+	ksft_set_plan(9);
- 
- 	devfd = open("/dev/udmabuf", O_RDWR);
- 	if (devfd < 0) {
-@@ -268,6 +354,8 @@ int main(int argc, char *argv[])
- 
- 	close(buf);
- 	close(memfd);
-+
-+	test_huge_mapping(devfd);
- 	close(devfd);
- 
- 	ksft_print_msg("%s: ok\n", TEST_PREFIX);
+> I don't understand why this cannot be part of other bindings... looks
+> exactly like nt36536 or nt36672a
 
--- 
-2.43.0
+Agreed, it's the same shape as novatek,nt36536.yaml (three supplies,
+reset, backlight), which already carries a CSOT panel. Would you prefer
+the NT36525 panel added to that file, as a second compatible item with
+a novatek,nt36525 fallback, or a separate file modelled on it?
 
+Michael McAllister (Cc'd) has a DJN NT36525B panel on the Moto G10 that
+would use the same driver, so I'd like to get the structure right
+before his panel is added too.
+
+> > +  - port
+>
+> Drop port
+
+Will do.
+
+Thanks,
+Adil
