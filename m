@@ -2,100 +2,77 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5AB87606A320
-	for <dri-devel@archiver.kernel.org>; Sun, 22 Nov 2026 05:55:56 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=mimecast20190719 header.b=C/dh0Fxv
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id ACC44606A320
+	for <dri-devel@archiver.kernel.org>; Sun, 22 Nov 2026 06:36:34 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 97F9710E35F;
-	Sun, 22 Nov 2026 05:55:50 +0000 (UTC)
-Received: from us-smtp-delivery-124.mimecast.com
- (us-smtp-delivery-124.mimecast.com [170.10.133.124])
- by gabe.freedesktop.org (Postfix) with ESMTPS id EED7710E3AE
- for <dri-devel@lists.freedesktop.org>; Sun, 22 Nov 2026 05:55:44 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
- s=mimecast20190719; t=1795326943;
- h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
- to:to:cc:cc:mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references;
- bh=e5Q0HhQjroZ+Rc/PnGI9kGFEaaiyFgbKCtvuSXxJJDA=;
- b=C/dh0FxvvhWNCVPzrwJnxjd7/RDWFiHWJBlBbUrSKkR6Uo6TPqOoy6DGN8NN7BOYn5rJ+0
- gmf0pZRDvIEfl3AO09+Immz8Z8moHWw/UtbcSeJMjexc41c3qAhFxELVVjcPUoj2M2BbPC
- L6RB8I0TR76ytgKTN5tx5LIlq8vYC/g=
-Received: from mail-lf1-f70.google.com (mail-lf1-f70.google.com
- [209.85.167.70]) by relay.mimecast.com with ESMTP with STARTTLS
- (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-500-MKrUzhuzM_q2W_qACmfdeA-1; Sun, 22 Nov 2026 05:55:41 +0000
-X-MC-Unique: MKrUzhuzM_q2W_qACmfdeA-1
-X-Mimecast-MFC-AGG-ID: MKrUzhuzM_q2W_qACmfdeA_1795326940
-Received: by mail-lf1-f70.google.com with SMTP id
- 2adb3069b0e04-5bfd95238e3so1366461e87.0
- for <dri-devel@lists.freedesktop.org>; Sat, 21 Nov 2026 21:55:41 -0800 (PST)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20260707; t=1795326940; x=1795931740;
- h=content-transfer-encoding:content-type:in-reply-to:from
- :content-language:references:cc:to:subject:user-agent:mime-version
- :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
- :message-id:reply-to:content-type;
- bh=e5Q0HhQjroZ+Rc/PnGI9kGFEaaiyFgbKCtvuSXxJJDA=;
- b=JkR1G6P5agejRQrJHaFxIrl2yq1TlQjivDGlnVZirH5Apyo6SdQKnCgIdEL2QVUW8f
- AWnklIDPXL/95WpIwjqgY4JeDr6Zec3dnIZ2ycfa4rLsoiuWwD5YqZjBWifE2ON5LQvd
- Xhud4SArYkaYkN92bz8waoNtB81A3L4BdOEbew0TW8tW40I5hw0uaxTaGdRr52ebd1WP
- YhN0/DGZy2b69HzC2X+CXIKha5TtY5smpFJAjyDWdf5CBGV1W10aNCyhHCGceoew+P9y
- 5KHj4vuaIJC4/uUiSyG4O91TCUCFFtuLzL4cGu6RzntZ1RcSDXNF+RrAWheg4YkyHVVj
- mb3A==
-X-Forwarded-Encrypted: i=1;
- AL+hErGToqxweS4su3g48fqUcdIc9PLnagTFBhfEnzIVHzPt9mBvEmyicIwdUluQfbVxsiodjzgu2RbOQ0A=@lists.freedesktop.org
-X-Gm-Message-State: APuU4Z/MDMGnOBieRZ/D27SLaFxlWBZRnpMzIzKZ/X3k453kcjR/aeCw
- Zb92XMAWfuqZx8+qcu8JguZ3GdCHr+wVJNbkUjIlx+iCqnYz3CDmC7dvq/y8gY1I1qn+QvZJmMl
- AHzEdz++WQr6mODsHFqw8Xp89CcXVm2UcS+xB/jZCqigMV5r5JSgk/OxfDyJsUyLBuGsD
-X-Gm-Gg: AZFdTZeYeWwzTV2uTfDlh6Nlgxp5We2Nn0EHyB27mKdO2A5/vZBuXoWOCWcZ/QGeJxy
- DVUXvuRV70kHzFWcC/rrH8ndF2Ul5m6fMIcrBt07cIzZhDP35WSlOf7P9eBBj70gn0nVWXTOHdg
- nluadh/HDtDaK9XuX+IRp5+FxJBqG8kXD8LSzfQWBg9NY7JfM0g3/SearkrRu2Yv3l9hLzotZf9
- TM6IYNgeC81D6T0k9diIiKINgjnihvBfhZ+YtlcKeCiplzNmiXamtOdSkg2vG8KNx4a7pRBKjgn
- THawfOPGiU0x8FZP+O4GtcksIvJ7CgyzgZfUlrvc/JZPpc6yTrm4F8dBi91UmkDIjI6zz7qQQgx
- GSd1UBergkj3JHZwDeDqWjpZAZivDb9aEq0elmEhxW8LliCpHi3rjN0lRjEwXppYF+VyeCXtMh+
- 0DFd1E
-X-Received: by 2002:a05:6512:1192:b0:5c1:a96d:911e with SMTP id
- 2adb3069b0e04-5c1b79fccd9mr2415294e87.5.1795326939886; 
- Sat, 21 Nov 2026 21:55:39 -0800 (PST)
-X-Received: by 2002:a05:6512:1192:b0:5c1:a96d:911e with SMTP id
- 2adb3069b0e04-5c1b79fccd9mr2415274e87.5.1795326939399; 
- Sat, 21 Nov 2026 21:55:39 -0800 (PST)
-Received: from [192.168.1.86] (89-27-86-246.bb.dnainternet.fi. [89.27.86.246])
- by smtp.gmail.com with ESMTPSA id
- 2adb3069b0e04-5c1bd03bcdcsm1951038e87.45.2026.11.21.21.55.38
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Sat, 21 Nov 2026 21:55:38 -0800 (PST)
-Message-ID: <36be0904-168d-4813-82ff-27ecced464e3@redhat.com>
-Date: Sun, 22 Nov 2026 07:55:37 +0200
+	by gabe.freedesktop.org (Postfix) with ESMTP id DAB7710E045;
+	Sun, 22 Nov 2026 06:36:33 +0000 (UTC)
+Received: from cstnet.cn (smtp81.cstnet.cn [159.226.251.81])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id ACF1110E045
+ for <dri-devel@lists.freedesktop.org>; Sun, 22 Nov 2026 06:36:31 +0000 (UTC)
+Received: from edelgard.fodlan.icenowy.me (unknown [112.94.102.23])
+ by APP-03 (Coremail) with SMTP id rQCowADX4JFJjQJrB7yNAQ--.19133S2;
+ Sun, 22 Nov 2026 14:35:55 +0800 (CST)
+Message-ID: <06e509d9cbfa06179cf5327ff533ae7212e23985.camel@iscas.ac.cn>
+Subject: Re: [PATCH v7 06/19] dt-bindings: display: verisilicon: Add
+ starfive,jh7110-dc8200
+From: Icenowy Zheng <zhengxingda@iscas.ac.cn>
+To: Michal Wilczynski <m.wilczynski@samsung.com>, Neil Armstrong	
+ <neil.armstrong@linaro.org>, Rob Herring <robh@kernel.org>, Krzysztof
+ Kozlowski	 <krzk+dt@kernel.org>, Andrzej Hajda <andrzej.hajda@intel.com>,
+ Robert Foss	 <rfoss@kernel.org>, Laurent Pinchart
+ <Laurent.pinchart@ideasonboard.com>,  Jonas Karlman <jonas@kwiboo.se>,
+ Jernej Skrabec <jernej.skrabec@gmail.com>, Luca Ceresoli	
+ <luca.ceresoli@bootlin.com>, Maarten Lankhorst	
+ <maarten.lankhorst@linux.intel.com>, Maxime Ripard <mripard@kernel.org>, 
+ Thomas Zimmermann <tzimmermann@suse.de>, Philipp Zabel
+ <p.zabel@pengutronix.de>, Emil Renner Berthing <kernel@esmil.dk>,  Hal Feng
+ <hal.feng@starfivetech.com>, Heiko Stuebner <heiko@sntech.de>, Paul
+ Walmsley <pjw@kernel.org>,  Palmer Dabbelt <palmer@dabbelt.com>, Albert Ou
+ <aou@eecs.berkeley.edu>, Alexandre Ghiti <alex@ghiti.fr>,  Dominique
+ Belhachemi	 <db@domibel.de>, Andy Yan <andyshrk@163.com>, David Airlie
+ <airlied@gmail.com>,  Simona Vetter <simona@ffwll.ch>, Yakir Yang
+ <kuankuan.y@gmail.com>, Dmitry Baryshkov	
+ <dmitry.baryshkov@oss.qualcomm.com>, Conor Dooley <conor@kernel.org>, 
+ William Qiu <william.qiu@starfivetech.com>, Xingyu Wu
+ <xingyu.wu@starfivetech.com>, Sandy Huang	 <hjc@rock-chips.com>, Manivannan
+ Sadhasivam <mani@kernel.org>
+Cc: devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
+ dri-devel@lists.freedesktop.org, linux-arm-kernel@lists.infradead.org, 
+ linux-rockchip@lists.infradead.org, linux-riscv@lists.infradead.org, Marek
+ Szyprowski <m.szyprowski@samsung.com>, Maud Spierings
+ <maud_spierings@murena.io>, Graham Markall	 <hello@big-grey.co.uk>, Chaoyi
+ Chen <chaoyi.chen@rock-chips.com>, Joshua Peisach <jpeisach@ubuntu.com>,
+ Uwe =?ISO-8859-1?Q?Kleine-K=F6nig?= <u.kleine-koenig@baylibre.com>, 
+ Cristian Ciocaltea <cristian.ciocaltea@collabora.com>
+Date: Sun, 22 Nov 2026 14:35:53 +0800
+In-Reply-To: <20261106-jh7110-clean-send-v7-6-68f7ea9913db@samsung.com>
+References: <20261106-jh7110-clean-send-v7-0-68f7ea9913db@samsung.com>
+ <CGME20261106135900eucas1p17159021cc747335b62cad6b3326605be@eucas1p1.samsung.com>
+ <20261106-jh7110-clean-send-v7-6-68f7ea9913db@samsung.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+User-Agent: Evolution 3.58.3 
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] mm/hmm: account for subpage offsets in device-private PMDs
-To: Andrew Morton <akpm@linux-foundation.org>,
- Aveline Noir <jm5905938@gmail.com>
-Cc: jgg@nvidia.com, leonro@nvidia.com, airlied@gmail.com, apopple@nvidia.com, 
- balbirs@nvidia.com, christian.koenig@amd.com,
- dri-devel@lists.freedesktop.org, Francois Dugast
- <francois.dugast@intel.com>, intel-xe@lists.freedesktop.org, jgg@ziepe.ca,
- leon@kernel.org, linux-kernel@vger.kernel.org, linux-mm@kvack.org,
- Lorenzo Stoakes <lorenzo.stoakes@oracle.com>,
- Matthew Brost <matthew.brost@intel.com>, mm-commits@vger.kernel.org,
- Patchwork <patchwork@emeril.freedesktop.org>, SeongJae Park <sj@kernel.org>,
- thomas.hellstrom@linux.intel.com, Vlastimil Babka <vbabka@suse.cz>,
- ziy@nvidia.com
-References: <179342234355.4.16705453209886955762@gmail.com>
- <20261121160037.1a479f3c8b4e860bc23c106d@linux-foundation.org>
-From: =?UTF-8?Q?Mika_Penttil=C3=A4?= <mpenttil@redhat.com>
-In-Reply-To: <20261121160037.1a479f3c8b4e860bc23c106d@linux-foundation.org>
-X-Mimecast-Spam-Score: 0
-X-Mimecast-MFC-PROC-ID: dw7s9_BTM7UE5TpJQiMAxhKl4rj-T8UJrATFpU1cVxM_1795326940
-X-Mimecast-Originator: redhat.com
-Content-Language: en-US
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+X-CM-TRANSID: rQCowADX4JFJjQJrB7yNAQ--.19133S2
+X-Coremail-Antispam: 1UD129KBjvdXoWruFW7try5Zw1rGr17GrWDXFb_yoWkWwb_ua
+ yxC3WUAFs8JryFga1jkrn7KF1Fqa12yw4rC3Z8tF1rG348CrZ0gF93Jw1Yyw1UZr4I9r15
+ Crs3WryqgFsxCjkaLaAFLSUrUUUUjb8apTn2vfkv8UJUUUU8Yxn0WfASr-VFAUDa7-sFnT
+ 9fnUUIcSsGvfJTRUUUbVxYjsxI4VWxJwAYFVCjjxCrM7AC8VAFwI0_Wr0E3s1l1xkIjI8I
+ 6I8E6xAIw20EY4v20xvaj40_Wr0E3s1l1IIY67AEw4v_Jr0_Jr4l8cAvFVAK0II2c7xJM2
+ 8CjxkF64kEwVA0rcxSw2x7M28EF7xvwVC0I7IYx2IY67AKxVWUCVW8JwA2z4x0Y4vE2Ix0
+ cI8IcVCY1x0267AKxVWxJVW8Jr1l84ACjcxK6I8E87Iv67AKxVW8Jr0_Cr1UM28EF7xvwV
+ C2z280aVCY1x0267AKxVWxJr0_GcWle2I262IYc4CY6c8Ij28IcVAaY2xG8wAqx4xG64xv
+ F2IEw4CE5I8CrVC2j2WlYx0E2Ix0cI8IcVAFwI0_Jr0_Jr4lYx0Ex4A2jsIE14v26r1j6r
+ 4UMcvjeVCFs4IE7xkEbVWUJVW8JwACjcxG0xvEwIxGrwACI402YVCY1x02628vn2kIc2xK
+ xwCY1x0262kKe7AKxVWrXVW3AwCF04k20xvY0x0EwIxGrwCFx2IqxVCFs4IE7xkEbVWUJV
+ W8JwC20s026c02F40E14v26r1j6r18MI8I3I0E7480Y4vE14v26r106r1rMI8E67AF67kF
+ 1VAFwI0_Wrv_Gr1UMIIYrxkI7VAKI48JMIIF0xvE2Ix0cI8IcVAFwI0_Jr0_JF4lIxAIcV
+ C0I7IYx2IY6xkF7I0E14v26r4j6F4UMIIF0xvE42xK8VAvwI8IcIk0rVWUJVWUCwCI42IY
+ 6I8E87Iv67AKxVWUJVW8JwCI42IY6I8E87Iv6xkF7I0E14v26r4j6r4UJbIYCTnIWIevJa
+ 73UjIFyTuYvjxU-eHqUUUUU
+X-CM-SenderInfo: x2kh0wp0lqwv3d6l2u1dvotugofq/
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -107,148 +84,43 @@ List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-17.3 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
-	DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
-	INCLUDES_CR_TRAILER,INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,
-	SPF_PASS,USER_AGENT_SANE_1 autolearn=unavailable autolearn_force=no
-	version=4.0.1
+X-Spam-Status: No, score=-13.8 required=3.0 tests=BAYES_00,
+	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
+	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS autolearn=ham
+	autolearn_force=no version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
+=E5=9C=A8 2026-11-06=E4=BA=94=E7=9A=84 14:58 +0100=EF=BC=8CMichal Wilczynsk=
+i=E5=86=99=E9=81=93=EF=BC=9A
+> The JH7110 embeds a DC8200. The binding requires an SoC specific
+> compatible ahead of the generic one, so add the JH7110 to the enum.
+>=20
+> Acked-by: Rob Herring (Arm) <robh@kernel.org>
+> Signed-off-by: Michal Wilczynski <m.wilczynski@samsung.com>
 
-On 11/22/26 02:00, Andrew Morton wrote:
-> On Sat, 31 Oct 2026 15:07:58 +1100 Aveline Noir <jm5905938@gmail.com> wrote:
->
->> When a query starts inside a device-private PMD owned by
->> range->dev_private_owner, hmm_vma_handle_absent_pmd() still fills the PFN
->> array from the folio's first page. The returned PFNs therefore refer to
->> earlier pages rather than the requested subrange.
->>
->> Add the query's PMD-relative page offset to the initial PFN, as the
->> present PMD path already does.
->>
->> Fixes: 10b9feee2d0d ("mm/hmm: populate PFNs from PMD swap entry")
->> Signed-off-by: Aveline Noir <jm5905938@gmail.com>
->>
->> ---
->> Found during a synthetic test_hmm check of device-private THP handling.
->> Tested PMD-aligned and non-aligned subranges, PMD boundaries, split
->> PTEs and fake-device data accesses with test_hmm in QEMU TCG; all
->> executed tests passed with the fix. No real GPU testing was performed.
-> Thanks.  It appears that the changelog somewhat understates the
-> seriousness of this so I came up with a more assertive one, below. 
-> Please check that.
->
-> I fed this through LLM-driven QEMU-based runtime testing and it looks
-> like it pretty much replicated your testing:
->
-> : I tested "mm/hmm: account for subpage offsets in device-private
-> : PMDs" on matched x86-64 guest kernels. An unprivileged process
-> : (UID 65534) migrated an anonymous 2 MiB THP to the test_hmm
-> : device. A second open of the device read pages inside the PMD
-> : while the first remained open. A snapshot confirmed a
-> : device-private PMD, and temporary kernel log messages confirmed
-> : that the reads reached hmm_vma_handle_absent_pmd().
-> : 
-> : Without the patch, requests for pages 1, 7, 255 and 511 returned
-> : page 0. A request for pages 31-33 returned pages 0-2. With the
-> : patch, all seven pages returned the requested contents. Page 0
-> : read correctly on both kernels. Thus an unprivileged device user
-> : can receive data from the wrong pages.
-> :
-> : The fake device needed an identical temporary backing-page
-> : correction on both kernels to make this read path work. That
-> : change was removed after testing. This exercises the HMM path
-> : through test_hmm; I did not test GPU hardware.
->
-> So it accidentally found a bug in lib/test_hmm.c on the way.  "The QEMU
-> run exposed a real test_hmm bug: a second open of /dev/hmm_dmirror0 can
-> put a device-private page into its page table, then dmirror_do_read()
-> tries to copy from that non-CPU-accessible page and oopses".  I'll prep
-> a fix for that separately.
+Applied this patch to drm-misc-next.
 
-I noticed that also and will make changes around it in my series.
+Thanks,
+Icenowy
 
->
->
->
-> I'll queue the below in mm.git's mm-hotfixes queue and shall await
-> maintainer input (please).
->
->
-> From: Aveline Noir <jm5905938@gmail.com>
-> Subject: mm/hmm: account for subpage offsets in device-private PMDs
-> Date: Sat, 31 Oct 2026 15:07:58 +1100
->
-> When a query starts inside a device-private PMD owned by
-> range->dev_private_owner, hmm_vma_handle_absent_pmd() still fills the PFN
-> array from the folio's first page.  The returned PFNs therefore refer to
-> earlier pages rather than the requested subrange.
->
-> Nouveau's GPU fault path can query one page of a device-private PMD at a
-> time.  Xe's SVM fault, prefetch and userptr mapping paths can also query
-> subranges of their own device-private PMDs.  An unprivileged process with
-> access to the GPU render node can reach these paths on hardware supporting
-> device-private THP migration.  Xe can read the wrong application data or
-> silently overwrite earlier pages of the same process's device-private
-> folio.
->
-> Nouveau aligns a one-page GPU fault to the PMD head by subtracting the
-> fault offset from the returned page.  The faulty HMM PFN already refers to
-> the head, so this subtraction can select a page before the folio.  If the
-> preceding page belongs to another allocation, GPU access can expose or
-> overwrite unrelated userspace data; an invalid page can also fault the
-> kernel during its address conversion.  This worst case follows from the
-> source, but has not been demonstrated on a real GPU.
->
-> Add the query's PMD-relative page offset to the initial PFN, as the
-> present PMD path already does.
->
-> The device-private PMD migration machinery first shipped in 6.19. 
-> Backport this fix to the maintained 7.3.y stable series; the HMM path
-> exists in 6.18.y but cannot be reached through an in-tree PMD-producing
-> device-private migration path there.
->
-> Link: https://patch.msgid.link/179342234355.4.16705453209886955762@gmail.com
-> Fixes: 10b9feee2d0d ("mm/hmm: populate PFNs from PMD swap entry")
-> Signed-off-by: Aveline Noir <jm5905938@gmail.com>
-> Signed-off-by: Andrew Morton <akpm@linux-foundation.org>
-> Cc: Jason Gunthorpe <jgg@ziepe.ca>
-> Cc: Leon Romanovsky <leon@kernel.org>
-> Cc: Francois Dugast <francois.dugast@intel.com>
-> Cc: Lorenzo Stoakes <ljs@kernel.org>
-> Cc: Matthew Brost <matthew.brost@intel.com>
-> Cc: Patchwork <patchwork@emeril.freedesktop.org>
-> Cc: SJ Park <sj@kernel.org>
-> Cc: Vlastimil Babka <vbabka@kernel.org>
-> Cc: David Airlie <airlied@gmail.com>
-> Cc: Alistair Popple <apopple@nvidia.com>
-> Cc: Balbir Singh <balbirs@nvidia.com>
-> Cc: Christian König <christian.koenig@amd.com>
-> Cc: Mika Penttilä <mpenttil@redhat.com>
-> Cc: Thomas Hellström <thomas.hellstrom@linux.intel.com>
-> Cc: Zi Yan <ziy@nvidia.com>
-> Cc: <stable@vger.kernel.org>
->
->  mm/hmm.c |    3 ++-
->  1 file changed, 2 insertions(+), 1 deletion(-)
->
-> --- a/mm/hmm.c~mm-hmm-account-for-subpage-offsets-in-device-private-pmds
-> +++ a/mm/hmm.c
-> @@ -355,7 +355,8 @@ static int hmm_vma_handle_absent_pmd(str
->  	    range->dev_private_owner) {
->  		unsigned long cpu_flags = HMM_PFN_VALID |
->  			hmm_pfn_flags_order(PMD_SHIFT - PAGE_SHIFT);
-> -		unsigned long pfn = softleaf_to_pfn(entry);
-> +		unsigned long pfn = softleaf_to_pfn(entry) +
-> +			((start & ~PMD_MASK) >> PAGE_SHIFT);
->  		unsigned long i;
->  
->  		if (softleaf_is_device_private_write(entry))
-> _
-
-For this change:
-
-Reviewed-by: Mika Penttilä <mpenttil@redhat.com>
-
+> ---
+>  Documentation/devicetree/bindings/display/verisilicon,dc.yaml | 1 +
+>  1 file changed, 1 insertion(+)
+>=20
+> diff --git a/Documentation/devicetree/bindings/display/verisilicon,dc.yam=
+l b/Documentation/devicetree/bindings/display/verisilicon,dc.yaml
+> index 919a9001220120054cb62d1d01b7293367266f95..05a202633cd273fec358c095c=
+64584d959d96d90 100644
+> --- a/Documentation/devicetree/bindings/display/verisilicon,dc.yaml
+> +++ b/Documentation/devicetree/bindings/display/verisilicon,dc.yaml
+> @@ -16,6 +16,7 @@ properties:
+>    compatible:
+>      items:
+>        - enum:
+> +          - starfive,jh7110-dc8200
+>            - thead,th1520-dc8200
+>        - const: verisilicon,dc # DC IPs have discoverable ID/revision reg=
+isters
+> =20
 
