@@ -2,84 +2,64 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A5E73606A320
-	for <dri-devel@archiver.kernel.org>; Sun, 22 Nov 2026 15:31:46 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DF82F606A330
+	for <dri-devel@archiver.kernel.org>; Sun, 22 Nov 2026 15:47:44 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=amarulasolutions.com header.i=@amarulasolutions.com header.a=rsa-sha256 header.s=google header.b=DGg7eqgB
+	dkim=pass (2048-bit key) header.d=igalia.com header.i=@igalia.com header.a=rsa-sha256 header.s=20170329 header.b=bfzq1aGz
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 3A43210E5BC;
-	Sun, 22 Nov 2026 15:31:40 +0000 (UTC)
-Received: from mail-wm1-f46.google.com (mail-wm1-f46.google.com
- [209.85.128.46])
- by gabe.freedesktop.org (Postfix) with ESMTPS id C203A10E5BC
- for <dri-devel@lists.freedesktop.org>; Sun, 22 Nov 2026 15:31:21 +0000 (UTC)
-Received: by mail-wm1-f46.google.com with SMTP id
- 5b1f17b1804b1-4b467581b98so22267995e9.0
- for <dri-devel@lists.freedesktop.org>; Sun, 22 Nov 2026 07:31:21 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=amarulasolutions.com; s=google; t=1795361480; x=1795966280;
- darn=lists.freedesktop.org; 
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:date:subject:cc:to:from:from:to:cc:subject:date
- :message-id:reply-to:content-type;
- bh=p3YrVF29MUANA/M7BuioyKuk5sUXgut6xOBgRR2fmm4=;
- b=DGg7eqgB9jjp8/A5EHVW6xrwymLD69QTX0j0OBhaBvmlEES7Bv3h21LcmTb6b46xPd
- 4ISEzJ/5fVtgLtgxkKvcBdOQk6Ag69K4Jn9F+PdmslZVTDXQKlGz5/ODZjhDysbgEryY
- QWVU38mw2fTbfuM4tgjehr3/SXMVhUGIs3tQg=
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20260707; t=1795361480; x=1795966280;
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
- :to:cc:subject:date:message-id:reply-to:content-type;
- bh=p3YrVF29MUANA/M7BuioyKuk5sUXgut6xOBgRR2fmm4=;
- b=VoupcNldSiMk1CXFh9VBonKh4QQztpX+nLsswFkOz1wyGZ2lfN5dLf3Mr4lHvUOCq0
- nwPzDHfkeVvD2iqzXzvB0gtj13MqhMfUlz5s5PPA9MVFtje12tK0V+U4PE35THXP0RTY
- U1pBT8eVBX/AduiBSsE7xUL0T9I2RkIjqzziAT1Jzgceo9aMDd4bj9VS7ksifdLa4ms2
- HoDFxeRImBBRsxF9JFJnPNTr4l02upvvujQ53fFPt1iNeo+3H9FmMwpZADmkLmFAKKBs
- yWuy+l3lzQ2ljK7N7mdI/umS28dXyjLU+z88wQXTQ3vZgLwGB7zV3aUEXRmhogOlPEJy
- WIGw==
-X-Forwarded-Encrypted: i=1;
- AL+hErGTOUV55B0OwhgcQq3HUucXWgjGOiz9N9zJqkZAu0gqfqtbL1sHN33EF98GCWqRs3SmdUcaCEIQZ3s=@lists.freedesktop.org
-X-Gm-Message-State: APuU4Z/oSTADWwR/TkRoHWBt4EwgzAd+7UduevKamJVxG+OrwD/xEb9P
- djyfAXJyv1VkKFnqT//7XzwYgCdsFFPqOSrnwD1/WC9Y7rjOCGSRqWjOSRVjOkeR6Ok=
-X-Gm-Gg: AZFdTZeW2NWW5nlbhOnu/j3PB0xbl7sJOUOACh5CvqgXcfZM33xhzzN5PVpKaQrdDqi
- XDFsbLsb+Hhi+J2MMlQnGH0G1Vb8dVpwcSq95vHeE/XwZUUnW42XpSAkn5Witus/wojgVzkc2Zw
- OXFRjCen8YMjb+JuVdyHrXdLZ3XIHdDdUByVlt/VBfq29V6IoD9UBbAfsmJ8Up2hhj0aP0yI28k
- zZnkbV3wSkpBdgGyBA7STIrcTdxdSiQ31vvuvaa0qnJA9y0lFWVoiC+vGV+b1iy2kA6zZXywC6T
- 4xnzJbaVD3Jpno1ClksyFHhtaH0s4O3Zznj+OgjCqSZ2pjHgYucJPES5sJ+7icr2H8XC7S5WjkH
- LCcTrKFM8NF6PWehJmNYCYb19o6uH/y7YbjahzHXWfIgUslSRvezCwSZQRRa5ZdfmY93FLUyk3t
- +sNI8sSw0NfePGU2yN1wl95X6RA1JZce2t4S4Nfe0LsdrwMAbnrlKnwMlVG5Rsd3e8GPHcW9QPy
- l9Ng3EF2Eq7jMr5HjzVt5Iat5wmSXXKLQJhQ6Q589z7/qVUo9P0Oj1W7E12Pak2m2TKUzsoMG/k
- RAlwyJZ8rIeG0Nzv+4+PlwJ/aWZxszhiGbG21ma9KUoKHYYXdXaD7Kch0RCdohLlLDGEUiySwhi
- hqfZ5WCz20keARJO1Bhl6do3T121V/20cWnhbxugPT5s5MAHdWpDf/fTqPPgPxgOMfACUgy8/sj
- tU9u4DtUWV/vQr/HLfopPZM9P6/w==
-X-Received: by 2002:a05:600c:1d0a:b0:4bb:840c:72f2 with SMTP id
- 5b1f17b1804b1-4bb889323a1mr187745175e9.25.1795361480259; 
- Sun, 22 Nov 2026 07:31:20 -0800 (PST)
-Received: from dario-ThinkPad-P14s-Gen-5.homenet.telecomitalia.it
- (host-79-14-29-58.business.telecomitalia.it. [79.14.29.58])
- by smtp.gmail.com with ESMTPSA id
- 5b1f17b1804b1-4bb884a15absm237833815e9.9.2026.11.22.07.31.17
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Sun, 22 Nov 2026 07:31:19 -0800 (PST)
-From: Dario Binacchi <dario.binacchi@amarulasolutions.com>
-To: Maxime Ripard <mripard@kernel.org>
-Cc: michael@amarulasolutions.com, linux-amarula@amarulasolutions.com,
- Dario Binacchi <dario.binacchi@amarulasolutions.com>,
- David Airlie <airlied@gmail.com>, Jessica Zhang <jesszhan0024@gmail.com>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Neil Armstrong <neil.armstrong@linaro.org>,
- Simona Vetter <simona@ffwll.ch>, Thomas Zimmermann <tzimmermann@suse.de>,
- dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org
-Subject: [RFC PATCH 8/8] drm/panel: synaptics-r63353: Support hw state readout
-Date: Sun, 22 Nov 2026 16:30:08 +0100
-Message-ID: <20261122153032.2782768-9-dario.binacchi@amarulasolutions.com>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <20261122153032.2782768-1-dario.binacchi@amarulasolutions.com>
-References: <20261122153032.2782768-1-dario.binacchi@amarulasolutions.com>
+	by gabe.freedesktop.org (Postfix) with ESMTP id 5568610E20F;
+	Sun, 22 Nov 2026 15:47:39 +0000 (UTC)
+Received: from fanzine2.igalia.com (fanzine2.igalia.com [213.97.179.56])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 0B4EB10E20F
+ for <dri-devel@lists.freedesktop.org>; Sun, 22 Nov 2026 15:47:32 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com; 
+ s=20170329;
+ h=Cc:To:Content-Transfer-Encoding:Content-Type:MIME-Version:
+ Message-Id:Date:Subject:From:From:Reply-To;
+ bh=sHzBEyxIy7AzmSnKqBQiETOyR5yEjahrFbHL7xorXDE=; t=1795362452; x=2110722452; 
+ b=bfzq1aGzADjgXbtMK9RFueZCAkjO+ulvgL4IXJS5ymNG18r4VnN5rfjpID+Y2+AQAYUReuse+KP
+ +2f9XNPHNvtzTOJE7vz7tdq7MllPVMj2qKC4w36JaHgO+CV/BKNAjJI6/3BirdZWvbsavo0s2oCpr
+ xgJ6x8LbnlVgbqlZoS/gD9FHFcIRR1E8FFSpH0t+o12eVu4iB5rPrXChfVU2w5GZ1IUINPjTG7yke
+ YMeJJ/DRwb9q3rBn87NLXTePn4LOYsm+fGI8z4aSk63IkHcU44hDALXJjfLEznA1PRJsEhU4Ul6Zj
+ D1GsFvAh8ylPmGVwkE0ZXCmZ8k9tjfuYFtGg==;
+Received: from [179.105.94.163] (helo=[10.0.0.1])
+ by fanzine2.igalia.com with esmtpsa 
+ (Cipher TLS1.3:ECDHE_X25519__RSA_PSS_RSAE_SHA256__AES_256_GCM:256) (Exim)
+ id 1xV9mr-00000002er2-1PiP; Sun, 22 Nov 2026 16:47:29 +0100
+From: =?utf-8?q?Ma=C3=ADra_Canal?= <mcanal@igalia.com>
+Subject: [PATCH 0/2] drm/v3d: Remove V3D 3.3 and 4.1 support
+Date: Sun, 22 Nov 2026 12:47:22 -0300
+Message-Id: <20261122-v3d-remove-33-41-v1-0-52152b454ad8@igalia.com>
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
+Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/x3MMQqAMAxA0atIZgNNUxS9ijgUGzWDVVoognh3i
+ +Mb/n8gS1LJMDYPJCma9YwV1Daw7D5ughqqwRrbEVmDhQMmOc4iyIyOkPvFOe8oDGyhZleSVe9
+ /Oc3v+wH/SgLYYgAAAA==
+X-Change-ID: 20261120-v3d-remove-33-41-37c44a41d932
+To: Iago Toral <itoral@igalia.com>, 
+ Florian Fainelli <florian.fainelli@broadcom.com>, 
+ Melissa Wen <mwen@igalia.com>, David Airlie <airlied@gmail.com>, 
+ Simona Vetter <simona@ffwll.ch>, Rob Herring <robh@kernel.org>, 
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>, 
+ Nicolas Saenz Julienne <nsaenz@kernel.org>
+Cc: kernel-dev@igalia.com, dri-devel@lists.freedesktop.org, 
+ devicetree@vger.kernel.org, 
+ =?utf-8?q?Ma=C3=ADra_Canal?= <mcanal@igalia.com>
+X-Mailer: b4 0.14.3
+X-Developer-Signature: v=1; a=openpgp-sha256; l=1954; i=mcanal@igalia.com;
+ h=from:subject:message-id; bh=DuoDY+s9tIUiS81WwrsIhQxlbTfu4MZWVGe6cLUTbOA=;
+ b=owEBbQGS/pANAwAKAT/zDop2iPqqAcsmYgBrAw6OetStndkwTq7BBvcxKr7BbSb8abhfnGxlp
+ 7ZWdrGHXrmJATMEAAEKAB0WIQT45F19ARZ3Bymmd9E/8w6Kdoj6qgUCawMOjgAKCRA/8w6Kdoj6
+ qv7NB/0Vwd3fZrMKdpPryeRq1QE8eNfApiliHZdQ9dG1jCstPXbw5ecultXLifd9gV7eXM3ascb
+ yfhGTg8iOiPgQ+eXem+SFrRLo9X5kJePpuK+CvcTVj3OpR9W4iYV4jb8gqJvPH9GMx2hvbRvUDo
+ Whoe1m2zQvgLhtTudFv3lqhjQbYtYpFQMkQDMBGAZvToB+OfjYfjOGL1FQkX9GQ9dwLTjmQEZjP
+ w3qXYfZ9DtIu52lm6JJgVIoSnMzGFAulgwDP3Q3F4xOqsCWD741iBKQ5kNuDArL/PptmNLkkUCz
+ BLqKZo3nO3bDaNJw9+xFLDeelfp2MHT024umD0MoeGJX8S5s
+X-Developer-Key: i=mcanal@igalia.com; a=openpgp;
+ fpr=F8E45D7D0116770729A677D13FF30E8A7688FAAA
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -91,90 +71,53 @@ List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-18.8 required=3.0 tests=BAYES_00,DKIM_SIGNED,
-	DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
-	INCLUDES_CR_TRAILER,INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,
-	SPF_PASS,USER_AGENT_GIT autolearn=unavailable autolearn_force=no
-	version=4.0.1
+X-Spam-Status: No, score=-13.8 required=3.0 tests=BAYES_00,DKIM_SIGNED,
+	DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_PATCH,
+	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,USER_AGENT_GIT
+	autolearn=unavailable autolearn_force=no version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-Take over a panel left enabled by the bootloader without turning it
-off. The reset line is no longer asserted at probe, since that would
-turn the panel off, but when the panel is powered on.
+V3D 3.3 (BCM7268) and V3D 4.1 (BCM7278) were deprecated in v7.3 by commit
+7ffcc4fffb45 ("drm/v3d: Deprecate V3D 3.3 and 4.1 support"), following
+Mesa dropping support for them in 2024 [1]. The deprecation warning asked
+users to report on dri-devel and no one has so far. This series removes
+support for both V3D versions.
 
-Signed-off-by: Dario Binacchi <dario.binacchi@amarulasolutions.com>
+Patch 1 is a small DT binding adjustment. It makes "resets" required for
+BCM2711 and BCM2712, as they don't have bridge registers and must use a
+reset controller.
+
+Patch 2 removes support for V3D 3.3 and 4.1.
+
+Florian, DT maintainers: Can I remove BCM7268 and BCM7278 compatibles from
+the binding? Does Broadcom use these compatibles? I'm sorry, I don't know
+the exact procedure to remove compatibles from the bindings.
+
+[1] https://gitlab.freedesktop.org/mesa/mesa/-/merge_requests/25851
+
+Best regards,
+- Maíra
 
 ---
+Maíra Canal (2):
+      dt-bindings: gpu: v3d: Require resets for BCM2711 and BCM2712
+      drm/v3d: Remove V3D 3.3 and 4.1 support
 
- .../gpu/drm/panel/panel-synaptics-r63353.c    | 33 ++++++++++++++++++-
- 1 file changed, 32 insertions(+), 1 deletion(-)
-
-diff --git a/drivers/gpu/drm/panel/panel-synaptics-r63353.c b/drivers/gpu/drm/panel/panel-synaptics-r63353.c
-index 73447d7b15d3..e1d84eca62c8 100644
---- a/drivers/gpu/drm/panel/panel-synaptics-r63353.c
-+++ b/drivers/gpu/drm/panel/panel-synaptics-r63353.c
-@@ -72,6 +72,13 @@ static int r63353_panel_power_on(struct r63353_panel *rpanel)
- 	struct device *dev = &dsi->dev;
- 	int ret;
- 
-+	/* The bootloader may have left the panel out of reset */
-+	ret = gpiod_direction_output(rpanel->reset_gpio, 0);
-+	if (ret) {
-+		dev_err(dev, "Failed to assert RESET GPIO (%d)\n", ret);
-+		return ret;
-+	}
-+
- 	ret = regulator_enable(rpanel->avdd);
- 	if (ret) {
- 		dev_err(dev, "Failed to enable avdd regulator (%d)\n", ret);
-@@ -181,6 +188,28 @@ static int r63353_panel_unprepare(struct drm_panel *panel)
- 	return 0;
- }
- 
-+static int r63353_panel_sro_install(struct drm_panel *panel)
-+{
-+	struct r63353_panel *rpanel = to_r63353_panel(panel);
-+	int ret;
-+
-+	/* A panel held in reset can't be displaying anything */
-+	if (!gpiod_get_value_cansleep(rpanel->reset_gpio))
-+		return -ENODEV;
-+
-+	ret = regulator_enable(rpanel->avdd);
-+	if (ret)
-+		return ret;
-+
-+	ret = regulator_enable(rpanel->dvdd);
-+	if (ret) {
-+		regulator_disable(rpanel->avdd);
-+		return ret;
-+	}
-+
-+	return 0;
-+}
-+
- static const struct drm_display_mode sharp_ls068b3sx02_timing = {
- 	.clock = 70000,
- 	.hdisplay = 640,
-@@ -221,6 +250,7 @@ static const struct drm_panel_funcs r63353_panel_funcs = {
- 	.prepare = r63353_panel_prepare,
- 	.unprepare = r63353_panel_unprepare,
- 	.get_modes = r63353_panel_get_modes,
-+	.sro_install = r63353_panel_sro_install,
- };
- 
- static int r63353_panel_probe(struct mipi_dsi_device *dsi)
-@@ -254,7 +284,8 @@ static int r63353_panel_probe(struct mipi_dsi_device *dsi)
- 	if (IS_ERR(panel->avdd))
- 		return PTR_ERR(panel->avdd);
- 
--	panel->reset_gpio = devm_gpiod_get(dev, "reset", GPIOD_OUT_LOW);
-+	/* The line is driven when the panel is powered on */
-+	panel->reset_gpio = devm_gpiod_get(dev, "reset", GPIOD_ASIS);
- 	if (IS_ERR(panel->reset_gpio)) {
- 		dev_err(dev, "failed to get RESET GPIO\n");
- 		return PTR_ERR(panel->reset_gpio);
--- 
-2.43.0
+ .../devicetree/bindings/gpu/brcm,bcm-v3d.yaml      |   4 +
+ drivers/gpu/drm/v3d/Kconfig                        |   6 +-
+ drivers/gpu/drm/v3d/v3d_debugfs.c                  | 150 +++++++++------------
+ drivers/gpu/drm/v3d/v3d_drv.c                      |  43 +-----
+ drivers/gpu/drm/v3d/v3d_drv.h                      |  17 ---
+ drivers/gpu/drm/v3d/v3d_gem.c                      | 120 ++---------------
+ drivers/gpu/drm/v3d/v3d_irq.c                      |  17 +--
+ drivers/gpu/drm/v3d/v3d_perfmon.c                  |  10 +-
+ drivers/gpu/drm/v3d/v3d_power.c                    |   1 -
+ drivers/gpu/drm/v3d/v3d_regs.h                     |  43 +-----
+ drivers/gpu/drm/v3d/v3d_sched.c                    |  18 +--
+ drivers/gpu/drm/v3d/v3d_submit.c                   |  13 --
+ 12 files changed, 104 insertions(+), 338 deletions(-)
+---
+base-commit: ce335050d9a670491139f5e4337934c3e963e7f4
+change-id: 20261120-v3d-remove-33-41-37c44a41d932
 
