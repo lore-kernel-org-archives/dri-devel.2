@@ -2,63 +2,47 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8FE27606A32A
-	for <dri-devel@archiver.kernel.org>; Sun, 22 Nov 2026 17:14:46 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 82455606A320
+	for <dri-devel@archiver.kernel.org>; Sun, 22 Nov 2026 17:14:47 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=timsurber.de header.i=@timsurber.de header.a=rsa-sha256 header.s=MBO0001 header.b=HJh39rsn
+	dkim=pass (2048-bit key, unprotected) header.d=proton.me header.i=@proton.me header.a=rsa-sha256 header.s=protonmail2 header.b=f5c2wPln
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id AD67710E63B;
+	by gabe.freedesktop.org (Postfix) with ESMTP id E808F10E63F;
 	Sun, 22 Nov 2026 17:14:36 +0000 (UTC)
-Received: from mout-p-103.mailbox.org (mout-p-103.mailbox.org [80.241.56.161])
- by gabe.freedesktop.org (Postfix) with ESMTPS id CCE0110E167
- for <dri-devel@lists.freedesktop.org>; Sat, 21 Nov 2026 02:32:17 +0000 (UTC)
-Received: from smtp202.mailbox.org (smtp202.mailbox.org
- [IPv6:2001:67c:2050:b231:465::202])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519MLKEM768 server-signature RSA-PSS (4096 bits) server-digest
- SHA256) (No client certificate requested)
- by mout-p-103.mailbox.org (Postfix) with ESMTPS id 4jWbnp3qhfzKn5m;
- Sat, 21 Nov 2026 03:32:14 +0100 (CET)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=timsurber.de;
- s=MBO0001; t=1795228334;
- h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
- to:to:cc:cc:mime-version:mime-version:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references;
- bh=pcu4Z0YBmWCircjybAGycW1Dhcl9eVo6UivDa5/Fmxg=;
- b=HJh39rsn0pCQK2z2PO2POp6xK2+FKPT1CeP+YAoEidmXMinZJzJVxtECgbIGE3fDueqTfe
- Pmv48qfCNA3vGZJdDWbTVnPOqJPpvC0QHdf9QE/rNbayws92eKrn5730LcefjLK/qKJRdy
- PWFDqeTimrEw2LXHTAziBd4WL+z2DYX0mzaYj7QeJnGXBTbmNVWsj0er2O/yIYbh2vcCSp
- y14nWIAeBDChiMSlt5sLZBT5rU2NFsflD1enUul6zuEfygyJJFNde2GLPE59YEREOEyybb
- +z2/uFRqC0n2czfiepexptiFo8b+xMi9KvL+qeA2QyUPzFciJXbHFwA3H42ABQ==
-Authentication-Results: outgoing_mbo_mout; dkim=none;
- spf=pass (outgoing_mbo_mout: domain of me@timsurber.de designates
- 2001:67c:2050:b231:465::202 as permitted sender)
- smtp.mailfrom=me@timsurber.de
-From: Tim Surber <me@timsurber.de>
-To: Cristian Ciocaltea <cristian.ciocaltea@collabora.com>,
- Heiko Stuebner <heiko@sntech.de>
-Cc: Sandy Huang <hjc@rock-chips.com>, Andy Yan <andyshrk@163.com>,
- Andy Yan <andy.yan@rock-chips.com>,
- Sebastian Reichel <sebastian.reichel@collabora.com>,
- Daniel Stone <daniel@fooishbar.org>,
- Philipp Zabel <p.zabel@pengutronix.de>,
- Nicolas Frattaroli <nicolas.frattaroli@collabora.com>,
- Igor Paunovic <royalnet026@gmail.com>, kernel@collabora.com,
- dri-devel@lists.freedesktop.org, linux-rockchip@lists.infradead.org,
- linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v6 07/15] drm/rockchip: vop2: Reset AXI and DCLK to
- improve robustness
-Date: Sat, 21 Nov 2026 03:31:18 +0100
-Message-ID: <20261121023139.3515640-1-me@timsurber.de>
-X-Mailer: git-send-email 2.55.0
-In-Reply-To: <20261105-dw-hdmi-qp-yuv-v6-7-1bb63ef5766e@collabora.com>
-References: <20261105-dw-hdmi-qp-yuv-v6-0-1bb63ef5766e@collabora.com>
- <20261105-dw-hdmi-qp-yuv-v6-7-1bb63ef5766e@collabora.com>
+Received: from mail-4327.protonmail.ch (mail-4327.protonmail.ch [185.70.43.27])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id CC3A310E3D9
+ for <dri-devel@lists.freedesktop.org>; Sun, 22 Nov 2026 00:09:16 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=proton.me;
+ s=protonmail2; t=1795305920; x=1795565120;
+ bh=GjZ15nH+Zr9dV+VfJP4mz2smNi+U2Ekt9QMOm/mP68c=;
+ h=Date:To:From:Cc:Subject:Message-ID:Feedback-ID:From:To:Cc:Date:
+ Subject:Reply-To:Feedback-ID:Message-ID:BIMI-Selector;
+ b=f5c2wPlnjKmm2QADBvoaVdvS2RlJI75kJu9QhfH6gB6I1860erVlK0FcvwrTdQ5HS
+ 2HvN2M49tDYHjo+fmAG2QMLK2dOcx0msRyIYHvw6VOV2z9ahCPVzDPwIT7ZcIRAJVE
+ /Y1t7C9bAE+rqd1YbbjEeSyf30A1oKTaN5e2AzsiFLhwmt+p4ObUp3fKK8gr2OvnZ9
+ kvzqi0pRCPO1OLRVceje2OhbppdYKd6erAIpLz7qR5JCUrpNBsatQZH/Jb7KrXIUrh
+ Dokc7df1Aw8/9qk8THLzNPMWIkE4w1j0i77Y9Lw3x/c+zlmXapLZBVUZN29r62JmDl
+ oVEVL27kGJULw==
+Date: Sun, 22 Nov 2026 00:05:17 +0000
+To: "sumit.semwal@linaro.org" <sumit.semwal@linaro.org>,
+ "christian.koenig@amd.com" <christian.koenig@amd.com>
+From: Falconet3 <Falconet3@proton.me>
+Cc: "linux-media@vger.kernel.org" <linux-media@vger.kernel.org>,
+ "dri-devel@lists.freedesktop.org" <dri-devel@lists.freedesktop.org>,
+ "linaro-mm-sig@lists.linaro.org" <linaro-mm-sig@lists.linaro.org>,
+ "axboe@kernel.dk" <axboe@kernel.dk>,
+ "io-uring@vger.kernel.org" <io-uring@vger.kernel.org>,
+ "asml.silence@gmail.com" <asml.silence@gmail.com>,
+ "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>
+Subject: [PATCH] dma-buf: fix leak of ctx and dmabuf reference in
+ dma_buf_io_ctx_create() WARN path
+Message-ID: <htm5h9oaY-vk0g9JVYJmz5XCaKe_nPoWkUJYJqDulyNvv_sAWfzSMp0T6GWt5okc8R4SyvXXpJQ3VGhetKnjEa2KGem5uCYdxpmdzUFf6XA=@proton.me>
+Feedback-ID: 48740069:user:proton
+X-Pm-Message-ID: 702b096feba5ccb2efa67b42272d49e6cc5e4207
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-Rspamd-Queue-Id: 4jWbnp3qhfzKn5m
+Content-Type: multipart/mixed;
+ boundary="b1=_abzXme9ze1hXxLPsku0U8W6cWhzMpEqIMQF3RF8w4"
 X-Mailman-Approved-At: Sun, 22 Nov 2026 17:13:42 +0000
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -71,82 +55,59 @@ List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-13.8 required=3.0 tests=BAYES_00,DKIM_SIGNED,
-	DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_PATCH,
-	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,USER_AGENT_GIT
-	autolearn=unavailable autolearn_force=no version=4.0.1
+X-Spam-Status: No, score=-15.8 required=3.0 tests=BAYES_00,DKIM_SIGNED,
+	DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
+	INCLUDES_CR_TRAILER,INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,
+	SPF_PASS autolearn=unavailable autolearn_force=no version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-Hi Cristian,
+--b1=_abzXme9ze1hXxLPsku0U8W6cWhzMpEqIMQF3RF8w4
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
 
-On Thu, 05 Nov 2026 03:00:41 +0200, Cristian Ciocaltea wrote:
-> @@ -953,6 +974,8 @@ static int vop2_enable(struct vop2 *vop2)
->
->  static void vop2_disable(struct vop2 *vop2)
->  {
-> +	vop2_reset_assert_deassert(vop2, vop2->axi_rst);
-> +
->  	rockchip_drm_dma_detach_device(vop2->drm, vop2->dev);
+(leak of ctx + dmabuf ref on the WARN_ON_ONCE path, new file in v7.4-rc1, p=
+atch attached)
+--b1=_abzXme9ze1hXxLPsku0U8W6cWhzMpEqIMQF3RF8w4
+Content-Type: text/x-patch; name=0002-dma-buf-fix-leak-in-dma_buf_io_ctx_create-WARN-path.patch
+Content-Transfer-Encoding: base64
+Content-Disposition: attachment; filename=0002-dma-buf-fix-leak-in-dma_buf_io_ctx_create-WARN-path.patch
 
-with this patch my RK3588 board (FriendlyElec
-CM3588) hangs hard sometimes when the last CRTC is switched off. Without the series
-or with the AXI reset in vop2_disable() removed it does not happen.
+RnJvbTogRmFsY29uZXQzIDxGYWxjb25ldDNAcHJvdG9uLm1lPgpEYXRlOiBTYXQsIDIxIE5vdiAy
+MDI2IDIxOjA1OjAwICswMDAwClN1YmplY3Q6IFtQQVRDSF0gZG1hLWJ1ZjogZml4IGxlYWsgb2Yg
+Y3R4IGFuZCBkbWFidWYgcmVmZXJlbmNlIGluIGRtYV9idWZfaW9fY3R4X2NyZWF0ZSgpIFdBUk4g
+cGF0aAoKVGhlIGZpbGUgZHJpdmVycy9kbWEtYnVmL2RtYS1idWYtaW8uYyAoYW5kIHRoZSBpb191
+cmluZyBkbWFidWYgcmVnYnVmCmZlYXR1cmUgb24gdG9wIG9mIGl0KSBpcyBuZXcgaW4gdjcuNC1y
+YzEuIEluIGRtYV9idWZfaW9fY3R4X2NyZWF0ZSgpLAp0aGUgZXJyb3IgcGF0aCBvZiBpbml0X2Rt
+YV9idWZfaW9fY3R4KCkgY29ycmVjdGx5IGRvZXMKa2ZyZWUoY3R4KSArIGRtYV9idWZfcHV0KGRt
+YWJ1ZikgKGRtYS1idWYtaW8uYzoxNzgtMTgyKSwgYnV0IHRoZQpXQVJOX09OX09OQ0UoKSBwYXRo
+IHJpZ2h0IGJlbG93IGl0IHJldHVybnMgLUVJTlZBTCB3aXRob3V0IGZyZWVpbmcKZWl0aGVyIChk
+bWEtYnVmLWlvLmM6MTg0LTE4OCk6CgoJaWYgKFdBUk5fT05fT05DRSghY3R4LT5kZXZfb3BzIHx8
+IC4uLikpCgkJcmV0dXJuIC1FSU5WQUw7ICAgICAgICAgIC8qIGxlYWtzIGN0eCBhbmQgdGhlIGdl
+dF9kbWFfYnVmKCkgcmVmICovCgpSZWFjaGFibGUgZnJvbSB1c2Vyc3BhY2UgdmlhIGlvX3VyaW5n
+IGJ1ZmZlciByZWdpc3RyYXRpb24KKElPUklOR19SRUdJU1RFUl9CVUYgLyByc3JjIHVwZGF0ZSB3
+aXRoIElPX1JFR0JVRl9UWVBFX0RNQUJVRiwKaW9fdXJpbmcvZG1hLWJ1Zi5jIC0+IGRtYV9idWZf
+aW9fY3R4X2NyZWF0ZSgpKSB3aGVuZXZlciBhbiBpbXBvcnRlcidzCmluaXRfZG1hX2J1Zl9pb19j
+dHgoKSBzdWNjZWVkcyBidXQgbGVhdmVzIGRldl9vcHMgaW5jb21wbGV0ZToKa2VybmVsIG1lbW9y
+eSArIGRtYS1idWYgcmVmZXJlbmNlIGxlYWsgKERvUy1ncmFkZSkuCgpBZmZlY3RzIHY3LjQtcmMx
+Li52Ny40LXJjMyBvbmx5OyB0aGUgZmlsZSBkb2VzIG5vdCBleGlzdCBpbiB2Ny4zLjUuCgpGaXgg
+d2FzIHZlcmlmaWVkIHdpdGggZ2l0IGFwcGx5IC0tY2hlY2sgYWdhaW5zdCB2Ny40LXJjMzsgbm90
+CmJ1aWxkLXRlc3RlZCBhbmQgbm8gcmVwcm9kdWNlciBhdmFpbGFibGUgaW4gdGhpcyBlbnZpcm9u
+bWVudC4KCkZpeGVzOiBGSUxMLUlOLVNIQSAoImRtYS1idWY6IGludHJvZHVjZSAuLi4gZmlsZSBJ
+L08gLi4uIikKQXNzaXN0ZWQtYnk6IExMTSBNaXN0cmFsIFZpYmUKU2lnbmVkLW9mZi1ieTogRmFs
+Y29uZXQzIDxGYWxjb25ldDNAcHJvdG9uLm1lPgotLS0KIGRyaXZlcnMvZG1hLWJ1Zi9kbWEtYnVm
+LWlvLmMgfCA3ICsrKysrLS0KIDEgZmlsZSBjaGFuZ2VkLCA1IGluc2VydGlvbnMoKyksIDIgZGVs
+ZXRpb25zKC0pCgpkaWZmIC0tZ2l0IGEvZHJpdmVycy9kbWEtYnVmL2RtYS1idWYtaW8uYyBiL2Ry
+aXZlcnMvZG1hLWJ1Zi9kbWEtYnVmLWlvLmMKaW5kZXggMDAwMDAwMC4uMDAwMDAwMCAxMDA2NDQK
+LS0tIGEvZHJpdmVycy9kbWEtYnVmL2RtYS1idWYtaW8uYworKysgYi9kcml2ZXJzL2RtYS1idWYv
+ZG1hLWJ1Zi1pby5jCkBAIC0xNzksMTMgKzE3OSwxNiBAQCBpbnQgZG1hX2J1Zl9pb19jdHhfY3Jl
+YXRlKHN0cnVjdCBmaWxlICpmaWxlLAogCQlrZnJlZShjdHgpOwogCQlkbWFfYnVmX3B1dChkbWFi
+dWYpOwogCQlyZXR1cm4gcmV0OwogCX0KIAogCWlmIChXQVJOX09OX09OQ0UoIWN0eC0+ZGV2X29w
+cyB8fAogCQkJICFjdHgtPmRldl9vcHMtPm1hcCB8fAogCQkJICFjdHgtPmRldl9vcHMtPnVubWFw
+IHx8Ci0JCQkgIWN0eC0+ZGV2X29wcy0+cmVsZWFzZSkpCi0JCXJldHVybiAtRUlOVkFMOworCQkJ
+ICFjdHgtPmRldl9vcHMtPnJlbGVhc2UpKSB7CisJCWtmcmVlKGN0eCk7CisJCWRtYV9idWZfcHV0
+KGRtYWJ1Zik7CisJCXJldHVybiAtRUlOVkFMOworCX0KIAogCSpvdXRfY3R4ID0gY3R4OwogCXJl
+dHVybiAwOwotLSAKMi41My4wCg==
 
-Here is a minimal reproducer, run as root, with a display on HDMI and fbcon on it:
+--b1=_abzXme9ze1hXxLPsku0U8W6cWhzMpEqIMQF3RF8w4--
 
-  python3 - <<'EOF' &
-  import fcntl, os, struct
-  fd = os.open("/dev/dri/by-path/platform-display-subsystem-card", os.O_RDWR)
-  try:
-      fcntl.ioctl(fd, 0x641F)        # DRM_IOCTL_DROP_MASTER: leave KMS to fbcon
-  except OSError:
-      pass
-  while True:
-      b = bytearray(struct.pack("6IQ", 2160, 3840, 32, 0, 0, 0, 0))
-      fcntl.ioctl(fd, 0xC02064B2, b)                         # DRM_IOCTL_MODE_CREATE_DUMB
-      handle = struct.unpack("6IQ", b)[4]
-      fcntl.ioctl(fd, 0xC00464B4, struct.pack("I", handle))  # DRM_IOCTL_MODE_DESTROY_DUMB
-  EOF
-  while :; do
-  	echo 4 > /sys/class/graphics/fb0/blank; sleep 0.3
-  	echo 0 > /sys/class/graphics/fb0/blank; sleep 0.7
-  done
-
-This hangs the board within a few blank cycles. In
-practice I hit it when a KMS application exits: it frees its buffers
-while fbcon takes the display back with a full modeset.
-
-This issue can be fixed for me by moving vop2_reset_assert_deassert(vop2, vop2->axi_rst) from vop2_disable to vop2_enable.
-
---8<--
-diff --git a/drivers/gpu/drm/rockchip/rockchip_drm_vop2.c b/drivers/gpu/drm/rockchip/rockchip_drm_vop2.c
---- a/drivers/gpu/drm/rockchip/rockchip_drm_vop2.c
-+++ b/drivers/gpu/drm/rockchip/rockchip_drm_vop2.c
-@@ -913,6 +913,9 @@ static int vop2_enable(struct vop2 *vop2)
- 	if (ret)
- 		goto err_put_pm;
-
-+	/* Reset while idle; doing it in vop2_disable() can hang the SoC */
-+	vop2_reset_assert_deassert(vop2, vop2->axi_rst);
-+
- 	ret = rockchip_drm_dma_attach_device(vop2->drm, vop2->dev);
- 	if (ret) {
- 		drm_err(vop2->drm, "failed to attach dma mapping: %d\n", ret);
-@@ -973,8 +976,6 @@ static int vop2_enable(struct vop2 *vop2)
-
- static void vop2_disable(struct vop2 *vop2)
- {
--	vop2_reset_assert_deassert(vop2, vop2->axi_rst);
--
- 	rockchip_drm_dma_detach_device(vop2->drm, vop2->dev);
-
- 	regcache_drop_region(vop2->map, 0, vop2_regmap_config.max_register);
--->8--
-
-Does that work for the cases the reset was added for (the RGB <-> YUV420
-switch glitches and the DSI panel on the EVB1)? I can't test those here.
-
-
-Thanks,
-Tim
