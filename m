@@ -2,78 +2,82 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7903C606A32A
-	for <dri-devel@archiver.kernel.org>; Sun, 22 Nov 2026 15:31:14 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id ED189606A32A
+	for <dri-devel@archiver.kernel.org>; Sun, 22 Nov 2026 15:31:25 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=amarulasolutions.com header.i=@amarulasolutions.com header.a=rsa-sha256 header.s=google header.b=fdLDHYcw
+	dkim=pass (1024-bit key) header.d=amarulasolutions.com header.i=@amarulasolutions.com header.a=rsa-sha256 header.s=google header.b=Zd2NvVET
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 1A75B10E50B;
-	Sun, 22 Nov 2026 15:31:08 +0000 (UTC)
-Received: from mail-wr1-f54.google.com (mail-wr1-f54.google.com
- [209.85.221.54])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 798F210E50B
- for <dri-devel@lists.freedesktop.org>; Sun, 22 Nov 2026 15:30:55 +0000 (UTC)
-Received: by mail-wr1-f54.google.com with SMTP id
- ffacd0b85a97d-48e47347279so1394842f8f.1
- for <dri-devel@lists.freedesktop.org>; Sun, 22 Nov 2026 07:30:55 -0800 (PST)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 133DB10E4DA;
+	Sun, 22 Nov 2026 15:31:20 +0000 (UTC)
+Received: from mail-wm1-f52.google.com (mail-wm1-f52.google.com
+ [209.85.128.52])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 2C7BD10E19B
+ for <dri-devel@lists.freedesktop.org>; Sun, 22 Nov 2026 15:31:09 +0000 (UTC)
+Received: by mail-wm1-f52.google.com with SMTP id
+ 5b1f17b1804b1-4ba013938d7so22127395e9.2
+ for <dri-devel@lists.freedesktop.org>; Sun, 22 Nov 2026 07:31:09 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=amarulasolutions.com; s=google; t=1795361454; x=1795966254;
+ d=amarulasolutions.com; s=google; t=1795361467; x=1795966267;
  darn=lists.freedesktop.org; 
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:from:to:cc:subject:date
  :message-id:reply-to:content-type;
- bh=GRF7RZylvqUysOgUrH3bq7GJBGa2AYrwd8X7S2pra/o=;
- b=fdLDHYcwZ/N/nz/jc6wVv8TcSFKlx7YTssnuVQRnss7tP0e7lPLcqBzcTUfaJNwujO
- Rm/2jzW3xvQsIuac7craDfjsLyWgJGGu2ezq8NcsOTQfHPFug2YYjMsWKD50ijQ1zp30
- 2GvcUT+6gEi2/vEetgs6jTkt75eOvH624gRac=
+ bh=da6eqqr5+mNyqLPiJjh9XR2U6FENUUFBFqpSoPRBQAU=;
+ b=Zd2NvVETI5zrBf9K2CjKpH2jJAE2AzJRke6jSQaqwm8LcfkTOgnLzHDpK0nGsxULXW
+ +xEIUuaCp6eCAQGI8C7x07JhbZbYqG8rPFB1FEpbxRwBHbq1k6k/yWzaCH42zMZD5db6
+ hr2NimOzhfEitgUl0ZSA42rsYOOVR09SeSauM=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20260707; t=1795361454; x=1795966254;
+ d=1e100.net; s=20260707; t=1795361467; x=1795966267;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
  :to:cc:subject:date:message-id:reply-to:content-type;
- bh=GRF7RZylvqUysOgUrH3bq7GJBGa2AYrwd8X7S2pra/o=;
- b=TGlNcEHGgLvfGQThAQRi/2TMJx/EIHhiXvbYSUFtmWil7DohC32jHE8rZO0W46wLsG
- U6ZgumkVd3ca2Ze2oSgAiX6xskbblGsd7SXjlC/qdOwuQQ25KsC4QpNsG3TKCUkkmOck
- Zq/uj9k7eqjf1FkyrZdWRuM/vji9lQeLfJMnzISnSWsSspU7ApQOhkcrHD4FO6GwIYa2
- VWQMx11ySPGEvztOcsUdPnJnLmaU5933P5FdGQPoOBAvLjxeaYR5oamoAnGMMSaWbXnH
- tLt2emUpr5pHJOX2gdf9/Nlw8YFJ3HAyb8MLvc36ughm/np0wjcGdu/whPM6teaIgXwz
- OwGQ==
+ bh=da6eqqr5+mNyqLPiJjh9XR2U6FENUUFBFqpSoPRBQAU=;
+ b=effYdDFKNRLY4APzDWg4bLHVw35Wdabt5tPufcKtYBrySe12nj9ZOCU067RSUEa6uR
+ 8bVWk7Txm3kEvGkNt/QKluCT6HMcYmptaWiWQTBOmEAD7c99zkZvjDMR3yswmWevzcSq
+ BsOcHw0WPdxZRjiqLpIjiVfwc7Jn4IahFSwzmMluouLvlqzUREZvnJGF42rW3xWv/Dur
+ SCA0FOW2IUhjXRY5EuDVWiAnWug94mU5WI1csbtJCLOrmyMiKo3Vf/sr09vlN341Bb/t
+ VWRBtTaHOWOHaLtrTZKAxfAbkmWkykZqtb9kQhsW2L/fsNKfUDa4uWU78quIs+MvAreK
+ H8XA==
 X-Forwarded-Encrypted: i=1;
- AL+hErG/gk4e1UIEqc9l+3b1P8szi8eO7cGJtAqMgi1MkjEprftmDYCYJtPeeOqFFyI6icPCGigsgEU/E20=@lists.freedesktop.org
-X-Gm-Message-State: APuU4Z/tVT0sl7YjI+yo7rNnEvYmINPrljHVvpHdETm4h8O7lrltKlcR
- DeijKZ2S0O3SFUg8f/C5P3fSCnVZM+tigHFHRf2EgfToUhLvEJvpJekuJP0P5O+O0j0=
-X-Gm-Gg: AZFdTZeUkmcqFGFOltuni2BxJbghJoxji1W6Yek6Uhr5q1gSCrbU0FJJgIisrH7bGxT
- P1gjTvbLYutmYYpYhTsCHMMe9m/ppqFAsrAo1JJoJl6TD1D+WujVicUQmRwS1V+5mSEtw+AmaKC
- oWf+mJrhU/DIw7189EZS5bCQmNC3c4Fm8lY0s3vq/3BMF63R8h9/3LLnp+kThM3o4tr7olfDo5W
- Itgv0egmAZ+lPX6AtqssDAXXM7fFPJ1NDQJBFNTjaD+4+BZMRdswjEn85wn919jYOy0gNTfC7CW
- WOpKIleXGbiy7QexM01Mk6Z1KT1aEEW+U13iKa7A7+Ii13wkegA6FoLDKdAYCzuvEiTYrNJuYxK
- 1CEt1t1R2n85VfqDQPxitsAur+M+dSqtRGXehti2v7Jt9SFm8vNimBIZwr6qMz5AV9fh1ZSs73Z
- ZGDgA2VT2cOgOginYpGkVBiub46c77Xxj8/MXQLDUQQW1Rtvpk9Ui8YEUKC+0MJBF7glRZqZGeF
- 50IRvOz4YUzZNYalHGC67gAY0/M6T5n50g0sUUIYL3DarWj3ZjdX73MxLGYY+WTk/cfa1H81SlG
- WDyzUSNYIJ7dMMOtinkTspiqsUw9o2dFcnRDKi/t2KggSQX68/tKm228u+MfKA+jmnY/Rzo1XXh
- jdYHasRNgg3MQscfHEXWNA6PiH3wYKqP5N6p69A5NjUBX0gkpUWr6DcENxMFD/9pnImKwekXnd/
- YrFSQSagrXiG0iN7wGAMJr+xVzOA==
-X-Received: by 2002:a05:600c:190d:b0:4ba:2bfc:c8b5 with SMTP id
- 5b1f17b1804b1-4bb888267aemr185114295e9.10.1795361453840; 
- Sun, 22 Nov 2026 07:30:53 -0800 (PST)
+ AL+hErF2gcNySag5huDX5bhUfB1ry121kyd0oupG8KzLUOFvEFW9nVJNo8sYzk2npRaxSaDDjzDFI3RkaZo=@lists.freedesktop.org
+X-Gm-Message-State: APuU4Z/zT2Ee8C1HjZnfp4dFvbGfqwRH1ZMePWLOAcRIS0niQN18CzG4
+ T5n58l1ch2ldFDZqE1HBayQNHIVoN5gDZrPqKXLeZRkK6B1xJIYQw1hEaH8ZFV4x3is=
+X-Gm-Gg: AZFdTZe572n4BZe5O5jSZB6QXZ4904yjIYQD2XNY1TEu0ffLpYnnQPIuOjnz56FamgR
+ wuu8lA6mADY/1AFHU1SdSRzjOVJ8+usHU7DSmAqqRiACOIAzILNnxnasbpWGVbPz/dqE3Qlft9c
+ P3XSfSycMJHwdQtgSeQjTa8vrSyETVtGfWmIMw9SuA309O6/Nrg0qtPtqWKsrcATHAS5FBmfJZ5
+ 6NThbX3YykSPthHTp7z91NP7rLoJg5pa6YMP9RskRmgjtTp+5lwUmzpWOCjdZ8NFhIhMw2Pn1r5
+ doFxRaRLJxggtsL9NnMYQ/0/+uiqusiuVKd/e3sKujWVNrfQyMCdhIavC73/oCbDJSOV55iDkdT
+ 1XvFyO4WIicZ7mhUZZHfEAu4xb6/KGvJ4w27N3EhYyo5vF5ogO8NvxoAY0Oujik8wXnC40pKdim
+ DT2m5FdPa9JGF6OLMu+PmbINXEwrJPyNDcFXuIReWU5R7elHcih8RFQz6MCbCEkvjnG2jP4NpZA
+ R0ludBzrws2iv7R/TwQHEFZbpUfI09LokFKBAzUKzJBIiLe9iW6LDlsyp3kfuMt/1xZ81p4hfeG
+ IIGdrhNNQAjJds8UVmiBw/9HMGt9JaO6MpNrmAC4R050l6dP0wpYISPCWwnpVTl8jlCJwhUnLNo
+ Z90QGTE64gKYlz4RASd+CxutjjgW7xJBbiDTBH+uZ5RvejRdV3v0EIsHju9yvrThNmpQT2GC2zb
+ 3cYANiUv6eQRmJOWAGCxMA2s9nFWF1Tst2R2ObFcS6K8s+Yxc=
+X-Received: by 2002:a05:600c:8287:b0:4a1:6992:f861 with SMTP id
+ 5b1f17b1804b1-4bb887e064dmr198299585e9.1.1795361467514; 
+ Sun, 22 Nov 2026 07:31:07 -0800 (PST)
 Received: from dario-ThinkPad-P14s-Gen-5.homenet.telecomitalia.it
  (host-79-14-29-58.business.telecomitalia.it. [79.14.29.58])
  by smtp.gmail.com with ESMTPSA id
- 5b1f17b1804b1-4bb884a15absm237833815e9.9.2026.11.22.07.30.49
+ 5b1f17b1804b1-4bb884a15absm237833815e9.9.2026.11.22.07.31.02
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Sun, 22 Nov 2026 07:30:53 -0800 (PST)
+ Sun, 22 Nov 2026 07:31:06 -0800 (PST)
 From: Dario Binacchi <dario.binacchi@amarulasolutions.com>
 To: Maxime Ripard <mripard@kernel.org>
 Cc: michael@amarulasolutions.com, linux-amarula@amarulasolutions.com,
  Dario Binacchi <dario.binacchi@amarulasolutions.com>,
- David Airlie <airlied@gmail.com>, Jessica Zhang <jesszhan0024@gmail.com>,
+ David Airlie <airlied@gmail.com>, Fabio Estevam <festevam@gmail.com>,
+ Frank Li <Frank.Li@nxp.com>,
  Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Neil Armstrong <neil.armstrong@linaro.org>,
- Simona Vetter <simona@ffwll.ch>, Thomas Zimmermann <tzimmermann@suse.de>,
- dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org
-Subject: [RFC PATCH 2/8] drm/panel: Add sro_install hook
-Date: Sun, 22 Nov 2026 16:30:02 +0100
-Message-ID: <20261122153032.2782768-3-dario.binacchi@amarulasolutions.com>
+ Marek Vasut <marex@denx.de>,
+ Pengutronix Kernel Team <kernel@pengutronix.de>,
+ Sascha Hauer <s.hauer@pengutronix.de>, Simona Vetter <simona@ffwll.ch>,
+ Stefan Agner <stefan@agner.ch>, Thomas Zimmermann <tzimmermann@suse.de>,
+ dri-devel@lists.freedesktop.org, imx@lists.linux.dev,
+ linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org
+Subject: [RFC PATCH 5/8] drm/mxsfb: Stop the controller in hw_reset
+Date: Sun, 22 Nov 2026 16:30:05 +0100
+Message-ID: <20261122153032.2782768-6-dario.binacchi@amarulasolutions.com>
 X-Mailer: git-send-email 2.43.0
 In-Reply-To: <20261122153032.2782768-1-dario.binacchi@amarulasolutions.com>
 References: <20261122153032.2782768-1-dario.binacchi@amarulasolutions.com>
@@ -99,78 +103,109 @@ X-Spam-Status: No, score=-18.8 required=3.0 tests=BAYES_00,DKIM_SIGNED,
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-The panel bridge assumes the panel is enabled whenever its pipeline
-is read out as active, but the panel is left marked as unprepared and
-disabled. The following disable is then skipped, and the panel driver
-never gets the chance to acquire the resources it will release when
-unprepared.
-
-Add the sro_install hook, called when the state read out from the
-hardware is installed. On success the panel is marked as prepared and
-enabled.
+When the hardware state can't be read out, a controller left running
+by the bootloader is reprogrammed while running on the first enable.
+Stop it in the hw_reset hook.
 
 Signed-off-by: Dario Binacchi <dario.binacchi@amarulasolutions.com>
 ---
 
- drivers/gpu/drm/drm_panel.c | 16 ++++++++++++++++
- include/drm/drm_panel.h     | 10 ++++++++++
- 2 files changed, 26 insertions(+)
+ drivers/gpu/drm/mxsfb/mxsfb_drv.c |  2 ++
+ drivers/gpu/drm/mxsfb/mxsfb_kms.c | 33 ++++++++++++++++++++++++++++++-
+ 2 files changed, 34 insertions(+), 1 deletion(-)
 
-diff --git a/drivers/gpu/drm/drm_panel.c b/drivers/gpu/drm/drm_panel.c
-index bef0e6af73ba..daccf98e5513 100644
---- a/drivers/gpu/drm/drm_panel.c
-+++ b/drivers/gpu/drm/drm_panel.c
-@@ -346,6 +346,21 @@ panel_bridge_connector_readout(struct drm_bridge *bridge,
- 	return 0;
- }
+diff --git a/drivers/gpu/drm/mxsfb/mxsfb_drv.c b/drivers/gpu/drm/mxsfb/mxsfb_drv.c
+index c8bc79264361..ef4a47d238ed 100644
+--- a/drivers/gpu/drm/mxsfb/mxsfb_drv.c
++++ b/drivers/gpu/drm/mxsfb/mxsfb_drv.c
+@@ -31,6 +31,7 @@
+ #include <drm/drm_gem_dma_helper.h>
+ #include <drm/drm_gem_framebuffer_helper.h>
+ #include <drm/drm_mode_config.h>
++#include <drm/drm_modeset_helper.h>
+ #include <drm/drm_module.h>
+ #include <drm/drm_of.h>
+ #include <drm/drm_panel.h>
+@@ -110,6 +111,7 @@ static const struct drm_mode_config_funcs mxsfb_mode_config_funcs = {
+ 	.fb_create		= mxsfb_fb_create,
+ 	.atomic_check		= drm_atomic_helper_check,
+ 	.atomic_commit		= drm_atomic_helper_commit,
++	.hw_reset		= drm_mode_config_helper_hw_reset,
+ };
  
-+static void panel_bridge_install_state(struct drm_bridge *bridge,
-+				       struct drm_bridge_state *bridge_state)
+ static const struct drm_mode_config_helper_funcs mxsfb_mode_config_helpers = {
+diff --git a/drivers/gpu/drm/mxsfb/mxsfb_kms.c b/drivers/gpu/drm/mxsfb/mxsfb_kms.c
+index bbc2a2df9f16..96cd80c6e76c 100644
+--- a/drivers/gpu/drm/mxsfb/mxsfb_kms.c
++++ b/drivers/gpu/drm/mxsfb/mxsfb_kms.c
+@@ -35,6 +35,18 @@
+ /* 1 second delay should be plenty of time for block reset */
+ #define RESET_TIMEOUT		1000000
+ 
++static void mxsfb_hw_get(struct mxsfb_drm_private *mxsfb)
 +{
-+	struct drm_panel *panel = drm_bridge_to_panel(bridge);
-+
-+	if (!panel->funcs || !panel->funcs->sro_install)
-+		return;
-+
-+	if (panel->funcs->sro_install(panel))
-+		return;
-+
-+	panel->prepared = true;
-+	panel->enabled = true;
++	pm_runtime_get_sync(mxsfb->drm->dev);
++	mxsfb_enable_axi_clk(mxsfb);
 +}
 +
- static const struct drm_bridge_funcs panel_bridge_bridge_funcs = {
- 	.attach = panel_bridge_attach,
- 	.detach = panel_bridge_detach,
-@@ -360,6 +375,7 @@ static const struct drm_bridge_funcs panel_bridge_bridge_funcs = {
- 	.atomic_get_input_bus_fmts = drm_atomic_helper_bridge_propagate_bus_fmt,
- 	.debugfs_init = panel_bridge_debugfs_init,
- 	.atomic_sro_readout_state = panel_bridge_readout_state,
-+	.atomic_sro_install_state = panel_bridge_install_state,
- 	.atomic_sro_compare_state = drm_atomic_helper_bridge_compare_state,
- 	.atomic_sro_connector_readout = panel_bridge_connector_readout,
- };
-diff --git a/include/drm/drm_panel.h b/include/drm/drm_panel.h
-index 58113ea7d63a..66f9fc0828f1 100644
---- a/include/drm/drm_panel.h
-+++ b/include/drm/drm_panel.h
-@@ -148,6 +148,16 @@ struct drm_panel_funcs {
- 	 * Allows panels to create panels-specific debugfs files.
- 	 */
- 	void (*debugfs_init)(struct drm_panel *panel, struct dentry *root);
++static void mxsfb_hw_put(struct mxsfb_drm_private *mxsfb)
++{
++	mxsfb_disable_axi_clk(mxsfb);
++	pm_runtime_put_sync(mxsfb->drm->dev);
++}
 +
-+	/**
-+	 * @sro_install:
-+	 *
-+	 * Acquire the resources of a panel found enabled when the hardware
-+	 * state was read out, without touching the hardware.
-+	 *
-+	 * This function is optional.
-+	 */
-+	int (*sro_install)(struct drm_panel *panel);
+ /* -----------------------------------------------------------------------------
+  * CRTC
+  */
+@@ -205,7 +217,7 @@ static void mxsfb_enable_controller(struct mxsfb_drm_private *mxsfb)
+ 	writel(CTRL_RUN, mxsfb->base + LCDC_CTRL + REG_SET);
+ }
+ 
+-static void mxsfb_disable_controller(struct mxsfb_drm_private *mxsfb)
++static void mxsfb_stop_controller(struct mxsfb_drm_private *mxsfb)
+ {
+ 	u32 reg;
+ 
+@@ -221,6 +233,11 @@ static void mxsfb_disable_controller(struct mxsfb_drm_private *mxsfb)
+ 	reg = readl(mxsfb->base + LCDC_VDCTRL4);
+ 	reg &= ~VDCTRL4_SYNC_SIGNALS_ON;
+ 	writel(reg, mxsfb->base + LCDC_VDCTRL4);
++}
++
++static void mxsfb_disable_controller(struct mxsfb_drm_private *mxsfb)
++{
++	mxsfb_stop_controller(mxsfb);
+ 
+ 	clk_disable_unprepare(mxsfb->clk);
+ 	if (mxsfb->clk_disp_axi)
+@@ -433,6 +450,19 @@ static void mxsfb_crtc_atomic_disable(struct drm_crtc *crtc,
+ 	pm_runtime_put_sync(drm->dev);
+ }
+ 
++static void mxsfb_crtc_hw_reset(struct drm_crtc *crtc)
++{
++	struct mxsfb_drm_private *mxsfb = to_mxsfb_drm_private(crtc->dev);
++
++	mxsfb_hw_get(mxsfb);
++
++	/* The bootloader may have left the controller running */
++	if (readl(mxsfb->base + LCDC_CTRL) & CTRL_RUN)
++		mxsfb_stop_controller(mxsfb);
++
++	mxsfb_hw_put(mxsfb);
++}
++
+ static int mxsfb_crtc_enable_vblank(struct drm_crtc *crtc)
+ {
+ 	struct mxsfb_drm_private *mxsfb = to_mxsfb_drm_private(crtc->dev);
+@@ -493,6 +523,7 @@ static const struct drm_crtc_helper_funcs mxsfb_crtc_helper_funcs = {
+ 	.atomic_flush = mxsfb_crtc_atomic_flush,
+ 	.atomic_enable = mxsfb_crtc_atomic_enable,
+ 	.atomic_disable = mxsfb_crtc_atomic_disable,
++	.hw_reset = mxsfb_crtc_hw_reset,
  };
  
- struct drm_panel_follower_funcs {
+ static const struct drm_crtc_funcs mxsfb_crtc_funcs = {
 -- 
 2.43.0
 
