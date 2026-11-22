@@ -2,105 +2,102 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0A564606A320
-	for <dri-devel@archiver.kernel.org>; Sun, 22 Nov 2026 11:45:52 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A8358606A32A
+	for <dri-devel@archiver.kernel.org>; Sun, 22 Nov 2026 11:55:25 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=JBZbk8ZB
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=eEYapr60
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 687E210E3EB;
-	Sun, 22 Nov 2026 11:45:46 +0000 (UTC)
-Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 7DE8010E32C
- for <dri-devel@lists.freedesktop.org>; Sun, 22 Nov 2026 11:45:39 +0000 (UTC)
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by tor.source.kernel.org (Postfix) with ESMTP id 8425B60629;
- Sun, 22 Nov 2026 11:45:38 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id E3C711F000C0;
- Sun, 22 Nov 2026 11:45:18 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1795347938;
- bh=cLMcqM1+ID1GgGq+PerrzsvqYkDe3KsyjwqtE/Ytfio=;
- h=Date:From:To:Cc:Subject:References:In-Reply-To;
- b=JBZbk8ZBopVc78PPFvWeVTIg2CMujdUlqemdavr/HCyWWlIQmFZkcrGxwSI3F8Lj7
- DNLer9OUFPLbOa4J4Swvhd/E17PbHJNYpl75QSvfOs502Qnq+SIVf6x8BaBZgxP/BT
- TLhC5kAcmMHclzMqgFcvdBPgsnO0el8R7pGYvxVYVMfFAdpjXa9S5pH5onsvDFitkW
- F7xoQFwGUBjexAU1BbMzjGktImA7HZrErJM176ZMcRKXKM7Cl6WdGzAwr72CinZqC4
- cUMiH2XukT43gci2XSUdvkVEDyb0hb22fl5gp/8fIaWZ7ym7dU5tWM0l+OzRL/g3Qu
- BJv0P33zLAReA==
-Date: Sun, 22 Nov 2026 12:45:16 +0100
-From: Ingo Molnar <mingo@kernel.org>
-To: Juergen Gross <jgross@suse.com>
-Cc: linux-kernel@vger.kernel.org, x86@kernel.org,
- virtualization@lists.linux.dev, linux-ide@vger.kernel.org,
- dri-devel@lists.freedesktop.org, linux-fbdev@vger.kernel.org,
- linux-crypto@vger.kernel.org, linux-gpio@vger.kernel.org,
- linux-perf-users@vger.kernel.org, linux-hyperv@vger.kernel.org,
- kvm@vger.kernel.org, linux-edac@vger.kernel.org,
- linux-pci@vger.kernel.org, linux-pm@vger.kernel.org,
- linux-coco@lists.linux.dev, linux-acpi@vger.kernel.org,
- linux-hwmon@vger.kernel.org, linux-mtd@lists.infradead.org,
- platform-driver-x86@vger.kernel.org,
- Thomas Gleixner <tglx@kernel.org>, Ingo Molnar <mingo@redhat.com>,
- Borislav Petkov <bp@alien8.de>, Dave Hansen <dave.hansen@linux.intel.com>,
- "H. Peter Anvin" <hpa@zytor.com>, Ajay Kaher <ajay.kaher@broadcom.com>,
- Alexey Makhalov <alexey.makhalov@broadcom.com>,
- Broadcom internal kernel review list <bcm-kernel-feedback-list@broadcom.com>, 
- Damien Le Moal <dlemoal@kernel.org>, Niklas Cassel <cassel@kernel.org>,
- David Airlie <airlied@redhat.com>, Helge Deller <deller@gmx.de>,
- linux-geode@lists.infradead.org, Olivia Mackall <olivia@selenic.com>,
- Herbert Xu <herbert@gondor.apana.org.au>,
- Linus Walleij <linusw@kernel.org>, Bartosz Golaszewski <brgl@kernel.org>,
- Peter Zijlstra <peterz@infradead.org>,
- Arnaldo Carvalho de Melo <acme@kernel.org>,
- Namhyung Kim <namhyung@kernel.org>, Mark Rutland <mark.rutland@arm.com>,
- Alexander Shishkin <alexander.shishkin@linux.intel.com>,
- Jiri Olsa <jolsa@kernel.org>, Ian Rogers <irogers@google.com>,
- Adrian Hunter <adrian.hunter@intel.com>,
- James Clark <james.clark@linaro.org>,
- Haiyang Zhang <haiyangz@microsoft.com>,
- Wei Liu <wei.liu@kernel.org>, Dexuan Cui <decui@microsoft.com>,
- Sean Christopherson <seanjc@google.com>,
- Paolo Bonzini <pbonzini@redhat.com>, Josh Poimboeuf <jpoimboe@kernel.org>,
- Pawan Gupta <pawan.kumar.gupta@linux.intel.com>,
- Pu Wen <puwen@hygon.cn>, Tony Luck <tony.luck@intel.com>,
- Reinette Chatre <reinette.chatre@intel.com>,
- Ben Horgan <ben.horgan@arm.com>, Dave Martin <Dave.Martin@arm.com>,
- James Morse <james.morse@arm.com>, Babu Moger <babu.moger@amd.com>,
- Drew Fustini <fustini@kernel.org>,
- Tony W Wang-oc <TonyWWang-oc@zhaoxin.com>,
- Vitaly Kuznetsov <vkuznets@redhat.com>, Andy Lutomirski <luto@kernel.org>,
- Bjorn Helgaas <bhelgaas@google.com>,
- "Rafael J. Wysocki" <rafael@kernel.org>,
- Pavel Machek <pavel@kernel.org>, Kiryl Shutsemau <kas@kernel.org>,
- Rick Edgecombe <rick.p.edgecombe@intel.com>,
- Boris Ostrovsky <boris.ostrovsky@oracle.com>,
- Len Brown <lenb@kernel.org>, Viresh Kumar <viresh.kumar@linaro.org>,
- Huang Rui <ray.huang@amd.com>,
- Mario Limonciello <mario.limonciello@amd.com>,
- Perry Yuan <perry.yuan@amd.com>, K Prateek Nayak <kprateek.nayak@amd.com>,
- Srinivas Pandruvada <srinivas.pandruvada@linux.intel.com>,
- Yazen Ghannam <yazen.ghannam@amd.com>, Guenter Roeck <linux@roeck-us.net>,
- Artem Bityutskiy <artem.bityutskiy@linux.intel.com>,
- Artem Bityutskiy <dedekind1@gmail.com>, Arnd Bergmann <arnd@arndb.de>,
- Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
- Miquel Raynal <miquel.raynal@bootlin.com>,
- Richard Weinberger <richard@nod.at>, Vignesh Raghavendra <vigneshr@ti.com>,
- Ashok Raj <ashok.raj.linux@gmail.com>, Hans de Goede <hansg@kernel.org>,
- Ilpo =?iso-8859-1?Q?J=E4rvinen?= <ilpo.jarvinen@linux.intel.com>,
- Rajneesh Bhardwaj <irenic.rajneesh@gmail.com>,
- Xi Pardee <xi.pardee@linux.intel.com>,
- Daniel Lezcano <daniel.lezcano@kernel.org>,
- Zhang Rui <rui.zhang@intel.com>, Lukasz Luba <lukasz.luba@arm.com>,
- xen-devel@lists.xenproject.org,
- Linus Torvalds <torvalds@linux-foundation.org>
-Subject: treewide: Re: [PATCH v6 00/12] msr: Drop 32-bit MSR interfaces
-Message-ID: <awLVzKJWWfC3eJsH@gmail.com>
-References: <20261116150208.1572254-1-jgross@suse.com>
+	by gabe.freedesktop.org (Postfix) with ESMTP id CE40510E3C0;
+	Sun, 22 Nov 2026 11:55:19 +0000 (UTC)
+Received: from mail-qt1-f172.google.com (mail-qt1-f172.google.com
+ [209.85.160.172])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id A0EBF10E3C0
+ for <dri-devel@lists.freedesktop.org>; Sun, 22 Nov 2026 11:55:13 +0000 (UTC)
+Received: by mail-qt1-f172.google.com with SMTP id
+ d75a77b69052e-5365f9a04c5so8071891cf.1
+ for <dri-devel@lists.freedesktop.org>; Sun, 22 Nov 2026 03:55:13 -0800 (PST)
+ARC-Seal: i=1; a=rsa-sha256; t=1795348512; cv=none;
+ d=google.com; s=arc-20260327;
+ b=Hxb+KKV5KqqNfxJhHPBl0WSbZ4ZjhuVtKtc8cxudl/nXOzlcZPXM+7KlUoKuUe42vy
+ /Yg77pNxu3UuXOUNf9U9dOHaamr1YYl/HgB64nEE2G7kLiLmBhZbxCohnUfGzMhMtSJY
+ 0BiJ5BWraK/JaGzOkJxBvPhdzyufH0nBrkNfskFAglXs7JM20lzKB29N2B34XfEOc5jQ
+ VvC8QkbJc8F1v2DKH5qVKhEW89i1CwzTqFerCJYuYEuxJJ40LfOMzSQeDCLeDaTbolgq
+ ZWoyz8fUnnrTPUc2178Nt41vzse4i2Xmim1aPOQJHsrHjhcrPa0qtuoMeJZn35hIIKh2
+ zvhA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com;
+ s=arc-20260327; 
+ h=cc:to:subject:message-id:date:from:in-reply-to:references
+ :mime-version:dkim-signature;
+ bh=PEBvudlYGM9SyuS/eii/q1QlyLvQOf/trD6vSUj2gqw=;
+ fh=B8NDqZpZTs72jrcJ9fQSk9twoMj8x3UyG9FdPRLNdtE=;
+ b=mqfmco+g/WtRBb/5/7ApJVSoIN4eJ2lzc4W8hzOIeusUTmabiiaNB6DNH2iuFEO4Um
+ L6hr3/CSu5oySGNdIEqUInl1EDWAm43Gm0v8+fJv1lmGlsjJzVhIpCWVNyzmm95v6OL0
+ n6GWF/GTPQ8fjg2DcA+ekJPEkwFinBh2EjbI9j/BzaosYhYsEFKhFd9v9CDAiz/PtFdC
+ Zv5S/sCB4GylQxqZKUmZCSeyCFRmLacJFyoFywlE6tGM6Z1yZtogab3ItJOMyOV01Wj7
+ zusaxPxJNC51jd5lq7MU5dZsrK+a0SxJMijX9V+RumpYFNcSxEKAqtAjv1F+1E+BT+zB
+ GSgw==; darn=lists.freedesktop.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20260707; t=1795348512; x=1795953312; darn=lists.freedesktop.org;
+ h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+ :references:mime-version:from:to:cc:subject:date:message-id:reply-to
+ :content-type; bh=PEBvudlYGM9SyuS/eii/q1QlyLvQOf/trD6vSUj2gqw=;
+ b=eEYapr60QfuMpyF8p23z2Wpa+OazO1IoGTAOMgsyePgpD4VV+eIZ8KAffz+GQTXafC
+ k4pwBXk68BUuussjK5eR+hQC99SU/Q3GSnjJ0widOLnvLDXFWDaFzq83zWIJdN33irJG
+ AbZuk23HyfL/VbUd0DFFJ5ZoalPbl9t9IftL/cDw18nj3blY0U/9A6XOHDwnWevzltuJ
+ fy3O/lvF6rfZCQaYB8Wjy6sHrCFt/yrAJRqGPCBKMvkjOX5Ihi6qpM4IMiaKfzEPhpLU
+ w6K1HdXDwkbZulcr/qTInkk6eyPtv23VBfb6AmJJOutzc8axf4qTEr3oPujKiCxkuJRp
+ ZK5A==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20260707; t=1795348512; x=1795953312;
+ h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+ :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
+ :subject:date:message-id:reply-to:content-type;
+ bh=PEBvudlYGM9SyuS/eii/q1QlyLvQOf/trD6vSUj2gqw=;
+ b=VFDRuCUicPbN4B6Z7slj3gUK0M2G+fURgL3rmH1wz2mJAKzn2hpsdhvPAnk7IxkC7v
+ gQ7NEpddpZalMAD+0nO0S9ycDTCFVYaSXXKZbQU9NimGEZks2ZaBccPvsr3szl2szCdz
+ viYTp4MExuTfbeFvZgIybCpMIi690idL8TdW0dEayYxIP/h0PxS7ckVNywu99JhB03sZ
+ bOyvMscuPrSlAaskOUwsh7MPPz+wao0WonU1ogXxJZ27k6yXqNFIWbATcLmzecT1zGjN
+ Gl3FvNV4Lk36M/5+72bSdaozkNdK8pjg3WlKfBLaSIdfv9LNpT/kb9V7qdtdQVCwQdB1
+ KjdQ==
+X-Forwarded-Encrypted: i=1;
+ AL+hErGxefqJknUZX6peWBK6zHmWFdDIKZ91+LD/yQASywvIWXRMKOnpMA3kQzK7cLlZvGrF923UzUYYRwM=@lists.freedesktop.org
+X-Gm-Message-State: APuU4Z9N7Bw16tvmrv0HxHxaCakYBoawFWZZv3Fan1eP7TZOtMpCFdMs
+ 8PUH7Cu29ToDFyXI1Cj1vqmuby8rp6tCTASzhHcr3vjAF0oEsRU/IyXfBIqrChmGq1zTEMfbAX2
+ RbUiWrm7PQFxJxeMsz/kjnXy7vFXFZN4=
+X-Gm-Gg: AZFdTZfLFV89EzAcg1U50Z1u830wLnZCWchfE3blsUTtQ55fFwaX7Nk4ap+HSgJiBJe
+ QvoW5/nQNPIfUfY+LmREP0TzzvNaz9kjwJL9aaHSkg9MQih+yvERLVy7Bx572qx5r/EFSzVX2aY
+ GQ5A4rfPybWeNs5vBaQkSGEpbqRLl0sDTd3bC53IsUXy8JjlPLG4GvWh9jR7U1teXZV20zKfNCT
+ P14pOe7TfX9KDceaje7gbPpoZH6qbIuhUkXVVjzcqT4JfVGhRJmvdP4xnKOrUHK/goC6ypxuUby
+ O2GMrbfvLBnTxILgarivq2eraEwRA6pdVhDrd41154heF2R5QhXg0870Kh1pbEKesYjGSaEQ0h4
+ YtPww7moyPYr9FYoYQlpO52M/azsRE7yedRfsUDGz3gpc0Va3AODUpeL9eA==
+X-Received: by 2002:a05:622a:5e16:b0:55c:216f:38bb with SMTP id
+ d75a77b69052e-55d76a5af75mr155172321cf.36.1795348512352; Sun, 22 Nov 2026
+ 03:55:12 -0800 (PST)
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261116150208.1572254-1-jgross@suse.com>
+References: <20261122072007.14685-1-mbkchelofficialdev@gmail.com>
+ <CANiq72kV0YwG54i6fLSv1Rwtu+3Ks8XUzpdkZohY5tiH6LzhRA@mail.gmail.com>
+In-Reply-To: <CANiq72kV0YwG54i6fLSv1Rwtu+3Ks8XUzpdkZohY5tiH6LzhRA@mail.gmail.com>
+From: Ivan Tverdokhleb <mbkchelofficialdev@gmail.com>
+Date: Sun, 22 Nov 2026 13:55:00 +0200
+X-Gm-Features: Aa3M54oprG3AdU72C_-xhfZchFZcgvasoQm4vceuI-WEz9WzrsolDK7mnQWZ6K4
+Message-ID: <CA+YDrKBYCB+AzOgDY6M6cczSyVNkY8me9UiYB-tZNz1bbanPnQ@mail.gmail.com>
+Subject: Re: [PATCH v3] rust: gpu: buddy: store the allocator inside the Mutex
+To: Miguel Ojeda <miguel.ojeda.sandonis@gmail.com>
+Cc: rust-for-linux@vger.kernel.org, Joel Fernandes <jfern@kernel.org>, 
+ Matthew Auld <matthew.auld@intel.com>,
+ Arun Pravin <arunpravin.paneerselvam@amd.com>, 
+ Danilo Krummrich <dakr@kernel.org>, Alice Ryhl <aliceryhl@google.com>,
+ Miguel Ojeda <ojeda@kernel.org>, 
+ Boqun Feng <boqun@kernel.org>, Gary Guo <gary@garyguo.net>, 
+ =?UTF-8?Q?Bj=C3=B6rn_Roy_Baron?= <bjorn3_gh@protonmail.com>, 
+ Benno Lossin <lossin@kernel.org>, Andreas Hindborg <a.hindborg@kernel.org>, 
+ Trevor Gross <tmgross@umich.edu>, Daniel Almeida <daniel.almeida@collabora.com>,
+ Tamir Duberstein <tamird@kernel.org>, Alexandre Courbot <acourbot@nvidia.com>, 
+ =?UTF-8?Q?Onur_=C3=96zkan?= <work@onurozkan.dev>, 
+ dri-devel@lists.freedesktop.org
+Content-Type: multipart/alternative; boundary="00000000000053add50660dc2697"
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -112,39 +109,76 @@ List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-5.8 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
-	DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
-	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS autolearn=no
-	autolearn_force=no version=4.0.1
+X-Spam-Status: No, score=0.2 required=3.0 tests=BAYES_00,DKIM_SIGNED,
+	DKIM_VALID,DKIM_VALID_AU,FREEMAIL_FORGED_FROMDOMAIN,FREEMAIL_FROM,
+	HEADER_FROM_DIFFERENT_DOMAINS,HTML_MESSAGE,MAILING_LIST_MULTI,
+	SPF_HELO_NONE,SPF_PASS autolearn=no autolearn_force=no version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
+--00000000000053add50660dc2697
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-* Juergen Gross <jgross@suse.com> wrote:
+Hi Miguel,
 
-> For accessing the MSR registers on the local CPU, there are 2 types of
-> interfaces: the "modern" 64-bit ones (rdmsrq() etc.) and the 32-bit
-> ones (rdmsr() etc.) which are using the upper and lower 32-bit halves
-> of the 64-bit wide MSR register values.
+No reason at all, I accidentally dropped the brackets. Keeping [`Opaque`]
+when applying sounds good, thanks!
 
->  140 files changed, 572 insertions(+), 690 deletions(-)
+Best regards,
+Ivan
 
-So I've applied this to a separate branch/tree under tip:core/msr,
-because I think this series is mature enough and after about a year
-worth of (very patient) iterations by you we've reached the limit of
-what will be picked up by maintainers.
 
-The commit with the widest impact is automatically generated
-via a semantic patch:
+=D0=B2=D1=81, 22 =D0=BD=D0=BE=D1=8F=D0=B1. 2026=E2=80=AF=D0=B3., 12:48 Migu=
+el Ojeda <miguel.ojeda.sandonis@gmail.com>:
 
-  treewide: Convert rdmsrq() from a macro to an inline function
+> On Sun, Nov 22, 2026 at 8:20=E2=80=AFAM Ivan Tverdokhleb
+> <mbkchelofficialdev@gmail.com> wrote:
+> >
+> > -/// The inner [`Opaque`] contains an initialized buddy allocator.
+> > +/// The `inner` field contains an initialized buddy allocator wrapped
+> in `Opaque`.
+>
+> No need for a new version (I just noticed this skimming around), but
+> please keep the intra-doc link when applying the patch. Or is there a
+> reason why it is removed?
+>
+> Thanks!
+>
+> Cheers,
+> Miguel
+>
 
-  139 files changed, 493 insertions(+), 495 deletions(-)
+--00000000000053add50660dc2697
+Content-Type: text/html; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-and I'm reasonably certain that whatever merge impact this may have
-on -next can be addressed quickly and in a simple fashion. Let's see
-how this goes.
+<div dir=3D"auto">Hi Miguel,<div dir=3D"auto"><br></div><div dir=3D"auto">N=
+o reason at all, I accidentally dropped the brackets. Keeping [`Opaque`]</d=
+iv><div dir=3D"auto">when applying sounds good, thanks!</div><div dir=3D"au=
+to"><br></div><div dir=3D"auto">Best regards,</div><div dir=3D"auto">Ivan</=
+div><div dir=3D"auto"><br></div></div><br><div class=3D"gmail_quote gmail_q=
+uote_container"><div dir=3D"ltr" class=3D"gmail_attr">=D0=B2=D1=81, 22 =D0=
+=BD=D0=BE=D1=8F=D0=B1. 2026=E2=80=AF=D0=B3., 12:48 Miguel Ojeda &lt;<a href=
+=3D"mailto:miguel.ojeda.sandonis@gmail.com">miguel.ojeda.sandonis@gmail.com=
+</a>&gt;:<br></div><blockquote class=3D"gmail_quote" style=3D"margin:0 0 0 =
+.8ex;border-left:1px #ccc solid;padding-left:1ex">On Sun, Nov 22, 2026 at 8=
+:20=E2=80=AFAM Ivan Tverdokhleb<br>
+&lt;<a href=3D"mailto:mbkchelofficialdev@gmail.com" target=3D"_blank" rel=
+=3D"noreferrer">mbkchelofficialdev@gmail.com</a>&gt; wrote:<br>
+&gt;<br>
+&gt; -/// The inner [`Opaque`] contains an initialized buddy allocator.<br>
+&gt; +/// The `inner` field contains an initialized buddy allocator wrapped=
+ in `Opaque`.<br>
+<br>
+No need for a new version (I just noticed this skimming around), but<br>
+please keep the intra-doc link when applying the patch. Or is there a<br>
+reason why it is removed?<br>
+<br>
+Thanks!<br>
+<br>
+Cheers,<br>
+Miguel<br>
+</blockquote></div>
 
-Thanks,
-
-	Ingo
+--00000000000053add50660dc2697--
