@@ -2,103 +2,42 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B5828606A32A
-	for <dri-devel@archiver.kernel.org>; Sun, 22 Nov 2026 07:55:33 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 204E0606A320
+	for <dri-devel@archiver.kernel.org>; Sun, 22 Nov 2026 07:56:10 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=Czg23b32
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=G3wBaXx1
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id B994810E3FE;
-	Sun, 22 Nov 2026 07:55:27 +0000 (UTC)
-Received: from mail-yw1-f177.google.com (mail-yw1-f177.google.com
- [209.85.128.177])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 0FC4D10E3FE
- for <dri-devel@lists.freedesktop.org>; Sun, 22 Nov 2026 07:55:21 +0000 (UTC)
-Received: by mail-yw1-f177.google.com with SMTP id
- 00721157ae682-8b4d5e645d1so13993377b3.1
- for <dri-devel@lists.freedesktop.org>; Sat, 21 Nov 2026 23:55:21 -0800 (PST)
-ARC-Seal: i=1; a=rsa-sha256; t=1795334120; cv=none;
- d=google.com; s=arc-20260327;
- b=qMZaVpizzBYJOhMa1tHnkj/B2A462zvSzLu7P8UzdxKjZKaqqCraTYywc+AUj3U0wg
- 6ShX/p6e2firYQ8M3kJc0JfBxxIx8piSfcUaA+pjew8rmRGP4G+OX5U/qTWa6uEjhQSF
- +YV8no3fjYASBR4sU5O9WA7mpeb80Ch85x5C2+QGix1EAjX9kG80otggWl5hHps6LLfZ
- lPI3En2ZFWx58VX9314zu/+NKG6I1Y1oNq1SOboaDdfe+7KvqxBNOTY6HyjcKghKdjRq
- R/89FnDa/CfY0C/V7I55l4JeTJ5rli+YFiBW2K/khJzhNLXljKlpDCoub89l2PTj0Hw5
- Yb/A==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com;
- s=arc-20260327; 
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:dkim-signature;
- bh=pdeshsNcFSymLEnyYgGQ3YuhLZb8c16ueubDFBPinGo=;
- fh=pNUeXJ9FZQY3f/pDoxyxsQEwc4McuSc/v/xx9SnyuN8=;
- b=HBlCuwqIbVI2ulEyAvM/T3XKWmFQfYW3yUPN5/EeZ0mCkOD9rmgBrvMoPi33mvdCNw
- x7nzWrLJNMejYzDl8xLzob+j07t7Cz/+as72U2TkVGU56aRI1vlpB0PWDPz3RvaxK1eW
- tgKbTSrq0rF8YJ/sTCgQbPSrw7U2JXDXnC52ARagEXcu4JEf7leJUAQQu8VGP3TxvjDa
- Zgpf0+o/qDQ+e4hXgsDBNHIcU2XsJcKnWp8JtAlqPRCjJDr+GYqPqeNn4IHLFiS0kTs3
- K6RPDXV2rgMtSDNf3bk1gPTZSRmYICk5CXLuxym/x6jwosbpmH+57uaJsgsuQAonFexr
- RZXw==; darn=lists.freedesktop.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20260707; t=1795334120; x=1795938920; darn=lists.freedesktop.org;
- h=content-transfer-encoding:content-type:cc:to:subject:message-id
- :date:from:in-reply-to:references:mime-version:from:to:cc:subject
- :date:message-id:reply-to:content-type;
- bh=pdeshsNcFSymLEnyYgGQ3YuhLZb8c16ueubDFBPinGo=;
- b=Czg23b32TNngOD2q7eAWDnQby76y3Rh3GFw6v5+HFc7x9zJIZhr6wy7pbjCbUcZ9cp
- 1bw4c2f0prMMXDZAsH9S9p17nyDHvrLcU5/aBlxWxvA52H0d7xNKJpreIevZuKX0+vBG
- 20780ieRCTux0PedYcusXzg+3jjb3zcu7uLgNnkTwX/q0F1XMa5vjPBJsf8ZeJzFW7/z
- mvGKTT1cKaFkIKDUyOq4MLPtxVdxxL5F0ZFtIDTa9QD83Hfz93AWTICIIahLE3EZh8AU
- HNUhFoxBOUc7l7YsgjLW/n4YXhBm0IzZiq/ld1BsncDTbg/XdReYzTV+qXSWU4/wqy4V
- tV+Q==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20260707; t=1795334120; x=1795938920;
- h=content-transfer-encoding:content-type:cc:to:subject:message-id
- :date:from:in-reply-to:references:mime-version:x-gm-gg
- :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
- :content-type;
- bh=pdeshsNcFSymLEnyYgGQ3YuhLZb8c16ueubDFBPinGo=;
- b=Ivo7RRM6i7T5uzluDhsbK74sG/lMty0qDanlgBRzhHLdr5rXO2pKgUUuO1IFTOrh6I
- teyr3yi31dH0rDFrWGNdeeMLeGpbhfUSuYEFjN9SzRwCkj889gxmoj8+ZmNKAZA+1Gfc
- JyJeznEmmT7kzXR/wQ51WInNHVjK0RuG7zlrobvUt9GyPkWSfIo4yRXcvZCqu3Slbtbf
- bD2rw10W3qgvtwKKeMMUQLMl5btKuD6ohp5PABvmDdIxcnvrxGaUCQPAM6khILqVUZw9
- H+oXnDAYMp8QV6ZobLygk4SwwhS6Z44oIvCwvGlqfQAzbOL7+Fc1QACsoEMWBvSbNUtP
- Zd7A==
-X-Forwarded-Encrypted: i=1;
- AL+hErFSfPJ1j4xWK1Jeott5u7NKjwtDQhY5UB2ZpQhn8V4E9NDQzRM0R3OqZnyiUXjlK7XbB4I9Bhmk24A=@lists.freedesktop.org
-X-Gm-Message-State: APuU4Z8oYGiZiKD49HixccRJ2Iu2nKVqDPIvbmAibjUAwI+mxfrgLVxd
- c9H0Je4nbzEk6EBmZV9a945FVNtYhiJN6bsZgRedTfbsKEB3iKeH0ntPtTnKK5OxgR2ifLLEOYo
- BY2EKcorV2cng8o3tyNTnfzMFTAwxKkc=
-X-Gm-Gg: AZFdTZfWU8jNjrsLS0Ymyyn86YwYLQTRm8hJesbzVp9ZyQAQyd9Y6JfpH+C7mJzsJm0
- NutiPDWdetcBzu28tkJywvBMr7sAZQvbhlu6ueXQkX5gudEunODjeNZqPTCvILW65VwzKx5Nui1
- o7vU9615G8pPW9QMoK6fGtJaKE+zWXbmKlZxJnToSe2/TEhe6FeOFh6/ENfDHKj91FbNbqNrIaA
- ZaaqmZlqi7scPVsV3CatAy5XTBW/0aw2oXdNxVxHCy9i7nOaCjmgtPiP72wndksfFZv6Mq3fu81
- nqI3VfUr3KKn27kR6SdZlvWrZjEfbVU3UumCvoeZ9YZLv+tvRwuQVeu3HnRey/FI3EGnI3jv+bX
- 9LBaJjrW8x6NjAP1KEbhVwV+7CikJaTiT3x0otbI=
-X-Received: by 2002:a05:690c:b01:b0:8b4:e57d:9421 with SMTP id
- 00721157ae682-8b52031b209mr33010807b3.7.1795334120430; Sat, 21 Nov 2026
- 23:55:20 -0800 (PST)
-X-Archived-By: <archiver.kernel.org>
-MIME-Version: 1.0
-References: <20261111-pvr-gem-drop-zeroing-v1-1-2dc725857053@baylibre.com>
-In-Reply-To: <20261111-pvr-gem-drop-zeroing-v1-1-2dc725857053@baylibre.com>
-From: Gyeyoung Baek <gye976@gmail.com>
-Date: Sun, 22 Nov 2026 16:55:07 +0900
-X-Gm-Features: Aa3M54q1h5hYCprIEwOOOX9ZVBe-G655I8fGo68Sbafor7iQqw7YnSzMQ2bEnTE
-Message-ID: <CAKbEznssOrO84z_msOZ0tYjVYkaQ8P+f8uma3PhOF6+zp32Hvw@mail.gmail.com>
-Subject: Re: [PATCH] drm/imagination: drop redundant zeroing of new GEM objects
-To: Guillaume La Roque <glaroque@baylibre.com>
-Cc: Alessio Belle <alessio.belle@imgtec.com>, 
- Luigi Santivetti <luigi.santivetti@imgtec.com>, 
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>, 
- Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>,
- Simona Vetter <simona@ffwll.ch>, 
- Paul Walmsley <pjw@kernel.org>, Palmer Dabbelt <palmer@dabbelt.com>,
- Albert Ou <aou@eecs.berkeley.edu>, 
- Alexandre Ghiti <alex@ghiti.fr>, imagination@lists.freedesktop.org, 
- dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org, 
- linux-riscv@lists.infradead.org
-Content-Type: text/plain; charset="UTF-8"
+	by gabe.freedesktop.org (Postfix) with ESMTP id 42BA910E452;
+	Sun, 22 Nov 2026 07:56:04 +0000 (UTC)
+Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id A816310E452
+ for <dri-devel@lists.freedesktop.org>; Sun, 22 Nov 2026 07:55:57 +0000 (UTC)
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+ by tor.source.kernel.org (Postfix) with ESMTP id 8958E60ED9;
+ Sun, 22 Nov 2026 07:55:56 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2314C1F000C0;
+ Sun, 22 Nov 2026 07:55:56 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+ s=k20260515; t=1795334156;
+ bh=F01tTJdf28QR/yR2rtMQVATlZKoJao4yf595FVHHP5Q=;
+ h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+ b=G3wBaXx143DqjDMLC9d8W7aGgrxvJHLAu7PWlU80yPB3+fM/twD5zVgNFjh6iWey1
+ LeA08jkkhk1+1O/yi3qc9Jj+A8GHubIHe+Lhx/DiOXcIzArDL0IvObMeyGGe1djkUg
+ gXDYAfG6fy4kxW9iq5UN8J47gy21Qyj6UFyWjwmUDb2CSm0g7sEAslwDlOndpjttlz
+ yqme0AKN9AvHFALnPd9ABrXXu5lFFXHgbc2c3+Z+4eTiUSwaXiTjmHbRx7oE34C+oK
+ mQbZRZQ+uzdCpVhyS+8i0+dPHyzCj5//v/ROeagw8RyNss2O/C3K7HNF4gqVGX57xQ
+ vmCkTSgjXOenA==
+Message-ID: <sashiko-outbox-227803@kernel.org>
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH 2/3] udmabuf: map huge page backed ranges with PMDs
+To: "Qiliang Yuan" <qiliang.yuan@linux.dev>
+Cc: dri-devel@lists.freedesktop.org, media-ci@linuxtv.org
+In-Reply-To: <20261122-feat-udmabuf-huge-pfnmap-v1-2-dcba888940c2@linux.dev>
+References: <20261122-feat-udmabuf-huge-pfnmap-v1-0-dcba888940c2@linux.dev>
+ <20261122-feat-udmabuf-huge-pfnmap-v1-2-dcba888940c2@linux.dev>
+Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
+Date: Sun, 22 Nov 2026 07:55:55 +0000
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -109,32 +48,98 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
+Reply-To: sashiko-reviews@lists.linux.dev
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-2.8 required=3.0 tests=BAYES_00,DKIM_SIGNED,
-	DKIM_VALID,DKIM_VALID_AU,FREEMAIL_FORGED_FROMDOMAIN,FREEMAIL_FROM,
-	HEADER_FROM_DIFFERENT_DOMAINS,MAILING_LIST_MULTI,SPF_HELO_NONE,
-	SPF_PASS autolearn=no autolearn_force=no version=4.0.1
+X-Spam-Status: No, score=-10.8 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
+	DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
+	INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS autolearn=ham
+	autolearn_force=no version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
+X-Archived-By: <archiver.kernel.org>
 
-Hi Guillaume,
+Thank you for your contribution! Sashiko AI review found 1 potential
+issue to consider:
+- [High] udmabuf: pre-fault in udmabuf_vm_fault() hits VM_BUG_ON on
+  existing huge PMD
+--
 
-On Wed, Nov 11, 2026 at 6:43=E2=80=AFPM Guillaume La Roque
-<glaroque@baylibre.com> wrote:
->
-> pvr_gem_object_create() clears every new object through a CPU mapping
-> so that userspace never sees data left by a previous owner of the
-> pages [1]. shmem already guarantees that: it clears each page it
-> allocates, and the dma_sync_sgtable_for_device() call that follows
-> makes those zeroes visible to the GPU. The second pass, write-combined
-> on non-coherent devices, only adds latency.
+commit 4678e5bd3e35a29d8e3ac62812388b08912dd829
+Author: Qiliang Yuan <qiliang.yuan@linux.dev>
 
-I'm not very familiar with shmem, so I'd like to ask: is this zeroing
-something shmem guarantees, or just a current implementation detail?
+udmabuf: map huge page backed ranges with PMDs
 
-Since the driver would now rely on it, could you spell out in the
-commit message where the zeroing happens and why it can be relied on?
+This commit adds a ->huge_fault() handler to map PMD-aligned, physically
+contiguous udmabuf ranges with huge PMDs, and updates udmabuf_vm_fault() to
+skip PMD-mappable ranges when pre-faulting the VMA.
+
+> diff --git a/drivers/dma-buf/udmabuf.c b/drivers/dma-buf/udmabuf.c
+> index 018937435356e..f9c908f8b53a2 100644
+> --- a/drivers/dma-buf/udmabuf.c
+> +++ b/drivers/dma-buf/udmabuf.c
+[ ... ]
+> @@ -61,7 +112,12 @@ static vm_fault_t udmabuf_vm_fault(struct vm_fault *v=
+mf)
+>  	if (ret & VM_FAULT_ERROR)
+>  		return ret;
+> =20
+> -	/* pre fault */
+> +	/*
+> +	 * Pre-fault the rest of the VMA, except for the ranges that
+> +	 * udmabuf_vm_huge_fault() maps with a PMD once they are accessed.
+> +	 */
+> +	pmd_ok =3D thp_vma_allowable_order(vma, vma->vm_flags, TVA_PAGEFAULT,
+> +					 PMD_ORDER);
+>  	pgoff =3D vma->vm_pgoff;
+>  	addr =3D vma->vm_start;
+> =20
+> @@ -69,6 +125,14 @@ static vm_fault_t udmabuf_vm_fault(struct vm_fault *v=
+mf)
+>  		if (addr =3D=3D vmf->address)
+>  			continue;
+> =20
+> +		if (pmd_ok && IS_ALIGNED(addr, PMD_SIZE) &&
+> +		    (vmf->address & PMD_MASK) !=3D addr &&
+> +		    udmabuf_pmd_mappable(vma, addr, &pfn)) {
+> +			pgoff +=3D (PMD_SIZE >> PAGE_SHIFT) - 1;
+> +			addr +=3D PMD_SIZE - PAGE_SIZE;
+> +			continue;
+> +		}
+> +
+>  		if (WARN_ON(pgoff >=3D ubuf->pagecount))
+>  			break;
+
+[Severity: High]
+Can the pre-fault loop in udmabuf_vm_fault() call vmf_insert_pfn() on an
+address range where udmabuf_vm_huge_fault() has already installed a huge
+PMD?
+
+If a fault installs a huge PMD in one 2 MiB range of the VMA, and userspace
+then disables THP for the VMA or mm (via madvise(MADV_NOHUGEPAGE) or
+prctl(PR_SET_THP_DISABLE)) before faulting on another unmapped page in the
+same VMA, existing huge PMDs are not split or unmapped, but pmd_ok evaluates
+to false.  The pre-fault loop then does not skip the already-mapped PMD
+range and calls vmf_insert_pfn() -> vmf_insert_pfn_prot() -> insert_pfn() ->
+get_locked_pte() -> walk_to_pmd(), hitting VM_BUG_ON(pmd_trans_huge(*pmd))
+when CONFIG_DEBUG_VM is enabled (or failing in pte_alloc_map_lock() with
+VM_FAULT_OOM and aborting pre-faulting for the rest of the VMA when
+CONFIG_DEBUG_VM is disabled).
+
+Without synchronization against the PMD entry state, a concurrent PTE
+insertion in udmabuf_vm_fault() can also allocate a PTE page table for a
+range while another thread is in udmabuf_vm_huge_fault() ->
+vmf_insert_pfn_pmd() -> insert_pmd() on a write fault, causing insert_pmd()
+to see !pmd_none(*pmd) with pmd_pfn(*pmd) !=3D pfn and trigger
+WARN_ON_ONCE(!is_huge_zero_pmd(*pmd)).
+
+Conversely, when pmd_ok is true, skipping a PMD-mappable range without
+checking pmd_none(*pmd) skips ranges that already have a PTE page table
+allocated (for example after madvise(MADV_DONTNEED) zaps PTEs without
+freeing PTE page tables); because __handle_mm_fault() only calls
+create_huge_pmd() when pmd_none(*vmf.pmd) is true, those skipped ranges will
+never reach udmabuf_vm_huge_fault() and will each fault back into
+udmabuf_vm_fault() and re-scan the VMA.
 
 --=20
-Thanks,
-Gyeyoung
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261122-feat-udmab=
+uf-huge-pfnmap-v1-0-dcba888940c2@linux.dev?part=3D2
