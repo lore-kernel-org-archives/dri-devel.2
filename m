@@ -2,92 +2,106 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8DFDD606A320
-	for <dri-devel@archiver.kernel.org>; Sun, 22 Nov 2026 13:03:52 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 56A99606A335
+	for <dri-devel@archiver.kernel.org>; Sun, 22 Nov 2026 13:09:48 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=korg header.b=owem2OxP
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=s5+dOIy0
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 875A410E843;
-	Sun, 22 Nov 2026 13:03:46 +0000 (UTC)
-Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id DF46610E5ED
- for <dri-devel@lists.freedesktop.org>; Sun, 22 Nov 2026 13:02:56 +0000 (UTC)
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id BC50A43944;
- Sun, 22 Nov 2026 13:02:56 +0000 (UTC)
-Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
-ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
- t=1795352576;
- b=EA1pWsBPvyXNPZi89h6hjXsFM1RF6wYf3aHI23UjB9Cbfi63cgl3VN4vcWuPKEZxO0Ra
- jEFoDqCa2OBkv2iVzVX28sGPJDQcdDtGsynSOcvExGiCYdq9hgSogz1xUr+80OZaCmmrp
- xQc61vLxXavRexoeJWkoyPK+xo8/LIf1t4gy2b6q2gH406I7JKxWHZAzxNPTevqucJbKI
- jxPH1K65G7SQ8LsnWlAjrzV4uh5u8gNeB8w33uQdRJAfL6+SAOUN+FiMIireHRXvHzGuO
- RGxExnwEqlgvy7DwSNhxsMSSRd4cGSQTKJjrksKTavxrra8LLRg2R5+qkOftZKaPR8w==
-ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
- c=relaxed/relaxed; t=1795352576;
- h=DKIM-Signature:Received:From:Date:Subject:MIME-Version:Content-Type:
- Content-Transfer-Encoding:Message-Id:References:In-Reply-To:To:Cc:
- X-Mailer:X-Developer-Signature:X-Developer-Key:X-Endpoint-Received;
- bh=uyNOGucpm2Hdawt9271GoTw7Iyd+QR1AG2JE+mFAUD8=;
- b=EqHDRITDWtnLCUTWsU2MwUBZ0QPQpFidmng4GD8oW3S4gduRXhoyA/In8G/xcuGFxTDh
- QiWFbnxEwCXXNDQBmyaFu8UUOAGZazzYrvZQYpxK4SWxHbDZ7BuJk5rhcTIVMk2axBfZj
- xiMS8oNpYF9imqQQpk4tX+LaWkfwpzuI9d8L79eq2/KY+Tr3jtKjGvdNtL1JqGZp4BTJY
- shNsRkK70jOKIsKJNjA6ibBS4agPgOWFL+OV4JKMws2hlMhaUmaeluprkC6FgQ9j+QRw5
- hQJERu4JgKIC9zSd+l1Gvh/f9x1PQnvAe9coQnsGwS5ywMaxtF3cWP4P9C/F4HSsjpg==
-ARC-Authentication-Results: i=1; smtp.kernel.org; 
- arc=none smtp.remote-ip=100.80.115.77
-Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
- (No client certificate requested)
- by smtp.kernel.org (Postfix) with ESMTPS id E108A1F000E1;
- Sun, 22 Nov 2026 13:02:45 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linux.dev; s=korg;
- t=1795352576; bh=uyNOGucpm2Hdawt9271GoTw7Iyd+QR1AG2JE+mFAUD8=;
- h=From:Date:Subject:References:In-Reply-To:To:Cc;
- b=owem2OxPKcb90P+JzSKOJRwMwckPAJ/TiR42moMSTYHC0rTg6znvkn/YNg2HEYWoy
- RAZLh4UpgqS/njRnbB6jwBmP77yblGxGzY2IbPOQ0X06rqKQY1vpVjip/1typaz5oe
- cAzzoqMFBgH+XxactSX23KjsiZq/1AaG+557gn2Q=
-Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
- by lkml.kernel.org (Postfix) with ESMTP id B73904C073;
- Sun, 22 Nov 2026 13:02:34 +0000 (UTC)
-From: Alvin Sun <alvin.sun@linux.dev>
-Date: Sun, 22 Nov 2026 20:50:29 +0800
-Subject: [PATCH v7 10/10] drm/tyr: add BO-related ioctls
+	by gabe.freedesktop.org (Postfix) with ESMTP id 56B5E10E5C4;
+	Sun, 22 Nov 2026 13:09:42 +0000 (UTC)
+Received: from mail-ed1-f48.google.com (mail-ed1-f48.google.com
+ [209.85.208.48])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 0FB3810E5C4
+ for <dri-devel@lists.freedesktop.org>; Sun, 22 Nov 2026 13:09:36 +0000 (UTC)
+Received: by mail-ed1-f48.google.com with SMTP id
+ 4fb4d7f45d1cf-6ba380cd8dbso3044968a12.3
+ for <dri-devel@lists.freedesktop.org>; Sun, 22 Nov 2026 05:09:35 -0800 (PST)
+ARC-Seal: i=1; a=rsa-sha256; t=1795352974; cv=none;
+ d=google.com; s=arc-20260327;
+ b=KURRYw2UIQ/miRUmBjVo41Iyq5iKZYoECNvs783BXlCQSbNzq36bADibNY+KdMEllz
+ lsHGmKS/X+vMvZeHjGGYrycyQGi3kvn9Qp7J1ZOcrAe2AnPZLnNm2p/9PPB7VnvhDp1p
+ 2gl7h14RFWLv+PMOepojlycClAirNLkAV+/4NgwHeUi8/oI7hOc4RoAOf9RNC0TGRCZ5
+ Lbafe+c+OYVI9iJXKOk7rICzCR02tj/fA/QcyteKnRohXVC4jheQ10k15Rv6lE+/xOZc
+ g1wAwM/5oZc3h8+QR/XwHgTUHg3p4YIreaaR8iv4LHcZevE88EYOeTq5JlncaCaM5u48
+ jaYw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com;
+ s=arc-20260327; 
+ h=cc:to:subject:message-id:date:from:in-reply-to:references
+ :mime-version:dkim-signature;
+ bh=Vf0F97qgmGw6KuAljeaJFgTLPZKqENLieaFQ+i06+hc=;
+ fh=jD40jQRuD5FM5W3Of8Z4Xkgf4rRu6tCAKTIZ24J5qDs=;
+ b=dhG0KX7s7NzDv2Koe3qHPltULMZYk27cGf2LTSVSsJZ6Jfrn0TldcnHkbG3McIVzMn
+ iexpAmvL007KRV0ZqsftbbpI494hsOdyrbVnHF+INBIbdS9L9x0QF86AOx1zlNViWr1W
+ y7ZzeZlVh8pXlbu5vlsq+TTrjduNt2zUrQYwfljWD9uot0vuKme+8oICn0hEdv/tNidZ
+ Co+GAIJbdALu82Z5ifKG/9JbqyVaETdMMm8/2aGrLBvFLNoku/HUVXPVUJpDg+EXcX5m
+ EBpD9oHpqPoFTBmDLEmpl/AOA+mONa2u2oL+9nDsNAGmKzVBBvD4xE1nynfM56fiLQPA
+ UVpQ==; darn=lists.freedesktop.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20260707; t=1795352974; x=1795957774; darn=lists.freedesktop.org;
+ h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+ :references:mime-version:from:to:cc:subject:date:message-id:reply-to
+ :content-type; bh=Vf0F97qgmGw6KuAljeaJFgTLPZKqENLieaFQ+i06+hc=;
+ b=s5+dOIy0OM6WhZapk+mu1TdY6uP3RHDzX0xC4Ax0h+hTwyuHbaEJHuJSbNW+H5VKrX
+ rGPtLEuhZxn+CCWTQl1h4y78aF3cO8ZBMdhD6Opu+Sl8bwVc2dFPl+QO+FLqUmcjxs8r
+ FANdO1t+qd26pNC+krTEdXJtFfeHoEA+Of0WH4+joarAYQq2+1o+L7PsVQ8n1cJKw2/Y
+ Q80tG4ZX/HVTaK9bEzuY2GyfPwia7bmFeRubpKpzw4Fdgt9DKgsQzJo3TsxpEEzXK9aX
+ YRDE0GcyCEOdSh1RPfU24QUcH0yJtscqFgSooMxVxtONL9cNRHs/6zXzSLAcL+ztLi8f
+ 2bNw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20260707; t=1795352974; x=1795957774;
+ h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+ :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
+ :subject:date:message-id:reply-to:content-type;
+ bh=Vf0F97qgmGw6KuAljeaJFgTLPZKqENLieaFQ+i06+hc=;
+ b=wOPiLliJdQe947tw3i+nAzOZpZS+lxqbT6t4vA1fOB9rJ04kS4Xpkew3eHnZ14MSHk
+ mVBITvuS2YI3dAuRY1KRHCd6aZQ9Dqr+Ww+UYbRoUDloOh8JbvcTmkXHvq5UuVKO7esQ
+ Y72B20EhLxEK6+0wOXCxBzkouP4lNEQUN7t4CIwNH5GwqFhG//A3EuGErYLxgllR/ug7
+ mHZgP6Gd1Nf7Vb9LlEbta8+csqYFy8xU27qDeJmAhkGbS7BSnPuaSq4ZEYQdCdEt1tej
+ DyskwQA5frJfRoZq7HLAkUcFWNDhdxwsgWzDnCWXuz5BtZIVtBntxl8RyR7v3vimRbio
+ xw+w==
+X-Forwarded-Encrypted: i=1;
+ AL+hErEk6pBQqagDGrBfjM5ggf8sJy9W9YhqG0HlfyHjlEIAVcDtPEWQDD2ioulRVEYdzKBjrzSecRtG+IA=@lists.freedesktop.org
+X-Gm-Message-State: APuU4Z+dM2c9A1dY0qoM+NlxtAVBYo0hq95z7v5Huh3hh1rLObK2G1wz
+ 8doeb9Ga1BcTt57K6+gu+cipK4T6tmsFKPtR+j6tFAQooKrUY+03YV/KZ71RJ7L7D9es9Y9bKIC
+ rEEYD8FGO3gip7MvKP+HRI0O273fzFys=
+X-Gm-Gg: AZFdTZcXCGWt5oC4tn17TWLbMcVXjMMiCuWLG6RvxUlPGHzsxnyYIfTn5GbP8ipd301
+ 60lHXv8LBYaiaonxet4M84M6Ds7ZwW6RznhWX2IbgDOE0Gji0C4u4iqO1Q2KH3o+f/DgosXjTXx
+ wL8+yT+9CmvNIVX0wxaAsII0+Uy3JIAuKB84PaGXRWa/bEyD6fyq1DXlRLoCvYz+fV+pUEAWun5
+ KzB1zfU7YLMIoOF4IgMS9/ezvnCsHoWmIpbGxM+VYSU+nGOS0BFXsHLMg2CHioszKJ8dGQLz2Pl
+ /u8DE9/lmdVk3hPaxteFfccb9sbuxCrV+AGy2rZN1qY+mlltqhodXaz5e4pfzMmQvpRqdB+iSE6
+ mZ/AyhH5W5negQfnjxlfqgGCJutvxrYKG9TSX2UPx1kjo/7C0JgRJhvapxMZv9hwMaHMLNg==
+X-Received: by 2002:a05:6402:454d:b0:6ba:139c:47b2 with SMTP id
+ 4fb4d7f45d1cf-6ba37eb1950mr5077385a12.25.1795352974368; Sun, 22 Nov 2026
+ 05:09:34 -0800 (PST)
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20261122-tyr-ioctls-v7-10-3a2af624b992@linux.dev>
-References: <20261122-tyr-ioctls-v7-0-3a2af624b992@linux.dev>
-In-Reply-To: <20261122-tyr-ioctls-v7-0-3a2af624b992@linux.dev>
-To: Miguel Ojeda <ojeda@kernel.org>, Boqun Feng <boqun@kernel.org>, 
- Gary Guo <gary@garyguo.net>, 
- =?utf-8?q?Bj=C3=B6rn_Roy_Baron?= <bjorn3_gh@protonmail.com>, 
- Benno Lossin <lossin@kernel.org>, Andreas Hindborg <a.hindborg@kernel.org>, 
- Alice Ryhl <aliceryhl@google.com>, Trevor Gross <tmgross@umich.edu>, 
- Danilo Krummrich <dakr@kernel.org>, 
- Daniel Almeida <daniel.almeida@collabora.com>, 
- Tamir Duberstein <tamird@kernel.org>, 
- Alexandre Courbot <acourbot@nvidia.com>, 
- =?utf-8?q?Onur_=C3=96zkan?= <work@onurozkan.dev>, 
- Lyude Paul <lyude@redhat.com>, David Airlie <airlied@gmail.com>, 
- Simona Vetter <simona@ffwll.ch>, 
- Greg Kroah-Hartman <gregkh@linuxfoundation.org>, 
- "Rafael J. Wysocki" <rafael@kernel.org>, Johan Hovold <johan@kernel.org>
-Cc: Sami Tolvanen <samitolvanen@google.com>, rust-for-linux@vger.kernel.org, 
- dri-devel@lists.freedesktop.org, driver-core@lists.linux.dev, 
- Ke Sun <sunke@kylinos.cn>, Alvin Sun <alvin.sun@linux.dev>
-X-Mailer: b4 0.16.0
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1795352551; l=5762;
- i=alvin.sun@linux.dev; s=20260317; h=from:subject:message-id;
- bh=AzMnZarF2DGhywSoCR7Qyzkxwwb8F+ZXDPQo3lLLLzc=;
- b=LopV2a8Yja0UfwXM6/qSsFB1NHzY05tsSXBa7Ki9j9YbtkOcDfQaLGZ9bpJpMymMurEnWVQpM
- xMaGjhtDzLZDeyoICMHhum929cq1qp2Vh6HiNNxInmcgdWuqQKBpzQO
-X-Developer-Key: i=alvin.sun@linux.dev; a=ed25519;
- pk=CHcwQp8GSoj25V/L1ZWNSQjWp9eSIb0s9LKr0Nm3WuE=
-X-Endpoint-Received: by B4 Relay for alvin.sun@linux.dev/20260317 with
- auth_id=684
+References: <CAMeQTsZbLYpPKySm9ubYc8pw0t62ZEdKkkzc4h3Hdjq-9pGO6A@mail.gmail.com>
+ <20261113085341.61992-1-jttelaak@hotmail.com>
+ <CAFGNeajPo8DrqNbM+86AQz0LT98a69_+T7R8DoKAX4Q2LJE0kw@mail.gmail.com>
+ <CAFGNeage70+BaM6SP-q7YAgp-tgrATuO7m-eEoN6ERr0mC55aA@mail.gmail.com>
+ <17f2783e-9157-458b-8463-f98395e391ca@suse.de>
+ <CAFGNeagxEcfPuEHFt3TxKhCDoZ0HODpXwXcKpuBxKK=09FkRMw@mail.gmail.com>
+ <CAFGNeaiYntE7dQ=-sgaM8gRKuZ+wQ-479ShXKW8v99YVSdHn5w@mail.gmail.com>
+ <CAMeQTsazkHgYiCnSEC67useW++0WEY8E0RS1ShssWybrWCGuiw@mail.gmail.com>
+ <CAFGNeajczb-2Xcjfaj82hc-hprJXRHsr8uSudO32j6S17T+YQw@mail.gmail.com>
+ <CAMeQTsb-Tjzu6i8Fa4X6Ta-JdRPd6vf--eEePTzZKvPuPX5GGg@mail.gmail.com>
+ <CAPY4CJ5=+fXRX=29uS_oxwVQxstAf4WoFNVSYaUiYmWEjar5Kw@mail.gmail.com>
+ <CAMeQTsab5H7F5CFvd_XkDndmMiBXRSYBhrMHAf9jynzEqaWp+w@mail.gmail.com>
+ <CAPY4CJ4Pq0gXUdGiEp-6srpVUBxYUXPQgOAJr1PJK3SeVn_Rew@mail.gmail.com>
+ <CAFGNeahyKxLV1fMp_diNAvXN2JrdRVPt7NRJ5SDuLrfGQ1V3Nw@mail.gmail.com>
+ <CAFGNeahDm=GM8J=C0hmVBN5HS0thoMJZNVW4srW6WoAFHaxNdQ@mail.gmail.com>
+In-Reply-To: <CAFGNeahDm=GM8J=C0hmVBN5HS0thoMJZNVW4srW6WoAFHaxNdQ@mail.gmail.com>
+From: Gabriel Gama <operatingsystemsdepression@gmail.com>
+Date: Sun, 22 Nov 2026 10:09:21 -0300
+X-Gm-Features: Aa3M54qJ7oVvMK14_-OzUV_Wyfmg6jk8z1UpaT01ZsUBbpiDZp4JY7EZhSWRwl0
+Message-ID: <CAFGNeajVapHL-mQUr1=BR-O5cMng_f-YJ6=7g4+_sedUbpXiJg@mail.gmail.com>
+Subject: Re: [RFC] drm/gma500: SGX535 render ownership,
+ MMU and failure handling
+To: Joseph Telaak <joseph@telaak.dev>
+Cc: Patrik Jakobsson <patrik.r.jakobsson@gmail.com>,
+ Thomas Zimmermann <tzimmermann@suse.de>, dri-devel@lists.freedesktop.org
+Content-Type: multipart/alternative; boundary="00000000000048a59c0660dd30a8"
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -99,168 +113,31 @@ List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-18.8 required=3.0 tests=BAYES_00,DKIM_SIGNED,
-	DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
-	INCLUDES_CR_TRAILER,INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,
-	SPF_PASS,USER_AGENT_GIT autolearn=ham autolearn_force=no version=4.0.1
+X-Spam-Status: No, score=0.2 required=3.0 tests=BAYES_00,DKIM_SIGNED,
+	DKIM_VALID,DKIM_VALID_AU,FREEMAIL_FORGED_FROMDOMAIN,FREEMAIL_FROM,
+	HEADER_FROM_DIFFERENT_DOMAINS,HTML_MESSAGE,MAILING_LIST_MULTI,
+	SPF_HELO_NONE,SPF_PASS autolearn=no autolearn_force=no version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-Implement BO_CREATE and BO_MMAP_OFFSET so userspace can allocate GPU
-buffers and obtain a DRM mmap offset for the generic mmap path.
-BO_CREATE page-aligns the requested size and accepts NO_MMAP or WB_MMAP,
-which are mutually exclusive; an exclusive VM returns EOPNOTSUPP.
-BO_MMAP_OFFSET rejects NO_MMAP objects, which must never be CPU-mapped.
+--00000000000048a59c0660dd30a8
+Content-Type: text/plain; charset="UTF-8"
 
-Co-developed-by: Sami Tolvanen <samitolvanen@google.com>
-Signed-off-by: Sami Tolvanen <samitolvanen@google.com>
-Signed-off-by: Alvin Sun <alvin.sun@linux.dev>
----
- drivers/gpu/drm/tyr/driver.rs |  2 +
- drivers/gpu/drm/tyr/file.rs   | 94 +++++++++++++++++++++++++++++++++++++++++++
- drivers/gpu/drm/tyr/gem.rs    |  2 -
- 3 files changed, 96 insertions(+), 2 deletions(-)
+Does the current gma500_gfx driver support PRIME/DMA-BUF?
 
-diff --git a/drivers/gpu/drm/tyr/driver.rs b/drivers/gpu/drm/tyr/driver.rs
-index 6869ab345d8fd..8632e6e820c97 100644
---- a/drivers/gpu/drm/tyr/driver.rs
-+++ b/drivers/gpu/drm/tyr/driver.rs
-@@ -237,6 +237,8 @@ impl drm::Driver for TyrDrmDriver {
-         (PANTHOR_VM_DESTROY, drm_panthor_vm_destroy, ioctl::RENDER_ALLOW, TyrDrmFileData::vm_destroy),
-         (PANTHOR_VM_BIND, drm_panthor_vm_bind, ioctl::RENDER_ALLOW, TyrDrmFileData::vm_bind),
-         (PANTHOR_VM_GET_STATE, drm_panthor_vm_get_state, ioctl::RENDER_ALLOW, TyrDrmFileData::vm_get_state),
-+        (PANTHOR_BO_CREATE, drm_panthor_bo_create, ioctl::RENDER_ALLOW, TyrDrmFileData::bo_create),
-+        (PANTHOR_BO_MMAP_OFFSET, drm_panthor_bo_mmap_offset, ioctl::RENDER_ALLOW, TyrDrmFileData::bo_mmap_offset),
-     }
- }
- 
-diff --git a/drivers/gpu/drm/tyr/file.rs b/drivers/gpu/drm/tyr/file.rs
-index 8fccb42ab9e56..db57df68449cd 100644
---- a/drivers/gpu/drm/tyr/file.rs
-+++ b/drivers/gpu/drm/tyr/file.rs
-@@ -242,6 +242,100 @@ pub(crate) fn vm_get_state(
-             Ok(0)
-         })
-     }
-+
-+    pub(crate) fn bo_create(
-+        ddev: &TyrDrmDevice<Registered>,
-+        reg_data: &TyrDrmRegistrationData<'_>,
-+        bocreate: &mut uapi::drm_panthor_bo_create,
-+        file: &TyrDrmFile,
-+    ) -> Result<u32> {
-+        if bocreate.size == 0 || bocreate.pad != 0 {
-+            dev_dbg!(
-+                ddev.as_ref(),
-+                "Invalid BO_CREATE params: size={}, pad={}\n",
-+                bocreate.size,
-+                bocreate.pad
-+            );
-+            return Err(EINVAL);
-+        }
-+
-+        let no_mmap = uapi::drm_panthor_bo_flags_DRM_PANTHOR_BO_NO_MMAP;
-+        let wb_mmap = uapi::drm_panthor_bo_flags_DRM_PANTHOR_BO_WB_MMAP;
-+        let valid_flags = no_mmap | wb_mmap;
-+
-+        if bocreate.flags & !valid_flags != 0 {
-+            dev_dbg!(
-+                ddev.as_ref(),
-+                "Invalid BO_CREATE flags: {:#x}\n",
-+                bocreate.flags
-+            );
-+            return Err(EINVAL);
-+        }
-+        if bocreate.flags & no_mmap != 0 && bocreate.flags & wb_mmap != 0 {
-+            dev_dbg!(ddev.as_ref(), "BO_CREATE: NO_MMAP conflicts with WB_MMAP\n");
-+            return Err(EINVAL);
-+        }
-+
-+        if bocreate.exclusive_vm_id != 0 {
-+            dev_dbg!(ddev.as_ref(), "BO_CREATE: exclusive_vm_id not supported\n");
-+            return Err(EOPNOTSUPP);
-+        }
-+
-+        let size = usize::try_from(bocreate.size).map_err(|_| {
-+            dev_dbg!(
-+                ddev.as_ref(),
-+                "BO_CREATE size {:#x} too large\n",
-+                bocreate.size
-+            );
-+            EINVAL
-+        })?;
-+        let bo = file.inner_with(|pfile| {
-+            crate::gem::new_object(
-+                ddev,
-+                pfile.reg.pdev.as_ref(),
-+                size,
-+                bocreate.flags,
-+                reg_data.coherent,
-+            )
-+        })?;
-+        bocreate.handle = bo.create_handle(file)?;
-+        bocreate.size = u64::from_safe_cast(bo.size());
-+
-+        Ok(0)
-+    }
-+
-+    pub(crate) fn bo_mmap_offset(
-+        ddev: &TyrDrmDevice<Registered>,
-+        _reg_data: &TyrDrmRegistrationData<'_>,
-+        bommap: &mut uapi::drm_panthor_bo_mmap_offset,
-+        file: &TyrDrmFile,
-+    ) -> Result<u32> {
-+        if bommap.pad != 0 {
-+            dev_dbg!(
-+                ddev.as_ref(),
-+                "BO mmap offset pad not zero: {}\n",
-+                bommap.pad
-+            );
-+            return Err(EINVAL);
-+        }
-+
-+        let bo = crate::gem::lookup_handle(file, bommap.handle).inspect_err(|_| {
-+            dev_dbg!(ddev.as_ref(), "Invalid BO mmap handle: {}\n", bommap.handle);
-+        })?;
-+        if bo.flags() & uapi::drm_panthor_bo_flags_DRM_PANTHOR_BO_NO_MMAP != 0 {
-+            dev_dbg!(ddev.as_ref(), "BO mmap offset on NO_MMAP object\n");
-+            return Err(EPERM);
-+        }
-+        bommap.offset = bo.create_mmap_offset().inspect_err(|_| {
-+            dev_err!(
-+                ddev.as_ref(),
-+                "Failed to create mmap offset for handle {}\n",
-+                bommap.handle
-+            );
-+        })?;
-+
-+        Ok(0)
-+    }
- }
- 
- fn vm_bind_exec_op(vm: &Vm<'_>, file: &TyrDrmFile, op: &VmBindOp) -> Result {
-diff --git a/drivers/gpu/drm/tyr/gem.rs b/drivers/gpu/drm/tyr/gem.rs
-index 55e2d67b96d98..d2ef121c8b1b6 100644
---- a/drivers/gpu/drm/tyr/gem.rs
-+++ b/drivers/gpu/drm/tyr/gem.rs
-@@ -45,7 +45,6 @@ pub(crate) struct BoData {
- 
- impl BoData {
-     /// Returns the flags the BO was created with.
--    #[expect(dead_code)]
-     pub(crate) fn flags(&self) -> u32 {
-         self.flags
-     }
-@@ -83,7 +82,6 @@ pub(crate) fn should_map_wc(coherent: bool, flags: u32) -> bool {
- }
- 
- /// Create a new GEM buffer object.
--#[expect(dead_code)]
- pub(crate) fn new_object(
-     ddev: &TyrDrmDevice,
-     pdev: &Device<Bound>,
+It seems not, based on my testing of the hybrid 2D path with Xorg (hybrid
+2D is functional too, by the way).
 
--- 
-2.43.0
+I think we'll need to add PRIME/DMA-BUF support
+
+It's been a very productive week!
+
+--00000000000048a59c0660dd30a8
+Content-Type: text/html; charset="UTF-8"
+
+<div dir="auto"><p>Does the current gma500_gfx driver support PRIME/DMA-BUF?</p><p>It seems not, based on my testing of the hybrid 2D path with Xorg (hybrid 2D is functional too, by the way).</p><p>I think we&#39;ll need to add PRIME/DMA-BUF support</p><p>
 
 
+</p><p>It&#39;s been a very productive week!</p></div>
+
+--00000000000048a59c0660dd30a8--
