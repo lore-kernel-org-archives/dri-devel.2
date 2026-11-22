@@ -2,68 +2,68 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E3AE7606A31D
-	for <dri-devel@archiver.kernel.org>; Sun, 22 Nov 2026 22:15:43 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DAAC4606A31A
+	for <dri-devel@archiver.kernel.org>; Sun, 22 Nov 2026 22:21:09 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=igalia.com header.i=@igalia.com header.a=rsa-sha256 header.s=20170329 header.b=m4t5bSJd
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=PqxkAGBJ
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 0CF3E10E6C1;
-	Sun, 22 Nov 2026 22:15:38 +0000 (UTC)
-Received: from fanzine2.igalia.com (fanzine2.igalia.com [213.97.179.56])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 86D2C10E6C1
- for <dri-devel@lists.freedesktop.org>; Sun, 22 Nov 2026 22:15:27 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com; 
- s=20170329;
- h=Cc:To:Message-Id:Content-Transfer-Encoding:Content-Type:
- MIME-Version:Subject:Date:From:From:Reply-To;
- bh=em6IWM+LhxPNXSER8DBTTCbI5nQJm2m65Pe2Ze4oIM8=; t=1795385727; x=2110745727; 
- b=m4t5bSJdiNtUTNRHKf/OGbxgzXPc2HI71PHLpasHRztmdvxI2wTbeQoz/EiORfCZu7gEgkLM1Bt
- 9eDK3+0MIIy7GAocX32Z7gIfLc7WfgF/PWEnbioXlGrgJnv3ClrVGa7s1iU5O/OTbGVnAeEQ/isRd
- N2yOG3AtFi9N/hK0vuZ+gXGfpEjZB5KLAZIZV3B4DhLkMI+9QzJYs7Kg4eqfuc3TywVXLPGlNYsx2
- ryzQ9l3meatpgStFIrqEQ9JOCUxtBwWdxCoypgL9KGtjmYevqkDPzeoeEnEZL8S+vGxfPmSLMMFOX
- ABT7N9g19cXSqd2HlA20j2v+YNm5Jv9R2Qyw==;
-Received: from [179.105.94.163] (helo=[10.0.0.1])
- by fanzine2.igalia.com with esmtpsa 
- (Cipher TLS1.3:ECDHE_X25519__RSA_PSS_RSAE_SHA256__AES_256_GCM:256) (Exim)
- id 1xVFqH-00000002j1Q-2tTO; Sun, 22 Nov 2026 23:15:25 +0100
-From: =?utf-8?q?Ma=C3=ADra_Canal?= <mcanal@igalia.com>
-Date: Sun, 22 Nov 2026 19:14:52 -0300
-Subject: [PATCH v2 4/4] drm/panthor: Refuse to export WB_MMAP BOs
+	by gabe.freedesktop.org (Postfix) with ESMTP id C635610EADF;
+	Sun, 22 Nov 2026 22:21:03 +0000 (UTC)
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.16])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id F41C510EADF
+ for <dri-devel@lists.freedesktop.org>; Sun, 22 Nov 2026 22:20:56 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1795386057; x=1826922057;
+ h=date:from:to:cc:subject:message-id:references:
+ mime-version:in-reply-to;
+ bh=lc/6luGnTfiYQ5L6WAjEeu9PRcuwZl5d6rQ3ClQHdbc=;
+ b=PqxkAGBJ9HCoSjqoBLaPntnImoZARpPje8tKfvIQ6LOy+uE0rdjvQI7c
+ XmBMTiydF2Cx4e+bDweFwQiBrBqU3uDdSvU50dcIhYKJSsEYOaN7TH4km
+ y1EWECa3kNgKZlSvm1XvHq0iXupkN0Hga6rc/m+RROtFgmlk/FaozQ09z
+ gbZ8+w0aJ9wk1o7KECWSx1ODAyP601m4Cn+us5t4ZjUSCLhY7XTp6aFHd
+ +D2VfCl2kTQ2WnuxoLbtkGgnDmjiw5y4UwziH6i5Wp6TMamQ7H5Oi35HR
+ eVUFL1Glaogov45UyOea3tan/hyg2BF2RihK9BRultF1XRVf15D9lm+cE A==;
+X-CSE-ConnectionGUID: aYTprLH1T6e8/v0tjcBs+Q==
+X-CSE-MsgGUID: Vtd4QEoOTZajiIjTCPKwTA==
+X-IronPort-AV: E=McAfee;i="6800,10657,11974"; a="4222461"
+X-IronPort-AV: E=Sophos;i="6.27,227,1787036400"; 
+   d="scan'208";a="4222461"
+Received: from orviesa002.jf.intel.com ([10.64.159.142])
+ by fmvoesa110.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 22 Nov 2026 14:20:56 -0800
+X-CSE-ConnectionGUID: RnvpdRQeRIyzEGL4W/QQFg==
+X-CSE-MsgGUID: XHRIZMQGRly4H4OxIWPybQ==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,227,1787036400"; d="scan'208";a="11164227"
+Received: from lkp-server01.sh.intel.com (HELO 0caa9d2d175c) ([10.239.97.150])
+ by orviesa002.jf.intel.com with ESMTP; 22 Nov 2026 14:20:54 -0800
+Received: from kbuild by 0caa9d2d175c with local (Exim 4.98.2)
+ (envelope-from <lkp@intel.com>) id 1xVFvW-00000001M9S-2JJP;
+ Sun, 22 Nov 2026 22:20:50 +0000
+Date: Mon, 23 Nov 2026 06:20:09 +0800
+From: kernel test robot <lkp@intel.com>
+To: Jim Cromie <jim.cromie@gmail.com>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>,
+ Thomas Zimmermann <tzimmermann@suse.de>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ Jason Baron <jbaron@akamai.com>,
+ Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+ Andrew Morton <akpm@linux-foundation.org>
+Cc: oe-kbuild-all@lists.linux.dev,
+ Linux Memory Management List <linux-mm@kvack.org>,
+ dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
+ Jim Cromie <jim.cromie@gmail.com>
+Subject: Re: [PATCH v3 6/6] drm-dyndbg: drop BROKEN on DRM_USE_DYNAMIC_DEBUG
+ for testing (DONT_APPLY)
+Message-ID: <202611230650.Ebz6km83-lkp@intel.com>
+References: <20261121-rd-mostly-v3-6-89e74b23b491@gmail.com>
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
-Message-Id: <20261122-pan-drop-dma-buf-hooks-v2-4-2ed42dce9db6@igalia.com>
-References: <20261122-pan-drop-dma-buf-hooks-v2-0-2ed42dce9db6@igalia.com>
-In-Reply-To: <20261122-pan-drop-dma-buf-hooks-v2-0-2ed42dce9db6@igalia.com>
-To: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
- Faith Ekstrand <faith.ekstrand@collabora.com>, 
- Boris Brezillon <boris.brezillon@collabora.com>, 
- Rob Herring <robh@kernel.org>, Steven Price <steven.price@arm.com>, 
- =?utf-8?q?Adri=C3=A1n_Larumbe?= <adrian.larumbe@collabora.com>, 
- Liviu Dudau <liviu.dudau@arm.com>, Akash Goel <akash.goel@arm.com>, 
- Karunika Choo <karunika.choo@arm.com>, 
- Lukas Zapolskas <lukas.zapolskas@arm.com>, 
- Chris Diamand <chris.diamand@arm.com>, 
- Daniel Almeida <daniel.almeida@collabora.com>, 
- Alice Ryhl <aliceryhl@google.com>
-Cc: kernel-dev@igalia.com, dri-devel@lists.freedesktop.org, 
- rust-for-linux@vger.kernel.org, 
- =?utf-8?q?Ma=C3=ADra_Canal?= <mcanal@igalia.com>
-X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=openpgp-sha256; l=2022; i=mcanal@igalia.com;
- h=from:subject:message-id; bh=2T5m7AnEjwVDczwlWuGW9Tmdh5xr5mIrjKjHYPYDvnI=;
- b=owEBbQGS/pANAwAKAT/zDop2iPqqAcsmYgBrA2le1u6O/XZul9pOsFgBhIdb06j8VZgXZPE4a
- OcPV42PCLWJATMEAAEKAB0WIQT45F19ARZ3Bymmd9E/8w6Kdoj6qgUCawNpXgAKCRA/8w6Kdoj6
- qvkQCACxWT6NX9rZPVOhcM78V9cYzzGeLGOtnEJS/4Y9yzvrLMzCVhlvAP6RX6XXKIBr6tiBcum
- unNyEhkmbYrlOaAIxCfdSznhEa7+LGO9bH6r8O7PMzC2AP0JDY45nWK0Nxm6BpIj8/S3lZd6NZZ
- n+EfIPZE9o9KSoffv0Gl0n3Um7q4tdjBTI+NljLknuhgagD875whoib0vMKv04Ci5fMjoClNO//
- 5Wmn6CTAU2NdNYaUYnCHrXo9jGofKaHSNOQm4WlILDOrWkIXpU5/qyLbWYTkjEyIIlszbWe/zrG
- dlNU1hF5WJOo9+2IvllsvvEQnm1NL5gg+Zpx7+TfrhWZ/H3V
-X-Developer-Key: i=mcanal@igalia.com; a=openpgp;
- fpr=F8E45D7D0116770729A677D13FF30E8A7688FAAA
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261121-rd-mostly-v3-6-89e74b23b491@gmail.com>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -75,61 +75,63 @@ List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-18.8 required=3.0 tests=BAYES_00,DKIM_SIGNED,
-	DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
-	INCLUDES_CR_TRAILER,INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,
-	SPF_PASS,USER_AGENT_GIT autolearn=unavailable autolearn_force=no
-	version=4.0.1
+X-Spam-Status: No, score=-10.8 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
+	DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
+	MAILING_LIST_MULTI,MENTIONS_GIT_HOSTING,SPF_HELO_NONE,SPF_PASS
+	autolearn=unavailable autolearn_force=no version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-When a buffer is shared through dma-buf, clients are expected to bracket
-their CPU accesses with DMA_BUF_IOCTL_SYNC, but there's no way to ensure
-they do. With WC mappings, there are no CPU cache lines to maintain, so
-waiting on fences is enough. With WB mappings, a missed sync can leave
-dirty cache lines behind, which may later be written back over data the
-GPU produced for another client.
+Hi Jim,
 
-To avoid this, don't allow WB_MMAP BOs to be shared. PanVK already keeps
-WB_MMAP BOs private, so this makes the kernel enforce the same policy.
+kernel test robot noticed the following build errors:
 
-Suggested-by: Faith Ekstrand <faith.ekstrand@collabora.com>
-Suggested-by: Boris Brezillon <boris.brezillon@collabora.com>
-Signed-off-by: Maíra Canal <mcanal@igalia.com>
----
- drivers/gpu/drm/panthor/panthor_gem.c | 4 ++++
- include/uapi/drm/panthor_drm.h        | 2 ++
- 2 files changed, 6 insertions(+)
+[auto build test ERROR on aebb7274476403040d582c61478df8f4a7bf9cd3]
 
-diff --git a/drivers/gpu/drm/panthor/panthor_gem.c b/drivers/gpu/drm/panthor/panthor_gem.c
-index 22b57ab6f929..730567d97f46 100644
---- a/drivers/gpu/drm/panthor/panthor_gem.c
-+++ b/drivers/gpu/drm/panthor/panthor_gem.c
-@@ -577,6 +577,10 @@ panthor_gem_prime_export(struct drm_gem_object *obj, int flags)
- 	if (to_panthor_bo(obj)->exclusive_vm_root_gem)
- 		return ERR_PTR(-EINVAL);
- 
-+	/* WB_MMAP BOs can't be shared. */
-+	if (to_panthor_bo(obj)->flags & DRM_PANTHOR_BO_WB_MMAP)
-+		return ERR_PTR(-EINVAL);
-+
- 	return drm_gem_dmabuf_export(dev, &exp_info);
- }
- 
-diff --git a/include/uapi/drm/panthor_drm.h b/include/uapi/drm/panthor_drm.h
-index a2ff0f4ec691..8f3a3e680264 100644
---- a/include/uapi/drm/panthor_drm.h
-+++ b/include/uapi/drm/panthor_drm.h
-@@ -771,6 +771,8 @@ enum drm_panthor_bo_flags {
- 	 * CPU map the buffer object in userspace by forcing the "Write-Back
- 	 * Cacheable" cacheability attribute. The mapping otherwise uses the
- 	 * "Non-Cacheable" attribute if the GPU is not IO coherent.
-+	 *
-+	 * Buffer objects created with this flag can't be exported.
- 	 */
- 	DRM_PANTHOR_BO_WB_MMAP = (1 << 1),
- };
+url:    https://github.com/intel-lab-lkp/linux/commits/Jim-Cromie/drm-print-Mark-__drm_debug-as-__read_mostly/20261121-142254
+base:   aebb7274476403040d582c61478df8f4a7bf9cd3
+patch link:    https://lore.kernel.org/r/20261121-rd-mostly-v3-6-89e74b23b491%40gmail.com
+patch subject: [PATCH v3 6/6] drm-dyndbg: drop BROKEN on DRM_USE_DYNAMIC_DEBUG for testing (DONT_APPLY)
+config: csky-randconfig-1001-20261123 (https://download.01.org/0day-ci/archive/20261123/202611230650.Ebz6km83-lkp@intel.com/config)
+compiler: csky-linux-gcc (GCC) 15.3.0
+reproduce (this is a W=1 build): (https://download.01.org/0day-ci/archive/20261123/202611230650.Ebz6km83-lkp@intel.com/reproduce)
+
+If you fix the issue in a separate patch/commit (i.e. not just a new version of
+the same patch/commit), kindly add following tags
+| Reported-by: kernel test robot <lkp@intel.com>
+| Closes: https://lore.kernel.org/oe-kbuild-all/202611230650.Ebz6km83-lkp@intel.com/
+
+All errors (new ones prefixed by >>):
+
+   In file included from drivers/accel/ethosu/ethosu_job.c:15:
+   drivers/accel/ethosu/ethosu_job.c: In function 'ethosu_ioctl_submit':
+>> include/drm/drm_print.h:566:9: error: implicit declaration of function '_dynamic_func_call_cls' [-Wimplicit-function-declaration]
+     566 |         _dynamic_func_call_cls(cat, fmt, __drm_dev_dbg,         \
+         |         ^~~~~~~~~~~~~~~~~~~~~~
+   include/drm/drm_print.h:654:9: note: in expansion of macro 'drm_dev_dbg'
+     654 |         drm_dev_dbg(__drm_to_dev(drm), DRM_UT_DRIVER, fmt, ##__VA_ARGS__)
+         |         ^~~~~~~~~~~
+   include/drm/drm_print.h:672:33: note: in expansion of macro 'drm_dbg_driver'
+     672 | #define drm_dbg(drm, fmt, ...)  drm_dbg_driver(drm, fmt, ##__VA_ARGS__)
+         |                                 ^~~~~~~~~~~~~~
+   drivers/accel/ethosu/ethosu_job.c:527:17: note: in expansion of macro 'drm_dbg'
+     527 |                 drm_dbg(dev, "Failed to copy incoming job array\n");
+         |                 ^~~~~~~
+
+
+vim +/_dynamic_func_call_cls +566 include/drm/drm_print.h
+
+02c9656b2f0d69 Haneen Mohammed 2017-10-17  560  
+84ec67288c10fb Jim Cromie      2022-09-11  561  #if !defined(CONFIG_DRM_USE_DYNAMIC_DEBUG)
+e820f52577b14c Jim Cromie      2022-09-11  562  #define drm_dev_dbg(dev, cat, fmt, ...)				\
+16deeb8e18cafd Jim Cromie      2022-09-11  563  	__drm_dev_dbg(NULL, dev, cat, fmt, ##__VA_ARGS__)
+84ec67288c10fb Jim Cromie      2022-09-11  564  #else
+84ec67288c10fb Jim Cromie      2022-09-11  565  #define drm_dev_dbg(dev, cat, fmt, ...)				\
+16deeb8e18cafd Jim Cromie      2022-09-11 @566  	_dynamic_func_call_cls(cat, fmt, __drm_dev_dbg,		\
+84ec67288c10fb Jim Cromie      2022-09-11  567  			       dev, cat, fmt, ##__VA_ARGS__)
+84ec67288c10fb Jim Cromie      2022-09-11  568  #endif
+e820f52577b14c Jim Cromie      2022-09-11  569  
 
 -- 
-2.56.0
-
+0-DAY CI Kernel Test Service
+https://github.com/intel/lkp-tests/wiki
