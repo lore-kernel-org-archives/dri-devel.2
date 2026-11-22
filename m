@@ -2,104 +2,49 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4F100606A320
-	for <dri-devel@archiver.kernel.org>; Sat, 21 Nov 2026 17:58:11 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CEF51606A332
+	for <dri-devel@archiver.kernel.org>; Sun, 22 Nov 2026 00:00:50 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=EHt0U1PH
+	dkim=pass (1024-bit key) header.d=linux-foundation.org header.i=@linux-foundation.org header.a=rsa-sha256 header.s=korg header.b=L2aQbeKX
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 9DBFD10E90D;
-	Sat, 21 Nov 2026 17:58:05 +0000 (UTC)
-Received: from mail-yw1-f173.google.com (mail-yw1-f173.google.com
- [209.85.128.173])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 37A1410E92B
- for <dri-devel@lists.freedesktop.org>; Sat, 21 Nov 2026 17:57:59 +0000 (UTC)
-Received: by mail-yw1-f173.google.com with SMTP id
- 00721157ae682-8b4f4095a7aso16346647b3.0
- for <dri-devel@lists.freedesktop.org>; Sat, 21 Nov 2026 09:57:59 -0800 (PST)
-ARC-Seal: i=1; a=rsa-sha256; t=1795283877; cv=none;
- d=google.com; s=arc-20260327;
- b=VbR9LIa5es6OVBMMl0LQjQtegZZWjo+WyL+q3tPDiQQmqCGnIWsYaafNVBoqpafKlI
- 5Uj/+mLjmluX9HkeVWaeeb7NZmcJExZk3H4lLOGCsufqVFdnz+cLjCrrx9GsXeFeyVW0
- Q//VP0F7ve1vo8LC3nUhYFZNTN2Aiu6BkhV1+RC7mn+5lEMJbI1UDAUMDmipfEsZdKsk
- FENbrGkUHegtNlmJn+zwg9kfxI2NM63ldH4PmaY8ycshjawMc6NgYaFI++wmS4lu7jgk
- I9QwGXM9TJ+3cd/95nDoi5QVpq7TqufOntoZXQBLBq3Z75SDW0jbF7qNm09pTZXtjOLc
- a54A==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com;
- s=arc-20260327; 
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:dkim-signature;
- bh=9dxaFlJRZuXJMii9iS5rhrUq3M78QjQcIGXNp7AQ9tg=;
- fh=UBAs2EiTdZLm1SgjAZjgXHiDSIfASWhaSvi4tLgHocs=;
- b=cmPOmB+a7GGtY5LT4OYzOxcLSWyxSC1a4qdIkil99MfqOQFmEtpcmYF1POpemETGOm
- JoUYHfKloopTrxO/d6lTu0dXmZXl5UKfwi1gw0R35hZhS0BBfJXpc6vDu2QL2Lwpo8CW
- Sg40zm13od0mJf0Cnw+9wAOxnlavpYzzGVS9m8dqzk1+eGp8dSrtdNW7etdXc2YSaodn
- wbK7LWEFMx+ykMl/rcLLkcAUjfqSHwjxXES+A1R87XbdEn252/qzXv0j8nitVWjszgq2
- nId+FzrapXKG0jxCDXFcUoBJHsumMexnS7DFiNGFLgNrRghuDuV/0Do0PqIetoLd+x+7
- qRbA==; darn=lists.freedesktop.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
+	by gabe.freedesktop.org (Postfix) with ESMTP id 0B20310E2BE;
+	Sun, 22 Nov 2026 00:00:45 +0000 (UTC)
+Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id C07CE10E3D9;
+ Sun, 22 Nov 2026 00:00:38 +0000 (UTC)
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+ by sea.source.kernel.org (Postfix) with ESMTP id 76AF641643;
+ Sun, 22 Nov 2026 00:00:38 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id B3F7A1F000C4;
+ Sun, 22 Nov 2026 00:00:37 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20260707; t=1795283877; x=1795888677; darn=lists.freedesktop.org;
- h=content-transfer-encoding:content-type:cc:to:subject:message-id
- :date:from:in-reply-to:references:mime-version:from:to:cc:subject
- :date:message-id:reply-to:content-type;
- bh=9dxaFlJRZuXJMii9iS5rhrUq3M78QjQcIGXNp7AQ9tg=;
- b=EHt0U1PHNx650pz/WH8byaTe1xZ9yelR1sNbctwMVeniAx2YzFlC4OuL8AyPW0WHxi
- YdgIKCF6r2SF2Uosg6xV15AcOtQZwbXsSASgOobZ1YxQbF6H7LBoMgsYD3tYGTkTLqsa
- uWEk//gcZowZEYVFVXb8obP/3hSlLEWcWKtir84DxV91Cb/SarMIuc5slQY1dmmm43ac
- LsSCn/O6wKwLg/zvlfaS9rrb4d+dlkK80S3SNxctq3sm/CT3ayNbiUiIHreMcg9f0+RN
- 2sqx86ksLkFKC3tVh9Gc+e+/sWOD3ZGAXkZTVrZqD9l+MGrqd1+mSIZ3a/7+13oPmBX2
- byPA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20260707; t=1795283877; x=1795888677;
- h=content-transfer-encoding:content-type:cc:to:subject:message-id
- :date:from:in-reply-to:references:mime-version:x-gm-gg
- :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
- :content-type;
- bh=9dxaFlJRZuXJMii9iS5rhrUq3M78QjQcIGXNp7AQ9tg=;
- b=HJutrPO4gg1EDp/OMqy4LQArBWoi70EvT8V+Do7DYETmHtYwrPArtyK9ksxfJEb/7z
- ZadaDyecT0SrTgbfx7KpB8qZIWVKx5O76cP0ta55j3oB/loKaDqDke+42m2KZ7zEvYQp
- 9Ak8MxloC7llJoL4j/j4A2MeK7S8WvmwxDOQXIbOwZobrRy/iNtQ/vECOb2eIv+rWYCm
- lzhdqeqE8EOjxqv2SF0s75BqOs2J9MYwqELEbLGyY4D+7QOGFxJ18IBrQy21yDfKBihR
- M8ON3ZMZ9ptHiVJAAkSYjczV9KSVisMzgYNTiPDcPPrewQkj+JVgAs1BuxkUufe6aVZp
- Zlgg==
-X-Forwarded-Encrypted: i=1;
- AL+hErF1pWPIVX984pinJ2poAKePGAW94i+1+kYkfSDea0x168YelBmmz+IcOtzHSJEaErtw6kMJqx1Lb9Y=@lists.freedesktop.org
-X-Gm-Message-State: APuU4Z84ynO0kD5f5g+WH1kyJ12EtWDvQzSbG4t9GrjRoW0ai02K3BDE
- zbcTV3Rerb9VrolvBV5Xx9PAv23sHEfxccPdUoSz+26APICnH4wGOOd053YP9rps2S2wbySX3pj
- +DkpKNOdV6xftH91JlgDQPaHW9gW16VI=
-X-Gm-Gg: AZFdTZdCBSzXWYXxzoY724fsD7FakpMewkZy8FO1yyUN0Ox2mX6xCfI53Qisc5+SQs6
- QY64G5udOBXpRb0u7mtGenrpeV/KP1ggNjbaudb59GwFolBYmY1s++lYSKLDMvhMIMxb0hHcxvV
- hMe/7h1wBJvw7heky/yeReH1oDoF88P2Ti5Tile7BWADDvXhBdAplPBmvuanQ5ft5x7go3Ndunn
- K5sggCgRbAi/D2JOmrokOv7911rd+iaf8TdQoAAFLMIqaVvBBcqeLrYVVq1NtdR+Wv+2hUplfCA
- v20JW4bnNJuswqD09Ss5N2HmGhYPKP5TdVplNSX4LXqSWJGeZiO9Lf/FwTEuzvvSa1BBWKvN7zc
- IRbf0bhh78FeI9DFhiLhJbdp7fmJ8XrgY4j96iCI=
-X-Received: by 2002:a05:690c:9b0b:b0:8b0:702f:2a69 with SMTP id
- 00721157ae682-8b520500588mr37750997b3.39.1795283877275; Sat, 21 Nov 2026
- 09:57:57 -0800 (PST)
+ d=linux-foundation.org; s=korg; t=1795305638;
+ bh=04EqnkPwf0WubK8I3U0HutElecdyfT91xsPRhXdRrm8=;
+ h=Date:From:To:Cc:Subject:In-Reply-To:References;
+ b=L2aQbeKX/CTPckpuCxg/75CkYq7VgqRjjwXERlHfP3ef/xH4jzlR1llKSlU5CeM8e
+ gUoqibFABjeIaklQZ6WRqldqwgKZ5YTZ1h3Bi7puox1t9KLDvG/77rmYY7BqGwgQDR
+ LhWKY3luEuf/ybIxy+nQvMG6VZ1ez9KdmhG98Da8=
+Date: Sat, 21 Nov 2026 16:00:37 -0800
+From: Andrew Morton <akpm@linux-foundation.org>
+To: Aveline Noir <jm5905938@gmail.com>
+Cc: jgg@nvidia.com, leonro@nvidia.com, airlied@gmail.com,
+ apopple@nvidia.com, balbirs@nvidia.com, christian.koenig@amd.com,
+ dri-devel@lists.freedesktop.org, Francois Dugast
+ <francois.dugast@intel.com>, intel-xe@lists.freedesktop.org, jgg@ziepe.ca,
+ leon@kernel.org, linux-kernel@vger.kernel.org, linux-mm@kvack.org, Lorenzo
+ Stoakes <lorenzo.stoakes@oracle.com>, Matthew Brost
+ <matthew.brost@intel.com>, mm-commits@vger.kernel.org, mpenttil@redhat.com,
+ Patchwork <patchwork@emeril.freedesktop.org>, SeongJae Park
+ <sj@kernel.org>, thomas.hellstrom@linux.intel.com, Vlastimil Babka
+ <vbabka@suse.cz>, ziy@nvidia.com
+Subject: Re: [PATCH] mm/hmm: account for subpage offsets in device-private PMDs
+Message-Id: <20261121160037.1a479f3c8b4e860bc23c106d@linux-foundation.org>
+In-Reply-To: <179342234355.4.16705453209886955762@gmail.com>
+References: <179342234355.4.16705453209886955762@gmail.com>
+X-Mailer: Sylpheed 3.8.0beta1 (GTK+ 2.24.33; x86_64-pc-linux-gnu)
 X-Archived-By: <archiver.kernel.org>
-MIME-Version: 1.0
-References: <20261111-img-pm-autosuspend-v2-1-427689f6f2f9@linux.spacemit.com>
-In-Reply-To: <20261111-img-pm-autosuspend-v2-1-427689f6f2f9@linux.spacemit.com>
-From: Gyeyoung Baek <gye976@gmail.com>
-Date: Sun, 22 Nov 2026 02:57:46 +0900
-X-Gm-Features: Aa3M54o-NmMelfecL-8e1chO9NJSddT-nsp3zPaudeABWyPskoPrY6_ORqOpIUA
-Message-ID: <CAKbEzntsUc4D3Nvxfphy5yApWG+sGsx7VF1cYd3SLSoZKhiteA@mail.gmail.com>
-Subject: Re: [PATCH v2] drm/imagination: re-check firmware idle state before
- runtime suspend
-To: Baihui Liang <liangbaihui@linux.spacemit.com>
-Cc: Alessio Belle <alessio.belle@imgtec.com>, 
- Luigi Santivetti <luigi.santivetti@imgtec.com>, 
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>, 
- Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>,
- Simona Vetter <simona@ffwll.ch>, 
- Yixun Lan <dlan@kernel.org>, Troy Mitchell <troy.mitchell@linux.spacemit.com>, 
- Paul Walmsley <pjw@kernel.org>, Palmer Dabbelt <palmer@dabbelt.com>,
- Albert Ou <aou@eecs.berkeley.edu>, 
- Alexandre Ghiti <alex@ghiti.fr>, imagination@lists.freedesktop.org, 
- dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org, 
- linux-riscv@lists.infradead.org, spacemit@lists.linux.dev
-Content-Type: text/plain; charset="UTF-8"
+Mime-Version: 1.0
+Content-Type: text/plain; charset=ISO-8859-1
 Content-Transfer-Encoding: quoted-printable
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -112,49 +57,139 @@ List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-2.8 required=3.0 tests=BAYES_00,DKIM_SIGNED,
-	DKIM_VALID,DKIM_VALID_AU,FREEMAIL_FORGED_FROMDOMAIN,FREEMAIL_FROM,
-	HEADER_FROM_DIFFERENT_DOMAINS,MAILING_LIST_MULTI,SPF_HELO_NONE,
-	SPF_PASS autolearn=no autolearn_force=no version=4.0.1
+X-Spam-Status: No, score=-17.5 required=3.0 tests=BAYES_00,DKIM_SIGNED,
+	DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
+	INCLUDES_CR_TRAILER,INCLUDES_PATCH,MAILING_LIST_MULTI,NICE_REPLY_A,
+	SPF_HELO_NONE,SPF_PASS autolearn=unavailable autolearn_force=no
+	version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-Hi Baihui,
+On Sat, 31 Oct 2026 15:07:58 +1100 Aveline Noir <jm5905938@gmail.com> wrote:
 
-On Wed, Nov 11, 2026 at 6:29=E2=80=AFPM Baihui Liang
-<liangbaihui@linux.spacemit.com> wrote:
->
-> pvr_power_device_idle() rejects runtime suspend while the firmware
-> hasn't reached ROGUE_FWIF_POW_IDLE. The PM core doesn't reschedule
-> idle notification after rejection, so no further pm_runtime_put()
-> arrives on an idle GPU and the device stays powered indefinitely.
->
-> Move the idle check into pvr_power_device_suspend() and return -EBUSY
-> after pm_runtime_mark_last_busy() so the PM core reschedules the
-> autosuspend timer and retries until the firmware is idle.
+> When a query starts inside a device-private PMD owned by
+> range->dev_private_owner, hmm_vma_handle_absent_pmd() still fills the PFN
+> array from the folio's first page. The returned PFNs therefore refer to
+> earlier pages rather than the requested subrange.
+>=20
+> Add the query's PMD-relative page offset to the initial PFN, as the
+> present PMD path already does.
+>=20
+> Fixes: 10b9feee2d0d ("mm/hmm: populate PFNs from PMD swap entry")
+> Signed-off-by: Aveline Noir <jm5905938@gmail.com>
+>=20
+> ---
+> Found during a synthetic test_hmm check of device-private THP handling.
+> Tested PMD-aligned and non-aligned subranges, PMD boundaries, split
+> PTEs and fake-device data accesses with test_hmm in QEMU TCG; all
+> executed tests passed with the fix. No real GPU testing was performed.
 
-My understanding of Sashiko's point (correct me if I'm wrong):
+Thanks.  It appears that the changelog somewhat understates the
+seriousness of this so I came up with a more assertive one, below.=20
+Please check that.
 
-- pvr_remove(): must power off unconditionally
-- runtime suspend: power off only once idle (-EBUSY otherwise)
+I fed this through LLM-driven QEMU-based runtime testing and it looks
+like it pretty much replicated your testing:
 
-Since remove goes through the suspend callback, it can now skip the
-power-off on -EBUSY.
+: I tested "mm/hmm: account for subpage offsets in device-private
+: PMDs" on matched x86-64 guest kernels. An unprivileged process
+: (UID 65534) migrated an anonymous 2 MiB THP to the test_hmm
+: device. A second open of the device read pages inside the PMD
+: while the first remained open. A snapshot confirmed a
+: device-private PMD, and temporary kernel log messages confirmed
+: that the reads reached hmm_vma_handle_absent_pmd().
+:=20
+: Without the patch, requests for pages 1, 7, 255 and 511 returned
+: page 0. A request for pages 31-33 returned pages 0-2. With the
+: patch, all seven pages returned the requested contents. Page 0
+: read correctly on both kernels. Thus an unprivileged device user
+: can receive data from the wrong pages.
+:
+: The fake device needed an identical temporary backing-page
+: correction on both kernels to make this read path work. That
+: change was removed after testing. This exercises the HMM path
+: through test_hmm; I did not test GPU hardware.
 
-Moving the idle check into runtime suspend looks right to me, so how
-about keeping just the power-off logic in a common helper, called by
-runtime suspend after the idle check and by remove directly? Roughly:
+So it accidentally found a bug in lib/test_hmm.c on the way.  "The QEMU
+run exposed a real test_hmm bug: a second open of /dev/hmm_dmirror0 can
+put a device-private page into its page table, then dmirror_do_read()
+tries to copy from that non-CPU-accessible page and oopses".  I'll prep
+a fix for that separately.
 
-  pvr_power_device_off()        /* fw_disable + power_off */
 
-  pvr_remove()
-      pm_runtime_disable();
-      if (!pm_runtime_status_suspended()) {
-          pvr_power_device_off();
-          pm_runtime_set_suspended();
-      }
-      pm_runtime_enable();      /* balance devm_pm_runtime_enable() */
 
---=20
-Thanks,
-Gyeyoung
+I'll queue the below in mm.git's mm-hotfixes queue and shall await
+maintainer input (please).
+
+
+From: Aveline Noir <jm5905938@gmail.com>
+Subject: mm/hmm: account for subpage offsets in device-private PMDs
+Date: Sat, 31 Oct 2026 15:07:58 +1100
+
+When a query starts inside a device-private PMD owned by
+range->dev_private_owner, hmm_vma_handle_absent_pmd() still fills the PFN
+array from the folio's first page.  The returned PFNs therefore refer to
+earlier pages rather than the requested subrange.
+
+Nouveau's GPU fault path can query one page of a device-private PMD at a
+time.  Xe's SVM fault, prefetch and userptr mapping paths can also query
+subranges of their own device-private PMDs.  An unprivileged process with
+access to the GPU render node can reach these paths on hardware supporting
+device-private THP migration.  Xe can read the wrong application data or
+silently overwrite earlier pages of the same process's device-private
+folio.
+
+Nouveau aligns a one-page GPU fault to the PMD head by subtracting the
+fault offset from the returned page.  The faulty HMM PFN already refers to
+the head, so this subtraction can select a page before the folio.  If the
+preceding page belongs to another allocation, GPU access can expose or
+overwrite unrelated userspace data; an invalid page can also fault the
+kernel during its address conversion.  This worst case follows from the
+source, but has not been demonstrated on a real GPU.
+
+Add the query's PMD-relative page offset to the initial PFN, as the
+present PMD path already does.
+
+The device-private PMD migration machinery first shipped in 6.19.=20
+Backport this fix to the maintained 7.3.y stable series; the HMM path
+exists in 6.18.y but cannot be reached through an in-tree PMD-producing
+device-private migration path there.
+
+Link: https://patch.msgid.link/179342234355.4.16705453209886955762@gmail.com
+Fixes: 10b9feee2d0d ("mm/hmm: populate PFNs from PMD swap entry")
+Signed-off-by: Aveline Noir <jm5905938@gmail.com>
+Signed-off-by: Andrew Morton <akpm@linux-foundation.org>
+Cc: Jason Gunthorpe <jgg@ziepe.ca>
+Cc: Leon Romanovsky <leon@kernel.org>
+Cc: Francois Dugast <francois.dugast@intel.com>
+Cc: Lorenzo Stoakes <ljs@kernel.org>
+Cc: Matthew Brost <matthew.brost@intel.com>
+Cc: Patchwork <patchwork@emeril.freedesktop.org>
+Cc: SJ Park <sj@kernel.org>
+Cc: Vlastimil Babka <vbabka@kernel.org>
+Cc: David Airlie <airlied@gmail.com>
+Cc: Alistair Popple <apopple@nvidia.com>
+Cc: Balbir Singh <balbirs@nvidia.com>
+Cc: Christian K=F6nig <christian.koenig@amd.com>
+Cc: Mika Penttil=E4 <mpenttil@redhat.com>
+Cc: Thomas Hellstr=F6m <thomas.hellstrom@linux.intel.com>
+Cc: Zi Yan <ziy@nvidia.com>
+Cc: <stable@vger.kernel.org>
+
+ mm/hmm.c |    3 ++-
+ 1 file changed, 2 insertions(+), 1 deletion(-)
+
+--- a/mm/hmm.c~mm-hmm-account-for-subpage-offsets-in-device-private-pmds
++++ a/mm/hmm.c
+@@ -355,7 +355,8 @@ static int hmm_vma_handle_absent_pmd(str
+ 	    range->dev_private_owner) {
+ 		unsigned long cpu_flags =3D HMM_PFN_VALID |
+ 			hmm_pfn_flags_order(PMD_SHIFT - PAGE_SHIFT);
+-		unsigned long pfn =3D softleaf_to_pfn(entry);
++		unsigned long pfn =3D softleaf_to_pfn(entry) +
++			((start & ~PMD_MASK) >> PAGE_SHIFT);
+ 		unsigned long i;
+=20
+ 		if (softleaf_is_device_private_write(entry))
+_
+
