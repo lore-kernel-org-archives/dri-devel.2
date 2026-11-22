@@ -2,63 +2,63 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F3F14606A32A
-	for <dri-devel@archiver.kernel.org>; Sun, 22 Nov 2026 08:19:41 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E6667606A32A
+	for <dri-devel@archiver.kernel.org>; Sun, 22 Nov 2026 08:19:42 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=QuTLt7eV
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=P3Rtx9im
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 7BBDA10E4D9;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 8959910E4ED;
 	Sun, 22 Nov 2026 08:19:34 +0000 (UTC)
-Received: from mail-ej1-f53.google.com (mail-ej1-f53.google.com
- [209.85.218.53])
- by gabe.freedesktop.org (Postfix) with ESMTPS id A22F610E460
- for <dri-devel@lists.freedesktop.org>; Sun, 22 Nov 2026 08:19:11 +0000 (UTC)
-Received: by mail-ej1-f53.google.com with SMTP id
- a640c23a62f3a-c516a1623d0so53148966b.2
- for <dri-devel@lists.freedesktop.org>; Sun, 22 Nov 2026 00:19:11 -0800 (PST)
+Received: from mail-ed1-f48.google.com (mail-ed1-f48.google.com
+ [209.85.208.48])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id C930710E46A
+ for <dri-devel@lists.freedesktop.org>; Sun, 22 Nov 2026 08:18:57 +0000 (UTC)
+Received: by mail-ed1-f48.google.com with SMTP id
+ 4fb4d7f45d1cf-6b7ddb99db4so2883787a12.0
+ for <dri-devel@lists.freedesktop.org>; Sun, 22 Nov 2026 00:18:57 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20260707; t=1795335550; x=1795940350; darn=lists.freedesktop.org;
+ d=gmail.com; s=20260707; t=1795335536; x=1795940336; darn=lists.freedesktop.org;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:from:to:cc:subject:date
  :message-id:reply-to:content-type;
- bh=3z6P0aYlufuvnlooWGHkbmG4E1HPBYeLov8HTyHzM/I=;
- b=QuTLt7eV2RJBze0FLrU4t7R9URpmCfXmQmW7cYFpz+iodl5FYnUVj32FewLFV5pRd8
- ufXziea1TtKgQsqjzUMBZrVMJUZYYyO1X3AQoz9Z4LT9vxgGYdr7vR6cuEsUJdqDKdh9
- JWbmK34lwFxxHNvfWAJaUVPTEj52QdhsCJSRn5xHtrdH8dMPHItGaRBegc5qPjkcypKF
- NpcNUfuNLk2zjjgsTO6xEiEvEsgAMvGM+zapySIAl/JlDduCSJF7UhUPNgrMx9w7NbDj
- KTvjdcGTklscQpC0zM65S+Yk0cGtQ0cLaFcB+JEhTtNDS49XjyiqUO+sSJG50GDLFXnz
- WZAg==
+ bh=/0T454X8zS9zgz5ElLHh1sft/p08/5DBKrLhd6S46iM=;
+ b=P3Rtx9imgmN+6GiAZJgBrx3PSIZidpvePLZr11C+biSfdYlQJl8YH2Ac2hwS0AMAFX
+ yuEAwfbk6/4xjwmz1+qvyb4aY9goj2R/J+cFkHqLQqKcsGsp0KOKB5mPtb3ChlbWdXAj
+ AAmnKQObXr9H+ANVzyx/KZl622prddBacrV6ivBUEjyy/HplDDFVceSEltHKi1rj4e7E
+ c/MpMc+YyWc9JaAgbwtjPW1QTaJLXaJylMpNUWaNqixoL4vwBgcOqux128QFfh5abUX7
+ j5sPhWljY4d8LXtH3cSeSkMZZO7hnlvs60pgoZD84PvrvrKvnMGNfGn8AtGxRF7VrXz9
+ uyFw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20260707; t=1795335550; x=1795940350;
+ d=1e100.net; s=20260707; t=1795335536; x=1795940336;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
  :to:cc:subject:date:message-id:reply-to:content-type;
- bh=3z6P0aYlufuvnlooWGHkbmG4E1HPBYeLov8HTyHzM/I=;
- b=G90PzannXeCmkHmbCkGDfnJ/ZiBDFwUwL6/nfAyA2vrSyeFxtsa7jl1SNnmL7v8p7y
- SfVn6niiWvoyHC1TDBaBcsmDURyejF0v6CtJ22LL7Ha2UwmIMqeVkxHA5Q4TTiSGBKDN
- Fst7bPqw6T1OyTQt+Dhqyo8lhzKW8nJJNR8o05tea1FzSPJm44FIFoEBc3IfDjmkFi1r
- CRI5d0PSfL2Q3aXWuJ/FJD1DAGcgxDPrJxqtug9bJwQIHfcXXT+gmitx+H/PYxzBVqSu
- iAG6EcI9/uY7DyO3akzZPujxouZltbi7T7fGvuamA8apTIA9+CgdwNaAH86hkZgphEot
- 8QoQ==
-X-Gm-Message-State: APuU4Z8nwsMDGOBmuvneC3YVB+KpPmc7kfQgjbt75c7Vh/IpZzs1hPfh
- 5YagVXJC/MkPhBYm4hNzGHs3G/RjPvz5Z7ACCkWZsSfJDoxSnW+HQwTf
-X-Gm-Gg: AZFdTZeH3RLcgKAaIg9SNZ6Y/GHnhPpqCrFKEhmdnmsKudzXadP9EEye3fds5qJhzCT
- 6ypLZayHnycMBkAOgJ9CWt9fk6UII5nWPZNkTbGajFWRuHH6QvPasMnjjrYn7tTh3M1BJrFwbKu
- PJX2N1E/V0CtOcXEsvQf1PXyHQOnkvyj5LkFwhigpitYV7aEoKzu3K5xlPeyuhcKC/abfeGkq+G
- Fq9bmE22Z8RJguFH/ILxC2cM8Mgbc46h2Rr9IBkkAcHqk7Znc371YTAL6UOWaO3Iyiu70rBUKgF
- 6QXZmMV6CMxbutg5pvd4uOihNRVVip+A+n4BVMxIQKQtrMb1xFvC5NCa4VOMd94a5Av+L6m9+IE
- WOUnnLnOa1xDlmvw4n8hZEg7/J6I+9yYb1uf6KS/7lL1Wiz4snnDdpa2R+l/VYlUhKw1RovNHGW
- EMDmRZDHlcxIZEcmuRXMXEv1xEhZ7Y0lud8+LNLdKwWU60E4XSxlHpvTkXMY7TI5uZEUULFpZFn
- Z1uyvjwbALBJuuusrLSJpdE0nM5BwGYe48IoSokkMhR4Z9It5tEik70lwoZb9+7/zcqaKWhbuaW
- rEuR9V7/Lj/LPtaC2bBNCmWXHZujcq9zhKNHG/VHnoa6sApDqfWcTNIBt9SUA6modFaWjwvRLp/
- DU52RhbgzIA==
-X-Received: by 2002:a05:6402:274d:b0:6ba:92c3:fef7 with SMTP id
- 4fb4d7f45d1cf-6ba92c4088cmr876330a12.19.1795335550008; 
- Sun, 22 Nov 2026 00:19:10 -0800 (PST)
+ bh=/0T454X8zS9zgz5ElLHh1sft/p08/5DBKrLhd6S46iM=;
+ b=wAgBWWI71QNAllb7XtVJPASfUbYNNVWpP0scfplUxTXrswA07ZY4AMA79YN/IYK/ha
+ OvPlvUpYNj73wVzHxUFexRvCCuc31zQkedf/TV+F0NpdH0XVPIv4UUz8sspyCrPvUAJG
+ L0xIhkElJbfWtXR9haUL0/SZ7fr0hvLqKSdoU9GSOZq73xDIna2s4CHzhMo23ao+C+ma
+ IRMt8atU66Ewtd/ncIPrYmcByY0tTVUthgP6/1t1VjJO1pqToNBt2rxNfsV2RKQGTC/c
+ eXEwM8oRJfubjZN67VE/ehpY+P+95tqu8T4XxQ4Ix+vDyC2OwxG5KzHSBuY66Y/YOrIz
+ kQag==
+X-Gm-Message-State: APuU4Z+isckNxTCQSDpENz5Bm6QKr7Z50ClIoV540YKCbiMRJvbpR+7o
+ lYmlZC5WWxLyG3q7R2mYfyO8bCBhzTRwoT/fK5dmQ7QwgkhWCqsAAgA0
+X-Gm-Gg: AZFdTZeZyZ/q3Zb/YwROAbDp+chwRZR51KdIMw6maI0RmW5tDlJLaYIVQ01+xwWXByJ
+ dDMyUqxz+VTHZQgwJ/lvfqYt6B4GuKA5eSd1No1f4Sutl4eHMiDiU7Ool7tfem0itfhsBI3Vtj1
+ pBqP4S7EUKavHBHQR6gk9Ao5oZ5HL9YXdOO40rH0W64KUzWMAKic0ea1sWFcYhkPYLYYU3nD1qD
+ OXgyLompZ8pHoDKXodNBxRgCVQETae4MITFbbn2rGsYUl5xNI4HCVaCOLWCPFmypGgaOpIYRoBJ
+ MxhBbkfJuhZ8iBQXaorz8bYml/ch0/7G1skY+jAA3sHKOs8Pxt0xb/4+U4ksgE2Ytr3F2h3lG8l
+ zMmzHtqYphlQ3IZrowshcf6hs2BBbPfot60ICANlL/+AQ6ecUehPIMG3x5zEsrOD78WXhABfWZs
+ I5ZLck1/YehlRkQrNf6JRKj/qpzLsJt0GneutuYN23mRCPkk5VZfDu7mDi2hAHY8HQGXs3DjPv9
+ igamXKwl7L9omVDwfem6sbFNGc+xt9dWAsrb6Y3gs+vad8pPBdq6v4GqN0m6mjYJrTfvaIMpj+N
+ fbJJIJ73SvDToL5ej+sDR7zypspB3SCtubgl9zjFx3kzCVWDZqs4+VHwuKBOB/KLjKb0blZtXEB
+ OhB8z1MuiCuk=
+X-Received: by 2002:aa7:d404:0:b0:6ba:1266:cd94 with SMTP id
+ 4fb4d7f45d1cf-6ba37e89ce2mr4304301a12.39.1795335535882; 
+ Sun, 22 Nov 2026 00:18:55 -0800 (PST)
 Received: from xeon ([188.163.112.62]) by smtp.gmail.com with ESMTPSA id
- 4fb4d7f45d1cf-6ba370e8ad0sm3617167a12.18.2026.11.22.00.19.07
+ 4fb4d7f45d1cf-6ba370e8ad0sm3617167a12.18.2026.11.22.00.18.53
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Sun, 22 Nov 2026 00:19:08 -0800 (PST)
+ Sun, 22 Nov 2026 00:18:55 -0800 (PST)
 From: Svyatoslav Ryhel <clamor95@gmail.com>
 To: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
  Maxime Ripard <mripard@kernel.org>,
@@ -74,10 +74,10 @@ To: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
  Svyatoslav Ryhel <clamor95@gmail.com>
 Cc: dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org,
  linux-tegra@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: [PATCH v8 10/12] drm/tegra: rgb: Parameterize configuration based on
- bus flags
-Date: Sun, 22 Nov 2026 10:18:18 +0200
-Message-ID: <20261122081820.53199-11-clamor95@gmail.com>
+Subject: [PATCH v8 06/12] drm/tegra: dc: Add elements required by Tegra MIPI
+ DBI
+Date: Sun, 22 Nov 2026 10:18:14 +0200
+Message-ID: <20261122081820.53199-7-clamor95@gmail.com>
 X-Mailer: git-send-email 2.53.0
 In-Reply-To: <20261122081820.53199-1-clamor95@gmail.com>
 References: <20261122081820.53199-1-clamor95@gmail.com>
@@ -95,101 +95,249 @@ List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-11.8 required=3.0 tests=BAYES_00,DKIM_SIGNED,
-	DKIM_VALID,DKIM_VALID_AU,FREEMAIL_FORGED_FROMDOMAIN,FREEMAIL_FROM,
-	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
-	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,UNWANTED_LANGUAGE_BODY,
-	USER_AGENT_GIT autolearn=unavailable autolearn_force=no version=4.0.1
+X-Spam-Status: No, score=-10.7 required=3.0 tests=BAYES_00,DKIM_SIGNED,
+	DKIM_VALID,DKIM_VALID_AU,FORGED_GMAIL_RCVD,FREEMAIL_FORGED_FROMDOMAIN,
+	FREEMAIL_FROM,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,
+	INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,
+	UNWANTED_LANGUAGE_BODY,UPPERCASE_50_75,USER_AGENT_GIT
+	autolearn=unavailable autolearn_force=no version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-Parameterize configuration based on bus flags passed from the bridge or
-panel. The list of supported flags includes now pixel clock polarity,
-display enable (DE) polarity, and data alignment.
+Add DC register definitions with additional fields in preparation for
+adding the 8-bit CPU interface (MIPI DBI).
 
 Signed-off-by: Svyatoslav Ryhel <clamor95@gmail.com>
 ---
- drivers/gpu/drm/tegra/rgb.c | 39 +++++++++++++++++++++++++++++++++----
- 1 file changed, 35 insertions(+), 4 deletions(-)
+ drivers/gpu/drm/tegra/dc.h | 194 ++++++++++++++++++++++++++++++++++---
+ 1 file changed, 183 insertions(+), 11 deletions(-)
 
-diff --git a/drivers/gpu/drm/tegra/rgb.c b/drivers/gpu/drm/tegra/rgb.c
-index d48d498068ac8..faecd6f94359f 100644
---- a/drivers/gpu/drm/tegra/rgb.c
-+++ b/drivers/gpu/drm/tegra/rgb.c
-@@ -5,6 +5,7 @@
-  */
- 
- #include <linux/clk.h>
-+#include <linux/media-bus-format.h>
- #include <linux/of.h>
- 
- #include <drm/drm_atomic_helper.h>
-@@ -106,6 +107,7 @@ static void tegra_rgb_encoder_enable(struct drm_encoder *encoder,
- 	struct tegra_output *output = encoder_to_output(encoder);
- 	struct tegra_rgb *rgb = to_rgb(output);
- 	struct drm_connector_state *conn_state;
-+	struct drm_bridge_state *bridge_state;
- 	struct drm_crtc_state *crtc_state;
- 	struct drm_connector *connector;
- 	struct drm_display_mode *mode;
-@@ -117,12 +119,21 @@ static void tegra_rgb_encoder_enable(struct drm_encoder *encoder,
- 	crtc_state = drm_atomic_get_new_crtc_state(state, conn_state->crtc);
- 	mode = &crtc_state->adjusted_mode;
- 
-+	/* Get but flags from the bridge state. */
-+	bridge_state = drm_atomic_get_new_bridge_state(state, output->bridge);
-+	if (bridge_state)
-+		bus_flags = bridge_state->input_bus_cfg.flags;
-+	else
-+		bus_flags = DRM_BUS_FLAG_PIXDATA_SAMPLE_NEGEDGE |
-+			    DRM_BUS_FLAG_DE_HIGH |
-+			    DRM_BUS_FLAG_DATA_MSB_TO_LSB;
+diff --git a/drivers/gpu/drm/tegra/dc.h b/drivers/gpu/drm/tegra/dc.h
+index 0cb0515968b35..e8913c5530a2d 100644
+--- a/drivers/gpu/drm/tegra/dc.h
++++ b/drivers/gpu/drm/tegra/dc.h
+@@ -272,14 +272,150 @@ int tegra_dc_rgb_exit(struct tegra_dc *dc);
+ #define  DC_COM_CRC_CONTROL_WAIT (1 << 1)
+ #define  DC_COM_CRC_CONTROL_ENABLE (1 << 0)
+ #define DC_COM_CRC_CHECKSUM			0x301
+-#define DC_COM_PIN_OUTPUT_ENABLE(x) (0x302 + (x))
+-#define DC_COM_PIN_OUTPUT_POLARITY(x) (0x306 + (x))
+-#define LVS_OUTPUT_POLARITY_LOW (1 << 28)
+-#define LHS_OUTPUT_POLARITY_LOW (1 << 30)
+-#define DC_COM_PIN_OUTPUT_DATA(x) (0x30a + (x))
+-#define DC_COM_PIN_INPUT_ENABLE(x) (0x30e + (x))
+-#define DC_COM_PIN_INPUT_DATA(x) (0x312 + (x))
+-#define DC_COM_PIN_OUTPUT_SELECT(x) (0x314 + (x))
 +
- 	tegra_dc_write_regs(rgb->dc, rgb_enable, ARRAY_SIZE(rgb_enable));
- 
- 	value = DE_SELECT_ACTIVE | DE_CONTROL_NORMAL;
- 	tegra_dc_writel(rgb->dc, value, DC_DISP_DATA_ENABLE_OPTIONS);
- 
--	/* configure H- and V-sync signal polarities */
-+	/* configure H- and V-sync and pixel clock signal polarities */
- 	value = tegra_dc_readl(rgb->dc, DC_COM_PIN_OUTPUT_POLARITY(1));
- 
- 	if (mode->flags & DRM_MODE_FLAG_NHSYNC)
-@@ -135,11 +146,31 @@ static void tegra_rgb_encoder_enable(struct drm_encoder *encoder,
- 	else
- 		value &= ~LVS_OUTPUT_POLARITY_LOW;
- 
-+	if (bus_flags & DRM_BUS_FLAG_PIXDATA_SAMPLE_POSEDGE)
-+		value &= ~BIT(PIN_LSC0);
-+	else
-+		value |= BIT(PIN_LSC0);
++#define DC_COM_PIN_OUTPUT_ENABLE(x)		(0x302 + (x))
++#define DC_COM_PIN_OUTPUT_POLARITY(x)		(0x306 + (x))
++#define LVS_OUTPUT_POLARITY_LOW			BIT(28)
++#define LHS_OUTPUT_POLARITY_LOW			BIT(30)
++#define DC_COM_PIN_OUTPUT_DATA(x)		(0x30a + (x))
++/* Pin unmask is 1 bit above position of the pin in the OUTPUT_DATA register */
++#define PIN_UNMASK(x)				BIT((x) + 1)
++#define DC_COM_PIN_INPUT_ENABLE(x)		(0x30e + (x))
 +
- 	tegra_dc_writel(rgb->dc, value, DC_COM_PIN_OUTPUT_POLARITY(1));
++/*
++ * The definitions below describe pin positions in the DC_COM_PIN_OUTPUT_ENABLE(x),
++ * DC_COM_PIN_OUTPUT_POLARITY(x), DC_COM_PIN_OUTPUT_DATA(x), and
++ * DC_COM_PIN_INPUT_ENABLE(x) registers. The comment before each group indicates
++ * the index of the register (the x value).
++ */
++
++/* 0 */
++#define PIN_LD0					0
++#define PIN_LD1					2
++#define PIN_LD2					4
++#define PIN_LD3					6
++#define PIN_LD4					8
++#define PIN_LD5					10
++#define PIN_LD6					12
++#define PIN_LD7					14
++#define PIN_LD8					16
++#define PIN_LD9					18
++#define PIN_LD10				20
++#define PIN_LD11				22
++#define PIN_LD12				24
++#define PIN_LD13				26
++#define PIN_LD14				28
++#define PIN_LD15				30
++
++/* 1 */
++#define PIN_LD16				0
++#define PIN_LD17				2
++#define PIN_LPW0				16
++#define PIN_LPW1				18
++#define PIN_LPW2				20
++#define PIN_LSC0				24
++#define PIN_LSC1				26
++#define PIN_LVS					28
++#define PIN_LHS					30
++
++/* 2 */
++#define PIN_LHP0				0
++#define PIN_LHP1				2
++#define PIN_LHP2				4
++#define PIN_LVP0				8
++#define PIN_LVP1				10
++#define PIN_LM0					16
++#define PIN_LM1					18
++#define PIN_LDI					20
++#define PIN_LPP					22
++
++/* 3 */
++#define PIN_LSCK				0
++#define PIN_LSDA				2
++#define PIN_LCSN				4
++#define PIN_LDC					6
++#define PIN_LSPI				8
++#define PIN_LSDI				10
++
++#define DC_COM_PIN_INPUT_DATA(x)		(0x312 + (x))
++
++/*
++ * DC_COM_PIN_OUTPUT_SELECT(x) is a set of 7 registers that allow selecting
++ * one of 7 functions for each pin using 3 bits. Clearing all bits sets
++ * the pin to its primary function, while setting them to 1 configures it
++ * as a GPIO output. Other functions are unique to each pin. For details,
++ * check "23.7.17 DC_COM_PIN_OUTPUT_SELECT0_0" in the Tegra30 TRM.
++ */
++#define DC_COM_PIN_OUTPUT_SELECT(x)		(0x314 + (x))
++#define PIN_OUTPUT_SELECT_MASK(x)		(0x7 << (x))
++#define PIN_OUTPUT_SELECT_PRIM(x)		(0 << (x))
++#define PIN_OUTPUT_SELECT_OUT(x)		(1 << (x))
++#define PIN_OUTPUT_SELECT_F2(x)			(2 << (x))
++#define PIN_OUTPUT_SELECT_F3(x)			(3 << (x))
++#define PIN_OUTPUT_SELECT_F4(x)			(4 << (x))
++#define PIN_OUTPUT_SELECT_F5(x)			(5 << (x))
++#define PIN_OUTPUT_SELECT_F6(x)			(6 << (x))
++#define PIN_OUTPUT_SELECT_F7(x)			(7 << (x))
++
++/*
++ * The definitions below describe pin offset in the DC_COM_PIN_OUTPUT_SELECT(x)
++ * registers. The comment before each group indicates the index of the register
++ * (the x value).
++ */
++
++/* 0 */
++#define PIN_OUTPUT_SELECT_LD0			0
++#define PIN_OUTPUT_SELECT_LD1			4
++#define PIN_OUTPUT_SELECT_LD2			8
++#define PIN_OUTPUT_SELECT_LD3			12
++#define PIN_OUTPUT_SELECT_LD4			16
++#define PIN_OUTPUT_SELECT_LD5			20
++#define PIN_OUTPUT_SELECT_LD6			24
++#define PIN_OUTPUT_SELECT_LD7			28
++
++/* 1 */
++#define PIN_OUTPUT_SELECT_LD8			0
++#define PIN_OUTPUT_SELECT_LD9			4
++#define PIN_OUTPUT_SELECT_LD10			8
++#define PIN_OUTPUT_SELECT_LD11			12
++#define PIN_OUTPUT_SELECT_LD12			16
++#define PIN_OUTPUT_SELECT_LD13			20
++#define PIN_OUTPUT_SELECT_LD14			24
++#define PIN_OUTPUT_SELECT_LD15			28
++
++/* 2 */
++#define PIN_OUTPUT_SELECT_LD16			0
++#define PIN_OUTPUT_SELECT_LD17			4
++
++/* 3 */
++#define PIN_OUTPUT_SELECT_LPW0			0
++#define PIN_OUTPUT_SELECT_LPW1			4
++#define PIN_OUTPUT_SELECT_LPW2			8
++#define PIN_OUTPUT_SELECT_LSC0			16
++#define PIN_OUTPUT_SELECT_LSC1			20
++#define PIN_OUTPUT_SELECT_LVS			24
++#define PIN_OUTPUT_SELECT_LHS			28
++
++/* 4 */
++#define PIN_OUTPUT_SELECT_LHP0			0
++#define PIN_OUTPUT_SELECT_LHP1			4
++#define PIN_OUTPUT_SELECT_LHP2			8
++#define PIN_OUTPUT_SELECT_LVP0			16
++#define PIN_OUTPUT_SELECT_LVP1			20
++
++/* 5 */
++#define PIN_OUTPUT_SELECT_LM0			0
++#define PIN_OUTPUT_SELECT_LM1			4
++#define PIN_OUTPUT_SELECT_LDI			8
++#define PIN_OUTPUT_SELECT_LPP			12
++
++/* 6 */
++#define PIN_OUTPUT_SELECT_LSCK			0
++#define PIN_OUTPUT_SELECT_LSDA			4
++#define PIN_OUTPUT_SELECT_LCSN			8
++#define PIN_OUTPUT_SELECT_LDC			12
++#define PIN_OUTPUT_SELECT_LSPI			16
++#define PIN_OUTPUT_SELECT_LSDI			20
  
--	/* XXX: parameterize? */
--	value = DISP_DATA_FORMAT_DF1P1C | DISP_ALIGNMENT_MSB |
--		DISP_ORDER_RED_BLUE;
-+	/* configure DE signal polarities */
-+	value = tegra_dc_readl(rgb->dc, DC_COM_PIN_OUTPUT_POLARITY(3));
-+
-+	if (bus_flags & DRM_BUS_FLAG_DE_LOW)
-+		value |= BIT(PIN_LSPI);
-+	else
-+		value &= ~BIT(PIN_LSPI);
-+
-+	tegra_dc_writel(rgb->dc, value, DC_COM_PIN_OUTPUT_POLARITY(3));
-+
-+	/* configure DATA order and alignment */
-+	value = DISP_DATA_FORMAT_DF1P1C | DISP_ORDER_RED_BLUE;
-+
-+	if (bus_flags & DRM_BUS_FLAG_DATA_LSB_TO_MSB)
-+		value |= DISP_ALIGNMENT_LSB;
-+	else
-+		value &= ~DISP_ALIGNMENT_LSB;
-+
- 	tegra_dc_writel(rgb->dc, value, DC_DISP_DISP_INTERFACE_CONTROL);
+ #define DC_COM_PIN_MISC_CONTROL			0x31b
+ #define DC_COM_PIN_PM0_CONTROL			0x31c
+@@ -303,9 +439,15 @@ int tegra_dc_rgb_exit(struct tegra_dc *dc);
+ #define  UNDERFLOW_REPORT_ENABLE (1 << 0)
  
- 	tegra_dc_commit(rgb->dc);
+ #define DC_DISP_DISP_SIGNAL_OPTIONS0		0x400
+-#define H_PULSE0_ENABLE (1 <<  8)
+-#define H_PULSE1_ENABLE (1 << 10)
+-#define H_PULSE2_ENABLE (1 << 12)
++#define H_PULSE0_ENABLE				BIT(8)
++#define H_PULSE1_ENABLE				BIT(10)
++#define H_PULSE2_ENABLE				BIT(12)
++#define V_PULSE0_ENABLE				BIT(16)
++#define V_PULSE1_ENABLE				BIT(18)
++#define V_PULSE2_ENABLE				BIT(19)
++#define V_PULSE3_ENABLE				BIT(20)
++#define M0_ENABLE				BIT(24)
++#define M1_ENABLE				BIT(26)
+ 
+ #define DC_DISP_DISP_SIGNAL_OPTIONS1		0x401
+ 
+@@ -456,6 +598,22 @@ int tegra_dc_rgb_exit(struct tegra_dc *dc);
+ #define DC_DISP_SHIFT_CLOCK_OPTIONS		0x431
+ #define  SC1_H_QUALIFIER_NONE	(1 << 16)
+ #define  SC0_H_QUALIFIER_NONE	(1 <<  0)
++#define  SC0_H_QUALIFIER(x)			(((x) & 0x7) <<  0)
++#define  SC1_H_QUALIFIER(x)			(((x) & 0x7) << 16)
++#define  SC_H_QUALIFIER_DISABLE			0
++#define  SC_H_QUALIFIER_NONE			1
++#define  SC_H_QUALIFIER_HACTIVE			2
++#define  SC_H_QUALIFIER_EXT_HACTIVE		3
++#define  SC_H_QUALIFIER_HPULSE			4
++#define  SC_H_QUALIFIER_EXT_HPULSE		5
++#define  SC0_V_QUALIFIER(x)			(((x) & 0x7) <<  3)
++#define  SC1_V_QUALIFIER(x)			(((x) & 0x7) <<  19)
++#define  SC_V_QUALIFIER_NONE			0
++#define  SC_V_QUALIFIER_RSVD			1
++#define  SC_V_QUALIFIER_VACTIVE			2
++#define  SC_V_QUALIFIER_EXT_VACTIVE		3
++#define  SC_V_QUALIFIER_VPULSE			4
++#define  SC_V_QUALIFIER_EXT_VPULSE		5
+ 
+ #define DC_DISP_DATA_ENABLE_OPTIONS		0x432
+ #define DE_SELECT_ACTIVE_BLANK  (0 << 0)
+@@ -493,6 +651,20 @@ int tegra_dc_rgb_exit(struct tegra_dc *dc);
+ #define DC_DISP_CURSOR_POSITION_NS		0x441
+ 
+ #define DC_DISP_INIT_SEQ_CONTROL		0x442
++#define SEND_INIT_SEQUENCE			BIT(0)
++#define INIT_SEQUENCE_MODE_SPI			BIT(1)
++#define INIT_SEQUENCE_MODE_PLCD			0
++#define INIT_SEQ_DC_SIGNAL_SHIFT		4
++#define INIT_SEQ_DC_SIGNAL_MASK			(0x7 << INIT_SEQ_DC_SIGNAL_SHIFT)
++#define NO_DC_SIGNAL				0
++#define DC_SIGNAL_VSYNC				1
++#define DC_SIGNAL_VPULSE0			2
++#define DC_SIGNAL_VPULSE1			3
++#define DC_SIGNAL_VPULSE2			4
++#define DC_SIGNAL_VPULSE3			5
++#define INIT_SEQ_DC_CONTROL_SHIFT		7
++#define FRAME_INIT_SEQ_CYCLES_SHIFT		8
++
+ #define DC_DISP_SPI_INIT_SEQ_DATA_A		0x443
+ #define DC_DISP_SPI_INIT_SEQ_DATA_B		0x444
+ #define DC_DISP_SPI_INIT_SEQ_DATA_C		0x445
 -- 
 2.53.0
 
