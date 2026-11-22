@@ -2,82 +2,78 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CC71F606A320
-	for <dri-devel@archiver.kernel.org>; Sun, 22 Nov 2026 15:31:13 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7903C606A32A
+	for <dri-devel@archiver.kernel.org>; Sun, 22 Nov 2026 15:31:14 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=amarulasolutions.com header.i=@amarulasolutions.com header.a=rsa-sha256 header.s=google header.b=LR5gPTIc
+	dkim=pass (1024-bit key) header.d=amarulasolutions.com header.i=@amarulasolutions.com header.a=rsa-sha256 header.s=google header.b=fdLDHYcw
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id D7B8010E1D8;
-	Sun, 22 Nov 2026 15:31:07 +0000 (UTC)
-Received: from mail-wr1-f42.google.com (mail-wr1-f42.google.com
- [209.85.221.42])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 069D910E52A
- for <dri-devel@lists.freedesktop.org>; Sun, 22 Nov 2026 15:31:00 +0000 (UTC)
-Received: by mail-wr1-f42.google.com with SMTP id
- ffacd0b85a97d-48e09aa5264so1309300f8f.2
- for <dri-devel@lists.freedesktop.org>; Sun, 22 Nov 2026 07:30:59 -0800 (PST)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 1A75B10E50B;
+	Sun, 22 Nov 2026 15:31:08 +0000 (UTC)
+Received: from mail-wr1-f54.google.com (mail-wr1-f54.google.com
+ [209.85.221.54])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 798F210E50B
+ for <dri-devel@lists.freedesktop.org>; Sun, 22 Nov 2026 15:30:55 +0000 (UTC)
+Received: by mail-wr1-f54.google.com with SMTP id
+ ffacd0b85a97d-48e47347279so1394842f8f.1
+ for <dri-devel@lists.freedesktop.org>; Sun, 22 Nov 2026 07:30:55 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=amarulasolutions.com; s=google; t=1795361458; x=1795966258;
+ d=amarulasolutions.com; s=google; t=1795361454; x=1795966254;
  darn=lists.freedesktop.org; 
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:from:to:cc:subject:date
  :message-id:reply-to:content-type;
- bh=7itunjG2J42PnC7jSB4jhKO5BUVvNkVP3J0t/6cOCWw=;
- b=LR5gPTIcbJaRwxNRN9glKtS8755hJ9Imst0av/Mp5WQ6aXK8c2/psGqBNnTgAaaQVp
- z5CspaWCWJSHUJOBRE+pKz0KAKoDtQu3xvyQ2bNYjrw6v1lFegMiFCa5D7tfqCytpMHw
- 37FuT5arU/uU4egLLxWJ2bXqJBrg7QEIbt5CM=
+ bh=GRF7RZylvqUysOgUrH3bq7GJBGa2AYrwd8X7S2pra/o=;
+ b=fdLDHYcwZ/N/nz/jc6wVv8TcSFKlx7YTssnuVQRnss7tP0e7lPLcqBzcTUfaJNwujO
+ Rm/2jzW3xvQsIuac7craDfjsLyWgJGGu2ezq8NcsOTQfHPFug2YYjMsWKD50ijQ1zp30
+ 2GvcUT+6gEi2/vEetgs6jTkt75eOvH624gRac=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20260707; t=1795361458; x=1795966258;
+ d=1e100.net; s=20260707; t=1795361454; x=1795966254;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
  :to:cc:subject:date:message-id:reply-to:content-type;
- bh=7itunjG2J42PnC7jSB4jhKO5BUVvNkVP3J0t/6cOCWw=;
- b=bCmt5JYSeyS+P8nuzLguIclbGEeVG5TE8X+zS/xOtkK1tVRLKBcyop3q0/YA6k0eix
- FiJiTiVnVECFKyTK8qgRq5BkUhXCKMxV4alwFC1JaJLJqtF0NyC3pot0vvlwKX5NmH88
- LEjpILff4GF8Wa9GgJavrWp/yrxAk1OZNQwqXlr8l4ZO7b5oFtAFmqcsfy10x1/GWvu5
- LuY7pGrDDOyPEk47u+shB082tnFcT4e6kr3HU73xLNrqooy0vUAorDHnzg5X9G5m1Nxu
- ZITRvZZkeWmMgIbF0Ydn25ZwK02wF8wzY8ffhDh5IeTPmx7R8lVqxDGFJ7I83c/Bg7Is
- wEhw==
+ bh=GRF7RZylvqUysOgUrH3bq7GJBGa2AYrwd8X7S2pra/o=;
+ b=TGlNcEHGgLvfGQThAQRi/2TMJx/EIHhiXvbYSUFtmWil7DohC32jHE8rZO0W46wLsG
+ U6ZgumkVd3ca2Ze2oSgAiX6xskbblGsd7SXjlC/qdOwuQQ25KsC4QpNsG3TKCUkkmOck
+ Zq/uj9k7eqjf1FkyrZdWRuM/vji9lQeLfJMnzISnSWsSspU7ApQOhkcrHD4FO6GwIYa2
+ VWQMx11ySPGEvztOcsUdPnJnLmaU5933P5FdGQPoOBAvLjxeaYR5oamoAnGMMSaWbXnH
+ tLt2emUpr5pHJOX2gdf9/Nlw8YFJ3HAyb8MLvc36ughm/np0wjcGdu/whPM6teaIgXwz
+ OwGQ==
 X-Forwarded-Encrypted: i=1;
- AL+hErEPPsobgqwxpUpkg2JapIt8+jDc3fX6q/xgFmRqziPG4JAo7L7clwGQReouLEe0CGCQbGIpiBlGrqc=@lists.freedesktop.org
-X-Gm-Message-State: APuU4Z9N3P8NLaVAlbAx3DFkHiM/wFt/6dT5jJtTeHgXM+AlficOKee0
- aRwoW8U6cQtH+MXilQsPDSR3igb4CRs5mxgnMIaSl3FYNgZZuIE3S2vwdu8J6p2yuIE=
-X-Gm-Gg: AZFdTZckWODrxObApquNYp75h835pfHkOIP8JLYnwnnfCo07sR1q7/gNvfLvYZDBe6f
- ZUSaSAHq1IA5lczST9GxDTwQ3Ividx6pCwgZzJo//QS3E+nOiP5jxFLnF4Gs9h1rAhEyXwSfSBL
- OUAyGIT8TkbcOSv7UVMkrhhy8zmyDy0PVaXVruZf8X4ZxICnXLVe7f7a7mMJgKR6D4ktbMEZnPy
- 9NPRLYdbpZgg3K0D6LeXEAZblSxKkvwnF88Inds0j/LSqzIngajcRwcwX+2E6qufyYq/hZR3yAS
- wxbGI3FXVpBOt3Gltv6JYid81D1dMk+C0Qm4lY4dLnpAUA2VDrHjEsapFaHsyDICircXtHJLrWf
- whe5o9gTSpdv9F8bcj75TVeWfVWZVcVYLhkJ78CN04Ttc6AYGi/dZBbaEqdH45Oq6RjxMvvdY9e
- ygdmQV1gAa3O5HM1HbRYoOlq2DPA8yesM/iTXJYbs6D/x+hXcrD88EImfBYNhnc0DXOc952A4lD
- x5YcHtSyABJp44oIfaeMt9QgUIcAmChzNgCcrBMnzH+0c7OIxJMLXobW3so/5A1LMITNWPhD8Pr
- 7cHS+AeI2lS7Av14hRQfu0CuA0w2pyDRMd0ydAM4nrpXC4a6UcA8X018/udwv25ohT6kDfR/xxJ
- 5eT5GgY1l5YbZ4sng1iDvCAMs7dQGeGx/iQM1rkzs9p6xCj+xUXqkN+MIHAwAKXsn2+CBtACzSG
- dDxvIZ4J2/OCQ+dmZn/ZLyDcCM5w==
-X-Received: by 2002:a05:600c:64c8:b0:4a4:fc8c:cfd9 with SMTP id
- 5b1f17b1804b1-4bb8881de62mr177878065e9.25.1795361458330; 
- Sun, 22 Nov 2026 07:30:58 -0800 (PST)
+ AL+hErG/gk4e1UIEqc9l+3b1P8szi8eO7cGJtAqMgi1MkjEprftmDYCYJtPeeOqFFyI6icPCGigsgEU/E20=@lists.freedesktop.org
+X-Gm-Message-State: APuU4Z/tVT0sl7YjI+yo7rNnEvYmINPrljHVvpHdETm4h8O7lrltKlcR
+ DeijKZ2S0O3SFUg8f/C5P3fSCnVZM+tigHFHRf2EgfToUhLvEJvpJekuJP0P5O+O0j0=
+X-Gm-Gg: AZFdTZeUkmcqFGFOltuni2BxJbghJoxji1W6Yek6Uhr5q1gSCrbU0FJJgIisrH7bGxT
+ P1gjTvbLYutmYYpYhTsCHMMe9m/ppqFAsrAo1JJoJl6TD1D+WujVicUQmRwS1V+5mSEtw+AmaKC
+ oWf+mJrhU/DIw7189EZS5bCQmNC3c4Fm8lY0s3vq/3BMF63R8h9/3LLnp+kThM3o4tr7olfDo5W
+ Itgv0egmAZ+lPX6AtqssDAXXM7fFPJ1NDQJBFNTjaD+4+BZMRdswjEn85wn919jYOy0gNTfC7CW
+ WOpKIleXGbiy7QexM01Mk6Z1KT1aEEW+U13iKa7A7+Ii13wkegA6FoLDKdAYCzuvEiTYrNJuYxK
+ 1CEt1t1R2n85VfqDQPxitsAur+M+dSqtRGXehti2v7Jt9SFm8vNimBIZwr6qMz5AV9fh1ZSs73Z
+ ZGDgA2VT2cOgOginYpGkVBiub46c77Xxj8/MXQLDUQQW1Rtvpk9Ui8YEUKC+0MJBF7glRZqZGeF
+ 50IRvOz4YUzZNYalHGC67gAY0/M6T5n50g0sUUIYL3DarWj3ZjdX73MxLGYY+WTk/cfa1H81SlG
+ WDyzUSNYIJ7dMMOtinkTspiqsUw9o2dFcnRDKi/t2KggSQX68/tKm228u+MfKA+jmnY/Rzo1XXh
+ jdYHasRNgg3MQscfHEXWNA6PiH3wYKqP5N6p69A5NjUBX0gkpUWr6DcENxMFD/9pnImKwekXnd/
+ YrFSQSagrXiG0iN7wGAMJr+xVzOA==
+X-Received: by 2002:a05:600c:190d:b0:4ba:2bfc:c8b5 with SMTP id
+ 5b1f17b1804b1-4bb888267aemr185114295e9.10.1795361453840; 
+ Sun, 22 Nov 2026 07:30:53 -0800 (PST)
 Received: from dario-ThinkPad-P14s-Gen-5.homenet.telecomitalia.it
  (host-79-14-29-58.business.telecomitalia.it. [79.14.29.58])
  by smtp.gmail.com with ESMTPSA id
- 5b1f17b1804b1-4bb884a15absm237833815e9.9.2026.11.22.07.30.54
+ 5b1f17b1804b1-4bb884a15absm237833815e9.9.2026.11.22.07.30.49
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Sun, 22 Nov 2026 07:30:57 -0800 (PST)
+ Sun, 22 Nov 2026 07:30:53 -0800 (PST)
 From: Dario Binacchi <dario.binacchi@amarulasolutions.com>
 To: Maxime Ripard <mripard@kernel.org>
 Cc: michael@amarulasolutions.com, linux-amarula@amarulasolutions.com,
  Dario Binacchi <dario.binacchi@amarulasolutions.com>,
- David Airlie <airlied@gmail.com>, Fabio Estevam <festevam@gmail.com>,
- Frank Li <Frank.Li@nxp.com>,
+ David Airlie <airlied@gmail.com>, Jessica Zhang <jesszhan0024@gmail.com>,
  Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Marek Vasut <marex@denx.de>,
- Pengutronix Kernel Team <kernel@pengutronix.de>,
- Sascha Hauer <s.hauer@pengutronix.de>, Simona Vetter <simona@ffwll.ch>,
- Stefan Agner <stefan@agner.ch>, Thomas Zimmermann <tzimmermann@suse.de>,
- dri-devel@lists.freedesktop.org, imx@lists.linux.dev,
- linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org
-Subject: [RFC PATCH 3/8] drm/mxsfb: Use the bridge connector
-Date: Sun, 22 Nov 2026 16:30:03 +0100
-Message-ID: <20261122153032.2782768-4-dario.binacchi@amarulasolutions.com>
+ Neil Armstrong <neil.armstrong@linaro.org>,
+ Simona Vetter <simona@ffwll.ch>, Thomas Zimmermann <tzimmermann@suse.de>,
+ dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org
+Subject: [RFC PATCH 2/8] drm/panel: Add sro_install hook
+Date: Sun, 22 Nov 2026 16:30:02 +0100
+Message-ID: <20261122153032.2782768-3-dario.binacchi@amarulasolutions.com>
 X-Mailer: git-send-email 2.43.0
 In-Reply-To: <20261122153032.2782768-1-dario.binacchi@amarulasolutions.com>
 References: <20261122153032.2782768-1-dario.binacchi@amarulasolutions.com>
@@ -103,82 +99,78 @@ X-Spam-Status: No, score=-18.8 required=3.0 tests=BAYES_00,DKIM_SIGNED,
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-The state readout of a connector is implemented by the bridge
-connector helper. Use it, as the LCDIF driver already does, in place
-of the connector each bridge creates on its own.
+The panel bridge assumes the panel is enabled whenever its pipeline
+is read out as active, but the panel is left marked as unprepared and
+disabled. The following disable is then skipped, and the panel driver
+never gets the chance to acquire the resources it will release when
+unprepared.
+
+Add the sro_install hook, called when the state read out from the
+hardware is installed. On success the panel is marked as prepared and
+enabled.
 
 Signed-off-by: Dario Binacchi <dario.binacchi@amarulasolutions.com>
-
 ---
-The bridges used with this driver have not been checked one by one
-for DRM_BRIDGE_ATTACH_NO_CONNECTOR support.
 
- drivers/gpu/drm/mxsfb/Kconfig     |  2 ++
- drivers/gpu/drm/mxsfb/mxsfb_drv.c | 20 ++++++++++----------
- 2 files changed, 12 insertions(+), 10 deletions(-)
+ drivers/gpu/drm/drm_panel.c | 16 ++++++++++++++++
+ include/drm/drm_panel.h     | 10 ++++++++++
+ 2 files changed, 26 insertions(+)
 
-diff --git a/drivers/gpu/drm/mxsfb/Kconfig b/drivers/gpu/drm/mxsfb/Kconfig
-index 31db7a824a93..78e983b71ec0 100644
---- a/drivers/gpu/drm/mxsfb/Kconfig
-+++ b/drivers/gpu/drm/mxsfb/Kconfig
-@@ -15,6 +15,8 @@ config DRM_MXSFB
- 	select DRM_GEM_DMA_HELPER
- 	select DRM_PANEL
- 	select DRM_PANEL_BRIDGE
-+	select DRM_DISPLAY_HELPER
-+	select DRM_BRIDGE_CONNECTOR
- 	help
- 	  Choose this option if you have an LCDIF or eLCDIF LCD controller.
- 	  Those devices are found in various i.MX SoC (including i.MX23,
-diff --git a/drivers/gpu/drm/mxsfb/mxsfb_drv.c b/drivers/gpu/drm/mxsfb/mxsfb_drv.c
-index 641691fc92c8..038f5c896dcb 100644
---- a/drivers/gpu/drm/mxsfb/mxsfb_drv.c
-+++ b/drivers/gpu/drm/mxsfb/mxsfb_drv.c
-@@ -23,6 +23,7 @@
- #include <drm/clients/drm_client_setup.h>
- #include <drm/drm_atomic_helper.h>
- #include <drm/drm_bridge.h>
-+#include <drm/drm_bridge_connector.h>
- #include <drm/drm_connector.h>
- #include <drm/drm_drv.h>
- #include <drm/drm_fbdev_dma.h>
-@@ -118,7 +119,7 @@ static const struct drm_mode_config_helper_funcs mxsfb_mode_config_helpers = {
- static int mxsfb_attach_bridge(struct mxsfb_drm_private *mxsfb)
- {
- 	struct drm_device *drm = mxsfb->drm;
--	struct drm_connector_list_iter iter;
-+	struct drm_connector *connector;
- 	struct drm_panel *panel;
- 	struct drm_bridge *bridge;
- 	int ret;
-@@ -139,19 +140,18 @@ static int mxsfb_attach_bridge(struct mxsfb_drm_private *mxsfb)
- 	if (!bridge)
- 		return -ENODEV;
- 
--	ret = drm_bridge_attach(&mxsfb->encoder, bridge, NULL, 0);
-+	ret = drm_bridge_attach(&mxsfb->encoder, bridge, NULL,
-+				DRM_BRIDGE_ATTACH_NO_CONNECTOR);
- 	if (ret)
- 		return dev_err_probe(drm->dev, ret, "Failed to attach bridge\n");
- 
--	mxsfb->bridge = bridge;
-+	connector = drm_bridge_connector_init(drm, &mxsfb->encoder);
-+	if (IS_ERR(connector))
-+		return dev_err_probe(drm->dev, PTR_ERR(connector),
-+				     "Failed to init bridge connector\n");
- 
--	/*
--	 * Get hold of the connector. This is a bit of a hack, until the bridge
--	 * API gives us bus flags and formats.
--	 */
--	drm_connector_list_iter_begin(drm, &iter);
--	mxsfb->connector = drm_connector_list_iter_next(&iter);
--	drm_connector_list_iter_end(&iter);
-+	mxsfb->bridge = bridge;
-+	mxsfb->connector = connector;
- 
+diff --git a/drivers/gpu/drm/drm_panel.c b/drivers/gpu/drm/drm_panel.c
+index bef0e6af73ba..daccf98e5513 100644
+--- a/drivers/gpu/drm/drm_panel.c
++++ b/drivers/gpu/drm/drm_panel.c
+@@ -346,6 +346,21 @@ panel_bridge_connector_readout(struct drm_bridge *bridge,
  	return 0;
  }
+ 
++static void panel_bridge_install_state(struct drm_bridge *bridge,
++				       struct drm_bridge_state *bridge_state)
++{
++	struct drm_panel *panel = drm_bridge_to_panel(bridge);
++
++	if (!panel->funcs || !panel->funcs->sro_install)
++		return;
++
++	if (panel->funcs->sro_install(panel))
++		return;
++
++	panel->prepared = true;
++	panel->enabled = true;
++}
++
+ static const struct drm_bridge_funcs panel_bridge_bridge_funcs = {
+ 	.attach = panel_bridge_attach,
+ 	.detach = panel_bridge_detach,
+@@ -360,6 +375,7 @@ static const struct drm_bridge_funcs panel_bridge_bridge_funcs = {
+ 	.atomic_get_input_bus_fmts = drm_atomic_helper_bridge_propagate_bus_fmt,
+ 	.debugfs_init = panel_bridge_debugfs_init,
+ 	.atomic_sro_readout_state = panel_bridge_readout_state,
++	.atomic_sro_install_state = panel_bridge_install_state,
+ 	.atomic_sro_compare_state = drm_atomic_helper_bridge_compare_state,
+ 	.atomic_sro_connector_readout = panel_bridge_connector_readout,
+ };
+diff --git a/include/drm/drm_panel.h b/include/drm/drm_panel.h
+index 58113ea7d63a..66f9fc0828f1 100644
+--- a/include/drm/drm_panel.h
++++ b/include/drm/drm_panel.h
+@@ -148,6 +148,16 @@ struct drm_panel_funcs {
+ 	 * Allows panels to create panels-specific debugfs files.
+ 	 */
+ 	void (*debugfs_init)(struct drm_panel *panel, struct dentry *root);
++
++	/**
++	 * @sro_install:
++	 *
++	 * Acquire the resources of a panel found enabled when the hardware
++	 * state was read out, without touching the hardware.
++	 *
++	 * This function is optional.
++	 */
++	int (*sro_install)(struct drm_panel *panel);
+ };
+ 
+ struct drm_panel_follower_funcs {
 -- 
 2.43.0
 
