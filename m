@@ -2,64 +2,65 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B408A606A32A
-	for <dri-devel@archiver.kernel.org>; Sun, 22 Nov 2026 04:53:41 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 89916606A320
+	for <dri-devel@archiver.kernel.org>; Sun, 22 Nov 2026 04:53:48 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=ZvHnNDNP
+	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=Znx8sRpk
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id E39C810E0BD;
-	Sun, 22 Nov 2026 04:53:35 +0000 (UTC)
-Received: from mail-dy1-f200.google.com (mail-dy1-f200.google.com
- [74.125.82.200])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 32C9010E2E9
- for <dri-devel@lists.freedesktop.org>; Sun, 22 Nov 2026 04:53:27 +0000 (UTC)
-Received: by mail-dy1-f200.google.com with SMTP id
- 5a478bee46e88-386177b0516so6148291eec.1
- for <dri-devel@lists.freedesktop.org>; Sat, 21 Nov 2026 20:53:27 -0800 (PST)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 9F1AC10E2AB;
+	Sun, 22 Nov 2026 04:53:42 +0000 (UTC)
+Received: from mail-dy1-f198.google.com (mail-dy1-f198.google.com
+ [74.125.82.198])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 422C510E2C4
+ for <dri-devel@lists.freedesktop.org>; Sun, 22 Nov 2026 04:53:25 +0000 (UTC)
+Received: by mail-dy1-f198.google.com with SMTP id
+ 5a478bee46e88-386a7af8b94so261875eec.0
+ for <dri-devel@lists.freedesktop.org>; Sat, 21 Nov 2026 20:53:25 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=google.com; s=20260707; t=1795323206; x=1795928006;
+ d=google.com; s=20260707; t=1795323204; x=1795928004;
  darn=lists.freedesktop.org; 
  h=content-transfer-encoding:content-type:cc:to:from:subject
  :message-id:references:mime-version:in-reply-to:date:from:to:cc
  :subject:date:message-id:reply-to:content-type;
- bh=R+8LakRjMdDQ9LrYjApbpVrM7y/vhgkxVS30t5HKZuE=;
- b=ZvHnNDNPNCOzZ+BNZBUr6KjmQLp4PBHwddJtzHvd1a/zXVdVNrODjqbuyHwAzkxZoK
- VcAAwKZpeHWpKsJMZ0gx9tt3KBsc6YYCQMUJvgRzUh6/66vJgkfc5//e1+r2GyOzcTkB
- W9lGJBrNAlrXJtS4bX8oqPhyskjlgsJieVlDDAmmlLsZH09CCnt1rNkzpHjTouGByqNY
- ZRABty+0JuGXueanP4n8Sg/R44NKQSYrof6iPMciEknWEr+23ClX3WkrrWDWl4dWD6/V
- M5W+E6bA370kKISiI59AvHvy7m00nAQ3Psr8qDJvWbrHjTrPEiGcCtjQ7B077Uaf71PL
- +N/g==
+ bh=pPZfXzdtdV8nq8V6brmrCDHD0rHVJANG6b7lQmazwt0=;
+ b=Znx8sRpk8TfPXFmy0HNZenZqx/zA9tljWlTpsnhMUdCpyf4Ktqd1JD0cv8ArxKTTL3
+ RgcfADJfAfsY38jhU5Cl7mBNm9ZZvm74pjQ36BK3H3IHGqtX2sLJHpWx1m25cs48H7wj
+ uAgQClzKSu9xK4umF2rn7nLcGBn4LdhQU9VsNQp6qAIQ3iZf0T2Xt8aWYpkI8BYGcbly
+ zsl5wC+CJLYll/LeRgGIFyQZt35CF60wOojgx+OcmCkbuDHWx5Ya6YLQc4eUrtQup8I8
+ XVPqnsYMFEaVPhU5wxFt8pLvo9kSaBJzb7yHQ0qkODz68WxUvT8l0fUL17OpwjwmRwG4
+ IKkw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20260707; t=1795323206; x=1795928006;
+ d=1e100.net; s=20260707; t=1795323204; x=1795928004;
  h=content-transfer-encoding:content-type:cc:to:from:subject
  :message-id:references:mime-version:in-reply-to:date
  :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
  :content-type;
- bh=R+8LakRjMdDQ9LrYjApbpVrM7y/vhgkxVS30t5HKZuE=;
- b=OobbETjFTdLr29rrnXc6HhKR0+qOT1Lqe7x6zzyS4aESczi5srtmiB4C0oCn+2nZ+X
- RDWoATz5/CKgmBxTyFvxXqjoU0wH3bHMjg/8fHys/DCxCvrs3Csk/XuOKwRuC8szUGQc
- qobMAkgy0PCKsuTO1UFDGjezUEhkCFbRF1VOT5QHmK3Ism8B4YyJCB8k1qXcnulwLm+I
- vpBvv12+Kr+ToWslVl0In4B8KzF6RKy04vixpBXkbNRoEZ4xzRrLj6GsKfCW8ohcgb0O
- WQhTQCoSQvIcM/KSabEvC1TALergf1q/mlqJ23e+m4vsWEPXVd3C1tMuWietYty/UHA0
- LK+g==
+ bh=pPZfXzdtdV8nq8V6brmrCDHD0rHVJANG6b7lQmazwt0=;
+ b=cdl/ucNwiPP6yx/7HqPFVqSmjNmQMh8cBrpyUbyiHun4iKp55CKovrcbBvgwpJy3iT
+ BPsUOsN7HAQ1Y8lRxjH+ahFfMvTucqdrKj4NecBLdY21JTTA/McPd8P9hHtjYMGKrXld
+ J+lH9j359wyaroT/RoGrrhzxnAzq5aVEfdKUIB/Jt7oVyv6Ub2tVRLWpCSaUPqQ5vliY
+ HNKaHlfaQeHH4akVPm17n8mC0I/eCH+0UJS0gCQSqkNn4CErqrkcyrklzKAI4Jz5+bs0
+ qIgePCV+8BlhfxgeEk0k2VOOy34/8slm1AUFDy8lQzYCSQfzzTIAESrkz6yuigjfs1+N
+ 63mw==
 X-Forwarded-Encrypted: i=1;
- AL+hErFgDf7RoDwmVwkdosqjDc2rU1AIjr7Teo0BTjAtwuY2DB6WQ/RSua1HAxDKqf+VvTGyr04QdxXCQGs=@lists.freedesktop.org
-X-Gm-Message-State: APuU4Z/f26mCzPn0h5lQsqbud46k57urx+IrHgxEsBFsFITpCGN0XyB5
- wR5MLtFBeRZ/a53qOkJ/EWSqoskVcAMhiCK3V+PRoeQ2W0M9Xo1rp7dCmpGPDARfAuNv8q7d7A2
- WOmQ2rvoPng==
-X-Received: from dyvp7.prod.google.com ([2002:a05:693c:8847:b0:386:9ad3:91d])
+ AL+hErGB4qdqPYrzNrcQZHrRrZsyDvqWbBulcL3/fCte8FRomLTyvwrc0SJvrBMQk55wUgZnQeJjafNt3xs=@lists.freedesktop.org
+X-Gm-Message-State: APuU4Z8he4ezOpOJfeok0bXhZrLbQG55/mwP3XNTtf8xqlpwli9Poxb0
+ jgBQ9vN2H+jUEYHP0edy6PQt+iSqHUTk1L8w6ahSVVC9U2AKb9kV/CFECndI8QH60Sk/A+Zn5L1
+ Smdy6xsX+IQ==
+X-Received: from dycac15.prod.google.com
+ ([2002:a05:7301:550f:b0:384:b800:2ab4])
  (user=irogers job=prod-delivery.src-stubby-dispatcher) by
- 2002:a05:7301:fd06:b0:369:f05d:6c5c
- with SMTP id 5a478bee46e88-3856f549471mr8286070eec.28.1795323206053; Sat, 21
- Nov 2026 20:53:26 -0800 (PST)
-Date: Sat, 21 Nov 2026 20:53:17 -0800
+ 2002:a05:7300:1486:b0:383:6eb6:5730
+ with SMTP id 5a478bee46e88-38570e24c0fmr9359658eec.32.1795323204068; Sat, 21
+ Nov 2026 20:53:24 -0800 (PST)
+Date: Sat, 21 Nov 2026 20:53:16 -0800
 In-Reply-To: <20261122045319.18651-1-irogers@google.com>
 X-Archived-By: <archiver.kernel.org>
 Mime-Version: 1.0
 References: <20261122045319.18651-1-irogers@google.com>
 X-Mailer: git-send-email 2.56.1.750.gf70dc682cf-goog
-Message-ID: <20261122045319.18651-3-irogers@google.com>
-Subject: [PATCH v2 2/2] drm/amdgpu: initialize r in amdgpu_ttm_clear_buffer()
+Message-ID: <20261122045319.18651-2-irogers@google.com>
+Subject: [PATCH v2 1/2] drm/amdgpu: initialize r in amdgpu_vm_bo_update()
 From: Ian Rogers <irogers@google.com>
 To: Alex Deucher <alexander.deucher@amd.com>, 
  "=?UTF-8?q?Christian=20K=C3=B6nig?=" <christian.koenig@amd.com>,
@@ -88,46 +89,48 @@ X-Spam-Status: No, score=-26.3 required=3.0 tests=BAYES_00,DKIMWL_WL_MED,
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-In amdgpu_ttm_clear_buffer(), 'r' is declared uninitialized. When
-consider_clear_status is true (such as AMDGPU_GEM_CREATE_VRAM_CLEARED
-allocations) and all backing buddy blocks already have DRM_BUDDY_CLEARED
-set, every iteration of the cursor loop hits 'continue' without assigning
-'r', returning uninitialized stack memory to amdgpu_bo_create().
+Commit bc566781845b ("drm/amdgpu: stop syncing PRT map operations") added
+an 'else if (!bo)' branch in amdgpu_vm_bo_update() that does not assign
+'r'. Because fpriv->prt_va has bo =3D=3D NULL and is updated on every comma=
+nd
+submission, userqueue validation, and KFD VM restore, calling
+amdgpu_vm_bo_update(adev, fpriv->prt_va, false) when bo_va->invalids is
+empty skips the mapping loop and returns uninitialized stack variable 'r'.
 
-Set 'r =3D 0' after the cursor loop directly before the 'error:' label.
+Set 'r =3D 0' in the 'else if (!bo)' branch.
 
 Found via an x86_64 LLVM=3D1 (Clang 21.1.8) allyesconfig audit with
 -Wconditional-uninitialized enabled; fix and changelog drafted with an AI
 coding assistant. Build-tested under LLVM=3D1 W=3D1 (-Werror) and
 -Wconditional-uninitialized; not runtime-tested on AMD GPU hardware.
 
-Fixes: 23bd7e67961e ("drm/amdgpu: get rid of amdgpu_ttm_clear_buffer")
+Fixes: bc566781845b ("drm/amdgpu: stop syncing PRT map operations")
 Signed-off-by: Ian Rogers <irogers@google.com>
 ---
 
 Notes:
     v2:
-      - Set 'r =3D 0;' directly before the 'error:' label instead of
-        initializing 'r' at declaration (Christian K=C3=B6nig).
+      - Set 'r =3D 0;' in the 'else if (!bo)' branch instead of initializin=
+g 'r'
+        at declaration (Christian K=C3=B6nig).
 
- drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c | 2 ++
- 1 file changed, 2 insertions(+)
+ drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c | 1 +
+ 1 file changed, 1 insertion(+)
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c b/drivers/gpu/drm/amd/=
-amdgpu/amdgpu_ttm.c
-index 0f86777250fc..693f25285f2f 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c
-@@ -2711,6 +2711,8 @@ int amdgpu_ttm_clear_buffer(struct amdgpu_ttm_buffer_=
-entity *entity,
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c b/drivers/gpu/drm/amd/a=
+mdgpu/amdgpu_vm.c
+index 82b9b2d5d0cf..d36ce2748f72 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c
+@@ -1323,6 +1323,7 @@ int amdgpu_vm_bo_update(struct amdgpu_device *adev, s=
+truct amdgpu_bo_va *bo_va,
+ 		}
+ 	} else if (!bo) {
+ 		mem =3D NULL;
++		r =3D 0;
 =20
- 		amdgpu_res_next(&dst, cur_size);
- 	}
-+	r =3D 0;
-+
- error:
- 	mutex_unlock(&entity->lock);
- 	*out_fence =3D fence;
+ 		/* PRT map operations don't need to sync to anything. */
+=20
 --=20
 2.56.1.750.gf70dc682cf-goog
 
