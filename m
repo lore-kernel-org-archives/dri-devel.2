@@ -2,42 +2,43 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 204E0606A320
-	for <dri-devel@archiver.kernel.org>; Sun, 22 Nov 2026 07:56:10 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4F9AE606A32C
+	for <dri-devel@archiver.kernel.org>; Sun, 22 Nov 2026 07:56:55 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=G3wBaXx1
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=hg8k0GN8
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 42BA910E452;
-	Sun, 22 Nov 2026 07:56:04 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 80DA510E454;
+	Sun, 22 Nov 2026 07:56:49 +0000 (UTC)
 Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id A816310E452
- for <dri-devel@lists.freedesktop.org>; Sun, 22 Nov 2026 07:55:57 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id E297E10E454
+ for <dri-devel@lists.freedesktop.org>; Sun, 22 Nov 2026 07:56:42 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by tor.source.kernel.org (Postfix) with ESMTP id 8958E60ED9;
- Sun, 22 Nov 2026 07:55:56 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2314C1F000C0;
- Sun, 22 Nov 2026 07:55:56 +0000 (UTC)
+ by tor.source.kernel.org (Postfix) with ESMTP id 659F060ED9;
+ Sun, 22 Nov 2026 07:56:42 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id F13451F000CA;
+ Sun, 22 Nov 2026 07:56:41 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1795334156;
- bh=F01tTJdf28QR/yR2rtMQVATlZKoJao4yf595FVHHP5Q=;
+ s=k20260515; t=1795334202;
+ bh=lBiM1P9Knvc6jWklVxMBQdcihE/i4+UMPCavoo1Yg3U=;
  h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
- b=G3wBaXx143DqjDMLC9d8W7aGgrxvJHLAu7PWlU80yPB3+fM/twD5zVgNFjh6iWey1
- LeA08jkkhk1+1O/yi3qc9Jj+A8GHubIHe+Lhx/DiOXcIzArDL0IvObMeyGGe1djkUg
- gXDYAfG6fy4kxW9iq5UN8J47gy21Qyj6UFyWjwmUDb2CSm0g7sEAslwDlOndpjttlz
- yqme0AKN9AvHFALnPd9ABrXXu5lFFXHgbc2c3+Z+4eTiUSwaXiTjmHbRx7oE34C+oK
- mQbZRZQ+uzdCpVhyS+8i0+dPHyzCj5//v/ROeagw8RyNss2O/C3K7HNF4gqVGX57xQ
- vmCkTSgjXOenA==
-Message-ID: <sashiko-outbox-227803@kernel.org>
+ b=hg8k0GN8MzLz8Sk/8eUeN69fnVMEBJ3RZVux8KY+HdEuCN7AfSJK/v5sGTLKxrzlQ
+ dBtMMHjNQdOlfHoBheZ8dzxLnpOxr0jFN8FarObduwjTfD5HtZrdO9qn2fp4rL0LJ4
+ CjyzjTpUZLJrL56BYceOrOEcgse1DeU1humd1RxPZobru6Uv7iULYpSi+DcgkAWLPW
+ Fv3JGb+FGKgXmZZkkhR2KovsRoehv1NxvDhBH/Ikp0IrvoWY9ZlcqWHbDNMW8fw0Y2
+ 7rF1K5fXGdwd7uSZ9zpRhUU/s/CEdz75Djg2YsE4nfi9a4BDvo2lzUH3D7FFzAnSW7
+ 5S5t2SU+UkVwA==
+Message-ID: <sashiko-outbox-227804@kernel.org>
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH 2/3] udmabuf: map huge page backed ranges with PMDs
+Subject: Re: [PATCH 3/3] selftests/udmabuf: test mapping a huge page backed
+ udmabuf
 To: "Qiliang Yuan" <qiliang.yuan@linux.dev>
 Cc: dri-devel@lists.freedesktop.org, media-ci@linuxtv.org
-In-Reply-To: <20261122-feat-udmabuf-huge-pfnmap-v1-2-dcba888940c2@linux.dev>
+In-Reply-To: <20261122-feat-udmabuf-huge-pfnmap-v1-3-dcba888940c2@linux.dev>
 References: <20261122-feat-udmabuf-huge-pfnmap-v1-0-dcba888940c2@linux.dev>
- <20261122-feat-udmabuf-huge-pfnmap-v1-2-dcba888940c2@linux.dev>
+ <20261122-feat-udmabuf-huge-pfnmap-v1-3-dcba888940c2@linux.dev>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Sun, 22 Nov 2026 07:55:55 +0000
+Date: Sun, 22 Nov 2026 07:56:41 +0000
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -58,88 +59,152 @@ X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 X-Archived-By: <archiver.kernel.org>
 
-Thank you for your contribution! Sashiko AI review found 1 potential
-issue to consider:
-- [High] udmabuf: pre-fault in udmabuf_vm_fault() hits VM_BUG_ON on
-  existing huge PMD
+Thank you for your contribution! Sashiko AI review found 3 potential
+issues to consider:
+- [Medium] selftests/udmabuf: test_huge_mapping() does not inherit
+  mapping across fork()
+- [Low] selftests/udmabuf: periodic data pattern in test_huge_mapping()
+  repeats per PMD
+- [Low] selftests/udmabuf: false failure in test_huge_mapping() on
+  32-bit tasks
 --
 
-commit 4678e5bd3e35a29d8e3ac62812388b08912dd829
+commit c9830236dc0b56e59510003d91e0bc32e9d198ca
 Author: Qiliang Yuan <qiliang.yuan@linux.dev>
 
-udmabuf: map huge page backed ranges with PMDs
+selftests/udmabuf: test mapping a huge page backed udmabuf
 
-This commit adds a ->huge_fault() handler to map PMD-aligned, physically
-contiguous udmabuf ranges with huge PMDs, and updates udmabuf_vm_fault() to
-skip PMD-mappable ranges when pre-faulting the VMA.
+This commit adds a selftest that maps a 64 MiB udmabuf backed by 2 MiB huge
+pages and verifies reading it back across whole-buffer, unaligned-offset,
+and forked-child cases.
 
-> diff --git a/drivers/dma-buf/udmabuf.c b/drivers/dma-buf/udmabuf.c
-> index 018937435356e..f9c908f8b53a2 100644
-> --- a/drivers/dma-buf/udmabuf.c
-> +++ b/drivers/dma-buf/udmabuf.c
-[ ... ]
-> @@ -61,7 +112,12 @@ static vm_fault_t udmabuf_vm_fault(struct vm_fault *v=
-mf)
->  	if (ret & VM_FAULT_ERROR)
->  		return ret;
+> diff --git a/tools/testing/selftests/drivers/dma-buf/udmabuf.c b/tools/te=
+sting/selftests/drivers/dma-buf/udmabuf.c
+> index d78aec662586b..e09330fece6fb 100644
+> --- a/tools/testing/selftests/drivers/dma-buf/udmabuf.c
+> +++ b/tools/testing/selftests/drivers/dma-buf/udmabuf.c
+> @@ -14,6 +14,7 @@
+>  #include <sys/ioctl.h>
+>  #include <sys/syscall.h>
+>  #include <sys/mman.h>
+> +#include <sys/wait.h>
+>  #include <linux/memfd.h>
+>  #include <linux/udmabuf.h>
+>  #include "kselftest.h"
+> @@ -130,6 +131,91 @@ static int compare_chunks(void *addr1, void *addr2, =
+off64_t memfd_size)
+>  	return ret;
+>  }
 > =20
-> -	/* pre fault */
-> +	/*
-> +	 * Pre-fault the rest of the VMA, except for the ranges that
-> +	 * udmabuf_vm_huge_fault() maps with a PMD once they are accessed.
-> +	 */
-> +	pmd_ok =3D thp_vma_allowable_order(vma, vma->vm_flags, TVA_PAGEFAULT,
-> +					 PMD_ORDER);
->  	pgoff =3D vma->vm_pgoff;
->  	addr =3D vma->vm_start;
-> =20
-> @@ -69,6 +125,14 @@ static vm_fault_t udmabuf_vm_fault(struct vm_fault *v=
-mf)
->  		if (addr =3D=3D vmf->address)
->  			continue;
-> =20
-> +		if (pmd_ok && IS_ALIGNED(addr, PMD_SIZE) &&
-> +		    (vmf->address & PMD_MASK) !=3D addr &&
-> +		    udmabuf_pmd_mappable(vma, addr, &pfn)) {
-> +			pgoff +=3D (PMD_SIZE >> PAGE_SHIFT) - 1;
-> +			addr +=3D PMD_SIZE - PAGE_SIZE;
-> +			continue;
-> +		}
+> +#define HPAGE_SIZE	(2UL << 20)
+> +#define HUGE_BUF_SIZE	(32 * HPAGE_SIZE)
 > +
->  		if (WARN_ON(pgoff >=3D ubuf->pagecount))
->  			break;
+> +/* Check that @len bytes of @buf at @off read back what was written to @=
+mem */
+> +static bool check_huge_range(int buf, char *mem, off_t off, size_t len)
+> +{
+> +	char *addr;
+> +	size_t i;
+> +	bool ok =3D true;
+> +
+> +	addr =3D mmap(NULL, len, PROT_READ, MAP_SHARED, buf, off);
+> +	if (addr =3D=3D MAP_FAILED)
+> +		return false;
+> +
+> +	for (i =3D 0; i < len; i +=3D getpagesize()) {
+> +		if (addr[i] !=3D mem[off + i]) {
+> +			ok =3D false;
+> +			break;
+> +		}
+> +	}
+> +
+> +	munmap(addr, len);
+> +	return ok;
+> +}
+> +
+> +/*
+> + * Map a udmabuf backed by 2MB huge pages, which can be mapped with PMDs=
+, and
+> + * read it back from a PMD-aligned address, a sub-range at an unaligned =
+offset
+> + * and a forked child.
+> + */
+> +static void test_huge_mapping(int devfd)
+> +{
+> +	struct udmabuf_create create =3D {};
+> +	int memfd, buf, status;
+> +	bool thp, aligned, ok;
+> +	char *mem, *addr;
+> +	pid_t pid;
+> +	size_t i;
+> +
+> +	memfd =3D create_memfd_with_seals(HUGE_BUF_SIZE, true);
+> +	mem =3D mmap_fd(memfd, HUGE_BUF_SIZE);
+> +	for (i =3D 0; i < HUGE_BUF_SIZE; i +=3D getpagesize())
+> +		mem[i] =3D (char)(i / getpagesize());
 
-[Severity: High]
-Can the pre-fault loop in udmabuf_vm_fault() call vmf_insert_pfn() on an
-address range where udmabuf_vm_huge_fault() has already installed a huge
-PMD?
+[Severity: Low]
+Does casting (i / getpagesize()) to char make every 2 MiB huge page contain
+identical data?  Because the 8-bit pattern repeats every 256 base pages (1
+MiB on 4 KiB page systems), all 32 huge pages have the same contents, so
+check_huge_range() cannot detect if udmabuf maps the wrong huge page or
+ignores the HPAGE_SIZE offset.
 
-If a fault installs a huge PMD in one 2 MiB range of the VMA, and userspace
-then disables THP for the VMA or mm (via madvise(MADV_NOHUGEPAGE) or
-prctl(PR_SET_THP_DISABLE)) before faulting on another unmapped page in the
-same VMA, existing huge PMDs are not split or unmapped, but pmd_ok evaluates
-to false.  The pre-fault loop then does not skip the already-mapped PMD
-range and calls vmf_insert_pfn() -> vmf_insert_pfn_prot() -> insert_pfn() ->
-get_locked_pte() -> walk_to_pmd(), hitting VM_BUG_ON(pmd_trans_huge(*pmd))
-when CONFIG_DEBUG_VM is enabled (or failing in pte_alloc_map_lock() with
-VM_FAULT_OOM and aborting pre-faulting for the rest of the VMA when
-CONFIG_DEBUG_VM is disabled).
+> +
+> +	create.memfd =3D memfd;
+> +	create.size =3D HUGE_BUF_SIZE;
+> +	buf =3D ioctl(devfd, UDMABUF_CREATE, &create);
+> +	if (buf < 0) {
+> +		ksft_test_result_fail("%s: [FAIL,test-8]\n", TEST_PREFIX);
+> +		ksft_test_result_skip("%s: [SKIP,test-9]\n", TEST_PREFIX);
+> +		goto out;
+> +	}
+> +
+> +	/* The address is only aligned when THP support is built in */
+> +	thp =3D !access("/sys/kernel/mm/transparent_hugepage", F_OK);
+> +	addr =3D mmap(NULL, HUGE_BUF_SIZE, PROT_READ, MAP_SHARED, buf, 0);
+> +	aligned =3D addr !=3D MAP_FAILED &&
+> +		  (!thp || !((unsigned long)addr % HPAGE_SIZE));
 
-Without synchronization against the PMD entry state, a concurrent PTE
-insertion in udmabuf_vm_fault() can also allocate a PTE page table for a
-range while another thread is in udmabuf_vm_huge_fault() ->
-vmf_insert_pfn_pmd() -> insert_pmd() on a write fault, causing insert_pmd()
-to see !pmd_none(*pmd) with pmd_pfn(*pmd) !=3D pfn and trigger
-WARN_ON_ONCE(!is_huge_zero_pmd(*pmd)).
+[Severity: Low]
+Can this alignment check fail when the test is built as a 32-bit binary?
 
-Conversely, when pmd_ok is true, skipping a PMD-mappable range without
-checking pmd_none(*pmd) skips ranges that already have a PTE page table
-allocated (for example after madvise(MADV_DONTNEED) zaps PTEs without
-freeing PTE page tables); because __handle_mm_fault() only calls
-create_huge_pmd() when pmd_none(*vmf.pmd) is true, those skipped ranges will
-never reach udmabuf_vm_huge_fault() and will each fault back into
-udmabuf_vm_fault() and re-scan the VMA.
+Even when /sys/kernel/mm/transparent_hugepage exists,
+__thp_get_unmapped_area() skips PMD alignment for 32-bit and compat tasks:
+
+mm/huge_memory.c:__thp_get_unmapped_area() {
+	if (!IS_ENABLED(CONFIG_64BIT) || in_compat_syscall())
+		return 0;
+    ...
+}
+
+Because mmap() falls back to page alignment in that case, test-8 will
+falsely fail whenever the returned address is not 2 MiB aligned.
+
+> +	if (addr !=3D MAP_FAILED)
+> +		munmap(addr, HUGE_BUF_SIZE);
+> +	ok =3D aligned && check_huge_range(buf, mem, 0, HUGE_BUF_SIZE);
+> +	if (ok)
+> +		ksft_test_result_pass("%s: [PASS,test-8]\n", TEST_PREFIX);
+> +	else
+> +		ksft_test_result_fail("%s: [FAIL,test-8]\n", TEST_PREFIX);
+> +
+> +	ok =3D check_huge_range(buf, mem, HPAGE_SIZE + getpagesize(),
+> +			      5 * HPAGE_SIZE + 3 * getpagesize());
+> +	pid =3D fork();
+> +	if (!pid)
+> +		_exit(check_huge_range(buf, mem, 0, HUGE_BUF_SIZE) ? 0 : 1);
+
+[Severity: Medium]
+Does the forked child ever read an inherited udmabuf mapping across fork()?
+
+Both the initial alignment check and check_huge_range() call munmap() before
+returning, so the parent has no active udmabuf VMA when fork() runs.  Calli=
+ng
+check_huge_range() in the child creates a fresh mmap() after fork() rather
+than exercising fork() page-table duplication (such as copy_huge_pmd()) on
+an existing PMD-mapped udmabuf VMA.
 
 --=20
 Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261122-feat-udmab=
-uf-huge-pfnmap-v1-0-dcba888940c2@linux.dev?part=3D2
+uf-huge-pfnmap-v1-0-dcba888940c2@linux.dev?part=3D3
