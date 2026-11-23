@@ -2,69 +2,69 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A04CD606A326
-	for <dri-devel@archiver.kernel.org>; Mon, 23 Nov 2026 19:38:31 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 28035606A692
+	for <dri-devel@archiver.kernel.org>; Mon, 23 Nov 2026 19:38:45 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=JJAVg+eq
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=HmW73Ara
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id CBC7D10F1A3;
-	Mon, 23 Nov 2026 19:38:24 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 759C610EC70;
+	Mon, 23 Nov 2026 19:38:39 +0000 (UTC)
 Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 5686110EEB8
- for <dri-devel@lists.freedesktop.org>; Mon, 23 Nov 2026 19:38:14 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 9FA6210EC9C
+ for <dri-devel@lists.freedesktop.org>; Mon, 23 Nov 2026 19:38:27 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by tor.source.kernel.org (Postfix) with ESMTP id CA07462452;
- Mon, 23 Nov 2026 19:38:13 +0000 (UTC)
+ by tor.source.kernel.org (Postfix) with ESMTP id 2357961B6B;
+ Mon, 23 Nov 2026 19:38:27 +0000 (UTC)
 Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
 ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
- t=1795462693;
- b=n3+/rrp18FUVCHC6Oh8e9F/y7nbL+KpvK22nmNwjVOwGXjmU13CuFVwzo3lxcnYMDgKF
- ridJ2Rk43iVmS/xBIXoCVktpzgD6u5iyZJGxa1y7hwq4o8W1AbN0cokTY8MSNyTfmJMOv
- /ur0JDjnUCQ8EtOujglQyuRckjRv3+/A+IHplQ8P2EqGqfL1Ikuf7iElSbCvIVCXu5kw6
- EJdbH9r9KGE3FZ9WJCzvqwWGfCnqkqmYLXBY+2JgiuuewOjXc9msBLX7P4m/s1msP8RBX
- peY/NnpjflOZFDX64Bz1FOmBBwY4aetOMrlUfAs4U/UB+E4ltiykH1f61tcnPxQM+FA==
+ t=1795462706;
+ b=2rN2uAjze3pp5fF0gYAwHE+8UrApq6fXslvuW+uSA7LNEZGBPZD/d/JIYPbB9srgKyDq
+ 8EvdG1b/EUDP2VLZT+hZxl4k1yVdepbWYL6SpJkaTM6Mcuh0oNSd54qfJJb481ORvwCOr
+ Qh6yazgqoSr4G1bmCqzEH3ajh0DgtyJiR4nE+tC45bdLNFl4dbwXUlSF5JdPMh0gDciPk
+ qQRiOdfej71eT0m2vL8wryPtdt9lGGiNQoN9ZXnCe/9O7sXwv4jw3a7mY8bSuMALMXGA+
+ hQao/be+7xIIa2+wk1OjX2gF+cYNfWWHNMWgA9ob21UNnQqpQ590PdfR0PDqfPNgzpA==
 ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
- c=relaxed/relaxed; t=1795462693;
+ c=relaxed/relaxed; t=1795462706;
  h=DKIM-Signature:Received:From:Date:Subject:MIME-Version:Content-Type:
  Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
  X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
  X-Original-From:Reply-To:Content-Transfer-Encoding;
- bh=NgtfBGZW6JnOX8QXxkHMy03vg6zeloIYXjLXT43yxao=;
- b=g5bYXM3emvZ4jKXnzo+SkVg81zeS1YZ5oAtzcw0t4uGtOZBbFK8QfnjmTOZMLk++kbgC
- C5GK125BhmSZm/24/vWQTwhNWaADScloZilhqbIQkhC0nu6Pbm5svQWDFVxM6Gd9HP4Nv
- FgXNVpC2ha/dovYZyOkReZlog8aiD+OS1b4LtRJr4VF40wR19cyupvrDQ2/DCxa4PXvbP
- 6DEtRWwrMA0YDX4DLR9q2ld+PWFP9xVwrY87zo7gYIaoa6R8Koml2srO1w3hILXMeNbHe
- 1mRilUOcUsm1ms7rUQuGOaibhO5WdWQH9c5upL8jR2J06THj/S2lD9TG8ERvYzXDSGw==
+ bh=rAgcqIqOw6zcaQD0GaowJvtaNg3/b1Y5Y23WzFleRQ4=;
+ b=QyFoRdH+1dhFbxwDFLdV0gS8E80X5nRhUQ1F4PEVzne26eG1nTqZ+JxVZpBAFe98MLqp
+ C8lnYbpWngwiyx5Sho+/gAJe6Lcg5hBTMJZ0wEVvhn3A/oEbND+DWjoudzk7GOu4juDUY
+ FTUmHAgxHOYTkiELKYMb+ORKBIxbrHGCoTEUoVbk1ibH6+e0zClPr1Ri4Ayu6Jx7TRVRM
+ aDnsjaGYt2wiJJqFF4l49Sxfw73Gpek68aoF55fU3rU6Fab2fHoN5TgSAhGLWNI6QafcT
+ K+Ylw+A0/naW2kJFf0vaklubWWpqiHFmC0egAEtsiZlFHHzaKpN9lIfuUGpOxGz7A5Q==
 ARC-Authentication-Results: i=1; smtp.kernel.org; 
  arc=none smtp.remote-ip=100.80.115.77
 Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
  (No client certificate requested)
- by smtp.kernel.org (Postfix) with ESMTPS id 5F2BF1F000D2;
- Mon, 23 Nov 2026 19:38:01 +0000 (UTC)
+ by smtp.kernel.org (Postfix) with ESMTPS id 205291F000EF;
+ Mon, 23 Nov 2026 19:38:06 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1795462693;
- bh=NgtfBGZW6JnOX8QXxkHMy03vg6zeloIYXjLXT43yxao=;
+ s=k20260515; t=1795462706;
+ bh=rAgcqIqOw6zcaQD0GaowJvtaNg3/b1Y5Y23WzFleRQ4=;
  h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To;
- b=JJAVg+eqK3xuUrAdKlxpECPFojPb9jlpNoroGKqxsoeVGxStdlEW8ocKvJSY1pGNp
- DXNDY5I7UiNbchqMyyQsa68D9KhnU4oruQRbRsHK51GcRCJhrTDXlGVR1upsN56QWJ
- 76UkY2AYkeaWpp+Tb8V6cPoLR1zTI3oMc+WIF8wgu1WqynFBD55LHnio9U/S7Gq2X0
- hYjVfT57WvY7s9P8q8PY1Hg6TTquBrL9ma1AoDUizX9OhGelFLF59T/qpNHp4JDKPp
- PR33mO0YXEcDXok1UeZalnJxg6fsp8J/f6XcfFGTqkLeLdLVzEuD2tQJZofu9VzIm+
- OJhpct1pLqVUg==
+ b=HmW73AraiiBadW4DbSF9YJFTGAESKyalCrmoUim1vH6mVoHwhoSBkNSiEkBzLDris
+ UxJfiBTTx3qqrjCRAqrA8UCO6Kd6xxOfxwc/xuqh+Xm2aPT71qs+jYo1HK9tRLdkCx
+ FcVMaqjO1KUP30/BOrAfMFQzSmXSJFO2b6P+66vwOnWTzGmxBJ71911QIxaWVyzkQd
+ 8+YmUzegY+bHipPYdmmYK6v5dj3ow/Hnc7vS4SHT9xLRDHIM+5kIuQ60ochzYn/Gzl
+ Qd2Uae4SiwVHELIhS4gRhKVC4vt8IhpL0/DRyIjvWimU+Zfq46LB7JfRDUSluxYs6F
+ bUshH96kufdyA==
 Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
- by lkml.kernel.org (Postfix) with ESMTP id BA95A4C680;
- Mon, 23 Nov 2026 19:38:00 +0000 (UTC)
+ by lkml.kernel.org (Postfix) with ESMTP id 542904C6A1;
+ Mon, 23 Nov 2026 19:38:01 +0000 (UTC)
 From: Ronald Claveau via B4 Relay
  <devnull+linux-kernel-dev.aliel.fr@kernel.org>
-Date: Mon, 23 Nov 2026 20:37:33 +0100
-Subject: [PATCH v4 01/11] dt-bindings: soc: amlogic: meson-gx-hhi-sysctrl:
- Fix compatible matching in conditionals
+Date: Mon, 23 Nov 2026 20:37:38 +0100
+Subject: [PATCH v4 06/11] pmdomain: amlogic: meson-ee-pwrc: power up
+ memories for boot-enabled domains
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
-Message-Id: <20261123-meson-drm-create-hdmitx-phy-v4-1-3fb94f5534ca@aliel.fr>
+Message-Id: <20261123-meson-drm-create-hdmitx-phy-v4-6-3fb94f5534ca@aliel.fr>
 References: <20261123-meson-drm-create-hdmitx-phy-v4-0-3fb94f5534ca@aliel.fr>
 In-Reply-To: <20261123-meson-drm-create-hdmitx-phy-v4-0-3fb94f5534ca@aliel.fr>
 To: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
@@ -82,13 +82,13 @@ Cc: devicetree@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
  linux-phy@lists.infradead.org, dri-devel@lists.freedesktop.org, 
  Ronald Claveau <linux-kernel-dev@aliel.fr>, linux-pm@vger.kernel.org
 X-Mailer: b4 0.16.0
-X-Developer-Signature: v=1; a=openpgp-sha256; l=3283;
+X-Developer-Signature: v=1; a=openpgp-sha256; l=2681;
  i=linux-kernel-dev@aliel.fr; h=from:subject:message-id;
- bh=PVKFWIK5TVZ+BrIG2D/sPckomoO1CwEMBpgyzjwKon8=;
- b=owGbwMvMwCWm1SvKXP3cUInxtFoSQzbLNLYmrzWx6xesXXrHp0OJb+JkngevKnfdfl3Qvjdfq
- mz3Z4nDHaUsDGJcDLJiiiz9cy1PvLt89MzXPeopMHNYmUCGMHBxCsBEJnky/OHtWfkk//PzqSd6
- OyeETfyYP/158dq4CnkxkcOCVzsivrIwMiwz7bwht3NXW+43V5HJbY88wr4dW/Dtqpg3+8f1B6u
- OirMAAA==
+ bh=2pSroicxmn87L6WpeMI1TQ71NJdXRXfygd9gmAxHGRQ=;
+ b=owGbwMvMwCWm1SvKXP3cUInxtFoSQzbLNL5sQ++6hzY5B5+Z/bsWLnPZw+y4ppPqnWyGbClfv
+ s+zErU7SlkYxLgYZMUUWfrnWp54d/noma971FNg5rAygQxh4OIUgIkItTH8jzincSxhz4q5twuX
+ X9r7263C0aH5T5X3rMO7Pm3v4VVifMzI8M080Kmb9bSV5dqwPqn5dx3e3PrKt7Lzk2+a0NGHcys
+ 2sAMA
 X-Developer-Key: i=linux-kernel-dev@aliel.fr; a=openpgp;
  fpr=DFD863F61375BF917F0012173953305EF1D0EC3E
 X-Endpoint-Received: by B4 Relay for linux-kernel-dev@aliel.fr/default with
@@ -116,105 +116,75 @@ X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 
 From: Ronald Claveau <linux-kernel-dev@aliel.fr>
 
-The conditional schemas select on "compatible" with a bare enum. On a
-list such as:
+When a power domain is found already powered on at probe time (typically
+the VPU domain left enabled by the bootloader), the driver registers the
+genpd in the ON state with GENPD_FLAG_ALWAYS_ON and never calls
+meson_ee_pwrc_on(). As a result, the memory power-down bits of the domain
+are not touched.
 
-  compatible = "amlogic,meson-gx-hhi-sysctrl", "syscon", "simple-mfd";
+pwrc_ee_is_powered_off() only checks the top-level sleep bit, so a
+bootloader that enabled the VPU without waking every memory block
+leaves those memories powered down, and nothing in the genpd framework
+will wake them since pm_runtime_resume_and_get() is a no-op for an
+always-on domain.
 
-an enum applied to the whole array only matches single-entry lists, so
-the if: blocks never match as intended and the per-variant constraints
-are not applied reliably.
-
-Wrap the enums in "contains" so that the conditions match on any entry
-of the compatible list.
-
-Doing so exposes the "phy" child node of "amlogic,meson-gx-hhi-sysctrl":
-it was forbidden (phy: false), but some DT legitimately describe an
-"amlogic,g12a-mipi-dphy-analog" PHY node under this system controller,
-which resulted in dtbs_check warnings such as:
-
-  system-controller@0 (amlogic,meson-gx-hhi-sysctrl): False schema does
-  not allow {'compatible': ['amlogic,g12a-mipi-dphy-analog'],
-  '#phy-cells': 0, ...}
-
-Allow the phy child node for amlogic,meson-gx-hhi-sysctrl by referencing
-the amlogic,g12a-mipi-dphy-analog binding instead of rejecting it.
+This is a preparatory change: a following patch drops the explicit
+HHI_MEM_PD_REG0 write from the meson_dw_hdmi driver, which relies on the
+power domain to power the HDMITX memory.
 
 Signed-off-by: Ronald Claveau <linux-kernel-dev@aliel.fr>
 ---
- .../soc/amlogic/amlogic,meson-gx-hhi-sysctrl.yaml  | 32 +++++++++++++---------
- 1 file changed, 19 insertions(+), 13 deletions(-)
+ drivers/pmdomain/amlogic/meson-ee-pwrc.c | 19 ++++++++++++++-----
+ 1 file changed, 14 insertions(+), 5 deletions(-)
 
-diff --git a/Documentation/devicetree/bindings/soc/amlogic/amlogic,meson-gx-hhi-sysctrl.yaml b/Documentation/devicetree/bindings/soc/amlogic/amlogic,meson-gx-hhi-sysctrl.yaml
-index f3a85c67ce8a..285edac4c082 100644
---- a/Documentation/devicetree/bindings/soc/amlogic/amlogic,meson-gx-hhi-sysctrl.yaml
-+++ b/Documentation/devicetree/bindings/soc/amlogic/amlogic,meson-gx-hhi-sysctrl.yaml
-@@ -40,8 +40,9 @@ allOf:
-   - if:
-       properties:
-         compatible:
--          enum:
--            - amlogic,meson-hhi-sysctrl
-+          contains:
-+            enum:
-+              - amlogic,meson-hhi-sysctrl
-     then:
-       properties:
-         clock-controller:
-@@ -53,9 +54,10 @@ allOf:
-   - if:
-       properties:
-         compatible:
--          enum:
--            - amlogic,meson-gx-hhi-sysctrl
--            - amlogic,meson-axg-hhi-sysctrl
-+          contains:
-+            enum:
-+              - amlogic,meson-gx-hhi-sysctrl
-+              - amlogic,meson-axg-hhi-sysctrl
-     then:
-       properties:
-         clock-controller:
-@@ -67,9 +69,10 @@ allOf:
-   - if:
-       properties:
-         compatible:
--          enum:
--            - amlogic,meson-gx-ao-sysctrl
--            - amlogic,meson-axg-ao-sysctrl
-+          contains:
-+            enum:
-+              - amlogic,meson-gx-ao-sysctrl
-+              - amlogic,meson-axg-ao-sysctrl
-     then:
-       properties:
-         clock-controller:
-@@ -81,17 +84,20 @@ allOf:
-   - if:
-       properties:
-         compatible:
--          enum:
--            - amlogic,meson-gx-hhi-sysctrl
-+          contains:
-+            enum:
-+              - amlogic,meson-gx-hhi-sysctrl
-     then:
-       properties:
--        phy: false
-+        phy:
-+          $ref: /schemas/phy/amlogic,g12a-mipi-dphy-analog.yaml
+diff --git a/drivers/pmdomain/amlogic/meson-ee-pwrc.c b/drivers/pmdomain/amlogic/meson-ee-pwrc.c
+index 338f70d77bf0..b3ae5cd7bea8 100644
+--- a/drivers/pmdomain/amlogic/meson-ee-pwrc.c
++++ b/drivers/pmdomain/amlogic/meson-ee-pwrc.c
+@@ -392,11 +392,21 @@ static int meson_ee_pwrc_off(struct generic_pm_domain *domain)
+ 	return 0;
+ }
  
-   - if:
-       properties:
-         compatible:
--          enum:
--            - amlogic,meson-axg-hhi-sysctrl
-+          contains:
-+            enum:
-+              - amlogic,meson-axg-hhi-sysctrl
-     then:
-       properties:
-         phy:
++static void meson_ee_pwrc_mem_power_up(struct meson_ee_pwrc_domain *dom)
++{
++	int i;
++
++	for (i = 0; i < dom->desc.mem_pd_count; i++)
++		regmap_update_bits(dom->pwrc->regmap_hhi,
++				   dom->desc.mem_pd[i].reg,
++				   dom->desc.mem_pd[i].mask, 0);
++}
++
+ static int meson_ee_pwrc_on(struct generic_pm_domain *domain)
+ {
+ 	struct meson_ee_pwrc_domain *pwrc_domain =
+ 		container_of(domain, struct meson_ee_pwrc_domain, base);
+-	int i, ret;
++	int ret;
+ 
+ 	if (pwrc_domain->desc.top_pd)
+ 		regmap_update_bits(pwrc_domain->pwrc->regmap_ao,
+@@ -404,10 +414,7 @@ static int meson_ee_pwrc_on(struct generic_pm_domain *domain)
+ 				   pwrc_domain->desc.top_pd->sleep_mask, 0);
+ 	udelay(20);
+ 
+-	for (i = 0 ; i < pwrc_domain->desc.mem_pd_count ; ++i)
+-		regmap_update_bits(pwrc_domain->pwrc->regmap_hhi,
+-				   pwrc_domain->desc.mem_pd[i].reg,
+-				   pwrc_domain->desc.mem_pd[i].mask, 0);
++	meson_ee_pwrc_mem_power_up(pwrc_domain);
+ 
+ 	udelay(20);
+ 
+@@ -478,6 +485,8 @@ static int meson_ee_pwrc_init_domain(struct platform_device *pdev,
+          * prepare/enable counters won't be in sync.
+          */
+ 	if (dom->num_clks && dom->desc.is_powered_off && !dom->desc.is_powered_off(dom)) {
++		meson_ee_pwrc_mem_power_up(dom);
++
+ 		ret = clk_bulk_prepare_enable(dom->num_clks, dom->clks);
+ 		if (ret)
+ 			return ret;
 
 -- 
 2.56.1
