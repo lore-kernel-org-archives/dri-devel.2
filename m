@@ -2,92 +2,47 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5DA15606A327
-	for <dri-devel@archiver.kernel.org>; Mon, 23 Nov 2026 13:43:27 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 26884606A31A
+	for <dri-devel@archiver.kernel.org>; Mon, 23 Nov 2026 13:47:39 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=p8Zlm0pO
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=MmW1vQ9Q
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id CE77B10E759;
-	Mon, 23 Nov 2026 13:43:21 +0000 (UTC)
-Received: from mail-ej1-f42.google.com (mail-ej1-f42.google.com
- [209.85.218.42])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 2BC0110E759
- for <dri-devel@lists.freedesktop.org>; Mon, 23 Nov 2026 13:43:15 +0000 (UTC)
-Received: by mail-ej1-f42.google.com with SMTP id
- a640c23a62f3a-c4cb6834eaaso555755966b.2
- for <dri-devel@lists.freedesktop.org>; Mon, 23 Nov 2026 05:43:15 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20260707; t=1795441393; x=1796046193; darn=lists.freedesktop.org;
- h=content-transfer-encoding:content-type:in-reply-to:from
- :content-language:references:cc:to:subject:user-agent:mime-version
- :date:message-id:from:to:cc:subject:date:message-id:reply-to
- :content-type; bh=kqCL8yR438jqEfqX8sdAOmG8GdM6o1iX2qDOd73H3eE=;
- b=p8Zlm0pOvNpo0SQs6vDKlXTGYar6Wu8bAN5PSOu2s03RL7MwhmPdKVDg5+8NLbcKRz
- GZvFebrJgDLPx+AsSXiWlWGjmzz6p7y4SPIzVHf0KI93ZHLsMAtakGafcTIA8SevQtlU
- byz7lKEqetg1idxBCrKP5dm+paNq0ilyT33TLY5BG0nUFOu51hpbXY8nVd4ff9sSvIZz
- lFaVoCbVTQVFbpb9k+yg5fPCukcb7XBhCkIJmWpCZMBrFMYbWAzlLWH38T3iszrdf1jw
- U24/J5dmk7cC1hykt5Fmxyb6L3MHfMT1mH4168YKj40ptvv6jR7zJcDgcaMuOINAlERY
- 5apw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20260707; t=1795441393; x=1796046193;
- h=content-transfer-encoding:content-type:in-reply-to:from
- :content-language:references:cc:to:subject:user-agent:mime-version
- :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
- :message-id:reply-to:content-type;
- bh=kqCL8yR438jqEfqX8sdAOmG8GdM6o1iX2qDOd73H3eE=;
- b=ZYLgwPQBK6p31HtBJ3IzPK0PuGJhOGEAO8NCY/yKECJGlz+QUBvbr/HIfAoqFmiucN
- HE5nWbUFt/MSjKPtYpPtpoXetuiSh9hj5M2XC5/iscdmPOs8EBDWDZ2H6TPkyIjNbMcr
- JyxKo39jxFWkkksPOyGk4YFjXLLZ37qN29XlrlXZbx3wl6RbOxjICjl9JVgISVytKRGd
- D6EV5RSPNzbt48dcdeW42/by54JUyP+PoBhsFvJNefVs9eHP2KW8Yrah5m++UwB5pdoe
- sE1Ar1lmX5y+Sf6R+NXDBGM5Fv+DP4mgQ9b5e7MbBedW9y0b4cpF/ge9HdPzwCQv+iRa
- rgpw==
-X-Forwarded-Encrypted: i=1;
- AL+hErHBJiiq/jjmrc71EDg0Or7om8zQ9kpwXD4u61sw5npBYSqpX7XY6wUkdTuHQMFG8oGN6HxtWXFO9Yw=@lists.freedesktop.org
-X-Gm-Message-State: APuU4Z9mGNs+mfsjB87YwdpG9aQ9OmIXkmVYxCAd61j0JHaYSOQg7DE4
- 1xn1lzzqZSMzptY72vpZPsiUP3qWfIl5tmgUtBNCFLSExONfVJNTAcQ8
-X-Gm-Gg: AZFdTZd4cIqBtJCVZbS/82ugk/5esbuPvtD51OFo4+8O9zYpyYnjbxUN0QhnVM9S1US
- 0yWtqaOO9ilJuE7udojM7DHYmlk55rQFvq1USQUTvvUO4OSs7+4U/tCrCe2MjPjCiuDwplKVOXW
- 0/RRBk6rzDsgBKoFEW9wW2doUJNFv8uBMInwBqfRPn+VXRWQ94NCKTyOBbXLvdVWozfg5PDiKE1
- w87bXBZtGR+rYaIm/zHYMVmdQywPZYxABqto+vHufWS0lDDt+v1HUipHzPIKkMwZtSuQK5HmjBT
- 8dUImtpfHbtLxw6VJasiq6eKwcZCGUr0DHCKdq4IDWEyq0YjULXgtbZ5uzUBL7niXZsnZ1DU2Pv
- yLr9kgLxJSm9KmsUUUXj2vezip8wuQeB4+IVy0Icq50Tft3oYBn8ZQqBTVHEqXOEAS7sYXbVkzw
- HlGu+6yOgQaqHT1q6v28lICbol1EYwb9JIbK4ycDEKxqjS8GrQrHIJq9uS+oVJ2nNWMzxgem3jd
- adEjls8yf558s4bozrQTrs86shYKNwf/lODItwsFdZSXSByeaBwfDoYrY2h6A3RCHYiQZcELNJK
- wUcrWwpDTpAaMzcZ6NIu+B63Gj3/E7Wr28asGeleknZMkDGIkTWQ2BCp4MaXvJ60jPUMN731Z8u
- 93v3B/ThLB5GJpCJge7w2Sj8gU7ruPKl8Dj/zNfZBbuwA4jeml6AteqhkkmGXIjn1mGTwwxRRy6
- ElOUQ=
-X-Received: by 2002:a17:907:2d13:b0:c50:ca93:19a0 with SMTP id
- a640c23a62f3a-c513aab9bcemr968102666b.40.1795441393323; 
- Mon, 23 Nov 2026 05:43:13 -0800 (PST)
-Received: from ?IPV6:2a01:4b00:bd21:4f00:7cc6:d3ca:494:116c?
- ([2a01:4b00:bd21:4f00:7cc6:d3ca:494:116c])
- by smtp.gmail.com with ESMTPSA id
- a640c23a62f3a-c513aeca720sm409336466b.53.2026.11.23.05.43.12
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Mon, 23 Nov 2026 05:43:12 -0800 (PST)
-Message-ID: <664a18cc-24d8-4140-9c3a-d522945cd2cb@gmail.com>
-Date: Mon, 23 Nov 2026 13:42:49 +0000
+	by gabe.freedesktop.org (Postfix) with ESMTP id 8F5EA10E7D1;
+	Mon, 23 Nov 2026 13:47:33 +0000 (UTC)
+Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id D1D7810E7D1
+ for <dri-devel@lists.freedesktop.org>; Mon, 23 Nov 2026 13:47:27 +0000 (UTC)
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+ by sea.source.kernel.org (Postfix) with ESMTP id 9F0FB43E5C;
+ Mon, 23 Nov 2026 13:47:27 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id E12091F000CA;
+ Mon, 23 Nov 2026 13:47:25 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+ s=k20260515; t=1795441647;
+ bh=h1J6ES90Ui+125Ezoufs+mkbEvU0WCcZ9YzsdwLAzoE=;
+ h=Date:Subject:Cc:To:From:References:In-Reply-To;
+ b=MmW1vQ9Q4pdQkjWW9lb+wCVb4gcyLaNlXdoA10AwwnUA67osPbBz5DOAhtYckaaxC
+ RV4rKalLyusYVtFXAn4DAWC9OybQy3gAKdLtYIL9Z3UuAO+uh416ST5n2sW0hgk/q2
+ V3ToKN4LssUKS03V3P8EXALS0bVUZrehPE/S3Q1fOE5eKqhiszSm4xePw+NHZx4B1d
+ sDAJ7Bl9kD8Ryi0+VV0YYzN8JNKPFBXMQu6I5hLTiLFMJUP9PGSCLWBBM0chgzRUbt
+ AAhMGDdSqzX0PM5ot5nM24kRiO2rkk5NcYZMef79+mWndVBgdi4COftMokBPeDr31L
+ jOwxzg1HHITaw==
 X-Archived-By: <archiver.kernel.org>
-MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] dma-buf: fix leak of ctx and dmabuf reference in
- dma_buf_io_ctx_create() WARN path
-To: Falconet3 <Falconet3@proton.me>,
- "sumit.semwal@linaro.org" <sumit.semwal@linaro.org>,
- "christian.koenig@amd.com" <christian.koenig@amd.com>
-Cc: "linux-media@vger.kernel.org" <linux-media@vger.kernel.org>,
- "linaro-mm-sig@lists.linaro.org" <linaro-mm-sig@lists.linaro.org>,
- "dri-devel@lists.freedesktop.org" <dri-devel@lists.freedesktop.org>,
- "axboe@kernel.dk" <axboe@kernel.dk>,
- "io-uring@vger.kernel.org" <io-uring@vger.kernel.org>,
- "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>
-References: <htm5h9oaY-vk0g9JVYJmz5XCaKe_nPoWkUJYJqDulyNvv_sAWfzSMp0T6GWt5okc8R4SyvXXpJQ3VGhetKnjEa2KGem5uCYdxpmdzUFf6XA=@proton.me>
- <tRqxbL7txMRAzNLKylzBLQURNLpU-D0Xx5CrngGwLoYrK7V7kREharagUfgQLGIfiYFyTALR0BwL93AL_PWmFXq_MoZPhvPfUojBsyCnilI=@proton.me>
-Content-Language: en-US
-From: Pavel Begunkov <asml.silence@gmail.com>
-In-Reply-To: <tRqxbL7txMRAzNLKylzBLQURNLpU-D0Xx5CrngGwLoYrK7V7kREharagUfgQLGIfiYFyTALR0BwL93AL_PWmFXq_MoZPhvPfUojBsyCnilI=@proton.me>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
+Mime-Version: 1.0
+Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=UTF-8
+Date: Mon, 23 Nov 2026 14:47:24 +0100
+Message-Id: <DN2MY0QDBWUK.2F9NT145RIG9B@kernel.org>
+Subject: Re: [PATCH v2 1/3] drm/nouveau/nvkm: fix device leak on ctor failure
+Cc: <sashiko-reviews@lists.linux.dev>, "Dave Airlie" <airlied@redhat.com>,
+ "Lyude Paul" <lyude@redhat.com>, "Alexandre Courbot" <acourbot@nvidia.com>,
+ <dri-devel@lists.freedesktop.org>, <nova-gpu@lists.linux.dev>
+To: <sashiko-bot@kernel.org>
+From: "Danilo Krummrich" <dakr@kernel.org>
+References: <20261123-nova-nouveau-gsp-v2-0-5e8c27aa8555@redhat.com>
+ <20261123-nova-nouveau-gsp-v2-1-5e8c27aa8555@redhat.com>
+ <sashiko-outbox-228586@kernel.org>
+In-Reply-To: <sashiko-outbox-228586@kernel.org>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -99,31 +54,73 @@ List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-4.2 required=3.0 tests=BAYES_00,DKIM_SIGNED,
-	DKIM_VALID,DKIM_VALID_AU,FREEMAIL_FORGED_FROMDOMAIN,FREEMAIL_FROM,
-	HEADER_FROM_DIFFERENT_DOMAINS,MAILING_LIST_MULTI,SPF_HELO_NONE,
-	SPF_PASS,USER_AGENT_SANE_1 autolearn=no autolearn_force=no
-	version=4.0.1
+X-Spam-Status: No, score=-10.8 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
+	DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
+	INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS autolearn=ham
+	autolearn_force=no version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-On 11/22/26 10:49, Falconet3 wrote:
-> Withdrawing this patch. Apologies for the noise.
-> 
-> The WARN_ON_ONCE() path in dma_buf_io_ctx_create() is not reachable with
-> in-tree code: the only in-tree implementation, nvme_init_io_ctx_locked(),
-> installs all of dev_ops (map/unmap/release) before it returns 0.
+On Mon Nov 23, 2026 at 4:14 AM CET, sashiko-bot wrote:
+>> diff --git a/drivers/gpu/drm/nouveau/nvkm/engine/device/base.c b/drivers=
+/gpu/drm/nouveau/nvkm/engine/device/base.c
+>> index a2ed8c4fe52a0..625bb019736af 100644
+>> --- a/drivers/gpu/drm/nouveau/nvkm/engine/device/base.c
+>> +++ b/drivers/gpu/drm/nouveau/nvkm/engine/device/base.c
+>> @@ -3152,10 +3152,19 @@ nvkm_device_ctor(const struct nvkm_device_func *=
+func,
+>>  	unsigned chipset;
+>> =20
+>>  	mutex_lock(&nv_devices_mutex);
+>> +
+>> +	/* Set up the state that nvkm_device_del() relies on before anything
+>> +	 * that can fail, so that a device whose construction failed can be
+>> +	 * cleaned up by the caller with nvkm_device_del().
+>> +	 */
+>> +	device->func =3D func;
+>> +	INIT_LIST_HEAD(&device->head);
+>> +	INIT_LIST_HEAD(&device->subdev);
+>> +	nvkm_intr_ctor(device);
+>> +
+>>  	if (nvkm_device_find_locked(handle))
+>>  		goto done;
+>> =20
+>> -	device->func =3D func;
+>>  	device->quirk =3D quirk;
+>>  	device->dev =3D dev;
+>
+> [Severity: Medium]
+> Should device->dev =3D dev also be set before nvkm_device_find_locked()?
+>
+> If nvkm_device_find_locked() returns an existing device on Tegra,
+> nvkm_device_tegra_new() now calls nvkm_device_del(), which runs
+> nvkm_device_tegra_dtor() -> nvkm_device_tegra_remove_iommu():
+>
+> drivers/gpu/drm/nouveau/nvkm/engine/device/tegra.c:nvkm_device_tegra_remo=
+ve_iommu() {
+> 	if (tdev->iommu.domain) {
+> 		nvkm_mm_fini(&tdev->iommu.mm);
+> 		iommu_detach_device(tdev->iommu.domain, tdev->device.dev);
+> 		iommu_domain_free(tdev->iommu.domain);
+> 	}
+> }
+>
+> Because nvkm_device_tegra_probe_iommu() has already attached
+> tdev->iommu.domain before calling nvkm_device_ctor(), leaving
+> tdev->device.dev as NULL causes a NULL pointer dereference inside
+> iommu_detach_device().
 
-Right, it's a warning for the same exact reason, and cleanup considerations
-for it are different as well.
+I think Sashiko is right about this, but having an API contract that relies=
+ on a
+struct being partially initialized on failure isn't great at all.
 
-> And on the only path where it could ever fire — an importer violating the
-> contract — freeing ctx directly is not safe: init_dma_buf_io_ctx() has
-> already attached ctx to the dmabuf and linked it into the importer's
-> tracking, so kfree() + dma_buf_put() leaves dangling pointers and turns an
-> unreachable leak into a potential use-after-free. Since dev_ops->release
-> may itself be one of the missing callbacks, the core has no safe generic
-> cleanup on that path.
--- 
-Pavel Begunkov
+I think nvkm_device_tegra_remove_iommu() should just not rely on struct
+nvkm_device being initialized. struct nvkm_device_tegra already stores stru=
+ct
+platform_device, so I think we can just use &tdev->pdev.dev in
+nvkm_device_tegra_remove_iommu().
 
+More generally, can't we keep the semantics of nvkm_device_ctor() to clean =
+up
+after itself and not guarantee partial initialization to reuse
+nvkm_device_del()?
