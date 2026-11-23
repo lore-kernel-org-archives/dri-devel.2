@@ -2,71 +2,51 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 27B5B606A31A
-	for <dri-devel@archiver.kernel.org>; Mon, 23 Nov 2026 08:19:25 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E519A606A31A
+	for <dri-devel@archiver.kernel.org>; Mon, 23 Nov 2026 08:19:26 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=cirad.fr header.i=@cirad.fr header.a=rsa-sha256 header.s=573E3878-7916-11F1-BF4B-F68474317960 header.b=iR2tK3Y/
+	dkim=fail reason="signature verification failed" (2048-bit key, unprotected) header.d=wyuan.org header.i=@wyuan.org header.a=rsa-sha256 header.s=key1 header.b=XlwidT4k
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 8DC8010E6AE;
-	Mon, 23 Nov 2026 08:19:19 +0000 (UTC)
-X-Greylist: delayed 574 seconds by postgrey-1.36 at gabe;
- Sun, 22 Nov 2026 18:54:26 UTC
-Received: from retz.cirad.fr (retz.cirad.fr [194.199.235.221])
- by gabe.freedesktop.org (Postfix) with ESMTPS id B468710E06E;
- Sun, 22 Nov 2026 18:54:26 +0000 (UTC)
-Received: from retz.cirad.fr (localhost [127.0.0.1])
- by retz.cirad.fr (Postfix) with ESMTPS id 93A7E20DD5C1;
- Sun, 22 Nov 2026 19:44:49 +0100 (CET)
-Received: from localhost (localhost [127.0.0.1])
- by retz.cirad.fr (Postfix) with ESMTP id 65EE120DD202;
- Sun, 22 Nov 2026 19:44:49 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.10.3 retz.cirad.fr 65EE120DD202
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=cirad.fr;
- s=573E3878-7916-11F1-BF4B-F68474317960; t=1795373089;
- bh=Wlw1svGMrjSyOsVhDZN+3pXfMCPyNzszcBB5icjp1ng=;
- h=From:To:Date:Message-ID:MIME-Version;
- b=iR2tK3Y/S2/4lQgIxr70F7/QIwDFHg4OL8p7uqlRv9HZKlbZHOery4Gw5327vbRKz
- icd6lLGlmLeGgSRburc3EtiE0UFypWelwsQZ+BIoJW6BKIG402/U1wqqQcyA9Y6uoF
- 3D8Qsd3jmYBe00ftVa05RQqFAyec8+On6y3/cRg6riQOOd9+MKa9iidRvpbdkEetsX
- 72e1vjSyFrgH/17PSHbtnnpq4W7X4riDDTs9pMaAWeAlKK7VsqPaUs4WVxMrPxeQVl
- o+XDqNyursduK4ZN1AKmEIk5aKtlNYbCqbBUJdf/tbzZ/WI0n469kBKFePlhjN5NOy
- jkEtNSP+qUTBQ==
-X-Virus-Scanned: amavis at retz.cirad.fr
-Received: from retz.cirad.fr ([127.0.0.1])
- by localhost (retz.cirad.fr [127.0.0.1]) (amavis, port 10026) with ESMTP
- id p24HhIr6dker; Sun, 22 Nov 2026 19:44:49 +0100 (CET)
-Received: from localhost.localdomain (78-196-243-100.subs.proxad.net
- [78.196.243.100])
- by retz.cirad.fr (Postfix) with ESMTPSA id D0A3620DD5C1;
- Sun, 22 Nov 2026 19:44:47 +0100 (CET)
-From: =?UTF-8?q?Fr=C3=A9d=C3=A9ric=20Mah=C3=A9?= <frederic.mahe@cirad.fr>
-To: Iker Pedrosa <ikerpedrosam@gmail.com>
-Cc: =?UTF-8?q?Fr=C3=A9d=C3=A9ric=20Mah=C3=A9?= <frederic.mahe@cirad.fr>,
- Alessio Belle <alessio.belle@imgtec.com>,
- Luigi Santivetti <luigi.santivetti@imgtec.com>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>,
- Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>,
- Simona Vetter <simona@ffwll.ch>, Rob Herring <robh@kernel.org>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>, Yixun Lan <dlan@kernel.org>,
- Paul Walmsley <pjw@kernel.org>, Palmer Dabbelt <palmer@dabbelt.com>,
- Albert Ou <aou@eecs.berkeley.edu>, Alexandre Ghiti <alex@ghiti.fr>,
- Troy Mitchell <troy.mitchell@linux.spacemit.com>,
- Baihui Liang <liangbaihui@linux.spacemit.com>,
- imagination@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
- devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
- linux-riscv@lists.infradead.org, spacemit@lists.linux.dev
-Subject: Re: [PATCH v2] riscv: dts: spacemit: k1: add PowerVR GPU device node
-Date: Sun, 22 Nov 2026 19:44:33 +0100
-Message-ID: <20261122184434.545341-1-frederic.mahe@cirad.fr>
-X-Mailer: git-send-email 2.47.3
-In-Reply-To: <20261118-orangepi-gpu-v2-1-f68676f844eb@gmail.com>
-References: <20261118-orangepi-gpu-v2-1-f68676f844eb@gmail.com>
+	by gabe.freedesktop.org (Postfix) with ESMTP id 0191410E70B;
+	Mon, 23 Nov 2026 08:19:20 +0000 (UTC)
+X-Greylist: delayed 365 seconds by postgrey-1.36 at gabe;
+ Mon, 23 Nov 2026 04:26:07 UTC
+Received: from mta1.migadu.com (out-17.mta1.migadu.com [95.215.58.17])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 3917210E2B9
+ for <dri-devel@lists.freedesktop.org>; Mon, 23 Nov 2026 04:26:07 +0000 (UTC)
+X-Envelope-To: dri-devel@lists.freedesktop.org
+DKIM-Signature: a=rsa-sha256; bh=xxZ7A6ARsfw5U5c4K3zdosZhEZzO/c/7t/gvu6JAhj0=; 
+ c=simple/simple; d=wyuan.org;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1795407965; v=1; x=1796012765;
+ b=XlwidT4k9HT8ja5aIFa7AGS2d3jZ8mY1PCm9ns/LxFsNukDIo1axmcPDh93HvHoxsGMbesjI
+ YMqxa9DtYkso3F7z5185XyBej+q8L9/JkGcVVozfxauF7+Ej0Bo6AVxEi0ybjbMkr1d8xjx/1xc
+ 2ldAbFnLYfAp3mbIoXIJZ4oF35XaVL7RR90ye1jkhfHJO73bGZmm0DMg71SJCpJ/CE/AGeqAEmC
+ cz9TNd7cbfzKRo5KfuZGbI7/Mrd+IEmkPjurxwcjjD8Qp5nHpABC8RRbwz+HCUv0N4nGT/66ipl
+ zihagAl9bpvNExqzGAdVAwrHy68WaBsY7ih4/axv4O4XQ==
+X-Envelope-To: dri-devel@lists.freedesktop.org
+Received: by smtp.migadu.com with ESMTPS id 53e2255c13b2d2f8;
+ Mon, 23 Nov 2026 04:19:59 +0000
+X-Mizu-Trace-ID: 53e2255c13b2d2f8
+X-Migadu-Flow: FLOW_OUT
+Date: Mon, 23 Nov 2026 12:19:55 +0800
+From: Weijie Yuan <wy@wyuan.org>
+To: TAKANO Mitsuhiro <takano32@gmail.com>
+Cc: amd-gfx@lists.freedesktop.org, Harry Wentland <harry.wentland@amd.com>,
+ Leo Li <sunpeng.li@amd.com>, Alex Deucher <alexander.deucher@amd.com>,
+ Rodrigo Siqueira <siqueira@igalia.com>,
+ Christian =?iso-8859-1?Q?K=F6nig?= <christian.koenig@amd.com>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ Thomas Huth <thuth@redhat.com>, dri-devel@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org
+Subject: Re: [PATCH 1/2] drm/amd/display: Document the union in dc_probe_status
+Message-ID: <awO-665NEGdZtq1z@wyuan.org>
+References: <20261121041427.1743954-1-takano32@gmail.com>
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261121041427.1743954-1-takano32@gmail.com>
 X-Mailman-Approved-At: Mon, 23 Nov 2026 08:19:18 +0000
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -79,37 +59,36 @@ List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-13.8 required=3.0 tests=BAYES_00,DKIM_SIGNED,
-	DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
-	INCLUDES_CR_TRAILER,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,
-	USER_AGENT_GIT autolearn=unavailable autolearn_force=no version=4.0.1
+X-Spam-Status: No, score=-13.6 required=3.0 tests=BAYES_00,DKIM_INVALID,
+	DKIM_SIGNED,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,
+	INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS
+	autolearn=unavailable autolearn_force=no version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-Hi Iker,
+On Sat, Nov 21, 2026 at 04:14:26AM +0000, TAKANO Mitsuhiro wrote:
+> The members of the union in dc_probe_status are described one by one as
+> @u.bandwidth_mbps and so on, but the union itself has no description, so
+> kernel-doc reports:
+> 
+>   dc.h:2225 struct member 'u' not described in
+>   'dc_probe_status'
+> 
+> Describe it, saying that the member holding the result depends on the
+> probe type.
+> 
+> Written with Hermes Agent, an LLM assistant; the author reviewed it and
+> ran kernel-doc on the file with and without the change.
 
-Tested on a Banana Pi BPI-F3, on v7.4-rc1 plus Yixun's CCU pm-aux
-patches and pmdomain v5 (and the riscv reboot fix), with the firmware
-from your link:
+The disclosure is appreciated but better put it ..
 
-- the gpu power domain turns on, firmware v1.1 (build 6976702) loads,
-  and card0/renderD128 appear. The GPU interrupt (75) fires;
-- a reboot afterwards is clean.
+> Fixes: 52771a3254ea ("drm/amd/display: Wire probe commit path into dc_update_state")
+> Signed-off-by: TAKANO Mitsuhiro <takano32@gmail.com>
+> ---
 
-Two notes:
+.. here.
 
-- On v7.4-rc1 the driver refuses the GPU ("Unknown GPU! Set
-  'exp_hw_support' to bypass this check"); with
-  powervr.exp_hw_support=3D1 it works as above. Is a driver patch
-  adding the K1 GPU pending somewhere?
-- The GPU never runtime-suspends: after 160 s idle,
-  runtime_suspended_time is still 0 and the power domain stays on
-  (autosuspend 50 ms). That looks like what Baihui's "drm/imagination:
-  re-check firmware idle state before runtime suspend" fixes.
+Thanks for doing this.
 
-I could not test rendering: Debian 13's Mesa (25.0.7, riscv64) has no
-PowerVR Vulkan driver.
-
-Tested-by: Fr=C3=A9d=C3=A9ric Mah=C3=A9 <frederic.mahe@cirad.fr> # BPI-F3
-
-Fr=C3=A9d=C3=A9ric
+>  drivers/gpu/drm/amd/display/dc/dc.h | 1 +
+>  1 file changed, 1 insertion(+)
