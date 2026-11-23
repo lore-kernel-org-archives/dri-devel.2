@@ -2,73 +2,73 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D7067606A695
-	for <dri-devel@archiver.kernel.org>; Mon, 23 Nov 2026 16:21:22 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C151A606A68D
+	for <dri-devel@archiver.kernel.org>; Mon, 23 Nov 2026 16:21:31 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=mI5qwwTs
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=h+PHVEOv
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 1F33710EF7F;
-	Mon, 23 Nov 2026 16:21:17 +0000 (UTC)
-Received: from mail-wr1-f46.google.com (mail-wr1-f46.google.com
- [209.85.221.46])
- by gabe.freedesktop.org (Postfix) with ESMTPS id C444410EF7F
- for <dri-devel@lists.freedesktop.org>; Mon, 23 Nov 2026 16:21:10 +0000 (UTC)
-Received: by mail-wr1-f46.google.com with SMTP id
- ffacd0b85a97d-491f34b4e0fso1650521f8f.2
- for <dri-devel@lists.freedesktop.org>; Mon, 23 Nov 2026 08:21:10 -0800 (PST)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 0F70110EFAF;
+	Mon, 23 Nov 2026 16:21:26 +0000 (UTC)
+Received: from mail-wm1-f42.google.com (mail-wm1-f42.google.com
+ [209.85.128.42])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 2270210EFD6
+ for <dri-devel@lists.freedesktop.org>; Mon, 23 Nov 2026 16:21:20 +0000 (UTC)
+Received: by mail-wm1-f42.google.com with SMTP id
+ 5b1f17b1804b1-4bb64ef5a00so27647715e9.3
+ for <dri-devel@lists.freedesktop.org>; Mon, 23 Nov 2026 08:21:20 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20260707; t=1795450869; x=1796055669; darn=lists.freedesktop.org;
+ d=gmail.com; s=20260707; t=1795450878; x=1796055678; darn=lists.freedesktop.org;
  h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
  :content-type:mime-version:subject:date:from:from:to:cc:subject:date
  :message-id:reply-to:content-type;
- bh=fda28KiwfR/uzDKv3MAz6CcnsCAovWf2BbPnW7RFwYc=;
- b=mI5qwwTs7weiOYeCCWRZjlNqEQTLhdZgEJLOOCIzn1blQlVZP89ebn2J+x1CAzU/p8
- GTVkrYlp3G2LXCa5akX7xHAQIjwNTZ6A8W0JlbufCpuPW2Kg7nj/BjRF5IabVZyfwIuy
- Wvub/0d7fIPv4dwx/75cwD7Ua9qpXnpxOLVd3dW6+V9qrQqsmGzOP1tMdSdVYfBU0gO0
- /VUhoi4bQn6LxpfmXz6LAlbdwfRWtujXsBZwYRY04J+Pl/quFLFT6uVB4ej0exyJHu7q
- Bi3IqJ8eDjIcWe7DT9Ae6v+yq9F7+7oD/CWj0H2a0/4Xu9KJkv6Kns6x4CX0uMhz+z2u
- UdEA==
+ bh=SZTWBMmt2DFM0xgpeL4tW3LgzfUZb1ELoVM7m/gJHa0=;
+ b=h+PHVEOvNiFMHfeG4wjj40Kmr9xIP8A5HlnXxsyIibWJZv9KAv4IesBNFCyJgFKBRF
+ of7X4KyxkUSCcG80te5fIHrUfkQPHLra40rbv6JpI0CMpTCN15+zFEkVhLWTeXJ4HwOV
+ vtEsoP3iw5qO1r7MPaT8stLqYX+F8M0ssB8sK064NOtEF0Gx/5fhCJlIatphyguYOmGY
+ gJfVZ2hQ2EA9yPmNTZmFkZPn1Qhfodj/c2tK/BO+qNFyr+G9TkUooTwvql2orkggti7m
+ 1SskhPORjpfLS5FtGBEf/Npew/moiF2Bz6BW9Wgw8x5dLUTyC0kFFbxUlAMNdsAcmKBW
+ saPQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20260707; t=1795450869; x=1796055669;
+ d=1e100.net; s=20260707; t=1795450878; x=1796055678;
  h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
  :content-type:mime-version:subject:date:from:x-gm-gg
  :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
  :content-type;
- bh=fda28KiwfR/uzDKv3MAz6CcnsCAovWf2BbPnW7RFwYc=;
- b=NVhHEyUuMyhBl+aRIqLvULfpDMusgfokPO+RWP/iA18WdSEG5uL0vKl9sEvNiJaSXj
- OWDqL0JeTu1OJDVN6/zNxJLwh0f6DFHrfKAyka0h6AaY+tPWeZCBAagBpey9/hEBYTWC
- T+5pZS3AhH3vfZEWWVbSyomI/drWeUMG0Cb/UAPg/LFH2jkzH4ng9OPrHzrrTboApY/p
- MSsDHEd/sGnSkcnzh7TJEFJ0ea2FIC+7dXjAzdGMbJqkyXIGnl4Xv9kBdIeDPSK0VkkT
- k1HyF5wnu+w1/1i1t781wiZnQbT8Qtl0Yz9cPSSyF73sQ5oIZkuuCNxEmoglAGuDgmCM
- r1kQ==
-X-Gm-Message-State: APuU4Z+u7A4vBiIjxwxL+Hmc0W1HtD+Wja6/cG1vc6S80jaIFd4KVYX6
- z3p3w7Inc5kCckZHZ7H3F6q3WoDGFkbTGTYupAuY5weXgfFmq2N+0iuq
-X-Gm-Gg: AZFdTZf8SHahay1PLtkxvtfgLTg5bd+I7qiUIQnwOl56By0MOO1BuqaV4zYWbcjRa2v
- 7GcIFembZ4YodimL0X1SbkfD6Gz8N+CqZFk7D4GTRIqWFg9MzCI+5jYe2PefZPDg6nLTMxw1YOY
- ZTsYKm6tiUK7RdPMrVL5Ltf53VQisA5gicGLH6IgWnxvQdP4kkWas4PRWq07xPwZ4ZUyxqSxYub
- G6W9joDSN3dzo3WOBVBHaRKR1rUkvjYBJptNIv7UKqicideI8S+gqr1VLgjRuDJFEtHisbCFgeO
- LpRbCGULZeHOe2FOf4y0ysLTLoWcaN+9OGKPink2JL3V/RE3DOPdeWE5UaZ+rGXuL9tOXgG0OrB
- PPiuOGNDPLQef/+Unb+NRcCAJDkham4jBDx9b2OuOFsxVBvLox/OfbOcVTHXE1U1T/eI4os5crG
- rygGdI7W8uB7GlgNBej4707+/Fx5LOhXy1smN1PmGMSPGwBaaCNl4KLG6/bB+567UdE1jWHF/Ar
- xov9K6Xmu4buI46q+WlqHpw15vIl7RzzpUWU92DpzTglF6VFSCPWw9dwD/reB3zqSLO5vMN66zz
- 33vkwmA0aDKLAJrOsdOxGoadsDI7zcdUMSgx9QJ8
-X-Received: by 2002:a5d:588b:0:b0:48e:66d0:664c with SMTP id
- ffacd0b85a97d-4abaf64be12mr24769786f8f.15.1795450869045; 
- Mon, 23 Nov 2026 08:21:09 -0800 (PST)
+ bh=SZTWBMmt2DFM0xgpeL4tW3LgzfUZb1ELoVM7m/gJHa0=;
+ b=T1Br92i54jS1T8A3q7L1JhudUBNzluvHqqfAsLZpvPb1ZbpsMYd8n5aWecg0UdWqfJ
+ c44D+EDxPghr7JFvS7i6Cqnkem56JrLYME1vtMqjU8sL8ylXubPr9bS9zipRaYcdVI+r
+ pUjRjy9Yew+SpeipCHPc8A7crpzzUZgbkLBQOr/I+UzbCkOrEwL6mHFl6IF81SQUfKL9
+ insagWZ6xso14Caq2z1feuIHqFT277DjGeTfU/CeYEVXS6FNabladnpeh0YL3LZwccdk
+ ukxLulF79CqdfLZ5kPyluzyxNJI00115xYd41qPBJ0T+R8FgAA30CCU1ro8ueXLfUcJd
+ A41w==
+X-Gm-Message-State: APuU4Z/n0AHPv91+wmYOQGdM1Giao4LHtcwY2bE143aX1DK0OfWuiuJf
+ QlnQQMyOtnqQu+dkFJEkm3f2cjsiYtE3qQvy7sICOWVyPRjuXy7z8CGP
+X-Gm-Gg: AZFdTZfh2keDKi3Dp9lc9wfugr0z44kP2ZCf6BzHppTJMw+KVvyZSFvYsiSR7f45mZO
+ mdIt5HorTCFEkcnjc6WqGwBfjWCLckJ/i0G+t99ekxkcqZtThklXHzB7itO/t+kjG4HPNyWzVeF
+ tM3UVdzL5P7y9sAgfMqXoT7XlJ9B+OfdVp6NGLzNwQbO01TDWq1tIUbfl76VQ09Xzu0JzgT4/Ru
+ Foj3PhG4VihGWs3/HKls4SJrBR8UyZfX8Gx0tQnMomRQRd1lVP6PijZ8uWFYe6xT4fMcLPyHj4I
+ taSZYyc2KzQyzc052fLXampeDHye0CzmpK8+IPSmJgvjFO7b3GW99g3L1cKjy5ZSj8oK8c381of
+ Nw/9/teu+MI9D0pIjDfJsS04vjYCOS2t9QL6iNbzYI8zd3C0QNsS3u9Nsxx80UmeHQnPQMn6VqJ
+ vYzMtnOHVEbjS6yRSIi/MxWNqOePORBsKKIc9JqqgkNv8dshcItOxjj3cEf6Bbubbz3x+y2/mG8
+ +loPQCJQiQJk4ZvsMymXdiL/V0LsPJunSx2LZX1413hpYV1fhFR9oTL+9uZtsLmjwukn5bAttxD
+ FXVgZZjoJvrVzFwAdIR3CnZRcjuaYxv0064zNrBd
+X-Received: by 2002:a05:600c:190d:b0:4ba:2bfc:c8b5 with SMTP id
+ 5b1f17b1804b1-4bb888267aemr244134215e9.10.1795450878450; 
+ Mon, 23 Nov 2026 08:21:18 -0800 (PST)
 Received: from [10.56.169.198] ([2001:19f0:6c01:2c43:5400:5ff:fef6:1b30])
  by smtp.gmail.com with ESMTPSA id
- ffacd0b85a97d-4ab6b110ba3sm18863696f8f.35.2026.11.23.08.21.01
+ ffacd0b85a97d-4ab6b110ba3sm18863696f8f.35.2026.11.23.08.21.09
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Mon, 23 Nov 2026 08:21:08 -0800 (PST)
+ Mon, 23 Nov 2026 08:21:17 -0800 (PST)
 From: Oarora Etimis <oaroraetimis@gmail.com>
-Date: Mon, 23 Nov 2026 17:20:27 +0100
-Subject: [PATCH RESEND 2/4] drm/vkms: precompute the gamma LUT for every
- channel value
+Date: Mon, 23 Nov 2026 17:20:28 +0100
+Subject: [PATCH RESEND 3/4] drm/vkms: add a KUnit test for the precomputed
+ LUT table
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20261123-lut-v1-2-5556c89a2ebd@gmail.com>
+Message-Id: <20261123-lut-v1-3-5556c89a2ebd@gmail.com>
 References: <20261123-lut-v1-0-5556c89a2ebd@gmail.com>
 In-Reply-To: <20261123-lut-v1-0-5556c89a2ebd@gmail.com>
 To: Louis Chauvet <louis.chauvet@bootlin.com>, 
@@ -97,209 +97,110 @@ List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-14.8 required=3.0 tests=BAYES_00,DKIM_SIGNED,
-	DKIM_VALID,DKIM_VALID_AU,FORGED_GMAIL_RCVD,FREEMAIL_FORGED_FROMDOMAIN,
-	FREEMAIL_FROM,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,
-	INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,
-	USER_AGENT_GIT autolearn=unavailable autolearn_force=no version=4.0.1
+X-Spam-Status: No, score=-15.8 required=3.0 tests=BAYES_00,DKIM_SIGNED,
+	DKIM_VALID,DKIM_VALID_AU,FREEMAIL_FORGED_FROMDOMAIN,FREEMAIL_FROM,
+	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
+	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,USER_AGENT_GIT
+	autolearn=unavailable autolearn_force=no version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-apply_lut() interpolates every channel of every pixel: three calls to
-apply_lut_to_channel_value(), each computing a fixed-point LUT index and
-lerping the two neighbouring entries. In virtme-ng with two CPUs, that
-makes kms_plane@pixel-format-source-clamping take 78.9-83.8 s and
-kms_plane@pixel-format 160.1-167.8 s over ten runs.
+build_lut_table() turns a per-pixel interpolation into a table lookup, so
+a wrong entry changes the composed output with no other symptom.
 
-A channel value is a u16, so a channel has only 65536 possible inputs.
-Compute them once per LUT change into three tables of 65536 u16, in one
-allocation of 384 KiB, and let apply_lut() index them by the channel value
-itself; composing a pixel then costs three reads. The two subtests drop to
-4.87-4.90 s and 9.70-9.84 s.
+Compare every entry against apply_lut_to_channel_value() for the same
+channel and value, for a 4-entry LUT whose channels differ and for the
+256-entry sRGB one. The check stops at the first mismatch and prints its
+channel, value and both results.
 
-Entries come from the same apply_lut_to_channel_value(), so the composed
-output stays bit-identical to the per-pixel path.
-
-The tables are built in vkms_composer_worker(), outside the composer lock,
-on a frame with a CRC pending whose blob differs from the one they were
-built from. Holding a reference on that blob keeps its address from being
-recycled, so comparing pointers stays a valid identity test for contents
-that are immutable once published. They are allocated with kvmalloc() in
-vkms_crtc_init() and freed by a device action that also drops the blob
-reference - registered before the workqueue, so the workqueue is destroyed
-first.
-
-When there is no LUT the tables keep their previous contents; apply_lut()
-returns on the NULL base before indexing them.
-
-This patch depends on patch 1: it declares gamma_lut and clears
-lut_length when there is no LUT. Applied alone, this patch does not
-compile, and the rebuild check would build from a NULL base.
+The tables are built with apply_lut_to_channel_value(), so this proves the
+lookup matches the interpolation, not that the LUT arithmetic is right;
+vkms_color_srgb_inv_srgb() covers the latter.
 
 Signed-off-by: Oarora Etimis <oaroraetimis@gmail.com>
 ---
- drivers/gpu/drm/vkms/vkms_composer.c | 37 ++++++++++++++++++++++++++++++------
- drivers/gpu/drm/vkms/vkms_composer.h |  3 +++
- drivers/gpu/drm/vkms/vkms_crtc.c     | 24 +++++++++++++++++++++++
- drivers/gpu/drm/vkms/vkms_drv.h      |  6 ++++++
- 4 files changed, 64 insertions(+), 6 deletions(-)
+ drivers/gpu/drm/vkms/tests/vkms_color_test.c | 54 ++++++++++++++++++++++++++++
+ 1 file changed, 54 insertions(+)
 
-diff --git a/drivers/gpu/drm/vkms/vkms_composer.c b/drivers/gpu/drm/vkms/vkms_composer.c
-index 1d5658bbd493..5bbc34113250 100644
---- a/drivers/gpu/drm/vkms/vkms_composer.c
-+++ b/drivers/gpu/drm/vkms/vkms_composer.c
-@@ -111,21 +111,37 @@ VISIBLE_IF_KUNIT u16 apply_lut_to_channel_value(const struct vkms_color_lut *lut
- }
- EXPORT_SYMBOL_IF_KUNIT(apply_lut_to_channel_value);
+diff --git a/drivers/gpu/drm/vkms/tests/vkms_color_test.c b/drivers/gpu/drm/vkms/tests/vkms_color_test.c
+index 1a1c7cac2f15..cdbb74d16b5e 100644
+--- a/drivers/gpu/drm/vkms/tests/vkms_color_test.c
++++ b/drivers/gpu/drm/vkms/tests/vkms_color_test.c
+@@ -88,6 +88,21 @@ static const struct vkms_color_lut test_linear_lut = {
+ 	.channel_value2index_ratio = 0xf000fll
+ };
  
-+/*
-+ * Precompute the LUT for every 16-bit channel value, so that composing a
-+ * pixel becomes one table lookup instead of an interpolation.
-+ */
-+VISIBLE_IF_KUNIT void build_lut_table(const struct vkms_color_lut *lut, u16 *lut_table)
++/* Channels differ, so a table built with the wrong channel does not match. */
++static struct drm_color_lut test_distinct_array[] = {
++	{ 0x0000, 0x0000, 0x0000, 0 },
++	{ 0x1000, 0x6000, 0xb000, 0 },
++	{ 0x2000, 0x4000, 0x9000, 0 },
++	{ 0xffff, 0xffff, 0xffff, 0 },
++};
++
++static const struct vkms_color_lut test_distinct_lut = {
++	.base = test_distinct_array,
++	.lut_length = ARRAY_SIZE(test_distinct_array),
++	/* drm_fixp_div(drm_int2fixp(lut_length - 1), drm_int2fixp(0xffff)) */
++	.channel_value2index_ratio = 0x30003ll
++};
++
+ static void vkms_color_test_get_lut_index(struct kunit *test)
+ {
+ 	s64 lut_index;
+@@ -393,6 +408,44 @@ static void vkms_color_ctm_3x4_bt709(struct kunit *test)
+ 	KUNIT_EXPECT_LT(test, out.b, 0x100);
+ }
+ 
++static void vkms_color_test_check_lut_table(struct kunit *test,
++					    const struct vkms_color_lut *lut,
++					    const u16 *table)
 +{
-+	enum lut_channel channel;
 +	int i;
 +
-+	for (channel = LUT_RED; channel < LUT_RESERVED; channel++) {
-+		for (i = 0; i < LUT_TABLE_ENTRIES; i++)
-+			lut_table[channel * LUT_TABLE_ENTRIES + i] =
-+				apply_lut_to_channel_value(lut, i, channel);
++	for (i = 0; i < LUT_RESERVED * LUT_TABLE_ENTRIES; i++) {
++		enum lut_channel channel = i / LUT_TABLE_ENTRIES;
++		u16 value = i % LUT_TABLE_ENTRIES;
++		u16 expected = apply_lut_to_channel_value(lut, value, channel);
++
++		if (table[i] != expected) {
++			KUNIT_FAIL(test, "channel %d, value %#06x: 0x%04x != 0x%04x",
++				   channel, value, table[i], expected);
++			return;
++		}
 +	}
 +}
-+EXPORT_SYMBOL_IF_KUNIT(build_lut_table);
- 
- static void apply_lut(const struct vkms_crtc_state *crtc_state, struct line_buffer *output_buffer)
- {
--	if (!crtc_state->gamma_lut.base)
--		return;
-+	const struct vkms_output *out = drm_crtc_to_vkms_output(crtc_state->base.crtc);
-+	const u16 *table = out->gamma_lut_table;
- 
--	if (!crtc_state->gamma_lut.lut_length)
-+	if (!crtc_state->gamma_lut.base || !crtc_state->gamma_lut.lut_length)
- 		return;
- 
- 	for (size_t x = 0; x < output_buffer->n_pixels; x++) {
- 		struct pixel_argb_u16 *pixel = &output_buffer->pixels[x];
- 
--		pixel->r = apply_lut_to_channel_value(&crtc_state->gamma_lut, pixel->r, LUT_RED);
--		pixel->g = apply_lut_to_channel_value(&crtc_state->gamma_lut, pixel->g, LUT_GREEN);
--		pixel->b = apply_lut_to_channel_value(&crtc_state->gamma_lut, pixel->b, LUT_BLUE);
-+		pixel->r = table[LUT_RED * LUT_TABLE_ENTRIES + pixel->r];
-+		pixel->g = table[LUT_GREEN * LUT_TABLE_ENTRIES + pixel->g];
-+		pixel->b = table[LUT_BLUE * LUT_TABLE_ENTRIES + pixel->b];
- 	}
- }
- 
-@@ -653,6 +669,15 @@ void vkms_composer_worker(struct work_struct *work)
- 	if (!crc_pending)
- 		return;
- 
-+	/* Rebuild only when the LUT differs from the one the table was built from. */
-+	if (gamma_lut != out->gamma_lut_blob) {
-+		if (crtc_state->gamma_lut.lut_length)
-+			build_lut_table(&crtc_state->gamma_lut, out->gamma_lut_table);
 +
-+		drm_property_blob_put(out->gamma_lut_blob);
-+		out->gamma_lut_blob = gamma_lut ? drm_property_blob_get(gamma_lut) : NULL;
-+	}
-+
- 	if (wb_pending)
- 		ret = compose_active_planes(active_wb, crtc_state, &crc32);
- 	else
-diff --git a/drivers/gpu/drm/vkms/vkms_composer.h b/drivers/gpu/drm/vkms/vkms_composer.h
-index 04dd5646f672..b0ee93ba6dbe 100644
---- a/drivers/gpu/drm/vkms/vkms_composer.h
-+++ b/drivers/gpu/drm/vkms/vkms_composer.h
-@@ -17,11 +17,14 @@ enum lut_channel {
- 	LUT_RESERVED
- };
- 
-+#define LUT_TABLE_ENTRIES	(1U << 16)
-+
- #if IS_ENABLED(CONFIG_KUNIT)
- u16 lerp_u16(u16 a, u16 b, s64 t);
- s64 get_lut_index(const struct vkms_color_lut *lut, u16 channel_value);
- u16 apply_lut_to_channel_value(const struct vkms_color_lut *lut, u16 channel_value,
- 			       enum lut_channel channel);
-+void build_lut_table(const struct vkms_color_lut *lut, u16 *lut_table);
- void apply_3x4_matrix(struct pixel_argb_s32 *pixel, const struct drm_color_ctm_3x4 *matrix);
- #endif
- 
-diff --git a/drivers/gpu/drm/vkms/vkms_crtc.c b/drivers/gpu/drm/vkms/vkms_crtc.c
-index fe17f49305a9..c6ac90fbca2b 100644
---- a/drivers/gpu/drm/vkms/vkms_crtc.c
-+++ b/drivers/gpu/drm/vkms/vkms_crtc.c
-@@ -11,6 +11,7 @@
- #include <drm/drm_vblank.h>
- #include <drm/drm_vblank_helper.h>
- 
-+#include "vkms_composer.h"
- #include "vkms_drv.h"
- 
- static bool vkms_crtc_handle_vblank_timeout(struct drm_crtc *crtc)
-@@ -203,6 +204,14 @@ static const struct drm_crtc_helper_funcs vkms_crtc_helper_funcs = {
- 	.handle_vblank_timeout = vkms_crtc_handle_vblank_timeout,
- };
- 
-+static void vkms_release_gamma_lut(struct drm_device *dev, void *data)
++static void vkms_color_test_build_lut_table(struct kunit *test)
 +{
-+	struct vkms_output *out = data;
++	const struct vkms_color_lut *luts[] = {
++		&test_distinct_lut,
++		&srgb_eotf,
++	};
++	u16 *table;
++	int l;
 +
-+	kvfree(out->gamma_lut_table);
-+	drm_property_blob_put(out->gamma_lut_blob);
++	table = kunit_kzalloc(test, LUT_RESERVED * LUT_TABLE_ENTRIES * sizeof(*table),
++			      GFP_KERNEL);
++	KUNIT_ASSERT_NOT_NULL(test, table);
++
++	for (l = 0; l < ARRAY_SIZE(luts); l++) {
++		build_lut_table(luts[l], table);
++		vkms_color_test_check_lut_table(test, luts[l], table);
++	}
 +}
 +
- struct vkms_output *vkms_crtc_init(struct drm_device *dev, struct drm_plane *primary,
- 				   struct drm_plane *cursor)
- {
-@@ -235,6 +244,21 @@ struct vkms_output *vkms_crtc_init(struct drm_device *dev, struct drm_plane *pri
- 	spin_lock_init(&vkms_out->lock);
- 	spin_lock_init(&vkms_out->composer_lock);
- 
-+	/*
-+	 * Allocate before composer_workq: drmm frees in reverse order, so the
-+	 * workqueue (and any running worker) is destroyed before this table is
-+	 * freed.
-+	 */
-+	vkms_out->gamma_lut_table = kvmalloc_array(LUT_RESERVED * LUT_TABLE_ENTRIES,
-+						   sizeof(*vkms_out->gamma_lut_table),
-+						   GFP_KERNEL | __GFP_ZERO);
-+	if (!vkms_out->gamma_lut_table)
-+		return ERR_PTR(-ENOMEM);
-+
-+	ret = drmm_add_action_or_reset(dev, vkms_release_gamma_lut, vkms_out);
-+	if (ret)
-+		return ERR_PTR(ret);
-+
- 	vkms_out->composer_workq = drmm_alloc_ordered_workqueue(dev, "vkms_composer", 0);
- 	if (IS_ERR(vkms_out->composer_workq))
- 		return ERR_CAST(vkms_out->composer_workq);
-diff --git a/drivers/gpu/drm/vkms/vkms_drv.h b/drivers/gpu/drm/vkms/vkms_drv.h
-index 381483aa4fb0..065a7b07b4ab 100644
---- a/drivers/gpu/drm/vkms/vkms_drv.h
-+++ b/drivers/gpu/drm/vkms/vkms_drv.h
-@@ -214,6 +214,10 @@ struct vkms_crtc_state {
-  *		      writeback)
-  * @composer_state: Protected by @lock, current state of this VKMS output
-  * @composer_lock: Lock used internally to protect @composer_state members
-+ * @gamma_lut_table: Precomputed gamma LUT indexed by the 16-bit channel value. Allocated
-+ *		     in vkms_crtc_init() and freed with the device.
-+ * @gamma_lut_blob: Blob @gamma_lut_table was built from. Holds a reference so that the
-+ *		    blob cannot be freed and reused at the same address with other contents.
-  */
- struct vkms_output {
- 	struct drm_crtc crtc;
-@@ -226,6 +230,8 @@ struct vkms_output {
- 	struct vkms_crtc_state *composer_state;
- 
- 	spinlock_t composer_lock;
-+	u16 *gamma_lut_table;
-+	struct drm_property_blob *gamma_lut_blob;
+ static struct kunit_case vkms_color_test_cases[] = {
+ 	KUNIT_CASE(vkms_color_test_get_lut_index),
+ 	KUNIT_CASE(vkms_color_test_lerp),
+@@ -400,6 +453,7 @@ static struct kunit_case vkms_color_test_cases[] = {
+ 	KUNIT_CASE(vkms_color_srgb_inv_srgb),
+ 	KUNIT_CASE(vkms_color_ctm_3x4_50_desat),
+ 	KUNIT_CASE(vkms_color_ctm_3x4_bt709),
++	KUNIT_CASE(vkms_color_test_build_lut_table),
+ 	{}
  };
  
- struct vkms_config;
 
 -- 
 2.56.1
