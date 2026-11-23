@@ -2,46 +2,43 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 14F1D606A6B1
-	for <dri-devel@archiver.kernel.org>; Mon, 23 Nov 2026 14:59:12 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 15BB6606A32A
+	for <dri-devel@archiver.kernel.org>; Mon, 23 Nov 2026 14:59:13 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=collabora.com header.i=@collabora.com header.a=rsa-sha256 header.s=mail header.b=hv33eNY7
+	dkim=pass (2048-bit key) header.d=collabora.com header.i=@collabora.com header.a=rsa-sha256 header.s=mail header.b=L266WdpK
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 802FB10EEC1;
-	Mon, 23 Nov 2026 14:59:06 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 7FE2E10EEC7;
+	Mon, 23 Nov 2026 14:59:07 +0000 (UTC)
 Received: from bali.collaboradmins.com (bali.collaboradmins.com
  [148.251.105.195])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 67DE910EEC1
- for <dri-devel@lists.freedesktop.org>; Mon, 23 Nov 2026 14:59:00 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 4189B10EEC9
+ for <dri-devel@lists.freedesktop.org>; Mon, 23 Nov 2026 14:59:01 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
- s=mail; t=1795445939;
- bh=C/LrQy/b3pP6rvBM/K9DTtkaboUzCcE+bKa+Er8ZWrk=;
- h=From:Subject:Date:To:Cc:From;
- b=hv33eNY7iFLjH4F+l2Z4rC4uTlN3bAbSXSC937MTgf3/QcjCYH2CYvtJDxz8U6o4V
- AYJYk/TrMTkI1ixud9NW5KkIDleCm7uD3T+pwgLjGcuvykl3JsufCXJh7P+WNKBJrR
- TvmNzI0tFZOlV9tACCg7rbhV5IUbOFP1RP2ygolq861flpGlRPsoyqUCc5A1/tV7KS
- zKD3W9M7AOW/8P4o8GQBZC61jjCAkVwK9klbodoIGDmD5Qgfb/li1e9tQcBZu8hfh3
- AM2bO0fuJFUwMbA86oQ2TTZClfrX9ldsuB/puOAwX+ub+2U8Izaj960GjHCkYvCFiU
- 5lLfWcKHFvr/g==
+ s=mail; t=1795445940;
+ bh=ErJWV87Cis974R85V9yS/LlwellKyELN7c0KTWYyeTI=;
+ h=From:Date:Subject:References:In-Reply-To:To:Cc:From;
+ b=L266WdpKmbJN8EtRC1YXHS0QT0n/AsS3G7uRo3irJvuHc8UR69cypoKod7ckfGASw
+ 1F/fBBPESTsV02j4s0uzI/awX4GwTepzD+Vn4D+vftqJ087zcTQTRFF3cw1Ax1+Jq6
+ Cj5bXcjRE8DOYhKU6GLEIxlza69xK58fdbKgaaEmoijwMrH+n4cEFYtGVbvLbn/L7d
+ Z66uBYupwFd43UJRTWecYtsIIPW8Zt3QdwQOtQ8p2YdsATCmeBwSbAS8c+SPyHI+iR
+ TkxMkHmmfVyc9gqmg93118wx4Hrle/1wJTWUPs9+sLMrNTwX2kb8cdv5kJoL+ZnX4T
+ ZM/IQIV00rcww==
 Received: from laura.lan (unknown [100.64.0.215])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange x25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
  (No client certificate requested) (Authenticated sender: laura.nao)
- by bali.collaboradmins.com (Postfix) with ESMTPSA id 5BE6817E031C;
- Mon, 23 Nov 2026 15:58:58 +0100 (CET)
+ by bali.collaboradmins.com (Postfix) with ESMTPSA id 4B40C17E0DB6;
+ Mon, 23 Nov 2026 15:58:59 +0100 (CET)
 From: Laura Nao <laura.nao@collabora.com>
-Subject: [PATCH v7 0/3] drm/tyr: add Job IRQ handling
-Date: Mon, 23 Nov 2026 15:58:44 +0100
-Message-Id: <20260728-tyr-irq-v2-v7-0-4e172e58e28c@collabora.com>
+Date: Mon, 23 Nov 2026 15:58:45 +0100
+Subject: [PATCH v7 1/3] drm/tyr: add HwGate::try_access_atomic()
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
-X-B4-Tracking: v=1; b=H4sIAKRUBGsC/3XPwWrDMAwG4FcpPs9DlqMk2mnvMXawZWc1dHXnF
- LNS8u5zC2MtS8GX3/D9ks5qjiXFWb1szqrEmuaU9y0MTxslW7f/iDqFlhUC9jDgqI+nolP50hU
- 1eCsEiD5aqxo4lDil72vZ23vL2zQfczlduytefn9r+LamPaMFB4JJjAnEr5J3O+dzcc+SP9Wlq
- tpbfrdFtY2zsBcSQBZa490fH4HueNf4aFw3gOmNEVjj9Hg6NU48BQ7RMaFb4/1j3mvQhoTBuxi
- 4+3f7siw/HFslZ6QBAAA=
+Content-Transfer-Encoding: 7bit
+Message-Id: <20260728-tyr-irq-v2-v7-1-4e172e58e28c@collabora.com>
+References: <20260728-tyr-irq-v2-v7-0-4e172e58e28c@collabora.com>
+In-Reply-To: <20260728-tyr-irq-v2-v7-0-4e172e58e28c@collabora.com>
 To: Daniel Almeida <daniel.almeida@collabora.com>, 
  Alice Ryhl <aliceryhl@google.com>, Danilo Krummrich <dakr@kernel.org>, 
  David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
@@ -54,8 +51,7 @@ To: Daniel Almeida <daniel.almeida@collabora.com>,
  =?utf-8?q?Onur_=C3=96zkan?= <work@onurozkan.dev>
 Cc: linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org, 
  rust-for-linux@vger.kernel.org, kernel@collabora.com, 
- Laura Nao <laura.nao@collabora.com>, 
- Deborah Brouwer <deborah.brouwer@collabora.com>
+ Laura Nao <laura.nao@collabora.com>
 X-Mailer: b4 0.12.0
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -76,112 +72,133 @@ X-Spam-Status: No, score=-18.8 required=3.0 tests=BAYES_00,DKIM_SIGNED,
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-Changes in v7:
-- Rebased on top of drm-rust-next
-- Added spinlock to serialize mask register writes with state 
-  transitions, matching panthor's behavior.
-- Added IrqState to track an interrupt state and coordinate
-  primary/threaded handlers and teardown.
-- Replaced JobIrqMaskGuard with new TyrIrqRegistration struct, which 
-  wraps a ThreadedRegistration. Its drop implementation ensures 
-  interrupts are masked and status is updated before free_irq() is 
-  called, preventing racing with threaded handlers running concurrently 
-  on another CPU and a possible IRQ storm.
-- Updated job_irq_init to resolve the IRQ registration into a 
-  Pin<KBox<TyrIrqRegistration<...>>>, so it's fully initialized before 
-  returning.
-- Rebased on top of "drm/tyr: GPU reset infrastructure"[3]. Updated
-  code to leverage HwGate for IO operations.
-- Added "drm/tyr: add HwGate::try_access_atomic()"
-- Link to v6: https://lore.kernel.org/r/20260728-tyr-irq-v2-v6-0-15c90baed949@collabora.com
+From: Daniel Almeida <daniel.almeida@collabora.com>
 
-Changes in v6:
-- Split changes into two separate commits: the first one creates a new 
-  file with TyrIrq/TyrIrqTrait and their related impls, the second 
-  commit imports and uses TyrIrq/TyrIrqTrait from crate::irq instead of
-  crate::driver
-- Removed irq() accessor, unmasking the interrupts in TyrIrq::request() 
-  by accessing the private irq field directly instead
-- Add JobIrqMaskGuard to mask the Job IRQ before free_irq() runs, fixing 
-  incorrect drop order in the IRQ teardown path 
-- Combined fw_ready/job_irq_wait into a separate JobIrqEvents type
-- Store firmware-ready state only once and always wake waiters 
-  unconditionally
-- Clear the status once the handler has been successfully registered
-- Use mask() in reenable_mask() to reduce code duplication
-- Reworded commit messages to reflect the changes
-- Link to v5: https://lore.kernel.org/r/20260728-tyr-irq-v2-v5-1-59fd9dea952a@collabora.com
+HwGate::access() takes gate_lock, which is a mutex, so it cannot be
+called from atomic context. IRQ handlers need to access the GPU
+registers, and those are only reachable through the gate.
 
-Changes in v5:
-- Implement PinnedDrop on TyrIrq to clear the interrupt mask on teardown 
-- Link to v4: https://lore.kernel.org/r/20260805-tyr-irq-v2-v4-1-81a4701611c0@collabora.com
+Add HwGate::try_access_atomic(). It enters SRCU without taking gate_lock
+and returns None if the reset worker has closed the gate. close() now
+sets a closed flag before waiting for SRCU readers, and HwClosedGuard
+clears it when dropped. SRCU guarantees that a reader either sees the
+flag set or is waited for.
 
-Changes in v4:
-- Replaced c_str! with C-String in irq.rs
-- Moved clear_status() before handle() in handle_threaded(), to avoid 
-  losing events if hw re-asserts the bit while handle() is running.
-- Only unmask interrupt sources in job_irq_init() when the handler is 
-  correctly registered.
-- Link to v3: https://lore.kernel.org/r/20260728-tyr-irq-v2-v3-1-9c9bc5c029c5@collabora.com
+An IRQ handler that gets None cannot acknowledge its interrupt, so its
+interrupt has to stay masked while the gate is closed. Document this on
+close(). No caller needs to do this yet: the only reset runs at probe,
+before any IRQ handler is registered.
 
-Changes in v3:
-- Propagated request_threaded_irq_by_name safety requirement up the
-  call chain, made TyrIrq::request() and job_irq_init() unsafe
-- Dropped CSG bits masking, added TODO comment to note this will be
-  handled at a later stage. Reworded commit message to reflect the
-  change.
-- Added documentation for TyrIrqTrait, TyrIrq, JobIrq and job_irq_init()
-- Link to v2: https://lore.kernel.org/r/20260729-tyr-irq-v2-v2-1-c2750fc11d59@collabora.com
+There are no users yet. The Job IRQ handler will be the first one.
 
-Changes in v2:
-- Dropped Wait custom type in favor of WaitQueue
-- Renamed JobIrq lifetime to generic 'a
-
-This series follows up to [1], which adds support for firmware loading
-and MCU booting to the Tyr driver. The changes included here were
-originally introduced in its v4[2], then dropped to reduce the scope of
-the series, and have been adjusted to work with the HRT (Higher-Ranked
-Lifetime Types) driver architecture recently introduced.
-
-The series adds a threaded IRQ wrapper for the firmware Job interrupts,
-used to signal events from the global CSF (GLB) and Command Stream Group
-(CSG) interfaces.
-
-These changes will be later used to wait for global CSF interface
-readiness after firmware boot, as part of the CSF firmware interfaces
-support that will be submitted as a separate series.
-
-This series is based on drm-rust-next and depends on:
-- [PATCH v9 0/2] drm/tyr: GPU reset infrastructure[3] and its
-  dependencies
-
-Note: A branch with all the changes is available here: 
-https://gitlab.freedesktop.org/laura.nao/linux/-/commits/b4/tyr-irq-v7
-
-[1] https://lore.kernel.org/all/20260728-fw-boot-b4-v10-0-9187aefa3f2f@collabora.com/ 
-[2] https://lore.kernel.org/rust-for-linux/20260424-b4-fw-boot-v4-v4-15-a5d91050789d@collabora.com/
-[3] https://lore.kernel.org/all/20261122-tyr-reset-impl-v9-0-ed42d8f513ec@onurozkan.dev/ 
-
-Signed-off-by: Laura Nao <laura.nao@collabora.com>
+Signed-off-by: Daniel Almeida <daniel.almeida@collabora.com>
 ---
-Daniel Almeida (1):
-      drm/tyr: add HwGate::try_access_atomic()
+ drivers/gpu/drm/tyr/reset/hw_gate.rs | 55 ++++++++++++++++++++++++++++++++++--
+ 1 file changed, 53 insertions(+), 2 deletions(-)
 
-Laura Nao (2):
-      drm/tyr: add TyrIrq threaded IRQ wrapper
-      drm/tyr: add Job IRQ handling
+diff --git a/drivers/gpu/drm/tyr/reset/hw_gate.rs b/drivers/gpu/drm/tyr/reset/hw_gate.rs
+index 201f8c953078..40b38f07c472 100644
+--- a/drivers/gpu/drm/tyr/reset/hw_gate.rs
++++ b/drivers/gpu/drm/tyr/reset/hw_gate.rs
+@@ -6,10 +6,18 @@
+ //! access with reset. Readers hold the mutex while entering SRCU, then release
+ //! it before accessing hardware. The reset worker holds the mutex while waiting
+ //! for admitted readers and resetting hardware.
++//!
++//! Readers that cannot sleep use [`HwGate::try_access_atomic`] instead. It
++//! enters SRCU without taking the mutex and fails if the reset worker has set
++//! `closed`, which it does before waiting for readers.
+ 
+ use kernel::{
+     prelude::*,
+     sync::{
++        atomic::{
++            Atomic,
++            Relaxed, //
++        },
+         new_mutex,
+         srcu,
+         Mutex,
+@@ -32,6 +40,9 @@ pub(crate) struct HwGate<'hw> {
+     /// Drains readers that entered before the reset worker acquired `gate_lock`.
+     #[pin]
+     srcu: Srcu,
++    /// Set while the reset worker owns the hardware. Checked by readers that
++    /// cannot take `gate_lock`.
++    closed: Atomic<bool>,
+ }
+ 
+ impl<'hw> HwGate<'hw> {
+@@ -41,6 +52,7 @@ pub(crate) fn new(iomem: IoMem<'hw>) -> impl PinInit<Self, Error> {
+             iomem,
+             gate_lock <- new_mutex!(()),
+             srcu <- kernel::new_srcu!(),
++            closed: Atomic::new(false),
+         })
+     }
+ 
+@@ -60,15 +72,45 @@ pub(crate) fn access(&self) -> HwAccessGuard<'_, 'hw> {
+         }
+     }
+ 
++    /// Enters a reset-sensitive hardware-access section without sleeping.
++    ///
++    /// Returns `None` while the reset worker owns the hardware, in which case
++    /// the caller must skip its hardware access.
++    #[expect(dead_code)]
++    pub(crate) fn try_access_atomic(&self) -> Option<HwAccessGuard<'_, 'hw>> {
++        let srcu = self.srcu.read_lock();
++
++        // `close()` sets `closed` before waiting for readers, so SRCU guarantees
++        // that this reader either sees it set or is waited for.
++        if self.closed.load(Relaxed) {
++            return None;
++        }
++
++        Some(HwAccessGuard {
++            gate: self,
++            _srcu: srcu,
++        })
++    }
++
+     /// Stops new readers and drains admitted readers for the reset worker.
+     ///
+     /// Callers must serialize write-side access. The reset controller's state
+     /// machine provides that serialization.
++    ///
++    /// An IRQ handler that uses [`HwGate::try_access_atomic`] cannot acknowledge
++    /// its interrupt while the gate is closed. Callers must mask such an
++    /// interrupt before closing the gate and keep it masked until the gate
++    /// reopens.
+     pub(super) fn close(&self) -> HwClosedGuard<'_, 'hw> {
+         let gate_lock = self.gate_lock.lock();
+ 
+-        // Holding `gate_lock` prevents new readers from entering SRCU. Readers
+-        // admitted before us are enrolled, so wait for their read-side work.
++        // Stop `try_access_atomic()` readers. This must happen before waiting
++        // for readers below.
++        self.closed.store(true, Relaxed);
++
++        // Holding `gate_lock` prevents new readers from entering SRCU through
++        // `access()`. Readers admitted before us are enrolled, so wait for their
++        // read-side work.
+         self.srcu.synchronize();
+ 
+         HwClosedGuard {
+@@ -104,3 +146,12 @@ pub(super) fn iomem(&self) -> &IoMem<'hw> {
+         &self.gate.iomem
+     }
+ }
++
++impl Drop for HwClosedGuard<'_, '_> {
++    fn drop(&mut self) {
++        // Reopen for `try_access_atomic()`. A reader that races with this and
++        // still sees `closed` set returns `None`, as it would have before the
++        // store.
++        self.gate.closed.store(false, Relaxed);
++    }
++}
 
- drivers/gpu/drm/tyr/fw.rs            |   1 +
- drivers/gpu/drm/tyr/fw/irq.rs        | 148 +++++++++++++++++++
- drivers/gpu/drm/tyr/irq.rs           | 269 +++++++++++++++++++++++++++++++++++
- drivers/gpu/drm/tyr/reset/hw_gate.rs |  54 ++++++-
- drivers/gpu/drm/tyr/tyr.rs           |   1 +
- 5 files changed, 471 insertions(+), 2 deletions(-)
----
-base-commit: 746918a0c6c0c1738e74d5e198ee06c848e2ddd2
-change-id: 20260728-tyr-irq-v2-0b3c5022be33
-
-Best regards,
 -- 
-Laura Nao <laura.nao@collabora.com>
+2.39.5
 
