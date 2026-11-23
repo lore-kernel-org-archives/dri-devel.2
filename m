@@ -2,37 +2,75 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BF136606A322
-	for <dri-devel@archiver.kernel.org>; Tue, 24 Nov 2026 08:39:55 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 17D09606A326
+	for <dri-devel@archiver.kernel.org>; Tue, 24 Nov 2026 08:39:57 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=aigeus.net header.i=@aigeus.net header.a=rsa-sha256 header.s=protonmail header.b=Tfkm4+/P
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=hxM+cKln
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 1119910F30F;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 06CA010F30B;
 	Tue, 24 Nov 2026 08:39:46 +0000 (UTC)
-Received: from mail-4321.protonmail.ch (mail-4321.protonmail.ch [185.70.43.21])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 238E810EC70
- for <dri-devel@lists.freedesktop.org>; Mon, 23 Nov 2026 19:34:31 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=aigeus.net;
- s=protonmail; t=1795462411; x=1795721611;
- bh=rLoQJ7Nj+E8837b0u6ILRSlICJYuqK+VAyKwJUkjjGQ=;
- h=From:To:Cc:Subject:Message-Id:Date:From:To:Cc:Date:Subject:
- Reply-To:Feedback-ID:Message-ID:BIMI-Selector;
- b=Tfkm4+/PyjsQj8SqWdzFtEm6iGHjDZAuADgL9GoyxkgkS3j/J8bjb027mwm3VIDIk
- nAGKD4DRYvWFrg6HO+0HXaDCcz1CK/kLq6TEO7iUs/i7MNXYir9izXfrhqsNNs8TXa
- G4PLiUH2RVS6lLC0qc5zDsMO2iK1O6R3+Za6W/GRiGGCZp6vdYW+F1ZPiYqQzWclhh
- iVMSNxNd/C6219yVbE25uilumynhbGEza3tPf1fiLc9r8IEo9m3Wkd9Mxc28QzEA0M
- 8emi/54uWVKusYcM+MsjhfHMnk9n2JWlGVt0hp4lUvkOdn3HOMgMbjyw+nVhuukuNC
- LGypKJPmkldUA==
-X-Pm-Submission-Id: 4jYGMG06lzz1DDLh
-From: Aigeus <info@aigeus.net>
-To: alexander.deucher@amd.com, christian.koenig@amd.com
-Cc: amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org
-Subject: WARNING in amdgpu_irq_put() when amdgpu_device_ip_init() fails
- (navi14, 7.3.4+deb13-amd64)
-Content-Type: text/plain; charset=UTF-8
+Received: from mail-dl1-f44.google.com (mail-dl1-f44.google.com [74.125.82.44])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 062C410EFBF
+ for <dri-devel@lists.freedesktop.org>; Mon, 23 Nov 2026 17:55:31 +0000 (UTC)
+Received: by mail-dl1-f44.google.com with SMTP id
+ a92af1059eb24-1a2761c69fbso2644930c88.0
+ for <dri-devel@lists.freedesktop.org>; Mon, 23 Nov 2026 09:55:30 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20260707; t=1795456530; x=1796061330; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+ bh=5zbntsnJYF+MluAOcW87nvuR13e90ScUCD9/dIZ65Hg=;
+ b=hxM+cKlnIJXfyto1bW91Iw2f8DPvHroG0h7WfHGcz1DCxjNVNXlcFozOKwU02Fze3c
+ n2Uj4ee65qjjNV+yLKf8+DLSs75dBdK70kuEE0fWbhmkyCJcR/KcAfPzBjPakcQe9kib
+ WkTwh1fLnaqZSvD8UU5LHdK10zdHpif7bD4ot3zNX/f0sSmAL4HnHySDFJHxCM0zehUF
+ tbOnoBJ3frVzmd5D2YXgci1PQ8DOSWgRg4isjpTdwIcrtw/4GNYrCRftKkoh7uNJlTZx
+ /RgxQcSEVquFH0fauJJVw/q5K1S71HIdwjLKdOY1ZImq1CUpZC6rY6A7l7EuuHeDEmcY
+ bCJA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20260707; t=1795456530; x=1796061330;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+ :message-id:reply-to:content-type;
+ bh=5zbntsnJYF+MluAOcW87nvuR13e90ScUCD9/dIZ65Hg=;
+ b=1fw/ePvbxUhwpbBJJYXeNepSIqFe7kzHznNTAeZt5GJkivQHFpWAyw2faEpw6S47/N
+ kTqzFSDU+KfUyAdv3zkHFJIYknHyC9S9cBjUZdNdsIJhneUIVXBmflxrZrFxRrNBO6XF
+ y99yfaSe+Yx9YZnbkoorDGBemQiRcR1VHTwPdlTTAQFhkPK4picY8cCneAqObyl3o/1B
+ yCvs89DLk3Dd6kGhHU9JfqkPLpCcHSr+nw71w1pEKOkV8U/E0DLM0gYPURZ5sru5pBxu
+ JgIf+IgNKQ8LHIT8B447pXQa80t0COCR1XDmMqzsqDnz3Vh10d9Z5TrcpqNqaRUFQ+e8
+ 0FrA==
+X-Forwarded-Encrypted: i=1;
+ AL+hErHkBPzsI+oh3J3mNN2mrN95OTMu+cvsd4s7ogLpYvznUr0go4oMYrziBuGSML7lW3Uk/c5JAtTEcd0=@lists.freedesktop.org
+X-Gm-Message-State: APuU4Z9U3yLAEaE81bo9pW4wHdtJ854B17xKH9y0zVDliCd77+B4VXpW
+ DkS9zJ5diB9aDPlAZcXLhvtTmwk958HX7ToAh1U/KH/7uWhe76nY+5eH
+X-Gm-Gg: AZFdTZfAC2NYdg8bEJUOFkcWGT2JnznnxbxfsK7YWysfp209FpiH6MhdNZA1sV9jpPJ
+ BUxRwZqYGWxEoDW0q07JsL9n0zTy/MeT+OyMFzog4O+A46EFURIDRTGvLKtNz/AGzgMA0snlwsT
+ YAUwDqzhghTyywRwgcDBf9u8/zPixdKtuDG8B1macuU8LUZ27MwGQIIaXX313kTgeCnwOiS6jkL
+ y10HPbLK8h3F5Z/Yi3Bi81NNUkcUuAQMsH1q0UT1sucl62DZuOu2l0we6lU8u3uTQImCeZwvGAv
+ 1XTHJqYhxu8NxmUrKcx5Y7/4jXKgkyxniNOTDkY9+uCtP4T4egFURtycilS5Jjoh5o8BobAhhau
+ QwNUW9asEDrV0cl9nQ2zdmbims6JRgexrJcEB/R7DLdoV7n9VWKogGRKfDq61O9MkmO3oGQq1gm
+ Lw1Hv4Q4D0lPUxVSfAfwpU1aMD+uRS0LXaSxtkhc9OJZnhosF849PJh+tc/RWFoTYMjaAC1yC3M
+ 8Ga9sMJyM6ijAmDlpWdRWG2ubgp0lWAl49OoshV6dwv/zSuKPDbJ0APSFsh/GO1jJekwDq69aP1
+ s9EsddGdJXXo/AZldeIQg0GJ6HAUhjm2OH4Iaa2KuT1HaiewxFEOnw==
+X-Received: by 2002:a05:701b:4584:b0:1ac:9da7:e86e with SMTP id
+ a92af1059eb24-1b556908c17mr12515895c88.30.1795456528961; 
+ Mon, 23 Nov 2026 09:55:28 -0800 (PST)
+Received: from ubuntu ([110.9.142.4]) by smtp.gmail.com with ESMTPSA id
+ a92af1059eb24-1b562a82b3fsm30885828c88.5.2026.11.23.09.55.26
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Mon, 23 Nov 2026 09:55:28 -0800 (PST)
+From: Sang-Heon Jeon <ekffu200098@gmail.com>
+To: Alex Deucher <alexander.deucher@amd.com>,
+ =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>
+Cc: amd-gfx@lists.freedesktop.org, Bokun Zhang <Bokun.Zhang@amd.com>,
+ dri-devel@lists.freedesktop.org, Monk Liu <monk.liu@amd.com>
+Subject: [PATCH] drm/amdgpu: fix wrong unit of vf2pf_work delay
+Date: Tue, 24 Nov 2026 02:55:12 +0900
+Message-ID: <20261123175513.2144018-1-ekffu200098@gmail.com>
+X-Mailer: git-send-email 2.53.0
+X-Archived-By: <archiver.kernel.org>
+MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Message-Id: <4jYGMG06lzz1DDLh@mailsubzur1001.protonmail.ch>
-Date: Mon, 23 Nov 2026 19:33:29 +0000 (UTC)
 X-Mailman-Approved-At: Tue, 24 Nov 2026 08:39:44 +0000
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -45,67 +83,45 @@ List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-10.8 required=3.0 tests=BAYES_00,DKIM_SIGNED,
-	DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
-	MAILING_LIST_MULTI,MENTIONS_GIT_HOSTING,SPF_HELO_NONE,SPF_PASS
-	autolearn=ham autolearn_force=no version=4.0.1
+X-Spam-Status: No, score=-15.8 required=3.0 tests=BAYES_00,DKIM_SIGNED,
+	DKIM_VALID,DKIM_VALID_AU,FREEMAIL_FORGED_FROMDOMAIN,FREEMAIL_FROM,
+	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
+	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,USER_AGENT_GIT autolearn=ham
+	autolearn_force=no version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
-X-Archived-By: <archiver.kernel.org>
 
-(Posting to amd-gfx as well; that copy is still in the list moderation queue, so
-sending directly in case it is useful sooner.)
+The delay of schedule_delayed_work() is in jiffies. But
+amdgpu_virt_update_vf2pf_work_item() reschedules vf2pf_work with
+vf2pf_update_interval_ms without converting it, so the interval is in
+milliseconds only if HZ is 1000.
 
-Linux version 7.3.4+deb13-amd64 (debian-kernel@lists.debian.org)
-  #1 SMP PREEMPT_DYNAMIC Debian 7.3.4-1~bpo13+1 (2026-11-15)
-Hardware name: Gigabyte Technology Co., Ltd. H97-HD3/H97-HD3, BIOS F9c 03/03/2016
-Card: AMD Radeon RX 5500 XT (Navi 14, 1002:7340) at 0000:03:00.0
+So use msecs_to_jiffies() when rescheduling.
 
-On this machine hw_init failed partway: the PSP could not load the SMU
-microcode. The trigger is reported separately (Debian bug #1155044, and the
-Intel VT-d page-table regression at
-https://lore.kernel.org/all/HYhMd0Klo0XE_yiVY7XmsgyKKFDwKHfKRy22KrycLcYd0V_ykA4xdbBMJXkA07YX3os6qK-NhMIVi6ITo-CkNIIF0e-GcI0UwwZmdDhAJ0I=@protonmail.com/);
-this mail is only about what the driver does while unwinding from that failure.
+Fixes: 519b8b76f0b6 ("drm/amdgpu: Implement new guest side VF2PF message transaction (v2)")
+Signed-off-by: Sang-Heon Jeon <ekffu200098@gmail.com>
+---
+I don't have a test environment, so this patch is compile tested only.
 
-When the probe error path unwinds, the driver emits 34 WARNs:
+ drivers/gpu/drm/amd/amdgpu/amdgpu_virt.c | 3 ++-
+ 1 file changed, 2 insertions(+), 1 deletion(-)
 
-  WARNING: drivers/gpu/drm/amd/amdgpu/amdgpu_irq.c:670 at amdgpu_irq_put+0xaa/0xc0 [amdgpu], CPU#4: (udev-worker)/208
-  RIP: 0010:amdgpu_irq_put+0xaa/0xc0 [amdgpu]
-  Call Trace:
-    <TASK>
-    amdgpu_fence_driver_hw_fini+0xfe/0x140 [amdgpu]
-    amdgpu_device_fini_hw+0xc2/0x456 [amdgpu]
-    amdgpu_driver_load_kms.cold+0x22/0x44 [amdgpu]
-    amdgpu_pci_probe+0x1f3/0x4d0 [amdgpu]
-    local_pci_probe+0x41/0x90
-    pci_call_probe+0x5b/0x1a0
-    pci_device_probe+0xd4/0x160
-    really_probe+0xde/0x380
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_virt.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_virt.c
+index 915e2a069baf..f93d5df51528 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_virt.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_virt.c
+@@ -797,7 +797,8 @@ static void amdgpu_virt_update_vf2pf_work_item(struct work_struct *work)
+ 	amdgpu_virt_write_vf2pf_data(adev);
+ 
+ out:
+-	schedule_delayed_work(&(adev->virt.vf2pf_work), adev->virt.vf2pf_update_interval_ms);
++	schedule_delayed_work(&(adev->virt.vf2pf_work),
++			      msecs_to_jiffies(adev->virt.vf2pf_update_interval_ms));
+ }
+ 
+ static int amdgpu_virt_read_exchange_data_from_mem(struct amdgpu_device *adev, uint32_t *pfvf_data)
 
-The sequence that leads here is:
-
-  amdgpu 0000:03:00.0: failed to load ucode SMC(0x34)
-  amdgpu 0000:03:00.0: psp gfx command LOAD_IP_FW(0x6) failed and response status is (0x0)
-  amdgpu 0000:03:00.0: PSP load smu failed!
-  [drm:psp_v11_0_ring_destroy [amdgpu]] *ERROR* Fail to stop psp ring
-  amdgpu 0000:03:00.0: PSP firmware loading failed
-  amdgpu 0000:03:00.0: hw_init of IP block <psp> failed -22
-  amdgpu 0000:03:00.0: Fatal error during GPU init
-
-Question: is the WARN_ON at amdgpu_irq.c:670 meant to fire on this unwind path?
-amdgpu_fence_driver_hw_fini() runs from amdgpu_device_fini_hw() after a
-partially completed hw_init, and from the trace it looks like it is putting
-IRQs for rings whose IRQ was never acquired. If that is expected, the WARN_ON
-buries the actual init error under 34 backtraces; if it is not, the unwind
-needs a guard for the not-yet-initialised case.
-
-For completeness: with the VT-d trigger worked around on this box the card
-initialises normally (7.3.4+deb13-amd64, "SMU is initialized successfully",
-[drm] Initialized amdgpu 3.64.0, fbcon amdgpudrmfb primary), so this only
-shows up on the failure path.
-
-Happy to test a fix, and I can provide the full log.
-
+base-commit: 8dd68a79583aaf6df6fe4feea3ee9e9f26b02993
 -- 
-Aigeus
-GitHub: EgolOS <79418083+EgolOS@users.noreply.github.com>
+2.53.0
+
