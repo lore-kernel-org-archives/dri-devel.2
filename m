@@ -2,90 +2,83 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 54522606A321
-	for <dri-devel@archiver.kernel.org>; Mon, 23 Nov 2026 18:19:38 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AED2C606A31A
+	for <dri-devel@archiver.kernel.org>; Mon, 23 Nov 2026 18:29:48 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=gVk6cjJa
+	dkim=fail reason="signature verification failed" (1024-bit key) header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=foss header.b=ijpVlN8I
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id B882E10F128;
-	Mon, 23 Nov 2026 18:19:32 +0000 (UTC)
-Received: from mail-pl1-f171.google.com (mail-pl1-f171.google.com
- [209.85.214.171])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 4CFD710F120
- for <dri-devel@lists.freedesktop.org>; Mon, 23 Nov 2026 18:19:27 +0000 (UTC)
-Received: by mail-pl1-f171.google.com with SMTP id
- d9443c01a7336-2efe591a1f6so12066845ad.2
- for <dri-devel@lists.freedesktop.org>; Mon, 23 Nov 2026 10:19:27 -0800 (PST)
-ARC-Seal: i=1; a=rsa-sha256; t=1795457967; cv=none;
- d=google.com; s=arc-20260327;
- b=gjLCrJeLywj1xHLvUAbr2qIhsNTrFdzAPcfQjSdT+5FyruRdFzqjnsDO4iZgpRMDbF
- yRGtro2EhCB2rNBl6lJCaA2JVTd2jutOpLtksdAFWBE2w06MqQeS/5NC6Xyfcax783+0
- nCSYEAinnFQ0X2IymeFWQWHxTS8LH7rRowwwWoLOwXQLfvScyk3GxtEWOMk2BNzymg1S
- PAdOrgKtYlTTVG/P0Z1+Hx4PnvnCfVeDAmMQ5e+kvixPBlrTxuvTjwUZPTo8/C6S5Trh
- EK+wF/SyJIW3NlL9EXzaaXbT4ykMdWNgHogQTML3TaDZvErejPp9i/R5yulh3rvSylvk
- VyBA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com;
- s=arc-20260327; 
- h=cc:to:subject:message-id:date:from:in-reply-to:references
- :mime-version:dkim-signature;
- bh=w/35+OKTYeKSrDPcP1f5IU7EdP2ctykP8aw1CQHX1hQ=;
- fh=SuiltkwtxYE7Na9ace6CsKk/YKXYDVV3zbS1EHenti0=;
- b=ijLiDM0+JZ97jLDIhYEsGfJ647Zy8Vt8LyWsqwEZiUj+86fapTOuGHXSzaxe2HFd5s
- U+aQ8UPy1lJEtGSX5ZnRZer5HIcGROzELUjqVri2Za//gmffJsfbLT2walX2KENFdA3r
- dPWUJ48Qej6SbEreHPJZmv6x+SUVtPp+IXbiKWcmZiF6M9+JuBK9S64eLvOjbOf0v0F+
- KD9xnyVxn/yDPQO8A0mj9xUcTqfXFde13EM4Jsslkwqa6slkSaD9j7FtqfQ2/hjEkwLq
- 4vlD+DWRtXC/jMjz/GmFH5iDYzYqzXePdelGCr9mQDGmbcyLSai98x8zgZy9YOWPEZ6r
- 8tTw==; darn=lists.freedesktop.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20260707; t=1795457967; x=1796062767; darn=lists.freedesktop.org;
- h=content-type:cc:to:subject:message-id:date:from:in-reply-to
- :references:mime-version:from:to:cc:subject:date:message-id:reply-to
- :content-type; bh=w/35+OKTYeKSrDPcP1f5IU7EdP2ctykP8aw1CQHX1hQ=;
- b=gVk6cjJaMdMYUqL5it7nzWPl/QJe5ZyA36XafeVNfbVRxF0OWepAQSzWXhiQaTAh/Z
- eCsmdTym0U/S6f1+CUKA1y+7KiIcsGKqqC/AJXwG3Eojztnru3qhlcehreGdKUXo15ry
- aHDbryJucBWHXlyDJCXpaEx2c75FTUOW9qnlcriwq8MevjSudZHqvD0xIp6m4JPLjHLv
- 03m7GH1rq9IXM6OmlotUkq06UzvuC66rP0AHDtqblMNLZaoZBurAA51VgKH7Ua1IPCno
- oscy/j8aZ0F2KgxnGAmBxYsRjSAEBKaZmxDxxxgm4fGP61CZSPtLg2r/OXnvI/c+AvIk
- hWqA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20260707; t=1795457967; x=1796062767;
- h=content-type:cc:to:subject:message-id:date:from:in-reply-to
- :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
- :subject:date:message-id:reply-to:content-type;
- bh=w/35+OKTYeKSrDPcP1f5IU7EdP2ctykP8aw1CQHX1hQ=;
- b=VWaGLhsh9Ch2Ae83E7ooQ4qqLvZlhwfNkfKxVYAX2U5fNhHf+Kap0X8Sw3CjJsnds2
- +LE+zM2rz2jVN1DOa2ANi9BlpzmAKGQ72OSuqbtEU5IgaiPP9p5k9+bfvmtstKbbv1uF
- U+60kl2CSPNlQbu67Iw5bM/BvM4pNjcVU0Dk/unE3UdhmMNmUsmjBVF1n5Vo15O33+MF
- EFaUIU4Ud5Nq8j9X1Gl4dZrMZsxMTDV7fb12w0tZGmycLyjTQ+bx7pNqp+1znkHVCn7D
- c0QDp51QBeoxoBbu0lew9UhxnFuo15U/qz7wZih4AbKwQ6zgjX2QbEsIoM3g+SnGrcAi
- Tj8g==
-X-Gm-Message-State: APuU4Z+IDj9vRW6qqqvquRSOdwja6wNpZvUJRht7B2qw9bqBNAkIXrCS
- lcjYYnaynNnG5E8eQfGQYKLG4GvR6aLn0RJAzElvfTnNwcBVrrsum84/xwEOk3DX7Hv29V7oL2w
- QCSa7nVhbdmYV7TpsHuSsbw8KUUvCAbs=
-X-Gm-Gg: AZFdTZcS5aHSCaddl7TsG3YWG0aQt2tXhvIpBXQ8Y86p5LqZ8+cL5NId9F1u8tnkT5c
- 7e1lOOzJ2a3+m6FAOniKqgoE/ac5RVBz9AAH5H7yhLjXCvB9KpG6+GOJaC8IF+jcWX8sE2kS1We
- zryJj9jePLvjy0VtqAUZfzLOQ3bjk6kwuNN3WpOdzuST51g66XY09RYs3icSTWBOXIkhI3mAGZF
- 356c+pfqMUhxar5aQV0kTkEeY7h3s4BqaO7Jkwdvi+XDsypH2u89zm+XnhEWlamQBhnQ5QVoDye
- DraqNqbrTML3ygSsVtSKY4e6nFCbXgMvcz7h3lv5NoGtev71Nh0VV6PttXmJ024nMy9wFTY7KW7
- joDvNEXCgqMGxwW04fqAfvqxFAqrqWbCYN6nC0w==
-X-Received: by 2002:a17:902:ec8b:b0:2e8:6ae2:75db with SMTP id
- d9443c01a7336-2f03f18a9c9mr111167675ad.41.1795457966645; Mon, 23 Nov 2026
- 10:19:26 -0800 (PST)
+	by gabe.freedesktop.org (Postfix) with ESMTP id D2AED10EC61;
+	Mon, 23 Nov 2026 18:29:42 +0000 (UTC)
+Received: from foss.arm.com (foss.arm.com [217.140.110.172])
+ by gabe.freedesktop.org (Postfix) with ESMTP id 7F8D010EC61
+ for <dri-devel@lists.freedesktop.org>; Mon, 23 Nov 2026 18:29:36 +0000 (UTC)
+Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
+ by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id B72C9143D;
+ Mon, 23 Nov 2026 10:29:32 -0800 (PST)
+Received: from arm.com (usa-sjc-mx-foss1.foss.arm.com [172.31.20.19])
+ by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 8E3763F763;
+ Mon, 23 Nov 2026 10:29:28 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
+ t=1795458575; bh=91rRqWnUFnt98sbMIZIWLen5dQtczci7+M9TkR+C2eQ=;
+ h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+ b=ijpVlN8I1I3lz+oP0f/Ra6j/FKXUuG6yrg9sGG6aArSc3WgM6d06k0TeBcvheHnlB
+ +bg049yO3+3oRRTrxvdP291vcWCMxo9GAp2+PsBjvQ08/CJLOgCUEhOoOYk7V5y0sg
+ lWIn7leu+umSmLK0yR2G0mX6r/H/ZewmLWycrNRc=
+Date: Mon, 23 Nov 2026 18:29:25 +0000
+From: Catalin Marinas <catalin.marinas@arm.com>
+To: Jason Gunthorpe <jgg@ziepe.ca>
+Cc: "Aneesh Kumar K.V (Arm)" <aneesh.kumar@kernel.org>,
+ linux-coco@lists.linux.dev, Andrew Morton <akpm@linux-foundation.org>,
+ Baoquan He <baoquan.he@linux.dev>, Mike Rapoport <rppt@kernel.org>,
+ Pasha Tatashin <pasha.tatashin@soleen.com>,
+ Pratyush Yadav <pratyush@kernel.org>,
+ Christian =?iso-8859-1?Q?K=F6nig?= <christian.koenig@amd.com>,
+ Joerg Roedel <joro@8bytes.org>, Marc Zyngier <maz@kernel.org>,
+ Marek Szyprowski <m.szyprowski@samsung.com>,
+ Robin Murphy <robin.murphy@arm.com>, Steven Price <steven.price@arm.com>,
+ Sumit Semwal <sumit.semwal@linaro.org>,
+ Suzuki K Poulose <suzuki.poulose@arm.com>,
+ Thomas Gleixner <tglx@kernel.org>, Will Deacon <will@kernel.org>,
+ Russell King <linux@armlinux.org.uk>,
+ Benjamin Gaignard <benjamin.gaignard@collabora.com>,
+ Brian Starkey <Brian.Starkey@arm.com>, John Stultz <jstultz@google.com>,
+ Mark Rutland <mark.rutland@arm.com>, Radu Rendec <radu@rendec.net>,
+ "T.J. Mercier" <tjmercier@google.com>,
+ Madhavan Srinivasan <maddy@linux.ibm.com>,
+ Michael Ellerman <mpe@ellerman.id.au>, Nicholas Piggin <npiggin@gmail.com>,
+ Christophe Leroy <chleroy@kernel.org>,
+ Ritesh Harjani <ritesh.list@gmail.com>,
+ Shrikanth Hegde <sshegde@linux.ibm.com>,
+ Alexander Gordeev <agordeev@linux.ibm.com>,
+ Gerald Schaefer <gerald.schaefer@linux.ibm.com>,
+ Heiko Carstens <hca@linux.ibm.com>, Vasily Gorbik <gor@linux.ibm.com>,
+ Christian Borntraeger <borntraeger@linux.ibm.com>,
+ Sven Schnelle <svens@linux.ibm.com>, Ingo Molnar <mingo@redhat.com>,
+ Borislav Petkov <bp@alien8.de>,
+ Dave Hansen <dave.hansen@linux.intel.com>, x86@kernel.org,
+ "H . Peter Anvin" <hpa@zytor.com>, Kiryl Shutsemau <kas@kernel.org>,
+ Rick Edgecombe <rick.p.edgecombe@intel.com>,
+ Haiyang Zhang <haiyangz@microsoft.com>,
+ Wei Liu <wei.liu@kernel.org>, Dexuan Cui <decui@microsoft.com>,
+ Paolo Bonzini <pbonzini@redhat.com>,
+ Vitaly Kuznetsov <vkuznets@redhat.com>, Andy Lutomirski <luto@kernel.org>,
+ Peter Zijlstra <peterz@infradead.org>,
+ dri-devel@lists.freedesktop.org, iommu@lists.linux.dev,
+ linaro-mm-sig@lists.linaro.org,
+ linux-arm-kernel@lists.infradead.org, linux-media@vger.kernel.org,
+ linux-mm@kvack.org, kvmarm@lists.linux.dev, patches@lists.linux.dev
+Subject: Re: [PATCH v10 04/13] irqchip/gic-v3-its: Allocate shared tables
+ using CoCo shared memory allocator
+Message-ID: <awSGBdS1AiFhJzZV@arm.com>
+References: <20261116091137.94252-1-aneesh.kumar@kernel.org>
+ <20261116091137.94252-5-aneesh.kumar@kernel.org>
+ <awQd81MwZqi55gf8@arm.com> <20261123150041.GB179082@ziepe.ca>
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
-References: <20261118-orangepi-gpu-v2-1-f68676f844eb@gmail.com>
- <sashiko-outbox-221816@kernel.org>
-In-Reply-To: <sashiko-outbox-221816@kernel.org>
-From: Iker Pedrosa <ikerpedrosam@gmail.com>
-Date: Mon, 23 Nov 2026 19:19:00 +0100
-X-Gm-Features: Aa3M54oPNh2HItK5OWAdt9J3mY6fBO_MvaXSMAuL_-aTSXsvBo00wfnHc9xmRpc
-Message-ID: <CABdCQ=Pu=_M7wbP8SWA3ux4ztpnJoR3PzCn3bFg6ao7dxqXpUA@mail.gmail.com>
-Subject: Re: [PATCH v2] riscv: dts: spacemit: k1: add PowerVR GPU device node
-To: sashiko-reviews@lists.linux.dev
-Cc: dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org, 
- robh@kernel.org, conor+dt@kernel.org
-Content-Type: text/plain; charset="UTF-8"
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <20261123150041.GB179082@ziepe.ca>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -97,27 +90,92 @@ List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-2.8 required=3.0 tests=BAYES_00,DKIM_SIGNED,
-	DKIM_VALID,DKIM_VALID_AU,FREEMAIL_FORGED_FROMDOMAIN,FREEMAIL_FROM,
-	HEADER_FROM_DIFFERENT_DOMAINS,MAILING_LIST_MULTI,SPF_HELO_NONE,
-	SPF_PASS autolearn=no autolearn_force=no version=4.0.1
+X-Spam-Status: No, score=-3.6 required=3.0 tests=BAYES_00,DKIM_INVALID,
+	DKIM_SIGNED,HEADER_FROM_DIFFERENT_DOMAINS,MAILING_LIST_MULTI,
+	SPF_HELO_NONE,SPF_PASS autolearn=no autolearn_force=no version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-Hi,
+On Mon, Nov 23, 2026 at 11:00:41AM -0400, Jason Gunthorpe wrote:
+> On Mon, Nov 23, 2026 at 11:05:23AM +0000, Catalin Marinas wrote:
+> > > -	/*
+> > > -	 * If set_memory_decrypted() fails then we don't know what state the
+> > > -	 * page is in, so we can't free it. Instead we leak it.
+> > > -	 * set_memory_decrypted() will already have WARNed.
+> > > -	 */
+> > > -	if (ret)
+> > > +	if (alloc_cc_shared_pages_node(node, gfp | gfp_flags_quirk,
+> > > +				       PAGE_SIZE << order, &mem))
+> > >  		return NULL;
+> > >  
+> > > -	return page;
+> > > +	return mem.page;
+> > 
+> > This part is mostly fine but I do wonder why not make this alloc
+> > function the same as buddy alloc_pages_node() - return a struct page
+> > pointer.
+> 
+> I'd argue we shouldn't even be returning struct page here, do many
+> places even use the struct page? What for?
 
-> [Severity: High]
-> Does this break the DTB build when CONFIG_ARCH_SPACEMIT is enabled?
-> Neither include/dt-bindings/power/spacemit,k1-power.h nor K1_PMDOMAIN_GPU
-> is present in the tree yet, so preprocessing any SpacemiT K1 board DTS
-> that includes k1.dtsi fails until the prerequisite power-domain series is
-> applied.
+I just suggested it for similarity with alloc_pages_node(). It can be
+made better indeed.
 
-This is expected when testing the patch in isolation: both
-include/dt-bindings/power/spacemit,k1-power.h and K1_PMDOMAIN_GPU are
-introduced by Yixun Lan's prerequisite K1 power-domain series [1] (noted
-in the patch cover notes).
+> Exposing struct page to places that just want a kernel addr means they
+> have to call page_address and we are back to the highmem weirdness.
 
-This DTS patch is meant to be applied after that series lands.
+dma-buf system heap needs struct page for scatterlist, so we need the
+virt_to_page() conversion if we return a VA.
 
-[1] https://lore.kernel.org/linux-riscv/20261008-04-k3-pm-support-v2-0-6f778a53dd2d@kernel.org/
+> > >  static void its_free_pages(void *addr, unsigned int order)
+> > >  {
+> > > -	/*
+> > > -	 * If the memory cannot be encrypted again then we must leak the pages.
+> > > -	 * set_memory_encrypted() will already have WARNed.
+> > > -	 */
+> > > -	if (set_memory_encrypted((unsigned long)addr, 1 << order))
+> > > +	struct cc_shared_layout layout;
+> > > +	struct cc_shared_pages mem;
+> > > +
+> > > +	if (WARN_ON(cc_shared_calc_layout(PAGE_SIZE << order, &layout)))
+> > >  		return;
+> > > -	free_pages((unsigned long)addr, order);
+> > > +
+> > > +	mem.page = virt_to_page(addr);
+> > > +	mem.shared_size = layout.shared_size;
+> > > +	free_cc_shared_pages(&mem);
+> > >  }
+> > 
+> > Here it gets weird and I don't see why we can't have just a buddy-like
+> > interface. The kernel-doc for alloc says that shared_size must be
+> > retained for the corresponding free but without reading the source code,
+> > you can't tell that cc_shared_calc_layout() gives you the same
+> > shared_size populated by alloc. We have a similar pattern in dma-buf but
+> > using the compound page order.
+> 
+> This makes sense, we should not be passing size to a free function,
+> make a compount page/high order folio instead if the API is going to
+> be struct page based.
+> 
+> > We can get rid of layout and mem structures (or at least not as
+> > part of the API). Of course, this assumes that the shared granule size
+> > remains constant for a guest's lifetime but I don't think that's a
+> > problem.
+> 
+> It should be encoded in the struct page meta data, as the order.
+
+I agree.
+
+> > Was there a caller you had in mind that needs the common allocator to
+> > share less than the whole buddy block?
+> 
+> If we want this it definitely needs to be a void * based API not
+> struct page one though..
+
+For whole-block sharing, either a VA or a folio works for me. If the
+allocator takes an order, the requested size and the sharing granule are
+both powers of two. Rounding up to the granule already gives a valid
+buddy block size, so there’s no need for a separate shared_size.
+
+-- 
+Catalin
