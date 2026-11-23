@@ -2,68 +2,96 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DAAC4606A31A
-	for <dri-devel@archiver.kernel.org>; Sun, 22 Nov 2026 22:21:09 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 17F1B606A336
+	for <dri-devel@archiver.kernel.org>; Mon, 23 Nov 2026 00:25:52 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=PqxkAGBJ
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=AKfIg4+T
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id C635610EADF;
-	Sun, 22 Nov 2026 22:21:03 +0000 (UTC)
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.16])
- by gabe.freedesktop.org (Postfix) with ESMTPS id F41C510EADF
- for <dri-devel@lists.freedesktop.org>; Sun, 22 Nov 2026 22:20:56 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1795386057; x=1826922057;
- h=date:from:to:cc:subject:message-id:references:
- mime-version:in-reply-to;
- bh=lc/6luGnTfiYQ5L6WAjEeu9PRcuwZl5d6rQ3ClQHdbc=;
- b=PqxkAGBJ9HCoSjqoBLaPntnImoZARpPje8tKfvIQ6LOy+uE0rdjvQI7c
- XmBMTiydF2Cx4e+bDweFwQiBrBqU3uDdSvU50dcIhYKJSsEYOaN7TH4km
- y1EWECa3kNgKZlSvm1XvHq0iXupkN0Hga6rc/m+RROtFgmlk/FaozQ09z
- gbZ8+w0aJ9wk1o7KECWSx1ODAyP601m4Cn+us5t4ZjUSCLhY7XTp6aFHd
- +D2VfCl2kTQ2WnuxoLbtkGgnDmjiw5y4UwziH6i5Wp6TMamQ7H5Oi35HR
- eVUFL1Glaogov45UyOea3tan/hyg2BF2RihK9BRultF1XRVf15D9lm+cE A==;
-X-CSE-ConnectionGUID: aYTprLH1T6e8/v0tjcBs+Q==
-X-CSE-MsgGUID: Vtd4QEoOTZajiIjTCPKwTA==
-X-IronPort-AV: E=McAfee;i="6800,10657,11974"; a="4222461"
-X-IronPort-AV: E=Sophos;i="6.27,227,1787036400"; 
-   d="scan'208";a="4222461"
-Received: from orviesa002.jf.intel.com ([10.64.159.142])
- by fmvoesa110.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 22 Nov 2026 14:20:56 -0800
-X-CSE-ConnectionGUID: RnvpdRQeRIyzEGL4W/QQFg==
-X-CSE-MsgGUID: XHRIZMQGRly4H4OxIWPybQ==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,227,1787036400"; d="scan'208";a="11164227"
-Received: from lkp-server01.sh.intel.com (HELO 0caa9d2d175c) ([10.239.97.150])
- by orviesa002.jf.intel.com with ESMTP; 22 Nov 2026 14:20:54 -0800
-Received: from kbuild by 0caa9d2d175c with local (Exim 4.98.2)
- (envelope-from <lkp@intel.com>) id 1xVFvW-00000001M9S-2JJP;
- Sun, 22 Nov 2026 22:20:50 +0000
-Date: Mon, 23 Nov 2026 06:20:09 +0800
-From: kernel test robot <lkp@intel.com>
-To: Jim Cromie <jim.cromie@gmail.com>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>,
- Thomas Zimmermann <tzimmermann@suse.de>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- Jason Baron <jbaron@akamai.com>,
- Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
- Andrew Morton <akpm@linux-foundation.org>
-Cc: oe-kbuild-all@lists.linux.dev,
- Linux Memory Management List <linux-mm@kvack.org>,
- dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
- Jim Cromie <jim.cromie@gmail.com>
-Subject: Re: [PATCH v3 6/6] drm-dyndbg: drop BROKEN on DRM_USE_DYNAMIC_DEBUG
- for testing (DONT_APPLY)
-Message-ID: <202611230650.Ebz6km83-lkp@intel.com>
-References: <20261121-rd-mostly-v3-6-89e74b23b491@gmail.com>
+	by gabe.freedesktop.org (Postfix) with ESMTP id 55A8910E098;
+	Mon, 23 Nov 2026 00:25:46 +0000 (UTC)
+Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 7408410E098;
+ Mon, 23 Nov 2026 00:25:39 +0000 (UTC)
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+ by tor.source.kernel.org (Postfix) with ESMTP id 7C01061811;
+ Mon, 23 Nov 2026 00:25:38 +0000 (UTC)
+Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
+ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
+ t=1795393538;
+ b=ng66N8noSd7TP7mn547F+IOwNf7WsOAsMJhDITEQsZ/sSwAZKeGu8RMdbhYyMaeHzxfj
+ QGO/VHSP2ziqFUgVB70WpgAURB+K0Ry5Y+SvuDhAXNWH889eZnNGsemBSmQi5oov2td/j
+ LbqaI+dQCI5OvOopBFjVKPO3PYz90mUfds8fQHmn5VRvOxqfg7IK7od1WzsP9yrgI176y
+ HAfqyjeB/JYNt8EJ5u2eIgqLU9FrquTUid3vBTrDK8/s/NqtH01JdTzc49eodihQ3KjpU
+ NW40b2Vzmb8GrNpYxV8CAc4cIRQKkh7rohORh3TpR2OvGdQf4NI9QKE9wVUs/URtdsA==
+ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
+ c=relaxed/relaxed; t=1795393538;
+ h=DKIM-Signature:Received:From:Date:Subject:MIME-Version:Content-Type:
+ Message-Id:X-B4-Tracking:X-Change-ID:To:Cc:X-Mailer:
+ X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
+ X-Original-From:Reply-To:Content-Transfer-Encoding;
+ bh=+fTRlpWPAGw65ywOTuFMTMS1pyXlFiqbrJNGcRe7pm8=;
+ b=YDEKSKsiRyTL6RW5lwZXpvfQqq66rp3KkMJDCow1qTe7fPvhM+bDJMGm7W66hB2sqY2N
+ lTVFW5mMERWfK2OfbvmQWpb6qJDilYSrz26BYll1xzfvYU5YVs7z3ACITeIJTmj8uCzE7
+ D+uHmiDphqkyxgavyfKaGrjWKfMMandgsyqIg18gDVvbZvjN18IONViRCW4KgDVodRrKR
+ 5VngWE7yCj9y8AeaKNzYt00E3Z2QVodJic9cuqX389+0GE0zPo6rzRNZV9LfNuK43HHs4
+ k32Sy38EAJjxJsZ21Ohjzf10CMbW839ebiW8CHjW9ARtolowWfen8pMS6+eXRTb6wrA==
+ARC-Authentication-Results: i=1; smtp.kernel.org; 
+ arc=none smtp.remote-ip=100.80.115.77
+Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+ (No client certificate requested)
+ by smtp.kernel.org (Postfix) with ESMTPS id D4F021F000D4;
+ Mon, 23 Nov 2026 00:25:33 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+ s=k20260515; t=1795393538;
+ bh=+fTRlpWPAGw65ywOTuFMTMS1pyXlFiqbrJNGcRe7pm8=;
+ h=From:Date:Subject:To:Cc:Reply-To;
+ b=AKfIg4+Ts8rnb55XWxA6N68f8jzuRWtRuw9xtMSgWkHqYgfq9NC6z0MVPgXbegk2R
+ X1si7PmfdOx2TGDf1Ta+mXoi0skPN1lwurJmWH5z4LW9BXYnyz/ClVqK+Nyul+cx1B
+ cCJ/i/J3lPF3t5S6qy7qcctLhI/5G/5naRUSryrWaJLuy2Rwr5hlDkPnWi/y16Ppwe
+ JomadweDfwiY5simOh5Z1Z9SxhGe9wO5rlyY0UTaZpDaFLk6Y+KVZmpkSxHa7j1FbG
+ ndIGXdIDh5BibiynUvBq1hXJLZDb0/ZRui6E6ijmVXDJMrc5aOT5qgIhHrH0U7w9E8
+ Al+anoY1cXoBw==
+Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
+ by lkml.kernel.org (Postfix) with ESMTP id 663F74C243;
+ Mon, 23 Nov 2026 00:25:33 +0000 (UTC)
+From: Dave Airlie via B4 Relay <devnull+airlied.redhat.com@kernel.org>
+Date: Mon, 23 Nov 2026 10:25:26 +1000
+Subject: [PATCH] drm/nouveau/devinit/gf100-: fix double vbios init checks
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261121-rd-mostly-v3-6-89e74b23b491@gmail.com>
+Content-Type: text/plain; charset="utf-8"
+Message-Id: <20261123-nouveau-fix-disp-v1-1-ebdc525287ce@redhat.com>
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/x2MQQqAIBAAvyJ7biGNBPtKdJBcay8qihGIf086D
+ sNMg0KZqcAmGmR6uHAMA+Qk4LxtuAjZDQY1Ky2lWjDE+pCt6PlFxyWhVn413hntiWBkKdNw/3I
+ /ev8Aaxn27mIAAAA=
+X-Change-ID: 20261123-nouveau-fix-disp-62f59fd96fee
+To: Lyude Paul <lyude@redhat.com>, Danilo Krummrich <dakr@kernel.org>
+Cc: dri-devel@lists.freedesktop.org, nouveau@lists.freedesktop.org, 
+ Dave Airlie <airlied@redhat.com>
+X-Mailer: b4 0.14.3
+X-Developer-Signature: v=1; a=openpgp-sha256; l=1444; i=airlied@redhat.com;
+ h=from:subject:message-id;
+ bh=fLgUkfu8VDBsHKAcmadqaVH0gSOhunpVuhNXOsf7LQ0=;
+ b=owEBbQKS/ZANAwAKAQx081l5xIa+AcsmYgBrA4f4Li9p2SfqLVkMRYpuSKzNDxRgsYBBuKP6r
+ yBJoSLEYqqJAjMEAAEKAB0WIQQQptkdobBb0p9t66wMdPNZecSGvgUCawOH+AAKCRAMdPNZecSG
+ vtJUEACnc96+K4mI4B03aLzxP3BEnCThCmG7zw4qa85DUJtAyA0go0Tklhwt4lkU7b6UQMTt4Vh
+ g2AFJzUNF2h8874mF91QgkbVP601i4jXjboTZX6l0FcGYj479/LIwaWgkah1CEGC/VOLv7ZwLyN
+ GT315QlkK97hwrc8K2YmKLj9fqO8Fk4fNg+EQZJSg5ipS2akDolnKW+267Yugu9M4n2Jwhol6IF
+ 7U23DJyqNq7XvLww2quVo1Jd6/La0NZbaihOeo9Z476Y7o3Ns43ZEEnxPAFhC2KgI2g0qM8ge/k
+ 1puseARHoo/x0hg86LahzQCI8brwk9NOwXufCISXCvU9gizPY4WP/XewKFDw2w/BYMqKNfMJgLm
+ gK/CffNVkrl3g13YFWZp+6LaLBrT2C7YKc9o6uUcTs3cmILZ/JvGVC9fne+TDtQDFP5l0qEtfsw
+ O00LVRmsU7utMy5/R2f7XkuTo/bQ3bKpW9GDOuShsq8LsCPLUth8xorDn7UH60J3Vt1Pnm3yqJx
+ sBycnRlMO9HpJPDARAKEf0IQIzWRDcOWfId7FX0TNgcvdD+K+qqixjw5aoZADi+xpFj4z5VKqi5
+ GMb90cCLJyRNS8Tm0Z9cmxzIl70mA4RLAeau+1N7rmuCQAdt60OWeO6dRsiF8sIecKL+UkXbGaY
+ TUUJE1ZfqkRcjbQ==
+X-Developer-Key: i=airlied@redhat.com; a=openpgp;
+ fpr=10A6D91DA1B05BD29F6DEBAC0C74F35979C486BE
+X-Endpoint-Received: by B4 Relay for airlied@redhat.com/default with
+ auth_id=1321
+X-Original-From: Dave Airlie <airlied@redhat.com>
+Content-Transfer-Encoding: 7bit
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -74,64 +102,54 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
+Reply-To: airlied@redhat.com
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-10.8 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
+X-Spam-Status: No, score=-18.8 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
 	DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
-	MAILING_LIST_MULTI,MENTIONS_GIT_HOSTING,SPF_HELO_NONE,SPF_PASS
-	autolearn=unavailable autolearn_force=no version=4.0.1
+	INCLUDES_CR_TRAILER,INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,
+	SPF_PASS,USER_AGENT_GIT autolearn=ham autolearn_force=no version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-Hi Jim,
+From: Dave Airlie <airlied@redhat.com>
 
-kernel test robot noticed the following build errors:
+The initial fix from 2017 wasn't updated for modern nouveau devinit
+disable paths.
 
-[auto build test ERROR on aebb7274476403040d582c61478df8f4a7bf9cd3]
+Fix that and just check if display exists instead.
 
-url:    https://github.com/intel-lab-lkp/linux/commits/Jim-Cromie/drm-print-Mark-__drm_debug-as-__read_mostly/20261121-142254
-base:   aebb7274476403040d582c61478df8f4a7bf9cd3
-patch link:    https://lore.kernel.org/r/20261121-rd-mostly-v3-6-89e74b23b491%40gmail.com
-patch subject: [PATCH v3 6/6] drm-dyndbg: drop BROKEN on DRM_USE_DYNAMIC_DEBUG for testing (DONT_APPLY)
-config: csky-randconfig-1001-20261123 (https://download.01.org/0day-ci/archive/20261123/202611230650.Ebz6km83-lkp@intel.com/config)
-compiler: csky-linux-gcc (GCC) 15.3.0
-reproduce (this is a W=1 build): (https://download.01.org/0day-ci/archive/20261123/202611230650.Ebz6km83-lkp@intel.com/reproduce)
+Fixes: 2139cb633d48 ("drm/nouveau/devinit/gf100-: try to avoid double-running vbios scripts")
+Signed-off-by: Dave Airlie <airlied@redhat.com>
+---
+ drivers/gpu/drm/nouveau/nvkm/subdev/devinit/gf100.c | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
 
-If you fix the issue in a separate patch/commit (i.e. not just a new version of
-the same patch/commit), kindly add following tags
-| Reported-by: kernel test robot <lkp@intel.com>
-| Closes: https://lore.kernel.org/oe-kbuild-all/202611230650.Ebz6km83-lkp@intel.com/
+diff --git a/drivers/gpu/drm/nouveau/nvkm/subdev/devinit/gf100.c b/drivers/gpu/drm/nouveau/nvkm/subdev/devinit/gf100.c
+index 186e09ea0cb1..b256404c2454 100644
+--- a/drivers/gpu/drm/nouveau/nvkm/subdev/devinit/gf100.c
++++ b/drivers/gpu/drm/nouveau/nvkm/subdev/devinit/gf100.c
+@@ -107,12 +107,12 @@ gf100_devinit_preinit(struct nvkm_devinit *base)
+ 	 * VBIOS multiple times may have detrimental effects.
+ 	 */
+ 	if (base->post) {
+-		u64 disable = nvkm_devinit_disable(base);
++		nvkm_devinit_disable(base);
+ 		/* magic to detect whether or not x86 vbios code has
+ 		 * executed the devinit scripts to initialise the
+ 		 * board. only works if there's a display engine.
+ 		 */
+-		if (!(disable & (1ULL << NVKM_ENGINE_DISP))) {
++		if (device->disp) {
+ 			if (nvkm_rdvgac(device, 0, 0x00) ||
+ 			    nvkm_rdvgac(device, 0, 0x1a)) {
+ 				base->post = false;
 
-All errors (new ones prefixed by >>):
+---
+base-commit: b6a9fa34ce4187cb69d3c588a4bbffc31ce5db8f
+change-id: 20261123-nouveau-fix-disp-62f59fd96fee
 
-   In file included from drivers/accel/ethosu/ethosu_job.c:15:
-   drivers/accel/ethosu/ethosu_job.c: In function 'ethosu_ioctl_submit':
->> include/drm/drm_print.h:566:9: error: implicit declaration of function '_dynamic_func_call_cls' [-Wimplicit-function-declaration]
-     566 |         _dynamic_func_call_cls(cat, fmt, __drm_dev_dbg,         \
-         |         ^~~~~~~~~~~~~~~~~~~~~~
-   include/drm/drm_print.h:654:9: note: in expansion of macro 'drm_dev_dbg'
-     654 |         drm_dev_dbg(__drm_to_dev(drm), DRM_UT_DRIVER, fmt, ##__VA_ARGS__)
-         |         ^~~~~~~~~~~
-   include/drm/drm_print.h:672:33: note: in expansion of macro 'drm_dbg_driver'
-     672 | #define drm_dbg(drm, fmt, ...)  drm_dbg_driver(drm, fmt, ##__VA_ARGS__)
-         |                                 ^~~~~~~~~~~~~~
-   drivers/accel/ethosu/ethosu_job.c:527:17: note: in expansion of macro 'drm_dbg'
-     527 |                 drm_dbg(dev, "Failed to copy incoming job array\n");
-         |                 ^~~~~~~
-
-
-vim +/_dynamic_func_call_cls +566 include/drm/drm_print.h
-
-02c9656b2f0d69 Haneen Mohammed 2017-10-17  560  
-84ec67288c10fb Jim Cromie      2022-09-11  561  #if !defined(CONFIG_DRM_USE_DYNAMIC_DEBUG)
-e820f52577b14c Jim Cromie      2022-09-11  562  #define drm_dev_dbg(dev, cat, fmt, ...)				\
-16deeb8e18cafd Jim Cromie      2022-09-11  563  	__drm_dev_dbg(NULL, dev, cat, fmt, ##__VA_ARGS__)
-84ec67288c10fb Jim Cromie      2022-09-11  564  #else
-84ec67288c10fb Jim Cromie      2022-09-11  565  #define drm_dev_dbg(dev, cat, fmt, ...)				\
-16deeb8e18cafd Jim Cromie      2022-09-11 @566  	_dynamic_func_call_cls(cat, fmt, __drm_dev_dbg,		\
-84ec67288c10fb Jim Cromie      2022-09-11  567  			       dev, cat, fmt, ##__VA_ARGS__)
-84ec67288c10fb Jim Cromie      2022-09-11  568  #endif
-e820f52577b14c Jim Cromie      2022-09-11  569  
-
+Best regards,
 -- 
-0-DAY CI Kernel Test Service
-https://github.com/intel/lkp-tests/wiki
+Dave Airlie <airlied@redhat.com>
+
+
