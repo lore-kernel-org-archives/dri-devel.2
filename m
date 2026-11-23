@@ -2,135 +2,44 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 47B21606A31E
-	for <dri-devel@archiver.kernel.org>; Mon, 23 Nov 2026 11:09:41 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1652E606A31E
+	for <dri-devel@archiver.kernel.org>; Mon, 23 Nov 2026 11:11:09 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=oldschoolsolutions.biz header.i=jens.glathe@oldschoolsolutions.biz header.a=rsa-sha256 header.s=s1-ionos header.b=s1XxH9Gc
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Y1JNxkhi
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 79D0210EC53;
-	Mon, 23 Nov 2026 11:09:35 +0000 (UTC)
-X-Greylist: delayed 349 seconds by postgrey-1.36 at gabe;
- Mon, 23 Nov 2026 11:09:28 UTC
-Received: from mout.kundenserver.de (mout.kundenserver.de [212.227.126.135])
- by gabe.freedesktop.org (Postfix) with ESMTPS id B3C1310EC53
- for <dri-devel@lists.freedesktop.org>; Mon, 23 Nov 2026 11:09:28 +0000 (UTC)
-DKIM2-Signature: i=1; m=1; t=1795432167;
- mf=PGplbnMuZ2xhdGhlQG9sZHNjaG9vbHNvbHV0aW9ucy5iaXo+;
- rt=PGRyaS1kZXZlbEBsaXN0cy5mcmVlZGVza3RvcC5vcmc+;
- d=oldschoolsolutions.biz;
- s=s1-ionos:rsa-sha256:x3OC3AWR5OIaKmYu0JQ/tfJMxGjo
- qJBOe1uIQw+C3u4jz72qjo/UbqqbliAI0aVOgnbI+kF7gC8tCW5fQgy3hFfbp8f+m0aajzAu6Ib
- 7bTUSACQEM6bWsj7FOy7nYUMWHSANjae5ZvNhg32ghBCPRZoGs1EMxenLFSdkj3LyDvOEM39IxV
- jXUPL2ZKl51dD4MgFiycAqAiX/zW28+OEL5J7Rn3jrbyVci2SnEc3PgRd8gLecvtLQukHF02yet
- GNCZ2Nzf5ltn0qRK+D6Gd1JkG27Ang3jqZj+DkddVYO7qI/YnC8Wyiu7kkOhEHz7vqbFOsoOFvz
- y0UxEEooyIMhLQ==;
-Message-Instance: m=1; h=sha256: eFkQtz5JvGNWTr2NCL/WBIwN7kDdkVNzLU0HsAdmRVI=:
- Hk6rTRz6/QNazFIRGMhV7PaLo3a5ytEMm3RVpwQoqok=, sha512:
- Ex+bS7ojEAsy+WBm0A30CXA5qTvS36Sg/q5UzuP4DJgFVfnPCitLwajq19Edte7LJWgd2DkEZDRw7CLA9LFf6A==:
- qBxQPoOSL+IvUaNDS7i5l2FOqPVzP8d2UqJF7c/VI6FUMZfRKmh9yipoiiY5VEuBczH6usGgCieXByTKjz45YQ==;
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=oldschoolsolutions.biz; s=s1-ionos; t=1795432167; x=1796036967;
- i=jens.glathe@oldschoolsolutions.biz;
- bh=Hk6rTRz6/QNazFIRGMhV7PaLo3a5ytEMm3RVpwQoqok=;
- h=X-UI-Sender-Class:Message-ID:Date:MIME-Version:Subject:To:Cc:
- References:From:In-Reply-To:Content-Type:
- Content-Transfer-Encoding:cc:content-transfer-encoding:
- content-type:date:from:message-id:mime-version:reply-to:subject:
- to;
- b=s1XxH9GchipYPnsILEmOAw9QxuouHMIKPYruI5ioxgdXnuDPsWqyjjSmLU3puw7S
- kWWvEF45jkdweZAta4s4PG0x9ETsaY1QAoWRmyAvU8l18RFLrD1xvSJf+1YCPoS/4
- TflgnhoN2tlTnzUbekdH66BREXkfyuZy9qbleLpoluDnYC4nqwzu/nOCPaA3bNcSs
- TOCoOqaHzauY7pc5Zpj2eY4h462VP7Rm8DfY2smgWhvf0nawuHDt9AVUWXAcJvj3k
- 3IGESFtHB5eFbrOzkPjOfBkkilf19RR0pM9vWHJ5EZVpctDkWNuv8GzTH7BPzhfVR
- UqayvAPhHxOeebnF0A==
-X-UI-Sender-Class: 55c96926-9e95-11ee-ae09-1f7a4046a0f6
-Received: from client.hidden.invalid by mrelayeu.kundenserver.de (mreue011
- [212.227.15.167]) with ESMTPSA (Nemesis) id 1MF3Y8-1xkr5l34oa-00CMz5; Mon, 23
- Nov 2026 12:02:57 +0100
-Message-ID: <6298b3d0-db8e-4342-9abd-4c104bac8e27@oldschoolsolutions.biz>
-Date: Mon, 23 Nov 2026 12:02:55 +0100
-X-Archived-By: <archiver.kernel.org>
-MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 0/7] drm/msm/dp: fix DisplayPort hotplug, link training,
- and multi-lane PHY setup
-To: Gianfranco Mariotti <gianfranco.mariotti94@gmail.com>,
- Rob Clark <robin.clark@oss.qualcomm.com>, Dmitry Baryshkov <lumag@kernel.org>
-Cc: Abhinav Kumar <abhinav.kumar@linux.dev>,
- Jessica Zhang <jesszhan0024@gmail.com>, Sean Paul <sean@poorly.run>,
- Marijn Suijten <marijn.suijten@somainline.org>,
- Yongxing Mou <yongxing.mou@oss.qualcomm.com>,
- Konrad Dybcio <konradybcio@kernel.org>, Dale Whinham <daleyo@gmail.com>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org,
- freedreno@lists.freedesktop.org, linux-kernel@vger.kernel.org
-References: <20261121214105.32596-1-gianfranco.mariotti94@gmail.com>
-Content-Language: en-US
-From: Jens Glathe <jens.glathe@oldschoolsolutions.biz>
-In-Reply-To: <20261121214105.32596-1-gianfranco.mariotti94@gmail.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
+	by gabe.freedesktop.org (Postfix) with ESMTP id 2F54110ECEB;
+	Mon, 23 Nov 2026 11:11:03 +0000 (UTC)
+Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id DAF5510ECDE;
+ Mon, 23 Nov 2026 11:10:55 +0000 (UTC)
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+ by tor.source.kernel.org (Postfix) with ESMTP id CE46062071;
+ Mon, 23 Nov 2026 11:10:54 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5E1A91F000D1;
+ Mon, 23 Nov 2026 11:10:54 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+ s=k20260515; t=1795432254;
+ bh=Dx4n0KAgYe8Y36/1DYhpscCd9Dcoql+SgHkZsNOxwNQ=;
+ h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+ b=Y1JNxkhinpQyceLptOmc9/uj7rBHwRwkf3s4erfiIwdxRi0uRbBXhaMfEpWW4QfXZ
+ 9tHzIgBNDXSMqxIEiTvwwDiu91h+VaAUEklRKSyCzGvMtSde/mXMmbrizzFDrVKUPG
+ IL0AfxPmrwMU7cQmoyhQiepbsrwk3V3qTRc/RYVz3xrUioc56NoKBSkM5xz1brPGZh
+ t9BmnmgpxY9Va2hjXNkgKOMXgWL4gE1t8GMTPZp0YUYrRQcm55GsebMBsQdeqqUoDh
+ sF6Y/LB9mmpIpQYqWWRJLgt63ruLc6i4weg0s3cd0EflTEHygXOKOIELd6BZy9HU+2
+ xjsUnRp+tQA/Q==
+Message-ID: <sashiko-outbox-229101@kernel.org>
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v3] drm/amd/amdgpu: Add 5K Support for iMac20,1 and
+ iMac20,2
+To: "Atharva Tiwari" <atharvatiwarilinuxdev@gmail.com>
+Cc: =?utf-8?b?b3BlbiBsaXN0OlJBREVPTiBhbmQgQU1ER1BVIERSTSBEUklWRVJT?=
+ <amd-gfx@lists.freedesktop.org>, 
+ =?utf-8?b?b3BlbiBsaXN0OkRSTSBEUklWRVJT?= <dri-devel@lists.freedesktop.org>
+In-Reply-To: <20261123102740.1389-1-atharvatiwarilinuxdev@gmail.com>
+References: <20261123102740.1389-1-atharvatiwarilinuxdev@gmail.com>
+Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-X-Provags-ID: V03:K1:9NpQ9UOLW0+S3urrZosyOPkiAsn7T16Tq8t28v3DxpnaZnKc1AY
- VEqpfwb+U/gubW7i65oR9kA2JYLGCOyM8MptoAB0gj9V/jPf6jguLNrIZMjP3WNPXgrgDtF
- i8RiS+2mNPam+z4Oxcdt/+cYqo7UIaYplPTMFJ2riMQf0dIJrUJsFE9MvX4kQtYv0L6xYpT
- b0OuDCzQ64OKFCQhNR0CA==
-UI-OutboundReport: notjunk:1;M01:P0:s3CFeXMqcjI=;4D+FejlrAX+rqgHMAj3oKkHJCnK
- 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
- WorXzXp+qQKS1Gf0kPkYfrxzE+jglBya0=
+Date: Mon, 23 Nov 2026 11:10:53 +0000
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -141,67 +50,340 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
+Reply-To: sashiko-reviews@lists.linux.dev
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-17.3 required=3.0 tests=BAYES_00,DKIM_SIGNED,
-	DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
-	INCLUDES_CR_TRAILER,MAILING_LIST_MULTI,MENTIONS_GIT_HOSTING,
-	SPF_HELO_NONE,SPF_PASS,USER_AGENT_SANE_1 autolearn=unavailable
-	autolearn_force=no version=4.0.1
+X-Spam-Status: No, score=-10.8 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
+	DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
+	INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS
+	autolearn=unavailable autolearn_force=no version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
+X-Archived-By: <archiver.kernel.org>
 
-On 11/21/26 22:40, Gianfranco Mariotti wrote:
+Thank you for your contribution! Sashiko AI review found 7 potential
+issues to consider:
+- [High] drm/amdgpu: registering DM before SMU in
+  amdgpu_discovery_set_ip_blocks()
+- [Medium] drm/amd/display: dm_encoder_helper_atomic_check() forces
+  RMX_FULL scaling
+- [Medium] drm/amd/display: companion pipe left blanked in
+  dce110_apply_ctx_to_hw()
+- [Low] drm/amd/display: undocumented iMacPro1,1 DMI quirk in
+  dmi_quirk_table
+- [Low] drm/amd/display: NULL dm->adev dereference in
+  retrieve_dmi_info() KUnit tests
+- [Low] drm/amd/display: direct edid_blob_ptr use and redundant alloc in
+  get_modes()
+- [Low] drm/amd/display: redundant DPCD write in
+  amdgpu_dm_commit_streams()
+--
 
-> On platforms with a native DisplayPort connector using direct HPD
-> interrupts, DisplayPort initializes on cold boot, but physical cable
-> unplug and re-plug cycles leave the display blank even though link
-> training and stream enable callbacks report success.
->
-> This series fixes the underlying PHY lane setup, DPCD link-rate caching,
-> SST training-pattern handover, link maintenance BPC restoration, and
-> HPD / runtime-PM state tracking issues:
+commit f1d3c9c046bd569268b41732fc66898568a48d2e
+Author: Atharva Tiwari <atharvatiwarilinuxdev@gmail.com>
 
-Hi Gianfranco,
+drm/amd/amdgpu: Add 5K Support for iMac20,1 and iMac20,2
 
-thanks for this series. I backported it to 7.3.y [1] and tested it on a
-Lenovo IdeaCentre Mini 01Q8X10 (X1P42100) with 50 rounds of DPMS
-off/on, first HDMI only (Parade PS186 branch), then HDMI plus a second
-display behind a Lenovo USB-C dock (40B0, DP alt mode pin D, 2 lanes
-through two LTTPRs).
+This commit adds 5K tiled display support for Apple iMac 5K systems by
+programming the Apple-specific DPCD 0x4F1 tile-mode register, synchronizing
+the dual-link pipes, and initializing the display IP block ahead of the SMU
+on iMac20,1 and iMac20,2.
 
-Before, external displays behind the HDMI bridge regularly failed to
-retrain after DPMS wake on 7.2+. With the series, every wake trained
-once at HBR2, CR/EQ passed on both links, and video came up every
-round on both outputs. No "already disabled" or PHY power_count issues.
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_discovery.c b/drivers/gpu/=
+drm/amd/amdgpu/amdgpu_discovery.c
+> index 164e85b66e2d4..479c71ec32109 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_discovery.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_discovery.c
+[ ... ]
+> @@ -3677,15 +3704,25 @@ int amdgpu_discovery_set_ip_blocks(struct amdgpu_=
+device *adev)
+>  		}
+>  	}
+> =20
+> +	/* TODO: We should enable 5K in EFI and remove this quirk */
+> +	imac5k =3D amdgpu_discovery_is_imac5k(adev);
+> +	if (unlikely(imac5k)) {
+> +		r =3D amdgpu_discovery_set_display_ip_blocks(adev);
+> +		if (r)
+> +			return r;
+> +	}
+> +
+>  	if (likely(adev->firmware.load_type =3D=3D AMDGPU_FW_LOAD_PSP)) {
+>  		r =3D amdgpu_discovery_set_smu_ip_blocks(adev);
+>  		if (r)
+>  			return r;
+>  	}
+> =20
+> -	r =3D amdgpu_discovery_set_display_ip_blocks(adev);
+> -	if (r)
+> -		return r;
+> +	if (likely(!imac5k)) {
+> +		r =3D amdgpu_discovery_set_display_ip_blocks(adev);
+> +		if (r)
+> +			return r;
+> +	}
 
-Notes on the backport:
-- 2/7 is covered in 7.3 by the link_info memset from Anthony Ruhier's
- =C2=A0 172c1648222e ("drm/msm/dp: recompute the link capabilities on ever=
-y
- =C2=A0 sink read"), so I dropped it.
-- 5/7: 7.3 already routes native IRQ_HPD via 216110888698 ("drm/msm/dp:
- =C2=A0 Handle IRQ HPD as a sink request"), so I only carried over the
- =C2=A0 pm_runtime_put() change there.
-- 7/7: 7.3 lacks 1bda647ce61b ("drm/msm/dp: move link-level teardown
- =C2=A0 from display_disable to display_unprepare"), so the teardown still=
-=20
-lives in
- =C2=A0 msm_dp_display_disable(); I applied the dp->plugged gating there
- =C2=A0 instead of in unprepare.
+[Severity: High]
+Does registering dm_ip_block ahead of smu_v11_0_ip_block break DCN2.0 SMU
+initialization and teardown ordering?
 
-One observation: on DPMS off, the PS186 still raises an HPD IRQ about
-100 ms after the link is disabled, which sends a hotplug uevent per
-connector, with get_modes reporting "No sink connected". It's harmless
-here, but some debouncing may be worth adding on top later.
+During amdgpu_device_ip_hw_init_phase2(), dm_hw_init() -> amdgpu_dm_init()
+-> dc_create() -> dcn20_resource_construct() now runs before smu_hw_init()
+sets adev->pm.dpm_enabled =3D true.  In that state, smu_get_uclk_dpm_states=
+(),
+smu_get_max_sustainable_clocks_by_dc(), and
+smu_set_watermarks_for_clock_ranges() all reject DC's calls with
+-EOPNOTSUPP:
 
-For the series, as tested on X1P42100:
+drivers/gpu/drm/amd/pm/swsmu/amdgpu_smu.c:smu_set_watermarks_for_clock_rang=
+es() {
+	...
+	if (!smu->pm_enabled || !smu->adev->pm.dpm_enabled)
+		return -EOPNOTSUPP;
+	...
+}
 
-Tested-by: Jens Glathe <jens.glathe@oldschoolsolutions.biz> #=20
-x1p42100-lenovo-ideacentre-mini
+Because dcn20_resource_construct() only uploads watermarks once at init,
+WATERMARKS_EXIST is never set in smu->watermarks_bitmap, leaving DCN
+watermark tables unprogrammed at boot and across S3/S4 resume and causing
+navi10_display_config_changed() to skip SMU_MSG_NumOfDisplays.  In addition,
+amdgpu_device_ip_fini_early() and amdgpu_device_ip_fini() walk
+adev->ip_blocks[] in reverse registration order, so smu_hw_fini() and
+smu_sw_fini() tear down SMU DPM before dm_hw_fini() shuts down the display
+engine.
 
-[1]=20
-https://github.com/jglathe/linux_ms_dev_kit/tree/jg/ubuntu-qcom-x1e-7.3.y
+> diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c b/drivers/=
+gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
+> index 284aac4d96bce..8c85878951287 100644
+> --- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
+> +++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
+[ ... ]
+> @@ -4591,6 +4598,27 @@ static void amdgpu_dm_commit_streams(struct drm_at=
+omic_commit *state,
+>  	dc_exit_ips_for_hw_access(dm->dc);
+>  	WARN_ON(!dc_commit_streams(dm->dc, &params));
+> =20
+> +	if (dm->imac5K_support) {
+> +		for_each_new_crtc_in_state(state, crtc, new_crtc_state, i) {
+> +			dm_new_crtc_state =3D to_dm_crtc_state(new_crtc_state);
+> +
+> +			if (!dm_new_crtc_state->stream)
+> +				continue;
+> +
+> +			if (dm_new_crtc_state->stream->signal !=3D SIGNAL_TYPE_EDP)
+> +				continue;
+> +
+> +			if (new_crtc_state->mode.vdisplay =3D=3D 2880 &&
+> +			    new_crtc_state->mode.hdisplay =3D=3D 2560) {
+> +				u8 value =3D 1;
+> +
+> +				core_link_write_dpcd(dm->dc->links[0],
+> +						     DP_APPLE_5K_TILE_MODE, &value, 1);
+> +				dm->dc->config.imac5K_using_5K =3D true;
+> +			} else
+> +				dm->dc->config.imac5K_using_5K =3D false;
+> +		}
+> +	}
 
-Best regards,
-Jens
+[Severity: Low]
+Does this write DP_APPLE_5K_TILE_MODE over AUX on every full atomic commit
+that includes the eDP CRTC, even when no modeset occurred?
 
+amdgpu_dm_atomic_commit_tail() calls amdgpu_dm_commit_streams() whenever
+lock_and_validation_needed is true (such as plane scaling, format, overlay,
+or color-management updates), even if dc_commit_streams() returns early
+because streams did not change.  Gating this on mode_set_reset_required or
+amdgpu_dm_crtc_modeset_required() would avoid redundant AUX writes under
+dm->dc_lock.
+
+> diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_connector.c =
+b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_connector.c
+> index c8a1ab8c3b169..e7663adcb501f 100644
+> --- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_connector.c
+> +++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_connector.c
+> @@ -125,6 +125,14 @@ STATIC_IFN_KUNIT int dm_encoder_helper_atomic_check(=
+struct drm_encoder *encoder,
+>  				       drm_mode_vrefresh(adjusted_mode));
+>  			dm_new_connector_state->scaling =3D RMX_ASPECT;
+>  		}
+> +
+> +		/* The 5K panel reports no scaling info, scale every non 5K mode to fu=
+ll */
+> +		if (aconnector->dc_link && aconnector->dc_link->dc->config.imac5K_supp=
+ort) {
+> +			if (crtc_state->mode.vdisplay !=3D 2880)
+> +				dm_new_connector_state->scaling =3D RMX_FULL;
+> +			else
+> +				dm_new_connector_state->scaling =3D RMX_OFF;
+> +		}
+>  		return 0;
+>  	}
+
+[Severity: Medium]
+Why does dm_encoder_helper_atomic_check() unconditionally overwrite
+dm_new_connector_state->scaling with RMX_FULL when vdisplay !=3D 2880?
+
+The check right above already defaults non-native eDP modes to RMX_ASPECT
+when dm_new_connector_state->scaling =3D=3D RMX_OFF, preserving the aspect =
+ratio
+as expected when userspace has not requested a scaling mode.  Overwriting
+dm_new_connector_state->scaling unconditionally here stretches non-16:9
+modes across the panel, ignores any explicit scaling_mode property set by
+userspace (such as DRM_MODE_SCALE_ASPECT or DRM_MODE_SCALE_CENTER), and
+forces scaling even on the panel's native single-cable 3840x2160 mode.
+
+In addition, persisting RMX_FULL in connector->state causes subsequent
+amdgpu_dm_connector_mode_valid() calls to validate the 2560x2880 tile mode
+with scaling enabled, where decide_crtc_timing_for_drm_display_mode()
+replaces its CRTC timings with the 3840x2160 preferred mode's timings.
+
+> @@ -3091,9 +3099,19 @@ static int amdgpu_dm_connector_get_modes(struct dr=
+m_connector *connector)
+>  	const struct drm_edid *drm_edid =3D amdgpu_dm_connector->drm_edid;
+>  	struct dc_link_settings *verified_link_cap =3D &dc_link->verified_link_=
+cap;
+>  	const struct dc *dc =3D dc_link->dc;
+> +	struct dc_sink *sink =3D amdgpu_dm_connector->dc_sink;
+> =20
+>  	encoder =3D amdgpu_dm_connector_to_encoder(connector);
+> =20
+> +	if (dc->config.imac5K_support && sink &&
+> +	    sink->link->link_index =3D=3D 1 && !connector->edid_blob_ptr) {
+> +		const struct drm_edid *kept =3D drm_edid_alloc(sink->dc_edid.raw_edid,
+> +							     sink->dc_edid.length);
+> +
+> +		drm_edid_connector_update(connector, kept);
+> +		drm_edid_free(kept);
+> +	}
+> +
+>  	if (!drm_edid) {
+
+[Severity: Low]
+Can this use amdgpu_dm_connector->drm_edid instead of testing
+connector->edid_blob_ptr and allocating a temporary drm_edid?
+
+include/drm/drm_connector.h documents that edid_blob_ptr is internal to DRM
+and must not be used by drivers directly.  Also, when drm_edid is NULL here,
+freeing kept without storing it in amdgpu_dm_connector->drm_edid (and
+updating local drm_edid) causes the !drm_edid branch right below to fall
+back to drm_add_modes_noedid(connector, 640, 480) instead of probing modes
+from the EDID.
+
+> diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_quirks.c b/d=
+rivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_quirks.c
+> index 259966703cef5..a84ff90efb54f 100644
+> --- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_quirks.c
+> +++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_quirks.c
+[ ... ]
+> @@ -151,6 +159,27 @@ static const struct dmi_system_id dmi_quirk_table[] =
+=3D {
+>  			DMI_MATCH(DMI_PRODUCT_NAME, "HP ProBook 465 16 inch G11 Notebook PC"),
+>  		},
+>  	},
+> +	{
+> +		.callback =3D imac5K_support_callback,
+> +		.matches =3D {
+> +			DMI_MATCH(DMI_SYS_VENDOR, "Apple Inc."),
+> +			DMI_MATCH(DMI_PRODUCT_NAME, "iMac20,1"),
+> +		},
+> +	},
+> +	{
+> +		.callback =3D imac5K_support_callback,
+> +		.matches =3D {
+> +			DMI_MATCH(DMI_SYS_VENDOR, "Apple Inc."),
+> +			DMI_MATCH(DMI_PRODUCT_NAME, "iMac20,2"),
+> +		},
+> +	},
+> +	{
+> +		.callback =3D imac5K_support_callback,
+> +		.matches =3D {
+> +			DMI_MATCH(DMI_SYS_VENDOR, "Apple Inc."),
+> +			DMI_MATCH(DMI_PRODUCT_NAME, "iMacPro1,1"),
+> +		},
+> +	},
+>  	{}
+
+[Severity: Low]
+This isn't a bug, but dmi_quirk_table enables imac5K_support on iMacPro1,1
+while the commit subject, changelog, and imac5k_table in amdgpu_discovery.c
+only describe adding support for iMac20,1 and iMac20,2.  Could the commit
+message document that iMacPro1,1 is also enabled here and why it is omitted
+from imac5k_table?
+
+> @@ -176,6 +206,12 @@ void retrieve_dmi_info(struct amdgpu_display_manager=
+ *dm)
+>  		dm->edp0_on_dp1_quirk =3D true;
+>  		drm_info(dev, "support_edp0_on_dp1 attached\n");
+>  	}
+> +	if (quirk_entries.imac5K_support &&
+> +	    !pci_is_thunderbolt_attached(dm->adev->pdev) &&
+> +	    !dev_is_removable(&dm->adev->pdev->dev)) {
+> +		dm->imac5K_support =3D true;
+> +		drm_info(dev, "imac5K_support attached\n");
+> +	}
+>  }
+
+[Severity: Low]
+Can dm->adev be NULL when retrieve_dmi_info() is called from the KUnit tests
+in drivers/gpu/drm/amd/display/amdgpu_dm/tests/amdgpu_dm_quirks_test.c?
+
+Those tests pass a zero-allocated struct amdgpu_display_manager where
+dm->adev is NULL, so running the KUnit suite on a DMI-matched iMac will hit
+a NULL pointer dereference on dm->adev->pdev.
+
+> diff --git a/drivers/gpu/drm/amd/display/dc/hwss/dce110/dce110_hwseq.c b/=
+drivers/gpu/drm/amd/display/dc/hwss/dce110/dce110_hwseq.c
+> index 328321961fba2..edffaca05756c 100644
+> --- a/drivers/gpu/drm/amd/display/dc/hwss/dce110/dce110_hwseq.c
+> +++ b/drivers/gpu/drm/amd/display/dc/hwss/dce110/dce110_hwseq.c
+> @@ -2657,7 +2657,8 @@ enum dc_status dce110_apply_ctx_to_hw(
+[ ... ]
+> +	if (primary >=3D 0 && companion >=3D 0) {
+> +		struct pipe_ctx *old =3D &dc->current_state->res_ctx.pipe_ctx[primary];
+> +		struct dc_link *right =3D context->res_ctx.pipe_ctx[companion].stream-=
+>link;
+> +
+> +		if (!old->stream ||
+> +		    pipe_need_reprogram(old, &context->res_ctx.pipe_ctx[primary]))
+> +			right->link_state_valid =3D false;
+> +	}
+> +
+>  	/* Reset old context */
+>  	/* look up the targets that have been removed since last commit */
+>  	hws->funcs.reset_hw_ctx_wrap(dc, context);
+
+[Severity: Medium]
+On DCE12 (such as Vega10/Vega12 in iMacPro1,1), does clearing
+right->link_state_valid here without marking the companion stream
+mode_changed leave the right tile blanked?
+
+When right->link_state_valid is set to false, pipe_need_reprogram() becomes
+true for the companion pipe inside dce110_reset_hw_ctx_wrap(), which blanks
+its timing generator, frees its memory input, and calls
+dc->hwss.disable_plane().  dce110_apply_single_controller_ctx_to_hw() then
+re-enables the companion timing generator in a blanked state, and on DCE12
+(where program_front_end_for_ctx is NULL and apply_ctx_for_surface is used)
+dc_commit_state_no_check() skips apply_ctx_for_surface() after
+apply_ctx_to_hw() whenever the companion stream's mode_changed flag is
+false:
+
+drivers/gpu/drm/amd/display/dc/core/dc.c:dc_commit_state_no_check() {
+	...
+	for (i =3D 0; i < context->stream_count; i++) {
+		const struct dc_link *link =3D context->streams[i]->link;
+
+		if (!context->streams[i]->mode_changed)
+			continue;
+
+		if (dc->hwss.apply_ctx_for_surface) {
+	...
+}
+
+This leaves the companion tile's front-end plane disabled and its timing
+generator blanked whenever the primary pipe is reprogrammed without a mode
+change on the companion stream.  Note also that
+reset_syncd_pipes_from_disabled_pipes() at the top of
+dce110_apply_ctx_to_hw() runs before right->link_state_valid is cleared.
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261123102740.1389=
+-1-atharvatiwarilinuxdev@gmail.com?part=3D1
