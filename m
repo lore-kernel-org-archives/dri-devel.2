@@ -2,103 +2,43 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6C7C9606A31A
-	for <dri-devel@archiver.kernel.org>; Mon, 23 Nov 2026 11:27:42 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B7ABF606A31A
+	for <dri-devel@archiver.kernel.org>; Mon, 23 Nov 2026 11:34:33 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=FZ5574nM
+	dkim=pass (1024-bit key) header.d=aliel.fr header.i=@aliel.fr header.a=rsa-sha256 header.s=courrier-s1 header.b=ooeUU0hC
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 90A5210ECDE;
-	Mon, 23 Nov 2026 11:27:36 +0000 (UTC)
-Received: from mail-wr1-f47.google.com (mail-wr1-f47.google.com
- [209.85.221.47])
- by gabe.freedesktop.org (Postfix) with ESMTPS id A41C310ECDE
- for <dri-devel@lists.freedesktop.org>; Mon, 23 Nov 2026 11:27:28 +0000 (UTC)
-Received: by mail-wr1-f47.google.com with SMTP id
- ffacd0b85a97d-498f5fa5103so1831698f8f.2
- for <dri-devel@lists.freedesktop.org>; Mon, 23 Nov 2026 03:27:28 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20260707; t=1795433247; x=1796038047; darn=lists.freedesktop.org;
- h=content-transfer-encoding:content-type:in-reply-to:content-language
- :references:cc:to:subject:from:user-agent:mime-version:date
- :message-id:from:to:cc:subject:date:message-id:reply-to:content-type;
- bh=Z7l6Yjh1JSeT2JRed35IiGX95vMbKdZloECt/CtA1YI=;
- b=FZ5574nMb9w4HUj/LVKuQYcWQeDR4rqqoQPgMu+ussYz5D2gCPh9ObeXwuC+rtq/+2
- NuO2lbYA/CX7iOafXkYYuegh8o9oEc+Cc/R307LnijwOUMCWGyyIZWcxXlu80CGSgOrA
- t0HKaRNbBdqJZrobMPXkR3um4HoDUdnwJHP2lyfM1xgwB1FSo1gNytXHd3mYqrtFtQsA
- eoSg/yvHX3qfY072wpWQDWP3iOKicKLJQV8mODVz8tepux39SO6y/GeH044RCuqEbfFF
- /VyRIkcn2ohUGweQPjgaETnaOAgYdX9UtaoxqUU5YBmXfRrI1FdpA5hiF/x20Ss5eslV
- Dm7A==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20260707; t=1795433247; x=1796038047;
- h=content-transfer-encoding:content-type:in-reply-to:content-language
- :references:cc:to:subject:from:user-agent:mime-version:date
- :message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
- :message-id:reply-to:content-type;
- bh=Z7l6Yjh1JSeT2JRed35IiGX95vMbKdZloECt/CtA1YI=;
- b=BPgx+zc0d0oY4Vn0ZfMt6yqH3GH81SOUw6h3sqIQxgPHJylgraIPwxcG03c0otKV52
- qz1nNUar9EislYOpvf81Uv2CXzHQHgCg1qB4IxFTWKzYTQD2/9yOfg83c5lnBYO/ur55
- FOKs1WUwOVgaoEhQR602zDgSQsR8SrfcfAxwb+0vuZME+4/5Z+9SA+is2zrkCJ9EgCi2
- M4804lp1LqPRHMl9WCQPZ0lworMg8uIR6UQfvNRJRUtCDttpXmBEp9amPsY+iTHWNmBc
- +ei2+E2AJi7+ONQcP6e6ju5RzEuWRuVePTc45/vizaqTc0wQL7Re+yCjhZgiAG3pFJom
- gEPA==
-X-Forwarded-Encrypted: i=1;
- AL+hErFFDSfn0OK6sGztIeC8lp9mXQq7IVDF14370vZGe0bbk/v+Eg4Z4QYyIaYGTNKZ1asE0DQHCN805zo=@lists.freedesktop.org
-X-Gm-Message-State: APuU4Z+hB/d+g3h5LEdnYkUUmXf/VQC3ZJXZim8RrgUDRi/F9dtUEL+z
- 8q1IcLnDk4erMZ3ZtB4wL5Bd55MWo8qEiJ3G/VtZO3056GJzG5ATwgZ/
-X-Gm-Gg: AZFdTZfXr3Ufzk+FbvM66jr26ty42NMaRuKmUSaEzmZUaGhDWQ6NL43/VkHNcSLI1Fm
- IGP/kpO6095vNbjbomaE6UQXIpWIt0PUK2M2o244Nq/S8vKtSywi55ImJg2GzfTSND0f6SQXLOl
- ExG4u4IyOfo28pFLUlxQN1qCffM6fiL/UBOcgrjvAyZwvWRzBdR+MwycgLM/wZaz2aW/WSBAyir
- Jru7ohl7MWPM3P+2++Qc0qd0GIEt+ccrRuIkuIZsIPwOBHqb7cAYIXPxvy4FCzVWHIIYpP4mr/6
- y/fQtaMgPED6ERX+ZWlos4jiTN5bxQkrURpGSyQIpF/YE6I9St1R9yrcihxG9vpjFWUIF1MK46f
- WjT6aUBoCRRiFeXPYJRSW4FT3P7gWEQzL0Lbg40HD5bgnFPX56++tNuhBB6RuNSdNM1G8PvhURG
- hofPK24WNTLOFdlHfR3zm3Ndeh5Cnf09XrEsFexMpzrrx6HmgwlXdIiwX8CBqRs3+6sXpdEVkU+
- VAFARj5itZKFcqlZMBLVEx5d8/kd2dmWjeHI9yljsktG4V6R4MP3ybPGBCHqmITQFHVd8gAluoQ
- /dTEgKKkqLR8Fh8NEUUZ3I8tAGadyNSIgBLmsLnCBxC9OYS1d7or8FO1x5ztUzFi3Bf8wQTwfp+
- Qt+I6MGTbqxOUqTmuZm/lLi5P
-X-Received: by 2002:a05:600c:468c:b0:4bb:6d61:af7c with SMTP id
- 5b1f17b1804b1-4bb88944bf5mr221650055e9.35.1795433246798; 
- Mon, 23 Nov 2026 03:27:26 -0800 (PST)
-Received: from ?IPV6:240e:47e:509a:b87f:26b:b35a:8dbf:81dd?
- ([2001:19f0:6c01:2c43:5400:5ff:fef6:1b30])
- by smtp.gmail.com with ESMTPSA id
- 5b1f17b1804b1-4bb884865b1sm336307275e9.5.2026.11.23.03.27.14
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Mon, 23 Nov 2026 03:27:26 -0800 (PST)
-Message-ID: <2f885fbf-1887-4740-a7ee-0189d74260a3@gmail.com>
-Date: Mon, 23 Nov 2026 12:27:12 +0100
+	by gabe.freedesktop.org (Postfix) with ESMTP id E864210E18C;
+	Mon, 23 Nov 2026 11:34:27 +0000 (UTC)
+Received: from courrier.aliel.fr (courrier.aliel.fr [65.21.61.41])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 37F4210E3A4
+ for <dri-devel@lists.freedesktop.org>; Mon, 23 Nov 2026 11:34:21 +0000 (UTC)
+Message-ID: <ceda6a5e-f314-441f-b596-21a60b48486b@aliel.fr>
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=aliel.fr;
+ s=courrier-s1; t=1795433659;
+ bh=DyzVVA4BHQY1L7A1w9MoxMVnpEeVU9iMkGr1NRy0wTM=;
+ h=Date:From:Subject:To:Cc:References:In-Reply-To;
+ b=ooeUU0hCpiBSpZnhoubWSJjGhz8XJVTlm1zKpLsrdNqn8bP4KrBVGhduHnCKW+ZFx
+ chNU/CpFE7x4QPJnCUo1x32lhLS6yUx2buXH9T89JTGjvcH1lu4NFAOgMXzz6/i/CS
+ Mra7PQ2bd3b2mcV22l/V8FGFOE5Kzk/LaAF5gIKo=
+Date: Mon, 23 Nov 2026 12:34:18 +0100
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-From: Oarora Etimis <oaroraetimis@gmail.com>
-Subject: Re: [PATCH v6 02/43] drm/vkms: Lock the config dump against
- concurrent configfs changes
-To: Louis Chauvet <louis.chauvet@bootlin.com>,
- Haneen Mohammed <hamohammed.sa@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- Melissa Wen <melissa.srw@gmail.com>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
- David Airlie <airlied@gmail.com>, jose.exposito89@gmail.com,
- Jonathan Corbet <corbet@lwn.net>, Harry Wentland <harry.wentland@amd.com>,
- Lucas De Marchi <demarchi@kernel.org>,
- =?UTF-8?B?VmlsbGUgU3lyasOkbMOk?= <ville.syrjala@linux.intel.com>,
- Randy Dunlap <rdunlap@infradead.org>,
- Nick Desaulniers <ndesaulniers@google.com>,
- Shuah Khan <skhan@linuxfoundation.org>, Miguel Ojeda <ojeda@kernel.org>,
- Nathan Chancellor <nathan@kernel.org>,
- Nick Desaulniers <nick.desaulniers+lkml@gmail.com>,
- Bill Wendling <morbo@google.com>, Justin Stitt <justinstitt@google.com>
-Cc: Luca Ceresoli <luca.ceresoli@bootlin.com>,
- Kory Maincent <kory.maincent@bootlin.com>, sebastian.wick@redhat.com,
- victoria@system76.com, thomas.petazzoni@bootlin.com,
- dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
- linux-doc@vger.kernel.org, Simona Vetter <simona.vetter@ffwll.ch>,
- llvm@lists.linux.dev
-References: <20261120-vkms-all-config-v6-0-78ace90f4fc1@bootlin.com>
- <20261120-vkms-all-config-v6-2-78ace90f4fc1@bootlin.com>
+From: Ronald Claveau <linux-kernel-dev@aliel.fr>
+Subject: Re: [PATCH v3 08/11] drm/meson: dw-hdmi: Use the generic PHY
+ framework for the HDMI TX PHY
+To: sashiko-reviews@lists.linux.dev
+Cc: devicetree@vger.kernel.org, linux-amlogic@lists.infradead.org,
+ linux-phy@lists.infradead.org, dri-devel@lists.freedesktop.org,
+ robh@kernel.org, conor+dt@kernel.org, neil.armstrong@linaro.org,
+ vkoul@kernel.org, olteanv@gmail.com
+References: <20261121-meson-drm-create-hdmitx-phy-v3-0-f8f471788076@aliel.fr>
+ <20261121-meson-drm-create-hdmitx-phy-v3-8-f8f471788076@aliel.fr>
+ <sashiko-outbox-227314@kernel.org>
 Content-Language: en-US
-In-Reply-To: <20261120-vkms-all-config-v6-2-78ace90f4fc1@bootlin.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
+In-Reply-To: <sashiko-outbox-227314@kernel.org>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -110,69 +50,187 @@ List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-14.2 required=3.0 tests=BAYES_00,DKIM_SIGNED,
-	DKIM_VALID,DKIM_VALID_AU,FREEMAIL_FORGED_FROMDOMAIN,FREEMAIL_FROM,
-	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
+X-Spam-Status: No, score=-12.3 required=3.0 tests=BAYES_00,DKIM_SIGNED,
+	DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_PATCH,
 	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,USER_AGENT_SANE_1
 	autolearn=unavailable autolearn_force=no version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-Hello Louis,
+On 11/21/26 20:37, sashiko-bot@kernel.org wrote:
+> Thank you for your contribution! Sashiko AI review found 3 potential
+> issues to consider:
+> - [High] drm/meson: dw-hdmi: invalid phy_destroy() in
+>   meson_dw_hdmi_bind() error path
+> - [Medium] drm/meson: dw-hdmi: stateless device link leaked in
+>   meson_dw_hdmi_unbind()
+> - [Medium] drm/meson: dw-hdmi: meson_venc_init() clobbers PHY CNTL0 on
+>   system resume
+> --
+> 
+> commit 60b745dc55898638b05c8fcafed9d3683b30dff0
+> Author: Ronald Claveau <linux-kernel-dev@aliel.fr>
+> 
+> drm/meson: dw-hdmi: Use the generic PHY framework for the HDMI TX PHY
+> 
+> This commit converts the Meson DW-HDMI glue driver to manage the HDMI TX
+> PHY through the generic PHY framework, with a legacy fallback when the
+> device tree lacks a "phys" property, and adds a stateless device link
+> between the VPU master and HDMI-TX device.
+> 
+>> diff --git a/drivers/gpu/drm/meson/meson_dw_hdmi.c b/drivers/gpu/drm/meson/meson_dw_hdmi.c
+>> index 20a821936b3af..8fdb997c28b40 100644
+>> --- a/drivers/gpu/drm/meson/meson_dw_hdmi.c
+>> +++ b/drivers/gpu/drm/meson/meson_dw_hdmi.c
+> 
+> [ ... ]
+> 
+>> @@ -746,7 +663,26 @@ static int meson_dw_hdmi_bind(struct device *dev, struct device *master,
+>>  		return ret;
+>>  	}
+>>  
+>> -	meson_dw_hdmi_init(meson_dw_hdmi);
+>> +	meson_dw_hdmi->phy = devm_phy_optional_get(dev, NULL);
+>> +	if (IS_ERR(meson_dw_hdmi->phy))
+>> +		return dev_err_probe(dev, PTR_ERR(meson_dw_hdmi->phy),
+>> +				     "failed to get HDMI PHY\n");
+>> +
+>> +	if (!meson_dw_hdmi->phy) {
+>> +		/* DEPRECATED: DT without "phys" */
+>> +		dev_warn(dev, "missing \"phys\", using legacy HDMI PHY\n");
+>> +		meson_dw_hdmi->phy = meson_hdmi_phy_create_legacy(dev, priv->hhi,
+>> +						meson_dw_hdmi->data->phy_soc);
+>> +		if (IS_ERR(meson_dw_hdmi->phy))
+>> +			return dev_err_probe(dev, PTR_ERR(meson_dw_hdmi->phy),
+>> +					     "failed to create legacy HDMI PHY\n");
+>> +
+>> +		meson_dw_hdmi->legacy_phy = true;
+>> +	}
+>> +
+>> +	ret = meson_dw_hdmi_init(meson_dw_hdmi);
+>> +	if (ret)
+>> +		return ret;
+>>  
+>>  	/* Bridge / Connector */
+>>  
+>> @@ -767,14 +703,26 @@ static int meson_dw_hdmi_bind(struct device *dev, struct device *master,
+>>  	platform_set_drvdata(pdev, meson_dw_hdmi);
+>>  
+>>  	meson_dw_hdmi->hdmi = dw_hdmi_probe(pdev, &meson_dw_hdmi->dw_plat_data);
+>> -	if (IS_ERR(meson_dw_hdmi->hdmi))
+>> -		return PTR_ERR(meson_dw_hdmi->hdmi);
+>> +	if (IS_ERR(meson_dw_hdmi->hdmi)) {
+>> +		ret = PTR_ERR(meson_dw_hdmi->hdmi);
+>> +		goto err_hdmi_probe;
+>> +	}
+>>  
+>>  	meson_dw_hdmi->bridge = of_drm_find_and_get_bridge(pdev->dev.of_node);
+>>  
+>> +	link = device_link_add(master, dev, DL_FLAG_STATELESS);
+>> +	if (!link)
+>> +		dev_warn(dev, "failed to link HDMI (supplier) to DRM master (consumer)\n");
+>> +
+>>  	DRM_DEBUG_DRIVER("HDMI controller initialized\n");
+>>  
+>>  	return 0;
+>> +
+>> +err_hdmi_probe:
+>> +	phy_exit(meson_dw_hdmi->phy);
+>> +	phy_destroy(meson_dw_hdmi->phy);
+>> +
+>> +	return ret;
+>>  }
+> 
+> [Severity: High]
+> Does calling phy_destroy(meson_dw_hdmi->phy) in err_hdmi_probe cause a
+> double free or destroy the external provider's PHY when dw_hdmi_probe()
+> fails (for example with -EPROBE_DEFER)?
+> 
+> Both devm_phy_optional_get() and meson_hdmi_phy_create_legacy() (which
+> uses devm_phy_create()) are devres-managed in the component devres group
+> that component_bind() releases on bind failure.  When legacy_phy is
+> false, meson_dw_hdmi is only a consumer, so phy_destroy() unregisters
+> the external PHY provider's device while the provider remains bound.
+> When legacy_phy is true, component_bind() immediately runs
+> devm_phy_consume() -> phy_destroy() a second time on the already-freed
+> phy.
+> 
+> Dropping phy_destroy() from err_hdmi_probe and leaving the cleanup to
+> component_bind()'s devres release avoids both issues.
+> 
 
- > The vkms_config debugfs dump iterates the configuration lists while
- > configfs can concurrently mutate or free them, which leads to a
- > use-after-free. Move the configuration lock into struct vkms_config and
- > run the dump under it.
- >
- > Fixes: 13fc9b9745cc ("drm/vkms: Add and remove VKMS instances via 
-configfs")
- > Signed-off-by: Louis Chauvet <louis.chauvet@bootlin.com>
- >
- > @@ -347,6 +349,14 @@ static int vkms_config_show(struct seq_file *m, 
-void *data)
- >      struct vkms_config_crtc *crtc_cfg;
- >      struct vkms_config_encoder *encoder_cfg;
- >      struct vkms_config_connector *connector_cfg;
- > +    struct vkms_config *config = (struct vkms_config *)vkmsdev->config;
- > +
- > +    /*
- > +     * The configuration lists and fields are concurrently mutated by
- > +     * configfs (creation, removal, attribute stores); iterate under the
- > +     * configuration lock to keep the iteration coherent.
- > +     */
- > +    guard(mutex)(&config->lock);
- >
- > @@ -711,7 +709,7 @@ static ssize_t device_enabled_store(struct 
-config_item *item, const char *page,
- >      if (kstrtobool(page, &enabled))
- >          return -EINVAL;
- >
- > -    scoped_guard(mutex, &dev->lock) {
- > +    scoped_guard(mutex, &dev->config->lock) {
- >          if (!dev->enabled && enabled) {
- >              if (!vkms_config_is_valid(dev->config))
- >                  return -EINVAL;
+I will drop it.
 
-Now that the dump takes the same lock, holding it across
-vkms_create()/vkms_destroy() closes a cycle. vkms_destroy() calls
-drm_dev_unregister(), which removes the vkms_config debugfs file and
-waits for its readers to drain, while a reader in vkms_config_show() is
-waiting for that same lock:
+>>  
+>>  static void meson_dw_hdmi_unbind(struct device *dev, struct device *master,
+>> @@ -786,6 +734,10 @@ static void meson_dw_hdmi_unbind(struct device *dev, struct device *master,
+>>  
+>>  	devm_free_irq(dev, irq, meson_dw_hdmi);
+>>  	dw_hdmi_unbind(meson_dw_hdmi->hdmi);
+>> +
+>> +	phy_exit(meson_dw_hdmi->phy);
+>> +	if (meson_dw_hdmi->legacy_phy)
+>> +		devm_phy_destroy(dev, meson_dw_hdmi->phy);
+>>  	drm_bridge_put(meson_dw_hdmi->bridge);
+>>  }
+> 
+> [Severity: Medium]
+> Does meson_dw_hdmi_unbind() leak the DL_FLAG_STATELESS device link
+> created in meson_dw_hdmi_bind()?  Stateless device links are not removed
+> automatically by the driver core on unbind and require an explicit
+> device_link_remove(master, dev) or device_link_del().
+> 
 
-     echo 0 > enabled : holds config->lock, waits for the debugfs readers
-     cat vkms_config  : holds a debugfs read, waits for config->lock
+I forgot it, thanks for the reminder, I will add the device_link_remove().
 
-Also, vkms_connector_detect() reads cfg->status without taking
-config->lock, while connector_status_store() writes it under the lock
-and still allows the write after the device is enabled. The kref in
-detect only keeps the object alive, so these two are a data race on the
-same field.
+>> @@ -801,6 +753,8 @@ static int __maybe_unused meson_dw_hdmi_pm_suspend(struct device *dev)
+>>  	if (!meson_dw_hdmi)
+>>  		return 0;
+>>  
+>> +	phy_exit(meson_dw_hdmi->phy);
+>> +
+>>  	/* Reset TOP */
+>>  	meson_dw_hdmi->data->top_write(meson_dw_hdmi,
+>>  				       HDMITX_TOP_SW_RESET, 0);
+>> @@ -811,11 +765,14 @@ static int __maybe_unused meson_dw_hdmi_pm_suspend(struct device *dev)
+>>  static int __maybe_unused meson_dw_hdmi_pm_resume(struct device *dev)
+>>  {
+>>  	struct meson_dw_hdmi *meson_dw_hdmi = dev_get_drvdata(dev);
+>> +	int ret;
+>>  
+>>  	if (!meson_dw_hdmi)
+>>  		return 0;
+>>  
+>> -	meson_dw_hdmi_init(meson_dw_hdmi);
+>> +	ret = meson_dw_hdmi_init(meson_dw_hdmi);
+>> +	if (ret)
+>> +		return ret;
+>>  
+>>  	dw_hdmi_resume(meson_dw_hdmi->hdmi);
+> 
+> [Severity: Medium]
+> With the new device link ordering dev (supplier) to resume before master
+> (consumer), will meson_drv_pm_resume() -> meson_venc_init() clobber
+> HHI_HDMI_PHY_CNTL0 after meson_dw_hdmi_pm_resume() has initialized the
+> PHY?
+> 
+> drivers/gpu/drm/meson/meson_venc.c:meson_venc_init() {
+> 	...
+> 	/* Disable HDMI PHY */
+> 	regmap_write(priv->hhi, HHI_HDMI_PHY_CNTL0, 0);
+> 	...
+> }
+> 
+> meson_dw_hdmi_init() calls phy_init(), which programs HHI_HDMI_PHY_CNTL0
+> to cntl0_init (0x000b4242 on G12A for the bandgap).  When the consumer
+> meson_drv_pm_resume() runs next, meson_venc_init() overwrites
+> HHI_HDMI_PHY_CNTL0 with 0, leaving the G12A bandgap disabled whenever no
+> HDMI mode is active across suspend and resume.
+> 
 
-By the way, Fixes: 13fc9b9745cc looks wrong -- the device cannot be
-enabled at that commit, 64229b846a7e looks like the first reachable
-point.
+I will change the link order to the oposite, and use prepare/complete
+for the drm_mode_config_helper suspend/resume.
 
-Thanks,
-Oarora Etimis
-
+-- 
+Best regards,
+Ronald
