@@ -2,53 +2,60 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A0757606A31A
-	for <dri-devel@archiver.kernel.org>; Mon, 23 Nov 2026 09:48:18 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7AF1E606A31F
+	for <dri-devel@archiver.kernel.org>; Mon, 23 Nov 2026 09:52:23 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=mailbox.org header.i=@mailbox.org header.a=rsa-sha256 header.s=mail20150812 header.b=AVmDqTm3
+	dkim=pass (2048-bit key) header.d=collabora.com header.i=@collabora.com header.a=rsa-sha256 header.s=mail header.b=lJBOw5y4
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 0CEDE10E77D;
-	Mon, 23 Nov 2026 09:48:13 +0000 (UTC)
-Received: from mout-p-103.mailbox.org (mout-p-103.mailbox.org [80.241.56.161])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 1090710E77D
- for <dri-devel@lists.freedesktop.org>; Mon, 23 Nov 2026 09:48:06 +0000 (UTC)
-Received: from smtp1.mailbox.org (smtp1.mailbox.org
- [IPv6:2001:67c:2050:b231:465::1])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519MLKEM768 server-signature RSA-PSS (4096 bits) server-digest
- SHA256) (No client certificate requested)
- by mout-p-103.mailbox.org (Postfix) with ESMTPS id 4jY1Ml0MrfzKn2f;
- Mon, 23 Nov 2026 10:48:03 +0100 (CET)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=mailbox.org;
- s=mail20150812; 
- t=1795427283; h=from:from:reply-to:reply-to:subject:subject:date:date:
- message-id:message-id:to:to:cc:cc:mime-version:mime-version:
- content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references;
- bh=gDqxUua/SVNz+vUi7hngGeTF67Hkrr8BY9nXOqW1A6Y=;
- b=AVmDqTm3VArUTJdoiJLZ4Z2Gyk8uUPTVdPM/lMXgNiJ2U/lwAzNNnLNlMHeG54WnYR9xE0
- EyUZZKO2jibClJ4IZxDQrpchMTNazfwT3kf64NqyHGUyPotbq4TKCVarz5OtxoZPXoXmoe
- RPA030SPv66QqlyfO14dyCgr2MJ8p8S6VZ9F0xvwJo8SRQMBZUzCfTegjXrlymENssG6QN
- mDx/efVKFJSxBDHDxB0183yqqvbYg/e0dtwtGzDzXNjn3MAclZfb9BgWw0uYSjvh8lQo1D
- 2sVIRX1arE9rgfXS/68+xxuYOlGHI4NK7pOCXY8n56JG7iYyX/C07c1lOGZBNg==
-Message-ID: <6fc8d8cbb05d00ce6ea35f8e3993d9ec96fee9da.camel@mailbox.org>
-Subject: Re: [PATCH v2] dma-buf/dma-fence: Remove dma_fence_later()
-From: Philipp Stanner <phasta@mailbox.org>
-To: Philipp Stanner <phasta@kernel.org>, Sumit Semwal
- <sumit.semwal@linaro.org>,  Christian =?ISO-8859-1?Q?K=F6nig?=	
- <christian.koenig@amd.com>, Tvrtko Ursulin <tvrtko.ursulin@igalia.com>
-Cc: dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org
-Date: Mon, 23 Nov 2026 10:48:01 +0100
-In-Reply-To: <20261120112702.2970576-3-phasta@kernel.org>
-References: <20261120112702.2970576-3-phasta@kernel.org>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-User-Agent: Evolution 3.60.2 (3.60.2-3.fc44) 
+	by gabe.freedesktop.org (Postfix) with ESMTP id DFC2710E0C3;
+	Mon, 23 Nov 2026 09:52:17 +0000 (UTC)
+Received: from bali.collaboradmins.com (bali.collaboradmins.com
+ [148.251.105.195])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 4BC3810E0C3
+ for <dri-devel@lists.freedesktop.org>; Mon, 23 Nov 2026 09:52:11 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
+ s=mail; t=1795427529;
+ bh=Xkw/D1TF0uOO7465Srp/1BFoL/lm3YZD34LfqM34Yl0=;
+ h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
+ b=lJBOw5y4IYTMTiPJX2XHz2/WDEVdkIiOiIpDZ5bjkoQ0lHjGzQzejtBQOcZab0vmu
+ LqTlYUucKXq2dTUa09cY74RC153/xk2prktRMGbJVS6z6Jlj0rbcXgH67DIrT+ih2/
+ RXoT2dNc8kgThWFTl//O6ERt10TQisQRa0Jv4QQOD822kSIZTm1f0r8zo8WV0DlUG0
+ 4IXzHr2m6EccGyPk7pDXjr7FYrKZCUzKGy/mKftWyH1NqR68mMFiOeRdpluISjujWk
+ rS1U74e7wSo8CEVugNcD9Y4BnHqfIf4aLoOxwJrBCcg+4UnS3YSdGsUSTSM7XvhoHf
+ c7zctaqvDSlNQ==
+Received: from [100.64.1.21] (unknown [100.64.1.21])
+ (using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+ key-exchange x25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+ (No client certificate requested) (Authenticated sender: kholk11)
+ by bali.collaboradmins.com (Postfix) with ESMTPSA id E661F17E007F;
+ Mon, 23 Nov 2026 10:52:08 +0100 (CET)
+Message-ID: <75c71ea0-e2e7-4709-abf1-e2b99a537c2c@collabora.com>
+Date: Mon, 23 Nov 2026 10:52:08 +0100
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
-X-MBO-RS-ID: cc13eacd4bd05710574
-X-MBO-RS-META: wke9cicegga7jcb4mfses1j14whsm1mf
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2 2/2] arm64: dts: mediatek: mt8167: Add DRM nodes for
+ primary display path
+To: Luca Leonardo Scorcia <l.scorcia@gmail.com>,
+ linux-mediatek@lists.infradead.org
+Cc: Chun-Kuang Hu <chunkuang.hu@kernel.org>,
+ Philipp Zabel <p.zabel@pengutronix.de>, David Airlie <airlied@gmail.com>,
+ Simona Vetter <simona@ffwll.ch>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>, Matthias Brugger
+ <matthias.bgg@gmail.com>, CK Hu <ck.hu@mediatek.com>,
+ Jitao shi <jitao.shi@mediatek.com>, dri-devel@lists.freedesktop.org,
+ devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+ linux-arm-kernel@lists.infradead.org
+References: <20261123085840.8687-1-l.scorcia@gmail.com>
+ <20261123085840.8687-3-l.scorcia@gmail.com>
+From: AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>
+Content-Language: en-US
+In-Reply-To: <20261123085840.8687-3-l.scorcia@gmail.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -59,28 +66,29 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
-Reply-To: phasta@kernel.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-10.8 required=3.0 tests=BAYES_00,DKIM_SIGNED,
+X-Spam-Status: No, score=-12.3 required=3.0 tests=BAYES_00,DKIM_SIGNED,
 	DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
-	INCLUDES_CR_TRAILER,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS
-	autolearn=unavailable autolearn_force=no version=4.0.1
+	INCLUDES_CR_TRAILER,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,
+	USER_AGENT_SANE_1 autolearn=unavailable autolearn_force=no
+	version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-On Fri, 2026-11-20 at 12:27 +0100, Philipp Stanner wrote:
-> dma_fence_later() does not have any in-tree users anymore.
-> dma_fence_is_later() is available as an alternative.
->=20
-> Remove the surplus function.
->=20
-> Signed-off-by: Philipp Stanner <phasta@kernel.org>
-> Reviewed-by: Christian K=C3=B6nig <christian.koenig@amd.com>
-> ---
-> Changes in v2:
-> =C2=A0 - Rebase onto misc-next due to conflict.
-> =C2=A0 - Add Christian's Rb.
+On 11/23/26 09:57, Luca Leonardo Scorcia wrote:
+> Add all the DRM nodes required to get DSI and DPI0 to work on MT8167 SoC.
+> 
+> The primary display pipeline is defined using an OF graph identical to the
+> fixed fallback implemented in driver code to maintain compatibility with
+> existing boards. Its block sequence is as follows:
+> 
+> OVL -> COLOR -> CCORR -> AAL -> GAMMA -> DITHER -> RDMA0 -> DSI
+> 
+> If a board wants to use the DPI0 display output the last connection should
+> be overridden in the board DTS. As far as I know however there are no
+> devices using the DPI0 display output.
+> 
+> Signed-off-by: Luca Leonardo Scorcia <l.scorcia@gmail.com>
 
-Applied to misc-next.
+Reviewed-by: AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>
 
-P.
