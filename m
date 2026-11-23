@@ -2,96 +2,97 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 17F1B606A336
-	for <dri-devel@archiver.kernel.org>; Mon, 23 Nov 2026 00:25:52 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 465E8606A31D
+	for <dri-devel@archiver.kernel.org>; Mon, 23 Nov 2026 00:35:45 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=AKfIg4+T
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=mJaeQ4sq
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 55A8910E098;
-	Mon, 23 Nov 2026 00:25:46 +0000 (UTC)
-Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 7408410E098;
- Mon, 23 Nov 2026 00:25:39 +0000 (UTC)
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by tor.source.kernel.org (Postfix) with ESMTP id 7C01061811;
- Mon, 23 Nov 2026 00:25:38 +0000 (UTC)
-Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
-ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
- t=1795393538;
- b=ng66N8noSd7TP7mn547F+IOwNf7WsOAsMJhDITEQsZ/sSwAZKeGu8RMdbhYyMaeHzxfj
- QGO/VHSP2ziqFUgVB70WpgAURB+K0Ry5Y+SvuDhAXNWH889eZnNGsemBSmQi5oov2td/j
- LbqaI+dQCI5OvOopBFjVKPO3PYz90mUfds8fQHmn5VRvOxqfg7IK7od1WzsP9yrgI176y
- HAfqyjeB/JYNt8EJ5u2eIgqLU9FrquTUid3vBTrDK8/s/NqtH01JdTzc49eodihQ3KjpU
- NW40b2Vzmb8GrNpYxV8CAc4cIRQKkh7rohORh3TpR2OvGdQf4NI9QKE9wVUs/URtdsA==
-ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
- c=relaxed/relaxed; t=1795393538;
- h=DKIM-Signature:Received:From:Date:Subject:MIME-Version:Content-Type:
- Message-Id:X-B4-Tracking:X-Change-ID:To:Cc:X-Mailer:
- X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
- X-Original-From:Reply-To:Content-Transfer-Encoding;
- bh=+fTRlpWPAGw65ywOTuFMTMS1pyXlFiqbrJNGcRe7pm8=;
- b=YDEKSKsiRyTL6RW5lwZXpvfQqq66rp3KkMJDCow1qTe7fPvhM+bDJMGm7W66hB2sqY2N
- lTVFW5mMERWfK2OfbvmQWpb6qJDilYSrz26BYll1xzfvYU5YVs7z3ACITeIJTmj8uCzE7
- D+uHmiDphqkyxgavyfKaGrjWKfMMandgsyqIg18gDVvbZvjN18IONViRCW4KgDVodRrKR
- 5VngWE7yCj9y8AeaKNzYt00E3Z2QVodJic9cuqX389+0GE0zPo6rzRNZV9LfNuK43HHs4
- k32Sy38EAJjxJsZ21Ohjzf10CMbW839ebiW8CHjW9ARtolowWfen8pMS6+eXRTb6wrA==
-ARC-Authentication-Results: i=1; smtp.kernel.org; 
- arc=none smtp.remote-ip=100.80.115.77
-Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
- (No client certificate requested)
- by smtp.kernel.org (Postfix) with ESMTPS id D4F021F000D4;
- Mon, 23 Nov 2026 00:25:33 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1795393538;
- bh=+fTRlpWPAGw65ywOTuFMTMS1pyXlFiqbrJNGcRe7pm8=;
- h=From:Date:Subject:To:Cc:Reply-To;
- b=AKfIg4+Ts8rnb55XWxA6N68f8jzuRWtRuw9xtMSgWkHqYgfq9NC6z0MVPgXbegk2R
- X1si7PmfdOx2TGDf1Ta+mXoi0skPN1lwurJmWH5z4LW9BXYnyz/ClVqK+Nyul+cx1B
- cCJ/i/J3lPF3t5S6qy7qcctLhI/5G/5naRUSryrWaJLuy2Rwr5hlDkPnWi/y16Ppwe
- JomadweDfwiY5simOh5Z1Z9SxhGe9wO5rlyY0UTaZpDaFLk6Y+KVZmpkSxHa7j1FbG
- ndIGXdIDh5BibiynUvBq1hXJLZDb0/ZRui6E6ijmVXDJMrc5aOT5qgIhHrH0U7w9E8
- Al+anoY1cXoBw==
-Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
- by lkml.kernel.org (Postfix) with ESMTP id 663F74C243;
- Mon, 23 Nov 2026 00:25:33 +0000 (UTC)
-From: Dave Airlie via B4 Relay <devnull+airlied.redhat.com@kernel.org>
-Date: Mon, 23 Nov 2026 10:25:26 +1000
-Subject: [PATCH] drm/nouveau/devinit/gf100-: fix double vbios init checks
+	by gabe.freedesktop.org (Postfix) with ESMTP id 31BF310E104;
+	Mon, 23 Nov 2026 00:35:39 +0000 (UTC)
+Received: from mail-qt1-f169.google.com (mail-qt1-f169.google.com
+ [209.85.160.169])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 0386310E104
+ for <dri-devel@lists.freedesktop.org>; Mon, 23 Nov 2026 00:35:32 +0000 (UTC)
+Received: by mail-qt1-f169.google.com with SMTP id
+ d75a77b69052e-53644b28706so49042001cf.3
+ for <dri-devel@lists.freedesktop.org>; Sun, 22 Nov 2026 16:35:32 -0800 (PST)
+ARC-Seal: i=1; a=rsa-sha256; t=1795394132; cv=none;
+ d=google.com; s=arc-20260327;
+ b=noUTuk2kvYi/wdmwwvnbxBrmZxgcPaC0nYDKy+YuGFOOIws1+vNhWXTsl6QFrs765B
+ GdwU6OSjWLdkxc56AYJ1ZGFWUWmmkHKVL8KESeGO+FFbXknS3GPxjXjJ4F6pJCwTSqJz
+ dnFpEcwUftQU2iE3xeo3qNu2K5qoh5UAUrahJBJfv7EePupxZj20zvuj0iteTr56y4xw
+ 28VlV/oa1q6nV+mhkqwk6sGLlo7TXGuyY+vsTN+VUvpw8U6J3CQh1RRBCRQsNu6uXBzZ
+ 2Lk08CM2k0oZMKOkEcdPZgq7WiiZ/fqYuAxMYAqUBltDwM/q7/7MBbcAafkuaKZGRc4m
+ 5Edw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com;
+ s=arc-20260327; 
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:dkim-signature;
+ bh=JKCeabG1X7BtsMR6W4u1bK2Jr8N5Im1Zy35mutmMZ18=;
+ fh=+khNkGDNHpW+OAtAobOAwdn5gm6fmpXO5Z7Qpj6Y3GE=;
+ b=X1rkjrJKFPhUUx0/iYRcGSkCg//aUKuoFz1E/KS4rmbCFi5cj3CUEfDnS2XH/i70YX
+ 80FFZyo2uztvoOuZzcCADeiD5nKAmmKgJTJCP3Ug3uH5PpWTjLZypirik1UEMoGj1OEv
+ TYmOLM6xduXWdcdBjTh+IOBCbHeBfvGhCukj+dmvMLIkohjwXKBh9l0ShGeDTgEHvfIv
+ qv9x8lA4nnJdG4yq3N7AeiA83waYuxAzMHnQYWJTCzxheZc/ZU8qKzNivOTUYQs6K4vq
+ TYqTLUvHan0eaOswBCsjuE7o9QlzqLM8fY3c9IQiL60/svMphwoLUuTRF9k2a7ZKfbfC
+ mdrw==; darn=lists.freedesktop.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20260707; t=1795394132; x=1795998932; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:content-type:cc:to:subject:message-id
+ :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+ :date:message-id:reply-to:content-type;
+ bh=JKCeabG1X7BtsMR6W4u1bK2Jr8N5Im1Zy35mutmMZ18=;
+ b=mJaeQ4sqduLoHsxPsPfofidKdE3kuzHsa/vIqiOaSz5CF7w6WG5AVoaojCN0QbVczB
+ en6N8a6qLLkv7sM0+OjzXACzBreeyJcWueUClUxAaM9u4u2aqsL0x/gxj+1q6G/5EkFw
+ wWLt22FqmaWnKjZyYFNSAgWqB7DrsfBY+XdyCWa1BnsFPZJZufXmCBinygir1Xgo6QWi
+ ITH8pyQwLmuWB6JFk6WAR+p7N5TalNXj6vb6+6N4f466Av2m4lbSSW78ekOKOuWRRBoT
+ qqQT4CcvbCiKh/jNuLCH632XlhiNG6vhrEm50QLRe0gr/YbMFnUzC4AmJfwdhMNtux3Y
+ rSjA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20260707; t=1795394132; x=1795998932;
+ h=content-transfer-encoding:content-type:cc:to:subject:message-id
+ :date:from:in-reply-to:references:mime-version:x-gm-gg
+ :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+ :content-type;
+ bh=JKCeabG1X7BtsMR6W4u1bK2Jr8N5Im1Zy35mutmMZ18=;
+ b=J7iDaJZnsKaGscwDrzKiIU14LzF9emM/AGBR/wLRUdTLY14xhZqfPyu1lS/71Y/uyV
+ m1+RQ89GQToA5zVqCBp3aggh0lp7r24Eu1f3LqCwW1p50RP6HhtR82TpQybtKtS2/vgS
+ KGxu5b1n53eJsqbu+MiMhguI9PkqJj6RlakKEEjA6Sl4agOqYFdJVgDeQNu98Fczf+g6
+ JqjDjCxQLiOPDnJzjrr4Ov0af5ENZZzlwJ1iqGrjN5S7OTmHSQkCgV11n6IMuDJ+ySCH
+ Vm0j5eeJy2PVLZ92XwppDwFT1RCrLa8H2RANi8sONVmCKWdBQ7pVxcFGaYC9WfAlKmG5
+ PQeA==
+X-Forwarded-Encrypted: i=1;
+ AL+hErE/jtG5TQtopOrp+vW89kNPxMkU4vllQe4X7ojI/VVBsaIPYi6geNyLaY2XFML56n36JvgDcMdqE+Q=@lists.freedesktop.org
+X-Gm-Message-State: APuU4Z+RUfZFO3tqICrm001XZSRCBVZe5FXUlm+HPRmYmKPUdH6fhp3B
+ /x/I3cx8ZoCCADuuCkBnOBrMxbUsHQ++sqP32aXcFh/vTxaJFfPP0jy1WLAwV021cYMxBreq9lB
+ gKq7E4wefbx9YCbEn4gEtJBZWeeO7drg=
+X-Gm-Gg: AZFdTZctU6umqpFy1xCJGLWWlxGbAOI4SfJe5yo6IflEre6RUkJTtEFrpdm2IxThQu2
+ 7Kzj/I9XVPJooQODiZ7/IuOKYVhVEiHwVeKhUDr3To9t2VQ9CMKkwSuZz3Nx6V2Ka37l5NwwoW4
+ 6AgFgdn2di3MZL4vmy0zYmqZKx1W2lJ4AXnwppq6NmIYypDsn/4evQxhvKAx9S5AAcKsVVCW585
+ fq8+v83/5sK176dYNrifuprLj/GzL+zmURwjdhucH81eUVcCDnXFLzznOGY/dSZeGsE+5WfILun
+ moUnSjJxtgPEC26rfzNQPYJ68HQ+IowRU7/ajdoIGFMAFfZu0cokVvE1fax2TXn5HU/IDWJzmsr
+ 4AHK9OauQORCogIjXMuhRSFFJComuR+twnA3ntWx1iirUBmh9KrZXGDeN1BMIbt5XONmlAhQkxw
+ 86MkwHgeyvV5zhO7W52x2j9w==
+X-Received: by 2002:a05:622a:4a89:b0:55c:9c77:de99 with SMTP id
+ d75a77b69052e-55d76aa8580mr171012381cf.73.1795394131756; Sun, 22 Nov 2026
+ 16:35:31 -0800 (PST)
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Message-Id: <20261123-nouveau-fix-disp-v1-1-ebdc525287ce@redhat.com>
-X-B4-Tracking: v=1; b=H4sIAAAAAAAC/x2MQQqAIBAAvyJ7biGNBPtKdJBcay8qihGIf086D
- sNMg0KZqcAmGmR6uHAMA+Qk4LxtuAjZDQY1Ky2lWjDE+pCt6PlFxyWhVn413hntiWBkKdNw/3I
- /ev8Aaxn27mIAAAA=
-X-Change-ID: 20261123-nouveau-fix-disp-62f59fd96fee
-To: Lyude Paul <lyude@redhat.com>, Danilo Krummrich <dakr@kernel.org>
-Cc: dri-devel@lists.freedesktop.org, nouveau@lists.freedesktop.org, 
- Dave Airlie <airlied@redhat.com>
-X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=openpgp-sha256; l=1444; i=airlied@redhat.com;
- h=from:subject:message-id;
- bh=fLgUkfu8VDBsHKAcmadqaVH0gSOhunpVuhNXOsf7LQ0=;
- b=owEBbQKS/ZANAwAKAQx081l5xIa+AcsmYgBrA4f4Li9p2SfqLVkMRYpuSKzNDxRgsYBBuKP6r
- yBJoSLEYqqJAjMEAAEKAB0WIQQQptkdobBb0p9t66wMdPNZecSGvgUCawOH+AAKCRAMdPNZecSG
- vtJUEACnc96+K4mI4B03aLzxP3BEnCThCmG7zw4qa85DUJtAyA0go0Tklhwt4lkU7b6UQMTt4Vh
- g2AFJzUNF2h8874mF91QgkbVP601i4jXjboTZX6l0FcGYj479/LIwaWgkah1CEGC/VOLv7ZwLyN
- GT315QlkK97hwrc8K2YmKLj9fqO8Fk4fNg+EQZJSg5ipS2akDolnKW+267Yugu9M4n2Jwhol6IF
- 7U23DJyqNq7XvLww2quVo1Jd6/La0NZbaihOeo9Z476Y7o3Ns43ZEEnxPAFhC2KgI2g0qM8ge/k
- 1puseARHoo/x0hg86LahzQCI8brwk9NOwXufCISXCvU9gizPY4WP/XewKFDw2w/BYMqKNfMJgLm
- gK/CffNVkrl3g13YFWZp+6LaLBrT2C7YKc9o6uUcTs3cmILZ/JvGVC9fne+TDtQDFP5l0qEtfsw
- O00LVRmsU7utMy5/R2f7XkuTo/bQ3bKpW9GDOuShsq8LsCPLUth8xorDn7UH60J3Vt1Pnm3yqJx
- sBycnRlMO9HpJPDARAKEf0IQIzWRDcOWfId7FX0TNgcvdD+K+qqixjw5aoZADi+xpFj4z5VKqi5
- GMb90cCLJyRNS8Tm0Z9cmxzIl70mA4RLAeau+1N7rmuCQAdt60OWeO6dRsiF8sIecKL+UkXbGaY
- TUUJE1ZfqkRcjbQ==
-X-Developer-Key: i=airlied@redhat.com; a=openpgp;
- fpr=10A6D91DA1B05BD29F6DEBAC0C74F35979C486BE
-X-Endpoint-Received: by B4 Relay for airlied@redhat.com/default with
- auth_id=1321
-X-Original-From: Dave Airlie <airlied@redhat.com>
-Content-Transfer-Encoding: 7bit
+References: <cf3c13a8-1dc3-4b2a-8d37-0be289a31980@amd.com>
+ <20261122140812-09f251792405451c0dc74623-pchelkin@ispras>
+In-Reply-To: <20261122140812-09f251792405451c0dc74623-pchelkin@ispras>
+From: Dave Airlie <airlied@gmail.com>
+Date: Mon, 23 Nov 2026 10:35:19 +1000
+X-Gm-Features: Aa3M54rP2yLFSzAhlEa-grBq-B7YBS5JLc46UQRKJNk-DMqkDni6BU_mvJzWulA
+Message-ID: <CAPM=9tx4ausyL0qoxA+4gDN8ciWhd8m99obh5O7-M2y2ndGTcw@mail.gmail.com>
+Subject: Re: [PATCH] ttm/pool: Don't leak LRU list on shutdown
+To: Fedor Pchelkin <pchelkin@ispras.ru>
+Cc: =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>, 
+ airlied@redhat.com, dri-devel@lists.freedesktop.org, 
+ Ian Forbes <ian.forbes@broadcom.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -102,54 +103,57 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
-Reply-To: airlied@redhat.com
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-18.8 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
-	DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
-	INCLUDES_CR_TRAILER,INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,
-	SPF_PASS,USER_AGENT_GIT autolearn=ham autolearn_force=no version=4.0.1
+X-Spam-Status: No, score=-12.8 required=3.0 tests=BAYES_00,DKIM_SIGNED,
+	DKIM_VALID,DKIM_VALID_AU,FREEMAIL_FORGED_FROMDOMAIN,FREEMAIL_FROM,
+	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
+	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS autolearn=ham
+	autolearn_force=no version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-From: Dave Airlie <airlied@redhat.com>
+Thanks,
 
-The initial fix from 2017 wasn't updated for modern nouveau devinit
-disable paths.
+Pushed to drm-misc-fixes now.
 
-Fix that and just check if display exists instead.
+Dave.
 
-Fixes: 2139cb633d48 ("drm/nouveau/devinit/gf100-: try to avoid double-running vbios scripts")
-Signed-off-by: Dave Airlie <airlied@redhat.com>
----
- drivers/gpu/drm/nouveau/nvkm/subdev/devinit/gf100.c | 4 ++--
- 1 file changed, 2 insertions(+), 2 deletions(-)
-
-diff --git a/drivers/gpu/drm/nouveau/nvkm/subdev/devinit/gf100.c b/drivers/gpu/drm/nouveau/nvkm/subdev/devinit/gf100.c
-index 186e09ea0cb1..b256404c2454 100644
---- a/drivers/gpu/drm/nouveau/nvkm/subdev/devinit/gf100.c
-+++ b/drivers/gpu/drm/nouveau/nvkm/subdev/devinit/gf100.c
-@@ -107,12 +107,12 @@ gf100_devinit_preinit(struct nvkm_devinit *base)
- 	 * VBIOS multiple times may have detrimental effects.
- 	 */
- 	if (base->post) {
--		u64 disable = nvkm_devinit_disable(base);
-+		nvkm_devinit_disable(base);
- 		/* magic to detect whether or not x86 vbios code has
- 		 * executed the devinit scripts to initialise the
- 		 * board. only works if there's a display engine.
- 		 */
--		if (!(disable & (1ULL << NVKM_ENGINE_DISP))) {
-+		if (device->disp) {
- 			if (nvkm_rdvgac(device, 0, 0x00) ||
- 			    nvkm_rdvgac(device, 0, 0x1a)) {
- 				base->post = false;
-
----
-base-commit: b6a9fa34ce4187cb69d3c588a4bbffc31ce5db8f
-change-id: 20261123-nouveau-fix-disp-62f59fd96fee
-
-Best regards,
--- 
-Dave Airlie <airlied@redhat.com>
-
-
+On Sun, 22 Nov 2026 at 22:16, Fedor Pchelkin <pchelkin@ispras.ru> wrote:
+>
+> Christian K=C3=B6nig wrote:
+> > On 5/27/26 22:20, Ian Forbes wrote:
+> > > TTM pool was changed from a regular list to an lru list in the
+> > > referenced fixes commit. list_lru_init allocates state and it needs t=
+o
+> > > be freed unlike a simple list.
+> > >
+> > > Found using the igt@core_hotunplug and kmemleak.
+> > >
+> > > Fixes: 444e2a19d7fd ("ttm/pool: port to list_lru. (v2)")
+> > > Signed-off-by: Ian Forbes <ian.forbes@broadcom.com>
+> >
+> > Reviewed-by: Christian K=C3=B6nig <christian.koenig@amd.com>
+> >
+> > > ---
+> > >  drivers/gpu/drm/ttm/ttm_pool.c | 1 +
+> > >  1 file changed, 1 insertion(+)
+> > >
+> > > diff --git a/drivers/gpu/drm/ttm/ttm_pool.c b/drivers/gpu/drm/ttm/ttm=
+_pool.c
+> > > index 26a3689e5fd9..a41addbf3ddf 100644
+> > > --- a/drivers/gpu/drm/ttm/ttm_pool.c
+> > > +++ b/drivers/gpu/drm/ttm/ttm_pool.c
+> > > @@ -395,6 +395,7 @@ static void ttm_pool_type_fini(struct ttm_pool_ty=
+pe *pt)
+> > >
+> > >     list_lru_walk(&pt->pages, pool_move_to_dispose_list, &dispose, LO=
+NG_MAX);
+> > >     ttm_pool_dispose_list(pt, &dispose);
+> > > +   list_lru_destroy(&pt->pages);
+> > >  }
+> > >
+> > >  /* Return the pool_type to use for the given caching and order */
+>
+> The patch probably fell through the cracks.  Can't find it at drm-tip.git=
+.
+> Would you apply this, please?
