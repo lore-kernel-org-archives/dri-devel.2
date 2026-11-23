@@ -2,114 +2,39 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B2EB4606A321
-	for <dri-devel@archiver.kernel.org>; Mon, 23 Nov 2026 09:23:56 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.a=rsa-sha256 header.s=selector1-NXP1-onmicrosoft-com header.b=YUbps2ym
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 87801606A327
+	for <dri-devel@archiver.kernel.org>; Mon, 23 Nov 2026 09:26:50 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 196A810EB2F;
-	Mon, 23 Nov 2026 09:23:51 +0000 (UTC)
-Received: from AM0PR02CU008.outbound.protection.outlook.com
- (mail-westeuropeazon11013026.outbound.protection.outlook.com [52.101.72.26])
- by gabe.freedesktop.org (Postfix) with ESMTPS id A7F3910EB7D
- for <dri-devel@lists.freedesktop.org>; Mon, 23 Nov 2026 09:23:44 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=HTHgV+8vXnuYzohDmhln9pMooquwa3qoKZPWdP+bej7pONVHYyyMOPuyZpQcjLU67BfhD45Wr+lgp+7j2HzD6nucoEi6lXv/T7q7yi/t5OEnHY7GznPwbxMf2mnAJKoy1qtKOyhKoioTXEGnoEferBrTgGYskqW12+lUJRjOMZkl7ZTvww2yRpqnOZTE5BIcmwrxm4ib9yjJ1ORrFOqLnr+0mqlbaOAiQY7ZekwlC0Wsolgd5Kpo++z70O6TTqSDVLTWqaJHGfOXsOvwFlvwFU2D0zddQLDeFTepNFbc7kQO7QpSKw+SR2neBlvfW/FHsI/lVNtjPoA2sTlVJ+QuNQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=WEDFWHZ2jvUwTjdMWSt84PGAjx5jfxfv/wgRS1+CzQY=;
- b=KWG11yILxhsSQnwEmWkKw5O4hLPDcaWpmW1Bk5p3WL7PXG/GqIRId0j2qyUzlwc3RdFixaaUsO9tRvBuhQQ5XzSHw71r192LbDZjfEBDcQ14Aj9+eVFPeEvlMIdTsh/e/IOaA1j7X0bQlYvO1yEXWKE2bkeiHBT8RmMpqCZYKBVXoVpTqPbjc5ubrbbJlmVYCngto9r4eLtqV6gttQGz25Sg0LfS+aVhCxYF4TdVXA9RiCiD/NWDYSvWGgqMGQ9Ul4Y44rTPJyrtG1BF5TqPgONl5c1EKyKGSf49yIK94tBQAzP1/erFZV4GyD0SsWWOXf7WF2LCYtx+5lIXO909vA==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=oss.nxp.com; dmarc=pass action=none header.from=oss.nxp.com;
- dkim=pass header.d=oss.nxp.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=NXP1.onmicrosoft.com; 
- s=selector1-NXP1-onmicrosoft-com;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=WEDFWHZ2jvUwTjdMWSt84PGAjx5jfxfv/wgRS1+CzQY=;
- b=YUbps2ym7XQDGURBQuAEPbxrsp4Jw0QEIbCJ9FrtwtWlM/TKIbT5lJr8JidKMKevdbL2rlMY7EGMcoKeA4UaCAhid1oGccbhbs3Yv56uTlGipQ8ifdxlsRl+GUj0Qt2PkdjW2L6LuxYgxmN+9Tp5D270Lkr8i6EN40dbz/oINnK9rAGCTS6p4Snvf1qQbc+Mglyvz+k/AEiP7KffbVsoScJFaESdEUl7OywAJTf7vIG1dU28e1JynYE1aKVKJ0U5FhuMHI08eDqtWk2396j3Pl8VImdJycOEwkGIjza6iXskeXsaMnqZy4s0lEPO9gwp2vrDS+duy/MOkqKDexDAXA==
-Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=oss.nxp.com;
-Received: from GV2PR04MB12318.eurprd04.prod.outlook.com
- (2603:10a6:150:32b::19) by MI9PR04MB608809.eurprd04.prod.outlook.com
- (2603:10a6:290:b5::20) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.639.14; Mon, 23 Nov
- 2026 09:23:40 +0000
-Received: from GV2PR04MB12318.eurprd04.prod.outlook.com
- ([fe80::a498:2b5a:cbdb:d6fa]) by GV2PR04MB12318.eurprd04.prod.outlook.com
- ([fe80::a498:2b5a:cbdb:d6fa%3]) with mapi id 15.21.0639.012; Mon, 23 Nov 2026
- 09:23:40 +0000
-Date: Mon, 23 Nov 2026 11:23:36 +0200
-From: Laurentiu Palcu <laurentiu.palcu@oss.nxp.com>
-To: Fabio Estevam <festevam@gmail.com>
-Cc: marex@denx.de, mripard@kernel.org, imx@lists.linux.dev, 
- dri-devel@lists.freedesktop.org, stable@vger.kernel.org
-Subject: Re: [PATCH] drm/mxsfb: lcdif: Fix use-after-free on unbind
-Message-ID: <awQFcyLF3u3Z8_f_@vm>
-References: <20260909210213.946159-1-festevam@gmail.com>
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260909210213.946159-1-festevam@gmail.com>
-X-ClientProxiedBy: AS4P190CA0001.EURP190.PROD.OUTLOOK.COM
- (2603:10a6:20b:5de::7) To GV2PR04MB12318.eurprd04.prod.outlook.com
- (2603:10a6:150:32b::19)
+	by gabe.freedesktop.org (Postfix) with ESMTP id DC90389149;
+	Mon, 23 Nov 2026 09:26:49 +0000 (UTC)
+X-Greylist: delayed 476 seconds by postgrey-1.36 at gabe;
+ Mon, 23 Nov 2026 09:26:48 UTC
+Received: from mail.8bytes.org (mail.8bytes.org [85.214.250.239])
+ by gabe.freedesktop.org (Postfix) with ESMTP id 01E4E10E76A;
+ Mon, 23 Nov 2026 09:26:47 +0000 (UTC)
+Received: from 8bytes.org (p549216fa.dip0.t-ipconnect.de [84.146.22.250])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange ECDHE (prime256v1) server-signature RSA-PSS (2048 bits)
+ server-digest SHA256) (No client certificate requested)
+ by mail.8bytes.org (Postfix) with ESMTPSA id 3E0042436B3;
+ Mon, 23 Nov 2026 10:18:50 +0100 (CET)
+Date: Mon, 23 Nov 2026 10:18:49 +0100
+From: "Joerg Roedel (AMD)" <joro@8bytes.org>
+To: Rob Clark <robin.clark@oss.qualcomm.com>
+Cc: iommu@lists.linux.dev, dri-devel@lists.freedesktop.org, 
+ linux-arm-msm@vger.kernel.org, freedreno@lists.freedesktop.org, 
+ Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>,
+ Will Deacon <will@kernel.org>, 
+ Robin Murphy <robin.murphy@arm.com>, open list <linux-kernel@vger.kernel.org>
+Subject: Re: [PATCH 2/2] iommu/msm: Use identity domain for GPU and display
+Message-ID: <awQE5aSSdXv9rTrv@8bytes.org>
+References: <20261029212344.346069-1-robin.clark@oss.qualcomm.com>
+ <20261029212344.346069-3-robin.clark@oss.qualcomm.com>
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
-X-MS-Exchange-MessageSentRepresentingType: 1
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: GV2PR04MB12318:EE_|MI9PR04MB608809:EE_
-X-MS-Office365-Filtering-Correlation-Id: ac648deb-e9f9-4fa4-23a5-08df494375dc
-X-MS-Exchange-SharedMailbox-RoutingAgent-Processed: True
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
- ARA:13230040|366016|376014|23010399003|1800799024|19092799006|10067099003|11063799006|56012099006|261021121427099003|261022075727099003|261022105027099003|261026140227099003|261009223027099003|261028144727099003|261102123227099003|22082099003|18002099003;
-X-Microsoft-Antispam-Message-Info: FmuDSP4648SDG9M1WSdu28L8rBk+m0rK8V39QhRBRp+hwqDPMGQQ+8uhFYtYa5+FnLR0Em6oZmy0PAZw1ertZqcXLRWkiecZtmCDgx/eS1dg0AOvzOhvIhNKIlC0J95TpVB6OGlbsn3oQI6I0zomZb4BBUMJ19hAYonIrDAzqTQRlwYx+34ALh5ZOLcIaWH4gA/3Y7CIGx9muXVAQgZoTEScvpcOCakT1AlGreCjckEDuSnUMktwk6EKAGDXOFwRPq4fTlIY59BNsyVBmsOjJ6wZvOlsWtUKAv4s6R4AlcE7Op+u4MQW49mOuDrixl9U2rdT2i3TQR4wbpJJll5k2uap7D2jNQ1jzLOYtpjeO0httHAU6bWDBMx8X0D6XyLlxHDrkUj5d2WmLePttREE5ZMPeigxiL71uzIGfayFMQrAVx964+S1Wg8M0NRZrrqw7c6yEXcpfB/7M42rZQopODVnMQLAgwTg5Yh12ywVETo7iZFkyh2rx4efthPfaqAWrI43PFXg9BNohmka819hc7wXYrg1beHh5k6Q5/YeQNgtPsH3Ct1gSdAQcULgNjYrxrQYAwUP87R8UO/5f3Pfl8zkreUIWd8moT4Jx/7O2yqCuKVO4Ppndr/BNs2MI75lKKUuikFStEZvoVteQrmIJXpNMtVY0Zinh6EWjxQwCVQ=
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:GV2PR04MB12318.eurprd04.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(366016)(376014)(23010399003)(1800799024)(19092799006)(10067099003)(11063799006)(56012099006)(261021121427099003)(261022075727099003)(261022105027099003)(261026140227099003)(261009223027099003)(261028144727099003)(261102123227099003)(22082099003)(18002099003);
- DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?us-ascii?Q?ot2Rw4dVJLbquU7q2CnGNAMBzOcZKPWrZrJ/moSksPOCq+1zmFh91qKGlMJ6?=
- =?us-ascii?Q?+TeVHaObKJkETzfbCunCMW5InInUrag1fHodpTJtYa59J4w0in5/HxvDH3Qy?=
- =?us-ascii?Q?7BnSbAfCYdkTO+B01epU80T+V1jRe6Mj0NBPqoqAWEUG1iZm1HPVBw0nLFc/?=
- =?us-ascii?Q?HxaOBuxJCjbmJ7cpjrXoff9+8fpvuJZz0+ICUkYNVG5DXgqddu2kLDkN+Nt2?=
- =?us-ascii?Q?Tb9sWhtqDpOHyxd2WZg1qAQlp3voMaj1K0FGvfSOQdDcnMwPkfj4/M39Dgz0?=
- =?us-ascii?Q?ivuxr58tioLyFNyLxe+Noti1H9Zltms02FauxmwIUcKeyQJu3wL9mINDemGr?=
- =?us-ascii?Q?Q3MrhpwRNerILxoxPteq8HsLzxPWTZPYvi8inL8QinRMCc1y9jNS3+CLXk1I?=
- =?us-ascii?Q?pTlMpo6RSqsENzwD4aa/aXRTgzRiVx4HR5DsFhdhdM+O4UCibLeuzP1afXs4?=
- =?us-ascii?Q?vArQGRqjJBqf9XSc2/jO9cwGKbX9K9kvzMhZlSuqccUFTzbhSKRN8lft3doh?=
- =?us-ascii?Q?x9xkQXlWmDdSNr8oms2VR8eWmeenZ4VfYEDr9aAzW7nqHhnI3b9NdufPaVH4?=
- =?us-ascii?Q?S3ffX27DtzOT0L+4+Sq70m5uKeV5VcVC/qv4LJmMAWOWMFCnCBgTfwx2T1fV?=
- =?us-ascii?Q?UPum2NGWfZ1IDsgK5Fb7vytAYaBnf/qfvRF7USiWPD4i90nKOHawtqswSt+n?=
- =?us-ascii?Q?C4e8Q3UyAgNS5u4cRk9dAdaIctk8sBaYJD5O1951hBqcrwWnM+gBnosjgE7q?=
- =?us-ascii?Q?Pcre0zO1JvdbQuGz81lCEnw/G7+NBaiZiiqd+e2JJxXKiiwxa2g1B7G48rYI?=
- =?us-ascii?Q?H+W0Oxp3SqxedUWE9Q8/0pgWyolW5YUAhJHSFAgxzRg++lB2mxIfKZRlEppv?=
- =?us-ascii?Q?CQNusUi0HvKF92c2eSwm7zMF2p8o/0Y5WJPGiDHc9P+M0IgBkALHfH8mkCu5?=
- =?us-ascii?Q?aXhjDJvdLFSGCHsuOMH41BSBgwKmH8knWY6iH1FOnBXYRiaHT+nrq+abvgOh?=
- =?us-ascii?Q?TWcRgNmR4+w7+vSz4aduUWDOD2r1U9vuJ0EKeYdehlI1U52Gpw/Gu13PWAQ2?=
- =?us-ascii?Q?8XTZGg+6b0kj6Twg/Nv1q2nWTW32XPn5PCazYOolSVfCg+YI5cigTJ4db+14?=
- =?us-ascii?Q?1SX+wREwIKgg0s73EtNFf7h0iIfqR1YBAnrJYSKH7erFyPXe+ktV2tZ9DtRn?=
- =?us-ascii?Q?UEkKSciW4vrlcpL6P+QtaojqwD6o7VWpIe5giApTYlyHcZOjtq5ZwVfcZYmJ?=
- =?us-ascii?Q?3FZcFK+GIVG/A6m92/x46YHWGhZXDosh4bAwl+ZkxTkPufJpeDf0dNbohv18?=
- =?us-ascii?Q?6bu6TEVlqGevk7v+w+sbaNnTXydAZm4aBo16NuZcWn87cgU/j617e64bl1jS?=
- =?us-ascii?Q?OZRMshuRIUVY7CREA9b71ZLLY2ChU19XtUlQaSkIunCN8ZXMd++wq53aADis?=
- =?us-ascii?Q?JCaiq0LUsX7N+qxU+orrG7GD1kQTZayYmuHcH1WSPUsjasH1NPl3hvUj3Elw?=
- =?us-ascii?Q?PjwqwUcbEgKA6G2lvEVFmkQZwpN8jU+43BSF2UnCyupZCamx92pao5Rj4Z8V?=
- =?us-ascii?Q?JKDaQI25bfSgSvK+p8GKirLQI6pQNSo6iOWdLyjR9Nq/hFjiKRjM3VejV8fy?=
- =?us-ascii?Q?CNKZYQM4e+HotDPa/uiHetHvKJZFduNWaXTao4zYYDzVwr2bzE2PvJzIo62V?=
- =?us-ascii?Q?7KFK4TLhW0di+YVk0ERDN2GJ6BGYhudUcS/1j7isLA4I8IDHVV0/bSB1AXkz?=
- =?us-ascii?Q?0alxdDSBXg=3D=3D?=
-X-OriginatorOrg: oss.nxp.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: ac648deb-e9f9-4fa4-23a5-08df494375dc
-X-MS-Exchange-CrossTenant-AuthSource: GV2PR04MB12318.eurprd04.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 23 Nov 2026 09:23:40.4717 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: H69ZmV1/wRZXzNv2B36DaDxM3F9JmV3HGCs6ztbxrc+xEarI3rRf4GuihnOo7IKFeaVp++FZYcg3clnKZ44qRw==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: MI9PR04MB608809
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261029212344.346069-3-robin.clark@oss.qualcomm.com>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -121,44 +46,25 @@ List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-8.8 required=3.0 tests=BAYES_00,DKIM_SIGNED,
-	DKIM_VALID,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,
-	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS autolearn=ham
+X-Spam-Status: No, score=-13.8 required=3.0 tests=BAYES_00,
+	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
+	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS autolearn=unavailable
 	autolearn_force=no version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-Hi Fabio,
-
-On Wed, Sep 09, 2026 at 06:02:13PM -0300, Fabio Estevam wrote:
-> lcdif allocates its private data, which embeds the CRTC and primary
-> plane, and its encoders using devres. These DRM objects are linked into
-> the mode_config lists.
+On Thu, Oct 29, 2026 at 02:23:43PM -0700, Rob Clark wrote:
+> Similar to commit 0e764a01015d ("iommu/arm-smmu: Allow client devices to
+> select direct mapping") for arm-smmu-qcom, match GPU and display compat
+> strings to pick identity domain time.
 > 
-> Since mode_config cleanup is DRM-managed, it is deferred until the DRM
-> device is released. An open DRM file can keep the DRM device alive after
-> the platform device has been unbound and devres has freed those objects.
-> The later mode_config cleanup then dereferences freed memory.
+> The drm/msm driver attaches it's own domain, which it manages directly,
+> so we don't want an iommu managed domain interfering.
 > 
-> Allocate the private data with drmm before initializing mode_config so
-> that it remains alive until mode_config cleanup has completed. Allocate
-> encoders with drmm_plain_encoder_alloc(), which cleans up each encoder
-> and removes it from the mode_config list before freeing its memory.
-> 
-> This can be reproduced on i.MX8MP by keeping the DRM card open across an
-> LCDIF unbind and closing it afterwards.
-> 
-> Cc: stable@vger.kernel.org
-> Fixes: 1c71d925c03a ("drm: lcdif: Switch to drmm_mode_config_init")
-> Signed-off-by: Fabio Estevam <festevam@gmail.com>
+> Signed-off-by: Rob Clark <robin.clark@oss.qualcomm.com>
+> ---
+>  drivers/iommu/msm_iommu.c | 16 ++++++++++++++++
+>  1 file changed, 16 insertions(+)
 
-Just a heads-up, this patch will not apply on latest linux-next. Probably
-because devm_kzalloc() was swapped for devm_kzalloc_obj() in latest tree. So,
-you may need to send a v2 anyway.
+Applied, thanks. Patch 1 needs to go through Will.
 
-But other than that,
-Reviewed-by: Laurentiu Palcu <laurentiu.palcu@oss.nxp.com>
-
--- 
-Thanks,
-Laurentiu
