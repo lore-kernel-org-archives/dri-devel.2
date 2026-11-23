@@ -2,131 +2,126 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7915E606A336
-	for <dri-devel@archiver.kernel.org>; Mon, 23 Nov 2026 22:47:20 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 84377606A31E
+	for <dri-devel@archiver.kernel.org>; Mon, 23 Nov 2026 22:58:22 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=Nvidia.com header.i=@Nvidia.com header.a=rsa-sha256 header.s=selector2 header.b=pU9Xrfa1
+	dkim=pass (2048-bit key, unprotected) header.d=Nvidia.com header.i=@Nvidia.com header.a=rsa-sha256 header.s=selector2 header.b=mkv1ZgAn
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id BB12C10E6E2;
-	Mon, 23 Nov 2026 22:47:14 +0000 (UTC)
-Received: from BN8PR05CU002.outbound.protection.outlook.com
- (mail-eastus2azon11011006.outbound.protection.outlook.com [52.101.57.6])
- by gabe.freedesktop.org (Postfix) with ESMTPS id CBC9210E811;
- Mon, 23 Nov 2026 22:47:08 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id E9A8810F26E;
+	Mon, 23 Nov 2026 22:58:16 +0000 (UTC)
+Received: from SJ2PR03CU001.outbound.protection.outlook.com
+ (mail-westusazon11012030.outbound.protection.outlook.com [52.101.43.30])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 1C19910F26E;
+ Mon, 23 Nov 2026 22:58:10 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=ZqgwdSqXFYmu/yA72+P8U+D53V0Bf7ge4m2/OjR1SLMMQLEAGMbWDSij2ixQ8tlWqWkeV2nifq3JYskgzOvXWL+hhfyuw/suCXustFENuvvBuvPFMeo9EVh8QLmlOVxwo0v1wrMEuxR/x+j2Qofpl+svbU5JBXRookTi/zFWzZfe381EjilRDax11mAM0W7F1M34HCFk2QAO+cfIdDZvps4Q7oXG6eFYhHqFoAGqImhk6bd1gqMNfMpkLyLKULU1mLNAL030UdkQHqTwXEjy15kiX2J6UDNFYM4gjkz6MbmyhNjfOKQL7lavBSmDCBMKjMaAHwHcwjnkUO+wRALs5Q==
+ b=yollGbkAN0ehweZ7Iv5/Um9EaYcuRvgDRuFRdvt+bM4s5LQSSfPGWdWSxLeagZUrQKMYDMuRupXu9LTOzzPdBYcwPz5FzjtibgnkR5uAuAyqCGI1xmG56tJd1uPXdhPhHfbpMCJ3sLQjqeDWNdcgbXMEJdpWy5+AyvWAvOQkTOt6hCbydrEGdUT0Odw+fSUFHSqPpKQPbWHNX0Mk7hn5wUg5jvfIShtuz3L0pL1FKM8VSBBQickm4d+oroKmlzJDLcsnITfUE2mJE7YB4J49rFs4d97PlnZLNKHEdxVvTcPxzn8BPLcW8M7JLDZr29/Xojd/5G5e4XxNQ9S/lGZ0cQ==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=O3CRrODd15UhWro5byYTORAmYIqtvFX3fmb/Dpyz5GU=;
- b=VLZMTYSsPw3LpyeD64OUQJxe5ekGiA5UMR8XXF4AjIRWeHJi7k4vmkTyfS+tmG84GvLWvoh1QHpYgRHAqweHdYCRPug39QjDrIoXP4cww+Cx2AlbawzzDDhbtDEYTo8g8mnVmGbsYe13+zLtIcufeJcyX7T8N52unawFTNKEkU06qBRaNnJ0Z86Qsr6QbTW2RHlTJ7D6ByIn769oqn6SceM2v1JfkFe86o2Kp/+h39HVh6vtA5Mdo7iLIO7AVBE5EilXJxG6R/g/rBTQWfv+TvHs7WoY4V9XqZeRlhU+4DbiGBdRL8u8l5kqMQzsKWf36Qhp/z86geefxylXOQuZwA==
+ bh=NFDBMzlFGEIu6CgmM1DzXVdMeP80n4CdMSS+466IIz4=;
+ b=KrEwnskbvZC1y6k5CrA4dZGiQ/AvN/TEslVA3MnovfYnEF4M1CZYpmK7bPbHjV/+donve7SRmXcH/zNFPB1+N62hfrwyZ3VTqU34/aRGp2jpUxJutB3ftjnqwrxFIvuMa6m0ftot9k88+k89cbeC5nNA20ZvsYu2nzxiXDrLD1FxKlopCrPEWKzPcVW7028xVwwNGddmalXZDIuywP8+szQE3t06TZM+1pZaP4n+I9ZyP0nvyS0H+XHSh0O4cfmgbiFHAsVxrf72zMmA0iGaH5Vm0fV5erwB9N4vHc3qpQQydrK528Jedi8C5khHDQ9hKCHcMiL2khU6HFYwxW/eqA==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
  dkim=pass header.d=nvidia.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
  s=selector2;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=O3CRrODd15UhWro5byYTORAmYIqtvFX3fmb/Dpyz5GU=;
- b=pU9Xrfa1vxDPV1u9Fdfh4i80KYOzPa0+bAJsbAGVuVNhTt33/Jepkj00MVL0Xmol9LMRKAogH1RuwtAd2ivqPRXPXAIqRjOBKPDacKL9wurkIebf9GvTClAdZFJ8cehyUCYIFZmGSEfgnNMPfIVisI6iPnO15mBpMHpmY4p7tqYFcvCYdUX7j5npyGG/KivppQK5VZIASklxAvZm5/xguIhiAepHeSOLFBvjS/ZMGVm/xZ34WInNGSKQxru3stpYVuSN9MC1ywcied0e3T1rF5w9utkyIEIzYW+ZvtgDB+NrqqVOkk7xSFACchCjYyn2gGyrAFJxGpf0Y8Ap4PVSLg==
+ bh=NFDBMzlFGEIu6CgmM1DzXVdMeP80n4CdMSS+466IIz4=;
+ b=mkv1ZgAnMlFfXrlOo8v4eOGGZ+cQEWFw3JTGHTI5cH0DuUHYqPdIgTkqdEFnEqwJgPjPaHlY2R98Em+v8v5fEBYqKkhLmpyzP4Rw/c7mAyGzjMojdk61B+nsVyk8XS9DdnplSdHD1DZtYbXyrb36ufCbmjaIICMQ7JIBe64zfgLZamm1p1IRmPGmlveO9y+oXXxNrD0+m8Xe328ApRaYx8qjaRnu7dAaKWPuAZa4cHzdyA0XxLC7Gq3HHbDhHP6RYnTf+Movu9jlHIvY2rJ43Qx5wyY4dow7CGoMCjdw89MMquY4q6o9xPxZmyrMHPIm0cXW5tHTvqOyAXGVgSwKvA==
 Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
  header.d=none;dmarc=none action=none header.from=nvidia.com;
 Received: from SA1PR12MB5614.namprd12.prod.outlook.com (2603:10b6:806:228::7)
- by DS7PR12MB6144.namprd12.prod.outlook.com (2603:10b6:8:98::8) with
- Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.639.14; Mon, 23 Nov 2026 22:47:04 +0000
+ by DS6PR12MB324412.namprd12.prod.outlook.com (2603:10b6:8:498::10)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.639.14; Mon, 23 Nov
+ 2026 22:58:06 +0000
 Received: from SA1PR12MB5614.namprd12.prod.outlook.com
  ([fe80::1a0c:e9e8:f3a5:d9d6]) by SA1PR12MB5614.namprd12.prod.outlook.com
  ([fe80::1a0c:e9e8:f3a5:d9d6%6]) with mapi id 15.21.0639.011; Mon, 23 Nov 2026
- 22:47:04 +0000
-Message-ID: <a02b03a7-2aa1-4ac6-866e-dfffc9ff2f55@nvidia.com>
-Date: Mon, 23 Nov 2026 14:47:02 -0800
+ 22:58:06 +0000
+Message-ID: <75df628a-fdc2-4cd2-b052-26b122d45251@nvidia.com>
+Date: Mon, 23 Nov 2026 14:58:04 -0800
 User-Agent: Mozilla Thunderbird
 Subject: Re: [PATCH v2 2/3] drm/nouveau: add option to leave GSP-capable GPUs
  to other drivers
-To: Danilo Krummrich <dakr@kernel.org>, David Airlie <airlied@redhat.com>
-Cc: Timur Tabi <ttabi@nvidia.com>, Alexandre Courbot <acourbot@nvidia.com>,
- "lyude@redhat.com" <lyude@redhat.com>,
- "dri-devel@lists.freedesktop.org" <dri-devel@lists.freedesktop.org>,
- "nouveau@lists.freedesktop.org" <nouveau@lists.freedesktop.org>,
- "nova-gpu@lists.linux.dev" <nova-gpu@lists.linux.dev>
+To: airlied@redhat.com, Lyude Paul <lyude@redhat.com>,
+ Danilo Krummrich <dakr@kernel.org>, Alexandre Courbot <acourbot@nvidia.com>
+Cc: dri-devel@lists.freedesktop.org, nouveau@lists.freedesktop.org,
+ nova-gpu@lists.linux.dev
 References: <20261123-nova-nouveau-gsp-v2-0-5e8c27aa8555@redhat.com>
  <20261123-nova-nouveau-gsp-v2-2-5e8c27aa8555@redhat.com>
- <617a6fcc6a541f27351fb7f5abe21fb89553438a.camel@nvidia.com>
- <CAMwc25rDmsXw++KeE4OhTCGCq0PRUZJJQaEMXY2dbvdwWzyL7g@mail.gmail.com>
- <DN2WGM8KWOD4.1Q96FIYG22NA0@kernel.org>
 Content-Language: en-US
 From: John Hubbard <jhubbard@nvidia.com>
-In-Reply-To: <DN2WGM8KWOD4.1Q96FIYG22NA0@kernel.org>
+In-Reply-To: <20261123-nova-nouveau-gsp-v2-2-5e8c27aa8555@redhat.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: SJ0PR03CA0354.namprd03.prod.outlook.com
- (2603:10b6:a03:39c::29) To SA1PR12MB5614.namprd12.prod.outlook.com
+X-ClientProxiedBy: BYAPR21CA0025.namprd21.prod.outlook.com
+ (2603:10b6:a03:114::35) To SA1PR12MB5614.namprd12.prod.outlook.com
  (2603:10b6:806:228::7)
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: SA1PR12MB5614:EE_|DS7PR12MB6144:EE_
-X-MS-Office365-Filtering-Correlation-Id: 62ea2935-9a45-438f-7561-08df49b3b1a2
+X-MS-TrafficTypeDiagnostic: SA1PR12MB5614:EE_|DS6PR12MB324412:EE_
+X-MS-Office365-Filtering-Correlation-Id: 9d850d00-a688-412a-cac8-08df49b53c6b
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
- ARA:13230040|23010399003|1800799024|376014|366016|261028144727099003|261026121527099003|261026140227099003|261022105027099003|11063799006|4143699003|56012099006|10067099003|18002099003|22082099003;
-X-Microsoft-Antispam-Message-Info: kNOPsdDruhS6Lv7ZwLM63q3io0ObI390p5BKkijgb1PXgJBYHenXNy+R1YbL2/KP2MawHQOvLkqEmqDmqAtrD0vlxx+7ea8/t/vwwO3zcAqBfcgZJyCvtfAZzQgHW/BZGnfDRO5orcdBc5gyV8QV1zQuRTIF0+BugGgOEWlrwP5jqeIGTZkBTgkCvEKU4AVoio6F91uTFTUETM+56rNsRBx0Cj/6reHLgYB3BJElT1a81qqyF48nZu6Nb2d901xXDV34iymPURpXlfs+/9POvUaOjqS2KVJLNfAUiRSfBwS+75yu1bniAWSmZsIhPjOsiar3O2pAE8xw6KI9Qu8LrvDOzeMNtVg1ASbh4kZOEJOr4ATMhNSHm7rbv+QpcVpi+H7bxxIHbCej14e3pjFQRdp2hUSSz3+R1xBvU8L/oh6w1JlOQLF2jXWdK7cBwBjTA0bA2VesB1cMVw93d/09RHGR4nSZcKEwm8lB8iREzXGN98Qt99QFWNUmPbj+4DwXPziNoCJf9nbZOA71Qh6int9VcNQqs7Ky0k9TnEA2dgBQgbkRW8GiuiGJACWJsUNdE4Svzcakj7IcLbPK1QvpJPq0p4t5SLG7Sc5/dcl0m4omzwZW/f90bNnWRwjqlbUnDx1SxxpcXS23q+cDnglbgOcyycFwRhbQV6N18Xvh/Nw=
+ ARA:13230040|23010399003|1800799024|376014|366016|261026121527099003|261102123227099003|261022075727099003|261022105027099003|261026140227099003|261028144727099003|261021121427099003|261021123027099003|261021135927099003|10067099003|5023799004|11063799006|4143699003|56012099006|261009223027099003|18002099003|22082099003|6133799003|3023799007;
+X-Microsoft-Antispam-Message-Info: NhSxCHbPjUqrKO1E3dYGRvKolVpC5nIQGVIgo9n4avc+1C+pfWTpljr14eg0ewZ0QSFCaZf3blKX75RBxKpFuqfbF2qgGDdstS1gslVT3XldsBuEZ1t24BxCqBWovW05cOF/RRbUjGYZ6RZVGXFt4wo1PB/8VF98VAgrtglXBu+XatQQzTp0WWpOV8zMHyZuXiZAiYl3JURRKsq13D6v7lWsqopgU9NsmvoWHK8rQh6wp21dyak2tNuBX26tD6oZa/SVTJz26S4CwuP7vQVn2wBMw+AY2/t4qsJi3z3x8K01B/LPa5Bo8ksa+GL+mAmnz5JfWJdHyk19Nf1g3s14fpfFn2jdkkBXCSrGUaGyK7Q9b7NTzjQkOcRRI/1DEq/R1LuNTeA9CkXyXDpPnUKn4B8eu2xDuiH8gDrfwun4gtLzFg+h9vNrl6XRMBwrdKIRdzSdcp1fIo96wSfPrnWRzopP3lUbxYbeisFRB466sAoa7fRqO/uLBJET76YgrXqpiFahPBoxtwCOow2ppaF4OD/1BKFvNBMJ1jg1gMQVossZKs766ljuV48JuWEkNGHrO/1VRceWf/bcPjTDC5/oZk73NVrrQE4xAn8RE3ERQBDedusOksOSmgIKgCX+nQZfwmBtr53xXKUNh+9nDk4vLWYdvckekAWqGIVCDwknu8E=
 X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
  IPV:NLI; SFV:NSPM; H:SA1PR12MB5614.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(23010399003)(1800799024)(376014)(366016)(261028144727099003)(261026121527099003)(261026140227099003)(261022105027099003)(11063799006)(4143699003)(56012099006)(10067099003)(18002099003)(22082099003);
+ SFS:(13230040)(23010399003)(1800799024)(376014)(366016)(261026121527099003)(261102123227099003)(261022075727099003)(261022105027099003)(261026140227099003)(261028144727099003)(261021121427099003)(261021123027099003)(261021135927099003)(10067099003)(5023799004)(11063799006)(4143699003)(56012099006)(261009223027099003)(18002099003)(22082099003)(6133799003)(3023799007);
  DIR:OUT; SFP:1101; 
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?OHhneFBGSWhxZklOTGpldHRreFlQZTRrU2tYQkZDdjBmYVpZMXh0ME1SZjdF?=
- =?utf-8?B?NEtxNEgwaDhlMURmb0s3K3pFeXdBZXZIZm5IZXMzYWFqK29sY1VUL0Vzbldx?=
- =?utf-8?B?eXIxeko0ZUJMM1RTNWVxVHFYT3FrazJtWk52T1A3V1hRWWNWR3haYWlJT0xX?=
- =?utf-8?B?d1o5b1JvdnJ1alBxVnQzVmZGQ2hDOXlUUjVLZ0YvQWRpVDRBMzNRMDNzVFJC?=
- =?utf-8?B?ZEdpREtIWVVZWkdISTYwSkJ4SDN6bkVtcFRrWGxEWmpOK1J5Z05oVXlxMng3?=
- =?utf-8?B?K1BrUkpvY1VubWVsTFFOaTNmNEZDMDZCcUNNOWUxTnV2a1Rld2xyOHdiY1ZH?=
- =?utf-8?B?R2p5UXpXTndtVEJnaXp4aU5BUVVVVDhXeE9Ram5DaEVkRUROT0hlVXBoQWRx?=
- =?utf-8?B?NnJNOHk4bWdHR2xXQ015bDBGaTJJSE5BdWg1MlFpTkV1dUFpK0R2akNkb05j?=
- =?utf-8?B?RFVXUGwzVnpQWVdFTCtkWnRSUERucTcySGpwRDhiSmRCbGhCcG91eERBOUVI?=
- =?utf-8?B?SllPZ0gxZXFEbDdJQ25XTlFFUGVSVHVsbjF6RVlyUnZkdTJQMkJBSVVDSlVO?=
- =?utf-8?B?Rk5FRE51dC85NDZBU1lIcjJEUjBiZ2JTRW9ERHZ1RGI3YmhjNzRPcXZZZXpQ?=
- =?utf-8?B?KzlKODR2ZjNaYmNmTzdINUFOcXJGNE9DS1pQZmhEK2Y1NUp3T0dFQ0V4K2VH?=
- =?utf-8?B?ZGYyM1Z0WlgrdHZJaDY5c3JvRDVoNDVMcnlxZDRjU0Q0NlJUV3JtNUlycnM0?=
- =?utf-8?B?eFRBV2h3OTV0UUwrVjVtaVVqYUdUOE16VzBmN3NVUlBlVE1jUzFCYTNKSk9h?=
- =?utf-8?B?VkhEejJ2RUhjNzZMdk1kbUJORFVDc3ZTRmREWm4rbFI0M2lQblRlcG9oZndI?=
- =?utf-8?B?bkNLNjB3T0lDNmhwL3lWV2JNVWJOcDFBbi9iQTNDN1BVOGZ3WW12V2dlek5C?=
- =?utf-8?B?Q1ROaHp2WXhpWER2ejF6SFkzOXlJUWx1YVJlTC9idThsZ1c5UjQ4amhISmhB?=
- =?utf-8?B?aVo4cVNQTlZMeTRMV2pocnJKd096M05CdVYwRWlWM0NkOUVjK3I3Q0NjWExC?=
- =?utf-8?B?ZVB6Z3psS0lGTW5ydm94UHJMMWJXengwMjNHREFBb1B2MFVacW0rWlA0MFJr?=
- =?utf-8?B?VmQ0dEFKSGVqZEcvdUtRZUZSYjZPODByclFVNW9OeDhoUS8vcWRTM3F1R0k1?=
- =?utf-8?B?OEV5cUJBc1ZKL1FIL2RnNnNsYVovbGVOb2lsUlRVSGpWQS9qZDhvV1FRcHpY?=
- =?utf-8?B?MEZOeXRLQ1FqL09OeGtudm1uSlZIRWhoeFNPeVhKVWg0SEdjdG1LeUhGTDRW?=
- =?utf-8?B?anhBL1hJL2JMalJ2SXdaRWJJUEdvWVFqV0NJaDBpOTk1SzhLMm5zMmpxVDgx?=
- =?utf-8?B?c0MxYVpBQzQzcFd4NjQwcUdNSk5DUnpsT1FvcjFlUTRjbnZqRmdjbFdUYWdV?=
- =?utf-8?B?ekxSMnIwMFg0QTkzRGtUdWNkdUhVdmJ1VHNLZEdubFE2NzQzV29CMTNjb3hY?=
- =?utf-8?B?ZTcxZll1S1hHNHdmTWRBM0NYMDZMUjByRTQ2RkF5U2hkMVk3NnBTNU5PanFH?=
- =?utf-8?B?MW5hWlZPcENCcm9RdzN6THRlR0JuM0F2cUFhWUZuS0xyQ0VEanc2R1VCdTJP?=
- =?utf-8?B?M0FtSVppSGhPSnpad25pMFdsMm9OeEcxdWRKT1N2ZWRLMEs0UHRCdk9WdXFH?=
- =?utf-8?B?MlJLM09LTnIvMkJKVExOblFEQkxmUTZzTlh1UWNiMFcrcisraXRWZmFNNkFP?=
- =?utf-8?B?RjFqOExKT0dkU3Y4aVp1TVpZMThQVzUyTzBhYWhPMkNtVUQ0Z1ZmOW5CbTBr?=
- =?utf-8?B?aTFwdDJsRERyQ3VaS2VQVnVvSXlTTEZYVFhSUUY3a3FyeVZBV1RYNklQK2hN?=
- =?utf-8?B?VXNZM2MwWWFUR0UvazlGQVR5dHpGOXZ3MUdzUlhkKzFXTUJBVGRaYUdDeDdl?=
- =?utf-8?B?RCtMMVlZUHloOXNIMWlRZ29IRnNrMkRyaUNFVlIvbjV6M203QTFGRkZSV1ph?=
- =?utf-8?B?WmRVbzNYQ1orNUpuN01CLzB6cHcwdFk1T0tjLzRMaXlGVmV0b21ZZERKZ2px?=
- =?utf-8?B?c093YldWdkpOUXkySTQrWXBQeDN1TnAwdXhueVE1b01CWGRjVkZFN3FxMVA1?=
- =?utf-8?B?RVZDUEw1b3VhQSs0Y1FtSk94QkpwdEs3aU9URTM1VG4yeEJKRDREd1hjS1Aw?=
- =?utf-8?B?MFlsY2hmRjg3VlJLR3dzWnF5cmQzM25qM0pBd2hWKzBHam9JOHF6OWJIaVo2?=
- =?utf-8?B?K2V2QUJFcmR0aDhBSXJ4M3hTaWw4aFUxaGc4cnhHVTJBcVlsWmlNZGxCU0FI?=
- =?utf-8?B?ejEvUzFkbzZHNUVaWlpQTGszTlRlbHVxZmVEdFpLQUdBYnRSVDRuUT09?=
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?SEsyOG5ZMEFMaE51akJ5V3RjUGtyRXBCYW9Ra2dPM3JCUTEzL2lMb2dkU1ln?=
+ =?utf-8?B?amNlU3E2TFF2UWlkend2dG1YOU9ZVFFVK1BhSUl5eU5FUGRCV3ZsamRKY0Q4?=
+ =?utf-8?B?TEZWbVRiM3Q3aVhzSHVUclN2aGNFRDJSbmc2djc0L01tbTJib1hqSS9SdVY1?=
+ =?utf-8?B?WFQ5OGFKRlRGeXR5REQxNUQ3dFlMMnVRTlNWei9XR2p5TENob25qSlVTU05i?=
+ =?utf-8?B?a1FJdFpUdTNNRUFQRGxkQXllZzg1dU10b1NlMXhKOXhWZ1VyWXRXS3YxaDhp?=
+ =?utf-8?B?UlNzWGluS2JjL1BOZjU3ZzAwc0psVWVnYzloWjZQY05rT2NaMjk5Rjl3YmEy?=
+ =?utf-8?B?TFkxSDBtYU9TaUl4bEdpeWVJVFhPMnR6L2JYVW5OaXBTUXJQbGJOSEFobk9B?=
+ =?utf-8?B?L1hkcnBad0hlL2d3dkFlcm9YazYrRzlRelBwaXp0OXJnMXAraEkvdEhIcWFq?=
+ =?utf-8?B?VGRBTDYxWUJCYjE0d0RxUUlVSEprSldKV3pZdGoxeFdrS201KzhSemIxUTNW?=
+ =?utf-8?B?RE1Odlpzd0NveTNTd3RZSlkyWmh1M1pnTzVoZStjM3ZXbkZiUWZWM04rRitR?=
+ =?utf-8?B?bVcrMWJBcG51ZGRSQUlVQThWRFI2VDUvRVFMbEMyZWtRL0dCbktlajFlNVBG?=
+ =?utf-8?B?WEpDQ0V6cTcyNkZBV2RvTmRkRU5EcEN5ZjJOa1Q4bkZ5ckU4Qkxid0gwTXIr?=
+ =?utf-8?B?QytmLzVWK1ZVYjRVcThIcVJmb1JRVDFvT1o4a2VhWXJOdUNIK1Fub0FNNjZn?=
+ =?utf-8?B?MVBjbDZuT2EwckplVGdHSEQvb0o3ays3WmNCbnV0WWtNc08zV1ZnRWRUbjFJ?=
+ =?utf-8?B?cWIrNFZLdGNDcEVHUWZiemVwZm1vYVVmZzNqeS9YTTQ5L3R5Snp3WERiVktP?=
+ =?utf-8?B?eVZmYTVxTHlwdU5OUzVUR2JQeWpGdGxuajRPWC9KRUo1ZTFZVWJ0bTVyczhI?=
+ =?utf-8?B?aVBXK28xUXFFRmtYODI1a1VTS3ArUEFOdVhycnFDcUYvZUpGeDBXYWhOV2JJ?=
+ =?utf-8?B?VVB6ZnAvVldCTHRGZ1A3YkRZNitBdnYvd2VrS2VlUjMwTDdYSjVKQnFTYXhX?=
+ =?utf-8?B?TG5UVlJkbDhVVnZyVGd2UEoxc1dsaE9nM242ZXQrSTV6ZDMwclBwaVlER2tH?=
+ =?utf-8?B?enJIQ1pUZzkrNFo5ZXJuMUxaMVprNzkwTnJqdHMyOGVHMTJQZndrUHVNdkF4?=
+ =?utf-8?B?bndtT213ZGxUZ3FhRnBYaGxkZTBIcU51Ukh4VU84RWdyejlETzNnWUF0R1p0?=
+ =?utf-8?B?UUpIMG1reVFLbG5ZS0xyWG5DSmp2Z0JodWNXUU14bEh6YitjYXZkVDBySWlH?=
+ =?utf-8?B?dzhDVUg5dGEvYmZxODN0dW9FOWdLbVU2SW1ETDJGQmJoaG9ZN3VlZ1lMYnJq?=
+ =?utf-8?B?R3h6VnhxblpXbithM3c1cC9qNE1ONHlXVkc4bWpYb1lUbGtvRGs3bXhIMDRi?=
+ =?utf-8?B?RU81Q2Y4N1JSdFZZY29XSzQyTEMvQWpBTm5KNE40L24vSmFtRlFXY1ZjdTVL?=
+ =?utf-8?B?VmRJeUpDNGgwRzlNeU1GMXRUWXJCOUUzZEorQ3Y3bmhpTUptcktsUkRsUUs5?=
+ =?utf-8?B?NGpWUEJEbEUrakZTN1hOUnBJL2lsa2JsS1I4Wm9pVlpPaGRuVVdJdFV3UEpu?=
+ =?utf-8?B?dnQ3K2dUUjFERlZCaUdWZzlUcGFoUzlhZllGRWNpUFdqUXNQZkdLa1FVTXdq?=
+ =?utf-8?B?dUxOZVRkOTNIdU84dTZPRHZUeHJvNk4yY2VaTnlqbjFYVk4wRjlBR1NlSjJV?=
+ =?utf-8?B?TnhPL1hGZmVhL3g5MmpHUkREYmY2dmZnNHpENTBuVGhOM3o2UEUyTkNLZE0w?=
+ =?utf-8?B?d1hVaW1ZTStZZ3dRUlFNemViMHJaUHN4U003ZGlpR3FneGpJRDR4ejZRNHJu?=
+ =?utf-8?B?RGVYVFFoLytlakFNSDR1NURrblF3K1pkaUxPN0xtQzMxazdNbmZDM0dFOTVG?=
+ =?utf-8?B?YnNydjRQelhYSkpJb2lYKzZSaS9BMmVGTDEwLytQWXdVMU9oRHdWMkIzYlNC?=
+ =?utf-8?B?NlZKZTJTSzlVLzRRMFFpRXBMTGR0b1ZKU3JrK2owZkpycGh0dzYxazg1NGhy?=
+ =?utf-8?B?N0tuQzJsKzd2dXdNTDB3bmVLaVppaDhsQ0NPdU81T2hRaTllcnkxUkt1S0FU?=
+ =?utf-8?B?dWhYbGJrZEFvS2xrOWh6WUcrL0FqMnk2UTBYUWw4Vk9jbTJGcTQxN3lnS1dM?=
+ =?utf-8?B?b2gzcG1EYnVVTitpK3A3d0dZTG5tZmxveGFQWWVVSFhsY0g2OHN4OS9XMWdv?=
+ =?utf-8?B?di9sQkI4YmhuUlByM245MmZhbDRYbzlpWDg3RVlObWJHWHdacTdhamNrNGRL?=
+ =?utf-8?B?ZHQrdmpIdUlNZGZBdCtHaWFHUWlucDhEVE9YUDhqUnUzdUl6N2loZz09?=
 X-OriginatorOrg: Nvidia.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 62ea2935-9a45-438f-7561-08df49b3b1a2
+X-MS-Exchange-CrossTenant-Network-Message-Id: 9d850d00-a688-412a-cac8-08df49b53c6b
 X-MS-Exchange-CrossTenant-AuthSource: SA1PR12MB5614.namprd12.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 23 Nov 2026 22:47:04.0399 (UTC)
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 23 Nov 2026 22:58:06.3251 (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
 X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: 07SxiMpQziVJRxbRXNBe3s0MwcxbYWfaTSUqVgnVmFNN8YPu7aulahwWDVcbdWiRuuIrg9qMx4EU/JOe1DNbXg==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DS7PR12MB6144
+X-MS-Exchange-CrossTenant-UserPrincipalName: bSNrSuowi1/scAhdqU7+a+mwDGJECZe/y4Hcp3pLlFUjKlsUDxsByUeoUh7l7h38GKdvnWAOPfZKynFzzntKlA==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DS6PR12MB324412
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -138,27 +133,216 @@ List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-7.3 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
+X-Spam-Status: No, score=-12.3 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
 	DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
-	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,USER_AGENT_SANE_1
-	autolearn=no autolearn_force=no version=4.0.1
+	INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,
+	USER_AGENT_SANE_1 autolearn=unavailable autolearn_force=no
+	version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-On 11/23/26 1:14 PM, Danilo Krummrich wrote:
-> On Mon Nov 23, 2026 at 10:11 PM CET, David Airlie wrote:
->> At some point we need to give the option, but indeed we don't have to
->> right now, if nova developers are fine with always providing the
->> command line option then we could drop the bind options for now,
->> but I know it can be annoying for devs.
-> 
-> I'd prefer to go with a Kconfig option right away.
+On 11/22/26 6:50 PM, Dave Airlie via B4 Relay wrote:
+> From: Dave Airlie <airlied@redhat.com>
+...
+> +config DRM_NOUVEAU_BIND_GSP
+> +	bool "Make nouveau the default driver for GSP-capable GPUs"
+> +	depends on DRM_NOUVEAU
+> +	default y
+> +	help
+> +	  Make nouveau bind to all NVIDIA GPUs by default, as it always
+> +	  has.
+> +
+> +	  If another NVIDIA driver, such as nova-core, should claim the
+> +	  GSP-capable (Turing and later) GPUs instead, say N here; nouveau
 
-So would I. It really is a touch less annoying.
+That seems fine. Being able to set a Kconfig and leave it alone is a
+nice convenience for developers, and it also works for distros, so let's
+just do it and call it a win.
 
-I'll also respond with a review for this patch, shortly.
+Some comments below:
+
+...
+> diff --git a/drivers/gpu/drm/nouveau/nouveau_drm.c b/drivers/gpu/drm/nouveau/nouveau_drm.c
+> index 5e1336615cf6..582eb0c91b10 100644
+> --- a/drivers/gpu/drm/nouveau/nouveau_drm.c
+> +++ b/drivers/gpu/drm/nouveau/nouveau_drm.c
+> @@ -112,6 +112,11 @@ MODULE_PARM_DESC(runpm, "disable (0), force enable (1), optimus only default (-1
+>  static int nouveau_runtime_pm = -1;
+>  module_param_named(runpm, nouveau_runtime_pm, int, 0400);
+>  
+> +MODULE_PARM_DESC(bind_gsp, "bind to GSP-capable (Turing and later) GPUs "
+> +		 "(0 = leave them to other drivers, e.g. nova)");
+> +static bool nouveau_bind_gsp = IS_ENABLED(CONFIG_DRM_NOUVEAU_BIND_GSP);
+> +module_param_named(bind_gsp, nouveau_bind_gsp, bool, 0400);
+> +
+>  static const struct drm_driver driver_legacy_kms;
+>  static const struct drm_driver driver_atomic_kms;
+>  
+> @@ -881,7 +886,8 @@ static int nouveau_drm_probe(struct pci_dev *pdev,
+>  	/* We need to check that the chipset is supported before booting
+>  	 * fbdev off the hardware, as there's no way to put it back.
+>  	 */
+> -	ret = nvkm_device_pci_new(pdev, nouveau_config, nouveau_debug, &device);
+> +	ret = nvkm_device_pci_new(pdev, nouveau_config, nouveau_debug,
+> +				  nouveau_bind_gsp, &device);
+>  	if (ret)
+>  		return ret;
+>  
+> @@ -1460,6 +1466,7 @@ static void nouveau_display_options(void)
+>  	DRM_DEBUG_DRIVER("... runpm        : %d\n", nouveau_runtime_pm);
+>  	DRM_DEBUG_DRIVER("... vram_pushbuf : %d\n", nouveau_vram_pushbuf);
+>  	DRM_DEBUG_DRIVER("... hdmimhz      : %d\n", nouveau_hdmimhz);
+> +	DRM_DEBUG_DRIVER("... bind_gsp      : %d\n", nouveau_bind_gsp);
+
+There are one too many spaces here:     ^^^
+
+...
+> diff --git a/drivers/gpu/drm/nouveau/nvkm/engine/device/base.c b/drivers/gpu/drm/nouveau/nvkm/engine/device/base.c
+> index 625bb019736a..2439f0022443 100644
+> --- a/drivers/gpu/drm/nouveau/nvkm/engine/device/base.c
+> +++ b/drivers/gpu/drm/nouveau/nvkm/engine/device/base.c
+> @@ -3143,7 +3143,7 @@ nvkm_device_ctor(const struct nvkm_device_func *func,
+>  		 const struct nvkm_device_quirk *quirk,
+>  		 struct device *dev, enum nvkm_device_type type, u64 handle,
+>  		 const char *name, const char *cfg, const char *dbg,
+> -		 struct nvkm_device *device)
+> +		 bool bind_gsp, struct nvkm_device *device)
+>  {
+>  	struct nvkm_subdev *subdev;
+>  	u64 mmio_base, mmio_size;
+> @@ -3389,6 +3389,20 @@ nvkm_device_ctor(const struct nvkm_device_func *func,
+>  		goto done;
+>  	}
+>  
+> +	/* Unless nouveau is the default NVIDIA driver, leave GSP-capable
+> +	 * (Turing and later) PCI GPUs to other drivers, such as nova-core.
+> +	 * Older GPUs are always bound.
+
+Let's be extra clear and instead say "Pre-Turing GPUs are always bound."
+
+...
+> diff --git a/drivers/gpu/drm/nouveau/nvkm/engine/device/tegra.c b/drivers/gpu/drm/nouveau/nvkm/engine/device/tegra.c
+> index eb4f43287796..6d82de5b4c8c 100644
+> --- a/drivers/gpu/drm/nouveau/nvkm/engine/device/tegra.c
+> +++ b/drivers/gpu/drm/nouveau/nvkm/engine/device/tegra.c
+> @@ -329,9 +329,12 @@ nvkm_device_tegra_new(const struct nvkm_device_tegra_func *func,
+>  
+>  	tdev->gpu_speedo = tegra_sku_info.gpu_speedo_value;
+>  	tdev->gpu_speedo_id = tegra_sku_info.gpu_speedo_id;
+> +	/* Platform devices are always bound, regardless of the bind_gsp
+> +	 * policy for PCI devices.
+> +	 */
+>  	ret = nvkm_device_ctor(&nvkm_device_tegra_func, NULL, &pdev->dev,
+>  			       NVKM_DEVICE_TEGRA, pdev->id, NULL,
+> -			       cfg, dbg, &tdev->device);
+> +			       cfg, dbg, true, &tdev->device);
+
+
+Minor point, but this is a good demonstration of why bools are such
+a poor fit for function arguments: the calling side is completely opaque.
+
+Also, it's awkward to pass global variables into function parameters.
+
+So what to do? Instead, the policy can stay in the PCI area of the code,
+since it applies only to PCI devices. So we can just track it in that
+struct, like this (notice how the explanatory comment is no longer needed):
+
+diff --git a/drivers/gpu/drm/nouveau/include/nvkm/core/pci.h b/drivers/gpu/drm/nouveau/include/nvkm/core/pci.h
+index 075fe192b26f..6c2742f293c1 100644
+--- a/drivers/gpu/drm/nouveau/include/nvkm/core/pci.h
++++ b/drivers/gpu/drm/nouveau/include/nvkm/core/pci.h
+@@ -7,6 +7,7 @@ struct nvkm_device_pci {
+        struct nvkm_device device;
+        struct pci_dev *pdev;
+        bool suspend;
++       bool bind_gsp;
+ };
+ 
+ int nvkm_device_pci_new(struct pci_dev *, const char *cfg, const char *dbg,
+diff --git a/drivers/gpu/drm/nouveau/nvkm/engine/device/base.c b/drivers/gpu/drm/nouveau/nvkm/engine/device/base.c
+index 2439f0022443..f1e85e8ac5be 100644
+--- a/drivers/gpu/drm/nouveau/nvkm/engine/device/base.c
++++ b/drivers/gpu/drm/nouveau/nvkm/engine/device/base.c
+@@ -25,6 +25,7 @@
+ #include "acpi.h"
+ 
+ #include <core/option.h>
++#include <core/pci.h>
+ 
+ #include <subdev/bios.h>
+ #include <subdev/therm.h>
+@@ -3143,7 +3144,7 @@ nvkm_device_ctor(const struct nvkm_device_func *func,
+                 const struct nvkm_device_quirk *quirk,
+                 struct device *dev, enum nvkm_device_type type, u64 handle,
+                 const char *name, const char *cfg, const char *dbg,
+-                bool bind_gsp, struct nvkm_device *device)
++                struct nvkm_device *device)
+ {
+        struct nvkm_subdev *subdev;
+        u64 mmio_base, mmio_size;
+@@ -3396,7 +3397,8 @@ nvkm_device_ctor(const struct nvkm_device_func *func,
+         * Reject before subdevs are constructed, as that would already load
+         * GSP firmware for GPUs that are not going to be used.
+         */
+-       if (device->func->pci && device->card_type >= TU100 && !bind_gsp) {
++       if (device->func->pci && device->card_type >= TU100 &&
++           !device->func->pci(device)->bind_gsp) {
+                nvdev_info(device, "leaving GSP-capable GPU to other drivers "
+                           "(bind_gsp=0)\n");
+                ret = -ENODEV;
+diff --git a/drivers/gpu/drm/nouveau/nvkm/engine/device/pci.c b/drivers/gpu/drm/nouveau/nvkm/engine/device/pci.c
+index 735f6537273b..1e159a22a94c 100644
+--- a/drivers/gpu/drm/nouveau/nvkm/engine/device/pci.c
++++ b/drivers/gpu/drm/nouveau/nvkm/engine/device/pci.c
+@@ -1694,6 +1694,7 @@ nvkm_device_pci_new(struct pci_dev *pci_dev, const char *cfg, const char *dbg,
+        }
+        *pdevice = &pdev->device;
+        pdev->pdev = pci_dev;
++       pdev->bind_gsp = bind_gsp;
+ 
+        ret = nvkm_device_ctor(&nvkm_device_pci_func, quirk, &pci_dev->dev,
+                               pci_is_pcie(pci_dev) ? NVKM_DEVICE_PCIE :
+@@ -1703,7 +1704,7 @@ nvkm_device_pci_new(struct pci_dev *pci_dev, const char *cfg, const char *dbg,
+                                    pci_dev->bus->number << 16 |
+                                    PCI_SLOT(pci_dev->devfn) << 8 |
+                                    PCI_FUNC(pci_dev->devfn), name,
+-                              cfg, dbg, bind_gsp, &pdev->device);
++                              cfg, dbg, &pdev->device);
+ 
+        if (ret) {
+                nvkm_device_del(pdevice);
+diff --git a/drivers/gpu/drm/nouveau/nvkm/engine/device/priv.h b/drivers/gpu/drm/nouveau/nvkm/engine/device/priv.h
+index a462051d2977..d0c40f034244 100644
+--- a/drivers/gpu/drm/nouveau/nvkm/engine/device/priv.h
++++ b/drivers/gpu/drm/nouveau/nvkm/engine/device/priv.h
+@@ -54,7 +54,7 @@ int  nvkm_device_ctor(const struct nvkm_device_func *,
+                      const struct nvkm_device_quirk *,
+                      struct device *, enum nvkm_device_type, u64 handle,
+                      const char *name, const char *cfg, const char *dbg,
+-                     bool bind_gsp, struct nvkm_device *);
++                     struct nvkm_device *);
+ int  nvkm_device_init(struct nvkm_device *);
+ int  nvkm_device_fini(struct nvkm_device *, enum nvkm_suspend_state suspend);
+ #endif
+diff --git a/drivers/gpu/drm/nouveau/nvkm/engine/device/tegra.c b/drivers/gpu/drm/nouveau/nvkm/engine/device/tegra.c
+index 6d82de5b4c8c..eb4f43287796 100644
+--- a/drivers/gpu/drm/nouveau/nvkm/engine/device/tegra.c
++++ b/drivers/gpu/drm/nouveau/nvkm/engine/device/tegra.c
+@@ -329,12 +329,9 @@ nvkm_device_tegra_new(const struct nvkm_device_tegra_func *func,
+ 
+        tdev->gpu_speedo = tegra_sku_info.gpu_speedo_value;
+        tdev->gpu_speedo_id = tegra_sku_info.gpu_speedo_id;
+-       /* Platform devices are always bound, regardless of the bind_gsp
+-        * policy for PCI devices.
+-        */
+        ret = nvkm_device_ctor(&nvkm_device_tegra_func, NULL, &pdev->dev,
+                               NVKM_DEVICE_TEGRA, pdev->id, NULL,
+-                              cfg, dbg, true, &tdev->device);
++                              cfg, dbg, &tdev->device);
+        if (ret) {
+                struct nvkm_device *device = &tdev->device;
+
 
 thanks,
 -- 
 John Hubbard
-
