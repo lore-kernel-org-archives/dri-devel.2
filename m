@@ -2,57 +2,61 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2F6C3606A32E
-	for <dri-devel@archiver.kernel.org>; Mon, 23 Nov 2026 09:00:12 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 74E32606A31A
+	for <dri-devel@archiver.kernel.org>; Mon, 23 Nov 2026 09:04:08 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=i6mTklMm
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=EUhZB/y7
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 888BB10E964;
-	Mon, 23 Nov 2026 09:00:06 +0000 (UTC)
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.7])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 6E01810EB29
- for <dri-devel@lists.freedesktop.org>; Mon, 23 Nov 2026 09:00:00 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1795424400; x=1826960400;
- h=from:to:cc:subject:date:message-id:mime-version:
- content-transfer-encoding;
- bh=rTlSmiwzBWb3c1hhLuhH+kxfd37ebCQWQotUR90Lbxk=;
- b=i6mTklMmt2STDEEATn/FDkMu8WLNa0qK215eIyl46NBx8OdqwrvC7yL4
- VMlBF5ZEUrs40KUBZVvQnb8CJrAHacSEfFH1jXuZQOomwqhDuPDEC+qP6
- Jcux3worfNhGdUBR+KrGZyX5BP8EGH7nTGBMACoNFb66mh80Fw8B0Uaro
- AoGPii9DGpw36T3PBZVN/NAyYZvahijlDkyyrAk29nGyuzMPjGZe7oyNc
- GLL4LLvb06a3QKC+ifBh9Dx14GbO2MyO/lIOgz8eIO8ZrmiAj2HXziyoQ
- 4c9wkpuHh5XzWAgwpH+pE0PnCDM409Uyq64tXtTdkYg+o/ntn6FabT4Ur g==;
-X-CSE-ConnectionGUID: Q3Zz0bNLSme/5WBzKuZjiA==
-X-CSE-MsgGUID: cr667c6ITOeD2AOihPrzQg==
-X-IronPort-AV: E=McAfee;i="6800,10657,11974"; a="4061988"
-X-IronPort-AV: E=Sophos;i="6.27,227,1787036400"; 
-   d="scan'208";a="4061988"
-Received: from fmviesa005.fm.intel.com ([10.60.135.145])
- by fmvoesa101.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 23 Nov 2026 00:59:44 -0800
-X-CSE-ConnectionGUID: WUXiuVL/SIi/otTwbD2ztw==
-X-CSE-MsgGUID: CFikCgcWQGStXJV56+SQcw==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,227,1787036400"; d="scan'208";a="11343408"
-Received: from pl-npu-pc-kwachow.igk.intel.com ([10.91.220.239])
- by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 23 Nov 2026 00:59:42 -0800
-From: Karol Wachowski <karol.wachowski@linux.intel.com>
-To: dri-devel@lists.freedesktop.org
-Cc: apopple@nvidia.com,
- Andrzej Kacprowski <andrzej.kacprowski@linux.intel.com>,
- Oded Gabbay <ogabbay@kernel.org>, Jeff Hugo <jeff.hugo@oss.qualcomm.com>,
- dawid.osuchowski@linux.intel.com, christian.koenig@amd.com,
- sumit.semwal@linaro.org, Karol Wachowski <karol.wachowski@linux.intel.com>
-Subject: [PATCH] accel/ivpu: Allocate a scatterlist per userptr dma-buf mapping
-Date: Mon, 23 Nov 2026 09:59:35 +0100
-Message-ID: <20261123085935.623564-1-karol.wachowski@linux.intel.com>
-X-Mailer: git-send-email 2.43.0
+	by gabe.freedesktop.org (Postfix) with ESMTP id 5F5F710E9BA;
+	Mon, 23 Nov 2026 09:04:01 +0000 (UTC)
+Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id D92F610E76E;
+ Mon, 23 Nov 2026 09:03:54 +0000 (UTC)
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+ by tor.source.kernel.org (Postfix) with ESMTP id D203B61ECB;
+ Mon, 23 Nov 2026 09:03:53 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 99AF01F000CA;
+ Mon, 23 Nov 2026 09:03:52 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+ s=k20260515; t=1795424633;
+ bh=4x7CJ1xMFs5pG+gh52UonDZiTq1wXOZaXmAxD7J5OAE=;
+ h=Date:From:To:Cc:Subject:References:In-Reply-To;
+ b=EUhZB/y7qb0yQDBmX1MaXhfgnQ9Wwgz1PLjP1mJXwRjkSsXjNqSeST+yRBq/W7vtU
+ awKsG/1nDiAtCnsXlBI01lXjILgB/crOknqO7/ipdoky6vB5Z/XQT/THqDEkDAp1ax
+ 8b4H9RPRhvQ3Nyor9L3ml3Kw6yJkqSwm2du1+7uw7iCG8q4NXWAITiNGHpvdk2/3oY
+ TrmvJJk3leOwO72pKYHoHvNj9Ry9GI8DxZHbIfvy8K8XGpIpdK4wU2HiPAS7MSnWrG
+ O5zhCYFjoglRwo6l53D+TtrHf3j4pXrTtnhAETY5Cxpg0Vyzapt4keY2WgL68eqXEe
+ SEfvgu6ryg+oA==
+Date: Mon, 23 Nov 2026 10:03:50 +0100
+From: Maxime Ripard <mripard@kernel.org>
+To: Ville =?utf-8?B?U3lyasOkbMOk?= <ville.syrjala@linux.intel.com>
+Cc: Mario Limonciello <mario.limonciello@amd.com>, 
+ Alex Deucher <alexander.deucher@amd.com>,
+ Jani Nikula <jani.nikula@linux.intel.com>, 
+ Javier Martinez Canillas <javierm@redhat.com>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
+ Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>, 
+ Simona Vetter <simona@ffwll.ch>, Harry Wentland <harry.wentland@amd.com>, 
+ Leo Li <sunpeng.li@amd.com>, Rodrigo Siqueira <siqueira@igalia.com>, 
+ Mario Limonciello <superm1@kernel.org>, Xaver Hugl <xaver.hugl@gmail.com>, 
+ dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
+ amd-gfx@lists.freedesktop.org, 
+ intel-gfx@lists.freedesktop.org, intel-xe@lists.freedesktop.org,
+ nouveau@lists.freedesktop.org
+Subject: Re: [PATCH v12 01/12] drm: add connector LUMINANCE property
+Message-ID: <awQAlSSks2We5h2z@houat>
+References: <20261119-superm1-backlight-property-v12-0-89d5217d3618@amd.com>
+ <20261119-superm1-backlight-property-v12-1-89d5217d3618@amd.com>
+ <awB4Qe83u0l0XPKA@intel.com>
+ <8713bae1-9782-41d4-b09c-f14031203e88@amd.com>
+ <awPvoLCDeq1YFLE_@houat> <awPzsMWZ7e0i6i54@intel.com>
+ <awP0nasqAc4pAeMR@houat> <awP8hAy3Gim4eNxz@intel.com>
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: multipart/signed; micalg=pgp-sha384;
+ protocol="application/pgp-signature"; boundary="7qyyenfz3amoxweo"
+Content-Disposition: inline
+In-Reply-To: <awP8hAy3Gim4eNxz@intel.com>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -64,169 +68,194 @@ List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-16.8 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
-	DKIM_SIGNED,DKIM_VALID,HEADER_FROM_DIFFERENT_DOMAINS,
+X-Spam-Status: No, score=-15.8 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
+	DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
 	INCLUDES_CR_TRAILER,INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,
-	SPF_PASS,USER_AGENT_GIT autolearn=ham autolearn_force=no version=4.0.1
+	SPF_PASS autolearn=unavailable autolearn_force=no version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-The userptr dma-buf DMA maps the same sg_table on every map_dma_buf(),
-so a second mapping would overwrite the DMA addresses of the first one.
-It only works today because ivpu is the only importer.
 
-Build a new sg_table from the pinned pages on each map instead.
+--7qyyenfz3amoxweo
+Content-Type: text/plain; protected-headers=v1; charset=iso-8859-1
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
+Subject: Re: [PATCH v12 01/12] drm: add connector LUMINANCE property
+MIME-Version: 1.0
 
-Fixes: c0b3fef87069 ("accel/ivpu: Add support for userptr buffer objects")
-Signed-off-by: Karol Wachowski <karol.wachowski@linux.intel.com>
----
-Alistair, your DMA-buf mapping types series [1] noted this as a
-pre-existing issue in "[PATCH v3 15/24] accel/ivpu: Convert the userptr
-exporter to the SGT mapping type" [2]. With this patch applied first,
-ivpu becomes an exporter that allocates a table per map, so its
-conversion reduces to the same pattern as "[PATCH v3 07/24] dma-buf:
-Convert exporters allocating a table per map to the SGT mapping type"
-(e.g. amdxdna_ubuf), without the shared header copy.
+On Mon, Nov 23, 2026 at 10:42:44AM +0200, Ville Syrj=E4l=E4 wrote:
+> On Mon, Nov 23, 2026 at 09:10:17AM +0100, Maxime Ripard wrote:
+> > On Mon, Nov 23, 2026 at 10:05:04AM +0200, Ville Syrj=E4l=E4 wrote:
+> > > On Mon, Nov 23, 2026 at 08:50:29AM +0100, Maxime Ripard wrote:
+> > > > On Fri, Nov 20, 2026 at 11:19:13AM -0600, Mario Limonciello wrote:
+> > > > >=20
+> > > > >=20
+> > > > > On 11/20/26 10:41, Ville Syrj=E4l=E4 wrote:
+> > > > > > On Thu, Nov 19, 2026 at 05:27:28PM -0600, Mario Limonciello wro=
+te:
+> > > > > > > Panel brightness is a property of a display, and thus of a DRM
+> > > > > > > connector. Add an atomic per-connector LUMINANCE range proper=
+ty so
+> > > > > > > compositors can manage relative panel luminance together with=
+ the rest
+> > > > > > > of the display state.
+> > > > > > >=20
+> > > > > > > Keep the core backend-agnostic. Drivers create the property w=
+ith their
+> > > > > > > hardware range and implement connector helper callbacks to se=
+t luminance
+> > > > > > > or disable panel emission. The atomic helpers sequence those =
+callbacks
+> > > > > > > around pipeline enable and disable, including luminance-only =
+commits.
+> > > > > > > The panel is left lit when the pipeline enters self refresh, =
+and the
+> > > > > > > luminance is only reprogrammed when it changes or a modeset e=
+nables the
+> > > > > > > pipeline.
+> > > > > > >=20
+> > > > > > > The stored property value is independent of display power. A =
+commit made
+> > > > > > > while the connector is inactive is retained and applied on th=
+e next
+> > > > > > > enable; disabling the pipeline does not overwrite it.
+> > > > > > >=20
+> > > > > > > LUMINANCE values are relative, driver-defined levels rather t=
+han
+> > > > > > > absolute luminance in cd/m^2. The interface supports emissive=
+ panels as
+> > > > > > > well as panels with a separate backlight.
+> > > > > > >=20
+> > > > > > > Keep the interface behind a default-off DRM_LUMINANCE option.=
+ Migrated
+> > > > > > > drivers retain their legacy backlight class ABI unless the ne=
+w interface
+> > > > > > > is explicitly selected, allowing the DRM UAPI and legacy comp=
+atibility
+> > > > > > > policy to remain separate.
+> > > > > > >=20
+> > > > > > > Acked-by: Javier Martinez Canillas <javierm@redhat.com>
+> > > > > > > Signed-off-by: Mario Limonciello <mario.limonciello@amd.com>
+> > > > > > > ---
+> > > > > > > v11:
+> > > > > > >   * Don't call .disable_luminance when the CRTC enters self r=
+efresh (Sashiko)
+> > > > > > >   * Only call .set_luminance when the luminance changes or on=
+ a modeset
+> > > > > > >     that isn't a self refresh exit (Leo Li, Sashiko)
+> > > > > > >   * Fix the .set_luminance self refresh documentation
+> > > > > > > v10:
+> > > > > > >   * Add tag
+> > > > > > > ---
+> > > > > > >   drivers/gpu/drm/Kconfig                    | 14 +++++
+> > > > > > >   drivers/gpu/drm/drm_atomic_helper.c        | 98 +++++++++++=
+++++++++++++++++++-
+> > > > > > >   drivers/gpu/drm/drm_atomic_state_helper.c  |  7 +++
+> > > > > > >   drivers/gpu/drm/drm_atomic_uapi.c          |  5 ++
+> > > > > > >   drivers/gpu/drm/drm_connector.c            | 57 +++++++++++=
+++++++
+> > > > > > >   drivers/gpu/drm/tests/drm_connector_test.c | 28 +++++++++
+> > > > > > >   include/drm/drm_atomic_helper.h            |  3 +
+> > > > > > >   include/drm/drm_connector.h                | 16 +++++
+> > > > > > >   include/drm/drm_modeset_helper_vtables.h   | 28 +++++++++
+> > > > > > >   9 files changed, 255 insertions(+), 1 deletion(-)
+> > > > > > >=20
+> > > > > > > diff --git a/drivers/gpu/drm/Kconfig b/drivers/gpu/drm/Kconfig
+> > > > > > > index 61111d50b1c65..1bbe2c2d7c76f 100644
+> > > > > > > --- a/drivers/gpu/drm/Kconfig
+> > > > > > > +++ b/drivers/gpu/drm/Kconfig
+> > > > > > > @@ -33,6 +33,20 @@ endmenu
+> > > > > > >   if DRM
+> > > > > > > +config DRM_LUMINANCE
+> > > > > > > +	bool "DRM connector luminance support"
+> > > > > > > +	help
+> > > > > > > +	  Expose relative luminance as an atomic DRM connector prop=
+erty. Values
+> > > > > > > +	  are driver-defined levels rather than absolute luminance =
+in cd/m^2.
+> > > > > > > +	  Drivers provide connector helper callbacks to program the=
+ir hardware;
+> > > > > > > +	  the DRM core does not depend on a particular backend.
+> > > > > > > +
+> > > > > > > +	  Drivers migrated to this interface will use it instead of=
+ registering
+> > > > > > > +	  a legacy backlight class device. Leave this disabled to p=
+reserve the
+> > > > > > > +	  de-facto userspace ABI in /sys/class/backlight.
+> > > > > >=20
+> > > > > > I don't think this will fly if it breaks the backlight class in=
+terface.
+> > > > > > No one can actually enable this outside of some niche embedded =
+use
+> > > > > > cases where backwards compatibility is not an issue. I think wh=
+at
+> > > > > > you need is a generic backlight class implementation on top of =
+this.
+> > > > > >=20
+> > > > >=20
+> > > > > The idea with this was:
+> > > > > 1) to get the series landed
+> > > > > 2) let compositors merge solutions around it.
+> > > > > 3) Then add backwards compatibility to kernel so we can flip the =
+Kconfig
+> > > > > default.
+> > > >=20
+> > > > I said this a few times already, but we keep having those discussio=
+ns
+> > > > while the backlight sysfs handling is far from being the main point=
+=2E You
+> > > > should *really* consider adding support for the luminance property =
+for
+> > > > something that isn't tied to that interface (like DDC/CI for HDMI),=
+ and
+> > > > treat the sysfs API as a sysfs series.
+> > > >=20
+> > > > It looks like people just have conflicting opinions on this particu=
+lar
+> > > > part that isn't going to solve itself easily. You should not treat =
+this
+> > > > sysfs discussion as a blocker for the infrastructure work.
+> > >=20
+> > > You want to be sure backwards compatibility with the backlight
+> > > class is a solvable problem before you land *anything*. Otherwise
+> > > you might just paint yourself into a corner with no way out.
+> >=20
+> > I disagree. The luminance property is more useful than *just* for
+> > backlights but is also useful for HDMI, DP, and MIPI-DSI that would all
+> > use it.
+>=20
+> DSI and eDP are all over the place when it comes how backlight
+> is implemented, so very much would not all use it. Some HDMI and
+> external DP displays might have DDC/CI support, so I'll give you
+> those.
+> =20
+> > If that's the corner we paint ourselves into, it's still a pretty nice
+> > corner.
+>=20
+> Separate APIs for different outputs on different drivers is just
+> a bad idea. Every userspace implementation will have to support
+> all of them until the end of the world.
 
-[1] https://lore.kernel.org/r/20261120-dma_mapping_type_v4-v3-0-c0183a409bdf@nvidia.com
-[2] https://lore.kernel.org/r/20261120-dma_mapping_type_v4-v3-15-c0183a409bdf@nvidia.com
+I agree, but then there's an easy answer: don't enable it on drivers
+that would expose it on both APIs. We do have a lot of drivers where
+there's just no backlight involved and would greatly benefit from these,
+and without the history of i915 or amdgpu to deal with.
 
- drivers/accel/ivpu/ivpu_gem_userptr.c | 65 ++++++++++++++++-----------
- 1 file changed, 38 insertions(+), 27 deletions(-)
+But at the end of the day, it was just an advice to Mario to make his
+experience easier, nothing more.
 
-diff --git a/drivers/accel/ivpu/ivpu_gem_userptr.c b/drivers/accel/ivpu/ivpu_gem_userptr.c
-index 7cbf3a4cdc73..cfb2894b572d 100644
---- a/drivers/accel/ivpu/ivpu_gem_userptr.c
-+++ b/drivers/accel/ivpu/ivpu_gem_userptr.c
-@@ -19,18 +19,39 @@
- #include "ivpu_drv.h"
- #include "ivpu_gem.h"
- 
-+struct ivpu_userptr {
-+	struct page **pages;
-+	unsigned long nr_pages;
-+};
-+
- static struct sg_table *
- ivpu_gem_userptr_dmabuf_map(struct dma_buf_attachment *attachment,
- 			    enum dma_data_direction direction)
- {
--	struct sg_table *sgt = attachment->dmabuf->priv;
-+	struct ivpu_userptr *userptr = attachment->dmabuf->priv;
-+	struct sg_table *sgt;
- 	int ret;
- 
-+	sgt = kmalloc_obj(*sgt);
-+	if (!sgt)
-+		return ERR_PTR(-ENOMEM);
-+
-+	ret = sg_alloc_table_from_pages(sgt, userptr->pages, userptr->nr_pages, 0,
-+					attachment->dmabuf->size, GFP_KERNEL);
-+	if (ret)
-+		goto free_sgt;
-+
- 	ret = dma_map_sgtable(attachment->dev, sgt, direction, DMA_ATTR_SKIP_CPU_SYNC);
- 	if (ret)
--		return ERR_PTR(ret);
-+		goto free_table;
- 
- 	return sgt;
-+
-+free_table:
-+	sg_free_table(sgt);
-+free_sgt:
-+	kfree(sgt);
-+	return ERR_PTR(ret);
- }
- 
- static void ivpu_gem_userptr_dmabuf_unmap(struct dma_buf_attachment *attachment,
-@@ -38,21 +59,17 @@ static void ivpu_gem_userptr_dmabuf_unmap(struct dma_buf_attachment *attachment,
- 					  enum dma_data_direction direction)
- {
- 	dma_unmap_sgtable(attachment->dev, sgt, direction, DMA_ATTR_SKIP_CPU_SYNC);
-+	sg_free_table(sgt);
-+	kfree(sgt);
- }
- 
- static void ivpu_gem_userptr_dmabuf_release(struct dma_buf *dma_buf)
- {
--	struct sg_table *sgt = dma_buf->priv;
--	struct sg_page_iter page_iter;
--	struct page *page;
--
--	for_each_sgtable_page(sgt, &page_iter, 0) {
--		page = sg_page_iter_page(&page_iter);
--		unpin_user_page(page);
--	}
-+	struct ivpu_userptr *userptr = dma_buf->priv;
- 
--	sg_free_table(sgt);
--	kfree(sgt);
-+	unpin_user_pages(userptr->pages, userptr->nr_pages);
-+	kvfree(userptr->pages);
-+	kfree(userptr);
- }
- 
- static const struct dma_buf_ops ivpu_gem_userptr_dmabuf_ops = {
-@@ -67,7 +84,7 @@ ivpu_create_userptr_dmabuf(struct ivpu_device *vdev, void __user *user_ptr,
- {
- 	struct dma_buf_export_info exp_info = {};
- 	struct dma_buf *dma_buf;
--	struct sg_table *sgt;
-+	struct ivpu_userptr *userptr;
- 	struct page **pages;
- 	unsigned long nr_pages = size >> PAGE_SHIFT;
- 	unsigned int gup_flags = FOLL_LONGTERM;
-@@ -94,39 +111,33 @@ ivpu_create_userptr_dmabuf(struct ivpu_device *vdev, void __user *user_ptr,
- 		goto unpin_pages;
- 	}
- 
--	sgt = kmalloc_obj(*sgt);
--	if (!sgt) {
-+	userptr = kmalloc_obj(*userptr);
-+	if (!userptr) {
- 		ret = -ENOMEM;
- 		goto unpin_pages;
- 	}
- 
--	ret = sg_alloc_table_from_pages(sgt, pages, nr_pages, 0, size, GFP_KERNEL);
--	if (ret) {
--		ivpu_dbg(vdev, IOCTL, "Failed to create sg table: %d\n", ret);
--		goto free_sgt;
--	}
-+	userptr->pages = pages;
-+	userptr->nr_pages = nr_pages;
- 
- 	exp_info.exp_name = "ivpu_userptr_dmabuf";
- 	exp_info.owner = THIS_MODULE;
- 	exp_info.ops = &ivpu_gem_userptr_dmabuf_ops;
- 	exp_info.size = size;
- 	exp_info.flags = O_RDWR | O_CLOEXEC;
--	exp_info.priv = sgt;
-+	exp_info.priv = userptr;
- 
- 	dma_buf = dma_buf_export(&exp_info);
- 	if (IS_ERR(dma_buf)) {
- 		ret = PTR_ERR(dma_buf);
- 		ivpu_dbg(vdev, IOCTL, "Failed to export userptr dma-buf: %d\n", ret);
--		goto free_sg_table;
-+		goto free_userptr;
- 	}
- 
--	kvfree(pages);
- 	return dma_buf;
- 
--free_sg_table:
--	sg_free_table(sgt);
--free_sgt:
--	kfree(sgt);
-+free_userptr:
-+	kfree(userptr);
- unpin_pages:
- 	for (i = 0; i < pinned; i++)
- 		unpin_user_page(pages[i]);
+Maxime
 
-base-commit: 5ffdc8f8361387a1b11553e5c95cd589c67a51f2
--- 
-2.43.0
+--7qyyenfz3amoxweo
+Content-Type: application/pgp-signature; name="signature.asc"
 
+-----BEGIN PGP SIGNATURE-----
+
+iJUEABMJAB0WIQTkHFbLp4ejekA/qfgnX84Zoj2+dgUCawQBdQAKCRAnX84Zoj2+
+dunrAX9OzZxIexpZ8Qw4XCq4/lezSrvBeTkuRX8CXqlW4RjMdA683eoraos3n1cE
+83wgjf4BgLjSuSezL8FBFpprUBA620g6fG8Jmw0qYXoo2/ZVS5AjEGJhDXBtMgug
+SYHfFtLmpA==
+=nRXr
+-----END PGP SIGNATURE-----
+
+--7qyyenfz3amoxweo--
