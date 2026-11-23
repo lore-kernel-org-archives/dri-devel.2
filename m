@@ -2,43 +2,155 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B7ABF606A31A
-	for <dri-devel@archiver.kernel.org>; Mon, 23 Nov 2026 11:34:33 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5CA19606A31A
+	for <dri-devel@archiver.kernel.org>; Mon, 23 Nov 2026 12:10:53 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=aliel.fr header.i=@aliel.fr header.a=rsa-sha256 header.s=courrier-s1 header.b=ooeUU0hC
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=BC6lQqzi;
+	dkim=pass (1024-bit key, unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=selector1 header.b=FTXQaEV1
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id E864210E18C;
-	Mon, 23 Nov 2026 11:34:27 +0000 (UTC)
-Received: from courrier.aliel.fr (courrier.aliel.fr [65.21.61.41])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 37F4210E3A4
- for <dri-devel@lists.freedesktop.org>; Mon, 23 Nov 2026 11:34:21 +0000 (UTC)
-Message-ID: <ceda6a5e-f314-441f-b596-21a60b48486b@aliel.fr>
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=aliel.fr;
- s=courrier-s1; t=1795433659;
- bh=DyzVVA4BHQY1L7A1w9MoxMVnpEeVU9iMkGr1NRy0wTM=;
- h=Date:From:Subject:To:Cc:References:In-Reply-To;
- b=ooeUU0hCpiBSpZnhoubWSJjGhz8XJVTlm1zKpLsrdNqn8bP4KrBVGhduHnCKW+ZFx
- chNU/CpFE7x4QPJnCUo1x32lhLS6yUx2buXH9T89JTGjvcH1lu4NFAOgMXzz6/i/CS
- Mra7PQ2bd3b2mcV22l/V8FGFOE5Kzk/LaAF5gIKo=
-Date: Mon, 23 Nov 2026 12:34:18 +0100
+	by gabe.freedesktop.org (Postfix) with ESMTP id 46B9910ED9F;
+	Mon, 23 Nov 2026 12:10:41 +0000 (UTC)
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.7])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id BEE7610ED6F;
+ Mon, 23 Nov 2026 12:10:29 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1795435830; x=1826971830;
+ h=from:to:cc:subject:date:message-id:in-reply-to:
+ references:content-transfer-encoding:mime-version;
+ bh=A7vtFR7b8Q4eF9REc4I6Rn2m2OzniT8WtvEE2ZEOUyw=;
+ b=BC6lQqzih8dSBVG90ZO1JiPzHhS4+VeXtDUtRblN9Ph443/uRJbErulf
+ c4nUHDXZqbg5PwSfD0IpoWNN7N4UhgVZ8YNOcCRfZVQ5irpdSgGzQYtJi
+ 8yORzHRVuKOivlFDti0bnF7aqpu5BythuAQ75eJh9lhCKkeybdIsYW0Kn
+ 5YTCWO3tSCH7BsaukmQ6tXzp6+j+OXfy3tWWpFG5NU9tFChZPj6Yp29t3
+ wt7QqJ3Pjw6UrHQswtIGZd2rnlqsLkUFrhovgI+dnskn73b+8aiRTjZ1f
+ rtJu2R0ZfCGPWgHR7+5L3I745YKbhQA158mFmQwRUoegEmgx5/YVSLqHg Q==;
+X-CSE-ConnectionGUID: U5rh+bEoRl+YH/sZl865kQ==
+X-CSE-MsgGUID: 9/K2b6WbRYi2pP4MoYNqJg==
+X-IronPort-AV: E=McAfee;i="6800,10657,11974"; a="4077472"
+X-IronPort-AV: E=Sophos;i="6.27,227,1787036400"; 
+   d="scan'208";a="4077472"
+Received: from orviesa004.jf.intel.com ([10.64.159.144])
+ by fmvoesa101.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 23 Nov 2026 04:10:29 -0800
+X-CSE-ConnectionGUID: WHcjs1BQQQqpjyNs1cyVTQ==
+X-CSE-MsgGUID: Xmkg6DJzR/WABApMoJXXzA==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,227,1787036400"; d="scan'208";a="11166538"
+Received: from fmsmsx902.amr.corp.intel.com ([10.18.126.91])
+ by orviesa004.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 23 Nov 2026 04:10:29 -0800
+Received: from FMSMSX901.amr.corp.intel.com (10.18.126.90) by
+ fmsmsx902.amr.corp.intel.com (10.18.126.91) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.57; Mon, 23 Nov 2026 04:10:28 -0800
+Received: from fmsedg903.ED.cps.intel.com (10.1.192.145) by
+ FMSMSX901.amr.corp.intel.com (10.18.126.90) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.57 via Frontend Transport; Mon, 23 Nov 2026 04:10:28 -0800
+Received: from BL2PR02CU003.outbound.protection.outlook.com (52.101.52.32) by
+ edgegateway.intel.com (192.55.55.83) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.56; Mon, 23 Nov 2026 04:10:28 -0800
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=hbLiyfe8os0XmIg4XH3HcdgPKVkgLbKwbpqjycPpnrph6VhAgebA8++9yS06L38VifZQsgwWS4kqGUf5d54J4PQxI2oQqDvsN5/bgugIBuyedBDkw6c24vAJqucZxNzNBfDEwwzPXJaTobZ2oART+FqCqkV+M5BcNQ9rZFnPq+efsLTHm16uBtZqCyh7XzN2dNh4b24Vi8wbWaF8NNsIFmdfvE5fydmsdOSVD9mTb3C8Yat/Sp2M2ZOmzJG0MVdYD4eKBG9Lr6/PxhZ7B/uskn2JVaF26I+lILpgFyZz2SpfIcwNjpwPhUffXVPRwN3OOrtMO3QHqrBAxKFgYjEAiQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=uIL45Pz6uJF4541+Imw4UChdcO4Jq0bDqejEwNteMnQ=;
+ b=eRcmGqQm+DdV+n5RBMZ+/8fa7EyFN88egqZZusT6eNpImNklY/HVZAisKsyxUBLWuRvzowc1f+8iOnRfJUT/fTfAgd36Umx4hOvPeeVRVmasAyEIEhH34xLWBZdzC7nPK8q6XdiC4/eRTBsAmurUvd7Qg3U5bDLcfOkm+tHmCoZsssnFYEKSoKjs4//AF6Qdaz62xRmvm82ylWBGa+8/uaTYoT1kuhfSoM/VprN5zwXFfZ8EMXrPnTnKPRWaqlr1uZ87sWdWEzwcKMSxcTTz76l6f8nAm+zauERn9iy4JqsMk2g+SlPlbs0fPkL5C9POuHRh+7GerT2XQUvgTrEzmQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=intel.com; dmarc=pass action=none header.from=intel.com;
+ dkim=pass header.d=intel.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=intel.com; s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=uIL45Pz6uJF4541+Imw4UChdcO4Jq0bDqejEwNteMnQ=;
+ b=FTXQaEV1e4uZXfGVS1ZhL/F2WM3WOqzzW1yhTaiIh6qqHfRauRWBK24fI4q4fq9a66YHuCVOL7lnoQYErpxf+fDIskVy1KhN9OXgkkSym09eCAaxB9T3VkEok5vJkla/1I19J+JlDhscqClCGKl6KDl7a7bMUZFi7/d9Y5o9R/c=
+Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=intel.com;
+Received: from IA3PR11MB9273.namprd11.prod.outlook.com (2603:10b6:208:573::17)
+ by DS4PR11MB9602.namprd11.prod.outlook.com (2603:10b6:8:34a::11) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.639.13; Mon, 23 Nov
+ 2026 12:10:26 +0000
+Received: from IA3PR11MB9273.namprd11.prod.outlook.com
+ ([fe80::31a4:58c:e3b5:43fa]) by IA3PR11MB9273.namprd11.prod.outlook.com
+ ([fe80::31a4:58c:e3b5:43fa%6]) with mapi id 15.21.0639.011; Mon, 23 Nov 2026
+ 12:10:25 +0000
+From: Imre Deak <imre.deak@intel.com>
+To: <intel-gfx@lists.freedesktop.org>, <intel-xe@lists.freedesktop.org>
+CC: Jani Nikula <jani.nikula@intel.com>, <dri-devel@lists.freedesktop.org>,
+ Dave Airlie <airlied@redhat.com>, Frederik Schwan <freswa@archlinux.org>,
+ <stable@vger.kernel.org>
+Subject: [CI] drm/i915/dp: Fix source PHY updates for UHBR links with LTTPRs
+Date: Mon, 23 Nov 2026 14:09:54 +0200
+Message-ID: <20261123120954.1115838-1-imre.deak@intel.com>
+X-Mailer: git-send-email 2.49.1
+In-Reply-To: <avtDzWO1sOXYvxZ2@mail.tty42.de>
+References: <avtDzWO1sOXYvxZ2@mail.tty42.de>
+Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park,
+ 6 krs Bertel Jungin Aukio 5, 02600 Espoo, Finland
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-ClientProxiedBy: GV3PEPF0001DC05.SWEP280.PROD.OUTLOOK.COM
+ (2603:10a6:158:400::267) To IA3PR11MB9273.namprd11.prod.outlook.com
+ (2603:10b6:208:573::17)
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-From: Ronald Claveau <linux-kernel-dev@aliel.fr>
-Subject: Re: [PATCH v3 08/11] drm/meson: dw-hdmi: Use the generic PHY
- framework for the HDMI TX PHY
-To: sashiko-reviews@lists.linux.dev
-Cc: devicetree@vger.kernel.org, linux-amlogic@lists.infradead.org,
- linux-phy@lists.infradead.org, dri-devel@lists.freedesktop.org,
- robh@kernel.org, conor+dt@kernel.org, neil.armstrong@linaro.org,
- vkoul@kernel.org, olteanv@gmail.com
-References: <20261121-meson-drm-create-hdmitx-phy-v3-0-f8f471788076@aliel.fr>
- <20261121-meson-drm-create-hdmitx-phy-v3-8-f8f471788076@aliel.fr>
- <sashiko-outbox-227314@kernel.org>
-Content-Language: en-US
-In-Reply-To: <sashiko-outbox-227314@kernel.org>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: IA3PR11MB9273:EE_|DS4PR11MB9602:EE_
+X-MS-Office365-Filtering-Correlation-Id: c173c023-de8b-4c10-44f6-08df495ac1b2
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+ ARA:13230040|23010399003|1800799024|376014|366016|261028144727099003|261026140227099003|261026121527099003|261102123227099003|261022105027099003|261021121427099003|261022075727099003|11063799006|261021123027099003|56012099006|10067099003|18002099003|22082099003|261009223027099003|6133799003|3023799007;
+X-Microsoft-Antispam-Message-Info: qtYjqFI3JvBKg601dk1qt0a6iK8bHj5/w7upBdz1+sCCQZMTfJExSiW9Jd/W4QjT5++lPD2IxwjTtPEGf87JX3lUz8LNRhiF5Oy+Dsl7PmCMB4RXK48WC5EXh9dqEuqrVgJ/LLaBcct0kwuXI3UjRR7XUglyxUMuj+MuyWQmN0zgWRDq4wzyj9VP4XsnEb6vfMeWOZUu1ZhMjOl3JIomwC+3KYnB+hR03p7QyBP7dP1Zbu0P5r74kM9DjXwwzhRhNDteDakuzQKvnQBkjg5bDWYMGbN676Nt8w6aYXGMbS3ias8LXds2RHoYLp9RfU/uUkvMunytCMyRDgjKiZfpOFFUdgoBqQxraGgwFy10P7fOMBjuwCGPTBI1BztetTHxuR+YTcqq4OofxVIqEmXow1O6YsmIpeUQ+9ZJdpIvs5lzVJ/V4HYH4P6lkmlNwb6Z1kOEdakjX1PMNwq9Mi4nqN+nmoPReoX81AwcCMr69D2f/PjtHbWSbnjskfoRuUTSmW0BHQh5lbodTCQyaFPkLvxvC6bcpCQPfvGc6H7Mzz9yy0Cu1QqlfSlUs/qV3xxkPeHwWgupiPnAQn/515uyIQmAR+LBP7DlQuDB5kLZHM8=
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:IA3PR11MB9273.namprd11.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230040)(23010399003)(1800799024)(376014)(366016)(261028144727099003)(261026140227099003)(261026121527099003)(261102123227099003)(261022105027099003)(261021121427099003)(261022075727099003)(11063799006)(261021123027099003)(56012099006)(10067099003)(18002099003)(22082099003)(261009223027099003)(6133799003)(3023799007);
+ DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: =?us-ascii?Q?jbUE1Bct1KyRvlnBJGGPjB+VeITx6om64FJyGjpSJbKFO2gjSQJC6YRhnbfM?=
+ =?us-ascii?Q?BxbTbUBGz/3yL1nUj/0WlmfY0N2LGmDRd8/5m++XLl2swicgWmOjDtjaRFu/?=
+ =?us-ascii?Q?9Y609eX20i8PcqqYe/xFKKyi3xJtKB4g12YZJ0QDQyTB3H+b6FtfMxTsDOFr?=
+ =?us-ascii?Q?ntMx9RaD/gqD0GEqK6wjuYd/FiLMcL9qVVkI+WadEtuquXshqumKLFd/Dmao?=
+ =?us-ascii?Q?Yd8vSUd90W7vQ1nl7Rm+NgGtqTbwu/Sr6aLJwYxoFSr2EFFPGlNqsIwApEDS?=
+ =?us-ascii?Q?pusTudkUfRFArnBKF6ubHmuu8lEIltIAcOsU+IvN+jHoWz9fjpn61mi9UDYQ?=
+ =?us-ascii?Q?bIKkGMJq8I+MHQqAwOfadIagXOV3EbiOVzfp6ICMzDMiA50TgA/USeB594QK?=
+ =?us-ascii?Q?zsu36xjrleo3PvKhvOTH0pyTIGCinFP3ZZLAwcfCUpHWJVWhTlLYY2knXRQy?=
+ =?us-ascii?Q?t5gAwLs5ZEiZmRiTA708ZSbrma+4zX3QclXeIibeEAfu6mbPttBST0PAohM4?=
+ =?us-ascii?Q?EJ7fuFL14KHbLIIhw/3oBRJyo8Uk5KLciTIhf7V7ZKHm8wgTa73+xiAxK3hQ?=
+ =?us-ascii?Q?XsdotGWmXYJhRcC+NnZybg67B0MsBBsLWWLsxH974vQweczilsytfoQ825Vu?=
+ =?us-ascii?Q?5yOewSvrSJyYrxIFo2FTaeGIdOSsUuu8ul5OrfDkIaleEUZJ06FthlAmRLKF?=
+ =?us-ascii?Q?CVUEXd6biNiqkPkGiNqNiuKqBEQ5bnvLpPhaPa0R9rOjQvOS4iJUcwwWl30L?=
+ =?us-ascii?Q?XKfVbgl981Iz20pYDtbGEq9yasCKfdDtD3Xmaq7pZrX6ezl03Vw68zkG/Kly?=
+ =?us-ascii?Q?97zMdRXG3+o8up2aSvX80z9C58dBtzDSdMAdk0VPflbOgTgRwWMufmNrnzDF?=
+ =?us-ascii?Q?GX7rYqP1cgOxeG6lRsIFo2jzg8deZjtoGNHQObTTiBcAUQmCmlfU4uWzAbzz?=
+ =?us-ascii?Q?k6DQk/z+HrBkoKZrQpA9hlYWuKcbCsWddiNYeYOPeognXXGU+8tLpReIn1XE?=
+ =?us-ascii?Q?RwmB8mHui0mJwsKXaeHhAL6CsMIQGiRucNaq2KpnoKUxULOmY39QoS2u/uXg?=
+ =?us-ascii?Q?5DJTZNCACibERo5OKvjxjzKSZANEAjEXD+XOV8Db9xG+f/QKkbYoKlnOKsJ9?=
+ =?us-ascii?Q?iCwd1YsC4pPlOLL3XAh3LnvEsVurxHxDhIBc76pqgivAZg5au79/3S4T1Zhq?=
+ =?us-ascii?Q?gKwBm/lgtY/QmdulZGZntCiVH4I3ifZ4kVbtR7WonTty589yYfv71DgJXKKS?=
+ =?us-ascii?Q?2KNDXw6YzeqqkcmoX33gjM04Rh2yDvaTeFpVe4wSeLikYvCj2mRt7CroyAxY?=
+ =?us-ascii?Q?kXPmh8EZ9xRszYksbUo9pAqHcHZ9PhWdpAHihrKGZ8bIXVEwXj8FyNfBglVu?=
+ =?us-ascii?Q?Ys8DOBVShfu1zlTOy0aoIhm2nzcwsgSBAO1MMDSWTnmu1qW25bev2szZauli?=
+ =?us-ascii?Q?ku+7Myw9F7kWjMnIIzihFg8/sMk/Ml+zQsYBU406gYXnrTSghnYJNtwifPVC?=
+ =?us-ascii?Q?N3WFygdhNacbuaBAyz9+WDPM+1UYrq1t91MZxi4iSM9uORwzqNwdBfnQF3Qx?=
+ =?us-ascii?Q?yqazpTIi5PLXYVNCrKPIMxq9mEzMsxQ9qSv0G77rkAHOdj2c7p91wqQ7VUkI?=
+ =?us-ascii?Q?rXAwdAqPmxMx8r8Ug4WlZxlpJ0lBpb3sgm2pezuLxV0Jk+zIKl83YZFHmveJ?=
+ =?us-ascii?Q?oarmOGpeQMNc8A6Ex1qJg2PeeGxwoepsFqDLmXApyralsGCRLEteROOmcAAF?=
+ =?us-ascii?Q?2J6pS23V+Q=3D=3D?=
+X-Exchange-RoutingPolicyChecked: UyqGD53CIN6vei9pR7z1QWFNBgQBp6GPtbDaF8b89/aAgI7MsRCAlTL6iub2yUYB1NXWRFhRZGwQzWiDeRKhNGLjZbroYZWphJxTzv8niS9zmBR1Dz23wFN0IwyXd/gWNp0blF52kMYxYNpliVrwZ65fA6ONMNV4MLzgbyHE48uQKG/jWktixaAxkpMkWt00FPmVNJ/fHPOUuBV5b5If21pnkFv42c2lGIobeAxoDmL4EbpfJ91bMVArf4THF2O7VWaAyQgb91GCf17t0XjdkBhTOt8SkArPtaN7BaVBUnQZ4SrZz7pF8kqldMg33Jo19DqvgnbvgYHTHDkwAcmOOQ==
+X-MS-Exchange-CrossTenant-Network-Message-Id: c173c023-de8b-4c10-44f6-08df495ac1b2
+X-MS-Exchange-CrossTenant-AuthSource: IA3PR11MB9273.namprd11.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 23 Nov 2026 12:10:25.7971 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 46c98d88-e344-4ed4-8496-4ed7712e255d
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: JdS313vICVcDbepjxZ0aiTwjalKNdi5Suy77WHGCRISBvy8TC5k2crUMe2Fh52KTDXGzTUFrHf29YszdHO9TMg==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DS4PR11MB9602
+X-OriginatorOrg: intel.com
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -50,187 +162,102 @@ List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-12.3 required=3.0 tests=BAYES_00,DKIM_SIGNED,
-	DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_PATCH,
-	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,USER_AGENT_SANE_1
-	autolearn=unavailable autolearn_force=no version=4.0.1
+X-Spam-Status: No, score=-18.8 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
+	DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
+	INCLUDES_CR_TRAILER,INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,
+	SPF_PASS,USER_AGENT_GIT autolearn=unavailable autolearn_force=no
+	version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-On 11/21/26 20:37, sashiko-bot@kernel.org wrote:
-> Thank you for your contribution! Sashiko AI review found 3 potential
-> issues to consider:
-> - [High] drm/meson: dw-hdmi: invalid phy_destroy() in
->   meson_dw_hdmi_bind() error path
-> - [Medium] drm/meson: dw-hdmi: stateless device link leaked in
->   meson_dw_hdmi_unbind()
-> - [Medium] drm/meson: dw-hdmi: meson_venc_init() clobbers PHY CNTL0 on
->   system resume
-> --
-> 
-> commit 60b745dc55898638b05c8fcafed9d3683b30dff0
-> Author: Ronald Claveau <linux-kernel-dev@aliel.fr>
-> 
-> drm/meson: dw-hdmi: Use the generic PHY framework for the HDMI TX PHY
-> 
-> This commit converts the Meson DW-HDMI glue driver to manage the HDMI TX
-> PHY through the generic PHY framework, with a legacy fallback when the
-> device tree lacks a "phys" property, and adds a stateless device link
-> between the VPU master and HDMI-TX device.
-> 
->> diff --git a/drivers/gpu/drm/meson/meson_dw_hdmi.c b/drivers/gpu/drm/meson/meson_dw_hdmi.c
->> index 20a821936b3af..8fdb997c28b40 100644
->> --- a/drivers/gpu/drm/meson/meson_dw_hdmi.c
->> +++ b/drivers/gpu/drm/meson/meson_dw_hdmi.c
-> 
-> [ ... ]
-> 
->> @@ -746,7 +663,26 @@ static int meson_dw_hdmi_bind(struct device *dev, struct device *master,
->>  		return ret;
->>  	}
->>  
->> -	meson_dw_hdmi_init(meson_dw_hdmi);
->> +	meson_dw_hdmi->phy = devm_phy_optional_get(dev, NULL);
->> +	if (IS_ERR(meson_dw_hdmi->phy))
->> +		return dev_err_probe(dev, PTR_ERR(meson_dw_hdmi->phy),
->> +				     "failed to get HDMI PHY\n");
->> +
->> +	if (!meson_dw_hdmi->phy) {
->> +		/* DEPRECATED: DT without "phys" */
->> +		dev_warn(dev, "missing \"phys\", using legacy HDMI PHY\n");
->> +		meson_dw_hdmi->phy = meson_hdmi_phy_create_legacy(dev, priv->hhi,
->> +						meson_dw_hdmi->data->phy_soc);
->> +		if (IS_ERR(meson_dw_hdmi->phy))
->> +			return dev_err_probe(dev, PTR_ERR(meson_dw_hdmi->phy),
->> +					     "failed to create legacy HDMI PHY\n");
->> +
->> +		meson_dw_hdmi->legacy_phy = true;
->> +	}
->> +
->> +	ret = meson_dw_hdmi_init(meson_dw_hdmi);
->> +	if (ret)
->> +		return ret;
->>  
->>  	/* Bridge / Connector */
->>  
->> @@ -767,14 +703,26 @@ static int meson_dw_hdmi_bind(struct device *dev, struct device *master,
->>  	platform_set_drvdata(pdev, meson_dw_hdmi);
->>  
->>  	meson_dw_hdmi->hdmi = dw_hdmi_probe(pdev, &meson_dw_hdmi->dw_plat_data);
->> -	if (IS_ERR(meson_dw_hdmi->hdmi))
->> -		return PTR_ERR(meson_dw_hdmi->hdmi);
->> +	if (IS_ERR(meson_dw_hdmi->hdmi)) {
->> +		ret = PTR_ERR(meson_dw_hdmi->hdmi);
->> +		goto err_hdmi_probe;
->> +	}
->>  
->>  	meson_dw_hdmi->bridge = of_drm_find_and_get_bridge(pdev->dev.of_node);
->>  
->> +	link = device_link_add(master, dev, DL_FLAG_STATELESS);
->> +	if (!link)
->> +		dev_warn(dev, "failed to link HDMI (supplier) to DRM master (consumer)\n");
->> +
->>  	DRM_DEBUG_DRIVER("HDMI controller initialized\n");
->>  
->>  	return 0;
->> +
->> +err_hdmi_probe:
->> +	phy_exit(meson_dw_hdmi->phy);
->> +	phy_destroy(meson_dw_hdmi->phy);
->> +
->> +	return ret;
->>  }
-> 
-> [Severity: High]
-> Does calling phy_destroy(meson_dw_hdmi->phy) in err_hdmi_probe cause a
-> double free or destroy the external provider's PHY when dw_hdmi_probe()
-> fails (for example with -EPROBE_DEFER)?
-> 
-> Both devm_phy_optional_get() and meson_hdmi_phy_create_legacy() (which
-> uses devm_phy_create()) are devres-managed in the component devres group
-> that component_bind() releases on bind failure.  When legacy_phy is
-> false, meson_dw_hdmi is only a consumer, so phy_destroy() unregisters
-> the external PHY provider's device while the provider remains bound.
-> When legacy_phy is true, component_bind() immediately runs
-> devm_phy_consume() -> phy_destroy() a second time on the already-freed
-> phy.
-> 
-> Dropping phy_destroy() from err_hdmi_probe and leaving the cleanup to
-> component_bind()'s devres release avoids both issues.
-> 
+From: Frederik Schwan <freswa@archlinux.org>
 
-I will drop it.
+128b/132b links use LTTPR-transparent training even when LTTPRs are
+present. The DPRX is trained directly in a single phase, without first
+training each LTTPR PHY separately. The source must therefore program
+its FFE parameters during this DPRX training phase.
 
->>  
->>  static void meson_dw_hdmi_unbind(struct device *dev, struct device *master,
->> @@ -786,6 +734,10 @@ static void meson_dw_hdmi_unbind(struct device *dev, struct device *master,
->>  
->>  	devm_free_irq(dev, irq, meson_dw_hdmi);
->>  	dw_hdmi_unbind(meson_dw_hdmi->hdmi);
->> +
->> +	phy_exit(meson_dw_hdmi->phy);
->> +	if (meson_dw_hdmi->legacy_phy)
->> +		devm_phy_destroy(dev, meson_dw_hdmi->phy);
->>  	drm_bridge_put(meson_dw_hdmi->bridge);
->>  }
-> 
-> [Severity: Medium]
-> Does meson_dw_hdmi_unbind() leak the DL_FLAG_STATELESS device link
-> created in meson_dw_hdmi_bind()?  Stateless device links are not removed
-> automatically by the driver core on unbind and require an explicit
-> device_link_remove(master, dev) or device_link_del().
-> 
+The source signal-level update is currently guarded by
+intel_dp_phy_is_downstream_of_source(). With LTTPRs present, this only
+accepts the source-adjacent LTTPR PHY and rejects DP_PHY_DPRX. That is
+appropriate for non-transparent 8b/10b training, but skips the source
+FFE update during 128b/132b training. This affects legacy and DP-alt
+port modes; in TBT-alt mode the Thunderbolt subsystem owns and programs
+the source PHY.
 
-I forgot it, thanks for the reminder, I will add the device_link_remove().
+Program the source signal levels for UHBR regardless of the detected
+LTTPRs. Also make the per-lane capability check used by
+intel_dp_get_lane_adjust_tx_ffe_preset() use the source PHY's capability
+for UHBR, rather than treating the DPRX as a separately trained
+receiver behind an LTTPR. Preserve the existing 8b/10b behavior.
 
->> @@ -801,6 +753,8 @@ static int __maybe_unused meson_dw_hdmi_pm_suspend(struct device *dev)
->>  	if (!meson_dw_hdmi)
->>  		return 0;
->>  
->> +	phy_exit(meson_dw_hdmi->phy);
->> +
->>  	/* Reset TOP */
->>  	meson_dw_hdmi->data->top_write(meson_dw_hdmi,
->>  				       HDMITX_TOP_SW_RESET, 0);
->> @@ -811,11 +765,14 @@ static int __maybe_unused meson_dw_hdmi_pm_suspend(struct device *dev)
->>  static int __maybe_unused meson_dw_hdmi_pm_resume(struct device *dev)
->>  {
->>  	struct meson_dw_hdmi *meson_dw_hdmi = dev_get_drvdata(dev);
->> +	int ret;
->>  
->>  	if (!meson_dw_hdmi)
->>  		return 0;
->>  
->> -	meson_dw_hdmi_init(meson_dw_hdmi);
->> +	ret = meson_dw_hdmi_init(meson_dw_hdmi);
->> +	if (ret)
->> +		return ret;
->>  
->>  	dw_hdmi_resume(meson_dw_hdmi->hdmi);
-> 
-> [Severity: Medium]
-> With the new device link ordering dev (supplier) to resume before master
-> (consumer), will meson_drv_pm_resume() -> meson_venc_init() clobber
-> HHI_HDMI_PHY_CNTL0 after meson_dw_hdmi_pm_resume() has initialized the
-> PHY?
-> 
-> drivers/gpu/drm/meson/meson_venc.c:meson_venc_init() {
-> 	...
-> 	/* Disable HDMI PHY */
-> 	regmap_write(priv->hhi, HHI_HDMI_PHY_CNTL0, 0);
-> 	...
-> }
-> 
-> meson_dw_hdmi_init() calls phy_init(), which programs HHI_HDMI_PHY_CNTL0
-> to cntl0_init (0x000b4242 on G12A for the bandgap).  When the consumer
-> meson_drv_pm_resume() runs next, meson_venc_init() overwrites
-> HHI_HDMI_PHY_CNTL0 with 0, leaving the G12A bandgap disabled whenever no
-> HDMI mode is active across suspend and resume.
-> 
+Enabling UHBR tunneling exposed this older bug on a ThinkPad P1 Gen 8
+with a ThinkPad Thunderbolt 5 Smart Dock 7500. Updating the source FFE
+presets restores four-lane UHBR20 training and both DP displays.
 
-I will change the link order to the oposite, and use prepare/complete
-for the drm_mode_config_helper suspend/resume.
+Fixes: a421d8a99216 ("drm/i915/dp: rewrite DP 2.0 128b/132b link training based on errata")
+Cc: stable@vger.kernel.org # v5.18+
+Link: https://lore.kernel.org/regressions/40e2af4139b94eaeecd41fcdccb4ec1ef3dc098a@intel.com/
+Assisted-by: Codex:gpt-6
+Signed-off-by: Frederik Schwan <freswa@archlinux.org>
+Acked-by: Imre Deak <imre.deak@intel.com>
+Signed-off-by: Imre Deak <imre.deak@intel.com>
+---
+ .../drm/i915/display/intel_dp_link_training.c    | 16 ++++++++++++----
+ 1 file changed, 12 insertions(+), 4 deletions(-)
 
+diff --git a/drivers/gpu/drm/i915/display/intel_dp_link_training.c b/drivers/gpu/drm/i915/display/intel_dp_link_training.c
+index ac1aff6edf052..1efc78b329a69 100644
+--- a/drivers/gpu/drm/i915/display/intel_dp_link_training.c
++++ b/drivers/gpu/drm/i915/display/intel_dp_link_training.c
+@@ -773,11 +773,14 @@ static u8 intel_dp_phy_preemph_max(struct intel_dp *intel_dp,
+ }
+ 
+ static bool has_per_lane_signal_levels(struct intel_dp *intel_dp,
++				       const struct intel_crtc_state *crtc_state,
+ 				       enum drm_dp_phy dp_phy)
+ {
+ 	struct intel_display *display = to_intel_display(intel_dp);
+ 
+-	return !intel_dp_phy_is_downstream_of_source(intel_dp, dp_phy) ||
++	/* UHBR training always adjusts the source PHY, even with LTTPRs. */
++	return (!intel_dp_is_uhbr(crtc_state) &&
++		!intel_dp_phy_is_downstream_of_source(intel_dp, dp_phy)) ||
+ 		DISPLAY_VER(display) >= 10 || display->platform.broxton;
+ }
+ 
+@@ -790,7 +793,7 @@ static u8 intel_dp_get_lane_adjust_tx_ffe_preset(struct intel_dp *intel_dp,
+ {
+ 	u8 tx_ffe = 0;
+ 
+-	if (has_per_lane_signal_levels(intel_dp, dp_phy)) {
++	if (has_per_lane_signal_levels(intel_dp, crtc_state, dp_phy)) {
+ 		lane = min(lane, crtc_state->lane_count - 1);
+ 		tx_ffe = drm_dp_get_adjust_tx_ffe_preset(link_status, lane);
+ 	} else {
+@@ -813,7 +816,7 @@ static u8 intel_dp_get_lane_adjust_vswing_preemph(struct intel_dp *intel_dp,
+ 	u8 voltage_max;
+ 	u8 preemph_max;
+ 
+-	if (has_per_lane_signal_levels(intel_dp, dp_phy)) {
++	if (has_per_lane_signal_levels(intel_dp, crtc_state, dp_phy)) {
+ 		lane = min(lane, crtc_state->lane_count - 1);
+ 
+ 		v = drm_dp_get_adjust_request_voltage(link_status, lane);
+@@ -1021,7 +1024,12 @@ void intel_dp_set_signal_levels(struct intel_dp *intel_dp,
+ 		       TRAIN_SET_PREEMPH_ARGS(intel_dp->train_set));
+ 	}
+ 
+-	if (intel_dp_phy_is_downstream_of_source(intel_dp, dp_phy))
++	/*
++	 * UHBR links use transparent training, so the source PHY must be
++	 * programmed during the DPRX training phase even with LTTPRs present.
++	 */
++	if (intel_dp_is_uhbr(crtc_state) ||
++	    intel_dp_phy_is_downstream_of_source(intel_dp, dp_phy))
+ 		encoder->set_signal_levels(encoder, crtc_state);
+ }
+ 
 -- 
-Best regards,
-Ronald
+2.49.1
+
