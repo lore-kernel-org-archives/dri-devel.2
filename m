@@ -2,102 +2,119 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B863C606A31A
-	for <dri-devel@archiver.kernel.org>; Mon, 23 Nov 2026 12:41:22 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 41E25606A32A
+	for <dri-devel@archiver.kernel.org>; Mon, 23 Nov 2026 12:50:00 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=d6NJpRb6
+	dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.a=rsa-sha256 header.s=dkim header.b=2eVrJ5W7
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 24F9410EDA9;
-	Mon, 23 Nov 2026 12:41:17 +0000 (UTC)
-Received: from mail-wm1-f53.google.com (mail-wm1-f53.google.com
- [209.85.128.53])
- by gabe.freedesktop.org (Postfix) with ESMTPS id E3FA110EDB6
- for <dri-devel@lists.freedesktop.org>; Mon, 23 Nov 2026 12:41:10 +0000 (UTC)
-Received: by mail-wm1-f53.google.com with SMTP id
- 5b1f17b1804b1-4bb6886d30aso31416385e9.3
- for <dri-devel@lists.freedesktop.org>; Mon, 23 Nov 2026 04:41:10 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20260707; t=1795437669; x=1796042469; darn=lists.freedesktop.org;
- h=content-transfer-encoding:content-disposition:content-type
- :mime-version:references:in-reply-to:message-id:date:subject:cc:to
- :from:from:to:cc:subject:date:message-id:reply-to:content-type;
- bh=n3T4SwHjmz2olFUDLYwHC6yLLAFa2tC0UOBRI/f1adc=;
- b=d6NJpRb6wbxrUfbj+uuo1Thz6LZeV0EhuSIOpL2z/NKTwCIqr63XSDDO7URWPw+sPV
- ZqKWmXDLj8p+rE/zW6VFtUNE1FSiPucL9qqWh3YS312PSFWftaZpVWfzfpgvkfnii3/1
- 9GUUR9+w18OzePwgMuvkLGSxHJbUMJr1zTV2uiJzZnSFyNhbAHNzS+NeheNiu771+rsJ
- I+KkH+OjQ1Wn5i+VRCxcu8UQDIJUMppxlzXM3+nWUF7ttjoO0fvO14a/M7x+7Gr9PHmU
- kMmtKLkdILxtcZbyXSjae3JFhpi/zFyvj2BaWOaThGEGEphtZ0V5yuGb6USnh5C+PkaK
- PtkQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20260707; t=1795437669; x=1796042469;
- h=content-transfer-encoding:content-disposition:content-type
- :mime-version:references:in-reply-to:message-id:date:subject:cc:to
- :from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
- :reply-to:content-type;
- bh=n3T4SwHjmz2olFUDLYwHC6yLLAFa2tC0UOBRI/f1adc=;
- b=01IebZNV4P2uGM3iY0tAsytfJ7PFeZP3jO/eU1mJFb+Zf7eU6FheYbzlpV6o/xuzQA
- M8JXITem77dsQZMgeDeX5R86KUs6Vh6wDvWO77PHIENQyRMymf5ZdvlQZ4eu7D9tynyI
- VNyFd3QawoN5MUROPtCipcESG71ntK1ryvBcEA+tc+tQ51nJqPf/5ljlW7o3lH6/N7Jy
- vzZMUNvpD1Ok5KO0BBgTPy0NsFiz68VILLi7lvYizMVOq8vplHReB/jNaGIrf/0ENVqd
- aj4yftCSbjf4lBS/UdfxakLB/KthZH3IFupifi/PyKbGgQ3PB02gj1MHmHZnDP0RMxlb
- dThA==
-X-Forwarded-Encrypted: i=1;
- AL+hErFasdHgIvOheVnIM7/VKR2+Mvk0VUurcaw7Mvwx+1tR2eqV13R0if22wToiqbqBSNtgUvSjdlEeMmQ=@lists.freedesktop.org
-X-Gm-Message-State: APuU4Z8Ki+RNPBvrW6f7+NtkLTstoRqlPfBd8A0j2bbV5iR9iNIpoYkQ
- 93EL4WECwMXrILnLXJaXdtVSlC1fOjyPCxHi2otwmYnP27v+4YcaVYVG
-X-Gm-Gg: AZFdTZdz+CEPt4MgKs49/3+IDsuWYlmy954gZwwiwwx7yPBmWp6f7sDZP+zKuJHKyyr
- rVOzQGA4Vq9Rk9G7iN7dCDo8FjQXqzv+lsesrMuvISvED8rLRe6hXrp3ui199fgWZ8b0/zgL3R4
- QuORktm9JnKjbFJKdgA22TAkJbiJQI5HsnHsWP1Jvg29n5ME8ZKaNqYb+f5TMYjBPbmBIuskW4i
- nQMOEpHu5+F4Z5NxRGCJ1Lngy8tLJ3OnqWIvGEAvzxTZJvh+BCxac+F4apyNJH4dN1sKYBiBRgT
- JMJuGnUMHQVZRdw6quKiw6c/jeBXuVeigGkdcKy8HhqpsIrgvECVkcsekShHnv40BIoH2Tj9RkA
- Zn/qiMlXM1zHIFT3yiJL22yhvcbiN4MC41lijux+zwPXdybxohLwhA9Ro823uhLB5c0pOwY7mbH
- tcZdXkrOvjHgNRcjr0/LnF4D4QWW+gS1DWGCc1/Oit2kIo2C03YAziYD9SVt/5V9xieBry3bRLj
- RXvQH6P9iE/NxiNzVt/VIrfZbY9qDV91FIG0GR4LCoYJAeKzgrSoqd+a98SdXJp8hVTyiGpj6G8
- N0dnsyBUXgoSl+34GdinuuoTOLrTW061jA==
-X-Received: by 2002:a05:600c:3b84:b0:4bb:6f45:2a6d with SMTP id
- 5b1f17b1804b1-4bb888074bbmr277880715e9.12.1795437669058; 
- Mon, 23 Nov 2026 04:41:09 -0800 (PST)
-Received: from ArchOarora ([2001:19f0:6c01:2c43:5400:5ff:fef6:1b30])
- by smtp.gmail.com with ESMTPSA id
- 5b1f17b1804b1-4bb90660cb4sm269127865e9.2.2026.11.23.04.40.57
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Mon, 23 Nov 2026 04:41:08 -0800 (PST)
-From: Oarora Etimis <oaroraetimis@gmail.com>
-To: Louis Chauvet <louis.chauvet@bootlin.com>
-Cc: Haneen Mohammed <hamohammed.sa@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- Melissa Wen <melissa.srw@gmail.com>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>,
- Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>,
- jose.exposito89@gmail.com, Jonathan Corbet <corbet@lwn.net>,
- Harry Wentland <harry.wentland@amd.com>,
- Lucas De Marchi <demarchi@kernel.org>,
- Ville =?utf-8?B?U3lyasOkbMOk?= <ville.syrjala@linux.intel.com>,
- Randy Dunlap <rdunlap@infradead.org>,
- Nick Desaulniers <ndesaulniers@google.com>,
- Shuah Khan <skhan@linuxfoundation.org>, Miguel Ojeda <ojeda@kernel.org>,
- Nathan Chancellor <nathan@kernel.org>,
- Nick Desaulniers <nick.desaulniers+lkml@gmail.com>,
- Bill Wendling <morbo@google.com>, Justin Stitt <justinstitt@google.com>,
- Luca Ceresoli <luca.ceresoli@bootlin.com>,
- Kory Maincent <kory.maincent@bootlin.com>, sebastian.wick@redhat.com,
- victoria@system76.com, thomas.petazzoni@bootlin.com,
- dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
- linux-doc@vger.kernel.org, Simona Vetter <simona.vetter@ffwll.ch>,
- llvm@lists.linux.dev
-Subject: Re: [PATCH v6 14/43] drm/vkms: Add error handling in plane config
- creation
-Date: Mon, 23 Nov 2026 12:40:53 +0000
-Message-ID: <awQzMoSQfHO47QgQ@ArchOarora>
-X-Mailer: git-send-email 2.56.1
-In-Reply-To: <20261120-vkms-all-config-v6-14-78ace90f4fc1@bootlin.com>
-References: <20261120-vkms-all-config-v6-0-78ace90f4fc1@bootlin.com>
- <20261120-vkms-all-config-v6-14-78ace90f4fc1@bootlin.com>
+	by gabe.freedesktop.org (Postfix) with ESMTP id A3F8410E794;
+	Mon, 23 Nov 2026 12:49:54 +0000 (UTC)
+Received: from smtpout-04.galae.net (smtpout-04.galae.net [185.171.202.116])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 6233B10EDB7
+ for <dri-devel@lists.freedesktop.org>; Mon, 23 Nov 2026 12:49:48 +0000 (UTC)
+Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
+ by smtpout-04.galae.net (Postfix) with ESMTPS id 7B880C69149;
+ Mon, 23 Nov 2026 12:49:53 +0000 (UTC)
+Received: from mail.galae.net (mail.galae.net [212.83.136.155])
+ by smtpout-01.galae.net (Postfix) with ESMTPS id 6C4BF601E1;
+ Mon, 23 Nov 2026 12:49:46 +0000 (UTC)
+Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon)
+ with ESMTPSA id 58F5211E6A338; Mon, 23 Nov 2026 13:49:04 +0100 (CET)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
+ t=1795438180; h=from:subject:date:message-id:to:cc:mime-version:content-type:
+ content-transfer-encoding:in-reply-to:references;
+ bh=9S+zYbf1+35Bjw2Mrwh8qKAGonx8naAVwCL/M52lAos=;
+ b=2eVrJ5W7Q2n7kIAXCLAfrUUYblKTfODmq1QVOkzJvI7oWSJXMqLWa2QzpazEjogSDqKzLh
+ s8sAxDfXwnzYNVSFG3dkGdEGmdUXt3V6GstTnIqHqBxkh8XBlm+2KLChquHHZoUNIkU7IX
+ UQyATbEVJjrbrnmNMUfIVKumyb7j01Fkv0K91l3BkJ1SUMdQM9PgFOlheX31bjRmCLMnxw
+ cNWH2JioMQhckzm1o8iOFOfY5k1Uwqf3FjbPF3P5HeZId+1XNnPRN22o00uI7iYRkuBNtR
+ Ug/iv3lmeQrfv8sRhqI1i1om5BfRunNZelsRIHCwZoJKMWlALzPwJIKLHejLUg==
+From: Luca Ceresoli <luca.ceresoli@bootlin.com>
+To: Douglas Anderson <dianders@chromium.org>, 
+ Neil Armstrong <neil.armstrong@linaro.org>, 
+ Jessica Zhang <jesszhan0024@gmail.com>, 
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
+ Jyri Sarha <jyri.sarha@iki.fi>, 
+ Tomi Valkeinen <tomi.valkeinen@ideasonboard.com>, 
+ Andrzej Hajda <andrzej.hajda@intel.com>, Robert Foss <rfoss@kernel.org>, 
+ Laurent Pinchart <Laurent.pinchart@ideasonboard.com>, 
+ Jonas Karlman <jonas@kwiboo.se>, Jernej Skrabec <jernej.skrabec@gmail.com>, 
+ Paul Cercueil <paul@crapouillou.net>, Marek Vasut <marex@denx.de>, 
+ Stefan Agner <stefan@agner.ch>, Frank Li <Frank.Li@nxp.com>, 
+ Sascha Hauer <s.hauer@pengutronix.de>, 
+ Pengutronix Kernel Team <kernel@pengutronix.de>, 
+ Fabio Estevam <festevam@gmail.com>, 
+ Laurent Pinchart <laurent.pinchart+renesas@ideasonboard.com>, 
+ Tomi Valkeinen <tomi.valkeinen+renesas@ideasonboard.com>, 
+ Kieran Bingham <kieran.bingham+renesas@ideasonboard.com>, 
+ Geert Uytterhoeven <geert+renesas@glider.be>, 
+ Magnus Damm <magnus.damm@gmail.com>, Biju Das <biju.das.jz@bp.renesas.com>, 
+ Linus Walleij <linusw@kernel.org>, Sandy Huang <hjc@rock-chips.com>, 
+ =?utf-8?q?Heiko_St=C3=BCbner?= <heiko@sntech.de>, 
+ Jonathan Corbet <corbet@lwn.net>, Shuah Khan <skhan@linuxfoundation.org>, 
+ Randy Dunlap <rdunlap@infradead.org>, Inki Dae <inki.dae@samsung.com>, 
+ Seung-Woo Kim <sw0312.kim@samsung.com>, 
+ Kyungmin Park <kyungmin.park@samsung.com>, 
+ Krzysztof Kozlowski <krzk@kernel.org>, 
+ Peter Griffin <peter.griffin@linaro.org>, 
+ Alim Akhtar <alim.akhtar@samsung.com>, Alison Wang <alison.wang@nxp.com>, 
+ Paul Kocialkowski <paulk@sys-base.io>, 
+ Yannick Fertre <yannick.fertre@foss.st.com>, 
+ Raphael Gallais-Pou <raphael.gallais-pou@foss.st.com>, 
+ Philippe Cornu <philippe.cornu@foss.st.com>, 
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>, 
+ Alexandre Torgue <alexandre.torgue@foss.st.com>, 
+ Chen-Yu Tsai <wens@kernel.org>, Samuel Holland <samuel@sholland.org>, 
+ Thierry Reding <thierry.reding@kernel.org>, 
+ Mikko Perttunen <mperttunen@nvidia.com>, 
+ Jonathan Hunter <jonathanh@nvidia.com>, 
+ Jagan Teki <jagan@amarulasolutions.com>, Ondrej Jirman <megi@xff.cz>, 
+ Javier Martinez Canillas <javierm@redhat.com>, 
+ Igor Reznichenko <igor@reznichenko.net>, Michael Walle <mwalle@kernel.org>, 
+ Dario Binacchi <dario.binacchi@amarulasolutions.com>, 
+ Jagan Teki <jagan@edgeble.ai>, Jianhua Lu <lujianhua000@gmail.com>, 
+ =?utf-8?q?Guido_G=C3=BCnther?= <agx@sigxcpu.org>, 
+ Purism Kernel Team <kernel@puri.sm>, 
+ Jerry Han <hanxu5@huaqin.corp-partner.google.com>, 
+ Joel Selvaraj <jo@jsfamily.in>, Icenowy Zheng <icenowy@aosc.io>, 
+ Michael Trimarchi <michael@amarulasolutions.com>, 
+ Sumit Semwal <sumit.semwal@linaro.org>, 
+ Casey Connolly <casey.connolly@linaro.org>, 
+ Michael Tretter <m.tretter@pengutronix.de>, 
+ Cristian Cozzolino <cristian_ci@protonmail.com>, 
+ Junjie Cao <junjie.cao@linux.dev>, Ryan Brue <ryanbrue.dev@gmail.com>, 
+ Nickolay Goppen <setotau@mainlining.org>, 
+ Stefan Mavrodiev <stefan@olimex.com>, 
+ Florian Fainelli <florian.fainelli@broadcom.com>, 
+ Broadcom internal kernel review list <bcm-kernel-feedback-list@broadcom.com>, 
+ Robert Chiras <robert.chiras@nxp.com>, 
+ Alexander Koskovich <akoskovich@pm.me>, 
+ Markuss Broks <markuss.broks@gmail.com>, 
+ Artur Weber <aweber.kernel@gmail.com>, David Heidelberg <david@ixit.cz>, 
+ Dzmitry Sankouski <dsankouski@gmail.com>, 
+ Yedaya Katsman <yedaya.ka@gmail.com>, Andy Yan <andyshrk@163.com>, 
+ Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
+Cc: dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org, 
+ linux-mips@vger.kernel.org, imx@lists.linux.dev, 
+ linux-arm-kernel@lists.infradead.org, linux-renesas-soc@vger.kernel.org, 
+ linux-rockchip@lists.infradead.org, linux-doc@vger.kernel.org, 
+ linux-samsung-soc@vger.kernel.org, linux-stm32@st-md-mailman.stormreply.com, 
+ linux-sunxi@lists.linux.dev, linux-tegra@vger.kernel.org, 
+ linux-rpi-kernel@lists.infradead.org
+In-Reply-To: <20261026-drm-panel-funcs-v1-0-5e3070a3478f@oss.qualcomm.com>
+References: <20261026-drm-panel-funcs-v1-0-5e3070a3478f@oss.qualcomm.com>
+Subject: Re: (subset) [PATCH 00/35] drm/panel: let the panels use the
+ atomic state
+Message-Id: <179543814467.190741.17345151948628824699.b4-ty@b4>
+Date: Mon, 23 Nov 2026 13:49:04 +0100
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-Mailer: b4 0.16.0
+X-Last-TLS-Session-Version: TLSv1.3
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -109,74 +126,61 @@ List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-15.8 required=3.0 tests=BAYES_00,DKIM_SIGNED,
-	DKIM_VALID,DKIM_VALID_AU,FREEMAIL_FORGED_FROMDOMAIN,FREEMAIL_FROM,
-	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
-	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,USER_AGENT_GIT
-	autolearn=unavailable autolearn_force=no version=4.0.1
+X-Spam-Status: No, score=-8.8 required=3.0 tests=BAYES_00,DKIM_SIGNED,
+	DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
+	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,USER_AGENT_GIT autolearn=ham
+	autolearn_force=no version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-On Fri, Nov 20, 2026 at 06:58:56PM +0100, Louis Chauvet wrote:
-> Properly route the error path of vkms_config_create_plane() through a
-> fail label to simplify future work.
-> 
-> Signed-off-by: Louis Chauvet <louis.chauvet@bootlin.com>
-> ---
->  drivers/gpu/drm/vkms/vkms_config.c | 12 +++++++++---
->  drivers/gpu/drm/vkms/vkms_config.h |  2 +-
->  2 files changed, 10 insertions(+), 4 deletions(-)
-> 
-> diff --git a/drivers/gpu/drm/vkms/vkms_config.c b/drivers/gpu/drm/vkms/vkms_config.c
-> index 50cde689f482..03f2d0f0e327 100644
-> --- a/drivers/gpu/drm/vkms/vkms_config.c
-> +++ b/drivers/gpu/drm/vkms/vkms_config.c
-> @@ -424,13 +424,16 @@ void vkms_config_register_debugfs(struct vkms_device *vkms_device)
->  			      ARRAY_SIZE(vkms_config_debugfs_list));
->  }
->  
-> -struct vkms_config_plane *vkms_config_create_plane(struct vkms_config *config)
-> +struct vkms_config_plane __must_check *vkms_config_create_plane(struct vkms_config *config)
->  {
->  	struct vkms_config_plane *plane_cfg;
-> +	int ret;
->  
->  	plane_cfg = kzalloc_obj(*plane_cfg);
-> -	if (!plane_cfg)
-> -		return ERR_PTR(-ENOMEM);
-> +	if (!plane_cfg) {
-> +		ret = -ENOMEM;
-> +		goto fail;
-> +	}
->  
->  	plane_cfg->config = config;
->  	plane_cfg->default_pipeline = false;
-> @@ -440,6 +443,9 @@ struct vkms_config_plane *vkms_config_create_plane(struct vkms_config *config)
->  	list_add_tail(&plane_cfg->link, &config->planes);
->  
->  	return plane_cfg;
-> +
-> +fail:
-> +	return ERR_PTR(ret);
->  }
->  EXPORT_SYMBOL_IF_KUNIT(vkms_config_create_plane);
->  
-> diff --git a/drivers/gpu/drm/vkms/vkms_config.h b/drivers/gpu/drm/vkms/vkms_config.h
-> index de6a89819daf..49510a0957c7 100644
-> --- a/drivers/gpu/drm/vkms/vkms_config.h
-> +++ b/drivers/gpu/drm/vkms/vkms_config.h
-> @@ -288,7 +288,7 @@ void vkms_config_register_debugfs(struct vkms_device *vkms_device);
->   * The new plane configuration or an error. Call vkms_config_destroy_plane() to
->   * free the returned plane configuration.
->   */
-> -struct vkms_config_plane *vkms_config_create_plane(struct vkms_config *config);
-> +struct vkms_config_plane __must_check *vkms_config_create_plane(struct vkms_config *config);
->  
->  /**
->   * vkms_config_destroy_plane() - Remove and free a plane configuration
-> 
-> -- 
-> 2.56.0
->
 
-Reviewed-by: Oarora Etimis <oaroraetimis@gmail.com>
+On Mon, 26 Oct 2026 13:09:49 +0200, Dmitry Baryshkov wrote:
+> The panel is the only element of the display pipeline which never sees
+> the atomic commit. Its prepare() and enable() callbacks get nothing but
+> the panel, so a panel which has to be programmed differently depending
+> on the mode can only guess it. The NT35950 driver, for example, saves
+> the connector in get_modes() and reads connector->state->crtc->state
+> while being prepared: without the locks, from the current state rather
+> than from the one being committed, and with no way to reject a mode it
+> doesn't know.
+> 
+> [...]
+
+Applied, thanks!
+
+[01/35] drm/panel: remove the get_timings() callback
+        commit: 874b9d3ad6e0087ea21aafcb2ada3f6a6a8c5a1c
+[02/35] drm/panel: remove the unused struct panel_bridge
+        commit: 83fa60df1302667ce139457208aee277067732db
+[03/35] drm/tidss: get the panel type from the embedded bridge
+        commit: eb5352d63fee9733f798f53e0418c17a5184d258
+[04/35] drm/bridge: lvds-codec: use devm_drm_panel_bridge_add()
+        commit: 4afe0e580a135dd4917486ccf7cff3442b6596ff
+[05/35] drm/ingenic: use devm_drm_panel_bridge_add()
+        commit: cfac2956bdaabec099fdc471ebd9ae9ac0defd65
+[06/35] drm: mxsfb: use devm_drm_panel_bridge_add()
+        commit: f88a377f94b03796ea5c7d62fb3b061f6a0bb040
+[07/35] drm: rcar-du: use devm_drm_panel_bridge_add()
+        commit: a57b24576b38dafdcd859aff8f129c0c0a29fd04
+[08/35] drm: rz-du: use devm_drm_panel_bridge_add()
+        commit: 666e1e77703cbcff43d48e77a24f72e4147510d8
+[09/35] drm/mcde: use drm_panel_bridge_add()
+        commit: 0f7bcd3b5439845acfa6a381a7cc314262b2d4fe
+[10/35] drm/pl111: use drm_panel_bridge_add()
+        commit: 3f603bf783886f681721218aae4c8c709ee961bf
+[11/35] drm/rockchip: lvds: use drm_panel_bridge_add()
+        commit: 8165f8e83c3a660b7311337aae0469d760ff5f26
+[12/35] drm/rockchip: rgb: use drm_panel_bridge_add()
+        commit: 66acc28d44cd41d9ad63be5840556450f84f6b50
+[13/35] drm/panel: remove the _typed() panel bridge functions
+        commit: bbdf706498e19c35c56e3d69178c3e833f014e06
+[14/35] drm/panel: remove drm_panel.connector_type
+        commit: 5888187709034391aaf7f1ab8d4910285f0b404f
+
+Best regards,
+-- 
+Luca Ceresoli, Bootlin
+Embedded Linux and Kernel engineering
+https://bootlin.com
+
+
