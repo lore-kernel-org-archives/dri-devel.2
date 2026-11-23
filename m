@@ -2,100 +2,52 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8AEAF606A31E
-	for <dri-devel@archiver.kernel.org>; Mon, 23 Nov 2026 15:37:11 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 37C4B606A32A
+	for <dri-devel@archiver.kernel.org>; Mon, 23 Nov 2026 15:38:14 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=ALjCqxzW
+	dkim=fail reason="signature verification failed" (1024-bit key) header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=foss header.b=oBfS5aJH
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id DE79110E6D9;
-	Mon, 23 Nov 2026 15:37:05 +0000 (UTC)
-Received: from mail-ot1-f52.google.com (mail-ot1-f52.google.com
- [209.85.210.52])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 6AFB010EF18
- for <dri-devel@lists.freedesktop.org>; Mon, 23 Nov 2026 15:36:49 +0000 (UTC)
-Received: by mail-ot1-f52.google.com with SMTP id
- 46e09a7af769-8212fce7258so401686a34.0
- for <dri-devel@lists.freedesktop.org>; Mon, 23 Nov 2026 07:36:49 -0800 (PST)
-ARC-Seal: i=1; a=rsa-sha256; t=1795448208; cv=none;
- d=google.com; s=arc-20260327;
- b=C0BaiBBOOFTXJG7sy+x/9yK54+iAWyOP0xtvPhM2tvIjjuvke1IZCU7L8r2Uzn1+S1
- WBKOqHerm6WEaxsV3ZvHGqLSpxwK5Dh1t6BI6Mxe32JDolR1IcNVV0hzEHfxQivATCOL
- XV4F0J91484xfSIa2HMpS/nIFd6mawfKu2ikJw1G/lePHjBb7u8qEwOymp+RH/+lSVKw
- gR69qARWwZbDIdpD58nJS64tvsvw8t6MJVjei4QLcWJzbbfRCqmOUBNC8UHlXkH/lRZX
- DIUYKUVVHVtI/GkSq41sK/ityKvX3PLZTA1U1rWCxS8IwAzRvvoPnaNoVGazLLxctrK6
- UuXA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com;
- s=arc-20260327; 
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:dkim-signature;
- bh=O+ZsCUKlDNFkykdhaFUY00lREXOJ7VO+hfzdF9elZiI=;
- fh=oGHswW/8rbvh/TOBeWxqTx3TCAWJtYgUl4gW84Ifnbc=;
- b=pbbL6LigUD3N06evmgxYKuoK+JQCnCl2wmPcfjGidJDgwHuxU5lS5I+a4BFctZ7gDa
- bOSzAMHB7q4ej3pBuQElDbT2PbQ0Bcky5sCyjQ2Ov5LiJcEtNrgmp3cid+d1pZwBJYzr
- Y5W2IJHujMJNo+at1COKAiw8uC7W14ZhjGDernBtnEHzn84lYem+ciXb1iRE+y1iT+E3
- Bhc9o5zBq8MuNI6yi3Oj6u5JA7ZrYRiTj5TMh4GV7k96WPnZPqDtFT5t135Dl27hJwsm
- PpExk3X8FFPAomBI20p1EC1HPhr9u6/nQLfPFauXuackBs5Yzplxl4OCRGDsxU9C8Jci
- MBYw==; darn=lists.freedesktop.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20260707; t=1795448208; x=1796053008; darn=lists.freedesktop.org;
- h=content-transfer-encoding:content-type:cc:to:subject:message-id
- :date:from:in-reply-to:references:mime-version:from:to:cc:subject
- :date:message-id:reply-to:content-type;
- bh=O+ZsCUKlDNFkykdhaFUY00lREXOJ7VO+hfzdF9elZiI=;
- b=ALjCqxzW6NBAbCpZT0hCAc+NO4ou7ceF0TxCi/WAfUbszdzP8tgJ+OosC9SHgHtfPg
- SD8d5VLH+ZekOhHJu6Aen/BFnVBDNK+yIbp5bZEb4zk/JsWHyhfuJCNz/8nAXD7f0KSA
- +GgtYzKWQAXPweAHxV3VxdakQh99dzgNr96bOwA+YdM+wkWe01KlUnSZBqYmbVgdnBh6
- 5a2ynDZUjfGcc/MG1FOe0GGcasJ9Y2DVswoo6kNgipd4S8BpjyDiFqlukzTNR/zePHEa
- Fy8Tml4lg4uebFh0mDVHFSce87Ad0CHmKJsgE0nOUks4uQBsSogj+3Li0nZ+J0BjnrVx
- lr5Q==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20260707; t=1795448208; x=1796053008;
- h=content-transfer-encoding:content-type:cc:to:subject:message-id
- :date:from:in-reply-to:references:mime-version:x-gm-gg
- :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
- :content-type;
- bh=O+ZsCUKlDNFkykdhaFUY00lREXOJ7VO+hfzdF9elZiI=;
- b=rfleGA/c2gCSVftdyQ2yGScEz/col3fEcqywLxAC4Ve2JYAJKqfcwP+nj0h9bvVh8L
- QhG4MCzv3yQes4ubrunaOlxniE4xwO432fCVg0N/5rwr+duReqQ9IZsvbpI4lOWAK2jP
- l26jbLDC8rXBfvQAZPHdCHk01O/qecSu2lzIlSk2JsfKg1wQEgweun9a1wtXiLqn7WBu
- vR3A7y6IhIGjmb2VUH3kJlwvt7GBHszYOCETg2+N5UhtK+VMMmVtILd8HbY8bqSYDsvB
- 4/VM/9CDjviAa+3CPueMv3JHt9Pptr8LV/pqQhKMiNTX3F/PHWST9p2ArA1fbRacJbUA
- k9PQ==
-X-Forwarded-Encrypted: i=1;
- AL+hErH4q5jknwLf9PSguBl3TKlCMOak83y0LjTQSVJKshqt/h0levpS1uONAH89JHpcl7Aj36inX3Q5jwQ=@lists.freedesktop.org
-X-Gm-Message-State: APuU4Z9FpnjOaiT/HTedTBr0FVZgCpiWpxWnVW/kwc+dY9gsdJCWOjK+
- EkeA9CKZh1r1BJDYKVZ64DVzW2INPjLHe3jDy2x4UjYLFGjUSXi7kwkAsnLapCum3XteI9GoR9U
- Nm8hkzRtGkcZu5wWpfox+7Abm4d04+go=
-X-Gm-Gg: AZFdTZc6PKjP3zSPURh/I2iDCJH+Th5PKeUsoMn0QGyQu3CIE94gvVrDH0R2bNfhxOg
- M3sK7zhXYz3dorQiylIEr0UqZiankvDBXUrcw3vovx3t7oIgFs/0psQOY9WQEjj7wrxpjahgOjB
- 8uyqpyNfI0EkYR9DEGSIS6WHmVgUNKjyJXQDrkwVLyMe74qqo7/NBZwkDt9ZYNFDg0lBEZIErB6
- zqFkk0pz/dnqAmgstaFUCQ+B+WWltN6ycZupGXggo/3e3D2vCfSeG1RvyQ0i5t4HGqb9cNfvrRN
- EfKFm0d3V1FYENdg5rxHz5fLUUUHDrPLShV7btl1crsLWTuozht+xy6eei8MuE3+3xJhrKXxywK
- mxgMLFQOIfLRFwssRpkJNV90sa/cVEYeCtCu5xwl27z1ca7G/gYhUzXHAHgzS4vD1fnLNRKorxx
- lckBt4rn15Fz6hZ8/QRkmUokV06HYuCXqUORgpjisNFn4mo45ODOMRC4HdX8E=
-X-Received: by 2002:a05:6808:1383:b0:549:e9e3:9460 with SMTP id
- 5614622812f47-57a025ed532mr17234457b6e.0.1795448208292; Mon, 23 Nov 2026
- 07:36:48 -0800 (PST)
+	by gabe.freedesktop.org (Postfix) with ESMTP id A02FA10E1CE;
+	Mon, 23 Nov 2026 15:38:08 +0000 (UTC)
+Received: from foss.arm.com (foss.arm.com [217.140.110.172])
+ by gabe.freedesktop.org (Postfix) with ESMTP id 88F0210E1CE
+ for <dri-devel@lists.freedesktop.org>; Mon, 23 Nov 2026 15:38:02 +0000 (UTC)
+Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
+ by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id EE7C11476;
+ Mon, 23 Nov 2026 07:37:58 -0800 (PST)
+Received: from [10.57.63.212] (unknown [10.57.63.212])
+ by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 2FA593F632;
+ Mon, 23 Nov 2026 07:37:58 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
+ t=1795448281; bh=c98wA/p4y1OgCpSwv0LnhnHHbNl7crB3Zu7U0JjfI7g=;
+ h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
+ b=oBfS5aJHGgVKJUL33HJv7MLAp/P44S7y7iOZ4xvGq+0aQtXzsXcGhSoLWw07gUOTC
+ modZVsEP5lrGtGUg3+tx95QfVmYhJ1AxfevFKoAxFnVCs6QKhgBaChO8mxDDpgpc6S
+ VPEsW9/BCxY3UVFyDDv1jWSL1B16KoIyUwMypI8Q=
+Message-ID: <37d17a3a-6b8e-4909-85df-7980d689bb3f@arm.com>
+Date: Mon, 23 Nov 2026 15:37:55 +0000
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
-References: <20261122045319.18651-1-irogers@google.com>
- <c7a81b11-73de-49dd-b38d-76aabf193dc5@amd.com>
-In-Reply-To: <c7a81b11-73de-49dd-b38d-76aabf193dc5@amd.com>
-From: Alex Deucher <alexdeucher@gmail.com>
-Date: Mon, 23 Nov 2026 10:36:36 -0500
-X-Gm-Features: Aa3M54rvn7dkOhohcibCJnEbcJ8Ls1D79SvQUldxYdV48pGWUDZbdwQoEIZo65U
-Message-ID: <CADnq5_P23gnpD8eXOF-hOE3bjHcffEOQdwvfjY9xMsF_Awbx9Q@mail.gmail.com>
-Subject: Re: [PATCH v2 0/2] drm/amdgpu: Initialize r in VM and TTM buffer
- helpers
-To: =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>
-Cc: Ian Rogers <irogers@google.com>, Alex Deucher <alexander.deucher@amd.com>, 
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 3/4] drm/panfrost: only put powered shader cores in the
+ job affinity
+To: Young-Jun Hong <nirvanah@nirvanahyj.com>
+Cc: Boris Brezillon <boris.brezillon@collabora.com>,
+ Rob Herring <robh@kernel.org>, =?UTF-8?Q?Adri=C3=A1n_Larumbe?=
+ <adrian.larumbe@collabora.com>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
  David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- amd-gfx@lists.freedesktop.org, 
- dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org, 
- llvm@lists.linux.dev, Elkin Cruz <elkin@google.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+ Alexey Sheplyakov <asheplyakov@basealt.ru>,
+ "Vadim V. Vlasov" <vadim.vlasov@elpitech.ru>,
+ dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org
+References: <20261106054210.2893230-1-nirvanah@nirvanahyj.com>
+ <20261106054210.2893230-4-nirvanah@nirvanahyj.com_quarantine>
+From: Steven Price <steven.price@arm.com>
+Content-Language: en-GB
+In-Reply-To: <20261106054210.2893230-4-nirvanah@nirvanahyj.com_quarantine>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -107,55 +59,98 @@ List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-12.8 required=3.0 tests=BAYES_00,DKIM_SIGNED,
-	DKIM_VALID,DKIM_VALID_AU,FREEMAIL_FORGED_FROMDOMAIN,FREEMAIL_FROM,
-	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
-	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS autolearn=unavailable
-	autolearn_force=no version=4.0.1
+X-Spam-Status: No, score=-15.1 required=3.0 tests=BAYES_00,DKIM_INVALID,
+	DKIM_SIGNED,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,
+	INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,
+	USER_AGENT_SANE_1 autolearn=unavailable autolearn_force=no
+	version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-Applied.  Thanks!
+On 06/11/2026 05:41, Young-Jun Hong wrote:
+> On GPUs with more than one L2 (core group), panfrost powers only the
+> first core group (panfrost_get_core_mask()), but the job affinity is
+> written from shader_present, i.e. it also names the cores of the second,
+> unpowered group (Mali-T628 MP6 on Exynos 5422: l2_present 0x11, 4+2
+> cores, affinity 0x3f while only 0x0f is powered).
+> 
+> Write the affinity from the same mask that was powered, so a job never
+> names cores that are off.
+> 
+> Tested on Samsung ARTIK 10 (Exynos 5422), Mali-T628 MP6.
+> 
+> The analysis, the code and this changelog were produced with Claude
+> Code (Anthropic), a coding assistant.
+> 
+> Fixes: 6e55d273708b ("drm/panfrost: initial dual core group GPUs support")
+> Signed-off-by: Young-Jun Hong <nirvanah@nirvanahyj.com>
 
-On Mon, Nov 23, 2026 at 6:56=E2=80=AFAM Christian K=C3=B6nig
-<christian.koenig@amd.com> wrote:
->
-> Reviewed-by: Christian K=C3=B6nig <christian.koenig@amd.com> for both pat=
-ches.
->
-> Alex will probably pick the patches up, if not please ping me again.
->
-> Regards,
-> Christian.
->
-> On 11/22/26 05:53, Ian Rogers wrote:
-> > Two fixes in drm/amdgpu for uninitialized return-value regressions
-> > found via Clang -Wconditional-uninitialized on an x86_64
-> > allyesconfig build:
-> >
-> > 1. Set r =3D 0 in the 'else if (!bo)' branch of amdgpu_vm_bo_update().
-> > 2. Set r =3D 0 right after the while loop before 'error:' in
-> >    amdgpu_ttm_clear_buffer().
-> >
-> > Build-tested with LLVM=3D1 W=3D1 (-Werror) and -Wconditional-uninitiali=
-zed;
-> > not runtime-tested on AMDGPU hardware.
-> >
-> > v2:
-> >   - Keep 'int r;' uninitialized at declaration in both functions so
-> >     future missing-assignment paths are not masked; instead set 'r =3D =
-0;'
-> >     inside 'else if (!bo)' in patch 1/2 and directly before 'error:' in
-> >     patch 2/2 (Christian K=C3=B6nig).
-> >
-> > v1: https://lore.kernel.org/r/cover.1795106955.git.irogers@google.com
-> >
-> > Ian Rogers (2):
-> >   drm/amdgpu: initialize r in amdgpu_vm_bo_update()
-> >   drm/amdgpu: initialize r in amdgpu_ttm_clear_buffer()
-> >
-> >  drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c | 2 ++
-> >  drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c  | 1 +
-> >  2 files changed, 3 insertions(+)
-> >
->
+So this patch might be a valid fix. But:
+
+a) It's AI generated and I'm not sure whether any human thought has gone
+into it.
+
+b) The next patch in the series basically undoes the change.
+
+The T628 is an awkward beast because it has these two (non-coherent)
+core groups. So far there hasn't been much appetite for trying to
+support it well because it's pretty rare and AFAIK it's the only GPU
+which has this setup.
+
+My own understanding is that this patch is also irrelevant in that the
+GPU hardware will effectively AND the affinity with the powered on
+shaders. Hence I'd want to see an actual user report (not an AI-report)
+that this "fix" actually helps. Sadly I don't have hardware to test this.
+
+Thanks,
+Steve
+
+> ---
+>  drivers/gpu/drm/panfrost/panfrost_gpu.c | 6 ++++++
+>  drivers/gpu/drm/panfrost/panfrost_gpu.h | 1 +
+>  drivers/gpu/drm/panfrost/panfrost_job.c | 2 +-
+>  3 files changed, 8 insertions(+), 1 deletion(-)
+> 
+> diff --git a/drivers/gpu/drm/panfrost/panfrost_gpu.c b/drivers/gpu/drm/panfrost/panfrost_gpu.c
+> index 6081b27829e1..420d224276a5 100644
+> --- a/drivers/gpu/drm/panfrost/panfrost_gpu.c
+> +++ b/drivers/gpu/drm/panfrost/panfrost_gpu.c
+> @@ -452,6 +452,12 @@ static u64 panfrost_get_core_mask(struct panfrost_device *pfdev)
+>  	return core_mask;
+>  }
+>  
+> +/* cores that panfrost_gpu_power_on() powers */
+> +u64 panfrost_powered_core_mask(struct panfrost_device *pfdev)
+> +{
+> +	return pfdev->features.shader_present & panfrost_get_core_mask(pfdev);
+> +}
+> +
+>  void panfrost_gpu_power_on(struct panfrost_device *pfdev)
+>  {
+>  	int ret;
+> diff --git a/drivers/gpu/drm/panfrost/panfrost_gpu.h b/drivers/gpu/drm/panfrost/panfrost_gpu.h
+> index b4fef11211d5..78a6270b7fcb 100644
+> --- a/drivers/gpu/drm/panfrost/panfrost_gpu.h
+> +++ b/drivers/gpu/drm/panfrost/panfrost_gpu.h
+> @@ -13,6 +13,7 @@ void panfrost_gpu_fini(struct panfrost_device *pfdev);
+>  u32 panfrost_gpu_get_latest_flush_id(struct panfrost_device *pfdev);
+>  
+>  int panfrost_gpu_soft_reset(struct panfrost_device *pfdev);
+> +u64 panfrost_powered_core_mask(struct panfrost_device *pfdev);
+>  void panfrost_gpu_power_on(struct panfrost_device *pfdev);
+>  void panfrost_gpu_power_off(struct panfrost_device *pfdev);
+>  void panfrost_gpu_suspend_irq(struct panfrost_device *pfdev);
+> diff --git a/drivers/gpu/drm/panfrost/panfrost_job.c b/drivers/gpu/drm/panfrost/panfrost_job.c
+> index 4ddf4b722ddf..33da86587db7 100644
+> --- a/drivers/gpu/drm/panfrost/panfrost_job.c
+> +++ b/drivers/gpu/drm/panfrost/panfrost_job.c
+> @@ -143,7 +143,7 @@ static void panfrost_job_write_affinity(struct panfrost_device *pfdev,
+>  	 * Eventually we may need to support tiler only jobs and h/w with
+>  	 * multiple (2) coherent core groups
+>  	 */
+> -	affinity = pfdev->features.shader_present;
+> +	affinity = panfrost_powered_core_mask(pfdev);
+>  
+>  	job_write(pfdev, JS_AFFINITY_NEXT_LO(js), lower_32_bits(affinity));
+>  	job_write(pfdev, JS_AFFINITY_NEXT_HI(js), upper_32_bits(affinity));
+
