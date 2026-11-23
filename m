@@ -2,101 +2,90 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B8782606A31E
-	for <dri-devel@archiver.kernel.org>; Mon, 23 Nov 2026 14:06:23 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 38BEF606A31A
+	for <dri-devel@archiver.kernel.org>; Mon, 23 Nov 2026 14:06:25 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.a=rsa-sha256 header.s=susede2_rsa header.b=Sat7IODW;
-	dkim=pass header.d=suse.de header.i=@suse.de header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=ZGkQsKWk;
-	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.a=rsa-sha256 header.s=susede2_rsa header.b=Sat7IODW;
-	dkim=neutral header.d=suse.de header.i=@suse.de header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=ZGkQsKWk
+	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.a=rsa-sha256 header.s=susede2_rsa header.b=aJ/Fi+qB;
+	dkim=pass header.d=suse.de header.i=@suse.de header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=JgOj70n6;
+	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.a=rsa-sha256 header.s=susede2_rsa header.b=aJ/Fi+qB;
+	dkim=neutral header.d=suse.de header.i=@suse.de header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=JgOj70n6
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 048B410EE53;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 53C3010EE58;
 	Mon, 23 Nov 2026 14:06:13 +0000 (UTC)
-Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.223.131])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 8A55310EE28
- for <dri-devel@lists.freedesktop.org>; Mon, 23 Nov 2026 14:06:01 +0000 (UTC)
+Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.223.130])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id D62F910EE24
+ for <dri-devel@lists.freedesktop.org>; Mon, 23 Nov 2026 14:06:00 +0000 (UTC)
 Received: from imap1.dmz-prg2.suse.org (unknown [10.150.64.97])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
  (No client certificate requested)
- by smtp-out2.suse.de (Postfix) with ESMTPS id 227C11F452;
- Mon, 23 Nov 2026 14:06:00 +0000 (UTC)
+ by smtp-out1.suse.de (Postfix) with ESMTPS id 7389F21EC2;
+ Mon, 23 Nov 2026 14:05:59 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
- t=1795442760; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references;
- bh=akifXYVY/5AXDWKkCXFIRC9bawAVd4VrBG0rlaR+urA=;
- b=Sat7IODWbuK74kFpWfabqYz3jJxm4hnxfPzBSup60i9R0+XAssDQEt8Yg4qAFbHX+Lq4kk
- VraQ4nFJTV/7picEGq7uU7YYV8QEckmFQh5/FRAureozDV1IaAJvGs21WTGUwaCLUelC+n
- 5BLjLAfuYZAQELShjy2QpW1AqTOwuT4=
+ t=1795442759; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version: content-transfer-encoding:content-transfer-encoding;
+ bh=81TNR2PIfjb8PK1jMan1kn9wiEmEn2lhPF/V4DpuXFc=;
+ b=aJ/Fi+qB1Edwbj7toycTJ8oeR8L1/0B5BbS/GbfTw1hlQcajrFeokNs68FBUPGfwAu5rpS
+ nEPWG3sK/vW/NnJK7GV99M/uhiZ8BaRDU+PvIZGMBndlgfgk5YZtYes4cj2Y4OkjPS3tem
+ oqfhLVEot7h2qSw1F7maj7V2zVa2LG0=
 DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_ed25519; t=1795442760;
+ s=susede2_ed25519; t=1795442759;
  h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references;
- bh=akifXYVY/5AXDWKkCXFIRC9bawAVd4VrBG0rlaR+urA=;
- b=ZGkQsKWklvSWr072u9cTWnD67uGrttwS/pQa8OMZOZXkI2ETBIM0WiYLXkQ7hX4bznu6f+
- rfAfEw6QHEwXMoAQ==
-Authentication-Results: smtp-out2.suse.de;
+ mime-version:mime-version: content-transfer-encoding:content-transfer-encoding;
+ bh=81TNR2PIfjb8PK1jMan1kn9wiEmEn2lhPF/V4DpuXFc=;
+ b=JgOj70n6vrU/plWrLNue3tLUHTfUEKeCMNpREeQ7woc6mTJwweD1hMdc+l7M00bs519OeS
+ d098JE+EweSgOFDQ==
+Authentication-Results: smtp-out1.suse.de;
 	none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
- t=1795442760; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references;
- bh=akifXYVY/5AXDWKkCXFIRC9bawAVd4VrBG0rlaR+urA=;
- b=Sat7IODWbuK74kFpWfabqYz3jJxm4hnxfPzBSup60i9R0+XAssDQEt8Yg4qAFbHX+Lq4kk
- VraQ4nFJTV/7picEGq7uU7YYV8QEckmFQh5/FRAureozDV1IaAJvGs21WTGUwaCLUelC+n
- 5BLjLAfuYZAQELShjy2QpW1AqTOwuT4=
+ t=1795442759; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version: content-transfer-encoding:content-transfer-encoding;
+ bh=81TNR2PIfjb8PK1jMan1kn9wiEmEn2lhPF/V4DpuXFc=;
+ b=aJ/Fi+qB1Edwbj7toycTJ8oeR8L1/0B5BbS/GbfTw1hlQcajrFeokNs68FBUPGfwAu5rpS
+ nEPWG3sK/vW/NnJK7GV99M/uhiZ8BaRDU+PvIZGMBndlgfgk5YZtYes4cj2Y4OkjPS3tem
+ oqfhLVEot7h2qSw1F7maj7V2zVa2LG0=
 DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_ed25519; t=1795442760;
+ s=susede2_ed25519; t=1795442759;
  h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references;
- bh=akifXYVY/5AXDWKkCXFIRC9bawAVd4VrBG0rlaR+urA=;
- b=ZGkQsKWklvSWr072u9cTWnD67uGrttwS/pQa8OMZOZXkI2ETBIM0WiYLXkQ7hX4bznu6f+
- rfAfEw6QHEwXMoAQ==
+ mime-version:mime-version: content-transfer-encoding:content-transfer-encoding;
+ bh=81TNR2PIfjb8PK1jMan1kn9wiEmEn2lhPF/V4DpuXFc=;
+ b=JgOj70n6vrU/plWrLNue3tLUHTfUEKeCMNpREeQ7woc6mTJwweD1hMdc+l7M00bs519OeS
+ d098JE+EweSgOFDQ==
 Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
  (No client certificate requested)
- by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id C973B1352B;
+ by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 237231352B;
  Mon, 23 Nov 2026 14:05:59 +0000 (UTC)
 Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
- by imap1.dmz-prg2.suse.org with ESMTPSA id oQeBOkZIBGvqQwAAD6G6ig:T4
+ by imap1.dmz-prg2.suse.org with ESMTPSA id oQeBOkZIBGvqQwAAD6G6ig
  (envelope-from <tzimmermann@suse.de>); Mon, 23 Nov 2026 14:05:59 +0000
 From: Thomas Zimmermann <tzimmermann@suse.de>
 To: deller@gmx.de,
 	simona@ffwll.ch
 Cc: dri-devel@lists.freedesktop.org, linux-fbdev@vger.kernel.org,
  sashiko-reviews@lists.linux.dev, Thomas Zimmermann <tzimmermann@suse.de>
-Subject: [PATCH v3 3/6] lib/fonts, fbcon: Use font_data_t for rotated fonts
-Date: Mon, 23 Nov 2026 15:03:36 +0100
-Message-ID: <20261123140554.1129792-4-tzimmermann@suse.de>
+Subject: [PATCH v3 0/6] fbcon: Clean up glyph handling on redraws
+Date: Mon, 23 Nov 2026 15:03:33 +0100
+Message-ID: <20261123140554.1129792-1-tzimmermann@suse.de>
 X-Mailer: git-send-email 2.56.1
-In-Reply-To: <20261123140554.1129792-1-tzimmermann@suse.de>
-References: <20261123140554.1129792-1-tzimmermann@suse.de>
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-X-Spam-Level: 
-X-Spamd-Result: default: False [-16.30 / 50.00]; SUSE_INTERNAL_BYPASS(-9.00)[];
- REPLY(-4.00)[]; BAYES_HAM(-3.00)[100.00%];
- MID_CONTAINS_FROM(1.00)[]; NEURAL_HAM_LONG(-1.00)[-1.000];
+X-Spamd-Result: default: False [-11.80 / 50.00]; SUSE_INTERNAL_BYPASS(-9.00)[];
+ BAYES_HAM(-3.00)[100.00%]; NEURAL_HAM_LONG(-1.00)[-1.000];
+ MID_CONTAINS_FROM(1.00)[]; R_MISSING_CHARSET(0.50)[];
  NEURAL_HAM_SHORT(-0.20)[-1.000]; MIME_GOOD(-0.10)[text/plain];
- RCVD_VIA_SMTP_AUTH(0.00)[]; ARC_NA(0.00)[]; TO_DN_SOME(0.00)[];
- MIME_TRACE(0.00)[0:+]; FREEMAIL_TO(0.00)[gmx.de,ffwll.ch];
- FREEMAIL_ENVRCPT(0.00)[gmx.de];
+ DBL_BLOCKED_OPENRESOLVER(0.00)[imap1.dmz-prg2.suse.org:helo];
+ ARC_NA(0.00)[]; RCVD_VIA_SMTP_AUTH(0.00)[];
+ FROM_HAS_DN(0.00)[]; TO_DN_SOME(0.00)[]; MIME_TRACE(0.00)[0:+];
+ TO_MATCH_ENVRCPT_ALL(0.00)[]; FROM_EQ_ENVFROM(0.00)[];
+ RCVD_TLS_ALL(0.00)[]; RCVD_COUNT_TWO(0.00)[2];
+ FREEMAIL_TO(0.00)[gmx.de,ffwll.ch];
  DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
- FROM_EQ_ENVFROM(0.00)[]; FROM_HAS_DN(0.00)[];
- RCPT_COUNT_FIVE(0.00)[6]; RCVD_TLS_ALL(0.00)[];
- RCVD_COUNT_TWO(0.00)[2]; TO_MATCH_ENVRCPT_ALL(0.00)[];
- DBL_BLOCKED_OPENRESOLVER(0.00)[suse.de:email,imap1.dmz-prg2.suse.org:helo]
-X-Spam-Score: -16.30
+ RCPT_COUNT_FIVE(0.00)[6]; FREEMAIL_ENVRCPT(0.00)[gmx.de]
+X-Spam-Score: -11.80
+X-Spam-Level: 
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -108,221 +97,66 @@ List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-18.8 required=3.0 tests=BAYES_00,DKIM_SIGNED,
-	DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
-	INCLUDES_CR_TRAILER,INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,
-	SPF_PASS,USER_AGENT_GIT autolearn=unavailable autolearn_force=no
-	version=4.0.1
+X-Spam-Status: No, score=-13.8 required=3.0 tests=BAYES_00,DKIM_SIGNED,
+	DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_PATCH,
+	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,USER_AGENT_GIT
+	autolearn=unavailable autolearn_force=no version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-Return rotated font data as font_data_t instead of unsigned char*.
-Release the data with font_data_put() in fbcon.
+Fbcon's drawing functions open-code much of the glyph handling. Use
+font helpers instead. Makes fbcon more consistent and easier to
+understand.
 
-It is still possible to use preallocated font buffers for the rotated
-font data. The font data tracks the buffer size and reference count to
-do so; font_data_rotate() invokes __font_data_alloc() to allocate a
-new font-data buffer if necessary.
+Patch 1 updates fbcon to use unsigned char for glyph buffers. This
+is consistent with the font code and font_data_t.
 
-Returning rotated font data as font_data_t further allows for using
-regular font-data helpers on it. Fbcon now manages buffer life time
-with the font data's reference counting. Removes the plain kfree().
+Patches 2 and 3 update font rotation to return rotated glyphs as
+font_data_t. A rotated font can now use the same interfaces as the
+unrotated source font. Fbcon uses this to ref count the rotated
+font's buffer.
+
+Patches 4 to 6 update various parts of fbcon to use font helpers
+instead of open-coding access to font_data_t. Having the rotated
+font as font_data_t makes this convenient.
+
+Tested with fbcon on DRM's bochs driver (qemu).
 
 v3:
 - replace remaining instances of kfree() with font_data_put()
-- fix documentation of font_data_rotate
+- upcast vc_font.data to font_data_t for glyph lookup
+- fix fallback in ccw_cursor()
 v2:
-- fix typo in commit description
+- resolve merge conflicts in fbcon
+- fix typos in commit descriptions
 
-Signed-off-by: Thomas Zimmermann <tzimmermann@suse.de>
----
- drivers/video/fbdev/core/fbcon.c        | 12 +++++---
- drivers/video/fbdev/core/fbcon.h        |  3 +-
- drivers/video/fbdev/core/fbcon_rotate.c | 19 ++++++------
- include/linux/font.h                    |  5 ++--
- lib/fonts/font_rotate.c                 | 39 ++++++++++---------------
- 5 files changed, 36 insertions(+), 42 deletions(-)
+Thomas Zimmermann (6):
+  fbcon: Use unsigned char for glyph data
+  lib/fonts: Provide internal helpers for allocating font_data_t
+  lib/fonts, fbcon: Use font_data_t for rotated fonts
+  fbcon: Refactor size calculation for cursor buffers
+  fbcon: Look up glyphs using the font interface
+  fbcon: Handle characters with no glyph defined in a consistent way
 
-diff --git a/drivers/video/fbdev/core/fbcon.c b/drivers/video/fbdev/core/fbcon.c
-index 7720dfc80c16..5ccfc772dc7c 100644
---- a/drivers/video/fbdev/core/fbcon.c
-+++ b/drivers/video/fbdev/core/fbcon.c
-@@ -770,7 +770,8 @@ static void fbcon_release(struct fb_info *info)
- 		kfree(par->cursor_data);
- 		kfree(par->cursor_src);
- #ifdef CONFIG_FRAMEBUFFER_CONSOLE_ROTATION
--		kfree(par->rotated.buf);
-+		if (par->rotated.buf)
-+			font_data_put(par->rotated.buf);
- #endif
- 		kfree(info->fbcon_par);
- 		info->fbcon_par = NULL;
-@@ -2470,8 +2471,10 @@ static int fbcon_do_set_font(struct vc_data *vc, int w, int h, int charcount,
- 	}
- 
- #ifdef CONFIG_FRAMEBUFFER_CONSOLE_ROTATION
--	if (rotated_saved)
--		kfree(saved_rotated.buf);
-+	if (rotated_saved) {
-+		if (saved_rotated.buf)
-+			font_data_put(saved_rotated.buf);
-+	}
- #endif
- 	if (old_fontdata)
- 		font_data_put(old_fontdata);
-@@ -2485,7 +2488,8 @@ static int fbcon_do_set_font(struct vc_data *vc, int w, int h, int charcount,
- 	 * state.
- 	 */
- 	if (rotated_saved) {
--		kfree(par->rotated.buf);
-+		if (par->rotated.buf)
-+			font_data_put(par->rotated.buf);
- 		par->rotated = saved_rotated;
- 	}
- #endif
-diff --git a/drivers/video/fbdev/core/fbcon.h b/drivers/video/fbdev/core/fbcon.h
-index 289a3d18f917..28111c706e34 100644
---- a/drivers/video/fbdev/core/fbcon.h
-+++ b/drivers/video/fbdev/core/fbcon.h
-@@ -75,8 +75,7 @@ struct fbcon_bitops {
- #ifdef CONFIG_FRAMEBUFFER_CONSOLE_ROTATION
- struct fbcon_rotated {
- 	font_data_t *fontdata;       /* source font */
--	unsigned char *buf;          /* rotated glyphs */
--	size_t bufsize;
-+	font_data_t *buf;            /* rotated font */
- 	int buf_rotate;              /* rotation of buf */
- 	unsigned int buf_width;      /* geometry of source font */
- 	unsigned int buf_height;
-diff --git a/drivers/video/fbdev/core/fbcon_rotate.c b/drivers/video/fbdev/core/fbcon_rotate.c
-index 7afd63dcee7b..3fe6ac3c6d6c 100644
---- a/drivers/video/fbdev/core/fbcon_rotate.c
-+++ b/drivers/video/fbdev/core/fbcon_rotate.c
-@@ -18,7 +18,7 @@
- int fbcon_rotate_font(struct fb_info *info, struct vc_data *vc)
- {
- 	struct fbcon_par *par = info->fbcon_par;
--	unsigned char *buf;
-+	font_data_t *buf;
- 	int ret;
- 
- 	if (par->p->fontdata == par->rotated.fontdata &&
-@@ -40,21 +40,22 @@ int fbcon_rotate_font(struct fb_info *info, struct vc_data *vc)
- 
- 	buf = font_data_rotate(par->rotated.fontdata, vc->vc_font.width,
- 			       vc->vc_font.height, vc->vc_font.charcount,
--			       par->rotated.buf_rotate, par->rotated.buf,
--			       &par->rotated.bufsize);
-+			       par->rotated.buf_rotate, par->rotated.buf);
- 	if (IS_ERR(buf)) {
- 		ret = PTR_ERR(buf);
--		goto err_kfree;
-+		goto err_font_data_put;
- 	}
- 
-+	if (par->rotated.buf)
-+		font_data_put(par->rotated.buf);
- 	par->rotated.buf = buf;
- 
- 	return 0;
- 
--err_kfree:
--	kfree(par->rotated.buf);
--	par->rotated.buf = NULL; /* clear here to avoid output */
--	par->rotated.bufsize = 0;
--
-+err_font_data_put:
-+	if (par->rotated.buf) {
-+		font_data_put(par->rotated.buf);
-+		par->rotated.buf = NULL; /* clear here to avoid output */
-+	}
- 	return ret;
- }
-diff --git a/include/linux/font.h b/include/linux/font.h
-index be1a26ff8ae9..2d7e2ca3db0f 100644
---- a/include/linux/font.h
-+++ b/include/linux/font.h
-@@ -120,9 +120,8 @@ void font_glyph_rotate_180(const unsigned char *glyph, unsigned int width, unsig
- 			   unsigned char *out);
- void font_glyph_rotate_270(const unsigned char *glyph, unsigned int width, unsigned int height,
- 			   unsigned char *out);
--unsigned char *font_data_rotate(font_data_t *fd, unsigned int width, unsigned int height,
--				unsigned int charcount, unsigned int steps,
--				unsigned char *buf, size_t *bufsize);
-+font_data_t *font_data_rotate(font_data_t *fd, unsigned int width, unsigned int height,
-+			      unsigned int charcount, unsigned int steps, font_data_t *buf);
- 
- /*
-  * Font description
-diff --git a/lib/fonts/font_rotate.c b/lib/fonts/font_rotate.c
-index 275406008823..ee9605b9b55c 100644
---- a/lib/fonts/font_rotate.c
-+++ b/lib/fonts/font_rotate.c
-@@ -181,29 +181,23 @@ EXPORT_SYMBOL_GPL(font_glyph_rotate_270);
-  * @height: The number of scanlines in the glyph
-  * @charcount: The number of glyphs in the font
-  * @steps: Number of rotation steps of 90°
-- * @buf: Preallocated output buffer; can be NULL
-- * @bufsize: The size of @buf in bytes; can be NULL
-+ * @buf: Preallocated font data; can be NULL
-  *
-  * The parameters @width and @height refer to the visible number of pixels
-  * and scanlines in a single glyph. The number of glyphs is given in @charcount.
-  * Rotation happens in steps of 90°. The @steps parameter can have any value,
-  * but only 0 to 3 produce distinct results. With 4 or higher, a full rotation
-  * has been performed. You can pass any value for @steps and the helper will
-- * perform the appropriate rotation. Note that the returned buffer is not
-- * compatible with font_data_t. It only contains glyph data in the same format
-- * as returned by font_data_buf(). Callers are responsible to free the returned
-- * buffer with kfree(). Font rotation typically happens when displays get
-- * re-oriented. To avoid unnecessary re-allocation of the memory buffer, the
-- * caller can pass in an earlier result buffer in @buf for reuse. The old and
-- * new buffer sizes are given and retrieved by the caller in @bufsize. The
-- * allocation semantics are compatible with krealloc().
-+ * perform the appropriate rotation. Font rotation typically happens when
-+ * displays get re-oriented. To avoid unnecessary re-allocation of the memory
-+ * buffer, the caller can pass in an earlier result in @buf for reuse. The
-+ * returned font data should be released with font_data_put().
-  *
-  * Returns:
-- * A buffer with rotated glyphs on success, or an error pointer otherwise
-+ * Font data with rotated glyphs on success, or an error pointer otherwise
-  */
--unsigned char *font_data_rotate(font_data_t *fd, unsigned int width, unsigned int height,
--				unsigned int charcount, unsigned int steps,
--				unsigned char *buf, size_t *bufsize)
-+font_data_t *font_data_rotate(font_data_t *fd, unsigned int width, unsigned int height,
-+			      unsigned int charcount, unsigned int steps, font_data_t *buf)
- {
- 	const unsigned char *src = font_data_buf(fd);
- 	unsigned int s_cellsize = font_glyph_size(width, height);
-@@ -227,19 +221,16 @@ unsigned char *font_data_rotate(font_data_t *fd, unsigned int width, unsigned in
- 	if (check_mul_overflow(charcount, d_cellsize, &size))
- 		return ERR_PTR(-EINVAL);
- 
--	if (!buf || !bufsize || size > *bufsize) {
--		dst = kmalloc_array(charcount, d_cellsize, GFP_KERNEL);
--		if (!dst)
--			return ERR_PTR(-ENOMEM);
--
--		kfree(buf);
--		buf = dst;
--		if (bufsize)
--			*bufsize = size;
-+	if (!buf || size > font_data_size(buf)) {
-+		buf = __font_data_alloc(size, GFP_KERNEL);
-+		if (IS_ERR(buf))
-+			return buf;
- 	} else {
--		dst = buf;
-+		font_data_get(buf);
- 	}
- 
-+	dst = __font_data_wrbuf(buf);
-+
- 	switch (steps) {
- 	case 0:
- 		memcpy(dst, src, size);
+ drivers/video/fbdev/core/bitblit.c      | 83 +++++++++++++++----------
+ drivers/video/fbdev/core/fbcon.c        | 12 ++--
+ drivers/video/fbdev/core/fbcon.h        |  5 +-
+ drivers/video/fbdev/core/fbcon_ccw.c    | 56 +++++++++++------
+ drivers/video/fbdev/core/fbcon_cw.c     | 57 ++++++++++-------
+ drivers/video/fbdev/core/fbcon_rotate.c | 19 +++---
+ drivers/video/fbdev/core/fbcon_ud.c     | 77 +++++++++++++++--------
+ include/linux/font.h                    |  5 +-
+ lib/fonts/font.h                        | 12 ++++
+ lib/fonts/font_rotate.c                 | 39 +++++-------
+ lib/fonts/fonts.c                       | 63 ++++++++++++-------
+ 11 files changed, 263 insertions(+), 165 deletions(-)
+
+
+base-commit: 579369fbe7227f6b00acc883ac90606a5266932a
+prerequisite-patch-id: c67e5d886a47b7d0266d81100837557fda34cb24
+prerequisite-patch-id: a5a973e527c88a5b47053d7a72aefe0b550197cb
+prerequisite-patch-id: b9adc9622920a3e70168e672c2c92795b3e3a106
+prerequisite-patch-id: 5030de433a01c2e99056cadb676a8e2ba35f055a
 -- 
 2.56.1
 
