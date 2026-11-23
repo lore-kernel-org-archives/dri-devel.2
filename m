@@ -2,68 +2,139 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 84663606A32C
-	for <dri-devel@archiver.kernel.org>; Mon, 23 Nov 2026 10:05:39 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5E220606A31E
+	for <dri-devel@archiver.kernel.org>; Mon, 23 Nov 2026 10:12:16 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=collabora.com header.i=@collabora.com header.a=rsa-sha256 header.s=mail header.b=Fy4TrY6T
+	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.a=rsa-sha256 header.s=susede2_rsa header.b=DnWD5Ywu;
+	dkim=pass header.d=suse.de header.i=@suse.de header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=l7FIJZ1D;
+	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.a=rsa-sha256 header.s=susede2_rsa header.b=DnWD5Ywu;
+	dkim=neutral header.d=suse.de header.i=@suse.de header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=l7FIJZ1D
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id E7F5F10EB78;
-	Mon, 23 Nov 2026 10:05:33 +0000 (UTC)
-Received: from bali.collaboradmins.com (bali.collaboradmins.com
- [148.251.105.195])
- by gabe.freedesktop.org (Postfix) with ESMTPS id E2A4E10EB78
- for <dri-devel@lists.freedesktop.org>; Mon, 23 Nov 2026 10:05:27 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
- s=mail; t=1795428326;
- bh=a1/XioPUQOk/Y+CGy7Ob4OJm/x2Pd/UgMyEWsylmoiU=;
- h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
- b=Fy4TrY6TmXh/ljo+lsHC4WaWEu3NPgVkyxOLpm54IQha82S/0hNWaowDfWqbOZ9Q9
- 7c5OKwrgrF9RTFGykd3PuoR0dW/b/oI2aG0DtAEUJF63bU9wpv52bLBXd3/rGicn0O
- FQHJVomaKIwGtUsxz83Kjhy4HYSMH+R3eCWU7TnpgKtkjnjYILzWyPnwh+g7+mkM5L
- G+/HPAoTC+Rq3S31aumUL7381kXn3vNC7FnA9A4cbjMc1Ie9KfUdRLwedlyG5Ur1KD
- xGqgkRIL3FlM+yXwz62bKtI566fz7CR5vWDQ1/VMFNvXud8H7pzlF/u5yTK7b5NPyV
- J29BH1iSf8yFQ==
-Received: from [100.64.1.21] (unknown [100.64.1.21])
- (using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
- key-exchange x25519) (No client certificate requested)
- (Authenticated sender: kholk11)
- by bali.collaboradmins.com (Postfix) with ESMTPSA id E9C5517E007F;
- Mon, 23 Nov 2026 11:05:25 +0100 (CET)
-Message-ID: <33cf13e4-6df0-45f8-b621-ffe3f43419c9@collabora.com>
-Date: Mon, 23 Nov 2026 11:05:25 +0100
+	by gabe.freedesktop.org (Postfix) with ESMTP id BC6DF10EBB3;
+	Mon, 23 Nov 2026 10:12:05 +0000 (UTC)
+Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.223.131])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id DA2B110EBE8
+ for <dri-devel@lists.freedesktop.org>; Mon, 23 Nov 2026 10:11:47 +0000 (UTC)
+Received: from imap1.dmz-prg2.suse.org (imap1.dmz-prg2.suse.org
+ [IPv6:2a07:de40:b281:104:10:150:64:97])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+ (No client certificate requested)
+ by smtp-out2.suse.de (Postfix) with ESMTPS id 5237B1F445;
+ Mon, 23 Nov 2026 10:11:46 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+ t=1795428706; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
+ bh=Gs8I0wkGd5iLGo5bx2l4PPs6fETlgWvAhGrCIXZ8g54=;
+ b=DnWD5Ywuewrx4njscNE9TWbl2RJlXITf/wgxNULVUCMjVazoSqQBWPL/GZUE5Ve0oiATwY
+ ykmvUke+8R1c5d6RoseCMpfiLHrUW7LooY3osZSAVi/2TdrJPdy/w+QCzNMBRNyde5CZx2
+ /+5iyoCEVVVcW8zBXheimxhkHS+FWv0=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+ s=susede2_ed25519; t=1795428706;
+ h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
+ bh=Gs8I0wkGd5iLGo5bx2l4PPs6fETlgWvAhGrCIXZ8g54=;
+ b=l7FIJZ1DDhBmCqhGI4IqQC7FKy6nbCkxE1mM5jcI7py9TuyKQrKFB5M6AX16k6xHOrp3Aw
+ tjgiELnXb/zHl9AA==
+Authentication-Results: smtp-out2.suse.de;
+ dkim=pass header.d=suse.de header.s=susede2_rsa header.b=DnWD5Ywu;
+ dkim=pass header.d=suse.de header.s=susede2_ed25519 header.b=l7FIJZ1D
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+ t=1795428706; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
+ bh=Gs8I0wkGd5iLGo5bx2l4PPs6fETlgWvAhGrCIXZ8g54=;
+ b=DnWD5Ywuewrx4njscNE9TWbl2RJlXITf/wgxNULVUCMjVazoSqQBWPL/GZUE5Ve0oiATwY
+ ykmvUke+8R1c5d6RoseCMpfiLHrUW7LooY3osZSAVi/2TdrJPdy/w+QCzNMBRNyde5CZx2
+ /+5iyoCEVVVcW8zBXheimxhkHS+FWv0=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+ s=susede2_ed25519; t=1795428706;
+ h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
+ bh=Gs8I0wkGd5iLGo5bx2l4PPs6fETlgWvAhGrCIXZ8g54=;
+ b=l7FIJZ1DDhBmCqhGI4IqQC7FKy6nbCkxE1mM5jcI7py9TuyKQrKFB5M6AX16k6xHOrp3Aw
+ tjgiELnXb/zHl9AA==
+Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+ (No client certificate requested)
+ by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 0CC0B13510;
+ Mon, 23 Nov 2026 10:11:46 +0000 (UTC)
+Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
+ by imap1.dmz-prg2.suse.org with ESMTPSA id kH61NGERBGuuTwAAD6G6ig
+ (envelope-from <tzimmermann@suse.de>); Mon, 23 Nov 2026 10:11:46 +0000
+Message-ID: <f1b416d8-b301-4523-afd3-1e3cf7876118@suse.de>
+Date: Mon, 23 Nov 2026 11:11:45 +0100
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 27/46] dt-bindings: display: mediatek: Introduce
- Digital Video Output HW
-To: =?UTF-8?B?Q0sgSHUgKOiDoeS/iuWFiSk=?= <ck.hu@mediatek.com>,
- "chunkuang.hu@kernel.org" <chunkuang.hu@kernel.org>
-Cc: "robh@kernel.org" <robh@kernel.org>,
- "tzimmermann@suse.de" <tzimmermann@suse.de>,
- "simona@ffwll.ch" <simona@ffwll.ch>, "mripard@kernel.org"
- <mripard@kernel.org>, "kernel@collabora.com" <kernel@collabora.com>,
- "linux-mediatek@lists.infradead.org" <linux-mediatek@lists.infradead.org>,
- "maarten.lankhorst@linux.intel.com" <maarten.lankhorst@linux.intel.com>,
- "dri-devel@lists.freedesktop.org" <dri-devel@lists.freedesktop.org>,
- "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
- "conor+dt@kernel.org" <conor+dt@kernel.org>,
- "devicetree@vger.kernel.org" <devicetree@vger.kernel.org>,
- "krzk+dt@kernel.org" <krzk+dt@kernel.org>,
- "p.zabel@pengutronix.de" <p.zabel@pengutronix.de>,
- "airlied@gmail.com" <airlied@gmail.com>,
- =?UTF-8?B?SnVzdGluIFllaCAo6JGJ6Iux6IyCKQ==?= <Justin.Yeh@mediatek.com>,
- "matthias.bgg@gmail.com" <matthias.bgg@gmail.com>,
- "linux-arm-kernel@lists.infradead.org"
- <linux-arm-kernel@lists.infradead.org>,
- =?UTF-8?B?SmFzb24tSkggTGluICjmnpfnnb/npaUp?= <Jason-JH.Lin@mediatek.com>
-References: <20260714114414.184512-1-angelogioacchino.delregno@collabora.com>
- <20260714114414.184512-28-angelogioacchino.delregno@collabora.com>
- <98cde7319f539cab9f72ec370d309b26569889c9.camel@mediatek.com>
-From: AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>
+Subject: Re: [PATCH v2 1/6] fbcon: Use unsigned char for glyph data
+To: Helge Deller <deller@gmx.de>, simona@ffwll.ch
+Cc: dri-devel@lists.freedesktop.org, linux-fbdev@vger.kernel.org
+References: <20261120115215.52092-1-tzimmermann@suse.de>
+ <20261120115215.52092-2-tzimmermann@suse.de>
+ <8c261690-a840-4713-905b-51b6dc51aedc@gmx.de>
 Content-Language: en-US
-In-Reply-To: <98cde7319f539cab9f72ec370d309b26569889c9.camel@mediatek.com>
+From: Thomas Zimmermann <tzimmermann@suse.de>
+Autocrypt: addr=tzimmermann@suse.de; keydata=
+ xsBNBFs50uABCADEHPidWt974CaxBVbrIBwqcq/WURinJ3+2WlIrKWspiP83vfZKaXhFYsdg
+ XH47fDVbPPj+d6tQrw5lPQCyqjwrCPYnq3WlIBnGPJ4/jreTL6V+qfKRDlGLWFjZcsrPJGE0
+ BeB5BbqP5erN1qylK9i3gPoQjXGhpBpQYwRrEyQyjuvk+Ev0K1Jc5tVDeJAuau3TGNgah4Yc
+ hdHm3bkPjz9EErV85RwvImQ1dptvx6s7xzwXTgGAsaYZsL8WCwDaTuqFa1d1jjlaxg6+tZsB
+ 9GluwvIhSezPgnEmimZDkGnZRRSFiGP8yjqTjjWuf0bSj5rUnTGiyLyRZRNGcXmu6hjlABEB
+ AAHNJ1Rob21hcyBaaW1tZXJtYW5uIDx0emltbWVybWFubkBzdXNlLmRlPsLAjgQTAQgAOAIb
+ AwULCQgHAgYVCgkICwIEFgIDAQIeAQIXgBYhBHIX+6yM6c9jRKFo5WgNwR1TC3ojBQJftODH
+ AAoJEGgNwR1TC3ojx1wH/0hKGWugiqDgLNXLRD/4TfHBEKmxIrmfu9Z5t7vwUKfwhFL6hqvo
+ lXPJJKQpQ2z8+X2vZm/slsLn7J1yjrOsoJhKABDi+3QWWSGkaGwRJAdPVVyJMfJRNNNIKwVb
+ U6B1BkX2XDKDGffF4TxlOpSQzdtNI/9gleOoUA8+jy8knnDYzjBNOZqLG2FuTdicBXblz0Mf
+ vg41gd9kCwYXDnD91rJU8tzylXv03E75NCaTxTM+FBXPmsAVYQ4GYhhgFt8S2UWMoaaABLDe
+ 7l5FdnLdDEcbmd8uLU2CaG4W2cLrUaI4jz2XbkcPQkqTQ3EB67hYkjiEE6Zy3ggOitiQGcqp
+ j//OwE0EWznS4AEIAMYmP4M/V+T5RY5at/g7rUdNsLhWv1APYrh9RQefODYHrNRHUE9eosYb
+ T6XMryR9hT8XlGOYRwKWwiQBoWSDiTMo/Xi29jUnn4BXfI2px2DTXwc22LKtLAgTRjP+qbU6
+ 3Y0xnQN29UGDbYgyyK51DW3H0If2a3JNsheAAK+Xc9baj0LGIc8T9uiEWHBnCH+RdhgATnWW
+ GKdDegUR5BkDfDg5O/FISymJBHx2Dyoklv5g4BzkgqTqwmaYzsl8UxZKvbaxq0zbehDda8lv
+ hFXodNFMAgTLJlLuDYOGLK2AwbrS3Sp0AEbkpdJBb44qVlGm5bApZouHeJ/+n+7r12+lqdsA
+ EQEAAcLAdgQYAQgAIAIbDBYhBHIX+6yM6c9jRKFo5WgNwR1TC3ojBQJftOH6AAoJEGgNwR1T
+ C3ojVSkIALpAPkIJPQoURPb1VWjh34l0HlglmYHvZszJWTXYwavHR8+k6Baa6H7ufXNQtThR
+ yIxJrQLW6rV5lm7TjhffEhxVCn37+cg0zZ3j7zIsSS0rx/aMwi6VhFJA5hfn3T0TtrijKP4A
+ SAQO9xD1Zk9/61JWk8OysuIh7MXkl0fxbRKWE93XeQBhIJHQfnc+YBLprdnxR446Sh8Wn/2D
+ Ya8cavuWf2zrB6cZurs048xe0UbSW5AOSo4V9M0jzYI4nZqTmPxYyXbm30Kvmz0rYVRaitYJ
+ 4kyYYMhuULvrJDMjZRvaNe52tkKAvMevcGdt38H4KSVXAylqyQOW5zvPc4/sq9c=
+In-Reply-To: <8c261690-a840-4713-905b-51b6dc51aedc@gmx.de>
 Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
+X-Spamd-Result: default: False [-14.50 / 50.00]; SUSE_INTERNAL_BYPASS(-9.00)[];
+ BAYES_HAM(-3.00)[100.00%]; DWL_DNSWL_LOW(-1.00)[suse.de:dkim];
+ NEURAL_HAM_LONG(-1.00)[-1.000];
+ R_DKIM_ALLOW(-0.20)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
+ NEURAL_HAM_SHORT(-0.20)[-1.000]; MIME_GOOD(-0.10)[text/plain];
+ MX_GOOD(-0.01)[]; XM_UA_NO_VERSION(0.01)[];
+ DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
+ FREEMAIL_TO(0.00)[gmx.de,ffwll.ch]; MIME_TRACE(0.00)[0:+];
+ TO_MATCH_ENVRCPT_ALL(0.00)[]; ARC_NA(0.00)[];
+ RBL_SPAMHAUS_BLOCKED_OPENRESOLVER(0.00)[2a07:de40:b281:104:10:150:64:97:from]; 
+ FREEMAIL_ENVRCPT(0.00)[gmx.de]; RCPT_COUNT_THREE(0.00)[4];
+ DKIM_TRACE(0.00)[suse.de:+]; RCVD_COUNT_TWO(0.00)[2];
+ FROM_EQ_ENVFROM(0.00)[]; FROM_HAS_DN(0.00)[];
+ RCVD_TLS_ALL(0.00)[];
+ DNSWL_BLOCKED(0.00)[2a07:de40:b281:106:10:150:64:167:received];
+ RECEIVED_SPAMHAUS_BLOCKED_OPENRESOLVER(0.00)[2a07:de40:b281:106:10:150:64:167:received];
+ MID_RHS_MATCH_FROM(0.00)[]; TO_DN_SOME(0.00)[];
+ RCVD_VIA_SMTP_AUTH(0.00)[];
+ DBL_BLOCKED_OPENRESOLVER(0.00)[suse.com:url, imap1.dmz-prg2.suse.org:rdns,
+ imap1.dmz-prg2.suse.org:helo, suse.de:email, suse.de:dkim]
+X-Rspamd-Server: rspamd1.dmz-prg2.suse.org
+X-Rspamd-Action: no action
+X-Spam-Score: -14.50
+X-Spam-Level: 
+X-Rspamd-Queue-Id: 5237B1F445
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -83,94 +154,52 @@ X-Spam-Status: No, score=-17.3 required=3.0 tests=BAYES_00,DKIM_SIGNED,
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-On 11/20/26 03:17, CK Hu (胡俊光) wrote:
-> On Tue, 2026-07-14 at 13:43 +0200, AngeloGioacchino Del Regno wrote:
->> Add documentation for the Digital Video Output (DVO) IP found in
->> the newer generation SoCs MT8196, MT8189 and their variants.
+Hi
+
+Am 21.11.26 um 18:37 schrieb Helge Deller:
+> On 11/20/26 12:49, Thomas Zimmermann wrote:
+>> Represent glyph data as unsigned char, as done by font_data_t. Convert
+>> all related code. Also declare source buffers with glyph data as const
+>> because internal fonts reside in read-only memory. Avoid writing them.
 >>
->> This is effectively a more capable block replacing the DisplayPort
->> Interface (DPI/DP_INTF) one found in older SoCs.
+>> We still use char for glyph data in struct fb_image. The type is part
+>> of the kernel uAPI and therefore cannot be changed. Fall back to type
+>> casting in this case.
 >>
->> Signed-off-by: AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>
+>> Destination buffers for font drawing are still u8. This is framebuffer
+>> memory provided by graphics hardware.
+>>
+>> Signed-off-by: Thomas Zimmermann <tzimmermann@suse.de>
 >> ---
->>   .../display/mediatek/mediatek,mt8196-dvo.yaml | 143 ++++++++++++++++++
->>   1 file changed, 143 insertions(+)
->>   create mode 100644 Documentation/devicetree/bindings/display/mediatek/mediatek,mt8196-dvo.yaml
->>
->> diff --git a/Documentation/devicetree/bindings/display/mediatek/mediatek,mt8196-dvo.yaml b/Documentation/devicetree/bindings/display/mediatek/mediatek,mt8196-dvo.yaml
->> new file mode 100644
->> index 000000000000..b38960327ca1
->> --- /dev/null
->> +++ b/Documentation/devicetree/bindings/display/mediatek/mediatek,mt8196-dvo.yaml
-> 
-> This file would include multiple SoC dvo, so it's better to use mediatek,dvo.yaml.
+>>   drivers/video/fbdev/core/bitblit.c   | 25 ++++++++++++++-----------
+>>   drivers/video/fbdev/core/fbcon.h     |  4 ++--
+>>   drivers/video/fbdev/core/fbcon_ccw.c | 22 ++++++++++++----------
+>>   drivers/video/fbdev/core/fbcon_cw.c  | 22 ++++++++++++----------
+>>   drivers/video/fbdev/core/fbcon_ud.c  | 28 +++++++++++++++-------------
+>>   5 files changed, 55 insertions(+), 46 deletions(-)
+>
+>
+> For the whole series:
+> Reviewed-by: Helge Deller <deller@gmx.de>
+>
+> I've added the series to my (upcoming) for-next git tree.
 
-Devicetree bindings maintainers will disagree with this statement ;-)
+Thanks. The review bot found a few issues, so there might be an update 
+coming.
 
-> 
->> @@ -0,0 +1,143 @@
->> +# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
->> +%YAML 1.2
->> +---
->> +$id: https://urldefense.com/v3/__http://devicetree.org/schemas/display/mediatek/mediatek,mt8196-dvo.yaml*__;Iw!!CTRNKA9wMg0ARbw!n3pk94kKoN-7zfem5SHfJn_ixDmAleFOW2dJwmZ8W5gJz-iEQGAN6yOkpupaMXAvAlr3KfAndB5Fjy57tNXsxA_uvNy3$
->> +$schema: https://urldefense.com/v3/__http://devicetree.org/meta-schemas/core.yaml*__;Iw!!CTRNKA9wMg0ARbw!n3pk94kKoN-7zfem5SHfJn_ixDmAleFOW2dJwmZ8W5gJz-iEQGAN6yOkpupaMXAvAlr3KfAndB5Fjy57tNXsxNztWOiH$
->> +
->> +title: MediaTek Digital Video Output (DVO) Controller
->> +
->> +maintainers:
->> +  - AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>
->> +
->> +description:
->> +  The MediaTek Digital Video Output (DVO) hardware provides 120-bits (4P) data,
->> +  video timing and info data for the Embedded DisplayPort, hardware-abstracting
-> 
->  From the compatible listed below, DVO not only for eDP, but also DP, right?
-> 
+Best regards
+Thomas
 
-Yeah, on MT8189 it's also for DP.
+>
+> Thanks!
+> Helge
 
->> +  the previous generation Display Port Interface (DPI/DP_INTF) blocks, other
->> +  than providing new capabilities.
-> 
-> No new capability? But what you list below is new capability or the same as DPI/DP_INTF?
-> 
+-- 
+--
+Thomas Zimmermann
+Graphics Driver Developer
+SUSE Software Solutions Germany GmbH
+Frankenstr. 146, 90461 Nürnberg, Germany, www.suse.com
+GF: Stefan Gaiser, Jochen Jaser, Abhinav Puri, (HRB 36809, AG Nürnberg)
 
-The new capabilities include PSR and MSO, other than the 4T1R in output (as DP_INTF
-did support that but only for very specific configurations).
 
->> +  This hardware block supports 1/2/4 pixels per iteration in both its input and
->> +  output and provides 8/10-bit RGB, YUV422 and YUV444 data formats in output,
->> +  other than supporting input/output video window cropping and padding.
->> +  Digital Video Output also provides Panel Self Refresh (PSR) and Multi-SST
->> +  Operation (MSO) features for eDP 1.3/1.4.
->> +
->> +properties:
->> +  compatible:
->> +    enum:
->> +      - mediatek,mt8189-dp-dvo
->> +      - mediatek,mt8189-edp-dvo
-> 
-> This series is so large, so it's better to drop any thing that is not related to mt8196 and you could add them back later.
-
-Are you sure you want me to drop that?
-
-It's just 10 lines of code and some platform data really, I don't think it's all
-that much to justify dropping it?
-
-Cheers,
-Angelo
-
-> 
-> Regards,
-> CK
-> 
->> +      - mediatek,mt8196-edp-dvo
->> +
->> +  reg:
->> +    maxItems: 1
->> +
->> +  interrupts:
->> +    maxItems: 1
->> +
->>
-> 
