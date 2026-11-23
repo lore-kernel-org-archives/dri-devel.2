@@ -2,65 +2,43 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CEA22606A31A
-	for <dri-devel@archiver.kernel.org>; Mon, 23 Nov 2026 14:30:03 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4B0DE606A32D
+	for <dri-devel@archiver.kernel.org>; Mon, 23 Nov 2026 14:30:30 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=JmXyQoyd
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=YyXrNYNb
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id EE2DB10EE75;
-	Mon, 23 Nov 2026 14:29:57 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 3BF3D10EE78;
+	Mon, 23 Nov 2026 14:30:24 +0000 (UTC)
 Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 7B4A810EE75
- for <dri-devel@lists.freedesktop.org>; Mon, 23 Nov 2026 14:29:46 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 3FE7610EE78
+ for <dri-devel@lists.freedesktop.org>; Mon, 23 Nov 2026 14:30:18 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by tor.source.kernel.org (Postfix) with ESMTP id A32F462200;
- Mon, 23 Nov 2026 14:29:45 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 220D61F000C6;
- Mon, 23 Nov 2026 14:29:45 +0000 (UTC)
+ by tor.source.kernel.org (Postfix) with ESMTP id B907E62182;
+ Mon, 23 Nov 2026 14:30:17 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 550541F000C6;
+ Mon, 23 Nov 2026 14:30:17 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1795444185;
- bh=ROrUqZkbzP8LgqCX7NGiVjaQailsYGWxDA+4EOEFZZs=;
- h=Date:From:To:Cc:Subject:References:In-Reply-To;
- b=JmXyQoydVBoWpr4+5R4CZ4z+AoyWLrYpEEMxAQuw/pLunMtb/cKSldBwzfWKKHEnq
- v75SVo09OWHsaqhmRDY3uFZq/IfdMc6dsdiC+bdDTF00CYKcVgim6qaDzJadMLwaNh
- 1lehl36nca+arCMfCsXN2lkml5UsOnihwHzd6jAOdL+3qqrKzixnYLKk5/gGeYxjOY
- +MBIJwCyTBa6WJHmwut+DUUgxOZfpvVe0KsGBUK9phgQr/WFmi79q2nPSW1jC3vqOF
- bKU08JQzM7PCqE1hWSCVNp37IiCSxHEWJDbtXA2yUY7UI29kNQvib/7SVFtL+R+Zvk
- jdKaa6IdT62hA==
-Date: Mon, 23 Nov 2026 08:29:43 -0600
-From: Rob Herring <robh@kernel.org>
-To: Krzysztof Kozlowski <krzk@kernel.org>
-Cc: Svyatoslav Ryhel <clamor95@gmail.com>,
- Thierry Reding <thierry.reding@kernel.org>,
- Jonathan Hunter <jonathanh@nvidia.com>,
- Sowjanya Komatineni <skomatineni@nvidia.com>,
- Luca Ceresoli <luca.ceresoli@bootlin.com>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>,
- Mauro Carvalho Chehab <mchehab@kernel.org>,
- Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
- Mikko Perttunen <mperttunen@nvidia.com>,
- Hans Verkuil <hverkuil+cisco@kernel.org>,
- Sakari Ailus <sakari.ailus@linux.intel.com>,
- Cong Nguyen <congnt264@gmail.com>,
- Faisal Mukhtar <mukhtarfaisal03@gmail.com>,
- Dan Carpenter <error27@gmail.com>, Hungyu Lin <dennylin0707@gmail.com>,
- Hao-Qun Huang <alvinhuang0603@gmail.com>, Yury Norov <ynorov@nvidia.com>,
- Uwe =?iso-8859-1?Q?Kleine-K=F6nig?= <u.kleine-koenig@baylibre.com>,
- linux-media@vger.kernel.org, linux-tegra@vger.kernel.org,
- dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org,
- linux-kernel@vger.kernel.org, linux-staging@lists.linux.dev
-Subject: Re: [PATCH v1 09/10] ARM: tegra: Remove fallback compatible from
- Tegra30 VI node
-Message-ID: <20261123142943.GA2320531-robh@kernel.org>
-References: <20261113161819.36847-1-clamor95@gmail.com>
- <20261113161819.36847-10-clamor95@gmail.com>
- <ceb7b479-080f-4210-a1f2-be3e273779e5@kernel.org>
-X-Archived-By: <archiver.kernel.org>
-MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <ceb7b479-080f-4210-a1f2-be3e273779e5@kernel.org>
+ s=k20260515; t=1795444217;
+ bh=Xk+YmOAj17ouxN58iXvXBAeD0739dTcsavlOem5Yt/A=;
+ h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+ b=YyXrNYNbNfmc1B1/OADraryvbgraHG+NG6SejeYbAGpbANMj9SjHusrtqegNSSE00
+ vgEunIaExPv/Y/G1kJMFK+aeXNvMXO8WICP1BX6WCKqPETZZAbPD+sLiYMgynDkis/
+ lfovQ/w7/8DPcUcJwctGsZlJ6Mc6wdoZtVzanJ40A8h/l4R+ssG6N+d1yPzSTZzLnK
+ UlemCinffCIgVhr0a7eDursDcnuhN3lnW0cLS9aDe3MRcNm7QM4IQaa5wDxIijiKUE
+ WeFRsWbHeRDoYo15qMKWl1mcoDRIDhEUppqOtjhd05MQmnHqPthlacxDXKwprmL28v
+ NsuiDY1vwo+WQ==
+Message-ID: <sashiko-outbox-229398@kernel.org>
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH 2/2] drm/nouveau/dispnv50: reject DP modes that don't
+ fit the link
+To: =?utf-8?b?RnLDqWTDqXJpYyBNYWjDqQ==?= <frederic.mahe@cirad.fr>
+Cc: dri-devel@lists.freedesktop.org
+In-Reply-To: <20261123101659.600247-3-frederic.mahe@cirad.fr>
+References: <20261123101659.600247-1-frederic.mahe@cirad.fr>
+ <20261123101659.600247-3-frederic.mahe@cirad.fr>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Mon, 23 Nov 2026 14:30:16 +0000
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -71,30 +49,73 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
+Reply-To: sashiko-reviews@lists.linux.dev
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 X-Spam-Status: No, score=-10.8 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
 	DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
-	INCLUDES_CR_TRAILER,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS
-	autolearn=ham autolearn_force=no version=4.0.1
+	INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS autolearn=ham
+	autolearn_force=no version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
+X-Archived-By: <archiver.kernel.org>
 
-On Sat, Nov 14, 2026 at 10:22:36AM +0100, Krzysztof Kozlowski wrote:
-> On 13/11/2026 17:18, Svyatoslav Ryhel wrote:
-> > Tegra30 now has its own specific compatible string for the VI. Remove the
-> > Tegra20 fallback, as it may interfere with the correct configuration of
-> > the device.
-> > 
-> > Signed-off-by: Svyatoslav Ryhel <clamor95@gmail.com>
-> 
-> 
-> DTS cannot be combined in this patchset and must be split. Don't mix
-> patches from independent subsystems when you send something explicitly
-> targeting only one subsystem (staging, USB).
-> See also: Documentation/devicetree/bindings/submitting-patches.rst
+Thank you for your contribution! Sashiko AI review found 1 potential
+issue to consider:
+- [Medium] drm/nouveau: incomplete DP mode check condition in
+  nv50_outp_atomic_check()
+--
 
-Except this is an ABI change and will introduce warnings if merged 
-separately. So this and the binding change should be applied together. 
-Haven't looked at the rest of the series...
+commit 943220be5958f2da589b892e0f39c0caa93bf128
+Author: Fr=C3=A9d=C3=A9ric Mah=C3=A9 <frederic.mahe@cirad.fr>
 
-Rob
+drm/nouveau/dispnv50: reject DP modes that don't fit the link
+
+This commit rejects DisplayPort modes in nv50_outp_atomic_check() when
+nv50_dp_mode_valid() indicates that the mode exceeds the link capacity even
+after reducing the bpc.
+
+> diff --git a/drivers/gpu/drm/nouveau/dispnv50/disp.c b/drivers/gpu/drm/no=
+uveau/dispnv50/disp.c
+> index 98a5188f65234..d7582ed8026b1 100644
+> --- a/drivers/gpu/drm/nouveau/dispnv50/disp.c
+> +++ b/drivers/gpu/drm/nouveau/dispnv50/disp.c
+> @@ -423,6 +423,21 @@ nv50_outp_atomic_check(struct drm_encoder *encoder,
+>  	/* We might have to reduce the bpc */
+>  	nv50_outp_atomic_fix_depth(encoder, crtc_state);
+> =20
+> +	/* Reject a mode that does not fit the DP link even at the lowest bpc:
+> +	 * link training would fail and the display would stay dark.  Only
+> +	 * when the link capabilities are known, so that a sink that is
+> +	 * asleep or still resuming does not make every commit fail.
+> +	 */
+> +	if (crtc_state->mode_changed && crtc_state->active) {
+> +		struct nouveau_encoder *nv_encoder =3D nouveau_encoder(encoder);
+> +
+> +		if (nv_encoder->dcb->type =3D=3D DCB_OUTPUT_DP &&
+> +		    nv_encoder->dp.link_nr && nv_encoder->dp.link_bw &&
+> +		    nv50_dp_mode_valid(nv_encoder, &crtc_state->adjusted_mode,
+> +				       NULL) !=3D MODE_OK)
+> +			return -EINVAL;
+> +	}
+
+[Severity: Medium]
+Should this condition be (crtc_state->mode_changed ||
+crtc_state->connectors_changed), matching the bpc check earlier in
+nv50_outp_atomic_check()?
+
+If connector routing or a connector property changes without changing the
+CRTC mode, crtc_state->connectors_changed is set while
+crtc_state->mode_changed remains false.  This check is then skipped, even
+though nv50_disp_outp_atomic_check_set() tests
+drm_atomic_crtc_needs_modeset() and still enables the DP output and runs
+link training with the out-of-range mode.
+
+Also, struct drm_crtc_state documents that atomic_check callbacks must not
+consult crtc_state->active to reject a commit.  Gating on crtc_state->active
+allows an out-of-range mode to be committed while active is false; a later
+DPMS ON commit only sets active_changed (with mode_changed false), bypassing
+this check as well.
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261123101659.6002=
+47-1-frederic.mahe@cirad.fr?part=3D2
