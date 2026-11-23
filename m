@@ -2,110 +2,99 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6B942606A68D
-	for <dri-devel@archiver.kernel.org>; Mon, 23 Nov 2026 18:41:59 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5C830606A33F
+	for <dri-devel@archiver.kernel.org>; Mon, 23 Nov 2026 19:38:17 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=parXm2QX
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=nvOF7v5K
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 9F5F910E2C5;
-	Mon, 23 Nov 2026 18:41:53 +0000 (UTC)
-Received: from mail-pj1-f50.google.com (mail-pj1-f50.google.com
- [209.85.216.50])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 32BD210E4D0
- for <dri-devel@lists.freedesktop.org>; Mon, 23 Nov 2026 18:41:46 +0000 (UTC)
-Received: by mail-pj1-f50.google.com with SMTP id
- 98e67ed59e1d1-3b155f50c24so2905702a91.3
- for <dri-devel@lists.freedesktop.org>; Mon, 23 Nov 2026 10:41:46 -0800 (PST)
-ARC-Seal: i=1; a=rsa-sha256; t=1795459306; cv=none;
- d=google.com; s=arc-20260327;
- b=Jl6E2QfsJydSBABmpFsMdPUJb1G4plIZPyBWJuheKcJFsMYqEYI7w1cYYoPdRQkBbx
- PoaP3hsB6QD3qGuB/ROA2uyj6tCHyqOabW+kdEl71dhuRdvJh5dDZKBj5FNaCJXwLrBp
- F1FHcKKZXp39FX1smglCaYoKMGkTIkDv7h5pXKX3gb1U4oKNDaevhPPPoxdsukaCUymp
- mSGDWfmGXpGoSHmAcLMZaqoX3hDr6B5V9Ox0zcowWDeJtHFuRU/LqfVR+vBdqQrT2MiU
- vpJbJJ5UIxpecMmn46B+UC0QR6hDbiK/hDYOXa0/fdr1+FxSZ1uIiSV2JtccE5RUVLu4
- Nvmg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com;
- s=arc-20260327; 
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:dkim-signature;
- bh=7KCCFV8c12xHGuVa12sa42pR/GvO+E15oZ8scml+fpM=;
- fh=vgC7DfJvS9xpdpXlLsX90vVMzImrHbxLZifbxmp/V0s=;
- b=KoudBcu4AEriN+YDJn31iWbl4Barn6JWJObCllKro5TJM95rQacaZOMfyK1jFd9bXZ
- ArHCQC3vb4ex35MFYka7nlFqzaZeEnpJW1Gzhc9I3x+b9I324NIWlr5DYHmJePA2y/6P
- L7pPOgIupssW+7EPQ22ue5BEXIbjdxeEiz07HhIp8B1qwMH7W89OVCEfp0+deXUOWLG9
- JF/IGiUNv2A/AyPKbce0bPcGBV5KIadAeZGXexMExS/Ht0FXeI6xdp7Byckh8Nj3Rulb
- BfB7kr9lJ88/15YxmcNJAvxaZnRPIiwPyYunIf7szR+zFVJhpo3G7rZGsvGRvY3yvP7k
- BRBA==; darn=lists.freedesktop.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20260707; t=1795459306; x=1796064106; darn=lists.freedesktop.org;
- h=content-transfer-encoding:content-type:cc:to:subject:message-id
- :date:from:in-reply-to:references:mime-version:from:to:cc:subject
- :date:message-id:reply-to:content-type;
- bh=7KCCFV8c12xHGuVa12sa42pR/GvO+E15oZ8scml+fpM=;
- b=parXm2QXj/P9bFgzSZ8WMT05dJ9G9GSvT43ZWUgoYXeogrwKGVlfUxorR63jLVsTpt
- iTmUU2YY7qrDtlr/4IdlgWxSeFCB9JSo519WU5dpgI4CIZXYWYQkvkQEoHb+bZOjk0Gu
- Ns2g7pEkIJfvI63C6LsaGHBtc6bSS6w5JbK+wQ4EwnLu74Rf4KeZ3CzWJAZjqxOBOIPR
- jMRL9yYKuXKTUrzIr6j5ymF8W1SpgvDr1UNXcGQ50H8lc+B1bF8i6U5zq7wGAfPvaJbP
- buL7zZLv+j7seGrFF8UOqjQPlm4O2W13DDuJTfSQxCPbz0F/mB2J0mgcg/pGusVn4l81
- 7sGw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20260707; t=1795459306; x=1796064106;
- h=content-transfer-encoding:content-type:cc:to:subject:message-id
- :date:from:in-reply-to:references:mime-version:x-gm-gg
- :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
- :content-type;
- bh=7KCCFV8c12xHGuVa12sa42pR/GvO+E15oZ8scml+fpM=;
- b=RK8Ksyt72lg7t1QySfjZ1sijDw5FU2jYbSxIUEqwsxt6GhDVglgZ0gBD1yBu5u1g/h
- M58WgBL4ggQwzJPUKvHAYuMiWkUVRrZvtX8ZIcB8FUsaJgsXS7pAlsXBYlHuCLowNcXD
- zl+NFO0MJcdOPrHF9kSGy33DTug//SPBFlueUE8mtcVi0Rha3yeuKj7k+tZp7ONBVoBF
- /TRgVnc3QlpELqjvWW2jtQkhKXEUb7I/nwLAgaNLvtRNAd7DbdrgCH1Bktdzd1B7b9qP
- ROG0aZZI5yYzbsOjqyIHmWWNBcfAZimpI+9fwhyRwZ0olj/Pe1pcs8RUreE+NViNHQPd
- J6ng==
-X-Forwarded-Encrypted: i=1;
- AL+hErGBDPidOG9MpGIr2qVKLG28n/C5QtT8BxyBDFuxMbyvqc3h7D/YU2ybpMpYTqCwcU1y7Rkg6IviLbw=@lists.freedesktop.org
-X-Gm-Message-State: APuU4Z8LhCjjl71hZu5a54B09AZg+oN2IoHPkij3X3UOsT7iwvEHsmgU
- FJUGpAbQs3DW6JNl7WVU6nmMIO5PCWrM8UdzX5qSNLMiuoB6L+Z7rKxwuv1UBU2iD0pRZgsoSCV
- OOV7byGI51abgNyrAUGZGKVJcKjLLPy0=
-X-Gm-Gg: AZFdTZfn8K3S/C+E5cLoQYVcbZSAVVveWjLyWTMpInvR1J0k3PQCWNM3tKQQqedqm45
- XGe88QOaBKVC8gW9iEsd3Tre6dEzZm/tyAEahFjzKAgOn2FHcFMG3g5ID/Ka4X49WSh/FM//JPI
- N8NZZlozpam9US5iIpNxjVIPmt+MAV/1ly1U1QmuW73nnGGgj8lBwRUfewmKJ7Nl62jn21Qv+1W
- 9kyTEuWTa8p72SvL2kTVb9H1x3ME9i+GIGAzUz3UeSM6LUj3tH70oXW+m1XS5BpwhUES3K8VfAz
- v41kgtTsIq/bHR9we3/APPaWo3VGlT2kCYeGKC2O6nPs9Rq4RtcmZ2hZ6ELdmm1+PSDGoh+X+BP
- /bd96SpuZc+wGlGfx1LRBD8IF5cRf79Btp+Mgcw==
-X-Received: by 2002:a17:90b:17cd:b0:3ac:6fcf:91d2 with SMTP id
- 98e67ed59e1d1-3b41c8fe3d1mr11633543a91.19.1795459306227; Mon, 23 Nov 2026
- 10:41:46 -0800 (PST)
+	by gabe.freedesktop.org (Postfix) with ESMTP id C911210EC78;
+	Mon, 23 Nov 2026 19:38:11 +0000 (UTC)
+Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id D991510EC70
+ for <dri-devel@lists.freedesktop.org>; Mon, 23 Nov 2026 19:38:05 +0000 (UTC)
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+ by sea.source.kernel.org (Postfix) with ESMTP id 9D22C41143;
+ Mon, 23 Nov 2026 19:38:05 +0000 (UTC)
+Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
+ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
+ t=1795462685;
+ b=pibZ8y0oohBd1zCUOTTNwmdWyOVIaoimFh0swhKFmr5i/gpMI+dlO7DwGb68ylkbAwvS
+ ckPFZLBQPK4rrfzTk3XxaFDhW109koA3bDq0mapGFCEEYw0L09C0ENsDHWcz8DBeAxCcr
+ +lGeg3m4OzvkWrNBl8br/5S7hCe+5kaEStEv1+PPxvapgRpshq92webPaFCl3UaC0gU6v
+ u+qzGL4yXAtwf3hLpqUo8IMmCaPso4lIoCrA+TyFqnCRlylpfAtoMHLoY2sHuCrbSd7/Y
+ yJ1/lCr81E14AT+vKWrd1n8QB0ohFEFNH3dHmmgML25DRdMUR9D4dqWMpYRDaDF+7zQ==
+ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
+ c=relaxed/relaxed; t=1795462685;
+ h=DKIM-Signature:Received:From:Date:Subject:MIME-Version:Content-Type:
+ Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
+ X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
+ X-Original-From:Reply-To:Content-Transfer-Encoding;
+ bh=xA1P8zsvk6kqc3xIgg8qAOvV3prxwK2TGoWpI0Dqwlc=;
+ b=drNHsZDMYMKb8eGuPVh+b73Bwhrh9TUE2WHj1fhj0Ht3uazGilSZDodRjVPxXjUDKAbB
+ c7qdskHAlotSkxC/OiJMHIcHg/bGFeoadwMyeNFYpuRX54RVYd2WS8vpwsX1ivOzHmhHz
+ pFPiTUsYWfurCmGkK5/fX0Of0jHf4su4qTi6Z0RiLXpNykzb4pgzDQC/XsIDypNXOBNPv
+ lRI/KNpGt+u4mGaT/CdSL++hPZXgVVDt3XXdjur0h4QCN22mmQP1AOP5RgNZfqTGm6gyr
+ pu71H/2Kloj0KmEnHTkogas2w3xxZane7B7BMCUbMz1ebUOAp+u5B2iO98nnpdaWSKg==
+ARC-Authentication-Results: i=1; smtp.kernel.org; 
+ arc=none smtp.remote-ip=100.80.115.77
+Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+ (No client certificate requested)
+ by smtp.kernel.org (Postfix) with ESMTPS id 5F3211F000E0;
+ Mon, 23 Nov 2026 19:38:01 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+ s=k20260515; t=1795462685;
+ bh=xA1P8zsvk6kqc3xIgg8qAOvV3prxwK2TGoWpI0Dqwlc=;
+ h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To;
+ b=nvOF7v5K28Nk6gDFlP1vOrDKmKUNi+/tPywjRqPht8gol+7sOAguD1ARWZYRaEfLc
+ eHO4Zd6FzA/yl1dBIxpD0NRoMSDVKWtMt7IQjrVr1AbfSovmYcVHswzd+nHwLRk4rN
+ 6sXChLPmN8SYBeGBQVc52Aksf2aiHW8eg7Nlx3wMgjlEnen69Ekgy5Wu0BJiK/d0S/
+ z743k7HZfdsHdHKK0nC9em0pt5xMIap6apjDHns2kpyFetbRq9wUNSOrFP6AcfRaWh
+ SEAeB0yec/ZtHR84oknA8ElWGN/y6Qe1e4RMXLe/7zn+ZIB5XKcoQQf+0QZLN5/LVF
+ j68znT2FC8bUg==
+Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
+ by lkml.kernel.org (Postfix) with ESMTP id D60E14C691;
+ Mon, 23 Nov 2026 19:38:00 +0000 (UTC)
+From: Ronald Claveau via B4 Relay
+ <devnull+linux-kernel-dev.aliel.fr@kernel.org>
+Date: Mon, 23 Nov 2026 20:37:34 +0100
+Subject: [PATCH v4 02/11] dt-bindings: phy: amlogic: document the Amlogic
+ Meson HDMI TX PHY
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
-References: <20261118-orangepi-gpu-v2-1-f68676f844eb@gmail.com>
- <20261122184434.545341-1-frederic.mahe@cirad.fr>
-In-Reply-To: <20261122184434.545341-1-frederic.mahe@cirad.fr>
-From: Iker Pedrosa <ikerpedrosam@gmail.com>
-Date: Mon, 23 Nov 2026 19:41:00 +0100
-X-Gm-Features: Aa3M54rYymnQncJINmj7PXylw19m9Q_Z0b_H3MvffZyCzTJDH31b-Bzjr4MRK-U
-Message-ID: <CABdCQ=PnfXRd2=b6_yEN94RCRvPnWx-WFfHZDC+jhHv_UFZ1ZQ@mail.gmail.com>
-Subject: Re: [PATCH v2] riscv: dts: spacemit: k1: add PowerVR GPU device node
-To: =?UTF-8?B?RnLDqWTDqXJpYyBNYWjDqQ==?= <frederic.mahe@cirad.fr>
-Cc: Alessio Belle <alessio.belle@imgtec.com>, 
- Luigi Santivetti <luigi.santivetti@imgtec.com>, 
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>, 
- Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>,
- Simona Vetter <simona@ffwll.ch>, 
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+Content-Type: text/plain; charset="utf-8"
+Message-Id: <20261123-meson-drm-create-hdmitx-phy-v4-2-3fb94f5534ca@aliel.fr>
+References: <20261123-meson-drm-create-hdmitx-phy-v4-0-3fb94f5534ca@aliel.fr>
+In-Reply-To: <20261123-meson-drm-create-hdmitx-phy-v4-0-3fb94f5534ca@aliel.fr>
+To: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
  Conor Dooley <conor+dt@kernel.org>, 
- Yixun Lan <dlan@kernel.org>, Paul Walmsley <pjw@kernel.org>,
- Palmer Dabbelt <palmer@dabbelt.com>, 
- Albert Ou <aou@eecs.berkeley.edu>, Alexandre Ghiti <alex@ghiti.fr>, 
- Troy Mitchell <troy.mitchell@linux.spacemit.com>, 
- Baihui Liang <liangbaihui@linux.spacemit.com>,
- imagination@lists.freedesktop.org, 
- dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org, 
- linux-kernel@vger.kernel.org, linux-riscv@lists.infradead.org, 
- spacemit@lists.linux.dev
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+ Neil Armstrong <neil.armstrong@linaro.org>, 
+ Kevin Hilman <khilman@baylibre.com>, Jerome Brunet <jbrunet@baylibre.com>, 
+ Martin Blumenstingl <martin.blumenstingl@googlemail.com>, 
+ Vinod Koul <vkoul@kernel.org>, Manivannan Sadhasivam <mani@kernel.org>, 
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
+ Ulf Hansson <ulfh@kernel.org>
+Cc: devicetree@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
+ linux-amlogic@lists.infradead.org, linux-kernel@vger.kernel.org, 
+ linux-phy@lists.infradead.org, dri-devel@lists.freedesktop.org, 
+ Ronald Claveau <linux-kernel-dev@aliel.fr>, linux-pm@vger.kernel.org
+X-Mailer: b4 0.16.0
+X-Developer-Signature: v=1; a=openpgp-sha256; l=1569;
+ i=linux-kernel-dev@aliel.fr; h=from:subject:message-id;
+ bh=OW3BQ47jww+fAV5FJlCwW3Kume/yYrBTmUUehPnw4ZU=;
+ b=owGbwMvMwCWm1SvKXP3cUInxtFoSQzbLNI7KCe1XNXqWXzV+0yNy7H7pgpC6/xOcpuYckKia2
+ DC9teRPRykLgxgXg6yYIkv/XMsT7y4fPfN1j3oKzBxWJpAhDFycAjAR4eeMDAsPqXUnewa+V5ZT
+ lD/UfrH0Yd3Jp7sCzi1ibzn095Djch9Ghvlt+eG7ZXy03Kyl+llYlOvObfKZueWdSswc1Rb9t/M
+ bGQE=
+X-Developer-Key: i=linux-kernel-dev@aliel.fr; a=openpgp;
+ fpr=DFD863F61375BF917F0012173953305EF1D0EC3E
+X-Endpoint-Received: by B4 Relay for linux-kernel-dev@aliel.fr/default with
+ auth_id=744
+X-Original-From: Ronald Claveau <linux-kernel-dev@aliel.fr>
+Content-Transfer-Encoding: 7bit
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -116,40 +105,73 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
+Reply-To: linux-kernel-dev@aliel.fr
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-2.8 required=3.0 tests=BAYES_00,DKIM_SIGNED,
-	DKIM_VALID,DKIM_VALID_AU,FREEMAIL_FORGED_FROMDOMAIN,FREEMAIL_FROM,
-	HEADER_FROM_DIFFERENT_DOMAINS,MAILING_LIST_MULTI,SPF_HELO_NONE,
-	SPF_PASS autolearn=no autolearn_force=no version=4.0.1
+X-Spam-Status: No, score=-18.8 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
+	DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
+	INCLUDES_CR_TRAILER,INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,
+	SPF_PASS,USER_AGENT_GIT autolearn=ham autolearn_force=no version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-Hi Fr=C3=A9d=C3=A9ric,
+From: Ronald Claveau <linux-kernel-dev@aliel.fr>
 
-Thanks for testing this on the BPI-F3!
+Add a YAML binding for the HDMI TX PHY found on Amlogic Meson SoCs.
+It covers the GXBB, GXL and G12A variants, which are described by
+their own compatible strings:
 
-> Two notes:
->
-> - On v7.4-rc1 the driver refuses the GPU ("Unknown GPU! Set
->   'exp_hw_support' to bypass this check"); with
->   powervr.exp_hw_support=3D1 it works as above. Is a driver patch
->   adding the K1 GPU pending somewhere?
+  - amlogic,meson-gxbb-hdmi-tx-phy
+  - amlogic,meson-gxl-hdmi-tx-phy
+  - amlogic,meson-g12a-hdmi-tx-phy
 
-You're right. I forgot to mention in the cover letter that I was loading
-the module with:
-sudo modprobe powervr exp_hw_support=3D1
+The PHY is a child of the HHI system controller.
 
-I plan to send a separate patch to add K1 GPU support directly in
-Imagination's driver.
+Signed-off-by: Ronald Claveau <linux-kernel-dev@aliel.fr>
+---
+ .../bindings/phy/amlogic,meson-hdmi-tx-phy.yaml    | 33 ++++++++++++++++++++++
+ 1 file changed, 33 insertions(+)
 
-> - The GPU never runtime-suspends: after 160 s idle,
->   runtime_suspended_time is still 0 and the power domain stays on
->   (autosuspend 50 ms). That looks like what Baihui's "drm/imagination:
->   re-check firmware idle state before runtime suspend" fixes.
+diff --git a/Documentation/devicetree/bindings/phy/amlogic,meson-hdmi-tx-phy.yaml b/Documentation/devicetree/bindings/phy/amlogic,meson-hdmi-tx-phy.yaml
+new file mode 100644
+index 000000000000..c5dd1036c375
+--- /dev/null
++++ b/Documentation/devicetree/bindings/phy/amlogic,meson-hdmi-tx-phy.yaml
+@@ -0,0 +1,33 @@
++# SPDX-License-Identifier: (GPL-2.0 OR BSD-2-Clause)
++%YAML 1.2
++---
++$id: http://devicetree.org/schemas/phy/amlogic,meson-hdmi-tx-phy.yaml#
++$schema: http://devicetree.org/meta-schemas/core.yaml#
++
++title: Amlogic HDMI TX PHY
++
++maintainers:
++  - Ronald Claveau <linux-kernel-dev@aliel.fr>
++
++properties:
++  compatible:
++    enum:
++      - amlogic,meson-gxbb-hdmi-tx-phy
++      - amlogic,meson-gxl-hdmi-tx-phy
++      - amlogic,meson-g12a-hdmi-tx-phy
++
++  "#phy-cells":
++    const: 0
++
++required:
++  - compatible
++  - "#phy-cells"
++
++additionalProperties: false
++
++examples:
++  - |
++    hdmi-phy {
++        compatible = "amlogic,meson-gxbb-hdmi-tx-phy";
++        #phy-cells = <0>;
++    };
 
-I hadn't tested runtime suspend for the driver before, but after you
-mentioned it I gave it a try and can confirm it doesn't work properly.
-Hopefully Baihui's patch [1] will fix this issue.
+-- 
+2.56.1
 
-[1] https://lore.kernel.org/linux-riscv/20261111-img-pm-autosuspend-v2-1-42=
-7689f6f2f9@linux.spacemit.com/
+
