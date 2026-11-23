@@ -2,149 +2,159 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 912E9606A31E
-	for <dri-devel@archiver.kernel.org>; Mon, 23 Nov 2026 23:34:14 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3FF91606A31E
+	for <dri-devel@archiver.kernel.org>; Mon, 23 Nov 2026 23:34:32 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=YQ/nV66n;
-	dkim=pass (1024-bit key, unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=selector1 header.b=N6YpMA6q
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=BsR4R4Dj;
+	dkim=pass (1024-bit key, unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=selector1 header.b=ZljPWyvd
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id B275F10E358;
-	Mon, 23 Nov 2026 23:34:01 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 94B8710ECAB;
+	Mon, 23 Nov 2026 23:34:21 +0000 (UTC)
 Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.8])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 23F2010E1D6;
- Mon, 23 Nov 2026 23:33:50 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 0669810E3BB;
+ Mon, 23 Nov 2026 23:34:00 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1795476830; x=1827012830;
+ t=1795476841; x=1827012841;
  h=from:to:cc:subject:date:message-id:in-reply-to:
  references:content-transfer-encoding:mime-version;
- bh=3AUUO9NBY2HsELSUtbuV7wm5f1K4tskVRBfrDwWb+tM=;
- b=YQ/nV66nrL/7fpZMvwD9FGRLSsdBwiRPm1UbosTEaPwTfgHHIIf9eRkq
- qOGeh++myB7VGVOFQR1cPibMPQCNzZCV5WTyztAorlGJUCA+0OyGUiYde
- YjQkTtDkIvSI170SLzIcyAhw/8rXQxIkPB0Zr+DumgZjJO+QaKSuD8OcT
- 0it0pUq5lHGnSnhU1PKEDZu9qKVD4eMKGuonk7p4raEsfYo5jyakMAW+w
- +SbVxQ4TwnZl4zhwgChqxgQn4iXwNkuy9vAf0TuyWrtvLMWgfcmKBDjLB
- bGhAaj4NcpGLlU29/WSnAtLdPNAMgjIqwsPjSXzivErewdZaMr5pessNr g==;
-X-CSE-ConnectionGUID: lbcUde/mQ7G93s6Ycbr3Vg==
-X-CSE-MsgGUID: Rju/i/IYQJSGYQgtgWK9rw==
-X-IronPort-AV: E=McAfee;i="6800,10657,11975"; a="4194426"
+ bh=sxeyVt9E+laZEQIgLzmOhtuN2x8o6sMEqaZPp96nR3U=;
+ b=BsR4R4DjVdS/juQ1x5ry/zpUBibYJgkmPzwrr5BpklaGJfFFJoca1bTQ
+ X8VT+VkGr2wYe5fyXR+5npCMc4llds1PHtpqp3033EzQtiAvvneYHhUxi
+ b4Ci/jVxdRU6CE6fV7vNuJkwF8XmmV2uRUlgTnEt5FOHq28dxs73FE/+r
+ tP6j7nvVA+TPUpHq3qHcvvMG5I2WewgwKkXl89Yom8APB0oZS5nL3lz0Y
+ FJ78OEXJKjnOCHTPslzSMC28wCPuzELCs5kUP9jIrgAAPCf+XQG1duEGU
+ 21u8XnEk+3If/hXms1NXuk+Z2+9//cCsBXQBkKGoKBS9l0MOTp72h3aTG A==;
+X-CSE-ConnectionGUID: ZxusSuLWT9qAyMeVj4olzg==
+X-CSE-MsgGUID: SafGbFTLSPuxKkQvcKDdqg==
+X-IronPort-AV: E=McAfee;i="6800,10657,11975"; a="4194430"
 X-IronPort-AV: E=Sophos;i="6.27,229,1787036400"; 
-   d="scan'208";a="4194426"
+   d="scan'208";a="4194430"
 Received: from fmviesa004.fm.intel.com ([10.60.135.144])
  by fmvoesa102.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 23 Nov 2026 15:33:50 -0800
-X-CSE-ConnectionGUID: EUmTOaDuTlO+OOi/4bZVkg==
-X-CSE-MsgGUID: OktP1QM5Rf6Y0CaJXGPxqQ==
+ 23 Nov 2026 15:33:51 -0800
+X-CSE-ConnectionGUID: /nkWzWYqToOcPwKmQXpusw==
+X-CSE-MsgGUID: DaMLvqgmQMWXIDVeQJXMMg==
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,229,1787036400"; d="scan'208";a="11398714"
+X-IronPort-AV: E=Sophos;i="6.27,229,1787036400"; d="scan'208";a="11398719"
 Received: from orsmsx903.amr.corp.intel.com ([10.22.229.25])
  by fmviesa004.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 23 Nov 2026 15:33:50 -0800
-Received: from ORSMSX901.amr.corp.intel.com (10.22.229.23) by
+ 23 Nov 2026 15:33:51 -0800
+Received: from ORSMSX903.amr.corp.intel.com (10.22.229.25) by
  ORSMSX903.amr.corp.intel.com (10.22.229.25) with Microsoft SMTP Server
  (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.57; Mon, 23 Nov 2026 15:33:49 -0800
+ 15.2.2562.57; Mon, 23 Nov 2026 15:33:50 -0800
 Received: from ORSEDG903.ED.cps.intel.com (10.7.248.13) by
- ORSMSX901.amr.corp.intel.com (10.22.229.23) with Microsoft SMTP Server
+ ORSMSX903.amr.corp.intel.com (10.22.229.25) with Microsoft SMTP Server
  (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.57 via Frontend Transport; Mon, 23 Nov 2026 15:33:49 -0800
+ 15.2.2562.57 via Frontend Transport; Mon, 23 Nov 2026 15:33:50 -0800
 Received: from CH4PR04CU002.outbound.protection.outlook.com (40.107.201.30) by
  edgegateway.intel.com (134.134.137.113) with Microsoft SMTP Server
  (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.56; Mon, 23 Nov 2026 15:33:49 -0800
+ 15.2.2562.56; Mon, 23 Nov 2026 15:33:50 -0800
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=LPQojoANq+rCnSclZOnEWLSQKSn4vQiN71ZFcKTvGJzE2hw4CftCQIoHb5Zl7j+4t608tQmkzUAzOGpelCP9fCKocN+G+jnwyH8A0g0tdAq0Zhb9PEL5w51FOKmvfIQbMUXA7pZTi5HOET0kNoEtFva/b2iLRpVCSosS5CcRYUrQKxK9LNKklTITq7aaPlbmIHlJIHvrNVzzsWblraiXvmz+6Dk8dCtVHEU8m6idwkocQdcrE0Ld1srg1WqVLkGLur3hw8/i7iwVU8zqVC7Egf/ZyeAOIQLdJfFUFI4i21MYaLsCgmGddt3v7F0G+XELNSE2vCtos0g2OhwhSVGEpQ==
+ b=uPvnu5oB1t6LVG8Kraolv5oU5gc/B/yaSRPFPe31tz4xJoZ8hI8ywPjGrUMFcRYRqLx4rZBugAbGGXGZ+vqbYjYQlqCjv5smnyw9RRoQRYyxC9mObiqAeHH2ONDgaNsZzUsuC8K4nU5ok4/wnW0ah4hBdonBas1KhrTBkL4MsPkxVQmMIX0dUqX28PzBIXq+mE08eg/tuFQ8VHmJatCMkK0wnMyIUAi/IXqxqE71IszGoQnwfheyWxeI2fQZ5f1xXWb3EvZd79wViU5s/GpiVheUmvOsoB1aeDjlovENXV7Vm984nDMQUQRlP439aRlAngrgrV0+ZMsiEYDuX1XnVw==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=jZluH68V1i0EWVwMn1gnYO00mC6FkvakOeVh16Y7iF8=;
- b=eR1PO7IP8naBiGwhwNycRceVjYDAofI8ORMke+pchpJG2g0tV7H+BPvu0R5at5GmX2Dt7W5wZzY2PIOvqp7vTNqkAs2kzGFDPXJdAj51O1CxyOKUySYHQNYUYGdYPcElmwGVIus6uTCbxWhEFK1qVZgRks9CWFTi+3w1a07NVxRb6DnpWkMnibU8xu7GQiVLyWxEXy1OPHa6FcnuKxHAbaXLByznQn64s35R2VZienjXpgyIG8p3Dd8wzTfOvSoCS0yEuU96cS6y2kQrygCWaGzZWr4KTbx6vQlOw9kWBI2+hlspTJeMnntdjCfFFSH40vjyqTG543yG23hIjOKqNA==
+ bh=/EC/dQEPvwzah/bs9yeTHnpKkaOCwLH8YYcVHUNTiwk=;
+ b=nzNei1mZzna1amTq71ZuM+j/BI4gqoXq3yovIRolPvT6z3WiJY8NffE7MYKMpPJgcD66uopBCjdosQpayJ6iYiPmL2BTEw881+KsZivVzVyZGoJcSwYWyYwT5dZJoB0MK/YDxQib4AQIUU2htBBgM0N1fxAWX7ouvHQLFJQ+uPmT9Ss9twSfbZFrpf+aA0rr/APt9tTp0cbKhupyM5dwAEPxloWOyBoTanKpviR2Gv8PhASy0Gj5Osw7jST8WZtqICFKYiFyD2+K0o+LnZ40U/A50Qwdjx0FRDpYvZ6hT4cXp9+nFPGMnnrAB8Vzf7fZ9EOutHEFwu8hkpzweu5N2A==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=intel.com; dmarc=pass action=none header.from=intel.com;
  dkim=pass header.d=intel.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=intel.com; s=selector1;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=jZluH68V1i0EWVwMn1gnYO00mC6FkvakOeVh16Y7iF8=;
- b=N6YpMA6q+EZzDD/aNHM6ly7fZ+Qz2aPrqDEgOf7rsFxfyMpanzyZf+CtLgwdwdAY/B9qJpi3O9rvQG95Rj6ijXsiPwdsGectOqJ+GKb1iEsI/L65te73TuHop2joY0gEa7PdtjfdbjszL9kDG3PYi9KxP+AbzGOR/ETzXAPyCT4=
+ bh=/EC/dQEPvwzah/bs9yeTHnpKkaOCwLH8YYcVHUNTiwk=;
+ b=ZljPWyvdUpzVsyaefq0RPAOYlrh6TkcVNk9KCeNJ/ClL5DDqxEhtun2L8nX5dxUAhkubw1jW7a70jmBUhJ3zQQUuYi1yipeLsjtIeniz7/uN5i+UcUItdVpYqEu4LGySxGn3W2M6fo33LSJHLx9Q12qb4VjNnyzptwpKPxbgzwU=
 Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
  header.d=none;dmarc=none action=none header.from=intel.com;
 Received: from DS7PR11MB5990.namprd11.prod.outlook.com (2603:10b6:8:71::5) by
  IA1PR11MB6516.namprd11.prod.outlook.com (2603:10b6:208:3a0::15) with
  Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.639.13; Mon, 23 Nov
- 2026 23:33:44 +0000
+ 2026 23:33:46 +0000
 Received: from DS7PR11MB5990.namprd11.prod.outlook.com
  ([fe80::133c:5eed:3aec:b899]) by DS7PR11MB5990.namprd11.prod.outlook.com
  ([fe80::133c:5eed:3aec:b899%3]) with mapi id 15.21.0639.011; Mon, 23 Nov 2026
- 23:33:41 +0000
+ 23:33:46 +0000
 From: Rodrigo Vivi <rodrigo.vivi@intel.com>
 To: <dri-devel@lists.freedesktop.org>
 CC: <intel-xe@lists.freedesktop.org>, Rodrigo Vivi <rodrigo.vivi@intel.com>
-Subject: [PATCH 1/3] drm/ras: Initialize ret in the list-nodes dump
-Date: Mon, 23 Nov 2026 18:33:27 -0500
-Message-ID: <20261123233326.2882114-6-rodrigo.vivi@intel.com>
+Subject: [PATCH 3/3] drm/ras: Keep nodes alive while netlink operations use
+ them
+Date: Mon, 23 Nov 2026 18:33:29 -0500
+Message-ID: <20261123233326.2882114-8-rodrigo.vivi@intel.com>
 X-Mailer: git-send-email 2.56.0
 In-Reply-To: <20261123233326.2882114-5-rodrigo.vivi@intel.com>
 References: <20261123233326.2882114-5-rodrigo.vivi@intel.com>
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-ClientProxiedBy: BYAPR01CA0055.prod.exchangelabs.com (2603:10b6:a03:94::28)
- To DS7PR11MB5990.namprd11.prod.outlook.com
+X-ClientProxiedBy: BY3PR05CA0019.namprd05.prod.outlook.com
+ (2603:10b6:a03:254::24) To DS7PR11MB5990.namprd11.prod.outlook.com
  (2603:10b6:8:71::5)
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
 X-MS-PublicTrafficType: Email
 X-MS-TrafficTypeDiagnostic: DS7PR11MB5990:EE_|IA1PR11MB6516:EE_
-X-MS-Office365-Filtering-Correlation-Id: 24c8143e-933b-4d66-7a68-08df49ba351b
+X-MS-Office365-Filtering-Correlation-Id: 593b38e6-02f4-417c-586f-08df49ba37fb
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
- ARA:13230040|23010399003|376014|1800799024|366016|10067099003|11063799006|56012099006|261022075727099003|261021121427099003|261021123027099003|261026121527099003|261009223027099003|261102123227099003|18002099003|22082099003|6133799003;
-X-Microsoft-Antispam-Message-Info: bJDyk0v8+POyZMHP1ssvC/mygYyRMAi/dc0GBUNoxDsX/Ppr7Xb2YersZrXQNLNEFWbZ2nn6JoQpw8b8MD4zkdG475KRwu1RgI64Cp1W0LYrMMPEzgCrby3MszHzrg9A8Duo0gYtbCqjYzJNHob41EtnI1FPWZwkhwPrK7+Uv+omzvwfZJL4nuiOKoVxSAnCj1CixuapQ//hg8LK/pRejXAa+dWCPXoYesAr90MJSRnL7o9iR5dulu99E7KZArrtjhLX3mwo87X+/mq6TDxnuK50ZWZv8DzZFnJXeDMHT6a7oT0oi3DECLDMehlkvDsB7HSnj/BxoqI4o8HTksIIozQiZxKma98bYqfArQjvUqV1NLsE4wKXPugY8DQLcPqOc0Qu/G/b51P9WQTB3FDZ3Azoh2zOrT6nYKUoysn02JqqzzHz/GauT1WSG5BN9PCIQnFtrtRWAGnRQElvz/rVrBlmPTxChNyRVpCaxyjy7zRbKkg17m2OY36G/FbDXvd0HT91kDzEBaFCUsjs+gQN3PkCw9tKX0/TZvJk+IxEAJXjViDkApUrYK77Eivhugzq+/Aayt8FX1UQ6QqB3nP1RAAz5bD+npFD3eMJUXa12Vsk8i0RvsU4m0oumaZOZWChBDnLViKF4JEnWhexuxHQKZe/F/PU7ogVnUhzV8obIj8=
+ ARA:13230040|23010399003|376014|1800799024|366016|10067099003|11063799006|56012099006|261022075727099003|261021121427099003|261022113327099003|261021123027099003|261026121527099003|261026140227099003|261009223027099003|261022105027099003|261102123227099003|261028144727099003|261102130727099003|18002099003|22082099003|6133799003;
+X-Microsoft-Antispam-Message-Info: QnTm+iWNOK8cDV33f2VlrX5yD84qCvY0e+Ivf6KwC9XWIqzcPAatGa6ZllwJjLsoBnrMPEJSv1GmVMa7MhGTF9UfFVKqFDJx0PYBdC3WxwBwP/RCtTXTVu1HWB6Mttiwwwo/Kk+bYpIZ88OhBAQnEpMHBvCe7F1iKBzFqUfV13vD5rPM2EMSmGgzj1HrHPP9FFT5nD3+9ra6qE9mobtS651d6GtAOC8LDLwdVFZkIkfIG9TlenCjHCKCnixIBnYYE8gv3vtCN2Ne9LgeIE3B4kDiyTCWJxKOhMqc4vXNKVCkHZgfYpNemlYd6KoVw53RhfZ219itz9HOuK4qODs0LPpHUU3x30Cx5/xZ++sxfEfCfiqv5uzqHXwYPkGmQ34//PlPcdHoUCqBS+7SBRQjD+F8Wmlza0uhZ5M5iOyhQ8fAnoIHwKwud8qTEgApiXvmS3f3+7d7oeUQabDjxG/2Egf5C331thMKoWWtYug4DlhdiEADeoSIET1hbHqY+U0F/b9hLoEEQwhGz4WFeBBkr7cLtImgx8ShmDIN5JuWDeLvV5/P5M1ZrnV9X1jsepdz5lvuj3ISwfOfLacSs+GXa7w5j9ZL8M00ZNKVTmHkmWhXUZjvGP7rY4SYAldXHZuKoFof8H4QL1u1CohR5QCO7LQs72+E7HZdoIYPsrrj8B4=
 X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
  IPV:NLI; SFV:NSPM; H:DS7PR11MB5990.namprd11.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(23010399003)(376014)(1800799024)(366016)(10067099003)(11063799006)(56012099006)(261022075727099003)(261021121427099003)(261021123027099003)(261026121527099003)(261009223027099003)(261102123227099003)(18002099003)(22082099003)(6133799003);
+ SFS:(13230040)(23010399003)(376014)(1800799024)(366016)(10067099003)(11063799006)(56012099006)(261022075727099003)(261021121427099003)(261022113327099003)(261021123027099003)(261026121527099003)(261026140227099003)(261009223027099003)(261022105027099003)(261102123227099003)(261028144727099003)(261102130727099003)(18002099003)(22082099003)(6133799003);
  DIR:OUT; SFP:1101; 
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?us-ascii?Q?VxZWm0R/AXyEAQ82mseLvmevJXJyWyzofnCOvNhPFfJ56Yui/OZ62Cl2tBK5?=
- =?us-ascii?Q?uWTUAPdi4pyNoCeMEwQd4SV4FAjuURc1EJO8nXwHQdXJlIB3O744XN7h9pTW?=
- =?us-ascii?Q?rjKVmsHQGmcxJGQq1LpNwoPO70MQ5RUojcmu2835tv57k6RWmncQFKCornxt?=
- =?us-ascii?Q?jp28UbQR8VznNTiL6EEJK0FV1DoricC2MK3HVlUK7BigZQ/KASh3xsrWx5XG?=
- =?us-ascii?Q?oxnifSOJo7zieFOQ7Iuv7zHHpXfnTfAR8Jy2cVxSsBZ9h8WQflVnmnQ8f9wU?=
- =?us-ascii?Q?NXlwaNAreTRPsPZT6F58akJXXwjxGRniKFjSwZ4Q2Yeua3ykk/3ZTDVrOmjA?=
- =?us-ascii?Q?gBnX+OV/wYcEv2JYyoWaMn7SytiV7jS86u0xgfPKhRUBmPk/Rn1OIuP7d1eN?=
- =?us-ascii?Q?85oO0e/3mTXs+r6NYQPhm1IoDzvCEGlqHe9PgoMVGTKuFCNQ/LSNurY9Zz1+?=
- =?us-ascii?Q?DmKGFRFbR2hTdp0SqFIYJy2vHTUNeuV4+8Qch1gbCtIv94vBAacbtpFPQ/gJ?=
- =?us-ascii?Q?tzl3pz87OITaZ9999ict32Vhog6Oqhgw7c11GEeXzXNGlgZJCnjgmeUuT9ib?=
- =?us-ascii?Q?8sz3TyTGVWKksAMaTFVWa12YV3iugZ8nIupOzrCw6RJ0AclkK7IDbsyRr6oN?=
- =?us-ascii?Q?wwnquHctobOD2X5D58QMyCuqZiXsBY6lmfbVN9L/JTeoZFCFMxAxYQsi0SGW?=
- =?us-ascii?Q?cHGfPiXwsaLqByENeal2lKjw6yVaQzYvxkPLy63AprdvxqbbwDeHGa25rnXm?=
- =?us-ascii?Q?Bb9lONKfVoXfejq/kxvWkA4zEncfwluaUVYGBlR4xjGTmiiUdDsbPl4YjkiA?=
- =?us-ascii?Q?Mdl4kLomDVrhphjNc6ydFeUeiVLIP+qhel7e6Ew2FWdzCX+fgJ+7kmqeqJzU?=
- =?us-ascii?Q?2ipR7i97wauNmC862cQjVmFTxLDEWUUibgpVCTWFOOMjxsEB6sDY3aaCiems?=
- =?us-ascii?Q?qAx7wVuvi0eBUsBoxcV2RiOu1IiBNXQY2OgNTXW0uIv5ZZN8qz2OXRwFRssK?=
- =?us-ascii?Q?TFG2mbbxxT8yEnrFqjE6JEKuCCiuIYRQcIU8YvEo/tQvwdM/+8+iHy3795sP?=
- =?us-ascii?Q?RZcrmlSJs6DYXk5ioBMGv92KfKk/Nyslt0IxrHxy5BNnuIZFWjYAymx7eio0?=
- =?us-ascii?Q?5uFZs6YdodFz5+11v8DkRUCwaTCs6CsNJr7MxDjmTel7Jo0xC6Ij1Td1uTjn?=
- =?us-ascii?Q?GqK4JPwTgptgldndQh6StDXC0vE1MRfY7KKaHGeKm0zjir6Q3BQzuPmitntk?=
- =?us-ascii?Q?EY8vLGBPAHQFAdBmf7hDiQLAojqmI7QL8k/3z0QO2RbWZyUjSLBe1k7Ui4nR?=
- =?us-ascii?Q?FjWNvMQJpqB04Wm6cvxc238WmWdoOIMs8iq9bIKKFGqW65pNZTNAKvS55y9e?=
- =?us-ascii?Q?QyiTKueWh879hnH+dljUZKJpq4520T6bhlxYGpRlvn2iFIBznJnOzpl5Enef?=
- =?us-ascii?Q?FBCb3ZeGHo5xLUvGvGvZOLrMuxbHrbpkqSlc8KLzS3Wl5L5SEmSKOfHsFbBn?=
- =?us-ascii?Q?bVY4ROZZLPTynVx+qY+gClwNi4irRf3Oln77NY+KuW9Vsifyk4mFGFfihQO2?=
- =?us-ascii?Q?Dy+unjwWka8lq/bSG8udITVjdmAJXCZeHFFMnL5tR9yfEtnLCQxayqFaH8dm?=
- =?us-ascii?Q?FIge5bEVGMfWJ3VQlJdN+8wIrLezQOGZnALlRHiqoKRFtcTW/2t78Y6bN/5v?=
- =?us-ascii?Q?Zvpms5pNhiOVug3cAqoq3Huw5CbQwkHPFgmRNJzxfsjZVrW2gCj8ABCFQtWf?=
- =?us-ascii?Q?Y/hEhwTGxw=3D=3D?=
-X-Exchange-RoutingPolicyChecked: TZ8MpsetKpDfn2Shn74WL8fZMZMCsmvdoGjSBbthcIQMOfDBMuPLDEPH+n43Swx6rZpXCY9ZoYpo9XC5+NQCdCsICrI85sGHEayRN8il9rxipKSp6/Awy6YmibpPAob2mjVLLJq5rsLbpKLhKOtMmyqZ8+VbGHYFJkNrnp43N7IK5rYMNrGX1Ic3Q5D+Ao4kz4t4/HqaM5QDc7OU6socgTEinqAZ+rnM1PsZINg8Ct02BHtYOW+C/8MqLOd8TS01A2y+fUhhRqAvxKZjxwxa/GPRmkRFDudjEdUfEDopTm+2tyC9xm9ui3WEQdTXmmjt3WMhZUYWF6ONx2neJKrluA==
-X-MS-Exchange-CrossTenant-Network-Message-Id: 24c8143e-933b-4d66-7a68-08df49ba351b
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?U3NSWTc4dlVVamh3MHRrTnVYek12NmY0UGc0Q1VVR1BBSVdQU3RqNHFXOGVH?=
+ =?utf-8?B?SmtKN1hXMU9lU3ZpQnpuOFUzU1piRFFLdk5NUnB0alRPMjVPUjQyL2ZmaTR3?=
+ =?utf-8?B?SVdQbSsza3pSK1BnUzBtYXpDalNNNDRSMUlkL2tuRnkyemlsVWE2OGUyM1Yv?=
+ =?utf-8?B?SVN2eXpyUGxBUnRnZ2hUZVRzdkxCcDR6Wk1Pa25kY2t1ekdjRWxQZGk4OWZn?=
+ =?utf-8?B?Rk11VkR5OVdZY3cvZm5rZXlRUkZPNWJrbHlyVnM3am5Pc09JQWs1TmVjRGlv?=
+ =?utf-8?B?eDM3MjFCZmVVRitwcUtZR0tGc2NLNEZ5cERONHdBbGIrM09aSGEyKys4RXNR?=
+ =?utf-8?B?UHMrSWt6ZlZTMTFmcU5pZVQyMWJ2aDhMUUVObEJPZlJkN3FoWlhZbzBsMmMv?=
+ =?utf-8?B?ekFYZk9WR0xoRWd4TTFlUDFrbFdJei9NOG0vck9DM1ljNjBYcUV4YW0vZnYz?=
+ =?utf-8?B?TGdvblRZQncrOFFpQ0x6MStUbTdkcXlQOXVTbGpLQjNLdVZxZjU5YW1vZWRG?=
+ =?utf-8?B?UUJjUGlySzFlUFJGU0IrMWU5clF4S2xSM0Q3Szk3SkgxY1J6eWpySU9rSnVQ?=
+ =?utf-8?B?ZWE0K2FBbFlQd25RR0JsYjViZm1UbzB2Z3M3ZksxUTlTSk14aWdIVm5FeTFn?=
+ =?utf-8?B?UG51UldmckJzc0M1WkEwMnU0U0t2RW8yNzl0aEZNMUVzRSt4M0NEdk5xZkFT?=
+ =?utf-8?B?RHhKbG1NaUJXYi9haW4ycDJ1M2hVSHQydGx3YW44cWVpRDIrY3ZncS9UcGJ2?=
+ =?utf-8?B?TFhWTGg2YUY0cHJzLzlYaCtLSzBveVlJTXZSczFrem5QSnhsVVBLcmJrbTUy?=
+ =?utf-8?B?L1F4M3U3UWtOYXBsOWNLb1ZQLzJUeWxBSWhBbGlhVm5NckN0WGROOTBieStG?=
+ =?utf-8?B?aXI3MjhNaGtaaklKU00zV0NiN0pwNlFDRVBIS21xN1ZDMjBKRTZxNm9zcG1C?=
+ =?utf-8?B?UTh1YkovbG9SRHlaOCswanlxQU41M29Fc0IzRENGWXo5SVdDQkh2RlpxWGhw?=
+ =?utf-8?B?bUV0TThaK3BkVEFEMEErSUtkdUw0cVVMUzU5VkFiL005WVJHZzRBQldOc1kv?=
+ =?utf-8?B?UEg2YUNwanIzWHA3U01RWlFGd0c1ZGE0OW9FYVozM1c4NlFyUWNhTU13d0xz?=
+ =?utf-8?B?cEp1aWJMVXhtTkEyRkU0OTYxRWRERXF2alhwcTU4algyeHRVdG82VVM2Rmg5?=
+ =?utf-8?B?emV6MjJ5bkZNS1VRak5LQzZmRk5URUZMTTIzRCt4Tkc5WmNiRzVBR05GQ2hC?=
+ =?utf-8?B?ck5FV3dBNzRicm42eGpCaE1BdVVjdU0rOVNPZlJKR25MR1p2VHJ1dGEwN2VY?=
+ =?utf-8?B?VXV3L1RDbm5mc3hpdWphWFJjU2dIL0lTK29oV2dFdXVLdy9BaWczamxXeFo4?=
+ =?utf-8?B?dnFpRXhzYWpGMzd5b0ZXc05RNklhck5tazdBY1paVGpHa3RwQmtlUEtrUXZD?=
+ =?utf-8?B?TlRpeDhLVGIxVllVdGt1YnlaSDV4L1dINnQ5L0FjUkVEUTNQT1JLVWZCWUlB?=
+ =?utf-8?B?cFFmNlNMUFBYZHk4TlFPejJWa1B0bmYxcGRYMkY5NEZKVmRueGJOQTVoTWRK?=
+ =?utf-8?B?VGNub1hIVkhoWFlWalIxL0RubkJaencybEwwT21YQTRHYW1adzd4MXB3eDVQ?=
+ =?utf-8?B?WG1aVmkxOXE5NTVGbUZkUTA4WEJjMXVEejRXWlVUWExteWo4NXNZQmZwbnhr?=
+ =?utf-8?B?Tk5yNlgwY3FCTjhpdncrbzZOdFlpR1k4RFpkN2k5T2ptRXNDQWsxS2pkVE90?=
+ =?utf-8?B?YTF0Tm5rNjFQS09Cb2xhVTY1dDFYejdlSno0TnVodVpnNFVObFdiZENieHI2?=
+ =?utf-8?B?ODh3VVlSVmRNOHl4ZzY2bW92aFpTQUxMbkFJK29zbWJabUhOeUI5R2xkb1Zv?=
+ =?utf-8?B?MHhtcStEVlR4M2lsWWpFNFdmK3VYWEkyaVFKR3dBVlBjaFE4cHg3RVFzK2dP?=
+ =?utf-8?B?UXVwRVBMaHIzckVOZkFna01SYk9xNEUwTnlvZTlRNEp6aExvRjl0UjVmWkFn?=
+ =?utf-8?B?UnlWN1pVT1RZMDE3SlJWWTNvRVBpY3JrN0hvVkY2RlAvMDloR0JlVUdiSldW?=
+ =?utf-8?B?eFFNT29WUkQzdVV4L1RmZlB5MEw2WmNPLzdoMFQ4TFBIaVNLYm0wQ0VWRi9G?=
+ =?utf-8?B?bE9DT3NReXdsWVRoNXdNUHFWSjhyQXZWYjU3RWFqdWRYRTZSeTVFM3dzTkZT?=
+ =?utf-8?B?bEZkSHNwUmpFQ1RicjZwcUNWTFd1QXNEUXY1MVhKeEdtRXpabTNOKzVQMmt1?=
+ =?utf-8?B?WWN2T0JUenZvQkt5ZnJaU0Zic2F4S3dSTy9QeXdyZnBkR3FWQkJCYUVUUUEw?=
+ =?utf-8?B?aEFhSWIrbitldzdLZXlESUVtVlJibVBubFpRSU0ydVBzQW1jLzJ4QT09?=
+X-Exchange-RoutingPolicyChecked: W70MWTkKtnWiu+/1zJ91S7PUrIkiKyrlD76q2y4ShO3xCSSiCprCPLj2qVsl8QyScvpicSXiSbxtisr4SsKzt4g88ClFQHO896MixZFJg7kriUZLwM/VNPswVUQoi+aNh3yZ5TrhBpsh+8DIuv5l2eyN9YLw6unltHaCLWoZ6lTdRI9uQm8gGrVRojU1k/ynGMrc0q7pWqpGoL0CFoYj5+zWScmnCPsGM2Ed01PMAUFxBcCRMajox2cr+pH2BEldc3yYF/b8mX7YhqaMhESb2QEEX2gmbDYnqto4f9vZnUA06Z3lUv/Tdb1mBgPHK5rICQTT30YWYHZF8ATAuyJy6w==
+X-MS-Exchange-CrossTenant-Network-Message-Id: 593b38e6-02f4-417c-586f-08df49ba37fb
 X-MS-Exchange-CrossTenant-AuthSource: DS7PR11MB5990.namprd11.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 23 Nov 2026 23:33:41.4848 (UTC)
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 23 Nov 2026 23:33:46.3971 (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
 X-MS-Exchange-CrossTenant-Id: 46c98d88-e344-4ed4-8496-4ed7712e255d
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: rpRo8Gp1kwO536RgmOlwNw3AyPX4N8Dx9f9H5f2dVeRL5vziUyp7t1Q1+INzDPSbOm6mrlcz3sEfpUfDbLEDlQ==
+X-MS-Exchange-CrossTenant-UserPrincipalName: UTCvGKW8t6qOMkFnTcK/n//IBx8U7VvyytvQAPnHONlAlgnLe3q6MK+ejN/yQKJWkfnxUY/d3QDW0v9Mhs/7Rw==
 X-MS-Exchange-Transport-CrossTenantHeadersStamped: IA1PR11MB6516
 X-OriginatorOrg: intel.com
 X-BeenThere: dri-devel@lists.freedesktop.org
@@ -161,33 +171,227 @@ Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 X-Spam-Status: No, score=-18.8 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
 	DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
 	INCLUDES_CR_TRAILER,INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,
-	SPF_PASS,USER_AGENT_GIT autolearn=ham autolearn_force=no version=4.0.1
+	SPF_PASS,USER_AGENT_GIT autolearn=unavailable autolearn_force=no
+	version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-The drm-ras family is registered by the DRM core, so list-nodes can be
-requested while no node is registered. The loop then does not run and
-drm_ras_nl_list_nodes_dumpit() returns an uninitialized value.
+The netlink handlers look nodes up without holding anything, so
+drm_ras_node_unregister() can return while a handler is still using the
+node, and the driver then frees it.
+
+Reference count the nodes: the xarray holds one reference, each lookup
+takes another until it goes out of scope, and unregister drops the
+xarray one and waits for the others. List-nodes only reads the nodes,
+so it holds xa_lock instead.
+
+drm_ras_nl_error_event() gets the node from the driver, so the driver
+must stop reporting events on a node before unregistering it. Document
+that.
 
 Fixes: c36218dc49f5 ("drm/ras: Introduce the DRM RAS infrastructure over generic netlink")
 Signed-off-by: Rodrigo Vivi <rodrigo.vivi@intel.com>
 ---
- drivers/gpu/drm/drm_ras.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+ drivers/gpu/drm/drm_ras.c | 62 +++++++++++++++++++++++++++++++--------
+ include/drm/drm_ras.h     |  8 +++++
+ 2 files changed, 58 insertions(+), 12 deletions(-)
 
 diff --git a/drivers/gpu/drm/drm_ras.c b/drivers/gpu/drm/drm_ras.c
-index b099eb67836e..4f4777060a4e 100644
+index f561604e7e96..550ca7d54cd1 100644
 --- a/drivers/gpu/drm/drm_ras.c
 +++ b/drivers/gpu/drm/drm_ras.c
-@@ -130,7 +130,7 @@ int drm_ras_nl_list_nodes_dumpit(struct sk_buff *skb,
- 	struct drm_ras_node *node;
- 	struct nlattr *hdr;
- 	unsigned long id;
--	int ret;
-+	int ret = 0;
+@@ -3,6 +3,7 @@
+  * Copyright © 2026 Intel Corporation
+  */
  
++#include <linux/cleanup.h>
+ #include <linux/module.h>
+ #include <linux/kernel.h>
+ #include <linux/netdevice.h>
+@@ -107,6 +108,31 @@ struct drm_ras_ctx {
+ 	unsigned long restart;
+ };
+ 
++static void drm_ras_node_release(struct kref *ref)
++{
++	complete(&container_of(ref, struct drm_ras_node, ref)->released);
++}
++
++static void drm_ras_node_put(struct drm_ras_node *node)
++{
++	kref_put(&node->ref, drm_ras_node_release);
++}
++
++DEFINE_FREE(drm_ras_node_put, struct drm_ras_node *, if (_T) drm_ras_node_put(_T))
++
++static struct drm_ras_node *drm_ras_node_get(u32 id)
++{
++	struct drm_ras_node *node;
++
++	xa_lock(&drm_ras_xa);
++	node = xa_load(&drm_ras_xa, id);
++	if (node)
++		kref_get(&node->ref);
++	xa_unlock(&drm_ras_xa);
++
++	return node;
++}
++
+ /**
+  * drm_ras_nl_list_nodes_dumpit() - Dump all registered RAS nodes
+  * @skb: Netlink message buffer
+@@ -132,6 +158,8 @@ int drm_ras_nl_list_nodes_dumpit(struct sk_buff *skb,
+ 	unsigned long id;
+ 	int ret = 0;
+ 
++	xa_lock(&drm_ras_xa);
++
  	xa_for_each_start(&drm_ras_xa, id, node, ctx->restart) {
  		hdr = genlmsg_iput(skb, info);
+ 		if (!hdr) {
+@@ -169,6 +197,8 @@ int drm_ras_nl_list_nodes_dumpit(struct sk_buff *skb,
+ 		genlmsg_end(skb, hdr);
+ 	}
+ 
++	xa_unlock(&drm_ras_xa);
++
+ 	if (ret == -EMSGSIZE)
+ 		ctx->restart = id;
+ 
+@@ -178,9 +208,9 @@ int drm_ras_nl_list_nodes_dumpit(struct sk_buff *skb,
+ static int get_node_error_counter(u32 node_id, u32 error_id,
+ 				  const char **name, u32 *value)
+ {
+-	struct drm_ras_node *node;
++	struct drm_ras_node *node __free(drm_ras_node_put) = NULL;
+ 
+-	node = xa_load(&drm_ras_xa, node_id);
++	node = drm_ras_node_get(node_id);
+ 	if (!node || !node->query_error_counter)
+ 		return -ENOENT;
+ 
+@@ -193,9 +223,9 @@ static int get_node_error_counter(u32 node_id, u32 error_id,
+ 
+ static int get_node_error_threshold(u32 node_id, u32 error_id, const char **name, u32 *threshold)
+ {
+-	struct drm_ras_node *node;
++	struct drm_ras_node *node __free(drm_ras_node_put) = NULL;
+ 
+-	node = xa_load(&drm_ras_xa, node_id);
++	node = drm_ras_node_get(node_id);
+ 	if (!node)
+ 		return -ENOENT;
+ 
+@@ -210,9 +240,9 @@ static int get_node_error_threshold(u32 node_id, u32 error_id, const char **name
+ 
+ static int set_node_error_threshold(u32 node_id, u32 error_id, u32 threshold)
+ {
+-	struct drm_ras_node *node;
++	struct drm_ras_node *node __free(drm_ras_node_put) = NULL;
+ 
+-	node = xa_load(&drm_ras_xa, node_id);
++	node = drm_ras_node_get(node_id);
+ 	if (!node)
+ 		return -ENOENT;
+ 
+@@ -374,7 +404,8 @@ static int doit_reply_threshold(struct genl_info *info, u32 node_id, u32 error_i
+  *
+  * Context: Process context only. Uses %GFP_KERNEL and multicasts to all
+  *          netns, which is unbounded work; callers in interrupt handlers
+- *          or other atomic context must defer event.
++ *          or other atomic context must defer event. Must not race
++ *          with drm_ras_node_unregister() for @node.
+  *
+  * Return: 0 on success, or negative errno on failure.
+  */
+@@ -451,7 +482,7 @@ int drm_ras_nl_get_error_counter_dumpit(struct sk_buff *skb,
+ {
+ 	const struct genl_info *info = genl_info_dump(cb);
+ 	struct drm_ras_ctx *ctx = (void *)cb->ctx;
+-	struct drm_ras_node *node;
++	struct drm_ras_node *node __free(drm_ras_node_put) = NULL;
+ 	struct nlattr *hdr;
+ 	const char *error_name;
+ 	u32 node_id, error_id, value;
+@@ -462,7 +493,7 @@ int drm_ras_nl_get_error_counter_dumpit(struct sk_buff *skb,
+ 
+ 	node_id = nla_get_u32(info->attrs[DRM_RAS_A_ERROR_COUNTER_ATTRS_NODE_ID]);
+ 
+-	node = xa_load(&drm_ras_xa, node_id);
++	node = drm_ras_node_get(node_id);
+ 	if (!node)
+ 		return -ENOENT;
+ 
+@@ -544,7 +575,7 @@ int drm_ras_nl_get_error_counter_doit(struct sk_buff *skb,
+ int drm_ras_nl_clear_error_counter_doit(struct sk_buff *skb,
+ 					struct genl_info *info)
+ {
+-	struct drm_ras_node *node;
++	struct drm_ras_node *node __free(drm_ras_node_put) = NULL;
+ 	u32 node_id, error_id;
+ 
+ 	if (!info->attrs ||
+@@ -555,7 +586,7 @@ int drm_ras_nl_clear_error_counter_doit(struct sk_buff *skb,
+ 	node_id = nla_get_u32(info->attrs[DRM_RAS_A_ERROR_COUNTER_ATTRS_NODE_ID]);
+ 	error_id = nla_get_u32(info->attrs[DRM_RAS_A_ERROR_COUNTER_ATTRS_ERROR_ID]);
+ 
+-	node = xa_load(&drm_ras_xa, node_id);
++	node = drm_ras_node_get(node_id);
+ 	if (!node || !node->clear_error_counter)
+ 		return -ENOENT;
+ 
+@@ -642,6 +673,9 @@ int drm_ras_node_register(struct drm_ras_node *node)
+ 	    (!node->error_counter_range.last || !node->query_error_counter))
+ 		return -EINVAL;
+ 
++	kref_init(&node->ref);
++	init_completion(&node->released);
++
+ 	return xa_alloc(&drm_ras_xa, &node->id, node, xa_limit_32b, GFP_KERNEL);
+ }
+ EXPORT_SYMBOL(drm_ras_node_register);
+@@ -650,10 +684,14 @@ EXPORT_SYMBOL(drm_ras_node_register);
+  * drm_ras_node_unregister() - Unregister a previously registered node
+  * @node: Node structure to unregister
+  *
+- * Removes the given node from the global node xarray using its ID.
++ * Removes the given node from the global node xarray using its ID, and waits
++ * for the netlink operations still using it. The caller must have stopped
++ * calling drm_ras_nl_error_event() for @node.
+  */
+ void drm_ras_node_unregister(struct drm_ras_node *node)
+ {
+ 	xa_erase(&drm_ras_xa, node->id);
++	drm_ras_node_put(node);
++	wait_for_completion(&node->released);
+ }
+ EXPORT_SYMBOL(drm_ras_node_unregister);
+diff --git a/include/drm/drm_ras.h b/include/drm/drm_ras.h
+index 1765a3130b09..cadca07aeb64 100644
+--- a/include/drm/drm_ras.h
++++ b/include/drm/drm_ras.h
+@@ -6,6 +6,8 @@
+ #ifndef __DRM_RAS_H__
+ #define __DRM_RAS_H__
+ 
++#include <linux/completion.h>
++#include <linux/kref.h>
+ #include <linux/types.h>
+ 
+ #include <uapi/drm/drm_ras.h>
+@@ -102,6 +104,12 @@ struct drm_ras_node {
+ 
+ 	/** @priv: Driver private data */
+ 	void *priv;
++
++	/** @ref: Reference count, private to drm-ras. */
++	struct kref ref;
++
++	/** @released: Completed when the last reference is dropped, private to drm-ras. */
++	struct completion released;
+ };
+ 
+ struct drm_device;
 -- 
 2.56.0
 
