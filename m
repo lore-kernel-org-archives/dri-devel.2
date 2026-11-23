@@ -2,101 +2,113 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D4F6F606A6AE
-	for <dri-devel@archiver.kernel.org>; Mon, 23 Nov 2026 15:36:54 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B2E9B606A321
+	for <dri-devel@archiver.kernel.org>; Mon, 23 Nov 2026 15:37:00 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=QjCEaRtS
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=aVpc+Xpl
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 298D310E4D6;
-	Mon, 23 Nov 2026 15:36:49 +0000 (UTC)
-Received: from mail-wm1-f54.google.com (mail-wm1-f54.google.com
- [209.85.128.54])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 37DEA10EF3E
- for <dri-devel@lists.freedesktop.org>; Mon, 23 Nov 2026 15:36:42 +0000 (UTC)
-Received: by mail-wm1-f54.google.com with SMTP id
- 5b1f17b1804b1-4bb6adaf0f1so30257435e9.0
- for <dri-devel@lists.freedesktop.org>; Mon, 23 Nov 2026 07:36:42 -0800 (PST)
+	by gabe.freedesktop.org (Postfix) with ESMTP id E8D5C882B5;
+	Mon, 23 Nov 2026 15:36:54 +0000 (UTC)
+Received: from mail-dy1-f175.google.com (mail-dy1-f175.google.com
+ [74.125.82.175])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 9848A10EF0C
+ for <dri-devel@lists.freedesktop.org>; Mon, 23 Nov 2026 15:36:48 +0000 (UTC)
+Received: by mail-dy1-f175.google.com with SMTP id
+ 5a478bee46e88-38699cf08dfso3315174eec.1
+ for <dri-devel@lists.freedesktop.org>; Mon, 23 Nov 2026 07:36:48 -0800 (PST)
+ARC-Seal: i=1; a=rsa-sha256; t=1795448208; cv=none;
+ d=google.com; s=arc-20260327;
+ b=RAUyvueR7n+zFI9zr/z9mFCY28QpDFiA7ZTROErFDX9VEWBXOnjTCv+WypuAD11joP
+ O306KC+TbDU+CpEh4toVyhZwq33GrzlIuLgY0ollaxMK7uJPZQ5Iy5/XVKL3VA09jEmk
+ aoaioqpEk5egCZfW2CCLukQlMlb0aKIh0lmvfvFGuiwy0UnKz7vFnN/r5/yp3yBvVKDL
+ NTEYazZM7xYY+sM15yL7N0RTZfMSq5VMbwe6pePBQd3mX8KUFrqQBCamHjaavSmtoS1h
+ rc+htCIH43Nc7Nig1WtsOVIh/WIscrnBzwrZcz6swmSIbW99JW+BczmQrtADTKKZxaXP
+ M4ng==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com;
+ s=arc-20260327; 
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:dkim-signature;
+ bh=7pmbTprJSDMNaET1p8KH97keYwTTHp2TnWKNbSbIQnY=;
+ fh=A4CCf9/aHW/a/910A0Cpw5MVj/z3ne55inzqrr4LyMI=;
+ b=cez7YdgBSzMjxagzph3M+TeHfcWP1hnLa8J3BpQjDPSpYhNQKFMURWSfS4axng7R2N
+ iRcJC1FLUyEoHh9pxoMWklLeLACJ1CdP3uoUiioYQVK4NmhVXkgX5yWBmlOO8D2twiT+
+ voPmtXXO33E/svZ6WtA3cSRu7L3H7Oqic+tFF35EmRY5AZxFTHZjNV/9Y7vNlQ2utscN
+ r39/9knwP1cfgN1Fvrussx3eNwZA97/29qjIvgTgTrLNiNsFbQLDCgNvHBEfCgqGEhEF
+ s7SrBMTegrngnhHVoVT3IaV0dHXERpU5RZnrbGi43brqHBlhXC8oD3/70TU5RStdcZy7
+ Lxiw==; darn=lists.freedesktop.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20260707; t=1795448200; x=1796053000; darn=lists.freedesktop.org;
- h=content-transfer-encoding:content-disposition:content-type
- :mime-version:references:in-reply-to:message-id:date:subject:cc:to
- :from:from:to:cc:subject:date:message-id:reply-to:content-type;
- bh=iMj2t4hUan0LrC5voc+bXHqikDQMoVSMga8MiF5GiH8=;
- b=QjCEaRtSnm8HdP24/T0gKdI8kqlpqeCQRec7ur5mI2UQ+33Jjdcum0awfO5fmne5nE
- XcqPnUfPHowVTVWMU1PppQMTHeUZ2gu6UQYi8dHLNm2FtdHH+cawR8jNkbD/wkFKX9NW
- Q1NmCDOFy7hGNoyLNBsEGf9SR7VcbfkvfXRvkO5uRrD5K/Z/3uczOgW8aae2LyO8mgRK
- Kz6Nc07DcKR5gUxf5gCyMZ/NIINrG2GK8GlgI4W2kCJFgRSDKWw2ZIvNrjg9YkxANy2N
- /nEJFVGHwpQQOs98ySL3UV9H4AysMMcoOrozujWd8jXFhhI0LF9M9xT8iiRhKl3ohLsn
- cF1g==
+ d=gmail.com; s=20260707; t=1795448208; x=1796053008; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:content-type:cc:to:subject:message-id
+ :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+ :date:message-id:reply-to:content-type;
+ bh=7pmbTprJSDMNaET1p8KH97keYwTTHp2TnWKNbSbIQnY=;
+ b=aVpc+XplA5jmWYXeuzHQK5iUOtIELHkMYOYRcALKKLV0X27OBnisBS4Yk0a0vXJNU4
+ sMYWzxh6I5Bqceqbqjq5Rgux0ZXzKcI81g/Rfwe2ch7KVF1t8rka+QEQ1Zelq7+bzE5G
+ kirnQu9xdDu7t00Ivqj8oCEs5YqO1v+LFRTjhQsAeowkQ/ayTX11z3viIcczR5w04ZB2
+ HdmlV0AA0ER/QP4MdjsjD0uy6sPdGTfbHsyb/zQkuu9f07jjoM1QKa13tMIroPdEr9Mq
+ 2T6pU8YpZHgtVmAkD5k7e/qsQ2iGBuFhamtbzkZe1BMn8iiAB2CV37BUVXp3ODAb2mSt
+ dGCg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20260707; t=1795448200; x=1796053000;
- h=content-transfer-encoding:content-disposition:content-type
- :mime-version:references:in-reply-to:message-id:date:subject:cc:to
- :from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
- :reply-to:content-type;
- bh=iMj2t4hUan0LrC5voc+bXHqikDQMoVSMga8MiF5GiH8=;
- b=dvJlFDbovBiypNpImbnY6xhZ8I8ANluipYZfSaVDcDIgmLeneSuV1mhcmA/n/kV2nV
- HWftSebIqFezFT3a899o7ZejRgy0lyhYsE1jvnrpcHPrjutzCnaFVYxm3sEUHE9j6PuD
- LviwpIN/nxSc4QtvtjL3VG3zE4oG1zKs/WBs5g+2v6kCedKVZIhpvNDJD3QYzw/7wPR6
- ggwd48UfqBMf+vrBARDaS0z5kH346ahyhDlYCcW9kfZm3XGb09HXH3kacAbqHnJY5WvF
- 0GWsYAKVOxVFQyI/EjzQyN+CAOukyz+FnJnvFICbzo4PXgQ2DqmvXAqnMo9/3sKZaK2M
- BfJQ==
+ d=1e100.net; s=20260707; t=1795448208; x=1796053008;
+ h=content-transfer-encoding:content-type:cc:to:subject:message-id
+ :date:from:in-reply-to:references:mime-version:x-gm-gg
+ :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+ :content-type;
+ bh=7pmbTprJSDMNaET1p8KH97keYwTTHp2TnWKNbSbIQnY=;
+ b=iNZAGpGFUSfwvhlNyu/LSxTUH57SFrj3wFpxRD27fgTFViuns1hYaeQ1IXUp3FeMq7
+ E0d6eE/HA9/ln9XiluIWCKiDgNYDGgWZa2oAvwdDvu3H6I4it6ZHtvkj7J56Y9y/0SSZ
+ s0kcW78K+1eFMdv9bO5dv5UxIZATkPmMNr4omLmcGLHri4ofDQt0FsVly8KccEfizkXm
+ 3YcO7YHNkq1cr375oDZpBfO9rSiDzQFaJ1JfT5TDv3Y4mPKwoL2vduTCxaAXjz/SH2BU
+ OZprA7itKsxCLie/uYKmH2qKjcLGKL3IDd9r8gHMNi99WSDOXgrc0opFrXrNQEsoX7bS
+ QtNQ==
 X-Forwarded-Encrypted: i=1;
- AL+hErGC3yOOCxkLF+3yueI+m1guEdG3aJvyhDP1lr9nG3BntuRiXKDVSk3b758NHrTghV+Vdg5ySH+ai3g=@lists.freedesktop.org
-X-Gm-Message-State: APuU4Z9dwMCHxhkr88BfgwIDwrb7gR8637yrSMENNRvWfM+id3fgOhGH
- 4Qp27KaNlJsh+0qFD4MoR14dCjXZJZ2rGDcd9nqXcl/n3pg1NzTWwcEy
-X-Gm-Gg: AZFdTZdQRmOQAY6qhRH4HGQkZ31JZT6VDt0UVePoj2pOUIy3GgdcjESa/txmIRW0yh7
- zMB8bUYg/g5mtrGrjiB5GgQ0S+lCQy31n2NILzeAm4Au09hWRZA1Cs3JU6w6HDglSqVP/cAmiD8
- HBL1nDoXnzv565x/rq8rMJ8qaRGH1Ll8ob4FYGrXC1G4KemodIeVPkAvQFRboLmf7jeWAd+pprQ
- zXZyu6I1vqW1okRSVphEK03Qce/0Ayp5YvHsSVjlUrm/C1Cpc6JyhbKyY01gqQ6qAdsP26c/A7z
- H7EOGtti0+OFpDabZNnyzy8aXEoEVVBs0TmFBd25Tywj+49JYZ3f9/xHyMgGKXB0z7KdxidfMhF
- uy1De9YbyJkDs+IzEsZ7NCQ2d9Rji8uld/G87H62Gkm0N41cy+5AfO/0eiok2ReqFAZD0M2ptBY
- ldpdF8PO+ejQW+fon//RKPVkjoRq2odn4ktBclxzB5/yGSmsG0Ra8JrBlnVZwtbckpboYKBtEna
- rb9BwXah/UQUmIFHZwUzQyEJltkXpng0R36sashp1mvPl6odBp1pWr0XrbTd1HX3Xedi9E02LIx
- FoGbnWgPC4R3L/PR4EJRJHEo3NwcVIaRVw==
-X-Received: by 2002:a05:600c:3b88:b0:4a2:191f:7cbd with SMTP id
- 5b1f17b1804b1-4bb888078a8mr280286605e9.11.1795448200216; 
- Mon, 23 Nov 2026 07:36:40 -0800 (PST)
-Received: from ArchOarora ([2001:19f0:6c01:2c43:5400:5ff:fef6:1b30])
- by smtp.gmail.com with ESMTPSA id
- 5b1f17b1804b1-4bb90655f5asm193318255e9.1.2026.11.23.07.36.24
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Mon, 23 Nov 2026 07:36:39 -0800 (PST)
-From: Oarora Etimis <oaroraetimis@gmail.com>
-To: Louis Chauvet <louis.chauvet@bootlin.com>
-Cc: Haneen Mohammed <hamohammed.sa@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- Melissa Wen <melissa.srw@gmail.com>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>,
- Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>,
- jose.exposito89@gmail.com, Jonathan Corbet <corbet@lwn.net>,
- Harry Wentland <harry.wentland@amd.com>,
- Lucas De Marchi <demarchi@kernel.org>,
- Ville =?utf-8?B?U3lyasOkbMOk?= <ville.syrjala@linux.intel.com>,
- Randy Dunlap <rdunlap@infradead.org>,
- Nick Desaulniers <ndesaulniers@google.com>,
- Shuah Khan <skhan@linuxfoundation.org>, Miguel Ojeda <ojeda@kernel.org>,
- Nathan Chancellor <nathan@kernel.org>,
- Nick Desaulniers <nick.desaulniers+lkml@gmail.com>,
- Bill Wendling <morbo@google.com>, Justin Stitt <justinstitt@google.com>,
- Luca Ceresoli <luca.ceresoli@bootlin.com>,
- Kory Maincent <kory.maincent@bootlin.com>, sebastian.wick@redhat.com,
- victoria@system76.com, thomas.petazzoni@bootlin.com,
- dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
- linux-doc@vger.kernel.org, Simona Vetter <simona.vetter@ffwll.ch>,
- llvm@lists.linux.dev
-Subject: Re: [PATCH v6 19/43] drm/vkms: Use plane folder name as plane name
-Date: Mon, 23 Nov 2026 16:36:17 +0100
-Message-ID: <awRbCaRRole752Pk@Oarora>
-X-Mailer: git-send-email 2.56.1
-In-Reply-To: <20261120-vkms-all-config-v6-19-78ace90f4fc1@bootlin.com>
-References: <20261120-vkms-all-config-v6-0-78ace90f4fc1@bootlin.com>
- <20261120-vkms-all-config-v6-19-78ace90f4fc1@bootlin.com>
+ AL+hErGgeCq7sKYH0hJlhVz3rBevUXvMw2vhyYWqY/XgPQFl/zzvitYa6ij8pqemidpB8gRoxtDtQlYBeGk=@lists.freedesktop.org
+X-Gm-Message-State: APuU4Z8CYYkkdSU2gF8CMhr7Fm/Qf7Pn7nxnJmsTxARyTnbb8kHPafUd
+ ynf/MNKOcWOQjZJhM4oPENk07MkWkRH/FaP9o6fQcXlEtzYyzUOC5BUM5cE4ouaG6k68O+gma8X
+ lbhmmwGi5l1jpPazfkf47hBO9OkmjF+4=
+X-Gm-Gg: AZFdTZfQKD6ht0tyBbVVA5DVYKLfgqlcYzlCoUXjdEvQfwSywtc4YveoQraftYk9c+N
+ +32qbx29DP2XcegmSzQ08rIwlhQvoqLCsbr0b86mepy0R4B5UiBcpTrXdIek4zYh0wD3p/bADdy
+ C6YwoK9k3ZZxQBffG4urN/MVBFS1C9kqT+q8PtiZEsnq9r3W5OU5PoAMutyNZnNBRd9GO2O95ok
+ MYVBW6AFzTQQqzp8LI/hx9CQtGJ3iF6iMymfhfFszl7GQD7PhV7aE0P+HasuFtvs3CSi3vxCaBd
+ ZuzOM7iVMeywyJ2A60fGvnUyq7s53qJ8yWUUatbAYN+oNSFPL0UjYe3p29rNx0hCaMjZHG35wY0
+ V2YjEKOi/1CpTja2XUtjBWOp+3dnIMkCuKW1me+IhHu0szhfe9mKToEer8+TduDXJd9ebB+IINr
+ QBIxXAjt8Z1z4X7MBpizHUtmhe82VOLIJFwOBkZ+aB7/lSqSEABUY=
+X-Received: by 2002:a05:7301:259a:b0:36e:800a:71fe with SMTP id
+ 5a478bee46e88-3856c4b844cmr11761769eec.1.1795448207689; Mon, 23 Nov 2026
+ 07:36:47 -0800 (PST)
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
+References: <20261113161819.36847-1-clamor95@gmail.com>
+ <20261113161819.36847-3-clamor95@gmail.com>
+ <20261123145520.GA2412988-robh@kernel.org>
+In-Reply-To: <20261123145520.GA2412988-robh@kernel.org>
+From: Svyatoslav Ryhel <clamor95@gmail.com>
+Date: Mon, 23 Nov 2026 17:36:36 +0200
+X-Gm-Features: Aa3M54rUDkGOVQLPkkzUTzUHY6vBcwEurritNE5bPXzc3P_S34AV-IYkX1z3J3o
+Message-ID: <CAPVz0n1sOsC2N+MWEZXN3DYGBgLicS=+e-q53KjBYcJtLiWXRg@mail.gmail.com>
+Subject: Re: [PATCH v1 02/10] dt-bindings: display: tegra: Remove Tegra30
+ fallback
+To: Rob Herring <robh@kernel.org>
+Cc: Thierry Reding <thierry.reding@kernel.org>,
+ Jonathan Hunter <jonathanh@nvidia.com>, 
+ Sowjanya Komatineni <skomatineni@nvidia.com>,
+ Luca Ceresoli <luca.ceresoli@bootlin.com>, 
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
+ Mauro Carvalho Chehab <mchehab@kernel.org>,
+ Greg Kroah-Hartman <gregkh@linuxfoundation.org>, 
+ Mikko Perttunen <mperttunen@nvidia.com>,
+ Hans Verkuil <hverkuil+cisco@kernel.org>, 
+ Sakari Ailus <sakari.ailus@linux.intel.com>, Cong Nguyen <congnt264@gmail.com>,
+ Faisal Mukhtar <mukhtarfaisal03@gmail.com>, Dan Carpenter <error27@gmail.com>, 
+ Hungyu Lin <dennylin0707@gmail.com>, Hao-Qun Huang <alvinhuang0603@gmail.com>, 
+ Yury Norov <ynorov@nvidia.com>,
+ =?UTF-8?Q?Uwe_Kleine=2DK=C3=B6nig?= <u.kleine-koenig@baylibre.com>, 
+ linux-media@vger.kernel.org, linux-tegra@vger.kernel.org, 
+ dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org, 
+ linux-kernel@vger.kernel.org, linux-staging@lists.linux.dev
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -108,32 +120,50 @@ List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-10.8 required=3.0 tests=BAYES_00,DKIM_SIGNED,
+X-Spam-Status: No, score=-12.8 required=3.0 tests=BAYES_00,DKIM_SIGNED,
 	DKIM_VALID,DKIM_VALID_AU,FREEMAIL_FORGED_FROMDOMAIN,FREEMAIL_FROM,
-	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_PATCH,MAILING_LIST_MULTI,
-	SPF_HELO_NONE,SPF_PASS,USER_AGENT_GIT autolearn=unavailable
+	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
+	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS autolearn=unavailable
 	autolearn_force=no version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
- 
-> diff --git a/drivers/gpu/drm/vkms/vkms_configfs.c b/drivers/gpu/drm/vkms/vkms_configfs.c
-> index a7ddcfd4e86e..3a1a34643cce 100644
-> --- a/drivers/gpu/drm/vkms/vkms_configfs.c
-> +++ b/drivers/gpu/drm/vkms/vkms_configfs.c
-> @@ -375,6 +375,12 @@ static struct config_group *make_plane_group(struct config_group *group,
->  			return ERR_PTR(ret);
->  		}
->  
-> +		ret = vkms_config_plane_set_name(plane->config, name, strlen(name));
-> +		if (ret) {
-> +			vkms_config_destroy_plane(plane->config);
-> +			return ERR_PTR(ret);
-> +		}
-> +
->  		config_group_init_type_name(&plane->group, name, &plane_item_type);
->  
->  		config_group_init_type_name(&plane->possible_crtcs_group,
+=D0=BF=D0=BD, 23 =D0=BB=D0=B8=D1=81=D1=82. 2026=E2=80=AF=D1=80. =D0=BE 16:5=
+5 Rob Herring <robh@kernel.org> =D0=BF=D0=B8=D1=88=D0=B5:
+>
+> On Fri, Nov 13, 2026 at 06:18:11PM +0200, Svyatoslav Ryhel wrote:
+> > After further investigation, I have found that Tegra30 requires a sligh=
+tly
+> > different programming model than Tegra20, the maximum VI clock differs =
+by
+> > nearly a factor of two. Additionally, Tegra30 does not require the
+> > APB_MISC workaround.
+>
+> If the clock rate is a function of the sensor or input resolution, then
+> wouldn't the h/w design prevent that scenario?
 >
 
-Oops, looks like this leaks the plane allocated by kzalloc_obj() above :)
+VI clock rate depends on hardware. If wrong clock is set HW may still
+work, but be unstable, which will result in unpredictable behavior.
+
+> Does having the APB_MISC workaround make things not work?
+
+It does work, but my main intention was fixing clocks since Tegra114
+does not work properly with 450MHz. That was why I even start digging
+into this. APB_MISC workaround remove for tegra30+ is more a side
+benefit.
+
+>
+> It sounds like things worked or could have worked with only knowledge
+> about nvidia,tegra20-vi, so I'm not sure this is really justified as it
+> is an ABI change.
+>
+> >
+> > Therefore, remove the fallback compatible and add a dedicated compatibl=
+e
+> > for Tegra30 VI.
+> >
+> > Signed-off-by: Svyatoslav Ryhel <clamor95@gmail.com>
+> > ---
+> >  .../devicetree/bindings/display/tegra/nvidia,tegra20-vi.yaml | 5 +----
+> >  1 file changed, 1 insertion(+), 4 deletions(-)
