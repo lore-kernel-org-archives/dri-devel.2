@@ -2,41 +2,41 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 09114606A32C
-	for <dri-devel@archiver.kernel.org>; Mon, 23 Nov 2026 14:06:05 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8F0BB606A333
+	for <dri-devel@archiver.kernel.org>; Mon, 23 Nov 2026 14:06:14 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id C9C5910EE38;
-	Mon, 23 Nov 2026 14:06:01 +0000 (UTC)
-Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.223.130])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 30A0410EE2E
- for <dri-devel@lists.freedesktop.org>; Mon, 23 Nov 2026 14:06:01 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id E521D10EE59;
+	Mon, 23 Nov 2026 14:06:13 +0000 (UTC)
+Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.223.131])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 1722610EE3E
+ for <dri-devel@lists.freedesktop.org>; Mon, 23 Nov 2026 14:06:02 +0000 (UTC)
 Received: from imap1.dmz-prg2.suse.org (imap1.dmz-prg2.suse.org
  [IPv6:2a07:de40:b281:104:10:150:64:97])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
  (No client certificate requested)
- by smtp-out1.suse.de (Postfix) with ESMTPS id DEFEC220A9;
- Mon, 23 Nov 2026 14:05:59 +0000 (UTC)
-Authentication-Results: smtp-out1.suse.de;
+ by smtp-out2.suse.de (Postfix) with ESMTPS id C5DC31F823;
+ Mon, 23 Nov 2026 14:06:00 +0000 (UTC)
+Authentication-Results: smtp-out2.suse.de;
 	none
 Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
  (No client certificate requested)
- by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 91EDE136CB;
- Mon, 23 Nov 2026 14:05:59 +0000 (UTC)
+ by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 7C3CE13532;
+ Mon, 23 Nov 2026 14:06:00 +0000 (UTC)
 Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
- by imap1.dmz-prg2.suse.org with ESMTPSA id oQeBOkZIBGvqQwAAD6G6ig:T3
- (envelope-from <tzimmermann@suse.de>); Mon, 23 Nov 2026 14:05:59 +0000
+ by imap1.dmz-prg2.suse.org with ESMTPSA id oQeBOkZIBGvqQwAAD6G6ig:T7
+ (envelope-from <tzimmermann@suse.de>); Mon, 23 Nov 2026 14:06:00 +0000
 From: Thomas Zimmermann <tzimmermann@suse.de>
 To: deller@gmx.de,
 	simona@ffwll.ch
 Cc: dri-devel@lists.freedesktop.org, linux-fbdev@vger.kernel.org,
  sashiko-reviews@lists.linux.dev, Thomas Zimmermann <tzimmermann@suse.de>
-Subject: [PATCH v3 2/6] lib/fonts: Provide internal helpers for allocating
- font_data_t
-Date: Mon, 23 Nov 2026 15:03:35 +0100
-Message-ID: <20261123140554.1129792-3-tzimmermann@suse.de>
+Subject: [PATCH v3 6/6] fbcon: Handle characters with no glyph defined in a
+ consistent way
+Date: Mon, 23 Nov 2026 15:03:39 +0100
+Message-ID: <20261123140554.1129792-7-tzimmermann@suse.de>
 X-Mailer: git-send-email 2.56.1
 In-Reply-To: <20261123140554.1129792-1-tzimmermann@suse.de>
 References: <20261123140554.1129792-1-tzimmermann@suse.de>
@@ -50,7 +50,7 @@ X-Spamd-Result: default: False [-4.00 / 50.00];
 	REPLY(-4.00)[]
 X-Spam-Score: -4.00
 X-Spam-Level: 
-X-Rspamd-Queue-Id: DEFEC220A9
+X-Rspamd-Queue-Id: C5DC31F823
 X-Rspamd-Pre-Result: action=no action; module=replies;
  Message is reply to one we originated
 X-Rspamd-Action: no action
@@ -72,138 +72,244 @@ X-Spam-Status: No, score=-16.8 required=3.0 tests=BAYES_00,
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-Factor out the allocation code for font_data_t from font import in
-font_data_import(). Retrieve a writable glyph buffer from the new
-helper __font_data_wrbuf().
+Check the result of font_data_glyph_buf() for NULL when drawing the
+screen. Fall back to a default value of '\0' for undefined glpyhs. Skip
+the character if no fallback exists.
 
-Having the allocation code in separate functions makes it available
-for font rotation and maybe other font utilities. The _wrbuf() helper
-returns a writable glyph buffer. Font data is only readable in general.
+Error checking for fonts has been inconsistent or absent from fbcon.
+Most of the drawing code relies on earlier validation in the font-import
+code. Some code implements the glyph test by itself. At least all of
+fbcon should be consistent in how it handles undefined glyphs.
+
+Calls to font_data_glyph_buf() returning NULL for undefined glyphs make
+it easy to handle this special case consistently across fbcon.
+
+v3:
+- fix fallback in ccw_cursor()
 
 Signed-off-by: Thomas Zimmermann <tzimmermann@suse.de>
 ---
- lib/fonts/font.h  | 12 +++++++++
- lib/fonts/fonts.c | 63 ++++++++++++++++++++++++++++++-----------------
- 2 files changed, 52 insertions(+), 23 deletions(-)
+ drivers/video/fbdev/core/bitblit.c   | 27 +++++++++++++++++----------
+ drivers/video/fbdev/core/fbcon_ccw.c | 12 +++++++++++-
+ drivers/video/fbdev/core/fbcon_cw.c  | 13 +++++++++++--
+ drivers/video/fbdev/core/fbcon_ud.c  | 18 +++++++++++++++++-
+ 4 files changed, 56 insertions(+), 14 deletions(-)
 
-diff --git a/lib/fonts/font.h b/lib/fonts/font.h
-index 4f1adf0b6b54..eae8c563f148 100644
---- a/lib/fonts/font.h
-+++ b/lib/fonts/font.h
-@@ -4,6 +4,7 @@
- #define _LIB_FONTS_FONT_H
- 
- #include <linux/font.h>
-+#include <linux/types.h>
- 
- /*
-  * Font data
-@@ -16,6 +17,17 @@ struct font_data {
- 	unsigned char data[];
- } __packed;
- 
-+/*
-+ * font_data_t and helpers
-+ */
-+
-+static inline unsigned char *__font_data_wrbuf(font_data_t *fd)
-+{
-+	return (unsigned char *)fd;
-+}
-+
-+font_data_t *__font_data_alloc(unsigned int size, gfp_t flags);
-+
- /*
-  * Built-in fonts
-  */
-diff --git a/lib/fonts/fonts.c b/lib/fonts/fonts.c
-index 4fc66722d00d..e66a5b6fc3bb 100644
---- a/lib/fonts/fonts.c
-+++ b/lib/fonts/fonts.c
-@@ -47,6 +47,39 @@ static bool font_data_is_internal(font_data_t *fd)
- 	return !REFCOUNT(fd); /* internal fonts have no reference counting */
- }
- 
-+font_data_t *__font_data_alloc(unsigned int size, gfp_t flags)
-+{
-+	unsigned int alloc_size;
-+	struct font_data *font_data;
-+	font_data_t *fd;
-+
-+	/* Check for overflow in allocation size calculation */
-+	if (check_add_overflow(sizeof(*font_data), size, &alloc_size))
-+		return ERR_PTR(-EINVAL);
-+
-+	font_data = kzalloc(alloc_size, flags);
-+	if (!font_data)
-+		return ERR_PTR(-ENOMEM);
-+
-+	fd = font_data->data;
-+	REFCOUNT(fd) = 1; /* start with reference acquired */
-+	FNTSIZE(fd) = size;
-+
-+	return fd;
-+}
-+
-+static font_data_t *font_data_alloc(unsigned int pitch, unsigned int h, unsigned int charcount)
-+{
-+	unsigned int size;
-+
-+	/* Check for integer overflow in font-size calculation */
-+	if (check_mul_overflow(h, pitch, &size) ||
-+	    check_mul_overflow(size, charcount, &size))
-+		return ERR_PTR(-EINVAL);
-+
-+	return __font_data_alloc(size, GFP_USER);
-+}
-+
- static void font_data_free(font_data_t *fd)
+diff --git a/drivers/video/fbdev/core/bitblit.c b/drivers/video/fbdev/core/bitblit.c
+index d8330caec5d2..2488221a0e0b 100644
+--- a/drivers/video/fbdev/core/bitblit.c
++++ b/drivers/video/fbdev/core/bitblit.c
+@@ -81,7 +81,6 @@ static inline void bit_putcs_aligned(struct vc_data *vc, struct fb_info *info,
+ 				     unsigned char *buf, u8 *dst)
  {
- 	kfree(to_font_data_struct(fd));
-@@ -75,36 +108,20 @@ font_data_t *font_data_import(const struct console_font *font, unsigned int vpit
- 	unsigned int h = font->height;
- 	unsigned int charcount = font->charcount;
- 	const unsigned char *data = font->data;
--	u32 csum = 0;
--	struct font_data *font_data;
--	int size, alloc_size;
-+	unsigned char *font_data;
- 	unsigned int i;
- 	font_data_t *fd;
+ 	u16 charmask = vc->vc_hi_font_mask ? 0x1ff : 0xff;
+-	unsigned int charcnt = vc->vc_font.charcount;
+ 	u32 idx = vc->vc_font.width >> 3;
+ 	font_data_t *fd = (font_data_t *)vc->vc_font.data; /* upcast to font_data_t */
+ 	u32 s_pitch = font_glyph_pitch(s_width);
+@@ -90,9 +89,12 @@ static inline void bit_putcs_aligned(struct vc_data *vc, struct fb_info *info,
+ 	while (cnt--) {
+ 		u16 ch = scr_readw(s++) & charmask;
  
--	/* Check for integer overflow in font-size calculation */
--	if (check_mul_overflow(h, pitch, &size) ||
--	    check_mul_overflow(size, charcount, &size))
--		return ERR_PTR(-EINVAL);
+-		if (ch >= charcnt)
+-			ch = 0;
+ 		src = font_data_glyph_buf(fd, s_width, s_vpitch, ch);
++		if (!src) {
++			src = font_data_glyph_buf(fd, s_width, s_vpitch, '\0');
++			if (!src)
++				goto next_char;
++		}
+ 
+ 		if (attr) {
+ 			update_attr(buf, src, attr, vc);
+@@ -105,7 +107,7 @@ static inline void bit_putcs_aligned(struct vc_data *vc, struct fb_info *info,
+ 		else
+ 			fb_pad_aligned_buffer(dst, d_pitch, src, idx,
+ 					      image->height);
 -
--	/* Check for overflow in allocation size calculation */
--	if (check_add_overflow(sizeof(*font_data), size, &alloc_size))
--		return ERR_PTR(-EINVAL);
++next_char:
+ 		dst += s_pitch;
+ 	}
+ 
+@@ -120,7 +122,6 @@ static inline void bit_putcs_unaligned(struct vc_data *vc,
+ 				       unsigned char *buf, u8 *dst)
+ {
+ 	u16 charmask = vc->vc_hi_font_mask ? 0x1ff : 0xff;
+-	unsigned int charcnt = vc->vc_font.charcount;
+ 	u32 shift_low = 0, mod = vc->vc_font.width % 8;
+ 	u32 shift_high = 8;
+ 	u32 idx = vc->vc_font.width >> 3;
+@@ -131,9 +132,12 @@ static inline void bit_putcs_unaligned(struct vc_data *vc,
+ 	while (cnt--) {
+ 		u16 ch = scr_readw(s++) & charmask;
+ 
+-		if (ch >= charcnt)
+-			ch = 0;
+ 		src = font_data_glyph_buf(fd, s_width, s_vpitch, ch);
++		if (!src) {
++			src = font_data_glyph_buf(fd, s_width, s_vpitch, '\0');
++			if (!src)
++				goto next_char;
++		}
+ 
+ 		if (attr) {
+ 			update_attr(buf, src, attr, vc);
+@@ -143,6 +147,7 @@ static inline void bit_putcs_unaligned(struct vc_data *vc,
+ 		fb_pad_unaligned_buffer(dst, d_pitch, src, idx,
+ 					image->height, shift_high,
+ 					shift_low, mod);
++next_char:
+ 		shift_low += mod;
+ 		dst += (shift_low >= 8) ? s_pitch : s_pitch - 1;
+ 		shift_low &= 7;
+@@ -292,10 +297,12 @@ static void bit_cursor(struct vc_data *vc, struct fb_info *info, bool enable,
+ 	attribute = get_attribute(info, c);
+ 	c &= charmask;
+ 
+-	/* Clamp to font size, same as bit_putcs_aligned() */
+-	if (c >= vc->vc_font.charcount)
+-		c = 0;
+ 	src = font_data_glyph_buf(fd, width, vpitch, c);
++	if (!src) {
++		src = font_data_glyph_buf(fd, width, vpitch, '\0');
++		if (!src)
++			return;
++	}
+ 
+ 	if (par->cursor_state.image.data != (const char *)src ||
+ 	    par->cursor_reset) {
+diff --git a/drivers/video/fbdev/core/fbcon_ccw.c b/drivers/video/fbdev/core/fbcon_ccw.c
+index 9da6c0e41e7a..272844ad5f5f 100644
+--- a/drivers/video/fbdev/core/fbcon_ccw.c
++++ b/drivers/video/fbdev/core/fbcon_ccw.c
+@@ -109,6 +109,11 @@ static inline void ccw_putcs_aligned(struct vc_data *vc, struct fb_info *info,
+ 	while (cnt--) {
+ 		src = font_data_glyph_buf(par->rotated.buf, s_width, s_vpitch,
+ 					  scr_readw(s--) & charmask);
++		if (!src) {
++			src = font_data_glyph_buf(par->rotated.buf, s_width, s_vpitch, '\0');
++			if (!src)
++				goto next_char;
++		}
+ 
+ 		if (attr) {
+ 			ccw_update_attr(buf, src, attr, vc);
+@@ -121,7 +126,7 @@ static inline void ccw_putcs_aligned(struct vc_data *vc, struct fb_info *info,
+ 		else
+ 			fb_pad_aligned_buffer(dst, d_pitch, src, idx,
+ 					      vc->vc_font.width);
 -
--	font_data = kmalloc(alloc_size, GFP_USER);
--	if (!font_data)
--		return ERR_PTR(-ENOMEM);
--	memset(font_data->extra, 0, sizeof(font_data->extra));
-+	fd = font_data_alloc(pitch, h, charcount);
-+	if (IS_ERR(fd))
-+		return fd;
-+	font_data = __font_data_wrbuf(fd);
++next_char:
+ 		dst += d_pitch * vc->vc_font.width;
+ 	}
  
- 	for (i = 0; i < charcount; ++i)
--		memcpy(font_data->data + i * h * pitch, data + i * vpitch * pitch, h * pitch);
-+		memcpy(font_data + i * h * pitch, data + i * vpitch * pitch, h * pitch);
+@@ -246,6 +251,11 @@ static void ccw_cursor(struct vc_data *vc, struct fb_info *info, bool enable,
+  	c = scr_readw((u16 *) vc->vc_pos);
+ 	attribute = get_attribute(info, c);
+ 	src = font_data_glyph_buf(par->rotated.buf, width, vpitch, c & charmask);
++	if (!src) {
++		src = font_data_glyph_buf(par->rotated.buf, width, vpitch, '\0');
++		if (!src)
++			return;
++	}
  
- 	if (calc_csum)
--		csum = calc_csum(0, font_data->data, size);
+ 	if (par->cursor_state.image.data != (const char *)src ||
+ 	    par->cursor_reset) {
+diff --git a/drivers/video/fbdev/core/fbcon_cw.c b/drivers/video/fbdev/core/fbcon_cw.c
+index 354f40f77bb4..7606ad38c269 100644
+--- a/drivers/video/fbdev/core/fbcon_cw.c
++++ b/drivers/video/fbdev/core/fbcon_cw.c
+@@ -94,7 +94,11 @@ static inline void cw_putcs_aligned(struct vc_data *vc, struct fb_info *info,
+ 	while (cnt--) {
+ 		src = font_data_glyph_buf(par->rotated.buf, s_width, s_vpitch,
+ 					  scr_readw(s++) & charmask);
 -
--	fd = font_data->data;
--	REFCOUNT(fd) = 1; /* start with reference acquired */
--	FNTSIZE(fd) = size;
--	FNTSUM(fd) = csum;
-+		FNTSUM(fd) = calc_csum(0, font_data, FNTSIZE(fd));
++		if (!src) {
++			src = font_data_glyph_buf(par->rotated.buf, s_width, s_vpitch, '\0');
++			if (!src)
++				goto next_char;
++		}
+ 		if (attr) {
+ 			cw_update_attr(buf, src, attr, vc);
+ 			src = buf;
+@@ -106,7 +110,7 @@ static inline void cw_putcs_aligned(struct vc_data *vc, struct fb_info *info,
+ 		else
+ 			fb_pad_aligned_buffer(dst, d_pitch, src, idx,
+ 					      vc->vc_font.width);
+-
++next_char:
+ 		dst += d_pitch * vc->vc_font.width;
+ 	}
  
- 	return fd;
- }
+@@ -229,6 +233,11 @@ static void cw_cursor(struct vc_data *vc, struct fb_info *info, bool enable,
+  	c = scr_readw((u16 *) vc->vc_pos);
+ 	attribute = get_attribute(info, c);
+ 	src = font_data_glyph_buf(par->rotated.buf, width, vpitch, c & charmask);
++	if (!src) {
++		src = font_data_glyph_buf(par->rotated.buf, width, vpitch, '\0');
++		if (!src)
++			return;
++	}
+ 
+ 	if (par->cursor_state.image.data != (const char *)src ||
+ 	    par->cursor_reset) {
+diff --git a/drivers/video/fbdev/core/fbcon_ud.c b/drivers/video/fbdev/core/fbcon_ud.c
+index 01f45eaa2013..bdba3a959d1e 100644
+--- a/drivers/video/fbdev/core/fbcon_ud.c
++++ b/drivers/video/fbdev/core/fbcon_ud.c
+@@ -96,6 +96,11 @@ static inline void ud_putcs_aligned(struct vc_data *vc, struct fb_info *info,
+ 	while (cnt--) {
+ 		src = font_data_glyph_buf(par->rotated.buf, s_width, s_vpitch,
+ 					  scr_readw(s--) & charmask);
++		if (!src) {
++			src = font_data_glyph_buf(par->rotated.buf, s_width, s_vpitch, '\0');
++			if (!src)
++				goto next_char;
++		}
+ 
+ 		if (attr) {
+ 			ud_update_attr(buf, src, attr, vc);
+@@ -108,7 +113,7 @@ static inline void ud_putcs_aligned(struct vc_data *vc, struct fb_info *info,
+ 		else
+ 			fb_pad_aligned_buffer(dst, d_pitch, src, idx,
+ 					      image->height);
+-
++next_char:
+ 		dst += s_pitch;
+ 	}
+ 
+@@ -133,6 +138,11 @@ static inline void ud_putcs_unaligned(struct vc_data *vc,
+ 	while (cnt--) {
+ 		src = font_data_glyph_buf(par->rotated.buf, s_width, s_vpitch,
+ 					  scr_readw(s--) & charmask);
++		if (!src) {
++			src = font_data_glyph_buf(par->rotated.buf, s_width, s_vpitch, '\0');
++			if (!src)
++				goto next_char;
++		}
+ 
+ 		if (attr) {
+ 			ud_update_attr(buf, src, attr, vc);
+@@ -142,6 +152,7 @@ static inline void ud_putcs_unaligned(struct vc_data *vc,
+ 		fb_pad_unaligned_buffer(dst, d_pitch, src, idx,
+ 					image->height, shift_high,
+ 					shift_low, mod);
++next_char:
+ 		shift_low += mod;
+ 		dst += (shift_low >= 8) ? s_pitch : s_pitch - 1;
+ 		shift_low &= 7;
+@@ -279,6 +290,11 @@ static void ud_cursor(struct vc_data *vc, struct fb_info *info, bool enable,
+  	c = scr_readw((u16 *) vc->vc_pos);
+ 	attribute = get_attribute(info, c);
+ 	src = font_data_glyph_buf(par->rotated.buf, width, vpitch, c & charmask);
++	if (!src) {
++		src = font_data_glyph_buf(par->rotated.buf, width, vpitch, '\0');
++		if (!src)
++			return;
++	}
+ 
+ 	if (par->cursor_state.image.data != (const char *)src ||
+ 	    par->cursor_reset) {
 -- 
 2.56.1
 
