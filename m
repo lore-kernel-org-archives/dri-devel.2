@@ -2,77 +2,113 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E2D3B606F637
-	for <dri-devel@archiver.kernel.org>; Mon, 23 Nov 2026 08:05:30 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 462C7607150E
+	for <dri-devel@archiver.kernel.org>; Mon, 23 Nov 2026 08:06:53 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=c6kABS0y
+	dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.a=rsa-sha256 header.s=google header.b=w1DCiU1q
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 4D0BC10E71D;
-	Mon, 23 Nov 2026 08:05:24 +0000 (UTC)
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.16])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 593BE10E5F1;
- Mon, 23 Nov 2026 08:05:17 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1795421117; x=1826957117;
- h=date:from:to:cc:subject:message-id:references:
- mime-version:content-transfer-encoding:in-reply-to;
- bh=urMfx8Tg1Mo2IdrR6dTT35HCyK8ZaZyaJndlD7atYzs=;
- b=c6kABS0ySzBMh5yakZ8lDhrSOQQiaMFLDAP2c40b/IUqhL4PCFROZP8G
- JbAEPV8Jmk5qe/Xqie6ZgQ5CkFMesdSbjNXvtYyLBATNrzBwif63JAplP
- unHJEswi1hC/mG0QuOlqcSIQNwbkwcSFv1u3NpF0q40hMpEQSg3p7XIx8
- 2tLgZ54Np+MkhQgca9d0qtcLZpas4QE2Ij7yCq1MPYNSGuERu3yrwGjSU
- G0Mg0qDNm0sNg3ax4iP2vNulWcOLVPsWd52qo2Tpx9BsOQWamCyqNRDta
- g2h1uu+JyBv9oYnL4A5pQprjT2mhiV/oc3SH0bWpdPE/TMcpmRsGbGoiC w==;
-X-CSE-ConnectionGUID: oKA89zvVQY6xKOcnzmnoaA==
-X-CSE-MsgGUID: bLm3pC8NSoWyzLCPPa4Jaw==
-X-IronPort-AV: E=McAfee;i="6800,10657,11974"; a="4254374"
-X-IronPort-AV: E=Sophos;i="6.27,227,1787036400"; 
-   d="scan'208";a="4254374"
-Received: from fmviesa010.fm.intel.com ([10.60.135.150])
- by fmvoesa110.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 23 Nov 2026 00:05:16 -0800
-X-CSE-ConnectionGUID: AmTzmnSjSmmElgfOYxCyZQ==
-X-CSE-MsgGUID: u2HtPnzaR+KAmRySPzE27Q==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,227,1787036400"; d="scan'208";a="11797381"
-Received: from pgcooper-mobl3.ger.corp.intel.com (HELO localhost)
- ([10.245.244.170])
- by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 23 Nov 2026 00:05:08 -0800
-Date: Mon, 23 Nov 2026 10:05:04 +0200
-From: Ville =?iso-8859-1?Q?Syrj=E4l=E4?= <ville.syrjala@linux.intel.com>
-To: Maxime Ripard <mripard@kernel.org>
-Cc: Mario Limonciello <mario.limonciello@amd.com>,
- Alex Deucher <alexander.deucher@amd.com>,
- Jani Nikula <jani.nikula@linux.intel.com>,
- Javier Martinez Canillas <javierm@redhat.com>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Thomas Zimmermann <tzimmermann@suse.de>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- Harry Wentland <harry.wentland@amd.com>,
- Leo Li <sunpeng.li@amd.com>, Rodrigo Siqueira <siqueira@igalia.com>,
- Mario Limonciello <superm1@kernel.org>,
- Xaver Hugl <xaver.hugl@gmail.com>, dri-devel@lists.freedesktop.org,
- linux-kernel@vger.kernel.org, amd-gfx@lists.freedesktop.org,
- intel-gfx@lists.freedesktop.org, intel-xe@lists.freedesktop.org,
- nouveau@lists.freedesktop.org
-Subject: Re: [PATCH v12 01/12] drm: add connector LUMINANCE property
-Message-ID: <awPzsMWZ7e0i6i54@intel.com>
-References: <20261119-superm1-backlight-property-v12-0-89d5217d3618@amd.com>
- <20261119-superm1-backlight-property-v12-1-89d5217d3618@amd.com>
- <awB4Qe83u0l0XPKA@intel.com>
- <8713bae1-9782-41d4-b09c-f14031203e88@amd.com>
- <awPvoLCDeq1YFLE_@houat>
+	by gabe.freedesktop.org (Postfix) with ESMTP id A8E6810E0C8;
+	Mon, 23 Nov 2026 08:06:47 +0000 (UTC)
+Received: from mail-wm1-f47.google.com (mail-wm1-f47.google.com
+ [209.85.128.47])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 2AA9C10E5F1
+ for <dri-devel@lists.freedesktop.org>; Mon, 23 Nov 2026 08:06:41 +0000 (UTC)
+Received: by mail-wm1-f47.google.com with SMTP id
+ 5b1f17b1804b1-4a207b02a2cso20636385e9.1
+ for <dri-devel@lists.freedesktop.org>; Mon, 23 Nov 2026 00:06:41 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=linaro.org; s=google; t=1795421199; x=1796025999; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:content-type:in-reply-to:organization
+ :autocrypt:content-language:references:cc:to:subject:reply-to:from
+ :user-agent:mime-version:date:message-id:from:to:cc:subject:date
+ :message-id:reply-to:content-type;
+ bh=0/cAHzp2byEXTdt5JI13O+MKxbnMcLe/w5DVxG6Ogbo=;
+ b=w1DCiU1qm7b2AltGu/n7irI8TfSq88jpXvOZ4O5EF5bxd5tyA9Vbdl2uOm5iE4o3oP
+ 8Yyaa/sGfjBlLzYEx3KR3smj8ayg+0KLoQk7EaP6SKxdg1HdDso7m5dCL9EwXZegga2k
+ /AFXSxIt7lPEsdNCS3xewmn9Xxq84HQpbqWn9hFg3k9xWUBweQdex31ItvZlqMNk8gzn
+ 0M8TkXQ+K8944BzHDmHeae2Q+oPRzrmVbsDdoURb4G+uSBJXggFfE2GBargs1MlhtnfO
+ Xf169euviub4sjLMmbbFsdxEFa20M+U9zxdkgUnBGCuSjVVAhp9KWtI/2lLBKpg8X5fb
+ P8hg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20260707; t=1795421199; x=1796025999;
+ h=content-transfer-encoding:content-type:in-reply-to:organization
+ :autocrypt:content-language:references:cc:to:subject:reply-to:from
+ :user-agent:mime-version:date:message-id:x-gm-gg:x-gm-message-state
+ :from:to:cc:subject:date:message-id:reply-to:content-type;
+ bh=0/cAHzp2byEXTdt5JI13O+MKxbnMcLe/w5DVxG6Ogbo=;
+ b=fG9KJNk/emCZfjVyyRPT6XBi1RPFdU0rMOle+KrF9C5JRnvGu7ExIHFscf4CD1CxJW
+ HCpx2Pj/k7Vuiaz3KfjLNbXpaphDJUTaOMiW4xOQJSkPeHow/G4rjR8pfARhMPa9R3Rs
+ 4uEtDnoZB1XTj9IV+HiseKuYC8TAEa4V+Uza/nVJarq2hXSfy9o+FjCPn9WgOOhXg14y
+ +Vv6EEjLDoImTAnxAnrZp4kJgmmJLL+V3M3LFldRbU3ksN0YVa1m5RNdefBwpaAK7JmE
+ yjD03QjkkGYTwPd2ZmdEJ7TQod0WQo2MxtV+NXS62VpArJAgi47CYCP49u1ij6GmBEmu
+ imHQ==
+X-Forwarded-Encrypted: i=1;
+ AL+hErGABT5DkU0mcPhvh2mZIGH0Wy971EZo/n2rHRcc8x0sgBGtTisQB0XxFbtN4vTdH48mebZFkkvCO2Q=@lists.freedesktop.org
+X-Gm-Message-State: APuU4Z+rGOqcckCuEd9v35afl211saVUoTKFJV1OPjDlOYA+uqh6KGAC
+ 7D0Pmj66hQkKq3I0wNH4GGVIGHJt2ao0Eik7KK4Yky3ZHjquyL71TI0007iD8n+pz/c=
+X-Gm-Gg: AZFdTZc5vIse9orFlHMj8UdSRU203fMa/xCe905MGoC820azm85MeLg5Rfw+aGyoFXa
+ KwRHgd4njW5M15UtH6YWZGSnG5gMoqHQu1KgUxZzVrnKhKlm3uru+c5Z1/ubQ6hICzqweCI9cwW
+ 8ExkitdZQu9Okz1pTSakSUc9/lyR23KBUErwc9OICh7znGF46nuFNfq6uxut6DZ9zAwn6WyJm4G
+ ayIXqvKz5zuAjo0nDzsQHWI3yBKjTN7FbTKtbfIu07oDCpysNiHP1jeWgL82r+sxVVseUvvcNDg
+ O1VmvF2ToUiTh7hgWErQlIwLsQzM8G9DGrWMwylD5x/rLYCQoTNGSkgazAQ/LbLzCKETeh4s2tY
+ hS6gbH//0pWVSJ1Tr2ilOg4gZ83I9PsoA7P/SATRvrg/H3aYIZ9zhFms45uktBcoEXoPTBbhTzO
+ 2aRe4kojVSm/W81CEN9jLJwj0fHpVbzj4iUOS+ga3m1e7yiVMG+YPnScC7UHtKqD/YHWX1WMz7m
+ NqCD8NsU/3ush+soZVO/ItRu2M6XFdxJ35u08Gr/Atq6QNQSc3kTAhJwIhc3S8Ix16C3Bb1HInR
+ RKToXM6TgcFdkCNpHd8DH92l3LAU5pTkJqgfqVaLvCRcl35Z6MzVmonp1KqbxzavI0EMPpGWZJd
+ vUBtwftVq
+X-Received: by 2002:a05:600c:c09b:b0:4bb:665f:7e52 with SMTP id
+ 5b1f17b1804b1-4bb8880995dmr161630505e9.10.1795421199031; 
+ Mon, 23 Nov 2026 00:06:39 -0800 (PST)
+Received: from ?IPV6:2a01:e0a:106d:1080:121b:474b:8d1f:a239?
+ ([2a01:e0a:106d:1080:121b:474b:8d1f:a239])
+ by smtp.gmail.com with ESMTPSA id
+ 5b1f17b1804b1-4bb853a12acsm360424565e9.8.2026.11.23.00.06.38
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Mon, 23 Nov 2026 00:06:38 -0800 (PST)
+Message-ID: <2d8dd4ba-26ec-4b01-8361-09e6dfcfa5ed@linaro.org>
+Date: Mon, 23 Nov 2026 09:06:38 +0100
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=iso-8859-1
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <awPvoLCDeq1YFLE_@houat>
-X-Patchwork-Hint: comment
-Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
- krs Bertel Jungin Aukio 5, 02600 Espoo, Finland
+User-Agent: Mozilla Thunderbird
+From: neil.armstrong@linaro.org
+Subject: Re: [PATCH v3 02/11] dt-bindings: phy: amlogic: Add Meson HDMI TX PHY
+ binding
+To: sashiko-reviews@lists.linux.dev, Ronald Claveau <linux-kernel-dev@aliel.fr>
+Cc: devicetree@vger.kernel.org, linux-amlogic@lists.infradead.org,
+ linux-phy@lists.infradead.org, dri-devel@lists.freedesktop.org,
+ robh@kernel.org, conor+dt@kernel.org, vkoul@kernel.org, olteanv@gmail.com
+References: <20261121-meson-drm-create-hdmitx-phy-v3-0-f8f471788076@aliel.fr>
+ <20261121-meson-drm-create-hdmitx-phy-v3-2-f8f471788076@aliel.fr>
+ <sashiko-outbox-227302@kernel.org>
+Content-Language: en-US, fr
+Autocrypt: addr=neil.armstrong@linaro.org; keydata=
+ xsBNBE1ZBs8BCAD78xVLsXPwV/2qQx2FaO/7mhWL0Qodw8UcQJnkrWmgTFRobtTWxuRx8WWP
+ GTjuhvbleoQ5Cxjr+v+1ARGCH46MxFP5DwauzPekwJUD5QKZlaw/bURTLmS2id5wWi3lqVH4
+ BVF2WzvGyyeV1o4RTCYDnZ9VLLylJ9bneEaIs/7cjCEbipGGFlfIML3sfqnIvMAxIMZrvcl9
+ qPV2k+KQ7q+aXavU5W+yLNn7QtXUB530Zlk/d2ETgzQ5FLYYnUDAaRl+8JUTjc0CNOTpCeik
+ 80TZcE6f8M76Xa6yU8VcNko94Ck7iB4vj70q76P/J7kt98hklrr85/3NU3oti3nrIHmHABEB
+ AAHNKk5laWwgQXJtc3Ryb25nIDxuZWlsLmFybXN0cm9uZ0BsaW5hcm8ub3JnPsLAkQQTAQoA
+ OwIbIwULCQgHAwUVCgkICwUWAgMBAAIeAQIXgBYhBInsPQWERiF0UPIoSBaat7Gkz/iuBQJk
+ Q5wSAhkBAAoJEBaat7Gkz/iuyhMIANiD94qDtUTJRfEW6GwXmtKWwl/mvqQtaTtZID2dos04
+ YqBbshiJbejgVJjy+HODcNUIKBB3PSLaln4ltdsV73SBcwUNdzebfKspAQunCM22Mn6FBIxQ
+ GizsMLcP/0FX4en9NaKGfK6ZdKK6kN1GR9YffMJd2P08EO8mHowmSRe/ExAODhAs9W7XXExw
+ UNCY4pVJyRPpEhv373vvff60bHxc1k/FF9WaPscMt7hlkbFLUs85kHtQAmr8pV5Hy9ezsSRa
+ GzJmiVclkPc2BY592IGBXRDQ38urXeM4nfhhvqA50b/nAEXc6FzqgXqDkEIwR66/Gbp0t3+r
+ yQzpKRyQif3OwE0ETVkGzwEIALyKDN/OGURaHBVzwjgYq+ZtifvekdrSNl8TIDH8g1xicBYp
+ QTbPn6bbSZbdvfeQPNCcD4/EhXZuhQXMcoJsQQQnO4vwVULmPGgtGf8PVc7dxKOeta+qUh6+
+ SRh3vIcAUFHDT3f/Zdspz+e2E0hPV2hiSvICLk11qO6cyJE13zeNFoeY3ggrKY+IzbFomIZY
+ 4yG6xI99NIPEVE9lNBXBKIlewIyVlkOaYvJWSV+p5gdJXOvScNN1epm5YHmf9aE2ZjnqZGoM
+ Mtsyw18YoX9BqMFInxqYQQ3j/HpVgTSvmo5ea5qQDDUaCsaTf8UeDcwYOtgI8iL4oHcsGtUX
+ oUk33HEAEQEAAcLAXwQYAQIACQUCTVkGzwIbDAAKCRAWmrexpM/4rrXiB/sGbkQ6itMrAIfn
+ M7IbRuiSZS1unlySUVYu3SD6YBYnNi3G5EpbwfBNuT3H8//rVvtOFK4OD8cRYkxXRQmTvqa3
+ 3eDIHu/zr1HMKErm+2SD6PO9umRef8V82o2oaCLvf4WeIssFjwB0b6a12opuRP7yo3E3gTCS
+ KmbUuLv1CtxKQF+fUV1cVaTPMyT25Od+RC1K+iOR0F54oUJvJeq7fUzbn/KdlhA8XPGzwGRy
+ 4zcsPWvwnXgfe5tk680fEKZVwOZKIEuJC3v+/yZpQzDvGYJvbyix0lHnrCzq43WefRHI5XTT
+ QbM0WUIBIcGmq38+OgUsMYu4NzLu7uZFAcmp6h8g
+Organization: Linaro
+In-Reply-To: <sashiko-outbox-227302@kernel.org>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -83,112 +119,36 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
+Reply-To: Neil Armstrong <neil.armstrong@linaro.org>
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-13.8 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
-	DKIM_SIGNED,DKIM_VALID,HEADER_FROM_DIFFERENT_DOMAINS,
-	INCLUDES_CR_TRAILER,INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,
-	SPF_PASS autolearn=unavailable autolearn_force=no version=4.0.1
+X-Spam-Status: No, score=-7.3 required=3.0 tests=BAYES_00,DKIM_SIGNED,
+	DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
+	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,USER_AGENT_SANE_1
+	autolearn=no autolearn_force=no version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-On Mon, Nov 23, 2026 at 08:50:29AM +0100, Maxime Ripard wrote:
-> On Fri, Nov 20, 2026 at 11:19:13AM -0600, Mario Limonciello wrote:
-> > 
-> > 
-> > On 11/20/26 10:41, Ville Syrjälä wrote:
-> > > On Thu, Nov 19, 2026 at 05:27:28PM -0600, Mario Limonciello wrote:
-> > > > Panel brightness is a property of a display, and thus of a DRM
-> > > > connector. Add an atomic per-connector LUMINANCE range property so
-> > > > compositors can manage relative panel luminance together with the rest
-> > > > of the display state.
-> > > > 
-> > > > Keep the core backend-agnostic. Drivers create the property with their
-> > > > hardware range and implement connector helper callbacks to set luminance
-> > > > or disable panel emission. The atomic helpers sequence those callbacks
-> > > > around pipeline enable and disable, including luminance-only commits.
-> > > > The panel is left lit when the pipeline enters self refresh, and the
-> > > > luminance is only reprogrammed when it changes or a modeset enables the
-> > > > pipeline.
-> > > > 
-> > > > The stored property value is independent of display power. A commit made
-> > > > while the connector is inactive is retained and applied on the next
-> > > > enable; disabling the pipeline does not overwrite it.
-> > > > 
-> > > > LUMINANCE values are relative, driver-defined levels rather than
-> > > > absolute luminance in cd/m^2. The interface supports emissive panels as
-> > > > well as panels with a separate backlight.
-> > > > 
-> > > > Keep the interface behind a default-off DRM_LUMINANCE option. Migrated
-> > > > drivers retain their legacy backlight class ABI unless the new interface
-> > > > is explicitly selected, allowing the DRM UAPI and legacy compatibility
-> > > > policy to remain separate.
-> > > > 
-> > > > Acked-by: Javier Martinez Canillas <javierm@redhat.com>
-> > > > Signed-off-by: Mario Limonciello <mario.limonciello@amd.com>
-> > > > ---
-> > > > v11:
-> > > >   * Don't call .disable_luminance when the CRTC enters self refresh (Sashiko)
-> > > >   * Only call .set_luminance when the luminance changes or on a modeset
-> > > >     that isn't a self refresh exit (Leo Li, Sashiko)
-> > > >   * Fix the .set_luminance self refresh documentation
-> > > > v10:
-> > > >   * Add tag
-> > > > ---
-> > > >   drivers/gpu/drm/Kconfig                    | 14 +++++
-> > > >   drivers/gpu/drm/drm_atomic_helper.c        | 98 +++++++++++++++++++++++++++++-
-> > > >   drivers/gpu/drm/drm_atomic_state_helper.c  |  7 +++
-> > > >   drivers/gpu/drm/drm_atomic_uapi.c          |  5 ++
-> > > >   drivers/gpu/drm/drm_connector.c            | 57 +++++++++++++++++
-> > > >   drivers/gpu/drm/tests/drm_connector_test.c | 28 +++++++++
-> > > >   include/drm/drm_atomic_helper.h            |  3 +
-> > > >   include/drm/drm_connector.h                | 16 +++++
-> > > >   include/drm/drm_modeset_helper_vtables.h   | 28 +++++++++
-> > > >   9 files changed, 255 insertions(+), 1 deletion(-)
-> > > > 
-> > > > diff --git a/drivers/gpu/drm/Kconfig b/drivers/gpu/drm/Kconfig
-> > > > index 61111d50b1c65..1bbe2c2d7c76f 100644
-> > > > --- a/drivers/gpu/drm/Kconfig
-> > > > +++ b/drivers/gpu/drm/Kconfig
-> > > > @@ -33,6 +33,20 @@ endmenu
-> > > >   if DRM
-> > > > +config DRM_LUMINANCE
-> > > > +	bool "DRM connector luminance support"
-> > > > +	help
-> > > > +	  Expose relative luminance as an atomic DRM connector property. Values
-> > > > +	  are driver-defined levels rather than absolute luminance in cd/m^2.
-> > > > +	  Drivers provide connector helper callbacks to program their hardware;
-> > > > +	  the DRM core does not depend on a particular backend.
-> > > > +
-> > > > +	  Drivers migrated to this interface will use it instead of registering
-> > > > +	  a legacy backlight class device. Leave this disabled to preserve the
-> > > > +	  de-facto userspace ABI in /sys/class/backlight.
-> > > 
-> > > I don't think this will fly if it breaks the backlight class interface.
-> > > No one can actually enable this outside of some niche embedded use
-> > > cases where backwards compatibility is not an issue. I think what
-> > > you need is a generic backlight class implementation on top of this.
-> > > 
-> > 
-> > The idea with this was:
-> > 1) to get the series landed
-> > 2) let compositors merge solutions around it.
-> > 3) Then add backwards compatibility to kernel so we can flip the Kconfig
-> > default.
+On 11/21/26 20:26, sashiko-bot@kernel.org wrote:
+> Thank you for your contribution! Sashiko AI review found 1 potential
+> issue to consider:
+> - [Low] dt-bindings: phy: amlogic: redundant word binding in commit
+>    subject
+> --
 > 
-> I said this a few times already, but we keep having those discussions
-> while the backlight sysfs handling is far from being the main point. You
-> should *really* consider adding support for the luminance property for
-> something that isn't tied to that interface (like DDC/CI for HDMI), and
-> treat the sysfs API as a sysfs series.
+> commit fbd4563b5cd10db3f75db052197f808e3b36bc55
+> Author: Ronald Claveau <linux-kernel-dev@aliel.fr>
 > 
-> It looks like people just have conflicting opinions on this particular
-> part that isn't going to solve itself easily. You should not treat this
-> sysfs discussion as a blocker for the infrastructure work.
+> dt-bindings: phy: amlogic: Add Meson HDMI TX PHY binding
+> 
+> This commit adds a Device Tree binding schema for the HDMI TX PHY found on
+> Amlogic Meson GXBB, GXL, and G12A SoCs.
+> 
+>> dt-bindings: phy: amlogic: Add Meson HDMI TX PHY binding
+> 
+> [Severity: Low]
+> The dt-bindings: prefix already indicates that this patch adds a binding,
+> so repeating "binding" at the end of the subject is redundant ("dt-bindings:
+> phy: amlogic: Add Meson HDMI TX PHY").
+> 
 
-You want to be sure backwards compatibility with the backlight
-class is a solvable problem before you land *anything*. Otherwise
-you might just paint yourself into a corner with no way out.
-
--- 
-Ville Syrjälä
-Intel
+Use the "dt-bindings: phy: amlogic: document the Amlogic Meson HDMI TX PHY"
