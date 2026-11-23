@@ -2,63 +2,80 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8CB8F606A321
-	for <dri-devel@archiver.kernel.org>; Mon, 23 Nov 2026 14:13:54 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7736D606A31A
+	for <dri-devel@archiver.kernel.org>; Mon, 23 Nov 2026 14:16:48 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=YPvWO/O0
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=SeM/e3zk
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id DCE2E10E371;
-	Mon, 23 Nov 2026 14:13:48 +0000 (UTC)
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.11])
- by gabe.freedesktop.org (Postfix) with ESMTPS id E5FD110EE6F;
- Mon, 23 Nov 2026 14:13:42 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1795443223; x=1826979223;
- h=from:to:cc:subject:in-reply-to:references:date:
- message-id:mime-version:content-transfer-encoding;
- bh=2GKxq/k7YbhUivVWtk1SlOzSltUQBVUp9OxcC58Qnqk=;
- b=YPvWO/O0dijMe5MZAqU9IGgdhwYNIfNaiyhtALMTbT0DQ/kbpobLyABb
- K24knRVgO/U+EVfJBS0nCgexh4GwKOV2TA6PF11YGcYlpvg7A9+n/hqKZ
- djdhPnephQCfOI9V90SE1Db4qN6WglvpfyIWwFK7QSz40HdW/hhnH0w0E
- /gyNrUNuD8S1cjsU6GqsXp6bHXWywb/083trTfvIyrucT5XLUzSwuEO/L
- SqpZAPQcdlHQb2LxF7hj22jonfDm4yzkq6t0jm+G+H3Kmp3B9wEyT99g3
- ry7d4QkOBw1U+7pqbCDwAtzg2TGh0INWft7llty6uO6TCJU4cpyzmwiCY w==;
-X-CSE-ConnectionGUID: KcPj6jVIRU6qoKrr4+WODQ==
-X-CSE-MsgGUID: ED6r8sl7Szm5/monQEFFyw==
-X-IronPort-AV: E=McAfee;i="6800,10657,11975"; a="4153264"
-X-IronPort-AV: E=Sophos;i="6.27,227,1787036400"; 
-   d="scan'208";a="4153264"
-Received: from fmviesa007.fm.intel.com ([10.60.135.147])
- by fmvoesa105.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 23 Nov 2026 06:13:27 -0800
-X-CSE-ConnectionGUID: GcPwZDlHRoi/fkGddv/FLw==
-X-CSE-MsgGUID: aisibYTER/uKYY8we2hrGg==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,227,1787036400"; d="scan'208";a="11636423"
-Received: from klitkey1-mobl1.ger.corp.intel.com (HELO localhost)
- ([10.245.245.16])
- by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 23 Nov 2026 06:13:25 -0800
-From: Jani Nikula <jani.nikula@intel.com>
-To: Khaled Almahallawy <khaled.almahallawy@intel.com>,
- dri-devel@lists.freedesktop.org
-Cc: Khaled Almahallawy <khaled.almahallawy@intel.com>,
- intel-gfx@lists.freedesktop.org, intel-xe@lists.freedesktop.org, Uma
- Shankar <uma.shankar@intel.com>, Jonathan Cavitt
- <jonathan.cavitt@intel.com>
-Subject: Re: [PATCH v3] drm/display: Increase DP_RECEIVER_CAP_SIZE from 15
- to 16 bytes
-In-Reply-To: <20261105034658.18959-1-khaled.almahallawy@intel.com>
-Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park,
- 6 krs Bertel Jungin Aukio 5, 02600 Espoo, Finland
-References: <20261105034658.18959-1-khaled.almahallawy@intel.com>
-Date: Mon, 23 Nov 2026 16:13:23 +0200
-Message-ID: <6a0f46f19e49edcaaa9466114638d4495097721e@intel.com>
+	by gabe.freedesktop.org (Postfix) with ESMTP id 6F54F10E78B;
+	Mon, 23 Nov 2026 14:16:41 +0000 (UTC)
+Received: from mail-dy1-f170.google.com (mail-dy1-f170.google.com
+ [74.125.82.170])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id DA79410EDA3
+ for <dri-devel@lists.freedesktop.org>; Mon, 23 Nov 2026 12:22:30 +0000 (UTC)
+Received: by mail-dy1-f170.google.com with SMTP id
+ 5a478bee46e88-38699cf08dfso2947313eec.1
+ for <dri-devel@lists.freedesktop.org>; Mon, 23 Nov 2026 04:22:30 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20260707; t=1795436550; x=1796041350; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+ bh=fHN89iqHMglA6tA6YLX3To+FpptgLkpu1uDNq5dshLU=;
+ b=SeM/e3zk2tN/ixTNyBt/TwMePH9Xeth8Y2T52yYDBv33VE5fcY573wa4vbvUPbofv1
+ KMdi9FvbfKz/O1sL8XYKNdOSq72bPyavDxDE8YiY2V4URTr7ckla0/w7Ecad8+x+4X8z
+ Og931/CkkH3pEdauoNOPlo7qL4HNgExXipxPjBlrQfexZn+4JQlZuTq7J5dkc9Yfjk/q
+ HQTQDdR5UP35WZ0THh1SkcFE+biNXsvExhkGFenlT2+bcr2lopfiWtiYmff0cdyqdJMR
+ 1fri3garxr3ir5NyHqGs95sc3suE6Xx0G4yavBG7sSu4i8RLqyzTT0WLcg5T36/EQbPD
+ MZag==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20260707; t=1795436550; x=1796041350;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+ :message-id:reply-to:content-type;
+ bh=fHN89iqHMglA6tA6YLX3To+FpptgLkpu1uDNq5dshLU=;
+ b=Yj1PjtVigdstUhQs2ieFt8Xw5TsYFuTfpJcHV79SY5mw15LDuvzf6iKnGUXbcJtZVL
+ X2EG7nXye0rfANqUgWBvtRhhMj0UufCNUbeRbuWTIMYQoa/xOWVifkTq76cO5Z6NH+U4
+ Y2p+lJX4ng6FnQW0oPw3aC61UF8PbQRtbc9ZaJqa+gV/yIyx5d3Am5OjxaUSmAaOo2B/
+ cDGRJeiRroWj5S0WbA3VyTyLPdS6YeX3Wrksu1XP06YuQua97wrRng5wwkXMxRX4j3Oc
+ esEKPrGssvtVwjEOP4f55DLup/LhsZ5ChAt1DpIl18uTHkIOUb85vK267dIqPp/3IAB/
+ peyA==
+X-Forwarded-Encrypted: i=1;
+ AL+hErFBLQeztT+OkQ+7dIMKyME+Lf4Y7V6L2BL+So7o5XO7DSulMms2S0R+u//E0s/fmuCB3cJfiwk3kec=@lists.freedesktop.org
+X-Gm-Message-State: APuU4Z8shHhIsRyeGx5BwCbM30nX+7yJ1V4c7F33ABKX/mBuW6oQfcwe
+ Z0Qg5W2T5HFGmwWHt1JN57wkgCkawbcnJkeSZriec+6+8/4aowkBJZrv
+X-Gm-Gg: AZFdTZeGFckIiaZ43IzSDuEhteoKsfLVhWOIG08PczGw0TfvoEdip8FOeqYJG4EL1FS
+ QGoFvT6rgue2Nx2RaVv9/i2JI3NPGp6ucmbfmg0kks1qTiZsO9MOG1AP5LNM8osAKsdGDzeE5ju
+ OSI9o+kocBjSoh6g8FafxyGSjNO35jFPYOKVc707DRr8tPT6nl4nh9zL2EpAw4JZRU4gPLtn7+P
+ om1DxNpPCd8zqYEu6PFz8CcJUreQPfld21CQsyhlOpOVqAUxvjVCy9C7IzXHd20k+d2h49MfQPm
+ lUGz3K2MTWQRwzo6aisyX2nV84ZV03KyejJHV6h3XPob4TciDFCqCnXhomjekiHNaKwRevXbXV8
+ MvVlOuBJFImfqahH0edyanw/sd8ylYfXQtRWQzQHS4vYzJWnrb3JJd22DZLQ2i5nRbVQiOcZfxR
+ Y04noTjCd8wJc6pyh5BDTTotT0juWGxNH5o/C/SH3wCvLUedPVrwHTeuh17OmsoI0Mc5y9VTT+c
+ a/Izvl/Z6ZRjodF1YQpXaD5qAx7kWY406ae64dCGBLzyx+xYZtoJPHCGXf/tZYcgfHmO6hvgaOU
+ xEvXd0C0UYI2Yr0/tU/V
+X-Received: by 2002:a05:7300:8807:b0:369:5583:bf4c with SMTP id
+ 5a478bee46e88-3856ff5bb62mr12060416eec.28.1795436549928; 
+ Mon, 23 Nov 2026 04:22:29 -0800 (PST)
+Received: from a1-free ([161.33.196.121]) by smtp.gmail.com with ESMTPSA id
+ 5a478bee46e88-386992b404bsm25173398eec.1.2026.11.23.04.22.27
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Mon, 23 Nov 2026 04:22:29 -0800 (PST)
+From: TAKANO Mitsuhiro <takano32@gmail.com>
+To: amd-gfx@lists.freedesktop.org, Harry Wentland <harry.wentland@amd.com>,
+ Leo Li <sunpeng.li@amd.com>, Alex Deucher <alexander.deucher@amd.com>
+Cc: Rodrigo Siqueira <siqueira@igalia.com>,
+ =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ Thomas Huth <thuth@redhat.com>, Weijie Yuan <wy@wyuan.org>,
+ dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
+ TAKANO Mitsuhiro <takano32@gmail.com>
+Subject: [PATCH v2 0/2] drm/amd/display: document two members of dc.h
+Date: Mon, 23 Nov 2026 12:22:24 +0000
+Message-ID: <20261123122226.4101191-1-takano32@gmail.com>
+X-Mailer: git-send-email 2.53.0
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 8bit
+X-Mailman-Approved-At: Mon, 23 Nov 2026 14:16:40 +0000
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -70,80 +87,40 @@ List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-15.8 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
-	DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
-	INCLUDES_CR_TRAILER,INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,
-	SPF_PASS autolearn=unavailable autolearn_force=no version=4.0.1
+X-Spam-Status: No, score=-10.8 required=3.0 tests=BAYES_00,DKIM_SIGNED,
+	DKIM_VALID,DKIM_VALID_AU,FREEMAIL_FORGED_FROMDOMAIN,FREEMAIL_FROM,
+	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_PATCH,MAILING_LIST_MULTI,
+	SPF_HELO_NONE,SPF_PASS,USER_AGENT_GIT autolearn=unavailable
+	autolearn_force=no version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-On Wed, 04 Nov 2026, Khaled Almahallawy <khaled.almahallawy@intel.com> wrot=
-e:
-> Several Link Layer tests (4.2.2.1-2, 4.2.2.7-8) fail because DPTX doesn't
-> read DPCD ADAPTER_CAP addresses (0x000F and 0x220F).
->
-> 4.2.2.1 test states [1]:
-> "Fail1: Source DUT failed to read the DPCD Receiver Capability field
-> (DPCD:00000h:0000Fh) through AUX_CH before link training."
->
-> 4.2.2.2 test states [1]:
-> "Fail2: Source DUT failed to read the DPCD Extended Receiver Capability
-> field (DPCD:02200h:0220Fh) through AUX_CH before link training."
->
-> Additionally, the spec [2] states:
-> "The Source device shall respond to Hot Plug event/Hot Re-plug event by
-> first reading DPCD Link/Sink Device Status registers at DPCD 00200h
-> through 00205h =E2=80=93or=E2=80=93 DPCD 02002h through 0200Fh. If the li=
-nk is unstable
-> or lost, the Source device then reads the DPCD Receiver Capabilities
-> registers at DPCD 00000h through 0000Fh to determine the appropriate
-> information needed to train the link. The Source device shall then
-> initiate link training."
->
-> Increasing DP_RECEIVER_CAP_SIZE by 1 byte ensures passing the test
-> conditions for these link layer tests.
->
-> [1]: DisplayPort v2.1 Link Layer Compliance Test Specification
-> sections 4.2.2.1 & 4.2.2.2
-> [2]: DisplayPort Standard v2.1 - Sec 5.1.4 Source Device Behavior
-> upon HPD Pulse Detection
->
-> v3: Rebase, drop deprecated test 4.2.2.9 from the commit message
-> v2: Rebase
->
-> Cc: Uma Shankar <uma.shankar@intel.com>
-> Cc: Jonathan Cavitt <jonathan.cavitt@intel.com>
-> Cc: Jani Nikula <jani.nikula@intel.com>
-> Reviewed-by: Jonathan Cavitt <jonathan.cavitt@intel.com>
-> Signed-off-by: Khaled Almahallawy <khaled.almahallawy@intel.com>
+Two undocumented members in dc.h, both reported by kernel-doc: the union in
+dc_probe_status has no description of its own, and the comment of
+mpc_color_caps does not mention max_gamut_remap_coeff.  Both patches only
+add comment text, so no build was run.
 
-Pushed to drm-misc-next, thanks for the patch.
+The diff is unchanged from the previous posting.  As Weijie Yuan suggested,
+the AI disclosure moved out of the commit message: it is now below the ---
+in each patch, and it is also in this cover letter.
 
-I understand this change impacts quite a few drivers across the
-subsystem, but the patch has been on the list several times across a
-long period of time, and there has been no input from anyone.
+v1:
+https://lore.kernel.org/all/20261121041427.1743954-1-takano32@gmail.com/
 
-BR,
-Jani.
+The changes and the changelog text were produced with an AI coding
+assistant (Hermes Agent, model deepseek-v4.1-flash) working from the tree
+and the git history.  I reviewed the diff and ran kernel-doc on dc.h before
+and after the change.
 
-> ---
->  include/drm/display/drm_dp.h | 2 +-
->  1 file changed, 1 insertion(+), 1 deletion(-)
->
-> diff --git a/include/drm/display/drm_dp.h b/include/drm/display/drm_dp.h
-> index e63c7f075f54..a2a7338552e1 100644
-> --- a/include/drm/display/drm_dp.h
-> +++ b/include/drm/display/drm_dp.h
-> @@ -1715,7 +1715,7 @@ enum drm_dp_phy {
->  #define DP_LINK_STATUS_SIZE	   6
->=20=20
->  #define DP_BRANCH_OUI_HEADER_SIZE	0xc
-> -#define DP_RECEIVER_CAP_SIZE		0xf
-> +#define DP_RECEIVER_CAP_SIZE		0x10
->  #define DP_DSC_RECEIVER_CAP_SIZE        0x10 /* DSC Capabilities 0x60 th=
-rough 0x6F */
->  #define DP_DSC_BRANCH_CAP_SIZE		3
->  #define EDP_PSR_RECEIVER_CAP_SIZE	2
+TAKANO Mitsuhiro (2):
+  drm/amd/display: Document the union in dc_probe_status
+  drm/amd/display: Document max_gamut_remap_coeff
 
---=20
-Jani Nikula, Intel
+ drivers/gpu/drm/amd/display/dc/dc.h | 2 ++
+ 1 file changed, 2 insertions(+)
+
+
+base-commit: d0f871bfb831705d9f55479f5b2b40f636ea7b16
+-- 
+2.53.0
+
