@@ -2,127 +2,114 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8F551606A321
-	for <dri-devel@archiver.kernel.org>; Mon, 23 Nov 2026 09:23:40 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B2EB4606A321
+	for <dri-devel@archiver.kernel.org>; Mon, 23 Nov 2026 09:23:56 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=amd.com header.i=@amd.com header.a=rsa-sha256 header.s=selector1 header.b=TlPADIM/
+	dkim=pass (2048-bit key) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.a=rsa-sha256 header.s=selector1-NXP1-onmicrosoft-com header.b=YUbps2ym
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id E84EF10E41A;
-	Mon, 23 Nov 2026 09:23:34 +0000 (UTC)
-Received: from CY7PR03CU001.outbound.protection.outlook.com
- (mail-westcentralusazon11010013.outbound.protection.outlook.com
- [40.93.198.13])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 41BF310E41A;
- Mon, 23 Nov 2026 09:23:29 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 196A810EB2F;
+	Mon, 23 Nov 2026 09:23:51 +0000 (UTC)
+Received: from AM0PR02CU008.outbound.protection.outlook.com
+ (mail-westeuropeazon11013026.outbound.protection.outlook.com [52.101.72.26])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id A7F3910EB7D
+ for <dri-devel@lists.freedesktop.org>; Mon, 23 Nov 2026 09:23:44 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=kokZ9Y0miZjif5eS2OEhnkPRio+1a5xdwZE3Q1Z1b+aXzu8BNbFgUtaMh3YKTJTsapVxCBrmp7CiuZjipJMecdHREAYaueoJo80loX+uf8ncCNWLrWmM7845S9jyKAB9m4BjrpT6QMoGyfPrp8VvcA+82s+0jJW3rtLWG6uiCMgebl3qpQdq64C3PfZyQur/IValFiHedqdFryJ459TPMgIwPLEQXW7Jy/CWZ1mVp55HXVcQzm52TEdYKvx5US43odvKsCqgL94FOZh9piWgLN80de+mHZ0fcpXq6V5NfiTkA0fYgnj4lekvE6E7l21kQVcr3QXAgD9fxNZouQOK6w==
+ b=HTHgV+8vXnuYzohDmhln9pMooquwa3qoKZPWdP+bej7pONVHYyyMOPuyZpQcjLU67BfhD45Wr+lgp+7j2HzD6nucoEi6lXv/T7q7yi/t5OEnHY7GznPwbxMf2mnAJKoy1qtKOyhKoioTXEGnoEferBrTgGYskqW12+lUJRjOMZkl7ZTvww2yRpqnOZTE5BIcmwrxm4ib9yjJ1ORrFOqLnr+0mqlbaOAiQY7ZekwlC0Wsolgd5Kpo++z70O6TTqSDVLTWqaJHGfOXsOvwFlvwFU2D0zddQLDeFTepNFbc7kQO7QpSKw+SR2neBlvfW/FHsI/lVNtjPoA2sTlVJ+QuNQ==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=YGWEtXj6gymSVNH2LkYikzT7wCclcEb6TtqzT3rIYgc=;
- b=SS+hKdYlaSyDda/3mK9ju78Go61fuVRfoOqla7HaN8pcLjYegXTvcgw/h7SqMQP2PltKLQ41MkQWs5kVNAiH9QssXhB0hAk95q3cB01HlNDQSZH2hwH9m4ko1v8BVCNXUWS6ineN3NQ1La6vkKSJgm7MCwlFjc0uby/kG0M8YgZYH9ZNE0ZS/JtqI6ibNfFLdu2VWp/poOLK3wpP/8neqbfyXi5SU216Rhy5mFNtkkge7sAy5a5gDluPLBFKzkF6OXBJD9TZrwvfpNmhjdQSqaay+KExrrVmkGWRRxhBlCR8zn9UWlrf6+rt9m1ZHbomRW+KQawyVlpp0sgnTcJ1MQ==
+ bh=WEDFWHZ2jvUwTjdMWSt84PGAjx5jfxfv/wgRS1+CzQY=;
+ b=KWG11yILxhsSQnwEmWkKw5O4hLPDcaWpmW1Bk5p3WL7PXG/GqIRId0j2qyUzlwc3RdFixaaUsO9tRvBuhQQ5XzSHw71r192LbDZjfEBDcQ14Aj9+eVFPeEvlMIdTsh/e/IOaA1j7X0bQlYvO1yEXWKE2bkeiHBT8RmMpqCZYKBVXoVpTqPbjc5ubrbbJlmVYCngto9r4eLtqV6gttQGz25Sg0LfS+aVhCxYF4TdVXA9RiCiD/NWDYSvWGgqMGQ9Ul4Y44rTPJyrtG1BF5TqPgONl5c1EKyKGSf49yIK94tBQAzP1/erFZV4GyD0SsWWOXf7WF2LCYtx+5lIXO909vA==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ smtp.mailfrom=oss.nxp.com; dmarc=pass action=none header.from=oss.nxp.com;
+ dkim=pass header.d=oss.nxp.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=NXP1.onmicrosoft.com; 
+ s=selector1-NXP1-onmicrosoft-com;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=YGWEtXj6gymSVNH2LkYikzT7wCclcEb6TtqzT3rIYgc=;
- b=TlPADIM/fqgaiD7C8r6oke+qjOcnr1UP+3rWebfD7HGff3gyi8hHdzjZ1gpr0/3KrqNQ/nY0N5MlZqYIVczyx0PbleXMLftPyMfOo7uXao/8HL3TbB8os22PP6vby4DCX9nVV0Ya581zwJPO9d2cJQUKlsUVisM/mp2gvwhQDTs=
+ bh=WEDFWHZ2jvUwTjdMWSt84PGAjx5jfxfv/wgRS1+CzQY=;
+ b=YUbps2ym7XQDGURBQuAEPbxrsp4Jw0QEIbCJ9FrtwtWlM/TKIbT5lJr8JidKMKevdbL2rlMY7EGMcoKeA4UaCAhid1oGccbhbs3Yv56uTlGipQ8ifdxlsRl+GUj0Qt2PkdjW2L6LuxYgxmN+9Tp5D270Lkr8i6EN40dbz/oINnK9rAGCTS6p4Snvf1qQbc+Mglyvz+k/AEiP7KffbVsoScJFaESdEUl7OywAJTf7vIG1dU28e1JynYE1aKVKJ0U5FhuMHI08eDqtWk2396j3Pl8VImdJycOEwkGIjza6iXskeXsaMnqZy4s0lEPO9gwp2vrDS+duy/MOkqKDexDAXA==
 Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-Received: from CY8PR12MB7170.namprd12.prod.outlook.com (2603:10b6:930:5a::18)
- by DS0PR12MB6629.namprd12.prod.outlook.com (2603:10b6:8:d3::15) with
- Microsoft SMTP Server (version=TLS1_2,
+ header.d=none;dmarc=none action=none header.from=oss.nxp.com;
+Received: from GV2PR04MB12318.eurprd04.prod.outlook.com
+ (2603:10a6:150:32b::19) by MI9PR04MB608809.eurprd04.prod.outlook.com
+ (2603:10a6:290:b5::20) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.639.14; Mon, 23 Nov
- 2026 09:23:22 +0000
-Received: from CY8PR12MB7170.namprd12.prod.outlook.com
- ([fe80::7565:bdd3:383a:de5f]) by CY8PR12MB7170.namprd12.prod.outlook.com
- ([fe80::7565:bdd3:383a:de5f%3]) with mapi id 15.21.0639.011; Mon, 23 Nov 2026
- 09:23:21 +0000
-Message-ID: <a574e06f-01e4-4b51-929b-49dee297a316@amd.com>
-Date: Mon, 23 Nov 2026 17:23:14 +0800
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] mm/hmm: skip NUMA balancing on protnone faults
-To: Matthew Auld <matthew.auld@intel.com>
-Cc: dri-devel@lists.freedesktop.org, intel-xe@lists.freedesktop.org,
- =?UTF-8?Q?Thomas_Hellstr=C3=B6m?= <thomas.hellstrom@linux.intel.com>,
- Matthew Brost <matthew.brost@intel.com>, David Hildenbrand
- <david@kernel.org>, =?UTF-8?Q?Mika_Penttil=C3=A4?= <mpenttil@redhat.com>,
- Leon Romanovsky <leon@kernel.org>, Jason Gunthorpe <jgg@ziepe.ca>,
- linux-mm@kvack.org, Huang Rui <Ray.Huang@amd.com>
-References: <20261112-numa-v1-1-ad9cbca8f49a@intel.com>
-Content-Language: en-US
-From: "Huang, Honglei" <honghuan@amd.com>
-In-Reply-To: <20261112-numa-v1-1-ad9cbca8f49a@intel.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
-X-ClientProxiedBy: SI3PR03CA0007.apcprd03.prod.outlook.com
- (2603:1096:4:297::18) To CY8PR12MB7170.namprd12.prod.outlook.com
- (2603:10b6:930:5a::18)
+ 2026 09:23:40 +0000
+Received: from GV2PR04MB12318.eurprd04.prod.outlook.com
+ ([fe80::a498:2b5a:cbdb:d6fa]) by GV2PR04MB12318.eurprd04.prod.outlook.com
+ ([fe80::a498:2b5a:cbdb:d6fa%3]) with mapi id 15.21.0639.012; Mon, 23 Nov 2026
+ 09:23:40 +0000
+Date: Mon, 23 Nov 2026 11:23:36 +0200
+From: Laurentiu Palcu <laurentiu.palcu@oss.nxp.com>
+To: Fabio Estevam <festevam@gmail.com>
+Cc: marex@denx.de, mripard@kernel.org, imx@lists.linux.dev, 
+ dri-devel@lists.freedesktop.org, stable@vger.kernel.org
+Subject: Re: [PATCH] drm/mxsfb: lcdif: Fix use-after-free on unbind
+Message-ID: <awQFcyLF3u3Z8_f_@vm>
+References: <20260909210213.946159-1-festevam@gmail.com>
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260909210213.946159-1-festevam@gmail.com>
+X-ClientProxiedBy: AS4P190CA0001.EURP190.PROD.OUTLOOK.COM
+ (2603:10a6:20b:5de::7) To GV2PR04MB12318.eurprd04.prod.outlook.com
+ (2603:10a6:150:32b::19)
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
+X-MS-Exchange-MessageSentRepresentingType: 1
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: CY8PR12MB7170:EE_|DS0PR12MB6629:EE_
-X-MS-Office365-Filtering-Correlation-Id: 712d95a5-5971-47c3-a5b7-08df49436ab0
+X-MS-TrafficTypeDiagnostic: GV2PR04MB12318:EE_|MI9PR04MB608809:EE_
+X-MS-Office365-Filtering-Correlation-Id: ac648deb-e9f9-4fa4-23a5-08df494375dc
+X-MS-Exchange-SharedMailbox-RoutingAgent-Processed: True
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
- ARA:13230040|366016|1800799024|7416014|376014|23010399003|10067099003|11063799006|5023799004|56012099006|261021123027099003|261021121427099003|261009223027099003|261102123227099003|261022075727099003|261026140227099003|261022105027099003|261028144727099003|261026121527099003|22082099003|18002099003|6133799003|3023799007;
-X-Microsoft-Antispam-Message-Info: y8JKqD/3Sbu2cuTGrcu2036mGyiiK1euTPa3wpVOlmcis+SWfgG0pXiHgp5zhWL6qV6wv2Xs8shIdH+utwy8nqTsY9icnSd+uPIQOnN1OWQ84z57kYbQcQ2n6mPwY1jy0hhA1dT7mzAKkA7nK9IMLwugwh9/FaBLHK+LcizQL+RDGJAXGgqnLdMes3eBIexXWEjM3psxbcetRD6kETKqbIA5JaYUX3drovF0OJxqTWtlErC3Eq0hTUUInQID4E8H3Z6xNT7+HkFbRxnXSMM0qB7EuqaKYMLQTIH9VwVkhZ65vSXrEiRaZxx8OOQbhIDmJ5dyQz5UhmJ2C7SOe0FQ6jDC+k814i2hswT9V/TKQP/NV2ls1uOGIjjgrSWcFpgibvmv2pic6NaTE3rHelX8p23urMmLutTG9h9iMgkB7PQET4qKuYkktcyuH4R6xfpDv/e4VImN5XCWp2kffILoVI6uZrVX1usIuOlLguuZfP6O+MXmeWIHaNawPbik7ej5wN9KnuF7IAASX8a9jpRP45bDm++5oS18oEDeeeXEFIWVCP3pWPfJDnMI11lBibjCiwR2Wk/J9kxsJjkG78iC/RjUkLDbjF0aNvAeFky+uiia7COnQQkJJdkStPk7UNmVdXE9CbqJqfOIA7QwL8oVItsNTCabScaXpcAGvv8I834=
+ ARA:13230040|366016|376014|23010399003|1800799024|19092799006|10067099003|11063799006|56012099006|261021121427099003|261022075727099003|261022105027099003|261026140227099003|261009223027099003|261028144727099003|261102123227099003|22082099003|18002099003;
+X-Microsoft-Antispam-Message-Info: FmuDSP4648SDG9M1WSdu28L8rBk+m0rK8V39QhRBRp+hwqDPMGQQ+8uhFYtYa5+FnLR0Em6oZmy0PAZw1ertZqcXLRWkiecZtmCDgx/eS1dg0AOvzOhvIhNKIlC0J95TpVB6OGlbsn3oQI6I0zomZb4BBUMJ19hAYonIrDAzqTQRlwYx+34ALh5ZOLcIaWH4gA/3Y7CIGx9muXVAQgZoTEScvpcOCakT1AlGreCjckEDuSnUMktwk6EKAGDXOFwRPq4fTlIY59BNsyVBmsOjJ6wZvOlsWtUKAv4s6R4AlcE7Op+u4MQW49mOuDrixl9U2rdT2i3TQR4wbpJJll5k2uap7D2jNQ1jzLOYtpjeO0httHAU6bWDBMx8X0D6XyLlxHDrkUj5d2WmLePttREE5ZMPeigxiL71uzIGfayFMQrAVx964+S1Wg8M0NRZrrqw7c6yEXcpfB/7M42rZQopODVnMQLAgwTg5Yh12ywVETo7iZFkyh2rx4efthPfaqAWrI43PFXg9BNohmka819hc7wXYrg1beHh5k6Q5/YeQNgtPsH3Ct1gSdAQcULgNjYrxrQYAwUP87R8UO/5f3Pfl8zkreUIWd8moT4Jx/7O2yqCuKVO4Ppndr/BNs2MI75lKKUuikFStEZvoVteQrmIJXpNMtVY0Zinh6EWjxQwCVQ=
 X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:CY8PR12MB7170.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(366016)(1800799024)(7416014)(376014)(23010399003)(10067099003)(11063799006)(5023799004)(56012099006)(261021123027099003)(261021121427099003)(261009223027099003)(261102123227099003)(261022075727099003)(261026140227099003)(261022105027099003)(261028144727099003)(261026121527099003)(22082099003)(18002099003)(6133799003)(3023799007);
+ IPV:NLI; SFV:NSPM; H:GV2PR04MB12318.eurprd04.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230040)(366016)(376014)(23010399003)(1800799024)(19092799006)(10067099003)(11063799006)(56012099006)(261021121427099003)(261022075727099003)(261022105027099003)(261026140227099003)(261009223027099003)(261028144727099003)(261102123227099003)(22082099003)(18002099003);
  DIR:OUT; SFP:1101; 
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?Vnc0RnhtVkhyRjBMTlorOE0xYnVlSFdJQzFyZm11WkVKWU5PYUJWS2JTcEgv?=
- =?utf-8?B?QTJCVzZSQm8waGxKL0lNWUxZQkt3dG9YOTFIOGVsQjZNa1lidGlXZis3aEtU?=
- =?utf-8?B?ZjNtSUVLa3BPWW9NMy9TM255eTA1SVlPakZ4bXNTV0hEK2VFSWRQSG5uZ0t1?=
- =?utf-8?B?NEpwZ1FSVWpsUnM5QTY2UjV3Zm8zV0xKUmIxV3VQbFNJcUZvSWFZRlYzWG5C?=
- =?utf-8?B?eHJDVjd4S3Nsb0cxWHlsd1ducXI4SjE5SW9TNnJRUEdLZnlVNjNXZlk0S0VV?=
- =?utf-8?B?UENmd1JodC9kSnF3U05tN0VQLzl6UVpCTC9SY1lRU2tyMmZOQi83V1FmYXFk?=
- =?utf-8?B?eFBBM1JUajRneHBxUDVQNG5uejhOOVVHYU9uYU43ZUVPWTBPMjNBM2YySkh6?=
- =?utf-8?B?ajlMdWJUNmptQ0dKYTNuYU5tSS9ocjNYaHJsKy9pOUNrMFNjVkI1ZEpnTndM?=
- =?utf-8?B?T0dodnk5VUQwdUoyV1QzMDNhdHlZRWppOUJDM3YwRm5laXhza0VhVnhYcW96?=
- =?utf-8?B?Ny9ybFhVejBPWkxvb2xaR0N1c0NucCtMOHlweUNQeDQrdUljVkluYnhZYWEz?=
- =?utf-8?B?S2xvbTcyV3FDckloaFBjYWc2T2pNYWU4eng4ZUl2aE91c3JwRGkvK1VIN3pK?=
- =?utf-8?B?UG1rM0d2L3pmblZtTzBKU3Nva083Z0xJQndLWjJjbGRYS1lWOCttU0dFRE81?=
- =?utf-8?B?OWs4SjhtYThNMWxKMUwxWFQyQmhLRVBlQXFsYTNreXBEZVlwUHRMMk95UUNk?=
- =?utf-8?B?NmpaZ1VqdERGWkRvZi9CZldUQ0F3akczWXFHU3dWSzJpMGxpNmhmeFhxM28r?=
- =?utf-8?B?TDl3RTJQRmpWOC9LSkkzNnFlRFlYOVl0ZGg2TE9mNTNiWjJWNkFUbHR3Y0Vh?=
- =?utf-8?B?SGlKYzVyOEJneHJUd0E1cHl0ZUZkZWtLSzU1bUFYYk5mQ0pxK0FPUjdKQWhT?=
- =?utf-8?B?aDZucnZ1dmo3Zk9IUzhTVjE0a1ROMkZvRDVtSjdqa1dIM1JVR0VydmJsWjRZ?=
- =?utf-8?B?ekxkaGhvNWpjUWRiOVl2ckZmdjN6aFVjWVNyVklxNThNSG9YSTQzNjVMbDJY?=
- =?utf-8?B?OUJQeGNhYWxMR0ZSMnd4Z0Y3eW91Wit6bzBKSW14emxTak9mdDA2YWxXd2Z6?=
- =?utf-8?B?WTI1bnVvbWYrcEVCam5qVmMzd1FadWlTM0NlQlJKbzlMN0pHamlNaHhHYWNT?=
- =?utf-8?B?QS9uOXR4Q2NDWVVxblpMbXRSM0U1ZysyRjhTU2l2MWVQQkxaWThvOGVOc2Vk?=
- =?utf-8?B?Y2twOEN1SWc2S0NHV2toRkhRZUJHQjZ1R2o3dmhwMG1uOUlBaVJMc1hqTTNy?=
- =?utf-8?B?Skh3YlFpNmVMaVlMdWJ4ZnYvWHNrZTYxbHU2cHFzbE82U1RmZURUZlV3ZjE5?=
- =?utf-8?B?Y1kyVUN4WkxKaTVxbEJEM1NWZTRPRW5MZHNiaFhLVFJlS2s5eURZWUhDazdm?=
- =?utf-8?B?U0dIUFVwaUtKcmtHL2J0bzdRSHlUc0ZyakRVNEl1dVF6WndJUjdiRmRFRlJJ?=
- =?utf-8?B?VHE0ZVhmRkZxQXF0RGZlY3E2eGtoSHdjK096Y05CUzJIRUphSC9LNVN3c3dm?=
- =?utf-8?B?QXNzendsdFBzckR1L2oxcDVoREJVRTB6MWxWMElGU1RabGNxT3phaXhpSVcv?=
- =?utf-8?B?ZjBVb3JVV3NSM2pUM1ZjM0haY29WanpWV0hqTU91NjlXbkVpS0g5dUorMkVS?=
- =?utf-8?B?bExNYmJLODd6clVXSkhuZVlOaDFWRHA2cUdsQVdSeFc1TUNSRjN6elZzUUpB?=
- =?utf-8?B?TnlRYysvV3RpTnlveUNaWDVTOXF4Y1RzVkVLc25vcDc5blNtV2V6MHZUbktq?=
- =?utf-8?B?WkhQSy8xYTY5L01BbnZIdngvMkUrTExuclZMN2dYQW1Cd21OemJUY09ZdndO?=
- =?utf-8?B?YTFydHNDVkhjaEdVaUhBL205Y3FXM1MxQkQ3akRYZ3llbkdaSHJ3U2lveFpU?=
- =?utf-8?B?cWtYS1d3UGdQZ1dXdThRZDhiSXlxTk8rbzRvYlNXK2Z6bWFkRk92V3YvWmpK?=
- =?utf-8?B?Yk5vNmVLY0lnTEY1VVUyTGRaTjVVN1ZwYVFNMm4yZmU4MStoYmpCcDlXdjBj?=
- =?utf-8?B?elhYaDY4ZVVLTUJxTWgzVlhQOWluNnNxYi9ibFBJZ2ZzV0owRHBMQ29vam5h?=
- =?utf-8?B?TFJlamlaZC9hWDhaZkZ1M0F4bGV3L3ZlUXFHVWxQa3dvOExrbE5CVVRUL1Fk?=
- =?utf-8?B?OTNXOXFJUzJGS3V4OFRKYVdBOTNXblVCdEllamRMQXlKSUVVUGdwZUVWV09U?=
- =?utf-8?B?VG5OSmNUc3U1V0E1aDUwcVMvbGhRay93TForS0JvRC9aNkZYUzk3Yms3SG1D?=
- =?utf-8?Q?EbD2bRNTTUYWh4o306?=
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 712d95a5-5971-47c3-a5b7-08df49436ab0
-X-MS-Exchange-CrossTenant-AuthSource: CY8PR12MB7170.namprd12.prod.outlook.com
+X-MS-Exchange-AntiSpam-MessageData-0: =?us-ascii?Q?ot2Rw4dVJLbquU7q2CnGNAMBzOcZKPWrZrJ/moSksPOCq+1zmFh91qKGlMJ6?=
+ =?us-ascii?Q?+TeVHaObKJkETzfbCunCMW5InInUrag1fHodpTJtYa59J4w0in5/HxvDH3Qy?=
+ =?us-ascii?Q?7BnSbAfCYdkTO+B01epU80T+V1jRe6Mj0NBPqoqAWEUG1iZm1HPVBw0nLFc/?=
+ =?us-ascii?Q?HxaOBuxJCjbmJ7cpjrXoff9+8fpvuJZz0+ICUkYNVG5DXgqddu2kLDkN+Nt2?=
+ =?us-ascii?Q?Tb9sWhtqDpOHyxd2WZg1qAQlp3voMaj1K0FGvfSOQdDcnMwPkfj4/M39Dgz0?=
+ =?us-ascii?Q?ivuxr58tioLyFNyLxe+Noti1H9Zltms02FauxmwIUcKeyQJu3wL9mINDemGr?=
+ =?us-ascii?Q?Q3MrhpwRNerILxoxPteq8HsLzxPWTZPYvi8inL8QinRMCc1y9jNS3+CLXk1I?=
+ =?us-ascii?Q?pTlMpo6RSqsENzwD4aa/aXRTgzRiVx4HR5DsFhdhdM+O4UCibLeuzP1afXs4?=
+ =?us-ascii?Q?vArQGRqjJBqf9XSc2/jO9cwGKbX9K9kvzMhZlSuqccUFTzbhSKRN8lft3doh?=
+ =?us-ascii?Q?x9xkQXlWmDdSNr8oms2VR8eWmeenZ4VfYEDr9aAzW7nqHhnI3b9NdufPaVH4?=
+ =?us-ascii?Q?S3ffX27DtzOT0L+4+Sq70m5uKeV5VcVC/qv4LJmMAWOWMFCnCBgTfwx2T1fV?=
+ =?us-ascii?Q?UPum2NGWfZ1IDsgK5Fb7vytAYaBnf/qfvRF7USiWPD4i90nKOHawtqswSt+n?=
+ =?us-ascii?Q?C4e8Q3UyAgNS5u4cRk9dAdaIctk8sBaYJD5O1951hBqcrwWnM+gBnosjgE7q?=
+ =?us-ascii?Q?Pcre0zO1JvdbQuGz81lCEnw/G7+NBaiZiiqd+e2JJxXKiiwxa2g1B7G48rYI?=
+ =?us-ascii?Q?H+W0Oxp3SqxedUWE9Q8/0pgWyolW5YUAhJHSFAgxzRg++lB2mxIfKZRlEppv?=
+ =?us-ascii?Q?CQNusUi0HvKF92c2eSwm7zMF2p8o/0Y5WJPGiDHc9P+M0IgBkALHfH8mkCu5?=
+ =?us-ascii?Q?aXhjDJvdLFSGCHsuOMH41BSBgwKmH8knWY6iH1FOnBXYRiaHT+nrq+abvgOh?=
+ =?us-ascii?Q?TWcRgNmR4+w7+vSz4aduUWDOD2r1U9vuJ0EKeYdehlI1U52Gpw/Gu13PWAQ2?=
+ =?us-ascii?Q?8XTZGg+6b0kj6Twg/Nv1q2nWTW32XPn5PCazYOolSVfCg+YI5cigTJ4db+14?=
+ =?us-ascii?Q?1SX+wREwIKgg0s73EtNFf7h0iIfqR1YBAnrJYSKH7erFyPXe+ktV2tZ9DtRn?=
+ =?us-ascii?Q?UEkKSciW4vrlcpL6P+QtaojqwD6o7VWpIe5giApTYlyHcZOjtq5ZwVfcZYmJ?=
+ =?us-ascii?Q?3FZcFK+GIVG/A6m92/x46YHWGhZXDosh4bAwl+ZkxTkPufJpeDf0dNbohv18?=
+ =?us-ascii?Q?6bu6TEVlqGevk7v+w+sbaNnTXydAZm4aBo16NuZcWn87cgU/j617e64bl1jS?=
+ =?us-ascii?Q?OZRMshuRIUVY7CREA9b71ZLLY2ChU19XtUlQaSkIunCN8ZXMd++wq53aADis?=
+ =?us-ascii?Q?JCaiq0LUsX7N+qxU+orrG7GD1kQTZayYmuHcH1WSPUsjasH1NPl3hvUj3Elw?=
+ =?us-ascii?Q?PjwqwUcbEgKA6G2lvEVFmkQZwpN8jU+43BSF2UnCyupZCamx92pao5Rj4Z8V?=
+ =?us-ascii?Q?JKDaQI25bfSgSvK+p8GKirLQI6pQNSo6iOWdLyjR9Nq/hFjiKRjM3VejV8fy?=
+ =?us-ascii?Q?CNKZYQM4e+HotDPa/uiHetHvKJZFduNWaXTao4zYYDzVwr2bzE2PvJzIo62V?=
+ =?us-ascii?Q?7KFK4TLhW0di+YVk0ERDN2GJ6BGYhudUcS/1j7isLA4I8IDHVV0/bSB1AXkz?=
+ =?us-ascii?Q?0alxdDSBXg=3D=3D?=
+X-OriginatorOrg: oss.nxp.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: ac648deb-e9f9-4fa4-23a5-08df494375dc
+X-MS-Exchange-CrossTenant-AuthSource: GV2PR04MB12318.eurprd04.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 23 Nov 2026 09:23:21.6139 (UTC)
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 23 Nov 2026 09:23:40.4717 (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-Id: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: iLrcWDvIlOwc0/tbA18az5pu7MbbjfCLNlFWsUvx/lfIDFJ+kkhNy/jyz2e1XwTCRp76BQmYsNaUzWhVM1USzw==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DS0PR12MB6629
+X-MS-Exchange-CrossTenant-UserPrincipalName: H69ZmV1/wRZXzNv2B36DaDxM3F9JmV3HGCs6ztbxrc+xEarI3rRf4GuihnOo7IKFeaVp++FZYcg3clnKZ44qRw==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: MI9PR04MB608809
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -134,172 +121,44 @@ List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-17.3 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
-	DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
-	INCLUDES_CR_TRAILER,INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,
-	SPF_PASS,USER_AGENT_SANE_1 autolearn=ham autolearn_force=no
-	version=4.0.1
+X-Spam-Status: No, score=-8.8 required=3.0 tests=BAYES_00,DKIM_SIGNED,
+	DKIM_VALID,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,
+	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS autolearn=ham
+	autolearn_force=no version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
+Hi Fabio,
 
-
-On 11/14/2026 12:25 AM, Matthew Auld wrote:
-> When automatic NUMA balancing marks a PTE or PMD as protnone
-> (PAGE_NONE), hmm_pte_need_fault() requests a fault to restore access
-> permissions, including _PAGE_RW when write access is needed.
+On Wed, Sep 09, 2026 at 06:02:13PM -0300, Fabio Estevam wrote:
+> lcdif allocates its private data, which embeds the CRTC and primary
+> plane, and its encoders using devres. These DRM objects are linked into
+> the mode_config lists.
 > 
-> Calling handle_mm_fault() from hmm_do_fault() currently triggers NUMA
-> balancing in do_numa_page() and do_huge_pmd_numa_page(). When
-> hmm_range_fault() runs from a device driver or kworker context (such as
-> a GPU SVM or userptr rebind worker), folios get migrated toward the CPU
-> node executing the remote fault.
+> Since mode_config cleanup is DRM-managed, it is deferred until the DRM
+> device is released. An open DRM file can keep the DRM device alive after
+> the platform device has been unbound and devres has freed those objects.
+> The later mode_config cleanup then dereferences freed memory.
 > 
-> Also, each folio migration invokes try_to_migrate_one() ->
-> mmu_notifier_invalidate_range_start(), which invalidates the
-> caller's mmu_interval_notifier while holding mmap_lock. That causes
-> hmm_range_fault() to abort with -EBUSY after every 2 MiB PMD and exhaust
-> its retry timeout on large buffers, which has been observed with large
-> imported Xe userptr buffers.
+> Allocate the private data with drmm before initializing mode_config so
+> that it remains alive until mode_config cleanup has completed. Allocate
+> encoders with drmm_plain_encoder_alloc(), which cleans up each encoder
+> and removes it from the mode_config list before freeing its memory.
 > 
-> Add FAULT_FLAG_NO_NUMA and set it in hmm_do_fault() so protnone entries
-> restore PTE/PMD permissions in-place without performing NUMA balancing,
-> matching GUP's default !FOLL_HONOR_NUMA_FAULT behaviour.
+> This can be reproduced on i.MX8MP by keeping the DRM card open across an
+> LCDIF unbind and closing it afterwards.
 > 
+> Cc: stable@vger.kernel.org
+> Fixes: 1c71d925c03a ("drm: lcdif: Switch to drmm_mode_config_init")
+> Signed-off-by: Fabio Estevam <festevam@gmail.com>
 
-Hi Matt,
+Just a heads-up, this patch will not apply on latest linux-next. Probably
+because devm_kzalloc() was swapped for devm_kzalloc_obj() in latest tree. So,
+you may need to send a v2 anyway.
 
-We did some multi CPUs test several months ago in 4 x MI300A(4 CPUs)
-keernel 7.1 platform with same HIP workload, kernel.numa_balancing
-disabled and enabled.
+But other than that,
+Reviewed-by: Laurentiu Palcu <laurentiu.palcu@oss.nxp.com>
 
-Allocated 1GB memory in the system, warm up then launch GPU kernel 
-continuously access the data, calculate the number of launched GPU 
-kernel. Result is:
-
-balance off: 4752 launches/s
-balance on: 3188 launches/s
-
-The launches number per sec drops about 30%+. And the notifier 
-invalidate call back calls increased extremely high.
-
-And there is one more thing:
-The current amdgpu drmsvm can specify system memory as a destination, 
-but not a specific CPU NUMA node.
-
-This has impact on some platforms like MI300A that feature unified 
-memory for CPU and GPU.  We did a test for 2GB memory accessing in node 
-0 and node 3. GPU read/write bandwidth averaged about 2.78 TB/s with 
-local pages and 103 GB/s with remote pages, it differs a lot.
-
-There is a requirement from AMD HIP to specify certain SVM memory to 
-specific NUMA nodes. But KFD also can not support NUMA fully. So the
-HIP runtime have to use linux NUMA facilities to move memory to the
-correct NUMA node, this could lead to unnecessary ram to ram migration.
-And it also can not solve VRAM to RAM evict to error NUMA node issue.
-
-Would it make sense for drm_gpusvm helpers to let a caller pass a 
-preferred NUMA node by interface? An explicit destination node for 
-migration to system memory.
-
-Regards,
-Honglei
-
-
-
-> Signed-off-by: Matthew Auld <matthew.auld@intel.com>
-> Cc: Thomas Hellström <thomas.hellstrom@linux.intel.com>
-> Cc: Matthew Brost <matthew.brost@intel.com>
-> Cc: David Hildenbrand <david@kernel.org>
-> Cc: Mika Penttilä <mpenttil@redhat.com>
-> Cc: Leon Romanovsky <leon@kernel.org>
-> Cc: Jason Gunthorpe <jgg@ziepe.ca>
-> ---
->   include/linux/mm.h       | 3 ++-
->   include/linux/mm_types.h | 3 +++
->   mm/hmm.c                 | 2 +-
->   mm/huge_memory.c         | 3 +++
->   mm/memory.c              | 3 +++
->   5 files changed, 12 insertions(+), 2 deletions(-)
-> 
-> diff --git a/include/linux/mm.h b/include/linux/mm.h
-> index 77b5d450fe45..4b6ad3c0b591 100644
-> --- a/include/linux/mm.h
-> +++ b/include/linux/mm.h
-> @@ -717,7 +717,8 @@ static inline bool fault_flag_allow_retry_first(enum fault_flag flags)
->   	{ FAULT_FLAG_REMOTE,		"REMOTE" }, \
->   	{ FAULT_FLAG_INSTRUCTION,	"INSTRUCTION" }, \
->   	{ FAULT_FLAG_INTERRUPTIBLE,	"INTERRUPTIBLE" }, \
-> -	{ FAULT_FLAG_VMA_LOCK,		"VMA_LOCK" }
-> +	{ FAULT_FLAG_VMA_LOCK,		"VMA_LOCK" }, \
-> +	{ FAULT_FLAG_NO_NUMA,		"NO_NUMA" }
->   
->   /*
->    * vm_fault is filled by the pagefault handler and passed to the vma's
-> diff --git a/include/linux/mm_types.h b/include/linux/mm_types.h
-> index 1ed35d258d2e..2ea71c1bb170 100644
-> --- a/include/linux/mm_types.h
-> +++ b/include/linux/mm_types.h
-> @@ -1819,6 +1819,8 @@ enum tlb_flush_reason {
->    * @FAULT_FLAG_ORIG_PTE_VALID: whether the fault has vmf->orig_pte cached.
->    *                        We should only access orig_pte if this flag set.
->    * @FAULT_FLAG_VMA_LOCK: The fault is handled under VMA lock.
-> + * @FAULT_FLAG_NO_NUMA: Do not perform NUMA balancing migration or NUMA
-> + *                      task access accounting on protnone faults.
->    *
->    * About @FAULT_FLAG_ALLOW_RETRY and @FAULT_FLAG_TRIED: we can specify
->    * whether we would allow page faults to retry by specifying these two
-> @@ -1857,6 +1859,7 @@ enum fault_flag {
->   	FAULT_FLAG_UNSHARE =		1 << 10,
->   	FAULT_FLAG_ORIG_PTE_VALID =	1 << 11,
->   	FAULT_FLAG_VMA_LOCK =		1 << 12,
-> +	FAULT_FLAG_NO_NUMA =		1 << 13,
->   };
->   
->   typedef unsigned int __bitwise zap_flags_t;
-> diff --git a/mm/hmm.c b/mm/hmm.c
-> index 2f1e98c6b644..62cdeb071781 100644
-> --- a/mm/hmm.c
-> +++ b/mm/hmm.c
-> @@ -648,7 +648,7 @@ static int hmm_do_fault(struct mm_struct *mm,
->   	unsigned long addr = hmm_vma_walk->last;
->   	unsigned long end = hmm_vma_walk->end;
->   	unsigned int required_fault = hmm_vma_walk->required_fault;
-> -	unsigned int fault_flags = FAULT_FLAG_REMOTE;
-> +	unsigned int fault_flags = FAULT_FLAG_REMOTE | FAULT_FLAG_NO_NUMA;
->   	struct vm_area_struct *vma;
->   
->   	if (hmm_vma_walk->locked)
-> diff --git a/mm/huge_memory.c b/mm/huge_memory.c
-> index 0d589be136d2..ea380bf45df0 100644
-> --- a/mm/huge_memory.c
-> +++ b/mm/huge_memory.c
-> @@ -2361,6 +2361,9 @@ vm_fault_t do_huge_pmd_numa_page(struct vm_fault *vmf)
->   	if (!folio)
->   		goto out_map;
->   
-> +	if (vmf->flags & FAULT_FLAG_NO_NUMA)
-> +		goto out_map;
-> +
->   	nid = folio_nid(folio);
->   
->   	target_nid = numa_migrate_check(folio, vmf, haddr, &flags, writable,
-> diff --git a/mm/memory.c b/mm/memory.c
-> index fe72e66c9c2e..53c819a6e49a 100644
-> --- a/mm/memory.c
-> +++ b/mm/memory.c
-> @@ -6404,6 +6404,9 @@ static vm_fault_t do_numa_page(struct vm_fault *vmf)
->   	if (!folio || folio_is_zone_device(folio))
->   		goto out_map;
->   
-> +	if (vmf->flags & FAULT_FLAG_NO_NUMA)
-> +		goto out_map;
-> +
->   	nid = folio_nid(folio);
->   	nr_pages = folio_nr_pages(folio);
->   
-> 
-> ---
-> base-commit: 4318887a3efa4c53d6f083ccfd7105b809a3ac65
-> change-id: 20261112-numa-3649f4bf57c9
-
+-- 
+Thanks,
+Laurentiu
