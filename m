@@ -2,87 +2,54 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E00E0606A321
-	for <dri-devel@archiver.kernel.org>; Mon, 23 Nov 2026 08:59:12 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2F6C3606A32E
+	for <dri-devel@archiver.kernel.org>; Mon, 23 Nov 2026 09:00:12 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=q3h45NTC
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=i6mTklMm
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 3976F10E7C9;
-	Mon, 23 Nov 2026 08:59:07 +0000 (UTC)
-Received: from mail-wm1-f47.google.com (mail-wm1-f47.google.com
- [209.85.128.47])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 93C7B10E7C9
- for <dri-devel@lists.freedesktop.org>; Mon, 23 Nov 2026 08:58:57 +0000 (UTC)
-Received: by mail-wm1-f47.google.com with SMTP id
- 5b1f17b1804b1-4bb702a7548so22585385e9.1
- for <dri-devel@lists.freedesktop.org>; Mon, 23 Nov 2026 00:58:57 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20260707; t=1795424336; x=1796029136; darn=lists.freedesktop.org;
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:date:subject:cc:to:from:from:to:cc:subject:date
- :message-id:reply-to:content-type;
- bh=1EXVEM4I4sHSFjrWWT9LPUpNwHQcqbIl9vwHkY7pXuc=;
- b=q3h45NTCQUeLbXNf87CnjsNaw1XX7h/wsDM9k/00KtEcHTut1eto9xRfcPlaSlbYH4
- COevS0bmC0rQ9dZUa58ten53N1b1NfnTNS7kl1Z8W/n2r1mW7tv9S+39poD+NK8ibcs1
- ZvgKGLFSpxdP/NMG21r3NRBtFruNApB/bvpaays6Qtnr3K8VskHbWliUZ05W2HgGTiPq
- td3jl8pH3nzfEDKWxVJoOPDVkPE1pjCVOP4V3NbnB9ve8gFvAtq5gnRYgJqh94RZwVW1
- qDVDsXgpDdcmZyMpkcagF6RM/6r68k8m+yHEal3YpfmeMKONiJXf7UM82x6oFzlklcIW
- 3CZQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20260707; t=1795424336; x=1796029136;
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
- :to:cc:subject:date:message-id:reply-to:content-type;
- bh=1EXVEM4I4sHSFjrWWT9LPUpNwHQcqbIl9vwHkY7pXuc=;
- b=E7YIxRfrhuXE0XXBI3rHkXxmO+B+/LCmcXfq7zAgaB/EkCA5YnCUHSvqsJCcI2d48w
- tP6xwkJgqsiJdd0rPwTHF84YOhsyT2WmBsZr9JusdmA/ij9Q1avhBFgnPCCdLJND9lm6
- VkIw1qlQaa77JFrPq3ul3Yzex8FbkAehkrVzSU+X+6w2GGs5kM4LgYOPPkTJyzwbfyo+
- 9EwU+yf+D5RnuGy71vmzHVqJ7A5LfnIK5RT9t7wSCSxSvObaWtDCwnrvc2yK/WFSIJoN
- DdUZazUWKXylOLhw40Xn3EUBbciWc1gOddcZSqDI/KLj2y5jEnzQIr7wNk0hfgFljljH
- mYyQ==
-X-Forwarded-Encrypted: i=1;
- AL+hErEkgmwr6RbTSjnlkP/KUyaLOjOJ4l+k/lWIZ2fcZDBTLxf3zqRR7Ma61/4rDBAsow1wr/iDJaXvBN0=@lists.freedesktop.org
-X-Gm-Message-State: APuU4Z/kNG7w0K/V4+4e1VXqmFQMQKzGfK43y8zkl7dqAJBQa31X3/PJ
- YOw13nIhR4cgEqWVQRgAfhAAS3oz4wOjKUAyDI0ahwvks7tLtXZ80x+s
-X-Gm-Gg: AZFdTZcH4MjWWKvAPxVJx0ArcVGvN6guAbuCkryB+dUA/PDVJIQNKcljZ4MFsMvZyiS
- QJYgIGNDnMnzq1jnpLIYCK8h2Aetw4rqmPZfa4GKrx7y/FV6MS/dAMQhPUKOKdYu3AZdGE0WId1
- T+X5qpbEueg8tMzqUBkbRykaNxMeVmjOpicQURGEccGz0VF+ZGLpmg7m7HAvzaSqwq+FgABMN0Y
- r0rGMt+er0SlUCpAbJL8Z5kn5R42m/G5wD1YWibEEGOaDfuX7O9DbqgI48ykTD9IJOIyvNsIJYx
- 9qYAqrjed9t4mqSbTb5ZFAXVGmxRopZzra2H4rrKf5BHvFOcBrzRxYnH8o6sC6nN/qvatcpplAT
- 4D4qss+W0QIVPAx6R4QFNGyz5bGQ6dJb9qXH26dboqwE+cVrFoUPYqS9nIE2Y9MvkwpVtdyWXhN
- Xl/juM2a7X7VpXGCziUy0OipeYTY2XUlNJrGPBlCXtcygen4Jz3blTMYCM9XKQtbI+ZPzjYLsHQ
- NXWTLoGCXySWvVa7n19bR2POVGL9atmL9IbtU3e9IKc+46zImoQkEk6bmGrGAoMnJsi5C6/ka2l
- +4nswjlQDrg7fgVvMqtY6BQ1
-X-Received: by 2002:a05:600c:6290:b0:4a3:59c9:a743 with SMTP id
- 5b1f17b1804b1-4bb8882a21amr216218545e9.27.1795424335967; 
- Mon, 23 Nov 2026 00:58:55 -0800 (PST)
-Received: from luca-vm.lan ([154.61.61.58]) by smtp.gmail.com with ESMTPSA id
- 5b1f17b1804b1-4bb853b216esm375960755e9.12.2026.11.23.00.58.54
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Mon, 23 Nov 2026 00:58:55 -0800 (PST)
-From: Luca Leonardo Scorcia <l.scorcia@gmail.com>
-To: linux-mediatek@lists.infradead.org
-Cc: Luca Leonardo Scorcia <l.scorcia@gmail.com>,
- Chun-Kuang Hu <chunkuang.hu@kernel.org>,
- Philipp Zabel <p.zabel@pengutronix.de>, David Airlie <airlied@gmail.com>,
- Simona Vetter <simona@ffwll.ch>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>,
- Thomas Zimmermann <tzimmermann@suse.de>, Rob Herring <robh@kernel.org>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>,
- Matthias Brugger <matthias.bgg@gmail.com>,
- AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>,
- CK Hu <ck.hu@mediatek.com>, Jitao shi <jitao.shi@mediatek.com>,
- dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org,
- linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org
-Subject: [PATCH v2 2/2] arm64: dts: mediatek: mt8167: Add DRM nodes for
- primary display path
-Date: Mon, 23 Nov 2026 09:57:55 +0100
-Message-ID: <20261123085840.8687-3-l.scorcia@gmail.com>
+	by gabe.freedesktop.org (Postfix) with ESMTP id 888BB10E964;
+	Mon, 23 Nov 2026 09:00:06 +0000 (UTC)
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.7])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 6E01810EB29
+ for <dri-devel@lists.freedesktop.org>; Mon, 23 Nov 2026 09:00:00 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1795424400; x=1826960400;
+ h=from:to:cc:subject:date:message-id:mime-version:
+ content-transfer-encoding;
+ bh=rTlSmiwzBWb3c1hhLuhH+kxfd37ebCQWQotUR90Lbxk=;
+ b=i6mTklMmt2STDEEATn/FDkMu8WLNa0qK215eIyl46NBx8OdqwrvC7yL4
+ VMlBF5ZEUrs40KUBZVvQnb8CJrAHacSEfFH1jXuZQOomwqhDuPDEC+qP6
+ Jcux3worfNhGdUBR+KrGZyX5BP8EGH7nTGBMACoNFb66mh80Fw8B0Uaro
+ AoGPii9DGpw36T3PBZVN/NAyYZvahijlDkyyrAk29nGyuzMPjGZe7oyNc
+ GLL4LLvb06a3QKC+ifBh9Dx14GbO2MyO/lIOgz8eIO8ZrmiAj2HXziyoQ
+ 4c9wkpuHh5XzWAgwpH+pE0PnCDM409Uyq64tXtTdkYg+o/ntn6FabT4Ur g==;
+X-CSE-ConnectionGUID: Q3Zz0bNLSme/5WBzKuZjiA==
+X-CSE-MsgGUID: cr667c6ITOeD2AOihPrzQg==
+X-IronPort-AV: E=McAfee;i="6800,10657,11974"; a="4061988"
+X-IronPort-AV: E=Sophos;i="6.27,227,1787036400"; 
+   d="scan'208";a="4061988"
+Received: from fmviesa005.fm.intel.com ([10.60.135.145])
+ by fmvoesa101.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 23 Nov 2026 00:59:44 -0800
+X-CSE-ConnectionGUID: WUXiuVL/SIi/otTwbD2ztw==
+X-CSE-MsgGUID: CFikCgcWQGStXJV56+SQcw==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,227,1787036400"; d="scan'208";a="11343408"
+Received: from pl-npu-pc-kwachow.igk.intel.com ([10.91.220.239])
+ by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 23 Nov 2026 00:59:42 -0800
+From: Karol Wachowski <karol.wachowski@linux.intel.com>
+To: dri-devel@lists.freedesktop.org
+Cc: apopple@nvidia.com,
+ Andrzej Kacprowski <andrzej.kacprowski@linux.intel.com>,
+ Oded Gabbay <ogabbay@kernel.org>, Jeff Hugo <jeff.hugo@oss.qualcomm.com>,
+ dawid.osuchowski@linux.intel.com, christian.koenig@amd.com,
+ sumit.semwal@linaro.org, Karol Wachowski <karol.wachowski@linux.intel.com>
+Subject: [PATCH] accel/ivpu: Allocate a scatterlist per userptr dma-buf mapping
+Date: Mon, 23 Nov 2026 09:59:35 +0100
+Message-ID: <20261123085935.623564-1-karol.wachowski@linux.intel.com>
 X-Mailer: git-send-email 2.43.0
-In-Reply-To: <20261123085840.8687-1-l.scorcia@gmail.com>
-References: <20261123085840.8687-1-l.scorcia@gmail.com>
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
@@ -97,350 +64,169 @@ List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-15.8 required=3.0 tests=BAYES_00,DKIM_SIGNED,
-	DKIM_VALID,DKIM_VALID_AU,FREEMAIL_FORGED_FROMDOMAIN,FREEMAIL_FROM,
-	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
-	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,USER_AGENT_GIT
-	autolearn=unavailable autolearn_force=no version=4.0.1
+X-Spam-Status: No, score=-16.8 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
+	DKIM_SIGNED,DKIM_VALID,HEADER_FROM_DIFFERENT_DOMAINS,
+	INCLUDES_CR_TRAILER,INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,
+	SPF_PASS,USER_AGENT_GIT autolearn=ham autolearn_force=no version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-Add all the DRM nodes required to get DSI and DPI0 to work on MT8167 SoC.
+The userptr dma-buf DMA maps the same sg_table on every map_dma_buf(),
+so a second mapping would overwrite the DMA addresses of the first one.
+It only works today because ivpu is the only importer.
 
-The primary display pipeline is defined using an OF graph identical to the
-fixed fallback implemented in driver code to maintain compatibility with
-existing boards. Its block sequence is as follows:
+Build a new sg_table from the pinned pages on each map instead.
 
-OVL -> COLOR -> CCORR -> AAL -> GAMMA -> DITHER -> RDMA0 -> DSI
-
-If a board wants to use the DPI0 display output the last connection should
-be overridden in the board DTS. As far as I know however there are no
-devices using the DPI0 display output.
-
-Signed-off-by: Luca Leonardo Scorcia <l.scorcia@gmail.com>
+Fixes: c0b3fef87069 ("accel/ivpu: Add support for userptr buffer objects")
+Signed-off-by: Karol Wachowski <karol.wachowski@linux.intel.com>
 ---
- arch/arm64/boot/dts/mediatek/mt8167.dtsi | 297 +++++++++++++++++++++++
- 1 file changed, 297 insertions(+)
+Alistair, your DMA-buf mapping types series [1] noted this as a
+pre-existing issue in "[PATCH v3 15/24] accel/ivpu: Convert the userptr
+exporter to the SGT mapping type" [2]. With this patch applied first,
+ivpu becomes an exporter that allocates a table per map, so its
+conversion reduces to the same pattern as "[PATCH v3 07/24] dma-buf:
+Convert exporters allocating a table per map to the SGT mapping type"
+(e.g. amdxdna_ubuf), without the shared header copy.
 
-diff --git a/arch/arm64/boot/dts/mediatek/mt8167.dtsi b/arch/arm64/boot/dts/mediatek/mt8167.dtsi
-index 27cf32d7ae35..a7818fd92edc 100644
---- a/arch/arm64/boot/dts/mediatek/mt8167.dtsi
-+++ b/arch/arm64/boot/dts/mediatek/mt8167.dtsi
-@@ -120,10 +120,297 @@ iommu: m4u@10203000 {
- 			#iommu-cells = <1>;
- 		};
+[1] https://lore.kernel.org/r/20261120-dma_mapping_type_v4-v3-0-c0183a409bdf@nvidia.com
+[2] https://lore.kernel.org/r/20261120-dma_mapping_type_v4-v3-15-c0183a409bdf@nvidia.com
+
+ drivers/accel/ivpu/ivpu_gem_userptr.c | 65 ++++++++++++++++-----------
+ 1 file changed, 38 insertions(+), 27 deletions(-)
+
+diff --git a/drivers/accel/ivpu/ivpu_gem_userptr.c b/drivers/accel/ivpu/ivpu_gem_userptr.c
+index 7cbf3a4cdc73..cfb2894b572d 100644
+--- a/drivers/accel/ivpu/ivpu_gem_userptr.c
++++ b/drivers/accel/ivpu/ivpu_gem_userptr.c
+@@ -19,18 +19,39 @@
+ #include "ivpu_drv.h"
+ #include "ivpu_gem.h"
  
-+		disp_pwm: pwm@1100f000 {
-+			compatible = "mediatek,mt8167-disp-pwm", "mediatek,mt8173-disp-pwm";
-+			reg = <0 0x1100f000 0 0x1000>;
-+			clocks = <&topckgen CLK_TOP_PWM_MM>, <&mmsys CLK_MM_DISP_PWM_MM>;
-+			clock-names = "main", "mm";
-+			power-domains = <&spm MT8167_POWER_DOMAIN_MM>;
-+			#pwm-cells = <2>;
-+			status = "disabled";
-+		};
++struct ivpu_userptr {
++	struct page **pages;
++	unsigned long nr_pages;
++};
 +
- 		mmsys: syscon@14000000 {
- 			compatible = "mediatek,mt8167-mmsys", "syscon";
- 			reg = <0 0x14000000 0 0x1000>;
- 			#clock-cells = <1>;
-+			power-domains = <&spm MT8167_POWER_DOMAIN_MM>;
-+
-+			port {
-+				#address-cells = <1>;
-+				#size-cells = <0>;
-+
-+				mmsys_main: endpoint@0 {
-+					reg = <0>;
-+					remote-endpoint = <&ovl0_in>;
-+				};
-+			};
-+		};
-+
-+		ovl0: ovl@14007000 {
-+			compatible = "mediatek,mt8167-disp-ovl";
-+			reg = <0 0x14007000 0 0x1000>;
-+			clocks = <&mmsys CLK_MM_DISP_OVL0>;
-+			interrupts = <GIC_SPI 160 IRQ_TYPE_LEVEL_LOW>;
-+			iommus = <&iommu M4U_PORT_DISP_OVL0>;
-+			power-domains = <&spm MT8167_POWER_DOMAIN_MM>;
-+
-+			ports {
-+				#address-cells = <1>;
-+				#size-cells = <0>;
-+
-+				port@0 {
-+					reg = <0>;
-+					ovl0_in: endpoint {
-+						remote-endpoint = <&mmsys_main>;
-+					};
-+				};
-+
-+				port@1 {
-+					reg = <1>;
-+					ovl0_out: endpoint {
-+						remote-endpoint = <&color_in>;
-+					};
-+				};
-+			};
-+		};
-+
-+		rdma0: rdma@14009000 {
-+			compatible = "mediatek,mt8167-disp-rdma", "mediatek,mt2701-disp-rdma";
-+			reg = <0 0x14009000 0 0x1000>;
-+			clocks = <&mmsys CLK_MM_DISP_RDMA0>;
-+			interrupts = <GIC_SPI 162 IRQ_TYPE_LEVEL_LOW>;
-+			iommus = <&iommu M4U_PORT_DISP_RDMA0>;
-+			power-domains = <&spm MT8167_POWER_DOMAIN_MM>;
-+
-+			ports {
-+				#address-cells = <1>;
-+				#size-cells = <0>;
-+
-+				port@0 {
-+					reg = <0>;
-+					rdma0_in: endpoint {
-+						remote-endpoint = <&dither_out>;
-+					};
-+				};
-+
-+				port@1 {
-+					reg = <1>;
-+					rdma0_out: endpoint {
-+						remote-endpoint = <&dsi_in>;
-+					};
-+				};
-+			};
-+		};
-+
-+		wdma: wdma@1400b000 {
-+			compatible = "mediatek,mt8167-disp-wdma", "mediatek,mt8173-disp-wdma";
-+			reg = <0 0x1400b000 0 0x1000>;
-+			clocks = <&mmsys CLK_MM_DISP_WDMA>;
-+			interrupts = <GIC_SPI 164 IRQ_TYPE_LEVEL_LOW>;
-+			iommus = <&iommu M4U_PORT_DISP_WDMA0>;
-+			power-domains = <&spm MT8167_POWER_DOMAIN_MM>;
-+		};
-+
-+		color: color@1400c000 {
-+			compatible = "mediatek,mt8167-disp-color";
-+			reg = <0 0x1400c000 0 0x1000>;
-+			clocks = <&mmsys CLK_MM_DISP_COLOR>;
-+			interrupts = <GIC_SPI 165 IRQ_TYPE_LEVEL_LOW>;
-+			power-domains = <&spm MT8167_POWER_DOMAIN_MM>;
-+
-+			ports {
-+				#address-cells = <1>;
-+				#size-cells = <0>;
-+
-+				port@0 {
-+					reg = <0>;
-+					color_in: endpoint {
-+						remote-endpoint = <&ovl0_out>;
-+					};
-+				};
-+
-+				port@1 {
-+					reg = <1>;
-+					color_out: endpoint {
-+						remote-endpoint = <&ccorr_in>;
-+					};
-+				};
-+			};
-+		};
-+
-+		ccorr: ccorr@1400d000 {
-+			compatible = "mediatek,mt8167-disp-ccorr", "mediatek,mt8183-disp-ccorr";
-+			reg = <0 0x1400d000 0 0x1000>;
-+			clocks = <&mmsys CLK_MM_DISP_CCORR>;
-+			interrupts = <GIC_SPI 166 IRQ_TYPE_LEVEL_LOW>;
-+			power-domains = <&spm MT8167_POWER_DOMAIN_MM>;
-+
-+			ports {
-+				#address-cells = <1>;
-+				#size-cells = <0>;
-+
-+				port@0 {
-+					reg = <0>;
-+					ccorr_in: endpoint {
-+						remote-endpoint = <&color_out>;
-+					};
-+				};
-+
-+				port@1 {
-+					reg = <1>;
-+					ccorr_out: endpoint {
-+						remote-endpoint = <&aal_in>;
-+					};
-+				};
-+			};
-+		};
-+
-+		aal: aal@1400e000 {
-+			compatible = "mediatek,mt8167-disp-aal", "mediatek,mt8173-disp-aal";
-+			reg = <0 0x1400e000 0 0x1000>;
-+			clocks = <&mmsys CLK_MM_DISP_AAL>;
-+			interrupts = <GIC_SPI 167 IRQ_TYPE_LEVEL_LOW>;
-+			power-domains = <&spm MT8167_POWER_DOMAIN_MM>;
-+
-+			ports {
-+				#address-cells = <1>;
-+				#size-cells = <0>;
-+
-+				port@0 {
-+					reg = <0>;
-+					aal_in: endpoint {
-+						remote-endpoint = <&ccorr_out>;
-+					};
-+				};
-+
-+				port@1 {
-+					reg = <1>;
-+					aal_out: endpoint {
-+						remote-endpoint = <&gamma_in>;
-+					};
-+				};
-+			};
-+		};
-+
-+		gamma: gamma@1400f000 {
-+			compatible = "mediatek,mt8167-disp-gamma", "mediatek,mt8173-disp-gamma";
-+			reg = <0 0x1400f000 0 0x1000>;
-+			clocks = <&mmsys CLK_MM_DISP_GAMMA>;
-+			interrupts = <GIC_SPI 168 IRQ_TYPE_LEVEL_LOW>;
-+			power-domains = <&spm MT8167_POWER_DOMAIN_MM>;
-+
-+			ports {
-+				#address-cells = <1>;
-+				#size-cells = <0>;
-+
-+				port@0 {
-+					reg = <0>;
-+					gamma_in: endpoint {
-+						remote-endpoint = <&aal_out>;
-+					};
-+				};
-+
-+				port@1 {
-+					reg = <1>;
-+					gamma_out: endpoint {
-+						remote-endpoint = <&dither_in>;
-+					};
-+				};
-+			};
-+		};
-+
-+		dither: dither@14010000 {
-+			compatible = "mediatek,mt8167-disp-dither", "mediatek,mt8183-disp-dither";
-+			reg = <0 0x14010000 0 0x1000>;
-+			clocks = <&mmsys CLK_MM_DISP_DITHER>;
-+			interrupts = <GIC_SPI 169 IRQ_TYPE_LEVEL_LOW>;
-+			power-domains = <&spm MT8167_POWER_DOMAIN_MM>;
-+
-+			ports {
-+				#address-cells = <1>;
-+				#size-cells = <0>;
-+
-+				port@0 {
-+					reg = <0>;
-+					dither_in: endpoint {
-+						remote-endpoint = <&gamma_out>;
-+					};
-+				};
-+
-+				port@1 {
-+					reg = <1>;
-+					dither_out: endpoint {
-+						remote-endpoint = <&rdma0_in>;
-+					};
-+				};
-+			};
-+		};
-+
-+		dsi: dsi@14012000 {
-+			compatible = "mediatek,mt8167-dsi";
-+			reg = <0 0x14012000 0 0x1000>;
-+			clocks = <&mmsys CLK_MM_DSI_ENGINE>, <&mmsys CLK_MM_DSI_DIGITAL>,
-+				 <&mipi_tx>;
-+			clock-names = "engine", "digital", "hs";
-+			interrupts = <GIC_SPI 171 IRQ_TYPE_LEVEL_LOW>;
-+			phys = <&mipi_tx>;
-+			phy-names = "dphy";
-+			power-domains = <&spm MT8167_POWER_DOMAIN_MM>;
-+			status = "disabled";
-+
-+			#address-cells = <1>;
-+			#size-cells = <0>;
-+
-+			ports {
-+				#address-cells = <1>;
-+				#size-cells = <0>;
-+
-+				port@0 {
-+					reg = <0>;
-+					dsi_in: endpoint {
-+						remote-endpoint = <&rdma0_out>;
-+					};
-+				};
-+
-+				port@1 {
-+					reg = <1>;
-+					dsi_out: endpoint { };
-+				};
-+			};
-+		};
-+
-+		dpi0: dpi@14013000 {
-+			compatible = "mediatek,mt8167-dpi";
-+			reg = <0 0x14013000 0 0x1000>;
-+			clocks = <&mmsys CLK_MM_DPI0_PXL>, <&mmsys CLK_MM_DPI0_ENGINE>,
-+				 <&apmixedsys CLK_APMIXED_LVDSPLL>;
-+			clock-names = "pixel", "engine", "pll";
-+			interrupts = <GIC_SPI 172 IRQ_TYPE_LEVEL_LOW>;
-+			power-domains = <&spm MT8167_POWER_DOMAIN_MM>;
-+			status = "disabled";
-+
-+			ports {
-+				#address-cells = <1>;
-+				#size-cells = <0>;
-+
-+				port@0 {
-+					reg = <0>;
-+					dpi0_in: endpoint { };
-+				};
-+
-+				port@1 {
-+					reg = <1>;
-+					dpi0_out: endpoint { };
-+				};
-+			};
-+		};
-+
-+		mutex: mutex@14015000 {
-+			compatible = "mediatek,mt8167-disp-mutex";
-+			reg = <0 0x14015000 0 0x1000>;
-+			interrupts = <GIC_SPI 153 IRQ_TYPE_LEVEL_LOW>;
-+			power-domains = <&spm MT8167_POWER_DOMAIN_MM>;
- 		};
+ static struct sg_table *
+ ivpu_gem_userptr_dmabuf_map(struct dma_buf_attachment *attachment,
+ 			    enum dma_data_direction direction)
+ {
+-	struct sg_table *sgt = attachment->dmabuf->priv;
++	struct ivpu_userptr *userptr = attachment->dmabuf->priv;
++	struct sg_table *sgt;
+ 	int ret;
  
- 		larb0: larb@14016000 {
-@@ -145,6 +432,16 @@ smi_common: smi@14017000 {
- 			power-domains = <&spm MT8167_POWER_DOMAIN_MM>;
- 		};
- 
-+		mipi_tx: dsi-phy@14018000 {
-+			compatible = "mediatek,mt8167-mipi-tx", "mediatek,mt2701-mipi-tx";
-+			reg = <0 0x14018000 0 0x90>;
-+			clocks = <&topckgen CLK_TOP_MIPI_26M_DBG>;
-+			clock-output-names = "mipi_tx0_pll";
-+			#clock-cells = <0>;
-+			#phy-cells = <0>;
-+			status = "disabled";
-+		};
++	sgt = kmalloc_obj(*sgt);
++	if (!sgt)
++		return ERR_PTR(-ENOMEM);
 +
- 		imgsys: syscon@15000000 {
- 			compatible = "mediatek,mt8167-imgsys", "syscon";
- 			reg = <0 0x15000000 0 0x1000>;
++	ret = sg_alloc_table_from_pages(sgt, userptr->pages, userptr->nr_pages, 0,
++					attachment->dmabuf->size, GFP_KERNEL);
++	if (ret)
++		goto free_sgt;
++
+ 	ret = dma_map_sgtable(attachment->dev, sgt, direction, DMA_ATTR_SKIP_CPU_SYNC);
+ 	if (ret)
+-		return ERR_PTR(ret);
++		goto free_table;
+ 
+ 	return sgt;
++
++free_table:
++	sg_free_table(sgt);
++free_sgt:
++	kfree(sgt);
++	return ERR_PTR(ret);
+ }
+ 
+ static void ivpu_gem_userptr_dmabuf_unmap(struct dma_buf_attachment *attachment,
+@@ -38,21 +59,17 @@ static void ivpu_gem_userptr_dmabuf_unmap(struct dma_buf_attachment *attachment,
+ 					  enum dma_data_direction direction)
+ {
+ 	dma_unmap_sgtable(attachment->dev, sgt, direction, DMA_ATTR_SKIP_CPU_SYNC);
++	sg_free_table(sgt);
++	kfree(sgt);
+ }
+ 
+ static void ivpu_gem_userptr_dmabuf_release(struct dma_buf *dma_buf)
+ {
+-	struct sg_table *sgt = dma_buf->priv;
+-	struct sg_page_iter page_iter;
+-	struct page *page;
+-
+-	for_each_sgtable_page(sgt, &page_iter, 0) {
+-		page = sg_page_iter_page(&page_iter);
+-		unpin_user_page(page);
+-	}
++	struct ivpu_userptr *userptr = dma_buf->priv;
+ 
+-	sg_free_table(sgt);
+-	kfree(sgt);
++	unpin_user_pages(userptr->pages, userptr->nr_pages);
++	kvfree(userptr->pages);
++	kfree(userptr);
+ }
+ 
+ static const struct dma_buf_ops ivpu_gem_userptr_dmabuf_ops = {
+@@ -67,7 +84,7 @@ ivpu_create_userptr_dmabuf(struct ivpu_device *vdev, void __user *user_ptr,
+ {
+ 	struct dma_buf_export_info exp_info = {};
+ 	struct dma_buf *dma_buf;
+-	struct sg_table *sgt;
++	struct ivpu_userptr *userptr;
+ 	struct page **pages;
+ 	unsigned long nr_pages = size >> PAGE_SHIFT;
+ 	unsigned int gup_flags = FOLL_LONGTERM;
+@@ -94,39 +111,33 @@ ivpu_create_userptr_dmabuf(struct ivpu_device *vdev, void __user *user_ptr,
+ 		goto unpin_pages;
+ 	}
+ 
+-	sgt = kmalloc_obj(*sgt);
+-	if (!sgt) {
++	userptr = kmalloc_obj(*userptr);
++	if (!userptr) {
+ 		ret = -ENOMEM;
+ 		goto unpin_pages;
+ 	}
+ 
+-	ret = sg_alloc_table_from_pages(sgt, pages, nr_pages, 0, size, GFP_KERNEL);
+-	if (ret) {
+-		ivpu_dbg(vdev, IOCTL, "Failed to create sg table: %d\n", ret);
+-		goto free_sgt;
+-	}
++	userptr->pages = pages;
++	userptr->nr_pages = nr_pages;
+ 
+ 	exp_info.exp_name = "ivpu_userptr_dmabuf";
+ 	exp_info.owner = THIS_MODULE;
+ 	exp_info.ops = &ivpu_gem_userptr_dmabuf_ops;
+ 	exp_info.size = size;
+ 	exp_info.flags = O_RDWR | O_CLOEXEC;
+-	exp_info.priv = sgt;
++	exp_info.priv = userptr;
+ 
+ 	dma_buf = dma_buf_export(&exp_info);
+ 	if (IS_ERR(dma_buf)) {
+ 		ret = PTR_ERR(dma_buf);
+ 		ivpu_dbg(vdev, IOCTL, "Failed to export userptr dma-buf: %d\n", ret);
+-		goto free_sg_table;
++		goto free_userptr;
+ 	}
+ 
+-	kvfree(pages);
+ 	return dma_buf;
+ 
+-free_sg_table:
+-	sg_free_table(sgt);
+-free_sgt:
+-	kfree(sgt);
++free_userptr:
++	kfree(userptr);
+ unpin_pages:
+ 	for (i = 0; i < pinned; i++)
+ 		unpin_user_page(pages[i]);
+
+base-commit: 5ffdc8f8361387a1b11553e5c95cd589c67a51f2
 -- 
 2.43.0
 
