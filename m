@@ -2,44 +2,43 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9588A606A320
-	for <dri-devel@archiver.kernel.org>; Mon, 23 Nov 2026 03:14:29 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=QdPJw5kT
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 03892606A31E
+	for <dri-devel@archiver.kernel.org>; Mon, 23 Nov 2026 03:16:33 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 0A95710E2E9;
-	Mon, 23 Nov 2026 03:14:24 +0000 (UTC)
-Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 8E08B10E2E9
- for <dri-devel@lists.freedesktop.org>; Mon, 23 Nov 2026 03:14:17 +0000 (UTC)
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id 735AF44003;
- Mon, 23 Nov 2026 03:14:17 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id D8AFC1F000C0;
- Mon, 23 Nov 2026 03:14:16 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1795403657;
- bh=F18jJBiugrFWz5QsBQAFMKZkjEyXbl946fOrf6JPf/w=;
- h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
- b=QdPJw5kTBAjWRahyRBVBudVNVsZjdjPmVWxMHaG4KLZnR2o+TkbQ6b7K21/Mpfctd
- h7ubBo0AoO7khX8ikhVAQaUaa05LKBr08EXdUCxHqph7Q6LBk6WO0aNO2hAEcynNoy
- t6tnG8WkTlsh5NoEZUtjbFVx7jxd99snkuMiJ4lsVcrLC62atafoESFa4D13bQciBG
- gal2xx2Mx8gJFUiYZsjJeFeJagHMsLya7NNEntoFGNItPEZ/RYRG3b74L5sLIuZLBs
- zfpmD8NSsI07s4nvX1XadOcs0pkPXpVQDZrdbkla6uDu+uV11ooZx6KOha7mlkjy35
- NmApgyf9/V9gA==
-Message-ID: <sashiko-outbox-228586@kernel.org>
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v2 1/3] drm/nouveau/nvkm: fix device leak on ctor failure
-To: "Dave Airlie" <airlied@redhat.com>, "Lyude Paul" <lyude@redhat.com>,
- "Danilo
- Krummrich" <dakr@kernel.org>, "Alexandre Courbot" <acourbot@nvidia.com>
-Cc: dri-devel@lists.freedesktop.org, nova-gpu@lists.linux.dev
-In-Reply-To: <20261123-nova-nouveau-gsp-v2-1-5e8c27aa8555@redhat.com>
-References: <20261123-nova-nouveau-gsp-v2-0-5e8c27aa8555@redhat.com>
- <20261123-nova-nouveau-gsp-v2-1-5e8c27aa8555@redhat.com>
-Content-Type: text/plain; charset=utf-8
+	by gabe.freedesktop.org (Postfix) with ESMTP id 6451B10E32C;
+	Mon, 23 Nov 2026 03:16:32 +0000 (UTC)
+Received: from out28-169.mail.aliyun.com (out28-169.mail.aliyun.com
+ [115.124.28.169])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id DF32B10E32C
+ for <dri-devel@lists.freedesktop.org>; Mon, 23 Nov 2026 03:16:30 +0000 (UTC)
+X-Alimail-AntiSpam: AC=CONTINUE; BC=0.07436907|-1; CH=green;
+ DM=|CONTINUE|false|;
+ DS=CONTINUE|ham_system_inform|0.00845091-0.000289608-0.991259;
+ FP=675755574188172471|0|0|0|0|-1|-1|-1; HT=maildocker-contentspam033037026024;
+ MF=wangxiaolei01@kaihong.com; NM=1; PH=DS; RN=12; RT=12; SR=0;
+ TI=SMTPD_---.k7wtvA8_1795403786; 
+Received: from localhost(mailfrom:wangxiaolei01@kaihong.com
+ fp:SMTPD_---.k7wtvA8_1795403786 cluster:ay29) by smtp.aliyun-inc.com;
+ Mon, 23 Nov 2026 11:16:27 +0800
+To: =?utf-8?q?Ma=C3=ADra_Canal?= <mcanal@igalia.com>
+Subject: Re: [PATCH v2] drm/v3d: Fix double free of query arrays on parse
+ failure
+From: =?utf-8?q?=E7=8E=8B=E5=AD=9D=E9=9B=B7?= <wangxiaolei01@kaihong.com>
+X-Archived-By: <archiver.kernel.org>
+Mime-Version: 1.0
+References: <20261120022828.2612091-1-wangxiaolei01@kaihong.com>
+ <3f029973-1a52-4118-acd5-4a433fb49710@igalia.com>
+X-Lms-Return-Path: <lba+16b03b008+3a14de+linux.intel.com+wangxiaolei01@kaihong.com>
+Date: Mon, 23 Nov 2026 11:16:23 +0800
+Message-Id: <e457d7c64cc913174affb10b272225cc3cbe88a3.b0668e69.1f3f.46c7.85ca.d83a1dbea56d@feishu.cn>
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: quoted-printable
-Date: Mon, 23 Nov 2026 03:14:16 +0000
+Cc: <mwen@igalia.com>, <maarten.lankhorst@linux.intel.com>, 
+ <mripard@kernel.org>, <tzimmermann@suse.de>, <airlied@gmail.com>, 
+ <simona@ffwll.ch>, <tvrtko.ursulin@igalia.com>, 
+ <dri-devel@lists.freedesktop.org>, <linux-kernel@vger.kernel.org>, 
+ <stable@vger.kernel.org>, "Iago Toral Quiroga" <itoral@igalia.com>
+In-Reply-To: <3f029973-1a52-4118-acd5-4a433fb49710@igalia.com>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -50,148 +49,183 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
-Reply-To: sashiko-reviews@lists.linux.dev
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-15.8 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
-	DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
-	INCLUDES_CR_TRAILER,INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,
-	SPF_PASS autolearn=ham autolearn_force=no version=4.0.1
+X-Spam-Status: No, score=-8.8 required=3.0 tests=BAYES_00,
+	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_PATCH,MAILING_LIST_MULTI,
+	SPF_HELO_NONE,SPF_PASS,UNPARSEABLE_RELAY autolearn=ham
+	autolearn_force=no version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
-X-Archived-By: <archiver.kernel.org>
 
-Thank you for your contribution! Sashiko AI review found 4 potential
-issues to consider:
-- [High] drm/nouveau/nvkm: missing Signed-off-by trailer in commit
-  message
-- [Medium] drm/nouveau/nvkm: NULL deref in nvkm_devinit_dtor() after
-  ctor iounmap()
-- [Medium] drm/nouveau/nvkm: NULL device->dev in nvkm_device_del() on
-  ctor failure
-- [Low] drm/nouveau/nvkm: Fixes trailer cites unrelated commit
-  0d5dd3f301bb
---
-
-commit 9d8c7debf78767e0a5b65084a841f14aa7a58bd6
-Author: Dave Airlie <airlied@redhat.com>
-
-> drm/nouveau/nvkm: fix device leak on ctor failure
->=20
-> When adding a new failure path from device_ctor, the missing
-> clean up paths in the current code were uncovered.
->=20
-> The device_del path doesn't work because it relies on initialisation
-> that hadn't been done yet.
->=20
-> This patch cleans up the failure paths and initialises the
-> things needed for the nvkm_device_del path to work.
->=20
-> Fixes: 0d5dd3f301bb ("drm/nouveau/lib: various tweaks")
-
-[Severity: High]
-The commit message is missing a Signed-off-by: trailer.
-
-[Severity: Low]
-Does the Fixes: tag point to the right commit?  0d5dd3f301bb
-("drm/nouveau/lib: various tweaks") only changed list_add() to
-list_add_tail() in nvkm_device_create_().  The split into
-nvkm_device_ctor(), nvkm_device_pci_new(), and nvkm_device_tegra_new()
-where ctor failure paths skipped nvkm_device_del() was introduced in
-7974dd1bdb43 ("drm/nouveau/device: separate construction of pci/tegra
-devices").
-
-> diff --git a/drivers/gpu/drm/nouveau/nvkm/engine/device/base.c b/drivers/=
-gpu/drm/nouveau/nvkm/engine/device/base.c
-> index a2ed8c4fe52a0..625bb019736af 100644
-> --- a/drivers/gpu/drm/nouveau/nvkm/engine/device/base.c
-> +++ b/drivers/gpu/drm/nouveau/nvkm/engine/device/base.c
-> @@ -3152,10 +3152,19 @@ nvkm_device_ctor(const struct nvkm_device_func *f=
-unc,
->  	unsigned chipset;
-> =20
->  	mutex_lock(&nv_devices_mutex);
-> +
-> +	/* Set up the state that nvkm_device_del() relies on before anything
-> +	 * that can fail, so that a device whose construction failed can be
-> +	 * cleaned up by the caller with nvkm_device_del().
-> +	 */
-> +	device->func =3D func;
-> +	INIT_LIST_HEAD(&device->head);
-> +	INIT_LIST_HEAD(&device->subdev);
-> +	nvkm_intr_ctor(device);
-> +
->  	if (nvkm_device_find_locked(handle))
->  		goto done;
-> =20
-> -	device->func =3D func;
->  	device->quirk =3D quirk;
->  	device->dev =3D dev;
-
-[Severity: Medium]
-Should device->dev =3D dev also be set before nvkm_device_find_locked()?
-
-If nvkm_device_find_locked() returns an existing device on Tegra,
-nvkm_device_tegra_new() now calls nvkm_device_del(), which runs
-nvkm_device_tegra_dtor() -> nvkm_device_tegra_remove_iommu():
-
-drivers/gpu/drm/nouveau/nvkm/engine/device/tegra.c:nvkm_device_tegra_remove=
-_iommu() {
-	if (tdev->iommu.domain) {
-		nvkm_mm_fini(&tdev->iommu.mm);
-		iommu_detach_device(tdev->iommu.domain, tdev->device.dev);
-		iommu_domain_free(tdev->iommu.domain);
-	}
-}
-
-Because nvkm_device_tegra_probe_iommu() has already attached
-tdev->iommu.domain before calling nvkm_device_ctor(), leaving
-tdev->device.dev as NULL causes a NULL pointer dereference inside
-iommu_detach_device().
-
-[ ... ]
-
-> diff --git a/drivers/gpu/drm/nouveau/nvkm/engine/device/pci.c b/drivers/g=
-pu/drm/nouveau/nvkm/engine/device/pci.c
-> index 248623b91e295..269ccd4b482e9 100644
-> --- a/drivers/gpu/drm/nouveau/nvkm/engine/device/pci.c
-> +++ b/drivers/gpu/drm/nouveau/nvkm/engine/device/pci.c
-> @@ -1705,8 +1705,10 @@ nvkm_device_pci_new(struct pci_dev *pci_dev, const=
- char *cfg, const char *dbg,
->  				    PCI_FUNC(pci_dev->devfn), name,
->  			       cfg, dbg, &pdev->device);
-> =20
-> -	if (ret)
-> +	if (ret) {
-> +		nvkm_device_del(pdevice);
->  		return ret;
-> +	}
-
-[Severity: Medium]
-Can calling nvkm_device_del() after nvkm_device_ctor() fails cause a NULL
-pointer dereference in subdevice destructors?
-
-When nvkm_device_ctor() fails after constructing early subdevices (for
-example, if a later subdevice constructor or nvkm_intr_install() fails),
-its error path unmaps and clears device->pri before returning:
-
-drivers/gpu/drm/nouveau/nvkm/engine/device/base.c:nvkm_device_ctor() {
-	...
-done:
-	if (ret && device->pri) {
-		iounmap(device->pri);
-		device->pri =3D NULL;
-	}
-	mutex_unlock(&nv_devices_mutex);
-	return ret;
-}
-
-nvkm_device_del() then destroys the already constructed subdevices on
-device->subdev.  When it reaches nvkm_devinit_dtor(), nvkm_lockvgac()
-attempts MMIO accesses through the NULL device->pri pointer.  Since
-nvkm_device_del() already unmaps device->pri after destroying subdevices,
-should nvkm_device_ctor() leave device->pri mapped for nvkm_device_del()
-to clean up?
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261123-nova-nouve=
-au-gsp-v2-0-5e8c27aa8555@redhat.com?part=3D1
+Hi Ma=C3=ADra,=C2=A0
+Thanks for the review
+> From: "Ma=C3=ADra Canal"<mcanal@igalia.com>
+> Date:=C2=A0 Sat, Nov 21, 2026, 00:49
+> Subject:=C2=A0 Re: [PATCH v2] drm/v3d: Fix double free of query arrays on=
+ parse failure
+> To: "Xiaolei Wang"<wangxiaolei01@kaihong.com>, <mwen@igalia.com>, <maarte=
+n.lankhorst@linux.intel.com>, <mripard@kernel.org>, <tzimmermann@suse.de>, =
+<airlied@gmail.com>, <simona@ffwll.ch>, <tvrtko.ursulin@igalia.com>
+> Cc: <dri-devel@lists.freedesktop.org>, <linux-kernel@vger.kernel.org>, <s=
+table@vger.kernel.org>, "Iago Toral Quiroga"<itoral@igalia.com>
+> Hi Xiaolei,
+>=C2=A0
+> On 19/11/26 23:28, Xiaolei Wang wrote:
+> > v3d_get_cpu_timestamp_query_params(), v3d_get_cpu_reset_timestamp_param=
+s(),
+> > v3d_get_cpu_copy_query_results_params() and v3d_copy_query_info() -- th=
+e
+> > latter shared by the reset and copy performance parsers -- free the que=
+ry
+> > array on their error paths through v3d_timestamp_query_info_free() and
+> > v3d_performance_query_info_free().
+> >=C2=A0
+> > The same job is then released by v3d_submit_cpu_ioctl()'s failure path
+> > (v3d_submit_cleanup_jobs() -> v3d_job_cleanup() -> v3d_job_put() ->
+> > v3d_cpu_job_free()), which calls the same helpers on the same query_inf=
+o.
+> > On these error paths query_info->count was never assigned -- it was onl=
+y
+> > written after the parse loop completed -- so the syncobj loop ran zero
+> > times and no syncobj was put twice, but the "if (query_info->queries)" =
+test
+> > still succeeded and the dangling pointer was handed to kvfree() a secon=
+d
+> > time.
+> >=C2=A0
+>=C2=A0
+> =3D=3D=3D=3D
+> > Every failure inside the parse loop takes this path: -ENOENT from
+> > drm_syncobj_find(), -EFAULT from get_user(), or -ENOMEM from
+> > kvmalloc_array() in v3d_copy_query_info().
+> =3D=3D=3D=3D
+>=C2=A0
+> Needless paragraph.
+>=C2=A0
+> >=C2=A0
+> > Fix the ownership instead of the symptom: the query array, and the per
+> > query kperfmon_ids, belong to the job and are freed exactly once, by
+> > v3d_cpu_job_free(). =C2=A0The parsers no longer free anything; they onl=
+y fill
+> > the array in and record how far they got:
+> >=C2=A0
+> > =C2=A0 =C2=A0- query_info->count is set before the parse loop, so the h=
+elpers know how
+> > =C2=A0 =C2=A0 =C2=A0many entries were touched when parsing fails halfwa=
+y;
+> >=C2=A0
+> > =C2=A0 =C2=A0- the arrays are allocated with kvzalloc_objs(), so entrie=
+s that were
+> > =C2=A0 =C2=A0 =C2=A0never reached carry a NULL syncobj and a NULL kperf=
+mon_ids;
+> >=C2=A0
+> > =C2=A0 =C2=A0- the helpers walk the full count but test every entry, so=
+ they put
+> > =C2=A0 =C2=A0 =C2=A0exactly the syncobj references that were taken, kee=
+ping
+> > =C2=A0 =C2=A0 =C2=A0put-count =3D=3D find-count on all failure paths;
+> >=C2=A0
+> > =C2=A0 =C2=A0- the inline kvfree() of kperfmon_ids in v3d_copy_query_in=
+fo() is dropped
+> > =C2=A0 =C2=A0 =C2=A0for the same reason;
+> >=C2=A0
+> > =C2=A0 =C2=A0- the count argument of v3d_timestamp_query_info_free() an=
+d
+> > =C2=A0 =C2=A0 =C2=A0v3d_performance_query_info_free() goes away, as the=
+ count now lives in
+> > =C2=A0 =C2=A0 =C2=A0query_info itself.
+>=C2=A0
+> You don't need to describe every single detail of the code in the commit
+> message.
+>=C2=A0
+> Please, make your commit message for human-readable.
+I will rewrite the commit log in the next version to make it easier to read=
+.
+>=C2=A0
+> [...]
+>=C2=A0
+> > diff --git a/drivers/gpu/drm/v3d/v3d_sched.c b/drivers/gpu/drm/v3d/v3d_=
+sched.c
+> > index 1924e3440dc9..6ee64fbacae9 100644
+> > --- a/drivers/gpu/drm/v3d/v3d_sched.c
+> > +++ b/drivers/gpu/drm/v3d/v3d_sched.c
+> > @@ -95,34 +95,44 @@ v3d_sched_job_free(struct drm_sched_job *sched_job)
+> > =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 v3d_job_cleanup(job);
+> > =C2=A0 }
+> > =C2=A0=C2=A0
+> > +/*
+> > + * The query arrays are owned by the job: they are allocated by the ex=
+tension
+> > + * parsers in v3d_submit.c (which also publish ->count before they sta=
+rt
+> > + * filling the entries) and they are released only here, from
+> > + * v3d_cpu_job_free(). =C2=A0The arrays are zero allocated, so on a pa=
+rsing failure
+> > + * the entries past the last one set up are all zero and get skipped.
+> > + */
+>=C2=A0
+> This comment is superfluous. Please, delete it.
+It will be dropped in the next version.
+>=C2=A0
+> > =C2=A0 void
+> > -v3d_timestamp_query_info_free(struct v3d_timestamp_query_info *query_i=
+nfo,
+> > - =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0=
+ =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0unsigned int count)
+> > +v3d_timestamp_query_info_free(struct v3d_timestamp_query_info *query_i=
+nfo)
+> > =C2=A0 {
+> > - =C2=A0 =C2=A0 =C2=A0 =C2=A0if (query_info->queries) {
+> > - =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0unsigned int i=
+;
+> > + =C2=A0 =C2=A0 =C2=A0 =C2=A0unsigned int i;
+> > =C2=A0=C2=A0
+> > - =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0for (i =3D 0; =
+i < count; i++)
+> > - =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0=
+ =C2=A0 =C2=A0drm_syncobj_put(query_info->queries[i].syncobj);
+> > + =C2=A0 =C2=A0 =C2=A0 =C2=A0if (!query_info->queries)
+> > + =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0return;
+> > =C2=A0=C2=A0
+> > - =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0kvfree(query_i=
+nfo->queries);
+> > + =C2=A0 =C2=A0 =C2=A0 =C2=A0for (i =3D 0; i < query_info->count; i++) =
+{
+>=C2=A0
+> Stop the loop at the first NULL syncobj.
+>=C2=A0
+> if (!query_info->queries[i].syncobj)
+> =C2=A0 =C2=A0 =C2=A0break;
+It will be dropped in the next version.
+>=C2=A0
+> > + =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0if (query_info=
+->queries[i].syncobj)
+> > + =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0=
+ =C2=A0 =C2=A0drm_syncobj_put(query_info->queries[i].syncobj);
+> > =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 }
+> > +
+> > + =C2=A0 =C2=A0 =C2=A0 =C2=A0kvfree(query_info->queries);
+> > =C2=A0 }
+> > =C2=A0=C2=A0
+>=C2=A0
+> [...]
+>=C2=A0
+> > @@ -915,7 +885,8 @@ v3d_copy_query_info(struct v3d_performance_query_in=
+fo *query_info,
+> > =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =
+=C2=A0 struct drm_file *file_priv)
+> > =C2=A0 {
+> > =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 unsigned int i, j;
+> > - =C2=A0 =C2=A0 =C2=A0 =C2=A0int err;
+> > +
+> > + =C2=A0 =C2=A0 =C2=A0 =C2=A0query_info->count =3D count;
+>=C2=A0
+> Leave this in the functions that call v3d_copy_query_info() and remove
+> count from v3d_copy_query_info()'s parameters.
+It will be fixed in the next version.
+thank
+xiaolei
+>=C2=A0
+> Best regards,
+> - Ma=C3=ADra
+>=C2=A0
