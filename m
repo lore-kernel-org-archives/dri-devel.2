@@ -2,89 +2,58 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3A0F8606A31E
-	for <dri-devel@archiver.kernel.org>; Mon, 23 Nov 2026 21:11:54 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C4CC2606A326
+	for <dri-devel@archiver.kernel.org>; Mon, 23 Nov 2026 21:12:32 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=mimecast20190719 header.b=Qf/RRXJJ
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=l3+VceWB
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id A1E4110E0F1;
-	Mon, 23 Nov 2026 21:11:48 +0000 (UTC)
-Received: from us-smtp-delivery-124.mimecast.com
- (us-smtp-delivery-124.mimecast.com [170.10.129.124])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 54DCD10E7F4
- for <dri-devel@lists.freedesktop.org>; Mon, 23 Nov 2026 21:11:42 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
- s=mimecast20190719; t=1795468301;
- h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
- to:to:cc:cc:mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references;
- bh=n9pevu1TMmDcshsy2csnNqdpdxJkEoVnA4XxB7oiN7w=;
- b=Qf/RRXJJ+xiJdWH5jZ+FsA+TP5tr13wrBonP6ZtVdUAivNqLsh2O4yCnueHKVx4nfVb6ov
- SjpYmWfxt3KURj/+IPvawZ2iHF+sWH793IUC1T+bG+v9wZNx4Q9IbzhVsebEm2Af79Ao4Z
- qP0M381oKc2YeSXnE6oNWx1+ht2mHUY=
-Received: from mail-dy1-f200.google.com (mail-dy1-f200.google.com
- [74.125.82.200]) by relay.mimecast.com with ESMTP with STARTTLS
- (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-597-ut29YmtHM46Rpdi1hCOGMw-1; Mon, 23 Nov 2026 21:11:38 +0000
-X-MC-Unique: ut29YmtHM46Rpdi1hCOGMw-1
-X-Mimecast-MFC-AGG-ID: ut29YmtHM46Rpdi1hCOGMw_1795468298
-Received: by mail-dy1-f200.google.com with SMTP id
- 5a478bee46e88-382af5cfc58so1834061eec.0
- for <dri-devel@lists.freedesktop.org>; Mon, 23 Nov 2026 13:11:38 -0800 (PST)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20260707; t=1795468297; x=1796073097;
- h=content-transfer-encoding:content-type:cc:to:subject:message-id
- :date:from:in-reply-to:references:mime-version:x-gm-gg
- :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
- :content-type;
- bh=n9pevu1TMmDcshsy2csnNqdpdxJkEoVnA4XxB7oiN7w=;
- b=QU2zhOunMCjqZh+TQd68FfFxlqOpUB7wagz00O3zGt/7Y+q+fl2L1MVK0wszh+wUOU
- 0WTyWGDdfZ+XtG5tS+hvFdMnDDdTwi4Vj6pvyBlFgeFvSrvBMZn3Y7tsra3OtOgqCxQ/
- X1I+vsp23tKoN8XdyTy30n4KHH7ctC0Sp6V5Wia4rTSGjll2jocD3VGEq7lqjHsQsKwF
- GeC71n+FgCGrLNdivrWStJ8kb5wFB99tK8ya/diQaYr6/IWUYQze7Cs7VFy0AMMe9Zx6
- 7agfgwZieBvbcc+cVV34JlDB83NkJi26CXQrd7kpqFBIL48/CQkrNqcKMfGnhOh3m3KE
- mA2A==
-X-Forwarded-Encrypted: i=1;
- AL+hErGG9V7fs8+oB5xyQIInPQ2I3qnRwn57YBlMKi+i49sxyf0B1TqLNIR5Cgf5uNztraQCwSh8KzYNVP0=@lists.freedesktop.org
-X-Gm-Message-State: APuU4Z+d0QTE6N+1wI4ffc62oDB4yOtWenjzzzTEiUgtGBtqRXQd2tsn
- ktofkyrJ94t+2VucykRPbyMMAUVzbRDncz+eJ+B77i9PnoSCsPWVaG/7PFfOSCHhSCLpTAR/IxJ
- Zrwn3H08eCkIDKh/LHonQOghjqjTMjgStUIhYMvyRaj+/2tfzAf4ddNYTQq7jqRtR0M3de5JzHU
- XV3WNidASGXdse0YAdf9sF2ZJHUh1sQzZxueCDpJRxHMwS
-X-Gm-Gg: AZFdTZeVjO5NHLBacP0oyNE8QVPJCuzvJmO4gk3BlVissaVGVvVXEFRyExJoc6iyokv
- syg0x4SNaeuLP2aPYedxjjwjYlKWfsR240GTkR7LygIkHfkX/uNj+ShYbEi7G2tK4W+deI9ZXjh
- KbovCayZ0B/Sm+f6SXUpGQkT4JgE2K8k+Rybvo1ZioA3JnyI6ceSu9SP5lNkPXcnaIfDjxsgCdi
- z5omFatV0xv0MPq
-X-Received: by 2002:a05:701b:4558:10b0:1b3:b4cf:8f18 with SMTP id
- a92af1059eb24-1b556926cfbmr13460411c88.41.1795468297315; 
- Mon, 23 Nov 2026 13:11:37 -0800 (PST)
-X-Received: by 2002:a05:701b:4558:10b0:1b3:b4cf:8f18 with SMTP id
- a92af1059eb24-1b556926cfbmr13460369c88.41.1795468296661; Mon, 23 Nov 2026
- 13:11:36 -0800 (PST)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 2493D10E367;
+	Mon, 23 Nov 2026 21:12:27 +0000 (UTC)
+Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id F18DA10E367;
+ Mon, 23 Nov 2026 21:12:20 +0000 (UTC)
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+ by sea.source.kernel.org (Postfix) with ESMTP id CFA0A41FBF;
+ Mon, 23 Nov 2026 21:12:20 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id F0B0F1F000D2;
+ Mon, 23 Nov 2026 21:12:16 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+ s=k20260515; t=1795468340;
+ bh=THwWWjucJLHrTSc8VPkQZeTqtfJVV5aJMHAoWWO0YH8=;
+ h=From:To:Cc:In-Reply-To:References:Subject:Date;
+ b=l3+VceWBOJiFskUO9JkxVGsiHVwM+MDBSm97ESFObDBCxEgMMH7Uhn0EyYibrrBdg
+ 7ooOcgsGL/aB3oAlUMZXet5io1Gwwl7Tlz9JB0LEU4qJWP7ENmZgEIxjxEswe/ws3i
+ KJipkh2mLyBd9UTbPGPHKK++sbtYfFn37HRzY/bmFf4KO3IY5QJNHBKcgq/kOZdICH
+ uEd465AFvpOrudbndobnTOjPbOIGTcgdIv3Q6h9PJ+V+IugqBPA0iNXDE4Cv0KkZ64
+ hG+ByfUB1wHy48J2wDCtLWUuu3FbTKpJ6Nyny3BU2n923STfUrMB5KVowsn3b9CT2d
+ ngMBZl+YLDctQ==
+From: Srinivas Kandagatla <srini@kernel.org>
+To: Bjorn Andersson <andersson@kernel.org>, 
+ Konrad Dybcio <konradybcio@kernel.org>, Abel Vesa <abelvesa@kernel.org>, 
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>, 
+ Rob Clark <robin.clark@oss.qualcomm.com>, Sean Paul <sean@poorly.run>, 
+ Akhil P Oommen <akhilpo@oss.qualcomm.com>, 
+ Dmitry Baryshkov <lumag@kernel.org>, 
+ Abhinav Kumar <abhinav.kumar@linux.dev>, 
+ Jessica Zhang <jesszhan0024@gmail.com>, 
+ Marijn Suijten <marijn.suijten@somainline.org>, 
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
+ Demeter Barna <me@fromdisposition.org>
+Cc: linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org, 
+ linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org, 
+ freedreno@lists.freedesktop.org
+In-Reply-To: <20261105-b4-sm8350-gpu-v1-0-a7175cdd6512@fromdisposition.org>
+References: <20261105-b4-sm8350-gpu-v1-0-a7175cdd6512@fromdisposition.org>
+Subject: Re: (subset) [PATCH 0/5] SM8350 GPU: memory bandwidth vote and
+ speed bins
+Message-Id: <179546833676.519617.18442308019433292321.b4-ty@kernel.org>
+Date: Mon, 23 Nov 2026 21:12:16 +0000
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
-References: <20261123-nova-nouveau-gsp-v2-0-5e8c27aa8555@redhat.com>
- <20261123-nova-nouveau-gsp-v2-2-5e8c27aa8555@redhat.com>
- <617a6fcc6a541f27351fb7f5abe21fb89553438a.camel@nvidia.com>
-In-Reply-To: <617a6fcc6a541f27351fb7f5abe21fb89553438a.camel@nvidia.com>
-From: David Airlie <airlied@redhat.com>
-Date: Tue, 24 Nov 2026 07:11:23 +1000
-X-Gm-Features: Aa3M54p6fvlOZnXQWzVJ7rxsais-R4gxmnSrBvqgceCPwlHjYyde1II3OXoWZMs
-Message-ID: <CAMwc25rDmsXw++KeE4OhTCGCq0PRUZJJQaEMXY2dbvdwWzyL7g@mail.gmail.com>
-Subject: Re: [PATCH v2 2/3] drm/nouveau: add option to leave GSP-capable GPUs
- to other drivers
-To: Timur Tabi <ttabi@nvidia.com>
-Cc: Alexandre Courbot <acourbot@nvidia.com>,
- "lyude@redhat.com" <lyude@redhat.com>, 
- "dakr@kernel.org" <dakr@kernel.org>, 
- "dri-devel@lists.freedesktop.org" <dri-devel@lists.freedesktop.org>, 
- "nouveau@lists.freedesktop.org" <nouveau@lists.freedesktop.org>, 
- "nova-gpu@lists.linux.dev" <nova-gpu@lists.linux.dev>
-X-Mimecast-Spam-Score: 0
-X-Mimecast-MFC-PROC-ID: PLxU2Z4iiKLhXlyr7oW4lDyXMLYqBwi0FuaXEl8CC6s_1795468298
-X-Mimecast-Originator: redhat.com
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-Mailer: b4 0.14.3
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -96,39 +65,34 @@ List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-5.8 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
+X-Spam-Status: No, score=-8.8 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
 	DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
-	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS autolearn=no
+	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,USER_AGENT_GIT autolearn=ham
 	autolearn_force=no version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-On Tue, Nov 24, 2026 at 3:34=E2=80=AFAM Timur Tabi <ttabi@nvidia.com> wrote=
-:
->
-> On Mon, 2026-11-23 at 12:50 +1000, Dave Airlie via B4 Relay wrote:
-> > Distributions that want nova-core to be the default driver for
-> > GSP-capable GPUs can set CONFIG_DRM_NOUVEAU_BIND_GSP=3Dn; the
-> > nouveau.bind_gsp=3D0 kernel command line parameter switches it at boot
-> > time.
->
-> Just FYI, we've already had to scold two distros for blindly enabling "CO=
-NFIG_NOVA_CORE",
-> despite all the warnings, because "that's just what we do".
->
-> So personally, I'm not a fan of CONFIG_DRM_NOUVEAU_BIND_GSP.  I would pre=
-fer just the command-
-> line parameter.
 
-At some point we need to give the option, but indeed we don't have to
-right now, if nova developers are fine with always providing the
-command line option then we could drop the bind options for now,
+On Thu, 05 Nov 2026 13:29:59 +0000, Demeter Barna wrote:
+> Two things are missing for the SM8350 GPU in mainline.
+> 
+> First, the GPU never votes for DDR bandwidth (patch 1). This fix stands
+> alone and can be taken on its own.
+> 
+> Second, the GPU speed bins are not read, so every part runs up to
+> 840 MHz: parts validated only up to 738 MHz run above their rating, and
+> parts that support 900 MHz never get it (patches 2-5).
+> 
+> [...]
 
-but I know it can be annoying for devs.
+Applied, thanks!
 
-Also distro will enable new things with no warnings to not do so, but
-I wonder should we do a default y option of NOT binding nova for
-allyesconfig.
+[2/5] dt-bindings: nvmem: qfprom: Add SM8350 compatible
+      commit: d19de535c5a8e041840e5399d0006a105e806fe1
+[3/5] nvmem: qfprom: Add the SM8350 keepout regions
+      commit: 7fa27a3057a750d30cfb1603d377cae38b146530
 
-Dave.
+Best regards,
+-- 
+Srinivas Kandagatla <srini@kernel.org>
 
