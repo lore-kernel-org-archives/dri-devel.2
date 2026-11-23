@@ -2,97 +2,42 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3436C606A31A
-	for <dri-devel@archiver.kernel.org>; Mon, 23 Nov 2026 11:26:18 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8E38D606A31E
+	for <dri-devel@archiver.kernel.org>; Mon, 23 Nov 2026 11:27:35 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=04mu0Xt5
+	dkim=pass (1024-bit key) header.d=aliel.fr header.i=@aliel.fr header.a=rsa-sha256 header.s=courrier-s1 header.b=SkcOpWzM
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 8F15F10ED44;
-	Mon, 23 Nov 2026 11:26:12 +0000 (UTC)
-Received: from mail-pj2-f1.google.com (mail-pj2-f1.google.com [74.125.227.129])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 7D83310ED44
- for <dri-devel@lists.freedesktop.org>; Mon, 23 Nov 2026 11:26:06 +0000 (UTC)
-Received: by mail-pj2-f1.google.com with SMTP id
- 98e67ed59e1d1-3b10718b387so1717597a91.1
- for <dri-devel@lists.freedesktop.org>; Mon, 23 Nov 2026 03:26:06 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20260707; t=1795433166; x=1796037966; darn=lists.freedesktop.org;
- h=mime-version:content-transfer-encoding:content-type:references
- :in-reply-to:subject:cc:to:from:message-id:date:from:to:cc:subject
- :date:message-id:reply-to:content-type;
- bh=Io7ujKNNt7SQhbgiNtNsmPHGRtWoUuLSgdS1AFaBjnc=;
- b=04mu0Xt5d2sK0bZY4gdDuIY4UoypSK/oLJLuQiQb0hbr30PO7Mp0f302DNMax7LgLY
- IohuWnK4ewa0rMys5uHITvmfqihqCvEkl7fdH/XKHx2Nw6EYn1/lwOdT2K443j3GdIh6
- pbv8MS9iPAoDXKKFGfOBxO1xy+2e1Da5I/POyIJ8FbJ9trpWJYW8p7h/ZP9zalwDuUDe
- pMWV+3aOqtTofNT4KD+Zdl2cqdtjZwz9pUDYY6zklZCGrCrDAejki9CjEp2WsF91xFdj
- balzk0WJk6Drsl65LiE+zSvqm2ze0en7hyiKWwSmbQGtGdxq9hQq66FFBGIxmH8kw/bH
- UWeA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20260707; t=1795433166; x=1796037966;
- h=mime-version:content-transfer-encoding:content-type:references
- :in-reply-to:subject:cc:to:from:message-id:date:x-gm-gg
- :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
- :content-type;
- bh=Io7ujKNNt7SQhbgiNtNsmPHGRtWoUuLSgdS1AFaBjnc=;
- b=NU2X4km0U20YG5AifcqV/IuVbKiZJ9gL+nYdv6Zqn1RAAOZC/WVkxYD5VFpURq0G5o
- 6mx0I94A8T+ibrMkeqKeIZm9jw2Oy2it6h1RwqhpS22Pe3fELzh20jlr7O5IPgGayoF7
- TYCaihAASEpjROXyszs1eY5iowvrx/NUAMKwEIBCdgqpagJzZx6t3R2Iu26wIo2l1svA
- l1Mtljkl6b4fiAusSfjHH+tsrjy37vEWiJj4+Y7QYcsIsYYVq+vYcQuhTT/X+NKRJ4FN
- 9Yay4YQaIbJSexcdY8D5Tedd/QzSAMlQEoN8lBm8pF7slSdENBCG5MCIclcVrBUmwhXb
- J7uA==
-X-Forwarded-Encrypted: i=1;
- AL+hErGvUlcLXC4rspt19ndHj14rcTlK3f0j+UWz8UU+43XR2OFmriffKkQHwr50XrcGBZ0bUQZxEUmW8TI=@lists.freedesktop.org
-X-Gm-Message-State: APuU4Z8evcE63soEgs0qjlHhW3+pT2dYi8MPaT5+r+PceJwzRJgleQhk
- 8gi0XrqgYkuEaXUwxp19PJd8MQmBgVs1Zl0Ctg0b07E0lYDMmfvsG9BZ
-X-Gm-Gg: AZFdTZcMCOhv91iEJ4IGhf3aXrbgSB2McGyMBZKoqHQO9TEj0S1I6coKiOL8JH7quSt
- iDItw536NAMDXC6CBTJT+iX3U03NUawX+kNTcS+HhbSAWZHT14Er0px3VyWtdURrF7vHEUJy91s
- NxMjqz1UPnZDd0ZAXKMdrEqLJ2G2blMjfEUOktK40Cc8ELz6fTkj1MtdHX9FY+i8gclStRzn9sN
- IEBuZE+lbWnr/x4FxgqeVA7QZgJOBxB2tnYrsp6KN64/toMiNSL66Hr4J0HM0mMXKcb7a7C/peI
- 5xWC+a2dXSTRCk0C03xBx590XkDoVUdgbZa18acf+R+g28+DW20NaqYqNGtAKovMdL3QAnxrndo
- YYiuAbE18G6i8XxBZGcHeiwcxUud5Etjsxw54ybGm/j0dm1pCwqzTX029p7hQm9jzOWgSHtBoip
- ZFrvwueoJp9Est0Ji2sUv1IOfkUHFtZhHFaY8lkJDttq3/QzTBSkfyFKDc2eqUltv5Rdkki3pRx
- kx/Pj0MTwIQH5IH2MY9r8AJcX0ItG7u9AH4ii1p9r6IC+uvTM+wv+W1PzetKFCL0WVNgAT0AsMi
- BhCc5ZFF8d/X4qF3Dw1QdfaJdJu+KjlK8Zc=
-X-Received: by 2002:a17:90b:4c07:b0:3b4:f92:ade7 with SMTP id
- 98e67ed59e1d1-3b41cb20eb8mr10517519a91.52.1795433165943; 
- Mon, 23 Nov 2026 03:26:05 -0800 (PST)
-Received: from localhost ([2403:2c80:6::10a9])
- by smtp.gmail.com with ESMTPSA id
- 98e67ed59e1d1-3b41ad8e93asm17449770a91.11.2026.11.23.03.26.05
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Mon, 23 Nov 2026 03:26:05 -0800 (PST)
-Date: Mon, 23 Nov 2026 19:26:02 +0800
-Message-ID: <f5c6f44bfb6040289653cdc079b1cb2a.codykang.hk@gmail.com>
-From: Cody Kang <codykang.hk@gmail.com>
-To: Maxime Ripard <mripard@kernel.org>
-Cc: David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Thomas Zimmermann <tzimmermann@suse.de>, Rob Herring <robh@kernel.org>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
- Yixun Lan <dlan@kernel.org>, Troy Mitchell <troy.mitchell@linux.spacemit.com>, 
- Vinod Koul <vkoul@kernel.org>, Neil Armstrong <neil.armstrong@linaro.org>,
- Manivannan Sadhasivam <mani@kernel.org>, Haylen Chu <heylenay@4d2.org>,
- Michael Turquette <mturquette@baylibre.com>, Stephen Boyd <sboyd@kernel.org>, 
- Brian Masney <bmasney+clk@redhat.com>, Philipp Zabel <p.zabel@pengutronix.de>, 
- Paul Walmsley <pjw@kernel.org>, Palmer Dabbelt <palmer@dabbelt.com>,
- Albert Ou <aou@eecs.berkeley.edu>, Alexandre Ghiti <alex@ghiti.fr>,
- Yao Zi <me@ziyao.cc>,
- Uwe =?utf-8?q?Kleine-K=C3=B6nig?= <u.kleine-koenig@baylibre.com>,
- Guodong Xu <docular.xu@gmail.com>, Icenowy Zheng <uwu@icenowy.me>,
- Jerome Brunet <jbrunet+clk@baylibre.com>,
- Sarah Emery <sarah.emery@canonical.com>, Ze Huang <ze.huang@oss.qualcomm.com>, 
- Dmitry Baryshkov <lumag@kernel.org>, dri-devel@lists.freedesktop.org,
- linux-riscv@lists.infradead.org, devicetree@vger.kernel.org,
- spacemit@lists.linux.dev, linux-kernel@vger.kernel.org,
- linux-phy@lists.infradead.org, linux-clk@vger.kernel.org
-Subject: Re: [PATCH v3 10/17] drm/spacemit: add Saturn DPU KMS pipeline
-In-Reply-To: <awPxPHpr4NYxqdmf@houat>
-References: <20261121-k3-display-v3-0-ec419e8e96b8@gmail.com>
- <20261121-k3-display-v3-10-ec419e8e96b8@gmail.com> <awPxPHpr4NYxqdmf@houat>
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
+	by gabe.freedesktop.org (Postfix) with ESMTP id E2C8810ECD1;
+	Mon, 23 Nov 2026 11:27:29 +0000 (UTC)
+Received: from courrier.aliel.fr (courrier.aliel.fr [65.21.61.41])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 70A6B10ECD1
+ for <dri-devel@lists.freedesktop.org>; Mon, 23 Nov 2026 11:27:23 +0000 (UTC)
+Message-ID: <e782f0e1-18d2-4772-b04b-61a35eae7a7e@aliel.fr>
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=aliel.fr;
+ s=courrier-s1; t=1795433241;
+ bh=DTMDp6j55x9LK3mtG0j2x1ChCBgW5h+Qm9y64YKtGGY=;
+ h=Date:From:Subject:To:Cc:References:In-Reply-To;
+ b=SkcOpWzM9F+nFBgEs90cNbVOSjOzBKhViwU9loGM7ID2CWoNMCJYxWumby4A0uIhm
+ udronjmxzPgDL6+dDc16wzv41g+VqjNMVB3V7sezj4tsTjL6rOPgartbl0hxBt+UiD
+ JFd+Me2B5CEAn0XbQd4Pn0QE2Kq+e1VJfjs7c4js=
+Date: Mon, 23 Nov 2026 12:27:19 +0100
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+From: Ronald Claveau <linux-kernel-dev@aliel.fr>
+Subject: Re: [PATCH v3 04/11] phy: amlogic: Add Meson HDMI TX PHY driver
+To: sashiko-reviews@lists.linux.dev
+Cc: devicetree@vger.kernel.org, linux-amlogic@lists.infradead.org,
+ linux-phy@lists.infradead.org, dri-devel@lists.freedesktop.org,
+ robh@kernel.org, conor+dt@kernel.org, neil.armstrong@linaro.org,
+ vkoul@kernel.org, olteanv@gmail.com
+References: <20261121-meson-drm-create-hdmitx-phy-v3-0-f8f471788076@aliel.fr>
+ <20261121-meson-drm-create-hdmitx-phy-v3-4-f8f471788076@aliel.fr>
+ <sashiko-outbox-227322@kernel.org>
+Content-Language: en-US
+In-Reply-To: <sashiko-outbox-227322@kernel.org>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -104,23 +49,103 @@ List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-2.8 required=3.0 tests=BAYES_00,DKIM_SIGNED,
-	DKIM_VALID,DKIM_VALID_AU,FREEMAIL_FORGED_FROMDOMAIN,FREEMAIL_FROM,
-	HEADER_FROM_DIFFERENT_DOMAINS,MAILING_LIST_MULTI,SPF_HELO_NONE,
-	SPF_PASS autolearn=no autolearn_force=no version=4.0.1
+X-Spam-Status: No, score=-12.3 required=3.0 tests=BAYES_00,DKIM_SIGNED,
+	DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_PATCH,
+	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,USER_AGENT_SANE_1
+	autolearn=unavailable autolearn_force=no version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-Hi Maxime,
+On 11/21/26 20:43, sashiko-bot@kernel.org wrote:
+> Thank you for your contribution! Sashiko AI review found 1 potential
+> issue to consider:
+> - [Medium] phy: amlogic: phy-meson-hdmi-tx: min_rate 25175000 rejects
+>   valid DMT modes
+> --
+> 
+> commit c8d7adccab22985446c5dd65967a17a727629973
+> Author: Ronald Claveau <linux-kernel-dev@aliel.fr>
+> 
+> phy: amlogic: Add Meson HDMI TX PHY driver
+> 
+> This commit adds a generic PHY driver for the Amlogic Meson HDMI TX PHY on
+> GXBB, GXL, GXM, and G12A SoCs, along with a legacy creation helper for
+> device trees without a phys property.
+> 
+>> diff --git a/drivers/phy/amlogic/phy-meson-hdmi-tx.c b/drivers/phy/amlogic/phy-meson-hdmi-tx.c
+>> new file mode 100644
+>> index 0000000000000..872d244de8fb7
+>> --- /dev/null
+>> +++ b/drivers/phy/amlogic/phy-meson-hdmi-tx.c
+> [ ... ]
+>> +/* GXBB */
+>> +static const struct meson_hdmi_phy_rate gxbb_rates[] = {
+>> +	/* 5.94Gbps, 3.7125Gbps */
+>> +	{ 371250000, 0x33353245, 0x2100115b },
+>> +	/* 2.97Gbps */
+>> +	{ 297000000, 0x33634283, 0xb000115b },
+>> +	/* 1.485Gbps, down to 251.75Mbps */
+>> +	{ 25175000,  0x33632122, 0x2000115b },
+>> +};
+>> +
+>> +/* GXL / GXM */
+>> +static const struct meson_hdmi_phy_rate gxl_rates[] = {
+>> +	/* 5.94Gbps, 3.7125Gbps */
+>> +	{ 371250000, 0x333d3282, 0x2136315b },
+>> +	/* 2.97Gbps */
+>> +	{ 297000000, 0x33303382, 0x2036315b },
+>> +	/* 1.485Gbps */
+>> +	{ 148500000, 0x33303362, 0x2016315b },
+>> +	/* 742.5Mbps, down to 251.75Mbps */
+>> +	{ 25175000,  0x33604142, 0x0016315b },
+>> +};
+>> +
+>> +/* G12A */
+>> +static const struct meson_hdmi_phy_rate g12a_rates[] = {
+>> +	/* 5.94Gbps, 3.7125Gbps */
+>> +	{ 371250000, 0x37eb65c4, 0x2ab0ff3b, 0x0000080b },
+>> +	/* 2.97Gbps */
+>> +	{ 297000000, 0x33eb6262, 0x2ab0ff3b, 0x00000003 },
+>> +	/* 1.485Gbps, down to 251.75Mbps */
+>> +	{ 25175000,  0x33eb4242, 0x2ab0ff3b, 0x00000003 },
+>> +};
+> [ ... ]
+>> +static const struct meson_hdmi_phy_rate *
+>> +meson_hdmi_phy_find_rate(const struct meson_hdmi_phy_data *data, u64 rate)
+>> +{
+>> +	unsigned int i;
+>> +
+>> +	if (rate > data->max_rate)
+>> +		return NULL;
+>> +
+>> +	for (i = 0; i < data->num_rates; i++)
+>> +		if (rate >= data->rates[i].min_rate)
+>> +			return &data->rates[i];
+>> +
+>> +	return NULL;
+>> +}
+> 
+> [Severity: Medium]
+> Does setting min_rate to 25175000 in the lowest entries of gxbb_rates[],
+> gxl_rates[], and g12a_rates[] cause a regression for valid display modes
+> below 25.175 MHz?
+> 
+> In drivers/gpu/drm/meson/meson_dw_hdmi.c, meson_hdmi_phy_setup_mode() used
+> an unconditional else branch with no lower frequency bound for the lowest
+> band ("742.5Mbps, and below" on GXL/GXM, and "1.485Gbps, and below" on GXBB
+> and G12A).  Meanwhile, meson_encoder_hdmi_mode_valid() accepts non-VIC DMT
+> modes down to 15.9 MHz via meson_vclk_dmt_supported_freq() without calling
+> phy_validate().  Any mode between 15.9 MHz and 25.174 MHz (such as
+> 640x480@60Hz CVT reduced-blanking at 23.75 MHz, or a 640x480 EDID detailed
+> timing descriptor whose 10 kHz step encodes 25.175 MHz as 25170 kHz) passes
+> mode validation and atomic_check, then fails with -EINVAL in
+> dw_hdmi_phy_init() -> phy_configure() during atomic_enable, aborting HDMI
+> PHY power-on.
+> 
 
-On Mon, 23 Nov 2026 08:55:40 +0100, Maxime Ripard wrote:
-> On Sat, Nov 21, 2026 at 03:40:49PM +0800, Cody Kang via B4 Relay wrote:
-> > +static int spacemit_drm_master_bind(struct device *dev)
-[...]
-> > +	drm_mode_config_reset(drm);
->
-> You need to use drm_mode_config_create_initial_state().
+I've tested 15.9 MHz ok on a small screen with EDID. I will change the
+minimal value accordingly.
 
-Thanks for the review. Will fix in v4.
-
-Cody
+-- 
+Best regards,
+Ronald
