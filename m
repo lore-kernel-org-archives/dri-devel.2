@@ -2,28 +2,28 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9852A606A327
-	for <dri-devel@archiver.kernel.org>; Mon, 23 Nov 2026 20:40:06 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7D0C6606A32A
+	for <dri-devel@archiver.kernel.org>; Mon, 23 Nov 2026 20:40:15 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=matt3o12.de header.i=@matt3o12.de header.a=rsa-sha256 header.s=securedbylima-20230709 header.b=MQ7zupQl
+	dkim=pass (2048-bit key) header.d=matt3o12.de header.i=@matt3o12.de header.a=rsa-sha256 header.s=securedbylima-20230709 header.b=eXH+cTpt
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id AA5FF10E82A;
-	Mon, 23 Nov 2026 20:39:59 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id CD47710F1D4;
+	Mon, 23 Nov 2026 20:40:09 +0000 (UTC)
 Received: from mx1.mail-out.lima-city.de (mx1.mail-out.lima-city.de
  [91.216.248.203])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 9CC7610EB73
- for <dri-devel@lists.freedesktop.org>; Mon, 23 Nov 2026 20:39:52 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id B11B310F1D4
+ for <dri-devel@lists.freedesktop.org>; Mon, 23 Nov 2026 20:39:53 +0000 (UTC)
 From: Matteo Kloiber <kernel@matt3o12.de>
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=matt3o12.de;
- s=securedbylima-20230709; t=1795466390;
- bh=XALVTHWMsgu1a0FxagPF6ryKmWly2pkY8mk75dxeV4I=;
+ s=securedbylima-20230709; t=1795466392;
+ bh=Lr6DCDd2JVmMA2pnLdm6Y0re5QDYDWHDXLkvL8wD3vM=;
  h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=MQ7zupQleLZOjBgocgFfXMWGtGg9t/Q0IYuYF4fU4bBMU4QixbgpQmT0gLWAzfJE8
- 7Z5KDnFZ/6RrjZ7AKIY53W393WoFqDZOCbOtLlVxdhVH3A4gWDMQntHZofFJm33ey0
- phRPbppo8PplLK4gLTQ8O37fsrzPm4dl9FkPR+SDvYWowC7MYwknGb0pvX1hJvJInV
- DUZVJJReacAQvt86SCbulwtykCQMm5Yhu5GokSORQpnE5TzxVYosJkQv4bV02cjQKn
- NdqorE9EDdzKH8ipR96f5vZNi2hdQgjG3h31nZX8pBh/RqTF9amkqU/O8YERZ0tlNy
- ehBul6c5iBNag==
+ b=eXH+cTptI3CiNW1vjnVa+sMF4hw1g8i+pvhAMiHST5LuUz/UAkC4a+UR4dwz7sgct
+ x4D02R8Ucu+0uodMP2j13gV7w4ZWOx+mS9846asQNnsMqZRpSYUVX11yU3XCUwkAfK
+ m+iHwnNnbIf6W1ghWD6X6Bob4RCQJzkkmM8HWQPyBOrGKPs7R9xJiJqs3zZF3LHyaG
+ oEjF/Ca2/n1OLvFQAnHeoZBKcLDBkakX0laSC/s7GTVGsX4sD7ergkNvxASLa2lUZc
+ ng10T6grJw+8TRZSq1fddyhtjoE3ylgngb7N653s4mwuvwgrlq+8bINOVrpMIAUN92
+ M+qAMQk9Vjgog==
 To: Danilo Krummrich <dakr@kernel.org>,
  Alexandre Courbot <acourbot@nvidia.com>, Alice Ryhl <aliceryhl@google.com>,
  Abdiel Janulgue <abdiel.janulgue@gmail.com>,
@@ -37,9 +37,9 @@ Cc: Daniel Almeida <daniel.almeida@collabora.com>,
  rust-for-linux@vger.kernel.org, driver-core@lists.linux.dev,
  dri-devel@lists.freedesktop.org, nova-gpu@lists.linux.dev,
  linux-kernel@vger.kernel.org, Matteo Kloiber <kernel@matt3o12.de>
-Subject: [RFC PATCH 1/3] rust: pci, platform: pass InitTokens to probe()
-Date: Mon, 23 Nov 2026 21:39:24 +0100
-Message-ID: <20261123203926.1787169-2-kernel@matt3o12.de>
+Subject: [RFC PATCH 2/3] gpu: nova-core: build Gpu inside pin_init_scope
+Date: Mon, 23 Nov 2026 21:39:25 +0100
+Message-ID: <20261123203926.1787169-3-kernel@matt3o12.de>
 X-Mailer: git-send-email 2.51.2
 In-Reply-To: <20261123203926.1787169-1-kernel@matt3o12.de>
 References: <20261123203926.1787169-1-kernel@matt3o12.de>
@@ -65,289 +65,289 @@ X-Spam-Status: No, score=-18.8 required=3.0 tests=BAYES_00,DKIM_SIGNED,
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-Some capabilities should only be available to a driver while it binds
-to a device, for example configuring the device for DMA before any
-memory is allocated or mapped. A probe-time token lets the type system
-enforce such ordering, but adding a new argument to probe() for every
-token would touch every driver each time.
+Gpu::new() sets the DMA mask and maximum segment size from inside the
+try_pin_init!() initializer, after Tree::new(). A follow-up change
+replaces these setters with a DMA configuration step that returns a
+handle, and that handle must be available to several fields of the
+initializer.
 
-Add an InitTokens struct to the PCI and platform buses and pass it to
-Driver::probe(). Buses add new tokens as fields of this struct. It is
-marked #[non_exhaustive], so drivers destructure it with `..` and
-adding tokens later does not break them.
+Wrap the initializer in pin_init_scope(), compute the chip spec before
+it, and set the DMA parameters right after the spec is known. This
+keeps the reindentation out of the follow-up change.
 
-The struct carries no tokens yet. Update all drivers, samples and
-doctests to accept and ignore it.
+No functional change, except that the DMA parameters are now set
+before Tree::new() instead of after it.
 
-Suggested-by: Danilo Krummrich <dakr@kernel.org>
-Link: https://lore.kernel.org/DLR1JCUWS824.35QJU45D2W9ZE@nvidia.com
 Signed-off-by: Matteo Kloiber <kernel@matt3o12.de>
 ---
- drivers/cpufreq/rcpufreq_dt.rs        |  1 +
- drivers/gpu/drm/tyr/driver.rs         |  1 +
- drivers/gpu/nova-core/driver.rs       |  1 +
- drivers/pwm/pwm_th1520.rs             |  1 +
- rust/kernel/cpufreq.rs                |  1 +
- rust/kernel/io/mem.rs                 |  2 ++
- rust/kernel/pci.rs                    | 10 +++++++++-
- rust/kernel/platform.rs               | 10 +++++++++-
- samples/rust/rust_debugfs.rs          |  1 +
- samples/rust/rust_dma.rs              |  1 +
- samples/rust/rust_driver_auxiliary.rs |  1 +
- samples/rust/rust_driver_pci.rs       |  1 +
- samples/rust/rust_driver_platform.rs  |  1 +
- samples/rust/rust_i2c_client.rs       |  1 +
- samples/rust/rust_soc.rs              |  1 +
- 15 files changed, 32 insertions(+), 2 deletions(-)
+ drivers/gpu/nova-core/gpu.rs | 233 ++++++++++++++++++-----------------
+ 1 file changed, 118 insertions(+), 115 deletions(-)
 
-diff --git a/drivers/cpufreq/rcpufreq_dt.rs b/drivers/cpufreq/rcpufreq_dt.rs
-index 2b1f18b7a1e7..a6e314f4d809 100644
---- a/drivers/cpufreq/rcpufreq_dt.rs
-+++ b/drivers/cpufreq/rcpufreq_dt.rs
-@@ -212,6 +212,7 @@ impl platform::Driver for CPUFreqDTDriver {
- 
-     fn probe<'bound>(
-         pdev: &'bound platform::Device<Core<'_>>,
-+        _tokens: platform::InitTokens<'bound>,
-         _id_info: Option<&'bound Self::IdInfo>,
-     ) -> impl PinInit<Self, Error> + 'bound {
-         cpufreq::Registration::<CPUFreqDTDriver>::new_foreign_owned(pdev.as_ref())?;
-diff --git a/drivers/gpu/drm/tyr/driver.rs b/drivers/gpu/drm/tyr/driver.rs
-index 557f2ec0a767..7650ade4ad72 100644
---- a/drivers/gpu/drm/tyr/driver.rs
-+++ b/drivers/gpu/drm/tyr/driver.rs
-@@ -119,6 +119,7 @@ impl platform::Driver for TyrPlatformDriver {
- 
-     fn probe<'bound>(
-         pdev: &'bound platform::Device<Core<'_>>,
-+        _tokens: platform::InitTokens<'bound>,
-         _info: Option<&'bound Self::IdInfo>,
-     ) -> impl PinInit<Self::Data<'bound>, Error> + 'bound {
-         pin_init::pin_init_scope(move || {
-diff --git a/drivers/gpu/nova-core/driver.rs b/drivers/gpu/nova-core/driver.rs
-index d6bc972d47c7..e42987e35846 100644
---- a/drivers/gpu/nova-core/driver.rs
-+++ b/drivers/gpu/nova-core/driver.rs
-@@ -100,6 +100,7 @@ impl pci::Driver for NovaCoreDriver {
- 
-     fn probe<'bound>(
-         pdev: &'bound pci::Device<Core<'_>>,
-+        _tokens: pci::InitTokens<'bound>,
-         _info: Option<&'bound Self::IdInfo>,
-     ) -> impl PinInit<Self::Data<'bound>, Error> + 'bound {
-         dev_dbg!(pdev, "Probe Nova Core GPU driver.\n");
-diff --git a/drivers/pwm/pwm_th1520.rs b/drivers/pwm/pwm_th1520.rs
-index 728993998446..2486333c4a91 100644
---- a/drivers/pwm/pwm_th1520.rs
-+++ b/drivers/pwm/pwm_th1520.rs
-@@ -316,6 +316,7 @@ impl platform::Driver for Th1520PwmPlatformDriver {
- 
-     fn probe<'bound>(
-         pdev: &'bound platform::Device<Core<'_>>,
-+        _tokens: platform::InitTokens<'bound>,
-         _id_info: Option<&'bound Self::IdInfo>,
-     ) -> impl PinInit<Self, Error> + 'bound {
+diff --git a/drivers/gpu/nova-core/gpu.rs b/drivers/gpu/nova-core/gpu.rs
+index 8ab1687847ff..993f1512c391 100644
+--- a/drivers/gpu/nova-core/gpu.rs
++++ b/drivers/gpu/nova-core/gpu.rs
+@@ -455,142 +455,145 @@ pub(crate) fn new<'a>(
+     ) -> impl PinInit<Self, Error> + use<'gpu, 'a> {
          let dev = pdev.as_ref();
-diff --git a/rust/kernel/cpufreq.rs b/rust/kernel/cpufreq.rs
-index b75d692846a2..0032264fe72c 100644
---- a/rust/kernel/cpufreq.rs
-+++ b/rust/kernel/cpufreq.rs
-@@ -916,6 +916,7 @@ fn register_em(_policy: &mut Policy) {
- ///
- ///     fn probe<'bound>(
- ///         pdev: &'bound platform::Device<Core<'_>>,
-+///         _tokens: platform::InitTokens<'bound>,
- ///         _id_info: Option<&'bound Self::IdInfo>,
- ///     ) -> impl PinInit<Self, Error> + 'bound {
- ///         cpufreq::Registration::<SampleDriver>::new_foreign_owned(pdev.as_ref())?;
-diff --git a/rust/kernel/io/mem.rs b/rust/kernel/io/mem.rs
-index 32a919099dcd..50dedd32d1a7 100644
---- a/rust/kernel/io/mem.rs
-+++ b/rust/kernel/io/mem.rs
-@@ -70,6 +70,7 @@ pub(crate) unsafe fn new(device: &'a Device<Bound>, resource: &'a Resource) -> S
-     ///
-     ///    fn probe<'bound>(
-     ///       pdev: &'bound platform::Device<Core<'_>>,
-+    ///       _tokens: platform::InitTokens<'bound>,
-     ///       info: Option<&'bound Self::IdInfo>,
-     ///    ) -> impl PinInit<Self, Error> + 'bound {
-     ///       let offset = 0; // Some offset.
-@@ -130,6 +131,7 @@ pub fn iomap_exclusive_sized<const SIZE: usize>(self) -> Result<ExclusiveIoMem<'
-     ///
-     ///    fn probe<'bound>(
-     ///       pdev: &'bound platform::Device<Core<'_>>,
-+    ///       _tokens: platform::InitTokens<'bound>,
-     ///       info: Option<&'bound Self::IdInfo>,
-     ///    ) -> impl PinInit<Self, Error> + 'bound {
-     ///       let offset = 0; // Some offset.
-diff --git a/rust/kernel/pci.rs b/rust/kernel/pci.rs
-index 769d01d23429..fdb2934eda0d 100644
---- a/rust/kernel/pci.rs
-+++ b/rust/kernel/pci.rs
-@@ -128,7 +128,7 @@ extern "C" fn probe_callback(
-         let info = unsafe { id.info_unchecked_opt::<T::IdInfo>() };
  
-         from_result(|| {
--            let data = T::probe(pdev, info);
-+            let data = T::probe(pdev, InitTokens { _p: PhantomData }, info);
- 
-             pdev.as_ref().set_drvdata(data)?;
-             Ok(0)
-@@ -261,6 +261,12 @@ macro_rules! pci_device_table {
-     };
- }
- 
-+/// Initialization tokens passed to a PCI driver's [`Driver::probe`] callback.
-+#[non_exhaustive]
-+pub struct InitTokens<'bound> {
-+    _p: PhantomData<&'bound ()>,
-+}
+-        try_pin_init!(Self {
+-            spec: Spec::new(dev, bar).inspect(|spec| {
+-                dev_info!(dev,"NVIDIA ({})\n", spec);
+-            })?,
++        pin_init::pin_init_scope(move || {
++            let spec = Spec::new(dev, bar).inspect(|spec| {
++                dev_info!(dev, "NVIDIA ({})\n", spec);
++            })?;
++            let dma_mask = hal::gpu_hal(spec.chipset).dma_mask();
++            // SAFETY: `Gpu` owns all DMA allocations for this device, and we are
++            // still constructing it, so no concurrent DMA allocations can exist.
++            unsafe { pdev.dma_set_mask_and_coherent(dma_mask)? };
 +
- /// The PCI driver trait.
- ///
- /// # Examples
-@@ -288,6 +294,7 @@ macro_rules! pci_device_table {
- ///
- ///     fn probe<'bound>(
- ///         _pdev: &'bound pci::Device<Core<'_>>,
-+///         _tokens: pci::InitTokens<'bound>,
- ///         _id_info: Option<&'bound Self::IdInfo>,
- ///     ) -> impl PinInit<Self::Data<'bound>, Error> + 'bound {
- ///         Err(ENODEV)
-@@ -317,6 +324,7 @@ pub trait Driver {
-     /// attempt to initialize the device here.
-     fn probe<'bound>(
-         dev: &'bound Device<device::Core<'_>>,
-+        tokens: InitTokens<'bound>,
-         id_info: Option<&'bound Self::IdInfo>,
-     ) -> impl PinInit<Self::Data<'bound>, Error> + 'bound;
- 
-diff --git a/rust/kernel/platform.rs b/rust/kernel/platform.rs
-index ac0a012ae1bb..a7b33e229a30 100644
---- a/rust/kernel/platform.rs
-+++ b/rust/kernel/platform.rs
-@@ -104,7 +104,7 @@ extern "C" fn probe_callback(pdev: *mut bindings::platform_device) -> kernel::ff
-         let info = unsafe { <Self as driver::Adapter>::id_info(pdev.as_ref()) };
- 
-         from_result(|| {
--            let data = T::probe(pdev, info);
-+            let data = T::probe(pdev, InitTokens { _p: PhantomData }, info);
- 
-             pdev.as_ref().set_drvdata(data)?;
-             Ok(0)
-@@ -159,6 +159,12 @@ macro_rules! module_platform_driver {
-     };
- }
- 
-+/// Initialization tokens passed to a platform driver's [`Driver::probe`] callback.
-+#[non_exhaustive]
-+pub struct InitTokens<'bound> {
-+    _p: PhantomData<&'bound ()>,
-+}
++            // Nova walks SG segments to build page tables, so their length is
++            // irrelevant to the device.
++            //
++            // SAFETY: `Gpu` owns all DMA allocations for this device, and we are
++            // still constructing it, so no concurrent DMA allocations can exist.
++            unsafe { pdev.dma_set_max_seg_size(u32::MAX) };
 +
- /// The platform driver trait.
- ///
- /// Drivers must implement this trait in order to get a platform driver registered.
-@@ -199,6 +205,7 @@ macro_rules! module_platform_driver {
- ///
- ///     fn probe<'bound>(
- ///         _pdev: &'bound platform::Device<Core<'_>>,
-+///         _tokens: platform::InitTokens<'bound>,
- ///         _id_info: Option<&'bound Self::IdInfo>,
- ///     ) -> impl PinInit<Self::Data<'bound>, Error> + 'bound {
- ///         Err(ENODEV)
-@@ -229,6 +236,7 @@ pub trait Driver {
-     /// Implementers should attempt to initialize the device here.
-     fn probe<'bound>(
-         dev: &'bound Device<device::Core<'_>>,
-+        tokens: InitTokens<'bound>,
-         id_info: Option<&'bound Self::IdInfo>,
-     ) -> impl PinInit<Self::Data<'bound>, Error> + 'bound;
++            Ok(try_pin_init!(Self {
++                spec,
++
++                tree: Tree::new(pdev, bar, spec.chipset, irq::gsp::GSP_SUBTREE.into())?,
++
++                _: {
++                    // We must wait for GFW_BOOT completion before doing any significant setup on
++                    // the GPU.
++                    Self::wait_gfw_boot_completion(dev, bar, spec.chipset)?;
++                },
  
-diff --git a/samples/rust/rust_debugfs.rs b/samples/rust/rust_debugfs.rs
-index 77c19a437695..d0cc2b624835 100644
---- a/samples/rust/rust_debugfs.rs
-+++ b/samples/rust/rust_debugfs.rs
-@@ -122,6 +122,7 @@ impl platform::Driver for RustDebugFs {
+-            tree: Tree::new(pdev, bar, spec.chipset, irq::gsp::GSP_SUBTREE.into())?,
++                // Initialize this early because `gsp_resources` depends on it.
++                sysmem_flush: SysmemFlush::register(dev, bar, spec.chipset)?,
  
-     fn probe<'bound>(
-         pdev: &'bound platform::Device<Core<'_>>,
-+        _tokens: platform::InitTokens<'bound>,
-         _info: Option<&'bound Self::IdInfo>,
-     ) -> impl PinInit<Self, Error> + 'bound {
-         RustDebugFs::new(pdev).pin_chain(|this| {
-diff --git a/samples/rust/rust_dma.rs b/samples/rust/rust_dma.rs
-index ffb693544673..25ce01f2d224 100644
---- a/samples/rust/rust_dma.rs
-+++ b/samples/rust/rust_dma.rs
-@@ -76,6 +76,7 @@ impl pci::Driver for DmaSampleDriver {
+-            _: {
+-                let dma_mask = hal::gpu_hal(spec.chipset).dma_mask();
++                gsp_resources <- try_pin_init!(GspResources {
++                    device: pdev,
  
-     fn probe<'bound>(
-         pdev: &'bound pci::Device<Core<'_>>,
-+        _tokens: pci::InitTokens<'bound>,
-         _info: Option<&'bound Self::IdInfo>,
-     ) -> impl PinInit<Self::Data<'bound>, Error> + 'bound {
-         pin_init::pin_init_scope(move || {
-diff --git a/samples/rust/rust_driver_auxiliary.rs b/samples/rust/rust_driver_auxiliary.rs
-index 0bee16faecc6..20d2b6d0fb77 100644
---- a/samples/rust/rust_driver_auxiliary.rs
-+++ b/samples/rust/rust_driver_auxiliary.rs
-@@ -98,6 +98,7 @@ impl pci::Driver for ParentDriver {
+-                // SAFETY: `Gpu` owns all DMA allocations for this device, and we are
+-                // still constructing it, so no concurrent DMA allocations can exist.
+-                unsafe { pdev.dma_set_mask_and_coherent(dma_mask)? };
++                    spec: *spec,
  
-     fn probe<'bound>(
-         pdev: &'bound pci::Device<Core<'_>>,
-+        _tokens: pci::InitTokens<'bound>,
-         _info: Option<&'bound Self::IdInfo>,
-     ) -> impl PinInit<Self::Data<'bound>, Error> + 'bound {
-         try_pin_init!(ParentData {
-diff --git a/samples/rust/rust_driver_pci.rs b/samples/rust/rust_driver_pci.rs
-index 13b035a95756..f658efcd11bf 100644
---- a/samples/rust/rust_driver_pci.rs
-+++ b/samples/rust/rust_driver_pci.rs
-@@ -147,6 +147,7 @@ impl pci::Driver for SampleDriver {
+-                // Nova walks SG segments to build page tables, so their length is
+-                // irrelevant to the device.
+-                //
+-                // SAFETY: `Gpu` owns all DMA allocations for this device, and we are
+-                // still constructing it, so no concurrent DMA allocations can exist.
+-                unsafe { pdev.dma_set_max_seg_size(u32::MAX) };
++                    bar,
  
-     fn probe<'bound>(
-         pdev: &'bound pci::Device<Core<'_>>,
-+        _tokens: pci::InitTokens<'bound>,
-         info: Option<&'bound Self::IdInfo>,
-     ) -> impl PinInit<Self::Data<'bound>, Error> + 'bound {
-         let vendor = pdev.vendor_id();
-diff --git a/samples/rust/rust_driver_platform.rs b/samples/rust/rust_driver_platform.rs
-index 710145b3605a..80b08d32435f 100644
---- a/samples/rust/rust_driver_platform.rs
-+++ b/samples/rust/rust_driver_platform.rs
-@@ -105,6 +105,7 @@ impl platform::Driver for SampleDriver {
+-                // We must wait for GFW_BOOT completion before doing any significant setup on the GPU.
+-                Self::wait_gfw_boot_completion(dev, bar, spec.chipset)?;
+-            },
++                    gsp_falcon: Falcon::new(dev, spec.chipset, bar)?,
  
-     fn probe<'bound>(
-         pdev: &'bound platform::Device<Core<'_>>,
-+        _tokens: platform::InitTokens<'bound>,
-         info: Option<&'bound Self::IdInfo>,
-     ) -> impl PinInit<Self, Error> + 'bound {
-         let dev = pdev.as_ref();
-diff --git a/samples/rust/rust_i2c_client.rs b/samples/rust/rust_i2c_client.rs
-index c8a23875ef5b..93b207699860 100644
---- a/samples/rust/rust_i2c_client.rs
-+++ b/samples/rust/rust_i2c_client.rs
-@@ -110,6 +110,7 @@ impl platform::Driver for SampleDriver {
+-            // Initialize this early because `gsp_resources` depends on it.
+-            sysmem_flush: SysmemFlush::register(dev, bar, spec.chipset)?,
++                    sec2_falcon: Falcon::new(dev, spec.chipset, bar)?,
  
-     fn probe<'bound>(
-         pdev: &'bound platform::Device<device::Core<'_>>,
-+        _tokens: platform::InitTokens<'bound>,
-         _info: Option<&'bound Self::IdInfo>,
-     ) -> impl PinInit<Self, Error> + 'bound {
-         dev_info!(
-diff --git a/samples/rust/rust_soc.rs b/samples/rust/rust_soc.rs
-index f5e5f2f9adf7..f54c173fed94 100644
---- a/samples/rust/rust_soc.rs
-+++ b/samples/rust/rust_soc.rs
-@@ -41,6 +41,7 @@ impl platform::Driver for SampleSocDriver {
+-            gsp_resources <- try_pin_init!(GspResources {
+-                device: pdev,
++                    fsp: Fsp::try_new(dev, bar, spec.chipset)?,
  
-     fn probe<'bound>(
-         pdev: &'bound platform::Device<Core<'_>>,
-+        _tokens: platform::InitTokens<'bound>,
-         _info: Option<&'bound Self::IdInfo>,
-     ) -> impl PinInit<Self, Error> + 'bound {
-         dev_dbg!(pdev, "Probe Rust SoC driver sample.\n");
+-                spec: *spec,
++                    timer: Timer::setup(dev, bar, spec.chipset, fsp.as_ref())?,
+ 
+-                bar,
++                    vgpu: VgpuManager::new(pdev, spec.chipset, fsp.as_mut()),
+ 
+-                gsp_falcon: Falcon::new(dev, spec.chipset, bar)?,
++                    gsp <- Gsp::new(pdev, bar),
+ 
+-                sec2_falcon: Falcon::new(dev, spec.chipset, bar)?,
++                    // This member must be initialized last, so the `UnloadBundle` can never be
++                    // dropped from outside of the constructed `GspResources`, ensuring that the
++                    // unload sequence is properly run in case of failure.
++                    unload_bundle: gsp.boot(GspBootContext {
++                        pdev,
++                        bar,
++                        chipset: spec.chipset,
++                        gsp_falcon,
++                        sec2_falcon,
++                        fsp: fsp.as_mut(),
++                        vgpu,
++                    })?,
++                }),
+ 
+-                fsp: Fsp::try_new(dev, bar, spec.chipset)?,
++                _: {
++                    irq::gsp::quiesce(tree.get_ref(), &gsp_resources.gsp_falcon);
++                },
+ 
+-                timer: Timer::setup(dev, bar, spec.chipset, fsp.as_ref())?,
++                // SAFETY: The registration is owned by `Gpu`, which is dropped when the device is
++                // unbound, so the registration's `Drop` runs.
++                _gsp_subtree <- unsafe {
++                    GspSubtree::new(
++                        pdev,
++                        tree.get_ref(),
++                        &gsp_resources.get_ref().gsp_falcon,
++                        &gsp_resources.get_ref().gsp.cmdq,
++                    )
++                },
+ 
+-                vgpu: VgpuManager::new(pdev, spec.chipset, fsp.as_mut()),
++                // No interrupt announces the messages that the GSP posted during boot, before the
++                // SWGEN0 latch was cleared.
++                _: {
++                    gsp_resources.gsp.cmdq.drain()?;
++                },
+ 
+-                gsp <- Gsp::new(pdev, bar),
++                gsp_static_info: {
++                    // Obtain and display basic GPU information.
++                    let info = gsp_resources.gsp.get_static_info()?;
++                    match info.gpu_name() {
++                        Ok(name) => dev_info!(dev, "GPU name: {}\n", name),
++                        Err(e) => dev_warn!(dev, "GPU name unavailable: {:?}\n", e),
++                    }
+ 
+-                // This member must be initialized last, so the `UnloadBundle` can never be dropped
+-                // from outside of the constructed `GspResources`, ensuring that the unload sequence
+-                // is properly run in case of failure.
+-                unload_bundle: gsp.boot(GspBootContext {
+-                    pdev,
+-                    bar,
+-                    chipset: spec.chipset,
+-                    gsp_falcon,
+-                    sec2_falcon,
+-                    fsp: fsp.as_mut(),
+-                    vgpu,
+-                })?,
+-            }),
+-
+-            _: {
+-                irq::gsp::quiesce(tree.get_ref(), &gsp_resources.gsp_falcon);
+-            },
+-
+-            // SAFETY: The registration is owned by `Gpu`, which is dropped when the device is
+-            // unbound, so the registration's `Drop` runs.
+-            _gsp_subtree <- unsafe {
+-                GspSubtree::new(
+-                    pdev,
+-                    tree.get_ref(),
+-                    &gsp_resources.get_ref().gsp_falcon,
+-                    &gsp_resources.get_ref().gsp.cmdq,
+-                )
+-            },
+-
+-            // No interrupt announces the messages that the GSP posted during boot, before the
+-            // SWGEN0 latch was cleared.
+-            _: {
+-                gsp_resources.gsp.cmdq.drain()?;
+-            },
+-
+-            gsp_static_info: {
+-                // Obtain and display basic GPU information.
+-                let info = gsp_resources.gsp.get_static_info()?;
+-                match info.gpu_name() {
+-                    Ok(name) => dev_info!(dev, "GPU name: {}\n", name),
+-                    Err(e) => dev_warn!(dev, "GPU name unavailable: {:?}\n", e),
+-                }
++                    if !info.usable_fb_regions.is_empty() {
++                        dev_dbg!(dev, "Usable FB regions:\n");
++                        for region in &info.usable_fb_regions {
++                            dev_dbg!(dev, "  - {:#x?}\n", region);
++                        }
+ 
+-                if !info.usable_fb_regions.is_empty() {
+-                    dev_dbg!(dev, "Usable FB regions:\n");
+-                    for region in &info.usable_fb_regions {
+-                        dev_dbg!(dev, "  - {:#x?}\n", region);
++                        dev_dbg!(
++                            dev,
++                            "Total usable VRAM: {} MiB\n",
++                            info.vram_size() / u64::SZ_1M
++                        );
+                     }
+ 
+-                    dev_dbg!(
+-                        dev,
+-                        "Total usable VRAM: {} MiB\n",
+-                        info.vram_size() / u64::SZ_1M
+-                    );
+-                }
+-
+-                info
+-            },
++                    info
++                },
+ 
+-            // Create GPU memory manager owning memory management resources.
+-            mm: {
+-                let usable_vram = gsp_static_info.usable_fb_regions.first().ok_or(ENODEV)?;
+-                let buddy_params = GpuBuddyParams {
+-                    base_offset: usable_vram.start,
+-                    size: usable_vram.end - usable_vram.start,
+-                    chunk_size: Alignment::SZ_4K,
+-                };
++                // Create GPU memory manager owning memory management resources.
++                mm: {
++                    let usable_vram = gsp_static_info.usable_fb_regions.first().ok_or(ENODEV)?;
++                    let buddy_params = GpuBuddyParams {
++                        base_offset: usable_vram.start,
++                        size: usable_vram.end - usable_vram.start,
++                        chunk_size: Alignment::SZ_4K,
++                    };
++
++                    GpuMm::new(
++                        bar,
++                        gsp_resources.spec.chipset,
++                        buddy_params,
++                        VramAddress::from_raw(gsp_static_info.total_fb_end),
++                    )?
++                },
+ 
+-                GpuMm::new(
+-                    bar,
+-                    gsp_resources.spec.chipset,
+-                    buddy_params,
+-                    VramAddress::from_raw(gsp_static_info.total_fb_end),
+-                )?
+-            },
+-
+-            // Create BAR1 user interface for CPU access to GPU virtual memory.
+-            bar_user <- {
+-                let pdb_addr = VramAddress::from_raw(gsp_static_info.bar1_pde_base);
+-                let bar1_idx = crate::driver::bar1_resource_index(pdev)?;
+-                let bar1_size = pdev.resource_len(bar1_idx)?;
+-
+-                BarUser::new(
+-                    pdb_addr,
+-                    gsp_resources.spec.chipset,
+-                    bar1_size,
+-                    bar1,
+-                )
+-            },
++                // Create BAR1 user interface for CPU access to GPU virtual memory.
++                bar_user <- {
++                    let pdb_addr = VramAddress::from_raw(gsp_static_info.bar1_pde_base);
++                    let bar1_idx = crate::driver::bar1_resource_index(pdev)?;
++                    let bar1_size = pdev.resource_len(bar1_idx)?;
++
++                    BarUser::new(
++                        pdb_addr,
++                        gsp_resources.spec.chipset,
++                        bar1_size,
++                        bar1,
++                    )
++                },
++            }))
+         })
+     }
+ 
 -- 
 2.51.2
 
