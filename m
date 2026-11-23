@@ -2,49 +2,57 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 02A18606A31E
-	for <dri-devel@archiver.kernel.org>; Mon, 23 Nov 2026 14:17:19 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BC5B3606A33D
+	for <dri-devel@archiver.kernel.org>; Mon, 23 Nov 2026 14:17:23 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=cirad.fr header.i=@cirad.fr header.a=rsa-sha256 header.s=573E3878-7916-11F1-BF4B-F68474317960 header.b=kbsdTwEQ
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 1F37610E570;
-	Mon, 23 Nov 2026 14:17:18 +0000 (UTC)
-Received: from mailgw.kylinos.cn (mailgw.kylinos.cn [124.126.103.232])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 42FD210EBB3
- for <dri-devel@lists.freedesktop.org>; Mon, 23 Nov 2026 10:12:02 +0000 (UTC)
-X-UUID: 4ed9c192e72611f19a56ed5b684f684d-20261123
-X-CID-P-RULE: Release_Ham
-X-CID-O-INFO: VERSION:1.3.19, REQID:9026a8a2-b792-4f5a-9c6b-aa1809da5366, IP:0,
- U
- RL:0,TC:0,Content:0,EDM:0,RT:0,SF:0,FILE:0,BULK:0,RULE:Release_Ham,ACTION:
- release,TS:0
-X-CID-META: VersionHash:7db8b62, CLOUDID:08f9c6b08b8bae52e26abe2fa9450a67,
- BulkI
- D:nil,BulkQuantity:0,SF:102|850|865|898,TC:nil,Content:0|15|50|99,EDM:-3,I
- P:nil,URL:0,File:nil,RT:nil,Bulk:nil,QS:nil,BEC:nil,COL:0,OSI:0,OSA:0,AV:0
- ,LES:1,SPR:NO,DKR:0,DKP:0,BRR:0,BRE:0,ARC:0
-X-CID-BVR: 2,SSN|SDN
-X-CID-BAS: 2,SSN|SDN,0,_
-X-CID-FACTOR: TF_CID_SPAM_SNR
-X-CID-RHF: D41D8CD98F00B204E9800998ECF8427E
-X-UUID: 4ed9c192e72611f19a56ed5b684f684d-20261123
-Received: from localhost [(10.44.16.150)] by mailgw.kylinos.cn
- (envelope-from <pengyu@kylinos.cn>)
- (Generic MTA with TLSv1.3 TLS_AES_256_GCM_SHA384 256/256)
- with ESMTP id 682078225; Mon, 23 Nov 2026 18:11:54 +0800
-From: Yu Peng <pengyu@kylinos.cn>
-To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
- Jiri Slaby <jirislaby@kernel.org>, Helge Deller <deller@gmx.de>
-Cc: Thomas Zimmermann <tzimmermann@suse.de>, Nicolas Pitre <nico@fluxnic.net>,
- Ronan Pigott <ronan@rjp.ie>, linux-serial@vger.kernel.org,
- linux-fbdev@vger.kernel.org, dri-devel@lists.freedesktop.org,
- linux-kernel@vger.kernel.org, Yu Peng <pengyu@kylinos.cn>
-Subject: [PATCH] vt: Skip hardware scrolling while blanked and fix VESA
- blanking
-Date: Mon, 23 Nov 2026 18:11:51 +0800
-Message-Id: <20261123101151.414436-1-pengyu@kylinos.cn>
-X-Mailer: git-send-email 2.25.1
+	by gabe.freedesktop.org (Postfix) with ESMTP id EBFCC10E4CB;
+	Mon, 23 Nov 2026 14:17:17 +0000 (UTC)
+Received: from retz.cirad.fr (retz.cirad.fr [194.199.235.221])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id ED6CC10EBD4
+ for <dri-devel@lists.freedesktop.org>; Mon, 23 Nov 2026 10:17:27 +0000 (UTC)
+Received: from retz.cirad.fr (localhost [127.0.0.1])
+ by retz.cirad.fr (Postfix) with ESMTPS id A1A6C20DC66E;
+ Mon, 23 Nov 2026 11:17:26 +0100 (CET)
+Received: from localhost (localhost [127.0.0.1])
+ by retz.cirad.fr (Postfix) with ESMTP id 7DFCB20DC66D;
+ Mon, 23 Nov 2026 11:17:26 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.10.3 retz.cirad.fr 7DFCB20DC66D
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=cirad.fr;
+ s=573E3878-7916-11F1-BF4B-F68474317960; t=1795429046;
+ bh=rhAFp8q6hcVFicw1cnkwUehJMti1UXGDz3sIyHd3ZfU=;
+ h=From:To:Date:Message-ID:MIME-Version;
+ b=kbsdTwEQx3Qet/c/r74j7BeWCKXfebqtsECFzaLjncgdOeUZTMcZzQV/1t8pINZaQ
+ VzdpzXh9w2JzL0VocJt46lQT7I0qEp4250WiPOSQOqtVQViZzfjKBGglZq2b8nptOs
+ kNttmQNxKLHpdOALqZc0uMrLB+k+4m8pgsW1uAaNyxyrVUlTh5MaMIY+SyU5D2iQvt
+ DG5YxUHozYi+ngVwB4hq4Au/U3JuMfTtGLWnBS0H0ZLppr9QbqqjgeOWOMkFFOdbKV
+ bJ9N2/2ToVUQLDeUSDwhemT3N3iuSrOZCoFAt4CqOPkgoYr30zb2zs9hLb0KjBp1jG
+ YJ6WOvApPMnCw==
+X-Virus-Scanned: amavis at retz.cirad.fr
+Received: from retz.cirad.fr ([127.0.0.1])
+ by localhost (retz.cirad.fr [127.0.0.1]) (amavis, port 10026) with ESMTP
+ id s7PvU-pu6kNA; Mon, 23 Nov 2026 11:17:26 +0100 (CET)
+Received: from localhost.localdomain (78-196-243-100.subs.proxad.net
+ [78.196.243.100])
+ by retz.cirad.fr (Postfix) with ESMTPSA id 2A8F320DB5C2;
+ Mon, 23 Nov 2026 11:17:26 +0100 (CET)
+From: =?UTF-8?q?Fr=C3=A9d=C3=A9ric=20Mah=C3=A9?= <frederic.mahe@cirad.fr>
+To: nouveau@lists.freedesktop.org
+Cc: dri-devel@lists.freedesktop.org, Lyude Paul <lyude@redhat.com>,
+ Danilo Krummrich <dakr@kernel.org>,
+ =?UTF-8?q?Fr=C3=A9d=C3=A9ric=20Mah=C3=A9?= <frederic.mahe@cirad.fr>
+Subject: [PATCH 2/2] drm/nouveau/dispnv50: reject DP modes that don't fit the
+ link
+Date: Mon, 23 Nov 2026 11:16:59 +0100
+Message-ID: <20261123101659.600247-3-frederic.mahe@cirad.fr>
+X-Mailer: git-send-email 2.47.3
+In-Reply-To: <20261123101659.600247-1-frederic.mahe@cirad.fr>
+References: <20261123101659.600247-1-frederic.mahe@cirad.fr>
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: quoted-printable
 X-Mailman-Approved-At: Mon, 23 Nov 2026 14:16:40 +0000
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -57,69 +65,65 @@ List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-16.8 required=3.0 tests=BAYES_00,
-	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
-	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,UNPARSEABLE_RELAY,
-	USER_AGENT_GIT autolearn=unavailable autolearn_force=no version=4.0.1
+X-Spam-Status: No, score=-18.8 required=3.0 tests=BAYES_00,DKIM_SIGNED,
+	DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
+	INCLUDES_CR_TRAILER,INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,
+	SPF_PASS,USER_AGENT_GIT autolearn=ham autolearn_force=no version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-When vgacon is blanked without palette blanking (!vga_palette_blanked),
-vgacon_set_origin() rejects VRAM so vc->vc_origin points to the heap
-buffer vc->vc_screenbuf. Calling hardware scroll callbacks while blanked
-then treats vc->vc_screenbuf as VRAM and causes out-of-bounds accesses.
+nv50_dp_mode_valid() keeps modes that are too fast for the DP link out
+of the connector's mode list, but a user-supplied mode only goes through
+atomic check, where nv50_outp_atomic_fix_depth() lowers bpc to 6 and
+then accepts the mode even if it still does not fit.  Link training
+then fails, the display stays dark and, before the previous fix, the
+kernel crashed.
 
-Use con_should_update() to skip hardware scrolling and scrollback while
-blanked, allowing con_scroll() to fall back to software scrolling.
-In vgacon_blank(), return !vga_palette_blanked for VESA blanking so
-direct VESA blanking switches vc->vc_origin to vc->vc_screenbuf
-immediately instead of losing output on unblank.
+This happens with Xorg's modesetting driver, which builds modes from
+the EDID itself: on a Quadro 600 (DP 1.1, 4 lanes at 2.7 Gbit/s) with a
+4K monitor it sets 3840x2160@60 (533 MHz), which needs 1200 MB/s even
+at 18 bpp against 1080 MB/s for the link.
 
-Assisted-by: LLM
-Signed-off-by: Yu Peng <pengyu@kylinos.cn>
+Return -EINVAL from atomic check in that case, so userspace can fall
+back to another mode.  Only check when the link capabilities are known,
+so that a sink that is asleep or still resuming does not make every
+commit fail.
+
+Written with help from Claude (Anthropic); reviewed and tested on hardwar=
+e.
+
+Signed-off-by: Fr=C3=A9d=C3=A9ric Mah=C3=A9 <frederic.mahe@cirad.fr>
 ---
- drivers/tty/vt/vt.c            | 7 ++++---
- drivers/video/console/vgacon.c | 2 +-
- 2 files changed, 5 insertions(+), 4 deletions(-)
+ drivers/gpu/drm/nouveau/dispnv50/disp.c | 15 +++++++++++++++
+ 1 file changed, 15 insertions(+)
 
-diff --git a/drivers/tty/vt/vt.c b/drivers/tty/vt/vt.c
-index 6a6eb8b2a6dec..39be682645097 100644
---- a/drivers/tty/vt/vt.c
-+++ b/drivers/tty/vt/vt.c
-@@ -726,8 +726,8 @@ static void con_scroll(struct vc_data *vc, unsigned int top,
- 		return;
- 
- 	vc_uniscr_scroll(vc, top, bottom, dir, nr);
--	if (con_is_visible(vc) &&
--			vc->vc_sw->con_scroll(vc, top, bottom, dir, nr))
-+	if (con_should_update(vc) &&
-+	    vc->vc_sw->con_scroll(vc, top, bottom, dir, nr))
- 		return;
- 
- 	src = clear = (u16 *)(vc->vc_origin + vc->vc_size_row * top);
-@@ -3488,7 +3488,8 @@ static void console_callback(struct work_struct *ignored)
- 	if (scrollback_delta) {
- 		struct vc_data *vc = vc_cons[fg_console].d;
- 		clear_selection();
--		if (vc->vc_mode == KD_TEXT && vc->vc_sw->con_scrolldelta)
-+		if (con_should_update(vc) && vc->vc_mode == KD_TEXT &&
-+		    vc->vc_sw->con_scrolldelta)
- 			vc->vc_sw->con_scrolldelta(vc, scrollback_delta);
- 		scrollback_delta = 0;
- 	}
-diff --git a/drivers/video/console/vgacon.c b/drivers/video/console/vgacon.c
-index 09f7c376b4689..3a706c1f1cb28 100644
---- a/drivers/video/console/vgacon.c
-+++ b/drivers/video/console/vgacon.c
-@@ -796,7 +796,7 @@ static bool vgacon_blank(struct vc_data *c, enum vesa_blank_mode blank,
- 			vga_vesa_blank(&vgastate, blank);
- 			vga_vesa_blanked = blank;
- 		}
--		return false;
-+		return !vga_palette_blanked;
- 	}
+diff --git a/drivers/gpu/drm/nouveau/dispnv50/disp.c b/drivers/gpu/drm/no=
+uveau/dispnv50/disp.c
+index e91130f..fbe8528 100644
+--- a/drivers/gpu/drm/nouveau/dispnv50/disp.c
++++ b/drivers/gpu/drm/nouveau/dispnv50/disp.c
+@@ -423,6 +423,21 @@ nv50_outp_atomic_check(struct drm_encoder *encoder,
+ 	/* We might have to reduce the bpc */
+ 	nv50_outp_atomic_fix_depth(encoder, crtc_state);
+=20
++	/* Reject a mode that does not fit the DP link even at the lowest bpc:
++	 * link training would fail and the display would stay dark.  Only
++	 * when the link capabilities are known, so that a sink that is
++	 * asleep or still resuming does not make every commit fail.
++	 */
++	if (crtc_state->mode_changed && crtc_state->active) {
++		struct nouveau_encoder *nv_encoder =3D nouveau_encoder(encoder);
++
++		if (nv_encoder->dcb->type =3D=3D DCB_OUTPUT_DP &&
++		    nv_encoder->dp.link_nr && nv_encoder->dp.link_bw &&
++		    nv50_dp_mode_valid(nv_encoder, &crtc_state->adjusted_mode,
++				       NULL) !=3D MODE_OK)
++			return -EINVAL;
++	}
++
+ 	return 0;
  }
- 
--- 
-2.43.0
+=20
+--=20
+2.53.0
 
