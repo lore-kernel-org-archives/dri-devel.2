@@ -2,139 +2,61 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5E4EB606A682
-	for <dri-devel@archiver.kernel.org>; Mon, 23 Nov 2026 14:58:39 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 14F1D606A6B1
+	for <dri-devel@archiver.kernel.org>; Mon, 23 Nov 2026 14:59:12 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=MFZ2YcHi;
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=efuwAqmm
+	dkim=pass (2048-bit key) header.d=collabora.com header.i=@collabora.com header.a=rsa-sha256 header.s=mail header.b=hv33eNY7
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id C15F910EEC4;
-	Mon, 23 Nov 2026 14:58:28 +0000 (UTC)
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com
- [205.220.168.131])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 6FC1210EEBC
- for <dri-devel@lists.freedesktop.org>; Mon, 23 Nov 2026 14:54:42 +0000 (UTC)
-Received: from pps.filterd (m0279863.ppops.net [127.0.0.1])
- by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id
- 6ANDKpMI2369001
- for <dri-devel@lists.freedesktop.org>; Mon, 23 Nov 2026 14:54:42 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
- cc:content-transfer-encoding:content-type:date:from:in-reply-to
- :message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
- cjdhAiDDNjn2+9CEOyy6QSd/w/KllDQxmuyoGixQI3M=; b=MFZ2YcHiETwRhg9/
- DIdZ4DGjkEzUgOGtUu450VTuKRKTfK9gvPPVXbcnks5Ibu9HV8WSHmOi887T1ZhZ
- 7uKeSUY5zbxBymI2R2FHR2fpV7Cfd5GQHpgtoVm+o75PYmfAJjZZ7ouWmko77mu9
- UIgMVjfJS85VPNmEBhVjryo2tBfG8LrzNmyZV83s1E8kgDpIEIFMQwL9U08q8d7h
- fWgES4y1lnUEEbjNyXfLh4Yp+4vv0E0Zez0eJaxcyeYWchblMHYoHobsT3YydFWr
- 1VTOap3EKB60jYHBv06AZBBpGQZfU6EUO2JtluqXoGnatsKWOb6Dj07T3AdLPgc2
- kn4ahg==
-Received: from mail-vk1-f198.google.com (mail-vk1-f198.google.com
- [209.85.221.198])
- by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4j4g1p9vcq-1
- (version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
- for <dri-devel@lists.freedesktop.org>; Mon, 23 Nov 2026 14:54:41 +0000 (GMT)
-Received: by mail-vk1-f198.google.com with SMTP id
- 71dfb90a1353d-5ecdc7807f4so112061e0c.2
- for <dri-devel@lists.freedesktop.org>; Mon, 23 Nov 2026 06:54:41 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=oss.qualcomm.com; s=google; t=1795445681; x=1796050481;
- darn=lists.freedesktop.org; 
- h=content-transfer-encoding:content-type:in-reply-to:from
- :content-language:references:cc:to:subject:user-agent:mime-version
- :date:message-id:from:to:cc:subject:date:message-id:reply-to
- :content-type; bh=cjdhAiDDNjn2+9CEOyy6QSd/w/KllDQxmuyoGixQI3M=;
- b=efuwAqmmxWREKsIg6UvcurFT62wJ6Ela5G5dCfB2+DPLFk6jmRbsb8u3hqJ5IDnLRL
- YUe/UxU5lwxxsfKziwkFxjWL4oA+eBbNaDdZymhSC+x9volM9Dc4+HtPG/LW374DCFgI
- eVySCoQaafH0KXIb8F7azCwv0NBVtLMpmVUEmwAUXoCZGYkTBj4UZ4TlNwj7j5g4CCG+
- /1/nSjGbuGQFecW5hwm88ra+irwe3yGvyZkIQMrDv3LoH6ClqAuxbtwj1hbFZhW1tWsp
- lisSIB1yNP8idxLQvRM7PBoMC7lMd8YcZSSFTxPCG0A2Zrb9WTdXUSM4BNmDy+AkwdZN
- BkKA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20260707; t=1795445681; x=1796050481;
- h=content-transfer-encoding:content-type:in-reply-to:from
- :content-language:references:cc:to:subject:user-agent:mime-version
- :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
- :message-id:reply-to:content-type;
- bh=cjdhAiDDNjn2+9CEOyy6QSd/w/KllDQxmuyoGixQI3M=;
- b=Zf1hkkK8dWgALcH116idHPRHZqFaMuHoetVpvbbX0Mhw0nYBsayrzO8EusUQQs517D
- VQFPZd0MG3cFt0aLiCGgXn7yS+d4Q5XBqdzbiXyVNbh60GHHLQ+wt5CgoroV+KJ/da4/
- uFdaatOfFS8hZoaV5CEI+1kVpIobmKP7sQY10F1ZCsztBkWOMCjL14miFiaPuP2rU8Gr
- DpGjw5BzFSzrgIhn4OxTJuCfVYEp7Q8nvzJ6IF2eCnIMEjjV66m5D9oMwK67pkyEw9dO
- u0rlElLs/Y+xtlSEi7tnix2ftxp3X8h8S39rBm/x7vjogSd6rIHK6g2Dec6opCHcjuDz
- 3xVw==
-X-Forwarded-Encrypted: i=1;
- AL+hErGHciHG8odrdyjHpdmIxNsnor8NvijJX50msFsKdRk/NbDGY8ypS9BqLcP7sFX3dzvjwTfrHhE3HnY=@lists.freedesktop.org
-X-Gm-Message-State: APuU4Z9VE4PaeG0QPhIN5AZUoYgtE46AhCFfDs/CeAKNZfMSXhC3eaa+
- x01OCw1CMLygdmjJMbn8KkG0E8w2vkExMpVu3t0uzQjb8u45Fs6nk46wuoh0/TWQwBECN/a2Z3N
- 5SqFHEQYxF7xTzSPqZ9UzCIOLO8CDxmG1DTUysbq8BxShp8Nw2T+9YtUKOYVQNM2T4GuTdrE=
-X-Gm-Gg: AZFdTZfvKdKbPCH68e4qVM/jjUe9ffB2PlHJfeg5u0cCqRvHfVpIhbjb0/eocaGpG0F
- LAi0FyXwdLQutKs+2wmu4rQKPLmyaPn12NGTsZKObkQpqDLcl5ku9L6mtJzSzTnrZ62UvGbbLuz
- ifvH2EuMdG3MZsfKXqZgj3nce1+q/HW9EUSE4dBDJoAZIDOCt0NS27mgnVV8mLnsP5Y4TVGRcwR
- AIvDBaEWJgLaPXRKGzhiRhWCHyCOkdmj+CUiWz8I8nvV6rYa4vsir79C4iQ/joyq5k8tJ0MSL3P
- dHyj0s891Q6ZctQ0aPSASAkzrMo9gZdZMPPZOrXm4+zev/b+ldsulNBWSfLFoRF8GvWZ6K1KrCI
- aM4JYd1UAu+iXCJQrEN5AAEFWXb0oR0pi6YrpiXqzLHmad76UgaqcnVzILI95RfJ9j/OOq+U=
-X-Received: by 2002:ac5:cd3b:0:b0:5ec:e2a2:b70e with SMTP id
- 71dfb90a1353d-5ee8af4a71fmr5979647e0c.4.1795445680868; 
- Mon, 23 Nov 2026 06:54:40 -0800 (PST)
-X-Received: by 2002:ac5:cd3b:0:b0:5ec:e2a2:b70e with SMTP id
- 71dfb90a1353d-5ee8af4a71fmr5979593e0c.4.1795445680363; 
- Mon, 23 Nov 2026 06:54:40 -0800 (PST)
-Received: from [192.168.226.72] ([178.235.128.140])
- by smtp.gmail.com with ESMTPSA id
- a640c23a62f3a-c513aea6e29sm413697266b.43.2026.11.23.06.54.38
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Mon, 23 Nov 2026 06:54:39 -0800 (PST)
-Message-ID: <52bacac3-557e-4b2f-83eb-3c82fdc2ae9f@oss.qualcomm.com>
-Date: Mon, 23 Nov 2026 15:54:37 +0100
+	by gabe.freedesktop.org (Postfix) with ESMTP id 802FB10EEC1;
+	Mon, 23 Nov 2026 14:59:06 +0000 (UTC)
+Received: from bali.collaboradmins.com (bali.collaboradmins.com
+ [148.251.105.195])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 67DE910EEC1
+ for <dri-devel@lists.freedesktop.org>; Mon, 23 Nov 2026 14:59:00 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
+ s=mail; t=1795445939;
+ bh=C/LrQy/b3pP6rvBM/K9DTtkaboUzCcE+bKa+Er8ZWrk=;
+ h=From:Subject:Date:To:Cc:From;
+ b=hv33eNY7iFLjH4F+l2Z4rC4uTlN3bAbSXSC937MTgf3/QcjCYH2CYvtJDxz8U6o4V
+ AYJYk/TrMTkI1ixud9NW5KkIDleCm7uD3T+pwgLjGcuvykl3JsufCXJh7P+WNKBJrR
+ TvmNzI0tFZOlV9tACCg7rbhV5IUbOFP1RP2ygolq861flpGlRPsoyqUCc5A1/tV7KS
+ zKD3W9M7AOW/8P4o8GQBZC61jjCAkVwK9klbodoIGDmD5Qgfb/li1e9tQcBZu8hfh3
+ AM2bO0fuJFUwMbA86oQ2TTZClfrX9ldsuB/puOAwX+ub+2U8Izaj960GjHCkYvCFiU
+ 5lLfWcKHFvr/g==
+Received: from laura.lan (unknown [100.64.0.215])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange x25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+ (No client certificate requested) (Authenticated sender: laura.nao)
+ by bali.collaboradmins.com (Postfix) with ESMTPSA id 5BE6817E031C;
+ Mon, 23 Nov 2026 15:58:58 +0100 (CET)
+From: Laura Nao <laura.nao@collabora.com>
+Subject: [PATCH v7 0/3] drm/tyr: add Job IRQ handling
+Date: Mon, 23 Nov 2026 15:58:44 +0100
+Message-Id: <20260728-tyr-irq-v2-v7-0-4e172e58e28c@collabora.com>
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] drm/msm: Use div64_u64() for the retired-submit GPU clock
-To: emcp@enser.io, Rob Clark <robin.clark@oss.qualcomm.com>,
- Dmitry Baryshkov <lumag@kernel.org>
-Cc: Sean Paul <sean@poorly.run>, Konrad Dybcio <konradybcio@kernel.org>,
- Akhil P Oommen <akhilpo@oss.qualcomm.com>,
- Abhinav Kumar <abhinav.kumar@linux.dev>,
- Jessica Zhang <jesszhan0024@gmail.com>,
- Marijn Suijten <marijn.suijten@somainline.org>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- Jordan Crouse <jordan@cosmicpenguin.net>,
- linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org,
- freedreno@lists.freedesktop.org, linux-kernel@vger.kernel.org
-References: <20261122-b4-drm-msm-retire-div64-v1-1-94d6981799d0@enser.io>
-Content-Language: en-US
-From: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
-In-Reply-To: <20261122-b4-drm-msm-retire-div64-v1-1-94d6981799d0@enser.io>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMTIzMDA1OSBTYWx0ZWRfXzGbZrik8GjUq
- MrUEpOdkverk3YBOhjZqmBnPs2BBL32iVZUNjeOhO1pp22N9tdmhjUvy6GR0Tf3VZNV1S5A7Yt0
- AAzrvECGmQ86szZeOHJ24PsEtOk5MYi/BgRs3sl7KIGnICY1IKBZZB9U2jFMpNX3DEM7F/Nb1cX
- BKaFPXvFIVKSLlZq8IZ0rQ/p0XOA7B6jF4IVhA98HwmpuhUVp5fkRh4v/4b7X+MvLFsQzOJd8tZ
- +XlF9OJD8MumnXfQxFmrnR6ygYq3zmbH0a7V523deK4uRdmMjTuKZkk7nKxrKdWcLvk4JrMoADZ
- n3xddmyPnJkOabo11mWZlPjFp+gaigXpeK1CvQmxzyGAfNdAYCkXgw7CnMTCFyPmWVLIebg7DTy
- lH+TaMq+3q3Tom8Av85vHvNRTH2IdCH/RDogVkSC5Oq4I/eNvt/y9+DWOCRMTDxcqNaUHxTa2/e
- Hq429I8/I2Pv3CQLwmQ==
-X-Authority-Analysis: v=2.4 cv=AeIkjHXG c=1 sm=1 tr=0 ts=6b0453b1 cx=c_pps
- a=1Os3MKEOqt8YzSjcPV0cFA==:117 a=PRfkaYvzSr8QmIIGAkY2Sg==:17
- a=IkcTkHD0fZMA:10 a=zJRp6_cAMcgA:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=yOCtJkima9RkubShWh1s:22
- a=VwQbUJbxAAAA:8 a=l1nHKxr-XrZQ-B15pWYA:9 a=QEXdDO2ut3YA:10
- a=hhpmQAJR8DioWGSBphRh:22
-X-Proofpoint-GUID: swXoDdslXIEJMxltmMqxVLnqAMfUaiS8
-X-Proofpoint-ORIG-GUID: swXoDdslXIEJMxltmMqxVLnqAMfUaiS8
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMTIzMDA1OSBTYWx0ZWRfX9qtWZzuH9Z3t
- UanJBXr1Lnl9xMetKJ/H56fZjMU2qW2aoZMLfVOqR3MoIHhh8RKzzkiVkR0fRM7xCMsBq+cNV5x
- FREydX/Qz6t5W79WGM/D0Bo2b/pTT0o=
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
- definitions=2026-11-23_03,2026-11-23_01,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- priorityscore=1501 lowpriorityscore=0 adultscore=0 clxscore=1015
- suspectscore=0 phishscore=0 impostorscore=0 malwarescore=0 bulkscore=0
- spamscore=0 classifier=typeunknown authscore=0 authtc= authcc= route=outbound
- adjust=0 reason=mlx scancount=1 engine=8.22.0-2611040001
- definitions=main-2611230059
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
+X-B4-Tracking: v=1; b=H4sIAKRUBGsC/3XPwWrDMAwG4FcpPs9DlqMk2mnvMXawZWc1dHXnF
+ LNS8u5zC2MtS8GX3/D9ks5qjiXFWb1szqrEmuaU9y0MTxslW7f/iDqFlhUC9jDgqI+nolP50hU
+ 1eCsEiD5aqxo4lDil72vZ23vL2zQfczlduytefn9r+LamPaMFB4JJjAnEr5J3O+dzcc+SP9Wlq
+ tpbfrdFtY2zsBcSQBZa490fH4HueNf4aFw3gOmNEVjj9Hg6NU48BQ7RMaFb4/1j3mvQhoTBuxi
+ 4+3f7siw/HFslZ6QBAAA=
+To: Daniel Almeida <daniel.almeida@collabora.com>, 
+ Alice Ryhl <aliceryhl@google.com>, Danilo Krummrich <dakr@kernel.org>, 
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
+ Miguel Ojeda <ojeda@kernel.org>, Boqun Feng <boqun@kernel.org>, 
+ Gary Guo <gary@garyguo.net>, 
+ =?utf-8?q?Bj=C3=B6rn_Roy_Baron?= <bjorn3_gh@protonmail.com>, 
+ Benno Lossin <lossin@kernel.org>, Andreas Hindborg <a.hindborg@kernel.org>, 
+ Trevor Gross <tmgross@umich.edu>, Tamir Duberstein <tamird@kernel.org>, 
+ Alexandre Courbot <acourbot@nvidia.com>, 
+ =?utf-8?q?Onur_=C3=96zkan?= <work@onurozkan.dev>
+Cc: linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org, 
+ rust-for-linux@vger.kernel.org, kernel@collabora.com, 
+ Laura Nao <laura.nao@collabora.com>, 
+ Deborah Brouwer <deborah.brouwer@collabora.com>
+X-Mailer: b4 0.12.0
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -146,19 +68,120 @@ List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-7.3 required=3.0 tests=BAYES_00,DKIM_SIGNED,
+X-Spam-Status: No, score=-18.8 required=3.0 tests=BAYES_00,DKIM_SIGNED,
 	DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
-	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,USER_AGENT_SANE_1
-	autolearn=no autolearn_force=no version=4.0.1
+	INCLUDES_CR_TRAILER,INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,
+	SPF_PASS,USER_AGENT_GIT autolearn=unavailable autolearn_force=no
+	version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-On 11/22/26 6:12 AM, EMCP333 via B4 Relay wrote:
-> From: EMCP333 <emcp@enser.io>
+Changes in v7:
+- Rebased on top of drm-rust-next
+- Added spinlock to serialize mask register writes with state 
+  transitions, matching panthor's behavior.
+- Added IrqState to track an interrupt state and coordinate
+  primary/threaded handlers and teardown.
+- Replaced JobIrqMaskGuard with new TyrIrqRegistration struct, which 
+  wraps a ThreadedRegistration. Its drop implementation ensures 
+  interrupts are masked and status is updated before free_irq() is 
+  called, preventing racing with threaded handlers running concurrently 
+  on another CPU and a possible IRQ storm.
+- Updated job_irq_init to resolve the IRQ registration into a 
+  Pin<KBox<TyrIrqRegistration<...>>>, so it's fully initialized before 
+  returning.
+- Rebased on top of "drm/tyr: GPU reset infrastructure"[3]. Updated
+  code to leverage HwGate for IO operations.
+- Added "drm/tyr: add HwGate::try_access_atomic()"
+- Link to v6: https://lore.kernel.org/r/20260728-tyr-irq-v2-v6-0-15c90baed949@collabora.com
 
-Hey, thanks for the patch. Please note we can't take anonymous
-contributions:
+Changes in v6:
+- Split changes into two separate commits: the first one creates a new 
+  file with TyrIrq/TyrIrqTrait and their related impls, the second 
+  commit imports and uses TyrIrq/TyrIrqTrait from crate::irq instead of
+  crate::driver
+- Removed irq() accessor, unmasking the interrupts in TyrIrq::request() 
+  by accessing the private irq field directly instead
+- Add JobIrqMaskGuard to mask the Job IRQ before free_irq() runs, fixing 
+  incorrect drop order in the IRQ teardown path 
+- Combined fw_ready/job_irq_wait into a separate JobIrqEvents type
+- Store firmware-ready state only once and always wake waiters 
+  unconditionally
+- Clear the status once the handler has been successfully registered
+- Use mask() in reenable_mask() to reduce code duplication
+- Reworded commit messages to reflect the changes
+- Link to v5: https://lore.kernel.org/r/20260728-tyr-irq-v2-v5-1-59fd9dea952a@collabora.com
 
-https://docs.kernel.org/process/submitting-patches.html#sign-your-work-the-developer-s-certificate-of-origin
+Changes in v5:
+- Implement PinnedDrop on TyrIrq to clear the interrupt mask on teardown 
+- Link to v4: https://lore.kernel.org/r/20260805-tyr-irq-v2-v4-1-81a4701611c0@collabora.com
 
-Konrad
+Changes in v4:
+- Replaced c_str! with C-String in irq.rs
+- Moved clear_status() before handle() in handle_threaded(), to avoid 
+  losing events if hw re-asserts the bit while handle() is running.
+- Only unmask interrupt sources in job_irq_init() when the handler is 
+  correctly registered.
+- Link to v3: https://lore.kernel.org/r/20260728-tyr-irq-v2-v3-1-9c9bc5c029c5@collabora.com
+
+Changes in v3:
+- Propagated request_threaded_irq_by_name safety requirement up the
+  call chain, made TyrIrq::request() and job_irq_init() unsafe
+- Dropped CSG bits masking, added TODO comment to note this will be
+  handled at a later stage. Reworded commit message to reflect the
+  change.
+- Added documentation for TyrIrqTrait, TyrIrq, JobIrq and job_irq_init()
+- Link to v2: https://lore.kernel.org/r/20260729-tyr-irq-v2-v2-1-c2750fc11d59@collabora.com
+
+Changes in v2:
+- Dropped Wait custom type in favor of WaitQueue
+- Renamed JobIrq lifetime to generic 'a
+
+This series follows up to [1], which adds support for firmware loading
+and MCU booting to the Tyr driver. The changes included here were
+originally introduced in its v4[2], then dropped to reduce the scope of
+the series, and have been adjusted to work with the HRT (Higher-Ranked
+Lifetime Types) driver architecture recently introduced.
+
+The series adds a threaded IRQ wrapper for the firmware Job interrupts,
+used to signal events from the global CSF (GLB) and Command Stream Group
+(CSG) interfaces.
+
+These changes will be later used to wait for global CSF interface
+readiness after firmware boot, as part of the CSF firmware interfaces
+support that will be submitted as a separate series.
+
+This series is based on drm-rust-next and depends on:
+- [PATCH v9 0/2] drm/tyr: GPU reset infrastructure[3] and its
+  dependencies
+
+Note: A branch with all the changes is available here: 
+https://gitlab.freedesktop.org/laura.nao/linux/-/commits/b4/tyr-irq-v7
+
+[1] https://lore.kernel.org/all/20260728-fw-boot-b4-v10-0-9187aefa3f2f@collabora.com/ 
+[2] https://lore.kernel.org/rust-for-linux/20260424-b4-fw-boot-v4-v4-15-a5d91050789d@collabora.com/
+[3] https://lore.kernel.org/all/20261122-tyr-reset-impl-v9-0-ed42d8f513ec@onurozkan.dev/ 
+
+Signed-off-by: Laura Nao <laura.nao@collabora.com>
+---
+Daniel Almeida (1):
+      drm/tyr: add HwGate::try_access_atomic()
+
+Laura Nao (2):
+      drm/tyr: add TyrIrq threaded IRQ wrapper
+      drm/tyr: add Job IRQ handling
+
+ drivers/gpu/drm/tyr/fw.rs            |   1 +
+ drivers/gpu/drm/tyr/fw/irq.rs        | 148 +++++++++++++++++++
+ drivers/gpu/drm/tyr/irq.rs           | 269 +++++++++++++++++++++++++++++++++++
+ drivers/gpu/drm/tyr/reset/hw_gate.rs |  54 ++++++-
+ drivers/gpu/drm/tyr/tyr.rs           |   1 +
+ 5 files changed, 471 insertions(+), 2 deletions(-)
+---
+base-commit: 746918a0c6c0c1738e74d5e198ee06c848e2ddd2
+change-id: 20260728-tyr-irq-v2-0b3c5022be33
+
+Best regards,
+-- 
+Laura Nao <laura.nao@collabora.com>
+
