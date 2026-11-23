@@ -2,73 +2,79 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 15EB4606A31A
-	for <dri-devel@archiver.kernel.org>; Mon, 23 Nov 2026 14:17:36 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3EFF3606A31A
+	for <dri-devel@archiver.kernel.org>; Mon, 23 Nov 2026 14:18:08 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=Qrt+KPt6
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=EsOJgKbc
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 91ABC10EE46;
-	Mon, 23 Nov 2026 14:17:29 +0000 (UTC)
-Received: from mail-dy1-f178.google.com (mail-dy1-f178.google.com
- [74.125.82.178])
- by gabe.freedesktop.org (Postfix) with ESMTPS id D9F7610E402
- for <dri-devel@lists.freedesktop.org>; Mon, 23 Nov 2026 09:40:36 +0000 (UTC)
-Received: by mail-dy1-f178.google.com with SMTP id
- 5a478bee46e88-3869b68caecso3889527eec.0
- for <dri-devel@lists.freedesktop.org>; Mon, 23 Nov 2026 01:40:36 -0800 (PST)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 5478510EE48;
+	Mon, 23 Nov 2026 14:18:02 +0000 (UTC)
+Received: from mail-dy1-f171.google.com (mail-dy1-f171.google.com
+ [74.125.82.171])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 39C5510EDA7
+ for <dri-devel@lists.freedesktop.org>; Mon, 23 Nov 2026 12:22:33 +0000 (UTC)
+Received: by mail-dy1-f171.google.com with SMTP id
+ 5a478bee46e88-3282db206d3so9651052eec.0
+ for <dri-devel@lists.freedesktop.org>; Mon, 23 Nov 2026 04:22:33 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20260707; t=1795426836; x=1796031636; darn=lists.freedesktop.org;
- h=content-transfer-encoding:mime-version:message-id:date:subject:cc
- :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
- bh=9jX0RW6LaoLCUoJWieDzex2x/0egSw3B2iYNY4JlEL4=;
- b=Qrt+KPt6CiSelvOsuYniUe4AaMafY8kQmlnXF4GfDZphczevrletUwsTzCxbA/KdU3
- 59e5rQMf0ET0kpykpaVm3EuYQv6sTIvPAuJlRVEm0JSOWKkrJ3an0BOtNA1Eb9ZWJU/i
- lFBJ6QS6q/znTi0y3pfJOQUqu7N7Ll8c3tuImAvi2Lvvu0lHBId9aHEUkKVScaY+vtNk
- Al3ZhLG2x4VftjJOAnZ+mahNcI7B9PXVTFNX0M9uf8lFFuaoPEZwjqonFq785EDT9bMR
- xmAFVcFFDq9EgA8JyyspaMUNUZv+br7/Ksu8n+cPQHsGXjXWjslvbvdrjAiq4xfy6Hms
- hkHw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20260707; t=1795426836; x=1796031636;
- h=content-transfer-encoding:mime-version:message-id:date:subject:cc
- :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+ d=gmail.com; s=20260707; t=1795436552; x=1796041352; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:mime-version:references:in-reply-to
+ :message-id:date:subject:cc:to:from:from:to:cc:subject:date
  :message-id:reply-to:content-type;
- bh=9jX0RW6LaoLCUoJWieDzex2x/0egSw3B2iYNY4JlEL4=;
- b=KEdW35dYh09sXznMoRnjS8XtUyGYTXf6OQF9ZXT8r4xo+bdbsTJBlJ3xGrPLV53IFK
- bBsQJGKCPR2AyXMNu4ZslEiipsWOFHuKCObHh/yMwKEQoXc5O8SINlkjArTKxdI7mbY3
- rS922egZYDObGHIN73lwIxJDIEF6I98xFcZ9C1ztMtPaKyO75yhha4j3QGpL7/h5J6gO
- tC3UG3g99F4GengozxLsaACEtY/bmUcPOPLzX2J6jV0L/VzeSPpXE1TeMfCDLRVGbDvu
- QGAgMMQpzxNejw2PK0CUghKkG1FIxQYUWbPNhfc8wiXD1wIFXnv2Xgbfw/eDXgMa6Kz4
- m+Gg==
-X-Gm-Message-State: APuU4Z+CTEkqS+ygcyGqMheXypjLrACauRD3NYvSGEgGcKMAsZ7+ri6M
- x0rJ+V6ng4kxY6g5lp4wPV8CeBaBg2HX/MzzigHqHPHXaHKLgmcrfxT+ubwf/BjB
-X-Gm-Gg: AZFdTZeYU9o4uJSpkOhNljibrtQqHlGzdr+k68PeXywYdMhJ3Dzo/icnVhAOOzKe802
- HTqggUxFWMMzDR4x3j4Tx6ctypbC4A8s5OakafIQk1N9Pi3NTrNXF2LSxbBoUXIskBOuksta1/M
- zPhAO2tQggqyZtaqOQ76dc2IvoOkRkPvzHuGN77Nj/5YzjM6T3lves+nUA6vgSP+BimqL75VL8u
- 5sORP4sj7cIqTjL1eLAnBTrk7D/K43/n2Qs0Gvsjr7eEK7kLSSieJON5ryAzonI2y5XJAR/D1ty
- 9vQ1cYVTrM1lKT6OGDIFqcznGJh59rLiw4fJVC0eATfpGLJHN9y4zMnWscekV5MmBXpR8vNZYpF
- V27DIiAJDfxrTaLRzaJK50za1q3gm+ciZ2HJ9C+4qjNVJbNPV9Xn76vljoQUWhEiGi4l77mCvjv
- NgLLUGVyLO9ThmG+LeHmH14uJGb4AzZp6rtPNovv1+iOjD64s6HjoXGspRjyl5Zug9NHGZc8VSa
- ddFalFQ1VKFsk5mZ2rqunEqo1f8MQNwsX+iPcdxNv0sjrgSXYS0QQf3mPEJ2sAQb+5R5PewPo7j
- 138v7M4nGNhsuZ0cTrdf
-X-Received: by 2002:a05:693c:808b:b0:386:3535:1dd with SMTP id
- 5a478bee46e88-3863535052amr9738885eec.12.1795426835930; 
- Mon, 23 Nov 2026 01:40:35 -0800 (PST)
+ bh=VkpezA87wsH4BygJMCDh1GwoGufvYHw4wQvZr1AYzhM=;
+ b=EsOJgKbcON8NyebCjTIUAOXNSVxJjPv2R68PiDhLrnM8u5ZX/XXnkZPvZC2Epr4EnK
+ /xLUg0Gc3FcVFy3vIqAwfE6XlEMAqZa2q76++214E7z0ss9DyKJC1llMxCWkpj2Z09NY
+ y8oZpLzIHS7FB58AIW/4c6HcP9G9x9IFdNbm3fcqTJhbzPjUo7cNXH49Xqdkrsh7iB/W
+ nF5VKsaFnfIh0T0DlYB6mklmNh3QdG8/sTEO2FjVvbbgdyGoL1CjYe/N9VuNaMW0qVgL
+ AUmJ6/f1pgpKj9lNE+g4WrcNxylpFx5gV/F8L+LODVSzhFPTtX8v2fPdF+RVyM47Sp/l
+ zV+A==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20260707; t=1795436552; x=1796041352;
+ h=content-transfer-encoding:mime-version:references:in-reply-to
+ :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+ :to:cc:subject:date:message-id:reply-to:content-type;
+ bh=VkpezA87wsH4BygJMCDh1GwoGufvYHw4wQvZr1AYzhM=;
+ b=ozPR+FVAqxXW0ToZbHq84Iql8spquWgILJcdDY81vTYiaaFp0tjwesbXxAjvXuOyOC
+ bMOeCi3r6k2u1lnGtv1UaA2eUSZN9dlBIKM3O1Qi3ZJLxCGZA+YGpPAidPHqPOt3qp6O
+ 0lnYlcY+TdQTSv5+9JbCet1g+TP5mh/A+Lv2Nvn6IwTRKEwmbYg8hU8oE5ezmYQTlvQM
+ sWMDytwEt2lyfoZ9sprsUNvFX9pX/ASob8pgcNTMe78JdQxxPYtnGDNQIu8IGsJy7Zoe
+ LFHsNy9cUlWbQxEYCnzYfdxudOnuh8GiThBjw3ahdyfJ9s5xSoyAK5RiO18n0NnZAv5X
+ uAGw==
+X-Forwarded-Encrypted: i=1;
+ AL+hErFPj1XZZiwRZ2iHH5qRm/vSUV4UQazxKdrVQBZklMBKxOk84+1H4lLT0UdSYKYmuKdiwCHwh6qVe6U=@lists.freedesktop.org
+X-Gm-Message-State: APuU4Z8ASO+1Ge1EC71DIBOMm9TtQ2qwrZok1LjFFG81bdIyKeN+usut
+ xQ5R8dYOrEVOkUkNOsDlyTCOeO6oWXdoohSVeYnGQDz5Uw8hDo9u4zum
+X-Gm-Gg: AZFdTZfyeRm9ct6iDPD/hL9SamVBec7C3zd5xn3V7cXoUCQGj3FgV1IUhi8Rlrvj6Y4
+ fNaOJPNOdGSHZ6NksxXrzLhITvps31/nsBVrE96s376gR88v9GcoNM2Bk32it0rOIaK4Jmujost
+ Z0ifVDa3z0PyU+4U3UmfdBZgBwUyFNkelBcogIx/pG6pJ4DHm2nSbQ2eCQ2AsHkXyvIxBRI0M16
+ FM8WcYJWIymn+xXU9LE/EyUe69slisBRyplsemZ7HxhKlaf35aUiGVyJm1reDZBjSAMNylBTtj/
+ 2Qd1WtLFdhYhS0kdNlGSZTMTGUunkjNcClPrEj92EcBQ9GyPSQsbeG0cCGKPEXaRXwlhVb6uwOO
+ y/QeovIVVUJfbNUBiVph59Rb3BcwdpfLfyOH1b97y5f5zC4hoBuyXjHfE7upBNMflYtYd1vWFJw
+ tYvbgEdAa4OCktxzuPCE0l3o9tjGIozwRpaXzV1MJkMjhwJW0MDCHvoNktU9o26Fgtj1VKiY685
+ JV1R9xhnJWqeiFEO4VRRvJbD+bWYYJZPnGkXISzhTXXhK/DlGGP0OwIqxfgN/Pi4kHdgjMbPjmj
+ N1RAO3d3H6AWmDXK89Xo
+X-Received: by 2002:a05:693c:8083:b0:377:678:2309 with SMTP id
+ 5a478bee46e88-3856ef47a98mr12431705eec.15.1795436552292; 
+ Mon, 23 Nov 2026 04:22:32 -0800 (PST)
 Received: from a1-free ([161.33.196.121]) by smtp.gmail.com with ESMTPSA id
- 5a478bee46e88-386aa203267sm10875210eec.0.2026.11.23.01.40.34
+ 5a478bee46e88-386992b404bsm25173398eec.1.2026.11.23.04.22.30
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Mon, 23 Nov 2026 01:40:35 -0800 (PST)
+ Mon, 23 Nov 2026 04:22:31 -0800 (PST)
 From: TAKANO Mitsuhiro <takano32@gmail.com>
-To: dri-devel@lists.freedesktop.org, Matthew Brost <matthew.brost@intel.com>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>
-Cc: =?UTF-8?q?Thomas=20Hellstr=C3=B6m?= <thomas.hellstrom@linux.intel.com>,
- Himal Prasad Ghimiray <himal.prasad.ghimiray@intel.com>,
- Honglei Huang <honghuan@amd.com>, TAKANO Mitsuhiro <takano32@gmail.com>
-Subject: [PATCH] drm/pagemap_util: Drop the kernel-doc for a member that does
- not exist
-Date: Mon, 23 Nov 2026 09:40:32 +0000
-Message-ID: <20261123094032.3993177-1-takano32@gmail.com>
+To: amd-gfx@lists.freedesktop.org, Harry Wentland <harry.wentland@amd.com>,
+ Leo Li <sunpeng.li@amd.com>, Alex Deucher <alexander.deucher@amd.com>
+Cc: Rodrigo Siqueira <siqueira@igalia.com>,
+ =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ Thomas Huth <thuth@redhat.com>, Weijie Yuan <wy@wyuan.org>,
+ dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
+ TAKANO Mitsuhiro <takano32@gmail.com>
+Subject: [PATCH v2 1/2] drm/amd/display: Document the union in dc_probe_status
+Date: Mon, 23 Nov 2026 12:22:25 +0000
+Message-ID: <20261123122226.4101191-2-takano32@gmail.com>
 X-Mailer: git-send-email 2.53.0
+In-Reply-To: <20261123122226.4101191-1-takano32@gmail.com>
+References: <20261123122226.4101191-1-takano32@gmail.com>
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
@@ -87,55 +93,45 @@ Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 X-Spam-Status: No, score=-15.8 required=3.0 tests=BAYES_00,DKIM_SIGNED,
 	DKIM_VALID,DKIM_VALID_AU,FREEMAIL_FORGED_FROMDOMAIN,FREEMAIL_FROM,
 	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
-	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,USER_AGENT_GIT autolearn=ham
-	autolearn_force=no version=4.0.1
+	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,USER_AGENT_GIT
+	autolearn=unavailable autolearn_force=no version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-kernel-doc reports, with or without -Wall:
+The members of the union in dc_probe_status are described one by one as
+@u.bandwidth_mbps and so on, but the union itself has no description, so
+kernel-doc reports:
 
-  Warning: include/drm/drm_pagemap_util.h:45 Excess struct member 'peer'
-  description in 'drm_pagemap_owner_list' (did you mean one of: 'peers')
+  dc.h:2225 struct member 'u' not described in
+  'dc_probe_status'
 
-The struct holds one list member, @peers, documented on the member itself.
-The @peer line was added with the struct and refers to no member, so drop
-it.
+Describe it, saying that the member holding the result depends on the
+probe type.
 
-After:
-
-  $ scripts/kernel-doc -Wall -none include/drm/drm_pagemap_util.h
-  (no output)
-
-The warning is not cosmetic in a -Werror build: kernel-doc exits with
-status 3 on the file before this change, so a headercheck run with
-CONFIG_WERROR=y fails on it.
-
-The other DRM pagemap and gpusvm headers are clean with -Wall as well.
-
-The change and this changelog were written with Hermes Agent
-(deepseek-v4.1-flash); I reviewed the change and ran kernel-doc -Wall on
-the file before and after.  No build was run, as only a comment changes.
-
-Fixes: e44f47a9bf51 ("drm/pagemap_util: Add a utility to assign an owner to a set of interconnected gpus")
+Fixes: 52771a3254ea ("drm/amd/display: Wire probe commit path into dc_update_state")
 Signed-off-by: TAKANO Mitsuhiro <takano32@gmail.com>
 ---
- include/drm/drm_pagemap_util.h | 1 -
- 1 file changed, 1 deletion(-)
+v2: the AI disclosure moved out of the commit message, as Weijie Yuan
+suggested; no change to the diff.
 
-diff --git a/include/drm/drm_pagemap_util.h b/include/drm/drm_pagemap_util.h
-index 19169b42b891..34fa879505d2 100644
---- a/include/drm/drm_pagemap_util.h
-+++ b/include/drm/drm_pagemap_util.h
-@@ -32,7 +32,6 @@ struct drm_pagemap_peer {
- 
- /**
-  * struct drm_pagemap_owner_list - Keeping track of peers and owners
-- * @peer: List of peers.
-  *
-  * The owner list defines the scope where we identify peers having fast interconnects
-  * and a common owner. Typically a driver has a single global owner list to
+Written with Hermes Agent, an LLM assistant; I reviewed it and ran kernel-doc
+on the file before and after the change.
 
-base-commit: c44104f3642da720164042623e4832836aefdd8e
+ drivers/gpu/drm/amd/display/dc/dc.h | 1 +
+ 1 file changed, 1 insertion(+)
+
+diff --git a/drivers/gpu/drm/amd/display/dc/dc.h b/drivers/gpu/drm/amd/display/dc/dc.h
+index d3c484f45333..debdd69bbe4e 100644
+--- a/drivers/gpu/drm/amd/display/dc/dc.h
++++ b/drivers/gpu/drm/amd/display/dc/dc.h
+@@ -2207,6 +2207,7 @@ struct dc_probe_latencies {
+  * @valid: true if a measurement was latched.
+  * @measuring: true if the hardware counter is currently running.
+  * @type: type of the probe that produced this result.
++ * @u: probe result; the member holding it depends on @type.
+  * @u.bandwidth_mbps:         peak BW in Mbps (DC_PROBE_PEAK_MEM_BW).
+  * @u.latency:                min/max/avg memory latency in ns (DC_PROBE_MEM_LATENCY),
+  *                            stored as struct dc_probe_latencies.
 -- 
 2.53.0
 
