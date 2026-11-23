@@ -2,103 +2,131 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B526B606A31E
-	for <dri-devel@archiver.kernel.org>; Mon, 23 Nov 2026 17:12:59 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 119C2606A31A
+	for <dri-devel@archiver.kernel.org>; Mon, 23 Nov 2026 17:20:56 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=amd.com header.i=@amd.com header.a=rsa-sha256 header.s=selector1 header.b=Ka/WZfDT
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=PXmRdqzK;
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=iM6a7YYp
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id D8F2010E802;
-	Mon, 23 Nov 2026 17:12:53 +0000 (UTC)
-Received: from MW6PR02CU001.outbound.protection.outlook.com
- (mail-westus2azon11012022.outbound.protection.outlook.com [52.101.48.22])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 96BDB10E802
- for <dri-devel@lists.freedesktop.org>; Mon, 23 Nov 2026 17:12:47 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=bv2ZaKyhhSXliaXcMoGdiClgn0SLNeMFoiH/26vkb/eVaClMBOeYSM5X9Ddvj7evo21vhQbkPuFWGowfUxnVzR16Fl4KqCvnJ5RULx0MYawMuMaU/JLyKC7sfF1dm1SCRRLASWki2oiRTm0GwuQ/D5xo7HEyNl/jJqzhJYi+5/Qi+4YX0dWU/M4/X1co/7dn4cuDh/g8pDQwERL1WrCw/svYKlK0C22g9wL5mQ9jb5ypebHOqLrltn/L0nDkwlSCr9NFOrZn/TCeusy70NSUNdcJ1SxXfc2nKljljRFrm5r4txcMGXaxLzMBreaEy+e2d792Ysj8D0uhqMRKYjLwXQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=hpLoVlc9tX2Rs3QCeBnRSCtER7J8w7PDQc7l/1ziU0Y=;
- b=HxWWYE4m5oruOcL+NytkeJUtRGLrdcuNG9Zbr1p69aawTkKdfCiol4KT4iwtjBp3EcwW/dK8b/I3hjD4NhHSmsAGXt7oKnP49gNSIamjBeitTbKf0VQyZEq7lILoxBV19xG2MtV32p68BRFuqe7ndF+URNyXFHrM9lEyYKgjj5CxRhMGt9C6/8iYcxB9nrSgXUIM5QH2AO7wEoKhKQjPbgkMLREhj+4cmlLG27/tJkJxdO8OKTLPPHCkYwjCEEootqeBsXg+v4LIptz5fv+LJjHNRbj/cumlIOnEvGAVGKugNiq7rKVWG/OPPHfx/XZc0FmbL7eJ9GZPo8E3tsJjUg==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=linaro.org smtp.mailfrom=amd.com; dmarc=pass
- (p=quarantine sp=quarantine pct=100) action=none header.from=amd.com;
- dkim=none (message not signed); arc=none (0)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=hpLoVlc9tX2Rs3QCeBnRSCtER7J8w7PDQc7l/1ziU0Y=;
- b=Ka/WZfDTruC8pvTb6oY55pMjQJ++x3SrmqwKphVdL6U3PE4Q99LdWShgi1CgBwKmX+GW7Fg3fTRtn4G63DNn6uvLYmNMJh2vmy4LADdoK9XDXp0jfF7IIIYNlMYTomUiOF/9swYLa9ACh1AAa1yGqczRxgkvIw0JTv3P66OSnus=
-Received: from CH0PR13CA0045.namprd13.prod.outlook.com (2603:10b6:610:b2::20)
- by MW4PR12MB6756.namprd12.prod.outlook.com (2603:10b6:303:1e9::7)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.639.14; Mon, 23 Nov
- 2026 17:11:30 +0000
-Received: from BL6PEPF0006C3DE.namprd02.prod.outlook.com
- (2603:10b6:610:b2:cafe::3) by CH0PR13CA0045.outlook.office365.com
- (2603:10b6:610:b2::20) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.21.662.5 via Frontend Transport; Mon, 23
- Nov 2026 17:11:29 +0000
-X-MS-Exchange-Authentication-Results: mx.microsoft.com 1; spf=pass (sender IP
- is 165.204.84.17) smtp.mailfrom=amd.com;
- dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=amd.com;
-Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
- 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=satlexmb07.amd.com; pr=C
-Received: from satlexmb07.amd.com (165.204.84.17) by
- BL6PEPF0006C3DE.mail.protection.outlook.com (10.167.249.233) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.639.5 via Frontend Transport; Mon, 23 Nov 2026 17:11:29 +0000
-Received: from satlexmb10.amd.com (10.181.42.219) by satlexmb07.amd.com
- (10.181.42.216) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.57; Mon, 23 Nov
- 2026 11:11:28 -0600
-Received: from satlexmb08.amd.com (10.181.42.217) by satlexmb10.amd.com
- (10.181.42.219) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.57; Mon, 23 Nov
- 2026 11:11:28 -0600
-Received: from xsjlizhih51.xilinx.com (10.180.168.240) by satlexmb08.amd.com
- (10.181.42.217) with Microsoft SMTP Server id 15.2.2562.57 via Frontend
- Transport; Mon, 23 Nov 2026 11:11:27 -0600
-From: Lizhi Hou <lizhi.hou@amd.com>
-To: <christian.koenig@amd.com>, <sumit.semwal@linaro.org>,
- <phasta@kernel.org>, <linaro-mm-sig@lists.linaro.org>,
- <linux-media@vger.kernel.org>
-CC: Lizhi Hou <lizhi.hou@amd.com>, <dri-devel@lists.freedesktop.org>,
- <linux-kernel@vger.kernel.org>, <max.zhen@amd.com>, <sonal.santan@amd.com>
-Subject: [PATCH V1] dma-buf: Reject attaching a zero-sized dma-buf
-Date: Mon, 23 Nov 2026 09:11:14 -0800
-Message-ID: <20261123171114.1451429-1-lizhi.hou@amd.com>
-X-Mailer: git-send-email 2.34.1
+	by gabe.freedesktop.org (Postfix) with ESMTP id 4A99510F020;
+	Mon, 23 Nov 2026 17:20:45 +0000 (UTC)
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com
+ [205.220.168.131])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 8026C10F0A1
+ for <dri-devel@lists.freedesktop.org>; Mon, 23 Nov 2026 17:20:33 +0000 (UTC)
+Received: from pps.filterd (m0279864.ppops.net [127.0.0.1])
+ by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id
+ 6ANGHBhT1094045
+ for <dri-devel@lists.freedesktop.org>; Mon, 23 Nov 2026 17:20:33 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+ cc:content-transfer-encoding:date:from:message-id:mime-version
+ :subject:to; s=qcppdkim1; bh=GhMv3tUfF0X0waf9LUoKmzlbGF572ZAv+Ki
+ gzstD1XQ=; b=PXmRdqzKV2K7IDecis6FOQVkzj+jWxMrlsvLrfp2aP6AKzH+0xM
+ GXRNJ5Z/Ei4ogq6XF+V2FFseBcnaDFHSQmpa3ZpCwtLKtAPGKJ7pEpLPi1CjBWnT
+ NhFHFyuiHLIED/PI5wEwF9s1dRQaB6v4fWhhxYVGi7wmQqXPhes1vhfFPi+mO4Pg
+ lgxx7MOW8WOKa8p+x/tA99QHR0Ajg5nRQFAfRPUM/52bxoFYwIM/czwVzaX9ifcG
+ hDoaxFE1z4VVXL5H2gddpSxeUWFLV0CnpTNo/skMMl32D1kcVNgmhTcZ0K6zZwhw
+ Onc3LPf+dAaBLsApVsxU2S5lqdKInPtcQRQ==
+Received: from mail-pj1-f69.google.com (mail-pj1-f69.google.com
+ [209.85.216.69])
+ by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4j4ma0sgd0-1
+ (version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+ for <dri-devel@lists.freedesktop.org>; Mon, 23 Nov 2026 17:20:32 +0000 (GMT)
+Received: by mail-pj1-f69.google.com with SMTP id
+ 98e67ed59e1d1-3b42c3dba96so4103247a91.1
+ for <dri-devel@lists.freedesktop.org>; Mon, 23 Nov 2026 09:20:32 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=oss.qualcomm.com; s=google; t=1795454431; x=1796059231;
+ darn=lists.freedesktop.org; 
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+ bh=GhMv3tUfF0X0waf9LUoKmzlbGF572ZAv+KigzstD1XQ=;
+ b=iM6a7YYpcCR6+4vsakTCZfF5P0RTG4UIl0ncy3NhCYWQsHDACFabFLtneTxFVFUG/Z
+ tFoRfVxD2Tb2lDI6J0A8oTilbyuGxUZ/+Pbilfvj4TpuKs+ioo36y21d9fe4a7RnRfPx
+ J29Fts4lLGOTqQ77WEr/gTThfccDi7hYRgD2pz17joB+k48nTciC3JGa08uxvQe+vhN8
+ HQiZdBZPY/26698pHKotsXmO6z96Yl7p2yQIRi+SKBLeBCyqwaMEy8btOxNMAGyXB39u
+ 5lATXS7URiyfWFZaS05dLID3WOjRQ/J4Mx8vL7pM2j4wJoiQJ0oi1sX/lbn4JSCHrzUj
+ YnxQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20260707; t=1795454431; x=1796059231;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+ :message-id:reply-to:content-type;
+ bh=GhMv3tUfF0X0waf9LUoKmzlbGF572ZAv+KigzstD1XQ=;
+ b=zGwTc3e843buyZWcoMUJiFtRVdz49PmxD0/shyfdTwajPKLowKM5qyNW4KZxhJuZDZ
+ gM17j2iD2LPZx5xuQpDcQ1yEgnjxfYMrjFF0vad2vcESTF+p64bB7iuWF4mxgO+qdLL9
+ M8IJUE/gmA4VnM7c1aJCOUKEKErwHQEsau4mgs0H1PeAjF7NUoSNXpdsaqgKKFIJYtmO
+ IiHB7qC2WBPzEqL9lKXo0OYVRfPaYrfUJwDkeXMdGpFrwkYcF20O1gIGB7fL1XiYcNMf
+ id0akwszxDzlSy1SquzSaEWoXjzLXmCzw72fDWwSP7j2NV9P7ZHflx/SMcxlaH1Rgn8o
+ sSUg==
+X-Gm-Message-State: APuU4Z9vNW8sDXdZfMkyNvolRGW2b/wNmSLTjVrBmsJXXFKYBjDxMlvq
+ F262CFC638zrxyTQgGm7e5D3HPQtSHMa8qvzigzP4DJuGcA78MRXBc82bLqlv9zhdl9SJTV/syw
+ q6No0ytgnG958KRwtIoWB7+Z1wBSrq3X2+S8uOZegMwOxSWv03e2LBuM94WW8ox3eMHH6lKZTVZ
+ owYTM=
+X-Gm-Gg: AZFdTZfhkuaepfcM3SvhN4eaVnDhwzukymjFErMR9HW6VWw5qbeqRMEB0MeMeXZOxv4
+ UMMPXDptpIKgiwM2g28oM8gy8inohGBWtybj7GtrHbJ7RXR9q8py4LnE0v+POQ4cxyM1Eh1cpOq
+ k9IG4HkZy/U6lAkKXpYInTnH+ZpDzdHk+/Bq8XOFjm4ABfp9sh9OHettsueaTCcW3KPWe+Eh+B9
+ d48EWnD75p+vkfPsSp29o2kJ+Sp4bOiT9x3s+S0G4SVl8dwjCEBaJoGLUKunbmCq/t5D5EROgpz
+ BDdbF03hFMvj4dX6bpWKOW4OJp2vnu2AjVDRaAS+ADuT8TvM30w9Neo4DBHXZbjqO8zFzwf7ZvS
+ rTcMYsP0DKWWZUM3pnRIAsOIRjK+ESougdzpunSB3geyhAcu9RcJ2F+7G1C3+MItH6Vh/zjV3dM
+ cB8OSKU+Zh8HTi51EKlNdrV3AYo9CXbXVsVYcFuVKkpe1qGNak9Pz9CcI/8DaL2w==
+X-Received: by 2002:a17:90b:3d4d:b0:3b4:402:b3f5 with SMTP id
+ 98e67ed59e1d1-3b41c8fe48amr12378518a91.22.1795454431107; 
+ Mon, 23 Nov 2026 09:20:31 -0800 (PST)
+X-Received: by 2002:a17:90b:3d4d:b0:3b4:402:b3f5 with SMTP id
+ 98e67ed59e1d1-3b41c8fe48amr12378477a91.22.1795454430383; 
+ Mon, 23 Nov 2026 09:20:30 -0800 (PST)
+Received: from localhost (c-67-168-198-145.hsd1.or.comcast.net.
+ [67.168.198.145]) by smtp.gmail.com with ESMTPSA id
+ 98e67ed59e1d1-3b44b704cfesm6565632a91.1.2026.11.23.09.20.29
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Mon, 23 Nov 2026 09:20:29 -0800 (PST)
+From: Rob Clark <robin.clark@oss.qualcomm.com>
+To: dri-devel@lists.freedesktop.org
+Cc: linux-arm-msm@vger.kernel.org, freedreno@lists.freedesktop.org,
+ Rob Clark <robin.clark@oss.qualcomm.com>,
+ Connor Abbott <cwabbott0@gmail.com>, Sean Paul <sean@poorly.run>,
+ Konrad Dybcio <konradybcio@kernel.org>,
+ Akhil P Oommen <akhilpo@oss.qualcomm.com>,
+ Dmitry Baryshkov <lumag@kernel.org>,
+ Abhinav Kumar <abhinav.kumar@linux.dev>,
+ Jessica Zhang <jesszhan0024@gmail.com>,
+ Marijn Suijten <marijn.suijten@somainline.org>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ linux-kernel@vger.kernel.org (open list)
+Subject: [PATCH] drm/msm/a8xx: Add missing preempt_record_size
+Date: Mon, 23 Nov 2026 09:20:24 -0800
+Message-ID: <20261123172025.402295-1-robin.clark@oss.qualcomm.com>
+X-Mailer: git-send-email 2.56.1
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: BL6PEPF0006C3DE:EE_|MW4PR12MB6756:EE_
-X-MS-Office365-Filtering-Correlation-Id: 6a81d7db-ef81-4ff0-5aec-08df4984d0b2
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
- ARA:13230040|36860700016|23010399003|82310400026|1800799024|376014|261102130727099003|261102123227099003|261021121427099003|261026121527099003|261022075727099003|11063799006|5023799004|56012099006|10067099003|18002099003|261009223027099003|6133799003;
-X-Microsoft-Antispam-Message-Info: H900ZZeSLPWe/vKLEh3w2YQH3hSZREIqNgZDBn3hLTkSzIiqzJI7HDOR5mZ9OrM28RaNqWqLrxUDuROf81iEpEFKROidEL2R55/P8YMg/EzHlOAqLTLikoTWmNzv2tkAqnc895Me0Q6djzU7qCe8d+b4NVPRXz0GwxnGdd9OFNuS3oS52JNu5M6yF7V155jg3FADiMwbot3O9aZAMniuUiMMmqmV2k1r222LPv1RWq1C7FDZm7igZ9JUEdDVe3iFM1Ec26bRHfdp5MpuKTNdTSq9Opnj2aDsdxmqgp8op63qO/egFX18C9uN8AtsBt0J0Qd7YaEugyfp72lTO/zpcYIVJiriv0ZYTxM2fEmgQdrPbH9u0WHaZZPjZy/3b39S+vlr79hrZD0hWLhVmvAhQ71fay9Q79vxjwy4buIOch20CV6yf3GSqn/LM74IG6OgV7Oz7MsYhyJyGouJn7ghv4DZR3TNKCjPip9O+PKdz4sV7bAX7e/BX/AKYUscFVcm5rTMQ5hP4oh3EKRvnL1HRK7F5Dff5a+2fyz1O5e3+lJ04q3lWklrVMP71bBwXqE3tXmLON7ibRkVl0xn8roWjdDUKGFefr4nPHgLsALYmpD+yfQgrinm2bxFJUNyZ9FOUiCIO1xN6qpcciVtOTfL0p+hOHXfAE5vdCQi6WSXU5DogjpXEfZuXPhTlJweQjTILkdNUaKtRkcsAJTInC8zUg==
-X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:satlexmb07.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230040)(36860700016)(23010399003)(82310400026)(1800799024)(376014)(261102130727099003)(261102123227099003)(261021121427099003)(261026121527099003)(261022075727099003)(11063799006)(5023799004)(56012099006)(10067099003)(18002099003)(261009223027099003)(6133799003);
- DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: U4lsczPKF5fqK5yrg0iOeErowwcAEZtjNmzsBwxSavlcpJUhXfQaKngLCxeus3CUNJ1vK6lZvqGpaL5S1WnuZDumno3NgTmSKtvjt28ixT079KUeYWBKxvzv9OHjw+jNkIf0b/+/ojhnOYXqlMOxxjePSb0DF/EYu5HtGas+5eh0Ws+ivS1sXk7dl7Ti5+MhJ0/c70u4X5NWQ50SgsToKiEP7e7NzCd9790Ls2dEZmS4N4I1Q9SceIT2z5xaUblv8goIINO4JTbfffWRKt/9tjbLhAwbrQfmVIXRM+Wg1A4LlExiN99LoELcBosr60b6KdOXhfC9eziv8BfAtEJqN9lp2GPqu3avy+9x6tgfyIvpdwOkWTbhF5GnMExrmX9Ozc6+Fw+Y0nvVeprmElr+gnlCKEQA1UotBLFOT6xKlr9NQCtMYKes4UvzXKncg5ap
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 23 Nov 2026 17:11:29.5338 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 6a81d7db-ef81-4ff0-5aec-08df4984d0b2
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
- Helo=[satlexmb07.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: BL6PEPF0006C3DE.namprd02.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: MW4PR12MB6756
+X-Proofpoint-GUID: hx9IAJlug3qX9JRqYc8naGsYGqKbRIqR
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMTIzMDA2OCBTYWx0ZWRfX/au55mKPF9/H
+ ATlnJBvjDZ7xWw+HRRCTSJJPdoZj3qvaFAXNZ93hlr4ggNT6c7UGjFCK8wV5qB8Et1hkt1K5u15
+ NjYuAjA9Gl+OEDBzzZLkNw+RjNRG0RU=
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMTIzMDA2OCBTYWx0ZWRfX5WzJenNPGxV+
+ /noFS35PDPm1xUcTZjnBfvnBVVpmryl8sWZFoP+5zMoEZ4Z0c0060z2NO7F7mhdvY/uyj8wTuhp
+ XOMwMJp8aH2Oya5ZPduMdCp8aWkEn2IsAexs1roKk+rk8PG+hpZMaL+UKYPkHRPaxv04+HdqiPz
+ 7t7YRdn6Og7x5SL4++Y33tSgqUyh4niOPpTe2UQi3xiw/+sH9rT79NKQHx90fQsjk4VpUe2Vosy
+ 08GA9A9rfNbfqa1Tf9SjiDDSJymJePS0x59ChJD34LPhEJTqe+VUpRDA3jMw2Gfo0p20Whfb2V3
+ /DbinMDAOLQhmiqQcr+FaWQRa79squ2H6o3t5bocvQnhb4xyw2tzXNT4UxUYKDyJtVB/B5Iceea
+ lUDjyE2iOyxHIcK/K6tCoOJP74b6SVjfi1uEe2q0+AHpQCXaPmvs3+i7p7XsnsC+ic10Y1JdWvf
+ +IB8fNHsNdM+Y39AceQ==
+X-Authority-Analysis: v=2.4 cv=Yr+a1IYX c=1 sm=1 tr=0 ts=6b0475e0 cx=c_pps
+ a=vVfyC5vLCtgYJKYeQD43oA==:117 a=6Rn/7xRx7Ub4NEhlm8k1cw==:17
+ a=zJRp6_cAMcgA:10 a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22
+ a=u7WPNUs3qKkmUXheDGA7:22 a=DJpcGTmdVt4CTyJn9g5Z:22 a=pGLkceISAAAA:8
+ a=EUspDBNiAAAA:8 a=2OSpH8Mq0sc3u4_c0_oA:9 a=rl5im9kqc5Lf4LNbBjHf:22
+X-Proofpoint-ORIG-GUID: hx9IAJlug3qX9JRqYc8naGsYGqKbRIqR
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
+ definitions=2026-11-23_04,2026-11-23_01,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ bulkscore=0 adultscore=0 impostorscore=0 malwarescore=0 suspectscore=0
+ clxscore=1015 phishscore=0 spamscore=0 priorityscore=1501 lowpriorityscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2611040001 definitions=main-2611230068
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -110,46 +138,46 @@ List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-18.8 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
-	DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
+X-Spam-Status: No, score=-18.8 required=3.0 tests=BAYES_00,DKIM_SIGNED,
+	DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
 	INCLUDES_CR_TRAILER,INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,
 	SPF_PASS,USER_AGENT_GIT autolearn=unavailable autolearn_force=no
 	version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-Attaching to a zero-sized dma-buf does not make sense at all: there is
-nothing for an importer to map.
+Somehow this got overlooked, and Glymur/Mahua were falling back to the
+default 4MB.  Which is way too small for the amount of GMEM on these
+devices, causing faults in cases where preemption needs to same GMEM
+contents.
 
-So reject the attach, using WARN_ON() because a zero-sized dma-buf is
-an exporter bug that userspace cannot trigger on its own.
-
-Adding the check to dma_buf_export() instead was considered, which
-would prevent zero-sized DMA-bufs from being created in the first
-place.  It is not done here because drivers may be using zero-sized
-DMA-bufs for driver internal buffers, and refusing them at creation
-time risks regressing those users.
-
-Fixes: d15bd7ee445d ("dma-buf: Introduce dma buffer sharing mechanism")
-Signed-off-by: Lizhi Hou <lizhi.hou@amd.com>
+Reported-by: Connor Abbott <cwabbott0@gmail.com>
+Fixes: 7fad33097e67 ("drm/msm/a6xx: Enable Preemption on X2-85")
+Signed-off-by: Rob Clark <robin.clark@oss.qualcomm.com>
 ---
- drivers/dma-buf/dma-buf.c | 3 +++
- 1 file changed, 3 insertions(+)
+ drivers/gpu/drm/msm/adreno/a8xx_catalog.c | 2 ++
+ 1 file changed, 2 insertions(+)
 
-diff --git a/drivers/dma-buf/dma-buf.c b/drivers/dma-buf/dma-buf.c
-index 5c6957f8839a..8be7b6023e4a 100644
---- a/drivers/dma-buf/dma-buf.c
-+++ b/drivers/dma-buf/dma-buf.c
-@@ -1050,6 +1050,9 @@ dma_buf_dynamic_attach(struct dma_buf *dmabuf, struct device *dev,
- 	if (WARN_ON(!dmabuf || !dev))
- 		return ERR_PTR(-EINVAL);
- 
-+	if (WARN_ON(!dmabuf->size))
-+		return ERR_PTR(-EINVAL);
-+
- 	attach = kzalloc_obj(*attach);
- 	if (!attach)
- 		return ERR_PTR(-ENOMEM);
+diff --git a/drivers/gpu/drm/msm/adreno/a8xx_catalog.c b/drivers/gpu/drm/msm/adreno/a8xx_catalog.c
+index 0c6dde3cbea9..20fe93b83c0b 100644
+--- a/drivers/gpu/drm/msm/adreno/a8xx_catalog.c
++++ b/drivers/gpu/drm/msm/adreno/a8xx_catalog.c
+@@ -1337,6 +1337,7 @@ static const struct adreno_info a8xx_gpus[] = {
+ 				{ /* sentinel */ },
+ 			},
+ 		},
++		.preempt_record_size = 23088 * SZ_1K,
+ 		.speedbins = ADRENO_SPEEDBINS(
+ 			{ 0,   0 },
+ 			{ 388, 1 },
+@@ -1469,6 +1470,7 @@ static const struct adreno_info a8xx_gpus[] = {
+ 				{ /* sentinel */ },
+ 			},
+ 		},
++		.preempt_record_size = 17712 * SZ_1K,
+ 		.speedbins = ADRENO_SPEEDBINS(
+ 			{ 0,   0 },
+ 			{ 388, 1 },
 -- 
-2.34.1
+2.56.1
 
