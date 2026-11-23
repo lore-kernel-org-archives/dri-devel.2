@@ -2,135 +2,53 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AA187606A31F
-	for <dri-devel@archiver.kernel.org>; Mon, 23 Nov 2026 16:32:17 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F1F0D606A327
+	for <dri-devel@archiver.kernel.org>; Mon, 23 Nov 2026 16:32:31 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=eHbdGJab;
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=JpIscjq1
+	dkim=fail reason="signature verification failed" (1024-bit key) header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=foss header.b=JHAZeWjz
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id E888310E80C;
-	Mon, 23 Nov 2026 16:32:06 +0000 (UTC)
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com
- [205.220.180.131])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 3B9DF10E80C
- for <dri-devel@lists.freedesktop.org>; Mon, 23 Nov 2026 16:31:53 +0000 (UTC)
-Received: from pps.filterd (m0279872.ppops.net [127.0.0.1])
- by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id
- 6ANGH3gj2377385
- for <dri-devel@lists.freedesktop.org>; Mon, 23 Nov 2026 16:31:52 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
- cc:content-transfer-encoding:content-type:date:from:in-reply-to
- :message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
- QWQfUVU2CQs5hbXBXzRNrN2vmZR+w1uUFsRo891mesg=; b=eHbdGJabfGjqgmQf
- FBotnItY2afboOHdhIHEIwSc9c5beOFkVg40vPCDOM1A+vK6XGbAA2+yd9++dvbv
- MZa4l6zplJEiBlzznNwBmEl0x7TT8KJGkxeTYpQ4YH6M+4fk5MdrR8MvgqYTDY8X
- 11jrz1rKp/SI3UZd0MyzZ2X0hT//0Cj7qUaotfgEtjSSePUDZCYCysJ83mUxXSuX
- /mylFJD7t4fq4D2dhlP843gtZa3D1iOnIHy3fCOn40Er3DsPRihFANI+eQkmC4wQ
- MjTYMiMBSJQOE/l36avjZd5kf084nrmuhu1MF7Cf6TJGFYyoldaZBow7NMKHYyVX
- ZKZQvA==
-Received: from mail-dy1-f200.google.com (mail-dy1-f200.google.com
- [74.125.82.200])
- by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4j4m7usaj2-1
- (version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
- for <dri-devel@lists.freedesktop.org>; Mon, 23 Nov 2026 16:31:52 +0000 (GMT)
-Received: by mail-dy1-f200.google.com with SMTP id
- 5a478bee46e88-386b8624cf7so1451165eec.1
- for <dri-devel@lists.freedesktop.org>; Mon, 23 Nov 2026 08:31:52 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=oss.qualcomm.com; s=google; t=1795451511; x=1796056311;
- darn=lists.freedesktop.org; 
- h=content-transfer-encoding:content-type:in-reply-to:from
- :content-language:references:cc:to:subject:user-agent:mime-version
- :date:message-id:from:to:cc:subject:date:message-id:reply-to
- :content-type; bh=QWQfUVU2CQs5hbXBXzRNrN2vmZR+w1uUFsRo891mesg=;
- b=JpIscjq1vUpGnXCblDHt/ooKFZZfe+zXWJdMQZoHeksYhBQrbbah6L+WHHiiMsGa9V
- Mtp/LhPRajgsdEQi05K2vZmUG82P1yyvW1niE6Ve0RkL06V9vO2tvkAe4iHQJwJn7h71
- TQz8NmHSSXYrOjD1wxHcqurybWCrPYKUTiMUdIHqCQEgDBR0Fr+d25IgxuvJr2hTnAZd
- lZ8sRrDL7E8xkxw5ZBv0siRoU53sB608CZu2k/2HpH3Lo4gW6etEF2MzG80X4VGve7Ku
- 1uue58IbTOaIGGYiINCyTQ2nwjlVMz75iN+w8MGAOxUcDJThTpLkCK/shcPQIhUahKWf
- Jg2Q==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20260707; t=1795451511; x=1796056311;
- h=content-transfer-encoding:content-type:in-reply-to:from
- :content-language:references:cc:to:subject:user-agent:mime-version
- :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
- :message-id:reply-to:content-type;
- bh=QWQfUVU2CQs5hbXBXzRNrN2vmZR+w1uUFsRo891mesg=;
- b=B+CflvITnZXQcSeFLT97Rjiay6T+eHiJbMNZoq/oNSGgy4qjj0lEkJupfOcdB+760K
- o9kwUrhAqhlzz501Ib1Tq19YOtoSpnX6CuyaVSH310cGu6/vyss+4p1PJ802mniMeVuO
- WVCROaFwwGqqftoxmO7rP9F/901KxGAqJW99LaBGJ8foIXCwe/lzur+iqzlFqp1EpL68
- LqhzXLvxUoUeJyYdnv9+dLicrDPgdOiVWtaxGEpDx8VXMIZjZtloPXEOM60SD6wGLX6o
- eRlMZr4/qk4O2MW7RD1fUs8o/7AtsCZiX6y8Xh0bkgAnEg9ihzV3QaYkCW/HPxH6FY/S
- Chyg==
-X-Forwarded-Encrypted: i=1;
- AL+hErGp3n8FlX6LeEuZfCcmp518pAieSCruYfC9w+hOKp+hznSTJhlEJ8xQgxR2oX+yQvEqA+yIYs2HBPM=@lists.freedesktop.org
-X-Gm-Message-State: APuU4Z+DO6tJoZaHS9F3/JfzzIdrTtNH2wVEv30leLxxN+1dFUxcHXt9
- eLIe23QFJDt6XhqoSf+iKKVykwLRuUjguv/Uc4mtqjWKyEOjoVjCtUhFw2hMKa9HTG8FGmKOScp
- 0tps3cW/OywxIROH3MXiC05K8OczcYat4rFcPRdeocoik7WegkhKA4tR3Mu6ewdM9FwJWJGk=
-X-Gm-Gg: AZFdTZcP3lKTD145jsTlPrGPRX8qXDrbw7H3Hsr2H79TdPbkg4Tb388mHJNgUtqiceh
- JC8MitZSpRZ4prhTRM6CWacrcORAFCrA8M4ASRM5xiX2xbIXKoqaViqNg32s+BGyjT+cW52dcy6
- OKl+Ow8J4Vmc7Xg6YvpGyIrEOrFNmRBxNbT3DIOyoewp6Y2cijIFgGToTxvnhQDjFk2FFxMdfsR
- lI9Fo/5ckewZ3+c5yGYM354Ye5vIK9QPy3PbWx7a9rhF+NCfFC2zGRC6SsRLFOQECmDQsOtXRav
- nD5cEYKBKqz2fVvXkJjvqNeA82HyK9cCTieFyUDtOa+I6ECzGvrvJLfSPau7wUddwdj8miSjX81
- Vrhen0kkUzqF2zAoIWG2M06TUAJ1JzN6i7WPZgS3e3s0juJcwpoJIy6g8Xn/AcaV6YFV+PBOH3N
- jVXCJbaprHxzOauGqFAfUeUT4=
-X-Received: by 2002:a05:7301:c016:b0:386:5adb:ac01 with SMTP id
- 5a478bee46e88-3865adbb1aemr11664039eec.24.1795451511102; 
- Mon, 23 Nov 2026 08:31:51 -0800 (PST)
-X-Received: by 2002:a05:7301:c016:b0:386:5adb:ac01 with SMTP id
- 5a478bee46e88-3865adbb1aemr11664011eec.24.1795451510520; 
- Mon, 23 Nov 2026 08:31:50 -0800 (PST)
-Received: from [10.226.59.182] (Global_NAT1.qualcomm.com. [129.46.96.20])
- by smtp.gmail.com with ESMTPSA id
- 5a478bee46e88-385677c371esm36944061eec.23.2026.11.23.08.31.49
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Mon, 23 Nov 2026 08:31:50 -0800 (PST)
-Message-ID: <e3e03774-f066-4cfa-88dc-183fb06d80e5@oss.qualcomm.com>
-Date: Mon, 23 Nov 2026 09:31:49 -0700
+	by gabe.freedesktop.org (Postfix) with ESMTP id 239B010EC3C;
+	Mon, 23 Nov 2026 16:32:26 +0000 (UTC)
+Received: from foss.arm.com (foss.arm.com [217.140.110.172])
+ by gabe.freedesktop.org (Postfix) with ESMTP id A21EA10EC31
+ for <dri-devel@lists.freedesktop.org>; Mon, 23 Nov 2026 16:32:19 +0000 (UTC)
+Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
+ by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 40AFB143D;
+ Mon, 23 Nov 2026 08:32:16 -0800 (PST)
+Received: from [10.57.63.212] (unknown [10.57.63.212])
+ by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id AC84D3F632;
+ Mon, 23 Nov 2026 08:32:15 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
+ t=1795451539; bh=KhxNIpGSzlXvEjcbWdqGMKZlQcHc/27HY9nyACtvYyU=;
+ h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
+ b=JHAZeWjz3labj4HkqSbae/RQ4xXHLlp++Cg7+Inbu67rR6whvGAoBW/97PRbGatoF
+ ZDdXPZa1ingKjQBX3NZPmVbkcZQmAAYGEtAIHWUSsGV8lvyhQ9Dri90TRGpoDS1JDN
+ NVDMvRujrs7fJlM23mYi5ak5hX00/+5RbnQd6dfA=
+Message-ID: <c6b04a8f-a575-4f78-828c-1d5684446584@arm.com>
+Date: Mon, 23 Nov 2026 16:32:13 +0000
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] MAINTAINERS: Add Dawid Osuchowski as Intel VPU maintainer
-To: Karol Wachowski <karol.wachowski@linux.intel.com>,
- Dawid Osuchowski <dawid.osuchowski@linux.intel.com>,
- dri-devel@lists.freedesktop.org
-Cc: oded.gabbay@gmail.com, lizhi.hou@amd.com,
- andrzej.kacprowski@linux.intel.com, linux-kernel@vger.kernel.org
-References: <20261123122007.2580451-1-dawid.osuchowski@linux.intel.com>
- <d9b91e95-243d-4e3c-92b0-0355dca59a63@linux.intel.com>
-Content-Language: en-US
-From: Jeff Hugo <jeff.hugo@oss.qualcomm.com>
-In-Reply-To: <d9b91e95-243d-4e3c-92b0-0355dca59a63@linux.intel.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
-X-Proofpoint-ORIG-GUID: Sv3Bl2d3-0rlcPLJcDooLIwRfrYSI2YL
-X-Authority-Analysis: v=2.4 cv=KurYSmWN c=1 sm=1 tr=0 ts=6b046a78 cx=c_pps
- a=PfFC4Oe2JQzmKTvty2cRDw==:117 a=ouPCqIW2jiPt+lZRy3xVPw==:17
- a=IkcTkHD0fZMA:10 a=zJRp6_cAMcgA:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=yx91gb_oNiZeI1HMLzn7:22
- a=e5mUnYsNAAAA:8 a=QyXUC8HyAAAA:8 a=EUspDBNiAAAA:8 a=_GM5mSVEX-FjDFjjp_cA:9
- a=3ZKOabzyN94A:10 a=QEXdDO2ut3YA:10 a=6Ab_bkdmUrQuMsNx7PHu:22
- a=Vxmtnl_E_bksehYqCbjh:22
-X-Proofpoint-GUID: Sv3Bl2d3-0rlcPLJcDooLIwRfrYSI2YL
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMTIzMDA2NSBTYWx0ZWRfX7LaNeIu3q30n
- Ek7dX79QWlH1EUM6Y/kARnSdnt4zjvSp9calgFCsMrA2D629JWrN48kw3j/0R5BBc1sBQQMePFt
- 3kxVzpEg8bt6Ef3YJV2TyJPnvRXmP0k=
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMTIzMDA2NSBTYWx0ZWRfX+xSipYb5Zg0S
- nVFGSTjws+3Y5F3HDNpZFmpYvB9ZgCWAWbuAibHGSt4J4OGpetm+NFNIRQy72tcnVncTYZFbIcU
- K80x7sZLiMVLmVX+ZoKv/4TmvqdmfC6me+upszyvx+BqnZ99syMJ5ceAK1M7BaWP3l9ffyCgcYw
- mMtomhKjyewrLKiUjbbfQVbHYa+PcfXBnRhC4Zy7+rQmNCIQ6vwbarWAydhlynsBamd4ogrAfMc
- uA++b5dtU63jrhMWunI4vwGUHgp0RS3HEqatjBR9NtmfvGD52G/LHmXHC4IRkbanBZ0sXq9dvSB
- Kv7i88fst7KEr0GVGkIhO86CycyXtLRrqZGhJcT5zJdCSogC/ZG1B5TZ41p7MrT7Ipx/pnFST7V
- GqzVVEdHm6ydUT2k/V3GOjaVjXPipPEkQe0iY0P+Nhf6t7aWDNrUHtla/cwULtdZBugEFQBJGVh
- nP3eGp4mwK4A/u5+WEA==
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
- definitions=2026-11-23_04,2026-11-23_01,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- priorityscore=1501 lowpriorityscore=0 bulkscore=0 phishscore=0 spamscore=0
- malwarescore=0 adultscore=0 suspectscore=0 clxscore=1015 impostorscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2611040001 definitions=main-2611230065
+Subject: Re: [PATCH v2] drm/panthor: Suspend devfreq until the GPU is first
+ resumed
+To: aiyengar1990@gmail.com, Boris Brezillon <boris.brezillon@collabora.com>,
+ Liviu Dudau <liviu.dudau@arm.com>, Akash Goel <akash.goel@arm.com>,
+ Karunika Choo <karunika.choo@arm.com>,
+ Lukas Zapolskas <lukas.zapolskas@arm.com>,
+ Chris Diamand <chris.diamand@arm.com>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ Heiko Stuebner <heiko@sntech.de>
+Cc: dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
+ linux-arm-kernel@lists.infradead.org, linux-rockchip@lists.infradead.org,
+ Jonas Karlman <jonas@kwiboo.se>
+References: <20261112-panthor-suspend-clk-v2-1-62e1b168052d@gmail.com>
+From: Steven Price <steven.price@arm.com>
+Content-Language: en-GB
+In-Reply-To: <20261112-panthor-suspend-clk-v2-1-62e1b168052d@gmail.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -142,36 +60,134 @@ List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-17.3 required=3.0 tests=BAYES_00,DKIM_SIGNED,
-	DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
-	INCLUDES_CR_TRAILER,INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,
-	SPF_PASS,USER_AGENT_SANE_1 autolearn=unavailable autolearn_force=no
+X-Spam-Status: No, score=-15.1 required=3.0 tests=BAYES_00,DKIM_INVALID,
+	DKIM_SIGNED,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,
+	INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,
+	USER_AGENT_SANE_1 autolearn=unavailable autolearn_force=no
 	version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-On 11/23/2026 5:38 AM, Karol Wachowski wrote:
-> On 23-Nov-26 13:20, Dawid Osuchowski wrote:
->> Add myself as a new accel/ivpu driver maintainer.
->>
->> Signed-off-by: Dawid Osuchowski <dawid.osuchowski@linux.intel.com>
->> ---
->>   MAINTAINERS | 1 +
->>   1 file changed, 1 insertion(+)
->>
->> diff --git a/MAINTAINERS b/MAINTAINERS
->> index bcade5bfbafe..0afa391498d0 100644
->> --- a/MAINTAINERS
->> +++ b/MAINTAINERS
->> @@ -8198,6 +8198,7 @@ F:    include/linux/power/smartreflex.h
->>   DRM ACCEL DRIVERS FOR INTEL VPU
->>   M:    Karol Wachowski <karol.wachowski@linux.intel.com>
->>   M:    Andrzej Kacprowski <andrzej.kacprowski@linux.intel.com>
->> +M:    Dawid Osuchowski <dawid.osuchowski@linux.intel.com>
->>   L:    dri-devel@lists.freedesktop.org
->>   S:    Supported
->>   T:    git https://gitlab.freedesktop.org/drm/misc/kernel.git
+On 12/11/2026 08:10, Arun Iyengar via B4 Relay wrote:
+> From: Arun Iyengar <aiyengar1990@gmail.com>
 > 
-> Reviewed-by: Karol Wachowski <karol.wachowski@linux.intel.com>
+> panthor_devfreq_init() adds the devfreq device while the GPU is still
+> suspended, and the first panthor_device_resume() then calls
+> devfreq_resume_device() without a matching devfreq_suspend_device(). The
+> devfreq suspend count stays off by one for the lifetime of the device:
+> -1 while the GPU is active, 0 while it is runtime suspended.
+> 
+> devfreq_suspend() and devfreq_resume() around a system suspend therefore
+> treat a runtime suspended GPU as an active one: devfreq_suspend()
+> applies the suspend OPP, if there is one, and devfreq_resume() restarts
+> the polling of the simple_ondemand governor, which then sets GPU rates
+> while the GPU is still runtime suspended, until its next runtime resume
+> and suspend. With the devfreq core keeping a suspended device's
+> frequency alone ("PM / devfreq: Do not change the frequency of a
+> suspended device"), the unbalanced devfreq_resume() also marks the
+> device resumed while the GPU is powered down.
+> 
+> Suspend devfreq right after adding it, as msm_devfreq_init() does, so
+> that the devfreq suspend and resume calls pair up.
+> 
+> Fixes: fac9b22df4b1 ("drm/panthor: Add the devfreq logical block")
+> Signed-off-by: Arun Iyengar <aiyengar1990@gmail.com>
 
-Reviewed-by: Jeff Hugo <jeff.hugo@oss.qualcomm.com>
+Reviewed-by: Steven Price <steven.price@arm.com>
+
+> ---
+> v1 kept devfreq from changing the GPU clock rate while the GPU is
+> suspended by filtering the calls in panthor_devfreq_target(). As Boris
+> pointed out, that cannot be done race-free in the driver, so v2 moves it
+> to the devfreq core: "PM / devfreq: Do not change the frequency of a
+> suspended device" (linux-pm [1]) keeps devfreq from calling
+> ->target() between devfreq_suspend_device() and devfreq_resume_device()
+> and applies the requests made in between on resume. The SError fix
+> needs that patch. What is left for panthor is this patch, which makes
+> panthor's devfreq suspend and resume calls pair up; it does not depend
+> on the devfreq patch to build or to be correct.
+> 
+> Tested on an Orange Pi 5 (RK3588S) running a v7.3-based kernel with
+> this patch and the devfreq patch, with the GPU core clock on the
+> firmware-managed SCMI_CLK_GPU and a 200 MHz opp-suspend (the
+> configuration of Jonas Karlman's RFC, not in mainline): min_freq,
+> max_freq, the userspace governor's set_freq and the devfreq cooling
+> state written while the GPU was runtime suspended, also right after a
+> suspend-to-idle cycle, no longer end in an SError and take effect on
+> the next GPU job; 200 runtime suspend/resume cycles with max_freq
+> toggling every ~35 ms and a 3 minute sustained load ran without an
+> SError, WARN or panthor fault.
+> 
+> This patch was developed with Claude (Anthropic) as a coding assistant:
+> it wrote the code and the commit message, and I reviewed it and tested
+> it as described above.
+> 
+> [1] https://lore.kernel.org/r/20261112-devfreq-suspend-sync-v1-1-af64603ef43e@gmail.com
+> ---
+> Changes in v2:
+> - Dropped the check in panthor_devfreq_target() (Boris): neither
+>   pm.state nor devfreq::suspend_count can be read there without racing
+>   with devfreq_suspend_device() and devfreq_resume_device(), which only
+>   take devfreq->lock around the suspend and resume frequency changes.
+>   The devfreq core now tracks the suspended state under devfreq->lock
+>   and does not call ->target() while it is set, as Boris suggested.
+> - New patch: start with devfreq suspended. The first runtime resume
+>   called devfreq_resume_device() without a matching suspend, so the
+>   suspend count was -1 while the GPU was active and 0 while it was
+>   suspended (the reason v1 did not use it). Without this, the devfreq
+>   core change would not hold across a system suspend taken while the
+>   GPU is runtime suspended.
+> - Liviu, on returning 0 instead of -EINVAL: returning 0 was wrong, devfreq
+>   then records a rate the GPU does not run at (Boris). An error is
+>   better than 0, but -EINVAL reports a valid request as invalid (-EBUSY
+>   fits better), and either way nothing retries the request on resume:
+>   the userspace and performance governors never re-evaluate, and
+>   simple_ondemand only at its next poll. With the core change panthor
+>   never gets these calls, so there is nothing left to reject.
+> - Liviu, on disabling the clock when the power domain goes down: the
+>   clocks are already disabled in panthor_device_suspend() before the
+>   domain goes down, and the SError happens in that state. On RK3588 a
+>   rate change on the disabled SCMI clock still goes to TF-A, which
+>   programs the PVTPLL through the GPU GRF in the powered-down domain.
+>   So the rate change itself has to be held back while suspended.
+> - Liviu, on the comment length: the remaining comment is two lines.
+> - Sashiko's findings on v1 (a rate requested while suspended was lost
+>   without a suspend OPP or with a non-polling governor; the lockless
+>   state check could race with the clocks going off; Fixes: tag) are
+>   covered by the devfreq core change, which applies deferred requests on
+>   resume and keeps the state under devfreq->lock. Thanks to Sashiko for
+>   them. The new patch has Fixes: fac9b22df4b1, the commit Sashiko named:
+>   the unbalanced count is a mainline bug, independent of the SCMI clock.
+> - Link to v1: https://patch.msgid.link/20261110-panthor-suspend-clk-v1-1-53457050e51e@gmail.com
+> ---
+>  drivers/gpu/drm/panthor/panthor_devfreq.c | 6 ++++++
+>  1 file changed, 6 insertions(+)
+> 
+> diff --git a/drivers/gpu/drm/panthor/panthor_devfreq.c b/drivers/gpu/drm/panthor/panthor_devfreq.c
+> index 2249b41ca4af..45ae42dacdcb 100644
+> --- a/drivers/gpu/drm/panthor/panthor_devfreq.c
+> +++ b/drivers/gpu/drm/panthor/panthor_devfreq.c
+> @@ -256,6 +256,12 @@ int panthor_devfreq_init(struct panthor_device *ptdev)
+>  		return ret;
+>  	}
+>  
+> +	/*
+> +	 * The GPU stays suspended until the first panthor_device_resume(),
+> +	 * which resumes devfreq. Suspend devfreq to match.
+> +	 */
+> +	panthor_devfreq_suspend(ptdev);
+> +
+>  	cooling = devfreq_cooling_em_register(pdevfreq->devfreq, NULL);
+>  	if (IS_ERR(cooling))
+>  		DRM_DEV_INFO(dev, "Failed to register cooling device\n");
+> 
+> ---
+> base-commit: cb0a63f0c96e8ecb90199eeb99cc2a7fcfa703d4
+> change-id: 20261110-panthor-suspend-clk-11d5604fe5be
+> 
+> Best regards,
+> --  
+> Arun Iyengar <aiyengar1990@gmail.com>
+> 
+> 
+
