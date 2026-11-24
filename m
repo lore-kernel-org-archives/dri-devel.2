@@ -2,63 +2,63 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0AC1E606A321
-	for <dri-devel@archiver.kernel.org>; Tue, 24 Nov 2026 07:41:33 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3D768606A31E
+	for <dri-devel@archiver.kernel.org>; Tue, 24 Nov 2026 07:41:40 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=chromium.org header.i=@chromium.org header.a=rsa-sha256 header.s=google header.b=bLk6X6NO
+	dkim=pass (1024-bit key) header.d=chromium.org header.i=@chromium.org header.a=rsa-sha256 header.s=google header.b=jovbAs3+
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 5750110EF0B;
-	Tue, 24 Nov 2026 07:41:27 +0000 (UTC)
-Received: from mail-pg1-f180.google.com (mail-pg1-f180.google.com
- [209.85.215.180])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 603F410EED1
- for <dri-devel@lists.freedesktop.org>; Tue, 24 Nov 2026 07:41:17 +0000 (UTC)
-Received: by mail-pg1-f180.google.com with SMTP id
- 41be03b00d2f7-cc4aa18f9afso1628455a12.3
- for <dri-devel@lists.freedesktop.org>; Mon, 23 Nov 2026 23:41:17 -0800 (PST)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 9968A10EED1;
+	Tue, 24 Nov 2026 07:41:34 +0000 (UTC)
+Received: from mail-pl1-f174.google.com (mail-pl1-f174.google.com
+ [209.85.214.174])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 0393610EED1
+ for <dri-devel@lists.freedesktop.org>; Tue, 24 Nov 2026 07:41:23 +0000 (UTC)
+Received: by mail-pl1-f174.google.com with SMTP id
+ d9443c01a7336-2f04b676219so22116135ad.0
+ for <dri-devel@lists.freedesktop.org>; Mon, 23 Nov 2026 23:41:22 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=chromium.org; s=google; t=1795506077; x=1796110877;
+ d=chromium.org; s=google; t=1795506082; x=1796110882;
  darn=lists.freedesktop.org; 
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:from:to:cc:subject:date
  :message-id:reply-to:content-type;
- bh=74TXVSiLNJEh4EdaGe7nzkm4UiqpR2QLi5goWWiHysE=;
- b=bLk6X6NO21ss9bD9QWipz8m3hTsN5rfLhF9TC8reiBjvj7S8ajMm2Wh4TZSUpLEtxC
- laoiN/FfRp48kmRR6Pn7rHJu3rY/bm1CaUTW99MGUuPv/2b9m1am1GBAZVYUx632U1nF
- Ac1RRlTlx1i/BtsgoSqYC0dBT4xnHs2E1vUYo=
+ bh=h3c2lWC29hGMhiXznbuXjidfPs4Wpjz3u2lyu3ifusU=;
+ b=jovbAs3+xkPjFTaWI5nH3rnwEbyhwNaD6x01wTgH6sN2oBS6BO5+QJazRW3HtInPHp
+ 8xF5j/1+qdhOCTXSETdFoMWy+C7RV49almyee8+QHQ7VgioJJaiouM6eSGyEgVDVK1un
+ Zssa15t5c/z25DPeP6c+Wf0OWosKauwlO7ynk=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20260707; t=1795506077; x=1796110877;
+ d=1e100.net; s=20260707; t=1795506082; x=1796110882;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
  :to:cc:subject:date:message-id:reply-to:content-type;
- bh=74TXVSiLNJEh4EdaGe7nzkm4UiqpR2QLi5goWWiHysE=;
- b=VY4E7aEpHJil//Yrvh9OJkRbBo1p1AUd22nMyDoEMh7fp7a9z/Sjrzn8b68P9wptYs
- hUhGcEEHrJt9mtdo+UNL41MMeFbW5q15Z3WRz3VCt0HCYcqDd4dZYgA4469D0rCW6LIn
- dFS7yb7nExNfQx02M6f1J701MRXj7xFcL6knvXpr8FthG/amS0pJ5rOSU8OwulZgSlgw
- 6D93eioQzSpFwx66F/9kwAOqPLAfMnFOOU4lPun+8L3KjKbB+AglA44J9zpeUNz2SsI2
- EP9XARD/xsYrGOovGHnRCS+m7RlPsgJIbByrzKlRv7eAaMgba0MSJdukly2T3GhjYSEa
- yt6Q==
+ bh=h3c2lWC29hGMhiXznbuXjidfPs4Wpjz3u2lyu3ifusU=;
+ b=g/wdVcNdvoBtitnUTWAFj8ANMmQyPlhVQIPvFSjGVDwhdLEl/Ri5tsq4G8DBRsY5QP
+ qww0/gOZN7Ip8+YrHGKR11A2F+Kk1bsrrhGK6+FZUXNZkoqRBJat5mRwt+g17rEtK31G
+ wztV3/nBNVonHFpZZ0lGEwJ4DWRFBeR/UIAGbN7Q9sR+V5cDxn84j3HJV7w5R3WZnQfY
+ 8z0VVl3MvzvOB9Wb9xSORssxznwAyjjJTuzb3Aoc7x0gBf51bAYukG5U1T1Hqcq8/5ym
+ gSeqRN+N12vVWRODvoG+Ygzh0QqlTRPDBSIM2bqOj0ffKUT34wwL7RxcSWVsdBD8sCpq
+ BxyA==
 X-Forwarded-Encrypted: i=1;
- AL+hErEErI+OkYT9iCC2OVGwHTWEglnOOeDuDwNZfGKW64vtt0dZdSQbBFAy5kQjPn/lxXGTEFvA3FVm5v4=@lists.freedesktop.org
-X-Gm-Message-State: APuU4Z9Ebag+HjPctXjbZOwS5R3P+9rxNNwsdQVocWQClRjEo6gATLvy
- 4fqxmYYGYPVbwZ3hl4I6Ey015fklwPwAN6JSzCHZtakcQyfnA9bygXdqU//ogiDB5A==
-X-Gm-Gg: AZFdTZf81MqvpjnFE4R1CuSNViOWKpwtHLA2AjGdfpkrOVVBArx0XnWU075czfZAkdL
- p0PYZBwfyPee0AevJz+swh6HyaOhy/MCuT5amKctcyyS8u1pxJ1H7h80s01lHxLpFA9/xIQVDis
- dE5HcCjFmFp2JTdmRJMibpOc2IC9x5JhIcGYKL587N/J2F8RGfUPxB4wae9E8mlBCHq4ZyQ8bbb
- JuVlBeQLh4FQlgAc6qtzdgcpbJ/C5yFAa4QcASeGZGmAMoTBSIZpjMYlbaSBOJ/gsCVr+wZW0v/
- GFaNbydt0OYMxz1cF8/Zlw3osJvpJ1H+oT2MTjl0HdB6oRZDVT9DFRSTkE5/dmvwgsHckaqJ7Hg
- gpVZhQbSHYWsOXoMuvmxzezwxGEpnKsMrWLEVfKE73BlYY3OvPK3NXYKR/Vz6cCcGjKsuS++de8
- hcZSJi9NyGpMCffern4CVr67C72UKUygETwd1TvEHFF0S8/f1+l5UUFfzE3Sdhd+XAzuTV30ktH
- hCpo/85h76YWwdgCFlH/A5TbUxitYN3wwOabKW5OqnekpRY5Ps51p5hM0rRrQY1BUsQrf3ymcJh
- ROak/NA66PUki7glVkZnkr+UcnCt65lnAluf9xzzhjZeWLUYTrhndBRYNqf2
-X-Received: by 2002:a17:90b:3d90:b0:3b3:ff70:4d0d with SMTP id
- 98e67ed59e1d1-3b41c8d49b7mr11902997a91.14.1795506076825; 
- Mon, 23 Nov 2026 23:41:16 -0800 (PST)
+ AL+hErFqLFI3BXslMNRe/btOATH1RVg3MHccple+42DQF/68GKArs3ehm7+Ua8aHFJUsHopSbKt2COufPn8=@lists.freedesktop.org
+X-Gm-Message-State: APuU4Z8JNshnt/fQWDiK1Xn631TAxx14q9uTEpn972La1jUpglgn7IPD
+ GnU7YSLvdDL3MDCGzcDmveU8RLLOksGrK0YtZr64QXMN8i1/Lc1D3ZGDO3CYe1u0wQ==
+X-Gm-Gg: AZFdTZcRLMyrkgyxCuhSnBfT3LN2nzTuh91fhfFmi7wIj1ccRLWG2ZAlIerAhaK3bEy
+ mlZLvHQHGeURMGD40fWsMR+/Vur5VNl8HtNlwm07YlCeAOGv63XXZpRQHH/RPx6j+kcoQSNyNqO
+ OHaY0QlbqsHtEXZ8RO2EULx+I2WA9BK/MaSQAKlSQB6KVkyz6knbR3megR1PNu7VymWgo+rKkcP
+ 0jfAV+QpU6j3agVpHW8TFvrW+xWuo7rZUU+ARl189RhuSoBm924lHoQrWjbSRAri4a/A23SDpq0
+ MRiDeabXgJv2yfQj/gxzCns59li6OUw6IIvP45oqfXYsMtBy/4AKgH4up26BWNfkG/63pfroVl6
+ AtAxB+U+Jm/cXnas6VIR4qXjzaN3JWofDfeS6Fei78TaFKMJTIep26FwJMFNqKLvptnUGxzTMAS
+ ci8c84q8+vf1QhLZeWg/obdoIUw+cO++TFHlI9hZ7AVV4RArdDZSB6nInYEZzmh8zftqy6zFli8
+ 6kcyPshUNcj0EOXNAKXloY5hEBDPyJV8C7pwWKHPgD0XxZ7wfB5URStY81fofNkSdn0E5NnciRH
+ DxWikgtVoxW9Ris27+gMyBCt1qQRBQxFGLGdNtarj2eQKiYCk1hGMZYmcqTu
+X-Received: by 2002:a17:903:19e7:b0:2ed:b7e4:f5b with SMTP id
+ d9443c01a7336-2f03f18a7d9mr127037815ad.40.1795506082519; 
+ Mon, 23 Nov 2026 23:41:22 -0800 (PST)
 Received: from localhost ([2a00:79e0:203d:7:8f32:8910:4727:ea03])
  by smtp.gmail.com with UTF8SMTPSA id
- 98e67ed59e1d1-3b44b7a8c64sm9100767a91.3.2026.11.23.23.41.12
+ d9443c01a7336-2f03f120830sm64742695ad.61.2026.11.23.23.41.18
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Mon, 23 Nov 2026 23:41:16 -0800 (PST)
+ Mon, 23 Nov 2026 23:41:22 -0800 (PST)
 From: Chen-Yu Tsai <wenst@chromium.org>
 To: Liu Ying <victor.liu@nxp.com>,
  Laurentiu Palcu <laurentiu.palcu@oss.nxp.com>,
@@ -69,12 +69,11 @@ To: Liu Ying <victor.liu@nxp.com>,
 Cc: Chen-Yu Tsai <wenst@chromium.org>, David Airlie <airlied@gmail.com>,
  Simona Vetter <simona@ffwll.ch>, linux-sunxi@lists.linux.dev,
  imx@lists.linux.dev, dri-devel@lists.freedesktop.org,
- linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org,
- stable@vger.kernel.org
-Subject: [PATCH RFT v3 4/5] drm/imx/dc: plane: Switch to
+ linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org
+Subject: [PATCH RFT v3 5/5] drm/imx/dcss: plane: Switch to
  drm_fb_dma_get_gem_clipped_addr()
-Date: Tue, 24 Nov 2026 15:39:32 +0800
-Message-ID: <20261124074041.115251-5-wenst@chromium.org>
+Date: Tue, 24 Nov 2026 15:39:33 +0800
+Message-ID: <20261124074041.115251-6-wenst@chromium.org>
 X-Mailer: git-send-email 2.56.1.809.ga0b61035b5-goog
 In-Reply-To: <20261124074041.115251-1-wenst@chromium.org>
 References: <20261124074041.115251-1-wenst@chromium.org>
@@ -100,43 +99,69 @@ X-Spam-Status: No, score=-18.8 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-The hardware is programmed with clipped source and destination dimensions,
-but the framebuffer address is calculated using drm_fb_dma_get_gem_addr(),
-which uses the full source dimensions. This will not match the source
-offset if the top and/or left sides are clipped.
+The i.MX DCSS driver is open coding drm_fb_dma_get_gem_clipped_addr(),
+with only a slight difference of rounding down the X offset for the
+first plane if the format is packed, sub-sampled YUV. This is likely
+to correct the buffer address to the first pixel of the 2-pixel group.
+Otherwise the hardware will start the scan-out from the second pixel,
+which leads to the U/V components getting swapped around, and the
+chroma component of the next pixel group being used.
 
-Switch to the new drm_fb_dma_get_gem_clipped_addr(), which provides the
-buffer address starting at the clipped boundary.
+Switch to drm_fb_dma_get_gem_clipped_addr(), and offset the address by
+a pixel if the X offset is odd.
 
-Fixes: 711a3b878366 ("drm/imx: Add i.MX8qxp Display Controller KMS")
-Cc: <stable@vger.kernel.org> # Needs drm_fb_dma_get_gem_clipped_addr()
 Signed-off-by: Chen-Yu Tsai <wenst@chromium.org>
 ---
- drivers/gpu/drm/imx/dc/dc-plane.c | 4 ++--
- 1 file changed, 2 insertions(+), 2 deletions(-)
+ drivers/gpu/drm/imx/dcss/dcss-plane.c | 34 +++++++++++----------------
+ 1 file changed, 14 insertions(+), 20 deletions(-)
 
-diff --git a/drivers/gpu/drm/imx/dc/dc-plane.c b/drivers/gpu/drm/imx/dc/dc-plane.c
-index 62dd0576fadc..35eb5039f5ac 100644
---- a/drivers/gpu/drm/imx/dc/dc-plane.c
-+++ b/drivers/gpu/drm/imx/dc/dc-plane.c
-@@ -65,7 +65,7 @@ static int dc_plane_check_max_source_resolution(struct drm_plane_state *state)
- static int dc_plane_check_fb(struct drm_plane_state *state)
- {
+diff --git a/drivers/gpu/drm/imx/dcss/dcss-plane.c b/drivers/gpu/drm/imx/dcss/dcss-plane.c
+index 303e93fd036c..580d9cfb4053 100644
+--- a/drivers/gpu/drm/imx/dcss/dcss-plane.c
++++ b/drivers/gpu/drm/imx/dcss/dcss-plane.c
+@@ -219,28 +219,22 @@ static void dcss_plane_atomic_set_base(struct dcss_plane *dcss_plane)
+ 	struct dcss_dev *dcss = plane->dev->dev_private;
  	struct drm_framebuffer *fb = state->fb;
--	dma_addr_t baseaddr = drm_fb_dma_get_gem_addr(fb, state, 0);
-+	dma_addr_t baseaddr = drm_fb_dma_get_gem_clipped_addr(fb, state, 0);
+ 	const struct drm_format_info *format = fb->format;
+-	struct drm_gem_dma_object *dma_obj = drm_fb_dma_get_gem_obj(fb, 0);
+ 	unsigned long p1_ba = 0, p2_ba = 0;
  
- 	/* base address alignment */
- 	if (baseaddr & 0x3) {
-@@ -146,7 +146,7 @@ dc_plane_atomic_update(struct drm_plane *plane, struct drm_atomic_commit *state)
- 	src_w = drm_rect_width(&new_state->src) >> 16;
- 	src_h = drm_rect_height(&new_state->src) >> 16;
+-	if (!format->is_yuv ||
+-	    format->format == DRM_FORMAT_NV12 ||
+-	    format->format == DRM_FORMAT_NV21)
+-		p1_ba = dma_obj->dma_addr + fb->offsets[0] +
+-			fb->pitches[0] * (state->src.y1 >> 16) +
+-			format->char_per_block[0] * (state->src.x1 >> 16);
+-	else if (format->format == DRM_FORMAT_UYVY ||
+-		 format->format == DRM_FORMAT_VYUY ||
+-		 format->format == DRM_FORMAT_YUYV ||
+-		 format->format == DRM_FORMAT_YVYU)
+-		p1_ba = dma_obj->dma_addr + fb->offsets[0] +
+-			fb->pitches[0] * (state->src.y1 >> 16) +
+-			2 * format->char_per_block[0] * (state->src.x1 >> 17);
+-
+-	if (format->format == DRM_FORMAT_NV12 ||
+-	    format->format == DRM_FORMAT_NV21)
+-		p2_ba = dma_obj->dma_addr + fb->offsets[1] +
+-			(((fb->pitches[1] >> 1) * (state->src.y1 >> 17) +
+-			(state->src.x1 >> 17)) << 1);
++	p1_ba = drm_fb_dma_get_gem_clipped_addr(fb, state, 0);
++
++	/*
++	 * TODO fix address until helpers know packed, sub-sampled YUV format block size
++	 *
++	 * The buffer address for packed, sub-sampled YUV formats such as DRM_FORMAT_UYVY
++	 * need to be on the first pixel of each pixel group or block. Otherwise the first
++	 * pixel of the next pixel group is read and the U/V values get swapped around.
++	 */
++	if (drm_format_info_is_yuv_packed(format))
++		p1_ba -= ((state->src.x1 >> 16) & 1) * format->cpp[0];
++
++	if (format->num_planes > 1)
++		p2_ba = drm_fb_dma_get_gem_clipped_addr(fb, state, 1);
  
--	baseaddr = drm_fb_dma_get_gem_addr(fb, new_state, 0);
-+	baseaddr = drm_fb_dma_get_gem_clipped_addr(fb, new_state, 0);
- 
- 	fu_ops = dc_fu_get_ops(dplane->fu);
- 
+ 	dcss_dpr_addr_set(dcss->dpr, dcss_plane->ch_num, p1_ba, p2_ba,
+ 			  fb->pitches[0]);
 -- 
 2.56.1.809.ga0b61035b5-goog
 
