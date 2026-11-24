@@ -2,64 +2,76 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 01B64606A33C
-	for <dri-devel@archiver.kernel.org>; Tue, 24 Nov 2026 16:53:49 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7BBB5606A323
+	for <dri-devel@archiver.kernel.org>; Tue, 24 Nov 2026 16:57:16 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=JvFh3slm
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=XO7c3SyH
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 2B85710EA56;
-	Tue, 24 Nov 2026 16:53:43 +0000 (UTC)
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.12])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 8F4DD10EA56;
- Tue, 24 Nov 2026 16:53:37 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1795539218; x=1827075218;
- h=date:from:to:cc:subject:message-id:references:
- mime-version:in-reply-to;
- bh=5vzMqQTW9bipIuVLCxmsZr0kbn/k+9A1BtzY6Fdtqo4=;
- b=JvFh3slmytUdRz4tboEDVhCWAXTJr5Syf+QDq686XCxCx8DvMHQo9MDg
- ljM3qi+ELmrp3glVDTgiNLhgaY+t8EIDMO6b/bLaIccneT/Fx/0LTtcQJ
- Vq7PxL2XOHuMYeQFCHxQvD9LSdMr0hAk9llX3VKmeYVwzU80FXIKNcKH4
- c7sgEGe4bh3csEnGwcJeNsPMX+9DXvzqW8FSS53i1HllYsCPgWnVtpTDg
- RtuygqOYuuV8pZD/tROTfiXTdAmjQmx+Jc2xGJjDvKa1EXljBpg2d8c/w
- OseMS7qOwItGOL0VJnGYG2/Jz7qBU0ESRZfpQFgozmF0XlY5goqCZskD1 g==;
-X-CSE-ConnectionGUID: XMA4xo7mROK6CaL43gaWpg==
-X-CSE-MsgGUID: 9GgQ3UTmT+euLyMgtInv5Q==
-X-IronPort-AV: E=McAfee;i="6800,10657,11976"; a="4254610"
-X-IronPort-AV: E=Sophos;i="6.27,231,1787036400"; 
-   d="scan'208";a="4254610"
-Received: from orviesa006.jf.intel.com ([10.64.159.146])
- by fmvoesa106.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 24 Nov 2026 08:53:35 -0800
-X-CSE-ConnectionGUID: dcKPpqidQ/WRU7ICMnnWCw==
-X-CSE-MsgGUID: of9u7HhARHy8litZ04JFTQ==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,231,1787036400"; d="scan'208";a="11624124"
-Received: from kamilkon-desk.igk.intel.com (HELO localhost) ([10.211.136.201])
- by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 24 Nov 2026 08:53:33 -0800
-Date: Tue, 24 Nov 2026 17:53:30 +0100
-From: Kamil Konieczny <kamil.konieczny@linux.intel.com>
-To: Aditya Tipre <tipreaditya@gmail.com>
-Cc: igt-dev@lists.freedesktop.org, dri-devel@lists.freedesktop.org, 
- louis.chauvet@bootlin.com, sowmiya.s@intel.com, karthik.b.s@intel.com, 
- swati2.sharma@intel.com
-Subject: Re: [PATCH i-g-t v3 1/2] tests/kms_writeback: Wait for the valid FB
- ID writeback
-Message-ID: <noadhonrzbrwqcxwslspwqbib7q3s2e2pawxjbg7crid6rap7x@ot6y72stxm5f>
-Mail-Followup-To: Kamil Konieczny <kamil.konieczny@linux.intel.com>, 
- Aditya Tipre <tipreaditya@gmail.com>, igt-dev@lists.freedesktop.org,
- dri-devel@lists.freedesktop.org, 
- louis.chauvet@bootlin.com, sowmiya.s@intel.com, karthik.b.s@intel.com, 
- swati2.sharma@intel.com
-References: <PH7PR11MB6796FA8DDA56651E65E018D2E5682@PH7PR11MB6796.namprd11.prod.outlook.com>
- <20261105225628.4123-1-tipreaditya@gmail.com>
+	by gabe.freedesktop.org (Postfix) with ESMTP id AB51910EC98;
+	Tue, 24 Nov 2026 16:57:10 +0000 (UTC)
+Received: from mail-wm1-f54.google.com (mail-wm1-f54.google.com
+ [209.85.128.54])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id A696810EBDB
+ for <dri-devel@lists.freedesktop.org>; Tue, 24 Nov 2026 16:57:03 +0000 (UTC)
+Received: by mail-wm1-f54.google.com with SMTP id
+ 5b1f17b1804b1-4bb69f5b161so30968285e9.0
+ for <dri-devel@lists.freedesktop.org>; Tue, 24 Nov 2026 08:57:03 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20260707; t=1795539422; x=1796144222; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:content-type:mime-version:message-id:date
+ :subject:cc:to:from:from:to:cc:subject:date:message-id:reply-to
+ :content-type; bh=jbUthWdRMMj51XLCsqRl2+vc3sJ3ROclkjX4dXujHnA=;
+ b=XO7c3SyHY7d6DcUPBg8JIahBADVcjT2mKPiJI0bs/0o3h+U1lT35OA5DrIQG0NsY8o
+ qR/OPD5AkmO6XQfC+mA8U2vvwSKO0ZRiWPZdKLYoUIva8+B97tX/6lCVQHloK+mCCLAO
+ tjldV3IQqg+d78jkS9Vx9BphtR3m3+59hmNVZov5tQGDNM4FPEZSg4YiFy26ZdD9C56W
+ zpwdlzMpe07gQg4bVsKEwnwFTv+JKlYc0uIlFSa4ZEsDJza+dOrezgIK+75MoVkSF41/
+ WBi1ZNaxOXB++fQSCPEij4RUhc//Ga1W2mx3S03akVeqX+ctRfBHL8TFZUEmkV/l7vEv
+ gaiw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20260707; t=1795539422; x=1796144222;
+ h=content-transfer-encoding:content-type:mime-version:message-id:date
+ :subject:cc:to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject
+ :date:message-id:reply-to:content-type;
+ bh=jbUthWdRMMj51XLCsqRl2+vc3sJ3ROclkjX4dXujHnA=;
+ b=QXO+rlGSBNoqyUOsGzfBtBm62L21lcd+qmTmOqG2yc4kY3cRQ/Gt1GpmRYhDx9f220
+ ytU5eFBtL2dWEH8LpWqN4h+KphlC1u8kaBBF3f+27ieXPb/E1qLXJIim8sxHLXh64qd6
+ PIRTEeindSjwzw6DUVhr3CXXDSOb67zkyL9LVnVJBxLHDctenHlnGNVAFGlTTEleKhmo
+ Iy2ljb3RRS3iIG6jGpO53ytwFuyrSTphJjyYbWhKB3TqysV1xPgxZvg0eOxzwd/Ja/N3
+ ZsRIqLWwBpsOeX3ATP36/F0C+JcUrSQ408moyPoKGKWNBGGQcuiftV9o8R2gUzRLTB1n
+ wohA==
+X-Gm-Message-State: APuU4Z8ntUzL6eyF8ySyDIF2ua+IDnXnbIEVgESx3KKAs5THtMA/q4t1
+ uD5vTAwLWx30Lj8KuwLodYS72Us7VGo40zs5ChZ/xVV5ETfQ3ZRptog=
+X-Gm-Gg: AZFdTZeWFOfSBzM2y/vWX041lrm5fvqsSC3Z/LGwOkrsLFIui2W9ASie21vD3wTy8mZ
+ Ve/6TcTI7q4upyhBDpYbsiW3HhnnZ6oosilYyj68ABGz5acTI9ZF7GToWjawtFAWAGegSYNPZwf
+ igGm+4Iczefg3XGNwDwtoi7nPasPt8BoMs24AF4zAc6wJyg9ZNnYb8m/vws3Am89cadewf3t6NR
+ sGBKIiY/s5ro/9pMkUwGGEahGB8maA6q6rZ9sr6aSK+MomfiYY4pCE6JoEAMN4rSS/FNOWJvF4l
+ Soj6HTy/ias8utZvZO4UGai0hbxhxOIUkp6M0svrXeyI6PdnbRYYgR1vRXDQ5nusowjfTjV0BAd
+ m6lRZj3MNL7npdpyTLi7C3kxEUHNKNS1J0doTYLfoO66FDl+ZbjI2ZDpv/tUe3YnAdwYny8TPDK
+ eTlIT5CdEXZtCnGPxAP2DaNdtDmtE93P1mbPQgdALPelHjrkmp2XWLVZ9IJw238CVjnFpzB8brP
+ X66z/9rYx9/b2myWYUKLTy6nXeh8U8zp+BU/WNOo5KTMecu+TAM+l6xt84ueg9FEwP+QVkiYyux
+ gktA430l8hX468N9LVeTZ/gNDPR1+w==
+X-Received: by 2002:a05:600c:c173:b0:4a1:813f:2a60 with SMTP id
+ 5b1f17b1804b1-4bb88800134mr299004235e9.11.1795539421842; 
+ Tue, 24 Nov 2026 08:57:01 -0800 (PST)
+Received: from Vivobook.home ([80.116.179.188])
+ by smtp.gmail.com with ESMTPSA id
+ 5b1f17b1804b1-4bb853a9687sm503208055e9.10.2026.11.24.08.57.01
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Tue, 24 Nov 2026 08:57:01 -0800 (PST)
+From: ivano <ivano.cristofolini@gmail.com>
+X-Google-Original-From: ivano <ivano@Vivobook.home>
+To: amd-gfx@lists.freedesktop.org
+Cc: dri-devel@lists.freedesktop.org,
+ Ivano Cristofolini <ivano.cristofolini@gmail.com>
+Subject: [PATCH] drm: add min-backlight quirk for ASUS Vivobook 14 M1407KA
+ (CSW MNE007QS3-6)
+Date: Tue, 24 Nov 2026 17:56:43 +0100
+Message-ID: <20261124165643.10016-1-ivano@Vivobook.home>
+X-Mailer: git-send-email 2.53.0
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-In-Reply-To: <20261105225628.4123-1-tipreaditya@gmail.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -71,98 +83,62 @@ List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-13.8 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
-	DKIM_SIGNED,DKIM_VALID,HEADER_FROM_DIFFERENT_DOMAINS,
-	INCLUDES_CR_TRAILER,INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,
-	SPF_PASS autolearn=ham autolearn_force=no version=4.0.1
+X-Spam-Status: No, score=-15.8 required=3.0 tests=BAYES_00,DKIM_SIGNED,
+	DKIM_VALID,DKIM_VALID_AU,FREEMAIL_FORGED_FROMDOMAIN,FREEMAIL_FROM,
+	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
+	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,USER_AGENT_GIT
+	autolearn=unavailable autolearn_force=no version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-Hi Aditya,
-On 2026-11-05 at 17:56:27 -0500, Aditya Tipre wrote:
-> The positive WRITEBACK_FB_ID test submits a writeback to the common input
-> framebuffer without requesting or waiting for its completion fence. A
-> blocking atomic commit does not imply that writeback has finished.
-> 
-> The following pixel-output test fills the same buffer with its reference
-> color. The earlier writeback can still be modifying it, leaving a mixture
-> of the old and new contents and causing intermittent checksum failures.
-> On ARM64 VKMS, a diagnostic run observed the prior fence still unsignalled
-> and a black row in both the input and the captured output after the input
-> had been filled red.
-> 
-> Request a fence for the successful FB ID writeback and wait for it before
-> returning. Only require the returned fence descriptor to be -1 when the
-> commit fails, so the shared commit helper also accepts this successful
-> fenced operation. Keep all invalid-parameter checks intact.
-> 
-> Signed-off-by: Aditya Tipre <tipreaditya@gmail.com>
+From: Ivano Cristofolini <ivano.cristofolini@gmail.com>
 
-Please rebase on current top and also use a cover letter with
-a different subject for series, for example:
+The ASUS Vivobook 14 M1407KA (AMD Krackan iGPU) uses a CSW MNE007QS3-6
+eDP panel.  Its ATIF backlight caps report a minimum input signal of
+12/255, so amdgpu clamps the PWM backlight at 12/255 (3084/65535) —
+far too bright for the lowest slider step in dark environments.
+Windows on the same machine reaches visibly lower levels.
 
-[PATCH i-g-t v4 0/2] kms_writeback: check crc survivies writeback
+Add a drm panel backlight quirk lowering the minimum to 1/255
+(257/65535), following the existing Framework entries.  The panel is
+stable at these levels; no flicker observed.
 
-and then resend this series, also please make it a new series (do
-not use reply-to any msg-ids linking it) so our patchwork could
-take it properly and then CI could test it. If you want, you can give
-a links to previous series to lore.kernel.org (there is igt-dev
-mirror) in cover letter.
+Tested on ASUS Vivobook 14 M1407KA, BIOS M1407KA.332, kernel
+7.0.0-44-generic.  Boot log:
 
-One more nit at end.
+  amdgpu 0000:03:00.0: [drm] Applying panel backlight quirk, min_brightness: 1
 
-> ---
-> New prerequisite in v3:
-> - Wait for the existing valid FB ID writeback before its target buffer is
->   reused as input by the next subtest.
-> 
-> A diagnostic run observed the prior fence still unsignalled and a row of
-> old black pixels replacing red input pixels. Waiting for the fence removes
-> this race. The standalone fix passes the four applicable existing subtests
-> on unfixed and fixed VKMS kernels with one and two CPUs; both XRGB2101010
-> cases skip.
-> 
->  tests/kms_writeback.c | 8 ++++++--
->  1 file changed, 6 insertions(+), 2 deletions(-)
-> 
-> diff --git a/tests/kms_writeback.c b/tests/kms_writeback.c
-> index 7c30e8e..550d603 100644
-> --- a/tests/kms_writeback.c
-> +++ b/tests/kms_writeback.c
-> @@ -228,7 +228,7 @@ static int do_writeback_test(igt_output_t *output, uint32_t fb_id,
->  
->  	ret = igt_display_try_commit_atomic(display, DRM_MODE_ATOMIC_ALLOW_MODESET, NULL);
->  
-> -	if (ptr_valid)
-> +	if (ptr_valid && ret)
->  		igt_assert(*out_fence_ptr == -1);
->  
->  	/* WRITEBACK_FB_ID must always read as zero */
-> @@ -288,8 +288,12 @@ static void writeback_fb_id(igt_output_t *output, igt_fb_t *valid_fb, igt_fb_t *
->  	igt_assert_eq(ret, 0);
->  
->  	/* Valid output buffer */
-> -	ret = do_writeback_test(output, valid_fb->fb_id, NULL, false);
-> +	ret = do_writeback_test(output, valid_fb->fb_id,
-> +				&output->writeback_out_fence_fd, true);
->  	igt_assert_eq(ret, 0);
-> +
-> +	/* The next subtest may reuse this buffer as input. */
-> +	igt_get_and_wait_out_fence(output);
->  }
->  
->  static void fill_fb(igt_fb_t *fb, uint32_t pixel)
-> 
-> base-commit: 454657e58fbcfd6fa8a9db0830aa1652fe6364c2
+and writing 200 to /sys/class/backlight/amdgpu_bl1/brightness now
+yields actual_brightness 257 (stock driver clamps at 3084); maximum
+brightness unchanged.
 
-Can you not use these 'base-commit' line? Or at least rebase on
-current top.
+Link: https://gitlab.freedesktop.org/drm/amd/-/issues/6198
+Signed-off-by: Ivano Cristofolini <ivano.cristofolini@gmail.com>
+---
+ drivers/gpu/drm/drm_panel_backlight_quirks.c | 10 ++++++++++
+ 1 file changed, 10 insertions(+)
 
-Thanks!
+diff --git a/drivers/gpu/drm/drm_panel_backlight_quirks.c b/drivers/gpu/drm/drm_panel_backlight_quirks.c
+index 2d02383..0ee711d 100644
+--- a/drivers/gpu/drm/drm_panel_backlight_quirks.c
++++ b/drivers/gpu/drm/drm_panel_backlight_quirks.c
+@@ -54,6 +54,16 @@ static const struct drm_get_panel_backlight_quirk drm_panel_min_backlight_quirks
+ 		.ident.name = "NE135A1M-NY1",
+ 		.quirk = { .min_brightness = 1, },
+ 	},
++	/* ASUS Vivobook 14 M1407KA: ATIF caps keep the PWM minimum at 12/255,
++	 * which is far brighter than the panel can safely go
++	 */
++	{
++		.dmi_match.field = DMI_SYS_VENDOR,
++		.dmi_match.value = "ASUSTeK COMPUTER INC.",
++		.ident.panel_id = drm_edid_encode_panel_id('C', 'S', 'W', 0x143f),
++		.ident.name = "MNE007QS3-6",
++		.quirk = { .min_brightness = 2, },
++	},
+ 	/* Steam Deck models */
+ 	{
+ 		.dmi_match.field = DMI_SYS_VENDOR,
+-- 
+2.53.0
 
-Regards,
-Kamil
-
-> -- 
-> 2.50.1 (Apple Git-155)
-> 
