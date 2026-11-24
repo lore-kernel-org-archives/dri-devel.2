@@ -2,52 +2,45 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 24C64606A31E
-	for <dri-devel@archiver.kernel.org>; Tue, 24 Nov 2026 17:25:47 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 04DDB606A321
+	for <dri-devel@archiver.kernel.org>; Tue, 24 Nov 2026 17:32:00 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.a=rsa-sha256 header.s=dkim header.b=JMZ9D0Lk
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=CWRih7ZI
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 602D810E2AC;
-	Tue, 24 Nov 2026 17:25:41 +0000 (UTC)
-Received: from smtpout-03.galae.net (smtpout-03.galae.net [185.246.85.4])
- by gabe.freedesktop.org (Postfix) with ESMTPS id C13F810E2AC
- for <dri-devel@lists.freedesktop.org>; Tue, 24 Nov 2026 17:25:34 +0000 (UTC)
-Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
- by smtpout-03.galae.net (Postfix) with ESMTPS id 8A1954E41743;
- Tue, 24 Nov 2026 17:25:32 +0000 (UTC)
-Received: from mail.galae.net (mail.galae.net [212.83.136.155])
- by smtpout-01.galae.net (Postfix) with ESMTPS id 4F72A601E1;
- Tue, 24 Nov 2026 17:25:32 +0000 (UTC)
-Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon)
- with ESMTPSA id 4DD4611E69A47; Tue, 24 Nov 2026 18:25:25 +0100 (CET)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
- t=1795541127; h=from:subject:date:message-id:to:cc:mime-version:content-type:
- content-transfer-encoding:in-reply-to:references;
- bh=r4Faf5+FEQd5QxFogS3mSEI7ecco6F5hpn/AXn7fsnI=;
- b=JMZ9D0LknlH0UnLwZxj6QYZgAZ4twiMCjrTs86rFZNF9Nrj4dlRaYLikv93yXSSsPoFUK1
- BIPBs4+9nsD40YBCpHK8z3aviduMYzw2WKYTP/XkfZUpXKaHF4oRLyzCsLijmhUSGs+agx
- 5Tj234xLa/jarQUHJWNYYDNGh7s5FIF81vNlcQy+AwGDj3D/4NpsUJYLzBS/oBTzOoHzgC
- sDLTAJAwKOIhCr997/uw2hPJysFdfi2OfuolLcJSHEsDR1ihfCcBWbLHeIqsTzwNm8PoXx
- VmlibIMAn9wjoBOND/AIZ2n3XPRnVjkdLOzCpjYgBh8Rzw6VXIBHk0bFDW5YTw==
+	by gabe.freedesktop.org (Postfix) with ESMTP id 29CEE10ECA6;
+	Tue, 24 Nov 2026 17:31:54 +0000 (UTC)
+Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 9823810E283;
+ Tue, 24 Nov 2026 17:31:47 +0000 (UTC)
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+ by sea.source.kernel.org (Postfix) with ESMTP id 313B643CC9;
+ Tue, 24 Nov 2026 17:31:47 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id DD3E31F000D2;
+ Tue, 24 Nov 2026 17:31:45 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+ s=k20260515; t=1795541507;
+ bh=7BOhALOWGOqa/3ADOLPrCh1s8Dt3hRUkimSSK/0HERI=;
+ h=Date:From:To:Cc:Subject;
+ b=CWRih7ZIF7kmmLYjnUqs1I5+NWmHoabVwpVXiaDSH2n7FF2Pniz4L4N6P49FfAqrb
+ 2rOFHTXmeaS+RpROAhE1RwMt7SBMW+ILqbdK5XBjtksm89QTVioWb8FVMxCnY+BlA1
+ bSG97On5ze9gUFTL8VrFdKXHpaYmd78EJibXp7+iX9pvF12eUheAENgxu7F7iRRE0R
+ o+z4hE5xmbVPfdCd1jKZlissKF+MnP9ZkpdB4tpHgqLXXRCiu+Z83FeE9gHVgS6A5H
+ 4KFMhGQSaOTLKmAXNKSi+9P90GuBUg1ASqvavGMNaahFttlEc9jS4+BiJU3YfeABgT
+ TSOfLrH/Py/gA==
+Date: Tue, 24 Nov 2026 17:31:43 +0000
+From: Mark Brown <broonie@kernel.org>
+To: Simona Vetter <simona.vetter@ffwll.ch>,
+ Intel Graphics <intel-gfx@lists.freedesktop.org>,
+ DRI <dri-devel@lists.freedesktop.org>
+Cc: Linux Kernel Mailing List <linux-kernel@vger.kernel.org>,
+ Linux Next Mailing List <linux-next@vger.kernel.org>
+Subject: linux-next: build failure after merge of the drm-misc tree
+Message-ID: <awXJ__-grexFFPb4@sirena.org.uk>
 X-Archived-By: <archiver.kernel.org>
-Mime-Version: 1.0
-Content-Transfer-Encoding: quoted-printable
-Content-Type: text/plain; charset=UTF-8
-Date: Tue, 24 Nov 2026 18:25:23 +0100
-Message-Id: <DN3M7GTHXWPH.3QU65NZ86T85A@bootlin.com>
-Subject: Re: [PATCH v2] drm/mxsfb: lcdif: Fix use-after-free on unbind
-Cc: <laurentiu.palcu@oss.nxp.com>, <dri-devel@lists.freedesktop.org>,
- <imx@lists.linux.dev>, <marek.vasut@mailbox.org>, <mripard@kernel.org>,
- <stable@vger.kernel.org>
-To: "Fabio Estevam" <festevam@gmail.com>, "Luca Ceresoli"
- <luca.ceresoli@bootlin.com>
-From: "Luca Ceresoli" <luca.ceresoli@bootlin.com>
-X-Mailer: aerc 0.22.0
-References: <20261123223357.535424-1-festevam@gmail.com>
- <179551300942.327856.7174455040291936744.b4-review@b4>
- <CAOMZO5ALfN-zGZuVn7tm9gpg+1yO1tQGKt+O2NXem14hbr+_6g@mail.gmail.com>
-In-Reply-To: <CAOMZO5ALfN-zGZuVn7tm9gpg+1yO1tQGKt+O2NXem14hbr+_6g@mail.gmail.com>
-X-Last-TLS-Session-Version: TLSv1.3
+MIME-Version: 1.0
+Content-Type: multipart/signed; micalg=pgp-sha512;
+ protocol="application/pgp-signature"; boundary="xtez2l9DzSPawuop"
+Content-Disposition: inline
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -59,55 +52,154 @@ List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-10.8 required=3.0 tests=BAYES_00,DKIM_SIGNED,
-	DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
-	INCLUDES_CR_TRAILER,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS
-	autolearn=unavailable autolearn_force=no version=4.0.1
+X-Spam-Status: No, score=-15.8 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
+	DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
+	INCLUDES_CR_TRAILER,INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,
+	SPF_PASS autolearn=unavailable autolearn_force=no version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-Hello Fabio,
 
-On Tue Nov 24, 2026 at 12:18 PM CET, Fabio Estevam wrote:
-> Hi Luca,
->
-> On Tue, Nov 24, 2026 at 6:36=E2=80=AFAM Luca Ceresoli <luca.ceresoli@boot=
-lin.com> wrote:
->
->> I'm OK with the change (except a small nit, see below), but I have a
->> general question: is there any valid use case for removing the lcdif, ot=
-her
->> than testing?
->
-> Yes, the motivation for removing the lcdif was to help decrease power
-> consumption on an i.MX8MP board.
+--xtez2l9DzSPawuop
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
 
-Uhm, not sure this is the right way to save power... This driver implements
-RPM, so in theory it should not consume any resource except allocated
-memory when probed but unused.
+Hi all,
 
-Did you measure to power consumption in the unbound VS probed-but-unused
-cases?
+After merging the drm-misc tree, today's linux-next build (x86_64
+allmodconfig) failed like this:
 
->> No need to use the @ret temporary variable, just replace it with:
->>
->>                 if (IS_ERR(encoder))
->>                         return dev_err_probe(dev, PTR_ERR(encoder),
->>                                              "Failed to initialize encod=
-er for endpoint%u\n",
->>                                              of_ep.id);
->>
->> With that done you can send v3 and add:
->> +Reviewed-by: Luca Ceresoli <luca.ceresoli@bootlin.com>
->> +Tested-by: Luca Ceresoli <luca.ceresoli@bootlin.com>
->
-> Thanks for the suggestion. I'll send v3.
+/tmp/next/build/drivers/platform/raspberrypi/vc-sm-cma/vc_sm.c:217:3: error=
+: call to undeclared function 'dma_buf_unmap_attachment_unlocked'; ISO C99 =
+and later do not support implicit function declarations [-Wimplicit-functio=
+n-declaration]
+  217 |                 dma_buf_unmap_attachment_unlocked(buffer->attach,
+      |                 ^
+/tmp/next/build/drivers/platform/raspberrypi/vc-sm-cma/vc_sm.c:217:3: note:=
+ did you mean 'dma_buf_unmap_sgt_unlocked'?
+/tmp/next/build/include/linux/dma-buf.h:587:6: note: 'dma_buf_unmap_sgt_unl=
+ocked' declared here
+  587 | void dma_buf_unmap_sgt_unlocked(struct dma_buf_attachment *attach,
+      |      ^
+/tmp/next/build/drivers/platform/raspberrypi/vc-sm-cma/vc_sm.c:438:8: error=
+: call to undeclared function 'dma_buf_map_attachment_unlocked'; ISO C99 an=
+d later do not support implicit function declarations [-Wimplicit-function-=
+declaration]
+  438 |         sgt =3D dma_buf_map_attachment_unlocked(attach, DMA_BIDIREC=
+TIONAL);
+      |               ^
+/tmp/next/build/drivers/platform/raspberrypi/vc-sm-cma/vc_sm.c:438:8: note:=
+ did you mean 'dma_buf_map_sgt_unlocked'?
+/tmp/next/build/include/linux/dma-buf.h:585:1: note: 'dma_buf_map_sgt_unloc=
+ked' declared here
+  585 | dma_buf_map_sgt_unlocked(struct dma_buf_attachment *attach,
+      | ^
+/tmp/next/build/drivers/platform/raspberrypi/vc-sm-cma/vc_sm.c:438:6: error=
+: incompatible integer to pointer conversion assigning to 'struct sg_table =
+*' from 'int' [-Wint-conversion]
+  438 |         sgt =3D dma_buf_map_attachment_unlocked(attach, DMA_BIDIREC=
+TIONAL);
+      |             ^ ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~=
+~~~~~
+/tmp/next/build/drivers/platform/raspberrypi/vc-sm-cma/vc_sm.c:553:3: error=
+: call to undeclared function 'dma_buf_unmap_attachment_unlocked'; ISO C99 =
+and later do not support implicit function declarations [-Wimplicit-functio=
+n-declaration]
+  553 |                 dma_buf_unmap_attachment_unlocked(attach, sgt,
+      |                 ^
 
-Anyway the v3 patch makes sense, added it to my TODO-apply list. Thanks!
+Caused by commit
 
-Luca
+   6e0a8f1a83473 (platform/raspberrypi: Add VideoCore shared memory support)
 
---
-Luca Ceresoli, Bootlin
-Embedded Linux and Kernel engineering
-https://bootlin.com
+=66rom the broadcom tree.  I have applied Sasha's fixup below
+
+=46rom 60cdd23176d1a7b222ba90427f07c6d10859b744 Mon Sep 17 00:00:00 2001
+=46rom: Sasha Levin <sashal@kernel.org>
+Date: Tue, 24 Nov 2026 09:56:52 -0500
+Subject: [PATCH] linux-next: semantic conflict between the drm-misc and
+ broadcom trees
+
+Hi Mark,
+
+The current drm-misc tree has a semantic conflict with the broadcom
+tree that breaks the build:
+
+  drivers/platform/raspberrypi/vc-sm-cma/vc_sm.c:217:3: error: call to unde=
+clared function 'dma_buf_unmap_attachment_unlocked'
+  drivers/platform/raspberrypi/vc-sm-cma/vc_sm.c:438:8: error: call to unde=
+clared function 'dma_buf_map_attachment_unlocked'
+
+77e0b2d2f4f3 ("treewide: Rename dma_buf_(un)map_attachment() to
+dma_buf_(un)map_sgt()") in the drm-misc tree renames the functions, and
+6e0a8f1a8347 ("platform/raspberrypi: Add VideoCore shared memory
+support") in the broadcom tree adds a new user of the old names. It is
+the only caller in next-20261123 that the rename doesn't cover.
+
+The fix for the merge:
+
+Signed-off-by: Mark Brown <broonie@kernel.org>
+---
+ drivers/platform/raspberrypi/vc-sm-cma/vc_sm.c | 10 ++++------
+ 1 file changed, 4 insertions(+), 6 deletions(-)
+
+diff --git a/drivers/platform/raspberrypi/vc-sm-cma/vc_sm.c b/drivers/platf=
+orm/raspberrypi/vc-sm-cma/vc_sm.c
+index 2d9bb5f957a37..7ba6e1f2aa6aa 100644
+--- a/drivers/platform/raspberrypi/vc-sm-cma/vc_sm.c
++++ b/drivers/platform/raspberrypi/vc-sm-cma/vc_sm.c
+@@ -214,9 +214,8 @@ static void vc_sm_clean_up_dmabuf(struct vc_sm_buffer *=
+buffer)
+ {
+ 	/* Handle cleaning up imported dmabufs */
+ 	if (buffer->sgt) {
+-		dma_buf_unmap_attachment_unlocked(buffer->attach,
+-						  buffer->sgt,
+-						  DMA_BIDIRECTIONAL);
++		dma_buf_unmap_sgt_unlocked(buffer->attach, buffer->sgt,
++					   DMA_BIDIRECTIONAL);
+ 		buffer->sgt =3D NULL;
+ 	}
+ 	if (buffer->attach) {
+@@ -435,7 +434,7 @@ vc_sm_cma_import_dmabuf_internal(struct dma_buf *dma_bu=
+f,
+ 		goto error;
+ 	}
+=20
+-	sgt =3D dma_buf_map_attachment_unlocked(attach, DMA_BIDIRECTIONAL);
++	sgt =3D dma_buf_map_sgt_unlocked(attach, DMA_BIDIRECTIONAL);
+ 	if (IS_ERR(sgt)) {
+ 		ret =3D PTR_ERR(sgt);
+ 		goto error;
+@@ -550,8 +549,7 @@ vc_sm_cma_import_dmabuf_internal(struct dma_buf *dma_bu=
+f,
+ 		free_kernel_id(import.kernel_id);
+ 	kfree(buffer);
+ 	if (sgt)
+-		dma_buf_unmap_attachment_unlocked(attach, sgt,
+-						  DMA_BIDIRECTIONAL);
++		dma_buf_unmap_sgt_unlocked(attach, sgt, DMA_BIDIRECTIONAL);
+ 	if (attach)
+ 		dma_buf_detach(dma_buf, attach);
+ 	dma_buf_put(dma_buf);
+--=20
+2.47.3
+
+
+--xtez2l9DzSPawuop
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmsFyf4ACgkQJNaLcl1U
+h9CmHwf/SU7/iyvVAAI4/nfDtLFEk+idA+aZ5ShlGYjspVTRPkRHcrSl93f1wzO/
+4KDuuhiT9ARlSVOoGMiLuggffJOwOZOtFtB2+s4EDwaUnQBAp63/z/Rn1HGzGn8Y
+kMQ2RL0LX+q+NyVeXFKEX/+3rJRvWT+fuQm0VYRXgqN2uqEHZnpuY+ck4zNzi7ng
+Qptma2rKZDOCeb1jjHnxvYnoWRLG/l6qtohQRY80vkGl9FqCARS9m7ich8ZiSflb
+2XoMMIH4V+b8l0a6FGVKVrCpMGDXIYbWFkM0bWwnTrsdseVQ146zDTSsGacajunu
+mpRoMhSZDVx3nrjQtRi7FhpT5/2vww==
+=q93P
+-----END PGP SIGNATURE-----
+
+--xtez2l9DzSPawuop--
