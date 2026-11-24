@@ -2,93 +2,45 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A5B18606A31E
-	for <dri-devel@archiver.kernel.org>; Tue, 24 Nov 2026 15:55:21 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 102E6606A31E
+	for <dri-devel@archiver.kernel.org>; Tue, 24 Nov 2026 16:01:27 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=samsung.com header.i=@samsung.com header.a=rsa-sha256 header.s=mail20170921 header.b=K9xeBwDE
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ADpVGNcD
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 6337C10F769;
-	Tue, 24 Nov 2026 15:55:15 +0000 (UTC)
-Received: from mailout2.w1.samsung.com (mailout2.w1.samsung.com
- [210.118.77.12])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 20CD810E23E
- for <dri-devel@lists.freedesktop.org>; Tue, 24 Nov 2026 15:54:29 +0000 (UTC)
-Received: from eucas1p2.samsung.com (unknown [182.198.249.207])
- by mailout2.w1.samsung.com (KnoxPortal) with ESMTP id
- 20261124155427euoutp0216c8c779138caa0a985af1805797e4f6~rBi1Flxhc0430504305euoutp02N;
- Tue, 24 Nov 2026 15:54:27 +0000 (GMT)
-DKIM-Filter: OpenDKIM Filter v2.11.0 mailout2.w1.samsung.com
- 20261124155427euoutp0216c8c779138caa0a985af1805797e4f6~rBi1Flxhc0430504305euoutp02N
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=samsung.com;
- s=mail20170921; t=1795535668;
- bh=Hwn+KozTjqbKLEcXpvaSk85eL6QS1Y+pGx+rClS7K7k=;
- h=From:Date:Subject:In-Reply-To:To:Cc:References:From;
- b=K9xeBwDEqowx4qW2j7Kt07frwW/eklfERs4HcCh8UOGPPrbk55JlGUsN7qB32a9VP
- EJ9xf+QMGT+v1mKc/iDBIQ9izwv4eXuYQzkXgNSLjqqMlz7VaVIzrSlRsjvCVrmJVe
- CXUp6nYfAREZExmAM1jSI7yHW7CVBJLUBF1lsK6w=
-Received: from eusmtip1.samsung.com (unknown [203.254.199.221]) by
- eucas1p1.samsung.com (KnoxPortal) with ESMTPA id
- 20261124155427eucas1p1d7984cd7c12532c271826fd19820a55f~rBi0p4yan0067000670eucas1p1i;
- Tue, 24 Nov 2026 15:54:27 +0000 (GMT)
-Received: from AMDC4942.eu.corp.samsungelectronics.net (unknown
- [106.210.136.40]) by eusmtip1.samsung.com (KnoxPortal) with ESMTPA id
- 20261124155425eusmtip181296fb98900453b0e6688616dc8f751~rBiy5MXny3070630706eusmtip1j;
- Tue, 24 Nov 2026 15:54:25 +0000 (GMT)
-From: Michal Wilczynski <m.wilczynski@samsung.com>
-Date: Tue, 24 Nov 2026 16:52:51 +0100
-Subject: [PATCH v8 15/18] soc: starfive: Add jh7110-vout-subsystem driver
-X-Archived-By: <archiver.kernel.org>
-MIME-Version: 1.0
-Content-Transfer-Encoding: 7bit
-Message-Id: <20261124-jh7110-clean-send-v8-15-de92635dd857@samsung.com>
-In-Reply-To: <20261124-jh7110-clean-send-v8-0-de92635dd857@samsung.com>
-To: Neil Armstrong <neil.armstrong@linaro.org>,  Rob Herring
- <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,  Robert Foss
- <rfoss@kernel.org>,  Laurent Pinchart <Laurent.pinchart@ideasonboard.com>, 
- Jernej Skrabec <jernej.skrabec@gmail.com>,  Luca Ceresoli
- <luca.ceresoli@bootlin.com>,  Maarten Lankhorst
- <maarten.lankhorst@linux.intel.com>,  Maxime Ripard <mripard@kernel.org>,
- Thomas Zimmermann <tzimmermann@suse.de>,  Philipp Zabel
- <p.zabel@pengutronix.de>,  Emil Renner Berthing <kernel@esmil.dk>,  Hal Feng
- <hal.feng@starfivetech.com>, Heiko Stuebner <heiko@sntech.de>,  Paul
- Walmsley <pjw@kernel.org>, Palmer Dabbelt <palmer@dabbelt.com>,  Albert Ou
- <aou@eecs.berkeley.edu>, Alexandre Ghiti <alex@ghiti.fr>,  Dominique
- Belhachemi <db@domibel.de>, Andy Yan <andyshrk@163.com>,  David Airlie
- <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,  Yakir Yang
- <kuankuan.y@gmail.com>,  Dmitry Baryshkov
- <dmitry.baryshkov@oss.qualcomm.com>,  Michal Wilczynski
- <m.wilczynski@samsung.com>,  Conor Dooley <conor@kernel.org>, William Qiu
- <william.qiu@starfivetech.com>,  Xingyu Wu <xingyu.wu@starfivetech.com>,
- Sandy Huang <hjc@rock-chips.com>,  Manivannan Sadhasivam <mani@kernel.org>
-Cc: devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
- dri-devel@lists.freedesktop.org, linux-arm-kernel@lists.infradead.org, 
- linux-rockchip@lists.infradead.org, linux-riscv@lists.infradead.org,  Marek
- Szyprowski <m.szyprowski@samsung.com>,  Maud Spierings
- <maud_spierings@murena.io>,  Graham Markall <hello@big-grey.co.uk>,  Icenowy
- Zheng <zhengxingda@iscas.ac.cn>,  Chaoyi Chen <chaoyi.chen@rock-chips.com>, 
- Joshua Peisach <jpeisach@ubuntu.com>,  =?utf-8?q?Uwe_Kleine-K=C3=B6nig?=
- <u.kleine-koenig@baylibre.com>,  Cristian Ciocaltea
- <cristian.ciocaltea@collabora.com>,  Byron Stanoszek <gandalf@winds.org>,
- Owen O'Hehir <oo.hehir@gmail.com>,  Conor Dooley
- <conor.dooley@microchip.com>
-X-Mailer: b4 0.15-dev
-X-Developer-Signature: v=1; a=openpgp-sha256; l=5686;
- i=m.wilczynski@samsung.com; h=from:subject:message-id;
- bh=1hgfOIYoTQ5Ija5HE+RRppVXAzt2wlD596t2L8iUqQI=;
- b=owGbwMvMwCGWumv6zndzRCIZT6slMWSzbhbd+Pe+s122SniLcsnCDOfEdtWsJgnL0qTqm0tE5
- W+Zdat2lLIwiHEwyIopspzdGG0k+Y/hafnxx79g5rAygQxh4OIUgIlEajEyLJz9U7Jeq/PLqpKT
- ko178/7u4Praf3/jW+0dLwxl63f7ODD8Uz/THpvOZBESsDO3+vDWp5oSApkHrjg9XhgwL8Xe2Po
- oOwA=
-X-Developer-Key: i=m.wilczynski@samsung.com; a=openpgp;
- fpr=CDB15B3219FE00E577C7E3FA65BA97B9EE9C1459
-X-CMS-MailID: 20261124155427eucas1p1d7984cd7c12532c271826fd19820a55f
-X-Msg-Generator: CA
-Content-Type: text/plain; charset="utf-8"
-X-RootMTR: 20261124155427eucas1p1d7984cd7c12532c271826fd19820a55f
-X-EPHeader: CA
-X-CMS-RootMailID: 20261124155427eucas1p1d7984cd7c12532c271826fd19820a55f
+	by gabe.freedesktop.org (Postfix) with ESMTP id 6F1BA10F76F;
+	Tue, 24 Nov 2026 16:01:21 +0000 (UTC)
+Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 4FAA310F77C
+ for <dri-devel@lists.freedesktop.org>; Tue, 24 Nov 2026 16:01:15 +0000 (UTC)
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+ by sea.source.kernel.org (Postfix) with ESMTP id 0AE334144E;
+ Tue, 24 Nov 2026 16:01:15 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5C7E71F000CA;
+ Tue, 24 Nov 2026 16:01:14 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+ s=k20260515; t=1795536074;
+ bh=8sGR4iHu5TMhwED7m6JSD2tMmjVouvYse6AbT98Ap8k=;
+ h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+ b=ADpVGNcDWqwUcCbBs3A9M69Qi5TpS4IKQTL7wXmy/xNrPrW9KvrbG031nXMHx5Yfg
+ PQkanW/DQr8lH/0XrwW4Mhkzvr+5FWDoCfkDNALZ4QXJV1/emKB+ilKDl85edBmzBF
+ QbnqVnLUtiB1iPkerSGHnQbU0HBqzA+ahlXNZUH7yjqkhMibvbQKJEgj8gc0tCzMdi
+ 9V3NLTVit30wmosY7DoF7mGh4YS+GVsOypKCTaGwbce+qRLBZutgLIoYu2m3TFa5jI
+ C2t3Y9y4Na58AQF5BSSZj1KcQEHdeCuc2ocArtc+9hoSWOlZ9ND94qfkoxbNzw3xZP
+ SsV0hTHRFxR/g==
+Message-ID: <sashiko-outbox-231516@kernel.org>
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v8 03/18] dt-bindings: display: bridge: Add
+ starfive,jh7110-inno-hdmi-controller
+To: "Michal Wilczynski" <m.wilczynski@samsung.com>
+Cc: devicetree@vger.kernel.org, dri-devel@lists.freedesktop.org,
+ robh@kernel.org, conor+dt@kernel.org
+In-Reply-To: <20261124-jh7110-clean-send-v8-3-de92635dd857@samsung.com>
 References: <20261124-jh7110-clean-send-v8-0-de92635dd857@samsung.com>
- <CGME20261124155427eucas1p1d7984cd7c12532c271826fd19820a55f@eucas1p1.samsung.com>
+ <CGME20261124155405eucas1p16e1890307874ae88842b4aa4c852f5af@eucas1p1.samsung.com>
+ <20261124-jh7110-clean-send-v8-3-de92635dd857@samsung.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Tue, 24 Nov 2026 16:01:14 +0000
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -99,160 +51,77 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
+Reply-To: sashiko-reviews@lists.linux.dev
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-18.8 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
+X-Spam-Status: No, score=-10.8 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
 	DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
-	INCLUDES_CR_TRAILER,INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,
-	SPF_PASS,USER_AGENT_GIT autolearn=unavailable autolearn_force=no
-	version=4.0.1
+	INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS autolearn=ham
+	autolearn_force=no version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
+X-Archived-By: <archiver.kernel.org>
 
-Nothing in the video output subsystem can reach its own registers until
-the NoC display bus clock and reset are up and PD_VOUT is powered, and
-those are shared by every device in the region. Leaving them to whichever
-consumer probes first works by accident and stops working as soon as the
-probe order changes.
+Thank you for your contribution! Sashiko AI review found 1 potential
+issue to consider:
+- [Low] dt-bindings: display: bridge: interrupts listed before clocks in
+  schema
+--
 
-Add a driver for the subsystem node that takes the bus clock and reset,
-holds a runtime PM reference so genpd keeps PD_VOUT powered, and then
-populates its children. All three are released only once the last child
-is gone.
+commit b6ba6025b0306adcf27f7bbe0cc55dd2f63c08f8
+Author: Michal Wilczynski <m.wilczynski@samsung.com>
 
-Tested-by: Icenowy Zheng <zhengxingda@iscas.ac.cn>
-Tested-by: Byron Stanoszek <gandalf@winds.org>
-Tested-by: Owen O'Hehir <oo.hehir@gmail.com>
-Acked-by: Conor Dooley <conor.dooley@microchip.com>
-Signed-off-by: Michal Wilczynski <m.wilczynski@samsung.com>
----
- drivers/soc/starfive/Kconfig                 | 16 ++++++
- drivers/soc/starfive/Makefile                |  1 +
- drivers/soc/starfive/jh7110-vout-subsystem.c | 82 ++++++++++++++++++++++++++++
- 3 files changed, 99 insertions(+)
+dt-bindings: display: bridge: Add starfive,jh7110-inno-hdmi-controller
 
-diff --git a/drivers/soc/starfive/Kconfig b/drivers/soc/starfive/Kconfig
-index e19994a212d4af49eaed595bab6fecc19677b2b3..d57480c42f2b6b06142b591e6ccef4909aced978 100644
---- a/drivers/soc/starfive/Kconfig
-+++ b/drivers/soc/starfive/Kconfig
-@@ -21,4 +21,20 @@ config SOC_STARFIVE_JH7110_HDMI_SUBSYSTEM
- 	  for the "PHY" and the "controller", which have their own clocks
- 	  and roles but share the register space.
- 
-+config SOC_STARFIVE_JH7110_VOUT_SUBSYSTEM
-+	tristate "StarFive JH7110 video output subsystem driver"
-+	depends on ARCH_STARFIVE || COMPILE_TEST
-+	depends on OF
-+	select PM
-+	help
-+	  This option enables the parent driver for the StarFive JH7110
-+	  video output subsystem, which the documentation calls dom_vout_top.
-+
-+	  The subsystem covers the DC8200 display controller, the HDMI
-+	  transmitter, the video output clock generator and the video output
-+	  system controller. They share one NoC port whose clock and reset
-+	  gate access to the whole register region, and the region sits in
-+	  the PD_VOUT power domain. This driver owns those resources and
-+	  holds them for as long as any of its children exist.
-+
- endmenu
-diff --git a/drivers/soc/starfive/Makefile b/drivers/soc/starfive/Makefile
-index 36fbb6f984986e4794ffb2c6c1485b6644efc4eb..3b8b8a6847f9021920a9af7296c49e1c45114c34 100644
---- a/drivers/soc/starfive/Makefile
-+++ b/drivers/soc/starfive/Makefile
-@@ -1,3 +1,4 @@
- # SPDX-License-Identifier: GPL-2.0-only
- obj-y += socinfo/
- obj-$(CONFIG_SOC_STARFIVE_JH7110_HDMI_SUBSYSTEM) += jh7110-hdmi-subsystem.o
-+obj-$(CONFIG_SOC_STARFIVE_JH7110_VOUT_SUBSYSTEM) += jh7110-vout-subsystem.o
-diff --git a/drivers/soc/starfive/jh7110-vout-subsystem.c b/drivers/soc/starfive/jh7110-vout-subsystem.c
-new file mode 100644
-index 0000000000000000000000000000000000000000..af632692e2139d9d07edd478a299b170ad1b7104
---- /dev/null
-+++ b/drivers/soc/starfive/jh7110-vout-subsystem.c
-@@ -0,0 +1,82 @@
-+// SPDX-License-Identifier: GPL-2.0
-+/*
-+ * Driver for the StarFive JH7110 video output subsystem
-+ *
-+ * Copyright (c) 2025 Samsung Electronics Co., Ltd.
-+ * Author: Michal Wilczynski <m.wilczynski@samsung.com>
-+ *
-+ * The display hardware sits behind a single NoC port whose clock and reset
-+ * gate access to every register in the region, inside the PD_VOUT power
-+ * domain. Nothing below this node can reach its own registers until all three
-+ * are up, so bring them up here and hold them for as long as any child device
-+ * exists, rather than leaving them to whichever consumer happens to probe
-+ * first.
-+ */
-+
-+#include <linux/clk.h>
-+#include <linux/module.h>
-+#include <linux/of_platform.h>
-+#include <linux/platform_device.h>
-+#include <linux/pm_runtime.h>
-+#include <linux/reset.h>
-+
-+static void jh7110_vout_subsys_pm_put(void *data)
-+{
-+	pm_runtime_put_sync(data);
-+}
-+
-+static int jh7110_vout_subsys_probe(struct platform_device *pdev)
-+{
-+	struct device *dev = &pdev->dev;
-+	struct reset_control *bus_rst;
-+	struct clk *bus_clk;
-+	int ret;
-+
-+	/*
-+	 * Take a runtime PM reference for the lifetime of this device. genpd
-+	 * only keeps PD_VOUT powered while something actually holds it, and
-+	 * an unclocked or unpowered access to this region wedges the bus.
-+	 */
-+	ret = devm_pm_runtime_enable(dev);
-+	if (ret)
-+		return ret;
-+
-+	ret = pm_runtime_resume_and_get(dev);
-+	if (ret)
-+		return dev_err_probe(dev, ret, "Failed to power on PD_VOUT\n");
-+
-+	ret = devm_add_action_or_reset(dev, jh7110_vout_subsys_pm_put, dev);
-+	if (ret)
-+		return ret;
-+
-+	bus_clk = devm_clk_get_enabled(dev, NULL);
-+	if (IS_ERR(bus_clk))
-+		return dev_err_probe(dev, PTR_ERR(bus_clk),
-+				     "Failed to enable NoC bus clock\n");
-+
-+	bus_rst = devm_reset_control_get_exclusive_deasserted(dev, NULL);
-+	if (IS_ERR(bus_rst))
-+		return dev_err_probe(dev, PTR_ERR(bus_rst),
-+				     "Failed to deassert NoC bus reset\n");
-+
-+	return devm_of_platform_populate(dev);
-+}
-+
-+static const struct of_device_id jh7110_vout_subsys_of_match[] = {
-+	{ .compatible = "starfive,jh7110-vout-subsystem", },
-+	{ /* sentinel */ }
-+};
-+MODULE_DEVICE_TABLE(of, jh7110_vout_subsys_of_match);
-+
-+static struct platform_driver jh7110_vout_subsys_driver = {
-+	.probe = jh7110_vout_subsys_probe,
-+	.driver = {
-+		.name = "jh7110-vout-subsystem",
-+		.of_match_table = jh7110_vout_subsys_of_match,
-+	},
-+};
-+module_platform_driver(jh7110_vout_subsys_driver);
-+
-+MODULE_AUTHOR("Michal Wilczynski <m.wilczynski@samsung.com>");
-+MODULE_DESCRIPTION("StarFive JH7110 video output subsystem driver");
-+MODULE_LICENSE("GPL");
+This commit adds the Device Tree binding schema for the StarFive JH7110
+Innosilicon HDMI controller bridge.
 
--- 
-2.34.1
+> diff --git a/Documentation/devicetree/bindings/display/bridge/starfive,jh=
+7110-inno-hdmi-controller.yaml b/Documentation/devicetree/bindings/display/=
+bridge/starfive,jh7110-inno-hdmi-controller.yaml
+> new file mode 100644
+> index 0000000000000..eb03404d8c60a
+> --- /dev/null
+> +++ b/Documentation/devicetree/bindings/display/bridge/starfive,jh7110-in=
+no-hdmi-controller.yaml
+> @@ -0,0 +1,121 @@
 
+[ ... ]
+
+> +properties:
+> +  compatible:
+> +    const: starfive,jh7110-inno-hdmi-controller
+> +
+> +  interrupts:
+> +    maxItems: 1
+> +
+> +  clocks:
+> +    items:
+> +      - description: The HDMI controller main clock
+> +      - description: Audio master clock
+> +      - description: Audio bit clock, from the I2S transmitter
+> +      - description: The pixel clock, generated by the PHY
+> +
+> +  clock-names:
+> +    items:
+> +      - const: pclk
+> +      - const: mclk
+> +      - const: bclk
+> +      - const: pixel
+
+[ ... ]
+
+> +required:
+> +  - compatible
+> +  - interrupts
+> +  - clocks
+> +  - clock-names
+
+[Severity: Low]
+This isn't a bug, but in DT binding schemas interrupts is normally placed
+after clocks and clock-names (matching the order already used in the
+example node below).  Could interrupts be moved after clock-names in both
+properties: and required:?
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261124-jh7110-cle=
+an-send-v8-0-de92635dd857@samsung.com?part=3D3
