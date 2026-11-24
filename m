@@ -2,162 +2,63 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 62C3E606A321
-	for <dri-devel@archiver.kernel.org>; Tue, 24 Nov 2026 20:46:24 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 91E0A606A329
+	for <dri-devel@archiver.kernel.org>; Tue, 24 Nov 2026 20:49:50 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=OfsvWrxC;
-	dkim=fail reason="signature verification failed" (1024-bit key, unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=selector1 header.b=kQuTeQwn
+	dkim=fail reason="signature verification failed" (1024-bit key, unprotected) header.d=collabora.com header.i=@collabora.com header.a=rsa-sha256 header.s=zohomail header.b=EqGOsOZR
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id B92CD10F0C2;
-	Tue, 24 Nov 2026 20:46:13 +0000 (UTC)
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.13])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 85DD310E8C0;
- Tue, 24 Nov 2026 20:46:01 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1795553162; x=1827089162;
- h=date:from:to:cc:subject:message-id:references:
- content-transfer-encoding:in-reply-to:mime-version;
- bh=pz3l3pghbg4wtWJNMroWV3GukyCb1a7+/QnZNcO2GM4=;
- b=OfsvWrxCJZYba4U6YAJ1lpe+44vTu2/GyhQbchDozg1Dhg4PVR3B3R5u
- raYcYneTW9aaN3K61G040CtzFnitsPVUZp6VoiTBOnJmEromm6gCgPmCr
- aYSsBcfm3Jr872h3Vu2g3Wobz7V+D4GIP6uSwWYSN327qDiCn8hPvbPM0
- Ueb4irnQUN9wvuv2aQYqEzZjzpAFaXWoSVjcg/uSy/KdssxkMF91g3Gf5
- HOpu1kCQ79QOQ2s0HRraeRoqgG+ZJT71FBpINo1sR0gEmIm1fiZi95Td4
- CjlOzscKK9SekMA74XRhdywEjbuB2UCbnfb8eiPos1ibn3DWKrYGeEpTk g==;
-X-CSE-ConnectionGUID: lFyavQFXTziEx1S6t7W5SA==
-X-CSE-MsgGUID: NGRt7Nn6QpS6FWsYOO1dPw==
-X-IronPort-AV: E=McAfee;i="6800,10657,11976"; a="4313522"
-X-IronPort-AV: E=Sophos;i="6.27,231,1787036400"; 
-   d="scan'208";a="4313522"
-Received: from orviesa006.jf.intel.com ([10.64.159.146])
- by orvoesa105.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 24 Nov 2026 12:46:01 -0800
-X-CSE-ConnectionGUID: IadIGiJUQxi2aVGwqHg4UA==
-X-CSE-MsgGUID: +AzzfendSkG1vvYSzNZ1Jg==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,231,1787036400"; d="scan'208";a="11682570"
-Received: from fmsmsx902.amr.corp.intel.com ([10.18.126.91])
- by orviesa006.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 24 Nov 2026 12:46:01 -0800
-Received: from FMSMSX903.amr.corp.intel.com (10.18.126.92) by
- fmsmsx902.amr.corp.intel.com (10.18.126.91) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.57; Tue, 24 Nov 2026 12:46:00 -0800
-Received: from fmsedg902.ED.cps.intel.com (10.1.192.144) by
- FMSMSX903.amr.corp.intel.com (10.18.126.92) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.57 via Frontend Transport; Tue, 24 Nov 2026 12:46:00 -0800
-Received: from CY7PR03CU001.outbound.protection.outlook.com (40.93.198.47) by
- edgegateway.intel.com (192.55.55.82) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.57; Tue, 24 Nov 2026 12:46:00 -0800
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=uN8mgeh6et4ZwbuQrT8tfLarNH33rjIdA3zQpS68RVaGkS48RZyzXRNat+lY4osaVUE5eD4jOUQ6JCVAVLs6+8mJLarbcCN4P8o/XUUrE49sJ4MNk0VrNPAUOjt2bxHWSwOJI1tPf1wrfdfJtIfWSCf4i/yrATWbta1mjibF6ZCZAIoeObcKR/mlkJxlRN/9nMfi/mkCcFqywmlkiM9X2/imHwsi/JXhy9R14umJoKbHgrHY/9TINRv7TnSic88lRCbRl0H8cNN0QCnS/32scxrnWZ757DVOB4qDYTo5UjWYPWj0dgbRf5v5aysrqwYT+RSDXGUpAc3h52eSJy7NbQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=YxXgKoL0f6rcti18Oo6PIYty1AJ8FBf7OraJIBCxl6c=;
- b=zHEwG9Avhup7ZmCi7pCgK18culmUekwq/DrShSESyHySZobQtIVxmvaBTc9+EMPrEN7pPqthQXNk/KElxOqSA8OO1R+jeFWtaCAD/reKbrDsG1NEfs3jmv5fhwpY4jtDpqSiaJQ98OxmW+oizSp0IouEj8w6KTDl1MrlX105RhmjM3fXnPkYLOtgyNs17I0/hrGu4TRuO8y2EOsSrGsqgRijubynLHyQDN51/70GrXyRWrwaWW7fI/sgUkMHs2cZDmAM/dWO305Q2n8k9X/aAHQsV8uxfYSTG5H3pN22tNiSzN5kcdebsOxNrQyRqjwQhVCIWY6+30Q/VKs5iGvezQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=intel.com; dmarc=pass action=none header.from=intel.com;
- dkim=pass header.d=intel.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=intel.com; s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=YxXgKoL0f6rcti18Oo6PIYty1AJ8FBf7OraJIBCxl6c=;
- b=kQuTeQwn9P1lox3ghhYPS1L68r9XvLVZgiCA5DAe3Ftm2uCgGggeztJVEXkiO+fJ7nni29Go9LNiffdq9Vuxs1VeXIgXCLNUwc0jcdt67lqdfFOyj94rBFqjzrJTidFeabnpomw1nJ+Z4T1KD4LTt+99dmNiwp7Fhg0RDn1WAXo=
-Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=intel.com;
-Received: from CO1PR11MB4787.namprd11.prod.outlook.com (2603:10b6:303:95::23)
- by SJ5PPFBBB839A03.namprd11.prod.outlook.com
- (2603:10b6:a0f:fc02::84d) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.639.12; Tue, 24 Nov
- 2026 20:45:49 +0000
-Received: from CO1PR11MB4787.namprd11.prod.outlook.com
- ([fe80::e7eb:a872:53d1:21fd]) by CO1PR11MB4787.namprd11.prod.outlook.com
- ([fe80::e7eb:a872:53d1:21fd%4]) with mapi id 15.21.0639.012; Tue, 24 Nov 2026
- 20:45:49 +0000
-Date: Tue, 24 Nov 2026 12:45:46 -0800
-From: Matthew Brost <matthew.brost@intel.com>
-To: Niranjana Vishwanathapura <niranjana.vishwanathapura@intel.com>
-CC: <intel-xe@lists.freedesktop.org>, <dri-devel@lists.freedesktop.org>,
- Carlos Santa <carlos.santa@intel.com>, Ryan Neph <ryanneph@google.com>,
- Christian Koenig <christian.koenig@amd.com>, Huang Rui <ray.huang@amd.com>,
- Matthew Auld <matthew.auld@intel.com>, Maarten Lankhorst
- <maarten.lankhorst@linux.intel.com>, Maxime Ripard <mripard@kernel.org>,
- Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>,
- Simona Vetter <simona@ffwll.ch>, <linux-kernel@vger.kernel.org>, Thomas
- =?iso-8859-1?Q?Hellstr=F6m?= <thomas.hellstrom@linux.intel.com>
-Subject: Re: [PATCH v3 26/33] drm/xe: Add tracepoint for xe_gem_create_ioctl
-Message-ID: <awX3eprbWIJop/Mm@gsse-cloud1.jf.intel.com>
-References: <20260711025619.2540575-1-matthew.brost@intel.com>
- <20260711025619.2540575-27-matthew.brost@intel.com>
- <avQbUZVNm9jzIhbA@nvishwa1-desk>
-Content-Type: text/plain; charset=iso-8859-1
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <avQbUZVNm9jzIhbA@nvishwa1-desk>
-X-ClientProxiedBy: BYAPR05CA0001.namprd05.prod.outlook.com
- (2603:10b6:a03:74::41) To CO1PR11MB4787.namprd11.prod.outlook.com
- (2603:10b6:303:95::23)
+	by gabe.freedesktop.org (Postfix) with ESMTP id DF61A10E8C0;
+	Tue, 24 Nov 2026 20:49:44 +0000 (UTC)
+Received: from sender5-op-o11.zoho.com (sender5-op-o11.zoho.com
+ [165.173.182.11])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 61C3E10EC23
+ for <dri-devel@lists.freedesktop.org>; Tue, 24 Nov 2026 20:49:38 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; t=1795553365; cv=none; 
+ d=zohomail.com; s=zohoarc; 
+ b=TozeQZGyOqUFcnEUTLGcR38H8GdZ/y4eh+B5BG9Tq+1xjsfiiUk4OJ1fzxOT1dtQgKboNNX7wOKnuyCNak1EyeVeToCl8R9+vXwdgLyLPt9uH4Bs2Lwj48iZbpWRR6+AVxPKWr+Adg8ElIx6ztnjkjpj7+LwEAdJeBES7c6tLEA=
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com;
+ s=zohoarc; t=1795553365;
+ h=Content-Type:Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:Subject:Subject:To:To:Message-Id:Reply-To;
+ bh=9B9bTwB3nnMr+exBXeCJuZEOmi14vsPeF4NsKFNnfdY=; 
+ b=TmaYPpkiC2QwXK61FYf/kARTj3SaIoTbfLlVp7i7DygzokQ9pRhabYq2q5riEc0tu92VHlnNhEiCf/87/O29USyjXEjgrj6878gcVY8TnCopsJaSjiMicHsIafYyk3Ubbg3vE56WKQfXuJ1tCOCvtx9KEwxyzR83qsPPNWjb5tE=
+ARC-Authentication-Results: i=1; mx.zohomail.com;
+ dkim=pass  header.i=collabora.com;
+ spf=pass  smtp.mailfrom=daniel.almeida@collabora.com;
+ dmarc=pass header.from=<daniel.almeida@collabora.com>
+DKIM-Signature: a=rsa-sha256;
+ b=EqGOsOZRwTrPwDhqBVCr2cMKLazxBcp6GGvT6BUzLTK0Tc0A7K02KzXFN4tJaZ3KqNaTiTZcxIor4zmF97xEQs3+a1A2CoCGTrE9FdUY7T3L7jn0SEejAKi0UJ9t0+iEnj7gvPjE7vV245P2Efg+TqMlWeJ+Ybg1TmYucTfS/3M=;
+ c=relaxed/relaxed; s=zohomail; d=collabora.com; v=1;
+ bh=9B9bTwB3nnMr+exBXeCJuZEOmi14vsPeF4NsKFNnfdY=;
+ h=Content-Description:Content-ID:Content-Type:Content-Transfer-Encoding:Cc:Date:From:In-Reply-To:List-Subscribe:List-Post:List-Owner:List-Id:List-Archive:List-Help:List-Unsubscribe:MIME-Version:Message-ID:Resent-Sender:Resent-Cc:Resent-Date:Resent-To:Reply-To:Resent-Message-ID:Resent-From:Sender:Subject:To:Date:From:Message-Id:Reply-To:Subject:To:Cc;
+Received: by smtp.zohomail.com with SMTPS id 1795553363172222.8218597760449;
+ Tue, 24 Nov 2026 12:49:23 -0800 (PST)
+Content-Type: text/plain;
+	charset=utf-8
 X-Archived-By: <archiver.kernel.org>
-MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: CO1PR11MB4787:EE_|SJ5PPFBBB839A03:EE_
-X-MS-Office365-Filtering-Correlation-Id: 01afc78b-dc47-46a5-e02d-08df4a6bebf1
-X-LD-Processed: 46c98d88-e344-4ed4-8496-4ed7712e255d,ExtAddr
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
- ARA:13230040|366016|1800799024|23010399003|7416014|376014|18002099003|22082099003|4143699003|11063799006|56012099006|261028144727099003|261009223027099003|261102123227099003|261021121427099003|10067099003|261026140227099003|261022105027099003;
-X-Microsoft-Antispam-Message-Info: qFZ1Y1cfWuStDve7NB9sF2KmWN9jR/SIhWnNzW7+q3EWGRnpk5Q1bLPxFwOChGmZCgJ209l+PHDmsqtTeZBpuk4/K+1PaPgEYfRLCL63NDD+Lgh5KmcS1ocBVoJbR5PIhGkvkx5/LgJ00XrXP1RTPXt9YvV7Y0OBWLABKYy2je9bSq1iXga10nsvp+pUUMOBm+RK5a2xsEBn4nytHHYkaV1PW5auuqGPoASpWxU23SobJVoUmncqEhO/zivHmjIqzUiZkKQMKr/RXlPMvMbibqTGg9T5jtC4gapHOVUcKw4qLf4Jy//2g3vy7J9L65MSIZjtExS0OeZemNmhqsbVxZiUs+FQt+2C9PgGc2qHVqiUUYKU3gIhYU9OgJ80+/yVyu69UUA64m5nG51xOeBpPYK+S0iEiMM70kMIKHeq2eA1l5Rrr3IUzi8j4yjAt+cO3C51v99zNUEBZqCMnhJHcyDwqY9wl48ttbJoV9NntiwGfX2jbh6xpMguPSCPTOzSY0S5fkvcwltvAJpMfJcvob4nYtGtfAQ9w0YgmIbZfPLteDOIz+LNW7fI7qTjpL6wCf5NU9M5OtmQERE93tk8/LQrh/K53qICNs4eljEFJoRpVIWsoLs4jX06ebABO6K1/BA1vQRpJMWPgwmRtVOFrcljXvNsM19SnmgtToFSqXE=
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:CO1PR11MB4787.namprd11.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(366016)(1800799024)(23010399003)(7416014)(376014)(18002099003)(22082099003)(4143699003)(11063799006)(56012099006)(261028144727099003)(261009223027099003)(261102123227099003)(261021121427099003)(10067099003)(261026140227099003)(261022105027099003);
- DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?iso-8859-1?Q?QHzWoYhIDxtUeX4m96OmgpAbEf5sTkwRv0zUVabaL7zWMqo+zUhBPnggHt?=
- =?iso-8859-1?Q?Ggew60JF2FSf2o+zCG4ovlwsbhaG6mM+ZZK4dIPsbVXd1yH+Q3/7PGIN0K?=
- =?iso-8859-1?Q?iBeqC9c4E3daM9mhxpGv+Qkpl9l5yBW2+WHplkHQLEUp6IJrCtrPPLpRys?=
- =?iso-8859-1?Q?oRvtb/BaLx616aCRN/eFO7WSo2xEOHvMMzaCh5+aqQFjkA5xZsSOOITh1V?=
- =?iso-8859-1?Q?Iq3AI3hm47+NPjT14U2rZnF7UhHDdDSBB3FRv5vWon2SBh5tyLYlR5W6Fj?=
- =?iso-8859-1?Q?KUGLtZmihKCOwsD3BVLPM+2zJXXWo0Ltb8P/Xws52RYwCBzfU+D4U9Y9nN?=
- =?iso-8859-1?Q?15Zk/9Vww0pf5y1zXPYDP9uZhbdqF1+HmKgSOnUjuOh0yY2Uugmj9JB9rG?=
- =?iso-8859-1?Q?fQFjgIsOZ87lPXjVgHvNvh1mgRQ3n/FDvlv4+RMCFdk6cPNImUiE2BIs34?=
- =?iso-8859-1?Q?LvI+GpKwrKoqVcITh7NE1brqMA+Ohy5ktFheyparHRHG066vT+lr9ssxyH?=
- =?iso-8859-1?Q?sZeYhnfqMQSQTUNJbHD9edmGX7FoDuL6M1VG/tyf0xc9pbK/TS3ToKJoU7?=
- =?iso-8859-1?Q?ewj1mgJmtTixzDxKt+njBGF9S9VZQeNM2+TLN3NVd4xXEYVzpeomVNa3A8?=
- =?iso-8859-1?Q?DdvCklbTkirRwfe6Nxcq5I/LZEmW6yPNjeOGjicgchul1SUz/tuTIzjwqM?=
- =?iso-8859-1?Q?maZ/E8h9XZqO8dFSt3Dy7lYq3DhExZmm2DUWVFQsmj98pfDgFNCeAYw8oA?=
- =?iso-8859-1?Q?u/N+ylMdEU2xw14qwMQ3G5s6I69LvETIjn1hZZBGZ9glxpTd+sMDcII1Uh?=
- =?iso-8859-1?Q?sx+vZ+kMUMAWoISYFuH7GYZXJsltvBuIUaFuk03N+7/+NC2W+/wcyTOcSq?=
- =?iso-8859-1?Q?g9j4b5tt/LM5h3vgln1sUbLHZ94EspCgSKbV/Edc4Jl64CQLMuF2hZWMDL?=
- =?iso-8859-1?Q?fEbBialz/4ZjYT4/Vzoxv4qzOtrcG5TGWoiPNNJAzYNumEDx2/ZgJoNQTo?=
- =?iso-8859-1?Q?8C6t7J4EGpilf0897Ea/bmVm8kfFwiROPFotDcvEP4DqW0V8G/ySEZ7Fa2?=
- =?iso-8859-1?Q?sOt9n7Y0Hju9zYGf/AtIqT8YUu667AM7Snyp2uyOhBZ/W0U6JoVbAIMz7w?=
- =?iso-8859-1?Q?W8Yp5fi3+ortOHrilDK/oPjquj8hxsyK1jYp6SRl6VNH34jgMsSSKFqeeD?=
- =?iso-8859-1?Q?WunZyIP6PdJ0jTRBGVRYGKrMFLIf2lcoa6AvfZgURtxAp5hYGhxRf8dI/D?=
- =?iso-8859-1?Q?BO/ZP3xrk9BMqw1vPZ8/cyUX0SRt0LM9U8Eu8plDfWTpo9RZ63Wkmah60Y?=
- =?iso-8859-1?Q?VWNCHA4GheiR4QiM7DG9X82+4SBSbT+78RdpbgdgUVuPCbeQDTF19/n4qP?=
- =?iso-8859-1?Q?QuKhTaZZuNYWwI/c9uV6oLZY0cWsT7NY6uQJ5fWHSRzhGunGFVGpVC6Ukn?=
- =?iso-8859-1?Q?zUAvb+gVZ/j5SKbexnFNp6QKqr10ueZMPJcKravpXZOF30xxGGPAmGfZP2?=
- =?iso-8859-1?Q?hoRuqFH4nSMLwgAtuPVfNkS6uuMDq4aa2r8T2gtE+NzgFgv/1I73LZ/gTI?=
- =?iso-8859-1?Q?gxuqSHLyrkYFDUnYB3NLiZo/1Asbeb9Jp3j3j0GwJzN+NwT50T//aGLS8L?=
- =?iso-8859-1?Q?ZO9SE+PJ3tETMPw7mcPlmXSF2n1FAI64+RgpSVQJWh31yVlqKDePCDK/bn?=
- =?iso-8859-1?Q?gbDWjatfhHGfs/Qq7vTJaqR+ottavLe6DbB0/PyvapPFR8zdJqkr4FL0TM?=
- =?iso-8859-1?Q?QI/SoIneGsZocOSP0ZQJOyVES8J8qvmI8jkOYa2Rx6eaJU913W0ZEEbCSq?=
- =?iso-8859-1?Q?ZDaui72RenNNjsUBGmisDUIjagAjMYI=3D?=
-X-Exchange-RoutingPolicyChecked: UiiA7TXN+y3b8yCrxr5fEhEirBiBvFMxu6y4e6+ThCndNZoVKON3a2VruzpomuB8RE84mPZJZZMU7YYSxVoTThZrmYFirVX0qO7RjBtervIR04RBr6rjm7kLQi9JPm0mSiGMVepwUTY8r+EXnhGudCSAL2b5NsTBXF66YGShPEZoupVe6S2lTzFjLkE4ogYneZotwXZasLG9lVrsRe2+16Vltp2A06ewqAtO5yGH3Y+ZMppeybwMatZav3kX7epuPnOaEmEBolJzpafpUEscpGvJ/OoQmgqUDpGAMLriav8ikDtbCwIeK3QRcauzYXhb99mknI1vokrO1f9r1FLj9Q==
-X-MS-Exchange-CrossTenant-Network-Message-Id: 01afc78b-dc47-46a5-e02d-08df4a6bebf1
-X-MS-Exchange-CrossTenant-AuthSource: CO1PR11MB4787.namprd11.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 24 Nov 2026 20:45:49.1944 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 46c98d88-e344-4ed4-8496-4ed7712e255d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: LKppGwrTrmoboFPujIHorNTwwuXyPDxIqgy5n0Ad6d5H7KuOr6oRok1q6HiTYRiaOoAZdN1N/joHY+W2t150bw==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SJ5PPFBBB839A03
-X-OriginatorOrg: intel.com
+Mime-Version: 1.0 (Mac OS X Mail 16.0 \(3901.200.71.1.16\))
+Subject: Re: [PATCH v7 3/3] drm/tyr: add Job IRQ handling
+From: Daniel Almeida <daniel.almeida@collabora.com>
+In-Reply-To: <20260728-tyr-irq-v2-v7-3-4e172e58e28c@collabora.com>
+Date: Tue, 24 Nov 2026 17:49:04 -0300
+Cc: Alice Ryhl <aliceryhl@google.com>, Danilo Krummrich <dakr@kernel.org>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ Miguel Ojeda <ojeda@kernel.org>, Boqun Feng <boqun@kernel.org>,
+ Gary Guo <gary@garyguo.net>,
+ =?utf-8?Q?Bj=C3=B6rn_Roy_Baron?= <bjorn3_gh@protonmail.com>,
+ Benno Lossin <lossin@kernel.org>, Andreas Hindborg <a.hindborg@kernel.org>,
+ Trevor Gross <tmgross@umich.edu>, Tamir Duberstein <tamird@kernel.org>,
+ Alexandre Courbot <acourbot@nvidia.com>,
+ =?utf-8?Q?Onur_=C3=96zkan?= <work@onurozkan.dev>,
+ linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org,
+ rust-for-linux@vger.kernel.org, kernel@collabora.com,
+ Deborah Brouwer <deborah.brouwer@collabora.com>
+Content-Transfer-Encoding: quoted-printable
+Message-Id: <03D5FC68-0E3B-47B4-A3E4-6F2EABD54096@collabora.com>
+References: <20260728-tyr-irq-v2-v7-0-4e172e58e28c@collabora.com>
+ <20260728-tyr-irq-v2-v7-3-4e172e58e28c@collabora.com>
+To: Laura Nao <laura.nao@collabora.com>
+X-Mailer: Apple Mail (2.3901.200.71.1.16)
+X-ZohoMailClient: External
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -169,162 +70,265 @@ List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-15.8 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
-	DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
-	INCLUDES_CR_TRAILER,INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,
-	SPF_PASS autolearn=unavailable autolearn_force=no version=4.0.1
+X-Spam-Status: No, score=-13.6 required=3.0 tests=BAYES_00,DKIM_INVALID,
+	DKIM_SIGNED,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,
+	INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS autolearn=ham
+	autolearn_force=no version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-On Tue, Nov 10, 2026 at 11:37:53PM -0800, Niranjana Vishwanathapura wrote:
-> On Fri, Jul 10, 2026 at 07:56:12PM -0700, Matthew Brost wrote:
-> > Add a xe_gem_create_ioctl tracepoint to help profile GEM creation, in
-> > particular the cost of populating a BO while holding the dma-resv lock
-> > versus the total IOCTL cost. This is useful for evaluating the
-> > out-of-lock preallocation path, which aims to shrink the time spent
-> > under the lock.
-> > 
-> > The tracepoint records the BO size, the requested placement mask, the
-> > CPU caching mode, the VM asid (0 when no VM is bound), the total time
-> > spent in the IOCTL, and the time spent under the dma-resv lock (the
-> > xe_validation_guard region where the lock is held).
-> > 
-> > The asid is captured at VM lookup time rather than at trace emission,
-> > since the VM reference is dropped before the tracepoint fires.
-> > 
-> > Cc: Carlos Santa <carlos.santa@intel.com>
-> > Cc: Ryan Neph <ryanneph@google.com>
-> > Cc: Christian Koenig <christian.koenig@amd.com>
-> > Cc: Huang Rui <ray.huang@amd.com>
-> > Cc: Matthew Auld <matthew.auld@intel.com>
-> > Cc: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>
-> > Cc: Maxime Ripard <mripard@kernel.org>
-> > Cc: Thomas Zimmermann <tzimmermann@suse.de>
-> > Cc: David Airlie <airlied@gmail.com>
-> > Cc: Simona Vetter <simona@ffwll.ch>
-> > Cc: dri-devel@lists.freedesktop.org
-> > Cc: linux-kernel@vger.kernel.org
-> > Cc: Thomas Hellström <thomas.hellstrom@linux.intel.com>
-> > Assisted-by: GitHub_Copilot:claude-opus-4.8
-> > Signed-off-by: Matthew Brost <matthew.brost@intel.com>
-> > 
-> > ---
-> > 
-> > v3:
-> > - Guard lock_ns against an unset lock_start and use div_u64() in the
-> >   tracepoint (Sashiko)
-> > ---
-> > drivers/gpu/drm/xe/xe_bo.c       | 17 +++++++++++++++++
-> > drivers/gpu/drm/xe/xe_trace_bo.h | 31 +++++++++++++++++++++++++++++++
-> > 2 files changed, 48 insertions(+)
-> > 
-> > diff --git a/drivers/gpu/drm/xe/xe_bo.c b/drivers/gpu/drm/xe/xe_bo.c
-> > index a646a72122d4..caf5aa0bab53 100644
-> > --- a/drivers/gpu/drm/xe/xe_bo.c
-> > +++ b/drivers/gpu/drm/xe/xe_bo.c
-> > @@ -3953,6 +3953,10 @@ int xe_gem_create_ioctl(struct drm_device *dev, void *data,
-> > 	bool have_prealloc = false;
-> > 	unsigned int bo_flags;
-> > 	u32 handle;
-> > +	ktime_t ioctl_start = ktime_get();
-> > +	ktime_t lock_start = ktime_set(0, 0);
-> > +	u64 lock_ns = 0;
-> > +	u32 asid = 0;
-> > 	int err;
-> > 
-> > 	if (XE_IOCTL_DBG(xe, args->pad[0] || args->pad[1] || args->pad[2]) ||
-> > @@ -4031,6 +4035,7 @@ int xe_gem_create_ioctl(struct drm_device *dev, void *data,
-> > 		vm = xe_vm_lookup(xef, args->vm_id);
-> > 		if (XE_IOCTL_DBG(xe, !vm))
-> > 			return -ENOENT;
-> > +		asid = vm->usm.asid;
-> > 	}
-> > 
-> > 	/*
-> > @@ -4100,6 +4105,10 @@ int xe_gem_create_ioctl(struct drm_device *dev, void *data,
-> > 			if (err)
-> > 				break;
-> > 		}
-> > +
-> > +		if (lock_start == ktime_set(0, 0))
-> > +			lock_start = ktime_get();
-> > +
-> > 		bo = xe_bo_create_user(xe, vm, args->size, args->cpu_caching,
-> > 				       bo_flags, have_prealloc ? &prealloc : NULL,
-> > 				       &exec);
-> > @@ -4110,6 +4119,8 @@ int xe_gem_create_ioctl(struct drm_device *dev, void *data,
-> > 			break;
-> > 		}
-> > 	}
-> > +	if (lock_start != ktime_set(0, 0))
-> > +		lock_ns = ktime_to_ns(ktime_sub(ktime_get(), lock_start));
-> > 	if (have_prealloc)
-> > 		ttm_pool_prealloc_fini(&xe->ttm.pool, &prealloc);
-> > 	if (err)
-> > @@ -4140,6 +4151,12 @@ int xe_gem_create_ioctl(struct drm_device *dev, void *data,
-> > 	if (vm)
-> > 		xe_vm_put(vm);
-> > 
-> > +	trace_xe_gem_create_ioctl(xe, args->size, args->placement,
-> > +				  args->cpu_caching, asid,
-> > +				  div_u64(ktime_to_ns(ktime_sub(ktime_get(),
-> > +							ioctl_start)), 1000),
-> > +				  div_u64(lock_ns, 1000));
-> > +
-> 
-> Will prealloc time (prealloc_us) also useful to print in the trace message?
-> 
 
-I think it roughly implied ioctl_us - lock_us == prealloc_us.
+Hi Laura,
 
-Matt
+> On 23 Nov 2026, at 11:58, Laura Nao <laura.nao@collabora.com> wrote:
+>=20
+> The Job IRQ reports requests from the CSF firmware, including global
+> interface requests and CSG attention bits. Only the GLB bit is =
+currently
+> handled, as it will be used to check firmware readiness. CSG bits
+> handling will be added at a later stage. The Job IRQ handler masks the
+> interrupt in the primary IRQ handler, processes pending raw status in
+> the threaded handler, clears the handled bits, and reenables the mask
+> before returning.
+> Add JobIrqEvents to hold the wait queue and the ready flag used to
+> signal firmware readiness when the GLB bit is set.
+>=20
+> Co-developed-by: Daniel Almeida <daniel.almeida@collabora.com>
+> Signed-off-by: Daniel Almeida <daniel.almeida@collabora.com>
+> Co-developed-by: Deborah Brouwer <deborah.brouwer@collabora.com>
+> Signed-off-by: Deborah Brouwer <deborah.brouwer@collabora.com>
+> Signed-off-by: Laura Nao <laura.nao@collabora.com>
+> ---
+> drivers/gpu/drm/tyr/fw.rs     |   1 +
+> drivers/gpu/drm/tyr/fw/irq.rs | 148 =
+++++++++++++++++++++++++++++++++++++++++++
+> drivers/gpu/drm/tyr/irq.rs    |   1 -
+> 3 files changed, 149 insertions(+), 1 deletion(-)
+>=20
+> diff --git a/drivers/gpu/drm/tyr/fw.rs b/drivers/gpu/drm/tyr/fw.rs
+> index f2e0404addf2..ecf2ea171bc9 100644
+> --- a/drivers/gpu/drm/tyr/fw.rs
+> +++ b/drivers/gpu/drm/tyr/fw.rs
+> @@ -69,6 +69,7 @@
+>     vm::Vm, //
+> };
+>=20
+> +pub(crate) mod irq;
+> mod parser;
+>=20
+> pub(super) const CSF_MCU_SHARED_REGION_START: u32 =3D 0x04000000;
+> diff --git a/drivers/gpu/drm/tyr/fw/irq.rs =
+b/drivers/gpu/drm/tyr/fw/irq.rs
+> new file mode 100644
+> index 000000000000..a736d8cd4374
+> --- /dev/null
+> +++ b/drivers/gpu/drm/tyr/fw/irq.rs
+> @@ -0,0 +1,148 @@
+> +// SPDX-License-Identifier: GPL-2.0 or MIT
+> +
+> +//! IRQ handling for the Job IRQ.
+> +//!
+> +//! The Job IRQ signals events from the MCU, including global =
+interface acknowledgements.
+> +#![allow(dead_code)]
 
-> Niranjana
-> > 	return err;
-> > }
-> > 
-> > diff --git a/drivers/gpu/drm/xe/xe_trace_bo.h b/drivers/gpu/drm/xe/xe_trace_bo.h
-> > index b159d37d39a1..63db37edadc2 100644
-> > --- a/drivers/gpu/drm/xe/xe_trace_bo.h
-> > +++ b/drivers/gpu/drm/xe/xe_trace_bo.h
-> > @@ -144,6 +144,37 @@ TRACE_EVENT(xe_bo_defrag_one,
-> > 		      __entry->ret)
-> > );
-> > 
-> > +TRACE_EVENT(xe_gem_create_ioctl,
-> > +	    TP_PROTO(struct xe_device *xe, u64 size, u32 placement,
-> > +		     u16 caching, u32 asid, u64 ioctl_us, u64 lock_us),
-> > +	    TP_ARGS(xe, size, placement, caching, asid, ioctl_us, lock_us),
-> > +
-> > +	    TP_STRUCT__entry(
-> > +		     __string(dev, dev_name(xe->drm.dev))
-> > +		     __field(u64, size)
-> > +		     __field(u32, placement)
-> > +		     __field(u16, caching)
-> > +		     __field(u32, asid)
-> > +		     __field(u64, ioctl_us)
-> > +		     __field(u64, lock_us)
-> > +		     ),
-> > +
-> > +	    TP_fast_assign(
-> > +		   __assign_str(dev);
-> > +		   __entry->size = size;
-> > +		   __entry->placement = placement;
-> > +		   __entry->caching = caching;
-> > +		   __entry->asid = asid;
-> > +		   __entry->ioctl_us = ioctl_us;
-> > +		   __entry->lock_us = lock_us;
-> > +		   ),
-> > +
-> > +	    TP_printk("dev=%s, size=%llu, placement=0x%x, caching=%u, asid=%u, ioctl_us=%llu, lock_us=%llu",
-> > +		      __get_str(dev), __entry->size, __entry->placement,
-> > +		      __entry->caching, __entry->asid, __entry->ioctl_us,
-> > +		      __entry->lock_us)
-> > +);
-> > +
-> > DECLARE_EVENT_CLASS(xe_vma,
-> > 		    TP_PROTO(struct xe_vma *vma),
-> > 		    TP_ARGS(vma),
-> > -- 
-> > 2.34.1
-> > 
+In general, please prefer expect(dead_code) instead.
+
+> +
+> +use kernel::{
+> +    device::Bound, //
+> +    io::Io,
+> +    new_waitqueue,
+> +    platform,
+> +    prelude::*,
+> +    sync::{
+> +        atomic::{
+> +            ordering,
+> +            Atomic, //
+> +        },
+> +        Arc,
+> +        WaitQueue, //
+> +    },
+> +    time::{
+> +        Delta,
+> +        Msecs, //
+> +    },
+> +};
+> +
+> +use crate::{
+> +    irq::{
+> +        TyrIrqRegistration,
+> +        TyrIrqTrait, //
+> +    },
+> +    regs::job_control::{
+> +        JOB_IRQ_CLEAR,
+> +        JOB_IRQ_MASK,
+> +        JOB_IRQ_RAWSTAT,
+> +        JOB_IRQ_STATUS, //
+> +    },
+> +    driver::IoMem,
+
+rustfmt produces a (small) diff here.
+
+> +    reset::HwGate, //
+> +};
+> +
+> +/// The firmware events published by the Job IRQ handler, and the =
+queue used to announce them.
+> +#[pin_data]
+> +pub(crate) struct JobIrqEvents {
+> +    #[pin]
+> +    wait: WaitQueue,
+> +    /// Set once the firmware has signalled that the global interface =
+is ready.
+> +    ready: Atomic<bool>,
+> +}
+> +
+> +impl JobIrqEvents {
+> +    /// Creates a new, empty set of Job IRQ events.
+> +    pub(crate) fn new() -> Result<Arc<Self>> {
+
+There is an ongoing effort[0] to get rid of Arcs in places they are not =
+needed
+using self-ref pin init.
+
+Since I expect other users to be able to take a reference to this field =
+as
+applicable, lets drop this Arc for the time being.
+
+
+> +        Arc::pin_init(
+> +            pin_init!(JobIrqEvents {
+> +                wait <- new_waitqueue!(),
+> +                ready: Atomic::new(false),
+> +            }),
+> +            GFP_KERNEL,
+> +        )
+> +    }
+> +
+> +    /// Clears the firmware-ready state.
+> +    #[expect(dead_code)]
+> +    pub(crate) fn clear_ready(&self) {
+> +        self.ready.store(false, ordering::Relaxed);
+> +    }
+> +
+> +    /// Waits until the firmware signals readiness via the GLB IRQ =
+bit, or the timeout expires.
+> +    pub(crate) fn wait_ready(&self, timeout_ms: Msecs) -> Result {
+> +        self.wait.wait_event_timeout(
+> +            || self.ready.load(ordering::Acquire),
+> +            =
+Delta::from_millis(timeout_ms.into()).to_jiffies_timeout(),
+> +        )?;
+> +
+> +        Ok(())
+> +    }
+> +
+> +    /// Updates state and wakes up waiters
+> +    fn signal(&self, status: u32) {
+> +        // TODO: handle other Job IRQ events (e.g. CSG attention =
+bits) here once
+> +        // support for them is added.
+> +
+> +        // The GLB bit only signals firmware readiness once, at power =
+up
+> +        if JOB_IRQ_RAWSTAT::from_raw(status).glb() && =
+!self.ready.load(ordering::Relaxed) {
+> +            self.ready.store(true, ordering::Release);
+> +        }
+> +
+> +        self.wait.wake_up_all();
+> +    }
+> +}
+> +
+> +// The Job IRQ, signalling requests or notification from the MCU.
+> +pub(crate) struct JobIrq {
+> +    /// Firmware events signalled by this IRQ.
+> +    events: Arc<JobIrqEvents>,
+
+If we get rid of the Arc, this would become=20
+
+events: &=E2=80=98a JobIrqEvents.
+
+
+
+> +}
+> +
+> +
+> +/// Requests a threaded IRQ registration for the Job IRQ.
+> +///
+> +/// # Safety
+> +///
+> +/// Callers must not `mem::forget()` the resulting registration or =
+otherwise prevent its
+> +/// [`Drop`] implementation from running.
+> +pub(crate) unsafe fn job_irq_init<'a>(
+> +    pdev: &'a platform::Device<Bound>,
+> +    hw: Arc<HwGate<'a>>,
+> +    events: Arc<JobIrqEvents>,
+> +) -> Result<Pin<KBox<TyrIrqRegistration<'a, JobIrq>>>> {
+> +    let job_irq =3D JobIrq { events };
+> +    // Ensure interrupt sources are disabled until the handler is =
+registered.
+> +    job_irq.clear_mask(hw.access().iomem());
+> +
+> +    // SAFETY: The caller guarantees the resulting registration will =
+not be leaked.
+> +    unsafe { TyrIrqRegistration::request(pdev, c"job", job_irq, hw) }
+> +}
+> +
+> +impl TyrIrqTrait for JobIrq {
+> +    fn read_status(&self, io: &IoMem<'_>) -> u32 {
+> +        io.read(JOB_IRQ_STATUS).into_raw()
+> +    }
+> +
+> +    fn clear_mask(&self, io: &IoMem<'_>) {
+> +        io.write_reg(JOB_IRQ_MASK::zeroed());
+> +    }
+> +
+> +    fn reenable_mask(&self, io: &IoMem<'_>) {
+> +        io.write_reg(JOB_IRQ_MASK::from_raw(self.mask()));
+> +    }
+> +
+> +    fn read_raw_status(&self, io: &IoMem<'_>) -> u32 {
+> +        io.read(JOB_IRQ_RAWSTAT).into_raw()
+> +    }
+> +
+> +    fn clear_status(&self, io: &IoMem<'_>, status: u32) {
+> +        io.write_reg(JOB_IRQ_CLEAR::from_raw(status));
+> +    }
+> +
+> +    fn mask(&self) -> u32 {
+> +        JOB_IRQ_MASK::zeroed().with_glb(true).into_raw()
+> +    }
+> +
+> +    fn handle(&self, status: u32) {
+> +        self.events.signal(status);
+> +    }
+> +}
+> diff --git a/drivers/gpu/drm/tyr/irq.rs b/drivers/gpu/drm/tyr/irq.rs
+> index 4a065c6272c5..5632f50b0a13 100644
+> --- a/drivers/gpu/drm/tyr/irq.rs
+> +++ b/drivers/gpu/drm/tyr/irq.rs
+> @@ -1,7 +1,6 @@
+> // SPDX-License-Identifier: GPL-2.0 or MIT
+>=20
+> //! Threaded IRQ wrapper shared by all Tyr interrupt sources.
+> -#![allow(dead_code)]
+> use core::marker::PhantomPinned;
+>=20
+> use kernel::{
+>=20
+> --=20
+> 2.39.5
+>=20
+>=20
+
+With the changes,
+
+Reviewed-by: Daniel Almeida <daniel.almeida@collabora.com>
+
+[0]: =
+https://lore.kernel.org/rust-for-linux/DN2ZFO94BZMF.2XTCCKEUDLZSB@kernel.o=
+rg/T/#t
+
