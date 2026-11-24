@@ -2,56 +2,106 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 945AD606A31E
-	for <dri-devel@archiver.kernel.org>; Tue, 24 Nov 2026 21:57:22 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9640E606A323
+	for <dri-devel@archiver.kernel.org>; Tue, 24 Nov 2026 22:06:21 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=fail reason="signature verification failed" (1024-bit key) header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=foss header.b=Pdd1cFY/
+	dkim=pass (2048-bit key) header.d=googlemail.com header.i=@googlemail.com header.a=rsa-sha256 header.s=20260707 header.b=tD+TSV2J
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id D72E410F0DF;
-	Tue, 24 Nov 2026 21:57:16 +0000 (UTC)
-Received: from foss.arm.com (foss.arm.com [217.140.110.172])
- by gabe.freedesktop.org (Postfix) with ESMTP id A50CE10F0DF
- for <dri-devel@lists.freedesktop.org>; Tue, 24 Nov 2026 21:57:10 +0000 (UTC)
-Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
- by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 30715497
- for <dri-devel@lists.freedesktop.org>; Tue, 24 Nov 2026 13:57:07 -0800 (PST)
-Received: from [10.2.11.19] (usa-sjc-imap-foss1.foss.arm.com [10.121.207.14])
- by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPA id
- D67123F763
- for <dri-devel@lists.freedesktop.org>; Tue, 24 Nov 2026 13:57:09 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
- t=1795557430; bh=bpiX+NehYtjOn104gSrnkTT9oI27YzkEJxqY6Ww988k=;
- h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
- b=Pdd1cFY/wZnwOfeMrJfN2kGM9FPKDFXk+KBhfaHGrsKZi16j/GY9+a/J5O0RSoYQr
- asPacG1XpHgFAkcu9hotCQGyrEV0mklQ2qfguF6tTsZjgxkrXExNehL/v3vA5W/lZo
- 1AUG/hpMXIwdLuozsjLjNRIIPyRngQz9NcPNWz68=
-Date: Tue, 24 Nov 2026 21:56:51 +0000
-From: Liviu Dudau <liviu.dudau@arm.com>
-To: =?utf-8?B?TWHDrXJh?= Canal <mcanal@igalia.com>
-Cc: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>,
- Thomas Zimmermann <tzimmermann@suse.de>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- Faith Ekstrand <faith.ekstrand@collabora.com>,
- Boris Brezillon <boris.brezillon@collabora.com>,
- Rob Herring <robh@kernel.org>, Steven Price <steven.price@arm.com>,
- =?utf-8?Q?Adri=C3=A1n?= Larumbe <adrian.larumbe@collabora.com>,
- Akash Goel <akash.goel@arm.com>, Karunika Choo <karunika.choo@arm.com>,
- Lukas Zapolskas <lukas.zapolskas@arm.com>,
- Chris Diamand <chris.diamand@arm.com>,
- Daniel Almeida <daniel.almeida@collabora.com>,
- Alice Ryhl <aliceryhl@google.com>, kernel-dev@igalia.com,
- dri-devel@lists.freedesktop.org, rust-for-linux@vger.kernel.org
-Subject: Re: [PATCH v2 1/4] drm/shmem: Add a drm_gem_shmem_sync() helper
-Message-ID: <awYII3tzMzv89tAV@e142607>
-References: <20261122-pan-drop-dma-buf-hooks-v2-0-2ed42dce9db6@igalia.com>
- <20261122-pan-drop-dma-buf-hooks-v2-1-2ed42dce9db6@igalia.com>
+	by gabe.freedesktop.org (Postfix) with ESMTP id C36EB10E9D2;
+	Tue, 24 Nov 2026 22:06:15 +0000 (UTC)
+Received: from mail-yw1-f175.google.com (mail-yw1-f175.google.com
+ [209.85.128.175])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 9D16E10E9D2
+ for <dri-devel@lists.freedesktop.org>; Tue, 24 Nov 2026 22:06:09 +0000 (UTC)
+Received: by mail-yw1-f175.google.com with SMTP id
+ 00721157ae682-8b4d543b6b6so29190357b3.3
+ for <dri-devel@lists.freedesktop.org>; Tue, 24 Nov 2026 14:06:09 -0800 (PST)
+ARC-Seal: i=1; a=rsa-sha256; t=1795557968; cv=none;
+ d=google.com; s=arc-20260327;
+ b=hRQ8l3CkBNahaH8VVvVBgZit3/Dx4YcBg+C9Cz65vqXptuq5EHVcfK8IBolbNo1v0e
+ Ijfdw6lHsUVpHMLrJ5J2gaBwDPkmOn/h0Onkmz2R3AY69QUNIF5fhTkcN+P4kIaF8A1e
+ +E5AKBlJusjHYEns/lAyeRCIGTD9KETrY18K5QSGc+lr8PT+IVdae1+ujWrewY0s6pMk
+ SNzxWx/n/oJwv6JWyEYhXqO8hY9dw0DqzRDzZV1SeJdjGQs2ygqvZuWno0PTRWCFBUp0
+ NzNYcCJgSSbIcpHDm21MEK6VdnVKv7N+7jp34Q1WXuT0LUfOcN4ahJUo9Psd/QWtTc03
+ OxUg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com;
+ s=arc-20260327; 
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:dkim-signature;
+ bh=csthBXWoYuqZlipfPcre6aDWuJqEg0KlKenjY0/u3Xc=;
+ fh=12R71PwB7Jd4x30x0avyXlmtUHP8jZZKCtwFvjtsDi8=;
+ b=dHK+9lzLGg723SkLPKlQ0npBhmlQcbIFSG4pgLGupSM2xJKOGGXTw2KYgQtlv4c/Vz
+ djx63GGlG2U67UtmODip9PIoH0vG7ChrWXjhFySmsx3w1yabBNHZLI0GzNLJLKRyKJnx
+ T5+STjhIRvRg8uTXEGwGDW/pCNqY0QS/XWOC9yNkMFHRS0nxA+dId+yNFmbo6IVZ0NSl
+ LiUhbKxcOYDrb6GnK4IwlSg049RJ8bWjpPmFBIbYbwuAmA2dRgKsVB8GUV2V3pb39XoF
+ q+C3eiH5y2MQwyBo8/M3s1TAg5yqtHYKRqmdIYGHY1IPMwcnRCDFdo+PA5lxWBkbK1kS
+ BrHA==; darn=lists.freedesktop.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=googlemail.com; s=20260707; t=1795557968; x=1796162768;
+ darn=lists.freedesktop.org; 
+ h=content-transfer-encoding:content-type:cc:to:subject:message-id
+ :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+ :date:message-id:reply-to:content-type;
+ bh=csthBXWoYuqZlipfPcre6aDWuJqEg0KlKenjY0/u3Xc=;
+ b=tD+TSV2JfYITk3yHDdJc7WyjTBTHTkFfIDzJxVyG0rggg2tPKbomyqY762P8sX4oNR
+ VV7NXgBTLNOEn/H0TLxSToZJSPjM1Bm7FO7L9/uCYL7QZKsyLvYmzkBN7MD5W+qZBmUU
+ iwyMjYai+MLULXsfTK0/AOsyLH2EV6gpHnFCACyPU3vrzSwrf/jjjdQR/3INIUNA1bTk
+ 9GYl5MLIix0368no60DIc+UvfDbZ73GxkUdCCfGvWvYeae8Sxv2LSAp2WIen+5rlYkqe
+ AoRa07d/uBkCiOf36wl3RP5+pBdcjUEkh5WLLU3m7E2af+iHCjLAAF2FTDBZHD7bGibT
+ uoLA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20260707; t=1795557968; x=1796162768;
+ h=content-transfer-encoding:content-type:cc:to:subject:message-id
+ :date:from:in-reply-to:references:mime-version:x-gm-gg
+ :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+ :content-type;
+ bh=csthBXWoYuqZlipfPcre6aDWuJqEg0KlKenjY0/u3Xc=;
+ b=ZC1/Ep0Ebj/hSgQuWq/p6vuva7kCuVbQ9OOamsGAT2orSsER7JEs7xIzgdqDbyiHDT
+ mDRvVkGKsn2dt0Wo0n8J9Fzvh0SzAYBSr2vviJSWc7+IUaVvgQvsQj4KRDuYIPCTNRRb
+ oW5xuXGvT4uxH/Mem/uETCLHapH5O8Td34J83DQHw9oAxPctAnkf/2fRrU2Q1JhPXlDK
+ eomrWKKUllud0S0eOIrXfNURdZHkkodRCEy0iBRt4rD7El55Pufm6Tepk9dxDQ/gb6RT
+ tKvoiddT2QNuUpf+4+M2ex5xnhiexWusNG4Pe3bz4JLek50dgSjPAPmzZ5muyYnZU4Ki
+ mXvA==
+X-Forwarded-Encrypted: i=1;
+ AL+hErFb7BT+CXvl++XMLSP7yoz5efApMPUFh3mdswHUxRyoLlR+OJ9qOSZ3x0CoDqBExG+dPzFsv6pBceU=@lists.freedesktop.org
+X-Gm-Message-State: APuU4Z9THcqAH9TzKLA3MVkOBjp1xSs48MzbuuR8pioPkaMzAik6y35B
+ P4xW1EcCnMWisxI3foRV3LbOwJzTC1Gi9ZFj46ITbp2ou/qwY015AkveQ45wGGr7d2nYFCOUF5L
+ vxUreAHgzqoR0yw7shL9wvjfAKyBhu+M=
+X-Gm-Gg: AZFdTZfQEcsHGnYZSQStDfqkAUK/Ctr0Xi7/LPAgjX615nM525P1VbAton0TdrnrcyK
+ dWg429fh7KoYgpTo94byNHHp0yutMrLqgeXS2y5U2S/QXj4MqaV/2pqoFnMmUP/yxkUQ2khiuiz
+ z+tqTC+hARA+E6jv/UfHZvqArG0bCHtSdxiN8WspvOceI6d+MsdjB4qVnH1XvYsQvLAWN4kPR6X
+ PF54cGWws+HDLcV7gxWBwFNxlPoQverSCCcWsbtA+HL/+4ZHixD0uY6+Odke0hg+q6xup+0whz9
+ 7AZnh5mJkwLE6hKx6zjTm2MOS060QyLglNCBnVol1DpESysSavqiW8od+8jokuKa0oL4aEx0LVm
+ bELfb0EKKVeknS5+LtUd37t7XkULmEe2WcgrULznkuaDwzpNgXKbmGyicdYKhyjS9h3r/2w==
+X-Received: by 2002:a05:690c:4806:b0:8b3:33cf:1ff8 with SMTP id
+ 00721157ae682-8b52047e1abmr62214977b3.51.1795557968035; Tue, 24 Nov 2026
+ 14:06:08 -0800 (PST)
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <20261122-pan-drop-dma-buf-hooks-v2-1-2ed42dce9db6@igalia.com>
+References: <20261123-meson-drm-create-hdmitx-phy-v4-0-3fb94f5534ca@aliel.fr>
+In-Reply-To: <20261123-meson-drm-create-hdmitx-phy-v4-0-3fb94f5534ca@aliel.fr>
+From: Martin Blumenstingl <martin.blumenstingl@googlemail.com>
+Date: Tue, 24 Nov 2026 23:05:57 +0100
+X-Gm-Features: Aa3M54obAOudEtwcvYkDuGnJHvL3A4XdBNW-oHonc9K3rZo32rUzvFY7EEi7VPQ
+Message-ID: <CAFBinCD822UPQrrd_8ZbVRUVCVJ-3pGN69vbZBxUE+0yeMcysg@mail.gmail.com>
+Subject: Re: [PATCH v4 00/11] phy/drm: amlogic: Extract Meson HDMI TX PHY into
+ a dedicated driver
+To: linux-kernel-dev@aliel.fr, Neil Armstrong <neil.armstrong@linaro.org>
+Cc: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>, Kevin Hilman <khilman@baylibre.com>, 
+ Jerome Brunet <jbrunet@baylibre.com>, Vinod Koul <vkoul@kernel.org>, 
+ Manivannan Sadhasivam <mani@kernel.org>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ Ulf Hansson <ulfh@kernel.org>, 
+ devicetree@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
+ linux-amlogic@lists.infradead.org, linux-kernel@vger.kernel.org, 
+ linux-phy@lists.infradead.org, dri-devel@lists.freedesktop.org, 
+ linux-pm@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -63,194 +113,45 @@ List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-13.6 required=3.0 tests=BAYES_00,DKIM_INVALID,
-	DKIM_SIGNED,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,
-	INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS
-	autolearn=unavailable autolearn_force=no version=4.0.1
+X-Spam-Status: No, score=-2.8 required=3.0 tests=BAYES_00,DKIM_SIGNED,
+	DKIM_VALID,DKIM_VALID_AU,FREEMAIL_FORGED_FROMDOMAIN,FREEMAIL_FROM,
+	HEADER_FROM_DIFFERENT_DOMAINS,MAILING_LIST_MULTI,SPF_HELO_NONE,
+	SPF_PASS autolearn=no autolearn_force=no version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-On Sun, Nov 22, 2026 at 07:14:49PM -0300, Maíra Canal wrote:
-> From: Faith Ekstrand <faith.ekstrand@collabora.com>
-> 
-> This enables syncing mapped GEM objects between the CPU and GPU via calls
-> to dma_sync_*().  It's a bit annoying as it requires walking the sg_table
-> so it's best if every driver doesn't hand-roll it.
-> 
-> Signed-off-by: Faith Ekstrand <faith.ekstrand@collabora.com>
-> Signed-off-by: Boris Brezillon <boris.brezillon@collabora.com>
-> [mcanal: rebased on top of drm-misc-next, fixed kernel-doc nits, added a
-> resv lock across the sgt walk, and skip unbacked/purged BOs]
-> Signed-off-by: Maíra Canal <mcanal@igalia.com>
+Hi Ronald, Hi Neil,
 
-Reviewed-by: Liviu Dudau <liviu.dudau@arm.com>
+first of all: thanks Ronald for picking this up!
+I like the overall approach. Before I dive deep into this series I
+will finish the code-review of Valerio's AUDIN series.
+
+Two quick notes below.
+
+On Mon, Nov 23, 2026 at 8:38=E2=80=AFPM Ronald Claveau via B4 Relay
+<devnull+linux-kernel-dev.aliel.fr@kernel.org> wrote:
+[...]
+> Overview of the series:
+> - Patches 1-3: Fix compatible matching in meson-gx-hhi-sysctrl bindings,
+>   add the new amlogic,meson-hdmi-tx-phy DT schema, and allow the
+>   "hdmi-phy" child node under the HHI syscon.
+It's been a long time, but I think we've been asked by the devicetree
+maintainers to have reg properties for the nodes within &hhi
+But I can't find the message at the moment.
+
+> - Patch 4: Add the new Meson HDMI TX PHY driver implementing the HDMI
+>   PHY configuration ops, along with the temporary legacy creation
+>   helper.
+At quick glance your PHY approach would also fit phy-meson8-hdmi-tx.c
+There seem to be minor differences:
+- two additional enable bits in HHI_HDMI_PHY_CNTL1 on GXBB and newer:
+HDMI_FIFO_ENABLE=3DBIT(2) and  HDMI_FIFO_WR_ENALBE=3DBIT(3)
+- newer SoCs seem to have HHI_HDMI_PHY_CNTL3..5
+
+Meson8/8b/8m2 HDMI support is not upstream yet. That's why those SoC's
+won't need the backwards compatibility code. So if you need to tweak
+the driver: feel free, there's not much you can break!
+
 
 Best regards,
-Liviu
-
-> ---
->  drivers/gpu/drm/drm_gem_shmem_helper.c | 108 +++++++++++++++++++++++++++++++++
->  include/drm/drm_gem_shmem_helper.h     |  17 ++++++
->  2 files changed, 125 insertions(+)
-> 
-> diff --git a/drivers/gpu/drm/drm_gem_shmem_helper.c b/drivers/gpu/drm/drm_gem_shmem_helper.c
-> index d654a22a30de..cc3d04d2d58e 100644
-> --- a/drivers/gpu/drm/drm_gem_shmem_helper.c
-> +++ b/drivers/gpu/drm/drm_gem_shmem_helper.c
-> @@ -901,6 +901,114 @@ struct sg_table *drm_gem_shmem_get_pages_sgt(struct drm_gem_shmem_object *shmem)
->  }
->  EXPORT_SYMBOL_GPL(drm_gem_shmem_get_pages_sgt);
->  
-> +/**
-> + * drm_gem_shmem_sync - Sync CPU-mapped data
-> + * @shmem: shmem GEM object
-> + * @offset: Offset into the GEM object
-> + * @size: Size of the area to sync
-> + * @type: Type of synchronization
-> + *
-> + * Returns:
-> + * 0 on success or a negative error code on failure.
-> + */
-> +int drm_gem_shmem_sync(struct drm_gem_shmem_object *shmem, size_t offset,
-> +		       size_t size, enum drm_gem_shmem_sync_type type)
-> +{
-> +	const struct drm_device *dev = shmem->base.dev;
-> +	struct sg_table *sgt;
-> +	struct scatterlist *sgl;
-> +	unsigned int count;
-> +	int ret;
-> +
-> +	/* Make sure the range is in bounds. */
-> +	if (offset + size < offset || offset + size > shmem->base.size)
-> +		return -EINVAL;
-> +
-> +	/* Disallow CPU-cache maintenance on imported buffers. */
-> +	if (drm_gem_is_imported(&shmem->base))
-> +		return -EINVAL;
-> +
-> +	switch (type) {
-> +	case DRM_GEM_SHMEM_SYNC_CPU_CACHE_FLUSH:
-> +	case DRM_GEM_SHMEM_SYNC_CPU_CACHE_FLUSH_AND_INVALIDATE:
-> +		break;
-> +
-> +	default:
-> +		return -EINVAL;
-> +	}
-> +
-> +	/* Don't bother if it's WC-mapped */
-> +	if (shmem->map_wc)
-> +		return 0;
-> +
-> +	/* Nothing to do if the size is zero. */
-> +	if (size == 0)
-> +		return 0;
-> +
-> +	ret = dma_resv_lock_interruptible(shmem->base.resv, NULL);
-> +	if (ret)
-> +		return ret;
-> +
-> +	/* No CPU mapping can exist without pages, and purged BOs have
-> +	 * no content to be synced.
-> +	 */
-> +	if (!shmem->pages || shmem->madv < 0)
-> +		goto out_unlock;
-> +
-> +	sgt = drm_gem_shmem_get_pages_sgt_locked(shmem);
-> +	if (IS_ERR(sgt)) {
-> +		ret = PTR_ERR(sgt);
-> +		goto out_unlock;
-> +	}
-> +
-> +	for_each_sgtable_dma_sg(sgt, sgl, count) {
-> +		if (size == 0)
-> +			break;
-> +
-> +		dma_addr_t paddr = sg_dma_address(sgl);
-> +		size_t len = sg_dma_len(sgl);
-> +
-> +		if (len <= offset) {
-> +			offset -= len;
-> +			continue;
-> +		}
-> +
-> +		paddr += offset;
-> +		len -= offset;
-> +		len = min_t(size_t, len, size);
-> +		size -= len;
-> +		offset = 0;
-> +
-> +		/* It's unclear whether dma_sync_xxx() is the right API to do CPU
-> +		 * cache maintenance given an IOMMU can register their own
-> +		 * implementation doing more than just CPU cache flushes/invalidation,
-> +		 * and what we really care about here is CPU caches only, but that's
-> +		 * the best we have that is both arch-agnostic and does at least the
-> +		 * CPU cache maintenance on a <page,offset,size> tuple.
-> +		 *
-> +		 * Also, I wish we could do a single
-> +		 *
-> +		 *	dma_sync_single_for_device(BIDIR)
-> +		 *
-> +		 * and get a flush+invalidate, but that's not how it's implemented
-> +		 * in practice (at least on arm64), so we have to make it
-> +		 *
-> +		 *	dma_sync_single_for_device(TO_DEVICE)
-> +		 *	dma_sync_single_for_cpu(FROM_DEVICE)
-> +		 *
-> +		 * for the flush+invalidate case.
-> +		 */
-> +		dma_sync_single_for_device(dev->dev, paddr, len, DMA_TO_DEVICE);
-> +		if (type == DRM_GEM_SHMEM_SYNC_CPU_CACHE_FLUSH_AND_INVALIDATE)
-> +			dma_sync_single_for_cpu(dev->dev, paddr, len, DMA_FROM_DEVICE);
-> +	}
-> +
-> +out_unlock:
-> +	dma_resv_unlock(shmem->base.resv);
-> +	return ret;
-> +}
-> +EXPORT_SYMBOL_GPL(drm_gem_shmem_sync);
-> +
->  /**
->   * drm_gem_shmem_prime_import_sg_table - Produce a shmem GEM object from
->   *                 another driver's scatter/gather table of pinned pages
-> diff --git a/include/drm/drm_gem_shmem_helper.h b/include/drm/drm_gem_shmem_helper.h
-> index bcbb92f3fe9b..a5def70fae7a 100644
-> --- a/include/drm/drm_gem_shmem_helper.h
-> +++ b/include/drm/drm_gem_shmem_helper.h
-> @@ -122,6 +122,23 @@ void drm_gem_shmem_vunmap_locked(struct drm_gem_shmem_object *shmem,
->  				 struct iosys_map *map);
->  int drm_gem_shmem_mmap(struct drm_gem_shmem_object *shmem, struct vm_area_struct *vma);
->  
-> +/**
-> + * enum drm_gem_shmem_sync_type - Type of synchronization
-> + */
-> +enum drm_gem_shmem_sync_type {
-> +	/** @DRM_GEM_SHMEM_SYNC_CPU_CACHE_FLUSH: Flush CPU caches */
-> +	DRM_GEM_SHMEM_SYNC_CPU_CACHE_FLUSH = 0,
-> +
-> +	/**
-> +	 * @DRM_GEM_SHMEM_SYNC_CPU_CACHE_FLUSH_AND_INVALIDATE: Flush and
-> +	 * invalidate CPU caches
-> +	 */
-> +	DRM_GEM_SHMEM_SYNC_CPU_CACHE_FLUSH_AND_INVALIDATE,
-> +};
-> +
-> +int drm_gem_shmem_sync(struct drm_gem_shmem_object *shmem, size_t offset,
-> +		       size_t size, enum drm_gem_shmem_sync_type type);
-> +
->  int drm_gem_shmem_pin_locked(struct drm_gem_shmem_object *shmem);
->  void drm_gem_shmem_unpin_locked(struct drm_gem_shmem_object *shmem);
->  
-> 
-> -- 
-> 2.56.0
-> 
-
--- 
-====================
-| I would like to |
-| fix the world,  |
-| but they're not |
-| giving me the   |
- \ source code!  /
-  ---------------
-    ¯\_(ツ)_/¯
+Martin
