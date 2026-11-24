@@ -2,36 +2,37 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 96F0D606A31E
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E218B606A327
 	for <dri-devel@archiver.kernel.org>; Tue, 24 Nov 2026 10:09:48 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=ideasonboard.com header.i=@ideasonboard.com header.a=rsa-sha256 header.s=mail header.b=rwOsP3wz
+	dkim=pass (1024-bit key) header.d=ideasonboard.com header.i=@ideasonboard.com header.a=rsa-sha256 header.s=mail header.b=FGHaRu2I
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id BBC1010F42F;
-	Tue, 24 Nov 2026 10:09:42 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 09B1D10F433;
+	Tue, 24 Nov 2026 10:09:43 +0000 (UTC)
 Received: from perceval.ideasonboard.com (perceval.ideasonboard.com
  [213.167.242.64])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 1F35210F425
- for <dri-devel@lists.freedesktop.org>; Tue, 24 Nov 2026 10:08:41 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 141A210F41A
+ for <dri-devel@lists.freedesktop.org>; Tue, 24 Nov 2026 10:08:40 +0000 (UTC)
 Received: from [127.0.1.1] (91-158-153-178.elisa-laajakaista.fi
  [91.158.153.178])
- by perceval.ideasonboard.com (Postfix) with ESMTPSA id 98DB1232C;
- Tue, 24 Nov 2026 11:06:06 +0100 (CET)
+ by perceval.ideasonboard.com (Postfix) with ESMTPSA id 817D52169;
+ Tue, 24 Nov 2026 11:06:05 +0100 (CET)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=ideasonboard.com;
- s=mail; t=1795514767;
- bh=bvYex0hRUxSGhdyAudODjaziXUnvs7v/18N4Ju1CGjc=;
+ s=mail; t=1795514766;
+ bh=AeSF9xATr/aXA7bcXDEkH7i4BWR+sahH7VjgB+rcbLg=;
  h=From:Date:Subject:References:In-Reply-To:To:Cc:From;
- b=rwOsP3wzZBArOVrEC7c75QoNQjhwTshWY+wOgLisJYYHb746Ny3Ry3lqGdCGwbopy
- n7yY/ks0y4ow2FZrLNhYTqGg/UNqOeKYTyxrTfqk9wLpKOFFeum5PrFOoLymLuqMQF
- Ye57GZRXdXjGr5IEDf5l6YhwRB3IYmwha1KQSxtw=
+ b=FGHaRu2IlLnWYGxHCPT/vAQiE11Izi+p+zbeMUT+aovQtLGlqpGiUYTdcgTW4W0Lc
+ K30rNxEa6RZ0dVq2m82us+14PH4WFcZ191iP3Oq7Asbj1xfxEb9OnJCV6SiQGp60+G
+ shcDFkffz5nHsj8eQAl9UxoGtBlKxtXROOq18ntI=
 From: Tomi Valkeinen <tomi.valkeinen@ideasonboard.com>
-Date: Tue, 24 Nov 2026 12:08:02 +0200
-Subject: [PATCH v6 11/13] drm/bridge: tc358762: Drop drm_bridge_funcs.mode_set
+Date: Tue, 24 Nov 2026 12:08:01 +0200
+Subject: [PATCH v6 10/13] drm/bridge: tc358762: Move tc358762_init() into
+ tc358762_enable()
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20261124-tc358762-fixes-v6-11-bd38fed6460f@ideasonboard.com>
+Message-Id: <20261124-tc358762-fixes-v6-10-bd38fed6460f@ideasonboard.com>
 References: <20261124-tc358762-fixes-v6-0-bd38fed6460f@ideasonboard.com>
 In-Reply-To: <20261124-tc358762-fixes-v6-0-bd38fed6460f@ideasonboard.com>
 To: Marek Vasut <marex@denx.de>, Andrzej Hajda <andrzej.hajda@intel.com>, 
@@ -46,21 +47,21 @@ Cc: dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
  Dave Stevenson <dave.stevenson@raspberrypi.com>, 
  Tomi Valkeinen <tomi.valkeinen@ideasonboard.com>
 X-Mailer: b4 0.16.0
-X-Developer-Signature: v=1; a=openpgp-sha256; l=3152;
+X-Developer-Signature: v=1; a=openpgp-sha256; l=4059;
  i=tomi.valkeinen@ideasonboard.com; h=from:subject:message-id;
- bh=bvYex0hRUxSGhdyAudODjaziXUnvs7v/18N4Ju1CGjc=;
- b=owEBbQKS/ZANAwAIAfo9qoy8lh71AcsmYgBrBWIaaxcaji/Kn0EpHoSlQrjU29Aq/kEsRsz3i
- ylrHDIktA+JAjMEAAEIAB0WIQTEOAw+ll79gQef86f6PaqMvJYe9QUCawViGgAKCRD6PaqMvJYe
- 9ZCBD/9Wm5SIX52nAavtn2CAba7R+OJQXZcOHz7RaPNx8C2eWpGavVkmAdvXP2ks9lwdxDjBnId
- hkQnCUSd0z2iujklhmMBsjiDWeo4m02USOwJUtYANZbsdjPeDuSLQhKmWAkohiTEcvdw567w9cJ
- CyHlCipMUwxL8N84BtVb+TydOnijnOL/3HM20uZJeFRXPcHvPzRpM2mHAsErVWzVfcsBWKDT1cu
- VsDTIhXTd35D0buyLeP5XsgOELNwOfOezS+dr2GJjhvgCIjc6XcQvgWaykA9tPnxtt6/aMSFEOV
- P3oulqTQdRh/5lVOeBG8I0NmNu3qWbHYG+nwEpJOOKhdkjyAfn2OQoWIjgCtk6ko5jVr1Nq0uA6
- rFNi9eftzSTRht54Wy8e8cekEjtMsoW+5BO8vhkNBuj+d/69sCc5P9HlDUieRMK9PrnLd+cSV3M
- iyRbC/u8imwgsXdwuU+6mZ7utKHtuwzR7MAJbFPqCahiQzohprAE9BfxFffFnPK8t5zj4OdmlHG
- Yrss5pA/LUcwSMkbVKG0sC5HeFx8to+L64cUyCaoo54vetR7F9qfJLOwwtX2yHWwb1UcCw6pfeV
- WBQ99yZtomCCR762FTvU94/kIKgFRZroB9I87dSUG0MbiD3v7evFmqtvVDYggbzkqPt2TpzraRQ
- ENiZiisN7LzNxrw==
+ bh=AeSF9xATr/aXA7bcXDEkH7i4BWR+sahH7VjgB+rcbLg=;
+ b=owEBbQKS/ZANAwAIAfo9qoy8lh71AcsmYgBrBWIZK+YCxMX/+g7GbaSd2TIb95J1BLB+iTHNK
+ aUFVLer6DSJAjMEAAEIAB0WIQTEOAw+ll79gQef86f6PaqMvJYe9QUCawViGQAKCRD6PaqMvJYe
+ 9TXWD/kBkPRtYBJIDLeOshENfyWJgRIoRlwaeNcw8gcL9xeLLluUsJW+ceGDU0Hcc7C658ZenGX
+ 9pgigh7nGY7WYHEpzqU/z2BJQw5RKpkDHL+9pB3V07EJ7Z3Rxonve/ONx4Dipm98l+yFrvW8yGI
+ dcpSu6eVC5uiDpiLWSsjfF/AwrWkYOvFEPgyLC2KRjv7ssH5MK0EaAiAzN1TOUGY984kpYWgawI
+ JDL5MalEFLlcntpJMHRSKU2GGPmgIpp8Shs2USVzjOSo/+gB6Vnio/kDpKZAL1XtuTxN6JFuwzL
+ R9CyBUuWOl8HZQG0d9MZ1I0rluO9gnajuZknkogXFCWibspRDuT0NYO8hzqJnkhNEBa0dKEiNtK
+ Di5eyJA2tvXlf3wcC55nqsgXCm3uonA5JUg2c3ttel4Lb3v0lP53SWcl2d0a9UFsecHmG38hEHZ
+ 1lLQptM3VXf0nDH4Zbfm5k20Mwy2mpBw4AtluYBlvVqLtWkKx5DW42BfmFIDvfwh/+q+vRlN/hd
+ oECF4YdyKgaPWb32UigUSbvJenlDwsc0ax/6V/tRQjJbA9R7sCXhyN5lR8/4QAaNhi/W0/y8S92
+ mbh5ukE7jF4wFNCBeHHKlW4BFVU/omppC27FhZmoJa+BSaqvXGkwaEUKloyX3QWRvehb/HlYtqc
+ ChImxFjWXl3Q0fQ==
 X-Developer-Key: i=tomi.valkeinen@ideasonboard.com; a=openpgp;
  fpr=C4380C3E965EFD81079FF3A7FA3DAA8CBC961EF5
 X-BeenThere: dri-devel@lists.freedesktop.org
@@ -82,92 +83,148 @@ X-Spam-Status: No, score=-18.8 required=3.0 tests=BAYES_00,DKIM_SIGNED,
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-drm_bridge_funcs.mode_set is deprecated. Drop it and get the
-drm_display_mode from the atomic state.
+The only thing tc358762_enable() does is call tc358762_init(). Inline
+the tc358762_init() into tc358762_enable(), for simplicity and to make
+it easier to improve the tc358762_enable() in the following commits. No
+functional change.
 
 Reviewed-by: Andreas Kemnade <andreas@kemnade.info>
 Signed-off-by: Tomi Valkeinen <tomi.valkeinen@ideasonboard.com>
 ---
- drivers/gpu/drm/bridge/tc358762.c | 26 ++++++++++++--------------
- 1 file changed, 12 insertions(+), 14 deletions(-)
+ drivers/gpu/drm/bridge/tc358762.c | 110 ++++++++++++++++++--------------------
+ 1 file changed, 52 insertions(+), 58 deletions(-)
 
 diff --git a/drivers/gpu/drm/bridge/tc358762.c b/drivers/gpu/drm/bridge/tc358762.c
-index 85a0314f16c2..d9ae9f492020 100644
+index 7a2658933216..85a0314f16c2 100644
 --- a/drivers/gpu/drm/bridge/tc358762.c
 +++ b/drivers/gpu/drm/bridge/tc358762.c
-@@ -98,7 +98,6 @@ struct tc358762 {
- 	struct regulator *regulator;
- 	struct drm_bridge *panel_bridge;
- 	struct gpio_desc *reset_gpio;
--	struct drm_display_mode mode;
- 	bool pre_enabled;
- 	int error;
- 	bool use_vtg;
-@@ -190,9 +189,18 @@ static void tc358762_enable(struct drm_bridge *bridge,
- 			    struct drm_atomic_commit *state)
- {
- 	struct tc358762 *ctx = bridge_to_tc358762(bridge);
-+	struct drm_connector_state *conn_state;
-+	struct drm_crtc_state *crtc_state;
-+	struct drm_connector *connector;
-+	struct drm_display_mode *mode;
- 	u32 lcdctrl;
- 	int ret;
- 
-+	connector = drm_atomic_get_new_connector_for_encoder(state, bridge->encoder);
-+	conn_state = drm_atomic_get_new_connector_state(state, connector);
-+	crtc_state = drm_atomic_get_new_crtc_state(state, conn_state->crtc);
-+	mode = &crtc_state->mode;
-+
- 	/*
- 	 * DPIENABLE has reset default of 1. Make sure we don't output on
- 	 * DPI until we have finished the coniguration.
-@@ -217,7 +225,7 @@ static void tc358762_enable(struct drm_bridge *bridge,
- 	if (ctx->use_vtg) {
- 		struct videomode vm = { 0 };
- 
--		drm_display_mode_to_videomode(&ctx->mode, &vm);
-+		drm_display_mode_to_videomode(mode, &vm);
- 
- 		tc358762_write(ctx, LCDC_HSR_HBPR,
- 			       vm.hsync_len | (vm.hback_porch << 16));
-@@ -241,10 +249,10 @@ static void tc358762_enable(struct drm_bridge *bridge,
- 
- 	lcdctrl |= LCDCTRL_DCLK_POL;
- 
--	if (ctx->mode.flags & DRM_MODE_FLAG_PHSYNC)
-+	if (mode->flags & DRM_MODE_FLAG_PHSYNC)
- 		lcdctrl |= LCDCTRL_HSYNC_POL;
- 
--	if (ctx->mode.flags & DRM_MODE_FLAG_PVSYNC)
-+	if (mode->flags & DRM_MODE_FLAG_PVSYNC)
- 		lcdctrl |= LCDCTRL_VSYNC_POL;
- 
- 	tc358762_write(ctx, LCDCTRL, lcdctrl);
-@@ -269,15 +277,6 @@ static int tc358762_attach(struct drm_bridge *bridge,
- 				 bridge, flags);
+@@ -138,9 +138,60 @@ static inline struct tc358762 *bridge_to_tc358762(struct drm_bridge *bridge)
+ 	return container_of(bridge, struct tc358762, bridge);
  }
  
--static void tc358762_bridge_mode_set(struct drm_bridge *bridge,
--				     const struct drm_display_mode *mode,
--				     const struct drm_display_mode *adj)
--{
--	struct tc358762 *ctx = bridge_to_tc358762(bridge);
--
--	drm_mode_copy(&ctx->mode, mode);
+-static int tc358762_init(struct tc358762 *ctx)
++static void tc358762_post_disable(struct drm_bridge *bridge,
++				  struct drm_atomic_commit *state)
++{
++	struct tc358762 *ctx = bridge_to_tc358762(bridge);
++	int ret;
++
++	/*
++	 * The post_disable hook might be called multiple times.
++	 * We want to avoid regulator imbalance below.
++	 */
++	if (!ctx->pre_enabled)
++		return;
++
++	ctx->pre_enabled = false;
++
++	/* Turn off the DPI output */
++	tc358762_write(ctx, LCDCTRL, 0);
++
++	ret = tc358762_clear_error(ctx);
++	if (ret < 0)
++		dev_err(ctx->dev, "error disabling DPI output (%d)\n", ret);
++
++	if (ctx->reset_gpio)
++		gpiod_set_value_cansleep(ctx->reset_gpio, 0);
++
++	ret = regulator_disable(ctx->regulator);
++	if (ret < 0)
++		dev_err(ctx->dev, "error disabling regulators (%d)\n", ret);
++}
++
++static void tc358762_pre_enable(struct drm_bridge *bridge,
++				struct drm_atomic_commit *state)
+ {
++	struct tc358762 *ctx = bridge_to_tc358762(bridge);
++	int ret;
++
++	ret = regulator_enable(ctx->regulator);
++	if (ret < 0)
++		dev_err(ctx->dev, "error enabling regulators (%d)\n", ret);
++
++	if (ctx->reset_gpio) {
++		gpiod_set_value_cansleep(ctx->reset_gpio, 1);
++		usleep_range(5000, 10000);
++	}
++
++	ctx->pre_enabled = true;
++}
++
++static void tc358762_enable(struct drm_bridge *bridge,
++			    struct drm_atomic_commit *state)
++{
++	struct tc358762 *ctx = bridge_to_tc358762(bridge);
+ 	u32 lcdctrl;
++	int ret;
+ 
+ 	/*
+ 	 * DPIENABLE has reset default of 1. Make sure we don't output on
+@@ -203,64 +254,7 @@ static int tc358762_init(struct tc358762 *ctx)
+ 
+ 	msleep(100);
+ 
+-	return tc358762_clear_error(ctx);
 -}
 -
- static const struct drm_bridge_funcs tc358762_bridge_funcs = {
- 	.atomic_post_disable = tc358762_post_disable,
- 	.atomic_pre_enable = tc358762_pre_enable,
-@@ -286,7 +285,6 @@ static const struct drm_bridge_funcs tc358762_bridge_funcs = {
- 	.atomic_destroy_state = drm_atomic_helper_bridge_destroy_state,
- 	.atomic_create_state = drm_atomic_helper_bridge_create_state,
- 	.attach = tc358762_attach,
--	.mode_set = tc358762_bridge_mode_set,
- };
- 
- static int tc358762_parse_dt(struct tc358762 *ctx)
+-static void tc358762_post_disable(struct drm_bridge *bridge,
+-				  struct drm_atomic_commit *state)
+-{
+-	struct tc358762 *ctx = bridge_to_tc358762(bridge);
+-	int ret;
+-
+-	/*
+-	 * The post_disable hook might be called multiple times.
+-	 * We want to avoid regulator imbalance below.
+-	 */
+-	if (!ctx->pre_enabled)
+-		return;
+-
+-	ctx->pre_enabled = false;
+-
+-	/* Turn off the DPI output */
+-	tc358762_write(ctx, LCDCTRL, 0);
+-
+ 	ret = tc358762_clear_error(ctx);
+-	if (ret < 0)
+-		dev_err(ctx->dev, "error disabling DPI output (%d)\n", ret);
+-
+-	if (ctx->reset_gpio)
+-		gpiod_set_value_cansleep(ctx->reset_gpio, 0);
+-
+-	ret = regulator_disable(ctx->regulator);
+-	if (ret < 0)
+-		dev_err(ctx->dev, "error disabling regulators (%d)\n", ret);
+-}
+-
+-static void tc358762_pre_enable(struct drm_bridge *bridge,
+-				struct drm_atomic_commit *state)
+-{
+-	struct tc358762 *ctx = bridge_to_tc358762(bridge);
+-	int ret;
+-
+-	ret = regulator_enable(ctx->regulator);
+-	if (ret < 0)
+-		dev_err(ctx->dev, "error enabling regulators (%d)\n", ret);
+-
+-	if (ctx->reset_gpio) {
+-		gpiod_set_value_cansleep(ctx->reset_gpio, 1);
+-		usleep_range(5000, 10000);
+-	}
+-
+-	ctx->pre_enabled = true;
+-}
+-
+-static void tc358762_enable(struct drm_bridge *bridge,
+-			    struct drm_atomic_commit *state)
+-{
+-	struct tc358762 *ctx = bridge_to_tc358762(bridge);
+-	int ret;
+-
+-	ret = tc358762_init(ctx);
+ 	if (ret < 0)
+ 		dev_err(ctx->dev, "error initializing bridge (%d)\n", ret);
+ }
 
 -- 
 2.43.0
