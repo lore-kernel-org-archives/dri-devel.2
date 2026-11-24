@@ -2,25 +2,25 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 97441606A321
-	for <dri-devel@archiver.kernel.org>; Tue, 24 Nov 2026 16:21:30 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 02726606A321
+	for <dri-devel@archiver.kernel.org>; Tue, 24 Nov 2026 16:21:31 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=selector1 header.b=aFVZoTMK;
-	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=selector1 header.b=aFVZoTMK
+	dkim=pass (1024-bit key, unprotected) header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=selector1 header.b=bWm23t2/;
+	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=selector1 header.b=bWm23t2/
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 6BA6510F66C;
+	by gabe.freedesktop.org (Postfix) with ESMTP id E75FD10F799;
 	Tue, 24 Nov 2026 16:21:19 +0000 (UTC)
-Received: from DUZPR83CU001.outbound.protection.outlook.com
- (mail-northeuropeazon11012065.outbound.protection.outlook.com [52.101.66.65])
- by gabe.freedesktop.org (Postfix) with ESMTPS id B477F10F785
- for <dri-devel@lists.freedesktop.org>; Tue, 24 Nov 2026 16:21:02 +0000 (UTC)
+Received: from DU2PR03CU002.outbound.protection.outlook.com
+ (mail-northeuropeazon11011013.outbound.protection.outlook.com [52.101.65.13])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id BF10710F678
+ for <dri-devel@lists.freedesktop.org>; Tue, 24 Nov 2026 16:21:00 +0000 (UTC)
 ARC-Seal: i=2; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=pass;
- b=Pk6FPDP2fjVy/aErzDya5cuTvOdxwklcHDKMDPbVTpsJY2OMtarj1GwarBarW44iX73bYEfsFhomYbhA1pNZXJVvbGvNT2r7m6gPB2BRtt2Kg8O31EK4IvRpGc4gcfMxKpkzxPqKT3L8XN34Y1PUtGosjkRtrV/thbP8UfEVyElfYI/sL0FhxwUqk/S0wrrIM3+uWOXzgowUtAC6tvE8a++z9fLJKl0CuMY0MBWwV2IffEs7ccZJ+R9EKeq+yqClHM6eQwXcjMZQVarVEW42uYBo2SK65K08L0s+V3JTJRMjUGO3wpqdO1ZbtatKeQCBliVXlAXX8nRVr0X12A3W3Q==
+ b=tFqmWU8eKeiW2Lph0NzmQC8XyG95bM1BcEFKr6ffoaCmpn93BKpuJsQbwqstxCEFbk7FXHxWxDU6N0LKgHbr7xrDiUtdtCIfeRrDz+z4A6bXQYm6Ins9VzcwJESPGK8EFxMe6wBvAwfDsBV/F8UnsDpvrraDRDFQ4IDmdqgNKRDVIl+OlPA7T/IybWCIQzTiaNBuZt+7sqz8wP5fyJtq76ojgVKE2uvjU9AvBEPXzM7lqHN6mqyMIq3vbxgeEFHJyWITCV25xSr8yBvd6RoDLP+kS6J+slr7rqKKExzAW8bxqE0zKkpTPh9mUvHmb4mCCGBCZEIMEYQyCOVVW8NLXg==
 ARC-Message-Signature: i=2; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=GyJz/9h1+JxLmmxRL+D0yQa5XYHdWHsjafulycnwcRM=;
- b=oYZorEe5E5wRx+uSQpzzDgf4gZ1BgX8z4mqe8C/wF4yFaeul5R0lTUYehXlsva42XVUPTMK8fd41gb0R5PTIUyKxD5bNceBSCpW9yyLUAUKzhiflfPXYJ+iIFEcaeUUyx8XhX/uvhA7BsJ6NWEAifUGPEFkAFbEs6Ru4TtnnHrN9hqmcGAflczjU5yxeI4azCzuf43htWKm31+ofjszEbuRL4aoR7u153Nn6Bp52i1UTW/mBty/7gk4ZObYutRqERR7MEoJV2wITRQ8LhnCEDB5qsjmJLBg90ny+MofNZjAln8XMWfbKCWUh69j+rDZbcGRwZldFqJPh3ja1bQPPzw==
+ bh=hvhAXoG9GESkVNki7FPp+cmB6oYXLuirLqLKIFWoQbY=;
+ b=WSFcNe4RNVlDzhkEr7BeROrP+GlOWHgFuVGLub8qlYL70D1wMMFmwYx1chX7Q+b1fty+nrThA+qar3lJtiVMc7JJM5ZYVg3TBHyzPvlXiz+aTngWCcGWjlaonASsmOhg8y2SWdejEOSyQBBVINa+5NZTm8AkY4t1Edu3bMfO7ZqRGNAjqCl7UC7Cfwi5y+JUgOLaM02ZzmVx7o+Mu+MNaX8ukRixjj1GNogCQm09v7K5FGzsEMhh/pYlF96ETrTY8C1+I1bWZUYNvS/JVr2WRf8XFAbIejEOZqWOgw3Lb2HjJzudUxZcScZ5724TTSlJlSwWUYiYTCdjg3/GlpMp/w==
 ARC-Authentication-Results: i=2; mx.microsoft.com 1; spf=pass (sender ip is
  4.158.2.129) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=arm.com;
  dmarc=pass (p=none sp=none pct=100) action=none header.from=arm.com;
@@ -29,18 +29,18 @@ ARC-Authentication-Results: i=2; mx.microsoft.com 1; spf=pass (sender ip is
  dmarc=[1,1,header.from=arm.com])
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=arm.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=GyJz/9h1+JxLmmxRL+D0yQa5XYHdWHsjafulycnwcRM=;
- b=aFVZoTMKeiGY5j+s9ZSlnGbbVb/F9qqwxTqwrBDHhIVRn5Js1HLVqcyA5fnTUR8rzStTWaG1CsBfyaODi4X42cMUQqpCa960rSQdJpniESqAKa7ZRoVIGdykNO7IjPAY6La5qrFIMwTejkEz1kGiWnNyRsoGHt6a1ERkMgeYpjA=
-Received: from VIVP296CA0082.AUTP296.PROD.OUTLOOK.COM (2603:10a6:800:352::7)
- by AM0PR08MB5348.eurprd08.prod.outlook.com (2603:10a6:208:189::12) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.639.14; Tue, 24 Nov
- 2026 16:20:59 +0000
-Received: from MI3PEPF00008496.eurprd03.prod.outlook.com
- (2603:10a6:800:352:cafe::54) by VIVP296CA0082.outlook.office365.com
- (2603:10a6:800:352::7) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.21.662.6 via Frontend Transport; Tue, 24
- Nov 2026 16:20:59 +0000
+ bh=hvhAXoG9GESkVNki7FPp+cmB6oYXLuirLqLKIFWoQbY=;
+ b=bWm23t2/oEvYamXDLU8w/Cac/7byXZAtwogHuzgfE0oWRCG2M5pdBIVKz6zbRXznLmlBS0p0NyJfXtgP93sjMCh0fomJYbP3uBFEjXIGID0XC2xagCbXcD9iIOfya5At9cLmeM7Z+eCf+fjStJWKHIsGQCL6gcOGUj6JPapn1U8=
+Received: from DUZPR01CA0334.eurprd01.prod.exchangelabs.com
+ (2603:10a6:10:4b8::25) by PAXPR08MB7621.eurprd08.prod.outlook.com
+ (2603:10a6:102:23f::18) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.662.4; Tue, 24 Nov
+ 2026 16:20:53 +0000
+Received: from MAD0EPF000008A8.eurprd04.prod.outlook.com
+ (2603:10a6:10:4b8:cafe::39) by DUZPR01CA0334.outlook.office365.com
+ (2603:10a6:10:4b8::25) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.21.639.14 via Frontend Transport; Tue,
+ 24 Nov 2026 16:20:53 +0000
 X-MS-Exchange-Authentication-Results: mx.microsoft.com 1; spf=pass (sender IP
  is 4.158.2.129) smtp.mailfrom=arm.com;
  dkim=pass (signature was verified)
@@ -49,34 +49,34 @@ Received-SPF: Pass (protection.outlook.com: domain of arm.com designates
  4.158.2.129 as permitted sender) receiver=protection.outlook.com;
  client-ip=4.158.2.129; helo=outbound-uk1.az.dlp.m.darktrace.com; pr=C
 Received: from outbound-uk1.az.dlp.m.darktrace.com (4.158.2.129) by
- MI3PEPF00008496.mail.protection.outlook.com (10.167.240.181) with Microsoft
- SMTP Server (version=TLS1_3, cipher=TLS_AES_256_GCM_SHA384) id 15.21.639.5
- via Frontend Transport; Tue, 24 Nov 2026 16:20:58 +0000
+ MAD0EPF000008A8.mail.protection.outlook.com (10.167.241.180) with Microsoft
+ SMTP Server (version=TLS1_3, cipher=TLS_AES_256_GCM_SHA384) id 15.21.662.3
+ via Frontend Transport; Tue, 24 Nov 2026 16:20:52 +0000
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=H321glfeFRJz0WKlwyhFCUXK2VZUDkhRmRruOtXFStoD2dyz3NLhcwmsROsgAJxwXTmBiLl5/B1dXhE8+k8wcZY8IWna+CwdvGduabLHHcKAPNQOnr/NbxAKQYXK6lPz0Mpw0Gp/YelFfJOB+CTIaGy1hU3d/47blf91OkCge9G1v8nWAom1cK/68V7xxHM5hHZftSCVrl0VkF2gFFUIjL5/80n6zOB8sQ+ULympAqJqsgfer1KHBL2kn4sfhoZsTAlSEkUocnL5Q44e9dEdIdBVk1l1j6/7hlDtDdRV0bxRnPRmvcXDClPzZoSAsbfNLNbilYb5AtKXGPebmgIxpw==
+ b=dj/TKE8VuueUNw/U8KlDzPFxd43dTfDN75F9Z1lF1ADds8yG4T2FaIht78yastgnqiuwHdm8Tff0LD5jfe6J77wZC8ylSGuD98jLijI10r5BDf0Ag4Bsk184e7tQYvuL3T605pyfqS21bMfBM5Kd9Q742ngI2kVWKnVbgD4jkS3QarzY/b0wTKY6/U4eDGd6jSqJNsFnXcJJtmHuCE7z2S9dAC27xJn9HD0sK/4wA0gurjuVfIeeVyEtlEF7lcw8TrOUFRhPkU6S0B3pSC6qeQtpryj0MbwkBxVrgW62OttOwT44QdYShCf0AQ/b7bw4RtCPRYITMT7Vv5K3mXRALg==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=GyJz/9h1+JxLmmxRL+D0yQa5XYHdWHsjafulycnwcRM=;
- b=o22tKsJQMrwGdBKluWg4kqooNaePONWNecFxV0uCnY01uUTxmEwmeHATU6mkE2c8nTblqWUV1jRiSUX2edrJx/hRT0ok+ZSo5Z7+B0Yk1UE3gGgKjN0oNF02jwIXsDV2Sv+eUfn09T03ugX5uKecLwvvSNz/JNVsMWt6akYoolra2P64aqxyk2BCtYoeK0aHKVKVPgM4M78NKrJRkwAczrnctvk0UpUgKas+KnPUZ5rGW/Mz5a7Moq3DlPdyXIwQxg9xAMMDXcIgLrmyvHti8Yu4rGxn81c+I7OwvW/1HuyNRp+YijMCmPZopXqEonGssZQ/Z8TrAChv621WRXq4lw==
+ bh=hvhAXoG9GESkVNki7FPp+cmB6oYXLuirLqLKIFWoQbY=;
+ b=NHrkyHlkrzgsW1zCiJPtiKT2DV4MlXZ0ovETAWqPlELAZq+aOQLfamKCQnNoMXLuSNE6rwLBnCghvledTToYAN92gH2YhHAVJZD2CLS1K+T7gsxzvldxmBhv6FaEjmZhq2fb4mseDDSByIJrAcLevVvtwjy6/XjU+mcnKG7iT8FIbDiczSVM0PXgaxOcY8ae8b7D/DgjgyVfm+mT6muVKFI3AMmnz2IxLg6qYthqNTemheWhytJvplrUdMqZNyBw+md8s4aVkJMR707aUR6NLNh8SHpG1m1bVg55OLjmxJ5p78Pk9CgBSXqU1nTQZogAuZgeN7XYuJHMBSiWVdjIkw==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=arm.com; dmarc=pass action=none header.from=arm.com; dkim=pass
  header.d=arm.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=arm.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=GyJz/9h1+JxLmmxRL+D0yQa5XYHdWHsjafulycnwcRM=;
- b=aFVZoTMKeiGY5j+s9ZSlnGbbVb/F9qqwxTqwrBDHhIVRn5Js1HLVqcyA5fnTUR8rzStTWaG1CsBfyaODi4X42cMUQqpCa960rSQdJpniESqAKa7ZRoVIGdykNO7IjPAY6La5qrFIMwTejkEz1kGiWnNyRsoGHt6a1ERkMgeYpjA=
+ bh=hvhAXoG9GESkVNki7FPp+cmB6oYXLuirLqLKIFWoQbY=;
+ b=bWm23t2/oEvYamXDLU8w/Cac/7byXZAtwogHuzgfE0oWRCG2M5pdBIVKz6zbRXznLmlBS0p0NyJfXtgP93sjMCh0fomJYbP3uBFEjXIGID0XC2xagCbXcD9iIOfya5At9cLmeM7Z+eCf+fjStJWKHIsGQCL6gcOGUj6JPapn1U8=
 Authentication-Results-Original: mx.microsoft.com 1; dkim=none (message not
  signed) header.d=none;dmarc=none action=none header.from=arm.com;
 Received: from MMZPR08MB669593.eurprd08.prod.outlook.com (2603:10a6:190:53::6)
- by PA6PR08MB10858.eurprd08.prod.outlook.com (2603:10a6:102:3d8::14)
+ by VI3PR08MB938182.eurprd08.prod.outlook.com (2603:10a6:800:374::19)
  with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.639.13; Tue, 24 Nov
- 2026 16:20:22 +0000
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.639.14; Tue, 24 Nov
+ 2026 16:20:20 +0000
 Received: from MMZPR08MB669593.eurprd08.prod.outlook.com
  ([fe80::f3ef:efa8:e69:8b28]) by MMZPR08MB669593.eurprd08.prod.outlook.com
  ([fe80::f3ef:efa8:e69:8b28%7]) with mapi id 15.21.0639.012; Tue, 24 Nov 2026
- 16:20:22 +0000
+ 16:20:20 +0000
 From: Karunika Choo <karunika.choo@arm.com>
 To: dri-devel@lists.freedesktop.org
 Cc: nd@arm.com, Boris Brezillon <boris.brezillon@collabora.com>,
@@ -88,60 +88,61 @@ Cc: nd@arm.com, Boris Brezillon <boris.brezillon@collabora.com>,
  Maxime Ripard <mripard@kernel.org>,
  Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>,
  Simona Vetter <simona@ffwll.ch>
-Subject: [PATCH v5 7/9] drm/panthor: Skip devfreq when explicitly disabled
-Date: Tue, 24 Nov 2026 16:19:45 +0000
-Message-ID: <20261124161952.1053586-8-karunika.choo@arm.com>
+Subject: [PATCH v5 6/9] drm/panthor: Derive MMU AS register addresses from
+ base and stride
+Date: Tue, 24 Nov 2026 16:19:44 +0000
+Message-ID: <20261124161952.1053586-7-karunika.choo@arm.com>
 X-Mailer: git-send-email 2.43.0
 In-Reply-To: <20261124161952.1053586-1-karunika.choo@arm.com>
 References: <20261124161952.1053586-1-karunika.choo@arm.com>
 Content-Transfer-Encoding: 8bit
 Content-Type: text/plain
-X-ClientProxiedBy: LO4P123CA0637.GBRP123.PROD.OUTLOOK.COM
- (2603:10a6:600:296::14) To MMZPR08MB669593.eurprd08.prod.outlook.com
+X-ClientProxiedBy: PAZP264CA0104.FRAP264.PROD.OUTLOOK.COM
+ (2603:10a6:102:1fb::13) To MMZPR08MB669593.eurprd08.prod.outlook.com
  (2603:10a6:190:53::6)
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
-X-MS-TrafficTypeDiagnostic: MMZPR08MB669593:EE_|PA6PR08MB10858:EE_|MI3PEPF00008496:EE_|AM0PR08MB5348:EE_
-X-MS-Office365-Filtering-Correlation-Id: 63680bc9-c4ea-4c1f-8770-08df4a46ec77
+X-MS-TrafficTypeDiagnostic: MMZPR08MB669593:EE_|VI3PR08MB938182:EE_|MAD0EPF000008A8:EE_|PAXPR08MB7621:EE_
+X-MS-Office365-Filtering-Correlation-Id: 2dc0bb1e-b0d2-432a-af4e-08df4a46e91f
 X-LD-Processed: f34e5979-57d9-4aaa-ad4d-b122a662184d,ExtAddr,ExtAddr
 x-checkrecipientrouted: true
 NoDisclaimer: true
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam-Untrusted: BCL:0;
- ARA:13230040|23010399003|1800799024|366016|376014|18002099003|6133799003|22082099003|56012099006|261021121427099003|261102123227099003|11063799006|261021123027099003|261022105027099003|261026140227099003|261009223027099003|261026121527099003|10067099003|261028144727099003;
-X-Microsoft-Antispam-Message-Info-Original: saMAvwyZQ5mR43T708HzSNxMluE+Qe88k6YCEvht1BH2pCHQsWi0xvau8TEegTqFBt/stWjCH0S3KQdlrSfHj8RL7MnZ4/p4uhWYacq017O5c+r2JfpwEq+7NfIxC43bPCUsZA+/2Tuck3dBq5KdAAqj41+8nLQIxOaPPwDNWfCYiZQf+XqslQbRPvPlBF2G3d4p3VtbSMQZYibnlcIkF9wl6wLYJdICrdMd6s+bJJPsD80M7jMIVYEUsUWgscrilaULJLbWnxJpKCQAzRCvW1yOLXBhw24kH7o8KVBMk6txqf6dWx4hXHjqFTjkYRss4T6VtMOsyQtmsz14DLvJuR7rsWf2lY4PwnPN0cRu72uQERs1yQNeKLWeAFm1HYwWrLcq0wk3V0w7FcoHF8IU9A69mC0q95nSBV9DBVlb55nH73hEzhnszbt+uNaiWphVNOrp+hKoohaozvGKcWYsl8it5KhYCUZ9C3B4lb5+r0By+4oKPelZByZT9CuHEAPWWpFK9Y7SwCrMQjccJ8AIcJXzNmSQw4Qh2B4El4IFFdbja06AosSKtiaA40/gtf/r10WY/XFWmC+0yi2uKhV/34rNPWEriM0iqYX6gFo36HpaJSvOY5GFkz29I4Fc9vltvKpDVmkWYMRwmS8UEatgl9y5RiyV6iNc1oB+SzHeJNc=
+ ARA:13230040|23010399003|366016|376014|1800799024|18002099003|22082099003|3023799007|11063799006|56012099006|261021121427099003|261102123227099003|261026121527099003|261026140227099003|261021123027099003|261022105027099003|261022075727099003|261009223027099003|261028144727099003|10067099003;
+X-Microsoft-Antispam-Message-Info-Original: CZOa0ygxRQSQ82wXkBS8WmysgmPYqCwEZ539z9OilY/NWzT5VWQOYu2DUcpakLpPuN3nt5lg/Z4fze4DB6fhpr2eDCrJ46YJezOC2O6VCtgwjalRlYH8YfvB69oQ2b9gNI75Gwi0hKZmu9nHoK3Q1MjR8rjOHet+s3MXw2uOKS9cOqe0klWkmggw2Sp4CllKesvpeY2ZI4pKLlIenu1yb54v36totTEqrhhXB+euQh0uOhkPhxsOZwzTYzV/oZPkr9Z2skE3z7u3N0+ISYfJk0yUgtS5mSI9BXIxgy8na5k/ib1ECSTfp76cWTfcJyN/Skz1HjmM5eMhGCPwnUU7DOPoMrUPoSbdDtx6TNlTsgFPdRl/gN6IQY8h5A6AbyrhirilpaFTsjnkRTMUJ3fInLGVq7Sue01sizFk9vfbtOc+UwlDlaGxS7/XEbjQvg16Dks1gWd+a1Hz/+WakpQP0hQzqFHMFbCMExwWLlZtoGEnlpHXoruNmxYrThT4MRYwKy4FoSMO57VN0vO2rBZ+IWVpPRR1pg6MbVIkfHinVhVwJ94zxsZjMu7udhbrIaz1aogrmE7qJQ0OgiyxolToWxitrl50dVUW1zbzwVQQ4DI4/sHKyJPgH8aK1Hhde1e7
 X-Forefront-Antispam-Report-Untrusted: CIP:255.255.255.255; CTRY:; LANG:en;
  SCL:1; SRV:; IPV:NLI; SFV:NSPM; H:MMZPR08MB669593.eurprd08.prod.outlook.com;
  PTR:; CAT:NONE;
- SFS:(13230040)(23010399003)(1800799024)(366016)(376014)(18002099003)(6133799003)(22082099003)(56012099006)(261021121427099003)(261102123227099003)(11063799006)(261021123027099003)(261022105027099003)(261026140227099003)(261009223027099003)(261026121527099003)(10067099003)(261028144727099003);
+ SFS:(13230040)(23010399003)(366016)(376014)(1800799024)(18002099003)(22082099003)(3023799007)(11063799006)(56012099006)(261021121427099003)(261102123227099003)(261026121527099003)(261026140227099003)(261021123027099003)(261022105027099003)(261022075727099003)(261009223027099003)(261028144727099003)(10067099003);
  DIR:OUT; SFP:1101; 
-X-Exchange-RoutingPolicyChecked: fHgtZpAbKN43N9ES1VYjbTzWNvntt/7LolAoLoKyNQjSd2piQLNrU2IsJfgmbmWPardYlI8VuUTmhqBWx+maxeqUCe7j/I8jRAdOsmAMHbYKnwBVG3bsF6BkbVYzaMEeEexTUdr1ee/qk6ST6kPTM+wGpX7QZhd/QAQQ1sqSFICkSZPJNKrn23pxx+uvsUuU47lLJgOwRSQ1RpSL4sprWoCC7I2+xuExLZCRMg8/ZkzVEW2Pg4mK4IVEfTec2yz6/kwaiEh7TuaCr5O/bbHZkJWSyLNrauQgdkQnxiXMAiGSc4Al4gEJgwWufkf7OIZ9zBvKj0c0qVR9AWDoIXlrxg==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: PA6PR08MB10858
+X-Exchange-RoutingPolicyChecked: UUdPGcGqztPMLkhmYK185T/CVf0h6tTO0a5Z8bB10GYDEbdeC3aYuyET1hGUOcbENPaMW6vLXkAEbjFfzohv5lngyVAoOXThvAH/+TtSPcURrZWE6IZ89pQB1gytNtK87wvn5wUcyahQU3mpdwQ6qLvqpLt1Nk+as1hepvMQ97TjxvMpSd2HKdfQkdeMm2MrXHk53yEIZlIB+QN3uuoxGCR7ipg7x006duUxt9a8ceCMdgfPeimayn9jFtAUfzRpDtxBITAAOC6WqOFjuMUWiQ4yHS0BobdQsM0FkSlySh899xHdKDEHBdj+nN4r4MWDePLLB4tfoAgI3CGmrpZJPw==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: VI3PR08MB938182
 X-EOPAttributedMessage: 0
-X-MS-Exchange-Transport-CrossTenantHeadersStripped: MI3PEPF00008496.eurprd03.prod.outlook.com
+X-MS-Exchange-Transport-CrossTenantHeadersStripped: MAD0EPF000008A8.eurprd04.prod.outlook.com
 X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-Correlation-Id-Prvs: 24045a0f-ffb1-4757-00d3-08df4a46d6f4
+X-MS-Office365-Filtering-Correlation-Id-Prvs: 143fdb0f-e617-4215-5b79-08df4a46d56d
 X-Microsoft-Antispam: BCL:0;
- ARA:13230040|82310400026|35042699022|376014|36860700016|14060799003|23010399003|1800799024|18002099003|22082099003|6133799003|56012099006|11063799006|261028144727099003|261102123227099003|261009223027099003|261026140227099003|261022105027099003|261021123027099003|261026121527099003|261021121427099003|10067099003;
-X-Microsoft-Antispam-Message-Info: 2fvqoKU619nSHG+UP1whEvyGHJINuNl8HIxhdVfsF1MujCfyalU9UZYOYQ+ADyR19dwziH1/TmAgf0pi/XFAwMlGacu7lBBKPhpfbXxvG6i62aWla8++Y7r+dOnqCPfZxUaVFDKBIAzOd8Tycx7nOkGsXuPqhpuCPH/BsIeZBYJk+X4Kr2laCYnvzuzJvl/WBqsKn1xLRCrACJo3VjO96jIGl8JQ3rI+zQrCRAIgB9Qvp6kFz97qhe/xvOlz/uABS0um5QJQq4zmzvYV/K/LO2hZzSR+7HDmlBk+jNx8s+vMsNFzrc7sKxw0zYWKY2Scky6zpj4M2mpUigOox9Tj1kdl3vNyMYaQ41QGlylNPMvosYxql97OpIoJFAVLRk6yA6XiA+9iRPYC5EkFzAPSc3De48BMC9vC0E8nUfDdkdc/imJKtARdDLIVxumnrLJ2evy2haskcWQ4HO2R++nKC3ZMgSh9a9rEkNx1z084IhxR9KH0mNWzguEAOW4xuX7EDgpRnL+1j/XjAJcDDrtHlPf1xem2W2weDveJ5jlmuYd3Bm+EGwotgQzC6uWmYfribgdpeJbATNTwbqTrIy+/rbyZiJycWzmouOoIx3ObbPev0c1j9aGyb3ygnPzPjOj73hHPBwvrfOe/kzi7HlTWU37m62TcvQw8KAyqMJvFjNCSH8LageINsmfXPz+Ne/75ycj1iSNBfQdN3ZJRswZylg==
+ ARA:13230040|23010399003|35042699022|376014|36860700016|14060799003|1800799024|82310400026|10067099003|11063799006|261028144727099003|56012099006|261022105027099003|261022075727099003|261021123027099003|261026121527099003|261026140227099003|261021121427099003|261102123227099003|261009223027099003|18002099003|22082099003|13003099007|3023799007;
+X-Microsoft-Antispam-Message-Info: +JU3M1hK0MBYkzXjtCqzyoZ0uESzHaQxcONIDdgDXZcCjEjMAk0e5lqAk6HSyQm19iwLj12lweNnJew12IOd7Ijft/ekjmF0jMRENAxERYESkEHpyyMwINIFSA+FX65VYxb1+0OGXS08bpsNGJKGhUnuwuv1tcdhnsf2/HbOaRHbDJ886Nsj1lkDg2EI1a4wZEViqbNpnco+9sYHLPvLuADSypcd+SlzjGIXtbdycS4AM4zasEtWoknhgEfRZ1bVg+EL1yifv+L3LyfwGHmpLOVQmiQodsd92M8JX5hTjYfIXHMAA7vpYmMFVbE+n3MHAb+fw/R8ecpUXj1Wu2DgddOgdGxWQia5nZKhSm5uL41gYsoQv8wmrh2J9lNpAC8lwYtX9yKa0ulNQy+dscabNkPtg8lBA3DaKXcfTKfqtwUFInjsS1gMVQJiETzAANdihQMG0jEhg5bwn201aHozvuqConY1OFEqny6GmKknRMm7izNxD7kCl7xGCQ1+2a4fg3veQIHhpGUiDd2Q6rsf5GABoJBKzh8tiT9T3tTZgDVFgscQ2Ue0t4435HHi8UKrbEmm8rawfwnJ2f8f1qSSfZCodpV6+Qb70WoMoaXE1ECDQqXpEKH+Wj20HqV/ds/L93Jc2Smv39Bz51iVv8fZOokrGYcrDxEjormJ0WB3drE=
 X-Forefront-Antispam-Report: CIP:4.158.2.129; CTRY:GB; LANG:en; SCL:1; SRV:;
  IPV:NLI; SFV:NSPM; H:outbound-uk1.az.dlp.m.darktrace.com;
  PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230040)(82310400026)(35042699022)(376014)(36860700016)(14060799003)(23010399003)(1800799024)(18002099003)(22082099003)(6133799003)(56012099006)(11063799006)(261028144727099003)(261102123227099003)(261009223027099003)(261026140227099003)(261022105027099003)(261021123027099003)(261026121527099003)(261021121427099003)(10067099003);
+ SFS:(13230040)(23010399003)(35042699022)(376014)(36860700016)(14060799003)(1800799024)(82310400026)(10067099003)(11063799006)(261028144727099003)(56012099006)(261022105027099003)(261022075727099003)(261021123027099003)(261026121527099003)(261026140227099003)(261021121427099003)(261102123227099003)(261009223027099003)(18002099003)(22082099003)(13003099007)(3023799007);
  DIR:OUT; SFP:1101; 
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: bl8DzUESjv5Ez5lHzTW+k9dYPgdS2wRkZ148Ar/DGI4kIDUs/rD6zDJY9pTmPi935PF7UvFX2mxvMr4pPjOuiHchq/lDSVu0rnqiMupCdDriKOsTFXV+5otygbRfVX5yQkEOk+uakabh+JHMkZccEmr9j1Vju7tN+ucqK2roux6UZx+38a6pXCxR/ybsb+STMQ2ui9RNNCPE8bKfTUUOntjQ4EbICmQCJKDOXq6SVakwsUcnVKKV6AcN3VLOVJh7Y9vu/Rxj/HtcZDoLi+O1oKQItJm4EPvF99sQ+8o68Pl6ABn1+ob171cR+OGRtxbxXJPbypYOs7g7HFf47l3QAq8HtZqwZnHGCQCluhfV0A0Zg+elmC0Unjg+6L6HAL7A0FTBUJ0F8Ezh0MMm38CRAoEkXGQGVpkyGonBi85LD1F9YRIKu+5PrapFEClWm2vn
+X-MS-Exchange-AntiSpam-MessageData-0: dMpToIlxPWl0w7EIXctxJTFxYWGVKstDbKIdoY+pEaIJyp5x+JSd2XCm430iXH3EotmTatSUAWDSoVgo5z7hXViXAuj8Ze6vEELjehAckoRgStq9jjS9MIGhmVfr3Xt9apcoQVhHWOnbrT68oPhAQqi75OCw7uwQ75f7qUAo1LsRODmAJDvIs/NvbSWPMruUL4RSAAXWhowU5EOMao1jW5EfyjD0pBC0OFpJ1j/bZwjukvMiPhcWyhbbQrxl+ZuXWwSvVRyDSXqXuccpqcsGMKtWd7OzD67+3G3Nav+49PvH7IUM4PUS39StT0mcBxfS71IXJE9H4uY3zfeQt+5uly/zMB4+0dyJQhj+2CwGlU/Jut7X+ETGQXPrG4T53A85PbwiyD8rzGrj425HGzGNnS2FUINx/tZ4dBB63mG9yz7PpJ+rK7/+shG9ohe5sOZa
 X-OriginatorOrg: arm.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 24 Nov 2026 16:20:58.3437 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 63680bc9-c4ea-4c1f-8770-08df4a46ec77
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 24 Nov 2026 16:20:52.5143 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 2dc0bb1e-b0d2-432a-af4e-08df4a46e91f
 X-MS-Exchange-CrossTenant-Id: f34e5979-57d9-4aaa-ad4d-b122a662184d
 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=f34e5979-57d9-4aaa-ad4d-b122a662184d; Ip=[4.158.2.129];
  Helo=[outbound-uk1.az.dlp.m.darktrace.com]
-X-MS-Exchange-CrossTenant-AuthSource: MI3PEPF00008496.eurprd03.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthSource: MAD0EPF000008A8.eurprd04.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Anonymous
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: AM0PR08MB5348
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: PAXPR08MB7621
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -161,124 +162,285 @@ X-Spam-Status: No, score=-18.8 required=3.0 tests=BAYES_00,DKIM_SIGNED,
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-On Mali v15 AM systems, frequency scaling is handled outside panthor by
-the AM_GOVERNOR block, so the GPU DT node may not provide an OPP table.
+Move the MMU address-space register layout into the hardware description
+by storing the MMU_AS base offset and per-AS stride in the Panthor HW
+map.
 
-Add generic devfreq_disabled field to panthor_soc_data to allow
-disabling of devfreq for other use GPUs and make panthor_devfreq_init()
-return early when this flag is set. Ensure frequency can be queried
-without devfreq instance and omit drm-maxfreq-panthor from fdinfo when
-the maximum frequency is unknown.
+Use those values to compute the iomem pointer for each AS slot and make
+the MMU AS register definitions relative to the per-slot register window
+instead of hard-coding the slot offset in every register macro.
+
+This prepares the MMU code for GPUs where the MMU AS register region is
+not at a fixed offset while keeping the existing register accesses
+scoped to a single AS window.
 
 Reviewed-by: Boris Brezillon <boris.brezillon@collabora.com>
+Reviewed-by: Liviu Dudau <liviu.dudau@arm.com>
 Signed-off-by: Karunika Choo <karunika.choo@arm.com>
 ---
-v5:
-- Picked up R-b from Boris.
 v4:
-- Use panthor_soc_data flags instead of compatible to allow earlier GPUs
-  to also disable devfreq. Resetting R-bs as a result.
-v3:
-- Omit drm-maxfreq-panthor from fdinfo when the maximum frequency
-  is unknown, as on AM systems without an OPP table.
+- Picked up R-b from Boris
 v2:
-- Directly call functions instead of storing function pointers.
 - Picked up R-b from Liviu
+- Avoid enabling all AS IRQs on init and replace with explicit IRQ clear
+  to preserve init behaviour. AS IRQs are enabled as part of
+  panthor_mmu_as_enable(). This also prevents accessing NULL iomem
+  pointers for initialized AS during init per sashiko's comment.
+- Link: https://lore.kernel.org/all/20260922210016.0C0961F000FF@smtp.kernel.org/
 v1:
-- Only skip panthor_devfreq init when OPP lookup returns -ENODEV instead
-  of direct DT-property check.
-- Support frequency query without devfreq.
+- align with updated panthor_hw_regbank structure.
+- moved AS iomem tracking into panthor_as_slot and introduced as_iomem()
+  to retrieve it.
 
- drivers/gpu/drm/panthor/panthor_devfreq.c |  9 +++++++--
- drivers/gpu/drm/panthor/panthor_device.h  |  3 +++
- drivers/gpu/drm/panthor/panthor_drv.c     |  5 ++++-
- drivers/gpu/drm/panthor/panthor_hw.h      | 10 ++++++++++
- 4 files changed, 24 insertions(+), 3 deletions(-)
+ drivers/gpu/drm/panthor/panthor_hw.c       |  8 ++++
+ drivers/gpu/drm/panthor/panthor_hw.h       |  3 ++
+ drivers/gpu/drm/panthor/panthor_mmu.c      | 47 ++++++++++++++--------
+ drivers/gpu/drm/panthor/panthor_mmu_regs.h | 23 +++++------
+ 4 files changed, 51 insertions(+), 30 deletions(-)
 
-diff --git a/drivers/gpu/drm/panthor/panthor_devfreq.c b/drivers/gpu/drm/panthor/panthor_devfreq.c
-index 2249b41ca4afe..8b215e24b02c3 100644
---- a/drivers/gpu/drm/panthor/panthor_devfreq.c
-+++ b/drivers/gpu/drm/panthor/panthor_devfreq.c
-@@ -12,6 +12,7 @@
+diff --git a/drivers/gpu/drm/panthor/panthor_hw.c b/drivers/gpu/drm/panthor/panthor_hw.c
+index 4fe9e6aeadf76..593bf6743d6df 100644
+--- a/drivers/gpu/drm/panthor/panthor_hw.c
++++ b/drivers/gpu/drm/panthor/panthor_hw.c
+@@ -43,6 +43,10 @@ static struct panthor_hw panthor_hw_arch_v10 = {
+ 		.mcu_control = {
+ 			.offset = 0x700,
+ 		},
++		.mmu_as_control = {
++			.offset = 0x2400,
++			.stride = 0x40,
++		},
+ 	},
+ };
  
- #include "panthor_devfreq.h"
- #include "panthor_device.h"
-+#include "panthor_hw.h"
+@@ -62,6 +66,10 @@ static struct panthor_hw panthor_hw_arch_v14 = {
+ 		.pwr_control = {
+ 			.offset = 0x800,
+ 		},
++		.mmu_as_control = {
++			.offset = 0x2400,
++			.stride = 0x40,
++		},
+ 	},
+ };
  
- /**
-  * struct panthor_devfreq - Device frequency management
-@@ -154,6 +155,9 @@ int panthor_devfreq_init(struct panthor_device *ptdev)
+diff --git a/drivers/gpu/drm/panthor/panthor_hw.h b/drivers/gpu/drm/panthor/panthor_hw.h
+index 0a82152d772ad..4cb603a3acef6 100644
+--- a/drivers/gpu/drm/panthor/panthor_hw.h
++++ b/drivers/gpu/drm/panthor/panthor_hw.h
+@@ -49,6 +49,9 @@ struct panthor_hw_regs_layout {
  
- 	ptdev->devfreq = pdevfreq;
- 
-+	if (panthor_hw_is_devfreq_disabled(ptdev))
-+		return 0;
+ 	/** @mcu_control: MCU_CONTROL register bank layout */
+ 	struct panthor_hw_regbank mcu_control;
 +
- 	/*
- 	 * The power domain associated with the GPU may have already added an
- 	 * OPP table, complete with OPPs, as part of the platform bus
-@@ -324,9 +328,10 @@ unsigned long panthor_devfreq_get_freq(struct panthor_device *ptdev)
- 	int ret;
- 
- 	if (!pdevfreq->devfreq)
--		return 0;
-+		ret = panthor_devfreq_get_cur_freq(ptdev->base.dev, &freq);
-+	else
-+		ret = pdevfreq->devfreq->profile->get_cur_freq(ptdev->base.dev, &freq);
- 
--	ret = pdevfreq->devfreq->profile->get_cur_freq(ptdev->base.dev, &freq);
- 	if (ret)
- 		return 0;
- 
-diff --git a/drivers/gpu/drm/panthor/panthor_device.h b/drivers/gpu/drm/panthor/panthor_device.h
-index f0a96ff0f13da..31f9341b5aeda 100644
---- a/drivers/gpu/drm/panthor/panthor_device.h
-+++ b/drivers/gpu/drm/panthor/panthor_device.h
-@@ -45,6 +45,9 @@ struct panthor_soc_data {
- 
- 	/** @asn_hash: ASN_HASH values when asn_hash_enable is true. */
- 	u32 asn_hash[3];
-+
-+	/** @devfreq_disabled: True if devfreq is handled external to Panthor */
-+	bool devfreq_disabled;
++	/** @mmu_as_control: MMU_AS_CONTROL register bank layout */
++	struct panthor_hw_regbank mmu_as_control;
  };
  
  /**
-diff --git a/drivers/gpu/drm/panthor/panthor_drv.c b/drivers/gpu/drm/panthor/panthor_drv.c
-index dc8d0191aef42..b4d3d339b04b4 100644
---- a/drivers/gpu/drm/panthor/panthor_drv.c
-+++ b/drivers/gpu/drm/panthor/panthor_drv.c
-@@ -1715,7 +1715,10 @@ static void panthor_gpu_show_fdinfo(struct panthor_device *ptdev,
- 	if (ptdev->profile_mask & PANTHOR_DEVICE_PROFILING_CYCLES)
- 		drm_printf(p, "drm-cycles-panthor:\t%llu\n", pfile->stats.cycles);
- 
--	drm_printf(p, "drm-maxfreq-panthor:\t%lu Hz\n", ptdev->fast_rate);
-+	/* Omit the maximum frequency when it is unknown */
-+	if (ptdev->fast_rate)
-+		drm_printf(p, "drm-maxfreq-panthor:\t%lu Hz\n", ptdev->fast_rate);
+diff --git a/drivers/gpu/drm/panthor/panthor_mmu.c b/drivers/gpu/drm/panthor/panthor_mmu.c
+index d1c29eec46f21..718160c0779ae 100644
+--- a/drivers/gpu/drm/panthor/panthor_mmu.c
++++ b/drivers/gpu/drm/panthor/panthor_mmu.c
+@@ -35,6 +35,7 @@
+ #include "panthor_gpu.h"
+ #include "panthor_gpu_regs.h"
+ #include "panthor_heap.h"
++#include "panthor_hw.h"
+ #include "panthor_mmu.h"
+ #include "panthor_mmu_regs.h"
+ #include "panthor_sched.h"
+@@ -49,15 +50,15 @@ struct panthor_vm;
+ struct panthor_as_slot {
+ 	/** @vm: VM bound to this slot. NULL is no VM is bound. */
+ 	struct panthor_vm *vm;
 +
- 	drm_printf(p, "drm-curfreq-panthor:\t%lu Hz\n",
- 		   panthor_devfreq_get_freq(ptdev));
- }
-diff --git a/drivers/gpu/drm/panthor/panthor_hw.h b/drivers/gpu/drm/panthor/panthor_hw.h
-index 4cb603a3acef6..f93a6b16df2af 100644
---- a/drivers/gpu/drm/panthor/panthor_hw.h
-+++ b/drivers/gpu/drm/panthor/panthor_hw.h
-@@ -95,4 +95,14 @@ static inline bool panthor_hw_has_neural(struct panthor_device *ptdev)
- 		ptdev->gpu_info.gpu_features & GPU_FEATURES_NX);
++	/** @iomem: CPU mapping for MMU_AS_CONTROL iomem region */
++	void __iomem *iomem;
+ };
+ 
+ /**
+  * struct panthor_mmu - MMU related data
+  */
+ struct panthor_mmu {
+-	/** @iomem: CPU mapping of MMU_AS_CONTROL iomem region */
+-	void __iomem *iomem;
+-
+ 	/** @irq: The MMU irq. */
+ 	struct panthor_irq irq;
+ 
+@@ -533,6 +534,11 @@ static void free_pt(void *cookie, void *data, size_t size)
+ 	kmem_cache_free(pt_cache, data);
  }
  
-+static inline bool panthor_hw_is_devfreq_disabled(struct panthor_device *ptdev)
++static void __iomem *as_iomem(struct panthor_mmu *mmu, u32 as_nr)
 +{
-+	const struct panthor_soc_data *data = ptdev->soc_data;
-+
-+	if (!data)
-+		return false;
-+
-+	return data->devfreq_disabled;
++	return mmu->as.slots[as_nr].iomem;
 +}
 +
- #endif /* __PANTHOR_HW_H__ */
+ static int wait_ready(struct panthor_device *ptdev, u32 as_nr)
+ {
+ 	struct panthor_mmu *mmu = ptdev->mmu;
+@@ -542,7 +548,7 @@ static int wait_ready(struct panthor_device *ptdev, u32 as_nr)
+ 	/* Wait for the MMU status to indicate there is no active command, in
+ 	 * case one is pending.
+ 	 */
+-	ret = gpu_read_relaxed_poll_timeout_atomic(mmu->iomem, AS_STATUS(as_nr), val,
++	ret = gpu_read_relaxed_poll_timeout_atomic(as_iomem(mmu, as_nr), AS_STATUS, val,
+ 						   !(val & AS_STATUS_AS_ACTIVE), 10, 100000);
+ 
+ 	if (ret) {
+@@ -560,7 +566,7 @@ static int as_send_cmd_and_wait(struct panthor_device *ptdev, u32 as_nr, u32 cmd
+ 	/* write AS_COMMAND when MMU is ready to accept another command */
+ 	status = wait_ready(ptdev, as_nr);
+ 	if (!status) {
+-		gpu_write(ptdev->mmu->iomem, AS_COMMAND(as_nr), cmd);
++		gpu_write(as_iomem(ptdev->mmu, as_nr), AS_COMMAND, cmd);
+ 		status = wait_ready(ptdev, as_nr);
+ 	}
+ 
+@@ -603,9 +609,9 @@ static int panthor_mmu_as_enable(struct panthor_device *ptdev, u32 as_nr,
+ 
+ 	panthor_irq_enable_events(&ptdev->mmu->irq, MMU_INT_AS_FAULT(as_nr));
+ 
+-	gpu_write64(mmu->iomem, AS_TRANSTAB(as_nr), transtab);
+-	gpu_write64(mmu->iomem, AS_MEMATTR(as_nr), memattr);
+-	gpu_write64(mmu->iomem, AS_TRANSCFG(as_nr), transcfg);
++	gpu_write64(as_iomem(mmu, as_nr), AS_TRANSTAB, transtab);
++	gpu_write64(as_iomem(mmu, as_nr), AS_MEMATTR, memattr);
++	gpu_write64(as_iomem(mmu, as_nr), AS_TRANSCFG, transcfg);
+ 
+ 	return as_send_cmd_and_wait(ptdev, as_nr, AS_COMMAND_UPDATE);
+ }
+@@ -627,9 +633,9 @@ static int panthor_mmu_as_disable(struct panthor_device *ptdev, u32 as_nr)
+ 			return ret;
+ 	}
+ 
+-	gpu_write64(mmu->iomem, AS_TRANSTAB(as_nr), 0);
+-	gpu_write64(mmu->iomem, AS_MEMATTR(as_nr), 0);
+-	gpu_write64(mmu->iomem, AS_TRANSCFG(as_nr), AS_TRANSCFG_ADRMODE_UNMAPPED);
++	gpu_write64(as_iomem(mmu, as_nr), AS_TRANSTAB, 0);
++	gpu_write64(as_iomem(mmu, as_nr), AS_MEMATTR, 0);
++	gpu_write64(as_iomem(mmu, as_nr), AS_TRANSCFG, AS_TRANSCFG_ADRMODE_UNMAPPED);
+ 
+ 	ret = as_send_cmd_and_wait(ptdev, as_nr, AS_COMMAND_UPDATE);
+ 	if (ret)
+@@ -1799,7 +1805,7 @@ static int panthor_vm_lock_region(struct panthor_vm *vm, u64 start, u64 size)
+ 	mutex_lock(&ptdev->mmu->as.slots_lock);
+ 	if (vm->as.id >= 0 && size) {
+ 		/* Lock the region that needs to be updated */
+-		gpu_write64(ptdev->mmu->iomem, AS_LOCKADDR(vm->as.id),
++		gpu_write64(as_iomem(ptdev->mmu, vm->as.id), AS_LOCKADDR,
+ 			    pack_region_range(ptdev, &start, &size));
+ 
+ 		/* If the lock succeeded, update the locked_region info. */
+@@ -1861,8 +1867,8 @@ static void panthor_mmu_irq_handler(struct panthor_irq *pirq, u32 status)
+ 		u32 access_type;
+ 		u32 source_id;
+ 
+-		fault_status = gpu_read(mmu->iomem, AS_FAULTSTATUS(as));
+-		addr = gpu_read64(mmu->iomem, AS_FAULTADDRESS(as));
++		fault_status = gpu_read(as_iomem(mmu, as), AS_FAULTSTATUS);
++		addr = gpu_read64(as_iomem(mmu, as), AS_FAULTADDRESS);
+ 
+ 		/* decode the fault status */
+ 		exception_type = fault_status & 0xFF;
+@@ -3429,8 +3435,11 @@ static void panthor_mmu_info_init(struct panthor_device *ptdev)
+ int panthor_mmu_init(struct panthor_device *ptdev)
+ {
+ 	u32 va_bits = GPU_MMU_FEATURES_VA_BITS(ptdev->gpu_info.mmu_features);
++	unsigned long as_present_mask = ptdev->gpu_info.as_present;
++	struct panthor_hw_regbank *regbank = &ptdev->hw->regs.mmu_as_control;
+ 	struct panthor_mmu *mmu;
+ 	int ret, irq;
++	u32 as_id;
+ 
+ 	panthor_mmu_info_init(ptdev);
+ 
+@@ -3449,7 +3458,13 @@ int panthor_mmu_init(struct panthor_device *ptdev)
+ 	if (ret)
+ 		return ret;
+ 
+-	mmu->iomem = ptdev->iomem + MMU_AS_BASE;
++	for_each_set_bit(as_id, &as_present_mask, MAX_AS_SLOTS) {
++		u64 offset = regbank->offset + (regbank->stride * as_id);
++
++		guard(mutex)(&mmu->as.slots_lock);
++		mmu->as.slots[as_id].iomem = ptdev->iomem + offset;
++	}
++
+ 	ptdev->mmu = mmu;
+ 
+ 	irq = platform_get_irq_byname(to_platform_device(ptdev->base.dev), "mmu");
+@@ -3479,7 +3494,7 @@ int panthor_mmu_init(struct panthor_device *ptdev)
+ 	if (ret)
+ 		return ret;
+ 
+-	panthor_irq_enable_events(&mmu->irq, panthor_mmu_fault_mask(ptdev, ~0));
++	gpu_write(mmu->irq.iomem, INT_CLEAR, panthor_mmu_fault_mask(ptdev, ~0));
+ 	panthor_irq_resume(&mmu->irq);
+ 	return 0;
+ }
+diff --git a/drivers/gpu/drm/panthor/panthor_mmu_regs.h b/drivers/gpu/drm/panthor/panthor_mmu_regs.h
+index 1ec7f5ef2b196..82661283b46ab 100644
+--- a/drivers/gpu/drm/panthor/panthor_mmu_regs.h
++++ b/drivers/gpu/drm/panthor/panthor_mmu_regs.h
+@@ -11,13 +11,8 @@
+ 
+ /* AS_COMMAND register commands */
+ 
+-#define MMU_AS_BASE					0x2400
+-
+-#define MMU_AS_SHIFT					6
+-#define MMU_AS(as)					((as) << MMU_AS_SHIFT)
+-
+-#define AS_TRANSTAB(as)					(MMU_AS(as) + 0x0)
+-#define AS_MEMATTR(as)					(MMU_AS(as) + 0x8)
++#define AS_TRANSTAB					0x0
++#define AS_MEMATTR					0x8
+ #define   AS_MEMATTR_AARCH64_INNER_ALLOC_IMPL		(2 << 2)
+ #define   AS_MEMATTR_AARCH64_INNER_ALLOC_EXPL(w, r)	((3 << 2) | \
+ 							 ((w) ? BIT(0) : 0) | \
+@@ -29,8 +24,8 @@
+ #define   AS_MEMATTR_AARCH64_INNER_OUTER_NC		(1 << 6)
+ #define   AS_MEMATTR_AARCH64_INNER_OUTER_WB		(2 << 6)
+ #define   AS_MEMATTR_AARCH64_FAULT			(3 << 6)
+-#define AS_LOCKADDR(as)					(MMU_AS(as) + 0x10)
+-#define AS_COMMAND(as)					(MMU_AS(as) + 0x18)
++#define AS_LOCKADDR					0x10
++#define AS_COMMAND					0x18
+ #define   AS_COMMAND_NOP				0
+ #define   AS_COMMAND_UPDATE				1
+ #define   AS_COMMAND_LOCK				2
+@@ -38,16 +33,16 @@
+ #define   AS_COMMAND_FLUSH_PT				4
+ #define   AS_COMMAND_FLUSH_MEM				5
+ #define   AS_LOCK_REGION_MIN_SIZE			(1ULL << 15)
+-#define AS_FAULTSTATUS(as)				(MMU_AS(as) + 0x1C)
++#define AS_FAULTSTATUS					0x1C
+ #define  AS_FAULTSTATUS_ACCESS_TYPE_MASK		(0x3 << 8)
+ #define  AS_FAULTSTATUS_ACCESS_TYPE_ATOMIC		(0x0 << 8)
+ #define  AS_FAULTSTATUS_ACCESS_TYPE_EX			(0x1 << 8)
+ #define  AS_FAULTSTATUS_ACCESS_TYPE_READ		(0x2 << 8)
+ #define  AS_FAULTSTATUS_ACCESS_TYPE_WRITE		(0x3 << 8)
+-#define AS_FAULTADDRESS(as)				(MMU_AS(as) + 0x20)
+-#define AS_STATUS(as)					(MMU_AS(as) + 0x28)
++#define AS_FAULTADDRESS					0x20
++#define AS_STATUS					0x28
+ #define   AS_STATUS_AS_ACTIVE				BIT(0)
+-#define AS_TRANSCFG(as)					(MMU_AS(as) + 0x30)
++#define AS_TRANSCFG					0x30
+ #define   AS_TRANSCFG_ADRMODE_UNMAPPED			(1 << 0)
+ #define   AS_TRANSCFG_ADRMODE_IDENTITY			(2 << 0)
+ #define   AS_TRANSCFG_ADRMODE_AARCH64_4K		(6 << 0)
+@@ -65,6 +60,6 @@
+ #define   AS_TRANSCFG_DISABLE_AF_FAULT			BIT(34)
+ #define   AS_TRANSCFG_WXN				BIT(35)
+ #define   AS_TRANSCFG_XREADABLE				BIT(36)
+-#define AS_FAULTEXTRA(as)				(MMU_AS(as) + 0x38)
++#define AS_FAULTEXTRA					0x38
+ 
+ #endif /* __PANTHOR_MMU_REGS_H__ */
 -- 
 2.43.0
 
