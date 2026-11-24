@@ -2,94 +2,101 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E3C45606A31E
-	for <dri-devel@archiver.kernel.org>; Tue, 24 Nov 2026 13:52:25 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7039B606A31E
+	for <dri-devel@archiver.kernel.org>; Tue, 24 Nov 2026 13:52:58 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=fairphone.com header.i=@fairphone.com header.a=rsa-sha256 header.s=fair header.b=rj71v5f1
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=JOU7hONV
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 6107210E874;
-	Tue, 24 Nov 2026 13:52:20 +0000 (UTC)
-Received: from mail-ed1-f53.google.com (mail-ed1-f53.google.com
- [209.85.208.53])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 41CA910E897
- for <dri-devel@lists.freedesktop.org>; Tue, 24 Nov 2026 13:52:14 +0000 (UTC)
-Received: by mail-ed1-f53.google.com with SMTP id
- 4fb4d7f45d1cf-6b88b74e54eso5526085a12.0
- for <dri-devel@lists.freedesktop.org>; Tue, 24 Nov 2026 05:52:14 -0800 (PST)
+	by gabe.freedesktop.org (Postfix) with ESMTP id DADE010E23A;
+	Tue, 24 Nov 2026 13:52:52 +0000 (UTC)
+Received: from mail-ed1-f51.google.com (mail-ed1-f51.google.com
+ [209.85.208.51])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 079CD10E23A
+ for <dri-devel@lists.freedesktop.org>; Tue, 24 Nov 2026 13:52:45 +0000 (UTC)
+Received: by mail-ed1-f51.google.com with SMTP id
+ 4fb4d7f45d1cf-6b894a5ce3dso6140932a12.2
+ for <dri-devel@lists.freedesktop.org>; Tue, 24 Nov 2026 05:52:45 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=fairphone.com; s=fair; t=1795528332; x=1796133132; darn=lists.freedesktop.org;
- h=cc:to:message-id:content-transfer-encoding:content-type
- :mime-version:subject:date:from:from:to:cc:subject:date:message-id
- :reply-to:content-type;
- bh=t/4Oc8JJbURcLCaiMNMXPdQSaH+WSc+TJcsQQPs12Oo=;
- b=rj71v5f1ZXfcuLQ2pDF4MA+oYpywiFf9im7xb7pjwGIgw0uXGwq0p2jN1brPrULWLS
- t3gFqGawstR32ODlJR4UzltcThKR0V8N2mTzRWhZfwGdYUvQiPui2ymusoJB4s7xVl/n
- HG5MxAoAQByE4bGJSXPNTWchC3EmLMXY+eZI8qXm9NPwZGPj2vPIo1Uk0KBBNu92EqJH
- EYiEvAxCWtqNoCUp2FGSqRr4IkkPMSJUckQaBSUyZ5uCxX2IQYsSgV+xQJPv4+7gGgNu
- PqXc57cAHM1NjSnQyH8VnkUyelSt5sZX59paISJU3+tpOgqGOMWnl9yIYCfs2gGKsTl1
- 8+QQ==
+ d=gmail.com; s=20260707; t=1795528364; x=1796133164; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:content-disposition:content-type
+ :mime-version:references:in-reply-to:message-id:date:subject:cc:to
+ :from:from:to:cc:subject:date:message-id:reply-to:content-type;
+ bh=HZKKQf4VXfezngqUfgj7MhmoCUm8tU6EzL5wE2W3U7c=;
+ b=JOU7hONVRbFNXOukU+qrWZmepxxfEOwpFsiHh/EdU9dTx+1lkm1X6uocv20jztiQ1m
+ 6odiAEDz43LW1aWGv8xuf2CJ7KkVuROe28uT3zCx0dn+omkMGkLyz/cB5ZXCauLMASwK
+ R0ak61rVWWYKwPCYFncUuyUIlsXfp+MJa/qO95Kz3PUzaL/icsOL8bnL2xHXOUFnmRXw
+ 1IhUj+fenbO+Xz85Y/7ZOk7/JCWB4bYyNWWfPhGyfcAQ2n8Nni41htmO6XoPPTxs+7VX
+ dnjUJVtC7C53iOMy4RcBoMkyUA3hRHZMZL7rtjvZJG9KG4fyz2MPvyl1VzWMsyREbqzg
+ VgSQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20260707; t=1795528332; x=1796133132;
- h=cc:to:message-id:content-transfer-encoding:content-type
- :mime-version:subject:date:from:x-gm-gg:x-gm-message-state:from:to
- :cc:subject:date:message-id:reply-to:content-type;
- bh=t/4Oc8JJbURcLCaiMNMXPdQSaH+WSc+TJcsQQPs12Oo=;
- b=o9iRab/21j8XkwqVWrsh5zuC6EJybnBLNCPT00hczkCqM1Crwmz5EfgAqQOvzohJ6x
- g601zmx5sU3HSeFIDNR7ZWZ33g4cU3ctac54fuX8Bsw5Pc7j22+Qh5GxulHrfSZcWmCH
- 4+EuCKjIJAy22VbPFTQOVsXM6h+g5+rg2MFu+NfMw+ekzxXvH4z/rID36vIe6hYj7Ry7
- 3xemSLrKp9Mj8ZLECxeUjChipGydBYFe4qgz27s+T5OR83AfosBcwei2a8VDTob8mwmk
- BEJQ8yCE0Mkxro4YWZHL1ZSAVq8WfwgTJjk5oWJpdDgOsF3z1FvBlOzgUTBGgSZF5Jb1
- GQjQ==
-X-Gm-Message-State: APuU4Z+kUCuVB429B4uIibapU/c3JFgOZYnfd8lET88bko6QYh9uWVWA
- ZtR44RlQT+mREzpW0D88YXqZTmtjhsfri8yLVUfin/Fu7iizAlHQ+inXoG0f2vCzI6Q=
-X-Gm-Gg: AZFdTZcEdn30PXc56GWOMFfKUqqGJAtTTAF7ur4gFCEdeHDZMvv99ebCx/20ZtxXMe6
- c0VmFER33utLaKox9vBTaIbHGZeqLsrnKOcKZqQeX7f4AHU/esEU7M4J0ZAnuWOPweqhtQufT7q
- +2Yfb6ocJblI7ptkvFS+1WcENLzV9Z1LCXO1JXDoYnAEcFUYVWLzWWKCeQFUvNlLUraeASuBhmR
- Iy6ha2AR+ypwlZWUywg1+qyuhAT8HK5SIkBFZfaPnPCFEq7Zd6wpEBBxMZnkPh6FBrfxtdbc/qG
- wNclXZQe8knSX6hrZ4CwZvbFZdl4nO1kfO0xcp1r1ntNMBZptJzXLy+zmaxxBpYfeBMJb4kgbIX
- K+MyhqW9hspThtI9drGDJM9kleXX8X0KnqzJsR10GxcTWtOT0rrrBx0TL9UPmhIS6EvxWdn1f63
- eG9JE++R2NfxO/t98bcIDyzdYVDrXnKqBxa+56AYzGo/T3VFCxjWw9zR+WpPXsTEWOKro11F1yc
- DWcauqkO7Zv4NLhfxV84+vA1Kv3mkFxm3dScjat+EZBMSJsMG8tBZ/qtw4t//jeH2tZV51A8Jvr
- Qzn6VETSq7CmDblOX+68aG25u9g98i/8YtCbdm6f+p19PHiY4MCU7Z3MDakXX++5PUK9MpSeiuQ
- rVTDgN4I=
-X-Received: by 2002:a05:6402:3646:b0:6b7:fe9a:23fd with SMTP id
- 4fb4d7f45d1cf-6ba37c77c7dmr11354861a12.6.1795528332507; 
- Tue, 24 Nov 2026 05:52:12 -0800 (PST)
-Received: from [172.16.220.101] (144-178-202-138.static.ef-service.nl.
- [144.178.202.138]) by smtp.gmail.com with ESMTPSA id
- 4fb4d7f45d1cf-6ba854bed08sm4785252a12.30.2026.11.24.05.52.11
+ d=1e100.net; s=20260707; t=1795528364; x=1796133164;
+ h=content-transfer-encoding:content-disposition:content-type
+ :mime-version:references:in-reply-to:message-id:date:subject:cc:to
+ :from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
+ :reply-to:content-type;
+ bh=HZKKQf4VXfezngqUfgj7MhmoCUm8tU6EzL5wE2W3U7c=;
+ b=zmWHNxhkvKbzHFr7LCwm4Ln57s771TZHbl866ysRxBQJLuq3f1p6xESMUK2FMh+pgA
+ 8R6lUvP6iUddboDOAUuqCOwujnbB21SO4P1XYguZjmBcVWrT3936jMQ7INV5jcynD7LD
+ 4WY+y6j/OPGPZ8aCF5NDDFjhJsEHTkHQw+mYv5n7Egvgpl2XRb6B3h+rU0wLuMxMecgu
+ 4H0Db2lZAFU7AXR1Kr3qJxPzxf38wY/nC+fSvXgC2I5uP7z1oFLxndV2T/ljj/dypGJv
+ 03eUtBPki/2H6q1LW7uC33OU3Dr0s/0gpbuEIjs3jrls5QcCuYBesiXjgLYbqCzSPqNt
+ QDRA==
+X-Forwarded-Encrypted: i=1;
+ AL+hErFOvjRQMNqHnk2enYXkd0IOTpeb/rcOrhdeI7hvbt4vYEY6exJHCXYyAYA2lOd1Jjay6mKhnm4WKF8=@lists.freedesktop.org
+X-Gm-Message-State: APuU4Z9dGUptujQoldqxrxhbIesuNfNRHkwm14qvf5sbP0Y8K35XXaQI
+ Zq7BpcIdrRX/Q0sS0s1qOnJCZkWshg+P+OSqWXJPvD6ynArdg8RZAhla
+X-Gm-Gg: AZFdTZcQNchybghiELMvzgzJrUtZv5TGZAh5UYRcwsXsPnuQzFi8q+i5Gf++UfKe8MH
+ b7/yHzxNfRg2mM5FDSO7GTh5OgWB4AyFfTNozUAq5253XKHT+ZloqiofsHTBIynPecE+Zuub9mp
+ A5jzZCA3OjVvWkEWafZuUw9WMmMYoE8Z68wo86J9joLoVbKFAWWNSSPws/58wapwzv3wcO3f1va
+ 070UMUdvwzx/XdAVrK1IKTy3l+SDF9N8BUxWugCpwRVccpTVxV6frAPWmh1KC4XiscEYsWC9iNU
+ izjbkBDD/a37VMXX2gkv/yv3CQsMKOEVER1SI36Gv5nLbdb0by6Oq+5OF98YobINvBYKe+dQ3fE
+ Xb483WXmSHJQvruqcpIW2Q7OyZ7A/g5roChdF09wf7caBz2N0QoiBYmhzCD7qM4OFyXGciYa/9a
+ fJndxg/G2QbX6M80RBq3doEJEntHR84LLhwb9XRT61LdEGYP+KHm5nRAOmreBw/p3kBKkCvRq/U
+ kQfiHZKhBRHdhSXGdKCc3xnJD8U7qsvERskxHZwGjnxIggzuiCCzyvizVbNc75/7H20ryNru8Rs
+ BhchHenUAqrnIXeVWyl5tLgzUYYfgrEZuEPwAiMq18uZ9XOyefi6
+X-Received: by 2002:a05:6402:3222:b0:6b8:7e86:3e90 with SMTP id
+ 4fb4d7f45d1cf-6ba654bcff6mr8479709a12.38.1795528364057; 
+ Tue, 24 Nov 2026 05:52:44 -0800 (PST)
+Received: from ArchOarora ([95.179.249.152]) by smtp.gmail.com with ESMTPSA id
+ 4fb4d7f45d1cf-6ba37109b55sm6582079a12.32.2026.11.24.05.52.32
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Tue, 24 Nov 2026 05:52:12 -0800 (PST)
-From: Luca Weiss <luca.weiss@fairphone.com>
-Date: Tue, 24 Nov 2026 14:52:07 +0100
-Subject: [PATCH] drm/bridge: aux-bridge: Add parent to
- devm_drm_of_get_bridge() error print
+ Tue, 24 Nov 2026 05:52:43 -0800 (PST)
+From: Oarora Etimis <oaroraetimis@gmail.com>
+To: Louis Chauvet <louis.chauvet@bootlin.com>
+Cc: Haneen Mohammed <hamohammed.sa@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ Melissa Wen <melissa.srw@gmail.com>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>,
+ Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>,
+ jose.exposito89@gmail.com, Jonathan Corbet <corbet@lwn.net>,
+ Harry Wentland <harry.wentland@amd.com>,
+ Lucas De Marchi <demarchi@kernel.org>,
+ Ville =?utf-8?B?U3lyasOkbMOk?= <ville.syrjala@linux.intel.com>,
+ Randy Dunlap <rdunlap@infradead.org>,
+ Nick Desaulniers <ndesaulniers@google.com>,
+ Shuah Khan <skhan@linuxfoundation.org>, Miguel Ojeda <ojeda@kernel.org>,
+ Nathan Chancellor <nathan@kernel.org>,
+ Nick Desaulniers <nick.desaulniers+lkml@gmail.com>,
+ Bill Wendling <morbo@google.com>, Justin Stitt <justinstitt@google.com>,
+ Luca Ceresoli <luca.ceresoli@bootlin.com>,
+ Kory Maincent <kory.maincent@bootlin.com>, sebastian.wick@redhat.com,
+ victoria@system76.com, thomas.petazzoni@bootlin.com,
+ dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
+ linux-doc@vger.kernel.org, Simona Vetter <simona.vetter@ffwll.ch>,
+ llvm@lists.linux.dev
+Subject: Re: [PATCH v6 07/43] drm/drm_color_mgmt: Expose
+ drm_get_color_encoding_name
+Date: Tue, 24 Nov 2026 14:52:28 +0100
+Message-ID: <awWVztVSyL8uOIzt@Oarora>
+X-Mailer: git-send-email 2.56.1
+In-Reply-To: <20261120-vkms-all-config-v6-7-78ace90f4fc1@bootlin.com>
+References: <20261120-vkms-all-config-v6-0-78ace90f4fc1@bootlin.com>
+ <20261120-vkms-all-config-v6-7-78ace90f4fc1@bootlin.com>
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20261124-aux-bridge-defer-v1-1-f1353d512665@fairphone.com>
-X-B4-Tracking: v=1; b=H4sIAAAAAAAC/yXMwQqDMBCE4VeRPRtIUpHiq5QedDOx60Flo0UQ3
- 92ox49h/p0SVJCoKXZS/CXJNGa4siD+tWMPIyGbvPW1c74y7bqZTiXkJSBCjY1cvwOYrXtRvs2
- KKNud/Hwfp7UbwMvVoeM4AT+CbDp0AAAA
-X-Change-ID: 20261124-aux-bridge-defer-0fc68decc013
-To: Neil Armstrong <neil.armstrong@linaro.org>, 
- Dmitry Baryshkov <lumag@kernel.org>, Robert Foss <rfoss@kernel.org>, 
- Laurent Pinchart <Laurent.pinchart@ideasonboard.com>, 
- Jernej Skrabec <jernej.skrabec@gmail.com>, 
- Luca Ceresoli <luca.ceresoli@bootlin.com>, 
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>
-Cc: dri-devel@lists.freedesktop.org, Luca Weiss <luca.weiss@fairphone.com>
-X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1795528331; l=1428;
- i=luca.weiss@fairphone.com; s=20250611; h=from:subject:message-id;
- bh=26+RqYTwLPub4sHa03KBjV/Aw/yk4Ys0+q5quekWgnE=;
- b=bXgPuOw6PWXQfpW1+QRR16w9lxHGjODqUZpbd5qSAyhSJ25VZ0Nqsznwx4Hi739nLM7fTshDI
- D3BxuvuVpBpCgOCz/YDdovFk4Q2a0QPXBuGwVu7QUrD7aI1JTALBOsC
-X-Developer-Key: i=luca.weiss@fairphone.com; a=ed25519;
- pk=O1aw+AAust5lEmgrNJ1Bs7PTY0fEsJm+mdkjExA69q8=
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -101,47 +108,74 @@ List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-18.8 required=3.0 tests=BAYES_00,DKIM_SIGNED,
-	DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
-	INCLUDES_CR_TRAILER,INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,
-	SPF_PASS,USER_AGENT_GIT autolearn=ham autolearn_force=no version=4.0.1
+X-Spam-Status: No, score=-15.8 required=3.0 tests=BAYES_00,DKIM_SIGNED,
+	DKIM_VALID,DKIM_VALID_AU,FREEMAIL_FORGED_FROMDOMAIN,FREEMAIL_FROM,
+	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
+	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,USER_AGENT_GIT
+	autolearn=unavailable autolearn_force=no version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-Add some extra information to the case when devm_drm_of_get_bridge()
-fails, e.g. with -EPROBE_DEFER. This makes it more obvious what this
-aux_bridge device is trying to do and what it may be going wrong or
-missing - e.g. when Type-C modules are not loaded yet.
+On Fri, Nov 20, 2026 at 06:58:49PM +0100, Louis Chauvet wrote:
+> drm_get_color_encoding_name can be useful to display debug information
+> outside drm core. Export it so it could be used for VKMS
+> 
+> Reviewed-by: Luca Ceresoli <luca.ceresoli@bootlin.com>
+> Signed-off-by: Louis Chauvet <louis.chauvet@bootlin.com>
+> ---
+>  drivers/gpu/drm/drm_color_mgmt.c    | 2 +-
+>  drivers/gpu/drm/drm_crtc_internal.h | 2 --
+>  include/drm/drm_color_mgmt.h        | 2 ++
+>  3 files changed, 3 insertions(+), 3 deletions(-)
+> 
+> diff --git a/drivers/gpu/drm/drm_color_mgmt.c b/drivers/gpu/drm/drm_color_mgmt.c
+> index e4e31bc0153e..de219c23322f 100644
+> --- a/drivers/gpu/drm/drm_color_mgmt.c
+> +++ b/drivers/gpu/drm/drm_color_mgmt.c
+> @@ -496,7 +496,7 @@ const char *drm_get_color_encoding_name(enum drm_color_encoding encoding)
+>  
+>  	return color_encoding_name[encoding];
+>  }
+> -EXPORT_SYMBOL_IF_KUNIT(drm_get_color_encoding_name);
+> +EXPORT_SYMBOL(drm_get_color_encoding_name);
+>  
+>  /**
+>   * drm_get_color_range_name - return a string for color range
+> diff --git a/drivers/gpu/drm/drm_crtc_internal.h b/drivers/gpu/drm/drm_crtc_internal.h
+> index 3492787c3697..f3a3ffd358dc 100644
+> --- a/drivers/gpu/drm/drm_crtc_internal.h
+> +++ b/drivers/gpu/drm/drm_crtc_internal.h
+> @@ -38,7 +38,6 @@
+>  #include <linux/err.h>
+>  #include <linux/types.h>
+>  
+> -enum drm_color_encoding;
+>  enum drm_color_range;
+>  enum drm_connector_force;
+>  enum drm_mode_status;
+> @@ -121,7 +120,6 @@ int drm_mode_destroy_dumb_ioctl(struct drm_device *dev,
+>  				void *data, struct drm_file *file_priv);
+>  
+>  /* drm_color_mgmt.c */
+> -const char *drm_get_color_encoding_name(enum drm_color_encoding encoding);
+>  const char *drm_get_color_range_name(enum drm_color_range range);
+>  
+>  /* IOCTLs */
+> diff --git a/include/drm/drm_color_mgmt.h b/include/drm/drm_color_mgmt.h
+> index 5140691f476a..133ca77d91c7 100644
+> --- a/include/drm/drm_color_mgmt.h
+> +++ b/include/drm/drm_color_mgmt.h
+> @@ -113,6 +113,8 @@ enum drm_color_range {
+>  	DRM_COLOR_RANGE_MAX,
+>  };
+>  
+> +const char *drm_get_color_encoding_name(enum drm_color_encoding encoding);
+> +
+>  int drm_plane_create_color_properties(struct drm_plane *plane,
+>  				      u32 supported_encodings,
+>  				      u32 supported_ranges,
+> 
+> -- 
+> 2.56.0
 
-As an example, this will change the message to:
-
-  aux_bridge.aux_bridge.0 aux_bridge.aux_bridge: failed to acquire drm_bridge for 88e8000.phy
-
-Signed-off-by: Luca Weiss <luca.weiss@fairphone.com>
----
- drivers/gpu/drm/bridge/aux-bridge.c | 3 ++-
- 1 file changed, 2 insertions(+), 1 deletion(-)
-
-diff --git a/drivers/gpu/drm/bridge/aux-bridge.c b/drivers/gpu/drm/bridge/aux-bridge.c
-index 90f76bb529cc..c0a13a77fa55 100644
---- a/drivers/gpu/drm/bridge/aux-bridge.c
-+++ b/drivers/gpu/drm/bridge/aux-bridge.c
-@@ -126,7 +126,8 @@ static int drm_aux_bridge_probe(struct auxiliary_device *auxdev,
- 	data->next_bridge = devm_drm_of_get_bridge(&auxdev->dev, auxdev->dev.of_node, 0, 0);
- 	if (IS_ERR(data->next_bridge))
- 		return dev_err_probe(&auxdev->dev, PTR_ERR(data->next_bridge),
--				     "failed to acquire drm_bridge\n");
-+				     "failed to acquire drm_bridge for %s\n",
-+				     dev_name(auxdev->dev.parent));
- 
- 	data->bridge.of_node = data->dev->of_node;
- 
-
----
-base-commit: b6a9fa34ce4187cb69d3c588a4bbffc31ce5db8f
-change-id: 20261124-aux-bridge-defer-0fc68decc013
-
-Best regards,
---  
-Luca Weiss <luca.weiss@fairphone.com>
-
+Reviewed-by: Oarora Etimis <oaroraetimis@gmail.com>
