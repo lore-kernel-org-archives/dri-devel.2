@@ -2,31 +2,31 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EB738606A33B
-	for <dri-devel@archiver.kernel.org>; Tue, 24 Nov 2026 12:30:43 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2E001606A332
+	for <dri-devel@archiver.kernel.org>; Tue, 24 Nov 2026 12:30:50 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=emGqIgl6
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=NeOW6jJE
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 56BAB10E8CA;
-	Tue, 24 Nov 2026 12:30:38 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 66C8110F54B;
+	Tue, 24 Nov 2026 12:30:44 +0000 (UTC)
 Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id BE78D10E8CA
- for <dri-devel@lists.freedesktop.org>; Tue, 24 Nov 2026 12:30:31 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id CF86810F546
+ for <dri-devel@lists.freedesktop.org>; Tue, 24 Nov 2026 12:30:37 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by tor.source.kernel.org (Postfix) with ESMTP id CEE0D625E9;
- Tue, 24 Nov 2026 12:30:30 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 102861F000D3;
- Tue, 24 Nov 2026 12:30:24 +0000 (UTC)
+ by tor.source.kernel.org (Postfix) with ESMTP id 534C0623A5;
+ Tue, 24 Nov 2026 12:30:37 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7E4641F000D3;
+ Tue, 24 Nov 2026 12:30:31 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1795523430;
- bh=hCaz85cDFZY8PRCRoBf6lstsxdUOIDLvnMndMBusOQ4=;
+ s=k20260515; t=1795523437;
+ bh=PVT/uh8qs9dBpAVxgilc94wnQtF3SxwpCd1hcz7yuZo=;
  h=From:To:Cc:Subject:Date:In-Reply-To:References;
- b=emGqIgl6jBZd3OPnc+B72Xls/N/I1ZRcUX53W23ZEvDwm3nmXTWN0eCvwcmL+HTge
- +Y+uuSYuzplq6ja7r+KaYGI6dNVrp13G3g8LFqD5+7LgFjeWGy6rS1M7Cm1eJxbdVW
- vGiaFJLzGV7VvgzBwSD5Fg+HbccBRaoaaJ4YCqUHlETQzwbFFGvU0u3vWi4LBsEm/1
- 9OEtA8FqpehGgjXnE2jsbTPlyRmQbAMc8UE3qGxLA2QC7euAJz5ZJQgkEowk92n1VH
- 8WZV8GHlqhQqQrhsLoDvkBQMMYDoxgJ8LGfx7SlyA76eIQNcfJwrE+RbXvqZud1DAE
- 28g76d37T5QhA==
+ b=NeOW6jJEFaUEtShzJoylzw/9ksEqcOtNUORYL/3npD1cgLTc02yd3mKhQCaep4O0R
+ IGyMKk1Wrf9KG+3srffpCP5/MihVhvLH0ZbHKOeNoWhcuH2T+S7eTC1KHpZol1qCjL
+ MM/sIraz+pB8MDFqXz0SQsBZnsASpGytHpmiRt55zzFJPHjRVR7/9YFH1vxv3oY2iq
+ XLyv3buDJ3vtlny88EGVvd7zlfYfJ/HR7FrXqnJjnopAHqYuh+t9+ToLZoRjmLJARD
+ euo7EZhE0Ar+RPRnzcTY0kMAAmU8wlnXClsYkZLfMCY73U7HPRot40y6u7W9StXzFt
+ kd56nugVUFx0A==
 From: Philipp Stanner <phasta@kernel.org>
 To: Matthew Brost <matthew.brost@intel.com>,
  Danilo Krummrich <dakr@kernel.org>, Philipp Stanner <phasta@kernel.org>,
@@ -46,9 +46,9 @@ To: Matthew Brost <matthew.brost@intel.com>,
  "Paul E . McKenney" <paulmck@kernel.org>
 Cc: linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org,
  rust-for-linux@vger.kernel.org, linux-media@vger.kernel.org
-Subject: [PATCH v2 01/10] rust: rcu: Add get_state_synchronize_rcu()
-Date: Tue, 24 Nov 2026 13:29:43 +0100
-Message-ID: <20261124122951.878199-3-phasta@kernel.org>
+Subject: [PATCH v2 02/10] rust: rcu: Add cond_synchronize_rcu()
+Date: Tue, 24 Nov 2026 13:29:44 +0100
+Message-ID: <20261124122951.878199-4-phasta@kernel.org>
 X-Mailer: git-send-email 2.56.0
 In-Reply-To: <20261124122951.878199-2-phasta@kernel.org>
 References: <20261124122951.878199-2-phasta@kernel.org>
@@ -73,34 +73,52 @@ X-Spam-Status: No, score=-18.8 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-Some users don't want to perform a full call to synchronize_rcu() if it
-is avoidable.
+cond_synchronize_rcu() can be useful for anyone who does not want to
+suffer the overhead of an avoidable call to synchronize_rcu().
 
-Add abstractions for get_state_synchronize_rcu() to obtain a grace
-period identifier.
+Add an abstraction for cond_synchronize_rcu(). Add it as an unsafe
+function since passing the right grace period identifier is crucial for
+safety.
 
 Signed-off-by: Philipp Stanner <phasta@kernel.org>
 ---
- rust/kernel/sync/rcu.rs | 10 ++++++++++
- 1 file changed, 10 insertions(+)
+ rust/helpers/rcu.c      |  5 +++++
+ rust/kernel/sync/rcu.rs | 13 +++++++++++++
+ 2 files changed, 18 insertions(+)
 
-diff --git a/rust/kernel/sync/rcu.rs b/rust/kernel/sync/rcu.rs
-index 0daa1ac87d81..7afc78b34759 100644
---- a/rust/kernel/sync/rcu.rs
-+++ b/rust/kernel/sync/rcu.rs
-@@ -86,3 +86,13 @@ pub fn synchronize_rcu() {
-     // SAFETY: `synchronize_rcu()` is always safe to be called from process context.
-     unsafe { bindings::synchronize_rcu() };
+diff --git a/rust/helpers/rcu.c b/rust/helpers/rcu.c
+index 481274c05857..570ee76b7247 100644
+--- a/rust/helpers/rcu.c
++++ b/rust/helpers/rcu.c
+@@ -11,3 +11,8 @@ __rust_helper void rust_helper_rcu_read_unlock(void)
+ {
+ 	rcu_read_unlock();
  }
 +
-+/// Obtain a cookie identifying a grace period.
++__rust_helper void rust_helper_cond_synchronize_rcu(unsigned long cookie)
++{
++	cond_synchronize_rcu(cookie);
++}
+diff --git a/rust/kernel/sync/rcu.rs b/rust/kernel/sync/rcu.rs
+index 7afc78b34759..c395a493746c 100644
+--- a/rust/kernel/sync/rcu.rs
++++ b/rust/kernel/sync/rcu.rs
+@@ -96,3 +96,16 @@ pub fn get_state_synchronize_rcu() -> usize {
+     // SAFETY: `get_state_synchronize_rcu()` is always safe to be called.
+     unsafe { bindings::get_state_synchronize_rcu() }
+ }
++
++/// Do a [`synchronize_rcu()`] if necessary.
 +///
-+/// Returns an identifier that can be used by other functions to check whether
-+/// a specific grace period has passed already.
++/// # Safety
++///
++/// The `cookie` you provide must be one you obtained through
++/// [`get_state_synchronize_rcu()`].
++/// It must match the specific grace period you need to wait for.
 +#[inline]
-+pub fn get_state_synchronize_rcu() -> usize {
-+    // SAFETY: `get_state_synchronize_rcu()` is always safe to be called.
-+    unsafe { bindings::get_state_synchronize_rcu() }
++pub unsafe fn cond_synchronize_rcu(cookie: usize) {
++    // SAFETY: Safe by the function's safety requirements.
++    unsafe { bindings::cond_synchronize_rcu(cookie) };
 +}
 -- 
 2.56.0
