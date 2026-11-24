@@ -2,123 +2,113 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 566EB606A31E
-	for <dri-devel@archiver.kernel.org>; Tue, 24 Nov 2026 13:46:36 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 12C77606A31E
+	for <dri-devel@archiver.kernel.org>; Tue, 24 Nov 2026 13:47:11 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=ziepe.ca header.i=@ziepe.ca header.a=rsa-sha256 header.s=google header.b=LuxbKQHq
+	dkim=pass (2048-bit key, unprotected) header.d=jannau.net header.i=@jannau.net header.a=rsa-sha256 header.s=fm2 header.b=3u8FKVI/;
+	dkim=pass (2048-bit key, unprotected) header.d=messagingengine.com header.i=@messagingengine.com header.a=rsa-sha256 header.s=fm3 header.b=by/oM2OY
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id AEF8410F5AE;
-	Tue, 24 Nov 2026 13:46:30 +0000 (UTC)
-Received: from mail-qt1-f169.google.com (mail-qt1-f169.google.com
- [209.85.160.169])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 0C1E310F5A6
- for <dri-devel@lists.freedesktop.org>; Tue, 24 Nov 2026 13:46:24 +0000 (UTC)
-Received: by mail-qt1-f169.google.com with SMTP id
- d75a77b69052e-53664b4860bso52277621cf.1
- for <dri-devel@lists.freedesktop.org>; Tue, 24 Nov 2026 05:46:23 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=ziepe.ca; s=google; t=1795527983; x=1796132783; darn=lists.freedesktop.org; 
- h=in-reply-to:content-disposition:content-type:mime-version
- :references:message-id:subject:cc:to:from:date:from:to:cc:subject
- :date:message-id:reply-to:content-type;
- bh=Zc7zKgD/SDYnIbkY4MVpBd0Jo9DiJTva6Dv7og4GVfM=;
- b=LuxbKQHqfT2yVC2a5kVHeRi/VSMWaDvwN7LctEcda7ykFt7wAeW4Fde0iVOoHiZmZJ
- AOvW3B1RgwZVbyOvmttMha7k+O8FQvZlZZm45zImD6CoK55vzwP9ZVoFXOR0ayTUsIc9
- 3X4Dq16IcHc6xo6Jy7lUEMJ2/TGy+uY/LYeW2ZeVGVo21DfNe0AjUlyVwcwGPRY00Uq8
- LN2ptY9J/4rRX8qxyh8GyEPEofx2xAqRkw3ughgGxDhgskIMAwoN0rPcUgMhpD3BikA7
- RC9aCZid9wt3hv8E4rLlLMRx1bQ/76vwmjMXwljmSI++WpTEK8tfQPB77xztkrFPi1k8
- VJBQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20260707; t=1795527983; x=1796132783;
- h=in-reply-to:content-disposition:content-type:mime-version
- :references:message-id:subject:cc:to:from:date:x-gm-gg
- :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
- :content-type;
- bh=Zc7zKgD/SDYnIbkY4MVpBd0Jo9DiJTva6Dv7og4GVfM=;
- b=rENH0vqJ+EYxAv4eBHiYvNEKu7gusdasmzz1Xwosm/sKFq+bQPPgPFj5+CuQQ0Xhtp
- eBO3l6XUL/yux0DtzwklvP6PIBRpCmDcsEVvsLrmJVFzKdXtjyUQA6DSvD2MDmxp4os+
- Xhe1cHVj53f/vJWJDk+b0rpdOaYYRH2G1FqfodK9IzZ2B/3P4XJLftC8JgGk0F7GlAYG
- plmQRJw9sMPPD3M78ohqICDyL76Uu27HCunt0YePuFkg2iK52++OhAy+vp7tC4ADztl8
- YLj7SVIkoUIq2q55Hq4a2RQltmbR7fwtGEJOHbo4vIog8GbydhvecL4M8uuKtkobCJdr
- zFrw==
-X-Forwarded-Encrypted: i=1;
- AL+hErHA6XdhtR2Osl4HFjQipHu7LP7N8brKS4u63f4fX/h6c3NztrSnE16HdqX3ra8wYWQD4wbawHHB9q0=@lists.freedesktop.org
-X-Gm-Message-State: APuU4Z9kqkNIKjYTxK0X9Go0pfl1yk0XVvJOtqIlBlgbVO4TaAU8kHuw
- yYPoBOvGcOw2xqfJJLBilLA7zNh12jvBtV/7PrzU2ulFvKbVJ3mU0/v5Ei6/Jjdo42A=
-X-Gm-Gg: AZFdTZflGstz8/W6oNpC+cbrOky+PFPxexv7ReXp/tneP2H4WNnsmx4xxNslkuvVHhk
- 71r94BZUQOrahsz/+1hFsokW14MxlrAAa6jYz3S1xGCb8a6ruEM+uQHMdFGSW/m1X1e7P+Fdt64
- Xicud5g7dOI2FRSJalKJHeb1zEfdLXW1zkgOVcd1qo/1RygT9TcYKmC0sT/qwmcjvBJZ4KoiP/E
- COVhwP0z3KTpijBUYs44nvM9jes26TLcWBbYMa67JzkM/ShAgX8ypTTVtmsSotGdYtimpN2inyL
- Iz7SEqBEnV2/y7h5uKoTsP88P42ZTaAx8xYkajCJEpCPGuXj8o1BS1dZxUKZYZsLmz2EM33UieJ
- RXdpdFHeu9vu/8M/+xg4PIa5OtntgfhkYl9GG/Z1ygnz3hWxfpbvvtz0uQYAQ7dg1AHTK3uCb2w
- DSSqcizR4oqqFq77/UNvwcJDpKps3jHVR7PRZYsOdHO5iOn1ifMfjjZKXYgjqBbZ5uVf4MLxRL7
- gZE7cuML+cwsjdtso0oboP84K9w6QSL8UnI/F5sZCvW4XB5MEiBoLFsU29eak2ed08oRR1A+Gbx
- tpuZMw==
-X-Received: by 2002:a05:622a:120c:b0:535:a5f9:752e with SMTP id
- d75a77b69052e-55d76aed568mr264410241cf.77.1795527982900; 
- Tue, 24 Nov 2026 05:46:22 -0800 (PST)
-Received: from ziepe.ca ([142.177.118.84]) by smtp.gmail.com with ESMTPSA id
- d75a77b69052e-55d78451407sm128368371cf.2.2026.11.24.05.46.22
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Tue, 24 Nov 2026 05:46:22 -0800 (PST)
-Received: from jgg by wakko with local (Exim 4.97)
- (envelope-from <jgg@ziepe.ca>) id 1xVqqj-00000000QIG-3EJB;
- Tue, 24 Nov 2026 09:46:21 -0400
-Date: Tue, 24 Nov 2026 09:46:21 -0400
-From: Jason Gunthorpe <jgg@ziepe.ca>
-To: "Aneesh Kumar K.V" <aneesh.kumar@kernel.org>
-Cc: Catalin Marinas <catalin.marinas@arm.com>, linux-coco@lists.linux.dev,
- Andrew Morton <akpm@linux-foundation.org>,
- Baoquan He <baoquan.he@linux.dev>, Mike Rapoport <rppt@kernel.org>,
- Pasha Tatashin <pasha.tatashin@soleen.com>,
- Pratyush Yadav <pratyush@kernel.org>,
- Christian K?nig <christian.koenig@amd.com>,
- Joerg Roedel <joro@8bytes.org>, Marc Zyngier <maz@kernel.org>,
- Marek Szyprowski <m.szyprowski@samsung.com>,
- Robin Murphy <robin.murphy@arm.com>, Steven Price <steven.price@arm.com>,
- Sumit Semwal <sumit.semwal@linaro.org>,
- Suzuki K Poulose <suzuki.poulose@arm.com>,
- Thomas Gleixner <tglx@kernel.org>, Will Deacon <will@kernel.org>,
- Russell King <linux@armlinux.org.uk>,
- Benjamin Gaignard <benjamin.gaignard@collabora.com>,
- Brian Starkey <Brian.Starkey@arm.com>, John Stultz <jstultz@google.com>,
- Mark Rutland <mark.rutland@arm.com>, Radu Rendec <radu@rendec.net>,
- "T.J. Mercier" <tjmercier@google.com>,
- Madhavan Srinivasan <maddy@linux.ibm.com>,
- Michael Ellerman <mpe@ellerman.id.au>, Nicholas Piggin <npiggin@gmail.com>,
- Christophe Leroy <chleroy@kernel.org>,
- Ritesh Harjani <ritesh.list@gmail.com>,
- Shrikanth Hegde <sshegde@linux.ibm.com>,
- Alexander Gordeev <agordeev@linux.ibm.com>,
- Gerald Schaefer <gerald.schaefer@linux.ibm.com>,
- Heiko Carstens <hca@linux.ibm.com>, Vasily Gorbik <gor@linux.ibm.com>,
- Christian Borntraeger <borntraeger@linux.ibm.com>,
- Sven Schnelle <svens@linux.ibm.com>, Ingo Molnar <mingo@redhat.com>,
- Borislav Petkov <bp@alien8.de>,
- Dave Hansen <dave.hansen@linux.intel.com>, x86@kernel.org,
- "H . Peter Anvin" <hpa@zytor.com>, Kiryl Shutsemau <kas@kernel.org>,
- Rick Edgecombe <rick.p.edgecombe@intel.com>,
- "K . Y . Srinivasan" <kys@microsoft.com>,
- Haiyang Zhang <haiyangz@microsoft.com>,
- Wei Liu <wei.liu@kernel.org>, Dexuan Cui <decui@microsoft.com>,
- Long Li <longli@microsoft.com>, Paolo Bonzini <pbonzini@redhat.com>,
- Vitaly Kuznetsov <vkuznets@redhat.com>, Andy Lutomirski <luto@kernel.org>,
- Peter Zijlstra <peterz@infradead.org>,
- dri-devel@lists.freedesktop.org, iommu@lists.linux.dev,
- linaro-mm-sig@lists.linaro.org,
- linux-arm-kernel@lists.infradead.org, linux-media@vger.kernel.org,
- linux-mm@kvack.org, kvmarm@lists.linux.dev, patches@lists.linux.dev
-Subject: Re: [PATCH v10 04/13] irqchip/gic-v3-its: Allocate shared tables
- using CoCo shared memory allocator
-Message-ID: <20261124134621.GI9566@ziepe.ca>
-References: <20261116091137.94252-1-aneesh.kumar@kernel.org>
- <20261116091137.94252-5-aneesh.kumar@kernel.org>
- <awQd81MwZqi55gf8@arm.com> <yq5aa4mybbmv.fsf@kernel.org>
+	by gabe.freedesktop.org (Postfix) with ESMTP id 6E60010E88A;
+	Tue, 24 Nov 2026 13:47:00 +0000 (UTC)
+X-Greylist: delayed 420 seconds by postgrey-1.36 at gabe;
+ Tue, 24 Nov 2026 13:46:49 UTC
+Received: from fout-b3-smtp.messagingengine.com
+ (fout-b3-smtp.messagingengine.com [202.12.124.146])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 6D3F910E88A
+ for <dri-devel@lists.freedesktop.org>; Tue, 24 Nov 2026 13:46:49 +0000 (UTC)
+Received: from phl-compute-02.internal (phl-compute-02.internal [10.202.2.42])
+ by mailfout.stl.internal (Postfix) with ESMTP id 32E731D0058D
+ for <dri-devel@lists.freedesktop.org>; Tue, 24 Nov 2026 08:39:49 -0500 (EST)
+Received: from phl-frontend-03 ([10.202.2.162])
+ by phl-compute-02.internal (MEProxy); Tue, 24 Nov 2026 08:39:49 -0500
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=jannau.net; h=cc
+ :cc:content-type:content-type:date:date:from:from:in-reply-to
+ :in-reply-to:message-id:mime-version:references:reply-to:subject
+ :subject:to:to; s=fm2; t=1795527586; x=1795613986; bh=FFPocmiYjY
+ 4uBN7YtxnCPmj3gxT6Y3NraGib0JuLZOA=; b=3u8FKVI/enGiX4SpeOpEBmpEvX
+ aBv8TvMxxzF4btN9FAYKThFHiu7X7N0FZR+cqUl8jyMkts9nZbxT+1e2+oKcJASc
+ C8Zwd8cganVwj2OSt7VKiqWX5gKKUfKk87Hd9Lcwe2yqlyAsFKcCgqAqI98UIqL2
+ 2Spk3c0nkJhVTCcOkact54bH/2t16sdZCE/+P1BxhiIbxI+LmX4XVLl2AkJbvtBJ
+ 14cN0o8Idi8wgkCDgMD7o1na/dnGVZpXvUad7F4Itow13I0vmPjomIrE9clQIHMl
+ dmIOXDWcIbfrhRGEyj3+K3ffDpS5K63GwT+E5dJx6Pect6KfjMf7qNXq42/A==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+ messagingengine.com; h=cc:cc:content-type:content-type:date:date
+ :feedback-id:feedback-id:from:from:in-reply-to:in-reply-to
+ :message-id:mime-version:references:reply-to:subject:subject:to
+ :to:x-me-proxy:x-me-sender:x-me-sender:x-sasl-enc; s=fm3; t=
+ 1795527586; x=1795613986; bh=FFPocmiYjY4uBN7YtxnCPmj3gxT6Y3NraGi
+ b0JuLZOA=; b=by/oM2OYQLK45eJq48XUNA1hX//hn3i5lbtoZY8KzPP9lcQxzgA
+ e8W6F0880h/IxZNfg5BPLXhps1JS/5Ik8+GbsLQJMA8JFqU2fPTLuUzUfpMZEBy4
+ 1dlpnBLyTjK9g0AkM0WguaQiy9GGL8CMwVcT07NW0fc/Sqbme4Mh2ZO3f9Yt8Hd4
+ MF+YmSZ9Jy67iJGfcuq/Dcs3Thv+vSnR8EjCnNbLsMIjkHd8je344Acu5IowkKxu
+ Qgu7Qo63a5tnRjGS2VLfR+3nf7LlBL1+bmlJIsSt4Tqrf7VBiJr6xZ1ohCbjo1n0
+ tHpQsVOQfjvjllYu5MQdVRmSL8169nN5fzQ==
+X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-09;
+ repo=github.com/dkim2wg/interop; date=2026-11-03; sw=lmtpprox;
+ action=sign d=jannau.net a=rsa-sha256;
+DKIM2-Signature: i=1; m=1; t=1795527586; d=jannau.net; mf=PGpAamFubmF1Lm5ldD4=;
+ rt=PGRyaS1kZXZlbEBsaXN0cy5mcmVlZGVza3RvcC5vcmc+;
+ s=fm2:rsa-sha256:lgSxiI/EK2BEC631CEF3Atdbu18n2Yic3Uq8r/p/gZDrt9H
+ nVK0R27zjK9kP6lsbM9Z9hHVCfOCKa5tORie3ClkfAoeKGZV55GXztDZsuszqG3O
+ lApcYf3wgt1+WdNY1x4fOQxgTKb3xPAfBQG0xD1wH41PDLdnuJfN7tVrOSCgbYNC
+ mbvysK6+HLfb5p3snSdVlmTsdnQ0kb8MtKHoPYxJ1LzYosSj3M6F7oMSKqJJAS0P
+ wzIcYQfY5Juz7Yv4qfqv1gckdl5WTTNcX5q9SrR06plRQoiAiwspBHYkRg7fneP6
+ 4Sfe3G0RMVg9OF1+8BTxo7qOFDbRno0gEWAhwOQ==;
+X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-09;
+ repo=github.com/dkim2wg/interop; date=2026-11-03; sw=lmtpprox;
+ action=mi-m=1; hc=12;
+ hn=cc,content-disposition,content-type,date,feedback-id,from,
+ in-reply-to,message-id,mime-version,references,subject,to;
+Message-Instance: m=1;
+ h=sha256:+4ev4b6mxHnY25pdL20Nn41AxB3DfsjG2hFal/APdjM=:tuy7Q02L8EFGyAlb/RTajzDppwDejqGxKUsvjdBdGZs=;
+X-ME-Sender: <xms:oZMFa67Ho0y6HXBSX3CJ2MosLcdKnQNDtwBPM34ltRrNfKhN7U5ToQ>
+ <xme:oZMFa0Ug99pQyk5vvOOlsG6_V6eA4JzUhQirf0oGqfG0DfKnz9a34KSQdOkyh2A04
+ 3NXgCkjakrjmFwKBjYjdS-9PaPX6dxzIM9Bb-dXpS0k81ApSqU9Sog>
+X-ME-Received: <xmr:oZMFa-7-kKzbsnjcJzV12ts_etvG3AxNbq7EAl-5vHGUs9sEsQf6RYrUjjz0xtfL1NbXtQlJvBMokCmJWRQIwrUqQHwkdpANxww>
+X-ME-Proxy-Cause: dmFkZTESlBZ1BuWOe+JmUTVOFojllnFIlNcYBew5u3AEO/m5xTCbKEeFkRQF7OGVf/tX8T
+ h/i9V7vfl+JMtQsvzqaD6jIwjRZ10u9k+PQYJC6AFKCtkCtwZuvqe5uDKGokPJylK4JKE7
+ 5nr4nOwn2m+UvTgT3l/15tMjM9IY8d4FwGd8NCK3NTpUv4186uhiAY3yrCk4autrjnKz9a
+ qvREk+HSNuOK+UuyioWs8kYmt0XK8u5JbsuhHng1mHLFw78Nh6lrSdYQdign+ZCgIl+E+Q
+ Ix3UENuWSWr9uY5l0yTToy1m0Gt30AKG9WklczbCNa59q6Tq6x8agtI+ZUvictJGlQYirB
+ YLtmw3d2wtCb8oRlublfJ7zK/GEHEdwqHPSaOfeA0neCJaSquWzKyeTFIb6r7FcAU6etuh
+ hNv1qIakJip8Xje33U6cLveSeSTufTRPV7cLpWSMKpB1apaUuxHFVFIRQs6ge0YKAXjHo/
+ xxYbhJOBhYORFfvX8d6IX2cYHbb2ziSRg8dl2f5955xyUUPgH8jQnLfk3lzz9PutsvXC9v
+ FGTFKYurFsyi7tEySux1IQpsn6xypNA4ZXS0JozfRqenLXQsUqcpxdAVQOoHJ7u6asIlqV
+ xbVFz9L1Q2613VDJgHo5+dN9WbOD6oWExzCW2dCM218Ra0EHhTOrRyyILhYA
+X-ME-Proxy: <xmx:oZMFa1G2ZjzOevGieoPIWUTRsyuZloqzmaMkNKT1EVyiymEZ1gt8eg>
+ <xmx:oZMFax_f60edb8Y9k9tqrQdbmhOWIDFcbtRAdsTgiuVpHoxmO4sYew>
+ <xmx:oZMFa3XhQDLyVB9KS1UzXyhgsNEcnVJa5rg0vg6OZtJBLmYEaf3Itg>
+ <xmx:oZMFazECzWRr2ZG51ct7gAEukGErUWyrRpkr0Iwpzn8SIbbiYoZOMg>
+ <xmx:opMFayrjv0nTLBIJkDe51obopTxGaE3jeJFYxqhPnmyhlZfod7IFXooO>
+Feedback-ID: i47b949f6:Fastmail
+Received: by mail.messagingengine.com (Postfix) with ESMTPA; Tue,
+ 24 Nov 2026 08:39:45 -0500 (EST)
+Date: Tue, 24 Nov 2026 14:39:43 +0100
+From: Janne Grunau <j@jannau.net>
+To: peder.bergan@gmail.com
+Cc: Danilo Krummrich <dakr@kernel.org>, Alice Ryhl <aliceryhl@google.com>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ Miguel Ojeda <ojeda@kernel.org>, Boqun Feng <boqun@kernel.org>,
+ Gary Guo <gary@garyguo.net>,
+ =?utf-8?B?QmrDtnJu?= Roy Baron <bjorn3_gh@protonmail.com>,
+ Benno Lossin <lossin@kernel.org>, Andreas Hindborg <a.hindborg@kernel.org>,
+ Trevor Gross <tmgross@umich.edu>,
+ Daniel Almeida <daniel.almeida@collabora.com>,
+ Tamir Duberstein <tamird@kernel.org>,
+ Alexandre Courbot <acourbot@nvidia.com>,
+ Onur =?utf-8?B?w5Z6a2Fu?= <work@onurozkan.dev>,
+ Asahi Lina <lina+kernel@asahilina.net>,
+ Lyude Paul <lyude@redhat.com>, dri-devel@lists.freedesktop.org,
+ rust-for-linux@vger.kernel.org, linux-kernel@vger.kernel.org,
+ linux-api@vger.kernel.org
+Subject: Re: [PATCH] rust: drm: enable standard fdinfo for Rust drivers
+Message-ID: <20261124133943.GA372978@robin.jannau.net>
+References: <20261119-fix-drm-rust-fdinfo-v1-1-c10f4134488d@gmail.com>
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
+Content-Type: text/plain; charset=utf-8
 Content-Disposition: inline
-In-Reply-To: <yq5aa4mybbmv.fsf@kernel.org>
+In-Reply-To: <20261119-fix-drm-rust-fdinfo-v1-1-c10f4134488d@gmail.com>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -130,35 +120,42 @@ List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-5.8 required=3.0 tests=BAYES_00,DKIM_SIGNED,
+X-Spam-Status: No, score=-10.8 required=3.0 tests=BAYES_00,DKIM_SIGNED,
 	DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
-	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS autolearn=no
-	autolearn_force=no version=4.0.1
+	INCLUDES_CR_TRAILER,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS
+	autolearn=unavailable autolearn_force=no version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-On Tue, Nov 24, 2026 at 07:00:00PM +0530, Aneesh Kumar K.V wrote:
-
-> Taking Jason's feedback into account, we could have the allocator
-> request compound pages and recover the actual allocation order with
-> compound_order(). That would avoid passing an order to free:
+On Thu, Nov 19, 2026 at 10:48:47AM +0100, Peder Bergan via B4 Relay wrote:
+> From: Peder Bergan <peder.bergan@gmail.com>
 > 
-> void *alloc_cc_shared_node(int nid, gfp_t gfp, unsigned int order);
-> void *alloc_cc_shared(gfp_t gfp, unsigned int order);
-> void free_cc_shared(void *addr);
+> DRM monitoring tools use drm-driver and drm-client-id in procfs fdinfo
+> to identify DRM clients. The common Rust DRM file operations leave
+> show_fdinfo unset, so these entries are missing for those clients.
+> 
+> Set show_fdinfo to drm_show_fdinfo. The DRM core helper emits the
+> standard client information and calls the separate driver statistics
+> hook if the driver provides one.
 
-It probably shouldn't be order here, that is hard to use. Just size_t
-len
+None of the drivers (upstream and out of tree) set
+drm_driver.show_fdinfo though as they can't yet so only drm-driver and
+drm-client-id will be printed.
 
-And round up internally
+I guess this is ok and if a driver wants or needs opt-out of
+`show_fdinfo` it can be made optional then. Note that most C drivers
+don't set this either only the main GPU drivers and a few npu drivers.
 
-If we ever want to do some kind of slab sharing scheme then the API is
-already set up for it.
+Tested on Apple silicon system with the Asahi downstream driver.
 
-> As you noted, dma-buf would need virt_to_page() to obtain the pages for
-> its scatterlist.
+Tested-by: Janne Grunau <j@jannau.net>
+Reviewed-by: Janne Grunau <j@jannau.net>
 
-I think that is fine, other places working with kalloc/vmap already do
-that.
+> Fixes: c284d3e42338 ("rust: drm: gem: Add GEM object abstraction")
 
-Jason
+I don't think the Fixes: tag is justified. This is an optional callback
+and the majority of C drivers (in numbers) don't set it. Even if it sets
+it won't provide much useful information for any existing Rust driver.
+
+thanks,
+Janne
