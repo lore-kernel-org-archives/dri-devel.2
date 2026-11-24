@@ -2,61 +2,64 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F34C3606A32E
-	for <dri-devel@archiver.kernel.org>; Tue, 24 Nov 2026 08:40:07 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=cirad.fr header.i=@cirad.fr header.a=rsa-sha256 header.s=573E3878-7916-11F1-BF4B-F68474317960 header.b=dKbnz78y
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6C78A606A31E
+	for <dri-devel@archiver.kernel.org>; Tue, 24 Nov 2026 08:42:36 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 4CA4910F351;
-	Tue, 24 Nov 2026 08:39:57 +0000 (UTC)
-Received: from retz.cirad.fr (retz.cirad.fr [194.199.235.221])
- by gabe.freedesktop.org (Postfix) with ESMTPS id DC3E110EF2F;
- Mon, 23 Nov 2026 16:34:23 +0000 (UTC)
-Received: from retz.cirad.fr (localhost [127.0.0.1])
- by retz.cirad.fr (Postfix) with ESMTPS id 88C5820DDAF9;
- Mon, 23 Nov 2026 17:34:22 +0100 (CET)
-Received: from localhost (localhost [127.0.0.1])
- by retz.cirad.fr (Postfix) with ESMTP id 5E73620DB5E5;
- Mon, 23 Nov 2026 17:34:22 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.10.3 retz.cirad.fr 5E73620DB5E5
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=cirad.fr;
- s=573E3878-7916-11F1-BF4B-F68474317960; t=1795451662;
- bh=I+soC5Sh4FDvmwplNPuiEd1GOV3Guew6WDJ4B6BfHZM=;
- h=From:To:Date:Message-ID:MIME-Version;
- b=dKbnz78yoqvRnJtdRC6VnQGZFp4fLkUPCTeZwhSn7Gzk3++14gZaDXk7d0Eu64XEy
- 2G9ClYxt8cZGjf8B2i4W2Tb5SenN0et7NeJVWmmeyx7BgeuqnH4t2fBSPUA6SR80et
- Hdwd5tWuNKFZtO2sZu9o/K0f4K2P+lskWIGbHetv0dyy5xrHHvh0umwUO7ASgLFgDi
- xe8l6crslTdOUk1SRgPttKu9XeBYtrTsBtPd4bvSSWqshubPcxY2lIYONNZoENdYwH
- cneHSRjSbbZHmc5tBAUM8zaKwQc6KZKM6rF76BxNQ8eDwGwbeVo1LCTgUZq02TRrfE
- Fh7QjJH8eK0QQ==
-X-Virus-Scanned: amavis at retz.cirad.fr
-Received: from retz.cirad.fr ([127.0.0.1])
- by localhost (retz.cirad.fr [127.0.0.1]) (amavis, port 10026) with ESMTP
- id JEK5IDNvoGaF; Mon, 23 Nov 2026 17:34:22 +0100 (CET)
-Received: from localhost.localdomain (78-196-243-100.subs.proxad.net
- [78.196.243.100])
- by retz.cirad.fr (Postfix) with ESMTPSA id 709D720DDAF9;
- Mon, 23 Nov 2026 17:34:21 +0100 (CET)
-From: =?UTF-8?q?Fr=C3=A9d=C3=A9ric=20Mah=C3=A9?= <frederic.mahe@cirad.fr>
-To: "David R . Hedges" <linuxdev844@thelittleman.net>
-Cc: lyude@redhat.com, dakr@kernel.org, me@dakr.org,
- maarten.lankhorst@linux.intel.com, mripard@kernel.org, tzimmermann@suse.de,
- airlied@gmail.com, simona@ffwll.ch, jani.nikula@intel.com,
- bskeggs@nvidia.com, dri-devel@lists.freedesktop.org,
- nouveau@lists.freedesktop.org, linux-kernel@vger.kernel.org,
- =?UTF-8?q?Fr=C3=A9d=C3=A9ric=20Mah=C3=A9?= <frederic.mahe@cirad.fr>
-Subject: Re: [PATCH 0/5] drm/nouveau: recover DP links the sink drops after
- waking
-Date: Mon, 23 Nov 2026 17:34:05 +0100
-Message-ID: <20261123163407.637423-1-frederic.mahe@cirad.fr>
-X-Mailer: git-send-email 2.47.3
-In-Reply-To: <20261103-nouveau-dp-relink-v1-0-7ee88c7f1e8a@thelittleman.net>
-References: <20261103-nouveau-dp-relink-v1-0-7ee88c7f1e8a@thelittleman.net>
+	by gabe.freedesktop.org (Postfix) with ESMTP id 770F710F327;
+	Tue, 24 Nov 2026 08:42:35 +0000 (UTC)
+Received: from cstnet.cn (smtp21.cstnet.cn [159.226.251.21])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id AA74F10F351
+ for <dri-devel@lists.freedesktop.org>; Tue, 24 Nov 2026 08:39:52 +0000 (UTC)
+Received: from edelgard.fodlan.icenowy.me (unknown [120.85.97.139])
+ by APP-01 (Coremail) with SMTP id qwCowADnDfhFTQVrj+mUAQ--.9372S2;
+ Tue, 24 Nov 2026 16:39:34 +0800 (CST)
+Message-ID: <6fd9adfbb46959316ea18581513e21a71732df80.camel@iscas.ac.cn>
+Subject: Re: [PATCH v3 0/2] drm/bridge: add glue driver for T-Head TH1520 DW
+ MIPI DSI
+From: Icenowy Zheng <zhengxingda@iscas.ac.cn>
+To: Chaoyi Chen <chaoyi.chen@rock-chips.com>
+Cc: Andrzej Hajda <andrzej.hajda@intel.com>, Neil Armstrong	
+ <neil.armstrong@linaro.org>, Robert Foss <rfoss@kernel.org>, Laurent
+ Pinchart	 <Laurent.pinchart@ideasonboard.com>, Jonas Karlman
+ <jonas@kwiboo.se>, Jernej Skrabec <jernej.skrabec@gmail.com>, Luca Ceresoli
+ <luca.ceresoli@bootlin.com>, Maarten Lankhorst	
+ <maarten.lankhorst@linux.intel.com>, Maxime Ripard <mripard@kernel.org>, 
+ Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>,
+ Simona Vetter <simona@ffwll.ch>, Rob Herring	 <robh@kernel.org>, Krzysztof
+ Kozlowski <krzk+dt@kernel.org>, Conor Dooley	 <conor+dt@kernel.org>, Sandy
+ Huang <hjc@rock-chips.com>, Heiko =?ISO-8859-1?Q?St=FCbner?=	
+ <heiko@sntech.de>, Andy Yan <andyshrk@163.com>,
+ dri-devel@lists.freedesktop.org, 	devicetree@vger.kernel.org,
+ linux-kernel@vger.kernel.org, 	linux-rockchip@lists.infradead.org,
+ linux-arm-kernel@lists.infradead.org, 	linux-riscv@lists.infradead.org, Han
+ Gao <gaohan@iscas.ac.cn>
+Date: Tue, 24 Nov 2026 16:39:33 +0800
+In-Reply-To: <c89271be-85f9-41ba-9c19-c78743d212c8@rock-chips.com>
+References: <20261124-th1520-dw-mipi-dsi-v3-0-ffcf2d87971b@iscas.ac.cn>
+ <c89271be-85f9-41ba-9c19-c78743d212c8@rock-chips.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+User-Agent: Evolution 3.58.3 
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: quoted-printable
-X-Mailman-Approved-At: Tue, 24 Nov 2026 08:39:44 +0000
+X-CM-TRANSID: qwCowADnDfhFTQVrj+mUAQ--.9372S2
+X-Coremail-Antispam: 1UD129KBjvJXoWxXw4fCr1rGry5Xw4DtF47Arb_yoW5Xr43pa
+ 17GFy3AFWDJrn2gF97tw1rXFW5Xws5JFyvgrW5tw1fZws8Wa4xXF9Fkrs8WFy8Xr1fuF12
+ vF40g34fWrnFvaDanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
+ 9KBjDU0xBIdaVrnRJUUUvGb7Iv0xC_KF4lb4IE77IF4wAFF20E14v26ryj6rWUM7CY07I2
+ 0VC2zVCF04k26cxKx2IYs7xG6rWj6s0DM7CIcVAFz4kK6r1j6r18M28lY4IEw2IIxxk0rw
+ A2F7IY1VAKz4vEj48ve4kI8wA2z4x0Y4vE2Ix0cI8IcVAFwI0_Xr0_Ar1l84ACjcxK6xII
+ jxv20xvEc7CjxVAFwI0_Gr1j6F4UJwA2z4x0Y4vEx4A2jsIE14v26rxl6s0DM28EF7xvwV
+ C2z280aVCY1x0267AKxVW0oVCq3wAS0I0E0xvYzxvE52x082IY62kv0487Mc02F40EFcxC
+ 0VAKzVAqx4xG6I80ewAv7VC0I7IYx2IY67AKxVWUXVWUAwAv7VC2z280aVAFwI0_Jr0_Gr
+ 1lOx8S6xCaFVCjc4AY6r1j6r4UM4x0Y48IcVAKI48JM4IIrI8v6xkF7I0E8cxan2IY04v7
+ MxkF7I0En4kS14v26r4a6rW5MxAIw28IcxkI7VAKI48JMxC20s026xCaFVCjc4AY6r1j6r
+ 4UMI8I3I0E5I8CrVAFwI0_Jr0_Jr4lx2IqxVCjr7xvwVAFwI0_JrI_JrWlx4CE17CEb7AF
+ 67AKxVW8ZVWrXwCIc40Y0x0EwIxGrwCI42IY6xIIjxv20xvE14v26r1I6r4UMIIF0xvE2I
+ x0cI8IcVCY1x0267AKxVWxJVW8Jr1lIxAIcVCF04k26cxKx2IYs7xG6r1j6r1xMIIF0xvE
+ x4A2jsIE14v26r1j6r4UMIIF0xvEx4A2jsIEc7CjxVAFwI0_Gr1j6F4UJbIYCTnIWIevJa
+ 73UjIFyTuYvjxUVuWlDUUUU
+X-CM-SenderInfo: x2kh0wp0lqwv3d6l2u1dvotugofq/
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -68,43 +71,83 @@ List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-13.8 required=3.0 tests=BAYES_00,DKIM_SIGNED,
-	DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
-	INCLUDES_CR_TRAILER,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,
-	USER_AGENT_GIT autolearn=unavailable autolearn_force=no version=4.0.1
+X-Spam-Status: No, score=-13.8 required=3.0 tests=BAYES_00,
+	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
+	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS autolearn=unavailable
+	autolearn_force=no version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-Hi David,
+=E5=9C=A8 2026-11-24=E4=BA=8C=E7=9A=84 16:24 +0800=EF=BC=8CChaoyi Chen=E5=
+=86=99=E9=81=93=EF=BC=9A
+> Hi Icenowy,
+>=20
+> On 11/24/2026 3:56 PM, Icenowy Zheng wrote:
+> > T-Head TH1520 contains a DesignWare MIPI DSI host controller paired wit=
+h
+> > an internal DesignWare PHY, as a similar design (but with a different
+> > PHY) with the Rockchip DW MIPI DSI.
+> >=20
+> > The functionality to write to the PHY is shared between these two
+> > implementations of DW MIPI DSI, so it's extracted from the Rockchip
+> > driver to the common code. (The same sequence could be seen in the
+> > HiSilicon Kirin DRM driver, but that one hasn't been converted to commo=
+n
+> > DW MIPI DSI.)
+> >=20
+> > Tested on a Lichee Console 4A (with a Mingjun MJ070BI30IA2 panel) with
+> > further pending DT patches.
+> >=20
+> > One question remains: I have to copy the extra lane bandwidth headroom
+> > from the Rockchip driver, otherwise the Mingjun panel cannot keep sync
+> > to the display signal; from my testing, changing the hardcoded
+> > PHY_STOP_WAIT_TIME from 0x20 to 0x2 (which is written by the vendor
+> > driver) can also make this panel to work w/o the extra headroom. I want
+> > some advice on whether to keep the extra headroom or changing the commo=
+n
+> > code to make the PHY_STOP_WAIT_TIME parameter adjustable.
+> >=20
+>=20
+> Does the DesignWare PHY databook describe about PHY_STOP_WAIT_TIME?
 
-You mentioned that GPUs without GSP-RM were not tested. I ran parts of
-this series, together with "GSP DP control call fixes and two KMS fixes",
-on a Quadro 600 (GF108, DP 1.1, 4 x 2.7 Gbit/s) with a 4K DP 1.2 monitor,
-on Ubuntu's 7.0 kernel (nouveau built out of tree; one context line in
-nouveau_connector_destroy() of 2/5 needed adjusting for 7.0).
+Unfortunately I don't have the databook for this specific PHY, and I don't
+know whether this field is a PHY-specific value.
 
-Without your series, both of the following crash the kernel with a
-divide error in nv50_disp_super_2_2_dp() (see my patch "don't divide by
-zero when the DP link is not trained"). With it:
+Thanks,
+Icenowy
 
-- 3840x2160@60 set as a user mode with SETCRTC: -EINVAL from atomic
-  check ("mode needs 1199813 kB/s, link carries 1080000 kB/s"), no crash;
-- monitor asleep (not answering AUX), connector forced on, 1024x768 set
-  with SETCRTC: -EINVAL, no crash;
-- 1024x768 with the monitor awake, and DPMS off/on (5 s and 150 s):
-  link trained at 4 x 2.7 Gbit/s, no warnings.
+>  =20
+> > Signed-off-by: Icenowy Zheng <zhengxingda@iscas.ac.cn>
+> > ---
+> > Changes in v3:
+> > - Fixed a remaining `syscon` in the DT binding.
+> > - Link to v2: https://patch.msgid.link/20261119-th1520-dw-mipi-dsi-v2-0=
+-9ab5f9808f87@iscas.ac.cn
+> >=20
+> > Changes in v2:
+> > - Changed `syscon` to `thead,vo-syscon` in the DT binding.
+> > - Dropped the patch moving common PHY write routine to dw-mipi-dsi
+> >   common code.
+> > - Fixed a few problems pointed out by Sashiko in v1.
+> > - Link to v1: https://patch.msgid.link/20261030-th1520-dw-mipi-dsi-v1-0=
+-753f34fd304f@iscas.ac.cn
+> >=20
+> > ---
+> > Icenowy Zheng (2):
+> >       dt-bindings: display: bridge: document TH1520 MIPI DSI controller
+> >       drm/bridge: add TH1520 DesignWare MIPI DSI host controller
+> >=20
+> >  .../display/bridge/thead,th1520-dw-mipi-dsi.yaml   | 103 ++++
+> >  drivers/gpu/drm/bridge/Kconfig                     |  12 +
+> >  drivers/gpu/drm/bridge/Makefile                    |   1 +
+> >  drivers/gpu/drm/bridge/th1520-dw-mipi-dsi.c        | 570 +++++++++++++=
+++++++++
+> >  4 files changed, 686 insertions(+)
+> > ---
+> > base-commit: 6628e7d4c6b25c8d18f1345e3a20d21829aae7e4
+> > change-id: 20261030-th1520-dw-mipi-dsi-580d5b2792f9
+> >=20
+> > Best regards,
+> > -- =20
+> > Icenowy Zheng <zhengxingda@iscas.ac.cn>
 
-Not tested: the DPMS-on path of patch 2 (this monitor keeps answering
-AUX during DPMS off), the IRQ_HPD and replug restarts of patches 4 and 5,
-suspend/resume and MST.
-
-For the parts above:
-Tested-by: Fr=C3=A9d=C3=A9ric Mah=C3=A9 <frederic.mahe@cirad.fr> # Quadro=
- 600 (GF108, no GSP-RM)
-
-As said in my other thread, your patch 1/5 makes my "reject DP modes that
-don't fit the link" unnecessary.
-
-Testing done with the help of Claude (AI assistant).
-
-Fr=C3=A9d=C3=A9ric
