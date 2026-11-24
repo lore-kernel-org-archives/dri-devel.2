@@ -2,45 +2,101 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6E3E7606A330
-	for <dri-devel@archiver.kernel.org>; Tue, 24 Nov 2026 07:37:38 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 81743606A322
+	for <dri-devel@archiver.kernel.org>; Tue, 24 Nov 2026 07:38:52 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=iD6FMO50
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=N05eLqnO
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id C8D2710EE62;
-	Tue, 24 Nov 2026 07:37:32 +0000 (UTC)
-Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 086A310EE63
- for <dri-devel@lists.freedesktop.org>; Tue, 24 Nov 2026 07:37:27 +0000 (UTC)
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by tor.source.kernel.org (Postfix) with ESMTP id 810F361537;
- Tue, 24 Nov 2026 07:37:26 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5004C1F000CF;
- Tue, 24 Nov 2026 07:37:25 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1795505845;
- bh=CXYUU2uRuU2m1NOGcdl2MUJjIMsS4b/pKjOrCLsrDwA=;
- h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
- b=iD6FMO503IqpZs1HdOiQHrLcUQqiXIqTT4CbBWe85OfpPSHssW53Apu2ssoM3ey4V
- rCu3iTGzrq5NOYMevRPD1fXvgbx+enCWqzAmNsnas/9etTPz4ooX940yTehaF0XYhD
- JYCSBNxt8Py4cfxl+gHnZP+vZeiebaHqP1jgHEGYbM4Zg/K5XMJBa561PDPYhm9EaO
- CXFFFNBufRe59YXeY7i6Gqjjqocshh8Lqkjkil9JjUy0bxbonvVGM2YNLQxwa+LYGY
- UVNO7HShgLTrKKn1atiUG+snvjrhYbpYA59mBbuh7igXQFb7cyVWvPSotETeQtmBYx
- RdbC3dANTDt9A==
-Message-ID: <sashiko-outbox-230650@kernel.org>
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v2 09/20] pwm: twl: Support 64-cycle PWM frame
-To: "H. Nikolaus Schaller" <hns@goldelico.com>
-Cc: linux-gpio@vger.kernel.org, devicetree@vger.kernel.org,
- dri-devel@lists.freedesktop.org, linux-leds@vger.kernel.org,
- linux-sound@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org,
- lee@kernel.org
-In-Reply-To: <59fa3a5ee1a0d0bf13c85c08160c5acdaa95b7a4.1795505160.git.hns@goldelico.com>
-References: <cover.1795505160.git.hns@goldelico.com>
- <59fa3a5ee1a0d0bf13c85c08160c5acdaa95b7a4.1795505160.git.hns@goldelico.com>
+	by gabe.freedesktop.org (Postfix) with ESMTP id DDE0610EE66;
+	Tue, 24 Nov 2026 07:38:46 +0000 (UTC)
+Received: from mail-wm1-f44.google.com (mail-wm1-f44.google.com
+ [209.85.128.44])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id CE1DA10EE66
+ for <dri-devel@lists.freedesktop.org>; Tue, 24 Nov 2026 07:38:40 +0000 (UTC)
+Received: by mail-wm1-f44.google.com with SMTP id
+ 5b1f17b1804b1-4a2000d5fb1so23435225e9.1
+ for <dri-devel@lists.freedesktop.org>; Mon, 23 Nov 2026 23:38:40 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20260707; t=1795505919; x=1796110719; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:content-disposition:content-type
+ :mime-version:references:in-reply-to:message-id:date:subject:cc:to
+ :from:from:to:cc:subject:date:message-id:reply-to:content-type;
+ bh=YsrbWXbneAhmlRMenrVJ4CAefsGYSIi01YHG77kZWSE=;
+ b=N05eLqnOlVn1mVeZm7UB7B952A2zyfJfIDjoQK9O2KRew9on6yyVVi8OnjGZ9nzI4Q
+ tZEOMvQvdEYCw9ae9vhy7+L9lZD0RgrmIjvwrFqwtRLhKC1lKMoJF5kXo9glP5NvbHy9
+ 8zSRvqS+FYOWrAcX9KFqxZkFXJctrgMnxBZhUgB0KichuzaznWcFaAPazm6mes1W9M0q
+ mJV+bdTBrqDlwi5NBWN2QjiUnVF+4ATLEbhsKQJZJjswZR+wqnEbRw85/jEpLzLcHMNk
+ tu0JBQV6OXuCmwMElq11M3aijiOvKR5a8Tmy2xCZHJqC13QJd5Gg8NwrojYrBqLbKH3S
+ r0Dg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20260707; t=1795505919; x=1796110719;
+ h=content-transfer-encoding:content-disposition:content-type
+ :mime-version:references:in-reply-to:message-id:date:subject:cc:to
+ :from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
+ :reply-to:content-type;
+ bh=YsrbWXbneAhmlRMenrVJ4CAefsGYSIi01YHG77kZWSE=;
+ b=umHrNIaSe/F63YoGLqr67OEmlzvWexjXCVLajhMm7plB7WLKPODtnvA3eSubRzoZ2p
+ AB0ecqNx1Au06MRWzz1TtDerWSXXvEaepePtfZOs2bNU59wWB73y3vE0PQCSK2GI/DkN
+ nCFBlxYmCtsCFn2TwnE7w/nsJztAfXdAf+mbZ7POcpKFzPA/CZD+glwhuE/e7GdtdLmS
+ e7oOeXVCyJSoxCClzEhVyCXrLLDfOhM0gu9t2v5U9qNoAm5DUGslpRJM9h/TGA9JFxAn
+ kFfxhQ9HSxA3Ei8nhmwPr/UTLdCblLDKYO9qUPNzPu7xxVh4Gn2Yj7RwmIjbH26WDZp1
+ 2d0w==
+X-Forwarded-Encrypted: i=1;
+ AL+hErGMO0rHsDWipUlM1ryV1MUTIKJzZs919UFIMqTg7G06GlnIzcCrC51ZnWLMbuwTtl7fr5SDrgb3naE=@lists.freedesktop.org
+X-Gm-Message-State: APuU4Z/Dj3IWgonyUrZTuBapr4iZ1PqeHVi8utX6YNleYtMyrMjgPKbF
+ lADgYqeg7v2y88kPuyoIbnlv0GvXqUE15VMSOmONpmiEnOYQwJV+3ooC
+X-Gm-Gg: AZFdTZe0J9WrF8NpaEvGSVxk5PTrs7qx1kNrTLM8UxUz1XgvB/woGz/ul6dkBB9yvNl
+ GM5eUKMRxlLfg9I174Xq/ByiXz/ec0nYbu19nTqluXqgpGueiIe6+cXf75p5HDQ6r98PitY1DxX
+ o/Wki94n9C420nOtXH2bsjlJUSpdegj+0UGGeidBvQkCUTmzlb5lmrW+49EtqDkIg9Eh4ix02SI
+ 08MpovybcuUFF+OQAEimcf/bejlfIh5Vqmb7t4EmtDwbDVmrmJcDlKc6Mi8Sae7Yo7ap1YvdU0h
+ H7rcevc/y9Og8DZAtS3OJytYm9wXnlQ2NQkvK5PjjT+0GkZ8vsnEhjS3yKnaEIWeiokq9DEiP7s
+ 6i3/FuP4Cy8ADzo7wsaes9A/skg7nG3FvZKU6MyO/2ADzFYcLAly8tAhoQT6YOj6VodqZriaQQX
+ x5yRVnephsXHfRw4pzQZaj0aNxAuK9JkZRu1xS4091BkxUngWQUGCgmXmAJMc2fZljnoVT7XgDB
+ sr5J/7wStCHJVMWUE3R3OkvU+ZzWRtrZDRIEfVQygOqiVwgD5i5GrZBX2OKGSzj1fNMld135ziX
+ o1wEdIF++n8/dugHACAfUJlfFWakNdT+Yw==
+X-Received: by 2002:a05:600c:190d:b0:4ba:2bfc:c8b5 with SMTP id
+ 5b1f17b1804b1-4bb888267aemr276593835e9.10.1795505919009; 
+ Mon, 23 Nov 2026 23:38:39 -0800 (PST)
+Received: from ArchOarora ([2001:19f0:6c01:2c43:5400:5ff:fef6:1b30])
+ by smtp.gmail.com with ESMTPSA id
+ ffacd0b85a97d-4ab69bf6804sm25975635f8f.10.2026.11.23.23.38.26
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Mon, 23 Nov 2026 23:38:38 -0800 (PST)
+From: Oarora Etimis <oaroraetimis@gmail.com>
+To: Louis Chauvet <louis.chauvet@bootlin.com>
+Cc: Haneen Mohammed <hamohammed.sa@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ Melissa Wen <melissa.srw@gmail.com>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>,
+ Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>,
+ jose.exposito89@gmail.com, Jonathan Corbet <corbet@lwn.net>,
+ Harry Wentland <harry.wentland@amd.com>,
+ Lucas De Marchi <demarchi@kernel.org>,
+ Ville =?utf-8?B?U3lyasOkbMOk?= <ville.syrjala@linux.intel.com>,
+ Randy Dunlap <rdunlap@infradead.org>,
+ Nick Desaulniers <ndesaulniers@google.com>,
+ Shuah Khan <skhan@linuxfoundation.org>, Miguel Ojeda <ojeda@kernel.org>,
+ Nathan Chancellor <nathan@kernel.org>,
+ Nick Desaulniers <nick.desaulniers+lkml@gmail.com>,
+ Bill Wendling <morbo@google.com>, Justin Stitt <justinstitt@google.com>,
+ Luca Ceresoli <luca.ceresoli@bootlin.com>,
+ Kory Maincent <kory.maincent@bootlin.com>, sebastian.wick@redhat.com,
+ victoria@system76.com, thomas.petazzoni@bootlin.com,
+ dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
+ linux-doc@vger.kernel.org, Simona Vetter <simona.vetter@ffwll.ch>,
+ llvm@lists.linux.dev
+Subject: Re: [PATCH v6 18/43] drm/vkms: Introduce config for plane name
+Date: Tue, 24 Nov 2026 08:38:23 +0100
+Message-ID: <awU9pNtc2l0JXLzs@Oarora>
+X-Mailer: git-send-email 2.56.1
+In-Reply-To: <20261120-vkms-all-config-v6-18-78ace90f4fc1@bootlin.com>
+References: <20261120-vkms-all-config-v6-0-78ace90f4fc1@bootlin.com>
+ <20261120-vkms-all-config-v6-18-78ace90f4fc1@bootlin.com>
+X-Archived-By: <archiver.kernel.org>
+MIME-Version: 1.0
 Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Tue, 24 Nov 2026 07:37:24 +0000
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -51,82 +107,73 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
-Reply-To: sashiko-reviews@lists.linux.dev
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-10.8 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
-	DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
-	INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS autolearn=ham
+X-Spam-Status: No, score=-10.8 required=3.0 tests=BAYES_00,DKIM_SIGNED,
+	DKIM_VALID,DKIM_VALID_AU,FREEMAIL_FORGED_FROMDOMAIN,FREEMAIL_FROM,
+	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_PATCH,MAILING_LIST_MULTI,
+	SPF_HELO_NONE,SPF_PASS,USER_AGENT_GIT autolearn=unavailable
 	autolearn_force=no version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
-X-Archived-By: <archiver.kernel.org>
 
-Thank you for your contribution! Sashiko AI review found 1 potential
-issue to consider:
-- [High] pwm: twl: 64-cycle mode in twl_pwm_config() scales and clamps
-  to 127 not 63
---
-
-commit 9c38629d98d044b0860bfc5ea8bf71a8a5b8a626
-Author: H. Nikolaus Schaller <hns@goldelico.com>
-
-pwm: twl: Support 64-cycle PWM frame
-
-This commit adds support for the ti,twl4030-pwm-frame-64 device tree
-property to select a 64-clock-cycle PWM frame on TWL4030.
-
-> diff --git a/drivers/pwm/pwm-twl.c b/drivers/pwm/pwm-twl.c
-> index 99c1caf4f19c8..70567d5805f43 100644
-> --- a/drivers/pwm/pwm-twl.c
-> +++ b/drivers/pwm/pwm-twl.c
-[ ... ]
-> @@ -56,13 +60,35 @@ static inline struct twl_pwm_chip *to_twl(struct pwm_=
-chip *chip)
->  	return pwmchip_get_drvdata(chip);
+ index 49510a0957c7..8704b6f71000 100644
+> --- a/drivers/gpu/drm/vkms/vkms_config.h
+> +++ b/drivers/gpu/drm/vkms/vkms_config.h
+> @@ -44,6 +44,7 @@ struct vkms_config {
+>   *
+>   * @link: Link to the others planes in vkms_config
+>   * @config: The vkms_config this plane belongs to
+> + * @name: Name of the plane
+>   * @type: Type of the plane. The creator of configuration needs to ensures that
+>   *        at least one primary plane is present.
+>   * @possible_crtcs: Array of CRTCs that can be used with this plane
+> @@ -56,6 +57,7 @@ struct vkms_config_plane {
+>  	struct list_head link;
+>  	struct vkms_config *config;
+>  
+> +	const char *name;
+>  	enum drm_plane_type type;
+>  	struct xarray possible_crtcs;
+>  	bool default_pipeline;
+> @@ -342,6 +344,39 @@ vkms_config_plane_set_default_pipeline(struct vkms_config_plane *plane_cfg,
+>  	plane_cfg->default_pipeline = default_pipeline;
 >  }
-> =20
-> +/*
-> + * Note: this hardware (and driver) does not honor arbitrary periods.
-> + * Only the duty ratio is implemented; the frame length is either
-> + * 128 clock cycles (default) or - if selected through device tree -
-> + * 64 clock cycles. Consumers requiring an accurate period must verify
-> + * the actually provided period.
+>  
+> +/**
+> + * vkms_config_plane_set_name() - Set the plane name
+> + * @plane_cfg: Plane to set the name to
+> + * @name: New plane name. The name is copied.
+> + *
+> + * Returns: -ENOMEM if the memory allocation failed, 0 in case of success
 > + */
->  static int twl_pwm_config(struct pwm_chip *chip, struct pwm_device *pwm,
->  			  u64 duty_ns, u64 period_ns)
->  {
-> +	struct twl_pwm_chip *twl =3D to_twl(chip);
->  	int duty_cycle =3D DIV64_U64_ROUND_UP(duty_ns * TWL_PWM_MAX, period_ns)=
- + 1;
-> +	bool frame_64 =3D twl_class_is_4030() && twl->twl4030_frame_64;
->  	u8 pwm_config[2] =3D { 1, 0 };
->  	int base, ret;
-> =20
-> +	if (frame_64)
-> +		pwm_config[0] |=3D TWL4030_PWM_ON_FRAME_64;
+> +static inline int __must_check
+> +vkms_config_plane_set_name(struct vkms_config_plane *plane_cfg,
+> +			   const char *name, size_t name_len)
+> +{
+> +	char *new_name;
 > +
-> +	/*
-> +	 * In the 64-cycle frame the OFF counter wraps at 64. A requested
-> +	 * duty_cycle of 64 (full duty) would therefore wrap to a constant
-> +	 * high output. Saturate to the largest value that still produces
-> +	 * a low pulse (OFF =3D 63, approximately 62/64 high) instead.
-> +	 * This also applies to full-duty requests from PWM consumers.
-> +	 */
-> +	if (frame_64 && duty_cycle > TWL_PWM_MAX)
-> +		duty_cycle =3D TWL_PWM_MAX;
-
-[Severity: High]
-Does twl_pwm_config() scale and clamp duty_cycle against 127 instead of 63
-when frame_64 is enabled?
-
-TWL_PWM_MAX is defined as 0x7f (127), which is the counter limit for the
-128-cycle frame.  In 64-cycle mode, scaling duty_ns by TWL_PWM_MAX and
-clamping to TWL_PWM_MAX produces pwm_config[1] values up to 127 rather
-than 63.  As a result, the 6-bit OFF counter wraps around at roughly 50%
-requested duty cycle (reaching OFF =3D 64 -> 0 and OFF =3D 65 -> 1, which
-matches ON =3D 1 for constant high output) and repeats the duty ramp a
-second time across the upper half of the range.
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/cover.1795505160.gi=
-t.hns@goldelico.com?part=3D9
+> +	new_name = kmemdup_nul(name, name_len, GFP_KERNEL);
+> +	if (name && !new_name)
+> +		return -ENOMEM;
+> +
+> +	kfree(plane_cfg->name);
+> +	plane_cfg->name = new_name;
+> +
+> +	return 0;
+> +}
+> +
+> +/**
+> + * vkms_config_plane_get_name - Get the plane name
+> + * @plane_cfg: Plane to get the name from
+> + */
+> +static inline const char *
+> +vkms_config_plane_get_name(const struct vkms_config_plane *plane_cfg)
+> +{
+> +	return plane_cfg->name;
+> +}
+> +
+>  /**
+>   * vkms_config_plane_attach_crtc - Attach a plane to a CRTC
+>   * @plane_cfg: Plane to attach
+ 
+Sorry, only noticed this now --one tiny things: this helper is ten lines with an allocation, sitting in a header. coding-style keeps inline under~3 lines, so maybe vkms_config.c is a better home for it? :)
