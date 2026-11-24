@@ -2,68 +2,68 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8A4DC606A321
-	for <dri-devel@archiver.kernel.org>; Tue, 24 Nov 2026 23:39:01 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B2605606A31E
+	for <dri-devel@archiver.kernel.org>; Tue, 24 Nov 2026 23:39:11 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=BTEpcMiS
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=KYjQgZfQ
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 08F5710F3AB;
-	Tue, 24 Nov 2026 23:38:55 +0000 (UTC)
-Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 24C3110F131
- for <dri-devel@lists.freedesktop.org>; Tue, 24 Nov 2026 23:38:46 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 2148710E82C;
+	Tue, 24 Nov 2026 23:39:06 +0000 (UTC)
+Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 9B6EF10E82C
+ for <dri-devel@lists.freedesktop.org>; Tue, 24 Nov 2026 23:38:50 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id 071A545BD1;
- Tue, 24 Nov 2026 23:38:46 +0000 (UTC)
+ by tor.source.kernel.org (Postfix) with ESMTP id 706A061E23;
+ Tue, 24 Nov 2026 23:38:49 +0000 (UTC)
 Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
 ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
- t=1795563525;
- b=dt5Ca6o5xPN6tV7rxL9jITFV7NZKaAyleU651tE/nCmc4kvwvhr88OOenvP/Pk2SEOI6
- 2E+cbulHER9uom+0VSamomsXsP2Ut57jlUZ5Ktap7Hw6XWGHF2WFnSeKCdcthiTQoDXsK
- GEywpybKr0oDZldq7o9yWpzMarR9SxyVVvfBgLBceAlGKs+sHSk57QZZa9xACppo9mfV0
- ONOcB52aPMt/1eT/o4O3SB2uPZqyzMkpE2yamZmgtug2oDkDok9jUmuZ5QMBrpW/9KQSK
- Jr4stB+97a+YpZCWjAU9BN+bEguL7vycdyeVKmK/UzkksuI9ciCAWRXxk3tzZpt1GhA==
+ t=1795563529;
+ b=mC67zMvAI7axdRkrPr+oTf+RmaB/O2rQJwimDPMD/07sAO8PW0g7j7uf0tdLgLqAdOqH
+ UMGIpq5Dc+1yvyN7MpQ+P4/v1xae178CTrH1I6H8ChmxIZNwEvbTpcqzsAXmN2H0K3g7E
+ Yq5+ZnOdEG7wZr96Uiyplfa0Bb+LDDBcbBuyoH09IX4bjTHjHhf+fnoU+BPe9ra7rh2X7
+ hGGNE6Gax4siVnisfLrzAO11yPokmB/qUp7VoXqJXdEBJNPzwvYjYjdufEeFgOTrTpOx6
+ Aqpz2aXwHJBuqtYGeUMwlry/Dy9ZsZQSpI0h4THQrU05SZwrTsnAqCXgpHwj9+kljHg==
 ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
- c=relaxed/relaxed; t=1795563525;
+ c=relaxed/relaxed; t=1795563529;
  h=DKIM-Signature:Received:From:Date:Subject:MIME-Version:Content-Type:
  Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
  X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
  X-Original-From:Reply-To:Content-Transfer-Encoding;
- bh=w8P1ArlBBxla5HU/qS2B2PcMgLEq3zwZp6kL8sQkw98=;
- b=cnU2eUbmcX4bU/Yr0gS5T9w2DxmPL8xbPtBLEWlLnx8Sf6n5gM9AR6lGaWlldJEwUsQD
- KcsavrASt7XMhRS3Aw0iL4uuaSGMx2iPWSnyFe7dw3yu49ttBQX83qDT39VZZ9MnQNLI2
- p7Kn31WiDP2/xwn/B6l3eDfAKrprbclPx2rOqks7i7HDPp4+8xZyAsL8uUR8BDSoxZR1h
- cNMtQ0fRq8DA1t9WYad1f9RSasMrNqedHbREyjU2IUCxxegblxsoTcJiEm88RnHOysIN+
- 5gwuKZEl+3thpm4jbAsoOgZt8xrRILM/BYXvzjyg1+hqTkpUCmA1T8cXQIaLUihrILA==
+ bh=oHeiA5mLTrxkSVLAJwJUXu9707GodpfsoqhlrqiJ9S8=;
+ b=O5yAiK7dWkOsXPvmu5HDC0fXOoXed2F2ZX4ASUphWv9PqHLVQDyz9XR2JBt++Wp6LN8O
+ C8RaNEeiyab2GID0dnoXvvyu0ACtJEZjzvkFk/naKzs1LxO7zeVZa8RKtuKqnCzIsGFEO
+ 1vaNfZyubFTGmwErWrRJdsacN1rzvB4k/AeFm+OFOYvz85mbs8gxNtUkruUCIPbiTlPZz
+ 0fY49sL/o7A2V8BZBvgWvu7VnlONtPT6qnTF0hAdXo9lIDoaofeVTY5IFZnnrllFIZra4
+ irGGGTl7IRvMY2hqpNQFAgetIIpb9U1E4LtCzPw6PDA9V+sYZL+NvMZ9OFDm/0eDVbA==
 ARC-Authentication-Results: i=1; smtp.kernel.org; 
  arc=none smtp.remote-ip=100.80.115.77
 Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
  (No client certificate requested)
- by smtp.kernel.org (Postfix) with ESMTPS id AAD191F000CF;
+ by smtp.kernel.org (Postfix) with ESMTPS id C5B501F000D0;
  Tue, 24 Nov 2026 23:38:34 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1795563525;
- bh=w8P1ArlBBxla5HU/qS2B2PcMgLEq3zwZp6kL8sQkw98=;
+ s=k20260515; t=1795563529;
+ bh=oHeiA5mLTrxkSVLAJwJUXu9707GodpfsoqhlrqiJ9S8=;
  h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To;
- b=BTEpcMiSj7fL+wCe+pTj4E6FxSpGIFsOdo24FlGD1vcUlBZtIzV7yW2jYmOwvwchk
- A6auM0novQqoM+j36c3JYOQ2QZaXBZ1LByrcYbAkTsumTCeVrIbvj2QgTilL3Tbuwt
- cFC+jDIFjsPJ4iE/WGQ89L9c4OiduY58rOQPe3MhcXwQNSwK6+gEzn7Ek5X914kGcZ
- d49GUV9pc4/ffyJYD7/nSszKJSnfvl3NZHFGJWJBHEDlzGqjee8+0dURhqo8n2Nsbp
- vmy5mjrWibTnY0dmPT1PAtihA5AkuSHVnzOruJrFJe3IIt4kor4PZy5poaKJRTkM0u
- 4abfI4umSi0bg==
+ b=KYjQgZfQotj0UV5xxzOUE+zbnzn9s+fTTW0h7kUjHWzykNComLi/snIDPdy5PzmO2
+ p0+LPmBn1qgcrfomGznTSFntzJPUJluN87O5Eob/YnYEgW5Sxi0oNanREMNXq+Ezp1
+ Sz5O6mbuHTLO83VFQXdlbdSzj+pxuyV2WoQnB6ZYShKdAmfD0ISOp/xh26KzVBWG4T
+ wbYDY7WK9p6ANmHnuogmbZmc1VlFP5hrR4s+W5LAstY6D9j5LBK2QvISexue1LMr8B
+ VhKnAV9mfPg3Qpye/MHcA7lkOgxCa/YxmwmjogeVXCKOFBiTdaGgooPRaODuc344ML
+ lWNkdcvdPKPUw==
 Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
- by lkml.kernel.org (Postfix) with ESMTP id 3CFCD4CC63;
+ by lkml.kernel.org (Postfix) with ESMTP id 594AE4CC67;
  Tue, 24 Nov 2026 23:38:34 +0000 (UTC)
 From: Jim Cromie via B4 Relay <devnull+jim.cromie.gmail.com@kernel.org>
-Date: Tue, 24 Nov 2026 16:38:34 -0700
-Subject: [PATCH v4 2/3] drm/print,dyndbg: restore __drm_debug to uint from
- ulong
+Date: Tue, 24 Nov 2026 16:38:35 -0700
+Subject: [PATCH v4 3/3] drm/print: fix drm_printer dynamic debug bit-test
+ bypass
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
-Message-Id: <20261124-rd-mostly-v4-2-26d60beb6666@gmail.com>
+Message-Id: <20261124-rd-mostly-v4-3-26d60beb6666@gmail.com>
 References: <20261124-rd-mostly-v4-0-26d60beb6666@gmail.com>
 In-Reply-To: <20261124-rd-mostly-v4-0-26d60beb6666@gmail.com>
 To: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
@@ -76,11 +76,11 @@ To: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
 Cc: dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org, 
  Jim Cromie <jim.cromie@gmail.com>
 X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1795563513; l=5086;
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1795563513; l=2848;
  i=jim.cromie@gmail.com; s=20260203; h=from:subject:message-id;
- bh=eas3Enj72cy5HyxvJIJLFk8ksG6u9MHGL2Mg4irO398=;
- b=O88JsASHmV4aIoMC/SeHmzOMn0NdbiUcmyaVTfOP8BL0gKXph8tnKGGjSFq4LY5wW8gK2xLz2
- 1ahJEVdhVwND6a41W4F0YM6zMNqajMidcDFE9pF83s60uLFkoDcH/YR
+ bh=y0RWdr4HR8Hk2DeVmjJ5zNw17ifUMWtuwVaP7R47qsw=;
+ b=o/UPdYHp3ZSlSA352RCmGdx4bwNiWNRBEtVQZfdCAr+VEeNWDZNiiVVuPpXN/Sg8lqYCYmBXN
+ l5Da1oeomWwAxTBPIr2u7bCiiC1yqxmfDqlQtWfq+pOzSgalBs1DPUK
 X-Developer-Key: i=jim.cromie@gmail.com; a=ed25519;
  pk=C6E5ODlPQo7ZBynATXH9wg7K6HxP0pIXyf4s38Qw0XE=
 X-Endpoint-Received: by B4 Relay for jim.cromie@gmail.com/20260203 with
@@ -108,131 +108,69 @@ X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 
 From: Jim Cromie <jim.cromie@gmail.com>
 
-Restore __drm_debug and struct ddebug_class_param.bits to uint from
-ulong; 64 flags is more than we will ever need, and is not effectively
-usable with the interface:
+drm_debug_enabled() [$1] is the canonical bit-test for drm.debug.
+Commit 6ce6fae84536 ("drm_print: optimize drm_debug_enabled for
+jump-label") elaborated it into 4 names, controlled by
+CONFIG_DRM_USE_DYNAMIC_DEBUG:
 
-  # 64 bits would be unwieldy here
-  echo 0x12345678 > /sys/module/drm/parameters/debug
+A- $1_raw() - rename of the original bit-test.
+B- $1_instrumented() - like raw, but adds a pr_debug(), allowing us to
+   count callsite frequency and consider optimizing them later.
+C- __$1() - evaluates to 'true' when CONFIG_DRM_USE_DYNAMIC_DEBUG=y
+   (avoiding the bit-test where callsites are already guarded by a
+   dyndbg static-key), and forwards to A when =n.
+D- $1() - forwards to B when CONFIG_DRM_USE_DYNAMIC_DEBUG=y, and to A
+   when =n, for cases where an explicit bit-mask check is required.
 
-drm_debug_bitmap.bits points at extern __drm_debug so dyndbg updates
-it as shared state for drm_debug_enabled() and other ad-hoc debug
-checks outside classmaps' remit. That pointer coupling requires
-__drm_debug, module_param_named(..., uint), and
-ddebug_class_param.bits to change together in one commit.
+Later, commit 9fd6f61a297e ("drm/print: add drm_dbg_printer() for drm
+device specific printer") added a general-use __drm_printfn_dbg()
+function, but used __$1() instead of $1(). When
+CONFIG_DRM_USE_DYNAMIC_DEBUG=y, __$1() evaluates to 'true' and always
+prints.  This went unnoticed because CONFIG_DRM_USE_DYNAMIC_DEBUG was
+marked BROKEN.
 
-Accordingly, update lib/dynamic_debug.c to pass the local unsigned
-long `old_bits` to ddebug_apply_class_bitmap() (which uses
-test_bit()), format with 0x%x in param_get_dyndbg_classes(), and
-shrink DD_SYS_WRAP's backing variable in lib/test_dynamic_debug.c to
-unsigned int.
+With =y, this results in a flood of messages, and in CI-tests on slow
+serial consoles, creates bottlenecks, as seen in DRM-CI on i915 CML
+devices.  When IGT causes a mismatch in intel_pipe_config_compare(),
+the resulting UART storm causes a hard timeout after 20 minutes.
 
-Fixes: b9400852c080 ("dyndbg: add drm.debug style (drm/parameters/debug) bitmap support")
-Fixes: f158936b60a7 ("drm: POC drm on dyndbg - use in core, 2 helpers, 3 drivers.")
+NOTES:
+
+Drop the single-use `category` local variable and pass p->category
+directly (which previously also triggered an unused-variable warning
+under the old __$1() bypass).
+
+Because __drm_printfn_dbg() is a shared helper invoked via p->printfn
+with a runtime p->category, the callsite cannot be guarded by a
+static-key; we'd need a macro version and callsites where category is
+a compile-time constant.
+
+Replacing __$1() with $1() or $1_raw() would also work, but
+$1_instrumented() adds the pr_debug() in both =y and =n configs; when
+enabled it can provide call-freq data to inform further callsite
+optimization choices.
+
+Fixes: 9fd6f61a297e ("drm/print: add drm_dbg_printer() for drm device specific printer")
 Signed-off-by: Jim Cromie <jim.cromie@gmail.com>
 ---
- drivers/gpu/drm/drm_print.c   | 4 ++--
- include/drm/drm_print.h       | 2 +-
- include/linux/dynamic_debug.h | 2 +-
- lib/dynamic_debug.c           | 8 +++++---
- lib/test_dynamic_debug.c      | 2 +-
- 5 files changed, 10 insertions(+), 8 deletions(-)
+ drivers/gpu/drm/drm_print.c | 3 +--
+ 1 file changed, 1 insertion(+), 2 deletions(-)
 
 diff --git a/drivers/gpu/drm/drm_print.c b/drivers/gpu/drm/drm_print.c
-index 50cdeb1b15e2..2e7685849f44 100644
+index 2e7685849f44..3d26483975f2 100644
 --- a/drivers/gpu/drm/drm_print.c
 +++ b/drivers/gpu/drm/drm_print.c
-@@ -40,7 +40,7 @@
-  * __drm_debug: Enable debug output.
-  * Bitmask of DRM_UT_x. See include/drm/drm_print.h for details.
-  */
--unsigned long __drm_debug __read_mostly;
-+unsigned int __drm_debug __read_mostly;
- EXPORT_SYMBOL(__drm_debug);
+@@ -218,9 +218,8 @@ void __drm_printfn_dbg(struct drm_printer *p, struct va_format *vaf)
+ {
+ 	const struct drm_device *drm = p->arg;
+ 	const struct device *dev = drm ? drm->dev : NULL;
+-	enum drm_debug_category category = p->category;
  
- MODULE_PARM_DESC(debug, "Enable debug output, where each bit enables a debug category.\n"
-@@ -56,7 +56,7 @@ MODULE_PARM_DESC(debug, "Enable debug output, where each bit enables a debug cat
- "\t\tBit 9 (0x200) will enable DRMRES messages (managed resources code)");
+-	if (!__drm_debug_enabled(category))
++	if (!drm_debug_enabled_instrumented(p->category))
+ 		return;
  
- #if !defined(CONFIG_DRM_USE_DYNAMIC_DEBUG)
--module_param_named(debug, __drm_debug, ulong, 0600);
-+module_param_named(debug, __drm_debug, uint, 0600);
- #else
- /* classnames must match vals of enum drm_debug_category */
- DECLARE_DYNDBG_CLASSMAP(drm_debug_classes, DD_CLASS_TYPE_DISJOINT_BITS, 0,
-diff --git a/include/drm/drm_print.h b/include/drm/drm_print.h
-index 0805903c093b..d3c302a770e9 100644
---- a/include/drm/drm_print.h
-+++ b/include/drm/drm_print.h
-@@ -39,7 +39,7 @@ struct drm_device;
- struct seq_file;
- 
- /* Do *not* use outside of drm_print.[ch]! */
--extern unsigned long __drm_debug;
-+extern unsigned int __drm_debug;
- 
- /**
-  * DOC: print
-diff --git a/include/linux/dynamic_debug.h b/include/linux/dynamic_debug.h
-index 05743900a116..dc21e3a8e86f 100644
---- a/include/linux/dynamic_debug.h
-+++ b/include/linux/dynamic_debug.h
-@@ -124,7 +124,7 @@ struct _ddebug_info {
- 
- struct ddebug_class_param {
- 	union {
--		unsigned long *bits;
-+		unsigned int *bits;
- 		unsigned int *lvl;
- 	};
- 	char flags[8];
-diff --git a/lib/dynamic_debug.c b/lib/dynamic_debug.c
-index 18a71a9108d3..644f87d6969c 100644
---- a/lib/dynamic_debug.c
-+++ b/lib/dynamic_debug.c
-@@ -681,8 +681,9 @@ static int param_set_dyndbg_classnames(const char *instr, const struct kernel_pa
- 				continue;
- 			}
- 			curr_bits ^= BIT(cls_id);
--			totct += ddebug_apply_class_bitmap(dcp, &curr_bits, dcp->bits);
-+			totct += ddebug_apply_class_bitmap(dcp, &curr_bits, &old_bits);
- 			*dcp->bits = curr_bits;
-+			old_bits = curr_bits;
- 			v2pr_info("%s: changed bit %d:%s\n", KP_NAME(kp), cls_id,
- 				  map->class_names[cls_id]);
- 			break;
-@@ -754,7 +755,8 @@ int param_set_dyndbg_classes(const char *instr, const struct kernel_param *kp)
- 			inrep &= CLASSMAP_BITMASK(map->length);
- 		}
- 		v2pr_info("bits:%lx > %s\n", inrep, KP_NAME(kp));
--		totct += ddebug_apply_class_bitmap(dcp, &inrep, dcp->bits);
-+		old_bits = *dcp->bits;
-+		totct += ddebug_apply_class_bitmap(dcp, &inrep, &old_bits);
- 		*dcp->bits = inrep;
- 		break;
- 	case DD_CLASS_TYPE_LEVEL_NUM:
-@@ -796,7 +798,7 @@ int param_get_dyndbg_classes(char *buffer, const struct kernel_param *kp)
- 
- 	case DD_CLASS_TYPE_DISJOINT_NAMES:
- 	case DD_CLASS_TYPE_DISJOINT_BITS:
--		return scnprintf(buffer, PAGE_SIZE, "0x%lx\n", *dcp->bits);
-+		return scnprintf(buffer, PAGE_SIZE, "0x%x\n", *dcp->bits);
- 
- 	case DD_CLASS_TYPE_LEVEL_NAMES:
- 	case DD_CLASS_TYPE_LEVEL_NUM:
-diff --git a/lib/test_dynamic_debug.c b/lib/test_dynamic_debug.c
-index 77c2a669b6af..2fb9b3889f67 100644
---- a/lib/test_dynamic_debug.c
-+++ b/lib/test_dynamic_debug.c
-@@ -40,7 +40,7 @@ module_param_cb(do_prints, &param_ops_do_prints, NULL, 0600);
-  * - tie together sysname, mapname, bitsname, flagsname
-  */
- #define DD_SYS_WRAP(_model, _flags)					\
--	static unsigned long bits_##_model;				\
-+	static unsigned int bits_##_model;				\
- 	static struct ddebug_class_param _flags##_model = {		\
- 		.bits = &bits_##_model,					\
- 		.flags = #_flags,					\
+ 	__drm_dev_vprintk(dev, KERN_DEBUG, p->origin, p->prefix, vaf);
 
 -- 
 2.56.1
