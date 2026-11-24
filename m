@@ -2,140 +2,67 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 44138606A31E
-	for <dri-devel@archiver.kernel.org>; Tue, 24 Nov 2026 09:06:23 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=Nvidia.com header.i=@Nvidia.com header.a=rsa-sha256 header.s=selector2 header.b=VWkPthUO
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 914E2606A322
+	for <dri-devel@archiver.kernel.org>; Tue, 24 Nov 2026 09:17:53 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 7A31F10F391;
-	Tue, 24 Nov 2026 09:06:17 +0000 (UTC)
-Received: from CH1PR05CU001.outbound.protection.outlook.com
- (mail-northcentralusazon11010020.outbound.protection.outlook.com
- [52.101.193.20])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 285A410F391;
- Tue, 24 Nov 2026 09:06:11 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=LXbNCExuIJ+tN4B9Yp05ot+RN3zxHMBb1PcAvi2yMnHG6hJ1XQKtUfqCo33QR1IY9bJqjiZLqZGD7ZmqZgWpc3SZoNWnocwgDuvDS7x7hVsftsai3hs9+rR9nmc+AUtBxJUSD3nydoSThc5RLVXwo5SRry+hX3KKYZm0tdIPcpiGvDhA/kBUFiUl3HUFXvaoBYwr8jUstD23TdJiucAlDErgDToIMWJlHRhzRobBDmuaaCTfmab6JDurLhlcQTp3bo78GqlRmW1RBmR4rpzmX3moo1bxzEidm/CU1kdGcqo07T6rhIZhnLO3xAh91dugAqAxVbR78MPE+JEprW7tpw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=2kGcBOx6s+pYGLZw2MTWJ8i6+2dz0ngn8tGR103AcNs=;
- b=EgS9hGtEjS+fHWLoueX5oGOU6NNIMfAqP56BuLSsHZiSPAhifPFq/+kNLBeMKdiSTO1Eoi98Ejw0H6/KvLdR9F7Kpqg3NIjG6myIRhrD71d87gme5MndsZTi8OV/hF4u2Pjx11sa2Pf1qhYsqQDsf8DHaweWUgEtn0StpeABSgVxDu4doYdDPmhoIUA32wE9N7iCyDKcn+2QOCch4cEHQS/oGlR6uTTH/7zgKPgstnTHJhG/oNGXreBFbfBxi6kUz/b+WKkr3I685zoClwNDPip/+xw0Fmbtj4Yj0w4UcCkt0iN6LTIX6ODxam1j0UXmeHWwHymwF+gm5LDvOnXhhA==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
- dkim=pass header.d=nvidia.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
- s=selector2;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=2kGcBOx6s+pYGLZw2MTWJ8i6+2dz0ngn8tGR103AcNs=;
- b=VWkPthUOXrQXcThWp7l3H3vIcUrRIVEmGGicgvlkWf7IhipZBcOnUf2DpLK5Y43FVWaoGsb6ZFh4vVBs7ZuOvnSBS+q70oUp22XUZSXMsB2tstqT/e0x1tKNfCOvIOw1yd/HpTWywLhdq4FoCWdiu+AuxCekB3ru98goitcJ/bj5etL+UmTJ5eFXhSMgCk7iOUKhgfrazB6uBYzwpdTLcV8Ckind1a0/mmp5KByaRw1jSbwqcfwqkmHrMTMqAEc113lJ2dJW/BJ1ksowgO4X4XpkUxq+t4sHcPPjYYY/y01XoGEd7sbS5hfz2BVnn55yw472rzFGR9rGYpANJC8Wrg==
-Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=nvidia.com;
-Received: from DS0PR12MB6413.namprd12.prod.outlook.com (2603:10b6:8:ce::10) by
- MN2PR12MB4374.namprd12.prod.outlook.com (2603:10b6:208:266::9) with
- Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.639.13; Tue, 24 Nov 2026 09:06:05 +0000
-Received: from DS0PR12MB6413.namprd12.prod.outlook.com
- ([fe80::e82a:6673:4142:37fa]) by DS0PR12MB6413.namprd12.prod.outlook.com
- ([fe80::e82a:6673:4142:37fa%5]) with mapi id 15.21.0639.012; Tue, 24 Nov 2026
- 09:06:05 +0000
+	by gabe.freedesktop.org (Postfix) with ESMTP id B2C9E10F390;
+	Tue, 24 Nov 2026 09:17:52 +0000 (UTC)
+Received: from cstnet.cn (smtp21.cstnet.cn [159.226.251.21])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 1B1D410F390
+ for <dri-devel@lists.freedesktop.org>; Tue, 24 Nov 2026 09:17:50 +0000 (UTC)
+Received: from edelgard.fodlan.icenowy.me (unknown [120.85.97.139])
+ by APP-01 (Coremail) with SMTP id qwCowACn0fsrVgVrsHWVAQ--.4130S2;
+ Tue, 24 Nov 2026 17:17:32 +0800 (CST)
+Message-ID: <ae0e7aeba38d7b7c2eb6cc526917b75e05c748cd.camel@iscas.ac.cn>
+Subject: Re: [PATCH v3 2/2] drm/bridge: add TH1520 DesignWare MIPI DSI host
+ controller
+From: Icenowy Zheng <zhengxingda@iscas.ac.cn>
+To: Chaoyi Chen <chaoyi.chen@rock-chips.com>
+Cc: Andrzej Hajda <andrzej.hajda@intel.com>, Neil Armstrong	
+ <neil.armstrong@linaro.org>, Robert Foss <rfoss@kernel.org>, Laurent
+ Pinchart	 <Laurent.pinchart@ideasonboard.com>, Jonas Karlman
+ <jonas@kwiboo.se>, Jernej Skrabec <jernej.skrabec@gmail.com>, Luca Ceresoli
+ <luca.ceresoli@bootlin.com>, Maarten Lankhorst	
+ <maarten.lankhorst@linux.intel.com>, Maxime Ripard <mripard@kernel.org>, 
+ Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>,
+ Simona Vetter <simona@ffwll.ch>, Rob Herring	 <robh@kernel.org>, Krzysztof
+ Kozlowski <krzk+dt@kernel.org>, Conor Dooley	 <conor+dt@kernel.org>, Sandy
+ Huang <hjc@rock-chips.com>, Heiko =?ISO-8859-1?Q?St=FCbner?=	
+ <heiko@sntech.de>, Andy Yan <andyshrk@163.com>,
+ dri-devel@lists.freedesktop.org, 	devicetree@vger.kernel.org,
+ linux-kernel@vger.kernel.org, 	linux-rockchip@lists.infradead.org,
+ linux-arm-kernel@lists.infradead.org, 	linux-riscv@lists.infradead.org, Han
+ Gao <gaohan@iscas.ac.cn>
+Date: Tue, 24 Nov 2026 17:17:31 +0800
+In-Reply-To: <a797b2da-ea60-4b81-8fbf-e027afc89cc6@rock-chips.com>
+References: <20261124-th1520-dw-mipi-dsi-v3-0-ffcf2d87971b@iscas.ac.cn>
+ <20261124-th1520-dw-mipi-dsi-v3-2-ffcf2d87971b@iscas.ac.cn>
+ <af27260f-1911-47bb-8fe2-8eaa8bec31b0@rock-chips.com>
+ <561b5dc1b3a87ebc78f2357d253df4676395fb10.camel@iscas.ac.cn>
+ <a797b2da-ea60-4b81-8fbf-e027afc89cc6@rock-chips.com>
+Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
-Content-Type: text/plain; charset=UTF-8
-Date: Tue, 24 Nov 2026 18:06:01 +0900
-Message-Id: <DN3BL4DRGG7U.2A12KL88FS1C5@nvidia.com>
-Subject: Re: [PATCH 5/9] gpu: nova-core: gsp: fix resume_gsp_rm()'s error
- messages
-From: "Eliot Courtney" <ecourtney@nvidia.com>
-To: "John Hubbard" <jhubbard@nvidia.com>, "Danilo Krummrich"
- <dakr@kernel.org>, "Alexandre Courbot" <acourbot@nvidia.com>
-Cc: "Timur Tabi" <ttabi@nvidia.com>, "Alistair Popple" <apopple@nvidia.com>,
- "Eliot Courtney" <ecourtney@nvidia.com>, "Zhi Wang" <zhiw@nvidia.com>,
- "David Airlie" <airlied@gmail.com>, "Simona Vetter" <simona@ffwll.ch>,
- "Bjorn Helgaas" <bhelgaas@google.com>, "Miguel Ojeda" <ojeda@kernel.org>,
- "Boqun Feng" <boqun@kernel.org>, "Gary Guo" <gary@garyguo.net>,
- =?utf-8?q?Bj=C3=B6rn_Roy_Baron?= <bjorn3_gh@protonmail.com>, "Benno Lossin"
- <lossin@kernel.org>, "Andreas Hindborg" <a.hindborg@kernel.org>, "Alice
- Ryhl" <aliceryhl@google.com>, "Trevor Gross" <tmgross@umich.edu>, "Daniel
- Almeida" <daniel.almeida@collabora.com>, "Tamir Duberstein"
- <tamird@kernel.org>, =?utf-8?q?Onur_=C3=96zkan?= <work@onurozkan.dev>,
- <nova-gpu@lists.linux.dev>, <dri-devel@lists.freedesktop.org>, "LKML"
- <linux-kernel@vger.kernel.org>, <linux-pci@vger.kernel.org>,
- <rust-for-linux@vger.kernel.org>, "dri-devel"
- <dri-devel-bounces@lists.freedesktop.org>
-X-Mailer: aerc 0.22.0-0-gc2f86b7abde3
-References: <20261120044704.165223-1-jhubbard@nvidia.com>
- <20261120044704.165223-6-jhubbard@nvidia.com>
-In-Reply-To: <20261120044704.165223-6-jhubbard@nvidia.com>
-X-ClientProxiedBy: TYCP286CA0126.JPNP286.PROD.OUTLOOK.COM
- (2603:1096:400:2b6::10) To DS0PR12MB6413.namprd12.prod.outlook.com
- (2603:10b6:8:ce::10)
+User-Agent: Evolution 3.58.3 
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: DS0PR12MB6413:EE_|MN2PR12MB4374:EE_
-X-MS-Office365-Filtering-Correlation-Id: cf7a300c-a55a-4732-47ff-08df4a0a2bb6
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
- ARA:13230040|1800799024|376014|366016|7416014|10070799003|23010399003|261028144727099003|10067099003|4143699003|11063799006|56012099006|261022105027099003|261026140227099003|261026121527099003|18002099003|22082099003;
-X-Microsoft-Antispam-Message-Info: RsDdzcXSHqqjkc4mHcxC+n6baNcf04QNpq2dUiWlgHdAZgMvva8AGtULQbAV2SgWDI9zVbAXoWXcGG8C1y4LETx7N7/VtkLTfjseQEs+fyTh+/pD6vl/7qGSm9TeTEGNhC/t1/TjWquPGyiMkY2XbtGJZBOzTn11MLJWk92lUx9yDWMOtZzVLvwlZuQGqID4qQoexQqTCdBAzMj/AdhpcbNF0uhN4C4BF0d8OHgRHry+h/yVXc+iJR6A6T2clNGmOmun1z9jld4jZ4h3kbf085r+diCP0Ku6oV7o9NZntyI+Rz0vlf1vNkyW/qglVXJqlyDwJ7UOTHjLMyxbLgvllnIz2lKvf1keQ47LTHVbe2/9SzxtfGzsptTg2tiONm6J15Bc039AVaIu73hu4H4Qd8s8KDWlScxWK3myEZU0aqBltsAGvQPsug57o8t3+Xz1QM3dCp7+AWWtE2rMwOYKGd6xdZcbsR/5IePr/dqeFEAAkAs7DtUeoXq21EQjGd2mMyz12Z5dT3yDtX/RWcmmo0vWVxGSnznE/k0RfMgBikOXcjeLT7jtF0CkWplgrzeXBhbfTRRON+ppHuLxMMPL3+aluKHy5Eo2GWU3APnUxD/emG8XMYjIyiofk1FWJoz4diYpxd3Oe2GRUorXTTnAqpLsra+E0hyGcY0FM/IrBlE=
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:DS0PR12MB6413.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(1800799024)(376014)(366016)(7416014)(10070799003)(23010399003)(261028144727099003)(10067099003)(4143699003)(11063799006)(56012099006)(261022105027099003)(261026140227099003)(261026121527099003)(18002099003)(22082099003);
- DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 2
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?OHlMbUV5UzlSRVV1RWZpMEpOd0MzK3RPUzlrUmwzWEZXaWRQcUh6TXFiL21L?=
- =?utf-8?B?blI4OCtDd0V5UmxPZ3p2ZFVpeHVkbXZTaWRwS2E1VjRJdDIyaVluK2dBdTlV?=
- =?utf-8?B?SzFXRUFSOGNFMlRKSmdSWVpEOGJHcVo5L05vK3hSR0RocVlsSmdZYWQwYUsw?=
- =?utf-8?B?OXpYcTdjVjI3bHMyTno1UEVESk9udXJTRGtvVkNyZS9VRXRBYzRJaGpaZ0Jo?=
- =?utf-8?B?TkpiaWp5VFBaSWlZU2Nva0czYTNHNFdMVkZKRDFrZWI2elc4KzVlSGtKNUtS?=
- =?utf-8?B?emh3bCt3dXNVZ2YwRGhNdjlhaXNKeTBiRXQzUkVNRWVQVTFtYlFQQUZIRlVE?=
- =?utf-8?B?NW1idkNCNEVxeUU0YVVxdHBhMGVXUDlkNTl1YzVhMXFQb2o0cG5BNHJqY3p2?=
- =?utf-8?B?K1h0TDdzeFJMUS93QlRUdnBTaUF4cUJUQ0V0VmtlT3ByQ2QvUnlDQjNmRjJC?=
- =?utf-8?B?M2Q0UWU1azRrVFFWb3lsekpTSklVdVNFeHBHeWJ2UGJ3NnlqRFlPWm1tMGhw?=
- =?utf-8?B?amJqdjVTVzQzTFhNV3dpYVFlRUUwSTZaL3k1MWpXVUozMCtsWnBSOThHS3pU?=
- =?utf-8?B?WlRudCs5T1lQa2QrQzZlSXp1cXlqeWc0cGkyL2YwR29rTUJEbXVzcEtlckYz?=
- =?utf-8?B?QmFFU0FyMlVZK2l3S3JIODVKbkdUNWhDQ096VkFJVFY1NUFveHBxNlR6V1Y0?=
- =?utf-8?B?NHUvZ3RLSEI4QjdOaW81U2xmbjV1VUIybTZoaGFSK2VWNHM4TytLUHdrVDZ5?=
- =?utf-8?B?WGcxSXMwdjFtaTh3ZzlDWm1GMzhGVmo1UUtKM3o0dU1TSWtaMzhRbldpbWRi?=
- =?utf-8?B?emw5QlY5WFpCay90M2Vad3NNVUZUS211RUlRa1BRQnNaUjYyVHZ2dHBSK1Q2?=
- =?utf-8?B?K1VIVmNtTXZ5dldMdm5BVWVTS3UrUmtibEV4UFVDcEVRdHREMWd2YWgxNC9Q?=
- =?utf-8?B?cldtK29WdDY2NERELzFDdWJ0UStxZmVQdWMzbFpSTzB5U0doRUptNHhtNVNC?=
- =?utf-8?B?NzJjQ1dXbUg1SUNlNmp0Sis4dU5Bc2lpTGVZVXo0NWx1VVdwNkM5TExXeHhC?=
- =?utf-8?B?dmM4dmVlVHJUTnROY1NGZDdxbmFndGN0Uk1EMGRNNldhVFg3UjRYSXcrYkl0?=
- =?utf-8?B?SWMwZlJ5Qkd3VG53TmFEVE5FYjdmblRGNm1hMzVXMnlsOU5QbmwwOXgwaGJM?=
- =?utf-8?B?MW5mdXB5M0xPZDB0eVBERGxBK212ZlZQOE5ELzIvaUU3MmhYbDZwdXZSSDM5?=
- =?utf-8?B?ZGtVN2Q2M0U1Q2hSdVZtaEdWUnJVQVViZlZWUzN3aTB2eXUxWlVtRkxzTmRM?=
- =?utf-8?B?empCYlRFcXE3bWE1K1hwZktCMWJibjhqQXQzSkVsOWd3ZjFRMjdjM0c0S3lT?=
- =?utf-8?B?cld2Z3ZHSnkvNjN5aVV5R2xUM0ZVMmdxdzFNRWE1bjJaZFN3VjI4SjJIblZs?=
- =?utf-8?B?RzNpODd2cDNESVlPKzJzSDZuZEx4NDdxdlkzT214cVpSa2J6LzJOOFlPMGFQ?=
- =?utf-8?B?dWZQSVFVY1l0RlZqVlBmSDJPd1Y5RHVaaytQS0RSbC9PdkVPUDRuN1BwNTBR?=
- =?utf-8?B?S3JtdjM5OEpzVlhFVkRDZ1B1cnNQNnJrNnB4WmhmSDZQbzM5a1NYT2pGR1VU?=
- =?utf-8?B?WTFoWGxhZWVvL0wyWGpSRGZMVy9jL3dIb2thK2NWbnlTZnh4VzhDdW1NOTZY?=
- =?utf-8?B?eThXdDMxaGo2clhzNTZFLys2RXBhNHNZclQ1UldzV2dlMTE4UDdzRGdzNGh2?=
- =?utf-8?B?VlNpNGJUZTNaamlYWlUzRXViTUJERWRyd3piM29LWnRLQUY3bUc0NFdVNTBZ?=
- =?utf-8?B?aDV0Nk5ma2JIQUtiVEk5bDJCajhGbXEwMFVQUWJBSDRSNWpsWnpBT0NFSVR0?=
- =?utf-8?B?bitUYTBQVWFBS0RKL3ZSMDJ4K2R3MjZmSWlnL29rT1ZoZWFYSWptL0V6d2lU?=
- =?utf-8?B?NndvV25jVjVwTytKS3E0QjBvSUM5akVEY2FoZGpPcEwwNi93S0t0QWxkYnlM?=
- =?utf-8?B?Sm9lMGFLUWJlditDZEM1bWltL1dyTXdCandld1VxeGlnR3l2OW9LRkxkYkpJ?=
- =?utf-8?B?WkdxajFZc0VKUnN2RHV2aFFvSnZVUytvbkNZK2x0VnhvTXArakNtckRBamJH?=
- =?utf-8?B?MEgrUHlEWVZBdEtYVzk3UHNaTUVFZm9HV2FEOFNQcnZiQzBRenVRYWxYSjJo?=
- =?utf-8?B?VWFqQjN5UEwwczFhOGRIYzZzYzdEZlJ2amc2V1VlcStEdFFyNzhSUURVN1Bt?=
- =?utf-8?B?Qmd1bkVaZktFblRuQkFqSVdwOGNGdkMrK1RjZkd6UlUvZmVSK2lSMTU1aHNG?=
- =?utf-8?B?MWtxTk1jNHAvVmN4SG9UTHdWdGp3RW15V0V6SnZrT0pDSUI0d3dsWU9SVUJt?=
- =?utf-8?Q?7mhep8kUpQLDakfQzX4+jPwR/JIsJypulpf1Eo9ZuREzl?=
-X-MS-Exchange-AntiSpam-MessageData-1: xhLyDcvVAFMSnA==
-X-OriginatorOrg: Nvidia.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: cf7a300c-a55a-4732-47ff-08df4a0a2bb6
-X-MS-Exchange-CrossTenant-AuthSource: DS0PR12MB6413.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 24 Nov 2026 09:06:05.5765 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: /XnrKrhVFgc7pa7RwrCFMgv/9sBBLUtrtTAainjfUeiZv2W+pBN4HGV0mLUUc0ZV2UR8f8Vgos9odNw4tt0fzQ==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: MN2PR12MB4374
+X-CM-TRANSID: qwCowACn0fsrVgVrsHWVAQ--.4130S2
+X-Coremail-Antispam: 1UD129KBjvJXoW3uw15tF1fuw17tw4rXr4ktFb_yoWkZr47pr
+ 1UAF4UtFW5AFnrGwnavas8trnxta15tr13Ww1xGr48tF9YvrnrGr1kZr15GFy8Zr4rXFyY
+ v3WDW3WfK34SyrDanT9S1TB71UUUUUDqnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
+ 9KBjDU0xBIdaVrnRJUUUvlb7Iv0xC_Kw4lb4IE77IF4wAFF20E14v26ryj6rWUM7CY07I2
+ 0VC2zVCF04k26cxKx2IYs7xG6rWj6s0DM7CIcVAFz4kK6r1j6r18M28lY4IEw2IIxxk0rw
+ A2F7IY1VAKz4vEj48ve4kI8wA2z4x0Y4vE2Ix0cI8IcVAFwI0_Ar0_tr1l84ACjcxK6xII
+ jxv20xvEc7CjxVAFwI0_Gr1j6F4UJwA2z4x0Y4vEx4A2jsIE14v26rxl6s0DM28EF7xvwV
+ C2z280aVCY1x0267AKxVW0oVCq3wAS0I0E0xvYzxvE52x082IY62kv0487Mc02F40EFcxC
+ 0VAKzVAqx4xG6I80ewAv7VC0I7IYx2IY67AKxVWUJVWUGwAv7VC2z280aVAFwI0_Jr0_Gr
+ 1lOx8S6xCaFVCjc4AY6r1j6r4UM4x0Y48IcVAKI48JM4IIrI8v6xkF7I0E8cxan2IY04v7
+ MxkF7I0En4kS14v26rWY6Fy7MxAIw28IcxkI7VAKI48JMxC20s026xCaFVCjc4AY6r1j6r
+ 4UMI8I3I0E5I8CrVAFwI0_Jr0_Jr4lx2IqxVCjr7xvwVAFwI0_JrI_JrWlx4CE17CEb7AF
+ 67AKxVW8ZVWrXwCIc40Y0x0EwIxGrwCI42IY6xIIjxv20xvE14v26r1j6r1xMIIF0xvE2I
+ x0cI8IcVCY1x0267AKxVW8JVWxJwCI42IY6xAIw20EY4v20xvaj40_Jr0_JF4lIxAIcVC2
+ z280aVAFwI0_Gr0_Cr1lIxAIcVC2z280aVCY1x0267AKxVW8Jr0_Cr1UYxBIdaVFxhVjvj
+ DU0xZFpf9x07b-KsbUUUUU=
+X-CM-SenderInfo: x2kh0wp0lqwv3d6l2u1dvotugofq/
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -147,29 +74,378 @@ List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-10.8 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
-	DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
-	INCLUDES_CR_TRAILER,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS
-	autolearn=unavailable autolearn_force=no version=4.0.1
+X-Spam-Status: No, score=-18.8 required=3.0 tests=BAYES_00,
+	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
+	MAILING_LIST_MULTI,MENTIONS_GIT_HOSTING,SPF_HELO_NONE,SPF_PASS
+	autolearn=ham autolearn_force=no version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-On Fri Nov 20, 2026 at 1:47 PM JST, John Hubbard wrote:
-> resume_gsp_rm()'s error messages have two problems:
->
-> * Both messages open with "Sequencer:", which assumes that the function
->   knows which code is calling it, and that that will never change. This
->   kind of tight coupling is almost never desirable in well-structured
->   code.
->
-> * One message prints the SEC2 mailbox value in decimal. That needlessly
->   complicates looking up the error code, given that Open RM documents
->   those values in hex.
->
-> Remove the sequencer's name from both messages and name the GSP-RM
-> resume instead, and print the SEC2 mailbox value in hexadecimal.
->
-> Signed-off-by: John Hubbard <jhubbard@nvidia.com>
-> ---
+=E5=9C=A8 2026-11-24=E4=BA=8C=E7=9A=84 16:44 +0800=EF=BC=8CChaoyi Chen=E5=
+=86=99=E9=81=93=EF=BC=9A
+> Hi Icenowy,
+>=20
+> On 11/24/2026 4:34 PM, Icenowy Zheng wrote:
+> > =E5=9C=A8 2026-11-24=E4=BA=8C=E7=9A=84 16:29 +0800=EF=BC=8CChaoyi Chen=
+=E5=86=99=E9=81=93=EF=BC=9A
+> > > Hi Icenowy,
+> > >=20
+> > > On 11/24/2026 3:56 PM, Icenowy Zheng wrote:
+> > > > The T-Head TH1520 SoC contains a Synopsys DesignWare MIPI DSI host
+> > > > controller with an internal DesignWare MIPI D-PHY.
+> > > >=20
+> > > > Add a glue driver configuring clocks and PHY parameters for it.
+> > > >=20
+> > > > Signed-off-by: Icenowy Zheng <zhengxingda@iscas.ac.cn>
+> > > > ---
+> > > >  drivers/gpu/drm/bridge/Kconfig              |  12 +
+> > > >  drivers/gpu/drm/bridge/Makefile             |   1 +
+> > > >  drivers/gpu/drm/bridge/th1520-dw-mipi-dsi.c | 570 ++++++++++++++++=
+++++++++++++
+> > > >  3 files changed, 583 insertions(+)
+> > > >=20
+> > > > diff --git a/drivers/gpu/drm/bridge/Kconfig b/drivers/gpu/drm/bridg=
+e/Kconfig
+> > > > index c7da6b02d7b6b..f8987e8946fbb 100644
+> > > > --- a/drivers/gpu/drm/bridge/Kconfig
+> > > > +++ b/drivers/gpu/drm/bridge/Kconfig
+> > > > @@ -372,6 +372,18 @@ config DRM_THEAD_TH1520_DW_HDMI
+> > > >  	  Choose this to enable support for the internal HDMI bridge foun=
+d
+> > > >  	  on the T-Head TH1520 SoC.
+> > > > =20
+> > > > +config DRM_THEAD_TH1520_DW_MIPI_DSI
+> > > > +	tristate "T-Head TH1520 DesignWare MIPI DSI bridge"
+> > > > +	depends on OF
+> > > > +	depends on COMMON_CLK
+> > > > +	depends on ARCH_THEAD || COMPILE_TEST
+> > > > +	select DRM_DW_MIPI_DSI
+> > > > +	select GENERIC_PHY_MIPI_DPHY
+> > > > +	select MFD_SYSCON
+> > > > +	help
+> > > > +	  Choose this to enable support for the internal MIPI DSI bridge
+> > > > +	  found on the T-Head TH1520 SoC.
+> > > > +
+> > > >  config DRM_TOSHIBA_TC358762
+> > > >  	tristate "TC358762 DSI/DPI bridge"
+> > > >  	depends on OF
+> > > > diff --git a/drivers/gpu/drm/bridge/Makefile b/drivers/gpu/drm/brid=
+ge/Makefile
+> > > > index 15cc821d85b7e..5af871ba5ce77 100644
+> > > > --- a/drivers/gpu/drm/bridge/Makefile
+> > > > +++ b/drivers/gpu/drm/bridge/Makefile
+> > > > @@ -32,6 +32,7 @@ obj-$(CONFIG_DRM_SII9234) +=3D sii9234.o
+> > > >  obj-$(CONFIG_DRM_SIMPLE_BRIDGE) +=3D simple-bridge.o
+> > > >  obj-$(CONFIG_DRM_SOLOMON_SSD2825) +=3D ssd2825.o
+> > > >  obj-$(CONFIG_DRM_THEAD_TH1520_DW_HDMI) +=3D th1520-dw-hdmi.o
+> > > > +obj-$(CONFIG_DRM_THEAD_TH1520_DW_MIPI_DSI) +=3D th1520-dw-mipi-dsi=
+.o
+> > > >  obj-$(CONFIG_DRM_THINE_THC63LVD1024) +=3D thc63lvd1024.o
+> > > >  obj-$(CONFIG_DRM_TOSHIBA_TC358762) +=3D tc358762.o
+> > > >  obj-$(CONFIG_DRM_TOSHIBA_TC358764) +=3D tc358764.o
+> > > > diff --git a/drivers/gpu/drm/bridge/th1520-dw-mipi-dsi.c b/drivers/=
+gpu/drm/bridge/th1520-dw-mipi-dsi.c
+> > > > new file mode 100644
+> > > > index 0000000000000..8e866b70aec88
+> > > > --- /dev/null
+> > > > +++ b/drivers/gpu/drm/bridge/th1520-dw-mipi-dsi.c
+> > > > @@ -0,0 +1,570 @@
+> > > > +// SPDX-License-Identifier: GPL-2.0
+> > > > +/*
+> > > > + * Copyright (C) 2026 Institute of Software, Chinese Academy of Sc=
+iences (ISCAS)
+> > > > + *
+> > > > + * Author:
+> > > > + *   Icenowy Zheng <zhengxingda@iscas.ac.cn>
+> > > > + *
+> > > > + * Based on dw_mipi_dsi-stm.c, which is:
+> > > > + *   Copyright (C) STMicroelectronics SA 2017
+> > > > + *
+> > > > + * Based on dw-mipi-dsi-rockchip.c, which is:
+> > > > + *   Copyright (C) Rockchip Electronics Co., Ltd.
+> > > > + *
+> > > > + * Based on vendor kernel phy-dw-mipi-dphy.c, which is:
+> > > > + *   Copyright (C) Alibaba Group Holding Limited.
+> > > > + */
+> > > > +
+> > > > +#include <linux/bitfield.h>
+> > > > +#include <linux/clk.h>
+> > > > +#include <linux/kernel.h>
+> > > > +#include <linux/mfd/syscon.h>
+> > > > +#include <linux/module.h>
+> > > > +#include <linux/phy/phy.h>
+> > > > +#include <linux/phy/phy-mipi-dphy.h>
+> > > > +#include <linux/platform_device.h>
+> > > > +#include <linux/regmap.h>
+> > > > +#include <linux/regulator/consumer.h>
+> > > > +
+> > > > +#include <video/mipi_display.h>
+> > > > +
+> > > > +#include <drm/bridge/dw_mipi_dsi.h>
+> > > > +#include <drm/drm_mipi_dsi.h>
+> > > > +
+> > > > +/* DSI controller registers for DPHY access */
+> > > > +
+> > > > +#define DSI_PHY_TST_CTRL0		0xb4
+> > > > +#define PHY_TESTCLK			BIT(1)
+> > > > +#define PHY_UNTESTCLK			0
+> > > > +#define PHY_TESTCLR			BIT(0)
+> > > > +#define PHY_UNTESTCLR			0
+> > > > +
+> > > > +#define DSI_PHY_TST_CTRL1		0xb8
+> > > > +#define PHY_TESTEN			BIT(16)
+> > > > +#define PHY_UNTESTEN			0
+> > > > +#define PHY_TESTDOUT(n)			(((n) & 0xff) << 8)
+> > > > +#define PHY_TESTDIN(n)			(((n) & 0xff) << 0)
+> > > > +
+> > > > +/* DPHY registers */
+> > > > +
+> > > > +#define PLL_DELAY_LP_TX_START_LP11	0x02
+> > > > +#define TXDINDLYTIME_9_2		GENMASK(7,  0)
+> > > > +
+> > > > +#define PLL_FSM_CNTRL			0x03
+> > > > +
+> > > > +#define PLL_PROP_CHARGE_PUMP_CTRL	0x0e
+> > > > +#define PLL_PROP_CNTRL			GENMASK(5,  0)
+> > > > +
+> > > > +#define PLL_INT_CHARGE_PUMP_CTRL	0x0f
+> > > > +#define PLL_INT_CNTRL			GENMASK(5,  0)
+> > > > +
+> > > > +#define PLL_VCO_CTRL			0x12
+> > > > +#define PLL_VCO_CNTRL_OVR_EN		BIT(6)
+> > > > +#define PLL_VCO_CNTRL_OVR		GENMASK(5,  0)
+> > > > +
+> > > > +#define PLL_GMP_CTRL_DIGITAL_TEST	0x13
+> > > > +#define PLL_TESTLOCK			BIT(7)
+> > > > +#define PLL_GMP_CNTRL			GENMASK(5,  4)
+> > > > +#define TSTPLLDIG			GENMASK(3,  1)
+> > > > +#define TSTPLLDIG_LOCK			(0x0 << 1)
+> > > > +#define TSTPLLDIG_REFCLK		(0x1 << 1)
+> > > > +#define TSTPLLDIG_FBCLK			(0x2 << 1)
+> > > > +#define TSTPLLDIG_INT_CLKIN		(0x3 << 1)
+> > > > +#define TSTPLLDIG_LOCK_FROM_DETECTOR	(0x4 << 1)
+> > > > +#define TSTPLLDIG_OUTPUT		(0x5 << 1)
+> > > > +#define TSTPLLDIG_BUF_VCOCLK		(0x6 << 1)
+> > > > +#define TSTPLLDIG_UPDATEPLL		(0x7 << 1)
+> > > > +
+> > > > +#define PLL_N_DIV_FSM_SIG		0x17
+> > > > +#define PLL_N_OVR			GENMASK(3,  0)
+> > > > +
+> > > > +#define PLL_M_DIV			0x18
+> > > > +#define PLL_M_OVR_4_0			GENMASK(4,  0)
+> > > > +#define PLL_M_OVR_9_5			GENMASK(4,  0)
+> > > > +
+> > > > +#define PLL_N_AND_M_DIV_CTRL		0x19
+> > > > +#define PLL_M_OVR_EN			BIT(5)
+> > > > +#define PLL_N_OVR_EN			BIT(4)
+> > > > +
+> > > > +#define PLL_CHARGE_PUMP_BIAS_CTRL	0x1c
+> > > > +#define PLL_CPBIAS_CNTRL		GENMASK(6,  0)
+> > > > +
+> > > > +#define PLL_ANALOG_PROGRAM_CONTROL	0x1f
+> > > > +#define PLL_MPLL_PROG_5_0		GENMASK(5,  0)
+> > > > +#define PLL_MPLL_PROG_11_6		GENMASK(5,  0)
+> > > > +#define PLL_MPLL_PROG_16_12		GENMASK(4,  0)
+> > > > +
+> > > > +#define HS_FREQ_RANGE_OF_OPERATION	0x44
+> > > > +#define HSFREQRANGE_OVR_EN		BIT(7)
+> > > > +#define HSFREQRANGE_OVR			GENMASK(6,  0)
+> > > > +#define HSFREQRANGE			HSFREQRANGE_OVR
+> > > > +
+> > > > +#define PG_LP_BIAS_LANE0		0x4a
+> > > > +#define PRG_ON_LANE0			BIT(6)
+> > > > +
+> > > > +#define SR_FSM_OVR_CNTRL		0xa0
+> > > > +#define SR_DDL_LOOP_CONF		0xa3
+> > > > +
+> > > > +/* syscon registers */
+> > > > +
+> > > > +#define MIPIDSI0_SYSREG			0x8
+> > > > +#define MIPIDSI1_SYSREG			0xc
+> > > > +#define MIPIDSI_HSFREQRANGE		GENMASK(9,  3)
+> > > > +#define MIPIDSI_CFGCLKFREQRANGE		GENMASK(15, 10)
+> > > > +#define MIPIDSI_CFGCLKFREQRANGE_DEF	(0x1c << 10)
+> > > > +
+> > > > +struct pll_hsfreqrange {
+> > > > +	unsigned int max_mbps;
+> > > > +	u8 hsfreqrange;
+> > > > +};
+> > > > +
+> > > > +static const struct pll_hsfreqrange hsfreqrange_table[] =3D {
+> > > > +	{ 80,  0x00 },
+> > > > +	{ 90,  0x10 },
+> > > > +	{ 100, 0x20 },
+> > > > +	{ 110, 0x30 },
+> > > > +	{ 120, 0x01 },
+> > > > +	{ 130, 0x11 },
+> > > > +	{ 140, 0x21 },
+> > > > +	{ 150, 0x31 },
+> > > > +	{ 160, 0x02 },
+> > > > +	{ 170, 0x12 },
+> > > > +	{ 180, 0x22 },
+> > > > +	{ 190, 0x32 },
+> > > > +	{ 205, 0x03 },
+> > > > +	{ 220, 0x13 },
+> > > > +	{ 235, 0x23 },
+> > > > +	{ 250, 0x33 },
+> > > > +	{ 275, 0x04 },
+> > > > +	{ 300, 0x14 },
+> > > > +	{ 325, 0x25 },
+> > > > +	{ 350, 0x35 },
+> > > > +	{ 400, 0x05 },
+> > > > +	{ 450, 0x16 },
+> > > > +	{ 500, 0x26 },
+> > > > +	{ 550, 0x37 },
+> > > > +	{ 600, 0x07 },
+> > > > +	{ 650, 0x18 },
+> > > > +	{ 700, 0x28 },
+> > > > +	{ 750, 0x39 },
+> > > > +	{ 800, 0x09 },
+> > > > +	{ 850, 0x19 },
+> > > > +	{ 900, 0x29 },
+> > > > +	{ 950, 0x3A },
+> > > > +	{ 1000, 0x0A },
+> > > > +	{ 1050, 0x1A },
+> > > > +	{ 1100, 0x2A },
+> > > > +	{ 1150, 0x3B },
+> > > > +	{ 1200, 0x0B },
+> > > > +	{ 1250, 0x1B },
+> > > > +	{ 1300, 0x2B },
+> > > > +	{ 1350, 0x3C },
+> > > > +	{ 1400, 0x0C },
+> > > > +	{ 1450, 0x1C },
+> > > > +	{ 1500, 0x2C },
+> > > > +	{ 1550, 0x3D },
+> > > > +	{ 1600, 0x0D },
+> > > > +	{ 1650, 0x1D },
+> > > > +	{ 1700, 0x2E },
+> > > > +	{ 1750, 0x3E },
+> > > > +	{ 1800, 0x0E },
+> > > > +	{ 1850, 0x1E },
+> > > > +	{ 1900, 0x2F },
+> > > > +	{ 1950, 0x3F },
+> > > > +	{ 2000, 0x0F },
+> > > > +	{ 2050, 0x40 },
+> > > > +	{ 2100, 0x41 },
+> > > > +	{ 2150, 0x42 },
+> > > > +	{ 2200, 0x43 },
+> > > > +	{ 2250, 0x44 },
+> > > > +	{ 2300, 0x45 },
+> > > > +	{ 2350, 0x46 },
+> > > > +	{ 2400, 0x47 },
+> > > > +	{ 2450, 0x48 },
+> > > > +	{ 2500, 0x49 },
+> > > > +};
+> > > > +
+> > > > +struct hstt {
+> > > > +	unsigned int max_mbps;
+> > > > +	struct dw_mipi_dsi_dphy_timing timing;
+> > > > +};
+> > > > +
+> > > > +#define HSTT(_max_mbps, _c_lp2hs, _c_hs2lp, _d_lp2hs, _d_hs2lp)	\
+> > > > +{					\
+> > > > +	.max_mbps =3D _max_mbps,		\
+> > > > +	.timing =3D {			\
+> > > > +		.clk_lp2hs =3D _c_lp2hs,	\
+> > > > +		.clk_hs2lp =3D _c_hs2lp,	\
+> > > > +		.data_lp2hs =3D _d_lp2hs,	\
+> > > > +		.data_hs2lp =3D _d_hs2lp,	\
+> > > > +	}				\
+> > > > +}
+> > > > +
+> > > > +static struct hstt hstt_table[] =3D {
+> > > > +	HSTT(80, 21, 17, 15, 10),
+> > > > +	HSTT(90, 23, 17, 16, 10),
+> > > > +	HSTT(100, 22, 17, 16, 10),
+> > > > +	HSTT(110, 25, 18, 17, 11),
+> > > > +	HSTT(120, 26, 20, 18, 11),
+> > > > +	HSTT(130, 27, 19, 19, 11),
+> > > > +	HSTT(140, 27, 19, 19, 11),
+> > > > +	HSTT(150, 28, 20, 20, 12),
+> > > > +	HSTT(160, 30, 21, 22, 13),
+> > > > +	HSTT(170, 30, 21, 23, 13),
+> > > > +	HSTT(180, 31, 21, 23, 13),
+> > > > +	HSTT(190, 32, 22, 24, 13),
+> > > > +	HSTT(205, 35, 22, 25, 13),
+> > > > +	HSTT(220, 37, 26, 27, 15),
+> > > > +	HSTT(235, 38, 28, 27, 16),
+> > > > +	HSTT(250, 41, 29, 30, 17),
+> > > > +	HSTT(275, 43, 29, 32, 18),
+> > > > +	HSTT(300, 45, 32, 35, 19),
+> > > > +	HSTT(325, 48, 33, 36, 18),
+> > > > +	HSTT(350, 51, 35, 40, 20),
+> > > > +	HSTT(400, 59, 37, 44, 21),
+> > > > +	HSTT(450, 65, 40, 49, 23),
+> > > > +	HSTT(500, 71, 41, 54, 24),
+> > > > +	HSTT(550, 77, 44, 57, 26),
+> > > > +	HSTT(600, 82, 46, 64, 27),
+> > > > +	HSTT(650, 87, 48, 67, 28),
+> > > > +	HSTT(700, 94, 52, 71, 29),
+> > > > +	HSTT(750, 99, 52, 75, 31),
+> > > > +	HSTT(800, 105, 55, 82, 32),
+> > > > +	HSTT(850, 110, 58, 85, 32),
+> > > > +	HSTT(900, 115, 58, 88, 35),
+> > > > +	HSTT(950, 120, 62, 93, 36),
+> > > > +	HSTT(1000, 128, 63, 99, 38),
+> > > > +	HSTT(1050, 132, 65, 102, 38),
+> > > > +	HSTT(1100, 138, 67, 106, 39),
+> > > > +	HSTT(1150, 146, 69, 112, 42),
+> > > > +	HSTT(1200, 151, 71, 117, 43),
+> > > > +	HSTT(1250, 153, 74, 120, 45),
+> > > > +	HSTT(1300, 160, 73, 124, 46),
+> > > > +	HSTT(1350, 165, 76, 130, 47),
+> > > > +	HSTT(1400, 172, 78, 134, 49),
+> > > > +	HSTT(1450, 177, 80, 138, 49),
+> > > > +	HSTT(1500, 183, 81, 143, 52),
+> > > > +	HSTT(1550, 191, 84, 147, 52),
+> > > > +	HSTT(1600, 194, 85, 152, 52),
+> > > > +	HSTT(1650, 201, 86, 155, 53),
+> > > > +	HSTT(1700, 208, 88, 161, 53),
+> > > > +	HSTT(1750, 212, 89, 165, 53),
+> > > > +	HSTT(1800, 220, 90, 171, 54),
+> > > > +	HSTT(1850, 223, 92, 175, 54),
+> > > > +	HSTT(1900, 231, 91, 180, 55),
+> > > > +	HSTT(1950, 236, 95, 185, 56),
+> > > > +	HSTT(2000, 243, 97, 190, 56),
+> > > > +	HSTT(2050, 248, 99, 194, 58),
+> > > > +	HSTT(2100, 252, 100, 199, 59),
+> > > > +	HSTT(2150, 259, 102, 204, 61),
+> > > > +	HSTT(2200, 266, 105, 210, 62),
+> > > > +	HSTT(2250, 269, 109, 213, 63),
+> > > > +	HSTT(2300, 272, 109, 217, 65),
+> > > > +	HSTT(2350, 281, 112, 225, 66),
+> > > > +	HSTT(2400, 283, 115, 226, 66),
+> > > > +	HSTT(2450, 282, 115, 226, 67),
+> > > > +	HSTT(2500, 281, 118, 227, 67),
+> > > > +};
+> > > > +
+> > >=20
+> > > Where do these data come from?
+> >=20
+> > This is part of the vendor DPHY driver, see [1].
+> >=20
+> > Thanks,
+> > Icenowy
+> >=20
+> > [1]
+> > https://github.com/revyos/th1520-linux-kernel/blob/th1520-lts/drivers/p=
+hy/synopsys/phy-dw-mipi-dphy.c#L185
+>=20
+> This looks consistent with imx93-mipi-dsi.c, but the TH1520 does not
+> use the same TSMC 16nm process as the IMX93. As far as I know, they
+> are usually different.=20
 
-Reviewed-by: Eliot Courtney <ecourtney@nvidia.com>
+Interestingly the hsfreqrange table seems to match IMX93 too. The vendor D-
+PHY driver also calculates PLL parameters (and the ranges also match
+IMX93), but they're written nowhere so this piece of code isn't replicated
+in my driver.
+
+It's quite possible that this is just a different revision of the same PHY,
+considering the relationship of TSMC 16nm and 12nm.
+
+Thanks,
+Icenowy
+
+>=20
+> Could you confirm this from the DesignWare PHY databook?
+
