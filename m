@@ -2,100 +2,45 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8544A606A334
-	for <dri-devel@archiver.kernel.org>; Tue, 24 Nov 2026 13:57:04 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5BF86606A31E
+	for <dri-devel@archiver.kernel.org>; Tue, 24 Nov 2026 13:59:00 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=cMmhkvdg
+	dkim=pass (1024-bit key) header.d=mail.sdu.edu.cn header.i=@mail.sdu.edu.cn header.a=rsa-sha256 header.s=default header.b=LWPg5PLb
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id EF77B10E8A3;
-	Tue, 24 Nov 2026 13:56:58 +0000 (UTC)
-Received: from mail-wr1-f43.google.com (mail-wr1-f43.google.com
- [209.85.221.43])
- by gabe.freedesktop.org (Postfix) with ESMTPS id E7C8D10E8A3
- for <dri-devel@lists.freedesktop.org>; Tue, 24 Nov 2026 13:56:52 +0000 (UTC)
-Received: by mail-wr1-f43.google.com with SMTP id
- ffacd0b85a97d-497614c95f0so2545133f8f.1
- for <dri-devel@lists.freedesktop.org>; Tue, 24 Nov 2026 05:56:52 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20260707; t=1795528611; x=1796133411; darn=lists.freedesktop.org;
- h=content-transfer-encoding:content-disposition:content-type
- :mime-version:references:in-reply-to:message-id:date:subject:cc:to
- :from:from:to:cc:subject:date:message-id:reply-to:content-type;
- bh=anD5m1AxXBnKPgg8ZQZ0gwUoffnh9QZT8UfPtY8eE3c=;
- b=cMmhkvdgAGPJWckkh+KJxPjfolQOirNyxSTzX1Wgp67bUZDg3iN0HUIfHOHsO7dXCy
- w4bM124iqdwwlRlpzYHzKWolMZ1G8lfQKy8Q1puVxiwM9yW+s2Wf63eMW14PsPI8yDr9
- FYYLLAGhUYItvc/peYAmQtZhQdao3QQhAgB28TSmzNSpydF4mRGgk/m263PMup0xYTkU
- CdFwvR0XvoUWy3GuPo3n0IHJVqi6N7ifiGZc9SJQr8eM2RbokPk5iW549OSAeNq8lO9/
- M/IzhlVjVTyOnDjDf7MYRwSsRyv4NOKZ+AHLS6o5UU+tE2cIjTc+avaAk0D4nCqQYCW1
- CmKQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20260707; t=1795528611; x=1796133411;
- h=content-transfer-encoding:content-disposition:content-type
- :mime-version:references:in-reply-to:message-id:date:subject:cc:to
- :from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
- :reply-to:content-type;
- bh=anD5m1AxXBnKPgg8ZQZ0gwUoffnh9QZT8UfPtY8eE3c=;
- b=D2Q0k2fvj0GKJcIQblyWNxZtvBipmM9qsiYhWGd3SUmWGYLZXwEVZCihZew1TaqlJu
- yTrWo/yKcL3CM2DIjm/26JuJHwUHOz2ayUltXpRbGGIMhsE0i3/D5aopwuWS9iuCtQaV
- nQIa24njdLWImDBvSxPd8b67Xozo5JWb3jh3s3q6t8z05k3iQ4fMs8h1bky9MQ5SCwq2
- 304wI67YKcwEAG89q+JxQTQn1SretHdyJ3C/XARKXjGDriJtf2w/CYk3+FtaJ2PEiFgM
- V+8RUbZyukAcY4N26EEOX0AqISW8HZqnd0cXRJ61g41yR0SPkDYThd28h7lsUtjHSTJH
- FljA==
-X-Forwarded-Encrypted: i=1;
- AL+hErELXfMdMqeasPyGDarxchQn3iRbGpH7/LaDvLWrWMzv/zOMffy7FVu2R+5gZpLcB284SZFRePGHgwE=@lists.freedesktop.org
-X-Gm-Message-State: APuU4Z+3z1Pd+YzkhMJJUMScN9jtFictJCGD8unUsXrI7VjUTwJgD9HH
- fV/HYpw2B/nnJ60JqPTCEdGMAxvo40s4zWOmcRo50qRfWJTouLrqz1hg
-X-Gm-Gg: AZFdTZev607QXFXrgGxFiFKSv1029dOfaPHj8FsVMZnv7ZkYK9LoHFEofgAOgdHIAKr
- Cd3XEBXbsa7Rz44qHjLr3PUkK3k+OQHI0vxC7WWuCtrSFkd/h6by1ujbxSdB+MGW0oKV26seFEP
- ZXmiGva8VUyAUyMn9rrdqDvPOzURI1GMIPY8J20CU6c00rK+GlyyDZ4np5bOnz/UYxRUQPn8wqn
- P778lEdP3X4j3bFGaANWQb+PTiGmZFBI5VQDQf1mIQyy2q5v/12P3NqgLovVODc07jE45A8aGbd
- 2j29UyZbl8zHIWSS8zjYt3GhjqWq3w2FhG03vHZXkv+NckyZiI7jf0A+gFATS9A1/iUR5iasBhP
- cRlss6DMdFoxlPPJzgIVKfnMQFpDQqcwgTTGRRVK+VmpsoqEPdEw0mC8k6SSxMiYQ/w2ZVqRW4r
- vg4PJ72uLiany07D96OVOwAmY6ahSDpU7//MvJlJ+YwK4rpxooFJ3HisDSL16Ca90AyX0SQyYjb
- WX1ctwewrasyNk7VsuQ6AyhMjDrPlBlk8/GNfda2rT2DE8yJz96aan4kYNUGVt/zioe3X+fwcTy
- g8cX2+bXgyypdbmiqhBJGO83zcO0NeU=
-X-Received: by 2002:adf:e197:0:b0:492:b5d9:feb9 with SMTP id
- ffacd0b85a97d-4abb3a4d8f7mr26010339f8f.30.1795528611263; 
- Tue, 24 Nov 2026 05:56:51 -0800 (PST)
-Received: from ArchOarora ([95.179.249.152]) by smtp.gmail.com with ESMTPSA id
- ffacd0b85a97d-4ab6baa397asm28936616f8f.48.2026.11.24.05.56.40
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Tue, 24 Nov 2026 05:56:50 -0800 (PST)
-From: Oarora Etimis <oaroraetimis@gmail.com>
-To: Louis Chauvet <louis.chauvet@bootlin.com>
-Cc: Haneen Mohammed <hamohammed.sa@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- Melissa Wen <melissa.srw@gmail.com>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>,
- Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>,
- jose.exposito89@gmail.com, Jonathan Corbet <corbet@lwn.net>,
- Harry Wentland <harry.wentland@amd.com>,
- Lucas De Marchi <demarchi@kernel.org>,
- Ville =?utf-8?B?U3lyasOkbMOk?= <ville.syrjala@linux.intel.com>,
- Randy Dunlap <rdunlap@infradead.org>,
- Nick Desaulniers <ndesaulniers@google.com>,
- Shuah Khan <skhan@linuxfoundation.org>, Miguel Ojeda <ojeda@kernel.org>,
- Nathan Chancellor <nathan@kernel.org>,
- Nick Desaulniers <nick.desaulniers+lkml@gmail.com>,
- Bill Wendling <morbo@google.com>, Justin Stitt <justinstitt@google.com>,
- Luca Ceresoli <luca.ceresoli@bootlin.com>,
- Kory Maincent <kory.maincent@bootlin.com>, sebastian.wick@redhat.com,
- victoria@system76.com, thomas.petazzoni@bootlin.com,
- dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
- linux-doc@vger.kernel.org, Simona Vetter <simona.vetter@ffwll.ch>,
- llvm@lists.linux.dev
-Subject: Re: [PATCH v6 09/43] drm/connector: Export drm_get_colorspace_name
-Date: Tue, 24 Nov 2026 14:56:38 +0100
-Message-ID: <awWXgzY_0Q2Wtn7n@Oarora>
-X-Mailer: git-send-email 2.56.1
-In-Reply-To: <20261120-vkms-all-config-v6-9-78ace90f4fc1@bootlin.com>
-References: <20261120-vkms-all-config-v6-0-78ace90f4fc1@bootlin.com>
- <20261120-vkms-all-config-v6-9-78ace90f4fc1@bootlin.com>
+	by gabe.freedesktop.org (Postfix) with ESMTP id C481010F5C0;
+	Tue, 24 Nov 2026 13:58:54 +0000 (UTC)
+Received: from mail-m49197.qiye.163.com (mail-m49197.qiye.163.com
+ [45.254.49.197])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id F06B110F5C0
+ for <dri-devel@lists.freedesktop.org>; Tue, 24 Nov 2026 13:58:46 +0000 (UTC)
+Received: from lgs.. (unknown [101.76.249.61])
+ by smtp.qiye.163.com (Hmail) with ESMTP id 55d4cdb9f;
+ Tue, 24 Nov 2026 21:58:42 +0800 (GMT+08:00)
+From: Guangshuo Li <liguangshuo@mail.sdu.edu.cn>
+To: Jingoo Han <jingoohan1@gmail.com>,
+	Helge Deller <deller@gmx.de>
+Cc: linux-fbdev@vger.kernel.org, dri-devel@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org, stable@vger.kernel.org
+Subject: [PATCH v2] fbdev: s3c-fb: Fix potential registration corruption on
+ probe failure
+Date: Tue, 24 Nov 2026 21:58:40 +0800
+Message-ID: <20261124135840.2276343-1-liguangshuo@mail.sdu.edu.cn>
+X-Mailer: git-send-email 2.43.0
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
+X-HM-Tid: 0aa20dda064003a1kunma2178d373424ae
+X-HM-MType: 10
+X-HM-Spam-Status: e1kfGhgUHx5ZQUpXWQgPGg8OCBgUHx5ZQUlOS1dZFg8aDwILHllBWSg2Ly
+ tZV1koWUFITzdXWRgWCB1ZQUpXWS1ZQUlXWQ8JGhUIEh9ZQVlCTExLVk1NT0sdHkgYHUJIHlYeHw
+ 5VEwETFhoSFyQUDg9ZV1kYEgtZQVlKS0pVTE1VSU9CVU1KWVdZFhoPEhUdFFlBWU9LSFVKS0lCQ0
+ NMVUpLS1VLWQY+
+DKIM-Signature: a=rsa-sha256;
+ b=LWPg5PLb9d6gzJORAqlgK8DHlzCNVSaYpI4KfipNPdYA+XydQSYkdramj35/25nIPUmVuwHaqa5nL+7ui10BOaIg3lQZS+mT6oPuGvB/+i5QykrN5JbjRW9hA4xSrGmAPGu74EQLjZtQU60V1R4yM5eky1pMAjwzOGKLb47IlR0=;
+ c=relaxed/relaxed; s=default; d=mail.sdu.edu.cn; v=1; 
+ bh=+HySKkOVbW474osHQ9Y0YmzT/kE7CKLfCjwENY+Iv3I=;
+ h=date:mime-version:subject:message-id:from;
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -107,38 +52,117 @@ List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-14.8 required=3.0 tests=BAYES_00,DKIM_SIGNED,
-	DKIM_VALID,DKIM_VALID_AU,FORGED_GMAIL_RCVD,FREEMAIL_FORGED_FROMDOMAIN,
-	FREEMAIL_FROM,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,
-	INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,
-	USER_AGENT_GIT autolearn=unavailable autolearn_force=no version=4.0.1
+X-Spam-Status: No, score=-18.8 required=3.0 tests=BAYES_00,DKIM_SIGNED,
+	DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
+	INCLUDES_CR_TRAILER,INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,
+	SPF_PASS,USER_AGENT_GIT autolearn=unavailable autolearn_force=no
+	version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-On Fri, Nov 20, 2026 at 06:58:51PM +0100, Louis Chauvet wrote:
-> Export drm_get_colorspace_name so it could be used by VKMS
-> 
-> Reviewed-by: Luca Ceresoli <luca.ceresoli@bootlin.com>
-> Signed-off-by: Louis Chauvet <louis.chauvet@bootlin.com>
-> ---
->  drivers/gpu/drm/drm_connector.c | 1 +
->  1 file changed, 1 insertion(+)
-> 
-> diff --git a/drivers/gpu/drm/drm_connector.c b/drivers/gpu/drm/drm_connector.c
-> index d66188521881..fbff5871355d 100644
-> --- a/drivers/gpu/drm/drm_connector.c
-> +++ b/drivers/gpu/drm/drm_connector.c
-> @@ -1528,6 +1528,7 @@ const char *drm_get_colorspace_name(enum drm_colorspace colorspace)
->  	else
->  		return "(null)";
->  }
-> +EXPORT_SYMBOL(drm_get_colorspace_name);
->  
->  static const u32 hdmi_colorspaces =
->  	BIT(DRM_MODE_COLORIMETRY_SMPTE_170M_YCC) |
-> 
-> -- 
-> 2.56.0
-> 
+s3c_fb_probe_win() publishes its window before registration succeeds.
+On failure, the caller unregisters that unregistered framebuffer, whose
+zero-initialized node can remove another framebuffer from registered_fb[0].
+Colour-map allocation failure is also ignored.
 
-Reviewed-by: Oarora Etimis <oaroraetimis@gmail.com>
+Unwind failed windows inside s3c_fb_probe_win() and publish them only
+after successful registration. Stop the window before freeing its display
+memory if registration fails, and skip empty slots in the caller's cleanup.
+
+This issue was found by our static analysis tool under development.
+
+Fixes: ec549a0fdc32 ("fb: add s3c-fb driver for newer Samsung SoC framebuffer devices")
+Cc: stable@vger.kernel.org
+Signed-off-by: Guangshuo Li <liguangshuo@mail.sdu.edu.cn>
+---
+Changes in v2:
+  - Unwind failed windows in s3c_fb_probe_win() and publish the window
+    only after registration succeeds, without a registration flag.
+  - Stop on colour-map allocation failure and skip empty cleanup slots.
+  - Blank the enabled window before freeing memory if registration fails.
+
+ drivers/video/fbdev/s3c-fb.c | 27 +++++++++++++++++++--------
+ 1 file changed, 19 insertions(+), 8 deletions(-)
+
+diff --git a/drivers/video/fbdev/s3c-fb.c b/drivers/video/fbdev/s3c-fb.c
+index fde78707d313..8fae4d909bb7 100644
+--- a/drivers/video/fbdev/s3c-fb.c
++++ b/drivers/video/fbdev/s3c-fb.c
+@@ -1197,7 +1197,6 @@ static int s3c_fb_probe_win(struct s3c_fb *sfb, unsigned int win_no,
+ 	WARN_ON(windata->yres == 0);
+ 
+ 	win = fbinfo->par;
+-	*res = win;
+ 	win->variant = *variant;
+ 	win->fbinfo = fbinfo;
+ 	win->parent = sfb;
+@@ -1208,7 +1207,7 @@ static int s3c_fb_probe_win(struct s3c_fb *sfb, unsigned int win_no,
+ 	ret = s3c_fb_alloc_memory(sfb, win);
+ 	if (ret) {
+ 		dev_err(sfb->dev, "failed to allocate display memory\n");
+-		return ret;
++		goto err_release_fb;
+ 	}
+ 
+ 	/* setup the r/b/g positions for the window's palette */
+@@ -1249,16 +1248,17 @@ static int s3c_fb_probe_win(struct s3c_fb *sfb, unsigned int win_no,
+ 	ret = s3c_fb_check_var(&fbinfo->var, fbinfo);
+ 	if (ret < 0) {
+ 		dev_err(sfb->dev, "check_var failed on initial video params\n");
+-		return ret;
++		goto err_free_memory;
+ 	}
+ 
+ 	/* create initial colour map */
+ 
+ 	ret = fb_alloc_cmap(&fbinfo->cmap, win->variant.palette_sz, 1);
+-	if (ret == 0)
+-		fb_set_cmap(&fbinfo->cmap, fbinfo);
+-	else
++	if (ret) {
+ 		dev_err(sfb->dev, "failed to allocate fb cmap\n");
++		goto err_free_memory;
++	}
++	fb_set_cmap(&fbinfo->cmap, fbinfo);
+ 
+ 	s3c_fb_set_par(fbinfo);
+ 
+@@ -1269,12 +1269,22 @@ static int s3c_fb_probe_win(struct s3c_fb *sfb, unsigned int win_no,
+ 	ret = register_framebuffer(fbinfo);
+ 	if (ret < 0) {
+ 		dev_err(sfb->dev, "failed to register framebuffer\n");
+-		return ret;
++		goto err_blank;
+ 	}
+ 
++	*res = win;
+ 	dev_info(sfb->dev, "window %d: fb %s\n", win_no, fbinfo->fix.id);
+ 
+ 	return 0;
++
++err_blank:
++	s3c_fb_blank(FB_BLANK_POWERDOWN, fbinfo);
++	fb_dealloc_cmap(&fbinfo->cmap);
++err_free_memory:
++	s3c_fb_free_memory(sfb, win);
++err_release_fb:
++	framebuffer_release(fbinfo);
++	return ret;
+ }
+ 
+ /**
+@@ -1470,7 +1480,8 @@ static int s3c_fb_probe(struct platform_device *pdev)
+ 		if (ret < 0) {
+ 			dev_err(dev, "failed to create window %d\n", win);
+ 			for (; win >= 0; win--)
+-				s3c_fb_release_win(sfb, sfb->windows[win]);
++				if (sfb->windows[win])
++					s3c_fb_release_win(sfb, sfb->windows[win]);
+ 			goto err_pm_runtime;
+ 		}
+ 	}
+
+base-commit: b6a9fa34ce4187cb69d3c588a4bbffc31ce5db8f
+-- 
+2.43.0
+
