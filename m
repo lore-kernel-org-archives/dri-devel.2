@@ -2,96 +2,42 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5D632606A33E
-	for <dri-devel@archiver.kernel.org>; Tue, 24 Nov 2026 09:53:24 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 32772606A322
+	for <dri-devel@archiver.kernel.org>; Tue, 24 Nov 2026 10:03:09 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=baylibre.com header.i=@baylibre.com header.a=rsa-sha256 header.s=google header.b=bptKuawZ
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=nMPRLJnt
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id BC35410E22C;
-	Tue, 24 Nov 2026 09:53:18 +0000 (UTC)
-Received: from mail-wr1-f45.google.com (mail-wr1-f45.google.com
- [209.85.221.45])
- by gabe.freedesktop.org (Postfix) with ESMTPS id BB9BC10F40F
- for <dri-devel@lists.freedesktop.org>; Tue, 24 Nov 2026 09:53:12 +0000 (UTC)
-Received: by mail-wr1-f45.google.com with SMTP id
- ffacd0b85a97d-490c3ae81d3so2665390f8f.2
- for <dri-devel@lists.freedesktop.org>; Tue, 24 Nov 2026 01:53:12 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=baylibre.com; s=google; t=1795513991; x=1796118791;
- darn=lists.freedesktop.org; 
- h=content-transfer-encoding:content-type:in-reply-to:from
- :content-language:references:cc:to:subject:user-agent:mime-version
- :date:message-id:from:to:cc:subject:date:message-id:reply-to
- :content-type; bh=s3HEy2luFzOKtpXEMJaCVU6qsnBsmUBR+KRo1CZ+Kxc=;
- b=bptKuawZyhXSueVhmkNgnKW79dU6hVOh4pKfRNdHgTCPvjItOGtymi8dn/jC/9mAU3
- W/32Il09g679Vp4QBkE4RrL+AKzHKQbqLvH1z6KUGdkJlXQraN96hLCx8HW27lDX/+g9
- kBqFfvZ6JEIk3X6Q8xEdBwls18ms67SqzVwMeYHH2sXO2wQ13/IlI2tXDoyic/Iv+uZ6
- 3Wol6Qlr87nTuqeLZqrrsGYesxljidrC+TJyRzchLaBI0zVlLNEjW4vj2/IH2d59nc0Q
- a4H1RZDhtdsWT0LBiZZxO8GljK+LhRb4JT70GO7nS4cP7zuAJm+Q68CG+xOBPxpUd0Dp
- mz8w==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20260707; t=1795513991; x=1796118791;
- h=content-transfer-encoding:content-type:in-reply-to:from
- :content-language:references:cc:to:subject:user-agent:mime-version
- :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
- :message-id:reply-to:content-type;
- bh=s3HEy2luFzOKtpXEMJaCVU6qsnBsmUBR+KRo1CZ+Kxc=;
- b=cO9+GehWHzCuPsjSKxUn+wYHOdDbGzfV1oRBzjD/8IllqBlOKeIKErtdYD91R4oJfJ
- 9yd8l9c4JU8i4THP7Dz2jaupuP1IOTYjzAtqPhDRowWyreGx7aVVQaOcQQPFXqh2uU/2
- mk/ILhwNwQ7NmRwTXr6pnCNTbRC71XNWIXrL6zT3APZQLKHkgJ2/H+gNDCYaJHSaEiaB
- AgTk/NJDiKkZG0ZDyOAyEtiFOmN5IFx9CM7PqtOyc5Oyrb04iqCVQxLl5zjkgjWdZmmC
- i23dokoY3lKLVBcQzRC3T84o2FmE4t/vfwLwGDVDZx5GrLq5Cy57ck/TB1VbRVZVJsio
- 7oKg==
-X-Forwarded-Encrypted: i=1;
- AL+hErF61MTZYXXVoUvO91Xmc/GcqzOh+U4scunKMxLZ+ooXbfajTsK7CszkHer3ko9OKV5PcYGsrMXXg0o=@lists.freedesktop.org
-X-Gm-Message-State: APuU4Z9t2laLHp4F13rvfhOaC/wpmb2TgHFMpz2PLCC/xXM5QBh70CKZ
- aqbdW8pTVwvxKlpn1ZVkKOISjl9+tsERJNAu2ATCpZ6xy9QkCKTlKxtvUa2NqwvmRXI=
-X-Gm-Gg: AZFdTZd9M1KAm7JsNlWV/qRnv1BBancuxJ2JVuNQVSxz+59kseq/yDGWOWrg7Hf5l59
- 2jM0FCPLRnXOrEoSSujxxeY9ZesGPsGrlaMSb93ZCTG9hPX48/JfITL+VDb2j0redmGc136M0Ov
- aIWKIELePAkMuECqxfVynVhMfDZ55foFxPXK0fSRJncq7jgJ9N0kQgmZU/1zCmW4JX8+guC6058
- 51qkqSCtah3fUA/pJJDVC3stlkUIV5INfVrh4oTIpWdqYXqQGWQUEudzJMnsiv/oREA+QKNwo3D
- FxtPjMUe/XceOsRQRN/wbwUTi4iiUD/dND/kEXB9atgMeTC65pn4KvTOD6IeBdA3OEx7Ji8/LN7
- YDn/iiCCk8fbDokwkdUnbz+LCzbFtf1IPJ5bCdF0JVU3KpQ3ydnr7p/zftV9HxRMQZe6+/JN457
- 6yPuOw++6C7KwCa3xW67zxnnGaMk33n4DkSBIxW94T7i4J6uKs2pWkV6JSPBZNMsLejXXhAI90J
- 6y9QTbIfIIlziuLyaqI3rTeyLc0v/8EOGFcuI9JWYUw5bD3EcPsUst5BSkvQlSY9IiJf2Kjhujp
- thFDRvovuron7RVxz1IaFdhz3k0/wm/DKEgWkyjpCvmt/vmpc4DE+jbrZuBZCjwd3ru++gV1yVD
- I7Q==
-X-Received: by 2002:a05:600c:4e0b:b0:4bb:6f45:2a79 with SMTP id
- 5b1f17b1804b1-4bb88817920mr309330195e9.22.1795513991045; 
- Tue, 24 Nov 2026 01:53:11 -0800 (PST)
-Received: from ?IPV6:2001:8a0:d6cd:9000:86f4:4e71:9fc8:3183?
- ([2001:8a0:d6cd:9000:86f4:4e71:9fc8:3183])
- by smtp.gmail.com with ESMTPSA id
- 5b1f17b1804b1-4bb88442995sm435581505e9.2.2026.11.24.01.53.09
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Tue, 24 Nov 2026 01:53:10 -0800 (PST)
-Message-ID: <2fd706ef-8205-4564-bed7-527b6bae8790@baylibre.com>
-Date: Tue, 24 Nov 2026 09:53:08 +0000
-X-Archived-By: <archiver.kernel.org>
-MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v18 5/8] accel/rocket: add a GET_PARAM ioctl for the
- hardware version
-To: Jiaxing Hu <gahing@gahingwoo.com>, tomeu@tomeuvizoso.net,
- heiko@sntech.de, robh@kernel.org, krzk+dt@kernel.org, conor+dt@kernel.org,
- joro@8bytes.org, will@kernel.org, robin.murphy@arm.com,
- p.zabel@pengutronix.de, ogabbay@kernel.org, zhangqing@rock-chips.com
-Cc: royalnet026@gmail.com, sidong.yang@furiosa.ai,
- ulf.hansson@oss.qualcomm.com, abel.vesa@oss.qualcomm.com,
- sebastian.reichel@collabora.com, chaoyi.chen@rock-chips.com,
- shawn.lin@rock-chips.com, finley.xiao@rock-chips.com,
- diederik@cknow-tech.com, alchark@flipper.net, leonard@lausen.nl,
- vlwwwwww@gmail.com, jeff.hugo@oss.qualcomm.com,
- dri-devel@lists.freedesktop.org, linux-rockchip@lists.infradead.org,
- iommu@lists.linux.dev, devicetree@vger.kernel.org,
- linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org
-References: <cover.1795478392.git.gahing@gahingwoo.com>
- <cbb77a43deedadb6667a84bd1c57030cf1c9ce74.1795478392.git.gahing@gahingwoo.com>
-Content-Language: en-US
-From: Daniel Drake <ddrake@baylibre.com>
-In-Reply-To: <cbb77a43deedadb6667a84bd1c57030cf1c9ce74.1795478392.git.gahing@gahingwoo.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+	by gabe.freedesktop.org (Postfix) with ESMTP id 6873E10E21D;
+	Tue, 24 Nov 2026 10:03:03 +0000 (UTC)
+Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 372CF10E21D
+ for <dri-devel@lists.freedesktop.org>; Tue, 24 Nov 2026 10:02:56 +0000 (UTC)
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+ by sea.source.kernel.org (Postfix) with ESMTP id 957FB42D77;
+ Tue, 24 Nov 2026 10:02:56 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2A4B71F000D8;
+ Tue, 24 Nov 2026 10:02:56 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+ s=k20260515; t=1795514576;
+ bh=16XiWjVZBjf4CNZIZcFDOAr5tsyhnx7m0rS92SN1wWk=;
+ h=From:Subject:Reply-To:To:In-Reply-To:References:Date;
+ b=nMPRLJnt0RGQ6fVFW9gG+GBRYjQudpSMH4KG1CCMMi76lDpLqE7aW3z+0xuFnQ4Dm
+ XO7VRXA7j5aTq6xWQbcTyodcLYe6zebyIFwaUlXXhxLVznxrWQVz7ReJ1RwIdrsiRO
+ ZaZHu2j/GGqobQmiLeQMVCIKjUlXRWunRbzC0BfpvAd+KB++0sHcB8zl0mWv0n0mSp
+ yYJT07hgCuszR+itTH7n0funWByk0oXqvQYqYHSqdzzm3HuGyfSREw/wsHg8lKLng4
+ wkn24c1MgDdWBm3X7H9FI8gljPDyjKOAZ0GtBAw7Hgb1gLRZJOzV9D6zyO1SHRZKnX
+ GJ8ak+Rr6SsaA==
+Message-ID: <sashiko-outbox-230903@kernel.org>
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v3 4/4] drm/bridge: tda998x: fix
+ DRM_BRIDGE_ATTACH_NO_CONNECTOR support
+To: "Luo Liu" <Luo.Liu@cixtech.com>, dri-devel@lists.freedesktop.org
+In-Reply-To: <20261124093928.3220071-5-Luo.Liu@cixtech.com>
+References: <20261124093928.3220071-1-Luo.Liu@cixtech.com>
+ <20261124093928.3220071-5-Luo.Liu@cixtech.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Tue, 24 Nov 2026 10:02:55 +0000
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -102,34 +48,153 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
+Reply-To: sashiko-reviews@lists.linux.dev
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-12.3 required=3.0 tests=BAYES_00,DKIM_SIGNED,
-	DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_PATCH,
-	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,USER_AGENT_SANE_1
-	autolearn=unavailable autolearn_force=no version=4.0.1
+X-Spam-Status: No, score=-10.8 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
+	DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
+	INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS autolearn=ham
+	autolearn_force=no version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
+X-Archived-By: <archiver.kernel.org>
 
-On 24/11/2026 00:01, Jiaxing Hu wrote:
-> Add DRM_IOCTL_ROCKET_GET_PARAM so that userspace can tell which NPU it
-> runs on. DRM_ROCKET_PARAM_HW_VERSION returns an enum
-> drm_rocket_hw_version value, taken from the compatible's match data when
-> the first core probes. The PC_VERSION registers cannot be used: the
-> RK3568 reads 0 from them.
+Thank you for your contribution! Sashiko AI review found 3 potential
+issues to consider:
+- [Medium] drm/bridge: tda998x: tda998x_detect_work() drops HPD before
+  detect()
+- [Medium] drm/bridge: tda998x: unreferenced bridge_connector UAF in
+  tda998x_audio_get_eld()
+- [Medium] drm/bridge: tda998x: tda998x_remove() destroys hpd_mutex
+  before detect_work
+--
 
-I also spotted that the vendor driver uses compatible-based matching for
-this kind of thing.
+commit 5c61daf84ccbb8e21901c3e3a497e52ae6903d78
+Author: Luo Liu <Luo.Liu@cixtech.com>
 
-> @@ -197,6 +224,9 @@ static int rocket_probe(struct platform_device *pdev)
->  		devres_close_group(&drm_dev->dev, rdev_group);
->  	}
->  
-> +	if (hw_version != rdev->hw_version)
-> +		return -EINVAL;
+drm/bridge: tda998x: fix DRM_BRIDGE_ATTACH_NO_CONNECTOR support
+
+This commit caches the connector passed to the bridge detect and EDID read
+callbacks so mode setting, ELD retrieval, and hotplug work use the external
+bridge connector when attached with DRM_BRIDGE_ATTACH_NO_CONNECTOR, and
+sets bridge.interlace_allowed.
+
+> diff --git a/drivers/gpu/drm/bridge/tda998x_drv.c b/drivers/gpu/drm/bridg=
+e/tda998x_drv.c
+> index 0b966c9844e70..40379d74a53ac 100644
+> --- a/drivers/gpu/drm/bridge/tda998x_drv.c
+> +++ b/drivers/gpu/drm/bridge/tda998x_drv.c
+
+[ ... ]
+
+> @@ -778,10 +800,11 @@ static void tda998x_detect_work(struct work_struct =
+*work)
+>  {
+>  	struct tda998x_priv *priv =3D
+>  		container_of(work, struct tda998x_priv, detect_work);
+> -	struct drm_device *dev =3D priv->connector.dev;
+> =20
+> -	if (dev)
+> -		drm_kms_helper_hotplug_event(dev);
+> +	if (priv->bridge_connector)
+> +		drm_bridge_hpd_notify(&priv->bridge, tda998x_conn_detect(priv));
+
+[Severity: Medium]
+Can tda998x_detect_work() lock priv->bridge.hpd_mutex after
+tda998x_remove() has destroyed it?
+
+tda998x_remove() calls drm_bridge_remove(), which runs
+mutex_destroy(&bridge->hpd_mutex), before disabling the HPD interrupt and
+canceling edid_delay_timer and detect_work:
+
+CPU0                                  CPU1 (kworker)
+tda998x_remove()
+  drm_bridge_remove(&priv->bridge)
+    mutex_destroy(&bridge->hpd_mutex)
+                                      tda998x_detect_work()
+                                        drm_bridge_hpd_notify()
+                                          mutex_lock(&bridge->hpd_mutex)
+                                            <-- use-after-destroy
+  ...
+  cancel_work_sync(&priv->detect_work)
+
+> +	else if (priv->connector.dev)
+> +		drm_kms_helper_hotplug_event(priv->connector.dev);
+>  }
+
+[Severity: Medium]
+Does gating drm_bridge_hpd_notify() on priv->bridge_connector drop hotplug
+events before tda998x_bridge_detect() or tda998x_bridge_edid_read() has been
+called?
+
+When attached with DRM_BRIDGE_ATTACH_NO_CONNECTOR, priv->connector.dev is
+NULL and priv->bridge_connector stays NULL until .detect() or .edid_read()
+runs.  With client->irq present, drm_bridge_connector_init() sets
+DRM_CONNECTOR_POLL_HPD and registers the HPD callback without calling
+.detect() or .edid_read(), so an HPD interrupt arriving before the first
+connector probe takes neither branch and is lost.
+
+Since drm_bridge_hpd_notify() does not use priv->bridge_connector, checking
+priv->connector.dev first and calling drm_bridge_hpd_notify() in the else
+branch would avoid dropping early HPD events.
+
+[ ... ]
+
+> @@ -1152,10 +1176,10 @@ static int tda998x_audio_get_eld(struct device *d=
+ev, void *data,
+>  				 uint8_t *buf, size_t len)
+>  {
+>  	struct tda998x_priv *priv =3D dev_get_drvdata(dev);
+> +	struct drm_connector *connector =3D tda998x_get_connector(priv);
+> =20
+>  	mutex_lock(&priv->audio_mutex);
+> -	memcpy(buf, priv->connector.eld,
+> -	       min(sizeof(priv->connector.eld), len));
+> +	memcpy(buf, connector->eld, min(sizeof(connector->eld), len));
+>  	mutex_unlock(&priv->audio_mutex);
+> =20
+>  	return 0;
+>  }
+
+[ ... ]
+
+> @@ -1390,6 +1406,8 @@ static void tda998x_bridge_detach(struct drm_bridge=
+ *bridge)
+>  {
+>  	struct tda998x_priv *priv =3D bridge_to_tda998x_priv(bridge);
+> =20
+> +	priv->bridge_connector =3D NULL;
 > +
+>  	if (priv->connector.dev)
+>  		drm_connector_cleanup(&priv->connector);
+>  }
 
-This check can be dropped, we can assume that a DT that gives cores with
-a mix of hw versions is invalid and broken.
+[Severity: Medium]
+Can tda998x_audio_get_eld() read from a freed priv->bridge_connector when
+the display driver unbinds?
 
-With that change feel free  to add my Reviewed-By
+priv->audio_pdev lives until tda998x_remove(), while the external connector
+created by drm_bridge_connector_init() is allocated with drmm_kzalloc()
+after the mode_config and encoder cleanup actions are registered.  During
+DRM teardown, drm_managed_release() runs in reverse order and frees the
+drm_bridge_connector before drm_encoder_cleanup() calls
+tda998x_bridge_detach().  In addition, tda998x_get_connector() and
+tda998x_bridge_detach() access priv->bridge_connector without holding
+priv->audio_mutex or taking a connector reference:
 
+CPU0                                  CPU1
+                                      tda998x_audio_get_eld()
+                                        connector =3D tda998x_get_connector=
+()
+drm_managed_release()
+  free_dr() /* frees bridge_connector */
+  ...
+  drm_encoder_cleanup()
+    tda998x_bridge_detach()
+      priv->bridge_connector =3D NULL
+                                        mutex_lock(&priv->audio_mutex)
+                                        memcpy(buf, connector->eld, ...)
+                                          <-- use-after-free
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261124093928.3220=
+071-1-Luo.Liu@cixtech.com?part=3D4
