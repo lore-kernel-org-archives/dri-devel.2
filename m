@@ -2,50 +2,50 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C01F1606A338
-	for <dri-devel@archiver.kernel.org>; Tue, 24 Nov 2026 08:40:01 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=debian.org header.i=@debian.org header.a=rsa-sha256 header.s=smtpauto.master header.b=mti1M8cY
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E6C55606A33C
+	for <dri-devel@archiver.kernel.org>; Tue, 24 Nov 2026 08:40:02 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id E2DAB10F348;
-	Tue, 24 Nov 2026 08:39:47 +0000 (UTC)
-Received: from master.debian.org (master.debian.org [82.195.75.110])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 382E910EFA1
- for <dri-devel@lists.freedesktop.org>; Mon, 23 Nov 2026 16:36:42 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=debian.org; 
- s=smtpauto.master;
- h=In-Reply-To:Content-Type:MIME-Version:References:
- Message-ID:Subject:Cc:To:From:Date:Reply-To:Content-Transfer-Encoding:
- Content-ID:Content-Description;
- bh=15VJKiwk2jeEgdaWn6BsC4rhPTrCLdQwZkJQeS6QumA=; b=mti1M8cYqzayYd2nLTzipH9r0v
- u/BJwlpjCZ3RrxMRJWyj7y/a2uy1hdxSn2Bi0B5G5znuFPYRuafKZT+43Ix3St8cUFGM6iYBTTWpH
- YBZz++fPOd056/F5JxgHOf3WgjPwan7v/7g8YrDpjg2iN/lLVwcArNT6k55p4bewoouQKW8JWK1oH
- ORQtdzh/lc/wypvuVJUyFF5ljV5LWiCdESkLt3p/xpvmLKzk29Ir3tjnWVQciIjBwH8Vrd8yzWJF6
- d0omWcg6fNAh/8iT8ONzPWesRJCqIhtjTUqaRTfGkAwto0dpOr9meQ8Dw5lqxISK22XIaYpXCiNJ5
- klO07oJw==;
-Received: from ukleinek by master.debian.org with local (Exim 4.96)
- (envelope-from <ukleinek@master.debian.org>) id 1xVX1n-009iOp-18;
- Mon, 23 Nov 2026 16:36:27 +0000
-Date: Mon, 23 Nov 2026 17:36:26 +0100
-From: Uwe =?utf-8?Q?Kleine-K=C3=B6nig?= <ukleinek@debian.org>
-To: Li Chen <me@linux.beauty>, Dave Airlie <airlied@redhat.com>
-Cc: Marek Vasut <marex@nabladev.com>, dri-devel@lists.freedesktop.org, 
- Danilo Krummrich <dakr@kernel.org>, David Airlie <airlied@gmail.com>,
- Lyude Paul <lyude@redhat.com>, 
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>, 
- Ole Carlsen <ole.carlsen@tutamail.com>, Simona Vetter <simona@ffwll.ch>, 
- Thomas Zimmermann <tzimmermann@suse.de>, linux-kernel@vger.kernel.org,
- 1146033@bugs.debian.org
-Subject: Re: [PATCH] Revert "nouveau: pci: quiesce GPU on shutdown"
-Message-ID: <awRoqijawLNEkKEE@monoceros>
-References: <20261025213027.842978-1-marex@nabladev.com>
+	by gabe.freedesktop.org (Postfix) with ESMTP id A0FE710F34C;
+	Tue, 24 Nov 2026 08:39:53 +0000 (UTC)
+Received: from mailgw.kylinos.cn (mailgw.kylinos.cn [124.126.103.232])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id E390A10E2D1
+ for <dri-devel@lists.freedesktop.org>; Tue, 24 Nov 2026 02:48:22 +0000 (UTC)
+X-UUID: 814610dce7b111f19a56ed5b684f684d-20261124
+X-CID-P-RULE: Release_Ham
+X-CID-O-INFO: VERSION:1.3.19, REQID:93c7292a-37a1-4c29-9fa7-ac819d28cdea, IP:0,
+ U
+ RL:0,TC:0,Content:0,EDM:25,RT:0,SF:0,FILE:0,BULK:0,RULE:Release_Ham,ACTION
+ :release,TS:25
+X-CID-META: VersionHash:7db8b62, CLOUDID:be7f58164b27982f055aebe1b3167887,
+ BulkI
+ D:nil,BulkQuantity:0,SF:81|82|102|850|865|898,TC:nil,Content:0|15|50|99,ED
+ M:5,IP:nil,URL:0,File:nil,RT:nil,Bulk:nil,QS:nil,BEC:nil,COL:0,OSI:0,OSA:0
+ ,AV:0,LES:1,SPR:NO,DKR:0,DKP:0,BRR:0,BRE:0,ARC:0
+X-CID-BVR: 2,SSN|SDN
+X-CID-BAS: 2,SSN|SDN,0,_
+X-CID-FACTOR: TF_CID_SPAM_SNR
+X-CID-RHF: D41D8CD98F00B204E9800998ECF8427E
+X-UUID: 814610dce7b111f19a56ed5b684f684d-20261124
+Received: from localhost [(10.44.16.150)] by mailgw.kylinos.cn
+ (envelope-from <pengyu@kylinos.cn>)
+ (Generic MTA with TLSv1.3 TLS_AES_256_GCM_SHA384 256/256)
+ with ESMTP id 122866240; Tue, 24 Nov 2026 10:48:18 +0800
+From: Yu Peng <pengyu@kylinos.cn>
+To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+ Jiri Slaby <jirislaby@kernel.org>, Helge Deller <deller@gmx.de>
+Cc: Thomas Zimmermann <tzimmermann@suse.de>, Nicolas Pitre <nico@fluxnic.net>,
+ Ronan Pigott <ronan@rjp.ie>, linux-serial@vger.kernel.org,
+ linux-fbdev@vger.kernel.org, dri-devel@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org, Yu Peng <pengyu@kylinos.cn>
+Subject: [PATCH v2 1/2] vt: Skip hardware scrolling while blanked
+Date: Tue, 24 Nov 2026 10:48:10 +0800
+Message-ID: <20261124024811.305592-2-pengyu@kylinos.cn>
+X-Mailer: git-send-email 2.43.0
+In-Reply-To: <20261124024811.305592-1-pengyu@kylinos.cn>
+References: <20261124024811.305592-1-pengyu@kylinos.cn>
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
- protocol="application/pgp-signature"; boundary="y7gnwzapgxhtolu3"
-Content-Disposition: inline
-In-Reply-To: <20261025213027.842978-1-marex@nabladev.com>
+Content-Transfer-Encoding: 8bit
 X-Mailman-Approved-At: Tue, 24 Nov 2026 08:39:44 +0000
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -58,103 +58,52 @@ List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-15.8 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
-	DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
-	INCLUDES_CR_TRAILER,INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,
-	SPF_PASS autolearn=unavailable autolearn_force=no version=4.0.1
+X-Spam-Status: No, score=-16.8 required=3.0 tests=BAYES_00,
+	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
+	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,UNPARSEABLE_RELAY,
+	USER_AGENT_GIT autolearn=unavailable autolearn_force=no version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
+When vgacon is blanked without palette blanking (!vga_palette_blanked),
+vgacon_set_origin() rejects VRAM so vc->vc_origin points to the heap
+buffer vc->vc_screenbuf. Calling hardware scroll callbacks while blanked
+then treats vc->vc_screenbuf as VRAM and causes out-of-bounds accesses.
 
---y7gnwzapgxhtolu3
-Content-Type: text/plain; protected-headers=v1; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
-Subject: Re: [PATCH] Revert "nouveau: pci: quiesce GPU on shutdown"
-MIME-Version: 1.0
+Use con_should_update() to skip hardware scrolling and scrollback while
+blanked, allowing con_scroll() to fall back to software scrolling.
 
-Control: forwarded 1146033 https://lore.kernel.org/20261025213027.842978-1-=
-marex@nabladev.com
+Assisted-by: LLM
+Signed-off-by: Yu Peng <pengyu@kylinos.cn>
+---
+ drivers/tty/vt/vt.c | 7 ++++---
+ 1 file changed, 4 insertions(+), 3 deletions(-)
 
-#regzbot ^introduced: 310326bb7df4bba094a3fc60364c641c547fd923
+diff --git a/drivers/tty/vt/vt.c b/drivers/tty/vt/vt.c
+index 6a6eb8b2a6dec..39be682645097 100644
+--- a/drivers/tty/vt/vt.c
++++ b/drivers/tty/vt/vt.c
+@@ -726,8 +726,8 @@ static void con_scroll(struct vc_data *vc, unsigned int top,
+ 		return;
+ 
+ 	vc_uniscr_scroll(vc, top, bottom, dir, nr);
+-	if (con_is_visible(vc) &&
+-			vc->vc_sw->con_scroll(vc, top, bottom, dir, nr))
++	if (con_should_update(vc) &&
++	    vc->vc_sw->con_scroll(vc, top, bottom, dir, nr))
+ 		return;
+ 
+ 	src = clear = (u16 *)(vc->vc_origin + vc->vc_size_row * top);
+@@ -3488,7 +3488,8 @@ static void console_callback(struct work_struct *ignored)
+ 	if (scrollback_delta) {
+ 		struct vc_data *vc = vc_cons[fg_console].d;
+ 		clear_selection();
+-		if (vc->vc_mode == KD_TEXT && vc->vc_sw->con_scrolldelta)
++		if (con_should_update(vc) && vc->vc_mode == KD_TEXT &&
++		    vc->vc_sw->con_scrolldelta)
+ 			vc->vc_sw->con_scrolldelta(vc, scrollback_delta);
+ 		scrollback_delta = 0;
+ 	}
+-- 
+2.43.0
 
-Hello,
-
-On Sun, Oct 25, 2026 at 10:30:06PM +0100, Marek Vasut wrote:
-> This reverts commit 310326bb7df4bba094a3fc60364c641c547fd923.
->=20
-> This breaks shutdown on ThinkPad W510, without the offending commit
-> the system normally powers off, with the offending commit the system
-> ends up spinning indefinitely and the CPU fan goes full throttle on
-> shutdown.
->=20
-> The behavior was already reported in debian bugtracker multiple times
-> for various other computers too, and git bisect lands as this commit.
-> https://bugs.debian.org/cgi-bin/bugreport.cgi?bug=3D1141969
-> https://bugs.debian.org/cgi-bin/bugreport.cgi?bug=3D1146033
->=20
-> I tested the revert with Linux 7.2.12 from debian unstable, not next
-> or drm trees, mainly because it was easier with debian test-patches
-> script on that machine.
->=20
-> Signed-off-by: Marek Vasut <marex@nabladev.com>
-
-Quoting the documentation:
-
-Try to fix regressions quickly once the culprit has been identified;
-fixes for most regressions should be merged within two weeks.
-
-In the meantime this report is more than 4 weeks old with no signal that
-someone looks into it. :-\
-
-Can someone with the problem test the following patch please?:
-
-diff --git a/drivers/gpu/drm/nouveau/nouveau_drm.c b/drivers/gpu/drm/nouvea=
-u/nouveau_drm.c
-index 30311688618c..fd3518d4407e 100644
---- a/drivers/gpu/drm/nouveau/nouveau_drm.c
-+++ b/drivers/gpu/drm/nouveau/nouveau_drm.c
-@@ -1111,19 +1111,6 @@ nouveau_drm_shutdown(struct pci_dev *pdev)
- 	ret =3D nouveau_do_suspend(drm, false);
- 	if (ret)
- 		NV_ERROR(drm, "shutdown suspend failed with: %d\n", ret);
--
--	pci_save_state(pdev);
--	pci_disable_device(pdev);
--	pci_set_power_state(pdev, PCI_D3hot);
--	/*
--	 *  This is just to give the pci power transition time to settle
--	 *  before an immediate kexec jump. it=E2=80=99s mirroring the existing
--	 *  nouveau_pmops_suspend() behavior, which already does
--	 *  udelay(200) right after pci_set_power_state(..., pci_d3hot). In
--	 *  ->shutdown() we=E2=80=99re allowed to sleep, so I used usleep_range()
--	 *  instead of a busy-wait udelay().
--	 */
--	usleep_range(200, 400);
- }
-=20
- static int
-
-Bonus points to bisect further in that function (that is, readd lines if
-the above patch fixes the issue or remove further lines from the end if
-it doesn't).
-
-Best regards
-Uwe
-
---y7gnwzapgxhtolu3
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iQEzBAABCgAdFiEEP4GsaTp6HlmJrf7Tj4D7WH0S/k4FAmsEa4cACgkQj4D7WH0S
-/k6trggAjnMHkPrw6gikL+ajKxikytRp0RXIk3zAeYPXrTBcoAtW6gN+DcylS2Em
-ZWH9/jLuNQcumkx8iTT1h7X9uibAOWmx0HjUmo1RZWPM6oxfS/L4jyABzWzvL2TT
-dGV/uHk5NYjwkEFXA1XGsQSQqwi97thm8V6QPhWmBzdCDJnhhMSEi11mlqQgaduU
-XsOUTgaflgq+Jce72o1t1HPA8sjiN7VNntiCYqVZAJE9pW0N6a37jxtc2jUpfy5T
-MtZxtCrL/6X6fDosClmW+Xw0olY3xed/FfTiR6Mxh/v74VMmSnYqEyiiYvp3kywx
-f+SPUJeIBdp5tcdoXlu1lMkKiwE3fQ==
-=7OZK
------END PGP SIGNATURE-----
-
---y7gnwzapgxhtolu3--
