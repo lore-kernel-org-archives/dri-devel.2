@@ -2,43 +2,96 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BD16F606A31E
-	for <dri-devel@archiver.kernel.org>; Tue, 24 Nov 2026 11:41:00 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A2883606A322
+	for <dri-devel@archiver.kernel.org>; Tue, 24 Nov 2026 11:49:31 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Vu5unnIr
+	dkim=pass (2048-bit key) header.d=baylibre.com header.i=@baylibre.com header.a=rsa-sha256 header.s=google header.b=D4hurscT
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 09D1E10F4B5;
-	Tue, 24 Nov 2026 11:40:54 +0000 (UTC)
-Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 21F7110F4B1;
- Tue, 24 Nov 2026 11:40:48 +0000 (UTC)
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by tor.source.kernel.org (Postfix) with ESMTP id 197CE623CA;
- Tue, 24 Nov 2026 11:40:47 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 510901F000C4;
- Tue, 24 Nov 2026 11:40:46 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1795520446;
- bh=9lgGb0/s8EoA+O+PUJGWiOHE8Vl1saUg0bdCVy/P708=;
- h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
- b=Vu5unnIrWkAFyIQGkMo/vTmYsTOYkLd6a8DzsZbg2jiF5zyju778L0sqJ5ZVYA+Bs
- pTKOHlfZxaWBJVrOIHCHbiG43hD6dz2UUiV9QVThLoMTPSLXyy3Hi0Hjr7lVp1AmG4
- UkhXvvTsBAwChnfmFeycJEogX3xJmQHsG3pxrkaI1aI684BUlXzv+pKxtWEevO2RAL
- rDh63V46TkFw28acGgn6sEPyImtUJOG3gSbOjocm/XgReBGf8vKF/EcpS9oROPIMNe
- mM4mob69y2W9SafjLZ9vVWsM1rrz8enxpXKP0uonmaOJaawcnAc/y9P4hVXn7cLkBB
- U5uST0pyf+v9g==
-Message-ID: <sashiko-outbox-231059@kernel.org>
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH 6/6] drm/i915: Carry the current state over created states
-To: "Maxime Ripard" <mripard@kernel.org>
-Cc: intel-xe@lists.freedesktop.org, intel-gfx@lists.freedesktop.org,
- dri-devel@lists.freedesktop.org
-In-Reply-To: <20261124-drm-i915-conversion-state-readout-v1-6-b7132f72644d@kernel.org>
-References: <20261124-drm-i915-conversion-state-readout-v1-0-b7132f72644d@kernel.org>
- <20261124-drm-i915-conversion-state-readout-v1-6-b7132f72644d@kernel.org>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Tue, 24 Nov 2026 11:40:45 +0000
+	by gabe.freedesktop.org (Postfix) with ESMTP id 0954410F47C;
+	Tue, 24 Nov 2026 11:49:26 +0000 (UTC)
+Received: from mail-wm1-f50.google.com (mail-wm1-f50.google.com
+ [209.85.128.50])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id BA29B10F47C
+ for <dri-devel@lists.freedesktop.org>; Tue, 24 Nov 2026 11:49:19 +0000 (UTC)
+Received: by mail-wm1-f50.google.com with SMTP id
+ 5b1f17b1804b1-4bb666304fdso48120875e9.0
+ for <dri-devel@lists.freedesktop.org>; Tue, 24 Nov 2026 03:49:19 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=baylibre.com; s=google; t=1795520958; x=1796125758;
+ darn=lists.freedesktop.org; 
+ h=content-transfer-encoding:content-type:in-reply-to:from
+ :content-language:references:cc:to:subject:user-agent:mime-version
+ :date:message-id:from:to:cc:subject:date:message-id:reply-to
+ :content-type; bh=J1NeJEfZebfbcpy8hj3dQLRnIcpIwRmtjjuLE6tESEc=;
+ b=D4hurscThJ1lAAVRKlzvRQ+PgLqscL3eX0foCGxmpnclCF4FptME8bxEEESPYCgtrR
+ T+FsDlhefRKmmMHhc4N9UVySHh0lS5UmB/mV8dIbIYFTAu9dz8nO20iZj7DYwjDyI0YT
+ Ozw8MbtuMA5Fj0qpMLcTf4OI/u4aGQVNzAvcqtd3Il5F4tuVui3235JlQq/jqIDXa+DF
+ 2wOf3a2ytZVqek2ier0MqSX6u6r3Onk2WpsF26S62CuvdPgs7JNAtjlc0QCCtbXWCyZx
+ 3JSO/N5iscI7hQ3Gz1kTdSl6NH/ZWRSPeoV1672rjs1wPv8DC0PefPo2d3k7NEDSoWkf
+ Qr/A==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20260707; t=1795520958; x=1796125758;
+ h=content-transfer-encoding:content-type:in-reply-to:from
+ :content-language:references:cc:to:subject:user-agent:mime-version
+ :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+ :message-id:reply-to:content-type;
+ bh=J1NeJEfZebfbcpy8hj3dQLRnIcpIwRmtjjuLE6tESEc=;
+ b=lVibWqpVUCHHtG0if5ulkUoWW9SmPt9Z8q+EKlhvqGcqSuW0JtClCKgQHOSX3OVi1f
+ EGBFJRidPe0z7eSdtvr7fD0eBRF/bZ0iDaCy22eh4aJL6zif3+22VRDRub1vh+YhTsUo
+ wPFzh+5Ts/hU2lvluotAam6qxuurtT7jKtcoo6snO8y/16czWC19NqEslaYBlTLgpDIh
+ 10xD/PV1Jx+HRqZKc6ELjSP4p/yJUVZKXwJptKsdaMtrmaF/hE7ggzaDKu0h9VqLBQLG
+ EUXN3U0E+zBt36KX56uh3ifljwi/gfvyndcX2ZOkRW/0Mem2c5rTB32E51iG5V6WowW7
+ iEyw==
+X-Forwarded-Encrypted: i=1;
+ AL+hErHj085Zu6pzDzwNLHhkVbxZ9YUqJ10OkyuoMwEQkxVvQWHJM0Xi9Hk1Hz+7rQy+ufkZTsvF08rqGKU=@lists.freedesktop.org
+X-Gm-Message-State: APuU4Z9WGSdhNybuHTjThLvvhg1a26803TuFjF0JkPa6tOaMv6yVF8xw
+ db88uRsbnYcdz1Xf0YH13riuz2DGF+9KL2mBzjUZ419MEiWklpc9YoS4/AuSA4XzxS4=
+X-Gm-Gg: AZFdTZd/8SSP/vfknVcejhdI1dsXI/cuFTcGrviS3K2e8Y8JDNoqbajwK4dYETJErJ4
+ d8AypG+BZpeHJoID/FhQYh14PrN7KabUlB9HfqQm0HmBF4Syq/wIwVg4CnUq1fktMYHCx+PnRmc
+ Hrvr/heKGSbMfN3d8mXg0OaE3Ir3URJjQTvOA5rkRwLh3jNf/7APWGK2p3HT+OrF4xFaolUYNvF
+ JfiiMxsjtIXAA3Df296mfJpfBAIrKJBnsQFBLRSdYKPS/2ynBMi+WsAof1jjuxvn63HImPrFs7p
+ 8L2FiKOw2isJ1sk3Dymm+XQbaa2bQpeZdqRdeKObNzUXQHQ/gRgHMkNFLwEDXDhX6XRGLN7t6nj
+ 2KZ6PoWFA6orWSPnM8pfSXi+f4uQVJ5grlmPFSuGkOIAnDSVbMqpQsIelngVxWBczJpzSGSBG0E
+ +Vvqv4rBosZsTj9e6UpGoekX/obO7SWGb/wiEXPF9g1kM2t3WnQ9A1ERVqMP1S96BQf8nRe+qS7
+ +TbDF6KKwBLKNVrRKpnLCdYxOzcWWYjLNWDq64PNdN1wW4PSumhrqW5TgJkwsE4Hl982fpw8x6W
+ abfQoaGwgYgtCjyML/ha1CLb41XqgfD+Qa/VnUO5rZJjmjDJv89pnANQHoutrJllH1IWxDkiR1J
+ tsdLCPVy/TkIF2TsA8iYuptI=
+X-Received: by 2002:a05:600c:b8a:b0:4a0:20b4:ba93 with SMTP id
+ 5b1f17b1804b1-4bb88818156mr290637705e9.16.1795520957605; 
+ Tue, 24 Nov 2026 03:49:17 -0800 (PST)
+Received: from ?IPV6:2001:8a0:d6cd:9000:86f4:4e71:9fc8:3183?
+ ([2001:8a0:d6cd:9000:86f4:4e71:9fc8:3183])
+ by smtp.gmail.com with ESMTPSA id
+ 5b1f17b1804b1-4bb884a3a3dsm416542295e9.10.2026.11.24.03.49.15
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Tue, 24 Nov 2026 03:49:17 -0800 (PST)
+Message-ID: <99f6fa65-33f1-4865-9745-c092fff2e032@baylibre.com>
+Date: Tue, 24 Nov 2026 11:49:14 +0000
+X-Archived-By: <archiver.kernel.org>
+MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v18 7/8] arm64: dts: rockchip: add NPU (RKNN) nodes to
+ rk3576
+To: Jiaxing Hu <gahing@gahingwoo.com>, tomeu@tomeuvizoso.net,
+ heiko@sntech.de, robh@kernel.org, krzk+dt@kernel.org, conor+dt@kernel.org,
+ joro@8bytes.org, will@kernel.org, robin.murphy@arm.com,
+ p.zabel@pengutronix.de, ogabbay@kernel.org, zhangqing@rock-chips.com
+Cc: royalnet026@gmail.com, sidong.yang@furiosa.ai,
+ ulf.hansson@oss.qualcomm.com, abel.vesa@oss.qualcomm.com,
+ sebastian.reichel@collabora.com, chaoyi.chen@rock-chips.com,
+ shawn.lin@rock-chips.com, finley.xiao@rock-chips.com,
+ diederik@cknow-tech.com, alchark@flipper.net, leonard@lausen.nl,
+ vlwwwwww@gmail.com, jeff.hugo@oss.qualcomm.com,
+ dri-devel@lists.freedesktop.org, linux-rockchip@lists.infradead.org,
+ iommu@lists.linux.dev, devicetree@vger.kernel.org,
+ linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org
+References: <cover.1795478392.git.gahing@gahingwoo.com>
+ <f1d20ec832e10a80dc813aa10697632e8024a685.1795478392.git.gahing@gahingwoo.com>
+Content-Language: en-US
+From: Daniel Drake <ddrake@baylibre.com>
+In-Reply-To: <f1d20ec832e10a80dc813aa10697632e8024a685.1795478392.git.gahing@gahingwoo.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -49,148 +102,37 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
-Reply-To: sashiko-reviews@lists.linux.dev
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-10.8 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
-	DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
-	INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS
-	autolearn=unavailable autolearn_force=no version=4.0.1
+X-Spam-Status: No, score=-7.3 required=3.0 tests=BAYES_00,DKIM_SIGNED,
+	DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
+	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,USER_AGENT_SANE_1
+	autolearn=no autolearn_force=no version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
-X-Archived-By: <archiver.kernel.org>
 
-Thank you for your contribution! Sashiko AI review found 3 potential
-issues to consider:
-- [High] drm/i915: intel_atomic_carry_over_state() skips enabled
-  DPMS-off CRTCs
-- [High] drm/i915: uninitialized max_requested_bpc and scaling_mode on
-  created states
-- [Medium] drm/i915: missing NV12 link carry-over in
-  intel_atomic_carry_over_state()
---
+On 24/11/2026 00:01, Jiaxing Hu wrote:
+> Add the two NPU cores and their IOMMUs, disabled by default. Core 0 is
+> in PD_NPU0, core 1 in PD_NPU1. Label PD_NPU so that boards can give it
+> the NPU supply.
+> 
+> Set CLK_RKNN_DSU0 to 594 MHz. Nothing scales the NPU clock or voltage in
+> mainline, and the boot rate of 786 MHz at the boot voltage of 750 mV is
+> outside the vendor OPP table and gives wrong results; that table runs
+> up to 600 MHz at 725 mV.
 
-commit 1fe4500ef10219b7da036ae0e043737aa33211ff
-Author: Maxime Ripard <mripard@kernel.org>
+I still struggled to understand this (particularly the choice of 594
+MHz) even with your notes, but I think I got it now. Suggested rewrite
+that will hopefully make it easier for others:
 
-drm/i915: Carry the current state over created states
+---
+Set the DSU0 clock to 594 MHz for now. Radxa ROCK 4D boots with the DSU0
+clock at 786 MHz with a voltage of 750 mV, however this gives wrong
+results and the vendor OPP table suggests this voltage is only workable
+up to 700 MHz. The rocket driver does not control the voltage yet, so
+594 MHz (GPLL/2) is selected as the highest rate that we can select for
+this operating point. Voltage and frequency scaling could be implemented
+in future to more closely match the vendor driver behaviour.
+---
 
-This commit adds intel_atomic_carry_over_state() to copy the current CRTC
-hardware state and plane scaler assignment into newly created states during
-DRM_MODE_ATOMIC_RESET commits.
+Please tweak something along those lines, you can add my reviewed-by.
 
-> diff --git a/drivers/gpu/drm/i915/display/intel_display.c b/drivers/gpu/d=
-rm/i915/display/intel_display.c
-> index 1172e48daf235..d645203104a77 100644
-> --- a/drivers/gpu/drm/i915/display/intel_display.c
-> +++ b/drivers/gpu/drm/i915/display/intel_display.c
-> @@ -6519,6 +6519,116 @@ static int intel_atomic_check_config_and_link(str=
-uct intel_atomic_state *state)
-> =20
->  	return ret;
->  }
-[ ... ]
-> +static int intel_atomic_carry_over_state(struct intel_atomic_state *stat=
-e)
-> +{
-> +	struct intel_crtc_state *old_crtc_state, *new_crtc_state;
-> +	struct intel_plane_state *old_plane_state, *new_plane_state;
-> +	struct intel_crtc *crtc;
-> +	struct intel_plane *plane;
-> +	int i;
-> +
-> +	for_each_oldnew_intel_crtc_in_state(state, crtc, old_crtc_state,
-> +					    new_crtc_state) {
-> +		struct intel_crtc_state *carried_state;
-> +
-> +		if (new_crtc_state->cpu_transcoder !=3D INVALID_TRANSCODER ||
-> +		    !old_crtc_state->hw.active)
-> +			continue;
-
-[Severity: High]
-Does checking !old_crtc_state->hw.active skip CRTCs that are enabled with
-DPMS off (old_crtc_state->hw.enable =3D=3D true, hw.active =3D=3D false)?
-
-In i915, pipe configuration, cpu_transcoder, DPLL reservations, DP tunnel
-bandwidth, joiner pipes, and plane scalers are all allocated and tracked
-whenever crtc_state->hw.enable is true, even while hw.active is false.
-When a DRM_MODE_ATOMIC_RESET commit hits an enabled but inactive CRTC,
-skipping the carry-over drops intel_dpll and icl_port_dplls without
-releasing them (leaking the shared DPLL reservation in
-dpll_state->pipe_mask and triggering a WARN in intel_dpll_crtc_get() on
-later modesets), loses dp_tunnel_ref and joiner_pipes, and leaves
-new_crtc_state->scaler_state empty while the plane loop below still copies
-old_plane_state->scaler_id >=3D 0 into new_plane_state->scaler_id, allowing
-intel_atomic_setup_scaler() to assign the same hardware scaler ID twice.
-On G4X/VLV/CHV, intel_crtc_prepare_cleared_state() also preserves
-crtc_state->wm even on disabled CRTCs.
-
-[ ... ]
-
-> +	for_each_oldnew_intel_plane_in_state(state, plane, old_plane_state,
-> +					      new_plane_state, i) {
-> +		if (new_plane_state->scaler_id < 0 &&
-> +		    old_plane_state->scaler_id >=3D 0)
-> +			new_plane_state->scaler_id =3D
-> +				old_plane_state->scaler_id;
-> +	}
-
-[Severity: Medium]
-Should this plane loop also carry over old_plane_state->planar_linked_plane
-and old_plane_state->is_y_plane?
-
-On DISPLAY_VER >=3D 11, scanning out a planar YUV framebuffer links the
-visible UV plane to an internal Y plane whose uapi.crtc is NULL, so the Y
-plane is not in crtc->state->plane_mask.  When a DRM_MODE_ATOMIC_RESET
-commit does not initially include the internal Y plane (for example, from
-a DRM lease covering only the primary/UV plane) or switches the UV plane
-to a non-planar format, intel_joiner_affected_planes() and
-unlink_nv12_plane() rely on new_plane_state->planar_linked_plane and
-is_y_plane to pull in and unlink the Y plane:
-
-drivers/gpu/drm/i915/display/intel_plane.c:unlink_nv12_plane() {
-	if (!plane_state->planar_linked_plane)
-		return;
-
-	plane_state->planar_linked_plane =3D NULL;
-
-	if (!plane_state->is_y_plane)
-		return;
-    ...
-	crtc_state->enabled_planes &=3D ~BIT(plane->id);
-	crtc_state->active_planes &=3D ~BIT(plane->id);
-}
-
-Because created plane states have planar_linked_plane =3D=3D NULL and
-is_y_plane =3D=3D false, BIT(y_plane->id) remains set in
-new_crtc_state->enabled_planes and active_planes, leaving the Y plane
-programmed in hardware or causing icl_check_nv12_planes() to run out of
-free Y planes and fail with -EINVAL.
-
-> +
-> +	return 0;
-> +}
-
-[Severity: High]
-Does intel_atomic_carry_over_state() also need to restore connector state
-defaults such as max_requested_bpc, max_bpc, and scaling_mode on created
-connector states?
-
-At init time, drm_connector_attach_max_bpc_property() initializes
-state->max_requested_bpc and state->max_bpc to the connector maximum, and
-intel_attach_scaling_mode_property() sets state->scaling_mode to
-DRM_MODE_SCALE_ASPECT.  During DRM_MODE_ATOMIC_RESET,
-intel_digital_connector_create_state() zero-allocates the connector state
-and calls __drm_atomic_helper_connector_state_init(), leaving
-max_requested_bpc, max_bpc, and scaling_mode at 0 whenever userspace does
-not explicitly set those properties in the reset commit.
-
-As a result, drm_atomic_helper_check_modeset() and
-intel_digital_connector_atomic_check() see max_requested_bpc and
-scaling_mode change from their previous values and force a modeset on
-active CRTCs instead of taking the nomodeset path, and the modeset then
-hits MISSING_CASE(0) WARNs and returns -EINVAL in
-compute_sink_pipe_bpp() -> bpc_to_bpp() and gmch_panel_fitting().
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261124-drm-i915-c=
-onversion-state-readout-v1-0-b7132f72644d@kernel.org?part=3D6
