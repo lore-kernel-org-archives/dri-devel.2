@@ -2,99 +2,132 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CCBCD606A31E
-	for <dri-devel@archiver.kernel.org>; Tue, 24 Nov 2026 14:28:48 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4A941606A33A
+	for <dri-devel@archiver.kernel.org>; Tue, 24 Nov 2026 14:29:05 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=fooishbar.org header.i=@fooishbar.org header.a=rsa-sha256 header.s=google header.b=EpKfecDk
+	dkim=pass (1024-bit key, unprotected) header.d=garyguo.net header.i=@garyguo.net header.a=rsa-sha256 header.s=selector1 header.b=WBx/jTit
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 3EEEC10F65D;
-	Tue, 24 Nov 2026 14:28:43 +0000 (UTC)
-Received: from mail-pl1-f177.google.com (mail-pl1-f177.google.com
- [209.85.214.177])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 4FD9E10F65D
- for <dri-devel@lists.freedesktop.org>; Tue, 24 Nov 2026 14:28:36 +0000 (UTC)
-Received: by mail-pl1-f177.google.com with SMTP id
- d9443c01a7336-2f06ff94acfso16826295ad.0
- for <dri-devel@lists.freedesktop.org>; Tue, 24 Nov 2026 06:28:36 -0800 (PST)
-ARC-Seal: i=1; a=rsa-sha256; t=1795530516; cv=none;
- d=google.com; s=arc-20260327;
- b=f55fjLUeAMP6WjIMRt6DazEq2uC9ZIJ1mSzDeVxnOZdtbtcyYXMWlBbY2fYf+6kOzF
- A98shAafndj6nQ019SxCbPeM2Za/X1l/bILsyjouchVozqeOCCS2ZrmzVWvUTfV9DTV6
- /JeVr0vRWWQfyHXhGc87CKI0g59wrUPnUcZLiXVwAetFP84v3XdAcxD4NMgcPXl4+wZD
- t2341h1+EPK4cCuyRbmpYI6tOOBmN7V8Am+tfGM+8oxCRjbfLwDxw/YoO1IM/4e+Fc2p
- dn+B2x5dj0ia9asGxouLTRVE/i/f4Ea2TIgNQ7/R6NgGhEpiQcRY2NgFSYQsGdtXDhcC
- +NkA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com;
- s=arc-20260327; 
- h=cc:to:subject:message-id:date:from:in-reply-to:references
- :mime-version:dkim-signature;
- bh=mQ2JTBOODXVLExMT4lau5wcd1i8TygMCNsmKX6gW1YI=;
- fh=R/XRAHhf+ZxZW7bGzLq53rzjNHxbgMXkidm58X/V78g=;
- b=WQsLZeWPQT63jM+ea+Pz7Nd4X/RrZIATGgUIPNpDzu1+JwnBIvrs9KfnDaDF1RKowv
- khevhN3K6AV0d5GQW6Tg6eNx8Lgn6CG9XqQiDtvMRpVLour8zlXe9iHASDp711YyPDlR
- 16VUaWmrMTM+iQMx4F8p+jEpCBhKspKUnFcq5AWGbVn5jw3lhdTR7qSE/6Ro+/4Fo2/D
- 8d2HUidpbunnH1oQ0T08h3DTHdrdVa2cO7njHYOrfCEfzFnBZJon8urAm8bAtwJ9Bx18
- V1EFJddPIRlwLDt9Flzj6dL7iw119R8NjHVcrJ2BqGSmeIRO8dKxWqB88Cue/YLyDpFU
- 4U0w==; darn=lists.freedesktop.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=fooishbar.org; s=google; t=1795530516; x=1796135316;
- darn=lists.freedesktop.org; 
- h=content-type:cc:to:subject:message-id:date:from:in-reply-to
- :references:mime-version:from:to:cc:subject:date:message-id:reply-to
- :content-type; bh=mQ2JTBOODXVLExMT4lau5wcd1i8TygMCNsmKX6gW1YI=;
- b=EpKfecDkF0P5VqtbhxYmZJwiHq4wU1B92QzN+9m3qz2+at6RWuX6o8kkh9JpbMdpZE
- lho+jL7rnJQI6nqJ6NXbl7cNxK/OgWW5a3gQPtp+3Ji/oQzR3F7TsrYzpNGLNpeZNV9G
- RVQNwKxAkYNGL1wtluUsclc/5nV3K4yZzB44lC+XmpKiuf5kHON70GMDfbdCNnBf+9hI
- VUYpEnxI73s9oCpVDvR72FS4blXqHuwj1ULLu85lhHwpaeUgzP/stpwAZTrBkdGyAOi0
- pzShWgxB/YzR7hFgV3kLLR5czywtc+FyYBQfCf43pEnHzgfyq14lwR+Aoguuz5ycvYhy
- EhHg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20260707; t=1795530516; x=1796135316;
- h=content-type:cc:to:subject:message-id:date:from:in-reply-to
- :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
- :subject:date:message-id:reply-to:content-type;
- bh=mQ2JTBOODXVLExMT4lau5wcd1i8TygMCNsmKX6gW1YI=;
- b=LOzGfl3lX8uyawLwf6aILq01OJfoj1i7//Y+UobkwMX79NWnmfzpDMEZjSqmvaOjcs
- DX+TSoaVcdbCanRjgztGhGdVChU/sjJuTL/6RpzLdRX4yWEoXYqPDxfDxZPWC/RS2ML+
- 1WbHnAhjyBboCrjGV7NgFxUYxMxip3ca/VJei2/Uq0QC689JoKtwnfupwoukjW7KuZAW
- YJGvwdBtWBcV1xjJ8Yp83OP8eUDsGnQbNluJu8yC4GugQ7njaqKNNl8NeWTJqz7jk4lA
- oYS7xtBE+RbwRpFzTbaVyWY+Q/9WpALKII3y2dgT6bR4qmApp48zouyHLavWZxOIv3rt
- Y9XA==
-X-Forwarded-Encrypted: i=1;
- AL+hErHjPMaT1tk3ONztZWFtqxZEQNEv5+L/GdUG4rjfggAjnhsyZRHe2OelrodB74XbRWy/AVqJWDZsdag=@lists.freedesktop.org
-X-Gm-Message-State: APuU4Z8B6BYyOnRMcQJnGYeioS0jahfn2VEMosN4JSTVEi7qVt7Ub/Zr
- 12W4lLe7ywN7kFWUNIfZz7fvag2i+QZsp+C61LgMCoZkCpoFCCl3s1eClDwFJbZ5iEkt9yf5zBu
- FU8hgkNvJA3j9Zfy68f6p5vegYWml/vX4ntSUN8AIzw==
-X-Gm-Gg: AZFdTZe5uYkQGlidsbVMAg4vs1NBX26GjNYETLFqmucTcbPhUeeLNbDYktI39GipcfS
- giPfWESr3IcuYlR5P/piOoHmS80bHy+b315BQnm4FOJlyF/Kq0qZ6e7dMOJhP+Ohauo2MfrzmkK
- AXf14HZa0E7AX1lMPXbt4yRBoGYkbqqh8u+6fyKhLvjAbr1QsKor7I2lcLvYpvdLpbjauOfPYfK
- jRMurNkwk2uKxlgOx/gg2CPijxRJTFwj5jAp6Ax1Q6PzbhfFXRewntv3KbMn0pB3R+8sqTZAghj
- gdL33FqPNeGSSnEDu1GvUzguynfAiarCPhbDvw+QaM45tnTZsB1o1qBj4CN4WZAjxF3mxwwn8WQ
- PxZuWKPifz510b7H0eOEksFneMFK+5xkqKQ==
-X-Received: by 2002:a17:903:19cb:b0:2e9:9a19:c5b with SMTP id
- d9443c01a7336-2f03f16d710mr139233565ad.47.1795530515765; Tue, 24 Nov 2026
- 06:28:35 -0800 (PST)
+	by gabe.freedesktop.org (Postfix) with ESMTP id B40C510F65E;
+	Tue, 24 Nov 2026 14:28:59 +0000 (UTC)
+Received: from CWXP265CU009.outbound.protection.outlook.com
+ (mail-ukwestazon11021107.outbound.protection.outlook.com [52.101.100.107])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 58A9710F65E
+ for <dri-devel@lists.freedesktop.org>; Tue, 24 Nov 2026 14:28:53 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=S/q7wmUZE4FkkTd3jUlZzq9RAUroEiu+nOVkjdJEsAuej6fsOAZ9VDic4jOvRZXtNiD5smS1s4V8Cf2/N+wShec37NjEJx7zP8eV9FggG5Y7xC9p2Y8ApsR/HEI2V+nQ37exa30hQu+gxvEGYgZXns14aJqMgE8TyWuUi1HVaEa06ze4HpXsIj0KE8XVbzjct4nL9UPaVnuucS347z3NYG7vixei1nLeqzPyzCHGCZep50ILd9ndd6IehfEDe+aaWVTBwfggfNoWWTLAxjWRAddTzSotjOCg6V52Xx0WfzqYxLLtfqQsP1vgM2Z20KLSSd8+pgVjCwERDN3ibT9moA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=XCnT406AtVTLQM1dtuV3kPZfQWiESMWizu0qq6qxkz4=;
+ b=F3uggCA4EvlejuDShLsl+b06IyEeJeeVEY37YtpoqvfrqMLryGQOyzNGnabFYQPy5UFy9tpluDnTljUy3ZhcV+vXShZ85RXiEFDqIJr7zT08lN7BsxSaknRIMm2GFevtja43SDlEo/Ed9sWBjUKl9upXQvFxepCFEL4fJARjfo/NUVyj7JY4GsCyXFD1nEzofplYXJA850I8OiEVwbUHGgYEgGszEs7RqNX+me1yBYCXUjmsulwT9TpHRzGsbXIdLl/lNsHVMujjcZLjAv1eKLWpRVBYMLntflPey86MZuTTmTJ8jxECzHmJJxRutONyFnS0bta5wCZbSDRKEHHVcA==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=garyguo.net; dmarc=pass action=none header.from=garyguo.net;
+ dkim=pass header.d=garyguo.net; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=garyguo.net;
+ s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=XCnT406AtVTLQM1dtuV3kPZfQWiESMWizu0qq6qxkz4=;
+ b=WBx/jTitou+GRrxOxcroL4jerw01F61c2p9Z52PrQk1fmELCi1mZg++vi4iad+1zF/wqjSH6Dd1kQQ7/tTrAWh4qtwE19nTmPzllsagIHzoy5NKzXUsguh1mnEbQ4WF4oQczMnyz2tad7CLkR0ro165u22Gbn/5BsxN7qVFGU7A=
+Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=garyguo.net;
+Received: from CWLP265MB6051.GBRP265.PROD.OUTLOOK.COM (2603:10a6:400:1cb::9)
+ by CWXP265MB2581.GBRP265.PROD.OUTLOOK.COM (2603:10a6:400:ab::10) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.639.14; Tue, 24 Nov
+ 2026 14:28:50 +0000
+Received: from CWLP265MB6051.GBRP265.PROD.OUTLOOK.COM
+ ([fe80::55f6:f98b:7fad:c6e3]) by CWLP265MB6051.GBRP265.PROD.OUTLOOK.COM
+ ([fe80::55f6:f98b:7fad:c6e3%2]) with mapi id 15.21.0639.012; Tue, 24 Nov 2026
+ 14:28:50 +0000
+Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=UTF-8
+Date: Tue, 24 Nov 2026 14:28:48 +0000
+Message-Id: <DN3IG9MGAI6H.1TFVHTSMMTSUH@garyguo.net>
+Subject: Re: [PATCH] rust: drm: enable standard fdinfo for Rust drivers
+From: "Gary Guo" <gary@garyguo.net>
+To: <peder.bergan@gmail.com>, "Danilo Krummrich" <dakr@kernel.org>, "Alice
+ Ryhl" <aliceryhl@google.com>
+Cc: "David Airlie" <airlied@gmail.com>, "Simona Vetter" <simona@ffwll.ch>,
+ "Miguel Ojeda" <ojeda@kernel.org>, "Boqun Feng" <boqun@kernel.org>, "Gary
+ Guo" <gary@garyguo.net>, =?utf-8?q?Bj=C3=B6rn_Roy_Baron?=
+ <bjorn3_gh@protonmail.com>, "Benno Lossin" <lossin@kernel.org>, "Andreas
+ Hindborg" <a.hindborg@kernel.org>, "Trevor Gross" <tmgross@umich.edu>,
+ "Daniel Almeida" <daniel.almeida@collabora.com>, "Tamir Duberstein"
+ <tamird@kernel.org>, "Alexandre Courbot" <acourbot@nvidia.com>,
+ =?utf-8?q?Onur_=C3=96zkan?= <work@onurozkan.dev>, "Asahi Lina"
+ <lina+kernel@asahilina.net>, "Lyude Paul" <lyude@redhat.com>,
+ <dri-devel@lists.freedesktop.org>, <rust-for-linux@vger.kernel.org>,
+ <linux-kernel@vger.kernel.org>, <linux-api@vger.kernel.org>
+X-Mailer: aerc 0.22.0
+References: <20261119-fix-drm-rust-fdinfo-v1-1-c10f4134488d@gmail.com>
+In-Reply-To: <20261119-fix-drm-rust-fdinfo-v1-1-c10f4134488d@gmail.com>
+X-ClientProxiedBy: PR3P195CA0029.EURP195.PROD.OUTLOOK.COM
+ (2603:10a6:102:b6::34) To CWLP265MB6051.GBRP265.PROD.OUTLOOK.COM
+ (2603:10a6:400:1cb::9)
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
-References: <20260714114414.184512-1-angelogioacchino.delregno@collabora.com>
- <20260714114414.184512-34-angelogioacchino.delregno@collabora.com>
-In-Reply-To: <20260714114414.184512-34-angelogioacchino.delregno@collabora.com>
-From: Daniel Stone <daniel@fooishbar.org>
-Date: Tue, 24 Nov 2026 14:28:23 +0000
-X-Gm-Features: Aa3M54rrDo3X7VrfTe9b69h24tjA9EEIAxDaPhgJEX5YWMApMtqcKA6bBO6NIJU
-Message-ID: <CAPj87rO9saEC34+5NiYK8xyZiNytrVgOcszoY5uc7BpL=M4WTg@mail.gmail.com>
-Subject: Re: [PATCH v2 33/46] drm/mediatek: Add support for Display Controller
- exDMA component
-To: AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>
-Cc: chunkuang.hu@kernel.org, p.zabel@pengutronix.de, airlied@gmail.com, 
- simona@ffwll.ch, maarten.lankhorst@linux.intel.com, mripard@kernel.org, 
- tzimmermann@suse.de, robh@kernel.org, krzk+dt@kernel.org, conor+dt@kernel.org, 
- matthias.bgg@gmail.com, dri-devel@lists.freedesktop.org, 
- linux-mediatek@lists.infradead.org, devicetree@vger.kernel.org, 
- linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
- justin.yeh@mediatek.com, jason-jh.lin@mediatek.com, kernel@collabora.com
-Content-Type: text/plain; charset="UTF-8"
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: CWLP265MB6051:EE_|CWXP265MB2581:EE_
+X-MS-Office365-Filtering-Correlation-Id: 2c316de3-c818-49cc-f1fb-08df4a3741f6
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+ ARA:13230040|7416014|376014|366016|23010399003|10070799003|1800799024|10067099003|56012099006|261022105027099003|261021121427099003|261026140227099003|261009223027099003|261102123227099003|261028144727099003|6133799003|22082099003|18002099003;
+X-Microsoft-Antispam-Message-Info: QXpGyaBzDFQYKEabOJ163CVJH+Cv2ju6h0yHCnylNdZNCn5W5551gAmMplYChFs+Fv7c1O3gNWqSy8mhokaeIO0+Pk3o9PIU9F3wSzbQS7CQHAtkfpsFeRZnb4VSnGun6gOSzeZ45ACRBTR1SSAryUFkPzDCIFa7j4/kS/018t2PBcl5MEiz9IY1ko619pRZyCnZQFf4PJCBWZQUtBr0IncFc87jDDkbUS3kBeVq97AbaDjlSAtd7k2cNwcI/jQQ+0VrZn42iz1lAENg8n3R8R7mqvwGswQxji+KSa88AkR9JLqOT2iyq+Ov3Ir1yYNXgT3LfVcEdytTewPfZ/6z1erxpdj9HyfQV8x1TdMMkeDEfUww2HjlFZKmLvTSU8LvKI/LZiQ0q+vVirggUNCzBaGn8107jHX+o4u5NtY0U6QYA0GPo7aKoJCqEuIyrFG1DgvD/th7ajyxOwzssT2mlIz0j5hhBFyg5nMbhyN7mJO6W/draJyvhHYCcGLqbecgCa0Jz82E/PnQhZ7hZFOmNiHRMLeUJdxjHYmTPYwsviGyFKDR/ncjN3yyaMHnpbgmvotXbNEts5wlZavdeRP74PRsXRDJaixVKrbRyxbfWOlG0b6vx2fcvJcas2fyyXp3
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:CWLP265MB6051.GBRP265.PROD.OUTLOOK.COM; PTR:; CAT:NONE;
+ SFS:(13230040)(7416014)(376014)(366016)(23010399003)(10070799003)(1800799024)(10067099003)(56012099006)(261022105027099003)(261021121427099003)(261026140227099003)(261009223027099003)(261102123227099003)(261028144727099003)(6133799003)(22082099003)(18002099003);
+ DIR:OUT; SFP:1102; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?Y3U3QVVDYkluZDJaaGlpdTVKZVlQbmp2S05zelRNVFc1WTkvL0NsejlmejZs?=
+ =?utf-8?B?bFFvMlNZdHowYm9xNVZmRlB1TUhXZnZSSlcwMlZPQlVkM1EzamIybjg2cUhQ?=
+ =?utf-8?B?ODhyR20wbkdCOEwraGp5Zm5sR2MzZ2FDRG9ONG1GVkhaNzkyRGNHUU0vTnpB?=
+ =?utf-8?B?NGk5MTE4UDJ0V2o1Sjl1WUtZdFlOcUVLVVJQVGZybGxsaU5SS0NhWkN5ZEhF?=
+ =?utf-8?B?bGlGUmljdXp5TW5BMFNMRnlSQXlLZExjT1d3eFFiNHlBZ3RTN0N0Vng2aDFl?=
+ =?utf-8?B?OU5ST2YwQlF6SHVXMXlLajgxL3BORDRla0NqRkZwS1cwQm81K3ROZnQ0eDln?=
+ =?utf-8?B?cWQwOGlHa2psQXNaQlZld1YrcDZxUG9GbkVVTGxaMEVMRFdLdUxLeEhmc2s3?=
+ =?utf-8?B?aXlQM1Z5VUwveWRXWFRFL0ZpZTV3YnFEeWUwbVZZTGhpd09MK2FWdlh5TGNl?=
+ =?utf-8?B?emJJYlkyc3diTTNQMU53cStaSmwvTklqTU80NDJVQWRycTYvR3NMZE01Q0Fw?=
+ =?utf-8?B?Qm91SUkybzBvOUVHamxHMm5LVXFMdG5UQ2NTSDRuWStXSjltMmw1dklmYjBM?=
+ =?utf-8?B?UkFTMlhMTU02UjRDRkpTNk0yaEhsL3NwMVRBNklhdlhudEJtaEtnUm5TQThx?=
+ =?utf-8?B?Qm5lbVFrenh5b3poMGJRMDJaZHAvempvUjV5b09YSXlTTXZWQURsUVVjUjNn?=
+ =?utf-8?B?dmdqcEtHQ3h4clkxa1h4WWtZbmYwbG5mUHpVdjg2UEFBaHp5VldGTFVhZi9Y?=
+ =?utf-8?B?TGNrNnNmQmdMU1pxcndiQW5QTWo0Z1pwbDI3NTk3ZnMvdWNpWnM4eHZOK0o0?=
+ =?utf-8?B?dlVPam51MGZLTHhORFJqY1FsY05HYVp2L3BySURoeFQydjJNa01VaXpNNkRM?=
+ =?utf-8?B?SzlHOFN1VkRlSHdhZ0tNYnFpZC9hczdMMVU5UW5NWTJ1Y1Z6czhteW9lNVpk?=
+ =?utf-8?B?ZEs4SSt5Wkt2S2lmbGRkTFU3L2IzZTBBei9LYlBQVk1SdnlnbWNRcWtibndW?=
+ =?utf-8?B?SlJkTlNmNEZSVjlBc3VXNnVGSFlxd083Mi93bnV2aUQ3TGZwYlNQK1hMZS9y?=
+ =?utf-8?B?U2RYVVNnbmR3TTZML01rdno3Rnh4cE1WVktiK2J0RCtvWVRWbk1WMGV1alN6?=
+ =?utf-8?B?aGdQT1dnR01yblJYaURGMTByaTVxcUtWbTI5T0o0b243UVpqdkc0dFFuZ1ZT?=
+ =?utf-8?B?TTRBVE9xcG1jc0ZCRHU5cnA0Q1M1U2FaeUpBWlpBeHdXd296Wk1aNzcrQzZ4?=
+ =?utf-8?B?THdPWVZCNW5Ub0x4Q1FPQUhiZHA0QnM0MkZXZFE3V1k0VGl1SVhJTHhTQUV2?=
+ =?utf-8?B?aTdtRjZlaVVrcEJ6YS9YSUFkM2J1ZTF1Ulg2OVVvZjJLa2ljMEJZT1hnUmRk?=
+ =?utf-8?B?TnBwcHg1UkJtK01BVE9sMWpUL3diSG9SSE1TWTBMOXhBaU4vbGZTUThOY3J2?=
+ =?utf-8?B?YlJXK0p4Y1psd2pKbDVQaW1xK3pseTRNTmVqdER4VUM4NHNZWkY3dng5RjZ5?=
+ =?utf-8?B?dVl2cFRzem1TdkxMNTcxQmcvVW93YjFjZmdNSmNkWisvQmQ0L0RUQVlOYjE1?=
+ =?utf-8?B?cnU4TWt1MHBOcFB1cUtUeTRkdjNpSkpMN3R0dXNCbTVtY3dnU3dnQldCdGs2?=
+ =?utf-8?B?OWtqbFRDWE1BZWE0Y2tBL0RoZzRVTXh1NFQ5dDg2cDB2R1MyOU80bUY0K0Z5?=
+ =?utf-8?B?QmlnejZXZVhzb01pcEc0T1ozR3I2QmdoUE8rdERVTWZyTVlDNVFYbmlGK2hl?=
+ =?utf-8?B?Y01oekpwRFluYitmZ2hHSUZGZ0o1OEZqVzZ1eDlXVFMyeVNybUNxYk9OMlRD?=
+ =?utf-8?B?UFM2aHBPZngzVVZKbitDMHlJeXZtWUdCWTVVWFZ3MG5XM2wwNWx4NVZ2U1do?=
+ =?utf-8?B?UkJMSlRNckIxdWdzRDZQN3lwY3lLTU5MTVQ0TFZCcUZqVCs4TXZvVGtvRVN0?=
+ =?utf-8?B?VDZxNE92N3kzRGRhcmMrbDhuT3N0K0d5cFhNazRnd2ppbU9qRTJGZk1Va29N?=
+ =?utf-8?B?L2RGQi9IV0I3QXhIRVRCNll2N1Vzc1FzNzBSZ2Q2LzV6SGdrTWdlZmN6eW52?=
+ =?utf-8?B?QkJxejZxTWphNVJPTldtbHlsZTNxNFk4K0lyQXdCSzJIaG00RXR2ZzJMOURM?=
+ =?utf-8?B?NnJ3dnZXTHJvWFI0YmlXa096V1Jzb0I5VEZSeURISW1HZ2V3T0Q5ZnUveTYv?=
+ =?utf-8?B?c3hydlFINzlyeUIvV3hHQzVHMW1NWUJtcDlSUGt0MENEVW1tQ0FkYitHYmR4?=
+ =?utf-8?B?ZmU0Y3FsTW5BNjNIY2dpdnIvWDNZYWQ3RjFKenFwcHoyblN0S3piQU95QWJs?=
+ =?utf-8?B?R2xOcy9hN0JkSHJHcTJUbU9JZTFTVTdJZUt1VGt3V0FCL1VDbEh0dz09?=
+X-OriginatorOrg: garyguo.net
+X-MS-Exchange-CrossTenant-Network-Message-Id: 2c316de3-c818-49cc-f1fb-08df4a3741f6
+X-MS-Exchange-CrossTenant-AuthSource: CWLP265MB6051.GBRP265.PROD.OUTLOOK.COM
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 24 Nov 2026 14:28:50.4785 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: bbc898ad-b10f-4e10-8552-d9377b823d45
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: Ndv2nUO4jaRxnOwf9aHZUORfTeq1F/glBbmXgkHAtad2IAjCpKot6O/cQA79HZ4D5e/d+49G1EKq+LH+CJznSQ==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: CWXP265MB2581
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -106,45 +139,51 @@ List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-5.8 required=3.0 tests=BAYES_00,DKIM_SIGNED,
+X-Spam-Status: No, score=-20.8 required=3.0 tests=BAYES_00,DKIM_SIGNED,
 	DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
-	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS autolearn=no
+	INCLUDES_CR_TRAILER,INCLUDES_PATCH,MAILING_LIST_MULTI,
+	MENTIONS_GIT_HOSTING,SPF_HELO_NONE,SPF_PASS autolearn=unavailable
 	autolearn_force=no version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-Hi,
+On Thu Nov 19, 2026 at 9:48 AM GMT, Peder Bergan via B4 Relay wrote:
+> From: Peder Bergan <peder.bergan@gmail.com>
+>=20
+> DRM monitoring tools use drm-driver and drm-client-id in procfs fdinfo
+> to identify DRM clients. The common Rust DRM file operations leave
+> show_fdinfo unset, so these entries are missing for those clients.
+>=20
+> Set show_fdinfo to drm_show_fdinfo. The DRM core helper emits the
+> standard client information and calls the separate driver statistics
+> hook if the driver provides one.
+>=20
+> Fixes: c284d3e42338 ("rust: drm: gem: Add GEM object abstraction")
+> Closes: https://github.com/Rust-for-Linux/linux/issues/1266
+> Signed-off-by: Peder Bergan <peder.bergan@gmail.com>
 
-On Tue, 14 Jul 2026 at 12:45, AngeloGioacchino Del Regno
-<angelogioacchino.delregno@collabora.com> wrote:
-> +void mtk_exdma_layer_config(struct device *dev, unsigned int idx,
-> +                                struct mtk_plane_state *state,
-> +                                struct cmdq_pkt *cmdq_pkt)
-> +{
-> +       struct mtk_disp_exdma *priv = dev_get_drvdata(dev);
-> +       struct mtk_plane_pending_state *pending = &state->pending;
-> +       const struct drm_format_info *fmt_info = drm_format_info(pending->format);
-> +       const u32 blend_mode = mtk_ovl_get_blend_mode(state, MTK_OVL_SUPPORT_BLEND_MODES);
-> +       const bool csc_enable = (fmt_info) ? fmt_info->is_yuv : false;
-> +       u32 val;
-> +
-> +       if (!pending->enable || pending->height == 0 || pending->width == 0 ||
-> +           pending->x > OVL_EXDMA_MAX_SIZE || pending->y > OVL_EXDMA_MAX_SIZE) {
+Reviewed-by: Gary Guo <gary@garyguo.net>
 
-Definitely don't do this please. If exdma is asked to do something it
-can't (and I'm assuming that these last two checks are intended to be
-on w/h rather than x/y?), then you need to reject that in
-atomic_check. Getting here with pending->enable == true and then not
-enabling it, is not OK.
+I agree with Janne that the "Fixes" tag is not warranted.
 
-Relatedly, most of mtk_plane_pending_state should be deleted as
-duplicative of drm_plane_state and it would be great to see a patch
-series very soon to clean that up. It's been that way for the last 10
-years, with seemingly no discussion ever of why it exists (my guess is
-that it's a holdover from pre-atomic code), but no reason to
-perpetuate the badness.
+Best,
+Gary
 
-Same comment applies for the blender.
+> ---
+> Matt Mireles reported the missing fdinfo fields on an Asahi kernel and
+> suggested using this helper.
+>=20
+> The x86-64 LLVM=3D1 CLIPPY=3D1 build adds the drm_show_fdinfo callback to
+> nova-drm.ko's file operations table.
+>=20
+> The pending move of the file operations into drm::device [1] should
+> carry this assignment into UnregisteredDevice::FOPS.
+>=20
+> [1] https://lore.kernel.org/dri-devel/20261118163203.2483856-4-dakr@kerne=
+l.org/
+>=20
+> OpenAI Codex assisted with coding and testing.
+> ---
+>  rust/kernel/drm/gem/mod.rs | 1 +
+>  1 file changed, 1 insertion(+)
 
-Cheers,
-Daniel
