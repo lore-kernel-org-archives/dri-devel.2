@@ -2,36 +2,36 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 52FAB606A32E
-	for <dri-devel@archiver.kernel.org>; Tue, 24 Nov 2026 14:48:27 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C2226606A31E
+	for <dri-devel@archiver.kernel.org>; Tue, 24 Nov 2026 14:48:36 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=YXEQb5dc
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=YPf2do13
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id B224D10F67E;
-	Tue, 24 Nov 2026 14:48:21 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 1FB0310F6A0;
+	Tue, 24 Nov 2026 14:48:31 +0000 (UTC)
 Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 71B3910F67E
- for <dri-devel@lists.freedesktop.org>; Tue, 24 Nov 2026 14:48:15 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 054AD10F6A0
+ for <dri-devel@lists.freedesktop.org>; Tue, 24 Nov 2026 14:48:25 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id 2A0EC40AFD;
+ by sea.source.kernel.org (Postfix) with ESMTP id E0BD941780;
+ Tue, 24 Nov 2026 14:48:24 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id B3C2A1F000CF;
  Tue, 24 Nov 2026 14:48:15 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6D0881F000CF;
- Tue, 24 Nov 2026 14:48:06 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1795531694;
- bh=lyUEGhLGDykIVP/ED9acLT2Z8Hu6snwbttemda4QuYE=;
+ s=k20260515; t=1795531704;
+ bh=NmzeHjQpwb8xr6UOoWnMTNzzDHjAarvzlglxmIf5kC8=;
  h=Subject:From:To:Cc:In-Reply-To:References:Date;
- b=YXEQb5dcxm1JxN5d6fK6F4oynjusGJRZv8vCmoMzvS89AoMaYdInrCBv05fE+jHUW
- fTL5hjlNbYu8MXPYgWqWC4eo9o2KkDFOle2aTYKqkJK4qy3nX8SBCSSwjqahRFLSyL
- vFuOzEKh6o1aUUCsfRe8eiUVb7F5DuD0xSpmiJwJPEqfu8qobdmLgHz1G6sOu3pUBf
- EKvY/YSA4Xj+O9LAOr4qg8BCOnQ2T3hT87mcHfZ6ODxe1m40otGD2ltuAVkkji8MkJ
- mrFY403fHKdzIXtXKhU01DwLQfwSTq1hFdb920DI5qMZvALxpZoiF4WWFstZjFZsHm
- MT6fjrxfaRT9Q==
+ b=YPf2do13UJY/NFUdq6FHPxFG8KZoWIt2yCsrXBO2YGch4P96BCx+vrisjtTER57tA
+ J4z4KxtgbX0OKi/41M5AqCZF7w99rrwZVkDQB1mHeXCv5a+SrnexPld9IOSVBXImU/
+ fCC6I2KpmISBjjyMgs3pdTMEMPZqWNueh3SpSfFgMCBfsmOJLHLW+ERUIjCLzj5rhs
+ /exN9lHQkb2ARVCNNWvJLebtQ3b7rlLXt/RnIJ39/8IF7I+EX9WKq21IcT91/vOEkD
+ i07N6sSUja/WQO9HwFz+oIWETeIyOePxlUIjeRY7csqWeug+aJeZD9yCE+AkSTUZ3o
+ xExZtPvui9egQ==
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Subject: Re: [PATCH v2 05/20] ASoC: codecs: pcm1754: Add PCM1773 support
+Subject: Re: [PATCH v2 07/20] ASoC: ti: omap3pandora: Convert sound card to DT
 From: Mark Brown <broonie@kernel.org>
 To: "H. Nikolaus Schaller" <hns@goldelico.com>
 Cc: Linus Walleij <linus.walleij@linaro.org>, 
@@ -58,19 +58,20 @@ Cc: Linus Walleij <linus.walleij@linaro.org>,
  linux-sound@vger.kernel.org, linux-omap@vger.kernel.org, 
  linux-arm-kernel@lists.infradead.org, linux-pwm@vger.kernel.org, 
  linux-fbdev@vger.kernel.org, letux-kernel@openphoenux.org, 
- kernel@pyra-handheld.com, Grond <grond66@riseup.net>
-In-Reply-To: <7e12ac0772314b256a253314a24b9d0ad50ba5f3.1795505160.git.hns@goldelico.com>
+ kernel@pyra-handheld.com, Stefan Leichter <sle85276@gmx.de>, 
+ Grond <grond66@riseup.net>
+In-Reply-To: <57d9a8b26bd2282deb9188d6913976cfee41aee9.1795505160.git.hns@goldelico.com>
 References: <cover.1795505160.git.hns@goldelico.com>
- <7e12ac0772314b256a253314a24b9d0ad50ba5f3.1795505160.git.hns@goldelico.com>
+ <57d9a8b26bd2282deb9188d6913976cfee41aee9.1795505160.git.hns@goldelico.com>
 Date: Tue, 24 Nov 2026 14:48:03 +0000
-Message-Id: <179553168322.264265.14757755735561826656.b4-review@b4>
+Message-Id: <179553168323.264265.7045861860225672057.b4-review@b4>
 X-Mailer: b4 0.17-dev
-X-Developer-Signature: v=1; a=openpgp-sha256; l=930; i=broonie@kernel.org;
- h=from:subject:message-id; bh=ShazBqroLpfTImF2hfJrbg+0pBRZfzBJNJtZVfX1368=;
- b=owGbwMvMwCWm/754w+YLFp2Mp9WSGLJZFy/haI4yjItITLqY+Ty2yyZD584RZlGJmvZmw0XPf
- X+VhF3tKGVhEONikBVTZInL4n5ZX/J6Dd/BhW0wc1iZQIYwcHEKwET6bBn+KR+6tNuJ1zepu2mZ
- 1uoD51dGqZ/7e+NXo8bE7DKP3tdtRowM1yabiC52qP0vZvkoWqj6eZrRTTEj7tkbn79Lujp14rF
- kPgA=
+X-Developer-Signature: v=1; a=openpgp-sha256; l=473; i=broonie@kernel.org;
+ h=from:subject:message-id; bh=O+rxne3vfbE84eTyYkF7T4fTftOwK7+9DZzNOJ+HZzk=;
+ b=owGbwMvMwCWm/754w+YLFp2Mp9WSGLJZFy8x+dXb7LL+HKf1wXKuIz81p8++sCJJKZWD9TSn0
+ rfClbtrOkpZGMS4GGTFFFnisrhf1pe8XsN3cGEbzBxWJpAhDFycAjCRdY4M/8ytHs5iDcsvmLh0
+ YcYOxydMZY4LfGfsfGA/c+r3NWGXPDcxMpy59iWt6P6TdwapdvPZb+UIJU1sidvM9fdryqElzQm
+ KN/gB
 X-Developer-Key: i=broonie@kernel.org; a=openpgp;
  fpr=3F2568AAC26998F9E813A1C5C3F436CA30F5D8EB
 X-BeenThere: dri-devel@lists.freedesktop.org
@@ -91,24 +92,15 @@ X-Spam-Status: No, score=-8.8 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-> Extend the PCM1754 codec driver to support the related PCM1773 DAC.
-> Select the DAI name, supported formats and sample rate limits per
-> variant. Handle the different FMT pin polarity and an optional format
-> GPIO, avoiding GPIO writes when the format pin is not controlled by the
-> driver. Add an optional enable GPIO for the PCM1773 power-down input,
-> controlled by a DAPM supply event to enable the DAC after power-up and
-> disable it before power-down.
+> Convert the OpenPandora ASoC machine driver to bind through a Device
+> Tree sound-card node instead of creating a platform device from board-
+> specific setup code. Describe the CPU and codec DAIs and audio routes
+> through DT, including the external PCM1773 playback DAC.
 
-> +	case SND_SOC_DAIFMT_LEFT_J:
-> +		if (priv->variant != &pcm1773_variant ||
-> +		    (params_width(params) != 16 && params_width(params) != 24))
-> +			return -EINVAL;
-> +		format = 0;
->  		break;
+> +	DAILINK_COMP_ARRAY(COMP_CODEC("pcm1773-codec", "pcm1773")),
 
-If you've got a struct describing the variant it is obviously not
-tasteful to open code a check based on the address of the variant struct
-rather than looking at something inside the description of the variant.
+You've added the external CODEC but not updated the Kconfig dependencies
+for that.
 
 -- 
 Mark Brown <broonie@kernel.org>
