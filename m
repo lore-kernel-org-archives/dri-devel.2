@@ -2,41 +2,67 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C0850606A31E
-	for <dri-devel@archiver.kernel.org>; Tue, 24 Nov 2026 07:53:31 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=CLcNHZLR
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B37EB606A31E
+	for <dri-devel@archiver.kernel.org>; Tue, 24 Nov 2026 07:56:32 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 2B82210EFD2;
-	Tue, 24 Nov 2026 07:53:26 +0000 (UTC)
-Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id A8ED810EFEE
- for <dri-devel@lists.freedesktop.org>; Tue, 24 Nov 2026 07:53:19 +0000 (UTC)
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by tor.source.kernel.org (Postfix) with ESMTP id E5EA961122;
- Tue, 24 Nov 2026 07:53:18 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 482051F000CF;
- Tue, 24 Nov 2026 07:53:18 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1795506798;
- bh=uWYyyoiE9UEESB46HzIJ4ENyPiMktw2XHyLrZbBkdQs=;
- h=From:Subject:Reply-To:To:In-Reply-To:References:Date;
- b=CLcNHZLRVY6hjqbFQz0CfWQ8gbDZhQklrWok+u6z0R8uwYWIjg7vZggyTJr+sw8g9
- lDJkfyKjj3v6Hu/tB1AoiOVgrJkUI61JlU1HIG9BiayzncLyZJvidPf1Zg9WzCf+ow
- tKLHpQQpIfylk30rBsYuLfZKzuvz70YaQf9MKimQXiiHoQjUt7fXF2bcA1+3K8XcaB
- mv8/+NhFOtpjGuVyHKtw+8g/Z1MdsOLmwWodBzNGOQAuzww0QEepqNxYwal0UZX0or
- m8GON0bjWQXkE3ErhM1KBXXAHhmY8SBlYoDPtItlKir+vA0EpvEB0f1kudSzNm3gRm
- LPXoZ/shAxqtw==
-Message-ID: <sashiko-outbox-230685@kernel.org>
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v2 1/3] drm/komeda: Use the bridge connector
-To: "Luo Liu" <Luo.Liu@cixtech.com>, dri-devel@lists.freedesktop.org
-In-Reply-To: <20261124073600.3124817-2-Luo.Liu@cixtech.com>
-References: <20261124073600.3124817-1-Luo.Liu@cixtech.com>
- <20261124073600.3124817-2-Luo.Liu@cixtech.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Tue, 24 Nov 2026 07:53:17 +0000
+	by gabe.freedesktop.org (Postfix) with ESMTP id 1BC7310EFEE;
+	Tue, 24 Nov 2026 07:56:32 +0000 (UTC)
+Received: from cstnet.cn (smtp21.cstnet.cn [159.226.251.21])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 99EAF10F009
+ for <dri-devel@lists.freedesktop.org>; Tue, 24 Nov 2026 07:56:28 +0000 (UTC)
+Received: from edelgard.fodlan.icenowy.me (unknown [120.85.97.139])
+ by APP-01 (Coremail) with SMTP id qwCowABHbfcVQwVrAUaUAQ--.8758S2;
+ Tue, 24 Nov 2026 15:56:06 +0800 (CST)
+From: Icenowy Zheng <zhengxingda@iscas.ac.cn>
+Subject: [PATCH v3 0/2] drm/bridge: add glue driver for T-Head TH1520 DW
+ MIPI DSI
+Date: Tue, 24 Nov 2026 15:56:01 +0800
+Message-Id: <20261124-th1520-dw-mipi-dsi-v3-0-ffcf2d87971b@iscas.ac.cn>
+X-Archived-By: <archiver.kernel.org>
+MIME-Version: 1.0
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/32NywrCMBQFf0WyNiWPxiau/A9xkeZhr2BbkhqV0
+ n83qQsRxOXAOTMzii6Ai2i/mVFwCSIMfQa+3SDT6f7sMNjMiBG2o4QTPHVUMILtHV9hBGwjYCG
+ JFS1rFPMK5eMYnIfHKj2e3hxv7cWZqZjKooM4DeG5VhMtu7+BRDHBjeCe195yUvsDRKNjpU1le
+ lQSiX0klKqfEpYlSrfCK0mkl823ZFmWF34qUGENAQAA
+X-Change-ID: 20261030-th1520-dw-mipi-dsi-580d5b2792f9
+To: Andrzej Hajda <andrzej.hajda@intel.com>, 
+ Neil Armstrong <neil.armstrong@linaro.org>, Robert Foss <rfoss@kernel.org>, 
+ Laurent Pinchart <Laurent.pinchart@ideasonboard.com>, 
+ Jonas Karlman <jonas@kwiboo.se>, Jernej Skrabec <jernej.skrabec@gmail.com>, 
+ Luca Ceresoli <luca.ceresoli@bootlin.com>, 
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>, Sandy Huang <hjc@rock-chips.com>, 
+ =?utf-8?q?Heiko_St=C3=BCbner?= <heiko@sntech.de>, 
+ Andy Yan <andyshrk@163.com>
+Cc: dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org, 
+ linux-kernel@vger.kernel.org, linux-rockchip@lists.infradead.org, 
+ linux-arm-kernel@lists.infradead.org, linux-riscv@lists.infradead.org, 
+ Icneowy Zheng <uwu@icenowy.me>, Han Gao <gaohan@iscas.ac.cn>, 
+ Icenowy Zheng <zhengxingda@iscas.ac.cn>
+X-Mailer: b4 0.15.0
+X-CM-TRANSID: qwCowABHbfcVQwVrAUaUAQ--.8758S2
+X-Coremail-Antispam: 1UD129KBjvJXoW7tryfKw1fKr4rAFW7Gw4rKrg_yoW8trWrpa
+ 17Gry3JFyDJrZ29F9ayr18XFWfG3Z5JF98KFW5Kw1vvan8u3W8Xr9FkFs5WF1UXrn3uF42
+ vF4jg348WrsFvaDanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
+ 9KBjDU0xBIdaVrnRJUUU9Y14x267AKxVWrJVCq3wAFc2x0x2IEx4CE42xK8VAvwI8IcIk0
+ rVWrJVCq3wAFIxvE14AKwVWUJVWUGwA2ocxC64kIII0Yj41l84x0c7CEw4AK67xGY2AK02
+ 1l84ACjcxK6xIIjxv20xvE14v26ryj6F1UM28EF7xvwVC0I7IYx2IY6xkF7I0E14v26F4j
+ 6r4UJwA2z4x0Y4vEx4A2jsIE14v26F4UJVW0owA2z4x0Y4vEx4A2jsIEc7CjxVAFwI0_Gc
+ CE3s1le2I262IYc4CY6c8Ij28IcVAaY2xG8wAqx4xG64xvF2IEw4CE5I8CrVC2j2WlYx0E
+ 2Ix0cI8IcVAFwI0_Jr0_Jr4lYx0Ex4A2jsIE14v26r1j6r4UMcvjeVCFs4IE7xkEbVWUJV
+ W8JwACjcxG0xvY0x0EwIxGrwACjI8F5VA0II8E6IAqYI8I648v4I1lFIxGxcIEc7CjxVA2
+ Y2ka0xkIwI1lc7CjxVAaw2AFwI0_GFv_Wryl42xK82IYc2Ij64vIr41l4I8I3I0E4IkC6x
+ 0Yz7v_Jr0_Gr1lx2IqxVAqx4xG67AKxVWUJVWUGwC20s026x8GjcxK67AKxVWUGVWUWwC2
+ zVAF1VAY17CE14v26r4a6rW5MIIYrxkI7VAKI48JMIIF0xvE2Ix0cI8IcVAFwI0_Jr0_JF
+ 4lIxAIcVC0I7IYx2IY6xkF7I0E14v26r4j6F4UMIIF0xvE42xK8VAvwI8IcIk0rVWUJVWU
+ CwCI42IY6I8E87Iv67AKxVWUJVW8JwCI42IY6I8E87Iv6xkF7I0E14v26r4j6r4UJbIYCT
+ nIWIevJa73UjIFyTuYvjTRM6wCDUUUU
+X-CM-SenderInfo: x2kh0wp0lqwv3d6l2u1dvotugofq/
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -47,90 +73,63 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
-Reply-To: sashiko-reviews@lists.linux.dev
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-10.8 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
-	DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
-	INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS autolearn=ham
+X-Spam-Status: No, score=-16.8 required=3.0 tests=BAYES_00,
+	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
+	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,USER_AGENT_GIT autolearn=ham
 	autolearn_force=no version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
-X-Archived-By: <archiver.kernel.org>
 
-Thank you for your contribution! Sashiko AI review found 1 potential
-issue to consider:
-- [Medium] drm/komeda: broken HDMI mode and infoframes with tda998x in
-  komeda_attach_bridge()
---
+T-Head TH1520 contains a DesignWare MIPI DSI host controller paired with
+an internal DesignWare PHY, as a similar design (but with a different
+PHY) with the Rockchip DW MIPI DSI.
 
-commit bdbabac7105a78a4323f2290c9df8999b1ab4fac
-Author: Luo Liu <Luo.Liu@cixtech.com>
+The functionality to write to the PHY is shared between these two
+implementations of DW MIPI DSI, so it's extracted from the Rockchip
+driver to the common code. (The same sequence could be seen in the
+HiSilicon Kirin DRM driver, but that one hasn't been converted to common
+DW MIPI DSI.)
 
-drm/komeda: Use the bridge connector
+Tested on a Lichee Console 4A (with a Mingjun MJ070BI30IA2 panel) with
+further pending DT patches.
 
-This commit updates komeda to attach bridges with
-DRM_BRIDGE_ATTACH_NO_CONNECTOR and creates the connector via
-drm_bridge_connector_init().
+One question remains: I have to copy the extra lane bandwidth headroom
+from the Rockchip driver, otherwise the Mingjun panel cannot keep sync
+to the display signal; from my testing, changing the hardcoded
+PHY_STOP_WAIT_TIME from 0x20 to 0x2 (which is written by the vendor
+driver) can also make this panel to work w/o the extra headroom. I want
+some advice on whether to keep the extra headroom or changing the common
+code to make the PHY_STOP_WAIT_TIME parameter adjustable.
 
-> diff --git a/drivers/gpu/drm/arm/display/komeda/komeda_crtc.c b/drivers/g=
-pu/drm/arm/display/komeda/komeda_crtc.c
-> index 0fd069fc3386d..3d5f06e085fac 100644
-> --- a/drivers/gpu/drm/arm/display/komeda/komeda_crtc.c
-> +++ b/drivers/gpu/drm/arm/display/komeda/komeda_crtc.c
-[ ... ]
-> @@ -626,12 +628,22 @@ static int komeda_attach_bridge(struct device *dev,
->  		return dev_err_probe(dev, PTR_ERR(bridge), "remote bridge not found fo=
-r pipe: %s\n",
->  				     of_node_full_name(pipe->of_node));
-> =20
-> -	err =3D drm_bridge_attach(encoder, bridge, NULL, 0);
-> -	if (err)
-> +	err =3D drm_bridge_attach(encoder, bridge, NULL,
-> +				DRM_BRIDGE_ATTACH_NO_CONNECTOR);
-> +	if (err) {
->  		drm_err(drm, "bridge_attach() failed for pipe: %s\n",
->  			of_node_full_name(pipe->of_node));
-> +		return err;
-> +	}
-> =20
-> -	return err;
-> +	connector =3D drm_bridge_connector_init(drm, encoder);
-> +	if (IS_ERR(connector)) {
-> +		drm_err(drm, "bridge connector init failed for pipe: %s\n",
-> +			of_node_full_name(pipe->of_node));
-> +		return PTR_ERR(connector);
-> +	}
+Signed-off-by: Icenowy Zheng <zhengxingda@iscas.ac.cn>
+---
+Changes in v3:
+- Fixed a remaining `syscon` in the DT binding.
+- Link to v2: https://patch.msgid.link/20261119-th1520-dw-mipi-dsi-v2-0-9ab5f9808f87@iscas.ac.cn
 
-[Severity: Medium]
-Does attaching with DRM_BRIDGE_ATTACH_NO_CONNECTOR break HDMI output,
-infoframes, audio and hotplug notifications on Arm Morello SDP
-(arch/arm64/boot/dts/arm/morello-sdp.dts)?
+Changes in v2:
+- Changed `syscon` to `thead,vo-syscon` in the DT binding.
+- Dropped the patch moving common PHY write routine to dw-mipi-dsi
+  common code.
+- Fixed a few problems pointed out by Sashiko in v1.
+- Link to v1: https://patch.msgid.link/20261030-th1520-dw-mipi-dsi-v1-0-753f34fd304f@iscas.ac.cn
 
-Morello SDP is the only mainline board using komeda, and it connects its
-pipeline output to an nxp,tda998x bridge.  When attached with
-DRM_BRIDGE_ATTACH_NO_CONNECTOR, tda998x_bridge_attach() skips
-tda998x_connector_init(), so EDID reads via the new drm_bridge_connector
-populate display_info on the bridge connector while leaving the driver's
-internal priv->connector zeroed.
+---
+Icenowy Zheng (2):
+      dt-bindings: display: bridge: document TH1520 MIPI DSI controller
+      drm/bridge: add TH1520 DesignWare MIPI DSI host controller
 
-During modeset, tda998x_bridge_mode_set() still reads display_info from
-priv->connector:
+ .../display/bridge/thead,th1520-dw-mipi-dsi.yaml   | 103 ++++
+ drivers/gpu/drm/bridge/Kconfig                     |  12 +
+ drivers/gpu/drm/bridge/Makefile                    |   1 +
+ drivers/gpu/drm/bridge/th1520-dw-mipi-dsi.c        | 570 +++++++++++++++++++++
+ 4 files changed, 686 insertions(+)
+---
+base-commit: 6628e7d4c6b25c8d18f1345e3a20d21829aae7e4
+change-id: 20261030-th1520-dw-mipi-dsi-580d5b2792f9
 
-drivers/gpu/drm/bridge/tda998x_drv.c:tda998x_bridge_mode_set() {
-    ...
-	if (priv->connector.display_info.rgb_quant_range_selectable)
-    ...
-	priv->supports_infoframes =3D priv->connector.display_info.cea_rev >=3D 3;
-    ...
-}
+Best regards,
+--  
+Icenowy Zheng <zhengxingda@iscas.ac.cn>
 
-Because priv->connector.display_info.cea_rev remains 0,
-priv->supports_infoframes is always false, leaving the transmitter in DVI
-mode without AVI/VSI infoframes or HDMI audio.  In addition,
-tda998x_detect_work() checks priv->connector.dev before reporting hotplug
-events and never calls drm_bridge_hpd_notify(), so HPD interrupts are no
-longer reported either.
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261124073600.3124=
-817-1-Luo.Liu@cixtech.com?part=3D1
