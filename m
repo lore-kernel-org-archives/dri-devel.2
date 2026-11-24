@@ -2,29 +2,29 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 06D49606A681
-	for <dri-devel@archiver.kernel.org>; Tue, 24 Nov 2026 18:18:50 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 996B1606A693
+	for <dri-devel@archiver.kernel.org>; Tue, 24 Nov 2026 18:18:51 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=igalia.com header.i=@igalia.com header.a=rsa-sha256 header.s=20170329 header.b=quiGei8U
+	dkim=pass (2048-bit key) header.d=igalia.com header.i=@igalia.com header.a=rsa-sha256 header.s=20170329 header.b=CfAe3cwF
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 0EC6810F836;
-	Tue, 24 Nov 2026 18:18:40 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id A5E2D10F081;
+	Tue, 24 Nov 2026 18:18:41 +0000 (UTC)
 Received: from fanzine2.igalia.com (fanzine2.igalia.com [213.97.179.56])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 3CB7510F081;
- Tue, 24 Nov 2026 18:18:29 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id D958610F4C1;
+ Tue, 24 Nov 2026 18:18:31 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com; 
  s=20170329;
  h=Content-Transfer-Encoding:MIME-Version:Message-ID:Date:Subject:
- Cc:To:From:From:Reply-To; bh=b6K3+t6KOdL51KffwKMFowzojnZMXnYTCwh0Jc0Y0+I=;
- t=1795544309; x=2110904309; b=quiGei8U2LaNmTb8WXuwxSn7D5llokYCIz316Rqtxa0aYOT
- BR8bAQjBXumgHEPiMhoGm2U7QLrHkbZ6pYgfpttPBr4HqRno1n7fB+tflEysSnWqUCW0Rh+2G2my2
- a/n7XQcLzPqTdHncshrKn1uKsP1jCKqieGi/nD6vZWAniB64UGdhWkGUoZR+L4IvsgOxhZlBXeiOM
- WZOmPP+fI6hynUrTjfeV7TYjPEDFpXjV812Rr6FiHXqT7dA+UjJ2Q9cBT/9KSjisN4E4aVAy5l/z3
- czMXLG/8PUAHfqYSmVuCmupX1PekTBQLOAlDp+RDj1nJu45v9yEkvS8YX1BDHfaQ==;
+ Cc:To:From:From:Reply-To; bh=D7JA+BoRaYJZx0QyhqSrwwX2UENwQBXvChgno1UYrqI=;
+ t=1795544311; x=2110904311; b=CfAe3cwFT9rk4L90kxA9SYCysoY80S8hMrGILT3eR9+NnoP
+ 6PB33GSApoM39hNGG5o9l2GYVT1C+UcGu9h6Hro6eE2k8cM+07HC3UWUmBYP52nEAmBcqjMoReV0X
+ m9DY4ShLueG0+InPmiRb9E3SKJKKK72YCpXaUkinOKrUlT8QwGWyfOvvG9PN1BpFdtwU9MuFrKFxy
+ Jra8h2PHWD6jJNlQ/MedFLrxTlydu8rwWc6HKCzOWup/XGdX2evBqdoOgxp1kTL1iiNc/lPm4zqlH
+ 1eGQ9+JYCz+WfqkywS6XQCi1ca4FCnhKxESaptOCN0QAHnwwHshSGupLvyj6vbVQ==;
 Received: from 84.125.127.4.dyn.user.ono.com ([84.125.127.4] helo=killbill)
  by fanzine2.igalia.com with esmtpsa 
  (Cipher TLS1.3:ECDHE_X25519__RSA_PSS_RSAE_SHA256__AES_256_GCM:256) (Exim)
- id 1xVv5v-00000003axM-2T4X; Tue, 24 Nov 2026 19:18:19 +0100
+ id 1xVv5x-00000003axM-1Su3; Tue, 24 Nov 2026 19:18:21 +0100
 From: Melissa Wen <mwen@igalia.com>
 To: airlied@gmail.com, alexander.deucher@amd.com, christian.koenig@amd.com,
  harry.wentland@amd.com, maarten.lankhorst@linux.intel.com,
@@ -42,10 +42,10 @@ Cc: Ariel DAlessandro <ariel.dalessandro@collabora.com>,
  amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
  Leandro Ribeiro <leandro.ribeiro@collabora.com>,
  Melissa Wen <mwen@igalia.com>
-Subject: [PATCH v3 13/19] drm/drm_mode_object: hide deprecated CRTC color mgmt
- props if colorop is set
-Date: Tue, 24 Nov 2026 19:03:30 +0100
-Message-ID: <20261124181652.1333986-14-mwen@igalia.com>
+Subject: [PATCH v3 14/19] drm/atomic: set hidden CRTC color mgmt model to
+ default values
+Date: Tue, 24 Nov 2026 19:03:31 +0100
+Message-ID: <20261124181652.1333986-15-mwen@igalia.com>
 X-Mailer: git-send-email 2.53.0
 In-Reply-To: <20261124181652.1333986-1-mwen@igalia.com>
 References: <20261124181652.1333986-1-mwen@igalia.com>
@@ -70,45 +70,110 @@ X-Spam-Status: No, score=-18.8 required=3.0 tests=BAYES_00,DKIM_SIGNED,
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-Stop advertising CRTC color mgmt properties if post-blend colorop is
-enabled. Follow the same approach done for plane COLOR_ENCODING and
-COLOR_RANGE when pre-blend colorop is enabled.
+Userspace sees a single CRTC color management model: the colorop
+pipeline if DRM_CLIENT_CAP_CRTC_COLOR_PIPELINE is set, or CRTC color
+properties otherwise. When the other model is hidden, CRTC still holds
+its previous property settings and, without visibility, the userspace
+cannot clear it anymore.
+
+Reset the hidden model to its default value on every CRTC included in an
+atomic commit: clear blobs if colorop pipeline, and set COLOR_PIPELINE
+to Bypass if CRTC color properties are in place. Colorop values aren't
+touched, so re-selecting a pipeline later restores them. Only set
+color_mgmt_changed flag when something was actually reset.
 
 Signed-off-by: Melissa Wen <mwen@igalia.com>
 
 ---
 v3:
-- rebase on drm-misc-next, no other changes
+- new patch, as for planes, drivers now decide from
+  crtc_state->color_pipeline between colorop or CRTC color properties
+  and the core sets the properties of the model hidden from the client to
+  their defaults.
 ---
- drivers/gpu/drm/drm_mode_object.c | 13 +++++++++++--
- 1 file changed, 11 insertions(+), 2 deletions(-)
+ drivers/gpu/drm/drm_atomic_uapi.c | 28 ++++++++++++++++++++++++++++
+ include/drm/drm_crtc.h            |  6 ++++--
+ include/uapi/drm/drm.h            |  4 ++++
+ 3 files changed, 36 insertions(+), 2 deletions(-)
 
-diff --git a/drivers/gpu/drm/drm_mode_object.c b/drivers/gpu/drm/drm_mode_object.c
-index e9f317126035..3b7c94957bf0 100644
---- a/drivers/gpu/drm/drm_mode_object.c
-+++ b/drivers/gpu/drm/drm_mode_object.c
-@@ -442,10 +442,19 @@ int drm_mode_object_get_properties(struct drm_mode_object *obj, bool atomic,
- 				continue;
- 		}
+diff --git a/drivers/gpu/drm/drm_atomic_uapi.c b/drivers/gpu/drm/drm_atomic_uapi.c
+index 0a597b9e8005..ca711353fc48 100644
+--- a/drivers/gpu/drm/drm_atomic_uapi.c
++++ b/drivers/gpu/drm/drm_atomic_uapi.c
+@@ -1695,6 +1695,32 @@ static void complete_signaling(struct drm_device *dev,
+ 	kfree(fence_state);
+ }
  
--		if (!crtc_color_pipeline && obj->type == DRM_MODE_OBJECT_CRTC) {
-+		if (obj->type == DRM_MODE_OBJECT_CRTC) {
- 			struct drm_crtc *crtc = obj_to_crtc(obj);
-+			struct drm_mode_config *config = &crtc->dev->mode_config;
- 
--			if (prop == crtc->color_pipeline_property)
-+			if (!crtc_color_pipeline && prop == crtc->color_pipeline_property)
-+				continue;
++static void
++reset_crtc_color_mgmt_props(struct drm_atomic_commit *state,
++			    struct drm_file *file_priv,
++			    bool async_flip)
++{
++	struct drm_crtc_state *crtc_state;
++	struct drm_crtc *crtc;
++	bool changed;
++	int i;
 +
-+			if (crtc_color_pipeline &&
-+			    (prop == config->degamma_lut_property ||
-+			     prop == config->degamma_lut_size_property ||
-+			     prop == config->ctm_property ||
-+			     prop == config->gamma_lut_property ||
-+			     prop == config->gamma_lut_size_property))
- 				continue;
- 		}
++	/* Async page flip doesn't change properties */
++	if (async_flip)
++		return;
++
++	for_each_new_crtc_in_state(state, crtc, crtc_state, i) {
++		if (file_priv->crtc_color_pipeline) {
++			changed = drm_property_replace_blob(&crtc_state->degamma_lut, NULL);
++			changed |= drm_property_replace_blob(&crtc_state->ctm, NULL);
++			changed |= drm_property_replace_blob(&crtc_state->gamma_lut, NULL);
++		} else {
++			changed = drm_atomic_set_colorop_for_crtc(crtc_state, NULL);
++		}
++		crtc_state->color_mgmt_changed |= changed;
++	}
++}
++
+ static void
+ set_async_flip(struct drm_atomic_commit *state)
+ {
+@@ -1853,6 +1879,8 @@ int drm_mode_atomic_ioctl(struct drm_device *dev,
+ 		drm_mode_object_put(obj);
+ 	}
  
++	reset_crtc_color_mgmt_props(state, file_priv, async_flip);
++
+ 	ret = prepare_signaling(dev, state, arg, file_priv, &fence_state,
+ 				&num_fences);
+ 	if (ret)
+diff --git a/include/drm/drm_crtc.h b/include/drm/drm_crtc.h
+index aba579cef6b6..166e80284bdf 100644
+--- a/include/drm/drm_crtc.h
++++ b/include/drm/drm_crtc.h
+@@ -277,8 +277,10 @@ struct drm_crtc_state {
+ 	/**
+ 	 * @color_pipeline:
+ 	 *
+-	 * The first colorop of the active color pipeline, or NULL, if no
+-	 * color pipeline is active.
++	 * The first colorop of the active color pipeline, or NULL, if no color
++	 * pipeline is active. Drivers program CRTC color management from this
++	 * pipeline when it is set, and from @degamma_lut, @ctm and @gamma_lut
++	 * properties otherwise.
+ 	 */
+ 	struct drm_colorop *color_pipeline;
+ 
+diff --git a/include/uapi/drm/drm.h b/include/uapi/drm/drm.h
+index 514c8f4b3aaf..08bd616774a4 100644
+--- a/include/uapi/drm/drm.h
++++ b/include/uapi/drm/drm.h
+@@ -915,6 +915,10 @@ struct drm_get_cap {
+  * - DEGAMMA_LUT
+  * - CTM
+  *
++ * Userspace can only see one CRTC color management model. On every CRTC
++ * included in an atomic commit, the DRM core resets CRTC color properties of
++ * the hidden model to default values.
++ *
+  * The client must enable &DRM_CLIENT_CAP_ATOMIC first.
+  *
+  * This client cap can only be set if the driver sets the corresponding driver
 -- 
 2.53.0
 
