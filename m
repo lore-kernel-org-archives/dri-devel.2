@@ -2,63 +2,93 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3F50D606A31E
-	for <dri-devel@archiver.kernel.org>; Tue, 24 Nov 2026 17:54:55 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B0484606A323
+	for <dri-devel@archiver.kernel.org>; Tue, 24 Nov 2026 18:02:20 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=fail reason="signature verification failed" (1024-bit key, unprotected) header.d=collabora.com header.i=@collabora.com header.a=rsa-sha256 header.s=zohomail header.b=NWN2UAIY
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=XF+l6G02
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 7A17110EF0D;
-	Tue, 24 Nov 2026 17:54:49 +0000 (UTC)
-Received: from sender6-op-o11.zoho.com (sender6-op-o11.zoho.com
- [165.173.180.11])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 3C8E710F038
- for <dri-devel@lists.freedesktop.org>; Tue, 24 Nov 2026 17:54:43 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; t=1795542870; cv=none; 
- d=zohomail.com; s=zohoarc; 
- b=AqPLK2thyyeZzdMv+3QBPVqRpFEHXIVIWT19jJGPS2TSNZhqwtaEO6+T6FWxYEnLH9Hr5jQvgBRMsEJ1d1hzcLSBSvHZzO9vngr7zZMSDbri/aO0Ohb4gChq64vT5aDUleobra4aJmnNCpXlpORxDMYymHfJw40jOJyxacfrTgI=
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com;
- s=zohoarc; t=1795542870;
- h=Content-Type:Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:Subject:Subject:To:To:Message-Id:Reply-To;
- bh=fpAiOPwESU3SxFIsWPPgq9rtaBiS5OvuHNtlKJUrn6E=; 
- b=GfbBuk/u57p+2xSmCKZncHsNLcpv5cQ1t2U5EFm7kwOIKxQV2IXwEw3mWITKsdkjec+inoT67Kga6H0X/JphybaY7SbbL6G/Xfr3DGkbt3ZxJoM2eGpS3Y3UklRm/VAAok/nqG6YBrexMJPe97zwZiUtTpvt6IoaYm2GC6UsJOo=
-ARC-Authentication-Results: i=1; mx.zohomail.com;
- dkim=pass  header.i=collabora.com;
- spf=pass  smtp.mailfrom=daniel.almeida@collabora.com;
- dmarc=pass header.from=<daniel.almeida@collabora.com>
-DKIM-Signature: a=rsa-sha256;
- b=NWN2UAIYTOHUea2mpFHMsbSJ1q14R4wTlekbh8/k6krPLWHePOriqUAbNzYxNYmwpCIcj2lLspALX212zEsdySLQ5wZGsLBLqo4rv8Q12xu4CiFMTghlUMMp6tm7CdFdHpOoLpIVpLq7/fxvh3g6h4TUw259Cv7UyR1AmBwHQXg=;
- c=relaxed/relaxed; s=zohomail; d=collabora.com; v=1;
- bh=fpAiOPwESU3SxFIsWPPgq9rtaBiS5OvuHNtlKJUrn6E=;
- h=Content-Description:Content-ID:Content-Type:Content-Transfer-Encoding:Cc:Date:From:In-Reply-To:List-Subscribe:List-Post:List-Owner:List-Id:List-Archive:List-Help:List-Unsubscribe:MIME-Version:Message-ID:Resent-Sender:Resent-Cc:Resent-Date:Resent-To:Reply-To:Resent-Message-ID:Resent-From:Sender:Subject:To:Date:From:Message-Id:Reply-To:Subject:To:Cc;
-Received: by smtp.zohomail.com with SMTPS id 1795542867599313.22834164371363; 
- Tue, 24 Nov 2026 09:54:27 -0800 (PST)
-Content-Type: text/plain;
-	charset=utf-8
+	by gabe.freedesktop.org (Postfix) with ESMTP id D6BA910E131;
+	Tue, 24 Nov 2026 18:02:14 +0000 (UTC)
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com
+ [205.220.180.131])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 11C0510E131
+ for <dri-devel@lists.freedesktop.org>; Tue, 24 Nov 2026 18:02:08 +0000 (UTC)
+Received: from pps.filterd (m0279871.ppops.net [127.0.0.1])
+ by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id
+ 6AOFLKdr3267085; Tue, 24 Nov 2026 18:01:49 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+ cc:content-transfer-encoding:date:from:in-reply-to:message-id
+ :mime-version:references:subject:to; s=qcppdkim1; bh=7vVL+O22Fy4
+ xfBwvf4r81a/dEA1a/72qiNfr/2FpCxM=; b=XF+l6G02+pGjxZjEhCV/pZfVrus
+ mqHgiSOxNZgHoaPTZ+poUV+BaGPjXNhEcIF+S+MxlRQpKUUcXAKdgdqMKRU9rjqw
+ N46qIXgAN2xUQ3UbLD5EK1pOYPwh5z4B0Y+jzJ5To7GPBz+hot666A5bvFkt6oDI
+ ddHhXf8SsZ0wr3YL6cFK7FdbnyyVKgHnpZYmxytXXxiMdg593v0mwZBg+fNVW/6D
+ T2ttKEzqK5t/i5vw5HylmjdVQ2iVEGMfgWaxpMJShyJkqyPb/vk1fi56Y335IoCb
+ Ay3N4mgv3pwWLjOHn3S58HYUYVx4e1jqeh+T4jBFea9PAIXAzCNQ2jPmGug==
+Received: from nalasppmta01.qualcomm.com (Global_NAT1.qualcomm.com
+ [129.46.96.20])
+ by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4j5ad7smys-1
+ (version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384 bits=256 verify=NOT);
+ Tue, 24 Nov 2026 18:01:49 +0000 (GMT)
+Received: from pps.filterd (nalasppmta01.qualcomm.com [127.0.0.1])
+ by NALASPPMTA01.qualcomm.com (8.18.1.11/8.18.1.11) with ESMTP id
+ 6AOHvYoe992721; Tue, 24 Nov 2026 18:01:48 GMT
+Received: from hu-devc-lv-u24-a.qualcomm.com (hu-zmckevit-lv.qualcomm.com
+ [10.81.84.220])
+ by NALASPPMTA01.qualcomm.com (PPS) with ESMTPS id 6AOI1mDY999514
+ (version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384 bits=256 verify=NOT);
+ Tue, 24 Nov 2026 18:01:48 +0000 (GMT)
+Received: by hu-devc-lv-u24-a.qualcomm.com (Postfix, from userid 4696302)
+ id 20A432238E; Tue, 24 Nov 2026 10:01:48 -0800 (PST)
+From: Zack McKevitt <zachary.mckevitt@oss.qualcomm.com>
+To: dri-devel@lists.freedesktop.org, netdev@vger.kernel.org,
+ riana.tauro@intel.com, aravind.iddamsetty@linux.intel.com,
+ rodrigo.vivi@intel.com, raag.jadav@intel.com, simona.vetter@ffwll.ch,
+ airlied@gmail.com, kuba@kernel.org, ogabbay@kernel.org,
+ lizhi.hou@amd.com, karol.wachowski@linux.intel.com
+Cc: jeff.hugo@oss.qualcomm.com, carl.vanderlip@oss.qualcomm.com,
+ troy.hanson@oss.qualcomm.com, youssef.abdulrahman@oss.qualcomm.com,
+ Zack McKevitt <zachary.mckevitt@oss.qualcomm.com>
+Subject: [PATCH v5 2/4] drm/drm_ras: Remove admin-perm flag from list-nodes
+ operation
+Date: Tue, 24 Nov 2026 10:01:30 -0800
+Message-ID: <20261124180137.616249-3-zachary.mckevitt@oss.qualcomm.com>
+X-Mailer: git-send-email 2.43.0
+In-Reply-To: <20261124180137.616249-1-zachary.mckevitt@oss.qualcomm.com>
+References: <20261124180137.616249-1-zachary.mckevitt@oss.qualcomm.com>
 X-Archived-By: <archiver.kernel.org>
-Mime-Version: 1.0 (Mac OS X Mail 16.0 \(3901.200.71.1.16\))
-Subject: Re: [PATCH v7 2/3] drm/tyr: add TyrIrq threaded IRQ wrapper
-From: Daniel Almeida <daniel.almeida@collabora.com>
-In-Reply-To: <20260728-tyr-irq-v2-v7-2-4e172e58e28c@collabora.com>
-Date: Tue, 24 Nov 2026 14:54:12 -0300
-Cc: Alice Ryhl <aliceryhl@google.com>, Danilo Krummrich <dakr@kernel.org>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- Miguel Ojeda <ojeda@kernel.org>, Boqun Feng <boqun@kernel.org>,
- Gary Guo <gary@garyguo.net>,
- =?utf-8?Q?Bj=C3=B6rn_Roy_Baron?= <bjorn3_gh@protonmail.com>,
- Benno Lossin <lossin@kernel.org>, Andreas Hindborg <a.hindborg@kernel.org>,
- Trevor Gross <tmgross@umich.edu>, Tamir Duberstein <tamird@kernel.org>,
- Alexandre Courbot <acourbot@nvidia.com>,
- =?utf-8?Q?Onur_=C3=96zkan?= <work@onurozkan.dev>,
- linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org,
- rust-for-linux@vger.kernel.org, kernel@collabora.com,
- Deborah Brouwer <deborah.brouwer@collabora.com>
-Content-Transfer-Encoding: quoted-printable
-Message-Id: <7C7287DF-458B-4AF8-8AB3-B5986E3B808E@collabora.com>
-References: <20260728-tyr-irq-v2-v7-0-4e172e58e28c@collabora.com>
- <20260728-tyr-irq-v2-v7-2-4e172e58e28c@collabora.com>
-To: Laura Nao <laura.nao@collabora.com>
-X-Mailer: Apple Mail (2.3901.200.71.1.16)
-X-ZohoMailClient: External
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
+X-Proofpoint-Reinject: loops=2 maxloops=12
+X-QCInternal: smtphost
+X-QCInternal: smtphost
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMTI0MDA3MCBTYWx0ZWRfXxxbktzot0Do1
+ dIeIbZpO7ieCMD2tiR82P2mM8gkMvAfuB9Hm20pISpV5sAEn/F7bIe3MgBiPPxrJUx0jI7zyHQy
+ bwPgYEprtqjs+uFBMnx9cXX8BrKcj3o=
+X-Authority-Analysis: v=2.4 cv=cI51IVeN c=1 sm=1 tr=0 ts=6b05d10d cx=c_pps
+ a=ouPCqIW2jiPt+lZRy3xVPw==:117 a=ouPCqIW2jiPt+lZRy3xVPw==:17
+ a=zJRp6_cAMcgA:10 a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22
+ a=3WHJM1ZQz_JShphwDgj5:22 a=QyXUC8HyAAAA:8 a=EUspDBNiAAAA:8
+ a=CU0-bA9xmp4BjaDge1wA:9
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMTI0MDA3MCBTYWx0ZWRfX8Lkg1TYnygFH
+ LSw2GSQj0dMSeF4EidTpyG27hMRmGQkzxbPQmFOdycuzXPXYvrfrv15HFUH2LlGqG8460pfoyIf
+ mcucuBQzPIx4tZmZ7kfqyD1wLaHCug8Ats3TCYku+Wdu6U5YH1DHI1yq6ubQmk/4HAjK3WYEeQs
+ GPOC7v0jubCKGTdDdMiFumojDHawxoHCsFB0RylKKs1lpT2sSVj8Dc2SA0ttE66JsvFHBob0x1c
+ 3HjqGY7eeTsHTpZ9mIL7iuQroD0+2DDjtLMT9nZ9C+VZTCbu24JqAX5dHI/oXvtE4YZrHYwp4DG
+ iC6Z1M9hjhIKhFtL9azd4A6UU11gVk8kiJuNsaw2PCtxhZ0bSMjoDeSaIsdyJSRJhwqYClXKmd7
+ qMGsj9EXKFIJdk/57fivNToFoYdO7CMNApmmPpFyZDlCOGHkvuwc8yMPktj+EYRb22HUcM85Dc+
+ tWSBCBp3FC/Dd4Hh2Ng==
+X-Proofpoint-ORIG-GUID: xol-gpWVeN2O07h_yy8stNjAyWZc3zTd
+X-Proofpoint-GUID: xol-gpWVeN2O07h_yy8stNjAyWZc3zTd
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
+ definitions=2026-11-24_04,2026-11-23_01,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ priorityscore=1501 lowpriorityscore=0 bulkscore=0 suspectscore=0
+ clxscore=1015 impostorscore=0 spamscore=0 adultscore=0 malwarescore=0
+ phishscore=0 classifier=typeunknown authscore=0 authtc= authcc=
+ route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2611040001
+ definitions=main-2611240070
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -70,421 +100,56 @@ List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-13.6 required=3.0 tests=BAYES_00,DKIM_INVALID,
-	DKIM_SIGNED,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,
-	INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS autolearn=ham
-	autolearn_force=no version=4.0.1
+X-Spam-Status: No, score=-16.8 required=3.0 tests=BAYES_00,DKIM_SIGNED,
+	DKIM_VALID,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,
+	INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,
+	USER_AGENT_GIT autolearn=unavailable autolearn_force=no version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-Hi Laura, this mostly looks good! A few things only:
+Drivers may want to avoid requiring CAP_NET_ADMIN for subsequent
+drm-ras operations. However, userspace must still be able to access
+the list of RAS nodes to determine the node IDs. So, drop the
+CAP_NET_ADMIN requirement for dumping RAS nodes so that drivers
+with different permission requirements are still able to use the
+interface.
 
+This prepares the interface to be used for telemetry by the qaic
+driver.
 
-> On 23 Nov 2026, at 11:58, Laura Nao <laura.nao@collabora.com> wrote:
->=20
-> Introduce a generic TyrIrq threaded IRQ wrapper along with the
-> TyrIrqTrait trait describing the operations required to handle a
-> Tyr interrupt source.
->=20
-> Co-developed-by: Daniel Almeida <daniel.almeida@collabora.com>
-> Signed-off-by: Daniel Almeida <daniel.almeida@collabora.com>
-> Co-developed-by: Deborah Brouwer <deborah.brouwer@collabora.com>
-> Signed-off-by: Deborah Brouwer <deborah.brouwer@collabora.com>
-> Signed-off-by: Laura Nao <laura.nao@collabora.com>
-> ---
-> drivers/gpu/drm/tyr/irq.rs           | 270 =
-+++++++++++++++++++++++++++++++++++
-> drivers/gpu/drm/tyr/reset/hw_gate.rs |   1 -
-> drivers/gpu/drm/tyr/tyr.rs           |   1 +
-> 3 files changed, 271 insertions(+), 1 deletion(-)
->=20
-> diff --git a/drivers/gpu/drm/tyr/irq.rs b/drivers/gpu/drm/tyr/irq.rs
-> new file mode 100644
-> index 000000000000..4a065c6272c5
-> --- /dev/null
-> +++ b/drivers/gpu/drm/tyr/irq.rs
-> @@ -0,0 +1,270 @@
-> +// SPDX-License-Identifier: GPL-2.0 or MIT
-> +
-> +//! Threaded IRQ wrapper shared by all Tyr interrupt sources.
-> +#![allow(dead_code)]
-> +use core::marker::PhantomPinned;
-> +
-> +use kernel::{
-> +    device::Bound,
-> +    interrupt::LocalInterruptDisabled,
-> +    irq::{
-> +        Flags,
-> +        IrqReturn,
-> +        ThreadedHandler,
-> +        ThreadedIrqReturn,
-> +        ThreadedRegistration, //
-> +    },
-> +    platform,
-> +    prelude::*,
-> +    sync::{
-> +        atomic::{
-> +            ordering:: {
-> +                Full,
-> +                Release, //
-> +            },
-> +            Atomic,
-> +            AtomicType, //
-> +        },
-> +        Arc,
-> +        SpinLockIrq, //
-> +    }, //
-> +};
-> +
-> +use crate::{
-> +    driver::IoMem,
-> +    reset::HwGate, //
-> +};
-> +
-> +/// Trait describing the operations required to service a Tyr =
-interrupt source.
-> +pub(crate) trait TyrIrqTrait: Sync {
-> +    /// Returns the masked interrupt status.
-> +    fn read_status(&self, io: &IoMem<'_>) -> u32;
-> +
-> +    /// Clears all bits in the mask register, disabling the interrupt =
-sources.
-> +    fn clear_mask(&self, io: &IoMem<'_>);
-> +
-> +    /// Sets the mask register to re-enable the interrupt sources.
-> +    fn reenable_mask(&self, io: &IoMem<'_>);
-> +
-> +    /// Returns the raw interrupt status, regardless of the current =
-mask.
-> +    fn read_raw_status(&self, io: &IoMem<'_>) -> u32;
-> +
-> +    /// Clears the given bits in the interrupt status register.
-> +    fn clear_status(&self, io: &IoMem<'_>, status: u32);
-> +
-> +    /// Returns the bitmask of interrupt sources handled by this =
-instance.
-> +    fn mask(&self) -> u32;
-> +
-> +    /// Handles the given pending, unmasked interrupt bits.
-> +    fn handle(&self, status: u32);
-> +}
-> +
-> +/// State shared between a [`TyrIrq`] and its [`TyrIrqRegistration`], =
-used to
-> +/// coordinate the primary handler, the threaded handler, and =
-teardown.
-> +#[derive(Clone, Copy, PartialEq, Eq)]
-> +#[repr(i32)]
-> +enum IrqState {
-> +    /// Active and ready to process new events.
-> +    Active =3D 0,
-> +    /// A primary handler has claimed a pending event and the =
-threaded handler is running, or
-> +    /// about to run, to service it.
-> +    Processing,
-> +    // Being deregistered: the mask has been, or is being, cleared, =
-and no
-> +    // handler may re-enable it.
-> +    Unregistering,
-> +}
-> +
-> +// SAFETY: `IrqState` and `i32` has the same size and alignment, and =
-it's round-trip
-> +// transmutable to `i32`.
-> +unsafe impl AtomicType for IrqState {
-> +    type Repr =3D i32;
-> +}
-> +
-> +/// A threaded IRQ wrapper shared by all Tyr interrupt sources.
-> +#[pin_data]
-> +pub(crate) struct TyrIrq<'a, T: TyrIrqTrait> {
-> +    /// The interrupt source.
-> +    irq: T,
-> +    /// Shared gate that coordinates hardware access with GPU reset.
-> +    hw: Arc<HwGate<'a>>,
-> +    /// Current state.
-> +    state: Atomic<IrqState>,
-> +    #[pin]
-> +    lock: SpinLockIrq<()>,
+Reviewed-by: Rodrigo Vivi <rodrigo.vivi@intel.com>
+Reviewed-by: Jeff Hugo <jeff.hugo@oss.qualcomm.com>
+Signed-off-by: Zack McKevitt <zachary.mckevitt@oss.qualcomm.com>
+---
+ Documentation/netlink/specs/drm_ras.yaml | 1 -
+ drivers/gpu/drm/drm_ras_nl.c             | 2 +-
+ 2 files changed, 1 insertion(+), 2 deletions(-)
 
-Please move IrqState inside the lock:
-
->    lock: SpinLockIrq<IrqState>,
-
-Notice that Atomic<T> is gone here ^
-
-> +    #[pin]
-> +    _pin: PhantomPinned,
-> +}
-> +
-> +impl<'a, T: TyrIrqTrait> TyrIrq<'a, T> {
-> +    /// Requests a threaded IRQ registration for `irq`, using `name` =
-to look up the interrupt.
-> +    /// Returns the shared [`IrqState`] alongside the registration.
-> +    ///
-> +    /// # Safety
-> +    ///
-> +    /// Callers must not `mem::forget()` the resulting registration =
-or otherwise prevent its
-> +    /// [`Drop`] implementation from running.
-> +    unsafe fn request(
-> +        pdev: &'a platform::Device<Bound>,
-> +        name: &'static CStr,
-> +        irq: T,
-> +        hw: Arc<HwGate<'a>>,
-> +    ) -> Result<impl PinInit<ThreadedRegistration<'a, Self>, Error> + =
-'a>
-> +    where
-> +        T: 'a,
-> +    {
-> +        let state =3D Atomic::new(IrqState::Active);
-> +
-> +        let handler =3D try_pin_init!(Self {
-> +            irq,
-> +            hw,
-> +            state,
-> +            lock <- kernel::new_spinlock_irq!(()),
-> +            _pin: PhantomPinned,
-> +        });
-> +
-> +        // SAFETY: The caller guarantees the resulting registration =
-will not be leaked.
-> +        let registration =3D
-> +            unsafe { pdev.request_threaded_irq_by_name(Flags::SHARED, =
-name, name, handler) };
-
-I don't think we should use name twice here. The second one should =
-probably be
-tyr-job, tyr-mmu, tyr-gpu, etc. We should probably make this possible by =
-taking
-both a "irq_name" and a "name=E2=80=9D.
-
-> +
-> +        // Clear the status and unmask once the handler has been
-> +        // successfully registered.
-> +        Ok(registration.pin_chain(|reg| {
-> +            let handler =3D reg.handler();
-> +            let hw_guard =3D handler.hw.access();
-> +            let io =3D hw_guard.iomem();
-> +            let irq =3D &handler.irq;
-> +            irq.clear_status(io, irq.mask());
-> +            irq.reenable_mask(io);
-> +            Ok(())
-> +        }))
-> +    }
-> +}
-> +
-> +impl<T: TyrIrqTrait> ThreadedHandler for TyrIrq<'_, T> {
-> +    fn handle(&self) -> ThreadedIrqReturn {
-> +        // SAFETY: `handle()` is the hard IRQ handler, so interrupts =
-are already
-> +        // disabled.
-> +        let token =3D unsafe { =
-LocalInterruptDisabled::assume_disabled() };
-> +        let _guard =3D self.lock.lock_with(token);
-
-I'd rather not have this unsafe here if we can use the safe "lock()". If
-interrupts are off, turning them off again is harmless. Also, AI said =
-that your
-unsafe comment is not true under all configs.
-
-> +
-> +        // Only proceed if still `Active`. If `Unregistering`, the =
-IRQ is being
-> +        // torn down and must not be handled.
-> +        if self
-> +            .state
-> +            .cmpxchg(IrqState::Active, IrqState::Processing, Full)
-> +            .is_err()
-> +        {
-> +            return ThreadedIrqReturn::None;
-> +        }
-> +
-> +        let Some(hw_guard) =3D self.hw.try_access_atomic() else {
-> +            let _ =3D self
-> +                .state
-> +                .cmpxchg(IrqState::Processing, IrqState::Active, =
-Full);
-> +            return ThreadedIrqReturn::None;
-> +        };
-> +        let io =3D hw_guard.iomem();
-> +
-> +        let masked_status =3D self.irq.read_status(io);
-> +
-> +        if masked_status =3D=3D 0 {
-> +            // Go back to `Active`, unless the IRQ is being torn =
-down.
-> +            let _ =3D self
-> +                .state
-> +                .cmpxchg(IrqState::Processing, IrqState::Active, =
-Full);
-> +            return ThreadedIrqReturn::None;
-> +        }
-> +
-> +        self.irq.clear_mask(io);
-> +        ThreadedIrqReturn::WakeThread
-> +    }
-> +
-> +    fn handle_threaded(&self) -> IrqReturn {
-> +        let mut ret =3D IrqReturn::None;
-> +
-> +        loop {
-> +            let hw_guard =3D self.hw.access();
-> +            let io =3D hw_guard.iomem();
-> +            let raw_status =3D self.irq.read_raw_status(io) & =
-self.irq.mask();
-> +            if raw_status =3D=3D 0 {
-> +                break;
-> +            }
-> +            self.irq.clear_status(io, raw_status);
-> +            drop(hw_guard);
-> +            self.irq.handle(raw_status);
-> +            ret =3D IrqReturn::Handled;
-> +        }
-
-let hw_guard =3D loop {
-  ..
-  if raw_status =3D=3D 0 {
-    break hw_guard; <=E2=80=94 reuse this guy
-  }
-..
-};
-
-
-> +
-> +        // Only re-enable the mask if still `Processing`. If =
-`Unregistering`, the
-> +        // IRQ is being torn down and must stay masked.
-> +        let hw_guard =3D self.hw.access();
-> +        let _guard =3D self.lock.lock();
-> +        if self
-> +            .state
-> +            .cmpxchg(IrqState::Processing, IrqState::Active, Full)
-> +            .is_ok()
-> +        {
-> +            self.irq.reenable_mask(hw_guard.iomem());
-> +        }
-> +
-> +        ret
-> +    }
-> +}
-> +
-> +// A [`ThreadedRegistration`] for a Tyr interrupt source and its =
-state.
-> +
-> +// Unlike a bare [`ThreadedRegistration`], dropping this type is =
-always
-> +// safe to do while the device remains on a shared IRQ line: its =
-`Drop`
-> +// implementation masks the interrupt source, and notifies teardown =
-via the
-> +// shared [`IrqState`], before the inner [`ThreadedRegistration`] is
-> +// dropped and deregisters the handler.
-
-// -> ///
-
-Please mention that this must come before clocks and regulators, =
-otherwise the
-system will freeze when this type drops by attempting to do I/O on a =
-powered
-down circuit.
-
-> +#[pin_data(PinnedDrop)]
-> +pub(crate) struct TyrIrqRegistration<'a, T: TyrIrqTrait> {
-> +    #[pin]
-> +    registration: ThreadedRegistration<'a, TyrIrq<'a, T>>,
-> +}
-> +
-> +#[pinned_drop]
-> +impl<T: TyrIrqTrait> PinnedDrop for TyrIrqRegistration<'_, T> {
-> +    fn drop(self: Pin<&mut Self>) {
-> +        // Flag teardown and mask the interrupt source, before
-> +        // `self.registration`'s own `PinnedDrop` runs next and calls =
-`free_irq()`.
-> +        // This prevents the hardware from asserting the interrupt =
-again once it is
-> +        // deregistered. `free_irq()` itself waits for any handler =
-already in
-> +        // flight to complete, and having already flagged =
-`Unregistering`, such a
-> +        // handler will not re-enable the mask (see =
-`TyrIrq::handle_threaded`).
-> +        let handler =3D self.registration.handler();
-> +        let hw_guard =3D handler.hw.access();
-> +        let _guard =3D handler.lock.lock();
-> +        handler.state.store(IrqState::Unregistering, Release);
-> +        handler.irq.clear_mask(hw_guard.iomem());
-> +    }
-> +}
-> +
-> +impl<'a, T: TyrIrqTrait> TyrIrqRegistration<'a, T> {
-> +    /// Requests a threaded IRQ registration for `irq`, using `name` =
-to look up the interrupt.
-> +    ///
-> +    /// # Safety
-> +    ///
-> +    /// Callers must not `mem::forget()` the resulting registration =
-or otherwise prevent its
-> +    /// [`Drop`] implementation from running.
-> +    pub(crate) unsafe fn request(
-> +        pdev: &'a platform::Device<Bound>,
-> +        name: &'static CStr,
-> +        irq: T,
-> +        hw: Arc<HwGate<'a>>,
-> +    ) -> Result<Pin<KBox<Self>>>
-> +    where
-> +        T: 'a,
-> +    {
-> +        // SAFETY: The caller guarantees the resulting registration =
-will not be leaked.
-> +        let registration =3D unsafe { TyrIrq::request(pdev, name, =
-irq, hw) }?;
-> +
-> +        KBox::try_pin_init(
-> +            try_pin_init!(Self {
-> +                registration <- registration,
-> +            }),
-> +            GFP_KERNEL,
-> +        )
-> +    }
-> +}
-> diff --git a/drivers/gpu/drm/tyr/reset/hw_gate.rs =
-b/drivers/gpu/drm/tyr/reset/hw_gate.rs
-> index 40b38f07c472..2157b4b8ba78 100644
-> --- a/drivers/gpu/drm/tyr/reset/hw_gate.rs
-> +++ b/drivers/gpu/drm/tyr/reset/hw_gate.rs
-> @@ -76,7 +76,6 @@ pub(crate) fn access(&self) -> HwAccessGuard<'_, =
-'hw> {
->     ///
->     /// Returns `None` while the reset worker owns the hardware, in =
-which case
->     /// the caller must skip its hardware access.
-> -    #[expect(dead_code)]
->     pub(crate) fn try_access_atomic(&self) -> Option<HwAccessGuard<'_, =
-'hw>> {
->         let srcu =3D self.srcu.read_lock();
->=20
-> diff --git a/drivers/gpu/drm/tyr/tyr.rs b/drivers/gpu/drm/tyr/tyr.rs
-> index 9d995650be81..b112cc8a5573 100644
-> --- a/drivers/gpu/drm/tyr/tyr.rs
-> +++ b/drivers/gpu/drm/tyr/tyr.rs
-> @@ -12,6 +12,7 @@
-> mod fw;
-> mod gem;
-> mod gpu;
-> +mod irq;
-> mod mmu;
-> mod regs;
-> mod reset;
->=20
-> --=20
-> 2.39.5
->=20
-
-By the way, it seems like you forgot to run rustfmt one last time at =
-some
-point? Unless I am mistaken, running rustfmt here produces (a small) =
-diff.
-
-=E2=80=94 Daniel
+diff --git a/Documentation/netlink/specs/drm_ras.yaml b/Documentation/netlink/specs/drm_ras.yaml
+index 4c2ac9a1ba3f..a88fdab7a1c7 100644
+--- a/Documentation/netlink/specs/drm_ras.yaml
++++ b/Documentation/netlink/specs/drm_ras.yaml
+@@ -112,7 +112,6 @@ operations:
+            the node IDs. These IDs are required for all subsequent
+            operations on nodes, such as querying error counters.
+       attribute-set: node-attrs
+-      flags: [admin-perm]
+       dump:
+         reply:
+           attributes:
+diff --git a/drivers/gpu/drm/drm_ras_nl.c b/drivers/gpu/drm/drm_ras_nl.c
+index c9f5e0ceb3b5..ff0dc406c27c 100644
+--- a/drivers/gpu/drm/drm_ras_nl.c
++++ b/drivers/gpu/drm/drm_ras_nl.c
+@@ -46,7 +46,7 @@ static const struct genl_split_ops drm_ras_nl_ops[] = {
+ 	{
+ 		.cmd	= DRM_RAS_CMD_LIST_NODES,
+ 		.dumpit	= drm_ras_nl_list_nodes_dumpit,
+-		.flags	= GENL_ADMIN_PERM | GENL_CMD_CAP_DUMP,
++		.flags	= GENL_CMD_CAP_DUMP,
+ 	},
+ 	{
+ 		.cmd		= DRM_RAS_CMD_GET_ERROR_COUNTER,
+-- 
+2.43.0
 
