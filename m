@@ -2,39 +2,39 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 54787606A31E
-	for <dri-devel@archiver.kernel.org>; Tue, 24 Nov 2026 11:00:31 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 07933606A321
+	for <dri-devel@archiver.kernel.org>; Tue, 24 Nov 2026 11:00:32 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=jSrkGYrU
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=JLOV68zx
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 63D5E10F4A6;
-	Tue, 24 Nov 2026 11:00:25 +0000 (UTC)
-Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 02F1610F498;
- Tue, 24 Nov 2026 11:00:19 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 396E310F4AD;
+	Tue, 24 Nov 2026 11:00:26 +0000 (UTC)
+Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 1EF6810F48F;
+ Tue, 24 Nov 2026 11:00:15 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by tor.source.kernel.org (Postfix) with ESMTP id 6D42962603;
- Tue, 24 Nov 2026 11:00:18 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 28B011F000CF;
- Tue, 24 Nov 2026 11:00:16 +0000 (UTC)
+ by sea.source.kernel.org (Postfix) with ESMTP id B84E94163E;
+ Tue, 24 Nov 2026 11:00:14 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 24DE91F000C0;
+ Tue, 24 Nov 2026 11:00:13 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1795518017;
- bh=xi/Ursx4fEzBxR9dLzWPFfuKiBUmJqw45mfCVHFQpAI=;
+ s=k20260515; t=1795518014;
+ bh=9v3M2+kIb8n5isYUqt3mFrCm21SodWkRxV/rD8HgSa8=;
  h=From:Date:Subject:References:In-Reply-To:To:Cc;
- b=jSrkGYrUV0Mx8pCwX0guJfm9HfU+serxPSErYTL/J82PqUO6UZxg2F0oNfiBrEfd9
- /qDcRpqwDZ4wfH0N9gr+uP+VDjoua1K0WaaEm6lC53EqF9gkU5Qc3czoA+DErKM+Ni
- JDIXiJW9XTE721EWoSdhb0OJxHQ9RAWKev0vz1guRHwB+ErREBMS/7Tk968T9zIaCV
- fJk98m2FM/vPslGn6FkoNnEnN9+9dNzikK8Bv0YZcBiPtkutnSZKfp2GBtmTkz8+vK
- cC1zL4yob6Uf82fn33HWFOZr1IU4owSvdzgZDQdvlEWq2JoHxZ4ZpQyGcsJP5Lj6IH
- 1bSXluwBui1AQ==
+ b=JLOV68zxt4P92CNsM/QplZt64pmkFJWU0chdIfgpZR/hqT/x/6v5mm5fUd0cn28D+
+ aiOEBrXxdNL4D8FInrmE7ih9uWC8sXy5zk00pWlVT4Qh+qBZg2rmqh3zYk+vJCE5/E
+ rqsfGcqTZiIFzaeZtbcFT+N5nHNUhBNiEmvmR+1lG5V/xa6Gwi71d0v2/iapdz2y9B
+ qoU0svh58K1ZQ3y/39TGx67EuX/Dox97G7VLZbmrraUQvfgPs+ONw6k6TuBbi5pT0o
+ YGUABiY/Z6C9K6b5FNS7+15YaMENjRRXRsD0Xn/cthpXy7MpdOZSvkNY06QEmKo8dc
+ 8AkHhhZJaWv+w==
 From: Maxime Ripard <mripard@kernel.org>
-Date: Tue, 24 Nov 2026 11:59:54 +0100
-Subject: [PATCH 4/6] drm/i915: Implement plane atomic_create_state
+Date: Tue, 24 Nov 2026 11:59:53 +0100
+Subject: [PATCH 3/6] drm/i915: Implement CRTC atomic_create_state
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20261124-drm-i915-conversion-state-readout-v1-4-b7132f72644d@kernel.org>
+Message-Id: <20261124-drm-i915-conversion-state-readout-v1-3-b7132f72644d@kernel.org>
 References: <20261124-drm-i915-conversion-state-readout-v1-0-b7132f72644d@kernel.org>
 In-Reply-To: <20261124-drm-i915-conversion-state-readout-v1-0-b7132f72644d@kernel.org>
 To: Maxime Ripard <mripard@kernel.org>, 
@@ -48,12 +48,12 @@ To: Maxime Ripard <mripard@kernel.org>,
 Cc: intel-xe@lists.freedesktop.org, intel-gfx@lists.freedesktop.org, 
  dri-devel@lists.freedesktop.org
 X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=openpgp-sha256; l=10334; i=mripard@kernel.org;
- h=from:subject:message-id; bh=fzBptSg0bGFpW148Wd+PpoYRR45RtUtNEVQCKbQEUdc=;
- b=owGbwMvMwCmsHn9OcpHtvjLG02pJDNmsebofTL1ev7z5ofDRJ0ad/BPR5dUxRvPM1l7nY668G
- SLwtKO4YyoLgzAng6yYIssTmbDTy9sXVznYr/wBM4eVCWQIAxenAEzkWT5jwwydhQnfTpdL+QfM
- M374tuie0T3xJ73igTpnmPwm5u3XOvTzsW2Q98Le37OXTnKfd/KnE2N9csIp3rl9vl84c82D9iy
- 8kM6/2+PL96BNZ1cd5ncKygg/lXN9op5Hl4vFRZVE2zJRJkcA
+X-Developer-Signature: v=1; a=openpgp-sha256; l=2783; i=mripard@kernel.org;
+ h=from:subject:message-id; bh=ELpcjgwoHq2tA1t5kCpFaFaR2ts4BqTosRjTFBECnKE=;
+ b=owGbwMvMwCmsHn9OcpHtvjLG02pJDNmsebpL+5ctbhZ+8/vqh6rXrxexT3JZM71m9aoVGg1u5
+ 62ORms3dUxlYRDmZJAVU2R5IhN2enn74ioH+5U/YOawMoEMYeDiFICJ3C1lrC9I+f6A/1OE2vqZ
+ folPQnl9IrdEMqiw1XbzNfVK5d03OfDb4LF7pLlR8XPlsEmVT8wOMDZc1Arkf/D/UItS362MPS+
+ c6nfxLiszmVyW+jj1qmeM9jO9VQL7vCL+7c833vQiKM+E8x4A
 X-Developer-Key: i=mripard@kernel.org; a=openpgp;
  fpr=BE5675C37E818C8B5764241C254BCFC56BF6CE8D
 X-BeenThere: dri-devel@lists.freedesktop.org
@@ -93,212 +93,55 @@ so it never goes through drm_mode_config_create_initial_state() nor
 the hardware state readout helpers. The atomic reset is thus the only
 user the hook enables here.
 
-The i915 plane functions don't implement it, relying on
-intel_plane_alloc() initializing the state inline instead.
-
-Provide an intel_plane_create_state() function allocating and
-resetting a pristine state, have intel_plane_alloc() rely on it, and
-assign it to all the plane functions.
+The i915 CRTC functions don't implement it, relying on
+intel_crtc_state_alloc() being called directly instead. Since
+intel_crtc_state_alloc() already allocates and resets a state, wrap it
+in an atomic_create_state implementation and assign it to the CRTC
+functions.
 
 Signed-off-by: Maxime Ripard <mripard@kernel.org>
 ---
- drivers/gpu/drm/i915/display/i9xx_plane.c          |  2 ++
- drivers/gpu/drm/i915/display/intel_cursor.c        |  1 +
- drivers/gpu/drm/i915/display/intel_plane.c         | 25 ++++++++++++++++------
- drivers/gpu/drm/i915/display/intel_plane.h         |  1 +
- drivers/gpu/drm/i915/display/intel_sprite.c        |  3 +++
- drivers/gpu/drm/i915/display/skl_universal_plane.c |  3 +++
- 6 files changed, 28 insertions(+), 7 deletions(-)
+ drivers/gpu/drm/i915/display/intel_crtc.c | 12 ++++++++++++
+ 1 file changed, 12 insertions(+)
 
-diff --git a/drivers/gpu/drm/i915/display/i9xx_plane.c b/drivers/gpu/drm/i915/display/i9xx_plane.c
-index 0902b17d0269..bfaa74a669d3 100644
---- a/drivers/gpu/drm/i915/display/i9xx_plane.c
-+++ b/drivers/gpu/drm/i915/display/i9xx_plane.c
-@@ -882,10 +882,11 @@ static unsigned int i9xx_plane_min_alignment(struct intel_plane *plane,
+diff --git a/drivers/gpu/drm/i915/display/intel_crtc.c b/drivers/gpu/drm/i915/display/intel_crtc.c
+index 10ed9bdfee76..7bb3caf91310 100644
+--- a/drivers/gpu/drm/i915/display/intel_crtc.c
++++ b/drivers/gpu/drm/i915/display/intel_crtc.c
+@@ -175,10 +175,21 @@ struct intel_crtc_state *intel_crtc_state_alloc(struct intel_crtc *crtc)
+ 		intel_crtc_state_reset(crtc_state, crtc);
  
- static const struct drm_plane_funcs i965_plane_funcs = {
- 	.update_plane = drm_atomic_helper_update_plane,
- 	.disable_plane = drm_atomic_helper_disable_plane,
- 	.destroy = intel_plane_destroy,
-+	.atomic_create_state = intel_plane_create_state,
- 	.atomic_duplicate_state = intel_plane_duplicate_state,
- 	.atomic_destroy_state = intel_plane_destroy_state,
- 	.format_mod_supported = i965_plane_format_mod_supported,
- 	.format_mod_supported_async = intel_plane_format_mod_supported_async,
- 	DRM_PANIC_PLANE_FUNCS,
-@@ -893,10 +894,11 @@ static const struct drm_plane_funcs i965_plane_funcs = {
- 
- static const struct drm_plane_funcs i8xx_plane_funcs = {
- 	.update_plane = drm_atomic_helper_update_plane,
- 	.disable_plane = drm_atomic_helper_disable_plane,
- 	.destroy = intel_plane_destroy,
-+	.atomic_create_state = intel_plane_create_state,
- 	.atomic_duplicate_state = intel_plane_duplicate_state,
- 	.atomic_destroy_state = intel_plane_destroy_state,
- 	.format_mod_supported = i8xx_plane_format_mod_supported,
- 	.format_mod_supported_async = intel_plane_format_mod_supported_async,
- 	DRM_PANIC_PLANE_FUNCS,
-diff --git a/drivers/gpu/drm/i915/display/intel_cursor.c b/drivers/gpu/drm/i915/display/intel_cursor.c
-index 4afd275de86e..b20c1259284c 100644
---- a/drivers/gpu/drm/i915/display/intel_cursor.c
-+++ b/drivers/gpu/drm/i915/display/intel_cursor.c
-@@ -1124,10 +1124,11 @@ intel_legacy_cursor_update(struct drm_plane *_plane,
- 
- static const struct drm_plane_funcs intel_cursor_plane_funcs = {
- 	.update_plane = intel_legacy_cursor_update,
- 	.disable_plane = drm_atomic_helper_disable_plane,
- 	.destroy = intel_plane_destroy,
-+	.atomic_create_state = intel_plane_create_state,
- 	.atomic_duplicate_state = intel_plane_duplicate_state,
- 	.atomic_destroy_state = intel_plane_destroy_state,
- 	.format_mod_supported = intel_cursor_format_mod_supported,
- 	.format_mod_supported_async = intel_plane_format_mod_supported_async,
- };
-diff --git a/drivers/gpu/drm/i915/display/intel_plane.c b/drivers/gpu/drm/i915/display/intel_plane.c
-index d23de0f34e4b..7cc2d9e96052 100644
---- a/drivers/gpu/drm/i915/display/intel_plane.c
-+++ b/drivers/gpu/drm/i915/display/intel_plane.c
-@@ -71,28 +71,39 @@ static void intel_plane_state_reset(struct intel_plane_state *plane_state,
- 
- 	plane_state->scaler_id = -1;
- 	plane_state->fence_id = -1;
+ 	return crtc_state;
  }
  
--struct intel_plane *intel_plane_alloc(void)
-+struct drm_plane_state *intel_plane_create_state(struct drm_plane *plane)
- {
- 	struct intel_plane_state *plane_state;
++static struct drm_crtc_state *intel_crtc_create_state(struct drm_crtc *crtc)
++{
++	struct intel_crtc_state *crtc_state;
 +
-+	plane_state = kzalloc_obj(*plane_state);
-+	if (!plane_state)
++	crtc_state = intel_crtc_state_alloc(to_intel_crtc(crtc));
++	if (!crtc_state)
 +		return ERR_PTR(-ENOMEM);
 +
-+	intel_plane_state_reset(plane_state, to_intel_plane(plane));
-+
-+	return &plane_state->uapi;
++	return &crtc_state->uapi;
 +}
 +
-+struct intel_plane *intel_plane_alloc(void)
-+{
-+	struct drm_plane_state *plane_state;
- 	struct intel_plane *plane;
+ void intel_crtc_state_reset(struct intel_crtc_state *crtc_state,
+ 			    struct intel_crtc *crtc)
+ {
+ 	memset(crtc_state, 0, sizeof(*crtc_state));
  
- 	plane = kzalloc_obj(*plane);
- 	if (!plane)
- 		return ERR_PTR(-ENOMEM);
+@@ -241,10 +252,11 @@ static int intel_crtc_late_register(struct drm_crtc *crtc)
  
--	plane_state = kzalloc_obj(*plane_state);
--	if (!plane_state) {
-+	plane_state = intel_plane_create_state(&plane->base);
-+	if (IS_ERR(plane_state)) {
- 		kfree(plane);
--		return ERR_PTR(-ENOMEM);
-+		return ERR_CAST(plane_state);
- 	}
- 
--	intel_plane_state_reset(plane_state, plane);
--
--	plane->base.state = &plane_state->uapi;
-+	plane->base.state = plane_state;
- 
- 	return plane;
- }
- 
- void intel_plane_free(struct intel_plane *plane)
-diff --git a/drivers/gpu/drm/i915/display/intel_plane.h b/drivers/gpu/drm/i915/display/intel_plane.h
-index dba2be24aae2..23595e0a6af7 100644
---- a/drivers/gpu/drm/i915/display/intel_plane.h
-+++ b/drivers/gpu/drm/i915/display/intel_plane.h
-@@ -61,10 +61,11 @@ void intel_plane_disable_arm(struct intel_dsb *dsb,
- 			     struct intel_plane *plane,
- 			     const struct intel_crtc_state *crtc_state);
- struct intel_plane *intel_plane_alloc(void);
- void intel_plane_free(struct intel_plane *plane);
- void intel_plane_destroy(struct drm_plane *plane);
-+struct drm_plane_state *intel_plane_create_state(struct drm_plane *plane);
- struct drm_plane_state *intel_plane_duplicate_state(struct drm_plane *plane);
- void intel_plane_destroy_state(struct drm_plane *plane,
- 			       struct drm_plane_state *state);
- void intel_crtc_planes_update_noarm(struct intel_dsb *dsb,
- 				    struct intel_atomic_state *state,
-diff --git a/drivers/gpu/drm/i915/display/intel_sprite.c b/drivers/gpu/drm/i915/display/intel_sprite.c
-index 2321bfbb8630..971495f23deb 100644
---- a/drivers/gpu/drm/i915/display/intel_sprite.c
-+++ b/drivers/gpu/drm/i915/display/intel_sprite.c
-@@ -1562,30 +1562,33 @@ static bool vlv_sprite_format_mod_supported(struct drm_plane *_plane,
- 
- static const struct drm_plane_funcs g4x_sprite_funcs = {
- 	.update_plane = drm_atomic_helper_update_plane,
- 	.disable_plane = drm_atomic_helper_disable_plane,
- 	.destroy = intel_plane_destroy,
-+	.atomic_create_state = intel_plane_create_state,
- 	.atomic_duplicate_state = intel_plane_duplicate_state,
- 	.atomic_destroy_state = intel_plane_destroy_state,
- 	.format_mod_supported = g4x_sprite_format_mod_supported,
- 	.format_mod_supported_async = intel_plane_format_mod_supported_async,
- };
- 
- static const struct drm_plane_funcs snb_sprite_funcs = {
- 	.update_plane = drm_atomic_helper_update_plane,
- 	.disable_plane = drm_atomic_helper_disable_plane,
- 	.destroy = intel_plane_destroy,
-+	.atomic_create_state = intel_plane_create_state,
- 	.atomic_duplicate_state = intel_plane_duplicate_state,
- 	.atomic_destroy_state = intel_plane_destroy_state,
- 	.format_mod_supported = snb_sprite_format_mod_supported,
- 	.format_mod_supported_async = intel_plane_format_mod_supported_async,
- };
- 
- static const struct drm_plane_funcs vlv_sprite_funcs = {
- 	.update_plane = drm_atomic_helper_update_plane,
- 	.disable_plane = drm_atomic_helper_disable_plane,
- 	.destroy = intel_plane_destroy,
-+	.atomic_create_state = intel_plane_create_state,
- 	.atomic_duplicate_state = intel_plane_duplicate_state,
- 	.atomic_destroy_state = intel_plane_destroy_state,
- 	.format_mod_supported = vlv_sprite_format_mod_supported,
- 	.format_mod_supported_async = intel_plane_format_mod_supported_async,
- };
-diff --git a/drivers/gpu/drm/i915/display/skl_universal_plane.c b/drivers/gpu/drm/i915/display/skl_universal_plane.c
-index 8bdf1b8a0229..74f53774a6b2 100644
---- a/drivers/gpu/drm/i915/display/skl_universal_plane.c
-+++ b/drivers/gpu/drm/i915/display/skl_universal_plane.c
-@@ -2712,10 +2712,11 @@ static bool tgl_plane_format_mod_supported(struct drm_plane *_plane,
- 
- static const struct drm_plane_funcs skl_plane_funcs = {
- 	.update_plane = drm_atomic_helper_update_plane,
- 	.disable_plane = drm_atomic_helper_disable_plane,
- 	.destroy = intel_plane_destroy,
-+	.atomic_create_state = intel_plane_create_state,
- 	.atomic_duplicate_state = intel_plane_duplicate_state,
- 	.atomic_destroy_state = intel_plane_destroy_state,
- 	.format_mod_supported = skl_plane_format_mod_supported,
- 	.format_mod_supported_async = intel_plane_format_mod_supported_async,
- 	DRM_PANIC_PLANE_FUNCS,
-@@ -2723,10 +2724,11 @@ static const struct drm_plane_funcs skl_plane_funcs = {
- 
- static const struct drm_plane_funcs icl_plane_funcs = {
- 	.update_plane = drm_atomic_helper_update_plane,
- 	.disable_plane = drm_atomic_helper_disable_plane,
- 	.destroy = intel_plane_destroy,
-+	.atomic_create_state = intel_plane_create_state,
- 	.atomic_duplicate_state = intel_plane_duplicate_state,
- 	.atomic_destroy_state = intel_plane_destroy_state,
- 	.format_mod_supported = icl_plane_format_mod_supported,
- 	.format_mod_supported_async = intel_plane_format_mod_supported_async,
- 	DRM_PANIC_PLANE_FUNCS,
-@@ -2734,10 +2736,11 @@ static const struct drm_plane_funcs icl_plane_funcs = {
- 
- static const struct drm_plane_funcs tgl_plane_funcs = {
- 	.update_plane = drm_atomic_helper_update_plane,
- 	.disable_plane = drm_atomic_helper_disable_plane,
- 	.destroy = intel_plane_destroy,
-+	.atomic_create_state = intel_plane_create_state,
- 	.atomic_duplicate_state = intel_plane_duplicate_state,
- 	.atomic_destroy_state = intel_plane_destroy_state,
- 	.format_mod_supported = tgl_plane_format_mod_supported,
- 	.format_mod_supported_async = intel_plane_format_mod_supported_async,
- 	DRM_PANIC_PLANE_FUNCS,
+ #define INTEL_CRTC_FUNCS \
+ 	.set_config = drm_atomic_helper_set_config, \
+ 	.destroy = intel_crtc_destroy, \
+ 	.page_flip = drm_atomic_helper_page_flip, \
++	.atomic_create_state = intel_crtc_create_state, \
+ 	.atomic_duplicate_state = intel_crtc_duplicate_state, \
+ 	.atomic_destroy_state = intel_crtc_destroy_state, \
+ 	.set_crc_source = intel_crtc_set_crc_source, \
+ 	.verify_crc_source = intel_crtc_verify_crc_source, \
+ 	.get_crc_sources = intel_crtc_get_crc_sources, \
 
 -- 
 2.56.1
