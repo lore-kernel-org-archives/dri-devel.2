@@ -2,65 +2,100 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CC716606A331
-	for <dri-devel@archiver.kernel.org>; Tue, 24 Nov 2026 13:54:31 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8544A606A334
+	for <dri-devel@archiver.kernel.org>; Tue, 24 Nov 2026 13:57:04 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=L2iQTbCM
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=cMmhkvdg
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 44F7310ECA2;
-	Tue, 24 Nov 2026 13:54:26 +0000 (UTC)
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.15])
- by gabe.freedesktop.org (Postfix) with ESMTPS id B362810F5B4
- for <dri-devel@lists.freedesktop.org>; Tue, 24 Nov 2026 13:54:20 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1795528461; x=1827064461;
- h=message-id:subject:from:to:cc:date:in-reply-to:
- references:content-transfer-encoding:mime-version;
- bh=DExrSGXOiTKBtoA9dCjAa8IsuZJqIx6QPSH5pFvl/oY=;
- b=L2iQTbCMUWAMZ2v7DGleBZMGXr9seLYhvvmTAg8DzlKvK9cRZY/RCuwV
- Kr8NQRmIrAEW4GThxKstZTulU7M9F6C+iDw8tK8oHZWgqzERA4Fznc4qw
- ynXtvSymrEXOQhRSiA8lDV70boKeHC2X5f1uLrBoGgna6chPdok4bsTTY
- fKtFHtyTYWbmXrNEXjS2p9Z8rIseJMs1alLYX+CfmYZG06gul10hF0rfV
- na9AC4pKxYGOhu91zPW3B/qmWLTJoJmgRDFZvLiFSBojFUiyzuMkJuD2R
- 0UjAjg0LyZW+3qBMhFavJ5SjPwOuSncLtxnXB6CHYJxYISp0ptyAWJfrr g==;
-X-CSE-ConnectionGUID: R7FRNxWSTWGE95Hwhm5NfA==
-X-CSE-MsgGUID: MBo7zpgQQbuGlR13yzs1FA==
-X-IronPort-AV: E=McAfee;i="6800,10657,11976"; a="4352656"
-X-IronPort-AV: E=Sophos;i="6.27,231,1787036400"; 
-   d="scan'208";a="4352656"
-Received: from orviesa002.jf.intel.com ([10.64.159.142])
- by fmvoesa109.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 24 Nov 2026 05:54:20 -0800
-X-CSE-ConnectionGUID: m/HfaHiPQcWMOIpsewuRAQ==
-X-CSE-MsgGUID: jDdLBR3UT/qlpwUxMwLhsw==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,231,1787036400"; d="scan'208";a="11625936"
-Received: from klitkey1-mobl1.ger.corp.intel.com (HELO [10.245.245.188])
- ([10.245.245.188])
- by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 24 Nov 2026 05:54:17 -0800
-Message-ID: <fecf82c876bf4822bc1810a6ccbf36b7b327db96.camel@linux.intel.com>
-Subject: Re: About NUMA support in drmsvm helpers
-From: Thomas =?ISO-8859-1?Q?Hellstr=F6m?= <thomas.hellstrom@linux.intel.com>
-To: "Huang, Honglei" <honghuan@amd.com>, Christian =?ISO-8859-1?Q?K=F6nig?=
- <christian.koenig@amd.com>
-Cc: Simona Vetter <simona@ffwll.ch>, Alex Deucher
- <alexander.deucher@amd.com>,  "Kuehling, Felix" <felix.kuehling@amd.com>,
- Huang Rui <ray.huang@amd.com>, dri-devel@lists.freedesktop.org, Honglei
- Huang <honglei1.huang@amd.com>, Matthew Brost <matthew.brost@intel.com>,
- Danilo Krummrich	 <dakr@kernel.org>, Alice Ryhl <aliceryhl@google.com>
-Date: Tue, 24 Nov 2026 14:54:14 +0100
-In-Reply-To: <3c762d0c-ef16-4e3e-af96-fd65fc492db5@amd.com>
-References: <316c1d61-f297-41ad-95d1-43aaa67c9696@amd.com>
- <c844403b-8c07-4a37-a988-85d2548bb674@amd.com>
- <3c762d0c-ef16-4e3e-af96-fd65fc492db5@amd.com>
-Organization: Intel Sweden AB, Registration Number: 556189-6027
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-User-Agent: Evolution 3.58.3 (3.58.3-2.fc43) 
+	by gabe.freedesktop.org (Postfix) with ESMTP id EF77B10E8A3;
+	Tue, 24 Nov 2026 13:56:58 +0000 (UTC)
+Received: from mail-wr1-f43.google.com (mail-wr1-f43.google.com
+ [209.85.221.43])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id E7C8D10E8A3
+ for <dri-devel@lists.freedesktop.org>; Tue, 24 Nov 2026 13:56:52 +0000 (UTC)
+Received: by mail-wr1-f43.google.com with SMTP id
+ ffacd0b85a97d-497614c95f0so2545133f8f.1
+ for <dri-devel@lists.freedesktop.org>; Tue, 24 Nov 2026 05:56:52 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20260707; t=1795528611; x=1796133411; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:content-disposition:content-type
+ :mime-version:references:in-reply-to:message-id:date:subject:cc:to
+ :from:from:to:cc:subject:date:message-id:reply-to:content-type;
+ bh=anD5m1AxXBnKPgg8ZQZ0gwUoffnh9QZT8UfPtY8eE3c=;
+ b=cMmhkvdgAGPJWckkh+KJxPjfolQOirNyxSTzX1Wgp67bUZDg3iN0HUIfHOHsO7dXCy
+ w4bM124iqdwwlRlpzYHzKWolMZ1G8lfQKy8Q1puVxiwM9yW+s2Wf63eMW14PsPI8yDr9
+ FYYLLAGhUYItvc/peYAmQtZhQdao3QQhAgB28TSmzNSpydF4mRGgk/m263PMup0xYTkU
+ CdFwvR0XvoUWy3GuPo3n0IHJVqi6N7ifiGZc9SJQr8eM2RbokPk5iW549OSAeNq8lO9/
+ M/IzhlVjVTyOnDjDf7MYRwSsRyv4NOKZ+AHLS6o5UU+tE2cIjTc+avaAk0D4nCqQYCW1
+ CmKQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20260707; t=1795528611; x=1796133411;
+ h=content-transfer-encoding:content-disposition:content-type
+ :mime-version:references:in-reply-to:message-id:date:subject:cc:to
+ :from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
+ :reply-to:content-type;
+ bh=anD5m1AxXBnKPgg8ZQZ0gwUoffnh9QZT8UfPtY8eE3c=;
+ b=D2Q0k2fvj0GKJcIQblyWNxZtvBipmM9qsiYhWGd3SUmWGYLZXwEVZCihZew1TaqlJu
+ yTrWo/yKcL3CM2DIjm/26JuJHwUHOz2ayUltXpRbGGIMhsE0i3/D5aopwuWS9iuCtQaV
+ nQIa24njdLWImDBvSxPd8b67Xozo5JWb3jh3s3q6t8z05k3iQ4fMs8h1bky9MQ5SCwq2
+ 304wI67YKcwEAG89q+JxQTQn1SretHdyJ3C/XARKXjGDriJtf2w/CYk3+FtaJ2PEiFgM
+ V+8RUbZyukAcY4N26EEOX0AqISW8HZqnd0cXRJ61g41yR0SPkDYThd28h7lsUtjHSTJH
+ FljA==
+X-Forwarded-Encrypted: i=1;
+ AL+hErELXfMdMqeasPyGDarxchQn3iRbGpH7/LaDvLWrWMzv/zOMffy7FVu2R+5gZpLcB284SZFRePGHgwE=@lists.freedesktop.org
+X-Gm-Message-State: APuU4Z+3z1Pd+YzkhMJJUMScN9jtFictJCGD8unUsXrI7VjUTwJgD9HH
+ fV/HYpw2B/nnJ60JqPTCEdGMAxvo40s4zWOmcRo50qRfWJTouLrqz1hg
+X-Gm-Gg: AZFdTZev607QXFXrgGxFiFKSv1029dOfaPHj8FsVMZnv7ZkYK9LoHFEofgAOgdHIAKr
+ Cd3XEBXbsa7Rz44qHjLr3PUkK3k+OQHI0vxC7WWuCtrSFkd/h6by1ujbxSdB+MGW0oKV26seFEP
+ ZXmiGva8VUyAUyMn9rrdqDvPOzURI1GMIPY8J20CU6c00rK+GlyyDZ4np5bOnz/UYxRUQPn8wqn
+ P778lEdP3X4j3bFGaANWQb+PTiGmZFBI5VQDQf1mIQyy2q5v/12P3NqgLovVODc07jE45A8aGbd
+ 2j29UyZbl8zHIWSS8zjYt3GhjqWq3w2FhG03vHZXkv+NckyZiI7jf0A+gFATS9A1/iUR5iasBhP
+ cRlss6DMdFoxlPPJzgIVKfnMQFpDQqcwgTTGRRVK+VmpsoqEPdEw0mC8k6SSxMiYQ/w2ZVqRW4r
+ vg4PJ72uLiany07D96OVOwAmY6ahSDpU7//MvJlJ+YwK4rpxooFJ3HisDSL16Ca90AyX0SQyYjb
+ WX1ctwewrasyNk7VsuQ6AyhMjDrPlBlk8/GNfda2rT2DE8yJz96aan4kYNUGVt/zioe3X+fwcTy
+ g8cX2+bXgyypdbmiqhBJGO83zcO0NeU=
+X-Received: by 2002:adf:e197:0:b0:492:b5d9:feb9 with SMTP id
+ ffacd0b85a97d-4abb3a4d8f7mr26010339f8f.30.1795528611263; 
+ Tue, 24 Nov 2026 05:56:51 -0800 (PST)
+Received: from ArchOarora ([95.179.249.152]) by smtp.gmail.com with ESMTPSA id
+ ffacd0b85a97d-4ab6baa397asm28936616f8f.48.2026.11.24.05.56.40
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Tue, 24 Nov 2026 05:56:50 -0800 (PST)
+From: Oarora Etimis <oaroraetimis@gmail.com>
+To: Louis Chauvet <louis.chauvet@bootlin.com>
+Cc: Haneen Mohammed <hamohammed.sa@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ Melissa Wen <melissa.srw@gmail.com>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>,
+ Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>,
+ jose.exposito89@gmail.com, Jonathan Corbet <corbet@lwn.net>,
+ Harry Wentland <harry.wentland@amd.com>,
+ Lucas De Marchi <demarchi@kernel.org>,
+ Ville =?utf-8?B?U3lyasOkbMOk?= <ville.syrjala@linux.intel.com>,
+ Randy Dunlap <rdunlap@infradead.org>,
+ Nick Desaulniers <ndesaulniers@google.com>,
+ Shuah Khan <skhan@linuxfoundation.org>, Miguel Ojeda <ojeda@kernel.org>,
+ Nathan Chancellor <nathan@kernel.org>,
+ Nick Desaulniers <nick.desaulniers+lkml@gmail.com>,
+ Bill Wendling <morbo@google.com>, Justin Stitt <justinstitt@google.com>,
+ Luca Ceresoli <luca.ceresoli@bootlin.com>,
+ Kory Maincent <kory.maincent@bootlin.com>, sebastian.wick@redhat.com,
+ victoria@system76.com, thomas.petazzoni@bootlin.com,
+ dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
+ linux-doc@vger.kernel.org, Simona Vetter <simona.vetter@ffwll.ch>,
+ llvm@lists.linux.dev
+Subject: Re: [PATCH v6 09/43] drm/connector: Export drm_get_colorspace_name
+Date: Tue, 24 Nov 2026 14:56:38 +0100
+Message-ID: <awWXgzY_0Q2Wtn7n@Oarora>
+X-Mailer: git-send-email 2.56.1
+In-Reply-To: <20261120-vkms-all-config-v6-9-78ace90f4fc1@bootlin.com>
+References: <20261120-vkms-all-config-v6-0-78ace90f4fc1@bootlin.com>
+ <20261120-vkms-all-config-v6-9-78ace90f4fc1@bootlin.com>
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -72,97 +107,38 @@ List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-3.8 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
-	DKIM_SIGNED,DKIM_VALID,HEADER_FROM_DIFFERENT_DOMAINS,
-	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS autolearn=no
-	autolearn_force=no version=4.0.1
+X-Spam-Status: No, score=-14.8 required=3.0 tests=BAYES_00,DKIM_SIGNED,
+	DKIM_VALID,DKIM_VALID_AU,FORGED_GMAIL_RCVD,FREEMAIL_FORGED_FROMDOMAIN,
+	FREEMAIL_FROM,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,
+	INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,
+	USER_AGENT_GIT autolearn=unavailable autolearn_force=no version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-On Tue, 2026-11-24 at 14:55 +0800, Huang, Honglei wrote:
->=20
->=20
-> On 11/23/2026 7:04 PM, Christian K=C3=B6nig wrote:
-> > Hi Honglei,
-> >=20
-> > On 11/23/26 11:44, Huang, Honglei wrote:
-> > >=20
-> > > Hi all,
-> > >=20
-> > > A NUMA issue is found in another thread in [1]
-> > >=20
-> > > We also encountered a similar issue, performance drop occurs when
-> > > NUMA balance is enabled.
-> > >=20
-> > > And there is one more thing about NUMA:
-> > > The current amdgpu drmsvm can specify system memory as a
-> > > destination, but not a specific CPU NUMA node.
-> >=20
-> > Yeah I think that is by design. the NUMA node a page ends up when
-> > being migrated back from VRAM to system memory should be determined
-> > by the original backing store/address space and not the driver who
-> > migrates it back.
-> >=20
-> > In other words when applications said that it wants their buffers
-> > to be placed on node X it is not up to the driver to mess with
-> > that.
-> >=20
-> > > This has impact on some platforms like MI300A that feature
-> > > unified memory for CPU and GPU.=C2=A0 We did a test for 2GB memory
-> > > accessing in node
-> > > 0 and node 3. GPU read/write bandwidth averaged about 2.78 TB/s
-> > > with local pages and 103 GB/s with remote pages, it differs a
-> > > lot.
-> > >=20
-> > > There is a requirement from AMD HIP to specify certain SVM memory
-> > > to specific NUMA nodes. But KFD also can not support NUMA fully.
-> > > So the HIP runtime have to use linux NUMA facilities to move
-> > > memory to the correct NUMA node, this could lead to unnecessary
-> > > ram to ram migration.
-> > > And it also can not solve VRAM to RAM evict to error NUMA node
-> > > issue.
-> > >=20
-> > > Would it make sense for drm_gpusvm helpers to let a caller pass a
-> > > preferred NUMA node by interface? An explicit destination node
-> > > for migration to system memory.
-> >=20
-> > I think we just need to make sure that the NUMA preferences of the
-> > process and any setting specified by madvise() and co are taken
-> > into account.
-> >=20
->=20
-> So we should reuse existing MM mechanisms and respect application
-> NUMA=20
-> policies, right?
-> Some changes may still be needed to cover the remaining gaps, and
-> needs=20
-> do some test to verify the NUMA feature.
+On Fri, Nov 20, 2026 at 06:58:51PM +0100, Louis Chauvet wrote:
+> Export drm_get_colorspace_name so it could be used by VKMS
+> 
+> Reviewed-by: Luca Ceresoli <luca.ceresoli@bootlin.com>
+> Signed-off-by: Louis Chauvet <louis.chauvet@bootlin.com>
+> ---
+>  drivers/gpu/drm/drm_connector.c | 1 +
+>  1 file changed, 1 insertion(+)
+> 
+> diff --git a/drivers/gpu/drm/drm_connector.c b/drivers/gpu/drm/drm_connector.c
+> index d66188521881..fbff5871355d 100644
+> --- a/drivers/gpu/drm/drm_connector.c
+> +++ b/drivers/gpu/drm/drm_connector.c
+> @@ -1528,6 +1528,7 @@ const char *drm_get_colorspace_name(enum drm_colorspace colorspace)
+>  	else
+>  		return "(null)";
+>  }
+> +EXPORT_SYMBOL(drm_get_colorspace_name);
+>  
+>  static const u32 hdmi_colorspaces =
+>  	BIT(DRM_MODE_COLORIMETRY_SMPTE_170M_YCC) |
+> 
+> -- 
+> 2.56.0
+> 
 
-I think NUMA process settings can be tricky since the recoverable
-pagefaults (be it SVA or hmm) run from a kernel thread that doesn't
-have the process' numa policy.
-
-However NUMA policies set with the mbind() system call should AFAICT
-automatically be honored by both hmm and SVA.
-
-Thanks,
-Thomas
-
-
-
->=20
-> Regards,
-> Honglei
->=20
->=20
-> > Regards,
-> > Christian.
-> >=20
-> > >=20
-> > > [1]:
-> > > https://lore.kernel.org/all/b32fb02a-68b4-4db9-83dd-254147dbf215@kern=
-el.org/
-> > >=20
-> > > Regards,
-> > > Honglei
-> >=20
+Reviewed-by: Oarora Etimis <oaroraetimis@gmail.com>
