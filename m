@@ -2,81 +2,78 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 69421606A31E
-	for <dri-devel@archiver.kernel.org>; Wed, 25 Nov 2026 08:42:40 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 722DA606A69C
+	for <dri-devel@archiver.kernel.org>; Wed, 25 Nov 2026 08:43:20 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=renesp.com.br header.i=@renesp.com.br header.a=rsa-sha256 header.s=2021 header.b=kqULOfb3;
-	dkim=fail reason="signature verification failed" (1024-bit key) header.d=tempos-project.org header.i=@tempos-project.org header.a=rsa-sha256 header.s=dkim header.b=kHDTkfrU;
-	dkim=fail reason="signature verification failed" (1024-bit key) header.d=renesp.com.br header.i=@renesp.com.br header.a=rsa-sha256 header.s=2021 header.b=HdpXmoBF
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=pZG4lFPi
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 9556010FA11;
-	Wed, 25 Nov 2026 08:42:24 +0000 (UTC)
-Received: from mail.renesp.com.br (mail.renesp.com.br [45.231.133.222])
- by gabe.freedesktop.org (Postfix) with ESMTPS id BF60710F67C
- for <dri-devel@lists.freedesktop.org>; Tue, 24 Nov 2026 14:18:59 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=renesp.com.br;
- s=2021; t=1795529936;
- bh=FVk2svI83tFgdhTs3E2x/HB/PeflMMXHXcjvab7MxAs=;
- h=From:To:Cc:Subject:Date:From;
- b=kqULOfb31veLKcGTj69sIomtTrCk8QI00/wdGEHXP8yVIrcJF9KHmlDn8AtdA3O+V
- 2lYID+EmxX6tRXI0j9rnSE4SNjt25YMDr+rjmBh1zdGPoUFpGW5jk56/120SL7ZMpa
- StFuSmDY2PkSmPv1Qbf2Z72OaZsnR8vcM3+dYtzA=
-Received: from renesp.vps (renesp.com.br [127.0.0.1])
- by mail.renesp.com.br (Postfix) with ESMTP id 4jYlKr6kJrz3wvP
- for <dri-devel@lists.freedesktop.org>; Tue, 24 Nov 2026 11:18:56 -0300 (-03)
-Authentication-Results: renesp.vps (amavis); dkim=pass (1024-bit key)
- reason="pass (just generated, assumed good)" header.d=tempos-project.org
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=
- tempos-project.org; h=content-transfer-encoding:content-type
- :mime-version:x-mailer:message-id:date:subject:to:from; s=dkim;
- t=1795529936; x=1798121937; bh=FVk2svI83tFgdhTs3E2x/HB/PeflMMXH
- Xcjvab7MxAs=; b=kHDTkfrUXTvrTHlqNVosWItvzcmnoCcgwvaOhNI7KS4zSqG8
- vP3DzDdDweaJHmwSymvHoKs52qFepCPTzh3Mh5ZS0vyotCTRe1FdSb/tE9uvKk5h
- F9bzJ6AiIvJ+hTAIWWAbKEVfJZhQwNRYvnETdklZGawUuoXqH2dLITOWQ9wSA9Lt
- GkdsFsIEDkik2wEgQ3jL3pcihFcGfzDxyhTMsLqSYp1XVbwOADQywIkIeGDeJZDI
- Sg7AeNrmGN3+aeo3kybbznnyUtMic4X+yKnr9mdCZIoeXhyTlD0MNBrR7TEUNO1w
- 8fmnfvCYmgoHKcpAUp/kU5HSIbzNrENVK9WT7g==
-X-Virus-Scanned: Debian amavis at renesp.vps
-X-Spam-Score: 2.21
-X-Spam-Status: No, score=-18.8 required=3.0 tests=BAYES_00,DKIM_SIGNED,
-	DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
-	INCLUDES_CR_TRAILER,INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,
-	SPF_PASS,USER_AGENT_GIT autolearn=unavailable autolearn_force=no
-	version=4.0.1
-Authentication-Results: renesp.vps (amavis); dkim=fail (1024-bit key)
- reason="fail (body has been altered)" header.d=renesp.com.br
-Received: from mail.renesp.com.br ([127.0.0.1])
- by renesp.vps (renesp.vps [127.0.0.1]) (amavis, port 10026) with ESMTP
- id 0xd-V-VtS02q for <dri-devel@lists.freedesktop.org>;
- Tue, 24 Nov 2026 11:18:56 -0300 (-03)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=renesp.com.br;
- s=2021; t=1795529934;
- bh=S28ReI6Fu+NyU6JY1E8Q+vtFT3DloD9P2EWTyT6ur+E=;
- h=From:To:Cc:Subject:Date:From;
- b=HdpXmoBF1t9YwGzf7v2aRFu0XczqjPINtk7NpBOynne/vCHbdzddue+HyqQznZq4R
- l1fKdEai4kXBsvQDQy1n248PZB4fRT2aFqW8IqKixj40vyUhvsWor/NunmqasBhir1
- L6BIJ9BQWVpkWAn89MFjOnjdJWXkuWqLPuaFu+0Y=
-Received: from rsp-x1 (unknown [178.20.90.158])
- by mail.renesp.com.br (Postfix) with ESMTPSA id 4jYlKm1YZQz3wvJ;
- Tue, 24 Nov 2026 11:18:51 -0300 (-03)
-From: =?UTF-8?q?Ren=C3=AA=20de=20Souza=20Pinto?= <rene@renesp.com.br>
-To: Srinivas Kandagatla <srini@kernel.org>
-Cc: Ekansh Gupta <ekansh.gupta@oss.qualcomm.com>,
- Arnd Bergmann <arnd@arndb.de>,
- Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
- Anandu Krishnan E <anandu.e@oss.qualcomm.com>,
- linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org,
- linux-kernel@vger.kernel.org, stable@vger.kernel.org,
- =?UTF-8?q?Ren=C3=AA=20de=20Souza=20Pinto?= <rene@renesp.com.br>
-Subject: [PATCH v2] misc: fastrpc: fix fastrpc_user leak on abnormal process
- exit
-Date: Tue, 24 Nov 2026 15:18:43 +0100
-Message-ID: <20261124141843.3967523-1-rene@renesp.com.br>
-X-Mailer: git-send-email 2.53.0
+	by gabe.freedesktop.org (Postfix) with ESMTP id CCAAE10FA1C;
+	Wed, 25 Nov 2026 08:43:14 +0000 (UTC)
+Received: from mail-pf1-f176.google.com (mail-pf1-f176.google.com
+ [209.85.210.176])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 4E56610E579
+ for <dri-devel@lists.freedesktop.org>; Tue, 24 Nov 2026 15:45:18 +0000 (UTC)
+Received: by mail-pf1-f176.google.com with SMTP id
+ d2e1a72fcca58-8a594d313a3so3109286b3a.1
+ for <dri-devel@lists.freedesktop.org>; Tue, 24 Nov 2026 07:45:18 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20260707; t=1795535118; x=1796139918; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+ bh=fGnAXl9mAkM8+L7H53FV4IJ0uW8w/+sPQwCsSY5K0ME=;
+ b=pZG4lFPinaVHWqjahT+ivMkFPDQOfi+GbECG0KldCvCxOpvjsCFqmpIVSgtCoND516
+ +lcD70VzE7UNvN1i66g3xpw/PW0rVmPKzPxgCuuxOX3MVJMYpMca+VrZuKIJjxvVgmTg
+ /QnnNS92vvvN+PWGFAhPqHAcQupy9bso7G8hDXyx/fEdGPCxonff+Vu+QrW2nT/D+ao/
+ 5IFSPUErW/1WkmrwwhPQW9HFYohTN9XZ1tnQgtC5G/X8lZqRq+to8n2NCl1QMmXPkV0F
+ 33Qo841ucm4Qpu2lLXOZjLR2OsVJbdaTN0jhRN/javV2Aj/GaUqk4toMf7p8IKcrUhJE
+ lL/Q==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20260707; t=1795535118; x=1796139918;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+ :message-id:reply-to:content-type;
+ bh=fGnAXl9mAkM8+L7H53FV4IJ0uW8w/+sPQwCsSY5K0ME=;
+ b=Gt+oWUtFSV+E+mpP3YoasfCkpwbClH+3LdxSCPKaRvQHbO5KRVBOtzfJNBPY7+Hv2R
+ OvOOnqDiFwhRgpd4Iy2qHO7mwL2RalD5tc6L/qJvSR6yhlVvac8s7QttBzKe0EtRZL4p
+ 7HJoSFy43J6V6Jo/7XaV+gYwddb9U8DEmgCcMPH5X1a/W7sG/geFbuOVGKANyNiWYspX
+ hLbi0Vo6KXkdV4lzZ2c4Ktz9p1Wg0q10njZjqPNWCoipeXPNUrQd9FQ7wf4ZtWkTcKqi
+ /vvIix2wM/rDUuk72d6g24jSC4pLUb8yy7MGdkOfAxwclHuwrem+nPVIncVi691WmS/4
+ iWoA==
+X-Forwarded-Encrypted: i=1;
+ AL+hErGy6gTya+POv1cQ8WgziWT/e5bVjQ0IrkClpYSjPrc4AYidxi8eLX5OWROK2hnFqMBTvFKpagmde54=@lists.freedesktop.org
+X-Gm-Message-State: APuU4Z/3vGiNpV/DIkBBy23xvz2nyF+GxjXuagnpeeoQwzJJ+tzmt2mW
+ Yp4Pvl2BvWObb1gY5Z+iXgHCdBZpCmgl7lpfsX0bcbCHz279LDXUCYm4wVcL70AuIA==
+X-Gm-Gg: AZFdTZeE88EaoblgHCivvD+2+d1R/tkt+iTPKVD9aedlobE6z0de99jSqAoTP44rI/f
+ XgaZ4raKe121KWJzi6W5P92g6t4fo0NjLhNcIbYHdicPw9AD8j55c29KrrrJdHZrn2fVnxu1EYM
+ D+nexw3OTPu+sjCPqNCiHV+C/rG4iG9YOrDrwsif4iKIFsC6CsLVAsAXQdhMbZXvhDpUHMaTJIO
+ RELaiDGn2dNT5s8Bl76Rg+3yWLoF5KhNu+RjpAGRbaNYLA8RYgTfPPHBIe+SHUFymxHR9y6C3Te
+ SUwXTlnfSS7dA7PZfXKH8vXuduUnzNDqnKkn55lGJFDYr3B+e8X5lcd93vNLwK923JOQGxxZXmI
+ bf8F4D73vgOWzuoxjNxcgxZ+mL28taXEVQ1TlRl98cr8GPH/gMgji/B0b2bV+1BFUgKHTjn4PYb
+ e+eWG9YXOqp4YFF5KS3agwlcu+7CgxrzJRtR3eJcY7/id2ziJv1PtTsV72IFoP9ubPU1PbZ5zz9
+ KLUMtfIaky2xZKibrcsPzjMp0FmGnE3zeF9SUxYQEcMXIhzSCa2UUsyTyAnkkN4rDZjsbTXOSB+
+ jZJbqWgx8QJoUr9WaE0eoHAW4UMZW1RMlItnGd7pybRVVSNswOB39WzJwdiUvoNWMhIR
+X-Received: by 2002:a05:6a00:a117:b0:8bf:ef6e:1eb5 with SMTP id
+ d2e1a72fcca58-8c87d022919mr12535440b3a.43.1795535117471; 
+ Tue, 24 Nov 2026 07:45:17 -0800 (PST)
+Received: from localhost.localdomain
+ ([2406:3003:2002:639c:5da8:85f0:b5f6:2eae])
+ by smtp.gmail.com with ESMTPSA id
+ d2e1a72fcca58-8c872951febsm7338465b3a.14.2026.11.24.07.45.15
+ (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
+ Tue, 24 Nov 2026 07:45:17 -0800 (PST)
+From: Yige Jiang <yigejiang86@gmail.com>
+To: Thomas Zimmermann <tzimmermann@suse.de>,
+ Javier Martinez Canillas <javierm@redhat.com>
+Cc: Yige Jiang <yigejiang86@gmail.com>, dri-devel@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org, stable@vger.kernel.org
+Subject: [PATCH] firmware: sysfb: Clear the device pointer on registration
+ failure
+Date: Tue, 24 Nov 2026 23:45:11 +0800
+Message-ID: <confirmed-20261105-25-a16124b5ff57@gmail.com>
+X-Mailer: git-send-email 2.50.1
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 8bit
 X-Mailman-Approved-At: Wed, 25 Nov 2026 08:41:18 +0000
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -89,120 +86,49 @@ List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
+X-Spam-Status: No, score=-15.8 required=3.0 tests=BAYES_00,DKIM_SIGNED,
+	DKIM_VALID,DKIM_VALID_AU,FREEMAIL_FORGED_FROMDOMAIN,FREEMAIL_FROM,
+	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
+	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,USER_AGENT_GIT
+	autolearn=unavailable autolearn_force=no version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-Since commit e85eb5feca8e ("misc: fastrpc: fix use-after-free of
-fastrpc_user in workqueue context"), each invoke context holds a
-reference on its fastrpc_user, while contexts left on the pending list
-(interrupted or timed out invocations) are only freed by
-fastrpc_user_free(). When a process dies with invocations in flight,
-this cycle leaks the user with all its maps and buffers. As the session
-is given back at release, the next process can get the same SMMU
-context bank with its IOVA space still in use and fail to map its
-buffers.
+sysfb_init() stores the legacy framebuffer device in the file-scope pd
+pointer before adding its data and registering it. If either operation
+fails, the error path drops the allocation reference but leaves pd set.
+A later sysfb_disable() then passes this stale pointer to
+platform_device_unregister().
 
-No thread can be in an ioctl on the file at release time, so drop the
-references of the pending contexts there instead of in
-fastrpc_user_free(). A context still waiting for the DSP response is
-freed when it arrives.
+Clear pd after releasing the failed device, while disable_lock is still
+held. This makes sysfb_unregister() skip it just as it skips an absent
+or already unregistered framebuffer.
 
-Fixes: e85eb5feca8e ("misc: fastrpc: fix use-after-free of fastrpc_user i=
-n workqueue context")
+Fixes: bde376e9de3c ("firmware: sysfb: Add sysfb_disable() helper function")
 Cc: stable@vger.kernel.org
-Assisted-by: Claude:claude-opus-5-5
-Signed-off-by: Ren=C3=AA de Souza Pinto <rene@renesp.com.br>
+Signed-off-by: Yige Jiang <yigejiang86@gmail.com>
 ---
-Changes in v2:
-- Move the pending cleanup from fastrpc_user_free() to release instead of
-  duplicating it, and drop the forward declaration of
-  fastrpc_context_put() (Sashiko)
-- Link to v1: https://lore.kernel.org/r/20261124122011.2912030-1-rene@ren=
-esp.com.br
+AI assistance was used for analysis and patch preparation.
 
-Not changed from Sashiko's review of v1:
-- fastrpc_session_free() stays at release, as before this patch. Moving
-  it to fastrpc_user_free() makes a context the DSP never answers keep
-  its session forever: on QCS8275 this lost two of the three ADSP
-  sessions after an adsprpcd init failure. Reclaiming unanswered
-  contexts is left for a separate change.
-- Handle maps not released in fastrpc_context_free() is pre-existing:
-  they stay on fl->maps and are freed at close, which this patch makes
-  happen again on abnormal exit.
+Based on next-20261104 (8b7179210b22).
+Compile-tested: x86_64, GCC 14.2.0, W=1, drivers/firmware/sysfb.o;
+baseline and patched objects built with no warnings.
+Static source review; no hardware, boot, or KASAN test was performed.
 
-Tested on a Qualcomm IQ-8275 EVK (QCS8275) with a 6.18-based kernel:
-a llama.cpp process using the CDSP was killed while invocations were in
-flight. Without the fix its ~1.8 GB of buffers stayed attached to its
-context bank, and the next process, given the same context bank, failed
-to map its own ("failed to map buffer"), leaking more memory on every
-retry. With the fix the buffers are released at close and the next
-process works. On mainline this is only build-tested (arm64, W=3D1).
+ drivers/firmware/sysfb.c | 1 +
+ 1 file changed, 1 insertion(+)
 
- drivers/misc/fastrpc.c | 24 ++++++++++++++++--------
- 1 file changed, 16 insertions(+), 8 deletions(-)
+diff --git a/drivers/firmware/sysfb.c b/drivers/firmware/sysfb.c
+index 8833582c188301afb4a9c9dbdf969828ab9449f6..9cd660a509da939c28e93956d7b6420c794048c1 100644
+--- a/drivers/firmware/sysfb.c
++++ b/drivers/firmware/sysfb.c
+@@ -214,6 +214,7 @@ static __init int sysfb_init(void)
+ 	goto put_device;
+ err:
+ 	platform_device_put(pd);
++	pd = NULL;
+ put_device:
+ 	put_device(parent);
+ unlock_mutex:
 
-diff --git a/drivers/misc/fastrpc.c b/drivers/misc/fastrpc.c
-index cdc2627bdaf2..23a5035654a5 100644
---- a/drivers/misc/fastrpc.c
-+++ b/drivers/misc/fastrpc.c
-@@ -554,22 +554,14 @@ static void fastrpc_channel_ctx_put(struct fastrpc_=
-channel_ctx *cctx)
- 	kref_put(&cctx->refcount, fastrpc_channel_ctx_free);
- }
-=20
--static void fastrpc_context_put(struct fastrpc_invoke_ctx *ctx);
--
- static void fastrpc_user_free(struct kref *ref)
- {
- 	struct fastrpc_user *fl =3D container_of(ref, struct fastrpc_user, refc=
-ount);
--	struct fastrpc_invoke_ctx *ctx, *n;
- 	struct fastrpc_map *map, *m;
- 	struct fastrpc_buf *buf, *b;
-=20
- 	fastrpc_buf_free(fl->init_mem);
-=20
--	list_for_each_entry_safe(ctx, n, &fl->pending, node) {
--		list_del(&ctx->node);
--		fastrpc_context_put(ctx);
--	}
--
- 	list_for_each_entry_safe(map, m, &fl->maps, node)
- 		fastrpc_map_put(map);
-=20
-@@ -1725,7 +1717,9 @@ static int fastrpc_device_release(struct inode *ino=
-de, struct file *file)
- {
- 	struct fastrpc_user *fl =3D (struct fastrpc_user *)file->private_data;
- 	struct fastrpc_channel_ctx *cctx =3D fl->cctx;
-+	struct fastrpc_invoke_ctx *ctx, *n;
- 	unsigned long flags;
-+	LIST_HEAD(orphans);
-=20
- 	fastrpc_release_current_dsp_process(fl);
-=20
-@@ -1733,6 +1727,20 @@ static int fastrpc_device_release(struct inode *in=
-ode, struct file *file)
- 	list_del(&fl->user);
- 	spin_unlock_irqrestore(&cctx->lock, flags);
-=20
-+	/*
-+	 * Pending (interrupted or timed out) contexts can't be resumed anymore
-+	 * and each holds a reference on the user: release them here to avoid
-+	 * a cycle.
-+	 */
-+	spin_lock(&fl->lock);
-+	list_splice_init(&fl->pending, &orphans);
-+	spin_unlock(&fl->lock);
-+
-+	list_for_each_entry_safe(ctx, n, &orphans, node) {
-+		list_del_init(&ctx->node);
-+		fastrpc_context_put(ctx);
-+	}
-+
- 	fastrpc_session_free(cctx, fl->sctx);
- 	file->private_data =3D NULL;
- 	/* Release the reference taken in fastrpc_device_open */
---=20
-2.53.0
-
+base-commit: 8b7179210b22f8e48a82c5ceacb9d56a9c4cfec4
