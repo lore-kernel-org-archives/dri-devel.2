@@ -2,138 +2,148 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C4190606A31E
-	for <dri-devel@archiver.kernel.org>; Tue, 24 Nov 2026 16:18:54 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 62CB9606A329
+	for <dri-devel@archiver.kernel.org>; Tue, 24 Nov 2026 16:21:04 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=XbrZB357;
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=L5jqtxL2
+	dkim=pass (1024-bit key, unprotected) header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=selector1 header.b=j9yJfB5i;
+	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=selector1 header.b=j9yJfB5i
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 2ACB810F64B;
-	Tue, 24 Nov 2026 16:18:44 +0000 (UTC)
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com
- [205.220.180.131])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 0854410F64B
- for <dri-devel@lists.freedesktop.org>; Tue, 24 Nov 2026 16:18:31 +0000 (UTC)
-Received: from pps.filterd (m0279869.ppops.net [127.0.0.1])
- by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id
- 6AOFL54w2317959
- for <dri-devel@lists.freedesktop.org>; Tue, 24 Nov 2026 16:18:31 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
- cc:content-transfer-encoding:content-type:date:from:in-reply-to
- :message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
- JUK9FZVx27oVQ4pSxePLEF2P+Uj5XRthoi0CCsG5QJI=; b=XbrZB3571ffCrjYA
- oBODposDgEQh1UbZIYNOuQ6gn6aYuM+kVHuez+ZRb/APdUofHWWz1K0Fjeti6tMz
- v1jK8U+bc2EXaGmmyuegTt/ZwqFZMBA/FXlqJBzfdd3yQxKD+O0kcjWnxSS6GsRW
- 6qkcXXOBW/fT173dfVTC0PvZvOB91t52WSXqW6RCZcq8vXH8GzoHmCAnWJ8CLPmr
- /pyN3O4F2zySyAhHxrae71gd6DqJ/53v5K8UBe8wALKGbw6nexPPVbcWoUXQhyYg
- 0TbEHzbEKLZDA7zYpju78pESmreAvHJ46yQE0rpAvhi0fO6UiEPR6XeTeKinhXva
- yMI0gQ==
-Received: from mail-dy1-f200.google.com (mail-dy1-f200.google.com
- [74.125.82.200])
- by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4j4yvd3s35-1
- (version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
- for <dri-devel@lists.freedesktop.org>; Tue, 24 Nov 2026 16:18:30 +0000 (GMT)
-Received: by mail-dy1-f200.google.com with SMTP id
- 5a478bee46e88-3846d5f54c1so5842660eec.1
- for <dri-devel@lists.freedesktop.org>; Tue, 24 Nov 2026 08:18:30 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=oss.qualcomm.com; s=google; t=1795537110; x=1796141910;
- darn=lists.freedesktop.org; 
- h=content-transfer-encoding:content-type:in-reply-to:from
- :content-language:references:cc:to:subject:user-agent:mime-version
- :date:message-id:from:to:cc:subject:date:message-id:reply-to
- :content-type; bh=JUK9FZVx27oVQ4pSxePLEF2P+Uj5XRthoi0CCsG5QJI=;
- b=L5jqtxL2n1/3T73aXnFky/nTrN+0OrRRBQyvqGaIP3wKaJinlyP74tLc8HXGnD+tU8
- DEsuiR3FXEXGamjnkUkBV7xsPRdw6XmCs9/GuWQSb10GU/58gu7Mza24Y6wa1mQQNkQf
- u4+4xRAv4lqSS4pYRntAArU+Q/ffuR+fuaeuoONeRajKojqug5j+RnOZheTPaoLb9xvO
- llV+FpjMACg3pOOpZMR/gYR/6IGez4xv+6Yol6+kqMhER1aUYa32NJg58kaDfwPJcGB7
- HsnfPyxqqtstZb3PN8CXF1001EawiydBC27GzKq6h33JRkLh7PQpFRQ7ScsCfua/JNlb
- 1/7A==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20260707; t=1795537110; x=1796141910;
- h=content-transfer-encoding:content-type:in-reply-to:from
- :content-language:references:cc:to:subject:user-agent:mime-version
- :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
- :message-id:reply-to:content-type;
- bh=JUK9FZVx27oVQ4pSxePLEF2P+Uj5XRthoi0CCsG5QJI=;
- b=Y+ATPjDCiCNl8CGKK+Qx3Gy1la+EL60dmEN/C1GzD12KXNRdVRVZ8t/tAw5+2VVUwo
- 42xI9oLSgy9K6/Y9Rl8FEoqVtkkxGZY0x3ki39WljYB5kUnkpyQ/2l6JRMcKFGyrKXeZ
- iiTfC7kIwrX7p8/4EmX4gY6dUG+D57UZ95nThKkRPKveND7Q5tOxL4eN0QcwYLDQiIBQ
- MXh4y9sYeJ5vWQZQ3pUBPpZzyul9D8CqeCbDpB7095rQCNmXm6S9E06Z3e/4tiGls5kI
- 4COc6S+s6uUex96du6ElUdhu+wODhDIW3op0wFHA7rbR0zI0y6EPoCtoiJVNWsHnc85F
- Xgbg==
-X-Forwarded-Encrypted: i=1;
- AL+hErFUFW6Q6mI/QgXHhEpJxW+9eP2tiHKWxvZn0Qu1jKsT1/XYA/W16S6F3V3crr4F/fgU8H+rHOhRRSA=@lists.freedesktop.org
-X-Gm-Message-State: APuU4Z8bd7Xyeu5g1wUPY/7TK6DoIsU/oiWnUvS43KEoqy5GvnG7F3fA
- Svd4R4zgRHveXduIVpfNOr1V80FdUEM7Lg+N1segjx1UD+HP4Fix+clxJy0JN6oV0QTbPwRjaNr
- UA9Mh0EJRFBl/IMlpmLQ3ecFlxK1U9b04/dgjRvA/2Ts9Kjt8LZ4MRHoQOu/WatmLrhLDcFI=
-X-Gm-Gg: AZFdTZevJ6dz9TpdvEbt62ilJVClkmgUI3DuGA3fM6LoAveJHg8zzB2+KuTPc3NDPVz
- h6Rux7iUTr9jUYbFxGymCLvdyWKuNqOWchpqsk2SBIFzLr7wLMRzciIxfOGqpMAEk/98bHG5kuR
- 4dxn+fL7bQ7x4+2K50sxzZu3LsgmA4sh7li8VvR14a02pKzQESiTBhWwq43KNKUx5yShuRQRWlV
- pm0mGeVW36Z5P36vrycisnBg3ocnRUaexs4qgUtcgsVlS/vIeNeWRrtlEKNHt7CYBu0RCFflL4M
- RP+gjCDbHrruoG3iWdhjDYyqT99b0WaQHl9R9yroUmz7Mloa6HLKkkjqp5TW5HxdxgpK1n1kkYA
- Mep/CzG7Rgx87uS9ZLWZJ5KqDfY65+GP1j34dK+2cZpPkcGNJOT+9yXozzg/PT4nRs7Ctr4aOJw
- aTYsCHgq98R2zWMinMNP7VcFA=
-X-Received: by 2002:a05:7300:6da7:b0:36c:3b8a:8090 with SMTP id
- 5a478bee46e88-3856c9a3029mr21952583eec.2.1795537109406; 
- Tue, 24 Nov 2026 08:18:29 -0800 (PST)
-X-Received: by 2002:a05:7300:6da7:b0:36c:3b8a:8090 with SMTP id
- 5a478bee46e88-3856c9a3029mr21952557eec.2.1795537108894; 
- Tue, 24 Nov 2026 08:18:28 -0800 (PST)
-Received: from [10.226.59.182] (Global_NAT1.qualcomm.com. [129.46.96.20])
- by smtp.gmail.com with ESMTPSA id
- 5a478bee46e88-385c6830815sm41066407eec.20.2026.11.24.08.18.27
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Tue, 24 Nov 2026 08:18:28 -0800 (PST)
-Message-ID: <f521ca85-3cbb-4209-9ee4-63e3c8cdf0db@oss.qualcomm.com>
-Date: Tue, 24 Nov 2026 09:18:26 -0700
+	by gabe.freedesktop.org (Postfix) with ESMTP id 9DB2D10F780;
+	Tue, 24 Nov 2026 16:20:53 +0000 (UTC)
+Received: from AM0PR83CU005.outbound.protection.outlook.com
+ (mail-westeuropeazon11010013.outbound.protection.outlook.com [52.101.69.13])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 6661A10F66C
+ for <dri-devel@lists.freedesktop.org>; Tue, 24 Nov 2026 16:20:42 +0000 (UTC)
+ARC-Seal: i=2; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=pass;
+ b=PpWG3gOj47ld0Q6VurrhboSn6eQrHE5CUADpcYH8WCp75LMCe+/qbz0jvLqUykKddrq459H/iz7Zc/Ym/X3v2zCN151ZGJoi7Mupv1VlTx24Uy2qLzst/XQvzCbXD9IJazHFocnPBijT+je8HJPQb/Z4sZRRyy9UANSEFisCMoP50zgpGTh9OiHC02+CgtNgzlTJmnVnvYyky4IPY1HaEQrc6iGP0hm4hjdu3snK64LNPld+kwYGd4BH1RkroO3AXMxDsTiHe9XDUF2p1GgUP/WNYrwbSEeAFxZoq05kai5/WmiIZGY0oyKN2P/sdpVxJkgHky7JVdrAUpbWxI6lJQ==
+ARC-Message-Signature: i=2; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=VAwddQeUkfulWmc05IVYKubi8Po7HPv3Tlxf8GAGqrE=;
+ b=emq/S89wX5VaLe70hmLFN4F2A3y7cHoDCGlz3xOZVbGzHm7G5jpOCRT167U1Wu3P/wbQcCOvgYLV1kcDNVf5K3n45PKm/5+wEUWIRcsSB/HKBBf1abWh8UguU6WZk4QcevrjkCo2KbGBwCauht1SHUb7mqJdSAFkI2IJEfBGilkXieeJ5NFiCMq+L2IsHyyxJZvDokbteh8O7lRvpnYqoxdjlhMYhGDpX+aIzbX4fkuxJnxWZn6ahJzbSqx3PRYm5QOA2nLek6LnFfSUdwUSfM7u4TbEkhpz0H8Ld5jwUAMj2ed5jbi+hcaMUQNF7GMZLY0FxJs0n/uuRfLfFBA3YQ==
+ARC-Authentication-Results: i=2; mx.microsoft.com 1; spf=pass (sender ip is
+ 4.158.2.129) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=arm.com;
+ dmarc=pass (p=none sp=none pct=100) action=none header.from=arm.com;
+ dkim=pass (signature was verified) header.d=arm.com; arc=pass (0 oda=1 ltdi=1
+ spf=[1,1,smtp.mailfrom=arm.com] dkim=[1,1,header.d=arm.com]
+ dmarc=[1,1,header.from=arm.com])
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=arm.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=VAwddQeUkfulWmc05IVYKubi8Po7HPv3Tlxf8GAGqrE=;
+ b=j9yJfB5i1nkBfxVYpKGLgJ5q5S2UE0msbPV/OP7sIe3iDYfE4+pCTsV978pwTLG/9aNb9IZZd/PggkY7JWIb17/X9JBKTSVkbjoop99NaiTINFFkbTuKDzukpxKRwq77f4I8yfFru7w4xM0qCEWtLHOjFE4wIr3JdK9qsmCIBqA=
+Received: from VI1P194CA0031.EURP194.PROD.OUTLOOK.COM (2603:10a6:803:3c::20)
+ by ZR6PR08MB180730.eurprd08.prod.outlook.com (2603:10a6:910:e7::19) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.639.13; Tue, 24 Nov
+ 2026 16:20:38 +0000
+Received: from MI3PEPF00008488.eurprd02.prod.outlook.com
+ (2603:10a6:803:3c:cafe::62) by VI1P194CA0031.outlook.office365.com
+ (2603:10a6:803:3c::20) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.21.662.5 via Frontend Transport; Tue, 24
+ Nov 2026 16:20:37 +0000
+X-MS-Exchange-Authentication-Results: mx.microsoft.com 1; spf=pass (sender IP
+ is 4.158.2.129) smtp.mailfrom=arm.com;
+ dkim=pass (signature was verified)
+ header.d=arm.com;dmarc=pass action=none header.from=arm.com;
+Received-SPF: Pass (protection.outlook.com: domain of arm.com designates
+ 4.158.2.129 as permitted sender) receiver=protection.outlook.com;
+ client-ip=4.158.2.129; helo=outbound-uk1.az.dlp.m.darktrace.com; pr=C
+Received: from outbound-uk1.az.dlp.m.darktrace.com (4.158.2.129) by
+ MI3PEPF00008488.mail.protection.outlook.com (10.167.240.135) with Microsoft
+ SMTP Server (version=TLS1_3, cipher=TLS_AES_256_GCM_SHA384) id 15.21.662.3
+ via Frontend Transport; Tue, 24 Nov 2026 16:20:37 +0000
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=gNDtu1jdVq1JMTXeM+SIfDYbRWqLzzSH/EcOJIzeOIrYztWRc5Y32XQJvgo6BkWQYFNgnhTg0qyWccziN7Z+0+6EDGAsLFBhZoeXTTOiUg1p//iOLzCNJE6kJUgPnehAkhZMBAvdEjt3uPzCJ9TWLtPCdMqI5aONOg22ON+w+SXF1sw+yY47Eweup95VmGuX1w+V92LwwplChsxY2AAyzSFOqs3ayAW3puHIoJvRHspkrqHPT7qkSIQCH+3JdpvLd8xK6NWD9yq2nbAMpfHxkhNOM04Q9y5vKHlFMxvWrd46zGXXoYaxlEao5PV6XzTzjJAgNJ6B+AgrYKkepH0YSQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=VAwddQeUkfulWmc05IVYKubi8Po7HPv3Tlxf8GAGqrE=;
+ b=PPPfU7PTTAlUBHEBEgvOzQkxS3Rl5LuYwlGdcWR7lXaw+81Lvhry5NsekKOB9cKHGxCtI80e/r3+tMReIEvMl165UJT14T++pfRWhY24WXp3XcHvv29EdCvj66sBPeo8+o+grtRvXZNBrNsoMQR+dKN3vLL9WRAQpDkvUv7+AyFbjibpDScDO4l0Lw9pjkcAwfDTgfk5QitVcjwF9b9NDPD4vNxlJ0DnQpQSPZ1KC0+NuFB/PDnJp/Bk/IWBrDhtbyWwZDt0vRmO+kD7MvLt4zHNtHiXGxJE6ZeXQb9K+pH7MLPISuYKEkyhnc0brVeyZVKPEmvKznNk2YAuh+UuOQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=arm.com; dmarc=pass action=none header.from=arm.com; dkim=pass
+ header.d=arm.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=arm.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=VAwddQeUkfulWmc05IVYKubi8Po7HPv3Tlxf8GAGqrE=;
+ b=j9yJfB5i1nkBfxVYpKGLgJ5q5S2UE0msbPV/OP7sIe3iDYfE4+pCTsV978pwTLG/9aNb9IZZd/PggkY7JWIb17/X9JBKTSVkbjoop99NaiTINFFkbTuKDzukpxKRwq77f4I8yfFru7w4xM0qCEWtLHOjFE4wIr3JdK9qsmCIBqA=
+Authentication-Results-Original: mx.microsoft.com 1; dkim=none (message not
+ signed) header.d=none;dmarc=none action=none header.from=arm.com;
+Received: from MMZPR08MB669593.eurprd08.prod.outlook.com (2603:10a6:190:53::6)
+ by VI3PR08MB938182.eurprd08.prod.outlook.com (2603:10a6:800:374::19)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.639.14; Tue, 24 Nov
+ 2026 16:20:04 +0000
+Received: from MMZPR08MB669593.eurprd08.prod.outlook.com
+ ([fe80::f3ef:efa8:e69:8b28]) by MMZPR08MB669593.eurprd08.prod.outlook.com
+ ([fe80::f3ef:efa8:e69:8b28%7]) with mapi id 15.21.0639.012; Tue, 24 Nov 2026
+ 16:20:04 +0000
+From: Karunika Choo <karunika.choo@arm.com>
+To: dri-devel@lists.freedesktop.org
+Cc: nd@arm.com, Boris Brezillon <boris.brezillon@collabora.com>,
+ Steven Price <steven.price@arm.com>, Liviu Dudau <liviu.dudau@arm.com>,
+ linux-kernel@vger.kernel.org, Akash Goel <akash.goel@arm.com>,
+ Lukas Zapolskas <lukas.zapolskas@arm.com>,
+ Chris Diamand <chris.diamand@arm.com>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>,
+ Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>,
+ Simona Vetter <simona@ffwll.ch>,
+ Nicolas Frattaroli <nicolas.frattaroli@collabora.com>
+Subject: [PATCH v5 1/9] drm/panthor: Ignore -EOPNOTSUPP for shader-present
+ nvmem lookup
+Date: Tue, 24 Nov 2026 16:19:39 +0000
+Message-ID: <20261124161952.1053586-2-karunika.choo@arm.com>
+X-Mailer: git-send-email 2.43.0
+In-Reply-To: <20261124161952.1053586-1-karunika.choo@arm.com>
+References: <20261124161952.1053586-1-karunika.choo@arm.com>
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-ClientProxiedBy: LO4P265CA0128.GBRP265.PROD.OUTLOOK.COM
+ (2603:10a6:600:2c6::16) To MMZPR08MB669593.eurprd08.prod.outlook.com
+ (2603:10a6:190:53::6)
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v4 1/4] drm/drm_ras: Reference-count nodes across netlink
- handlers
-To: Zack McKevitt <zachary.mckevitt@oss.qualcomm.com>,
- dri-devel@lists.freedesktop.org, netdev@vger.kernel.org,
- riana.tauro@intel.com, aravind.iddamsetty@linux.intel.com,
- rodrigo.vivi@intel.com, raag.jadav@intel.com, simona.vetter@ffwll.ch,
- airlied@gmail.com, kuba@kernel.org, ogabbay@kernel.org,
- lizhi.hou@amd.com, karol.wachowski@linux.intel.com
-Cc: carl.vanderlip@oss.qualcomm.com, troy.hanson@oss.qualcomm.com,
- youssef.abdulrahman@oss.qualcomm.com, Sashiko <sashiko-bot@kernel.org>
-References: <20261117233442.407877-1-zachary.mckevitt@oss.qualcomm.com>
- <20261117233442.407877-2-zachary.mckevitt@oss.qualcomm.com>
-Content-Language: en-US
-From: Jeff Hugo <jeff.hugo@oss.qualcomm.com>
-In-Reply-To: <20261117233442.407877-2-zachary.mckevitt@oss.qualcomm.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-X-Authority-Analysis: v=2.4 cv=ZYeIpcVA c=1 sm=1 tr=0 ts=6b05b8d6 cx=c_pps
- a=PfFC4Oe2JQzmKTvty2cRDw==:117 a=ouPCqIW2jiPt+lZRy3xVPw==:17
- a=IkcTkHD0fZMA:10 a=zJRp6_cAMcgA:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=_glEPmIy2e8OvE2BGh3C:22
- a=c92rfblmAAAA:8 a=EUspDBNiAAAA:8 a=VwQbUJbxAAAA:8 a=zEiQH73GkW7WTHCCbtkA:9
- a=QEXdDO2ut3YA:10 a=6Ab_bkdmUrQuMsNx7PHu:22 a=GvGzcOZaWPEFPQC_NcjD:22
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMTI0MDA2MyBTYWx0ZWRfX5PPWtIqdjPZA
- gSFK4fyxnhVgGrnxri0TaQvrGX5COt1A2jMEEUnKGG+uLL3HCm3ZBpz2ixb0vd+EAvMIkcXSCzQ
- dD+0BQAhFHG7eE5xjS5WARmVCDWyrp5LM9ZjRyjfbMhY/vj5AtXydBeH5Zyo1aw6v9BKdt1Uy3P
- u/PtDzt/5ILNOo9tIPx3KbthMmEFAVWqXvruNJ5GDZ6283cRfFBFwQGmud1o9nXPYFMl8RNt2JB
- cO+n7tcy/x49FHipi3u0OG79wrdZcNwGGzBTTIMzV4itIhXbU7c9T2XyHQGXN3biDj5Ng7vrirw
- Exe+Yw9xDoUbTnFKsHgy65MjkgQpBGIJgCQmrRVZgmUSzZmVc5BVdVKBK+YCO7fm4hIw4RtwueW
- 5eVyDEnUssz5BFFY7UrcqOOSq1g2kufeQEOSiRxhvT8sONSe5jFClo6vexaqMZD7FAIFnrjHDNv
- 90w2sdPDTpmL/DlsQ2g==
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMTI0MDA2MyBTYWx0ZWRfXypNSyLN/TG0m
- Bl1i7JyB18g+FgqLGjGoPeGJOQJVGgd4TlQU4bYd2HlBG1f02ubdqsQmredSb/ciA60nGsQw+bI
- oxdsD4a7vEo8ebHAwWbQ43Y/oGoW+Q0=
-X-Proofpoint-ORIG-GUID: iCK4kuPbfSWqo3QmmrS7ZLCy9FGbuvOf
-X-Proofpoint-GUID: iCK4kuPbfSWqo3QmmrS7ZLCy9FGbuvOf
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
- definitions=2026-11-24_04,2026-11-23_01,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- clxscore=1015 malwarescore=0 suspectscore=0 adultscore=0 priorityscore=1501
- lowpriorityscore=0 bulkscore=0 impostorscore=0 phishscore=0 spamscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2611040001 definitions=main-2611240063
+X-MS-TrafficTypeDiagnostic: MMZPR08MB669593:EE_|VI3PR08MB938182:EE_|MI3PEPF00008488:EE_|ZR6PR08MB180730:EE_
+X-MS-Office365-Filtering-Correlation-Id: 143729ce-bd96-48f3-8423-08df4a46dffd
+X-LD-Processed: f34e5979-57d9-4aaa-ad4d-b122a662184d,ExtAddr,ExtAddr
+x-checkrecipientrouted: true
+NoDisclaimer: true
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam-Untrusted: BCL:0;
+ ARA:13230040|23010399003|366016|376014|1800799024|18002099003|22082099003|11063799006|56012099006|261021121427099003|261102123227099003|261026121527099003|261021123027099003|261022075727099003|261009223027099003|10067099003;
+X-Microsoft-Antispam-Message-Info-Original: zTXbvpIhCbEtwosyV1sPGyvJrFCK9wgLyyoO+qKxUdygMtfZ5MiybKDDqxdPNoLEPDBBUv3pw9eDjCFyWvRacqAsA5r+vrNJQABNLK1oUC78+HOcwMEPeLayK1rcklQ059FLNgUOuso2YkQarf9bliG7y3KkwzdqEc2R5b97ifJacRqosBGdEQSuT5/AZ9nE3DjrIvOgUZ27OcHiKu2ro7k/QZ0WPHD9y8et0lYod7Sj74uCqnWPbflAXDwuE8Khj3igRRtYLD09PgCAlDgAJh4Cbu2rbEKpNeZofWfDjw/9huMwrniq0g4IKUmV291/v1DsSUnUQsx/wtJ5MDQsyxuNpN0irGvX+dEuPkLhv1BDFiy8gUF1nHdLf2P2asUJ6KRGa8Emjr1z0yP9+A7/VRrj8a8Ekq3C0trmwz8Qf8S5hlZCCLf+JaOy/P1YPZAweFLuPv/1WjISMt5KXzppr3Ba0iDiQaGakyxycdB2GtZMMp/6LRnwGKadhmyK5ocAts71hr6lbbHV/IveW2kFJ0cd0iNO4H83xul1KNQ0HNPyIVKr25nYPeptTpm4317ihphoh85zSrS8qLbwv2kVJc6a+ivfty2njKgNidVR1Mqb0ixxBC+N0dYhG0lyGTvhi8TJ1cO832Yp2Pfx+oriaZL7e8NHCHjWJ9oRtfl/F7k=
+X-Forefront-Antispam-Report-Untrusted: CIP:255.255.255.255; CTRY:; LANG:en;
+ SCL:1; SRV:; IPV:NLI; SFV:NSPM; H:MMZPR08MB669593.eurprd08.prod.outlook.com;
+ PTR:; CAT:NONE;
+ SFS:(13230040)(23010399003)(366016)(376014)(1800799024)(18002099003)(22082099003)(11063799006)(56012099006)(261021121427099003)(261102123227099003)(261026121527099003)(261021123027099003)(261022075727099003)(261009223027099003)(10067099003);
+ DIR:OUT; SFP:1101; 
+X-Exchange-RoutingPolicyChecked: Obwr8ILGi0zPPpA20Ed5amJK+d21H8yfZZYM9K0wxitVXpHqUYoV1+zW9NVpp1VnKeQD6SeEtHE+krQgp0tuC/neVzn+Dz8mvI3w2Wqo1jjE0sh2iwt0DEY10+nA8bbisr5GWRqYzbogUQ0I7nljQcSAq2TO569+CR6aJRcHSnO8bss7Z8Lkj8J8yzzmkJ2EPjbDWtO5aIK0bf2H8sx36TQA6mr8X/AtRGhb6N2Kk48Wh2LoIrGFVP2sBHwkAeLJ4Zw/qxGPpYotU1CCzMfomVUp8ht+ND6+T4gIsgBZ2w2sBwa0D3dH9IPzEIlVrLyQzEp16X92VE2o/da6h/jCqg==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: VI3PR08MB938182
+X-EOPAttributedMessage: 0
+X-MS-Exchange-Transport-CrossTenantHeadersStripped: MI3PEPF00008488.eurprd02.prod.outlook.com
+X-MS-PublicTrafficType: Email
+X-MS-Office365-Filtering-Correlation-Id-Prvs: 5b8f6910-dd59-491c-287b-08df4a46cc46
+X-Microsoft-Antispam: BCL:0;
+ ARA:13230040|35042699022|14060799003|23010399003|36860700016|82310400026|1800799024|376014|261102123227099003|261026121527099003|261022075727099003|261021121427099003|261021123027099003|11063799006|56012099006|10067099003|261009223027099003|18002099003|22082099003;
+X-Microsoft-Antispam-Message-Info: UBm7bwsxJGChQcQXnyXmxO8mgnqHzy/U/9d+phITB5dMOCx7v9P6KINS21cPYnvV48eoF7lTlUc4vKfAP1P4/3K1fNbfKTXFuGQBUQRLZjyTRviRocQDzWjcTiNZeWdc34REqjHL5WirjzmYc5OekJdpnBGYBirU+ZBQLqzm3w2cg+XzjRzFo4CASXMFCkFZn292gUoz8DAXOLy6ruiCr9n8/BXfZZUKOUHFhr8jRckfum2B/xOe5bM327rDuc16Jw/elyRyBaEDs9jVHZUZcxRI5lh2YQf6/Ym8605eiKlpo4i0tuo9UeSQfeaujsj/Mf3yaVLHA61nkK0f/tL+pxSkMrzd8mU4Bqzxd224s0y4igiSsgm7+GB0Df67To6TeHuKINmap4VcEcRplWaKnNK+RktCJLQPzcQBXV4jwKlGtDrQincNVuTe1hHerxZUhLaC1ovFo2nBbNuDicvZReUBWR/0wfati7I5J2vrowm1XE5ql87YIWWp7x9Rtzv3HGHYsB9QtVe2gE8+EnEDIV5ZpEOD5aKr2VH3YmYKhu4+MD7HYOQhIKpd5meFCiMBGMHrowbjr8U3q1SZVwx29fkkDjzEEUpCwUrQQOYaxVB3mKJfds4W+/9z/QubBKNcOG+m6If9v7ejC2ANaqH1LmWnS4SHJq6UXXp1CTSa0YvCnCuE2VtMTZ40fQuRCejHqfOS00Bjn2S2Bp3lxhyS9g==
+X-Forefront-Antispam-Report: CIP:4.158.2.129; CTRY:GB; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:outbound-uk1.az.dlp.m.darktrace.com;
+ PTR:InfoDomainNonexistent; CAT:NONE;
+ SFS:(13230040)(35042699022)(14060799003)(23010399003)(36860700016)(82310400026)(1800799024)(376014)(261102123227099003)(261026121527099003)(261022075727099003)(261021121427099003)(261021123027099003)(11063799006)(56012099006)(10067099003)(261009223027099003)(18002099003)(22082099003);
+ DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: Kam/3Xv5CgLW7ZlFuZlh1CVeW/ItewR9xCcCz8ke0F4OsbM+A2vnx5ud3ITDIt7kXbC2JNA3dr7rCX5yCXiod63C61RXoCVNFCrVu7nPk7QSVK2qADzo1TQVvYe3V+Gj+6w+Asp7aJeJvTafx2DRjph4lWJhj+XOJFX1fqtZoItVIaby83a3rv6u370BKmluudZ0bUlRtoNRIXYK6K/E0wSQRDzf/1GpD5eKVSehY2u4+wm3fkJmpLCjAwag3m/X1UgwhGnX+Qjn7kyUljIlCJY+qtaeoZHX2Y26k0oJ0UDCzOcebzlId/RPB4V7P9131CPs5h7CsCE+wYWEcbUpGzgfJL1CagTQIL3Y81d2Rkp4gf1ajtpBkZuN5rsk0s432HPXpOqlSB50TuOXnewJuC5Vd/wiaWCrTbGgYpWR/jld0nOanljjmZtlDt1A4cbF
+X-OriginatorOrg: arm.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 24 Nov 2026 16:20:37.4144 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 143729ce-bd96-48f3-8423-08df4a46dffd
+X-MS-Exchange-CrossTenant-Id: f34e5979-57d9-4aaa-ad4d-b122a662184d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=f34e5979-57d9-4aaa-ad4d-b122a662184d; Ip=[4.158.2.129];
+ Helo=[outbound-uk1.az.dlp.m.darktrace.com]
+X-MS-Exchange-CrossTenant-AuthSource: MI3PEPF00008488.eurprd02.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: ZR6PR08MB180730
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -145,43 +155,49 @@ List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-12.3 required=3.0 tests=BAYES_00,DKIM_SIGNED,
+X-Spam-Status: No, score=-18.8 required=3.0 tests=BAYES_00,DKIM_SIGNED,
 	DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
-	INCLUDES_CR_TRAILER,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,
-	USER_AGENT_SANE_1 autolearn=unavailable autolearn_force=no
+	INCLUDES_CR_TRAILER,INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,
+	SPF_PASS,USER_AGENT_GIT autolearn=unavailable autolearn_force=no
 	version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-On 11/17/2026 4:34 PM, Zack McKevitt wrote:
-> The drm_ras generic netlink family sets .parallel_ops = true, so its
-> handlers can run concurrently with each other and with
-> drm_ras_node_unregister(). Every handler looks a node up with a bare
-> xa_load() and then dereferences the returned pointer across GFP_KERNEL
-> allocations and sleeping driver callbacks, while drm_ras_node_unregister()
-> only calls xa_erase() and the driver frees the node immediately afterwards.
-> xa_load() only holds the RCU read lock for the duration of the walk, so the
-> node can be unregistered and freed while a handler is still using it.
-> 
-> Give each node a reference count. A node holds one reference for being
-> registered; drm_ras_node_get()/drm_ras_node_get_next() take an additional
-> reference under the xarray lock, which serialises them against the
-> xa_erase() in drm_ras_node_unregister() so the bump can never race with the
-> free. Handlers drop their reference with drm_ras_node_put() once they are
-> done touching the node. drm_ras_node_unregister() removes the node from
-> the xarray, drops the registration reference and waits for any in-flight
-> handler to drop theirs before returning, so the driver can still free the
-> node as soon as unregister() returns.
-> 
-> drm_ras_nl_error_event() is left unchanged: it is called by the driver with
-> its own node, whose lifetime the caller already guarantees.
-> 
-> Fixes: c36218dc49f5 ("drm/ras: Introduce the DRM RAS infrastructure over generic netlink")
-> Reported-by: Sashiko <sashiko-bot@kernel.org>
-> Closes: https://sashiko.dev/#/patchset/20261106181225.3333260-1-zachary.mckevitt@oss.qualcomm.com
-> Signed-off-by: Zack McKevitt <zachary.mckevitt@oss.qualcomm.com>
-Looks like you break reverse christmas tree ordering in some places 
-where you modify function local variables, but I'm not sure if that is 
-the expected style or it just happens to look that way.
+When CONFIG_NVMEM is disabled, reading the optional "shader-present"
+nvmem cell can return -EOPNOTSUPP.
 
-Reviewed-by: Jeff Hugo <jeff.hugo@oss.qualcomm.com>
+Treat this the same as the cell being absent so panthor can continue
+probing on platforms that do not provide shader-present fuses through
+nvmem.
+
+Fixes: c40b50c3cfbe ("drm/panthor: Implement reading shader_present from nvmem")
+Reviewed-by: Liviu Dudau <liviu.dudau@arm.com>
+Reviewed-by: Boris Brezillon <boris.brezillon@collabora.com>
+Reviewed-by: Steven Price <steven.price@arm.com>
+Signed-off-by: Karunika Choo <karunika.choo@arm.com>
+---
+v2:
+- Picked up R-b from Liviu
+v1:
+- Picked up R-bs from Boris and Steve
+- Added Fixes tag
+
+ drivers/gpu/drm/panthor/panthor_hw.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/drivers/gpu/drm/panthor/panthor_hw.c b/drivers/gpu/drm/panthor/panthor_hw.c
+index ea1e222ef1210..34dc4b9d9dc09 100644
+--- a/drivers/gpu/drm/panthor/panthor_hw.c
++++ b/drivers/gpu/drm/panthor/panthor_hw.c
+@@ -182,7 +182,7 @@ static int overload_shader_present(struct panthor_device *ptdev)
+ 					      &contents);
+ 	if (!ret)
+ 		ptdev->gpu_info.shader_present = contents;
+-	else if (ret == -ENOENT)
++	else if (ret == -ENOENT || ret == -EOPNOTSUPP)
+ 		return 0;
+ 	else
+ 		return dev_err_probe(ptdev->base.dev, ret,
+-- 
+2.43.0
+
