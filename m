@@ -2,65 +2,65 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 99119606A6A3
-	for <dri-devel@archiver.kernel.org>; Tue, 24 Nov 2026 07:27:34 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E4E6C606B3C0
+	for <dri-devel@archiver.kernel.org>; Tue, 24 Nov 2026 07:27:35 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=fail reason="signature verification failed" (2048-bit key) header.d=goldelico.com header.i=@goldelico.com header.a=rsa-sha256 header.s=strato-dkim-0002 header.b=fROvGnzB;
-	dkim=fail reason="signature verification failed" header.d=goldelico.com header.i=@goldelico.com header.a=ed25519-sha256 header.s=strato-dkim-0003 header.b=H5IWVszY
+	dkim=fail reason="signature verification failed" (2048-bit key) header.d=goldelico.com header.i=@goldelico.com header.a=rsa-sha256 header.s=strato-dkim-0002 header.b=EiH3gmjF;
+	dkim=fail reason="signature verification failed" header.d=goldelico.com header.i=@goldelico.com header.a=ed25519-sha256 header.s=strato-dkim-0003 header.b=mQl7hvDm
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id ED1E010ED18;
-	Tue, 24 Nov 2026 07:27:27 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 01EBC10ED23;
+	Tue, 24 Nov 2026 07:27:28 +0000 (UTC)
 Received: from mo4-p04-ob.smtp.rzone.de (mo4-p04-ob.smtp.rzone.de
- [81.169.146.176])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 388FD10ED45
- for <dri-devel@lists.freedesktop.org>; Tue, 24 Nov 2026 07:27:00 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; t=1795505169; cv=none;
+ [85.215.255.124])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 32B0410EC04
+ for <dri-devel@lists.freedesktop.org>; Tue, 24 Nov 2026 07:26:48 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; t=1795505183; cv=none;
  d=strato.com; s=strato-dkim-0002;
- b=bIiaZG0aB1A8EglnZPzLotr0APPVW+C+JttAhWgICeK1uivIxOxrQ3tY3MQ2NmCbSq
- 5MK0e+w6jhhlBqw3diP5fp9kEtkvG9L1JRX2l8cLJaddsIqTo8K5hpds2e4Hf2GTfFz4
- uQcmzSwFw4Ug5txQ8lN/B+HCLwiH/64z2ztYX0pvnRgLPkkeQdGF5Fbn28R1OrXrd7yn
- 2k5nQZvCDncZjPGC2JoVdAYNmN2bLNBaYMy9Nd0KniZvAsoSTB752DXCduiwkeaAzhQL
- oVwycnJekINI2m3gDW/iz69h0pqiphtUEeFI24tkg/7nPLeHOKud8q2hxazd2kgBpVCG
- 7kZA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; t=1795505169;
+ b=Z7xiYhSoH/3M3dxzPNQd829mpciJtOxysyasKAgIeGN/0NoMZayD4xO8Px7ueuwXpK
+ id4fvevS/hx6O+u8jz3mxUKGLmqp9wmMivQfPdr4ZINlrd3rU+nijIQHZmB0fJ1qd7vv
+ 627DklFjMNkXSmvShdeDwDHg/naU4sevFcxlFgz7IQ6pjYWv7KHuWXjdkQ+Npv2a1OJP
+ lCn5vuyZ84Y7Q2JEnOYxikBgjgMlON2/1ooZRBdJmmkekxoVfdHVNzNRxP6R31eD8QeS
+ joLnofLRk4JAVhY1r+7UzV0dOvbb983RBMDOimDER9JySvkoZd4h8p/RxBWZIj4RSXju
+ 5BkA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; t=1795505183;
  s=strato-dkim-0002; d=strato.com;
  h=References:In-Reply-To:Message-ID:Date:Subject:Cc:To:From:Cc:Date:
  From:Subject:Sender;
- bh=d9xpumlCbgaIU/3xB5JAGANrE1Hm+hxXtNW2reVreRs=;
- b=aPabauCX+WGDUQJXlMAX03F/Wb+Sq18WrA4ZCBukx9c4PduStiynt6VO5IPt+MoffQ
- uGsdWN7JRBa6lNOuKgoMx1ZfI1Ibfcsm6PckPJz+abSD0KSCVbp9wVprM3eBFxtFMiMK
- YVQk7oQgel4f+0xqBaXULmf/kHeUJCLE9nh2iy7LgeLeTyg7OzG7WIdZWIpkqWcISxqa
- 7oXnvi6jmBw2FS8NX3r7vPlrGjR1iweiZTRwWxgzkAj1f8eVqptrGh8f8/k74iY3JVWw
- M5YW3BIYJSamSuPZDcjLnAMLuKW7tqtTAZ9FZY/olSbwjXi46NEO9qggp+z9lfhTc8Lt
- UT5g==
+ bh=kFVKZWJnvTpv0CaRCWkf/scaJhz42VxpUYUALwApW74=;
+ b=Meqqz7QDgIGR03VTCBRmFfkc/OTi2JI15h2Jsk68jL0kbTQgB8V0Bh6vPGIAJoxQ8Q
+ efcIBWpN9hBY8B4YFLeEWM1VnL4zMZjFiZC5asgSxvYB6JiXefVr0RNSVSvnF2Oqu19c
+ BlUYBmRNR8nDiZyk9CenuuCRpJp209UAoJD1ugrlBWaQ95zgt1B8wVNlLfj6ObbXKX+e
+ nmN7PZhTdlB0b50VZ34/m/o8cnbmtaE2E0dzek3EVbQVouHyYDMUPOfZ5CH2JJwkP/y5
+ /DplD8MVhKjPC9mzl5uo2tA43O51VSg5x+ENcKHp9LUWiSwZ+0IQvjbUwHo2Awi8fBMh
+ JNoA==
 ARC-Authentication-Results: i=1; strato.com;
     arc=none;
     dkim=none
 X-RZG-CLASS-ID: mo04
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; t=1795505169;
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; t=1795505183;
  s=strato-dkim-0002; d=goldelico.com;
  h=References:In-Reply-To:Message-ID:Date:Subject:Cc:To:From:Cc:Date:
  From:Subject:Sender;
- bh=d9xpumlCbgaIU/3xB5JAGANrE1Hm+hxXtNW2reVreRs=;
- b=fROvGnzByh/J1FZLbReBn/Lsyo2c8cGB6I99GEWTrbblCQl7YqqUXVTvepg1IGzivx
- paENMFItZfi/1hp17JvbIx082Xux6CtV0zaZylkpeDrVX9aghrPqzh/AFR5AnjqAWREv
- 7ytbW64OB/7xGE0wzGknonmpya0LLnlmtkIsr2RmmGHi3oJYKOz1g6hlf6jqJwcI/y9a
- YhkzsY6/2WaTWBQeiAt/SoDJqogD7f5//hbUVWQpN75u6fr9EUBPeGyWxMyW4AfTp+1l
- XGn2PBqaNfllfHm6I2e0389zqNl87Xu5+pXZkceigSaB2z/YZAeMWwjN3jg7mKs1hZO2
- M8Dg==
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; t=1795505169;
+ bh=kFVKZWJnvTpv0CaRCWkf/scaJhz42VxpUYUALwApW74=;
+ b=EiH3gmjFx9O9zE7ceCRcHfLIrQo4joTC1DAbmIRwKZcJQ1hSrF4zlRlhnxBIlqgFr2
+ o8b9eTW43QKFNb59rA5r3feLIrSXEzhKlpruNsvXka1Qx/M8UQN+NHEW/odAkXNKb6ql
+ qNFyHouiXXt4bUhpMqlhn9LU/NSwnWCIlblJFCqL2yQfYAGn8kTNyzRPbPa8DsuB4JC+
+ GCA0VsqewoIdwfgM8eza8xwKzEz+0zD47dL1azWBjV+8+jVH3ibF4fcqpJuJTTqLutgx
+ 6V7J36/S2OpddBcdpFLH6rEZ8po+DBCFafKBMHmf2ut5iAQmioDam/y5rcgh3ZsB1cKZ
+ 2v3g==
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; t=1795505183;
  s=strato-dkim-0003; d=goldelico.com;
  h=References:In-Reply-To:Message-ID:Date:Subject:Cc:To:From:Cc:Date:
  From:Subject:Sender;
- bh=d9xpumlCbgaIU/3xB5JAGANrE1Hm+hxXtNW2reVreRs=;
- b=H5IWVszYs9rjCq5iy4gaYkFOMYQqGb46RRw6KMSLbr9oqCLpTNyDiHhtUuXTimbx50
- ZZ+KaIYgQul+9842OgBg==
+ bh=kFVKZWJnvTpv0CaRCWkf/scaJhz42VxpUYUALwApW74=;
+ b=mQl7hvDmB5McIZME11BEoDVNqoi0wfRn8QnKlUYBJexRm39G5BkDGqbfVnM2ZUNunR
+ /dThEVIVeGg5rkSXSUAw==
 X-RZG-AUTH: ":JGIXVUS7cutRB/49FwqZ7WcJeFKiMhflhwDubTJ9qVpwcQVkPW4I1HrV3poLlciNVTQoM6kVxzKyrKzkpjcAwdDfiN49"
 Received: from iMac.fritz.box by smtp.strato.de (RZmta 55.6.3 AUTH)
- with ESMTPSA id Qb56a22AO7Q81HF
+ with ESMTPSA id Qb56a22AO7QM1HV
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256 bits))
  (Client did not present a certificate);
- Tue, 24 Nov 2026 08:26:08 +0100 (CET)
+ Tue, 24 Nov 2026 08:26:22 +0100 (CET)
 From: "H. Nikolaus Schaller" <hns@goldelico.com>
 To: Linus Walleij <linus.walleij@linaro.org>,
  Bartosz Golaszewski <brgl@kernel.org>, Rob Herring <robh@kernel.org>,
@@ -87,10 +87,11 @@ Cc: Jessica Zhang <jessica.zhang@oss.qualcomm.com>, linux-gpio@vger.kernel.org,
  linux-sound@vger.kernel.org, linux-omap@vger.kernel.org,
  linux-arm-kernel@lists.infradead.org, linux-pwm@vger.kernel.org,
  linux-fbdev@vger.kernel.org, letux-kernel@openphoenux.org,
- kernel@pyra-handheld.com, "H. Nikolaus Schaller" <hns@goldelico.com>
-Subject: [PATCH v2 04/20] dt-bindings: sound: pcm1754: Describe PCM1773
-Date: Tue, 24 Nov 2026 08:25:44 +0100
-Message-ID: <a92d44c4ba920358003d475d4cac7541af037f41.1795505160.git.hns@goldelico.com>
+ kernel@pyra-handheld.com, Stefan Leichter <sle85276@gmx.de>,
+ "H. Nikolaus Schaller" <hns@goldelico.com>
+Subject: [PATCH v2 17/20] ARM: dts: omap3pandora: Describe sound card
+Date: Tue, 24 Nov 2026 08:25:57 +0100
+Message-ID: <0269f30c3f766431c0c20a36fd6e2b2dce1b3f2f.1795505160.git.hns@goldelico.com>
 X-Mailer: git-send-email 2.56.0
 In-Reply-To: <cover.1795505160.git.hns@goldelico.com>
 References: <cover.1795505160.git.hns@goldelico.com>
@@ -116,66 +117,85 @@ X-Spam-Status: No, score=-16.6 required=3.0 tests=BAYES_00,DKIM_INVALID,
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-Extend the PCM1754 device tree binding to describe the related
-PCM1773 stereo DAC.
+From: Stefan Leichter <sle85276@gmx.de>
 
-Add the ti,pcm1773 compatible string and an optional enable-gpios
-property for the PCM1773 power-down input. The format-gpios property
-selects the hardware audio format.
+Describe the OpenPandora sound card and its connections to the external
+PCM1773 playback DAC and TWL4030 capture codec in the device tree.
 
+Provide the amplifier GPIO and power supply, the DAPM widgets and
+routing, and the McBSP audio links needed by the DT-based sound card
+driver.
+
+Signed-off-by: Stefan Leichter <sle85276@gmx.de>
 Signed-off-by: H. Nikolaus Schaller <hns@goldelico.com>
 ---
 
 Notes:
     Changes against V1:
-    - The standalone PCM1773 binding from V1 was replaced by an
-      extension of the existing PCM1754 binding. Address Krzysztof
-      Kozlowski's request to use current bindings and validate the
-      schema, as well as the DT validation failures reported by
-      Rob Herring's bot.
-    - Add the rationale for the compatible and optional enable GPIO to
-      the commit message.
-    - Commit-message review assisted by ChatGPT.
+    - Historical origin: 570cb6f3073f (Stefan Leichter, 2020-06-29).
+    - The original history also contains a Signed-off-by from Grond; this has not been carried forward without renewed confirmation.
+    - The sound-card routing, codec phandles and amplifier supply have been reviewed in the V2 series.
+    - Code and commit-message review assisted by ChatGPT.
 
- .../devicetree/bindings/sound/ti,pcm1754.yaml          | 10 ++++++++--
- 1 file changed, 8 insertions(+), 2 deletions(-)
+ .../dts/ti/omap/omap3-pandora-common.dtsi     | 38 +++++++++++++++++++
+ 1 file changed, 38 insertions(+)
 
-diff --git a/Documentation/devicetree/bindings/sound/ti,pcm1754.yaml b/Documentation/devicetree/bindings/sound/ti,pcm1754.yaml
-index a757f737690c1..ee2ebd819db00 100644
---- a/Documentation/devicetree/bindings/sound/ti,pcm1754.yaml
-+++ b/Documentation/devicetree/bindings/sound/ti,pcm1754.yaml
-@@ -4,10 +4,10 @@
- $id: http://devicetree.org/schemas/sound/ti,pcm1754.yaml#
- $schema: http://devicetree.org/meta-schemas/core.yaml#
- 
--title: Texas Instruments PCM1754 Stereo DAC
-+title: Texas Instruments PCM1754/PCM1773 Stereo DAC
- 
- description:
--  The PCM1754 is a simple stereo DAC that is controlled via hardware gpios.
-+  The PCM1754 and PCM1773 are stereo DACs controlled through hardware pins.
- 
- maintainers:
-   - Stefan Kerkmann <s.kerkmann@pengutronix.de>
-@@ -19,12 +19,18 @@ properties:
-   compatible:
-     enum:
-       - ti,pcm1754
-+      - ti,pcm1773
- 
-   vcc-supply: true
- 
-   '#sound-dai-cells':
-     const: 0
- 
-+  enable-gpios:
-+    maxItems: 1
-+    description:
-+      GPIO used to control the PCM1773 power-down input (/PD)
+diff --git a/arch/arm/boot/dts/ti/omap/omap3-pandora-common.dtsi b/arch/arm/boot/dts/ti/omap/omap3-pandora-common.dtsi
+index 6e349f7ae6936..a5633d93547a3 100644
+--- a/arch/arm/boot/dts/ti/omap/omap3-pandora-common.dtsi
++++ b/arch/arm/boot/dts/ti/omap/omap3-pandora-common.dtsi
+@@ -69,6 +69,41 @@ dac: pcm1773-codec {
+ 		vcc-supply = <&vsim>;
+ 		enable-gpios = <&gpio4 22 GPIO_ACTIVE_HIGH>; /* GPIO 118 */
+ 		status = "okay";
++		#sound-dai-cells = <0>;
++	};
 +
-   format-gpios:
-     maxItems: 1
-     description:
++	sound: sound {
++		compatible = "openpandora,omap3pandora-sound";
++		status = "okay";
++
++		label = "OpenPandora";
++
++		amp-gpios = <&gpio1 14 GPIO_ACTIVE_HIGH>;
++		amp-supply = <&aux_5v>;
++
++		widgets =
++			"Line", "Line Out",
++			"Line", "Line In",
++			"Headphone", "Headphone Jack",
++			"Microphone", "Mic (internal)",
++			"Microphone", "Mic (external)";
++
++		routing =
++			"DAC1", "APLL Enable",
++			"DAC2", "APLL Enable",
++			"Headphone Amplifier", "VOUTL",
++			"Headphone Amplifier", "VOUTR",
++			"Line Out", "VOUTL",
++			"Line Out", "VOUTR",
++			"Headphone Jack", "Headphone Amplifier",
++			"AUXL", "Line In",
++			"AUXR", "Line In",
++			"MAINMIC", "Mic (internal)",
++			"Mic (internal)", "Mic Bias 1",
++			"SUBMIC", "Mic (external)",
++			"Mic (external)", "Mic Bias 2";
++
++		sound-dai = <&mcbsp2>, <&dac>;
+ 	};
+ 
+ 	gpio-leds {
+@@ -736,6 +771,9 @@ &mcbsp1 {
+ /* audio DAC */
+ &mcbsp2 {
+ 	status = "okay";
++	#sound-dai-cells = <0>;
++	clocks = <&mcbsp2_fck>, <&mcbsp2_ick>;
++	clock-names = "fck", "ick";
+ };
+ 
+ /* bluetooth */
 -- 
 2.56.0
 
