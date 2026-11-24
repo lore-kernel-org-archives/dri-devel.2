@@ -2,167 +2,100 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 660F1606A321
-	for <dri-devel@archiver.kernel.org>; Tue, 24 Nov 2026 15:52:10 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E37DA606A692
+	for <dri-devel@archiver.kernel.org>; Tue, 24 Nov 2026 15:54:13 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=b844NRNV;
-	dkim=pass (1024-bit key, unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=selector1 header.b=Mu3pKCkd
+	dkim=pass (1024-bit key) header.d=samsung.com header.i=@samsung.com header.a=rsa-sha256 header.s=mail20170921 header.b=K9dnZ1cV
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id CC6EC10F6D9;
-	Tue, 24 Nov 2026 15:51:59 +0000 (UTC)
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.21])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 4E0FD10F6D9;
- Tue, 24 Nov 2026 15:51:48 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1795535508; x=1827071508;
- h=date:from:to:cc:subject:message-id:references:
- content-transfer-encoding:in-reply-to:mime-version;
- bh=4r1ffuAeYkuVMmlvNr6ieWt2CgKbqXVsdvSbsofAjfo=;
- b=b844NRNVppacU6bZ997nYuADjLhNNH891Ve/wfSm6w4xh8nEsVVjtbgy
- lVoZBvzuF7vX0JalnGKmg6wjkfBF8F7v9RhVPKS/CldsR1y6yDLsji7uc
- UpISlTRpIPA4BHHelyrB3uBliz+9D8L04GNVzCL9H78VtnHA7pFhTS3a6
- ByK3yP76qgxe5yXGzAL39tmEtEO50YY4NLB5MUe9ZfZmsAuafdUoA2crD
- 4hZXAegWX3EVy8+g0gtfM7rTVkiCUfXcckF4bLLH8IcgX9A6fV0WRfDH0
- yYmKdTYEJ56JSFmH94jfb8z34GHNjZGwqO/xetaObbHcJyKWGux718bab w==;
-X-CSE-ConnectionGUID: HtY0RuWdShaGFU0PzT8RZw==
-X-CSE-MsgGUID: d3d20pgsQ4umabNWXcI6yQ==
-X-IronPort-AV: E=McAfee;i="6800,10657,11976"; a="4469482"
-X-IronPort-AV: E=Sophos;i="6.27,231,1787036400"; 
-   d="scan'208";a="4469482"
-Received: from fmviesa004.fm.intel.com ([10.60.135.144])
- by orvoesa113.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 24 Nov 2026 07:29:53 -0800
-X-CSE-ConnectionGUID: bbrgjBjzSxyQo1Ied2u+2A==
-X-CSE-MsgGUID: DLuAqGJqSSiXkqCAGietOw==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,231,1787036400"; d="scan'208";a="11569140"
-Received: from fmsmsx902.amr.corp.intel.com ([10.18.126.91])
- by fmviesa004.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 24 Nov 2026 07:29:53 -0800
-Received: from FMSMSX902.amr.corp.intel.com (10.18.126.91) by
- fmsmsx902.amr.corp.intel.com (10.18.126.91) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.57; Tue, 24 Nov 2026 07:29:52 -0800
-Received: from fmsedg903.ED.cps.intel.com (10.1.192.145) by
- FMSMSX902.amr.corp.intel.com (10.18.126.91) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.57 via Frontend Transport; Tue, 24 Nov 2026 07:29:52 -0800
-Received: from CH4PR04CU002.outbound.protection.outlook.com (40.107.201.5) by
- edgegateway.intel.com (192.55.55.83) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.57; Tue, 24 Nov 2026 07:29:52 -0800
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=GX3JktNCElt0/QkRE6nWzInxvuXTz5Xx+uqCGlwpLejvMN2ThQ3ihs/S8SzgOBZFofHqD75iOPb7GpSt+Uca9swQEIddutNTAjMZqkopCcE5YLuXVd2uOeYaU360rInGtfeNcrKutw3MFfrRxcsW2kMpP3yfCascmR1qy2zJ9/w6ilzh7AiA3YI6LguDjLk2kFg+/R4hdrLw1pZvoRkf9tyRO2M5IvpYjt08tEOLWdr2V0hGa121Xi6hclk57HW8kzGQpZ5jZ2c88bQoZUU87hqnSTG3e3LIbYmH78fI1S0HUNGHpY+tP3+6JgNvqhq1IXf568cYceqEq9pN3AT4rw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=s02IWw27U7bML5YHS2JN6O2x2NE89xsxbTKwyFrbzUc=;
- b=rnkGpbXennGKQ7x4K6wOr9nvAdyFS1rhoe7Pv5Mp2HHaKbocbX13MMsjwcg0vppEJLKOnd9Y+t82BpBX1zk4jzXMfNM0bGEJhpVuKlu/5ieIsxQelW8zyeFTYWaF2InftCzw24vqIAs/dg69y2K9C5a3srreNND0rr4Hn38vdTIMfRnKLg+g6IdD7o0sXufAthoFvuu/wTqug4ltlAgi0bSo/tQS1/MCO/MZr2JNISVOOGFu3o72Yv6i2dRv1AhQwYu6HpNDSmY/XKOFeMr7QmOCp5Ddjtn4IViLlp6iKEmoCzfsVwTccya4bWJwZIgHOApU5u0AvpLLss9XZTgrrQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=intel.com; dmarc=pass action=none header.from=intel.com;
- dkim=pass header.d=intel.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=intel.com; s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=s02IWw27U7bML5YHS2JN6O2x2NE89xsxbTKwyFrbzUc=;
- b=Mu3pKCkdSbDrbKzXwiYnSsZa3cS9kdxlqjJF7PhKsiJteZHZkcuqYn0pHwPB0wraNhDTVq2Ac+YdMdRYS95YBuevaOLfMXmCRLSF/s2fY8iR+SoLUUvR4TJrNQzbOb0d2MG5N7LN4unUF8VbfNJAClFMjXAlT/5AC7bBKGshlgQ=
-Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=intel.com;
-Received: from DS7PR11MB5990.namprd11.prod.outlook.com (2603:10b6:8:71::5) by
- DS0PR11MB7957.namprd11.prod.outlook.com (2603:10b6:8:f8::7) with
- Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.639.14; Tue, 24 Nov 2026 15:29:49 +0000
-Received: from DS7PR11MB5990.namprd11.prod.outlook.com
- ([fe80::133c:5eed:3aec:b899]) by DS7PR11MB5990.namprd11.prod.outlook.com
- ([fe80::133c:5eed:3aec:b899%3]) with mapi id 15.21.0639.011; Tue, 24 Nov 2026
- 15:29:49 +0000
-Date: Tue, 24 Nov 2026 10:29:45 -0500
-From: Rodrigo Vivi <rodrigo.vivi@intel.com>
-To: =?utf-8?Q?Micha=C5=82?= Grzelak <michal.grzelak@linux.intel.com>
-CC: Dave Airlie <airlied@gmail.com>, <dri-devel@lists.freedesktop.org>,
- <intel-xe@lists.freedesktop.org>, Ian Forbes <ian.forbes@broadcom.com>,
- Christian =?iso-8859-1?Q?K=F6nig?= <christian.koenig@amd.com>,
- =?utf-8?Q?Micha=C5=82?= Grzelak <michal.grzelak@intel.com>
-Subject: Re: [PATCH v1 1/1] drm/ttm/tests: do not count pages after pool's
- teardown
-Message-ID: <awWtaej2_LwbdgAM@intel.com>
-References: <20261124004312.3880264-1-michal.grzelak@linux.intel.com>
- <20261124004312.3880264-2-michal.grzelak@linux.intel.com>
- <CAPM=9tz_nwv4Cy5N_ihBqp6JS5rghETbJYiub4aVrJh=wy2-iQ@mail.gmail.com>
- <dme6l2hqdoxoavmormwnskhzogx6ojevu7aofnokbtqx2yl6qf@z3ligafvj6fi>
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <dme6l2hqdoxoavmormwnskhzogx6ojevu7aofnokbtqx2yl6qf@z3ligafvj6fi>
-X-ClientProxiedBy: SJ0PR05CA0153.namprd05.prod.outlook.com
- (2603:10b6:a03:339::8) To DS7PR11MB5990.namprd11.prod.outlook.com
- (2603:10b6:8:71::5)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 55CE910F718;
+	Tue, 24 Nov 2026 15:54:08 +0000 (UTC)
+Received: from mailout2.w1.samsung.com (mailout2.w1.samsung.com
+ [210.118.77.12])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 1422510E23E
+ for <dri-devel@lists.freedesktop.org>; Tue, 24 Nov 2026 15:54:01 +0000 (UTC)
+Received: from eucas1p1.samsung.com (unknown [182.198.249.206])
+ by mailout2.w1.samsung.com (KnoxPortal) with ESMTP id
+ 20261124155400euoutp024e692dce3d51741f7d9d6ebbc4350f9c~rBibLumPb0395103951euoutp02X;
+ Tue, 24 Nov 2026 15:54:00 +0000 (GMT)
+DKIM-Filter: OpenDKIM Filter v2.11.0 mailout2.w1.samsung.com
+ 20261124155400euoutp024e692dce3d51741f7d9d6ebbc4350f9c~rBibLumPb0395103951euoutp02X
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=samsung.com;
+ s=mail20170921; t=1795535640;
+ bh=a9DlrBpTXP3SxSXxY8BIeCR01XfjmXmHzzefSbjG2bg=;
+ h=From:Subject:Date:To:Cc:References:From;
+ b=K9dnZ1cVMLD0aLvTIBZiGiR+whJbgTpupIcNJ/JOMUjEKdGVoSA5GSKrZ87KQ8ewj
+ 31s0JCRGv1YliorjkrVrPkrz8Pt1rGHTbZojSktIElb0PGR5pjf1aBTpt0bX6g9NkO
+ 2E3Wc/o4ryX9Uu0UQwtkAlh4VjZ3PSKCjflwBDa4=
+Received: from eusmtip1.samsung.com (unknown [203.254.199.221]) by
+ eucas1p2.samsung.com (KnoxPortal) with ESMTPA id
+ 20261124155359eucas1p2f7d4e5137f38415561ce77fd55023466~rBia2vwKs0317003170eucas1p2C;
+ Tue, 24 Nov 2026 15:53:59 +0000 (GMT)
+Received: from AMDC4942.eu.corp.samsungelectronics.net (unknown
+ [106.210.136.40]) by eusmtip1.samsung.com (KnoxPortal) with ESMTPA id
+ 20261124155357eusmtip1739f75ba69357ed7726b980a7ffc7bae~rBiZCf8sG3070630706eusmtip1e;
+ Tue, 24 Nov 2026 15:53:57 +0000 (GMT)
+From: Michal Wilczynski <m.wilczynski@samsung.com>
+Subject: [PATCH v8 00/18] drm: starfive: jh7110: Enable display subsystem
+Date: Tue, 24 Nov 2026 16:52:36 +0100
+Message-Id: <20261124-jh7110-clean-send-v8-0-de92635dd857@samsung.com>
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: DS7PR11MB5990:EE_|DS0PR11MB7957:EE_
-X-MS-Office365-Filtering-Correlation-Id: d67e075f-3a77-4723-d735-08df4a3fc6d7
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
- ARA:13230040|1800799024|376014|366016|23010399003|261028144727099003|10067099003|4143699003|11063799006|56012099006|261022105027099003|261009223027099003|261021135927099003|261022075727099003|261026140227099003|261026121527099003|18002099003|22082099003;
-X-Microsoft-Antispam-Message-Info: V2BO4SBPUGGnkofEGzP2mNHagR5P1TNzLC7Rzai+RfGWZjzfNklbj3L9FV5Uiudga/o+YjKgcMvi+eUI7l13KwLSKKF34xtaQojBfwyHCu2jSUwHjIZb75dZoX8U0nbHRHgPV3I50uYSxi6j+y85vFp4GYNlyDA3HwQQDVh9mVscg01qBhLwkQimVRkYGK3XnO82MGxWIYgn/nEpBF5ebqQ22FtCS8b9CbiHYu8V8rk0AkCoQ9V63WzmwJNB1bXCUjmqHkuhwv1AMKTJPeSz0/YWoekuBsIscAHn9SXfkYO5PsX6BGcP2P+qrkrLh0Jk3awGfvSV71FMej4aQUK11LuES2M9cEk0Q5LFTJQhfHvz6IOl+aNYHTmiQWWVjcors36B0p4pr+u7BLFAG3bKwe1h4Qu1CQujZdOFMRuU9njAs1PjGn/Be/bfkPtRkl0aB1Ec1l7sxNGqlOg1+4bGz4xafzGWtndkkdV7JFdO9Z+tyOGPulTs++LIJfJ2NUMrIaAgHMhdoDuKEgOpRQiQQcs+uyuibFZLuUGFQukGDZBkrWYIwa0xetBRVrBGPwjrXKLey9iUxjaZYnPsMXxsYIkGBICD0ay0Nt6CFaeZoZu/AmeayLz8zzsLjHwNkreLIo7TKfN8Kcyv1SsvNvSMdSgkT3dptwhYxhX/ozlZjd4=
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:DS7PR11MB5990.namprd11.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(1800799024)(376014)(366016)(23010399003)(261028144727099003)(10067099003)(4143699003)(11063799006)(56012099006)(261022105027099003)(261009223027099003)(261021135927099003)(261022075727099003)(261026140227099003)(261026121527099003)(18002099003)(22082099003);
- DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?RkVmdVZPakJJL1p3dTVIY1hTVU5GMUVNb01QR2taMU1LaHBVNzhOL3plNHFN?=
- =?utf-8?B?Y0tjWUtJcG9IMjFTSFlUZklaVTVhUXdJQXNxUC9vbHVRQ2EwRXErMlhiRGhs?=
- =?utf-8?B?cGJSNVhDc0xJcmhPa3NDOTd1Nks2Sm9Fc04wT2YveVV6NDlFQjNXenJsS2lR?=
- =?utf-8?B?UXozSUNHa1JiNWFxT2w3akJKcnJwTWVTUTVZaXhLK3M5UEZLNnJpQ2taaXFS?=
- =?utf-8?B?cGY2Mkl1cG15NTl3K3BReURVekJQaWRwWkJoekVLVXpsRVZUNzVGTzhGeHF6?=
- =?utf-8?B?YVg5YWMxSlNRMzdBVmdqU1htaHVXTDZNdkRZYlV0MGlxelR4a3IxZHZHVklT?=
- =?utf-8?B?YlJCSGd6NnpiN2NhYjcxOTFXNm4rMk1kMHkyN2xQbm9uYStvdER5Yk5jQlBt?=
- =?utf-8?B?cFNYTTQvYzl4eG5rNzVYK2ZGMmd2RGlHVmtBOUF6ekxDU2Rpb3NoN3ZJdHY3?=
- =?utf-8?B?YmdQSXZGZExvRVdkdWRNbC9TV3hYbW4yT0UwTFgzOHZZK3VFYmRyWlhHVnZS?=
- =?utf-8?B?RFhWb0RUY1M2YjNsOTFiMFdEZVBsK1FQZzhvT2ljU1RTVFREc1Bmc25sbWR3?=
- =?utf-8?B?bE1OUGltRlN0OFMyaGVqckJ5ZDhoeVpSRml6d1lDQjkydnd6M2Z2aEtoUVNR?=
- =?utf-8?B?SWpyMHcrRzI2dVBEOGdWQUJiczBNNmlKQTFrZkNkT2JUZURIakdudnhaQnhX?=
- =?utf-8?B?Vm1XUmZ3L1M3WVRsSEZvbUh3OGhhc1ArWUU3TWxjUHJUcGdNT0hJT1ZyMWln?=
- =?utf-8?B?SVZYOWw2Tm5jYkxxZUVFZ1ZZbHJuQmNWMjg3RmZzUUdSS3FEV0EvM2lwZzBa?=
- =?utf-8?B?L3lkdU9ETjlyNDlaZnNNbW13VW5xbW80WHIyNDdBTVRkbmZhM1hzUStWUW95?=
- =?utf-8?B?L3YwanRkdkdxMFplWkNlRElYTnJsTXNvSzRkL3BuN0ErN3RSM2psaDZXWG5J?=
- =?utf-8?B?S1V1S0hyRWx1WSs1QzM1OWpsNWV5NjNpNG03UGdaeFlmdFplbU9rZG4xMnZG?=
- =?utf-8?B?dUtaR0hqYnYzSzBEVVVwSHQvS0VYNVNUN3ZZTXY5aWJnMFMwWjBjODljeWJm?=
- =?utf-8?B?T1NaUGFUYmRSY3NZWGV3UmpYTUdhTC9XcU1jRjJrRHQrZnJiUnhnN00zRjNF?=
- =?utf-8?B?RncwdldQSnFONDhZdEtUcU9QTkJFR21mSW5tKzdGOFkvWmVtbFduWGhyT2V3?=
- =?utf-8?B?cWRCaWN6Q281NDA3MitWTGp6T3BhV1NTVlhDNDFDR01UcWlSbnZxdTljaWdh?=
- =?utf-8?B?WndnWDVER3BpMWtFNGtJZUZHMGVoM2ovQzZZL3p6cmtHZFdsb0RyTnBmMXox?=
- =?utf-8?B?dTNDZmxwMEtBMDFOdWZJK096WFREKzdsOWkzVVpHQldPTlZGR1VNYlYwMFl1?=
- =?utf-8?B?NklXR0NUL3hmUnZZRDFnTW04VHJNL2MybFZkcG9pYjhBNUgxWmRzT1JVY3hM?=
- =?utf-8?B?aU1relpBMXA1YitHTFBnVnFxQnpMaUN1Q0lIZkp4RGRCUVIxYTJSSTh5bjFF?=
- =?utf-8?B?bEFHaUhUaWZvdC93djBoRXF3bkV2UUpCeEFIMzk1TWxDTnJDWktqd0Nka0dk?=
- =?utf-8?B?T0ZBRlhYM1pUVmhST0cyckhnWmlaeitCejErcTdJcWVKZk8rNHBMOE5ZWVUy?=
- =?utf-8?B?bnNockNMcGVSRVNDeFVGb0xmRWgrU2x4OXdKQ2dOV2o3V3RKUnlFZzhrM3lu?=
- =?utf-8?B?cEpZb21tRWtLZnJrV3lsYVRvcDZydHpja05MVDlSN05EcEYxak1TVWdzdkFF?=
- =?utf-8?B?L1lWYTArQzJOQzFKQk5ET1RwYXVZVTRwMk5QMk9vOHliQzZ6KzZnMzJRelJI?=
- =?utf-8?B?d3RJcHNTN01WdUIrTWRxdDJFSGxKTkhZNzRXeUdhTzBwR2JtUXBNU2hzTEdF?=
- =?utf-8?B?NTcyMGJuWWJCTDVUN1ZTa2ZQUnJYRmpWRjhnYTVCQVZBUGcreGxuMitCL2tY?=
- =?utf-8?B?enJOcG5LNUJqVDBzOFkraVhWNUhIemhKbUs4WWZoa21WWTJsWTJUWXN3Y0lh?=
- =?utf-8?B?d2Y0QkV5bFluZit4R3pIQWd3a2lhS0tBK0lNdVd0V0tSOVUxcUpqZkxxelp6?=
- =?utf-8?B?U2xnenpXUVUrTTJieFEyTUwvZFY4dVhoNzlVOVhxSGFDbEdiZXRUdEpNZFg4?=
- =?utf-8?B?L29hWGprMjF6L0ZXNXBSYnNhd0dORHdvK0dUZUI2SlVUWXdyZU11SjIweU1r?=
- =?utf-8?B?cVFjZmxrSm94UzgrYk1pVmdkWkIvWWFqSDJwQWRuek5abGV4aS9QdkU1YlFk?=
- =?utf-8?B?QU1TV3NYT2Q2dXc4K3VGV1BFQm1KK0VyQ1FZQmpYbWFpOW1sL0lhRzRVZkpY?=
- =?utf-8?B?VzRZYnE2YUswUVU4QmZCK0ZiMjk5MW5BYjlsY0Q3dE80aVJzTC9NUT09?=
-X-Exchange-RoutingPolicyChecked: UdWenJlT6HNHdJ0bHliSs75sPa0tgOLg4YogrUEwBajqWoeA+GSWctAsQGF22XnSW/wThu/AfPVRInwBdyEUsZsgTh4Pekp7tyO6fadb0IGoqjymCIcLh9l2E0nvTEyIwRzC9gyrFbaCC9qw0s6jHeQyMTL+OQoDx9L6tbdDGFPVUXLF5tse9PDwbI46p4IZynxmNjLNwlNTk0MMHOTLKLxgZ6beGHsg7KvvVugGJKS17nZ/r6W2vaBZFCDzXo0S4zqKnZG2PztUCgxe7mwKEY+zQvtBDSfl9GK6tGRz9PlJbHC0BnzqQcBmAkGil14cF6maC6CvuKN8fRIMwh+eUA==
-X-MS-Exchange-CrossTenant-Network-Message-Id: d67e075f-3a77-4723-d735-08df4a3fc6d7
-X-MS-Exchange-CrossTenant-AuthSource: DS7PR11MB5990.namprd11.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 24 Nov 2026 15:29:49.1403 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 46c98d88-e344-4ed4-8496-4ed7712e255d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: FLkx7T9JQRepxK05izdvUJpW0+UfsoXOsbCkqnwaZaW1/GFaMeYAUY5BW6l7NiIP+YciRQ4Tr+bHGqsuJRP4Ug==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DS0PR11MB7957
-X-OriginatorOrg: intel.com
+Content-Transfer-Encoding: 8bit
+X-B4-Tracking: v=1; b=H4sIAMWyBWsC/4XSyU7DMBAG4FeJfMbI+5IT74E4eBk3RjQpcRtRV
+ X13nBZ1USJxHFvz/V7mhAqMGQpqmxMaYcolD30tzEuDQuf6DeAca40YYZISTvFnpyklOHyB63G
+ BPmIdGROMUkOYQrVvN0LKPxfz/aPWXS77YTxeIiY2r86aIoaZFW1imGDOqTIkGG8jfStuWw795
+ jUMWzR7E78blog1g1fDkWC99ElYDU/GS/NvrzAiWQeaaSqX+eIhn8o1Q1QjERApqsRCMEtDPhj
+ MrhmyGoZ5EQ3woIJeGupmULJuqGpoaaUVILgLaWnou0GJWjN0NZRJGpy1lEf/bJyvHz7C96HOz
+ v7668i7Arjub/O+baRKwTvBTUwyqkCS9+Brip5fR6YkfGQ2MIIeZ65t/u51m5Hc9wPu4jbjXXf
+ EhoMMySnBgbeTqQc5/wJO8ywUzAIAAA==
+X-Change-ID: 20251031-jh7110-clean-send-7d2242118026
+To: Neil Armstrong <neil.armstrong@linaro.org>,  Rob Herring
+ <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,  Robert Foss
+ <rfoss@kernel.org>,  Laurent Pinchart <Laurent.pinchart@ideasonboard.com>, 
+ Jernej Skrabec <jernej.skrabec@gmail.com>,  Luca Ceresoli
+ <luca.ceresoli@bootlin.com>,  Maarten Lankhorst
+ <maarten.lankhorst@linux.intel.com>,  Maxime Ripard <mripard@kernel.org>,
+ Thomas Zimmermann <tzimmermann@suse.de>,  Philipp Zabel
+ <p.zabel@pengutronix.de>,  Emil Renner Berthing <kernel@esmil.dk>,  Hal Feng
+ <hal.feng@starfivetech.com>, Heiko Stuebner <heiko@sntech.de>,  Paul
+ Walmsley <pjw@kernel.org>, Palmer Dabbelt <palmer@dabbelt.com>,  Albert Ou
+ <aou@eecs.berkeley.edu>, Alexandre Ghiti <alex@ghiti.fr>,  Dominique
+ Belhachemi <db@domibel.de>, Andy Yan <andyshrk@163.com>,  David Airlie
+ <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,  Yakir Yang
+ <kuankuan.y@gmail.com>,  Dmitry Baryshkov
+ <dmitry.baryshkov@oss.qualcomm.com>,  Michal Wilczynski
+ <m.wilczynski@samsung.com>,  Conor Dooley <conor@kernel.org>, William Qiu
+ <william.qiu@starfivetech.com>,  Xingyu Wu <xingyu.wu@starfivetech.com>,
+ Sandy Huang <hjc@rock-chips.com>,  Manivannan Sadhasivam <mani@kernel.org>
+Cc: devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+ dri-devel@lists.freedesktop.org, linux-arm-kernel@lists.infradead.org, 
+ linux-rockchip@lists.infradead.org, linux-riscv@lists.infradead.org,  Marek
+ Szyprowski <m.szyprowski@samsung.com>,  Maud Spierings
+ <maud_spierings@murena.io>,  Graham Markall <hello@big-grey.co.uk>,  Icenowy
+ Zheng <zhengxingda@iscas.ac.cn>,  Chaoyi Chen <chaoyi.chen@rock-chips.com>, 
+ Joshua Peisach <jpeisach@ubuntu.com>,  =?utf-8?q?Uwe_Kleine-K=C3=B6nig?=
+ <u.kleine-koenig@baylibre.com>,  Cristian Ciocaltea
+ <cristian.ciocaltea@collabora.com>,  Byron Stanoszek <gandalf@winds.org>,
+ Owen O'Hehir <oo.hehir@gmail.com>,  Conor Dooley
+ <conor.dooley@microchip.com>,  Krzysztof Kozlowski
+ <krzysztof.kozlowski@oss.qualcomm.com>
+X-Mailer: b4 0.15-dev
+X-Developer-Signature: v=1; a=openpgp-sha256; l=20463;
+ i=m.wilczynski@samsung.com; h=from:subject:message-id;
+ bh=tuXxBvj483ixUA2sd0khuD9b/N/serGN7Udewm1u1us=;
+ b=owGbwMvMwCGWumv6zndzRCIZT6slMWSzbhZZcrC0ZPE+HuZtGo0mz2fOZw03ZDrus0nrr8Gly
+ 7NzOTwedJSyMIhxMMiKKbKc3RhtJPmP4Wn58ce/YOawMoEMYeDiFICJ6Fox/DN85TdN+r+y6ZIz
+ c+3lWUUl52i/2K7AM+euHPuq4w9Ujdcw/LPRXHTmcP/sFS84WzRdZmkYeYYwrFzpLlQ8d06L4Pf
+ Y2RwA
+X-Developer-Key: i=m.wilczynski@samsung.com; a=openpgp;
+ fpr=CDB15B3219FE00E577C7E3FA65BA97B9EE9C1459
+X-CMS-MailID: 20261124155359eucas1p2f7d4e5137f38415561ce77fd55023466
+X-Msg-Generator: CA
+Content-Type: text/plain; charset="utf-8"
+X-RootMTR: 20261124155359eucas1p2f7d4e5137f38415561ce77fd55023466
+X-EPHeader: CA
+X-CMS-RootMailID: 20261124155359eucas1p2f7d4e5137f38415561ce77fd55023466
+References: <CGME20261124155359eucas1p2f7d4e5137f38415561ce77fd55023466@eucas1p2.samsung.com>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -174,79 +107,384 @@ List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-10.8 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
+X-Spam-Status: No, score=-13.8 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
 	DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
-	INCLUDES_CR_TRAILER,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS
-	autolearn=unavailable autolearn_force=no version=4.0.1
+	INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,
+	USER_AGENT_GIT autolearn=unavailable autolearn_force=no version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-On Tue, Nov 24, 2026 at 09:15:27AM +0100, Michał Grzelak wrote:
-> On Tue, Nov 24, 2026 at 11:41:35AM GMT, Dave Airlie wrote:
-> > On Tue, 24 Nov 2026 at 11:01, Michał Grzelak
-> > <michal.grzelak@linux.intel.com> wrote:
-> > >
-> > > Currently ttm_pool_fini_basic() checks if page count of pool-type's lru
-> > > list is zero after tearing down its pre-populated pool.
-> > >
-> > > After commit 5ffdc8f83613 ("ttm/pool: Don't leak LRU list on shutdown")
-> > > this check causes NULL dereference because page's lru list is destroyed
-> > > during pool's teardown which leads to KUnit's crash:
-> > >
-> > > [20:08:24] ========== [PASSED] ttm_pool_alloc_basic_dma_addr ==========
-> > > [20:08:24] [PASSED] ttm_pool_alloc_order_caching_match
-> > > [20:08:24] [PASSED] ttm_pool_alloc_caching_mismatch
-> > > [20:08:24] [PASSED] ttm_pool_alloc_order_mismatch
-> > > [20:08:24] [PASSED] ttm_pool_free_dma_alloc
-> > > [20:08:24] [PASSED] ttm_pool_free_no_dma_alloc
-> > > [20:08:25] [ERROR] Test: ttm_pool: missing expected subtest!
-> > > [20:08:25]
-> > > [20:08:25] Pid: 80, comm: kunit_try_catch Tainted: G        W        N  7.4.0-rc4-g401a3e7b64d1
-> > > [20:08:25] RIP: 0033:list_lru_count_node+0xe/0x20
-> > > [20:08:25] RSP: 00000000a08dbef8  EFLAGS: 00010246
-> > > [20:08:25] RAX: 0000000000000001 RBX: 00000000a0803c70 RCX: 0000000000000020
-> > > [20:08:25] RDX: 0000000000000001 RSI: 0000000000000000 RDI: 0000000060853030
-> > > [20:08:25] RBP: 0000000060853000 R08: 00000000a08dbe98 R09: 00000000601246ac
-> > > [20:08:25] R10: 000000009f227d00 R11: 0000000000000000 R12: 0000000060124640
-> > > [20:08:25] R13: 0000000060853030 R14: 000000006047c950 R15: 00000000604c6488
-> > > [20:08:25] Kernel panic - not syncing: Segfault with no mm
-> > > [20:08:25] [CRASHED]
-> > > [20:08:25] [ERROR] Test: ttm_pool: missing subtest result line!
-> > > [20:08:25] # module: ttm_pool_test
-> > > [20:08:25] ==================== [CRASHED] ttm_pool ====================
-> > > [20:08:25] [ERROR] Test: main: missing expected subtest!
-> > > [20:08:25] [CRASHED]
-> > > [20:08:25] [ERROR] Test: main: missing expected subtest!
-> > > [20:08:25] [CRASHED]
-> > > [20:08:25] [ERROR] Test: main: missing expected subtest!
-> > > [20:08:25] [CRASHED]
-> > > [20:08:25] [ERROR] Test: main: missing expected subtest!
-> > > [20:08:25] [CRASHED]
-> > > [20:08:25] ============================================================
-> > > [20:08:25] Testing complete. Ran 28 tests: passed: 23, crashed: 5, errors: 6
-> > >
-> > > The crash in turn prevents Xe CI from running IGT.
-> > >
-> > > Drop the post-teardown assertion.
-> > >
-> > > Fixes: 5ffdc8f83613 ("ttm/pool: Don't leak LRU list on shutdown")
-> > > Cc: Ian Forbes <ian.forbes@broadcom.com>
-> > > Cc: Christian König <christian.koenig@amd.com>
-> > > Signed-off-by: Michał Grzelak <michal.grzelak@linux.intel.com>
-> > 
-> > Reviewed-by: Dave Airlie <airlied@redhat.com>
-> > 
-> > Let's land this and unblock CI and if we need to revisit do it after.
-> > 
-> 
-> Thank you Dave for your review. Could you apply this or help to merge
-> this? I don't have commit bit for drm-misc.
+This series enables the display subsystem on the StarFive JH7110.
 
-I just pushed to drm-misc-fixes.
+Merging: everything except the DT patch goes through drm-misc:
 
-Thanks,
-Rodrigo.
+  drm-misc                     1-16, 18
+    drivers/gpu/drm/bridge/, include/drm/bridge/, the display bindings,
+    and, as Conor asked, the StarFive SoC drivers and bindings (patches
+    4-6, 14 and 15, which carry his Acked-by), since the display
+    bindings and drivers belong together. Patches 1 and 2 are inno-hdmi
+    fixes with Fixes: tags; they apply to Rockchip as much as to StarFive
+    and are independent of the rest, so they can go on their own.
 
-> 
-> BR,
-> Michał
+  Conor's tree                 17
+    The DT patch is included for review and testing only. As Conor
+    asked, I will resend it to him on its own once the rest is applied.
+
+The dc8200 compatible from v7 is already in drm-misc-next, so this
+series is based on drm-misc-next.
+
+This series depends on the PHY series for linux-phy, "phy: Add the
+StarFive JH7110 Innosilicon HDMI PHY" [1], now at v8: the
+jh7110-hdmi-subsystem binding (patch 4) and the vout-subsystem example
+(patch 6) reference the PHY binding, so they need it to pass
+dt_binding_check, and the DT needs the PHY driver at runtime. There is
+no build dependency.
+
+[1] https://lore.kernel.org/all/20261124-jh7110-inno-hdmi-phy-v8-0-5e3008122cba@samsung.com/
+
+There are no out-of-tree dependencies: the dc8200 driver, the th1520
+reset controller and the inno-hdmi bridge that the RFC listed as
+prerequisites are all upstream now.
+
+The clk patch that was 14/20 in v4 went in through the clk tree and is
+in v7.4-rc1 (af384d6e0573). The DT patch needs it at runtime for the
+pixel MUXes to follow the PHY.
+
+The dom_vout block holds the display controller (dc8200), the clock
+generator (voutcrg) and the HDMI IP, all inside PD_VOUT. The HDMI IP is
+a single register block containing both the controller and the PHY,
+which are described as separate children because they have separate
+resources:
+
+  - the PHY takes only the 24 MHz reference clock, and provides the
+    pixel clock that voutcrg routes on to the dc8200 pixel MUXes, and
+    the phy the controller uses
+  - the controller takes pclk/mclk/bclk from voutcrg
+
+It is the same Innosilicon PHY that the RK3328 describes as its own
+hdmiphy node; here it shares a register window with the controller.
+
+The parent maps the register block and owns the regmap its two children
+share. Everything in the region sits behind one NoC port whose clock and
+reset gate access to it, inside PD_VOUT, so the vout subsystem node from
+the RFC is back and owns those for as long as any child exists.
+
+Patch 10 adds a .mode_valid platform op to inno-hdmi.
+inno_hdmi_bridge_mode_valid() checks the pixel clock against
+hdmi->refclk, but that clock only exists where a "ref" clock is
+described. The JH7110 gets its pixel clock from the PHY, so refclk is
+NULL and the check was skipped: unsupported modes were advertised, the
+modeset then "succeeded" because the atomic enable path cannot fail, and
+the display stayed blank.
+
+Patch 11 makes the inno-hdmi PHY configuration table optional. The
+JH7110 drives its PHY through a separate driver, so the table only ever
+existed to get past a probe time check, and the pre-emphasis and
+drive-strength writes it fed belong to the integrated PHY the JH7110
+does not have.
+
+Patch 13 makes the HDMI version inno-hdmi advertises selectable. Since
+v7.4-rc1 it advertises HDMI 1.2 for every integration, which caps the
+TMDS character rate at 165 MHz. That fits Rockchip, but on the JH7110,
+which supports HDMI 1.4b, it hid all eight 3840x2160 and 4096x2160
+modes. Rockchip keeps HDMI 1.2.
+
+Patches 1, 2 and 7-13 change the inno-hdmi bridge, which the Rockchip
+RK3036 and RK3128 use as well. Patch 8 moves its register access to a
+regmap, Rockchip included. I have no Rockchip hardware, so on Rockchip
+they are build tested only (arm and riscv). A Tested-by would help.
+
+Testing
+=======
+
+Tested on a VisionFive 2 v1.3B using modetest, with the PHY series
+applied.
+
+All 42 modes the sink advertises work, with nothing in dmesg. Pixel
+clocks run from 25.175 MHz (640x480@59.94) up to 297 MHz
+(4096x2160@30), including 3840x2160 and the full 1920x1080 and 1280x720
+rate families.
+
+The four modes the RFC reported as broken work now too: 2560x1440@59.95,
+2048x1080@60.00, 2048x1080@24.00 and 720x400@70.08.
+
+Before patch 10, four of the advertised modes failed: 1680x1050@59.95
+(146.250 MHz), 1400x1050@59.98 (121.750), 1152x864@59.97 (81.768) and
+1280x768@60.35 (80.140). Those pixel clocks are not in the PHY pre-PLL
+table, so clk_set_rate() returned -EINVAL and the screen stayed black
+while userspace saw a successful modeset. They are rejected in
+.mode_valid now; the other refresh rates of those resolutions still work.
+
+The mux the HDMI controller programs in dom_vout_syscon has a DP and a
+DPI branch, and the DT wires the DPI one, so the DP branch was checked
+separately by moving the input endpoint to the DC8200's DP output on a
+throwaway branch. SYSCFG_4 reads 0x4c0b0000 instead of 0x0c0b0000, the
+output is identical to the DPI path and all 42 modes set. Sweeping
+VOUT_HDMI_DP_YUV_MODE over its four values with a mode held shows only
+RGB giving a correct picture, as documented.
+
+Every commit builds for riscv, and the Rockchip inno-hdmi glue also for
+arm.
+
+Notes
+=====
+
+The JH7110 has no central MAINTAINERS entry and maintainership is
+fragmented, so patch 18 adds one for the display subsystem and I am
+happy to help maintain it. The PHY series adds its own entry for the
+JH7110 HDMI PHY.
+
+checkpatch warns "does MAINTAINERS need updating?" on the patches adding
+files, because that entry comes in patch 18.
+
+Thanks to Icenowy Zheng for the dc8200 driver and for explaining how the
+SoC and the display pipeline fit together.
+
+Thanks also to Dominique Belhachemi, who got rid of the vout-subsystem
+wrapper and helped with the testing, to Maud Spierings for testing on a
+Framework 13 panel, to Byron Stanoszek and Owen O'Hehir for testing, and
+to Graham Markall for testing the JH7110 display patches independently
+and writing up the results:
+https://big-grey.co.uk/2026/01/26/testing-starfive-jh7110-display-controller-patches/
+
+Link to v1: https://lore.kernel.org/all/20251108-jh7110-clean-send-v1-0-06bf43bb76b1@samsung.com/
+
+---
+Changes in v8:
+- Rebased onto drm-misc-next, which already has the dc8200 compatible
+  (v7 patch 6, applied by Icenowy), so that patch is dropped
+- Everything except the DT patch now goes through drm-misc, and the DT
+  patch is for review and testing only, to be resent separately (Conor)
+- Patch 2 reports hotplug through drm_bridge_hpd_notify() instead of
+  checking bridge.dev, which also covers the bridge being detached while
+  the interrupt is live, and requests the interrupt after the bridge is
+  added; Heiko's Reviewed-by dropped because the approach changed
+- DT: dc8200 and the HDMI controller are disabled in jh7110.dtsi and
+  enabled in jh7110-common.dtsi; dropped the no-op &voutcrg override
+- Patch 11 commit message says which writes it skips
+- Depends on PHY series v8
+- Collected Conor's Acked-by and Owen O'Hehir's Tested-by
+- Link to v7: https://lore.kernel.org/r/20261106-jh7110-clean-send-v7-0-68f7ea9913db@samsung.com
+
+Changes in v7:
+- Moved the hdmi-subsystem and vout-subsystem bindings from
+  bindings/soc/starfive/ to bindings/display/starfive/ (Conor)
+- inno-hdmi: access the registers only through a regmap, the parent's
+  or an MMIO one over the controller's own resource, instead of keeping
+  two register paths (Heiko). Patch 9 is renamed to "Use a regmap for
+  register access" and drops its Reviewed-by and Tested-by tags, since
+  the Rockchip path changed
+- Trimmed the comment in the NULL drm_device fix (Heiko)
+- Collected Heiko's Reviewed-by on patches 1 and 2
+- Rebased onto v7.4-rc1, which has the clk patch and now creates
+  drivers/soc/starfive/ itself, so patches 15 and 16 add their Kconfig
+  entries to its existing menu
+- New patch 14 makes the advertised HDMI version selectable, and the
+  JH7110 advertises HDMI 1.4. The HDMI 1.2 that v7.4-rc1 advertises for
+  every inno-hdmi user hid the 3840x2160 and 4096x2160 modes
+- Link to v6: https://lore.kernel.org/r/20261029-jh7110-clean-send-v6-0-759594e43acf@samsung.com
+
+Changes in v6:
+- Split the PHY patches into their own series (Vinod)
+- New patch 2: the hotplug NULL drm_device guard is split out of "Split
+  probe out of bind" into its own patch (Heiko)
+- inno_hdmi_bind() takes a platform_device, like dw_hdmi_bind() (Heiko)
+- Describe the HDMI PHY node by its resources rather than by the probe
+  cycle, in the commit messages and the Kconfig help (Krzysztof)
+- Rebased onto v7.3, collected tags
+- Link to v5: https://lore.kernel.org/r/20260929-jh7110-clean-send-v5-0-82b4d8e3c6c7@samsung.com
+
+Changes in v5:
+- Rebased onto v7.3-rc5.
+- Dropped the clk patch, applied as af384d6e0573.
+- New patch 13 makes the HDMI_SYS_CTRL register clock source selectable
+  per platform, and the JH7110 selects the TMDS clock. The driver drove
+  the register interface from the system clock for everyone, and a
+  Framework 13 panel flickers continuously that way (Maud Spierings).
+  Rockchip keeps the system clock, so this is a no-op there. This was
+  listed as a known limitation in v4.
+- New patch 1 fixes v_HSYNC_POLARITY and v_VSYNC_POLARITY, which have
+  been swapped in inno-hdmi since the driver was merged. The hardware
+  puts HSYNC in bit 2 and VSYNC in bit 3, and the driver had them the
+  other way round. Almost all CEA modes drive both syncs with the same
+  polarity, so the two writes are indistinguishable and the bug only
+  shows on a mode whose polarities differ - a band of black rows at the
+  top of the screen, vsync_end - vsync_start + 1 rows tall. Reported
+  independently by Dominique Belhachemi, Maud Spierings and Byron
+  Stanoszek, and confirmed against the RK3128 TRM by Icenowy Zheng, so
+  this is a Rockchip fix too.
+- Added a 201 MHz entry to the JH7110 pre-PLL table for a 2560x1440
+  mode Byron Stanoszek runs on a Dell U2711. It is derived the same way
+  as the neighbouring entries (fbdiv 134, /16, VCO 3.216 GHz) but I have
+  no sink that asks for it, so it is untested on my hardware.
+- Moved the hdmi-subsystem binding from bindings/mfd/ to
+  bindings/soc/starfive/, next to the vout-subsystem binding and matching
+  its driver in drivers/soc/starfive/. The mfd/ path was left over from
+  when the driver was called hdmi-mfd; nothing in the series is an MFD
+  device, and it meant one isolated binding patch would have had to go
+  through the MFD tree on its own.
+- The commit message for "Split probe out of bind" claimed a matching
+  inno_hdmi_remove(); no such function exists, so the claim is gone.
+- Dropped Joshua Peisach's Reviewed-by from the PHY driver patch as well,
+  since that patch changed in v5.
+- Dropped Joshua Peisach's Reviewed-by from the binding patches; he said
+  he is not reviewing DT (Krzysztof Kozlowski). It is kept on the driver
+  patches he did look at.
+- Removed a probe-time clk_set_rate() from the PHY driver. It programmed
+  a default rate, and .set_rate writes PHY registers that live in the
+  window gated by the controller's system clock - a clock the PHY cannot
+  hold without creating a probe cycle with voutcrg.
+- Link to v4: https://lore.kernel.org/r/20260915-jh7110-clean-send-v4-0-f0e4fd6f2cc8@samsung.com
+
+Changes in v4:
+- New patch 11 makes the inno-hdmi PHY configuration table optional, so
+  the JH7110 controller can drop the dummy two entry table it carried
+  only to satisfy the probe time check, along with the integrated PHY
+  register writes that table fed (Icenowy Zheng). That table was also
+  acting as an upper bound: inno_hdmi_find_phy_config() runs before the
+  platform .mode_valid and returns early, so its 297 MHz sentinel
+  rejected every mode above that even though the PHY pre-PLL table has a
+  594 MHz entry. Nothing here advertises such a mode, so it was latent.
+- Fixed a v3 regression: CLK_SET_RATE_NO_REPARENT stops clk_set_rate()
+  from reparenting the dc8200 pixel MUXes, so they kept whatever the
+  bootloader had selected and the display stayed black on boards where
+  that was not the HDMI PHY. They get assigned-clock-parents now (Maud
+  Spierings, Dominique Belhachemi).
+- vout-subsystem binding: describe the children by compatible instead of
+  $ref, as qcom,sm8750-mdss does, and show the whole subsystem with all
+  four children in the example (Krzysztof Kozlowski).
+- Dropped the vout-syscon example from starfive,jh7110-syscon.yaml, it
+  is part of the vout subsystem example now (Krzysztof Kozlowski).
+- Renamed the xin24m node to xin24m-clock (Krzysztof Kozlowski).
+- Fixed the HDMI HPD pinmux: it drove the pin high (GPOUT_HIGH with the
+  output enabled) while also reading it as the hotplug input, so HPD
+  could only ever read asserted. It is an input now.
+- jh7110-inno-hdmi: dropped a regmap lookup whose result was never used;
+  inno_hdmi_probe() fetches the parent regmap itself. The commit message
+  claimed otherwise and is corrected.
+- phy: rockchip: dropped two now unused RK3328 spread spectrum macros
+  the v3 cleanup missed. The register write itself moved to the shared
+  helper and is unchanged, so Chaoyi's Reviewed-by is carried over.
+- inno-hdmi: the hotplug handler dereferenced bridge.dev unconditionally.
+  Splitting probe out of bind moved the interrupt request to probe, so
+  an HPD event before the DRM master attaches the bridge would oops.
+  Guarded.
+- Dropped the <linux/mod_devicetable.h> includes (Uwe Kleine-König).
+- jh7110-inno-hdmi: __free(device_node) for the graph lookups, and
+  dropped the redundant negative check on clk_round_rate() (Chaoyi Chen).
+- phy: rockchip: dropped the recalc_rate debug print that the shared
+  helper already emits (Chaoyi Chen).
+- Rebased onto v7.3-rc3.
+- Link to v3: https://lore.kernel.org/r/20260904-jh7110-clean-send-v3-0-484f9ae72715@samsung.com
+
+Changes in v3:
+- Brought back the vout subsystem node and driver, now owning the NoC
+  bus clock, its reset and PD_VOUT for the whole region, with dc8200,
+  the HDMI block, the syscon and voutcrg as its children (Icenowy Zheng).
+- Fixed a hard hang when the bridge is built as a module: the PHY's
+  .is_prepared read a register in the window gated by the controller's
+  system clock, so clk_disable_unused() wedged the CPU before the
+  controller had bound. The op is gone; the framework uses the software
+  prepare count instead. (Marek Szyprowski)
+- The HDMI controller now programs the display mux in dom_vout_syscon
+  from the port graph rather than inheriting whatever the bootloader
+  left, with a phandle to the syscon (Icenowy Zheng).
+- The register access clock is named "pclk" to match the existing
+  inno-hdmi binding, so the generic driver no longer picks up the pixel
+  clock. Previously it held the pre-PLL powered from probe and sized the
+  DDC divider from the wrong rate.
+- Dropped the clk suffixes and the single-entry -names properties from
+  the bindings (Conor Dooley). mclk and bclk keep their names: per TRM
+  5.3 they are the HDMI audio clocks, not module and bus clocks, so the
+  descriptions say that instead.
+- Replaced patternProperties with plain properties in the hdmi-subsystem
+  binding (Conor Dooley).
+- dc8200 gets an SoC specific compatible, and inherits dma-noncoherent
+  from the subsystem bus node, so it validates against verisilicon,dc.
+- Added the pre-PLL entry for the Framework 13 panel and fixed two
+  devicetree whitespace nits (Maud Spierings).
+- select REGMAP_MMIO, CLK_SET_RATE_NO_REPARENT on the dc8200 pixel MUXes
+  so clk_set_rate() cannot reroute them, and inno-hdmi register reads
+  return 0 instead of stack garbage when regmap_read() fails.
+- phy: rockchip: dropped the local pre-PLL lookup wrapper and the 28 now
+  unused RK3328 pre-PLL macros, and restored the VCO debug output, this
+  time in the shared helper so both drivers get it (Jonas Karlman).
+- Rebased onto v7.3-rc1.
+- Link to v2: https://lore.kernel.org/r/20260828-jh7110-clean-send-v2-0-331680c8b9d1@samsung.com
+
+Changes since the RFC:
+- Dropped the vout-subsystem wrapper driver and its binding, along with
+  the patch relaxing the voutcrg binding; genpd handles PD_VOUT per
+  node.
+- Renamed the compatible to starfive,jh7110-hdmi-subsystem, dropping
+  "mfd" as a Linux term (Conor Dooley).
+- Absolute $refs in the bindings, unused example labels dropped, and the
+  examples deduplicated between parent and children (Conor Dooley).
+- Added the .mode_valid platform operation (patch 7).
+- Split the inno-hdmi rework into a mechanical probe/bind split (patch
+  4)
+  and the regmap-from-parent change (patch 5). struct inno_hdmi is no
+  longer exported; no platform glue dereferences it.
+- Replaced the duplicated PHY driver with a shared Innosilicon library
+  and moved Rockchip onto it (patches 11-13).
+- Fixed pre-PLL lock detection, which masked the status read with the
+  register address instead of the lock bit.
+- Fixed a pixel clock refcount underflow: enable returns early on
+  failure while disable tore down unconditionally.
+- voutcrg patch reduced to adding CLK_SET_RATE_PARENT to the two dc8200
+  pixel MUXes.
+- Rebased onto v7.2.
+
+---
+Michal Wilczynski (18):
+      drm/bridge: inno-hdmi: fix swapped HSYNC and VSYNC polarity
+      drm/bridge: inno-hdmi: Report hotplug through drm_bridge_hpd_notify()
+      dt-bindings: display: bridge: Add starfive,jh7110-inno-hdmi-controller
+      dt-bindings: display: starfive: Add starfive,jh7110-hdmi-subsystem
+      dt-bindings: soc: starfive: Add starfive,jh7110-vout-syscon
+      dt-bindings: display: starfive: Add starfive,jh7110-vout-subsystem
+      drm/bridge: inno-hdmi: Split probe out of bind
+      drm/bridge: inno-hdmi: Use a regmap for register access
+      drm/bridge: inno-hdmi: Add .disable platform operation
+      drm/bridge: inno-hdmi: Add .mode_valid platform operation
+      drm/bridge: inno-hdmi: Make the PHY configuration table optional
+      drm/bridge: inno-hdmi: Make the register clock source selectable
+      drm/bridge: inno-hdmi: Make the supported HDMI version selectable
+      soc: starfive: Add jh7110-hdmi-subsystem driver
+      soc: starfive: Add jh7110-vout-subsystem driver
+      drm/bridge: starfive: Add JH7110 HDMI controller driver
+      riscv: dts: starfive: jh7110: Update DT for display subsystem
+      MAINTAINERS: Add StarFive JH7110 display subsystem entry
+
+ .../starfive,jh7110-inno-hdmi-controller.yaml      | 121 +++++++++
+ .../starfive/starfive,jh7110-hdmi-subsystem.yaml   |  95 +++++++
+ .../starfive/starfive,jh7110-vout-subsystem.yaml   | 218 +++++++++++++++
+ .../soc/starfive/starfive,jh7110-syscon.yaml       |   1 +
+ MAINTAINERS                                        |  11 +
+ arch/riscv/boot/dts/starfive/jh7110-common.dtsi    | 117 +++++++-
+ arch/riscv/boot/dts/starfive/jh7110.dtsi           | 107 ++++++--
+ drivers/gpu/drm/bridge/Kconfig                     |  12 +
+ drivers/gpu/drm/bridge/Makefile                    |   1 +
+ drivers/gpu/drm/bridge/inno-hdmi.c                 | 140 +++++++---
+ drivers/gpu/drm/bridge/jh7110-inno-hdmi.c          | 297 +++++++++++++++++++++
+ drivers/gpu/drm/rockchip/inno_hdmi-rockchip.c      |   2 +-
+ drivers/soc/starfive/Kconfig                       |  34 +++
+ drivers/soc/starfive/Makefile                      |   2 +
+ drivers/soc/starfive/jh7110-hdmi-subsystem.c       |  72 +++++
+ drivers/soc/starfive/jh7110-vout-subsystem.c       |  82 ++++++
+ include/drm/bridge/inno_hdmi.h                     |  17 +-
+ 17 files changed, 1272 insertions(+), 57 deletions(-)
+---
+base-commit: 56fcba438df5d6c0fbbeb1107fd6f5ff4bd29c20
+change-id: 20251031-jh7110-clean-send-7d2242118026
+prerequisite-change-id: 20261028-jh7110-inno-hdmi-phy-83e5cfa643e3:v8
+prerequisite-patch-id: e78b1dab85d70fa7ec3e551560dfc90891546de9
+prerequisite-patch-id: e3b5adebb535b30ccc1690a000cfab7b1d9d7467
+prerequisite-patch-id: 4a3488cc151ae0e9ef053ea67e8e520520c7df15
+prerequisite-patch-id: a141b181a25039b8ab0f3dd0c8002b62a3c096d2
+prerequisite-patch-id: 997da9a6177a5a3fa159178268371a97a5fc1048
+
+Best regards,
+-- 
+Michal Wilczynski <m.wilczynski@samsung.com>
+
