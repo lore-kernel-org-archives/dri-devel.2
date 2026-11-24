@@ -2,61 +2,62 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6D1C6606A32A
-	for <dri-devel@archiver.kernel.org>; Tue, 24 Nov 2026 08:24:33 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7AC76606A31E
+	for <dri-devel@archiver.kernel.org>; Tue, 24 Nov 2026 08:30:23 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=rock-chips.com header.i=@rock-chips.com header.a=rsa-sha256 header.s=default header.b=UURWRjVw
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=HdXT1bDI
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 9AB3E10E53F;
-	Tue, 24 Nov 2026 08:24:27 +0000 (UTC)
-Received: from mail-m93219.xmail.ntesmail.com (mail-m93219.xmail.ntesmail.com
- [103.126.93.219])
- by gabe.freedesktop.org (Postfix) with ESMTPS id BE96710E53F
- for <dri-devel@lists.freedesktop.org>; Tue, 24 Nov 2026 08:24:20 +0000 (UTC)
-Received: from [127.0.0.1] (unknown [61.154.14.86])
- by smtp.qiye.163.com (Hmail) with ESMTP id 55cb96efc;
- Tue, 24 Nov 2026 16:24:16 +0800 (GMT+08:00)
-Message-ID: <c89271be-85f9-41ba-9c19-c78743d212c8@rock-chips.com>
-Date: Tue, 24 Nov 2026 16:24:12 +0800
+	by gabe.freedesktop.org (Postfix) with ESMTP id 867C510F2EE;
+	Tue, 24 Nov 2026 08:30:17 +0000 (UTC)
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.11])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id ED96610F2F3;
+ Tue, 24 Nov 2026 08:30:03 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1795509004; x=1827045004;
+ h=date:from:to:cc:subject:message-id:references:
+ mime-version:content-transfer-encoding:in-reply-to;
+ bh=psRJyIV6yFBTlF7Cmlig6t3EIWf6JHTD+vN9ZIMMxKY=;
+ b=HdXT1bDIWEnGWGIxb5tkIzbRV+i1lLthn7dIEKIHd5f4WtSSUF5iNAh7
+ g/K8qcV95a8XJY8eeAWwnL4bNbT00HzTVUCt2I76vQZpiFjm4nSZ1vix6
+ /BOrBGzn88ydt3RE2gCg1+2rv7atCklRe/T0nNufiJA6slYQhtYuuou36
+ jdw+xRWeb2WpFUyqC1Nd66k7Ed29nTYZYOPRHdttYKVzbqElE5WCfLHP+
+ KNJVS7ReTACO9XmJzkin9NiTuAuMwLbnMRAaQlKJo6TzhXDqILj5mlODH
+ saLiIfAlIFiQEt9UeJo62mRIWvb8GW1yXQqsNmkLoIRIrqausvqjRb4Fs A==;
+X-CSE-ConnectionGUID: D3wEhA2uSdWDe8lFC6Gixg==
+X-CSE-MsgGUID: ffssrq9vSBi/jkJWAEqQsw==
+X-IronPort-AV: E=McAfee;i="6800,10657,11975"; a="4231930"
+X-IronPort-AV: E=Sophos;i="6.27,230,1787036400"; 
+   d="scan'208";a="4231930"
+Received: from orviesa006.jf.intel.com ([10.64.159.146])
+ by orvoesa103.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 24 Nov 2026 00:16:39 -0800
+X-CSE-ConnectionGUID: g2eR8qiPQ7OQoIj0qxmzMw==
+X-CSE-MsgGUID: gzN3EjXkQFOCZM3l6e7Trg==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,230,1787036400"; d="scan'208";a="11532681"
+Received: from dev-417.igk.intel.com (HELO dev-417) ([10.91.214.181])
+ by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 24 Nov 2026 00:15:34 -0800
+Date: Tue, 24 Nov 2026 09:15:27 +0100
+From: =?utf-8?Q?Micha=C5=82?= Grzelak <michal.grzelak@linux.intel.com>
+To: Dave Airlie <airlied@gmail.com>
+Cc: dri-devel@lists.freedesktop.org, intel-xe@lists.freedesktop.org, 
+ Ian Forbes <ian.forbes@broadcom.com>,
+ Christian =?utf-8?B?S8O2bmln?= <christian.koenig@amd.com>, 
+ =?utf-8?Q?Micha=C5=82?= Grzelak <michal.grzelak@intel.com>
+Subject: Re: [PATCH v1 1/1] drm/ttm/tests: do not count pages after pool's
+ teardown
+Message-ID: <dme6l2hqdoxoavmormwnskhzogx6ojevu7aofnokbtqx2yl6qf@z3ligafvj6fi>
+References: <20261124004312.3880264-1-michal.grzelak@linux.intel.com>
+ <20261124004312.3880264-2-michal.grzelak@linux.intel.com>
+ <CAPM=9tz_nwv4Cy5N_ihBqp6JS5rghETbJYiub4aVrJh=wy2-iQ@mail.gmail.com>
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v3 0/2] drm/bridge: add glue driver for T-Head TH1520 DW
- MIPI DSI
-To: Icenowy Zheng <zhengxingda@iscas.ac.cn>
-Cc: Andrzej Hajda <andrzej.hajda@intel.com>,
- Neil Armstrong <neil.armstrong@linaro.org>, Robert Foss <rfoss@kernel.org>,
- Laurent Pinchart <Laurent.pinchart@ideasonboard.com>,
- Jonas Karlman <jonas@kwiboo.se>, Jernej Skrabec <jernej.skrabec@gmail.com>,
- Luca Ceresoli <luca.ceresoli@bootlin.com>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>, Sandy Huang <hjc@rock-chips.com>,
- =?UTF-8?Q?Heiko_St=C3=BCbner?= <heiko@sntech.de>, Andy Yan
- <andyshrk@163.com>, dri-devel@lists.freedesktop.org,
- devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
- linux-rockchip@lists.infradead.org, linux-arm-kernel@lists.infradead.org,
- linux-riscv@lists.infradead.org, Icneowy Zheng <uwu@icenowy.me>,
- Han Gao <gaohan@iscas.ac.cn>
-References: <20261124-th1520-dw-mipi-dsi-v3-0-ffcf2d87971b@iscas.ac.cn>
-Content-Language: en-US
-From: Chaoyi Chen <chaoyi.chen@rock-chips.com>
-In-Reply-To: <20261124-th1520-dw-mipi-dsi-v3-0-ffcf2d87971b@iscas.ac.cn>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-X-HM-Tid: 0aa20ca7d7d303a7kunmc11de194cd4c3b
-X-HM-MType: 1
-X-HM-Spam-Status: e1kfGhgUHx5ZQUpXWQgPGg8OCBgUHx5ZQUlOS1dZFg8aDwILHllBWSg2Ly
- tZV1koWUFITzdXWRgWCB1ZQUpXWS1ZQUlXWQ8JGhUIEh9ZQVlDSkpOVkgdHx1PSkseQkpJTlYVFA
- kWGhdVEwETFhoSFyQUDg9ZV1kYEgtZQVlNSlVKTk9VSk9VQ01ZV1kWGg8SFR0UWUFZT0tIVUpLSU
- 9PT0hVSktLVUpCS0tZBg++
-DKIM-Signature: a=rsa-sha256;
- b=UURWRjVwdo+3l2AULyocD6fSNflb4NLvemODSt3E0BkJ4SDNYTRbIrvF97HUU4K2rtd/SDBnXtHZ+9biRxmmr2VYZUHyx1vjJo4sQNiVBRKlCiF1JgNn+It/uQ2dEKWkUHaT+/LN1vLB/a+9UefWRH0gS3pOe07esi2EjWKgg4A=;
- s=default; c=relaxed/relaxed; d=rock-chips.com; v=1; 
- bh=CIIxCHmaf4fxrIyFS/BRlR2dhrRZVanUxs4tziQTo54=;
- h=date:mime-version:subject:message-id:from;
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <CAPM=9tz_nwv4Cy5N_ihBqp6JS5rghETbJYiub4aVrJh=wy2-iQ@mail.gmail.com>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -68,72 +69,72 @@ List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-17.3 required=3.0 tests=BAYES_00,DKIM_SIGNED,
-	DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
-	INCLUDES_CR_TRAILER,INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,
-	SPF_PASS,USER_AGENT_SANE_1 autolearn=unavailable autolearn_force=no
-	version=4.0.1
+X-Spam-Status: No, score=-8.8 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
+	DKIM_SIGNED,DKIM_VALID,HEADER_FROM_DIFFERENT_DOMAINS,
+	INCLUDES_CR_TRAILER,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS
+	autolearn=ham autolearn_force=no version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-Hi Icenowy,
+On Tue, Nov 24, 2026 at 11:41:35AM GMT, Dave Airlie wrote:
+> On Tue, 24 Nov 2026 at 11:01, Michał Grzelak
+> <michal.grzelak@linux.intel.com> wrote:
+> >
+> > Currently ttm_pool_fini_basic() checks if page count of pool-type's lru
+> > list is zero after tearing down its pre-populated pool.
+> >
+> > After commit 5ffdc8f83613 ("ttm/pool: Don't leak LRU list on shutdown")
+> > this check causes NULL dereference because page's lru list is destroyed
+> > during pool's teardown which leads to KUnit's crash:
+> >
+> > [20:08:24] ========== [PASSED] ttm_pool_alloc_basic_dma_addr ==========
+> > [20:08:24] [PASSED] ttm_pool_alloc_order_caching_match
+> > [20:08:24] [PASSED] ttm_pool_alloc_caching_mismatch
+> > [20:08:24] [PASSED] ttm_pool_alloc_order_mismatch
+> > [20:08:24] [PASSED] ttm_pool_free_dma_alloc
+> > [20:08:24] [PASSED] ttm_pool_free_no_dma_alloc
+> > [20:08:25] [ERROR] Test: ttm_pool: missing expected subtest!
+> > [20:08:25]
+> > [20:08:25] Pid: 80, comm: kunit_try_catch Tainted: G        W        N  7.4.0-rc4-g401a3e7b64d1
+> > [20:08:25] RIP: 0033:list_lru_count_node+0xe/0x20
+> > [20:08:25] RSP: 00000000a08dbef8  EFLAGS: 00010246
+> > [20:08:25] RAX: 0000000000000001 RBX: 00000000a0803c70 RCX: 0000000000000020
+> > [20:08:25] RDX: 0000000000000001 RSI: 0000000000000000 RDI: 0000000060853030
+> > [20:08:25] RBP: 0000000060853000 R08: 00000000a08dbe98 R09: 00000000601246ac
+> > [20:08:25] R10: 000000009f227d00 R11: 0000000000000000 R12: 0000000060124640
+> > [20:08:25] R13: 0000000060853030 R14: 000000006047c950 R15: 00000000604c6488
+> > [20:08:25] Kernel panic - not syncing: Segfault with no mm
+> > [20:08:25] [CRASHED]
+> > [20:08:25] [ERROR] Test: ttm_pool: missing subtest result line!
+> > [20:08:25] # module: ttm_pool_test
+> > [20:08:25] ==================== [CRASHED] ttm_pool ====================
+> > [20:08:25] [ERROR] Test: main: missing expected subtest!
+> > [20:08:25] [CRASHED]
+> > [20:08:25] [ERROR] Test: main: missing expected subtest!
+> > [20:08:25] [CRASHED]
+> > [20:08:25] [ERROR] Test: main: missing expected subtest!
+> > [20:08:25] [CRASHED]
+> > [20:08:25] [ERROR] Test: main: missing expected subtest!
+> > [20:08:25] [CRASHED]
+> > [20:08:25] ============================================================
+> > [20:08:25] Testing complete. Ran 28 tests: passed: 23, crashed: 5, errors: 6
+> >
+> > The crash in turn prevents Xe CI from running IGT.
+> >
+> > Drop the post-teardown assertion.
+> >
+> > Fixes: 5ffdc8f83613 ("ttm/pool: Don't leak LRU list on shutdown")
+> > Cc: Ian Forbes <ian.forbes@broadcom.com>
+> > Cc: Christian König <christian.koenig@amd.com>
+> > Signed-off-by: Michał Grzelak <michal.grzelak@linux.intel.com>
+> 
+> Reviewed-by: Dave Airlie <airlied@redhat.com>
+> 
+> Let's land this and unblock CI and if we need to revisit do it after.
+> 
 
-On 11/24/2026 3:56 PM, Icenowy Zheng wrote:
-> T-Head TH1520 contains a DesignWare MIPI DSI host controller paired with
-> an internal DesignWare PHY, as a similar design (but with a different
-> PHY) with the Rockchip DW MIPI DSI.
-> 
-> The functionality to write to the PHY is shared between these two
-> implementations of DW MIPI DSI, so it's extracted from the Rockchip
-> driver to the common code. (The same sequence could be seen in the
-> HiSilicon Kirin DRM driver, but that one hasn't been converted to common
-> DW MIPI DSI.)
-> 
-> Tested on a Lichee Console 4A (with a Mingjun MJ070BI30IA2 panel) with
-> further pending DT patches.
-> 
-> One question remains: I have to copy the extra lane bandwidth headroom
-> from the Rockchip driver, otherwise the Mingjun panel cannot keep sync
-> to the display signal; from my testing, changing the hardcoded
-> PHY_STOP_WAIT_TIME from 0x20 to 0x2 (which is written by the vendor
-> driver) can also make this panel to work w/o the extra headroom. I want
-> some advice on whether to keep the extra headroom or changing the common
-> code to make the PHY_STOP_WAIT_TIME parameter adjustable.
-> 
+Thank you Dave for your review. Could you apply this or help to merge
+this? I don't have commit bit for drm-misc.
 
-Does the DesignWare PHY databook describe about PHY_STOP_WAIT_TIME?
-  
-> Signed-off-by: Icenowy Zheng <zhengxingda@iscas.ac.cn>
-> ---
-> Changes in v3:
-> - Fixed a remaining `syscon` in the DT binding.
-> - Link to v2: https://patch.msgid.link/20261119-th1520-dw-mipi-dsi-v2-0-9ab5f9808f87@iscas.ac.cn
-> 
-> Changes in v2:
-> - Changed `syscon` to `thead,vo-syscon` in the DT binding.
-> - Dropped the patch moving common PHY write routine to dw-mipi-dsi
->   common code.
-> - Fixed a few problems pointed out by Sashiko in v1.
-> - Link to v1: https://patch.msgid.link/20261030-th1520-dw-mipi-dsi-v1-0-753f34fd304f@iscas.ac.cn
-> 
-> ---
-> Icenowy Zheng (2):
->       dt-bindings: display: bridge: document TH1520 MIPI DSI controller
->       drm/bridge: add TH1520 DesignWare MIPI DSI host controller
-> 
->  .../display/bridge/thead,th1520-dw-mipi-dsi.yaml   | 103 ++++
->  drivers/gpu/drm/bridge/Kconfig                     |  12 +
->  drivers/gpu/drm/bridge/Makefile                    |   1 +
->  drivers/gpu/drm/bridge/th1520-dw-mipi-dsi.c        | 570 +++++++++++++++++++++
->  4 files changed, 686 insertions(+)
-> ---
-> base-commit: 6628e7d4c6b25c8d18f1345e3a20d21829aae7e4
-> change-id: 20261030-th1520-dw-mipi-dsi-580d5b2792f9
-> 
-> Best regards,
-> --  
-> Icenowy Zheng <zhengxingda@iscas.ac.cn>
-
--- 
-Best, 
-Chaoyi
+BR,
+Michał
