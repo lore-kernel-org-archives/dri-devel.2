@@ -2,118 +2,57 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6C075606A330
-	for <dri-devel@archiver.kernel.org>; Tue, 24 Nov 2026 14:43:35 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C471E606A336
+	for <dri-devel@archiver.kernel.org>; Tue, 24 Nov 2026 14:43:41 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=Nvidia.com header.i=@Nvidia.com header.a=rsa-sha256 header.s=selector2 header.b=pRbwv126
+	dkim=pass (2048-bit key) header.d=collabora.com header.i=@collabora.com header.a=rsa-sha256 header.s=mail header.b=B2KRURmV
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id BA6E510F53F;
-	Tue, 24 Nov 2026 14:43:29 +0000 (UTC)
-Received: from CY7PR03CU001.outbound.protection.outlook.com
- (mail-westcentralusazon11010064.outbound.protection.outlook.com
- [40.93.198.64])
- by gabe.freedesktop.org (Postfix) with ESMTPS id A666E10F53F
- for <dri-devel@lists.freedesktop.org>; Tue, 24 Nov 2026 14:43:23 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=kf8G/kdg5/pvzDAXSW79j4cufKaFlaybRkai+BqWjDHvGQ3vFw0YyasNhUbVr16sn2PKyoSlEgJJVGycYeuh5yjfFq8Tv08XdHAL545naSORhbLWChhAWfXcH1Ku439PoElK2FHFIMPqoTyJ5JJXQ664QKuXg7Nl39ahp7j2j3OEpMWzsV+8Jopc31UjdkueSI6nadTRZ3pBRTqNe00CCZMr5mtLfc3QibH4KkqYmSln3Cf0HV5DhMSCQsL2IsOt0RPCesbmKQCneeI3mZbhQaVJAOa5azfpZ4CgmEfAJtZbqH1YQOUlJVff59+U5YgFaYbyLXXVVZ1Q0yyVNJ+gDA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=37iWtkEYVxT5Rj/Agt+5ARtq0Av7RcT23h7tCkGqGa0=;
- b=lxJ/qwtnuHCEtXfza2zLdMfgbl3cFQyUWE8A0wNQCiX+IvJA3uRPys0KuYEjEQ97hc9WBUqYUkz82dnR37xomGFod5AP96cnp27R1tBboTtJVmT7eDhQ3bG3SvWDjQVqa7uynUt1qZZV4p3XuylsO2mfzIVah9YdBb8GXveCPQX6PiA3s1L+NL/dJIneyxc/+tLOpfMBpqiDmZl6YdGM1z1Bcryy2Nn4973zoQtoOno4bnG03at5P2e5dRLWIVVcKemON8YNNdujzT4ZbsJnEq0h34jcl9USLYPcIC2iQvM91yfKHhO3EPV2PfhPXEMGWD5DuLz4HXzhtVlo70uf2g==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 216.228.117.160) smtp.rcpttodomain=kernel.org smtp.mailfrom=nvidia.com;
- dmarc=pass (p=reject sp=reject pct=100) action=none header.from=nvidia.com;
- dkim=none (message not signed); arc=none (0)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
- s=selector2;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=37iWtkEYVxT5Rj/Agt+5ARtq0Av7RcT23h7tCkGqGa0=;
- b=pRbwv126wsxNdEM5TgoptweMdLHb+7oxiQWuuM8xSyylQXQt6eM7umuxoIGeXC87eycv7YOYe7NYCP2kVgnUnnxx7oJA4Q/BUghAv2axiVbZyWLKrq5WDcpS94SIMOMSAHOlBEnKD3qBJtF9p9xlYZ/5HUvrLeCJw+nA1HEySrPLVNmA8qjNUrlcICoAR1Jl3snEFXOBr+Rso7QIgTBqxb11VaLNjT6/oUQJbKtWmOU4pjMxq0CaclVcsdOAMOPO/5qiYxw36sphfNEctTvuM8gXF3xyaqK/v8f31fqQt8eru4pA2MdCPS8Xxtmqvav9wWgr5icnBJMj1SeHvzZlew==
-Received: from CH0PR03CA0304.namprd03.prod.outlook.com (2603:10b6:610:118::28)
- by CY5PR12MB6648.namprd12.prod.outlook.com (2603:10b6:930:3e::9) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.639.12; Tue, 24 Nov
- 2026 14:43:14 +0000
-Received: from CH1PEPF0005BD62.namprd02.prod.outlook.com
- (2603:10b6:610:118:cafe::2e) by CH0PR03CA0304.outlook.office365.com
- (2603:10b6:610:118::28) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.21.662.6 via Frontend Transport; Tue, 24
- Nov 2026 14:43:13 +0000
-X-MS-Exchange-Authentication-Results: mx.microsoft.com 1; spf=pass (sender IP
- is 216.228.117.160)
- smtp.mailfrom=nvidia.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=nvidia.com;
-Received-SPF: Pass (protection.outlook.com: domain of nvidia.com designates
- 216.228.117.160 as permitted sender) receiver=protection.outlook.com;
- client-ip=216.228.117.160; helo=mail.nvidia.com; pr=C
-Received: from mail.nvidia.com (216.228.117.160) by
- CH1PEPF0005BD62.mail.protection.outlook.com (10.167.244.251) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.662.3 via Frontend Transport; Tue, 24 Nov 2026 14:43:13 +0000
-Received: from rnnvmail201.nvidia.com (10.129.68.8) by mail.nvidia.com
- (10.129.200.66) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.57; Tue, 24 Nov
- 2026 06:42:53 -0800
-Received: from kalok-SPC741D16QM3.nvidia.com (10.126.230.37) by
- rnnvmail201.nvidia.com (10.129.68.8) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.57; Tue, 24 Nov 2026 06:42:40 -0800
-From: Alok Kumar <alkumar@nvidia.com>
-To: <dakr@kernel.org>, <acourbot@nvidia.com>, <kvm@vger.kernel.org>,
- <rust-for-linux@vger.kernel.org>, <nova-gpu@lists.linux.dev>,
- <linux-pci@vger.kernel.org>
-CC: <alex@shazbot.org>, <jgg@nvidia.com>, <yishaih@nvidia.com>,
- <skolothumtho@nvidia.com>, <kevin.tian@intel.com>, <airlied@gmail.com>,
- <simona@ffwll.ch>, <ojeda@kernel.org>, <alex.gaynor@gmail.com>,
- <boqun.feng@gmail.com>, <gary@garyguo.net>, <bjorn3_gh@protonmail.com>,
- <lossin@kernel.org>, <a.hindborg@kernel.org>, <aliceryhl@google.com>,
- <tmgross@umich.edu>, <markus.probst@posteo.de>, <jhubbard@nvidia.com>,
- <apopple@nvidia.com>, <joelagnelf@nvidia.com>, <ecourtney@nvidia.com>,
- <cjia@nvidia.com>, <smitra@nvidia.com>, <kjaju@nvidia.com>,
- <alkumar@nvidia.com>, <ankita@nvidia.com>, <aniketa@nvidia.com>,
- <kwankhede@nvidia.com>, <targupta@nvidia.com>,
- <linux-kernel@vger.kernel.org>, <zhiwang@kernel.org>, <zhiw@nvidia.com>,
- <boqun@kernel.org>, <daniel.almeida@collabora.com>, <tamird@kernel.org>,
- <work@onurozkan.dev>, <jgg@ziepe.ca>, <bhelgaas@google.com>,
- <kwilczynski@kernel.org>, <dri-devel@lists.freedesktop.org>,
- <peter@colberg.org>, <xinmengs@nvidia.com>
-Subject: [PATCH v3 0/1] gpu: nova-core: add fwctl driver for firmware control
- interface
-Date: Tue, 24 Nov 2026 20:12:03 +0530
-Message-ID: <20261124144204.19072-1-alkumar@nvidia.com>
-X-Mailer: git-send-email 2.53.0
+	by gabe.freedesktop.org (Postfix) with ESMTP id 0915310F61F;
+	Tue, 24 Nov 2026 14:43:36 +0000 (UTC)
+Received: from bali.collaboradmins.com (bali.collaboradmins.com
+ [148.251.105.195])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 886AF10F60B
+ for <dri-devel@lists.freedesktop.org>; Tue, 24 Nov 2026 14:43:27 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
+ s=mail; t=1795531406;
+ bh=+xcAFVyfZjCXw78iH5eaRb7q+NmVOvWAJooUbJ43vpY=;
+ h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
+ b=B2KRURmVMnzlSfh/3guyYTv0j1AWRjCGZuabqe/B3OntHxn9B6dKAJlHu3SsD0SmX
+ LVx7ce9h7L/4YDDzakQDdcWAV5/SuxSmQdgV9W4q9R3Q/+FadUwYCgwbpDXfwx/tTL
+ YDOcAga1u2SeU8oIAoUCrt+yi1oenovqKr0WL994FrkADzRCCR7p1TGPJ3rSPs7lhg
+ DohKMBp6gc3i+Tye2dAgBd45g8euDbjJaI5s2Yrds/IbAWjjsiKDXGXkqveYe/14NK
+ idOJPckaCha8mz4XAFBjFkKfjPJgAsyYB5ypR+h02NteusfcQz7da1fm/ePzS4rn08
+ aAf3b6kdgfguw==
+Received: from [100.64.1.21] (unknown [100.64.1.21])
+ (using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+ key-exchange x25519) (No client certificate requested)
+ (Authenticated sender: kholk11)
+ by bali.collaboradmins.com (Postfix) with ESMTPSA id 4C90117E09ED;
+ Tue, 24 Nov 2026 15:43:25 +0100 (CET)
+Message-ID: <05cb7522-7894-43b1-8bf5-96a1a3792289@collabora.com>
+Date: Tue, 24 Nov 2026 15:43:24 +0100
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-ClientProxiedBy: rnnvmail203.nvidia.com (10.129.68.9) To
- rnnvmail201.nvidia.com (10.129.68.8)
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: CH1PEPF0005BD62:EE_|CY5PR12MB6648:EE_
-X-MS-Office365-Filtering-Correlation-Id: e95cba3c-2b14-4ce0-9f96-08df4a3944cd
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
- ARA:13230040|23010399003|36860700016|376014|7416014|1800799024|82310400026|10067099003|260925021911599003|11063799006|5023799004|56012099006|260925021311599003|260925022911599003|261022105027099003|261021121427099003|261009223027099003|261028144727099003|261026121527099003|261022075727099003|261102130727099003|261102123227099003|261026140227099003|18002099003|6133799003|3023799007;
-X-Microsoft-Antispam-Message-Info: lR09xPnGJNwdiimhVW7gu46I+rLiXSXY3JerkKDvaCmQInXJWJPg6OLOMjAfiaCTnXLDHWWMUAqQOJ7w5yw4s+01H1fHF+9kjYYDqxuSTM2d8Ekzw/A7hgn1CdyGrl7no21saT8nK+j+g0N19GnNy+CMge6UZHoVxXeQo4hZTLrerSiVr6+kNvaFkA2/V8BGqCPr4RcH4cp81QstjSKpn1ZnKktUneNn4E6Fyipz+/PCe3LIUSrFY9bbpTEGNdTFALqYRcwzaB70BGfnkeO6t1KF7dWyfdnapvl19XOr9WDiHQ4HKYDEPtIChdapxqV9tkI/zBP1/kwxvis4kYduKl3yE41s94WcW2eBjmtTlZDTYKzgQzyVaPL81V5k88YWEZIH7KKVanM/IWe4sX1h66cX/UBxnzaw45S1/cZx/wBerGlrQcuHyCQHs1vX5gnuWl6HNjRCrowrh7LCYD/fiY2PfZQ+4Lg3R2ivszQMvtgod30ogHazBit7l9ufiw4fSKg5tfv3fnN9RXnJPkE8gxIolZa1658kCA2QAzQXnIjTnQMyabilR5yjKxSd9dihKRE9WyEecrAH74p6MHUsH+TyLY9gTe+FREA+CLGhLKretlqJskxuvhm74n1ZrQtfofx4hAa3AEHnfRZc1WJCyC8cu/p9zv6hSCIlrKCRdYs6xz99o6vs1UUyWtp9Ley+6TmapBOkXt18kIoT32nRMA==
-X-Forefront-Antispam-Report: CIP:216.228.117.160; CTRY:US; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:mail.nvidia.com; PTR:dc6edge1.nvidia.com; CAT:NONE;
- SFS:(13230040)(23010399003)(36860700016)(376014)(7416014)(1800799024)(82310400026)(10067099003)(260925021911599003)(11063799006)(5023799004)(56012099006)(260925021311599003)(260925022911599003)(261022105027099003)(261021121427099003)(261009223027099003)(261028144727099003)(261026121527099003)(261022075727099003)(261102130727099003)(261102123227099003)(261026140227099003)(18002099003)(6133799003)(3023799007);
- DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: EF+MffGJWnt0zX1FBAC7dzu/akKDBD3TPKja105Qk/H4HY6rPcdhrB0am7kaM1kTgweu747MT+GzXOooB7Ns2piyA1NTGP0QtdbsfoqUmDulPpCXlPxS3WKoFo3CHOTu8/TVt/LTMlE4VTXR2PNOjVRdA8pAcXhvs/oACJtQwc8M6tyC8JCVrHwHq6fSE+bLxBGL0XIhPjtYMg+744vC0jkwEDOhPmc13zCv4iIqmQ49uy0H0o/w7QpnS6oOWbcOomUKNjvJ8OVZewjbiTQKZlOxs4yI4u34LzApkfz/QDapxLqJrX8NBDfQiy3Gu0PgMFgW3MvAK1Ixsp2B3sBmLyhxEn0XzcrrIN5/bne+15XtrWiWSgdrIFyMN7t1ql+mEeOpCX6YRGEBehkbxN7IdBiY0A8Q3lnkCMIflnBXbLs4GvDBoKQ0UQWCDtwMT1sY
-X-OriginatorOrg: Nvidia.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 24 Nov 2026 14:43:13.6770 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: e95cba3c-2b14-4ce0-9f96-08df4a3944cd
-X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=43083d15-7273-40c1-b7db-39efd9ccc17a; Ip=[216.228.117.160];
- Helo=[mail.nvidia.com]
-X-MS-Exchange-CrossTenant-AuthSource: CH1PEPF0005BD62.namprd02.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: CY5PR12MB6648
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2 03/46] drm/mediatek: Export OVL Blend function
+To: Daniel Stone <daniel@fooishbar.org>
+Cc: chunkuang.hu@kernel.org, p.zabel@pengutronix.de, airlied@gmail.com,
+ simona@ffwll.ch, maarten.lankhorst@linux.intel.com, mripard@kernel.org,
+ tzimmermann@suse.de, robh@kernel.org, krzk+dt@kernel.org,
+ conor+dt@kernel.org, matthias.bgg@gmail.com,
+ dri-devel@lists.freedesktop.org, linux-mediatek@lists.infradead.org,
+ devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+ linux-arm-kernel@lists.infradead.org, justin.yeh@mediatek.com,
+ jason-jh.lin@mediatek.com, kernel@collabora.com,
+ Paul-pl Chen <paul-pl.chen@mediatek.com>, Nancy Lin <nancy.lin@mediatek.com>
+References: <20260714114414.184512-1-angelogioacchino.delregno@collabora.com>
+ <20260714114414.184512-4-angelogioacchino.delregno@collabora.com>
+ <CAPj87rOEtG9JqJsEZkatqrWUkerO9Xx93MBUrXXChJwCokE0Vw@mail.gmail.com>
+From: AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>
+Content-Language: en-US
+In-Reply-To: <CAPj87rOEtG9JqJsEZkatqrWUkerO9Xx93MBUrXXChJwCokE0Vw@mail.gmail.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -125,102 +64,44 @@ List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-18.8 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
-	DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
-	INCLUDES_PATCH,MAILING_LIST_MULTI,MENTIONS_GIT_HOSTING,SPF_HELO_NONE,
-	SPF_PASS,USER_AGENT_GIT autolearn=unavailable autolearn_force=no
-	version=4.0.1
+X-Spam-Status: No, score=-7.3 required=3.0 tests=BAYES_00,DKIM_SIGNED,
+	DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
+	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,USER_AGENT_SANE_1
+	autolearn=no autolearn_force=no version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-Add a fwctl endpoint to nova-core for the GSP GMC API commands used to
-manage vGPU types on a physical GPU.
+On 11/24/26 15:30, Daniel Stone wrote:
+> Hi Angelo,
+> 
+> On Tue, 14 Jul 2026 at 12:44, AngeloGioacchino Del Regno
+> <angelogioacchino.delregno@collabora.com> wrote:
+>> +unsigned int mtk_ovl_get_blend_mode(struct mtk_plane_state *state, unsigned int blend_modes)
+>> +{
+>> +       unsigned int blend_mode = DRM_MODE_BLEND_COVERAGE;
+>> +
+>> +       /*
+>> +        * For the platforms where OVL_CON_CLRFMT_MAN is defined in the hardware data sheet
+>> +        * and supports premultiplied color formats, such as OVL_CON_CLRFMT_PARGB888
+>> +        * and supports premultiplied color formats, such as OVL_CON_CLRFMT_PARGB8888.
+>> +        *
+>> +        * Check blend_modes in the driver data to see if premultiplied mode is supported.
+>> +        * If not, use coverage mode instead to set it to the supported color formats.
+>> +        *
+>> +        * Current DRM assumption is that alpha is default premultiplied, so the bitmask of
+>> +        * blend_modes must include BIT(DRM_MODE_BLEND_PREMULTI). Otherwise, mtk_plane_init()
+>> +        * will get an error return from drm_plane_create_blend_mode_property() and
+>> +        * state->base.pixel_blend_mode should not be used.
+>> +        */
+> 
+> This hasn't been true since 9813e158d13d. I know this series predates
+> that, and this is just existing code, but it's another instance of
+> 'lie to userspace and fix stuff up behind its back' which we should
+> get rid of ASAP please.
 
-The request path is:
+Hey Daniel,
 
-  userspace
-      |
-      | FWCTL_RPC (FWCTL_RPC_CONFIGURATION)
-      v
-  nova-core command allowlist
-      |
-      | typed GMC request
-      v
-  GSP command queue -> GSP-RM
+thanks for that - it's coming just at the right moment, I think. :-)
 
-Userspace supplies the native GMC command ID and command-specific
-payload. nova-core constructs the transport headers and permits only the
-seven vGPU management commands for adding, querying, assigning and
-deassigning vGPU types. Other commands and scopes are rejected.
-
-The request starts with an eight-byte header containing command_id and
-a zero reserved field, followed by the command-specific payload. The
-response echoes this header and appends the firmware response payload.
-
-This series is based on:
-
-  [PATCH v5 00/35] Introduce NVIDIA vGPU manager [1]
-
-Userspace tools:
-
-https://github.com/alokk-nvidia/vgpu-tools/tree/m1-nvkv/fwctl
-
-Changes since v2 [2]:
-
-    - Define CommandToGsp request types for the seven permitted commands
-      and submit them through send_gmc_command().
-    - Add the missing management command variants to GmcCommandId instead
-      of exporting numeric constants through the vGPU firmware module.
-    - Read successful response payloads through MessageFromGsp into an
-      owned buffer before the receive-queue slot is consumed.
-    - Preserve firmware-error handling: return EIO when GSP rejects a
-      command, while propagating transport errors.
-    - Use pin-init self-reference support to borrow the GPU-owned command
-      queue. Unregister fwctl and drain callbacks before dropping GPU
-      resources.
-    - Add the new userspace header to Nova's MAINTAINERS entry.
-
-The userspace request/response format, seven-command allowlist,
-configuration scope restriction and response-capacity limit are
-unchanged. GMC, MCTP and NVDM transport headers remain inside nova-core.
-
-The complete integration tree, including the prerequisites and the
-companion VFIO series, is available at:
-
-https://github.com/alokk-nvidia/nova-core/tree/nova-vgpu-wip-20261124
-
-Previous postings:
-
-v2 posting: [2]
-v1 posting: [3]
-
-[1]
-https://lore.kernel.org/nova-gpu/20261124135937.18583-1-alkumar@nvidia.com/
-[2]
-https://lore.kernel.org/nova-gpu/cover.1793906674.git.alkumar@nvidia.com/
-[3]
-https://lore.kernel.org/rust-for-linux/20260305190936.398590-1-zhiw@nvidia.com/
-
-
-Zhi Wang (1):
-  gpu: nova-core: add fwctl driver for firmware control interface
-
- MAINTAINERS                        |   1 +
- drivers/gpu/nova-core/Kconfig      |   2 +
- drivers/gpu/nova-core/driver.rs    |  23 +++++
- drivers/gpu/nova-core/fwctl.rs     | 160 +++++++++++++++++++++++++++++
- drivers/gpu/nova-core/gsp/fw.rs    |   5 +
- drivers/gpu/nova-core/nova_core.rs |   2 +
- include/uapi/fwctl/fwctl.h         |   1 +
- include/uapi/fwctl/nova-core.h     |  34 ++++++
- rust/kernel/fwctl.rs               |   2 +
- rust/uapi/uapi_helper.h            |   2 +
- 10 files changed, 232 insertions(+)
- create mode 100644 drivers/gpu/nova-core/fwctl.rs
- create mode 100644 include/uapi/fwctl/nova-core.h
-
-
-base-commit: 7c4cb57138562f96b53683e29c8fddef73d57294
--- 
-2.53.0
-
+Cheers,
+Angelo
