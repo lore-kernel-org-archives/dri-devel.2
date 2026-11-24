@@ -2,57 +2,77 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9F310606A31E
-	for <dri-devel@archiver.kernel.org>; Tue, 24 Nov 2026 14:45:48 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 52FAB606A32E
+	for <dri-devel@archiver.kernel.org>; Tue, 24 Nov 2026 14:48:27 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=collabora.com header.i=@collabora.com header.a=rsa-sha256 header.s=mail header.b=VdNM4JMq
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=YXEQb5dc
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 0CB8410F695;
-	Tue, 24 Nov 2026 14:45:43 +0000 (UTC)
-Received: from bali.collaboradmins.com (bali.collaboradmins.com
- [148.251.105.195])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 2755B10F695
- for <dri-devel@lists.freedesktop.org>; Tue, 24 Nov 2026 14:45:37 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
- s=mail; t=1795531535;
- bh=tHoKvhwF6A9T51xIenBUaT/9sNVdCw5DlAXYhy5j/Jg=;
- h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
- b=VdNM4JMq1hqbGTjm3zvuGBEqN1rw1I2PzJOMuy8fKLsiFyo+yhp0z+23IIxxvYMmo
- 9Q72OnZE0XYoWs4phW1UwDX3pAMuNmdvLKZ787eP5IuRx0jfl5inKeoZ0B+zazkaOA
- SBQAWWI2hzvlDWAlIwu15W0UK0S/A8akEmqHAWEVxRWJ5SfGIFYmWNAVuJDwcxZ/P4
- 0lkpCl5qMxP/p5JaCvoeLBat51+osntHgJa1k0KUE04xznza4gxxj6G9ZN+EbtPlTo
- g5wlSov76Yg/XZa8ya2rPM6jBIixghlVh2gEYsYPufQ58YEUgaHCb+sapzBsMp6e8S
- 7YhqhSPfauqCA==
-Received: from [100.64.1.21] (unknown [100.64.1.21])
- (using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
- key-exchange x25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
- (No client certificate requested) (Authenticated sender: kholk11)
- by bali.collaboradmins.com (Postfix) with ESMTPSA id F199117E0CA0;
- Tue, 24 Nov 2026 15:45:34 +0100 (CET)
-Message-ID: <0e279c15-c76f-4068-834f-84c0895f50c6@collabora.com>
-Date: Tue, 24 Nov 2026 15:45:34 +0100
+	by gabe.freedesktop.org (Postfix) with ESMTP id B224D10F67E;
+	Tue, 24 Nov 2026 14:48:21 +0000 (UTC)
+Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 71B3910F67E
+ for <dri-devel@lists.freedesktop.org>; Tue, 24 Nov 2026 14:48:15 +0000 (UTC)
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+ by sea.source.kernel.org (Postfix) with ESMTP id 2A0EC40AFD;
+ Tue, 24 Nov 2026 14:48:15 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6D0881F000CF;
+ Tue, 24 Nov 2026 14:48:06 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+ s=k20260515; t=1795531694;
+ bh=lyUEGhLGDykIVP/ED9acLT2Z8Hu6snwbttemda4QuYE=;
+ h=Subject:From:To:Cc:In-Reply-To:References:Date;
+ b=YXEQb5dcxm1JxN5d6fK6F4oynjusGJRZv8vCmoMzvS89AoMaYdInrCBv05fE+jHUW
+ fTL5hjlNbYu8MXPYgWqWC4eo9o2KkDFOle2aTYKqkJK4qy3nX8SBCSSwjqahRFLSyL
+ vFuOzEKh6o1aUUCsfRe8eiUVb7F5DuD0xSpmiJwJPEqfu8qobdmLgHz1G6sOu3pUBf
+ EKvY/YSA4Xj+O9LAOr4qg8BCOnQ2T3hT87mcHfZ6ODxe1m40otGD2ltuAVkkji8MkJ
+ mrFY403fHKdzIXtXKhU01DwLQfwSTq1hFdb920DI5qMZvALxpZoiF4WWFstZjFZsHm
+ MT6fjrxfaRT9Q==
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 31/46] drm/mediatek: Add support for Display Layer
- Blender component
-To: Daniel Stone <daniel@fooishbar.org>
-Cc: chunkuang.hu@kernel.org, p.zabel@pengutronix.de, airlied@gmail.com,
- simona@ffwll.ch, maarten.lankhorst@linux.intel.com, mripard@kernel.org,
- tzimmermann@suse.de, robh@kernel.org, krzk+dt@kernel.org,
- conor+dt@kernel.org, matthias.bgg@gmail.com,
- dri-devel@lists.freedesktop.org, linux-mediatek@lists.infradead.org,
- devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
- linux-arm-kernel@lists.infradead.org, justin.yeh@mediatek.com,
- jason-jh.lin@mediatek.com, kernel@collabora.com
-References: <20260714114414.184512-1-angelogioacchino.delregno@collabora.com>
- <20260714114414.184512-32-angelogioacchino.delregno@collabora.com>
- <CAPj87rMW6c0BMELjn70vsc+mkMxegDbSgQC-8BEDGspFyxzW2Q@mail.gmail.com>
-From: AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>
-Content-Language: en-US
-In-Reply-To: <CAPj87rMW6c0BMELjn70vsc+mkMxegDbSgQC-8BEDGspFyxzW2Q@mail.gmail.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
+Subject: Re: [PATCH v2 05/20] ASoC: codecs: pcm1754: Add PCM1773 support
+From: Mark Brown <broonie@kernel.org>
+To: "H. Nikolaus Schaller" <hns@goldelico.com>
+Cc: Linus Walleij <linus.walleij@linaro.org>, 
+ Bartosz Golaszewski <brgl@kernel.org>, Rob Herring <robh@kernel.org>, 
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>, Lee Jones <lee@kernel.org>, 
+ Daniel Thompson <danielt@kernel.org>, Jingoo Han <jingoohan1@gmail.com>, 
+ Pavel Machek <pavel@kernel.org>, Liam Girdwood <lgirdwood@gmail.com>, 
+ Mark Brown <broonie@kernel.org>, Aaro Koskinen <aaro.koskinen@iki.fi>, 
+ Andreas Kemnade <andreas@kemnade.info>, Kevin Hilman <khilman@baylibre.com>, 
+ Roger Quadros <rogerq@kernel.org>, Tony Lindgren <tony@atomide.com>, 
+ Russell King <linux@armlinux.org.uk>, 
+ Neil Armstrong <neil.armstrong@linaro.org>, 
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
+ =?utf-8?q?Uwe_Kleine-K=C3=B6nig?= <ukleinek@kernel.org>, 
+ Helge Deller <deller@gmx.de>, Jaroslav Kysela <perex@perex.cz>, 
+ Takashi Iwai <tiwai@suse.com>, Peter Ujfalusi <peter.ujfalusi@gmail.com>, 
+ Jarkko Nikula <jarkko.nikula@bitmer.com>, 
+ Jessica Zhang <jessica.zhang@oss.qualcomm.com>, linux-gpio@vger.kernel.org, 
+ devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
+ dri-devel@lists.freedesktop.org, linux-leds@vger.kernel.org, 
+ linux-sound@vger.kernel.org, linux-omap@vger.kernel.org, 
+ linux-arm-kernel@lists.infradead.org, linux-pwm@vger.kernel.org, 
+ linux-fbdev@vger.kernel.org, letux-kernel@openphoenux.org, 
+ kernel@pyra-handheld.com, Grond <grond66@riseup.net>
+In-Reply-To: <7e12ac0772314b256a253314a24b9d0ad50ba5f3.1795505160.git.hns@goldelico.com>
+References: <cover.1795505160.git.hns@goldelico.com>
+ <7e12ac0772314b256a253314a24b9d0ad50ba5f3.1795505160.git.hns@goldelico.com>
+Date: Tue, 24 Nov 2026 14:48:03 +0000
+Message-Id: <179553168322.264265.14757755735561826656.b4-review@b4>
+X-Mailer: b4 0.17-dev
+X-Developer-Signature: v=1; a=openpgp-sha256; l=930; i=broonie@kernel.org;
+ h=from:subject:message-id; bh=ShazBqroLpfTImF2hfJrbg+0pBRZfzBJNJtZVfX1368=;
+ b=owGbwMvMwCWm/754w+YLFp2Mp9WSGLJZFy/haI4yjItITLqY+Ty2yyZD584RZlGJmvZmw0XPf
+ X+VhF3tKGVhEONikBVTZInL4n5ZX/J6Dd/BhW0wc1iZQIYwcHEKwET6bBn+KR+6tNuJ1zepu2mZ
+ 1uoD51dGqZ/7e+NXo8bE7DKP3tdtRowM1yabiC52qP0vZvkoWqj6eZrRTTEj7tkbn79Lujp14rF
+ kPgA=
+X-Developer-Key: i=broonie@kernel.org; a=openpgp;
+ fpr=3F2568AAC26998F9E813A1C5C3F436CA30F5D8EB
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -64,49 +84,31 @@ List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-7.3 required=3.0 tests=BAYES_00,DKIM_SIGNED,
-	DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
-	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,USER_AGENT_SANE_1
-	autolearn=no autolearn_force=no version=4.0.1
+X-Spam-Status: No, score=-8.8 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
+	DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
+	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,USER_AGENT_GIT autolearn=ham
+	autolearn_force=no version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-On 11/24/26 15:33, Daniel Stone wrote:
-> Hi Angelo,
-> 
-> On Tue, 14 Jul 2026 at 12:46, AngeloGioacchino Del Regno
-> <angelogioacchino.delregno@collabora.com> wrote:
->> +#define DISP_REG_OVL_BLD_L0_CLR                        0x20c
->> +#  define OVL_BLD_BGCLR_BLACK                  0xff000000
->> +#  define OVL_BLD_BGCLR_RED                    0xffff0000
-> 
-> We probably don't need a #define for every ARGB8888 colour tbh. :)
-> 
->> +void mtk_blender_config(struct mtk_ddp_comp *comp, unsigned int w,
->> +                            unsigned int h, unsigned int vrefresh,
->> +                            unsigned int bpc, struct cmdq_pkt *cmdq_pkt)
->> +{
->> +       struct mtk_disp_blender *priv = dev_get_drvdata(comp->dev);
->> +       u32 val;
->> +
->> +       /* Set ROI for this Blender */
->> +       val = ((h & GENMASK(15, 0)) << 16) | (w & GENMASK(15, 0));
->> +       writel(val, priv->regs + DISP_REG_OVL_BLD_ROI_SIZE);
->> +
->> +       /*
->> +        * Set both background color and constant layer color to Opaque Black
->> +        * (ARGB) for eventual Alpha Blending to be effective
->> +        */
->> +       writel(OVL_BLD_BGCLR_BLACK, priv->regs + DISP_REG_OVL_BLD_BGCLR_CLR);
->> +       writel(OVL_BLD_BGCLR_BLACK, priv->regs + DISP_REG_OVL_BLD_L0_CLR);
-> 
-> Would you believe that this does not in fact need to be black, as it's
-> been configurable since 4c684596cde4?
-> 
+> Extend the PCM1754 codec driver to support the related PCM1773 DAC.
+> Select the DAI name, supported formats and sample rate limits per
+> variant. Handle the different FMT pin polarity and an optional format
+> GPIO, avoiding GPIO writes when the format pin is not controlled by the
+> driver. Add an optional enable GPIO for the PCM1773 power-down input,
+> controlled by a DAPM supply event to enable the DAC after power-up and
+> disable it before power-down.
 
-Heh, that's nice - I wrote this code also before the bg color property got
-introduced, thanks! :-D
+> +	case SND_SOC_DAIFMT_LEFT_J:
+> +		if (priv->variant != &pcm1773_variant ||
+> +		    (params_width(params) != 16 && params_width(params) != 24))
+> +			return -EINVAL;
+> +		format = 0;
+>  		break;
 
-Cheers,
-Angelo
+If you've got a struct describing the variant it is obviously not
+tasteful to open code a check based on the address of the variant struct
+rather than looking at something inside the description of the variant.
 
+-- 
+Mark Brown <broonie@kernel.org>
