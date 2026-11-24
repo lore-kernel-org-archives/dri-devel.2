@@ -2,67 +2,70 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EC4C4606A31E
-	for <dri-devel@archiver.kernel.org>; Tue, 24 Nov 2026 23:43:43 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 095E5606A31E
+	for <dri-devel@archiver.kernel.org>; Tue, 24 Nov 2026 23:53:07 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=fail reason="signature verification failed" (1024-bit key) header.d=collabora.com header.i=@collabora.com header.a=rsa-sha256 header.s=zohomail header.b=Gp6vh78B
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=jy1KLICg
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 5D3B110EFF8;
-	Tue, 24 Nov 2026 23:43:38 +0000 (UTC)
-Received: from sender6-op-o11.zoho.com (sender6-op-o11.zoho.com
- [165.173.180.11])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 5217410EFF8
- for <dri-devel@lists.freedesktop.org>; Tue, 24 Nov 2026 23:43:31 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; t=1795563806; cv=none; 
- d=zohomail.com; s=zohoarc; 
- b=Bh3+LCx8qV+vW1dINdJofNic+MV/TnlPSuWsa6WehjHhKiNy6k+bjM7FXPemW8SpSilivyKJQ+f6Z2tKyI4HRvcD1NF2gHMcr3cPROpNLFKs1E00OpasBqUARwz7z6+oUarAzGXyVLswxbitY1JJlOUDwv72JaXYX7mAqpPDUhY=
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com;
- s=zohoarc; t=1795563806;
- h=Content-Type:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:Subject:Subject:To:To:Message-Id:Reply-To;
- bh=AAu0m4r/j5PDw3y2hQMlPY2Gh8yBE327ApiPIDIWDfk=; 
- b=MDsnx3wrh6zSnR3jbk9fIaEoQljZn3IueLx3KwJ1ypON5DbAoE+4fdQQtTjFJFx/mlYP3+3+p+3gq35ih8FqLDcNfnCJcIR9BgPD7aPyDlgGNW4TGeQQ3dl2i2tkEaDih5SdtOLWZHV/dEAxZjrd+9WqqpI5/2mo1G0N6nhkeC4=
-ARC-Authentication-Results: i=1; mx.zohomail.com;
- dkim=pass  header.i=collabora.com;
- spf=pass  smtp.mailfrom=deborah.brouwer@collabora.com;
- dmarc=pass header.from=<deborah.brouwer@collabora.com>
-DKIM-Signature: a=rsa-sha256;
- b=Gp6vh78BSFlFlibUSIehlK0gmNbqYNirj69pT8dKhks6WpuhDy6z5w8IWZbsKm7jKcoOaeECbtsjuqk8c9wTPHghctp/gZRetVRXmXgipSrEVw5yv53hgCjaJIoJ135hYGOB6/C01og8a6rA4Re9GE5HvY4xhCkDvonMY8KjiPs=;
- c=relaxed/relaxed; s=zohomail; d=collabora.com; v=1;
- bh=AAu0m4r/j5PDw3y2hQMlPY2Gh8yBE327ApiPIDIWDfk=;
- h=Content-Description:Content-ID:Content-Type:Content-Transfer-Encoding:Cc:Date:From:In-Reply-To:List-Subscribe:List-Post:List-Owner:List-Id:List-Archive:List-Help:List-Unsubscribe:MIME-Version:Message-ID:Resent-Sender:Resent-Cc:Resent-Date:Resent-To:Reply-To:Resent-Message-ID:Resent-From:Sender:Subject:To:Date:From:Message-Id:Reply-To:Subject:To:Cc;
-Received: by smtp.zohomail.com with SMTPS id 1795563804992109.6167052303839;
- Tue, 24 Nov 2026 15:43:24 -0800 (PST)
-Date: Tue, 24 Nov 2026 16:43:21 -0700
-From: Deborah Brouwer <deborah.brouwer@collabora.com>
-To: Alvin Sun <alvin.sun@linux.dev>
-Cc: Miguel Ojeda <ojeda@kernel.org>, Boqun Feng <boqun@kernel.org>,
- Gary Guo <gary@garyguo.net>,
- =?iso-8859-1?Q?Bj=F6rn?= Roy Baron <bjorn3_gh@protonmail.com>,
- Benno Lossin <lossin@kernel.org>, Andreas Hindborg <a.hindborg@kernel.org>,
- Alice Ryhl <aliceryhl@google.com>, Trevor Gross <tmgross@umich.edu>,
- Danilo Krummrich <dakr@kernel.org>,
- Daniel Almeida <daniel.almeida@collabora.com>,
- Tamir Duberstein <tamird@kernel.org>,
- Alexandre Courbot <acourbot@nvidia.com>,
- Onur =?iso-8859-1?Q?=D6zkan?= <work@onurozkan.dev>,
- Lyude Paul <lyude@redhat.com>, David Airlie <airlied@gmail.com>,
- Simona Vetter <simona@ffwll.ch>,
- Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
- "Rafael J. Wysocki" <rafael@kernel.org>, Johan Hovold <johan@kernel.org>,
- Sami Tolvanen <samitolvanen@google.com>,
- rust-for-linux@vger.kernel.org, dri-devel@lists.freedesktop.org,
- driver-core@lists.linux.dev, Ke Sun <sunke@kylinos.cn>
-Subject: Re: [PATCH v7 04/10] drm/tyr: add per-file VM pool
-Message-ID: <awYhGbovN-Fg-Rsr@um790>
-References: <20261122-tyr-ioctls-v7-0-3a2af624b992@linux.dev>
- <20261122-tyr-ioctls-v7-4-3a2af624b992@linux.dev>
+	by gabe.freedesktop.org (Postfix) with ESMTP id 6C0F410E027;
+	Tue, 24 Nov 2026 23:53:01 +0000 (UTC)
+Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id A471F10E027
+ for <dri-devel@lists.freedesktop.org>; Tue, 24 Nov 2026 23:52:54 +0000 (UTC)
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+ by sea.source.kernel.org (Postfix) with ESMTP id 43CA845B98
+ for <dri-devel@lists.freedesktop.org>; Tue, 24 Nov 2026 23:52:54 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1D1941F000D8
+ for <dri-devel@lists.freedesktop.org>; Tue, 24 Nov 2026 23:52:54 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+ s=k20260515; t=1795564374;
+ bh=FdmbSo5Y/+1WVcBaZi3UOeVDRS7HdI9UnXMTYxRF8pM=;
+ h=References:In-Reply-To:From:Date:Subject:To:Cc;
+ b=jy1KLICgiWSXqsqyyn/gjKmfh+rsCDzaG2EVfNWUB4gbGN8xmKT6uSv5yG+2iL1G7
+ IK3zduScRh3Q4Zuq4FZneQ9tmRu1TiDvJln8Te05PBA79SXVpiyXqG8mF9i3SwLHvk
+ Oo8sB4hdZxHtCrY9Yp/82RTOL5ehb+IOdHnv7vuI+nTa+CypiHlDIRHTzAW0fd85Wb
+ kGQeDv0vEfxPIYQoKOwKqTq61J+hvj7UQXwjN02iepCKKWyx6iMZPrcx5PhnfGSIwv
+ GOBypqMenmIXZEadzSQwUM1+/LKppHQa8uUZJVDduDzJvol8Tl2PH8TZBl1ISExNwK
+ 9DbZFcLqMeomQ==
+Received: by mail-lf1-f52.google.com with SMTP id
+ 2adb3069b0e04-5c15956ce07so4961427e87.0
+ for <dri-devel@lists.freedesktop.org>; Tue, 24 Nov 2026 15:52:54 -0800 (PST)
+X-Forwarded-Encrypted: i=1;
+ AL+hErE8AchC19UkQcIph+fXmz/cqG7DiGXQ/d5Gv9ByXE9EM7ZiQp4t/AutrL1zPVnf77aUux4mJPuyWAM=@lists.freedesktop.org
+X-Gm-Message-State: APuU4Z8JQ93onNCiDW93zMheifHIwF/4gQrG66zEt6ii93pALspJvmGO
+ +lWXegHeC0JmUeN9ltomqvSExt/Oxh/Ssvu83p8j/olu0deHAPCxSTUM4GMPkAHAgoGj+m6ZQ8L
+ 8I3P6hlZ46zwTYI2NDnMaQ0IKz8f40Dg=
+X-Received: by 2002:a05:6512:3c86:b0:5bf:a34f:14ce with SMTP id
+ 2adb3069b0e04-5c1b7bcb80cmr4369964e87.11.1795564372635; Tue, 24 Nov 2026
+ 15:52:52 -0800 (PST)
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261122-tyr-ioctls-v7-4-3a2af624b992@linux.dev>
-X-Zoho-Virus-Status: 1
-X-Zoho-AV-Stamp: zmail-av-0.2.13.1.5.4/295.549.79
+References: <20261015142552.4128028-1-ryan.roberts@arm.com>
+ <20261015142552.4128028-14-ryan.roberts@arm.com>
+In-Reply-To: <20261015142552.4128028-14-ryan.roberts@arm.com>
+From: Linus Walleij <linusw@kernel.org>
+Date: Wed, 25 Nov 2026 00:52:40 +0100
+X-Gmail-Original-Message-ID: <CAD++jLmpMQ1KExszFo-So-dQ2rxDiG2fo1GYGV_T0VPQM2b=MQ@mail.gmail.com>
+X-Gm-Features: Aa3M54pFqitfpRija09wdUEiLNXZP7zwbQjloIBuStVWLIh0bhqixHx00fUO9n0
+Message-ID: <CAD++jLmpMQ1KExszFo-So-dQ2rxDiG2fo1GYGV_T0VPQM2b=MQ@mail.gmail.com>
+Subject: Re: [RFC PATCH v2 13/15] misc/arm-cla: Add stage-2 MTC and VM context
+ switch
+To: Ryan Roberts <ryan.roberts@arm.com>
+Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+ Arnd Bergmann <arnd@arndb.de>, 
+ Catalin Marinas <catalin.marinas@arm.com>, Will Deacon <will@kernel.org>, 
+ Mark Rutland <mark.rutland@arm.com>, Marc Zyngier <maz@kernel.org>,
+ Oliver Upton <oupton@kernel.org>, 
+ Alex Williamson <alex@shazbot.org>, Jason Gunthorpe <jgg@nvidia.com>,
+ Rob Herring <robh@kernel.org>, 
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
+ Jean-Philippe Brucker <jpb@kernel.org>, Oded Gabbay <ogabbay@kernel.org>,
+ Jonathan Corbet <corbet@lwn.net>, 
+ linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
+ kvmarm@lists.linux.dev, kvm@vger.kernel.org, devicetree@vger.kernel.org, 
+ dri-devel@lists.freedesktop.org, linux-doc@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -74,219 +77,155 @@ List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-13.6 required=3.0 tests=BAYES_00,DKIM_INVALID,
-	DKIM_SIGNED,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,
-	INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS autolearn=ham
-	autolearn_force=no version=4.0.1
+X-Spam-Status: No, score=-15.8 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
+	DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
+	INCLUDES_CR_TRAILER,INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,
+	SPF_PASS autolearn=ham autolearn_force=no version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-On Sun, Nov 22, 2026 at 08:50:23PM +0800, Alvin Sun wrote:
-> Userspace needs multiple independent GPU address spaces per file,
-> addressed by ID through the VM ioctls as in panthor. Store them in an
-> IdPool (capped at 32 for panthor parity) plus an XArray. On failure
-> the caller receives the VM for teardown through the returned error,
-> whether the un-stored clone or the original on an ID conflict, so an
-> aborted creation never leaks a VM. The pool kills every VM still
-> stored when the file closes.
-> 
-> Signed-off-by: Alvin Sun <alvin.sun@linux.dev>
-> ---
->  drivers/gpu/drm/tyr/vm.rs | 145 +++++++++++++++++++++++++++++++++++++++++++++-
->  1 file changed, 144 insertions(+), 1 deletion(-)
-> 
-> diff --git a/drivers/gpu/drm/tyr/vm.rs b/drivers/gpu/drm/tyr/vm.rs
-> index 1dd11b2b12532..e67a6efcf451b 100644
-> --- a/drivers/gpu/drm/tyr/vm.rs
-> +++ b/drivers/gpu/drm/tyr/vm.rs
-> @@ -11,6 +11,7 @@
->  use core::ops::Range;
->  
->  use kernel::{
-> +    alloc::AllocError,
->      device::{
->          Bound,
->          Device, //
-> @@ -33,6 +34,7 @@
->          }, //
->      },
->      fmt,
-> +    id_pool::IdPool,
->      impl_flags,
->      io::PhysAddr,
->      iommu::pgtable::{
-> @@ -41,6 +43,7 @@
->          ARM64LPAES1, //
->      },
->      new_mutex,
-> +    num::casts::FromSafeCast,
->      prelude::*,
->      sizes::{
->          SZ_1G,
-> @@ -53,7 +56,11 @@
->          ArcBorrow,
->          Mutex, //
->      },
-> -    uapi, //
-> +    uapi,
-> +    xarray::{
-> +        AllocKind,
-> +        XArray, //
-> +    }, //
+Hi Ryan, Jean-Philippe,
+
+On Thu, Oct 15, 2026 at 4:27=E2=80=AFPM Ryan Roberts <ryan.roberts@arm.com>=
+ wrote:
+
+> From: Jean-Philippe Brucker <jpb@kernel.org>
+>
+> Add functions to switch the guest MTC. Reset the accelerators and CLA
+> registers on switch. No save/restore of accelerators at the moment, we
+> only restore the kernel's PL0CTL.
+>
+> Signed-off-by: Jean-Philippe Brucker <jpb@kernel.org>
+(...)
+
+> +/**
+> + * struct cla_regs_pl1 - Saved CLA register state (PL1)
+> + * @pl0ctrl: Host PL0 control register
+> + *
+> + * Most registers are simply reset when transitionning to and from VMs, =
+since we
+> + * don't support shared assignment.
+> + */
+> +struct cla_regs_pl1 {
+> +       u64 pl0ctrl;
+> +};
+> +
+
+> +enum cla_ctx_type {
+> +       CLA_CTX_PL0,
+> +       CLA_CTX_PL1,
+> +};
+
+Please add authoritative definitions of the these two context states
+here so we know exactly what they are for.
+
+>   * Mutable, written by domain reassignment, device work, and CPU hotplug=
+:
+>   * @regs:              State for each device in domain.
+>   * @asid:              Pinned ASID of live context.
+> + * @guest_mmu:         Stage 2 translation configuration.
+
+Since they are now in a union there is some information missing here,
+asid for PL0, guest_mmu for PL1?
+
+>   */
+>  struct cla_ctx {
+>         struct kref refcnt;
+> @@ -191,7 +220,10 @@ struct cla_ctx {
+>         refcount_t users;
+>         struct list_head queue_node;
+>         void **regs;
+> -       unsigned int asid;
+> +       union {
+> +               unsigned int asid;
+> +               struct kvm_arch_guest_mmu *guest_mmu;
+> +       };
+>         wait_queue_head_t waitq;
 >  };
->  
->  use crate::{
-> @@ -947,3 +954,139 @@ fn pt_unmap(dev: &Device, pt: &IoPageTable<'_, ARM64LPAES1>, range: Range<u64>)
->  
->      Ok(())
->  }
-> +
-> +/// Maximum number of VMs a single file may hold, matching panthor's
-> +/// `PANTHOR_MAX_VMS_PER_FILE`.
-> +const MAX_VMS_PER_FILE: usize = 32;
-> +
-> +/// Per-open-file pool of VMs.
-> +#[pin_data(PinnedDrop)]
-> +pub(crate) struct VmPool<'drm> {
-> +    /// Parent device, for error reporting.
-> +    dev: &'drm Device<Bound>,
-> +    #[pin]
-> +    ids: Mutex<IdPool>,
-> +    #[pin]
-> +    vms: XArray<Arc<Vm<'drm>>>,
-> +}
-> +
-> +/// Error returned when a VM cannot be added to the pool. The caller
-> +/// owns the teardown of the VM in [`AddError::vm`].
-> +pub(crate) struct AddError<'drm> {
-> +    #[expect(dead_code)]
-> +    pub(crate) error: Error,
-> +    #[expect(dead_code)]
-> +    pub(crate) vm: Arc<Vm<'drm>>,
-> +}
-> +
-> +impl<'drm> VmPool<'drm> {
-> +    /// Creates a new [`VmPool`].
-> +    ///
-> +    /// The pool is sized for [`MAX_VMS_PER_FILE`] IDs on all architectures,
-> +    /// including 32-bit builds where `IdPool::new()` would only hold 31 IDs
-> +    /// because `find_unused_id(1)` skips bit 0 of an inline bitmap.
-> +    #[expect(dead_code)]
-> +    pub(crate) fn new(dev: &'drm Device<Bound>) -> Result<impl PinInit<Self>, AllocError> {
-> +        let ids = IdPool::with_capacity(MAX_VMS_PER_FILE + 1, GFP_KERNEL)?;
-> +        Ok(pin_init!(Self {
-> +            dev,
-> +            ids <- new_mutex!(ids),
-> +            vms <- XArray::new(AllocKind::Alloc),
-> +        }))
-> +    }
-> +
-> +    /// Stores the VM and returns the allocated ID.
-> +    ///
-> +    /// On failure - ID space exhausted or a store failure - the VM is
-> +    /// returned in an [`AddError`] so the caller owns the teardown.
-> +    // TODO: allocate IDs with the XArray directly (once it grows range
-> +    // allocation, the equivalent of C's `XA_LIMIT`) and drop the IdPool.
-> +    #[expect(dead_code)]
-> +    pub(crate) fn add(&self, vm: Arc<Vm<'drm>>) -> Result<u32, AddError<'drm>> {
-> +        let id = (|| {
-> +            let mut ids = self.ids.lock();
-> +            let unused = ids.find_unused_id(1).ok_or(ENOSPC)?;
 
-In v6, I suggeted we use EBUSY here so that we have parity with panthor.
-Any concerns with this?
+(...)
 
-> +            if unused.as_usize() > MAX_VMS_PER_FILE {
-> +                return Err(ENOSPC);
+>  /**
+>   * cla_ctx_create - Create a context or increase its user count
+>   * @domain: CLA domain
+> @@ -48,8 +79,12 @@ struct cla_ctx *cla_ctx_create(struct cla_domain *doma=
+in,
+>         INIT_LIST_HEAD(&ctx->queue_node);
+>         init_waitqueue_head(&ctx->waitq);
+>
+> -       mmgrab(key->mm);
+> -       get_file(key->file);
+> +       if (cla_ctx_is_pl0(ctx)) {
+> +               mmgrab(key->mm);
+> +               get_file(key->file);
+> +       } else {
+> +               WARN_ON(!cla_ctx_get_pl1(ctx));
+> +       }
 
-Same here.
+This WARN_ON looks more like an assert() of some kind?
+Since it's an enum and assigned from those everywher
+this is basically a check for memory corruption...?
 
-> +            }
+Well maybe better safe than sorry.
+
+If you want to employ this pattern, and especially if there
+will be PL2, PL3 etc in the future, do a switch?
+
+switch (ctx->key.type) {
+case CLA_CTX_PL0:
+    mmgrab(key->mm);
+    get_file(key->file);
+    break;
+case CLA_CTX_PL1:
+    break;
+default:
+    WARN_ON(1); /* Should never happen */
+    break;
+}
+
+So you would then use that pattern also here:
+
+> -       mmdrop(key->mm);
+> -       fput(key->file);
+> +       if (cla_ctx_is_pl0(ctx)) {
+> +               mmdrop(key->mm);
+> +               fput(key->file);
+> +       } else {
+> +               cla_ctx_put_pl1(ctx);
+> +       }
+
+And here:
+
+> -       mmdrop(ctx->key.mm);
+> -       fput(ctx->key.file);
+> +       if (cla_ctx_is_pl0(ctx)) {
+> +               mmdrop(ctx->key.mm);
+> +               fput(ctx->key.file);
+> +       } else {
+> +               cla_ctx_put_pl1(ctx);
+> +       }
 
 
-> +            Ok(unused.acquire())
-> +        })();
-> +        let id = match id {
-> +            Ok(id) => id,
-> +            Err(error) => return Err(AddError { error, vm }),
-> +        };
-> +
-> +        let mut vms = self.vms.lock();
-> +        match vms.store(id, vm.clone(), GFP_KERNEL) {
-> +            Ok(prev_vm) => {
-> +                if let Some(prev_vm) = prev_vm {
-> +                    // An existing VM at the freshly allocated slot means the
-> +                    // IdPool and the XArray are out of sync: the stored VM is
-> +                    // a pool entry, so the pool kills it and the caller's VM
-> +                    // is returned for teardown.
-> +                    drop(vms.remove(id));
-> +                    drop(vms);
-> +                    prev_vm.kill();
-> +                    self.ids.lock().release_id(id);
-> +                    dev_err!(
-> +                        self.dev,
-> +                        "IdPool/XArray out of sync at VM pool id {id} (stored VM conflict)"
-> +                    );
-> +                    return Err(AddError { error: EBUSY, vm });
-> +                }
-> +                Ok(id as u32)
-> +            }
-> +            Err(err) => {
-> +                // Drop the XArray spinlock before acquiring the `ids` mutex.
-> +                drop(vms);
-> +                // Release the pooled id; the VM never entered the pool, so it
-> +                // is returned to the caller for teardown.
-> +                self.ids.lock().release_id(id);
-> +                Err(AddError {
-> +                    error: err.error,
-> +                    vm: err.value,
-> +                })
-> +            }
-> +        }
-> +    }
-> +
-> +    /// Removes and kills the VM with the given ID.
-> +    #[expect(dead_code)]
-> +    pub(crate) fn remove(&self, id: u32) -> Result<()> {
-> +        let mut vms = self.vms.lock();
-> +        let vm = match vms.remove(usize::from_safe_cast(id)) {
-> +            Some(vm) => vm,
-> +            None => return Err(EINVAL),
-> +        };
-> +        // Drop the XArray spinlock before killing, since `kill()` may sleep.
-> +        drop(vms);
-> +        // Kill the VM before handing the id back to the pool, so a VM is
-> +        // never reusable while still alive.
-> +        vm.kill();
-> +        self.ids.lock().release_id(usize::from_safe_cast(id));
-> +        Ok(())
-> +    }
-> +
-> +    /// Gets a shared reference to the VM with the given ID.
-> +    #[expect(dead_code)]
-> +    pub(crate) fn get(&self, id: u32) -> Option<Arc<Vm<'drm>>> {
-> +        let vms = self.vms.lock();
-> +        let borrow = vms.get(usize::from_safe_cast(id))?;
-> +        Some(Arc::from(borrow))
-> +    }
-> +}
-> +
-> +#[pinned_drop]
-> +impl PinnedDrop for VmPool<'_> {
-> +    fn drop(self: Pin<&mut Self>) {
-> +        // Kill every VM left in the pool. The ID range is bounded by
-> +        // `MAX_VMS_PER_FILE`, so this loop is cheap and runs at file close.
-> +        for id in 1..=MAX_VMS_PER_FILE {
-> +            // Release the XArray lock guard before killing: `kill()` may sleep.
-> +            let vm = self.vms.lock().remove(id);
-> +            if let Some(vm) = vm {
-> +                vm.kill();
-> +            }
-> +        }
-> +    }
-> +}
-> 
-> -- 
-> 2.43.0
-> 
-> 
+>  #define cla_kernel_mtc \
+>         (cla_kernel_pl =3D=3D 2 ? CLA_MTC_REGIDX_PL2 : CLA_MTC_REGIDX_PL1=
+)
+>
+> +/**
+> + * struct cla_mtc_s2 - Stage 2 MTC configuration for the host or a VM.
+> + * @hcr: HCR_EL2 register value.
+> + * @vttbr: VTTBR_EL2 register value.
+> + * @vtcr: VTCR_EL2 register value.
+> + */
+> +struct cla_mtc_s2 {
+> +       u64 hcr;
+> +       u64 vttbr;
+> +       u64 vtcr;
+> +};
+
+At this point I have no idea what "stage 1" and "stage 2" is, but I just
+assume it is something everyone working on virtualization knows about.
+Maybe it could be explained briefly in the commit message for the
+rest of us?
+
+Yours,
+Linus Walleij
