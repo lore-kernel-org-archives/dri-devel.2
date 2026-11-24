@@ -2,126 +2,79 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BD077606A321
-	for <dri-devel@archiver.kernel.org>; Wed, 25 Nov 2026 08:28:46 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AE040606A331
+	for <dri-devel@archiver.kernel.org>; Wed, 25 Nov 2026 08:41:25 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.a=rsa-sha256 header.s=selector1-NXP1-onmicrosoft-com header.b=uRBgQTiG
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=vTG23Kou
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 1EBFF10E1BC;
-	Wed, 25 Nov 2026 08:28:41 +0000 (UTC)
-Received: from AM0PR02CU008.outbound.protection.outlook.com
- (mail-westeuropeazon11013016.outbound.protection.outlook.com [52.101.72.16])
- by gabe.freedesktop.org (Postfix) with ESMTPS id C279510E1BC
- for <dri-devel@lists.freedesktop.org>; Wed, 25 Nov 2026 08:28:34 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=TII+2Q4hlT9jSG7/281TkeDD2ItQo0ibMBaXElz2EblFvrwfjiCA5pqOc2QGlos0GOrhqe03ploWkcuDTHvylgjZetBxa2AxkQ6bSRqBVqNlQCKEDujwp78lUmDPvDubWKkYuOh5RLHqh+OcCD55VcQUm5cpb9vn8lVqqufaZGyZU1FevipWdV2A+0uKkW0cv6nMQf/+Fwd1ocISEN5x15S6XBLYLmKO1d1T8bfiFMy1OXTawkEkOo8KniEwvhYq11VxPpMjmdfh+Y3fW3/u9TZZc6aRjTmAUZKpbm3eqED83730+A01wH216UQw249xBJqb/K2sDgdSHN0jb0CyWQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=pvaif42UsfINSlAAimCpmndZRtT8DKtSjfaklfpubAU=;
- b=VK9JKpTuN1w67mFdCtKAiar2KLPvhhsCGDZObriAfLZh+4ieJG4HvzZYH1GPeJLRj0w8x6NCoM4dp3OKtladg1sVik8YzomE15UeqrhqEhu3z0Z0aHMrSL30exspqQuCKoMMikL9nwYHY6pQ7Bf6M0JL5Y5BR3w8eI6z/bBrkBLXf2xcPsxTDhKhh1LjAiPjDnQECbnXg6xEHW3IdxBs86ljmTaH0IuoZByPkD/biM+KVmtuEr/Gzl2WsdaLY77IeRKsVut+xrlLIg3zIGjszJBtT+nsyR/m7tsvrAyfYwpVRy2wWGfuAa3STbdDezjvrwQK0vCW/0tx3zuQLs0qjA==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=oss.nxp.com; dmarc=pass action=none header.from=oss.nxp.com;
- dkim=pass header.d=oss.nxp.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=NXP1.onmicrosoft.com; 
- s=selector1-NXP1-onmicrosoft-com;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=pvaif42UsfINSlAAimCpmndZRtT8DKtSjfaklfpubAU=;
- b=uRBgQTiGKq+BrDj7AUiNa2KdA1rhNGStUVoAOQfohSxr5rlm5R+ObGdzU2cSr73omq94F9XRMWZf1me2zeUqc3EaNOh8Ttj7Pbd37Voi9vVcWKtlUN1whcttNzCSn1HsGWo+FalLeN/nGLxbzM4/X30G30+aMoiMZQP5wEMzfbKW0GvMFLk84S1GP+EfxkQP4JmsQz1vSaPbNDjkOHG7p63ZjB3JO77iisD6MHCoXBmmUp1ukmeU+K3fgyhK5PZarVHOvspFhmxOt1CrgoLZVAQpj5MjXTrOYJh06JirNuUCXbom5EQXHm/exbaTWwgexCOdsUD6bvghcZxfClSEYA==
-Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=oss.nxp.com;
-Received: from GV2PR04MB12318.eurprd04.prod.outlook.com
- (2603:10a6:150:32b::19) by BR2PR04MB728579.eurprd04.prod.outlook.com
- (2603:10a6:2c8:3::15) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.662.6; Wed, 25 Nov
- 2026 08:28:31 +0000
-Received: from GV2PR04MB12318.eurprd04.prod.outlook.com
- ([fe80::a498:2b5a:cbdb:d6fa]) by GV2PR04MB12318.eurprd04.prod.outlook.com
- ([fe80::a498:2b5a:cbdb:d6fa%3]) with mapi id 15.21.0639.012; Wed, 25 Nov 2026
- 08:28:31 +0000
-Date: Wed, 25 Nov 2026 10:28:26 +0200
-From: Laurentiu Palcu <laurentiu.palcu@oss.nxp.com>
-To: Denis Arefev <arefev@swemel.ru>
-Cc: Lucas Stach <l.stach@pengutronix.de>, 
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>, 
- Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>, 
- Simona Vetter <simona@ffwll.ch>, Frank Li <Frank.Li@nxp.com>, 
- Sascha Hauer <s.hauer@pengutronix.de>,
- Pengutronix Kernel Team <kernel@pengutronix.de>, 
- Fabio Estevam <festevam@gmail.com>,
- Guido =?utf-8?Q?G=C3=BCnther?= <agx@sigxcpu.org>, 
- dri-devel@lists.freedesktop.org, imx@lists.linux.dev,
- linux-arm-kernel@lists.infradead.org, 
- linux-kernel@vger.kernel.org, lvc-project@linuxtesting.org,
- stable@vger.kernel.org
-Subject: Re: [PATCH] drm: imx-dcss: Check return value of
- drm_mode_config_helper_suspend()
-Message-ID: <awab8eI2696Nj1IR@vm>
-References: <20261119113031.36945-1-arefev@swemel.ru>
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261119113031.36945-1-arefev@swemel.ru>
-X-ClientProxiedBy: AS9P309CA0004.EURP309.PROD.OUTLOOK.COM
- (2603:10a6:20b:45d::14) To GV2PR04MB12318.eurprd04.prod.outlook.com
- (2603:10a6:150:32b::19)
+	by gabe.freedesktop.org (Postfix) with ESMTP id ED37610E27F;
+	Wed, 25 Nov 2026 08:41:19 +0000 (UTC)
+Received: from mail-ua1-f53.google.com (mail-ua1-f53.google.com
+ [209.85.222.53])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 8C27710F0D3
+ for <dri-devel@lists.freedesktop.org>; Tue, 24 Nov 2026 22:29:10 +0000 (UTC)
+Received: by mail-ua1-f53.google.com with SMTP id
+ a1e0cc1a2514c-996eeadfbeaso2866012241.3
+ for <dri-devel@lists.freedesktop.org>; Tue, 24 Nov 2026 14:29:10 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20260707; t=1795559349; x=1796164149; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:mime-version:references:in-reply-to
+ :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+ :message-id:reply-to:content-type;
+ bh=zrnW76Gzs90HtZ7/PtOyDoPE6/B6VxQRo6W3vp/Iitg=;
+ b=vTG23KoudKMZO3eCl2PLP+rpkt9ptaH/VCLcSHUaWD8fHon+/0qeg0H5B7EjZlHgFf
+ x6+OkF5l0+9K3VszJz0Q8wkpmevnz+fbF8Ko5Fhcead0f/r8QU4qKA3ON28doDQlvTVT
+ uS4GciDdAOzOuzyv1HEiN32xZ+VNiMCpykxFukXFDPZQoicBquGUDaFeEgeOHBzDjz2Z
+ oltesgPZ1dyrg2mESuS7felz53FCbbOsZst7GHKQcPB0anVGPWLRMhAaeXX0+yindYTT
+ Dd5OfTCe6BHvRDOP+pgdqrMxL+akYyw4C0KlQ18FOKPe8K04ApLP3SQ/OO1IMx8i/fI4
+ 8J5w==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20260707; t=1795559349; x=1796164149;
+ h=content-transfer-encoding:mime-version:references:in-reply-to
+ :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+ :to:cc:subject:date:message-id:reply-to:content-type;
+ bh=zrnW76Gzs90HtZ7/PtOyDoPE6/B6VxQRo6W3vp/Iitg=;
+ b=1rRn4iVb5RMbm0/hQofGhaBdczGRkbKLDJgIFnfAzww+3jANQlTQ6bgWgYXPBVx+XN
+ 1A+by4VE39PBOyctE0FPXcXHklMIJGV5BgV4tflFl0NaHOtSONnvyeJPgc0nIt6Aa1KW
+ AN+BrolhPhXNWKzsHIwxBhja4LXE3Wd+Xx7fqTmRABJMU1meq/8oV4uO+yIL2OLUObtB
+ pRmw0HUhV0pfrOHrqoEoZEaQfi1Aq0AqLBas7piY47O1VuBN91rXYF91rO371UxaBgTH
+ WT/J/kmyFqBHC9LMacHQoTKDntsR5/4eW12jAym55uHgP0S2njEAzxCso+ocrkCNOCx+
+ Kg0w==
+X-Gm-Message-State: APuU4Z/EfNTxT+pAXeVKPuBT9AO3KYPWGj11+SRm7kUR3PRZElRgg0pN
+ 3SFDxWGBixz0uO+jUe6cv0ceY8uVS0S3oTVqfMnox+ICGTx7lT4ruDdC
+X-Gm-Gg: AZFdTZcuoBwo2S5Np7I8zwU1xe4Tpn1+ymWo90ikK9IeBsP4/T0ehrr+Tllm2FNYgga
+ 5ROLLMFP7+fj5X3LrciZ//SibSwPKGeZZZDXoqNiTte45F5FTxnfYxzs2Ffdw5IxcZNLl6AsO2y
+ eUT+ovtoaR/EQ6BBF3gi07nCuYZtR7/z+lgFMWsOSjiHSfCuTnr9lbNgn6D/ZfHAlX//fOJ6eyG
+ 47iMFe9cLagr9JgMUDD88bCYWEr89fPKk87YO5xFkIVxhoNEna16IGCMiYQPP3UA2hWlBToB66R
+ cLOm1qfWY9kgvHRDx+8oFOvBX+bHBfxMFIB8uYrvXBixQf1Try7qVfBphCqapfwEXPNZDhaBe2L
+ rWCcAU84l5MatFUp7xMcpcL68XYt8McYpDtNmJp1Sz+JKV9y7glxaNDwwoqpRJOOjv4B1Ccaf/n
+ +dTUxWbXwRroNo0OSHuRx7bPVavdm7Puh7eUu6xeZss5Bqaat3wNQWzBQYDC09uYUPGvsALMqpm
+ xRpjbykguQ4LJpRzlihdiO2amQmdhWRlCg/aNOMYUq9d+y8hLPqbE62ZGatgtYGL5bOQ9YVxbPf
+ kIBI2bxO8aZKM9hz6t3zRBvIAY1uMOTj5qZq6mmo27Fj
+X-Received: by 2002:a05:6102:3e8d:b0:7d2:da60:d0f7 with SMTP id
+ ada2fe7eead31-7d73957a273mr8934345137.28.1795559349456; 
+ Tue, 24 Nov 2026 14:29:09 -0800 (PST)
+Received: from eduapps.lan ([2804:f04:9074:7a00:92e6:2643:ce63:2792])
+ by smtp.gmail.com with ESMTPSA id
+ ada2fe7eead31-7d6e822a085sm16403831137.10.2026.11.24.14.29.06
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Tue, 24 Nov 2026 14:29:09 -0800 (PST)
+From: "Eduardo P. Gomez" <eduardoprocopiogomez@gmail.com>
+To: nat@pixelcluster.dev,
+	arunpravin.paneerselvam@amd.com
+Cc: dri-devel@lists.freedesktop.org, matthew.auld@intel.com,
+ matthew.brost@intel.com, thomas.hellstrom@linux.intel.com,
+ "Eduardo P. Gomez" <eduardoprocopiogomez@gmail.com>
+Subject: [RFC PATCH 2/2] drm/ttm: retain a reserve during idle pool reclaim
+Date: Tue, 24 Nov 2026 19:28:12 -0300
+Message-ID: <20261124222812.511867-3-eduardoprocopiogomez@gmail.com>
+X-Mailer: git-send-email 2.55.0
+In-Reply-To: <20261124222812.511867-1-eduardoprocopiogomez@gmail.com>
+References: <20261124222812.511867-1-eduardoprocopiogomez@gmail.com>
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
-X-MS-Exchange-MessageSentRepresentingType: 1
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: GV2PR04MB12318:EE_|BR2PR04MB728579:EE_
-X-MS-Office365-Filtering-Correlation-Id: 7176f908-ed7c-4e68-50ec-08df4ace1644
-X-MS-Exchange-SharedMailbox-RoutingAgent-Processed: True
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
- ARA:13230040|23010399003|1800799024|19092799006|376014|7416014|366016|261009223027099003|18002099003|22082099003|10067099003|11063799006|56012099006|261026140227099003|261026121527099003|261028144727099003|261022105027099003;
-X-Microsoft-Antispam-Message-Info: KlscykmmVa3sqwcj7A8QYuu3RKLSXl8Y329+46fSrfJuBHVF39sDUNAXGeKRSJRz1h6TLetowQO5EB5406XInCzvxtf7Hyvu/stVw11uaRqhf4Uj72hJzH51jO+VA6ig4f1+f7oNfcO78kZ5KEl3eIBCKbxm/KEwN3olamZcqZ6OscPgIgTIAcloRDd39P4iMArUSra3VIVUPAk+bWWCD4in6oX3JDasxJph5fDPERYDn5kfDKXzSxprlSsdXisKldrCjQDU5IxvTOMdHryia3blonyfj7Bmso7u+Tht3m3OChQ/vTI5DsyKtdM6kx5pYfFdt7eJ0wm9xQefoC186is6P4DyyfKzRGFP3pN0YC6UlTu33ulXsYa1JrOHf4yNZerEimFhg2dmhtkqX2yZ1EXszw0i4TaWE8pJqpOVgQ1giEm3mVXr7w98Aqst3vdHHy6K8GDvzX6JocvKegOf3ObFYtuIfmrNWvEU/8X0H08pUua5mNygKnTlh+RedUVnsE6L3QiloG2qUoTvd+euaDtrkCXxjNg26f/bjQW2TEeIU3gqM6yUh7PVa4QZ5gGQVwFpuSZc6QrGQ8jqC3VvOZ0G74yrUZlllCsM4R8SSmf1F5S8wULp9d/b5GhoMvImziKMvZe0lId1rBUP1WqXrdtX3lLOKkcSyZnv1reYhgw=
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:GV2PR04MB12318.eurprd04.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(23010399003)(1800799024)(19092799006)(376014)(7416014)(366016)(261009223027099003)(18002099003)(22082099003)(10067099003)(11063799006)(56012099006)(261026140227099003)(261026121527099003)(261028144727099003)(261022105027099003);
- DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?us-ascii?Q?4kzr4YwIvIN1L1V042dYNIEGzBtooGf6WS0e0WkNUerU0Ue5UGuVqkJcyPfv?=
- =?us-ascii?Q?a0DH1834ox4NfzVeH/MZW0EOXvZoygaTtIWzC6Fr36FZClXqNuOwjOd8CAWx?=
- =?us-ascii?Q?NOm9FrArubz17lVOw2cnBKQQqauhdobBjJln5hKLESwXSfz07Xr7vQIvXwyB?=
- =?us-ascii?Q?GQF2OTwNjeXq2v0LucPY/w/KvrvJWDWaggiYODDfx9MiwEk90s0dpBlAMHLw?=
- =?us-ascii?Q?lWmHfxOoISZCeKcYPDmXh7hvMJw3OFUvMG236/5dUlMtp4p6q9r1QL4JSKsQ?=
- =?us-ascii?Q?pJIuK/SiRafUOrlCeuttw6k0aOF08kvqJSBPSWiOiwEYoyp0uLTM7UewUixT?=
- =?us-ascii?Q?WH04qTIIdI851v+dOmpVtjUdNRonHv/8NsKuQJGbopkUxx4O5PldbXNb5e/+?=
- =?us-ascii?Q?i1cWGWnVH4HIHsl63U7pimJnfa5mhHbF5SNVH0jC06weqbTCuDcemYevBhL8?=
- =?us-ascii?Q?ENs+9r3yIku1ETsVlwgXVVUPtpFECDVUJYUgBtMLIOc6P7iR616dMQh15VSc?=
- =?us-ascii?Q?1d7Ju/eqQvzBuMgNKZPXe/a+/9oL2MEppEN78qi9L4z3ytR/8jh2P1JQpUm2?=
- =?us-ascii?Q?qA+9oU1xG1M+RRd3maMIDFeBVydLG5o96kh1iw+/52uphhBJJpyO1kWyeCkS?=
- =?us-ascii?Q?AOZdvrUKuJsRkQHihXEBmYjP3CtIGX4atdxodV2nMrv11vMBx9XgiPOsgYcK?=
- =?us-ascii?Q?/2xd7tJCax3kOinMA3kRWwiYMwA4rncHZionQywRZLCk0mdf/rpN6TbTw8yQ?=
- =?us-ascii?Q?w3Qvc2XmbO+CX4RG8BqcbE1weQH2vzqB7JXjcEyWgW5HKJM0Xg2hDI0FIyC9?=
- =?us-ascii?Q?EVnrt+1N/8AWQ6FoL1CqDnskp+mJCX3M4YiBuk9iXyJgIwpB+S9KU9UeIoK4?=
- =?us-ascii?Q?iJd0U2ZAIE3kdCLxdPWovyb8dbtY3YbyG2h/csBW1edcZbUNuGxo9LbHX6Sz?=
- =?us-ascii?Q?+/r1ljMjlTzYTaECXz9jWuZDPso1WCs/JlKM170JdA9wZMsaTYup2dOBRRxr?=
- =?us-ascii?Q?2po7FkE/cTOF2iqdShYsahiNRmVxY9a4WZ2JxEWKY/wHQBkeN/IDqPKFxKrX?=
- =?us-ascii?Q?zpaMlQGduA9qGSKMSsnMENW/26Am/AADunWF50GonH1eYzyTE7yoFd9Z5//a?=
- =?us-ascii?Q?BFk82I1mWFJKIHf0iT/DkSyI6CZ84n+VSJHFMsI8uqTM2jb8ObD93mq9JunK?=
- =?us-ascii?Q?e42cNdZg1+UySqCwZI6uwaOF63Yl4QymjDOE4Je/9Ye9MnUlPz+FC3oPmEx3?=
- =?us-ascii?Q?2ItKn8nuyTZNN4NmiJVydg8CtPly58lc8buBULdbSF0k1MVjLQB0ITnlf9uF?=
- =?us-ascii?Q?E8YX4iUTcGjPoZsbpACqnaxyNJ2yBiOhFh1D4CUJQMjL3Wf7HbKbtS1SaTAo?=
- =?us-ascii?Q?6TjP3tKosrx2SSlRwO4kWPnra6W5ABTU5tCVQdn9LnGJToVl9CqBU4r54Pr4?=
- =?us-ascii?Q?idinwhN6rFROtbKt0DuSSmyzWTgf87fizJ243z56kMOJBrLy23v7nXfkM9+I?=
- =?us-ascii?Q?5Z8Fj0/lZJVhuQSHldNt+NLS57BTdKaCHYs+froo4Ndl0Y92rv4LoO67X2aI?=
- =?us-ascii?Q?242nx+UU+i0NuuNvz3br02sTy1Xyz9BLoJ5WAFs5K2Fs3qqrUPZczTUKZoCA?=
- =?us-ascii?Q?HZeM93mbhstZdRPvLNZNQM+E8mZLPY3879hirk5hAjq9A18ZlL+QcPBr9vbn?=
- =?us-ascii?Q?7tyzBm9LBuqOaHff7Ih/hBNMkIUza/hLMokEs/IjgSUXwa4WxRiiPSf2IIpS?=
- =?us-ascii?Q?5Xj7AEyvYZkR8l8QCbmvWsLg20SxICs=3D?=
-X-OriginatorOrg: oss.nxp.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 7176f908-ed7c-4e68-50ec-08df4ace1644
-X-MS-Exchange-CrossTenant-AuthSource: GV2PR04MB12318.eurprd04.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 25 Nov 2026 08:28:30.9401 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: V4htefDhYutlaXoy4mHKKMjUc83qHuM+MnoKzB2vYvWCxPUtJbsJz1L1zAiwU72n/ve7t4iJIMRLPE0y7AjGkg==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: BR2PR04MB728579
+Content-Transfer-Encoding: 8bit
+X-Mailman-Approved-At: Wed, 25 Nov 2026 08:41:18 +0000
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -133,34 +86,113 @@ List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-8.8 required=3.0 tests=BAYES_00,DKIM_SIGNED,
-	DKIM_VALID,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,
-	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS autolearn=ham
+X-Spam-Status: No, score=-15.8 required=3.0 tests=BAYES_00,DKIM_SIGNED,
+	DKIM_VALID,DKIM_VALID_AU,FREEMAIL_FORGED_FROMDOMAIN,FREEMAIL_FROM,
+	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
+	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,USER_AGENT_GIT autolearn=ham
 	autolearn_force=no version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-Hi Denis,
+Draining the idle pool makes the next burst pay the cold allocation
+cost again. Retain a configurable 128 MiB reserve per NUMA node, capped
+by the node's existing pool limit. Reclaim under memory pressure can
+still use the reserve. A zero reserve restores the full idle drain.
 
-On Thu, Nov 19, 2026 at 02:30:29PM +0300, Denis Arefev wrote:
-> dcss_dev_suspend() ignores the return value of 
-> drm_mode_config_helper_suspend(). On failure that helper rolls back its
-> partial work (re-enables fbdev and polling) and leaves
-> mode_config.suspend_state unset, i.e. the DRM side is not suspended.
-> Continuing to suspend the context loader and disable the clocks then
-> leaves the device in an inconsistent state.
-> 
-> Check the return value and propagate the error to the PM core, as the
-> other DRM drivers calling this helper do.
-> 
-> Found by Linux Verification Center (linuxtesting.org) with SVACE.
-> 
-> Fixes: 9021c317b770 ("drm/imx: Add initial support for DCSS on iMX8MQ")
-> Cc: stable@vger.kernel.org
-> Signed-off-by: Denis Arefev <arefev@swemel.ru>
+In QEMU, idle reclaim reduced the pool from 768 MiB to 128 MiB, leaving
+pages that the next allocation could reuse after the timeout.
 
-Reviewed-by: Laurentiu Palcu <laurentiu.palcu@oss.nxp.com>
+Signed-off-by: Eduardo P. Gomez <eduardoprocopiogomez@gmail.com>
+---
+ drivers/gpu/drm/ttm/ttm_pool.c | 26 +++++++++++++++++++++-----
+ 1 file changed, 21 insertions(+), 5 deletions(-)
 
+diff --git a/drivers/gpu/drm/ttm/ttm_pool.c b/drivers/gpu/drm/ttm/ttm_pool.c
+index 6af8a9c89..3aad264fa 100644
+--- a/drivers/gpu/drm/ttm/ttm_pool.c
++++ b/drivers/gpu/drm/ttm/ttm_pool.c
+@@ -38,6 +38,7 @@
+ #include <linux/highmem.h>
+ #include <linux/jiffies.h>
+ #include <linux/sched/mm.h>
++#include <linux/sizes.h>
+ #include <linux/workqueue.h>
+ 
+ #ifdef CONFIG_X86
+@@ -141,6 +142,11 @@ static unsigned int page_pool_idle_ms = 5000;
+ MODULE_PARM_DESC(page_pool_idle_ms, "TTM page pool idle timeout in ms (0 disables it)");
+ module_param(page_pool_idle_ms, uint, 0444);
+ 
++static unsigned long page_pool_idle_reserve = SZ_128M / PAGE_SIZE;
++
++MODULE_PARM_DESC(page_pool_idle_reserve, "Target pages to retain per NUMA node after idle reclaim");
++module_param(page_pool_idle_reserve, ulong, 0444);
++
+ static unsigned long pool_node_limit[MAX_NUMNODES];
+ static atomic_long_t allocated_pages[MAX_NUMNODES];
+ static struct delayed_work pool_idle_work;
+@@ -485,7 +491,8 @@ static struct ttm_pool_type *ttm_pool_select_type(struct ttm_pool *pool,
+ }
+ 
+ /* Free pages using the per-node shrinker list */
+-static unsigned int ttm_pool_shrink(int nid, unsigned long num_to_free)
++static unsigned int ttm_pool_shrink(int nid, unsigned long num_to_free,
++				    unsigned long page_budget)
+ {
+ 	LIST_HEAD(dispose);
+ 	struct ttm_pool_type *pt;
+@@ -497,6 +504,10 @@ static unsigned int ttm_pool_shrink(int nid, unsigned long num_to_free)
+ 	list_move_tail(&pt->shrinker_list, &shrinker_list);
+ 	spin_unlock(&shrinker_lock);
+ 
++	/* A list entry represents a whole compound allocation. */
++	if (page_budget)
++		num_to_free = min(num_to_free, ((page_budget - 1) >> pt->order) + 1);
++
+ 	num_pages = list_lru_walk_node(&pt->pages, nid, pool_move_to_dispose_list, &dispose, &num_to_free);
+ 	num_pages *= 1 << pt->order;
+ 
+@@ -513,7 +524,12 @@ static void ttm_pool_shrink_idle(struct work_struct *work)
+ 	int nid;
+ 
+ 	for_each_node_state(nid, N_MEMORY) {
+-		while (atomic_long_read(&allocated_pages[nid]) > 0) {
++		unsigned long reserve = min(page_pool_idle_reserve,
++					    pool_node_limit[nid]);
++		long pages;
++
++		while ((pages = atomic_long_read(&allocated_pages[nid])) > 0 &&
++		       pages > reserve) {
+ 			unsigned long now = jiffies;
+ 			unsigned long expires = READ_ONCE(pool_last_return) +
+ 						pool_idle_delay;
+@@ -524,7 +540,7 @@ static void ttm_pool_shrink_idle(struct work_struct *work)
+ 				return;
+ 			}
+ 
+-			ttm_pool_shrink(nid, batch);
++			ttm_pool_shrink(nid, batch, pages - reserve);
+ 			cond_resched();
+ 		}
+ 	}
+@@ -1040,7 +1056,7 @@ void ttm_pool_free(struct ttm_pool *pool, struct ttm_tt *tt)
+ 
+ 	while (atomic_long_read(&allocated_pages[nid]) > pool_node_limit[nid]) {
+ 		unsigned long diff = atomic_long_read(&allocated_pages[nid]) - pool_node_limit[nid];
+-		ttm_pool_shrink(nid, diff);
++		ttm_pool_shrink(nid, diff, 0);
+ 	}
+ }
+ EXPORT_SYMBOL(ttm_pool_free);
+@@ -1366,7 +1382,7 @@ static unsigned long ttm_pool_shrinker_scan(struct shrinker *shrink,
+ 	unsigned long num_freed = 0;
+ 
+ 	do
+-		num_freed += ttm_pool_shrink(sc->nid, sc->nr_to_scan);
++		num_freed += ttm_pool_shrink(sc->nid, sc->nr_to_scan, 0);
+ 	while (num_freed < sc->nr_to_scan &&
+ 	       atomic_long_read(&allocated_pages[sc->nid]));
+ 
 -- 
-Thanks,
-Laurentiu
+2.55.0
+
