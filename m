@@ -2,162 +2,44 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8282F606A31E
-	for <dri-devel@archiver.kernel.org>; Tue, 24 Nov 2026 19:37:37 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D947F606A32D
+	for <dri-devel@archiver.kernel.org>; Tue, 24 Nov 2026 19:39:26 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=columbia.edu header.i=@columbia.edu header.a=rsa-sha256 header.s=pps01 header.b=ArQqb01A;
-	dkim=pass (2048-bit key) header.d=columbia.edu header.i=@columbia.edu header.a=rsa-sha256 header.s=lionmail header.b=dDI9CewA
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=PxUlcLaH
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id E438510E186;
-	Tue, 24 Nov 2026 19:37:26 +0000 (UTC)
-Received: from mx0b-00364e01.pphosted.com (mx0b-00364e01.pphosted.com
- [148.163.139.74])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 6C51010E186
- for <dri-devel@lists.freedesktop.org>; Tue, 24 Nov 2026 19:37:15 +0000 (UTC)
-Received: from pps.filterd (m0499198.ppops.net [127.0.0.1])
- by mx0b-00364e01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id
- 6AOJYTcF3474072
- for <dri-devel@lists.freedesktop.org>; Tue, 24 Nov 2026 14:37:14 -0500
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=columbia.edu; h=
- cc:content-transfer-encoding:content-type:date:from:in-reply-to
- :message-id:mime-version:references:subject:to; s=pps01; bh=OMjg
- nMOdm5LC9Ve7tJbATj56ZsHM2zVs1s6tMJ9jz2Y=; b=ArQqb01Alvqy+ezQ3O+b
- wFGaLKLkRPslDfTTnR/1n3YHEnzFvpSAXsSLtAema3OMBGvQTr8MjsfnQdizF1DR
- Y35c9K1YbdbrokVp6lJBFIYVrUHqLLS3WYYBtEDDKg/6m1bODWncA+LZwiNP1MH8
- Z3bx2LUxG6sfpmxDdUI+/kyZI7guQlRgIUWOBYQ6reZ57nqjYw3JFREOmJXGhsy0
- 5UyyJqrfI8VjX2MlX1xqtk46jQix4pqRNZv16i1aL2PIz3aAJytU8fQlN33iF7Uo
- xruvXaD2EFNKvtzNiOaeLj7AUiUNlwagsbKMIv+l5TRcoparlTssaELubPi31AEG
- DQ==
-Received: from mail-qt1-f197.google.com (mail-qt1-f197.google.com
- [209.85.160.197])
- by mx0b-00364e01.pphosted.com (PPS) with ESMTPS id 4j5dqcj8r1-1
- (version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
- for <dri-devel@lists.freedesktop.org>; Tue, 24 Nov 2026 14:37:14 -0500 (EST)
-Received: by mail-qt1-f197.google.com with SMTP id
- d75a77b69052e-536778a8137so87210701cf.2
- for <dri-devel@lists.freedesktop.org>; Tue, 24 Nov 2026 11:37:14 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=columbia.edu; s=lionmail; t=1795549034; x=1796153834;
- darn=lists.freedesktop.org; 
- h=content-transfer-encoding:content-type:in-reply-to:from
- :content-language:references:cc:to:subject:user-agent:mime-version
- :date:message-id:from:to:cc:subject:date:message-id:reply-to
- :content-type; bh=OMjgnMOdm5LC9Ve7tJbATj56ZsHM2zVs1s6tMJ9jz2Y=;
- b=dDI9CewADpfltMyOctEQPXef6qPnURtuo0OcT6SbxH3+FlE/qJUYzqIk1vx6CB7hPF
- m6heUBxPsiywc1A4mOJnWGJwRRXEqaqBogcevklS8h/hpO3VLwG7q3GE941ZMYkFoo9i
- XahTHRfSjvaBgI6h8sX5v34XHSjDDnj0zvhERWBJ0HHcphspAyPUoVsNvhy9yTd6ETuN
- RM7j+08t2tuHma+g4qDjVAmbDUS1peebrC/jMUMIUPcW8QYTTw2zc8RAMZREcvdTfTd5
- IuyZ8DVXX3Zm6RdVgJIsaAuaftrJbgRWsBdsmotXmbtpQZc14BWHCN7sfRk56hHDtw2E
- w4lA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20260707; t=1795549034; x=1796153834;
- h=content-transfer-encoding:content-type:in-reply-to:from
- :content-language:references:cc:to:subject:user-agent:mime-version
- :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
- :message-id:reply-to:content-type;
- bh=OMjgnMOdm5LC9Ve7tJbATj56ZsHM2zVs1s6tMJ9jz2Y=;
- b=rklj89hS5fYAxtgXSDKCqSEDwxp89LxTS2syWsGkbdiXH94OroAHDUeBpy7nffu8sw
- sU7SmquIttLQhnzaGbcpvsfdd+eQKgk6pUHwpdK8EgbHeUtGBy7yhvsvWa5+YDbYTenb
- JHbigwCDRj+63T4Glg7TSwxQc/39uS/+kP+4SKfXDqfvBdoB8JeCZUPS1cWY9waivGEn
- HKeFf8AY1RL6XLcqmeh4W20Iu4kwrr/LOhtZbEgiJAGblcNSd5bbxQEpq0XEnDxHJqHp
- 47g7n/17qU+m89/XEmqACCwA8k4AATc+2NlOXiLE7i9ZhQRy90rmuObSUP+E5Yn218X6
- CChA==
-X-Forwarded-Encrypted: i=1;
- AL+hErG3vRdrWIYFuAuoI8VWNCaHWrHO2DNXtKw6f3Odjo5hYvkI4RBGBnBREpxESCXzQL8rFyFh9PBbEjM=@lists.freedesktop.org
-X-Gm-Message-State: APuU4Z8Ei5xi5NSYWRxVIbsJmjvCZeXNA3jzAOKYqOhGZzwa61VZSTW3
- +rLHQz1HRozGQHMvKogq6o6Bcx939wpLYscTMGg4LUq0w0aAgjEPU1SPIvUs11YfoPXx+DE8Usy
- UUkYl1SmKe+3QnzXTokYYJaYQTkM/ugkZ3pXOHyeDqdMEHOLNWsxZF8Z5PoA1Ryh//w==
-X-Gm-Gg: AZFdTZfkNtcJtb3XWJGcz3d+IU/fDStn5rnD5EHDQbs2IbI7r/VysQ9GYVNuAZeWxOZ
- gBXOaQohSDYOPvZNJoa85tenxn/q/Y4oREyHfskFu+aNkIR/8Zbjz4rlFZSrQrZMrgs8z6bo8K3
- X75412bn6jzmEetGZzEx+1n4zLQGijYWABEsGUr1r5O1G3TSAL7u6hnJomCTmOVhHhUNQ3Gi35i
- 9MdRse3ectX3flU2TptCnvzzahrYtcbw/gcYV30hJeg3ZfRcVLVDctnVLEnIBcpZRb4+bLgv2za
- HLumjwCQnW0UPE9Tz/G1kriSeDq/TozNBn17Ac2qL37tcDsPlBI2vvi9uZ7gTJjkC0zQ+L3Ezxy
- Bvr2LTn27RL/ZUiBlGZ01xh73lOx4JRx1s+wtTgaXGHKjpjlDcy0QdAOOJDG+20v0hg==
-X-Received: by 2002:a05:622a:313:b0:55d:1944:a2ab with SMTP id
- d75a77b69052e-55d76a5af8dmr288718521cf.49.1795549033840; 
- Tue, 24 Nov 2026 11:37:13 -0800 (PST)
-X-Received: by 2002:a05:622a:313:b0:55d:1944:a2ab with SMTP id
- d75a77b69052e-55d76a5af8dmr288717631cf.49.1795549033344; 
- Tue, 24 Nov 2026 11:37:13 -0800 (PST)
-Received: from [10.206.101.158] ([129.236.231.128])
- by smtp.gmail.com with ESMTPSA id
- 6a1803df08f44-9213515f467sm140631006d6.41.2026.11.24.11.37.11
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Tue, 24 Nov 2026 11:37:12 -0800 (PST)
-Message-ID: <3ebb01ea-fe77-4467-a1de-7f30a91593f3@columbia.edu>
-Date: Tue, 24 Nov 2026 14:37:11 -0500
-X-Archived-By: <archiver.kernel.org>
-MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v3 0/9] userfaultfd: assorted fixes (part 1)
-To: "David Hildenbrand (Arm)" <david@kernel.org>,
- Andrew Morton <akpm@linux-foundation.org>,
- Mike Rapoport <rppt@kernel.org>, Peter Xu <peterx@redhat.com>,
- James Houghton <jthoughton@google.com>,
- Andrea Arcangeli <aarcange@redhat.com>,
- Suren Baghdasaryan <surenb@google.com>, Balbir Singh <balbirs@nvidia.com>,
- "Liam R. Howlett" <liam@infradead.org>,
- Lorenzo Stoakes <ljs@kernel.org>, Vlastimil Babka <vbabka@kernel.org>,
- Jann Horn <jannh@google.com>, Pedro Falcato <pfalcato@suse.de>,
- Michal Hocko <mhocko@suse.com>,
- =?UTF-8?B?TWljaGHFgiBNaXJvc8WCYXc=?= <mirq-linux@rere.qmqm.pl>,
- Andrei Vagin <avagin@gmail.com>,
- Muhammad Usama Anjum <usama.anjum@arm.com>,
- Stephen Rothwell <sfr@canb.auug.org.au>, Arnd Bergmann <arnd@arndb.de>,
- Zi Yan <ziy@nvidia.com>, Matthew Brost <matthew.brost@intel.com>,
- Joshua Hahn <joshua.hahnjy@gmail.com>,
- Byungchul Park <byungchul@sk.com>, Gregory Price <gourry@gourry.net>,
- Ying Huang <ying.huang@linux.alibaba.com>,
- Alistair Popple <apopple@nvidia.com>,
- Baolin Wang <baolin.wang@linux.alibaba.com>,
- Nico Pache <nico.pache@linux.dev>, Ryan Roberts <ryan.roberts@arm.com>,
- Dev Jain <dev.jain@arm.com>, Barry Song <baohua@kernel.org>,
- Lance Yang <lance.yang@linux.dev>, Usama Arif <usama.arif@linux.dev>,
- Kiryl Shutsemau <kas@kernel.org>, Muchun Song <muchun.song@linux.dev>,
- Oscar Salvador <osalvador@suse.de>,
- =?UTF-8?Q?Miko=C5=82aj_Lenczewski?= <miko.lenczewski@arm.com>
-Cc: linux-mm@kvack.org, linux-kernel@vger.kernel.org,
- linux-fsdevel@vger.kernel.org, stable@vger.kernel.org,
- Breno Leitao <leitao@debian.org>,
- =?UTF-8?Q?Thomas_Hellstr=C3=B6m?= <thomas.hellstrom@linux.intel.com>,
- Lyude Paul <lyude@redhat.com>, Danilo Krummrich <dakr@kernel.org>,
- Felix Kuehling <Felix.Kuehling@amd.com>,
- Jason Gunthorpe <jgg@ziepe.ca>, Leon Romanovsky <leon@kernel.org>,
- dri-devel@lists.freedesktop.org, intel-xe@lists.freedesktop.org,
- nouveau@lists.freedesktop.org, amd-gfx@lists.freedesktop.org
-References: <20261117-uffd-state-fixes-v3-0-b617009d1a4a@columbia.edu>
- <4f23b0bc-b89a-46c1-b8cd-853e7815b7ac@kernel.org>
-Content-Language: en-US
-From: Tal Zussman <tz2294@columbia.edu>
-In-Reply-To: <4f23b0bc-b89a-46c1-b8cd-853e7815b7ac@kernel.org>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-X-Authority-Analysis: v=2.4 cv=Na9zRGD4 c=1 sm=1 tr=0 ts=6b05e76a cx=c_pps
- a=EVbN6Ke/fEF3bsl7X48z0g==:117 a=LNQXEAmb7IHcZyFqmLK0PA==:17
- a=IkcTkHD0fZMA:10 a=zJRp6_cAMcgA:10 a=x7bEGLp0ZPQA:10 a=A0y_DWxS2BwA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=Da8U98TiO7q1upZEImrf:22 a=BpGzv1V74M3SfeTrGa8v:22
- a=Z7cX3StJxvrjZLnT-lEA:9 a=QEXdDO2ut3YA:10 a=a_PwQJl-kcHnX1M80qC6:22
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMTI0MDA3NiBTYWx0ZWRfX49VsoG/eq0Ye
- 6yvCdhdD9l1K3kaGVYSokjqleD05IQnifWqrmh3lOoiRTsxeLOK5fpr1v/PmcYVczGNEFMrjTFJ
- D7PGCDEcKo6wSqdaU8APiqBge3j+TDQtiOwTW2km9c+B/P24C4Co
-X-Proofpoint-ORIG-GUID: H9_ibfJwOvT-DdS8AX5pg7otStQBxRCH
-X-Proofpoint-GUID: H9_ibfJwOvT-DdS8AX5pg7otStQBxRCH
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMTI0MDA3NiBTYWx0ZWRfX4C2ldYhSvsLQ
- rpwb3utV7/md+U/Kal3jUQvfi07FYf+8yT3buw5Yis4lnuLfVVvkhT8ERmM1gpVWO9n/WtufzQn
- HnuuoJDTH6hDt7L4OTjyRhQ063g8+wiZKELpLltKSzhlNwmasPD3TU+w7fgZE19mtjC7xiQkXlp
- U+lg6/QbfnB8gVvOnPWJRkRKucmUAbFXf7BQwSc2R5APAII0PEINkzep8PINTF2Ky+RIU7O/mrn
- QoyZNyax53u5vvD5x4BmANrTEDlVQ+P3IoqSqneEv9aMaHUZjv+ycHCal+oK1NTA8aD6rms1WNG
- eJcQUzop8bFirF606Q/EU0Li5WkRKm1X62fxjboWEpeEwHEKXHUg9me9j10BwOyR8gUFWpPUs3q
- 63Q1Z6PP8FeXIoWqPompn5ApZxLSih7TK39S0c73KMtwXxwNkkZ49TL+Gz1fJnNev0xDQkiYDs9
- ai4TtjieoMbMZRSG6bQ==
-X-Proofpoint-Virus-Version: vendor=nai engine=6900 definitions=11976
- signatures=596817
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- suspectscore=0 malwarescore=0 bulkscore=10 priorityscore=1501
- impostorscore=10 phishscore=0 lowpriorityscore=10 adultscore=0 spamscore=0
- clxscore=1015 classifier=typeunknown authscore=0 authtc= authcc=
- route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2611040001
- definitions=main-2611240076
+	by gabe.freedesktop.org (Postfix) with ESMTP id 392B310E281;
+	Tue, 24 Nov 2026 19:39:21 +0000 (UTC)
+Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id E3CAE10E270
+ for <dri-devel@lists.freedesktop.org>; Tue, 24 Nov 2026 19:39:14 +0000 (UTC)
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+ by sea.source.kernel.org (Postfix) with ESMTP id 33AF441A35;
+ Tue, 24 Nov 2026 19:39:14 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7EC731F000C0;
+ Tue, 24 Nov 2026 19:39:13 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+ s=k20260515; t=1795549153;
+ bh=rNDM8c9PoF7vdxbxPy4VFHaRlC320YkECGNtf/5fyYg=;
+ h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+ b=PxUlcLaHD8De9f2K7PhjuAYhY/VZea6gidgnWKJCfsuVG3gWHMqsngKCqzhGkdhhX
+ JJ114rp4Yknsf2Ziub9S95qZbWand2xAnnu52o6BkSLY7ncgnW8SQ1pySxQOUZwQax
+ x56pXenwgtEY2o0XN9yeZpLik7h06G90jZ2k+935+UxzngCxKkSwdxKwV0RvGCnOS9
+ zR6jZposZeIkdU0PoLM8ezamYZYqEeHk0OwY+KSM7bxF3We5HD5jqD0i1vq4AwLWzP
+ Rxq+0ECgQLidvzxPXwcf60X+7fDYq+qPw3Hn9tvXlSK92gnXEunQxWSbqDj1qQ6cdr
+ m++wBAmWRnLrA==
+Message-ID: <sashiko-outbox-231900@kernel.org>
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH 2/2] drm/bridge: Add Lontium LT9721 HDMI to eDP bridge
+ driver
+To: "Gianfranco Mariotti" <gianfranco.mariotti94@gmail.com>
+Cc: dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org,
+ robh@kernel.org, conor+dt@kernel.org
+In-Reply-To: <20261124191803.283266-3-gianfranco.mariotti94@gmail.com>
+References: <20261124191803.283266-1-gianfranco.mariotti94@gmail.com>
+ <20261124191803.283266-3-gianfranco.mariotti94@gmail.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Tue, 24 Nov 2026 19:39:13 +0000
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -168,49 +50,151 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
+Reply-To: sashiko-reviews@lists.linux.dev
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-7.3 required=3.0 tests=BAYES_00,DKIM_SIGNED,
-	DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
-	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,USER_AGENT_SANE_1
-	autolearn=no autolearn_force=no version=4.0.1
+X-Spam-Status: No, score=-10.8 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
+	DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
+	INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS autolearn=ham
+	autolearn_force=no version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
+X-Archived-By: <archiver.kernel.org>
 
+Thank you for your contribution! Sashiko AI review found 4 potential
+issues to consider:
+- [High] drm/bridge: lt9721: refcount underflow on next_bridge in
+  lt9721_link_panel()
+- [Medium] drm/bridge: lt9721: off-by-one partial write count in
+  lt9721_aux_transfer_i2c()
+- [Low] drm/bridge: lt9721: missing DRM_BRIDGE_OP_DETECT for panels in
+  lt9721_link_panel()
+- [Low] drm/bridge: lt9721: positional initializer in lt9721_i2c_ids[]
+--
 
+commit aa23cf54f8347a08ccdc8bd2c65d1c07c8f8ba0d
+Author: Gianfranco Mariotti <gianfranco.mariotti94@gmail.com>
 
-On 11/18/26 4:41 AM, David Hildenbrand (Arm) wrote:
-...
-> 
-> So, I would be picking up ...
-> 
->> Tal Zussman (9):
->>       userfaultfd: use anonymous memory for UFFDIO_ZEROPAGE on private file mappings
->>       userfaultfd: refuse UFFDIO_MOVE into a non-present huge destination PMD
->>       fs/proc/task_mmu: downgrade writable migration entries in PAGEMAP_SCAN write-protect
->>       mm/migrate: warn on a writable migration entry with the uffd bit set
-> 
-> This
-> 
->>       fs/proc/task_mmu: write-protect device-private THPs in PAGEMAP_SCAN
->>       mm/huge_memory: build the moved huge zero PMD from the destination VMA
-> 
-> This
-> 
->>       mm/mremap: resolve uffd state when the context is dropped, not during the move
->>       mm/migrate_device: do not migrate a uffd-protected zero page
-> 
-> This
-> 
->>       mm/userfaultfd: check the hugetlb alignment of every VMA in the pre-scan
-> 
-> 
-> After waiting a bit longer for more review. Andrew can take the rest.
-> 
-> 
+drm/bridge: Add Lontium LT9721 HDMI to eDP bridge driver
 
-@Andrew, could you pick up the rest of these (everything but 4 and 8)?
-I'd like to send the next batch of uffd fixes I have on top of these.
+This commit adds a DRM bridge driver for the Lontium LT9721 HDMI 1.4 to
+1/2/4-lane eDP 1.4 bridge chip.
 
-Thanks,
-Tal
+> diff --git a/drivers/gpu/drm/bridge/lontium-lt9721.c b/drivers/gpu/drm/br=
+idge/lontium-lt9721.c
+> new file mode 100644
+> index 0000000000000..582e9e59dfb4d
+> --- /dev/null
+> +++ b/drivers/gpu/drm/bridge/lontium-lt9721.c
+[ ... ]
+> +static ssize_t lt9721_aux_transfer_i2c(struct lt9721 *lt9721,
+> +				       struct drm_dp_aux_msg *msg)
+> +{
+[ ... ]
+> +	if (is_read) {
+> +		data_len =3D min_t(size_t, msg->size, rx_cnt - 1);
+> +		for (i =3D 0; i < data_len; i++) {
+> +			ret =3D regmap_read(lt9721->regmap,
+> +					  LT9721_REG_AUX_SOFT_FIFO, &val);
+> +			if (ret)
+> +				goto out_drain;
+> +			buf[i] =3D val;
+> +		}
+> +		ret =3D data_len;
+> +	} else if (rx_cnt > 1) {
+> +		/* Partial write: sink returned count M (M + 1 bytes written) */
+> +		ret =3D regmap_read(lt9721->regmap, LT9721_REG_AUX_SOFT_FIFO,
+> +				  &val);
+> +		if (ret =3D=3D 0)
+> +			ret =3D min_t(size_t, msg->size, val + 1);
+> +	} else {
+> +		ret =3D msg->size;
+> +	}
 
+[Severity: Medium]
+Does this over-report partial I2C-over-AUX writes by one byte?
+
+Unlike the 4-bit length field in the AUX request header, the reply data
+byte M returned by a DisplayPort sink on a short I2C write is already the
+exact number of bytes written (0 < M < msg->size).  Returning val + 1
+causes drm_dp_i2c_drain_msg() to advance msg.buffer by one unwritten byte
+on each partial write.
+
+[ ... ]
+
+> +static enum drm_connector_status
+> +lt9721_bridge_detect(struct drm_bridge *bridge,
+> +		     struct drm_connector *connector)
+> +{
+> +	struct lt9721 *lt9721 =3D bridge_to_lt9721(bridge);
+> +	unsigned int val =3D 0;
+> +
+> +	if (lt9721->is_panel)
+> +		return connector_status_connected;
+> +
+> +	if (regmap_read(lt9721->regmap, LT9721_REG_HPD_STATUS, &val))
+> +		return connector_status_unknown;
+> +
+> +	return (val & LT9721_EDP_HPD_STATUS) ?
+> +		connector_status_connected : connector_status_disconnected;
+> +}
+[ ... ]
+> +static int lt9721_link_panel(struct drm_dp_aux *aux)
+> +{
+> +	struct lt9721 *lt9721 =3D aux_to_lt9721(aux);
+> +	struct device *dev =3D lt9721->dev;
+> +	struct drm_bridge *next_bridge;
+> +
+> +	next_bridge =3D devm_drm_of_get_bridge(dev, dev->of_node, 1, 0);
+> +	if (IS_ERR(next_bridge))
+> +		return PTR_ERR(next_bridge);
+> +
+> +	if (drm_bridge_is_panel(next_bridge))
+> +		lt9721->is_panel =3D true;
+> +	else
+> +		lt9721->bridge.ops =3D DRM_BRIDGE_OP_DETECT | DRM_BRIDGE_OP_EDID;
+
+[Severity: Low]
+Should DRM_BRIDGE_OP_DETECT also be set when drm_bridge_is_panel() is
+true?  Without it, drm_bridge_connector_init() and drm_bridge_detect()
+never invoke lt9721_bridge_detect() for panels, leaving the
+lt9721->is_panel check unreachable and failing to override an upstream
+HDMI bridge's DRM_BRIDGE_OP_DETECT.
+
+> +
+> +	lt9721->bridge.next_bridge =3D next_bridge;
+> +
+> +	return devm_drm_bridge_add(dev, &lt9721->bridge);
+> +}
+
+[Severity: High]
+Does assigning devm_drm_of_get_bridge() to lt9721->bridge.next_bridge
+underflow next_bridge->refcount when lt9721->bridge is freed?
+
+__drm_bridge_free() unconditionally calls
+drm_bridge_put(bridge->next_bridge), so bridge.next_bridge requires an
+owned reference.  devm_drm_of_get_bridge() does not return a reference for
+bridge.next_bridge to consume: for a panel, devm_drm_panel_bridge_add()
+already registers devm_drm_panel_bridge_release() to drop its reference on
+unbind, and for a non-panel bridge, drm_of_find_panel_or_bridge() returns
+an unreferenced pointer from of_drm_find_bridge().  On driver unbind or
+probe unwind, __drm_bridge_free() drops an extra reference and frees the
+downstream bridge prematurely.
+
+Using of_drm_get_bridge_by_endpoint() (or taking a reference with
+drm_bridge_get()) would provide the reference that bridge.next_bridge
+expects.
+
+[ ... ]
+
+> +static const struct i2c_device_id lt9721_i2c_ids[] =3D {
+> +	{ "lt9721" },
+> +	{ }
+> +};
+
+[Severity: Low]
+This isn't a bug, but new struct i2c_device_id entries should use named
+initializers ({ .name =3D "lt9721" }).
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261124191803.2832=
+66-1-gianfranco.mariotti94@gmail.com?part=3D2
