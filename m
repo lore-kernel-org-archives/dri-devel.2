@@ -2,67 +2,129 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 914E2606A322
-	for <dri-devel@archiver.kernel.org>; Tue, 24 Nov 2026 09:17:53 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A7EBE606A689
+	for <dri-devel@archiver.kernel.org>; Tue, 24 Nov 2026 09:21:42 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (1024-bit key, unprotected) header.d=bp.renesas.com header.i=@bp.renesas.com header.a=rsa-sha256 header.s=selector1 header.b=EV9Yunri
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id B2C9E10F390;
-	Tue, 24 Nov 2026 09:17:52 +0000 (UTC)
-Received: from cstnet.cn (smtp21.cstnet.cn [159.226.251.21])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 1B1D410F390
- for <dri-devel@lists.freedesktop.org>; Tue, 24 Nov 2026 09:17:50 +0000 (UTC)
-Received: from edelgard.fodlan.icenowy.me (unknown [120.85.97.139])
- by APP-01 (Coremail) with SMTP id qwCowACn0fsrVgVrsHWVAQ--.4130S2;
- Tue, 24 Nov 2026 17:17:32 +0800 (CST)
-Message-ID: <ae0e7aeba38d7b7c2eb6cc526917b75e05c748cd.camel@iscas.ac.cn>
-Subject: Re: [PATCH v3 2/2] drm/bridge: add TH1520 DesignWare MIPI DSI host
- controller
-From: Icenowy Zheng <zhengxingda@iscas.ac.cn>
-To: Chaoyi Chen <chaoyi.chen@rock-chips.com>
-Cc: Andrzej Hajda <andrzej.hajda@intel.com>, Neil Armstrong	
- <neil.armstrong@linaro.org>, Robert Foss <rfoss@kernel.org>, Laurent
- Pinchart	 <Laurent.pinchart@ideasonboard.com>, Jonas Karlman
- <jonas@kwiboo.se>, Jernej Skrabec <jernej.skrabec@gmail.com>, Luca Ceresoli
- <luca.ceresoli@bootlin.com>, Maarten Lankhorst	
- <maarten.lankhorst@linux.intel.com>, Maxime Ripard <mripard@kernel.org>, 
- Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>,
- Simona Vetter <simona@ffwll.ch>, Rob Herring	 <robh@kernel.org>, Krzysztof
- Kozlowski <krzk+dt@kernel.org>, Conor Dooley	 <conor+dt@kernel.org>, Sandy
- Huang <hjc@rock-chips.com>, Heiko =?ISO-8859-1?Q?St=FCbner?=	
- <heiko@sntech.de>, Andy Yan <andyshrk@163.com>,
- dri-devel@lists.freedesktop.org, 	devicetree@vger.kernel.org,
- linux-kernel@vger.kernel.org, 	linux-rockchip@lists.infradead.org,
- linux-arm-kernel@lists.infradead.org, 	linux-riscv@lists.infradead.org, Han
- Gao <gaohan@iscas.ac.cn>
-Date: Tue, 24 Nov 2026 17:17:31 +0800
-In-Reply-To: <a797b2da-ea60-4b81-8fbf-e027afc89cc6@rock-chips.com>
-References: <20261124-th1520-dw-mipi-dsi-v3-0-ffcf2d87971b@iscas.ac.cn>
- <20261124-th1520-dw-mipi-dsi-v3-2-ffcf2d87971b@iscas.ac.cn>
- <af27260f-1911-47bb-8fe2-8eaa8bec31b0@rock-chips.com>
- <561b5dc1b3a87ebc78f2357d253df4676395fb10.camel@iscas.ac.cn>
- <a797b2da-ea60-4b81-8fbf-e027afc89cc6@rock-chips.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-User-Agent: Evolution 3.58.3 
+	by gabe.freedesktop.org (Postfix) with ESMTP id C9F5510E535;
+	Tue, 24 Nov 2026 09:21:36 +0000 (UTC)
+Received: from OS0P286CU011.outbound.protection.outlook.com
+ (mail-japanwestazon11010027.outbound.protection.outlook.com [52.101.228.27])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id B38E710E535
+ for <dri-devel@lists.freedesktop.org>; Tue, 24 Nov 2026 09:21:30 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=H5avUopaTGjF18kMnWumcAM32chjZiG1L513DAe76x1BiAXM1x7WxxxqEvJEW5H3LkeLs/fiSDxoXbUarPCrDSfYFjiRVn6JHCw3wFO97vVFnp+urordzF/GMCWn0w12iq8LHuemNLMJ2zmcPXiWrTt0qs5ttskYMYG5qTCZ8ogYpSZnx49IJodC884cG2DaeM76u71jrfwwctF0r7l65Rm4HcFwDVZ31NOPK7NK/VxG2WMc3XLQKLTbAPKRGMOC4+1tXoDfxNU4iVyVxC6ZUup2R61SEDmPWfDIIBhT1vNv9m9W0MNSgL2TdP4qamzU9y6dO7l+DdSqB3Z+hlr2/A==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=ctbxF5B+y6L/JHufQc69gZUon7h+6IHwoGQ5DYI4x3Q=;
+ b=oMrV/jI21PsncKCH4uex0d904mvG6fLGNblFAx25s1wtvIC6fEzNfA9Y35VdjY9rfCiNG9hdLEwvH0fF/F3QUJmDZ/MNkEiReP/6dB9CE/1Y8qvFykDkCN9k+BDC8vCHEWTK14+i9ZD0ee3DB5GV3nOEBnIY6WQQE766fANeC11bkNFAQrhqsNa0qKqy+hASAVzGedvyCrSZzr8ksyPlU5mjBonw7JTyY0qE5UHUZWwGDzJXIPqKl5LEM0I7XB//1KLcObl5swOLLHMhvhvEZbZOxyZeI2po6U7WX/9bYsmrNm2gDsEIO3VWc6B9dv+VPZns1oKxTJhT3gnkX5nVXA==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=bp.renesas.com; dmarc=pass action=none
+ header.from=bp.renesas.com; dkim=pass header.d=bp.renesas.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bp.renesas.com;
+ s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=ctbxF5B+y6L/JHufQc69gZUon7h+6IHwoGQ5DYI4x3Q=;
+ b=EV9YunriUcbmyZ4TZ6507yWa1MzAs6gooQWi4ziDuR2aWtKpV9RXfvQHdEAgxcZGo4Llxwq+2f5XI0xCOHK8FFj9P2lvviq7h0aF/G8IuNDos1r6jnUZz3bLnWqxp9nJnxtnFrd+ln+OsxWXj64PxIdQTDeniHqiTpSkDAnwX4s=
+Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=bp.renesas.com;
+Received: from TY7PR01MB045388.jpnprd01.prod.outlook.com
+ (2603:1096:403:405::18) by TY7PR01MB17940.jpnprd01.prod.outlook.com
+ (2603:1096:405:39f::12) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.639.10; Tue, 24 Nov
+ 2026 09:21:26 +0000
+Received: from TY7PR01MB045388.jpnprd01.prod.outlook.com
+ ([fe80::efc7:876a:53ee:a019]) by TY7PR01MB045388.jpnprd01.prod.outlook.com
+ ([fe80::efc7:876a:53ee:a019%6]) with mapi id 15.21.0639.012; Tue, 24 Nov 2026
+ 09:21:14 +0000
+Date: Tue, 24 Nov 2026 10:20:36 +0100
+From: Tommaso Merciai <tommaso.merciai.xr@bp.renesas.com>
+To: Biju Das <biju.das.jz@bp.renesas.com>
+Cc: Tommaso Merciai <tomm.merciai@gmail.com>,
+ Prabhakar Mahadev Lad <prabhakar.mahadev-lad.rj@bp.renesas.com>,
+ "linux-renesas-soc@vger.kernel.org" <linux-renesas-soc@vger.kernel.org>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>,
+ Thomas Zimmermann <tzimmermann@suse.de>, Rob Herring <robh@kernel.org>,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>,
+ Geert Uytterhoeven <geert+renesas@glider.be>,
+ "magnus.damm" <magnus.damm@gmail.com>,
+ Laurent Pinchart <laurent.pinchart+renesas@ideasonboard.com>,
+ "dri-devel@lists.freedesktop.org" <dri-devel@lists.freedesktop.org>,
+ "devicetree@vger.kernel.org" <devicetree@vger.kernel.org>,
+ "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>
+Subject: Re: [PATCH v10 08/12] drm: renesas: rz-du: Separate the DU instance
+ from the DRM device
+Message-ID: <awVW5B4p06FUfBHw@tom-desktop>
+References: <cover.1794502191.git.tommaso.merciai.xr@bp.renesas.com>
+ <68fcf838eee14c1906f23b2b7c74c560793cd1d4.1794502191.git.tommaso.merciai.xr@bp.renesas.com>
+ <OS3PR01MB65968FEBCB08429F11188CE986452@OS3PR01MB6596.jpnprd01.prod.outlook.com>
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <OS3PR01MB65968FEBCB08429F11188CE986452@OS3PR01MB6596.jpnprd01.prod.outlook.com>
+X-ClientProxiedBy: LO0P123CA0015.GBRP123.PROD.OUTLOOK.COM
+ (2603:10a6:600:354::12) To TY5PR01MB864802.jpnprd01.prod.outlook.com
+ (2603:1096:403:512::7)
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
-X-CM-TRANSID: qwCowACn0fsrVgVrsHWVAQ--.4130S2
-X-Coremail-Antispam: 1UD129KBjvJXoW3uw15tF1fuw17tw4rXr4ktFb_yoWkZr47pr
- 1UAF4UtFW5AFnrGwnavas8trnxta15tr13Ww1xGr48tF9YvrnrGr1kZr15GFy8Zr4rXFyY
- v3WDW3WfK34SyrDanT9S1TB71UUUUUDqnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
- 9KBjDU0xBIdaVrnRJUUUvlb7Iv0xC_Kw4lb4IE77IF4wAFF20E14v26ryj6rWUM7CY07I2
- 0VC2zVCF04k26cxKx2IYs7xG6rWj6s0DM7CIcVAFz4kK6r1j6r18M28lY4IEw2IIxxk0rw
- A2F7IY1VAKz4vEj48ve4kI8wA2z4x0Y4vE2Ix0cI8IcVAFwI0_Ar0_tr1l84ACjcxK6xII
- jxv20xvEc7CjxVAFwI0_Gr1j6F4UJwA2z4x0Y4vEx4A2jsIE14v26rxl6s0DM28EF7xvwV
- C2z280aVCY1x0267AKxVW0oVCq3wAS0I0E0xvYzxvE52x082IY62kv0487Mc02F40EFcxC
- 0VAKzVAqx4xG6I80ewAv7VC0I7IYx2IY67AKxVWUJVWUGwAv7VC2z280aVAFwI0_Jr0_Gr
- 1lOx8S6xCaFVCjc4AY6r1j6r4UM4x0Y48IcVAKI48JM4IIrI8v6xkF7I0E8cxan2IY04v7
- MxkF7I0En4kS14v26rWY6Fy7MxAIw28IcxkI7VAKI48JMxC20s026xCaFVCjc4AY6r1j6r
- 4UMI8I3I0E5I8CrVAFwI0_Jr0_Jr4lx2IqxVCjr7xvwVAFwI0_JrI_JrWlx4CE17CEb7AF
- 67AKxVW8ZVWrXwCIc40Y0x0EwIxGrwCI42IY6xIIjxv20xvE14v26r1j6r1xMIIF0xvE2I
- x0cI8IcVCY1x0267AKxVW8JVWxJwCI42IY6xAIw20EY4v20xvaj40_Jr0_JF4lIxAIcVC2
- z280aVAFwI0_Gr0_Cr1lIxAIcVC2z280aVCY1x0267AKxVW8Jr0_Cr1UYxBIdaVFxhVjvj
- DU0xZFpf9x07b-KsbUUUUU=
-X-CM-SenderInfo: x2kh0wp0lqwv3d6l2u1dvotugofq/
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: TY7PR01MB045388:EE_|TY7PR01MB17940:EE_
+X-MS-Office365-Filtering-Correlation-Id: 85e18807-547e-4a96-9db1-08df4a0c4929
+X-LD-Processed: 53d82571-da19-47e4-9cb4-625a166a4a2a,ExtAddr
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+ ARA:13230040|1800799024|23010399003|52116014|376014|7416014|366016|22082099003|18002099003|4143699003|11063799006|261026121527099003|56012099006|261026140227099003|10067099003|261009223027099003|38350700014|261028144727099003|261021121427099003|261021123027099003|261022075727099003|261022105027099003|261102123227099003;
+X-Microsoft-Antispam-Message-Info: zq9TKljw5kjkbe6QhBhzINVLhqMuKx7z1gE1/ct2wlqdNkokS7BBPKYgrYCCgT3UGGpGEHwNtzHdnNUx7p9kxNLnHbjF4DrmU6iaog4twLaA9LhlF7QKZSpRa2P8KoyMdgzYCTsjhND4VqlWqH0ovrbDxRRIVaI82saGb/GFYfvxKb816MrNzQ9ioFgx4JGyChQnpQr3I2+DWOH9Qc14x6ZNTFrpGWS2BNv5iqHjpbfSr2PFci3+hoHrZPQBpDJ0jvANzZ0MFc5EW7nrFtStkP0JAZyXSTmo28FZ0dWJMxfKuZpR2L5aLbEzmjQgU7LCK4w2rP7irCtz/5XFLe7Q006NfIYtI4vffxaTJELTM3mg1HwRhMPr3BhoHB15iFJNjFn6/hUzu9v3eQTmqKx49nQWJwR0OocGsN+/VFZU1007zx/tcbIz5mRY65bLzBOXAjNxZ305pZEoQK/zrS8QpFWYW+rrBCDrh0vR5K4CONIsH3kr/OGoZ1WX1PtVaIy2fub19JyyLg1T7xKUdx2ZbLprthgoytruPZY62f4iFBZbu4XOEyZbH6VxAm9Jcw+kN42uUKCbKY0CwmsqpNTua8uil5kWsh0fAf7N5NQUPoOKodyQuw4oTFLpbi0P5lFYsQWvjBlJ27D2q3uH9ycHYTsVMH3ygLeP1zmTBgXebEYdSAySOqsELQ06JfrZUwHvmmL++6sUn3LPK7immZ2LkaFFbE11YtnzxET0FPs76FA=
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:TY7PR01MB045388.jpnprd01.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230040)(1800799024)(23010399003)(52116014)(376014)(7416014)(366016)(22082099003)(18002099003)(4143699003)(11063799006)(261026121527099003)(56012099006)(261026140227099003)(10067099003)(261009223027099003)(38350700014)(261028144727099003)(261021121427099003)(261021123027099003)(261022075727099003)(261022105027099003)(261102123227099003);
+ DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: =?us-ascii?Q?bqTOtDClPONyyt1sjoALC+JC6eJ+vTjCddkA/rAmNnwdKryESo8/zRlVWeCn?=
+ =?us-ascii?Q?gFnZYUvI7wW/S0t34xidIe+nq4TCewvJIcsbRqgFqEI8WTcNggVkwhIEh+U3?=
+ =?us-ascii?Q?88oPO+5/D7XDWXL97a8rZqDDinBpoPMfxIjkokZEtgGR3qDSXACBkfMmANR1?=
+ =?us-ascii?Q?+giF3MCpXKhI999kX6j1QlTMj+PQ5GfnoXUWZrcA7m8PLsWAYetky2hXNVFU?=
+ =?us-ascii?Q?Gsge4M3H3eP6uAQ3X50xV3n/zbkI8CV+yP58MYDzKdGT/xkbPuBmspTm/sS/?=
+ =?us-ascii?Q?XFxTBVJ4GxuQn+Fq2B5Sf5r7qGULpLo1fsoUTQtbaCNbhSLcShoUjd2AT8cx?=
+ =?us-ascii?Q?Wt77h3EwkOoKbyW0Qged+CjuKwF7egajkrvnCtteZHNHXr4pEWL/DbwI2Osm?=
+ =?us-ascii?Q?JRC6C+0heZMaJ29jrydMjuzqDHZxz6sRwQj0mQZtzEkq9zeNDkJ2jh39Ig3w?=
+ =?us-ascii?Q?RfGgMmD9WlYQXFNoxpwwFF5AcCKCW7InNMURK3qRFH0epXqTSdZQC0+4qbt5?=
+ =?us-ascii?Q?Sbgz724rq4eaXK07yvUUl75O6tiB3QSwn5LYK/3+PRJtIrhw02Isk8lS4saB?=
+ =?us-ascii?Q?0+YUqT/BV2CbLQqq57SKfhL94vRehPtalvFSZgP1fLtQCqyBwqY8LL5HNTti?=
+ =?us-ascii?Q?UFQV57GG9qcVa3Y6SPGkq2UPgDP6BDoRLfrCV59sfIrsnG/fRHXTYxN6VhMC?=
+ =?us-ascii?Q?DVpAlvMoIxAjGTHX1fjti2SZgnGVWz4f/Z0LEhF/Jgx0slVshfWFyoQiQeNo?=
+ =?us-ascii?Q?I4gcuDTa8ufI8EICRenkf4ZQB4RaMABcIjZXsbY5Nuq/tO19YALWZ/1E1SL8?=
+ =?us-ascii?Q?zkrPasOeEonbCJUvQIWq0PvnGC0+NSH3zmdBl0F0+vzjB8xadxeu8fGp5rQP?=
+ =?us-ascii?Q?qFMTCNVOLSsgt0X85yJruw8xDxwJfz3NZ8WERjePVvgAOsL6hKPLspj9ACzO?=
+ =?us-ascii?Q?umXZEHFGByv1NIWQfAfrpGiZZVqYCrpCKLnPu9yICgfEqI37uF5KxHlsOdtE?=
+ =?us-ascii?Q?DakUhD8HSxYSbzyJBmj2idnkkpQKnowRKfrA+gHfXBBNPpm2MHoHDyb/xIoe?=
+ =?us-ascii?Q?E9sxf3XPPY5UmxhupuZ4WP/jKLjwflrUrmzAzbdcws1x+HBke2Zy1aFEv+za?=
+ =?us-ascii?Q?8//ZeYQLLdZ2AAZBwtqo37dWIWx5PEwljbwc5s91tICB+CuO5r3Ak9dEHI/4?=
+ =?us-ascii?Q?p3TSgg5FWeTmq5MQD+Xy5sV4+6Fw4YNDs+afOjCt3rkVk4gKYKaeC6/gOZM9?=
+ =?us-ascii?Q?QMc5abe+UmpOk0tV5Rnsq599Ty9EhhPPfGgTu9MKo/el+n9VKhMjAMQGmv1C?=
+ =?us-ascii?Q?nBI3B163sUrxO0K6UiNorSkCIjCfFNWILIckO7fP+OYBJaOABpDx0ufwJgty?=
+ =?us-ascii?Q?D6oF5QiCFIc3UyxOIpIApe/N6wdv/bA6WC4+Xsqk0UihpZw7ptV2A/i4eyoQ?=
+ =?us-ascii?Q?dIr9ek+htKTzn7N9vGMAJEOP2LwErlCgfcRcCKZj1IXhMZ+Zc4/65p4kRzNi?=
+ =?us-ascii?Q?it3+WzzWo4T0wmps7ol8mSi7hxLYZGMS+86rlQ/ScgJqXgrGbdF+nO5l5nub?=
+ =?us-ascii?Q?6ax5UcEH/wbGXRXyNFzysSdFc0WsN+DS9VjNDRTJze4xV/+3Jk3vwAKSG1Zu?=
+ =?us-ascii?Q?4DOTA7z30jXqG0MX7AyKq2+JGEqP6eMhhfUBJVn36tX95CDNj/pWCFmuUv0J?=
+ =?us-ascii?Q?fspacBMcx9WkfCJysQvX3s+Hhlan5ydEkfMFYHBA1HFOzBxYAPINO7NyU73k?=
+ =?us-ascii?Q?Vcd+jlfrYcyyGpzrulf+3bupo1j0WlrvYGlqoV0Wec2gdY3Xsw0l?=
+X-OriginatorOrg: bp.renesas.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 85e18807-547e-4a96-9db1-08df4a0c4929
+X-MS-Exchange-CrossTenant-AuthSource: TY5PR01MB864802.jpnprd01.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 24 Nov 2026 09:21:14.0610 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 53d82571-da19-47e4-9cb4-625a166a4a2a
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: A5xNAP9bG3DZwxXiyV5x1FiMvr3l/W3gbgtf90mevL4M37BObb9nFLgwuKsX8TK9Tyu6qN4anl7o/kMYIgwR7fXYDIaNjLzOch9gN28QHgFQCrj3wUMjdaZEO0nEE5Ed
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: TY7PR01MB17940
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -74,378 +136,171 @@ List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-18.8 required=3.0 tests=BAYES_00,
-	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
-	MAILING_LIST_MULTI,MENTIONS_GIT_HOSTING,SPF_HELO_NONE,SPF_PASS
-	autolearn=ham autolearn_force=no version=4.0.1
+X-Spam-Status: No, score=-15.8 required=3.0 tests=BAYES_00,DKIM_SIGNED,
+	DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
+	INCLUDES_CR_TRAILER,INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,
+	SPF_PASS autolearn=unavailable autolearn_force=no version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-=E5=9C=A8 2026-11-24=E4=BA=8C=E7=9A=84 16:44 +0800=EF=BC=8CChaoyi Chen=E5=
-=86=99=E9=81=93=EF=BC=9A
-> Hi Icenowy,
->=20
-> On 11/24/2026 4:34 PM, Icenowy Zheng wrote:
-> > =E5=9C=A8 2026-11-24=E4=BA=8C=E7=9A=84 16:29 +0800=EF=BC=8CChaoyi Chen=
-=E5=86=99=E9=81=93=EF=BC=9A
-> > > Hi Icenowy,
-> > >=20
-> > > On 11/24/2026 3:56 PM, Icenowy Zheng wrote:
-> > > > The T-Head TH1520 SoC contains a Synopsys DesignWare MIPI DSI host
-> > > > controller with an internal DesignWare MIPI D-PHY.
-> > > >=20
-> > > > Add a glue driver configuring clocks and PHY parameters for it.
-> > > >=20
-> > > > Signed-off-by: Icenowy Zheng <zhengxingda@iscas.ac.cn>
-> > > > ---
-> > > >  drivers/gpu/drm/bridge/Kconfig              |  12 +
-> > > >  drivers/gpu/drm/bridge/Makefile             |   1 +
-> > > >  drivers/gpu/drm/bridge/th1520-dw-mipi-dsi.c | 570 ++++++++++++++++=
-++++++++++++
-> > > >  3 files changed, 583 insertions(+)
-> > > >=20
-> > > > diff --git a/drivers/gpu/drm/bridge/Kconfig b/drivers/gpu/drm/bridg=
-e/Kconfig
-> > > > index c7da6b02d7b6b..f8987e8946fbb 100644
-> > > > --- a/drivers/gpu/drm/bridge/Kconfig
-> > > > +++ b/drivers/gpu/drm/bridge/Kconfig
-> > > > @@ -372,6 +372,18 @@ config DRM_THEAD_TH1520_DW_HDMI
-> > > >  	  Choose this to enable support for the internal HDMI bridge foun=
-d
-> > > >  	  on the T-Head TH1520 SoC.
-> > > > =20
-> > > > +config DRM_THEAD_TH1520_DW_MIPI_DSI
-> > > > +	tristate "T-Head TH1520 DesignWare MIPI DSI bridge"
-> > > > +	depends on OF
-> > > > +	depends on COMMON_CLK
-> > > > +	depends on ARCH_THEAD || COMPILE_TEST
-> > > > +	select DRM_DW_MIPI_DSI
-> > > > +	select GENERIC_PHY_MIPI_DPHY
-> > > > +	select MFD_SYSCON
-> > > > +	help
-> > > > +	  Choose this to enable support for the internal MIPI DSI bridge
-> > > > +	  found on the T-Head TH1520 SoC.
-> > > > +
-> > > >  config DRM_TOSHIBA_TC358762
-> > > >  	tristate "TC358762 DSI/DPI bridge"
-> > > >  	depends on OF
-> > > > diff --git a/drivers/gpu/drm/bridge/Makefile b/drivers/gpu/drm/brid=
-ge/Makefile
-> > > > index 15cc821d85b7e..5af871ba5ce77 100644
-> > > > --- a/drivers/gpu/drm/bridge/Makefile
-> > > > +++ b/drivers/gpu/drm/bridge/Makefile
-> > > > @@ -32,6 +32,7 @@ obj-$(CONFIG_DRM_SII9234) +=3D sii9234.o
-> > > >  obj-$(CONFIG_DRM_SIMPLE_BRIDGE) +=3D simple-bridge.o
-> > > >  obj-$(CONFIG_DRM_SOLOMON_SSD2825) +=3D ssd2825.o
-> > > >  obj-$(CONFIG_DRM_THEAD_TH1520_DW_HDMI) +=3D th1520-dw-hdmi.o
-> > > > +obj-$(CONFIG_DRM_THEAD_TH1520_DW_MIPI_DSI) +=3D th1520-dw-mipi-dsi=
-.o
-> > > >  obj-$(CONFIG_DRM_THINE_THC63LVD1024) +=3D thc63lvd1024.o
-> > > >  obj-$(CONFIG_DRM_TOSHIBA_TC358762) +=3D tc358762.o
-> > > >  obj-$(CONFIG_DRM_TOSHIBA_TC358764) +=3D tc358764.o
-> > > > diff --git a/drivers/gpu/drm/bridge/th1520-dw-mipi-dsi.c b/drivers/=
-gpu/drm/bridge/th1520-dw-mipi-dsi.c
-> > > > new file mode 100644
-> > > > index 0000000000000..8e866b70aec88
-> > > > --- /dev/null
-> > > > +++ b/drivers/gpu/drm/bridge/th1520-dw-mipi-dsi.c
-> > > > @@ -0,0 +1,570 @@
-> > > > +// SPDX-License-Identifier: GPL-2.0
-> > > > +/*
-> > > > + * Copyright (C) 2026 Institute of Software, Chinese Academy of Sc=
-iences (ISCAS)
-> > > > + *
-> > > > + * Author:
-> > > > + *   Icenowy Zheng <zhengxingda@iscas.ac.cn>
-> > > > + *
-> > > > + * Based on dw_mipi_dsi-stm.c, which is:
-> > > > + *   Copyright (C) STMicroelectronics SA 2017
-> > > > + *
-> > > > + * Based on dw-mipi-dsi-rockchip.c, which is:
-> > > > + *   Copyright (C) Rockchip Electronics Co., Ltd.
-> > > > + *
-> > > > + * Based on vendor kernel phy-dw-mipi-dphy.c, which is:
-> > > > + *   Copyright (C) Alibaba Group Holding Limited.
-> > > > + */
-> > > > +
-> > > > +#include <linux/bitfield.h>
-> > > > +#include <linux/clk.h>
-> > > > +#include <linux/kernel.h>
-> > > > +#include <linux/mfd/syscon.h>
-> > > > +#include <linux/module.h>
-> > > > +#include <linux/phy/phy.h>
-> > > > +#include <linux/phy/phy-mipi-dphy.h>
-> > > > +#include <linux/platform_device.h>
-> > > > +#include <linux/regmap.h>
-> > > > +#include <linux/regulator/consumer.h>
-> > > > +
-> > > > +#include <video/mipi_display.h>
-> > > > +
-> > > > +#include <drm/bridge/dw_mipi_dsi.h>
-> > > > +#include <drm/drm_mipi_dsi.h>
-> > > > +
-> > > > +/* DSI controller registers for DPHY access */
-> > > > +
-> > > > +#define DSI_PHY_TST_CTRL0		0xb4
-> > > > +#define PHY_TESTCLK			BIT(1)
-> > > > +#define PHY_UNTESTCLK			0
-> > > > +#define PHY_TESTCLR			BIT(0)
-> > > > +#define PHY_UNTESTCLR			0
-> > > > +
-> > > > +#define DSI_PHY_TST_CTRL1		0xb8
-> > > > +#define PHY_TESTEN			BIT(16)
-> > > > +#define PHY_UNTESTEN			0
-> > > > +#define PHY_TESTDOUT(n)			(((n) & 0xff) << 8)
-> > > > +#define PHY_TESTDIN(n)			(((n) & 0xff) << 0)
-> > > > +
-> > > > +/* DPHY registers */
-> > > > +
-> > > > +#define PLL_DELAY_LP_TX_START_LP11	0x02
-> > > > +#define TXDINDLYTIME_9_2		GENMASK(7,  0)
-> > > > +
-> > > > +#define PLL_FSM_CNTRL			0x03
-> > > > +
-> > > > +#define PLL_PROP_CHARGE_PUMP_CTRL	0x0e
-> > > > +#define PLL_PROP_CNTRL			GENMASK(5,  0)
-> > > > +
-> > > > +#define PLL_INT_CHARGE_PUMP_CTRL	0x0f
-> > > > +#define PLL_INT_CNTRL			GENMASK(5,  0)
-> > > > +
-> > > > +#define PLL_VCO_CTRL			0x12
-> > > > +#define PLL_VCO_CNTRL_OVR_EN		BIT(6)
-> > > > +#define PLL_VCO_CNTRL_OVR		GENMASK(5,  0)
-> > > > +
-> > > > +#define PLL_GMP_CTRL_DIGITAL_TEST	0x13
-> > > > +#define PLL_TESTLOCK			BIT(7)
-> > > > +#define PLL_GMP_CNTRL			GENMASK(5,  4)
-> > > > +#define TSTPLLDIG			GENMASK(3,  1)
-> > > > +#define TSTPLLDIG_LOCK			(0x0 << 1)
-> > > > +#define TSTPLLDIG_REFCLK		(0x1 << 1)
-> > > > +#define TSTPLLDIG_FBCLK			(0x2 << 1)
-> > > > +#define TSTPLLDIG_INT_CLKIN		(0x3 << 1)
-> > > > +#define TSTPLLDIG_LOCK_FROM_DETECTOR	(0x4 << 1)
-> > > > +#define TSTPLLDIG_OUTPUT		(0x5 << 1)
-> > > > +#define TSTPLLDIG_BUF_VCOCLK		(0x6 << 1)
-> > > > +#define TSTPLLDIG_UPDATEPLL		(0x7 << 1)
-> > > > +
-> > > > +#define PLL_N_DIV_FSM_SIG		0x17
-> > > > +#define PLL_N_OVR			GENMASK(3,  0)
-> > > > +
-> > > > +#define PLL_M_DIV			0x18
-> > > > +#define PLL_M_OVR_4_0			GENMASK(4,  0)
-> > > > +#define PLL_M_OVR_9_5			GENMASK(4,  0)
-> > > > +
-> > > > +#define PLL_N_AND_M_DIV_CTRL		0x19
-> > > > +#define PLL_M_OVR_EN			BIT(5)
-> > > > +#define PLL_N_OVR_EN			BIT(4)
-> > > > +
-> > > > +#define PLL_CHARGE_PUMP_BIAS_CTRL	0x1c
-> > > > +#define PLL_CPBIAS_CNTRL		GENMASK(6,  0)
-> > > > +
-> > > > +#define PLL_ANALOG_PROGRAM_CONTROL	0x1f
-> > > > +#define PLL_MPLL_PROG_5_0		GENMASK(5,  0)
-> > > > +#define PLL_MPLL_PROG_11_6		GENMASK(5,  0)
-> > > > +#define PLL_MPLL_PROG_16_12		GENMASK(4,  0)
-> > > > +
-> > > > +#define HS_FREQ_RANGE_OF_OPERATION	0x44
-> > > > +#define HSFREQRANGE_OVR_EN		BIT(7)
-> > > > +#define HSFREQRANGE_OVR			GENMASK(6,  0)
-> > > > +#define HSFREQRANGE			HSFREQRANGE_OVR
-> > > > +
-> > > > +#define PG_LP_BIAS_LANE0		0x4a
-> > > > +#define PRG_ON_LANE0			BIT(6)
-> > > > +
-> > > > +#define SR_FSM_OVR_CNTRL		0xa0
-> > > > +#define SR_DDL_LOOP_CONF		0xa3
-> > > > +
-> > > > +/* syscon registers */
-> > > > +
-> > > > +#define MIPIDSI0_SYSREG			0x8
-> > > > +#define MIPIDSI1_SYSREG			0xc
-> > > > +#define MIPIDSI_HSFREQRANGE		GENMASK(9,  3)
-> > > > +#define MIPIDSI_CFGCLKFREQRANGE		GENMASK(15, 10)
-> > > > +#define MIPIDSI_CFGCLKFREQRANGE_DEF	(0x1c << 10)
-> > > > +
-> > > > +struct pll_hsfreqrange {
-> > > > +	unsigned int max_mbps;
-> > > > +	u8 hsfreqrange;
-> > > > +};
-> > > > +
-> > > > +static const struct pll_hsfreqrange hsfreqrange_table[] =3D {
-> > > > +	{ 80,  0x00 },
-> > > > +	{ 90,  0x10 },
-> > > > +	{ 100, 0x20 },
-> > > > +	{ 110, 0x30 },
-> > > > +	{ 120, 0x01 },
-> > > > +	{ 130, 0x11 },
-> > > > +	{ 140, 0x21 },
-> > > > +	{ 150, 0x31 },
-> > > > +	{ 160, 0x02 },
-> > > > +	{ 170, 0x12 },
-> > > > +	{ 180, 0x22 },
-> > > > +	{ 190, 0x32 },
-> > > > +	{ 205, 0x03 },
-> > > > +	{ 220, 0x13 },
-> > > > +	{ 235, 0x23 },
-> > > > +	{ 250, 0x33 },
-> > > > +	{ 275, 0x04 },
-> > > > +	{ 300, 0x14 },
-> > > > +	{ 325, 0x25 },
-> > > > +	{ 350, 0x35 },
-> > > > +	{ 400, 0x05 },
-> > > > +	{ 450, 0x16 },
-> > > > +	{ 500, 0x26 },
-> > > > +	{ 550, 0x37 },
-> > > > +	{ 600, 0x07 },
-> > > > +	{ 650, 0x18 },
-> > > > +	{ 700, 0x28 },
-> > > > +	{ 750, 0x39 },
-> > > > +	{ 800, 0x09 },
-> > > > +	{ 850, 0x19 },
-> > > > +	{ 900, 0x29 },
-> > > > +	{ 950, 0x3A },
-> > > > +	{ 1000, 0x0A },
-> > > > +	{ 1050, 0x1A },
-> > > > +	{ 1100, 0x2A },
-> > > > +	{ 1150, 0x3B },
-> > > > +	{ 1200, 0x0B },
-> > > > +	{ 1250, 0x1B },
-> > > > +	{ 1300, 0x2B },
-> > > > +	{ 1350, 0x3C },
-> > > > +	{ 1400, 0x0C },
-> > > > +	{ 1450, 0x1C },
-> > > > +	{ 1500, 0x2C },
-> > > > +	{ 1550, 0x3D },
-> > > > +	{ 1600, 0x0D },
-> > > > +	{ 1650, 0x1D },
-> > > > +	{ 1700, 0x2E },
-> > > > +	{ 1750, 0x3E },
-> > > > +	{ 1800, 0x0E },
-> > > > +	{ 1850, 0x1E },
-> > > > +	{ 1900, 0x2F },
-> > > > +	{ 1950, 0x3F },
-> > > > +	{ 2000, 0x0F },
-> > > > +	{ 2050, 0x40 },
-> > > > +	{ 2100, 0x41 },
-> > > > +	{ 2150, 0x42 },
-> > > > +	{ 2200, 0x43 },
-> > > > +	{ 2250, 0x44 },
-> > > > +	{ 2300, 0x45 },
-> > > > +	{ 2350, 0x46 },
-> > > > +	{ 2400, 0x47 },
-> > > > +	{ 2450, 0x48 },
-> > > > +	{ 2500, 0x49 },
-> > > > +};
-> > > > +
-> > > > +struct hstt {
-> > > > +	unsigned int max_mbps;
-> > > > +	struct dw_mipi_dsi_dphy_timing timing;
-> > > > +};
-> > > > +
-> > > > +#define HSTT(_max_mbps, _c_lp2hs, _c_hs2lp, _d_lp2hs, _d_hs2lp)	\
-> > > > +{					\
-> > > > +	.max_mbps =3D _max_mbps,		\
-> > > > +	.timing =3D {			\
-> > > > +		.clk_lp2hs =3D _c_lp2hs,	\
-> > > > +		.clk_hs2lp =3D _c_hs2lp,	\
-> > > > +		.data_lp2hs =3D _d_lp2hs,	\
-> > > > +		.data_hs2lp =3D _d_hs2lp,	\
-> > > > +	}				\
-> > > > +}
-> > > > +
-> > > > +static struct hstt hstt_table[] =3D {
-> > > > +	HSTT(80, 21, 17, 15, 10),
-> > > > +	HSTT(90, 23, 17, 16, 10),
-> > > > +	HSTT(100, 22, 17, 16, 10),
-> > > > +	HSTT(110, 25, 18, 17, 11),
-> > > > +	HSTT(120, 26, 20, 18, 11),
-> > > > +	HSTT(130, 27, 19, 19, 11),
-> > > > +	HSTT(140, 27, 19, 19, 11),
-> > > > +	HSTT(150, 28, 20, 20, 12),
-> > > > +	HSTT(160, 30, 21, 22, 13),
-> > > > +	HSTT(170, 30, 21, 23, 13),
-> > > > +	HSTT(180, 31, 21, 23, 13),
-> > > > +	HSTT(190, 32, 22, 24, 13),
-> > > > +	HSTT(205, 35, 22, 25, 13),
-> > > > +	HSTT(220, 37, 26, 27, 15),
-> > > > +	HSTT(235, 38, 28, 27, 16),
-> > > > +	HSTT(250, 41, 29, 30, 17),
-> > > > +	HSTT(275, 43, 29, 32, 18),
-> > > > +	HSTT(300, 45, 32, 35, 19),
-> > > > +	HSTT(325, 48, 33, 36, 18),
-> > > > +	HSTT(350, 51, 35, 40, 20),
-> > > > +	HSTT(400, 59, 37, 44, 21),
-> > > > +	HSTT(450, 65, 40, 49, 23),
-> > > > +	HSTT(500, 71, 41, 54, 24),
-> > > > +	HSTT(550, 77, 44, 57, 26),
-> > > > +	HSTT(600, 82, 46, 64, 27),
-> > > > +	HSTT(650, 87, 48, 67, 28),
-> > > > +	HSTT(700, 94, 52, 71, 29),
-> > > > +	HSTT(750, 99, 52, 75, 31),
-> > > > +	HSTT(800, 105, 55, 82, 32),
-> > > > +	HSTT(850, 110, 58, 85, 32),
-> > > > +	HSTT(900, 115, 58, 88, 35),
-> > > > +	HSTT(950, 120, 62, 93, 36),
-> > > > +	HSTT(1000, 128, 63, 99, 38),
-> > > > +	HSTT(1050, 132, 65, 102, 38),
-> > > > +	HSTT(1100, 138, 67, 106, 39),
-> > > > +	HSTT(1150, 146, 69, 112, 42),
-> > > > +	HSTT(1200, 151, 71, 117, 43),
-> > > > +	HSTT(1250, 153, 74, 120, 45),
-> > > > +	HSTT(1300, 160, 73, 124, 46),
-> > > > +	HSTT(1350, 165, 76, 130, 47),
-> > > > +	HSTT(1400, 172, 78, 134, 49),
-> > > > +	HSTT(1450, 177, 80, 138, 49),
-> > > > +	HSTT(1500, 183, 81, 143, 52),
-> > > > +	HSTT(1550, 191, 84, 147, 52),
-> > > > +	HSTT(1600, 194, 85, 152, 52),
-> > > > +	HSTT(1650, 201, 86, 155, 53),
-> > > > +	HSTT(1700, 208, 88, 161, 53),
-> > > > +	HSTT(1750, 212, 89, 165, 53),
-> > > > +	HSTT(1800, 220, 90, 171, 54),
-> > > > +	HSTT(1850, 223, 92, 175, 54),
-> > > > +	HSTT(1900, 231, 91, 180, 55),
-> > > > +	HSTT(1950, 236, 95, 185, 56),
-> > > > +	HSTT(2000, 243, 97, 190, 56),
-> > > > +	HSTT(2050, 248, 99, 194, 58),
-> > > > +	HSTT(2100, 252, 100, 199, 59),
-> > > > +	HSTT(2150, 259, 102, 204, 61),
-> > > > +	HSTT(2200, 266, 105, 210, 62),
-> > > > +	HSTT(2250, 269, 109, 213, 63),
-> > > > +	HSTT(2300, 272, 109, 217, 65),
-> > > > +	HSTT(2350, 281, 112, 225, 66),
-> > > > +	HSTT(2400, 283, 115, 226, 66),
-> > > > +	HSTT(2450, 282, 115, 226, 67),
-> > > > +	HSTT(2500, 281, 118, 227, 67),
-> > > > +};
-> > > > +
-> > >=20
-> > > Where do these data come from?
-> >=20
-> > This is part of the vendor DPHY driver, see [1].
-> >=20
-> > Thanks,
-> > Icenowy
-> >=20
-> > [1]
-> > https://github.com/revyos/th1520-linux-kernel/blob/th1520-lts/drivers/p=
-hy/synopsys/phy-dw-mipi-dphy.c#L185
->=20
-> This looks consistent with imx93-mipi-dsi.c, but the TH1520 does not
-> use the same TSMC 16nm process as the IMX93. As far as I know, they
-> are usually different.=20
+Hi Biju,
+Thanks for your review.
 
-Interestingly the hsfreqrange table seems to match IMX93 too. The vendor D-
-PHY driver also calculates PLL parameters (and the ranges also match
-IMX93), but they're written nowhere so this piece of code isn't replicated
-in my driver.
+On Mon, Nov 23, 2026 at 04:59:32PM +0000, Biju Das wrote:
+> Hi Tommaso,
+> 
+> > -----Original Message-----
+> > From: Tommaso Merciai <tommaso.merciai.xr@bp.renesas.com>
+> > Sent: 13 November 2026 12:20
+> > Subject: [PATCH v10 08/12] drm: renesas: rz-du: Separate the DU instance from the DRM device
+> > 
+> > On RZ/G3E two DU instances share a DRM device, which can only be created once both instances have been
+> > probed.
+> > 
+> > Split the DU device structure: keep the match data and the registers in a structure allocated with the
+> > platform device, and allocate the KMS objects with the DRM device in a new rzg2l_du_instance_init()
+> > helper, as they are released with it.
+> > 
+> > No functional change intended.
+> > 
+> > Signed-off-by: Tommaso Merciai <tommaso.merciai.xr@bp.renesas.com>
+> > ---
+> > v9->v10:
+> >  - New patch.
+> > 
+> >  drivers/gpu/drm/renesas/rz-du/rzg2l_du_drv.c | 61 ++++++++++++++------
+> >  1 file changed, 44 insertions(+), 17 deletions(-)
+> > 
+> > diff --git a/drivers/gpu/drm/renesas/rz-du/rzg2l_du_drv.c b/drivers/gpu/drm/renesas/rz-
+> > du/rzg2l_du_drv.c
+> > index d3cccbdf9012..d102876c07e1 100644
+> > --- a/drivers/gpu/drm/renesas/rz-du/rzg2l_du_drv.c
+> > +++ b/drivers/gpu/drm/renesas/rz-du/rzg2l_du_drv.c
+> > @@ -162,6 +162,27 @@ static int rzg2l_du_pm_resume(struct device *dev)  static
+> > DEFINE_SIMPLE_DEV_PM_OPS(rzg2l_du_pm_ops,
+> >  				rzg2l_du_pm_suspend, rzg2l_du_pm_resume);
+> > 
+> > +/*
+> > +-----------------------------------------------------------------------
+> > +------
+> > + * DU instance
+> > + */
+> > +
+> > +static int rzg2l_du_instance_init(struct rzg2l_du_device *du,
+> > +				  struct drm_device *ddev)
+> > +{
+> > +	struct rzg2l_du_device *rcdu;
+> > +
+> > +	rcdu = drmm_kzalloc(ddev, sizeof(*rcdu), GFP_KERNEL);
+> > +	if (!rcdu)
+> > +		return -ENOMEM;
+> 
+> Why there is duplicate allocation of rcdu? One in probe() and here
 
-It's quite possible that this is just a different revision of the same PHY,
-considering the relationship of TSMC 16nm and 12nm.
+The two allocations have different lifetimes.
 
-Thanks,
-Icenowy
+The one in rzg2l_du_probe() is tied to the platform device. It holds
+what is needed before the DRM device exists and outside of the
+component bind (dev, info, mmio, and ddev/is_master for the master,
+PM and remove), as on RZ/G3E the DRM device is only created once both
+instances have been probed.
 
->=20
-> Could you confirm this from the DesignWare PHY databook?
+The one in rzg2l_du_instance_init() holds the KMS objects (crtcs, vsps,
+lvds, index). Their drmm cleanup handlers point into it and run when
+the DRM device is released, which can happen after the platform device
+has been unbound, so it has to be allocated with the DRM device.
 
+Thanks, Tommaso
+
+> 
+> Cheers,
+> Biju
+> 
+> > +
+> > +	rcdu->dev = du->dev;
+> > +	rcdu->info = du->info;
+> > +	rcdu->mmio = du->mmio;
+> > +	rcdu->ddev = ddev;
+> > +
+> > +	return rzg2l_du_modeset_init_du(rcdu); }
+> > +
+> >  /* -----------------------------------------------------------------------------
+> >   * Platform driver
+> >   */
+> > @@ -190,44 +211,48 @@ static void rzg2l_du_shutdown(struct platform_device *pdev)
+> > 
+> >  static int rzg2l_du_probe(struct platform_device *pdev)  {
+> > +	const struct rzg2l_du_device_info *info;
+> >  	struct rzg2l_du_device *rcdu;
+> >  	struct rzg2l_du_drm *rzgdrm;
+> > +	void __iomem *mmio;
+> >  	int ret;
+> > 
+> >  	if (drm_firmware_drivers_only())
+> >  		return -ENODEV;
+> > 
+> > -	/* Allocate and initialize the RZ/G2L device structure. */
+> > -	rzgdrm = devm_drm_dev_alloc(&pdev->dev, &rzg2l_du_driver,
+> > -				    struct rzg2l_du_drm, ddev);
+> > -	if (IS_ERR(rzgdrm))
+> > -		return PTR_ERR(rzgdrm);
+> > +	info = of_device_get_match_data(&pdev->dev);
+> > +
+> > +	/* I/O resources */
+> > +	mmio = devm_platform_ioremap_resource(pdev, 0);
+> > +	if (IS_ERR(mmio))
+> > +		return PTR_ERR(mmio);
+> > +
+> > +	ret = dma_coerce_mask_and_coherent(&pdev->dev, DMA_BIT_MASK(32));
+> > +	if (ret)
+> > +		return ret;
+> > 
+> > -	rcdu = drmm_kzalloc(&rzgdrm->ddev, sizeof(*rcdu), GFP_KERNEL);
+> > +	/* Allocate and initialize the RZ/G2L device structure. */
+> > +	rcdu = devm_kzalloc(&pdev->dev, sizeof(*rcdu), GFP_KERNEL);
+> >  	if (!rcdu)
+> >  		return -ENOMEM;
+> > 
+> >  	platform_set_drvdata(pdev, rcdu);
+> > 
+> >  	rcdu->dev = &pdev->dev;
+> > -	rcdu->info = of_device_get_match_data(rcdu->dev);
+> > -	rcdu->ddev = &rzgdrm->ddev;
+> > -
+> > -	/* I/O resources */
+> > -	rcdu->mmio = devm_platform_ioremap_resource(pdev, 0);
+> > -	if (IS_ERR(rcdu->mmio))
+> > -		return PTR_ERR(rcdu->mmio);
+> > +	rcdu->info = info;
+> > +	rcdu->mmio = mmio;
+> > 
+> > -	ret = dma_coerce_mask_and_coherent(&pdev->dev, DMA_BIT_MASK(32));
+> > -	if (ret)
+> > -		return ret;
+> > +	rzgdrm = devm_drm_dev_alloc(&pdev->dev, &rzg2l_du_driver,
+> > +				    struct rzg2l_du_drm, ddev);
+> > +	if (IS_ERR(rzgdrm))
+> > +		return PTR_ERR(rzgdrm);
+> > 
+> >  	/* DRM/KMS objects */
+> >  	ret = rzg2l_du_modeset_init_drm(&rzgdrm->ddev);
+> >  	if (ret < 0)
+> >  		goto error;
+> > 
+> > -	ret = rzg2l_du_modeset_init_du(rcdu);
+> > +	ret = rzg2l_du_instance_init(rcdu, &rzgdrm->ddev);
+> >  	if (ret < 0)
+> >  		goto error;
+> > 
+> > @@ -243,6 +268,8 @@ static int rzg2l_du_probe(struct platform_device *pdev)
+> >  	if (ret)
+> >  		goto error_fini;
+> > 
+> > +	rcdu->ddev = &rzgdrm->ddev;
+> > +
+> >  	drm_info(&rzgdrm->ddev, "Device %s probed\n", dev_name(&pdev->dev));
+> > 
+> >  	drm_client_setup(&rzgdrm->ddev, NULL);
+> > --
+> > 2.54.0
+> 
