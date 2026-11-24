@@ -2,43 +2,91 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 72B48606A326
-	for <dri-devel@archiver.kernel.org>; Tue, 24 Nov 2026 06:32:48 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=bHrN8xQV
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7BD69606A322
+	for <dri-devel@archiver.kernel.org>; Tue, 24 Nov 2026 06:54:54 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id DE4C110E768;
-	Tue, 24 Nov 2026 06:32:42 +0000 (UTC)
-Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 98C4610E4BC;
- Tue, 24 Nov 2026 06:32:36 +0000 (UTC)
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id 6193144F3A;
- Tue, 24 Nov 2026 06:32:36 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id F3F0C1F000D0;
- Tue, 24 Nov 2026 06:32:35 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1795501956;
- bh=3adqlx3v9FkV8tbFhC5m4q+toDCeS0Uxu5ZamZZ+7X8=;
- h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
- b=bHrN8xQVRiZMd9pkjpYwZHtD2LMdxbC3619KDNsDCZ+COAgxckJjLBsJy5aEptoEg
- 2jpXbdTmhTkpPAkd3YF/TSawiomBwHZOmKz7tEcuXPx141/gUHa3fn1rZtAwQqsK6J
- JsSv0HvsG//EMq2by8TXLH5CIuEwj+L2Si71/yZL1i+gCuFdTXfN6455MGOwE3UP8w
- RJOf/Y1TB2BQhmo8l+2U9Lj62lzq2VL0dnxNq0FayRQ4F4LyAMVKbyJZl/xjZaEvL+
- agYesMHll6GYMvBRPcx9PxNusgyCfjLD4wtrplGCJ7Wlqj8iaDT+sCN42pDCS6X9KG
- zGYot8pNxu4xQ==
-Message-ID: <sashiko-outbox-230599@kernel.org>
-From: sashiko-bot@kernel.org
-Subject: Re: [RFC v2 03/11] drm/ttm: Add TTM_NUMA_POLICY_INTERLEAVE
-To: "Himal Prasad Ghimiray" <himal.prasad.ghimiray@intel.com>
-Cc: dri-devel@lists.freedesktop.org, intel-xe@lists.freedesktop.org,
- amd-gfx@lists.freedesktop.org
-In-Reply-To: <20261124062123.2431244-16-himal.prasad.ghimiray@intel.com>
-References: <20261124062123.2431244-13-himal.prasad.ghimiray@intel.com>
- <20261124062123.2431244-16-himal.prasad.ghimiray@intel.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Tue, 24 Nov 2026 06:32:35 +0000
+	by gabe.freedesktop.org (Postfix) with ESMTP id CD4F010EC67;
+	Tue, 24 Nov 2026 06:54:53 +0000 (UTC)
+Received: from TYPPR03CU001.outbound.protection.outlook.com
+ (mail-japaneastazon11022109.outbound.protection.outlook.com [52.101.126.109])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 7A8CA10E7B2
+ for <dri-devel@lists.freedesktop.org>; Tue, 24 Nov 2026 06:54:52 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=EpwruvGcIJHiAT9cxJ6ivBPL1Wu1qoX3ikV8l0kp5oU2j4Em0u89UZztLvow/sUoQNDwUpyCxx3cUa/U/Z2m3g1dnBrB3OI1fIaiGyMPXNKPsEjAOA5ectr+P+BLhtAYBozZwum5/W73UaEgNkloHoi1UlSpfGlZ+6LfRleXd21M/jY6BxU4s245m3yqpTWbSNIHVcmZDdcrvtoJpsCfHatkN6c+HUuKM5oLHJIhlmJ8UICYmcXxIISYACI0XRdhidGl5xHLj0AG10fGHQ7/lmNw0Hz33CfgCHkIbG72CywElYM6SkV0+dSm/k+IlvgDzhIvL4fNodYzzBpzXYM0Ag==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=HMbR/+UYAsUUQqoIFylh6GXgKw+3iKCC7fBGfQpl/qM=;
+ b=km0RfeTmOrnPIiz9CmHmmvIrtPCUkzivPxYkkaNW3NWFBx3HWHzc7sEhlPw37NNeSM54SuOp7NCXZYnvdSYm8AKO0tPop1QMPRg4YrjNzMmMCPdMKndoo0c+lMVI9XDgM+ZGlwZtCQ8jhfwzDXjoYq/Jx1iqfDJdxwN1fQO0rLkJbyvft8SSEPpWT475oW4lqxh5rtcRt7X+YnuelMELbzNZbmrOkkERDLu7072J/GZSRv48oVg9iwPYowJa/d5X6QFJVJtTf4I9Isp3CDWLuBFyrLxXZANjsfUV1nJ/2IIA06/bVC26dP5itEPIaebawLzZbAbHH94FtzLeW9wG/g==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 222.71.101.198) smtp.rcpttodomain=arm.com smtp.mailfrom=cixtech.com;
+ dmarc=bestguesspass action=none header.from=cixtech.com; dkim=none (message
+ not signed); arc=none (0)
+Received: from PS2PR02CA0070.apcprd02.prod.outlook.com (2603:1096:300:5a::34)
+ by SE3PR06MB8127.apcprd06.prod.outlook.com (2603:1096:101:2ed::10)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.662.2; Tue, 24 Nov
+ 2026 06:54:48 +0000
+Received: from TY2PEPF0000AB84.apcprd03.prod.outlook.com
+ (2603:1096:300:5a:cafe::9e) by PS2PR02CA0070.outlook.office365.com
+ (2603:1096:300:5a::34) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.21.662.5 via Frontend Transport; Tue, 24
+ Nov 2026 06:54:48 +0000
+X-MS-Exchange-Authentication-Results: mx.microsoft.com 1; spf=pass (sender IP
+ is 222.71.101.198)
+ smtp.mailfrom=cixtech.com; dkim=none (message not signed)
+ header.d=none;dmarc=bestguesspass action=none header.from=cixtech.com;
+Received-SPF: Pass (protection.outlook.com: domain of cixtech.com designates
+ 222.71.101.198 as permitted sender) receiver=protection.outlook.com;
+ client-ip=222.71.101.198; helo=smtprelay.cixcomputing.com; pr=C
+Received: from smtprelay.cixcomputing.com (222.71.101.198) by
+ TY2PEPF0000AB84.mail.protection.outlook.com (10.167.253.9) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.21.662.3 via Frontend Transport; Tue, 24 Nov 2026 06:54:47 +0000
+Received: from localhost.localdomain (unknown [172.16.66.33])
+ by smtprelay.cixcomputing.com (Postfix) with ESMTPSA id 664B7427EFD7;
+ Tue, 24 Nov 2026 14:54:46 +0800 (CST)
+From: Luo Liu <Luo.Liu@cixtech.com>
+To: liviu.dudau@arm.com, maarten.lankhorst@linux.intel.com, mripard@kernel.org,
+ tzimmermann@suse.de, dri-devel@lists.freedesktop.org,
+ cix-kernel-upstream@cixtech.com
+Cc: airlied@gmail.com, simona@ffwll.ch, linux-kernel@vger.kernel.org,
+ Wuyi.Shen@cixtech.com
+Subject: [PATCH 1/2] drm/komeda: Use the bridge connector
+Date: Tue, 24 Nov 2026 14:54:45 +0800
+Message-Id: <20261124065446.3107248-2-Luo.Liu@cixtech.com>
+X-Mailer: git-send-email 2.25.1
+In-Reply-To: <20261124065446.3107248-1-Luo.Liu@cixtech.com>
+References: <20261124065446.3107248-1-Luo.Liu@cixtech.com>
+X-Archived-By: <archiver.kernel.org>
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: TY2PEPF0000AB84:EE_|SE3PR06MB8127:EE_
+Content-Type: text/plain
+X-MS-Office365-Filtering-Correlation-Id: ed21158b-4eb9-4918-2d13-08df49f7d453
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+ ARA:13230040|376014|1800799024|23010399003|42112799006|82310400026|36860700016|10067099003|261009223027099003|56012099006|261021121427099003|261009220027099003|261009221227099003|261022075727099003|261021123027099003|261009221727099003|261009223327099003|261022105027099003|261026140227099003|261102123227099003|261028144727099003|18002099003|22082099003;
+X-Microsoft-Antispam-Message-Info: 6aISn6CAKR3A/SK3/3PVFe19q/lFjZqO5QGgZEkue7WQVyWUmW5sWRoLbnxMJHpVCxZQ5wWTfDTFc04Xq6BvRfGcLuBUAxybFWQZQM7/Mdq5qAGf8EoiibcIe5x8Ua3umP5BqcdvFNNSWQBfvna3Yghvqez6ikf37iXSGlpgsqIEU0yJoB8+XP0oVMykBQF3wmjJGZM/aNuEEmM5i74LoynkPuP3VynGqvLGMuYDVedw7kx1e+9eDJ9/eVOGAI1ZKcNzVrAXS6wMA15t4SJq0B9LVilwK7bDYwVm57HvlmojvKAFVFlMB+71YbJ+1QTXU32PH9QY/eaBomBwgDAFD3wW4rs/FQDbBroghItdZ5mdF/NMXZkPRm6D8iVolFVxLcNeYVlDYqMBX0f5nCAvWbRmGXBxshaIHb8UbzCJkbTbjP6dNr31ZCvymka4ie/d9oDOkrER/6vdsWQXv9E12/NHYXlBYWEVqyk14x0RpONnSdm4EIPA+YKPbwhy9TNrOraGFXwu2sSw6Tt4tMtcpzoeHfXhSO+spXwdP7Z2knfVrXn9iKvNY77w4s8Zs0srj9t9thYWVKwjr9nkxiIBhvJgv/HJGkZ9ul/CnmQS9EAoyb6r00obC3HCQ3FU/wWvlpc7R8yKLBk6NtGiKmQodhd/IGeVFix+3DKz/DFe98L4YqG9Vm324pB9OHtQYtGdjBKnh55J0fXJkJYJ0AYGcA==
+X-Forefront-Antispam-Report: CIP:222.71.101.198; CTRY:CN; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:smtprelay.cixcomputing.com; PTR:ErrorRetry; CAT:NONE;
+ SFS:(13230040)(376014)(1800799024)(23010399003)(42112799006)(82310400026)(36860700016)(10067099003)(261009223027099003)(56012099006)(261021121427099003)(261009220027099003)(261009221227099003)(261022075727099003)(261021123027099003)(261009221727099003)(261009223327099003)(261022105027099003)(261026140227099003)(261102123227099003)(261028144727099003)(18002099003)(22082099003);
+ DIR:OUT; SFP:1102; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: MvkXlWHlIP176dzwBFvHbqUQwSpvIPplehPw0o98QaB/HwQ6u8/Btv/9b7pzcXJXfCYYABV/1kOHqDwSdK8p9mGQA1PpMk2mM3ieE6nS5tvJ6kXWq2VzzHlSL6go9ZFN7szxhQvKPw6qOv4Xa5iTBw611ce4QwaGiM4wbFLZmcQZAZoH61KZ/f3Z2Ixh3PtlHyAwATMMPHZUd9x/2InPbfwZ1gWg2/AA4BBsb6jcM06PLmKEYT+n0nvviaCeUnQIm7Nofo73zg922kEPzqWbsDGBzonHjIoYefVcaOoxW8hT/qYcTu5MaLwXkr4YJ68t+w55jj9XPwURnrlPvzc7YDxJ03YQBgmCa4x44Zgi24+ytyT2/ERU/ulUIjipRbbiCS9cYEHOJlWOmdz2VGGjUeP5Z/VpLM3ho6Oz60BWPibw6mbC3z+pdYFC9jfSUOvq
+X-OriginatorOrg: cixtech.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 24 Nov 2026 06:54:47.5247 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: ed21158b-4eb9-4918-2d13-08df49f7d453
+X-MS-Exchange-CrossTenant-Id: 0409f77a-e53d-4d23-943e-ccade7cb4811
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=0409f77a-e53d-4d23-943e-ccade7cb4811; Ip=[222.71.101.198];
+ Helo=[smtprelay.cixcomputing.com]
+X-MS-Exchange-CrossTenant-AuthSource: TY2PEPF0000AB84.apcprd03.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SE3PR06MB8127
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -49,169 +97,92 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
-Reply-To: sashiko-reviews@lists.linux.dev
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-10.8 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
-	DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
-	INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS
+X-Spam-Status: No, score=-16.8 required=3.0 tests=BAYES_00,
+	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
+	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,USER_AGENT_GIT
 	autolearn=unavailable autolearn_force=no version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
-X-Archived-By: <archiver.kernel.org>
 
-Thank you for your contribution! Sashiko AI review found 3 potential
-issues to consider:
-- [High] drm/ttm: broken interleave node rotation on order decrease in
-  __ttm_pool_alloc()
-- [Medium] drm/ttm: unconstrained order-0 fallback and reclaim in
-  ttm_pool_alloc_interleave()
-- [Medium] drm/ttm: cross-node pool take in
-  ttm_pool_type_take_interleave() before alloc
---
+Bridges following the new DRM bridge model no longer create a connector
+themselves: the display driver has to attach them with
+DRM_BRIDGE_ATTACH_NO_CONNECTOR and create one connector for the whole
+chain with drm_bridge_connector_init().
 
-commit 99e6c53830405c25271c091f8f19cad519333639
-Author: Himal Prasad Ghimiray <himal.prasad.ghimiray@intel.com>
+Convert komeda to that model, so it keeps working with bridges that
+have moved to the new one. The bridges komeda binds to in mainline
+support connector-less attach, so boards using them are unaffected.
 
-drm/ttm: Add TTM_NUMA_POLICY_INTERLEAVE
+Select DRM_BRIDGE_CONNECTOR for drm_bridge_connector_init() and
+DRM_DISPLAY_HELPER, as the bridge connector is only visible when the
+display helper is enabled.
 
-This commit adds TTM_NUMA_POLICY_INTERLEAVE to rotate TTM page allocations
-and pool lookups across the NUMA nodes in ttm_operation_ctx.numa_info.nodes.
+Signed-off-by: Luo Liu <Luo.Liu@cixtech.com>
+---
+ drivers/gpu/drm/arm/display/Kconfig            |  2 ++
+ .../gpu/drm/arm/display/komeda/komeda_crtc.c   | 18 +++++++++++++++---
+ 2 files changed, 17 insertions(+), 3 deletions(-)
 
-> diff --git a/drivers/gpu/drm/ttm/ttm_pool.c b/drivers/gpu/drm/ttm/ttm_poo=
-l.c
-> index 8976de3a552d1..210d443185644 100644
-> --- a/drivers/gpu/drm/ttm/ttm_pool.c
-> +++ b/drivers/gpu/drm/ttm/ttm_pool.c
-> @@ -373,6 +373,38 @@ static struct page *ttm_pool_type_take(struct ttm_po=
-ol_type *pt, int nid)
->  	return p;
->  }
-> =20
-> +/* Return the node in @nodes nearest to @from, lowest node id on ties */
-> +static int ttm_pool_nearest_node(int from, const nodemask_t *nodes)
-> +{
-> +	int n, nid =3D first_node(*nodes);
-> +
-> +	for_each_node_mask(n, *nodes) {
-> +		if (node_distance(from, n) < node_distance(from, nid))
-> +			nid =3D n;
-> +	}
-> +
-> +	return nid;
-> +}
-> +
-> +/* Take from @nid first, then from the other nodes nearest to @nid first=
- */
-> +static struct page *ttm_pool_type_take_interleave(struct ttm_pool_type *=
-pt,
-> +						  int nid, const nodemask_t *nodes)
-> +{
-> +	nodemask_t todo =3D *nodes;
-> +	struct page *p;
-> +
-> +	p =3D ttm_pool_type_take(pt, nid);
-> +	node_clear(nid, todo);
-> +	while (!p && !nodes_empty(todo)) {
-> +		int n =3D ttm_pool_nearest_node(nid, &todo);
-> +
-> +		node_clear(n, todo);
-> +		p =3D ttm_pool_type_take(pt, n);
-> +	}
-> +
-> +	return p;
-> +}
+diff --git a/drivers/gpu/drm/arm/display/Kconfig b/drivers/gpu/drm/arm/display/Kconfig
+index 415c10a6374b..d88fdd3808be 100644
+--- a/drivers/gpu/drm/arm/display/Kconfig
++++ b/drivers/gpu/drm/arm/display/Kconfig
+@@ -6,6 +6,8 @@ config DRM_KOMEDA
+ 	select DRM_CLIENT_SELECTION
+ 	select DRM_KMS_HELPER
+ 	select DRM_GEM_DMA_HELPER
++	select DRM_DISPLAY_HELPER
++	select DRM_BRIDGE_CONNECTOR
+ 	select VIDEOMODE_HELPERS
+ 	help
+ 	  Choose this option if you want to compile the ARM Komeda display
+diff --git a/drivers/gpu/drm/arm/display/komeda/komeda_crtc.c b/drivers/gpu/drm/arm/display/komeda/komeda_crtc.c
+index 0fd069fc3386..3d5f06e085fa 100644
+--- a/drivers/gpu/drm/arm/display/komeda/komeda_crtc.c
++++ b/drivers/gpu/drm/arm/display/komeda/komeda_crtc.c
+@@ -15,6 +15,7 @@
+ #include <drm/drm_print.h>
+ #include <drm/drm_vblank.h>
+ #include <drm/drm_bridge.h>
++#include <drm/drm_bridge_connector.h>
+ #include <drm/drm_panel.h>
+ 
+ #include "komeda_dev.h"
+@@ -617,6 +618,7 @@ static int komeda_attach_bridge(struct device *dev,
+ 				struct drm_encoder *encoder)
+ {
+ 	struct drm_device *drm = encoder->dev;
++	struct drm_connector *connector;
+ 	struct drm_bridge *bridge;
+ 	int err;
+ 
+@@ -626,12 +628,22 @@ static int komeda_attach_bridge(struct device *dev,
+ 		return dev_err_probe(dev, PTR_ERR(bridge), "remote bridge not found for pipe: %s\n",
+ 				     of_node_full_name(pipe->of_node));
+ 
+-	err = drm_bridge_attach(encoder, bridge, NULL, 0);
+-	if (err)
++	err = drm_bridge_attach(encoder, bridge, NULL,
++				DRM_BRIDGE_ATTACH_NO_CONNECTOR);
++	if (err) {
+ 		drm_err(drm, "bridge_attach() failed for pipe: %s\n",
+ 			of_node_full_name(pipe->of_node));
++		return err;
++	}
+ 
+-	return err;
++	connector = drm_bridge_connector_init(drm, encoder);
++	if (IS_ERR(connector)) {
++		drm_err(drm, "bridge connector init failed for pipe: %s\n",
++			of_node_full_name(pipe->of_node));
++		return PTR_ERR(connector);
++	}
++
++	return 0;
+ }
+ 
+ static const struct drm_encoder_funcs komeda_encoder_funcs = {
+-- 
+2.25.1
 
-[Severity: Medium]
-Does ttm_pool_type_take_interleave() take cached pool pages from other nodes
-in @nodes before trying a fresh page allocation on @nid?
-
-When @nid's pool for a write-combined or uncached order is empty,
-__ttm_pool_alloc() drains pooled pages from sibling policy nodes even when
-@nid has free system memory.  Because ttm_pool_free() returns freed pages to
-the pool of page_to_nid(p), @nid's pool remains empty and interleaved WC/UC
-allocations collapse onto whichever node already had cached pool pages.
-
-[ ... ]
-
-> @@ -830,6 +873,31 @@ static struct page *ttm_pool_alloc_bind(struct ttm_p=
-ool *pool, gfp_t gfp_flags,
->  	return p;
->  }
-> =20
-> +/*
-> + * Allocate pages of size 1 << order for TTM_NUMA_POLICY_INTERLEAVE. Try=
- the
-> + * interleaved node @nid first, then the other nodes in @nodes nearest t=
-o @nid
-> + * first, as the per-node zonelist fallback of core mm does, before the =
-caller
-> + * lowers the order.
-> + */
-> +static struct page *ttm_pool_alloc_interleave(struct ttm_pool *pool,
-> +					      gfp_t gfp_flags, unsigned int order,
-> +					      int nid, const nodemask_t *nodes)
-> +{
-> +	nodemask_t todo =3D *nodes;
-> +	struct page *p;
-> +
-> +	p =3D ttm_pool_alloc_page(pool, gfp_flags, order, nid);
-> +	node_clear(nid, todo);
-> +	while (!p && !nodes_empty(todo)) {
-> +		int n =3D ttm_pool_nearest_node(nid, &todo);
-> +
-> +		node_clear(n, todo);
-> +		p =3D ttm_pool_alloc_page(pool, gfp_flags, order, n);
-> +	}
-> +
-> +	return p;
-> +}
-
-[Severity: Medium]
-Does ttm_pool_alloc_interleave() fall back outside @nodes on order-0
-allocations and stall in reclaim before trying other policy nodes?
-
-ttm_pool_alloc_page() only sets __GFP_THISNODE when order > 0.  At order 0,
-the first ttm_pool_alloc_page() call walks @nid's unfiltered fallback
-zonelist, which can allocate from a node outside @nodes before the remaining
-nodes in @todo are tried, and if all zones are exhausted the while loop
-repeats system-wide direct reclaim once for each remaining node in @todo.
-In addition, unlike ttm_pool_alloc_bind(), ttm_pool_alloc_interleave() does
-not try a non-reclaim pass across @nodes first, so a depleted @nid enters
-direct reclaim and compaction even when another node in @nodes has free
-pages of that order.
-
-[ ... ]
-
-> @@ -893,11 +961,24 @@ static int __ttm_pool_alloc(struct ttm_pool *pool, =
-struct ttm_tt *tt,
->  	     order =3D ttm_pool_alloc_find_order(order, alloc)) {
->  		struct ttm_pool_type *pt;
-> =20
-> +		if (policy =3D=3D TTM_NUMA_POLICY_INTERLEAVE) {
-> +			unsigned int slot =3D tt->num_pages - alloc->remaining_pages;
-> +
-> +			alloc_nid =3D ttm_pool_policy_nth_node(ctx->numa_info.nodes,
-> +							     slot >> order);
-> +			take_nid =3D alloc_nid;
-> +		}
-
-[Severity: High]
-Does computing the node index as slot >> order fail to rotate across
-ctx->numa_info.nodes whenever the allocation order decreases?
-
-In __ttm_pool_alloc(), order is monotonically non-increasing, and slot is t=
-he
-sum of 1 << prev_order for all prior chunks.  Whenever a chunk has a smaller
-order than the chunks before it, every prior chunk contributed an even
-multiple of 1 << order pages to slot, so slot >> order is always even.  When
-nodes_weight(*ctx->numa_info.nodes) is even, such as a 2-node mask,
-(slot >> order) % nodes_weight(...) is always 0 on every decreased order.
-For example, a 3 MiB buffer (orders 9 and 8) or any buffer smaller than
-8 MiB whose size is not a multiple of 4 MiB places all of its chunks on the
-first policy node instead of interleaving them.  Counting allocated chunks
-with a separate counter that increments once per allocated page would rotate
-across nodes regardless of order changes.
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261124062123.2431=
-244-13-himal.prasad.ghimiray@intel.com?part=3D3
