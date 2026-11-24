@@ -2,30 +2,30 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AAC0B606A6A5
-	for <dri-devel@archiver.kernel.org>; Tue, 24 Nov 2026 18:18:57 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5973B606A69C
+	for <dri-devel@archiver.kernel.org>; Tue, 24 Nov 2026 18:18:52 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=igalia.com header.i=@igalia.com header.a=rsa-sha256 header.s=20170329 header.b=JZEPlOj+
+	dkim=pass (2048-bit key) header.d=igalia.com header.i=@igalia.com header.a=rsa-sha256 header.s=20170329 header.b=jwy9Pgv7
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id B4AC410F83C;
-	Tue, 24 Nov 2026 18:18:50 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id D3F4310F838;
+	Tue, 24 Nov 2026 18:18:41 +0000 (UTC)
 Received: from fanzine2.igalia.com (fanzine2.igalia.com [213.97.179.56])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 3CB9A10F085;
- Tue, 24 Nov 2026 18:18:29 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 80CDA10F033;
+ Tue, 24 Nov 2026 18:18:14 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com; 
  s=20170329;
  h=Content-Transfer-Encoding:Content-Type:MIME-Version:Message-ID:
  Date:Subject:Cc:To:From:From:Reply-To;
- bh=gXasZiqSBEMSlncM/ERSCegHIAK8FRiAoCjcZ+TovIk=; t=1795544309; x=2110904309; 
- b=JZEPlOj+BnlDy2YHVjgimc1oDssoS33/3gvts7WHJ/lMxWcynEPEnv/5Hz0FwMQSZyyHuPK+RUN
- 8wFYxKki6cQnkED5E3XHb1bCN7myZCgdkRb3YhHQTVdFSZvoI2M1B1SZSATcafA/9IJLTMYbN3nnC
- r74VffB1g/K1EeYwRrgBq9Dr4+DUsPny3T/y7YFP6XeRmdavsToPJSyto+3m4QtG12aOgEnOPV51u
- uMHaPoyrPS3n/KmI5Z/HEFpgBwLKfm//aKgtcGTLG6liP2omF35wHHemeZWO7I/N6FKH+UlYtd84q
- CCjxPdHkozaYe2aysmrMZHSTY9cNjEwq8v9A==;
+ bh=xFwgZLKZ7q3GKRYJvLVJfnCxCnDsTUODSJ1kWrjoeMo=; t=1795544294; x=2110904294; 
+ b=jwy9Pgv74q0LYDNcaad6nmF5dgiHn++t4bzHInAza5Zv7GNrMkbu8okiB2B77iBIp3CXlvI1AV2
+ XPojhvixYx9jv03rZlOTfDOupqDx/sM6+GOJMv2yEfc74SHUU3ZRkvxqhxEz7KAwCImy9EM4I1XId
+ uutoEgSINIi+50QTGP7evkZh+xCohOi08WdNzkaarikJ045xzUuVNbuaXUhpYRBd+BDyD4Dlh1YPL
+ bek6TCI/74ENHB5QHAIUev/4X5x/V84HSGMKRtBokAvWunI0sfRff+rXxpAVUDd9F5l6MMQNibVNP
+ HKaXfhwgc7HQ83iZ4T+m4m3wJP/cvNbsoT9w==;
 Received: from 84.125.127.4.dyn.user.ono.com ([84.125.127.4] helo=killbill)
  by fanzine2.igalia.com with esmtpsa 
  (Cipher TLS1.3:ECDHE_X25519__RSA_PSS_RSAE_SHA256__AES_256_GCM:256) (Exim)
- id 1xVv5s-00000003axM-06NF; Tue, 24 Nov 2026 19:18:16 +0100
+ id 1xVv5h-00000003axM-0O1i; Tue, 24 Nov 2026 19:18:05 +0100
 From: Melissa Wen <mwen@igalia.com>
 To: airlied@gmail.com, alexander.deucher@amd.com, christian.koenig@amd.com,
  harry.wentland@amd.com, maarten.lankhorst@linux.intel.com,
@@ -43,9 +43,10 @@ Cc: Ariel DAlessandro <ariel.dalessandro@collabora.com>,
  amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
  Leandro Ribeiro <leandro.ribeiro@collabora.com>,
  Louis Chauvet <louis.chauvet@bootlin.com>, Melissa Wen <mwen@igalia.com>
-Subject: [PATCH v3 11/19] drm/colorop: Introduce colorop helpers for crtc
-Date: Tue, 24 Nov 2026 19:03:28 +0100
-Message-ID: <20261124181652.1333986-12-mwen@igalia.com>
+Subject: [PATCH v3 05/19] drm: Factor out common color_pipeline property
+ initialization code
+Date: Tue, 24 Nov 2026 19:03:22 +0100
+Message-ID: <20261124181652.1333986-6-mwen@igalia.com>
 X-Mailer: git-send-email 2.53.0
 In-Reply-To: <20261124181652.1333986-1-mwen@igalia.com>
 References: <20261124181652.1333986-1-mwen@igalia.com>
@@ -74,172 +75,143 @@ X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 
 From: Nícolas F. R. A. Prado <nfraprado@collabora.com>
 
-Introduce colorop helper counterparts for post-blend color pipelines
-that take a CRTC instead of a plane.
+In preparation for sharing the initialization code for the color
+pipeline property between pre-blend (plane) and post-blend (crtc) color
+pipelines, factor out the common initialization to a separate function.
 
 Signed-off-by: Nícolas F. R. A. Prado <nfraprado@collabora.com>
 Co-developed-by: Ariel D'Alessandro <ariel.dalessandro@collabora.com>
 Signed-off-by: Ariel D'Alessandro <ariel.dalessandro@collabora.com>
 Reviewed-by: Louis Chauvet <louis.chauvet@bootlin.com>
-Reviewed-by: Harry Wentland <harry.wentland@amd.com>
 Signed-off-by: Melissa Wen <mwen@igalia.com>
 
 ---
 v3:
 - rebase on drm-misc-next, no other changes
 ---
- drivers/gpu/drm/drm_colorop.c | 81 +++++++++++++++++++++++++++++++++++
- include/drm/drm_colorop.h     | 14 ++++++
- 2 files changed, 95 insertions(+)
+ drivers/gpu/drm/drm_plane.c    | 34 ++++----------------------
+ drivers/gpu/drm/drm_property.c | 44 ++++++++++++++++++++++++++++++++++
+ include/drm/drm_property.h     |  5 ++++
+ 3 files changed, 53 insertions(+), 30 deletions(-)
 
-diff --git a/drivers/gpu/drm/drm_colorop.c b/drivers/gpu/drm/drm_colorop.c
-index baef70460da9..2f62050524b2 100644
---- a/drivers/gpu/drm/drm_colorop.c
-+++ b/drivers/gpu/drm/drm_colorop.c
-@@ -185,6 +185,21 @@ static int drm_plane_colorop_init(struct drm_device *dev,
- 	return ret;
- }
- 
-+static int drm_crtc_colorop_init(struct drm_device *dev,
-+				 struct drm_colorop *colorop,
-+				 struct drm_crtc *crtc,
-+				 const struct drm_colorop_funcs *funcs,
-+				 enum drm_colorop_type type, uint32_t flags)
-+{
-+	int ret;
-+
-+	ret = drm_common_colorop_init(dev, colorop, funcs, type, flags);
-+
-+	colorop->crtc = crtc;
-+
-+	return ret;
-+}
-+
- /**
-  * drm_colorop_cleanup - Cleanup a drm_colorop object in color_pipeline
-  *
-@@ -313,6 +328,26 @@ int drm_plane_colorop_curve_1d_init(struct drm_device *dev,
- }
- EXPORT_SYMBOL(drm_plane_colorop_curve_1d_init);
- 
-+int drm_crtc_colorop_curve_1d_init(struct drm_device *dev,
-+				   struct drm_colorop *colorop,
-+				   struct drm_crtc *crtc,
-+				   const struct drm_colorop_funcs *funcs,
-+				   u64 supported_tfs, uint32_t flags)
-+{
-+	int ret;
-+
-+	ret = drm_colorop_has_supported_tf(dev, &crtc->base, crtc->name, supported_tfs);
-+	if (ret)
-+		return ret;
-+
-+	ret = drm_crtc_colorop_init(dev, colorop, crtc, funcs, DRM_COLOROP_1D_CURVE, flags);
-+	if (ret)
-+		return ret;
-+
-+	return drm_common_colorop_curve_1d_init(dev, colorop, supported_tfs, flags);
-+}
-+EXPORT_SYMBOL(drm_crtc_colorop_curve_1d_init);
-+
- static int drm_colorop_create_data_prop(struct drm_device *dev, struct drm_colorop *colorop)
+diff --git a/drivers/gpu/drm/drm_plane.c b/drivers/gpu/drm/drm_plane.c
+index bd4a1d678420..199d42b01fc4 100644
+--- a/drivers/gpu/drm/drm_plane.c
++++ b/drivers/gpu/drm/drm_plane.c
+@@ -1837,41 +1837,15 @@ int drm_plane_create_color_pipeline_property(struct drm_plane *plane,
+ 					     const struct drm_prop_enum_list *pipelines,
+ 					     int num_pipelines)
  {
+-	struct drm_prop_enum_list *all_pipelines;
  	struct drm_property *prop;
-@@ -402,6 +437,37 @@ drm_plane_colorop_curve_1d_lut_init(struct drm_device *dev,
- }
- EXPORT_SYMBOL(drm_plane_colorop_curve_1d_lut_init);
+-	int len = 0;
+-	int i;
  
-+/**
-+ * drm_crtc_colorop_curve_1d_lut_init - Initialize a DRM_COLOROP_1D_LUT
-+ *
-+ * @dev: DRM device
-+ * @colorop: The drm_colorop object to initialize
-+ * @crtc: The associated drm_crtc
-+ * @lut_size: LUT size supported by driver
-+ * @interpolation: 1D LUT interpolation type
-+ * @flags: bitmask of misc, see DRM_COLOROP_FLAG_* defines.
-+ * @return zero on success, -E value on failure
-+ */
-+int
-+drm_crtc_colorop_curve_1d_lut_init(struct drm_device *dev,
-+				   struct drm_colorop *colorop,
-+				   struct drm_crtc *crtc,
-+				   const struct drm_colorop_funcs *funcs,
-+				   uint32_t lut_size,
-+				   enum drm_colorop_lut1d_interpolation_type interpolation,
-+				   uint32_t flags)
-+{
-+	int ret;
-+
-+	ret = drm_crtc_colorop_init(dev, colorop, crtc, funcs, DRM_COLOROP_1D_LUT, flags);
-+	if (ret)
-+		return ret;
-+
-+	return drm_common_colorop_curve_1d_lut_init(dev, colorop, lut_size,
-+						    interpolation, flags);
-+}
-+EXPORT_SYMBOL(drm_crtc_colorop_curve_1d_lut_init);
-+
- static int drm_common_colorop_ctm_3x4_init(struct drm_device *dev,
- 					   struct drm_colorop *colorop,
- 					   uint32_t flags)
-@@ -433,6 +499,21 @@ int drm_plane_colorop_ctm_3x4_init(struct drm_device *dev,
- }
- EXPORT_SYMBOL(drm_plane_colorop_ctm_3x4_init);
+-	all_pipelines = kzalloc_objs(*all_pipelines, num_pipelines + 1);
++	prop = drm_property_create_color_pipeline(plane->dev, &plane->base,
++						  pipelines, num_pipelines);
++	if (IS_ERR(prop))
++		return PTR_ERR(prop);
  
-+int drm_crtc_colorop_ctm_3x4_init(struct drm_device *dev, struct drm_colorop *colorop,
-+				  struct drm_crtc *crtc,
-+				  const struct drm_colorop_funcs *funcs,
-+				  uint32_t flags)
+-	if (!all_pipelines) {
+-		drm_err(plane->dev, "failed to allocate color pipeline\n");
+-		return -ENOMEM;
+-	}
+-
+-	/* Create default Bypass color pipeline */
+-	all_pipelines[len].type = 0;
+-	all_pipelines[len].name = "Bypass";
+-	len++;
+-
+-	/* Add all other color pipelines */
+-	for (i = 0; i < num_pipelines; i++, len++) {
+-		all_pipelines[len].type = pipelines[i].type;
+-		all_pipelines[len].name = pipelines[i].name;
+-	}
+-
+-	prop = drm_property_create_enum(plane->dev, DRM_MODE_PROP_ATOMIC,
+-					"COLOR_PIPELINE",
+-					all_pipelines, len);
+-	if (!prop) {
+-		kfree(all_pipelines);
+-		return -ENOMEM;
+-	}
+-
+-	drm_object_attach_property(&plane->base, prop, 0);
+ 	plane->color_pipeline_property = prop;
+ 
+-	kfree(all_pipelines);
+ 	return 0;
+ }
+ EXPORT_SYMBOL(drm_plane_create_color_pipeline_property);
+diff --git a/drivers/gpu/drm/drm_property.c b/drivers/gpu/drm/drm_property.c
+index 91f114cf9f60..8d5c98ceae8c 100644
+--- a/drivers/gpu/drm/drm_property.c
++++ b/drivers/gpu/drm/drm_property.c
+@@ -1007,3 +1007,47 @@ void drm_property_change_valid_put(struct drm_property *property,
+ 	} else if (drm_property_type_is(property, DRM_MODE_PROP_BLOB))
+ 		drm_property_blob_put(obj_to_blob(ref));
+ }
++
++struct drm_property *
++drm_property_create_color_pipeline(struct drm_device *dev, struct drm_mode_object *obj,
++				   const struct drm_prop_enum_list *pipelines,
++				   int num_pipelines)
 +{
-+	int ret;
++	struct drm_prop_enum_list *all_pipelines;
++	struct drm_property *prop;
++	int len = 0;
++	int i;
 +
-+	ret = drm_crtc_colorop_init(dev, colorop, crtc, funcs, DRM_COLOROP_CTM_3X4, flags);
-+	if (ret)
-+		return ret;
++	all_pipelines = kcalloc(num_pipelines + 1,
++				sizeof(*all_pipelines),
++				GFP_KERNEL);
 +
-+	return drm_common_colorop_ctm_3x4_init(dev, colorop, flags);
++	if (!all_pipelines) {
++		drm_err(dev, "failed to allocate color pipeline\n");
++		return ERR_PTR(-ENOMEM);
++	}
++
++	/* Create default Bypass color pipeline */
++	all_pipelines[len].type = 0;
++	all_pipelines[len].name = "Bypass";
++	len++;
++
++	/* Add all other color pipelines */
++	for (i = 0; i < num_pipelines; i++, len++) {
++		all_pipelines[len].type = pipelines[i].type;
++		all_pipelines[len].name = pipelines[i].name;
++	}
++
++	prop = drm_property_create_enum(dev, DRM_MODE_PROP_ATOMIC,
++					"COLOR_PIPELINE",
++					all_pipelines, len);
++	if (!prop) {
++		kfree(all_pipelines);
++		return ERR_PTR(-ENOMEM);
++	}
++
++	drm_object_attach_property(obj, prop, 0);
++
++	kfree(all_pipelines);
++	return prop;
 +}
-+EXPORT_SYMBOL(drm_crtc_colorop_ctm_3x4_init);
+diff --git a/include/drm/drm_property.h b/include/drm/drm_property.h
+index aa49b5a42bb5..2ba4062f8bfa 100644
+--- a/include/drm/drm_property.h
++++ b/include/drm/drm_property.h
+@@ -297,6 +297,11 @@ bool drm_property_replace_blob(struct drm_property_blob **blob,
+ struct drm_property_blob *drm_property_blob_get(struct drm_property_blob *blob);
+ void drm_property_blob_put(struct drm_property_blob *blob);
+ 
++struct drm_property *
++drm_property_create_color_pipeline(struct drm_device *dev, struct drm_mode_object *obj,
++				   const struct drm_prop_enum_list *pipelines,
++				   int num_pipelines);
 +
  /**
-  * drm_plane_colorop_mult_init - Initialize a DRM_COLOROP_MULTIPLIER
-  *
-diff --git a/include/drm/drm_colorop.h b/include/drm/drm_colorop.h
-index 3a71cecd8273..657a8cff1227 100644
---- a/include/drm/drm_colorop.h
-+++ b/include/drm/drm_colorop.h
-@@ -535,6 +535,13 @@ static inline struct drm_colorop *drm_colorop_find(struct drm_device *dev,
- void drm_colorop_pipeline_destroy(struct drm_device *dev);
- void drm_colorop_cleanup(struct drm_colorop *colorop);
- 
-+int drm_crtc_colorop_curve_1d_lut_init(struct drm_device *dev, struct drm_colorop *colorop,
-+				       struct drm_crtc *crtc,
-+				       const struct drm_colorop_funcs *funcs,
-+				       uint32_t lut_size,
-+				       enum drm_colorop_lut1d_interpolation_type interpolation,
-+				       uint32_t flags);
-+
- int drm_plane_colorop_curve_1d_init(struct drm_device *dev, struct drm_colorop *colorop,
- 				    struct drm_plane *plane, const struct drm_colorop_funcs *funcs,
- 				    u64 supported_tfs, uint32_t flags);
-@@ -544,9 +551,16 @@ int drm_plane_colorop_curve_1d_lut_init(struct drm_device *dev, struct drm_color
- 					uint32_t lut_size,
- 					enum drm_colorop_lut1d_interpolation_type interpolation,
- 					uint32_t flags);
-+int drm_crtc_colorop_curve_1d_init(struct drm_device *dev, struct drm_colorop *colorop,
-+				   struct drm_crtc *crtc,
-+				   const struct drm_colorop_funcs *funcs,
-+				   u64 supported_tfs, uint32_t flags);
-+
- int drm_plane_colorop_ctm_3x4_init(struct drm_device *dev, struct drm_colorop *colorop,
- 				   struct drm_plane *plane, const struct drm_colorop_funcs *funcs,
- 				   uint32_t flags);
-+int drm_crtc_colorop_ctm_3x4_init(struct drm_device *dev, struct drm_colorop *colorop,
-+				   struct drm_crtc *crtc, const struct drm_colorop_funcs *funcs, uint32_t flags);
- int drm_plane_colorop_mult_init(struct drm_device *dev, struct drm_colorop *colorop,
- 				struct drm_plane *plane, const struct drm_colorop_funcs *funcs,
- 				uint32_t flags);
+  * drm_property_find - find property object
+  * @dev: DRM device
 -- 
 2.53.0
 
