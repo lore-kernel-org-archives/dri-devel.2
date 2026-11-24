@@ -2,62 +2,62 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E91C0606A31E
-	for <dri-devel@archiver.kernel.org>; Tue, 24 Nov 2026 22:42:21 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7A678606A31E
+	for <dri-devel@archiver.kernel.org>; Tue, 24 Nov 2026 22:44:38 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kemnade.info header.i=@kemnade.info header.a=rsa-sha256 header.s=20220719 header.b=8HCShj4i
+	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=mimecast20190719 header.b=Jyx717+z
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 135D910E8C8;
-	Tue, 24 Nov 2026 22:42:16 +0000 (UTC)
-Received: from mail.andi.de1.cc (mail.andi.de1.cc [178.238.236.174])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 22DE310E8C8
- for <dri-devel@lists.freedesktop.org>; Tue, 24 Nov 2026 22:42:08 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
- d=kemnade.info; s=20220719; h=References:In-Reply-To:Subject:Cc:To:From:
- Reply-To:Content-ID:Content-Description;
- bh=tUCMqiOrGj4FihXgRmpoFzlOGU9HSbmXuDtn2DKC7dE=; t=1795560128; x=1796769728; 
- b=8HCShj4i+2avvgijS3kmGgF35VUY/VznpKgC5AW+Ppk5wxakCCwyJyRyIR66rbo9nicTtH3XpoO
- x/xz86Mmb4aYxDynfqnwHAAk0cZ9dRrESPYepFWwljKc6yFkAnQnq849sJLHtCprNU59FM8y8e0Pj
- OqQlO+gv0/RVjJSF5XizmDiAixiq9LQxAQcTkKUVJnY3J+TXziRxu8n6XIoPl5/ov9XoQFKDirmX4
- W9Mf1/SqmDdPQNkxaG9/r6JF2hdT1+S3y6aieGjjMRR64eNCyTrwkaY0oHftQVJ2JOI3ZZ5Ff0Ob6
- JrvZY6DGw24N6bSBBiCMXcfabN8loLApqb4w==;
-Date: Tue, 24 Nov 2026 23:41:43 +0100
-From: Andreas Kemnade <andreas@kemnade.info>
-To: "H. Nikolaus Schaller" <hns@goldelico.com>
-Cc: Rob Herring <robh@kernel.org>, Linus Walleij <linus.walleij@linaro.org>,
- Bartosz Golaszewski <brgl@kernel.org>, Krzysztof Kozlowski
- <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, Lee Jones
- <lee@kernel.org>, Daniel Thompson <danielt@kernel.org>, Jingoo Han
- <jingoohan1@gmail.com>, Pavel Machek <pavel@kernel.org>, Liam Girdwood
- <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>, Aaro Koskinen
- <aaro.koskinen@iki.fi>, Kevin Hilman <khilman@baylibre.com>, Roger Quadros
- <rogerq@kernel.org>, Tony Lindgren <tony@atomide.com>, Russell King
- <linux@armlinux.org.uk>, Neil Armstrong <neil.armstrong@linaro.org>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, Maxime Ripard
- <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, David Airlie
- <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, Uwe =?UTF-8?B?S2xl?=
- =?UTF-8?B?aW5lLUvDtm5pZw==?= <ukleinek@kernel.org>, Helge Deller
- <deller@gmx.de>, Jaroslav Kysela <perex@perex.cz>, Takashi Iwai
- <tiwai@suse.com>, Peter Ujfalusi <peter.ujfalusi@gmail.com>, Jarkko Nikula
- <jarkko.nikula@bitmer.com>, Jessica Zhang <jessica.zhang@oss.qualcomm.com>,
- linux-gpio@vger.kernel.org, devicetree@vger.kernel.org,
- linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org,
- linux-leds@vger.kernel.org, linux-sound@vger.kernel.org,
- linux-omap@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
- linux-pwm@vger.kernel.org, linux-fbdev@vger.kernel.org,
- letux-kernel@openphoenux.org, kernel@pyra-handheld.com
-Subject: Re: [PATCH v2 00/20] ARM: omap3: pandora: Modernize audio and
- backlight to use Device Tree to finally remove pdata-quirks
-Message-ID: <20261124234143.4f099646@kemnade.info>
-In-Reply-To: <1DCFB59E-E5EA-4470-997E-EAA4ED35D906@goldelico.com>
-References: <cover.1795505160.git.hns@goldelico.com>
- <20261124151318.GA536798-robh@kernel.org>
- <1DCFB59E-E5EA-4470-997E-EAA4ED35D906@goldelico.com>
-X-Mailer: Claws Mail 4.3.1 (GTK 3.24.49; aarch64-unknown-linux-gnu)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 8FCA310F114;
+	Tue, 24 Nov 2026 22:44:32 +0000 (UTC)
+Received: from us-smtp-delivery-124.mimecast.com
+ (us-smtp-delivery-124.mimecast.com [170.10.129.124])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id B2F6E10F114
+ for <dri-devel@lists.freedesktop.org>; Tue, 24 Nov 2026 22:44:25 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+ s=mimecast20190719; t=1795560265;
+ h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+ to:to:cc:mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding;
+ bh=1bHd46+KpwMQScQq4CkEJ10JCX2sefKaCOj+OZ5ECJs=;
+ b=Jyx717+zdkHULTvTAWKO3e6OhhqxKDC4IaO5LmDtwBD2UTLC6Lzs7ojWFCns17hCKEJTE9
+ iku385vTpWdDrH4+CK61ppHbzeBHXWgJg9ZQGC/T7eGfrlqImozJZxc5SRUjHGAaiGUq8A
+ QSvPpgXQBeTIvw+SLQEFAH5HXJTciBE=
+Received: from mx-prod-mc-01.mail-002.prod.us-west-2.aws.redhat.com
+ (ec2-54-186-198-63.us-west-2.compute.amazonaws.com [54.186.198.63]) by
+ relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.3,
+ cipher=TLS_AES_256_GCM_SHA384) id us-mta-161-ko6pDMnROS2WtMpUGbBfrA-1; Tue,
+ 24 Nov 2026 22:44:18 +0000
+X-MC-Unique: ko6pDMnROS2WtMpUGbBfrA-1
+X-Mimecast-MFC-AGG-ID: ko6pDMnROS2WtMpUGbBfrA_1795560257
+Received: from mx-prod-int-10.mail-002.prod.us-west-2.aws.redhat.com
+ (mx-prod-int-10.mail-002.prod.us-west-2.aws.redhat.com [10.30.177.95])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+ (No client certificate requested)
+ by mx-prod-mc-01.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS
+ id 28EA51955F14; Tue, 24 Nov 2026 22:44:17 +0000 (UTC)
+Received: from jfalempe-thinkpadp1gen3.home
+ (headnet04.pony-001.prod.iad2.dc.redhat.com [10.2.32.116])
+ by mx-prod-int-10.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTP
+ id 7CC8C436; Tue, 24 Nov 2026 22:44:14 +0000 (UTC)
+From: Jocelyn Falempe <jfalempe@redhat.com>
+To: Jocelyn Falempe <jfalempe@redhat.com>,
+ Javier Martinez Canillas <javierm@redhat.com>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>,
+ Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>,
+ Simona Vetter <simona@ffwll.ch>, dri-devel@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org
+Subject: [PATCH] drm/log: Add an automatic integer scaling
+Date: Tue, 24 Nov 2026 23:42:28 +0100
+Message-ID: <20261124224408.728354-1-jfalempe@redhat.com>
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
-Content-Transfer-Encoding: 7bit
+X-Scanned-By: MIMEDefang 3.6 on 10.30.177.95
+X-Mimecast-MFC-PROC-ID: Cz9F5ScmbiSL20LLktbPTfWDxYzigONoTc_gcwZcMN8_1795560257
+X-Mimecast-Originator: redhat.com
+Content-Transfer-Encoding: 8bit
+content-type: text/plain; charset="US-ASCII"; x-default=true
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -69,57 +69,121 @@ List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-7.3 required=3.0 tests=BAYES_00,DKIM_SIGNED,
-	DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
-	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,USER_AGENT_SANE_2
-	autolearn=no autolearn_force=no version=4.0.1
+X-Spam-Status: No, score=-15.8 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
+	DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
+	INCLUDES_CR_TRAILER,INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,
+	SPF_PASS autolearn=unavailable autolearn_force=no version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-On Tue, 24 Nov 2026 16:27:16 +0100
-"H. Nikolaus Schaller" <hns@goldelico.com> wrote:
+On HiDPI screen, the default font might be too small, so if no
+scaling is specified, try to upscale reasonably.
+The auto scaling is computed for each display.
 
-> > Surely 
-> > this can be broken up into smaller series?  
-> 
-> Yes it (we?) can. It is just a question how to do it and properly describe
-> the dependencies to avoid bisectability problems and avoid that the final
-> goal is lost.
-> 
-I think it is indeed tricky, and probably induces delays.
-You can point to the pandora_bl driver  resp the pandora sound card to show the
-final goal. 
+Signed-off-by: Jocelyn Falempe <jfalempe@redhat.com>
+---
+ drivers/gpu/drm/clients/drm_log.c | 36 ++++++++++++++++++++-----------
+ 1 file changed, 24 insertions(+), 12 deletions(-)
 
-If I understand it correctly,  you have
+diff --git a/drivers/gpu/drm/clients/drm_log.c b/drivers/gpu/drm/clients/drm_log.c
+index 4654091fe11a..7a0db2690b55 100644
+--- a/drivers/gpu/drm/clients/drm_log.c
++++ b/drivers/gpu/drm/clients/drm_log.c
+@@ -25,9 +25,9 @@ MODULE_AUTHOR("Jocelyn Falempe");
+ MODULE_DESCRIPTION("DRM boot logger");
+ MODULE_LICENSE("GPL");
+ 
+-static unsigned int scale = 1;
++static unsigned int scale = 0;
+ module_param(scale, uint, 0444);
+-MODULE_PARM_DESC(scale, "Integer scaling factor for drm_log, default is 1");
++MODULE_PARM_DESC(scale, "Integer scaling factor for drm_log, default is 0 (auto)");
+ 
+ /**
+  * DOC: overview
+@@ -42,6 +42,7 @@ struct drm_log_scanout {
+ 	const struct font_desc *font;
+ 	u32 rows;
+ 	u32 columns;
++	u32 scale;
+ 	u32 scaled_font_h;
+ 	u32 scaled_font_w;
+ 	u32 line;
+@@ -72,17 +73,17 @@ static struct drm_log *console_to_drm_log(struct console *con)
+ 
+ static void drm_log_blit(struct iosys_map *dst, unsigned int dst_pitch,
+ 			 const u8 *src, unsigned int src_pitch,
+-			 u32 height, u32 width, u32 px_width, u32 color)
++			 u32 height, u32 width, u32 blit_scale, u32 px_width, u32 color)
+ {
+ 	switch (px_width) {
+ 	case 2:
+-		drm_draw_blit16(dst, dst_pitch, src, src_pitch, height, width, scale, color);
++		drm_draw_blit16(dst, dst_pitch, src, src_pitch, height, width, blit_scale, color);
+ 		break;
+ 	case 3:
+-		drm_draw_blit24(dst, dst_pitch, src, src_pitch, height, width, scale, color);
++		drm_draw_blit24(dst, dst_pitch, src, src_pitch, height, width, blit_scale, color);
+ 		break;
+ 	case 4:
+-		drm_draw_blit32(dst, dst_pitch, src, src_pitch, height, width, scale, color);
++		drm_draw_blit32(dst, dst_pitch, src, src_pitch, height, width, blit_scale, color);
+ 		break;
+ 	default:
+ 		WARN_ONCE(1, "Can't blit with pixel width %d\n", px_width);
+@@ -122,7 +123,7 @@ static void drm_log_draw_line(struct drm_log_scanout *scanout, const char *s,
+ 		if (src)
+ 			drm_log_blit(&map, fb->pitches[0], src, font_pitch,
+ 				     scanout->scaled_font_h, scanout->scaled_font_w,
+-				     px_width, color);
++				     scanout->scale, px_width, color);
+ 		iosys_map_incr(&map, scanout->scaled_font_w * px_width);
+ 	}
+ 
+@@ -206,6 +207,15 @@ static u32 drm_log_find_usable_format(struct drm_plane *plane)
+ 	return DRM_FORMAT_INVALID;
+ }
+ 
++/* Find the biggest integer scaling to get about 120x50 chars on the screen */
++static int auto_scale(unsigned int cols, unsigned int rows)
++{
++	unsigned int scale_w = DIV_ROUND_CLOSEST(cols, 120);
++	unsigned int scale_h = DIV_ROUND_CLOSEST(rows, 50);
++
++	return max(min(scale_w, scale_h), 1);
++}
++
+ static int drm_log_setup_modeset(struct drm_client_dev *client,
+ 				 struct drm_mode_set *mode_set,
+ 				 struct drm_log_scanout *scanout)
+@@ -230,8 +240,13 @@ static int drm_log_setup_modeset(struct drm_client_dev *client,
+ 		return -ENOMEM;
+ 	}
+ 	mode_set->fb = scanout->buffer->fb;
+-	scanout->scaled_font_h = scanout->font->height * scale;
+-	scanout->scaled_font_w = scanout->font->width * scale;
++	if (scale)
++		scanout->scale = scale;
++	else
++		scanout->scale = auto_scale(width / scanout->font->width,
++			                    height / scanout->font->height);
++	scanout->scaled_font_h = scanout->font->height * scanout->scale;
++	scanout->scaled_font_w = scanout->font->width * scanout->scale;
+ 	scanout->rows = height / scanout->scaled_font_h;
+ 	scanout->columns = width / scanout->scaled_font_w;
+ 	if (!scanout->rows || !scanout->columns) {
+@@ -444,9 +459,6 @@ void drm_log_register(struct drm_device *dev)
+ {
+ 	struct drm_log *new;
+ 
+-	if (!scale)
+-		scale = 1;
+-
+ 	new = kzalloc_obj(*new);
+ 	if (!new)
+ 		goto err_warn;
 
-1. preparations/extensions for using the standard pwm backlight.
-2. REGEN stuff to wire up the power supply. 
-3. dts changes to wire up backlight and its power supply. 
-4. sound: quirks in twl4030 codec
-5. sound: dt conversion of the sound card.
-6. dts changes to wire up sound card and its power supply
-7. machine quirk cleanup
+base-commit: bcf5c42d6ed136cc407cea896f131d6893c830af
+-- 
+2.56.1
 
-So what brings it all together: the power supply requirments,
-so both backlight and sound depend on 2.
-
-Maybe it is an idea to split this into a set of
-
-One patchset for
-7a. machine quirk conditionally depending on available compatible
-2.
-1.
-3.
-Each can go into their individual trees.
-3. might to in the next release cycle after 7a, 2. 1.
-
-A second patchset sent after 3 is in -next, containg
-4.
-5.
-6.
-
-A third:
-7b: remove quirk + pandora_bl
-
-Regards,
-Andreas
