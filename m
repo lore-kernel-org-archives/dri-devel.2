@@ -2,44 +2,43 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3751C606A31E
-	for <dri-devel@archiver.kernel.org>; Tue, 24 Nov 2026 06:31:59 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 72B48606A326
+	for <dri-devel@archiver.kernel.org>; Tue, 24 Nov 2026 06:32:48 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=PxKnBR2n
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=bHrN8xQV
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 84F4710E66B;
-	Tue, 24 Nov 2026 06:31:53 +0000 (UTC)
-Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 9D6B410E337;
- Tue, 24 Nov 2026 06:31:46 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id DE4C110E768;
+	Tue, 24 Nov 2026 06:32:42 +0000 (UTC)
+Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 98C4610E4BC;
+ Tue, 24 Nov 2026 06:32:36 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by tor.source.kernel.org (Postfix) with ESMTP id B49E660D2F;
- Tue, 24 Nov 2026 06:31:45 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3DFD71F000CA;
- Tue, 24 Nov 2026 06:31:45 +0000 (UTC)
+ by sea.source.kernel.org (Postfix) with ESMTP id 6193144F3A;
+ Tue, 24 Nov 2026 06:32:36 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id F3F0C1F000D0;
+ Tue, 24 Nov 2026 06:32:35 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1795501905;
- bh=qBkSQ24bPt1jBHxMiTGr+82etN3hgC6nAv9yD1Mmlyo=;
+ s=k20260515; t=1795501956;
+ bh=3adqlx3v9FkV8tbFhC5m4q+toDCeS0Uxu5ZamZZ+7X8=;
  h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
- b=PxKnBR2nMIUD85GtMiZa5FJ9I2auSDP0AWIlpWT5OzuaKDdrVtfxQ/RTVRVVfsGsu
- HyhKlQru9CtiPNWzbv6OjLve0BZBsdF0m2p2/Iu8cBZbttJ3Jz4kLQlB/WpvLhUtvA
- xqzAxw1Nem1xS4K45as5jrYlqFEFErDLQleshzFit4mz/xmyOJ1l81UA3TqfRNtiHF
- JE5fx+bzC+EaXjK7b8JR5pnevX/9hibWb9yC/UatFZ6QRm/ucJuRRYDYOZyLHbZQhF
- J2vqDcwzi+P8pX6dSXVb85iWCn/sduWejRUIijKahuDt4obOidSKoro6yOldz/ML7+
- nb0isd310TcAQ==
-Message-ID: <sashiko-outbox-230598@kernel.org>
+ b=bHrN8xQVRiZMd9pkjpYwZHtD2LMdxbC3619KDNsDCZ+COAgxckJjLBsJy5aEptoEg
+ 2jpXbdTmhTkpPAkd3YF/TSawiomBwHZOmKz7tEcuXPx141/gUHa3fn1rZtAwQqsK6J
+ JsSv0HvsG//EMq2by8TXLH5CIuEwj+L2Si71/yZL1i+gCuFdTXfN6455MGOwE3UP8w
+ RJOf/Y1TB2BQhmo8l+2U9Lj62lzq2VL0dnxNq0FayRQ4F4LyAMVKbyJZl/xjZaEvL+
+ agYesMHll6GYMvBRPcx9PxNusgyCfjLD4wtrplGCJ7Wlqj8iaDT+sCN42pDCS6X9KG
+ zGYot8pNxu4xQ==
+Message-ID: <sashiko-outbox-230599@kernel.org>
 From: sashiko-bot@kernel.org
-Subject: Re: [RFC v2 05/11] drm/amdgpu: Use ttm_operation_ctx numa_info
- instead of per-partition pools
+Subject: Re: [RFC v2 03/11] drm/ttm: Add TTM_NUMA_POLICY_INTERLEAVE
 To: "Himal Prasad Ghimiray" <himal.prasad.ghimiray@intel.com>
 Cc: dri-devel@lists.freedesktop.org, intel-xe@lists.freedesktop.org,
  amd-gfx@lists.freedesktop.org
-In-Reply-To: <20261124062123.2431244-18-himal.prasad.ghimiray@intel.com>
+In-Reply-To: <20261124062123.2431244-16-himal.prasad.ghimiray@intel.com>
 References: <20261124062123.2431244-13-himal.prasad.ghimiray@intel.com>
- <20261124062123.2431244-18-himal.prasad.ghimiray@intel.com>
+ <20261124062123.2431244-16-himal.prasad.ghimiray@intel.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Tue, 24 Nov 2026 06:31:44 +0000
+Date: Tue, 24 Nov 2026 06:32:35 +0000
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -60,72 +59,159 @@ X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 X-Archived-By: <archiver.kernel.org>
 
-Thank you for your contribution! Sashiko AI review found 1 potential
-issue to consider:
-- [High] drm/amdgpu: -EOPNOTSUPP in amdgpu_ttm_tt_populate() when
-  need_swiotlb is set
+Thank you for your contribution! Sashiko AI review found 3 potential
+issues to consider:
+- [High] drm/ttm: broken interleave node rotation on order decrease in
+  __ttm_pool_alloc()
+- [Medium] drm/ttm: unconstrained order-0 fallback and reclaim in
+  ttm_pool_alloc_interleave()
+- [Medium] drm/ttm: cross-node pool take in
+  ttm_pool_type_take_interleave() before alloc
 --
 
-commit 0d7e02838b040282a0c34d64857fd1fdc0a04ed6
+commit 99e6c53830405c25271c091f8f19cad519333639
 Author: Himal Prasad Ghimiray <himal.prasad.ghimiray@intel.com>
 
-drm/amdgpu: Use ttm_operation_ctx numa_info instead of per-partition pools
+drm/ttm: Add TTM_NUMA_POLICY_INTERLEAVE
 
-This commit removes the per-partition TTM pools on APUs with memory
-partitions and allocates pages from the device pool using
-TTM_NUMA_POLICY_PREFERRED in ttm_operation_ctx.
+This commit adds TTM_NUMA_POLICY_INTERLEAVE to rotate TTM page allocations
+and pool lookups across the NUMA nodes in ttm_operation_ctx.numa_info.nodes.
 
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c b/drivers/gpu/drm/am=
-d/amdgpu/amdgpu_ttm.c
-> index d3a875a32af1e..8740b7a76ad19 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c
+> diff --git a/drivers/gpu/drm/ttm/ttm_pool.c b/drivers/gpu/drm/ttm/ttm_poo=
+l.c
+> index 8976de3a552d1..210d443185644 100644
+> --- a/drivers/gpu/drm/ttm/ttm_pool.c
+> +++ b/drivers/gpu/drm/ttm/ttm_pool.c
+> @@ -373,6 +373,38 @@ static struct page *ttm_pool_type_take(struct ttm_po=
+ol_type *pt, int nid)
+>  	return p;
+>  }
+> =20
+> +/* Return the node in @nodes nearest to @from, lowest node id on ties */
+> +static int ttm_pool_nearest_node(int from, const nodemask_t *nodes)
+> +{
+> +	int n, nid =3D first_node(*nodes);
+> +
+> +	for_each_node_mask(n, *nodes) {
+> +		if (node_distance(from, n) < node_distance(from, nid))
+> +			nid =3D n;
+> +	}
+> +
+> +	return nid;
+> +}
+> +
+> +/* Take from @nid first, then from the other nodes nearest to @nid first=
+ */
+> +static struct page *ttm_pool_type_take_interleave(struct ttm_pool_type *=
+pt,
+> +						  int nid, const nodemask_t *nodes)
+> +{
+> +	nodemask_t todo =3D *nodes;
+> +	struct page *p;
+> +
+> +	p =3D ttm_pool_type_take(pt, nid);
+> +	node_clear(nid, todo);
+> +	while (!p && !nodes_empty(todo)) {
+> +		int n =3D ttm_pool_nearest_node(nid, &todo);
+> +
+> +		node_clear(n, todo);
+> +		p =3D ttm_pool_type_take(pt, n);
+> +	}
+> +
+> +	return p;
+> +}
+
+[Severity: Medium]
+Does ttm_pool_type_take_interleave() take cached pool pages from other nodes
+in @nodes before trying a fresh page allocation on @nid?
+
+When @nid's pool for a write-combined or uncached order is empty,
+__ttm_pool_alloc() drains pooled pages from sibling policy nodes even when
+@nid has free system memory.  Because ttm_pool_free() returns freed pages to
+the pool of page_to_nid(p), @nid's pool remains empty and interleaved WC/UC
+allocations collapse onto whichever node already had cached pool pages.
 
 [ ... ]
 
-> @@ -1242,7 +1245,9 @@ static int amdgpu_ttm_tt_populate(struct ttm_device=
- *bdev,
->  {
->  	struct amdgpu_device *adev =3D amdgpu_ttm_adev(bdev);
->  	struct amdgpu_ttm_tt *gtt =3D ttm_to_amdgpu_ttm_tt(ttm);
-> -	struct ttm_pool *pool;
-> +	/* ctx is shared by every BO of the operation; set the node locally */
-> +	struct ttm_operation_ctx node_ctx =3D *ctx;
-> +	nodemask_t preferred;
->  	pgoff_t i;
->  	int ret;
+> @@ -830,6 +873,31 @@ static struct page *ttm_pool_alloc_bind(struct ttm_p=
+ool *pool, gfp_t gfp_flags,
+>  	return p;
+>  }
 > =20
-> @@ -1257,11 +1262,13 @@ static int amdgpu_ttm_tt_populate(struct ttm_devi=
-ce *bdev,
->  	if (ttm->page_flags & TTM_TT_FLAG_EXTERNAL)
->  		return 0;
-> =20
-> -	if (adev->mman.ttm_pools && gtt->pool_id >=3D 0)
-> -		pool =3D &adev->mman.ttm_pools[gtt->pool_id];
-> -	else
-> -		pool =3D &adev->mman.bdev.pool;
-> -	ret =3D ttm_pool_alloc(pool, ttm, ctx);
-> +	if (gtt->numa_node !=3D NUMA_NO_NODE) {
-> +		nodes_clear(preferred);
-> +		node_set(gtt->numa_node, preferred);
-> +		node_ctx.numa_info.policy =3D TTM_NUMA_POLICY_PREFERRED;
-> +		node_ctx.numa_info.nodes =3D &preferred;
+> +/*
+> + * Allocate pages of size 1 << order for TTM_NUMA_POLICY_INTERLEAVE. Try=
+ the
+> + * interleaved node @nid first, then the other nodes in @nodes nearest t=
+o @nid
+> + * first, as the per-node zonelist fallback of core mm does, before the =
+caller
+> + * lowers the order.
+> + */
+> +static struct page *ttm_pool_alloc_interleave(struct ttm_pool *pool,
+> +					      gfp_t gfp_flags, unsigned int order,
+> +					      int nid, const nodemask_t *nodes)
+> +{
+> +	nodemask_t todo =3D *nodes;
+> +	struct page *p;
+> +
+> +	p =3D ttm_pool_alloc_page(pool, gfp_flags, order, nid);
+> +	node_clear(nid, todo);
+> +	while (!p && !nodes_empty(todo)) {
+> +		int n =3D ttm_pool_nearest_node(nid, &todo);
+> +
+> +		node_clear(n, todo);
+> +		p =3D ttm_pool_alloc_page(pool, gfp_flags, order, n);
 > +	}
-> +	ret =3D ttm_pool_alloc(&adev->mman.bdev.pool, ttm, &node_ctx);
+> +
+> +	return p;
+> +}
+
+[Severity: Medium]
+Does ttm_pool_alloc_interleave() fall back outside @nodes on order-0
+allocations and stall in reclaim before trying other policy nodes?
+
+ttm_pool_alloc_page() only sets __GFP_THISNODE when order > 0.  At order 0,
+the first ttm_pool_alloc_page() call walks @nid's unfiltered fallback
+zonelist, which can allocate from a node outside @nodes before the remaining
+nodes in @todo are tried, and if all zones are exhausted the while loop
+repeats system-wide direct reclaim once for each remaining node in @todo.
+In addition, unlike ttm_pool_alloc_bind(), ttm_pool_alloc_interleave() does
+not try a non-reclaim pass across @nodes first, so a depleted @nid enters
+direct reclaim and compaction even when another node in @nodes has free
+pages of that order.
+
+[ ... ]
+
+> @@ -893,11 +961,24 @@ static int __ttm_pool_alloc(struct ttm_pool *pool, =
+struct ttm_tt *tt,
+>  	     order =3D ttm_pool_alloc_find_order(order, alloc)) {
+>  		struct ttm_pool_type *pt;
+> =20
+> +		if (policy =3D=3D TTM_NUMA_POLICY_INTERLEAVE) {
+> +			unsigned int slot =3D tt->num_pages - alloc->remaining_pages;
+> +
+> +			alloc_nid =3D ttm_pool_policy_nth_node(ctx->numa_info.nodes,
+> +							     slot >> order);
+> +			take_nid =3D alloc_nid;
+> +		}
 
 [Severity: High]
-Will ttm_pool_alloc() fail with -EOPNOTSUPP when adev->need_swiotlb is set
-on a partitioned APU?
+Does computing the node index as slot >> order fail to rotate across
+ctx->numa_info.nodes whenever the allocation order decreases?
 
-amdgpu_ttm_init() initializes adev->mman.bdev.pool with
-TTM_ALLOCATION_POOL_USE_DMA_ALLOC when adev->need_swiotlb is true (for
-example, under SME/SEV memory encryption), whereas the old
-amdgpu_ttm_pools_init() omitted that flag on the per-partition pools.
-Because ttm_pool_check_numa() rejects any policy other than
-TTM_NUMA_POLICY_NONE when TTM_ALLOCATION_POOL_USE_DMA_ALLOC is set on the
-pool, populating any BO with a partition NUMA node will now fail with
--EOPNOTSUPP.
+In __ttm_pool_alloc(), order is monotonically non-increasing, and slot is t=
+he
+sum of 1 << prev_order for all prior chunks.  Whenever a chunk has a smaller
+order than the chunks before it, every prior chunk contributed an even
+multiple of 1 << order pages to slot, so slot >> order is always even.  When
+nodes_weight(*ctx->numa_info.nodes) is even, such as a 2-node mask,
+(slot >> order) % nodes_weight(...) is always 0 on every decreased order.
+For example, a 3 MiB buffer (orders 9 and 8) or any buffer smaller than
+8 MiB whose size is not a multiple of 4 MiB places all of its chunks on the
+first policy node instead of interleaving them.  Counting allocated chunks
+with a separate counter that increments once per allocated page would rotate
+across nodes regardless of order changes.
 
 --=20
 Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261124062123.2431=
-244-13-himal.prasad.ghimiray@intel.com?part=3D5
+244-13-himal.prasad.ghimiray@intel.com?part=3D3
