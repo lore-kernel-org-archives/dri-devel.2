@@ -2,65 +2,65 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D41BD606CEF1
-	for <dri-devel@archiver.kernel.org>; Tue, 24 Nov 2026 07:27:32 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 20E6D606A6A3
+	for <dri-devel@archiver.kernel.org>; Tue, 24 Nov 2026 07:27:34 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=fail reason="signature verification failed" (2048-bit key) header.d=goldelico.com header.i=@goldelico.com header.a=rsa-sha256 header.s=strato-dkim-0002 header.b=MKebHGsW;
-	dkim=fail reason="signature verification failed" header.d=goldelico.com header.i=@goldelico.com header.a=ed25519-sha256 header.s=strato-dkim-0003 header.b=F0hIcRQX
+	dkim=fail reason="signature verification failed" (2048-bit key) header.d=goldelico.com header.i=@goldelico.com header.a=rsa-sha256 header.s=strato-dkim-0002 header.b=CsX2K4gr;
+	dkim=fail reason="signature verification failed" header.d=goldelico.com header.i=@goldelico.com header.a=ed25519-sha256 header.s=strato-dkim-0003 header.b=HCJfdnxH
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 2733610ECB2;
+	by gabe.freedesktop.org (Postfix) with ESMTP id DB24510ED05;
 	Tue, 24 Nov 2026 07:27:27 +0000 (UTC)
 Received: from mo4-p04-ob.smtp.rzone.de (mo4-p04-ob.smtp.rzone.de
- [85.215.255.123])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 1BB2D10ECB2
- for <dri-devel@lists.freedesktop.org>; Tue, 24 Nov 2026 07:26:53 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; t=1795505187; cv=none;
+ [81.169.146.179])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 2062110ECF7
+ for <dri-devel@lists.freedesktop.org>; Tue, 24 Nov 2026 07:26:55 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; t=1795505179; cv=none;
  d=strato.com; s=strato-dkim-0002;
- b=rXj33N5EJ4/upzUon20XjUHjbHzTZ3mB6sBsvZ29crnhq+XAfy2Vs3zfQSYIz4wKnt
- aKRXOFKeXasshGdtI6dL1r6kgTYMkzgnAfO4ZbPmvygrBZ6SHafK+2BMn8QfG3l0oMab
- zGGk8ItCc1+OgXgOlQpexihuebvGvpyyfa+kgw/aSFy51k8obYTsN1cyBuio2VbsalW3
- 96B+CSNQe1wOIXpASqc3fGtIg42K6cZUm3VpTWTITrPAgSCumCjK3EMiNbp1tCTQN8pF
- CJGTFcS0Zyx3dxobXRGliCrGdHBcLJQHYmvjjblpbaXPSUaeotXcj7ixXVbgL9uB90l+
- +tFA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; t=1795505187;
+ b=igMAIfZCNbOFtvleGfJ7d6euUGYeaasdKaSNtk906Xmg6DnoVK8CT2RRQq1pwUqQT1
+ Ii0yBCtNovhvvZgCB27T6gIWeVoeTBvRSZYb87t6G2E5bU5RjIu7b3pnyIWroCiifEdF
+ WPNS+kC0Vdj/urkhtkSSWxICD8hle/oVjkQQ2OFuqyNk0uO1PJS/zzAd6Pkr6PRIbiZ0
+ roSkvoHttMe4brhcac4QyNkZ73Dkna/Nzr7bFyiDWaYASGHkPUqxmFTLlSOkigzL8i93
+ zMPmos4+CFFYzLWf4nxvxGhPqSzq4uX1ru/5trTm20HpuF/9occD2GCnCSYuLNQDQ5Q/
+ 5ehA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; t=1795505179;
  s=strato-dkim-0002; d=strato.com;
  h=References:In-Reply-To:Message-ID:Date:Subject:Cc:To:From:Cc:Date:
  From:Subject:Sender;
- bh=ICzF0au7+zioXlv3o0PbRF5DUQ/dlcDYCA/hi2iZWyw=;
- b=R1sYPNk2RbpZLsD1g1R/2AmEX+lVCiWOXHvSH3dzhEzQOQoSttK0g/d+8S5GaVsiWg
- PH7QSruXpem6A3hE0yOL98HN02UXSYgg3dwbZZxdfOQfHNd7GJ/syDceCDfIfvU9cfIp
- lTcLqisSWJB2TJBdXxUhg/aWQyC7i6Xx7glfCtor9sck6PB4+fG2SNHaUxa1Jdj2AO82
- +b1SnFMam8geQsQ28kyw4tdVVRg671/i+I5KIJtVDrBnbegbjZLT+W+5N3MVzoh3UWb+
- hjEZweu1YYcLnioRN/vicIgL4ToNy7ph6k76iKUmmGUaUE4rdO2B53OOUQ7vqkzv1zwN
- lEsQ==
+ bh=Srv8rcHLAJAs2t2TPg31VwudISEwEVC5eUbPY+Dzbd8=;
+ b=OQi+Fmmo8/mwUjPKJ5A1C5D8cPcMDjTUOgrkLz+vEHk7fxwSadXLReLrRSdh/WvJZb
+ BQbx5T+7BELdQdtWf8qQeYeqtA9WslsMmD3ETJx0y+0ihjjfRosvff5RMNRs1Ksysxhj
+ B1lFvu/hdQ0B1roa9SPqpeRMzXHmbgAVIGmBizQkdSr3o8lrEgCWQVU9bTC2KjNwaxvl
+ 8kC3fLDQosZLqfhrDrSvxgHKAhIqT/CPLbl+ghaVZX1CRuTcJRaUgwH8YyMdTrJEyyyQ
+ g5oBVs8HstfCJ32CL/u4J3mqJGSun8Ec28q1OqB1L941Yd7oXpYLVXtxQylNmwZv3MD3
+ MNMA==
 ARC-Authentication-Results: i=1; strato.com;
     arc=none;
     dkim=none
 X-RZG-CLASS-ID: mo04
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; t=1795505187;
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; t=1795505179;
  s=strato-dkim-0002; d=goldelico.com;
  h=References:In-Reply-To:Message-ID:Date:Subject:Cc:To:From:Cc:Date:
  From:Subject:Sender;
- bh=ICzF0au7+zioXlv3o0PbRF5DUQ/dlcDYCA/hi2iZWyw=;
- b=MKebHGsWd20CynMJtycAL1CWMMQPC3Q5ewZInE+iEP7mTgQQRANqLUPhQ87ysiK/wb
- DWY1sAg3VnGxml//nMgu/4z7YuEvfQaNRh+iVnKUeYckB4jPdENVapR8u4gbgeR6oayk
- 87bKBsUtqf+exCs3W7Fg0O+AxrY/4cHYWrowvsYUvA8DD8GYeZcYZaASHAEcpBf2BcNh
- 5+guMcwsXHojJyrVe2hgVr7QOZHeGaRN5x1KQQBO6f91CBx6WfA8CsFo6HivbYDs0d9G
- 5OFRkQMmq1Tv4Q4J48jIpxn1r0woB7l9RwElIPP5HI7G55SDjf8hRfaARuiHQohbek6i
- EzsA==
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; t=1795505187;
+ bh=Srv8rcHLAJAs2t2TPg31VwudISEwEVC5eUbPY+Dzbd8=;
+ b=CsX2K4grDtkfuKJe2SA8EN89igEnflyJckHzpcWLl8RHR/zlFByYVZN9fg2aELr6Qr
+ vIoucQDn1n88sL2kQc3oGFZi2/sQUwdp//V+Xo6fhdZxcSmHU/Lz4keNZ9wHCfLQWHxl
+ zY+PxssjDK0+EZfY4dV5zW8/hb0hJB8kCVbH0Ro19Pt+TaQU4fdE4h7zBDfhow4R4IVO
+ /BgbVNogmrGlUqjb7JC0OT4lbjbfg3lXcWJnydg++W/FJv6KZQSvttTz5eGI/4DEyg1o
+ PAC7IPne25idIVSPJrxO0epmNHtp+dFg8RBZR6i9Y0dGqPnpchHTu15hKdqUBe3/GkgK
+ 6qUw==
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; t=1795505179;
  s=strato-dkim-0003; d=goldelico.com;
  h=References:In-Reply-To:Message-ID:Date:Subject:Cc:To:From:Cc:Date:
  From:Subject:Sender;
- bh=ICzF0au7+zioXlv3o0PbRF5DUQ/dlcDYCA/hi2iZWyw=;
- b=F0hIcRQXfQdsW0YptLj7KSz7SCIza97TyYei6EsyAYtpiSSO8ZlJTtukC77omi6Nyk
- GMElw1yx0A6UY5wuXeBQ==
+ bh=Srv8rcHLAJAs2t2TPg31VwudISEwEVC5eUbPY+Dzbd8=;
+ b=HCJfdnxH8wx/8C22xbS1CYyR4LwXme0uWeKGZSBqhaX2w7o+WupFIIPdyUuZ0CtqmQ
+ 1KEzNusC0g7xsOK0X3DA==
 X-RZG-AUTH: ":JGIXVUS7cutRB/49FwqZ7WcJeFKiMhflhwDubTJ9qVpwcQVkPW4I1HrV3poLlciNVTQoM6kVxzKyrKzkpjcAwdDfiN49"
 Received: from iMac.fritz.box by smtp.strato.de (RZmta 55.6.3 AUTH)
- with ESMTPSA id Qb56a22AO7QQ1HY
+ with ESMTPSA id Qb56a22AO7QI1HR
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256 bits))
  (Client did not present a certificate);
- Tue, 24 Nov 2026 08:26:26 +0100 (CET)
+ Tue, 24 Nov 2026 08:26:18 +0100 (CET)
 From: "H. Nikolaus Schaller" <hns@goldelico.com>
 To: Linus Walleij <linus.walleij@linaro.org>,
  Bartosz Golaszewski <brgl@kernel.org>, Rob Herring <robh@kernel.org>,
@@ -87,10 +87,11 @@ Cc: Jessica Zhang <jessica.zhang@oss.qualcomm.com>, linux-gpio@vger.kernel.org,
  linux-sound@vger.kernel.org, linux-omap@vger.kernel.org,
  linux-arm-kernel@lists.infradead.org, linux-pwm@vger.kernel.org,
  linux-fbdev@vger.kernel.org, letux-kernel@openphoenux.org,
- kernel@pyra-handheld.com, "H. Nikolaus Schaller" <hns@goldelico.com>
-Subject: [PATCH v2 20/20] ARM: OMAP2+: Remove Pandora platform-data quirks
-Date: Tue, 24 Nov 2026 08:26:00 +0100
-Message-ID: <1cb5bd7216b334e8c4eff21ff3463deeb6109595.1795505160.git.hns@goldelico.com>
+ kernel@pyra-handheld.com, "H. Nikolaus Schaller" <hns@goldelico.com>,
+ Grond <grond66@riseup.net>
+Subject: [PATCH v2 13/20] ARM: dts: omap3pandora: Disable unused DMA channels
+Date: Tue, 24 Nov 2026 08:25:53 +0100
+Message-ID: <9c47a735aeb0d1a5795119af0e9b8ae2bdcbad2e.1795505160.git.hns@goldelico.com>
 X-Mailer: git-send-email 2.56.0
 In-Reply-To: <cover.1795505160.git.hns@goldelico.com>
 References: <cover.1795505160.git.hns@goldelico.com>
@@ -116,67 +117,58 @@ X-Spam-Status: No, score=-16.6 required=3.0 tests=BAYES_00,DKIM_INVALID,
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-The Pandora backlight is now described in the device tree and driven by
-pwm-backlight. The sound card also uses device-tree descriptions for its
-codec and amplifier GPIOs instead of legacy GPIO lookup tables.
+On the OpenPandora, only McSPI1 (spi0) is actually used. Because the device
+tree defaults in arch/arm/boot/dts/omap3.dtsi leave all of the mcspi
+interfaces enabled, the DMA channels which the device tree assigns to them
+cannot be used for anything else. This is a problem because OMAP3's sDMA
+controller can only have 32 DMA channels configured at any one time.
 
-Remove omap3_pandora_legacy_init(), its backlight platform device and
-audio GPIO lookup table, and the associated board compatibility entries.
-These platform-data quirks are no longer needed.
+This can exhaust available sDMA channels and prevent McBSP audio
+transfers from being allocated.
 
+Disable unused McSPI2, McSPI3 and McSPI4 in the Pandora device tree.
+
+Suggested-by: Grond <grond66@riseup.net>
 Signed-off-by: H. Nikolaus Schaller <hns@goldelico.com>
 ---
 
 Notes:
     Changes against V1:
-    - Andreas Kemnade raised bisectability and intermediate driver
-      availability concerns for the V1 pdata-quirks removal.
-    - Correct the legacy backlight name and explain removal of both backlight platform data and audio GPIO lookup tables.
-    - Commit-message review assisted by ChatGPT.
+    - Historical origin: 24727d33755e (Grond, 2021-12-08).
+      The original contributor is credited with Suggested-by rather than
+      an unverified current DCO sign-off.
+      Commit-message and provenance review assisted by ChatGPT; code unchanged.
 
- arch/arm/mach-omap2/pdata-quirks.c | 23 -----------------------
- 1 file changed, 23 deletions(-)
+ .../boot/dts/ti/omap/omap3-pandora-common.dtsi  | 17 +++++++++++++++++
+ 1 file changed, 17 insertions(+)
 
-diff --git a/arch/arm/mach-omap2/pdata-quirks.c b/arch/arm/mach-omap2/pdata-quirks.c
-index b947bacf23a37..aca7097a692ed 100644
---- a/arch/arm/mach-omap2/pdata-quirks.c
-+++ b/arch/arm/mach-omap2/pdata-quirks.c
-@@ -268,27 +268,6 @@ static void __init omap3_logicpd_torpedo_init(void)
- 	omap3_gpio126_127_129();
- }
+diff --git a/arch/arm/boot/dts/ti/omap/omap3-pandora-common.dtsi b/arch/arm/boot/dts/ti/omap/omap3-pandora-common.dtsi
+index 06c5b23589991..2097ec15c6513 100644
+--- a/arch/arm/boot/dts/ti/omap/omap3-pandora-common.dtsi
++++ b/arch/arm/boot/dts/ti/omap/omap3-pandora-common.dtsi
+@@ -685,6 +685,23 @@ lcd_in: endpoint {
  
--/* omap3pandora legacy devices */
--
--static struct platform_device pandora_backlight = {
--	.name	= "pandora-backlight",
--	.id	= -1,
--};
--
--static struct gpiod_lookup_table pandora_soc_audio_gpios = {
--	.dev_id = "soc-audio",
--	.table = {
--		GPIO_LOOKUP("gpio-112-127", 6, "dac", GPIO_ACTIVE_HIGH),
--		GPIO_LOOKUP("gpio-0-15", 14, "amp", GPIO_ACTIVE_HIGH),
--		{ }
--	},
--};
--
--static void __init omap3_pandora_legacy_init(void)
--{
--	platform_device_register(&pandora_backlight);
--	gpiod_add_lookup_table(&pandora_soc_audio_gpios);
--}
- #endif /* CONFIG_ARCH_OMAP3 */
+ };
  
- #ifdef CONFIG_SOC_DRA7XX
-@@ -514,8 +493,6 @@ static struct pdata_init pdata_quirks[] __initdata = {
- 	{ "ti,omap3-evm-37xx", omap3_evm_legacy_init, },
- 	{ "ti,am3517-evm", am3517_evm_legacy_init, },
- 	{ "technexion,omap3-tao3530", omap3_tao3530_legacy_init, },
--	{ "openpandora,omap3-pandora-600mhz", omap3_pandora_legacy_init, },
--	{ "openpandora,omap3-pandora-1ghz", omap3_pandora_legacy_init, },
- #endif
- 	{ /* sentinel */ },
++/*
++ * Only mcspi1 is used on the pandora, the others do not surface on the board
++ * due to pinmux configuration. disable the unused ones so that they do not
++ * consume DMA channels
++ */
++&mcspi2 {
++	status = "disabled";
++};
++
++&mcspi3 {
++	status = "disabled";
++};
++
++&mcspi4 {
++	status = "disabled";
++};
++
+ /* n/a - used as GPIOs */
+ &mcbsp1 {
  };
 -- 
 2.56.0
