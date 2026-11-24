@@ -2,43 +2,44 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7AA7A606A321
-	for <dri-devel@archiver.kernel.org>; Tue, 24 Nov 2026 06:29:25 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3751C606A31E
+	for <dri-devel@archiver.kernel.org>; Tue, 24 Nov 2026 06:31:59 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=fDcykiAB
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=PxKnBR2n
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 8825110E6F6;
-	Tue, 24 Nov 2026 06:29:18 +0000 (UTC)
-Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 7EBDA10E110;
- Tue, 24 Nov 2026 06:29:12 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 84F4710E66B;
+	Tue, 24 Nov 2026 06:31:53 +0000 (UTC)
+Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 9D6B410E337;
+ Tue, 24 Nov 2026 06:31:46 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id 35D4243F3E;
- Tue, 24 Nov 2026 06:29:12 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 503221F000CA;
- Tue, 24 Nov 2026 06:29:11 +0000 (UTC)
+ by tor.source.kernel.org (Postfix) with ESMTP id B49E660D2F;
+ Tue, 24 Nov 2026 06:31:45 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3DFD71F000CA;
+ Tue, 24 Nov 2026 06:31:45 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1795501751;
- bh=t0ieiTumL+Z3OIf/RxHy8CryWSv7AOYH9xutAxDF7Yw=;
+ s=k20260515; t=1795501905;
+ bh=qBkSQ24bPt1jBHxMiTGr+82etN3hgC6nAv9yD1Mmlyo=;
  h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
- b=fDcykiAB8HezdsfL5xHxhwjecABzgACfTlV30x5VVRPGs8D4cZlET2aBgN+N/4g86
- qkzqypDhQVjpHkCybAWxD3XndcHufN51hof/xrkqe6E7P7hWNwDBR23m97OIbz6CjZ
- 38Y2Z4lgjiQvU3VNTji3OTZMT/oPbQeWwQKRZ3nYQc/HBCDEXQN+btfhNL14Qx9X8A
- 6yvO9LjeAtcLwqcMYbBX01D4DDfUSR9Fv+KHSqhbddD3uozu3Y51JnXmIiBUrAsbXA
- +IijOzJYfsnQXLgViCBPr5gluD7OkewojtD1iSBPmRcdGyCYYrkJNwVhDI9DqBd9n3
- oHnhxfshlK6AQ==
-Message-ID: <sashiko-outbox-230596@kernel.org>
+ b=PxKnBR2nMIUD85GtMiZa5FJ9I2auSDP0AWIlpWT5OzuaKDdrVtfxQ/RTVRVVfsGsu
+ HyhKlQru9CtiPNWzbv6OjLve0BZBsdF0m2p2/Iu8cBZbttJ3Jz4kLQlB/WpvLhUtvA
+ xqzAxw1Nem1xS4K45as5jrYlqFEFErDLQleshzFit4mz/xmyOJ1l81UA3TqfRNtiHF
+ JE5fx+bzC+EaXjK7b8JR5pnevX/9hibWb9yC/UatFZ6QRm/ucJuRRYDYOZyLHbZQhF
+ J2vqDcwzi+P8pX6dSXVb85iWCn/sduWejRUIijKahuDt4obOidSKoro6yOldz/ML7+
+ nb0isd310TcAQ==
+Message-ID: <sashiko-outbox-230598@kernel.org>
 From: sashiko-bot@kernel.org
-Subject: Re: [RFC v2 02/11] drm/ttm: Add TTM_NUMA_POLICY_BIND
+Subject: Re: [RFC v2 05/11] drm/amdgpu: Use ttm_operation_ctx numa_info
+ instead of per-partition pools
 To: "Himal Prasad Ghimiray" <himal.prasad.ghimiray@intel.com>
 Cc: dri-devel@lists.freedesktop.org, intel-xe@lists.freedesktop.org,
  amd-gfx@lists.freedesktop.org
-In-Reply-To: <20261124062123.2431244-15-himal.prasad.ghimiray@intel.com>
+In-Reply-To: <20261124062123.2431244-18-himal.prasad.ghimiray@intel.com>
 References: <20261124062123.2431244-13-himal.prasad.ghimiray@intel.com>
- <20261124062123.2431244-15-himal.prasad.ghimiray@intel.com>
+ <20261124062123.2431244-18-himal.prasad.ghimiray@intel.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Tue, 24 Nov 2026 06:29:10 +0000
+Date: Tue, 24 Nov 2026 06:31:44 +0000
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -59,150 +60,72 @@ X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 X-Archived-By: <archiver.kernel.org>
 
-Thank you for your contribution! Sashiko AI review found 3 potential
-issues to consider:
-- [High] drm/ttm: __ttm_pool_alloc() only checks first_node() in pool
-  for BIND policy
-- [Medium] drm/ttm: ttm_pool_alloc_bind_pass() omits __GFP_NOWARN on
-  non-final nodes
-- [Low] drm/ttm: inaccurate node order in TTM_NUMA_POLICY_BIND
-  kernel-doc comment
+Thank you for your contribution! Sashiko AI review found 1 potential
+issue to consider:
+- [High] drm/amdgpu: -EOPNOTSUPP in amdgpu_ttm_tt_populate() when
+  need_swiotlb is set
 --
 
-commit a807e823bf27ab4c849adb0b91f8553524818abe
+commit 0d7e02838b040282a0c34d64857fd1fdc0a04ed6
 Author: Himal Prasad Ghimiray <himal.prasad.ghimiray@intel.com>
 
-drm/ttm: Add TTM_NUMA_POLICY_BIND
+drm/amdgpu: Use ttm_operation_ctx numa_info instead of per-partition pools
 
-This commit adds TTM_NUMA_POLICY_BIND to enum ttm_numa_policy to restrict
-system page allocations to the nodes in ttm_operation_ctx.numa_info.nodes,
-trying them in nearest-first order from the pool's local node.
+This commit removes the per-partition TTM pools on APUs with memory
+partitions and allocates pages from the device pool using
+TTM_NUMA_POLICY_PREFERRED in ttm_operation_ctx.
 
-> diff --git a/drivers/gpu/drm/ttm/ttm_pool.c b/drivers/gpu/drm/ttm/ttm_poo=
-l.c
-> index e9e6ee266c2ff..8976de3a552d1 100644
-> --- a/drivers/gpu/drm/ttm/ttm_pool.c
-> +++ b/drivers/gpu/drm/ttm/ttm_pool.c
-> @@ -780,6 +780,56 @@ static unsigned int ttm_pool_alloc_find_order(unsign=
-ed int highest,
->  	return min_t(unsigned int, highest, __fls(alloc->remaining_pages));
->  }
-> =20
-> +/*
-> + * Try the nodes in @nodes once each, nearest first from the local node.
-> + * __GFP_THISNODE prevents fallback to nodes outside the policy.
-> + */
-> +static struct page *ttm_pool_alloc_bind_pass(struct ttm_pool *pool,
-> +					     gfp_t gfp_flags, unsigned int order,
-> +					     const nodemask_t *nodes)
-> +{
-> +	int local =3D ttm_pool_nid(pool);
-> +	nodemask_t todo =3D *nodes;
-> +	struct page *p =3D NULL;
-> +
-> +	while (!nodes_empty(todo)) {
-> +		int nid =3D first_node(todo), n;
-> +
-> +		for_each_node_mask(n, todo) {
-> +			if (node_distance(local, n) < node_distance(local, nid))
-> +				nid =3D n;
-> +		}
-> +		node_clear(nid, todo);
-> +
-> +		p =3D ttm_pool_alloc_page(pool, gfp_flags | __GFP_THISNODE, order,
-> +					nid);
-> +		if (p)
-> +			break;
-> +	}
-> +
-> +	return p;
-> +}
-
-[Severity: Medium]
-Can ttm_pool_alloc_bind_pass() emit a spurious warn_alloc() splat when
-direct reclaim fails on an earlier node in todo even though a later node in
-the bind mask succeeds?
-
-In the second pass of ttm_pool_alloc_bind(), gfp_flags lacks __GFP_NOWARN
-for order-0 allocations when !ctx->gfp_retry_mayfail, and
-ttm_pool_alloc_page() only adds __GFP_NOWARN when order !=3D 0.  Passing
-__GFP_NOWARN while !nodes_empty(todo) would avoid warning before all bound
-nodes have been tried.
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c b/drivers/gpu/drm/am=
+d/amdgpu/amdgpu_ttm.c
+> index d3a875a32af1e..8740b7a76ad19 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c
 
 [ ... ]
 
-> @@ -858,8 +908,12 @@ static int __ttm_pool_alloc(struct ttm_pool *pool, s=
-truct ttm_tt *tt,
->  		if (!p) {
->  			page_caching =3D ttm_cached;
->  			allow_pools =3D false;
-> -			p =3D ttm_pool_alloc_page(pool, gfp_flags, order,
-> -						alloc_nid);
-> +			if (policy =3D=3D TTM_NUMA_POLICY_BIND)
-> +				p =3D ttm_pool_alloc_bind(pool, gfp_flags, order,
-> +							ctx->numa_info.nodes);
-> +			else
-> +				p =3D ttm_pool_alloc_page(pool, gfp_flags, order,
-> +							alloc_nid);
->  		}
->  		/* If that fails, lower the order if possible and retry. */
->  		if (!p) {
+> @@ -1242,7 +1245,9 @@ static int amdgpu_ttm_tt_populate(struct ttm_device=
+ *bdev,
+>  {
+>  	struct amdgpu_device *adev =3D amdgpu_ttm_adev(bdev);
+>  	struct amdgpu_ttm_tt *gtt =3D ttm_to_amdgpu_ttm_tt(ttm);
+> -	struct ttm_pool *pool;
+> +	/* ctx is shared by every BO of the operation; set the node locally */
+> +	struct ttm_operation_ctx node_ctx =3D *ctx;
+> +	nodemask_t preferred;
+>  	pgoff_t i;
+>  	int ret;
+> =20
+> @@ -1257,11 +1262,13 @@ static int amdgpu_ttm_tt_populate(struct ttm_devi=
+ce *bdev,
+>  	if (ttm->page_flags & TTM_TT_FLAG_EXTERNAL)
+>  		return 0;
+> =20
+> -	if (adev->mman.ttm_pools && gtt->pool_id >=3D 0)
+> -		pool =3D &adev->mman.ttm_pools[gtt->pool_id];
+> -	else
+> -		pool =3D &adev->mman.bdev.pool;
+> -	ret =3D ttm_pool_alloc(pool, ttm, ctx);
+> +	if (gtt->numa_node !=3D NUMA_NO_NODE) {
+> +		nodes_clear(preferred);
+> +		node_set(gtt->numa_node, preferred);
+> +		node_ctx.numa_info.policy =3D TTM_NUMA_POLICY_PREFERRED;
+> +		node_ctx.numa_info.nodes =3D &preferred;
+> +	}
+> +	ret =3D ttm_pool_alloc(&adev->mman.bdev.pool, ttm, &node_ctx);
 
 [Severity: High]
-Does the TTM pool lookup above this fallback only check
-first_node(*ctx->numa_info.nodes) for TTM_NUMA_POLICY_BIND instead of
-trying the bound nodes in nearest-first order?
+Will ttm_pool_alloc() fail with -EOPNOTSUPP when adev->need_swiotlb is set
+on a partitioned APU?
 
-drivers/gpu/drm/ttm/ttm_pool.c:__ttm_pool_alloc() {
-	...
-	if (policy !=3D TTM_NUMA_POLICY_NONE) {
-		/* Start at the single node of the policy */
-		alloc_nid =3D first_node(*ctx->numa_info.nodes);
-		take_nid =3D alloc_nid;
-	}
-	...
-		pt =3D ttm_pool_select_type(pool, page_caching, order);
-		if (pt && allow_pools)
-			p =3D ttm_pool_type_take(pt, take_nid);
-	...
-}
-
-For ttm_write_combined or ttm_uncached allocations with a multi-node bind
-mask (for example {0, 1} when ttm_pool_nid(pool) is node 1),
-ttm_pool_type_take() takes pooled pages from remote node 0 ahead of local
-node 1.
-
-When node 0's pool is empty, ttm_pool_type_take(pt, 0) fails without
-checking node 1's pool, disables pool usage for the order, allocates fresh
-write-back pages on nearest node 1 via ttm_pool_alloc_bind(), and pays for
-cross-CPU set_pages_array_wc() or set_pages_array_uc() TLB shootdowns.
-When those pages are later freed, ttm_pool_type_give() returns them to node
-1's LRU, where subsequent BIND allocations with mask {0, 1} never check.
-
-> diff --git a/include/drm/ttm/ttm_bo.h b/include/drm/ttm/ttm_bo.h
-> index 5289c17cd4496..e7605e7e97ecc 100644
-> --- a/include/drm/ttm/ttm_bo.h
-> +++ b/include/drm/ttm/ttm_bo.h
-> @@ -58,10 +58,14 @@ struct ttm_tt;
->   * @TTM_NUMA_POLICY_NONE: No policy. Use the pool default node.
->   * @TTM_NUMA_POLICY_PREFERRED: Prefer the single node in
->   *	ttm_operation_ctx.numa_info.nodes. Falls back to other nodes.
-> + * @TTM_NUMA_POLICY_BIND: Allocate only from the nodes in
-> + *	ttm_operation_ctx.numa_info.nodes, in ascending node order. Never fal=
-ls
-> + *	back to other nodes.
->   */
->  enum ttm_numa_policy {
->  	TTM_NUMA_POLICY_NONE =3D 0,
->  	TTM_NUMA_POLICY_PREFERRED,
-> +	TTM_NUMA_POLICY_BIND,
->  };
-
-[Severity: Low]
-This comment says nodes are tried "in ascending node order", whereas
-ttm_pool_alloc_bind_pass() orders nodes nearest-first from ttm_pool_nid()
-by node_distance() and only uses ascending node ID to break ties.
+amdgpu_ttm_init() initializes adev->mman.bdev.pool with
+TTM_ALLOCATION_POOL_USE_DMA_ALLOC when adev->need_swiotlb is true (for
+example, under SME/SEV memory encryption), whereas the old
+amdgpu_ttm_pools_init() omitted that flag on the per-partition pools.
+Because ttm_pool_check_numa() rejects any policy other than
+TTM_NUMA_POLICY_NONE when TTM_ALLOCATION_POOL_USE_DMA_ALLOC is set on the
+pool, populating any BO with a partition NUMA node will now fail with
+-EOPNOTSUPP.
 
 --=20
 Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261124062123.2431=
-244-13-himal.prasad.ghimiray@intel.com?part=3D2
+244-13-himal.prasad.ghimiray@intel.com?part=3D5
