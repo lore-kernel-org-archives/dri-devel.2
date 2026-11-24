@@ -2,45 +2,42 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 13E89606A327
-	for <dri-devel@archiver.kernel.org>; Tue, 24 Nov 2026 11:00:17 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E9B47606A32A
+	for <dri-devel@archiver.kernel.org>; Tue, 24 Nov 2026 11:00:23 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=IlLxoyIR
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=aRdVmR1S
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 7CD2F10F489;
-	Tue, 24 Nov 2026 11:00:11 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 4697B10F48B;
+	Tue, 24 Nov 2026 11:00:18 +0000 (UTC)
 Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 2992610F46F;
- Tue, 24 Nov 2026 11:00:05 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id B5DAB10F47C;
+ Tue, 24 Nov 2026 11:00:08 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by tor.source.kernel.org (Postfix) with ESMTP id 1BC8A624E5;
- Tue, 24 Nov 2026 11:00:04 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1E9B21F000CA;
- Tue, 24 Nov 2026 11:00:02 +0000 (UTC)
+ by tor.source.kernel.org (Postfix) with ESMTP id 3240A62605;
+ Tue, 24 Nov 2026 11:00:08 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id DC6FF1F000D0;
+ Tue, 24 Nov 2026 11:00:06 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1795518003;
- bh=t6s2PX7Sd++VYOk1Ys4uJFm0pc/KkhlKdM2ntkQK/s0=;
- h=From:Subject:Date:To:Cc;
- b=IlLxoyIRIstAcQraRB1EcPoLc5C8U0bfOoLLVHs/mOkffjZZ9FuxSIXQ9dSjSPHEs
- OtSHhmF4P8xQOUGHS5V5rdT2h16xK8ptgCUk5tEqIRFphoVanDR29/HtsJ9GmFQHEE
- ws79pOyZbaWUpI2uvkbi1SjYS9RZ+fMRnm026UfEa0zxhYwQKU/MBoHSvYtw4eaNCS
- EX60ebiraVLWaOLsYDn4DiRBfJht6rikf3E8+qpB8eAn6KTPfOOJnwvfh75/NTqPT5
- YWBtLvVn0azOU0WAftXDlhaQyJcBRjo6qHTOJoO3MitEWqdcS6yCtKA74J/r+B5uIs
- fSZ74nsK4jg6Q==
+ s=k20260515; t=1795518007;
+ bh=6vv0v5aQpbVQLcB4ol0btLOmKdHCUhyhrThlHyI6xWE=;
+ h=From:Date:Subject:References:In-Reply-To:To:Cc;
+ b=aRdVmR1SrzMAOOjHJJBA8p3KZUFPqG3ZwJtmzoUrwUJfSq9VUZQjsGI4AkZ5KMvrw
+ RENRQPG5xeLKG9buGw8jjYGnAe4lWCdOwobCDw5Z1/TZcrvRjp+g6b4nkQCdW8kyBa
+ Z89gQIH03y/1qbRNGmdJI/ympUItQCogXkk2FcbRz4s0sO0Thr9MqjNTVwCbkVB4GQ
+ 3NnCYKLgK5WdI1z+MMRGs4GUpN5re7Wcd5H8jqDJKu7cyXl94dIZ/Z2Li68bh5t4M2
+ TEIG49oszaG2zGi8vGD+DL3NclQUi5tvZoq6KttuXTN3inSvqYE7eXaKd7geRfgX2s
+ 0lABldw+Ais6Q==
 From: Maxime Ripard <mripard@kernel.org>
-Subject: [PATCH 0/6] drm/i915: Support DRM_MODE_ATOMIC_RESET
-Date: Tue, 24 Nov 2026 11:59:50 +0100
-Message-Id: <20261124-drm-i915-conversion-state-readout-v1-0-b7132f72644d@kernel.org>
+Date: Tue, 24 Nov 2026 11:59:51 +0100
+Subject: [PATCH 1/6] drm/atomic-state-helper: Provide more STATE_CHECK_*
+ variants
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-X-B4-Tracking: v=1; b=H4sIAAAAAAAA/2WOS27DMAxEryJwHQKkXH+kqxRZyDKVEqjtRlKMA
- EHuXtjpokWXw+HgvQcUySoFvHlAlk2Lrgt4wycD8SMsF0GdwBuwZDtm+4ZTnlEdtxjXZZO8/2O
- poQpmCdN6q9jQ0IUuBLZdCycDX1mS3g/G+/mVs1xvWrS+jjCGIhjXedbqzQ6YtURc5F5x5yIzs
- oPfSt7sBfU0HEJZitQfjfQZLmjTaMe2Z06u9xvb/+OW+oaO8V97piHR4CLHhvzm4Px8fgNxNkL
- UJQEAAA==
-X-Change-ID: 20261124-drm-i915-conversion-state-readout-3086a6aa1265
+Message-Id: <20261124-drm-i915-conversion-state-readout-v1-1-b7132f72644d@kernel.org>
+References: <20261124-drm-i915-conversion-state-readout-v1-0-b7132f72644d@kernel.org>
+In-Reply-To: <20261124-drm-i915-conversion-state-readout-v1-0-b7132f72644d@kernel.org>
 To: Maxime Ripard <mripard@kernel.org>, 
  Jani Nikula <jani.nikula@linux.intel.com>, 
  Thomas Zimmermann <tzimmermann@suse.de>, 
@@ -52,12 +49,12 @@ To: Maxime Ripard <mripard@kernel.org>,
 Cc: intel-xe@lists.freedesktop.org, intel-gfx@lists.freedesktop.org, 
  dri-devel@lists.freedesktop.org
 X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=openpgp-sha256; l=6947; i=mripard@kernel.org;
- h=from:subject:message-id; bh=/gZvSqK2nrij8vgXlsINvOJmq4hSmTo7a7wU4h26VdQ=;
- b=owGbwMvMwCmsHn9OcpHtvjLG02pJDNmseTr2GucXRRxc67ivMf3GM233BS7GO74/1Nx/TuQh7
- 7R3F6/IdExlYRDmZJAVU2R5IhN2enn74ioH+5U/YOawMoEMYeDiFICJ6JoyNlw4o3fvFdOCv+/W
- Zb9/J/P+9K7D1uzpHx0+T99Y79DjsitYoN9NXv54qLj2trdxexPYYxnr0yI18u1eqXJz/RZ9v8U
- pqHjHnbu3r15SvH29yupTbNlid/W/s66nsp58cV+C/0+I00QXAA==
+X-Developer-Signature: v=1; a=openpgp-sha256; l=8445; i=mripard@kernel.org;
+ h=from:subject:message-id; bh=0Rxxbo/JPNem+2NeBB6VdOHieDVZV2FSEso2vSdBOUg=;
+ b=owGbwMvMwCmsHn9OcpHtvjLG02pJDNmseTpLBPi0Jd/q/NmgfcIud52gYG8NU1fX4uVb6yoMx
+ KPy4x91TGVhEOZkkBVTZHkiE3Z6efviKgf7lT9g5rAygQxh4OIUgIkI8TA2HD7ot+Vj48I3505d
+ LX1c0RlzqX3P8Z7SLdxCl7zSjU595uJZtje5XKLIiOlhptpB+f8zGOsjGZlS0zwlH3fzcSksKSu
+ x4FLcdHbu3iR7bckHgfv23PWdW/In7URq/0cnvenTEta//wcA
 X-Developer-Key: i=mripard@kernel.org; a=openpgp;
  fpr=BE5675C37E818C8B5764241C254BCFC56BF6CE8D
 X-BeenThere: dri-devel@lists.freedesktop.org
@@ -79,129 +76,245 @@ X-Spam-Status: No, score=-18.8 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-Hi,
+The STATE_CHECK_* macros cover the field types the core state
+structures hold, but driver private states also rely on enums and on
+integer types smaller than an int, none of which the typed variants
+accept: STATE_CHECK_S32() and its counterparts assert on the exact
+field type, and there is no u8 variant at all.
 
-i915 objects didn't implement the reset callback, allocating their state
-when they are registered instead, so the atomic_create_state conversion
-had nothing to convert and left i915 out. The new DRM_MODE_ATOMIC_RESET
-flag builds its commits out of states created through that hook, and is
-only reported and accepted when every plane, CRTC and connector of the
-device implements it: i915 therefore rejects the reset with -EOPNOTSUPP
-and doesn't report DRM_CAP_ATOMIC_RESET.
+Provide STATE_CHECK_U8(), STATE_CHECK_U8_X() and STATE_CHECK_U16_X()
+to complete the set of fixed width integer variants, and
+STATE_CHECK_ENUM() for the enum fields: their underlying type is
+chosen by the compiler, so they can't be matched to a fixed width
+variant, and whether they end up signed depends on their enumerators.
 
-This series implements atomic_create_state for the i915 CRTCs, planes
-and connectors, and carries the current state over the created ones,
-like other drivers had to: a CRTC that stays enabled across a reset
-takes the nomodeset path of intel_atomic_check(), which relies on the
-state a duplicate carries over.
-
-The pipe configuration comparison is also moved to the STATE_CHECK_*
-macros, with the u8, u16 hexadecimal and enum variants the i915 state
-needs fed back into the framework, giving every compared field
-compile-time type checking to start consolidating with the new atomic
-SRO infrastructure.
-
-Built with LLVM=1 and checkpatch'd, the new macros come with kunit
-tests, IGT runs are still to be done.
-
-Let me know what you think,
-Maxime
-
-Test-with: 20261112162147.766264-1-mripard@kernel.org
+The i915 pipe configuration state compares close to two hundred
+fields spread over all of those types.
 
 Signed-off-by: Maxime Ripard <mripard@kernel.org>
 ---
-Maxime Ripard (6):
-      drm/atomic-state-helper: Provide more STATE_CHECK_* variants
-      drm/i915: Use the STATE_CHECK_* macros in the pipe config comparison
-      drm/i915: Implement CRTC atomic_create_state
-      drm/i915: Implement plane atomic_create_state
-      drm/i915: Implement connector atomic_create_state
-      drm/i915: Carry the current state over created states
+ .../gpu/drm/tests/drm_atomic_state_readout_test.c  | 99 ++++++++++++++++++++++
+ include/drm/drm_atomic_state_readout_helper.h      | 66 +++++++++++++++
+ 2 files changed, 165 insertions(+)
 
- drivers/gpu/drm/i915/display/i9xx_plane.c          |   2 +
- drivers/gpu/drm/i915/display/icl_dsi.c             |   1 +
- drivers/gpu/drm/i915/display/intel_atomic.c        |  23 +
- drivers/gpu/drm/i915/display/intel_atomic.h        |   2 +
- drivers/gpu/drm/i915/display/intel_connector.c     |  23 +-
- drivers/gpu/drm/i915/display/intel_crt.c           |   1 +
- drivers/gpu/drm/i915/display/intel_crtc.c          |  12 +
- drivers/gpu/drm/i915/display/intel_cursor.c        |   1 +
- drivers/gpu/drm/i915/display/intel_display.c       | 607 ++++++++++++---------
- drivers/gpu/drm/i915/display/intel_dp.c            |   1 +
- drivers/gpu/drm/i915/display/intel_dp_mst.c        |   1 +
- drivers/gpu/drm/i915/display/intel_dvo.c           |   1 +
- drivers/gpu/drm/i915/display/intel_hdmi.c          |   1 +
- drivers/gpu/drm/i915/display/intel_lvds.c          |   1 +
- drivers/gpu/drm/i915/display/intel_plane.c         |  25 +-
- drivers/gpu/drm/i915/display/intel_plane.h         |   1 +
- drivers/gpu/drm/i915/display/intel_sdvo.c          |  26 +-
- drivers/gpu/drm/i915/display/intel_sprite.c        |   3 +
- drivers/gpu/drm/i915/display/intel_tv.c            |  15 +
- drivers/gpu/drm/i915/display/skl_universal_plane.c |   3 +
- drivers/gpu/drm/i915/display/vlv_dsi.c             |   1 +
- .../gpu/drm/tests/drm_atomic_state_readout_test.c  |  99 ++++
- include/drm/drm_atomic_state_readout_helper.h      |  66 +++
- 23 files changed, 638 insertions(+), 278 deletions(-)
----
-base-commit: e6e635c4407e5bb8ddc6017a2e9825c17240e799
-change-id: 20261124-drm-i915-conversion-state-readout-3086a6aa1265
-prerequisite-change-id: 20260708-drm-reset-state-flag-2fb2b5711f97:v12
-prerequisite-patch-id: eb7ef1bbf930a321d43086788e29a61899cabea9
-prerequisite-patch-id: 69cb59e0e1800c71f284adf63ca98641df772975
-prerequisite-patch-id: 794b3f9689e1eb474d90535b43d8c8de58ec5e48
-prerequisite-patch-id: af7dfeb5128254a2368b8c3abd54c778caeea1fe
-prerequisite-patch-id: d7baa4aaf5b686cef8a7762f6ec46e517505a7d2
-prerequisite-patch-id: 3e4d1a009d6a944b20b2675d87436fb2acec2750
-prerequisite-patch-id: cac360557a737dffdfec293c4c08608e327fd6fd
-prerequisite-patch-id: 8e64689f12166016a371aaa15ec0e6691546c794
-prerequisite-patch-id: 118c8beb0d45f5476c8814f82b79c90a4ea48e05
-prerequisite-change-id: 20250730-drm-state-readout-108f089c1c30:v9
-prerequisite-patch-id: f8c3385d46e2be7cba68c715e31f1b3ea80a45eb
-prerequisite-patch-id: f04cf40e8c62005a0b5a928a68d394be2079a202
-prerequisite-patch-id: cd09f9e502efc35aa22ede9d3c3b46e064466d22
-prerequisite-patch-id: eb0a00c943fd93a555c0ef044d4008f5f83edd08
-prerequisite-patch-id: a277ed9151f84539ec40ecfe630c18ff482e022c
-prerequisite-patch-id: ae6b7f40f2b9002bf0eea54b1c41281db2adcde7
-prerequisite-patch-id: e755bcd2e58f79d14e246446864ff204699d1a87
-prerequisite-patch-id: 90687ec829c655bcfe4d81b12e24bccca7bd4833
-prerequisite-patch-id: ef67b1cd0911021331844861ae0f2fad84b270fc
-prerequisite-patch-id: e92f85eb974b4f507692da4fd0909cf272366b23
-prerequisite-patch-id: dfe3ca8ddf643420beb99e613492ac319b2266b0
-prerequisite-patch-id: fd825bcbb5b262926dca7139f759e9ad19a057de
-prerequisite-patch-id: ad586d955ee4d48bc8bb935041602dfbe0fa0a8a
-prerequisite-patch-id: 92a1b99d84487fc35457542f408cf3ceb40f2200
-prerequisite-patch-id: f1605fb5ed653b35443647422bc348bdc3f03060
-prerequisite-patch-id: aa65022cdfedaad2cedf6b5be5bf7a403d23a0cc
-prerequisite-patch-id: 3f9fc15f5d3ef94c1026b020ffe08e0ff1504243
-prerequisite-patch-id: 3d1e451d302dd742bec53cb1aa50643aa71ebf4c
-prerequisite-patch-id: ba5c149130eb1a23094d507281bfadc444bd0b2f
-prerequisite-patch-id: c89f59e3aa7165d77d1a616ab87d2ab4207ccae4
-prerequisite-patch-id: 94873fa437500fc6a377875fca01ab35cb545382
-prerequisite-patch-id: 66ff18129c8f0e1df1c4b899513a70f591c51eb4
-prerequisite-patch-id: 08da79b7e93e614f918d0c65d3e015d7d62e0a2a
-prerequisite-patch-id: 81e5473c19b1df4d76e0854305295277722b84a0
-prerequisite-patch-id: 9ad81f0921c7ff7121244dfa81e8625eef2872ef
-prerequisite-patch-id: 91b87c9dfd4f94ea8612d35ba0a59e734ea13478
-prerequisite-patch-id: 25fbe2804e1a162e75cc083e8cb45fc01efca01b
-prerequisite-patch-id: 9ef0dc76a9b0f998ea8e568849568648d4d859ea
-prerequisite-patch-id: dd1b97b1854cfa5dbf7b794732e6fd7fdbab8e74
-prerequisite-patch-id: a2c2d019cc44d5a7c5c64aa13039ca0502150dfe
-prerequisite-patch-id: 8adda3ba9ca95ad041acfd258a31e4fe03d0c0e0
-prerequisite-patch-id: 7b38fa633f4dec44d54037f1754f9d1e1c003e4d
-prerequisite-patch-id: f8ff07c5ff81332c3e131c6e98532a83eab77304
-prerequisite-patch-id: 3c12b1bf7245bb8ca3d98854a69c4e3eb3cc6c4e
-prerequisite-patch-id: 28f453e6b4a60111c4f452bf1f470c965940df2d
-prerequisite-patch-id: 5af22c10f16b8ba0920a4c9a942016982557df52
-prerequisite-patch-id: f2667f1c8010b2147be6cbccdc7b4e8c8c90ca78
-prerequisite-patch-id: 4b5c8d9aaa88af62ee71cdbf7581115ae8d2108e
-prerequisite-patch-id: c13d82cab1c523a7589723b12a9d9c674d1b548c
-prerequisite-patch-id: dc3f630e2f48e07c4287920da256f81fde29afbd
-prerequisite-patch-id: e94aa17d17ba8fdbd935c455fd2ae52df3bb4d68
-prerequisite-patch-id: a4f0694c3c6da19f47e160e6bed1b8b8b42c8180
-prerequisite-patch-id: 732d43e26eff2f092a61d52950377bbee8d05186
+diff --git a/drivers/gpu/drm/tests/drm_atomic_state_readout_test.c b/drivers/gpu/drm/tests/drm_atomic_state_readout_test.c
+index 289187ec4359..a2d18d44e76c 100644
+--- a/drivers/gpu/drm/tests/drm_atomic_state_readout_test.c
++++ b/drivers/gpu/drm/tests/drm_atomic_state_readout_test.c
+@@ -1753,10 +1753,107 @@ static void drm_test_sro_compare_bridge_mismatch(struct kunit *test)
+ 
+ 	priv->bridge.funcs->atomic_destroy_state(&priv->bridge, state1);
+ 	priv->bridge.funcs->atomic_destroy_state(&priv->bridge, state2);
+ }
+ 
++/*
++ * A state with plain integer fields, to exercise the STATE_CHECK_*
++ * macros on the types the base state structures don't hold but driver
++ * private states commonly do: enums, whose signedness the compiler
++ * picks, and integers smaller than an int.
++ */
++enum state_check_enum {
++	STATE_CHECK_FIRST,
++	STATE_CHECK_SECOND,
++};
++
++struct state_check_state {
++	int s32;
++	enum state_check_enum enumerated;
++	u8 decimal_u8;
++	u8 hex_u8;
++	u16 decimal_u16;
++	u16 hex_u16;
++	u32 decimal_u32;
++	u32 hex_u32;
++};
++
++static bool
++state_check_state_compare(struct drm_printer *p,
++			  const struct state_check_state *a,
++			  const struct state_check_state *b)
++{
++	bool ret = true;
++
++	STATE_CHECK_S32(ret, p, "test", a, b, s32);
++	STATE_CHECK_ENUM(ret, p, "test", a, b, enumerated);
++	STATE_CHECK_U8(ret, p, "test", a, b, decimal_u8);
++	STATE_CHECK_U8_X(ret, p, "test", a, b, hex_u8);
++	STATE_CHECK_U16(ret, p, "test", a, b, decimal_u16);
++	STATE_CHECK_U16_X(ret, p, "test", a, b, hex_u16);
++	STATE_CHECK_U32(ret, p, "test", a, b, decimal_u32);
++	STATE_CHECK_U32_X(ret, p, "test", a, b, hex_u32);
++
++	return ret;
++}
++
++/*
++ * Test that the STATE_CHECK_* macros report states whose enum, u8,
++ * u16 and u32 fields all match as identical.
++ */
++static void drm_test_sro_compare_macros_identical(struct kunit *test)
++{
++	struct state_check_state a = {}, b = {};
++	struct drm_printer *p;
++
++	p = drm_kunit_helper_printer(test, LOGLEVEL_ERR);
++	KUNIT_ASSERT_NOT_ERR_OR_NULL(test, p);
++
++	a.s32 = b.s32 = -42;
++	a.enumerated = b.enumerated = STATE_CHECK_SECOND;
++	a.decimal_u8 = b.decimal_u8 = 3;
++	a.hex_u8 = b.hex_u8 = 0xa5;
++	a.decimal_u16 = b.decimal_u16 = 1000;
++	a.hex_u16 = b.hex_u16 = 0x5a5a;
++	a.decimal_u32 = b.decimal_u32 = 100000;
++	a.hex_u32 = b.hex_u32 = 0xdeadbeef;
++
++	KUNIT_EXPECT_TRUE(test, state_check_state_compare(p, &a, &b));
++}
++
++/*
++ * Test that the STATE_CHECK_* macros report states differing in any
++ * of their enum, u8, u16 and u32 fields as non-identical.
++ */
++static void drm_test_sro_compare_macros_mismatch(struct kunit *test)
++{
++	struct state_check_state a = {}, b = {};
++	struct drm_printer *p;
++
++	p = drm_kunit_helper_printer(test, LOGLEVEL_ERR);
++	KUNIT_ASSERT_NOT_ERR_OR_NULL(test, p);
++
++	a.s32 = -1;
++	b.s32 = -2;
++	a.enumerated = STATE_CHECK_FIRST;
++	b.enumerated = STATE_CHECK_SECOND;
++	a.decimal_u8 = 1;
++	b.decimal_u8 = 2;
++	a.hex_u8 = 0xf0;
++	b.hex_u8 = 0x0d;
++	a.decimal_u16 = 1;
++	b.decimal_u16 = 2;
++	a.hex_u16 = 0x1234;
++	b.hex_u16 = 0x4321;
++	a.decimal_u32 = 1;
++	b.decimal_u32 = 2;
++	a.hex_u32 = 0xf00d;
++	b.hex_u32 = 0xbeef;
++
++	KUNIT_EXPECT_FALSE(test, state_check_state_compare(p, &a, &b));
++}
++
+ static struct kunit_case drm_atomic_sro_compare_tests[] = {
+ 	KUNIT_CASE(drm_test_sro_compare_plane_identical),
+ 	KUNIT_CASE(drm_test_sro_compare_plane_mismatch),
+ 	KUNIT_CASE(drm_test_sro_compare_plane_cropped),
+ 	KUNIT_CASE(drm_test_sro_compare_crtc_identical),
+@@ -1764,10 +1861,12 @@ static struct kunit_case drm_atomic_sro_compare_tests[] = {
+ 	KUNIT_CASE(drm_test_sro_compare_crtc_active_mismatch),
+ 	KUNIT_CASE(drm_test_sro_compare_connector_identical),
+ 	KUNIT_CASE(drm_test_sro_compare_connector_mismatch),
+ 	KUNIT_CASE(drm_test_sro_compare_bridge_identical),
+ 	KUNIT_CASE(drm_test_sro_compare_bridge_mismatch),
++	KUNIT_CASE(drm_test_sro_compare_macros_identical),
++	KUNIT_CASE(drm_test_sro_compare_macros_mismatch),
+ 	{ }
+ };
+ 
+ static struct kunit_suite drm_atomic_sro_compare_test_suite = {
+ 	.name = "drm_atomic_sro_compare",
+diff --git a/include/drm/drm_atomic_state_readout_helper.h b/include/drm/drm_atomic_state_readout_helper.h
+index 6125ea668fa8..628222274aff 100644
+--- a/include/drm/drm_atomic_state_readout_helper.h
++++ b/include/drm/drm_atomic_state_readout_helper.h
+@@ -198,10 +198,60 @@ drm_atomic_helper_print_state_mismatch(struct drm_printer *p,
+ 							       sa->f, sb->f); \
+ 			r = false;					\
+ 		}							\
+ 	} while (0)
+ 
++#define STATE_CHECK_ENUM(r, p, n, sa, sb, f)				\
++	do {								\
++		static_assert(__same_type(sa->f, sb->f),		\
++			      __stringify(f) " field types don't match"); \
++		static_assert(!__same_type(sa->f, bool),		\
++			      __stringify(f) " is a bool");		\
++		static_assert(sizeof(sa->f) <= sizeof(int),		\
++			      __stringify(f) " doesn't fit in an int");	\
++		if (sa->f != sb->f) {					\
++			drm_atomic_helper_print_state_mismatch(p,	\
++							       n,	\
++							       __stringify(f), \
++							       "expected %d, got %d", \
++							       sa->f, sb->f); \
++			r = false;					\
++		}							\
++	} while (0)
++
++#define STATE_CHECK_U8(r, p, n, sa, sb, f)				\
++	do {								\
++		static_assert(__same_type(sa->f, sb->f),		\
++			      __stringify(f) " field types don't match"); \
++		static_assert(__same_type(sa->f, (u8)0),		\
++			      __stringify(f) " is not a u8");		\
++		if (sa->f != sb->f) {					\
++			drm_atomic_helper_print_state_mismatch(p,	\
++							       n,	\
++							       __stringify(f), \
++							       "expected %u, got %u", \
++							       sa->f, sb->f); \
++			r = false;					\
++		}							\
++	} while (0)
++
++#define STATE_CHECK_U8_X(r, p, n, sa, sb, f)				\
++	do {								\
++		static_assert(__same_type(sa->f, sb->f),		\
++			      __stringify(f) " field types don't match"); \
++		static_assert(__same_type(sa->f, (u8)0),		\
++			      __stringify(f) " is not a u8");		\
++		if (sa->f != sb->f) {					\
++			drm_atomic_helper_print_state_mismatch(p,	\
++							       n,	\
++							       __stringify(f), \
++							       "expected %02x, got %02x", \
++							       sa->f, sb->f); \
++			r = false;					\
++		}							\
++	} while (0)
++
+ #define STATE_CHECK_U16(r, p, n, sa, sb, f)				\
+ 	do {								\
+ 		static_assert(__same_type(sa->f, sb->f),		\
+ 			      __stringify(f) " field types don't match"); \
+ 		static_assert(__same_type(sa->f, (u16)0),		\
+@@ -214,10 +264,26 @@ drm_atomic_helper_print_state_mismatch(struct drm_printer *p,
+ 							       sa->f, sb->f); \
+ 			r = false;					\
+ 		}							\
+ 	} while (0)
+ 
++#define STATE_CHECK_U16_X(r, p, n, sa, sb, f)				\
++	do {								\
++		static_assert(__same_type(sa->f, sb->f),		\
++			      __stringify(f) " field types don't match"); \
++		static_assert(__same_type(sa->f, (u16)0),		\
++			      __stringify(f) " is not a u16");		\
++		if (sa->f != sb->f) {					\
++			drm_atomic_helper_print_state_mismatch(p,	\
++							       n,	\
++							       __stringify(f), \
++							       "expected %04x, got %04x", \
++							       sa->f, sb->f); \
++			r = false;					\
++		}							\
++	} while (0)
++
+ #define STATE_CHECK_U32(r, p, n, sa, sb, f)				\
+ 	do {								\
+ 		static_assert(__same_type(sa->f, sb->f),		\
+ 			      __stringify(f) " field types don't match"); \
+ 		static_assert(__same_type(sa->f, (u32)0),		\
 
-Best regards,
 -- 
-Maxime Ripard <mripard@kernel.org>
+2.56.1
 
