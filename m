@@ -2,72 +2,60 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7B61E606A321
-	for <dri-devel@archiver.kernel.org>; Tue, 24 Nov 2026 15:13:33 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AAE9F606A31E
+	for <dri-devel@archiver.kernel.org>; Tue, 24 Nov 2026 15:13:48 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=XX1V7NUD
+	dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.a=rsa-sha256 header.s=dkim header.b=i+r4z4rr
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id DB95D10EB34;
-	Tue, 24 Nov 2026 15:13:27 +0000 (UTC)
-Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id AA46A10EB34
- for <dri-devel@lists.freedesktop.org>; Tue, 24 Nov 2026 15:13:21 +0000 (UTC)
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by tor.source.kernel.org (Postfix) with ESMTP id 05C3D6134A;
- Tue, 24 Nov 2026 15:13:21 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 396E81F0089E;
- Tue, 24 Nov 2026 15:13:20 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1795533200;
- bh=1RAyfKzTUoNGYA0NO90ipE3cGbzZg8HPabSURud3e60=;
- h=Date:From:To:Cc:Subject:References:In-Reply-To;
- b=XX1V7NUD8JeYCW7LQvOcfIluFiPHGc8HY1ikXgQzknHbPRB2wT4j8g6d0h1xeYuRb
- 056kxfrXi3LapGzGowR3eOlcjMmyibd2Bk6EmvwmsXvLHf2QsTSI3Hf32UPcG1+Jt9
- kWftxGudK+EigdNC+HdJEIGeBJx0crQO63rSGr+ENHSMWoAh0SjXc+7ktHqrtbPk46
- Rorbt7jht0kTwBiLc6rMoNIEdk1EOvHEK/J5DNKePLWftjxHwzuuNAy7E5rnVWiYN3
- V2jS+rNRQ+MElmhywWl+4vbMNLJZy2KgJfSDoeqoscdJ8aB4+JYEqIUyfeR1VvS29v
- 7lLMQW9Md+8Sw==
-Date: Tue, 24 Nov 2026 09:13:18 -0600
-From: Rob Herring <robh@kernel.org>
-To: "H. Nikolaus Schaller" <hns@goldelico.com>
-Cc: Linus Walleij <linus.walleij@linaro.org>,
- Bartosz Golaszewski <brgl@kernel.org>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>, Lee Jones <lee@kernel.org>,
- Daniel Thompson <danielt@kernel.org>,
- Jingoo Han <jingoohan1@gmail.com>, Pavel Machek <pavel@kernel.org>,
- Liam Girdwood <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>,
- Aaro Koskinen <aaro.koskinen@iki.fi>,
- Andreas Kemnade <andreas@kemnade.info>,
- Kevin Hilman <khilman@baylibre.com>,
- Roger Quadros <rogerq@kernel.org>, Tony Lindgren <tony@atomide.com>,
- Russell King <linux@armlinux.org.uk>,
- Neil Armstrong <neil.armstrong@linaro.org>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>,
- Thomas Zimmermann <tzimmermann@suse.de>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- Uwe =?iso-8859-1?Q?Kleine-K=F6nig?= <ukleinek@kernel.org>,
- Helge Deller <deller@gmx.de>, Jaroslav Kysela <perex@perex.cz>,
- Takashi Iwai <tiwai@suse.com>, Peter Ujfalusi <peter.ujfalusi@gmail.com>,
- Jarkko Nikula <jarkko.nikula@bitmer.com>,
- Jessica Zhang <jessica.zhang@oss.qualcomm.com>,
- linux-gpio@vger.kernel.org, devicetree@vger.kernel.org,
- linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org,
- linux-leds@vger.kernel.org, linux-sound@vger.kernel.org,
- linux-omap@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
- linux-pwm@vger.kernel.org, linux-fbdev@vger.kernel.org,
- letux-kernel@openphoenux.org, kernel@pyra-handheld.com
-Subject: Re: [PATCH v2 00/20] ARM: omap3: pandora: Modernize audio and
- backlight to use Device Tree to finally remove pdata-quirks
-Message-ID: <20261124151318.GA536798-robh@kernel.org>
-References: <cover.1795505160.git.hns@goldelico.com>
+	by gabe.freedesktop.org (Postfix) with ESMTP id 1569610ED34;
+	Tue, 24 Nov 2026 15:13:43 +0000 (UTC)
+Received: from smtpout-04.galae.net (smtpout-04.galae.net [185.171.202.116])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 1400710ED34
+ for <dri-devel@lists.freedesktop.org>; Tue, 24 Nov 2026 15:13:37 +0000 (UTC)
+Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
+ by smtpout-04.galae.net (Postfix) with ESMTPS id AB240C2C64B;
+ Tue, 24 Nov 2026 15:13:41 +0000 (UTC)
+Received: from mail.galae.net (mail.galae.net [212.83.136.155])
+ by smtpout-01.galae.net (Postfix) with ESMTPS id 3681D601E1;
+ Tue, 24 Nov 2026 15:13:34 +0000 (UTC)
+Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon)
+ with ESMTPSA id B130311E699B2; Tue, 24 Nov 2026 16:13:26 +0100 (CET)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
+ t=1795533213; h=from:subject:date:message-id:to:cc:mime-version:content-type:
+ content-transfer-encoding:content-language:in-reply-to:references;
+ bh=NXqk/EsElW6S2KxaRSKdG5paeRpfpZqtOu9th166vX8=;
+ b=i+r4z4rrCxckRaTeNCSRxsUaHI/gO+H0yCodAfkPVR62Tep4gQaNw+aD5O3qU7DcLTGP1B
+ H5OW3hm6Dt8yS1R/HygpKnuy8+gmyEruXK1ea000hywxR9t6Jy8+YvQdqZJeIyRl2k0RKT
+ 8Eo6sqRqXW/0ctOvx3B76knH4O0PwN3W5fmQ34vkcZMjMvbr2u20W0lpyY3iiC3zdZfwbf
+ Fp+zHLGElegH8Z/P1Ci06050FSTfup0XAQEfw83I/YcE3O5Ncfbtx7ZULoPU3A6DEYYQjI
+ 0VD+A5Nmu+r2jTVoeeaPTUCpqRYiSqWrbtPNUk9sDn6r+ZLSdwD31jGbSM1CCg==
+Message-ID: <7409b2e4-5f16-4fc4-a0fa-39546c50d0ef@bootlin.com>
+Date: Tue, 24 Nov 2026 16:13:25 +0100
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <cover.1795505160.git.hns@goldelico.com>
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH RESEND 3/4] drm/vkms: add a KUnit test for the precomputed
+ LUT table
+To: Oarora Etimis <oaroraetimis@gmail.com>,
+ Haneen Mohammed <hamohammed.sa@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ Melissa Wen <melissa.srw@gmail.com>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
+ David Airlie <airlied@gmail.com>, =?UTF-8?Q?Ma=C3=ADra_Canal?=
+ <mairacanal@riseup.net>, Harry Wentland <harry.wentland@amd.com>,
+ Pekka Paalanen <pekka.paalanen@collabora.com>,
+ Arthur Grillo <arthurgrillo@riseup.net>,
+ Helen Koike <helen.fornazier@gmail.com>,
+ Vignesh Raman <vignesh.raman@collabora.com>
+Cc: dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org
+References: <20261123-lut-v1-0-5556c89a2ebd@gmail.com>
+ <20261123-lut-v1-3-5556c89a2ebd@gmail.com>
+From: Louis Chauvet <louis.chauvet@bootlin.com>
+Content-Language: en-US
+In-Reply-To: <20261123-lut-v1-3-5556c89a2ebd@gmail.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
+X-Last-TLS-Session-Version: TLSv1.3
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -79,173 +67,30 @@ List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-5.8 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
-	DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
-	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS autolearn=no
-	autolearn_force=no version=4.0.1
+X-Spam-Status: No, score=-12.3 required=3.0 tests=BAYES_00,DKIM_SIGNED,
+	DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
+	INCLUDES_CR_TRAILER,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,
+	USER_AGENT_SANE_1 autolearn=unavailable autolearn_force=no
+	version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-On Tue, Nov 24, 2026 at 08:25:40AM +0100, H. Nikolaus Schaller wrote:
-> PATCH V2 2026-11-24 08:26:00:
-> Changes in V2:
-> The series has been reworked and expanded from 16 to 20 patches,
-> addressing review feedback and issues identified during hardware testing.
-> 
-> Audio and power management:
-> ===========================
-> * Replace the TWL4030 REGEN regulator implementation with an optional
->   GPIO and a fixed regulator described in Device Tree.
-> * Extend the existing PCM1754 codec driver to support the PCM1773
->   instead of introducing a separate codec driver.
-> * Add power supply and power-down GPIO support to the codec driver.
-> * Improve error handling, resource management and power sequencing
->   in the codec and sound card drivers.
-> * Update the sound card and codec bindings and Device Tree nodes.
-> 
-> PWM and backlight:
-> ==================
-> * Add optional 64-cycle frame support to the TWL4030 PWM driver.
-> * Add an optional enable guard period to the generic pwm-backlight
->   driver to prevent the TPS61161 from inadvertently entering
->   EasyScale mode.
-> * Adjust the Pandora PWM backlight configuration accordingly.
-> * Remove the obsolete CONFIG_BACKLIGHT_PANDORA option from
->   omap2plus_defconfig.
-> 
-> Device Tree and general cleanup:
-> ================================
-> * Correct and validate the affected Device Tree bindings.
-> * Reorder the series so that bindings and supporting drivers
->   precede their Device Tree users.
-> * Improve commit messages and fix coding style issues.
-> * Clarify the original authorship and take responsibility for
->   contributions previously signed off under a pseudonym.
-> 
-> Review feedback addressed:
-> ==========================
-> * Mark Brown suggested representing TWL4030 REGEN as a GPIO rather
->   than a regulator and reviewed the original standalone PCM1773
->   driver, which has been replaced by extending the PCM1754 driver.
-> * Krzysztof Kozlowski requested corrections to the Device Tree
->   bindings, proper schema validation, improved commit messages and
->   clarification of the original contributor's authorship.
-> * Andreas Kemnade suggested handling the TPS61161 initialization
->   in the backlight layer. V2 implements this through a generic
->   pwm-backlight enable guard period. His comments on clock modeling
->   and patch bisectability were also considered.
-> * Daniel Thompson provided Reviewed-by for the original removal
->   of the Pandora backlight driver.
-> * Issues identified by Sashiko and Rob Herring's automated DT
->  validation were reviewed and addressed as applicable.
-> 
-> Many thanks to everyone who reviewed V1.
-> 
-> Validation and testing:
-> =======================
-> * Based on Linux v7.4-rc4.
-> * All 20 patches checked with checkpatch.pl.
-> * Remaining checkpatch warnings and intentional deviations have
->   been reviewed. In particular, ENOTSUPP must be retained in the
->   GPIO set_config callback because gpiolib handles it differently
->   from EOPNOTSUPP.
-> * dt_binding_check and dtbs_check passed for all five affected
->   Device Tree bindings.
-> * The complete series has been successfully built and tested on
->   real OpenPandora hardware.
-> * LCD operation, PWM backlight brightness control including
->   brightness zero and power-down, and audio playback through the
->   internal speakers and headset have been verified.
-> * Audio capture was not tested.
-> 
-> PATCH V1 2026-07-11 08:02:02:
-> This series modernizes the OpenPandora handheld support by converting the 
-> sound subsystem and backlight control to proper platform drivers and Device 
-> Tree definitions.
-> 
-> The primary goal is the complete removal of omap3_pandora_legacy_init() 
-> and the elimination of the last remaining user of machine_is_omap3_pandora().
-> 
-> History and Context
-> ===================
-> The necessity of this cleanup was highlighted in several recent discussions:
-> 
-> 1. Tony Lindgren noted that machine_is_omap3_pandora() checks never succeed 
->    on Device Tree-booted machines, leaving the audio subsystem functionally 
->    broken since the DT conversion years ago:
->    https://marc.info/?l=alsa-devel&m=165632351319716&w=2
-> 
-> 2. Ethan Nelson-Moore submitted a patch to replace the macro with DT 
->    compatibility checks (accepted as commit 45efb8fbdae3 in v7.2-rc1):
->    https://marc.info/?l=linux-omap&m=177841578110704&w=2
-> 
-> 3. Sascha Hauer pointed out that the entire omap3pandora driver fundamentally 
->    depended on this broken machine ID check:
->    https://marc.info/?l=linux-omap&m=178048982272252&w=2
-> 
-> Design Choices and Implementation
-> =================================
-> Based on these discussions and a long-standing and working out-of-tree solution,
-> we initially attempted a migration to generic frameworks like simple-audio-card 
-> or audio-graph-card. However, the hardware routing peculiarities of the 
-> OpenPandora introduced too many functional gaps. Replacing omap3pandora.c 
-> entirely with pure DT definitions proved unfeasible. 
-> 
-> Therefore, we opted to base a new proposal on the out-of-tree rewrite of
-> the old-style sound board file kernel driver (sound/soc/ti/omap3pandora.c)
-> into a proper platform driver that cleanly fetches its resources from the
-> Device Tree, while adding specific handling for the twl4030-regen output
-> and adapting the pandora device tree files.
-> 
-> Series Structure
-> ================
-> * Patches 01–06 (Preparation): Move highly specific legacy code to its proper 
->   infrastructure (TWL4030 regulator regeneration and codec handling).
-> * Patch 07-08 (New Driver): Introduce a dedicated platform driver for the 
->   PCM1773 audio DAC.
-> * Patches 09-14 (Audio Core): Rewrite the omap3pandora ASoC fabric driver 
->   and update the respective Device Tree nodes.
-> * Patches 14–15 (Backlight): Remove the custom, legacy Pandora backlight driver,
->   convert it to generic Device Tree nodes
-> * Patch 16: (Cleanup) safely delete the obsolete omap3_pandora_legacy_init().
-> 
-> Notes & Testing
-> ===============
-> * Testing: This series has been tested on real OpenPandora hardware.
-> 
-> Credits
-> =======
-> This work is a collaborative effort by multiple authors over several years:
-> * Grond <grond66@riseup.net>
-> * Stefan Leichter <sle85276@gmx.de>
-> * H. Nikolaus Schaller <hns@goldelico.com>
-> 
-> 
-> H. Nikolaus Schaller (17):
->   dt-bindings: gpio: twl4030: Document REGEN GPIO
->   gpio: twl4030: Support REGEN GPIO
->   ASoC: twl4030: Allow APLL rate selection through set_sysclk()
->   dt-bindings: sound: pcm1754: Describe PCM1773
->   ASoC: codecs: pcm1754: Add PCM1773 support
->   dt-bindings: sound: Document OpenPandora sound card
->   dt-bindings: mfd: twl4030: Document 64-cycle PWM
->   pwm: twl: Support 64-cycle PWM frame
->   dt-bindings: backlight: pwm: Document enable guard
->   backlight: pwm: Support enable guard period
->   drm/panel: td043mtea1: Attach DT backlight
->   ARM: dts: omap3pandora: Disable unused DMA channels
->   ARM: dts: omap3-pandora: Model LCD power enable dependencies
->   ARM: dts: omap3pandora: Describe PCM1773
->   ARM: dts: omap3pandora: Switch backlight to PWM
->   backlight: Remove legacy Pandora driver
->   ARM: OMAP2+: Remove Pandora platform-data quirks
-> 
-> Stefan Leichter (3):
->   ASoC: ti: omap3pandora: Convert sound card to DT
->   ARM: dts: omap3pandora: Enable audio interfaces
->   ARM: dts: omap3pandora: Describe sound card
 
-Which of the 7 maintainers do you expect to take this series? Surely 
-this can be broken up into smaller series?
 
-Rob
+On 11/23/26 17:20, Oarora Etimis wrote:
+> build_lut_table() turns a per-pixel interpolation into a table lookup, so
+> a wrong entry changes the composed output with no other symptom.
+> 
+> Compare every entry against apply_lut_to_channel_value() for the same
+> channel and value, for a 4-entry LUT whose channels differ and for the
+> 256-entry sRGB one. The check stops at the first mismatch and prints its
+> channel, value and both results.
+> 
+> The tables are built with apply_lut_to_channel_value(), so this proves the
+> lookup matches the interpolation, not that the LUT arithmetic is right;
+> vkms_color_srgb_inv_srgb() covers the latter.
+> 
+> Signed-off-by: Oarora Etimis <oaroraetimis@gmail.com>
+
+Reviewed-by: Louis Chauvet <louis.chauvet@bootlin.com>
+
