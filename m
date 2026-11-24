@@ -2,131 +2,135 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CCF56606A682
-	for <dri-devel@archiver.kernel.org>; Tue, 24 Nov 2026 07:47:23 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7404C606A31E
+	for <dri-devel@archiver.kernel.org>; Tue, 24 Nov 2026 07:47:55 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=bp.renesas.com header.i=@bp.renesas.com header.a=rsa-sha256 header.s=selector1 header.b=U8kHUrXP
+	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.a=rsa-sha256 header.s=susede2_rsa header.b=RvfUoK8J;
+	dkim=pass header.d=suse.de header.i=@suse.de header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=QTL0IBEI;
+	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.a=rsa-sha256 header.s=susede2_rsa header.b=RvfUoK8J;
+	dkim=neutral header.d=suse.de header.i=@suse.de header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=QTL0IBEI
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 4368F10EF6D;
-	Tue, 24 Nov 2026 07:47:18 +0000 (UTC)
-Received: from OS0P286CU011.outbound.protection.outlook.com
- (mail-japanwestazon11010001.outbound.protection.outlook.com [52.101.228.1])
- by gabe.freedesktop.org (Postfix) with ESMTPS id C7C9510EF6D
- for <dri-devel@lists.freedesktop.org>; Tue, 24 Nov 2026 07:47:11 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=GPaU10oUNR5Q7lsKA12mdJ29aBaBuCbdX470Q5pOAmwO5eY4Uza737wUuO+zdUhLiqwZt6CrjOE0b0Qp5wmY5m0oM1TzzwEnDs3VzCtU376pmIgKRjg6YrVo3papOvLbLFMn/oLmowOSKxiYSDU1L/dB3pgTBZP7k9PBYShAkyOsBVePz62cS11Chk2qteDzWR1v4+qllNRS54QKGpJtwTtRK2h/lRFh6+V5qMBvqKGtuof+8+qUhZmBxBEpRugi7UPQCnywFBYClcfNnSfpP2483lMEMWHi9MSUrVuPUZJiqpJWsS66QzV6l7gDw1TWdkzqN6dKPlXr9+ZWQNCERA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=MAZ3EDfqmZOOsma7ABx7H48IzHkIlupUAYw1Xj/yGJw=;
- b=BtkCj+bHhftO5QcsHyym3/jmzk4O/JWEWkI5hfaZcmsKjRyClIgJL0R/h1xkCIGL8zdSS5jgxnz7EEQpUOFzBdSqBxMHikX1McO10St66M08K6ylj2HMTtqMbavDpla6nuz4LeV25VS8pdVNx0LUqisnmb7YEaA+WlHC4VVy2wczPqJlP88aCoyJnSwVqiRVfCeHZPPIyPA9pWec6VsRUYiO4cNhangxk1CVat8Fhf3a3yBSCl8wWB/JlKK0Cic6vqrc7B+khzHg7PgdLBXZ1s58tYuA610eDLbtC7VoCzq6Wy0aQqoNDkNZ+utDeKU2GsOiH5JwXN10ReP8lulc3w==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=bp.renesas.com; dmarc=pass action=none
- header.from=bp.renesas.com; dkim=pass header.d=bp.renesas.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bp.renesas.com;
- s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=MAZ3EDfqmZOOsma7ABx7H48IzHkIlupUAYw1Xj/yGJw=;
- b=U8kHUrXPa79GE/j8kCEYlUyw9yyoRiDO6dmGmXam7ja2bCfE7iRd9SJUaY4aTw16Zi8n6To2OziWuDOotdP+8HMe7QdhmuOODNqG9mRYTlZEAEW85v6t3PTrY2OXGJjeDBN0+q2jtH+yjPJd9VbX2FnEFKcZqLEfP/8taXcA2bI=
-Received: from TYYPR01MB6603.jpnprd01.prod.outlook.com (2603:1096:400:e0::9)
- by TYRPR01MB16252.jpnprd01.prod.outlook.com (2603:1096:405:2ed::8) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.639.14; Tue, 24 Nov
- 2026 07:47:07 +0000
-Received: from TYYPR01MB6603.jpnprd01.prod.outlook.com
- ([fe80::145b:b854:162:2e7f]) by TYYPR01MB6603.jpnprd01.prod.outlook.com
- ([fe80::145b:b854:162:2e7f%5]) with mapi id 15.21.0639.012; Tue, 24 Nov 2026
- 07:47:04 +0000
-From: Biju Das <biju.das.jz@bp.renesas.com>
-To: Tommaso Merciai <tommaso.merciai.xr@bp.renesas.com>, Tommaso Merciai
- <tomm.merciai@gmail.com>, Prabhakar Mahadev Lad
- <prabhakar.mahadev-lad.rj@bp.renesas.com>
-CC: "linux-renesas-soc@vger.kernel.org" <linux-renesas-soc@vger.kernel.org>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, Maarten
- Lankhorst <maarten.lankhorst@linux.intel.com>, Maxime Ripard
- <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, Rob Herring
- <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
- <conor+dt@kernel.org>, Geert Uytterhoeven <geert+renesas@glider.be>,
- "magnus.damm" <magnus.damm@gmail.com>, Laurent Pinchart
- <laurent.pinchart+renesas@ideasonboard.com>,
- "dri-devel@lists.freedesktop.org" <dri-devel@lists.freedesktop.org>,
- "devicetree@vger.kernel.org" <devicetree@vger.kernel.org>,
- "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>
-Subject: RE: [PATCH v10 10/12] drm: renesas: rz-du: Support several DU
- instances in one DRM device
-Thread-Topic: [PATCH v10 10/12] drm: renesas: rz-du: Support several DU
- instances in one DRM device
-Thread-Index: AQHdc2mQXc9YOQBvg02jmZuHcmeGVrc781HA
-Date: Tue, 24 Nov 2026 07:47:04 +0000
-Message-ID: <TYYPR01MB660397C3B66F6EED53656B2086442@TYYPR01MB6603.jpnprd01.prod.outlook.com>
-References: <cover.1794502191.git.tommaso.merciai.xr@bp.renesas.com>
- <e22a176720a38df652c7f7eabe27219da50f217d.1794502191.git.tommaso.merciai.xr@bp.renesas.com>
-In-Reply-To: <e22a176720a38df652c7f7eabe27219da50f217d.1794502191.git.tommaso.merciai.xr@bp.renesas.com>
-Accept-Language: en-GB, en-US
-Content-Language: en-US
-X-MS-Has-Attach: 
-X-MS-TNEF-Correlator: 
-authentication-results: mx.microsoft.com 1; dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=bp.renesas.com;
-x-ms-publictraffictype: Email
-x-ms-traffictypediagnostic: TYYPR01MB6603:EE_|TYRPR01MB16252:EE_
-x-ms-office365-filtering-correlation-id: eddb2cec-9559-4692-ceab-08df49ff2205
-x-ld-processed: 53d82571-da19-47e4-9cb4-625a166a4a2a,ExtAddr
-x-ms-exchange-senderadcheck: 1
-x-ms-exchange-antispam-relay: 0
-x-microsoft-antispam: BCL:0;
- ARA:13230040|366016|7416014|376014|23010399003|1800799024|18002099003|22082099003|3023799007|56012099006|11063799006|4143699003|261102123227099003|261028144727099003|261009223027099003|261026140227099003|261021121427099003|261022105027099003|261022075727099003|261021123027099003|261026121527099003|38070700021|10067099003;
-x-microsoft-antispam-message-info: eIh0ADDnvS1ibAZmR3GqoAEDOnTe2E+xW5BXYZHRXTq0VqNITDfIg1Q4Q8WQD3j1fa0eetVbjQJYL/IybiPr+LVfD+XdMVR+rU0G9cvtzq23gNeL635P0nmGpLPS4K6EXSIcuuqgySJal1PRH3JtqJ8oLNx9+1kLrJvDI7SfOaTQAzomYgzFVTWIik5SeY23idSj8KS5n5Zg6Y1PPTrsCoaKGMDimI2Vl28klFsQQyoMGwFF95mswuxhjBTAnZpG4LiPj62pn8hfhcwgTKvJlyWqQMdGf5nTSD8RVjkZw9n3H1ovMfOC6kLA3TKfhey8/6wkjRAPGAjYarcpTtmLp0c+8Ik5ikRoEkXAuCJKMSYf4GnuoQOvWYrbSGkG6vY0L9eluLsnJtJyYT4O9ypRLLG/Sd6F3YX3GGtMMDZkA+XvbEXfv7ObYnQgHOebFISGn5PRtOouUHDRNhFb/qO+aJuYNMVjtrHNlXQxyoMyaQflV/4WeQNxjMjAoahM4JJ0UgP3mQhfq1y21mtQ4LnaodQ2L0eyZ+PteiLJJLBHlPEBChUM27KycpoO7xS0GvIvTsPLjc2h0Cd6VwPxRUPb6bTiuiBT87TcSA7XeJK5E4QciAMqqII5jHjWl6hKRLs5h5cHYGzIPuT1PN/8w/+gl0UFUrQjKqYO6IQcybbg/EnAYbY7KFlqT2GUf+88T3vtsYwCeqkII43YdjgqzjrNE8LJRsGranonqINLFgcdsHU=
-x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:TYYPR01MB6603.jpnprd01.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(366016)(7416014)(376014)(23010399003)(1800799024)(18002099003)(22082099003)(3023799007)(56012099006)(11063799006)(4143699003)(261102123227099003)(261028144727099003)(261009223027099003)(261026140227099003)(261021121427099003)(261022105027099003)(261022075727099003)(261021123027099003)(261026121527099003)(38070700021)(10067099003);
- DIR:OUT; SFP:1101; 
-x-ms-exchange-antispam-messagedata-chunkcount: 1
-x-ms-exchange-antispam-messagedata-0: =?iso-8859-1?Q?NSnriT/5lzwdixhxANuSKJ6z5Leu0QhrKQjyi+KfG/PYD3nin6VTgT/8Ie?=
- =?iso-8859-1?Q?LtKwepzRsee2AW3h7SA/iwQPrLLAcgt5YN/iwt1K7O+RjAjCAbTJJuroZv?=
- =?iso-8859-1?Q?TDTTNCZl7IvNnh286/9Q7nq1JoFrC22+eZ3s9iw5dL+XW1hUAU03iI0OmN?=
- =?iso-8859-1?Q?0dt2rvKcm7Re4tJOs0yUVpQpUycxp1lRJdNrzZOTy8eh8sG4qB/CE3unW0?=
- =?iso-8859-1?Q?Iz87s8u5IM1Z8JzYpzxNivKYImBCWlOu8IDULQkSDDS2R/ESyuzJcteBis?=
- =?iso-8859-1?Q?r4jAVThhRSkMJ6nM/xHHKH4ji+k/DzqZ/cSBVSLl1CES5LWS7+LUDGl366?=
- =?iso-8859-1?Q?RLXTTn6KAz6C6hFuXsVgE0qkjFbo4J1MyjTevGXslynC3Bply2edIlGlBC?=
- =?iso-8859-1?Q?+fhSWp68YK7shiGIHkVBhfJ4JMegLa/Oj+kgbkWrwwUqYwdUPJCQsTfPPA?=
- =?iso-8859-1?Q?SXKDlErza7QwqHfO9eEGF4N9PlvSJDfOGOqx1SzVVbbSwv+vlzrSNOESzd?=
- =?iso-8859-1?Q?CDcS8hvze7GibDu52ygrejP1V6szbloER+B6pqsT20iGTW5Y+2Mx8Y1XBZ?=
- =?iso-8859-1?Q?V9uqhuGgNHQVnb9mQSV3+tb+/vKUG9GeMB52pqqFaZSaiD9ScOYyvk2E/c?=
- =?iso-8859-1?Q?FJKW6Le8iLA+3bhdjggBBm1ShLCOcilKB82PzksX6iqyKWo6/867u4z1Pk?=
- =?iso-8859-1?Q?E18UPqctGQuEzdqkc36C+gujqUj3lniVJp+CDf6pIrzYt/x0cDBLGTo7Rv?=
- =?iso-8859-1?Q?vBSPsx5mN6z+0WENJ96hP+ahTSxVKmuS40QgCfThDQ5hBev2zJ3RNT7Tqc?=
- =?iso-8859-1?Q?6q4/hTSIN4HpuNM+UwaTuDL5H7HSK2VkW37Vc8hG1o1AMrG2eR6kasTIkv?=
- =?iso-8859-1?Q?aBdVxcvpYZx6iUr8EL4MHoI26xd0tr3sVvrAzfwG3J+ogvEnlHqsf1dKAq?=
- =?iso-8859-1?Q?FuCBjkZ+Ya5dfOsT7oXQIvu5O7sDFQWe9f7n6tpNDlelnTytJrJ5XHVYKv?=
- =?iso-8859-1?Q?AC3XhDgfqf1Xa7sARE3rc5BzerVEn5hZ41vxJfmzctvmJto2gIXt8iWOoM?=
- =?iso-8859-1?Q?MCYFeKWobbxUv8XDnoxd/b0rtkbiJL0XXrAa0eyXHZpyifssLAcl1LKYLy?=
- =?iso-8859-1?Q?2HnV6/Z3guKW1N0xjm3B+qRrDl+xhCtC/Mjua+9ROGbho6E5iTE6RmNE6n?=
- =?iso-8859-1?Q?UQ4/+prqx3EdCDHV7aEV2fT8hC8FgMhVFV1JHQsxY77MifQJLZo7LLBysA?=
- =?iso-8859-1?Q?JRZuPloC15BOFCxEH/BM2tBHWsaUOJCYHtRPHueBZ+hnG9PcK/J5uwkT2T?=
- =?iso-8859-1?Q?/z68h3cmpMDOnMaOfbef8OJc++50OxczlOa8n2eCXqvdxnyNPDhxtLdDOP?=
- =?iso-8859-1?Q?CxcgOx4wDeC+80SX6NcQDf4HsQS6oa2Jc2sbm5znGldeM0pGUY5KdWRZHD?=
- =?iso-8859-1?Q?9+0AmIJyYwmZyQvLVEdkPaOL0rJrkTQQWZsWKQ3SKkmWBBpB+DQhyO9I+g?=
- =?iso-8859-1?Q?aP2DJ4nu8eq4wzx8Ls2r9kixjSYICtXLU1sG4LBu6/Y3ZJqDAQLwl+V2Eq?=
- =?iso-8859-1?Q?JyDNQxptckZVF7kZjZjy6lYuMvFuqC+WovnnBg/n/K/fmYl2xxYnI9q+a6?=
- =?iso-8859-1?Q?KJk5lzRxf+8/iuNjP9IiQItV0ytJ7XD46rafwQ1NfZWNl3JB9OqmaO/3H1?=
- =?iso-8859-1?Q?1iWA8SP0pmn/4EuOVGMW6PhTvb3Aw3hKZnpD1KTNdRpjr/ac2kH+Se4lt9?=
- =?iso-8859-1?Q?IUt3tPDWJkgWGXrxlKjIXojb8zAXYWtDmLtr6GtpOkHZFMiS2/Q+pqwXr8?=
- =?iso-8859-1?Q?BDHHah5xvg=3D=3D?=
-Content-Type: text/plain; charset="iso-8859-1"
-Content-Transfer-Encoding: quoted-printable
+	by gabe.freedesktop.org (Postfix) with ESMTP id CA08B10EFB9;
+	Tue, 24 Nov 2026 07:47:44 +0000 (UTC)
+Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.223.131])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id D37C410F256
+ for <dri-devel@lists.freedesktop.org>; Tue, 24 Nov 2026 07:47:32 +0000 (UTC)
+Received: from imap1.dmz-prg2.suse.org (unknown [10.150.64.97])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+ (No client certificate requested)
+ by smtp-out2.suse.de (Postfix) with ESMTPS id 4B6501FBF8;
+ Tue, 24 Nov 2026 07:47:31 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+ t=1795506451; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
+ bh=oOy2yoxFTmtBtmqxddydcBqpF8aGEH7F/iYI6h7X9Aw=;
+ b=RvfUoK8JJZe4f5lyx5Lz0+zPMnfXTy8v7njLppBgBVYV9+OYxNUS2W9fcwJGqMCAfkOnF3
+ aqFG5+egUF2rBiuN8GPJcDMgqd/0M2D6q7Z3iGEPkkh9zp8dMb7YNVpggKpaJ8hF3Ixw0z
+ Fl/etUjMWvJJT4KVfs6pGp6IH1jdFpA=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+ s=susede2_ed25519; t=1795506451;
+ h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
+ bh=oOy2yoxFTmtBtmqxddydcBqpF8aGEH7F/iYI6h7X9Aw=;
+ b=QTL0IBEIbQT850ndMXYNNwXMSr8MzU9rt2RETzPKXHuYtDSO77baHodckBS+K4wuPZvn+w
+ mwXZhkOS8Gwt32Aw==
+Authentication-Results: smtp-out2.suse.de;
+	none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+ t=1795506451; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
+ bh=oOy2yoxFTmtBtmqxddydcBqpF8aGEH7F/iYI6h7X9Aw=;
+ b=RvfUoK8JJZe4f5lyx5Lz0+zPMnfXTy8v7njLppBgBVYV9+OYxNUS2W9fcwJGqMCAfkOnF3
+ aqFG5+egUF2rBiuN8GPJcDMgqd/0M2D6q7Z3iGEPkkh9zp8dMb7YNVpggKpaJ8hF3Ixw0z
+ Fl/etUjMWvJJT4KVfs6pGp6IH1jdFpA=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+ s=susede2_ed25519; t=1795506451;
+ h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
+ bh=oOy2yoxFTmtBtmqxddydcBqpF8aGEH7F/iYI6h7X9Aw=;
+ b=QTL0IBEIbQT850ndMXYNNwXMSr8MzU9rt2RETzPKXHuYtDSO77baHodckBS+K4wuPZvn+w
+ mwXZhkOS8Gwt32Aw==
+Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+ (No client certificate requested)
+ by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 744561339F;
+ Tue, 24 Nov 2026 07:47:30 +0000 (UTC)
+Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
+ by imap1.dmz-prg2.suse.org with ESMTPSA id TsLkCRJBBWuHYQAAD6G6ig
+ (envelope-from <tzimmermann@suse.de>); Tue, 24 Nov 2026 07:47:30 +0000
+Message-ID: <dfbc0fdf-9490-472a-8649-e392df2e0608@suse.de>
+Date: Tue, 24 Nov 2026 08:47:29 +0100
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
-X-OriginatorOrg: bp.renesas.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: TYYPR01MB6603.jpnprd01.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: eddb2cec-9559-4692-ceab-08df49ff2205
-X-MS-Exchange-CrossTenant-originalarrivaltime: 24 Nov 2026 07:47:04.5967 (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: 53d82571-da19-47e4-9cb4-625a166a4a2a
-X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: dI7Zq+L2zsx5w1L58yNk0lSVpNflSwh7T0lEZl8EbidktGm5jKUqkMTuDKrYmLPXK1N1kkE1vwoy3cKv0qZlwS7uOQFz3qfn8EvP2JLWLG0=
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: TYRPR01MB16252
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH RFT v3 1/5] drm: Split framebuffer pixel offset
+ calculation from drm_fb_dma_get_gem_addr()
+To: Chen-Yu Tsai <wenst@chromium.org>, Liu Ying <victor.liu@nxp.com>,
+ Laurentiu Palcu <laurentiu.palcu@oss.nxp.com>,
+ Lucas Stach <l.stach@pengutronix.de>, Chen-Yu Tsai <wens@kernel.org>,
+ Jernej Skrabec <jernej@kernel.org>, Samuel Holland <samuel@sholland.org>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>
+Cc: David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ linux-sunxi@lists.linux.dev, imx@lists.linux.dev,
+ dri-devel@lists.freedesktop.org, linux-arm-kernel@lists.infradead.org,
+ linux-kernel@vger.kernel.org, stable@vger.kernel.org
+References: <20261124074041.115251-1-wenst@chromium.org>
+ <20261124074041.115251-2-wenst@chromium.org>
+Content-Language: en-US
+From: Thomas Zimmermann <tzimmermann@suse.de>
+Autocrypt: addr=tzimmermann@suse.de; keydata=
+ xsBNBFs50uABCADEHPidWt974CaxBVbrIBwqcq/WURinJ3+2WlIrKWspiP83vfZKaXhFYsdg
+ XH47fDVbPPj+d6tQrw5lPQCyqjwrCPYnq3WlIBnGPJ4/jreTL6V+qfKRDlGLWFjZcsrPJGE0
+ BeB5BbqP5erN1qylK9i3gPoQjXGhpBpQYwRrEyQyjuvk+Ev0K1Jc5tVDeJAuau3TGNgah4Yc
+ hdHm3bkPjz9EErV85RwvImQ1dptvx6s7xzwXTgGAsaYZsL8WCwDaTuqFa1d1jjlaxg6+tZsB
+ 9GluwvIhSezPgnEmimZDkGnZRRSFiGP8yjqTjjWuf0bSj5rUnTGiyLyRZRNGcXmu6hjlABEB
+ AAHNJ1Rob21hcyBaaW1tZXJtYW5uIDx0emltbWVybWFubkBzdXNlLmRlPsLAjgQTAQgAOAIb
+ AwULCQgHAgYVCgkICwIEFgIDAQIeAQIXgBYhBHIX+6yM6c9jRKFo5WgNwR1TC3ojBQJftODH
+ AAoJEGgNwR1TC3ojx1wH/0hKGWugiqDgLNXLRD/4TfHBEKmxIrmfu9Z5t7vwUKfwhFL6hqvo
+ lXPJJKQpQ2z8+X2vZm/slsLn7J1yjrOsoJhKABDi+3QWWSGkaGwRJAdPVVyJMfJRNNNIKwVb
+ U6B1BkX2XDKDGffF4TxlOpSQzdtNI/9gleOoUA8+jy8knnDYzjBNOZqLG2FuTdicBXblz0Mf
+ vg41gd9kCwYXDnD91rJU8tzylXv03E75NCaTxTM+FBXPmsAVYQ4GYhhgFt8S2UWMoaaABLDe
+ 7l5FdnLdDEcbmd8uLU2CaG4W2cLrUaI4jz2XbkcPQkqTQ3EB67hYkjiEE6Zy3ggOitiQGcqp
+ j//OwE0EWznS4AEIAMYmP4M/V+T5RY5at/g7rUdNsLhWv1APYrh9RQefODYHrNRHUE9eosYb
+ T6XMryR9hT8XlGOYRwKWwiQBoWSDiTMo/Xi29jUnn4BXfI2px2DTXwc22LKtLAgTRjP+qbU6
+ 3Y0xnQN29UGDbYgyyK51DW3H0If2a3JNsheAAK+Xc9baj0LGIc8T9uiEWHBnCH+RdhgATnWW
+ GKdDegUR5BkDfDg5O/FISymJBHx2Dyoklv5g4BzkgqTqwmaYzsl8UxZKvbaxq0zbehDda8lv
+ hFXodNFMAgTLJlLuDYOGLK2AwbrS3Sp0AEbkpdJBb44qVlGm5bApZouHeJ/+n+7r12+lqdsA
+ EQEAAcLAdgQYAQgAIAIbDBYhBHIX+6yM6c9jRKFo5WgNwR1TC3ojBQJftOH6AAoJEGgNwR1T
+ C3ojVSkIALpAPkIJPQoURPb1VWjh34l0HlglmYHvZszJWTXYwavHR8+k6Baa6H7ufXNQtThR
+ yIxJrQLW6rV5lm7TjhffEhxVCn37+cg0zZ3j7zIsSS0rx/aMwi6VhFJA5hfn3T0TtrijKP4A
+ SAQO9xD1Zk9/61JWk8OysuIh7MXkl0fxbRKWE93XeQBhIJHQfnc+YBLprdnxR446Sh8Wn/2D
+ Ya8cavuWf2zrB6cZurs048xe0UbSW5AOSo4V9M0jzYI4nZqTmPxYyXbm30Kvmz0rYVRaitYJ
+ 4kyYYMhuULvrJDMjZRvaNe52tkKAvMevcGdt38H4KSVXAylqyQOW5zvPc4/sq9c=
+In-Reply-To: <20261124074041.115251-2-wenst@chromium.org>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
+X-Spamd-Result: default: False [-13.29 / 50.00]; SUSE_INTERNAL_BYPASS(-9.00)[];
+ BAYES_HAM(-3.00)[100.00%]; NEURAL_HAM_LONG(-1.00)[-1.000];
+ NEURAL_HAM_SHORT(-0.20)[-1.000]; MIME_GOOD(-0.10)[text/plain];
+ XM_UA_NO_VERSION(0.01)[]; RCPT_COUNT_TWELVE(0.00)[17];
+ ARC_NA(0.00)[]; TO_MATCH_ENVRCPT_ALL(0.00)[];
+ DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
+ MIME_TRACE(0.00)[0:+]; FREEMAIL_ENVRCPT(0.00)[gmail.com];
+ RCVD_TLS_ALL(0.00)[]; TO_DN_SOME(0.00)[];
+ FROM_EQ_ENVFROM(0.00)[]; FROM_HAS_DN(0.00)[];
+ FREEMAIL_CC(0.00)[gmail.com,ffwll.ch,lists.linux.dev,lists.freedesktop.org,lists.infradead.org,vger.kernel.org];
+ RCVD_COUNT_TWO(0.00)[2]; RCVD_VIA_SMTP_AUTH(0.00)[];
+ MID_RHS_MATCH_FROM(0.00)[];
+ DBL_BLOCKED_OPENRESOLVER(0.00)[suse.com:url, chromium.org:email, suse.de:email]
+X-Spam-Score: -13.29
+X-Spam-Level: 
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -138,302 +142,186 @@ List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-15.8 required=3.0 tests=BAYES_00,DKIM_SIGNED,
+X-Spam-Status: No, score=-17.3 required=3.0 tests=BAYES_00,DKIM_SIGNED,
 	DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
 	INCLUDES_CR_TRAILER,INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,
-	SPF_PASS autolearn=unavailable autolearn_force=no version=4.0.1
+	SPF_PASS,USER_AGENT_SANE_1 autolearn=unavailable autolearn_force=no
+	version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-Hi Tommaso,
+Hi
 
-> -----Original Message-----
-> From: Tommaso Merciai <tommaso.merciai.xr@bp.renesas.com>
-> Sent: 13 November 2026 12:20
-> Subject: [PATCH v10 10/12] drm: renesas: rz-du: Support several DU instan=
-ces in one DRM device
->=20
-> RZ/G3E has two DU instances that share a single DRM device.
->=20
-> Add an RZG2L_DU_FEATURE_COMPONENT flag and use the component framework fo=
-r it. The first available DU
-> instance is the master and creates the DRM device, the other one binds to=
- it as a component.
->=20
-> If only one DU instance is available, it creates the DRM device directly =
-at probe time, as on SoCs
-> without the flag.
->=20
-> Set the index of each instance to the number of CRTCs already created.
->=20
-> Signed-off-by: Tommaso Merciai <tommaso.merciai.xr@bp.renesas.com>
+Am 24.11.26 um 08:39 schrieb Chen-Yu Tsai:
+> Currently drm_fb_dma_get_gem_addr() calculates the offset into the
+> framebuffer memory for the framebuffer's unclipped source coordinates,
+> adds that to the framebuffer's backing storage, and returns the result.
+>
+> We are about to add a variant that uses the clipped source coordinates,
+> so there is already some reuse of code. However, calculating the data
+> offset for a given pixel is not specific to the DMA FB helpers. The
+> offset is only related to the framebuffer.
+>
+> Split out the offset calculation into a new framebuffer helper so that
+> non-DMA users can also reuse the same code.
+>
+> Suggested-by: Thomas Zimmermann <tzimmermann@suse.de>
+> Cc: <stable@vger.kernel.org> # dependency for next patch
+> Signed-off-by: Chen-Yu Tsai <wenst@chromium.org>
+
+Reviewed-by: Thomas Zimmermann <tzimmermann@suse.de>
+
+This patch is useful on its own and could be merged independently from 
+the others.
+
+Best regards
+Thomas
+
 > ---
-> v9->v10:
->  - New patch.
->=20
->  drivers/gpu/drm/renesas/rz-du/rzg2l_du_drv.c | 118 ++++++++++++++++++-
->  drivers/gpu/drm/renesas/rz-du/rzg2l_du_drv.h |   2 +
->  2 files changed, 115 insertions(+), 5 deletions(-)
->=20
-> diff --git a/drivers/gpu/drm/renesas/rz-du/rzg2l_du_drv.c b/drivers/gpu/d=
-rm/renesas/rz-
-> du/rzg2l_du_drv.c
-> index 93d59e2cf8a4..873586f2ef28 100644
-> --- a/drivers/gpu/drm/renesas/rz-du/rzg2l_du_drv.c
-> +++ b/drivers/gpu/drm/renesas/rz-du/rzg2l_du_drv.c
-> @@ -7,6 +7,7 @@
->   * Based on rcar_du_drv.c
->   */
->=20
-> +#include <linux/component.h>
->  #include <linux/dma-mapping.h>
->  #include <linux/module.h>
->  #include <linux/of.h>
-> @@ -14,10 +15,12 @@
->=20
->  #include <drm/clients/drm_client_setup.h>  #include <drm/drm_atomic_help=
-er.h>
-> +#include <drm/drm_crtc.h>
->  #include <drm/drm_drv.h>
->  #include <drm/drm_fbdev_dma.h>
->  #include <drm/drm_gem_dma_helper.h>
->  #include <drm/drm_managed.h>
-> +#include <drm/drm_of.h>
->  #include <drm/drm_print.h>
->  #include <drm/drm_probe_helper.h>
->=20
-> @@ -170,6 +173,7 @@ static int rzg2l_du_instance_init(struct rzg2l_du_dev=
-ice *du,
->  				  struct drm_device *ddev)
->  {
->  	struct rzg2l_du_device *rcdu;
-> +	int ret;
->=20
->  	rcdu =3D drmm_kzalloc(ddev, sizeof(*rcdu), GFP_KERNEL);
->  	if (!rcdu)
-> @@ -180,9 +184,28 @@ static int rzg2l_du_instance_init(struct rzg2l_du_de=
-vice *du,
->  	rcdu->mmio =3D du->mmio;
->  	rcdu->ddev =3D ddev;
->=20
-> -	return rzg2l_du_modeset_init_du(rcdu);
-> +	rcdu->index =3D ddev->mode_config.num_crtc;
-> +
-> +	ret =3D rzg2l_du_modeset_init_du(rcdu);
-> +	if (ret < 0)
-> +		return ret;
-> +
-> +	if (WARN_ON(drm_crtc_index(&rcdu->crtcs[0].crtc) !=3D rcdu->index))
-> +		return -EINVAL;
-> +
-> +	return 0;
->  }
->=20
-> +static int rzg2l_du_instance_bind(struct device *dev, struct device *mas=
-ter,
-> +				  void *data)
-> +{
-> +	return rzg2l_du_instance_init(dev_get_drvdata(dev), data); }
-> +
-> +static const struct component_ops rzg2l_du_instance_ops =3D {
-> +	.bind =3D rzg2l_du_instance_bind,
-> +};
-> +
->  /* ---------------------------------------------------------------------=
---------
->   * DRM device
->   */
-> @@ -191,7 +214,7 @@ struct rzg2l_du_drm {
->  	struct drm_device ddev;
->  };
->=20
-> -static int rzg2l_du_drm_init(struct device *dev)
-> +static int rzg2l_du_drm_init(struct device *dev, bool has_components)
->  {
->  	struct rzg2l_du_device *du =3D dev_get_drvdata(dev);
->  	struct rzg2l_du_drm *rzgdrm;
-> @@ -213,6 +236,12 @@ static int rzg2l_du_drm_init(struct device *dev)
->  	if (ret < 0)
->  		goto error;
->=20
-> +	if (has_components) {
-> +		ret =3D component_bind_all(dev, ddev);
-> +		if (ret < 0)
-> +			goto error;
-> +	}
-> +
->  	ret =3D rzg2l_du_modeset_init_finish(ddev);
->  	if (ret < 0)
->  		goto error_fini;
-> @@ -235,6 +264,8 @@ static int rzg2l_du_drm_init(struct device *dev)
->=20
->  error_fini:
->  	drm_kms_helper_poll_fini(ddev);
-> +	if (has_components)
-> +		component_unbind_all(dev, ddev);
->  error:
->  	/*
->  	 * Don't use dev_err_probe(), as it would overwrite the probe deferral =
-@@ -246,7 +277,7 @@
-> static int rzg2l_du_drm_init(struct device *dev)
->  	return ret;
->  }
->=20
-> -static void rzg2l_du_drm_fini(struct device *dev)
-> +static void rzg2l_du_drm_fini(struct device *dev, bool has_components)
->  {
->  	struct rzg2l_du_device *du =3D dev_get_drvdata(dev);
->  	struct drm_device *ddev =3D du->ddev;
-> @@ -254,6 +285,83 @@ static void rzg2l_du_drm_fini(struct device *dev)
->  	drm_dev_unregister(ddev);
->  	drm_atomic_helper_shutdown(ddev);
->  	drm_kms_helper_poll_fini(ddev);
-> +
-> +	if (has_components)
-> +		component_unbind_all(dev, ddev);
-> +
-> +	du->ddev =3D NULL;
-> +}
-> +
-> +/*
-> +-----------------------------------------------------------------------
-> +------
-> + * Component master
+> fb->offsets and fb->pitches are (or should have been) checked by the
+> driver's .fb_create callback, either in drm_gem_fb_init_with_funcs()
+> or reimplementing the checks directly.
+>
+> Changes since v2:
+> - Change offset local variable and return type to u64, and use
+>    mul_u32_u32() to avoid 32-bit overflow before widening
+> Changes since v1:
+> - New patch
+> ---
+>   drivers/gpu/drm/drm_fb_dma_helper.c | 28 ++----------------
+>   drivers/gpu/drm/drm_framebuffer.c   | 46 +++++++++++++++++++++++++++++
+>   include/drm/drm_framebuffer.h       |  3 ++
+>   3 files changed, 52 insertions(+), 25 deletions(-)
+>
+> diff --git a/drivers/gpu/drm/drm_fb_dma_helper.c b/drivers/gpu/drm/drm_fb_dma_helper.c
+> index fd71969d2fb1..ab0f37d8a5ff 100644
+> --- a/drivers/gpu/drm/drm_fb_dma_helper.c
+> +++ b/drivers/gpu/drm/drm_fb_dma_helper.c
+> @@ -75,36 +75,14 @@ dma_addr_t drm_fb_dma_get_gem_addr(struct drm_framebuffer *fb,
+>   				   unsigned int plane)
+>   {
+>   	struct drm_gem_dma_object *obj;
+> -	dma_addr_t dma_addr;
+> -	u8 h_div = 1, v_div = 1;
+> -	u32 block_w = drm_format_info_block_width(fb->format, plane);
+> -	u32 block_h = drm_format_info_block_height(fb->format, plane);
+> -	u32 block_size = fb->format->char_per_block[plane];
+> -	u32 sample_x;
+> -	u32 sample_y;
+> -	u32 block_start_y;
+> -	u32 num_hblocks;
+>   
+>   	obj = drm_fb_dma_get_gem_obj(fb, plane);
+>   	if (!obj)
+>   		return 0;
+>   
+> -	dma_addr = obj->dma_addr + fb->offsets[plane];
+> -
+> -	if (plane > 0) {
+> -		h_div = fb->format->hsub;
+> -		v_div = fb->format->vsub;
+> -	}
+> -
+> -	sample_x = (state->src_x >> 16) / h_div;
+> -	sample_y = (state->src_y >> 16) / v_div;
+> -	block_start_y = (sample_y / block_h) * block_h;
+> -	num_hblocks = sample_x / block_w;
+> -
+> -	dma_addr += fb->pitches[plane] * block_start_y;
+> -	dma_addr += block_size * num_hblocks;
+> -
+> -	return dma_addr;
+> +	return obj->dma_addr + drm_framebuffer_get_block_offset(fb, plane,
+> +								state->src_x >> 16,
+> +								state->src_y >> 16);
+>   }
+>   EXPORT_SYMBOL_GPL(drm_fb_dma_get_gem_addr);
+>   
+> diff --git a/drivers/gpu/drm/drm_framebuffer.c b/drivers/gpu/drm/drm_framebuffer.c
+> index d32aceb6ca9b..589619bd8f0b 100644
+> --- a/drivers/gpu/drm/drm_framebuffer.c
+> +++ b/drivers/gpu/drm/drm_framebuffer.c
+> @@ -21,6 +21,7 @@
+>    */
+>   
+>   #include <linux/export.h>
+> +#include <linux/math64.h>
+>   #include <linux/uaccess.h>
+>   
+>   #include <drm/drm_atomic.h>
+> @@ -1208,6 +1209,51 @@ void drm_framebuffer_print_info(struct drm_printer *p, unsigned int indent,
+>   	}
+>   }
+>   
+> +/**
+> + * drm_framebuffer_get_block_offset() - Get offset to start of pixel block for
+> + * the given framebuffer and coordinates.
+> + * @fb: The framebuffer
+> + * @plane: Which plane
+> + * @x: x coordinate for pixel
+> + * @y: y coordinate for pixel
+> + *
+> + * This function will usually be called from the PLANE callback functions,
+> + * or from one of the helpers that calculates the framebuffer's DMA address.
+> + *
+> + * Return: offset from start of framebuffer to start of pixel block
 > + */
+> +u64 drm_framebuffer_get_block_offset(struct drm_framebuffer *fb, unsigned int plane,
+> +				     unsigned int x, unsigned int y)
+> +{
+> +	u8 h_div = 1, v_div = 1;
+> +	u32 block_w = drm_format_info_block_width(fb->format, plane);
+> +	u32 block_h = drm_format_info_block_height(fb->format, plane);
+> +	u32 block_size = fb->format->char_per_block[plane];
+> +	u32 sample_x;
+> +	u32 sample_y;
+> +	u32 block_start_y;
+> +	u32 num_hblocks;
+> +	u64 offset;
 > +
-> +static int rzg2l_du_master_bind(struct device *dev) {
-> +	return rzg2l_du_drm_init(dev, true);
+> +	offset = fb->offsets[plane];
+> +
+> +	if (plane > 0) {
+> +		h_div = fb->format->hsub;
+> +		v_div = fb->format->vsub;
+> +	}
+> +
+> +	sample_x = x / h_div;
+> +	sample_y = y / v_div;
+> +	block_start_y = (sample_y / block_h) * block_h;
+> +	num_hblocks = sample_x / block_w;
+> +
+> +	offset += mul_u32_u32(fb->pitches[plane], block_start_y);
+> +	offset += mul_u32_u32(block_size, num_hblocks);
+> +
+> +	return offset;
 > +}
+> +EXPORT_SYMBOL(drm_framebuffer_get_block_offset);
 > +
-> +static void rzg2l_du_master_unbind(struct device *dev) {
-> +	rzg2l_du_drm_fini(dev, true);
-> +}
+>   #ifdef CONFIG_DEBUG_FS
+>   static int drm_framebuffer_info(struct seq_file *m, void *data)
+>   {
+> diff --git a/include/drm/drm_framebuffer.h b/include/drm/drm_framebuffer.h
+> index 38b24fc8978d..6f838b485730 100644
+> --- a/include/drm/drm_framebuffer.h
+> +++ b/include/drm/drm_framebuffer.h
+> @@ -220,6 +220,9 @@ void drm_framebuffer_remove(struct drm_framebuffer *fb);
+>   void drm_framebuffer_cleanup(struct drm_framebuffer *fb);
+>   void drm_framebuffer_unregister_private(struct drm_framebuffer *fb);
+>   
+> +u64 drm_framebuffer_get_block_offset(struct drm_framebuffer *fb, unsigned int plane,
+> +				     unsigned int x, unsigned int y);
 > +
-> +static const struct component_master_ops rzg2l_du_master_ops =3D {
-> +	.bind =3D rzg2l_du_master_bind,
-> +	.unbind =3D rzg2l_du_master_unbind,
-> +};
-> +
-> +static int rzg2l_du_instance_probe(struct rzg2l_du_device *du) {
-> +	struct component_match *match =3D NULL;
-> +	const struct of_device_id *of_id;
-> +	struct device *dev =3D du->dev;
-> +
-> +	if (!rzg2l_du_has(du, RZG2L_DU_FEATURE_COMPONENT))
-> +		return rzg2l_du_drm_init(dev, false);
-> +
-> +	for_each_available_child_of_node_scoped(dev->of_node->parent, np) {
-> +		of_id =3D of_match_node(dev->driver->of_match_table, np);
-> +		if (!of_id || of_id->data !=3D du->info)
-> +			continue;
-> +
-> +		/* The first available DU instance is the component master. */
-> +		if (!du->is_master) {
-> +			if (np !=3D dev->of_node)
-> +				return component_add(dev, &rzg2l_du_instance_ops);
-> +
-> +			du->is_master =3D true;
-> +			continue;
-> +		}
-> +
-> +		drm_of_component_match_add(dev, &match, component_compare_of, np);
+>   /**
+>    * drm_framebuffer_get - acquire a framebuffer reference
+>    * @fb: DRM framebuffer
 
+-- 
+--
+Thomas Zimmermann
+Graphics Driver Developer
+SUSE Software Solutions Germany GmbH
+Frankenstr. 146, 90461 Nürnberg, Germany, www.suse.com
+GF: Stefan Gaiser, Jochen Jaser, Abhinav Puri, (HRB 36809, AG Nürnberg)
 
-The master=A0is chosen purely by DT order. If the first available DU never =
-probes,
-the second never gets a DRM device. How do you handle this case?
-
-Deferral from master_bind=A0also only works via the component_add/
-component_master_add_with_match=A0return path,
-
-Have you tested with a late-probing DSI or LVDS bridge?
-
-Have you tested component bind/unbind/rebind of both master and slave?
-
-Have you tested PM and shutdown on the second DU?                          =
-                                                                           =
-                         =20
-     du->ddev=A0is only set on the master's platform data. The slave's PM s=
-uspend/resume and=20
-     shutdown therefore call the helpers with NULL
-
-> +	}
-> +
-> +	if (IS_ERR(match))
-> +		return PTR_ERR(match);
-
-Why this error path cannot be inside loop?
-
-Cheers,
-Biju
-
-> +
-> +	if (!match)
-> +		return rzg2l_du_drm_init(dev, false);
-> +
-> +	return component_master_add_with_match(dev, &rzg2l_du_master_ops,
-> +match); }
-> +
-> +static void rzg2l_du_instance_remove(struct rzg2l_du_device *du) {
-> +	if (!rzg2l_du_has(du, RZG2L_DU_FEATURE_COMPONENT)) {
-> +		rzg2l_du_drm_fini(du->dev, false);
-> +		return;
-> +	}
-> +
-> +	if (!du->is_master) {
-> +		component_del(du->dev, &rzg2l_du_instance_ops);
-> +		return;
-> +	}
-> +
-> +	component_master_del(du->dev, &rzg2l_du_master_ops);
-> +
-> +	if (du->ddev)
-> +		rzg2l_du_drm_fini(du->dev, false);
->  }
->=20
->  /* ---------------------------------------------------------------------=
---------
-> @@ -262,7 +370,7 @@ static void rzg2l_du_drm_fini(struct device *dev)
->=20
->  static void rzg2l_du_remove(struct platform_device *pdev)  {
-> -	rzg2l_du_drm_fini(&pdev->dev);
-> +	rzg2l_du_instance_remove(platform_get_drvdata(pdev));
->  }
->=20
->  static void rzg2l_du_shutdown(struct platform_device *pdev) @@ -304,7 +4=
-12,7 @@ static int
-> rzg2l_du_probe(struct platform_device *pdev)
->  	rcdu->info =3D info;
->  	rcdu->mmio =3D mmio;
->=20
-> -	return rzg2l_du_drm_init(&pdev->dev);
-> +	return rzg2l_du_instance_probe(rcdu);
->  }
->=20
->  static struct platform_driver rzg2l_du_platform_driver =3D { diff --git =
-a/drivers/gpu/drm/renesas/rz-
-> du/rzg2l_du_drv.h b/drivers/gpu/drm/renesas/rz-du/rzg2l_du_drv.h
-> index 2952c9d7348b..4c2e12206d83 100644
-> --- a/drivers/gpu/drm/renesas/rz-du/rzg2l_du_drv.h
-> +++ b/drivers/gpu/drm/renesas/rz-du/rzg2l_du_drv.h
-> @@ -21,6 +21,7 @@ struct device;
->  struct drm_property;
->=20
->  #define RZG2L_DU_FEATURE_DPIO_OE	BIT(0)	/* Has DPIO output enable contro=
-l */
-> +#define RZG2L_DU_FEATURE_COMPONENT	BIT(1)	/* Has several DU instances in=
- one DRM device */
->=20
->  enum rzg2l_du_output {
->  	RZG2L_DU_OUTPUT_DSI0,
-> @@ -71,6 +72,7 @@ struct rzg2l_du_device {
->=20
->  	struct drm_device *ddev;
->  	unsigned int index;
-> +	bool is_master;
->=20
->  	struct rzg2l_du_crtc crtcs[RZG2L_DU_MAX_CRTCS];
->  	unsigned int num_crtcs;
-> --
-> 2.54.0
 
