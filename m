@@ -2,89 +2,90 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F1821606A31E
-	for <dri-devel@archiver.kernel.org>; Tue, 24 Nov 2026 14:30:53 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4450F606A335
+	for <dri-devel@archiver.kernel.org>; Tue, 24 Nov 2026 14:33:53 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=fooishbar.org header.i=@fooishbar.org header.a=rsa-sha256 header.s=google header.b=fXtpZRrU
+	dkim=pass (2048-bit key) header.d=fooishbar.org header.i=@fooishbar.org header.a=rsa-sha256 header.s=google header.b=SI/DKvAZ
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 5D11D10F665;
-	Tue, 24 Nov 2026 14:30:48 +0000 (UTC)
-Received: from mail-pf1-f177.google.com (mail-pf1-f177.google.com
- [209.85.210.177])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 169D110F665
- for <dri-devel@lists.freedesktop.org>; Tue, 24 Nov 2026 14:30:42 +0000 (UTC)
-Received: by mail-pf1-f177.google.com with SMTP id
- d2e1a72fcca58-8b9c51097e2so1668994b3a.1
- for <dri-devel@lists.freedesktop.org>; Tue, 24 Nov 2026 06:30:42 -0800 (PST)
-ARC-Seal: i=1; a=rsa-sha256; t=1795530641; cv=none;
+	by gabe.freedesktop.org (Postfix) with ESMTP id A004310F456;
+	Tue, 24 Nov 2026 14:33:47 +0000 (UTC)
+Received: from mail-pj1-f48.google.com (mail-pj1-f48.google.com
+ [209.85.216.48])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 050A010F66F
+ for <dri-devel@lists.freedesktop.org>; Tue, 24 Nov 2026 14:33:41 +0000 (UTC)
+Received: by mail-pj1-f48.google.com with SMTP id
+ 98e67ed59e1d1-3b3d4d3bba3so2296897a91.3
+ for <dri-devel@lists.freedesktop.org>; Tue, 24 Nov 2026 06:33:41 -0800 (PST)
+ARC-Seal: i=1; a=rsa-sha256; t=1795530820; cv=none;
  d=google.com; s=arc-20260327;
- b=c8XeKdNdhv7J85kMUN80I1P7dnBxAc5HxJhlmGejc+yqazKCvf23QY8+fsQ4S4vGbJ
- JkSHhFTsoZAtLVZELgleusQrAlDP55WweJWShp13IXizwziVr14Hy2iRgVSsqlm90+nl
- L+X71H0JEfEWE8WTlTAabmmzKuHDqhGU+7xWaZBjjQF4TQi+SAtFzTXaKE98GL3l0jP0
- /jQuIWmIZtJL45wmwEvg1VOGO2omTonLmJNAJvACjC+uaFSqahFbUzlEirrSFAElJfYj
- kIs8IfoGxIBNRM1pUgbkSdlmWw9nS1AZp5dThK8U0QungkMOUKwksLWVS28M8mzDuTxk
- u/bA==
+ b=Fc+J1uWERAK5UChw6nrN9t/XpT8l2SyX50UW3jbT9Tup6GLVv5kqMeNeSoA1iewBab
+ DX/uNQW3YHJHmUvm11y3gj8Hp3pt67drMhKZoePtkpXSR6/V+fHDND6fFsk40f52oqbf
+ 6RenddwNau3eGzleoj7/V23SETW53E3yQMVBFquDkw5tL5UCKzMFzMcnaTtTgK/2N7co
+ +HaVNRjg481WVjfEQQRarlQ7mVX5P9y5FeQpqnahDkAh+cNBXr8DFrqrM8bd6TBfus2q
+ hQFCR60kS5bISARy/iwam21MMHyyhG30V0nHfZNrf+bwEoxgjudGMj5DFH2uemP8K7Ql
+ VdcA==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com;
  s=arc-20260327; 
  h=cc:to:subject:message-id:date:from:in-reply-to:references
  :mime-version:dkim-signature;
- bh=kFSlcrGHGfKA+EfrnFhI9X/nm4JGlc6mNtmuQxk7pQQ=;
- fh=AjifZRa91q8HNlFNWeNsLSfA2auETXzaDHpZy71YNd8=;
- b=ewB0tXFX4OMjRdwRG/ZfG3wNnRcb9aX8ljEXgZ5zY6sgAh8JrLlC2xEOjr0M40eTgv
- iYuXpMR7ju1khzNzPMmnhGMo4uyiALW7Q+rIfpeFEe1OmfbfA7a8+9ZNajd7sn6s8fPt
- GGDGzMhaeJB3hsqMNaJQepyrlnaaWoYqwJU8HsjDdfqFUB1Lf3ZqgmYH+i5J1Dga6u2X
- QwHoIGh3Umn0LV9AMUGQXdzln5bHtYxrjPPOK5dAHxNJD0vdPjmtP758fEZsIu7ke/Fg
- CL0zEbbbnzlBBGbvrWTPxoe62D9lLnY8gCVg99KGt7kP9G2tOQkdRdx/l4P+/9ZSa3Xq
- LTuQ==; darn=lists.freedesktop.org
+ bh=RUxbFCgX/qZgkllCLWhh1DGi6P1IWH5bzGO/fNRQRnI=;
+ fh=aWUqxXkRLRHR4LKOeikHRnTvaVeMeLM2sFfOrw2eXok=;
+ b=Ap2pfitFxetxq8sEo5wHMyBAwG3bSCdtkF6t1KL2/uH9cDn8xo2oBMIjj0+VD8UjnY
+ Oa9qzkd4LG2lqdygN+vYUAsf7ogoQ5x0zxP6Sdp8kza6KM580gv5XT6i2mKgWO+cBVPH
+ 9893zN/QB6wHw/6PK+oKhAd5VOcrXuRhj9jnaruNxFn/17egN50e/AEG6ZTYNkMaWDvd
+ DescbWvcLrFFHnxC9IY4KdlzPHVonZXOmu6hH5EHPIQnLN+34PNIJjOdwlciXQ37jV16
+ 0b63A/vOTNhovgUpItoILoGq29OIeDY1jyiBO4zqWjhL+mmISPq5DkMLXh2WqpD+WBcu
+ afEw==; darn=lists.freedesktop.org
 ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=fooishbar.org; s=google; t=1795530641; x=1796135441;
+ d=fooishbar.org; s=google; t=1795530820; x=1796135620;
  darn=lists.freedesktop.org; 
  h=content-type:cc:to:subject:message-id:date:from:in-reply-to
  :references:mime-version:from:to:cc:subject:date:message-id:reply-to
- :content-type; bh=kFSlcrGHGfKA+EfrnFhI9X/nm4JGlc6mNtmuQxk7pQQ=;
- b=fXtpZRrUcHP9kfU0E56joWyHARAInZWygPSy+O1P7hB6FxmqtB6XM6Am8jPB/k9LCw
- 3OrgL69Y+rSKZ9hYp3Zi8MtDCzVfIPcdZTE79ZH1bIpnT+dztLrPjAfdi5Bf7NL5rDQk
- LuX3seNBJNYQHoBI2bQa/WD9aqKZ2w6PfgQsj6b6mixGV0KVJg/gFY3Vb4Z/IZSKtepC
- QW61/tTscLMVbg7h7UqttDuLCm0zZRntGmSMTGYMC/PX+KvhcL6iBiWSX4VjQwb5SpwN
- STkCPxrJSBOX8z/IJ0fPJBlMtHPYIfpp5uKUbI2BYahNMg+xW5IOBNFykyhnEOJ5vy40
- 7+SQ==
+ :content-type; bh=RUxbFCgX/qZgkllCLWhh1DGi6P1IWH5bzGO/fNRQRnI=;
+ b=SI/DKvAZv2hq1GhCuud/9eqZDPMCrhReRghLgGhCwzgchwmKDQh3NnG8ErfSCR9Yyj
+ RamBJfPJxTz9orWYJl2L5JN3CHz90dwy+VQJkUOZ3NS2v1surfxZHH5gwUDVJi+NxyD3
+ kJWPSr+6VfnlZIVYDRkYcSZH4coYuOhlkSlNwpwbXjwOYzriWqywGdGGPPJE+LPbV+82
+ rGzGS4B9nNkV6OX11SoY2seyYTTapgtv870Q0q8J8Ad0QM42p4z2bzEeBrqvIPXYEVXO
+ 4Iwh+o4sBeciamayLnliSH+vjRKpv6aTTJDOhHuO0N17HINHW4AOgL4VAax4aJUF5FEv
+ G8jw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20260707; t=1795530641; x=1796135441;
+ d=1e100.net; s=20260707; t=1795530820; x=1796135620;
  h=content-type:cc:to:subject:message-id:date:from:in-reply-to
  :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
  :subject:date:message-id:reply-to:content-type;
- bh=kFSlcrGHGfKA+EfrnFhI9X/nm4JGlc6mNtmuQxk7pQQ=;
- b=vFavYn0ZEMtVYacDWsoGgnsg5xmJGovxOTyYsJW8rGBiTrAPPoJuqwddz1yHB0erus
- mU77KhkPbxl6LfqHGI/8XXvjqb7Fj06v5OT9yzGLzlEjeT8uMYIVg0Xy2vJ9unCTyEzZ
- YPpaJaeLOMxp0axhSa7K2A2HV6SoFRrrehhR+ULew3XBIYdm3nalynmoPWF/C1eb5Quz
- LFjztB4a0YK+2eaBE19S2A+ZMy/txD+wmbN6QIZA0NnrvK8jVVfVI55bcBjsT8KG4cEj
- 5Z3//08UIHTPWPcKjfTQ4DFf1hIdwjCwIq1ch12f86W8wn62HWKZZueYNL1bHGw6cEv8
- B24g==
+ bh=RUxbFCgX/qZgkllCLWhh1DGi6P1IWH5bzGO/fNRQRnI=;
+ b=dX19+vLzZTgcspoILydJ1gt7E4KvJBstp/zQCcgXw+/+k3JGsK9vKgYBX7wdKbJo37
+ RjXWUa5UpO7VNvtXPZHYzxgIhT6IAZOJcOac6jPch3UFRQTEc4rs7aY619Lw+dQU0GxA
+ vdLZZAWHNANmYwwE9yV00tEKFkHzh/kQDk7kPHTrEwxJwz2nyGvR7fVFvUnsyktD9NlD
+ nKZvZaS/VZLRf6Z0PpJZmHOLziBHyLcu9WcigfbafQQSWDlrAw7v3oQ4x3qKUxc17ce6
+ Fh5PXM6wHg9p1g8gcHpS4zrcAVcyWGrt7lB/Nruj+7tZS8lzhZUxB8xY7+obZ7chukVX
+ VvsA==
 X-Forwarded-Encrypted: i=1;
- AL+hErEYm0DIMMWOTCM5NBz8IjNZ642kzN1T5oAF/AgQaJ5QITvXaEOM8VLdIVWcVVhFuqRdilDSEttr6Q4=@lists.freedesktop.org
-X-Gm-Message-State: APuU4Z9zjiUThEbUR/o3KJb4oSqTRG94L4n3M0Ga+NAKjfDO6AtnCy22
- jZ1Jg2dqAr/31Nl4LxL3c3gaKcX3QWWAFEG2zHx8m2QqGb7D2M7dKcAiPXblJuRZ5WmRsrTQO4L
- 9s8VKfJQtgARBInvTLf8Nm7te4Pa59Oa7A92ZlTKw2w==
-X-Gm-Gg: AZFdTZeFjNhmxmDb5ENdp6w3szCyq5i9+8tvfS9kjMedCyoY+zgckUyR8307vXYsbXZ
- Nhca2vWf0NkbStDITfN6dxuTCPdiW5uE1dhdYmOrl5zx2jPNAzwPZq9zzjKcZXH/R0Z9J7IsXmQ
- VxMLZ7svRWm0GzmPddIlgGqpWtnrlHaiaY8uRmgZl0I+bmHbSTJNrjoFiLaCeMtZZMmIGI5wET1
- pj71/1pZwpHwWpkbj6QPm617fi+KYDP1MjLOqYNd1boryQkXL3EmuX1F/XJ97db3mLE6r44Lxpr
- IT4JEL+FimV/cHsgXs6LoytF+bfYkG59MBJf1r4ZR0yDlyoQ+d5aAaufi9xUHOpR8d4g0k+PWrG
- QOLT6xBdLAtE1HP8t7nuf9w3F2PJ2wjGicg==
-X-Received: by 2002:a05:6a20:2589:b0:3f9:797f:3869 with SMTP id
- adf61e73a8af0-4014d359938mr14437260637.47.1795530641542; Tue, 24 Nov 2026
- 06:30:41 -0800 (PST)
+ AL+hErF9hr4tJB5pcul6ZYP7C1Hu3pEjdh0/tAWwuWGoKT8SoXILVLNQWtIQZC390lkBBMB4UtwKsh05UoI=@lists.freedesktop.org
+X-Gm-Message-State: APuU4Z9pDlIisFgbO9qQPI2MewX6wlZ3paaMdEkKTcgZoqqCPcxf8Zdv
+ OFVdY7FRT6SShId++AzJwioo5kEn16cJYeJMeXmbLagINwRkW/nXl14qu5libj5zHu+EeN45i6T
+ pxIk0NUBez3vORD5QJwZETxA90M2gnEqwmTPtOfZxCw==
+X-Gm-Gg: AZFdTZeBdkhvMgcsoiuM6lwCLQtVd+2fiLnnJsl0IHxX25XNgg+Sx0tuRvXxzuBJIy+
+ SvxQgDvQVTOWwoVllxwr5jgKR/++Ts0pvPZRx8UgKDPxh6h5AnwwZKBea5J56ukkrjQMm068c5Q
+ FMSMSC2PwQtCY0l4a5cWcf8uCrC9xsfnPEENpNsraZYovFofjAKxw3IweFgekkOyMfcOCB2CoQo
+ qR7FJDikHjqMKzZhle1Fvy5gWfpNLIcXgqyzpfFfVAnpcpArNPj3tO1YixMn5ulqxCIRnF6Orr8
+ bC8cNy2hj3nueFmDYL9yOrgiByxmHRCmVJxymDDN4GqQf5JBguf8a1TtDr0m18lrtvzvRbEGOWS
+ 7ba2ZlLCt85m2mGWhStiDQzpKr9/tPcaOSw==
+X-Received: by 2002:a17:90b:2f8c:b0:3a2:b16d:928b with SMTP id
+ 98e67ed59e1d1-3b41c95aec8mr12847695a91.46.1795530820492; Tue, 24 Nov 2026
+ 06:33:40 -0800 (PST)
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
 References: <20260714114414.184512-1-angelogioacchino.delregno@collabora.com>
- <20260714114414.184512-4-angelogioacchino.delregno@collabora.com>
-In-Reply-To: <20260714114414.184512-4-angelogioacchino.delregno@collabora.com>
+ <20260714114414.184512-32-angelogioacchino.delregno@collabora.com>
+In-Reply-To: <20260714114414.184512-32-angelogioacchino.delregno@collabora.com>
 From: Daniel Stone <daniel@fooishbar.org>
-Date: Tue, 24 Nov 2026 14:30:29 +0000
-X-Gm-Features: Aa3M54oeKn_H5KtwYJP7Cgtm4lKr9C1ncfB30nHv_jvzqMcIUhZDyb3veHGchVg
-Message-ID: <CAPj87rOEtG9JqJsEZkatqrWUkerO9Xx93MBUrXXChJwCokE0Vw@mail.gmail.com>
-Subject: Re: [PATCH v2 03/46] drm/mediatek: Export OVL Blend function
+Date: Tue, 24 Nov 2026 14:33:29 +0000
+X-Gm-Features: Aa3M54oxOcYmQorjTkd5D-GkJnjfCGVao0VGN1bH7KpMt9eEOWMLLFoUmIq_rhA
+Message-ID: <CAPj87rMW6c0BMELjn70vsc+mkMxegDbSgQC-8BEDGspFyxzW2Q@mail.gmail.com>
+Subject: Re: [PATCH v2 31/46] drm/mediatek: Add support for Display Layer
+ Blender component
 To: AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>
 Cc: chunkuang.hu@kernel.org, p.zabel@pengutronix.de, airlied@gmail.com, 
  simona@ffwll.ch, maarten.lankhorst@linux.intel.com, mripard@kernel.org, 
@@ -92,8 +93,7 @@ Cc: chunkuang.hu@kernel.org, p.zabel@pengutronix.de, airlied@gmail.com,
  matthias.bgg@gmail.com, dri-devel@lists.freedesktop.org, 
  linux-mediatek@lists.infradead.org, devicetree@vger.kernel.org, 
  linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
- justin.yeh@mediatek.com, jason-jh.lin@mediatek.com, kernel@collabora.com, 
- Paul-pl Chen <paul-pl.chen@mediatek.com>, Nancy Lin <nancy.lin@mediatek.com>
+ justin.yeh@mediatek.com, jason-jh.lin@mediatek.com, kernel@collabora.com
 Content-Type: text/plain; charset="UTF-8"
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -115,30 +115,34 @@ X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 
 Hi Angelo,
 
-On Tue, 14 Jul 2026 at 12:44, AngeloGioacchino Del Regno
+On Tue, 14 Jul 2026 at 12:46, AngeloGioacchino Del Regno
 <angelogioacchino.delregno@collabora.com> wrote:
-> +unsigned int mtk_ovl_get_blend_mode(struct mtk_plane_state *state, unsigned int blend_modes)
+> +#define DISP_REG_OVL_BLD_L0_CLR                        0x20c
+> +#  define OVL_BLD_BGCLR_BLACK                  0xff000000
+> +#  define OVL_BLD_BGCLR_RED                    0xffff0000
+
+We probably don't need a #define for every ARGB8888 colour tbh. :)
+
+> +void mtk_blender_config(struct mtk_ddp_comp *comp, unsigned int w,
+> +                            unsigned int h, unsigned int vrefresh,
+> +                            unsigned int bpc, struct cmdq_pkt *cmdq_pkt)
 > +{
-> +       unsigned int blend_mode = DRM_MODE_BLEND_COVERAGE;
+> +       struct mtk_disp_blender *priv = dev_get_drvdata(comp->dev);
+> +       u32 val;
+> +
+> +       /* Set ROI for this Blender */
+> +       val = ((h & GENMASK(15, 0)) << 16) | (w & GENMASK(15, 0));
+> +       writel(val, priv->regs + DISP_REG_OVL_BLD_ROI_SIZE);
 > +
 > +       /*
-> +        * For the platforms where OVL_CON_CLRFMT_MAN is defined in the hardware data sheet
-> +        * and supports premultiplied color formats, such as OVL_CON_CLRFMT_PARGB888
-> +        * and supports premultiplied color formats, such as OVL_CON_CLRFMT_PARGB8888.
-> +        *
-> +        * Check blend_modes in the driver data to see if premultiplied mode is supported.
-> +        * If not, use coverage mode instead to set it to the supported color formats.
-> +        *
-> +        * Current DRM assumption is that alpha is default premultiplied, so the bitmask of
-> +        * blend_modes must include BIT(DRM_MODE_BLEND_PREMULTI). Otherwise, mtk_plane_init()
-> +        * will get an error return from drm_plane_create_blend_mode_property() and
-> +        * state->base.pixel_blend_mode should not be used.
+> +        * Set both background color and constant layer color to Opaque Black
+> +        * (ARGB) for eventual Alpha Blending to be effective
 > +        */
+> +       writel(OVL_BLD_BGCLR_BLACK, priv->regs + DISP_REG_OVL_BLD_BGCLR_CLR);
+> +       writel(OVL_BLD_BGCLR_BLACK, priv->regs + DISP_REG_OVL_BLD_L0_CLR);
 
-This hasn't been true since 9813e158d13d. I know this series predates
-that, and this is just existing code, but it's another instance of
-'lie to userspace and fix stuff up behind its back' which we should
-get rid of ASAP please.
+Would you believe that this does not in fact need to be black, as it's
+been configurable since 4c684596cde4?
 
 Cheers,
 Daniel
