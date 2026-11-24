@@ -2,70 +2,118 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C1DEE606A326
-	for <dri-devel@archiver.kernel.org>; Tue, 24 Nov 2026 14:41:03 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6C075606A330
+	for <dri-devel@archiver.kernel.org>; Tue, 24 Nov 2026 14:43:35 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=io9tgaHH
+	dkim=pass (2048-bit key, unprotected) header.d=Nvidia.com header.i=@Nvidia.com header.a=rsa-sha256 header.s=selector2 header.b=pRbwv126
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 2AB4E10F67F;
-	Tue, 24 Nov 2026 14:40:58 +0000 (UTC)
-Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 9E63B10F67F
- for <dri-devel@lists.freedesktop.org>; Tue, 24 Nov 2026 14:40:51 +0000 (UTC)
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id 5878843DA8;
- Tue, 24 Nov 2026 14:40:51 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 572071F000D0;
- Tue, 24 Nov 2026 14:40:50 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1795531251;
- bh=unbcf7IxetKvCKK1oK9oQ5fvh2u9DJnAEwqwMUBWQOo=;
- h=Date:From:To:Cc:Subject:References:In-Reply-To;
- b=io9tgaHHOyo0Z5zikV7SPV2Mwg+94HMNGbKiAM6qeawvECgjSx8Wwf/4yH3FweP+3
- TL7qQJAZMBWzCIlZak4Iy94oXDyTDm8kfC54GyWgMQaSBTQa9kkC8/F2r893oDxpwc
- tlvIxnIdjAa8rhJn38qfedqiDhY2U4aFH4mg7hs2IJuSxAOxVT0VBEZithvdBqfqN+
- xyFKXxxrBo5rneon0rgD37tzMv9xzSn6QyMSDl2YTyqXHgch9BVeQUItNuW3Ye4hUC
- qGKaO8UhXh8/zqil67p9RbC3e68sJ/7wZHtumE4lq/eECPNerHkHhoYWSFOvQQcGGF
- Dbl+rs4tjDHhw==
-Date: Tue, 24 Nov 2026 15:40:47 +0100
-From: Krzysztof Kozlowski <krzk@kernel.org>
-To: "H. Nikolaus Schaller" <hns@goldelico.com>
-Cc: Linus Walleij <linus.walleij@linaro.org>, 
- Bartosz Golaszewski <brgl@kernel.org>, Rob Herring <robh@kernel.org>, 
- Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>,
- Lee Jones <lee@kernel.org>, 
- Daniel Thompson <danielt@kernel.org>, Jingoo Han <jingoohan1@gmail.com>, 
- Pavel Machek <pavel@kernel.org>, Liam Girdwood <lgirdwood@gmail.com>, 
- Mark Brown <broonie@kernel.org>, Aaro Koskinen <aaro.koskinen@iki.fi>, 
- Andreas Kemnade <andreas@kemnade.info>, Kevin Hilman <khilman@baylibre.com>, 
- Roger Quadros <rogerq@kernel.org>, Tony Lindgren <tony@atomide.com>, 
- Russell King <linux@armlinux.org.uk>,
- Neil Armstrong <neil.armstrong@linaro.org>, 
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>, 
- Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>, 
- Simona Vetter <simona@ffwll.ch>,
- Uwe =?utf-8?Q?Kleine-K=C3=B6nig?= <ukleinek@kernel.org>, 
- Helge Deller <deller@gmx.de>, Jaroslav Kysela <perex@perex.cz>,
- Takashi Iwai <tiwai@suse.com>, Peter Ujfalusi <peter.ujfalusi@gmail.com>,
- Jarkko Nikula <jarkko.nikula@bitmer.com>, 
- Jessica Zhang <jessica.zhang@oss.qualcomm.com>, linux-gpio@vger.kernel.org,
- devicetree@vger.kernel.org, 
- linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org,
- linux-leds@vger.kernel.org, 
- linux-sound@vger.kernel.org, linux-omap@vger.kernel.org,
- linux-arm-kernel@lists.infradead.org, 
- linux-pwm@vger.kernel.org, linux-fbdev@vger.kernel.org,
- letux-kernel@openphoenux.org, kernel@pyra-handheld.com
-Subject: Re: [PATCH v2 08/20] dt-bindings: mfd: twl4030: Document 64-cycle PWM
-Message-ID: <20261124-neon-noble-seagull-df2d40@quoll>
-References: <cover.1795505160.git.hns@goldelico.com>
- <8e0c47487add0fa1bc0dad9b1bceef5ebf8071d4.1795505160.git.hns@goldelico.com>
+	by gabe.freedesktop.org (Postfix) with ESMTP id BA6E510F53F;
+	Tue, 24 Nov 2026 14:43:29 +0000 (UTC)
+Received: from CY7PR03CU001.outbound.protection.outlook.com
+ (mail-westcentralusazon11010064.outbound.protection.outlook.com
+ [40.93.198.64])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id A666E10F53F
+ for <dri-devel@lists.freedesktop.org>; Tue, 24 Nov 2026 14:43:23 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=kf8G/kdg5/pvzDAXSW79j4cufKaFlaybRkai+BqWjDHvGQ3vFw0YyasNhUbVr16sn2PKyoSlEgJJVGycYeuh5yjfFq8Tv08XdHAL545naSORhbLWChhAWfXcH1Ku439PoElK2FHFIMPqoTyJ5JJXQ664QKuXg7Nl39ahp7j2j3OEpMWzsV+8Jopc31UjdkueSI6nadTRZ3pBRTqNe00CCZMr5mtLfc3QibH4KkqYmSln3Cf0HV5DhMSCQsL2IsOt0RPCesbmKQCneeI3mZbhQaVJAOa5azfpZ4CgmEfAJtZbqH1YQOUlJVff59+U5YgFaYbyLXXVVZ1Q0yyVNJ+gDA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=37iWtkEYVxT5Rj/Agt+5ARtq0Av7RcT23h7tCkGqGa0=;
+ b=lxJ/qwtnuHCEtXfza2zLdMfgbl3cFQyUWE8A0wNQCiX+IvJA3uRPys0KuYEjEQ97hc9WBUqYUkz82dnR37xomGFod5AP96cnp27R1tBboTtJVmT7eDhQ3bG3SvWDjQVqa7uynUt1qZZV4p3XuylsO2mfzIVah9YdBb8GXveCPQX6PiA3s1L+NL/dJIneyxc/+tLOpfMBpqiDmZl6YdGM1z1Bcryy2Nn4973zoQtoOno4bnG03at5P2e5dRLWIVVcKemON8YNNdujzT4ZbsJnEq0h34jcl9USLYPcIC2iQvM91yfKHhO3EPV2PfhPXEMGWD5DuLz4HXzhtVlo70uf2g==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 216.228.117.160) smtp.rcpttodomain=kernel.org smtp.mailfrom=nvidia.com;
+ dmarc=pass (p=reject sp=reject pct=100) action=none header.from=nvidia.com;
+ dkim=none (message not signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
+ s=selector2;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=37iWtkEYVxT5Rj/Agt+5ARtq0Av7RcT23h7tCkGqGa0=;
+ b=pRbwv126wsxNdEM5TgoptweMdLHb+7oxiQWuuM8xSyylQXQt6eM7umuxoIGeXC87eycv7YOYe7NYCP2kVgnUnnxx7oJA4Q/BUghAv2axiVbZyWLKrq5WDcpS94SIMOMSAHOlBEnKD3qBJtF9p9xlYZ/5HUvrLeCJw+nA1HEySrPLVNmA8qjNUrlcICoAR1Jl3snEFXOBr+Rso7QIgTBqxb11VaLNjT6/oUQJbKtWmOU4pjMxq0CaclVcsdOAMOPO/5qiYxw36sphfNEctTvuM8gXF3xyaqK/v8f31fqQt8eru4pA2MdCPS8Xxtmqvav9wWgr5icnBJMj1SeHvzZlew==
+Received: from CH0PR03CA0304.namprd03.prod.outlook.com (2603:10b6:610:118::28)
+ by CY5PR12MB6648.namprd12.prod.outlook.com (2603:10b6:930:3e::9) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.639.12; Tue, 24 Nov
+ 2026 14:43:14 +0000
+Received: from CH1PEPF0005BD62.namprd02.prod.outlook.com
+ (2603:10b6:610:118:cafe::2e) by CH0PR03CA0304.outlook.office365.com
+ (2603:10b6:610:118::28) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.21.662.6 via Frontend Transport; Tue, 24
+ Nov 2026 14:43:13 +0000
+X-MS-Exchange-Authentication-Results: mx.microsoft.com 1; spf=pass (sender IP
+ is 216.228.117.160)
+ smtp.mailfrom=nvidia.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=nvidia.com;
+Received-SPF: Pass (protection.outlook.com: domain of nvidia.com designates
+ 216.228.117.160 as permitted sender) receiver=protection.outlook.com;
+ client-ip=216.228.117.160; helo=mail.nvidia.com; pr=C
+Received: from mail.nvidia.com (216.228.117.160) by
+ CH1PEPF0005BD62.mail.protection.outlook.com (10.167.244.251) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.21.662.3 via Frontend Transport; Tue, 24 Nov 2026 14:43:13 +0000
+Received: from rnnvmail201.nvidia.com (10.129.68.8) by mail.nvidia.com
+ (10.129.200.66) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.57; Tue, 24 Nov
+ 2026 06:42:53 -0800
+Received: from kalok-SPC741D16QM3.nvidia.com (10.126.230.37) by
+ rnnvmail201.nvidia.com (10.129.68.8) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.57; Tue, 24 Nov 2026 06:42:40 -0800
+From: Alok Kumar <alkumar@nvidia.com>
+To: <dakr@kernel.org>, <acourbot@nvidia.com>, <kvm@vger.kernel.org>,
+ <rust-for-linux@vger.kernel.org>, <nova-gpu@lists.linux.dev>,
+ <linux-pci@vger.kernel.org>
+CC: <alex@shazbot.org>, <jgg@nvidia.com>, <yishaih@nvidia.com>,
+ <skolothumtho@nvidia.com>, <kevin.tian@intel.com>, <airlied@gmail.com>,
+ <simona@ffwll.ch>, <ojeda@kernel.org>, <alex.gaynor@gmail.com>,
+ <boqun.feng@gmail.com>, <gary@garyguo.net>, <bjorn3_gh@protonmail.com>,
+ <lossin@kernel.org>, <a.hindborg@kernel.org>, <aliceryhl@google.com>,
+ <tmgross@umich.edu>, <markus.probst@posteo.de>, <jhubbard@nvidia.com>,
+ <apopple@nvidia.com>, <joelagnelf@nvidia.com>, <ecourtney@nvidia.com>,
+ <cjia@nvidia.com>, <smitra@nvidia.com>, <kjaju@nvidia.com>,
+ <alkumar@nvidia.com>, <ankita@nvidia.com>, <aniketa@nvidia.com>,
+ <kwankhede@nvidia.com>, <targupta@nvidia.com>,
+ <linux-kernel@vger.kernel.org>, <zhiwang@kernel.org>, <zhiw@nvidia.com>,
+ <boqun@kernel.org>, <daniel.almeida@collabora.com>, <tamird@kernel.org>,
+ <work@onurozkan.dev>, <jgg@ziepe.ca>, <bhelgaas@google.com>,
+ <kwilczynski@kernel.org>, <dri-devel@lists.freedesktop.org>,
+ <peter@colberg.org>, <xinmengs@nvidia.com>
+Subject: [PATCH v3 0/1] gpu: nova-core: add fwctl driver for firmware control
+ interface
+Date: Tue, 24 Nov 2026 20:12:03 +0530
+Message-ID: <20261124144204.19072-1-alkumar@nvidia.com>
+X-Mailer: git-send-email 2.53.0
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-In-Reply-To: <8e0c47487add0fa1bc0dad9b1bceef5ebf8071d4.1795505160.git.hns@goldelico.com>
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-ClientProxiedBy: rnnvmail203.nvidia.com (10.129.68.9) To
+ rnnvmail201.nvidia.com (10.129.68.8)
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: CH1PEPF0005BD62:EE_|CY5PR12MB6648:EE_
+X-MS-Office365-Filtering-Correlation-Id: e95cba3c-2b14-4ce0-9f96-08df4a3944cd
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+ ARA:13230040|23010399003|36860700016|376014|7416014|1800799024|82310400026|10067099003|260925021911599003|11063799006|5023799004|56012099006|260925021311599003|260925022911599003|261022105027099003|261021121427099003|261009223027099003|261028144727099003|261026121527099003|261022075727099003|261102130727099003|261102123227099003|261026140227099003|18002099003|6133799003|3023799007;
+X-Microsoft-Antispam-Message-Info: lR09xPnGJNwdiimhVW7gu46I+rLiXSXY3JerkKDvaCmQInXJWJPg6OLOMjAfiaCTnXLDHWWMUAqQOJ7w5yw4s+01H1fHF+9kjYYDqxuSTM2d8Ekzw/A7hgn1CdyGrl7no21saT8nK+j+g0N19GnNy+CMge6UZHoVxXeQo4hZTLrerSiVr6+kNvaFkA2/V8BGqCPr4RcH4cp81QstjSKpn1ZnKktUneNn4E6Fyipz+/PCe3LIUSrFY9bbpTEGNdTFALqYRcwzaB70BGfnkeO6t1KF7dWyfdnapvl19XOr9WDiHQ4HKYDEPtIChdapxqV9tkI/zBP1/kwxvis4kYduKl3yE41s94WcW2eBjmtTlZDTYKzgQzyVaPL81V5k88YWEZIH7KKVanM/IWe4sX1h66cX/UBxnzaw45S1/cZx/wBerGlrQcuHyCQHs1vX5gnuWl6HNjRCrowrh7LCYD/fiY2PfZQ+4Lg3R2ivszQMvtgod30ogHazBit7l9ufiw4fSKg5tfv3fnN9RXnJPkE8gxIolZa1658kCA2QAzQXnIjTnQMyabilR5yjKxSd9dihKRE9WyEecrAH74p6MHUsH+TyLY9gTe+FREA+CLGhLKretlqJskxuvhm74n1ZrQtfofx4hAa3AEHnfRZc1WJCyC8cu/p9zv6hSCIlrKCRdYs6xz99o6vs1UUyWtp9Ley+6TmapBOkXt18kIoT32nRMA==
+X-Forefront-Antispam-Report: CIP:216.228.117.160; CTRY:US; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:mail.nvidia.com; PTR:dc6edge1.nvidia.com; CAT:NONE;
+ SFS:(13230040)(23010399003)(36860700016)(376014)(7416014)(1800799024)(82310400026)(10067099003)(260925021911599003)(11063799006)(5023799004)(56012099006)(260925021311599003)(260925022911599003)(261022105027099003)(261021121427099003)(261009223027099003)(261028144727099003)(261026121527099003)(261022075727099003)(261102130727099003)(261102123227099003)(261026140227099003)(18002099003)(6133799003)(3023799007);
+ DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: EF+MffGJWnt0zX1FBAC7dzu/akKDBD3TPKja105Qk/H4HY6rPcdhrB0am7kaM1kTgweu747MT+GzXOooB7Ns2piyA1NTGP0QtdbsfoqUmDulPpCXlPxS3WKoFo3CHOTu8/TVt/LTMlE4VTXR2PNOjVRdA8pAcXhvs/oACJtQwc8M6tyC8JCVrHwHq6fSE+bLxBGL0XIhPjtYMg+744vC0jkwEDOhPmc13zCv4iIqmQ49uy0H0o/w7QpnS6oOWbcOomUKNjvJ8OVZewjbiTQKZlOxs4yI4u34LzApkfz/QDapxLqJrX8NBDfQiy3Gu0PgMFgW3MvAK1Ixsp2B3sBmLyhxEn0XzcrrIN5/bne+15XtrWiWSgdrIFyMN7t1ql+mEeOpCX6YRGEBehkbxN7IdBiY0A8Q3lnkCMIflnBXbLs4GvDBoKQ0UQWCDtwMT1sY
+X-OriginatorOrg: Nvidia.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 24 Nov 2026 14:43:13.6770 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: e95cba3c-2b14-4ce0-9f96-08df4a3944cd
+X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=43083d15-7273-40c1-b7db-39efd9ccc17a; Ip=[216.228.117.160];
+ Helo=[mail.nvidia.com]
+X-MS-Exchange-CrossTenant-AuthSource: CH1PEPF0005BD62.namprd02.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: CY5PR12MB6648
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -77,69 +125,102 @@ List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-15.8 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
+X-Spam-Status: No, score=-18.8 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
 	DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
-	INCLUDES_CR_TRAILER,INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,
-	SPF_PASS autolearn=ham autolearn_force=no version=4.0.1
+	INCLUDES_PATCH,MAILING_LIST_MULTI,MENTIONS_GIT_HOSTING,SPF_HELO_NONE,
+	SPF_PASS,USER_AGENT_GIT autolearn=unavailable autolearn_force=no
+	version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-On Tue, Nov 24, 2026 at 08:25:48AM +0100, H. Nikolaus Schaller wrote:
-> Document the optional ti,twl4030-pwm-frame-64 property for the
-> TWL4030 PWM controller. It selects the 64-clock-cycle frame instead
-> of the default 128-cycle frame, doubling the output frequency and
-> reducing duty-cycle resolution.
-> 
-> The selection is explicit because the driver does not know the PWM
-> input clock rate and cannot derive the hardware frame length from a
-> consumer-requested period. The shorter frame can reduce PWM LOW
-> intervals during startup mode detection of LED drivers such as the
-> TI TPS61160/61.
-> 
-> Signed-off-by: H. Nikolaus Schaller <hns@goldelico.com>
-> ---
-> 
-> Notes:
->     Changes against V1:
->     - Revised commit message to focus on the binding and the reason
->       for explicit 64-cycle frame selection.
->     - Commit-message review assisted by ChatGPT.
-> 
->  Documentation/devicetree/bindings/mfd/ti,twl.yaml | 9 +++++++++
->  1 file changed, 9 insertions(+)
-> 
-> diff --git a/Documentation/devicetree/bindings/mfd/ti,twl.yaml b/Documentation/devicetree/bindings/mfd/ti,twl.yaml
-> index 9cc3e4721612e..f458f0d80f2cd 100644
-> --- a/Documentation/devicetree/bindings/mfd/ti,twl.yaml
-> +++ b/Documentation/devicetree/bindings/mfd/ti,twl.yaml
-> @@ -396,6 +396,15 @@ properties:
->        '#pwm-cells':
->          const: 2
->  
-> +      ti,twl4030-pwm-frame-64:
+Add a fwctl endpoint to nova-core for the GSP GMC API commands used to
+manage vGPU types on a physical GPU.
 
-Drop twl4030. Properties are not model specific, but should be re-usable
-among all of devices from that vendor (when applicable).
+The request path is:
 
-> +        type: boolean
-> +        description:
-> +          TWL4030 only; not supported by TWL6030 PWM.
+  userspace
+      |
+      | FWCTL_RPC (FWCTL_RPC_CONFIGURATION)
+      v
+  nova-core command allowlist
+      |
+      | typed GMC request
+      v
+  GSP command queue -> GSP-RM
 
-Don't repeat constraints in free form text. Implement proper dt-schema
-for this.
+Userspace supplies the native GMC command ID and command-specific
+payload. nova-core constructs the transport headers and permits only the
+seven vGPU management commands for adding, querying, assigning and
+deassigning vGPU types. Other commands and scopes are rejected.
 
-> +          Select the short 64-clock-cycle PWM frame instead of the
-> +          default 128-cycle frame, doubling the PWM frequency. Required
-> +          for dimming inputs requiring short PWM low intervals during
-> +          startup mode detection (e.g. TI TPS61160/61).
+The request starts with an eight-byte header containing command_id and
+a zero reserved field, followed by the command-specific payload. The
+response echoes this header and appends the firmware response payload.
 
-I don't get how TPS is related here, but if you mention other specific
-device then I wonder - why isn't this deducible from the compatible? Or
-you mean that PWM consumers might need it, depending on  the consumer?
+This series is based on:
 
-But isn't this then dynamic choice - depending on PWM frequency the
-consumer wants?
+  [PATCH v5 00/35] Introduce NVIDIA vGPU manager [1]
 
-Best regards,
-Krzysztof
+Userspace tools:
+
+https://github.com/alokk-nvidia/vgpu-tools/tree/m1-nvkv/fwctl
+
+Changes since v2 [2]:
+
+    - Define CommandToGsp request types for the seven permitted commands
+      and submit them through send_gmc_command().
+    - Add the missing management command variants to GmcCommandId instead
+      of exporting numeric constants through the vGPU firmware module.
+    - Read successful response payloads through MessageFromGsp into an
+      owned buffer before the receive-queue slot is consumed.
+    - Preserve firmware-error handling: return EIO when GSP rejects a
+      command, while propagating transport errors.
+    - Use pin-init self-reference support to borrow the GPU-owned command
+      queue. Unregister fwctl and drain callbacks before dropping GPU
+      resources.
+    - Add the new userspace header to Nova's MAINTAINERS entry.
+
+The userspace request/response format, seven-command allowlist,
+configuration scope restriction and response-capacity limit are
+unchanged. GMC, MCTP and NVDM transport headers remain inside nova-core.
+
+The complete integration tree, including the prerequisites and the
+companion VFIO series, is available at:
+
+https://github.com/alokk-nvidia/nova-core/tree/nova-vgpu-wip-20261124
+
+Previous postings:
+
+v2 posting: [2]
+v1 posting: [3]
+
+[1]
+https://lore.kernel.org/nova-gpu/20261124135937.18583-1-alkumar@nvidia.com/
+[2]
+https://lore.kernel.org/nova-gpu/cover.1793906674.git.alkumar@nvidia.com/
+[3]
+https://lore.kernel.org/rust-for-linux/20260305190936.398590-1-zhiw@nvidia.com/
+
+
+Zhi Wang (1):
+  gpu: nova-core: add fwctl driver for firmware control interface
+
+ MAINTAINERS                        |   1 +
+ drivers/gpu/nova-core/Kconfig      |   2 +
+ drivers/gpu/nova-core/driver.rs    |  23 +++++
+ drivers/gpu/nova-core/fwctl.rs     | 160 +++++++++++++++++++++++++++++
+ drivers/gpu/nova-core/gsp/fw.rs    |   5 +
+ drivers/gpu/nova-core/nova_core.rs |   2 +
+ include/uapi/fwctl/fwctl.h         |   1 +
+ include/uapi/fwctl/nova-core.h     |  34 ++++++
+ rust/kernel/fwctl.rs               |   2 +
+ rust/uapi/uapi_helper.h            |   2 +
+ 10 files changed, 232 insertions(+)
+ create mode 100644 drivers/gpu/nova-core/fwctl.rs
+ create mode 100644 include/uapi/fwctl/nova-core.h
+
+
+base-commit: 7c4cb57138562f96b53683e29c8fddef73d57294
+-- 
+2.53.0
 
