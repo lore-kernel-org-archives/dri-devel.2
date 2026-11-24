@@ -2,65 +2,65 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E97BB606A32D
-	for <dri-devel@archiver.kernel.org>; Tue, 24 Nov 2026 07:27:43 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 81B28606A31E
+	for <dri-devel@archiver.kernel.org>; Tue, 24 Nov 2026 07:28:44 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=fail reason="signature verification failed" (2048-bit key) header.d=goldelico.com header.i=@goldelico.com header.a=rsa-sha256 header.s=strato-dkim-0002 header.b=Fxnvak0/;
-	dkim=fail reason="signature verification failed" header.d=goldelico.com header.i=@goldelico.com header.a=ed25519-sha256 header.s=strato-dkim-0003 header.b=7Wn2AS8k
+	dkim=fail reason="signature verification failed" (2048-bit key) header.d=goldelico.com header.i=@goldelico.com header.a=rsa-sha256 header.s=strato-dkim-0002 header.b=a3KaLGJt;
+	dkim=fail reason="signature verification failed" header.d=goldelico.com header.i=@goldelico.com header.a=ed25519-sha256 header.s=strato-dkim-0003 header.b=h3aJvplq
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id C20CB10ED94;
-	Tue, 24 Nov 2026 07:27:34 +0000 (UTC)
-Received: from mo4-p04-ob.smtp.rzone.de (mo4-p04-ob.smtp.rzone.de
- [85.215.255.123])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 701D610ED35
- for <dri-devel@lists.freedesktop.org>; Tue, 24 Nov 2026 07:26:58 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; t=1795505181; cv=none;
+	by gabe.freedesktop.org (Postfix) with ESMTP id D655310ED98;
+	Tue, 24 Nov 2026 07:28:38 +0000 (UTC)
+Received: from mo4-p03-ob.smtp.rzone.de (mo4-p03-ob.smtp.rzone.de
+ [85.215.255.100])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id B48A810ED42
+ for <dri-devel@lists.freedesktop.org>; Tue, 24 Nov 2026 07:26:59 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; t=1795505166; cv=none;
  d=strato.com; s=strato-dkim-0002;
- b=A3XF1ilXUm20dh0OxsSuCe3Of7WWYq5ZPtt2AYfQLeflUb4+Cl1AYyzcaqgyDoLGDU
- 2jrsAoVzqOG/WEMuozZPsGkA4gcddUB0xRq5LnsA6yF41J2H+7Z/5VnO3hQA4IL3G9FW
- V+lKNTmoTdIQJcVxJOELZM2r4eNUfjadAYmoyAfwLfja8gszawx6bTAUI4mVz4cz0ABP
- sxG/KX3zadCk5wP4tiW0BblkhQjniNFzFj0ubnQD04XibJTEXi77vp9lPQIA+5/Y8huG
- J/V7KJpqncoP29i3/dUfuDzjaneMgAbUje5CKg6g0HVzmxrEQoECV0Ab/oKOGbJhZlu8
- NNxQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; t=1795505181;
+ b=Jw1B75AZR9r37pV72wMrabDcm66aq2L5065KPSA7+H3MAYiJokwL8WkpOc9nz+yebw
+ R52KxSfyLCxevdO0Vh8pWaopgVt/J02yGiDaBIB6s78KG8Cw2ECT9wwXtQy/Cs6YFWBP
+ 52n6H5Tmf3gt/V4h9LdxzvISaAR3h5L0YUZrrykv4jFZTsERFEVmePoddeefHXt3x8Qi
+ Q6vfLOD7VIcAX+wmBGJ03w2GTeQI7X7EWk4X0hZ1TjO8IIA9us1kXkQ9wJ+sDLZet9v1
+ /fr9JZG3lUVFuwOFPdrTWsPfGYBo97jxKTpKajsmHyBbA62ig030qEZYxeUInLca+gva
+ ghTg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; t=1795505166;
  s=strato-dkim-0002; d=strato.com;
  h=References:In-Reply-To:Message-ID:Date:Subject:Cc:To:From:Cc:Date:
  From:Subject:Sender;
- bh=mCTL5EvoBNQXTJTXdmgYEKENHLcWSBGgDwEoOT4R3Mk=;
- b=dQd8m9zSw4xOEHf7fb+yKlbVKpQZptCr/I02KCLYQ5+88jUwqDu1n0uk6rJ9juxxGg
- M8pGZ6oGu1RSOr4Rn3RE2fTagJDQJu8BLFQDJft81vb0jaT9xWeDM3vYVVmIZPV+PDmb
- TGb9t9zYghC2dcRra2AP1hAvdnDF6/UNQQwkkrRQ62FQnm9ni+B4iwa9JfJrth3PsEsG
- 6vRzVU0hZbvXt6s63tb1nMlHMxNNeEVtnwZcRfFk/lO7G179MouDvZWUDolsKq3xZr3Q
- dnOsnS7ENL3MArrAPNarHzn/XpI/5SGyMsETwqStkwF1nctyuGHG4HKo1tapb0OiuTkq
- flNQ==
+ bh=gAIN7iE4u/BQ8emUvIO6sNS6XCYcMUaeapeftYIyo6s=;
+ b=jaC9A0CwwPT26qXZECMleSSd86xcXk5Mftx5phl5RznaJES9XY4Oqdo5LBu/C0RFhe
+ rWTsfelWx9RZx9/mXcw1MEII7a8U+91QH9/PgjLwgawrjUooBBBgfVyEExMgSCbMlArI
+ lMg+XWZs3fEyJ4NJeAl0iwqMsaxRnaSc1WA4Qd6g5+cVE3ZZw5affwnQWPx8liomLWHd
+ XIuTDJjF4VCjY1m7deqIvYEtb5alALG/dLXWpsgRlZMeeS93qumVRRadmZwvCVbtlKyr
+ /ikXjkqlBmfRFsI/TMtODweKq6fVI1XrojjSB00/JUfhc8x5SVBu9Sq3JOLlvuyBK3g6
+ 0bHQ==
 ARC-Authentication-Results: i=1; strato.com;
     arc=none;
     dkim=none
-X-RZG-CLASS-ID: mo04
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; t=1795505181;
+X-RZG-CLASS-ID: mo03
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; t=1795505166;
  s=strato-dkim-0002; d=goldelico.com;
  h=References:In-Reply-To:Message-ID:Date:Subject:Cc:To:From:Cc:Date:
  From:Subject:Sender;
- bh=mCTL5EvoBNQXTJTXdmgYEKENHLcWSBGgDwEoOT4R3Mk=;
- b=Fxnvak0/8rqxa3Afav7WD/Vb4Xmp/7ha3h2kETtQauUoh03jLEn8mYcbsLwBMwL6kw
- IH0tgaWVQPeQ7FFdoO2/+qscKr5HHGYc69YBWXiKhde3uMhwqI6xSoHkZbTcTgwVc3Lf
- X0uRs11os2b2zMNj6a6YyMcHbP3q9Dqd16VGxWURKvHlXNftnt3w0kTEQn57tx1Lp1YN
- rCmeBSy1VHki5+Q/JzLbgY4VYxhVXaYWXvEV6UqYTCJAd7ICnv6yCHkN/J5sVmihEsl+
- Lpz6ClZoOuDz4a6ukJ8TdCWHd1TlRMyfhosdP3kusZCR98KbrlcvujFQrY4TJKSbcdrU
- yDgg==
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; t=1795505181;
+ bh=gAIN7iE4u/BQ8emUvIO6sNS6XCYcMUaeapeftYIyo6s=;
+ b=a3KaLGJtVvMLsOwdQZUYs+7gK4y5yMMC88fm09lTN7l6NG9gu8eI8W2icosjN3MpA2
+ bj6C07vlxiYwLcPYf5IkR78Iqaoz41qwEoq8WUwjURKL22gWnOuuuLOfP+HjN9KNrTaE
+ Lei5ojY3O7JlF8Hc1MihqnTEvrTrPZzGN5IoK7krNf4CFQvSh+R5yxJUvoaRqaz1Yz9y
+ 3xagrdTDB3n0mDS1sZE14Sn+jRVds2NJ3y1yPheBCRhVQt2KRPv+oFiMFrMj/s+zUYTF
+ LHIAzqKyk2qD+bUdyyGEfw1Wkhjx+3NfNr4ib/LP/UazcxgirFOK+s1ooMG1J/EIxaXo
+ BulA==
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; t=1795505166;
  s=strato-dkim-0003; d=goldelico.com;
  h=References:In-Reply-To:Message-ID:Date:Subject:Cc:To:From:Cc:Date:
  From:Subject:Sender;
- bh=mCTL5EvoBNQXTJTXdmgYEKENHLcWSBGgDwEoOT4R3Mk=;
- b=7Wn2AS8kMWAXG2COmnHxpUcRqKgBo+1TebY6U9yNLv3eHDO0gCdjGuFU8kcfcaFDs3
- yUe4lsGOSnZBVr4ap/Cg==
+ bh=gAIN7iE4u/BQ8emUvIO6sNS6XCYcMUaeapeftYIyo6s=;
+ b=h3aJvplqETdwNO8kY5RutWsO9gupBKll+2yH2AoQUGLuJZB0vkQ0wtDTAaen7gHL8k
+ 5hFyXlXfUyNF6mSyn3Cg==
 X-RZG-AUTH: ":JGIXVUS7cutRB/49FwqZ7WcJeFKiMhflhwDubTJ9qVpwcQVkPW4I1HrV3poLlciNVTQoM6kVxzKyrKzkpjcAwdDfiN49"
 Received: from iMac.fritz.box by smtp.strato.de (RZmta 55.6.3 AUTH)
- with ESMTPSA id Qb56a22AO7QK1HT
+ with ESMTPSA id Qb56a22AO7Q51HC
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256 bits))
  (Client did not present a certificate);
- Tue, 24 Nov 2026 08:26:20 +0100 (CET)
+ Tue, 24 Nov 2026 08:26:05 +0100 (CET)
 From: "H. Nikolaus Schaller" <hns@goldelico.com>
 To: Linus Walleij <linus.walleij@linaro.org>,
  Bartosz Golaszewski <brgl@kernel.org>, Rob Herring <robh@kernel.org>,
@@ -87,11 +87,10 @@ Cc: Jessica Zhang <jessica.zhang@oss.qualcomm.com>, linux-gpio@vger.kernel.org,
  linux-sound@vger.kernel.org, linux-omap@vger.kernel.org,
  linux-arm-kernel@lists.infradead.org, linux-pwm@vger.kernel.org,
  linux-fbdev@vger.kernel.org, letux-kernel@openphoenux.org,
- kernel@pyra-handheld.com, Stefan Leichter <sle85276@gmx.de>,
- "H. Nikolaus Schaller" <hns@goldelico.com>
-Subject: [PATCH v2 15/20] ARM: dts: omap3pandora: Enable audio interfaces
-Date: Tue, 24 Nov 2026 08:25:55 +0100
-Message-ID: <99b22d8d689922af59f48e3a703bfee517e50b3e.1795505160.git.hns@goldelico.com>
+ kernel@pyra-handheld.com, "H. Nikolaus Schaller" <hns@goldelico.com>
+Subject: [PATCH v2 01/20] dt-bindings: gpio: twl4030: Document REGEN GPIO
+Date: Tue, 24 Nov 2026 08:25:41 +0100
+Message-ID: <21030cf6957c49c8114829970cf64c2638050220.1795505160.git.hns@goldelico.com>
 X-Mailer: git-send-email 2.56.0
 In-Reply-To: <cover.1795505160.git.hns@goldelico.com>
 References: <cover.1795505160.git.hns@goldelico.com>
@@ -117,43 +116,44 @@ X-Spam-Status: No, score=-16.6 required=3.0 tests=BAYES_00,DKIM_INVALID,
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-From: Stefan Leichter <sle85276@gmx.de>
+Document the optional ti,use-regen property for the TWL4030 GPIO
+controller. It exposes the REGEN power-management output through the
+GPIO controller so that device tree consumers can control it using a
+GPIO specifier.
 
-Enable McBSP2 for the external playback DAC and McBSP4 for the
-TWL4030 capture path on OpenPandora.
+The property is opt-in to preserve the existing GPIO numbering for
+systems that do not use REGEN as a GPIO.
 
-Signed-off-by: Stefan Leichter <sle85276@gmx.de>
 Signed-off-by: H. Nikolaus Schaller <hns@goldelico.com>
 ---
 
 Notes:
     Changes against V1:
-    - Historical origin: d0494afbcf2e (Stefan Leichter, 2020-06-29).
-      Commit-message review assisted by ChatGPT; code unchanged.
+    - Replaces the former REGEN regulator binding following Mark Brown's
+      recommendation to model the control signal as a GPIO and
+      Krzysztof Kozlowski's binding review.
+    - Expand the binding commit message to explain why REGEN exposure is
+      opt-in and how consumers use it.
+    - Commit-message review assisted by ChatGPT.
 
- arch/arm/boot/dts/ti/omap/omap3-pandora-common.dtsi | 2 ++
- 1 file changed, 2 insertions(+)
+ Documentation/devicetree/bindings/gpio/ti,twl4030-gpio.yaml | 4 ++++
+ 1 file changed, 4 insertions(+)
 
-diff --git a/arch/arm/boot/dts/ti/omap/omap3-pandora-common.dtsi b/arch/arm/boot/dts/ti/omap/omap3-pandora-common.dtsi
-index f25fc4f8ad042..2a5e8ba5714da 100644
---- a/arch/arm/boot/dts/ti/omap/omap3-pandora-common.dtsi
-+++ b/arch/arm/boot/dts/ti/omap/omap3-pandora-common.dtsi
-@@ -728,6 +728,7 @@ &mcbsp1 {
+diff --git a/Documentation/devicetree/bindings/gpio/ti,twl4030-gpio.yaml b/Documentation/devicetree/bindings/gpio/ti,twl4030-gpio.yaml
+index 96d50d14c0710..25ba4328ac2d0 100644
+--- a/Documentation/devicetree/bindings/gpio/ti,twl4030-gpio.yaml
++++ b/Documentation/devicetree/bindings/gpio/ti,twl4030-gpio.yaml
+@@ -47,6 +47,10 @@ properties:
+     type: boolean
+     description: Enables LEDA and LEDB outputs if set
  
- /* audio DAC */
- &mcbsp2 {
-+	status = "okay";
- };
++  ti,use-regen:
++    type: boolean
++    description: Enables the REGEN output as a GPIO if set
++
+ additionalProperties: false
  
- /* bluetooth */
-@@ -740,6 +741,7 @@ &mcbsp3 {
- 
- /* to twl4030*/
- &mcbsp4 {
-+	status = "okay";
- };
- 
- &venc {
+ examples:
 -- 
 2.56.0
 
