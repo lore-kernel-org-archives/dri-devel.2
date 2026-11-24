@@ -2,51 +2,120 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 057DF606A31E
-	for <dri-devel@archiver.kernel.org>; Tue, 24 Nov 2026 08:43:10 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 13D75606A321
+	for <dri-devel@archiver.kernel.org>; Tue, 24 Nov 2026 08:43:35 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=ideasonboard.com header.i=@ideasonboard.com header.a=rsa-sha256 header.s=mail header.b=FahLlVLe
+	dkim=pass (2048-bit key) header.d=ibm.com header.i=@ibm.com header.a=rsa-sha256 header.s=pp1 header.b=QFvgJkmo
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 2552D10E6EB;
-	Tue, 24 Nov 2026 08:43:04 +0000 (UTC)
-Received: from perceval.ideasonboard.com (perceval.ideasonboard.com
- [213.167.242.64])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 7985710E6EB
- for <dri-devel@lists.freedesktop.org>; Tue, 24 Nov 2026 08:42:58 +0000 (UTC)
-Received: from [192.168.88.20] (91-158-153-178.elisa-laajakaista.fi
- [91.158.153.178])
- by perceval.ideasonboard.com (Postfix) with ESMTPSA id 06F74C4B;
- Tue, 24 Nov 2026 09:40:23 +0100 (CET)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=ideasonboard.com;
- s=mail; t=1795509624;
- bh=5QNDiqdYBPyhKBc3UH1FZVUuv+wsTMoB/TZSNUvaoVA=;
- h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
- b=FahLlVLef7i7o+VTD0s++Pf/KH7K3dkn4Lcp+mTmMWs/nfzdx1UOt7A5fgyThGBt5
- 9MqK4frMRvsv+qCPaya485Upoc5T01YocgWA3LO1pF7WIz2ECqVvQm7ItIY1QxaKQi
- 10G4twVj0hO74wBXc0omDQamLazBHC5AN4LkttDU=
-Message-ID: <c60c4e6c-f9cc-4d3a-b0ca-f374f298825b@ideasonboard.com>
-Date: Tue, 24 Nov 2026 10:42:53 +0200
+	by gabe.freedesktop.org (Postfix) with ESMTP id 1A83010E222;
+	Tue, 24 Nov 2026 08:43:29 +0000 (UTC)
+Received: from mx0a-001b2d01.pphosted.com (mx0a-001b2d01.pphosted.com
+ [148.163.156.1])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 25FFC10E222;
+ Tue, 24 Nov 2026 08:43:23 +0000 (UTC)
+Received: from pps.filterd (m0360083.ppops.net [127.0.0.1])
+ by mx0a-001b2d01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id
+ 6AO34mGk1412604; Tue, 24 Nov 2026 08:42:17 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ibm.com; h=cc
+ :content-transfer-encoding:content-type:date:from:in-reply-to
+ :message-id:mime-version:references:subject:to; s=pp1; bh=21TKgW
+ 0K5jj6gPfdA/HfsQSmThGTrU/SrwtxeoW1Kw8=; b=QFvgJkmoQperorJhQoXt/M
+ tInTxbM0op4umEjumKTF2Sxgoj3C7Wx+NxNw0FwCk44x8+/zvD9qF8wG7BhopRNb
+ kfg9reC8JtYiGswymmpBuFq4r63Ig9uAQhGL9084S9fWrxCVnF7krUOJDaW/8wwn
+ K7kb+b+Z0f1+4sEKa+2/VOPI2ap4GQ+EGV+lgYm5m+pqS+GTMZ2SfUpaVh3ftBjX
+ g31jQV33DYwI5TmzVd51aaL00qAtmFX3cEoOW7yimcT48OsT5Lbq7ldNZUqi/QYz
+ Xr7e8JE/LFFJWoxDZYEUfJ9w66njh8IiqDDAXgFI+S6+97V+QHZ7KrTU1wzZ4KgA
+ ==
+Received: from ppma22.wdc07v.mail.ibm.com
+ (5c.69.3da9.ip4.static.sl-reverse.com [169.61.105.92])
+ by mx0a-001b2d01.pphosted.com (PPS) with ESMTPS id 4j34fa6v7m-1
+ (version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384 bits=256 verify=NOT);
+ Tue, 24 Nov 2026 08:42:16 +0000 (GMT)
+Received: from pps.filterd (ppma22.wdc07v.mail.ibm.com [127.0.0.1])
+ by ppma22.wdc07v.mail.ibm.com (8.18.1.11/8.18.1.11) with ESMTP id
+ 6AO8di4w2086934; Tue, 24 Nov 2026 08:42:15 GMT
+Received: from smtprelay07.dal12v.mail.ibm.com ([172.16.1.9])
+ by ppma22.wdc07v.mail.ibm.com (PPS) with ESMTPS id 4j3p0vj1p3-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Tue, 24 Nov 2026 08:42:15 +0000 (GMT)
+Received: from smtpav04.wdc07v.mail.ibm.com (smtpav04.wdc07v.mail.ibm.com
+ [10.39.53.231])
+ by smtprelay07.dal12v.mail.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id
+ 6AO8gEbE15925834
+ (version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
+ Tue, 24 Nov 2026 08:42:14 GMT
+Received: from smtpav04.wdc07v.mail.ibm.com (unknown [127.0.0.1])
+ by IMSVA (Postfix) with ESMTP id 70A2F58052;
+ Tue, 24 Nov 2026 08:42:14 +0000 (GMT)
+Received: from smtpav04.wdc07v.mail.ibm.com (unknown [127.0.0.1])
+ by IMSVA (Postfix) with ESMTP id B090F58050;
+ Tue, 24 Nov 2026 08:42:01 +0000 (GMT)
+Received: from [9.43.57.13] (unknown [9.43.57.13])
+ by smtpav04.wdc07v.mail.ibm.com (Postfix) with ESMTP;
+ Tue, 24 Nov 2026 08:42:01 +0000 (GMT)
+Message-ID: <a4b839a8-b710-4dc7-8b48-847d0526070b@linux.ibm.com>
+Date: Tue, 24 Nov 2026 14:11:59 +0530
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v9 07/42] drm/atomic: Add drm_private_obj name
-To: Maxime Ripard <mripard@kernel.org>
-Cc: Devarsh Thakkar <devarsht@ti.com>, dri-devel@lists.freedesktop.org,
- Luca Ceresoli <luca.ceresoli@bootlin.com>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>,
- Simona Vetter <simona@ffwll.ch>, Andrzej Hajda <andrzej.hajda@intel.com>,
- Neil Armstrong <neil.armstrong@linaro.org>, Robert Foss <rfoss@kernel.org>,
- Laurent Pinchart <Laurent.pinchart@ideasonboard.com>,
- Jonas Karlman <jonas@kwiboo.se>, Jernej Skrabec <jernej.skrabec@gmail.com>,
- Jyri Sarha <jyri.sarha@iki.fi>
-References: <20261120-drm-state-readout-v9-0-a67c2b45b8ec@kernel.org>
- <20261120-drm-state-readout-v9-7-a67c2b45b8ec@kernel.org>
-From: Tomi Valkeinen <tomi.valkeinen@ideasonboard.com>
+Subject: Re: [PATCH v2 3/4] powerpc/spufs: consider vm_pgoff in
+ spufs_mem_mmap_access()
+To: "David Hildenbrand (Arm)" <david@kernel.org>,
+ Lorenzo Stoakes <ljs@kernel.org>, "Liam R. Howlett" <liam@infradead.org>,
+ Vlastimil Babka <vbabka@kernel.org>, Mike Rapoport <rppt@kernel.org>,
+ Suren Baghdasaryan <surenb@google.com>, Michal Hocko <mhocko@suse.com>,
+ Andrew Morton <akpm@linux-foundation.org>, Willy Tarreau <w@1wt.eu>,
+ Jani Nikula <jani.nikula@linux.intel.com>,
+ Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
+ Rodrigo Vivi <rodrigo.vivi@intel.com>, Tvrtko Ursulin
+ <tursulin@ursulin.net>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ Chris Wilson <chris@chris-wilson.co.uk>,
+ Matthew Auld <matthew.auld@intel.com>, Michael Ellerman
+ <mpe@ellerman.id.au>, Nicholas Piggin <npiggin@gmail.com>,
+ "Christophe Leroy (CS GROUP)" <chleroy@kernel.org>,
+ "Ritesh Harjani (IBM)" <ritesh.list@gmail.com>,
+ Shrikanth Hegde <sshegde@linux.ibm.com>, Rik van Riel <riel@redhat.com>,
+ Benjamin Herrenschmidt <benh@kernel.crashing.org>
+Cc: linux-mm@kvack.org, linux-kernel@vger.kernel.org,
+ intel-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
+ linuxppc-dev@lists.ozlabs.org, stable@vger.kernel.org
+References: <20261122-access_shite-v2-0-808d8d2aa700@kernel.org>
+ <20261122-access_shite-v2-3-808d8d2aa700@kernel.org>
 Content-Language: en-US
-In-Reply-To: <20261120-drm-state-readout-v9-7-a67c2b45b8ec@kernel.org>
+From: Madhavan Srinivasan <maddy@linux.ibm.com>
+In-Reply-To: <20261122-access_shite-v2-3-808d8d2aa700@kernel.org>
 Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 7bit
+X-TM-AS-GCONF: 00
+X-Proofpoint-Reinject: loops=2 maxloops=12
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMTI0MDAzMyBTYWx0ZWRfX83QlkRE/0mbR
+ rSbqFVtgR0hZ7p7222GUVWClMGUQMQp177LOEKllQdCkGG4PmVzEaDJqym9zfZi8w906ss6ZEZq
+ O7kwesKNucqAnGYQhXNruSUskMWo5Mu5QIEUFc5aTfLTHixAql3u/NK/AxKy87d5I90/B+bePMp
+ va9G2OkkDKI3colkcgsG7m7NHbkDnFjKQMnnNaaECNkH+0ppr9BJZiEi8XyfAG7wo22XVByCfz6
+ lxwvlHhJ6j7L4V0DJNufFmlwV6SmR9rADlacAfYMlI5rcgqfjaIfGOYfiUSVcMBeHoAInfk+4yV
+ ddl5+A2snQxmZkBU46/Z9SqhF+ThRn71MkYqILS55qnRaW+a4IU8sakm6IGidXe9s02ctPb7dIz
+ CJkri276R3EvFi7LQhRxQFpI5VSuqQ7tVGHTaFRJiArBT0fUGQ362waZxE/pETEwvqPbvMDdkC3
+ O6zlXsfGgP6v4xMLZsA==
+X-Proofpoint-ORIG-GUID: rQbUKh4nIiE8IXo8G5N8XMBLAUi8qg9T
+X-Authority-Analysis: v=2.4 cv=U6QHnuru c=1 sm=1 tr=0 ts=6b054de9 cx=c_pps
+ a=5BHTudwdYE3Te8bg5FgnPg==:117 a=5BHTudwdYE3Te8bg5FgnPg==:17
+ a=IkcTkHD0fZMA:10 a=zJRp6_cAMcgA:10 a=VkNPw1HP01LnGYTKEx00:22
+ a=RnoormkPH1_aCDwRdu11:22 a=iQ6ETzBq9ecOQQE5vZCe:22 a=VnNF1IyMAAAA:8
+ a=VwQbUJbxAAAA:8 a=J0W00IkS15A3C8My_cQA:9 a=QEXdDO2ut3YA:10
+X-Proofpoint-GUID: wYVClD_dI4O0Mxc2R867DqpheE8clw8Q
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMTI0MDAzMyBTYWx0ZWRfX/JRXOzmPmam+
+ wVJRsZSa1X8Rw8FTMHaGZ5FUkSM4ElkoYrscS5eX7fc+0HpJl3beTU7+ONmTkA7vNBvunwh2u6s
+ 3vIhhaEf7Dg1wq6W7uNEBvI7VoCH5bk=
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
+ definitions=2026-11-24_01,2026-11-23_01,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ priorityscore=1501 lowpriorityscore=0 spamscore=0 impostorscore=0
+ clxscore=1011 bulkscore=0 suspectscore=0 adultscore=0 phishscore=0
+ malwarescore=0 classifier=typeunknown authscore=0 authtc= authcc=
+ route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2611040001
+ definitions=main-2611240033
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -58,49 +127,53 @@ List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-17.3 required=3.0 tests=BAYES_00,DKIM_SIGNED,
-	DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
-	INCLUDES_CR_TRAILER,INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,
-	SPF_PASS,USER_AGENT_SANE_1 autolearn=ham autolearn_force=no
-	version=4.0.1
+X-Spam-Status: No, score=-15.3 required=3.0 tests=BAYES_00,DKIM_SIGNED,
+	DKIM_VALID,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,
+	INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,
+	USER_AGENT_SANE_1 autolearn=ham autolearn_force=no version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-Hi,
 
-On 20/11/2026 14:54, Maxime Ripard wrote:
-> drm_private_obj does not carry a human-readable name, which makes
-> debug messages hard to interpret when multiple private objects are
-> registered on the same device.
-> 
-> Add a name field to drm_private_obj, passed through
-> drm_atomic_private_obj_init() and freed in
-> drm_atomic_private_obj_fini(). Update the existing callers to pass a
-> name.
-> 
-> Reviewed-by: Luca Ceresoli <luca.ceresoli@bootlin.com>
-> Reviewed-by: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>
-> Signed-off-by: Maxime Ripard <mripard@kernel.org>
+On 11/22/26 11:25 PM, David Hildenbrand (Arm) wrote:
+> spufs_mem_mmap_access() calculates the local store offset relative to the
+> start of the VMA and ignores vm_pgoff. After VMA splits, debugger reads and
+> writes access the wrong part of the local store. Mappings created with a
+> nonzero file offset have the same problem.
+>
+> Properly take the vm_pgoff into account, just like spufs_mem_mmap_fault()
+> already does.
+minor nit:
+
+subject can be
+"powerpc/spufs: Fix local store offset calculation in 
+spufs_mem_mmap_access()"
+
+rest looks fine to me.
+Acked-by: Madhavan Srinivasan <maddy@linux.ibm.com>
+
+> Fixes: a352894d0705 ("spufs: use new vm_ops->access to allow local state access from gdb")
+> Cc: stable@vger.kernel.org
+> Acked-by: Lorenzo Stoakes (ARM) <ljs@kernel.org>
+> Signed-off-by: David Hildenbrand (Arm) <david@kernel.org>
 > ---
->   drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c       |  1 +
->   drivers/gpu/drm/arm/display/komeda/komeda_private_obj.c |  8 ++++++++
->   drivers/gpu/drm/display/drm_dp_mst_topology.c           |  2 +-
->   drivers/gpu/drm/display/drm_dp_tunnel.c                 | 15 +++++++++++++--
->   drivers/gpu/drm/drm_atomic.c                            | 13 +++++++++++++
->   drivers/gpu/drm/drm_bridge.c                            | 10 +++++++++-
->   drivers/gpu/drm/ingenic/ingenic-drm-drv.c               |  1 +
->   drivers/gpu/drm/ingenic/ingenic-ipu.c                   |  1 +
->   drivers/gpu/drm/msm/disp/dpu1/dpu_kms.c                 |  1 +
->   drivers/gpu/drm/msm/disp/mdp5/mdp5_kms.c                |  1 +
->   drivers/gpu/drm/omapdrm/omap_drv.c                      |  1 +
->   drivers/gpu/drm/tegra/hub.c                             |  1 +
->   drivers/gpu/drm/vc4/vc4_kms.c                           |  3 +++
->   include/drm/drm_atomic.h                                |  7 +++++++
->   include/drm/drm_bridge.h                                |  2 ++
->   15 files changed, 63 insertions(+), 4 deletions(-)
-> 
+>   arch/powerpc/platforms/cell/spufs/file.c | 3 ++-
+>   1 file changed, 2 insertions(+), 1 deletion(-)
+>
+> diff --git a/arch/powerpc/platforms/cell/spufs/file.c b/arch/powerpc/platforms/cell/spufs/file.c
+> index 98c47bafaf678..0a46d6f7178ab 100644
+> --- a/arch/powerpc/platforms/cell/spufs/file.c
+> +++ b/arch/powerpc/platforms/cell/spufs/file.c
+> @@ -248,7 +248,8 @@ static int spufs_mem_mmap_access(struct vm_area_struct *vma,
+>   				void *buf, int len, int write)
+>   {
+>   	struct spu_context *ctx = vma->vm_file->private_data;
+> -	unsigned long offset = address - vma->vm_start;
+> +	unsigned long offset = address - vma->vm_start +
+> +			       (vma->vm_pgoff << PAGE_SHIFT);
+>   	char *local_store;
+>   
+>   	if (write
 
-Reviewed-by: Tomi Valkeinen <tomi.valkeinen@ideasonboard.com>
-
-  Tomi
-
+>   && !(vma->vm_flags & VM_WRITE))
+>
