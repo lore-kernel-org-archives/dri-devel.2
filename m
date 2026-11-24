@@ -2,42 +2,42 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 756A8606A321
-	for <dri-devel@archiver.kernel.org>; Tue, 24 Nov 2026 06:17:16 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 47C52606A31E
+	for <dri-devel@archiver.kernel.org>; Tue, 24 Nov 2026 06:17:18 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=A1j3vKw5
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=iya9hBvV
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 9D82010E770;
-	Tue, 24 Nov 2026 06:17:10 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 5A15510E5F9;
+	Tue, 24 Nov 2026 06:17:12 +0000 (UTC)
 Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.13])
- by gabe.freedesktop.org (Postfix) with ESMTPS id B8A7A10E21F;
- Tue, 24 Nov 2026 06:17:03 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 82CB810E21F;
+ Tue, 24 Nov 2026 06:16:57 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1795501024; x=1827037024;
+ t=1795501018; x=1827037018;
  h=from:to:cc:subject:date:message-id:in-reply-to:
  references:mime-version:content-transfer-encoding;
- bh=/zoaSk+xZZK0aQYXQi38lotONbPXwMuncUWusQb4kE0=;
- b=A1j3vKw5qzBq35ZaDkVYUeMmGDXYU0GfW3Qg4oppz/NmGlJo1aDOO8oM
- 7+YtfnGHnXPtjAhAut8EYxqudA3Xv4Xfz5y7bAXl+C+Nq+HQUzzAWYp3X
- qkdjnkLM7JicSRBvKjfwJZtQCfY1UCeyjWqv/KttmpC/gXwCOIWBqGXVp
- jTQhy+2we762YzySSxP/eHrrdtAriRE3vKvbG0EoK8zaDRCZiynAH3wVy
- q/ERY1Xj/xwkgfcNVLcu5YHPyGMXj1ckorb2y4N7HcVpVWcJ9RkeAMPj4
- XQDoEvBfGMQV4WZmLKhRUjl6C3AXeYjHT0llrBZH6TXCWC95Fla/MLXUh Q==;
-X-CSE-ConnectionGUID: GYkYbDY7Qb2egtmSrZXTEA==
-X-CSE-MsgGUID: OhQUF9HvQ5SmsM6DLaSVDw==
-X-IronPort-AV: E=McAfee;i="6800,10657,11975"; a="4220055"
+ bh=ul4azt9FF1emwERYdKos2rpuqMO4Ws+3SU0NDITaihg=;
+ b=iya9hBvVoG+/KNuWfHrtveFdYNhhcW6VW2PW3jd7KPWQ0OB9xl7LaPlD
+ RzNuaNPOxzatiDVFPLlgJJqtgX81sQPQQOqLDK8mhDHJxKKUH2yV7lbUI
+ qcddV2fkEoX6Opd6w7FXx6u76yReNy2HF4PIg3b5yxyqRzo6UDL+RXe2V
+ avk+kExdOw8fWrkm57fvqQnbpP71GLVX4xKP8ZAjH2m67vKmNAIVwh97d
+ 6N1HIAjKxJDt/079pP2rMAwsa/D2q+SjmBgaAET9ZLYK0173ucUH8HV2x
+ qxv1tSSCWhoxc4GTQcbcmfXAujJ7GaR3csiT0n60kPNGoXJSbmqJEu3jI w==;
+X-CSE-ConnectionGUID: v+u7WXWTR52lgmz2r3m8Vg==
+X-CSE-MsgGUID: 1ocmPdo8QnqxsxTaxsVd7w==
+X-IronPort-AV: E=McAfee;i="6800,10657,11975"; a="4220045"
 X-IronPort-AV: E=Sophos;i="6.27,230,1787036400"; 
-   d="scan'208";a="4220055"
+   d="scan'208";a="4220045"
 Received: from orviesa008.jf.intel.com ([10.64.159.148])
  by orvoesa105.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 23 Nov 2026 22:17:04 -0800
-X-CSE-ConnectionGUID: yN6RJdRdTeat7JdPn7amTw==
-X-CSE-MsgGUID: RYdJ5muNTwGop8KpsH81Ag==
+ 23 Nov 2026 22:16:58 -0800
+X-CSE-ConnectionGUID: fcgmhKtLRCWOZZWsa5CNdg==
+X-CSE-MsgGUID: UuDau3vATEOj51+z2jwTug==
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,230,1787036400"; d="scan'208";a="11264137"
+X-IronPort-AV: E=Sophos;i="6.27,230,1787036400"; d="scan'208";a="11264117"
 Received: from hghimira.iind.intel.com ([10.190.239.34])
- by orviesa008.jf.intel.com with ESMTP; 23 Nov 2026 22:17:01 -0800
+ by orviesa008.jf.intel.com with ESMTP; 23 Nov 2026 22:16:53 -0800
 From: Himal Prasad Ghimiray <himal.prasad.ghimiray@intel.com>
 To: Natalie Vock <natalie.vock@gmx.de>,
  Arunpravin Paneer Selvam <Arunpravin.PaneerSelvam@amd.com>,
@@ -49,10 +49,9 @@ Cc: =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
  Matthew Brost <matthew.brost@intel.com>, dri-devel@lists.freedesktop.org,
  intel-xe@lists.freedesktop.org, amd-gfx@lists.freedesktop.org,
  Himal Prasad Ghimiray <himal.prasad.ghimiray@intel.com>
-Subject: [RFC v2 05/11] drm/amdgpu: Use ttm_operation_ctx numa_info instead of
- per-partition pools
-Date: Tue, 24 Nov 2026 11:51:29 +0530
-Message-ID: <20261124062123.2431244-18-himal.prasad.ghimiray@intel.com>
+Subject: [RFC v2 03/11] drm/ttm: Add TTM_NUMA_POLICY_INTERLEAVE
+Date: Tue, 24 Nov 2026 11:51:27 +0530
+Message-ID: <20261124062123.2431244-16-himal.prasad.ghimiray@intel.com>
 X-Mailer: git-send-email 2.43.0
 In-Reply-To: <20261124062123.2431244-13-himal.prasad.ghimiray@intel.com>
 References: <20261124062123.2431244-13-himal.prasad.ghimiray@intel.com>
@@ -77,179 +76,184 @@ X-Spam-Status: No, score=-18.8 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-On APUs with memory partitions amdgpu creates one TTM pool per
-partition, only to get pages from the partition's NUMA node. With the
-node now selectable per allocation through ttm_operation_ctx, drop the
-extra pools and allocate from the device pool, setting numa_info to
-TTM_NUMA_POLICY_PREFERRED with the partition's node on a local ctx copy.
+Add TTM_NUMA_POLICY_INTERLEAVE to enum ttm_numa_policy. With this policy,
+each page allocation is rotated across the nodes in
+ttm_operation_ctx.numa_info.nodes, so consecutive allocations are spread
+over the policy nodes. The rotation index wraps around the node weight.
 
-The device pool keeps per-node page caches and per-node limits, so
-pages are still cached and trimmed per node. No functional change
-intended.
+If the rotated node cannot provide a page of the requested order, the
+other policy nodes are tried before the order is lowered. This keeps
+high order pages when one node is short on memory, as core mm does for
+interleaved THP.
+
+The pool take and the allocation for an order use the same node, so
+cached pages come from the node the allocation would have used.
 
 Signed-off-by: Himal Prasad Ghimiray <himal.prasad.ghimiray@intel.com>
 ---
- drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c | 78 ++++++-------------------
- drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.h |  1 -
- 2 files changed, 19 insertions(+), 60 deletions(-)
+ drivers/gpu/drm/ttm/ttm_pool.c | 91 ++++++++++++++++++++++++++++++++--
+ include/drm/ttm/ttm_bo.h       |  3 ++
+ 2 files changed, 91 insertions(+), 3 deletions(-)
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c
-index 0f86777250fc..fe10409e1d5b 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c
-@@ -743,7 +743,7 @@ struct amdgpu_ttm_tt {
- 	struct task_struct	*usertask;
- 	uint32_t		userflags;
- 	bool			bound;
--	int32_t			pool_id;
-+	int			numa_node;
+diff --git a/drivers/gpu/drm/ttm/ttm_pool.c b/drivers/gpu/drm/ttm/ttm_pool.c
+index 4a7775bfd0fb..f140cc95e965 100644
+--- a/drivers/gpu/drm/ttm/ttm_pool.c
++++ b/drivers/gpu/drm/ttm/ttm_pool.c
+@@ -373,6 +373,38 @@ static struct page *ttm_pool_type_take(struct ttm_pool_type *pt, int nid)
+ 	return p;
+ }
+ 
++/* Return the node in @nodes nearest to @from, lowest node id on ties */
++static int ttm_pool_nearest_node(int from, const nodemask_t *nodes)
++{
++	int n, nid = first_node(*nodes);
++
++	for_each_node_mask(n, *nodes) {
++		if (node_distance(from, n) < node_distance(from, nid))
++			nid = n;
++	}
++
++	return nid;
++}
++
++/* Take from @nid first, then from the other nodes nearest to @nid first */
++static struct page *ttm_pool_type_take_interleave(struct ttm_pool_type *pt,
++						  int nid, const nodemask_t *nodes)
++{
++	nodemask_t todo = *nodes;
++	struct page *p;
++
++	p = ttm_pool_type_take(pt, nid);
++	node_clear(nid, todo);
++	while (!p && !nodes_empty(todo)) {
++		int n = ttm_pool_nearest_node(nid, &todo);
++
++		node_clear(n, todo);
++		p = ttm_pool_type_take(pt, n);
++	}
++
++	return p;
++}
++
+ /* Initialize and add a pool type to the global shrinker list */
+ static void ttm_pool_type_init(struct ttm_pool_type *pt, struct ttm_pool *pool,
+ 			       enum ttm_caching caching, unsigned int order)
+@@ -780,6 +812,17 @@ static unsigned int ttm_pool_alloc_find_order(unsigned int highest,
+ 	return min_t(unsigned int, highest, __fls(alloc->remaining_pages));
+ }
+ 
++/* Return the @n-th node set in @nodes, wrapping around the node weight */
++static int ttm_pool_policy_nth_node(const nodemask_t *nodes, unsigned int n)
++{
++	int nid = first_node(*nodes);
++
++	for (n %= nodes_weight(*nodes); n; n--)
++		nid = next_node(nid, *nodes);
++
++	return nid;
++}
++
+ /*
+  * Try the nodes in @nodes once each, nearest first from the local node.
+  * __GFP_THISNODE prevents fallback to nodes outside the policy.
+@@ -830,6 +873,31 @@ static struct page *ttm_pool_alloc_bind(struct ttm_pool *pool, gfp_t gfp_flags,
+ 	return p;
+ }
+ 
++/*
++ * Allocate pages of size 1 << order for TTM_NUMA_POLICY_INTERLEAVE. Try the
++ * interleaved node @nid first, then the other nodes in @nodes nearest to @nid
++ * first, as the per-node zonelist fallback of core mm does, before the caller
++ * lowers the order.
++ */
++static struct page *ttm_pool_alloc_interleave(struct ttm_pool *pool,
++					      gfp_t gfp_flags, unsigned int order,
++					      int nid, const nodemask_t *nodes)
++{
++	nodemask_t todo = *nodes;
++	struct page *p;
++
++	p = ttm_pool_alloc_page(pool, gfp_flags, order, nid);
++	node_clear(nid, todo);
++	while (!p && !nodes_empty(todo)) {
++		int n = ttm_pool_nearest_node(nid, &todo);
++
++		node_clear(n, todo);
++		p = ttm_pool_alloc_page(pool, gfp_flags, order, n);
++	}
++
++	return p;
++}
++
+ /* Validate the NUMA request in @ctx against @pool */
+ static int ttm_pool_check_numa(struct ttm_pool *pool,
+ 			       const struct ttm_operation_ctx *ctx)
+@@ -870,7 +938,7 @@ static int __ttm_pool_alloc(struct ttm_pool *pool, struct ttm_tt *tt,
+ 	WARN_ON(alloc->dma_addr && !pool->dev);
+ 
+ 	if (policy != TTM_NUMA_POLICY_NONE) {
+-		/* Start at the single node of the policy */
++		/* INTERLEAVE rotates below, others start at the first node */
+ 		alloc_nid = first_node(*ctx->numa_info.nodes);
+ 		take_nid = alloc_nid;
+ 	}
+@@ -893,11 +961,24 @@ static int __ttm_pool_alloc(struct ttm_pool *pool, struct ttm_tt *tt,
+ 	     order = ttm_pool_alloc_find_order(order, alloc)) {
+ 		struct ttm_pool_type *pt;
+ 
++		if (policy == TTM_NUMA_POLICY_INTERLEAVE) {
++			unsigned int slot = tt->num_pages - alloc->remaining_pages;
++
++			alloc_nid = ttm_pool_policy_nth_node(ctx->numa_info.nodes,
++							     slot >> order);
++			take_nid = alloc_nid;
++		}
++
+ 		/* First, try to allocate a page from a pool if one exists. */
+ 		p = NULL;
+ 		pt = ttm_pool_select_type(pool, page_caching, order);
+-		if (pt && allow_pools)
+-			p = ttm_pool_type_take(pt, take_nid);
++		if (pt && allow_pools) {
++			if (policy == TTM_NUMA_POLICY_INTERLEAVE)
++				p = ttm_pool_type_take_interleave(pt, take_nid,
++								  ctx->numa_info.nodes);
++			else
++				p = ttm_pool_type_take(pt, take_nid);
++		}
+ 
+ 		/*
+ 		 * If that fails or previously failed, allocate from system.
+@@ -911,6 +992,10 @@ static int __ttm_pool_alloc(struct ttm_pool *pool, struct ttm_tt *tt,
+ 			if (policy == TTM_NUMA_POLICY_BIND)
+ 				p = ttm_pool_alloc_bind(pool, gfp_flags, order,
+ 							ctx->numa_info.nodes);
++			else if (policy == TTM_NUMA_POLICY_INTERLEAVE)
++				p = ttm_pool_alloc_interleave(pool, gfp_flags,
++							      order, alloc_nid,
++							      ctx->numa_info.nodes);
+ 			else
+ 				p = ttm_pool_alloc_page(pool, gfp_flags, order,
+ 							alloc_nid);
+diff --git a/include/drm/ttm/ttm_bo.h b/include/drm/ttm/ttm_bo.h
+index e7605e7e97ec..d81b0cd6edfc 100644
+--- a/include/drm/ttm/ttm_bo.h
++++ b/include/drm/ttm/ttm_bo.h
+@@ -61,11 +61,14 @@ struct ttm_tt;
+  * @TTM_NUMA_POLICY_BIND: Allocate only from the nodes in
+  *	ttm_operation_ctx.numa_info.nodes, in ascending node order. Never falls
+  *	back to other nodes.
++ * @TTM_NUMA_POLICY_INTERLEAVE: Allocate chunks round-robin across the nodes
++ *	in ttm_operation_ctx.numa_info.nodes.
+  */
+ enum ttm_numa_policy {
+ 	TTM_NUMA_POLICY_NONE = 0,
+ 	TTM_NUMA_POLICY_PREFERRED,
+ 	TTM_NUMA_POLICY_BIND,
++	TTM_NUMA_POLICY_INTERLEAVE,
  };
  
- #define ttm_to_amdgpu_ttm_tt(ptr)	container_of(ptr, struct amdgpu_ttm_tt, ttm)
-@@ -1211,10 +1211,13 @@ static struct ttm_tt *amdgpu_ttm_tt_create(struct ttm_buffer_object *bo,
- 		return NULL;
- 
- 	gtt->gobj = &bo->base;
--	if (adev->gmc.mem_partitions && abo->xcp_id >= 0)
--		gtt->pool_id = KFD_XCP_MEM_ID(adev, abo->xcp_id);
--	else
--		gtt->pool_id = abo->xcp_id;
-+	gtt->numa_node = NUMA_NO_NODE;
-+	if (adev->gmc.is_app_apu && adev->gmc.num_mem_partitions) {
-+		int mem_id = KFD_XCP_MEM_ID(adev, abo->xcp_id);
-+
-+		if (mem_id >= 0)
-+			gtt->numa_node = adev->gmc.mem_partitions[mem_id].numa.node;
-+	}
- 
- 	if (abo->flags & AMDGPU_GEM_CREATE_CPU_GTT_USWC)
- 		caching = ttm_write_combined;
-@@ -1241,7 +1244,9 @@ static int amdgpu_ttm_tt_populate(struct ttm_device *bdev,
- {
- 	struct amdgpu_device *adev = amdgpu_ttm_adev(bdev);
- 	struct amdgpu_ttm_tt *gtt = ttm_to_amdgpu_ttm_tt(ttm);
--	struct ttm_pool *pool;
-+	/* ctx is shared by every BO of the operation; set the node locally */
-+	struct ttm_operation_ctx node_ctx = *ctx;
-+	nodemask_t preferred;
- 	pgoff_t i;
- 	int ret;
- 
-@@ -1256,11 +1261,13 @@ static int amdgpu_ttm_tt_populate(struct ttm_device *bdev,
- 	if (ttm->page_flags & TTM_TT_FLAG_EXTERNAL)
- 		return 0;
- 
--	if (adev->mman.ttm_pools && gtt->pool_id >= 0)
--		pool = &adev->mman.ttm_pools[gtt->pool_id];
--	else
--		pool = &adev->mman.bdev.pool;
--	ret = ttm_pool_alloc(pool, ttm, ctx);
-+	if (gtt->numa_node != NUMA_NO_NODE) {
-+		nodes_clear(preferred);
-+		node_set(gtt->numa_node, preferred);
-+		node_ctx.numa_info.policy = TTM_NUMA_POLICY_PREFERRED;
-+		node_ctx.numa_info.nodes = &preferred;
-+	}
-+	ret = ttm_pool_alloc(&adev->mman.bdev.pool, ttm, &node_ctx);
- 	if (ret)
- 		return ret;
- 
-@@ -1281,7 +1288,6 @@ static void amdgpu_ttm_tt_unpopulate(struct ttm_device *bdev,
- {
- 	struct amdgpu_ttm_tt *gtt = ttm_to_amdgpu_ttm_tt(ttm);
- 	struct amdgpu_device *adev;
--	struct ttm_pool *pool;
- 	pgoff_t i;
- 
- 	amdgpu_ttm_backend_unbind(bdev, ttm);
-@@ -1301,12 +1307,7 @@ static void amdgpu_ttm_tt_unpopulate(struct ttm_device *bdev,
- 
- 	adev = amdgpu_ttm_adev(bdev);
- 
--	if (adev->mman.ttm_pools && gtt->pool_id >= 0)
--		pool = &adev->mman.ttm_pools[gtt->pool_id];
--	else
--		pool = &adev->mman.bdev.pool;
--
--	return ttm_pool_free(pool, ttm);
-+	return ttm_pool_free(&adev->mman.bdev.pool, ttm);
- }
- 
  /**
-@@ -1935,40 +1936,6 @@ static void amdgpu_ttm_training_data_block_init(struct amdgpu_device *adev)
- 			ctx->c2p_train_data_offset);
- }
- 
--static int amdgpu_ttm_pools_init(struct amdgpu_device *adev)
--{
--	int i;
--
--	if (!adev->gmc.is_app_apu || !adev->gmc.num_mem_partitions)
--		return 0;
--
--	adev->mman.ttm_pools = kzalloc_objs(*adev->mman.ttm_pools,
--					    adev->gmc.num_mem_partitions);
--	if (!adev->mman.ttm_pools)
--		return -ENOMEM;
--
--	for (i = 0; i < adev->gmc.num_mem_partitions; i++) {
--		ttm_pool_init(&adev->mman.ttm_pools[i], adev->dev,
--			      adev->gmc.mem_partitions[i].numa.node,
--			      TTM_ALLOCATION_POOL_BENEFICIAL_ORDER(get_order(SZ_2M)));
--	}
--	return 0;
--}
--
--static void amdgpu_ttm_pools_fini(struct amdgpu_device *adev)
--{
--	int i;
--
--	if (!adev->gmc.is_app_apu || !adev->mman.ttm_pools)
--		return;
--
--	for (i = 0; i < adev->gmc.num_mem_partitions; i++)
--		ttm_pool_fini(&adev->mman.ttm_pools[i]);
--
--	kfree(adev->mman.ttm_pools);
--	adev->mman.ttm_pools = NULL;
--}
--
- /**
-  * amdgpu_ttm_alloc_mmio_remap_bo - Allocate the singleton MMIO_REMAP BO
-  * @adev: amdgpu device
-@@ -2153,11 +2120,6 @@ int amdgpu_ttm_init(struct amdgpu_device *adev)
- 		return r;
- 	}
- 
--	r = amdgpu_ttm_pools_init(adev);
--	if (r) {
--		dev_err(adev->dev, "failed to init ttm pools(%d).\n", r);
--		return r;
--	}
- 	adev->mman.initialized = true;
- 
- 	if (!adev->gmc.is_app_apu) {
-@@ -2327,8 +2289,6 @@ void amdgpu_ttm_fini(struct amdgpu_device *adev)
- 	if (!adev->mman.initialized)
- 		return;
- 
--	amdgpu_ttm_pools_fini(adev);
--
- 	amdgpu_ttm_training_reserve_vram_fini(adev);
- 	/* return the stolen vga memory back to VRAM */
- 	if (!adev->gmc.is_app_apu) {
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.h b/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.h
-index adb6cfae5052..8fc7fc86f19c 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.h
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.h
-@@ -83,7 +83,6 @@ struct amdgpu_vram_resv {
- 
- struct amdgpu_mman {
- 	struct ttm_device		bdev;
--	struct ttm_pool			*ttm_pools;
- 	bool				initialized;
- 	void __iomem			*aper_base_kaddr;
- 
 -- 
 2.43.0
 
