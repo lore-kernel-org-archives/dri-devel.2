@@ -2,85 +2,68 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 66AB6606A338
-	for <dri-devel@archiver.kernel.org>; Tue, 24 Nov 2026 13:30:37 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 82D09606A31E
+	for <dri-devel@archiver.kernel.org>; Tue, 24 Nov 2026 13:35:31 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=jCqxzAJj
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=dSbn8Y/N
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id B163D10F59B;
-	Tue, 24 Nov 2026 13:30:31 +0000 (UTC)
-Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id E4B4E10F59B
- for <dri-devel@lists.freedesktop.org>; Tue, 24 Nov 2026 13:30:25 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id DAD2610E892;
+	Tue, 24 Nov 2026 13:35:25 +0000 (UTC)
+Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 449F210EE2B
+ for <dri-devel@lists.freedesktop.org>; Tue, 24 Nov 2026 13:35:19 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by tor.source.kernel.org (Postfix) with ESMTP id 90F60623A5;
- Tue, 24 Nov 2026 13:30:24 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1429B1F000C6;
- Tue, 24 Nov 2026 13:30:03 +0000 (UTC)
+ by sea.source.kernel.org (Postfix) with ESMTP id BF84140AB6;
+ Tue, 24 Nov 2026 13:35:18 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 521941F000CA;
+ Tue, 24 Nov 2026 13:35:18 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1795527024;
- bh=5dHp9HTARdoHtxKAu6nPHPSzmPEU1mRqVl5Dy4Gq+ko=;
- h=From:To:Cc:Subject:In-Reply-To:References:Date;
- b=jCqxzAJjVpIJjwovRyqxRWcIP/1B3dGdfwKBWeMKdR8HKyUrkxtLFRbPDJMQLyrXb
- owAqj3PB6cKHqac2gb0IwSUnm6Jz149LTaGXvIacdGk2W381ux3zvZoZXbN+neKPF3
- 1PHEsfLA8kEDrjmujBkqVkHmbA0E8gDIOIkjgM6J5C2vcD1lMEU6JiYCBpy8r5CFJo
- cdhDHzPASzOI9GYVDMxu8Q3IH3tHuhugE5hCwGZ29K+jacyTfw/E4MwfT2i06O/AFL
- R4B/E6tiODpZWkUSH2LaCdCMjaXBhI2MO9cxeHkKmawVLpMcJRxhf31tfzXIRXcjR3
- N/DAqTlKmk0CQ==
-X-Mailer: emacs 31.1 (via feedmail 11-beta-1 I)
-From: Aneesh Kumar K.V <aneesh.kumar@kernel.org>
-To: Catalin Marinas <catalin.marinas@arm.com>
-Cc: linux-coco@lists.linux.dev, Andrew Morton <akpm@linux-foundation.org>,
- Baoquan He <baoquan.he@linux.dev>, Mike Rapoport <rppt@kernel.org>,
- Pasha Tatashin <pasha.tatashin@soleen.com>,
- Pratyush Yadav <pratyush@kernel.org>,
- Christian K?nig <christian.koenig@amd.com>, Jason Gunthorpe <jgg@ziepe.ca>,
- Joerg Roedel <joro@8bytes.org>, Marc Zyngier <maz@kernel.org>,
- Marek Szyprowski <m.szyprowski@samsung.com>,
- Robin Murphy <robin.murphy@arm.com>, Steven Price <steven.price@arm.com>,
- Sumit Semwal <sumit.semwal@linaro.org>,
- Suzuki K Poulose <suzuki.poulose@arm.com>,
- Thomas Gleixner <tglx@kernel.org>, Will Deacon <will@kernel.org>,
- Russell King <linux@armlinux.org.uk>,
- Benjamin Gaignard <benjamin.gaignard@collabora.com>,
- Brian Starkey <Brian.Starkey@arm.com>, John Stultz <jstultz@google.com>,
- Mark Rutland <mark.rutland@arm.com>, Radu Rendec <radu@rendec.net>,
- "T.J. Mercier" <tjmercier@google.com>,
- Madhavan Srinivasan <maddy@linux.ibm.com>,
- Michael Ellerman <mpe@ellerman.id.au>, Nicholas Piggin <npiggin@gmail.com>,
- Christophe Leroy <chleroy@kernel.org>,
- Ritesh Harjani <ritesh.list@gmail.com>,
- Shrikanth Hegde <sshegde@linux.ibm.com>,
- Alexander Gordeev <agordeev@linux.ibm.com>,
- Gerald Schaefer <gerald.schaefer@linux.ibm.com>,
- Heiko Carstens <hca@linux.ibm.com>, Vasily Gorbik <gor@linux.ibm.com>,
- Christian Borntraeger <borntraeger@linux.ibm.com>,
- Sven Schnelle <svens@linux.ibm.com>, Ingo Molnar <mingo@redhat.com>,
- Borislav Petkov <bp@alien8.de>,
- Dave Hansen <dave.hansen@linux.intel.com>, x86@kernel.org,
- "H . Peter Anvin" <hpa@zytor.com>, Kiryl Shutsemau <kas@kernel.org>,
- Rick Edgecombe <rick.p.edgecombe@intel.com>,
- "K . Y . Srinivasan" <kys@microsoft.com>,
- Haiyang Zhang <haiyangz@microsoft.com>, Wei Liu <wei.liu@kernel.org>,
- Dexuan Cui <decui@microsoft.com>, Long Li <longli@microsoft.com>,
- Paolo Bonzini <pbonzini@redhat.com>,
- Vitaly Kuznetsov <vkuznets@redhat.com>, Andy Lutomirski <luto@kernel.org>,
- Peter Zijlstra <peterz@infradead.org>,
- dri-devel@lists.freedesktop.org, iommu@lists.linux.dev,
- linaro-mm-sig@lists.linaro.org, linux-arm-kernel@lists.infradead.org,
- linux-media@vger.kernel.org, linux-mm@kvack.org,
- kvmarm@lists.linux.dev, patches@lists.linux.dev
-Subject: Re: [PATCH v10 04/13] irqchip/gic-v3-its: Allocate shared tables
- using CoCo shared memory allocator
-In-Reply-To: <awQd81MwZqi55gf8@arm.com>
-References: <20261116091137.94252-1-aneesh.kumar@kernel.org>
- <20261116091137.94252-5-aneesh.kumar@kernel.org>
- <awQd81MwZqi55gf8@arm.com>
-Date: Tue, 24 Nov 2026 19:00:00 +0530
-Message-ID: <yq5aa4mybbmv.fsf@kernel.org>
+ s=k20260515; t=1795527318;
+ bh=brA1TZa4Xw4gj6MGSoKR1QMCPQppauTAeMn4qP0Jvxc=;
+ h=Date:From:Cc:To:In-Reply-To:References:Subject;
+ b=dSbn8Y/NI1ECMCHeJz8N3SxMgDZHe+m/bc5KiR6zO3arfCHJFGOb54XmBsHndC0+V
+ vcjb8SFTRbLoKuKNbV/azVrHe6azEoNKNz/qSTWz1i2JRmUpvuK7w2lEaqoxzv0+Ff
+ oJBlc/Z+RlgnHkujXGg4c35l9BHhWa3dRHlg/0eRsRdPW4yVxkJr7Bx2/zCHRjYjGV
+ /AH9oZZONTz0rWgy021OWu/lg2Jp4aqTqXj47Gh3Yrpq1bqgYkNZ40zocELH/IhVSR
+ 6uE6wBHJW47Rm+SU89zd0WmBwbgxzcfhPsDGqSYMV0NAigEXW1T6ZERf8FoGh4RB/u
+ g+o4oxsJZe+3g==
+Date: Tue, 24 Nov 2026 07:35:16 -0600
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 8bit
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain
+From: "Rob Herring (Arm)" <robh@kernel.org>
+Cc: Andreas Kemnade <andreas@kemnade.info>, Mark Brown <broonie@kernel.org>, 
+ =?utf-8?q?Uwe_Kleine-K=C3=B6nig?= <ukleinek@kernel.org>, 
+ Tony Lindgren <tony@atomide.com>, Pavel Machek <pavel@kernel.org>, 
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
+ Simona Vetter <simona@ffwll.ch>, Aaro Koskinen <aaro.koskinen@iki.fi>, 
+ Conor Dooley <conor+dt@kernel.org>, Lee Jones <lee@kernel.org>, 
+ linux-sound@vger.kernel.org, Takashi Iwai <tiwai@suse.com>, 
+ Jaroslav Kysela <perex@perex.cz>, linux-omap@vger.kernel.org, 
+ linux-gpio@vger.kernel.org, Kevin Hilman <khilman@baylibre.com>, 
+ Linus Walleij <linus.walleij@linaro.org>, linux-kernel@vger.kernel.org, 
+ dri-devel@lists.freedesktop.org, linux-leds@vger.kernel.org, 
+ Jessica Zhang <jessica.zhang@oss.qualcomm.com>, linux-pwm@vger.kernel.org, 
+ Maxime Ripard <mripard@kernel.org>, linux-arm-kernel@lists.infradead.org, 
+ linux-fbdev@vger.kernel.org, Peter Ujfalusi <peter.ujfalusi@gmail.com>, 
+ Neil Armstrong <neil.armstrong@linaro.org>, 
+ Daniel Thompson <danielt@kernel.org>, 
+ Jarkko Nikula <jarkko.nikula@bitmer.com>, Roger Quadros <rogerq@kernel.org>, 
+ David Airlie <airlied@gmail.com>, devicetree@vger.kernel.org, 
+ Jingoo Han <jingoohan1@gmail.com>, letux-kernel@openphoenux.org, 
+ Bartosz Golaszewski <brgl@kernel.org>, 
+ Thomas Zimmermann <tzimmermann@suse.de>, 
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Liam Girdwood <lgirdwood@gmail.com>, Russell King <linux@armlinux.org.uk>, 
+ kernel@pyra-handheld.com, Helge Deller <deller@gmx.de>
+To: "H. Nikolaus Schaller" <hns@goldelico.com>
+In-Reply-To: <5c6f7deca16f70f1f19cb40c57d70e30068d6000.1795505160.git.hns@goldelico.com>
+References: <cover.1795505160.git.hns@goldelico.com>
+ <5c6f7deca16f70f1f19cb40c57d70e30068d6000.1795505160.git.hns@goldelico.com>
+Message-Id: <179552715646.40567.8345105080206889175.robh@kernel.org>
+Subject: Re: [PATCH v2 06/20] dt-bindings: sound: Document OpenPandora
+ sound card
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -92,132 +75,119 @@ List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-10.8 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
+X-Spam-Status: No, score=-15.8 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
 	DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
-	INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS autolearn=ham
-	autolearn_force=no version=4.0.1
+	INCLUDES_CR_TRAILER,INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,
+	SPF_PASS autolearn=ham autolearn_force=no version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-Catalin Marinas <catalin.marinas@arm.com> writes:
 
-> Hi Aneesh,
->
-> I'm replying on this patch rather than on the one introducing the API. I
-> think it's more obvious here why I think we can make things simpler.
->
-> On Mon, Nov 16, 2026 at 02:41:27PM +0530, Aneesh Kumar K.V (Arm) wrote:
->>  static struct page *its_alloc_pages_node(int node, gfp_t gfp,
->>  					 unsigned int order)
->>  {
->> -	struct page *page;
->> -	int ret = 0;
->> +	struct cc_shared_pages mem;
->>  
->>  	if (node == NUMA_NO_NODE)
->>  		node = numa_mem_id();
->>  
->> -	page = alloc_pages_node(node, gfp | gfp_flags_quirk, order);
->> -
->> -	if (!page)
->> -		return NULL;
->> -
->> -	ret = set_memory_decrypted((unsigned long)page_address(page),
->> -				   1 << order);
->> -	/*
->> -	 * If set_memory_decrypted() fails then we don't know what state the
->> -	 * page is in, so we can't free it. Instead we leak it.
->> -	 * set_memory_decrypted() will already have WARNed.
->> -	 */
->> -	if (ret)
->> +	if (alloc_cc_shared_pages_node(node, gfp | gfp_flags_quirk,
->> +				       PAGE_SIZE << order, &mem))
->>  		return NULL;
->>  
->> -	return page;
->> +	return mem.page;
->
-> This part is mostly fine but I do wonder why not make this alloc
-> function the same as buddy alloc_pages_node() - return a struct page
-> pointer.
->
->>  static void its_free_pages(void *addr, unsigned int order)
->>  {
->> -	/*
->> -	 * If the memory cannot be encrypted again then we must leak the pages.
->> -	 * set_memory_encrypted() will already have WARNed.
->> -	 */
->> -	if (set_memory_encrypted((unsigned long)addr, 1 << order))
->> +	struct cc_shared_layout layout;
->> +	struct cc_shared_pages mem;
->> +
->> +	if (WARN_ON(cc_shared_calc_layout(PAGE_SIZE << order, &layout)))
->>  		return;
->> -	free_pages((unsigned long)addr, order);
->> +
->> +	mem.page = virt_to_page(addr);
->> +	mem.shared_size = layout.shared_size;
->> +	free_cc_shared_pages(&mem);
->>  }
->
-> Here it gets weird and I don't see why we can't have just a buddy-like
-> interface. The kernel-doc for alloc says that shared_size must be
-> retained for the corresponding free but without reading the source code,
-> you can't tell that cc_shared_calc_layout() gives you the same
-> shared_size populated by alloc. We have a similar pattern in dma-buf but
-> using the compound page order.
->
-> What's wrong with a simpler API:
->
-> struct page *alloc_cc_shared_pages_node(int nid, gfp_t gfp, unsigned int order);
-> struct page *alloc_cc_shared_pages(gfp_t gfp, unsigned int order);
-> void free_cc_shared_pages(struct page *page, unsigned int order);
->
-> Both alloc and free take the original request order and perform the
-> round up internally without exposing the details to the caller. Alloc
-> shares the whole resulting buddy block and free makes the same block
-> private before releasing it. We can document that free takes the
-> original requested order and releases the whole allocation. Partial
-> frees aren't supported.
->
-> We can get rid of layout and mem structures (or at least not as
-> part of the API). Of course, this assumes that the shared granule size
-> remains constant for a guest's lifetime but I don't think that's a
-> problem.
->
->> @@ -278,7 +267,8 @@ static void *itt_alloc_pool(int node, int size)
->>  		if (!page)
->>  			break;
->>  
->> -		gen_pool_add(itt_pool, (unsigned long)page_address(page), PAGE_SIZE, node);
->> +		gen_pool_add(itt_pool, (unsigned long)page_address(page),
->> +			     cc_shared_granule_size(), node);
->
-> Here we can introduce:
->
-> unsigned int cc_shared_page_order(unsigned int order);
->
-> and just use (PAGE_SIZE << cc_shared_page_order(0)) for gen_pool_add().
->
-> Was there a caller you had in mind that needs the common allocator to
-> share less than the whole buddy block?
->
+On Tue, 24 Nov 2026 08:25:46 +0100, H. Nikolaus Schaller wrote:
+> The OpenPandora audio subsystem describes the routing links between the
+> OMAP3 McBSP interface, the external PCM1773 DAC, and the TWL4030 audio
+> codec, alongside amplifiers and power supplies.
+> 
+> Signed-off-by: H. Nikolaus Schaller <hns@goldelico.com>
+> ---
+> 
+> Notes:
+>     Changes against V1:
+>     - Address Krzysztof Kozlowski's V1 request to run the documented
+>       DT schema checks and fix the errors reported by Rob Herring's
+>       automated DT validation.
+>     - Update the binding example and schema during DT consistency review.
+>     - Binding and commit-message review assisted by ChatGPT.
+> 
+>  .../sound/openpandora,omap3pandora-sound.yaml | 95 +++++++++++++++++++
+>  1 file changed, 95 insertions(+)
+>  create mode 100644 Documentation/devicetree/bindings/sound/openpandora,omap3pandora-sound.yaml
+> 
 
-No, I don't have a caller that needs to share less than the whole buddy
-block.
+My bot found errors running 'make dt_binding_check' on your patch:
 
-Taking Jason's feedback into account, we could have the allocator
-request compound pages and recover the actual allocation order with
-compound_order(). That would avoid passing an order to free:
+yamllint warnings/errors:
 
-void *alloc_cc_shared_node(int nid, gfp_t gfp, unsigned int order);
-void *alloc_cc_shared(gfp_t gfp, unsigned int order);
-void free_cc_shared(void *addr);
+dtschema/dtc warnings/errors:
+Documentation/devicetree/bindings/sound/qcom,apq8016-sbc-sndcard.example.dtb: sound@7702000 (qcom,apq8016-sbc-sndcard): primary-dai-link:cpu:sound-dai: [[4294967295],[0]] has more than 1 item
+	from schema $id: http://devicetree.org/schemas/sound/qcom,apq8016-sbc-sndcard.yaml
+Documentation/devicetree/bindings/sound/qcom,apq8016-sbc-sndcard.example.dtb: sound@7702000 (qcom,apq8016-sbc-sndcard): quaternary-dai-link:cpu:sound-dai: [[4294967295],[3]] has more than 1 item
+	from schema $id: http://devicetree.org/schemas/sound/qcom,apq8016-sbc-sndcard.yaml
+Documentation/devicetree/bindings/sound/qcom,apq8016-sbc-sndcard.example.dtb: sound@7702000 (qcom,apq8016-sbc-sndcard): tertiary-dai-link:cpu:sound-dai: [[4294967295],[2]] has more than 1 item
+	from schema $id: http://devicetree.org/schemas/sound/qcom,apq8016-sbc-sndcard.yaml
+Documentation/devicetree/bindings/sound/qcom,apq8016-sbc-sndcard.example.dtb: sound@7702000 (qcom,msm8916-qdsp6-sndcard): mm1-dai-link:cpu:sound-dai: [[4294967295],[0]] has more than 1 item
+	from schema $id: http://devicetree.org/schemas/sound/qcom,apq8016-sbc-sndcard.yaml
+Documentation/devicetree/bindings/sound/qcom,apq8016-sbc-sndcard.example.dtb: sound@7702000 (qcom,msm8916-qdsp6-sndcard): primary-dai-link:cpu:sound-dai: [[4294967295],[16]] has more than 1 item
+	from schema $id: http://devicetree.org/schemas/sound/qcom,apq8016-sbc-sndcard.yaml
+Documentation/devicetree/bindings/sound/samsung,snow.example.dtb: sound (google,snow-audio-max98095): codec:sound-dai: [[4294967295],[0],[4294967295]] has more than 2 items
+	from schema $id: http://devicetree.org/schemas/sound/samsung,snow.yaml
+Documentation/devicetree/bindings/sound/samsung,snow.example.dtb: sound (google,snow-audio-max98095): cpu:sound-dai: [[4294967295],[0]] has more than 1 item
+	from schema $id: http://devicetree.org/schemas/sound/samsung,snow.yaml
+Documentation/devicetree/bindings/sound/fsl,qmc-audio.example.dtb: sound (simple-audio-card): simple-audio-card,dai-link@0:cpu:sound-dai: [[1],[16]] has more than 1 item
+	from schema $id: http://devicetree.org/schemas/sound/simple-card.yaml
+Documentation/devicetree/bindings/sound/fsl,qmc-audio.example.dtb: sound (simple-audio-card): simple-audio-card,dai-link@1:cpu:sound-dai: [[1],[17]] has more than 1 item
+	from schema $id: http://devicetree.org/schemas/sound/simple-card.yaml
+Documentation/devicetree/bindings/sound/fsl,qmc-audio.example.dtb: sound (simple-audio-card): simple-audio-card,dai-link@2:cpu:sound-dai: [[1],[18]] has more than 1 item
+	from schema $id: http://devicetree.org/schemas/sound/simple-card.yaml
+Documentation/devicetree/bindings/sound/mediatek,mt8173-rt5650.example.dtb: sound (mediatek,mt8173-rt5650): codec-capture:sound-dai: [[4294967295],[1]] has more than 1 item
+	from schema $id: http://devicetree.org/schemas/sound/mediatek,mt8173-rt5650.yaml
+Documentation/devicetree/bindings/sound/simple-card.example.dtb: sound (simple-audio-card): simple-audio-card,cpu:sound-dai: [[4294967295],[0]] has more than 1 item
+	from schema $id: http://devicetree.org/schemas/sound/simple-card.yaml
+Documentation/devicetree/bindings/sound/simple-card.example.dtb: sound (simple-audio-card): simple-audio-card,cpu@0:sound-dai: [[4294967295],[0]] has more than 1 item
+	from schema $id: http://devicetree.org/schemas/sound/simple-card.yaml
+Documentation/devicetree/bindings/sound/simple-card.example.dtb: sound (simple-audio-card): simple-audio-card,cpu@1:sound-dai: [[4294967295],[1]] has more than 1 item
+	from schema $id: http://devicetree.org/schemas/sound/simple-card.yaml
+Documentation/devicetree/bindings/sound/simple-card.example.dtb: sound (simple-audio-card): simple-audio-card,dai-link@0:cpu:sound-dai: [[4294967295],[0]] has more than 1 item
+	from schema $id: http://devicetree.org/schemas/sound/simple-card.yaml
+Documentation/devicetree/bindings/sound/simple-card.example.dtb: sound (simple-audio-card): simple-audio-card,dai-link@1:codec:sound-dai: [[4294967295],[0]] has more than 1 item
+	from schema $id: http://devicetree.org/schemas/sound/simple-card.yaml
+Documentation/devicetree/bindings/sound/simple-card.example.dtb: sound (simple-audio-card): simple-audio-card,dai-link@1:cpu-0:sound-dai: [[4294967295],[1]] has more than 1 item
+	from schema $id: http://devicetree.org/schemas/sound/simple-card.yaml
+Documentation/devicetree/bindings/sound/simple-card.example.dtb: sound (simple-audio-card): simple-audio-card,dai-link@1:cpu-1:sound-dai: [[4294967295],[2]] has more than 1 item
+	from schema $id: http://devicetree.org/schemas/sound/simple-card.yaml
+Documentation/devicetree/bindings/sound/simple-card.example.dtb: sound (simple-audio-card): simple-audio-card,dai-link@1:cpu-2:sound-dai: [[4294967295],[3]] has more than 1 item
+	from schema $id: http://devicetree.org/schemas/sound/simple-card.yaml
+Documentation/devicetree/bindings/sound/simple-card.example.dtb: sound (simple-audio-card): simple-audio-card,dai-link@1:cpu-3:sound-dai: [[4294967295],[4]] has more than 1 item
+	from schema $id: http://devicetree.org/schemas/sound/simple-card.yaml
+Documentation/devicetree/bindings/sound/simple-card.example.dtb: sound (simple-audio-card): simple-audio-card,dai-link@2:codec:sound-dai: [[4294967295],[1]] has more than 1 item
+	from schema $id: http://devicetree.org/schemas/sound/simple-card.yaml
+Documentation/devicetree/bindings/sound/simple-card.example.dtb: sound (simple-audio-card): simple-audio-card,dai-link@2:cpu:sound-dai: [[4294967295],[5]] has more than 1 item
+	from schema $id: http://devicetree.org/schemas/sound/simple-card.yaml
+Documentation/devicetree/bindings/sound/qcom,sm8250.example.dtb: sound (qcom,qrb5165-rb5-sndcard): hdmi-dai-link:cpu:sound-dai: [[4294967295],[20]] has more than 1 item
+	from schema $id: http://devicetree.org/schemas/sound/qcom,sm8250.yaml
+Documentation/devicetree/bindings/sound/qcom,sm8250.example.dtb: sound (qcom,qrb5165-rb5-sndcard): mm1-dai-link:cpu:sound-dai: [[4294967295],[0]] has more than 1 item
+	from schema $id: http://devicetree.org/schemas/sound/qcom,sm8250.yaml
+Documentation/devicetree/bindings/sound/qcom,sm8250.example.dtb: sound (qcom,qrb5165-rb5-sndcard): mm2-dai-link:cpu:sound-dai: [[4294967295],[1]] has more than 1 item
+	from schema $id: http://devicetree.org/schemas/sound/qcom,sm8250.yaml
+Documentation/devicetree/bindings/sound/qcom,sm8250.example.dtb: sound (qcom,qrb5165-rb5-sndcard): mm3-dai-link:cpu:sound-dai: [[4294967295],[2]] has more than 1 item
+	from schema $id: http://devicetree.org/schemas/sound/qcom,sm8250.yaml
+Documentation/devicetree/bindings/sound/qcom,sm8250.example.dtb: sound (qcom,qrb5165-rb5-sndcard): usb-dai-link:cpu:sound-dai: [[4294967295],[136]] has more than 1 item
+	from schema $id: http://devicetree.org/schemas/sound/qcom,sm8250.yaml
+Documentation/devicetree/bindings/sound/qcom,sm8250.example.dtb: sound (qcom,qrb5165-rb5-sndcard): va-dai-link:cpu:sound-dai: [[4294967295],[110]] has more than 1 item
+	from schema $id: http://devicetree.org/schemas/sound/qcom,sm8250.yaml
+Documentation/devicetree/bindings/sound/qcom,sm8250.example.dtb: sound (qcom,qrb5165-rb5-sndcard): wsa-dai-link:cpu:sound-dai: [[4294967295],[105]] has more than 1 item
+	from schema $id: http://devicetree.org/schemas/sound/qcom,sm8250.yaml
+Documentation/devicetree/bindings/sound/google,sc7180-trogdor.example.dtb: sound (google,sc7180-trogdor): dai-link@0:cpu:sound-dai: [[4294967295],[0]] has more than 1 item
+	from schema $id: http://devicetree.org/schemas/sound/google,sc7180-trogdor.yaml
+Documentation/devicetree/bindings/sound/google,sc7180-trogdor.example.dtb: sound (google,sc7180-trogdor): dai-link@1:cpu:sound-dai: [[4294967295],[1]] has more than 1 item
+	from schema $id: http://devicetree.org/schemas/sound/google,sc7180-trogdor.yaml
+Documentation/devicetree/bindings/sound/google,sc7180-trogdor.example.dtb: sound (google,sc7180-trogdor): dai-link@2:cpu:sound-dai: [[4294967295],[0]] has more than 1 item
+	from schema $id: http://devicetree.org/schemas/sound/google,sc7180-trogdor.yaml
 
-Alloc would round up internally and share the entire buddy block; free
-would recover its order, make the whole block private, and release it.
+doc reference errors (make refcheckdocs):
 
-As you noted, dma-buf would need virt_to_page() to obtain the pages for
-its scatterlist.
+See https://patchwork.kernel.org/project/devicetree/patch/5c6f7deca16f70f1f19cb40c57d70e30068d6000.1795505160.git.hns@goldelico.com
 
--aneesh
+The base for the series is generally the latest rc1. A different dependency
+should be noted in *this* patch.
+
+If you already ran 'make dt_binding_check' and didn't see the above
+error(s), then make sure 'yamllint' is installed and dt-schema is up to
+date:
+
+pip3 install dtschema --upgrade
+
+Please check and re-submit after running the above command yourself. Note
+that DT_SCHEMA_FILES can be set to your schema file to speed up checking
+your schema. However, it must be unset to test all examples with your schema.
+
