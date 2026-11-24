@@ -2,29 +2,29 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 10817606A32E
-	for <dri-devel@archiver.kernel.org>; Tue, 24 Nov 2026 18:18:49 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 06D49606A681
+	for <dri-devel@archiver.kernel.org>; Tue, 24 Nov 2026 18:18:50 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=igalia.com header.i=@igalia.com header.a=rsa-sha256 header.s=20170329 header.b=eOFuwJSc
+	dkim=pass (2048-bit key) header.d=igalia.com header.i=@igalia.com header.a=rsa-sha256 header.s=20170329 header.b=quiGei8U
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id BFD0210F835;
-	Tue, 24 Nov 2026 18:18:39 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 0EC6810F836;
+	Tue, 24 Nov 2026 18:18:40 +0000 (UTC)
 Received: from fanzine2.igalia.com (fanzine2.igalia.com [213.97.179.56])
- by gabe.freedesktop.org (Postfix) with ESMTPS id F00D010F039;
- Tue, 24 Nov 2026 18:18:09 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 3CB7510F081;
+ Tue, 24 Nov 2026 18:18:29 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com; 
  s=20170329;
  h=Content-Transfer-Encoding:MIME-Version:Message-ID:Date:Subject:
- Cc:To:From:From:Reply-To; bh=Y9n7UOhXe/wOeOulFkE7hxZ1zdEblzpuy83y2wLMkL4=;
- t=1795544289; x=2110904289; b=eOFuwJSca+NI5RByCj3J2urmLU5anhmoeJ7LhnJsdWi0con
- HzjGpUOft4DTtQOZ6mnnxRb8Kji3/HJ+xe571c7ub/CFozvyGMa+7gK1q6YOarMcG0iWotc84rpcx
- wrlA4xHbtuCpylZJjatU1V0Va/oO9AVOME3CbGxwZHEfiemY2IPZY48d1w5xKuoyFz4SRCKK/WhpU
- DRRNsE7n/TDcpaXKtO41lUp9oZK7QpOYvGP45LMOPDtwTqzoOdKCvZ9+pedoLGTVyEYVei8/V1Etk
- K7nXZPlUJWuXy65YYKdbWfjZvlBoyaJIbDkYUBeLzkz/lGCfmdq9tJrh+f5Vs0hA==;
+ Cc:To:From:From:Reply-To; bh=b6K3+t6KOdL51KffwKMFowzojnZMXnYTCwh0Jc0Y0+I=;
+ t=1795544309; x=2110904309; b=quiGei8U2LaNmTb8WXuwxSn7D5llokYCIz316Rqtxa0aYOT
+ BR8bAQjBXumgHEPiMhoGm2U7QLrHkbZ6pYgfpttPBr4HqRno1n7fB+tflEysSnWqUCW0Rh+2G2my2
+ a/n7XQcLzPqTdHncshrKn1uKsP1jCKqieGi/nD6vZWAniB64UGdhWkGUoZR+L4IvsgOxhZlBXeiOM
+ WZOmPP+fI6hynUrTjfeV7TYjPEDFpXjV812Rr6FiHXqT7dA+UjJ2Q9cBT/9KSjisN4E4aVAy5l/z3
+ czMXLG/8PUAHfqYSmVuCmupX1PekTBQLOAlDp+RDj1nJu45v9yEkvS8YX1BDHfaQ==;
 Received: from 84.125.127.4.dyn.user.ono.com ([84.125.127.4] helo=killbill)
  by fanzine2.igalia.com with esmtpsa 
  (Cipher TLS1.3:ECDHE_X25519__RSA_PSS_RSAE_SHA256__AES_256_GCM:256) (Exim)
- id 1xVv5d-00000003axM-1qLw; Tue, 24 Nov 2026 19:18:01 +0100
+ id 1xVv5v-00000003axM-2T4X; Tue, 24 Nov 2026 19:18:19 +0100
 From: Melissa Wen <mwen@igalia.com>
 To: airlied@gmail.com, alexander.deucher@amd.com, christian.koenig@amd.com,
  harry.wentland@amd.com, maarten.lankhorst@linux.intel.com,
@@ -42,10 +42,10 @@ Cc: Ariel DAlessandro <ariel.dalessandro@collabora.com>,
  amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
  Leandro Ribeiro <leandro.ribeiro@collabora.com>,
  Melissa Wen <mwen@igalia.com>
-Subject: [PATCH v3 03/19] drm/atomic: handle CRTC colorops in
- drm_atomic_commit_set_colorop_state()
-Date: Tue, 24 Nov 2026 19:03:20 +0100
-Message-ID: <20261124181652.1333986-4-mwen@igalia.com>
+Subject: [PATCH v3 13/19] drm/drm_mode_object: hide deprecated CRTC color mgmt
+ props if colorop is set
+Date: Tue, 24 Nov 2026 19:03:30 +0100
+Message-ID: <20261124181652.1333986-14-mwen@igalia.com>
 X-Mailer: git-send-email 2.53.0
 In-Reply-To: <20261124181652.1333986-1-mwen@igalia.com>
 References: <20261124181652.1333986-1-mwen@igalia.com>
@@ -66,55 +66,49 @@ Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 X-Spam-Status: No, score=-18.8 required=3.0 tests=BAYES_00,DKIM_SIGNED,
 	DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
 	INCLUDES_CR_TRAILER,INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,
-	SPF_PASS,USER_AGENT_GIT autolearn=unavailable autolearn_force=no
-	version=4.0.1
+	SPF_PASS,USER_AGENT_GIT autolearn=ham autolearn_force=no version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-Commit 259907fef771 ("drm/atomic: Create function to insert colorop
-state into a commit") asserts if the lock of the plane colorop is held.
-Now that a colorop can be also parented by a CRTC, colorop->plane is
-NULL for a CRTC colorop and drm_atomic_commit_set_colorop_state() has to
-check the CRTC mutex instead of plane mutex. Update the helper to assert
-the lock of the object that owns the colorop.
+Stop advertising CRTC color mgmt properties if post-blend colorop is
+enabled. Follow the same approach done for plane COLOR_ENCODING and
+COLOR_RANGE when pre-blend colorop is enabled.
 
 Signed-off-by: Melissa Wen <mwen@igalia.com>
 
 ---
 v3:
-- new patch: adapt the lock assert added by commit 259907fef771 to
-  colorops parented to a CRTC
+- rebase on drm-misc-next, no other changes
 ---
- drivers/gpu/drm/drm_atomic.c | 9 ++++++---
- 1 file changed, 6 insertions(+), 3 deletions(-)
+ drivers/gpu/drm/drm_mode_object.c | 13 +++++++++++--
+ 1 file changed, 11 insertions(+), 2 deletions(-)
 
-diff --git a/drivers/gpu/drm/drm_atomic.c b/drivers/gpu/drm/drm_atomic.c
-index e72e5e7ee76b..6d608795f28b 100644
---- a/drivers/gpu/drm/drm_atomic.c
-+++ b/drivers/gpu/drm/drm_atomic.c
-@@ -710,7 +710,10 @@ static void drm_atomic_commit_set_colorop_state(struct drm_atomic_commit *commit
- {
- 	int index = drm_colorop_index(colorop);
+diff --git a/drivers/gpu/drm/drm_mode_object.c b/drivers/gpu/drm/drm_mode_object.c
+index e9f317126035..3b7c94957bf0 100644
+--- a/drivers/gpu/drm/drm_mode_object.c
++++ b/drivers/gpu/drm/drm_mode_object.c
+@@ -442,10 +442,19 @@ int drm_mode_object_get_properties(struct drm_mode_object *obj, bool atomic,
+ 				continue;
+ 		}
  
--	drm_modeset_lock_assert_held(&colorop->plane->mutex);
-+	if (colorop->plane)
-+		drm_modeset_lock_assert_held(&colorop->plane->mutex);
-+	else if (colorop->crtc)
-+		drm_modeset_lock_assert_held(&colorop->crtc->mutex);
+-		if (!crtc_color_pipeline && obj->type == DRM_MODE_OBJECT_CRTC) {
++		if (obj->type == DRM_MODE_OBJECT_CRTC) {
+ 			struct drm_crtc *crtc = obj_to_crtc(obj);
++			struct drm_mode_config *config = &crtc->dev->mode_config;
  
- 	commit->colorops[index].state_to_destroy = colorop_state;
- 	commit->colorops[index].old_state = colorop->state;
-@@ -725,8 +728,8 @@ static void drm_atomic_commit_set_colorop_state(struct drm_atomic_commit *commit
-  * @colorop: colorop to get state object for
-  *
-  * This function returns the colorop state for the given colorop, allocating it
-- * if needed. It will also grab the relevant plane lock to make sure that the
-- * state is consistent.
-+ * if needed. It will also grab the relevant plane or CRTC lock to make sure
-+ * that the state is consistent.
-  *
-  * Returns:
-  *
+-			if (prop == crtc->color_pipeline_property)
++			if (!crtc_color_pipeline && prop == crtc->color_pipeline_property)
++				continue;
++
++			if (crtc_color_pipeline &&
++			    (prop == config->degamma_lut_property ||
++			     prop == config->degamma_lut_size_property ||
++			     prop == config->ctm_property ||
++			     prop == config->gamma_lut_property ||
++			     prop == config->gamma_lut_size_property))
+ 				continue;
+ 		}
+ 
 -- 
 2.53.0
 
