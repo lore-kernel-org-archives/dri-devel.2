@@ -2,65 +2,65 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 12AEF606A334
-	for <dri-devel@archiver.kernel.org>; Tue, 24 Nov 2026 07:27:42 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 00D87606A334
+	for <dri-devel@archiver.kernel.org>; Tue, 24 Nov 2026 07:27:43 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=fail reason="signature verification failed" (2048-bit key) header.d=goldelico.com header.i=@goldelico.com header.a=rsa-sha256 header.s=strato-dkim-0002 header.b=okPRrsYt;
-	dkim=fail reason="signature verification failed" header.d=goldelico.com header.i=@goldelico.com header.a=ed25519-sha256 header.s=strato-dkim-0003 header.b=Jo1I4q7Y
+	dkim=fail reason="signature verification failed" (2048-bit key) header.d=goldelico.com header.i=@goldelico.com header.a=rsa-sha256 header.s=strato-dkim-0002 header.b=FPCCTua1;
+	dkim=fail reason="signature verification failed" header.d=goldelico.com header.i=@goldelico.com header.a=ed25519-sha256 header.s=strato-dkim-0003 header.b=+jAyDf5q
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id AE3B510ED53;
+	by gabe.freedesktop.org (Postfix) with ESMTP id CBFAF10ED82;
 	Tue, 24 Nov 2026 07:27:33 +0000 (UTC)
 Received: from mo4-p04-ob.smtp.rzone.de (mo4-p04-ob.smtp.rzone.de
- [81.169.146.176])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 32E4F10ED18
- for <dri-devel@lists.freedesktop.org>; Tue, 24 Nov 2026 07:26:57 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; t=1795505177; cv=none;
+ [81.169.146.178])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 954A910E221
+ for <dri-devel@lists.freedesktop.org>; Tue, 24 Nov 2026 07:26:53 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; t=1795505174; cv=none;
  d=strato.com; s=strato-dkim-0002;
- b=VXTMjt3g0e11IQFi8lbpnM90kxR8fJPktDpb0lzIhymeW2BaAz/gNLbSt5o9rbKImh
- N4vLoM7bgxdkRJ48KtCRqdmb2qSGVQ7WVLAs5f1fvjd4b4esb5rGekxJB1OnvSnp5jdG
- Z89PkrKOjdcJLFvesWXGCwBBv32S3qSBn6V4z7NkoFMmMSeYMLoLkOg3YwWqwZ2rPzFY
- +6SQz+0iLO5z+KhW6GdFa/2Bb0MxmXzKEwXlBQJ0fxdI0zbDtr/we66me6iARxSH04ZY
- i3w8qSG4/aV18ul+nou3zFDq+7b3AfWz+Dq/LKfWW/3xIihFKq1Tm46FaKBWMzg74zkw
- vt7A==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; t=1795505177;
+ b=aVMZq2aA4paRGrZre+BQk8rtHFWnjoo4xmk/6fYITawlv0xsl6JZQi75t8Jpgg2qr/
+ RSgVv22lumOuXEF40OB70aivTjdZfyV2KeHSXsSIg1g+cwf4iin5vlU98XY7uzsfl5A8
+ 5sok5uQjHQeqdNt5uMok5/a5znFV4W8EbUhcGf6bxgTVgr4LCiJjsvhIP6xLqO9VwRAl
+ LQoK+NrC3d8s+nzA3MFdeRA1klEyA3bOSaxTvS382peFQDXYE7jp1I6QnTNddHsioZPg
+ /t+KpdZirzoTjhw1zGRfjKD6QZShXTwsQAC++nU2JjjJfpSy7nem5+hE1vK0B/RiImv4
+ a7lg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; t=1795505174;
  s=strato-dkim-0002; d=strato.com;
  h=References:In-Reply-To:Message-ID:Date:Subject:Cc:To:From:Cc:Date:
  From:Subject:Sender;
- bh=2BvTOQLxMfY709F9WzRxgyIMCfwQfGC0EhnVtClwW74=;
- b=k6h1H7uHmzk5j6a6wxfaPJQ50FX+NSAAQxYB+0y4nSmRFjj4vLiF4D7Z8PToSi6AzR
- 2LzG1rDW+ic7vPbSs8tVDNZ9kC7ifE54G3neo+1IC5edM0cTxHrA65QntNdi19H1G43g
- Ljg4D+QZXsdYHAx8JHJ6g72vFl1ekicKajYR2lq/UG2cGjE0ma3N1iFN7WFbmufgklTL
- UOqff6ImXMiB4A8t28TctVNeK7oxGKI5sChI8BybWz7aKsaj0q+0ktIZzlM+rZ8GyYMp
- sRowlkNnA0P3hOMm0q0kGbhKgZw31CdjDmXthm09T2oawuhYZ0sAICRdr2hou/HZX6FJ
- 5ZJA==
+ bh=fsG/cb1SFdTpwbZba5DZbm5tdFhUsr4K7XbXBN0VQ1M=;
+ b=OtneZ4Kh3qegj5LZQX0tayQiuJbGJM5fQQ7igI0k9doE++Yld/Ya3EBzjsRdJ8iFRo
+ 1ZN+L+CdugYLdoz2OAsaP966f/k52X1//9kPZLgwCG/dMmW3mMfYRudQboI1OCb4C1R+
+ aanyyc9aEFTMGIHba8RVTOiILU3ia2RVqlEYDecH9TP0NUnhav8ikoRQN0NfhJ62FR3M
+ mmy9MeTvUEWaVurDqt+ecIaXvb7ripkdUGa4e05H2wu6gJK1i6Pn/hflISf/kxGMj/Jw
+ JpCMR7tNLNmq3m5U6iC6yLGxY1pZkZ71ENlLopR9ixdb/H6HsPDeXYTLYv05KpGLOiqr
+ /9oQ==
 ARC-Authentication-Results: i=1; strato.com;
     arc=none;
     dkim=none
 X-RZG-CLASS-ID: mo04
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; t=1795505177;
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; t=1795505174;
  s=strato-dkim-0002; d=goldelico.com;
  h=References:In-Reply-To:Message-ID:Date:Subject:Cc:To:From:Cc:Date:
  From:Subject:Sender;
- bh=2BvTOQLxMfY709F9WzRxgyIMCfwQfGC0EhnVtClwW74=;
- b=okPRrsYtuLzyS1CA5INIv9j+2KYUBs9UvpOeH2Mg+Z/ZOxMXhfQO0ljwX3JR/Z6Xt+
- xBwrRNwoX7daHnTNXaa+qRB/8KSR2o1Iuc5G8HoYvvhu4ngCFhpxjmcgnUaOo3C9D6Fj
- iQNkkv5lkvHu9ostpp6y3F58W6BRN3drQc9dIRhjjh/+UJVOnUz91v5afyRyQahoOAjf
- mdyc/s9hL0pTUHGZuS5LoA1ARQK0iz8zS+IWuu2dexYlJ91tfSkxngCRVLAJJBbxMeKP
- Pby7aSEGbrAUtt8pGodsFuSGRkgIFQl53sYwCFjD7xwIREMk+BIM9yjaWhV3hlwomlyY
- OAKA==
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; t=1795505177;
+ bh=fsG/cb1SFdTpwbZba5DZbm5tdFhUsr4K7XbXBN0VQ1M=;
+ b=FPCCTua1pAXZDyqEk/kKrOuUKTpay15WdzNHD/NNA024Sg7+XLJj6JDbzo7nBDljco
+ WAMu3NSaIusKwP+JgSX11ssYgy+CDoy/fpKE77mxCLWybSRzZjHHVjd/OKEXOF0Ew/2S
+ 9l0bODVNwPGGHvljs/NxVVKAsceEAaBpEGOqWCa9ifqJHzStVLanAfMxEmjIArHnEDCJ
+ jnjnPataADNPp7HZJsLDaP03ZwJM/eOvdtkGxe9qzHG2YZiG+2Ko1LDkRe5axxJx9Eh7
+ Op+etpep+A63cZPcZbT5TKwswpY1/ch9NlXtJLowA5xUFkebL+j4r7aTGbX5pswDztqQ
+ u1FA==
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; t=1795505174;
  s=strato-dkim-0003; d=goldelico.com;
  h=References:In-Reply-To:Message-ID:Date:Subject:Cc:To:From:Cc:Date:
  From:Subject:Sender;
- bh=2BvTOQLxMfY709F9WzRxgyIMCfwQfGC0EhnVtClwW74=;
- b=Jo1I4q7Y9aa80sCc0gqgfLwreoVBRZH14hynKI1rAZcFTcTQIF4olaGpCI1SNad9eO
- BLgsvKySXrCp4SkBnJDg==
+ bh=fsG/cb1SFdTpwbZba5DZbm5tdFhUsr4K7XbXBN0VQ1M=;
+ b=+jAyDf5qshztbVQMVLZQymw6VyPta0x1nuBSoiAg4Gq+Ha5Wyhml76un2wv/8PU/d/
+ Lk57Kl+Y5y2nbYYrM+DQ==
 X-RZG-AUTH: ":JGIXVUS7cutRB/49FwqZ7WcJeFKiMhflhwDubTJ9qVpwcQVkPW4I1HrV3poLlciNVTQoM6kVxzKyrKzkpjcAwdDfiN49"
 Received: from iMac.fritz.box by smtp.strato.de (RZmta 55.6.3 AUTH)
- with ESMTPSA id Qb56a22AO7QG1HP
+ with ESMTPSA id Qb56a22AO7QD1HK
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256 bits))
  (Client did not present a certificate);
- Tue, 24 Nov 2026 08:26:16 +0100 (CET)
+ Tue, 24 Nov 2026 08:26:13 +0100 (CET)
 From: "H. Nikolaus Schaller" <hns@goldelico.com>
 To: Linus Walleij <linus.walleij@linaro.org>,
  Bartosz Golaszewski <brgl@kernel.org>, Rob Herring <robh@kernel.org>,
@@ -88,9 +88,9 @@ Cc: Jessica Zhang <jessica.zhang@oss.qualcomm.com>, linux-gpio@vger.kernel.org,
  linux-arm-kernel@lists.infradead.org, linux-pwm@vger.kernel.org,
  linux-fbdev@vger.kernel.org, letux-kernel@openphoenux.org,
  kernel@pyra-handheld.com, "H. Nikolaus Schaller" <hns@goldelico.com>
-Subject: [PATCH v2 11/20] backlight: pwm: Support enable guard period
-Date: Tue, 24 Nov 2026 08:25:51 +0100
-Message-ID: <54477b4e31e35af14677172088f94770ca5b9755.1795505160.git.hns@goldelico.com>
+Subject: [PATCH v2 08/20] dt-bindings: mfd: twl4030: Document 64-cycle PWM
+Date: Tue, 24 Nov 2026 08:25:48 +0100
+Message-ID: <8e0c47487add0fa1bc0dad9b1bceef5ebf8071d4.1795505160.git.hns@goldelico.com>
 X-Mailer: git-send-email 2.56.0
 In-Reply-To: <cover.1795505160.git.hns@goldelico.com>
 References: <cover.1795505160.git.hns@goldelico.com>
@@ -116,151 +116,49 @@ X-Spam-Status: No, score=-16.6 required=3.0 tests=BAYES_00,DKIM_INVALID,
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-Some LED drivers distinguish PWM dimming from a one-wire control
-mode during a startup detection window. For example, TI TPS61160/61
-use the duration of low intervals on CTRL to detect EasyScale.
-An initial guard interval can keep the waveform suitable for PWM
-mode detection before normal dimming begins.
+Document the optional ti,twl4030-pwm-frame-64 property for the
+TWL4030 PWM controller. It selects the 64-clock-cycle frame instead
+of the default 128-cycle frame, doubling the output frequency and
+reducing duty-cycle resolution.
 
-Add support for a new device tree property
-"pwm-enable-guard-period-us". If set, the driver applies a full
-duty cycle (duty_cycle == period) for the given duration whenever
-the previous PWM state was disabled or had zero duty cycle.
-This covers the
-requirements of such devices generically, without introducing a
-chip specific backlight driver.
+The selection is explicit because the driver does not know the PWM
+input clock rate and cannot derive the hardware frame length from a
+consumer-requested period. The shorter frame can reduce PWM LOW
+intervals during startup mode detection of LED drivers such as the
+TI TPS61160/61.
 
-The requested full duty need not produce an exact constant-high
-output on hardware with limited duty-cycle resolution. The board
-must ensure the resulting waveform meets the LED driver timing.
-
-Suggested-by: Andreas Kemnade <andreas@kemnade.info>
-Link: https://patchwork.kernel.org/project/linux-omap/patch/f897f695c0e1e128d7ebb41be8dfdce4d634f552.1783749722.git.hns@goldelico.com/#27124981
 Signed-off-by: H. Nikolaus Schaller <hns@goldelico.com>
 ---
 
 Notes:
     Changes against V1:
-    - Andreas Kemnade proposed placing the TPS61161 PWM-mode
-      initialization in backlight support rather than in the PWM
-      controller. The enable guard is the generic V2 implementation.
-    - Add pwm-enable-guard-period-us support to pwm-backlight.
-    - Request full duty during the startup guard when the previously
-      cached PWM state was disabled or had zero duty cycle.
-    - Check the return value of the guard PWM update, while leaving
-      the normal pwm_apply_might_sleep() handling as in upstream.
-    - Retain the hardware-tested guard implementation from the working
-      series; do not incorporate the later review changes to power-on
-      ordering, guard triggering, duty limiting or rollback handling.
-    - Clarify that requesting full duty does not guarantee constant
-      HIGH on every PWM provider; actual waveform depends on hardware.
-    - Keep the existing Suggested-by attribution.
-    - Code and commit-message review assisted by ChatGPT.
+    - Revised commit message to focus on the binding and the reason
+      for explicit 64-cycle frame selection.
+    - Commit-message review assisted by ChatGPT.
 
- drivers/video/backlight/pwm_bl.c | 37 +++++++++++++++++++++++++++++++-
- include/linux/pwm_backlight.h    |  1 +
- 2 files changed, 37 insertions(+), 1 deletion(-)
+ Documentation/devicetree/bindings/mfd/ti,twl.yaml | 9 +++++++++
+ 1 file changed, 9 insertions(+)
 
-diff --git a/drivers/video/backlight/pwm_bl.c b/drivers/video/backlight/pwm_bl.c
-index 3ad71ee3657af..1d0a463710926 100644
---- a/drivers/video/backlight/pwm_bl.c
-+++ b/drivers/video/backlight/pwm_bl.c
-@@ -7,6 +7,7 @@
+diff --git a/Documentation/devicetree/bindings/mfd/ti,twl.yaml b/Documentation/devicetree/bindings/mfd/ti,twl.yaml
+index 9cc3e4721612e..f458f0d80f2cd 100644
+--- a/Documentation/devicetree/bindings/mfd/ti,twl.yaml
++++ b/Documentation/devicetree/bindings/mfd/ti,twl.yaml
+@@ -396,6 +396,15 @@ properties:
+       '#pwm-cells':
+         const: 2
  
- #include <linux/delay.h>
- #include <linux/gpio/consumer.h>
-+#include <linux/minmax.h>
- #include <linux/module.h>
- #include <linux/kernel.h>
- #include <linux/init.h>
-@@ -18,6 +19,9 @@
- #include <linux/regulator/consumer.h>
- #include <linux/slab.h>
- 
-+/* extra time added above enable_guard_period_us for usleep_range() */
-+#define PWM_BL_GUARD_SLACK_US	2000
++      ti,twl4030-pwm-frame-64:
++        type: boolean
++        description:
++          TWL4030 only; not supported by TWL6030 PWM.
++          Select the short 64-clock-cycle PWM frame instead of the
++          default 128-cycle frame, doubling the PWM frequency. Required
++          for dimming inputs requiring short PWM low intervals during
++          startup mode detection (e.g. TI TPS61160/61).
 +
- struct pwm_bl_data {
- 	struct pwm_device	*pwm;
- 	struct device		*dev;
-@@ -26,6 +30,7 @@ struct pwm_bl_data {
- 	bool			enabled;
- 	struct regulator	*power_supply;
- 	struct gpio_desc	*enable_gpio;
-+	unsigned int		enable_guard_period_us;
- 	unsigned int		scale;
- 	unsigned int		post_pwm_on_delay;
- 	unsigned int		pwm_off_delay;
-@@ -93,11 +98,39 @@ static int pwm_backlight_update_status(struct backlight_device *bl)
- 	struct pwm_bl_data *pb = bl_get_data(bl);
- 	int brightness = backlight_get_brightness(bl);
- 	struct pwm_state state;
-+	int ret;
- 
- 	if (pb->notify)
- 		brightness = pb->notify(pb->dev, brightness);
- 
- 	if (brightness > 0) {
-+		pwm_get_state(pb->pwm, &state);
-+
-+		/*
-+		 * Some LED drivers detect a one-wire control mode during
-+		 * a startup window (e.g. TI TPS61160/TPS61161, using
-+		 * the duration of low intervals on CTRL). Request full
-+		 * duty for the guard interval before normal dimming.
-+		 * The PWM provider may approximate full duty.
-+		 *
-+		 * Apply the guard if the previous PWM state was disabled
-+		 * or had zero duty cycle.
-+		 */
-+		if (pb->enable_guard_period_us &&
-+		    (!state.enabled || !state.duty_cycle)) {
-+			struct pwm_state guard = state;
-+
-+			guard.duty_cycle = guard.period;
-+			guard.enabled = true;
-+			ret = pwm_apply_might_sleep(pb->pwm, &guard);
-+			if (ret)
-+				return ret;
-+
-+			usleep_range(pb->enable_guard_period_us,
-+				     pb->enable_guard_period_us +
-+				     PWM_BL_GUARD_SLACK_US);
-+		}
-+
- 		pwm_get_state(pb->pwm, &state);
- 		state.duty_cycle = compute_duty_cycle(pb, brightness, &state);
- 		state.enabled = true;
-@@ -239,7 +272,8 @@ static int pwm_backlight_parse_dt(struct device *dev,
- 	of_property_read_u32(node, "post-pwm-on-delay-ms",
- 			     &data->post_pwm_on_delay);
- 	of_property_read_u32(node, "pwm-off-delay-ms", &data->pwm_off_delay);
--
-+	of_property_read_u32(node, "pwm-enable-guard-period-us",
-+			     &data->enable_guard_period_us);
- 	/*
- 	 * Determine the number of brightness levels, if this property is not
- 	 * set a default table of brightness levels will be used.
-@@ -467,6 +501,7 @@ static int pwm_backlight_probe(struct platform_device *pdev)
- 		goto err_alloc;
- 	}
- 
-+	pb->enable_guard_period_us = data->enable_guard_period_us;
- 	pb->notify = data->notify;
- 	pb->notify_after = data->notify_after;
- 	pb->exit = data->exit;
-diff --git a/include/linux/pwm_backlight.h b/include/linux/pwm_backlight.h
-index 0bf80e98d5b40..35cf19b1e9768 100644
---- a/include/linux/pwm_backlight.h
-+++ b/include/linux/pwm_backlight.h
-@@ -13,6 +13,7 @@ struct platform_pwm_backlight_data {
- 	unsigned int lth_brightness;
- 	unsigned int pwm_period_ns;
- 	unsigned int *levels;
-+	unsigned int enable_guard_period_us;
- 	unsigned int post_pwm_on_delay;
- 	unsigned int pwm_off_delay;
- 	int (*init)(struct device *dev);
+     required:
+       - compatible
+       - '#pwm-cells'
 -- 
 2.56.0
 
