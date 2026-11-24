@@ -2,87 +2,54 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5B0E2606A31E
-	for <dri-devel@archiver.kernel.org>; Tue, 24 Nov 2026 04:39:32 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9027F606A32E
+	for <dri-devel@archiver.kernel.org>; Tue, 24 Nov 2026 04:42:24 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=PMcxJDft
+	dkim=pass (1024-bit key) header.d=cmss.chinamobile.com header.i=@cmss.chinamobile.com header.a=rsa-sha256 header.s=default header.b=wc3lcipV
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id BAFCB10E14C;
-	Tue, 24 Nov 2026 04:39:26 +0000 (UTC)
-Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id D2E0210E198;
- Tue, 24 Nov 2026 04:39:20 +0000 (UTC)
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by tor.source.kernel.org (Postfix) with ESMTP id F253060DFE;
- Tue, 24 Nov 2026 04:39:19 +0000 (UTC)
-Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
-ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
- t=1795495159;
- b=wzP3SXuiTrvBV4eqKVx7ZJxwQg6D0wUkDk9zyElcVAp1CzpszW3exRLr/7TyUltjUCLI
- PYSXbGY5KO0QHqyKyKl+fd5LH2/sJHni3U1Ddqsk20F7WWGcu4yC4olVT23eZ3xQFDd+R
- obnW9NG3h1OiXuF7RuI9GdETHdFnb4MOyO8S3VCGVIuvsxdJ/IyWkDfPxTILuRQCAJO8q
- bg9Q99NCJe7TEt3J4UmNEh70VMCIamdoRLGRprWAk1Ch8wkB3dX/sWl9RtvBRNjUiKll2
- bAIM2ew+WHgqvqTqsIBw4avnUwr7gmV2vz8vnMwRqkA0GxjVRPYGBPc8zr290AxYogA==
-ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
- c=relaxed/relaxed; t=1795495159;
- h=DKIM-Signature:Received:From:Date:Subject:MIME-Version:Content-Type:
- Content-Transfer-Encoding:Message-Id:X-B4-Tracking:X-Change-ID:To:Cc:
- X-Mailer:X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
- X-Original-From:Reply-To;
- bh=i3Pcf/y1fK5W0mKl2UYdbwNbl15Wboo4OxSctTetQzc=;
- b=favzY2uEULONvXtvaDQaW5oo/GyqQW/svq7nn0jeAmd57yvzx4vTnxIDuLNTJZma+IQf
- 8j6NNWXZ5zZourx/EWyWSxDbi/wGbMBo5w3quhjqa3TivfquZ1IYoFbzz0jOl4Qfq9uEY
- JW1QUnmnSTFTEbOk+MN3GlnIH7AskKgGnEUD9n2BE/3Ny/7rqYywE6lLQFeytuq3+DI+b
- f6d+Xob701GVMa1DzEAzb1jfA5ciWmodTnzjilXVElmHp9VCaAXN2bwNiBG4mUaZ7jypb
- jvtOGJfGqiHH6bY9rZze427zuecgrXCv99a4Yp3A+qvf6hbrPco3wC8fZUIM8LsMRKg==
-ARC-Authentication-Results: i=1; smtp.kernel.org; 
- arc=none smtp.remote-ip=100.80.115.77
-Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
- (No client certificate requested)
- by smtp.kernel.org (Postfix) with ESMTPS id B324A1F000C6;
- Tue, 24 Nov 2026 04:39:16 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1795495159;
- bh=i3Pcf/y1fK5W0mKl2UYdbwNbl15Wboo4OxSctTetQzc=;
- h=From:Date:Subject:To:Cc:Reply-To;
- b=PMcxJDftYIfYCIVkISyTO55gv4qQACXorDdROD9NHAydOGkMtBMVnz2N3HBtT8n5s
- up6iPO2WPQFPIvxH+9+kfyMHRWT1MKlofl7Va6lsBrSsZCnFhc2VIjscHtAABHQ2pI
- sihKFtV8bAIfRTVoG65bziPGBwUFDjA/I7iduZKYqsqukRhafrVQ9/bNlF981WKmP0
- AHpnUMnEI6wdm7er+hPb25Jne9s88o7b/JGchoWw0+Bayim0QZsUrq/YsNkFFqYKGJ
- grnTQQ+jQeeo3Dru5FIR6E/x0q8i8ATxPqzPeKOjR5aUp3+dAoUFYKD2FVs6B3BEVs
- Slw/UXkM7RPDg==
-Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
- by lkml.kernel.org (Postfix) with ESMTP id 19C9B4C89D;
- Tue, 24 Nov 2026 04:39:16 +0000 (UTC)
-From: Suyuan Wang via B4 Relay <devnull+shyckless.gmail.com@kernel.org>
-Date: Tue, 24 Nov 2026 04:39:15 +0000
-Subject: [PATCH] drm/lima: Drop the BO references if drm_sched_job_init() fails
+	by gabe.freedesktop.org (Postfix) with ESMTP id E6C4A10E0AB;
+	Tue, 24 Nov 2026 04:42:18 +0000 (UTC)
+Received: from cmccmta6.chinamobile.com (cmccmta6.chinamobile.com
+ [111.22.67.139])
+ by gabe.freedesktop.org (Postfix) with ESMTP id 8458010E0AB
+ for <dri-devel@lists.freedesktop.org>; Tue, 24 Nov 2026 04:42:11 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=cmss.chinamobile.com; s=default; l=0;
+ h=from:subject:message-id:to:cc:mime-version;
+ bh=47DEQpj8HBSa+/TImW+5JCeuQeRkm5NMpJWZG3hSuFU=;
+ b=wc3lcipVFh6bJnNTgKIFdZ5LzsBhmG4Bg5H5Xw2bXdJotKnP3pCpvlQ6kBhwid31u+YKqYG523/u8
+ Y1ugxKx6hOrpfdDAWlXKulJ+eytanHZfxPe4kZCDUKKu37EhDleGWgZcylowBCnWY6rDYxo/Kw0beu
+ 1U2eLHMcFy+9Q9Pw=
+X-RM-TagInfo: emlType=0                                       
+X-RM-SPAM-FLAG: 00000000
+Received: from spf.mail.chinamobile.com (unknown[10.188.0.87])
+ by rmmx-syy-dmz-app05-12005 (RichMail) with SMTP id 2ee56b05159518c-40fb2;
+ Tue, 24 Nov 2026 12:41:57 +0800 (CST)
+X-RM-TRANSID: 2ee56b05159518c-40fb2
+X-RM-TagInfo: emlType=0                                       
+X-RM-SPAM-FLAG: 00000000
+Received: from DESKTOP-3K8GUTQ (unknown[223.108.79.98])
+ by rmsmtp-syy-appsvr03-12003 (RichMail) with SMTP id 2ee36b0515935ca-13776;
+ Tue, 24 Nov 2026 12:41:57 +0800 (CST)
+X-RM-TRANSID: 2ee36b0515935ca-13776
+From: Xiangwu Lai <laixiangwu@cmss.chinamobile.com>
+To: Thierry Reding <thierry.reding@kernel.org>,
+ Mikko Perttunen <mperttunen@nvidia.com>
+Cc: Xiangwu Lai <laixiangwu@cmss.chinamobile.com>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ Jonathan Hunter <jonathanh@nvidia.com>, dri-devel@lists.freedesktop.org,
+ linux-tegra@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH] drm/tegra: dpaux: Fix VDD supply and AUX channel leak on
+ attach failure
+Date: Tue, 24 Nov 2026 12:41:55 +0800
+Message-ID: <20261124023000.1211-1-laixiangwu@cmss.chinamobile.com>
+X-Mailer: git-send-email 2.50.1.windows.1
+In-Reply-To: <20261110065254.1211-1-laixiangwu@cmss.chinamobile.com>
+References: <20261110065254.1211-1-laixiangwu@cmss.chinamobile.com>
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20261124-lima-task-init-v1-1-2f6129257703@gmail.com>
-X-B4-Tracking: v=1; b=H4sIAPIUBWsC/yXMQQ6CMBBG4auQWTuJbaSJXoWwaOFXB6SYTjEmh
- LtbcPkt3ltJkQRKt2qlhI+ozLHAnCrqnj4+wNIXkz1bZ4y98Esmz9nryBIlc+1wdQGhhwWV6J1
- wl+8xbNq/dQkDurxfaNt+W2MAHHIAAAA=
-X-Change-ID: 20261124-lima-task-init-56e96bebde2e
-To: mripard@kernel.org, maarten.lankhorst@linux.intel.com, 
- airlied@gmail.com, tzimmermann@suse.de, simona@ffwll.ch, yuq825@gmail.com
-Cc: linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org, 
- lima@lists.freedesktop.org
-X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1795495155; l=1654;
- i=shyckless@gmail.com; s=default; h=from:subject:message-id;
- bh=/psVm8KZ+NeNNkX1NAHNJo3pQfX2J9S1jdpWT36nW1c=;
- b=D9Y+EJAIZAEfI2n5DQLlisXJ/b+PO18rZa6q9Leh9qSy6G8ULP9bTgAOY81dFvUWiZWyL/8Qs
- 2Ghk91cvyYIBUoUlVlSz+vCuekbT2Sw5o2rL8LdZZ2qaGZOPtxGGYlA
-X-Developer-Key: i=shyckless@gmail.com; a=ed25519;
- pk=pMtccVGiWES3bV+7YBFuBclkvq2n2HBHQ5azaBrK2lY=
-X-Endpoint-Received: by B4 Relay for shyckless@gmail.com/default with
- auth_id=1498
-X-Original-From: Suyuan Wang <shyckless@gmail.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -93,65 +60,31 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
-Reply-To: shyckless@gmail.com
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-18.8 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
-	DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
-	INCLUDES_CR_TRAILER,INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,
-	SPF_PASS,USER_AGENT_GIT autolearn=ham autolearn_force=no version=4.0.1
+X-Spam-Status: No, score=-6.6 required=3.0 tests=BAYES_00,DKIM_INVALID,
+	DKIM_SIGNED,HEADER_FROM_DIFFERENT_DOMAINS,MAILING_LIST_MULTI,
+	SPF_HELO_NONE,SPF_PASS,USER_AGENT_GIT autolearn=no autolearn_force=no
+	version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-From: Suyuan Wang <stevewong@hust.edu.cn>
+Hello Thierry, Mikko,
 
-lima_sched_task_init() takes a reference on every BO of the task before
-it calls drm_sched_job_init():
+A gentle ping on this patch, sent two weeks ago on Nov 10:
 
-	for (i = 0; i < num_bos; i++)
-		drm_gem_object_get(&bos[i]->base.base);
+  drm/tegra: dpaux: Fix VDD supply and AUX channel leak on attach failure
+  https://lore.kernel.org/all/20261110065254.1211-1-laixiangwu@cmss.chinamobile.com/
 
-	err = drm_sched_job_init(&task->base, &context->base, 1, vm,
-				 drm_client_id);
-	if (err) {
-		kfree(task->bos);
-		return err;
-	}
+The patch fixes tegra_dpaux_probe() error paths after drm_dp_aux_attach():
+when the channel AUX lookup fails or drm_dp_aux_register() fails, the VDD
+supply and the AUX channel acquired earlier are never released, leaking
+one regulator and one AUX channel reference on each deferred/failed probe.
 
-If drm_sched_job_init() fails (it can return -ENOMEM), only the array is
-freed. lima_gem_submit() then goes to err_out1, which does not call
-lima_sched_task_fini(), so these extra references are never dropped and
-the BOs are not freed even after all other references are gone. This
-can happen on every submit ioctl.
+It applies cleanly on top of the current drm-misc tree. Please let me
+know if anything else is needed, or whether the patch is queued somewhere
+I missed.
 
-Put the references before freeing the array.
-
-Found with a static analysis tool and checked by hand.
-
-Fixes: a1d2a6339961 ("drm/lima: driver for ARM Mali4xx GPUs")
-Cc: stable@vger.kernel.org
-Co-developed-by: Kaixuan Li <kaixuan.li@ntu.edu.sg>
-Signed-off-by: Kaixuan Li <kaixuan.li@ntu.edu.sg>
-Signed-off-by: Suyuan Wang <stevewong@hust.edu.cn>
----
-Compile tested on arm64 (W=1). I don't have the hardware.
----
- drivers/gpu/drm/lima/lima_sched.c | 2 ++
- 1 file changed, 2 insertions(+)
-
-diff --git a/drivers/gpu/drm/lima/lima_sched.c b/drivers/gpu/drm/lima/lima_sched.c
-index fee595b9629a..53d597850782 100644
---- a/drivers/gpu/drm/lima/lima_sched.c
-+++ b/drivers/gpu/drm/lima/lima_sched.c
-@@ -130,6 +130,8 @@ int lima_sched_task_init(struct lima_sched_task *task,
- 	err = drm_sched_job_init(&task->base, &context->base, 1, vm,
- 				 drm_client_id);
- 	if (err) {
-+		for (i = 0; i < num_bos; i++)
-+			drm_gem_object_put(&bos[i]->base.base);
- 		kfree(task->bos);
- 		return err;
- 	}
-
-
+Thanks,
+Xiangwu Lai
 
 
