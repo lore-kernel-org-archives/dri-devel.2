@@ -2,65 +2,65 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 52C54606A334
-	for <dri-devel@archiver.kernel.org>; Tue, 24 Nov 2026 07:27:40 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 200A9606A334
+	for <dri-devel@archiver.kernel.org>; Tue, 24 Nov 2026 07:27:41 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=fail reason="signature verification failed" (2048-bit key) header.d=goldelico.com header.i=@goldelico.com header.a=rsa-sha256 header.s=strato-dkim-0002 header.b=p3C13ci5;
-	dkim=fail reason="signature verification failed" header.d=goldelico.com header.i=@goldelico.com header.a=ed25519-sha256 header.s=strato-dkim-0003 header.b=EzT9oUTg
+	dkim=fail reason="signature verification failed" (2048-bit key) header.d=goldelico.com header.i=@goldelico.com header.a=rsa-sha256 header.s=strato-dkim-0002 header.b=Ppz3CK7G;
+	dkim=fail reason="signature verification failed" header.d=goldelico.com header.i=@goldelico.com header.a=ed25519-sha256 header.s=strato-dkim-0003 header.b=q3lqT7jd
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 2483A10ED45;
-	Tue, 24 Nov 2026 07:27:29 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id B464710ED47;
+	Tue, 24 Nov 2026 07:27:32 +0000 (UTC)
 Received: from mo4-p04-ob.smtp.rzone.de (mo4-p04-ob.smtp.rzone.de
- [81.169.146.179])
- by gabe.freedesktop.org (Postfix) with ESMTPS id A8ED110ECB2
- for <dri-devel@lists.freedesktop.org>; Tue, 24 Nov 2026 07:26:59 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; t=1795505173; cv=none;
+ [81.169.146.178])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 7633C10ED05
+ for <dri-devel@lists.freedesktop.org>; Tue, 24 Nov 2026 07:26:56 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; t=1795505172; cv=none;
  d=strato.com; s=strato-dkim-0002;
- b=EM7Eh0cgV0pH/XHTMSM774h6ZlPadCeG898hiZMmCjsr12wZC1i4watBdi5PUkWC/A
- pApUI76bqzmz/FqPDbZgMiCyIdiy9tQSpvr2mdzoePMa663ZcwLUvZrZp5dN1Psml6ht
- qkMISfMvLyGymSAYqfbRy/g2rHYEUVMdUhVmSKHCtzGogtwC7H+dCJA/yp4nnkYTDsNP
- y1GJjCdy3lhVUX8zJj8zCdlbT3CGSD2qrlG9QV1ADLHCt2DEdu/bn5o8G5XQ+yEuTXQT
- +6sO+q1orOPUQbWbSFPwHmyUooR+rAfEk1urY5lqbCbEgY0enXVSqryfH8v+4zqDHKDB
- aqSQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; t=1795505173;
+ b=rnfMq0NIP64ben5wNgoxFUkpWi/QCqJTUvbvxmcALWU186r+XM1A8Jx70X4Q7naPlV
+ 895nrgY6UdcnRTP/xtRpEbj0Tn+yP3xix3zTMF++sS0nmcUXyBDVn5TLiBP7zH1hKUcx
+ aGUkahLH9YH0oGj6OdXDklRDzwvDAVuPXXW0tESU+XB0m+kZBw+VgNzhqN2w1slY63ag
+ xmegAHB5gxQS3GrZzfzff4qhWg8PlsGC/pkg/ggiiwUQqNFAnFbINbY4tq0TlMH5Swec
+ DRi+N5IZV2jg49lgDVu3tuUwTF2Mj4XBX0XeMsn5XURyQcLNUn+uOgEAoCnHiqHWutYO
+ TYzA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; t=1795505172;
  s=strato-dkim-0002; d=strato.com;
  h=References:In-Reply-To:Message-ID:Date:Subject:Cc:To:From:Cc:Date:
  From:Subject:Sender;
- bh=Dez18a2OqwlBFCCZ9gevwjnLnG2Bo/A/Kvv2BHdB538=;
- b=bs85ekwndRcW9ieY2FFdeQ7aCd2gI4hdSHlk4VxgvibMGzO8IhJt4BfE9DJmlO15uz
- 5N9uG6Hv/FibbPTLR4Q8foXc19F/w4mraep5Zm1vDwCphX5QqWqlvQKroR+CNkKukP5b
- vn/PCwsEW4J1QtVLbQ/P0JtMyZBKSSSFMfuNZ+DVakA4Dt95LnQ08S7NGanzgp0q6t/i
- dDTkWwL7nmdaD159gwvBK9Lx8AC5Wpli9wSN1z0gth0qOfGtTdU3Ud8vQwA9iig4b0Se
- zn3fN+TXxX6U0w8dfBHUK29pcWN1xFiJtcLAGVtbtOXLDvxuRg8DkC/kav7UVoPayG/W
- ZQJg==
+ bh=qOWnDIUirnp7niKKgcme9VVUTThomhs09luZ9kZoQDA=;
+ b=ctg1tfJhMBCY0UxGqdBv+lUs6wbDc1wXAA6SYcnxfz6oep7U0m4+6INj8onFO18gcs
+ WxWoySjSEtdrtmPBU0QcXCGFENFvAWlCdnmWnquGKkrUaplH91H1HK3m1d4kgQ08gKpA
+ yaY5T+SxNksdbrf1+6NMwl5xcXm83x5j+wQUTEJQeNUOeAIbczuEkjn8KTJl1u/1ZVe1
+ 5s4s0yzCPwQEgLW1Y2EN6VmbKgI2rRDD/7jpyl0VxK/ou4a3x06be7tgt/vJ6sxXT3MC
+ Oicf2zPuHhdWk+9/gYG0h7LjgltTExfC94bwflDVVZel0H+QJ/wtNOMkC+anMEl4hBrw
+ sBLQ==
 ARC-Authentication-Results: i=1; strato.com;
     arc=none;
     dkim=none
 X-RZG-CLASS-ID: mo04
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; t=1795505173;
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; t=1795505172;
  s=strato-dkim-0002; d=goldelico.com;
  h=References:In-Reply-To:Message-ID:Date:Subject:Cc:To:From:Cc:Date:
  From:Subject:Sender;
- bh=Dez18a2OqwlBFCCZ9gevwjnLnG2Bo/A/Kvv2BHdB538=;
- b=p3C13ci5DlLV0GDkqeeOmNQUTAu31vDNkt70wZ5qfVm8XRBvyk+2UJLJNQWy2fW4K0
- p7KAOk94iBC8HQ4ZziScCPkLCHYvzaOqgy2CW+n9IXxOyofp3zrAw6ldCarE69LChfSg
- dwENIkj6/wo417egJzA96IIg5jTm1/CVvTlLd5yrCFz/lM/Hkulydpem2yr9Q4yMs43i
- 5ram/HbbqLZ6OIOiYtkCl6w73/CtveV5U3bsNOYkTUrGCluv2uzkgFUEoaG87OEVaEw+
- tz2dJ+9qMr7GNHtev0p3rujPZA8IPDw0jhr2tD9nSNpPU7f65IFWHuRFCxs7bGNtayFu
- PIoQ==
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; t=1795505173;
+ bh=qOWnDIUirnp7niKKgcme9VVUTThomhs09luZ9kZoQDA=;
+ b=Ppz3CK7G8KlukLX4l8Ri8vE/AOw4vXQvrTCQLH+d/EmYXaoMgxgJdK7GgUeBrDfWtM
+ Fz7f/bIPbK88J7RPGnZN4ZBwf07qRHBCg/rkwv5/+xD0tgnS8XMddaa3kioHYAJ62/0O
+ 2dcHbeABOa2zcfwpGQHPd7pPKSEb6MiICHzlnyqNOKcFpojASAmB9wUID36AmorYislc
+ MfbR4tC9aZeTcdvcoTvygIZ+GN76O9weUkNpc8B4rOndtsZHLbMjP7WJSOnW4qwC66nC
+ QzJsf69yGH6JOQ1XytRSfl4nmTnXadm/puZZemyrgHVdt6Q0HcqH1qdnFWkUyHrLZyJt
+ zsYQ==
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; t=1795505172;
  s=strato-dkim-0003; d=goldelico.com;
  h=References:In-Reply-To:Message-ID:Date:Subject:Cc:To:From:Cc:Date:
  From:Subject:Sender;
- bh=Dez18a2OqwlBFCCZ9gevwjnLnG2Bo/A/Kvv2BHdB538=;
- b=EzT9oUTgfyLhyJDDM28o7VvjiMwdP/kryAjxuORRjyM+fT86rFMerFhEvGxX8RW1Zw
- 3OQnJpx07/IHggTzfCBg==
+ bh=qOWnDIUirnp7niKKgcme9VVUTThomhs09luZ9kZoQDA=;
+ b=q3lqT7jd2ldNGdU8vf6Y1FKiK09q6fAjJTR1HLJ5/iM+RUkB855FkMN/44SLueamXS
+ Qj9HYsK9Dt4M+OHHCGDQ==
 X-RZG-AUTH: ":JGIXVUS7cutRB/49FwqZ7WcJeFKiMhflhwDubTJ9qVpwcQVkPW4I1HrV3poLlciNVTQoM6kVxzKyrKzkpjcAwdDfiN49"
 Received: from iMac.fritz.box by smtp.strato.de (RZmta 55.6.3 AUTH)
- with ESMTPSA id Qb56a22AO7QC1HJ
+ with ESMTPSA id Qb56a22AO7QB1HI
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256 bits))
  (Client did not present a certificate);
- Tue, 24 Nov 2026 08:26:12 +0100 (CET)
+ Tue, 24 Nov 2026 08:26:11 +0100 (CET)
 From: "H. Nikolaus Schaller" <hns@goldelico.com>
 To: Linus Walleij <linus.walleij@linaro.org>,
  Bartosz Golaszewski <brgl@kernel.org>, Rob Herring <robh@kernel.org>,
@@ -87,11 +87,10 @@ Cc: Jessica Zhang <jessica.zhang@oss.qualcomm.com>, linux-gpio@vger.kernel.org,
  linux-sound@vger.kernel.org, linux-omap@vger.kernel.org,
  linux-arm-kernel@lists.infradead.org, linux-pwm@vger.kernel.org,
  linux-fbdev@vger.kernel.org, letux-kernel@openphoenux.org,
- kernel@pyra-handheld.com, Stefan Leichter <sle85276@gmx.de>,
- Grond <grond66@riseup.net>, "H. Nikolaus Schaller" <hns@goldelico.com>
-Subject: [PATCH v2 07/20] ASoC: ti: omap3pandora: Convert sound card to DT
-Date: Tue, 24 Nov 2026 08:25:47 +0100
-Message-ID: <57d9a8b26bd2282deb9188d6913976cfee41aee9.1795505160.git.hns@goldelico.com>
+ kernel@pyra-handheld.com, "H. Nikolaus Schaller" <hns@goldelico.com>
+Subject: [PATCH v2 06/20] dt-bindings: sound: Document OpenPandora sound card
+Date: Tue, 24 Nov 2026 08:25:46 +0100
+Message-ID: <5c6f7deca16f70f1f19cb40c57d70e30068d6000.1795505160.git.hns@goldelico.com>
 X-Mailer: git-send-email 2.56.0
 In-Reply-To: <cover.1795505160.git.hns@goldelico.com>
 References: <cover.1795505160.git.hns@goldelico.com>
@@ -117,632 +116,126 @@ X-Spam-Status: No, score=-16.6 required=3.0 tests=BAYES_00,DKIM_INVALID,
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-From: Stefan Leichter <sle85276@gmx.de>
+The OpenPandora audio subsystem describes the routing links between the
+OMAP3 McBSP interface, the external PCM1773 DAC, and the TWL4030 audio
+codec, alongside amplifiers and power supplies.
 
-Convert the OpenPandora ASoC machine driver to bind through a Device
-Tree sound-card node instead of creating a platform device from board-
-specific setup code. Describe the CPU and codec DAIs and audio routes
-through DT, including the external PCM1773 playback DAC.
-
-Move the audio paths from the machine driver's hard-coded DAPM routes
-to the Device Tree, and replace pr_info()/pr_err() diagnostics with
-device-scoped dev_info()/dev_err() messages.
-
-Separate playback and capture handling and use the TWL4030 APLL clock
-selection interface for the audio clocks. Use device-managed resource
-allocation and card registration where possible.
-
-This removes the machine-type-dependent sound-card registration and
-allows the card to probe only when described by the Device Tree.
-
-Signed-off-by: Stefan Leichter <sle85276@gmx.de>
-Suggested-by: Grond <grond66@riseup.net>
-Co-developed-by: H. Nikolaus Schaller <hns@goldelico.com>
 Signed-off-by: H. Nikolaus Schaller <hns@goldelico.com>
 ---
 
 Notes:
     Changes against V1:
-    - Review Sashiko's V1 findings about stream rate accounting,
-      sample-rate constraints, resource lifetime and DT DAI linking.
-    - Rewrite the commit message to describe the DT conversion and
-      associated resource management without informal wording.
-    - Credit Grond's historical contribution as Suggested-by; no current
-      code authorship or DCO sign-off is asserted on Grond's behalf.
-    - Original DT conversion: 1532a508d5ab (Stefan Leichter,
-      2020-06-29); Grond was credited as co-developer in that commit.
-    - Suggested-by preserves historical credit without asserting a
-      renewed DCO sign-off from Grond.
-    - Preserve existing sample-rate ownership when a repeated hw_params()
-      fails; release only reservations acquired by that invocation.
-    - Restore the missing int ret context line in the first diff hunk
-      against Linux 7.4-rc3. This fixes git am applicability without
-      changing the resulting source.
-    - Code and commit-message review assisted by ChatGPT.
+    - Address Krzysztof Kozlowski's V1 request to run the documented
+      DT schema checks and fix the errors reported by Rob Herring's
+      automated DT validation.
+    - Update the binding example and schema during DT consistency review.
+    - Binding and commit-message review assisted by ChatGPT.
 
- sound/soc/ti/omap3pandora.c | 452 +++++++++++++++++++++++++-----------
- 1 file changed, 315 insertions(+), 137 deletions(-)
+ .../sound/openpandora,omap3pandora-sound.yaml | 95 +++++++++++++++++++
+ 1 file changed, 95 insertions(+)
+ create mode 100644 Documentation/devicetree/bindings/sound/openpandora,omap3pandora-sound.yaml
 
-diff --git a/sound/soc/ti/omap3pandora.c b/sound/soc/ti/omap3pandora.c
-index 6c9c184cd9d6f..d747c0e6b48cb 100644
---- a/sound/soc/ti/omap3pandora.c
-+++ b/sound/soc/ti/omap3pandora.c
-@@ -6,138 +6,274 @@
-  */
- 
- #include <linux/clk.h>
--#include <linux/platform_device.h>
--#include <linux/gpio/consumer.h>
- #include <linux/delay.h>
--#include <linux/regulator/consumer.h>
-+#include <linux/gpio/consumer.h>
- #include <linux/module.h>
- #include <linux/of.h>
-+#include <linux/platform_device.h>
-+#include <linux/regulator/consumer.h>
- 
- #include <sound/core.h>
- #include <sound/pcm.h>
- #include <sound/soc.h>
- 
-+#include <asm/mach-types.h>
-+#include <linux/mfd/twl4030-audio.h>
- #include <linux/platform_data/asoc-ti-mcbsp.h>
- 
- #include "omap-mcbsp.h"
- 
--#define PREFIX "ASoC omap3pandora: "
-+struct omap3pandora_sound {
-+	struct gpio_desc *amp_gpio;
-+	struct regulator *amp_regulator;
+diff --git a/Documentation/devicetree/bindings/sound/openpandora,omap3pandora-sound.yaml b/Documentation/devicetree/bindings/sound/openpandora,omap3pandora-sound.yaml
+new file mode 100644
+index 0000000000000..6c4d69ffc1c50
+--- /dev/null
++++ b/Documentation/devicetree/bindings/sound/openpandora,omap3pandora-sound.yaml
+@@ -0,0 +1,95 @@
++# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
++%YAML 1.2
++---
++$id: http://devicetree.org/schemas/sound/openpandora,omap3pandora-sound.yaml#
++$schema: http://devicetree.org/meta-schemas/core.yaml#
 +
-+	struct snd_pcm_substream *playback_stream;
-+	struct snd_pcm_substream *capture_stream;
++title: OpenPandora OMAP3 Audio Complex
 +
-+	struct mutex sample_rate_lock; // protects all fields after
-+	unsigned int sample_rate;
-+	int sample_rate_users;
-+};
- 
--static struct regulator *omap3pandora_dac_reg;
--static struct gpio_desc *dac_power_gpio;
--static struct gpio_desc *amp_power_gpio;
-+static struct snd_soc_dai_link omap3pandora_dai[];
- 
--static int omap3pandora_hw_params(struct snd_pcm_substream *substream,
--	struct snd_pcm_hw_params *params)
-+static int omap3pandora_common_hw_params(struct snd_pcm_substream *substream,
-+					 struct snd_pcm_hw_params *params)
- {
- 	struct snd_soc_pcm_runtime *rtd = snd_soc_substream_to_rtd(substream);
--	struct snd_soc_dai *codec_dai = snd_soc_rtd_to_codec(rtd, 0);
-+	__maybe_unused struct snd_soc_dai *codec_dai = snd_soc_rtd_to_codec(rtd, 0);
- 	struct snd_soc_dai *cpu_dai = snd_soc_rtd_to_cpu(rtd, 0);
-+	struct device *dev = rtd->dev;
- 	int ret;
- 
--	/* Set the codec system clock for DAC and ADC */
--	ret = snd_soc_dai_set_sysclk(codec_dai, 0, 26000000,
--					    SND_SOC_CLOCK_IN);
--	if (ret < 0) {
--		pr_err(PREFIX "can't set codec system clock\n");
--		return ret;
--	}
--
- 	/* Set McBSP clock to external */
- 	ret = snd_soc_dai_set_sysclk(cpu_dai, OMAP_MCBSP_SYSCLK_CLKS_EXT,
- 				     256 * params_rate(params),
- 				     SND_SOC_CLOCK_IN);
- 	if (ret < 0) {
--		pr_err(PREFIX "can't set cpu system clock\n");
-+		dev_err(dev, "cannot set McBSP clock to external: %d\n", ret);
- 		return ret;
- 	}
- 
- 	ret = snd_soc_dai_set_clkdiv(cpu_dai, OMAP_MCBSP_CLKGDV, 8);
- 	if (ret < 0) {
--		pr_err(PREFIX "can't set SRG clock divider\n");
-+		dev_err(dev, "cannot set McBSP clock divider: %d\n", ret);
- 		return ret;
- 	}
- 
- 	return 0;
- }
- 
--static int omap3pandora_dac_event(struct snd_soc_dapm_widget *w,
--	struct snd_kcontrol *k, int event)
-+static inline int constrain_sample_rate(struct snd_pcm_substream *substream,
-+					unsigned int sample_rate)
-+{
-+	return snd_pcm_hw_constraint_single(substream->runtime,
-+					    SNDRV_PCM_HW_PARAM_RATE,
-+					    sample_rate);
-+}
++maintainers:
++  - H. Nikolaus Schaller <hns@goldelico.com>
 +
-+/* The McBSP playback and capture interfaces share the TWL4030 APLL. */
-+static int grab_sample_rate(struct omap3pandora_sound *ctx,
-+			    struct snd_pcm_substream **owner,
-+			    struct snd_pcm_substream *substream,
-+			    struct snd_pcm_hw_params *params,
-+			    bool *new_owner)
-+{
-+	unsigned int rate = params_rate(params);
-+	int ret = 0;
++description:
++  The OpenPandora audio subsystem describes the routing links between the
++  OMAP3 McBSP interface, the external PCM1773 DAC, and the TWL4030 audio codec,
++  alongside amplifiers and power supplies.
 +
-+	*new_owner = false;
-+	mutex_lock(&ctx->sample_rate_lock);
-+	if (*owner == substream) {
-+		if (ctx->sample_rate != rate)
-+			ret = -EINVAL;
-+	} else if (*owner || (ctx->sample_rate_users &&
-+				ctx->sample_rate != rate)) {
-+		ret = -EINVAL;
-+	} else {
-+		ctx->sample_rate = rate;
-+		ctx->sample_rate_users++;
-+		*owner = substream;
-+		*new_owner = true;
-+	}
-+	mutex_unlock(&ctx->sample_rate_lock);
++properties:
++  compatible:
++    const: openpandora,omap3pandora-sound
 +
-+	return ret;
-+}
++  label:
++    $ref: /schemas/types.yaml#/definitions/string
++    description: User-visible name for this sound card.
 +
-+static void release_sample_rate(struct omap3pandora_sound *ctx,
-+				struct snd_pcm_substream **owner,
-+				struct snd_pcm_substream *substream)
-+{
-+	mutex_lock(&ctx->sample_rate_lock);
-+	if (*owner == substream) {
-+		*owner = NULL;
-+		if (WARN_ON_ONCE(!ctx->sample_rate_users))
-+			goto out;
-+		if (!--ctx->sample_rate_users)
-+			ctx->sample_rate = 0;
-+	}
-+out:
-+	mutex_unlock(&ctx->sample_rate_lock);
-+}
++  amp-gpios:
++    maxItems: 1
++    description: GPIO pin controlling the amplifier power state.
 +
-+static int omap3pandora_playback_hw_params(struct snd_pcm_substream *substream,
-+					   struct snd_pcm_hw_params *params)
- {
-+	struct snd_soc_pcm_runtime *rtd = snd_soc_substream_to_rtd(substream);
-+	struct snd_soc_card *card = rtd->card;
-+	struct omap3pandora_sound *ctx = snd_soc_card_get_drvdata(card);
-+	struct device *dev = rtd->dev;
-+	struct snd_soc_pcm_runtime *tmp_rtd;
-+	struct snd_soc_pcm_runtime *twl4030_rtd = NULL;
-+	bool new_owner;
- 	int ret;
- 
- 	/*
--	 * The PCM1773 DAC datasheet requires 1ms delay between switching
--	 * VCC power on/off and /PD pin high/low
-+	 * We need to set the APLL clock rate on the TWL4030 because it feeds
-+	 * both the DAI of the PCM1773. So find the appropriate RTD and call
-+	 * the TWL's .set_sysclk callback through there. Ugly, but it must be
-+	 * done.
- 	 */
--	if (SND_SOC_DAPM_EVENT_ON(event)) {
--		struct device *dev = snd_soc_dapm_to_dev(w->dapm);
- 
--		ret = regulator_enable(omap3pandora_dac_reg);
--		if (ret) {
--			dev_err(dev, "Failed to power DAC: %d\n", ret);
--			return ret;
-+	for_each_card_rtds(card, tmp_rtd)
-+		if (tmp_rtd->dai_link == &omap3pandora_dai[1]) {
-+			twl4030_rtd = tmp_rtd;
-+			break;
- 		}
--		mdelay(1);
--		gpiod_set_value(dac_power_gpio, 1);
--	} else {
--		gpiod_set_value(dac_power_gpio, 0);
--		mdelay(1);
--		regulator_disable(omap3pandora_dac_reg);
-+	if (!twl4030_rtd) {
-+		dev_err(dev, "cannot find TWL4030 runtime data to set APLL rate\n");
-+		return -EINVAL;
- 	}
- 
-+	ret = grab_sample_rate(ctx, &ctx->playback_stream, substream,
-+			       params, &new_owner);
-+	if (ret)
-+		return ret;
++  amp-supply:
++    description: Regulator supplying power to the amplifier.
 +
-+	ret = snd_soc_dai_set_sysclk(snd_soc_rtd_to_codec(twl4030_rtd, 0),
-+				     TWL4030_CLOCK_APLL, params_rate(params),
-+				     SND_SOC_CLOCK_OUT);
-+	if (ret) {
-+		dev_err(dev, "cannot set TWL4030 APLL rate via set_sysclk interface: %d\n",
-+			ret);
-+		goto err_release;
-+	}
++  sound-dai:
++    $ref: /schemas/types.yaml#/definitions/phandle-array
++    minItems: 2
++    maxItems: 2
++    description:
++      Phandles to the audio CPU DAI (OMAP3 McBSP) and the codec DAI.
 +
-+	ret = omap3pandora_common_hw_params(substream, params);
-+	if (ret)
-+		goto err_release;
- 	return 0;
++  routing:
++    $ref: /schemas/types.yaml#/definitions/non-unique-string-array
++    description:
++      A list of the connections between audio components.
++      Each entry is a pair of strings, the first being the connection's sink,
++      the second being the connection's source.
 +
-+err_release:
-+	if (new_owner)
-+		release_sample_rate(ctx, &ctx->playback_stream, substream);
-+	return ret;
- }
- 
--static int omap3pandora_hp_event(struct snd_soc_dapm_widget *w,
--	struct snd_kcontrol *k, int event)
-+static int omap3pandora_capture_hw_params(struct snd_pcm_substream *substream,
-+					  struct snd_pcm_hw_params *params)
- {
--	if (SND_SOC_DAPM_EVENT_ON(event))
--		gpiod_set_value(amp_power_gpio, 1);
--	else
--		gpiod_set_value(amp_power_gpio, 0);
-+	struct snd_soc_pcm_runtime *rtd = snd_soc_substream_to_rtd(substream);
-+	struct snd_soc_dai *codec_dai = snd_soc_rtd_to_codec(rtd, 0);
-+	struct device *dev = rtd->dev;
-+	struct snd_soc_card *card = rtd->card;
-+	struct omap3pandora_sound *ctx = snd_soc_card_get_drvdata(card);
-+	bool new_owner;
-+	int ret;
- 
-+	/* Set the codec system clock for DAC and ADC */
-+	ret = snd_soc_dai_set_sysclk(codec_dai, 0, 26000000,
-+				     SND_SOC_CLOCK_IN);
-+	if (ret < 0) {
-+		dev_err(dev, "cannot set TWL4030 system clock: %d\n", ret);
-+		return ret;
-+	}
++  widgets:
++    $ref: /schemas/types.yaml#/definitions/non-unique-string-array
++    description:
++      User-specified audio sound widgets.
++      Each entry is a pair of strings, the first being the widget type
++      (e.g., "Speaker", "Headphone", "Microphone", "Line") and the second being its name.
 +
-+	ret = grab_sample_rate(ctx, &ctx->capture_stream, substream,
-+			       params, &new_owner);
-+	if (ret)
-+		return ret;
++required:
++  - compatible
++  - sound-dai
 +
-+	ret = omap3pandora_common_hw_params(substream, params);
-+	if (ret)
-+		goto err_release;
- 	return 0;
++additionalProperties: false
 +
-+err_release:
-+	if (new_owner)
-+		release_sample_rate(ctx, &ctx->capture_stream, substream);
-+	return ret;
- }
- 
--/*
-- * Audio paths on Pandora board:
-- *
-- *  |O| ---> PCM DAC +-> AMP -> Headphone Jack
-- *  |M|         A    +--------> Line Out
-- *  |A| <~~clk~~+
-- *  |P| <--- TWL4030 <--------- Line In and MICs
-- */
--static const struct snd_soc_dapm_widget omap3pandora_dapm_widgets[] = {
--	SND_SOC_DAPM_DAC_E("PCM DAC", "HiFi Playback", SND_SOC_NOPM,
--			   0, 0, omap3pandora_dac_event,
--			   SND_SOC_DAPM_POST_PMU | SND_SOC_DAPM_PRE_PMD),
--	SND_SOC_DAPM_PGA_E("Headphone Amplifier", SND_SOC_NOPM,
--			   0, 0, NULL, 0, omap3pandora_hp_event,
--			   SND_SOC_DAPM_POST_PMU | SND_SOC_DAPM_PRE_PMD),
--	SND_SOC_DAPM_HP("Headphone Jack", NULL),
--	SND_SOC_DAPM_LINE("Line Out", NULL),
-+static int omap3pandora_playback_hw_free(struct snd_pcm_substream *substream)
-+{
-+	struct snd_soc_pcm_runtime *rtd = snd_soc_substream_to_rtd(substream);
-+	struct snd_soc_card *card = rtd->card;
-+	struct omap3pandora_sound *ctx = snd_soc_card_get_drvdata(card);
- 
--	SND_SOC_DAPM_MIC("Mic (internal)", NULL),
--	SND_SOC_DAPM_MIC("Mic (external)", NULL),
--	SND_SOC_DAPM_LINE("Line In", NULL),
--};
-+	release_sample_rate(ctx, &ctx->playback_stream, substream);
- 
--static const struct snd_soc_dapm_route omap3pandora_map[] = {
--	{"PCM DAC", NULL, "APLL Enable"},
--	{"Headphone Amplifier", NULL, "PCM DAC"},
--	{"Line Out", NULL, "PCM DAC"},
--	{"Headphone Jack", NULL, "Headphone Amplifier"},
-+	return 0;
-+}
- 
--	{"AUXL", NULL, "Line In"},
--	{"AUXR", NULL, "Line In"},
-+static int omap3pandora_common_startup(struct snd_pcm_substream *substream)
-+{
-+	struct snd_soc_pcm_runtime *rtd = snd_soc_substream_to_rtd(substream);
-+	struct snd_soc_card *card = rtd->card;
-+	struct omap3pandora_sound *ctx = snd_soc_card_get_drvdata(card);
-+	unsigned int sample_rate;
- 
--	{"MAINMIC", NULL, "Mic (internal)"},
--	{"Mic (internal)", NULL, "Mic Bias 1"},
-+	mutex_lock(&ctx->sample_rate_lock);
-+	sample_rate = ctx->sample_rate;
-+	mutex_unlock(&ctx->sample_rate_lock);
- 
--	{"SUBMIC", NULL, "Mic (external)"},
--	{"Mic (external)", NULL, "Mic Bias 2"},
--};
-+	if (!sample_rate)
-+		return 0;
++examples:
++  - |
++    #include <dt-bindings/gpio/gpio.h>
 +
-+	return constrain_sample_rate(substream, sample_rate);
-+}
++    sound {
++        compatible = "openpandora,omap3pandora-sound";
++        status = "okay";
 +
-+static int omap3pandora_capture_hw_free(struct snd_pcm_substream *substream)
-+{
-+	struct snd_soc_pcm_runtime *rtd = snd_soc_substream_to_rtd(substream);
-+	struct snd_soc_card *card = rtd->card;
-+	struct omap3pandora_sound *ctx = snd_soc_card_get_drvdata(card);
++        label = "OpenPandora";
 +
-+	release_sample_rate(ctx, &ctx->capture_stream, substream);
++        amp-gpios = <&gpio1 14 GPIO_ACTIVE_HIGH>;
++        amp-supply = <&aux_5v>;
 +
-+	return 0;
-+}
++        widgets =
++            "Line", "Line Out",
++            "Line", "Line In",
++            "Headphone", "Headphone Jack",
++            "Microphone", "Mic (internal)",
++            "Microphone", "Mic (external)";
 +
-+static int omap3pandora_hp_event(struct snd_soc_dapm_widget *w,
-+				 struct snd_kcontrol *k, int event)
-+{
-+	struct snd_soc_card *card = snd_soc_dapm_to_card(w->dapm);
-+	struct device *dev = card->dev;
-+	struct omap3pandora_sound *ctx =
-+		snd_soc_card_get_drvdata(card);
-+	int ret;
++        routing =
++            "DAC1", "APLL Enable",
++            "DAC2", "APLL Enable",
++            "Headphone Amplifier", "VOUTL",
++            "Headphone Amplifier", "VOUTR",
++            "Line Out", "VOUTL",
++            "Line Out", "VOUTR",
++            "Headphone Jack", "Headphone Amplifier",
++            "AUXL", "Line In",
++            "AUXR", "Line In",
++            "MAINMIC", "Mic (internal)",
++            "Mic (internal)", "Mic Bias 1",
++            "SUBMIC", "Mic (external)",
++            "Mic (external)", "Mic Bias 2";
 +
-+	if (SND_SOC_DAPM_EVENT_ON(event)) {
-+		ret = regulator_enable(ctx->amp_regulator);
-+		if (ret) {
-+			dev_err(dev, "error enabling amplifier regulator: %d\n", ret);
-+			return ret;
-+		}
-+
-+		gpiod_set_value(ctx->amp_gpio, 1);
-+	} else {
-+		gpiod_set_value(ctx->amp_gpio, 0);
-+
-+		ret = regulator_disable(ctx->amp_regulator);
-+		if (ret) {
-+			dev_err(dev, "error disabling amplifier regulator: %d\n", ret);
-+			return ret;
-+		}
-+	}
-+
-+	return 0;
-+}
- 
- static int omap3pandora_out_init(struct snd_soc_pcm_runtime *rtd)
- {
-@@ -171,20 +307,40 @@ static int omap3pandora_in_init(struct snd_soc_pcm_runtime *rtd)
- 	return 0;
- }
- 
--static const struct snd_soc_ops omap3pandora_ops = {
--	.hw_params = omap3pandora_hw_params,
-+static const struct snd_soc_ops omap3pandora_playback_ops = {
-+	.startup = omap3pandora_common_startup,
-+	.hw_params = omap3pandora_playback_hw_params,
-+	.hw_free = omap3pandora_playback_hw_free,
-+};
-+
-+static const struct snd_soc_ops omap3pandora_capture_ops = {
-+	.startup = omap3pandora_common_startup,
-+	.hw_params = omap3pandora_capture_hw_params,
-+	.hw_free = omap3pandora_capture_hw_free,
- };
- 
- /* Digital audio interface glue - connects codec <--> CPU */
-+#if IS_BUILTIN(CONFIG_SND_SOC_OMAP3_PANDORA)
- SND_SOC_DAILINK_DEFS(out,
- 	DAILINK_COMP_ARRAY(COMP_CPU("omap-mcbsp.2")),
--	DAILINK_COMP_ARRAY(COMP_CODEC("twl4030-codec", "twl4030-hifi")),
-+	DAILINK_COMP_ARRAY(COMP_CODEC("pcm1773-codec", "pcm1773")),
- 	DAILINK_COMP_ARRAY(COMP_PLATFORM("omap-mcbsp.2")));
- 
- SND_SOC_DAILINK_DEFS(in,
- 	DAILINK_COMP_ARRAY(COMP_CPU("omap-mcbsp.4")),
- 	DAILINK_COMP_ARRAY(COMP_CODEC("twl4030-codec", "twl4030-hifi")),
- 	DAILINK_COMP_ARRAY(COMP_PLATFORM("omap-mcbsp.4")));
-+#else /* IS_BUILTIN(CONFIG_SND_SOC_OMAP3_PANDORA) */
-+SND_SOC_DAILINK_DEFS(out,
-+		     DAILINK_COMP_ARRAY(COMP_CPU("49022000.mcbsp")),
-+	DAILINK_COMP_ARRAY(COMP_CODEC("pcm1773-codec", "pcm1773")),
-+	DAILINK_COMP_ARRAY(COMP_PLATFORM("49022000.mcbsp")));
-+
-+SND_SOC_DAILINK_DEFS(in,
-+		     DAILINK_COMP_ARRAY(COMP_CPU("49026000.mcbsp")),
-+	DAILINK_COMP_ARRAY(COMP_CODEC("twl4030-codec", "twl4030-hifi")),
-+	DAILINK_COMP_ARRAY(COMP_PLATFORM("49026000.mcbsp")));
-+#endif /* IS_BUILTIN(CONFIG_SND_SOC_OMAP3_PANDORA) */
- 
- static struct snd_soc_dai_link omap3pandora_dai[] = {
- 	{
-@@ -192,100 +348,122 @@ static struct snd_soc_dai_link omap3pandora_dai[] = {
- 		.stream_name = "HiFi Out",
- 		.dai_fmt = SND_SOC_DAIFMT_I2S | SND_SOC_DAIFMT_NB_NF |
- 			   SND_SOC_DAIFMT_CBC_CFC,
--		.ops = &omap3pandora_ops,
-+		.ops = &omap3pandora_playback_ops,
- 		.init = omap3pandora_out_init,
-+		.playback_only = 1,
- 		SND_SOC_DAILINK_REG(out),
- 	}, {
- 		.name = "TWL4030",
- 		.stream_name = "Line/Mic In",
- 		.dai_fmt = SND_SOC_DAIFMT_I2S | SND_SOC_DAIFMT_NB_NF |
- 			   SND_SOC_DAIFMT_CBC_CFC,
--		.ops = &omap3pandora_ops,
-+		.ops = &omap3pandora_capture_ops,
- 		.init = omap3pandora_in_init,
-+		.capture_only = 1,
- 		SND_SOC_DAILINK_REG(in),
- 	}
- };
- 
-+static const struct snd_soc_dapm_widget omap3pandora_local_widgets[] = {
-+	SND_SOC_DAPM_PGA_E("Headphone Amplifier", SND_SOC_NOPM,
-+			   0, 0, NULL, 0, omap3pandora_hp_event,
-+			   SND_SOC_DAPM_POST_PMU | SND_SOC_DAPM_PRE_PMD),
-+};
-+
- /* SoC card */
- static struct snd_soc_card snd_soc_card_omap3pandora = {
--	.name = "omap3pandora",
--	.owner = THIS_MODULE,
--	.dai_link = omap3pandora_dai,
--	.num_links = ARRAY_SIZE(omap3pandora_dai),
--
--	.dapm_widgets = omap3pandora_dapm_widgets,
--	.num_dapm_widgets = ARRAY_SIZE(omap3pandora_dapm_widgets),
--	.dapm_routes = omap3pandora_map,
--	.num_dapm_routes = ARRAY_SIZE(omap3pandora_map),
-+	.name        = "omap3pandora",
-+	.owner       = THIS_MODULE,
-+	.dai_link    = omap3pandora_dai,
-+	.num_links   = ARRAY_SIZE(omap3pandora_dai),
-+	.dapm_widgets     = omap3pandora_local_widgets,
-+	.num_dapm_widgets = ARRAY_SIZE(omap3pandora_local_widgets),
- };
- 
--static struct platform_device *omap3pandora_snd_device;
--
--static int __init omap3pandora_soc_init(void)
-+static void omap3pandora_destroy_mutex(void *data)
- {
--	int ret;
-+	struct omap3pandora_sound *ctx = data;
- 
--	if (!of_machine_is_compatible("openpandora,omap3-pandora-600mhz") &&
--		!of_machine_is_compatible("openpandora,omap3-pandora-1ghz"))
--		return -ENODEV;
-+	mutex_destroy(&ctx->sample_rate_lock);
-+}
- 
--	pr_info("OMAP3 Pandora SoC init\n");
-+static int omap3pandora_probe(struct platform_device *pdev)
-+{
-+	int ret;
-+	struct device *dev = &pdev->dev;
-+	struct snd_soc_card *card = &snd_soc_card_omap3pandora;
-+	struct omap3pandora_sound *ctx;
- 
--	omap3pandora_snd_device = platform_device_alloc("soc-audio", -1);
--	if (omap3pandora_snd_device == NULL) {
--		pr_err(PREFIX "Platform device allocation failed\n");
-+	ctx = devm_kzalloc(dev, sizeof(*ctx), GFP_KERNEL);
-+	if (!ctx)
- 		return -ENOMEM;
--	}
- 
--	platform_set_drvdata(omap3pandora_snd_device, &snd_soc_card_omap3pandora);
-+	mutex_init(&ctx->sample_rate_lock);
-+	ret = devm_add_action_or_reset(dev, omap3pandora_destroy_mutex, ctx);
-+	if (ret)
-+		return ret;
- 
--	ret = platform_device_add(omap3pandora_snd_device);
--	if (ret) {
--		pr_err(PREFIX "Unable to add platform device\n");
--		goto fail2;
-+	ctx->amp_gpio = devm_gpiod_get(dev, "amp", GPIOD_OUT_LOW);
-+	if (IS_ERR(ctx->amp_gpio)) {
-+		dev_err(dev, "cannot find amplifier gpio\n");
-+		return PTR_ERR(ctx->amp_gpio);
- 	}
- 
--	dac_power_gpio = devm_gpiod_get(&omap3pandora_snd_device->dev,
--					"dac", GPIOD_OUT_LOW);
--	if (IS_ERR(dac_power_gpio)) {
--		ret = PTR_ERR(dac_power_gpio);
--		goto fail3;
-+	ctx->amp_regulator = devm_regulator_get(dev, "amp");
-+	if (IS_ERR(ctx->amp_regulator)) {
-+		ret = PTR_ERR(ctx->amp_regulator);
-+		dev_err(dev, "Failed to request regulator for amplifier power: %d\n", ret);
-+		return ret;
- 	}
- 
--	amp_power_gpio = devm_gpiod_get(&omap3pandora_snd_device->dev,
--					"amp", GPIOD_OUT_LOW);
--	if (IS_ERR(amp_power_gpio)) {
--		ret = PTR_ERR(amp_power_gpio);
--		goto fail3;
--	}
-+	card->dev = dev;
- 
--	omap3pandora_dac_reg = regulator_get(&omap3pandora_snd_device->dev, "vcc");
--	if (IS_ERR(omap3pandora_dac_reg)) {
--		pr_err(PREFIX "Failed to get DAC regulator from %s: %ld\n",
--			dev_name(&omap3pandora_snd_device->dev),
--			PTR_ERR(omap3pandora_dac_reg));
--		ret = PTR_ERR(omap3pandora_dac_reg);
--		goto fail3;
-+	if (dev->of_node) {
-+		ret = snd_soc_of_parse_card_name(card, "label");
-+		if (ret)
-+			card->name = "omap3pandora";
-+
-+		ret = snd_soc_of_parse_audio_simple_widgets(card, "widgets");
-+		if (ret) {
-+			dev_err(dev, "Failed to parse DAPM widgets: %d\n", ret);
-+			return ret;
-+		}
-+
-+		ret = snd_soc_of_parse_audio_routing(card, "routing");
-+		if (ret) {
-+			dev_err(dev, "Failed to parse audio routing: %d\n", ret);
-+			return ret;
-+		}
- 	}
- 
--	return 0;
-+	snd_soc_card_set_drvdata(card, ctx);
- 
--fail3:
--	platform_device_del(omap3pandora_snd_device);
--fail2:
--	platform_device_put(omap3pandora_snd_device);
-+	ret = devm_snd_soc_register_card(dev, card);
-+	if (ret) {
-+		dev_err(dev, "Failed to register sound card: %d\n", ret);
-+		return ret;
-+	}
- 
--	return ret;
-+	return 0;
- }
--module_init(omap3pandora_soc_init);
- 
--static void __exit omap3pandora_soc_exit(void)
--{
--	regulator_put(omap3pandora_dac_reg);
--	platform_device_unregister(omap3pandora_snd_device);
--}
--module_exit(omap3pandora_soc_exit);
-+static const struct of_device_id omap3pandora_of_match[] = {
-+	{ .compatible = "openpandora,omap3pandora-sound", },
-+	{ },
-+};
-+MODULE_DEVICE_TABLE(of, omap3pandora_of_match);
-+
-+static struct platform_driver omap3pandora_driver = {
-+	.driver = {
-+		.name = "omap3pandora-sound",
-+		.of_match_table = omap3pandora_of_match,
-+	},
-+	.probe = omap3pandora_probe,
-+};
-+
-+module_platform_driver(omap3pandora_driver);
- 
- MODULE_AUTHOR("Grazvydas Ignotas <notasas@gmail.com>");
- MODULE_DESCRIPTION("ALSA SoC OMAP3 Pandora");
- MODULE_LICENSE("GPL");
-+MODULE_ALIAS("platform:omap3pandora-sound");
++        sound-dai = <&mcbsp2>, <&dac>;
++    };
 -- 
 2.56.0
 
