@@ -2,29 +2,30 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 08050606A685
-	for <dri-devel@archiver.kernel.org>; Tue, 24 Nov 2026 18:18:54 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C79BD606A696
+	for <dri-devel@archiver.kernel.org>; Tue, 24 Nov 2026 18:18:50 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=igalia.com header.i=@igalia.com header.a=rsa-sha256 header.s=20170329 header.b=U1zuf5Df
+	dkim=pass (2048-bit key) header.d=igalia.com header.i=@igalia.com header.a=rsa-sha256 header.s=20170329 header.b=m+ZDBG3/
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 70EF410F831;
-	Tue, 24 Nov 2026 18:18:45 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 2075910F837;
+	Tue, 24 Nov 2026 18:18:40 +0000 (UTC)
 Received: from fanzine2.igalia.com (fanzine2.igalia.com [213.97.179.56])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 02FC210F7E3;
- Tue, 24 Nov 2026 18:18:37 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 6487B10F033;
+ Tue, 24 Nov 2026 18:18:21 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com; 
  s=20170329;
- h=Content-Transfer-Encoding:MIME-Version:Message-ID:Date:Subject:
- Cc:To:From:From:Reply-To; bh=D7Rnf/E6D1AzoY9q5PROajjWjX7iAQ5f2Yr8aHcnDhc=;
- t=1795544316; x=2110904316; b=U1zuf5DfJnPwoIrxSxokPm35fXcIrn4+7PC5pQhx7kPamuh
- CW1QsChIuGMs8Kp8Wn++3KjuRqfFXVZf/lM+M1m+9xBHIt03akCltFVd/n2v6YoXIQm8P/TYN6XwM
- wSFNCE/p8hf+I3Pj2eLxeo4ljhK1CaiS2Fbkx4kMpS3PZCo1Z/4rjYp202jw4XCwy5SYl04cdyld5
- NOFiSuKjOHs0ma8/qmjF51pHeU8+SoKH8fUHOy8K2Y6hsx61IvDJOXNuhUpEArhrCHRzZFVk+c6C2
- p+aYSk+gejwwbyZa9EUVeTUi+rmu8OFCtmuN5bBmeslQHpwTIZqP5ddJkgaWvbWA==;
+ h=Content-Transfer-Encoding:Content-Type:MIME-Version:Message-ID:
+ Date:Subject:Cc:To:From:From:Reply-To;
+ bh=znC4sG6BZKe98gRYlVdYMFewri6JoIv6eM12y10D+Iw=; t=1795544301; x=2110904301; 
+ b=m+ZDBG3/WkhwaolQUXH3W3aNJItVBq5+PbvbFCTTi7dHkGhaA7NKLltzeH7c/nd3c27wlAffaDm
+ B710iYL8/XQikVrrxC3rzSF8zAkiZhFLQ/GXkmomYSnKYcMeovb3ixCsyVwYckG5ntDQi8S4f/5fG
+ f05RXAdNJE/XCBISDv+qZRsbxog3gSJOPNTqJ5Qm1dPWZNEmoOKvaGo0KFd9eHaJsy/yRS1Fp50wC
+ ZUhFFGbhB/EbzAJ1OAnbY/WOPNcitVJhC/S/2xvcyj5itQRimRpX2R/+7uGtJzuTno/mMNAZKuYde
+ VqzkkznV8sy5Jy03IeDP5+RbKb4+R7eLhnTw==;
 Received: from 84.125.127.4.dyn.user.ono.com ([84.125.127.4] helo=killbill)
  by fanzine2.igalia.com with esmtpsa 
  (Cipher TLS1.3:ECDHE_X25519__RSA_PSS_RSAE_SHA256__AES_256_GCM:256) (Exim)
- id 1xVv5z-00000003axM-0egP; Tue, 24 Nov 2026 19:18:23 +0100
+ id 1xVv5o-00000003axM-1FlR; Tue, 24 Nov 2026 19:18:12 +0100
 From: Melissa Wen <mwen@igalia.com>
 To: airlied@gmail.com, alexander.deucher@amd.com, christian.koenig@amd.com,
  harry.wentland@amd.com, maarten.lankhorst@linux.intel.com,
@@ -41,16 +42,17 @@ Cc: Ariel DAlessandro <ariel.dalessandro@collabora.com>,
  Daniel Stone <daniels@collabora.com>, kernel-dev@igalia.com,
  amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
  Leandro Ribeiro <leandro.ribeiro@collabora.com>,
- Melissa Wen <mwen@igalia.com>
-Subject: [PATCH v3 15/19] drm/drm_ioctl: guard
- DRM_CLIENT_CAP_CRTC_COLOR_PIPELINE
-Date: Tue, 24 Nov 2026 19:03:32 +0100
-Message-ID: <20261124181652.1333986-16-mwen@igalia.com>
+ Louis Chauvet <louis.chauvet@bootlin.com>, Melissa Wen <mwen@igalia.com>
+Subject: [PATCH v3 09/19] drm/atomic: Print the color pipeline as part of the
+ CRTC state print
+Date: Tue, 24 Nov 2026 19:03:26 +0100
+Message-ID: <20261124181652.1333986-10-mwen@igalia.com>
 X-Mailer: git-send-email 2.53.0
 In-Reply-To: <20261124181652.1333986-1-mwen@igalia.com>
 References: <20261124181652.1333986-1-mwen@igalia.com>
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -66,72 +68,42 @@ Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 X-Spam-Status: No, score=-18.8 required=3.0 tests=BAYES_00,DKIM_SIGNED,
 	DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
 	INCLUDES_CR_TRAILER,INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,
-	SPF_PASS,USER_AGENT_GIT autolearn=ham autolearn_force=no version=4.0.1
+	SPF_PASS,USER_AGENT_GIT autolearn=unavailable autolearn_force=no
+	version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-If the driver doesn't support post-blend colorop, refuse attempts from
-userspace to set it. Same approach is taken for pre-blend colorop since
-commit ac7c6b4308c5 ("drm: Guard DRM_CLIENT_CAP_PLANE_COLOR_PIPELINE").
+From: Nícolas F. R. A. Prado <nfraprado@collabora.com>
 
+Print the value of the color pipeline in the CRTC state as part of the
+CRTC state print.
+
+Signed-off-by: Nícolas F. R. A. Prado <nfraprado@collabora.com>
+Co-developed-by: Ariel D'Alessandro <ariel.dalessandro@collabora.com>
+Signed-off-by: Ariel D'Alessandro <ariel.dalessandro@collabora.com>
+Reviewed-by: Louis Chauvet <louis.chauvet@bootlin.com>
+Reviewed-by: Harry Wentland <harry.wentland@amd.com>
 Signed-off-by: Melissa Wen <mwen@igalia.com>
 
 ---
 v3:
-- refuse the cap when no CRTC has a color pipeline as the plane guard
-  does
-- drop the stale DRM_CAP_CRTC_COLOR_PIPELINE requirement from the cap
-  documentation
+- rebase on drm-misc-next, no other changes
 ---
- drivers/gpu/drm/drm_ioctl.c | 15 ++++++++++++++-
- include/uapi/drm/drm.h      |  3 ---
- 2 files changed, 14 insertions(+), 4 deletions(-)
+ drivers/gpu/drm/drm_atomic.c | 2 ++
+ 1 file changed, 2 insertions(+)
 
-diff --git a/drivers/gpu/drm/drm_ioctl.c b/drivers/gpu/drm/drm_ioctl.c
-index 3e57453ef258..9325202f8cbd 100644
---- a/drivers/gpu/drm/drm_ioctl.c
-+++ b/drivers/gpu/drm/drm_ioctl.c
-@@ -392,13 +392,26 @@ drm_setclientcap(struct drm_device *dev, void *data, struct drm_file *file_priv)
- 		file_priv->plane_color_pipeline = req->value;
- 		break;
- 	}
--	case DRM_CLIENT_CAP_CRTC_COLOR_PIPELINE:
-+	case DRM_CLIENT_CAP_CRTC_COLOR_PIPELINE: {
-+		struct drm_crtc *crtc;
-+		bool has_crtc_with_color_pipeline = false;
-+
- 		if (!file_priv->atomic)
- 			return -EINVAL;
- 		if (req->value > 1)
- 			return -EINVAL;
-+		drm_for_each_crtc(crtc, dev) {
-+			if (crtc->color_pipeline_property) {
-+				has_crtc_with_color_pipeline = true;
-+				break;
-+			}
-+		}
-+		if (!has_crtc_with_color_pipeline)
-+			return -EOPNOTSUPP;
-+
- 		file_priv->crtc_color_pipeline = req->value;
- 		break;
-+	}
- 	default:
- 		return -EINVAL;
- 	}
-diff --git a/include/uapi/drm/drm.h b/include/uapi/drm/drm.h
-index 08bd616774a4..c0971de2c0a3 100644
---- a/include/uapi/drm/drm.h
-+++ b/include/uapi/drm/drm.h
-@@ -920,9 +920,6 @@ struct drm_get_cap {
-  * the hidden model to default values.
-  *
-  * The client must enable &DRM_CLIENT_CAP_ATOMIC first.
-- *
-- * This client cap can only be set if the driver sets the corresponding driver
-- * cap &DRM_CAP_CRTC_COLOR_PIPELINE.
-  */
- #define DRM_CLIENT_CAP_CRTC_COLOR_PIPELINE	8
+diff --git a/drivers/gpu/drm/drm_atomic.c b/drivers/gpu/drm/drm_atomic.c
+index 6d608795f28b..430d4a95241b 100644
+--- a/drivers/gpu/drm/drm_atomic.c
++++ b/drivers/gpu/drm/drm_atomic.c
+@@ -575,6 +575,8 @@ static void drm_atomic_crtc_print_state(struct drm_printer *p,
+ 	drm_printf_indent(p, 1, "plane_mask=%x\n", state->plane_mask);
+ 	drm_printf_indent(p, 1, "connector_mask=%x\n", state->connector_mask);
+ 	drm_printf_indent(p, 1, "encoder_mask=%x\n", state->encoder_mask);
++	drm_printf_indent(p, 1, "color-pipeline=%d\n",
++			  state->color_pipeline ? state->color_pipeline->base.id : 0);
+ 	drm_printf_indent(p, 1, "mode: " DRM_MODE_FMT "\n", DRM_MODE_ARG(&state->mode));
+ 	drm_printf_indent(p, 1, "background_color=%llx\n", state->background_color);
  
 -- 
 2.53.0
