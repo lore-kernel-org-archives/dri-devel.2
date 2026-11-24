@@ -2,56 +2,44 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E2B17606A332
-	for <dri-devel@archiver.kernel.org>; Tue, 24 Nov 2026 12:44:17 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 111AB606A32A
+	for <dri-devel@archiver.kernel.org>; Tue, 24 Nov 2026 12:44:26 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=rock-chips.com header.i=@rock-chips.com header.a=rsa-sha256 header.s=default header.b=iqC4ytrj
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=FMSkBkSd
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 45EAE10F562;
-	Tue, 24 Nov 2026 12:44:12 +0000 (UTC)
-Received: from mail-m1045.netease.com (mail-m1045.netease.com [154.81.10.45])
- by gabe.freedesktop.org (Postfix) with ESMTPS id A976A10F562
- for <dri-devel@lists.freedesktop.org>; Tue, 24 Nov 2026 12:44:05 +0000 (UTC)
-Received: from [127.0.0.1] (unknown [61.154.14.86])
- by smtp.qiye.163.com (Hmail) with ESMTP id 55d3a622a;
- Tue, 24 Nov 2026 20:44:01 +0800 (GMT+08:00)
-Message-ID: <16906835-557f-48c1-aecc-63df816a4672@rock-chips.com>
-Date: Tue, 24 Nov 2026 20:43:57 +0800
-X-Archived-By: <archiver.kernel.org>
-MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v9 15/42] drm/atomic_sro: Add atomic state readout
- infrastructure
-To: Maxime Ripard <mripard@kernel.org>, Brian Masney <bmasney@redhat.com>
-Cc: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>,
- Simona Vetter <simona@ffwll.ch>, Andrzej Hajda <andrzej.hajda@intel.com>,
- Neil Armstrong <neil.armstrong@linaro.org>, Robert Foss <rfoss@kernel.org>,
- Laurent Pinchart <Laurent.pinchart@ideasonboard.com>,
- Jonas Karlman <jonas@kwiboo.se>, Jernej Skrabec <jernej.skrabec@gmail.com>,
- Jyri Sarha <jyri.sarha@iki.fi>,
- Tomi Valkeinen <tomi.valkeinen@ideasonboard.com>,
- Devarsh Thakkar <devarsht@ti.com>, dri-devel@lists.freedesktop.org
-References: <20261120-drm-state-readout-v9-0-a67c2b45b8ec@kernel.org>
- <20261120-drm-state-readout-v9-15-a67c2b45b8ec@kernel.org>
- <898d050d-9c19-4706-b1b2-ff3e23d68efe@rock-chips.com>
- <awWAd4GbeBziItCE@houat>
-Content-Language: en-US
-From: Chaoyi Chen <chaoyi.chen@rock-chips.com>
-In-Reply-To: <awWAd4GbeBziItCE@houat>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-X-HM-Tid: 0aa20d95a9b803a7kunm21e2b36ed0b8b7
-X-HM-MType: 1
-X-HM-Spam-Status: e1kfGhgUHx5ZQUpXWQgPGg8OCBgUHx5ZQUlOS1dZFg8aDwILHllBWSg2Ly
- tZV1koWUFITzdXWRgWCB1ZQUpXWS1ZQUlXWQ8JGhUIEh9ZQVkaGkwZVh1KH0lCS0tOH0MdHlYVFA
- kWGhdVEwETFhoSFyQUDg9ZV1kYEgtZQVlNSlVKTk9VSk9VQ01ZV1kWGg8SFR0UWUFZT0tIVUJCSU
- 5LVUpLS1VKQktCWQY+
-DKIM-Signature: a=rsa-sha256;
- b=iqC4ytrjFVjAo/854TNIJxlvtA1o+POysCV9i+LDRYkTNVyuV4KHzqJQNFm05IHhgUgmlKdMLZMaN3GNV42cl2CKzPKGfoYC+OiEyRAVly5uWL1rLB5vAG1TIIrp+Wcirnp8PGFGDLk+CqLL1+5UnTCLa2F2MR0iLGVMEL+JBEE=;
- s=default; c=relaxed/relaxed; d=rock-chips.com; v=1; 
- bh=LlGqM64xMHz03kQHhXEC2QxSSp/8/oo0Ou/dnDCF5QI=;
- h=date:mime-version:subject:message-id:from;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 6E36B10F568;
+	Tue, 24 Nov 2026 12:44:20 +0000 (UTC)
+Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 83E6210F564
+ for <dri-devel@lists.freedesktop.org>; Tue, 24 Nov 2026 12:44:13 +0000 (UTC)
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+ by sea.source.kernel.org (Postfix) with ESMTP id 6CD2243F2D;
+ Tue, 24 Nov 2026 12:44:13 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id E46291F000D1;
+ Tue, 24 Nov 2026 12:44:12 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+ s=k20260515; t=1795524253;
+ bh=ROMESwk5n5FXW6D4n9p3A2sHm1oDzuNKnBn6Fxw9RzU=;
+ h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+ b=FMSkBkSdJlUvRDw0tGjKxRqH4tuap9gbVW+IhVxqhVyJEIGRB2A1g/ZmJKU5HbIR0
+ jwf50DFO2DufCibXun1fYjcRItXaIY5pdOBhfy3i/W9hXKJGYR27PgDXR3tglBhGzs
+ JoiMEkmS3e6lScgsCiNJkChY+fWWzNyTHl/0TkIv6zCdvesfepcqoBv7rdE57bT44x
+ Ci73JKH/aN+WOxVAuAZEQGYU4UTgH/cUY0n4SXUjn+UoYRaoXCtbP7/Tq1ORReOolW
+ 8W1X9k9wk/styaFBA9ls5b0giy7d7fZZB9v3vqqM+dNUQ9q5pDBUg66JE6n7uZmGI8
+ 3is38HwyrZBbw==
+Message-ID: <sashiko-outbox-231166@kernel.org>
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v2 07/10] rust: DmaFence: Replace is_signaled() with
+ status()
+To: "Philipp Stanner" <phasta@kernel.org>
+Cc: dri-devel@lists.freedesktop.org, media-ci@linuxtv.org, ojeda@kernel.org,
+ gary@garyguo.net
+In-Reply-To: <20261124122951.878199-9-phasta@kernel.org>
+References: <20261124122951.878199-2-phasta@kernel.org>
+ <20261124122951.878199-9-phasta@kernel.org>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Tue, 24 Nov 2026 12:44:12 +0000
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -62,116 +50,176 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
+Reply-To: sashiko-reviews@lists.linux.dev
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-12.3 required=3.0 tests=BAYES_00,DKIM_SIGNED,
-	DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
-	INCLUDES_CR_TRAILER,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,
-	USER_AGENT_SANE_1 autolearn=ham autolearn_force=no version=4.0.1
+X-Spam-Status: No, score=-10.8 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
+	DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
+	INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS autolearn=ham
+	autolearn_force=no version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
+X-Archived-By: <archiver.kernel.org>
 
-On 11/24/2026 8:28 PM, Maxime Ripard wrote:
-> Hi Chaoyi,
-> 
-> On Tue, Nov 24, 2026 at 11:54:03AM +0800, Chaoyi Chen wrote:
->> Hi Maxime,
->>
->> For a long time, we have implemented something similar through our own
->> hack. Thank you very much for this series.
-> 
-> I'm glad it's useful :)
-> 
->> Please see below:
->>
->> On 11/20/2026 8:55 PM, Maxime Ripard wrote:
->>> In order to enable drivers to read their initial state from the
->>> hardware, each KMS object needs a hook to fill a pre-allocated state
->>> from the hardware registers.
->>>
->>> Introduce the atomic_sro_readout_state hook in every KMS object funcs
->>> vtable: drm_crtc_funcs, drm_plane_funcs, drm_connector_funcs,
->>> drm_bridge_funcs, and drm_private_state_funcs.
->>>
->>> Also introduce the drm_mode_config_funcs.atomic_sro_readout_state and
->>> drm_mode_config_helper_funcs.atomic_sro_build_state hooks, which are the
->>> top-level entry points for drivers and helpers respectively.
->>>
->>> The states read out aren't the current states of the objects yet, so
->>> they also need to be installed. Introduce the
->>> drm_mode_config_helper_funcs.atomic_sro_install_state hook to install a
->>> whole drm_atomic_sro_state, and an optional atomic_sro_install_state
->>> hook in drm_crtc_funcs, drm_plane_funcs, drm_connector_funcs and
->>> drm_private_state_funcs. The latter is called before the state of an
->>> object is replaced, so that drivers can acquire the resources needed to
->>> keep the hardware state active.
->>>
->>> Finally, add drm_atomic_sro_can_readout() to verify that all objects on
->>> a device implement the readout hook, and wire it into
->>> drm_atomic_sro_device_can_readout().
->>>
->>> Reviewed-by: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>
->>> Signed-off-by: Maxime Ripard <mripard@kernel.org>
->>> ---
->>
->> [...]
->>
->>> +
->>> +	/**
->>> +	 * @atomic_sro_install_state:
->>> +	 *
->>> +	 * This optional hook is called when a state read out from
->>> +	 * hardware is about to be installed as the plane's current
->>> +	 * state.
->>> +	 *
->>> +	 * It allows drivers to acquire the resources needed to keep
->>> +	 * the current hardware state active, such as power domains,
->>> +	 * clocks, or interrupts.
->>> +	 *
->>> +	 * This hook cannot fail. It is called by the
->>> +	 * &drm_mode_config_helper_funcs.atomic_sro_install_state
->>> +	 * implementation, which is part of the hardware state readout
->>> +	 * initialization sequence.
->>> +	 */
->>> +	void (*atomic_sro_install_state)(struct drm_plane *plane,
->>> +					 struct drm_plane_state *plane_state);
->>> +
->>
->> Due to the presence of clk_disable_unused(), the relevant clk is likely
->> to be disabled prematurely, which may cause symptoms such as a black
->> screen. 
->>
->> How does atomic_sro_install_state() ensure that it is called early enough,
->> thereby enabling the driver to turn on the corresponding clock?
->>
->> Or is this something that driver implementers need to consider, and should
->> the DRM core provide some kind of helper? Thank you.
-> 
-> I guess you have mainly three options, depending on what your preferred
-> setup is:
-> 
-> - If your display driver is compiled as a built-in, it's a non-issue
->   since the read-out will have been done before clk_disable_unused()
->   runs.
-> 
-> - The typical "distro" setup is that simpledrm will be builtin, grab the
->   clock, we'll then load the driver as a module, do the readout, call
->   install_state to get a clock reference and then drop simpledrm and its
->   clock reference.
-> 
->   In such a case, you always have a prepare / enable count > 1 so the
->   clock never gets disabled by clk_disable_unused().
-> 
-> - If you don't want to have simpledrm but have the display driver as a
->   module, and thus need to keep the clock running even though
->   clk_disable_unused runs, I guess your best bet is to look into the
->   sync_state Brian has been working on:
->   https://lore.kernel.org/linux-clk/20260626-clk-sync-state-v1-0-4156d8196dc8@redhat.com/
-> 
-> Maxime
+Thank you for your contribution! Sashiko AI review found 2 potential
+issues to consider:
+- [Medium] rust: dma_fence: unordered error read and dropped lock in
+  Fence::status()
+- [Low] rust: dma_fence: missing #[inline] on Fence::status() and
+  Fence::__status()
+--
 
-Very insightful. Thank you for sharing this information. :)
+commit 26df0fcba82116d2e43f022188ec8d892405d6cd
+Author: Philipp Stanner <phasta@kernel.org>
 
--- 
-Best, 
-Chaoyi
+rust: DmaFence: Replace is_signaled() with status()
 
+This commit replaces Fence::is_signaled() with Fence::status() and introduc=
+es
+FenceStatus so callers check the fence error code when querying whether a
+fence has been signaled.
+
+> diff --git a/rust/kernel/dma_buf/dma_fence.rs b/rust/kernel/dma_buf/dma_f=
+ence.rs
+> index 20dadbde4eb9d..09bebf9c1e4ee 100644
+> --- a/rust/kernel/dma_buf/dma_fence.rs
+> +++ b/rust/kernel/dma_buf/dma_fence.rs
+> @@ -510,40 +510,44 @@ unsafe impl Send for Fence {}
+>  // SAFETY: Fences are literally designed to be shared between threads.
+>  unsafe impl Sync for Fence {}
+> =20
+> +/// Fence-Status queried through [`Fence::status()`].
+> +#[derive(Debug)]
+> +pub enum FenceStatus {
+> +    /// The fence is not yet signaled.
+> +    Unsignaled,
+> +    /// The fence is signaled. Might have been signaled with an error.
+> +    Signaled(Result),
+> +}
+> +
+>  impl Fence {
+> -    /// Check whether the fence was signaled at the moment of the functi=
+on call.
+> +    /// Query a fence's error code and turn it into a [`Result`].
+>      ///
+> -    /// Note that this can return `true` for a [`Fence`] whose [`DriverF=
+ence`]
+> -    /// has not yet been dropped. The reason is that the fence ops callb=
+acks can
+> -    /// cause the fence to get signaled by the C backend.
+> -    #[inline]
+> -    pub fn is_signaled(&self) -> bool {
+> -        // We should not use `dma_fence_is_signaled_locked()` here, beca=
+use
+> -        // according to the C backend's recommendations, that function is
+> -        // problematic and we should avoid calling that function with a =
+lock
+> -        // held.
+> -
+> -        // SAFETY: Inner `fence` is valid because `self` is valid.
+> -        let ret =3D unsafe { bindings::dma_fence_is_signaled(self.as_raw=
+()) };
+> -
+> -        // To be as robust as possible for the future we guarantee that =
+an API
+> -        // caller can 100% rely on the signaling being completed (i.e., =
+all
+> -        // fence callbacks ran), so we have to take the lock.
+> -        //
+> -        // The reason is that the C dma_fence backend currently does not
+> -        // carefully synchronize the `dma_fence_is_signaled()` function =
+with the
+> -        // proper spinlock. This can lead to the function returning `tru=
+e` while
+> -        // fence callbacks are still being executed. This can be mitigat=
+ed by
+> -        // guarding the entire function with the spinlock.
+> -        //
+> -        // The fundamental reason is that the C backend currently does g=
+uard
+> -        // setting of the fence's signaled-bit with the fence's spinlock=
+, but
+> -        // reading is done locklessly.
+> -        //
+> -        // See commit c8a5d5ea3ba6a.
+> -        let _ =3D self.lock();
+> +    /// # Safety
+> +    ///
+> +    /// The caller must only call this on fences that are already signal=
+ed. It
+> +    /// must be ensured that this is ordered properly against checking o=
+f the
+> +    /// signaled status (fence->signaled bit).
+> +    unsafe fn __status(&self) -> Result {
+> +        // SAFETY: Safe by the function's safety requirements.
+> +        let res =3D unsafe { (*self.as_raw()).error };
+> +
+> +        to_result(res)
+> +    }
+> +
+> +    /// Query a fence's status at the moment of the function call.
+> +    ///
+> +    /// If it is signaled, return the fence's result, i.e., determine if=
+ it was
+> +    /// signaled with an error.
+> +    pub fn status(&self) -> FenceStatus {
+> +        // SAFETY: `self` is valid.
+> +        if unsafe { bindings::dma_fence_is_signaled(self.as_raw()) } {
+> +            // SAFETY: The fence is signaled. The C backend ensures orde=
+ring.
+> +            let status =3D unsafe { self.__status() };
+> +
+> +            return FenceStatus::Signaled(status);
+> +        }
+> =20
+> -        ret
+> +        FenceStatus::Unsignaled
+>      }
+
+[Severity: Medium]
+Can Fence::status() read (*self.as_raw()).error without load-to-load orderi=
+ng
+against DMA_FENCE_FLAG_SIGNALED_BIT and observe FenceStatus::Signaled(Ok(()=
+))
+on a fence signaled with an error?
+
+On the fast path, dma_fence_is_signaled() checks
+dma_fence_test_signaled_flag(), which calls an unordered test_bit():
+
+include/linux/dma-fence.h:dma_fence_test_signaled_flag() {
+	return test_bit(DMA_FENCE_FLAG_SIGNALED_BIT, &fence->flags);
+}
+
+Because test_bit() has no acquire semantics and a control dependency does n=
+ot
+order load-to-load, a weakly-ordered CPU can reorder the non-atomic read of
+fence->error in Fence::__status() before the read of fence->flags:
+
+CPU0                              CPU1
+DriverFence::signal(Err(...))     Fence::status()
+  dma_fence_lock_irqsave()          dma_fence_is_signaled()
+                                      /* speculates fence->error =3D=3D 0 */
+  fence->error =3D err;
+  dma_fence_signal_locked()
+    test_and_set_bit(SIGNALED, ...)
+                                      test_bit(SIGNALED, ...) =3D=3D true
+                                    self.__status()
+                                      reads stale error =3D=3D 0  <-- data =
+race
+
+Removing self.lock() (which C's dma_fence_get_status() takes around
+dma_fence_get_status_locked()) also drops the guarantee previously provided
+by Fence::is_signaled() that all registered fence callbacks have finished
+running before the fence is observed as signaled.  Acquiring self.lock()
+before reading self.__status() would both order the error read and preserve
+callback completion synchronization.
+
+[Severity: Low]
+In kernel crate abstractions, small functions and functions that forward to=
+ C
+bindings should be marked with #[inline] (as the removed Fence::is_signaled=
+()
+was).  Fence::__status() and Fence::status() are missing #[inline].
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261124122951.8781=
+99-2-phasta@kernel.org?part=3D7
