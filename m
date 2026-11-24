@@ -2,31 +2,31 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 47855606A31E
-	for <dri-devel@archiver.kernel.org>; Tue, 24 Nov 2026 12:31:23 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5B47A606A338
+	for <dri-devel@archiver.kernel.org>; Tue, 24 Nov 2026 12:31:30 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=WaA0L6KM
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Bz/+xbov
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id A713710F54E;
-	Tue, 24 Nov 2026 12:31:17 +0000 (UTC)
-Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 2497610F54E
- for <dri-devel@lists.freedesktop.org>; Tue, 24 Nov 2026 12:31:09 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id BBDA110F555;
+	Tue, 24 Nov 2026 12:31:24 +0000 (UTC)
+Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id EED4510F552
+ for <dri-devel@lists.freedesktop.org>; Tue, 24 Nov 2026 12:31:15 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id 0A7D742E62;
+ by tor.source.kernel.org (Postfix) with ESMTP id 71C606264A;
+ Tue, 24 Nov 2026 12:31:15 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id DFE061F000ED;
  Tue, 24 Nov 2026 12:31:09 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 593AD1F000D2;
- Tue, 24 Nov 2026 12:31:03 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1795523468;
- bh=pyrTI7EpSILhA8ws61oGNffakGmoXMH/KsPExYxBdNY=;
+ s=k20260515; t=1795523475;
+ bh=BhHK9+MR/OQZKom6aOPhq12F9TD7C4ERicWlg2LJXpI=;
  h=From:To:Cc:Subject:Date:In-Reply-To:References;
- b=WaA0L6KMGU2tmPM6N0t45gg9+qEyx2cZ0YUxdn6dmFMAWRmNF1HZU+76uDr3Lz81T
- GFMjD0LCPJh/LyI2zdS6oB2BsbIp5A6qlBT2DPkMoTRPFVVd+RjJ2tLi4fR3C9stDJ
- aWj4Q2nIefwg9BQjeYt/H+ZndK9zwFkhu+/hUXlCAPjaWvhRqDF2OsCJHA2nhqRVDM
- TQWGNutCO/6IH9chFb5/TuDnCbAgyVWRzitPN8eQ1DwpWroUkwF7XzCpBjIujLM8fS
- 0+Mw+TPxNyhEbeqgXn4mNpPC78eCmWgVw+49x3i5rfPMauCeoUYbxab1usqUy1cqrB
- qBzVzGT96LsiQ==
+ b=Bz/+xbovzeFwc21FwtUwbnH+/NIoo1yEDBUPEr5YkDOZStw+fmB8D2YNitX2ihrSC
+ 2IxaBCqhs9sC0amr913OifsVINpsIyHVYhXhSwuUY92XsMKkpL6xoWtXaIkoiTp8YX
+ vSFYpL838GlN9DMI4u6t2kySEFrrJ+PpbQpjChWpMslq4ahRLxKqeo+4Rd4+NMBaWn
+ 4GaKePRaTJND9oH8iKr89jPp1AFtU5SwHFisVESAKb7wjjo39H7BKWK8jZN/mBzTTl
+ 09jcixRKoMgfKJ/U2xIbk/z9TeuRRMYSD+x2EGu++Tcq0BIMYG5COuHjmvkJfHBI2D
+ 7bqXvQevQNVpA==
 From: Philipp Stanner <phasta@kernel.org>
 To: Matthew Brost <matthew.brost@intel.com>,
  Danilo Krummrich <dakr@kernel.org>, Philipp Stanner <phasta@kernel.org>,
@@ -46,9 +46,9 @@ To: Matthew Brost <matthew.brost@intel.com>,
  "Paul E . McKenney" <paulmck@kernel.org>
 Cc: linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org,
  rust-for-linux@vger.kernel.org, linux-media@vger.kernel.org
-Subject: [PATCH v2 07/10] rust: DmaFence: Replace is_signaled() with status()
-Date: Tue, 24 Nov 2026 13:29:49 +0100
-Message-ID: <20261124122951.878199-9-phasta@kernel.org>
+Subject: [PATCH v2 08/10] rust: DmaFence: Pass result in callbacks
+Date: Tue, 24 Nov 2026 13:29:50 +0100
+Message-ID: <20261124122951.878199-10-phasta@kernel.org>
 X-Mailer: git-send-email 2.56.0
 In-Reply-To: <20261124122951.878199-2-phasta@kernel.org>
 References: <20261124122951.878199-2-phasta@kernel.org>
@@ -73,146 +73,84 @@ X-Spam-Status: No, score=-18.8 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-As it turns out, our dma_fence abstractions lack an essential feature; a
-problem which is partially inherited from the C backend:
+A FenceCallbackRegistration invokes the on_signal() trait functions
+specified by the user. These callbacks always get executed, even if the
+fence was signaled with an error. The user must then be able to react
+accordingly.
 
-Despite it being a common pattern in the kernel, you actually should not
-just check whether a fence was signaled and call it a day - it is
-important that you also check whether a fence was signaled *with an
-error*.
+Memory ordering is ensured by the C backend.
 
-To make things more complicated, an error can get modified at any point
-in time before a fence gets signaled. Thus, it must be ensured that the
-signaled state is always evaluated before the error code.
-
-Since the fence status is essential information that must not be
-ignored, replace Fence::is_signaled() with Fence::status(), making it
-impossible to ignore the error code.
+Change the on_signal() trait function so that the implementor always
+receives the fence's actual state.
 
 Signed-off-by: Philipp Stanner <phasta@kernel.org>
 ---
- rust/kernel/dma_buf/dma_fence.rs | 77 ++++++++++++++++++--------------
- rust/kernel/dma_buf/mod.rs       |  3 +-
- 2 files changed, 46 insertions(+), 34 deletions(-)
+ rust/kernel/dma_buf/dma_fence.rs | 27 ++++++++++++++++++++-------
+ 1 file changed, 20 insertions(+), 7 deletions(-)
 
 diff --git a/rust/kernel/dma_buf/dma_fence.rs b/rust/kernel/dma_buf/dma_fence.rs
-index 20dadbde4eb9..09bebf9c1e4e 100644
+index 09bebf9c1e4e..e972b2e84b1d 100644
 --- a/rust/kernel/dma_buf/dma_fence.rs
 +++ b/rust/kernel/dma_buf/dma_fence.rs
-@@ -510,40 +510,44 @@ unsafe impl Send for Fence {}
- // SAFETY: Fences are literally designed to be shared between threads.
- unsafe impl Sync for Fence {}
+@@ -299,9 +299,12 @@ fn from(e: AllocError) -> Self {
+ /// }
+ ///
+ /// impl FenceCallback for MyCallback {
+-///     fn on_signal(&mut self) {
+-///         pr_info!("Fence signaled!\n");
+-///         // Handle fence completion
++///     fn on_signal(&mut self, status: Result) {
++///         if status.is_ok() {
++///             pr_info!("Fence signaled!\n");
++///         } else {
++///             pr_err!("Fence signaled with an error!\n");
++///         }
+ ///     }
+ /// }
+ /// ```
+@@ -316,7 +319,7 @@ pub trait FenceCallback: Send {
+     /// An implementation likely wants to inform itself (e.g., through a work item)
+     /// within this callback that the associated [`FenceCallbackRegistration`]
+     /// can now be dropped.
+-    fn on_signal(&mut self);
++    fn on_signal(&mut self, status: Result);
+ }
  
-+/// Fence-Status queried through [`Fence::status()`].
-+#[derive(Debug)]
-+pub enum FenceStatus {
-+    /// The fence is not yet signaled.
-+    Unsignaled,
-+    /// The fence is signaled. Might have been signaled with an error.
-+    Signaled(Result),
-+}
-+
- impl Fence {
--    /// Check whether the fence was signaled at the moment of the function call.
-+    /// Query a fence's error code and turn it into a [`Result`].
-     ///
--    /// Note that this can return `true` for a [`Fence`] whose [`DriverFence`]
--    /// has not yet been dropped. The reason is that the fence ops callbacks can
--    /// cause the fence to get signaled by the C backend.
--    #[inline]
--    pub fn is_signaled(&self) -> bool {
--        // We should not use `dma_fence_is_signaled_locked()` here, because
--        // according to the C backend's recommendations, that function is
--        // problematic and we should avoid calling that function with a lock
--        // held.
--
--        // SAFETY: Inner `fence` is valid because `self` is valid.
--        let ret = unsafe { bindings::dma_fence_is_signaled(self.as_raw()) };
--
--        // To be as robust as possible for the future we guarantee that an API
--        // caller can 100% rely on the signaling being completed (i.e., all
--        // fence callbacks ran), so we have to take the lock.
--        //
--        // The reason is that the C dma_fence backend currently does not
--        // carefully synchronize the `dma_fence_is_signaled()` function with the
--        // proper spinlock. This can lead to the function returning `true` while
--        // fence callbacks are still being executed. This can be mitigated by
--        // guarding the entire function with the spinlock.
--        //
--        // The fundamental reason is that the C backend currently does guard
--        // setting of the fence's signaled-bit with the fence's spinlock, but
--        // reading is done locklessly.
--        //
--        // See commit c8a5d5ea3ba6a.
--        let _ = self.lock();
-+    /// # Safety
-+    ///
-+    /// The caller must only call this on fences that are already signaled. It
-+    /// must be ensured that this is ordered properly against checking of the
-+    /// signaled status (fence->signaled bit).
-+    unsafe fn __status(&self) -> Result {
-+        // SAFETY: Safe by the function's safety requirements.
-+        let res = unsafe { (*self.as_raw()).error };
-+
-+        to_result(res)
-+    }
-+
-+    /// Query a fence's status at the moment of the function call.
-+    ///
-+    /// If it is signaled, return the fence's result, i.e., determine if it was
-+    /// signaled with an error.
-+    pub fn status(&self) -> FenceStatus {
-+        // SAFETY: `self` is valid.
-+        if unsafe { bindings::dma_fence_is_signaled(self.as_raw()) } {
-+            // SAFETY: The fence is signaled. The C backend ensures ordering.
-+            let status = unsafe { self.__status() };
-+
-+            return FenceStatus::Signaled(status);
-+        }
+ /// A callback registration on a fence.
+@@ -403,11 +406,17 @@ pub unsafe fn new<'a>(
+         // embedded into a `FenceCallbackRegistration`.
+         let reg: *mut Self = unsafe { container_of!(ptr, Self, callback_foreign) };
  
--        ret
-+        FenceStatus::Unsignaled
++        // SAFETY: `reg` is a valid `Self` pointer. This here is literally an
++        // executing fence callback, hence the fence is signaled. Its signaled
++        // bit has been set with a strongly ordered atomic instruction on the
++        // same CPU.
++        let fence_result = unsafe { (*reg).fence.__status() };
++
+         // SAFETY: `reg` is a valid `Self` pointer.
+         //
+         // The backend ensures synchronisation so whoever holds the registration object cannot drop
+         // it while this code is running. See `FenceCallbackRegistration::drop`.
+-        unsafe { (*reg).callback.on_signal() };
++        unsafe { (*reg).callback.on_signal(fence_result) };
      }
  
-     /// Lock the fence. A helper only to be used internally in this module.
-@@ -672,6 +676,7 @@ struct DriverFenceData<'a, T: Send + Sync + FenceContextOps> {
- ///         FenceContextOps,
- ///         FenceCallback,
- ///         FenceCallbackRegistration,
-+///         FenceStatus, //
- ///     },
- ///     str::CString,
- ///     sync::aref::ARef, //
-@@ -723,9 +728,15 @@ struct DriverFenceData<'a, T: Send + Sync + FenceContextOps> {
- /// let cb_reg = KBox::pin_init(cb_reg, GFP_KERNEL)?;
+     /// Returns a reference to the fence this callback is registered on.
+@@ -686,8 +695,12 @@ struct DriverFenceData<'a, T: Send + Sync + FenceContextOps> {
+ /// struct CallbackData { }
  ///
- /// // TODO signalling guards
--/// assert_eq!(waiting_fence.is_signaled(), false);
-+///
-+/// // TODO: add support for `assert_matches!()`.
-+/// if let FenceStatus::Signaled(_) = waiting_fence.status() {
-+///      return Err(ENOMSG);
-+/// }
- /// fence.signal(Ok(()));
--/// assert_eq!(waiting_fence.is_signaled(), true);
-+/// if let FenceStatus::Unsignaled = waiting_fence.status() {
-+///     return Err(ENOENT);
-+/// }
+ /// impl FenceCallback for CallbackData {
+-///     fn on_signal(&mut self) {
+-///         pr_info!("DmaFence callback executed.\n");
++///     fn on_signal(&mut self, status: Result) {
++///         if status.is_ok() {
++///             pr_info!("DmaFence callback executed.\n");
++///         } else {
++///             pr_err!("DmaFence callback executed, but fence has an error.\n");
++///         }
+ ///     }
+ /// }
  ///
- /// Ok::<(), Error>(())
- /// ```
-diff --git a/rust/kernel/dma_buf/mod.rs b/rust/kernel/dma_buf/mod.rs
-index 4764a828642e..b5254144f69e 100644
---- a/rust/kernel/dma_buf/mod.rs
-+++ b/rust/kernel/dma_buf/mod.rs
-@@ -10,5 +10,6 @@
-     FenceCallback,
-     FenceCallbackRegistration,
-     FenceContext,
--    FenceContextOps, //
-+    FenceContextOps,
-+    FenceStatus, //
- };
 -- 
 2.56.0
 
