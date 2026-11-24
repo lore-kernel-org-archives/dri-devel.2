@@ -2,29 +2,29 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CE816606A680
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 08050606A685
 	for <dri-devel@archiver.kernel.org>; Tue, 24 Nov 2026 18:18:54 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=igalia.com header.i=@igalia.com header.a=rsa-sha256 header.s=20170329 header.b=Q6bUDIJ9
+	dkim=pass (2048-bit key) header.d=igalia.com header.i=@igalia.com header.a=rsa-sha256 header.s=20170329 header.b=U1zuf5Df
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id C738B10F83B;
-	Tue, 24 Nov 2026 18:18:47 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 70EF410F831;
+	Tue, 24 Nov 2026 18:18:45 +0000 (UTC)
 Received: from fanzine2.igalia.com (fanzine2.igalia.com [213.97.179.56])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 0E34810F081;
- Tue, 24 Nov 2026 18:18:36 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 02FC210F7E3;
+ Tue, 24 Nov 2026 18:18:37 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com; 
  s=20170329;
  h=Content-Transfer-Encoding:MIME-Version:Message-ID:Date:Subject:
- Cc:To:From:From:Reply-To; bh=v8hD3SlYIR4LKffRAmEgP5vVclXN/IJEueCUZzS2maI=;
- t=1795544315; x=2110904315; b=Q6bUDIJ9QGFKrOdQo0DXDebJ7Bpz79JlKJiUvomIezqnHIv
- chaNvImMcfM7WXVUYg53ohAS0CM0H8AHGlnTgcAu3jDfhb2a/ISeSpKpICPueK76GefpArsrMfNKI
- mHIHylgy5wUmcgjsScIhushYYxRgNkEjm4LmdOVvIQ1amCksWEpYzDvbfEnaQ+7d3WWv/IYgRvd82
- uEBelRQHzKU0PL3isCYTSNrT6w3rWYx3tXu9HDl6fy/Nz6yhT5yPINfZUh2vbN+QI5kUaDLEcqHM7
- LS6eVaxOhmsxiQwyGD5mxdU1L+8bijkj0SkHIc/T1Pbe0AZQBwcORB2skCXmwuZA==;
+ Cc:To:From:From:Reply-To; bh=D7Rnf/E6D1AzoY9q5PROajjWjX7iAQ5f2Yr8aHcnDhc=;
+ t=1795544316; x=2110904316; b=U1zuf5DfJnPwoIrxSxokPm35fXcIrn4+7PC5pQhx7kPamuh
+ CW1QsChIuGMs8Kp8Wn++3KjuRqfFXVZf/lM+M1m+9xBHIt03akCltFVd/n2v6YoXIQm8P/TYN6XwM
+ wSFNCE/p8hf+I3Pj2eLxeo4ljhK1CaiS2Fbkx4kMpS3PZCo1Z/4rjYp202jw4XCwy5SYl04cdyld5
+ NOFiSuKjOHs0ma8/qmjF51pHeU8+SoKH8fUHOy8K2Y6hsx61IvDJOXNuhUpEArhrCHRzZFVk+c6C2
+ p+aYSk+gejwwbyZa9EUVeTUi+rmu8OFCtmuN5bBmeslQHpwTIZqP5ddJkgaWvbWA==;
 Received: from 84.125.127.4.dyn.user.ono.com ([84.125.127.4] helo=killbill)
  by fanzine2.igalia.com with esmtpsa 
  (Cipher TLS1.3:ECDHE_X25519__RSA_PSS_RSAE_SHA256__AES_256_GCM:256) (Exim)
- id 1xVv60-00000003axM-3tUG; Tue, 24 Nov 2026 19:18:25 +0100
+ id 1xVv5z-00000003axM-0egP; Tue, 24 Nov 2026 19:18:23 +0100
 From: Melissa Wen <mwen@igalia.com>
 To: airlied@gmail.com, alexander.deucher@amd.com, christian.koenig@amd.com,
  harry.wentland@amd.com, maarten.lankhorst@linux.intel.com,
@@ -42,10 +42,10 @@ Cc: Ariel DAlessandro <ariel.dalessandro@collabora.com>,
  amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
  Leandro Ribeiro <leandro.ribeiro@collabora.com>,
  Melissa Wen <mwen@igalia.com>
-Subject: [PATCH v3 16/19] drm/amd/display: move CRTC CTM color mgmt prop to
- check helper
-Date: Tue, 24 Nov 2026 19:03:33 +0100
-Message-ID: <20261124181652.1333986-17-mwen@igalia.com>
+Subject: [PATCH v3 15/19] drm/drm_ioctl: guard
+ DRM_CLIENT_CAP_CRTC_COLOR_PIPELINE
+Date: Tue, 24 Nov 2026 19:03:32 +0100
+Message-ID: <20261124181652.1333986-16-mwen@igalia.com>
 X-Mailer: git-send-email 2.53.0
 In-Reply-To: <20261124181652.1333986-1-mwen@igalia.com>
 References: <20261124181652.1333986-1-mwen@igalia.com>
@@ -70,112 +70,68 @@ X-Spam-Status: No, score=-18.8 required=3.0 tests=BAYES_00,DKIM_SIGNED,
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-Move legacy CRTC CTM color mgmt handlers to AMD atomic check helper to
-centralize legacy properties in a single place, so that we can reuse the
-callers to these helpers for colorop setup.
+If the driver doesn't support post-blend colorop, refuse attempts from
+userspace to set it. Same approach is taken for pre-blend colorop since
+commit ac7c6b4308c5 ("drm: Guard DRM_CLIENT_CAP_PLANE_COLOR_PIPELINE").
 
 Signed-off-by: Melissa Wen <mwen@igalia.com>
 
 ---
 v3:
-- move before the post-blend colorop patches, so the previous CTM setup
-  can't override the CTM colorop once the pipeline is enabled
+- refuse the cap when no CRTC has a color pipeline as the plane guard
+  does
+- drop the stale DRM_CAP_CRTC_COLOR_PIPELINE requirement from the cap
+  documentation
 ---
- .../amd/display/amdgpu_dm/amdgpu_dm_color.c   | 66 +++++++++----------
- 1 file changed, 32 insertions(+), 34 deletions(-)
+ drivers/gpu/drm/drm_ioctl.c | 15 ++++++++++++++-
+ include/uapi/drm/drm.h      |  3 ---
+ 2 files changed, 14 insertions(+), 4 deletions(-)
 
-diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_color.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_color.c
-index ebb05a20aa0c..220194df84c1 100644
---- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_color.c
-+++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_color.c
-@@ -1265,6 +1265,7 @@ int amdgpu_dm_check_crtc_color_mgmt(struct dm_crtc_state *crtc,
- 	uint32_t degamma_size, regamma_size;
- 	bool has_regamma, has_degamma;
- 	enum dc_transfer_func_predefined tf = TRANSFER_FUNCTION_LINEAR;
-+	struct drm_color_ctm *ctm = NULL;
- 	bool is_legacy;
- 	int r;
- 
-@@ -1334,10 +1335,38 @@ int amdgpu_dm_check_crtc_color_mgmt(struct dm_crtc_state *crtc,
- 	 * have to place the CTM in the OCSC in that case.
- 	 */
- 	crtc->cm_has_degamma = has_degamma;
--	if (check_only)
-+	if (check_only) {
- 		kvfree(out_tf);
-+		return r;
+diff --git a/drivers/gpu/drm/drm_ioctl.c b/drivers/gpu/drm/drm_ioctl.c
+index 3e57453ef258..9325202f8cbd 100644
+--- a/drivers/gpu/drm/drm_ioctl.c
++++ b/drivers/gpu/drm/drm_ioctl.c
+@@ -392,13 +392,26 @@ drm_setclientcap(struct drm_device *dev, void *data, struct drm_file *file_priv)
+ 		file_priv->plane_color_pipeline = req->value;
+ 		break;
+ 	}
+-	case DRM_CLIENT_CAP_CRTC_COLOR_PIPELINE:
++	case DRM_CLIENT_CAP_CRTC_COLOR_PIPELINE: {
++		struct drm_crtc *crtc;
++		bool has_crtc_with_color_pipeline = false;
++
+ 		if (!file_priv->atomic)
+ 			return -EINVAL;
+ 		if (req->value > 1)
+ 			return -EINVAL;
++		drm_for_each_crtc(crtc, dev) {
++			if (crtc->color_pipeline_property) {
++				has_crtc_with_color_pipeline = true;
++				break;
++			}
++		}
++		if (!has_crtc_with_color_pipeline)
++			return -EOPNOTSUPP;
++
+ 		file_priv->crtc_color_pipeline = req->value;
+ 		break;
 +	}
- 
--	return r;
-+	if (r)
-+		return r;
-+
-+	/* Setup CRTC CTM. */
-+	if (crtc->base.ctm) {
-+		ctm = (struct drm_color_ctm *)crtc->base.ctm->data;
-+
-+		/*
-+		 * Gamut remapping must be used for gamma correction
-+		 * since it comes before the regamma correction.
-+		 *
-+		 * OCSC could be used for gamma correction, but we'd need to
-+		 * blend the adjustments together with the required output
-+		 * conversion matrix - so just use the gamut remap block
-+		 * for now.
-+		 */
-+		__drm_ctm_to_dc_matrix(ctm, stream->gamut_remap_matrix.matrix);
-+
-+		stream->gamut_remap_matrix.enable_remap = true;
-+		stream->csc_color_matrix.enable_adjustment = false;
-+	} else {
-+		/* Bypass CTM. */
-+		stream->gamut_remap_matrix.enable_remap = false;
-+		stream->csc_color_matrix.enable_adjustment = false;
-+	}
-+
-+	return 0;
- }
- EXPORT_IF_KUNIT(amdgpu_dm_check_crtc_color_mgmt);
- 
-@@ -1365,38 +1394,7 @@ EXPORT_IF_KUNIT(amdgpu_dm_check_crtc_color_mgmt);
+ 	default:
+ 		return -EINVAL;
+ 	}
+diff --git a/include/uapi/drm/drm.h b/include/uapi/drm/drm.h
+index 08bd616774a4..c0971de2c0a3 100644
+--- a/include/uapi/drm/drm.h
++++ b/include/uapi/drm/drm.h
+@@ -920,9 +920,6 @@ struct drm_get_cap {
+  * the hidden model to default values.
+  *
+  * The client must enable &DRM_CLIENT_CAP_ATOMIC first.
+- *
+- * This client cap can only be set if the driver sets the corresponding driver
+- * cap &DRM_CAP_CRTC_COLOR_PIPELINE.
   */
- int amdgpu_dm_update_crtc_color_mgmt(struct dm_crtc_state *crtc)
- {
--	struct dc_stream_state *stream = crtc->stream;
--	struct drm_color_ctm *ctm = NULL;
--	int ret;
--
--	ret = amdgpu_dm_check_crtc_color_mgmt(crtc, false);
--	if (ret)
--		return ret;
--
--	/* Setup CRTC CTM. */
--	if (crtc->base.ctm) {
--		ctm = (struct drm_color_ctm *)crtc->base.ctm->data;
--
--		/*
--		 * Gamut remapping must be used for gamma correction
--		 * since it comes before the regamma correction.
--		 *
--		 * OCSC could be used for gamma correction, but we'd need to
--		 * blend the adjustments together with the required output
--		 * conversion matrix - so just use the gamut remap block
--		 * for now.
--		 */
--		__drm_ctm_to_dc_matrix(ctm, stream->gamut_remap_matrix.matrix);
--
--		stream->gamut_remap_matrix.enable_remap = true;
--		stream->csc_color_matrix.enable_adjustment = false;
--	} else {
--		/* Bypass CTM. */
--		stream->gamut_remap_matrix.enable_remap = false;
--		stream->csc_color_matrix.enable_adjustment = false;
--	}
--
--	return 0;
-+	return amdgpu_dm_check_crtc_color_mgmt(crtc, false);
- }
- EXPORT_IF_KUNIT(amdgpu_dm_update_crtc_color_mgmt);
+ #define DRM_CLIENT_CAP_CRTC_COLOR_PIPELINE	8
  
 -- 
 2.53.0
