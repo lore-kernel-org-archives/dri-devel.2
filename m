@@ -2,44 +2,48 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3C2CB606A31E
-	for <dri-devel@archiver.kernel.org>; Tue, 24 Nov 2026 12:13:01 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8F03E606A31E
+	for <dri-devel@archiver.kernel.org>; Tue, 24 Nov 2026 12:19:30 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=isNZcOWZ
+	dkim=fail reason="signature verification failed" (1024-bit key) header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=foss header.b=MCFGb6oi
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 995D810E85C;
-	Tue, 24 Nov 2026 12:12:55 +0000 (UTC)
-Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 2879810F537
- for <dri-devel@lists.freedesktop.org>; Tue, 24 Nov 2026 12:12:49 +0000 (UTC)
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id DDC5B41F43;
- Tue, 24 Nov 2026 12:12:48 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 27FA81F000C6;
- Tue, 24 Nov 2026 12:12:48 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1795522368;
- bh=kvjsFKNMRk1R6P9mTGBQSEAArukq0alOKle00+2lcpg=;
- h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
- b=isNZcOWZulJfGmd3DuxMYjUqTDm/Pt8X7+6FAekuENf+Rc5uQeQXUm5Td7QHxG6EJ
- eBXxD8vkGXiRNfJTTf7PJutWd7ptyjcfQokxCgq+hx3+DkzUwKIag6cg03TvZq4NJ2
- 3xoiKBc6ljfPaeb8RWyCUkvYMhd419dPc9rr5cmvwFujcmiL6LlxScgN2YrrIL4Plz
- GbIF8HZF2N8a7ndrYONVoIuGJAlns+lM1800w0PNXZdNev5vFdNuuMDi4xFiC0UBNn
- Ib9KXoOyJQWMuHCRvXE/XdLlvDuXaAFtDfRt3h4VpQzhHbATJrRDDZ1AUWS2O34VPj
- tJuYeRghoCPdQ==
-Message-ID: <sashiko-outbox-231105@kernel.org>
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v3 1/5] dt-bindings: display: add CIX Sky1 DisplayPort
- transmitter
-To: "Luo Liu" <Luo.Liu@cixtech.com>
-Cc: dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org,
- robh@kernel.org, conor+dt@kernel.org
-In-Reply-To: <20261124120114.3273161-2-Luo.Liu@cixtech.com>
-References: <20261124120114.3273161-1-Luo.Liu@cixtech.com>
- <20261124120114.3273161-2-Luo.Liu@cixtech.com>
+	by gabe.freedesktop.org (Postfix) with ESMTP id 0904210F543;
+	Tue, 24 Nov 2026 12:19:25 +0000 (UTC)
+Received: from foss.arm.com (foss.arm.com [217.140.110.172])
+ by gabe.freedesktop.org (Postfix) with ESMTP id 687AC10F543
+ for <dri-devel@lists.freedesktop.org>; Tue, 24 Nov 2026 12:19:18 +0000 (UTC)
+Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
+ by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 03050339
+ for <dri-devel@lists.freedesktop.org>; Tue, 24 Nov 2026 04:19:15 -0800 (PST)
+Received: from [10.2.11.19] (usa-sjc-imap-foss1.foss.arm.com [10.121.207.14])
+ by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPA id
+ AA38E3F632
+ for <dri-devel@lists.freedesktop.org>; Tue, 24 Nov 2026 04:19:17 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
+ t=1795522757; bh=fy8LvUxVco45rPYAg/8+0Y0711j3GbM8FlbMCmL5I/w=;
+ h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+ b=MCFGb6oiHhiSbuHWuknghFv1lzrGHIsle7Eegz6DA80oF8h/sby836lrenQ5ecTOE
+ Q9CXeFDBZU0TJ9lZWxDga4L042SAHGBgd4Vne4+8jAEW7qCvStfvMgnk1jQubPm+NA
+ 7/sAgunRMmjHR87Jj71DZNqm4irOKwF26REGIYsY=
+Date: Tue, 24 Nov 2026 12:19:07 +0000
+From: Liviu Dudau <liviu.dudau@arm.com>
+To: Haoming Gao <Naixumogu@whut.edu.cn>
+Cc: boris.brezillon@collabora.com, adrian.larumbe@collabora.com,
+ Steven Price <steven.price@arm.com>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>,
+ Thomas Zimmermann <tzimmermann@suse.de>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH] drm/panthor: Fix overflow in fdinfo engine time conversion
+Message-ID: <awWAu9ESYXXygiLP@e142607>
+References: <20261121152728.210765-1-Naixumogu@whut.edu.cn>
+X-Archived-By: <archiver.kernel.org>
+MIME-Version: 1.0
 Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Tue, 24 Nov 2026 12:12:47 +0000
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <20261121152728.210765-1-Naixumogu@whut.edu.cn>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -50,151 +54,74 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
-Reply-To: sashiko-reviews@lists.linux.dev
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-10.8 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
-	DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
-	INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS autolearn=ham
-	autolearn_force=no version=4.0.1
+X-Spam-Status: No, score=-13.6 required=3.0 tests=BAYES_00,DKIM_INVALID,
+	DKIM_SIGNED,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,
+	INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS
+	autolearn=unavailable autolearn_force=no version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
-X-Archived-By: <archiver.kernel.org>
 
-Thank you for your contribution! Sashiko AI review found 2 potential
-issues to consider:
-- [Medium] dt-bindings: display: YAML syntax error in cix,sky1-dp.yaml
-  description
-- [Low] dt-bindings: display: non-canonical interrupts order in
-  cix,sky1-dp.yaml
---
+On Sat, Nov 21, 2026 at 11:27:28PM +0800, Haoming Gao wrote:
+> The timestamp counter accumulates GPU ticks per DRM client. Multiplying
+> that counter by NSEC_PER_SEC in u64 can overflow before the division by
+> the timer frequency, even when the result in nanoseconds fits in u64.
+> 
+> On an RK3588 with a 24 MHz timer, drm-engine-panthor dropped from
+> 768569012750 ns to 422647638 ns between two reads of the same client's
+> fdinfo. The GPU cycle counter continued to advance.
+> 
+> Use mul_u64_u64_div_u64_roundup() to preserve the full product and keep
+> the existing rounding. The helper was checked against a 128-bit
+> reference on the board, including at the first wrap boundary.
+> 
+> Fixes: e16635d88fa0 ("drm/panthor: add DRM fdinfo support")
+> Signed-off-by: Haoming Gao <Naixumogu@whut.edu.cn>
 
-commit b6de90c771aaece1d4e8eb9c4dd01a00555577c3
-Author: Luo Liu <Luo.Liu@cixtech.com>
+Reviewed-by: Liviu Dudau <liviu.dudau@arm.com>
 
-dt-bindings: display: add CIX Sky1 DisplayPort transmitter
+Best regards,
+Liviu
 
-This commit adds the Device Tree binding schema for the Trilinear
-DisplayPort transmitter integrated on CIX Sky1 and its MAINTAINERS entry.
+> ---
+>  drivers/gpu/drm/panthor/panthor_drv.c | 5 +++--
+>  1 file changed, 3 insertions(+), 2 deletions(-)
+> 
+> diff --git a/drivers/gpu/drm/panthor/panthor_drv.c b/drivers/gpu/drm/panthor/panthor_drv.c
+> index dc8d0191aef4..39b827a9b9cc 100644
+> --- a/drivers/gpu/drm/panthor/panthor_drv.c
+> +++ b/drivers/gpu/drm/panthor/panthor_drv.c
+> @@ -8,6 +8,7 @@
+>  #endif
+>  
+>  #include <linux/list.h>
+> +#include <linux/math64.h>
+>  #include <linux/module.h>
+>  #include <linux/of_platform.h>
+>  #include <linux/pagemap.h>
+> @@ -1708,8 +1709,8 @@ static void panthor_gpu_show_fdinfo(struct panthor_device *ptdev,
+>  	if (ptdev->profile_mask & PANTHOR_DEVICE_PROFILING_TIMESTAMP) {
+>  #ifdef CONFIG_ARM_ARCH_TIMER
+>  		drm_printf(p, "drm-engine-panthor:\t%llu ns\n",
+> -			   DIV_ROUND_UP_ULL((pfile->stats.time * NSEC_PER_SEC),
+> -					    arch_timer_get_cntfrq()));
+> +			   mul_u64_u64_div_u64_roundup(pfile->stats.time, NSEC_PER_SEC,
+> +						       arch_timer_get_cntfrq()));
+>  #endif
+>  	}
+>  	if (ptdev->profile_mask & PANTHOR_DEVICE_PROFILING_CYCLES)
+> 
+> base-commit: 878c885830ef004a32e8974c4d1ae14e2ea30c5a
+> -- 
+> 2.43.0
+> 
 
-> diff --git a/Documentation/devicetree/bindings/display/cix,sky1-dp.yaml b=
-/Documentation/devicetree/bindings/display/cix,sky1-dp.yaml
-> new file mode 100644
-> index 0000000000000..bc3c0a3a815f8
-> --- /dev/null
-> +++ b/Documentation/devicetree/bindings/display/cix,sky1-dp.yaml
-> @@ -0,0 +1,102 @@
-> +# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
-> +
-> +%YAML 1.2
-> +---
-> +$id: http://devicetree.org/schemas/display/cix,sky1-dp.yaml#
-> +$schema: http://devicetree.org/meta-schemas/core.yaml#
-> +
-> +title: CIX Sky1 Trilinear DisplayPort Transmitter
-> +
-> +maintainers:
-> +  - Luo Liu <Luo.Liu@cixtech.com>
-> +
-> +description:
-> +  Trilinear DisplayPort transmitter on CIX Sky1. The transmitter takes i=
-ts
-> +  video stream from the display pipeline through a single graph port and
-> +  drives the link through a generic PHY.
-> +
-> +  The USB-C transmitters and the native DP/eDP transmitter use different
-> +  RCSU video-adapter register offsets and bit layouts, so each has its o=
-wn
-> +  compatible: "cix,sky1-usbdp" for the USB-C transmitters and "cix,sky1-=
-dp"
-> +  for the native DP/eDP one.
-
-[Severity: Medium]
-Should description: use a block scalar indicator (description: |)?  Without
-it, the multi-line text is parsed as a plain YAML scalar, and the colon-spa=
-ce
-in 'compatible: "cix,sky1-usbdp"' causes dt_binding_check to fail with a YA=
-ML
-syntax error.
-
-> +
-> +properties:
-> +  compatible:
-> +    enum:
-> +      - cix,sky1-usbdp
-> +      - cix,sky1-dp
-> +
-> +  reg:
-> +    items:
-> +      - description: DisplayPort transmitter registers.
-> +      - description: RCSU video adapter registers used for link setup.
-> +
-> +  reg-names:
-> +    items:
-> +      - const: dp
-> +      - const: rcsu
-> +
-> +  interrupts:
-> +    maxItems: 1
-> +
-> +  clocks:
-> +    items:
-> +      - description: APB clock of the controller.
-> +      - description: Video clock of stream 0.
-> +      - description: Video clock of stream 1.
-> +
-> +  clock-names:
-> +    items:
-> +      - const: apb
-> +      - const: vid0
-> +      - const: vid1
-> +
-> +  resets:
-> +    maxItems: 1
-> +    description: DisplayPort controller reset.
-> +
-> +  phys:
-> +    maxItems: 1
-> +    description: DisplayPort PHY the controller transmits through.
-> +
-> +  port:
-> +    $ref: /schemas/graph.yaml#/properties/port
-> +    description:
-> +      Video input from the Mali D71 display pipeline (Komeda) that drives
-> +      this controller. The link to the sink is through phys (USB-C combo=
- PHY
-> +      or the native DP PHY), not a second OF graph port on the DPTX.
-> +
-> +required:
-> +  - compatible
-> +  - reg
-> +  - reg-names
-> +  - interrupts
-> +  - clocks
-> +  - clock-names
-> +  - resets
-> +  - phys
-> +  - port
-> +
-> +additionalProperties: false
-> +
-> +examples:
-> +  - |
-> +    #include <dt-bindings/interrupt-controller/arm-gic.h>
-> +
-> +    dp0: dp@14064000 {
-> +        compatible =3D "cix,sky1-usbdp";
-> +        reg =3D <0x14064000 0x4000>,
-> +              <0x14050000 0x400>;
-> +        reg-names =3D "dp", "rcsu";
-> +        interrupts =3D <GIC_SPI 332 IRQ_TYPE_LEVEL_HIGH>;
-> +        clocks =3D <&dpc0_apb>, <&dpc0_vid0>, <&dpc0_vid1>;
-> +        clock-names =3D "apb", "vid0", "vid1";
-
-[Severity: Low]
-This isn't a bug, but in canonical DT binding property ordering, interrupts
-is placed after clocks and clock-names in properties, required, and example=
-s.
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261124120114.3273=
-161-1-Luo.Liu@cixtech.com?part=3D1
+-- 
+====================
+| I would like to |
+| fix the world,  |
+| but they're not |
+| giving me the   |
+ \ source code!  /
+  ---------------
+    ¯\_(ツ)_/¯
