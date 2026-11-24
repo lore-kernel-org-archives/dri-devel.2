@@ -2,119 +2,100 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 51524606A33D
-	for <dri-devel@archiver.kernel.org>; Tue, 24 Nov 2026 14:08:29 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1BDA2606A6BA
+	for <dri-devel@archiver.kernel.org>; Tue, 24 Nov 2026 14:08:35 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=Nvidia.com header.i=@Nvidia.com header.a=rsa-sha256 header.s=selector2 header.b=teYmBm0S
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=O/MZB+5F
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id AB9F110F63B;
-	Tue, 24 Nov 2026 14:08:23 +0000 (UTC)
-Received: from BN8PR05CU002.outbound.protection.outlook.com
- (mail-eastus2azon11011050.outbound.protection.outlook.com [52.101.57.50])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 4D04810F63B
- for <dri-devel@lists.freedesktop.org>; Tue, 24 Nov 2026 14:08:14 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=cYqQgC+gbMLlJYVA6AsMfdjSp3UkMyVd/qCzBMRIEnjt9/9gpcnONSezFoMrliKRZND98eQ2grY8qcvdJ9JtohlBW9ooE92zjMURZcGczfzADua4IFH5QID3fLW+/o4muKFXOHBb1wyVuT7F7cDfyXRdPl7r+ul9taWv0joj9+TMHl+B5rsfDQ/31CfrGVhJ33W7lwM+iK/Kli4P92q8QqnnYjiTOC9NjGq4ir+lBZT5A9O7Lx04ZJGLKpbQ4bLIIj2u+v0HT/Cv0E5FldsLGjXiRCDmcTrMm5DxF1VL9NVf03V556qZyXO25c+zxY7+yCCrKxnhVuglR4WkxiQOsA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=Vo7nPrK6ShaXaAkS9pvRRcJ/KNMTChQuzwt7kAvALg8=;
- b=VihYe7HIW4ZQ6WDyxsqF0woTAv1gkPIcaIgarprCLMCr8iS2xH8gPKp21Qb2irarpNqwUMmoWpwiVuOyTluk829pAuQ5O1+QhuPbRs9hsN0kevrFiztyCx04C2+N0Mx9dkiOvn7jt5aDnIc7TMdRP6H+NTeH03lXYZflXM4CzKc72L4ousCFXoLYvRYbHZPTuouhyS3rcJ4uWeVzPAss8tJuymFU2VoeKHoKzxmwOV9HRqfkWOgAOTWha2YA29Ct7pwZHDydv7fE4pXP8p9snAUQ02lMK8vfP2gwdXR7+lrtU3S0Cct4yPXLJH+Cp7+1knckYrCH0n0WR5VuqCRDRg==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 216.228.117.160) smtp.rcpttodomain=kernel.org smtp.mailfrom=nvidia.com;
- dmarc=pass (p=reject sp=reject pct=100) action=none header.from=nvidia.com;
- dkim=none (message not signed); arc=none (0)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
- s=selector2;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=Vo7nPrK6ShaXaAkS9pvRRcJ/KNMTChQuzwt7kAvALg8=;
- b=teYmBm0SZmVePE1VId8nZTAhBWc1YgoOD5jAdiwg5TtsIb7p+KVpCFXjifs4UdPbhSQM2Il45mzoEAtxqkRusFs2U8uNIybTF7r5CZ6zAuzjlbUBR2yOWIk5zQmfKEZV9qYjDHLTyeMZPK8sYxu2BVuIqTgxn9WsD88URkWvBy/9IDqbfmeVuhF9zvTGCm4SOAcnVCp5Y1A74xlWzgUDzOx7pLQYTJbfZqPhlgVv1sgtaH+V/Qno9Pn7sxp7XKBoiGaLsm1YddvNmv0jwrPcVZBtWeJktE5bgipNkKUJocxXrYnvaXsZh7ALGKXd6V0rb/+xO9irIlq6EG5A7Af05Q==
-Received: from PH3PEPF000040A5.namprd05.prod.outlook.com (2603:10b6:518:1::54)
- by PH7PR12MB7938.namprd12.prod.outlook.com (2603:10b6:510:276::9)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.639.13; Tue, 24 Nov
- 2026 14:08:09 +0000
-Received: from CY6PEPF0000004C.namprd03.prod.outlook.com
- (2a01:111:f403:f910::) by PH3PEPF000040A5.outlook.office365.com
- (2603:1036:903:49::3) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.21.662.6 via Frontend Transport; Tue, 24
- Nov 2026 14:08:08 +0000
-X-MS-Exchange-Authentication-Results: mx.microsoft.com 1; spf=pass (sender IP
- is 216.228.117.160)
- smtp.mailfrom=nvidia.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=nvidia.com;
-Received-SPF: Pass (protection.outlook.com: domain of nvidia.com designates
- 216.228.117.160 as permitted sender) receiver=protection.outlook.com;
- client-ip=216.228.117.160; helo=mail.nvidia.com; pr=C
-Received: from mail.nvidia.com (216.228.117.160) by
- CY6PEPF0000004C.mail.protection.outlook.com (10.167.247.137) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.662.3 via Frontend Transport; Tue, 24 Nov 2026 14:08:08 +0000
-Received: from rnnvmail201.nvidia.com (10.129.68.8) by mail.nvidia.com
- (10.129.200.66) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.57; Tue, 24 Nov
- 2026 06:07:45 -0800
-Received: from kalok-SPC741D16QM3.nvidia.com (10.126.231.37) by
- rnnvmail201.nvidia.com (10.129.68.8) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.57; Tue, 24 Nov 2026 06:07:32 -0800
-From: Alok Kumar <alkumar@nvidia.com>
-To: <dakr@kernel.org>, <acourbot@nvidia.com>, <kvm@vger.kernel.org>,
- <rust-for-linux@vger.kernel.org>, <nova-gpu@lists.linux.dev>,
- <linux-pci@vger.kernel.org>
-CC: <alex@shazbot.org>, <jgg@nvidia.com>, <yishaih@nvidia.com>,
- <skolothumtho@nvidia.com>, <kevin.tian@intel.com>, <airlied@gmail.com>,
- <simona@ffwll.ch>, <ojeda@kernel.org>, <alex.gaynor@gmail.com>,
- <boqun.feng@gmail.com>, <gary@garyguo.net>, <bjorn3_gh@protonmail.com>,
- <lossin@kernel.org>, <a.hindborg@kernel.org>, <aliceryhl@google.com>,
- <tmgross@umich.edu>, <markus.probst@posteo.de>, <jhubbard@nvidia.com>,
- <apopple@nvidia.com>, <joelagnelf@nvidia.com>, <ecourtney@nvidia.com>,
- <cjia@nvidia.com>, <smitra@nvidia.com>, <kjaju@nvidia.com>,
- <alkumar@nvidia.com>, <ankita@nvidia.com>, <aniketa@nvidia.com>,
- <kwankhede@nvidia.com>, <targupta@nvidia.com>,
- <linux-kernel@vger.kernel.org>, <zhiwang@kernel.org>, <zhiw@nvidia.com>,
- <boqun@kernel.org>, <daniel.almeida@collabora.com>, <tamird@kernel.org>,
- <work@onurozkan.dev>, <jgg@ziepe.ca>, <bhelgaas@google.com>,
- <kwilczynski@kernel.org>, <dri-devel@lists.freedesktop.org>,
- <peter@colberg.org>, <xinmengs@nvidia.com>
-Subject: [PATCH v5 35/35] gpu: nova-core: mm: keep BAR1 self-test page tables
- alive
-Date: Tue, 24 Nov 2026 19:29:31 +0530
-Message-ID: <20261124135937.18583-36-alkumar@nvidia.com>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20261124135937.18583-1-alkumar@nvidia.com>
-References: <20261124135937.18583-1-alkumar@nvidia.com>
+	by gabe.freedesktop.org (Postfix) with ESMTP id 67BDB10F641;
+	Tue, 24 Nov 2026 14:08:29 +0000 (UTC)
+Received: from mail-ej1-f45.google.com (mail-ej1-f45.google.com
+ [209.85.218.45])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 5DE4B10F63D
+ for <dri-devel@lists.freedesktop.org>; Tue, 24 Nov 2026 14:08:19 +0000 (UTC)
+Received: by mail-ej1-f45.google.com with SMTP id
+ a640c23a62f3a-c50aaad19fbso505799866b.0
+ for <dri-devel@lists.freedesktop.org>; Tue, 24 Nov 2026 06:08:19 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20260707; t=1795529298; x=1796134098; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:content-disposition:content-type
+ :mime-version:references:in-reply-to:message-id:date:subject:cc:to
+ :from:from:to:cc:subject:date:message-id:reply-to:content-type;
+ bh=anD5m1AxXBnKPgg8ZQZ0gwUoffnh9QZT8UfPtY8eE3c=;
+ b=O/MZB+5FzHq89ZHVEBHhqZl8IU52vDlE+VJGHyzM8scD4C4cxGPu+FvayWKRyT2LMJ
+ zf15GuORjdgTOm0CDpAaqLOKlSVpnUh1wLaG4jgZ5xlmQe03mtm9AhjiIUjPXfbl+y8X
+ Ilg/nTV5ZJtoZ+eLj3ToWKUfL/YqGPR54ImauWVpNysWVnE+39aGdwWsIkoA9jR+Uk4c
+ CRCfSR9Ia/Z74jJVVb48Cv13wQzxDzq5rQR0VItLnjpasxfF9BuGDsBc7JDycPtntauU
+ pgniFztJKgtjsSap+prS2hY7Z8VFun5O+atPCOY5WL7pYo5IBUzFT5dMw63v98SWKL12
+ cL9w==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20260707; t=1795529298; x=1796134098;
+ h=content-transfer-encoding:content-disposition:content-type
+ :mime-version:references:in-reply-to:message-id:date:subject:cc:to
+ :from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
+ :reply-to:content-type;
+ bh=anD5m1AxXBnKPgg8ZQZ0gwUoffnh9QZT8UfPtY8eE3c=;
+ b=2CkFXadgUCtyVVanQ58Z68YviE6Db5Smj/4OD0r1zD2xUVkyJoaDMBNAxDvHvpM7hi
+ vkDQvrAXr4Or1bvq4PuLobJuBKiRsmraRcH4rD76Q+IHqE+xs1MhwkFFEQCRFlFhLqoC
+ hIwgKCYwaSD+1Xl0YF0ej55BNkdXnOpbt2VEdJxlgtgsOUBnz79EH1A0IsB+4EWfKj/r
+ 5nqnjQNACNfmNOP48vvz9Iqxj6fxVTfqvexPPGD3neG2FxLPOOEF8P8ZryOIJZqJZji8
+ P7z3VBuNGfKfWktURtB5Ko4d7Jw1gKHV/26LMqOYSRyM8E3I9XdXO2xEB7bqsqZ8isWC
+ pDwA==
+X-Forwarded-Encrypted: i=1;
+ AL+hErHKT2B3wIAtzIs5MxHs0CAckV7bI10JJiioG6MtlS4xkzfv1A8GUK97wslcw5w20IFDN3u0GUg/cn0=@lists.freedesktop.org
+X-Gm-Message-State: APuU4Z8/0xytwHmeeeAk3s+8qrA2K8y/vaftBq+CmOBbRHv/+ntJUCUC
+ XZZbCbyBoJW1AfUt9KWcr//OcQhU163qx45fbeccX6mJbsQCyZBLszFU
+X-Gm-Gg: AZFdTZdhNRafQMM20M4wiBxVN5kEaGGbGkQ2nsb+XIchchq4VJEkL2tKA1+TGdVDNSH
+ jZaYFvhPBuOcluShHAESLBjY7TUm6Bs47Ili7KYbAZJ7M6DEhXdYn1v2L+IoikHnASn9YG1ITtt
+ lR6neVsK5QE7n0Yy2pAg4PLOCa9IooTBFd1FdpoTf5VLPDjFkxbXJ1c0qD2J10Pb5ZmTuexgrzV
+ l/DBLChKg2wk2H4GV+cVoi7r+foKIntq1li746EUmFwFHWOm2bvTD+A8LaSr20Z4mX5GHrwtS3y
+ 7juURh7Pgb7r2bN+5B2fTDSKRi1LMiavBEpCOFncuBqRYUT6Ew9F1HoCF0+SzrU2TkO9lI1o15q
+ 7kS+RhcCRwBg50Eze5FR6tpDYFz9MR2GO9oSpKeH27WHp6enyHzfNpw5UXBZAUxy2SQCFmDE4vR
+ 4C5QZF1wXvrxTYfPLemd4HccvKcVJ1NgYQ7KhjBasFWGXrqlRz4k6LCJ3n7ADWFtqz46bnF3NkX
+ 0IBMmV8hd9wz0Kh5pV6jh9m66+VqTk/9AH78x/LOTbzB9k1k8o4w7zgG07On0F1GSsxwTPgQWyz
+ NZve/lDdOpFB1FqbrhKVCpRRa1FT6Dw=
+X-Received: by 2002:a17:907:3e92:b0:c51:9ab4:393c with SMTP id
+ a640c23a62f3a-c519ab43c77mr120246166b.32.1795529297432; 
+ Tue, 24 Nov 2026 06:08:17 -0800 (PST)
+Received: from ArchOarora ([95.179.249.152]) by smtp.gmail.com with ESMTPSA id
+ a640c23a62f3a-c513aea1fd8sm512929666b.38.2026.11.24.06.08.06
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Tue, 24 Nov 2026 06:08:16 -0800 (PST)
+From: Oarora Etimis <oaroraetimis@gmail.com>
+To: Louis Chauvet <louis.chauvet@bootlin.com>
+Cc: Haneen Mohammed <hamohammed.sa@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ Melissa Wen <melissa.srw@gmail.com>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>,
+ Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>,
+ jose.exposito89@gmail.com, Jonathan Corbet <corbet@lwn.net>,
+ Harry Wentland <harry.wentland@amd.com>,
+ Lucas De Marchi <demarchi@kernel.org>,
+ Ville =?utf-8?B?U3lyasOkbMOk?= <ville.syrjala@linux.intel.com>,
+ Randy Dunlap <rdunlap@infradead.org>,
+ Nick Desaulniers <ndesaulniers@google.com>,
+ Shuah Khan <skhan@linuxfoundation.org>, Miguel Ojeda <ojeda@kernel.org>,
+ Nathan Chancellor <nathan@kernel.org>,
+ Nick Desaulniers <nick.desaulniers+lkml@gmail.com>,
+ Bill Wendling <morbo@google.com>, Justin Stitt <justinstitt@google.com>,
+ Luca Ceresoli <luca.ceresoli@bootlin.com>,
+ Kory Maincent <kory.maincent@bootlin.com>, sebastian.wick@redhat.com,
+ victoria@system76.com, thomas.petazzoni@bootlin.com,
+ dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
+ linux-doc@vger.kernel.org, Simona Vetter <simona.vetter@ffwll.ch>,
+ llvm@lists.linux.dev
+Subject: Re: [PATCH v6 09/43] drm/connector: Export drm_get_colorspace_name
+Date: Tue, 24 Nov 2026 15:08:02 +0100
+Message-ID: <awWaMHsJ2EAn1Tpa@Oarora>
+X-Mailer: git-send-email 2.56.1
+In-Reply-To: <20261120-vkms-all-config-v6-9-78ace90f4fc1@bootlin.com>
+References: <20261120-vkms-all-config-v6-0-78ace90f4fc1@bootlin.com>
+ <20261120-vkms-all-config-v6-9-78ace90f4fc1@bootlin.com>
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-ClientProxiedBy: rnnvmail203.nvidia.com (10.129.68.9) To
- rnnvmail201.nvidia.com (10.129.68.8)
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: CY6PEPF0000004C:EE_|PH7PR12MB7938:EE_
-X-MS-Office365-Filtering-Correlation-Id: 033cedb4-7886-4c58-1dd8-08df4a345e2d
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
- ARA:13230040|1800799024|376014|7416014|36860700016|23010399003|82310400026|10067099003|261028144727099003|261021123027099003|11063799006|261021121427099003|261026140227099003|261009223027099003|261022105027099003|261026121527099003|56012099006|261102123227099003|22082099003|18002099003;
-X-Microsoft-Antispam-Message-Info: GBczuy8MBZup5CDy/Uv4GNq2z6fAHEgkpB1s63i5gq0b7vI3EqwpgcYvViHBtL1FPQKtdIGCCvPiIakhdhKhuNdPSHdT7TU6LMDScHo4ScyQwhS7H+ZbCnRi3puIeEoxcPN8ObLdyaQ03ek6J2reiZGMSm8K8hyvgYE1EC5K4+1lkBAZ9rYektrsuZsKd7vvcWBXvtypFC70e1V/WXNWSjZRUKTXvUc8Pe6w/Rxa980H3XvG4lLJ7Er4D4ofAr3CsDfnoHosK1xxwhxAZjA5JgEpvjUkcH4o5zlp/yHJ4olb2nQpsMG+m1ERmdk6wBI0TSZRBuMb5U/hFA/X/mIHIwcKlg4w5rVO5EL2IqsGcml0T3KG2d1QfuPzaPMj5Nh8qht7/DqTR4WDq8T5rteSFcY6LUWqLJdeVQ82AyG2JXrw2HzLisoNa+b5C84mPihr2ebCXbYsGN1q99SPNixTLqtzr8bLYI0LxEdl7q1fm7tPXbwCXivQcEYQTd36s711abwrgX8AJKZ+YIPHyhRZRvimbikboWwiUYqMu9eYjP9IoDy7JNOIKzIqH0lyv/A4vwDVa33eRefTZh7jR+fDLTQnV1eI1gTmKuvq676JeZdHaV45rYyZ12fZxRTJE5Y1X4qeKGcH8XFX0oZbvzclfiZDgOuj8gPd7qiznJlv7BaY6+GvdFxlk8wygKxfDrHEQGMmLDY43DkVLyjjpCh/SA==
-X-Forefront-Antispam-Report: CIP:216.228.117.160; CTRY:US; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:mail.nvidia.com; PTR:dc6edge1.nvidia.com; CAT:NONE;
- SFS:(13230040)(1800799024)(376014)(7416014)(36860700016)(23010399003)(82310400026)(10067099003)(261028144727099003)(261021123027099003)(11063799006)(261021121427099003)(261026140227099003)(261009223027099003)(261022105027099003)(261026121527099003)(56012099006)(261102123227099003)(22082099003)(18002099003);
- DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: F1LMZqXBnUhQkfkEDP4zE2aWK4cyXUbEA1RizQp/sbrog9qf9V7R3c2Ua1iBSOqbOMsft4yZOo+HtyBcx7xkdspgFYx32O9eDJSSXpTbQ6JSjWeheFF3yIS7uIFSbJ/N8vKVgvEIWZdD38TSltTuworhOn7fFXEMb2QfOGBjiXTFB/Ye2lIvCBqS1hGprLYuT64xnu385TkIrumWkElHFLL2rup0Hi8sQ9+cpoACyQrMXCk74vxMKWxCa0/JnUDzKV6CfPuLjKoC55iJCSRK+6BjMTI2FhmhDkZjS5U2EHdIrRlT3qBaSgBXey3m3UCu0jWShk+035KAQMLsBis4Sh0o6WwxsHR5ZCcEz6KG9KrKciHG3EXD5p2IibNV7/AxnAWRNTI0+xrk0xlDTmguN8+A1R61JXfmoZzYrt6+cMhvPzfuSMLy8J6ocJS8vOcS
-X-OriginatorOrg: Nvidia.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 24 Nov 2026 14:08:08.8009 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 033cedb4-7886-4c58-1dd8-08df4a345e2d
-X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=43083d15-7273-40c1-b7db-39efd9ccc17a; Ip=[216.228.117.160];
- Helo=[mail.nvidia.com]
-X-MS-Exchange-CrossTenant-AuthSource: CY6PEPF0000004C.namprd03.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH7PR12MB7938
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -126,57 +107,38 @@ List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-18.8 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
-	DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
-	INCLUDES_CR_TRAILER,INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,
-	SPF_PASS,USER_AGENT_GIT autolearn=unavailable autolearn_force=no
-	version=4.0.1
+X-Spam-Status: No, score=-15.8 required=3.0 tests=BAYES_00,DKIM_SIGNED,
+	DKIM_VALID,DKIM_VALID_AU,FREEMAIL_FORGED_FROMDOMAIN,FREEMAIL_FROM,
+	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
+	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,USER_AGENT_GIT
+	autolearn=unavailable autolearn_force=no version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-From: Zhi Wang <zhiw@nvidia.com>
+On Fri, Nov 20, 2026 at 06:58:51PM +0100, Louis Chauvet wrote:
+> Export drm_get_colorspace_name so it could be used by VKMS
+> 
+> Reviewed-by: Luca Ceresoli <luca.ceresoli@bootlin.com>
+> Signed-off-by: Louis Chauvet <louis.chauvet@bootlin.com>
+> ---
+>  drivers/gpu/drm/drm_connector.c | 1 +
+>  1 file changed, 1 insertion(+)
+> 
+> diff --git a/drivers/gpu/drm/drm_connector.c b/drivers/gpu/drm/drm_connector.c
+> index d66188521881..fbff5871355d 100644
+> --- a/drivers/gpu/drm/drm_connector.c
+> +++ b/drivers/gpu/drm/drm_connector.c
+> @@ -1528,6 +1528,7 @@ const char *drm_get_colorspace_name(enum drm_colorspace colorspace)
+>  	else
+>  		return "(null)";
+>  }
+> +EXPORT_SYMBOL(drm_get_colorspace_name);
+>  
+>  static const u32 hdmi_colorspaces =
+>  	BIT(DRM_MODE_COLORIMETRY_SMPTE_170M_YCC) |
+> 
+> -- 
+> 2.56.0
+> 
 
-The BAR1 self-test creates temporary Vmm and BarUser instances on the
-live BAR1 page directory. Dropping them releases their page-table pages
-while parent PDEs still point to those pages. Reusing a freed page for
-another leaf table can make disjoint BAR mappings alias: unmapping one
-vGPU then invalidates its sibling's mapping.
-
-Use the supplied persistent BarUser for all tests so the installed page
-tables remain owned until GPU teardown. Borrow its Vmm for the direct
-mapping tests and release the mutex guard before testing BarUser::map().
-
-Fixes: d669686f8170 ("gpu: nova-core: mm: Add BAR1 memory management self-tests")
-Signed-off-by: Zhi Wang <zhiw@nvidia.com>
-Signed-off-by: Alok Kumar <alkumar@nvidia.com>
----
- drivers/gpu/nova-core/mm/bar_user.rs | 6 +++---
- 1 file changed, 3 insertions(+), 3 deletions(-)
-
-diff --git a/drivers/gpu/nova-core/mm/bar_user.rs b/drivers/gpu/nova-core/mm/bar_user.rs
-index e0fc62630fbe..4a49962f7f68 100644
---- a/drivers/gpu/nova-core/mm/bar_user.rs
-+++ b/drivers/gpu/nova-core/mm/bar_user.rs
-@@ -329,8 +329,8 @@ pub(super) fn run_self_test(
-     let test_vram = VramAddress::from_raw(test_vram_offset);
-     let test_pfn = Pfn::from(test_vram);
- 
--    // Create a VMM of size 64K to track virtual memory mappings.
--    let mut vmm = Vmm::new(pdb_addr, chipset.mmu_version(), SZ_64K.into_safe_cast())?;
-+    // Page tables installed in the live BAR1 PDB must keep their owner until GPU teardown.
-+    let mut vmm = bar_user.vmm.lock();
- 
-     // Create a test mapping.
-     let mapped = vmm.map_pages(mm, &[test_pfn], None, true)?;
-@@ -490,7 +490,7 @@ pub(super) fn run_self_test(
-         test3_passed = false;
-     }
- 
--    // Release Tests 1-3's Vmm before Test 4 uses the GPU's BarUser on the same PDB.
-+    // Release the lock before `BarUser::map()` acquires it again.
-     drop(vmm);
- 
-     // Test 4: Exercise `BarUser::map()` end-to-end.
--- 
-2.53.0
-
+Reviewed-by: Oarora Etimis <oaroraetimis@gmail.com>
