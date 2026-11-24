@@ -2,45 +2,46 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 01BA7606A31E
-	for <dri-devel@archiver.kernel.org>; Tue, 24 Nov 2026 15:55:16 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C79B8606A323
+	for <dri-devel@archiver.kernel.org>; Tue, 24 Nov 2026 15:55:17 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=samsung.com header.i=@samsung.com header.a=rsa-sha256 header.s=mail20170921 header.b=SA9jgAhb
+	dkim=pass (1024-bit key) header.d=samsung.com header.i=@samsung.com header.a=rsa-sha256 header.s=mail20170921 header.b=j1JRYOiN
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 567DA10F763;
-	Tue, 24 Nov 2026 15:55:10 +0000 (UTC)
-Received: from mailout2.w1.samsung.com (mailout2.w1.samsung.com
- [210.118.77.12])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 191EC10F73D
- for <dri-devel@lists.freedesktop.org>; Tue, 24 Nov 2026 15:54:27 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 51E0D10F765;
+	Tue, 24 Nov 2026 15:55:11 +0000 (UTC)
+Received: from mailout1.w1.samsung.com (mailout1.w1.samsung.com
+ [210.118.77.11])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 0E4D910F742
+ for <dri-devel@lists.freedesktop.org>; Tue, 24 Nov 2026 15:54:31 +0000 (UTC)
 Received: from eucas1p1.samsung.com (unknown [182.198.249.206])
- by mailout2.w1.samsung.com (KnoxPortal) with ESMTP id
- 20261124155425euoutp029b1878de339f7089cbd4ab51f252cb92~rBizMiaVQ0854408544euoutp02R;
- Tue, 24 Nov 2026 15:54:25 +0000 (GMT)
-DKIM-Filter: OpenDKIM Filter v2.11.0 mailout2.w1.samsung.com
- 20261124155425euoutp029b1878de339f7089cbd4ab51f252cb92~rBizMiaVQ0854408544euoutp02R
+ by mailout1.w1.samsung.com (KnoxPortal) with ESMTP id
+ 20261124155429euoutp01b7b3e044ebbcb7f04c248bdb94066142~rBi24x--S1656116561euoutp01u;
+ Tue, 24 Nov 2026 15:54:29 +0000 (GMT)
+DKIM-Filter: OpenDKIM Filter v2.11.0 mailout1.w1.samsung.com
+ 20261124155429euoutp01b7b3e044ebbcb7f04c248bdb94066142~rBi24x--S1656116561euoutp01u
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=samsung.com;
- s=mail20170921; t=1795535665;
- bh=wxVxwW4jdJzT4Te1OnLBfSa/dsaxGf7BeuuwkSIg51g=;
+ s=mail20170921; t=1795535669;
+ bh=MucRvldvSpkhtKrYcLSF1bisE95uwiPekeBhamToGFU=;
  h=From:Date:Subject:In-Reply-To:To:Cc:References:From;
- b=SA9jgAhbaPcB3tmDwdcjaeIBjp7ZsdiDdx8T2hBJ1xe9yMvxacs67WoBj1/1XCvKF
- 8IuTtDF08bi7eBDT4LeKEDaR3ZR2Jqee7BtUIeaxsg3sxSeVc5xRSeTj5FFCAQ2pJz
- UoUi8YgxDOl5Qlrx0i9itIymELsE+ULwfsH2JTps=
+ b=j1JRYOiN/iCeZg6HNUojBCQ9iq4d+Vj2rK0OxDuYlTdBAlaPQGGkdmhnDC+Siewy1
+ nF7thfIrM74SFyCOcLJWixAb5pxa1DCxyUGO9ztX4Zj1BECNY3xN4GrEBIz2w7zO14
+ kAJCRAbsXTXfjv8fus7tmESIwSlwiFGQVpaIknQE=
 Received: from eusmtip1.samsung.com (unknown [203.254.199.221]) by
- eucas1p2.samsung.com (KnoxPortal) with ESMTPA id
- 20261124155425eucas1p2035620902a47a26cb56909c0afda250f~rBiy1PKgi0860908609eucas1p2H;
- Tue, 24 Nov 2026 15:54:25 +0000 (GMT)
+ eucas1p1.samsung.com (KnoxPortal) with ESMTPA id
+ 20261124155429eucas1p1015c7cd9beec294fefdcd6900dd407f6~rBi2fWqKD0890608906eucas1p1Q;
+ Tue, 24 Nov 2026 15:54:29 +0000 (GMT)
 Received: from AMDC4942.eu.corp.samsungelectronics.net (unknown
  [106.210.136.40]) by eusmtip1.samsung.com (KnoxPortal) with ESMTPA id
- 20261124155423eusmtip197a3bda077f39cf190a2c55cf4457ba9~rBixEvKqb0174001740eusmtip1d;
- Tue, 24 Nov 2026 15:54:23 +0000 (GMT)
+ 20261124155427eusmtip125f2fa9364e1139d5e55fd78dfa7ea51~rBi0tzRle2896728967eusmtip1y;
+ Tue, 24 Nov 2026 15:54:27 +0000 (GMT)
 From: Michal Wilczynski <m.wilczynski@samsung.com>
-Date: Tue, 24 Nov 2026 16:52:50 +0100
-Subject: [PATCH v8 14/18] soc: starfive: Add jh7110-hdmi-subsystem driver
+Date: Tue, 24 Nov 2026 16:52:52 +0100
+Subject: [PATCH v8 16/18] drm/bridge: starfive: Add JH7110 HDMI controller
+ driver
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 7bit
-Message-Id: <20261124-jh7110-clean-send-v8-14-de92635dd857@samsung.com>
+Message-Id: <20261124-jh7110-clean-send-v8-16-de92635dd857@samsung.com>
 In-Reply-To: <20261124-jh7110-clean-send-v8-0-de92635dd857@samsung.com>
 To: Neil Armstrong <neil.armstrong@linaro.org>,  Rob Herring
  <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,  Robert Foss
@@ -69,26 +70,25 @@ Cc: devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
  Joshua Peisach <jpeisach@ubuntu.com>,  =?utf-8?q?Uwe_Kleine-K=C3=B6nig?=
  <u.kleine-koenig@baylibre.com>,  Cristian Ciocaltea
  <cristian.ciocaltea@collabora.com>,  Byron Stanoszek <gandalf@winds.org>,
- Owen O'Hehir <oo.hehir@gmail.com>,  Conor Dooley
- <conor.dooley@microchip.com>
+ Owen O'Hehir <oo.hehir@gmail.com>
 X-Mailer: b4 0.15-dev
-X-Developer-Signature: v=1; a=openpgp-sha256; l=5258;
+X-Developer-Signature: v=1; a=openpgp-sha256; l=14002;
  i=m.wilczynski@samsung.com; h=from:subject:message-id;
- bh=Ke3a7wjCklbHNml6Zuxu85Xl5Ets0x2bOrRzbU3YliI=;
- b=owGbwMvMwCGWumv6zndzRCIZT6slMWSzbha9/2DXh6YFaaFJsQ8Y7dZscN050eNQ3eeVV0M4q
- 5cF5XJ96ihlYRDjYJAVU2Q5uzHaSPIfw9Py449/wcxhZQIZwsDFKQATec/P8E/JdUvcfXcWLjeG
- 7LlKXEnb7sk8XW81I7uxvW9KhnygeivD/7B6p+/f4xIsf3Dc2bZVs19ypWtxTYiI9rdvenuushl
- 6MQAA
+ bh=2M/5s6wAwlaBr1V7R3FyllPeoNa2RfnYWMqZQjUdTyE=;
+ b=owGbwMvMwCGWumv6zndzRCIZT6slMWSzbhZ1nXL4z9pjYjPfiuatWvk0/aOA+5R/RrzTrD5NO
+ qbTdY1BqqOUhUGMg0FWTJHl7MZoI8l/DE/Ljz/+BTOHlQlkCAMXpwBMpOYJw/+Uxp8aNi/OXrib
+ sv/uylp37dRjGQus6ze9d4hYctrl4aKdDP9j+JPWaZ6Y1y60RZBZMbjAbcK3/QbNktP42RTeXDm
+ y258VAA==
 X-Developer-Key: i=m.wilczynski@samsung.com; a=openpgp;
  fpr=CDB15B3219FE00E577C7E3FA65BA97B9EE9C1459
-X-CMS-MailID: 20261124155425eucas1p2035620902a47a26cb56909c0afda250f
+X-CMS-MailID: 20261124155429eucas1p1015c7cd9beec294fefdcd6900dd407f6
 X-Msg-Generator: CA
 Content-Type: text/plain; charset="utf-8"
-X-RootMTR: 20261124155425eucas1p2035620902a47a26cb56909c0afda250f
+X-RootMTR: 20261124155429eucas1p1015c7cd9beec294fefdcd6900dd407f6
 X-EPHeader: CA
-X-CMS-RootMailID: 20261124155425eucas1p2035620902a47a26cb56909c0afda250f
+X-CMS-RootMailID: 20261124155429eucas1p1015c7cd9beec294fefdcd6900dd407f6
 References: <20261124-jh7110-clean-send-v8-0-de92635dd857@samsung.com>
- <CGME20261124155425eucas1p2035620902a47a26cb56909c0afda250f@eucas1p2.samsung.com>
+ <CGME20261124155429eucas1p1015c7cd9beec294fefdcd6900dd407f6@eucas1p1.samsung.com>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -108,143 +108,394 @@ X-Spam-Status: No, score=-18.8 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-Add the parent driver for the monolithic JH7110 HDMI IP block.
+Add the HDMI controller (bridge) driver for the StarFive JH7110.
 
-This driver binds to the starfive,jh7110-hdmi-subsystem node. It maps the
-shared register block, creates a regmap, and calls
-devm_of_platform_populate() to create its hdmi_phy and hdmi_controller
-child devices, which retrieve the shared regmap from this parent.
+This driver binds to the starfive,jh7110-inno-hdmi-controller node. It
+gets its register access, module and bus clocks from voutcrg, and
+consumes the pixel clock and the PHY from its hdmi_phy sibling.
 
-The NoC display bus clock and reset that gate access to this region, and
-the PD_VOUT power domain it sits in, are held by the video output
-subsystem parent for as long as this device exists, so there is nothing
-for this driver to bring up itself.
+The driver calls the generic inno_hdmi_probe function, which picks up
+the regmap shared with the PHY from the parent device and registers a
+DRM bridge. The .enable hook is responsible for setting the PHY's pixel
+clock rate via clk_set_rate() and powering on the PHY via
+phy_power_on().
 
-Co-developed-by: Dominique Belhachemi <db@domibel.de>
-Signed-off-by: Dominique Belhachemi <db@domibel.de>
+The DC8200 has two panels, each exposing a DP and a DPI interface, and a
+mux in the video output system controller picks which of them drives the
+HDMI transmitter. It comes out of reset on panel 0 / DPI, which happens
+to be what the default wiring needs, so nothing has had to program it so
+far. Derive it from the port graph instead, taking the panel from the
+remote port number and the interface from the remote endpoint number, so
+that a board describing a different output is honoured.
+
+The generic driver holds the clock it looks up as the register access
+clock enabled for its lifetime, and derives the DDC divider from that
+clock's rate, so point it at the system clock. Naming the pixel clock
+there instead would keep the PHY pre-PLL powered from probe onwards and
+size the divider from the wrong rate.
+
+The PHY can only generate the discrete set of pixel clocks described by
+its pre-PLL table, so .mode_valid rejects any mode clk_round_rate()
+cannot satisfy. Without it such a mode would be advertised to userspace
+and the modeset would appear to succeed while the display stayed blank.
+
+.enable returns early when the rate is unsupported or the PHY fails to
+power on, so track whether the pixel clock was actually enabled and let
+.disable tear down only what was brought up, otherwise the clock
+refcount underflows.
+
+The clocks and the reset are torn down through devm rather than from
+.remove, so that they outlive the bridge that inno_hdmi_probe() adds with
+devm_drm_bridge_add(). Releasing them in .remove runs before devres
+unwinds and would leave the bridge registered with its clocks already
+gated.
+
 Tested-by: Icenowy Zheng <zhengxingda@iscas.ac.cn>
 Tested-by: Byron Stanoszek <gandalf@winds.org>
 Tested-by: Owen O'Hehir <oo.hehir@gmail.com>
-Acked-by: Conor Dooley <conor.dooley@microchip.com>
 Signed-off-by: Michal Wilczynski <m.wilczynski@samsung.com>
 ---
- drivers/soc/starfive/Kconfig                 | 18 +++++++
- drivers/soc/starfive/Makefile                |  1 +
- drivers/soc/starfive/jh7110-hdmi-subsystem.c | 72 ++++++++++++++++++++++++++++
- 3 files changed, 91 insertions(+)
+ drivers/gpu/drm/bridge/Kconfig            |  11 ++
+ drivers/gpu/drm/bridge/Makefile           |   1 +
+ drivers/gpu/drm/bridge/jh7110-inno-hdmi.c | 297 ++++++++++++++++++++++++++++++
+ 3 files changed, 309 insertions(+)
 
-diff --git a/drivers/soc/starfive/Kconfig b/drivers/soc/starfive/Kconfig
-index 04b020083d3eecd7754bb2e2ec1b4fc8f525a344..e19994a212d4af49eaed595bab6fecc19677b2b3 100644
---- a/drivers/soc/starfive/Kconfig
-+++ b/drivers/soc/starfive/Kconfig
-@@ -3,4 +3,22 @@ menu "StarFive SoC (System On Chip) specific Drivers"
+diff --git a/drivers/gpu/drm/bridge/Kconfig b/drivers/gpu/drm/bridge/Kconfig
+index 34bcee88170317a4796178452ab5d2e673daf1fd..9c2a37ac816bbca843534662a08307a6bb37e6f8 100644
+--- a/drivers/gpu/drm/bridge/Kconfig
++++ b/drivers/gpu/drm/bridge/Kconfig
+@@ -357,6 +357,17 @@ config DRM_SOLOMON_SSD2825
+ 	  Say M here if you want to support this hardware as a module.
+ 	  The module will be named "ssd2825".
  
- source "drivers/soc/starfive/socinfo/Kconfig"
- 
-+config SOC_STARFIVE_JH7110_HDMI_SUBSYSTEM
-+	tristate "StarFive JH7110 HDMI subsystem driver"
-+	depends on ARCH_STARFIVE || COMPILE_TEST
++config DRM_STARFIVE_JH7110_INNO_HDMI
++	tristate "Starfive JH7110 Innosilicon HDMI bridge"
 +	depends on OF
-+	select REGMAP_MMIO
++	depends on ARCH_STARFIVE || COMPILE_TEST
++	select DRM_INNO_HDMI
 +	help
-+	  This option enables the parent driver
-+	  for the monolithic StarFive JH7110 HDMI peripheral.
++	  Enable support for the StarFive JH7110 specific implementation
++	  of the Innosilicon HDMI controller.
++	  This driver acts as a glue layer between the JH7110 HDMI subsystem
++	  parent driver and the generic Innosilicon HDMI bridge driver.
 +
-+	  The JH7110 HDMI IP block contains both the digital controller
-+	  (DRM bridge) and the analog PHY (clock/phy provider) logic within
-+	  a single shared register space.
-+
-+	  This driver acts as a wrapper. Its only job is to map the
-+	  shared registers and create separate logical child devices
-+	  for the "PHY" and the "controller", which have their own clocks
-+	  and roles but share the register space.
-+
- endmenu
-diff --git a/drivers/soc/starfive/Makefile b/drivers/soc/starfive/Makefile
-index ca1e609b81045f5e11daf249c116b22c8dc0e4d0..36fbb6f984986e4794ffb2c6c1485b6644efc4eb 100644
---- a/drivers/soc/starfive/Makefile
-+++ b/drivers/soc/starfive/Makefile
-@@ -1,2 +1,3 @@
- # SPDX-License-Identifier: GPL-2.0-only
- obj-y += socinfo/
-+obj-$(CONFIG_SOC_STARFIVE_JH7110_HDMI_SUBSYSTEM) += jh7110-hdmi-subsystem.o
-diff --git a/drivers/soc/starfive/jh7110-hdmi-subsystem.c b/drivers/soc/starfive/jh7110-hdmi-subsystem.c
+ config DRM_THINE_THC63LVD1024
+ 	tristate "Thine THC63LVD1024 LVDS decoder bridge"
+ 	depends on OF
+diff --git a/drivers/gpu/drm/bridge/Makefile b/drivers/gpu/drm/bridge/Makefile
+index 15cc821d85b7ea6f3cdc313f3e521b028de567d7..5d843f4ad7ed50b28cb75286c5e22789d91a0836 100644
+--- a/drivers/gpu/drm/bridge/Makefile
++++ b/drivers/gpu/drm/bridge/Makefile
+@@ -30,6 +30,7 @@ obj-$(CONFIG_DRM_SIL_SII8620) += sil-sii8620.o
+ obj-$(CONFIG_DRM_SII902X) += sii902x.o
+ obj-$(CONFIG_DRM_SII9234) += sii9234.o
+ obj-$(CONFIG_DRM_SIMPLE_BRIDGE) += simple-bridge.o
++obj-$(CONFIG_DRM_STARFIVE_JH7110_INNO_HDMI) += jh7110-inno-hdmi.o
+ obj-$(CONFIG_DRM_SOLOMON_SSD2825) += ssd2825.o
+ obj-$(CONFIG_DRM_THEAD_TH1520_DW_HDMI) += th1520-dw-hdmi.o
+ obj-$(CONFIG_DRM_THINE_THC63LVD1024) += thc63lvd1024.o
+diff --git a/drivers/gpu/drm/bridge/jh7110-inno-hdmi.c b/drivers/gpu/drm/bridge/jh7110-inno-hdmi.c
 new file mode 100644
-index 0000000000000000000000000000000000000000..b01dc66450f516599c013df0383e6fde987f390e
+index 0000000000000000000000000000000000000000..a0283f83ddc93e3e6c9e9192b73dca9a63f9d9ab
 --- /dev/null
-+++ b/drivers/soc/starfive/jh7110-hdmi-subsystem.c
-@@ -0,0 +1,72 @@
++++ b/drivers/gpu/drm/bridge/jh7110-inno-hdmi.c
+@@ -0,0 +1,297 @@
 +// SPDX-License-Identifier: GPL-2.0
 +/*
-+ * Driver for the StarFive JH7110 HDMI subsystem
-+ *
++ * Copyright (C) StarFive Technology Co., Ltd.
 + * Copyright (c) 2025 Samsung Electronics Co., Ltd.
 + * Author: Michal Wilczynski <m.wilczynski@samsung.com>
 + *
-+ * This driver binds to the monolithic HDMI block and creates separate
-+ * logical platform devices for the HDMI Controller (bridge) and the
-+ * HDMI PHY (clock/phy provider), allowing them to share a single regmap.
++ * HDMI controller (bridge) driver for the StarFive JH7110 HDMI subsystem.
 + */
 +
++#include <linux/bitfield.h>
++#include <linux/cleanup.h>
++#include <linux/clk.h>
++#include <linux/mfd/syscon.h>
 +#include <linux/module.h>
-+#include <linux/of.h>
-+#include <linux/of_platform.h>
++#include <linux/of_device.h>
++#include <linux/of_graph.h>
 +#include <linux/platform_device.h>
++#include <linux/phy/phy.h>
 +#include <linux/regmap.h>
++#include <linux/reset.h>
 +
-+static const struct regmap_config starfive_hdmi_regmap_config = {
-+	.reg_bits = 32,
-+	.val_bits = 8,
-+	.max_register = 0x3fff,
++#include <drm/bridge/inno_hdmi.h>
++#include <drm/drm_modes.h>
++
++/* dom_vout_syscon: HDMI pixel data mapping */
++#define VOUT_SYSCFG_4			0x4
++#define VOUT_HDMI_DP_BIT_DEPTH		BIT(25)
++#define VOUT_HDMI_DP_YUV_MODE		GENMASK(27, 26)
++#define VOUT_HDMI_DP_YUV_MODE_RGB	3
++#define VOUT_HDMI_DPI_BIT_DEPTH		GENMASK(29, 28)
++#define VOUT_HDMI_DPI_BIT_DEPTH_8BIT	0
++#define VOUT_HDMI_DPI_DP_SEL		BIT(30)
++
++/* u2_display_panel_mux feeds HDMI_Ctrl, see the block diagram in 5.1 */
++#define VOUT_SYSCFG_8			0x8
++#define VOUT_HDMI_PANEL_SEL		BIT(4)
++
++enum stf_hdmi_ctrl_clocks { CLK_SYS = 0, CLK_M, CLK_B, CLK_PCLK, CLK_CTRL_NUM };
++
++struct stf_inno_hdmi_controller {
++	struct clk_bulk_data clks[CLK_CTRL_NUM];
++	struct reset_control *tx_rst;
++	struct phy *phy;
++	bool enabled;
 +};
 +
-+static int starfive_hdmi_subsys_probe(struct platform_device *pdev)
++static enum drm_mode_status
++inno_hdmi_starfive_mode_valid(struct device *dev,
++			      const struct drm_display_mode *mode)
 +{
-+	struct device *dev = &pdev->dev;
-+	struct regmap *regmap;
-+	void __iomem *regs;
++	struct stf_inno_hdmi_controller *ctrl = dev_get_drvdata(dev);
++	unsigned long pixelclk = mode->clock * 1000;
++	long rounded;
++
++	/*
++	 * The PHY can only generate the discrete set of pixel clocks described
++	 * by its pre-PLL table, and clk_round_rate() fails for anything else.
++	 * Reject those modes here: without this the modeset would appear to
++	 * succeed while the PHY never produces a signal.
++	 */
++	rounded = clk_round_rate(ctrl->clks[CLK_PCLK].clk, pixelclk);
++	if (rounded != pixelclk)
++		return MODE_NOCLOCK;
++
++	return MODE_OK;
++}
++
++static void inno_hdmi_starfive_enable(struct device *dev,
++				      struct drm_display_mode *mode)
++{
++	struct stf_inno_hdmi_controller *ctrl = dev_get_drvdata(dev);
 +	int ret;
 +
 +	/*
-+	 * The NoC display bus clock and reset that gate access to this region,
-+	 * and the PD_VOUT power domain it sits in, are held by the video
-+	 * output subsystem parent for as long as this device exists.
++	 * 1. Set the pixel clock rate. This calls the PHY driver's .set_rate op.
 +	 */
-+	regs = devm_platform_ioremap_resource(pdev, 0);
-+	if (IS_ERR(regs))
-+		return PTR_ERR(regs);
++	ret = clk_set_rate(ctrl->clks[CLK_PCLK].clk, mode->clock * 1000);
++	if (ret) {
++		dev_err(dev, "Failed to set pclk rate %d: %d\n",
++			mode->clock * 1000, ret);
++		return;
++	}
 +
-+	regmap = devm_regmap_init_mmio(dev, regs,
-+				       &starfive_hdmi_regmap_config);
-+	if (IS_ERR(regmap))
-+		return dev_err_probe(dev, PTR_ERR(regmap),
-+				     "Failed to init shared regmap\n");
++	/*
++	 * 2. Enable the pixel clock. This calls the PHY driver's .prepare op.
++	 */
++	ret = clk_prepare_enable(ctrl->clks[CLK_PCLK].clk);
++	if (ret) {
++		dev_err(dev, "Failed to enable pclk: %d\n", ret);
++		return;
++	}
 +
-+	ret = devm_of_platform_populate(dev);
++	/*
++	 * 3. Power on the PHY. This calls the PHY driver's .power_on op,
++	 * which configures the Post-PLL and analog blocks.
++	 */
++	ret = phy_power_on(ctrl->phy);
++	if (ret) {
++		dev_err(dev, "Failed to power on PHY: %d\n", ret);
++		clk_disable_unprepare(ctrl->clks[CLK_PCLK].clk);
++		return;
++	}
++
++	ctrl->enabled = true;
++}
++
++static void inno_hdmi_starfive_disable(struct device *dev)
++{
++	struct stf_inno_hdmi_controller *ctrl = dev_get_drvdata(dev);
++
++	/*
++	 * .enable bails out early if the pixel clock rate is unsupported or
++	 * the PHY fails to power on, leaving pclk and the PHY untouched.
++	 * Only tear down what was actually brought up, otherwise the clock
++	 * refcount underflows.
++	 */
++	if (!ctrl->enabled)
++		return;
++
++	phy_power_off(ctrl->phy);
++	clk_disable_unprepare(ctrl->clks[CLK_PCLK].clk);
++	ctrl->enabled = false;
++}
++
++/*
++ * The DC8200 has two panels, each exposing a DP and a DPI interface, and a mux
++ * in dom_vout_syscon picks which of them drives the HDMI transmitter. Derive
++ * the mux setting from the port graph: the remote port number selects the
++ * DC8200 panel, and the remote endpoint number the interface on that panel
++ * (0 for DPI, 1 for DP). Both drive 8-bit RGB, the only format this driver
++ * currently produces.
++ */
++static int stf_inno_hdmi_setup_mux(struct device *dev)
++{
++	struct of_endpoint endpoint;
++	struct regmap *syscon;
++	u32 mask, val;
++	int ret;
++
++	syscon = syscon_regmap_lookup_by_phandle(dev->of_node,
++						 "starfive,vout-syscon");
++	if (IS_ERR(syscon))
++		return dev_err_probe(dev, PTR_ERR(syscon),
++				     "Failed to get vout syscon\n");
++
++	struct device_node *ep __free(device_node) =
++		of_graph_get_endpoint_by_regs(dev->of_node, 0, -1);
++	if (!ep)
++		return dev_err_probe(dev, -ENODEV, "No input endpoint\n");
++
++	struct device_node *remote __free(device_node) =
++		of_graph_get_remote_endpoint(ep);
++	if (!remote)
++		return dev_err_probe(dev, -ENODEV,
++				     "Input endpoint is not connected\n");
++
++	ret = of_graph_parse_endpoint(remote, &endpoint);
 +	if (ret)
 +		return dev_err_probe(dev, ret,
-+				     "Failed to populate child devices\n");
++				     "Failed to parse the remote endpoint\n");
++
++	if (endpoint.port > 1 || endpoint.id > 1)
++		return dev_err_probe(dev, -EINVAL,
++				     "Unsupported DC8200 output %u/%u\n",
++				     endpoint.port, endpoint.id);
++
++	/* Data mapping: 8-bit RGB on whichever interface is in use. */
++	mask = VOUT_HDMI_DPI_DP_SEL | VOUT_HDMI_DP_BIT_DEPTH |
++	       VOUT_HDMI_DP_YUV_MODE | VOUT_HDMI_DPI_BIT_DEPTH;
++	val = FIELD_PREP(VOUT_HDMI_DPI_DP_SEL, endpoint.id) |
++	      FIELD_PREP(VOUT_HDMI_DP_YUV_MODE, VOUT_HDMI_DP_YUV_MODE_RGB) |
++	      FIELD_PREP(VOUT_HDMI_DPI_BIT_DEPTH, VOUT_HDMI_DPI_BIT_DEPTH_8BIT);
++
++	ret = regmap_update_bits(syscon, VOUT_SYSCFG_4, mask, val);
++	if (ret)
++		return ret;
++
++	/* Which DC8200 panel drives the HDMI transmitter. */
++	return regmap_update_bits(syscon, VOUT_SYSCFG_8, VOUT_HDMI_PANEL_SEL,
++				  FIELD_PREP(VOUT_HDMI_PANEL_SEL,
++					     endpoint.port));
++}
++
++static void stf_inno_hdmi_clk_disable(void *data)
++{
++	struct stf_inno_hdmi_controller *ctrl = data;
++
++	clk_bulk_disable_unprepare(CLK_CTRL_NUM - 1, ctrl->clks);
++}
++
++static void stf_inno_hdmi_rst_assert(void *data)
++{
++	reset_control_assert(data);
++}
++
++static int starfive_inno_hdmi_controller_probe(struct platform_device *pdev)
++{
++	struct device *dev = &pdev->dev;
++	struct stf_inno_hdmi_controller *ctrl;
++	const struct inno_hdmi_plat_data *plat_data;
++	struct inno_hdmi *inno;
++	int ret;
++
++	ctrl = devm_kzalloc(dev, sizeof(*ctrl), GFP_KERNEL);
++	if (!ctrl)
++		return -ENOMEM;
++
++	platform_set_drvdata(pdev, ctrl);
++
++	ctrl->phy = devm_phy_get(dev, NULL);
++	if (IS_ERR(ctrl->phy))
++		return dev_err_probe(dev, PTR_ERR(ctrl->phy), "Failed to get PHY\n");
++
++	ctrl->tx_rst = devm_reset_control_get_exclusive(dev, NULL);
++	if (IS_ERR(ctrl->tx_rst))
++		return dev_err_probe(dev, PTR_ERR(ctrl->tx_rst), "failed to get tx reset\n");
++
++	/* Populate the clock names this controller *consumes* */
++	ctrl->clks[CLK_SYS].id = "pclk";
++	ctrl->clks[CLK_M].id = "mclk";
++	ctrl->clks[CLK_B].id = "bclk";
++	ctrl->clks[CLK_PCLK].id = "pixel"; /* Generated by the PHY */
++
++	ret = devm_clk_bulk_get(dev, CLK_CTRL_NUM, ctrl->clks);
++	if (ret)
++		return dev_err_probe(dev, ret, "Unable to get controller clocks\n");
++
++	/*
++	 * Tear the clocks and the reset down through devm, so that they outlive
++	 * everything registered after them. The bridge is added with
++	 * devm_drm_bridge_add(), and unwinding in the wrong order would leave it
++	 * registered while its clocks are already gated.
++	 *
++	 * The pixel clock is enabled on demand during modeset.
++	 */
++	ret = clk_bulk_prepare_enable(CLK_CTRL_NUM - 1, ctrl->clks);
++	if (ret)
++		return ret;
++
++	ret = devm_add_action_or_reset(dev, stf_inno_hdmi_clk_disable, ctrl);
++	if (ret)
++		return ret;
++
++	ret = reset_control_deassert(ctrl->tx_rst);
++	if (ret)
++		return ret;
++
++	ret = devm_add_action_or_reset(dev, stf_inno_hdmi_rst_assert,
++				       ctrl->tx_rst);
++	if (ret)
++		return ret;
++
++	ret = stf_inno_hdmi_setup_mux(dev);
++	if (ret)
++		return ret;
++
++	plat_data = of_device_get_match_data(dev);
++
++	/* Hand off to the generic library to create the bridge. */
++	inno = inno_hdmi_probe(pdev, plat_data);
++	if (IS_ERR(inno))
++		return PTR_ERR(inno);
 +
 +	return 0;
 +}
 +
-+static const struct of_device_id starfive_hdmi_subsys_of_match[] = {
-+	{ .compatible = "starfive,jh7110-hdmi-subsystem", },
-+	{ /* sentinel */ }
++static const struct inno_hdmi_plat_ops stf_inno_hdmi_plat_ops = {
++	.enable = inno_hdmi_starfive_enable,
++	.disable = inno_hdmi_starfive_disable,
++	.mode_valid = inno_hdmi_starfive_mode_valid,
 +};
-+MODULE_DEVICE_TABLE(of, starfive_hdmi_subsys_of_match);
 +
-+static struct platform_driver starfive_hdmi_subsys_driver = {
-+	.probe = starfive_hdmi_subsys_probe,
++static const struct inno_hdmi_plat_data stf_inno_hdmi_plat_data = {
++	.ops = &stf_inno_hdmi_plat_ops,
++	.reg_clk_source_tmds = true,
++	.supported_hdmi_ver = HDMI_VERSION_1_4,
++};
++
++static const struct of_device_id starfive_hdmi_controller_dt_ids[] = {
++	{ .compatible = "starfive,jh7110-inno-hdmi-controller",
++	  .data = &stf_inno_hdmi_plat_data },
++	{}
++};
++MODULE_DEVICE_TABLE(of, starfive_hdmi_controller_dt_ids);
++
++static struct platform_driver starfive_inno_hdmi_controller_driver = {
++	.probe = starfive_inno_hdmi_controller_probe,
 +	.driver = {
-+		.name = "starfive-hdmi-subsystem",
-+		.of_match_table = starfive_hdmi_subsys_of_match,
++		.name = "starfive-inno-hdmi-controller",
++		.of_match_table = starfive_hdmi_controller_dt_ids,
 +	},
 +};
-+module_platform_driver(starfive_hdmi_subsys_driver);
++module_platform_driver(starfive_inno_hdmi_controller_driver);
 +
 +MODULE_AUTHOR("Michal Wilczynski <m.wilczynski@samsung.com>");
-+MODULE_DESCRIPTION("StarFive JH7110 HDMI subsystem Driver");
++MODULE_DESCRIPTION("StarFive INNO HDMI Controller Driver");
 +MODULE_LICENSE("GPL");
 
 -- 
