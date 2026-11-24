@@ -2,116 +2,154 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 05293606A31E
-	for <dri-devel@archiver.kernel.org>; Tue, 24 Nov 2026 22:29:34 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 87EDE606A31E
+	for <dri-devel@archiver.kernel.org>; Tue, 24 Nov 2026 22:30:02 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=Nvidia.com header.i=@Nvidia.com header.a=rsa-sha256 header.s=selector2 header.b=NMxtoRm/
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=bSRVSEwi;
+	dkim=pass (1024-bit key, unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=selector1 header.b=WmnaBxBI
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 2E11E10F0D3;
-	Tue, 24 Nov 2026 22:29:28 +0000 (UTC)
-Received: from BN1PR04CU002.outbound.protection.outlook.com
- (mail-eastus2azon11010029.outbound.protection.outlook.com [52.101.56.29])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 94F9A10F0D3
- for <dri-devel@lists.freedesktop.org>; Tue, 24 Nov 2026 22:29:22 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id B2C4E10F10B;
+	Tue, 24 Nov 2026 22:29:51 +0000 (UTC)
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.10])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id C42D810F0D9;
+ Tue, 24 Nov 2026 22:29:40 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1795559381; x=1827095381;
+ h=date:from:to:cc:subject:message-id:references:
+ in-reply-to:mime-version;
+ bh=e46/a2ru0eFwK0y5CYHfv7gL+49xMduB7XcFIY4SGCc=;
+ b=bSRVSEwi74YsJC9sHbQSIQsCCDLmhxDMfBYTVD6QTRDdZIbb5L67hNB0
+ HzZyoPuAuMrO4jpMXy9nUQv9hq+CGcV8i8ipu2LMrxRJzqiH3jxc/sMS7
+ WXkfu+mR/tGGCSOYHq1Y1yVGkMbhwtqT6ycolNyT8hi5VenBkozcBycKE
+ qv026tdHmc/HtWv9MGsk+vC1Hqtx0qD7G660Nj6V1oNbSw2MzonLTJn5b
+ TQ88qj//Qgurw4MyFamQTXEeRsf8O0rDZCDJuw5GbVrLPygGa8AuUzNtB
+ hYvlMYz0QjRpMCo/+c6aFos5PGdiiB2TJ8C9umeJbZLzGaphx1cuVJ2Db A==;
+X-CSE-ConnectionGUID: 94FnHXF9Q3OLqeuoVAsHxg==
+X-CSE-MsgGUID: ZP/nOCz5SdyJlqiZyKsmIg==
+X-IronPort-AV: E=McAfee;i="6800,10657,11976"; a="4306957"
+X-IronPort-AV: E=Sophos;i="6.27,231,1787036400"; 
+   d="scan'208";a="4306957"
+Received: from fmviesa011.fm.intel.com ([10.60.135.151])
+ by fmvoesa104.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 24 Nov 2026 14:29:40 -0800
+X-CSE-ConnectionGUID: OY9pkUTFSTihsx/1kivRkg==
+X-CSE-MsgGUID: iXBmBqFqSRGFE3ErGq7HKw==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,231,1787036400"; d="scan'208";a="13475700"
+Received: from fmsmsx901.amr.corp.intel.com ([10.18.126.90])
+ by fmviesa011.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 24 Nov 2026 14:29:40 -0800
+Received: from FMSMSX903.amr.corp.intel.com (10.18.126.92) by
+ fmsmsx901.amr.corp.intel.com (10.18.126.90) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.57; Tue, 24 Nov 2026 14:29:39 -0800
+Received: from fmsedg902.ED.cps.intel.com (10.1.192.144) by
+ FMSMSX903.amr.corp.intel.com (10.18.126.92) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.57 via Frontend Transport; Tue, 24 Nov 2026 14:29:39 -0800
+Received: from CH5PR02CU005.outbound.protection.outlook.com (40.107.200.58) by
+ edgegateway.intel.com (192.55.55.82) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.57; Tue, 24 Nov 2026 14:29:39 -0800
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=q83ZvahGeiNedWC/Vlw4n13XpqTYX2BfsQU2fuSgX6yTXQ0RBiuBpovSq8r6qeWbWC81V9yS/9LPmjKD9FDQFqp870MfysRsxIXhyKdHyezP0q6//n4GlgdUVyRFKpZ4kZezdefb9F1jCvWKT/thtEaaPz8gh9rITyM2ydDrANcgTMpLdfhayFSjLaZSlEZS1blLosfSkHJj9nYafwDXg7DZQnbNSh3+mRfg9ZfqlSOrV18g/69JGc9EAdBXVj5j4p4riQzxeQRjPG3Nj/U6o1RHzo5/+0RDM6v1Sj3ALmosOVeBtVzj2KR81Wqxif8sCDhMMut+fYUru2GgUx3l1g==
+ b=xjhWDdU5dHFu7fky9scvO6Db8eEGjB+RnauKbYmRLx3gIcz7N0cjEWEawhTaxbhz/f5oWbrMCV1v9yTaCvX2a+TYLu+Pz099XrQC/VKUrmErOgKCk8k1tuAkK7aOh2KwGU1bPatk5FO+Z/8lVX38x1ZmrxmMPr/MBYwolRJCGSw1hXRpufiEnMCCHG16u5IW2cCV0tjh5n2l5XhJaF1SlBSCVPNbXLUR2T4GRRbhKXYdncOV5JYsIqpSC+uhNyt/s6vMeA4Rjxhcsijb0QNg+a9wjlGlgopq6FuB8iPG1JMNIynBGF0CiGtv0vN7AaVvWsMFz/Ib7jcZtLQSyS5Ykg==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=j+5nb7vthXd1Pw+e4F/mXoYokz+7XMy/Kws0XxLx7no=;
- b=MipEr27BqFEp9pG78G9skNEooAXAHVuEbN6p8IUOtdoDfXakPw1pWTEPFgaf4DQw+a5dUEzaU+9FFvVwWl4SdO1sJGGwMbGjt1Zl+ND3ICWh3enS2AsX2luhb5kg5Syr3nKMsKqYQmkY+sB/UhxqXyqdoottkYvZKNdk+RRjqOleP6NEeTPDex3q2R4UR6w43wT+0jjrc53O+M0D7UhNfA9YQpxUtq6nsa0ARvZiIEb2hZHr3tmGLVY3Z2fR4INxIH6hAECYOr8pTiulQ7MGjkoscosBFMKik4EKFHGroyPv2mWb6muO8yevoEmk4S7RvzpZOnYwvjUZo99z8RvL7g==
+ bh=fIBdspffYgQ4UFdwiux/xtk2t15pc3vU1vkHMB7E7do=;
+ b=try8B953JnnegNxpawOUJSLD5CQTWwIBjG4xlUb6R4aJLW7KB1NkhXhcuSuBnnRn3Xz9UBoMEqei3wn9UUv0NjJv5zz71pxCiuHKrmN+lzcaXIWOVxUs4FsxHrhTaBI3baaOGaFHcD6O8ZrImX61lrWCah4jTsQmsuGCd4Q9PtuQuu/qQYSpezvWOqvRyH22TyLmlQe5EY4Y7EiOIU08pNLzj+kukSoGeEAKhbT+FT8tPU+zxacRgm8oxZ7G0iF+TsPMIa3kCjQFQxz3+/noBzFm67G3zrmY69OTubEvApPMILu3Ry9E2eB/Hr7FsJ0yRs/HqcVCUoyLCkJNsjbX3g==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
- dkim=pass header.d=nvidia.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
- s=selector2;
+ smtp.mailfrom=intel.com; dmarc=pass action=none header.from=intel.com;
+ dkim=pass header.d=intel.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=intel.com; s=selector1;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=j+5nb7vthXd1Pw+e4F/mXoYokz+7XMy/Kws0XxLx7no=;
- b=NMxtoRm/3GINZe8AH6kbjqu55KuSwxxncD4YIlpVUASSiY9uFJtvTjEzhXRbqEgCufHHIjTdAX0fAjmqQ0u8U40hRw3OrFLkJFv5R4O33zwAqng/VuM8TA/gEaOB/cFk8JL7rN3hoHIVCAe7aLIMw0e30Xymgf/BHuaY+4v0OkJ4hPTxQ5cVIpI17Cqv7ZmChPigEFCTYW4729dqJZHlyabF4AvLY1qDZgfShRvh0A+PM+brF+z26r/nyFP999otuFdXncnVP0cCOCpW1ZSZAUDLhShb1y8/TRMuk5jyU3hvXRpr8zGfAD1JV7WX2RaIp54+Spipgi+sfa7fh0F2rw==
+ bh=fIBdspffYgQ4UFdwiux/xtk2t15pc3vU1vkHMB7E7do=;
+ b=WmnaBxBIv8PgTZAdmAk6HTclU2bnqboFpgBgf47haJotNsgdJw6b6zxHCDrdUfW4XmG/JroUDFeSyhyKBFMhxgwoghSA87XomYDY+RukiMTuOKFvoVCvmNcRM/gC1LJshHlv0H2ROQce9atr8GsRwOGuRXA3SDVLA1P0Rn5wy4s=
 Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=nvidia.com;
-Received: from SA3PR12MB598757.namprd12.prod.outlook.com
- (2603:10b6:806:52d::14) by SJ2PR12MB9085.namprd12.prod.outlook.com
- (2603:10b6:a03:564::10) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.639.13; Tue, 24 Nov
- 2026 22:29:16 +0000
-Received: from SA3PR12MB598757.namprd12.prod.outlook.com
- ([fe80::e206:100:5946:a777]) by SA3PR12MB598757.namprd12.prod.outlook.com
- ([fe80::e206:100:5946:a777%5]) with mapi id 15.21.0639.012; Tue, 24 Nov 2026
- 22:29:16 +0000
-Date: Wed, 25 Nov 2026 09:29:11 +1100
-From: Alistair Popple <apopple@nvidia.com>
-To: Karol Wachowski <karol.wachowski@linux.intel.com>
-Cc: dri-devel@lists.freedesktop.org, 
- Andrzej Kacprowski <andrzej.kacprowski@linux.intel.com>,
- Oded Gabbay <ogabbay@kernel.org>, 
- Jeff Hugo <jeff.hugo@oss.qualcomm.com>, dawid.osuchowski@linux.intel.com,
- christian.koenig@amd.com, sumit.semwal@linaro.org
-Subject: Re: [PATCH v2] accel/ivpu: Allocate a scatterlist per userptr
- dma-buf mapping
-Message-ID: <awYORn499MM8Cf78@nvdebian.thelocal>
-References: <20261123102644.627963-1-karol.wachowski@linux.intel.com>
+ header.d=none;dmarc=none action=none header.from=intel.com;
+Received: from CO1PR11MB4787.namprd11.prod.outlook.com (2603:10b6:303:95::23)
+ by CY8PR11MB7797.namprd11.prod.outlook.com (2603:10b6:930:76::21)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.662.4; Tue, 24 Nov
+ 2026 22:29:36 +0000
+Received: from CO1PR11MB4787.namprd11.prod.outlook.com
+ ([fe80::e7eb:a872:53d1:21fd]) by CO1PR11MB4787.namprd11.prod.outlook.com
+ ([fe80::e7eb:a872:53d1:21fd%4]) with mapi id 15.21.0639.012; Tue, 24 Nov 2026
+ 22:29:36 +0000
+Date: Tue, 24 Nov 2026 14:29:34 -0800
+From: Matthew Brost <matthew.brost@intel.com>
+To: Arvind Yadav <arvind.yadav@intel.com>
+CC: <intel-xe@lists.freedesktop.org>, <dri-devel@lists.freedesktop.org>,
+ <rodrigo.vivi@intel.com>, <himal.prasad.ghimiray@intel.com>,
+ <thomas.hellstrom@linux.intel.com>, <sanjay.kumar.yadav@intel.com>,
+ <tejas.upadhyay@intel.com>, <daniel.charles@intel.com>
+Subject: Re: [PATCH v3 0/3] drm/xe: Fix VM teardown and migration queue
+ recovery
+Message-ID: <awYPzpyv1A7siSAD@gsse-cloud1.jf.intel.com>
+References: <20261116062804.1242511-1-arvind.yadav@intel.com>
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20261123102644.627963-1-karol.wachowski@linux.intel.com>
-X-ClientProxiedBy: SY8PR01CA0002.ausprd01.prod.outlook.com
- (2603:10c6:10:29c::30) To SA3PR12MB598757.namprd12.prod.outlook.com
- (2603:10b6:806:52d::14)
+In-Reply-To: <20261116062804.1242511-1-arvind.yadav@intel.com>
+X-ClientProxiedBy: SJ0PR03CA0295.namprd03.prod.outlook.com
+ (2603:10b6:a03:39e::30) To CO1PR11MB4787.namprd11.prod.outlook.com
+ (2603:10b6:303:95::23)
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: SA3PR12MB598757:EE_|SJ2PR12MB9085:EE_
-X-MS-Office365-Filtering-Correlation-Id: 511ceb3c-0b4b-44ea-1894-08df4a7a5f9f
+X-MS-TrafficTypeDiagnostic: CO1PR11MB4787:EE_|CY8PR11MB7797:EE_
+X-MS-Office365-Filtering-Correlation-Id: 3e761001-72ed-4521-6d60-08df4a7a6bad
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
- ARA:13230040|1800799024|376014|23010399003|366016|22082099003|18002099003|261009223027099003|261026140227099003|11063799006|10067099003|56012099006|261026121527099003|261021121427099003|261022105027099003|261102123227099003|261102130727099003|261021123027099003|261022075727099003|261028144727099003;
-X-Microsoft-Antispam-Message-Info: DQzBGS5EhAvlwR1BQaACtAXnz4f4y4J4XOx8gYl6hAqGSeyXyHadeNGFj09uhYNHtordNtK9nK8sxq3IbStNN/R81ZjsxABgjj5NIRkALWcSN4kqS0GleTkH91bNYQmc+8BqqBQO4nf2zedgHCCqGxuF/pXGAu0cEi4WGH4LPMkTGVwIMZEFr6gW7REhvOxkG7FIFFqA34LSAwuuP2raMSjz/sLOaEA2x5Z2iLNSlFbwne4g8uwwZ0F5lJ//I8fFHDRR9QHjT6yYnGirTvwf0QbkwkLRkaLTWnxWbA/xKflLWxuzgZ2WLjmAMVYVpSZ1F31fvSgTUJad7mggTisCWfrjugKrqyvu+P1k6ITcuMN6OtJAeI/jDDKAmgk7EdjVVA9AFqpTfszsWG3Ev+XwJgJAl0k50z3311bJ2KKJ5e4IAH/YdzawMmnrY3x+70+iALWomAMaf2W2dKe9m5rF4X9FPk2LAtoyJIA2+fzFaQ3kEsqq5mcXULlHCdqF6D9aHcAM7OZDqSOTbU015nnbHoGpBpeFqaow5o8BTMYLXHzho6vQVL2+8j2kONl5fbhCzI8RUE0CKk9HsxnWQOJzmZtnjgFSkkVeUV5w+lLmHCuB3WpND+1Q/neNePRAoYdivUTUsRRMRufcoOPDjW0zWT974DDzH15y/yv92bWmM6A=
+ ARA:13230040|1800799024|23010399003|376014|366016|261009223027099003|18002099003|22082099003|56012099006|11063799006|261028144727099003|261102123227099003|261026140227099003|261026121527099003|261021123027099003|261021121427099003|261022075727099003|261022105027099003|10067099003;
+X-Microsoft-Antispam-Message-Info: 4/lN+qOohRg8I99zOsn46xIbL6hTf+UWhKsY7VJnA9Y4pxGm7bOV63Amk1ABWdixW5pzcHa9WwJRz/01Ln01TG97D+beNphP/iHfCOTDI4q86fMEbKEchf0XMAVE3Pv11i8JcU1VzF+3jDcZ6tfpfXAHuEs69phDN/GBgRNxFCw/TuHXwuXpG2847QUt3ZsDv292FSKyQ5e6RVr4/GHkmKG5HdcU2WeWRed4r0VPlYY3xTg5JJVmLdcMQTYthzBm0Bn7fFQiy+JL7Ocz4AkzCsQ2inKbuQHfjlHrynCLqTdTljQ09L+L/IL3dDwo9Pd381Eo70O62eGAIN5COtAsn/z0OYdEOAF0A1M1tUfqFx+mQoevo1Qw7Jg7aXIaTU8+IfDXtpwChj5jXJeM2H1Q7K0pZondVITSOKG2h4AJGj7lhLjf5vX0blK5Nf/00jy2igseqtNsbMf6x+Wasr7/M6AJTP0mOMJXHs4rGCeKyXxaHsvGjO07ge81/ZQ/CuetFFHKewO/GBcbSUwJj6RWSQeXmTwbZWWXtyfIDUvE9MstlK2fgBhU9UQXSzk/I8nFlDabz38DqzibeXZtCqgIr91SewZThvuso0ECHpY1yts=
 X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:SA3PR12MB598757.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(1800799024)(376014)(23010399003)(366016)(22082099003)(18002099003)(261009223027099003)(261026140227099003)(11063799006)(10067099003)(56012099006)(261026121527099003)(261021121427099003)(261022105027099003)(261102123227099003)(261102130727099003)(261021123027099003)(261022075727099003)(261028144727099003);
+ IPV:NLI; SFV:NSPM; H:CO1PR11MB4787.namprd11.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230040)(1800799024)(23010399003)(376014)(366016)(261009223027099003)(18002099003)(22082099003)(56012099006)(11063799006)(261028144727099003)(261102123227099003)(261026140227099003)(261026121527099003)(261021123027099003)(261021121427099003)(261022075727099003)(261022105027099003)(10067099003);
  DIR:OUT; SFP:1101; 
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?us-ascii?Q?05IsGNVLdA9/3yN9Gq3vd5y+lPEUoc4xXsOVmFWjcIXhD5T+toTX6QCRR9ok?=
- =?us-ascii?Q?P7FSIlRoyqO3xE4lC8GrIJ/rCAdKnD7h5BI6JM6jTK+dTbZjvn5YPjQQHAfj?=
- =?us-ascii?Q?cp1LdxL9vKk1D27z9DYOxH9t91aOGUwYKSjFPFUF9IW5QH/8UMLFL/FW84dZ?=
- =?us-ascii?Q?EvQz9qppc3e36LHJndeCF56yoRNdz/egqTO4BJHuEkT7N+4zcmXH5jsEPU/1?=
- =?us-ascii?Q?FUcT5yxO4IRlcsYQhKWTaxGfPeq+fZq0OPIvHPwRt+Y39o8QuUQxrTQGGiIY?=
- =?us-ascii?Q?woUid+XjqoFSQzQYCd6NMJZdTVc42QFR1dYYyxAQf26OBaz+henXDQCJ4FKa?=
- =?us-ascii?Q?1ClQ49LHdTalvXZrlxexg1VT+yqj5RNmVP0WCdzMZ5k/H66qj/ctgHHfqwwQ?=
- =?us-ascii?Q?UkBekN0GwY6m+nmq6vMpLeXm+xI2W1UzjYOujdu0gbVwpFmiD//0Ym+lWQsu?=
- =?us-ascii?Q?X+JHwdvqIoASK3lzIy6hJayIDrgLC5ouE8wIw82g7YxIHL8cTZH5sPvxl5zs?=
- =?us-ascii?Q?RgNfb7yEmpK80lVS3baLS/7zeg8r/7jK5jhofvZV5++tQ19gHYcxMku0twGG?=
- =?us-ascii?Q?tskSay/S1HJq3RVx/khZ66NeDglWS+xvn0s2rRSqZjYDKtxSYUalYZUEUdZd?=
- =?us-ascii?Q?c+PUw90TFpiyQvj2JxR+QZqakuRom4Rhk94vlHkdszyxifJ2TYarlDfp/vP/?=
- =?us-ascii?Q?oefZymTH95/tbByp61ErK8HWMz4Cd6ev5+g/cQoWi86ol2N15IclPRo9jTfy?=
- =?us-ascii?Q?sJXRjbzL1x9AxwqNAs4zVTA7vHBlxcZ5WLuBx7RE1bJgk9qORk9Fi8fRAYXo?=
- =?us-ascii?Q?9BMgZ4fxDmKD6Mb5hUgYPRLLeNGWOgZNsI7RknaxtItIVvcgZDP4f5A7K0F3?=
- =?us-ascii?Q?n31fRtYnUsqWxk8DQcRVyA3ykKulJ4wTq9tO053xTliwXkYZPH1rFUWMJkds?=
- =?us-ascii?Q?GvzCz84C72hyX7nzsPSbF+QpF68lmhwJq4GmTRUeLep4+80LiIHQg2I0+Eph?=
- =?us-ascii?Q?rcvkSuIbkcPav1LlNsYkyQhbtHENzfJEc37Z8pjVioGp0SHgl1biDjSjkK8B?=
- =?us-ascii?Q?zq9mblLao8q/YLfKmh/bSB7xLNeAkyDKnbqpdyZ0wLqu6YdVfMGlnSD/45pz?=
- =?us-ascii?Q?gWMppRVlz/kEQTvvGbYzOECy3Gr1dA/fOkshsIWwA0Dq4VChg3iTFM2kROJ+?=
- =?us-ascii?Q?VQs9jTjVh+lEIgQmKJmX0TJfAA/eVQstqjLipTjRzF4UsfmbMK5Ec4gdddbd?=
- =?us-ascii?Q?c0hCun02Hfg9aGObLhSvib0t7Qz/UokEHksQ2o8iswGp4vYY8E5DQlyQomtQ?=
- =?us-ascii?Q?VJPBvC4JXyBvVDKdNAErinPPJAp14c49JhV1XrkiCPdOi1BA4Pp3ZyuUfqxX?=
- =?us-ascii?Q?Pxpjf7JQqF+sLYUCkYEwkoshyJIZcWQknjkh+OCQHsOHUQWKsryIvvV1OZaV?=
- =?us-ascii?Q?/qL8WxksyaVOQ/Ngk3Pl1KNJzKCnFZfTnh3QR6gKp9qPlSd+Nm9n9uOkUDqP?=
- =?us-ascii?Q?X1UkXICd0qx+9XnBswAOHfm7pUoaLWko6m0v2atphD4aIs9LHBzLbzkuwkPP?=
- =?us-ascii?Q?BvCGu6S8dU8tdG12ixOLILw46O/IPC3X+yPvk/K4pr9DlRxQI/+xuVuGWjVF?=
- =?us-ascii?Q?rEujoJWUC5qEpMIMh8NVOWRZuz+cADjPFPAekWHB2BZvwttkx3Fdhsj3EHhD?=
- =?us-ascii?Q?yUhsyUmAZtbPiTGUOafC3knbVDzptjUCLQd7wj0CLJ3E4X7QgU01jQLv5BmN?=
- =?us-ascii?Q?dV66qWr8xQ=3D=3D?=
-X-OriginatorOrg: Nvidia.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 511ceb3c-0b4b-44ea-1894-08df4a7a5f9f
-X-MS-Exchange-CrossTenant-AuthSource: SA3PR12MB598757.namprd12.prod.outlook.com
+X-MS-Exchange-AntiSpam-MessageData-0: =?us-ascii?Q?333qZfAh8c/R8qo2gvuAlq8Ce11FN+hKNzJv3ismscVeuuKD5R2Fn6vQABbu?=
+ =?us-ascii?Q?KO8bFJLnICsFbjRZe84UMCGYmCtS4nQTnqgzRhSivGKLu/r2t7KydeJ7TgL+?=
+ =?us-ascii?Q?zQ2m2Bjupc19IxlAjY+6XyjErGWZtjPvVr91SCQymT5S/KLrM9fqJAxtLWaT?=
+ =?us-ascii?Q?uIhUVl79cXkRO+i3HTMiNYIsrbj/SMVV+QWcvcgvhCWHJNebzHKDSZilaPjj?=
+ =?us-ascii?Q?yoC9VeanTnF26DF3OLYp4KnTcALw0W7ux/+qL/C9aNshBOx9DbfGnU9yqqgP?=
+ =?us-ascii?Q?9GuXE5LK8oAHyHOhtU5hRC26PBiqgpf69j0JrMWfonqPBB/JseV35MPfKt4K?=
+ =?us-ascii?Q?/any/cOMzQCfI3ZRV9WFYm18DoR51eskSiMpk3Hdc08JRjhQhb/YdMYYVEXL?=
+ =?us-ascii?Q?Jj6Sr2vYtorNeOujXPrvfj8qFFG556C7EYzjmB8P/hMt3Dni+2W6anIWI+9L?=
+ =?us-ascii?Q?pKbbU6Ftwy76JIxS3u8pla6/ipI7u5ENplrEzxa9tnL7/UEpVssfQi38KSZl?=
+ =?us-ascii?Q?KigXvWv8AX2CBNv70e34dhvBV6Dy/lJSjXK7kGL3HpaW3uR41q9yVh+rdUqK?=
+ =?us-ascii?Q?WzVXO+IMDDtyisxz2BdFwGD/xE17JRFU/lUcJJaIo/C81YosAwnMtQjgNptS?=
+ =?us-ascii?Q?DJk4vhosWXnERYLiUdMhcDyeom/so2UlWR34wW2JBTfec/UWb3m/pSRtCvNe?=
+ =?us-ascii?Q?tjX3Z+AEr/xeSC2bxYUacbIM2W9lqjayg1b+VKRdjCN2zythOJgyb4oycCcg?=
+ =?us-ascii?Q?3UhNq3QwCqu9sf1CPtahkI/U01oGXJaTTeSrKnXxoitlPgNp7/614ZsOUR1q?=
+ =?us-ascii?Q?1uKsVG4TJFvJ4wy00bfFO9Qe2xzG4pQMWTNbh/RuwWSIbRPLdZ17vPdHMRsV?=
+ =?us-ascii?Q?hlqrS/HXjp0jeb8ZU0/nz7WcN8Q/1Vb9aAlSvqmq6TNQSs6qYR2UGz/9KGcb?=
+ =?us-ascii?Q?TpX7jGho/IHtQJFmK+1ZA23J9P/P9vLmxKzkqLixb94t+z/e1SvER2671auc?=
+ =?us-ascii?Q?9wA782lnXeodcJ/ek7ePODxRl0EWoK9I7JjFiz6sRg6o51B7IUSeQLihMCaY?=
+ =?us-ascii?Q?pwGWgeeQXb8u51kzjlviCKNQiCOM0T46scZckWfTKVYpysG+doTCoacpRsKi?=
+ =?us-ascii?Q?cvNKycFDICEmAmlQYaj4ywwa6ESDBmJYB6dyvUKBwxiEhPkKFcp5ffzfUwQn?=
+ =?us-ascii?Q?OL4W0/TsrqiuhOh5UjcnT5Kd8xWeOK9RPjvwmg1WhcZwIGRQ3kbSKmGLGzHI?=
+ =?us-ascii?Q?xxhyYtPSdDrdRcqEl42XriuHZBQMGaURoBJ3uLAI4+vX9lMf3/jzE3xfcjU3?=
+ =?us-ascii?Q?VWYYfJTosTq1wE4DrOEmW6FG27LudLoKK8/rpD/BAn8SUvhlRbNhoQIKb9UE?=
+ =?us-ascii?Q?7mzW+hFTc1R/wsjb6UWUr+jF3psHfwhkCID7m4k378bmM2FJrtWSQj6wjH7U?=
+ =?us-ascii?Q?GvIIz0xieELV/Mlq5PH9WIVCfPUcqJSDaN1gYp3lnpljfHW9VAgw4CyytFD4?=
+ =?us-ascii?Q?N5QqK9Xm/CpmOaXOox1cePr5i0SpjFzAIphEcAW6NWLM1HSoNACTJ46sV6ew?=
+ =?us-ascii?Q?9UEoduknJZ3vvuUOQ+fO4oUdMeBNWHJDq5gatE3zxqsid9XgI+9o0m8EeAE1?=
+ =?us-ascii?Q?noatBVmkKYJ5jM7mw5kWSH5xF8WYP9liduIlvJMkyGGB4WOvt1GmjP8CpUZD?=
+ =?us-ascii?Q?oxktIL/mzhUTsX5Tb8+OYSSFJ/H66+71/MOK4Fy7OELUZxMoq/tj21LUYztx?=
+ =?us-ascii?Q?of5G5/zIt3xvQCme3wgi1Av/oBokCgU=3D?=
+X-Exchange-RoutingPolicyChecked: AYwH6JkGk8V6EjvfwWnOFVAGfDsIMXw5HtnOBaSefxKjL3Rz9twsFs2jC6VB5tolxAN96AgCJQvoBleEaE9q6xoL56BzABjDhqG5hIoTgHaY32tX8P92FW7hXIOjUZOcZpG7lIYJl6700sTng/5zUI+C2da9iRV3Vg9MoxtTq7O4sNm38cx1fD5rJ/B1XrjY3IH3ypRz6YVhqCnke5qYP9u024dq9BMGhkcCn8XGsjcA3TXClUk/wuT7Z2+75e1H5Uv2io5opPObWuLiA53jiLUaX+UGsDIFu7e+MhffOgQnGYaKfdxHr9XI1Ew+0I4z8bYwxLAPIUjCkJV0jnCknQ==
+X-MS-Exchange-CrossTenant-Network-Message-Id: 3e761001-72ed-4521-6d60-08df4a7a6bad
+X-MS-Exchange-CrossTenant-AuthSource: CO1PR11MB4787.namprd11.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 24 Nov 2026 22:29:16.2960 (UTC)
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 24 Nov 2026 22:29:36.4960 (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
+X-MS-Exchange-CrossTenant-Id: 46c98d88-e344-4ed4-8496-4ed7712e255d
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: e0UqrWG1WI5LbIU9aWGCoA8cDH2Y0J7DeLRjaOZyrFkWghxr3Lu48NwqNv8d23px4nFtyInVPTnfTYT3kou77w==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SJ2PR12MB9085
+X-MS-Exchange-CrossTenant-UserPrincipalName: yLuW85v88sXiqNVhO0LEaNDrce+q1zM5iWceNCAYOVErSFCz9TOe08FFm5LStV/Yc67/nK4xrdPnYMQqPSAQkA==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: CY8PR11MB7797
+X-OriginatorOrg: intel.com
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -123,181 +161,88 @@ List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-15.8 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
+X-Spam-Status: No, score=-10.8 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
 	DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
-	INCLUDES_CR_TRAILER,INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,
-	SPF_PASS autolearn=ham autolearn_force=no version=4.0.1
+	INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS
+	autolearn=unavailable autolearn_force=no version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-On 2026-11-23 at 21:26 +1100, Karol Wachowski <karol.wachowski@linux.intel.com> wrote...
-> The userptr dma-buf DMA maps the same sg_table on every map_dma_buf(),
-> so a second mapping would overwrite the DMA addresses of the first one.
-> It only works today because ivpu is the only importer.
+On Mon, Nov 16, 2026 at 11:58:01AM +0530, Arvind Yadav wrote:
+> Exec queue destruction is asynchronous, and user queues can outlive
+> the VM handle. Closing the VM before those queues finish cleanup can
+> remove mappings that are still in use.
 > 
-> Build a new sg_table from the pinned pages on each map instead.
+> This series marks the VM as closing to reject new work, then keeps
+> its mappings until the tracked queues are freed. It also holds a
+> device reference across final VM destruction.
 > 
-> Fixes: 57557964b582 ("accel/ivpu: Add support for userptr buffer objects")
-> Signed-off-by: Karol Wachowski <karol.wachowski@linux.intel.com>
-> ---
+> File close keeps the existing synchronous scheduling-disable wait.
+> There is no additional wait for the queue count to reach zero.
+> If tracked queues remain, VM close is deferred until their cleanup
+> completes.
 > 
-> Notes:
->     v2:
->     - Use the correct upstream sha in the Fixes: tag (Sashiko).
->     - v1: https://lore.kernel.org/r/20261123085935.623564-1-karol.wachowski@linux.intel.com
+> User bind jobs are allowed to drain during file close and queue
+> destroy. The VM-owned bind queue is not counted and remains alive
+> until xe_vm_close() has waited for pending BOOKKEEP fences.
 > 
->     Alistair, your DMA-buf mapping types series [1] noted this as a
->     pre-existing issue in "[PATCH v3 15/24] accel/ivpu: Convert the userptr
->     exporter to the SGT mapping type" [2]. With this patch applied first,
->     ivpu becomes an exporter that allocates a table per map, so its
->     conversion reduces to the same pattern as "[PATCH v3 07/24] dma-buf:
->     Convert exporters allocating a table per map to the SGT mapping type"
->     (e.g. amdxdna_ubuf), without the shared header copy.
+> This series is based on the FD close cleanup changes in [1].
+> 
+> [1] https://patchwork.freedesktop.org/series/175996/
+> 
+> Changes in v2:
 
-Yes, thanks for fixing this. I was avoiding going down too many different rabbit
-holes at once, but this looks reasonable.
+Why is this series needed after [1]?
 
-Reviewed-by: Alistair Popple <apopple@nvidia.com>
+Sure a user can close a VM while queues are active but that is largely a
+user space bug that I don't think we really need to worry about.
 
->     [1] https://lore.kernel.org/r/20261120-dma_mapping_type_v4-v3-0-c0183a409bdf@nvidia.com
->     [2] https://lore.kernel.org/r/20261120-dma_mapping_type_v4-v3-15-c0183a409bdf@nvidia.com
+[1] is a FD close (ctrl-c, segfault, i.e., somewhat normal flows).
+
+Matt 
+
+> - Reduce the series to four patches following review.
+> - Run deferred VM close and final VM destruction on the
+>   module-lifetime destroy workqueue.
+> - Use a shared queue-wait budget during file close and defer teardown
+>   when queues remain.
 > 
->  drivers/accel/ivpu/ivpu_gem_userptr.c | 65 ++++++++++++++++-----------
->  1 file changed, 38 insertions(+), 27 deletions(-)
+> Changes in v3:
+> - Rebase on the "FD close cleanup for XE" series and reduce this series
+>   to three patches.
+> - Move the module-lifetime workqueue change into patch 1 to avoid
+>   self-deadlock when the worker drops the last device reference.
+> - Check VM state before acknowledging cached faults and hold vm->lock
+>   through successful reply submission.
+> - Preserve the original fault details for errors detected before
+>   acknowledgment and report failed prefetches.
+> - Reject exec requests on closing VMs before userptr pinning,
+>   out-sync signaling and rebind.
+> - Use zero wait on file close and document that internal bind queue
+>   cleanup can also defer VM teardown.
+> - Let user bind jobs drain in the exec queue destroy ioctl.
+> - Count user bind queues under vm->lock before VM close can proceed.
+> - Track whether a user bind queue owns a close count and balance it
+>   during final queue destruction.
+> - Make xe_vm_kill_bind_queues() static and remove the unused wait header.
 > 
-> diff --git a/drivers/accel/ivpu/ivpu_gem_userptr.c b/drivers/accel/ivpu/ivpu_gem_userptr.c
-> index 7cbf3a4cdc73..cfb2894b572d 100644
-> --- a/drivers/accel/ivpu/ivpu_gem_userptr.c
-> +++ b/drivers/accel/ivpu/ivpu_gem_userptr.c
-> @@ -19,18 +19,39 @@
->  #include "ivpu_drv.h"
->  #include "ivpu_gem.h"
->  
-> +struct ivpu_userptr {
-> +	struct page **pages;
-> +	unsigned long nr_pages;
-> +};
-> +
->  static struct sg_table *
->  ivpu_gem_userptr_dmabuf_map(struct dma_buf_attachment *attachment,
->  			    enum dma_data_direction direction)
->  {
-> -	struct sg_table *sgt = attachment->dmabuf->priv;
-> +	struct ivpu_userptr *userptr = attachment->dmabuf->priv;
-> +	struct sg_table *sgt;
->  	int ret;
->  
-> +	sgt = kmalloc_obj(*sgt);
-> +	if (!sgt)
-> +		return ERR_PTR(-ENOMEM);
-> +
-> +	ret = sg_alloc_table_from_pages(sgt, userptr->pages, userptr->nr_pages, 0,
-> +					attachment->dmabuf->size, GFP_KERNEL);
-> +	if (ret)
-> +		goto free_sgt;
-> +
->  	ret = dma_map_sgtable(attachment->dev, sgt, direction, DMA_ATTR_SKIP_CPU_SYNC);
->  	if (ret)
-> -		return ERR_PTR(ret);
-> +		goto free_table;
->  
->  	return sgt;
-> +
-> +free_table:
-> +	sg_free_table(sgt);
-> +free_sgt:
-> +	kfree(sgt);
-> +	return ERR_PTR(ret);
->  }
->  
->  static void ivpu_gem_userptr_dmabuf_unmap(struct dma_buf_attachment *attachment,
-> @@ -38,21 +59,17 @@ static void ivpu_gem_userptr_dmabuf_unmap(struct dma_buf_attachment *attachment,
->  					  enum dma_data_direction direction)
->  {
->  	dma_unmap_sgtable(attachment->dev, sgt, direction, DMA_ATTR_SKIP_CPU_SYNC);
-> +	sg_free_table(sgt);
-> +	kfree(sgt);
->  }
->  
->  static void ivpu_gem_userptr_dmabuf_release(struct dma_buf *dma_buf)
->  {
-> -	struct sg_table *sgt = dma_buf->priv;
-> -	struct sg_page_iter page_iter;
-> -	struct page *page;
-> -
-> -	for_each_sgtable_page(sgt, &page_iter, 0) {
-> -		page = sg_page_iter_page(&page_iter);
-> -		unpin_user_page(page);
-> -	}
-> +	struct ivpu_userptr *userptr = dma_buf->priv;
->  
-> -	sg_free_table(sgt);
-> -	kfree(sgt);
-> +	unpin_user_pages(userptr->pages, userptr->nr_pages);
-> +	kvfree(userptr->pages);
-> +	kfree(userptr);
->  }
->  
->  static const struct dma_buf_ops ivpu_gem_userptr_dmabuf_ops = {
-> @@ -67,7 +84,7 @@ ivpu_create_userptr_dmabuf(struct ivpu_device *vdev, void __user *user_ptr,
->  {
->  	struct dma_buf_export_info exp_info = {};
->  	struct dma_buf *dma_buf;
-> -	struct sg_table *sgt;
-> +	struct ivpu_userptr *userptr;
->  	struct page **pages;
->  	unsigned long nr_pages = size >> PAGE_SHIFT;
->  	unsigned int gup_flags = FOLL_LONGTERM;
-> @@ -94,39 +111,33 @@ ivpu_create_userptr_dmabuf(struct ivpu_device *vdev, void __user *user_ptr,
->  		goto unpin_pages;
->  	}
->  
-> -	sgt = kmalloc_obj(*sgt);
-> -	if (!sgt) {
-> +	userptr = kmalloc_obj(*userptr);
-> +	if (!userptr) {
->  		ret = -ENOMEM;
->  		goto unpin_pages;
->  	}
->  
-> -	ret = sg_alloc_table_from_pages(sgt, pages, nr_pages, 0, size, GFP_KERNEL);
-> -	if (ret) {
-> -		ivpu_dbg(vdev, IOCTL, "Failed to create sg table: %d\n", ret);
-> -		goto free_sgt;
-> -	}
-> +	userptr->pages = pages;
-> +	userptr->nr_pages = nr_pages;
->  
->  	exp_info.exp_name = "ivpu_userptr_dmabuf";
->  	exp_info.owner = THIS_MODULE;
->  	exp_info.ops = &ivpu_gem_userptr_dmabuf_ops;
->  	exp_info.size = size;
->  	exp_info.flags = O_RDWR | O_CLOEXEC;
-> -	exp_info.priv = sgt;
-> +	exp_info.priv = userptr;
->  
->  	dma_buf = dma_buf_export(&exp_info);
->  	if (IS_ERR(dma_buf)) {
->  		ret = PTR_ERR(dma_buf);
->  		ivpu_dbg(vdev, IOCTL, "Failed to export userptr dma-buf: %d\n", ret);
-> -		goto free_sg_table;
-> +		goto free_userptr;
->  	}
->  
-> -	kvfree(pages);
->  	return dma_buf;
->  
-> -free_sg_table:
-> -	sg_free_table(sgt);
-> -free_sgt:
-> -	kfree(sgt);
-> +free_userptr:
-> +	kfree(userptr);
->  unpin_pages:
->  	for (i = 0; i < pinned; i++)
->  		unpin_user_page(pages[i]);
+> Arvind Yadav (3):
+>   drm/xe: Hold a device reference across deferred VM destruction
+>   drm/xe: Mark VMs as closing before queue cleanup
+>   drm/xe: Defer VM teardown until exec queue cleanup completes
 > 
-> base-commit: 5ffdc8f8361387a1b11553e5c95cd589c67a51f2
+>  drivers/gpu/drm/xe/xe_device.c           |  26 ++-
+>  drivers/gpu/drm/xe/xe_exec.c             |   9 ++
+>  drivers/gpu/drm/xe/xe_exec_queue.c       |  39 ++++-
+>  drivers/gpu/drm/xe/xe_exec_queue_types.h |  11 ++
+>  drivers/gpu/drm/xe/xe_pagefault.c        |  87 +++++++++--
+>  drivers/gpu/drm/xe/xe_svm.c              |   3 +-
+>  drivers/gpu/drm/xe/xe_vm.c               | 191 ++++++++++++++++++++---
+>  drivers/gpu/drm/xe/xe_vm.h               |  13 +-
+>  drivers/gpu/drm/xe/xe_vm_types.h         |  17 ++
+>  drivers/gpu/drm/xe/xe_wait_user_fence.c  |   5 +
+>  10 files changed, 355 insertions(+), 46 deletions(-)
+> 
 > -- 
 > 2.43.0
 > 
