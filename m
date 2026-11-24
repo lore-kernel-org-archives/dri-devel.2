@@ -2,104 +2,101 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 67A24606A31E
-	for <dri-devel@archiver.kernel.org>; Tue, 24 Nov 2026 18:39:43 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AADE2606A31E
+	for <dri-devel@archiver.kernel.org>; Tue, 24 Nov 2026 18:40:24 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=amd.com header.i=@amd.com header.a=rsa-sha256 header.s=selector1 header.b=MvApR0Ub
+	dkim=pass (2048-bit key) header.d=fooishbar.org header.i=@fooishbar.org header.a=rsa-sha256 header.s=google header.b=Yeic/bHI
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 82A1F10F7E3;
-	Tue, 24 Nov 2026 18:39:37 +0000 (UTC)
-Received: from SA9PR02CU001.outbound.protection.outlook.com
- (mail-southcentralusazon11013019.outbound.protection.outlook.com
- [40.93.196.19])
- by gabe.freedesktop.org (Postfix) with ESMTPS id AE22710F7E3
- for <dri-devel@lists.freedesktop.org>; Tue, 24 Nov 2026 18:39:30 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=XMQD8Cj9FipJCZEwtBRkLIts9DCpUzjXfGfhQBVcRo8bE6aLqLq1/KfO4i4ZOAKY3tyrpOz7Elk9VA9/3vyWjYHrdmkyRQyqepABXj5cMuTK7uqzkBwfqm3DTG/owDB5RSJKIuVbxtDISq5AsQr9hufB5xjboXyIx2aIfTsW6nt1SitAzp3i9gvJkNuwbShg27CmQ7gOH5EhgD+XvuM6EkgbuCqEgQtPfiqVI8tLjjw74S9B6FT2pl7pJC+s+wW72h2p7hhSQJA377tbVBF0Rm+mqndv1INt+48vEUiBXdClE/Pf8dBbJ5Eewl5QALBCxkaxhaddqjR6EB/u5nXhyg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=bgy5XjjkALoDzFe+PXNnhgyb98yMo1dw4iQi3LTBzl4=;
- b=n1zvlfTnLWBpRfkkQX5SIeb0/0OJbPT674DgYMYNGMrUPrgo9HBFbWj5ommtPN4+6ut9zIBX9M4fbhIC6gMFp3Ef+w1VTDqfVmm40rEu5aCEWsT09cBFSpnq2tMEZVEkMIw6zACFAxccHIFHcJYAYDdoyJ1PmBUPZfFOMJ070JJFGfiwC/X553ZREFJ0HBlimVOUkCYy+RfwFA1ETlOQ4NUClVTm0W7jhcDz38AJ3MIY5e0m7/OTr+g0s7DXxsmk6GCa+stNuvEUva2g7iZWM8hcMq37WFkZ1CGKoAJmyEzXIv3QPnW/HxIFWTYRwCf0D5zGXtw9BkgXGExIW1Widw==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=kernel.org smtp.mailfrom=amd.com; dmarc=pass
- (p=quarantine sp=quarantine pct=100) action=none header.from=amd.com;
- dkim=none (message not signed); arc=none (0)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=bgy5XjjkALoDzFe+PXNnhgyb98yMo1dw4iQi3LTBzl4=;
- b=MvApR0Ub+rizmBWwIBg568biSHBHt9oS3z+S8DnvOHXhNBqA0SFz1hdQERSaYqRrVnm68bwhRz6BydLCXt7/Q9JrKUPfm1ZHyrFqS6Zrb77LXl+W45zP24krUFI8FkN/xizNVPf9f6E9io5UqPOqRaIkeQ/A7YKiOgCXpxxA5CY=
-Received: from BN0PR02CA0015.namprd02.prod.outlook.com (2603:10b6:408:e4::20)
- by CY8PR12MB7268.namprd12.prod.outlook.com (2603:10b6:930:54::20)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.639.14; Tue, 24 Nov
- 2026 18:39:24 +0000
-Received: from BN3PEPF00022BC8.namprd05.prod.outlook.com
- (2603:10b6:408:e4:cafe::43) by BN0PR02CA0015.outlook.office365.com
- (2603:10b6:408:e4::20) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.21.662.5 via Frontend Transport; Tue, 24
- Nov 2026 18:39:23 +0000
-X-MS-Exchange-Authentication-Results: mx.microsoft.com 1; spf=pass (sender IP
- is 165.204.84.17) smtp.mailfrom=amd.com;
- dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=amd.com;
-Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
- 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=satlexmb08.amd.com; pr=C
-Received: from satlexmb08.amd.com (165.204.84.17) by
- BN3PEPF00022BC8.mail.protection.outlook.com (10.167.248.214) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.662.3 via Frontend Transport; Tue, 24 Nov 2026 18:39:23 +0000
-Received: from satlexmb10.amd.com (10.181.42.219) by satlexmb08.amd.com
- (10.181.42.217) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.57; Tue, 24 Nov
- 2026 12:39:22 -0600
-Received: from satlexmb08.amd.com (10.181.42.217) by satlexmb10.amd.com
- (10.181.42.219) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.57; Tue, 24 Nov
- 2026 12:39:22 -0600
-Received: from xsjlizhih51.xilinx.com (10.180.168.240) by satlexmb08.amd.com
- (10.181.42.217) with Microsoft SMTP Server id 15.2.2562.57 via Frontend
- Transport; Tue, 24 Nov 2026 12:39:21 -0600
-From: Lizhi Hou <lizhi.hou@amd.com>
-To: <ogabbay@kernel.org>, <quic_jhugo@quicinc.com>,
- <dri-devel@lists.freedesktop.org>, <mario.limonciello@amd.com>,
- <karol.wachowski@linux.intel.com>, <max.zhen@amd.com>
-CC: Lizhi Hou <lizhi.hou@amd.com>, <linux-kernel@vger.kernel.org>,
- <sonal.santan@amd.com>
-Subject: [PATCH V1] accel/amdxdna: Reject zero length user buffer entry
-Date: Tue, 24 Nov 2026 10:39:14 -0800
-Message-ID: <20261124183914.1955667-1-lizhi.hou@amd.com>
-X-Mailer: git-send-email 2.34.1
+	by gabe.freedesktop.org (Postfix) with ESMTP id BEB0510F84F;
+	Tue, 24 Nov 2026 18:40:18 +0000 (UTC)
+Received: from mail-pf1-f176.google.com (mail-pf1-f176.google.com
+ [209.85.210.176])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 8B75410F84F
+ for <dri-devel@lists.freedesktop.org>; Tue, 24 Nov 2026 18:40:12 +0000 (UTC)
+Received: by mail-pf1-f176.google.com with SMTP id
+ d2e1a72fcca58-8b5e5e64494so2535508b3a.1
+ for <dri-devel@lists.freedesktop.org>; Tue, 24 Nov 2026 10:40:12 -0800 (PST)
+ARC-Seal: i=1; a=rsa-sha256; t=1795545612; cv=none;
+ d=google.com; s=arc-20260327;
+ b=Gp3maNw9H7xxy8T9M/Ot+pq+qGns+rhRhNrJyjIPKKJJZiicaSeU9rbbL1YWq2U5tD
+ Xur0LiLAkxNWa1swCSZJeHV1DDtGzX4ncm0VyCsllaPokKHaFr/aL97S7j5HS9EDz9gT
+ Z+hYijjEvOm0iFklFg4YPXXpjbW8I0qftyzkkRWShl0s7Q9NnZbn1+O3HUz4ELdUJXPm
+ anS+mj81N6S1ekGF4JYD1b+czWtbTch5Fb33saZVIbmBpQbKC+tBWeoBkSdh3S5o8sO8
+ NDjbwALhygs6DOlkF2R0BtnwZWixudd/IlFP5Cm/t5SNw4nvl+8ts7Mrq3ICIJ1w7Y49
+ YSfg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com;
+ s=arc-20260327; 
+ h=cc:to:subject:message-id:date:from:in-reply-to:references
+ :mime-version:dkim-signature;
+ bh=3cr3soCs/aH4Auc5veUlCs6H08qDugqKnqtBUy6DKyY=;
+ fh=HHMO12g0G7ZprpjCCNffzmVO8f93EcoxePuTtLzIyFU=;
+ b=UJe3zRD6amWZjAfTTERuhzLAWc+0M8040KF9Ta0NKPnfo9t/hI3CtgCkWKPmy6bsOy
+ XSCjoST38lW7oazXRf+YAZ/8AK+/t3xBy61pzgGyJq7feFqLZ6mtRzq3fa4BxTatJ+85
+ moMJ51BiuKBR7c3GlGdAbR4TZIBQUW3IKaGBSYG1Wj0gp87bbT77z/HJ+GcxYnzNpnJN
+ zHICVnopSOIRWskdLRJSniMM4h0tKOP3uO66ufongRGaO447uKHWBcuui68U8IMRu4k3
+ 3Y1q2RAtUAKbtlin1mLNnAbO4zQBGvANMWmf2jI/tB5SAnZ/rqLAUpTill9NP/V6tXaO
+ DwmQ==; darn=lists.freedesktop.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=fooishbar.org; s=google; t=1795545612; x=1796150412;
+ darn=lists.freedesktop.org; 
+ h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+ :references:mime-version:from:to:cc:subject:date:message-id:reply-to
+ :content-type; bh=3cr3soCs/aH4Auc5veUlCs6H08qDugqKnqtBUy6DKyY=;
+ b=Yeic/bHIz3W+gXio5nssxoCXJOwca/RMFHNCCqLwE7M0KxDef7PB8eSR91IfSDjD09
+ M8VUoTExrlAuIvUlYeIkJiGqZSytkF57HNRZxVTfVQkZh/2xU8H4Ph5c5es3rDKw8QEs
+ OXjyQRRLbv/w/RlP58vMPLpSiMaygYyEJ45BufTO0+zjiEG1uF2ZPJNQELzruUueszUI
+ dOOyN98U3kQFfwSmx3mKfwN/B1wswvoUVYv/g8nm9ckZW4iWJJaAYc0wpm2kdGc8g+O1
+ t7xrDCRhf4iV1XerzMJmTM4ZxZzqij/hcUALjQyPwZRgsyABfYU8nU70jFKBA6zKRkT4
+ 3WFw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20260707; t=1795545612; x=1796150412;
+ h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+ :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
+ :subject:date:message-id:reply-to:content-type;
+ bh=3cr3soCs/aH4Auc5veUlCs6H08qDugqKnqtBUy6DKyY=;
+ b=pLTJXYRGKaQCgXRWcF7OJQ9HNl+mWi21ent8NmF8vJW2XU86UWAloVvDcN7fzP18eY
+ ym4LCz0TzogeDY89nIhSuF+SS2DjYJbgeuyTN5YmVtE0QmjdfpfXxtLM3XU7bNyUlbgZ
+ FEOQ5+wAaXxr9kdfC6DLJ0hsVHPyDeksWf4/WIBWEje9eRDpqMLqrg2SjN8R6ZZ9+L9j
+ whrkrApzPwOM4PYYVAeqGQoZzpZ+NGOIYjY2fP5Gfd3Mv3SrKmlulR86cmVcmgbY1dpA
+ evgKgfZsbAXiuy07bM/mI0fXzv9/xHkk0cubu2GxvJa3BXncJZz/yqYeFI0y/10avfIP
+ LS4Q==
+X-Forwarded-Encrypted: i=1;
+ AL+hErHiPsS5SwjagoBX3tTGvtZ2XBiJzu4z8ZIe3hsyVKdDi+Pxr9uGAkLRQirOFfzG7KdHMX8HrHVk180=@lists.freedesktop.org
+X-Gm-Message-State: APuU4Z8Uu4irxb/69UVG4ay/Jbvq41nSdQwVFW+Syo7B9Ug6SDsNUkWt
+ HCcAxQXl9hmR3PK4k9NDL82UXdP7UjzD2eKXbVJaewSTsNxX+zLgicAg8ldjjIZjOGkWotvzlLY
+ +kkhZ18wMobl7uaJZxrwIl/VcMMZde1m1NaqK3pWhSw==
+X-Gm-Gg: AZFdTZefjKAjMj0ZZkHb/PSUc+X7VUEfYxS8/L5yHNZwq61JVGtWOh7rtowpsDIiC7m
+ xX+OGjvec55D7KEZLvxmbEnq5hdGx/kUc9N0BLhR//7v9YXsjTFC/tDVJ+XS0WRbnc/ue7tZZ8I
+ P/ogrcU+RYPGX7Zi5kp5uAzq6ezOMEpwXauebykuWaOsilHqPMF+nuGY9EB1lfEcGBTkdUzjiz6
+ SDdXOp5uI+fV+C3WaustjWELamDKe1rh2gNjrk2xZkaVGXpiHJID6OMjGvRAwTanKJLtyCjCcjy
+ g9jn8NsF/b2Nw/9zZUVSE9GYtU4b6c+j3PFp83kWMclU3UDaYDTEC6aLt5kxx4/H859eCbjpv7P
+ QTH2gaxLSsP4FBF9CRlQ/Sr2vdY6P2SeDlDZk
+X-Received: by 2002:a05:6a21:3e04:b0:3d3:ae40:51e6 with SMTP id
+ adf61e73a8af0-4014bb52da7mr14240670637.26.1795545611912; Tue, 24 Nov 2026
+ 10:40:11 -0800 (PST)
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: BN3PEPF00022BC8:EE_|CY8PR12MB7268:EE_
-X-MS-Office365-Filtering-Correlation-Id: f80c4618-9372-40a4-11ab-08df4a5a425f
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
- ARA:13230040|82310400026|1800799024|376014|36860700016|23010399003|18002099003|261009223027099003|11063799006|10067099003|56012099006|261021121427099003|261102123227099003|261021123027099003;
-X-Microsoft-Antispam-Message-Info: cEIF4q42qJRsGSlHYL0QvjXSI1a8wDRDhkzy6CQDFZ7pXz5NyqiaGu9OFR4i8TLiZAVVyOGkbC/4PiMdeagTjIJ4XDnpZRv1mgYl2EdtX9YiZq7qtjgCi5IvGBW2tb9jyr8NgXwtukbVt2fHxbSLdw8E4uLe6Ziq7285hTCWX5z4svEGPfkBokslEfBmSpyi2uS5oOHkaiHakePpHN2IPNuDAvYOkdHoYoHFJM9qo8ZnW5UNub5u5V4DcF/6BDRrhLTQzpR75gMquGquWUiyfG/Lnk7vun0fSds72MYnhKRrujkADKI5dCpkcTwMe70gvJshjpLNxLFlOwqI6XCbax9QIERqYfRMm3NBD0bcETm2wy56wtSF5kSvXrDsHyDURfWLlhcqvLCB544LMK0TGJkH8fYK033t5eI8Fj13eHKOLM1jbudnnM4APWjWfHEgZcXWeKfctAsCfrEGGX4WTgXboYOZBd0+apNyWHmdAuY7oKk/Mo9GvpNRCx3IjZbDJwFiRocXB2aMR9hG0W3sdsrJGSmN52nFG66R/1bGxu+TvBpDy+a3bql/rFqjtPb6aYlHr/5B4FK5AKbvPmGdalQEXXuV2n90lynExhb9DY/IXDCvhKYZBqr/+jliGpCEoZIi4g+AVgJiE0NbyfYBrDbkZz857tdJHfMlYtqpMYndM65N+71n3RyNfr2elhERg9qrUIoOloKQUM+Yvhc3KQ==
-X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:satlexmb08.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230040)(82310400026)(1800799024)(376014)(36860700016)(23010399003)(18002099003)(261009223027099003)(11063799006)(10067099003)(56012099006)(261021121427099003)(261102123227099003)(261021123027099003);
- DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: /98ySDW11dQzBCpqoIYhH27k5WicQf8DXkf5ll1Lb65iAXxMHLW739jf14k22et7xY54hEeRmTy3HleFyuAXHI9qKaa66m7rWgwxW6HTynDQKCMNV0KdyfqsXNMzeKV0Fg/i0PFjq9uEsekpgcG/OeqHhHj5dPBfy5iPAdW+8EIDed8K1vIz5f+PciqvJUC+VhzKNdTk9Qag3kwklRH7OnPS2I2vUK6VGxzLiLhtlwuCy3t6GHfrR+W2Z0GWTg1h65zrLueT0spQxFR8TGOr7EMKQ9L1DIYtN5ANIlo9wVuk2cOw/Sw5OZUQzhVa4mr8jBMGPT9I91YEh6qyv9q8gKwodYym5vgTJpZLqR8Csq1Pobcz3Sj78VsYcUUko6wDsEXllv5xDvo5OpOag2kmqIJfM24DYuwxGLspo97TF3TwG4bhEQ7tt56F2CyFJf5d
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 24 Nov 2026 18:39:23.0359 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: f80c4618-9372-40a4-11ab-08df4a5a425f
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
- Helo=[satlexmb08.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: BN3PEPF00022BC8.namprd05.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: CY8PR12MB7268
+References: <20260714114414.184512-1-angelogioacchino.delregno@collabora.com>
+ <20260714114414.184512-34-angelogioacchino.delregno@collabora.com>
+ <CAPj87rO9saEC34+5NiYK8xyZiNytrVgOcszoY5uc7BpL=M4WTg@mail.gmail.com>
+ <14a4f698-8739-45c6-8904-496ac61e73c9@collabora.com>
+In-Reply-To: <14a4f698-8739-45c6-8904-496ac61e73c9@collabora.com>
+From: Daniel Stone <daniel@fooishbar.org>
+Date: Tue, 24 Nov 2026 18:40:00 +0000
+X-Gm-Features: Aa3M54qIEgHVmsqq4DxWvUflQF2v_NEZOm-dewWZxD6n7rtVG1aK5-HIk_WFDp4
+Message-ID: <CAPj87rPtL1nDrEF34LTmQDr9V4GbX0s8SR3wwwWWp4r0yQ2hag@mail.gmail.com>
+Subject: Re: [PATCH v2 33/46] drm/mediatek: Add support for Display Controller
+ exDMA component
+To: AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>
+Cc: chunkuang.hu@kernel.org, p.zabel@pengutronix.de, airlied@gmail.com, 
+ simona@ffwll.ch, maarten.lankhorst@linux.intel.com, mripard@kernel.org, 
+ tzimmermann@suse.de, robh@kernel.org, krzk+dt@kernel.org, conor+dt@kernel.org, 
+ matthias.bgg@gmail.com, dri-devel@lists.freedesktop.org, 
+ linux-mediatek@lists.infradead.org, devicetree@vger.kernel.org, 
+ linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
+ justin.yeh@mediatek.com, jason-jh.lin@mediatek.com, kernel@collabora.com
+Content-Type: text/plain; charset="UTF-8"
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -111,42 +108,85 @@ List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-18.8 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
-	DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
-	INCLUDES_CR_TRAILER,INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,
-	SPF_PASS,USER_AGENT_GIT autolearn=unavailable autolearn_force=no
-	version=4.0.1
+X-Spam-Status: No, score=-5.8 required=3.0 tests=BAYES_00,DKIM_SIGNED,
+	DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
+	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS autolearn=no
+	autolearn_force=no version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-DRM_IOCTL_AMDXDNA_CREATE_BO with DRM_AMDXDNA_BO_SHARE_DEV_MEM takes an
-array of user space VA entries. Each entry is validated for page
-alignment only. A zero length is page aligned, thus an entry with
-length zero is accepted. Such an entry contributes no page to the
-buffer.
+Hi there,
 
-Reject a zero length entry in the validation loop.
+On Tue, 24 Nov 2026 at 15:01, AngeloGioacchino Del Regno
+<angelogioacchino.delregno@collabora.com> wrote:
+> On 11/24/26 15:28, Daniel Stone wrote:
+> > On Tue, 14 Jul 2026 at 12:45, AngeloGioacchino Del Regno
+> > <angelogioacchino.delregno@collabora.com> wrote:
+> >> +       if (!pending->enable || pending->height == 0 || pending->width == 0 ||
+> >> +           pending->x > OVL_EXDMA_MAX_SIZE || pending->y > OVL_EXDMA_MAX_SIZE) {
+> >
+> > Definitely don't do this please. If exdma is asked to do something it
+> > can't (and I'm assuming that these last two checks are intended to be
+> > on w/h rather than x/y?), then you need to reject that in
+> > atomic_check. Getting here with pending->enable == true and then not
+> > enabling it, is not OK.
+>
+> That was done because mediatek-drm isn't in the best shape, and atomic_check is too
+> late for this check... adding support for those components is done on top of a big
+> restructuring, which still is not complete, as the entire mediatek-drm driver can,
+> and needs to, improve quite a bit.
 
-Fixes: bd72d4acda10 ("accel/amdxdna: Support user space allocated buffer")
-Signed-off-by: Lizhi Hou <lizhi.hou@amd.com>
----
- drivers/accel/amdxdna/amdxdna_ubuf.c | 3 ++-
- 1 file changed, 2 insertions(+), 1 deletion(-)
+Hmmm, too late? I don't quite follow - there is the layer_check()
+which should presumably stop such a state from being generated within
+atomic_check() - is there something I'm missing which means that this
+couldn't work?
 
-diff --git a/drivers/accel/amdxdna/amdxdna_ubuf.c b/drivers/accel/amdxdna/amdxdna_ubuf.c
-index 0e0cd69cd1fbf..93b2b6496a0f7 100644
---- a/drivers/accel/amdxdna/amdxdna_ubuf.c
-+++ b/drivers/accel/amdxdna/amdxdna_ubuf.c
-@@ -111,7 +111,8 @@ struct dma_buf *amdxdna_get_ubuf(struct drm_device *dev,
- 
- 	for (i = 0, exp_info.size = 0; i < num_entries; i++) {
- 		if (!IS_ALIGNED(va_ent[i].vaddr, PAGE_SIZE) ||
--		    !IS_ALIGNED(va_ent[i].len, PAGE_SIZE)) {
-+		    !IS_ALIGNED(va_ent[i].len, PAGE_SIZE) ||
-+		    !va_ent[i].len) {
- 			XDNA_ERR(xdna, "Invalid address or len %llx, %llx",
- 				 va_ent[i].vaddr, va_ent[i].len);
- 			ret = -EINVAL;
--- 
-2.34.1
+> > Relatedly, most of mtk_plane_pending_state should be deleted as
+> > duplicative of drm_plane_state and it would be great to see a patch
+> > series very soon to clean that up.
+>
+> Again, I agree mediatek-drm needs a rather big cleanup.
+>
+> Lately, upstream has been a bit slow in reviewing etc for many reasons, which is
+> why this series has been there for months now (though things are getting unblocked
+> lately at least for this specific series, so that's good).
+>
+> Anyway - let me see what I can do, but I can't make *big* promises - the only thing
+> I can say is that further *big* cleanups/restructuring is something I can do in the
+> next iteration (after the partial restructuring that is done in this series gets
+> merged, but definitely not in this series) whenever I can find some time to.
+>
+> I'm all for making things perfect, but I only have two hands, unfortunately :-(
 
+Sure, that makes sense. I think this series is already a really good
+step in the right direction.
+
+There's still a lot more to be done though: if I was looking at this
+as a new driver, the state management alone would be a hard reject
+until it was fixed. It looks like it was a pre-atomic driver with its
+own state management, which then had an atomic implementation bolted
+on in a way you wouldn't do it if you were starting from scratch, that
+has then had three different hardware-programming mechanisms (shadow,
+direct, and CMDQ/GCE) pushed into it.
+
+I'm sure there could be more to be done with the vfunc forest and the
+way all the components are modelled. I'm sure any specific 'why not do
+it like this?' suggestions I would have would be very wrong in some
+way, but as an exercise, sit down with someone who understands display
+hardware and KMS drivers for half an hour. Start by spending 3-5
+minutes explaining the MTK block & routing model to them, then go
+directly to attempting to explain mtk_crtc_num_comp_planes(). A lot of
+the questions and confusion that comes out of that would probably feed
+into what a different design might look like.
+
+Right now, it feels like the top-level DDP implementation is so
+generic and flexible that it's extremely difficult to reason about and
+think through, but then it's so abstract that we end up not being able
+to use any of the hardware blocks in anything other than passthrough
+mode, which is pretty much the worst of both worlds. Hopefully we can
+come up with a better path forward that means we can support more
+hardware and expose more of the functionality as a nice present for
+next Christmas.
+
+Cheers,
+Daniel
