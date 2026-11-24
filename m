@@ -2,91 +2,67 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B2605606A31E
-	for <dri-devel@archiver.kernel.org>; Tue, 24 Nov 2026 23:39:11 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id ED2E9606A321
+	for <dri-devel@archiver.kernel.org>; Tue, 24 Nov 2026 23:41:19 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=KYjQgZfQ
+	dkim=fail reason="signature verification failed" (1024-bit key, unprotected) header.d=collabora.com header.i=@collabora.com header.a=rsa-sha256 header.s=zohomail header.b=f/OG1SuH
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 2148710E82C;
-	Tue, 24 Nov 2026 23:39:06 +0000 (UTC)
-Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 9B6EF10E82C
- for <dri-devel@lists.freedesktop.org>; Tue, 24 Nov 2026 23:38:50 +0000 (UTC)
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by tor.source.kernel.org (Postfix) with ESMTP id 706A061E23;
- Tue, 24 Nov 2026 23:38:49 +0000 (UTC)
-Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
-ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
- t=1795563529;
- b=mC67zMvAI7axdRkrPr+oTf+RmaB/O2rQJwimDPMD/07sAO8PW0g7j7uf0tdLgLqAdOqH
- UMGIpq5Dc+1yvyN7MpQ+P4/v1xae178CTrH1I6H8ChmxIZNwEvbTpcqzsAXmN2H0K3g7E
- Yq5+ZnOdEG7wZr96Uiyplfa0Bb+LDDBcbBuyoH09IX4bjTHjHhf+fnoU+BPe9ra7rh2X7
- hGGNE6Gax4siVnisfLrzAO11yPokmB/qUp7VoXqJXdEBJNPzwvYjYjdufEeFgOTrTpOx6
- Aqpz2aXwHJBuqtYGeUMwlry/Dy9ZsZQSpI0h4THQrU05SZwrTsnAqCXgpHwj9+kljHg==
-ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
- c=relaxed/relaxed; t=1795563529;
- h=DKIM-Signature:Received:From:Date:Subject:MIME-Version:Content-Type:
- Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
- X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
- X-Original-From:Reply-To:Content-Transfer-Encoding;
- bh=oHeiA5mLTrxkSVLAJwJUXu9707GodpfsoqhlrqiJ9S8=;
- b=O5yAiK7dWkOsXPvmu5HDC0fXOoXed2F2ZX4ASUphWv9PqHLVQDyz9XR2JBt++Wp6LN8O
- C8RaNEeiyab2GID0dnoXvvyu0ACtJEZjzvkFk/naKzs1LxO7zeVZa8RKtuKqnCzIsGFEO
- 1vaNfZyubFTGmwErWrRJdsacN1rzvB4k/AeFm+OFOYvz85mbs8gxNtUkruUCIPbiTlPZz
- 0fY49sL/o7A2V8BZBvgWvu7VnlONtPT6qnTF0hAdXo9lIDoaofeVTY5IFZnnrllFIZra4
- irGGGTl7IRvMY2hqpNQFAgetIIpb9U1E4LtCzPw6PDA9V+sYZL+NvMZ9OFDm/0eDVbA==
-ARC-Authentication-Results: i=1; smtp.kernel.org; 
- arc=none smtp.remote-ip=100.80.115.77
-Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
- (No client certificate requested)
- by smtp.kernel.org (Postfix) with ESMTPS id C5B501F000D0;
- Tue, 24 Nov 2026 23:38:34 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1795563529;
- bh=oHeiA5mLTrxkSVLAJwJUXu9707GodpfsoqhlrqiJ9S8=;
- h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To;
- b=KYjQgZfQotj0UV5xxzOUE+zbnzn9s+fTTW0h7kUjHWzykNComLi/snIDPdy5PzmO2
- p0+LPmBn1qgcrfomGznTSFntzJPUJluN87O5Eob/YnYEgW5Sxi0oNanREMNXq+Ezp1
- Sz5O6mbuHTLO83VFQXdlbdSzj+pxuyV2WoQnB6ZYShKdAmfD0ISOp/xh26KzVBWG4T
- wbYDY7WK9p6ANmHnuogmbZmc1VlFP5hrR4s+W5LAstY6D9j5LBK2QvISexue1LMr8B
- VhKnAV9mfPg3Qpye/MHcA7lkOgxCa/YxmwmjogeVXCKOFBiTdaGgooPRaODuc344ML
- lWNkdcvdPKPUw==
-Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
- by lkml.kernel.org (Postfix) with ESMTP id 594AE4CC67;
- Tue, 24 Nov 2026 23:38:34 +0000 (UTC)
-From: Jim Cromie via B4 Relay <devnull+jim.cromie.gmail.com@kernel.org>
-Date: Tue, 24 Nov 2026 16:38:35 -0700
-Subject: [PATCH v4 3/3] drm/print: fix drm_printer dynamic debug bit-test
- bypass
+	by gabe.freedesktop.org (Postfix) with ESMTP id 55C0510F469;
+	Tue, 24 Nov 2026 23:41:14 +0000 (UTC)
+Received: from sender5-op-o11.zoho.com (sender5-op-o11.zoho.com
+ [165.173.182.11])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id B9FAF10F469
+ for <dri-devel@lists.freedesktop.org>; Tue, 24 Nov 2026 23:41:07 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; t=1795563664; cv=none; 
+ d=zohomail.com; s=zohoarc; 
+ b=YV/GT10TmGXdns188D2h9bphw3bBozb1keIgrejD0q8XGakTPwEjq8+oXEOg+K8fB68WdPDgnw5Dh2vhT3ApAcsCWB1gzpLELPUYe4w3BH+flHBs2KW0qZvtodCzGxOup22w0NqJAY8PyC2+pQKapJppOQe3IMBWQsi3fQFoBFE=
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com;
+ s=zohoarc; t=1795563664;
+ h=Content-Type:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:Subject:Subject:To:To:Message-Id:Reply-To;
+ bh=uPz04prT7e+1rJ49AYIgujbHeWdmEuPm8fUU/5/3Q5Y=; 
+ b=epvNpY3Xy82uXrSeuWSBn5NOkmDTvrgUCjv01p0NrOv8xFDYvXU9ECWO3H1eKzg/qLuRpIbd3KW2X9dHKuwcHiScvxgsiAdoE7ee0qM5g4OCuO/D4gLQCZwXJQY2wtAli3cvKcsGzJ2Uro/CRClPP0WhjdjuVgD+czBQf88L2sM=
+ARC-Authentication-Results: i=1; mx.zohomail.com;
+ dkim=pass  header.i=collabora.com;
+ spf=pass  smtp.mailfrom=deborah.brouwer@collabora.com;
+ dmarc=pass header.from=<deborah.brouwer@collabora.com>
+DKIM-Signature: a=rsa-sha256;
+ b=f/OG1SuHbcVzG18SmK+j6FqUNPg9GjIXhLH9NmNK6wuZAPKaDpXv07faBJtFufktr3j8fo74f9Ee36NrasUjsq99ZDxzkI6biEov+ZI6M/SN7KIFQQ+bGHgu6do30fe0NduCvg0lqgWezAOKaQAcFRyLSqzOYT41ACIWliscbhs=;
+ c=relaxed/relaxed; s=zohomail; d=collabora.com; v=1;
+ bh=uPz04prT7e+1rJ49AYIgujbHeWdmEuPm8fUU/5/3Q5Y=;
+ h=Content-Description:Content-ID:Content-Type:Content-Transfer-Encoding:Cc:Date:From:In-Reply-To:List-Subscribe:List-Post:List-Owner:List-Id:List-Archive:List-Help:List-Unsubscribe:MIME-Version:Message-ID:Resent-Sender:Resent-Cc:Resent-Date:Resent-To:Reply-To:Resent-Message-ID:Resent-From:Sender:Subject:To:Date:From:Message-Id:Reply-To:Subject:To:Cc;
+Received: by smtp.zohomail.com with SMTPS id 1795563661145885.3869878891551;
+ Tue, 24 Nov 2026 15:41:01 -0800 (PST)
+Date: Tue, 24 Nov 2026 16:40:55 -0700
+From: Deborah Brouwer <deborah.brouwer@collabora.com>
+To: Alvin Sun <alvin.sun@linux.dev>
+Cc: Miguel Ojeda <ojeda@kernel.org>, Boqun Feng <boqun@kernel.org>,
+ Gary Guo <gary@garyguo.net>,
+ =?iso-8859-1?Q?Bj=F6rn?= Roy Baron <bjorn3_gh@protonmail.com>,
+ Benno Lossin <lossin@kernel.org>, Andreas Hindborg <a.hindborg@kernel.org>,
+ Alice Ryhl <aliceryhl@google.com>, Trevor Gross <tmgross@umich.edu>,
+ Danilo Krummrich <dakr@kernel.org>,
+ Daniel Almeida <daniel.almeida@collabora.com>,
+ Tamir Duberstein <tamird@kernel.org>,
+ Alexandre Courbot <acourbot@nvidia.com>,
+ Onur =?iso-8859-1?Q?=D6zkan?= <work@onurozkan.dev>,
+ Lyude Paul <lyude@redhat.com>, David Airlie <airlied@gmail.com>,
+ Simona Vetter <simona@ffwll.ch>,
+ Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+ "Rafael J. Wysocki" <rafael@kernel.org>, Johan Hovold <johan@kernel.org>,
+ Sami Tolvanen <samitolvanen@google.com>,
+ rust-for-linux@vger.kernel.org, dri-devel@lists.freedesktop.org,
+ driver-core@lists.linux.dev, Ke Sun <sunke@kylinos.cn>
+Subject: Re: [PATCH v7 07/10] drm/tyr: add VM-related ioctls
+Message-ID: <awYgh-A8JtN899eB@um790>
+References: <20261122-tyr-ioctls-v7-0-3a2af624b992@linux.dev>
+ <20261122-tyr-ioctls-v7-7-3a2af624b992@linux.dev>
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Message-Id: <20261124-rd-mostly-v4-3-26d60beb6666@gmail.com>
-References: <20261124-rd-mostly-v4-0-26d60beb6666@gmail.com>
-In-Reply-To: <20261124-rd-mostly-v4-0-26d60beb6666@gmail.com>
-To: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
- Jason Baron <jbaron@akamai.com>, 
- Greg Kroah-Hartman <gregkh@linuxfoundation.org>, 
- Andrew Morton <akpm@linux-foundation.org>, 
- Luca Coelho <luciano.coelho@intel.com>, Jani Nikula <jani.nikula@intel.com>
-Cc: dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org, 
- Jim Cromie <jim.cromie@gmail.com>
-X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1795563513; l=2848;
- i=jim.cromie@gmail.com; s=20260203; h=from:subject:message-id;
- bh=y0RWdr4HR8Hk2DeVmjJ5zNw17ifUMWtuwVaP7R47qsw=;
- b=o/UPdYHp3ZSlSA352RCmGdx4bwNiWNRBEtVQZfdCAr+VEeNWDZNiiVVuPpXN/Sg8lqYCYmBXN
- l5Da1oeomWwAxTBPIr2u7bCiiC1yqxmfDqlQtWfq+pOzSgalBs1DPUK
-X-Developer-Key: i=jim.cromie@gmail.com; a=ed25519;
- pk=C6E5ODlPQo7ZBynATXH9wg7K6HxP0pIXyf4s38Qw0XE=
-X-Endpoint-Received: by B4 Relay for jim.cromie@gmail.com/20260203 with
- auth_id=958
-X-Original-From: Jim Cromie <jim.cromie@gmail.com>
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261122-tyr-ioctls-v7-7-3a2af624b992@linux.dev>
+X-Zoho-Virus-Status: 1
+X-Zoho-AV-Stamp: zmail-av-0.2.13.1.5.4/295.549.79
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -97,82 +73,630 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
-Reply-To: jim.cromie@gmail.com
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-18.8 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
-	DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
-	INCLUDES_CR_TRAILER,INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,
-	SPF_PASS,USER_AGENT_GIT autolearn=ham autolearn_force=no version=4.0.1
+X-Spam-Status: No, score=-13.6 required=3.0 tests=BAYES_00,DKIM_INVALID,
+	DKIM_SIGNED,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,
+	INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS autolearn=ham
+	autolearn_force=no version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-From: Jim Cromie <jim.cromie@gmail.com>
+On Sun, Nov 22, 2026 at 08:50:26PM +0800, Alvin Sun wrote:
+> Implement VM_CREATE, VM_DESTROY, VM_BIND and VM_GET_STATE. VM_CREATE
+> hands the new VM to the per-file pool and, on insertion failure, the
+> caller tears it down, so an aborted creation never leaks a VM.
+> VM_DESTROY removes the VM from the pool and kills it, even if in-flight
+> jobs still hold references (matching panthor: such jobs are expected
+> to fault). VM_BIND runs synchronously for now.
+> 
+> Signed-off-by: Alvin Sun <alvin.sun@linux.dev>
+> ---
+>  drivers/gpu/drm/tyr/driver.rs |  10 +-
+>  drivers/gpu/drm/tyr/file.rs   | 295 ++++++++++++++++++++++++++++++++++++++++--
+>  drivers/gpu/drm/tyr/gem.rs    |   1 -
+>  drivers/gpu/drm/tyr/vm.rs     |  90 ++++++++++---
+>  4 files changed, 369 insertions(+), 27 deletions(-)
+> 
+> diff --git a/drivers/gpu/drm/tyr/driver.rs b/drivers/gpu/drm/tyr/driver.rs
+> index 46caf7b336d93..ba03cc4c52539 100644
+> --- a/drivers/gpu/drm/tyr/driver.rs
+> +++ b/drivers/gpu/drm/tyr/driver.rs
+> @@ -73,6 +73,9 @@ pub(crate) struct TyrDrmRegistrationData<'drm> {
+>      /// Firmware sections.
+>      pub(crate) fw: Firmware<'drm>,
+>  
+> +    /// Memory management unit for address space slots.
+> +    pub(crate) mmu: Arc<Mmu<'drm>>,
+> +
+>      #[pin]
+>      clks: Mutex<Clocks>,
+>  
+> @@ -171,6 +174,7 @@ fn probe<'bound>(
+>                      pin_init!(TyrDrmRegistrationData {
+>                          pdev,
+>                          fw: firmware,
+> +                        mmu,
+>                          clks <- new_mutex!(Clocks {
+>                              core: core_clk,
+>                              stacks: stacks_clk,
+> @@ -209,7 +213,7 @@ fn drop(self: Pin<&mut Self>) {}
+>  impl drm::Driver for TyrDrmDriver {
+>      type Data = ();
+>      type RegistrationData<'drm> = TyrDrmRegistrationData<'drm>;
+> -    type File<'a> = TyrDrmFileData;
+> +    type File<'a> = TyrDrmFileData<'a>;
+>      type Object = Bo;
+>      type ParentDevice<Ctx: DeviceContext> = platform::Device<Ctx>;
+>  
+> @@ -218,6 +222,10 @@ impl drm::Driver for TyrDrmDriver {
+>  
+>      kernel::declare_drm_ioctls! {
+>          (PANTHOR_DEV_QUERY, drm_panthor_dev_query, ioctl::RENDER_ALLOW, TyrDrmFileData::dev_query),
+> +        (PANTHOR_VM_CREATE, drm_panthor_vm_create, ioctl::RENDER_ALLOW, TyrDrmFileData::vm_create),
+> +        (PANTHOR_VM_DESTROY, drm_panthor_vm_destroy, ioctl::RENDER_ALLOW, TyrDrmFileData::vm_destroy),
+> +        (PANTHOR_VM_BIND, drm_panthor_vm_bind, ioctl::RENDER_ALLOW, TyrDrmFileData::vm_bind),
+> +        (PANTHOR_VM_GET_STATE, drm_panthor_vm_get_state, ioctl::RENDER_ALLOW, TyrDrmFileData::vm_get_state),
+>      }
+>  }
+>  
+> diff --git a/drivers/gpu/drm/tyr/file.rs b/drivers/gpu/drm/tyr/file.rs
+> index 933a365cb016e..901c0fb951adf 100644
+> --- a/drivers/gpu/drm/tyr/file.rs
+> +++ b/drivers/gpu/drm/tyr/file.rs
+> @@ -3,37 +3,58 @@
+>  use kernel::{
+>      drm::{
+>          self,
+> +        gem::BaseObject,
+>          Registered, //
+>      },
+> +    num::casts::FromSafeCast,
+>      prelude::*,
+> +    sizes::SizeConstants,
+> +    transmute::FromBytes,
+>      uaccess::UserSlice,
+>      uapi, //
+>  };
+>  
+> -use crate::driver::{
+> -    TyrDrmDevice,
+> -    TyrDrmDriver,
+> -    TyrDrmRegistrationData, //
+> +use crate::{
+> +    driver::{
+> +        TyrDrmDevice,
+> +        TyrDrmDriver,
+> +        TyrDrmRegistrationData, //
+> +    },
+> +    vm::{
+> +        UserVaRequest,
+> +        Vm,
+> +        VmBindOpType,
+> +        VmMapFlags,
+> +        VmPool, //
+> +    }, //
+>  };
+>  
+>  #[pin_data]
+> -pub(crate) struct TyrDrmFileData {}
+> +pub(crate) struct TyrDrmFileData<'a> {
+> +    reg: &'a TyrDrmRegistrationData<'a>,
+> +
+> +    #[pin]
+> +    vm_pool: VmPool<'a>,
+> +}
+>  
+>  /// Convenience type alias for our DRM `File` type.
+>  pub(crate) type TyrDrmFile = drm::file::File<TyrDrmDriver>;
+>  
+> -impl drm::file::DriverFile<'_> for TyrDrmFileData {
+> +impl<'a> drm::file::DriverFile<'a> for TyrDrmFileData<'a> {
+>      type Driver = TyrDrmDriver;
+>  
+>      fn open(
+>          _device: &TyrDrmDevice<Registered>,
+> -        _reg_data: &TyrDrmRegistrationData<'_>,
+> +        reg_data: &'a TyrDrmRegistrationData<'a>,
+>      ) -> impl PinInit<Self, Error> {
+> -        Ok(Self {})
+> +        try_pin_init!(Self {
+> +            reg: reg_data,
+> +            vm_pool <- VmPool::new(reg_data.pdev.as_ref())?,
+> +        })
+>      }
+>  }
+>  
+> -impl TyrDrmFileData {
+> +impl TyrDrmFileData<'_> {
+>      pub(crate) fn dev_query(
+>          _ddev: &TyrDrmDevice<Registered>,
+>          reg_data: &TyrDrmRegistrationData<'_>,
+> @@ -65,4 +86,260 @@ pub(crate) fn dev_query(
+>              }
+>          }
+>      }
+> +
+> +    pub(crate) fn vm_create(
+> +        ddev: &TyrDrmDevice<Registered>,
+> +        _reg_data: &TyrDrmRegistrationData<'_>,
+> +        vmcreate: &mut uapi::drm_panthor_vm_create,
+> +        file: &TyrDrmFile,
+> +    ) -> Result<u32> {
+> +        if vmcreate.flags != 0 {
+> +            dev_dbg!(
+> +                ddev.as_ref(),
+> +                "Invalid VM create flags: {:#x}\n",
+> +                vmcreate.flags
+> +            );
+> +            return Err(EINVAL);
+> +        }
+> +
+> +        let ret: Result<u32, Error> = file.inner_with(|pfile| {
+> +            let vm = Vm::new_for_user(
+> +                pfile.reg.pdev.as_ref(),
+> +                ddev,
+> +                pfile.reg.mmu.as_arc_borrow(),
+> +                &pfile.reg.gpu_info,
+> +                UserVaRequest::from_uapi(vmcreate.user_va_range),
+> +            )?;
+> +            let user_va_range = vm.layout.user.end;
+> +            let id = pfile.vm_pool.add(vm).map_err(|e| {
+> +                e.vm.kill();
+> +                e.error
+> +            })?;
+> +            vmcreate.user_va_range = user_va_range;
+> +            vmcreate.id = id;
+> +
+> +            Ok(0)
+> +        });
+> +        ret
+> +    }
+> +
+> +    pub(crate) fn vm_destroy(
+> +        ddev: &TyrDrmDevice<Registered>,
+> +        _reg_data: &TyrDrmRegistrationData<'_>,
+> +        vmdestroy: &mut uapi::drm_panthor_vm_destroy,
+> +        file: &TyrDrmFile,
+> +    ) -> Result<u32> {
+> +        if vmdestroy.pad != 0 {
+> +            dev_dbg!(
+> +                ddev.as_ref(),
+> +                "Invalid VM destroy pad: {:#x}\n",
+> +                vmdestroy.pad
+> +            );
+> +            return Err(EINVAL);
+> +        }
+> +
+> +        let ret: Result<u32, Error> = file.inner_with(|pfile| {
+> +            pfile.vm_pool.remove(vmdestroy.id)?;
+> +            Ok(0)
+> +        });
+> +        ret
+> +    }
+> +
+> +    pub(crate) fn vm_bind(
+> +        ddev: &TyrDrmDevice<Registered>,
+> +        _reg_data: &TyrDrmRegistrationData<'_>,
+> +        vmbind: &mut uapi::drm_panthor_vm_bind,
+> +        file: &TyrDrmFile,
+> +    ) -> Result<u32> {
+> +        let async_flag = uapi::drm_panthor_vm_bind_flags_DRM_PANTHOR_VM_BIND_ASYNC;
+> +
+> +        if vmbind.flags & !async_flag != 0 {
+> +            dev_dbg!(
+> +                ddev.as_ref(),
+> +                "Invalid VM_BIND flags: {:#x}\n",
+> +                vmbind.flags
+> +            );
+> +            return Err(EINVAL);
+> +        }
+> +
+> +        if vmbind.flags & async_flag != 0 {
+> +            dev_dbg!(ddev.as_ref(), "Async VM_BIND not supported\n");
+> +            return Err(EOPNOTSUPP);
+> +        }
+> +
+> +        let count = usize::from_safe_cast(vmbind.ops.count);
+> +        if count == 0 {
+> +            return file.inner_with(|pfile| {
+> +                pfile.vm_pool.get(vmbind.vm_id).ok_or(EINVAL)?;
+> +                Ok(0)
+> +            });
+> +        }
+> +
+> +        // Panthor allows larger strides; UserSliceReader::read needs an exact one.
+> +        if vmbind.ops.stride as usize != size_of::<VmBindOp>() {
+> +            dev_dbg!(
+> +                ddev.as_ref(),
+> +                "Invalid VM_BIND op stride {} (expected {})\n",
+> +                vmbind.ops.stride,
+> +                size_of::<VmBindOp>()
+> +            );
+> +            return Err(EINVAL);
+> +        }
+> +        // TODO: support variable strides with copy_struct_from_user()
+> +        // semantics: zero-pad shorter structs, reject non-zero trailing bytes.
+> +
+> +        let total_len = size_of::<VmBindOp>().checked_mul(count).ok_or_else(|| {
+> +            dev_dbg!(ddev.as_ref(), "VM_BIND ops length overflow\n");
+> +            EINVAL
+> +        })?;
+> +        let mut reader =
+> +            UserSlice::new(UserPtr::from_addr(vmbind.ops.array as usize), total_len).reader();
+> +        let mut ops = KVec::new();
 
-drm_debug_enabled() [$1] is the canonical bit-test for drm.debug.
-Commit 6ce6fae84536 ("drm_print: optimize drm_debug_enabled for
-jump-label") elaborated it into 4 names, controlled by
-CONFIG_DRM_USE_DYNAMIC_DEBUG:
+Hi - fyi I was able to reproduce sashiko's concern that if we have a
+vmbind.ops.count >= 65537 then this does trigger a warning for
+___kmalloc_large_node for exceeding KMALLOC_MAX_SIZE which for me at
+least is configured to 4MiB by default.
 
-A- $1_raw() - rename of the original bit-test.
-B- $1_instrumented() - like raw, but adds a pr_debug(), allowing us to
-   count callsite frequency and consider optimizing them later.
-C- __$1() - evaluates to 'true' when CONFIG_DRM_USE_DYNAMIC_DEBUG=y
-   (avoiding the bit-test where callsites are already guarded by a
-   dyndbg static-key), and forwards to A when =n.
-D- $1() - forwards to B when CONFIG_DRM_USE_DYNAMIC_DEBUG=y, and to A
-   when =n, for cases where an explicit bit-mask check is required.
+Using KVmalloc does solve the problem and it's also what panthor does:
+  KVVec::with_capacity(count, GFP_KERNEL)?;
 
-Later, commit 9fd6f61a297e ("drm/print: add drm_dbg_printer() for drm
-device specific printer") added a general-use __drm_printfn_dbg()
-function, but used __$1() instead of $1(). When
-CONFIG_DRM_USE_DYNAMIC_DEBUG=y, __$1() evaluates to 'true' and always
-prints.  This went unnoticed because CONFIG_DRM_USE_DYNAMIC_DEBUG was
-marked BROKEN.
-
-With =y, this results in a flood of messages, and in CI-tests on slow
-serial consoles, creates bottlenecks, as seen in DRM-CI on i915 CML
-devices.  When IGT causes a mismatch in intel_pipe_config_compare(),
-the resulting UART storm causes a hard timeout after 20 minutes.
-
-NOTES:
-
-Drop the single-use `category` local variable and pass p->category
-directly (which previously also triggered an unused-variable warning
-under the old __$1() bypass).
-
-Because __drm_printfn_dbg() is a shared helper invoked via p->printfn
-with a runtime p->category, the callsite cannot be guarded by a
-static-key; we'd need a macro version and callsites where category is
-a compile-time constant.
-
-Replacing __$1() with $1() or $1_raw() would also work, but
-$1_instrumented() adds the pr_debug() in both =y and =n configs; when
-enabled it can provide call-freq data to inform further callsite
-optimization choices.
-
-Fixes: 9fd6f61a297e ("drm/print: add drm_dbg_printer() for drm device specific printer")
-Signed-off-by: Jim Cromie <jim.cromie@gmail.com>
----
- drivers/gpu/drm/drm_print.c | 3 +--
- 1 file changed, 1 insertion(+), 2 deletions(-)
-
-diff --git a/drivers/gpu/drm/drm_print.c b/drivers/gpu/drm/drm_print.c
-index 2e7685849f44..3d26483975f2 100644
---- a/drivers/gpu/drm/drm_print.c
-+++ b/drivers/gpu/drm/drm_print.c
-@@ -218,9 +218,8 @@ void __drm_printfn_dbg(struct drm_printer *p, struct va_format *vaf)
- {
- 	const struct drm_device *drm = p->arg;
- 	const struct device *dev = drm ? drm->dev : NULL;
--	enum drm_debug_category category = p->category;
- 
--	if (!__drm_debug_enabled(category))
-+	if (!drm_debug_enabled_instrumented(p->category))
- 		return;
- 
- 	__drm_dev_vprintk(dev, KERN_DEBUG, p->origin, p->prefix, vaf);
-
--- 
-2.56.1
-
-
+> +        for _ in 0..count {
+> +            ops.push(reader.read::<VmBindOp>()?, GFP_KERNEL)?;
+> +        }
+> +
+> +        let ret: Result<u32, Error> = file.inner_with(|pfile| {
+> +            let vm = pfile.vm_pool.get(vmbind.vm_id).ok_or_else(|| {
+> +                dev_dbg!(ddev.as_ref(), "Invalid VM_BIND vm_id: {}\n", vmbind.vm_id);
+> +                EINVAL
+> +            })?;
+> +
+> +            for (i, op) in ops.iter().enumerate() {
+> +                if let Err(e) = vm_bind_exec_op(&vm, file, op) {
+> +                    dev_dbg!(ddev.as_ref(), "VM_BIND op {} failed: {:?}\n", i, e);
+> +                    vmbind.ops.count = i as u32;
+> +                    return Err(e);
+> +                }
+> +            }
+> +
+> +            Ok(0)
+> +        });
+> +        ret
+> +    }
+> +
+> +    pub(crate) fn vm_get_state(
+> +        ddev: &TyrDrmDevice<Registered>,
+> +        _reg_data: &TyrDrmRegistrationData<'_>,
+> +        vmgetstate: &mut uapi::drm_panthor_vm_get_state,
+> +        file: &TyrDrmFile,
+> +    ) -> Result<u32> {
+> +        file.inner_with(|pfile| {
+> +            let vm = pfile.vm_pool.get(vmgetstate.vm_id).ok_or_else(|| {
+> +                dev_dbg!(
+> +                    ddev.as_ref(),
+> +                    "Invalid VM_GET_STATE vm_id: {}\n",
+> +                    vmgetstate.vm_id
+> +                );
+> +                EINVAL
+> +            })?;
+> +            vmgetstate.state = if vm.is_unusable() {
+> +                uapi::drm_panthor_vm_state_DRM_PANTHOR_VM_STATE_UNUSABLE
+> +            } else {
+> +                uapi::drm_panthor_vm_state_DRM_PANTHOR_VM_STATE_USABLE
+> +            };
+> +            Ok(0)
+> +        })
+> +    }
+> +}
+> +
+> +fn vm_bind_exec_op(vm: &Vm<'_>, file: &TyrDrmFile, op: &VmBindOp) -> Result {
+> +    if op.syncs.count != 0 {
+> +        dev_dbg!(vm.dev(), "VM_BIND op syncs not supported\n");
+> +        return Err(EINVAL);
+> +    }
+> +
+> +    if op.size == 0 {
+> +        return Ok(());
+> +    }
+> +
+> +    let end = match op.va.checked_add(op.size) {
+> +        Some(end) => end,
+> +        None => {
+> +            dev_dbg!(vm.dev(), "VM_BIND op VA range overflow\n");
+> +            return Err(EINVAL);
+> +        }
+> +    };
+> +    if op.va < vm.layout.user.start || end > vm.layout.user.end {
+> +        dev_dbg!(
+> +            vm.dev(),
+> +            "VM_BIND op VA range {:#x}..{:#x} outside user range\n",
+> +            op.va,
+> +            end
+> +        );
+> +        return Err(EINVAL);
+> +    }
+> +
+> +    if (op.va | op.size | op.bo_offset) & (u64::SZ_4K - 1) != 0 {
+> +        dev_dbg!(vm.dev(), "VM_BIND op not GPU-page-aligned\n");
+> +        return Err(EINVAL);
+> +    }
+> +
+> +    match VmBindOpType::try_from(op.flags) {
+> +        Ok(VmBindOpType::Map) => {
+> +            // Once the VM is unusable only MAP ops are rejected; UNMAP
+> +            // stays available for cleanup (see the UAPI docs).
+> +            if vm.is_unusable() {
+> +                dev_dbg!(vm.dev(), "VM_BIND map op on unusable VM\n");
+> +                return Err(EINVAL);
+> +            }
+> +
+> +            let map_flags = match VmMapFlags::try_from(op.flags & !VmBindOpType::MASK) {
+> +                Ok(flags) => flags,
+> +                Err(_) => {
+> +                    dev_dbg!(vm.dev(), "VM_BIND op invalid map flags {:#x}\n", op.flags);
+> +                    return Err(EINVAL);
+> +                }
+> +            };
+> +            let bo = crate::gem::lookup_handle(file, op.bo_handle).map_err(|_| {
+> +                dev_dbg!(vm.dev(), "VM_BIND op invalid BO handle {}\n", op.bo_handle);
+> +                EINVAL
+> +            })?;
+> +            // Validate the BO window before mapping.
+> +            let bo_size = u64::from_safe_cast(bo.size());
+> +            if op.size > bo_size || op.bo_offset > bo_size - op.size {
+> +                dev_dbg!(vm.dev(), "VM_BIND op BO range out of bounds\n");
+> +                return Err(EINVAL);
+> +            }
+> +            vm.map_bo_range(&bo, op.bo_offset, op.size, op.va, map_flags)
+> +        }
+> +        Ok(VmBindOpType::Unmap) => {
+> +            // Unmap must not carry map-specific flags or BO references.
+> +            if op.flags & !VmBindOpType::MASK != 0 || op.bo_handle != 0 || op.bo_offset != 0 {
+> +                dev_dbg!(
+> +                    vm.dev(),
+> +                    "VM_BIND UNMAP carries flags/BO refs: flags={:#x} bo_handle={} bo_offset={}\n",
+> +                    op.flags,
+> +                    op.bo_handle,
+> +                    op.bo_offset
+> +                );
+> +                return Err(EINVAL);
+> +            }
+> +            vm.unmap_range(op.va, op.size)
+> +        }
+> +        Err(_) => {
+> +            dev_dbg!(
+> +                vm.dev(),
+> +                "VM_BIND op type {:#x} not supported\n",
+> +                op.flags & VmBindOpType::MASK
+> +            );
+> +            Err(EINVAL)
+> +        }
+> +    }
+> +}
+> +
+> +#[repr(transparent)]
+> +struct VmBindOp(uapi::drm_panthor_vm_bind_op);
+> +
+> +impl core::ops::Deref for VmBindOp {
+> +    type Target = uapi::drm_panthor_vm_bind_op;
+> +
+> +    fn deref(&self) -> &Self::Target {
+> +        &self.0
+> +    }
+>  }
+> +
+> +// TODO: use zerocopy FromBytes when these traits are derived for bindings.
+> +// SAFETY: `VmBindOp` contains only integers, so any bit pattern is valid;
+> +// the `#[repr(transparent)]` wrapper has the same layout as the UAPI struct.
+> +unsafe impl FromBytes for VmBindOp {}
+> diff --git a/drivers/gpu/drm/tyr/gem.rs b/drivers/gpu/drm/tyr/gem.rs
+> index 0e0989a48678f..60f6363995a5a 100644
+> --- a/drivers/gpu/drm/tyr/gem.rs
+> +++ b/drivers/gpu/drm/tyr/gem.rs
+> @@ -77,7 +77,6 @@ pub(crate) fn new_object(ddev: &TyrDrmDevice, size: usize, flags: u32) -> Result
+>  }
+>  
+>  /// Look up a GEM object by handle for a DRM file.
+> -#[expect(dead_code)]
+>  pub(crate) fn lookup_handle(file: &TyrDrmFile, handle: u32) -> Result<ARef<Bo>> {
+>      Bo::lookup_handle(file, handle)
+>  }
+> diff --git a/drivers/gpu/drm/tyr/vm.rs b/drivers/gpu/drm/tyr/vm.rs
+> index 029a08051a87e..45e42e210de29 100644
+> --- a/drivers/gpu/drm/tyr/vm.rs
+> +++ b/drivers/gpu/drm/tyr/vm.rs
+> @@ -55,6 +55,11 @@
+>      },
+>      sync::{
+>          aref::ARef,
+> +        atomic::{
+> +            Acquire,
+> +            Atomic,
+> +            Release, //
+> +        },
+>          Arc,
+>          ArcBorrow,
+>          Mutex, //
+> @@ -174,7 +179,6 @@ pub(crate) enum UserVaRequest {
+>  
+>  impl UserVaRequest {
+>      /// UAPI boundary normalization: `0` -> [`Auto`](Self::Auto).
+> -    #[expect(dead_code)]
+>      pub(crate) fn from_uapi(v: u64) -> Self {
+>          match NonZeroU64::new(v) {
+>              Some(size) => Self::Fixed(size),
+> @@ -183,6 +187,38 @@ pub(crate) fn from_uapi(v: u64) -> Self {
+>      }
+>  }
+>  
+> +/// Operation type, packed into the top nibble of
+> +/// `drm_panthor_vm_bind_op::flags`.
+> +#[derive(Debug, Clone, Copy, PartialEq, Eq)]
+> +pub(crate) enum VmBindOpType {
+> +    /// Map a BO range into the VM.
+> +    Map,
+> +    /// Unmap a VA range.
+> +    Unmap,
+> +}
+> +
+> +impl VmBindOpType {
+> +    /// Bits occupied by the op type in `drm_panthor_vm_bind_op::flags`.
+> +    pub(crate) const MASK: u32 =
+> +        uapi::drm_panthor_vm_bind_op_flags_DRM_PANTHOR_VM_BIND_OP_TYPE_MASK as u32;
+> +}
+> +
+> +impl TryFrom<u32> for VmBindOpType {
+> +    type Error = Error;
+> +
+> +    fn try_from(flags: u32) -> Result<Self, Self::Error> {
+> +        const MAP: u32 = uapi::drm_panthor_vm_bind_op_flags_DRM_PANTHOR_VM_BIND_OP_TYPE_MAP as u32;
+> +        const UNMAP: u32 =
+> +            uapi::drm_panthor_vm_bind_op_flags_DRM_PANTHOR_VM_BIND_OP_TYPE_UNMAP as u32;
+> +
+> +        match flags & Self::MASK {
+> +            MAP => Ok(Self::Map),
+> +            UNMAP => Ok(Self::Unmap),
+> +            _ => Err(EINVAL),
+> +        }
+> +    }
+> +}
+> +
+>  /// Final user/kernel VA layout for a VM.
+>  pub(crate) struct VmLayout {
+>      /// Full GPU VA range covered by this VM.
+> @@ -425,6 +461,8 @@ pub(crate) struct Vm<'drm> {
+>      gpuvm: ARef<GpuVm<GpuVmData<'drm>>>,
+>      /// VA layout for this VM.
+>      pub(crate) layout: VmLayout,
+> +    /// Whether the VM is unusable.
+> +    unusable: Atomic<bool>,
+>  }
+>  
+>  impl<'drm> Vm<'drm> {
+> @@ -446,7 +484,6 @@ pub(crate) fn new_for_fw(
+>      }
+>  
+>      /// Creates a user VM, splitting the GPU VA range per `user_va`.
+> -    #[expect(dead_code)]
+>      pub(crate) fn new_for_user(
+>          dev: &'drm Device<Bound>,
+>          ddev: &TyrDrmDevice,
+> @@ -513,6 +550,7 @@ fn new_internal(
+>                  gpuvm,
+>                  gpuvm_unique <- new_mutex!(gpuvm_unique),
+>                  layout,
+> +                unusable: Atomic::new(false),
+>              }),
+>              GFP_KERNEL,
+>          )?;
+> @@ -543,6 +581,7 @@ fn deactivate(&self) -> Result {
+>  
+>      /// Kills the VM by deactivating it and unmapping all regions.
+>      pub(crate) fn kill(&self) {
+> +        self.mark_unusable();
+>          let _ = self.deactivate();
+>          let _ = self
+>              .unmap_range(
+> @@ -554,6 +593,15 @@ pub(crate) fn kill(&self) {
+>              });
+>      }
+>  
+> +    /// Marks the VM unusable.
+> +    fn mark_unusable(&self) {
+> +        self.unusable.store(true, Release);
+> +    }
+> +
+> +    pub(crate) fn is_unusable(&self) -> bool {
+> +        self.unusable.load(Acquire)
+> +    }
+> +
+>      /// Executes a virtual memory operation.
+>      ///
+>      /// This handles both map and unmap operations by coordinating between the
+> @@ -648,6 +696,14 @@ pub(crate) fn map_bo_range(
+>  
+>          let va_end: u64 = va.checked_add(map_size).ok_or(EINVAL)?;
+>  
+> +        let mut resources = VmOpResources {
+> +            preallocated_gpuvas: [
+> +                Some(GpuVaAlloc::<GpuVmData<'drm>>::new(GFP_KERNEL)?),
+> +                Some(GpuVaAlloc::<GpuVmData<'drm>>::new(GFP_KERNEL)?),
+> +                Some(GpuVaAlloc::<GpuVmData<'drm>>::new(GFP_KERNEL)?),
+> +            ],
+> +        };
+> +
+>          let req = VmOpRequest {
+>              op_type: VmOpType::Map(VmMapArgs {
+>                  vm_bo: self.gpuvm.obtain(bo, ())?,
+> @@ -656,16 +712,24 @@ pub(crate) fn map_bo_range(
+>              }),
+>              region: va..va_end,
+>          };
+> -        let mut resources = VmOpResources {
+> -            preallocated_gpuvas: [
+> -                Some(GpuVaAlloc::<GpuVmData<'drm>>::new(GFP_KERNEL)?),
+> -                Some(GpuVaAlloc::<GpuVmData<'drm>>::new(GFP_KERNEL)?),
+> -                Some(GpuVaAlloc::<GpuVmData<'drm>>::new(GFP_KERNEL)?),
+> -            ],
+> -        };
+>          let result = {
+>              let mut gpuvm_unique = self.gpuvm_unique.lock();
+> -            self.exec_op(gpuvm_unique.as_mut().get_mut(), req, &mut resources)
+> +            // Check under the GPUVM lock, which the kill path also takes to
+> +            // unmap, so this serializes against a concurrent teardown.
+> +            if self.is_unusable() {
+> +                dev_err!(
+> +                    self.dev,
+> +                    "Failed to map VA {:#x}..{:#x}: VM is unusable\n",
+> +                    req.region.start,
+> +                    req.region.end
+> +                );
+> +                // Drop the vm_bo reference before the deferred cleanup
+> +                // below runs; otherwise the vm_bo would leak.
+> +                drop(req);
+> +                Err(EINVAL)
+> +            } else {
+> +                self.exec_op(gpuvm_unique.as_mut().get_mut(), req, &mut resources)
+> +            }
+>          };
+>          // We flush the defer cleanup list now. Things will be different in
+>          // the asynchronous VM_BIND path, where we want the cleanup to
+> @@ -1100,9 +1164,7 @@ pub(crate) struct VmPool<'drm> {
+>  /// Error returned when a VM cannot be added to the pool. The caller
+>  /// owns the teardown of the VM in [`AddError::vm`].
+>  pub(crate) struct AddError<'drm> {
+> -    #[expect(dead_code)]
+>      pub(crate) error: Error,
+> -    #[expect(dead_code)]
+>      pub(crate) vm: Arc<Vm<'drm>>,
+>  }
+>  
+> @@ -1112,7 +1174,6 @@ impl<'drm> VmPool<'drm> {
+>      /// The pool is sized for [`MAX_VMS_PER_FILE`] IDs on all architectures,
+>      /// including 32-bit builds where `IdPool::new()` would only hold 31 IDs
+>      /// because `find_unused_id(1)` skips bit 0 of an inline bitmap.
+> -    #[expect(dead_code)]
+>      pub(crate) fn new(dev: &'drm Device<Bound>) -> Result<impl PinInit<Self>, AllocError> {
+>          let ids = IdPool::with_capacity(MAX_VMS_PER_FILE + 1, GFP_KERNEL)?;
+>          Ok(pin_init!(Self {
+> @@ -1128,7 +1189,6 @@ pub(crate) fn new(dev: &'drm Device<Bound>) -> Result<impl PinInit<Self>, AllocE
+>      /// returned in an [`AddError`] so the caller owns the teardown.
+>      // TODO: allocate IDs with the XArray directly (once it grows range
+>      // allocation, the equivalent of C's `XA_LIMIT`) and drop the IdPool.
+> -    #[expect(dead_code)]
+>      pub(crate) fn add(&self, vm: Arc<Vm<'drm>>) -> Result<u32, AddError<'drm>> {
+>          let id = (|| {
+>              let mut ids = self.ids.lock();
+> @@ -1178,7 +1238,6 @@ pub(crate) fn add(&self, vm: Arc<Vm<'drm>>) -> Result<u32, AddError<'drm>> {
+>      }
+>  
+>      /// Removes and kills the VM with the given ID.
+> -    #[expect(dead_code)]
+>      pub(crate) fn remove(&self, id: u32) -> Result<()> {
+>          let mut vms = self.vms.lock();
+>          let vm = match vms.remove(usize::from_safe_cast(id)) {
+> @@ -1195,7 +1254,6 @@ pub(crate) fn remove(&self, id: u32) -> Result<()> {
+>      }
+>  
+>      /// Gets a shared reference to the VM with the given ID.
+> -    #[expect(dead_code)]
+>      pub(crate) fn get(&self, id: u32) -> Option<Arc<Vm<'drm>>> {
+>          let vms = self.vms.lock();
+>          let borrow = vms.get(usize::from_safe_cast(id))?;
+> 
+> -- 
+> 2.43.0
+> 
+> 
