@@ -2,74 +2,69 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 86EA1606A32D
-	for <dri-devel@archiver.kernel.org>; Tue, 24 Nov 2026 23:38:54 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9A014606A321
+	for <dri-devel@archiver.kernel.org>; Tue, 24 Nov 2026 23:39:00 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=PoMPe4kj
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=HWUp6tL7
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id EF01510E25C;
-	Tue, 24 Nov 2026 23:38:48 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id E848110F131;
+	Tue, 24 Nov 2026 23:38:54 +0000 (UTC)
 Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 3065210E25C
- for <dri-devel@lists.freedesktop.org>; Tue, 24 Nov 2026 23:38:43 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 558AA10E82C
+ for <dri-devel@lists.freedesktop.org>; Tue, 24 Nov 2026 23:38:45 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id D617840AB7;
- Tue, 24 Nov 2026 23:38:42 +0000 (UTC)
+ by sea.source.kernel.org (Postfix) with ESMTP id 3D80040143;
+ Tue, 24 Nov 2026 23:38:45 +0000 (UTC)
 Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
 ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
- t=1795563522;
- b=F47Eue85tam9vsdEi7M83DdLuqwtk5b7hlZcmw//GP6YvO5fm6eb5YrLUURV7X0a3fYc
- 8nzW8FTdHjnJ7YZPbPnEv8yyAxjsWVrXuW8ib2JS33q8KK2e1c/YIvizl1O1CLpq5dINS
- g/WWjSCuwSr5zckkYERq4lyPP1mgQzKh+wu1dCvtC1v3ma84v+UiAM8SlOb57E2RGmkdi
- 1FZYhjs3zK7U++rVIWzCCfF5Q0wC9uHWoKW00MAiLuRSQkCD0nrrqiFImDEM9IkztfBDQ
- 0iwTeVjkPiQGxnI9wWjhJX7eUcmzm3Iv79X9VGvVjaCaP4h2eqX5VgeMOd0Nlg8m3bA==
+ t=1795563525;
+ b=y8glG74/KSuhprIB0kb/KxDJTPTSZd7wq9gpv+76BMgToZv9R7rb5B+nLy1s/3tkaI9G
+ BsToPaIYAoujRQaaTa3INxn7JtQZk4mg2c+MxezTMtahPZyRwTkmd1GAekdTzUf8AOgvN
+ auNO1fjFyA9u7/1fpRXHS9qt3/qQQFePW2/Ir+i9I4djUbWpPyptkeGE+tsqeEfHH4//d
+ 24GQGmKyO5YrqYdrNML34G24f7Tc/Qn9u70hGjUPxRlskW6jzrO+o9gU40ZUcsZlyMZbD
+ kDrM9BFpFvDJNWMGjffe9b7dnLxVIzEq+XazmZrZPoojZlkZWaQmaa8uJhYFGV7QVRg==
 ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
- c=relaxed/relaxed; t=1795563522;
- h=DKIM-Signature:Received:From:Subject:Date:Message-Id:MIME-Version:
- Content-Type:Content-Transfer-Encoding:X-B4-Tracking:X-Change-ID:To:
- Cc:X-Mailer:X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
- X-Original-From:Reply-To;
- bh=UQt84HSZA94+ujWfeso/jFUoDNCEeSaih8Kb/OpiY8s=;
- b=cQnCXZvRNhB3PewKtUL+dZGARY76PxqC8r/8oZCVUX4sAKCSXmbBKcDPw8FAspoO5vcK
- MmanELBFDNPvDSPB/paxOlOzE6MRXiuHtiiFwcoiTBKjDHi8R0i0ei8Jqh+dC5OrQtGF6
- qDCYwujxyk0inLSX6lJSi9+rbqR9mB1h8HIFosBJxKGrW1pDyxPW27CpYiJDIXhUzftzh
- fqO1v54YZBVTde9RmgMkh2yL6Crg29M52MhEIk8K81gDtq8QGXpRg5AeX2OBGolEuf92X
- OOXWkZOWmYqxN2wpLLOe54N3wk3y71a9HxwM0WcZ/m15GKQ4oL8HS125IEid+sqevRg==
+ c=relaxed/relaxed; t=1795563525;
+ h=DKIM-Signature:Received:From:Date:Subject:MIME-Version:Content-Type:
+ Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
+ X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
+ X-Original-From:Reply-To:Content-Transfer-Encoding;
+ bh=We1e948mOaBzb1CSHWditFMjKCZWojb84Gd7SLIbn2g=;
+ b=vcklFKxQDgb0vwY7fsz/hQBKNt+SLIKDeII4QXniJTmq+NsO8yTar0jzy4aWUOAH91gw
+ IE7919CYoZTkjyl2W+e+xbGiQVpI+hD72heVymq05Yp/ltfKQIJhefcnyAVc4V8Ta6FzC
+ lnqxkEF3MlDLw8usUAbuR5xJ18BMCvry4KuPDonfFlmQvbHulTb7zQ3akSuAQIJu/RR4Y
+ hK7oI6ZjY8mZniY5POEVCQfBb5NvKIsddMVSSeSaHP+HWyLi2avmhNemyH7NA+gUT0ueG
+ 1mjaVprDhOWIy+jP/NEwzhRlgHIN1QPt6HkczXbyXD0nfWzsBluco72FAHqD6dUihig==
 ARC-Authentication-Results: i=1; smtp.kernel.org; 
  arc=none smtp.remote-ip=100.80.115.77
 Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
  (No client certificate requested)
- by smtp.kernel.org (Postfix) with ESMTPS id 98C451F000C4;
+ by smtp.kernel.org (Postfix) with ESMTPS id 98C131F000C0;
  Tue, 24 Nov 2026 23:38:34 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1795563522;
- bh=UQt84HSZA94+ujWfeso/jFUoDNCEeSaih8Kb/OpiY8s=;
- h=From:Subject:Date:To:Cc:Reply-To;
- b=PoMPe4kjOXy6i4vsi0yR4ARQXxm7UQlpPAWXd2YUofxM1IpIl7R45Hawbx1BVmwEi
- QgSxAdycqEzZEQLZ0vu3rz2riDmMdUh+ut9thdPYjgcmyyyRU5DeBuiVpjLf8Z3s2z
- 1GnXUtXL6RbX7Zlf1tkBjhn361Mye/XUDbZwlpgtpTkY3KTLIBjgeyIO5pvCRnmybB
- fkUvH427jSo9tG/JdljOn4/llu9Vm/aQsZtM2OHDBYXgBnNbOAtEH0vYLetO6wkRLa
- FmgoaUyBuTCLN7RBxa6XRzQOxITxSlDcojpWRAe52iJi/6CZKp0D/Zdcl7s6ebNpA5
- ivBtLw/i2Iu5g==
+ s=k20260515; t=1795563524;
+ bh=We1e948mOaBzb1CSHWditFMjKCZWojb84Gd7SLIbn2g=;
+ h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To;
+ b=HWUp6tL7q9O/19Mx0eI5XCwWbew+EyIkoJMtS8BzEgMTXxNnnJZWLc85MPqo2KEEV
+ qXRIX96gD/uTehosRKZjdN9vRGW7lrN1Xsw5EGOgw1QH8tC/f/y0i7WcUU4vTCdOq9
+ J7eu7G3Dsu3qZQXPsouD5CSGs2pEjFHW1CSa5fZ+dRykK0cVA3qDXqHEiwxqBkoWBn
+ P8zC2L5O9vPzq8CkMx71HPywD6AmiicHKHZ5WvxdvzZcY3Ekb9lJYNWuG03aeTErY+
+ UOHDdLEvI6k9ZBIDLRmLdQG3aZ9A+bU2Sa435FORHzxtXTML0JX6nQiXXSskrZcVEO
+ 4rbLVyf31GaBw==
 Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
- by lkml.kernel.org (Postfix) with ESMTP id 001324CC5F;
- Tue, 24 Nov 2026 23:38:33 +0000 (UTC)
+ by lkml.kernel.org (Postfix) with ESMTP id 212BB4CC53;
+ Tue, 24 Nov 2026 23:38:34 +0000 (UTC)
 From: Jim Cromie via B4 Relay <devnull+jim.cromie.gmail.com@kernel.org>
-Subject: [PATCH v4 0/3] drm/print,dyndbg: __drm_debug __read_mostly,
- restore it to uint, printer fix
-Date: Tue, 24 Nov 2026 16:38:32 -0700
-Message-Id: <20261124-rd-mostly-v4-0-26d60beb6666@gmail.com>
+Date: Tue, 24 Nov 2026 16:38:33 -0700
+Subject: [PATCH v4 1/3] drm/print: Mark __drm_debug as __read_mostly
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-X-B4-Tracking: v=1; b=H4sIAAAAAAAA/13MTQqDMBBA4auEWZuSjBp/Vr1H6UKTUQNqSiJSE
- e9eFFpCtw++t0MgbylAzXbwtNpg3Qw1yxIGemjmnrg1UDNAgUpUmHNv+OTCMm5cNdhpoY3qjIK
- EwctTZ9/X6/FMGAw2LM5v13qVZ/1eVHRZJRccy7YwhczIoL73U2PHm3YTnJcVf1JKFLFELnhZi
- lyRIYFN+S/TWMpYpqesqMhaTNuskrE8juMDuxeYdBYBAAA=
-X-Change-ID: 20260925-rd-mostly-6a2fc0cd6fd6
+Message-Id: <20261124-rd-mostly-v4-1-26d60beb6666@gmail.com>
+References: <20261124-rd-mostly-v4-0-26d60beb6666@gmail.com>
+In-Reply-To: <20261124-rd-mostly-v4-0-26d60beb6666@gmail.com>
 To: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
  Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
  David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
@@ -80,16 +75,17 @@ To: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
 Cc: dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org, 
  Jim Cromie <jim.cromie@gmail.com>
 X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1795563513; l=2697;
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1795563513; l=1190;
  i=jim.cromie@gmail.com; s=20260203; h=from:subject:message-id;
- bh=4UCbxxrKinpPTMCGiCL0XLcwvtLOOSiukBA+RJshUyc=;
- b=DxACAMOt+FgpZsUaHjYbUUKrmcIuwfXHdGJ8q/3WSUID/afBNTT5Gs5s45BY7C8VVCtGf9Z/B
- xLZXUirlnvbBXeu+MbnM3a6A/Ycqz7qZd8h76Fn4SVrzjJMtrq8Y598
+ bh=0kwXpdVLXiB5IO7ltNhfDof5ySe4FrwdEVRL0SZIEB8=;
+ b=ul6W9MBN64ibnfJ1t5pYRmaNb1F+Hfvp1o7FmaC3hv9ACtMb1yyUs5cOGUlWmTokyfZXA7HJT
+ XyZa4ezFnOSDk0/oaBz0hjYC6x0G1o5THepmYG3klPWLsie3HkL0cbt
 X-Developer-Key: i=jim.cromie@gmail.com; a=ed25519;
  pk=C6E5ODlPQo7ZBynATXH9wg7K6HxP0pIXyf4s38Qw0XE=
 X-Endpoint-Received: by B4 Relay for jim.cromie@gmail.com/20260203 with
  auth_id=958
 X-Original-From: Jim Cromie <jim.cromie@gmail.com>
+Content-Transfer-Encoding: 7bit
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -109,70 +105,41 @@ X-Spam-Status: No, score=-18.8 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-This series improves __drm_debug placement/sizing and fixes a
-drm_dbg_printer() bypass exposed when CONFIG_DRM_USE_DYNAMIC_DEBUG=y:
+From: Jim Cromie <jim.cromie@gmail.com>
 
-1. Mark __drm_debug as __read_mostly to move it out of the cacheline
-   it currently shares with frequently written locks and structures. In
-   a 12-vkcube test, its read rate is ~83 kHz.
+Under a multi-client workload of 12 concurrent vkcubes on AMD iGPU,
+__drm_debug is read at ~83.3 kHz across multiple cores during atomic
+and vblank checks.
 
-2. Shrink __drm_debug and struct ddebug_class_param.bits from unsigned
-   long back to (original) unsigned int, updating lib/dynamic_debug.c
-   and lib/test_dynamic_debug.c callers accordingly.
+But __drm_debug is written only when userspace does:
+  echo 0xff > /sys/module/drm/parameters/debug
 
-3. Fix __drm_printfn_dbg() use of __drm_debug_enabled(), which always
-   prints when CONFIG_DRM_USE_DYNAMIC_DEBUG=y, disregarding p->category.
+Currently the linker packs __drm_debug into .bss adjacent to hot
+structures: drm_lease_idr_object, drm_class, and drm_global_mutex,
+causing unnecessary cacheline invalidations.
 
-NOTES:
-
-drm and dyndbg are coupled on __drm_debug's size and type, so changing
-the size requires coordination between DRM and dyndbg. The coupling
-allows dyndbg to keep state in __drm_debug while letting drm use it in
-cases where static-key drm_*dbg() macros do not fit.
-
-Build-tested with BROKEN locally removed from DRM_USE_DYNAMIC_DEBUG to
-cover both Y/N cases. That un-BROKEN patch is intentionally excluded
-here as drm.debug still needs classmap fixes patchset.
+Mark __drm_debug as __read_mostly to relocate it to .data..read_mostly.
 
 Signed-off-by: Jim Cromie <jim.cromie@gmail.com>
 ---
-Changes in v4:
-- Replace unused-variable workaround with proper __drm_printfn_dbg()
-  fix (per Sashiko review).
-- Drop drivers/gpu/drm/Makefile and DONT_APPLY un-BROKEN patches from
-  this series (deferred to classmap-inheritance series).
-- Link to v3: https://lore.kernel.org/r/20261121-rd-mostly-v3-0-89e74b23b491@gmail.com
+ drivers/gpu/drm/drm_print.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-Changes in v3:
-- dont need both ccflags-y and subdir-ccflags-y, latter covers former.
-- Link to v2: https://lore.kernel.org/r/20261120-rd-mostly-v2-0-88056ede02a8@gmail.com
+diff --git a/drivers/gpu/drm/drm_print.c b/drivers/gpu/drm/drm_print.c
+index 86cef1a37678..50cdeb1b15e2 100644
+--- a/drivers/gpu/drm/drm_print.c
++++ b/drivers/gpu/drm/drm_print.c
+@@ -40,7 +40,7 @@
+  * __drm_debug: Enable debug output.
+  * Bitmask of DRM_UT_x. See include/drm/drm_print.h for details.
+  */
+-unsigned long __drm_debug;
++unsigned long __drm_debug __read_mostly;
+ EXPORT_SYMBOL(__drm_debug);
+ 
+ MODULE_PARM_DESC(debug, "Enable debug output, where each bit enables a debug category.\n"
 
-Changes in v2:
-- Add subdir-ccflags- propagation in drivers/gpu/drm/Makefile (patch 2).
-- Add unused `category` warning fix under CONFIG_DRM_USE_DYNAMIC_DEBUG=y
-  (patch 3).
-- Add __drm_debug and ddebug_class_param.bits shrink to unsigned int
-  (patch 4).
-- Link to v1: https://lore.kernel.org/r/20260926-rd-mostly-v1-0-28b7d714ed2c@gmail.com
-
----
-Jim Cromie (3):
-      drm/print: Mark __drm_debug as __read_mostly
-      drm/print,dyndbg: restore __drm_debug to uint from ulong
-      drm/print: fix drm_printer dynamic debug bit-test bypass
-
- drivers/gpu/drm/drm_print.c   | 7 +++----
- include/drm/drm_print.h       | 2 +-
- include/linux/dynamic_debug.h | 2 +-
- lib/dynamic_debug.c           | 8 +++++---
- lib/test_dynamic_debug.c      | 2 +-
- 5 files changed, 11 insertions(+), 10 deletions(-)
----
-base-commit: b6a9fa34ce4187cb69d3c588a4bbffc31ce5db8f
-change-id: 20260925-rd-mostly-6a2fc0cd6fd6
-
-Best regards,
 -- 
-Jim Cromie <jim.cromie@gmail.com>
+2.56.1
 
 
