@@ -2,46 +2,45 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EA076606A31E
-	for <dri-devel@archiver.kernel.org>; Tue, 24 Nov 2026 07:45:26 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4739E606A31E
+	for <dri-devel@archiver.kernel.org>; Tue, 24 Nov 2026 07:45:39 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=maa4m6ll
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=LPw0v10V
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 3C3B510EFE2;
-	Tue, 24 Nov 2026 07:45:21 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id AF73F10EF18;
+	Tue, 24 Nov 2026 07:45:33 +0000 (UTC)
 Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 10CB910EF18
- for <dri-devel@lists.freedesktop.org>; Tue, 24 Nov 2026 07:45:15 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 028BC10EF18
+ for <dri-devel@lists.freedesktop.org>; Tue, 24 Nov 2026 07:45:28 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by tor.source.kernel.org (Postfix) with ESMTP id 7401C61E01;
- Tue, 24 Nov 2026 07:45:14 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id BA4371F000C6;
- Tue, 24 Nov 2026 07:45:13 +0000 (UTC)
+ by tor.source.kernel.org (Postfix) with ESMTP id 6C80461FBD;
+ Tue, 24 Nov 2026 07:45:27 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id B7CF21F000CA;
+ Tue, 24 Nov 2026 07:45:26 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1795506314;
- bh=wAGgr8ibrwYcP8oDZVC+XCxHDnlnCkP54G0H6idRA4M=;
+ s=k20260515; t=1795506327;
+ bh=ySqtcJb8vbnzwtLmX1yALIBQHpMQo7/+5RhrpbUqdZc=;
  h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
- b=maa4m6llbxkaufCr8cZ9slCrJCWcJbiPCR8fdRjTZCGb9n12XRqy69rJIo2Sz3UmG
- 1ZRDvQ6bFg9Y4tXddg8nfOKef0kTS2DwH8lTx+CnzJ9gffeu13doQg4hIeI/CNbOdq
- NmRqCsD9Q6xZ1D+eP45+1ePnitgtouOPa6Wsmz5M52iE7eQlUn6eFBTqOyZPupKKgn
- /qfcNTlg1DyFFpbuKSy47ACawgU0WAD5Zo8/OFm3Dgy3XNUGvP0oTtok8tndG1GcfE
- VdNo1fNARmpPK5E/Jomx1BKQOL05Wik5er7+Eb1xltR5GD8m4glGdscWzuA3fQCbFt
- rvf9dJJI1QIzA==
-Message-ID: <sashiko-outbox-230664@kernel.org>
+ b=LPw0v10VzLgcDfjMRmNKET3HZoneba0FBYu3sdR6wYJfoPGnrnZvAbx9OmYjA298f
+ h/Y/rjKVXe2vf6JfUz8At6fHphquL8fEnzC6Fqf4KR+ecWWo+BJUmdiYCOqtp0a1/n
+ 5nr+3sUPxlEdx4X7kN+ThYNJ07W9O6w91ysvo1NyNPPM0d1W5G6a7rpdOgAdb66UxU
+ 5tcTLQUiaQNX8Y0ftWtN1oOeeLvZimeuPMNXKQ1CSaXp9oHQ503v66P/DvaY7/s+hH
+ wEdBWFcXZ4WZZhxM4F4RBYHZfDjdz7a6B4WylY2H0SlUQYxtlAFXx6kwwbINszEVEs
+ 3Hd1fINT1Q4Tw==
+Message-ID: <sashiko-outbox-230666@kernel.org>
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v2 14/20] ARM: dts: omap3-pandora: Model LCD power
- enable dependencies
+Subject: Re: [PATCH v2 07/20] ASoC: ti: omap3pandora: Convert sound card to DT
 To: "H. Nikolaus Schaller" <hns@goldelico.com>
 Cc: linux-gpio@vger.kernel.org, devicetree@vger.kernel.org,
  dri-devel@lists.freedesktop.org, linux-leds@vger.kernel.org,
  linux-sound@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org,
  lee@kernel.org
-In-Reply-To: <0c0bc2049bad3e236bab5fd86b8cd0b11fd56d11.1795505160.git.hns@goldelico.com>
+In-Reply-To: <57d9a8b26bd2282deb9188d6913976cfee41aee9.1795505160.git.hns@goldelico.com>
 References: <cover.1795505160.git.hns@goldelico.com>
- <0c0bc2049bad3e236bab5fd86b8cd0b11fd56d11.1795505160.git.hns@goldelico.com>
+ <57d9a8b26bd2282deb9188d6913976cfee41aee9.1795505160.git.hns@goldelico.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Tue, 24 Nov 2026 07:45:13 +0000
+Date: Tue, 24 Nov 2026 07:45:26 +0000
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -62,136 +61,318 @@ X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 X-Archived-By: <archiver.kernel.org>
 
-Thank you for your contribution! Sashiko AI review found 4 potential
+Thank you for your contribution! Sashiko AI review found 8 potential
 issues to consider:
-- [High] ARM: dts: omap3-pandora: usb_host_5v disabled after boot due to
-  no consumer
-- [Low] ARM: dts: omap3-pandora: deprecated fixed-regulator-* node names
-  on new nodes
-- [Low] ARM: dts: omap3-pandora: twl_gpio inserted between bluetooth
-  comment and mcbsp3
-- [Low] ARM: dts: omap3-pandora: dead startup-delay-us on GPIO-less
-  lcd_5v regulator
+- [High] ASoC: ti: omap3pandora: broken built-in McBSP names and missing
+  DT DAI parsing
+- [High] ASoC: ti: omap3pandora: missing SND_SOC_PCM1754 select in
+  Kconfig
+- [Medium] ASoC: ti: omap3pandora: grab_sample_rate() rejects
+  single-stream rate change
+- [Medium] ASoC: ti: omap3pandora: static open-time rate constraint in
+  startup()
+- [Medium] ASoC: ti: omap3pandora: missing snd_soc_pm_ops on
+  omap3pandora_driver
+- [Medium] ASoC: ti: omap3pandora: missing TWL4030_CLOCK_APLL setup in
+  capture hw_params
+- [Low] ASoC: ti: omap3pandora: omap3pandora_probe() requires optional
+  DT properties
+- [Low] ASoC: ti: omap3pandora: unused codec_dai variable and
+  mach-types.h include
 --
 
-commit f12a2f12a91cab92b448c35782704537aa5d9f32
-Author: H. Nikolaus Schaller <hns@goldelico.com>
+commit b90618564a61935165b508799b8ef7f6f6a36708
+Author: Stefan Leichter <sle85276@gmx.de>
 
-ARM: dts: omap3-pandora: Model LCD power enable dependencies
+ASoC: ti: omap3pandora: Convert sound card to DT
 
-This commit adds fixed-regulator nodes aux_5v and lcd_5v to model the LCD
-and USB host 5V power supply enable dependencies across OpenPandora board
-revisions, and enables ti,use-regen on twl_gpio.
+This commit converts the OpenPandora ASoC machine driver to probe via a
+Device Tree sound-card node, separates playback and capture handling
+with shared TWL4030 APLL rate accounting, and switches to device-managed
+resource registration.
 
-> diff --git a/arch/arm/boot/dts/ti/omap/omap3-pandora-common.dtsi b/arch/a=
-rm/boot/dts/ti/omap/omap3-pandora-common.dtsi
-> index 2097ec15c6513..f25fc4f8ad042 100644
-> --- a/arch/arm/boot/dts/ti/omap/omap3-pandora-common.dtsi
-> +++ b/arch/arm/boot/dts/ti/omap/omap3-pandora-common.dtsi
-> @@ -31,6 +31,28 @@ hfclk_26m: oscillator {
->  		clock-frequency =3D <26000000>;
->  	};
-> =20
-> +	/* Shared 5V rail for headphone amplifier, early LCD and USB */
-> +	aux_5v: fixed-regulator-5v {
-> +		compatible =3D "regulator-fixed"; /* TPS61029DRC */
-> +		regulator-name =3D "aux_5v";
-> +		regulator-min-microvolt =3D <5000000>;
-> +		regulator-max-microvolt =3D <5000000>;
-> +		startup-delay-us =3D <5000>;
-> +		enable-active-high;
-> +		gpio =3D <&twl_gpio 20 GPIO_ACTIVE_HIGH>; /* REGEN */
-> +		vin-supply =3D <&vaux1>; /* logical enable dependency */
-> +	};
-> +
-> +	/* LCD_5V: switched shared 5V on rev 5a, separate supply on rev 6d */
-> +	lcd_5v: fixed-regulator-lcd-5v {
-
-[Severity: Low]
-Documentation/devicetree/bindings/regulator/fixed-regulator.yaml marks node
-names not matching ^regulator(-[0-9]+v[0-9]+|-[0-9a-z-]+)?$ as deprecated.
-Should these new nodes be named regulator-5v (or regulator-aux-5v) and
-regulator-lcd-5v so they do not add dtbs_check warnings?
-
-> +		compatible =3D "regulator-fixed";
-> +		regulator-name =3D "lcd_5v";
-> +		regulator-min-microvolt =3D <5000000>;
-> +		regulator-max-microvolt =3D <5000000>;
-> +		startup-delay-us =3D <5000>;
-> +		vin-supply =3D <&aux_5v>; /* logical enable dependency */
-> +	};
-
-[Severity: Low]
-Does startup-delay-us on lcd_5v have any effect when the node has no enable
-GPIO?
-
-In reg_fixed_voltage_probe(), a regulator-fixed node without a gpio property
-registers with fixed_voltage_ops (which has no .is_enabled callback) and
-rdev->ena_pin set to NULL.  _regulator_is_enabled() therefore always returns
-1, causing _regulator_enable() to skip _regulator_do_enable() where
-desc.enable_time (startup-delay-us) is applied.  Since lcd_5v controls no
-hardware resource of its own, lcd could reference aux_5v directly in
-vcc-supply, or startup-delay-us could be dropped from lcd_5v.
-
-Also, the commit message mentions "patch 17", which will lose its meaning in
-git history once committed.
+> diff --git a/sound/soc/ti/omap3pandora.c b/sound/soc/ti/omap3pandora.c
+> index 6c9c184cd9d6f..d747c0e6b48cb 100644
+> --- a/sound/soc/ti/omap3pandora.c
+> +++ b/sound/soc/ti/omap3pandora.c
+> @@ -6,138 +6,274 @@
 
 [ ... ]
 
-> @@ -212,15 +234,13 @@ hsusb2_phy: hsusb2-phy-pins {
->  		#phy-cells =3D <0>;
->  	};
+> +#include <asm/mach-types.h>
+> +#include <linux/mfd/twl4030-audio.h>
+>  #include <linux/platform_data/asoc-ti-mcbsp.h>
 > =20
-> -	/* HS USB Host VBUS supply
-> -	 * disabling this regulator causes current leakage, and LCD flicker
-> -	 * on earlier (CC) board revisions, so keep it always on */
-> +	/* HS USB Host VBUS supply */
->  	usb_host_5v: fixed-regulator-usb_host_5v {
-> +		vin-supply =3D <&aux_5v>;
->  		compatible =3D "regulator-fixed";
->  		regulator-name =3D "usb_host_5v";
->  		regulator-min-microvolt =3D <5000000>;
->  		regulator-max-microvolt =3D <5000000>;
-> -		regulator-always-on;
->  		regulator-boot-on;
->  		enable-active-high;
->  		gpio =3D <&gpio6 4 GPIO_ACTIVE_HIGH>;	/* GPIO_164 */
+>  #include "omap-mcbsp.h"
+> =20
+> -#define PREFIX "ASoC omap3pandora: "
+> +struct omap3pandora_sound {
+> +	struct gpio_desc *amp_gpio;
+> +	struct regulator *amp_regulator;
+> +
+> +	struct snd_pcm_substream *playback_stream;
+> +	struct snd_pcm_substream *capture_stream;
+> +
+> +	struct mutex sample_rate_lock; // protects all fields after
+> +	unsigned int sample_rate;
+> +	int sample_rate_users;
+> +};
+> =20
+> -static struct regulator *omap3pandora_dac_reg;
+> -static struct gpio_desc *dac_power_gpio;
+> -static struct gpio_desc *amp_power_gpio;
+> +static struct snd_soc_dai_link omap3pandora_dai[];
+> =20
+> -static int omap3pandora_hw_params(struct snd_pcm_substream *substream,
+> -	struct snd_pcm_hw_params *params)
+> +static int omap3pandora_common_hw_params(struct snd_pcm_substream *subst=
+ream,
+> +					 struct snd_pcm_hw_params *params)
+>  {
+>  	struct snd_soc_pcm_runtime *rtd =3D snd_soc_substream_to_rtd(substream);
+> -	struct snd_soc_dai *codec_dai =3D snd_soc_rtd_to_codec(rtd, 0);
+> +	__maybe_unused struct snd_soc_dai *codec_dai =3D snd_soc_rtd_to_codec(r=
+td, 0);
+
+[Severity: Low]
+This isn't a bug, but codec_dai in omap3pandora_common_hw_params() and the
+new <asm/mach-types.h> include are both unused and can be dropped.
+
+[ ... ]
+
+> +/* The McBSP playback and capture interfaces share the TWL4030 APLL. */
+> +static int grab_sample_rate(struct omap3pandora_sound *ctx,
+> +			    struct snd_pcm_substream **owner,
+> +			    struct snd_pcm_substream *substream,
+> +			    struct snd_pcm_hw_params *params,
+> +			    bool *new_owner)
+> +{
+> +	unsigned int rate =3D params_rate(params);
+> +	int ret =3D 0;
+> +
+> +	*new_owner =3D false;
+> +	mutex_lock(&ctx->sample_rate_lock);
+> +	if (*owner =3D=3D substream) {
+> +		if (ctx->sample_rate !=3D rate)
+> +			ret =3D -EINVAL;
+> +	} else if (*owner || (ctx->sample_rate_users &&
+> +				ctx->sample_rate !=3D rate)) {
+> +		ret =3D -EINVAL;
+> +	} else {
+> +		ctx->sample_rate =3D rate;
+> +		ctx->sample_rate_users++;
+> +		*owner =3D substream;
+> +		*new_owner =3D true;
+> +	}
+> +	mutex_unlock(&ctx->sample_rate_lock);
+> +
+> +	return ret;
+> +}
+
+[Severity: Medium]
+Does grab_sample_rate() reject sample-rate changes on a substream even
+when no other stream is active?
+
+ALSA allows userspace to call SNDRV_PCM_IOCTL_HW_PARAMS more than once on
+an open substream without an intervening hw_free().  When *owner =3D=3D
+substream and ctx->sample_rate_users =3D=3D 1, returning -EINVAL on
+ctx->sample_rate !=3D rate causes snd_pcm_hw_params() to fail and call
+hw_free(), dropping the reservation anyway.  If ctx->sample_rate_users =3D=
+=3D
+1, *owner =3D=3D substream should be allowed to update ctx->sample_rate to =
+the
+new rate.
+
+[ ... ]
+
+> +static int omap3pandora_capture_hw_params(struct snd_pcm_substream *subs=
+tream,
+> +					  struct snd_pcm_hw_params *params)
+> +{
+> +	struct snd_soc_pcm_runtime *rtd =3D snd_soc_substream_to_rtd(substream);
+> +	struct snd_soc_dai *codec_dai =3D snd_soc_rtd_to_codec(rtd, 0);
+> +	struct device *dev =3D rtd->dev;
+> +	struct snd_soc_card *card =3D rtd->card;
+> +	struct omap3pandora_sound *ctx =3D snd_soc_card_get_drvdata(card);
+> +	bool new_owner;
+> +	int ret;
+> +
+> +	/* Set the codec system clock for DAC and ADC */
+> +	ret =3D snd_soc_dai_set_sysclk(codec_dai, 0, 26000000,
+> +				     SND_SOC_CLOCK_IN);
+> +	if (ret < 0) {
+> +		dev_err(dev, "cannot set TWL4030 system clock: %d\n", ret);
+> +		return ret;
+> +	}
+> +
+> +	ret =3D grab_sample_rate(ctx, &ctx->capture_stream, substream,
+> +			       params, &new_owner);
+> +	if (ret)
+> +		return ret;
+> +
+> +	ret =3D omap3pandora_common_hw_params(substream, params);
+> +	if (ret)
+> +		goto err_release;
+>  	return 0;
+
+[Severity: Medium]
+Does omap3pandora_capture_hw_params() also need to program
+TWL4030_CLOCK_APLL via snd_soc_dai_set_sysclk()?
+
+In sound/soc/codecs/twl4030.c, twl4030_hw_params() sets
+twl4030->configured =3D 1 on the first hw_params() call and returns early
+without updating TWL4030_REG_CODEC_MODE until twl4030_shutdown() clears
+twl4030->configured:
+
+sound/soc/codecs/twl4030.c:twl4030_hw_params() {
+    ...
+	 /* If the substream has no subscribers, the Giacinto
+	  * is already configured, so we can return */
+	if (twl4030->configured)
+		return 0;
+    ...
+}
+
+If an open capture substream runs hw_params(), hw_free() (which releases
+ctx->capture_stream), and then hw_params() at a new rate (or if playback
+changed the APLL rate in the meantime), McBSP4 is reconfigured to 256 *
+new_rate while the TWL4030 APLL stays at the old frequency.
+
+[ ... ]
+
+> +static int omap3pandora_common_startup(struct snd_pcm_substream *substre=
+am)
+> +{
+> +	struct snd_soc_pcm_runtime *rtd =3D snd_soc_substream_to_rtd(substream);
+> +	struct snd_soc_card *card =3D rtd->card;
+> +	struct omap3pandora_sound *ctx =3D snd_soc_card_get_drvdata(card);
+> +	unsigned int sample_rate;
+> +
+> +	mutex_lock(&ctx->sample_rate_lock);
+> +	sample_rate =3D ctx->sample_rate;
+> +	mutex_unlock(&ctx->sample_rate_lock);
+> +
+> +	if (!sample_rate)
+> +		return 0;
+> +
+> +	return constrain_sample_rate(substream, sample_rate);
+> +}
+
+[Severity: Medium]
+Can constraining the rate from a snapshot of ctx->sample_rate in startup()
+leave a substream either unconstrained or locked to a stale rate?
+
+Because ctx->sample_rate is only set later in hw_params(), a full-duplex
+application that opens both playback and capture before configuring
+hw_params() sees ctx->sample_rate =3D=3D 0 in both startup() calls and gets=
+ no
+rate constraint.  Conversely, if stream B opens while stream A is running
+at rate R1, stream B is permanently constrained to R1 via
+snd_pcm_hw_constraint_single(); if stream A then closes and reopens at
+rate R2 !=3D R1 before stream B runs hw_params(), stream B cannot succeed at
+any rate.
+
+> @@ -171,20 +307,40 @@ static int omap3pandora_in_init(struct snd_soc_pcm_=
+runtime *rtd)
+
+[ ... ]
+
+>  /* Digital audio interface glue - connects codec <--> CPU */
+> +#if IS_BUILTIN(CONFIG_SND_SOC_OMAP3_PANDORA)
+>  SND_SOC_DAILINK_DEFS(out,
+>  	DAILINK_COMP_ARRAY(COMP_CPU("omap-mcbsp.2")),
+> -	DAILINK_COMP_ARRAY(COMP_CODEC("twl4030-codec", "twl4030-hifi")),
+> +	DAILINK_COMP_ARRAY(COMP_CODEC("pcm1773-codec", "pcm1773")),
+>  	DAILINK_COMP_ARRAY(COMP_PLATFORM("omap-mcbsp.2")));
+> =20
+>  SND_SOC_DAILINK_DEFS(in,
+>  	DAILINK_COMP_ARRAY(COMP_CPU("omap-mcbsp.4")),
+>  	DAILINK_COMP_ARRAY(COMP_CODEC("twl4030-codec", "twl4030-hifi")),
+>  	DAILINK_COMP_ARRAY(COMP_PLATFORM("omap-mcbsp.4")));
+> +#else /* IS_BUILTIN(CONFIG_SND_SOC_OMAP3_PANDORA) */
+> +SND_SOC_DAILINK_DEFS(out,
+> +		     DAILINK_COMP_ARRAY(COMP_CPU("49022000.mcbsp")),
+> +	DAILINK_COMP_ARRAY(COMP_CODEC("pcm1773-codec", "pcm1773")),
+> +	DAILINK_COMP_ARRAY(COMP_PLATFORM("49022000.mcbsp")));
+> +
+> +SND_SOC_DAILINK_DEFS(in,
+> +		     DAILINK_COMP_ARRAY(COMP_CPU("49026000.mcbsp")),
+> +	DAILINK_COMP_ARRAY(COMP_CODEC("twl4030-codec", "twl4030-hifi")),
+> +	DAILINK_COMP_ARRAY(COMP_PLATFORM("49026000.mcbsp")));
+> +#endif /* IS_BUILTIN(CONFIG_SND_SOC_OMAP3_PANDORA) */
 
 [Severity: High]
-Won't removing regulator-always-on from usb_host_5v cause
-regulator_late_cleanup() to disable USB Host VBUS 30 seconds after boot?
+Does SND_SOC_OMAP3_PANDORA in sound/soc/ti/Kconfig need to select
+SND_SOC_PCM1754 now that the playback DAI link binds to the pcm1773 DAI?
 
-Nothing in the device tree references &usb_host_5v (hsusb2_phy only has
-vcc-supply =3D <&vaux2>), so rdev->use_count stays at 0.  When
-regulator_late_cleanup() runs, it sees !c->always_on and rdev->use_count =
-=3D=3D 0
-and calls _regulator_do_disable(rdev), turning off GPIO 164 with no consumer
-to re-enable it and reintroducing the current leakage and LCD flicker on CC
-boards noted in the removed comment.
+Without select SND_SOC_PCM1754 in Kconfig, configs enabling
+CONFIG_SND_SOC_OMAP3_PANDORA (such as omap2plus_defconfig) do not build
+sound/soc/codecs/pcm1754.c, leaving the playback link unbound.
 
-In addition, set_machine_constraints() enables rdev->supply (aux_5v, and
-transitively vaux1) at boot when boot_on is set, but regulator_late_cleanup=
-()
-calls _regulator_do_disable() directly without disabling rdev->supply,
-permanently leaking that enable reference on aux_5v and vaux1.
+[Severity: High]
+Why do the DAI links hardcode component names and branch on
+IS_BUILTIN(CONFIG_SND_SOC_OMAP3_PANDORA) instead of populating the DAI
+link of_node pointers from Device Tree?
+
+On DT-based OMAP3 kernels, the McBSP devices are always named
+"49022000.mcbsp" and "49026000.mcbsp" regardless of whether this driver is
+built-in or a module, so CONFIG_SND_SOC_OMAP3_PANDORA=3Dy searches for
+"omap-mcbsp.2" and "omap-mcbsp.4" and never binds.  In addition,
+sound/soc/codecs/pcm1754.c leaves soc_component_dev_pcm1754.name NULL, so
+the codec component is named after the DT node (for example "dac" in the
+binding example) rather than "pcm1773-codec", and omap3pandora_probe()
+never parses the sound-dai phandles into cpus->of_node, platforms->of_node
+and codecs->of_node.
+
+> @@ -192,100 +348,122 @@ static struct snd_soc_dai_link omap3pandora_dai[]=
+ =3D {
 
 [ ... ]
 
-> @@ -711,6 +731,10 @@ &mcbsp2 {
->  };
-> =20
->  /* bluetooth */
-> +&twl_gpio {
-> +	ti,use-regen;
-> +};
+> +	if (dev->of_node) {
+> +		ret =3D snd_soc_of_parse_card_name(card, "label");
+> +		if (ret)
+> +			card->name =3D "omap3pandora";
 > +
->  &mcbsp3 {
->  };
+> +		ret =3D snd_soc_of_parse_audio_simple_widgets(card, "widgets");
+> +		if (ret) {
+> +			dev_err(dev, "Failed to parse DAPM widgets: %d\n", ret);
+> +			return ret;
+> +		}
+> +
+> +		ret =3D snd_soc_of_parse_audio_routing(card, "routing");
+> +		if (ret) {
+> +			dev_err(dev, "Failed to parse audio routing: %d\n", ret);
+> +			return ret;
+> +		}
+>  	}
 
 [Severity: Low]
-This isn't a bug, but inserting &twl_gpio here separates the /* bluetooth */
-comment from the &mcbsp3 node it describes.
+Should omap3pandora_probe() check whether the "widgets" and "routing"
+properties exist before calling snd_soc_of_parse_audio_simple_widgets()
+and snd_soc_of_parse_audio_routing()?
+
+Both helpers return -EINVAL when the property is absent, whereas the DT
+binding only lists compatible and sound-dai as required.
+
+[ ... ]
+
+> +static struct platform_driver omap3pandora_driver =3D {
+> +	.driver =3D {
+> +		.name =3D "omap3pandora-sound",
+> +		.of_match_table =3D omap3pandora_of_match,
+> +	},
+> +	.probe =3D omap3pandora_probe,
+> +};
+
+[Severity: Medium]
+Should omap3pandora_driver.driver set .pm =3D &snd_soc_pm_ops?
+
+Previously, registering a "soc-audio" platform device bound the card to
+soc_driver in sound/soc/soc-core.c, which wires up snd_soc_pm_ops.
+Omitting .pm here disables ASoC card suspend, resume, and poweroff
+callbacks.
 
 --=20
 Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/cover.1795505160.gi=
-t.hns@goldelico.com?part=3D14
+t.hns@goldelico.com?part=3D7
