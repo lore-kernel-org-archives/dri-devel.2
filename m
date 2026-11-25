@@ -2,58 +2,67 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DFDAF606A326
-	for <dri-devel@archiver.kernel.org>; Wed, 25 Nov 2026 10:23:02 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C9F20606A327
+	for <dri-devel@archiver.kernel.org>; Wed, 25 Nov 2026 10:27:12 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=qq.com header.i=@qq.com header.a=rsa-sha256 header.s=s201512 header.b=B8GNBCfk
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=O4uHgzXP
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 4A8D510FAF2;
-	Wed, 25 Nov 2026 10:22:57 +0000 (UTC)
-Received: from out162-62-57-252.mail.qq.com (out162-62-57-252.mail.qq.com
- [162.62.57.252])
- by gabe.freedesktop.org (Postfix) with ESMTPS id A0E6810FAF2
- for <dri-devel@lists.freedesktop.org>; Wed, 25 Nov 2026 10:22:49 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qq.com; s=s201512;
- t=1795602165; bh=fK3tKISj3R25ArhBdy5LM7VopeCl3BiNHMyMArgUl0M=;
- h=From:To:Cc:Subject:In-Reply-To:References;
- b=B8GNBCfkblKhl6TOcGp2hDi3EssDZrsTX2bduAyTKpPg0lcVBo9MBZprXP3FlzNpq
- AMZyZ7NaqyHuKEI0RDaj86yvfj3L0zmf+iUrVSmM+jeA9MCDjvisvE3q3kN0bUo08q
- T43teeGb1jcbdtqbXmevmMZpsbVnXTpIhPBBDJNU=
-Received: from [172.20.10.2] ([240e:47e:32f9:92c3:8064:1335:aef9:f3d1])
- by newxmesmtplogicsvrszc56-0.qq.com (NewEsmtp) with SMTP
- id 5ABBA6A3; Wed, 25 Nov 2026 18:22:43 +0800
-X-QQ-mid: xmsmtpt1795602163ty7ddubw1
-Message-ID: <tencent_B5ED38EF87A715D7F71A61C813EBEF0F6A06@qq.com>
-X-QQ-XMAILINFO: NGZp1yYNf7Y+ZKVBiD/neVVJOZQa17843ytV7XWf3iVWxCttgHZToC973ei0aS
- NYtd4s6YAMYBD62XlclZSXyjRchRuTnUUneAF0RajY2nCnW/Cpp2hTtqbQbA5ZvY9hJNHWwuCNCg
- lHjmjM5EeMAiMMPAvZTJ2WwFEiELRPaHOgfZYxnHgyrc87pbE5Bs/4rhDLMDM3dqKeGzmHVNt7pL
- JWzZUDfxa51ROrart2e5RvkJ0PtKzMz28TVd35ZtWcz5LPgTDrf7N5q8m/9AfoAI72KcOjTsVBAI
- QUjbYBBn0wB1TkaZ7g9CvAEpJJhKyift32J3ada0n/pMXfgj2uL9HPULjqmcjFj8jij88jxdjjRT
- 4p//xo2Z3U+tpCVJyMSPySjV9TPbiWybqjZM86P7bPvoGDviGf6seaJ80pNxdzOxRA8PibBmkQGu
- qhSKuj4XaglaOvfovsGxXVIqkDaVIy0Pr9eTCwCHYEVMmrnxZXcwYD9sdRm4JQexxwqw1zRhEr1V
- bOPgINHoCDV/gODr+vzGeD7k/T3b/oeqnXtRatqNJmFp0EeFe2MEhu4++d3xL5/bk6g5u2moF94p
- 4DuvE0fXhz5fXPw0siaEKOSvar0OlnV1MDOVW+zRM65Td1PO8bJXvyudesF+hXRUL/M4c+tvRyn4
- bmJ6CMQ9uqZZAGVd6ZawQBj6u8G6S70CG2f+yeyKg6QG8VeXmcpNPsOYWFH46YtnJfLvmJ94Otm1
- 7lQvwhHad23gG+6duAY4WX3/u7x7ZfZCWOquwcMOrMB6xv37nUrVo+J8PWP26YBtyAQmFEpwqVqd
- O5/7AiM4qKShjY063FPDWoKqBBjrNpi5mRcGIbaXnU/dmNPciyvY+rooaQ0RU7kviZtJLf7OAIKh
- hsCp+d6UI0MgoMxscm9y4BdRTgL4euxrAoog7FnKXyDdEAKVaQc58bpVhyOHePWB8jQGGBptlRq6
- kGuxSd7E3CoNaspI3nRRXxX9ug29b5BuhDi+u9fNJA+fNmvUOP5/SLuNCb6egdGT9jgGWI8P7zOd
- BPCBYw4lY2mTW66yFk8KlsghIc1jogeuLARQKv4hhGa3yR/rGbdDupHriHM6tdFTNmLCQbvTLygL
- Wj/kAn
-X-QQ-XMRINFO: NI4Ajvh11aEjEMj13RCX7UuhPEoou2bs1g==
-Content-Type: text/plain; charset="utf-8"
+	by gabe.freedesktop.org (Postfix) with ESMTP id 3C36210E0CE;
+	Wed, 25 Nov 2026 10:27:07 +0000 (UTC)
+Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id CAF6D10E0CE
+ for <dri-devel@lists.freedesktop.org>; Wed, 25 Nov 2026 10:27:00 +0000 (UTC)
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+ by sea.source.kernel.org (Postfix) with ESMTP id 84B30455EB
+ for <dri-devel@lists.freedesktop.org>; Wed, 25 Nov 2026 10:27:00 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 00E571F000D8
+ for <dri-devel@lists.freedesktop.org>; Wed, 25 Nov 2026 10:27:00 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+ s=k20260515; t=1795602420;
+ bh=usb6Z06Hk8KYQV8odRZafo7lcqGHFhPDFCx6kFOexg8=;
+ h=References:In-Reply-To:From:Date:Subject:To:Cc;
+ b=O4uHgzXPpddrs5gBqi8u9B2aC0SyE1KCf5EIAftXmQf0Yz2Bd+cgo1AM8A56/XQ9b
+ QsOVezx8SE9qn+lvrJWJL1PlTp4gI/ODzeAfNUdCBjt4Yzly+8YEdh5lAto1BeiBtW
+ /7CFZIny7BW8SPGrIJQECs6/L+Gmln25txeh1jerNuB2R5ZuT5WsODPt16jq9ZSXN1
+ TAdyxky7rcl0q80azCDqg0LQDzoEB1/CSIuA4WL/UAjvZTNT3qWM2GLj5N0aZvZz1R
+ L8ZFxRiK9+1MKiLQyRnSM6v7F5pPkCH2LHiOaGB1sMe/Gxk8SHMRpzsNCp05SnHtNB
+ EfR1nLIQmF2Pg==
+Received: by mail-lf1-f46.google.com with SMTP id
+ 2adb3069b0e04-5c1465bbbdaso4795007e87.3
+ for <dri-devel@lists.freedesktop.org>; Wed, 25 Nov 2026 02:26:59 -0800 (PST)
+X-Forwarded-Encrypted: i=1;
+ AL+hErEmX54SMokqq0kehk4rhG4s8TJ5xqUoHmAy0DiQDjU06hGLfA29QOAWfBwJYDc9rAT3qnAMKlMbKdw=@lists.freedesktop.org
+X-Gm-Message-State: APuU4Z9F5Dg4nQZh41jXqNKhj7JD4lVrp2C9mXY05naj0cKMWFF3jvNj
+ 0/10lsXmm6n8iG1f3fqfEfhJfLHtXbfuk2D7/yvfBuquP1FRkTxO9PC4Ku1NARsQMqbZIaYV9eF
+ Kl1KAVlH/quFgjqhweF5Q6ESoLZYUqSU=
+X-Received: by 2002:a05:6512:104d:b0:5c1:5a83:2fd7 with SMTP id
+ 2adb3069b0e04-5c1bc907072mr5199313e87.66.1795602418769; Wed, 25 Nov 2026
+ 02:26:58 -0800 (PST)
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: base64
-From: Hefei <3066883572@qq.com>
-To: Krzysztof Kozlowski <krzk@kernel.org>
-Cc: dri-devel@lists.freedesktop.org, linux-input@vger.kernel.org,
- devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, robh@kernel.org,
- conor+dt@kernel.org
-Subject: Re: [PATCH v3 1/6] dt-bindings: display: add VIEWE JD9365TX panel
- binding
-In-Reply-To: <179559080931.9063.6197450233674722560.b4-reply@b4>
-References: <179559080931.9063.6197450233674722560.b4-reply@b4>
+References: <20261015142552.4128028-1-ryan.roberts@arm.com>
+In-Reply-To: <20261015142552.4128028-1-ryan.roberts@arm.com>
+From: Linus Walleij <linusw@kernel.org>
+Date: Wed, 25 Nov 2026 11:26:46 +0100
+X-Gmail-Original-Message-ID: <CAD++jLm6VvPYB5UQS8Zm73pYifr7Oi=xX3S4Wt5c3WE7uMv+fQ@mail.gmail.com>
+X-Gm-Features: Aa3M54rtYXT0tNMww-_rAs-DbnpD3x58pzG3L6crqferpf2a4MJ3rhFXSlspZ40
+Message-ID: <CAD++jLm6VvPYB5UQS8Zm73pYifr7Oi=xX3S4Wt5c3WE7uMv+fQ@mail.gmail.com>
+Subject: Re: [RFC PATCH v2 00/15] Arm Core Local Accelerator Driver
+To: Ryan Roberts <ryan.roberts@arm.com>, Arnd Bergmann <arnd@arndb.de>
+Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+ Catalin Marinas <catalin.marinas@arm.com>, 
+ Will Deacon <will@kernel.org>, Mark Rutland <mark.rutland@arm.com>,
+ Marc Zyngier <maz@kernel.org>, 
+ Oliver Upton <oupton@kernel.org>, Alex Williamson <alex@shazbot.org>,
+ Jason Gunthorpe <jgg@nvidia.com>, 
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>, 
+ Jean-Philippe Brucker <jpb@kernel.org>, Oded Gabbay <ogabbay@kernel.org>,
+ Jonathan Corbet <corbet@lwn.net>, 
+ linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
+ kvmarm@lists.linux.dev, kvm@vger.kernel.org, devicetree@vger.kernel.org, 
+ dri-devel@lists.freedesktop.org, linux-doc@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -65,17 +74,42 @@ List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
-Date: Wed, 25 Nov 2026 10:22:57 +0000 (UTC)
-X-Spam-Status: No, score=-2.8 required=3.0 tests=BAYES_00,DKIM_SIGNED,
-	DKIM_VALID,DKIM_VALID_AU,FREEMAIL_FORGED_FROMDOMAIN,FREEMAIL_FROM,
-	HEADER_FROM_DIFFERENT_DOMAINS,MAILING_LIST_MULTI,SPF_HELO_NONE,
-	SPF_PASS autolearn=no autolearn_force=no version=4.0.1
+X-Spam-Status: No, score=-5.8 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
+	DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
+	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS autolearn=no
+	autolearn_force=no version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-SGkgS3J6eXN6dG9mLAoKVGhhbmtzIGZvciB0aGUgZmVlZGJhY2suIEkgcmFuIGNoZWNrcGF0Y2gg
-YW5kIGNoZWNrcGF0Y2ggLS1zdHJpY3QgYW5kCmFkZHJlc3NlZCB0aGUgcmVwb3J0ZWQgaXNzdWVz
-LiBQbGVhc2Ugc2VlIFBBVENIIHY2IG9mIHRoaXMgc2VyaWVzCihNZXNzYWdlLUlEOiA8MjAyNjEx
-MjUxMDIxMzAuMjU2LTEtMzA2Njg4MzU3MkBxcS5jb20+KS4KClNvcnJ5IGZvciB0aGUgbm9pc2Ug
-b24gdGhlIGVhcmxpZXIgcmV2aXNpb25zLgoKQmVzdCByZWdhcmRzLApIZWZlaQo=
+Hi Ryan, Jean-Philippe,
 
+regarding this patch set I looked into historical precursors and
+ongoing developments that could benefit from the same infrastructure.
+
+1. Apple AMX: there is no ongoing effort for this accelerator but it
+exists in all Apple silicon. This accelerator appears to be synchronous
+using extended instructions and is just "some different SVE" and would
+be handled the same way as these.
+
+2. The PowerPC Cell SPU (Playstation 3)
+
+This is more interesting: the Cell has accelerator cores that execute
+entire litte programs (shaders?) on behalf of the CPU. These are
+however not poilled like the CLA, but signal completion using a
+mailbox interrupt. The accelerators are
+
+What is interesting with the SPU is that it communicates by creating
+a custom filesystem (spufs) mounted at /spu, so this is apparently
+another design venue to consider.
+
+I think Arnd Bergmann has worked extensively on the SPU so he will
+likely be able to provide input on lessons learned, do's and dont's
+when it comes to this and other accelerators.
+
+My superficial appraisal is that the CLA is probably executing smaller
+jobs, snippets of work rather than entire little programs/shaders like
+the SPU does, so it is conceptually different, but may provide
+additional ideas anyway. Arnd?
+
+Yours,
+Linus Walleij
