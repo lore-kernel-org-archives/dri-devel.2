@@ -2,85 +2,51 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1D4B2606A31E
-	for <dri-devel@archiver.kernel.org>; Wed, 25 Nov 2026 08:53:53 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7C2DB606A326
+	for <dri-devel@archiver.kernel.org>; Wed, 25 Nov 2026 08:55:28 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (1024-bit key) header.d=rock-chips.com header.i=@rock-chips.com header.a=rsa-sha256 header.s=default header.b=BqS+h/HA
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 59B2610E2B4;
-	Wed, 25 Nov 2026 08:53:52 +0000 (UTC)
-Received: from mail-ot1-f48.google.com (mail-ot1-f48.google.com
- [209.85.210.48])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 0912510E2B4
- for <dri-devel@lists.freedesktop.org>; Wed, 25 Nov 2026 08:53:51 +0000 (UTC)
-Received: by mail-ot1-f48.google.com with SMTP id
- 46e09a7af769-85c1135c286so4245066a34.1
- for <dri-devel@lists.freedesktop.org>; Wed, 25 Nov 2026 00:53:50 -0800 (PST)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20260707; t=1795596830; x=1796201630;
- h=content-type:cc:to:subject:message-id:date:from:in-reply-to
- :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
- :subject:date:message-id:reply-to:content-type;
- bh=g2VZTRXJhfP019ydeKL5YFHq+Ono4E72cezNWVIlDDs=;
- b=rDvN7PSUOM4PZ9NPpeGpYtxrCOZg74juEQfym65gIufLU5iILFkeGDZpixt6k1yorc
- v8+lHEQJPpmz0iK4OcRy1KQC9L8NOsOis7sEego21EZlIMw5HUzpi0ppxPfesRIV2q3K
- ZVxlx5l58IA4TXXUJcR3rrrSVN47eZJFnA1Vzqo7FzkbmaJMRBj9xGq1P33AxN6oAXYO
- MAk/O7vaDtCUhF1BY+C6n9LwuUWeN/HnyODkkJDxdDM9ABatOvkdGMlwKbq3QEZwXlHH
- 3pTjcOydUrG4EJhRrBQ2Z+FKRUQgW2YH1TLN52jmf1Pj3uXsCnGkW4Z6OKaY+TE6s8Lb
- l9Kw==
-X-Forwarded-Encrypted: i=1;
- AL+hErGl4e5mrAkV6JIQcOV4U3TOPW56tVoFrdh0SlAJm0+FzxRkXE2ibkwtP9Z+VlwcF6q4sarNjBS33XM=@lists.freedesktop.org
-X-Gm-Message-State: APuU4Z+ODFbfH3W5r8ItTMADdMVik3llKdjF5AZyyy6o0JXR7ESObRml
- +TSndCcrmqre2/HYSiriwJ49Z3zo2/SEIiA6NvkhPOqwuzS/ypGips6nx8yTmLyh
-X-Gm-Gg: AZFdTZcSdVajYABBAfzjy643dPLoGFRebUfehDq9i+Wsb1dVvdUrQATqRAl/JUHjYqc
- OlP6yExOvH/LQxrxPgWQBHzPvY1N8RolKcewE0zrC4EjeMnx+4Q0nPZ9kD0Lf+oVUyos9uTcafA
- V9aLJdJvJuQ+zc13uPATN7Fdlmsow+mx6pjH/9ZzU0YCvp3d5eWJa0wEyDDUE5QhMFuKfE/D0SS
- hTf5ayUstNsX1fS0tfGGhVyOsfvNJADlnzVym6q3aKGlAnX84mO/wKIo828OUY0qAQf6XeeQtpy
- zvvDUzGP0dfz0dxpJSLR426vbjkauCoD6B1PRWDauUcXqCHDtOjDCvStrP3AyMdNtwimrUiiRQ6
- J51gQ8nFc+QmFNYUG9l65gbi5d9Ec/kNw6X86NYwwfgg6iblvqnzl4yisI0INmCvIoL/CtafE/4
- qrn8LFWzDL1mBapBM4PShjmOKSv3a6beh8fn6jZzjaWnowXmme2Z4igiUq+paul+qDMhqkSUbTQ
- wZSe0qm0w7fvoD7qOk/lF2J/W8jkY8TiFgw4hR8lxVn+EQ5tMDz3AgrS3HHHnZBsheKxp1vnfw3
- z4udrzZL0aLNCHs814HFzaUhXRRSADs/8iDq+hAyjFdKU49FL2BZInQtEJ4Hon4CU2M=
-X-Received: by 2002:a05:6830:4103:b0:862:e9e6:62b0 with SMTP id
- 46e09a7af769-86315646d6fmr19084385a34.9.1795596830070; 
- Wed, 25 Nov 2026 00:53:50 -0800 (PST)
-Received: from mail-ot1-f50.google.com (mail-ot1-f50.google.com.
- [209.85.210.50]) by smtp.gmail.com with ESMTPSA id
- 46e09a7af769-863168bdc75sm13903036a34.8.2026.11.25.00.53.49
- for <dri-devel@lists.freedesktop.org>
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Wed, 25 Nov 2026 00:53:49 -0800 (PST)
-Received: by mail-ot1-f50.google.com with SMTP id
- 46e09a7af769-862df509ccbso2767175a34.2
- for <dri-devel@lists.freedesktop.org>; Wed, 25 Nov 2026 00:53:49 -0800 (PST)
-X-Forwarded-Encrypted: i=1;
- AL+hErGDAbaEq4SARWhyc1KY0YB8+/ZxHVf7SriGr5lAmoT0ESDCuS03soTj+xX8YOIFONHtgnGWgeP2cv4=@lists.freedesktop.org
-X-Received: by 2002:a05:6102:cd3:b0:7cc:56a:58da with SMTP id
- ada2fe7eead31-7d7395d630fmr7124513137.23.1795596450466; Wed, 25 Nov 2026
- 00:47:30 -0800 (PST)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 93C1210FA57;
+	Wed, 25 Nov 2026 08:55:22 +0000 (UTC)
+Received: from mail-m81165.netease.com (mail-m81165.netease.com [47.88.81.165])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 0A5A810FA44
+ for <dri-devel@lists.freedesktop.org>; Wed, 25 Nov 2026 08:55:15 +0000 (UTC)
+Received: from [127.0.0.1] (unknown [61.154.14.86])
+ by smtp.qiye.163.com (Hmail) with ESMTP id 55f2f99e1;
+ Wed, 25 Nov 2026 16:55:11 +0800 (GMT+08:00)
+Message-ID: <82168811-c141-445a-97d1-e5c1ee38e0f4@rock-chips.com>
+Date: Wed, 25 Nov 2026 16:55:06 +0800
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
-References: <20261103-prep-meta-fw-arch-independent-v4-0-513d1c51f458@imgtec.com>
- <20261103-prep-meta-fw-arch-independent-v4-2-513d1c51f458@imgtec.com>
-In-Reply-To: <20261103-prep-meta-fw-arch-independent-v4-2-513d1c51f458@imgtec.com>
-From: Geert Uytterhoeven <geert@linux-m68k.org>
-Date: Wed, 25 Nov 2026 09:47:19 +0100
-X-Gmail-Original-Message-ID: <CAMuHMdVqGEZckVZMnmKfwpJZ-sT6Jisj7JkL31uS0S_XABCbGg@mail.gmail.com>
-X-Gm-Features: Aa3M54oYWwJ4QX4LtZBAQOtixmcWW5HWWBj8NKw1oLcuyKzIqPAFolEjnn9UcmQ
-Message-ID: <CAMuHMdVqGEZckVZMnmKfwpJZ-sT6Jisj7JkL31uS0S_XABCbGg@mail.gmail.com>
-Subject: Re: [PATCH v4 2/5] drm/imagination: Limit access to the RISC-V
- firmware interface
-To: Alexandru Dadu <alexandru.dadu@imgtec.com>
-Cc: Alessio Belle <alessio.belle@imgtec.com>, 
- Luigi Santivetti <luigi.santivetti@imgtec.com>, 
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>, 
- Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>,
- Simona Vetter <simona@ffwll.ch>, 
- Paul Walmsley <pjw@kernel.org>, Palmer Dabbelt <palmer@dabbelt.com>,
- Albert Ou <aou@eecs.berkeley.edu>, 
- Alexandre Ghiti <alex@ghiti.fr>, imagination@lists.freedesktop.org, 
- dri-devel@lists.freedesktop.org, linux-riscv@lists.infradead.org, 
- linux-kernel@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v3 3/5] drm/bridge: trilinear: add the DPTX DRM bridge
+To: Luo Liu <Luo.Liu@cixtech.com>
+Cc: maarten.lankhorst@linux.intel.com, mripard@kernel.org,
+ tzimmermann@suse.de, andrzej.hajda@intel.com, neil.armstrong@linaro.org,
+ rfoss@kernel.org, robh@kernel.org, krzk+dt@kernel.org, conor+dt@kernel.org,
+ dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org,
+ laurent.pinchart@ideasonboard.com, jonas@kwiboo.se,
+ jernej.skrabec@gmail.com, luca.ceresoli@bootlin.com, wuyi.shen@cixtech.com,
+ cix-kernel-upstream@cixtech.com
+References: <20261124120114.3273161-1-Luo.Liu@cixtech.com>
+ <20261124120114.3273161-4-Luo.Liu@cixtech.com>
+Content-Language: en-US
+From: Chaoyi Chen <chaoyi.chen@rock-chips.com>
+In-Reply-To: <20261124120114.3273161-4-Luo.Liu@cixtech.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+X-HM-Tid: 0aa211ea839803a7kunm367dc79fe08dd9
+X-HM-MType: 1
+X-HM-Spam-Status: e1kfGhgUHx5ZQUpXWQgPGg8OCBgUHx5ZQUlOS1dZFg8aDwILHllBWSg2Ly
+ tZV1koWUFITzdXWRgWCB1ZQUpXWS1ZQUlXWQ8JGhUIEh9ZQVlDHkoaVklIQkodT08fTENITlYVFA
+ kWGhdVEwETFhoSFyQUDg9ZV1kYEgtZQVlNSlVKTk9VSk9VQ01ZV1kWGg8SFR0UWUFZT0tIVUpLSU
+ 9PT0hVSktLVUpCS0tZBg++
+DKIM-Signature: a=rsa-sha256;
+ b=BqS+h/HAVZ206PWEvVwfP1IycONXbmlKg6lhmJFv711VYa9d8faJGNxIZxw0hKmSE4cO5/hdsUHqmKQOUH3cz9wOul+AnEy5FAxlZk6wpRE7U/banOPxqtJ8XO5I+w3PulbMtrq5UgqlV4YvrrVq3P3uprzIGrVdzsO8flFpZFQ=;
+ s=default; c=relaxed/relaxed; d=rock-chips.com; v=1; 
+ bh=o4GT54fvMYkC4amfZANmVOthCE6DeSD74V9mpKYzQZY=;
+ h=date:mime-version:subject:message-id:from;
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -92,54 +58,69 @@ List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-13.8 required=3.0 tests=BAYES_00,
-	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
-	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS autolearn=unavailable
-	autolearn_force=no version=4.0.1
+X-Spam-Status: No, score=-17.3 required=3.0 tests=BAYES_00,DKIM_SIGNED,
+	DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
+	INCLUDES_CR_TRAILER,INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,
+	SPF_PASS,USER_AGENT_SANE_1 autolearn=unavailable autolearn_force=no
+	version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-Hi Alexandru,
+Hi,
 
-On Tue, 3 Nov 2026 at 10:01, Alexandru Dadu <alexandru.dadu@imgtec.com> wrote:
-> From: Alessio Belle <alessio.belle@imgtec.com>
->
-> - Rename the RISC-V firmware processor header adding an "internal"
->   suffix.
-> - Add guard to the RISC-V firmware processor header to prevent
->   accidental inclusion outside of the RISC-V firmware specific logic.
->
-> Signed-off-by: Alessio Belle <alessio.belle@imgtec.com>
-> Signed-off-by: Alexandru Dadu <alexandru.dadu@imgtec.com>
+On 11/24/2026 8:01 PM, Luo Liu wrote:
+> Add the DRM bridge that exposes the transmitter to KMS: connector
+> detection, EDID mode enumeration with a downstream timing fallback,
+> validation of a mode against the sink link capabilities, and the atomic
+> enable and disable paths.
+> 
+> The bridge is meant to be attached with DRM_BRIDGE_ATTACH_NO_CONNECTOR;
+> the connector is created by drm_bridge_connector_init() from the bridge
+> operations, so the driver only implements the bridge side and never
+> creates a connector of its own.
+> 
+> Signed-off-by: Luo Liu <Luo.Liu@cixtech.com>
+> ---
+>  drivers/gpu/drm/bridge/trilinear/dptx_drm.c | 623 ++++++++++++++++++++
+>  drivers/gpu/drm/bridge/trilinear/dptx_drm.h |  17 +
+>  2 files changed, 640 insertions(+)
+>  create mode 100644 drivers/gpu/drm/bridge/trilinear/dptx_drm.c
+>  create mode 100644 drivers/gpu/drm/bridge/trilinear/dptx_drm.h
+> 
+> diff --git a/drivers/gpu/drm/bridge/trilinear/dptx_drm.c b/drivers/gpu/drm/bridge/trilinear/dptx_drm.c
+> new file mode 100644
+> index 000000000000..fde34bac1230
+> --- /dev/null
+> +++ b/drivers/gpu/drm/bridge/trilinear/dptx_drm.c
+> @@ -0,0 +1,623 @@
+> +// SPDX-License-Identifier: GPL-2.0-only
+> +/*
+> + * DisplayPort DRM bridge helpers
+> + *
+> + * Copyright 2026 Cix Technology Group Co., Ltd.
+> + */
+> +
+> +#include <linux/device.h>
+> +#include <linux/kernel.h>
+> +#include <linux/math64.h>
+> +
+> +#include <drm/drm_atomic.h>
+> +#include <drm/drm_atomic_state_helper.h>
+> +#include <drm/drm_bridge.h>
+> +#include <drm/drm_edid.h>
+> +
+> +#include "dptx.h"
 
-Thanks for your patch, which is now commit 2f42457ad97a6d32
-("drm/imagination: Limit access to the RISC-V firmware interface")
-in drm-misc/for-linux-next.
+This file does not appear until patch 4.
 
-> --- a/drivers/gpu/drm/imagination/pvr_fw_riscv.c
-> +++ b/drivers/gpu/drm/imagination/pvr_fw_riscv.c
-> @@ -7,7 +7,9 @@
->  #include "pvr_fw_mips.h"
->  #include "pvr_gem.h"
->  #include "pvr_rogue_cr_defs.h"
-> -#include "pvr_rogue_riscv.h"
-> +#define PVR_ROGUE_RISCV_INTERNAL_H_EXPLICIT_INCLUDE
-> +#include "pvr_rogue_riscv_internal.h"
-> +#undef PVR_ROGUE_RISCV_INTERNAL_H_EXPLICIT_INCLUDE
+> +#include "dptx_drm.h"
+> +
+> +#define DPTX_MIN_H_BACKPORCH 12
+> +#define DPTX_MIN_BPP		(6 * 3)
+> +
 
-Really? IMHO that is very ugly.
-
->  #include "pvr_vm.h"
->
->  #include <linux/compiler.h>
-
-Gr{oetje,eeting}s,
-
-                        Geert
 
 -- 
-Geert Uytterhoeven -- There's lots of Linux beyond ia32 -- geert@linux-m68k.org
+Best, 
+Chaoyi
 
-In personal conversations with technical people, I call myself a hacker. But
-when I'm talking to journalists I just say "programmer" or something like that.
-                                -- Linus Torvalds
