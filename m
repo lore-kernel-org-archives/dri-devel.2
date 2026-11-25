@@ -2,66 +2,66 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3CE34606A31E
-	for <dri-devel@archiver.kernel.org>; Wed, 25 Nov 2026 03:28:31 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9C42B606A323
+	for <dri-devel@archiver.kernel.org>; Wed, 25 Nov 2026 03:28:33 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=l3YsZlWm
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=sXHF5838
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 3015B10ECFB;
-	Wed, 25 Nov 2026 03:28:23 +0000 (UTC)
-Received: from mail-wr1-f53.google.com (mail-wr1-f53.google.com
- [209.85.221.53])
- by gabe.freedesktop.org (Postfix) with ESMTPS id AAC1B10EBE9
- for <dri-devel@lists.freedesktop.org>; Wed, 25 Nov 2026 03:28:12 +0000 (UTC)
-Received: by mail-wr1-f53.google.com with SMTP id
- ffacd0b85a97d-498f5fa4f70so4269383f8f.0
- for <dri-devel@lists.freedesktop.org>; Tue, 24 Nov 2026 19:28:12 -0800 (PST)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 394DB10EBE9;
+	Wed, 25 Nov 2026 03:28:27 +0000 (UTC)
+Received: from mail-wm1-f45.google.com (mail-wm1-f45.google.com
+ [209.85.128.45])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 4D01210EBAE
+ for <dri-devel@lists.freedesktop.org>; Wed, 25 Nov 2026 03:28:17 +0000 (UTC)
+Received: by mail-wm1-f45.google.com with SMTP id
+ 5b1f17b1804b1-4a2000d5fb1so30158365e9.1
+ for <dri-devel@lists.freedesktop.org>; Tue, 24 Nov 2026 19:28:17 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20260707; t=1795577291; x=1796182091; darn=lists.freedesktop.org;
+ d=gmail.com; s=20260707; t=1795577295; x=1796182095; darn=lists.freedesktop.org;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:from:to:cc:subject:date
  :message-id:reply-to:content-type;
- bh=FhQeErHOdhtwkeA5K1r01RIQnUmq6UCxjV+EjEZqB5g=;
- b=l3YsZlWmzn3F9Sr7HwIvvd9nXJWo7X0aap099KzD9vmz38HZ3kU5E2p/KfGxBkMeGa
- c0rQiABBll5Slqa65UnDywYFhFVaAvekumrAGWlpm8CIOCNt8EfT3FeGR5ASKiFhbn49
- PUA5UBktdg8fIMPK43RSXJ2ccsqEQVb30X+grVcGHYkbjxKcIfBGeCJEo0cFll0AbQ+y
- JSAG2LxarrdCG6dY2EUgjO50IQuJFEXm9WO5hMfI22PhWDbIStNEWAEc/Cb4krzI4+8A
- TLfNx7boXOV5tNETthcX0/bBLqGC+CC/MVCqG7PNH81GuZ+RdnB+MSon9LBC9MGiI1n0
- zUfA==
+ bh=neRHwZ4PcekzFePF+ojssqeeGgodG3OmNINdD0aY8HA=;
+ b=sXHF5838fta96sav6svRf9qc1FwZKcA3NrRDP9l6nq8HqC6rWJEG2e5wrLWAXaoje1
+ ZdGVf8XXRgeSpbb1pu6VVpDWXfMbAmI0gvscqRl0Zc0oZC68HX8cym2ST/8MC81d85aT
+ +p1cLx8eQ0RupLpwRpKn460B8ucBdaHGC51IzcQrvIsRz2DCOX0yLo0jp6uBZOcfyJLT
+ blrCokjUsuBZvCP7vxfVCoC4WFl4J9IIw/iV/E0YSIBTb2AwC2BVyme60mNAU7PCmJgU
+ rmgIajzmKpcOcQ1K7SkVa7YAWRm2tHjXt/CnYJpIMmRLTsl5grqxVGV89wI0vXRMYSZS
+ fodA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20260707; t=1795577291; x=1796182091;
+ d=1e100.net; s=20260707; t=1795577295; x=1796182095;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
  :to:cc:subject:date:message-id:reply-to:content-type;
- bh=FhQeErHOdhtwkeA5K1r01RIQnUmq6UCxjV+EjEZqB5g=;
- b=UFln66OHz6+jGCN5fg54CQSMeiI7uCrSq5QhYNvFdEUHScCDg0FVaXBhTgfPZN3vsN
- l8VzdbdVm40zXEwwx73AXy+ChTPGvDEHuQsSKvOs7Noomn0D+TUlfm+cQcIMR09Iq41D
- hOxHkg7X3WNDgzysE+9+w6dZC04Z6L6zXh6kCP4rV+lI9zVSRDd9vdlI8IwzZf3OMuM1
- vEK4DyGUFNnwcrSwXTNfEx/kHbN6Z9B0XotiIzkE+9dO/WzcK5nIVPFf+xvTiEkcpPZI
- Ip+UxPdBzbipZYibnwzouRwXoHOBgVdGeydIiO9Y15NlDCJG9alWaonfZJjgCcaaFjIR
- +WrA==
+ bh=neRHwZ4PcekzFePF+ojssqeeGgodG3OmNINdD0aY8HA=;
+ b=2JjvE+u19swCqSo5WUvqvafvCSyzJeUCL/ZVmUukcUuK9ubBopJIAKbdQYTJyt0aJy
+ e2zJsCQzliVcFYUs6K0aItxTe7fIGA8MsUkxUM8ZpyS7AQId/jiHeSA6LseHIUq8Wpku
+ xA0KbjVpM+S1kW5/EWIbJj4ZJvRHzEFajFl1pMUyh0FCWPjLkAwAuYqlaYxl4gbf5oU8
+ TG0t72QLjlrCmv1ErXH31i0h4R7i3cGuotDEEwXJcJAN3n8uuNQywmOTbGgcIe++oze1
+ WcIsSQsQSQHRJe9qlveH3w/I7VK26V2DGX0YAi3CB6SW4FfMdobCz/8BwPrxtIxNTZaj
+ mD4Q==
 X-Forwarded-Encrypted: i=1;
- AL+hErHnX0e+xHvwbzTxzWnfHXIRWoclwoUt25avOxhTnpzddh/k2gUZhH1r6KrU737ODHPT4ePOP7t7vRU=@lists.freedesktop.org
-X-Gm-Message-State: APuU4Z/UQBQ67N19GuFsIdq5quuTln5YUflaOObll58nV9oSTEOoXJ7P
- WVXnaIJdAjGVuVKziD2/LOcCSnaVSp+Iv29oB3+QbbHKMU1yGu/4bW0r
-X-Gm-Gg: AZFdTZfXvgQCiI8CvC9eqiwIiM/1WmvRNYALU0P4ENgnS/M8NCNarVKuPmZUK7tA9Y8
- PXLyLjUInSCbjESN4zfABcIRPE0VDRn8Gx7TRsSXdhKc5dGoTehyWgaZs+Uw8Eo5tKlO7r2bPHu
- dElcrDvsa9cMG9u9J3IGWkX2TEbwHq9rVRGzm42wUHV2dzPd1R16AQEEowY+73lfuLDCjDNSS2J
- JdB17eIZSMusZZ75k383obb6za2RdmMLYTEFu3RLdUL1PBt7UFayn3EXEtleSLXmRzYb41WETwZ
- 8HfsC66krXNmPkm0XP8WO+D5qhQ5F5QUMEJ+nxIGT0oqZfiZPzF7k5zk1a/qterSBFBYUG5G4Y6
- uLJAG3ez6ujrT1VeRqNMM2j7eJgEKn7dRRpnaTz0xRgco5uqKH1JoBgVxZsrCmP2IoPkPi0iX4n
- 78fOMN+mNEByf+HpyvD1TSU4fYkBrjXiHXmVUZqQVvmOTG+tZITkQwrbdrTEAqwlaBAqFvNox+h
- i03SR7bSLSEAEAtFqiMB17EMMwwkYZePEw0LDIcC1O6G3rEqXta7cOUvzfJAUbUa//6XsxyEL5l
- cw3ktFu3pRYoK/5QA9N7Rm391kUXt4/wCsve91YWyzJ6g8deYeilUsB+LGhU+/0E0RAML8ORKIf
- EFCnZabE0KUONF+56Fl17agKIJjY2lCt05CRJ9mqeEQ86eceihp8C
-X-Received: by 2002:a05:6000:290b:b0:4b4:55f3:a7a3 with SMTP id
- ffacd0b85a97d-4b455f3ad35mr14191859f8f.45.1795577290793; 
- Tue, 24 Nov 2026 19:28:10 -0800 (PST)
+ AL+hErEvjASLtqyv4e854+FLcBdwnjzwtY97ftrKiQCx6KqmyqWvhJ19nApBsP4KCIeipzhYTSFPakyd3Ec=@lists.freedesktop.org
+X-Gm-Message-State: APuU4Z9WwxKEADWdOEDisjs8vSptoJF4fkKdpa4MUFFp4HW3mNmVVYbX
+ tDAwgtsTNZDW+unF7+FzGIm0TsCgabhrKyn8IX6JlIEJixe0SoGU9Sck
+X-Gm-Gg: AZFdTZcGHG71AS/8CWoMu4rt3UWadkYGdf2OQEUk+/LMFL7cpbL9MMnG7olx/qy+55N
+ DW1SnkZGlg9klRDFelbQs5EQp4FPc7NXzUwbH+VHMAnF5QHnAs2j6yxKqaAzvcvvuYnas+JE8Ru
+ /Z2EjKhrFuAvGyw9DG8hxuBDTu6RhcEOsyQkTwoOAxtXmlSzckRTb3UqLylFqpzQc3M3WlkTBL0
+ m9koRkq1Bg+Lq1ufhvQ9/OpyJrMtZeyk26wVzOIpyEo8WUn4WS194FK29HEDVeSRiTNJATPjnyR
+ KEx+xd+N8c+/c/wRX2ZsWBCd33l4NH4sppf9kxDo1Kp6A3OXLZhCXn1/FY7Qlm1OBypFAkJrAph
+ iOxq+2ADzQNzeesBY4Fim3Jl09A5SVtfnuwW3RgEGlMS956CiGyAdAuT4x/OP8lUuS5BtJJLk9Y
+ HgZHWMCh13X7AZ7v8U1JirxjsNImbtUfU3Grx0f6aAkgGEWyCN9ZPSnDfgkhR3Xkt76SsrDu99h
+ 78T6uB9GBGUkEYuqaZHx7NVljw0Y7gByYBj5PKcc/yXm3vkr6584eNquaX+XbPx3o5aS9zO7tqK
+ yBlUDFUdRmWTSEhMKcQdVVPeL7lUl3q6qwqCyXUIANHLE867XtRHCgIAVby1COZUhKJc8BgK1H+
+ oJorlxvE+7/0db9hlaYcd6TLZx7+rMDo=
+X-Received: by 2002:a05:600c:3e0e:b0:4bb:6a5a:783d with SMTP id
+ 5b1f17b1804b1-4bb88929c63mr304761965e9.18.1795577295489; 
+ Tue, 24 Nov 2026 19:28:15 -0800 (PST)
 Received: from DESKTOP-BJ3EVC4.lan (178-164-182-185.pool.digikabel.hu.
  [178.164.182.185]) by smtp.gmail.com with ESMTPSA id
- ffacd0b85a97d-4ab6a67fe48sm28918822f8f.23.2026.11.24.19.28.08
+ ffacd0b85a97d-4ab6a67fe48sm28918822f8f.23.2026.11.24.19.28.13
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Tue, 24 Nov 2026 19:28:09 -0800 (PST)
+ Tue, 24 Nov 2026 19:28:14 -0800 (PST)
 From: Abdur Rofik <rofikcoga@gmail.com>
 To: linux-arm-msm@vger.kernel.org
 Cc: devicetree@vger.kernel.org, phone-devel@vger.kernel.org,
@@ -73,9 +73,9 @@ Cc: devicetree@vger.kernel.org, phone-devel@vger.kernel.org,
  Neil Armstrong <neil.armstrong@linaro.org>,
  Dmitry Torokhov <dmitry.torokhov@gmail.com>,
  Abdur Rofik <rofikcoga@gmail.com>
-Subject: [PATCH v6 3/6] drm/panel: add LG SW43103 panel driver
-Date: Wed, 25 Nov 2026 04:27:59 +0100
-Message-Id: <20261125032802.8460-4-rofikcoga@gmail.com>
+Subject: [PATCH v6 5/6] Input: touchscreen: add LG SW42902 support
+Date: Wed, 25 Nov 2026 04:28:01 +0100
+Message-Id: <20261125032802.8460-6-rofikcoga@gmail.com>
 X-Mailer: git-send-email 2.39.5
 In-Reply-To: <20261125032802.8460-1-rofikcoga@gmail.com>
 References: <20261125032802.8460-1-rofikcoga@gmail.com>
@@ -101,658 +101,432 @@ X-Spam-Status: No, score=-15.8 required=3.0 tests=BAYES_00,DKIM_SIGNED,
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-Add support for the 1080x2460 SW43103 AMOLED panel. Handle power and
-reset sequencing, DCS backlight control, and the DSC configuration
-required by the panel.
+Add basic multitouch support for the SW42902 controller. Implement the
+power and reset sequence using regulator supplies and use the firmware
+already present in controller flash; no firmware update is performed.
 
 Signed-off-by: Abdur Rofik <rofikcoga@gmail.com>
 ---
- MAINTAINERS                              |   1 +
- drivers/gpu/drm/panel/Kconfig            |  13 +
- drivers/gpu/drm/panel/Makefile           |   1 +
- drivers/gpu/drm/panel/panel-lg-sw43103.c | 586 +++++++++++++++++++++++
- 4 files changed, 601 insertions(+)
- create mode 100644 drivers/gpu/drm/panel/panel-lg-sw43103.c
+ MAINTAINERS                         |   1 +
+ drivers/input/touchscreen/Kconfig   |  13 +
+ drivers/input/touchscreen/Makefile  |   1 +
+ drivers/input/touchscreen/sw42902.c | 360 ++++++++++++++++++++++++++++
+ 4 files changed, 375 insertions(+)
+ create mode 100644 drivers/input/touchscreen/sw42902.c
 
 diff --git a/MAINTAINERS b/MAINTAINERS
-index 3386c7dfb9493..6a41a0690d9f0 100644
+index 8c88429e647ba..3585dbff41be9 100644
 --- a/MAINTAINERS
 +++ b/MAINTAINERS
-@@ -15215,6 +15215,7 @@ LG SW43103 PANEL DRIVER
- M:	Abdur Rofik <rofikcoga@gmail.com>
+@@ -15216,6 +15216,7 @@ M:	Abdur Rofik <rofikcoga@gmail.com>
+ L:	linux-input@vger.kernel.org
  S:	Maintained
- F:	Documentation/devicetree/bindings/display/panel/lg,sw43103.yaml
-+F:	drivers/gpu/drm/panel/panel-lg-sw43103.c
+ F:	Documentation/devicetree/bindings/input/touchscreen/lg,sw42902.yaml
++F:	drivers/input/touchscreen/sw42902.c
  
- LG2160 MEDIA DRIVER
- M:	Michael Krufky <mkrufky@linuxtv.org>
-diff --git a/drivers/gpu/drm/panel/Kconfig b/drivers/gpu/drm/panel/Kconfig
-index 7a520b4d60fef..4db31ca5fba7d 100644
---- a/drivers/gpu/drm/panel/Kconfig
-+++ b/drivers/gpu/drm/panel/Kconfig
-@@ -540,6 +540,19 @@ config DRM_PANEL_LG_LG4573
- 	  Say Y here if you want to enable support for LG4573 RGB panel.
- 	  To compile this driver as a module, choose M here.
+ LG SW43103 PANEL DRIVER
+ M:	Abdur Rofik <rofikcoga@gmail.com>
+diff --git a/drivers/input/touchscreen/Kconfig b/drivers/input/touchscreen/Kconfig
+index 9b9ae8ac3f7fd..6a70a20383ffa 100644
+--- a/drivers/input/touchscreen/Kconfig
++++ b/drivers/input/touchscreen/Kconfig
+@@ -1299,6 +1299,19 @@ config TOUCHSCREEN_SURFACE3_SPI
+ 	  To compile this driver as a module, choose M here: the
+ 	  module will be called surface3_spi.
  
-+config DRM_PANEL_LG_SW43103
-+	tristate "LG SW43103 panel"
-+	depends on OF
-+	depends on DRM_MIPI_DSI
-+	depends on BACKLIGHT_CLASS_DEVICE
-+	select DRM_DISPLAY_DSC_HELPER
-+	select DRM_DISPLAY_HELPER
++config TOUCHSCREEN_SW42902
++	tristate "LG SW42902 touchscreen"
++	depends on I2C
++	depends on GPIOLIB
 +	help
-+	  Say Y here if you want to enable support for the LG SW43103
-+	  1080x2460 AMOLED panel used in the LG V60 ThinQ 5G smartphone.
-+	  The panel operates in DSI command mode with Display Stream
-+	  Compression (DSC).
++	  Say Y here if you have an LG SW42902 touchscreen
++	  connected to your system (e.g. LG V60).
 +
- config DRM_PANEL_LG_SW43408
- 	tristate "LG SW43408 panel"
- 	depends on GPIOLIB
-diff --git a/drivers/gpu/drm/panel/Makefile b/drivers/gpu/drm/panel/Makefile
-index da5175909d540..c6f3280cd5828 100644
---- a/drivers/gpu/drm/panel/Makefile
-+++ b/drivers/gpu/drm/panel/Makefile
-@@ -53,6 +53,7 @@ obj-$(CONFIG_DRM_PANEL_LINCOLNTECH_LCD197) += panel-lincolntech-lcd197.o
- obj-$(CONFIG_DRM_PANEL_LG_LB035Q02) += panel-lg-lb035q02.o
- obj-$(CONFIG_DRM_PANEL_LG_LD070WX3) += panel-lg-ld070wx3.o
- obj-$(CONFIG_DRM_PANEL_LG_LG4573) += panel-lg-lg4573.o
-+obj-$(CONFIG_DRM_PANEL_LG_SW43103) += panel-lg-sw43103.o
- obj-$(CONFIG_DRM_PANEL_LG_SW43408) += panel-lg-sw43408.o
- obj-$(CONFIG_DRM_PANEL_LXD_M9189A) += panel-lxd-m9189a.o
- obj-$(CONFIG_DRM_PANEL_MAGNACHIP_D53E6EA8966) += panel-magnachip-d53e6ea8966.o
-diff --git a/drivers/gpu/drm/panel/panel-lg-sw43103.c b/drivers/gpu/drm/panel/panel-lg-sw43103.c
++	  If unsure, say N.
++
++	  To compile this driver as a module, choose M here: the
++	  module will be called sw42902.
++
+ config TOUCHSCREEN_SX8654
+ 	tristate "Semtech SX8654 touchscreen"
+ 	depends on I2C
+diff --git a/drivers/input/touchscreen/Makefile b/drivers/input/touchscreen/Makefile
+index bfd9de83389d8..1ee2590014535 100644
+--- a/drivers/input/touchscreen/Makefile
++++ b/drivers/input/touchscreen/Makefile
+@@ -86,6 +86,7 @@ obj-$(CONFIG_TOUCHSCREEN_STMPE)		+= stmpe-ts.o
+ obj-$(CONFIG_TOUCHSCREEN_SUN4I)		+= sun4i-ts.o
+ obj-$(CONFIG_TOUCHSCREEN_SUR40)		+= sur40.o
+ obj-$(CONFIG_TOUCHSCREEN_SURFACE3_SPI)	+= surface3_spi.o
++obj-$(CONFIG_TOUCHSCREEN_SW42902)	+= sw42902.o
+ obj-$(CONFIG_TOUCHSCREEN_TI_AM335X_TSC)	+= ti_am335x_tsc.o
+ obj-$(CONFIG_TOUCHSCREEN_TOUCHIT213)	+= touchit213.o
+ obj-$(CONFIG_TOUCHSCREEN_TOUCHRIGHT)	+= touchright.o
+diff --git a/drivers/input/touchscreen/sw42902.c b/drivers/input/touchscreen/sw42902.c
 new file mode 100644
-index 0000000000000..3197e292f6269
+index 0000000000000..0724f8a9c0bc9
 --- /dev/null
-+++ b/drivers/gpu/drm/panel/panel-lg-sw43103.c
-@@ -0,0 +1,586 @@
-+// SPDX-License-Identifier: GPL-2.0+
++++ b/drivers/input/touchscreen/sw42902.c
+@@ -0,0 +1,360 @@
++// SPDX-License-Identifier: GPL-2.0-only
 +/*
-+ * Copyright (C) 2026 Abdur Rofik <rofikcoga@gmail.com>
-+ * Panel driver for LG SW43103 FHD+ DSC Command Mode AMOLED panel
-+ * (LG V60 ThinQ 5G - timelm)
++ * Copyright (c) 2026 Abdur Rofik <rofikcoga@gmail.com>
++ * LG SW42902 touchscreen, as used by LG V60 (timelm).
++ * Register protocol and report layout derived from the LGE vendor driver
++ * (Copyright (C) 2015 LGE, author hoyeon.jang@lge.com).
++ * This driver uses the controller's existing flash firmware.
 + */
 +
-+#include <linux/backlight.h>
 +#include <linux/delay.h>
 +#include <linux/gpio/consumer.h>
++#include <linux/i2c.h>
++#include <linux/input/mt.h>
++#include <linux/input/touchscreen.h>
++#include <linux/interrupt.h>
 +#include <linux/module.h>
 +#include <linux/of.h>
++#include <linux/pm.h>
 +#include <linux/regulator/consumer.h>
++#include <linux/slab.h>
++#include <linux/unaligned.h>
 +
-+#include <video/mipi_display.h>
++#define SW42902_MAX_CONTACTS	10
++#define SW42902_REPORT_SIZE	(12 + 24 + 12 * SW42902_MAX_CONTACTS)
++#define SW42902_IC_STATUS	0x600
++#define SW42902_VERSION		0x642
++#define SW42902_DEVICE_CTL	0xc00
++#define SW42902_INTERRUPT_CTL	0xc01
++#define SW42902_DRIVING_CTL	0xc03
++#define SW42902_SERIAL_SPI_EN	0xfe4
++#define SW42902_DRIVING_STOP	0x04
++#define SW42902_DRIVING_U3	0x8303
 +
-+#include <drm/drm_mipi_dsi.h>
-+#include <drm/drm_panel.h>
-+#include <drm/drm_probe_helper.h>
-+#include <drm/display/drm_dsc.h>
-+#include <drm/display/drm_dsc_helper.h>
-+
-+#define NUM_SUPPLIES 2
-+
-+struct sw43103_panel {
-+	struct drm_panel base;
-+	struct mipi_dsi_device *link;
-+
-+	struct regulator_bulk_data supplies[NUM_SUPPLIES];
-+
-+	struct gpio_desc *reset_gpio;
-+	struct gpio_desc *enable_gpio;
-+
-+	struct drm_dsc_config dsc;
-+	bool prepared;
++static const char * const sw42902_supplies[] = {
++	"vcl",
++	"vdd",
 +};
 +
-+static inline struct sw43103_panel *to_panel_info(struct drm_panel *panel)
++struct sw42902 {
++	struct i2c_client *client;
++	struct input_dev *input;
++	struct touchscreen_properties prop;
++	struct gpio_desc *reset;
++	struct regulator_bulk_data supplies[ARRAY_SIZE(sw42902_supplies)];
++	bool suspended;
++	u8 report[SW42902_REPORT_SIZE];
++};
++
++static int sw42902_read(struct sw42902 *ts, u16 reg, void *data, u16 len)
 +{
-+	return container_of(panel, struct sw43103_panel, base);
++	u8 command[] = { (reg >> 8) | (len > 4 ? 0x20 : 0), reg & 0xff };
++	struct i2c_msg msgs[] = {
++		{ .addr = ts->client->addr, .len = sizeof(command),
++		  .buf = command },
++		{ .addr = ts->client->addr, .flags = I2C_M_RD,
++		  .len = len, .buf = data },
++	};
++	int error;
++
++	error = i2c_transfer(ts->client->adapter, msgs, ARRAY_SIZE(msgs));
++	if (error < 0)
++		return error;
++	return error == ARRAY_SIZE(msgs) ? 0 : -EIO;
 +}
 +
-+static void sw43103_init_sequence(struct mipi_dsi_multi_context *ctx)
++static int sw42902_write(struct sw42902 *ts, u16 reg, u32 value)
 +{
-+	/* Manufacturer Command Protect Unlock */
-+	mipi_dsi_dcs_write_seq_multi(ctx, 0xb0, 0xa1);
++	u8 command[6] = { 0x40 | (reg >> 8), reg & 0xff };
++	int error;
 +
-+	/* Column Address Set: 0 to 1079 (0x0437) */
-+	mipi_dsi_dcs_write_seq_multi(ctx, MIPI_DCS_SET_COLUMN_ADDRESS,
-+				     0x00, 0x00, 0x04, 0x37);
-+
-+	/* Page Address Set: 0 to 2459 (0x099b) */
-+	mipi_dsi_dcs_write_seq_multi(ctx, MIPI_DCS_SET_PAGE_ADDRESS,
-+				     0x00, 0x00, 0x09, 0x9b);
-+
-+	/* HBM Mode2 */
-+	mipi_dsi_dcs_write_seq_multi(ctx, 0x55, 0x08);
-+
-+	/* Partial Address Row Set: 0 to 2459 */
-+	mipi_dsi_dcs_write_seq_multi(ctx, MIPI_DCS_SET_PARTIAL_ROWS,
-+				     0x00, 0x00, 0x09, 0x9b);
-+
-+	/* Partial Address Column Set: 0 to 1079 */
-+	mipi_dsi_dcs_write_seq_multi(ctx, MIPI_DCS_SET_PARTIAL_COLUMNS,
-+				     0x00, 0x00, 0x04, 0x37);
-+
-+	/* Tear Effect On */
-+	mipi_dsi_dcs_set_tear_on_multi(ctx, MIPI_DSI_DCS_TEAR_MODE_VBLANK);
-+
-+	/* Manufacturer Command Protect */
-+	mipi_dsi_dcs_write_seq_multi(ctx, 0xb0, 0xca);
-+
-+	/* Sleep Out */
-+	mipi_dsi_dcs_exit_sleep_mode_multi(ctx);
-+	mipi_dsi_msleep(ctx, 120);
-+
-+	/* MCS Lv1 */
-+	mipi_dsi_dcs_write_seq_multi(ctx, 0xb0, 0xa1);
-+
-+	/* Workaround for AOD VBP Issue */
-+	mipi_dsi_dcs_write_seq_multi(ctx, 0xb3,
-+				     0x91, 0x49, 0x00, 0x0f, 0x0c, 0x00,
-+				     0x0f, 0x0c, 0x28, 0x00, 0x02, 0x14);
-+
-+	/* Global IRC */
-+	mipi_dsi_dcs_write_seq_multi(ctx, 0xb0, 0xa5);
-+	mipi_dsi_dcs_write_seq_multi(ctx, 0xb1,
-+				     0x61, 0xc0, 0x00, 0x00, 0x00, 0x10, 0xff);
-+	mipi_dsi_dcs_write_seq_multi(ctx, 0xb2,
-+				     0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
-+				     0x00, 0xea, 0x6b, 0x60, 0x58, 0x50, 0x49, 0x41,
-+				     0x3a, 0x33, 0x2c, 0x25, 0x1e, 0x17, 0x11, 0x0b,
-+				     0x05, 0x6c, 0x61, 0x58, 0x50, 0x48, 0x40, 0x38,
-+				     0x31, 0x29, 0x22, 0x1b, 0x14, 0x0d, 0x06, 0x00,
-+				     0x62, 0x57, 0x4d, 0x44, 0x3c);
-+	mipi_dsi_dcs_write_seq_multi(ctx, 0xb3,
-+				     0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
-+				     0x00, 0x34, 0x2d, 0x25, 0x1e, 0x16, 0x0f, 0x08,
-+				     0x01, 0x00, 0x57, 0x4c, 0x42, 0x3a, 0x31, 0x29,
-+				     0x22, 0x1a, 0x12, 0x0b, 0x03, 0x00, 0x00, 0x4c,
-+				     0x42, 0x38, 0x2e, 0x26, 0x1e, 0x16, 0x0e, 0x07,
-+				     0x00, 0x00, 0x00, 0x45, 0x39);
-+	mipi_dsi_dcs_write_seq_multi(ctx, 0xb4,
-+				     0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
-+				     0x00, 0x2f, 0x25, 0x1c, 0x14, 0x0c, 0x04, 0x00,
-+				     0x00, 0x00, 0x34, 0x2a, 0x21, 0x19, 0x10, 0x09,
-+				     0x01, 0x00, 0x00, 0x00, 0x2e, 0x23, 0x19, 0x10,
-+				     0x08, 0x00, 0x00, 0x00, 0x00, 0x25, 0x1b, 0x11,
-+				     0x08, 0x00, 0x00, 0x00, 0x00);
-+	mipi_dsi_dcs_write_seq_multi(ctx, 0xb5,
-+				     0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x1f,
-+				     0x13, 0x09, 0x00, 0x00, 0x00, 0x00, 0x16, 0x0c,
-+				     0x03, 0x00, 0x00, 0x00, 0x0e, 0x06, 0x00, 0x00,
-+				     0x00, 0x0b, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
-+				     0x00, 0x00, 0x00);
-+	mipi_dsi_dcs_write_seq_multi(ctx, 0xb6,
-+				     0x44, 0x31, 0x10, 0x00, 0x00, 0x64, 0x00, 0x59,
-+				     0xf3, 0x10, 0x80, 0x30, 0x20, 0x00, 0x00, 0x00,
-+				     0x00, 0x00, 0x00, 0x00, 0x00);
-+
-+	/* Global IRC DCC Control */
-+	mipi_dsi_dcs_write_seq_multi(ctx, 0xd1,
-+				     0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
-+				     0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
-+				     0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
-+				     0x00, 0x00, 0x00, 0x00, 0x00, 0xd0, 0x10, 0x02,
-+				     0x00, 0x00, 0x00);
-+
-+	/* V256 Enable */
-+	mipi_dsi_dcs_write_seq_multi(ctx, 0xb0, 0xa3);
-+	mipi_dsi_dcs_write_seq_multi(ctx, 0xee, 0x02, 0x00, 0x00);
-+
-+	/* Gamma Band 1 */
-+	mipi_dsi_dcs_write_seq_multi(ctx, 0xb8,
-+				     0x00, 0x00, 0x83, 0xff, 0x5c, 0x96, 0xf2, 0x29,
-+				     0x84, 0xb4, 0xd2, 0x77, 0x70, 0xa3, 0xcb, 0xe4);
-+	mipi_dsi_dcs_write_seq_multi(ctx, 0xb9,
-+				     0x00, 0x00, 0x02, 0xff, 0x4d, 0xd7, 0xb4, 0xfe,
-+				     0x66, 0xa0, 0xca, 0x6f, 0x6f, 0xa8, 0xce, 0xe6);
-+	mipi_dsi_dcs_write_seq_multi(ctx, 0xba,
-+				     0x00, 0x00, 0x84, 0xff, 0x89, 0x3d, 0xec, 0x28,
-+				     0x83, 0xae, 0xd2, 0x7e, 0x77, 0xa8, 0xcb, 0xe0);
-+
-+	/* Gamma Band 2 */
-+	mipi_dsi_dcs_write_seq_multi(ctx, 0xbb,
-+				     0x00, 0x13, 0x83, 0xff, 0x61, 0x66, 0xed, 0x24,
-+				     0x81, 0xaf, 0xd4, 0x7b, 0x6b, 0xa8, 0xce, 0xe4);
-+	mipi_dsi_dcs_write_seq_multi(ctx, 0xbc,
-+				     0x00, 0x13, 0x02, 0xff, 0x53, 0xb4, 0xad, 0xf4,
-+				     0x5e, 0x9d, 0xc7, 0x71, 0x68, 0xaa, 0xcf, 0xe6);
-+	mipi_dsi_dcs_write_seq_multi(ctx, 0xbd,
-+				     0x00, 0x13, 0x84, 0xff, 0x8a, 0x05, 0xea, 0x23,
-+				     0x80, 0xaf, 0xd3, 0x82, 0x74, 0xab, 0xce, 0xe3);
-+
-+	/* Gamma Band 3 */
-+	mipi_dsi_dcs_write_seq_multi(ctx, 0xbe,
-+				     0x00, 0x37, 0x83, 0xff, 0x77, 0x5c, 0xdd, 0x15,
-+				     0x79, 0xaf, 0xcf, 0x72, 0x6f, 0xa7, 0xce, 0xe5);
-+	mipi_dsi_dcs_write_seq_multi(ctx, 0xbf,
-+				     0x00, 0x37, 0x02, 0xff, 0x65, 0xaa, 0xa0, 0xe5,
-+				     0x52, 0x96, 0xc4, 0x64, 0x6b, 0xa9, 0xcf, 0xe7);
-+	mipi_dsi_dcs_write_seq_multi(ctx, 0xc0,
-+				     0x00, 0x37, 0x83, 0xff, 0x9d, 0xfd, 0xd8, 0x1c,
-+				     0x7c, 0xac, 0xd0, 0x7b, 0x78, 0xac, 0xce, 0xe4);
-+
-+	/* Gamma Band 4 */
-+	mipi_dsi_dcs_write_seq_multi(ctx, 0xc1,
-+				     0x02, 0x24, 0x82, 0xff, 0x7e, 0xf1, 0xcc, 0x05,
-+				     0x6e, 0xa4, 0xca, 0x6f, 0x6e, 0xab, 0xd2, 0xe8);
-+	mipi_dsi_dcs_write_seq_multi(ctx, 0xc2,
-+				     0x02, 0x24, 0x02, 0xff, 0x6e, 0x58, 0xa3, 0xd5,
-+				     0x3d, 0x8c, 0xbc, 0x59, 0x66, 0xaa, 0xd2, 0xe8);
-+	mipi_dsi_dcs_write_seq_multi(ctx, 0xc3,
-+				     0x02, 0x24, 0x83, 0xff, 0x9e, 0x7e, 0xc5, 0x10,
-+				     0x72, 0xab, 0xcd, 0x78, 0x79, 0xb0, 0xd5, 0xe9);
-+
-+	/* Gamma Band 5 */
-+	mipi_dsi_dcs_write_seq_multi(ctx, 0xc4,
-+				     0x04, 0x0f, 0x02, 0xff, 0x88, 0xa4, 0xc4, 0xe9,
-+				     0x60, 0xa0, 0xc8, 0x64, 0x6b, 0xac, 0xd3, 0xe9);
-+	mipi_dsi_dcs_write_seq_multi(ctx, 0xc5,
-+				     0x04, 0x0f, 0x02, 0xff, 0x7a, 0x20, 0xac, 0xca,
-+				     0x30, 0x7d, 0xb6, 0x4a, 0x5c, 0xa8, 0xd2, 0xe9);
-+	mipi_dsi_dcs_write_seq_multi(ctx, 0xc6,
-+				     0x04, 0x0f, 0x03, 0xff, 0xa8, 0x2e, 0xbd, 0xfa,
-+				     0x65, 0xa3, 0xcc, 0x6e, 0x76, 0xb3, 0xd6, 0xea);
-+
-+	/* Gamma Band 6 */
-+	mipi_dsi_dcs_write_seq_multi(ctx, 0xc7,
-+				     0x06, 0x12, 0x02, 0xff, 0x99, 0x7d, 0xbc, 0xde,
-+				     0x51, 0x8e, 0xc6, 0x58, 0x63, 0xaa, 0xd2, 0xe9);
-+	mipi_dsi_dcs_write_seq_multi(ctx, 0xc8,
-+				     0x06, 0x12, 0x02, 0xff, 0x8d, 0x02, 0x9a, 0xcf,
-+				     0x1e, 0x6b, 0xb0, 0x37, 0x50, 0xa3, 0xd0, 0xe7);
-+	mipi_dsi_dcs_write_seq_multi(ctx, 0xc9,
-+				     0x06, 0x12, 0x03, 0xff, 0xbc, 0x04, 0xb3, 0xdb,
-+				     0x63, 0x8f, 0xc6, 0x67, 0x6f, 0xb1, 0xd5, 0xea);
-+
-+	/* Gamma Band 7 */
-+	mipi_dsi_dcs_write_seq_multi(ctx, 0xca,
-+				     0x08, 0x0a, 0x02, 0xff, 0xa3, 0x44, 0xca, 0xda,
-+				     0x2d, 0x8d, 0xbc, 0x4c, 0x5a, 0xa7, 0xd0, 0xea);
-+	mipi_dsi_dcs_write_seq_multi(ctx, 0xcb,
-+				     0x08, 0x0a, 0x01, 0xff, 0x97, 0xd5, 0xb4, 0xdb,
-+				     0x21, 0x6f, 0xa1, 0x24, 0x42, 0x9d, 0xcd, 0xe7);
-+	mipi_dsi_dcs_write_seq_multi(ctx, 0xcc,
-+				     0x08, 0x0a, 0x02, 0xff, 0xc6, 0xc5, 0xb8, 0xc7,
-+				     0x46, 0x98, 0xbd, 0x5a, 0x68, 0xaf, 0xd4, 0xea);
-+
-+	/* Gamma Band 8 */
-+	mipi_dsi_dcs_write_seq_multi(ctx, 0xcd,
-+				     0x0c, 0x02, 0x01, 0xff, 0xb2, 0xfd, 0xac, 0xd5,
-+				     0x25, 0x6d, 0xb7, 0x3b, 0x45, 0x9e, 0xd0, 0xe6);
-+	mipi_dsi_dcs_write_seq_multi(ctx, 0xce,
-+				     0x0c, 0x02, 0x01, 0xff, 0xa5, 0x9a, 0xac, 0xe2,
-+				     0x31, 0x68, 0xab, 0x0e, 0x2a, 0x90, 0xc9, 0xe3);
-+	mipi_dsi_dcs_write_seq_multi(ctx, 0xcf,
-+				     0x0c, 0x02, 0x02, 0xff, 0xd5, 0x74, 0xad, 0xe6,
-+				     0x2f, 0x7c, 0xbf, 0x43, 0x58, 0xa6, 0xd3, 0xe9);
-+
-+	/* Gamma Band 9 */
-+	mipi_dsi_dcs_write_seq_multi(ctx, 0xd0,
-+				     0x12, 0x00, 0x01, 0xff, 0xc8, 0x97, 0x01, 0xb6,
-+				     0x0b, 0x82, 0xab, 0x0a, 0x26, 0x8d, 0xc7, 0xe4);
-+	mipi_dsi_dcs_write_seq_multi(ctx, 0xd1,
-+				     0x12, 0x00, 0x01, 0xff, 0xbe, 0x4a, 0x01, 0xc0,
-+				     0x44, 0x80, 0xb3, 0x03, 0x06, 0x76, 0xba, 0xde);
-+	mipi_dsi_dcs_write_seq_multi(ctx, 0xd2,
-+				     0x12, 0x00, 0x02, 0xff, 0xf2, 0x00, 0x01, 0xb1,
-+				     0x11, 0x5f, 0xa8, 0x16, 0x30, 0x94, 0xc8, 0xe7);
-+
-+	/* Gamma Band 10 */
-+	mipi_dsi_dcs_write_seq_multi(ctx, 0xd3,
-+				     0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
-+				     0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00);
-+	mipi_dsi_dcs_write_seq_multi(ctx, 0xd4,
-+				     0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
-+				     0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00);
-+	mipi_dsi_dcs_write_seq_multi(ctx, 0xd5,
-+				     0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
-+				     0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00);
-+
-+	mipi_dsi_dcs_write_seq_multi(ctx, 0xb0, 0xa5);
-+	mipi_dsi_dcs_write_seq_multi(ctx, 0xcd,
-+				     0x10, 0x12, 0x01, 0x5a, 0x90, 0x00, 0x00, 0x00,
-+				     0x00, 0x00, 0x5d);
-+
-+	mipi_dsi_dcs_write_seq_multi(ctx, 0xb0, 0xa1);
-+	mipi_dsi_dcs_write_seq_multi(ctx, 0x55,
-+				     0x08, 0x00, 0x82, 0xa8, 0x1c, 0x61, 0x0a, 0x90,
-+				     0x04, 0x00);
-+
-+	/* Dimming Frame Setting */
-+	mipi_dsi_dcs_write_seq_multi(ctx, 0xb0, 0xa3);
-+	mipi_dsi_dcs_write_seq_multi(ctx, 0xb3,
-+				     0x1f, 0x63, 0x00, 0x00, 0x06);
-+
-+	/* Default Color Mode (Natural) */
-+	mipi_dsi_dcs_write_seq_multi(ctx, 0x53, 0x84);
-+	mipi_dsi_dcs_write_seq_multi(ctx, 0xb0, 0xa4);
-+	mipi_dsi_dcs_write_seq_multi(ctx, 0xb4,
-+				     0x00, 0x03, 0x05, 0xaf, 0x03, 0x05, 0xaf, 0x03,
-+				     0x05, 0xaf);
-+	mipi_dsi_dcs_write_seq_multi(ctx, 0xb5,
-+				     0x00, 0xff, 0x94, 0x1f, 0xae, 0x37, 0xae, 0x1f,
-+				     0x94, 0x00, 0xfb, 0x94, 0x1e, 0xad, 0x35, 0xab,
-+				     0x1c, 0x90, 0x00, 0xdd, 0x8f, 0x16, 0x9f, 0x24,
-+				     0x97, 0x04, 0x75);
-+	mipi_dsi_dcs_write_seq_multi(ctx, 0xb7,
-+				     0x80, 0x80, 0x80, 0x80, 0x80, 0x80, 0x80, 0x80,
-+				     0x80, 0x80, 0x80, 0x80);
-+	mipi_dsi_dcs_write_seq_multi(ctx, 0xb8,
-+				     0x80, 0x80, 0x80, 0x80, 0x80, 0x80, 0x80, 0x80,
-+				     0x80, 0x80, 0x80, 0x80);
-+	mipi_dsi_dcs_write_seq_multi(ctx, 0xb9,
-+				     0x35, 0x2d, 0x2d, 0x37, 0x34, 0x35, 0x36, 0x36,
-+				     0x36, 0x2d, 0x35, 0x33);
-+	mipi_dsi_dcs_write_seq_multi(ctx, 0xba,
-+				     0x80, 0x80, 0x80, 0x80, 0x88, 0x80, 0x80, 0x80,
-+				     0x80, 0x80, 0x80, 0x7d);
-+	mipi_dsi_dcs_write_seq_multi(ctx, 0xbb,
-+				     0x80, 0x5a, 0x7b, 0x95, 0x65, 0x70, 0x96, 0x90,
-+				     0x90, 0x90, 0x83, 0x72);
-+
-+	/* DCC(GCC) Off */
-+	mipi_dsi_dcs_write_seq_multi(ctx, 0xb0, 0xa1);
-+	mipi_dsi_dcs_write_seq_multi(ctx, 0xc2,
-+				     0xf3, 0x20, 0x00, 0x00, 0x1d);
-+	mipi_dsi_dcs_write_seq_multi(ctx, 0xb0, 0xa5);
-+	mipi_dsi_dcs_write_seq_multi(ctx, 0xd1,
-+				     0x0a, 0x00, 0x01);
-+	mipi_dsi_msleep(ctx, 20);
-+	mipi_dsi_dcs_write_seq_multi(ctx, 0xd1,
-+				     0x02, 0x00, 0x01);
-+	mipi_dsi_dcs_write_seq_multi(ctx, 0xd1,
-+				     0x00, 0x00, 0x01);
++	put_unaligned_le32(value, command + 2);
++	error = i2c_master_send(ts->client, command, sizeof(command));
++	if (error < 0)
++		return error;
++	return error == sizeof(command) ? 0 : -EIO;
 +}
 +
-+static int sw43103_program(struct drm_panel *panel)
++static void sw42902_release_contacts(struct sw42902 *ts)
 +{
-+	struct sw43103_panel *sw43103 = to_panel_info(panel);
-+	struct mipi_dsi_multi_context ctx = { .dsi = sw43103->link };
-+	struct drm_dsc_picture_parameter_set pps;
++	int i;
 +
-+	sw43103_init_sequence(&ctx);
-+
-+	/* Transmit PPS in high speed mode */
-+	sw43103->link->mode_flags &= ~MIPI_DSI_MODE_LPM;
-+
-+	drm_dsc_pps_payload_pack(&pps, sw43103->link->dsc);
-+
-+	mipi_dsi_picture_parameter_set_multi(&ctx, &pps);
-+
-+	/* Switch back to low power mode for DSC compression enable */
-+	sw43103->link->mode_flags |= MIPI_DSI_MODE_LPM;
-+
-+	/* Enable DSC compression mode with PPS 0 */
-+	mipi_dsi_compression_mode_ext_multi(&ctx, true,
-+					    MIPI_DSI_COMPRESSION_DSC, 0);
-+
-+	return ctx.accum_err;
++	for (i = 0; i < SW42902_MAX_CONTACTS; i++) {
++		input_mt_slot(ts->input, i);
++		input_mt_report_slot_state(ts->input, MT_TOOL_FINGER, false);
++	}
++	input_mt_sync_frame(ts->input);
++	input_sync(ts->input);
 +}
 +
-+static int sw43103_prepare(struct drm_panel *panel)
++static irqreturn_t sw42902_irq(int irq, void *data)
 +{
-+	struct sw43103_panel *ctx = to_panel_info(panel);
-+	int ret;
++	struct sw42902 *ts = data;
++	struct input_dev *input = ts->input;
++	u32 status, header;
++	unsigned int count, i;
++	int error;
 +
-+	ret = regulator_bulk_enable(ARRAY_SIZE(ctx->supplies), ctx->supplies);
-+	if (ret < 0)
-+		return ret;
++	error = sw42902_read(ts, SW42902_IC_STATUS, ts->report,
++			     sizeof(ts->report));
++	if (error) {
++		dev_err_ratelimited(&ts->client->dev, "report read failed: %d\n", error);
++		sw42902_release_contacts(ts);
++		return IRQ_HANDLED;
++	}
 +
-+	if (ctx->enable_gpio)
-+		gpiod_set_value_cansleep(ctx->enable_gpio, 1);
++	status = get_unaligned_le32(ts->report + 4);
++	header = get_unaligned_le32(ts->report + 8);
++	/* Only normal absolute-touch reports; ignore pen/gesture/debug IRQs. */
++	if (((status >> 16) & 0xf) != 5 || (header & 0xff))
++		return IRQ_HANDLED;
 +
-+	usleep_range(5000, 6000);
++	count = (header >> 8) & 0x1f;
++	if (count > SW42902_MAX_CONTACTS) {
++		dev_warn_ratelimited(&ts->client->dev, "invalid contact count: %u\n", count);
++		sw42902_release_contacts(ts);
++		return IRQ_HANDLED;
++	}
 +
-+	/* Hardware reset sequence: deassert, assert 2ms, deassert */
-+	gpiod_set_value_cansleep(ctx->reset_gpio, 0);
++	/* A palm report cancels all active fingers. */
++	if (header & BIT(31)) {
++		sw42902_release_contacts(ts);
++		return IRQ_HANDLED;
++	}
++
++	/* Pre-scan for palm report to avoid queueing partial touch events */
++	for (i = 0; i < count; i++) {
++		const u8 *contact = ts->report + 36 + 12 * i;
++		u32 a = get_unaligned_le32(contact);
++
++		if ((a & 0x1f) == 15) {
++			sw42902_release_contacts(ts);
++			return IRQ_HANDLED;
++		}
++	}
++
++	for (i = 0; i < count; i++) {
++		const u8 *contact = ts->report + 36 + 12 * i;
++		u32 a = get_unaligned_le32(contact);
++		u32 b = get_unaligned_le32(contact + 4);
++		u32 c = get_unaligned_le32(contact + 8);
++		unsigned int id = a & 0x1f;
++		unsigned int event = (a >> 16) & 3;
++
++		if (id >= SW42902_MAX_CONTACTS || (event != 1 && event != 2))
++			continue;
++
++		input_mt_slot(input, id);
++		input_mt_report_slot_state(input, MT_TOOL_FINGER, true);
++		touchscreen_report_pos(input, &ts->prop, a >> 18, b & 0x3fff, true);
++		input_report_abs(input, ABS_MT_PRESSURE, (b >> 14) & 0xff);
++		input_report_abs(input, ABS_MT_TOUCH_MAJOR, (c >> 4) & 0x3fff);
++		input_report_abs(input, ABS_MT_TOUCH_MINOR, c >> 18);
++	}
++
++	input_mt_sync_frame(input);
++	input_sync(input);
++	return IRQ_HANDLED;
++}
++
++static void sw42902_power_off(void *data)
++{
++	struct sw42902 *ts = data;
++
++	if (ts->suspended)
++		return;
++
++	gpiod_set_value_cansleep(ts->reset, 1);
++	usleep_range(1000, 2000);
++	regulator_bulk_disable(ARRAY_SIZE(ts->supplies), ts->supplies);
++	ts->suspended = true;
++}
++
++static int sw42902_power_on(struct sw42902 *ts)
++{
++	int error;
++
++	error = regulator_bulk_enable(ARRAY_SIZE(ts->supplies), ts->supplies);
++	if (error)
++		return error;
++
 +	usleep_range(10000, 11000);
-+	gpiod_set_value_cansleep(ctx->reset_gpio, 1);
-+	usleep_range(2000, 3000);
-+	gpiod_set_value_cansleep(ctx->reset_gpio, 0);
-+	usleep_range(10000, 11000);
++	gpiod_set_value_cansleep(ts->reset, 0);
++	/* Docomo downstream DT specifies a 90 ms hardware reset delay. */
++	msleep(90);
 +
-+	ret = sw43103_program(panel);
-+	if (ret)
-+		goto poweroff;
-+
-+	ctx->prepared = true;
 +	return 0;
-+
-+poweroff:
-+	gpiod_set_value_cansleep(ctx->reset_gpio, 1);
-+	if (ctx->enable_gpio)
-+		gpiod_set_value_cansleep(ctx->enable_gpio, 0);
-+	regulator_bulk_disable(ARRAY_SIZE(ctx->supplies), ctx->supplies);
-+	return ret;
 +}
 +
-+static int sw43103_enable(struct drm_panel *panel)
++static int sw42902_start(struct sw42902 *ts)
 +{
-+	struct sw43103_panel *sw43103 = to_panel_info(panel);
-+	struct mipi_dsi_multi_context ctx = { .dsi = sw43103->link };
++	u8 version[4];
++	int error;
 +
-+	/* Display On */
-+	mipi_dsi_dcs_set_display_on_multi(&ctx);
-+	mipi_dsi_msleep(&ctx, 20);
++	error = sw42902_read(ts, SW42902_VERSION, version, sizeof(version));
++	if (error)
++		return error;
++	if (version[2] != 10 || (version[3] & 0xf) != 4) {
++		dev_err(&ts->client->dev, "unexpected chip/protocol: %u/%u\n",
++			version[2], version[3] & 0xf);
++		return -ENODEV;
++	}
 +
-+	return ctx.accum_err;
++	error = sw42902_write(ts, SW42902_SERIAL_SPI_EN, 0);
++	if (error)
++		return error;
++	error = sw42902_write(ts, SW42902_DEVICE_CTL, 1);
++	if (error)
++		return error;
++	error = sw42902_write(ts, SW42902_INTERRUPT_CTL, 1);
++	if (error)
++		return error;
++	error = sw42902_write(ts, SW42902_DRIVING_CTL, SW42902_DRIVING_STOP);
++	if (error)
++		return error;
++	msleep(30);
++	error = sw42902_write(ts, SW42902_DRIVING_CTL, SW42902_DRIVING_U3);
++	if (error)
++		return error;
++
++	return 0;
 +}
 +
-+static int sw43103_disable(struct drm_panel *panel)
++static int sw42902_probe(struct i2c_client *client)
 +{
-+	struct sw43103_panel *sw43103 = to_panel_info(panel);
-+	struct mipi_dsi_multi_context ctx = { .dsi = sw43103->link };
++	struct device *dev = &client->dev;
++	struct sw42902 *ts;
++	struct input_dev *input;
++	int error, i;
 +
-+	/* Display Off (0x28) */
-+	mipi_dsi_dcs_set_display_off_multi(&ctx);
-+	mipi_dsi_msleep(&ctx, 20);
++	if (!i2c_check_functionality(client->adapter, I2C_FUNC_I2C))
++		return -EOPNOTSUPP;
++	if (client->irq <= 0)
++		return dev_err_probe(dev, -EINVAL, "missing interrupt\n");
 +
-+	/* Sleep In (0x10) */
-+	mipi_dsi_dcs_enter_sleep_mode_multi(&ctx);
-+	mipi_dsi_msleep(&ctx, 80);
++	ts = devm_kzalloc(dev, sizeof(*ts), GFP_KERNEL);
++	if (!ts)
++		return -ENOMEM;
++	ts->client = client;
++	i2c_set_clientdata(client, ts);
 +
-+	return ctx.accum_err;
++	ts->reset = devm_gpiod_get(dev, "reset", GPIOD_OUT_HIGH);
++	if (IS_ERR(ts->reset))
++		return dev_err_probe(dev, PTR_ERR(ts->reset), "reset GPIO\n");
++
++	for (i = 0; i < ARRAY_SIZE(sw42902_supplies); i++)
++		ts->supplies[i].supply = sw42902_supplies[i];
++
++	error = devm_regulator_bulk_get(dev, ARRAY_SIZE(ts->supplies), ts->supplies);
++	if (error)
++		return dev_err_probe(dev, error, "failed to get regulators\n");
++
++	input = devm_input_allocate_device(dev);
++	if (!input)
++		return -ENOMEM;
++	ts->input = input;
++	input->name = "LG SW42902";
++	input->id.bustype = BUS_I2C;
++	input_set_abs_params(input, ABS_MT_POSITION_X, 0, 1079, 0, 0);
++	input_set_abs_params(input, ABS_MT_POSITION_Y, 0, 2459, 0, 0);
++	input_set_abs_params(input, ABS_MT_PRESSURE, 0, 255, 0, 0);
++	input_set_abs_params(input, ABS_MT_TOUCH_MAJOR, 0, 16383, 0, 0);
++	input_set_abs_params(input, ABS_MT_TOUCH_MINOR, 0, 16383, 0, 0);
++	touchscreen_parse_properties(input, true, &ts->prop);
++	error = input_mt_init_slots(input, SW42902_MAX_CONTACTS,
++				    INPUT_MT_DIRECT | INPUT_MT_DROP_UNUSED);
++	if (error)
++		return error;
++
++	error = sw42902_power_on(ts);
++	if (error)
++		return error;
++
++	error = devm_add_action_or_reset(dev, sw42902_power_off, ts);
++	if (error)
++		return error;
++
++	error = devm_request_threaded_irq(dev, client->irq, NULL, sw42902_irq,
++					  IRQF_ONESHOT | IRQF_NO_AUTOEN,
++					  dev_name(dev), ts);
++	if (error)
++		return error;
++
++	error = sw42902_start(ts);
++	if (error)
++		return dev_err_probe(dev, error, "controller initialization failed\n");
++	error = input_register_device(input);
++	if (error)
++		return error;
++	enable_irq(client->irq);
++	dev_info(dev, "SW42902 initialized using existing flash firmware\n");
++	return 0;
 +}
 +
-+static int sw43103_unprepare(struct drm_panel *panel)
++static int sw42902_suspend(struct device *dev)
 +{
-+	struct sw43103_panel *sw43103 = to_panel_info(panel);
++	struct sw42902 *ts = i2c_get_clientdata(to_i2c_client(dev));
 +
-+	sw43103->prepared = false;
-+
-+	gpiod_set_value_cansleep(sw43103->reset_gpio, 1);
-+	if (sw43103->enable_gpio)
-+		gpiod_set_value_cansleep(sw43103->enable_gpio, 0);
-+
-+	return regulator_bulk_disable(ARRAY_SIZE(sw43103->supplies), sw43103->supplies);
-+}
-+
-+static const struct drm_display_mode sw43103_mode = {
-+	.clock = 179177,
-+	.hdisplay = 1080,
-+	.hsync_start = 1080 + 50,
-+	.hsync_end = 1080 + 50 + 30,
-+	.htotal = 1080 + 50 + 30 + 50,
-+	.vdisplay = 2460,
-+	.vsync_start = 2460 + 4,
-+	.vsync_end = 2460 + 4 + 2,
-+	.vtotal = 2460 + 4 + 2 + 2,
-+	.width_mm = 69,
-+	.height_mm = 158,
-+	.type = DRM_MODE_TYPE_DRIVER | DRM_MODE_TYPE_PREFERRED,
-+};
-+
-+static int sw43103_get_modes(struct drm_panel *panel,
-+			     struct drm_connector *connector)
-+{
-+	return drm_connector_helper_get_modes_fixed(connector, &sw43103_mode);
-+}
-+
-+static int sw43103_backlight_update_status(struct backlight_device *bl)
-+{
-+	struct sw43103_panel *ctx = bl_get_data(bl);
-+	struct mipi_dsi_device *dsi = ctx->link;
-+	u16 brightness = backlight_get_brightness(bl);
-+	u8 ctrl = 0x2c;
-+	int ret;
-+
-+	if (!ctx->prepared)
++	if (ts->suspended)
 +		return 0;
 +
-+	ret = mipi_dsi_dcs_write(dsi, MIPI_DCS_WRITE_CONTROL_DISPLAY, &ctrl, sizeof(ctrl));
-+	if (ret < 0)
-+		return ret;
-+
-+	return mipi_dsi_dcs_set_display_brightness_large(dsi, brightness);
-+}
-+
-+static const struct backlight_ops sw43103_backlight_ops = {
-+	.update_status = sw43103_backlight_update_status,
-+};
-+
-+static int sw43103_backlight_init(struct sw43103_panel *ctx)
-+{
-+	struct device *dev = &ctx->link->dev;
-+	const struct backlight_properties props = {
-+		.type = BACKLIGHT_PLATFORM,
-+		.brightness = 1024,
-+		.max_brightness = 2047,
-+	};
-+
-+	ctx->base.backlight = devm_backlight_device_register(dev, dev_name(dev), dev,
-+							     ctx,
-+							     &sw43103_backlight_ops,
-+							     &props);
-+
-+	if (IS_ERR(ctx->base.backlight))
-+		return dev_err_probe(dev, PTR_ERR(ctx->base.backlight),
-+				     "Failed to create backlight\n");
++	disable_irq(ts->client->irq);
++	sw42902_release_contacts(ts);
++	sw42902_write(ts, SW42902_DRIVING_CTL, SW42902_DRIVING_STOP);
++	sw42902_power_off(ts);
 +
 +	return 0;
 +}
 +
-+static const struct drm_panel_funcs sw43103_funcs = {
-+	.prepare = sw43103_prepare,
-+	.unprepare = sw43103_unprepare,
-+	.enable = sw43103_enable,
-+	.disable = sw43103_disable,
-+	.get_modes = sw43103_get_modes,
-+};
-+
-+static const struct of_device_id sw43103_of_match[] = {
-+	{ .compatible = "lg,sw43103" },
-+	{ /* sentinel */ }
-+};
-+MODULE_DEVICE_TABLE(of, sw43103_of_match);
-+
-+static int sw43103_add(struct sw43103_panel *ctx)
++static int sw42902_resume(struct device *dev)
 +{
-+	struct device *dev = &ctx->link->dev;
-+	int ret;
++	struct sw42902 *ts = i2c_get_clientdata(to_i2c_client(dev));
++	int error;
 +
-+	ctx->supplies[0].supply = "vddi"; /* 1.8 V */
-+	ctx->supplies[0].init_load_uA = 62000;
-+	ctx->supplies[1].supply = "vpnl"; /* 3.0 V */
-+	ctx->supplies[1].init_load_uA = 857000;
++	if (!ts->suspended)
++		return 0;
 +
-+	ret = devm_regulator_bulk_get(dev, ARRAY_SIZE(ctx->supplies),
-+				      ctx->supplies);
-+	if (ret < 0)
-+		return ret;
++	error = sw42902_power_on(ts);
++	if (error)
++		return error;
 +
-+	ctx->reset_gpio = devm_gpiod_get(dev, "reset", GPIOD_OUT_LOW);
-+	if (IS_ERR(ctx->reset_gpio)) {
-+		ret = PTR_ERR(ctx->reset_gpio);
-+		return dev_err_probe(dev, ret, "cannot get reset gpio\n");
++	ts->suspended = false;
++
++	error = sw42902_start(ts);
++	if (error) {
++		sw42902_power_off(ts);
++		return error;
 +	}
++	enable_irq(ts->client->irq);
 +
-+	ctx->enable_gpio = devm_gpiod_get_optional(dev, "enable", GPIOD_OUT_LOW);
-+	if (IS_ERR(ctx->enable_gpio)) {
-+		ret = PTR_ERR(ctx->enable_gpio);
-+		return dev_err_probe(dev, ret, "cannot get enable gpio\n");
-+	}
-+
-+	ret = sw43103_backlight_init(ctx);
-+	if (ret < 0)
-+		return ret;
-+
-+	ctx->base.prepare_prev_first = true;
-+
-+	drm_panel_add(&ctx->base);
 +	return 0;
 +}
 +
-+static int sw43103_probe(struct mipi_dsi_device *dsi)
-+{
-+	struct sw43103_panel *ctx;
-+	int ret;
++static DEFINE_SIMPLE_DEV_PM_OPS(sw42902_pm_ops, sw42902_suspend, sw42902_resume);
 +
-+	ctx = devm_drm_panel_alloc(&dsi->dev, __typeof(*ctx), base,
-+				   &sw43103_funcs, DRM_MODE_CONNECTOR_DSI);
-+	if (IS_ERR(ctx))
-+		return PTR_ERR(ctx);
++static const struct of_device_id sw42902_of_match[] = {
++	{ .compatible = "lg,sw42902" },
++	{ }
++};
++MODULE_DEVICE_TABLE(of, sw42902_of_match);
 +
-+	dsi->mode_flags = MIPI_DSI_MODE_LPM;
-+	dsi->format = MIPI_DSI_FMT_RGB888;
-+	dsi->lanes = 4;
++static const struct i2c_device_id sw42902_ids[] = {
++	{ .name = "sw42902" },
++	{ }
++};
++MODULE_DEVICE_TABLE(i2c, sw42902_ids);
 +
-+	ctx->link = dsi;
-+	mipi_dsi_set_drvdata(dsi, ctx);
-+
-+	ret = sw43103_add(ctx);
-+	if (ret < 0)
-+		return ret;
-+
-+	/* The panel works only in DSC mode. Set DSC params. */
-+	ctx->dsc.dsc_version_major = 1;
-+	ctx->dsc.dsc_version_minor = 1;
-+
-+	/* slice_count * slice_width == 2 * 540 = 1080 */
-+	ctx->dsc.pic_width = 1080;
-+	ctx->dsc.pic_height = 2460;
-+	ctx->dsc.slice_height = 60;
-+	ctx->dsc.slice_width = 540;
-+	ctx->dsc.slice_count = 2;
-+	ctx->dsc.slice_chunk_size = 540;
-+	ctx->dsc.bits_per_component = 8;
-+	ctx->dsc.bits_per_pixel = 8 << 4;
-+	ctx->dsc.block_pred_enable = true;
-+
-+	dsi->dsc = &ctx->dsc;
-+
-+	ret = mipi_dsi_attach(dsi);
-+	if (ret)
-+		drm_panel_remove(&ctx->base);
-+
-+	return ret;
-+}
-+
-+static void sw43103_remove(struct mipi_dsi_device *dsi)
-+{
-+	struct sw43103_panel *ctx = mipi_dsi_get_drvdata(dsi);
-+	int ret;
-+
-+	ret = mipi_dsi_detach(dsi);
-+	if (ret < 0)
-+		dev_err(&dsi->dev, "failed to detach from DSI host: %d\n", ret);
-+
-+	drm_panel_remove(&ctx->base);
-+}
-+
-+static struct mipi_dsi_driver sw43103_driver = {
++static struct i2c_driver sw42902_driver = {
 +	.driver = {
-+		.name = "panel-lg-sw43103",
-+		.of_match_table = sw43103_of_match,
++		.name = "sw42902",
++		.of_match_table = sw42902_of_match,
++		.pm = pm_sleep_ptr(&sw42902_pm_ops),
 +	},
-+	.probe = sw43103_probe,
-+	.remove = sw43103_remove,
++	.probe = sw42902_probe,
++	.id_table = sw42902_ids,
 +};
-+module_mipi_dsi_driver(sw43103_driver);
++module_i2c_driver(sw42902_driver);
 +
 +MODULE_AUTHOR("Abdur Rofik <rofikcoga@gmail.com>");
-+MODULE_DESCRIPTION("LG SW43103 FHD+ DSC Command Mode AMOLED panel");
++MODULE_DESCRIPTION("LG SW42902 touchscreen driver");
 +MODULE_LICENSE("GPL");
 -- 
 2.39.5
