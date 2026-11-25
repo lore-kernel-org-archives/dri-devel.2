@@ -2,36 +2,36 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2C604606A33C
-	for <dri-devel@archiver.kernel.org>; Wed, 25 Nov 2026 03:32:55 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 87D88606A33A
+	for <dri-devel@archiver.kernel.org>; Wed, 25 Nov 2026 03:32:59 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 4F15F10E868;
-	Wed, 25 Nov 2026 03:32:54 +0000 (UTC)
-Received: from TYPPR03CU001.outbound.protection.outlook.com
- (mail-japaneastazon11022133.outbound.protection.outlook.com [52.101.126.133])
- by gabe.freedesktop.org (Postfix) with ESMTPS id C9F1210E345
+	by gabe.freedesktop.org (Postfix) with ESMTP id 295C510EFD7;
+	Wed, 25 Nov 2026 03:32:55 +0000 (UTC)
+Received: from OS8PR02CU002.outbound.protection.outlook.com
+ (mail-japanwestazon11022143.outbound.protection.outlook.com [40.107.75.143])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id EB7BA10EC4C
  for <dri-devel@lists.freedesktop.org>; Wed, 25 Nov 2026 03:32:47 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=ZrRN4F0BURXIV9gt303Xj7Sw0VBcXQ5YM9/8HGUL9K1DXC/z4irHYnWIYnYGqd723Xct7BL0EoPmg0ah0xrvK4GCEDxs8V76n3wgI5g+19cs//hFE1E9qKM4UTre4gJ+VNPKqrv7WvACrPu0j3NISz78fkT/AsdW4QPYTYXQ7uXgsDtRKRG/XR+Wdwy47vZGr7aLQN319z3l2DNneylj25PSOC3wDmDpoQdNIBkcdLYzd/TSICVjCYeCvnM/6mhBrB0WyRAST2z9RVe5SaKJs5w+SN/+Pn19CvC1txO+rhOOjIG1DXyXpxcq5/H/FkhvVNLR5jkKlnCeI6kxynV8yQ==
+ b=nAPeDAhtnZLjqaT8S1E63V/TDbQifvA3udSIZ97hT6BgyeQfwPQJlAIn8DmRmTtbOPw8LZ1Y0IfwyFCyQlCaRnRfMy+VZ7JKfP3tXXMfnUBg8Wy4AP4eM4l2gqhxi6mNScw8x7zFuicYMFCCO5EcdLUvgwOnriIqrCK/CLkJHoAuciS0RwtEuYcazG4D+AdPpOHbMg5G/0weYiEQglmk/AbNlgIMx+PJel54VvArK1dXmNHsFRTc5+vrCKcBDar9mktiMeKHsqnurR0qOUWAdnH0LymvSbhuaLCipz/mTXS57q82YgC05Rta96UZCroW6I7pEsPAiNoc9bqezR7AHA==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=k0osvqPdmdRv8LthDRUNYDF6Csx/rupdH9bJQf/C1ZI=;
- b=NQNjz1y07xySIiiqg1mhvmPDHmB5C2lW2JObuZcKDQtfSb2XvgKE4osa7F8+C1qxGlrkOTXf5u8Vs6cA3Y+gRTlPuNRjm70B3s3I/g97PiYIzcXE17qcq6/e3BkgzlrVTBeQtTaqQqtU4N1DvGgS4HZBl7CYxuVZbilFCb+2mdRJ7jaacq04Rs8/Ae+pCqUCFtYV08DraL6dxy37KAMA0owCuSTQ2sQ2+sCt7hNg199byeUHkSq1SNSD/GdLpMdAsuc0qSd/SLTNKnP5A3nlOv6Wp1uX+ZQ/Phlow1AtG8Q2nT0sPQRLBvPTRJ+y50EFcziPIfjIY4jbroVflsnlzQ==
+ bh=OkPfqORTmkog2In+HEspCJLoIytiSh+HXkzENmEv9/U=;
+ b=dvhxANsFeIsDcG+aGNssuceeRiLC8Be6v6ETZEvg7rYlYCznGekA4wOQN2xugSwOkkHq8inb3TZU0ASA0+lmpT9EvhFSISppVhFrlzxkm0Z/+jmgKKqCcm77LwncR3pMHEbLdQRrfR0xHGvoy5BeneoiSouc3KVA6OIZJRfa4xeCMyz9nvmy3Jd7IWwkyBBlaow/Ob6VBmz04l8PoYQzF59ZLeu94oim5bL/HlMOqbPEm+qUzU6SMhw8anylOlaaLxur+QavtJuwqmNfbJW/UUpBQCtAgJVrwY0n3Fg0wWwK6kDGpNMJgJLt/y+5fDzkjmHUtKzOLTdFK5CHNLgmeA==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
  222.71.101.198) smtp.rcpttodomain=bootlin.com smtp.mailfrom=cixtech.com;
  dmarc=bestguesspass action=none header.from=cixtech.com; dkim=none (message
  not signed); arc=none (0)
-Received: from SI1PR02CA0056.apcprd02.prod.outlook.com (2603:1096:4:1f5::7) by
- KL1PR06MB5924.apcprd06.prod.outlook.com (2603:1096:820:d4::16) with
- Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.662.4; Wed, 25 Nov 2026 03:32:41 +0000
-Received: from SG1PEPF000082E5.apcprd02.prod.outlook.com
- (2603:1096:4:1f5:cafe::7d) by SI1PR02CA0056.outlook.office365.com
- (2603:1096:4:1f5::7) with Microsoft SMTP Server (version=TLS1_3,
+Received: from TYZPR03CA0002.apcprd03.prod.outlook.com (2603:1096:405:1d1::19)
+ by KUXPR06MB8440.apcprd06.prod.outlook.com (2603:1096:d10:7f::13)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.662.3; Wed, 25 Nov
+ 2026 03:32:42 +0000
+Received: from TY2PEPF0000AB86.apcprd03.prod.outlook.com
+ (2603:1096:405:1d1:cafe::8d) by TYZPR03CA0002.outlook.office365.com
+ (2603:1096:405:1d1::19) with Microsoft SMTP Server (version=TLS1_3,
  cipher=TLS_AES_256_GCM_SHA384) id 15.21.662.6 via Frontend Transport; Wed, 25
- Nov 2026 03:32:41 +0000
+ Nov 2026 03:32:42 +0000
 X-MS-Exchange-Authentication-Results: mx.microsoft.com 1; spf=pass (sender IP
  is 222.71.101.198)
  smtp.mailfrom=cixtech.com; dkim=none (message not signed)
@@ -40,11 +40,11 @@ Received-SPF: Pass (protection.outlook.com: domain of cixtech.com designates
  222.71.101.198 as permitted sender) receiver=protection.outlook.com;
  client-ip=222.71.101.198; helo=smtprelay.cixcomputing.com; pr=C
 Received: from smtprelay.cixcomputing.com (222.71.101.198) by
- SG1PEPF000082E5.mail.protection.outlook.com (10.167.240.8) with Microsoft
+ TY2PEPF0000AB86.mail.protection.outlook.com (10.167.253.10) with Microsoft
  SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.662.3 via Frontend Transport; Wed, 25 Nov 2026 03:32:40 +0000
+ 15.21.662.3 via Frontend Transport; Wed, 25 Nov 2026 03:32:41 +0000
 Received: from localhost.localdomain (unknown [172.16.66.33])
- by smtprelay.cixcomputing.com (Postfix) with ESMTPSA id 59CFA40920E5;
+ by smtprelay.cixcomputing.com (Postfix) with ESMTPSA id 23305427EFDA;
  Wed, 25 Nov 2026 11:32:39 +0800 (CST)
 From: Luo Liu <Luo.Liu@cixtech.com>
 To: maarten.lankhorst@linux.intel.com, mripard@kernel.org, tzimmermann@suse.de,
@@ -54,9 +54,10 @@ Cc: dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org,
  laurent.pinchart@ideasonboard.com, jonas@kwiboo.se,
  jernej.skrabec@gmail.com, luca.ceresoli@bootlin.com, wuyi.shen@cixtech.com,
  cix-kernel-upstream@cixtech.com
-Subject: [PATCH v4 5/5] drm/cix: add the Sky1 DisplayPort platform glue
-Date: Wed, 25 Nov 2026 11:32:38 +0800
-Message-Id: <20261125033238.3436046-6-Luo.Liu@cixtech.com>
+Subject: [PATCH v4 1/5] dt-bindings: display: add CIX Sky1 DisplayPort
+ transmitter
+Date: Wed, 25 Nov 2026 11:32:34 +0800
+Message-Id: <20261125033238.3436046-2-Luo.Liu@cixtech.com>
 X-Mailer: git-send-email 2.25.1
 In-Reply-To: <20261125033238.3436046-1-Luo.Liu@cixtech.com>
 References: <20261125033238.3436046-1-Luo.Liu@cixtech.com>
@@ -65,31 +66,31 @@ MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: SG1PEPF000082E5:EE_|KL1PR06MB5924:EE_
+X-MS-TrafficTypeDiagnostic: TY2PEPF0000AB86:EE_|KUXPR06MB8440:EE_
 Content-Type: text/plain
-X-MS-Office365-Filtering-Correlation-Id: 38915514-d69b-4c5f-ffb8-08df4aa4c25b
+X-MS-Office365-Filtering-Correlation-Id: 93b1f552-b151-4424-ece5-08df4aa4c2f2
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
- ARA:13230040|23010399003|36860700016|42112799006|82310400026|376014|1800799024|7416014|18002099003|22082099003|3023799007|261021121427099003|56012099006|261102123227099003|261022105027099003|261009220027099003|261026121527099003|261026140227099003|261009223027099003|261009221227099003|261009223327099003|261022075727099003|261009221727099003|261028144727099003|10067099003;
-X-Microsoft-Antispam-Message-Info: vc9tsC+CqC8YXtI7tT9QnbhlZrerRKunXZRvAscuPbvOmyCC8/YR5BbkQrTJA5wyVdCvLHpytbJybf2SzVbppflaAeqQ04q9OPLTSLNJAeCC0GozwDsVaj87NKQv0AwL44EZqga4Wxh9FsMD0p+uV4gQWwmKIngK+wHtavzGXxJ61fhRDNUyuDfNHQ2Jw6AkTeB48n9fraCBTvF5JL+BNlN2MeV1hSRX3AKfLBTL+9d5dFenaKVd60uq8twD9ldjGKsstuhCi0rmbr+72F1fon4X2NYalJGsTOTtvrunCNJ67OGqJucbGwkRRvfC0EjIaGJ1BXDnye2c7eR5NQyIzIWhW2ZUaQjoymJ0oL8ZiNrkDuLYnOVIrgItLe0gJUlxerA81jN+jQlaZc58ft9q8VRCMNiLK0DVjXLQuWjB5nlyRixr6x5a5QGbgagrw3V7XMJLOTo1nK/8YVy/Yi2srKYAGUFV71NDtdk5l8cYL297AZE2lE2YVF0N6xkzdtdNLwanrnJ0F0xLeZSwNdr06u19Xndgdvqe09CItHX0s0/BFDsNPT6G+bpXmV+o7jSug7cF6Ptul9TTz3sIBPDzK/cN71BHYMHxL5w7dLJvGBU7TZ8iBM2ZFcjy/qkwsvre/ElXh8OCcV4c/3SEJvm0qpbj/LZc96m2XIUXTyceYAYvcpBxEt3H4nPZoZBzvSB0hYt7CGBGLjJdTKpN7POfvQ==
+ ARA:13230040|82310400026|1800799024|7416014|376014|42112799006|36860700016|23010399003|261009223027099003|261009221227099003|18002099003|22082099003|3023799007|261028144727099003|261022105027099003|261102123227099003|261026140227099003|261021121427099003|261021135927099003|261026121527099003|10067099003|56012099006;
+X-Microsoft-Antispam-Message-Info: 1zN4Qguw9W5lfrPvqXAZsNHO84DtkLcYlMpcYmH2g385AZHZMBAgtYDZt7AXF9v+8DehHEbvY2ktRZnf+D6LZXc/kcCoOqtrcvrsFXSIxzKriqvL3t4HjI7HlQdct5Xj668Eagmoq1Yv0jsIYXUjw2fziqu69dC/KPNsEpKeqDIx+I3AMDpPltKc4k88u6KD7Hxc5vVzKpHBqgmBd2dHa0K3k/4uTB7PFNOvCnC/DLW13huZDwtL8p3KnqhHZUVEfpANOngDEiDpCbbKJTMb+UOV1MD+k5kX5tXGJC5ZBJ7btYbQpI5d+dt71y5vVzXC42sIgdh161AqYXjykrqJiGKQgAv7EBkgJZg7D/G0Ps6Bl4eIL6gF3z1s+9Ploo3o/13aqAIYP2KnyeqVgodl1YE2cbsNfugnvsIfWCxEFNvRWc9gJzrkhvOzG6TK3jFiIaxEd+nwAvqt0S27zcyuVfCoV1d0gwmwtiIaZcYPQPerO5oOzzayJSGkqjBRnCFrMv9n9gT0gqkbk44ucHYyt+ktO/tu6xyCUbMLHDI0AF9kKZHom3z/++oASqf5qJBG2XvF/eLJCIH6FuF80uSPa5BasNbFAdk311w4PyA8Itd/2g3WYm60FjAz2484m55P3ar4iabrwsTUOrGvZVfllQ==
 X-Forefront-Antispam-Report: CIP:222.71.101.198; CTRY:CN; LANG:en; SCL:1; SRV:;
  IPV:NLI; SFV:NSPM; H:smtprelay.cixcomputing.com; PTR:InfoDomainNonexistent;
  CAT:NONE;
- SFS:(13230040)(23010399003)(36860700016)(42112799006)(82310400026)(376014)(1800799024)(7416014)(18002099003)(22082099003)(3023799007)(261021121427099003)(56012099006)(261102123227099003)(261022105027099003)(261009220027099003)(261026121527099003)(261026140227099003)(261009223027099003)(261009221227099003)(261009223327099003)(261022075727099003)(261009221727099003)(261028144727099003)(10067099003);
+ SFS:(13230040)(82310400026)(1800799024)(7416014)(376014)(42112799006)(36860700016)(23010399003)(261009223027099003)(261009221227099003)(18002099003)(22082099003)(3023799007)(261028144727099003)(261022105027099003)(261102123227099003)(261026140227099003)(261021121427099003)(261021135927099003)(261026121527099003)(10067099003)(56012099006);
  DIR:OUT; SFP:1102; 
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: yFo9v9G+7E8aGFyGqUhJLdDc08VCdSD8cTfVYkI7VqSH7J/UG7otX+Vpal4V1rfzZxmsl2YjyWmU3/sFBL3r7PRMs8PvfW/eYp+9sGoKfTL5mVn6cd/wPGC7eaSaIBuMEn06IgNXJx6viAkz7PxBx7EuROXdH6ZWaMvmw3kocAJHatv1UoeKt16SyP+HZMeUZEA3aK3Y8xiG+YKYNg824MGYFyxuJ6l9F4hGDciYR+urkcy1m96UbJRX/RS6cKbbyFnTAmf8468rjEyQQ1mhgM8ob3kvScwKqQBDbOA1E3laD7CpNP5inUXMwaHPVMBrZHONMxH7GpXWdOw9ryhtLrsN9O5OIGu5rYbi4rTSN5LGc/B1qbuUA8xJMDQ0umXCm10wn0OsE6sx88rkjzNADCfM/vn+9o+D6lAZTtB1OE7SeXUMIxALtfgBLJRJpIra
+X-MS-Exchange-AntiSpam-MessageData-0: ujDrUPbwyh2arelZB8r4qsKAKoHq1H6yKM4jnUot8QHKJczowwz/C+rXe7Xi0Ce6XXihaKLds5ningCDYyxCox9wU8TBKUdSt9KwfWEyCXRuMhiRrVLB9U0YdONlW8gLgBhMi8ZVQTTh49l446hJDHqbvrdQ7YouAZssHIFTWh57GkDt1YwvmNw49RWObvlOISXypnEeJb0d4xvdgYlI2z3kuy6a/tTY0/BQ4rjVHav9f6d5U+AUys86B9gv0O3EPT9soy5RVz5qZc8BqYMRXBjc1NYr5CydfgC9lB78mWurYwE0ZKun0rJlgfI3p5wviHIzKZ3yr334ZzAoSs77XR1Ty0BOB5dcRMDczI5Pwsm5ACLPlTrm5hwf4jFbTDBBhJR1Dc4yWCpHR2fisbyhP6epJPV01vwuONpzwi2rKX0pVABo4wvMrMJDlaID36jJ
 X-OriginatorOrg: cixtech.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 25 Nov 2026 03:32:40.3256 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 38915514-d69b-4c5f-ffb8-08df4aa4c25b
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 25 Nov 2026 03:32:41.2528 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 93b1f552-b151-4424-ece5-08df4aa4c2f2
 X-MS-Exchange-CrossTenant-Id: 0409f77a-e53d-4d23-943e-ccade7cb4811
 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=0409f77a-e53d-4d23-943e-ccade7cb4811; Ip=[222.71.101.198];
  Helo=[smtprelay.cixcomputing.com]
-X-MS-Exchange-CrossTenant-AuthSource: SG1PEPF000082E5.apcprd02.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthSource: TY2PEPF0000AB86.apcprd03.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Anonymous
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: KL1PR06MB5924
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: KUXPR06MB8440
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -108,272 +109,152 @@ X-Spam-Status: No, score=-16.8 required=3.0 tests=BAYES_00,
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-Add the platform driver that maps the Sky1 RCSU video adapter registers
-and programs the pixel format and pixel-per-clock mode for the
-Trilinear DisplayPort transmitter.
+Add a binding for the Trilinear DisplayPort transmitter integrated on
+CIX Sky1. The USB-C and the native DP/eDP transmitters use different
+RCSU video-adapter register offsets and bit layouts, so each has its own
+compatible.
 
-The DP protocol, link training and the DRM bridge live in the shared
-Trilinear bridge driver. This glue only fills in the SoC-specific parts
-through dptx_plat_data, declared in include/drm/bridge/trilinear_dp.h.
+The transmitter takes its video stream from the display pipeline through
+a single graph port and drives the link through a generic PHY.
 
 Signed-off-by: Luo Liu <Luo.Liu@cixtech.com>
 ---
- drivers/gpu/drm/Kconfig             |   1 +
- drivers/gpu/drm/Makefile            |   1 +
- drivers/gpu/drm/cix/Kconfig         |   3 +
- drivers/gpu/drm/cix/Makefile        |   3 +
- drivers/gpu/drm/cix/dptx/Kconfig    |  15 +++
- drivers/gpu/drm/cix/dptx/Makefile   |   4 +
- drivers/gpu/drm/cix/dptx/cix_dptx.c | 163 ++++++++++++++++++++++++++++
- 7 files changed, 190 insertions(+)
- create mode 100644 drivers/gpu/drm/cix/Kconfig
- create mode 100644 drivers/gpu/drm/cix/Makefile
- create mode 100644 drivers/gpu/drm/cix/dptx/Kconfig
- create mode 100644 drivers/gpu/drm/cix/dptx/Makefile
- create mode 100644 drivers/gpu/drm/cix/dptx/cix_dptx.c
+ .../bindings/display/cix,sky1-dp.yaml         | 102 ++++++++++++++++++
+ MAINTAINERS                                   |  12 +++
+ 2 files changed, 114 insertions(+)
+ create mode 100644 Documentation/devicetree/bindings/display/cix,sky1-dp.yaml
 
-diff --git a/drivers/gpu/drm/Kconfig b/drivers/gpu/drm/Kconfig
-index 61111d50b1c6..a1808db8b9c8 100644
---- a/drivers/gpu/drm/Kconfig
-+++ b/drivers/gpu/drm/Kconfig
-@@ -311,6 +311,7 @@ source "drivers/gpu/drm/aspeed/Kconfig"
- source "drivers/gpu/drm/ast/Kconfig"
- source "drivers/gpu/drm/atmel-hlcdc/Kconfig"
- source "drivers/gpu/drm/bridge/Kconfig"
-+source "drivers/gpu/drm/cix/Kconfig"
- source "drivers/gpu/drm/etnaviv/Kconfig"
- source "drivers/gpu/drm/exynos/Kconfig"
- source "drivers/gpu/drm/fsl-dcu/Kconfig"
-diff --git a/drivers/gpu/drm/Makefile b/drivers/gpu/drm/Makefile
-index 2c6bc093a923..6ed7456bb993 100644
---- a/drivers/gpu/drm/Makefile
-+++ b/drivers/gpu/drm/Makefile
-@@ -169,6 +169,7 @@ obj-y			+= tests/
- obj-$(CONFIG_DRM_MIPI_DBI) += drm_mipi_dbi.o
- obj-$(CONFIG_DRM_MIPI_DSI) += drm_mipi_dsi.o
- obj-y			+= arm/
-+obj-y			+= cix/
- obj-y			+= clients/
- obj-y			+= display/
- obj-$(CONFIG_DRM_TTM)	+= ttm/
-diff --git a/drivers/gpu/drm/cix/Kconfig b/drivers/gpu/drm/cix/Kconfig
+diff --git a/Documentation/devicetree/bindings/display/cix,sky1-dp.yaml b/Documentation/devicetree/bindings/display/cix,sky1-dp.yaml
 new file mode 100644
-index 000000000000..6cbaa5bf9fe9
+index 000000000000..5095d5daf51a
 --- /dev/null
-+++ b/drivers/gpu/drm/cix/Kconfig
-@@ -0,0 +1,3 @@
-+# SPDX-License-Identifier: GPL-2.0-only
++++ b/Documentation/devicetree/bindings/display/cix,sky1-dp.yaml
+@@ -0,0 +1,102 @@
++# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
 +
-+source "drivers/gpu/drm/cix/dptx/Kconfig"
-diff --git a/drivers/gpu/drm/cix/Makefile b/drivers/gpu/drm/cix/Makefile
-new file mode 100644
-index 000000000000..a93591fc49e8
---- /dev/null
-+++ b/drivers/gpu/drm/cix/Makefile
-@@ -0,0 +1,3 @@
-+# SPDX-License-Identifier: GPL-2.0
++%YAML 1.2
++---
++$id: http://devicetree.org/schemas/display/cix,sky1-dp.yaml#
++$schema: http://devicetree.org/meta-schemas/core.yaml#
 +
-+obj-$(CONFIG_DRM_CIX_DP) += dptx/
-diff --git a/drivers/gpu/drm/cix/dptx/Kconfig b/drivers/gpu/drm/cix/dptx/Kconfig
-new file mode 100644
-index 000000000000..f5d3afe5699f
---- /dev/null
-+++ b/drivers/gpu/drm/cix/dptx/Kconfig
-@@ -0,0 +1,15 @@
-+# SPDX-License-Identifier: GPL-2.0-only
++title: CIX Sky1 Trilinear DisplayPort Transmitter
 +
-+config DRM_CIX_DP
-+	tristate "Cix Sky1 DisplayPort platform glue"
-+	depends on ARCH_CIX || COMPILE_TEST
-+	depends on COMMON_CLK && DRM && OF
-+	depends on GENERIC_PHY
-+	select DRM_TRILINEAR_DPTX
-+	help
-+	  Platform glue for the Cix Sky1 DisplayPort output. It maps the
-+	  SoC video adapter registers and binds the shared Trilinear DPTX
-+	  bridge driver.
++maintainers:
++  - Luo Liu <Luo.Liu@cixtech.com>
 +
-+	  To compile this driver as a module, choose M here: the module will
-+	  be called cix-dptx.
-diff --git a/drivers/gpu/drm/cix/dptx/Makefile b/drivers/gpu/drm/cix/dptx/Makefile
-new file mode 100644
-index 000000000000..64226bbd7c49
---- /dev/null
-+++ b/drivers/gpu/drm/cix/dptx/Makefile
-@@ -0,0 +1,4 @@
-+# SPDX-License-Identifier: GPL-2.0-only
++description: |
++  Trilinear DisplayPort transmitter on CIX Sky1. The transmitter takes its
++  video stream from the display pipeline through a single graph port and
++  drives the link through a generic PHY.
 +
-+cix-dptx-y := cix_dptx.o
-+obj-$(CONFIG_DRM_CIX_DP) += cix-dptx.o
-diff --git a/drivers/gpu/drm/cix/dptx/cix_dptx.c b/drivers/gpu/drm/cix/dptx/cix_dptx.c
-new file mode 100644
-index 000000000000..0e79c0579950
---- /dev/null
-+++ b/drivers/gpu/drm/cix/dptx/cix_dptx.c
-@@ -0,0 +1,163 @@
-+// SPDX-License-Identifier: GPL-2.0-only
-+/*
-+ * CIX Sky1 DisplayPort platform glue
-+ *
-+ * Copyright 2026 Cix Technology Group Co., Ltd.
-+ */
++  The USB-C transmitters and the native DP/eDP transmitter use different
++  RCSU video-adapter register offsets and bit layouts, so each has its own
++  compatible: "cix,sky1-usbdp" for the USB-C transmitters and "cix,sky1-dp"
++  for the native DP/eDP one.
 +
-+#include <linux/bits.h>
-+#include <linux/io.h>
-+#include <linux/module.h>
-+#include <linux/of.h>
-+#include <linux/platform_device.h>
++properties:
++  compatible:
++    enum:
++      - cix,sky1-usbdp
++      - cix,sky1-dp
 +
-+#include <drm/bridge/trilinear_dp.h>
++  reg:
++    items:
++      - description: DisplayPort transmitter registers.
++      - description: RCSU video adapter registers used for link setup.
 +
-+#define CFG_ADAPTER_VIDEO0_OFFSET 0x300
-+#define CFG_ADAPTER_VIDEO1_OFFSET 0x304
-+#define CFG_ADAPTER_VIDEO_OFFSET_DP2 0x320
++  reg-names:
++    items:
++      - const: dp
++      - const: rcsu
 +
-+struct cix_dp_adapter_fmt {
-+	int offset;
-+	u32 shift;
-+};
++  clocks:
++    items:
++      - description: APB clock of the controller.
++      - description: Video clock of stream 0.
++      - description: Video clock of stream 1.
 +
-+struct cix_dptx {
-+	void __iomem *rcsu;
-+};
++  clock-names:
++    items:
++      - const: apb
++      - const: vid0
++      - const: vid1
 +
-+static const struct cix_dp_adapter_fmt usbc_adapter_fmt[] = {
-+	{ CFG_ADAPTER_VIDEO0_OFFSET, 30 },
-+	{ CFG_ADAPTER_VIDEO1_OFFSET, 19 },
-+};
++  interrupts:
++    maxItems: 1
 +
-+static const struct cix_dp_adapter_fmt dp2_adapter_fmt[] = {
-+	{ CFG_ADAPTER_VIDEO_OFFSET_DP2, 17 },
-+	{ CFG_ADAPTER_VIDEO_OFFSET_DP2, 20 },
-+};
++  resets:
++    maxItems: 1
++    description: DisplayPort controller reset.
 +
-+static void cix_dp_adapter_fmt_set(void __iomem *rcsu,
-+				   const struct cix_dp_adapter_fmt *adapter,
-+				   enum dp_pixelformat format, bool ppc2)
-+{
-+	u32 fmt_mask;
-+	u32 ppc_bit;
-+	u32 value;
++  phys:
++    maxItems: 1
++    description: DisplayPort PHY the controller transmits through.
 +
-+	/* The PPC control bit sits directly below the pixel format field. */
-+	fmt_mask = GENMASK(adapter->shift + 1, adapter->shift);
-+	ppc_bit = BIT(adapter->shift - 1);
++  port:
++    $ref: /schemas/graph.yaml#/properties/port
++    description:
++      Video input from the Mali D71 display pipeline (Komeda) that drives
++      this controller. The link to the sink is through phys (USB-C combo PHY
++      or the native DP PHY), not a second OF graph port on the DPTX.
 +
-+	value = readl(rcsu + adapter->offset);
++required:
++  - compatible
++  - reg
++  - reg-names
++  - clocks
++  - clock-names
++  - interrupts
++  - resets
++  - phys
++  - port
 +
-+	value &= ~fmt_mask;
-+	if (format == DP_PIXELFORMAT_YUV422)
-+		value |= 2U << adapter->shift;
-+	else if (format == DP_PIXELFORMAT_YUV420)
-+		value |= 3U << adapter->shift;
++additionalProperties: false
 +
-+	if (ppc2)
-+		value |= ppc_bit;
-+	else
-+		value &= ~ppc_bit;
++examples:
++  - |
++    #include <dt-bindings/interrupt-controller/arm-gic.h>
 +
-+	writel(value, rcsu + adapter->offset);
-+}
++    dp0: dp@14064000 {
++        compatible = "cix,sky1-usbdp";
++        reg = <0x14064000 0x4000>,
++              <0x14050000 0x400>;
++        reg-names = "dp", "rcsu";
++        clocks = <&dpc0_apb>, <&dpc0_vid0>, <&dpc0_vid1>;
++        clock-names = "apb", "vid0", "vid1";
++        interrupts = <GIC_SPI 332 IRQ_TYPE_LEVEL_HIGH>;
++        resets = <&dpc0_rst>;
++        phys = <&usbc0_dp_phy>;
 +
-+static void cix_dp_usbc_adapter_config(void *data, int pipe_id,
-+				       enum dp_pixelformat format, bool ppc2)
-+{
-+	struct cix_dptx *priv = data;
++        port {
++            dp0_0_in: endpoint {
++                remote-endpoint = <&dpu0_pipe0_out>;
++            };
++        };
++    };
+diff --git a/MAINTAINERS b/MAINTAINERS
+index 93abbb315065..468aa1ef6eb7 100644
+--- a/MAINTAINERS
++++ b/MAINTAINERS
+@@ -6522,6 +6522,18 @@ M:	Satish Kharat <satishkh@cisco.com>
+ S:	Supported
+ F:	drivers/infiniband/hw/usnic/
+ 
++CIX SKY1 DISPLAYPORT TRANSMITTER DRIVER
++M:	Luo Liu <Luo.Liu@cixtech.com>
++M:	Wuyi Shen <wuyi.shen@cixtech.com>
++R:	CIX Linux Kernel Upstream Group <cix-kernel-upstream@cixtech.com>
++L:	devicetree@vger.kernel.org
++L:	dri-devel@lists.freedesktop.org
++S:	Maintained
++F:	Documentation/devicetree/bindings/display/cix,sky1-dp.yaml
++F:	drivers/gpu/drm/bridge/trilinear/
++F:	drivers/gpu/drm/cix/dptx/
++F:	include/drm/bridge/trilinear_dp.h
 +
-+	cix_dp_adapter_fmt_set(priv->rcsu, &usbc_adapter_fmt[pipe_id], format,
-+			       ppc2);
-+}
-+
-+static void cix_dp_native_adapter_config(void *data, int pipe_id,
-+					 enum dp_pixelformat format, bool ppc2)
-+{
-+	struct cix_dptx *priv = data;
-+
-+	cix_dp_adapter_fmt_set(priv->rcsu, &dp2_adapter_fmt[pipe_id], format,
-+			       ppc2);
-+}
-+
-+static int cix_dptx_probe(struct platform_device *pdev)
-+{
-+	struct device *dev = &pdev->dev;
-+	const struct dptx_plat_data *soc_data;
-+	struct cix_dptx *priv;
-+	struct dptx_dev *dp;
-+	void __iomem *rcsu;
-+
-+	soc_data = of_device_get_match_data(dev);
-+	if (!soc_data)
-+		return -ENODEV;
-+
-+	priv = devm_kzalloc(dev, sizeof(*priv), GFP_KERNEL);
-+	if (!priv)
-+		return -ENOMEM;
-+
-+	rcsu = devm_platform_ioremap_resource_byname(pdev, "rcsu");
-+	if (IS_ERR(rcsu))
-+		return dev_err_probe(dev, PTR_ERR(rcsu),
-+				     "failed to map rcsu registers\n");
-+
-+	priv->rcsu = rcsu;
-+
-+	dp = dptx_probe(dev, soc_data, priv);
-+	if (IS_ERR(dp))
-+		return PTR_ERR(dp);
-+
-+	return 0;
-+}
-+
-+static int cix_dptx_pm_suspend(struct device *dev)
-+{
-+	return dptx_suspend(dev_get_drvdata(dev));
-+}
-+
-+static int cix_dptx_pm_resume(struct device *dev)
-+{
-+	return dptx_resume(dev_get_drvdata(dev));
-+}
-+
-+static DEFINE_SIMPLE_DEV_PM_OPS(cix_dptx_pm_ops, cix_dptx_pm_suspend,
-+				cix_dptx_pm_resume);
-+
-+static void cix_dptx_shutdown(struct platform_device *pdev)
-+{
-+	dptx_shutdown(platform_get_drvdata(pdev));
-+}
-+
-+static const struct dptx_plat_data sky1_usbdp_data = {
-+	.adapter_config = cix_dp_usbc_adapter_config,
-+};
-+
-+static const struct dptx_plat_data sky1_dp_data = {
-+	.adapter_config = cix_dp_native_adapter_config,
-+};
-+
-+static const struct of_device_id cix_dptx_dt_ids[] = {
-+	{ .compatible = "cix,sky1-usbdp", .data = &sky1_usbdp_data },
-+	{ .compatible = "cix,sky1-dp", .data = &sky1_dp_data },
-+	{ /* sentinel */ },
-+};
-+MODULE_DEVICE_TABLE(of, cix_dptx_dt_ids);
-+
-+static struct platform_driver cix_dp_driver = {
-+	.probe = cix_dptx_probe,
-+	.shutdown = cix_dptx_shutdown,
-+	.driver = {
-+		.name = "cix-dptx",
-+		.of_match_table = cix_dptx_dt_ids,
-+		.pm = pm_sleep_ptr(&cix_dptx_pm_ops),
-+	},
-+};
-+
-+module_platform_driver(cix_dp_driver);
-+
-+MODULE_AUTHOR("Luo Liu <Luo.Liu@cixtech.com>");
-+MODULE_AUTHOR("Wuyi Shen <wuyi.shen@cixtech.com>");
-+MODULE_DESCRIPTION("Cix Sky1 DisplayPort platform glue");
-+MODULE_LICENSE("GPL");
+ CLANG CONTEXT ANALYSIS
+ M:	Marco Elver <elver@google.com>
+ R:	Bart Van Assche <bvanassche@acm.org>
 -- 
 2.25.1
 
