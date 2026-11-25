@@ -2,20 +2,20 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 02409606A329
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 49FB4606A332
 	for <dri-devel@archiver.kernel.org>; Wed, 25 Nov 2026 11:22:52 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=rock-chips.com header.i=@rock-chips.com header.a=rsa-sha256 header.s=default header.b=CNsdv3Fx
+	dkim=pass (1024-bit key) header.d=rock-chips.com header.i=@rock-chips.com header.a=rsa-sha256 header.s=default header.b=Iwfl+96T
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id ED22110FB83;
-	Wed, 25 Nov 2026 11:22:45 +0000 (UTC)
-Received: from mail-m128121.netease.com (mail-m128121.netease.com
- [103.209.128.121])
- by gabe.freedesktop.org (Postfix) with ESMTPS id D725410FB75
- for <dri-devel@lists.freedesktop.org>; Wed, 25 Nov 2026 11:22:14 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 62C8910FB84;
+	Wed, 25 Nov 2026 11:22:46 +0000 (UTC)
+Received: from mail-m822136115.xmail.ntesmail.com
+ (mail-m822136115.xmail.ntesmail.com [8.221.36.115])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 0999610FB70
+ for <dri-devel@lists.freedesktop.org>; Wed, 25 Nov 2026 11:22:17 +0000 (UTC)
 Received: from zyb-HP-ProDesk-680-G2-MT.. (unknown [61.154.14.86])
- by smtp.qiye.163.com (Hmail) with ESMTP id 55f816061;
- Wed, 25 Nov 2026 19:22:11 +0800 (GMT+08:00)
+ by smtp.qiye.163.com (Hmail) with ESMTP id 55f816069;
+ Wed, 25 Nov 2026 19:22:12 +0800 (GMT+08:00)
 From: Damon Ding <damon.ding@rock-chips.com>
 To: Andrzej Hajda <andrzej.hajda@intel.com>,
  Neil Armstrong <neil.armstrong@linaro.org>, Robert Foss <rfoss@kernel.org>,
@@ -37,26 +37,26 @@ Cc: Laurent Pinchart <Laurent.pinchart@ideasonboard.com>,
  dri-devel@lists.freedesktop.org, linux-arm-kernel@lists.infradead.org,
  linux-samsung-soc@vger.kernel.org, linux-rockchip@lists.infradead.org,
  Damon Ding <damon.ding@rock-chips.com>
-Subject: [PATCH v7 13/20] drm/bridge: analogix_dp: Skip native HPD interrupt
- ops for GPIO HPD
-Date: Wed, 25 Nov 2026 19:21:34 +0800
-Message-Id: <20261125112141.1434903-14-damon.ding@rock-chips.com>
+Subject: [PATCH v7 14/20] drm/rockchip: analogix_dp: Unbind bridge when
+ connector init fails
+Date: Wed, 25 Nov 2026 19:21:35 +0800
+Message-Id: <20261125112141.1434903-15-damon.ding@rock-chips.com>
 X-Mailer: git-send-email 2.34.1
 In-Reply-To: <20261125112141.1434903-1-damon.ding@rock-chips.com>
 References: <20261125112141.1434903-1-damon.ding@rock-chips.com>
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-X-HM-Tid: 0aa2127118ef03a8kunm17c230507758c8
+X-HM-Tid: 0aa212711e2703a8kunm17c230507758d2
 X-HM-MType: 1
 X-HM-Spam-Status: e1kfGhgUHx5ZQUpXWQgPGg8OCBgUHx5ZQUlOS1dZFg8aDwILHllBWSg2Ly
- tZV1koWUFITzdXWRgWCB1ZQUpXWS1ZQUlXWQ8JGhUIEh9ZQVlCGhlPVk5PGRoZT0lOGBpCSFYVFA
+ tZV1koWUFITzdXWRgWCB1ZQUpXWS1ZQUlXWQ8JGhUIEh9ZQVkZTx9IVklLHU1OS01CSEMYTFYVFA
  kWGhdVEwETFhoSFyQUDg9ZV1kYEgtZQVlNSlVKTk9VSk9VQ01ZV1kWGg8SFR0UWUFZT0tIVUpLSE
  pKQk1VSktLVUpCWQY+
 DKIM-Signature: a=rsa-sha256;
- b=CNsdv3FxA3ZNunHAlvUBCnoukURFBeNWYgL8KBTkfIFfy2r4G9gESBFrXCFDzxSWxDMop2ZXVDLmSdEBNWt3Mxw1LehzOPmoLKwYEz1xPa0ZwOrz6DZ/Pby/UtMdZrTRQHyYMz4Ipkf9swewKWCqk9BccEg9+Lmdy5Tz8tJ1JxU=;
+ b=Iwfl+96TVBGB7FAGE+rGSWA2yQq/vmKqPlgYhhIyBsga7Y1ekKEPBl0eYaVttVJua9OHTOLyzupetvuNEHhAJnBYytJNrlD3+Sv4h7TnqxXJGZmgq+/yWjCiqD1a6B27MrzUd8V3hrKvZVv1k8f7C/H5AKwIQvE9fxkJ23C91/A=;
  s=default; c=relaxed/relaxed; d=rock-chips.com; v=1; 
- bh=9gh/UpO+Wvvgm7K+uV/Ct8m+sSQrCKGW9teRlFKULo4=;
+ bh=8wdlz0LG+mt5/jNeMcYINGDfpLpelVy5XiXlc9r/roo=;
  h=date:mime-version:subject:message-id:from;
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -77,74 +77,40 @@ X-Spam-Status: No, score=-18.8 required=3.0 tests=BAYES_00,DKIM_SIGNED,
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-GPIO HPD does not rely on DP controller internal native HPD interrupts.
-Skip native HPD register manipulations to avoid irrelevant operations.
+The rockchip_dp_bind() returns without unwinding analogix_dp_bind()
+when drm_bridge_connector_init() fails.  The aux device registered by
+analogix_dp_bind() is then left behind with a dangling drm_dev
+pointer, which could be accessed on later AUX transfers.
 
-Move the hpd_gpiod guard to its caller so the helper operates purely on
-the given bitmask, and mute all native HPD interrupts for GPIO mode.
+Call analogix_dp_unbind() in the error path to release the aux device.
 
+Fixes: 99a49ff5ef7a ("drm/bridge: analogix_dp: Apply drm_bridge_connector helper")
 Tested-by: Heiko Stuebner <heiko@sntech.de>
-Tested-by: Marek Szyprowski <m.szyprowski@samsung.com>
 Signed-off-by: Damon Ding <damon.ding@rock-chips.com>
 
 ---
 
-Changes in v2:
-- Adapt to the newly added IRQF_ONESHOT related commit and expand the
-  commit msg.
-
-Changes in v3:
-- Reorganize the branch layout for hpd_gpiod check.
-- Simplify the commit msg.
-
-Changes in v4:
-- Add Tested-by tag.
-
 Changes in v6:
 - Add Tested-by tag.
----
- drivers/gpu/drm/bridge/analogix/analogix_dp_core.c | 2 +-
- drivers/gpu/drm/bridge/analogix/analogix_dp_reg.c  | 7 ++++++-
- 2 files changed, 7 insertions(+), 2 deletions(-)
 
-diff --git a/drivers/gpu/drm/bridge/analogix/analogix_dp_core.c b/drivers/gpu/drm/bridge/analogix/analogix_dp_core.c
-index f2ffa30e335f..af855f33cf6f 100644
---- a/drivers/gpu/drm/bridge/analogix/analogix_dp_core.c
-+++ b/drivers/gpu/drm/bridge/analogix/analogix_dp_core.c
-@@ -720,7 +720,7 @@ static irqreturn_t analogix_dp_irq_thread(int irq, void *arg)
- 	bool hpd_detected;
+Changes in v7:
+- Add Fixes tag.
+---
+ drivers/gpu/drm/rockchip/analogix_dp-rockchip.c | 1 +
+ 1 file changed, 1 insertion(+)
+
+diff --git a/drivers/gpu/drm/rockchip/analogix_dp-rockchip.c b/drivers/gpu/drm/rockchip/analogix_dp-rockchip.c
+index 635146746b42..39eca3ec7160 100644
+--- a/drivers/gpu/drm/rockchip/analogix_dp-rockchip.c
++++ b/drivers/gpu/drm/rockchip/analogix_dp-rockchip.c
+@@ -419,6 +419,7 @@ static int rockchip_dp_bind(struct device *dev, struct device *master,
+ 	if (IS_ERR(connector)) {
+ 		ret = PTR_ERR(connector);
+ 		dev_err(dp->dev, "Failed to initialize bridge_connector\n");
++		analogix_dp_unbind(dp->adp);
+ 		goto err_cleanup_encoder;
+ 	}
  
- 	irq_type = analogix_dp_get_irq_type(dp);
--	if (irq_type)
-+	if (!dp->hpd_gpiod && irq_type)
- 		analogix_dp_clear_hotplug_interrupts(dp, irq_type);
- 
- 	if (!dp->hpd_gpiod && analogix_dp_is_rockchip(dp->plat_data->dev_type))
-diff --git a/drivers/gpu/drm/bridge/analogix/analogix_dp_reg.c b/drivers/gpu/drm/bridge/analogix/analogix_dp_reg.c
-index 025da25463a8..af5e5a8ec88d 100644
---- a/drivers/gpu/drm/bridge/analogix/analogix_dp_reg.c
-+++ b/drivers/gpu/drm/bridge/analogix/analogix_dp_reg.c
-@@ -193,6 +193,11 @@ void analogix_dp_config_interrupt(struct analogix_dp_device *dp)
- 	writel(0, dp->reg_base + ANALOGIX_DP_COMMON_INT_MASK_2);
- 	writel(0, dp->reg_base + ANALOGIX_DP_COMMON_INT_MASK_3);
- 
-+	if (dp->hpd_gpiod) {
-+		analogix_dp_mute_hpd_interrupt(dp, HPD_IRQ_ALL);
-+		return;
-+	}
-+
- 	/*
- 	 * Either HOTPLUG_CHG interrupt or PLUG + HPD_LOST interrupt
- 	 * pair can be used to implement hotplug detection.
-@@ -415,7 +420,7 @@ void analogix_dp_clear_hotplug_interrupts(struct analogix_dp_device *dp, u32 irq
- {
- 	u32 reg;
- 
--	if (dp->hpd_gpiod || !irq_type)
-+	if (!irq_type)
- 		return;
- 
- 	reg = analogix_dp_irq_type_to_common_int_sta4(irq_type);
 -- 
 2.34.1
 
