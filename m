@@ -2,43 +2,42 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 708A6606A688
-	for <dri-devel@archiver.kernel.org>; Wed, 25 Nov 2026 18:15:25 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9E658606A688
+	for <dri-devel@archiver.kernel.org>; Wed, 25 Nov 2026 18:15:35 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=X2DIDqel
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=FpZv1f0c
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id C71A310FECD;
-	Wed, 25 Nov 2026 18:15:19 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 14EF010FEE0;
+	Wed, 25 Nov 2026 18:15:30 +0000 (UTC)
 Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 4BB5110FECD
- for <dri-devel@lists.freedesktop.org>; Wed, 25 Nov 2026 18:15:13 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 0E0E410FEE0
+ for <dri-devel@lists.freedesktop.org>; Wed, 25 Nov 2026 18:15:24 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by tor.source.kernel.org (Postfix) with ESMTP id 87D2A62911;
- Wed, 25 Nov 2026 18:15:12 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 14A801F000C0;
- Wed, 25 Nov 2026 18:15:12 +0000 (UTC)
+ by tor.source.kernel.org (Postfix) with ESMTP id 7F24E62911;
+ Wed, 25 Nov 2026 18:15:23 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id BF6871F000C4;
+ Wed, 25 Nov 2026 18:15:22 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1795630512;
- bh=9lB/xFWL4Pzo0WnzIskfHv5oUIqZaZ2B8c0og2Lfn70=;
+ s=k20260515; t=1795630523;
+ bh=h+lbt7kj1uhNQxBSIdVRznpLBzU/8FdTtl2Tk92QD6c=;
  h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
- b=X2DIDqeljQ3868RIgDSLwUc0q2Ps46ZFiwQ4GCP7Zp1AVYjAa+Q3GpTCN9YDiyzGS
- +QGRC1jufIYFKYOEoxbe4zKsFkkiORIJy6+fQXkVLubsVUr0ADINRJfjp+pJ7H+3U7
- 1Eeb3N4hb99qLVJ9Iw4l6I+ubP19DahGCmsLjYxBSgob0qFdZNM+mqLI3t+6Aur10/
- nN5y4hbdYbRueINBT+thvE3o4+Bi1A/d83FBQ6UqsDsX8lADUtRlhmloEiN2eFswhu
- jM8xlaCTCfsQE6BBiZ0iy5ALLMj1J1YD/z2Gr4OwPymh6Sye42ktjP4f06stdsl8TS
- 1fxuCxZM5Oo+w==
-Message-ID: <sashiko-outbox-233939@kernel.org>
+ b=FpZv1f0cf0zZpf0RlMh+fjTALNqw90u7ACfc/gA5+S+JNw6T5Wkynj2ajOV/Hi8if
+ VwUd1ggfEqqqlbIOLYdtAz4Pf1ca/tlqFGS8OVIJUtQ/Ot6dOwt4EUiTX+rwzrNNLv
+ EAYiadP6OjuG3VP3BC2opxT2XZb1ZI5nvZPYkjOyd+bXI7kUznSqpvd8md1klES3oM
+ hmzvc60e/8WFUx3qfGl3GTZvQXriAt/J6r4FT1BQuWf6asabf82aOh9O5xJlsuBsbv
+ H8RengJIb/1gEOxIltNz3keFol5f0+HDY1eU5LcRcTrqlj8DgHUdc/D7FhoO5hLtv4
+ VmEuFWNlbUlaw==
+Message-ID: <sashiko-outbox-233940@kernel.org>
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v4 25/32] drm/bridge: samsung-dsim: implement
- .get_next_bridge
+Subject: Re: [PATCH v4 26/32] drm/bridge: add drm_bridge_detach_from()
 To: "Luca Ceresoli" <luca.ceresoli@bootlin.com>
 Cc: dri-devel@lists.freedesktop.org, imx@lists.linux.dev, Frank.Li@kernel.org
-In-Reply-To: <20261125-drm-bridge-hotplug-v4-25-822722850492@bootlin.com>
+In-Reply-To: <20261125-drm-bridge-hotplug-v4-26-822722850492@bootlin.com>
 References: <20261125-drm-bridge-hotplug-v4-0-822722850492@bootlin.com>
- <20261125-drm-bridge-hotplug-v4-25-822722850492@bootlin.com>
+ <20261125-drm-bridge-hotplug-v4-26-822722850492@bootlin.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Wed, 25 Nov 2026 18:15:11 +0000
+Date: Wed, 25 Nov 2026 18:15:22 +0000
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -59,73 +58,122 @@ X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 X-Archived-By: <archiver.kernel.org>
 
-Thank you for your contribution! Sashiko AI review found 1 potential
-issue to consider:
-- [Medium] drm/bridge: samsung-dsim: next_bridge set after
-  drm_bridge_add()
+Thank you for your contribution! Sashiko AI review found 2 potential
+issues to consider:
+- [High] drm/bridge: stack list corruption and infinite loop in
+  drm_bridge_detach_from()
+- [Medium] drm/bridge: unused static drm_bridge_detach_from() breaks
+  -Werror bisect
 --
 
-commit 1b84a9a9872c3d15595f65a9e6b8efef31c355b5
+commit 2c3d13618a66d24a86a5bd8331f35f64a19c35c9
 Author: Luca Ceresoli <luca.ceresoli@bootlin.com>
 
-drm/bridge: samsung-dsim: implement .get_next_bridge
+drm/bridge: add drm_bridge_detach_from()
 
-This commit implements the .get_next_bridge callback and sets
-DRM_BRIDGE_OP_GET_NEXT_BRIDGE in the samsung-dsim bridge driver.
+This commit adds a helper to detach a bridge and all subsequent bridges in =
+an
+encoder's bridge chain.
 
-> diff --git a/drivers/gpu/drm/bridge/samsung-dsim.c b/drivers/gpu/drm/brid=
-ge/samsung-dsim.c
-> index 480e568dd2c9d..a00902871b79e 100644
-> --- a/drivers/gpu/drm/bridge/samsung-dsim.c
-> +++ b/drivers/gpu/drm/bridge/samsung-dsim.c
-> @@ -1821,6 +1821,13 @@ static void samsung_dsim_mode_set(struct drm_bridg=
-e *bridge,
->  	drm_mode_copy(&dsi->mode, adjusted_mode);
+> diff --git a/drivers/gpu/drm/drm_bridge.c b/drivers/gpu/drm/drm_bridge.c
+> index e0e0dd7fc12bb..c00d5276e55b3 100644
+> --- a/drivers/gpu/drm/drm_bridge.c
+> +++ b/drivers/gpu/drm/drm_bridge.c
+> @@ -504,6 +504,40 @@ int devm_drm_bridge_add(struct device *dev, struct d=
+rm_bridge *bridge)
 >  }
+>  EXPORT_SYMBOL(devm_drm_bridge_add);
 > =20
-> +static struct drm_bridge *samsung_dsim_get_next_bridge(struct drm_bridge=
- *bridge)
-> +{
-> +	struct samsung_dsim *dsi =3D bridge_to_dsi(bridge);
-> +
-> +	return dsi->bridge.next_bridge ? drm_bridge_get(dsi->bridge.next_bridge=
-) : ERR_PTR(-ENODEV);
-> +}
+> +/**
+> + * drm_bridge_detach_from - detach a given bridge and all the following
+> + *                          from an encoder chain
+> + * @bridge: first bridge to remove
+> + *
+> + * Removes from an encoder all the bridges starting with a given bridge
+> + * and until the end of the chain.
+> + *
+> + * Does nothing if the bridge is not attached to an encoder chain.
+> + */
+> +static void drm_bridge_detach_from(struct drm_bridge *bridge)
 
 [Severity: Medium]
-Can samsung_dsim_get_next_bridge() observe dsi->bridge.next_bridge as NULL
-when drm_bridge_add() notifies listeners?
+Does defining drm_bridge_detach_from() as static without any callers in this
+patch break bisection under CONFIG_WERROR=3Dy or CONFIG_DRM_WERROR=3Dy?
 
-In samsung_dsim_host_attach(), drm_bridge_add(&dsi->bridge) is called
-before dsi->bridge.next_bridge is assigned:
+drivers/gpu/drm/Makefile enables -Wunused, so compiling drm_bridge.o fails
+with -Werror=3Dunused-function until the later commit "drm/bridge: shutdown
+encoder and detach downstream bridges on bridge unplug" adds the caller in
+drm_bridge_remove().  Marking it __maybe_unused here (or introducing it in
+the patch that uses it) avoids the build failure.
 
-drivers/gpu/drm/bridge/samsung-dsim.c:samsung_dsim_host_attach() {
-	...
-	drm_bridge_add(&dsi->bridge);
+Also, the commit message still refers to the v2 name
+drm_encoder_cleanup_from() instead of drm_bridge_detach_from().
 
-	if (!(device->mode_flags & MIPI_DSI_MODE_VIDEO)) {
-		ret =3D samsung_dsim_register_te_irq(dsi, &device->dev);
-		if (ret)
-			goto err_remove_bridge;
-	}
+> +{
+> +	struct drm_encoder *encoder =3D bridge->encoder;
+> +	struct drm_bridge *next;
+> +	LIST_HEAD(tmplist);
+> +
+> +	/*
+> +	 * We need the bridge_chain_mutex to modify the chain, but
+> +	 * drm_bridge_detach() will call DRM_MODESET_LOCK_ALL_BEGIN() (in
+> +	 * drm_modeset_lock_fini()), resulting in a possible ABBA circular
+> +	 * deadlock. Avoid it by first moving all the bridges to a
+> +	 * temporary list holding the lock, and then calling
+> +	 * drm_bridge_detach() without the lock.
+> +	 */
+> +	mutex_lock(&encoder->bridge_chain_mutex);
+> +	if (!list_empty(&bridge->chain_node))
+> +		list_for_each_entry_safe_from(bridge, next, &encoder->bridge_chain, ch=
+ain_node)
+> +			list_move_tail(&bridge->chain_node, &tmplist);
+> +	mutex_unlock(&encoder->bridge_chain_mutex);
+> +
+> +	while (!list_empty(&tmplist))
+> +		drm_bridge_detach(list_first_entry(&tmplist, struct drm_bridge, chain_=
+node));
+> +}
 
-	// The next bridge can be used by host_ops->attach
-	dsi->bridge.next_bridge =3D drm_bridge_get(next_bridge);
-	...
-}
+[Severity: High]
+Can moving bridge->chain_node onto a stack-local tmplist cause list
+corruption and an infinite loop if a downstream bridge is detached while
+drm_bridge_detach_from() is already running?
 
-Because drm_bridge_add() publishes &dsi->bridge on bridge_list and
-synchronously emits DRM_BRIDGE_ADDED, a hotplug handler such as
-drm_hotplug_helper_bridge_notif() runs before dsi->bridge.next_bridge is
-populated.  Calling drm_bridge_get_next() from that notification returns
-ERR_PTR(-ENODEV), and drm_hotplug_helper_try_complete() ->
-drm_bridge_attach() -> samsung_dsim_attach() passes NULL to
-drm_bridge_attach(), failing with -EINVAL and logging a DRM_ERROR().
+list_move_tail(&bridge->chain_node, &tmplist) removes each bridge from
+encoder->bridge_chain, but leaves bridge->chain_node non-empty while linked
+into tmplist on the first caller's stack.  drm_bridge_detach() only runs
+list_del_init(&bridge->chain_node) after sleeping in
+drm_atomic_private_obj_fini() and calling bridge->funcs->detach() without
+encoder->bridge_chain_mutex held:
 
-Assigning dsi->bridge.next_bridge before calling drm_bridge_add() (and
-cleaning it up on error) would ensure it is valid as soon as the bridge is
-published.
+CPU0                                  CPU1
+drm_bridge_detach_from(bridgeA)
+  mutex_lock(&bridge_chain_mutex)
+  list_move_tail(bridgeA, &tmplist0)
+  list_move_tail(bridgeB, &tmplist0)
+  mutex_unlock(&bridge_chain_mutex)
+  drm_bridge_detach(bridgeA)
+    drm_atomic_private_obj_fini()
+                                      drm_bridge_detach_from(bridgeB)
+                                        mutex_lock(&bridge_chain_mutex)
+                                        if (!list_empty(&bridgeB->chain_nod=
+e))
+                                          list_for_each_entry_safe_from(
+                                            bridgeB, ...,
+                                            &encoder->bridge_chain, ...)
+                                            <-- walks tmplist0, never hits
+                                                &encoder->bridge_chain
+
+Because bridgeB->chain_node is on CPU0's tmplist0 rather than
+encoder->bridge_chain, CPU1's list_for_each_entry_safe_from() walks around
+tmplist0 (including the stack list head itself as a struct drm_bridge),
+never reaches &encoder->bridge_chain, and corrupts CPU0's stack list while
+looping forever under encoder->bridge_chain_mutex.
+
+In addition, if drm_bridge_detach() ever takes its early return on
+WARN_ON(!bridge->dev), bridge->chain_node is not unlinked and
+while (!list_empty(&tmplist)) spins forever.
 
 --=20
 Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261125-drm-bridge=
--hotplug-v4-0-822722850492@bootlin.com?part=3D25
+-hotplug-v4-0-822722850492@bootlin.com?part=3D26
