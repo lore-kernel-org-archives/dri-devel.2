@@ -2,116 +2,43 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1634D606A31E
-	for <dri-devel@archiver.kernel.org>; Wed, 25 Nov 2026 11:39:13 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7B646606A31E
+	for <dri-devel@archiver.kernel.org>; Wed, 25 Nov 2026 11:41:35 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=jannau.net header.i=@jannau.net header.a=rsa-sha256 header.s=fm2 header.b=mFodScwZ;
-	dkim=pass (2048-bit key, unprotected) header.d=messagingengine.com header.i=@messagingengine.com header.a=rsa-sha256 header.s=fm3 header.b=R+UPbx9w
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=n+grVBnS
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 5C76410FBB0;
-	Wed, 25 Nov 2026 11:39:02 +0000 (UTC)
-Received: from fout-a2-smtp.messagingengine.com
- (fout-a2-smtp.messagingengine.com [103.168.172.145])
- by gabe.freedesktop.org (Postfix) with ESMTPS id B787D10FBB9
- for <dri-devel@lists.freedesktop.org>; Wed, 25 Nov 2026 11:38:50 +0000 (UTC)
-Received: from phl-compute-01.internal (phl-compute-01.internal [10.202.2.41])
- by mailfout.phl.internal (Postfix) with ESMTP id D5C48EC0C80
- for <dri-devel@lists.freedesktop.org>; Wed, 25 Nov 2026 06:38:49 -0500 (EST)
-Received: from phl-frontend-04 ([10.202.2.163])
- by phl-compute-01.internal (MEProxy); Wed, 25 Nov 2026 06:38:49 -0500
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=jannau.net; h=cc
- :cc:content-type:content-type:date:date:from:from:in-reply-to
- :in-reply-to:message-id:mime-version:references:reply-to:subject
- :subject:to:to; s=fm2; t=1795606729; x=1795693129; bh=iAD+Ad7NT5
- /4uS4i5Ra5VqZcMWRddUP0s1yBjvo3Qp0=; b=mFodScwZNfmtYTSwLaQ6w1ZaE1
- g/nJpbXdJq6ibWzfLs4pqaeFubKwyUM8rvlVE+8HunCNxISFis7OySN/XWvjd/X8
- he242huEmUDqZlF06zv9F63dcEmVk5TVvksQmzRBmrLP5LL4daEu9SmW7VMbGnPo
- ULQa4XZhIifW0TzOY+5p88v+wvNXK85YrZc29S7Zc2Aqku78b94A8UZRuYA1eehb
- k2Bufl0TreNi/R4+DZh+5wCJWcrv35I9Om3qCBNqpegr92rg75qJRpR/ZU8T32Ff
- EGtEviMjXASYGiZG6D6CToBcIewt20Tt2lL/7j6KNBXGbXzUTDrivODoTkuA==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
- messagingengine.com; h=cc:cc:content-type:content-type:date:date
- :feedback-id:feedback-id:from:from:in-reply-to:in-reply-to
- :message-id:mime-version:references:reply-to:subject:subject:to
- :to:x-me-proxy:x-me-sender:x-me-sender:x-sasl-enc; s=fm3; t=
- 1795606729; x=1795693129; bh=iAD+Ad7NT5/4uS4i5Ra5VqZcMWRddUP0s1y
- Bjvo3Qp0=; b=R+UPbx9wJa0kfhpYxIZryz0kFZ/vtcHeB16R6Om1V3N575RePKP
- 2y+TUBXI8VBwnIQ1s0A45nA78cYKmLKXjROrfTvNiY42PX07zhub1GEScys65+Y7
- KfBh5Ei+5jHa8GEPVW/E2SQQhwG3nwLmcCU1EzU45NksBJ+IBcFt6odp7XRXKCk5
- eAlyPUT1edV3StPgClcC2csQbNzz3H7LhWCTKJRFYEG2bgRd6LAHLqaXtLxGV1so
- hpdq5q60q/gM4uN3IX5B1Zxq5oi+6BFhdqJwOv+vAlW8vhqCHDAcSRLRIT9kZCaL
- jZwgiGA/mbUJqpAnKMWDtFA81AjCJUvoewA==
-X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-09;
- repo=github.com/dkim2wg/interop; date=2026-11-03; sw=lmtpprox;
- action=sign d=jannau.net a=rsa-sha256;
-DKIM2-Signature: i=1; m=1; t=1795606729; d=jannau.net; mf=PGpAamFubmF1Lm5ldD4=;
- rt=PGRyaS1kZXZlbEBsaXN0cy5mcmVlZGVza3RvcC5vcmc+;
- s=fm2:rsa-sha256:4Y1d9kWVfwuptl5qOx/ADRBdJuogJZVYqqA7pLdqzrsY99N
- 338dwr2BGZy9HvyVH1fjVgbS6FDLRgWuXBPCSI5GsOVPgeW9LQKTPFbH8QZIzLb4
- uUB40yk+XLYiVoS6EmoKJMP4rnUGqiq3Y2Y+me3LG1y/74FS7na38S0P1CjciLJI
- 3l/HsQAgoXB9XsJV+3SYG9di9xMA0bXeNV/UDijbzX/xnhYzgWgjWBnTlXi1eHIk
- edkF0bAZEgAamcRA6Uj6+zAUMjUX7uXYAmbSOJTN3kNKRPa+QdVs4tgsPHZm3ilv
- PvD7r4Z1q7indI/lJtlgpFEnNTG0o6D8gtKN/xA==;
-X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-09;
- repo=github.com/dkim2wg/interop; date=2026-11-03; sw=lmtpprox;
- action=mi-m=1; hc=12;
- hn=cc,content-disposition,content-type,date,feedback-id,from,
- in-reply-to,message-id,mime-version,references,subject,to;
-Message-Instance: m=1;
- h=sha256:TQcZS0GE3XFOemI5U0d/fmAcYiMbdJkw43VVp64SP9w=:kvKhtlvYmOwozjxXOiNVGWZFpFm94DrmU31h+MpA/88=;
-X-ME-Sender: <xms:ycgGa9SFdQl1jQ4jMEo4K33bty-fwVkyXMjAE3nbb9j2F0d_WvUUkg>
- <xme:ycgGay0ktdFn8uwp0901WY5xHlbzReDsMBl5HOw7JxKAWoFhLs92EAZEhKB0QrpRx
- 1ppgIf6Eq5YBsalwq5oaNko8PiKJzRqql-OLYmer66gZLiN4YRTf9w>
-X-ME-Received: <xmr:ycgGa-LKi8H0ZQ2xNZAMaeOYLl9DjlPkn2MeV5mIYQSlJ6fU28KC6xD1Zrx_KqvQBstRKioop_sSxKHtDcTW4FR-cnl66AQ7q2g>
-X-ME-Proxy-Cause: dmFkZTEbReCOWvmoFnuw+QSaZ5Gsjwx+kckQkxqBv+HHd3snXsECRlQfnwZpk90zFsExLW
- aOe3walW+e+AJA8K89u3mwa0DtoP1NOon/UrnuIhMgCYGen63cQbsifY1HoQNgozbgZnRC
- I6hZylZlOl4/iMBbJuJXOTvWar4dYI99WblysqeihImVHE5J6H2NOxEDcqP7+68EFSYF3t
- 2flf5Fq5QfNHfbYFMyqM+0e+0/b4px0j1He6PUzHNZZqu/s/+0wFg/4UpRUzGdPguePBR5
- lRUTUUOcJrAZtXQwndfoaYb2LbS7L7cdx85al77wXWPjxIWByF4PiMtngYUKn8WKWpCYko
- ApBBPKIp2rv/WjBxikjN05YpYBPbuY8m1qB/fWo5VzXUDJeQvgwzhMMgwQT+mjLaY6dcTX
- 24ZKrzekUUwa+RPclb0OR1tFi3Yyl660g+pnx2KIxSTcx2UdZXia3XYOnycTQNvqSv9xFx
- 6PXafimTY3wjkX2tEUAYW4VJVb3/6p6JNTjdp+Mly1KAegrgGfr8YBI7ttAQrNX7iV7mLE
- 1HQafjFoMn3nF4+gppa+DVvAYw7hvN79cbCgAIxgfiCgGwrQSDNy4AaycHPTbl+xEHshl9
- sPFlJI2qOyiHc47Er4QnDzVpL4yR8b0/Pa/egV5EZzPwcDfWRihp/avTjF0g
-X-ME-Proxy: <xmx:ycgGaz_LkAnW346zBRkPrkmzmrYtIXAmhy6l3F15NR_DCuwylDEBLA>
- <xmx:ycgGa_miN0qCr2OHOlx4b31gKmwpn4ha83CoPlUgMskzThYdZgsBuA>
- <xmx:ycgGa-UggBgCpdncAGhg2qtsEu2521-M2h3H83DiPQCHnrAJRqkBTg>
- <xmx:ycgGa7p26FxlB1JS4YBKmGoCfufx2HTDbTUcp6JUS2-C9quo62GWlQ>
- <xmx:ycgGa4fgz3mLSTN1-f7K6stb1uiD-XaR0N5X5piWrEojxsM2gxPpIkOF>
-Feedback-ID: i47b949f6:Fastmail
-Received: by mail.messagingengine.com (Postfix) with ESMTPA; Wed,
- 25 Nov 2026 06:38:48 -0500 (EST)
-Date: Wed, 25 Nov 2026 12:38:46 +0100
-From: Janne Grunau <j@jannau.net>
-To: Alice Ryhl <aliceryhl@google.com>
-Cc: Miguel Ojeda <ojeda@kernel.org>, Boqun Feng <boqun@kernel.org>,
- Gary Guo <gary@garyguo.net>,
- =?utf-8?B?QmrDtnJu?= Roy Baron <bjorn3_gh@protonmail.com>,
- Benno Lossin <lossin@kernel.org>, Andreas Hindborg <a.hindborg@kernel.org>,
- Trevor Gross <tmgross@umich.edu>, Danilo Krummrich <dakr@kernel.org>,
- Daniel Almeida <daniel.almeida@collabora.com>,
- Tamir Duberstein <tamird@kernel.org>,
- Alexandre Courbot <acourbot@nvidia.com>,
- Onur =?utf-8?B?w5Z6a2Fu?= <work@onurozkan.dev>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- Sami Tolvanen <samitolvanen@google.com>, Lyude Paul <lyude@redhat.com>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>,
- Thomas Zimmermann <tzimmermann@suse.de>,
- rust-for-linux@vger.kernel.org, linux-kernel@vger.kernel.org,
- dri-devel@lists.freedesktop.org, nova-gpu@lists.linux.dev,
- stable+noautosel@kernel.org
-Subject: Re: [PATCH v2 3/5] rust: drm: gem: shmem: Implement
- prime_import_sg_table callback
-Message-ID: <20261125113846.GB372978@robin.jannau.net>
-References: <20261124-rust-drm-gem-shmem-imported-sgt-v2-0-000f7a9ccb8d@jannau.net>
- <20261124-rust-drm-gem-shmem-imported-sgt-v2-3-000f7a9ccb8d@jannau.net>
- <awXA70GWssuU991c@google.com>
-X-Archived-By: <archiver.kernel.org>
-MIME-Version: 1.0
+	by gabe.freedesktop.org (Postfix) with ESMTP id 9900310FBB6;
+	Wed, 25 Nov 2026 11:41:29 +0000 (UTC)
+Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id B85A010FBBB
+ for <dri-devel@lists.freedesktop.org>; Wed, 25 Nov 2026 11:41:23 +0000 (UTC)
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+ by sea.source.kernel.org (Postfix) with ESMTP id 7CC9040A06;
+ Wed, 25 Nov 2026 11:41:23 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4B2101F000C6;
+ Wed, 25 Nov 2026 11:41:23 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+ s=k20260515; t=1795606883;
+ bh=W8qv07+5q4atSY2acBLlT72oGKqJMnHdSS2IBiMT6QE=;
+ h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+ b=n+grVBnSXnZrWp3Qg41JAOdFosRY2oyTuRO3hKbTJ2kyFG/A8pv7/gGSqn780iVOs
+ w7suR5vbtJJBzSeNpGcfXNvqUMFSOqNLzQN6e+aE+nGyuUQfkfY7EJSrAx7fQYRSpz
+ kAv16oxU/HLteOvZBUWrk19GdRVFhOOiZrdRhxYmMh41RhN+UGCGxkpJeNk6HLD9K1
+ BTGNmys+W+d5cYlZZ5Orr9MMB4hIx4pzBEQuYzTyQb3YixT3DXAPq4DcR+ftTPozMV
+ 48DyK6TcrfxAiCHtxi8KYkKBUv370BLHcRXVQMww4STEgei0VljryRXbjOLyueFNqw
+ o/9tdtBezUgKw==
+Message-ID: <sashiko-outbox-233271@kernel.org>
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v7 17/20] drm/bridge: analogix_dp: Manage pm runtime and
+ IRQ for native HPD pin detection
+To: "Damon Ding" <damon.ding@rock-chips.com>
+Cc: dri-devel@lists.freedesktop.org
+In-Reply-To: <20261125112141.1434903-18-damon.ding@rock-chips.com>
+References: <20261125112141.1434903-1-damon.ding@rock-chips.com>
+ <20261125112141.1434903-18-damon.ding@rock-chips.com>
 Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-In-Reply-To: <awXA70GWssuU991c@google.com>
+Content-Transfer-Encoding: quoted-printable
+Date: Wed, 25 Nov 2026 11:41:22 +0000
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -122,34 +49,165 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
+Reply-To: sashiko-reviews@lists.linux.dev
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-5.8 required=3.0 tests=BAYES_00,DKIM_SIGNED,
-	DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
-	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS autolearn=no
+X-Spam-Status: No, score=-10.8 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
+	DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
+	INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS autolearn=ham
 	autolearn_force=no version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
+X-Archived-By: <archiver.kernel.org>
 
-On Tue, Nov 24, 2026 at 04:53:03PM +0000, Alice Ryhl wrote:
-> On Tue, Nov 24, 2026 at 12:37:45PM +0100, Janne Grunau wrote:
-> > +        // SAFETY: The DRM shmem helper only invokes this callback for a registered DRM device of
-> > +        // type `T::Driver`, which is `Self`'s driver per the `AllocImpl` impl below.
-> > +        let dev: &Device<T::Driver> = unsafe { Device::from_raw(raw_dev) };
-> 
-> `drm::Driver` in `rust/kernel/drm/driver.rs` currently declares:
-> 
->     type Object: AllocImpl;
-> 
-> without any constraint that `T::Object::Driver = T`. I think we should
-> introduce one similar to how Driver::File constrains this?
+Thank you for your contribution! Sashiko AI review found 2 potential
+issues to consider:
+- [High] drm/bridge: analogix_dp: premature IRQ enable in
+  analogix_dp_resume()
+- [Medium] drm/bridge: analogix_dp: deadlock between
+  analogix_dp_suspend() and IRQ
+--
 
-so changing it to `type Object: AllocImpl<Driver = Self>;`?
+commit 2148ea987a79afc2769bfb9bcea363df9810b9e9
+Author: Damon Ding <damon.ding@rock-chips.com>
 
-I think it's hard to get that accidentally wrong but since the change
-relies on that constraint and we can express it sure.
+drm/bridge: analogix_dp: Manage pm runtime and IRQ for native HPD pin detec=
+tion
 
-I added it locally for v3 but feel free to make that change before
-pushing this series to drm-rust-next if there is nothing else that
-warrants a v3.
+This commit holds a runtime PM reference across bind and unbind on RK3576
+and RK3588 for native hotplug detection, and gates the hotplug IRQ on
+hotplug support and runtime PM transitions.
 
-Janne
+> diff --git a/drivers/gpu/drm/bridge/analogix/analogix_dp_core.c b/drivers=
+/gpu/drm/bridge/analogix/analogix_dp_core.c
+> index 46433ea73d678..cda6e4c5cbc8d 100644
+> --- a/drivers/gpu/drm/bridge/analogix/analogix_dp_core.c
+> +++ b/drivers/gpu/drm/bridge/analogix/analogix_dp_core.c
+> @@ -42,6 +42,33 @@
+> =20
+>  static const bool verify_fast_training;
+> =20
+> +/*
+> + * The hotplug events are reported either through the optional GPIO HPD
+> + * pin or through the native controller interrupt, which is confirmed
+> + * to work only on the RK3576 and RK3588 platforms.
+> + */
+> +static bool analogix_dp_supports_hpd(struct analogix_dp_device *dp)
+> +{
+> +	if (dp->force_connected_mode || dp->force_hpd)
+> +		return false;
+> +
+> +	if (dp->hpd_gpiod)
+> +		return true;
+> +
+> +	return dp->plat_data->dev_type =3D=3D RK3576_EDP || dp->plat_data->dev_=
+type =3D=3D RK3588_EDP;
+> +}
+> +
+> +/*
+> + * The native HPD interrupt relies on the controller staying powered
+> + * and clocked to report the hotplug events, so a runtime PM reference
+> + * is held for it.  The GPIO HPD mode needs no such reference, as it
+> + * reads the GPIO level directly.
+> + */
+> +static bool analogix_dp_require_pm_for_hpd_irq(struct analogix_dp_device=
+ *dp)
+> +{
+> +	return analogix_dp_supports_hpd(dp) && !dp->hpd_gpiod;
+> +}
+> +
+>  static void analogix_dp_init_dp(struct analogix_dp_device *dp)
+>  {
+>  	analogix_dp_reset(dp);
+> @@ -1547,6 +1574,11 @@ EXPORT_SYMBOL_GPL(analogix_dp_probe);
+> =20
+>  int analogix_dp_suspend(struct analogix_dp_device *dp)
+>  {
+> +	if (analogix_dp_require_pm_for_hpd_irq(dp) && dp->hpd_irq_enabled) {
+> +		disable_irq(dp->irq);
+> +		dp->hpd_irq_enabled =3D false;
+> +	}
+> +
+
+[Severity: Medium]
+Can calling disable_irq(dp->irq) inside the runtime_suspend callback cause =
+an
+ABBA deadlock with analogix_dp_irq_thread()?
+
+If dp->dev is runtime-resumed while no persistent runtime PM reference is
+held (for example, during pre-bind AUX transfers in
+analogix_dp_finish_probe(), or after analogix_dp_unbind()),
+analogix_dp_resume() enables dp->irq.  When the autosuspend timer later fir=
+es
+and an HPD interrupt arrives at the same time:
+
+CPU0 (pm_wq)                      CPU1 (irq/analogix-dp)
+------------                      ----------------------
+rpm_suspend(dp->dev)
+  runtime_status =3D RPM_SUSPENDING
+  ...
+  analogix_dp_suspend(dp)
+                                  analogix_dp_irq_thread()
+                                    pm_runtime_resume_and_get(dp->dev)
+                                      rpm_resume(dp->dev, RPM_GET_PUT)
+                                      /* waits for RPM_SUSPENDING */
+    disable_irq(dp->irq)
+      synchronize_irq(dp->irq)
+      /* waits for IRQ thread */
+
+ *** DEADLOCK ***
+
+>  	phy_power_off(dp->phy);
+> =20
+>  	if (dp->plat_data->power_off)
+> @@ -1576,6 +1608,11 @@ int analogix_dp_resume(struct analogix_dp_device *=
+dp)
+> =20
+>  	analogix_dp_init_dp(dp);
+> =20
+> +	if (analogix_dp_require_pm_for_hpd_irq(dp) && !dp->hpd_irq_enabled) {
+> +		enable_irq(dp->irq);
+> +		dp->hpd_irq_enabled =3D true;
+> +	}
+> +
+>  	return 0;
+>  }
+>  EXPORT_SYMBOL_GPL(analogix_dp_resume);
+
+[Severity: High]
+Does enabling dp->irq in analogix_dp_resume() leave the HPD IRQ permanently
+enabled across runtime suspend on RK3576 and RK3588 boards with an eDP panel
+on the DP AUX bus?
+
+dp->force_connected_mode is not initialized in analogix_dp_probe(); it is s=
+et
+later during analogix_dp_bind() -> drm_bridge_attach() ->
+analogix_dp_bridge_attach():
+
+drivers/gpu/drm/bridge/analogix/analogix_dp_core.c:analogix_dp_bridge_attac=
+h() {
+	...
+	if (dp->bridge.next_bridge) {
+		...
+		dp->force_connected_mode =3D analogix_dp_bridge_force_connected(dp);
+	}
+}
+
+Before analogix_dp_bind() runs, analogix_dp_finish_probe() populates the DP
+AUX bus.  Probing the panel child runtime-resumes dp->dev while
+dp->force_connected_mode is still false, so
+analogix_dp_require_pm_for_hpd_irq(dp) returns true and analogix_dp_resume()
+enables dp->irq.
+
+Once analogix_dp_bridge_attach() sets dp->force_connected_mode =3D true,
+analogix_dp_require_pm_for_hpd_irq(dp) becomes false.  When the 100 ms
+autosuspend delay expires, analogix_dp_suspend() skips disable_irq(dp->irq)
+and leaves dp->irq enabled while the PHY, power and clock are turned off.
+
+In addition, because analogix_dp_resume() does not check whether the bridge
+is bound, any runtime resume during or after analogix_dp_unbind() (such as
+during drm_dp_aux_unregister(&dp->aux)) re-enables dp->irq while unbound,
+allowing analogix_dp_irq_thread() to use a stale dp->drm_dev.
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261125112141.1434=
+903-1-damon.ding@rock-chips.com?part=3D17
