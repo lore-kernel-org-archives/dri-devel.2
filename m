@@ -2,87 +2,66 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 960E7606A31E
-	for <dri-devel@archiver.kernel.org>; Wed, 25 Nov 2026 18:48:50 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DEF99606A321
+	for <dri-devel@archiver.kernel.org>; Wed, 25 Nov 2026 18:50:08 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=HExdY6yZ
+	dkim=fail reason="signature verification failed" (1024-bit key, unprotected) header.d=collabora.com header.i=@collabora.com header.a=rsa-sha256 header.s=zohomail header.b=KcklkUXa
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 05DFE10FF02;
-	Wed, 25 Nov 2026 18:48:45 +0000 (UTC)
-Received: from mail-ed1-f46.google.com (mail-ed1-f46.google.com
- [209.85.208.46])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 3315B10FF02
- for <dri-devel@lists.freedesktop.org>; Wed, 25 Nov 2026 18:48:23 +0000 (UTC)
-Received: by mail-ed1-f46.google.com with SMTP id
- 4fb4d7f45d1cf-6b8627e0eb2so8089163a12.2
- for <dri-devel@lists.freedesktop.org>; Wed, 25 Nov 2026 10:48:23 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20260707; t=1795632501; x=1796237301; darn=lists.freedesktop.org;
- h=content-transfer-encoding:content-type:mime-version:references
- :in-reply-to:message-id:date:subject:cc:to:from:from:to:cc:subject
- :date:message-id:reply-to:content-type;
- bh=p+HAbeGnIOAx0r1G/tKx+gztMAiSZGYnvZe5fRUTX9o=;
- b=HExdY6yZ839nSq09knOmjk+5t9wh+bGTPQMDEei4HjQRVcHksjni228sZHrVDr8tyz
- zRhJz7UsBR8CSYldTGtzqDWTZ8ckO8OQnN/r9VKf7FYr6M4Z661FkIak6vyu+PL+xMuP
- hOg/cQe59oYw3g8lislzifbG0IC8qzN0RjisV4FMHHOPvRRUisY6focH6WnHPF2tOKy8
- X8jJ9xd90Ehz04P7vZD3N8K3Io8oPCuy2j+OavX/oEOgESEeHJDWKwjYUDD7yLlZUwjR
- sclaaynfks9Eu3yEfMhdL4I5vUWF36ruUrM775mQbdbheEYpjYTjucnN7zraFiO73nlK
- Arag==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20260707; t=1795632501; x=1796237301;
- h=content-transfer-encoding:content-type:mime-version:references
- :in-reply-to:message-id:date:subject:cc:to:from:x-gm-gg
- :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
- :content-type;
- bh=p+HAbeGnIOAx0r1G/tKx+gztMAiSZGYnvZe5fRUTX9o=;
- b=wlMQSm/QbPhAtUA8VqGxBPhPUQnNksCyerhT5ER2c+VnPSGF6GGBbDrSq04BM6IS4d
- 89n4qIO8LhQtUcU/A0OGTDPFWZ7AGGj6DvtEZz3qD/yLOWJAVC6y+JxuIDP79hv/8POY
- nJBZeSiwdtOKcA5HrlPiUO5d2d0GiS83NROo/1wCpVhabJnQ10K7+gXdnVZBpPSGoj4G
- MFTkfospZSa7viRXK0f5YV2jXrR7F1F4d05JX29RaiZkgYdCFz4ITcA3FZhfVbgr/Pzi
- 2dFJlkQIkeA1+nYJAKB+S4DeI3revGrAq7wUZSwn6BCfFyjZhAb5byRjMshFl06iV/uj
- y7/A==
-X-Forwarded-Encrypted: i=1;
- AL+hErFa/FQvfOPIb6ffHDX8ThVjAKaGvM+EeJzWG4lLOvrR+a2yVrq0NED2F+plCj2jQyWFoz5KQ64pmZ8=@lists.freedesktop.org
-X-Gm-Message-State: APuU4Z/bztRCi23129oLCt3l00133CGPmPbO1u4ewqMtZwDUBwcIQmUE
- PaAvVTLYM9ERB3LC32iJdHuL0EYHTX1A0il/4kMw+EUGEpB9XTwmuVIl
-X-Gm-Gg: AZFdTZf6asG7BvFHDqM2uGJmRR6AA0M/Box3updm6EdX1Qm6SkDubVo5K9hl5Y8Wns9
- EhXre0y2tIxTNbM2+D1LebwpdIjbdQxqVu1NYDEuHOBDKKwEKAtwg50BSwYw0stF2yP9UY1HLOg
- h0mSAuRLVS30r+cGkZ38SGHjg9DaBV49iVGwUrAekzEYPIUtMYbNXjV+BsmyNqLgmZYRnhHrhGk
- pQ0w4oLvlOkAmA+JeI00cbSg1t+eLJWk1zj5gB9HF7bGXW5Lt2/8PtHJnDd3eed9i5V27S1zT+J
- 0eA8ugrK7XPxLTE7jkpmHqZ4OI06DZ3MVxR+/XyTWeUxodXWxYtSXiWCpiBP5uQ68/cSiRUBF6Y
- DI/Ty2yVvBopzXKWFDboL3+c+vpf0zUJ2+wgqxDlJ0OWnIZbTGY+ucI1eJ7GqszIFJUEGNIEwH5
- mMckW5MVHbgkkwLy7xwo5l0FCYr8dpqw9SchERBLLpX3QMdXV6J3XvAh52ClXy4F5WG+ZtU0FgY
- l19za4gfX2P5TVTVNm0VEj5RXi+f4V3uFihRDBHXVpe34tkpEG4utjPofKf3HysBFv7PZrnjV2j
- 2IiDRaYE1ZcOzK4SaezSEHQHlYGRtrdPSl5Us+DK9lvslq9nArjn3O/1bN434jcGb1MhgraZ6bY
- n0keT
-X-Received: by 2002:a17:907:73cd:b0:c40:38b5:d784 with SMTP id
- a640c23a62f3a-c513a614467mr1534407366b.22.1795632501133; 
- Wed, 25 Nov 2026 10:48:21 -0800 (PST)
-Received: from antoniarch (84-40-239-22.cgnat.inetia.pl. [84.40.239.22])
- by smtp.gmail.com with ESMTPSA id
- a640c23a62f3a-c513afc73d3sm677226666b.64.2026.11.25.10.48.19
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Wed, 25 Nov 2026 10:48:20 -0800 (PST)
-From: Antoni Pokusinski <apokusinski01@gmail.com>
-To: vigneshr@ti.com, andi.shyti@kernel.org, robh@kernel.org,
- krzk+dt@kernel.org, conor+dt@kernel.org, aaro.koskinen@iki.fi,
- andreas@kemnade.info, khilman@baylibre.com, rogerq@kernel.org,
- tony@atomide.com, jmkrzyszt@gmail.com, sumit.semwal@linaro.org,
- christian.koenig@amd.com, phasta@kernel.org
-Cc: linux-omap@vger.kernel.org, linux-i2c@vger.kernel.org,
- devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
- linux-media@vger.kernel.org, dri-devel@lists.freedesktop.org,
- linaro-mm-sig@lists.linaro.org, Antoni Pokusinski <apokusinski01@gmail.com>
-Subject: [PATCH v4 3/3] i2c: omap: add DMA support
-Date: Wed, 25 Nov 2026 19:47:48 +0100
-Message-ID: <20261125184750.57866-4-apokusinski01@gmail.com>
-X-Mailer: git-send-email 2.56.1
-In-Reply-To: <20261125184750.57866-1-apokusinski01@gmail.com>
-References: <20261125184750.57866-1-apokusinski01@gmail.com>
+	by gabe.freedesktop.org (Postfix) with ESMTP id 5082710FF17;
+	Wed, 25 Nov 2026 18:50:03 +0000 (UTC)
+Received: from sender6-op-o11.zoho.com (sender6-op-o11.zoho.com
+ [165.173.180.11])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id A359610FF30
+ for <dri-devel@lists.freedesktop.org>; Wed, 25 Nov 2026 18:49:56 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; t=1795632593; cv=none; 
+ d=zohomail.com; s=zohoarc; 
+ b=Q/vgguqfpuRFU9tNviYG3WPmTeozjtgKRbqw3UxCbx+6KPKCBjKSONfzeVE6/rw7aMd78gt41KW+6J9uXuMg6Z84F6EOjBPddD0Jg8b6RCxIRo5MrrJ+eynrMlDriRIoG9U71ypZw5HwNt0+Y1Zgbr6I8jI9fpF1V7jN4IFsUWU=
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com;
+ s=zohoarc; t=1795632593;
+ h=Content-Type:Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:Subject:Subject:To:To:Message-Id:Reply-To;
+ bh=T4QJdIAnF8cgQyJ1JK7OVxMUlUSq0t75T8bZ0NcrZTs=; 
+ b=Fd0AShZ0UNNMo8EozlE1i8uEmJ+YgOtfBZiVdMyD1CkXmYecx5D5qRpdmn2oXr5xf6NolXK7WOvK6M/xJ9tgLA2dI0DuCpwRsq7bIAGas7SRXg6lBy8Qqppd/p5UPciNU7zmoA3qvwwOTOJortpbz1ROBEDIitcva7GOHdD+i5k=
+ARC-Authentication-Results: i=1; mx.zohomail.com;
+ dkim=pass  header.i=collabora.com;
+ spf=pass  smtp.mailfrom=daniel.almeida@collabora.com;
+ dmarc=pass header.from=<daniel.almeida@collabora.com>
+DKIM-Signature: a=rsa-sha256;
+ b=KcklkUXa+vK/5d3ehydqeO09yLe3wAnSUn7X6Hvwmz/Z1uZesaddCSn2u/vritIVGyGYhkKbTvBsqv639gKPAqxqMK4Usb4OPyKC1xNCY0xshVX1A/bHC/gKHhXe7re8a5/CWsemLQeT40nU0wIasYrrK5nkqQP/xqBhzAT5OaE=;
+ c=relaxed/relaxed; s=zohomail; d=collabora.com; v=1;
+ bh=T4QJdIAnF8cgQyJ1JK7OVxMUlUSq0t75T8bZ0NcrZTs=;
+ h=Content-Description:Content-ID:Content-Type:Content-Transfer-Encoding:Cc:Date:From:In-Reply-To:List-Subscribe:List-Post:List-Owner:List-Id:List-Archive:List-Help:List-Unsubscribe:MIME-Version:Message-ID:Resent-Sender:Resent-Cc:Resent-Date:Resent-To:Reply-To:Resent-Message-ID:Resent-From:Sender:Subject:To:Date:From:Message-Id:Reply-To:Subject:To:Cc;
+Received: by smtp.zohomail.com with SMTPS id 179563259167510.752161362890206; 
+ Wed, 25 Nov 2026 10:49:51 -0800 (PST)
+Content-Type: text/plain;
+	charset=utf-8
 X-Archived-By: <archiver.kernel.org>
-MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+Mime-Version: 1.0 (Mac OS X Mail 16.0 \(3901.200.71.1.16\))
+Subject: Re: [PATCH v7 07/10] drm/tyr: add VM-related ioctls
+From: Daniel Almeida <daniel.almeida@collabora.com>
+In-Reply-To: <20261122-tyr-ioctls-v7-7-3a2af624b992@linux.dev>
+Date: Wed, 25 Nov 2026 15:49:31 -0300
+Cc: Miguel Ojeda <ojeda@kernel.org>, Boqun Feng <boqun@kernel.org>,
+ Gary Guo <gary@garyguo.net>,
+ =?utf-8?Q?Bj=C3=B6rn_Roy_Baron?= <bjorn3_gh@protonmail.com>,
+ Benno Lossin <lossin@kernel.org>, Andreas Hindborg <a.hindborg@kernel.org>,
+ Alice Ryhl <aliceryhl@google.com>, Trevor Gross <tmgross@umich.edu>,
+ Danilo Krummrich <dakr@kernel.org>, Tamir Duberstein <tamird@kernel.org>,
+ Alexandre Courbot <acourbot@nvidia.com>,
+ =?utf-8?Q?Onur_=C3=96zkan?= <work@onurozkan.dev>,
+ Lyude Paul <lyude@redhat.com>, David Airlie <airlied@gmail.com>,
+ Simona Vetter <simona@ffwll.ch>,
+ Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+ "Rafael J. Wysocki" <rafael@kernel.org>, Johan Hovold <johan@kernel.org>,
+ Sami Tolvanen <samitolvanen@google.com>, rust-for-linux@vger.kernel.org,
+ dri-devel@lists.freedesktop.org, driver-core@lists.linux.dev,
+ Ke Sun <sunke@kylinos.cn>
+Content-Transfer-Encoding: quoted-printable
+Message-Id: <2395489A-A2DD-4740-818D-60636E5CA872@collabora.com>
+References: <20261122-tyr-ioctls-v7-0-3a2af624b992@linux.dev>
+ <20261122-tyr-ioctls-v7-7-3a2af624b992@linux.dev>
+To: Alvin Sun <alvin.sun@linux.dev>
+X-Mailer: Apple Mail (2.3901.200.71.1.16)
+X-ZohoMailClient: External
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -94,597 +73,81 @@ List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-15.8 required=3.0 tests=BAYES_00,DKIM_SIGNED,
-	DKIM_VALID,DKIM_VALID_AU,FREEMAIL_FORGED_FROMDOMAIN,FREEMAIL_FROM,
-	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
-	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,USER_AGENT_GIT
-	autolearn=unavailable autolearn_force=no version=4.0.1
+X-Spam-Status: No, score=-8.6 required=3.0 tests=BAYES_00,DKIM_INVALID,
+	DKIM_SIGNED,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,
+	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS autolearn=ham
+	autolearn_force=no version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-Add support for the TX and RX DMA requests of the OMAP I2C controller.
-The DMA transactions are dispatched only if the I2C message size is
-a multiple of the configured FIFO threshold and is greater than a
-predefined threshold of 8 bytes.
+Hi Alvin, thanks for working on this! :)
 
-Support for DMA transactions that are not a multiple of the FIFO
-threshold can be added in the future using the draining feature.
+For v8:
 
-Signed-off-by: Antoni Pokusinski <apokusinski01@gmail.com>
+Please rebase on drm-rust-next and list these two series as
+dependencies:
+
+=
+https://lore.kernel.org/all/20261124-rust-drm-gem-shmem-imported-sgt-v2-0-=
+000f7a9ccb8d@jannau.net/
+
+=
+https://lore.kernel.org/all/20261117-tyr-remap-2mb-v1-0-2a8efd4c8180@googl=
+e.com/
+
+Please switch the ops array to KVVec, as Deborah suggested:
+https://lore.kernel.org/all/awYgh-A8JtN899eB@um790/
+
+Please do not add new "as=E2=80=9D casts unless absolutely needed. =
+from_safe_cast(),
+UserPtr::from_u64() and cv!() for the uAPI constants cover all but
+VM_BIND_OP_TYPE_MASK. For this last one, please use a //CAST: comment
+
+
+> On 22 Nov 2026, at 09:50, Alvin Sun <alvin.sun@linux.dev> wrote:
+>=20
+> Implement VM_CREATE, VM_DESTROY, VM_BIND and VM_GET_STATE. VM_CREATE
+> hands the new VM to the per-file pool and, on insertion failure, the
+> caller tears it down, so an aborted creation never leaks a VM.
+> VM_DESTROY removes the VM from the pool and kills it, even if =
+in-flight
+> jobs still hold references (matching panthor: such jobs are expected
+
+There is no way to have in-flight jobs or any jobs running at the =
+moment, so I
+would drop this part.
+
+> to fault). VM_BIND runs synchronously for now.
+>=20
+> Signed-off-by: Alvin Sun <alvin.sun@linux.dev>
+
+Same comment as previously regarding the commit message.
+
+Here is what I would write, as a mere example:
+
 ---
- drivers/i2c/busses/i2c-omap.c | 377 +++++++++++++++++++++++++++++++---
- 1 file changed, 354 insertions(+), 23 deletions(-)
+drm/tyr: add VM-related ioctls
 
-diff --git a/drivers/i2c/busses/i2c-omap.c b/drivers/i2c/busses/i2c-omap.c
-index f02d294db42a..24cccdfc26b0 100644
---- a/drivers/i2c/busses/i2c-omap.c
-+++ b/drivers/i2c/busses/i2c-omap.c
-@@ -5,6 +5,7 @@
-  * Copyright (C) 2003 MontaVista Software, Inc.
-  * Copyright (C) 2005 Nokia Corporation
-  * Copyright (C) 2004 - 2007 Texas Instruments.
-+ * Copyright (C) 2026 Antoni Pokusiński
-  *
-  * Originally written by MontaVista Software, Inc.
-  * Additional contributions by:
-@@ -13,10 +14,13 @@
-  *	Juha Yrjölä <juha.yrjola@solidboot.com>
-  *	Syed Khasim <x0khasim@ti.com>
-  *	Nishant Menon <nm@ti.com>
-+ *	Antoni Pokusiński <apokusinski01@gmail.com>
-  */
- 
- #include <linux/module.h>
- #include <linux/delay.h>
-+#include <linux/dma-mapping.h>
-+#include <linux/dmaengine.h>
- #include <linux/i2c.h>
- #include <linux/err.h>
- #include <linux/interrupt.h>
-@@ -50,6 +54,8 @@
- /* timeout for making decision on bus free status */
- #define OMAP_I2C_BUS_FREE_TIMEOUT (msecs_to_jiffies(10))
- 
-+#define OMAP_I2C_DMA_THRESHOLD	8
-+
- /* For OMAP3 I2C_IV has changed to I2C_WE (wakeup enable) */
- enum {
- 	OMAP_I2C_REV_REG = 0,
-@@ -57,6 +63,10 @@ enum {
- 	OMAP_I2C_STAT_REG,
- 	OMAP_I2C_IV_REG,
- 	OMAP_I2C_WE_REG,
-+	OMAP_I2C_DMARXENABLE_SET,
-+	OMAP_I2C_DMATXENABLE_SET,
-+	OMAP_I2C_DMARXENABLE_CLR,
-+	OMAP_I2C_DMATXENABLE_CLR,
- 	OMAP_I2C_SYSS_REG,
- 	OMAP_I2C_BUF_REG,
- 	OMAP_I2C_CNT_REG,
-@@ -176,12 +186,37 @@ enum {
- 
- #define OMAP_I2C_IP_V2_INTERRUPTS_MASK	0x6FFF
- 
-+#define OMAP_I2C_SCHEME(rev)		((rev & 0xc000) >> 14)
-+
-+#define OMAP_I2C_REV_SCHEME_0_MAJOR(rev) (rev >> 4)
-+#define OMAP_I2C_REV_SCHEME_0_MINOR(rev) (rev & 0xf)
-+
-+#define OMAP_I2C_REV_SCHEME_1_MAJOR(rev) ((rev & 0x0700) >> 7)
-+#define OMAP_I2C_REV_SCHEME_1_MINOR(rev) (rev & 0x1f)
-+#define OMAP_I2C_SCHEME_0		0
-+#define OMAP_I2C_SCHEME_1		1
-+
-+struct omap_i2c_dma {
-+	struct dma_chan		*chan_rx;
-+	struct dma_chan		*chan_tx;
-+	struct dma_chan		*chan_using;
-+	struct device		*dma_dev;
-+	u8			*curr_msg_buf;
-+	struct i2c_msg		*curr_msg;
-+	dma_addr_t		dma_buf;
-+	unsigned int		dma_len;
-+	enum dma_data_direction dma_data_dir;
-+	struct completion	complete;
-+	dma_addr_t		phy_addr;
-+};
-+
- struct omap_i2c_dev {
- 	struct device		*dev;
- 	void __iomem		*base;		/* virtual */
- 	int			irq;
- 	int			reg_shift;      /* bit shift for I2C register addresses */
- 	struct completion	cmd_complete;
-+	struct omap_i2c_dma	*dma;
- 	struct resource		*ioarea;
- 	u32			latency;	/* maximum mpu wkup latency */
- 	void			(*set_mpu_wkup_lat)(struct device *dev,
-@@ -242,6 +277,10 @@ static const u8 reg_map_ip_v2[] = {
- 	[OMAP_I2C_STAT_REG] = 0x28,
- 	[OMAP_I2C_IV_REG] = 0x34,
- 	[OMAP_I2C_WE_REG] = 0x34,
-+	[OMAP_I2C_DMARXENABLE_SET] = 0x38,
-+	[OMAP_I2C_DMATXENABLE_SET] = 0x3c,
-+	[OMAP_I2C_DMARXENABLE_CLR] = 0x40,
-+	[OMAP_I2C_DMATXENABLE_CLR] = 0x44,
- 	[OMAP_I2C_SYSS_REG] = 0x90,
- 	[OMAP_I2C_BUF_REG] = 0x94,
- 	[OMAP_I2C_CNT_REG] = 0x98,
-@@ -462,10 +501,7 @@ static int omap_i2c_init(struct omap_i2c_dev *omap)
- 		sclh = fclk_rate / (omap->speed * 2) - 7 + psc;
- 	}
- 
--	omap->iestate = (OMAP_I2C_IE_XRDY | OMAP_I2C_IE_RRDY |
--			OMAP_I2C_IE_ARDY | OMAP_I2C_IE_NACK |
--			OMAP_I2C_IE_AL)  | ((omap->fifo_size) ?
--				(OMAP_I2C_IE_RDR | OMAP_I2C_IE_XDR) : 0);
-+	omap->iestate = OMAP_I2C_IE_ARDY | OMAP_I2C_IE_NACK | OMAP_I2C_IE_AL;
- 
- 	omap->pscstate = psc;
- 	omap->scllstate = scll;
-@@ -604,7 +640,7 @@ static int omap_i2c_wait_for_bb_valid(struct omap_i2c_dev *omap)
- 	return 0;
- }
- 
--static void omap_i2c_resize_fifo(struct omap_i2c_dev *omap, u8 size, bool is_rx)
-+static void omap_i2c_resize_fifo(struct omap_i2c_dev *omap, u16 size, bool is_rx)
- {
- 	u16		buf;
- 
-@@ -618,7 +654,7 @@ static void omap_i2c_resize_fifo(struct omap_i2c_dev *omap, u8 size, bool is_rx)
- 	 * then we might use draining feature to transfer the remaining bytes.
- 	 */
- 
--	omap->threshold = clamp(size, (u8) 1, omap->fifo_size);
-+	omap->threshold = clamp(size, (u16) 1, omap->fifo_size);
- 
- 	buf = omap_i2c_read_reg(omap, OMAP_I2C_BUF_REG);
- 
-@@ -655,6 +691,168 @@ static void omap_i2c_wait(struct omap_i2c_dev *omap)
- 	} while (!(stat & mask) && count < 5);
- }
- 
-+static void omap_i2c_dma_callback(void *arg)
-+{
-+	struct omap_i2c_dev *omap = (struct omap_i2c_dev *)arg;
-+
-+	complete(&omap->dma->complete);
-+}
-+
-+static int omap_i2c_dma_xfer(struct omap_i2c_dev *omap, struct i2c_msg *msg)
-+{
-+	int ret;
-+	struct dma_slave_config dma_sconfig = {0};
-+	struct omap_i2c_dma *dma = omap->dma;
-+	struct dma_async_tx_descriptor *txdesc;
-+	struct device *dev = &omap->adapter.dev;
-+
-+	dma->curr_msg = msg;
-+
-+	dma->curr_msg_buf = i2c_get_dma_safe_msg_buf(msg, 1);
-+	if (!dma->curr_msg_buf)
-+		return -ENOMEM;
-+
-+	if (omap->receiver) {
-+		dma->chan_using = dma->chan_rx;
-+
-+		dma_sconfig.src_addr = dma->phy_addr +
-+				(omap->regs[OMAP_I2C_DATA_REG]
-+					<< omap->reg_shift);
-+		dma_sconfig.src_addr_width = DMA_SLAVE_BUSWIDTH_1_BYTE;
-+		dma_sconfig.src_maxburst = omap->threshold;
-+		dma_sconfig.direction = DMA_DEV_TO_MEM;
-+	} else {
-+		dma->chan_using = dma->chan_tx;
-+
-+		dma_sconfig.dst_addr = dma->phy_addr +
-+				(omap->regs[OMAP_I2C_DATA_REG]
-+					<< omap->reg_shift);
-+		dma_sconfig.dst_addr_width = DMA_SLAVE_BUSWIDTH_1_BYTE;
-+		dma_sconfig.dst_maxburst = omap->threshold;
-+		dma_sconfig.direction = DMA_MEM_TO_DEV;
-+	}
-+
-+	ret = dmaengine_slave_config(dma->chan_using, &dma_sconfig);
-+	if (ret < 0) {
-+		dev_err(dev, "DMA channel config failed: %d\n", ret);
-+		goto err_map;
-+	}
-+
-+	dma->dma_len = msg->len;
-+	dma->dma_data_dir = omap->receiver ? DMA_FROM_DEVICE : DMA_TO_DEVICE;
-+
-+	dma->dma_dev = dmaengine_get_dma_device(dma->chan_using);
-+
-+	dma->dma_buf = dma_map_single(dma->dma_dev, dma->curr_msg_buf,
-+				      dma->dma_len, dma->dma_data_dir);
-+	if (dma_mapping_error(dma->dma_dev, dma->dma_buf)) {
-+		dev_err(dev, "DMA mapping failed\n");
-+		ret = -EINVAL;
-+		goto err_map;
-+	}
-+
-+	txdesc = dmaengine_prep_slave_single(dma->chan_using, dma->dma_buf,
-+					     dma->dma_len,
-+					     omap->receiver ? DMA_DEV_TO_MEM :
-+							      DMA_MEM_TO_DEV,
-+					     DMA_PREP_INTERRUPT | DMA_CTRL_ACK);
-+	if (!txdesc) {
-+		dev_err(dev, "Not able to get desc for DMA xfer\n");
-+		ret = -EINVAL;
-+		goto err_desc;
-+	}
-+
-+	reinit_completion(&dma->complete);
-+
-+	dmaengine_desc_set_callback(txdesc, omap_i2c_dma_callback, NULL, omap);
-+	ret = dma_submit_error(dmaengine_submit(txdesc));
-+	if (ret < 0) {
-+		dev_err(dev, "DMA submit failed\n");
-+		goto err_submit;
-+	}
-+
-+	dma_async_issue_pending(dma->chan_using);
-+	return 0;
-+
-+err_submit:
-+	dmaengine_terminate_sync(dma->chan_using);
-+err_desc:
-+	dma_unmap_single(dma->dma_dev, dma->dma_buf, dma->dma_len,
-+			 dma->dma_data_dir);
-+err_map:
-+	i2c_put_dma_safe_msg_buf(dma->curr_msg_buf, msg, false);
-+	return ret;
-+}
-+
-+static void omap_i2c_dma_cleanup(struct omap_i2c_dev *omap, bool xferred)
-+{
-+	struct omap_i2c_dma *dma = omap->dma;
-+
-+	dma_unmap_single(dma->dma_dev, dma->dma_buf, dma->dma_len,
-+			 dma->dma_data_dir);
-+	i2c_put_dma_safe_msg_buf(dma->curr_msg_buf, dma->curr_msg, xferred);
-+}
-+
-+static void omap_i2c_dma_enable_req(struct omap_i2c_dev *omap)
-+{
-+	u16 w;
-+
-+	w = omap_i2c_read_reg(omap, OMAP_I2C_BUF_REG);
-+	if (omap->receiver) {
-+		w |= OMAP_I2C_BUF_RDMA_EN;
-+		omap_i2c_write_reg(omap, OMAP_I2C_BUF_REG, w);
-+
-+		omap_i2c_write_reg(omap, OMAP_I2C_DMARXENABLE_SET, 1);
-+	} else {
-+		w |= OMAP_I2C_BUF_XDMA_EN;
-+		omap_i2c_write_reg(omap, OMAP_I2C_BUF_REG, w);
-+
-+		omap_i2c_write_reg(omap, OMAP_I2C_DMATXENABLE_SET, 1);
-+	}
-+}
-+
-+static void omap_i2c_dma_disable_req(struct omap_i2c_dev *omap)
-+{
-+	u16 w;
-+
-+	w = omap_i2c_read_reg(omap, OMAP_I2C_BUF_REG);
-+	if (omap->receiver) {
-+		w &= ~OMAP_I2C_BUF_RDMA_EN;
-+		omap_i2c_write_reg(omap, OMAP_I2C_BUF_REG, w);
-+
-+		omap_i2c_write_reg(omap, OMAP_I2C_DMARXENABLE_CLR, 1);
-+	} else {
-+		w &= ~OMAP_I2C_BUF_XDMA_EN;
-+		omap_i2c_write_reg(omap, OMAP_I2C_BUF_REG, w);
-+
-+		omap_i2c_write_reg(omap, OMAP_I2C_DMATXENABLE_CLR, 1);
-+	}
-+}
-+
-+static void omap_i2c_enable_pio_irqs(struct omap_i2c_dev *omap, u16 mask)
-+{
-+	if (!mask)
-+		return;
-+
-+	if (omap->scheme == OMAP_I2C_SCHEME_0)
-+		omap_i2c_write_reg(omap, OMAP_I2C_IE_REG,
-+				   omap->iestate | mask);
-+	else
-+		omap_i2c_write_reg(omap, OMAP_I2C_IE_REG, mask);
-+}
-+
-+static void omap_i2c_disable_pio_irqs(struct omap_i2c_dev *omap, u16 mask)
-+{
-+	if (!mask)
-+		return;
-+
-+	if (omap->scheme == OMAP_I2C_SCHEME_0)
-+		omap_i2c_write_reg(omap, OMAP_I2C_IE_REG, omap->iestate);
-+	else
-+		omap_i2c_write_reg(omap, OMAP_I2C_IP_V2_IRQENABLE_CLR,
-+				   mask);
-+}
-+
- /*
-  * Low level master read/write transaction.
-  */
-@@ -663,8 +861,8 @@ static int omap_i2c_xfer_msg(struct i2c_adapter *adap,
- {
- 	struct omap_i2c_dev *omap = i2c_get_adapdata(adap);
- 	unsigned long time_left;
--	u16 w;
--	int ret;
-+	u16 w, pio_irq_mask;
-+	int ret, use_dma;
- 
- 	dev_dbg(omap->dev, "addr: 0x%04x, len: %d, flags: 0x%x, stop: %d\n",
- 		msg->addr, msg->len, msg->flags, stop);
-@@ -672,6 +870,14 @@ static int omap_i2c_xfer_msg(struct i2c_adapter *adap,
- 	omap->receiver = !!(msg->flags & I2C_M_RD);
- 	omap_i2c_resize_fifo(omap, msg->len, omap->receiver);
- 
-+	/*
-+	 * REVISIT: If the message size is not a multiple of the threshold,
-+	 * the draining feature must be used.
-+	 */
-+	use_dma = !polling && omap->dma && msg->len >= OMAP_I2C_DMA_THRESHOLD &&
-+		  !(omap->flags & OMAP_I2C_FLAG_NO_FIFO) &&
-+		  msg->len % omap->threshold == 0;
-+
- 	omap_i2c_write_reg(omap, OMAP_I2C_SA_REG, msg->addr);
- 
- 	/* REVISIT: Could the STB bit of I2C_CON be used with probing? */
-@@ -692,6 +898,24 @@ static int omap_i2c_xfer_msg(struct i2c_adapter *adap,
- 		reinit_completion(&omap->cmd_complete);
- 	omap->cmd_err = 0;
- 
-+	if (use_dma) {
-+		ret = omap_i2c_dma_xfer(omap, msg);
-+		if (ret) {
-+			dev_dbg(omap->dev, "DMA transfer failed\n");
-+			use_dma = false;
-+		} else {
-+			omap_i2c_dma_enable_req(omap);
-+		}
-+	}
-+
-+	if (!use_dma) {
-+		pio_irq_mask = OMAP_I2C_IE_XRDY | OMAP_I2C_IE_RRDY |
-+			       ((omap->fifo_size) ? (OMAP_I2C_IE_RDR |
-+						    OMAP_I2C_IE_XDR) : 0);
-+
-+		omap_i2c_enable_pio_irqs(omap, pio_irq_mask);
-+	}
-+
- 	w = OMAP_I2C_CON_EN | OMAP_I2C_CON_MST | OMAP_I2C_CON_STT;
- 
- 	/* High speed configuration */
-@@ -727,6 +951,17 @@ static int omap_i2c_xfer_msg(struct i2c_adapter *adap,
- 			if (time_after(jiffies, delay)) {
- 				dev_err(omap->dev, "controller timed out "
- 				"waiting for start condition to finish\n");
-+
-+				if (use_dma) {
-+					omap_i2c_dma_disable_req(omap);
-+
-+					dmaengine_terminate_sync(omap->dma->chan_using);
-+
-+					omap_i2c_dma_cleanup(omap, false);
-+				} else {
-+					omap_i2c_disable_pio_irqs(omap, pio_irq_mask);
-+				}
-+
- 				return -ETIMEDOUT;
- 			}
- 			cpu_relax();
-@@ -742,8 +977,15 @@ static int omap_i2c_xfer_msg(struct i2c_adapter *adap,
- 	 * into arbitration and we're currently unable to recover from it.
- 	 */
- 	if (!polling) {
--		time_left = wait_for_completion_timeout(&omap->cmd_complete,
--							OMAP_I2C_TIMEOUT);
-+		time_left = OMAP_I2C_TIMEOUT;
-+
-+		if (use_dma)
-+			time_left = wait_for_completion_timeout(&omap->dma->complete,
-+								time_left);
-+
-+		if (time_left)
-+			time_left = wait_for_completion_timeout(&omap->cmd_complete,
-+								time_left);
- 	} else {
- 		do {
- 			omap_i2c_wait(omap);
-@@ -753,7 +995,18 @@ static int omap_i2c_xfer_msg(struct i2c_adapter *adap,
- 		time_left = !ret;
- 	}
- 
--	if (time_left == 0) {
-+	if (use_dma) {
-+		omap_i2c_dma_disable_req(omap);
-+
-+		if (!time_left || omap->cmd_err)
-+			dmaengine_terminate_sync(omap->dma->chan_using);
-+
-+		omap_i2c_dma_cleanup(omap, time_left && !omap->cmd_err);
-+	} else {
-+		omap_i2c_disable_pio_irqs(omap, pio_irq_mask);
-+	}
-+
-+	if (!time_left) {
- 		omap_i2c_reset(omap);
- 		__omap_i2c_init(omap);
- 		return -ETIMEDOUT;
-@@ -855,6 +1108,10 @@ static inline void
- omap_i2c_complete_cmd(struct omap_i2c_dev *omap, u16 err)
- {
- 	omap->cmd_err |= err;
-+
-+	if (omap->dma && err)
-+		complete(&omap->dma->complete);
-+
- 	complete(&omap->cmd_complete);
- }
- 
-@@ -1082,6 +1339,9 @@ static int omap_i2c_xfer_data(struct omap_i2c_dev *omap)
- 			omap->cmd_err |= OMAP_I2C_STAT_NACK;
- 			omap_i2c_ack_stat(omap, OMAP_I2C_STAT_NACK);
- 
-+			if (omap->dma)
-+				complete(&omap->dma->complete);
-+
- 			if (!(stat & ~OMAP_I2C_STAT_NACK)) {
- 				err = -EAGAIN;
- 				break;
-@@ -1255,16 +1515,6 @@ static const struct of_device_id omap_i2c_of_match[] = {
- MODULE_DEVICE_TABLE(of, omap_i2c_of_match);
- #endif
- 
--#define OMAP_I2C_SCHEME(rev)		((rev & 0xc000) >> 14)
--
--#define OMAP_I2C_REV_SCHEME_0_MAJOR(rev) (rev >> 4)
--#define OMAP_I2C_REV_SCHEME_0_MINOR(rev) (rev & 0xf)
--
--#define OMAP_I2C_REV_SCHEME_1_MAJOR(rev) ((rev & 0x0700) >> 7)
--#define OMAP_I2C_REV_SCHEME_1_MINOR(rev) (rev & 0x1f)
--#define OMAP_I2C_SCHEME_0		0
--#define OMAP_I2C_SCHEME_1		1
--
- static int omap_i2c_get_scl(struct i2c_adapter *adap)
- {
- 	struct omap_i2c_dev *dev = i2c_get_adapdata(adap);
-@@ -1338,10 +1588,71 @@ static struct i2c_bus_recovery_info omap_i2c_bus_recovery_info = {
- 	.recover_bus		= i2c_generic_scl_recovery,
- };
- 
-+static struct omap_i2c_dma *omap_i2c_dma_init(struct omap_i2c_dev *omap,
-+					      dma_addr_t phy_addr)
-+{
-+	struct device *dev = omap->dev;
-+	struct omap_i2c_dma *dma;
-+	int ret;
-+
-+	dma = devm_kzalloc(dev, sizeof(*dma), GFP_KERNEL);
-+	if (!dma)
-+		return ERR_PTR(-ENOMEM);
-+
-+	dma->phy_addr = phy_addr;
-+
-+	init_completion(&dma->complete);
-+
-+	dma->chan_tx = dma_request_chan(dev, "tx");
-+	if (IS_ERR(dma->chan_tx)) {
-+		ret = PTR_ERR(dma->chan_tx);
-+		if (ret != -ENODEV)
-+			dev_err_probe(dev, ret,
-+				      "can't request DMA tx channel\n");
-+		goto dma_free;
-+	}
-+
-+	dma->chan_rx = dma_request_chan(dev, "rx");
-+	if (IS_ERR(dma->chan_rx)) {
-+		ret = PTR_ERR(dma->chan_rx);
-+		if (ret != -ENODEV)
-+			dev_err_probe(dev, ret,
-+				      "can't request DMA rx channel\n");
-+		goto dma_tx_fail;
-+	}
-+
-+	return dma;
-+
-+dma_tx_fail:
-+	dma_release_channel(dma->chan_tx);
-+dma_free:
-+	devm_kfree(dev, dma);
-+
-+	return ERR_PTR(ret);
-+}
-+
-+static void omap_i2c_dma_free(struct omap_i2c_dev *omap)
-+{
-+	struct omap_i2c_dma *dma = omap->dma;
-+
-+	dma->dma_buf = 0;
-+	dma->dma_len = 0;
-+
-+	dma_release_channel(dma->chan_tx);
-+	dma->chan_tx = NULL;
-+
-+	dma_release_channel(dma->chan_rx);
-+	dma->chan_rx = NULL;
-+
-+	dma->chan_using = NULL;
-+}
-+
- static int
- omap_i2c_probe(struct platform_device *pdev)
- {
- 	struct omap_i2c_dev	*omap;
-+	struct omap_i2c_dma	*dma;
-+	struct resource		*res;
- 	struct i2c_adapter	*adap;
- 	const struct omap_i2c_bus_platform_data *pdata =
- 		dev_get_platdata(&pdev->dev);
-@@ -1359,7 +1670,7 @@ omap_i2c_probe(struct platform_device *pdev)
- 	if (!omap)
- 		return -ENOMEM;
- 
--	omap->base = devm_platform_ioremap_resource(pdev, 0);
-+	omap->base = devm_platform_get_and_ioremap_resource(pdev, 0, &res);
- 	if (IS_ERR(omap->base))
- 		return PTR_ERR(omap->base);
- 
-@@ -1478,6 +1789,20 @@ omap_i2c_probe(struct platform_device *pdev)
- 		goto err_unuse_clocks;
- 	}
- 
-+	if (omap->scheme != OMAP_I2C_SCHEME_0) {
-+		dma = omap_i2c_dma_init(omap, (dma_addr_t)res->start);
-+		if (PTR_ERR(dma) == -EPROBE_DEFER) {
-+			r = -EPROBE_DEFER;
-+			goto err_unuse_clocks;
-+		} else if (IS_ERR(dma)) {
-+			dev_warn(omap->dev, "DMA setup failed (%pe), only use PIO mode\n",
-+				 dma);
-+			dma = NULL;
-+		}
-+
-+		omap->dma = dma;
-+	}
-+
- 	adap = &omap->adapter;
- 	i2c_set_adapdata(adap, omap);
- 	adap->owner = THIS_MODULE;
-@@ -1493,7 +1818,7 @@ omap_i2c_probe(struct platform_device *pdev)
- 	adap->nr = pdev->id;
- 	r = i2c_add_numbered_adapter(adap);
- 	if (r)
--		goto err_unuse_clocks;
-+		goto err_dma_free;
- 
- 	dev_info(omap->dev, "bus %d rev%d.%d at %d kHz\n", adap->nr,
- 		 major, minor, omap->speed);
-@@ -1502,6 +1827,9 @@ omap_i2c_probe(struct platform_device *pdev)
- 
- 	return 0;
- 
-+err_dma_free:
-+	if (omap->dma)
-+		omap_i2c_dma_free(omap);
- err_unuse_clocks:
- 	omap_i2c_write_reg(omap, OMAP_I2C_CON_REG, 0);
- err_put_pm:
-@@ -1523,6 +1851,9 @@ static void omap_i2c_remove(struct platform_device *pdev)
- 	if (omap->mux_state)
- 		mux_state_deselect(omap->mux_state);
- 
-+	if (omap->dma)
-+		omap_i2c_dma_free(omap);
-+
- 	ret = pm_runtime_get_sync(&pdev->dev);
- 	if (ret < 0)
- 		dev_err(omap->dev, "Failed to resume hardware, skip disable\n");
--- 
-2.56.1
+Currently, the only VM in Tyr is the one the MCU runs in, and userspace
+has no way to create one.
+
+Add the four VM ioctls of the panthor uAPI:
+
+- VM_CREATE creates a user VM and adds it to the VM pool of the file.
+- VM_DESTROY removes a VM from the pool and kills it.
+- VM_BIND maps/unmaps BO ranges into a VM.
+- VM_GET_STATE reports whether a VM is usable.
+
+VM_BIND is synchronous only. DRM_PANTHOR_VM_BIND_ASYNC fails with
+EOPNOTSUPP.
+
+=E2=80=94
+
+Note how this says _why_ the change is needed, not only what the change =
+does:
+
+Currently, the only VM in Tyr is the one the MCU runs in, and userspace
+has no way to create one.
+
+=E2=80=94 Daniel
 
