@@ -2,53 +2,54 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 568FF606A32D
-	for <dri-devel@archiver.kernel.org>; Wed, 25 Nov 2026 02:56:58 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B5766606A31E
+	for <dri-devel@archiver.kernel.org>; Wed, 25 Nov 2026 02:57:04 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=qq.com header.i=@qq.com header.a=rsa-sha256 header.s=s201512 header.b=KKoklFj3
+	dkim=pass (1024-bit key) header.d=qq.com header.i=@qq.com header.a=rsa-sha256 header.s=s201512 header.b=RbDFVO7t
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id E1BD010E285;
-	Wed, 25 Nov 2026 02:56:51 +0000 (UTC)
-Received: from xmbghk7.mail.qq.com (xmbghk7.mail.qq.com [43.163.128.50])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 6CFB210E285
- for <dri-devel@lists.freedesktop.org>; Wed, 25 Nov 2026 02:56:45 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id A2F5910E0C1;
+	Wed, 25 Nov 2026 02:56:58 +0000 (UTC)
+Received: from out162-62-58-216.mail.qq.com (out162-62-58-216.mail.qq.com
+ [162.62.58.216])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id A42A510E896
+ for <dri-devel@lists.freedesktop.org>; Wed, 25 Nov 2026 02:56:49 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qq.com; s=s201512;
- t=1795575403; bh=IzcclkVTG1KnK0341G5dFq2gzXEaIhA/6RUSjtt6e5w=;
+ t=1795575405; bh=+X+7O/JfBFYIxFx/cIvBKt1sUhYrCLyDkiKymQQM4Zk=;
  h=From:To:Cc:Subject:Date:In-Reply-To:References;
- b=KKoklFj3ba2YHQz8E9iy3TCLREPDzS1z9bLXTvlerLkXDkIEfH2KT4XcK2ry+Rp7o
- o4ZUtR0S9rQf4Oql8Yo3c217OAFyA9vJoOCv0SxnYtyZFwTelz3alKWnn6ofKFXK0J
- daibW3Yt5MUPWJ1mdUCmmMMdmOeR3GerXAkSr2q8=
+ b=RbDFVO7tWxwncK6Hpmqm2M7Yd8Zazp81Ar395EowibmlshRGp8WI4yrFdJTCn6o+z
+ AiTckfiBIZFHS0FKonJCyZHrU5Aunh+q2il5YwaMHi/mgnEKOldsct0rvRBl88Saa+
+ mEMOi0XxKnpjML1j0kTT5WZBVJvA4IZwQBqbk+l0=
 Received: from HF ([113.90.236.90])
  by newxmesmtplogicsvrszc50-0.qq.com (NewEsmtp) with SMTP
  id E279BA4D; Wed, 25 Nov 2026 10:56:39 +0800
-X-QQ-mid: xmsmtpt1795575401t1ofa0oh0
-Message-ID: <tencent_EE0B84FE4F17BF28A85BE33E1FA05603DF08@qq.com>
-X-QQ-XMAILINFO: NtvpdyJXE1j9AcsIWqBfKSaqwV3mhCyz0IYMCCdVAMs+ZCRSkz1RVvEHQy7j9j
- bJkw+I7SJL9J0FoSoqvfIN7T2hoAVRcueuGCTw0jGNwr2UBRnqDL8HlXtVs0is5wNQlFHHd1uY0m
- KYGm/Lx90eGxg7sV5NPnBks1vRhW8ueQ79zVhFneqE/1wAcMrJSzwAh/+5JXhU5cPNvbpFhE5YrB
- xR1poKH7XzV9b3YvuQP1lYJUtL+A6SiehiiJCEOCisy78GImXi+oxbjT7sjYkZBsUH0LaGTp6KEu
- 4eWjU1wI/kbrhFEh2LKS809NcM8Vcx5X3luouc0hSncHgFeytc8sOMrOXql0qI7haNTQksDm82BO
- wU8hN6rCPx5E11FNgQlmDEEktFxBFYtItkOtUueCAqOCWwWxEyYCAErph0+o9GfxQdlEqTOzBqKJ
- k9Cck5buzkqmdSStDd8INxjS4ErZzD13iHseMQ8jdc2JZCm2AVolAsgQjzGCkPOePhLsQn5VIH4I
- J3krwdJzljgv5fs6DsPJSNUi9FUjeBXGmwp8pFCVR76eyasSGOOFuaM3RTbNwizzQo8y4wg0AZcG
- szHImF+uun1ZuLRR8ydo+5qhc0YwYvtEdG5HDaiXh+H0jtx42Nv4LyuCk0ursoAc9n2L9LR5vk+x
- s4MCsDCSU32qYmiFDcYFk65kVL+skZ+9zK6AipqG7aXrdppRfix1vhA/9OxY+C4ELtUIKC0yPK3k
- 3lZJbe+wqRipaOBHZ1mt1H6Lrtfo5lXl7YgJs72+p1nx60x71oVT54/eoPNoYVN48y2aEfl4IhtL
- p7cWSIYyIgwBvFo62Z3L5bI8uGs+85sX1FUoTvwLiadbOucAVFs0C/QG0VU0AxNAo58Cd/GEFMZ0
- TjJGLlO3wWaakOXz5f5Wa1/LdVsbDS9tvL2QVr/YtWj37HVpe+wazNji7RuL+3L5OOsKwfmTzbs6
- ntb7ZvMa4OzoaNjRki6IniMfYuAbsfxSOeqDA1nh53O575QgAMCuItAxdf6Cg6l/nep8ToaRmLfd
- 0XIXa53SU8gi037KKBIMzqmLpiHg3I0ypmCEEjJW1CQn9pRs8IVfQS/lVYPdDBROH64J8WJldSC3
- zZam0+ILBe2oUsvSM+jwuVHxAkl2reUxr2+JP8P0EOnVnfcpyil2P4JjZprruavCZW5zN78kCLFn
- dcpDNbeAZPWfNGHQ==
-X-QQ-XMRINFO: OWPUhxQsoeAVwkVaQIEGSKwwgKCxK/fD5g==
+X-QQ-mid: xmsmtpt1795575404tl7hsayi2
+Message-ID: <tencent_1B16BF5F08239F427EE3510DC7973FF6AC09@qq.com>
+X-QQ-XMAILINFO: NrBotaKjWOUd0p8FYOPg5FMxGeXZIiRC1yTjAVFfvF0FMpsGmgVGN7QP+8uv8G
+ Hx/1F7FHdyf5mddJxU1QaoCs1TggK6Wvm6k/TMvvGoeYMY351fwRFpRYZVDo1XKx2r+hAb0llZWQ
+ MYsPhmiWLH4OXhwr39TnW39F9QtwnI5JXBPtRZ+lshA7zpJRPnSHaZ+mLnNC+O8JjmJ+Urr+dnbo
+ uRz9JvAztvYrQdZ+PDQxTPtRgNxQntKTQEYfxBkOvcwB4I8UNWg4GKxTE10UTF0grV8dvWGjRkZm
+ Mb+rp7GG9sacnlfIeo1YqScJtOOKA8pF6RKgrykspzf8A9kpX0qk8Tg7Ctnf4hYvB1wVq6tH6HDk
+ vbkFzEUuyLYP0k9DmpCuPODKH1MgwXWaQjYe2ALzdWxp3GwJXcd3xtoxlioqtCyoHlwls6Zikeh/
+ HaLgM6dZ51h7fXkepQigkBzhkd9kkfue0Qa+2NBxaQuInwNqyL09Q/v+hEnR01RkQJACHpsMujUD
+ /ftXbFZomwWr881Y1sk//1nZxNQay+FME8DRHctgVehneoBUzpf/8K+KricqLWjEeuPATtMBZwbo
+ swkkN4X7Gb2ozanR7An/iD+A4W1x8i7abi5VkJhFXZE15FiU5UrehMf/jiYwioW+MaSccKIALJyC
+ x405HiMjzMS0rj9aFPf4+Fe0I3KeME8g8gIwUgBUzHmCykQxnXfcQhimm/bx2iNAGvztnVpXCvS7
+ n8VOx1jzuYMm7GiMhRZs2JyrgkK39Nd/Avq4qJ5plMLP+sz7h6PUFbyDEUWeXZkj5UBS+Ft/SrQc
+ XMZSjI2Suj92b4cYwoybynFe8U80GeS0ZQdNKQWM6W+ef0vP93BOotreivWph+64wjL7Q3SoCO9I
+ sSNVYtWAKOdQVBcF3JMcIK2EgLXMPD3MRTaKBoTbCf/zRaG4LjRc+U1T1K2XN//6iEmJEbnIcFdp
+ EJPf85wUTD2tHTVgxj01NiAKReti70d7VeuB1ffviGJq9mrs10kkRCkGBCeWllho3rGRfJow5sLQ
+ TDsDbbqanE2dfFulqN5hI7VY5recRIxUOrfKeUMZibree4ijtuW2nsy6kkChnOhX8HRv/kZqqNDy
+ WW1nD/djbkcDxBvZEjWA8Wn5qcftq5uKWkTpkmfXFljUPXTqX2W90U6mrWR8hsvEgzCNwn4zzbWg
+ 9MRQVCUD8O6Mf8bA==
+X-QQ-XMRINFO: M/715EihBoGS47X28/vv4NpnfpeBLnr4Qg==
 From: Hefei <3066883572@qq.com>
 To: dri-devel@lists.freedesktop.org
 Cc: linux-input@vger.kernel.org, devicetree@vger.kernel.org,
  linux-kernel@vger.kernel.org, robh@kernel.org, conor@kernel.org,
  Hefei <3066883572@qq.com>
-Subject: [PATCH v5 2/6] dt-bindings: input: add Jadard JD9365TX touchscreen
-Date: Wed, 25 Nov 2026 10:56:34 +0800
-X-OQ-MSGID: <20261125025638.1171-3-3066883572@qq.com>
+Subject: [PATCH v5 5/6] Input: add Jadard JD9365TX in-cell touchscreen driver
+Date: Wed, 25 Nov 2026 10:56:37 +0800
+X-OQ-MSGID: <20261125025638.1171-6-3066883572@qq.com>
 X-Mailer: git-send-email 2.55.0.windows.5
 In-Reply-To: <20261125025638.1171-1-3066883572@qq.com>
 References: <20261125025638.1171-1-3066883572@qq.com>
@@ -74,84 +75,411 @@ X-Spam-Status: No, score=-15.8 required=3.0 tests=BAYES_00,DKIM_SIGNED,
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-Document the in-cell I2C touch companion used on JD9365TX modules.
-Many FPCs omit the interrupt line; boards may still wire one.
+Add a polling I2C driver for the JD9365TX in-cell touch controller.
+Typical module FPCs expose I2C only, so the driver polls coordinate
+SRAM after opening the controller backdoor.
 
 Signed-off-by: Hefei <3066883572@qq.com>
 ---
- .../input/touchscreen/jadard,jd9365tx.yaml    | 63 +++++++++++++++++++
- 1 file changed, 63 insertions(+)
- create mode 100644 Documentation/devicetree/bindings/input/touchscreen/jadard,jd9365tx.yaml
+ drivers/input/touchscreen/Kconfig           |  12 +
+ drivers/input/touchscreen/Makefile          |   1 +
+ drivers/input/touchscreen/jadard_jd9365tx.c | 352 ++++++++++++++++++++
+ 3 files changed, 365 insertions(+)
+ create mode 100644 drivers/input/touchscreen/jadard_jd9365tx.c
 
-diff --git a/Documentation/devicetree/bindings/input/touchscreen/jadard,jd9365tx.yaml b/Documentation/devicetree/bindings/input/touchscreen/jadard,jd9365tx.yaml
+diff --git a/drivers/input/touchscreen/Kconfig b/drivers/input/touchscreen/Kconfig
+index e2ee722..da425c8 100644
+--- a/drivers/input/touchscreen/Kconfig
++++ b/drivers/input/touchscreen/Kconfig
+@@ -540,6 +540,18 @@ config TOUCHSCREEN_IPROC
+ 	  To compile this driver as a module, choose M here: the
+ 	  module will be called bcm_iproc_tsc.
+ 
++config TOUCHSCREEN_JADARD_JD9365TX
++	tristate "Jadard JD9365TX in-cell touchscreen"
++	depends on I2C
++	help
++	  Say Y here if you have a Jadard JD9365TX in-cell touchscreen.
++	  The driver polls over I2C when no interrupt line is wired.
++
++	  If unsure, say N.
++
++	  To compile this driver as a module, choose M here: the
++	  module will be called jadard_jd9365tx.
++
+ config TOUCHSCREEN_S6SY761
+ 	tristate "Samsung S6SY761 Touchscreen driver"
+ 	depends on I2C
+diff --git a/drivers/input/touchscreen/Makefile b/drivers/input/touchscreen/Makefile
+index 58094f2..5846f4d 100644
+--- a/drivers/input/touchscreen/Makefile
++++ b/drivers/input/touchscreen/Makefile
+@@ -59,6 +59,7 @@ obj-$(CONFIG_TOUCHSCREEN_IMAGIS)	+= imagis.o
+ obj-$(CONFIG_TOUCHSCREEN_IMX6UL_TSC)	+= imx6ul_tsc.o
+ obj-$(CONFIG_TOUCHSCREEN_INEXIO)	+= inexio.o
+ obj-$(CONFIG_TOUCHSCREEN_IPROC)		+= bcm_iproc_tsc.o
++obj-$(CONFIG_TOUCHSCREEN_JADARD_JD9365TX) += jadard_jd9365tx.o
+ obj-$(CONFIG_TOUCHSCREEN_LPC32XX)	+= lpc32xx_ts.o
+ obj-$(CONFIG_TOUCHSCREEN_MAX11801)	+= max11801_ts.o
+ obj-$(CONFIG_TOUCHSCREEN_MXS_LRADC)     += mxs-lradc-ts.o
+diff --git a/drivers/input/touchscreen/jadard_jd9365tx.c b/drivers/input/touchscreen/jadard_jd9365tx.c
 new file mode 100644
-index 0000000..a49a558
+index 0000000..2d81062
 --- /dev/null
-+++ b/Documentation/devicetree/bindings/input/touchscreen/jadard,jd9365tx.yaml
-@@ -0,0 +1,63 @@
-+# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
-+%YAML 1.2
-+---
-+$id: http://devicetree.org/schemas/input/touchscreen/jadard,jd9365tx.yaml#
-+$schema: http://devicetree.org/meta-schemas/core.yaml#
++++ b/drivers/input/touchscreen/jadard_jd9365tx.c
+@@ -0,0 +1,352 @@
++// SPDX-License-Identifier: GPL-2.0
++/*
++ * Copyright (C) 2026 VIEWE
++ *
++ * Jadard JD9365TX in-cell touchscreen (I2C @0x68, polling).
++ * Typical DSI FPC has no interrupt line.
++ */
 +
-+title: Jadard JD9365TX in-cell touchscreen
++#include <linux/delay.h>
++#include <linux/gpio/consumer.h>
++#include <linux/i2c.h>
++#include <linux/input.h>
++#include <linux/input/mt.h>
++#include <linux/input/touchscreen.h>
++#include <linux/module.h>
++#include <linux/of.h>
++#include <linux/property.h>
++#include <linux/regulator/consumer.h>
++#include <linux/slab.h>
++#include <linux/unaligned.h>
 +
-+maintainers:
-+  - Hefei <3066883572@qq.com>
++#define JD_CHIP_ID			0x9084
++#define JD_CHIP_ID_ALT			0x9032
++#define JD_SOC_CHIP_ID2			0x40008076
++#define JD_ERAM_BASE			0x20011000
++#define JD_SECTION_READY_VAL		0xA55A
++#define JD_MAX_DSRAM_NUM		25
++#define JD_ESRAM_COORD_IDX		1
++#define JD_ESRAM_SECTION_NUM		6
++#define JD_DEFAULT_COORD_ADDR		0x20011120
++#define JD_TOUCH_DATA_SIZE		78
++#define JD_REPORT_MIN_SIZE		53
++#define JD_FINGER_DATA_SIZE		5
++#define JD_FINGER_NUM_ADDR		0
++#define JD_TOUCH_COORD_INFO_ADDR	3
++#define JD_MAX_POINTS			10
++#define JD_DEFAULT_POLL_MS		16
 +
-+description: |
-+  In-cell touch integrated with Jadard JD9365TX DSI panels. Many module FPCs
-+  expose only the I2C bus; some boards also wire an interrupt GPIO. The
-+  touch controller is commonly powered from the same rails as the panel.
++struct jadard_tp {
++	struct i2c_client *client;
++	struct input_dev *input;
++	struct touchscreen_properties prop;
++	struct gpio_desc *reset;
++	u32 coord_addr;
++	u16 touch_data_size;
++	u16 max_points;
++	unsigned int poll_interval_ms;
++};
 +
-+allOf:
-+  - $ref: touchscreen.yaml#
++static int jd_bus_write(struct i2c_client *client, const u8 *cmd, u8 cmd_len,
++			const u8 *data, u16 data_len)
++{
++	u8 buf[64];
++	struct i2c_msg msg;
++	int ret;
 +
-+properties:
-+  compatible:
-+    const: jadard,jd9365tx
++	if (cmd_len + data_len > sizeof(buf))
++		return -EINVAL;
 +
-+  reg:
-+    maxItems: 1
++	memcpy(buf, cmd, cmd_len);
++	if (data_len)
++		memcpy(buf + cmd_len, data, data_len);
 +
-+  interrupts:
-+    maxItems: 1
++	msg.addr = client->addr;
++	msg.flags = 0;
++	msg.len = cmd_len + data_len;
++	msg.buf = buf;
 +
-+  poll-interval: true
++	ret = i2c_transfer(client->adapter, &msg, 1);
++	return ret == 1 ? 0 : (ret < 0 ? ret : -EIO);
++}
 +
-+  vdd-supply:
-+    description: Analog / touch power supply
++static int jd_bus_read(struct i2c_client *client, const u8 *cmd, u8 cmd_len,
++		       u8 *data, u16 data_len)
++{
++	struct i2c_msg msg[2];
++	int ret;
 +
-+  iovcc-supply:
-+    description: Digital I/O power supply
++	msg[0].addr = client->addr;
++	msg[0].flags = 0;
++	msg[0].len = cmd_len;
++	msg[0].buf = (u8 *)cmd;
++	msg[1].addr = client->addr;
++	msg[1].flags = I2C_M_RD;
++	msg[1].len = data_len;
++	msg[1].buf = data;
 +
-+  reset-gpios:
-+    maxItems: 1
++	ret = i2c_transfer(client->adapter, msg, 2);
++	return ret == 2 ? 0 : (ret < 0 ? ret : -EIO);
++}
 +
-+required:
-+  - compatible
-+  - reg
++static int jd_enter_backdoor(struct i2c_client *client)
++{
++	const u8 cmd[5] = { 0xF2, 0xAA, 0xF0, 0x0F, 0x55 };
++	const u8 data = 0x68;
 +
-+unevaluatedProperties: false
++	return jd_bus_write(client, cmd, sizeof(cmd), &data, 1);
++}
 +
-+examples:
-+  - |
-+    i2c {
-+        #address-cells = <1>;
-+        #size-cells = <0>;
++static int jd_read_reg(struct i2c_client *client, u32 addr, u8 *rdata, u16 rlen)
++{
++	u8 cmd[6];
 +
-+        touchscreen@68 {
-+            compatible = "jadard,jd9365tx";
-+            reg = <0x68>;
-+            vdd-supply = <&reg_vdd>;
-+            iovcc-supply = <&reg_iovcc>;
-+            touchscreen-size-x = <720>;
-+            touchscreen-size-y = <1280>;
-+            poll-interval = <16>;
-+        };
-+    };
-+...
++	cmd[0] = 0xF3;
++	cmd[1] = (addr >> 24) & 0xFF;
++	cmd[2] = (addr >> 16) & 0xFF;
++	cmd[3] = (addr >> 8) & 0xFF;
++	cmd[4] = addr & 0xFF;
++	cmd[5] = 0x03;
++
++	return jd_bus_read(client, cmd, sizeof(cmd), rdata, rlen);
++}
++
++static int jd_get_chip_id(struct i2c_client *client, u16 *id)
++{
++	u8 rbuf[2];
++	int ret;
++
++	ret = jd_read_reg(client, JD_SOC_CHIP_ID2, rbuf, sizeof(rbuf));
++	if (ret)
++		return ret;
++
++	*id = (u16)((rbuf[1] << 8) | rbuf[0]);
++	return 0;
++}
++
++static bool jd_section_ready(struct i2c_client *client)
++{
++	u8 rbuf[2];
++	unsigned int waited = 0;
++
++	do {
++		msleep(2);
++		if (jd_read_reg(client, JD_ERAM_BASE, rbuf, sizeof(rbuf)))
++			return false;
++		waited += 2;
++		if (((rbuf[1] << 8) | rbuf[0]) == JD_SECTION_READY_VAL)
++			return true;
++	} while (waited < 100);
++
++	return false;
++}
++
++static int jd_resolve_coord_addr(struct jadard_tp *ts)
++{
++	u32 esram_num_addr = JD_ERAM_BASE + 4 + JD_MAX_DSRAM_NUM * 8;
++	u32 esram_sec_addr = esram_num_addr + 4;
++	u8 buf[JD_ESRAM_SECTION_NUM * 8];
++	u32 addr, len;
++	int ret;
++
++	ret = jd_read_reg(ts->client, esram_sec_addr, buf, sizeof(buf));
++	if (ret)
++		return ret;
++
++	addr = get_unaligned_le32(&buf[JD_ESRAM_COORD_IDX * 8]);
++	len = get_unaligned_le32(&buf[JD_ESRAM_COORD_IDX * 8 + 4]);
++
++	if (len < JD_REPORT_MIN_SIZE || len > JD_TOUCH_DATA_SIZE ||
++	    addr < JD_ERAM_BASE ||
++	    addr > JD_ERAM_BASE + 0x1000 - len)
++		return -EINVAL;
++
++	ts->coord_addr = addr;
++	ts->touch_data_size = (u16)len;
++	return 0;
++}
++
++static int jd_hw_init(struct jadard_tp *ts)
++{
++	u16 chip_id = 0;
++	int ret;
++
++	ret = jd_enter_backdoor(ts->client);
++	if (ret)
++		return ret;
++
++	ret = jd_get_chip_id(ts->client, &chip_id);
++	if (ret)
++		return ret;
++
++	if (chip_id != JD_CHIP_ID && chip_id != JD_CHIP_ID_ALT)
++		return -ENODEV;
++
++	if (jd_section_ready(ts->client) && !jd_resolve_coord_addr(ts))
++		return 0;
++
++	ts->coord_addr = JD_DEFAULT_COORD_ADDR;
++	ts->touch_data_size = JD_TOUCH_DATA_SIZE;
++	return 0;
++}
++
++static void jd_report_touches(struct jadard_tp *ts, const u8 *buf)
++{
++	u8 finger_num = buf[JD_FINGER_NUM_ADDR];
++	unsigned int i;
++
++	/* Discard obviously invalid headers instead of clamping to max. */
++	if (finger_num > ts->max_points)
++		return;
++
++	for (i = 0; i < ts->max_points; i++) {
++		const u8 *c = buf + JD_TOUCH_COORD_INFO_ADDR +
++			      i * JD_FINGER_DATA_SIZE;
++		u16 x = get_unaligned_be16(c);
++		u16 y = get_unaligned_be16(c + 2);
++		u8 w = c[4];
++		bool down;
++
++		/*
++		 * Slots are fixed; inactive contacts report 0xFFFF/0xFFFF.
++		 * Do not gate on finger_num, or a lower slot lift drops a
++		 * still-active higher slot.
++		 */
++		down = x != 0xFFFF && y != 0xFFFF &&
++		       x <= ts->prop.max_x && y <= ts->prop.max_y;
++
++		input_mt_slot(ts->input, i);
++		input_mt_report_slot_state(ts->input, MT_TOOL_FINGER, down);
++
++		if (down) {
++			touchscreen_report_pos(ts->input, &ts->prop, x, y, true);
++			input_report_abs(ts->input, ABS_MT_TOUCH_MAJOR, w);
++		}
++	}
++
++	input_mt_sync_frame(ts->input);
++	input_sync(ts->input);
++}
++
++static void jd_poll(struct input_dev *input)
++{
++	struct jadard_tp *ts = input_get_drvdata(input);
++	u8 buf[JD_TOUCH_DATA_SIZE];
++	int ret;
++
++	ret = jd_read_reg(ts->client, ts->coord_addr, buf, ts->touch_data_size);
++	if (ret) {
++		/* Panel/power cycle drops backdoor mode; re-open it. */
++		if (jd_hw_init(ts))
++			return;
++		ret = jd_read_reg(ts->client, ts->coord_addr, buf,
++				  ts->touch_data_size);
++		if (ret)
++			return;
++	}
++
++	jd_report_touches(ts, buf);
++}
++
++static int jadard_tp_probe(struct i2c_client *client)
++{
++	struct device *dev = &client->dev;
++	struct jadard_tp *ts;
++	struct input_dev *input;
++	static const char * const supplies[] = { "vdd", "iovcc" };
++	u32 val;
++	int error;
++
++	ts = devm_kzalloc(dev, sizeof(*ts), GFP_KERNEL);
++	if (!ts)
++		return -ENOMEM;
++
++	ts->client = client;
++	ts->max_points = JD_MAX_POINTS;
++	ts->poll_interval_ms = JD_DEFAULT_POLL_MS;
++	ts->touch_data_size = JD_TOUCH_DATA_SIZE;
++	ts->coord_addr = JD_DEFAULT_COORD_ADDR;
++
++	error = devm_regulator_bulk_get_enable(dev, ARRAY_SIZE(supplies),
++					       supplies);
++	if (error)
++		return error;
++
++	ts->reset = devm_gpiod_get_optional(dev, "reset", GPIOD_OUT_LOW);
++	if (IS_ERR(ts->reset))
++		return PTR_ERR(ts->reset);
++
++	if (ts->reset) {
++		gpiod_set_value_cansleep(ts->reset, 1);
++		msleep(10);
++		gpiod_set_value_cansleep(ts->reset, 0);
++		msleep(20);
++	}
++
++	error = jd_hw_init(ts);
++	if (error)
++		return error;
++
++	if (!device_property_read_u32(dev, "poll-interval", &val) &&
++	    val >= 8 && val <= 100)
++		ts->poll_interval_ms = val;
++
++	input = devm_input_allocate_device(dev);
++	if (!input)
++		return -ENOMEM;
++
++	input->name = "Jadard JD9365TX Touchscreen";
++	input->id.bustype = BUS_I2C;
++
++	input_set_abs_params(input, ABS_MT_POSITION_X, 0, 719, 0, 0);
++	input_set_abs_params(input, ABS_MT_POSITION_Y, 0, 1279, 0, 0);
++	input_set_abs_params(input, ABS_MT_TOUCH_MAJOR, 0, 255, 0, 0);
++
++	touchscreen_parse_properties(input, true, &ts->prop);
++
++	error = input_mt_init_slots(input, ts->max_points, INPUT_MT_DIRECT);
++	if (error)
++		return error;
++
++	input_set_drvdata(input, ts);
++	ts->input = input;
++	i2c_set_clientdata(client, ts);
++
++	error = input_setup_polling(input, jd_poll);
++	if (error)
++		return error;
++
++	input_set_poll_interval(input, ts->poll_interval_ms);
++
++	error = input_register_device(input);
++	if (error)
++		return error;
++
++	return 0;
++}
++
++static const struct of_device_id jadard_tp_of_match[] = {
++	{ .compatible = "jadard,jd9365tx" },
++	{ }
++};
++MODULE_DEVICE_TABLE(of, jadard_tp_of_match);
++
++static const struct i2c_device_id jadard_tp_id[] = {
++	{ .name = "jd9365tx" },
++	{ }
++};
++MODULE_DEVICE_TABLE(i2c, jadard_tp_id);
++
++static struct i2c_driver jadard_tp_driver = {
++	.driver = {
++		.name = "jadard-tp-jd9365tx",
++		.of_match_table = jadard_tp_of_match,
++	},
++	.probe = jadard_tp_probe,
++	.id_table = jadard_tp_id,
++};
++module_i2c_driver(jadard_tp_driver);
++
++MODULE_AUTHOR("Hefei <3066883572@qq.com>");
++MODULE_DESCRIPTION("Jadard JD9365TX in-cell touchscreen");
++MODULE_LICENSE("GPL");
 -- 
 2.55.0.windows.5
 
