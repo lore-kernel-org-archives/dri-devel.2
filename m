@@ -2,42 +2,156 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 166E7606A321
-	for <dri-devel@archiver.kernel.org>; Wed, 25 Nov 2026 18:31:34 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 795A9606A32A
+	for <dri-devel@archiver.kernel.org>; Wed, 25 Nov 2026 18:35:37 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ka0YnnNy
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=EFYU6n6z;
+	dkim=fail reason="signature verification failed" (1024-bit key, unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=selector1 header.b=k4prtWpy
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 737A710FE5E;
-	Wed, 25 Nov 2026 18:31:28 +0000 (UTC)
-Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 3FD7E10FE5E
- for <dri-devel@lists.freedesktop.org>; Wed, 25 Nov 2026 18:31:22 +0000 (UTC)
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by tor.source.kernel.org (Postfix) with ESMTP id B950562D06;
- Wed, 25 Nov 2026 18:31:21 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 477411F000C0;
- Wed, 25 Nov 2026 18:31:21 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1795631481;
- bh=zKNz1bQSEnr4sBwByG9H6ufQYsWHlahzdhSrhSe+2ys=;
- h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
- b=ka0YnnNy05t3dMAdSLki1Ink/74uS0DyRVMVqc355j66p7dbRZFAjp3cqe0KxKWTJ
- O352EDkmTNMmGlpajacHjpGnJ1ZaJy4Xz0/5FgT8p1Cldvrdsw3bfdGTHuiQgPNYxW
- N1z24p5DgPtuWYlzmSjOxTYR59OAq4U/DYThMMVQqqS1UXFzeWiLB0F9UF7B1wenuf
- l8TIDN9AoZxK06N1HLR8k4ISSgGU4IQtzjnoc6AZhplLpaToJ2J47d+BP8Uvm0W3P1
- xjvvy/M5nn4gi7boyNAMSOGVSChSOLHo8J7AjAIxFhoixLyO+08rOv3NXPA760q0bc
- I/rKQRAOhv6cQ==
-Message-ID: <sashiko-outbox-233998@kernel.org>
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v4 32/32] drm/mxsfb/lcdif: enable bridge hotplug
-To: "Luca Ceresoli" <luca.ceresoli@bootlin.com>
-Cc: dri-devel@lists.freedesktop.org, imx@lists.linux.dev, Frank.Li@kernel.org
-In-Reply-To: <20261125-drm-bridge-hotplug-v4-32-822722850492@bootlin.com>
-References: <20261125-drm-bridge-hotplug-v4-0-822722850492@bootlin.com>
- <20261125-drm-bridge-hotplug-v4-32-822722850492@bootlin.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Wed, 25 Nov 2026 18:31:20 +0000
+	by gabe.freedesktop.org (Postfix) with ESMTP id E42BD10FC47;
+	Wed, 25 Nov 2026 18:35:26 +0000 (UTC)
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.12])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id BF6B010FC47;
+ Wed, 25 Nov 2026 18:35:15 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1795631715; x=1827167715;
+ h=date:from:to:cc:subject:message-id:references:
+ content-transfer-encoding:in-reply-to:mime-version;
+ bh=6OcgSp26b2ZPEoQzcVQyHsrgbOgD+NwCHfbDzOqDyy4=;
+ b=EFYU6n6z9yLMZ51YUu5LAuyXQE4uEZL+HeaxFt6q+Ykys7424S4BdUwC
+ SiSceta7Pr8l2wVZOkTpNQfo30g07YB9eUrXAdbGM3YEQ+YaoYtnNKNmN
+ FP6pEc0N7Y2+MhBu1tkJPKHcH0NBNKaSYGcCOMSGv61UFRofVeoGd7+lO
+ 2VOEw5nGFdB0eg8E6fmV0oKPD51L3r7XZw98GEZly4QCZKAvBANcmnzPo
+ KD/N9cpBuK0l/IEz+PmGnowCU+zGo8pgZed8Jy0VPiWDEKUbBHjsCPesy
+ /TbuaxZW8sokzolk4jjxyOytd6DtmWx4ge/IGbtQBM1mMyHR8Hnwdq1CE Q==;
+X-CSE-ConnectionGUID: R9/ayEz6Si6jNqGxZmNVIA==
+X-CSE-MsgGUID: 2vD8eJdjQ6eKWeyiYF86sQ==
+X-IronPort-AV: E=McAfee;i="6800,10657,11977"; a="4423638"
+X-IronPort-AV: E=Sophos;i="6.27,233,1787036400"; 
+   d="scan'208";a="4423638"
+Received: from fmviesa009.fm.intel.com ([10.60.135.149])
+ by orvoesa104.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 25 Nov 2026 09:30:42 -0800
+X-CSE-ConnectionGUID: KldmS83ZTR2wjk6tKeDCng==
+X-CSE-MsgGUID: xXTIEkRZTem6xC1N9COiyg==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,233,1787036400"; d="scan'208";a="12359809"
+Received: from fmsmsx902.amr.corp.intel.com ([10.18.126.91])
+ by fmviesa009.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 25 Nov 2026 09:30:42 -0800
+Received: from FMSMSX902.amr.corp.intel.com (10.18.126.91) by
+ fmsmsx902.amr.corp.intel.com (10.18.126.91) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.57; Wed, 25 Nov 2026 09:30:41 -0800
+Received: from fmsedg901.ED.cps.intel.com (10.1.192.143) by
+ FMSMSX902.amr.corp.intel.com (10.18.126.91) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.57 via Frontend Transport; Wed, 25 Nov 2026 09:30:41 -0800
+Received: from MW6PR02CU001.outbound.protection.outlook.com (52.101.48.55) by
+ edgegateway.intel.com (192.55.55.81) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.57; Wed, 25 Nov 2026 09:30:41 -0800
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=YOdD8HI3zdZYxasBPXhvEO5NzIfgkn6iAgJC59glIzgEPFTdlcmB9sZ7DDgctLNW/h8tjMtpZnnnrtmZpkkN8XGmmOEAw/27p58rqoEfnXzfqEd95TOH2F/aY4SNWXP0aQq18ae63TVNWPSbrBlr6m+AZESJJ0/xg0w5nARClGFUyaPWkb+Vf//5ltU1lBWXlWHcOLyVvpt8/Ftbn7PyFbi7ZBn0+fVsg/UP5Bl6jJZzID8bw/dVZ5TATDQv0Bl5OUnFe5nN9HH4A3pL31NWyJHjoVuQW7jgtSdqe3YvRz47w8dWoT6uy0vnJyHef0RldzcGOAgnT0xHPfNY76+1qg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=kLzRwyeBykoIVsxxn9uk0/B/QtNBOnzGjfGTcxDQ/6k=;
+ b=Lu6NDwvJplhKcjETicZg4ZoP/pgD3sYusNTcn+julyiLR/+raP3FpjAQEoWXBnMvEKx97yEkVyQ5y5NtlHORSLSVbmJG1bgcJ5hoI7boCCo9P+dHKzwtJ6CYVzCRHQXVIUSf7O+rG1iW+hB1Nn0La0JmxpbcXx3niijpWkfT52N27GJ9SzYqEpwaVp+Quyzf0q02s8+JhB8yY/aT0GkGE2DYX8J9JSIzSnyk8fkSYDo1Go6HhEKZRz5lkdIqF3oqeM3LrJNLixPc1QFCzF5mGVMXVam2+3iCocLXQzpSAkRg/nHCLuBeR1EavkSL/M/WgUSwZkvAi0XaNZ/LbHlbDQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=intel.com; dmarc=pass action=none header.from=intel.com;
+ dkim=pass header.d=intel.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=intel.com; s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=kLzRwyeBykoIVsxxn9uk0/B/QtNBOnzGjfGTcxDQ/6k=;
+ b=k4prtWpySELpOjJR9MKyS276GhVlpQ21QtrbYF3brLwXEBdADEciPb7ABjFYzACOiOkQsIaWNPUEcMucl8TdFO3Cqdix0TyCVPeux6Os1kEax8d0cjlGwVVJcz8zpe4qDKtP9SbDDkNxLHPs8PPKSI3Ip8xu99G0kU+fpRUlKUc=
+Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=intel.com;
+Received: from CO1PR11MB4787.namprd11.prod.outlook.com (2603:10b6:303:95::23)
+ by CO1PR11MB4772.namprd11.prod.outlook.com (2603:10b6:303:97::14)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.639.12; Wed, 25 Nov
+ 2026 17:30:39 +0000
+Received: from CO1PR11MB4787.namprd11.prod.outlook.com
+ ([fe80::e7eb:a872:53d1:21fd]) by CO1PR11MB4787.namprd11.prod.outlook.com
+ ([fe80::e7eb:a872:53d1:21fd%4]) with mapi id 15.21.0662.004; Wed, 25 Nov 2026
+ 17:30:39 +0000
+Date: Wed, 25 Nov 2026 09:30:37 -0800
+From: Matthew Brost <matthew.brost@intel.com>
+To: Arvind Yadav <arvind.yadav@intel.com>
+CC: <intel-xe@lists.freedesktop.org>, <dri-devel@lists.freedesktop.org>,
+ <rodrigo.vivi@intel.com>, <himal.prasad.ghimiray@intel.com>,
+ <thomas.hellstrom@linux.intel.com>, <tejas.upadhyay@intel.com>
+Subject: Re: [PATCH] drm/xe/vm: Cancel pending rebind work before freeing the
+ VM
+Message-ID: <awcbPRYPCeNHsRGL@gsse-cloud1.jf.intel.com>
+References: <20261125100744.1440957-1-arvind.yadav@intel.com>
+ <awcK/Q6SifMWJNR1@gsse-cloud1.jf.intel.com>
+Content-Type: text/plain; charset=iso-8859-1
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <awcK/Q6SifMWJNR1@gsse-cloud1.jf.intel.com>
+X-ClientProxiedBy: SJ0PR05CA0031.namprd05.prod.outlook.com
+ (2603:10b6:a03:33f::6) To CO1PR11MB4787.namprd11.prod.outlook.com
+ (2603:10b6:303:95::23)
+X-Archived-By: <archiver.kernel.org>
+MIME-Version: 1.0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: CO1PR11MB4787:EE_|CO1PR11MB4772:EE_
+X-MS-Office365-Filtering-Correlation-Id: 8fe411cf-d916-4668-dfec-08df4b19d2d6
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+ ARA:13230040|1800799024|23010399003|366016|376014|18002099003|22082099003|4143699003|261021135927099003|56012099006|261021121427099003|11063799006|261028144727099003|261009223027099003|261026140227099003|261026121527099003|261021123027099003|261022105027099003|261102123227099003|10067099003;
+X-Microsoft-Antispam-Message-Info: EqBvFv3dYbwwJTvWHzG0k2ZbF4m7O2cgWyNtMulVU3DV1Dq+kOGlZQFebc23vr97MkGOg4d3gF6VI7YLWrZPjm5zsMbNcElXyU4bJG1LfdGIfZ58lcdY+RgfAhe/iQWaZLbEmsAVdN9r3+0/EoPWX5TDCgjkVNxdBs0hDjE+g9v2NS7wAtsNp7ZiPKKaCaGzq0PmKk6ZW91+0K42poAJ7w90U9fx8wTaj9q64PjcaAkUiVs+ZCGq/zUCE3lmNRsxs5RvHyiFgvP6nKCFfwL0omMSGwkJmVq9UESAbulYNT4rHr97LYhvA+SgkCoWK2oqzabyZF+PRaW8nPWrgdF7RukW73dHSVwOtQBt+AWa8ZpOSepYtTngDLm3ifFEt9IYp3rczkjPHjQz9GRFxPoQ7ixfZO8aBXoKDc/WNoxEqw0hps+GTzSNP8wCdcNg0/G3ZeZlA98gvnmSRlMoDgCAQ/nSF6xzuQZcIR231fRwkjpnYUZMR7+yGLB5vFBDhOcEV/4+I9DbmgOZPKxLxmlxGKaM++3KVoqpohS+xtT82qOL/HF73ZZTxl8CyZnMmOIB4F6nzw3OgJOuwkBKTQ6S4ju5uzpnP6Jwy82pxEg9R//qwh2X9/MYP4dFbWT+BCLek2BbLy0Aw/p02/ZVzbWUxnriqnvwOsZllqrFMNVPVyg=
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:CO1PR11MB4787.namprd11.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230040)(1800799024)(23010399003)(366016)(376014)(18002099003)(22082099003)(4143699003)(261021135927099003)(56012099006)(261021121427099003)(11063799006)(261028144727099003)(261009223027099003)(261026140227099003)(261026121527099003)(261021123027099003)(261022105027099003)(261102123227099003)(10067099003);
+ DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: =?iso-8859-1?Q?Werm2Ja/iTssLxXU1NQQWp0LPO/kFX/YvQ8d4NPU5dtStLKjxp67m4O7B5?=
+ =?iso-8859-1?Q?bUcvx1saOoTgskGo9gOLy4w6iwx/fRwKAPhnbrJH5HkdkW0oWEzi+vsHHd?=
+ =?iso-8859-1?Q?TvVt6UggPkZv0ZpWuDJfzwyNI6ZHUOtiw+p0DiXVRC2exxTjT5QXpeiA+s?=
+ =?iso-8859-1?Q?3nxUzNMw0sZ5HH6p4YGgjMjgPrjQaCmR59/xnEtpz87czNH3nSGpaUuy/E?=
+ =?iso-8859-1?Q?zxJC7tfMj6SmXlm8SV/+KZNhBEb9vON3mctuRbbZBzvHjauRbF5wu74lgn?=
+ =?iso-8859-1?Q?v/soxSYLH0ObM2sj29waafjhG/KSX/ryKix8WvCkWb0gdDa3pheL1hXrUE?=
+ =?iso-8859-1?Q?YVzyW6CP/xbtF7OvH3cQobXP5XwFOI1Njhn0XFfQEhPmug3Po6EdwFXA8D?=
+ =?iso-8859-1?Q?Q9dbmhTQJe93EdUWC7+e1FHZMEM7ixnyMHi6UzkMxjxtx85HUKiHxfiN2y?=
+ =?iso-8859-1?Q?9PCvMX2tBXrdLSDQnwJMfmuKIQ/JAmUcJmkuFHlqzUPQ3dz2Q2vOWG5FtW?=
+ =?iso-8859-1?Q?W+/jekQ8WinHhbfeCiSHooAed+v9QowXWrC9F9VmK4qnlQNmpMu5uszxzx?=
+ =?iso-8859-1?Q?RxvIOL62u/MtWnn3itKEzOzXI+1Fd7Ew6vEbtSlWFH29dOsXlOH0T58e7O?=
+ =?iso-8859-1?Q?796/pAVRiz3GJUftTMFm4fZjHLepUoADc3VrHABS8tCgCA3RhhPaA0yHAh?=
+ =?iso-8859-1?Q?3KQwaM83qHNrIpGaCse0nAVodYFvyzaZ6tu/gB9GqsmYddgkOTH0ukFji1?=
+ =?iso-8859-1?Q?srqgiBWbPvOlLM04ex8cyX3eevGgk7cPr4eit47sLzYtj61DZYqH0bKyRf?=
+ =?iso-8859-1?Q?cIiIBAYfPSTVvt6fqKBcbjrePU04dyfa9ABrYqMQqroNTNmLnGtagO5W7l?=
+ =?iso-8859-1?Q?iI7mY1jI46rPDKD5Mtq/X6dA7P3lWF19uWsEaOV3YcVNN8UkJp/iJ8FXM4?=
+ =?iso-8859-1?Q?/2xvziHLp2KoGIUaxvqV1xEtq6jpiFU23WeekOde4DH8qSEuLOyxkW64fl?=
+ =?iso-8859-1?Q?r5rRxt/tX4O/pKxIb9yt/SNtKmfqxpMuBo1t/FJhyPH30VtKRx/YIvI0ct?=
+ =?iso-8859-1?Q?CwJYdE/luUFtlUkNKetJrhOkg90lAFpG6qLbnk8839KNpfpZz6HPnY7lxu?=
+ =?iso-8859-1?Q?APrb49/gqVR0PAdGgWU4dmB8TlV1ZR2133GzMgmVtxQI9+HI1O+xFlavDA?=
+ =?iso-8859-1?Q?k7EMNVAxzI3J6J1E9O2s1xCkuntVyPDhL2ULwU3qCttzZ8nOQtHWEb02FK?=
+ =?iso-8859-1?Q?w+AZ7dsAn8EH/dlcZ2CvlMqrwDfQwSOZoEc5l5SkOduK3UnMY8YGSYrZIZ?=
+ =?iso-8859-1?Q?5GhIq6BMlWavTOKzJPH89j1eeJmZOKwscDJAcEWrSRWpoLm6cUAKfdBiCJ?=
+ =?iso-8859-1?Q?mj16bWuInCmP6QBf4RZAmSs4/d5H48rYxYf8JBCx6z5l+FFP+xSlG8g7Xb?=
+ =?iso-8859-1?Q?91LrSaoDa4MOFR6jmYVVei7HYUYs04cJcNR63Gtq1g2DZlrO4eacoHJkKz?=
+ =?iso-8859-1?Q?YApPmIuV4FFCnUnM82k4sffDimt3Wh1pCapRQ/3Q6yz+dgzFAvPMFlEu5o?=
+ =?iso-8859-1?Q?g+25lg2Snj7gWHr1mS5/kEAZZ8F+Bvm/UEyCInnUYLT70b+zL2ae3PNHFY?=
+ =?iso-8859-1?Q?++bLcrk2mVTF7HDGye7kn2TDu2bSE3jAupHYk1hlgt7ADj5j+TzXwuxmg0?=
+ =?iso-8859-1?Q?d9u8QmOQGF9U62sOK4aA/lLy34ib+cjyNj6bTF1WiBR2NuVPinYs+YWSDP?=
+ =?iso-8859-1?Q?lE+EV4wfBIqnNyw2IsmIYC6v4osRF8W+bTloEmImLE7/iIvlf+RM7G+ta4?=
+ =?iso-8859-1?Q?US5Xk+P7LPnZJ+GOuWzIrOA3X3JWo2U=3D?=
+X-Exchange-RoutingPolicyChecked: IQINz6hJBmEpPJqfp+6Ng5ECqhHGNoNT6NqooXg0Zhn5RUjZ27GzQ20JORWR98sEakF/fEDmT+HCOo/WFZYtTEEZdUM3D8QUC8rwioAvTatywFKLRh2Bwf4Hzyn6Yi0MSV6hfjMa76e5yEwpeKZdHb5Up5x6z9sTjAyqB4UhG11glmG02FIGQBgbzrS7hkJkzgY1yxx9Fr0VXQAzFNiR71dmltjt86TjfFOOIBmNcLREy+2b9LfDOX0dvzwl57kS5PjTDBkSx3jXIBjb+qsa5hNZ3cC0sNHqEMHHVPWtwDeVPgukjSACD9PvxWYIkDpe1U4eXZ1YhFOLRgoOtlPfng==
+X-MS-Exchange-CrossTenant-Network-Message-Id: 8fe411cf-d916-4668-dfec-08df4b19d2d6
+X-MS-Exchange-CrossTenant-AuthSource: CO1PR11MB4787.namprd11.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 25 Nov 2026 17:30:39.4387 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 46c98d88-e344-4ed4-8496-4ed7712e255d
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: 9fMg94IWz5aCrG46R2+Q9gdpR8XX/bQn06oNPyAVF19h+2rkrpzM/3onWO9O5hhQutk2qZolCRzbLziXdJB+gA==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: CO1PR11MB4772
+X-OriginatorOrg: intel.com
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -48,173 +162,95 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
-Reply-To: sashiko-reviews@lists.linux.dev
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-10.8 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
+X-Spam-Status: No, score=-15.8 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
 	DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
-	INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS autolearn=ham
-	autolearn_force=no version=4.0.1
+	INCLUDES_CR_TRAILER,INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,
+	SPF_PASS autolearn=unavailable autolearn_force=no version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
-X-Archived-By: <archiver.kernel.org>
 
-Thank you for your contribution! Sashiko AI review found 4 potential
-issues to consider:
-- [High] drm/mxsfb/lcdif: missing connector when last bridge lacks
-  get_next_bridge()
-- [High] drm/mxsfb/lcdif: missing client hotplug notification in
-  lcdif_hotplug_event()
-- [High] drm: double bridge attach in drm_hotplug_helper_try_complete()
-- [Medium] drm/mxsfb/lcdif: poll_init and drmm_hotplug_helper_init
-  lifetime mismatch
---
+On Wed, Nov 25, 2026 at 08:21:17AM -0800, Matthew Brost wrote:
+> On Wed, Nov 25, 2026 at 03:37:44PM +0530, Arvind Yadav wrote:
+> > vm_destroy_work_func() runs on xe->destroy_wq and flushes rebind work
+> > on xe->ordered_wq. The destroy queue has WQ_MEM_RECLAIM, but the
+> > ordered queue has no rescuer. The kernel warns because this wait can
+> > stall memory reclaim.
+> > 
+> > The VM is already closed, so a pending rebind would return immediately.
+> > Use cancel_work_sync() to cancel pending work and wait for a running
+> > rebind to finish before freeing the VM.
+> > 
+> > [  727.067318] ------------[ cut here ]------------
+> > [  727.067552] workqueue: WQ_MEM_RECLAIM xe-destroy-wq:vm_destroy_work_func [xe] is flushing !WQ_MEM_RECLAIM xe-ordered-wq:preempt_rebind_work_func [xe]
 
-commit d0177b7f727becda395d8ff3eb1f0fa798651116
-Author: Luca Ceresoli <luca.ceresoli@bootlin.com>
+I didn't read the stack trace, but this patch, or switching to
+disable_work_sync(), probably won't help.
+cancel_work_sync()/disable_work_sync() can still block if the rebind
+workqueue is running, and I think the same warning would still appear
+(though I'm not 100% sure)/
 
-drm/mxsfb/lcdif: enable bridge hotplug
+Maybe the better question is why xe-destroy-wq is marked with
+WQ_MEM_RECLAIM. Sure, it frees memory, but it isn't in the DMA-fencing
+path, which I think is the actual hard requirement for marking a
+workqueue with WQ_MEM_RECLAIM. So perhaps we should just drop
+WQ_MEM_RECLAIM from xe-destroy-wq?
 
-This commit switches the i.MX LCDIF driver to drmm_hotplug_helper_init() to
-manage bridge attachment and dynamic connector creation, and moves
-drm_kms_helper_poll_init() earlier in lcdif_load() so per-connector HPD
-polling can be toggled from the hotplug callback.
+Also, I think s/flush_work()/disable_work_sync()/ is technically still
+the right code change, but I wouldn't consider it a fix.
 
-> diff --git a/drivers/gpu/drm/mxsfb/lcdif_drv.c b/drivers/gpu/drm/mxsfb/lc=
-dif_drv.c
-> index 2be5a76e936f6..591653b39310c 100644
-> --- a/drivers/gpu/drm/mxsfb/lcdif_drv.c
-> +++ b/drivers/gpu/drm/mxsfb/lcdif_drv.c
-[ ... ]
-> @@ -44,6 +44,19 @@ static const struct drm_mode_config_helper_funcs lcdif=
-_mode_config_helpers =3D {
->  	.atomic_commit_tail =3D drm_atomic_helper_commit_tail_rpm,
->  };
-> =20
-> +static void lcdif_hotplug_event(enum drm_hotplug_helper_event event,
-> +				struct drm_connector *connector)
-> +{
-> +	switch (event) {
-> +	case DRM_HOTPLUG_HELPER_CONNECTOR_ADDED:
-> +		drm_kms_helper_poll_enable_connector(connector);
-> +	break;
-> +	case DRM_HOTPLUG_HELPER_CONNECTOR_REMOVING:
-> +		drm_kms_helper_poll_disable_connector(connector);
-> +		break;
-> +	}
-> +}
+Matt
 
-[Severity: High]
-Does lcdif_hotplug_event() miss notifying in-kernel DRM clients and running
-initial HPD detection when a connector is added after lcdif_load()?
-
-With drmm_hotplug_helper_init(), lcdif_attach_bridge() no longer defers
-probe while waiting for downstream bridges, so drm_helper_hpd_irq_event()
-and drm_client_setup() can run before any connector exists.  When the
-bridge chain completes later, drm_bridge_connector_dynamic_add() registers
-the connector (emitting a sysfs uevent without calling
-drm_client_dev_hotplug()), and drm_kms_helper_poll_enable_connector() does
-not schedule output_poll_work for fixed panels (polled =3D=3D 0) or HPD-IRQ
-connectors (polled =3D=3D DRM_CONNECTOR_POLL_HPD).  As a result, fbdev/fbcon
-is never set up and HPD-IRQ connectors stay in connector_status_unknown.
-
-[ ... ]
-> @@ -80,16 +86,10 @@ static int lcdif_attach_bridge(struct lcdif_drm_priva=
-te *lcdif)
-> =20
->  		encoder->possible_crtcs =3D drm_crtc_mask(&lcdif->crtc);
-> =20
-> -		ret =3D drm_bridge_attach(encoder, bridge, NULL, DRM_BRIDGE_ATTACH_NO_=
-CONNECTOR);
-> -		if (ret)
-> -			return dev_err_probe(dev, ret,
-> -					     "Failed to attach bridge for endpoint%u\n",
-> -					     of_ep.id);
-> -
-> -		connector =3D drm_bridge_connector_init(lcdif->drm, encoder);
-> -		if (IS_ERR(connector))
-> -			return dev_err_probe(dev, PTR_ERR(connector),
-> -					     "Failed to init bridge_connector for endpoint%u\n",
-> +		hotplug_helper =3D drmm_hotplug_helper_init(encoder, lcdif_hotplug_eve=
-nt, ep);
-> +		if (IS_ERR(hotplug_helper))
-> +			return dev_err_probe(dev, PTR_ERR(hotplug_helper),
-> +					     "Failed to init hotplug_helper for endpoint%u\n",
->  					     of_ep.id);
->  	}
-
-[Severity: High]
-Will drmm_hotplug_helper_init() fail to create a connector on LCDIF
-pipelines whose last bridge does not implement DRM_BRIDGE_OP_GET_NEXT_BRIDG=
-E?
-
-Previously, lcdif_attach_bridge() unconditionally created the connector
-with drm_bridge_connector_init() after drm_bridge_attach().  Now connector
-creation in drm_hotplug_helper_try_complete() is gated on
-drm_hotplug_helper_bridge_chain_is_complete(), which calls
-drm_bridge_get_next() on the last bridge and only returns true when that
-returns NULL.  On i.MX8MP boards using tc358767 as a DisplayPort terminal
-bridge (such as imx8mp-dhcom-pdk3-overlay-732-100-x36.dtso), tc358767 does
-not set DRM_BRIDGE_OP_GET_NEXT_BRIDGE, so drm_bridge_get_next() warns and
-returns ERR_PTR(-ENOENT) and the connector is never created.
-
-[Severity: High]
-Can switching to drmm_hotplug_helper_init() cause last_bridge->funcs->attac=
-h()
-to be called a second time on an already-attached bridge?
-
-When a downstream bridge in a multi-bridge chain is removed (or when the
-terminal bridge lacks DRM_BRIDGE_OP_GET_NEXT_BRIDGE so
-hotplug_helper->connector stays NULL), the upstream bridge remains attached
-as last_bridge in encoder->bridge_chain.  On the next DRM_BRIDGE_ADDED or
-DRM_MIPI_DSI_ATTACHED notification, drm_hotplug_helper_try_complete() hits
-the if (last_bridge) branch:
-
-drivers/gpu/drm/display/drm_hotplug_helper.c:drm_hotplug_helper_try_complet=
-e() {
-    ...
-	if (last_bridge) {
-		dev_dbg(dev, "propagate attach after %ps\n", last_bridge->funcs);
-
-		err =3D last_bridge->funcs->attach(last_bridge, hotplug_helper->encoder,
-						 DRM_BRIDGE_ATTACH_NO_CONNECTOR);
-    ...
-}
-
-Besides dereferencing last_bridge->funcs->attach without a NULL check,
-re-invoking funcs->attach() on an already-attached bridge (such as
-ti-sn65dsi86 or tc358767, which call drm_dp_aux_register() in their attach
-callbacks before attaching the next bridge) re-registers an initialized
-drm_dp_aux i2c adapter kobject and unregisters the active DP AUX channel if
-downstream attachment fails.
-
-> @@ -176,6 +176,8 @@ static int lcdif_load(struct drm_device *drm)
->  	/* Start with vertical blanking interrupt reporting disabled. */
->  	drm_crtc_vblank_off(&lcdif->crtc);
-> =20
-> +	drm_kms_helper_poll_init(drm);
-> +
->  	ret =3D lcdif_attach_bridge(lcdif);
->  	if (ret)
->  		return ret;
-
-[Severity: Medium]
-Does pairing unmanaged drm_kms_helper_poll_init() with
-drmm_hotplug_helper_init() leave polling uncleaned on probe failure and
-out of order with hotplug teardown on unbind?
-
-If lcdif_attach_bridge(), drm_mode_config_create_initial_state() or IRQ
-setup fails in lcdif_load(), lcdif_probe() jumps to err_free without
-calling lcdif_unload() or drm_kms_helper_poll_fini().  On driver unbind,
-lcdif_unload() runs drm_kms_helper_poll_fini() (setting poll_enabled =3D fa=
-lse)
-before final drm_dev_put() releases drmm_hotplug_helper_init(); if
-userspace holds an open DRM fd across unbind, a bridge hotplug event before
-the fd closes will call lcdif_hotplug_event() ->
-drm_kms_helper_poll_enable_connector() and hit
-drm_WARN_ON_ONCE(dev, !dev->mode_config.poll_enabled).  Using
-drmm_kms_helper_poll_init() before lcdif_attach_bridge() and dropping
-drm_kms_helper_poll_fini() from lcdif_unload() would align both lifetimes.
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261125-drm-bridge=
--hotplug-v4-0-822722850492@bootlin.com?part=3D32
+> > [  727.067726] WARNING: kernel/workqueue.c:4043 at check_flush_dependency.part.0+0xd9/0x110, CPU#1: kworker/1:0/33641
+> > [  727.067876] Workqueue: xe-destroy-wq vm_destroy_work_func [xe]
+> > [  727.067963] Call Trace:
+> > [  727.067964]  <TASK>
+> > [  727.067967]  __flush_work+0x44b/0x660
+> > [  727.067970]  ? __lock_acquire+0x584/0x29c0
+> > [  727.067974]  ? lock_is_held_type+0xa3/0x130
+> > [  727.067980]  flush_work+0x28/0x40
+> > [  727.067982]  vm_destroy_work_func+0x1a9/0x350 [xe]
+> > [  727.068061]  ? lock_release+0xd0/0x2c0
+> > [  727.068065]  process_one_work+0x2ad/0x890
+> > [  727.068071]  worker_thread+0x200/0x3f0
+> > [  727.068074]  ? __pfx_worker_thread+0x10/0x10
+> > [  727.068077]  kthread+0x113/0x150
+> > [  727.068079]  ? __pfx_kthread+0x10/0x10
+> > [  727.068081]  ret_from_fork+0x3bf/0x470
+> > [  727.068085]  ? __pfx_kthread+0x10/0x10
+> > [  727.068087]  ret_from_fork_asm+0x1a/0x30
+> > [  727.068096]  </TASK>
+> > [  727.068108] ---[ end trace 0000000000000000 ]---
+> > 
+> > Fixes: 61e18525023a ("drm/xe: Route deferred xe_vma/xe_vm teardown off system_dfl_wq")
+> > Cc: Matthew Brost <matthew.brost@intel.com>
+> > Cc: Thomas Hellström <thomas.hellstrom@linux.intel.com>
+> > Cc: Rodrigo Vivi <rodrigo.vivi@intel.com>
+> > Cc: Himal Prasad Ghimiray <himal.prasad.ghimiray@intel.com>
+> > Cc: Tejas Upadhyay <tejas.upadhyay@intel.com>
+> > Signed-off-by: Arvind Yadav <arvind.yadav@intel.com>
+> > ---
+> >  drivers/gpu/drm/xe/xe_vm.c | 2 +-
+> >  1 file changed, 1 insertion(+), 1 deletion(-)
+> > 
+> > diff --git a/drivers/gpu/drm/xe/xe_vm.c b/drivers/gpu/drm/xe/xe_vm.c
+> > index dd855876f571..2ba99c083db8 100644
+> > --- a/drivers/gpu/drm/xe/xe_vm.c
+> > +++ b/drivers/gpu/drm/xe/xe_vm.c
+> > @@ -2091,7 +2091,7 @@ static void vm_destroy_work_func(struct work_struct *w)
+> >  	xe_assert(xe, !vm->size);
+> >  
+> >  	if (xe_vm_in_preempt_fence_mode(vm))
+> > -		flush_work(&vm->preempt.rebind_work);
+> > +		cancel_work_sync(&vm->preempt.rebind_work);
+> 
+> disable_work_sync ?
+> 
+> Matt
+> 
+> >  
+> >  	mutex_destroy(&vm->snap_mutex);
+> >  
+> > -- 
+> > 2.43.0
+> > 
