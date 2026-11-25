@@ -2,54 +2,53 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1B6C6606A31E
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 95F14606A31E
 	for <dri-devel@archiver.kernel.org>; Wed, 25 Nov 2026 10:22:20 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=qq.com header.i=@qq.com header.a=rsa-sha256 header.s=s201512 header.b=j5HbqhOy
+	dkim=pass (1024-bit key) header.d=qq.com header.i=@qq.com header.a=rsa-sha256 header.s=s201512 header.b=a27gFQhR
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 7F1E310FADC;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 0001A10FAE0;
 	Wed, 25 Nov 2026 10:22:14 +0000 (UTC)
-Received: from out203-205-221-164.mail.qq.com (out203-205-221-164.mail.qq.com
- [203.205.221.164])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 0C60488EBA
- for <dri-devel@lists.freedesktop.org>; Wed, 25 Nov 2026 10:21:43 +0000 (UTC)
+Received: from out203-205-221-202.mail.qq.com (out203-205-221-202.mail.qq.com
+ [203.205.221.202])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 776A410FAC2
+ for <dri-devel@lists.freedesktop.org>; Wed, 25 Nov 2026 10:21:42 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qq.com; s=s201512;
- t=1795602101; bh=mW/42GTNM3u029GrlvjKVxveK9yKQX5QU4i36liSKZ8=;
+ t=1795602100; bh=/+Ro+lxE7URBHWUBOIUgZmr8VIYnlAzEP9QlzvRxJq0=;
  h=From:To:Cc:Subject:Date:In-Reply-To:References;
- b=j5HbqhOyX6lY2MqivdCOXkNV44iBdboezVfucRN6OdSL2fUJCHT+DZdOiDf2YXXKo
- IUeWrZ5Owgp9kkCvxIZQlGNp0QDxYnp4jR22ojGJIcmCanzJioUdsACK0OxwuousYW
- L8jM/i6zTehOt63/Vxv+iAburt2bsgPsQnTmB3Xw=
+ b=a27gFQhRjARWE3Nfkp/clpch1c5iA0lT5d6aQOSsFDIERDhFgrQ2120I1cT9lMrzL
+ ROE3jwNyicFOC8q/TfbWHZsfZ3WUKWWMfpaLkVCJs8MzQJiuUb+MkBfZ6kctREfKmP
+ x8usYbzV49TVKlTQ4VpIG/A76wzYqTxDdrwKJ57o=
 Received: from HF ([240e:47e:32f9:92c3:8064:1335:aef9:f3d1])
  by newxmesmtplogicsvrszc43-0.qq.com (NewEsmtp) with SMTP
  id 56009AF2; Wed, 25 Nov 2026 18:21:32 +0800
-X-QQ-mid: xmsmtpt1795602099t9vgagz7m
-Message-ID: <tencent_D6B8ED478B95DCB70761EB53E2EF36AACA06@qq.com>
-X-QQ-XMAILINFO: NUHe5LW8P76+nmD7vZFpzumTnUhVCTySTVVwONqBt9iY+dAUu9ZZ6bJ5PFLdS3
- Y60EK3zGZ695c7hDKad8O90S8QgMmAmEMtwf6omVeNcqpVSQbFX1No1fhPnVD1JO2u2mhLdmZxTg
- MD72S9Wyu1ABX07LLF5rqwYKUZEUOEtCZ6EydiS9vrTdGIpOlsExg6hW/7wIAzhByTx1MYuO4cnD
- Q0bMkGddwgeNE1E/iQvhOCbHPnAIjdDap/C5z7eYsrtYAl593s89iNaQ/LSayGp5zBofXEQD0AZ5
- sz0mDadowS3MP8K1TMGFTUyIEXXDTSKet6hZXRMn5y+Czg/hEcUt9NAJ2oxg7Us67rlBU7Yit7is
- 0uhKQmNQhf05KYRA7CfX3iKxLMqipxl7ZUzn+kpl+U89VbmY/H5z9PSe9WVvoCFF/4atNPYHh2Mi
- jYBTPmUMri5rQFWFry0SceLtmDzxAWAo1eiOip5onQSbbq+LGPH8bH3SQvyIhwOjIvYuflZ2uJjt
- KfwzTe6su7GNRacY9QA5PRQf3Kaz/3qaOm1QcP/bQtVDHGEWVW+WCC9yVgC2gNyoeqHftsTsQAOZ
- ozFHQoUH66NJkq0poFwmof8d0Rh85NHnjyhZ+blTK3+Jn9l6uGk4g6iFDIhIeqEpJ9EAnop8XuyY
- bZOyCHC+ZvMwOPMidiOdH08F1Ra092etLprN70gxYHzLivHhl0eBUC6hwEaiApfqVJMwzQBPWekt
- KdzuZx6HbOIJG1QibEpG7YVnUmk1L0C4ZN1BxqlECpKuovadxdXumw2pbNt0j7LM11swO7eJ4OdH
- BIfMVgQKX8JSm5s5jN3V7JEun8j6kL3Zm4eb1t05KSpj/YXecRZ+ioO3dX+laCFU6rr12mdNTkUC
- k3KXVNbaQHfM3ogr/pL/G8++kOmRyttZgW+k9tFaVX5voMWripDJ91XZMVk6XWtznojfYWtPbWnv
- z7ArMreWDqy6CJiTTRNNAlZ+1GWhruWW19ST7IAYGqSmMR5QQS+efHgyZ9exWbDpi15p7xB/9Caw
- Zn4JYGKihXuGFdkxm5CF1XMK05ZuQzrIjPCp9TYzlQpo1iQemTPXvmFzW6XucUJybZiMIP+r7jdj
- bxKflJ3AbA1NTwwiFg+RppQHDqR2tfLwqysOKklGZXlncrHPbZo6PbPHB/GTE6PZpqSTh0n7AS1J
- +AvMs=
-X-QQ-XMRINFO: NyFYKkN4Ny6FuXrnB5Ye7Aabb3ujjtK+gg==
+X-QQ-mid: xmsmtpt1795602098tpqb4dp7g
+Message-ID: <tencent_2357121571FCE0A3C96AF45B9FD0E2C9EC05@qq.com>
+X-QQ-XMAILINFO: NnYhxYSyuBnL6L2qBjw4BCJMDIWJDuY2ORNF6Pl5MQCYSg75KB9EC/Rq26gOBq
+ AfmRDSzpbf2HxwHSo2MQdgJxsY05o+AjHxDTjtXMuHhsL3GgzELuTrUaTIzWt1e+cxxSia2XqyjD
+ g++cNIvsa6/g9f3JUkYo2LIBdmVTPMsiBBlhmUj+RYwbKw7sIKCZ429XH+72lsCX4DLaT1h37EhH
+ vCtqgADOMqQE75U/22K2q7hjgizXVF+sP1KRSXO9e1cDMEaZnC1IrONeJLCCrHhuTZ0UBRkJngrS
+ GXiX+Jb6fbP9UeiVrLzdGzm1UH1GKtrqnV0XPbuXhzNgUGvBC8ptdt61kx/VTrvlj9/jWE2lEjnS
+ Ak6XiYaS8nfi8kewE0rwvEW/94YlyV29vxQcoYeuyronK6wlMS7VhYL5XhP1B91PyfU2CJWs7iRU
+ 3VT2phJnRyB9RvkeQUdsK6FKgpkML+VFmnrtZ7megJ0nyJG0fO62sI50zzCVfaKy3k1hFUKaR5wK
+ WLEecG2FaLfiuL90IkRCjyVq41NWg6OOPPrgJQI/GSQvnkzMovqKqi9ESFcljoXuxFvkgdBoXLZH
+ nZ9tHCqzav1qEUua6QF4o1cfN8VflHbL/vOii95IVECWiAVZijXLkYubcUJmN3R2f53KhZEZDQlR
+ 9pl1rdymOIKZiF/3PLsJCtNUPZIFxLWdyPjz10itrr3S9VK2dxSDWwoghXU+oH435M+D7zbT8yfm
+ xlzZbXDqZOAo+apn304m8jEq5FReumlcrokWFlkpkPnuWoO1BdaX8sZRD3QMQi5BP6T47mCRIKr7
+ sny8APSP3maHOqhc6X7bbzSs3aGohe0jzBwyfufnNDkFX4LDesQMHkaMkFqzqZn3KzBaO4cPINUF
+ bn0CtNxe2QuSKY2RMNAi1BkksHkF2sg3Ujcxuh0OloVXwh+qDDNu8gy21I6VF8B3eYSq5htNqNcV
+ 8lKDpCR7TJI2FY8tGrMqauF+uHs1xGLOz6szautl/Us9aYMi6AocA57GxGnH0CT8IrTT7vwks9r/
+ uAyO041Gk+KLKqHqhiM9+4kyR/ZT97bQ/iDY5GcG2JZrn85iedR5etI2wynwmLTwnD7asaEbQKNK
+ Xgg/DiLQ4hhu2iILc=
+X-QQ-XMRINFO: NI4Ajvh11aEjEMj13RCX7UuhPEoou2bs1g==
 From: Hefei <3066883572@qq.com>
 To: dri-devel@lists.freedesktop.org
 Cc: linux-input@vger.kernel.org, devicetree@vger.kernel.org,
  linux-kernel@vger.kernel.org, robh@kernel.org, krzk@kernel.org,
  conor+dt@kernel.org, dmitry.torokhov@gmail.com, Hefei <3066883572@qq.com>
-Subject: [PATCH v6 6/6] backlight: add VIEWE 7KF82 I2C backlight driver
-Date: Wed, 25 Nov 2026 18:21:30 +0800
-X-OQ-MSGID: <20261125102130.256-7-3066883572@qq.com>
+Subject: [PATCH v6 5/6] Input: add Jadard JD9365TX in-cell touchscreen driver
+Date: Wed, 25 Nov 2026 18:21:29 +0800
+X-OQ-MSGID: <20261125102130.256-6-3066883572@qq.com>
 X-Mailer: git-send-email 2.55.0.windows.5
 In-Reply-To: <20261125102130.256-1-3066883572@qq.com>
 References: <20261125102130.256-1-3066883572@qq.com>
@@ -67,162 +66,437 @@ List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-20.8 required=3.0 tests=BAYES_00,DKIM_SIGNED,
+X-Spam-Status: No, score=-15.8 required=3.0 tests=BAYES_00,DKIM_SIGNED,
 	DKIM_VALID,DKIM_VALID_AU,FREEMAIL_FORGED_FROMDOMAIN,FREEMAIL_FROM,
 	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
-	MAILING_LIST_MULTI,MENTIONS_GIT_HOSTING,SPF_HELO_NONE,SPF_PASS,
-	USER_AGENT_GIT autolearn=unavailable autolearn_force=no version=4.0.1
+	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,USER_AGENT_GIT
+	autolearn=unavailable autolearn_force=no version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-Add an I2C backlight driver for the VIEWE 7KF82 module MCU at
-address 0x45, register 0x86 (brightness 0..255).
+Add a polling I2C driver for the JD9365TX in-cell touch controller.
+Typical module FPCs expose I2C only, so the driver polls coordinate
+SRAM after opening the controller backdoor.
 
 Signed-off-by: Hefei <3066883572@qq.com>
 ---
- MAINTAINERS                            |  7 +++
- drivers/video/backlight/Kconfig        | 11 ++++
- drivers/video/backlight/Makefile       |  1 +
- drivers/video/backlight/viewe_bl_i2c.c | 82 ++++++++++++++++++++++++++
- 4 files changed, 101 insertions(+)
- create mode 100644 drivers/video/backlight/viewe_bl_i2c.c
+ MAINTAINERS                                 |   7 +
+ drivers/input/touchscreen/Kconfig           |  12 +
+ drivers/input/touchscreen/Makefile          |   1 +
+ drivers/input/touchscreen/jadard_jd9365tx.c | 352 ++++++++++++++++++++
+ 4 files changed, 372 insertions(+)
+ create mode 100644 drivers/input/touchscreen/jadard_jd9365tx.c
 
 diff --git a/MAINTAINERS b/MAINTAINERS
-index 1679f1cc9..1abbe62c8 100644
+index ee72ecdc8..1679f1cc9 100644
 --- a/MAINTAINERS
 +++ b/MAINTAINERS
-@@ -27202,6 +27202,13 @@ W:	https://linuxtv.org
- T:	git git://linuxtv.org/media.git
- F:	drivers/media/test-drivers/vimc/*
+@@ -13426,6 +13426,13 @@ L:	netdev@vger.kernel.org
+ S:	Odd Fixes
+ F:	drivers/net/ethernet/jme.*
  
-+VIEWE I2C BACKLIGHT DRIVER
++JADARD JD9365TX TOUCHSCREEN DRIVER
 +M:	Hefei <3066883572@qq.com>
-+L:	dri-devel@lists.freedesktop.org
++L:	linux-input@vger.kernel.org
 +S:	Maintained
-+F:	Documentation/devicetree/bindings/leds/backlight/viewe,7kf82-backlight.yaml
-+F:	drivers/video/backlight/viewe_bl_i2c.c
++F:	Documentation/devicetree/bindings/input/touchscreen/jadard,jd9365tx.yaml
++F:	drivers/input/touchscreen/jadard_jd9365tx.c
 +
- VIRT LIB
- M:	Alex Williamson <alex@shazbot.org>
- M:	Paolo Bonzini <pbonzini@redhat.com>
-diff --git a/drivers/video/backlight/Kconfig b/drivers/video/backlight/Kconfig
-index 7b836f9ad..f57894073 100644
---- a/drivers/video/backlight/Kconfig
-+++ b/drivers/video/backlight/Kconfig
-@@ -501,6 +501,17 @@ config BACKLIGHT_LED
- 	  If you have a LCD backlight adjustable by LED class driver, say Y
- 	  to enable this driver.
+ JOURNALLING FLASH FILE SYSTEM V2 (JFFS2)
+ M:	David Woodhouse <dwmw2@infradead.org>
+ M:	Richard Weinberger <richard@nod.at>
+diff --git a/drivers/input/touchscreen/Kconfig b/drivers/input/touchscreen/Kconfig
+index e2ee722a9..da425c805 100644
+--- a/drivers/input/touchscreen/Kconfig
++++ b/drivers/input/touchscreen/Kconfig
+@@ -540,6 +540,18 @@ config TOUCHSCREEN_IPROC
+ 	  To compile this driver as a module, choose M here: the
+ 	  module will be called bcm_iproc_tsc.
  
-+config BACKLIGHT_VIEWE_I2C
-+	tristate "VIEWE I2C backlight"
++config TOUCHSCREEN_JADARD_JD9365TX
++	tristate "Jadard JD9365TX in-cell touchscreen"
 +	depends on I2C
 +	help
-+	  Say Y here to enable the I2C backlight driver for VIEWE DSI
-+	  modules such as 7KF82. Brightness 0..255 is written to the
-+	  panel MCU at I2C address 0x45, register 0x86.
++	  Say Y here if you have a Jadard JD9365TX in-cell touchscreen.
++	  The driver polls over I2C when no interrupt line is wired.
 +
-+	  To compile this driver as a module, choose M here: the module
-+	  will be called viewe_bl_i2c.
++	  If unsure, say N.
 +
- endif # BACKLIGHT_CLASS_DEVICE
- 
- endmenu
-diff --git a/drivers/video/backlight/Makefile b/drivers/video/backlight/Makefile
-index bcb568afe..b82d959dd 100644
---- a/drivers/video/backlight/Makefile
-+++ b/drivers/video/backlight/Makefile
-@@ -61,3 +61,4 @@ obj-$(CONFIG_BACKLIGHT_WM831X)		+= wm831x_bl.o
- obj-$(CONFIG_BACKLIGHT_ARCXCNN) 	+= arcxcnn_bl.o
- obj-$(CONFIG_BACKLIGHT_RAVE_SP)		+= rave-sp-backlight.o
- obj-$(CONFIG_BACKLIGHT_LED)		+= led_bl.o
-+obj-$(CONFIG_BACKLIGHT_VIEWE_I2C)	+= viewe_bl_i2c.o
-diff --git a/drivers/video/backlight/viewe_bl_i2c.c b/drivers/video/backlight/viewe_bl_i2c.c
++	  To compile this driver as a module, choose M here: the
++	  module will be called jadard_jd9365tx.
++
+ config TOUCHSCREEN_S6SY761
+ 	tristate "Samsung S6SY761 Touchscreen driver"
+ 	depends on I2C
+diff --git a/drivers/input/touchscreen/Makefile b/drivers/input/touchscreen/Makefile
+index 58094f2c0..5846f4d15 100644
+--- a/drivers/input/touchscreen/Makefile
++++ b/drivers/input/touchscreen/Makefile
+@@ -59,6 +59,7 @@ obj-$(CONFIG_TOUCHSCREEN_IMAGIS)	+= imagis.o
+ obj-$(CONFIG_TOUCHSCREEN_IMX6UL_TSC)	+= imx6ul_tsc.o
+ obj-$(CONFIG_TOUCHSCREEN_INEXIO)	+= inexio.o
+ obj-$(CONFIG_TOUCHSCREEN_IPROC)		+= bcm_iproc_tsc.o
++obj-$(CONFIG_TOUCHSCREEN_JADARD_JD9365TX) += jadard_jd9365tx.o
+ obj-$(CONFIG_TOUCHSCREEN_LPC32XX)	+= lpc32xx_ts.o
+ obj-$(CONFIG_TOUCHSCREEN_MAX11801)	+= max11801_ts.o
+ obj-$(CONFIG_TOUCHSCREEN_MXS_LRADC)     += mxs-lradc-ts.o
+diff --git a/drivers/input/touchscreen/jadard_jd9365tx.c b/drivers/input/touchscreen/jadard_jd9365tx.c
 new file mode 100644
-index 000000000..0f9173dfe
+index 000000000..1ad195559
 --- /dev/null
-+++ b/drivers/video/backlight/viewe_bl_i2c.c
-@@ -0,0 +1,82 @@
++++ b/drivers/input/touchscreen/jadard_jd9365tx.c
+@@ -0,0 +1,352 @@
 +// SPDX-License-Identifier: GPL-2.0
 +/*
 + * Copyright (C) 2026 VIEWE
 + *
-+ * I2C backlight for VIEWE 7KF82 DSI modules (MCU @0x45, register 0x86, 0..255).
++ * Jadard JD9365TX in-cell touchscreen (I2C @0x68, polling).
++ * Typical DSI FPC has no interrupt line.
 + */
 +
-+#include <linux/backlight.h>
++#include <linux/delay.h>
++#include <linux/gpio/consumer.h>
 +#include <linux/i2c.h>
++#include <linux/input.h>
++#include <linux/input/mt.h>
++#include <linux/input/touchscreen.h>
 +#include <linux/module.h>
++#include <linux/of.h>
 +#include <linux/property.h>
++#include <linux/regulator/consumer.h>
++#include <linux/slab.h>
++#include <linux/unaligned.h>
 +
-+#define VIEWE_BL_REG		0x86
-+#define VIEWE_BL_MAX		255
-+#define VIEWE_BL_DEFAULT	200
++#define JD_CHIP_ID			0x9084
++#define JD_CHIP_ID_ALT			0x9032
++#define JD_SOC_CHIP_ID2			0x40008076
++#define JD_ERAM_BASE			0x20011000
++#define JD_SECTION_READY_VAL		0xA55A
++#define JD_MAX_DSRAM_NUM		25
++#define JD_ESRAM_COORD_IDX		1
++#define JD_ESRAM_SECTION_NUM		6
++#define JD_DEFAULT_COORD_ADDR		0x20011120
++#define JD_TOUCH_DATA_SIZE		78
++#define JD_REPORT_MIN_SIZE		53
++#define JD_FINGER_DATA_SIZE		5
++#define JD_FINGER_NUM_ADDR		0
++#define JD_TOUCH_COORD_INFO_ADDR	3
++#define JD_MAX_POINTS			10
++#define JD_DEFAULT_POLL_MS		16
 +
-+static int viewe_bl_update_status(struct backlight_device *bd)
-+{
-+	struct i2c_client *client = bl_get_data(bd);
-+
-+	return i2c_smbus_write_byte_data(client, VIEWE_BL_REG,
-+					 backlight_get_brightness(bd));
-+}
-+
-+static const struct backlight_ops viewe_bl_ops = {
-+	.options = BL_CORE_SUSPENDRESUME,
-+	.update_status = viewe_bl_update_status,
++struct jadard_tp {
++	struct i2c_client *client;
++	struct input_dev *input;
++	struct touchscreen_properties prop;
++	struct gpio_desc *reset;
++	u32 coord_addr;
++	u16 touch_data_size;
++	u16 max_points;
++	unsigned int poll_interval_ms;
 +};
 +
-+static int viewe_bl_probe(struct i2c_client *client)
++static int jd_bus_write(struct i2c_client *client, const u8 *cmd, u8 cmd_len,
++			const u8 *data, u16 data_len)
 +{
-+	struct backlight_properties props = {
-+		.type = BACKLIGHT_RAW,
-+		.max_brightness = VIEWE_BL_MAX,
-+	};
-+	struct backlight_device *bd;
-+	u32 brightness = VIEWE_BL_DEFAULT;
++	u8 buf[64];
++	struct i2c_msg msg;
++	int ret;
++
++	if (cmd_len + data_len > sizeof(buf))
++		return -EINVAL;
++
++	memcpy(buf, cmd, cmd_len);
++	if (data_len)
++		memcpy(buf + cmd_len, data, data_len);
++
++	msg.addr = client->addr;
++	msg.flags = 0;
++	msg.len = cmd_len + data_len;
++	msg.buf = buf;
++
++	ret = i2c_transfer(client->adapter, &msg, 1);
++	return ret == 1 ? 0 : (ret < 0 ? ret : -EIO);
++}
++
++static int jd_bus_read(struct i2c_client *client, const u8 *cmd, u8 cmd_len,
++		       u8 *data, u16 data_len)
++{
++	struct i2c_msg msg[2];
++	int ret;
++
++	msg[0].addr = client->addr;
++	msg[0].flags = 0;
++	msg[0].len = cmd_len;
++	msg[0].buf = (u8 *)cmd;
++	msg[1].addr = client->addr;
++	msg[1].flags = I2C_M_RD;
++	msg[1].len = data_len;
++	msg[1].buf = data;
++
++	ret = i2c_transfer(client->adapter, msg, 2);
++	return ret == 2 ? 0 : (ret < 0 ? ret : -EIO);
++}
++
++static int jd_enter_backdoor(struct i2c_client *client)
++{
++	const u8 cmd[5] = { 0xF2, 0xAA, 0xF0, 0x0F, 0x55 };
++	const u8 data = 0x68;
++
++	return jd_bus_write(client, cmd, sizeof(cmd), &data, 1);
++}
++
++static int jd_read_reg(struct i2c_client *client, u32 addr, u8 *rdata, u16 rlen)
++{
++	u8 cmd[6];
++
++	cmd[0] = 0xF3;
++	cmd[1] = (addr >> 24) & 0xFF;
++	cmd[2] = (addr >> 16) & 0xFF;
++	cmd[3] = (addr >> 8) & 0xFF;
++	cmd[4] = addr & 0xFF;
++	cmd[5] = 0x03;
++
++	return jd_bus_read(client, cmd, sizeof(cmd), rdata, rlen);
++}
++
++static int jd_get_chip_id(struct i2c_client *client, u16 *id)
++{
++	u8 rbuf[2];
++	int ret;
++
++	ret = jd_read_reg(client, JD_SOC_CHIP_ID2, rbuf, sizeof(rbuf));
++	if (ret)
++		return ret;
++
++	*id = (u16)((rbuf[1] << 8) | rbuf[0]);
++	return 0;
++}
++
++static bool jd_section_ready(struct i2c_client *client)
++{
++	u8 rbuf[2];
++	unsigned int waited = 0;
++
++	do {
++		usleep_range(2000, 3000);
++		if (jd_read_reg(client, JD_ERAM_BASE, rbuf, sizeof(rbuf)))
++			return false;
++		waited += 2;
++		if (((rbuf[1] << 8) | rbuf[0]) == JD_SECTION_READY_VAL)
++			return true;
++	} while (waited < 100);
++
++	return false;
++}
++
++static int jd_resolve_coord_addr(struct jadard_tp *ts)
++{
++	u32 esram_num_addr = JD_ERAM_BASE + 4 + JD_MAX_DSRAM_NUM * 8;
++	u32 esram_sec_addr = esram_num_addr + 4;
++	u8 buf[JD_ESRAM_SECTION_NUM * 8];
++	u32 addr, len;
++	int ret;
++
++	ret = jd_read_reg(ts->client, esram_sec_addr, buf, sizeof(buf));
++	if (ret)
++		return ret;
++
++	addr = get_unaligned_le32(&buf[JD_ESRAM_COORD_IDX * 8]);
++	len = get_unaligned_le32(&buf[JD_ESRAM_COORD_IDX * 8 + 4]);
++
++	if (len < JD_REPORT_MIN_SIZE || len > JD_TOUCH_DATA_SIZE ||
++	    addr < JD_ERAM_BASE ||
++	    addr > JD_ERAM_BASE + 0x1000 - len)
++		return -EINVAL;
++
++	ts->coord_addr = addr;
++	ts->touch_data_size = (u16)len;
++	return 0;
++}
++
++static int jd_hw_init(struct jadard_tp *ts)
++{
++	u16 chip_id = 0;
++	int ret;
++
++	ret = jd_enter_backdoor(ts->client);
++	if (ret)
++		return ret;
++
++	ret = jd_get_chip_id(ts->client, &chip_id);
++	if (ret)
++		return ret;
++
++	if (chip_id != JD_CHIP_ID && chip_id != JD_CHIP_ID_ALT)
++		return -ENODEV;
++
++	if (jd_section_ready(ts->client) && !jd_resolve_coord_addr(ts))
++		return 0;
++
++	ts->coord_addr = JD_DEFAULT_COORD_ADDR;
++	ts->touch_data_size = JD_TOUCH_DATA_SIZE;
++	return 0;
++}
++
++static void jd_report_touches(struct jadard_tp *ts, const u8 *buf)
++{
++	u8 finger_num = buf[JD_FINGER_NUM_ADDR];
++	unsigned int i;
++
++	/* Discard obviously invalid headers instead of clamping to max. */
++	if (finger_num > ts->max_points)
++		return;
++
++	for (i = 0; i < ts->max_points; i++) {
++		const u8 *c = buf + JD_TOUCH_COORD_INFO_ADDR +
++			      i * JD_FINGER_DATA_SIZE;
++		u16 x = get_unaligned_be16(c);
++		u16 y = get_unaligned_be16(c + 2);
++		u8 w = c[4];
++		bool down;
++
++		/*
++		 * Slots are fixed; inactive contacts report 0xFFFF/0xFFFF.
++		 * Do not gate on finger_num, or a lower slot lift drops a
++		 * still-active higher slot.
++		 */
++		down = x != 0xFFFF && y != 0xFFFF &&
++		       x <= ts->prop.max_x && y <= ts->prop.max_y;
++
++		input_mt_slot(ts->input, i);
++		input_mt_report_slot_state(ts->input, MT_TOOL_FINGER, down);
++
++		if (down) {
++			touchscreen_report_pos(ts->input, &ts->prop, x, y, true);
++			input_report_abs(ts->input, ABS_MT_TOUCH_MAJOR, w);
++		}
++	}
++
++	input_mt_sync_frame(ts->input);
++	input_sync(ts->input);
++}
++
++static void jd_poll(struct input_dev *input)
++{
++	struct jadard_tp *ts = input_get_drvdata(input);
++	u8 buf[JD_TOUCH_DATA_SIZE];
++	int ret;
++
++	ret = jd_read_reg(ts->client, ts->coord_addr, buf, ts->touch_data_size);
++	if (ret) {
++		/* Panel/power cycle drops backdoor mode; re-open it. */
++		if (jd_hw_init(ts))
++			return;
++		ret = jd_read_reg(ts->client, ts->coord_addr, buf,
++				  ts->touch_data_size);
++		if (ret)
++			return;
++	}
++
++	jd_report_touches(ts, buf);
++}
++
++static int jadard_tp_probe(struct i2c_client *client)
++{
++	struct device *dev = &client->dev;
++	struct jadard_tp *ts;
++	struct input_dev *input;
++	static const char * const supplies[] = { "vdd", "iovcc" };
++	u32 val;
 +	int error;
 +
-+	device_property_read_u32(&client->dev, "default-brightness", &brightness);
-+	if (brightness > VIEWE_BL_MAX)
-+		brightness = VIEWE_BL_MAX;
-+	props.brightness = brightness;
++	ts = devm_kzalloc(dev, sizeof(*ts), GFP_KERNEL);
++	if (!ts)
++		return -ENOMEM;
 +
-+	bd = devm_backlight_device_register(&client->dev,
-+					   dev_name(&client->dev), &client->dev,
-+					   client, &viewe_bl_ops, &props);
-+	if (IS_ERR(bd))
-+		return PTR_ERR(bd);
++	ts->client = client;
++	ts->max_points = JD_MAX_POINTS;
++	ts->poll_interval_ms = JD_DEFAULT_POLL_MS;
++	ts->touch_data_size = JD_TOUCH_DATA_SIZE;
++	ts->coord_addr = JD_DEFAULT_COORD_ADDR;
 +
-+	error = backlight_update_status(bd);
++	error = devm_regulator_bulk_get_enable(dev, ARRAY_SIZE(supplies),
++					       supplies);
++	if (error)
++		return error;
++
++	ts->reset = devm_gpiod_get_optional(dev, "reset", GPIOD_OUT_LOW);
++	if (IS_ERR(ts->reset))
++		return PTR_ERR(ts->reset);
++
++	if (ts->reset) {
++		gpiod_set_value_cansleep(ts->reset, 1);
++		usleep_range(10000, 11000);
++		gpiod_set_value_cansleep(ts->reset, 0);
++		msleep(20);
++	}
++
++	error = jd_hw_init(ts);
++	if (error)
++		return error;
++
++	if (!device_property_read_u32(dev, "poll-interval", &val) &&
++	    val >= 8 && val <= 100)
++		ts->poll_interval_ms = val;
++
++	input = devm_input_allocate_device(dev);
++	if (!input)
++		return -ENOMEM;
++
++	input->name = "Jadard JD9365TX Touchscreen";
++	input->id.bustype = BUS_I2C;
++
++	input_set_abs_params(input, ABS_MT_POSITION_X, 0, 719, 0, 0);
++	input_set_abs_params(input, ABS_MT_POSITION_Y, 0, 1279, 0, 0);
++	input_set_abs_params(input, ABS_MT_TOUCH_MAJOR, 0, 255, 0, 0);
++
++	touchscreen_parse_properties(input, true, &ts->prop);
++
++	error = input_mt_init_slots(input, ts->max_points, INPUT_MT_DIRECT);
++	if (error)
++		return error;
++
++	input_set_drvdata(input, ts);
++	ts->input = input;
++	i2c_set_clientdata(client, ts);
++
++	error = input_setup_polling(input, jd_poll);
++	if (error)
++		return error;
++
++	input_set_poll_interval(input, ts->poll_interval_ms);
++
++	error = input_register_device(input);
 +	if (error)
 +		return error;
 +
 +	return 0;
 +}
 +
-+static const struct of_device_id viewe_bl_of_match[] = {
-+	{ .compatible = "viewe,7kf82-backlight" },
++static const struct of_device_id jadard_tp_of_match[] = {
++	{ .compatible = "jadard,jd9365tx" },
 +	{ }
 +};
-+MODULE_DEVICE_TABLE(of, viewe_bl_of_match);
++MODULE_DEVICE_TABLE(of, jadard_tp_of_match);
 +
-+static const struct i2c_device_id viewe_bl_id[] = {
-+	{ .name = "7kf82-backlight" },
++static const struct i2c_device_id jadard_tp_id[] = {
++	{ .name = "jd9365tx" },
 +	{ }
 +};
-+MODULE_DEVICE_TABLE(i2c, viewe_bl_id);
++MODULE_DEVICE_TABLE(i2c, jadard_tp_id);
 +
-+static struct i2c_driver viewe_bl_driver = {
++static struct i2c_driver jadard_tp_driver = {
 +	.driver = {
-+		.name = "viewe_bl_i2c",
-+		.of_match_table = viewe_bl_of_match,
++		.name = "jadard-tp-jd9365tx",
++		.of_match_table = jadard_tp_of_match,
 +	},
-+	.probe = viewe_bl_probe,
-+	.id_table = viewe_bl_id,
++	.probe = jadard_tp_probe,
++	.id_table = jadard_tp_id,
 +};
-+module_i2c_driver(viewe_bl_driver);
++module_i2c_driver(jadard_tp_driver);
 +
 +MODULE_AUTHOR("Hefei <3066883572@qq.com>");
-+MODULE_DESCRIPTION("VIEWE 7KF82 I2C backlight");
++MODULE_DESCRIPTION("Jadard JD9365TX in-cell touchscreen");
 +MODULE_LICENSE("GPL");
 -- 
 2.55.0.windows.5
