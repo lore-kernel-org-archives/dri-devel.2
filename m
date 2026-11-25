@@ -2,87 +2,84 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 257BA606A321
-	for <dri-devel@archiver.kernel.org>; Wed, 25 Nov 2026 14:42:23 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4BF23606A32A
+	for <dri-devel@archiver.kernel.org>; Wed, 25 Nov 2026 14:45:22 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.a=rsa-sha256 header.s=susede2_rsa header.b=KYzzSwFU;
-	dkim=pass header.d=suse.de header.i=@suse.de header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=iy8cgTFR;
-	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.a=rsa-sha256 header.s=susede2_rsa header.b=KYzzSwFU;
-	dkim=neutral header.d=suse.de header.i=@suse.de header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=iy8cgTFR
+	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.a=rsa-sha256 header.s=susede2_rsa header.b=bYm01Q5X;
+	dkim=pass header.d=suse.de header.i=@suse.de header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=Ew8ktLNL;
+	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.a=rsa-sha256 header.s=susede2_rsa header.b=bYm01Q5X;
+	dkim=neutral header.d=suse.de header.i=@suse.de header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=Ew8ktLNL
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 5C2E910E076;
-	Wed, 25 Nov 2026 14:42:12 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 90C0F10E1B8;
+	Wed, 25 Nov 2026 14:45:11 +0000 (UTC)
 Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.223.131])
- by gabe.freedesktop.org (Postfix) with ESMTPS id C566A10E076
- for <dri-devel@lists.freedesktop.org>; Wed, 25 Nov 2026 14:42:01 +0000 (UTC)
-Received: from imap1.dmz-prg2.suse.org (imap1.dmz-prg2.suse.org
- [IPv6:2a07:de40:b281:104:10:150:64:97])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id A252710E1B8
+ for <dri-devel@lists.freedesktop.org>; Wed, 25 Nov 2026 14:45:00 +0000 (UTC)
+Received: from imap1.dmz-prg2.suse.org (unknown [10.150.64.97])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
  (No client certificate requested)
- by smtp-out2.suse.de (Postfix) with ESMTPS id 0C41E1F7A2;
- Wed, 25 Nov 2026 14:42:00 +0000 (UTC)
+ by smtp-out2.suse.de (Postfix) with ESMTPS id 37A6C1F7A2;
+ Wed, 25 Nov 2026 14:44:59 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
- t=1795617720; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ t=1795617899; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
  mime-version:mime-version:content-type:content-type:
  content-transfer-encoding:content-transfer-encoding:
  in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
- bh=OOM+BLbOUCXU/Ap7KVKMeLM1WgGgbgZf0IHUbwapR30=;
- b=KYzzSwFU8LjJgmgu6UJQba/4/7imeJXdUlcygGP8dRw/pk14hCA6QSjWF/eAX9pf4f13Ik
- Q371P1pb3RoH2qeVv+KV6RCaz9APxm1mhAfs2sNJBU5v1GU2f93Djk92D5JKLOvBKdkqTS
- 9dLO7i5HqQJPoz10iaxSKzWBmQGyIM0=
+ bh=QcqlWHM0H3AQeEQnMlbHDx7J10nq/e0F+GgiZIgy5Xo=;
+ b=bYm01Q5XUf5rwtsI68EjNr7LBR1mdTk6gVnhaICKIoLt5HuT9lPpZ0qr7FPEZXEQiwBnaI
+ x77GeNssaWyMUvL+vF8G89FkPNPolBkvy9gLVPBRgEi0BF2G+NUtFbuw28q78huvAmnJI2
+ b9YyIXfj26zuLYS1PcJ45LIltWsFQ8k=
 DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_ed25519; t=1795617720;
+ s=susede2_ed25519; t=1795617899;
  h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
  mime-version:mime-version:content-type:content-type:
  content-transfer-encoding:content-transfer-encoding:
  in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
- bh=OOM+BLbOUCXU/Ap7KVKMeLM1WgGgbgZf0IHUbwapR30=;
- b=iy8cgTFRJT1kSCD9Gts9NVC438S/bUbHqJvWfVA4Q8yKE4EyQz/YT9JattKT6fpdPzNV9O
- 2Ibfcwu+6qnQzwCw==
+ bh=QcqlWHM0H3AQeEQnMlbHDx7J10nq/e0F+GgiZIgy5Xo=;
+ b=Ew8ktLNLyTM7l587FVyNTg0CeQbVEuEXNoY7mVxBL4L0t+CG0wpmmBg2Fcek2nVxPOd8zp
+ CHReOeWhCIZywXBA==
 Authentication-Results: smtp-out2.suse.de;
- dkim=pass header.d=suse.de header.s=susede2_rsa header.b=KYzzSwFU;
- dkim=pass header.d=suse.de header.s=susede2_ed25519 header.b=iy8cgTFR
+	none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
- t=1795617720; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ t=1795617899; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
  mime-version:mime-version:content-type:content-type:
  content-transfer-encoding:content-transfer-encoding:
  in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
- bh=OOM+BLbOUCXU/Ap7KVKMeLM1WgGgbgZf0IHUbwapR30=;
- b=KYzzSwFU8LjJgmgu6UJQba/4/7imeJXdUlcygGP8dRw/pk14hCA6QSjWF/eAX9pf4f13Ik
- Q371P1pb3RoH2qeVv+KV6RCaz9APxm1mhAfs2sNJBU5v1GU2f93Djk92D5JKLOvBKdkqTS
- 9dLO7i5HqQJPoz10iaxSKzWBmQGyIM0=
+ bh=QcqlWHM0H3AQeEQnMlbHDx7J10nq/e0F+GgiZIgy5Xo=;
+ b=bYm01Q5XUf5rwtsI68EjNr7LBR1mdTk6gVnhaICKIoLt5HuT9lPpZ0qr7FPEZXEQiwBnaI
+ x77GeNssaWyMUvL+vF8G89FkPNPolBkvy9gLVPBRgEi0BF2G+NUtFbuw28q78huvAmnJI2
+ b9YyIXfj26zuLYS1PcJ45LIltWsFQ8k=
 DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_ed25519; t=1795617720;
+ s=susede2_ed25519; t=1795617899;
  h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
  mime-version:mime-version:content-type:content-type:
  content-transfer-encoding:content-transfer-encoding:
  in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
- bh=OOM+BLbOUCXU/Ap7KVKMeLM1WgGgbgZf0IHUbwapR30=;
- b=iy8cgTFRJT1kSCD9Gts9NVC438S/bUbHqJvWfVA4Q8yKE4EyQz/YT9JattKT6fpdPzNV9O
- 2Ibfcwu+6qnQzwCw==
+ bh=QcqlWHM0H3AQeEQnMlbHDx7J10nq/e0F+GgiZIgy5Xo=;
+ b=Ew8ktLNLyTM7l587FVyNTg0CeQbVEuEXNoY7mVxBL4L0t+CG0wpmmBg2Fcek2nVxPOd8zp
+ CHReOeWhCIZywXBA==
 Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
  (No client certificate requested)
- by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 9C0D8134CA;
- Wed, 25 Nov 2026 14:41:59 +0000 (UTC)
+ by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id CC325134CA;
+ Wed, 25 Nov 2026 14:44:58 +0000 (UTC)
 Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
- by imap1.dmz-prg2.suse.org with ESMTPSA id u0LRFLfzBmsJcwAAD6G6ig
- (envelope-from <tzimmermann@suse.de>); Wed, 25 Nov 2026 14:41:59 +0000
-Message-ID: <2f52647b-b557-45a3-a91e-f5b4adcbabd6@suse.de>
-Date: Wed, 25 Nov 2026 15:41:58 +0100
+ by imap1.dmz-prg2.suse.org with ESMTPSA id HSleH2r0BmsTdgAAD6G6ig
+ (envelope-from <tzimmermann@suse.de>); Wed, 25 Nov 2026 14:44:58 +0000
+Message-ID: <0bb655d0-336f-4455-9c9c-e620cf3ce2fd@suse.de>
+Date: Wed, 25 Nov 2026 15:44:58 +0100
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 2/3] drm/sti: gdp: set the pixel clock from
- .atomic_update()
+Subject: Re: [PATCH 3/3] drm/sti: hqvdp: start the XP70 from .atomic_update()
 To: Minseo Park <hiyoukou@gmail.com>, dri-devel@lists.freedesktop.org
 Cc: alain.volmat@foss.st.com, rgallaispou@gmail.com,
  maarten.lankhorst@linux.intel.com, mripard@kernel.org, airlied@gmail.com,
  simona@ffwll.ch, benjamin.gaignard@linaro.org
 References: <20261125142330.15298-1-hiyoukou@gmail.com>
- <20261125142330.15298-3-hiyoukou@gmail.com>
+ <20261125142330.15298-4-hiyoukou@gmail.com>
 Content-Language: en-US
 From: Thomas Zimmermann <tzimmermann@suse.de>
 Autocrypt: addr=tzimmermann@suse.de; keydata=
@@ -109,35 +106,26 @@ Autocrypt: addr=tzimmermann@suse.de; keydata=
  SAQO9xD1Zk9/61JWk8OysuIh7MXkl0fxbRKWE93XeQBhIJHQfnc+YBLprdnxR446Sh8Wn/2D
  Ya8cavuWf2zrB6cZurs048xe0UbSW5AOSo4V9M0jzYI4nZqTmPxYyXbm30Kvmz0rYVRaitYJ
  4kyYYMhuULvrJDMjZRvaNe52tkKAvMevcGdt38H4KSVXAylqyQOW5zvPc4/sq9c=
-In-Reply-To: <20261125142330.15298-3-hiyoukou@gmail.com>
+In-Reply-To: <20261125142330.15298-4-hiyoukou@gmail.com>
 Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
-X-Spamd-Result: default: False [-13.50 / 50.00]; SUSE_INTERNAL_BYPASS(-9.00)[];
+X-Spamd-Result: default: False [-13.29 / 50.00]; SUSE_INTERNAL_BYPASS(-9.00)[];
  BAYES_HAM(-3.00)[100.00%]; NEURAL_HAM_LONG(-1.00)[-1.000];
- R_DKIM_ALLOW(-0.20)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
  NEURAL_HAM_SHORT(-0.20)[-1.000]; MIME_GOOD(-0.10)[text/plain];
- XM_UA_NO_VERSION(0.01)[]; MX_GOOD(-0.01)[];
- DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
- URIBL_BLOCKED(0.00)[imap1.dmz-prg2.suse.org:rdns,imap1.dmz-prg2.suse.org:helo,suse.de:dkim,suse.com:url];
+ XM_UA_NO_VERSION(0.01)[];
  FREEMAIL_TO(0.00)[gmail.com,lists.freedesktop.org];
- MIME_TRACE(0.00)[0:+]; TO_MATCH_ENVRCPT_ALL(0.00)[];
- ARC_NA(0.00)[];
- RBL_SPAMHAUS_BLOCKED_OPENRESOLVER(0.00)[2a07:de40:b281:104:10:150:64:97:from]; 
- FREEMAIL_ENVRCPT(0.00)[gmail.com]; RCVD_TLS_ALL(0.00)[];
- TO_DN_SOME(0.00)[]; RCVD_COUNT_TWO(0.00)[2];
- FROM_EQ_ENVFROM(0.00)[]; FROM_HAS_DN(0.00)[];
+ RCVD_TLS_ALL(0.00)[]; RCVD_VIA_SMTP_AUTH(0.00)[];
+ ARC_NA(0.00)[]; TO_DN_SOME(0.00)[]; MIME_TRACE(0.00)[0:+];
+ RCPT_COUNT_SEVEN(0.00)[9]; FREEMAIL_ENVRCPT(0.00)[gmail.com];
+ DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
+ FROM_HAS_DN(0.00)[];
  FREEMAIL_CC(0.00)[foss.st.com,gmail.com,linux.intel.com,kernel.org,ffwll.ch,linaro.org];
- MID_RHS_MATCH_FROM(0.00)[];
- RECEIVED_SPAMHAUS_BLOCKED_OPENRESOLVER(0.00)[2a07:de40:b281:106:10:150:64:167:received];
- RCPT_COUNT_SEVEN(0.00)[9]; DKIM_TRACE(0.00)[suse.de:+];
- RCVD_VIA_SMTP_AUTH(0.00)[];
- DBL_BLOCKED_OPENRESOLVER(0.00)[suse.com:url, imap1.dmz-prg2.suse.org:rdns,
- imap1.dmz-prg2.suse.org:helo, suse.de:dkim]
-X-Rspamd-Server: rspamd1.dmz-prg2.suse.org
-X-Rspamd-Action: no action
-X-Spam-Score: -13.50
+ MID_RHS_MATCH_FROM(0.00)[]; FROM_EQ_ENVFROM(0.00)[];
+ TO_MATCH_ENVRCPT_ALL(0.00)[]; RCVD_COUNT_TWO(0.00)[2];
+ URIBL_BLOCKED(0.00)[suse.com:url,imap1.dmz-prg2.suse.org:helo];
+ DBL_BLOCKED_OPENRESOLVER(0.00)[imap1.dmz-prg2.suse.org:helo,suse.com:url]
+X-Spam-Score: -13.29
 X-Spam-Level: 
-X-Rspamd-Queue-Id: 0C41E1F7A2
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -160,110 +148,90 @@ X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 Hi
 
 Am 25.11.26 um 15:23 schrieb Minseo Park:
-> sti_gdp_atomic_check() reparents the GDP pixel clock and calls
-> clk_set_rate() on it with the clock of the mode being checked.
+> sti_hqvdp_atomic_check() boots the XP70 coprocessor, which loads its
+> firmware, then enables the main pixel clock and registers a VTG vsync
+> notifier.
 >
 > .atomic_check() must not touch the hardware.  A commit with
-> DRM_MODE_ATOMIC_TEST_ONLY only runs the check hooks, and a commit that
-> fails a later check is dropped, so in both cases the clock of a mode
-> that was never applied is programmed on a display that is still scanning
-> out the previous one.
+> DRM_MODE_ATOMIC_TEST_ONLY only runs the check hooks, so a client asking
+> whether a configuration is possible ends up loading firmware and
+> enabling a clock.
 >
-> Move the clock setup to .atomic_update(), where the rest of the plane is
-> programmed.  A clk_set_rate() failure can no longer reject the commit,
-> so it is logged and the plane is left as it was.
+> Both are one-shot, guarded by hqvdp->xp70_initialized and
+> hqvdp->vtg_registered, so nothing leaks, but they belong in the commit
+> phase.  Move them to .atomic_update().  As with the GDP, the failure
+> paths now log and return instead of rejecting the commit.
 >
 > Fixes: dd86dc2f9ae1 ("drm/sti: implement atomic_check for the planes")
 > Signed-off-by: Minseo Park <hiyoukou@gmail.com>
 > ---
->   drivers/gpu/drm/sti/sti_gdp.c | 52 +++++++++++++++++------------------
->   1 file changed, 25 insertions(+), 27 deletions(-)
+>   drivers/gpu/drm/sti/sti_hqvdp.c | 43 ++++++++++++++++-----------------
+>   1 file changed, 21 insertions(+), 22 deletions(-)
 >
-> diff --git a/drivers/gpu/drm/sti/sti_gdp.c b/drivers/gpu/drm/sti/sti_gdp.c
-> index d0c886029c57..09f8d3f936ca 100644
-> --- a/drivers/gpu/drm/sti/sti_gdp.c
-> +++ b/drivers/gpu/drm/sti/sti_gdp.c
-> @@ -623,7 +623,6 @@ static int sti_gdp_atomic_check(struct drm_plane *drm_plane,
->   	struct drm_plane_state *new_plane_state = drm_atomic_get_new_plane_state(state,
->   										 drm_plane);
->   	struct sti_plane *plane = to_sti_plane(drm_plane);
-> -	struct sti_gdp *gdp = to_sti_gdp(plane);
->   	struct drm_crtc *crtc = new_plane_state->crtc;
->   	struct drm_framebuffer *fb =  new_plane_state->fb;
->   	struct drm_crtc_state *crtc_state;
-> @@ -667,32 +666,6 @@ static int sti_gdp_atomic_check(struct drm_plane *drm_plane,
+> diff --git a/drivers/gpu/drm/sti/sti_hqvdp.c b/drivers/gpu/drm/sti/sti_hqvdp.c
+> index 360d213f2094..66abbe4de864 100644
+> --- a/drivers/gpu/drm/sti/sti_hqvdp.c
+> +++ b/drivers/gpu/drm/sti/sti_hqvdp.c
+> @@ -1081,28 +1081,6 @@ static int sti_hqvdp_atomic_check(struct drm_plane *drm_plane,
 >   		return -EINVAL;
 >   	}
 >   
-> -	/* Set gdp clock */
-> -	if (mode->clock && gdp->clk_pix) {
-> -		struct clk *clkp;
-> -		int rate = mode->clock * 1000;
-> -		int res;
+> -	if (!hqvdp->xp70_initialized)
+> -		/* Start HQVDP XP70 coprocessor */
+> -		sti_hqvdp_start_xp70(hqvdp);
 > -
-> -		/*
-> -		 * According to the mixer used, the gdp pixel clock
-> -		 * should have a different parent clock.
-> -		 */
-> -		if (mixer->id == STI_MIXER_MAIN)
-> -			clkp = gdp->clk_main_parent;
-> -		else
-> -			clkp = gdp->clk_aux_parent;
-> -
-> -		if (clkp)
-> -			clk_set_parent(gdp->clk_pix, clkp);
-> -
-> -		res = clk_set_rate(gdp->clk_pix, rate);
-> -		if (res < 0) {
-> -			DRM_ERROR("Cannot set rate (%dHz) for gdp\n",
-> -				  rate);
+> -	if (!hqvdp->vtg_registered) {
+> -		/* Prevent VTG shutdown */
+> -		if (clk_prepare_enable(hqvdp->clk_pix_main)) {
+> -			DRM_ERROR("Failed to prepare/enable pix main clk\n");
 > -			return -EINVAL;
 > -		}
+> -
+> -		/* Register VTG Vsync callback to handle bottom fields */
+> -		if (sti_vtg_register_client(hqvdp->vtg,
+> -					    &hqvdp->vtg_nb,
+> -					    crtc)) {
+> -			DRM_ERROR("Cannot register VTG notifier\n");
+> -			clk_disable_unprepare(hqvdp->clk_pix_main);
+> -			return -EINVAL;
+> -		}
+> -		hqvdp->vtg_registered = true;
 > -	}
 > -
-
-Unfortunately, the clk api appears to have no interface for testing a 
-rate change without setting it.  Do you have at least a minimal and 
-maximum supported pixel clock to test mode->clock against?
-
 >   	DRM_DEBUG_KMS("CRTC:%d (%s) drm plane:%d (%s)\n",
->   		      crtc->base.id, sti_mixer_to_str(mixer),
+>   		      crtc->base.id, sti_mixer_to_str(to_sti_mixer(crtc)),
 >   		      drm_plane->base.id, sti_plane_to_str(plane));
-> @@ -757,6 +730,31 @@ static void sti_gdp_atomic_update(struct drm_plane *drm_plane,
+> @@ -1152,6 +1130,27 @@ static void sti_hqvdp_atomic_update(struct drm_plane *drm_plane,
 >   	}
 >   
 >   	mode = &crtc->mode;
 > +
-> +	/* Set gdp clock */
-> +	if (mode->clock && gdp->clk_pix) {
-> +		struct sti_mixer *mixer = to_sti_mixer(crtc);
-> +		int rate = mode->clock * 1000;
-> +		struct clk *clkp;
+> +	if (!hqvdp->xp70_initialized)
+> +		/* Start HQVDP XP70 coprocessor */
+> +		sti_hqvdp_start_xp70(hqvdp);
 > +
-> +		/*
-> +		 * According to the mixer used, the gdp pixel clock
-> +		 * should have a different parent clock.
-> +		 */
-> +		if (mixer->id == STI_MIXER_MAIN)
-> +			clkp = gdp->clk_main_parent;
-> +		else
-> +			clkp = gdp->clk_aux_parent;
+> +	if (!hqvdp->vtg_registered) {
+> +		/* Prevent VTG shutdown */
+> +		if (clk_prepare_enable(hqvdp->clk_pix_main)) {
+> +			DRM_ERROR("Failed to prepare/enable pix main clk\n");
+> +			return;
+> +		}
 > +
-> +		if (clkp)
-> +			clk_set_parent(gdp->clk_pix, clkp);
+> +		/* Register VTG Vsync callback to handle bottom fields */
+> +		if (sti_vtg_register_client(hqvdp->vtg, &hqvdp->vtg_nb, crtc)) {
+> +			DRM_ERROR("Cannot register VTG notifier\n");
+> +			clk_disable_unprepare(hqvdp->clk_pix_main);
+> +			return;
+> +		}
+> +		hqvdp->vtg_registered = true;
+> +	}
 > +
-> +		if (clk_set_rate(gdp->clk_pix, rate) < 0) {
-> +			DRM_ERROR("Cannot set rate (%dHz) for gdp\n", rate);
 
-This macro needs to become drm_err_once() or drm_dbg().
+This looks like it belongs int device init instead of plane updates.
 
 Best regards
 Thomas
 
-> +			return;
-> +		}
-> +	}
-> +
 >   	dst_x = newstate->crtc_x;
 >   	dst_y = newstate->crtc_y;
 >   	dst_w = clamp_val(newstate->crtc_w, 0, mode->hdisplay - dst_x);
