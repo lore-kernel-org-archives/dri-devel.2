@@ -2,49 +2,42 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C05A2606A31E
-	for <dri-devel@archiver.kernel.org>; Wed, 25 Nov 2026 16:11:37 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1E92D606A321
+	for <dri-devel@archiver.kernel.org>; Wed, 25 Nov 2026 16:11:52 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.a=rsa-sha256 header.s=dkim header.b=KyKHSlK5
+	dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.a=rsa-sha256 header.s=dkim header.b=jt/zlPSz
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 30DB010E91E;
-	Wed, 25 Nov 2026 16:11:32 +0000 (UTC)
-Received: from smtpout-04.galae.net (smtpout-04.galae.net [185.171.202.116])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 6981E10E91E
- for <dri-devel@lists.freedesktop.org>; Wed, 25 Nov 2026 16:11:26 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 3DF9D10FD08;
+	Wed, 25 Nov 2026 16:11:46 +0000 (UTC)
+Received: from smtpout-02.galae.net (smtpout-02.galae.net [185.246.84.56])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 800DA10FD08
+ for <dri-devel@lists.freedesktop.org>; Wed, 25 Nov 2026 16:11:27 +0000 (UTC)
 Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
- by smtpout-04.galae.net (Postfix) with ESMTPS id 429FDC6221D;
- Wed, 25 Nov 2026 16:11:32 +0000 (UTC)
+ by smtpout-02.galae.net (Postfix) with ESMTPS id 524D71A17F4;
+ Wed, 25 Nov 2026 16:11:26 +0000 (UTC)
 Received: from mail.galae.net (mail.galae.net [212.83.136.155])
- by smtpout-01.galae.net (Postfix) with ESMTPS id 345CE60480;
- Wed, 25 Nov 2026 16:11:24 +0000 (UTC)
+ by smtpout-01.galae.net (Postfix) with ESMTPS id 2793360480;
+ Wed, 25 Nov 2026 16:11:26 +0000 (UTC)
 Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon)
- with ESMTPSA id 47C3A11E6ABF3; Wed, 25 Nov 2026 17:11:13 +0100 (CET)
+ with ESMTPSA id A559311E6ABF5; Wed, 25 Nov 2026 17:11:23 +0100 (CET)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
- t=1795623079; h=from:subject:date:message-id:to:cc:mime-version:content-type:
+ t=1795623085; h=from:subject:date:message-id:to:cc:mime-version:content-type:
  content-transfer-encoding:in-reply-to:references;
- bh=shMr3VTsq3XeQkoO9Ln5izMtWpMU+7APEuFdjKZvMdY=;
- b=KyKHSlK5Ey6/akMaHN+c+uAv7NDQWG/yMqCI9oHkdzOeFbzRpfp9AX0SGw1K3164JB9OmD
- SBOtdiMH+BGgUgF2ct0BEaPwEFVq/GAtFqSZs0LarGryqPr7NPXdYBiOv18ORWOyFNKDw/
- rfUe1p8BMVELflNxh4NBO6aqhw2OzQ/wmafCV6jLdu1BO8GxEpYkJUDmGtPPEZ1uwFGMHn
- iSAxv03Cb4YalrORtMHi0FOmZuAqIud4DNo5mZFLr+YVVHtkCT24lJ73yd0ymz+CCnaIjF
- cR10/N5EuLjCMv+Ee288k3V7r1nHhACNaNtZpjOt8gJyJQTfe3yNYM412T5HWw==
+ bh=tbs9QZ54tCRQ/HtclM3IabBk9mVStM5QK20RUGLtRbE=;
+ b=jt/zlPSzPlDxOt36gF1yOUZ/2F9s3nhlFcOFekHfBF2rwocHmQIUzHhziaUu7yrnYFkVB9
+ HIIUVK4+XGY57cyTvM330UdV6qXCjGZnpayUdSfJmksDn+TkRr+ne8pMIigFM11FKAS8L5
+ SskizWrctJNG8aXAKjms4nMYXFKV9nDguw0h6cJDTLz/lb0raupFm8eWtKgDA+zGnrUvyC
+ Vmw2yTQqyfyKZSmL1vvFfq4u3SNeQ1lGshEYfCyhIKMBA5Ft/5pzBQpF6WQS07/NEIVyUL
+ kKoZYKjIezPbcWde1OLTdBtAxDiZPGC2e2rEQFSjZq6mBmYetCIIHvvmIa7smg==
 From: Luca Ceresoli <luca.ceresoli@bootlin.com>
-To: Andrzej Hajda <andrzej.hajda@intel.com>, 
- Neil Armstrong <neil.armstrong@linaro.org>, Robert Foss <rfoss@kernel.org>, 
- Laurent Pinchart <Laurent.pinchart@ideasonboard.com>, 
- Jonas Karlman <jonas@kwiboo.se>, Jernej Skrabec <jernej.skrabec@gmail.com>, 
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
- dri-devel@lists.freedesktop.org, Colin Ian King <colin.i.king@gmail.com>
-Cc: kernel-janitors@vger.kernel.org, linux-kernel@vger.kernel.org
-In-Reply-To: <20261112162127.1592210-1-colin.i.king@gmail.com>
-References: <20261112162127.1592210-1-colin.i.king@gmail.com>
-Subject: Re: [PATCH][next] drm/bridge: tc358767: make read-only array
- ext_div static const
-Message-Id: <179562307394.731258.1793421800570057727.b4-ty@b4>
-Date: Wed, 25 Nov 2026 17:11:13 +0100
+To: laurentiu.palcu@oss.nxp.com, Fabio Estevam <festevam@gmail.com>
+Cc: dri-devel@lists.freedesktop.org, imx@lists.linux.dev, 
+ marek.vasut@mailbox.org, mripard@kernel.org, stable@vger.kernel.org
+In-Reply-To: <20261124112215.12255-1-festevam@gmail.com>
+References: <20261124112215.12255-1-festevam@gmail.com>
+Subject: Re: [PATCH v3] drm/mxsfb: lcdif: Fix use-after-free on unbind
+Message-Id: <179562308334.731258.14637573993541736813.b4-ty@b4>
+Date: Wed, 25 Nov 2026 17:11:23 +0100
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
@@ -70,14 +63,22 @@ X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
 
-On Thu, 12 Nov 2026 16:21:27 +0000, Colin Ian King wrote:
-> Don't populate the read-only array ext_div on the stack
-> at run time, instead make it static const
+On Tue, 24 Nov 2026 08:22:15 -0300, Fabio Estevam wrote:
+> lcdif allocates its private data, which embeds the CRTC and primary
+> plane, and its encoders using devres. These DRM objects are linked into
+> the mode_config lists.
+> 
+> Since mode_config cleanup is DRM-managed, it is deferred until the DRM
+> device is released. An open DRM file can keep the DRM device alive after
+> the platform device has been unbound and devres has freed those objects.
+> The later mode_config cleanup then dereferences freed memory.
+> 
+> [...]
 
 Applied, thanks!
 
-[1/1] drm/bridge: tc358767: make read-only array ext_div static const
-      commit: 632586bd82b0158a97c6eb6830375c1efda6e0f6
+[1/1] drm/mxsfb: lcdif: Fix use-after-free on unbind
+      commit: 479e381e77dcde0dfcc9d51e89ff3273da199804
 
 Best regards,
 -- 
