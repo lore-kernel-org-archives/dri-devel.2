@@ -2,59 +2,130 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DD778606A323
-	for <dri-devel@archiver.kernel.org>; Wed, 25 Nov 2026 14:07:25 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B940B606A32D
+	for <dri-devel@archiver.kernel.org>; Wed, 25 Nov 2026 14:08:03 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=X6v++aS9
+	dkim=pass (2048-bit key, unprotected) header.d=outlook.com header.i=@outlook.com header.a=rsa-sha256 header.s=selector1 header.b=WaRH0PzY
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 0729F10FC74;
-	Wed, 25 Nov 2026 14:07:20 +0000 (UTC)
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.17])
- by gabe.freedesktop.org (Postfix) with ESMTPS id CFA1810FC74
- for <dri-devel@lists.freedesktop.org>; Wed, 25 Nov 2026 14:07:13 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1795615634; x=1827151634;
- h=date:from:to:cc:subject:message-id:references:
- mime-version:in-reply-to;
- bh=KeYOf75Z/8+vjZolThFV16xZ7f4fxMRhbKAxsweSYkM=;
- b=X6v++aS9PERupo+CSYs6URyFfVUc3z0lBq11qkOGDVOl2OsKSA15wQjJ
- aflxUosMg27iAYKNKZ+aXeGTQA3s67Hdveo2Ce32ySnAv84vpc4t96QqU
- beWbjl1UKecabXdtmVJvStC3DCTRYuWXg0gMr9nxVyE8NuzIo3gKhxM9V
- nCrEL+4HYMsQ0FXuqkHLf9lJY7SvYqB2bxsiFwx9YokWlXTmjoUOCC1EN
- jtwCBWbiP4+S+UW1iqgedff0ggLKk10tiV+f10GzYc8rm7zGJJMvommqc
- sw3stYB/5KC20o5sLo3wlRilNhnJAlVnyvwlXubXFyOUFDYKzXoGzjHA/ w==;
-X-CSE-ConnectionGUID: x5EhtKoNRhq5lh6m1pppZw==
-X-CSE-MsgGUID: TJ/+HsvES+qWqF6gJRmRXQ==
-X-IronPort-AV: E=McAfee;i="6800,10657,11977"; a="4486630"
-X-IronPort-AV: E=Sophos;i="6.27,233,1787036400"; 
-   d="scan'208";a="4486630"
-Received: from fmviesa004.fm.intel.com ([10.60.135.144])
- by fmvoesa111.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 25 Nov 2026 06:07:13 -0800
-X-CSE-ConnectionGUID: GPuoG+ptSeGdvPSSmoXnIw==
-X-CSE-MsgGUID: l4qBFp6CTraX+JlcpmsW8Q==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,233,1787036400"; d="scan'208";a="11873266"
-Received: from lkp-server01.sh.intel.com (HELO 0caa9d2d175c) ([10.239.97.150])
- by fmviesa004.fm.intel.com with ESMTP; 25 Nov 2026 06:07:11 -0800
-Received: from kbuild by 0caa9d2d175c with local (Exim 4.98.2)
- (envelope-from <lkp@intel.com>) id 1xWDeO-00000001Rnq-2t50;
- Wed, 25 Nov 2026 14:07:08 +0000
-Date: Wed, 25 Nov 2026 22:06:29 +0800
-From: kernel test robot <lkp@intel.com>
-To: Hefei <3066883572@qq.com>, dri-devel@lists.freedesktop.org
-Cc: oe-kbuild-all@lists.linux.dev, linux-input@vger.kernel.org,
- devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
- robh@kernel.org, conor@kernel.org, Hefei <3066883572@qq.com>
-Subject: Re: [PATCH v3 4/6] drm/panel: add VIEWE JD9365TX 7 inch DSI panel
-Message-ID: <20261125220244.8Pj15HWb-lkp@intel.com>
-References: <tencent_3D3EC29E27E9DF37D4C9F1A60F2F2BA3EF07@qq.com>
+	by gabe.freedesktop.org (Postfix) with ESMTP id D008710FC9E;
+	Wed, 25 Nov 2026 14:07:57 +0000 (UTC)
+Received: from OS0P286CU011.outbound.protection.outlook.com
+ (mail-japanwestazolkn19010000.outbound.protection.outlook.com [52.103.66.0])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 0DDB710FC9E
+ for <dri-devel@lists.freedesktop.org>; Wed, 25 Nov 2026 14:07:52 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=SUO2WHSf3jrPLUA6HfZsNJU4pWgRm4dtXwk5No2v3pfZuMHj1/M9fDN+4DTudPXIU4p1K6qhXS31TKB4HblcyvTJTZPPa0jyXx5Ps7lzkLygd0jGI/au9x+8DDLPe8qhshnfGFfm73kJCKoFdE+dy+mwf4yCu0DDK41hjE+/Wa4rYPOosxjT9ZobTB5ig34l9lMAoRvh+Uyo7GfaXlMIppdjsJym8VXrDXPkpN56joFnMeHTqsimzbqlz6tKxpt2E6g2zaoBW4i66qU1nvWMfNaIFzTOFHE4r+yBtOUdrmTxEErhCnIKdwUZvxhVkXiD9pAYr51KGzIVrwt+ZXQtbw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=p5MOs0VDKX03xGalb9YLKiFU+xO0QZJOrKoLqG8AHhM=;
+ b=rV5qP69hqzXmfEBjKkKg9ghVf0ANIWokj55hUaVGHr/2CaP1wXV0WS97N5li+2sO3yWPaAWY39pqN6v5j7i4hNn4VKBSesu6mMTLoRv7oUugVKlJKIMuWOm90Raaz1Jemm+TghR9FjkSgncW7zh+qXGX87mHY6YTDFVEqhl7nI/RUtpNySFidgLCWzW+GnXQunrN/a/XFrz5I5xCJ5sOpDsOOwjltYybZ4AmrHaK1TVqDCXwN4DSogcc34xHSZVOsbN5SD9iQh5VfAiE5L6TyY1i9jBalZcTip5Nkemijf/JAJmoHyaAT+qu6vkzQz+Xzr8c8vV+0xVQe8Wy3prRsw==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=none; dmarc=none;
+ dkim=none; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=outlook.com;
+ s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=p5MOs0VDKX03xGalb9YLKiFU+xO0QZJOrKoLqG8AHhM=;
+ b=WaRH0PzYS8AwQhX8JALiaGA9oDWET9os53ceCS0GUQjUaEjzJYGeK7oHScLtJH1YOKR0TjE3EekpoWlAoc0TQT39tiGIXWIBvtENnMsfZwOS6F99VV3NqF7rVKmf5Zx2c8QxiiJluXOv4igyVVUaEZExiFvHvamyQq3U4s42XaZpKKENZ65I4tyLKO48POCPZJiBvwJnhmZJ9ZGYWie1/i3RHLPe3RBxYrxHfHuAachXGm435LPhggpBsMcQ7+kf3LQjUoZ/TPtNiAV5T5M0YOtBvCtbTaKnRH6zzhkYYC6o7zz+wHlMx2L3s8o3Akz1MFsAqviIGGAR/AEWHZJ4Hw==
+Received: from TYCPR01MB11607.jpnprd01.prod.outlook.com
+ (2603:1096:400:37f::12) by OS3PR01MB6708.jpnprd01.prod.outlook.com
+ (2603:1096:604:f8::8) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.639.12; Wed, 25 Nov
+ 2026 14:07:48 +0000
+Received: from TYCPR01MB11607.jpnprd01.prod.outlook.com
+ ([fe80::def3:5bc0:3bf5:6e64]) by TYCPR01MB11607.jpnprd01.prod.outlook.com
+ ([fe80::def3:5bc0:3bf5:6e64%3]) with mapi id 15.21.0662.004; Wed, 25 Nov 2026
+ 14:07:48 +0000
+Message-ID: <TYCPR01MB116073209E90F9228C373B90D89432@TYCPR01MB11607.jpnprd01.prod.outlook.com>
+Date: Wed, 25 Nov 2026 22:07:44 +0800
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 1/2] fbdev: radeonfb: reject a zero pixclock in
+ radeonfb_check_var()
+To: Helge Deller <deller@gmx.de>, Geert Uytterhoeven <geert@linux-m68k.org>
+Cc: linux-fbdev@vger.kernel.org, dri-devel@lists.freedesktop.org
+References: <20261120175413.176249-1-deller@gmx.de>
+ <CAMuHMdWyrdpVKvs=8Q+B-Syo1ZdAJvfJXFv0qiNtR9z4VnwnBQ@mail.gmail.com>
+ <a2ffabc2-4096-4767-8124-c77e5dd79564@gmx.de>
+From: Jianqiang Zou <jq.zou@outlook.com>
+In-Reply-To: <a2ffabc2-4096-4767-8124-c77e5dd79564@gmx.de>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
+X-ClientProxiedBy: SEZPR01CA0011.apcprd01.prod.exchangelabs.com
+ (2603:1096:101:10a::20) To TYCPR01MB11607.jpnprd01.prod.outlook.com
+ (2603:1096:400:37f::12)
+X-Microsoft-Original-Message-ID: <a13c9730-9545-495d-b9f9-808ad993dc8a@outlook.com>
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <tencent_3D3EC29E27E9DF37D4C9F1A60F2F2BA3EF07@qq.com>
+X-MS-Exchange-MessageSentRepresentingType: 1
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: TYCPR01MB11607:EE_|OS3PR01MB6708:EE_
+X-MS-Office365-Filtering-Correlation-Id: 646136dd-2805-4971-649c-08df4afd7beb
+X-Microsoft-Antispam: BCL:0;
+ ARA:14566002|24021099003|25010399006|6090799003|8060799015|19110799012|23021999003|5072599009|15080799012|8022599003|3071699003|3412199025|440099028|26104999009;
+X-Microsoft-Antispam-Message-Info: =?utf-8?B?c0xxbmpIUmNXZWgvNHBHWGF5VWtrT1JFRDZhYjVEU1UrL3N3WHlRZmpNbzln?=
+ =?utf-8?B?SEdaSExtbllXbTZSQ1FRNmttQUhybEkzOGN6Z1RXWU1jWWJ4NitaNEZaaDZO?=
+ =?utf-8?B?M3NwV2dDTGtUcnhJL21xcGxPZzh5N1hwRy9pTjFrZzNlRVBKVzNJYnZES3NC?=
+ =?utf-8?B?cCtLK28vb0FPdHBoY3NJaUdkK2pWd1pYbk5LaXhERGZYdW42VDJOMndEemp4?=
+ =?utf-8?B?aXk5R0VoUGhzT1JMVTBkLy9VeHRZMVkrMXFqUXVLVjVSbWhmaUZWK3lNcGVp?=
+ =?utf-8?B?c3prcDJqbVBUU0lEMzNvcXZnK1VWWXgzQzJjUkxXeURnWEtHRmhQekhLU2tF?=
+ =?utf-8?B?OVk5SEMxWDBPS3VwYkhvUXF6Z0JIQVdreGJnemRBSW50dWlxUTNOZnl6bWZ0?=
+ =?utf-8?B?cGpsa0s2U3lreEF5ZUkweXg0UWxPMDIrNFAxRWVmYUJEZU0yZ2lIMnhHWjNJ?=
+ =?utf-8?B?NkdmbWZmMjluZUM3bnkzU2pXWDdxbHl3QXE4b2U5ckJEd1B6OVV3MEI3NmMx?=
+ =?utf-8?B?aWV0RURncFBIR1BEVXRhY0cxR2V4YkZHM1FabXBzSElGd3IrKzB5RGNhYzlC?=
+ =?utf-8?B?Yng4YTk5L09qWG5aNHZJenZOVzhnd1VLdlhKWXRxc0wxRnFGV0N4N2ZXSGd3?=
+ =?utf-8?B?Lys4MlhWVndDeEt1aU56UTBFS1UwUnFPaURDWWJQbm1ldGdjbG9BVC9UNllQ?=
+ =?utf-8?B?VTJ2eWZYNG83YVo4aGVoK2VjMmtBYXBrNFZlTUdSTmF4VjAwbzVSdWRnZGpC?=
+ =?utf-8?B?U2svWW1HMzZ3R1VHelBRZzI3REJqeEM3b1pvOEZ2R3RhRGp3M3F5bmVnNlZZ?=
+ =?utf-8?B?MFZqcWlYQUpPbWJENjZWbk5OU0MwVi95cU54L3pLRVl2RzZ5a1VNVTNGQXBw?=
+ =?utf-8?B?c096WnFNWVgvZ2xmR3FHWGpwd1FNUnZVSGlqaVdkMTlvOEVRenRWeWY1QXF5?=
+ =?utf-8?B?TG1ybkU4OXEyQmNyWUg4NXJZZHNUMGF5b0ZpMlI1Q0JHU0lONDhtQVg1WndH?=
+ =?utf-8?B?cGpEK09oWUJoNWJoZSt2RlIvRnFqaXJwenBJWjY5NlVPVjJCa2Z2cjFTYXF4?=
+ =?utf-8?B?MzdKOEFVZmpJNFE0Nnk3Y3pRSktzOGQ3THB0cDllM2o2SXpCcVdtWWo5QlRx?=
+ =?utf-8?B?V25NV1lMUURGY0lPQ09uWE5yZmhDRnJlZU80UUJIazBJMlBES1B4SFdUSjRC?=
+ =?utf-8?B?VGZLeUh1UG1CWjhyay9PNFFGMVVTQUR5R0pSUFpoZzhIbEtnYXhxK2hMR1E1?=
+ =?utf-8?B?UU5LOU5SWlVkSDVQTVRBbjVlUFpBOGNPNkZtL3AvbGp6VmhQdz09?=
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?ck5xMWpQT0gyOTB0Q3QrOHdWOHlUK09vZDJFRmtMVjhnMkVNZ3NKN3UrUmhT?=
+ =?utf-8?B?VHdkeUttSjVIVlVQNExpZnlreWNCc2dZdC9ZeDJvbDRzTis0ZjFaSXNtampZ?=
+ =?utf-8?B?SnNiVjFiUHVkT3lZdm52ZHd0RTNBMDZHdFc0dEc2eWdlOTVnMFNEY0NlWUQv?=
+ =?utf-8?B?NXhJYzEyOUFidVd6ZWw3LzlURXRhWVM0K2hUR2lWeURNdHhpak9yOHlTb3RT?=
+ =?utf-8?B?eWdLcGVUSnNQMTViTy9CYmZQQ3o1Uk1keUdHZmlYZ1VINlZJdE5TM0RlYll1?=
+ =?utf-8?B?M21TU21sdC9DOXE1dGJLbDVYKy8rc0NuODB1a3hLNVVxN2dBc28wWGtxTkpt?=
+ =?utf-8?B?eVprUGgvazBUbmVjM3dZeTVFOW5tVVB1WlFTT1RPUkRGYWRlUjB6Ly84TmZl?=
+ =?utf-8?B?VHU2eHFZN1VWa29yZW1OL2I0Tkl3a3NDRWhJLzdHM0oxT1pVNTBOdEFWWFpr?=
+ =?utf-8?B?dW4veVAvcjJmRDRuRUh0cFZ2ejI2L0NrcGNTclI3WGhsL2VVT0Y1cUUwZnNs?=
+ =?utf-8?B?a1BFWEI2VTlSZXl4SWxaZFhIT3A0QW01VjdwRFcyWnR0VEdaMlVsbXJMaGho?=
+ =?utf-8?B?Znk4MXVjbHcvTFBHK3JxYlp4TktRaHc3em13ZXBhNExlU09PTk16SVBJcERl?=
+ =?utf-8?B?VTNyN3cwQ0ZFendhcDhEMDRwVktsU3phOGd0K3hZeDA1Rzh1eEZId2owUldR?=
+ =?utf-8?B?bUJQS3U4eGF2Ty9Rc3RnU1IxTG9XdCtCRDk0SEFmMEh4S1ptMnJnT0Q4Tm1O?=
+ =?utf-8?B?QTRQNzJTVDRHZzlKUm5EN1FaMUVvR05SN09lWG0zWmQ0R2RhdXhTVzlCVmdW?=
+ =?utf-8?B?TVAyNkFTUEkxSmhtc3RlenR1ZFByTkw5d3pPdGk2T2lGWnBBSWZBOUh6clpp?=
+ =?utf-8?B?bHYzYXRzRnQyQXhEK0V6a2JkNm1ZQVUvelZrVnpZTWVlLzZkd05rKzFVcWxV?=
+ =?utf-8?B?elpxL05vRWxFTk1zOVZhMXladysxSFA2dUpnWGZyUXZNK01tUVY5bThzYjJ5?=
+ =?utf-8?B?RWVpRG1YT2FGNk9VN3N1UlhnOHp4Wmc3aFQyeHBlbjltMGs5aDhmNk5xTmt0?=
+ =?utf-8?B?VWREOHVNSVlvLy84QlZockVVUit1cHBqcG5hZzJVV3Z0RTgxcytsREtvTko2?=
+ =?utf-8?B?NDFuTldUTUlPY2NsTS9HNG9yMDR6S2ZYYUJsM2drcHVRTDArbUFlZmVPNjZz?=
+ =?utf-8?B?VEtoUG5ualQrUTJ2bi8vVmppOE1ITTQzdkVaaEU0ZTZsM0daaFpHWGR5VnJY?=
+ =?utf-8?B?WFVkY0FPb0lnTDNjcXBFRHhzT3o2NXlNT0lHMGxKbFJ6SEdtU2JRVFlBUkVP?=
+ =?utf-8?B?RDZRTU9EY3VLdzYvVytzMGpOUEQ1VWpTaVQvak5GSUhIeWhZUjZSRnY1NE9h?=
+ =?utf-8?B?QWpZc2gwTW1lMnJMOTdLbi9LcCtsL04rd2YyRDdjbEpyUVFPWGFMSUU4MUZV?=
+ =?utf-8?B?S1NLeTlOcWMrSHJJWmxPOFhJTUxMZEhpdkkvd3lzYzhNUVVBb24rVTEyVjlm?=
+ =?utf-8?B?OWlNaDZZZlY0MmQ1YzNmKzhvcDZmTklkSmRNa2hTeUs3NkxyRStSc1pnZFQv?=
+ =?utf-8?B?Z3JrcmI2WlVDR05uV0lRY1FFZ0doK0tWZzZIVlF5SzhpZGxLbkxsYjh0K29G?=
+ =?utf-8?B?cDNsSVhzQnVNRGNMdnhnSkxsM0l1MkV5dXFXNm5QcG1BMHF6NmNBTk80cVpU?=
+ =?utf-8?B?eC9Ka2tNZUhZc2o2NWtKSFYrb3ZMNG1JK3lrQ3ZSN0crT0NjdWVTbUdjRzMy?=
+ =?utf-8?B?RFd3UEFhci9uZ0tXSGszY2YyS0ZPRjZKbUtCejNUZlpGbWg1eG5hZ28wbjVT?=
+ =?utf-8?B?V2Z2S3k2SkdYUDVBajg2dmZRSTQxNjJLYVlEcnpISVVMNnUwdEdEdDg2NFZz?=
+ =?utf-8?Q?LNjq7IFojrPIR?=
+X-OriginatorOrg: outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 646136dd-2805-4971-649c-08df4afd7beb
+X-MS-Exchange-CrossTenant-AuthSource: TYCPR01MB11607.jpnprd01.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 25 Nov 2026 14:07:48.3005 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 84df9e7f-e9f6-40af-b435-aaaaaaaaaaaa
+X-MS-Exchange-CrossTenant-RMS-PersistedConsumerOrg: 00000000-0000-0000-0000-000000000000
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: OS3PR01MB6708
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -66,105 +137,31 @@ List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-10.8 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
-	DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
-	MAILING_LIST_MULTI,MENTIONS_GIT_HOSTING,SPF_HELO_NONE,SPF_PASS
-	autolearn=unavailable autolearn_force=no version=4.0.1
+X-Spam-Status: No, score=-4.2 required=3.0 tests=BAYES_00,DKIM_SIGNED,
+	DKIM_VALID,DKIM_VALID_AU,FREEMAIL_FORGED_FROMDOMAIN,FREEMAIL_FROM,
+	HEADER_FROM_DIFFERENT_DOMAINS,MAILING_LIST_MULTI,SPF_HELO_NONE,
+	SPF_PASS,USER_AGENT_SANE_1 autolearn=no autolearn_force=no
+	version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-Hi Hefei,
+ >> This violates fbdev API rounding rules:
+ >>    1. If a value doesn't fit, it must be rounded up by the driver,
+ >>    2. If a value is too large, -EINVAL must be returned.
+ >
+ > Oops... you are right!
+ > Jianqiang Zou, will you send another patch fixing this?
 
-kernel test robot noticed the following build errors:
+Hi Helge and Geert,
 
-[auto build test ERROR on drm-misc/drm-misc-next]
-[also build test ERROR on dtor-input/next dtor-input/for-linus lee-backlight/for-backlight-next lee-backlight/for-backlight-fixes linus/master v7.4-rc4 next-20261124]
-[If your patch is applied to the wrong git tree, kindly drop us a note.
-And when submitting patch, we suggest to use '--base' as documented in
-https://git-scm.com/docs/git-format-patch#_base_tree_information]
+Yes, I've sent a follow-up patch in a separate thread titled
+"fbdev: radeonfb: match a display mode for a zero pixel period".
 
-url:    https://github.com/intel-lab-lkp/linux/commits/Hefei/dt-bindings-input-add-Jadard-JD9365TX-touchscreen-binding/20261125-101123
-base:   https://gitlab.freedesktop.org/drm/misc/kernel.git drm-misc-next
-patch link:    https://lore.kernel.org/r/tencent_3D3EC29E27E9DF37D4C9F1A60F2F2BA3EF07%40qq.com
-patch subject: [PATCH v3 4/6] drm/panel: add VIEWE JD9365TX 7 inch DSI panel
-config: nios2-allmodconfig (https://download.01.org/0day-ci/archive/20261125/20261125220244.8Pj15HWb-lkp@intel.com/config)
-compiler: nios2-linux-gcc (GCC) 11.5.0
-reproduce (this is a W=1 build): (https://download.01.org/0day-ci/archive/20261125/20261125220244.8Pj15HWb-lkp@intel.com/reproduce)
+Thanks for pointing out the rounding rule, Geert. The patch uses the
+mode database to round a zero pixel period up to a supported value.
+It includes a Fixes tag for commit b3f1631d3625.
 
-If you fix the issue in a separate patch/commit (i.e. not just a new version of
-the same patch/commit), kindly add following tags
-| Reported-by: kernel test robot <lkp@intel.com>
-| Closes: https://lore.kernel.org/oe-kbuild-all/20261125220244.8Pj15HWb-lkp@intel.com/
+Please take a look when you have a chance.
 
-All errors (new ones prefixed by >>):
-
-   drivers/gpu/drm/panel/panel-viewe-jd9365tx.c: In function 'jd9365tx_probe':
-   drivers/gpu/drm/panel/panel-viewe-jd9365tx.c:304:15: error: implicit declaration of function 'of_drm_get_panel_orientation' [-Werror=implicit-function-declaration]
-     304 |         ret = of_drm_get_panel_orientation(dev->of_node, &ctx->orientation);
-         |               ^~~~~~~~~~~~~~~~~~~~~~~~~~~~
->> drivers/gpu/drm/panel/panel-viewe-jd9365tx.c:308:9: error: implicit declaration of function 'drm_panel_init'; did you mean 'drm_panel_put'? [-Werror=implicit-function-declaration]
-     308 |         drm_panel_init(&ctx->panel, dev, &jd9365tx_funcs, DRM_MODE_CONNECTOR_DSI);
-         |         ^~~~~~~~~~~~~~
-         |         drm_panel_put
-   cc1: some warnings being treated as errors
-
-
-vim +308 drivers/gpu/drm/panel/panel-viewe-jd9365tx.c
-
-   273	
-   274	static int jd9365tx_probe(struct mipi_dsi_device *dsi)
-   275	{
-   276		struct device *dev = &dsi->dev;
-   277		struct jd9365tx_panel *ctx;
-   278		int ret;
-   279	
-   280		ctx = devm_kzalloc(dev, sizeof(*ctx), GFP_KERNEL);
-   281		if (!ctx)
-   282			return -ENOMEM;
-   283	
-   284		ctx->dsi = dsi;
-   285		mipi_dsi_set_drvdata(dsi, ctx);
-   286	
-   287		dsi->lanes = 2;
-   288		dsi->format = MIPI_DSI_FMT_RGB888;
-   289		dsi->mode_flags = MIPI_DSI_MODE_VIDEO | MIPI_DSI_MODE_VIDEO_BURST |
-   290				  MIPI_DSI_MODE_LPM;
-   291	
-   292		ctx->reset = devm_gpiod_get_optional(dev, "reset", GPIOD_OUT_HIGH);
-   293		if (IS_ERR(ctx->reset))
-   294			return PTR_ERR(ctx->reset);
-   295	
-   296		ctx->vdd = devm_regulator_get(dev, "vdd");
-   297		if (IS_ERR(ctx->vdd))
-   298			return PTR_ERR(ctx->vdd);
-   299	
-   300		ctx->iovcc = devm_regulator_get(dev, "iovcc");
-   301		if (IS_ERR(ctx->iovcc))
-   302			return PTR_ERR(ctx->iovcc);
-   303	
-   304		ret = of_drm_get_panel_orientation(dev->of_node, &ctx->orientation);
-   305		if (ret)
-   306			return ret;
-   307	
- > 308		drm_panel_init(&ctx->panel, dev, &jd9365tx_funcs, DRM_MODE_CONNECTOR_DSI);
-   309		ctx->panel.prepare_prev_first = true;
-   310	
-   311		ret = drm_panel_of_backlight(&ctx->panel);
-   312		if (ret)
-   313			return ret;
-   314	
-   315		drm_panel_add(&ctx->panel);
-   316	
-   317		ret = mipi_dsi_attach(dsi);
-   318		if (ret < 0) {
-   319			drm_panel_remove(&ctx->panel);
-   320			return ret;
-   321		}
-   322	
-   323		return 0;
-   324	}
-   325	
-
--- 
-0-DAY CI Kernel Test Service
-https://github.com/intel/lkp-tests/wiki
+Thanks,
+Jianqiang
